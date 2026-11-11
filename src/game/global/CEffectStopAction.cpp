@@ -15,11 +15,11 @@ class A_16cc0 {
 };
 class B_16cc0 {
   public:
-    void Put(int);
+    void Put_0027ffb0(int);
 };
 class A2 {
   public:
-    A_16cc0* Second();
+    A_16cc0* Second_00059a30();
 };
 class M_16cc0 {
   public:
@@ -40,18 +40,18 @@ bool CEffectStopAction::vfunc_6(int __p0) {
 // sym: ?vfunc_4@CEffectStopAction@@UAEXXZ
 void CEffectStopAction::vfunc_4() {
     A2* q = ((A2 *)((owners::Object_592a0 *)((*(M_16cc0 * *)&this->f_1c)))->FUN_000592a0());
-    A_16cc0* a = q->Second();
+    A_16cc0* a = q->Second_00059a30();
     B_16cc0* c = FUN_0027f250();
     int lo = (*(int * *)&this->f_20)[4];
     int hi = (*(int * *)&this->f_20)[5];
     if (lo < 0 || hi <= lo || hi >= 32) {
         int v = ((int)((owners::C_36c60 *)a)->FUN_00036c60((unsigned int)lo));
-        c->Put(v);
+        c->Put_0027ffb0(v);
         return;
     }
     while (lo <= hi) {
         int v = ((int)((owners::C_36c60 *)a)->FUN_00036c60((unsigned int)lo));
-        c->Put(v);
+        c->Put_0027ffb0(v);
         ++lo;
     }
 }

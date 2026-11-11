@@ -12,7 +12,7 @@ namespace fn_fa8c69cd {} using namespace fn_fa8c69cd;
 
 // ---- declarations shared by the functions below
 namespace fn_fa8c69cd {
-extern int* gTable_69e90;
+extern int* hulk_at_004dcf78;
 class CCondition_69e90 {
   public:
     virtual int vfunc_0(int);
@@ -29,10 +29,10 @@ struct CTrack_69ef0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern const float zero_69f10;
+extern const float hulk_at_003f32e0;
 class Helper_69f10 {
   public:
-    int Apply(hulk_intptr, float);
+    int Apply_0001db40(hulk_intptr, float);
 };
 extern "C" int __cdecl FUN_0008d690(int);
 
@@ -50,7 +50,7 @@ void FUN_00069e70() {
 // sym: ?vfunc_0@CDrainHealthTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CDrainHealthTrack::vfunc_0(int index) {
-    int* p = gTable_69e90;
+    int* p = hulk_at_004dcf78;
     return p[index];
 }
 
@@ -138,11 +138,11 @@ hulk_freg CDrainHealthTrack::vfunc_7() {
 // sym: ?vfunc_12@CDrainHealthTrack@@UAEHH@Z
 hulk_intptr CDrainHealthTrack::vfunc_12(hulk_intptr arg) {
     float value = vfunc_7();
-    if (!(value <= zero_69f10)) {
+    if (!(value <= hulk_at_003f32e0)) {
         float a = this->f_14;
         hulk_intptr obj = FUN_0008d690(0x24);
         if (obj)
-            return ((Helper_69f10*)obj)->Apply(arg, a / value);
+            return ((Helper_69f10*)obj)->Apply_0001db40(arg, a / value);
     }
     return 0;
 }

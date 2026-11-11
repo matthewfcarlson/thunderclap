@@ -13,7 +13,7 @@ namespace fn_f51b6026 {} using namespace fn_f51b6026;
 
 // ---- declarations shared by the functions below
 namespace fn_f51b6026 {
-extern int* gTable_68ce0;
+extern int* hulk_at_004dcf08;
 class CCondition_68ce0 {
   public:
     virtual int vfunc_0(int);
@@ -60,7 +60,7 @@ void FUN_00068cc0() {
 // sym: ?vfunc_0@CJointTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CJointTrack::vfunc_0(int index) {
-    int* p = gTable_68ce0;
+    int* p = hulk_at_004dcf08;
     return p[index];
 }
 
@@ -72,20 +72,20 @@ extern "C" char DAT_003f98d0[];
 extern "C" char DAT_003fb9c4[];
 class Part_68cf0 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class CJointTrack {
   public:
     char pad[0x18];
     Part_68cf0 part;
-    void Finish();
+    void Finish_00236d60();
     void Init();
 };
 void CJointTrack::Init() {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003fb9c4);
-    part.Init();
+    part.Init_0027af50();
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f98d0);
-    Finish();
+    Finish_00236d60();
 }
 } // namespace fn_00068cf0
 

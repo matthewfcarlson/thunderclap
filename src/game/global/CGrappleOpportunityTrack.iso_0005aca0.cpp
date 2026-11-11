@@ -10,14 +10,14 @@
 #include "gen/global.h"
 
 struct CGrappleDetachAction_nv_5aca0 {
-    int invoke(CGrappleDetachTrack*, hulk_intptr);
+    int invoke_0001ddd0(CGrappleDetachTrack*, hulk_intptr);
 };
 extern CGrappleDetachAction* FUN_0008d690(int);
 
 hulk_intptr CGrappleDetachTrack::vfunc_12(hulk_intptr param) {
     CGrappleDetachAction* p = FUN_0008d690((int)sizeof(CGrappleDetachAction));
     if (p)
-        return ((CGrappleDetachAction_nv_5aca0*)(((CGrappleDetachAction*)(p))))->invoke(this, param);
+        return ((CGrappleDetachAction_nv_5aca0*)(((CGrappleDetachAction*)(p))))->invoke_0001ddd0(this, param);
     return 0;
 }
 

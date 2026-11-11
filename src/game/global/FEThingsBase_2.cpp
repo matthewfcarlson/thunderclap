@@ -24,7 +24,7 @@ inline void clearRef(Ref*& p) {
     }
 }
 struct FEContainer_nv_ef120 {
-    void helper(int);
+    void helper_000e4ec0(int);
 };
 struct ThisCall_000e4ec0 {
     void FUN_000e4ec0(int);
@@ -136,7 +136,7 @@ class FEContainer_ef3e0 {
     virtual void f51();
     virtual void f52();
 };
-extern void* g_vftable_ef400[];
+extern void* hulk_at_0040c774[];
 class Ref_ef400 {
   public:
     virtual void F0();
@@ -149,7 +149,7 @@ class Del_ef400 {
 class FEContainer_ef400 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_000eeac0();
 };
 class FEScreenBase_ef400 : public FEContainer_ef400 {
   public:
@@ -164,7 +164,7 @@ class FEScreenBase_ef400 : public FEContainer_ef400 {
     Del_ef400* e[32];
     ~FEScreenBase_ef400() throw();
 };
-extern void* g_vftable_ef820[];
+extern void* hulk_at_0040c84c[];
 class Ref_ef820 {
   public:
     virtual void F0();
@@ -173,9 +173,9 @@ class Ref_ef820 {
 class FEContainer_ef820 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_000eeac0();
 };
-void Free(void*) throw();
+void Free_0008d330(void*) throw();
 struct Sub_ef820 {
     char c;
 };
@@ -244,7 +244,7 @@ class FEContainer_ef8b0 {
     virtual void f51();
     virtual void f52();
 };
-extern void* g_vftable_ef8f0[];
+extern void* hulk_at_0040c924[];
 class Ref_ef8f0 {
   public:
     virtual void F0();
@@ -253,7 +253,7 @@ class Ref_ef8f0 {
 class FEScreenBase_ef8f0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_000ef400();
 };
 struct Sub_ef8f0 {
     char c;
@@ -267,7 +267,7 @@ class FEMenuBase_ef8f0 : public FEScreenBase_ef8f0 {
     Ref_ef8f0* m990;
     ~FEMenuBase_ef8f0() throw();
 };
-extern void* g_vftable_ef920[];
+extern void* hulk_at_0040ca04[];
 class Ref_ef920 {
   public:
     virtual void F0();
@@ -278,10 +278,10 @@ class Del_ef920 {
     virtual void D(int);
 };
 struct A_ef920 {
-    void Fin() throw();
+    void Fin_000df700() throw();
 };
 struct B_ef920 {
-    void Fin() throw();
+    void Fin_000f8bd0() throw();
 };
 class FEThingsBase_ef920 {
   public:
@@ -321,37 +321,37 @@ struct Obj_efc80 {
 extern int __cdecl FUN_0008d690(int);
 class Helper_efda0 {
   public:
-    int call(FEThingsBase*, int);
+    int call_000ef180(FEThingsBase*, int);
 };
 class Helper_efdd0 {
   public:
-    int forwarder(FEThingsBase*, int);
+    int forwarder_000ef7c0(FEThingsBase*, int);
 };
-extern int __cdecl lookup(int);
+extern int __cdecl lookup_0008d690(int);
 extern void* __cdecl FUN_0008d690(unsigned int);
 class Helper_efe00 {
   public:
-    int call(int);
+    int call_000ecd70(int);
 };
 typedef unsigned int uint_efe20;
 extern void* __cdecl FUN_0008d690(uint_efe20);
 class TextTable_efe20 {
   public:
-    uint_efe20 run(uint_efe20);
+    uint_efe20 run_000ed820(uint_efe20);
 };
-extern void* __cdecl allocThing(unsigned int);
+extern void* __cdecl allocThing_0008d690(unsigned int);
 class Thing_efe40 {
   public:
-    int init(int);
+    int init_000edf60(int);
 };
 class Thing_efe60 {
   public:
-    int init(int);
+    int init_000e9ec0(int);
 };
-extern void* __cdecl alloc(int);
-extern void* __cdecl GetThing(int);
+extern void* __cdecl alloc_0008d690(int);
+extern void* __cdecl GetThing_0008d690(int);
 struct Helper_efe80 {
-    int DoThing(void*, int);
+    int DoThing_000ebb90(void*, int);
 };
 class Param_f0590 {
 public:
@@ -534,7 +534,7 @@ class FEItem2 {
     virtual void B();
     virtual void C(int);
 };
-extern void __cdecl FreeThing(void*);
+extern void __cdecl FreeThing_0008d330(void*);
 class FEContainer {
   public:
     virtual void V();
@@ -558,7 +558,7 @@ void FEContainer::Clear() {
     }
     for (int j = 0; j < 128; j++) {
         if (b[j]) {
-            FreeThing(b[j]);
+            FreeThing_0008d330(b[j]);
             b[j] = 0;
         }
     }
@@ -598,7 +598,7 @@ struct Blk_eeba0 {
 struct Item_eeba0 {
     char pad[0x118];
     Blk_eeba0 blk;
-    void Prep(Item_eeba0*);
+    void Prep_000e2940(Item_eeba0*);
 };
 struct Mgr_eeba0 {
     virtual void m0();
@@ -654,7 +654,7 @@ struct Mgr_eeba0 {
     virtual void m50();
     virtual void m51();
     virtual Item_eeba0* Get(Item_eeba0*);
-    Item_eeba0* Find(Item_eeba0*);
+    Item_eeba0* Find_000e74a0(Item_eeba0*);
 };
 class FEContainer {
   public:
@@ -719,8 +719,8 @@ Item_eeba0* FEContainer::Target(Item_eeba0* a, Item_eeba0* id) {
     Item_eeba0* res = mgr->Get(a);
     if (id) {
         Item_eeba0* it = Lookup(id);
-        if (it || (it = mgr->Find(id))) {
-            res->Prep(it);
+        if (it || (it = mgr->Find_000e74a0(id))) {
+            res->Prep_000e2940(it);
             res->blk = it->blk;
         }
     }
@@ -735,7 +735,7 @@ Item_eeba0* FEContainer::Target(Item_eeba0* a, Item_eeba0* id) {
 namespace fn_000eec20 {
 class Obj_eec20 {
   public:
-    void Use(int);
+    void Use_000e3ac0(int);
 };
 class Child_eec20 {
   public:
@@ -793,7 +793,7 @@ class Child_eec20 {
     virtual void x51();
     virtual void x52();
     virtual Obj_eec20* get(int);
-    int Find(int);
+    int Find_000e74e0(int);
 };
 class FEContainer {
   public:
@@ -849,9 +849,9 @@ int FEContainer::vfunc_26(int a, int b) {
     if (b) {
         int t = f43(b);
         if (!t)
-            t = c->Find(b);
+            t = c->Find_000e74e0(b);
         if (t)
-            r->Use(t);
+            r->Use_000e3ac0(t);
     }
     return (hulk_intptr)r;
 }
@@ -863,7 +863,7 @@ int FEContainer::vfunc_26(int a, int b) {
 namespace fn_000eec80 {
 class Obj_eec80 {
   public:
-    void apply(int);
+    void apply_000e3c70(int);
 };
 class Child_eec80 {
   public:
@@ -922,7 +922,7 @@ class Child_eec80 {
     virtual void c52();
     virtual void c53();
     virtual Obj_eec80* get(int);
-    int fallback(int);
+    int fallback_000e7520(int);
 };
 class FEContainer {
   public:
@@ -980,9 +980,9 @@ hulk_intptr FEContainer::vfunc_27(int x, int y) {
     if (y) {
         int q = a44(y);
         if (!q)
-            q = child->fallback(y);
+            q = child->fallback_000e7520(y);
         if (q)
-            o->apply(q);
+            o->apply_000e3c70(q);
     }
     return (hulk_intptr)o;
 }
@@ -1050,11 +1050,11 @@ class Child_eece0 {
     virtual void f53();
     virtual void f54();
     virtual int f55(int);
-    int fallback(int);
+    int fallback_000e7560(int);
 };
 class Result_eece0 {
   public:
-    int apply(int);
+    int apply_000e3f20(int);
 };
 class FEContainer {
   public:
@@ -1119,10 +1119,10 @@ int FEContainer::vfunc_28(int a, int b) {
     if (b) {
         int v = a45(b);
         if (!v)
-            v = child->fallback(b);
+            v = child->fallback_000e7560(b);
         if (v) {
             Result_eece0* res = (Result_eece0*)r;
-            res->apply(v);
+            res->apply_000e3f20(v);
         }
     }
     return r;
@@ -1285,7 +1285,7 @@ Item_eed40* FEContainer::v29(const char* a1, const char* a2)
 namespace fn_000eedb0 {
 class FEObj {
   public:
-    void Fn(int);
+    void Fn_000e2ec0(int);
 };
 class FEChild_eedb0 {
   public:
@@ -1347,7 +1347,7 @@ class FEChild_eedb0 {
     virtual void f55();
     virtual void f56();
     virtual FEObj* f57(int);
-    int g(int);
+    int Fng_000e7460(int);
 };
 class FEContainer {
   public:
@@ -1412,9 +1412,9 @@ int FEContainer::v33(int a, int b) {
     if (b) {
         int x = v40(b);
         if (!x)
-            x = child->g(b);
+            x = child->Fng_000e7460(b);
         if (x)
-            r->Fn(x);
+            r->Fn_000e2ec0(x);
     }
     return (hulk_intptr)r;
 }
@@ -1432,8 +1432,8 @@ class Widget {
         V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34) V(35) V(36)
             V(37) V(38) V(39) V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52)
                 V(53) V(54) V(55) V(56) V(57) virtual int get(int);
-    int h(int);
-    void h2(int);
+    int Fnh_000e75a0(int);
+    void h2_000ebe00(int);
 };
 class FEContainer {
   public:
@@ -1451,9 +1451,9 @@ int FEContainer::f30(int b, int a) {
     if (a) {
         int y = f41(a);
         if (!y)
-            y = child->h(a);
+            y = child->Fnh_000e75a0(a);
         if (y)
-            ((Widget*)x)->h2(y);
+            ((Widget*)x)->h2_000ebe00(y);
     }
     return x;
 }
@@ -1467,7 +1467,7 @@ int FEContainer::f30(int b, int a) {
 namespace fn_000eee70 {
 class Item {
   public:
-    void Add(int);
+    void Add_000ebe00(int);
 };
 class Provider {
   public:
@@ -1531,7 +1531,7 @@ class Provider {
     virtual void v57();
     virtual void v58();
     virtual Item* Get(int);
-    int Find(int);
+    int Find_000e75a0(int);
 };
 class FEContainer {
   public:
@@ -1585,9 +1585,9 @@ Item* FEContainer::vfunc_31(int a, int b) {
     if (b) {
         int x = v41(b);
         if (!x)
-            x = prov->Find(b);
+            x = prov->Find_000e75a0(b);
         if (x)
-            p->Add(x);
+            p->Add_000ebe00(x);
     }
     return p;
 }
@@ -1600,7 +1600,7 @@ namespace fn_000eeed0 {
 #define V(n) virtual void f##n();
 class Obj {
   public:
-    void Attach(Obj* o);
+    void Attach_000e2940(Obj* o);
 };
 class Child {
   public:
@@ -1609,7 +1609,7 @@ class Child {
         V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34) V(35) V(36)
             V(37) V(38) V(39) V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52)
                 V(53) V(54) V(55) V(56) V(57) V(58) V(59) virtual Obj* f60(int);
-    Obj* g(int);
+    Obj* Fng_000e75e0(int);
 };
 class FEContainer {
   public:
@@ -1626,9 +1626,9 @@ Obj* FEContainer::f32(int a, int b) {
     if (b) {
         Obj* q = f46(b);
         if (!q)
-            q = child->g(b);
+            q = child->Fng_000e75e0(b);
         if (q)
-            r->Attach(q);
+            r->Attach_000e2940(q);
     }
     return r;
 }
@@ -1770,13 +1770,13 @@ void FEContainer::vfunc_4() {
 // 0x000ef120 FEContainer::vfunc_6 (55 B): matches/0x000ef120.cpp
 // sym: ?vfunc_6@FEContainer@@UAEXXZ
 void FEContainer::vfunc_6() {
-    ((FEContainer_nv_ef120*)this)->helper(8);
+    ((FEContainer_nv_ef120*)this)->helper_000e4ec0(8);
     int state = *(int*)((char*)(*(void * *)&this->f_04) + 0x17f8);
     if (state == 0)
-        ((FEContainer_nv_ef120*)this)->helper(0xc);
+        ((FEContainer_nv_ef120*)this)->helper_000e4ec0(0xc);
     state = *(int*)((char*)(*(void * *)&this->f_04) + 0x17f8);
     if (state == 1)
-        ((FEContainer_nv_ef120*)this)->helper(0xd);
+        ((FEContainer_nv_ef120*)this)->helper_000e4ec0(0xd);
 }
 
 
@@ -1950,7 +1950,7 @@ namespace fn_f196c51b {
 // 0x000ef400 FUN_000ef400 (228 B): matches/0x000ef400.cpp
 // sym: ??1FEScreenBase_ef400@fn_f196c51b@@QAE@XZ
 FEScreenBase_ef400::~FEScreenBase_ef400() throw() {
-    *(void* volatile*)&vptr = g_vftable_ef400;
+    *(void* volatile*)&vptr = hulk_at_0040c774;
     Ref_ef400* t = *(Ref_ef400* volatile*)&m990;
     if (t) {
         t->Release();
@@ -1983,7 +1983,7 @@ FEScreenBase_ef400::~FEScreenBase_ef400() throw() {
             e[i]->D(1);
             e[i] = 0;
         }
-    Fin();
+    Fin_000eeac0();
 }
 
 } // namespace fn_f196c51b
@@ -2226,13 +2226,13 @@ namespace fn_f196c51b {
 // 0x000ef820 FUN_000ef820 (42 B): matches/0x000ef820.cpp
 // sym: ??1FEDialog_ef820@fn_f196c51b@@QAE@XZ
 FEDialog_ef820::~FEDialog_ef820() throw() {
-    vptr = g_vftable_ef820;
+    vptr = hulk_at_0040c84c;
     _ReadWriteBarrier();
     if (m9a4) {
         m9a4->Release();
         m9a4 = 0;
     }
-    Fin();
+    Fin_000eeac0();
 }
 
 } // namespace fn_f196c51b
@@ -2384,13 +2384,13 @@ namespace fn_f196c51b {
 // 0x000ef8f0 FUN_000ef8f0 (42 B): matches/0x000ef8f0.cpp
 // sym: ??1FEMenuBase_ef8f0@fn_f196c51b@@QAE@XZ
 FEMenuBase_ef8f0::~FEMenuBase_ef8f0() throw() {
-    vptr = g_vftable_ef8f0;
+    vptr = hulk_at_0040c924;
     _ReadWriteBarrier();
     if (m990) {
         m990->Release();
         m990 = 0;
     }
-    Fin();
+    Fin_000ef400();
 }
 
 
@@ -2398,7 +2398,7 @@ FEMenuBase_ef8f0::~FEMenuBase_ef8f0() throw() {
 // sym: ??1FEThingsBase_ef920@fn_f196c51b@@QAE@XZ
 // data: g_ref_ef920 = DAT_004de954
 FEThingsBase_ef920::~FEThingsBase_ef920() throw() {
-    vptr = g_vftable_ef920;
+    vptr = hulk_at_0040ca04;
     for (int i = 0; i < 64; i++)
         if (a[i]) {
             a[i]->D(1);
@@ -2416,7 +2416,7 @@ FEThingsBase_ef920::~FEThingsBase_ef920() throw() {
         }
     for (int i = 0; i < 64; i++)
         if (d[i]) {
-            Free(d[i]);
+            Free_0008d330(d[i]);
             d[i] = 0;
         }
     for (int i = 0; i < 2; i++)
@@ -2442,16 +2442,16 @@ FEThingsBase_ef920::~FEThingsBase_ef920() throw() {
     {
         A_ef920* t = m4;
         if (t) {
-            t->Fin();
-            Free(t);
+            t->Fin_000df700();
+            Free_0008d330(t);
             m4 = 0;
         }
     }
     {
         B_ef920* t = m8;
         if (t) {
-            t->Fin();
-            Free(t);
+            t->Fin_000f8bd0();
+            Free_0008d330(t);
             m8 = 0;
         }
     }
@@ -2641,7 +2641,7 @@ FEMenuBase* Manager_efca0::FUN_000efca0(const char* name,int arg) {
 int FEThingsBase::vfunc_50(int a, int b) {
     hulk_intptr x = FUN_0008d690(0xbc4);
     if (x)
-        return ((Helper_efda0*)x)->call(this, b);
+        return ((Helper_efda0*)x)->call_000ef180(this, b);
     return 0;
 }
 
@@ -2649,9 +2649,9 @@ int FEThingsBase::vfunc_50(int a, int b) {
 // 0x000efdd0 FEThingsBase::vfunc_51 (43 B): matches/0x000efdd0.cpp
 // sym: ?vfunc_51@FEThingsBase@@UAEHHH@Z
 int FEThingsBase::vfunc_51(int a, int b) {
-    hulk_intptr x = lookup(0x9b0);
+    hulk_intptr x = lookup_0008d690(0x9b0);
     if (x)
-        return ((Helper_efdd0*)x)->forwarder(this, b);
+        return ((Helper_efdd0*)x)->forwarder_000ef7c0(this, b);
     return 0;
 }
 
@@ -2661,7 +2661,7 @@ int FEThingsBase::vfunc_51(int a, int b) {
 int FEThingsBase::vfunc_53(int x) {
     Helper_efe00* p = (Helper_efe00*)FUN_0008d690(0x980);
     if (p)
-        return p->call(x);
+        return p->call_000ecd70(x);
     return 0;
 }
 
@@ -2672,7 +2672,7 @@ int FEThingsBase::vfunc_54(int __p0) { uint_efe20 a = (uint_efe20)__p0;
 
     TextTable_efe20* p = (TextTable_efe20*)FUN_0008d690(0x4990);
     if (p)
-        return (int)(p->run(a));
+        return (int)(p->run_000ed820(a));
     return (int)(0);
 }
 
@@ -2680,9 +2680,9 @@ int FEThingsBase::vfunc_54(int __p0) { uint_efe20 a = (uint_efe20)__p0;
 // 0x000efe40 FEThingsBase::vfunc_55 (29 B): matches/0x000efe40.cpp
 // sym: ?vfunc_55@FEThingsBase@@UAEHH@Z
 int FEThingsBase::vfunc_55(int x) {
-    Thing_efe40* p = (Thing_efe40*)allocThing(0x2b0);
+    Thing_efe40* p = (Thing_efe40*)allocThing_0008d690(0x2b0);
     if (p)
-        return p->init(x);
+        return p->init_000edf60(x);
     return 0;
 }
 
@@ -2690,9 +2690,9 @@ int FEThingsBase::vfunc_55(int x) {
 // 0x000efe60 FEThingsBase::vfunc_57 (29 B): matches/0x000efe60.cpp
 // sym: ?vfunc_57@FEThingsBase@@UAEHH@Z
 int FEThingsBase::vfunc_57(int x) {
-    Thing_efe60* p = (Thing_efe60*)alloc(0x1f8);
+    Thing_efe60* p = (Thing_efe60*)alloc_0008d690(0x1f8);
     if (p)
-        return p->init(x);
+        return p->init_000e9ec0(x);
     return 0;
 }
 
@@ -2701,9 +2701,9 @@ int FEThingsBase::vfunc_57(int x) {
 // sym: ?vfunc_58@FEThingsBase@@UAEHPAX@Z
 int FEThingsBase::vfunc_58(void* __p0) { void * p = (void *)__p0;
 
-    void* q = GetThing(0x1da8);
+    void* q = GetThing_0008d690(0x1da8);
     if (q)
-        return ((Helper_efe80*)q)->DoThing(p, 0);
+        return ((Helper_efe80*)q)->DoThing_000ebb90(p, 0);
     return 0;
 }
 
@@ -2712,12 +2712,12 @@ int FEThingsBase::vfunc_58(void* __p0) { void * p = (void *)__p0;
 // sym: ?vfunc_60@FEThingsBase@fn_000efee0@@UAEPAUMapThing@2@PAX@Z
 namespace fn_000efee0 {
 extern "C" char DAT_0040c5c4[];
-extern void* alloc(hulk_uintptr);
+extern void* alloc_0008d690(hulk_uintptr);
 struct MapThing {
     hulk_uintptr vf;
     char pad[0x114];
     int value;
-    void init(void*);
+    void init_000e2860(void*);
 };
 struct FEThingsBase {
     virtual void a();
@@ -3425,9 +3425,9 @@ struct FEThingsBase {
     virtual MapThing* vfunc_60(void*);
 };
 MapThing* FEThingsBase::vfunc_60(void* p) {
-    MapThing* q = (MapThing*)alloc(0x120);
+    MapThing* q = (MapThing*)alloc_0008d690(0x120);
     if (q) {
-        q->init(p);
+        q->init_000e2860(p);
         q->vf = ((hulk_intptr)DAT_0040c5c4);
         q->value = -1;
         return q;

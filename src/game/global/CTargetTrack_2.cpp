@@ -27,15 +27,15 @@ extern "C" void FUN_00072a20();
 class CTargetTrack_77790 {
   public:
     int a, b, c, d, e;
-    void Init();
+    void Init_00236d40();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int CTargetTrack_vftable;
-extern int g_vftable_777d0;
+extern int hulk_at_003fc274;
+extern int hulk_at_003feb68;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006b220();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -63,8 +63,8 @@ template <> void* fight::TrackFactoryCasterTemplate<CTargetTrack>::vfunc_1(void*
 template <> void* fight::TrackFactoryTemplate<CTargetTrack>::vfunc_5() {
     CTargetTrack_77790* p = (CTargetTrack_77790*)FUN_0008d690((int)sizeof(CTargetTrack_77790));
     if (p) {
-        p->Init();
-        *(hulk_ulongptr*)p = (hulk_ulongptr)&CTargetTrack_vftable;
+        p->Init_00236d40();
+        *(hulk_ulongptr*)p = (hulk_ulongptr)&hulk_at_003fc274;
         p->d = 0;
         p->e = (int)0xbf800000;
         p->c = 1;
@@ -79,9 +79,9 @@ namespace fn_f92c8711 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f92c8711@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_777d0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003feb68;
+    base1_dtor_0006b220();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

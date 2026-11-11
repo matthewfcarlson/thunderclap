@@ -17,7 +17,7 @@ class C_a9e50 {
   public:
     C_a9e50();
 };
-extern void* g_vftable_aa0d0[];
+extern void* hulk_at_004059e4[];
 class Ref_aa0d0 {
   public:
     void* vptr;
@@ -25,7 +25,7 @@ class Ref_aa0d0 {
     virtual void f1();
 };
 struct CHypnoticCamera_nv_aa0d0 {
-    void Fn();
+    void Fn_000a9620();
 };
 class CHypnoticCamera_aa0d0 {
   public:
@@ -432,7 +432,7 @@ namespace fn_f9c37f09 {
 // 0x000aa0d0 FUN_000aa0d0 (92 B): matches/0x000aa0d0.cpp
 // sym: ?f@CHypnoticCamera_aa0d0@fn_f9c37f09@@QAEXXZ
 void CHypnoticCamera_aa0d0::f() {
-    vptr = g_vftable_aa0d0;
+    vptr = hulk_at_004059e4;
     _ReadWriteBarrier();
     if (m478) {
         m478->f1();
@@ -446,7 +446,7 @@ void CHypnoticCamera_aa0d0::f() {
         m428->f1();
         m428 = 0;
     }
-    ((CHypnoticCamera_nv_aa0d0*)(((CHypnoticCamera*)this)))->Fn();
+    ((CHypnoticCamera_nv_aa0d0*)(((CHypnoticCamera*)this)))->Fn_000a9620();
 }
 
 

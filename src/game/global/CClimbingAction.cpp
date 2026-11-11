@@ -10,7 +10,7 @@ namespace fn_f420a0ef {} using namespace fn_f420a0ef;
 
 // ---- declarations shared by the functions below
 namespace fn_f420a0ef {
-extern void* g_vftable_216a0[];
+extern void* hulk_at_003f3390[];
 class Ref_216a0 {
   public:
     virtual void F0();
@@ -54,7 +54,7 @@ class CClimbingAction {
     void* volatile vptr;
     char pad[0x18];
     Child_21740* member;
-    void Run();
+    void Run_002326a0();
     CClimbingAction* Target(char);
 };
 extern void __cdecl thunk_FUN_00267090(CClimbingAction*);
@@ -63,7 +63,7 @@ extern void __cdecl thunk_FUN_00267090(CClimbingAction*);
 // 0x000216a0 CAction::vfunc_2 (57 B): matches/0x000216a0.cpp
 // sym: ?f2@CAction_216a0@fn_f420a0ef@@QAEPAV12@E@Z
 CAction_216a0* CAction_216a0::f2(unsigned char flags) {
-    vptr = g_vftable_216a0;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -108,7 +108,7 @@ CClimbingAction* CClimbingAction::Target(char flag) {
         p->B();
         member = 0;
     }
-    Run();
+    Run_002326a0();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;

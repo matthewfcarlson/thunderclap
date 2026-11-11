@@ -10,8 +10,8 @@
 class Mgr_1e820;
 class Holder_1e820 {
   public:
-    Holder_1e820* first();
-    Mgr_1e820* second();
+    Holder_1e820* first_000592a0();
+    Mgr_1e820* second_00059a30();
 };
 class Mgr_1e820 {
   public:
@@ -20,7 +20,7 @@ class Mgr_1e820 {
 };
 class Helper_1e820 {
   public:
-    void run(void*);
+    void run_001b4280(void*);
 };
 class Obj_1e820 {
   public:
@@ -30,12 +30,12 @@ class Obj_1e820 {
 Helper_1e820* __stdcall FUN_001b6580();
 
 void CGrabAction::vfunc_4() {
-    Mgr_1e820* m = ((Holder_1e820*)(*(void * *)&this->f_1c))->first()->second();
+    Mgr_1e820* m = ((Holder_1e820*)(*(void * *)&this->f_1c))->first_000592a0()->second_00059a30();
     if (m->ptr == this)
         m->ptr = 0;
     if ((*(void * *)&this->f_28)) {
         void* arg = (*(void * *)&this->f_28);
-        FUN_001b6580()->run(arg);
+        FUN_001b6580()->run_001b4280(arg);
         Obj_1e820* q = (Obj_1e820*)(*(void * *)&this->f_28);
         if (q) {
             q->f1();

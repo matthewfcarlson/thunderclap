@@ -99,7 +99,7 @@ class Obj {
     char _m_pad_1c[0x7b4];
     float value;
     void Set(float x);
-    void Other(float, float, float, unsigned int, unsigned int);
+    void Other_000d4620(float, float, float, unsigned int, unsigned int);
     void Fn(float, float, float, float, float, float, float);
 };
 class Obj_d4780 {
@@ -251,7 +251,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     virtual void v_001d0480();
 };
 extern "C" unsigned char __cdecl check(const char*);
-extern const char s4[];
+extern const char hulk_at_0048e10c[];
 class Function_d5660 : public CtorV_001d0480 {
   public:
     Function_d5660(const char* str) : CtorV_001d0480(str, 3) { }
@@ -344,7 +344,7 @@ public:
     char *byteAt(int off) { return raw + (off - 4); }
 };
 struct ThisWrap_000d5fa0 {
-    void sink(void*, const char*, const char*, const char*, const char*, const char*,
+    void sink_000d4b60(void*, const char*, const char*, const char*, const char*, const char*,
                                const char*);
     void FUN_000d5fa0(void* p);
 };
@@ -489,8 +489,8 @@ struct X {
     void Run(int);
 };
 extern "C" void* __cdecl cast(void*, int, const void*, const void*, int);
-extern "C" void __cdecl use(void*);
-extern char a[], b[];
+extern "C" void __cdecl use_000c5a60(void*);
+extern char hulk_at_0049e11c[], hulk_at_004a0a40[];
 class Slots_d6d90 {
   public:
     char pad[12];
@@ -727,7 +727,7 @@ void Obj::Fn(float a, float b, float c, float d, float e, float f, float g) {
     color |= (int)e;
     color <<= 8;
     color |= (int)f;
-    Other(a, b, c, color, *(volatile unsigned int*)&g);
+    Other_000d4620(a, b, c, color, *(volatile unsigned int*)&g);
 }
 
 
@@ -1204,7 +1204,7 @@ Method3_d5660::Method3_d5660(const char* str, Fn_d5660 n) : Function_d5660(str) 
     retType = check(((const char*)&DAT_0048e100));
     argTypes[0] = check(((const char*)&DAT_0048e0f0));
     argTypes[1] = check(((const char*)&DAT_0048e134));
-    argTypes[2] = check(s4);
+    argTypes[2] = check(hulk_at_0048e10c);
 }
 
 } // namespace fn_f27eef39
@@ -1579,7 +1579,7 @@ namespace fn_f27eef39 {
 // 0x000d5fa0 FUN_000d5fa0 (43 B): matches/0x000d5fa0.cpp
 // sym: ?FUN_000d5fa0@ThisWrap_000d5fa0@fn_f27eef39@@QAEXPAX@Z
 void ThisWrap_000d5fa0::FUN_000d5fa0(void* p) {
-    this->sink(p, "FIXME", "FIXME", "FIXME", "FIXME", "FIXME", "FIXME");
+    this->sink_000d4b60(p, "FIXME", "FIXME", "FIXME", "FIXME", "FIXME", "FIXME");
 }
 
 
@@ -2042,7 +2042,7 @@ void Target_d6b20::FUN_000d6b20(hulk_uintptr unused) {
 void X::Run(int) {
     if (state != 3) {
         void* p = obj->p;
-        use(cast(p, 0, a, b, 0));
+        use_000c5a60(cast(p, 0, hulk_at_0049e11c, hulk_at_004a0a40, 0));
         if (state == 2)
             state = 0;
     }

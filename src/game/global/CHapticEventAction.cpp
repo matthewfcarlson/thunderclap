@@ -27,17 +27,17 @@ struct Event_17870 {
 };
 class A_17980 {
   public:
-    void* f();
+    void* Fnf_00086330();
 };
 class B_17980 {
   public:
-    void* f(int);
+    void* Fnf_000afe40(int);
 };
 class C_17980 {
   public:
-    void f();
+    void Fnf_000afaf0();
 };
-extern A_17980* gGlobal_17980;
+extern A_17980* hulk_at_004dd6ec;
 
 } // namespace fn_ff7d2848
 
@@ -74,10 +74,10 @@ bool CHapticEventAction::vfunc_3(hulk_intptr , hulk_intptr ) {
 // sym: ?vfunc_4@CHapticEventAction@@UAEXXZ
 void CHapticEventAction::vfunc_4() {
     if (*((char*)(*(void * *)&this->f_20) + 0x1c)) {
-        void* p = gGlobal_17980->f();
+        void* p = hulk_at_004dd6ec->Fnf_00086330();
         B_17980* b = (B_17980*)p;
-        C_17980* c = (C_17980*)b->f(0);
-        c->f();
+        C_17980* c = (C_17980*)b->Fnf_000afe40(0);
+        c->Fnf_000afaf0();
     }
 }
 

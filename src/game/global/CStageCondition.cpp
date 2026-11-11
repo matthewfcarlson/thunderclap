@@ -11,7 +11,7 @@ namespace fn_f2f736bf {} using namespace fn_f2f736bf;
 
 // ---- declarations shared by the functions below
 namespace fn_f2f736bf {
-extern int* gTable_48300;
+extern int* hulk_at_004dc3f8;
 class CCondition_48300 {
   public:
     virtual int vfunc_0(int);
@@ -25,7 +25,7 @@ struct Argument_48350 {  };
 // 0x00048300 CStageCondition::vfunc_0 (16 B): matches/0x00048300.cpp
 // sym: ?vfunc_0@CStageCondition@@UAEHH@Z
 hulk_intptr CStageCondition::vfunc_0(int index) {
-    int* p = gTable_48300;
+    int* p = hulk_at_004dc3f8;
     return p[index];
 }
 

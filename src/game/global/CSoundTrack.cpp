@@ -12,7 +12,7 @@ namespace fn_fdda11e6 {} using namespace fn_fdda11e6;
 
 // ---- declarations shared by the functions below
 namespace fn_fdda11e6 {
-extern int* gTable_696b0;
+extern int* hulk_at_004dcf38;
 class CCondition_696b0 {
   public:
     virtual int vfunc_0(int);
@@ -32,7 +32,7 @@ class Obj_69750 {
 };
 class R_69760 {
   public:
-    int invoke(CSoundTrack*, hulk_intptr);
+    int invoke_0001d190(CSoundTrack*, hulk_intptr);
 };
 extern "C" R_69760* FUN_0008d690(int);
 
@@ -50,7 +50,7 @@ void FUN_00069690() {
 // sym: ?vfunc_0@CSoundTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSoundTrack::vfunc_0(int index) {
-    int* p = gTable_696b0;
+    int* p = hulk_at_004dcf38;
     return p[index];
 }
 
@@ -137,7 +137,7 @@ unsigned char Obj_69750::FUN_00069750(unsigned char v) {
 hulk_intptr CSoundTrack::vfunc_12(hulk_intptr param) {
     R_69760* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_0001d190(this, param);
     return 0;
 }
 

@@ -9,7 +9,7 @@ namespace fn_f97416fb {} using namespace fn_f97416fb;
 
 // ---- declarations shared by the functions below
 namespace fn_f97416fb {
-extern void* g_vftable_22650[];
+extern void* hulk_at_003f3390[];
 class Ref_22650 {
   public:
     virtual void F0();
@@ -30,7 +30,7 @@ class CDeathAction_22650 : public CAction_22650 {
 // 0x00022650 CDeathAction::vfunc_2 (57 B): matches/0x00022650.cpp
 // sym: ?f2@CDeathAction_22650@fn_f97416fb@@QAEPAV12@E@Z
 CDeathAction_22650* CDeathAction_22650::f2(unsigned char flags) {
-    vptr = g_vftable_22650;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

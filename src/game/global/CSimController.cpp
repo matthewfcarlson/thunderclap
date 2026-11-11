@@ -14,7 +14,7 @@ namespace fn_f8cdf61b {} using namespace fn_f8cdf61b;
 
 // ---- declarations shared by the functions below
 namespace fn_f8cdf61b {
-extern void* refVtable_b35d0;
+extern void* hulk_at_003f6098;
 struct Obj_b35d0 {
     void** vf;
     char pad[4];
@@ -43,7 +43,7 @@ class C_b3660 {
     B_b3660 b;
     void Copy(B_b3660* dst);
 };
-extern int vtbl_controller;
+extern int hulk_at_004060c4;
 extern int vtbl_refcount;
 class Sub_b36a0 {
   public:
@@ -58,7 +58,7 @@ class CSimController {
     char pad[4];
     Sub_b36a0* sub;
 };
-extern void thunk(CSimController*);
+extern void thunk_0008d330(CSimController*);
 float __cdecl FUN_00224ea0(float x, float y);
 float __cdecl FUN_00224fc0(float a, float b);
 union Bits_b36d0 {
@@ -129,8 +129,8 @@ struct Root_b3c80 {
     char pad[4];
     Obj_b3c80* ptr;
 };
-extern Root_b3c80* gRoot_b3c80;
-extern void* g_vftable_b3c90[];
+extern Root_b3c80* hulk_at_004dd700;
+extern void* hulk_at_004060d8[];
 class Controller_b3c90 {
   public:
     virtual void Init();
@@ -142,7 +142,7 @@ class Arg_b3c90 {
 void* operator new(size_t);
 namespace fn_f8cdf61b {
 struct CSimController_b3c90 {
-    Controller_b3c90* Build(int);
+    Controller_b3c90* Build_000b3b80(int);
 };
 class CSimControllerManager_b3c90 {
   public:
@@ -160,7 +160,7 @@ void __fastcall target(Obj_b35d0* self) {
     self->p;
     self->vf = (void**)&gameVtable;
     self->p->b();
-    self->vf = (void**)&refVtable_b35d0;
+    self->vf = (void**)&hulk_at_003f6098;
 }
 
 
@@ -193,11 +193,11 @@ void C_b3660::Copy(B_b3660* dst) {
 // sym: ?vfunc_2@CSimController@fn_f8cdf61b@@UAEPAV12@H@Z
 CSimController* CSimController::vfunc_2(int flags) {
     CSimController* p = this;
-    *((hulk_intptr*)p) = (hulk_intptr)&vtbl_controller;
+    *((hulk_intptr*)p) = (hulk_intptr)&hulk_at_004060c4;
     sub->b();
     *((hulk_intptr*)p) = (hulk_intptr)&vtbl_refcount;
     if (flags & 1)
-        thunk(this);
+        thunk_0008d330(this);
     return this;
 }
 
@@ -416,15 +416,15 @@ class CSimController {
     Ref_b3b80* p;
     char pad[0x10c];
     CSimController(Ref_b3b80*);
-    void Init(void*, int);
+    void Init_000b35f0(void*, int);
 };
 CSimController::CSimController(Ref_b3b80* q) {
     m = 0;
     vt = (hulk_intptr)&vtable_b3b80;
     p = q;
     q->F();
-    Init((char*)this + 0xc, 1);
-    Init((char*)this + 0x118, 1);
+    Init_000b35f0((char*)this + 0xc, 1);
+    Init_000b35f0((char*)this + 0x118, 1);
 }
 } // namespace fn_000b3b80
 
@@ -450,19 +450,19 @@ void Object::FUN_000b3bc0(unsigned int arg) {
 // 0x000b3c80 FUN_000b3c80 (16 B): matches/0x000b3c80.cpp
 // sym: _FUN_000b3c80
 extern "C" void __cdecl FUN_000b3c80(unsigned char x) {
-    gRoot_b3c80->ptr->field = x;
+    hulk_at_004dd700->ptr->field = x;
 }
 
 
 // 0x000b3c90 FUN_000b3c90 (86 B): matches/0x000b3c90.cpp
 // sym: ?ctor@CSimControllerManager_b3c90@fn_f8cdf61b@@QAEPAV12@PAVArg_b3c90@2@@Z
 CSimControllerManager_b3c90* CSimControllerManager_b3c90::ctor(Arg_b3c90* a) {
-    vptr = g_vftable_b3c90;
+    vptr = hulk_at_004060d8;
     flag = 1;
     void* p = operator new(0x224);
     Controller_b3c90* c;
     if (p) {
-        c = ((CSimController_b3c90*)p)->Build(((int)((owners::C_ae640 *)a)->FUN_000ae640(0)));
+        c = ((CSimController_b3c90*)p)->Build_000b3b80(((int)((owners::C_ae640 *)a)->FUN_000ae640(0)));
     } else
         c = 0;
     controller = c;

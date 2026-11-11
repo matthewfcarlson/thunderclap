@@ -12,13 +12,13 @@ namespace fn_f2f0c168 {} using namespace fn_f2f0c168;
 // ---- declarations shared by the functions below
 namespace fn_f2f0c168 {
 struct R_17440 {
-    void call(void*, int);
+    void call_00222970(void*, int);
 };
 extern void* __fastcall FUN_000592a0(void*);
 extern "C" R_17440* __fastcall FUN_00059a40(void*);
 struct A_17540 {
-    A_17540* valid();
-    void apply(void*, int);
+    A_17540* valid_00059a40();
+    void apply_00222970(void*, int);
 };
 
 } // namespace fn_f2f0c168
@@ -50,7 +50,7 @@ void COrientAction::vfunc_4() {
     void* a = FUN_000592a0((*(void * *)&this->f_1c));
     R_17440* b = FUN_00059a40(a);
     if (b)
-        b->call((*(void * *)&this->f_24), 0);
+        b->call_00222970((*(void * *)&this->f_24), 0);
 }
 
 
@@ -109,8 +109,8 @@ bool COrientTargetAction::vfunc_6(int) {
 // sym: ?vfunc_4@COrientTargetAction@@UAEXXZ
 void COrientTargetAction::vfunc_4() {
     A_17540* a = ((A_17540 *)((owners::Object_592a0 *)((*(A_17540 * *)&this->f_1c)))->FUN_000592a0());
-    a = a->valid();
+    a = a->valid_00059a40();
     if (a)
-        a->apply((*(void * *)&this->f_28), 0);
+        a->apply_00222970((*(void * *)&this->f_28), 0);
 }
 

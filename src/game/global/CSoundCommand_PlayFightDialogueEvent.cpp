@@ -12,11 +12,11 @@ namespace fn_fcf5a062 {} using namespace fn_fcf5a062;
 namespace fn_fcf5a062 {
 class Resolver {
   public:
-    int Resolve(void*);
+    int Resolve_001e98b0(void*);
 };
 class Player {
   public:
-    void Play(int, void*, int, int, unsigned char);
+    void Play_001f3e90(int, void*, int, int, unsigned char);
 };
 struct Global {
     Player* player;
@@ -35,8 +35,8 @@ class CSoundCommand_1ef530 {
 void CSoundCommand_PlayFightDialogueEvent::vfunc_1(int a, int b) {
     Global* global = (*(Global**)&DAT_004e370c);
     Resolver* resolver = global->resolver;
-    int id = resolver->Resolve(&this->f_10);
+    int id = resolver->Resolve_001e98b0(&this->f_10);
     if (id)
-        (*(Global**)&DAT_004e370c)->player->Play(id, &(*(char (*)[8])&this->f_14)[4], a, this->f_1c, (*(unsigned char *)&this->f_20));
+        (*(Global**)&DAT_004e370c)->player->Play_001f3e90(id, &(*(char (*)[8])&this->f_14)[4], a, this->f_1c, (*(unsigned char *)&this->f_20));
 }
 

@@ -9,7 +9,7 @@ namespace fn_f0590878 {} using namespace fn_f0590878;
 
 // ---- declarations shared by the functions below
 namespace fn_f0590878 {
-extern void* g_vftable_228f0[];
+extern void* hulk_at_003f3390[];
 class Ref_228f0 {
   public:
     virtual void F0();
@@ -30,7 +30,7 @@ class CClearHitRecordsAction_228f0 : public CAction_228f0 {
 // 0x000228f0 CClearHitRecordsAction::vfunc_2 (57 B): matches/0x000228f0.cpp
 // sym: ?f2@CClearHitRecordsAction_228f0@fn_f0590878@@QAEPAV12@E@Z
 CClearHitRecordsAction_228f0* CClearHitRecordsAction_228f0::f2(unsigned char flags) {
-    vptr = g_vftable_228f0;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

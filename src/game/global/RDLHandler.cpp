@@ -75,7 +75,7 @@ struct Pair_44ad0 {
     U32_44ad0 lo;
     U32_44ad0 hi;
 };
-Pair_44ad0 __cdecl Lookup(U32_44ad0);
+Pair_44ad0 __cdecl Lookup_0027b020(U32_44ad0);
 class RDLHandler_44ad0 {
   public:
     char pad[12];
@@ -88,7 +88,7 @@ struct Item_44b30 {
     char a[0x40];
     char b[0x40];
 };
-long long GetId(void* p);
+long long GetId_0027b020(void* p);
 class Mgr_44b30 {
   public:
     char pad[0xc];
@@ -100,7 +100,7 @@ class Obj {
   public:
 };
 struct Item_44c00 {
-    void Do();
+    void Do_00044910();
 };
 class X_44c00 {
   public:
@@ -110,7 +110,7 @@ class X_44c00 {
     bool Run();
 };
 struct Item_44c30 {
-    void Do();
+    void Do_000449c0();
 };
 class X_44c30 {
   public:
@@ -193,7 +193,7 @@ hulk_intptr RDLHandler_44ad0::Find(U32_44ad0 a, U32_44ad0 b) {
     while (i < count) {
         int item = items[i];
         if (item) {
-            Pair_44ad0 v = Lookup((U32_44ad0)(item + 0x3b0));
+            Pair_44ad0 v = Lookup_0027b020((U32_44ad0)(item + 0x3b0));
             if (v.lo == a && v.hi == b)
                 return items[i];
         }
@@ -209,10 +209,10 @@ Item_44b30* Mgr_44b30::Find(long long id) {
     for (int i = 0; i < mCount; i++) {
         Item_44b30* it = mItems[i];
         if (it) {
-            bool hit = GetId(it->b) == id;
+            bool hit = GetId_0027b020(it->b) == id;
             if (!hit) {
                 Item_44b30* q = mItems[i];
-                hit = GetId(q->a) == id;
+                hit = GetId_0027b020(q->a) == id;
             }
             if (hit)
                 return mItems[i];
@@ -236,7 +236,7 @@ bool X_44c00::Run() {
     for (i = 0; i < count; ++i) {
         Item_44c00* p = items[i];
         if (p)
-            p->Do();
+            p->Do_00044910();
     }
     return true;
 }
@@ -250,7 +250,7 @@ bool X_44c30::Run() {
     for (i = 0; i < count; ++i) {
         Item_44c30* p = items[i];
         if (p)
-            p->Do();
+            p->Do_000449c0();
     }
     return true;
 }

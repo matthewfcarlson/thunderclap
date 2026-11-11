@@ -12,7 +12,7 @@ namespace fn_f8f15a4b {} using namespace fn_f8f15a4b;
 
 // ---- declarations shared by the functions below
 namespace fn_f8f15a4b {
-extern int* gValues;
+extern int* hulk_at_004dcf40;
 extern "C" void __cdecl FUN_00267830(void*, void*, int);
 class X {
   public:
@@ -22,7 +22,7 @@ class X {
 };
 class R_69850 {
   public:
-    int invoke(CComboMessageTrack*, hulk_intptr);
+    int invoke_0001d210(CComboMessageTrack*, hulk_intptr);
 };
 extern "C" R_69850* FUN_0008d690(int);
 
@@ -39,7 +39,7 @@ void FUN_00069790() {
 // 0x000697b0 CComboMessageTrack::vfunc_0 (16 B): matches/0x000697b0.cpp
 // sym: ?vfunc_0@CComboMessageTrack@@UAEHH@Z
 hulk_intptr CComboMessageTrack::vfunc_0(int index) {
-    return gValues[index];
+    return hulk_at_004dcf40[index];
 }
 
 
@@ -115,7 +115,7 @@ bool X::Fn(void* p) {
 hulk_intptr CComboMessageTrack::vfunc_12(hulk_intptr param) {
     R_69850* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_0001d210(this, param);
     return 0;
 }
 

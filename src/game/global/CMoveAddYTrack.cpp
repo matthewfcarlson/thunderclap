@@ -12,10 +12,10 @@ namespace fn_f6b1b8f2 {} using namespace fn_f6b1b8f2;
 
 // ---- declarations shared by the functions below
 namespace fn_f6b1b8f2 {
-extern float zero_69ae0;
+extern float hulk_at_003f32e0;
 class R_69b00 {
   public:
-    int invoke(CMoveAddYTrack*, hulk_intptr);
+    int invoke_0001d3a0(CMoveAddYTrack*, hulk_intptr);
 };
 extern "C" R_69b00* FUN_0008d690(int);
 
@@ -90,8 +90,8 @@ hulk_freg CMoveAddYTrack::vfunc_6() {
 // Same code shape as 0x00069920 (propagated; names are from that function)
 hulk_freg CMoveAddYTrack::vfunc_7() {
     hulk_freg d = this->timeEnd - this->timeBegin;
-    if (d < zero_69ae0)
-        d = zero_69ae0;
+    if (d < hulk_at_003f32e0)
+        d = hulk_at_003f32e0;
     return d;
 }
 
@@ -102,7 +102,7 @@ hulk_freg CMoveAddYTrack::vfunc_7() {
 hulk_intptr CMoveAddYTrack::vfunc_12(hulk_intptr param) {
     R_69b00* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_0001d3a0(this, param);
     return 0;
 }
 

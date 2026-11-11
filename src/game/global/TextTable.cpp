@@ -15,7 +15,7 @@ extern "C" void* memcpy(void*, const void*, unsigned int);
 #endif
 namespace fn_f8a05cfd {
 struct Sub_e3d70 {
-    void fn(int);
+    void fn_000f83c0(int);
 };
 class Obj_e3d70 {
   public:
@@ -101,7 +101,7 @@ namespace fn_f8a05cfd {
 void Obj_e3d70::update(int x, int y, int z) {
     if (x < width && y < height) {
         Sub_e3d70* p = (Sub_e3d70*)((char*)this + 0x15c + (y + x * 8) * 0x24);
-        p->fn(z);
+        p->fn_000f83c0(z);
         *(int*)p = value;
     }
 }

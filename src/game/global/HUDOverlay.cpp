@@ -40,8 +40,8 @@ struct Obj_ca930 {
     void* vptr;
     char pad[0x50];
 };
-extern void* HUD_vftable;
-extern void* Overlay_vftable;
+extern void* hulk_at_0040a498;
+extern void* hulk_at_0040a47c;
 class Overlay_ca950 {
   public:
     virtual void vfunc_0();
@@ -56,15 +56,15 @@ class Overlay_ca960 {
 };
 struct Ent_caab0;
 struct Sub_caab0 {
-    void Tick();
+    void Tick_001d60c0();
 };
 struct Ent_caab0 {
-    void Prep();
+    void Prep_001d62d0();
     char pad[0xec];
     Sub_caab0* sub;
 };
 struct Mgr_caab0 {
-    Ent_caab0* Find(char*);
+    Ent_caab0* Find_001def30(char*);
 };
 struct Mid_caab0 {
     char pad[0xc];
@@ -147,7 +147,7 @@ class Found_cacd0 {
 };
 class Lookup_cacd0 {
   public:
-    Found_cacd0* find(int);
+    Found_cacd0* find_001fd780(int);
 };
 class Owner_cacd0 {
   public:
@@ -202,14 +202,14 @@ class Obj_cae80 {
 };
 class Sub_cae80 {
   public:
-    void Fn(float f);
+    void Fn_000c9bd0(float f);
 };
 struct Args_caea0 {
     int a, b, c;
 };
 class Inner_caea0 {
   public:
-    void B(Args_caea0);
+    void FnB_000c9720(Args_caea0);
 };
 class Obj_caea0 {
   public:
@@ -219,8 +219,8 @@ class Obj_caea0 {
 };
 class Inner_caee0 {
   public:
-    void A();
-    void B(int);
+    void FnA_000c7ac0();
+    void FnB_000c8ef0(int);
 };
 class Obj_caee0 {
     char pad[0x88];
@@ -240,7 +240,7 @@ class Obj_caf10 {
 };
 class Sub_caf30 {
   public:
-    void Target();
+    void Target_000c7af0();
 };
 class Obj_caf30 {
   public:
@@ -250,7 +250,7 @@ class Obj_caf30 {
 };
 class Obj_caf40 {
   public:
-    void Call(int);
+    void Call_000c7b00(int);
 };
 class Target_caf40 {
   public:
@@ -263,18 +263,18 @@ struct Triple {
 };
 class Worker {
   public:
-    int Run(int x, Triple t);
+    int Run_000c7b70(int x, Triple t);
 };
 struct V3 {
     int x, y, z;
 };
 class Item {
   public:
-    int Fn(int, int);
+    int Fn_000c7d10(int, int);
 };
 class Sub_cb050 {
   public:
-    void A();
+    void FnA_000c8010();
     void Fn();
 };
 class Obj_cb050 {
@@ -285,7 +285,7 @@ class Obj_cb050 {
 };
 class Sub_cb060 {
   public:
-    void Helper(int arg);
+    void Helper_000c80a0(int arg);
 };
 class Class {
   public:
@@ -295,7 +295,7 @@ class Class {
 };
 class Sub_cb080 {
   public:
-    void Go();
+    void Go_000c91c0();
 };
 class Owner_cb080 {
   public:
@@ -308,8 +308,8 @@ struct Vec {
 };
 class Inner {
   public:
-    void Apply(int, V3);
-    void Fn(int, Vec);
+    void Apply_000c9090(int, V3);
+    void Fn_000c8450(int, Vec);
 };
 class Outer {
     char pad[0x88];
@@ -320,19 +320,19 @@ class Outer {
 };
 class Mgr {
   public:
-    int Run(int, int, Vec, Vec);
+    int Run_000c9210(int, int, Vec, Vec);
 };
 struct V {
     int a, b, c;
 };
 class Other {
   public:
-    void Fn(int, int);
-    void Go(int x, int y, V v);
+    void Fn_000c7f50(int, int);
+    void Go_000c9340(int x, int y, V v);
 };
 class Child {
   public:
-    void Run(int, int);
+    void Run_000c9390(int, int);
 };
 class Parent {
     char pad[0x88];
@@ -360,15 +360,15 @@ class Obj {
     char _m_pad_8c[0x1d8];
     char names[8][0x40];
     void SetName(const char*);
-    void Full();
+    void Full_000caab0();
     int Go(int a, int b);
     void Fn(int a, int b);
-    void Action(int a, int b);
+    void Action_000c90d0(int a, int b);
     void Forward(int a, int b);
-    void Run(int);
+    void Run_000c9100(int);
     void Forward(int);
     int Go(int a, int b, Vec c, Vec d);
-    void fn(int, Vec3);
+    void fn_000c8410(int, Vec3);
     void Fn(int, Vec);
 };
 class Wrap {
@@ -380,7 +380,7 @@ class Wrap {
 };
 class Sub_cb260 {
   public:
-    void Fn(int x);
+    void Fn_000c8490(int x);
 };
 class Obj_cb260 {
   public:
@@ -400,7 +400,7 @@ class Obj_cb280 {
 };
 class Thing {
   public:
-    void Act(int);
+    void Act_000c7140(int);
 };
 class Owner {
   public:
@@ -653,9 +653,9 @@ void C_ca860::Target() {
 // 0x000ca930 FUN_000ca930 (25 B): matches/0x000ca930.cpp
 // sym: ?Target@fn_fb3f3f46@@YIXPAUObj_ca930@1@@Z
 void __fastcall Target(Obj_ca930* self) {
-    self->vptr = &HUD_vftable;
+    self->vptr = &hulk_at_0040a498;
     ((owners::Thing_f7960 *)(((Inner_ca930*)((char*)self + 0x54))))->FUN_000f7960();
-    self->vptr = &Overlay_vftable;
+    self->vptr = &hulk_at_0040a47c;
 }
 
 } // namespace fn_fb3f3f46
@@ -711,10 +711,10 @@ void __fastcall FUN_000caab0(Self_caab0* self) {
             void* b = self->p->b;
             long long v = FUN_002672f0(s, 0, 0);
             if (!FUN_00024280(b, v)) {
-                Ent_caab0* e = self->p->m->Find(s);
+                Ent_caab0* e = self->p->m->Find_001def30(s);
                 if (e) {
-                    e->Prep();
-                    e->sub->Tick();
+                    e->Prep_001d62d0();
+                    e->sub->Tick_001d60c0();
                 }
             }
         }
@@ -759,7 +759,7 @@ void Obj::SetName(const char* s) {
             return;
         }
     }
-    Full();
+    Full_000caab0();
 }
 
 
@@ -815,7 +815,7 @@ void Obj_cacc0::Set(int v) {
 // sym: ?work@Obj_cacd0@fn_fb3f3f46@@QAEXH@Z
 void Obj_cacd0::work(int id) {
     Lookup_cacd0* m = owner->manager;
-    Found_cacd0* p = m->find(id);
+    Found_cacd0* p = m->find_001fd780(id);
     if (!p) {
         result.z = 0;
         result.y = 0;
@@ -903,7 +903,7 @@ namespace fn_fb3f3f46 {
 // sym: ?Fn@Obj_cae80@fn_fb3f3f46@@QAEXM@Z
 void Obj_cae80::Fn(float f) {
     if (mObj)
-        ((Sub_cae80*)mObj)->Fn(f);
+        ((Sub_cae80*)mObj)->Fn_000c9bd0(f);
 }
 
 
@@ -912,7 +912,7 @@ void Obj_cae80::Fn(float f) {
 void Obj_caea0::Run(Args_caea0 x) {
     if (m) {
         ((owners::Target_c7ad0 *)m)->FUN_000c7ad0();
-        m->B(x);
+        m->FnB_000c9720(x);
     }
 }
 
@@ -921,8 +921,8 @@ void Obj_caea0::Run(Args_caea0 x) {
 // sym: ?Target@Obj_caee0@fn_fb3f3f46@@QAEXH@Z
 void Obj_caee0::Target(int x) {
     if (member) {
-        member->A();
-        member->B(x);
+        member->FnA_000c7ac0();
+        member->FnB_000c8ef0(x);
     }
 }
 
@@ -939,7 +939,7 @@ void Obj_caf10::Target(int arg) {
 // sym: ?Target@Obj_caf30@fn_fb3f3f46@@QAEXXZ
 void Obj_caf30::Target() {
     if (m88)
-        m88->Target();
+        m88->Target_000c7af0();
 }
 
 
@@ -948,7 +948,7 @@ void Obj_caf30::Target() {
 void Target_caf40::Fn(int x) {
     Obj_caf40* p = mObj;
     if (p)
-        p->Call(x);
+        p->Call_000c7b00(x);
 }
 
 
@@ -958,7 +958,7 @@ int Owner::Do(int x, Triple t) {
     Worker* w = worker;
     int result = -1;
     if (w)
-        result = w->Run(x, t);
+        result = w->Run_000c7b70(x, t);
     return result;
 }
 
@@ -967,7 +967,7 @@ int Owner::Do(int x, Triple t) {
 // sym: ?Run@Outer@fn_fb3f3f46@@QAEXHUV3@2@@Z
 void Outer::Run(int a, V3 v) {
     if (p)
-        p->Apply(a, v);
+        p->Apply_000c9090(a, v);
 }
 
 
@@ -977,7 +977,7 @@ int Obj::Go(int a, int b) {
     int result = -1;
     Item* q = p;
     if (q)
-        result = q->Fn(a, b);
+        result = q->Fn_000c7d10(a, b);
     return result;
 }
 
@@ -986,7 +986,7 @@ int Obj::Go(int a, int b) {
 // sym: ?Fn@Obj@fn_fb3f3f46@@QAEXHH@Z
 void Obj::Fn(int a, int b) {
     if (other)
-        other->Fn(a, b);
+        other->Fn_000c7f50(a, b);
 }
 
 
@@ -994,7 +994,7 @@ void Obj::Fn(int a, int b) {
 // sym: ?Forward@Obj@fn_fb3f3f46@@QAEXHH@Z
 void Obj::Forward(int a, int b) {
     if (child)
-        child->Action(a, b);
+        child->Action_000c90d0(a, b);
 }
 
 
@@ -1002,7 +1002,7 @@ void Obj::Forward(int a, int b) {
 // sym: ?Forward@Obj@fn_fb3f3f46@@QAEXH@Z
 void Obj::Forward(int x) {
     if (ptr)
-        ptr->Run(x);
+        ptr->Run_000c9100(x);
 }
 
 
@@ -1010,7 +1010,7 @@ void Obj::Forward(int x) {
 // sym: ?Target@Obj_cb050@fn_fb3f3f46@@QAEXXZ
 void Obj_cb050::Target() {
     if (m)
-        m->A();
+        m->FnA_000c8010();
 }
 
 
@@ -1019,7 +1019,7 @@ void Obj_cb050::Target() {
 void Class::Wrapper(int arg) {
     Sub_cb060* p = mPtr;
     if (p)
-        p->Helper(arg);
+        p->Helper_000c80a0(arg);
 }
 
 
@@ -1027,7 +1027,7 @@ void Class::Wrapper(int arg) {
 // sym: ?Fn@Owner_cb080@fn_fb3f3f46@@QAEXXZ
 void Owner_cb080::Fn() {
     if (m)
-        m->Go();
+        m->Go_000c91c0();
 }
 
 
@@ -1036,7 +1036,7 @@ void Owner_cb080::Fn() {
 int Obj::Go(int a, int b, Vec c, Vec d) {
     int result = -1;
     if (mgr)
-        result = mgr->Run(a, b, c, d);
+        result = mgr->Run_000c9210(a, b, c, d);
     return result;
 }
 
@@ -1045,7 +1045,7 @@ int Obj::Go(int a, int b, Vec c, Vec d) {
 // sym: ?Fn@Owner@fn_fb3f3f46@@QAEXHHUV@2@@Z
 void Owner::Fn(int x, int y, V v) {
     if (other)
-        other->Go(x, y, v);
+        other->Go_000c9340(x, y, v);
 }
 
 
@@ -1053,7 +1053,7 @@ void Owner::Fn(int x, int y, V v) {
 // sym: ?Go@Parent@fn_fb3f3f46@@QAEXHH@Z
 void Parent::Go(int a, int b) {
     if (child)
-        child->Run(a, b);
+        child->Run_000c9390(a, b);
 }
 
 
@@ -1073,7 +1073,7 @@ int Wrapper_cb190::Forward(int a, int b, Vec3_cb190 p, Vec3_cb190 q, Vec3_cb190 
 // sym: ?fn@Wrap@fn_fb3f3f46@@QAEXHUVec3@2@@Z
 void Wrap::fn(int a, Vec3 v) {
     if (obj)
-        obj->fn(a, v);
+        obj->fn_000c8410(a, v);
 }
 
 
@@ -1081,7 +1081,7 @@ void Wrap::fn(int a, Vec3 v) {
 // sym: ?Fn@Obj@fn_fb3f3f46@@QAEXHUVec@2@@Z
 void Obj::Fn(int a, Vec v) {
     if (inner)
-        inner->Fn(a, v);
+        inner->Fn_000c8450(a, v);
 }
 
 
@@ -1090,7 +1090,7 @@ void Obj::Fn(int a, Vec v) {
 void Obj_cb260::Target(int x) {
     Sub_cb260* p = m88;
     if (p)
-        p->Fn(x);
+        p->Fn_000c8490(x);
 }
 
 
@@ -1112,7 +1112,7 @@ struct Arg {
 };
 class Helper {
   public:
-    int Fn(int, Arg);
+    int Fn_000c6f20(int, Arg);
 };
 class Obj {
     char pad[0x8c];
@@ -1124,7 +1124,7 @@ class Obj {
 int Obj::Fn(int x, Arg a) {
     int r = -1;
     if (p)
-        r = p->Fn(x, a);
+        r = p->Fn_000c6f20(x, a);
     return r;
 }
 } // namespace fn_000cb2a0
@@ -1145,11 +1145,11 @@ class Obj {
 };
 class Sub {
   public:
-    void Go(int x, V v);
+    void Go_000c6fa0(int x, V v);
 };
 void Obj::Fn(int x, V v) {
     if (p)
-        ((Sub*)p)->Go(x, v);
+        ((Sub*)p)->Go_000c6fa0(x, v);
 }
 } // namespace fn_000cb2e0
 
@@ -1161,14 +1161,14 @@ class Obj {
   public:
     char pad[0x8c];
     Obj* p;
-    int action(int, int);
+    int action_000c6fe0(int, int);
     int fn(int, int);
 };
 int Obj::fn(int a, int b) {
     int result = -1;
     Obj* q = p;
     if (q)
-        result = q->action(a, b);
+        result = q->action_000c6fe0(a, b);
     return result;
 }
 } // namespace fn_000cb310
@@ -1180,7 +1180,7 @@ namespace fn_fb3f3f46 {
 void Owner::Run(int x) {
     if (!thing)
         return;
-    return thing->Act(x);
+    return thing->Act_000c7140(x);
 }
 
 } // namespace fn_fb3f3f46
@@ -1268,7 +1268,7 @@ extern "C" void FUN_000cb7d0(float *a, float *b, float limit)
 // sym: ?vfunc_0@HUDOverlay@fn_000cb840@@UAEPAV12@E@Z
 namespace fn_000cb840 {
 struct Helper_cb840 {
-    void f();
+    void Fnf_000f7960();
 };
 class HUDOverlay {
   public:
@@ -1285,7 +1285,7 @@ void thunk_FUN_00267090(HUDOverlay*);
 HUDOverlay* HUDOverlay::vfunc_0(unsigned char flags) {
     Helper_cb840* h = (Helper_cb840*)((char*)this + 0x54);
     *(void**)this = &hudvt;
-    h->f();
+    h->Fnf_000f7960();
     *(void**)this = &ovt;
     if (flags & 1)
         thunk_FUN_00267090(this);

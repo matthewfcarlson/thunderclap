@@ -12,10 +12,10 @@ namespace fn_feedf6bd {} using namespace fn_feedf6bd;
 
 // ---- declarations shared by the functions below
 namespace fn_feedf6bd {
-extern float zero_69a00;
+extern float hulk_at_003f32e0;
 class R_69a20 {
   public:
-    int invoke(CMoveAddTrack*, hulk_intptr);
+    int invoke_0001d320(CMoveAddTrack*, hulk_intptr);
 };
 extern "C" R_69a20* FUN_0008d690(int);
 
@@ -88,8 +88,8 @@ hulk_freg CMoveAddTrack::vfunc_6() {
 // Same code shape as 0x00069920 (propagated; names are from that function)
 hulk_freg CMoveAddTrack::vfunc_7() {
     hulk_freg d = this->f_10 - this->f_0c;
-    if (d < zero_69a00)
-        d = zero_69a00;
+    if (d < hulk_at_003f32e0)
+        d = hulk_at_003f32e0;
     return d;
 }
 
@@ -100,7 +100,7 @@ hulk_freg CMoveAddTrack::vfunc_7() {
 hulk_intptr CMoveAddTrack::vfunc_12(hulk_intptr param) {
     R_69a20* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_0001d320(this, param);
     return 0;
 }
 

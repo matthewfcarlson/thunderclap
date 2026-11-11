@@ -22,7 +22,7 @@ class C_e3fe0 {
 };
 class D {
   public:
-    void Cleanup(int);
+    void Cleanup_000f8b90(int);
 };
 struct Worker_e4060 {
 };
@@ -93,7 +93,7 @@ int ImageSelector::vfunc_23() {
 // sym: ?FUN_000e4020@ImageSelector@@QAEXXZ
 void ImageSelector::FUN_000e4020() {
     if ((*(D * *)&this->f_2ac))
-        (*(D * *)&this->f_2ac)->Cleanup(this->f_2a8);
+        (*(D * *)&this->f_2ac)->Cleanup_000f8b90(this->f_2a8);
     vfunc_0();
 }
 

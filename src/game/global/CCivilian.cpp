@@ -21,16 +21,16 @@ class Ref_81340 {
 class Entity_81340 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class CCivilian_81340;
 class Plr {
   public:
     char pad[0x328];
     Ref_81340* m328;
-    void F3b160(int);
-    void F3b190(int);
-    void F3ffa0(int, int);
+    void F3b160_0003b160(int);
+    void F3b190_0003b190(int);
+    void F3ffa0_0003ffa0(int, int);
 };
 class Mgr_81340 {
   public:
@@ -44,13 +44,13 @@ struct Pl {
     Plr* m124;
 };
 struct Sub_81340 {
-    void F1b43f0(CCivilian_81340*);
+    void F1b43f0_001b43f0(CCivilian_81340*);
 };
 struct Tmp_81340 {
-    void F1c3b80(void*);
+    void F1c3b80_001c3b80(void*);
 };
 extern "C" Tmp_81340* __stdcall FUN_001c3d90();
-extern Mgr_81340* g_mgr_81340;
+extern Mgr_81340* hulk_at_004dd700;
 class CCivilian_81340 : public Entity_81340 {
   public:
     char pad[0xb8 - 4];
@@ -153,20 +153,20 @@ void FUN_00018810(RefObj_81420** slot, RefObj_81420* obj);
 CCivilian_81340::~CCivilian_81340() {
     vptr = gV;
     _ReadWriteBarrier();
-    Pl* pl = g_mgr_81340->m20;
+    Pl* pl = hulk_at_004dd700->m20;
     if (pl) {
         Plr* p = pl->m124;
         if (p) {
             if (((CCivilian_81340 *)((owners::Thing_36020 *)p)->FUN_00036020()) == this)
-                p->F3b160(0);
+                p->F3b160_0003b160(0);
             if (((CCivilian_81340 *)((owners::C_36030 *)p)->FUN_00036030()) == this)
-                p->F3b190(0);
+                p->F3b190_0003b190(0);
             if (p->m328 == m100)
-                p->F3ffa0(0, 0);
+                p->F3ffa0_0003ffa0(0, 0);
         }
     }
-    g_mgr_81340->m10->F1b43f0(this);
-    FUN_001c3d90()->F1c3b80(&pad[4]);
+    hulk_at_004dd700->m10->F1b43f0_001b43f0(this);
+    FUN_001c3d90()->F1c3b80_001c3b80(&pad[4]);
     if (mb8) {
         mb8->Release();
         mb8 = 0;
@@ -183,7 +183,7 @@ CCivilian_81340::~CCivilian_81340() {
         m100->Release();
         m100 = 0;
     }
-    Fin();
+    Fin_0027afd0();
 }
 
 

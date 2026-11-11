@@ -31,14 +31,14 @@ class CSmartPropGrabbableNameCondition : public CCondition {
 };
 class CSmartPropCSMableCondition_4cb70 {
   public:
-    void a();
-    void b();
+    void Fna_0027af50();
+    void Fnb_002345b0();
 };
 void thunk_FUN_00267090(void*);
-extern void* CCondition_4cbb0_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4cbb0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CSmartPropCSMableCondition : public CCondition_4cbb0 {
   public:
@@ -52,9 +52,9 @@ class CSmartPropCSMableCondition : public CCondition_4cbb0 {
 CSmartPropGrabbableNameCondition* CSmartPropGrabbableNameCondition::vfunc_5(int p) {
     CSmartPropGrabbableNameCondition* s = this;
     *(void (**)())s = &vt_name;
-    ((CSmartPropCSMableCondition_4cb70*)((char*)s + 0x10))->a();
+    ((CSmartPropCSMableCondition_4cb70*)((char*)s + 0x10))->Fna_0027af50();
     *(void (**)())s = &vt_cond;
-    ((CSmartPropCSMableCondition_4cb70*)s)->b();
+    ((CSmartPropCSMableCondition_4cb70*)s)->Fnb_002345b0();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;
@@ -67,8 +67,8 @@ CSmartPropGrabbableNameCondition* CSmartPropGrabbableNameCondition::vfunc_5(int 
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CSmartPropCSMableCondition* CSmartPropCSMableCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4cbb0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

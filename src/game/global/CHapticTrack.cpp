@@ -13,14 +13,14 @@ namespace fn_f3580c47 {} using namespace fn_f3580c47;
 
 // ---- declarations shared by the functions below
 namespace fn_f3580c47 {
-extern int* gTable_5d190;
+extern int* hulk_at_004dc5c8;
 class CCondition_5d190 {
   public:
     virtual int vfunc_0(int);
 };
 class R_5d200 {
   public:
-    int invoke(CHapticTrack*, hulk_intptr);
+    int invoke_00020a40(CHapticTrack*, hulk_intptr);
 };
 extern "C" R_5d200* FUN_0008d690(int);
 class CStageCondition_5d2d0;
@@ -56,7 +56,7 @@ class ParamValueInt_5d320 : public ParamValue_5d320 {
 // sym: ?vfunc_0@CHapticTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CHapticTrack::vfunc_0(int index) {
-    int* p = gTable_5d190;
+    int* p = hulk_at_004dc5c8;
     return p[index];
 }
 
@@ -102,7 +102,7 @@ hulk_freg CHapticTrack::vfunc_7() {
 hulk_intptr CHapticTrack::vfunc_12(hulk_intptr param) {
     R_5d200* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_00020a40(this, param);
     return 0;
 }
 
@@ -151,11 +151,11 @@ namespace fn_0005d260 {
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* hulk_at_003fa034[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CHapticTrack : public CTrack {
@@ -163,13 +163,13 @@ class CHapticTrack : public CTrack {
     CHapticTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CHapticTrack* CHapticTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003fa034;
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

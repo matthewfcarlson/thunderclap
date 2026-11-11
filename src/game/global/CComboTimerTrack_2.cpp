@@ -29,12 +29,12 @@ class CComboTimerTrack_76130 {
     CComboTimerTrack_76130();
     int a[6];
 };
-extern int CComboTimerTrack_vftable;
-extern int g_vftable_76180;
+extern int hulk_at_003fbd8c;
+extern int hulk_at_003fe604;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00069f70();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -63,7 +63,7 @@ template <> void* fight::TrackFactoryTemplate<CComboTimerTrack>::vfunc_5() {
     CComboTimerTrack_76130* p = (CComboTimerTrack_76130*)FUN_0008d690((int)sizeof(CComboTimerTrack_76130));
     if (p) {
         p->CComboTimerTrack_76130::CComboTimerTrack_76130();
-        *(int**)p = &CComboTimerTrack_vftable;
+        *(int**)p = &hulk_at_003fbd8c;
         p->a[3] = 0;
         p->a[4] = (int)0xbf800000;
         p->a[5] = 0;
@@ -79,9 +79,9 @@ namespace fn_f8ea40da {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f8ea40da@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_76180;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe604;
+    base1_dtor_00069f70();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

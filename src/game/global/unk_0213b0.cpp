@@ -11,7 +11,7 @@ namespace fn_f338c480 {} using namespace fn_f338c480;
 
 // ---- declarations shared by the functions below
 namespace fn_f338c480 {
-extern void* g_vftable_21400[];
+extern void* hulk_at_003f3390[];
 class Ref_21400 {
   public:
     virtual void F0();
@@ -132,7 +132,7 @@ namespace fn_f338c480 {
 // 0x00021400 FUN_00021400 (36 B): matches/0x00021400.cpp
 // sym: ??1CAction_21400@fn_f338c480@@QAE@XZ
 CAction_21400::~CAction_21400() {
-    vptr = g_vftable_21400;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -341,7 +341,7 @@ class CClearHitRecordsAction : public CAction {
     CClearHitRecordsAction(Arg_215d0*);
     virtual void F0();
 };
-extern int vt1_215d0, vt2;
+extern int vt1_215d0, hulk_at_003f3e58;
 CClearHitRecordsAction::CClearHitRecordsAction(Arg_215d0* p) {
     *(hulk_intptr*)this = (hulk_intptr)&vt1_215d0;
     int* q = (int*)&mArg;
@@ -351,7 +351,7 @@ CClearHitRecordsAction::CClearHitRecordsAction(Arg_215d0* p) {
     if (mArg)
         mArg->F1();
     mArg = p;
-    *(hulk_intptr*)this = (hulk_intptr)&vt2;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f3e58;
 }
 } // namespace fn_000215d0
 

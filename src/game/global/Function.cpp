@@ -13,7 +13,7 @@ namespace fn_ff17ecef {} using namespace fn_ff17ecef;
 
 // ---- declarations shared by the functions below
 namespace fn_ff17ecef {
-extern void* IRefCount_vftable_1d04a0;
+extern void* hulk_at_004223a0;
 struct TypeInfo_1d04d0 {
     int FUN_00344913(const TypeInfo_1d04d0 *other) const;
 };
@@ -43,7 +43,7 @@ namespace fn_ff17ecef {
 // sym: ?FUN_001d04a0@fn_ff17ecef@@YIXPAX@Z
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 void __fastcall FUN_001d04a0(void* self) {
-    *(void**)self = &IRefCount_vftable_1d04a0;
+    *(void**)self = &hulk_at_004223a0;
 }
 
 } // namespace fn_ff17ecef

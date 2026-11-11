@@ -22,23 +22,23 @@ class TrackFactoryTemplate_57de0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_57e20;
+extern int hulk_at_003f9464;
 struct ConditionFactoryTemplate_57e20 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0004a470();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 struct CFightNodeTimeCondition_57e50 {
     virtual ~CFightNodeTimeCondition_57e50();
     char pad[0x10];
-    void Initialize();
+    void Initialize_0004a4a0();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern void* CAlertStatusCondition_57e80_vftable[];
+extern void* hulk_at_003f6d50[];
 class CAlertStatusCondition_57e80 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f9b6de1e
 class CGrappleAlertStatusCondition : public CAlertStatusCondition_57e80 {
@@ -69,9 +69,9 @@ namespace fn_f9b6de1e {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_57e20@fn_f9b6de1e@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_57e20::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_57e20;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9464;
+    base1_dtor_0004a470();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -85,7 +85,7 @@ void* ConditionFactoryTemplate_57e20::scalar_dtor(unsigned char flags) {
 template <> void* fight::ConditionFactoryTemplate<CGrappleAlertStatusCondition>::vfunc_5() {
     CFightNodeTimeCondition_57e50* p = (CFightNodeTimeCondition_57e50*)FUN_0008d690((int)sizeof(CFightNodeTimeCondition_57e50));
     if (p) {
-        p->Initialize();
+        p->Initialize_0004a4a0();
         *(void**)p = &conditionVtable;
         return (void*)(p);
     }
@@ -99,8 +99,8 @@ template <> void* fight::ConditionFactoryTemplate<CGrappleAlertStatusCondition>:
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CGrappleAlertStatusCondition* CGrappleAlertStatusCondition::vfunc_5(signed char flags) {
-    *(void***)this = CAlertStatusCondition_57e80_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

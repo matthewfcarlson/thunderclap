@@ -12,7 +12,7 @@ namespace fn_fdd20f3b {} using namespace fn_fdd20f3b;
 
 // ---- declarations shared by the functions below
 namespace fn_fdd20f3b {
-extern int* gTable_6a390;
+extern int* hulk_at_004dcfa8;
 class CCondition_6a390 {
   public:
     virtual int vfunc_0(int);
@@ -33,13 +33,13 @@ struct CCameraDramaticTrack_6a470 {
     char pad[0x60];
 };
 struct Sub_6a470 {
-    void Init();
+    void Init_0027af50();
 };
 struct CCameraDramaticTrack_nv_6a470 {
-    void Finish();
+    void Finish_00236d60();
 };
-extern int vCamera;
-extern int vTrack;
+extern int hulk_at_003fbeb8;
+extern int hulk_at_003f98d0;
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_6a4a0 {
     int FUN_0001f880(CCameraDramaticTrack*, hulk_intptr);
@@ -59,7 +59,7 @@ void FUN_0006a370() {
 // sym: ?vfunc_0@CCameraDramaticTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCameraDramaticTrack::vfunc_0(int index) {
-    int* p = gTable_6a390;
+    int* p = hulk_at_004dcfa8;
     return p[index];
 }
 
@@ -148,16 +148,16 @@ namespace fn_fdd20f3b {
 // 0x0006a470 FUN_0006a470 (48 B): matches/0x0006a470.cpp
 // sym: ?Target@fn_fdd20f3b@@YIXPAUCCameraDramaticTrack_6a470@1@@Z
 void __fastcall Target(CCameraDramaticTrack_6a470* self) {
-    *(int**)self = &vCamera;
+    *(int**)self = &hulk_at_003fbeb8;
     Sub_6a470* p = (Sub_6a470*)((char*)self + 0x60);
     int n = 8;
     do {
         p = (Sub_6a470*)((char*)p - 8);
-        p->Init();
+        p->Init_0027af50();
         --n;
     } while (n != 0);
-    *(int**)self = &vTrack;
-    ((CCameraDramaticTrack_nv_6a470*)(((CCameraDramaticTrack*)self)))->Finish();
+    *(int**)self = &hulk_at_003f98d0;
+    ((CCameraDramaticTrack_nv_6a470*)(((CCameraDramaticTrack*)self)))->Finish_00236d60();
 }
 
 } // namespace fn_fdd20f3b

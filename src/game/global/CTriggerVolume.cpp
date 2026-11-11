@@ -101,10 +101,10 @@ class Obj_1fbfd0 {
     char pad2[0x10];
     void Run(void*);
 };
-extern void* Entity_1fc000_vftable[];
+extern void* hulk_at_004250dc[];
 class Entity_1fc000 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CTriggerVolume_1fc000 : public Entity_1fc000 {
   public:
@@ -134,10 +134,10 @@ public:
     void FUN_001fbec0(Vec3_1fc150 *pivot);
     Vec3_1fc150 *FUN_001fc150(Vec3_1fc150 *out, const Vec3_1fc150 *a, const Vec3_1fc150 *b);
 };
-extern void* Entity_1fc390_vftable[];
+extern void* hulk_at_00425120[];
 class Entity_1fc390 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CLocator_1fc390 : public Entity_1fc390 {
   public:
@@ -614,8 +614,8 @@ void Obj_1fbfd0::Run(void* arg) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CTriggerVolume_1fc000* CTriggerVolume_1fc000::vfunc_5(signed char flags) {
-    *(void***)this = Entity_1fc000_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004250dc;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -710,8 +710,8 @@ Vec3_1fc150 *CTriggerVolume_1fc150::FUN_001fc150(Vec3_1fc150 *out, const Vec3_1f
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CLocator_1fc390* CLocator_1fc390::vfunc_5(signed char flags) {
-    *(void***)this = Entity_1fc390_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00425120;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

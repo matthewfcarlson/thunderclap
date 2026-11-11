@@ -27,10 +27,10 @@ extern "C" void FUN_00054660();
 extern "C" char DAT_003f74e0[];
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 struct Obj_57d70 {
-    void Init(int);
+    void Init_00234590(int);
 };
 struct Tail_57d70 {
-    void Init();
+    void Init_00233dd0();
 };
 struct Raw_57d70 {
     hulk_uintptr vptr;
@@ -39,11 +39,11 @@ struct Raw_57d70 {
     char pad2[12];
     unsigned char b;
 };
-extern int g_vftable_57db0;
+extern int hulk_at_003f9448;
 struct ConditionFactoryTemplate_57db0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0004a820();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -71,10 +71,10 @@ template <> void* fight::ConditionFactoryCasterTemplate<CFightNodePrevCondition>
 template <> void* fight::ConditionFactoryTemplate<CFightNodePrevCondition>::vfunc_5() {
     Raw_57d70* p = (Raw_57d70*)FUN_0008d690((int)sizeof(Raw_57d70));
     if (p != 0) {
-        ((Obj_57d70*)p)->Init(0);
+        ((Obj_57d70*)p)->Init_00234590(0);
         p->vptr = ((hulk_intptr)DAT_003f74e0);
         p->f = 0;
-        ((Tail_57d70*)((char*)p + 0x10))->Init();
+        ((Tail_57d70*)((char*)p + 0x10))->Init_00233dd0();
         p->b = 1;
         return (void*)(p);
     }
@@ -87,9 +87,9 @@ namespace fn_febbe3be {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_57db0@fn_febbe3be@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_57db0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_57db0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9448;
+    base1_dtor_0004a820();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

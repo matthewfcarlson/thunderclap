@@ -8,8 +8,8 @@
 // sym: ?vfunc_2@CMoveAgent@fn_fcaa2eec@@UAEPAU12@E@Z
 namespace fn_fcaa2eec {} using namespace fn_fcaa2eec;
 namespace fn_fcaa2eec {
-extern int vftable_102c90;
-extern void __cdecl thunk(struct CMoveAgent*);
+extern int hulk_at_0040d418;
+extern void __cdecl thunk_0008d330(struct CMoveAgent*);
 
 struct Ref_102c90 {
     virtual void a();
@@ -22,16 +22,16 @@ struct CMoveAgent {
     virtual CMoveAgent* vfunc_2(unsigned char param);
     char pad[0x64];
     Ref_102c90* member;
-    void cleanupM();
+    void cleanupM_000fc630();
 };
 
 CMoveAgent* CMoveAgent::vfunc_2(unsigned char param) {
-    *(hulk_intptr*)this = (hulk_intptr)&vftable_102c90;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0040d418;
     this->member->b();
     this->member = 0;
-    this->cleanupM();
+    this->cleanupM_000fc630();
     if (param & 1)
-        thunk(this);
+        thunk_0008d330(this);
     return this;
 }
 } // namespace fn_fcaa2eec

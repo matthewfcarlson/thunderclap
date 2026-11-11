@@ -23,23 +23,23 @@ class TrackFactoryTemplate_76a00 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_76a40;
+extern int hulk_at_003fe8bc;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00069690();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" char DAT_003fe8d8[];
 typedef unsigned int u32_76a70;
 extern "C" void* FUN_0008d690(unsigned int);
 struct Track_76a70 {
-    void Init();
+    void Init_000696c0();
 };
-extern void* CSoundTrack_76aa0_vftable[];
+extern void* hulk_at_003f98d0[];
 class CSoundTrack_76aa0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f15fc4c0
 class CGrappleSoundTrack : public CSoundTrack_76aa0 {
@@ -70,9 +70,9 @@ namespace fn_f15fc4c0 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f15fc4c0@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_76a40;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe8bc;
+    base1_dtor_00069690();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -85,7 +85,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 template <> void* fight::TrackFactoryTemplate<CGrappleSoundTrack>::vfunc_5() {
     Track_76a70* p = (Track_76a70*)FUN_0008d690(0x54);
     if (p != 0) {
-        p->Init();
+        p->Init_000696c0();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fe8d8);
         return (void*)(p);
     }
@@ -99,8 +99,8 @@ template <> void* fight::TrackFactoryTemplate<CGrappleSoundTrack>::vfunc_5() {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CGrappleSoundTrack* CGrappleSoundTrack::vfunc_5(signed char flags) {
-    *(void***)this = CSoundTrack_76aa0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f98d0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

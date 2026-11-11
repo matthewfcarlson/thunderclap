@@ -28,7 +28,7 @@ class Function_1f0ad0 {
 extern "C" char DAT_004246cc[];
 struct Function_1f0af0 {
     hulk_uintptr vt;
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
 };
 struct Method3_1f0af0 : Function_1f0af0 {
     ScriptFunctionFields f;  // 0x04
@@ -107,10 +107,10 @@ struct Function_1f0e70 {
 };
 void FUN_001f0e90(const char*, const char*, const char*, int);
 extern "C" unsigned char GetValue(const char*);
-extern void* g_vftable_1f0ed0;
+extern void* hulk_at_0042471c;
 class Base_1f0ed0 {
   public:
-    void Init(void*, int);
+    void Init_001d0480(void*, int);
 };
 class Method6_1f0ed0 {
   public:
@@ -208,9 +208,9 @@ class B_1f1310 {
 };
 class Aux_1f1310 {
   public:
-    void f();
+    void Fnf_0027af50();
 };
-extern void done(void*);
+extern void done_0008d330(void*);
 class C_1f1310 {
   public:
     void* a;
@@ -229,7 +229,7 @@ struct Item_1f1350 {
     Child_1f1350 child;
     float value;
     int pad24;
-    void Process(int);
+    void Process_001effc0(int);
 };
 struct Owner_1f1350 {
     char pad0[12];
@@ -283,7 +283,7 @@ struct Item_1f1c80 {
     char pad[0xc];
     Item_1f1c80* next;
     Elem_1f1c80* list;
-    void Clean();
+    void Clean_0027af50();
 };
 struct Node {
   public:
@@ -299,7 +299,7 @@ struct Object {
     Bucket_1f13b0* FUN_001efb80(Key_1f13b0* key);
     void FUN_001f13b0(void* value, void* source);
 };
-void __cdecl Destroy(void*);
+void __cdecl Destroy_0008d330(void*);
 class CActorManager_1f1d70 {
   public:
     void Method(const char*, float);
@@ -353,17 +353,17 @@ struct Pair_1f22d0 {
 };
 class A_1f22f0 {
   public:
-    void F(float, bool);
+    void FnF_001e95c0(float, bool);
 };
 class B_1f22f0 {
   public:
-    void G(float, bool);
+    void FnG_001f64c0(float, bool);
 };
 class C_1f22f0 {
   public:
     B_1f22f0* b;
     A_1f22f0* a;
-    void H(float);
+    void FnH_001f1350(float);
     void Run(float, bool);
 };
 extern "C" void* FUN_0008d690(unsigned int);
@@ -444,7 +444,7 @@ namespace fn_ffeee61e {
 // 0x001f0af0 FUN_001f0af0 (89 B): matches/0x001f0af0.cpp
 // sym: ?Run@Method3_1f0af0@fn_ffeee61e@@QAEPAU12@PBDP8ScriptBoundClass@@AEXXZ@Z
 Method3_1f0af0* Method3_1f0af0::Run(const char* a, ScriptMemberFn b) {
-    Init(a, 3);
+    Init_001d0480(a, 3);
     vt = ((hulk_intptr)DAT_004246cc);
     m1c = b;
     f.retType = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e100)));
@@ -621,8 +621,8 @@ namespace fn_ffeee61e {
 // 0x001f0ed0 FUN_001f0ed0 (128 B): matches/0x001f0ed0.cpp
 // sym: ??0Method6_1f0ed0@fn_ffeee61e@@QAE@PAXH@Z
 Method6_1f0ed0::Method6_1f0ed0(void* p, hulk_intptr x) {
-    ((Base_1f0ed0*)this)->Init(p, 6);
-    vptr = &g_vftable_1f0ed0;
+    ((Base_1f0ed0*)this)->Init_001d0480(p, 6);
+    vptr = &hulk_at_0042471c;
     m1c = x;
     m18 = GetValue(((char*)&DAT_0048e100));
     m10 = GetValue(((char*)&DAT_0049cad8));
@@ -760,7 +760,7 @@ class FileLoader_1f1250 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public FileLoader_1f1250 {
   public:
@@ -771,7 +771,7 @@ class NonCopyable : public FileLoader_1f1250 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -816,8 +816,8 @@ SoundResourceManager *SoundResourceManager::FUN_001f1270()
 void __fastcall target(C_1f1310* self) {
     void* p = self->a;
     if (p) {
-        ((Aux_1f1310*)((char*)p + 0xa0))->f();
-        done(p);
+        ((Aux_1f1310*)((char*)p + 0xa0))->Fnf_0027af50();
+        done_0008d330(p);
         self->a = 0;
     }
     if (self->b) {
@@ -833,7 +833,7 @@ void Owner_1f1350::Run(int arg) {
     int i = 0;
     do {
         Item_1f1350* p = (Item_1f1350*)((char*)items + i);
-        p->Process(arg);
+        p->Process_001effc0(arg);
         if (p->flag == 0) {
             p->a = 0;
             p->b = 0;
@@ -1021,7 +1021,7 @@ void Node::Run() {
         Node* q = n;
         n = q->next;
         q->Run();
-        Destroy(q);
+        Destroy_0008d330(q);
     }
     Item_1f1c80* x = second;
     while (x) {
@@ -1033,10 +1033,10 @@ void Node::Run() {
             a = z->next;
             z->Del(1);
         }
-        q->Clean();
-        Destroy(q);
+        q->Clean_0027af50();
+        Destroy_0008d330(q);
     }
-    ((Item_1f1c80*)((char*)this + 0x10))->Clean();
+    ((Item_1f1c80*)((char*)this + 0x10))->Clean_0027af50();
 }
 
 } // namespace fn_ffeee61e
@@ -1046,8 +1046,8 @@ void Node::Run() {
 namespace fn_001f1cf0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_004246bc[2];
+extern void* hulk_at_00424780[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -1067,12 +1067,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_004246bc;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0049cad8));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0049cad8));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_00424780;
     owner = a2;
 }
 } // namespace fn_001f1cf0
@@ -1264,16 +1264,16 @@ template <> void Closure1<CSoundSystem, void, float>::vfunc_2(void* __p0, void* 
 // sym: ??0Closure2@fn_001f21b0@@QAE@PBDPAXP8ScriptBoundClass@@AEXXZ@Z
 namespace fn_001f21b0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
-extern void* TAB_48e100;
-extern void* TAB_48e0f0;
+extern void* hulk_at_0042474c[2];
+extern void* hulk_at_00424810[2];
+extern void* hulk_at_0048e100;
+extern void* hulk_at_0048e128;
 extern void* TAB_48e134;
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 // Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h),
 // then Method2's member-function pointer and Closure2's object.
@@ -1288,12 +1288,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_0042474c;
     fn = a3;
-    f.retType = LookupFlag(&TAB_48e100);
-    f.argTypes[0] = LookupFlag(&TAB_48e0f0);
-    f.argTypes[1] = LookupFlag(&TAB_48e134);
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(&hulk_at_0048e100);
+    f.argTypes[0] = LookupFlag_001d04d0(&hulk_at_0048e128);
+    f.argTypes[1] = LookupFlag_001d04d0(&TAB_48e134);
+    vfptr = (void*)hulk_at_00424810;
     owner = a2;
 }
 } // namespace fn_001f21b0
@@ -1313,8 +1313,8 @@ template <> void Closure2<CSoundSystem, void, float, float>::vfunc_2(void* __p0,
 namespace fn_001f2250 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_0042475c[2];
+extern void* hulk_at_00424820[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -1334,12 +1334,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_0042475c;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0049cad8));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e128));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_00424820;
     owner = a2;
 }
 } // namespace fn_001f2250
@@ -1358,10 +1358,10 @@ namespace fn_ffeee61e {
 // 0x001f22f0 FUN_001f22f0 (66 B): matches/0x001f22f0.cpp
 // sym: ?Run@C_1f22f0@fn_ffeee61e@@QAEXM_N@Z
 void C_1f22f0::Run(float x, bool flag) {
-    a->F(x, flag);
-    b->G(x, flag);
+    a->FnF_001e95c0(x, flag);
+    b->FnG_001f64c0(x, flag);
     if (flag)
-        H(x);
+        FnH_001f1350(x);
     (*(float*)&DAT_004e3714) += x;
 }
 

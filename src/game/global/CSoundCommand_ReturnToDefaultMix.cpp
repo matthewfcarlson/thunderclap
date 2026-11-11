@@ -28,7 +28,7 @@ class NonCopyable : public CSoundCommand_1ef7e0 {
 }
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 struct Mgr_1ef800 {
-    void Set(int n);
+    void Set_001e9b20(int n);
 };
 struct Owner_1ef800 {
     char pad[4];
@@ -62,7 +62,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 // sym: ?vfunc_1@CSoundCommand_ReturnToDefaultMix@fn_feccf129@@UAEXHH@Z
 // data: gOwner = DAT_004e370c
 void CSoundCommand_ReturnToDefaultMix::vfunc_1(int a, int b) {
-    (*(Owner_1ef800**)&DAT_004e370c)->mgr->Set((int)(__int64)mValue);
+    (*(Owner_1ef800**)&DAT_004e370c)->mgr->Set_001e9b20((int)(__int64)mValue);
 }
 
 } // namespace fn_feccf129

@@ -9,7 +9,7 @@ namespace fn_f464926c {} using namespace fn_f464926c;
 
 // ---- declarations shared by the functions below
 namespace fn_f464926c {
-extern void* g_vftable_220e0[];
+extern void* hulk_at_003f3390[];
 class Ref_220e0 {
   public:
     virtual void F0();
@@ -46,7 +46,7 @@ class CIntangibleAction_22120 : public CAction_22120 {
 // 0x000220e0 CInvincibleAction::vfunc_2 (57 B): matches/0x000220e0.cpp
 // sym: ?f2@CInvincibleAction_220e0@fn_f464926c@@QAEPAV12@E@Z
 CInvincibleAction_220e0* CInvincibleAction_220e0::f2(unsigned char flags) {
-    vptr = g_vftable_220e0;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

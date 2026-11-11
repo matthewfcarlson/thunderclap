@@ -16,18 +16,18 @@ namespace fn_f37c1e1b {
 class A_6a760 {
   public:
     char pad[0x33c];
-    A_6a760* Next();
+    A_6a760* Next_00059a30();
 };
 class B_6a760 {
   public:
 };
 class D {
   public:
-    int Run(COrientTargetTrack*, void*, int);
+    int Run_0001fc60(COrientTargetTrack*, void*, int);
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern D* __cdecl FUN_0001fc60(void*);
-extern int* gArray_6a7e0;
+extern int* hulk_at_004dcfc8;
 struct Param_6a840 {
   public:
     virtual void vfunc1();
@@ -42,7 +42,7 @@ struct CTrack_6a840 {
 };
 class R_6a860 {
   public:
-    int invoke(CDriftTrack*, hulk_intptr);
+    int invoke_0001fde0(CDriftTrack*, hulk_intptr);
 };
 extern R_6a860* FUN_0008d690(int);
 
@@ -54,7 +54,7 @@ hulk_intptr COrientTargetTrack::vfunc_12(hulk_intptr __p0) { void * p = (void *)
 
     B_6a760* b = (B_6a760*)p;
     A_6a760* a = ((A_6a760 *)((owners::Object_592a0 *)b)->FUN_000592a0());
-    a = a->Next();
+    a = a->Next_00059a30();
     int v = *(int*)((char*)a + 0x338);
     if (!v)
         v = *(int*)((char*)a + 0x334);
@@ -63,7 +63,7 @@ hulk_intptr COrientTargetTrack::vfunc_12(hulk_intptr __p0) { void * p = (void *)
     if (v) {
         D* d = (D*)FUN_0008d690(0x2c);
         if (d)
-            return d->Run(this, p, v);
+            return d->Run_0001fc60(this, p, v);
     }
     return 0;
 }
@@ -82,7 +82,7 @@ void FUN_0006a7c0() {
 // 0x0006a7e0 CDriftTrack::vfunc_0 (16 B): matches/0x0006a7e0.cpp
 // sym: ?vfunc_0@CDriftTrack@@UAEHH@Z
 hulk_intptr CDriftTrack::vfunc_0(int a) {
-    return gArray_6a7e0[a];
+    return hulk_at_004dcfc8[a];
 }
 
 
@@ -147,7 +147,7 @@ hulk_freg CDriftTrack::vfunc_7() {
 hulk_intptr CDriftTrack::vfunc_12(hulk_intptr param) {
     R_6a860* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_0001fde0(this, param);
     return 0;
 }
 

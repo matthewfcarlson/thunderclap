@@ -20,7 +20,7 @@ struct Name_14fe0 { unsigned data;  };
 struct Sweep_14fe0 { virtual void slot0(); char pad[4]; Name_14fe0 name; char pad2[8]; unsigned kind; Sweep_14fe0* FUN_002248f0(int); };
 extern void* __cdecl FUN_00263ea0(unsigned);
 struct R_15170 {
-    void call(void*, int);
+    void call_00222970(void*, int);
 };
 extern void* __fastcall FUN_000592a0(void*);
 extern "C" R_15170* __fastcall FUN_00059a40(void*);
@@ -90,6 +90,6 @@ void CSweepAction::vfunc_4() {
     void* a = FUN_000592a0((*(void * *)&this->f_1c));
     R_15170* b = FUN_00059a40(a);
     if (b)
-        b->call((*(void * *)&this->f_24), 0);
+        b->call_00222970((*(void * *)&this->f_24), 0);
 }
 

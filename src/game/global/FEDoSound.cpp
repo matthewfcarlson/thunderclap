@@ -188,7 +188,7 @@ class FEDoAction_e8b40 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_0040bfa0[];
 namespace pure3d {
 class NonCopyable : public FEDoAction_e8b40 {
   public:
@@ -199,7 +199,7 @@ class NonCopyable : public FEDoAction_e8b40 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_0040bfa0;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

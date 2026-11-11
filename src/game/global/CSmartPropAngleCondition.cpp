@@ -15,10 +15,10 @@ namespace fn_ff756602 {} using namespace fn_ff756602;
 
 // ---- declarations shared by the functions below
 namespace fn_ff756602 {
-extern void* CCondition_4c660_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4c660 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CSmartPropAttachedCondition : public CCondition_4c660 {
   public:
@@ -27,7 +27,7 @@ class CSmartPropAttachedCondition : public CCondition_4c660 {
 extern void* CCondition_4c690_vftable[];
 class CCondition_4c690 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CSmartPropWeaponizableTypeCondition : public CCondition_4c690 {
   public:
@@ -36,7 +36,7 @@ class CSmartPropWeaponizableTypeCondition : public CCondition_4c690 {
 extern void* CCondition_4c6c0_vftable[];
 class CCondition_4c6c0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CSmartPropWeaponTypeCondition : public CCondition_4c6c0 {
   public:
@@ -45,7 +45,7 @@ class CSmartPropWeaponTypeCondition : public CCondition_4c6c0 {
 extern void* CCondition_4c6f0_vftable[];
 class CCondition_4c6f0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CSmartPropTypeCondition : public CCondition_4c6f0 {
   public:
@@ -61,7 +61,7 @@ extern int condition_vftable_4c720;
 extern void* CCondition_4c760_vftable[];
 class CCondition_4c760 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CSmartPropAngleCondition : public CCondition_4c760 {
   public:
@@ -75,8 +75,8 @@ class CSmartPropAngleCondition : public CCondition_4c760 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CSmartPropAttachedCondition* CSmartPropAttachedCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4c660_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -91,7 +91,7 @@ CSmartPropAttachedCondition* CSmartPropAttachedCondition::vfunc_5(signed char fl
  // thunk_FUN_00267090
 CSmartPropWeaponizableTypeCondition* CSmartPropWeaponizableTypeCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4c690_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -106,7 +106,7 @@ CSmartPropWeaponizableTypeCondition* CSmartPropWeaponizableTypeCondition::vfunc_
  // thunk_FUN_00267090
 CSmartPropWeaponTypeCondition* CSmartPropWeaponTypeCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4c6c0_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -121,7 +121,7 @@ CSmartPropWeaponTypeCondition* CSmartPropWeaponTypeCondition::vfunc_5(signed cha
  // thunk_FUN_00267090
 CSmartPropTypeCondition* CSmartPropTypeCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4c6f0_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -150,7 +150,7 @@ CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNa
  // thunk_FUN_00267090
 CSmartPropAngleCondition* CSmartPropAngleCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4c760_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

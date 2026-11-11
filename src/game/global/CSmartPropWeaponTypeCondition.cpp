@@ -13,7 +13,7 @@ namespace fn_f4a687b6 {} using namespace fn_f4a687b6;
 
 // ---- declarations shared by the functions below
 namespace fn_f4a687b6 {
-extern int* gTable_49360;
+extern int* hulk_at_004dc4b0;
 class CCondition_49360 {
   public:
     virtual int vfunc_0(int);
@@ -50,7 +50,7 @@ void FUN_00049340() {
 // sym: ?vfunc_0@CSmartPropWeaponTypeCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropWeaponTypeCondition::vfunc_0(int index) {
-    int* p = gTable_49360;
+    int* p = hulk_at_004dc4b0;
     return p[index];
 }
 

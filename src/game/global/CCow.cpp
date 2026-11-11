@@ -16,27 +16,27 @@ struct Holder_832e0 {
     virtual void a();
     virtual void release();
 };
-extern char cow_vtable[];
+extern char hulk_at_003ff90c[];
 extern void __cdecl thunk_FUN_00267090(void*);
 struct CCow {
     void* vfptr;
     char pad[0x38];
     Holder_832e0* mHolder;
     CCow* vfunc_2(byte_832e0 flags);
-    void helper();
+    void helper_0027afd0();
 };
 
 
 // 0x000832e0 CCow::vfunc_2 (57 B): matches/0x000832e0.cpp
 // sym: ?vfunc_2@CCow@fn_f6f327b7@@QAEPAU12@E@Z
 CCow* CCow::vfunc_2(byte_832e0 flags) {
-    vfptr = (void*)cow_vtable;
+    vfptr = (void*)hulk_at_003ff90c;
     _ReadWriteBarrier();
     if (mHolder) {
         mHolder->release();
         mHolder = 0;
     }
-    helper();
+    helper_0027afd0();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

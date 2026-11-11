@@ -282,7 +282,7 @@ class CAlertStatusCondition_504c0;
 }
 namespace fn_fe626ee4 {
 extern "C" int __cdecl FUN_00344e74(const char*, int, const void*, const void*, int);
-extern int g1, g2;
+extern int hulk_at_00491ca8, hulk_at_00491cd0;
 
 } // namespace fn_fe626ee4
 
@@ -788,6 +788,6 @@ template <> bool fight::ParamFloatConstRange<CMotionClimbAngleCondition>::vfunc_
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VCAlertStatusCondition@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<CAlertStatusCondition>::vfunc_0(void* __p0) { const char * s = (const char *)__p0;
 
-    return FUN_00344e74(s, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(s, 0, &hulk_at_00491ca8, &hulk_at_00491cd0, 0) != 0;
 }
 

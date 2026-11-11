@@ -16,7 +16,7 @@ class Param {
     virtual void Drop();
 };
 struct ThisCall_00232660 {
-    void BaseInit();
+    void BaseInit_00232660();
 };
 class CHapticEventAction_20a40 {
   public:
@@ -26,7 +26,7 @@ class CHapticEventAction_20a40 {
     volatile int value;
     CHapticEventAction_20a40* ctor(int value, Param* p);
 };
-extern void* g_vftable_20b20[];
+extern void* hulk_at_003f3390[];
 class Ref_20b20 {
   public:
     virtual void F0();
@@ -97,7 +97,7 @@ class RefObj_20c90 {
     virtual void Release();
 };
 struct Tidier {
-    void Tidy();
+    void Tidy_002326a0();
 };
 class CSmartPropUpdateAttachmentAction {
   public:
@@ -128,7 +128,7 @@ class CAction_20d20 : public Action_20d20 {
 // 0x00020a40 FUN_00020a40 (78 B): matches/0x00020a40.cpp
 // sym: ?ctor@CHapticEventAction_20a40@fn_fe1a35b1@@QAEPAV12@HPAVParam@2@@Z
 CHapticEventAction_20a40* CHapticEventAction_20a40::ctor(int value, Param* p) {
-    ((ThisCall_00232660*)(this))->BaseInit();
+    ((ThisCall_00232660*)(this))->BaseInit_00232660();
     v = (void*)((hulk_intptr)DAT_003f3390);
     this->p = 0;
     if (p)
@@ -155,7 +155,7 @@ struct Ref_20a90 {
     virtual void Release();
 };
 struct CHapticEventAction_20a90;
-void __fastcall BaseDtor(CHapticEventAction_20a90* p);
+void __fastcall BaseDtor_002326a0(CHapticEventAction_20a90* p);
 struct CHapticEventAction_20a90 {
     virtual void a0();
     virtual void a1();
@@ -177,7 +177,7 @@ void CHapticEventAction_20a90::Dtor() {
         mRef->Release();
         mRef = 0;
     }
-    BaseDtor(this);
+    BaseDtor_002326a0(this);
 }
 } // namespace fn_00020a90
 
@@ -191,7 +191,7 @@ struct Obj_20ad0 {
     virtual void G();
 };
 extern int VBase;
-extern int VDerived;
+extern int hulk_at_003f3cb8;
 class CAction {
   public:
     CAction();
@@ -215,7 +215,7 @@ CAlertStatusAction_20ad0::CAlertStatusAction_20ad0(Obj_20ad0* arg, int value) {
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f3cb8;
 }
 void CAlertStatusAction_20ad0::V0() {}
 } // namespace fn_00020ad0
@@ -225,7 +225,7 @@ namespace fn_fe1a35b1 {
 // 0x00020b20 FUN_00020b20 (36 B): matches/0x00020b20.cpp
 // sym: ??1CAction_20b20@fn_fe1a35b1@@QAE@XZ
 CAction_20b20::~CAction_20b20() {
-    vptr = g_vftable_20b20;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -380,7 +380,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         a->Release();
         mA = 0;
     }
-    ((Tidier*)this)->Tidy();
+    ((Tidier*)this)->Tidy_002326a0();
 }
 
 } // namespace fn_fe1a35b1
@@ -394,7 +394,7 @@ struct Obj_20cd0 {
     virtual void G();
 };
 extern int VBase;
-extern int VDerived;
+extern int hulk_at_003f3d58;
 class CAction {
   public:
     CAction();
@@ -418,7 +418,7 @@ CMotionHitGroundHeightAction_20cd0::CMotionHitGroundHeightAction_20cd0(Obj_20cd0
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f3d58;
 }
 void CMotionHitGroundHeightAction_20cd0::V0() {}
 } // namespace fn_00020cd0
@@ -483,7 +483,7 @@ CWallSlideAction::CWallSlideAction(int a, Other_20d50* o) : CAction(a, o) {
 // sym: ?Shutdown@CSmartPropUpdateAttachmentAction@fn_00020da0@@QAEXXZ
 namespace fn_00020da0 {
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
-extern char vftableD[];
+extern char hulk_at_003f3d80[];
 extern char vftableA[];
 
 class RefObj_20da0 {
@@ -493,7 +493,7 @@ class RefObj_20da0 {
 };
 
 struct Tidier {
-    void Tidy();
+    void Tidy_002326a0();
 };
 
 class CSmartPropUpdateAttachmentAction {
@@ -506,7 +506,7 @@ class CSmartPropUpdateAttachmentAction {
 };
 
 void CSmartPropUpdateAttachmentAction::Shutdown() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)hulk_at_003f3d80;
     RefObj_20da0* b = mB;
     if (b) {
         b->Release();
@@ -518,7 +518,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         a->Release();
         mA = 0;
     }
-    ((Tidier*)this)->Tidy();
+    ((Tidier*)this)->Tidy_002326a0();
 }
 } // namespace fn_00020da0
 

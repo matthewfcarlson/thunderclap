@@ -13,7 +13,7 @@ namespace fn_f4042a89 {} using namespace fn_f4042a89;
 namespace fn_f4042a89 {
 class Receiver_ddef0 {
   public:
-    void go(int);
+    void go_00294980(int);
 };
 class FEThingsBase_ddef0 {
   public:
@@ -62,7 +62,7 @@ class FEThingsBase_ddef0 {
 };
 class Receiver_ddf00 {
   public:
-    void go();
+    void go_002949e0();
 };
 class FEThingsBase_ddf00 {
   public:
@@ -288,21 +288,21 @@ class X_ddf50 {
     virtual void f();
 };
 struct FEThings_nv_ddf50 {
-    void helper(char*, int);
+    void helper_000f5fa0(char*, int);
 };
-extern void* g_vftable_ddfc0[];
+extern void* hulk_at_0040bd24[];
 class Ref_ddfc0 {
   public:
     virtual void F0();
     virtual void Release();
 };
 struct Sub_ddfc0 {
-    void Fini();
+    void Fini_000f6f60();
 };
 class FEThingsBase_ddfc0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_000ef920();
 };
 class FEThings_ddfc0 : public FEThingsBase_ddfc0 {
   public:
@@ -323,7 +323,7 @@ class Item {
 };
 class Manager {
   public:
-    void Apply(void*);
+    void Apply_00293ea0(void*);
 };
 struct Provider { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual const char* vfunc_8(); };
 struct Receiver { virtual void vfunc_0(); virtual void vfunc_1(const char*, void*); };
@@ -355,7 +355,7 @@ extern void thunk_FUN_00267090(FEThings_de110*);
 // 0x000ddef0 FEThings::vfunc_40 (11 B): matches/0x000ddef0.cpp
 // sym: ?vfunc_40@FEThings@@UAEXH@Z
 void FEThings::vfunc_40(int a0) {
-    (*(Receiver_ddef0 * *)&this->f_2224)->go(a0);
+    (*(Receiver_ddef0 * *)&this->f_2224)->go_00294980(a0);
 }
 
 
@@ -363,7 +363,7 @@ void FEThings::vfunc_40(int a0) {
 // sym: ?vfunc_41@FEThings@@UAEXXZ
 // Same code shape as 0x000ddef0 (propagated; names are from that function)
 void FEThings::vfunc_41() {
-    (*(Receiver_ddf00 * *)&this->f_2224)->go();
+    (*(Receiver_ddf00 * *)&this->f_2224)->go_002949e0();
 }
 
 
@@ -400,7 +400,7 @@ void FEThings::vfunc_46(unsigned long x) {
 void FEThings::vfunc_64(int p, int , int ) {
     if (p == 0 && --this->f_2208 <= 0) {
         this->f_2205 = 1;
-        ((FEThings_nv_ddf50*)this)->helper((*(char (*)[8705])&this->f_04) + 0x2101, 0);
+        ((FEThings_nv_ddf50*)this)->helper_000f5fa0((*(char (*)[8705])&this->f_04) + 0x2101, 0);
         if ((*(X_ddf50 * *)&this->f_220c))
             (*(X_ddf50 * *)&this->f_220c)->f();
     }
@@ -412,9 +412,9 @@ namespace fn_f4042a89 {
 // sym: ??1FEThings_ddfc0@fn_f4042a89@@QAE@XZ
 FEThings_ddfc0::~FEThings_ddfc0() throw() {
     Sub_ddfc0* p = m2230;
-    vptr = g_vftable_ddfc0;
+    vptr = hulk_at_0040bd24;
     if (p) {
-        p->Fini();
+        p->Fini_000f6f60();
         operator delete(p);
         m2230 = 0;
     }
@@ -426,7 +426,7 @@ FEThings_ddfc0::~FEThings_ddfc0() throw() {
         m1828->Release();
         m1828 = 0;
     }
-    Fin();
+    Fin_000ef920();
 }
 
 } // namespace fn_f4042a89
@@ -438,7 +438,7 @@ void FEThings::vfunc_42(hulk_intptr __p0) { Item * p = (Item *)__p0;
     int n = p->count;
     for (int i = 0; i < n; ++i) {
         void* v = i < p->size ? p->values[i] : 0;
-        (*(Manager * *)&this->f_2224)->Apply(v);
+        (*(Manager * *)&this->f_2224)->Apply_00293ea0(v);
     }
 }
 

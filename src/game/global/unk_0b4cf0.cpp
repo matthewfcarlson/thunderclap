@@ -64,16 +64,16 @@ struct Event {
     Event(const char*);
 };
 struct Receiver {
-    void Send(Event*);
+    void Send_001cbc20(Event*);
 };
 struct Global {
     char pad[0x30];
     Receiver* rec;
 };
-extern Global* g;
+extern Global* hulk_at_004dd700;
 class Sub {
   public:
-    void Set(const char*, int, int);
+    void Set_000f8500(const char*, int, int);
 };
 class Obj {
   public:
@@ -115,7 +115,7 @@ struct Rec {
     char pad[20];
     char data[4];
 };
-extern Rec* findrec(const char*);
+extern Rec* findrec_000fc260(const char*);
 struct Control_b5920 {
     char pad00[5];
     char busy;
@@ -167,8 +167,8 @@ class Widget {
 };
 extern "C" void* __cdecl lookup(const char*);
 extern "C" Widget* __cdecl convert(void*, int, void*, void*, int);
-extern int r1, r2;
-extern "C" int __cdecl makeName(const char*);
+extern int hulk_at_0049dba4, hulk_at_0049dbbc;
+extern "C" int __cdecl makeName_000fc260(const char*);
 extern "C" class Selector* __cdecl findSelector(int, int, void*, void*, int);
 extern int gA, gB;
 class Selector {
@@ -258,7 +258,7 @@ struct Button_b7760 {
     char flag;
 };
 extern "C" Button_b7760* __cdecl Convert(void*, int, void*, void*, int);
-extern int type1_b7760, type2;
+extern int type1_b7760, hulk_at_0049f4a4;
 } // namespace fn_fedc4c02
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
@@ -329,8 +329,8 @@ struct Entry_b8c50 {
     char pad[0x14];
     int field14;
 };
-Obj_b8c50* __cdecl GetManager();
-Entry_b8c50* __cdecl FindEntry(int key);
+Obj_b8c50* __cdecl GetManager_000fc3d0();
+Entry_b8c50* __cdecl FindEntry_000fc260(int key);
 struct Obj_b8c50 {
     virtual void v0();
     virtual void v1();
@@ -364,10 +364,10 @@ struct Obj_b8c90 {
     virtual void a7();
     virtual const char* Name();
 };
-Obj_b8c90* GetObj();
-extern "C" void __cdecl CallA(int);
-extern "C" int __cdecl CallB();
-extern "C" int __cdecl CallC();
+Obj_b8c90* GetObj_000fc310();
+extern "C" void __cdecl CallA_000fc170(int);
+extern "C" int __cdecl CallB_000fc310();
+extern "C" int __cdecl CallC_000fc320();
 class Renderer_b90c0 {
   public:
     void FUN_001b98e0(float a, float b, float c, float d, float e, float f);
@@ -474,9 +474,9 @@ struct Canvas {
     void FUN_00293da0(float x, float y, float z);
 };
 struct Inner_b9620 {
-    void A();
-    void B(int);
-    bool C();
+    void FnA_001b8af0();
+    void FnB_001baab0(int);
+    bool FnC_001b8b30();
 };
 struct Obj_b9620 {
     char pad[0x54];
@@ -493,13 +493,13 @@ struct Glob_b9770 {
     State_b9770* state;
     int mode;
 };
-extern Glob_b9770* GetGlobal();
+extern Glob_b9770* GetGlobal_000fc3d0();
 struct A_b9770 {
-    void F();
-    void G(int);
+    void FnF_00089390();
+    void FnG_00089a30(int);
 };
 struct B_b9770 {
-    void F(int);
+    void FnF_001cc620(int);
 };
 class Obj_b9770 {
   public:
@@ -512,8 +512,8 @@ class Obj_b9770 {
 };
 class Sub_bb5c0 {
   public:
-    void Init();
-    void Fn(int a, int b);
+    void Init_00089ab0();
+    void Fn_00093600(int a, int b);
 };
 class Obj_bb5c0 {
   public:
@@ -521,7 +521,7 @@ class Obj_bb5c0 {
     Sub_bb5c0* flag;
     char pad2[0x14];
     Sub_bb5c0* sub;
-    void Finish();
+    void Finish_000b9bf0();
 };
 struct Provider_bb820 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43(); virtual int get(); };
 struct Text_bb820 { void FUN_000f8500(const char*, int, int); char storage[0x58]; };
@@ -768,7 +768,7 @@ namespace fn_fedc4c02 {
 // data: flag = DAT_004e222c
 void target() {
     Event e("JumpMarkerSelectionCancelled");
-    g->rec->Send(&e);
+    hulk_at_004dd700->rec->Send_001cbc20(&e);
     (*(unsigned char*)&DAT_004e222c) = 1;
 }
 
@@ -778,7 +778,7 @@ void target() {
 extern "C" void __stdcall FUN_000b5490(const char* name) {
     Obj* p = Lookup("side_mission_success_name");
     if (p && &p->sub) {
-        p->sub.Set(name, 0, 1);
+        p->sub.Set_000f8500(name, 0, 1);
         p->f3();
     }
 }
@@ -891,7 +891,7 @@ void Menu_b5710::FUN_000b5710(const char* name, int a2, int a3, int a4, int a5, 
 namespace fn_000b5790 {
 struct Str {
     char pad[24];
-    void Set(const char*, int, int);
+    void Set_000f8500(const char*, int, int);
 };
 class Obj {
   public:
@@ -902,11 +902,11 @@ class Obj {
     char pad[20];
     Str str;
 };
-extern Obj* findObj(const char*);
+extern Obj* findObj_000fc260(const char*);
 extern "C" void __stdcall FUN_000b5790(const char* s) {
-    Obj* p = findObj("side_mission_fail_name");
+    Obj* p = findObj_000fc260("side_mission_fail_name");
     if (p && &p->str) {
-        p->str.Set(s, 0, 1);
+        p->str.Set_000f8500(s, 0, 1);
         p->d();
     }
 }
@@ -918,7 +918,7 @@ extern "C" void __stdcall FUN_000b5790(const char* s) {
 namespace fn_000b57d0 {
 class Sub {
   public:
-    void Show(int, int, int);
+    void Show_000f8500(int, int, int);
 };
 class Item {
   public:
@@ -933,7 +933,7 @@ extern Item* FUN_000fc260(const char*);
 extern "C" void __stdcall FUN_000b57d0(hulk_intptr x) {
     Item* p = FUN_000fc260("side_mission_fail_hint");
     if (p && &p->sub) {
-        p->sub.Show(x, 0, 1);
+        p->sub.Show_000f8500(x, 0, 1);
         p->d();
     }
 }
@@ -943,7 +943,7 @@ extern "C" void __stdcall FUN_000b57d0(hulk_intptr x) {
 // 0x000b5810 FUN_000b5810 (85 B): matches/0x000b5810.cpp
 // sym: ?FUN_000b5810@Handler_b5810@owners@@QAEXMMMMMMM@Z
 void owners::Handler_b5810::FUN_000b5810(float a, float b, float c, float d, float e, float f, float g) {
-    Rec* p = findrec("side_mission_fail_record");
+    Rec* p = findrec_000fc260("side_mission_fail_record");
     if (p && &p->data) {
         write(&p->data, a, b, c, d, e, f, g);
         p->done();
@@ -978,7 +978,7 @@ void Panel_b5920::FUN_000b5920(int enable)
 // sym: ?FUN_000b5a30@Owner_b5a30@owners@@QAEXXZ
 // data: name = DAT_00407b14
 void owners::Owner_b5a30::FUN_000b5a30() {
-    Widget* w = convert(lookup(((char*)&DAT_00407b14)), 0, &r1, &r2, 0);
+    Widget* w = convert(lookup(((char*)&DAT_00407b14)), 0, &hulk_at_0049dba4, &hulk_at_0049dbbc, 0);
     if (w && state)
         w->set(state[5] == 0);
 }
@@ -988,7 +988,7 @@ namespace fn_fedc4c02 {
 // 0x000b5a80 FUN_000b5a80 (70 B): matches/0x000b5a80.cpp
 // sym: ?setup@Screen@fn_fedc4c02@@QAEXXZ
 void Screen::setup() {
-    Selector* s = findSelector(makeName("pause_config_vibration_selector"), 0, &gA, &gB, 0);
+    Selector* s = findSelector(makeName_000fc260("pause_config_vibration_selector"), 0, &gA, &gB, 0);
     if (s && state)
         s->set(state->flag == 0);
 }
@@ -1017,7 +1017,7 @@ struct Desc {
     int a;
 };
 extern Desc objA, objB;
-extern "C++" __declspec(nothrow) void* __cdecl find(const char*);
+extern "C++" __declspec(nothrow) void* __cdecl find_000fc260(const char*);
 extern "C++" __declspec(nothrow) void* __cdecl castObj(void*, int, Desc*, Desc*, int);
 extern "C" char __cdecl FUN_00035da0();
 class Selector {
@@ -1053,7 +1053,7 @@ inline void use(Selector* s, int b) {
     s->set(b);
 }
 void target() {
-    Selector* s = (Selector*)castObj(find("targeting_selector"), 0, &objA, &objB, 0);
+    Selector* s = (Selector*)castObj(find_000fc260("targeting_selector"), 0, &objA, &objB, 0);
     if (s)
         use(s, FUN_00035da0() == 0);
 }
@@ -1094,14 +1094,14 @@ class FEObject {
     virtual void y();
     virtual void Set(int);
 };
-extern int __cdecl FindName(const char*);
+extern int __cdecl FindName_000fc260(const char*);
 extern hulk_intptr __cdecl LookupThing(int, int, int*, int*, int);
 extern int __cdecl GetFlagThing(int);
 struct Result_b5b90 {
-    char Check(int);
+    char Check_00092de0(int);
 };
 struct Ctx_b5b90 {
-    Result_b5b90* Get();
+    Result_b5b90* Get_00086340();
 };
 struct Global_b5b90 {
     char pad[0x54];
@@ -1109,10 +1109,10 @@ struct Global_b5b90 {
 };
 extern Global_b5b90* gGlobal_b5b90;
 void FUN_000b5b90() {
-    FEObject* p = (FEObject*)LookupThing(FindName("cheat_invulnerability_selector"), 0, (int*)((hulk_intptr)DAT_0049dba4),
+    FEObject* p = (FEObject*)LookupThing(FindName_000fc260("cheat_invulnerability_selector"), 0, (int*)((hulk_intptr)DAT_0049dba4),
                                          (int*)((hulk_intptr)DAT_0049dbbc), 0);
     if (p) {
-        int flag = gGlobal_b5b90->ctx->Get()->Check(0x2e4) == 0;
+        int flag = gGlobal_b5b90->ctx->Get_00086340()->Check_00092de0(0x2e4) == 0;
         p->Set(flag);
     }
 }
@@ -1473,7 +1473,7 @@ struct Obj2_b7590 {
 };
 
 struct Inner_b7590 {
-    const char* GetName();
+    const char* GetName_0008a2d0();
 };
 
 struct Menu_b7590 {
@@ -1493,7 +1493,7 @@ void Menu_b7590::Func() {
         return;
     if (!mInner)
         return;
-    const char* n = mInner->GetName();
+    const char* n = mInner->GetName_0008a2d0();
     char r = 1;
     if (n) {
         if (strcmp(n, "c00m01") != 0) {
@@ -1659,7 +1659,7 @@ namespace fn_fedc4c02 {
 // sym: ?Run@Obj_b7760@fn_fedc4c02@@QAEXXZ
 // data: key = DAT_004080a8
 void Obj_b7760::Run() {
-    Button_b7760* b = Convert(Find(DAT_004080a8), 0, &type1_b7760, &type2, 0);
+    Button_b7760* b = Convert(Find(DAT_004080a8), 0, &type1_b7760, &hulk_at_0049f4a4, 0);
     if (b) {
         int count = 0;
         for (int i = 0x266; i <= 0x2c9; ++i)
@@ -2077,9 +2077,9 @@ void Obj::Set(const char* s) {
 // 0x000b8c50 FUN_000b8c50 (56 B): matches/0x000b8c50.cpp
 // sym: ?TargetFn@fn_fedc4c02@@YGXHH@Z
 void __stdcall TargetFn(int param1, int param2) {
-    Obj_b8c50* obj = GetManager()->v3(param1);
+    Obj_b8c50* obj = GetManager_000fc3d0()->v3(param1);
     if (obj) {
-        Entry_b8c50* entry = FindEntry(param2);
+        Entry_b8c50* entry = FindEntry_000fc260(param2);
         if (entry) {
             obj->v19(entry->field14);
         }
@@ -2091,8 +2091,8 @@ void __stdcall TargetFn(int param1, int param2) {
 // 0x000b8c90 FUN_000b8c90 (97 B): matches/0x000b8c90.cpp
 // sym: ?FUN_000b8c90@Foo_b8c90@owners@@QAE_NXZ
 bool owners::Foo_b8c90::FUN_000b8c90() {
-    if (GetObj()) {
-        const char* s = GetObj()->Name();
+    if (GetObj_000fc310()) {
+        const char* s = GetObj_000fc310()->Name();
         if (s) {
             if (strcmp("fullscreen_message", s) == 0 || strcmp("mission_accept", s) == 0) {
                 if (v < 2.0f)
@@ -2169,9 +2169,9 @@ void JumpMarkers::FUN_000b8e70(int unused)
 // 0x000b9090 FUN_000b9090 (45 B): matches/0x000b9090.cpp
 // sym: ?FUN_000b9090@Target_b9090@owners@@QAEXH@Z
 void owners::Target_b9090::FUN_000b9090(int value) {
-    CallA(value);
-    if (CallB() == 0) {
-        if (CallC() == 0) {
+    CallA_000fc170(value);
+    if (CallB_000fc310() == 0) {
+        if (CallC_000fc320() == 0) {
             state = 4;
         }
     }
@@ -2464,9 +2464,9 @@ namespace fn_fedc4c02 {
 // sym: ?Target@Obj_b9620@fn_fedc4c02@@QAEXXZ
 void Obj_b9620::Target() {
     if (p) {
-        p->A();
-        p->B(0);
-        if (!p->C())
+        p->FnA_001b8af0();
+        p->FnB_001baab0(0);
+        if (!p->FnC_001b8b30())
             FUN_000fc2f0();
     }
 }
@@ -2601,14 +2601,14 @@ namespace fn_fedc4c02 {
 // sym: ?Run@Obj_b9770@fn_fedc4c02@@QAEXXZ
 void Obj_b9770::Run() {
     if (state == 0x14) {
-        Glob_b9770* g = GetGlobal();
+        Glob_b9770* g = GetGlobal_000fc3d0();
         if (!g->state || !g->state->flag) {
             state = 9;
-            g = GetGlobal();
+            g = GetGlobal_000fc3d0();
             if (g->mode == 1) {
-                a->F();
-                b->F(9);
-                a->G(0);
+                a->FnF_00089390();
+                b->FnF_001cc620(9);
+                a->FnG_00089a30(0);
                 FUN_000fc300();
             }
         }
@@ -2777,10 +2777,10 @@ namespace fn_fedc4c02 {
 // sym: @FUN_000bb5c0@4
 extern "C" void __fastcall FUN_000bb5c0(Obj_bb5c0* self) {
     if (self->flag) {
-        self->flag->Init();
+        self->flag->Init_00089ab0();
         for (int i = 0x248; i <= 0x257; ++i)
-            self->sub->Fn(i, 0);
-        self->Finish();
+            self->sub->Fn_00093600(i, 0);
+        self->Finish_000b9bf0();
     }
 }
 

@@ -13,7 +13,7 @@ namespace fn_fdecd08a {} using namespace fn_fdecd08a;
 namespace fn_fdecd08a {
 class Inner_93430 {
   public:
-    void Reset();
+    void Reset_0027af50();
 };
 class CUnlockableCheat_93430 {
   public:
@@ -31,7 +31,7 @@ CUnlockableCheat_93430::~CUnlockableCheat_93430() {
         FreeMem(mPtr18);
         mPtr18 = 0;
     }
-    ((Inner_93430*)((char*)this + 0x10))->Reset();
+    ((Inner_93430*)((char*)this + 0x10))->Reset_0027af50();
 }
 
 } // namespace fn_fdecd08a

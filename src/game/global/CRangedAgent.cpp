@@ -18,7 +18,7 @@ struct Thing_107000 {
     virtual void f1();
 };
 struct CRangedAgent_nv_107000 {
-    void cleanup();
+    void cleanup_000fc630();
 };
 struct Stats_107030 {
     char pad0[0x3a0];
@@ -176,7 +176,7 @@ void CRangedAgent::FUN_00107000() {
     *(void**)this = &handvtable;
     (*(Thing_107000 * *)&this->f_5c)->f1();
     (*(Thing_107000 * *)&this->f_5c) = 0;
-    ((CRangedAgent_nv_107000*)this)->cleanup();
+    ((CRangedAgent_nv_107000*)this)->cleanup_000fc630();
 }
 
 
@@ -248,9 +248,9 @@ struct Thing_107100 {
     virtual void a();
     virtual void b();
 };
-extern int handVtable;
+extern int hulk_at_0040d678;
 struct CRangedAgent_107100 {
-    void run();
+    void run_000fc630();
 };
 void __cdecl thunk_FUN_00267090(void*);
 class CRangedAgent {
@@ -284,10 +284,10 @@ class CRangedAgent {
 };
 CRangedAgent* CRangedAgent::vfunc_2(unsigned char param) {
     Thing_107100* t = thing;
-    *(hulk_intptr*)this = (hulk_intptr)&handVtable;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0040d678;
     t->b();
     thing = 0;
-    ((CRangedAgent_107100*)this)->run();
+    ((CRangedAgent_107100*)this)->run_000fc630();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;

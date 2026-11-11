@@ -30,9 +30,9 @@ class C_1048d0 {
 };
 class Helper_1048f0 {
   public:
-    float f(hulk_intptr, int);
+    float Fnf_000fc4e0(hulk_intptr, int);
 };
-extern volatile const float gZero_1048f0;
+extern volatile const float hulk_at_003f32e0;
 class X_104920 {
   public:
     char pad[0x88];
@@ -146,10 +146,10 @@ struct Root_105ef0 {
     char pad[0x1c];
     void* sub;
 };
-extern Root_105ef0* gRoot_105ef0;
+extern Root_105ef0* hulk_at_004dd700;
 struct Sub_105ef0 {
 };
-extern void __cdecl Ref(void*);
+extern void __cdecl Ref_0008d340(void*);
 class CPathGraphAgent_105ef0 {
   public:
     void* vptr;
@@ -161,7 +161,7 @@ class CPathGraphAgent_105ef0 {
     void* mA;
     void* mAcopy;
 };
-extern void __fastcall Finish(CPathGraphAgent_105ef0*);
+extern void __fastcall Finish_000fc630(CPathGraphAgent_105ef0*);
 
 } // namespace fn_f58850d5
 
@@ -231,8 +231,8 @@ void C_1048d0::set(hulk_intptr x) {
 // sym: ?vfunc_3@CPathAgent@@UAEMHH@Z
 // Same code shape as 0x00102b60 (propagated; names are from that function)
 hulk_freg CPathAgent::vfunc_3(hulk_intptr x, int y) {
-    ((Helper_1048f0*)this)->f(x, y);
-    float z = gZero_1048f0;
+    ((Helper_1048f0*)this)->Fnf_000fc4e0(x, y);
+    float z = hulk_at_003f32e0;
     *(int*)((char*)this + 8) = 0;
     return z;
 }
@@ -458,9 +458,9 @@ class Obj_105060 {
     virtual void A();
     virtual void B();
 };
-extern void thunk(unsigned int);
-extern void thunk2(void*);
-extern void* g_vft_105060;
+extern void thunk_0008d340(unsigned int);
+extern void thunk2_0008d330(void*);
+extern void* hulk_at_0040d4e0;
 class CCharacterAgent_105060 {
   public:
     void* vptr;
@@ -476,7 +476,7 @@ class CPathAgent : public CCharacterAgent_105060 {
     ~CPathAgent() throw();
 };
 CPathAgent::~CPathAgent() throw() {
-    *(void* volatile*)&vptr = &g_vft_105060;
+    *(void* volatile*)&vptr = &hulk_at_0040d4e0;
     Obj_105060* q = *(Obj_105060* volatile*)&m60;
     if (q) {
         q->B();
@@ -486,9 +486,9 @@ CPathAgent::~CPathAgent() throw() {
     Obj_105060* p = m64;
     mc8 = 0;
     if (p) {
-        thunk(*(unsigned int*)p);
-        thunk(*(unsigned int*)((char*)p + 0xc));
-        thunk2(p);
+        thunk_0008d340(*(unsigned int*)p);
+        thunk_0008d340(*(unsigned int*)((char*)p + 0xc));
+        thunk2_0008d330(p);
         m64 = 0;
     }
 }
@@ -1017,14 +1017,14 @@ namespace fn_f58850d5 {
 // sym: ?FUN@fn_f58850d5@@YIXPAVCPathGraphAgent_105ef0@1@@Z
 void __fastcall FUN(CPathGraphAgent_105ef0* self) {
     self->vptr = (void*)((hulk_intptr)DAT_0040d518);
-    ((owners::Ring_1ae150 *)(((Sub_105ef0*)gRoot_105ef0->sub)))->FUN_001ae150((hulk_intptr)((char*)self + 0x5c));
+    ((owners::Ring_1ae150 *)(((Sub_105ef0*)hulk_at_004dd700->sub)))->FUN_001ae150((hulk_intptr)((char*)self + 0x5c));
     self->mAcopy = self->mA;
     if (self->mA)
-        Ref(self->mA);
+        Ref_0008d340(self->mA);
     self->mBcopy = self->mB;
     if (self->mB)
-        Ref(self->mB);
-    Finish(self);
+        Ref_0008d340(self->mB);
+    Finish_000fc630(self);
 }
 
 } // namespace fn_f58850d5
@@ -1224,7 +1224,7 @@ struct CPatrolPath {
     char pad[0x0c];
     u32_106130 m10;
     u32_106130 m14;
-    void finish();
+    void finish_0027afd0();
     void target();
 };
 void CPatrolPath::target() {
@@ -1232,7 +1232,7 @@ void CPatrolPath::target() {
     u32_106130 x = m10;
     thunk_FUN_00267090(x);
     m14 = 0;
-    finish();
+    finish_0027afd0();
 }
 } // namespace fn_00106130
 

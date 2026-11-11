@@ -30,7 +30,7 @@ struct Obj_60980 {
     int field;
 };
 struct CEffectStopAction_nv_60980 {
-    int method(hulk_intptr, int);
+    int method_0001f780(hulk_intptr, int);
 };
 extern void* FUN_0008d690(int);
 extern Obj_60980* FUN_0005a430(int);
@@ -40,7 +40,7 @@ hulk_intptr CGrappleEffectStopTrack::vfunc_12(hulk_intptr arg) {
     if (p) {
         Obj_60980* o = FUN_0005a430(arg);
         int v = o->field;
-        return ((CEffectStopAction_nv_60980*)(p))->method((hulk_intptr)this, v);
+        return ((CEffectStopAction_nv_60980*)(p))->method_0001f780((hulk_intptr)this, v);
     }
     return 0;
 }

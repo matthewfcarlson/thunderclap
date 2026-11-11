@@ -15,7 +15,7 @@ namespace fn_f710b797 {} using namespace fn_f710b797;
 
 // ---- declarations shared by the functions below
 namespace fn_f710b797 {
-extern void* g_vftable_109ba0[];
+extern void* hulk_at_0040d770[];
 class CAvoidBehaviour_109ba0 {
   public:
     void* vptr;
@@ -176,7 +176,7 @@ CAvoidBehaviour_109ba0::CAvoidBehaviour_109ba0() throw() {
     m4 = 0;
     m8 = 0;
     mc = 0;
-    vptr = g_vftable_109ba0;
+    vptr = hulk_at_0040d770;
     *(float*)&m28 = 1.0f;
     m2c = 0;
     m18 = 0;

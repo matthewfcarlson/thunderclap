@@ -9,7 +9,7 @@ namespace fn_f513c711 {} using namespace fn_f513c711;
 
 // ---- declarations shared by the functions below
 namespace fn_f513c711 {
-extern int CAction_vftable;
+extern int hulk_at_003f3390;
 class Ref_22020 {
   public:
     virtual void a();
@@ -20,7 +20,7 @@ class CSmartPropDropAction {
     int* vptr;
     char pad[0x18];
     Ref_22020* member;
-    void cleanup();
+    void cleanup_002326a0();
     CSmartPropDropAction* vfunc_2(int);
 };
 void __cdecl thunk_FUN_00267090(CSmartPropDropAction*);
@@ -61,13 +61,13 @@ class CSmartPropRemoveInstanceAction_220a0 : public CAction_220a0 {
 // 0x00022020 CSmartPropDropAction::vfunc_2 (57 B): matches/0x00022020.cpp
 // sym: ?vfunc_2@CSmartPropDropAction@fn_f513c711@@QAEPAV12@H@Z
 CSmartPropDropAction* CSmartPropDropAction::vfunc_2(int flag) {
-    vptr = &CAction_vftable;
+    vptr = &hulk_at_003f3390;
     _ReadWriteBarrier();
     if (member) {
         member->b();
         member = 0;
     }
-    cleanup();
+    cleanup_002326a0();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;

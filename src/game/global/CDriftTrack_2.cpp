@@ -33,13 +33,13 @@ struct CDriftTrack_76410 {
     float field10;
     unsigned int field14;
     float field18;
-    void init();
+    void init_00236d40();
 };
-extern int g_vftable_76460;
+extern int hulk_at_003fe674;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006a7c0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -67,7 +67,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CDriftTrack>::vfunc_1(void* 
 template <> void* fight::TrackFactoryTemplate<CDriftTrack>::vfunc_5() {
     CDriftTrack_76410* p = (CDriftTrack_76410*)operator_new(0x1c);
     if (p) {
-        p->init();
+        p->init_00236d40();
         p->vptr = ((hulk_intptr)DAT_003fbfa4);
         p->fieldc = 0;
         p->field10 = -1.0f;
@@ -85,9 +85,9 @@ namespace fn_f2b51e98 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f2b51e98@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_76460;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe674;
+    base1_dtor_0006a7c0();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

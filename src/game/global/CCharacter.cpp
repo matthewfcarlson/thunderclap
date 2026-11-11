@@ -92,7 +92,7 @@ public:
     char FUN_00038660(const V3_38c70* p, float h, int a0, int a1, int a2, int a3, int a4, int a5, const V3_38c70* q);
     bool FUN_00038c70(int a0, int a1, int a2, int a3, int a4, int a5);
 };
-extern unsigned char Work(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int,
+extern unsigned char Work_002027c0(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int,
                           unsigned int, unsigned int);
 typedef unsigned char u8_38e30;
 extern "C" u8_38e30 __cdecl FUN_002029e0(int, int, int, int, int, int);
@@ -191,13 +191,13 @@ struct LinkB {
     int mKind;
 };
 struct Sub2_393c0 {
-    bool Check(void* t);
+    bool Check_000242d0(void* t);
 };
 struct Glob2 {
     char pad[0x20];
     Sub2_393c0* sub;
 };
-extern Glob2* g_glob;
+extern Glob2* hulk_at_004dd700;
 struct CCharacter_393c0 {
     char pad0[0x328];
     LinkB* mLink;
@@ -218,8 +218,8 @@ class CCharacter_3a520 {
 
   public:
     void* Fn(hulk_intptr a, hulk_intptr b, int c, int d);
-    char Do(int a, int b, int c, int d, void* p);
-    void Fail();
+    char Do_0003a440(int a, int b, int c, int d, void* p);
+    void Fail_000393c0();
 };
 class A_3a570 {
   public:
@@ -961,7 +961,7 @@ struct Part {
     char pad[8];
     char a;
     char b;
-    void Copy(const Part*);
+    void Copy_0027af70(const Part*);
 };
 class CCharacter_3ec70 {
     char pad[0x22b8];
@@ -1064,7 +1064,7 @@ class Thing_3ffa0 {
     void Set(Ref_3ffa0*, unsigned char);
 };
 struct CCharacter_nv_3ffa0 {
-    void Missing();
+    void Missing_000393c0();
 };
 struct Vector { float x,y,z; };
 struct Parent_3ffe0 { char pad[0x12c]; int value; };
@@ -1108,14 +1108,14 @@ class Owner_400e0 {
     Item_400e0* current;
     char pad1[0x1b48 - 0x32c];
     char flag;
-    Item_400e0* Helper(int, int, int, int, int, int, int);
+    Item_400e0* Helper_00039c60(int, int, int, int, int, int, int);
     Item_400e0* Build(hulk_intptr, hulk_intptr, int, int, int);
 };
 struct CCharacter_nv_40140 {
-    void callee(int, int, int, int, int, int);
+    void callee_0003acf0(int, int, int, int, int, int);
 };
 struct CCharacter_nv_40170 {
-    bool f(int);
+    bool Fnf_0003aef0(int);
 };
 static inline float Stored_40dc0(const float &v)
 {
@@ -1364,16 +1364,16 @@ public:
 };
 class Check_42890 {
   public:
-    int Ready();
+    int Ready_00059a40();
 };
 class Inner_42890 {
   public:
-    void Init(int);
+    void Init_00231f20(int);
     char pad[0x4c];
 };
 class Res_42890 {
   public:
-    void Scale(float);
+    void Scale_001d8fc0(float);
 };
 class CCharacter_42890 {
   public:
@@ -1382,12 +1382,12 @@ class CCharacter_42890 {
     char p14[0xc8];
     Inner_42890 inner;
     Res_42890* res;
-    void Finish(int, float);
+    void Finish_00040dc0(int, float);
     void Do(int, float);
 };
 class Context {
   public:
-    int Check();
+    int Check_00059a40();
 };
 class CCharacter_428e0 {
   public:
@@ -1396,15 +1396,15 @@ class CCharacter_428e0 {
     char pad14[0x334 - 0x14];
     CCharacter_428e0* mNext;
     void UpdateA(int, int);
-    void UpdateB(int, int);
-    void UpdateC(int, int);
-    void UpdateNext(int, int);
+    void UpdateB_00042680(int, int);
+    void UpdateC_0003dc40(int, int);
+    void UpdateNext_00042890(int, int);
 };
 struct CCharacter_nv_42930 {
-    void helper(int, float);
+    void helper_00042890(int, float);
 };
 struct CCharacter_nv_42960 {
-    void helper(int, float);
+    void helper_000428e0(int, float);
 };
 } // namespace fn_f35f7bdf
 inline void* operator new(size_t, void* p) throw() { return p; }
@@ -2171,7 +2171,7 @@ bool Probe_38c70::FUN_00038c70(int a0, int a1, int a2, int a3, int a4, int a5)
 unsigned char owners::Obj_38de0::FUN_00038de0(hulk_uintptr a, hulk_uintptr b, unsigned int c, unsigned int d, hulk_uintptr e,
                         hulk_uintptr f, hulk_uintptr g, hulk_uintptr h) {
     Lock(0);
-    unsigned char r = Work(((unsigned int)a), ((unsigned int)b), c, d, ((unsigned int)e), ((unsigned int)f), ((unsigned int)g), ((unsigned int)h));
+    unsigned char r = Work_002027c0(((unsigned int)a), ((unsigned int)b), c, d, ((unsigned int)e), ((unsigned int)f), ((unsigned int)g), ((unsigned int)h));
     Lock(1);
     return r;
 }
@@ -2249,14 +2249,14 @@ hulk_intptr Actor_392e0::FUN_000392e0(Request* request) {
 void CCharacter_393c0::Fn() {
     if (mFlag)
         return;
-    g_glob->sub->Check(this);
+    hulk_at_004dd700->sub->Check_000242d0(this);
     LinkB* l = mLink;
     if (l && l->mKind == 1) {
         Other_393c0* o = l->mTarget;
         if (o) {
-            Sub2_393c0* s = g_glob->sub;
+            Sub2_393c0* s = hulk_at_004dd700->sub;
             if (s) {
-                if (s->Check(o)) {
+                if (s->Check_000242d0(o)) {
                     if (o->val > 0.0f)
                         return;
                 }
@@ -3217,8 +3217,8 @@ bool Query_3a440::test(Vec_3a440* origin,Vec_3a440* direction,float angle,float 
 void* CCharacter_3a520::Fn(hulk_intptr a, hulk_intptr b, int c, int d) {
     if (flag)
         return p;
-    if (!Do(a, b, c, d, p)) {
-        Fail();
+    if (!Do_0003a440(a, b, c, d, p)) {
+        Fail_000393c0();
         return 0;
     }
     return p;
@@ -4837,7 +4837,7 @@ namespace fn_f35f7bdf {
 // sym: ?Set@CCharacter_3ec70@fn_f35f7bdf@@QAEXPBUPart@2@@Z
 void CCharacter_3ec70::Set(const Part* p) {
     Part* q = &part;
-    q->Copy(p);
+    q->Copy_0027af70(p);
     q->a = p->a;
     q->b = p->b;
 }
@@ -5644,7 +5644,7 @@ namespace fn_f35f7bdf {
 // sym: ?Set@Thing_3ffa0@fn_f35f7bdf@@QAEXPAVRef_3ffa0@2@E@Z
 void Thing_3ffa0::Set(Ref_3ffa0* value, unsigned char flag) {
     if (value == 0) {
-        ((CCharacter_nv_3ffa0*)(((CCharacter*)(((CCharacter*)(this))))))->Missing();
+        ((CCharacter_nv_3ffa0*)(((CCharacter*)(((CCharacter*)(this))))))->Missing_000393c0();
         return;
     }
     state = flag;
@@ -5682,7 +5682,7 @@ int Object::target(int a,int b,unsigned char allow,int fallback,int mode) {
 // 0x000400e0 FUN_000400e0 (91 B): matches/0x000400e0.cpp
 // sym: ?Build@Owner_400e0@fn_f35f7bdf@@QAEPAVItem_400e0@2@HHHHH@Z
 Item_400e0* Owner_400e0::Build(hulk_intptr a, hulk_intptr b, int c, int d, int e) {
-    Item_400e0* p = Helper(a, b, c, d, e, 0, 0);
+    Item_400e0* p = Helper_00039c60(a, b, c, d, e, 0, 0);
     if (p) {
         flag = 0;
         p->A();
@@ -5698,7 +5698,7 @@ Item_400e0* Owner_400e0::Build(hulk_intptr a, hulk_intptr b, int c, int d, int e
 // 0x00040140 FUN_00040140 (35 B): matches/0x00040140.cpp
 // sym: ?FUN_00040140@CCharacter@@QAEXHHHHH@Z
 void CCharacter::FUN_00040140(int a, int b, int c, int d, int e) {
-    ((CCharacter_nv_40140*)this)->callee(0, a, b, c, d, e);
+    ((CCharacter_nv_40140*)this)->callee_0003acf0(0, a, b, c, d, e);
 }
 
 
@@ -5707,7 +5707,7 @@ void CCharacter::FUN_00040140(int a, int b, int c, int d, int e) {
 int CCharacter::FUN_00040170() {
     bool bad = false;
     for (int i = 0; i < 8; i++)
-        if (!((CCharacter_nv_40170*)this)->f(i))
+        if (!((CCharacter_nv_40170*)this)->Fnf_0003aef0(i))
             bad = true;
     return !bad;
 }
@@ -6960,11 +6960,11 @@ void Mover_42680::FUN_00042680(float a, float dt)
 // 0x00042890 FUN_00042890 (78 B): matches/0x00042890.cpp
 // sym: ?Do@CCharacter_42890@fn_f35f7bdf@@QAEXHM@Z
 void CCharacter_42890::Do(int a, float b) {
-    inner.Init(0);
-    if (thing->Ready()) {
+    inner.Init_00231f20(0);
+    if (thing->Ready_00059a40()) {
         if (res)
-            res->Scale(b * 1000.0f);
-        Finish(a, b);
+            res->Scale_001d8fc0(b * 1000.0f);
+        Finish_00040dc0(a, b);
     }
 }
 
@@ -6974,13 +6974,13 @@ void CCharacter_42890::Do(int a, float b) {
 void CCharacter_428e0::UpdateA(int a, int b) {
     CCharacter_428e0* p = this;
     do {
-        if (p->mContext->Check()) {
-            p->UpdateB(a, b);
-            p->UpdateC(a, b);
+        if (p->mContext->Check_00059a40()) {
+            p->UpdateB_00042680(a, b);
+            p->UpdateC_0003dc40(a, b);
         }
         if (!p->mNext)
             break;
-        p->mNext->UpdateNext(a, b);
+        p->mNext->UpdateNext_00042890(a, b);
         p = p->mNext;
     } while (1);
 }
@@ -6991,7 +6991,7 @@ void CCharacter_428e0::UpdateA(int a, int b) {
 // sym: ?FUN_00042930@C_42930@owners@@QAEXHM@Z
 void owners::C_42930::FUN_00042930(int a, float b) {
     if (!flag && field338 == 0)
-        ((CCharacter_nv_42930*)(((CCharacter*)(this))))->helper(a, b * scale);
+        ((CCharacter_nv_42930*)(((CCharacter*)(this))))->helper_00042890(a, b * scale);
 }
 
 
@@ -7000,7 +7000,7 @@ void owners::C_42930::FUN_00042930(int a, float b) {
 // Same code shape as 0x00042930 (propagated; names are from that function)
 void owners::C_42960::FUN_00042960(int a, float b) {
     if (!flag && field338 == 0)
-        ((CCharacter_nv_42960*)(((CCharacter*)(this))))->helper(a, b * scale);
+        ((CCharacter_nv_42960*)(((CCharacter*)(this))))->helper_000428e0(a, b * scale);
 }
 
 

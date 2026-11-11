@@ -81,7 +81,7 @@ class Thing_1fc790 {
 };
 class Item_1fc7c0 {
   public:
-    void Clear();
+    void Clear_001fb950();
 };
 class Thing_1fc7c0 {
   public:
@@ -144,10 +144,10 @@ class Item {
     hulk_intptr a;
     int b;
     char _m_pad_10[0x30];
-    Item* Get();
-    void SetAngle(float);
-    void Send(int, int, int);
-    bool Set(int, int, int);
+    Item* Get_001fba60();
+    void SetAngle_001fb9b0(float);
+    void Send_001d6ec0(int, int, int);
+    bool Set_001f9460(int, int, int);
 };
 class Obj {
     char pad[0x20c];
@@ -175,7 +175,7 @@ struct Info {
     float value;
 };
 struct CTriggerVolumeManager_nv_1fca90 {
-    Info* GetInfo(int);
+    Info* GetInfo_001fc7f0(int);
 };
 struct Vec3_1fcab0 {
     float x, y, z;
@@ -193,10 +193,10 @@ struct Vec3_1fcb30 {
     float x, y, z;
 };
 struct CTriggerVolumeManager_nv_1fcb30 {
-    void Set(Vec3_1fcb30*, Vec3_1fcb30*, float);
+    void Set_001fbb80(Vec3_1fcb30*, Vec3_1fcb30*, float);
 };
 struct ThisWrap_001fcb30 {
-    CTriggerVolumeManager* Find(int);
+    CTriggerVolumeManager* Find_001fc7f0(int);
     bool Target(int id, Vec3_1fcb30 a, Vec3_1fcb30 d, float angle);
 };
 struct R {
@@ -212,7 +212,7 @@ struct CTriggerVolumeManager_1fcb90 {
     unsigned char b;
 };
 struct CTriggerVolumeManager_nv_1fcb90 {
-    CTriggerVolumeManager_1fcb90* Find(int);
+    CTriggerVolumeManager_1fcb90* Find_001fc7f0(int);
 };
 struct X_1fcbc0 {
     char pad[0xce];
@@ -256,7 +256,7 @@ class CTriggerVolumeManager_1fcc00 {
     char enabled;
 };
 struct CTriggerVolumeManager_nv_1fcc00 {
-    CTriggerVolumeManager_1fcc00* lookup(int);
+    CTriggerVolumeManager_1fcc00* lookup_001fc7f0(int);
 };
 extern "C" __int64 __cdecl convert(int);
 struct Obj_1fcc40 {
@@ -264,19 +264,19 @@ struct Obj_1fcc40 {
     char flag;
 };
 struct CTriggerVolumeManager_nv_1fcc40 {
-    Obj_1fcc40* Helper(void*);
+    Obj_1fcc40* Helper_001fc7f0(void*);
 };
 struct CTriggerVolumeManager_1fcc60 {
     char pad[0xcd];
     unsigned char flag;
 };
 struct CTriggerVolumeManager_nv_1fcc60 {
-    CTriggerVolumeManager_1fcc60* findObj(int);
+    CTriggerVolumeManager_1fcc60* findObj_001fc7f0(int);
 };
 class Item;
 class Helper {
   public:
-    void Apply(Item*, int);
+    void Apply_001e7290(Item*, int);
 };
 class Mid {
     char pad[12];
@@ -285,9 +285,9 @@ class Mid {
     Helper* helper;
 };
 struct CTriggerVolumeManager_nv_1fcc80 {
-    Item* Find(int);
+    Item* Find_001fc7f0(int);
 };
-extern char buffer[];
+extern char hulk_at_004e58e8[];
 extern "C" void __cdecl FUN_00096d50(char*, int, int, int);
 class CTriggerVolumeManager_1fccb0 {
     char pad[0x238];
@@ -389,7 +389,7 @@ class CTriggerVolumeManager_1fce50 {
     unsigned char flag;
 };
 struct CTriggerVolumeManager_nv_1fce50 {
-    CTriggerVolumeManager_1fce50* Find(int);
+    CTriggerVolumeManager_1fce50* Find_001fc7f0(int);
     unsigned char FUN_001fce50(Trip a, int id, unsigned char enabled);
 };
 class Input_1fcea0 {
@@ -404,12 +404,12 @@ class Input_1fcea0 {
     virtual void v7();
     virtual int get(void*);
     virtual float value();
-    int process();
+    int process_001fba60();
 };
 struct Record_1fcea0 {
     char data[0x40];
-    void second(float);
-    void third(int);
+    void second_001fb9b0(float);
+    void third_001fbfd0(int);
 };
 class Owner_1fcea0 {
   public:
@@ -435,8 +435,8 @@ class Elem_1fd130 {
     char pad[0x458];
     int mFlag;
     char pad2[0xc70 - 0x45c];
-    bool Check(void* p);
-    void Do(void* p);
+    bool Check_001f8740(void* p);
+    void Do_001f8fe0(void* p);
 };
 class CTriggerVolumeManager_1fd130 {
   public:
@@ -477,7 +477,7 @@ class Item_1fd730 {
 };
 class Part_1fd730 {
   public:
-    void Run();
+    void Run_001fa040();
 };
 class Obj_1fd730 {
   public:
@@ -495,7 +495,7 @@ typedef unsigned __int64 U64_1fd780;
 extern U64_1fd780 __cdecl FUN_0027b020(U_1fd780);
 namespace fn_f3d6a774 {
 struct CTriggerVolumeManager_1fd780 {
-    int Second(U64_1fd780);
+    int Second_001fc8c0(U64_1fd780);
     hulk_intptr Target(U_1fd780);
 };
 class Result_1fd830 {
@@ -512,7 +512,7 @@ class Result_1fd830 {
     virtual float Get();
 };
 struct CTriggerVolumeManager_nv_1fd830 {
-    Result_1fd830* Find(unsigned long long key);
+    Result_1fd830* Find_001fc8c0(unsigned long long key);
 };
 } // namespace fn_f3d6a774
 extern unsigned long long FUN_0027b020(unsigned int);
@@ -520,26 +520,26 @@ namespace fn_f3d6a774 {
 struct Data {
     int a, b, c;
 };
-U64 __cdecl Convert(int);
+U64 __cdecl Convert_0027b020(int);
 class CTriggerVolumeManager_1fd870 {
   public:
-    Item* Find(U64);
+    Item* Find_001fc8c0(U64);
     bool Do(int, Data);
 };
 struct CTriggerVolumeManager_nv_1fd8b0 {
-    Item* Find(int, int);
+    Item* Find_001fc8c0(int, int);
 };
 struct Pair {
     int a, b;
 };
-Pair __cdecl Lookup(int);
+Pair __cdecl Lookup_0027b020(int);
 struct CTriggerVolumeManager_nv_1fd8f0 {
-    void* Find(__int64);
+    void* Find_001fc8c0(__int64);
 };
-extern __int64 __cdecl Convert(void*);
+extern __int64 __cdecl Convert_0027b020(void*);
 class Other {
   public:
-    unsigned char Valid();
+    unsigned char Valid_001fba00();
 };
 class CTriggerVolumeManager_1fd920 {
     char pad[0x238];
@@ -547,11 +547,11 @@ class CTriggerVolumeManager_1fd920 {
   public:
     int count;
     Item* items[1];
-    void Setup(int, int);
+    void Setup_001fccf0(int, int);
     void Run(int a, int b, int c);
 };
 struct CTriggerVolumeManager_nv_1fd980 {
-    void Helper(int a, int b);
+    void Helper_001fccf0(int a, int b);
 };
 struct Game { char pad[0x234]; Entry *entries; bool FUN_001fdeb0(int id, bool flag); int FUN_001fcff0(int id); };
 class CTriggerVolumeManager_1fdf10 {
@@ -568,14 +568,14 @@ class CTriggerVolumeManager_1fdf50 {
     Item* items;
 
   public:
-    int Find(int);
+    int Find_001fcff0(int);
     bool Run(int id, int a, int b, int c);
 };
 class CTriggerVolumeManager_1fdf90 {
   public:
     char pad[0x234];
     char* data;
-    int GetIndex(int);
+    int GetIndex_001fcff0(int);
     void* Lookup(int);
 };
 struct Id8 {
@@ -727,7 +727,7 @@ class Method3_1fefe0 {
     hulk_intptr vftable;
     ScriptFunctionFields f;  // 0x04
     ScriptMemberFn p1c;      // 0x1c
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
     Method3_1fefe0* Build(const char*, ScriptMemberFn);
 };
 } // namespace fn_f3d6a774
@@ -769,7 +769,7 @@ extern "C" char DAT_00425354[];
 struct FUN_001d0480 {
     FUN_001d0480(const char*, int);
 };
-extern "C" char __cdecl ReadBool(const char*);
+extern "C" char __cdecl ReadBool_001d04d0(const char*);
 class Method4_1ff150 : public FUN_001d0480 {
   public:
     hulk_intptr vptr;
@@ -798,7 +798,7 @@ class Function_1ff2a0 {
 };
 extern "C" char DAT_00425374[];
 struct Function_1ff2c0 {
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
 };
 class Method3_1ff2c0 : public Function_1ff2c0 {
   public:
@@ -851,8 +851,8 @@ struct Factory {
     CTriggerVolumeManager* FUN_001fe080(Triple a, int b, int c, int d, int e);
     int FUN_001ff950(Triple a, int b, int c, int d, int e);
 };
-extern char b[];
-char __cdecl check(const char*);
+extern char hulk_at_0048e10c[];
+char __cdecl check_001d04d0(const char*);
 class Function_1ff9a0 {
   public:
     Function_1ff9a0(const char*, int);
@@ -862,8 +862,8 @@ class Method1_1ff9a0 : public Function_1ff9a0 {
   public:
     inline Method1_1ff9a0(const char* n, void* ctx) : Function_1ff9a0(n, 1) {
         v = ctx;
-        y = check(b);
-        x = check(((char*)&DAT_0048e0f0));
+        y = check_001d04d0(hulk_at_0048e10c);
+        x = check_001d04d0(((char*)&DAT_0048e0f0));
     }
     virtual void h();
     char pad[0x0c];
@@ -1070,7 +1070,7 @@ void Thing_1fc790::ClearAll() {
 // Same code shape as 0x001fc790 (propagated; names are from that function)
 void Thing_1fc7c0::ClearAll() {
     for (int i = 0; i < count; ++i)
-        items[i]->Clear();
+        items[i]->Clear_001fb950();
 }
 
 
@@ -1140,7 +1140,7 @@ Item* Obj::Find(int index) {
     if (index < 0 || index > count)
         return (Item*)&(*(int*)&DAT_003f335c);
     Item* p = &items[index];
-    return p->Get();
+    return p->Get_001fba60();
 }
 
 } // namespace fn_f3d6a774
@@ -1179,7 +1179,7 @@ void CTriggerVolumeManager::FUN_001fca40(void* __p0, unsigned int id) { Vec3 * o
 // 0x001fca90 FUN_001fca90 (32 B): matches/0x001fca90.cpp
 // sym: ?FUN_001fca90@CTriggerVolumeManager@@QAEMH@Z
 float CTriggerVolumeManager::FUN_001fca90(int arg) {
-    Info* p = ((CTriggerVolumeManager_nv_1fca90*)(this))->GetInfo(arg);
+    Info* p = ((CTriggerVolumeManager_nv_1fca90*)(this))->GetInfo_001fc7f0(arg);
     if (!p)
         return (*(float*)&DAT_003f32e0);
     return p->value;
@@ -1205,10 +1205,10 @@ namespace fn_f3d6a774 {
 // sym: ?Target@ThisWrap_001fcb30@fn_f3d6a774@@QAE_NHUVec3_1fcb30@2@0M@Z
 // a..c and d..f: two vectors passed by value.
 bool ThisWrap_001fcb30::Target(int id, Vec3_1fcb30 a, Vec3_1fcb30 d, float angle) {
-    CTriggerVolumeManager* o = this->Find(id);
+    CTriggerVolumeManager* o = this->Find_001fc7f0(id);
     if (!o)
         return false;
-    ((CTriggerVolumeManager_nv_1fcb30*)(o))->Set(&a, &d, angle * 0.017453292519943295f);
+    ((CTriggerVolumeManager_nv_1fcb30*)(o))->Set_001fbb80(&a, &d, angle * 0.017453292519943295f);
     return true;
 }
 
@@ -1227,7 +1227,7 @@ char CTriggerVolumeManager::FUN_001fcb70(unsigned int x) {
 // 0x001fcb90 FUN_001fcb90 (44 B): matches/0x001fcb90.cpp
 // sym: ?FUN_001fcb90@CTriggerVolumeManager@@QAEEH@Z
 unsigned char CTriggerVolumeManager::FUN_001fcb90(int n) {
-    CTriggerVolumeManager_1fcb90* p = ((CTriggerVolumeManager_nv_1fcb90*)(this))->Find(n);
+    CTriggerVolumeManager_1fcb90* p = ((CTriggerVolumeManager_nv_1fcb90*)(this))->Find_001fc7f0(n);
     if (p && p->b && p->a)
         return 1;
     return 0;
@@ -1256,7 +1256,7 @@ char CTriggerVolumeManager::FUN_001fcbe0(int a) {
 // 0x001fcc00 FUN_001fcc00 (61 B): matches/0x001fcc00.cpp
 // sym: ?FUN_001fcc00@CTriggerVolumeManager@@QAEDHH@Z
 char CTriggerVolumeManager::FUN_001fcc00(int a, int b) {
-    CTriggerVolumeManager_1fcc00* o = ((CTriggerVolumeManager_nv_1fcc00*)(this))->lookup(b);
+    CTriggerVolumeManager_1fcc00* o = ((CTriggerVolumeManager_nv_1fcc00*)(this))->lookup_001fc7f0(b);
     if (!o)
         return 0;
     if (!o->enabled)
@@ -1268,7 +1268,7 @@ char CTriggerVolumeManager::FUN_001fcc00(int a, int b) {
 // 0x001fcc40 FUN_001fcc40 (24 B): matches/0x001fcc40.cpp
 // sym: ?FUN_001fcc40@CTriggerVolumeManager@@QAEXPAX@Z
 void CTriggerVolumeManager::FUN_001fcc40(void* p) {
-    Obj_1fcc40* r = ((CTriggerVolumeManager_nv_1fcc40*)(this))->Helper(p);
+    Obj_1fcc40* r = ((CTriggerVolumeManager_nv_1fcc40*)(this))->Helper_001fc7f0(p);
     if (r) {
         r->flag = 0;
     }
@@ -1278,7 +1278,7 @@ void CTriggerVolumeManager::FUN_001fcc40(void* p) {
 // 0x001fcc60 FUN_001fcc60 (24 B): matches/0x001fcc60.cpp
 // sym: ?FUN_001fcc60@CTriggerVolumeManager@@QAEXH@Z
 void CTriggerVolumeManager::FUN_001fcc60(int id) {
-    CTriggerVolumeManager_1fcc60* p = ((CTriggerVolumeManager_nv_1fcc60*)(this))->findObj(id);
+    CTriggerVolumeManager_1fcc60* p = ((CTriggerVolumeManager_nv_1fcc60*)(this))->findObj_001fc7f0(id);
     if (p)
         p->flag = 1;
 }
@@ -1287,9 +1287,9 @@ void CTriggerVolumeManager::FUN_001fcc60(int id) {
 // 0x001fcc80 FUN_001fcc80 (38 B): matches/0x001fcc80.cpp
 // sym: ?FUN_001fcc80@CTriggerVolumeManager@@QAEXHH@Z
 void CTriggerVolumeManager::FUN_001fcc80(int a, int b) {
-    Item* p = ((CTriggerVolumeManager_nv_1fcc80*)this)->Find(a);
+    Item* p = ((CTriggerVolumeManager_nv_1fcc80*)this)->Find_001fc7f0(a);
     if (p)
-        (*(Mid * *)&this->f_04)->helper->Apply(p, b);
+        (*(Mid * *)&this->f_04)->helper->Apply_001e7290(p, b);
 }
 
 namespace fn_f3d6a774 {
@@ -1300,8 +1300,8 @@ char* CTriggerVolumeManager_1fccb0::get(int index) {
     if (index >= count)
         return 0;
     Item* p = items[index];
-    FUN_00096d50(buffer, 0x40, p->a, p->b);
-    return buffer;
+    FUN_00096d50(hulk_at_004e58e8, 0x40, p->a, p->b);
+    return hulk_at_004e58e8;
 }
 
 
@@ -1358,7 +1358,7 @@ void Spawner_1fcdb0::FUN_001fcdb0(int key, int arg)
 // a..c: a 3-word value passed by value and forwarded to the volume's slot 8. A by-value struct parameter can't be
 // declared in include/gen (tools/gen_headers.py nv_sig_type), so the member is defined on a local stand-in.
 unsigned char CTriggerVolumeManager_nv_1fce50::FUN_001fce50(Trip a, int id, unsigned char enabled) {
-    CTriggerVolumeManager_1fce50* p = Find(id);
+    CTriggerVolumeManager_1fce50* p = Find_001fc7f0(id);
     if (!p)
         return 0;
     if (enabled && !p->flag)
@@ -1377,9 +1377,9 @@ bool Owner_1fcea0::add(Input_1fcea0* p) {
         int a = p->get(tmp);
         ((owners::Target_1fb990 *)&(records[count]))->FUN_001fb990((const int *)(hulk_uintptr)(int)a);
         float arg1 = p->value();
-        records[count].second(arg1);
-        int b = p->process();
-        records[count].third(b);
+        records[count].second_001fb9b0(arg1);
+        int b = p->process_001fba60();
+        records[count].third_001fbfd0(b);
         ++count;
         return true;
     }
@@ -1405,7 +1405,7 @@ hulk_intptr CTriggerVolumeManager::FUN_001fcf40() {
 // 0x001fcff0 FUN_001fcff0 (75 B): matches/0x001fcff0.cpp [wrapped: conflict: Entry]
 // sym: ?Find@Obj@fn_001fcff0@@QAEHI@Z
 namespace fn_001fcff0 {
-unsigned __int64 __cdecl lookup(unsigned);
+unsigned __int64 __cdecl lookup_0027b020(unsigned);
 struct Entry {
     unsigned __int64 key;
     char pad[0x448];
@@ -1424,7 +1424,7 @@ class Obj {
     int Find(unsigned x);
 };
 int Obj::Find(unsigned x) {
-    unsigned __int64 k = lookup(x);
+    unsigned __int64 k = lookup_0027b020(x);
     for (int i = 0; i < 8; i++) {
         Entry* e = &holder->entries[i];
         if (e->active && e->key == k)
@@ -1461,8 +1461,8 @@ void CTriggerVolumeManager_1fd130::Target(void* p2, void* p3) {
     for (hulk_intptr i = 0; i < 0x6380; i += 0xc70) {
         Elem_1fd130* e = (Elem_1fd130*)(mArray + i);
         if (e->mFlag != 0) {
-            if (((Elem_1fd130*)(mArray + i))->Check(p3)) {
-                ((Elem_1fd130*)(mArray + i))->Do(p2);
+            if (((Elem_1fd130*)(mArray + i))->Check_001f8740(p3)) {
+                ((Elem_1fd130*)(mArray + i))->Do_001f8fe0(p2);
             }
         }
     }
@@ -1628,7 +1628,7 @@ void Obj_1fd730::Clear() {
     f8 = 0;
     f20c = 0;
     for (i = 0; i < 0x6380; i += 0xc70)
-        ((Part_1fd730*)((char*)parts + i))->Run();
+        ((Part_1fd730*)((char*)parts + i))->Run_001fa040();
 }
 
 
@@ -1637,7 +1637,7 @@ void Obj_1fd730::Clear() {
 // Same code shape as 0x000238b0 (propagated; names are from that function)
 hulk_intptr CTriggerVolumeManager_1fd780::Target(U_1fd780 param) {
     U64_1fd780 a = FUN_0027b020(param);
-    return Second(a);
+    return Second_001fc8c0(a);
 }
 
 } // namespace fn_f3d6a774
@@ -1648,15 +1648,15 @@ namespace fn_001fd7a0 {
 struct Pair {
     int a, b;
 };
-Pair __cdecl convert(int);
+Pair __cdecl convert_0027b020(int);
 class CTriggerVolumeManager_1fd7a0 {
   public:
-    int check(int, int);
+    int check_001fc8c0(int, int);
     char run(int);
 };
 char CTriggerVolumeManager_1fd7a0::run(int x) {
-    Pair p = convert(x);
-    return check(p.a, p.b) != 0;
+    Pair p = convert_0027b020(x);
+    return check_001fc8c0(p.a, p.b) != 0;
 }
 } // namespace fn_001fd7a0
 
@@ -1705,7 +1705,7 @@ Result* CTriggerVolumeManager_1fd7d0::FUN_001fd7d0(Result* out, unsigned int val
 // data: scale_1fd830 = DAT_003f3ef4, zero_1fd830 = DAT_003f32e0
 hulk_freg CTriggerVolumeManager::FUN_001fd830(unsigned int arg) {
     unsigned long long k = FUN_0027b020(arg);
-    Result_1fd830* r = ((CTriggerVolumeManager_nv_1fd830*)this)->Find(k);
+    Result_1fd830* r = ((CTriggerVolumeManager_nv_1fd830*)this)->Find_001fc8c0(k);
     if (!r)
         return DAT_003f32e0;
     return r->Get() * DAT_003f3ef4;
@@ -1716,8 +1716,8 @@ namespace fn_f3d6a774 {
 // 0x001fd870 FUN_001fd870 (52 B): matches/0x001fd870.cpp
 // sym: ?Do@CTriggerVolumeManager_1fd870@fn_f3d6a774@@QAE_NHUData@2@@Z
 bool CTriggerVolumeManager_1fd870::Do(int n, Data d) {
-    U64 id = Convert(n);
-    Item* item = Find(id);
+    U64 id = Convert_0027b020(n);
+    Item* item = Find_001fc8c0(id);
     if (!item)
         return false;
     ((owners::Target_1fb990 *)item)->FUN_001fb990((const int *)(Data *)(&d));
@@ -1729,11 +1729,11 @@ bool CTriggerVolumeManager_1fd870::Do(int n, Data d) {
 // 0x001fd8b0 FUN_001fd8b0 (61 B): matches/0x001fd8b0.cpp
 // sym: ?FUN_001fd8b0@CTriggerVolumeManager@@QAE_NHM@Z
 bool CTriggerVolumeManager::FUN_001fd8b0(int key, float angle) {
-    Pair p = Lookup(key);
-    Item* item = ((CTriggerVolumeManager_nv_1fd8b0*)this)->Find(p.a, p.b);
+    Pair p = Lookup_0027b020(key);
+    Item* item = ((CTriggerVolumeManager_nv_1fd8b0*)this)->Find_001fc8c0(p.a, p.b);
     if (!item)
         return false;
-    item->SetAngle(angle * 0.017453292519943295f);
+    item->SetAngle_001fb9b0(angle * 0.017453292519943295f);
     return true;
 }
 
@@ -1741,11 +1741,11 @@ bool CTriggerVolumeManager::FUN_001fd8b0(int key, float angle) {
 // 0x001fd8f0 FUN_001fd8f0 (45 B): matches/0x001fd8f0.cpp
 // sym: ?FUN_001fd8f0@CTriggerVolumeManager@@QAEEPAX@Z
 unsigned char CTriggerVolumeManager::FUN_001fd8f0(void* p) {
-    __int64 x = Convert(p);
-    Other* o = (Other*)((CTriggerVolumeManager_nv_1fd8f0*)this)->Find(x);
+    __int64 x = Convert_0027b020(p);
+    Other* o = (Other*)((CTriggerVolumeManager_nv_1fd8f0*)this)->Find_001fc8c0(x);
     if (!o)
         return 0;
-    return o->Valid();
+    return o->Valid_001fba00();
 }
 
 namespace fn_f3d6a774 {
@@ -1753,9 +1753,9 @@ namespace fn_f3d6a774 {
 // 0x001fd920 FUN_001fd920 (81 B): matches/0x001fd920.cpp
 // sym: ?Run@CTriggerVolumeManager_1fd920@fn_f3d6a774@@QAEXHHH@Z
 void CTriggerVolumeManager_1fd920::Run(int a, int b, int c) {
-    Setup(a, c);
+    Setup_001fccf0(a, c);
     for (int i = 0; i < count; i++)
-        items[i]->Send(b, 0, 0);
+        items[i]->Send_001d6ec0(b, 0, 0);
 }
 
 } // namespace fn_f3d6a774
@@ -1763,7 +1763,7 @@ void CTriggerVolumeManager_1fd920::Run(int a, int b, int c) {
 // 0x001fd980 FUN_001fd980 (25 B): matches/0x001fd980.cpp
 // sym: ?FUN_001fd980@CTriggerVolumeManager@@QAEHH@Z
 int CTriggerVolumeManager::FUN_001fd980(int a) {
-    ((CTriggerVolumeManager_nv_1fd980*)this)->Helper(a, 1);
+    ((CTriggerVolumeManager_nv_1fd980*)this)->Helper_001fccf0(a, 1);
     return this->f_238;
 }
 
@@ -1789,17 +1789,17 @@ char CTriggerVolumeManager_1fdf10::check(int x) {
 // 0x001fdf50 FUN_001fdf50 (64 B): matches/0x001fdf50.cpp
 // sym: ?Run@CTriggerVolumeManager_1fdf50@fn_f3d6a774@@QAE_NHHHH@Z
 bool CTriggerVolumeManager_1fdf50::Run(int id, int a, int b, int c) {
-    int i = Find(id);
+    int i = Find_001fcff0(id);
     if (i == -1)
         return false;
-    return ((Item*)((char*)items + i * 0xc70))->Set(a, b, c);
+    return ((Item*)((char*)items + i * 0xc70))->Set_001f9460(a, b, c);
 }
 
 
 // 0x001fdf90 FUN_001fdf90 (47 B): matches/0x001fdf90.cpp
 // sym: ?Lookup@CTriggerVolumeManager_1fdf90@fn_f3d6a774@@QAEPAXH@Z
 void* CTriggerVolumeManager_1fdf90::Lookup(int x) {
-    int i = GetIndex(x);
+    int i = GetIndex_001fcff0(x);
     if (i == -1)
         return 0;
     return *(void**)(data + i * 0xc70 + 0x6e0);
@@ -1812,11 +1812,11 @@ void* CTriggerVolumeManager_1fdf90::Lookup(int x) {
 namespace fn_001fdfc0 {
 class Item {
   public:
-    void Act();
+    void Act_001fa040();
     char pad[0xc70];
 };
 struct This_Lookup {
-    int Lookup(int);
+    int Lookup_001fcff0(int);
 };
 class Obj {
     char pad[0x234];
@@ -1826,10 +1826,10 @@ class Obj {
     bool Go(int);
 };
 bool Obj::Go(int id) {
-    int i = ((This_Lookup*)this)->Lookup(id);
+    int i = ((This_Lookup*)this)->Lookup_001fcff0(id);
     if (i == -1)
         return false;
-    items[i].Act();
+    items[i].Act_001fa040();
     return true;
 }
 } // namespace fn_001fdfc0
@@ -2529,7 +2529,7 @@ namespace fn_f3d6a774 {
 // 0x001fefe0 FUN_001fefe0 (89 B): matches/0x001fefe0.cpp
 // sym: ?Build@Method3_1fefe0@fn_f3d6a774@@QAEPAV12@PBDP8ScriptBoundClass@@AEXXZ@Z
 Method3_1fefe0* Method3_1fefe0::Build(const char* arg1, ScriptMemberFn arg2) {
-    Init(arg1, 3);
+    Init_001d0480(arg1, 3);
     vftable = ((hulk_intptr)DAT_00425334);
     p1c = arg2;
     f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
@@ -2588,11 +2588,11 @@ namespace fn_f3d6a774 {
 Method4_1ff150::Method4_1ff150(const char* x, ScriptMemberFn y) : FUN_001d0480(x, 4) {
     vptr = ((hulk_intptr)DAT_00425354);
     value = y;
-    f.retType = ReadBool(((const char*)&DAT_0048e0e4));
-    f.argTypes[0] = ReadBool(((const char*)&DAT_0048e0f0));
-    f.argTypes[1] = ReadBool(((const char*)&DAT_0048e134));
-    f.argTypes[2] = ReadBool(((const char*)&DAT_0048e134));
-    f.argTypes[3] = ReadBool(((const char*)&DAT_0048e0e4));
+    f.retType = ReadBool_001d04d0(((const char*)&DAT_0048e0e4));
+    f.argTypes[0] = ReadBool_001d04d0(((const char*)&DAT_0048e0f0));
+    f.argTypes[1] = ReadBool_001d04d0(((const char*)&DAT_0048e134));
+    f.argTypes[2] = ReadBool_001d04d0(((const char*)&DAT_0048e134));
+    f.argTypes[3] = ReadBool_001d04d0(((const char*)&DAT_0048e0e4));
 }
 
 } // namespace fn_f3d6a774
@@ -2652,7 +2652,7 @@ namespace fn_f3d6a774 {
 // 0x001ff2c0 FUN_001ff2c0 (89 B): matches/0x001ff2c0.cpp
 // sym: ??0Method3_1ff2c0@fn_f3d6a774@@QAE@PBDP8ScriptBoundClass@@AEXXZ@Z
 Method3_1ff2c0::Method3_1ff2c0(const char* a, ScriptMemberFn c) {
-    Init(a, 3);
+    Init_001d0480(a, 3);
     m0 = ((hulk_intptr)DAT_00425374);
     m1c = c;
     f.retType = FUN_001d04d0(((char*)&DAT_0048e100));
@@ -2853,7 +2853,7 @@ class CDHGameObjectCreator_1ff750 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003feefc[];
 namespace pure3d {
 class NonCopyable : public CDHGameObjectCreator_1ff750 {
   public:
@@ -2864,7 +2864,7 @@ class NonCopyable : public CDHGameObjectCreator_1ff750 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003feefc;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -3094,7 +3094,7 @@ template <> void Closure1<CTriggerVolumeManager,math::Vector, const char *>::vfu
 namespace fn_001ffa60 {
 
 struct CTriggerVolumeManager;
-char __cdecl getFlag(const char*);
+char __cdecl getFlag_001d04d0(const char*);
 class Function_1ffa60 {
   public:
     Function_1ffa60(const char*, int);
@@ -3110,8 +3110,8 @@ class Method1 : public Function_1ffa60 {
   public:
     Method1(const char* s, CTriggerVolumeManager* m) : Function_1ffa60(s, 1) {
         owner = m;
-        b18 = getFlag(((char*)&DAT_0048e128));
-        b10 = getFlag(((char*)&DAT_0048e0f0));
+        b18 = getFlag_001d04d0(((char*)&DAT_0048e128));
+        b10 = getFlag_001d04d0(((char*)&DAT_0048e0f0));
     }
     virtual void f();
 };
@@ -3152,14 +3152,14 @@ template <> void Closure1<CTriggerVolumeManager, float, const char *>::vfunc_2(v
 namespace fn_001ffb00 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00425294[2];
+extern void* hulk_at_0042540c[2];
 extern void* TAB_48e134;
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 // Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h),
 // then Method2's member-function pointer and Closure2's object.
@@ -3174,12 +3174,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00425294;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e0e4));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(&TAB_48e134);
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0e4));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(&TAB_48e134);
+    vfptr = (void*)hulk_at_0042540c;
     owner = a2;
 }
 } // namespace fn_001ffb00
@@ -3208,13 +3208,13 @@ template <> void Closure2<CTriggerVolumeManager, bool, const char *,math::Vector
 namespace fn_001ffbc0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_004252a4[2];
+extern void* hulk_at_0042541c[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 // Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h),
 // then Method2's member-function pointer and Closure2's object.
@@ -3229,12 +3229,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_004252a4;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e0e4));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e128));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0e4));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e128));
+    vfptr = (void*)hulk_at_0042541c;
     owner = a2;
 }
 } // namespace fn_001ffbc0
@@ -3465,7 +3465,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C++" __declspec(nothrow) unsigned char Get(const char*);
+extern "C++" __declspec(nothrow) unsigned char Get_001d04d0(const char*);
 class InitBase : public CtorV_001d0480 {
   public:
     InitBase(const char* name) : CtorV_001d0480(name, 1) { }
@@ -3478,8 +3478,8 @@ class Closure1_1ffd80 : public InitBase {
 };
 Closure1_1ffd80::Closure1_1ffd80(const char* name, ScriptMemberFn v) : InitBase(name) {
     z = v;
-    retType = Get(((const char*)&DAT_0048e0f0));
-    argTypes[0] = Get(((const char*)&DAT_0048e134));
+    retType = Get_001d04d0(((const char*)&DAT_0048e0f0));
+    argTypes[0] = Get_001d04d0(((const char*)&DAT_0048e134));
 }
 class Closure1 : public Closure1_1ffd80 {
   public:
@@ -3569,16 +3569,16 @@ void Closure2::vfunc_2(int x, int a2, int a3) {
 // sym: ??0Closure2@fn_001ffe70@@QAE@PBDPAXP8ScriptBoundClass@@AEXXZ@Z
 namespace fn_001ffe70 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
-extern void* TAB_48e100;
-extern void* TAB_48e0f0;
-extern void* TAB_48e134;
+extern void* hulk_at_004252f4[2];
+extern void* hulk_at_0042546c[2];
+extern void* hulk_at_0048e100;
+extern void* hulk_at_0048e0f0;
+extern void* hulk_at_0048e0e4;
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 // Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h),
 // then Method2's member-function pointer and Closure2's object.
@@ -3593,12 +3593,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_004252f4;
     fn = a3;
-    f.retType = LookupFlag(&TAB_48e100);
-    f.argTypes[0] = LookupFlag(&TAB_48e0f0);
-    f.argTypes[1] = LookupFlag(&TAB_48e134);
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(&hulk_at_0048e100);
+    f.argTypes[0] = LookupFlag_001d04d0(&hulk_at_0048e0f0);
+    f.argTypes[1] = LookupFlag_001d04d0(&hulk_at_0048e0e4);
+    vfptr = (void*)hulk_at_0042546c;
     owner = a2;
 }
 } // namespace fn_001ffe70
@@ -3703,13 +3703,13 @@ template <> void Closure1<CTriggerVolumeManager, void, const char *>::vfunc_2(vo
 namespace fn_001fffa0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00425314[2];
+extern void* hulk_at_0042548c[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 // Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h),
 // then Method2's member-function pointer and Closure2's object.
@@ -3724,12 +3724,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00425314;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e0e4));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0e4));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    vfptr = (void*)hulk_at_0042548c;
     owner = a2;
 }
 } // namespace fn_001fffa0
@@ -3759,13 +3759,13 @@ template <> void Closure2<CTriggerVolumeManager, bool, const char *, const char 
 namespace fn_00200050 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00425324[2];
+extern void* hulk_at_0042549c[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 // Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h),
 // then Method2's member-function pointer and Closure2's object.
@@ -3780,12 +3780,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00425324;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e100));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e128));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e100));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e128));
+    vfptr = (void*)hulk_at_0042549c;
     owner = a2;
 }
 } // namespace fn_00200050
@@ -3818,8 +3818,8 @@ template <> Closure3<CTriggerVolumeManager, bool,math::Vector, const char *, boo
 // sym: ??0Closure2@fn_00200190@@QAE@PBDPAXP8ScriptBoundClass@@AEXXZ@Z
 namespace fn_00200190 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00425344[2];
+extern void* hulk_at_004254bc[2];
 extern void* TAB_48e100;
 extern void* TAB_48e0f0;
 extern void* TAB_48e134;
@@ -3827,7 +3827,7 @@ extern void* TAB_48e134;
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 // Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h),
 // then Method2's member-function pointer and Closure2's object.
@@ -3842,12 +3842,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00425344;
     fn = a3;
-    f.retType = LookupFlag(&TAB_48e100);
-    f.argTypes[0] = LookupFlag(&TAB_48e0f0);
-    f.argTypes[1] = LookupFlag(&TAB_48e134);
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(&TAB_48e100);
+    f.argTypes[0] = LookupFlag_001d04d0(&TAB_48e0f0);
+    f.argTypes[1] = LookupFlag_001d04d0(&TAB_48e134);
+    vfptr = (void*)hulk_at_004254bc;
     owner = a2;
 }
 } // namespace fn_00200190
@@ -3922,7 +3922,7 @@ template <> void Closure5<CTriggerVolumeManager, const char *, const ::math::Vec
 namespace fn_00200440 {
 // data: gName = DAT_0048e0f0
 
-extern unsigned char __cdecl GetFlag(const char*);
+extern unsigned char __cdecl GetFlag_001d04d0(const char*);
 class Function_200440 {
   public:
     Function_200440(const char*, int);
@@ -3933,8 +3933,8 @@ class Method1 : public Function_200440 {
   public:
     Method1(const char* s, const char* t) : Function_200440(s, 1) {
         m = t;
-        a = GetFlag(((char*)&DAT_0048e0f0));
-        b = GetFlag(((char*)&DAT_0048e0f0));
+        a = GetFlag_001d04d0(((char*)&DAT_0048e0f0));
+        b = GetFlag_001d04d0(((char*)&DAT_0048e0f0));
     }
     virtual void Fn();
     char b;

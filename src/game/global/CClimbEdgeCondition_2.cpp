@@ -32,13 +32,13 @@ struct CClimbEdgeCondition_576a0 {
     char pad[8];
     u32_576a0 f0c;
     char f10;
-    void Init(int);
+    void Init_00234590(int);
 };
-extern int g_vftable_576e0;
+extern int hulk_at_003f9330;
 struct ConditionFactoryTemplate_576e0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0004a970();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -66,7 +66,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CClimbEdgeCondition>::vf
 template <> void* fight::ConditionFactoryTemplate<CClimbEdgeCondition>::vfunc_5() {
     CClimbEdgeCondition_576a0* p = (CClimbEdgeCondition_576a0*)Alloc(0x14);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->vptr = ((hulk_intptr)DAT_003f7528);
         p->f0c = 0;
         p->f10 = 0;
@@ -81,9 +81,9 @@ namespace fn_f190b021 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_576e0@fn_f190b021@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_576e0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_576e0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9330;
+    base1_dtor_0004a970();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

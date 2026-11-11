@@ -11,7 +11,7 @@ namespace fn_f27c94ec {} using namespace fn_f27c94ec;
 
 // ---- declarations shared by the functions below
 namespace fn_f27c94ec {
-extern void* g_vftable_fc7c0[];
+extern void* hulk_at_0040cfe4[];
 class Ref_fc7c0 {
   public:
     virtual void F0();
@@ -22,7 +22,7 @@ class CCharacterAgent_fc7c0 {
     void* vptr;
     char pad[0x54];
     Ref_fc7c0* m58;
-    void Fin();
+    void Fin_000fc460();
     void* Del(unsigned char flags);
 };
 
@@ -74,10 +74,10 @@ namespace fn_f27c94ec {
 // sym: ?Del@CCharacterAgent_fc7c0@fn_f27c94ec@@QAEPAXE@Z
 void* CCharacterAgent_fc7c0::Del(unsigned char flags) {
     Ref_fc7c0* r = m58;
-    vptr = g_vftable_fc7c0;
+    vptr = hulk_at_0040cfe4;
     r->Release();
     m58 = 0;
-    Fin();
+    Fin_000fc460();
     if (flags & 1)
         operator delete(this);
     return this;

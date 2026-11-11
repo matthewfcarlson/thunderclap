@@ -11,13 +11,13 @@ namespace fn_f270ee22 {} using namespace fn_f270ee22;
 
 // ---- declarations shared by the functions below
 namespace fn_f270ee22 {
-extern void* IRefCount_vftable_1b6820;
+extern void* hulk_at_003f6098;
 class ZeroBlock {
   public:
     int words[32];
     ZeroBlock();
 };
-extern int g_1b68d0;
+extern int hulk_at_004e21f0;
 struct A_1b68d0 {
     char pad[12];
     int value;
@@ -30,7 +30,7 @@ class Obj {
 } // namespace fn_f270ee22
 void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace fn_f270ee22 {
-extern Obj* volatile gObj;
+extern Obj* volatile hulk_at_004e21f4;
 
 } // namespace fn_f270ee22
 
@@ -47,10 +47,10 @@ class CProjectile {
     int f;
     CProjectile();
 };
-extern int projectile_vftable;
+extern int hulk_at_0041dad8;
 CProjectile::CProjectile() {
     b = 0;
-    this->a = (hulk_intptr)&projectile_vftable;
+    this->a = (hulk_intptr)&hulk_at_0041dad8;
     c = -1;
     d = 0;
     e = 0;
@@ -63,7 +63,7 @@ namespace fn_f270ee22 {
 // 0x001b6820 FUN_001b6820 (7 B): matches/0x001b6820.cpp
 // sym: ?FUN_001b6820@fn_f270ee22@@YIXPAX@Z
 void __fastcall FUN_001b6820(void* self) {
-    *(void**)self = &IRefCount_vftable_1b6820;
+    *(void**)self = &hulk_at_003f6098;
 }
 
 } // namespace fn_f270ee22
@@ -96,7 +96,7 @@ ZeroBlock::ZeroBlock() {
 // 0x001b68d0 FUN_001b68d0 (16 B): matches/0x001b68d0.cpp
 // sym: ?FUN_001b68d0@fn_f270ee22@@YGXPAUA_1b68d0@1@@Z
 void __stdcall FUN_001b68d0(A_1b68d0* p) {
-    g_1b68d0 = p->value;
+    hulk_at_004e21f0 = p->value;
 }
 
 } // namespace fn_f270ee22
@@ -117,9 +117,9 @@ typedef unsigned char byte_1b6960;
 extern int gVtable_1b6960;
 class Alloc_1b6960 {
   public:
-    void f(void*, unsigned int);
+    void Fnf_0008ff00(void*, unsigned int);
 };
-extern Alloc_1b6960 gAlloc_1b6960;
+extern Alloc_1b6960 hulk_at_004e2210;
 class CProjectile {
   public:
     virtual void vfunc_0();
@@ -133,7 +133,7 @@ class CProjectile {
 CProjectile* CProjectile::vfunc_2(byte_1b6960 flags) {
     *(hulk_intptr*)this = (hulk_intptr)&gVtable_1b6960;
     if ((flags & 1) != 0)
-        gAlloc_1b6960.f(this, 0x18);
+        hulk_at_004e2210.Fnf_0008ff00(this, 0x18);
     return this;
 }
 } // namespace fn_001b6960
@@ -143,9 +143,9 @@ namespace fn_f270ee22 {
 // 0x001b6990 FUN_001b6990 (47 B): matches/0x001b6990.cpp
 // sym: _FUN_001b6990
 extern "C" Obj* __cdecl FUN_001b6990() {
-    Obj* p = gObj;
+    Obj* p = hulk_at_004e21f4;
     if (!p)
-        gObj = p = new Obj;
+        hulk_at_004e21f4 = p = new Obj;
     return p;
 }
 

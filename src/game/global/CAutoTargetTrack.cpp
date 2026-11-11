@@ -12,7 +12,7 @@ namespace fn_fabf106d {} using namespace fn_fabf106d;
 
 // ---- declarations shared by the functions below
 namespace fn_fabf106d {
-extern int* gTable_69c40;
+extern int* hulk_at_004dcf68;
 class CCondition_69c40 {
   public:
     virtual int vfunc_0(int);
@@ -71,7 +71,7 @@ void FUN_00069c20() {
 // sym: ?vfunc_0@CAutoTargetTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CAutoTargetTrack::vfunc_0(int index) {
-    int* p = gTable_69c40;
+    int* p = hulk_at_004dcf68;
     return p[index];
 }
 

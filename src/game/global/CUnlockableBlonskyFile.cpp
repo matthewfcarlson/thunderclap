@@ -12,11 +12,11 @@ namespace fn_f3a656db {} using namespace fn_f3a656db;
 
 // ---- declarations shared by the functions below
 namespace fn_f3a656db {
-extern "C" void Free1(void* p);
-extern "C" void Free2(void* p);
+extern "C" void Free1_0008d340(void* p);
+extern "C" void Free2_0008d330(void* p);
 class Helper_933e0 {
   public:
-    void F();
+    void FnF_0027af50();
 };
 class CUnlockableBlonskyFile {
   public:
@@ -29,16 +29,16 @@ class CUnlockableBlonskyFile {
 void* CUnlockableBlonskyFile::vfunc_0(unsigned char f) {
     char* s = (char*)this;
     *(hulk_intptr*)s = ((hulk_intptr)DAT_004044a4);
-    ((Helper_933e0*)(s + 0x20))->F();
+    ((Helper_933e0*)(s + 0x20))->FnF_0027af50();
     void* p = *(void**)(s + 0x18);
     *(hulk_intptr*)s = ((hulk_intptr)DAT_0040449c);
     if (p) {
-        Free1(p);
+        Free1_0008d340(p);
         *(void**)(s + 0x18) = 0;
     }
-    ((Helper_933e0*)(s + 0x10))->F();
+    ((Helper_933e0*)(s + 0x10))->FnF_0027af50();
     if (f & 1)
-        Free2(s);
+        Free2_0008d330(s);
     return this;
 }
 

@@ -9,7 +9,7 @@ namespace fn_f8a156a2 {} using namespace fn_f8a156a2;
 
 // ---- declarations shared by the functions below
 namespace fn_f8a156a2 {
-extern void* g_vftable_22560[];
+extern void* hulk_at_003f3390[];
 class Ref_22560 {
   public:
     virtual void F0();
@@ -30,7 +30,7 @@ class CStageAction_22560 : public CAction_22560 {
 // 0x00022560 CStageAction::vfunc_2 (57 B): matches/0x00022560.cpp
 // sym: ?f2@CStageAction_22560@fn_f8a156a2@@QAEPAV12@E@Z
 CStageAction_22560* CStageAction_22560::f2(unsigned char flags) {
-    vptr = g_vftable_22560;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

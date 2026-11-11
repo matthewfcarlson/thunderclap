@@ -13,9 +13,9 @@ namespace fn_f9999ae0 {} using namespace fn_f9999ae0;
 // ---- declarations shared by the functions below
 namespace fn_f9999ae0 {
 typedef unsigned int u32_69b50;
-extern float zero_69bd0;
+extern float hulk_at_003f32e0;
 struct Helper_69bf0 {
-    int f(CSweepTrack*, hulk_intptr);
+    int Fnf_0001d420(CSweepTrack*, hulk_intptr);
 };
 extern "C" Helper_69bf0* __cdecl FUN_0008d690(int);
 
@@ -95,8 +95,8 @@ hulk_freg CSweepTrack::vfunc_6() {
 // Same code shape as 0x00069920 (propagated; names are from that function)
 hulk_freg CSweepTrack::vfunc_7() {
     hulk_freg d = this->f_10 - this->f_0c;
-    if (d < zero_69bd0)
-        d = zero_69bd0;
+    if (d < hulk_at_003f32e0)
+        d = hulk_at_003f32e0;
     return d;
 }
 
@@ -107,7 +107,7 @@ hulk_freg CSweepTrack::vfunc_7() {
 hulk_intptr CSweepTrack::vfunc_12(hulk_intptr a) {
     Helper_69bf0* p = FUN_0008d690(0x2c);
     if (p)
-        return p->f(this, a);
+        return p->Fnf_0001d420(this, a);
     return 0;
 }
 

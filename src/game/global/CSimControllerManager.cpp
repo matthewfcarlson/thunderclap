@@ -11,7 +11,7 @@ namespace fn_fd11749d {} using namespace fn_fd11749d;
 
 // ---- declarations shared by the functions below
 namespace fn_fd11749d {
-extern void* g_vftable_b3d50[];
+extern void* hulk_at_004060d8[];
 class Ref_b3d50 {
   public:
     virtual void F0();
@@ -28,7 +28,7 @@ class CSimControllerManager_b3d50 {
 // 0x000b3d50 CSimControllerManager::vfunc_0 (39 B): matches/0x000b3d50.cpp
 // sym: ?f2@CSimControllerManager_b3d50@fn_fd11749d@@QAEPAV12@E@Z
 CSimControllerManager_b3d50* CSimControllerManager_b3d50::f2(unsigned char flags) {
-    vptr = g_vftable_b3d50;
+    vptr = hulk_at_004060d8;
     _ReadWriteBarrier();
     m4->Release();
     if (flags & 1)

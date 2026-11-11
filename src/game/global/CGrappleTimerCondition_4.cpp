@@ -34,16 +34,16 @@ class CGrappleTimerCondition {
     unsigned char flag; // +0x14
     int unk18;          // +0x18
 
-    void Ctor(int flags);
+    void Ctor_00234590(int flags);
 };
 namespace fn_fa6d491a {
-extern char CGrappleTimerCondition_vftable[];
+extern char hulk_at_003f7450[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
-extern int g_vftable_580c0;
+extern int hulk_at_003f9508;
 struct ConditionFactoryTemplate_580c0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0004a630();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -72,8 +72,8 @@ namespace fn_fa6d491a {
 void* vfunc_5() {
     CGrappleTimerCondition* p = (CGrappleTimerCondition*)FUN_0008d690((int)sizeof(CGrappleTimerCondition));
     if (p != 0) {
-        p->Ctor(0);
-        p->vfptr = CGrappleTimerCondition_vftable;
+        p->Ctor_00234590(0);
+        p->vfptr = hulk_at_003f7450;
         p->type = 5;
         p->unk10 = 0;
         p->flag = 0;
@@ -88,9 +88,9 @@ void* vfunc_5() {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_580c0@fn_fa6d491a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_580c0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_580c0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9508;
+    base1_dtor_0004a630();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

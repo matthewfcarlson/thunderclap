@@ -327,8 +327,8 @@ struct FELayout_e2130 {
     virtual void v22();
 };
 extern "C" u32_e2130 __cdecl helper(hulk_uintptr, int, const void*, const void*, int);
-extern const char typeA_e2130[];
-extern const char typeB_e2130[];
+extern const char hulk_at_0049dba4[];
+extern const char hulk_at_0049f4f0[];
 class FELayout_e2160 {
   public:
     virtual void f0();
@@ -340,7 +340,7 @@ class FELayout_e2160 {
 };
 class Helper_e2160 {
   public:
-    void call(int);
+    void call_000f6370(int);
 };
 class FELayout_e21a0 {
   public:
@@ -615,14 +615,14 @@ bool SingleLayout::vfunc_13(int ) {
 void SingleLayout::vfunc_18(void* __p0) { hulk_uintptr x = (hulk_uintptr)__p0;
 
     (*(hulk_uintptr *)&this->f_40) = x;
-    (*(u32_e2130 *)&this->f_44) = helper(x, 0, typeA_e2130, typeB_e2130, 0);
+    (*(u32_e2130 *)&this->f_44) = helper(x, 0, hulk_at_0049dba4, hulk_at_0049f4f0, 0);
 }
 
 
 // 0x000e2160 SingleLayout::vfunc_14 (20 B): matches/0x000e2160.cpp
 // sym: ?vfunc_14@SingleLayout@@UAEHHH@Z
 int SingleLayout::vfunc_14(int a, int b) {
-    ((Helper_e2160*)((char*)this + 0x18))->call(a);
+    ((Helper_e2160*)((char*)this + 0x18))->call_000f6370(a);
     return a;
 }
 

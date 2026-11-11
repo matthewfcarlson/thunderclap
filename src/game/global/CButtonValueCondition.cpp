@@ -11,10 +11,10 @@ namespace fn_f662ff92 {} using namespace fn_f662ff92;
 
 // ---- declarations shared by the functions below
 namespace fn_f662ff92 {
-extern void* CButtonCondition_4b1b0_vftable[];
+extern void* hulk_at_003f6d50[];
 class CButtonCondition_4b1b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CButtonValueCondition : public CButtonCondition_4b1b0 {
   public:
@@ -28,8 +28,8 @@ class CButtonValueCondition : public CButtonCondition_4b1b0 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CButtonValueCondition* CButtonValueCondition::vfunc_5(signed char flags) {
-    *(void***)this = CButtonCondition_4b1b0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

@@ -112,10 +112,10 @@ public:
 };
 class H1 {
   public:
-    void* f();
+    void* Fnf_000592a0();
 };
 struct H2_147d0 {
-    void* f();
+    void* Fnf_00059a40();
 };
 struct H3_147d0 {
     char p[0x64];
@@ -127,7 +127,7 @@ struct H4 {
 };
 struct Helper_147d0 {
     char p[0x1c];
-    void f(void*, void*);
+    void Fnf_0022c2b0(void*, void*);
 };
 struct V {
     int a, b, c;
@@ -140,15 +140,15 @@ class B_14860;
 class C_14860;
 class A_14860 {
   public:
-    B_14860* f();
+    B_14860* Fnf_000592a0();
 };
 class B_14860 {
   public:
-    C_14860* f();
+    C_14860* Fnf_00059a40();
 };
 class C_14860 {
   public:
-    bool f(void*);
+    bool Fnf_00222a00(void*);
 };
 class Obj_14860 {
   public:
@@ -159,14 +159,14 @@ class Obj_14860 {
 };
 class H2_14890 {
   public:
-    void* f2();
+    void* f2_00059a40();
 };
 class H3_14890 {
   public:
-    bool f3(void*);
+    bool f3_00222a00(void*);
 };
 struct R_148d0 {
-    void call(void*, int);
+    void call_00222970(void*, int);
 };
 extern void* __fastcall FUN_000592a0(void*);
 extern R_148d0* __fastcall FUN_00059a40(void*);
@@ -197,15 +197,15 @@ class B_14940;
 class C_14940;
 class A_14940 {
   public:
-    B_14940* f();
+    B_14940* Fnf_000592a0();
 };
 class B_14940 {
   public:
-    C_14940* f();
+    C_14940* Fnf_00059a40();
 };
 class C_14940 {
   public:
-    bool f(void*);
+    bool Fnf_00222a00(void*);
 };
 class Obj_14940 {
   public:
@@ -216,23 +216,23 @@ class Obj_14940 {
 };
 class H2_14970 {
   public:
-    void* f2();
+    void* f2_00059a40();
 };
 class H3_14970 {
   public:
-    bool f3(void*);
+    bool f3_00222a00(void*);
 };
 struct Obj_149b0;
 struct Manager_149b0 {
-    void* Find(int);
+    void* Find_00059bf0(int);
 };
 struct Root_149b0 {
     char pad[0x44];
     Manager_149b0* mgr;
 };
-extern Root_149b0* gRoot_149b0;
+extern Root_149b0* hulk_at_004dd700;
 struct Obj_149b0 {
-    void Apply(int, int);
+    void Apply_00222970(int, int);
 };
 struct Table_149e0 {
 };
@@ -352,12 +352,12 @@ void Tracker_145b0::FUN_000145b0(int a1, int a2, int a3)
 // 0x000147d0 COpportunityBallAction::vfunc_6 (84 B): matches/0x000147d0.cpp
 // sym: ?vfunc_6@COpportunityBallAction@@UAE_NH@Z
 bool COpportunityBallAction::vfunc_6(int arg) {
-    void* a = ((H1*)(*(void * *)&this->f_1c))->f();
-    a = ((H2_147d0*)a)->f();
+    void* a = ((H1*)(*(void * *)&this->f_1c))->Fnf_000592a0();
+    a = ((H2_147d0*)a)->Fnf_00059a40();
     V local = ((B_147d0*)(*(void * *)&this->f_20))->v;
     void* x = ((H3_147d0*)a)->q;
     void* base = ((H4*)x)->z;
-    ((Helper_147d0*)((char*)base + (this->f_24 << 6)))->f(&local, &this->f_28);
+    ((Helper_147d0*)((char*)base + (this->f_24 << 6)))->Fnf_0022c2b0(&local, &this->f_28);
     return true;
 }
 
@@ -366,11 +366,11 @@ namespace fn_f4b0ec38 {
 // 0x00014860 FUN_00014860 (39 B): matches/0x00014860.cpp
 // sym: ?target@fn_f4b0ec38@@YI_NPAVObj_14860@1@@Z
 bool __fastcall target(Obj_14860* self) {
-    B_14860* x = self->a->f();
-    C_14860* y = x->f();
+    B_14860* x = self->a->Fnf_000592a0();
+    C_14860* y = x->Fnf_00059a40();
     if (!y)
         return true;
-    return y->f(self->b);
+    return y->Fnf_00222a00(self->b);
 }
 
 } // namespace fn_f4b0ec38
@@ -379,12 +379,12 @@ bool __fastcall target(Obj_14860* self) {
 // sym: ?vfunc_8@CProceduralDurationAnimationAction@@UAE_NH@Z
 bool CProceduralDurationAnimationAction::vfunc_8(int ) {
     void* x = ((void *)((owners::Object_592a0 *)(((H1*)(*(void * *)&this->f_1c))))->FUN_000592a0());
-    void* y = ((H2_14890*)x)->f2();
+    void* y = ((H2_14890*)x)->f2_00059a40();
     bool r;
     if (y == 0)
         r = true;
     else
-        r = ((H3_14890*)y)->f3((*(void * *)&this->f_24));
+        r = ((H3_14890*)y)->f3_00222a00((*(void * *)&this->f_24));
     return !r;
 }
 
@@ -396,7 +396,7 @@ void CProceduralDurationAnimationAction::vfunc_4() {
     void* a = FUN_000592a0((*(void * *)&this->f_1c));
     R_148d0* b = FUN_00059a40(a);
     if (b)
-        b->call((*(void * *)&this->f_24), 0);
+        b->call_00222970((*(void * *)&this->f_24), 0);
 }
 
 
@@ -426,11 +426,11 @@ namespace fn_f4b0ec38 {
 // sym: ?target@fn_f4b0ec38@@YI_NPAVObj_14940@1@@Z
 // Same code shape as 0x00014860 (propagated; names are from that function)
 bool __fastcall target(Obj_14940* self) {
-    B_14940* x = self->a->f();
-    C_14940* y = x->f();
+    B_14940* x = self->a->Fnf_000592a0();
+    C_14940* y = x->Fnf_00059a40();
     if (!y)
         return true;
-    return y->f(self->b);
+    return y->Fnf_00222a00(self->b);
 }
 
 } // namespace fn_f4b0ec38
@@ -440,12 +440,12 @@ bool __fastcall target(Obj_14940* self) {
 // Same code shape as 0x00014890 (propagated; names are from that function)
 bool CStunAnimationAction::vfunc_8(int ) {
     void* x = ((void *)((owners::Object_592a0 *)(((H1*)(*(void * *)&this->f_1c))))->FUN_000592a0());
-    void* y = ((H2_14970*)x)->f2();
+    void* y = ((H2_14970*)x)->f2_00059a40();
     bool r;
     if (y == 0)
         r = true;
     else
-        r = ((H3_14970*)y)->f3((*(void * *)&this->f_24));
+        r = ((H3_14970*)y)->f3_00222a00((*(void * *)&this->f_24));
     return !r;
 }
 
@@ -454,9 +454,9 @@ bool CStunAnimationAction::vfunc_8(int ) {
 // sym: ?vfunc_4@CStunAnimationAction@@UAEXXZ
 void CStunAnimationAction::vfunc_4() {
     int x = *(int*)((char*)(*(void * *)&this->f_1c) + 8);
-    Obj_149b0* o = (Obj_149b0*)gRoot_149b0->mgr->Find(x);
+    Obj_149b0* o = (Obj_149b0*)hulk_at_004dd700->mgr->Find_00059bf0(x);
     if (o)
-        o->Apply((*(int *)&this->f_24), 0);
+        o->Apply_00222970((*(int *)&this->f_24), 0);
 }
 
 namespace fn_f4b0ec38 {
@@ -513,14 +513,14 @@ class CKeyPoseAction {
     int mActive;
     int mIndex;
     float mTime;
-    bool Advance(int i);
+    bool Advance_000149e0(int i);
 };
 unsigned char CKeyPoseAction::vfunc_8(float dt) {
     if (mActive) {
         mTime -= dt;
         if (mTime <= 0.0f) {
             do {
-                if (!Advance(mIndex + 1))
+                if (!Advance_000149e0(mIndex + 1))
                     return 0;
             } while (mTime <= 0.0f);
         }

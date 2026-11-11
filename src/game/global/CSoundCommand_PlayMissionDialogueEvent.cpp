@@ -11,10 +11,10 @@ namespace fn_fe14a887 {} using namespace fn_fe14a887;
 // ---- declarations shared by the functions below
 namespace fn_fe14a887 {
 struct Resolver {
-    int Lookup(void*);
+    int Lookup_001e98b0(void*);
 };
 struct Player {
-    void Play(int, void*, int, void*, int, unsigned char);
+    void Play_001f3e50(int, void*, int, void*, int, unsigned char);
 };
 struct SoundMgr {
     Player* player;
@@ -34,8 +34,8 @@ class CSoundCommand_1ef570 {
 void CSoundCommand_PlayMissionDialogueEvent::vfunc_1(int a, int b) {
     SoundMgr* mgr = (*(SoundMgr**)&DAT_004e370c);
     Resolver* r = mgr->resolver;
-    int item = r->Lookup(&this->f_10);
+    int item = r->Lookup_001e98b0(&this->f_10);
     if (item)
-        (*(SoundMgr**)&DAT_004e370c)->player->Play(item, (char*)this + 0x18, a, (char*)this + 0x20, this->f_1c, (*(unsigned char *)&this->f_40));
+        (*(SoundMgr**)&DAT_004e370c)->player->Play_001f3e50(item, (char*)this + 0x18, a, (char*)this + 0x20, this->f_1c, (*(unsigned char *)&this->f_40));
 }
 

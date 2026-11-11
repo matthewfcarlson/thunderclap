@@ -36,7 +36,7 @@ class ConditionFactory_57ab0 {
 class Entity_57ab0 {};
 class LoadObject_57ab0 {};
 class IRefCount_57ab0 {};
-extern int CCollisionPushbackVelocityCondition_vftable;
+extern int hulk_at_003f707c;
 class CCollisionPushbackVelocityCondition_57ab0 {
   public:
     virtual void A();
@@ -47,14 +47,14 @@ class CCollisionPushbackVelocityCondition_57ab0 {
     virtual void F();
     int pad[2];
     int a, b, c;
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_57af0;
+extern int hulk_at_003f93d8;
 struct ConditionFactoryTemplate_57af0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00048f60();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -82,8 +82,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCollisionPushbackVeloci
 template <> void* fight::ConditionFactoryTemplate<CCollisionPushbackVelocityCondition>::vfunc_5() {
     CCollisionPushbackVelocityCondition_57ab0* p = (CCollisionPushbackVelocityCondition_57ab0*)FUN_0008d690(0x14);
     if (p) {
-        p->Init(0);
-        ((hulk_intptr*)p)[0] = (hulk_intptr)&CCollisionPushbackVelocityCondition_vftable;
+        p->Init_00234590(0);
+        ((hulk_intptr*)p)[0] = (hulk_intptr)&hulk_at_003f707c;
         p->a = 0;
         p->b = 0;
         return (void*)(p);
@@ -97,9 +97,9 @@ namespace fn_f4159269 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_57af0@fn_f4159269@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_57af0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_57af0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f93d8;
+    base1_dtor_00048f60();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

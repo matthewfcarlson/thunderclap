@@ -66,11 +66,11 @@ extern void __fastcall FUN_000dd970(void*);
 extern void thunk_FUN_00267090(CCollisionAction*);
 typedef unsigned int u32_fc100;
 struct Obj_fc100 {
-    void F5(u32_fc100, u32_fc100);
-    void F0(u32_fc100);
+    void F5_000f5fa0(u32_fc100, u32_fc100);
+    void F0_000f0b30(u32_fc100);
 };
 struct Obj_fc130 {
-    void f(unsigned int);
+    void Fnf_000f0b90(unsigned int);
 };
 class C_fc150 {
   public:
@@ -90,38 +90,38 @@ class C_fc160 {
     virtual void e();
 };
 struct X_fc170 {
-    void A(int);
-    void B(int);
+    void FnA_000de9a0(int);
+    void FnB_000dde30(int);
 };
 struct Obj_fc1a0 {
-    void Target();
+    void Target_000dde50();
 };
 struct Obj_fc1c0 {
-    int f(unsigned int);
+    int Fnf_000dddf0(unsigned int);
 };
 struct Inner_fc1e0 {
-    void run(unsigned int, unsigned int);
+    void run_000df7b0(unsigned int, unsigned int);
 };
 struct Obj_fc1e0 {
     int pad;
     Inner_fc1e0* field;
 };
 struct Inner_fc200 {
-    void run(unsigned int, unsigned int);
+    void run_000df820(unsigned int, unsigned int);
 };
 struct Obj_fc200 {
     int pad;
     Inner_fc200* field;
 };
 struct Inner_fc220 {
-    void run(unsigned int, unsigned int);
+    void run_000df890(unsigned int, unsigned int);
 };
 struct Obj_fc220 {
     int pad;
     Inner_fc220* field;
 };
 struct Obj_fc260 {
-    int f(unsigned int);
+    int Fnf_000e7260(unsigned int);
 };
 struct Global_fc280 {
     virtual void f0();
@@ -278,11 +278,11 @@ class GlobalThing_fc340 {
 };
 class Obj_fc3a0 {
   public:
-    void Fn(int x);
+    void Fn_000e8490(int x);
 };
 class ControllerPoller_fc3e0 {
   public:
-    void Close();
+    void Close_000dd970();
 };
 class Second {
   public:
@@ -355,7 +355,7 @@ class Second {
     virtual void f66();
     virtual void Use(int);
 };
-extern "C" void __cdecl FreeFirst(ControllerPoller_fc3e0*);
+extern "C" void __cdecl FreeFirst_0008d330(ControllerPoller_fc3e0*);
 
 
 // 0x000fb830 FUN_000fb830 (466 B): equivalent/0x000fb830.cpp
@@ -609,8 +609,8 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 // 0x000fc100 FUN_000fc100 (36 B): matches/0x000fc100.cpp
 // sym: _FUN_000fc100
 extern "C" void FUN_000fc100(u32_fc100 a, u32_fc100 b) {
-    (*(Obj_fc100**)&DAT_004e0a60)->F5(a, b);
-    (*(Obj_fc100**)&DAT_004e0a60)->F0(a);
+    (*(Obj_fc100**)&DAT_004e0a60)->F5_000f5fa0(a, b);
+    (*(Obj_fc100**)&DAT_004e0a60)->F0_000f0b30(a);
 }
 
 
@@ -618,7 +618,7 @@ extern "C" void FUN_000fc100(u32_fc100 a, u32_fc100 b) {
 // sym: _FUN_000fc130
 // data: gObject_fc130 = DAT_004e0a60
 extern "C" void __cdecl FUN_000fc130(unsigned int value) {
-    (*(Obj_fc130**)&DAT_004e0a60)->f(value);
+    (*(Obj_fc130**)&DAT_004e0a60)->Fnf_000f0b90(value);
 }
 
 
@@ -639,8 +639,8 @@ extern "C" void FUN_000fc160() {
 // 0x000fc170 FUN_000fc170 (40 B): matches/0x000fc170.cpp
 // sym: _FUN_000fc170
 extern "C" void __cdecl FUN_000fc170(int value) {
-    (*(X_fc170**)&DAT_004e0a64)->A(0);
-    (*(X_fc170**)&DAT_004e0a60)->B(value);
+    (*(X_fc170**)&DAT_004e0a64)->FnA_000de9a0(0);
+    (*(X_fc170**)&DAT_004e0a60)->FnB_000dde30(value);
     ((owners::Obj_de1d0 *)((*(X_fc170**)&DAT_004e0a64)))->FUN_000de1d0();
 }
 
@@ -649,7 +649,7 @@ extern "C" void __cdecl FUN_000fc170(int value) {
 // sym: _FUN_000fc1a0
 // data: g_object_fc1a0 = DAT_004e0a60
 extern "C" void __cdecl FUN_000fc1a0(void) {
-    (*(Obj_fc1a0**)&DAT_004e0a60)->Target();
+    (*(Obj_fc1a0**)&DAT_004e0a60)->Target_000dde50();
 }
 
 } // namespace fn_f5c759cd
@@ -850,7 +850,7 @@ namespace fn_f5c759cd {
 // Same code shape as 0x000fc130 (propagated; names are from that function)
 // data: gObject_fc1c0 = DAT_004e0a60
 extern "C" int __cdecl FUN_000fc1c0(unsigned int value) {
-    return (*(Obj_fc1c0**)&DAT_004e0a60)->f(value);
+    return (*(Obj_fc1c0**)&DAT_004e0a60)->Fnf_000dddf0(value);
 }
 
 
@@ -858,7 +858,7 @@ extern "C" int __cdecl FUN_000fc1c0(unsigned int value) {
 // sym: _FUN_000fc1e0
 // data: g_flag_fc1e0 = DAT_004e0a68, g_obj_fc1e0 = DAT_004e0a60
 extern "C" void FUN_000fc1e0(unsigned int a, unsigned int b) {
-    (*(Obj_fc1e0**)&DAT_004e0a60)->field->run(a, b);
+    (*(Obj_fc1e0**)&DAT_004e0a60)->field->run_000df7b0(a, b);
     (*(unsigned char*)&DAT_004e0a68) = 1;
 }
 
@@ -868,7 +868,7 @@ extern "C" void FUN_000fc1e0(unsigned int a, unsigned int b) {
 // Same code shape as 0x000fc1e0 (propagated; names are from that function)
 // data: g_flag_fc200 = DAT_004e0a68, g_obj_fc200 = DAT_004e0a60
 extern "C" void FUN_000fc200(unsigned int a, unsigned int b) {
-    (*(Obj_fc200**)&DAT_004e0a60)->field->run(a, b);
+    (*(Obj_fc200**)&DAT_004e0a60)->field->run_000df820(a, b);
     (*(unsigned char*)&DAT_004e0a68) = 1;
 }
 
@@ -878,7 +878,7 @@ extern "C" void FUN_000fc200(unsigned int a, unsigned int b) {
 // Same code shape as 0x000fc1e0 (propagated; names are from that function)
 // data: g_flag_fc220 = DAT_004e0a68, g_obj_fc220 = DAT_004e0a60
 extern "C" void FUN_000fc220(unsigned int a, unsigned int b) {
-    (*(Obj_fc220**)&DAT_004e0a60)->field->run(a, b);
+    (*(Obj_fc220**)&DAT_004e0a60)->field->run_000df890(a, b);
     (*(unsigned char*)&DAT_004e0a68) = 1;
 }
 
@@ -888,7 +888,7 @@ extern "C" void FUN_000fc220(unsigned int a, unsigned int b) {
 // Same code shape as 0x000fc130 (propagated; names are from that function)
 // data: gObject_fc260 = DAT_004e0a60
 extern "C" hulk_intptr __cdecl FUN_000fc260(hulk_uintptr value) {
-    return (*(Obj_fc260**)&DAT_004e0a60)->f(value);
+    return (*(Obj_fc260**)&DAT_004e0a60)->Fnf_000e7260(value);
 }
 
 
@@ -954,7 +954,7 @@ extern "C" void FUN_000fc340(int a) {
 // sym: ?FUN_000fc3a0@fn_f5c759cd@@YAXH@Z
 // data: g_obj_fc3a0 = DAT_004e0a60
 void FUN_000fc3a0(int x) {
-    (*(Obj_fc3a0**)&DAT_004e0a60)->Fn(x);
+    (*(Obj_fc3a0**)&DAT_004e0a60)->Fn_000e8490(x);
 }
 
 
@@ -972,8 +972,8 @@ extern "C" hulk_intptr FUN_000fc3d0(void) {
 extern "C" void FUN_000fc3e0() {
     if ((*(ControllerPoller_fc3e0**)&DAT_004e0a64)) {
         ControllerPoller_fc3e0* p = (*(ControllerPoller_fc3e0**)&DAT_004e0a64);
-        (*(ControllerPoller_fc3e0**)&DAT_004e0a64)->Close();
-        FreeFirst(p);
+        (*(ControllerPoller_fc3e0**)&DAT_004e0a64)->Close_000dd970();
+        FreeFirst_0008d330(p);
         (*(ControllerPoller_fc3e0**)&DAT_004e0a64) = 0;
     }
     if ((*(Second**)&DAT_004e0a60)) {

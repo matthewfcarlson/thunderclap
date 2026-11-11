@@ -12,12 +12,12 @@ namespace fn_fb73efad {} using namespace fn_fb73efad;
 
 // ---- declarations shared by the functions below
 namespace fn_fb73efad {
-extern void* g_vftable_dc600[];
-void Free(void*) throw();
+extern void* hulk_at_0040bb9c[];
+void Free_0008d340(void*) throw();
 class FEControl_dc600 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_000e92b0();
 };
 class FETextInput_dc600 : public FEControl_dc600 {
   public:
@@ -86,7 +86,7 @@ class FEControl_dc7c0 {
     virtual void s();
 };
 struct FETextInput_nv_dc7c0 {
-    void helper();
+    void helper_000dc730();
 };
 struct Vec3_dc810 {
     float x, y, z;
@@ -174,42 +174,42 @@ namespace fn_fb73efad {
 // 0x000dc600 FUN_000dc600 (258 B): matches/0x000dc600.cpp
 // sym: ??1FETextInput_dc600@fn_fb73efad@@QAE@XZ
 FETextInput_dc600::~FETextInput_dc600() throw() {
-    vptr = g_vftable_dc600;
+    vptr = hulk_at_0040bb9c;
     if (m158) {
-        Free(m158);
+        Free_0008d340(m158);
         m158 = 0;
     }
     if (m15c) {
-        Free(m15c);
+        Free_0008d340(m15c);
         m15c = 0;
     }
     if (m160) {
-        Free(m160);
+        Free_0008d340(m160);
         m160 = 0;
     }
     for (int i = 0; i < n; i++) {
         if (a[i]) {
-            Free(a[i]);
+            Free_0008d340(a[i]);
             a[i] = 0;
         }
         if (b[i]) {
-            Free(b[i]);
+            Free_0008d340(b[i]);
             b[i] = 0;
         }
     }
     if (a) {
-        Free(a);
+        Free_0008d340(a);
         a = 0;
     }
     if (b) {
-        Free(b);
+        Free_0008d340(b);
         b = 0;
     }
     if (m16c) {
-        Free(m16c);
+        Free_0008d340(m16c);
         m16c = 0;
     }
-    Fin();
+    Fin_000e92b0();
 }
 
 // 0x000dc710 FETextInput::vfunc_3 (5 B): not yet verified
@@ -244,7 +244,7 @@ void FETextInput_dc730::FUN_000dc730()
 void FETextInput::vfunc_13(int ) {
     if ((*(unsigned char *)&this->f_74)) {
         this->f_178 = 1;
-        ((FETextInput_nv_dc7c0*)this)->helper();
+        ((FETextInput_nv_dc7c0*)this)->helper_000dc730();
     }
 }
 

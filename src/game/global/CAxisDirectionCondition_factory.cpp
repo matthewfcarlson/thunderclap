@@ -28,17 +28,17 @@ extern "C" char DAT_003f6f34[];
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 struct CAxisDirectionCondition_56ca0 {
     hulk_intptr vt;
-    void Init(int);
+    void Init_00234590(int);
     char pad[8];
     int a;
     int b;
     int c;
 };
-extern int g_vftable_56ce0;
+extern int hulk_at_003f9044;
 struct ConditionFactoryTemplate_56ce0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00048990();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -66,7 +66,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CAxisDirectionCondition>
 template <> void* fight::ConditionFactoryTemplate<CAxisDirectionCondition>::vfunc_5() {
     CAxisDirectionCondition_56ca0* p = (CAxisDirectionCondition_56ca0*)FUN_0008d690((int)sizeof(CAxisDirectionCondition_56ca0));
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->vt = ((hulk_intptr)DAT_003f6f34);
         p->a = 0;
         p->b = 0;
@@ -82,9 +82,9 @@ namespace fn_ff557179 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_56ce0@fn_ff557179@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_56ce0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_56ce0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9044;
+    base1_dtor_00048990();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

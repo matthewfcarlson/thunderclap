@@ -9,7 +9,7 @@ namespace fn_fc721419 {} using namespace fn_fc721419;
 
 // ---- declarations shared by the functions below
 namespace fn_fc721419 {
-extern void* g_vftable_22160[];
+extern void* hulk_at_003f3390[];
 class Ref_22160 {
   public:
     virtual void F0();
@@ -30,7 +30,7 @@ class CIntangibleToActorsAction_22160 : public CAction_22160 {
 // 0x00022160 CIntangibleToActorsAction::vfunc_2 (57 B): matches/0x00022160.cpp
 // sym: ?f2@CIntangibleToActorsAction_22160@fn_fc721419@@QAEPAV12@E@Z
 CIntangibleToActorsAction_22160* CIntangibleToActorsAction_22160::f2(unsigned char flags) {
-    vptr = g_vftable_22160;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

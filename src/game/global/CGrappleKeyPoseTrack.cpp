@@ -14,7 +14,7 @@ namespace fn_fcf3f91f {
 struct A_5a680 {
 };
 struct B_5a680 {
-    void* second();
+    void* second_00059a30();
 };
 struct Data_5a680 {
     char pad330[0x330];
@@ -50,7 +50,7 @@ void* CGrappleKeyPoseTrack::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((void *)((owners::Object_592a0 *)(((A_5a680*)param)))->FUN_000592a0());
         if (a) {
-            void* b = ((B_5a680*)a)->second();
+            void* b = ((B_5a680*)a)->second_00059a30();
             if (b) {
                 Data_5a680* d = (Data_5a680*)b;
                 if (d->p334)

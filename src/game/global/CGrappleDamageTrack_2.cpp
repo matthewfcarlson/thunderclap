@@ -22,15 +22,15 @@ class TrackFactoryTemplate_765f0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_76630;
+extern int hulk_at_003fe704;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00069da0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" void* __cdecl FUN_0008d690(int);
-extern void* GrappleVftable;
+extern void* hulk_at_003fe720;
 class CGrappleDamageTrack_76660 {
   public:
     virtual void a();
@@ -41,10 +41,10 @@ class CGrappleDamageTrack_76660 {
     virtual void f();
     CGrappleDamageTrack_76660();
 };
-extern void* CDamageTrack_76690_vftable[];
+extern void* hulk_at_003f98d0[];
 class CDamageTrack_76690 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f40a0ef6
 class CGrappleDamageTrack : public CDamageTrack_76690 {
@@ -75,9 +75,9 @@ namespace fn_f40a0ef6 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f40a0ef6@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_76630;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe704;
+    base1_dtor_00069da0();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -91,7 +91,7 @@ template <> void* fight::TrackFactoryTemplate<CGrappleDamageTrack>::vfunc_5() {
     CGrappleDamageTrack_76660* p = (CGrappleDamageTrack_76660*)FUN_0008d690(0x18);
     if (p) {
         p->CGrappleDamageTrack_76660::CGrappleDamageTrack_76660();
-        *(void**)p = &GrappleVftable;
+        *(void**)p = &hulk_at_003fe720;
         return (void*)(p);
     }
     return (void*)(0);
@@ -104,8 +104,8 @@ template <> void* fight::TrackFactoryTemplate<CGrappleDamageTrack>::vfunc_5() {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CGrappleDamageTrack* CGrappleDamageTrack::vfunc_5(signed char flags) {
-    *(void***)this = CDamageTrack_76690_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f98d0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

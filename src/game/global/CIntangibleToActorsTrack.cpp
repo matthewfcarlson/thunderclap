@@ -12,7 +12,7 @@ namespace fn_fcfa2476 {} using namespace fn_fcfa2476;
 
 // ---- declarations shared by the functions below
 namespace fn_fcfa2476 {
-extern void** gTable_6a200;
+extern void** hulk_at_004dcf98;
 struct Param_6a260 {
   public:
     virtual void vfunc1();
@@ -27,7 +27,7 @@ struct CTrack_6a260 {
 };
 class Helper_6a280 {
   public:
-    int go(hulk_intptr);
+    int go_0001f5d0(hulk_intptr);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
@@ -44,7 +44,7 @@ void FUN_0006a1e0() {
 // 0x0006a200 CIntangibleToActorsTrack::vfunc_0 (16 B): matches/0x0006a200.cpp
 // sym: ?vfunc_0@CIntangibleToActorsTrack@@UAEHH@Z
 hulk_intptr CIntangibleToActorsTrack::vfunc_0(int i) {
-    return (hulk_intptr)(gTable_6a200[i]);
+    return (hulk_intptr)(hulk_at_004dcf98[i]);
 }
 
 
@@ -111,7 +111,7 @@ hulk_freg CIntangibleToActorsTrack::vfunc_7() {
 hulk_intptr CIntangibleToActorsTrack::vfunc_12(hulk_intptr a) {
     void* p = FUN_0008d690(0x20);
     if (p)
-        return ((Helper_6a280*)p)->go(a);
+        return ((Helper_6a280*)p)->go_0001f5d0(a);
     return 0;
 }
 

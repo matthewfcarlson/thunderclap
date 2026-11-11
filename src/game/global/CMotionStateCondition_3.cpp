@@ -31,13 +31,13 @@ struct CMotionStateCondition_58550 {
     u32_58550 pad8;
     u32_58550 fieldC;
     u32_58550 field10;
-    void Initialize(int);
+    void Initialize_00234590(int);
 };
-extern int g_vftable_58590;
+extern int hulk_at_003f95cc;
 struct ConditionFactoryTemplate_58590 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0004a1f0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -65,7 +65,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CMotionStateCondition>::
 template <> void* fight::ConditionFactoryTemplate<CMotionStateCondition>::vfunc_5() {
     CMotionStateCondition_58550* p = (CMotionStateCondition_58550*)FUN_0008d690((int)sizeof(CMotionStateCondition_58550));
     if (p) {
-        p->Initialize(0);
+        p->Initialize_00234590(0);
         p->vtable = ((hulk_intptr)DAT_003f7394);
         p->fieldC = 0;
         p->field10 = 1;
@@ -81,9 +81,9 @@ namespace fn_f56c52e2 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_58590@fn_f56c52e2@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_58590::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_58590;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f95cc;
+    base1_dtor_0004a1f0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

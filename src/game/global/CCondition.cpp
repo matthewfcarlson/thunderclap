@@ -13,15 +13,15 @@ namespace fn_f441c847 {} using namespace fn_f441c847;
 
 // ---- declarations shared by the functions below
 namespace fn_f441c847 {
-extern int* gTable_4ade0;
+extern int* hulk_at_004dc580;
 class CCondition_4ade0 {
   public:
     virtual int vfunc_0(int);
 };
 class Obj_4ae90 {
   public:
-    Obj_4ae90* b();
-    int c();
+    Obj_4ae90* Fnb_00059a30();
+    int Fnc_00035a90();
 };
 } // namespace fn_f441c847
 extern "C" double __cdecl __floor_default(double);
@@ -42,7 +42,7 @@ void FUN_0004adc0() {
 // sym: ?vfunc_0@CMotionClimbAngleCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CMotionClimbAngleCondition::vfunc_0(int index) {
-    int* p = gTable_4ade0;
+    int* p = hulk_at_004dc580;
     return p[index];
 }
 
@@ -83,8 +83,8 @@ namespace fn_f441c847 {
 // Same code shape as 0x00049cc0 (propagated; names are from that function)
 int __stdcall vfunc_7(Obj_4ae90* p) {
     p = ((Obj_4ae90 *)((owners::Object_592a0 *)p)->FUN_000592a0());
-    p = p->b();
-    return p->c();
+    p = p->Fnb_00059a30();
+    return p->Fnc_00035a90();
 }
 
 
@@ -114,11 +114,11 @@ namespace fn_0004b010 {
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* Condition_4b010_vftable[];
+extern void* hulk_at_003f6d50[];
 
 class Condition_4b010 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CCondition : public Condition_4b010 {
@@ -126,13 +126,13 @@ class CCondition : public Condition_4b010 {
     CCondition* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CCondition* CCondition::vfunc_5(signed char flags) {
-    *(void***)this = Condition_4b010_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

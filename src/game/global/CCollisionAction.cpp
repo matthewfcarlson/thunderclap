@@ -15,7 +15,7 @@ namespace fn_fd8b7d01 {} using namespace fn_fd8b7d01;
 // ---- declarations shared by the functions below
 namespace fn_fd8b7d01 {
 struct C_13ec0 {
-    int second();
+    int second_00059a30();
 };
 struct B_13ec0 {
 };
@@ -48,11 +48,11 @@ struct D {
 };
 class X_13ed0 {
   public:
-    C_13ed0* f();
+    C_13ed0* Fnf_000592a0();
 };
 class Y_13ed0 {
   public:
-    C_13ed0* f();
+    C_13ed0* Fnf_00059a30();
 };
 struct Slot_13f20;
 struct Slot_13f20 {
@@ -151,15 +151,15 @@ struct Self_13f20 {
 // 0x00013ec0 FUN_00013ec0 (15 B): matches/0x00013ec0.cpp
 // sym: ?target@Obj_13ec0@fn_fd8b7d01@@QAEHXZ
 hulk_intptr Obj_13ec0::target() {
-    return ((C_13ec0 *)((owners::Object_592a0 *)member)->FUN_000592a0())->second();
+    return ((C_13ec0 *)((owners::Object_592a0 *)member)->FUN_000592a0())->second_00059a30();
 }
 
 
 // 0x00013ed0 FUN_00013ed0 (74 B): matches/0x00013ed0.cpp
 // sym: ?FUN_00013ed0@fn_fd8b7d01@@YI_NPAVA_13ed0@1@@Z
 bool __fastcall FUN_00013ed0(A_13ed0* self) {
-    C_13ed0* c = ((X_13ed0*)self->p1)->f();
-    c = ((Y_13ed0*)c)->f();
+    C_13ed0* c = ((X_13ed0*)self->p1)->Fnf_000592a0();
+    c = ((Y_13ed0*)c)->Fnf_00059a30();
     if (!c || !c->b || !c->b->flag) {
         D* d = (D*)self->p2;
         if (d->x > 0 && self->m34 >= d->x && d->y > 0 && self->m38 >= d->y)

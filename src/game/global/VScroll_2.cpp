@@ -11,7 +11,7 @@ namespace fn_ff353e98 {} using namespace fn_ff353e98;
 namespace fn_ff353e98 {
 class Worker_e8cb0 {
   public:
-    void run(int, int, int);
+    void run_000e2c90(int, int, int);
 };
 class FELayout_e8cb0 {
     char pad[0x44];
@@ -42,7 +42,7 @@ class FELayout_e8fc0 {
     virtual void a4();
 };
 struct VScroll_nv_e8fc0 {
-    void helper(int, int);
+    void helper_000e8cf0(int, int);
 };
 class FELayout_e9010 {
   public:
@@ -54,7 +54,7 @@ class FELayout_e9010 {
 };
 class Obj_e9010 {
   public:
-    void run(int, int, int);
+    void run_000e2c90(int, int, int);
 };
 
 } // namespace fn_ff353e98
@@ -69,7 +69,7 @@ class FEDoAction_e8c70 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_0040bfa0[];
 namespace pure3d {
 class NonCopyable : public FEDoAction_e8c70 {
   public:
@@ -80,7 +80,7 @@ class NonCopyable : public FEDoAction_e8c70 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_0040bfa0;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -98,7 +98,7 @@ class FELayout_e8c90 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_0040c14c[];
 namespace pure3d {
 class NonCopyable : public FELayout_e8c90 {
   public:
@@ -109,7 +109,7 @@ class NonCopyable : public FELayout_e8c90 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_0040c14c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -122,7 +122,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 void SingleLayout::vfunc_10(int param) {
     Worker_e8cb0* p = (*(Worker_e8cb0 * *)&this->f_44);
     if (p)
-        p->run(param, -1, -1);
+        p->run_000e2c90(param, -1, -1);
 }
 
 
@@ -136,7 +136,7 @@ class FELayout_e8cd0 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_0040c1ac[];
 namespace pure3d {
 class NonCopyable : public FELayout_e8cd0 {
   public:
@@ -147,7 +147,7 @@ class NonCopyable : public FELayout_e8cd0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_0040c1ac;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -487,12 +487,12 @@ void VScroll::vfunc_8(int p) {
     case 1: {
         int x = this->f_268;
         if (this->f_248 != x)
-            ((VScroll_nv_e8fc0*)this)->helper(x, 1);
+            ((VScroll_nv_e8fc0*)this)->helper_000e8cf0(x, 1);
         break;
     }
     case 2:
         if (this->f_248 != 0)
-            ((VScroll_nv_e8fc0*)this)->helper(0, 2);
+            ((VScroll_nv_e8fc0*)this)->helper_000e8cf0(0, 2);
         break;
     }
     if ((*(Child_e8fc0 * *)&this->f_244))
@@ -505,6 +505,6 @@ void VScroll::vfunc_8(int p) {
 void VScroll::vfunc_10(int arg) {
     Obj_e9010* p = (*(Obj_e9010 * *)&this->f_244);
     if (p && arg == 0)
-        p->run(0, -1, -1);
+        p->run_000e2c90(0, -1, -1);
 }
 

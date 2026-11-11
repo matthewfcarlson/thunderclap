@@ -27,7 +27,7 @@ extern "C" char DAT_003fbf68[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Helper_77320 {
   public:
-    void Init();
+    void Init_00236d40();
 };
 struct Orient_77320 {
     void* vptr;
@@ -43,11 +43,11 @@ struct Orient_77320 {
     int x24;
     int x28;
 };
-extern int g_vftable_77380;
+extern int hulk_at_003fea84;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006a680();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -75,7 +75,7 @@ template <> void* fight::TrackFactoryCasterTemplate<COrientTrack>::vfunc_1(void*
 template <> void* fight::TrackFactoryTemplate<COrientTrack>::vfunc_5() {
     Orient_77320* p = (Orient_77320*)FUN_0008d690((int)sizeof(Orient_77320));
     if (p) {
-        ((Helper_77320*)p)->Init();
+        ((Helper_77320*)p)->Init_00236d40();
         p->xC = 0;
         p->x18 = 0;
         p->x1c = 0;
@@ -97,9 +97,9 @@ namespace fn_fed5cdd6 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fed5cdd6@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_77380;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fea84;
+    base1_dtor_0006a680();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

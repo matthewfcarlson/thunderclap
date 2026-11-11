@@ -30,8 +30,8 @@ class CCharacterTemplateCondition : public CCondition {
 };
 class CClimbableCondition_4cfe0 {
   public:
-    void a();
-    void b();
+    void Fna_0027af50();
+    void Fnb_002345b0();
 };
 void thunk_FUN_00267090(void*);
 class CCharacterTemplateVariationCondition : public CCondition {
@@ -41,8 +41,8 @@ class CCharacterTemplateVariationCondition : public CCondition {
 };
 class CClimbableCondition_4d020 {
   public:
-    void a();
-    void b();
+    void Fna_0027af50();
+    void Fnb_002345b0();
 };
 class CGrappleCharacterTemplateCondition : public CCondition {
   public:
@@ -51,13 +51,13 @@ class CGrappleCharacterTemplateCondition : public CCondition {
 };
 class CClimbableCondition_4d060 {
   public:
-    void a();
-    void b();
+    void Fna_0027af50();
+    void Fnb_002345b0();
 };
-extern void* CCondition_4d0a0_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4d0a0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CMotionStateCondition : public CCondition_4d0a0 {
   public:
@@ -66,7 +66,7 @@ class CMotionStateCondition : public CCondition_4d0a0 {
 extern void* CCondition_4d0d0_vftable[];
 class CCondition_4d0d0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CMotionHitCondition : public CCondition_4d0d0 {
   public:
@@ -75,7 +75,7 @@ class CMotionHitCondition : public CCondition_4d0d0 {
 extern void* CCondition_4d100_vftable[];
 class CCondition_4d100 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CClimbableCondition : public CCondition_4d100 {
   public:
@@ -89,9 +89,9 @@ class CClimbableCondition : public CCondition_4d100 {
 CCharacterTemplateCondition* CCharacterTemplateCondition::vfunc_5(int p) {
     CCharacterTemplateCondition* s = this;
     *(void (**)())s = &vt_name;
-    ((CClimbableCondition_4cfe0*)((char*)s + 0x10))->a();
+    ((CClimbableCondition_4cfe0*)((char*)s + 0x10))->Fna_0027af50();
     *(void (**)())s = &vt_cond;
-    ((CClimbableCondition_4cfe0*)s)->b();
+    ((CClimbableCondition_4cfe0*)s)->Fnb_002345b0();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;
@@ -104,9 +104,9 @@ CCharacterTemplateCondition* CCharacterTemplateCondition::vfunc_5(int p) {
 CCharacterTemplateVariationCondition* CCharacterTemplateVariationCondition::vfunc_5(int p) {
     CCharacterTemplateVariationCondition* s = this;
     *(void (**)())s = &vt_name;
-    ((CClimbableCondition_4d020*)((char*)s + 0x10))->a();
+    ((CClimbableCondition_4d020*)((char*)s + 0x10))->Fna_0027af50();
     *(void (**)())s = &vt_cond;
-    ((CClimbableCondition_4d020*)s)->b();
+    ((CClimbableCondition_4d020*)s)->Fnb_002345b0();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;
@@ -119,9 +119,9 @@ CCharacterTemplateVariationCondition* CCharacterTemplateVariationCondition::vfun
 CGrappleCharacterTemplateCondition* CGrappleCharacterTemplateCondition::vfunc_5(int p) {
     CGrappleCharacterTemplateCondition* s = this;
     *(void (**)())s = &vt_name;
-    ((CClimbableCondition_4d060*)((char*)s + 0x10))->a();
+    ((CClimbableCondition_4d060*)((char*)s + 0x10))->Fna_0027af50();
     *(void (**)())s = &vt_cond;
-    ((CClimbableCondition_4d060*)s)->b();
+    ((CClimbableCondition_4d060*)s)->Fnb_002345b0();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;
@@ -134,8 +134,8 @@ CGrappleCharacterTemplateCondition* CGrappleCharacterTemplateCondition::vfunc_5(
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CMotionStateCondition* CMotionStateCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4d0a0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -150,7 +150,7 @@ CMotionStateCondition* CMotionStateCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CMotionHitCondition* CMotionHitCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4d0d0_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -165,7 +165,7 @@ CMotionHitCondition* CMotionHitCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CClimbableCondition* CClimbableCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4d100_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

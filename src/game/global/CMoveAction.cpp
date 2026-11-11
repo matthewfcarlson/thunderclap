@@ -12,7 +12,7 @@ namespace fn_fe68592f {} using namespace fn_fe68592f;
 // ---- declarations shared by the functions below
 namespace fn_fe68592f {
 struct R_14e60 {
-    void call(void*, int);
+    void call_00222970(void*, int);
 };
 extern void* __fastcall FUN_000592a0(void*);
 extern "C" R_14e60* __fastcall FUN_00059a40(void*);
@@ -97,6 +97,6 @@ void CMoveAction::vfunc_4() {
     void* a = FUN_000592a0((*(void * *)&this->f_1c));
     R_14e60* b = FUN_00059a40(a);
     if (b)
-        b->call((*(void * *)&this->f_24), 0);
+        b->call_00222970((*(void * *)&this->f_24), 0);
 }
 

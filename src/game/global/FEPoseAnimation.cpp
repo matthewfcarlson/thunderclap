@@ -26,7 +26,7 @@ struct Target {
     hulk_freg FUN_000e8600(int parameter, int index);
 };
 extern const float limit = -1.0f;
-extern void* g_vftable_e86f0[];
+extern void* hulk_at_0040bfc0[];
 } // namespace fn_f477ab1c
 void operator delete[](void*);
 namespace fn_f477ab1c {
@@ -62,7 +62,7 @@ class Ref_e89e0 {
 };
 class FEPoseAnimation_e89e0 {
   public:
-    void Done();
+    void Done_000e8730();
 };
 
 
@@ -112,7 +112,7 @@ namespace fn_f477ab1c {
 // 0x000e86f0 FUN_000e86f0 (53 B): matches/0x000e86f0.cpp
 // sym: ??1FEAnimation_e86f0@fn_f477ab1c@@QAE@XZ
 FEAnimation_e86f0::~FEAnimation_e86f0() {
-    vptr = g_vftable_e86f0;
+    vptr = hulk_at_0040bfc0;
     _ReadWriteBarrier();
     if (mc) {
         mc->Release();
@@ -364,6 +364,6 @@ void FEParticleAnimation::FUN_000e89e0() {
         r->g();
         (*(Ref_e89e0 *volatile *)&this->f_64) = 0;
     }
-    ((FEPoseAnimation_e89e0*)this)->Done();
+    ((FEPoseAnimation_e89e0*)this)->Done_000e8730();
 }
 

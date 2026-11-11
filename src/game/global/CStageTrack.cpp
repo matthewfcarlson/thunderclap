@@ -29,10 +29,10 @@ class CTrack_6ab40 {
     virtual void vfunc_12();
     virtual void vfunc_13();
 };
-extern int* gTable_6ab40;
+extern int* hulk_at_004dcfe8;
 class Other_6abc0 {
   public:
-    int call(hulk_intptr, int);
+    int call_000201a0(hulk_intptr, int);
 };
 extern "C" Other_6abc0* __cdecl FUN_0008d690(int);
 
@@ -49,7 +49,7 @@ void FUN_0006ab20() {
 // 0x0006ab40 CStageTrack::vfunc_0 (16 B): matches/0x0006ab40.cpp
 // sym: ?vfunc_0@CStageTrack@@UAEHH@Z
 hulk_intptr CStageTrack::vfunc_0(int index) {
-    return gTable_6ab40[index];
+    return hulk_at_004dcfe8[index];
 }
 
 
@@ -119,7 +119,7 @@ hulk_freg CStageTrack::vfunc_7() {
 hulk_intptr CStageTrack::vfunc_12(hulk_intptr param) {
     Other_6abc0* p = FUN_0008d690(0x24);
     if (p)
-        return p->call(param, this->f_10);
+        return p->call_000201a0(param, this->f_10);
     return 0;
 }
 

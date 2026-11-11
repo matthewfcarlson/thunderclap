@@ -16,7 +16,7 @@ namespace fn_f69c308d {} using namespace fn_f69c308d;
 namespace fn_f69c308d {
 struct Vec3_9f7d0 {
     float x, y, z;
-    bool IsSmall();
+    bool IsSmall_0022d330();
 };
 } // namespace fn_f69c308d
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -48,7 +48,7 @@ struct Glob_9fa00 {
     char pad[0x54];
     Sys_9fa00* sys;
 };
-extern Glob_9fa00* gGlob_9fa00;
+extern Glob_9fa00* hulk_at_004dd700;
 struct Vec3_9fbd0 { float x, y, z; };
 struct V3_9fd50 {
     float x, y, z;
@@ -66,15 +66,15 @@ union FloatBits_a0330 {
     unsigned int u;
 };
 hulk_freg __cdecl FUN_000a0330(float);
-float __cdecl Wrap(float v);
+float __cdecl Wrap_000a02a0(float v);
 union Bits_a0450 {
     float f;
     unsigned long u;
 };
 struct Vec_a04c0 { float x,y,z; };
-extern float __cdecl A(float);
-extern float __cdecl C(float);
-extern float __cdecl B(float, float, int, int, int);
+extern float __cdecl FnA_000a02a0(float);
+extern float __cdecl FnC_000a02a0(float);
+extern float __cdecl FnB_000a00e0(float, float, int, int, int);
 struct Vec3_a0940 {
     union { float x; int xi; };
     union { float y; int yi; };
@@ -204,7 +204,7 @@ class A_a0d40 {
     virtual void f();
     virtual void g();
 };
-extern void* g_vftable_a0d80[];
+extern void* hulk_at_00405604[];
 class Ref_a0d80 {
   public:
     virtual void F0();
@@ -213,8 +213,8 @@ class Ref_a0d80 {
 class CGameCamera_a0d80 {
   public:
     void* vptr;
-    void Fin();
-    void Fin29();
+    void Fin_000a9620();
+    void Fin29_000a91b0();
 };
 class CChaseCamera_a0d80 : public CGameCamera_a0d80 {
   public:
@@ -512,8 +512,8 @@ class CChaseCamera_a27b0 {
     void* vptr;
     char pad[0x34c];
     Ref_a27b0* m350;
-    void Cam29();
-    void Fin();
+    void Cam29_000a91b0();
+    void Fin_000a9620();
     CChaseCamera_a27b0* f2(unsigned char flags);
 };
 class CChaseCamera_a2c60 {
@@ -524,7 +524,7 @@ class CChaseCamera_a2c60 {
 
   public:
     void Set(float value, float time);
-    void helper(float);
+    void helper_000a0fe0(float);
 };
 struct V3_a2de0 {
     float x, y, z;
@@ -560,13 +560,13 @@ struct Local_a2f30 {
     char pad[12];
 };
 struct Helper_a2f30 {
-    bool Read(Local_a2f30*);
+    bool Read_00035550(Local_a2f30*);
 };
 struct CChaseCamera_nv_a2f30 {
-    void Apply(float, int);
+    void Apply_000a2e60(float, int);
 };
-extern float __cdecl GetVal(Local_a2f30*);
-extern float __cdecl Transform(float);
+extern float __cdecl GetVal_000a0450(Local_a2f30*);
+extern float __cdecl Transform_000a02a0(float);
 struct V3_a2f90 {
     float x, y, z;
 };
@@ -758,7 +758,7 @@ Vec3_9f7d0 Func(const Vec3_9f7d0* a, const Vec3_9f7d0* b, float t, float tau) {
     r.x = (b->x - a->x) * f + a->x;
     r.y = (b->y - a->y) * f + a->y;
     r.z = (b->z - a->z) * f + a->z;
-    if (r.IsSmall()) {
+    if (r.IsSmall_0022d330()) {
         r.z = 0.0f;
         r.y = 0.0f;
         r.x = 0.0f;
@@ -810,7 +810,7 @@ void __cdecl FUN_0009f910(int count, float* keys, unsigned int* values) {
 // sym: _FUN_0009fa00
 // data: gFlag_9fa00 = DAT_004e222c
 extern "C" bool FUN_0009fa00() {
-    Mgr_9fa00* m = gGlob_9fa00->sys->Get();
+    Mgr_9fa00* m = hulk_at_004dd700->sys->Get();
     int i = 0;
     do {
         St_9fa00 s;
@@ -1170,7 +1170,7 @@ hulk_freg __cdecl Fn(float* p) {
         if (b.f <= DAT_00405564)
             return DAT_003f32e0;
     }
-    return Wrap((float)(atan2(p[0], p[2]) * DAT_003f3ef4));
+    return Wrap_000a02a0((float)(atan2(p[0], p[2]) * DAT_003f3ef4));
 }
 
 
@@ -1194,9 +1194,9 @@ void __cdecl FUN_000a04c0(Vec_a04c0* v, float* yaw, float* pitch, float* length)
 // 0x000a05b0 FUN_000a05b0 (89 B): matches/0x000a05b0.cpp
 // sym: ?Target@fn_f69c308d@@YAMMMHHH@Z
 hulk_freg __cdecl Target(float p1, float p2, int p3, int p4, int p5) {
-    float f1 = A(p2 - p1);
-    float f2 = A(p1);
-    return C(B(f2, f2 + f1, p3, p4, p5));
+    float f1 = FnA_000a02a0(p2 - p1);
+    float f2 = FnA_000a02a0(p1);
+    return FnC_000a02a0(FnB_000a00e0(f2, f2 + f1, p3, p4, p5));
 }
 
 } // namespace fn_f69c308d
@@ -1442,14 +1442,14 @@ void FUN_000a0d40(A_a0d40** p) {
 // 0x000a0d80 FUN_000a0d80 (49 B): matches/0x000a0d80.cpp
 // sym: ??1CChaseCamera_a0d80@fn_f69c308d@@QAE@XZ
 CChaseCamera_a0d80::~CChaseCamera_a0d80() {
-    vptr = g_vftable_a0d80;
+    vptr = hulk_at_00405604;
     _ReadWriteBarrier();
     if (m350) {
         m350->Release();
         m350 = 0;
     }
-    Fin29();
-    Fin();
+    Fin29_000a91b0();
+    Fin_000a9620();
 }
 
 
@@ -2609,8 +2609,8 @@ CChaseCamera_a27b0* CChaseCamera_a27b0::f2(unsigned char flags) {
         m350->Release();
         m350 = 0;
     }
-    Cam29();
-    Fin();
+    Cam29_000a91b0();
+    Fin_000a9620();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -2775,7 +2775,7 @@ void CChaseCamera_a2c60::Set(float value, float time) {
     speed = 0.0f;
     if (oldVal != value) {
         if (time <= DAT_003f32e0) {
-            helper(value);
+            helper_000a0fe0(value);
             return;
         }
         speed = (value - oldVal) / time;
@@ -2871,10 +2871,10 @@ void CChaseCamera_a2e60::FUN_000a2e60(unsigned arg, unsigned char flag) {
 // sym: ?FUN_000a2f30@CChaseCamera@@QAEXH@Z
 void CChaseCamera::FUN_000a2f30(int arg) {
     Local_a2f30 local;
-    if ((*(Helper_a2f30 * *)&this->f_350) && (*(Helper_a2f30 * *)&this->f_350)->Read(&local)) {
-        float x = GetVal(&local);
-        x = Transform(x + 180.0f);
-        ((CChaseCamera_nv_a2f30*)this)->Apply(x, arg);
+    if ((*(Helper_a2f30 * *)&this->f_350) && (*(Helper_a2f30 * *)&this->f_350)->Read_00035550(&local)) {
+        float x = GetVal_000a0450(&local);
+        x = Transform_000a02a0(x + 180.0f);
+        ((CChaseCamera_nv_a2f30*)this)->Apply_000a2e60(x, arg);
     }
 }
 

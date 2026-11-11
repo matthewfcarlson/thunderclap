@@ -224,8 +224,8 @@ extern "C" char DAT_003f7938[];
 struct Param {
     char pad[24];
 };
-extern hulk_intptr __cdecl Alloc(unsigned int);
-extern void __cdecl Register(void*, void*, int);
+extern hulk_intptr __cdecl Alloc_0008d690(unsigned int);
+extern void __cdecl Register_002347b0(void*, void*, int);
 class CCollisionHeightCondition_53540 {
 public:
     void FUN_00047d50();
@@ -511,12 +511,12 @@ class ConditionFactoryCasterTemplate_54c30 {
     virtual void cast();
     ConditionFactoryCasterTemplate_54c30() {}
 };
-void __cdecl findCondition(void*, ConditionFactoryCasterTemplate_54c30*);
+void __cdecl findCondition_002343e0(void*, ConditionFactoryCasterTemplate_54c30*);
 class ConditionFactoryCasterTemplate_54c90 {
   public:
     virtual void cast();
 };
-void __cdecl fun(void*, ConditionFactoryCasterTemplate_54c90*);
+void __cdecl fun_002343e0(void*, ConditionFactoryCasterTemplate_54c90*);
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
@@ -796,7 +796,7 @@ extern "C" void FUN_00053440()
 // data: gCount_534e0 = DAT_004dc474, gSlot_534e0 = DAT_004dc470
 extern "C" void FUN_000534e0() {
     if ((*(int*)&DAT_004dc474) == 0) {
-        Param* p = (Param*)Alloc(0x18);
+        Param* p = (Param*)Alloc_0008d690(0x18);
         void* out;
         if (p) {
             ((fight::ParamValueBool *)p)->FUN_00234860("interrupt");
@@ -805,7 +805,7 @@ extern "C" void FUN_000534e0() {
             out = p;
         } else
             out = 0;
-        Register(((int*)&DAT_004dc470), &out, 1);
+        Register_002347b0(((int*)&DAT_004dc470), &out, 1);
     }
     ++(*(int*)&DAT_004dc474);
 }
@@ -1014,29 +1014,29 @@ extern "C" void __cdecl FUN_00047f80();
 extern "C" void __cdecl FUN_00047f90();
 extern "C" char DAT_003f7d48[];
 extern "C" char DAT_003f7d70[];
-extern "C++" __declspec(nothrow) void* __cdecl Alloc(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d690(hulk_uintptr);
 struct ParamEnumConstList {
     int pad[5];
     int field14;
     hulk_intptr field18;
-    void Init(const char*);
+    void Init_00234cc0(const char*);
 };
 struct ParamIntConstRange {
     int pad[4];
     hulk_intptr field10;
-    void Init(const char*);
+    void Init_002348e0(const char*);
 };
-extern void __cdecl Register(void*, void**, int);
+extern void __cdecl Register_002347b0(void*, void**, int);
 extern "C" void FUN_00053d80() {
     if ((*(int*)&DAT_004dc4f4)) {
         ++(*(int*)&DAT_004dc4f4);
         return;
     }
     void* slots[2];
-    ParamEnumConstList* a = (ParamEnumConstList*)Alloc(0x20);
+    ParamEnumConstList* a = (ParamEnumConstList*)Alloc_0008d690(0x20);
     if (a) {
         int k = (*(int*)&DAT_00427754);
-        a->Init("compare");
+        a->Init_00234cc0("compare");
         a->field14 = k;
         a->pad[0] = ((hulk_intptr)DAT_003f7d48);
         a->pad[4] = ((hulk_intptr)((char*)&DAT_0042773c));
@@ -1044,15 +1044,15 @@ extern "C" void FUN_00053d80() {
         slots[0] = a;
     } else
         slots[0] = 0;
-    ParamIntConstRange* b = (ParamIntConstRange*)Alloc(0x18);
+    ParamIntConstRange* b = (ParamIntConstRange*)Alloc_0008d690(0x18);
     if (b) {
-        b->Init("state");
+        b->Init_002348e0("state");
         b->pad[0] = ((hulk_intptr)DAT_003f7d70);
         b->field10 = ((hulk_intptr)(void (__cdecl*)())&FUN_00047f90);
         slots[1] = b;
     } else
         slots[1] = 0;
-    Register(((int*)&DAT_004dc4f0), slots, 2);
+    Register_002347b0(((int*)&DAT_004dc4f0), slots, 2);
     ++(*(int*)&DAT_004dc4f4);
 }
 } // namespace fn_00053d80
@@ -1151,7 +1151,7 @@ extern "C" void FUN_00054800()
 // sym: ?FUN_00054c30@fn_f3623cd7@@YAXPAX@Z
 void __cdecl FUN_00054c30(void* p) {
     ConditionFactoryCasterTemplate_54c30 c;
-    findCondition(p, &c);
+    findCondition_002343e0(p, &c);
 }
 
 
@@ -1159,7 +1159,7 @@ void __cdecl FUN_00054c30(void* p) {
 // sym: ?target@fn_f3623cd7@@YAXPAX@Z
 void target(void* p) {
     ConditionFactoryCasterTemplate_54c90 c;
-    fun(p, &c);
+    fun_002343e0(p, &c);
 }
 
 } // namespace fn_f3623cd7
@@ -1171,10 +1171,10 @@ class ConditionFactoryCasterTemplate_55090 {
   public:
     virtual void cast();
 };
-void __cdecl helper(void*, ConditionFactoryCasterTemplate_55090*);
+void __cdecl helper_002343e0(void*, ConditionFactoryCasterTemplate_55090*);
 void __cdecl target(void* p) {
     ConditionFactoryCasterTemplate_55090 c;
-    helper(p, &c);
+    helper_002343e0(p, &c);
 }
 } // namespace fn_00055090
 

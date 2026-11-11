@@ -12,8 +12,8 @@ namespace fn_f622a04d {} using namespace fn_f622a04d;
 
 // ---- declarations shared by the functions below
 namespace fn_f622a04d {
-extern "C" unsigned __int64 __cdecl createPair(int, int, int);
-extern "C" int __cdecl createOther(int, int);
+extern "C" unsigned __int64 __cdecl createPair_002672f0(int, int, int);
+extern "C" int __cdecl createOther_002673a0(int, int);
 class CSoundCommand_1f04e0 {
   public:
     int a, b, c;
@@ -23,7 +23,7 @@ class CSoundCommand_1f04e0 {
 struct Pair {
     unsigned __int64 v;
     Pair() : v(0) {}
-    void Init(int p) { v = createPair(p, 0, 0); }
+    void Init(int p) { v = createPair_002672f0(p, 0, 0); }
 };
 class CSoundCommand_StopTunableEvent : public CSoundCommand_1f04e0 {
   public:
@@ -53,7 +53,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 // sym: ??0CSoundCommand_StopTunableEvent@fn_f622a04d@@QAE@HHHH@Z
 CSoundCommand_StopTunableEvent::CSoundCommand_StopTunableEvent(int p, int q, int r, int x) : CSoundCommand_1f04e0(x) {
     pair.Init(p);
-    other = createOther(q, 0);
+    other = createOther_002673a0(q, 0);
     value = r;
 }
 

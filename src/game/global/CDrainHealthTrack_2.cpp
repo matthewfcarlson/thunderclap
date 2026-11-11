@@ -28,7 +28,7 @@ class CDrainHealthTrack_76350 {
   public:
     hulk_intptr a;
     int b, c, d, e, f;
-    void init();
+    void init_00236d40();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class TrackFactory_76350 {
@@ -51,11 +51,11 @@ class IRefCount_76350 {
   public:
     virtual void r0();
 };
-extern int g_vftable_763a0;
+extern int hulk_at_003fe658;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00069e70();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -83,7 +83,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CDrainHealthTrack>::vfunc_1(
 template <> void* fight::TrackFactoryTemplate<CDrainHealthTrack>::vfunc_5() {
     CDrainHealthTrack_76350* p = (CDrainHealthTrack_76350*)FUN_0008d690((int)sizeof(CDrainHealthTrack_76350));
     if (p) {
-        p->init();
+        p->init_00236d40();
         p->a = ((hulk_intptr)DAT_003fbd50);
         p->d = 0;
         p->e = 0x3f800000;
@@ -100,9 +100,9 @@ namespace fn_f56f53b0 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f56f53b0@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_763a0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe658;
+    base1_dtor_00069e70();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

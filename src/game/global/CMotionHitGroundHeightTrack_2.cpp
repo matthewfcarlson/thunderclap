@@ -31,15 +31,15 @@ struct CMotionHitGroundHeightTrack_77020 {
     int d;
     float e;
     float f;
-    void construct();
+    void construct_00236d40();
 };
-extern int vtable_77020;
+extern int hulk_at_003fc1fc;
 extern "C" void* FUN_0008d690(unsigned int);
-extern int g_vftable_77070;
+extern int hulk_at_003fea14;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006b070();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -67,8 +67,8 @@ template <> void* fight::TrackFactoryCasterTemplate<CMotionHitGroundHeightTrack>
 template <> void* fight::TrackFactoryTemplate<CMotionHitGroundHeightTrack>::vfunc_5() {
     CMotionHitGroundHeightTrack_77020* p = (CMotionHitGroundHeightTrack_77020*)FUN_0008d690((int)sizeof(CMotionHitGroundHeightTrack_77020));
     if (p) {
-        p->construct();
-        p->vptr = (hulk_intptr)&vtable_77020;
+        p->construct_00236d40();
+        p->vptr = (hulk_intptr)&hulk_at_003fc1fc;
         p->d = 0;
         p->e = -1.0f;
         p->f = 1.0f;
@@ -84,9 +84,9 @@ namespace fn_ff714e11 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_ff714e11@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_77070;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fea14;
+    base1_dtor_0006b070();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

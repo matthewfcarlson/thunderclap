@@ -21,7 +21,7 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 #endif
 namespace fn_f2d3e6ac {
 struct DataInit {
-    void Init();
+    void Init_001cb120();
 };
 struct CScenarioParams {
     hulk_uintptr vf;
@@ -29,17 +29,17 @@ struct CScenarioParams {
     unsigned int id;
     unsigned int padc;
     DataInit data;
-    void InitBase();
+    void InitBase_00236a60();
     CScenarioParams* target(const unsigned int* src);
 };
 struct Obj_1d03c0 {
     char pad[0x10];
 };
 typedef unsigned int u32_1d0430;
-extern void* Params_1d0450_vftable[];
+extern void* hulk_at_00422370[];
 class Params_1d0450 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236a50(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CScenarioParams_1d0450 : public Params_1d0450 {
   public:
@@ -51,9 +51,9 @@ class CScenarioParams_1d0450 : public Params_1d0450 {
 // sym: ?target@CScenarioParams@fn_f2d3e6ac@@QAEPAU12@PBI@Z
 // data: g_counter_1d0360 = DAT_004e23c8
 CScenarioParams* CScenarioParams::target(const unsigned int* src) {
-    InitBase();
+    InitBase_00236a60();
     vf = ((hulk_intptr)DAT_00422370);
-    data.Init();
+    data.Init_001cb120();
     unsigned int n = *src;
     memcpy(&data, src, n);
     ++(*(unsigned int*)&DAT_004e23c8);
@@ -149,8 +149,8 @@ extern "C" int FUN_001d0440(void) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CScenarioParams_1d0450* CScenarioParams_1d0450::vfunc_5(signed char flags) {
-    *(void***)this = Params_1d0450_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00422370;
+    Destroy_00236a50();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

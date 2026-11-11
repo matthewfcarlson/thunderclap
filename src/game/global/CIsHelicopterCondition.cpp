@@ -21,26 +21,26 @@ class HelicopterCondition {
   public:
     virtual void V0();
 };
-extern void* __cdecl Allocate(unsigned int);
+extern void* __cdecl Allocate_00263ea0(unsigned int);
 class InitObj_525e0 {
   public:
-    void Init();
+    void Init_002343b0();
 };
 class SetupObj_525e0 {
   public:
 };
 struct CIsGrappledCondition_52620 {
     virtual ~CIsGrappledCondition_52620();
-    void init(int);
+    void init_00234590(int);
 };
 } // namespace fn_f3c7b72f
 void* operator new(size_t);
 namespace fn_f3c7b72f {
-extern void* condition_vftable_52620;
-extern void* ConditionFactory_52650_vftable[];
+extern void* hulk_at_003f7574;
+extern void* hulk_at_003f8644[];
 class ConditionFactory_52650 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002343d0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ConditionFactoryTemplate_052650 : public ConditionFactory_52650 {
   public:
@@ -53,9 +53,9 @@ class ConditionFactoryTemplate_052650 : public ConditionFactory_52650 {
 // sym: ?vfunc_1@?$ConditionFactoryCasterTemplate@VCIsHelicopterCondition@@@fight@@UAEPAXPAX@Z
 template <> void* fight::ConditionFactoryCasterTemplate<CIsHelicopterCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* p = Allocate(0x10);
+    void* p = Allocate_00263ea0(0x10);
     if (p) {
-        ((InitObj_525e0*)p)->Init();
+        ((InitObj_525e0*)p)->Init_002343b0();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f8644);
         ((owners::Target_27b040 *)(((SetupObj_525e0*)((char*)p + 8))))->FUN_0027b040((hulk_uintptr)arg);
         return (void*)(p);
@@ -70,8 +70,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<CIsHelicopterCondition>:
 template <> void* fight::ConditionFactoryTemplate<CIsHelicopterCondition>::vfunc_5() {
     CIsGrappledCondition_52620* p = (CIsGrappledCondition_52620*)operator new(0x0c);
     if (p) {
-        p->init(0);
-        *(void**)p = &condition_vftable_52620;
+        p->init_00234590(0);
+        *(void**)p = &hulk_at_003f7574;
         return (void*)(p);
     }
     return (void*)(0);
@@ -85,8 +85,8 @@ namespace fn_f3c7b72f {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ConditionFactoryTemplate_052650* ConditionFactoryTemplate_052650::vfunc_5(signed char flags) {
-    *(void***)this = ConditionFactory_52650_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f8644;
+    Destroy_002343d0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

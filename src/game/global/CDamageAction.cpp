@@ -40,7 +40,7 @@ class CDamageAction : public CAction {
     CDamageAction(Ref*, int, int);
     virtual void f();
 };
-extern void* g_vftable_1da00[];
+extern void* hulk_at_003f3390[];
 class Ref_1da00 {
   public:
     virtual void F0();
@@ -68,7 +68,7 @@ CDamageAction::CDamageAction(Ref* p, int x, int y) : CAction(p, x) {
 // 0x0001da00 FUN_0001da00 (36 B): matches/0x0001da00.cpp
 // sym: ??1CAction_1da00@fn_f8d08169@@QAE@XZ
 CAction_1da00::~CAction_1da00() {
-    vptr = g_vftable_1da00;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();

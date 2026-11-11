@@ -26,7 +26,7 @@ class C_1d6640 {
     int a;
     char pad44[0xa8];
     C_1d6640* p;
-    int g(int);
+    int Fng_001d5f40(int);
     int target();
 };
 struct Obj_1d6670 {
@@ -36,7 +36,7 @@ struct Obj_1d6670 {
     void* context;
 };
 struct CSPHulkPropInstance_nv_1d6670 {
-    int Get(int);
+    int Get_001d5e80(int);
 };
 extern const float g_one_1d6670;
 extern const float g_hundredth;
@@ -190,8 +190,8 @@ class Inner_1d6b60 {
 };
 class Store {
   public:
-    void F670(int x);
-    void F700(Block_1d6b60* b, unsigned long x);
+    void F670_002fc670(int x);
+    void F700_002fc700(Block_1d6b60* b, unsigned long x);
 };
 class Obj_1d6b60 {
   public:
@@ -201,7 +201,7 @@ class Obj_1d6b60 {
     Inner_1d6b60* inner;
     char r[0x38];
     unsigned long x, y, z;
-    void F7dde0(Block_1d6b60* b);
+    void F7dde0_0027dde0(Block_1d6b60* b);
     void run(Block_1d6b60 b, unsigned long arg);
 };
 struct Target_1d6c50 {
@@ -234,16 +234,16 @@ struct V {
     virtual void f8(int, int);
 };
 struct A_1d6ce0 {
-    bool run();
+    bool run_001d4df0();
 };
 struct B_1d6ce0 {
-    bool run();
+    bool run_00099790();
 };
 struct G_1d6ce0 {
     char pad[8];
     B_1d6ce0* p;
 };
-extern G_1d6ce0* g_4dd700;
+extern G_1d6ce0* hulk_at_004dd700;
 struct Table_1d7100 {
     char pad[0x1c];
     int* entries;
@@ -410,7 +410,7 @@ class Other_1d73f0 {
     virtual int f4();
 };
 struct CSPHulkPropInstance_nv_1d73f0 {
-    int run(int);
+    int run_001d5d20(int);
 };
 class Self_1d73f0 {
   public:
@@ -466,13 +466,13 @@ class Obj_1d74c0 {
 };
 class Res_1d7510 {
   public:
-    void Release(int);
+    void Release_002fc670(int);
 };
 class Y_1d7510 {
   public:
-    void Go(float* v);
+    void Go_00065ee0(float* v);
 };
-Y_1d7510* __stdcall GetY();
+Y_1d7510* __stdcall GetY_000678d0();
 class Fn_1d7510 {
   public:
     virtual void v0();
@@ -533,7 +533,7 @@ class Inner_1d7590 {
     virtual void f5();
     virtual void f6();
     virtual void f7();
-    void helper(int);
+    void helper_002ef8b0(int);
 };
 struct Wrap_1d7590 {
     char pad[0x10];
@@ -598,7 +598,7 @@ struct O_1d7810 {
     char pad[0x154 - 0x40 + 0x40];
     float px, py, pz;
     void Fn(float x, float y, float z);
-    void Apply(Mat_1d7810 m, int f);
+    void Apply_001d6b60(Mat_1d7810 m, int f);
 };
 
 
@@ -652,7 +652,7 @@ class CSPHulkPropInstance : public StateProp {
 };
 class Manager_1d65f0 {
   public:
-    void helper(CSPHulkPropInstance*, const char*, int, int);
+    void helper_001ebd80(CSPHulkPropInstance*, const char*, int, int);
 };
 struct Root_1d65f0 {
     char pad[0x34];
@@ -662,7 +662,7 @@ extern Root_1d65f0* gManager_1d65f0;
 void CSPHulkPropInstance::vfunc_16(int a, int b) {
     StateProp::vfunc_16(a, b);
     if (field40 == 0)
-        gManager_1d65f0->mgr->helper(this, "State_0", 0x42480000, 0);
+        gManager_1d65f0->mgr->helper_001ebd80(this, "State_0", 0x42480000, 0);
 }
 } // namespace fn_001d65f0
 
@@ -672,7 +672,7 @@ namespace fn_fff2a2ba {
 // 0x001d6640 FUN_001d6640 (16 B): matches/0x001d6640.cpp
 // sym: ?target@C_1d6640@fn_fff2a2ba@@QAEHXZ
 int C_1d6640::target() {
-    return p->g(a);
+    return p->Fng_001d5f40(a);
 }
 
 } // namespace fn_fff2a2ba
@@ -695,7 +695,7 @@ namespace fn_fff2a2ba {
 // 0x001d6670 FUN_001d6670 (51 B): matches/0x001d6670.cpp
 // sym: ?FUN_001d6670@fn_fff2a2ba@@YIMPAUObj_1d6670@1@@Z
 hulk_freg __fastcall FUN_001d6670(Obj_1d6670* self) {
-    int result = ((CSPHulkPropInstance_nv_1d6670*)(((CSPHulkPropInstance*)self->context)))->Get(self->value);
+    int result = ((CSPHulkPropInstance_nv_1d6670*)(((CSPHulkPropInstance*)self->context)))->Get_001d5e80(self->value);
     bool scale = result == 2;
     hulk_freg value = 1.0f;
     if (result == 3)
@@ -994,11 +994,11 @@ hulk_intptr __fastcall target(Obj_1d6b40* self) {
 // sym: ?run@Obj_1d6b60@fn_fff2a2ba@@QAEXUBlock_1d6b60@2@K@Z
 void Obj_1d6b60::run(Block_1d6b60 b, unsigned long arg) {
     inner->g(b);
-    F7dde0(&b);
+    F7dde0_0027dde0(&b);
     Store* s = store;
     if (s) {
-        s->F670(2);
-        s->F700(&b, arg);
+        s->F670_002fc670(2);
+        s->F700_002fc700(&b, arg);
     }
     x = b.v[12];
     y = b.v[13];
@@ -1037,11 +1037,11 @@ class CSPHulkPropInstance : public StateProp {
 };
 class Other_1d6be0 {
   public:
-    void f();
+    void Fnf_002fc6f0();
 };
 void CSPHulkPropInstance::vfunc_15() {
     if (member)
-        ((Other_1d6be0*)member)->f();
+        ((Other_1d6be0*)member)->Fnf_002fc6f0();
     else
         StateProp::vfunc_15();
 }
@@ -1074,12 +1074,12 @@ struct Owner {
     Obj* obj;
     void fn();
 };
-void __cdecl output(Vec*);
+void __cdecl output_00224f10(Vec*);
 void Owner::fn() {
     View local = *obj->get();
     Vec v;
     ((owners::M_22c3b0 *)&local)->FUN_0022c3b0((float *)(((float*)&DAT_004c6068)), (float *)(Vec *)(&v));
-    output(&v);
+    output_00224f10(&v);
 }
 } // namespace fn_001d6c00
 
@@ -1158,7 +1158,7 @@ float __fastcall target(C_1d6cd0* self) {
 // 0x001d6ce0 CSPHulkPropInstance::vfunc_8 (51 B): matches/0x001d6ce0.cpp
 // sym: ?vfunc_8@CSPHulkPropInstance@@UAEXHH@Z
 void CSPHulkPropInstance::vfunc_8(hulk_intptr x, int y) {
-    if ((*(A_1d6ce0 * *)&this->f_ec)->run() && g_4dd700->p->run())
+    if ((*(A_1d6ce0 * *)&this->f_ec)->run_001d4df0() && hulk_at_004dd700->p->run_00099790())
         return;
     (*(V * *)&this->f_9c)->f8(x, y);
 }
@@ -1652,7 +1652,7 @@ int __fastcall target(Self_1d73f0* s) {
         return -10;
     int v = s->arg;
     CSPHulkPropInstance* d = s->d;
-    return ((CSPHulkPropInstance_nv_1d73f0*)(d))->run(v);
+    return ((CSPHulkPropInstance_nv_1d73f0*)(d))->run_001d5d20(v);
 }
 
 } // namespace fn_fff2a2ba
@@ -1717,14 +1717,14 @@ void W_1d7510::F() {
     if (f) {
         float v = f->Get();
         if (v != 0.0f) {
-            ((Res_1d7510*)l)->Release(1);
+            ((Res_1d7510*)l)->Release_002fc670(1);
             return;
         }
         if (flag) {
             float t[2];
             t[0] = x;
             t[1] = y;
-            GetY()->Go(t);
+            GetY_000678d0()->Go_00065ee0(t);
         }
     }
 }
@@ -1737,7 +1737,7 @@ void Outer_1d7590::run() {
     if (w) {
         Inner_1d7590* p = w->ptr;
         if (p) {
-            p->helper(0);
+            p->helper_002ef8b0(0);
             p->f7();
         }
     }
@@ -1780,7 +1780,7 @@ void O_1d7810::Fn(float x, float y, float z) {
     m.x = x;
     m.y = y;
     m.z = z;
-    Apply(m, 0);
+    Apply_001d6b60(m, 0);
     px = x;
     py = y;
     pz = z;

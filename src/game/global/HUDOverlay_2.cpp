@@ -143,7 +143,7 @@ class Thing_ce590 {
     char pad[0x264];
 
   public:
-    void Finish();
+    void Finish_000caab0();
     void SetName(const char* s);
 };
 } // namespace fn_f3fdf6d3
@@ -299,9 +299,9 @@ class Function_cf030 {
 extern "C" char DAT_0040a590[];
 class Function_cf050 {
   public:
-    void Init(int, int);
+    void Init_001d0480(int, int);
 };
-extern "C" char __cdecl GetFlag(const char*);
+extern "C" char __cdecl GetFlag_001d04d0(const char*);
 class Method4_cf050 : public Function_cf050 {
   public:
     hulk_intptr v;
@@ -335,8 +335,8 @@ class Function_cf0e0 {
     virtual void v2(HUDOverlay_cf0e0* o, char* a, int* out);
     int pad[5];
 };
-extern char G10c[];
-char Lookup(char*);
+extern char hulk_at_0048e10c[];
+char Lookup_001d04d0(char*);
 class Function_cf160 {
   public:
     Function_cf160(int, int);
@@ -1708,7 +1708,7 @@ namespace fn_f3fdf6d3 {
 void Thing_ce590::SetName(const char* s) {
     ((owners::Obj_cac60 *)this)->FUN_000cac60();
     strncpy((char*)this + 0x264, s, 0x40);
-    Finish();
+    Finish_000caab0();
 }
 
 
@@ -2137,14 +2137,14 @@ namespace fn_f3fdf6d3 {
 // 0x000cf050 FUN_000cf050 (102 B): matches/0x000cf050.cpp
 // sym: ??0Method4_cf050@fn_f3fdf6d3@@QAE@HH@Z
 Method4_cf050::Method4_cf050(hulk_intptr a, hulk_intptr b) {
-    Init(a, 4);
+    Init_001d0480(a, 4);
     v = ((hulk_intptr)DAT_0040a590);
     n = b;
-    m18 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    *((char*)this + 0x10) = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    *((char*)this + 0x11) = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    *((char*)this + 0x12) = GetFlag((const char*)((hulk_intptr)DAT_0048e10c));
-    *((char*)this + 0x13) = GetFlag((const char*)((hulk_intptr)DAT_0048e10c));
+    m18 = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    *((char*)this + 0x10) = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    *((char*)this + 0x11) = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    *((char*)this + 0x12) = GetFlag_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    *((char*)this + 0x13) = GetFlag_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
 }
 
 } // namespace fn_f3fdf6d3
@@ -2177,10 +2177,10 @@ namespace fn_f3fdf6d3 {
 // sym: ??0Method3_cf160@fn_f3fdf6d3@@QAE@HH@Z
 Method3_cf160::Method3_cf160(hulk_intptr a, hulk_intptr c) : Function_cf160(a, 3) {
     m1c = c;
-    b18 = Lookup(((char*)&DAT_0048e100));
-    b10 = Lookup(((char*)&DAT_0048e134));
-    b11 = Lookup(((char*)&DAT_0048e134));
-    b12 = Lookup(G10c);
+    b18 = Lookup_001d04d0(((char*)&DAT_0048e100));
+    b10 = Lookup_001d04d0(((char*)&DAT_0048e134));
+    b11 = Lookup_001d04d0(((char*)&DAT_0048e134));
+    b12 = Lookup_001d04d0(hulk_at_0048e10c);
 }
 
 } // namespace fn_f3fdf6d3
@@ -2520,13 +2520,13 @@ class Function_cf8d0 {
     virtual void f();
     char pad[12];
 };
-char __cdecl query(const char*);
+char __cdecl query_001d04d0(const char*);
 class Method1 : public Function_cf8d0 {
   public:
     Method1(int a, int b) : Function_cf8d0(a, 1) {
         v = b;
-        c = query(((const char*)&DAT_0048e100));
-        d = query(((const char*)&DAT_0048e134));
+        c = query_001d04d0(((const char*)&DAT_0048e100));
+        d = query_001d04d0(((const char*)&DAT_0048e134));
     }
     virtual void f();
     char d;
@@ -2781,7 +2781,7 @@ namespace fn_000cfc30 {
 // data: gA_cfc30 = DAT_0048e134
 
 extern char gB_cfc30[];
-extern "C++" __declspec(nothrow) char Get(char const*);
+extern "C++" __declspec(nothrow) char Get_001d04d0(char const*);
 class Function_cfc30 {
   public:
     Function_cfc30(int, int);
@@ -2807,9 +2807,9 @@ class Closure2 : public Method2 {
 };
 inline Method2::Method2(int a, int c) : Function_cfc30(a, 2) {
     value = c;
-    z = Get(((char*)&DAT_0048e134));
-    x = Get(((char*)&DAT_0048e134));
-    y = Get(gB_cfc30);
+    z = Get_001d04d0(((char*)&DAT_0048e134));
+    x = Get_001d04d0(((char*)&DAT_0048e134));
+    y = Get_001d04d0(gB_cfc30);
 }
 Closure2::Closure2(int a, int b, int c) : Method2(a, c) {
     other = b;
@@ -3283,15 +3283,15 @@ class Function_d0180 {
     char pad3[3];
     void* p;
 };
-extern "C++" __declspec(nothrow) unsigned char fn(void*);
-extern void* g1;
-extern void* g2;
+extern "C++" __declspec(nothrow) unsigned char fn_001d04d0(void*);
+extern void* hulk_at_0048e100;
+extern void* hulk_at_0048e0e4;
 class Method1 : public Function_d0180 {
   public:
     Method1(void* x, void* y) : Function_d0180(x, 1) {
         p = y;
-        b = fn(&g1);
-        a = fn(&g2);
+        b = fn_001d04d0(&hulk_at_0048e100);
+        a = fn_001d04d0(&hulk_at_0048e0e4);
     }
     virtual void run();
 };

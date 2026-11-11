@@ -27,14 +27,14 @@ extern "C" void FUN_00070f20();
 extern "C" char DAT_003fbbe8[];
 class CMoveTrack_770e0 {
   public:
-    void Init();
+    void Init_00236d40();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_77130;
+extern int hulk_at_003fea30;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00069880();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -62,7 +62,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CMoveTrack>::vfunc_1(void* _
 template <> void* fight::TrackFactoryTemplate<CMoveTrack>::vfunc_5() {
     CMoveTrack_770e0* p = (CMoveTrack_770e0*)FUN_0008d690(0x28);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         *(int*)((char*)p + 0x0c) = 0;
         *(int*)((char*)p + 0x18) = 0;
         *(int*)((char*)p + 0x20) = 0;
@@ -83,9 +83,9 @@ namespace fn_f9897173 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f9897173@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_77130;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fea30;
+    base1_dtor_00069880();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

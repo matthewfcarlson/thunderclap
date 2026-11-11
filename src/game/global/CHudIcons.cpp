@@ -21,12 +21,12 @@ class Ref_c7280 {
 };
 struct S_c7280 {
     char c[0x20];
-    void Fini();
+    void Fini_0027af50();
 };
 class Entity_c7280 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class CHudIcons_c7280 : public Entity_c7280 {
   public:
@@ -128,8 +128,8 @@ class Obj_c75b0 {
     char enabled;
     char pad11[0x4f];
     int items[16][8];
-    bool GetData(int, int*);
-    void ClearData(int);
+    bool GetData_000c71a0(int, int*);
+    void ClearData_000c7140(int);
 };
 
 
@@ -148,9 +148,9 @@ CHudIcons_c7280::~CHudIcons_c7280() {
     int n = 16;
     do {
         --p;
-        p->Fini();
+        p->Fini_0027af50();
     } while (--n);
-    Fin();
+    Fin_0027afd0();
 }
 
 
@@ -241,8 +241,8 @@ void __fastcall FUN_000c75b0(Obj_c75b0* p) {
         int* q = &p->items[0][3];
         do {
             if (q[-3] != -1) {
-                if (!p->GetData(i, local))
-                    p->ClearData(i);
+                if (!p->GetData_000c71a0(i, local))
+                    p->ClearData_000c7140(i);
                 else {
                     q[-2] = local[0];
                     q[-1] = local[1];

@@ -17,7 +17,7 @@ namespace fn_fdf9c5a9 {} using namespace fn_fdf9c5a9;
 // ---- declarations shared by the functions below
 namespace fn_fdf9c5a9 {
 struct C_1cc600 {
-    void run(void*);
+    void run_000d6fb0(void*);
 };
 struct B_1cc600 {
     char pad[0x3c];
@@ -27,7 +27,7 @@ struct A_1cc600 {
     char pad[0x0c];
     B_1cc600* child;
 };
-extern A_1cc600* g_1cc600;
+extern A_1cc600* hulk_at_004dd6ec;
 struct Fader_1cc620 {
     void FUN_000d6fb0(char flag);
 };
@@ -209,7 +209,7 @@ class CScenarioManager_1cce80 {
     char data[0x20];
     void Add(float value, const void* src);
 };
-extern void Copy(void*, const void*, int);
+extern void Copy_00267830(void*, const void*, int);
 class CScenarioManager_1cced0 {
   public:
     char pad0[0x11a4];
@@ -259,7 +259,7 @@ class Target_1cd010 {
   public:
     unsigned char value;
 };
-extern void* g_vftable_1cd150[];
+extern void* hulk_at_00421e74[];
 } // namespace fn_fdf9c5a9
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* memset(void*, int, unsigned);
@@ -282,7 +282,7 @@ struct T_1cd150 {
 };
 struct Base_1cd150 {
     void* vptr;
-    Base_1cd150() throw() { vptr = g_vftable_1cd150; }
+    Base_1cd150() throw() { vptr = hulk_at_00421e74; }
 };
 class CScenarioManager_1cd150 : public Base_1cd150 {
   public:
@@ -302,7 +302,7 @@ class CScenarioManager_1cd150 : public Base_1cd150 {
     char m14a8;
     char m14a9;
     CScenarioManager_1cd150() throw();
-    void Init() throw();
+    void Init_001cced0() throw();
 };
 struct Target_1cd5b0 {
     void FUN_000d4620(int a, void *buf, int count, int key, float scale);
@@ -333,7 +333,7 @@ public:
     void FUN_001cd5b0(float dt);
 };
 struct ThisCall_001cccc0 {
-    void Stop();
+    void Stop_001cccc0();
 };
 class Dummy_1cd810 {
   public:
@@ -632,9 +632,9 @@ int FUN_001cc5e0() {
 // 0x001cc600 FUN_001cc600 (32 B): matches/0x001cc600.cpp
 // sym: ?target@fn_fdf9c5a9@@YIXPAX@Z
 void __fastcall target(void* p) {
-    A_1cc600* a = g_1cc600;
+    A_1cc600* a = hulk_at_004dd6ec;
     if (a && a->child && a->child->next)
-        a->child->next->run(p);
+        a->child->next->run_000d6fb0(p);
 }
 
 } // namespace fn_fdf9c5a9
@@ -981,7 +981,7 @@ void CScenarioManager_1cce60::Copy(const void* p) {
 void CScenarioManager_1cce80::Add(float value, const void* src) {
     if (count < 16) {
         values[count] = value;
-        Copy(data + count * 0x20, src, 0x20);
+        Copy_00267830(data + count * 0x20, src, 0x20);
         ++count;
     }
 }
@@ -1086,7 +1086,7 @@ CScenarioManager_1cd150::CScenarioManager_1cd150() throw() {
         }
     }
     m1190 = 0;
-    Init();
+    Init_001cced0();
     for (int i = 0; i < 4; i++) {
         t[i].b = 0;
         d[i] = 0;
@@ -1137,7 +1137,7 @@ void owners::Thing_1cd650::FUN_001cd650(float dt) {
         timer = timer - dt;
         if (timer <= (*(float*)&DAT_003f32e0)) {
             timer = 0.0f;
-            ((ThisCall_001cccc0*)(this))->Stop();
+            ((ThisCall_001cccc0*)(this))->Stop_001cccc0();
             b = 0;
             a = 0;
         }
@@ -1468,7 +1468,7 @@ void owners::Obj_1ce020::FUN_001ce020(float x) {
 namespace fn_001ce060 {
 // data: labelA = DAT_0048e100, labelB = DAT_0048e134
 
-extern "C++" __declspec(nothrow) unsigned char __cdecl getFlag(const char*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl getFlag_001d04d0(const char*);
 class Function_1ce060 {
   public:
     virtual void f();
@@ -1493,8 +1493,8 @@ class Closure1 : public Method1 {
 };
 inline Method1::Method1(void* p, int x, int y) : Function_1ce060(p, 1) {
     m1c = y;
-    m18 = getFlag(((char*)&DAT_0048e100));
-    m10 = getFlag(((char*)&DAT_0048e134));
+    m18 = getFlag_001d04d0(((char*)&DAT_0048e100));
+    m10 = getFlag_001d04d0(((char*)&DAT_0048e134));
 }
 Closure1::Closure1(void* p, int x, int y) : Method1(p, x, y) {
     m20 = x;
@@ -1641,7 +1641,7 @@ template <> void Closure1<CScenarioManager, void, float>::vfunc_2(void* __p0, vo
 // sym: ??0Closure1@fn_001ce290@@QAE@PAX00@Z
 namespace fn_001ce290 {
 
-char __cdecl lookup(const char*);
+char __cdecl lookup_001d04d0(const char*);
 class Base {
   public:
     Base(void*, int);
@@ -1669,8 +1669,8 @@ Closure1::Closure1(void* p, void* q, void* r) : Closure1_1ce290(p, r) {
 }
 Closure1_1ce290::Closure1_1ce290(void* p, void* q) : Base(p, 1) {
     arg = q;
-    y = lookup(((char*)&DAT_0048e100));
-    x = lookup(((char*)&DAT_0048e0e4));
+    y = lookup_001d04d0(((char*)&DAT_0048e100));
+    x = lookup_001d04d0(((char*)&DAT_0048e0e4));
 }
 } // namespace fn_001ce290
 
@@ -1827,8 +1827,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00421f1c[2];
+extern void* hulk_at_0042201c[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -1847,12 +1847,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00421f1c;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e134));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e128));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_0042201c;
     owner = a2;
 }
 } // namespace fn_001ce440
@@ -1910,8 +1910,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00421f2c[2];
+extern void* hulk_at_0042202c[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -1930,12 +1930,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00421f2c;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e134));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e128));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_0042202c;
     owner = a2;
 }
 } // namespace fn_001ce4e0
@@ -1995,8 +1995,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00421f3c[2];
+extern void* hulk_at_0042203c[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -2015,12 +2015,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00421f3c;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e128));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_0042203c;
     owner = a2;
 }
 } // namespace fn_001ce590
@@ -2204,8 +2204,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00421f7c[2];
+extern void* hulk_at_0042207c[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -2224,12 +2224,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00421f7c;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e134));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_0042207c;
     owner = a2;
 }
 } // namespace fn_001ce7c0
@@ -2375,8 +2375,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00421f9c[2];
+extern void* hulk_at_0042209c[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -2395,12 +2395,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00421f9c;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e134));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e134));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_0042209c;
     owner = a2;
 }
 } // namespace fn_001ce8f0

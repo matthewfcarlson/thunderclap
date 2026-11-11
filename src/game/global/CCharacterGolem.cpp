@@ -52,8 +52,8 @@ struct Owner_fdc40 {
     int count;
     void* items[1];
 };
-extern const int AgentType;
-extern const int OccupationAgentType;
+extern const int hulk_at_004a19e0;
+extern const int hulk_at_004a1ad8;
 class Item {
   public:
     virtual void f0();
@@ -170,7 +170,7 @@ class Obj {
   public:
     virtual void Add();
     virtual void Release();
-    void method(int, int);
+    void method_0022d2b0(int, int);
 };
 class Item_fe230 {
   public:
@@ -201,7 +201,7 @@ struct Sub_fe4d0 {
     Tgt_fe4d0* t;
     char q[0x39];
     char flag;
-    void Go(float* v, int a, float s, int b, int c);
+    void Go_000fe300(float* v, int a, float s, int b, int c);
 };
 struct Base_fe4d0 {
     virtual void v0();
@@ -218,7 +218,7 @@ struct Base_fe4d0 {
     Sub_fe4d0 sub;
     void Fn(Tgt_fe4d0* t, char f);
 };
-extern void* g_vftable_fe540[];
+extern void* hulk_at_0040d190[];
 class Ref_fe540 {
   public:
     virtual void F0();
@@ -226,7 +226,7 @@ class Ref_fe540 {
 };
 struct Vec_fe540 {
     int a;
-    void Destroy();
+    void Destroy_0027af50();
 };
 class CActorGolem_fe540 {
   public:
@@ -299,10 +299,10 @@ struct CPathGraphAgent_fec60 : CAgent_fec60 {
 struct AgentHost_fec60 {
 };
 extern char DAT_004a1bdc;
-extern void* g_vt_fed00[];
+extern void* hulk_at_0040d134[];
 struct Sub_fed00 {
     void* vptr;
-    void Init() throw();
+    void Init_000fde80() throw();
 };
 class CGolem_fed00 {
   public:
@@ -325,10 +325,10 @@ class CCharacterGolem_feda0 {
     void* vptr;
     char pad[0xF4];
     int value;
-    void init();
+    void init_000fed00();
 };
-extern void Init(owners::C_fefa0*, int*);
-extern void __cdecl Init(owners::Obj_fefc0*, int*);
+extern void Init_000feb20(owners::C_fefa0*, int*);
+extern void __cdecl Init_000febc0(owners::Obj_fefc0*, int*);
 
 
 // 0x000fdab0 FUN_000fdab0 (7 B): matches/0x000fdab0.cpp
@@ -453,7 +453,7 @@ hulk_intptr __fastcall Target(Owner_fdc40* self) {
     if (self->count > 0) {
         void** p = self->items;
         do {
-            int r = IsType(*p, 0, &AgentType, &OccupationAgentType, 0);
+            int r = IsType(*p, 0, &hulk_at_004a19e0, &hulk_at_004a1ad8, 0);
             if (r != 0)
                 return r;
             ++i;
@@ -718,8 +718,8 @@ void __cdecl FUN_000fe0c0(Obj** slot, Obj* value) {
 // sym: ?destroy@CGolem@fn_000fe1e0@@QAEXXZ
 namespace fn_000fe1e0 {
 extern int golemVtable;
-extern int memoryVtable;
-extern int refVtable_fe1e0;
+extern int hulk_at_0040d12c;
+extern int hulk_at_003f6098;
 class IRefCount {
   public:
     virtual void f0();
@@ -743,8 +743,8 @@ void CGolem::destroy() {
             items[i] = 0;
         }
     }
-    memory = (hulk_intptr)&memoryVtable;
-    vf = (hulk_intptr)&refVtable_fe1e0;
+    memory = (hulk_intptr)&hulk_at_0040d12c;
+    vf = (hulk_intptr)&hulk_at_003f6098;
 }
 } // namespace fn_000fe1e0
 
@@ -911,7 +911,7 @@ void Base_fe4d0::Fn(Tgt_fe4d0* t, char f) {
         v[0] = t->x;
         v[1] = t->y;
         v[2] = t->z;
-        s->Go(v, 1, 1.0f, 0, 0);
+        s->Go_000fe300(v, 1, 1.0f, 0, 0);
         if (GetN() < 3)
             SetN(3);
         if (f)
@@ -923,7 +923,7 @@ void Base_fe4d0::Fn(Tgt_fe4d0* t, char f) {
 // 0x000fe540 FUN_000fe540 (170 B): matches/0x000fe540.cpp
 // sym: ??1CCharacterGolem_fe540@fn_f54027db@@QAE@XZ
 CCharacterGolem_fe540::~CCharacterGolem_fe540() throw() {
-    vptr = g_vftable_fe540;
+    vptr = hulk_at_0040d190;
     _ReadWriteBarrier();
     if (m100) {
         m100->Release();
@@ -949,7 +949,7 @@ CCharacterGolem_fe540::~CCharacterGolem_fe540() throw() {
         m114->Release();
         m114 = 0;
     }
-    m118.Destroy();
+    m118.Destroy_0027af50();
     mf8 = 0;
     vptr = g_vftable2;
 }
@@ -1406,12 +1406,12 @@ void __cdecl FUN_000fec60(AgentHost_fec60 *host, CAgent_fec60 **slot)
 // sym: ??0CGolem_fed00@fn_f54027db@@QAE@XZ
 CGolem_fed00::CGolem_fed00() throw() {
     m4 = 0;
-    vptr = g_vt_fed00;
+    vptr = hulk_at_0040d134;
     m8 = 0;
     m4c = -1;
     m50 = -1;
     sub.vptr = g_vt2;
-    sub.Init();
+    sub.Init_000fde80();
     me8 = 0;
     me9 = 1;
     for (int i = 0; i < 16; i++)
@@ -1433,7 +1433,7 @@ namespace fn_f54027db {
 // 0x000feda0 FUN_000feda0 (28 B): matches/0x000feda0.cpp
 // sym: ?FUN_000feda0@fn_f54027db@@YIPAVCCharacterGolem_feda0@1@PAV21@@Z
 CCharacterGolem_feda0* __fastcall FUN_000feda0(CCharacterGolem_feda0* self) {
-    self->init();
+    self->init_000fed00();
     self->vptr = (void*)((hulk_intptr)DAT_0040d164);
     self->value = 0;
     return self;
@@ -1479,19 +1479,19 @@ CActorGolem* CActorGolem::vfunc_2(unsigned char flags) {
 // 0x000fedf0 FUN_000fedf0 (30 B): matches/0x000fedf0.cpp [wrapped: conflict: CActorGolem]
 // sym: ?Init@CActorGolem@fn_000fedf0@@QAEPAV12@PAX@Z
 namespace fn_000fedf0 {
-extern int CActorGolem_vftable;
+extern int hulk_at_0040d164;
 class CActorGolem {
   public:
     virtual void f();
     char pad[0xf4];
     void* m;
-    void InitBase();
+    void InitBase_000fed00();
     CActorGolem* Init(void*);
 };
 CActorGolem* CActorGolem::Init(void* p) {
-    InitBase();
+    InitBase_000fed00();
     m = p;
-    *(hulk_intptr*)this = (hulk_intptr)&CActorGolem_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0040d164;
     return this;
 }
 } // namespace fn_000fedf0
@@ -1589,7 +1589,7 @@ CCharacterGolem::~CCharacterGolem() {}
 // sym: ?FUN_000fefa0@C_fefa0@owners@@QAEHXZ
 hulk_intptr owners::C_fefa0::FUN_000fefa0() {
     if (!value)
-        Init(this, &value);
+        Init_000feb20(this, &value);
     return value;
 }
 
@@ -1598,7 +1598,7 @@ hulk_intptr owners::C_fefa0::FUN_000fefa0() {
 // sym: ?FUN_000fefc0@Obj_fefc0@owners@@QAEHXZ
 hulk_intptr owners::Obj_fefc0::FUN_000fefc0() {
     if (value == 0)
-        Init(this, &value);
+        Init_000febc0(this, &value);
     return value;
 }
 
@@ -1607,7 +1607,7 @@ namespace fn_f54027db {
 // 0x000ff000 FUN_000ff000 (20 B): matches/0x000ff000.cpp
 // sym: ?FUN_000ff000@fn_f54027db@@YAXPAVObj@1@H@Z
 void FUN_000ff000(Obj* p, int x) {
-    p->method(x, 0x3727c5ac);
+    p->method_0022d2b0(x, 0x3727c5ac);
 }
 
 } // namespace fn_f54027db

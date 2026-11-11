@@ -12,10 +12,10 @@ namespace fn_fc1bb4c1 {} using namespace fn_fc1bb4c1;
 
 // ---- declarations shared by the functions below
 namespace fn_fc1bb4c1 {
-extern void* CCondition_4d680_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4d680 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CAlertStatusCondition : public CCondition_4d680 {
   public:
@@ -24,7 +24,7 @@ class CAlertStatusCondition : public CCondition_4d680 {
 extern void* CCondition_4d6b0_vftable[];
 class CCondition_4d6b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CRageModeCondition : public CCondition_4d6b0 {
   public:
@@ -33,7 +33,7 @@ class CRageModeCondition : public CCondition_4d6b0 {
 extern void* CCondition_4d6e0_vftable[];
 class CCondition_4d6e0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CGrappleTimerCondition : public CCondition_4d6e0 {
   public:
@@ -47,8 +47,8 @@ class CGrappleTimerCondition : public CCondition_4d6e0 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CAlertStatusCondition* CAlertStatusCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4d680_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -63,7 +63,7 @@ CAlertStatusCondition* CAlertStatusCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CRageModeCondition* CRageModeCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4d6b0_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -78,7 +78,7 @@ CRageModeCondition* CRageModeCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CGrappleTimerCondition* CGrappleTimerCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4d6e0_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

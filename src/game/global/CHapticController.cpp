@@ -9,8 +9,8 @@ namespace fn_fbbf50ac {} using namespace fn_fbbf50ac;
 
 // ---- declarations shared by the functions below
 namespace fn_fbbf50ac {
-extern void* g_a_afd00[];
-extern void* g_b_afd00[];
+extern void* hulk_at_00405e74[];
+extern void* hulk_at_003f6098[];
 } // namespace fn_fbbf50ac
 void operator delete[](void*);
 namespace fn_fbbf50ac {
@@ -43,7 +43,7 @@ class CHapticController_afd00 {
 // 0x000afd00 FUN_000afd00 (164 B): matches/0x000afd00.cpp
 // sym: ?f@CHapticController_afd00@fn_fbbf50ac@@QAEXXZ
 void CHapticController_afd00::f() {
-    vptr = g_a_afd00;
+    vptr = hulk_at_00405e74;
     if (arr) {
         for (int i = 0; i < count; i++)
             if (arr[i].r) {
@@ -66,7 +66,7 @@ void CHapticController_afd00::f() {
         mc->Release();
         mc = 0;
     }
-    vptr = g_b_afd00;
+    vptr = hulk_at_003f6098;
 }
 
 } // namespace fn_fbbf50ac

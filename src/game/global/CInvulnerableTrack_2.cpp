@@ -22,11 +22,11 @@ class TrackFactoryTemplate_76dc0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_76e50;
+extern int hulk_at_003fe9c0;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006a970();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -54,9 +54,9 @@ namespace fn_f5010e76 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f5010e76@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_76e50;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe9c0;
+    base1_dtor_0006a970();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

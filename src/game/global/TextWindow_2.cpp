@@ -68,16 +68,16 @@ class Obj_ece40 {
     virtual void x();
     virtual void Release();
 };
-extern char tv[];
-extern char fv[];
-void destroy(void*);
+extern char hulk_at_0040c64c[];
+extern char hulk_at_0040c42c[];
+void destroy_0008d340(void*);
 class Target_ece40 {
   public:
     char pad[0x154];
     Obj_ece40* a;
     Obj_ece40* b;
     void* c;
-    void Finish();
+    void Finish_000e9030();
 };
 
 } // namespace fn_fc766a14
@@ -156,9 +156,9 @@ hulk_freg TextWindow::vfunc_9() {
 // 0x000ece40 FUN_000ece40 (102 B): matches/0x000ece40.cpp
 // sym: ?target@fn_fc766a14@@YIXPAVTarget_ece40@1@@Z
 void __fastcall target(Target_ece40* s) {
-    *(void**)s = tv;
+    *(void**)s = hulk_at_0040c64c;
     if (s->c) {
-        destroy(s->c);
+        destroy_0008d340(s->c);
         s->c = 0;
     }
     if (s->a) {
@@ -169,8 +169,8 @@ void __fastcall target(Target_ece40* s) {
         s->b->Release();
         s->b = 0;
     }
-    *(void**)s = fv;
-    s->Finish();
+    *(void**)s = hulk_at_0040c42c;
+    s->Finish_000e9030();
 }
 
 } // namespace fn_fc766a14

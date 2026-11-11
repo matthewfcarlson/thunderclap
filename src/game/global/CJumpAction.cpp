@@ -24,8 +24,8 @@ class CAction_13b70 {
     virtual void a8();
 };
 struct X_13b70 {
-    X_13b70* f2();
-    int f3(int);
+    X_13b70* f2_00059a30();
+    int f3_000359c0(int);
 };
 
 } // namespace fn_fcbb3961
@@ -35,8 +35,8 @@ struct X_13b70 {
 bool CClimbingAction::vfunc_7(int ) {
     X_13b70* x = (X_13b70*)(*(void * *)&this->f_1c);
     x = ((X_13b70 *)((owners::Object_592a0 *)x)->FUN_000592a0());
-    x = x->f2();
-    x->f3(4);
+    x = x->f2_00059a30();
+    x->f3_000359c0(4);
     return true;
 }
 

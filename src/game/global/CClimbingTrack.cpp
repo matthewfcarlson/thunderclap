@@ -12,7 +12,7 @@ namespace fn_fbaf860d {} using namespace fn_fbaf860d;
 
 // ---- declarations shared by the functions below
 namespace fn_fbaf860d {
-extern int* gTable_68ef0;
+extern int* hulk_at_004dcf18;
 struct Param_68f40 {
   public:
     virtual void vfunc1();
@@ -27,7 +27,7 @@ struct CTrack_68f40 {
 };
 class R_68f60 {
   public:
-    int invoke(CClimbingTrack*, hulk_intptr);
+    int invoke_00018c20(CClimbingTrack*, hulk_intptr);
 };
 extern "C" R_68f60* FUN_0008d690(int);
 
@@ -44,7 +44,7 @@ void FUN_00068ed0() {
 // 0x00068ef0 CClimbingTrack::vfunc_0 (16 B): matches/0x00068ef0.cpp
 // sym: ?vfunc_0@CClimbingTrack@@UAEHH@Z
 hulk_intptr CClimbingTrack::vfunc_0(int index) {
-    return gTable_68ef0[index];
+    return hulk_at_004dcf18[index];
 }
 
 
@@ -103,7 +103,7 @@ hulk_freg CClimbingTrack::vfunc_7() {
 hulk_intptr CClimbingTrack::vfunc_12(hulk_intptr param) {
     R_68f60* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_00018c20(this, param);
     return 0;
 }
 

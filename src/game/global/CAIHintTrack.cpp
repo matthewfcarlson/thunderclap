@@ -12,7 +12,7 @@ namespace fn_fda83b0b {} using namespace fn_fda83b0b;
 
 // ---- declarations shared by the functions below
 namespace fn_fda83b0b {
-extern int* gTable_6af00;
+extern int* hulk_at_004dd008;
 class CCondition_6af00 {
   public:
     virtual int vfunc_0(int);
@@ -29,9 +29,9 @@ struct CTrack_6af60 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern void* g_vt_6af70[];
+extern void* hulk_at_003fc184[];
 struct Sub_6af70 {
-    void Fin() throw();
+    void Fin_0027af50() throw();
 };
 class CTrack_6af70 {
   public:
@@ -46,7 +46,7 @@ class CAIHintTrack_6af70 : public CTrack_6af70 {
 };
 class R_6af90 {
   public:
-    int invoke(CAIHintTrack*, hulk_intptr);
+    int invoke_00020bc0(CAIHintTrack*, hulk_intptr);
 };
 extern "C" R_6af90* FUN_0008d690(int);
 
@@ -64,7 +64,7 @@ void FUN_0006aee0() {
 // sym: ?vfunc_0@CAIHintTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CAIHintTrack::vfunc_0(int index) {
-    int* p = gTable_6af00;
+    int* p = hulk_at_004dd008;
     return p[index];
 }
 
@@ -81,7 +81,7 @@ class CTrack_6af10 {
 
 class Elem_6af10 {
   public:
-    void Init();
+    void Init_0027af00();
     char pad[16];
 };
 
@@ -99,7 +99,7 @@ class CAIHintTrack : public CTrack_6af10 {
 CAIHintTrack::CAIHintTrack() {
     mZero = 0;
     mScale = -1.0f;
-    mElem.Init();
+    mElem.Init_0027af00();
     mCount = 1;
 }
 } // namespace fn_0006af10
@@ -135,8 +135,8 @@ namespace fn_fda83b0b {
 // 0x0006af70 FUN_0006af70 (31 B): matches/0x0006af70.cpp
 // sym: ??1CAIHintTrack_6af70@fn_fda83b0b@@QAE@XZ
 CAIHintTrack_6af70::~CAIHintTrack_6af70() throw() {
-    vptr = g_vt_6af70;
-    sub.Fin();
+    vptr = hulk_at_003fc184;
+    sub.Fin_0027af50();
     vptr = g_vt2;
 }
 
@@ -148,7 +148,7 @@ CAIHintTrack_6af70::~CAIHintTrack_6af70() throw() {
 hulk_intptr CAIHintTrack::vfunc_12(hulk_intptr param) {
     R_6af90* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_00020bc0(this, param);
     return 0;
 }
 

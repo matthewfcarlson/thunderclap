@@ -25,7 +25,7 @@ struct V {
     float x, y, z;
 };
 struct Sub_e1e90 {
-    void Get(V* out);
+    void Get_000f6370(V* out);
 };
 struct Node {
     char pad[0x18];
@@ -62,8 +62,8 @@ extern "C" int FUN_000e1e90(Handle_e1e90* a, Handle_e1e90* b) {
     if (!nb)
         return -1;
     V va, vb;
-    na->sub.Get(&va);
-    nb->sub.Get(&vb);
+    na->sub.Get_000f6370(&va);
+    nb->sub.Get_000f6370(&vb);
     int r = 0;
     if (va.z != vb.z) {
         if (va.z > vb.z)

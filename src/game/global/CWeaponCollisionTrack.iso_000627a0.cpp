@@ -10,14 +10,14 @@
 #include "gen/global.h"
 
 struct CSmartPropSetStateAction_nv_627a0 {
-    int invoke(CSmartPropSetStateTrack*, hulk_intptr);
+    int invoke_0001f170(CSmartPropSetStateTrack*, hulk_intptr);
 };
 extern CSmartPropSetStateAction* FUN_0008d690(int);
 
 hulk_intptr CSmartPropSetStateTrack::vfunc_12(hulk_intptr param) {
     CSmartPropSetStateAction* p = FUN_0008d690((int)sizeof(CSmartPropSetStateAction));
     if (p)
-        return ((CSmartPropSetStateAction_nv_627a0*)(((CSmartPropSetStateAction*)(p))))->invoke(this, param);
+        return ((CSmartPropSetStateAction_nv_627a0*)(((CSmartPropSetStateAction*)(p))))->invoke_0001f170(this, param);
     return 0;
 }
 

@@ -36,15 +36,15 @@ class CInvincibleTrack_76d40 {
     int zero;
     int neg;
     int tail;
-    void Init();
+    void Init_00236d40();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int cvtable_76d40;
-extern int g_vftable_76d90;
+extern int hulk_at_003fbdc8;
+extern int hulk_at_003fe9a4;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006a040();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -73,8 +73,8 @@ template <> void* fight::TrackFactoryTemplate<CInvincibleTrack>::vfunc_5() {
     CInvincibleTrack_76d40* p = (CInvincibleTrack_76d40*)FUN_0008d690((int)sizeof(CInvincibleTrack_76d40));
     CInvincibleTrack_76d40* r;
     if (p) {
-        p->Init();
-        *(hulk_intptr*)p = (hulk_intptr)&cvtable_76d40;
+        p->Init_00236d40();
+        *(hulk_intptr*)p = (hulk_intptr)&hulk_at_003fbdc8;
         p->zero = 0;
         p->neg = (int)0xbf800000;
         p->tail = 0;
@@ -91,9 +91,9 @@ namespace fn_fbdad5cf {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fbdad5cf@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_76d90;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe9a4;
+    base1_dtor_0006a040();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

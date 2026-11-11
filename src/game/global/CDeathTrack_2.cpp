@@ -28,14 +28,14 @@ extern "C" char DAT_003fc148[];
 class CDeathTrack_762b0 {
   public:
     int pad[4];
-    void init();
+    void init_00236d40();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_762e0;
+extern int hulk_at_003fe63c;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006ae30();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -63,7 +63,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CDeathTrack>::vfunc_1(void* 
 template <> void* fight::TrackFactoryTemplate<CDeathTrack>::vfunc_5() {
     CDeathTrack_762b0* p = (CDeathTrack_762b0*)FUN_0008d690((int)sizeof(CDeathTrack_762b0));
     if (p) {
-        p->init();
+        p->init_00236d40();
         *(hulk_ulongptr*)p = ((hulk_intptr)DAT_003fc148);
         *(unsigned long*)((char*)p + 0xc) = 0;
         return (void*)(p);
@@ -77,9 +77,9 @@ namespace fn_f55a049d {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f55a049d@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_762e0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe63c;
+    base1_dtor_0006ae30();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

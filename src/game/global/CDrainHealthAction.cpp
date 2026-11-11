@@ -24,7 +24,7 @@ struct Owner_151a0 {  };
 struct Params_151a0 { char pad[44]; unsigned int a,b,c; };
 void* __cdecl FUN_00263ea0(unsigned int);
 struct R_15270 {
-    void call(void*, int);
+    void call_00222970(void*, int);
 };
 extern void* __fastcall FUN_000592a0(void*);
 extern "C" R_15270* __fastcall FUN_00059a40(void*);
@@ -45,7 +45,7 @@ void CAutoTargetAction::vfunc_4() {
     void* a = FUN_000592a0((*(void * *)&this->f_1c));
     R_15270* b = FUN_00059a40(a);
     if (b)
-        b->call((*(void * *)&this->f_24), 0);
+        b->call_00222970((*(void * *)&this->f_24), 0);
 }
 
 

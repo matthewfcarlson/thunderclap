@@ -14,7 +14,7 @@ namespace fn_f483e0b5 {
 struct A_5a590 {
 };
 struct B_5a590 {
-    void* second();
+    void* second_00059a30();
 };
 struct Data_5a590 {
     char pad330[0x330];
@@ -53,7 +53,7 @@ void* CGrappleDrainHealthTrack::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((void *)((owners::Object_592a0 *)(((A_5a590*)param)))->FUN_000592a0());
         if (a) {
-            void* b = ((B_5a590*)a)->second();
+            void* b = ((B_5a590*)a)->second_00059a30();
             if (b) {
                 Data_5a590* d = (Data_5a590*)b;
                 if (d->p334)

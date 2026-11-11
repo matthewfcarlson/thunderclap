@@ -26,16 +26,16 @@ class TrackFactoryTemplate_76040 {
 extern "C" void FUN_00070e30();
 typedef unsigned int u32_76080;
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int ComboVtable;
+extern int hulk_at_003fbbac;
 class CComboMessageTrack_76080 {
   public:
-    void Init();
+    void Init_00236d40();
 };
-extern int g_vftable_760c0;
+extern int hulk_at_003fe5e8;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00069790();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -63,8 +63,8 @@ template <> void* fight::TrackFactoryCasterTemplate<CComboMessageTrack>::vfunc_1
 template <> void* fight::TrackFactoryTemplate<CComboMessageTrack>::vfunc_5() {
     CComboMessageTrack_76080* p = (CComboMessageTrack_76080*)FUN_0008d690(0x54);
     if (p) {
-        p->Init();
-        *(hulk_uintptr*)p = (hulk_uintptr)&ComboVtable;
+        p->Init_00236d40();
+        *(hulk_uintptr*)p = (hulk_uintptr)&hulk_at_003fbbac;
         *(u32_76080*)((char*)p + 0xc) = 0;
         *(u32_76080*)((char*)p + 0x50) = 0;
         *((char*)p + 0x10) = 0;
@@ -80,9 +80,9 @@ namespace fn_fb2f54bd {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fb2f54bd@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_760c0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe5e8;
+    base1_dtor_00069790();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

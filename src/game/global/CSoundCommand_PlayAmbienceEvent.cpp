@@ -15,10 +15,10 @@ struct Global_1ef5e0 {
     void* b;
 };
 struct Resolver_1ef5e0 {
-    int Run(void*);
+    int Run_001e98b0(void*);
 };
 struct Player_1ef5e0 {
-    void Run(int, void*);
+    void Run_001f3a50(int, void*);
 };
 
 } // namespace fn_f56b0d6d
@@ -29,10 +29,10 @@ struct Player_1ef5e0 {
 // data: gSound_1ef5e0 = DAT_004e370c
 void CSoundCommand_PlayAmbienceEvent::vfunc_1(int , int ) {
     Resolver_1ef5e0* r = (Resolver_1ef5e0*)(*(Global_1ef5e0**)&DAT_004e370c)->b;
-    int x = r->Run((char*)this + 0x10);
+    int x = r->Run_001e98b0((char*)this + 0x10);
     if (x) {
         Player_1ef5e0* p = (Player_1ef5e0*)(*(Global_1ef5e0**)&DAT_004e370c)->a;
-        p->Run(x, (char*)this + 0x18);
+        p->Run_001f3a50(x, (char*)this + 0x18);
     }
 }
 

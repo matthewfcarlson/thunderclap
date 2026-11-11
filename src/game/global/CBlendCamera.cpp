@@ -59,7 +59,7 @@ class Owner_98480 {
 class CGameCamera {
   public:
     void* vtable;
-    void vfunc_29();
+    void vfunc_29_000a91b0();
 };
 struct ThisCall_00098480 {
     void FUN_00098480(int);
@@ -120,8 +120,8 @@ struct CBlendCamera {
     virtual void v35();
     virtual void v36();
     virtual void v37();
-    void call29();
-    void call9620();
+    void call29_000a91b0();
+    void call9620_000a9620();
 };
 void __cdecl thunk_FUN_00267090(CBlendCamera*);
 
@@ -158,7 +158,7 @@ Obj_98480* Owner_98480::go(hulk_uintptr arg) {
 void __fastcall FUN_000984e0(CGameCamera* p) {
     *(void**)p = (void*)((hulk_intptr)DAT_00404b3c);
     ((ThisCall_00098480*)(p))->FUN_00098480(0);
-    p->vfunc_29();
+    p->vfunc_29_000a91b0();
     FUN_000a9620(p);
 }
 
@@ -191,8 +191,8 @@ CBlendCamera* CBlendCamera::vfunc_2(byte_98990 param) {
     CBlendCamera* self = this;
     *(hulk_intptr*)self = ((hulk_intptr)DAT_00404b3c);
     ((ThisCall_00098480*)(this))->FUN_00098480(0);
-    self->call29();
-    self->call9620();
+    self->call29_000a91b0();
+    self->call9620_000a9620();
     if (param & 1)
         thunk_FUN_00267090(self);
     return self;

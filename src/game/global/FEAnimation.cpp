@@ -68,7 +68,7 @@ class ParseFunctor {
 };
 typedef unsigned int U32_e04f0;
 typedef unsigned long long U64_e04f0;
-U64_e04f0 __cdecl MakeValue(U32_e04f0);
+U64_e04f0 __cdecl MakeValue_0027b020(U32_e04f0);
 class Obj_e0710 {
   public:
     char pad[0x34];
@@ -282,7 +282,7 @@ class IRefCount {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_0040bfa0[];
 namespace pure3d {
 class NonCopyable : public IRefCount {
   public:
@@ -293,7 +293,7 @@ class NonCopyable : public IRefCount {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_0040bfa0;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -390,7 +390,7 @@ void FUN_000e04c0() {}
 // 0x000e04f0 FUN_000e04f0 (32 B): matches/0x000e04f0.cpp
 // sym: ?FUN_000e04f0@Obj_e04f0@owners@@QAEXI@Z
 void owners::Obj_e04f0::FUN_000e04f0(hulk_uintptr x) {
-    value = MakeValue(((U32_e04f0)x));
+    value = MakeValue_0027b020(((U32_e04f0)x));
 }
 
 namespace fn_f9d29c80 {

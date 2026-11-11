@@ -51,7 +51,7 @@ typedef int(__cdecl* Fn_1d0cf0)(LuaVMState*);
 extern "C" void __cdecl FUN_00212de0(LuaVMState*, int);
 extern "C" int __cdecl FUN_00212fe0(LuaVMState* L, int idx);
 typedef int(__cdecl* Fn_1d0d30)(LuaVMState*, void*);
-extern float gZero_1d1010;
+extern float hulk_at_003f32e0;
 extern "C" int __cdecl FUN_00213160(LuaVMState*, int);
 class SortedList : public ScriptFunctionList {
 public:
@@ -214,11 +214,11 @@ struct Object : public ScriptHandlerFields {
  bool target(const char* key, int mode, bool retry);
 };
 extern "C" void __cdecl FUN_00213360(LuaVMState*, int);
-extern void __cdecl F4(char*, int, const char*, const char*);
+extern void __cdecl F4_00267760(char*, int, const char*, const char*);
 class Obj_1d3030 : public ScriptHandlerFields {
   public:
     virtual void v0();
-    char Check(const char*, int, int);
+    char Check_001d2ba0(const char*, int, int);
     const char* Run(const char*, const char*);
 };
 class CFEManager_1d3120 {
@@ -339,7 +339,7 @@ typedef const char* (ScriptHandler_1d4210::*Fn_1d4210)(const char*);
 class Closure1_1d4210 : public ScriptFunctionFields {
   public:
     virtual void V();
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
     Fn_1d4210 fn;
     ScriptHandler_1d4210* owner;
     Closure1_1d4210* Run(const char*, ScriptHandler_1d4210*, Fn_1d4210);
@@ -384,8 +384,8 @@ struct T_1d4530 {
 struct End_1d4530 {
     void FUN_001dbd50();
 };
-extern H* g1_1d4530;
-extern T_1d4530* g2_1d4530;
+extern H* hulk_at_004dd6ec;
+extern T_1d4530* hulk_at_004dd700;
 struct ScriptHandler_1d4c90 {
     ScriptHandler_1d4c90* FUN_001d4830();
 };
@@ -573,12 +573,12 @@ int __cdecl FUN_001d0d30(LuaVMState* L) {
 // sym: ?FUN_001d1010@fn_f55829c3@@YGMPBDPAULuaVMState@@@Z
 float __stdcall FUN_001d1010(const char* name, LuaVMState* L) {
     if (name == 0)
-        return gZero_1d1010;
+        return hulk_at_003f32e0;
     FUN_002135a0(L, -10001, name);
     int r = FUN_00212f00(L, -1);
     if (r != 3) {
         FUN_00212d80(L, -2);
-        return gZero_1d1010;
+        return hulk_at_003f32e0;
     }
     float x = FUN_002130e0(L, -1);
     FUN_00212d80(L, -2);
@@ -1528,7 +1528,7 @@ bool owners::C_1d2cd0::FUN_001d2cd0(int a, hulk_intptr b, int c) {
     if (!r)
         ok = false;
     else
-        F4((char*)b, c, (const char*)&DAT_003f3f38, r);
+        F4_00267760((char*)b, c, (const char*)&DAT_003f3f38, r);
     FUN_00212d80((LuaVMState*)(hulk_intptr)field, -2);
     return ok;
 }
@@ -1611,9 +1611,9 @@ namespace fn_f55829c3 {
 // sym: ?Run@Obj_1d3030@fn_f55829c3@@QAEPBDPBD0@Z
 const char* Obj_1d3030::Run(const char* a, const char* b) {
     const char* result = 0;
-    if (Check(DAT_003f6378, 1, 1)) {
-        if (Check(a, 0, 1)) {
-            if (Check(DAT_00422618, 0, 1)) {
+    if (Check_001d2ba0(DAT_003f6378, 1, 1)) {
+        if (Check_001d2ba0(a, 0, 1)) {
+            if (Check_001d2ba0(DAT_00422618, 0, 1)) {
                 FUN_002133d0(L, b);
                 FUN_00213600(L, -2);
                 result = FUN_00213190(L, -1);
@@ -1779,7 +1779,7 @@ void Method1::f2(ScriptHandler* a, const char** b, bool* c) {
 namespace fn_001d3410 {
 extern "C" void _ReadWriteBarrier();
 extern "C++" __declspec(nothrow) void __cdecl FUN_002151e0(LuaVMState* L);
-extern void* g_vftable_1d3410;
+extern void* hulk_at_00422684;
 class Item_1d3410 {
   public:
     virtual void Release(int);
@@ -1791,7 +1791,7 @@ class ScriptHandler : public ScriptHandlerView {
     ~ScriptHandler();
 };
 ScriptHandler::~ScriptHandler() {
-    vftable = &g_vftable_1d3410;
+    vftable = &hulk_at_00422684;
     _ReadWriteBarrier();
     if (f.L) {
         FUN_002151e0(f.L);
@@ -2014,8 +2014,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00422624[2];
+extern void* hulk_at_004227e0[2];
 
 // Closure2<ScriptHandler, void, const char*, const char*>'s constructor (name, object, member function): Function's
 // fields (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
@@ -2036,12 +2036,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, ScriptHandler_1d40d0* a2, Fn_1d40d0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00422624;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e0f0));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_004227e0;
     owner = a2;
 }
 } // namespace fn_001d40d0
@@ -2101,7 +2101,7 @@ namespace fn_f55829c3 {
 // 0x001d4210 FUN_001d4210 (76 B): matches/0x001d4210.cpp
 // sym: ?Run@Closure1_1d4210@fn_f55829c3@@QAEPAV12@PBDPAVScriptHandler_1d4210@2@P832@AEPBD0@Z@Z
 Closure1_1d4210* Closure1_1d4210::Run(const char* a, ScriptHandler_1d4210* b, Fn_1d4210 c) {
-    Init(a, 1);
+    Init_001d0480(a, 1);
     *(void**)this = (void*)DAT_00422644;
     fn = c;
     retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
@@ -2176,7 +2176,7 @@ class Root : public ScriptFunctionFields {
     virtual void f();
     Fn_1d4320 x;
 };
-extern int check(const char*);
+extern int check_001d04d0(const char*);
 class Closure1_1d4320 : public Root {
   public:
     Closure1_1d4320(const char*, ScriptHandler_1d4320*, Fn_1d4320);
@@ -2190,8 +2190,8 @@ class Closure1 : public Closure1_1d4320 {
 };
 Closure1_1d4320::Closure1_1d4320(const char* s, ScriptHandler_1d4320* x0, Fn_1d4320 x1) : Root(s, 1) {
     x = x1;
-    retType = check(((const char*)&DAT_004c5d10));
-    argTypes[0] = check(((const char*)&DAT_0048e0f0));
+    retType = check_001d04d0(((const char*)&DAT_004c5d10));
+    argTypes[0] = check_001d04d0(((const char*)&DAT_0048e0f0));
 }
 Closure1::Closure1(const char* s, ScriptHandler_1d4320* x0, Fn_1d4320 x1) : Closure1_1d4320(s, x0, x1) {
     y = x0;
@@ -2331,8 +2331,8 @@ void __fastcall target(ScriptHandlerView* self) {
         self->f.ownsState = 1;
         ((ScriptHandler_nv_1d4530*)(self))->FUN_001d3c90(&self->f.L);
         ((ScriptHandler_nv_1d4530*)(self))->FUN_001d3bc0();
-        ((R_1d4530 *)((owners::A_86340 *)g1_1d4530)->FUN_00086340())->FUN_00092410();
-        ((End_1d4530*)g2_1d4530->r)->FUN_001dbd50();
+        ((R_1d4530 *)((owners::A_86340 *)hulk_at_004dd6ec)->FUN_00086340())->FUN_00092410();
+        ((End_1d4530*)hulk_at_004dd700->r)->FUN_001dbd50();
     }
 }
 
@@ -2452,7 +2452,7 @@ class Closure1_1d4210 {
     ScriptFunctionFields f;
     Fn_1d4660 fn;
     ScriptHandler_1d4660* owner;
-    Closure1_1d4210* Run(const char*, ScriptHandler_1d4660*, Fn_1d4660);
+    Closure1_1d4210* Run_001d4210(const char*, ScriptHandler_1d4660*, Fn_1d4660);
 };
 // 0x001d1180 (equivalent/0x001d1180.cpp): the handler's sorted list of Functions (ScriptHandlerFields.functions).
 class SortedList : public ScriptFunctionList {
@@ -2469,7 +2469,7 @@ void Owner_1d4660::FUN_001d4660(const char* a, ScriptHandler_1d4660* b, Fn_1d466
     Closure1_1d4210* p = (Closure1_1d4210*)FUN_0008d690((int)sizeof(Closure1_1d4210));
     Closure1_1d4210* n;
     if (p)
-        n = p->Run(a, b, c);
+        n = p->Run_001d4210(a, b, c);
     else
         n = 0;
     ((owners::CAgent_1d04b0*)n)->FUN_001d04b0((hulk_intptr)a);

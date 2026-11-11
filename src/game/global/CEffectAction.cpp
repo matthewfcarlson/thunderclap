@@ -14,15 +14,15 @@ namespace fn_ffd2a498 {
 struct ObjA_165d0 {
 };
 struct ObjB_165d0 {
-    ObjB_165d0* g();
+    ObjB_165d0* Fng_00059a30();
 };
 struct ObjC_165d0 {
-    void h(int);
+    void Fnh_000361f0(int);
 };
 class Inner2_165f0 {
   public:
-    Inner2_165f0* Step2();
-    void Step3(int);
+    Inner2_165f0* Step2_00059a30();
+    void Step3_000361f0(int);
 };
 class Inner1_165f0 {
   public:
@@ -30,32 +30,32 @@ class Inner1_165f0 {
 struct ObjA_16610 {
 };
 struct ObjB_16610 {
-    ObjB_16610* g();
+    ObjB_16610* Fng_00059a30();
 };
 struct ObjC_16610 {
-    void h(int);
+    void Fnh_00036220(int);
 };
 class Inner2_16630 {
   public:
-    Inner2_16630* Step2();
-    void Step3(int);
+    Inner2_16630* Step2_00059a30();
+    void Step3_00036220(int);
 };
 class Inner1_16630 {
   public:
 };
 class Result_16650 {
   public:
-    void finish(int);
+    void finish_002834e0(int);
 };
 struct CMotionTrailAction_nv_16650 {
-    Result_16650* first();
+    Result_16650* first_0027f250();
 };
 class Aux_16c90 {
   public:
-    void helper(int);
+    void helper_0027ffb0(int);
 };
 struct CEffectAction_nv_16c90 {
-    Aux_16c90* helper1();
+    Aux_16c90* helper1_0027f250();
 };
 
 } // namespace fn_ffd2a498
@@ -65,8 +65,8 @@ struct CEffectAction_nv_16c90 {
 // Same code shape as 0x00016580 (propagated; names are from that function)
 bool CIntangibleAction::vfunc_6(int ) {
     ObjA_165d0* a = ((ObjA_165d0 *)((owners::Object_592a0 *)((*(ObjA_165d0 * *)&this->f_1c)))->FUN_000592a0());
-    ObjB_165d0* b = ((ObjB_165d0*)a)->g();
-    ((ObjC_165d0*)b)->h(1);
+    ObjB_165d0* b = ((ObjB_165d0*)a)->Fng_00059a30();
+    ((ObjC_165d0*)b)->Fnh_000361f0(1);
     return true;
 }
 
@@ -74,8 +74,8 @@ bool CIntangibleAction::vfunc_6(int ) {
 // 0x000165f0 CIntangibleAction::vfunc_4 (25 B): matches/0x000165f0.cpp
 // sym: ?vfunc_4@CIntangibleAction@@UAEXXZ
 void CIntangibleAction::vfunc_4() {
-    Inner2_165f0* p = ((Inner2_165f0 *)((owners::Object_592a0 *)((*(Inner1_165f0 * *)&this->f_1c)))->FUN_000592a0())->Step2();
-    p->Step3(0);
+    Inner2_165f0* p = ((Inner2_165f0 *)((owners::Object_592a0 *)((*(Inner1_165f0 * *)&this->f_1c)))->FUN_000592a0())->Step2_00059a30();
+    p->Step3_000361f0(0);
 }
 
 
@@ -84,8 +84,8 @@ void CIntangibleAction::vfunc_4() {
 // Same code shape as 0x00016580 (propagated; names are from that function)
 bool CIntangibleToActorsAction::vfunc_6(int ) {
     ObjA_16610* a = ((ObjA_16610 *)((owners::Object_592a0 *)((*(ObjA_16610 * *)&this->f_1c)))->FUN_000592a0());
-    ObjB_16610* b = ((ObjB_16610*)a)->g();
-    ((ObjC_16610*)b)->h(1);
+    ObjB_16610* b = ((ObjB_16610*)a)->Fng_00059a30();
+    ((ObjC_16610*)b)->Fnh_00036220(1);
     return true;
 }
 
@@ -94,18 +94,18 @@ bool CIntangibleToActorsAction::vfunc_6(int ) {
 // sym: ?vfunc_4@CIntangibleToActorsAction@@UAEXXZ
 // Same code shape as 0x000165f0 (propagated; names are from that function)
 void CIntangibleToActorsAction::vfunc_4() {
-    Inner2_16630* p = ((Inner2_16630 *)((owners::Object_592a0 *)((*(Inner1_16630 * *)&this->f_1c)))->FUN_000592a0())->Step2();
-    p->Step3(0);
+    Inner2_16630* p = ((Inner2_16630 *)((owners::Object_592a0 *)((*(Inner1_16630 * *)&this->f_1c)))->FUN_000592a0())->Step2_00059a30();
+    p->Step3_00036220(0);
 }
 
 
 // 0x00016650 CMotionTrailAction::vfunc_4 (34 B): matches/0x00016650.cpp
 // sym: ?vfunc_4@CMotionTrailAction@@UAEXXZ
 void CMotionTrailAction::vfunc_4() {
-    Result_16650* r = ((CMotionTrailAction_nv_16650*)this)->first();
+    Result_16650* r = ((CMotionTrailAction_nv_16650*)this)->first_0027f250();
     char* p = (char*)(*(void * *)&this->f_20);
     if (p[0xc8])
-        r->finish(this->f_24);
+        r->finish_002834e0(this->f_24);
 }
 
 
@@ -424,8 +424,8 @@ char CEffectAction::F(int unused)
 // 0x00016c90 CEffectAction::vfunc_4 (31 B): matches/0x00016c90.cpp
 // sym: ?vfunc_4@CEffectAction@@UAEXXZ
 void CEffectAction::vfunc_4() {
-    Aux_16c90* p = ((CEffectAction_nv_16c90*)this)->helper1();
+    Aux_16c90* p = ((CEffectAction_nv_16c90*)this)->helper1_0027f250();
     if (*((char*)(*(void * *)&this->f_20) + 0x50))
-        p->helper(this->f_28);
+        p->helper_0027ffb0(this->f_28);
 }
 

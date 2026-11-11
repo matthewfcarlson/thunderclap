@@ -12,7 +12,7 @@ namespace fn_fc7abc97 {} using namespace fn_fc7abc97;
 
 // ---- declarations shared by the functions below
 namespace fn_fc7abc97 {
-extern int* gTable_6a140;
+extern int* hulk_at_004dcf90;
 class CCondition_6a140 {
   public:
     virtual int vfunc_0(int);
@@ -31,7 +31,7 @@ struct CTrack_6a1a0 {
 };
 class Helper_6a1c0 {
   public:
-    int go(hulk_intptr);
+    int go_0001f560(hulk_intptr);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
@@ -49,7 +49,7 @@ void FUN_0006a120() {
 // sym: ?vfunc_0@CIntangibleTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CIntangibleTrack::vfunc_0(int index) {
-    int* p = gTable_6a140;
+    int* p = hulk_at_004dcf90;
     return p[index];
 }
 
@@ -114,7 +114,7 @@ hulk_freg CIntangibleTrack::vfunc_7() {
 hulk_intptr CIntangibleTrack::vfunc_12(hulk_intptr a) {
     void* p = FUN_0008d690(0x20);
     if (p)
-        return ((Helper_6a1c0*)p)->go(a);
+        return ((Helper_6a1c0*)p)->go_0001f560(a);
     return 0;
 }
 

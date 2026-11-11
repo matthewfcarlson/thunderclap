@@ -27,7 +27,7 @@ class Obj_201740 {
 };
 class Callee_201750 {
   public:
-    void f(unsigned short*, int, int, int);
+    void Fnf_002647e0(unsigned short*, int, int, int);
 };
 class Obj_201750 {
   public:
@@ -158,11 +158,11 @@ extern "C" char DAT_004259f8[];
 struct Head_2023e0 {
     int x, y, z;
     char d, e;
-    void C(int);
+    void FnC_00201cd0(int);
 };
 struct Obj_2023e0 {
     int v;
-    void A();
+    void FnA_0027af00();
 };
 class CWorldCollisionManager_2023e0 {
   public:
@@ -267,7 +267,7 @@ Obj_201740::Obj_201740() {
 // sym: ?f@Obj_201750@fn_f0f2b8a0@@QAEGXZ
 unsigned short Obj_201750::f() {
     unsigned short local;
-    member->f(&local, 1, 2, 1);
+    member->Fnf_002647e0(&local, 1, 2, 1);
     return local;
 }
 
@@ -589,11 +589,11 @@ CWorldCollisionManager_2023e0* __fastcall FUN_002023e0(CWorldCollisionManager_20
     h->z = 0;
     h->d = 0;
     h->e = 0;
-    s->part.A();
+    s->part.FnA_0027af00();
     s->value = (int)0xc61c4000;
     ((owners::Target_27b040 *)&(s->part))->FUN_0027b040((hulk_uintptr)0);
     s->flag = 0;
-    h->C(DAT_004d293c);
+    h->FnC_00201cd0(DAT_004d293c);
     return s;
 }
 
@@ -604,9 +604,9 @@ CWorldCollisionManager_2023e0* __fastcall FUN_002023e0(CWorldCollisionManager_20
 namespace fn_00202430 {
 class Helper_202430 {
   public:
-    void Init();
+    void Init_0027af50();
 };
-extern void* vtable_202430;
+extern void* hulk_at_004259f8;
 void __cdecl thunk_FUN_00267090(void*);
 class CWorldCollisionManager {
   public:
@@ -618,8 +618,8 @@ class CWorldCollisionManager {
     void Init();
 };
 void CWorldCollisionManager::Init() {
-    vft = &vtable_202430;
-    helper.Init();
+    vft = &hulk_at_004259f8;
+    helper.Init_0027af50();
     if (ptr)
         thunk_FUN_00267090((char*)ptr - 4);
 }
@@ -1381,8 +1381,8 @@ extern "C" int* FUN_00202f00() {
 // sym: ??0Closure1@fn_00202f20@@QAE@PAX00@Z
 namespace fn_00202f20 {
 typedef unsigned char u8;
-extern u8 __cdecl query(const char*);
-extern const char label[];
+extern u8 __cdecl query_001d04d0(const char*);
+extern const char hulk_at_0048e10c[];
 class Base {
   public:
     Base(void*, int);
@@ -1407,8 +1407,8 @@ class Closure1 : public Closure1_202f20 {
 };
 Closure1_202f20::Closure1_202f20(void* x, void* y, void* z) : Base(x, 1) {
     p = z;
-    b = query(label);
-    a = query(label);
+    b = query_001d04d0(hulk_at_0048e10c);
+    a = query_001d04d0(hulk_at_0048e10c);
 }
 Closure1::Closure1(void* x, void* y, void* z) : Closure1_202f20(x, y, z) {
     q = y;
@@ -1458,7 +1458,7 @@ void Closure2::vfunc_2(int x, int a2, int a3) {
 namespace fn_00202fa0 {
 // data: key1 = DAT_0048e100, key2 = DAT_0048e128
 
-extern "C++" __declspec(nothrow) unsigned char __cdecl Check(const char*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl Check_001d04d0(const char*);
 class Function_202fa0 {
   public:
     Function_202fa0(int, int);
@@ -1474,8 +1474,8 @@ class Method1 : public Function_202fa0 {
   public:
     Method1(int p, int x) : Function_202fa0(p, 1) {
         this->x = x;
-        b = Check(((char*)&DAT_0048e100));
-        a = Check(((char*)&DAT_0048e128));
+        b = Check_001d04d0(((char*)&DAT_0048e100));
+        a = Check_001d04d0(((char*)&DAT_0048e128));
     }
     virtual void f();
 };
@@ -1600,7 +1600,7 @@ template <> void Closure1<CWorldCollisionManager, void, const char *>::vfunc_2(v
 namespace fn_00203150 {
 class SubObj_203150 {
   public:
-    void Clear();
+    void Clear_0027af50();
 };
 
 extern void* worldVtable;
@@ -1615,17 +1615,17 @@ class CWorldCollisionManager {
     CWorldCollisionManager* vfunc_0(unsigned char param);
 };
 
-void FreeMemA(void* p);
-void FreeMemB(void* p);
+void FreeMemA_0008d340(void* p);
+void FreeMemB_0008d330(void* p);
 
 CWorldCollisionManager* CWorldCollisionManager::vfunc_0(unsigned char param) {
     vptr = &worldVtable;
-    mSub.Clear();
+    mSub.Clear_0027af50();
     if (mCount) {
-        FreeMemA((void*)(mCount - 4));
+        FreeMemA_0008d340((void*)(mCount - 4));
     }
     if (param & 1) {
-        FreeMemB(this);
+        FreeMemB_0008d330(this);
     }
     return this;
 }

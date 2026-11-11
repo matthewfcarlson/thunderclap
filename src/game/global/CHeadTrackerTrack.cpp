@@ -13,7 +13,7 @@ namespace fn_fc9b775c {} using namespace fn_fc9b775c;
 
 // ---- declarations shared by the functions below
 namespace fn_fc9b775c {
-extern int* gTable_6ac10;
+extern int* hulk_at_004dcff0;
 class CCondition_6ac10 {
   public:
     virtual int vfunc_0(int);
@@ -30,15 +30,15 @@ struct CTrack_6ace0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern void* g_a_6acf0[];
-extern void* g_b_6acf0[];
+extern void* hulk_at_003fc0d0[];
+extern void* hulk_at_003f98d0[];
 struct Sub_6acf0 {
-    void Fin();
+    void Fin_0027af50();
 };
 class CTrack_6acf0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class CHeadTrackerTrack_6acf0 : public CTrack_6acf0 {
   public:
@@ -49,7 +49,7 @@ class CHeadTrackerTrack_6acf0 : public CTrack_6acf0 {
 extern const float kRadiansToDegrees = 0.017453292f;
 class Helper_6ad30 {
   public:
-    int run(CHeadTrackerTrack*, hulk_intptr);
+    int run_00020220(CHeadTrackerTrack*, hulk_intptr);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
@@ -67,7 +67,7 @@ void FUN_0006abf0() {
 // sym: ?vfunc_0@CHeadTrackerTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CHeadTrackerTrack::vfunc_0(int index) {
-    int* p = gTable_6ac10;
+    int* p = hulk_at_004dcff0;
     return p[index];
 }
 
@@ -170,10 +170,10 @@ namespace fn_fc9b775c {
 // 0x0006acf0 FUN_0006acf0 (31 B): matches/0x0006acf0.cpp
 // sym: ?f@CHeadTrackerTrack_6acf0@fn_fc9b775c@@QAEXXZ
 void CHeadTrackerTrack_6acf0::f() {
-    vptr = g_a_6acf0;
-    sub.Fin();
-    vptr = g_b_6acf0;
-    Fin();
+    vptr = hulk_at_003fc0d0;
+    sub.Fin_0027af50();
+    vptr = hulk_at_003f98d0;
+    Fin_00236d60();
 }
 
 } // namespace fn_fc9b775c
@@ -191,7 +191,7 @@ bool owners::Thing_6ad10::FUN_0006ad10(float degrees) {
 hulk_intptr CHeadTrackerTrack::vfunc_12(hulk_intptr param) {
     Helper_6ad30* p = (Helper_6ad30*)FUN_0008d690(0x90);
     if (p)
-        return p->run(this, param);
+        return p->run_00020220(this, param);
     return 0;
 }
 

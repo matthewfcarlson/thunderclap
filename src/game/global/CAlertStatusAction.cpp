@@ -31,8 +31,8 @@ class CHapticEventAction_225c0 {
     Obj_225c0* mObj;
     int mHandle;
 };
-extern void thunk(CHapticEventAction_225c0*);
-extern void* g_vftable_22610[];
+extern void thunk_0008d330(CHapticEventAction_225c0*);
+extern void* hulk_at_003f3390[];
 class Ref_22610 {
   public:
     virtual void F0();
@@ -74,7 +74,7 @@ CHapticEventAction_225c0* CHapticEventAction_225c0::f2(unsigned char flags) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flags & 1)
-        thunk(this);
+        thunk_0008d330(this);
     return this;
 }
 
@@ -82,7 +82,7 @@ CHapticEventAction_225c0* CHapticEventAction_225c0::f2(unsigned char flags) {
 // 0x00022610 CAlertStatusAction::vfunc_2 (57 B): matches/0x00022610.cpp
 // sym: ?f2@CAlertStatusAction_22610@fn_faa66039@@QAEPAV12@E@Z
 CAlertStatusAction_22610* CAlertStatusAction_22610::f2(unsigned char flags) {
-    vptr = g_vftable_22610;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

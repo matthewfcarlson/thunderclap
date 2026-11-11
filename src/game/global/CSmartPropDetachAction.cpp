@@ -9,7 +9,7 @@ namespace fn_fe8d468f {} using namespace fn_fe8d468f;
 
 // ---- declarations shared by the functions below
 namespace fn_fe8d468f {
-extern void* g_vftable_21f60[];
+extern void* hulk_at_003f3390[];
 class Ref_21f60 {
   public:
     virtual void F0();
@@ -30,7 +30,7 @@ class CSmartPropDetachAction_21f60 : public CAction_21f60 {
 // 0x00021f60 CSmartPropDetachAction::vfunc_2 (57 B): matches/0x00021f60.cpp
 // sym: ?f2@CSmartPropDetachAction_21f60@fn_fe8d468f@@QAEPAV12@E@Z
 CSmartPropDetachAction_21f60* CSmartPropDetachAction_21f60::f2(unsigned char flags) {
-    vptr = g_vftable_21f60;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

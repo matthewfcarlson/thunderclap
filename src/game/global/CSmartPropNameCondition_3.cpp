@@ -35,7 +35,7 @@ class Base_591f0 {
 };
 class Inner_591f0 {
   public:
-    void Init();
+    void Init_0027af00();
     int x;
 };
 class Derived : public Base_591f0 {
@@ -43,7 +43,7 @@ class Derived : public Base_591f0 {
     Derived() : Base_591f0(0) {
         m0 = 0;
         m1 = -1;
-        ((Inner_591f0*)((char*)this + 0x18))->Init();
+        ((Inner_591f0*)((char*)this + 0x18))->Init_0027af00();
     }
     virtual void a();
     virtual void b();
@@ -52,11 +52,11 @@ class Derived : public Base_591f0 {
     int m1;
     char pad2[4];
 };
-extern int g_vftable_59230;
+extern int hulk_at_003f980c;
 struct ConditionFactoryTemplate_59230 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00049550();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -96,9 +96,9 @@ namespace fn_f941d5f2 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_59230@fn_f941d5f2@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_59230::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_59230;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f980c;
+    base1_dtor_00049550();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

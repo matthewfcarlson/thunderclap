@@ -67,13 +67,13 @@ struct CCharacterAgent_fcb10 {
     void InitBase(u32_fcb10);
 };
 struct CChaseAgent_nv_fcb10 {
-    void InitBase(u32_fcb10);
+    void InitBase_000fc760(u32_fcb10);
 };
-extern char CChaseAgent_vftable;
+extern char hulk_at_0040d034;
 extern void* CCharacterAgent_fcb40_vftable[];
 class CCharacterAgent_fcb40 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_000fc630(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CChaseAgent_fcb40 : public CCharacterAgent_fcb40 {
   public:
@@ -216,11 +216,11 @@ void CChaseAgent::vfunc_7(int enabled) { if ((char)enabled) vfunc_8(source->look
 // sym: ?FUN_000fcb10@CChaseAgent@@QAEPAV1@I@Z
 CChaseAgent* CChaseAgent::FUN_000fcb10(unsigned int __p0) { u32_fcb10 x = (u32_fcb10)__p0;
 
-    ((CChaseAgent_nv_fcb10*)(((CCharacterAgent_fcb10*)this)))->InitBase(x);
+    ((CChaseAgent_nv_fcb10*)(((CCharacterAgent_fcb10*)this)))->InitBase_000fc760(x);
     (*(u32_fcb10 *)&this->f_08) = 0;
     (*(u32_fcb10 *)&this->f_70) = 0;
     this->f_6c = 0;
-    *(hulk_uintptr*)this = (hulk_uintptr)&CChaseAgent_vftable;
+    *(hulk_uintptr*)this = (hulk_uintptr)&hulk_at_0040d034;
     (*(float *)&this->f_68) = -1.0f;
     return (CChaseAgent*)(this);
 }
@@ -234,7 +234,7 @@ namespace fn_f0405f54 {
  // thunk_FUN_00267090
 CChaseAgent_fcb40* CChaseAgent_fcb40::vfunc_5(signed char flags) {
     *(void***)this = CCharacterAgent_fcb40_vftable;
-    Destroy();
+    Destroy_000fc630();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

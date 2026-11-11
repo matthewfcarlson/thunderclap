@@ -24,19 +24,19 @@ class TrackFactoryTemplate_77ae0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_77b20;
+extern int hulk_at_003febf4;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_000694f0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 typedef unsigned int u32_77b50;
 extern "C" void* __cdecl alloc(hulk_uintptr);
-extern u32_77b50 track_vftable;
+extern u32_77b50 hulk_at_003fec10;
 struct CGrappleKeyPoseTrack_77b50 {
     hulk_uintptr vf;
-    void init();
+    void init_00069520();
 };
 
 } // namespace fn_feba9267
@@ -63,9 +63,9 @@ namespace fn_feba9267 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_feba9267@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_77b20;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003febf4;
+    base1_dtor_000694f0();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -78,8 +78,8 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 template <> void* fight::TrackFactoryTemplate<CGrappleKeyPoseTrack>::vfunc_5() {
     CGrappleKeyPoseTrack_77b50* p = (CGrappleKeyPoseTrack_77b50*)alloc(0x78);
     if (p) {
-        p->init();
-        p->vf = (hulk_uintptr)&track_vftable;
+        p->init_00069520();
+        p->vf = (hulk_uintptr)&hulk_at_003fec10;
         return (void*)(p);
     }
     return (void*)(0);

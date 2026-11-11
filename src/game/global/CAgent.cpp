@@ -87,9 +87,9 @@ struct CCharacterAgent_fc630 {
     char pad[0x54];
     void* field58;
     void target();
-    void finish();
+    void finish_000fc460();
 };
-extern int CCharacterAgent_fc630_vftable;
+extern int hulk_at_0040cfe4;
 struct Ref_fc630 {
     virtual void A();
     virtual void B();
@@ -104,15 +104,15 @@ struct IRefCount {
     virtual void f0();
     virtual void Release();
 };
-extern int g_CAgentVtbl;
-extern int g_IRefCountVtbl;
+extern int hulk_at_0040cf84;
+extern int hulk_at_003f6098;
 struct CAgent {
     void* vptr;
     char pad[0x10];
     IRefCount* refs[16];
 };
 void __fastcall FUN_000fc460(CAgent* self) {
-    self->vptr = &g_CAgentVtbl;
+    self->vptr = &hulk_at_0040cf84;
     for (int i = 0; i < 16; ++i) {
         IRefCount* p = self->refs[i];
         if (p) {
@@ -120,7 +120,7 @@ void __fastcall FUN_000fc460(CAgent* self) {
             self->refs[i] = 0;
         }
     }
-    self->vptr = &g_IRefCountVtbl;
+    self->vptr = &hulk_at_003f6098;
 }
 } // namespace fn_000fc460
 
@@ -221,18 +221,18 @@ struct CActorAgent {
     char pad[0x54];
     void* field58;
     void target();
-    void finish();
+    void finish_000fc460();
 };
-extern int CActorAgent_vftable;
+extern int hulk_at_0040cfb4;
 struct Ref_fc610 {
     virtual void A();
     virtual void B();
 };
 void CActorAgent::target() {
-    vt = &CActorAgent_vftable;
+    vt = &hulk_at_0040cfb4;
     ((Ref_fc610*)field58)->B();
     field58 = 0;
-    finish();
+    finish_000fc460();
 }
 } // namespace fn_000fc610
 
@@ -242,10 +242,10 @@ namespace fn_ffab1cd7 {
 // sym: ?target@CCharacterAgent_fc630@fn_ffab1cd7@@QAEXXZ
 // Same code shape as 0x000fc610 (propagated; names are from that function)
 void CCharacterAgent_fc630::target() {
-    vt = &CCharacterAgent_fc630_vftable;
+    vt = &hulk_at_0040cfe4;
     ((Ref_fc630*)field58)->B();
     field58 = 0;
-    finish();
+    finish_000fc460();
 }
 
 } // namespace fn_ffab1cd7

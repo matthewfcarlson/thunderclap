@@ -9,7 +9,7 @@ namespace fn_f2bde127 {} using namespace fn_f2bde127;
 
 // ---- declarations shared by the functions below
 namespace fn_f2bde127 {
-extern void* g_vftable_22690[];
+extern void* hulk_at_003f3390[];
 class Ref_22690 {
   public:
     virtual void F0();
@@ -25,7 +25,7 @@ class CAIHintAction_22690 : public CAction_22690 {
     Ref_22690* m;
     CAIHintAction_22690* f2(unsigned char flags);
 };
-extern void* g_vftable_226d0[];
+extern void* hulk_at_003f3d30[];
 class Ref_226d0 {
   public:
     virtual void F0();
@@ -64,7 +64,7 @@ class CMotionHitGroundHeightAction_22730 : public CAction_22730 {
 // 0x00022690 CAIHintAction::vfunc_2 (57 B): matches/0x00022690.cpp
 // sym: ?f2@CAIHintAction_22690@fn_f2bde127@@QAEPAV12@E@Z
 CAIHintAction_22690* CAIHintAction_22690::f2(unsigned char flags) {
-    vptr = g_vftable_22690;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -80,7 +80,7 @@ CAIHintAction_22690* CAIHintAction_22690::f2(unsigned char flags) {
 // 0x000226d0 CSnapToWallAction::vfunc_2 (82 B): matches/0x000226d0.cpp
 // sym: ?f2@CSnapToWallAction_226d0@fn_f2bde127@@QAEPAV12@E@Z
 CSnapToWallAction_226d0* CSnapToWallAction_226d0::f2(unsigned char flags) {
-    vptr = g_vftable_226d0;
+    vptr = hulk_at_003f3d30;
     _ReadWriteBarrier();
     if (m1) {
         m1->Release();

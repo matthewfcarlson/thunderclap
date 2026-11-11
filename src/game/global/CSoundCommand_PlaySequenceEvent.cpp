@@ -22,15 +22,15 @@ class SoundSystem_1ef410 {
 };
 class Seq {
   public:
-    Seq* Find(void*);
+    Seq* Find_001e98b0(void*);
 };
 class Player_1ef410 {
   public:
-    void* Play(Seq*, int);
+    void* Play_001f2f30(Seq*, int);
 };
 class Event_1ef410 {
   public:
-    void Apply(void*);
+    void Apply_001f3370(void*);
 };
 class CSoundCommand {
   public:
@@ -55,16 +55,16 @@ class CSoundCommand_PlaySequenceEvent : public CSoundCommand {
 void CSoundCommand_PlaySequenceEvent::vfunc_1(int x, int y) {
     SoundSystem_1ef410* sys = (*(SoundSystem_1ef410* volatile*)&DAT_004e370c);
     ++(*(volatile int*)&DAT_004e371c);
-    Seq* s = sys->sequences->Find(&id);
+    Seq* s = sys->sequences->Find_001e98b0(&id);
     if (!s) {
         ++DAT_004e3720;
         return;
     }
     int arg = x;
     SoundSystem_1ef410* sys2 = (*(SoundSystem_1ef410* volatile*)&DAT_004e370c);
-    void* p = sys2->player->Play(s, arg);
+    void* p = sys2->player->Play_001f2f30(s, arg);
     if (p) {
-        ((Event_1ef410*)p)->Apply(&event);
+        ((Event_1ef410*)p)->Apply_001f3370(&event);
         return;
     }
     ++DAT_004e3724;

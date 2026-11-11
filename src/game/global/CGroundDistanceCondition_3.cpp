@@ -27,14 +27,14 @@ extern "C" void FUN_00053170();
 extern "C" char DAT_003f6f5c[];
 class GroundCondition {
   public:
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* Alloc(hulk_uintptr);
-extern int g_vftable_58170;
+extern int hulk_at_003f9524;
 struct ConditionFactoryTemplate_58170 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00048a00();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -62,7 +62,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CGroundDistanceCondition
 template <> void* fight::ConditionFactoryTemplate<CGroundDistanceCondition>::vfunc_5() {
     GroundCondition* p = (GroundCondition*)Alloc(0x14);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f6f5c);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0;
@@ -77,9 +77,9 @@ namespace fn_f5f5c4c9 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_58170@fn_f5f5c4c9@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_58170::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_58170;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9524;
+    base1_dtor_00048a00();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

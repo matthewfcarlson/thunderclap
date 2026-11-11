@@ -27,20 +27,20 @@ extern "C" void FUN_00054160();
 class CClimbableCondition_575f0 {
   public:
     hulk_intptr vt;
-    void Init(int);
+    void Init_00234590(int);
     int a;
     int b;
     int c;
     int d;
     char e;
 };
-extern int climbVftable;
+extern int hulk_at_003f73e0;
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_57630;
+extern int hulk_at_003f9314;
 struct ConditionFactoryTemplate_57630 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0004a400();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -68,8 +68,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<CClimbableCondition>::vf
 template <> void* fight::ConditionFactoryTemplate<CClimbableCondition>::vfunc_5() {
     CClimbableCondition_575f0* p = (CClimbableCondition_575f0*)FUN_0008d690((int)sizeof(CClimbableCondition_575f0));
     if (p) {
-        p->Init(0);
-        p->vt = (hulk_intptr)&climbVftable;
+        p->Init_00234590(0);
+        p->vt = (hulk_intptr)&hulk_at_003f73e0;
         p->c = 0;
         p->d = 0x3e860a92;
         p->e = 0;
@@ -84,9 +84,9 @@ namespace fn_fbcd4bc2 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_57630@fn_fbcd4bc2@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_57630::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_57630;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9314;
+    base1_dtor_0004a400();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

@@ -12,24 +12,24 @@ namespace fn_fe912186 {} using namespace fn_fe912186;
 // ---- declarations shared by the functions below
 namespace fn_fe912186 {
 struct A_16540 {
-    A_16540* get();
-    int remove(void*, int);
+    A_16540* get_00059a30();
+    int remove_001e5bb0(void*, int);
 };
 struct B_16540 {
-    A_16540* get();
+    A_16540* get_000592a0();
 };
 struct Manager_16540 {
     char pad[0xc];
     A_16540* obj;
 };
-extern Manager_16540* volatile gManager_16540;
+extern Manager_16540* volatile hulk_at_004dd700;
 struct ObjA_16580 {
 };
 struct ObjB_16580 {
-    ObjB_16580* g();
+    ObjB_16580* Fng_00059a30();
 };
 struct ObjC_16580 {
-    void h(int);
+    void Fnh_000361c0(int);
 };
 
 } // namespace fn_fe912186
@@ -37,11 +37,11 @@ struct ObjC_16580 {
 // 0x00016540 CSmartPropRemoveInstanceAction::vfunc_6 (56 B): matches/0x00016540.cpp
 // sym: ?vfunc_6@CSmartPropRemoveInstanceAction@@UAE_NH@Z
 bool CSmartPropRemoveInstanceAction::vfunc_6(int ) {
-    A_16540* a = (*(B_16540 * *)&this->f_1c)->get();
-    a = a->get();
+    A_16540* a = (*(B_16540 * *)&this->f_1c)->get_000592a0();
+    a = a->get_00059a30();
     hulk_intptr x = ((int)((owners::C_35ef0 *)a)->FUN_00035ef0((hulk_intptr)((*(void * *)&this->f_20))));
     if (x)
-        gManager_16540->obj->remove((void*)x, 1);
+        hulk_at_004dd700->obj->remove_001e5bb0((void*)x, 1);
     return false;
 }
 
@@ -50,8 +50,8 @@ bool CSmartPropRemoveInstanceAction::vfunc_6(int ) {
 // sym: ?vfunc_6@CInvincibleAction@@UAE_NH@Z
 bool CInvincibleAction::vfunc_6(int ) {
     ObjA_16580* a = ((ObjA_16580 *)((owners::Object_592a0 *)((*(ObjA_16580 * *)&this->f_1c)))->FUN_000592a0());
-    ObjB_16580* b = ((ObjB_16580*)a)->g();
-    ((ObjC_16580*)b)->h(1);
+    ObjB_16580* b = ((ObjB_16580*)a)->Fng_00059a30();
+    ((ObjC_16580*)b)->Fnh_000361c0(1);
     return true;
 }
 
@@ -61,12 +61,12 @@ bool CInvincibleAction::vfunc_6(int ) {
 namespace fn_000165a0 {
 typedef unsigned int u32_165a0;
 struct A_165a0 {
-    A_165a0* f2();
-    void f3(int);
-    void f4(u32_165a0);
+    A_165a0* f2_00059a30();
+    void f3_000361c0(int);
+    void f4_000361a0(u32_165a0);
 };
 struct X_165a0 {
-    A_165a0* f1();
+    A_165a0* f1_000592a0();
 };
 struct CInvincibleAction {
     char pad[0x1c];
@@ -75,10 +75,10 @@ struct CInvincibleAction {
     void vfunc_4();
 };
 void CInvincibleAction::vfunc_4() {
-    A_165a0* a = mAt1c->f1();
-    A_165a0* b = a->f2();
-    b->f3(0);
-    b->f4(mAt20);
+    A_165a0* a = mAt1c->f1_000592a0();
+    A_165a0* b = a->f2_00059a30();
+    b->f3_000361c0(0);
+    b->f4_000361a0(mAt20);
 }
 } // namespace fn_000165a0
 

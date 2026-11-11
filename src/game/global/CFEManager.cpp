@@ -174,7 +174,7 @@ typedef unsigned int u32_bebf0;
 extern void __cdecl Cast(hulk_uintptr, int, const int*, const int*, int);
 class Sub_bef60 {
   public:
-    int SubFn();
+    int SubFn_000bc750();
 };
 class Obj_bef60 {
   public:
@@ -200,11 +200,11 @@ struct S_bf0e0 {
 };
 extern "C" void __cdecl FUN_000fc100(void*, int);
 struct Obj34 {
-    int GetCount();
-    void Reset();
+    int GetCount_00089450();
+    void Reset_00089d30();
 };
 struct Dlg_bf1e0 {
-    void Init(const char*, const char*, const void*, const char*, const char*, int, int, int);
+    void Init_000be230(const char*, const char*, const void*, const char*, const char*, int, int, int);
 };
 struct Game_bf1e0 {
     char pad0[0x10];
@@ -214,15 +214,15 @@ struct Game_bf1e0 {
     Obj34* o34;
     char pad38[0x1cc0];
     int value1cf8;
-    void Use(int);
-    void Finish();
+    void Use_000b5030(int);
+    void Finish_000b9650();
     void Run();
 };
-extern Dlg_bf1e0* __stdcall CreateDialog();
+extern Dlg_bf1e0* __stdcall CreateDialog_000fc3d0();
 extern "C" void __cdecl FUN_000fc280(const char*);
 class D {
   public:
-    void Init(hulk_intptr, hulk_intptr, hulk_intptr, hulk_intptr, hulk_intptr, int, int, int);
+    void Init_000be230(hulk_intptr, hulk_intptr, hulk_intptr, hulk_intptr, hulk_intptr, int, int, int);
 };
 class C_bf260 {
   public:
@@ -230,14 +230,14 @@ class C_bf260 {
     int state;
     char q[28];
     int m30, m34;
-    void Next();
+    void Next_000b96e0();
 };
-extern D* __stdcall Make();
+extern D* __stdcall Make_000fc3d0();
 struct A_bf560 {
-    void F();
-    int G();
-    void K();
-    void L(int);
+    void FnF_00089380();
+    int FnG_001cc900();
+    void FnK_001cd410();
+    void FnL_00089a30(int);
 };
 struct Obj_bf560 {
     char pad[0x30];
@@ -247,11 +247,11 @@ struct Obj_bf560 {
 };
 class Manager_bfbe0 {
   public:
-    void Start(const char*, int, int);
+    void Start_001b7310(const char*, int, int);
 };
 class Factory_bfbe0 {
   public:
-    owners::Game_bfbe0* Create();
+    owners::Game_bfbe0* Create_00086300();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 } // namespace fn_f53c52ab
@@ -333,7 +333,7 @@ class CActorManager_c0390 {
 };
 class B_c04a0 {
   public:
-    int G();
+    int FnG_000bf160();
 };
 class A_c04a0 {
   public:
@@ -343,8 +343,8 @@ class A_c04a0 {
 };
 class Inner {
   public:
-    void action();
-    void Step();
+    void action_000bf260();
+    void Step_000bf560();
 };
 class Outer {
   public:
@@ -352,10 +352,10 @@ class Outer {
     Inner* inner;
     int run(void* arg, int unused);
 };
-extern "C" void Finish();
+extern "C" void Finish_000fc300();
 class Holder_c05f0 {
   public:
-    void set(long);
+    void set_000bf5c0(long);
 };
 class C_c05f0 {
   public:
@@ -393,7 +393,7 @@ struct Obj_c0d80 {
     virtual void f2();
     virtual int f3(void*, unsigned long long);
 };
-extern unsigned long long Get(void*);
+extern unsigned long long Get_0027b020(void*);
 class DynamicCasterBase_c0db0 {
   public:
     virtual void cast();
@@ -409,13 +409,13 @@ class Inventory {
     virtual void c();
     virtual int load(DynamicCasterBase_c0db0*, unsigned __int64);
 };
-extern unsigned __int64 findShader(const char*);
+extern unsigned __int64 findShader_0027b020(const char*);
 class DynamicCaster_c0de0 {
   public:
     virtual void Cast();
 };
 struct Sub_c1f00 {
-    void Fn(int);
+    void Fn_000c1790(int);
 };
 struct Obj_c1f00 {
     char pad[4];
@@ -423,7 +423,7 @@ struct Obj_c1f00 {
     int Run(int flag, int* p);
 };
 struct Sub_c1f30 {
-    int G();
+    int FnG_000c1ac0();
 };
 struct Obj_c1f30 {
     char pad[4];
@@ -455,18 +455,18 @@ struct Obj_c2b90 {
     int mVal;
 };
 struct Target_c2b90 {
-    void A(int, int);
-    void B();
-    void C();
-    void D(int);
+    void FnA_000bfa10(int, int);
+    void FnB_000b64f0();
+    void FnC_000b63a0();
+    void FnD_000c21b0(int);
 };
 struct Holder_c2b90 {
     int pad;
     Target_c2b90* mT;
     int Handle(int, int*);
 };
-extern char t1_c2b90[], t2[];
-void* Cast(int);
+extern char hulk_at_0049dba4[], hulk_at_0049faf4[];
+void* Cast_000fc260(int);
 Obj_c2b90* Conv(void*, int, char*, char*, int);
 class CUnlockable_c3db0 {
   public:
@@ -500,7 +500,7 @@ class Screen_c3db0 {
 };
 class Child {
   public:
-    void act();
+    void act_000c2c20();
 };
 class Obj {
   public:
@@ -510,7 +510,7 @@ class Obj {
     virtual int f3(DynamicCaster_c0de0*, __int64);
     union { Child* child; Inner* inner; Obj* other; };
     void FUN_000bea10(int, int, int, int, int, int);
-    void action();
+    void action_000bf1e0();
     int fn(void* p, int unused);
     int Run(int a, int b);
     int fn(int a, int b);
@@ -521,11 +521,11 @@ struct Handler {
     Obj* ptr;
     int Process(int, Arg*);
 };
-extern __int64 helper(Obj*);
+extern __int64 helper_0027b020(Obj*);
 typedef unsigned int uint_000c3e70;
 class Helper {
   public:
-    int Fn(int x);
+    int Fn_000c31e0(int x);
 };
 class C_000c3e70 {
   public:
@@ -535,14 +535,14 @@ class C_000c3e70 {
 };
 class Sub_c4000 {
   public:
-    void F();
+    void FnF_00094590();
 };
 class Obj_c4000 {
     char pad[0x4c];
 
   public:
     Sub_c4000* sub;
-    void G();
+    void FnG_000c3ea0();
 };
 class Target_c4000 {
     char pad[4];
@@ -551,8 +551,8 @@ class Target_c4000 {
   public:
     int F(int a, int b);
 };
-extern void* v1_c43a0[];
-extern void* v2_c43a0[];
+extern void* hulk_at_00409078[];
+extern void* hulk_at_00409080[];
 } // namespace fn_f53c52ab
 void* operator new(size_t);
 namespace fn_f53c52ab {
@@ -566,79 +566,79 @@ struct H1 {
     void* vptr;
     void* self;
     void* fn;
-    H1(void* s, void* f) : vptr(v1_c43a0), self(s), fn(f) {}
+    H1(void* s, void* f) : vptr(hulk_at_00409078), self(s), fn(f) {}
 };
 struct H2_c43a0 {
     void* vptr;
     void* self;
     void* fn;
-    H2_c43a0(void* s, void* f) : vptr(v2_c43a0), self(s), fn(f) {}
+    H2_c43a0(void* s, void* f) : vptr(hulk_at_00409080), self(s), fn(f) {}
 };
 extern "C" void FUN_000fc1e0(const char*, H0_c43a0*);
 extern "C" void FUN_000fc220(const char*, H1*);
 extern "C" void FUN_000fc200(const char*, H2_c43a0*);
-void Mb45e0();
-void Mb45f0();
-void Mb4610();
-void Mbbb40();
-void Mbbb80();
-void Mbbb90();
-void Mbbbb0();
-void Mbbc00();
-void Mbbc20();
-void Mbbc50();
-void Mbbc90();
-void Mbbcb0();
-void Mbbcd0();
-void Mbbcf0();
-void Mbbd10();
-void Mbbd30();
-void Mbbd60();
-void Mbbd80();
-void Mbbda0();
-void Mbbdc0();
-void Mbbdf0();
-void Mbbe20();
-void Mbbe50();
-void Mbbe90();
-void Mbbeb0();
-void Mbbed0();
-void Mbbef0();
-void Mbbf00();
-void Mbbf20();
-void Mbbf60();
-void Mbbf70();
-void Mbbfa0();
-void Mbbfd0();
-void Mbbff0();
-void Mbc010();
+void Mb45e0_000b45e0();
+void Mb45f0_000b45f0();
+void Mb4610_000b4610();
+void Mbbb40_000bbb40();
+void Mbbb80_000bbb80();
+void Mbbb90_000bbb90();
+void Mbbbb0_000bbbb0();
+void Mbbc00_000bbc00();
+void Mbbc20_000bbc20();
+void Mbbc50_000bbc50();
+void Mbbc90_000bbc90();
+void Mbbcb0_000bbcb0();
+void Mbbcd0_000bbcd0();
+void Mbbcf0_000bbcf0();
+void Mbbd10_000bbd10();
+void Mbbd30_000bbd30();
+void Mbbd60_000bbd60();
+void Mbbd80_000bbd80();
+void Mbbda0_000bbda0();
+void Mbbdc0_000bbdc0();
+void Mbbdf0_000bbdf0();
+void Mbbe20_000bbe20();
+void Mbbe50_000bbe50();
+void Mbbe90_000bbe90();
+void Mbbeb0_000bbeb0();
+void Mbbed0_000bbed0();
+void Mbbef0_000bbef0();
+void Mbbf00_000bbf00();
+void Mbbf20_000bbf20();
+void Mbbf60_000bbf60();
+void Mbbf70_000bbf70();
+void Mbbfa0_000bbfa0();
+void Mbbfd0_000bbfd0();
+void Mbbff0_000bbff0();
+void Mbc010_000bc010();
 extern "C" void FUN_000bc030();
 extern "C" void FUN_000bc040();
-void Mbc050();
-void Mbc060();
-void Mbc080();
-void Mbc0a0();
-void Mbc0b0();
-void Mbc0d0();
-void Mbc0f0();
-void Mbecd0();
-void Mbef60();
-void Mbef80();
-void Mc04a0();
-void Mc04c0();
-void Mc04e0();
-void Mc0500();
-void Mc0540();
-void Mc0590();
-void Mc05d0();
-void Mc05f0();
-void Mc0630();
-void Mc1f00();
-void Mc1f30();
-void Mc2b90();
-void Mc3e50();
-void Mc3e70();
-void Mc4000();
+void Mbc050_000bc050();
+void Mbc060_000bc060();
+void Mbc080_000bc080();
+void Mbc0a0_000bc0a0();
+void Mbc0b0_000bc0b0();
+void Mbc0d0_000bc0d0();
+void Mbc0f0_000bc0f0();
+void Mbecd0_000becd0();
+void Mbef60_000bef60();
+void Mbef80_000bef80();
+void Mc04a0_000c04a0();
+void Mc04c0_000c04c0();
+void Mc04e0_000c04e0();
+void Mc0500_000c0500();
+void Mc0540_000c0540();
+void Mc0590_000c0590();
+void Mc05d0_000c05d0();
+void Mc05f0_000c05f0();
+void Mc0630_000c0630();
+void Mc1f00_000c1f00();
+void Mc1f30_000c1f30();
+void Mc2b90_000c2b90();
+void Mc3e50_000c3e50();
+void Mc3e70_000c3e70();
+void Mc4000_000c4000();
 class CFrontEndCallback_c43a0 {
   public:
     void* vptr;
@@ -1249,7 +1249,7 @@ int Obj_bef60::Target(void* a, void* b) {
     Sub_bef60* s = m;
     if (!s)
         return -1;
-    s->SubFn();
+    s->SubFn_000bc750();
     return 0;
 }
 
@@ -1378,16 +1378,16 @@ namespace fn_f53c52ab {
 // data: gZero_bf1e0 = DAT_003f335c
 void Game_bf1e0::Run() {
     if (o34) {
-        if (o34->GetCount() > 0) {
+        if (o34->GetCount_00089450() > 0) {
             if (member30) {
-                CreateDialog()
-                    ->Init("FEGenericDialog", "TBS_MENU_ITEM_RESTART_DEMO", ((char*)&DAT_003f335c), "TBS_MENU_ITEM_OK", "TBS_CANCEL", 2, 0, 0);
+                CreateDialog_000fc3d0()
+                    ->Init_000be230("FEGenericDialog", "TBS_MENU_ITEM_RESTART_DEMO", ((char*)&DAT_003f335c), "TBS_MENU_ITEM_OK", "TBS_CANCEL", 2, 0, 0);
                 state = 0x12;
-                Finish();
+                Finish_000b9650();
             }
         } else {
-            o34->Reset();
-            Use(value1cf8);
+            o34->Reset_00089d30();
+            Use_000b5030(value1cf8);
             FUN_000fc280("save_new_game");
         }
     }
@@ -1398,9 +1398,9 @@ void Game_bf1e0::Run() {
 // sym: ?Target@fn_f53c52ab@@YIXPAVC_bf260@1@@Z
 void __fastcall Target(C_bf260* self) {
     if (self->m34 && self->m30) {
-        Make()->Init(((hulk_intptr)((char*)&DAT_0040914c)), ((hulk_intptr)((char*)&DAT_0040915c)), ((hulk_intptr)((char*)&DAT_003f335c)), ((hulk_intptr)((char*)&DAT_00408ee8)), ((hulk_intptr)((char*)&DAT_00408fa0)), 2, 0, 0);
+        Make_000fc3d0()->Init_000be230(((hulk_intptr)((char*)&DAT_0040914c)), ((hulk_intptr)((char*)&DAT_0040915c)), ((hulk_intptr)((char*)&DAT_003f335c)), ((hulk_intptr)((char*)&DAT_00408ee8)), ((hulk_intptr)((char*)&DAT_00408fa0)), 2, 0, 0);
         self->state = 0x13;
-        self->Next();
+        self->Next_000b96e0();
     }
 }
 
@@ -1409,16 +1409,16 @@ void __fastcall Target(C_bf260* self) {
 // sym: ?Target@fn_f53c52ab@@YIXPAUObj_bf560@1@@Z
 void __fastcall Target(Obj_bf560* p) {
     if (p->m38) {
-        p->m34->F();
-        if (!p->m38->G()) {
+        p->m34->FnF_00089380();
+        if (!p->m38->FnG_001cc900()) {
             if (p->m30 && p->m34 && p->m38) {
                 ((::CScenarioManager *)(p->m38))->FUN_001cc620(9);
-                p->m34->L(0);
+                p->m34->FnL_00089a30(0);
                 FUN_000fc300();
             }
             return;
         }
-        p->m38->K();
+        p->m38->FnK_001cd410();
     }
 }
 
@@ -1492,7 +1492,7 @@ void owners::Game_bfbe0::FUN_000bfbe0(void* arg, float dt) {
     if (Check(0, 1))
         timer = 0.0f;
     if (timer >= 66.6f) {
-        ((Manager_bfbe0*)((Factory_bfbe0*)arg)->Create())->Start("attract", 1000, 1);
+        ((Manager_bfbe0*)((Factory_bfbe0*)arg)->Create_00086300())->Start_001b7310("attract", 1000, 1);
         timer = 0.0f;
     }
 }
@@ -1598,7 +1598,7 @@ void Registry_bfcc0::FUN_000bfcc0(const char* name, void (*fn)()) {
 // sym: ??0Closure1@fn_000bfe10@@QAE@PAX00@Z
 namespace fn_000bfe10 {
 
-extern "C++" __declspec(nothrow) unsigned char __cdecl Find(void*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl Find_001d04d0(void*);
 class Parent {
   public:
     virtual void invoke();
@@ -1617,8 +1617,8 @@ class Closure1_bfe10 : public Parent {
 };
 Closure1_bfe10::Closure1_bfe10(void* p, void* q) : Parent(p, 1) {
     ptr = q;
-    b = Find(((int*)&DAT_0048e100));
-    a = Find(((int*)&DAT_0049cad8));
+    b = Find_001d04d0(((int*)&DAT_0048e100));
+    a = Find_001d04d0(((int*)&DAT_0049cad8));
 }
 class Closure1 : public Closure1_bfe10 {
   public:
@@ -1682,7 +1682,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C++" __declspec(nothrow) unsigned char lookup(const void*);
+extern "C++" __declspec(nothrow) unsigned char lookup_001d04d0(const void*);
 class Base : public CtorV_001d0480 {
   public:
     Base(const char* n) : CtorV_001d0480(n, 1) { }
@@ -1701,8 +1701,8 @@ class Closure1 : public Closure1_bffa0 {
 };
 Closure1_bffa0::Closure1_bffa0(const char* n, Fn_bffa0 s) : Base(n) {
     name = s;
-    retType = lookup(((int*)&DAT_0048e100));
-    argTypes[0] = lookup(((int*)&DAT_0048e0f0));
+    retType = lookup_001d04d0(((int*)&DAT_0048e100));
+    argTypes[0] = lookup_001d04d0(((int*)&DAT_0048e0f0));
 }
 Closure1::Closure1(const char* n, Owner_bffa0* v, Fn_bffa0 s) : Closure1_bffa0(n, s) {
     p = v;
@@ -1759,8 +1759,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_004090e8[2];
+extern void* hulk_at_004092e0[2];
 
 // Closure2<Owner, void, const char*, const char*>'s constructor (name, object, member function): Function's fields
 // (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
@@ -1781,12 +1781,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_0c0030* a2, Fn_0c0030 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_004090e8;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e0f0));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_004092e0;
     owner = a2;
 }
 } // namespace fn_000c0030
@@ -1875,8 +1875,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00409118[2];
+extern void* hulk_at_00409310[2];
 
 // Closure2<Owner, void, const char*, int>'s constructor (name, object, member function): Function's fields
 // (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
@@ -1897,12 +1897,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_0c0200* a2, Fn_0c0200 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00409118;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e0f0));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e134));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_00409310;
     owner = a2;
 }
 } // namespace fn_000c0200
@@ -1949,13 +1949,13 @@ class Function_c0320 {
     char pad3[3];
     int x1c;
 };
-extern "C++" __declspec(nothrow) int check(const char*);
+extern "C++" __declspec(nothrow) int check_001d04d0(const char*);
 class Method1 : public Function_c0320 {
   public:
     Method1(int a, int c) : Function_c0320(a, 1) {
         x1c = c;
-        b18 = (char)check(((const char*)&DAT_0048e100));
-        b10 = (char)check(((const char*)&DAT_0048e134));
+        b18 = (char)check_001d04d0(((const char*)&DAT_0048e100));
+        b10 = (char)check_001d04d0(((const char*)&DAT_0048e134));
     }
     virtual void f();
 };
@@ -1987,7 +1987,7 @@ int A_c04a0::Fn(int a, int b) {
     B_c04a0* q = p;
     if (q == 0)
         return -1;
-    q->G();
+    q->FnG_000bf160();
     return 0;
 }
 
@@ -1999,7 +1999,7 @@ int Obj::fn(void* p, int unused) {
         return -1;
     if (p)
         return -1;
-    other->action();
+    other->action_000bf1e0();
     return 0;
 }
 
@@ -2011,7 +2011,7 @@ int Outer::run(void* arg, int unused) {
         return -1;
     if (arg)
         return -1;
-    inner->action();
+    inner->action_000bf260();
     return 0;
 }
 
@@ -2026,7 +2026,7 @@ extern long __cdecl atol(const char*);
 #endif
 
 struct Inner_c0500 {
-    void call(long);
+    void call_000bf2b0(long);
 };
 struct Obj_c0500 {
     int pad;
@@ -2039,7 +2039,7 @@ long Obj_c0500::run(int count, char** strings) {
     long n = 0;
     if (count > 0)
         n = atol(*strings);
-    value->call(n);
+    value->call_000bf2b0(n);
     return 0;
 }
 } // namespace fn_000c0500
@@ -2055,7 +2055,7 @@ extern "C" long __cdecl atol(const char*);
 
 class Target {
   public:
-    void action(const char*, long);
+    void action_000bf450(const char*, long);
 };
 class Obj {
   public:
@@ -2072,7 +2072,7 @@ int Obj::Func(int n, const char** args) {
     long v = 0;
     if (n > 1)
         v = atol(args[1]);
-    ptr->action(s, v);
+    ptr->action_000bf450(s, v);
     return 0;
 }
 } // namespace fn_000c0540
@@ -2088,7 +2088,7 @@ extern long __cdecl atol(const char*);
 #endif
 
 struct Inner_c0590 {
-    void call(long);
+    void call_000bf4e0(long);
 };
 struct Obj_c0590 {
     int pad;
@@ -2101,7 +2101,7 @@ long Obj_c0590::run(int count, char** strings) {
     long n = 0;
     if (count > 0)
         n = atol(*strings);
-    value->call(n);
+    value->call_000bf4e0(n);
     return 0;
 }
 } // namespace fn_000c0590
@@ -2113,8 +2113,8 @@ namespace fn_f53c52ab {
 int Obj::Run(int a, int b) {
     if (!inner)
         return -1;
-    inner->Step();
-    Finish();
+    inner->Step_000bf560();
+    Finish_000fc300();
     return 0;
 }
 
@@ -2127,7 +2127,7 @@ int __fastcall target(C_c05f0* self, int, int arg, const char** text) {
     if (arg != 1)
         return -1;
     long n = atol(*text);
-    self->value->set(n);
+    self->value->set_000bf5c0(n);
     return 0;
 }
 
@@ -2141,7 +2141,7 @@ struct Obj_c0630 {
     int id;
 };
 struct Mgr_c0630 {
-    void Set(int, int);
+    void Set_000bfa10(int, int);
 };
 struct Handler_c0630 {
     char pad[4];
@@ -2156,7 +2156,7 @@ int Handler_c0630::Handle(int msg, Obj_c0630** arg) {
         Obj_c0630* v = *arg;
         Obj_c0630* q = FUN_00344e74(FUN_000fc260(v), 0, &DAT_0049dba4, &DAT_0049faf4, 0);
         if (q) {
-            mgr->Set(q->id, 1);
+            mgr->Set_000bfa10(q->id, 1);
             return 0;
         }
     }
@@ -2397,7 +2397,7 @@ namespace fn_f53c52ab {
 // 0x000c0d80 FUN_000c0d80 (42 B): matches/0x000c0d80.cpp
 // sym: _FUN_000c0d80
 extern "C" hulk_intptr FUN_000c0d80(Obj_c0d80* p, hulk_intptr b) {
-    unsigned long long x = Get((void*)b);
+    unsigned long long x = Get_0027b020((void*)b);
     struct Local {
         void* v;
     };
@@ -2410,7 +2410,7 @@ extern "C" hulk_intptr FUN_000c0d80(Obj_c0d80* p, hulk_intptr b) {
 // 0x000c0db0 FUN_000c0db0 (42 B): matches/0x000c0db0.cpp
 // sym: _FUN_000c0db0
 extern "C" hulk_intptr FUN_000c0db0(Inventory* inv, const char* name) {
-    unsigned __int64 s = findShader(name);
+    unsigned __int64 s = findShader_0027b020(name);
     DynamicCaster_c0db0 caster;
     return inv->load(&caster, s);
 }
@@ -2419,7 +2419,7 @@ extern "C" hulk_intptr FUN_000c0db0(Inventory* inv, const char* name) {
 // 0x000c0de0 FUN_000c0de0 (42 B): matches/0x000c0de0.cpp
 // sym: _FUN_000c0de0
 extern "C" hulk_intptr FUN_000c0de0(Obj* obj, Obj* value) {
-    __int64 a = helper(value);
+    __int64 a = helper_0027b020(value);
     DynamicCaster_c0de0 caster;
     return obj->f3(&caster, a);
 }
@@ -2503,7 +2503,7 @@ int Obj_c1f00::Run(int flag, int* p) {
         return -1;
     if (flag != 1)
         return -1;
-    mSub->Fn(*p);
+    mSub->Fn_000c1790(*p);
     return 0;
 }
 
@@ -2513,7 +2513,7 @@ int Obj_c1f00::Run(int flag, int* p) {
 int Obj_c1f30::F(int a, int b) {
     if (!m)
         return -1;
-    m->G();
+    m->FnG_000c1ac0();
     return 0;
 }
 
@@ -2534,13 +2534,13 @@ CFEManager_c1f50* CFEManager_c1f50::vfunc_2(unsigned char flags) {
 int Holder_c2b90::Handle(int a, int* p) {
     if (mT && a == 1) {
         int x = *p;
-        Obj_c2b90* o = Conv(Cast(x), 0, t1_c2b90, t2, 0);
+        Obj_c2b90* o = Conv(Cast_000fc260(x), 0, hulk_at_0049dba4, hulk_at_0049faf4, 0);
         if (o) {
             int v = o->mVal;
-            mT->A(v, 0);
-            mT->B();
-            mT->C();
-            mT->D(0x266);
+            mT->FnA_000bfa10(v, 0);
+            mT->FnB_000b64f0();
+            mT->FnC_000b63a0();
+            mT->FnD_000c21b0(0x266);
             return 0;
         }
     }
@@ -2600,7 +2600,7 @@ void Screen_c3db0::FUN_000c3db0() {
 int Obj::fn(int a, int b) {
     if (!child)
         return -1;
-    child->act();
+    child->act_000c2c20();
     return 0;
 }
 
@@ -2614,7 +2614,7 @@ int C_000c3e70::Fn(uint_000c3e70 a, int* b) {
     if (a != 1)
         return -1;
     int x = *b;
-    mPtr->Fn(x);
+    mPtr->Fn_000c31e0(x);
     return 0;
 }
 
@@ -2749,8 +2749,8 @@ namespace fn_f53c52ab {
 // 0x000c4000 FUN_000c4000 (28 B): matches/0x000c4000.cpp
 // sym: ?F@Target_c4000@fn_f53c52ab@@QAEHHH@Z
 int Target_c4000::F(int a, int b) {
-    obj->sub->F();
-    obj->G();
+    obj->sub->FnF_00094590();
+    obj->FnG_000c3ea0();
     return 0;
 }
 
@@ -2760,68 +2760,68 @@ int Target_c4000::F(int a, int b) {
 CFrontEndCallback_c43a0* CFrontEndCallback_c43a0::ctor(void* arg) {
     vptr = gV;
     m4 = arg;
-    FUN_000fc1e0("Print", new H0_c43a0(this, (void*)Mb45e0));
-    FUN_000fc1e0("SetDifficulty", new H0_c43a0(this, (void*)Mbbb40));
-    FUN_000fc1e0("ResetDifficultySelectScreen", new H0_c43a0(this, (void*)Mc04a0));
-    FUN_000fc1e0("ResetGame", new H0_c43a0(this, (void*)Mc04c0));
-    FUN_000fc1e0("ReplayStoryMode", new H0_c43a0(this, (void*)Mc04e0));
-    FUN_000fc1e0("StartGame", new H0_c43a0(this, (void*)Mbecd0));
-    FUN_000fc1e0("StartNextMission", new H0_c43a0(this, (void*)Mbef60));
-    FUN_000fc1e0("ReturnToNullMission", new H0_c43a0(this, (void*)Mc0500));
-    FUN_000fc1e0("ExitSim", new H0_c43a0(this, (void*)Mc0540));
-    FUN_000fc1e0("RestartSim", new H0_c43a0(this, (void*)Mc0590));
-    FUN_000fc1e0("Continue", new H0_c43a0(this, (void*)Mc05d0));
-    FUN_000fc1e0("SaveGame", new H0_c43a0(this, (void*)Mbbb80));
-    FUN_000fc1e0("ChangeLocale", new H0_c43a0(this, (void*)Mc1f00));
-    FUN_000fc1e0("JumpMarkerSelected", new H0_c43a0(this, (void*)Mbbb90));
-    FUN_000fc1e0("JumpMarkerSelectionCancelled", new H0_c43a0(this, (void*)Mbbbb0));
-    FUN_000fc1e0("ResetJumpMarkers", new H0_c43a0(this, (void*)Mbbc00));
-    FUN_000fc1e0("AwardCheatersSmashPoints", new H0_c43a0(this, (void*)Mbbc20));
-    FUN_000fc220("VideoBrightnessChanged", new H1(this, (void*)Mbbc50));
-    FUN_000fc200("TargetingLockChanged", new H2_c43a0(this, (void*)Mbbc90));
-    FUN_000fc220("AudioDialogueVolumeChanged", new H1(this, (void*)Mbbcb0));
-    FUN_000fc220("AudioMusicVolumeChanged", new H1(this, (void*)Mbbcd0));
-    FUN_000fc220("AudioSoundEffectsVolumeChanged", new H1(this, (void*)Mbbcf0));
-    FUN_000fc200("AudioQualityChanged", new H2_c43a0(this, (void*)Mbbd10));
-    FUN_000fc200("SubtitlesChanged", new H2_c43a0(this, (void*)Mbbd30));
-    FUN_000fc200("ControlConfigVibrationChanged", new H2_c43a0(this, (void*)Mbbd60));
-    FUN_000fc200("CameraInvertXChanged", new H2_c43a0(this, (void*)Mbbd80));
-    FUN_000fc200("CameraInvertYChanged", new H2_c43a0(this, (void*)Mbbda0));
-    FUN_000fc200("CheatGrayHulkChanged", new H2_c43a0(this, (void*)Mbbdc0));
-    FUN_000fc200("CheatInvulnerabilityChanged", new H2_c43a0(this, (void*)Mbbdf0));
-    FUN_000fc200("CheatAllMovesChanged", new H2_c43a0(this, (void*)Mbbe20));
-    FUN_000fc200("MissionSelectedChanged", new H2_c43a0(this, (void*)Mbbef0));
-    FUN_000fc1e0("DoSaveScreens", new H0_c43a0(this, (void*)Mbbf00));
-    FUN_000fc1e0("DoUnlockable", new H0_c43a0(this, (void*)Mc3e70));
-    FUN_000fc1e0("BackScreen", new H0_c43a0(this, (void*)Mb45f0));
-    FUN_000fc1e0("SetUpMoveDescScreen", new H0_c43a0(this, (void*)Mc3e50));
-    FUN_000fc1e0("UpdateStoryRecap", new H0_c43a0(this, (void*)Mbc060));
-    FUN_000fc1e0("DoUnlockChapterMoves", new H0_c43a0(this, (void*)Mc05f0));
-    FUN_000fc1e0("DoFECodeInput", new H0_c43a0(this, (void*)Mc2b90));
-    FUN_000fc1e0("DoSimCodeInput", new H0_c43a0(this, (void*)Mc0630));
-    FUN_000fc1e0("DoFullscreenAnswer", new H0_c43a0(this, (void*)Mbbf20));
-    FUN_000fc1e0("UnlockAllBonus", new H0_c43a0(this, (void*)Mc4000));
-    FUN_000fc1e0("ClearScreenHistory", new H0_c43a0(this, (void*)Mb4610));
-    FUN_000fc1e0("StartFE", new H0_c43a0(this, (void*)Mbc080));
-    FUN_000fc1e0("UpdateCheatsScreen", new H0_c43a0(this, (void*)Mbc0b0));
-    FUN_000fc1e0("ApplyCheatsSettings", new H0_c43a0(this, (void*)Mbc0d0));
-    FUN_000fc1e0("EnterBlonskyFile", new H0_c43a0(this, (void*)Mbbeb0));
-    FUN_000fc1e0("UpdateControlButtonString", new H0_c43a0(this, (void*)Mbef80));
-    FUN_000fc1e0("UpdateVibrationTextControl", new H0_c43a0(this, (void*)Mbbed0));
-    FUN_000fc1e0("UpdateSimAudioWidgets", new H0_c43a0(this, (void*)Mbc0a0));
-    FUN_000fc1e0("InitMUCheck", new H0_c43a0(this, (void*)Mbc0f0));
-    FUN_000fc1e0("TriggerAnimationSound", new H0_c43a0(this, (void*)Mbbe50));
-    FUN_000fc1e0("DialogSelectionChanged", new H0_c43a0(this, (void*)Mbbe90));
-    FUN_000fc200("BlonskyFileSelectedChanged", new H2_c43a0(this, (void*)Mbbf60));
-    FUN_000fc1e0("ResetDecryptingSequence", new H0_c43a0(this, (void*)Mc1f30));
-    FUN_000fc1e0("PlayBlonskyFileDialogue", new H0_c43a0(this, (void*)Mbbf70));
-    FUN_000fc1e0("UpdateMissionBriefingScreen", new H0_c43a0(this, (void*)Mbbfa0));
-    FUN_000fc1e0("UpdateMissionObjectivesScreen", new H0_c43a0(this, (void*)Mbc010));
-    FUN_000fc1e0("UpdateHintScreen", new H0_c43a0(this, (void*)Mbbfd0));
-    FUN_000fc1e0("UpdateSmartHintScreen", new H0_c43a0(this, (void*)Mbbff0));
+    FUN_000fc1e0("Print", new H0_c43a0(this, (void*)Mb45e0_000b45e0));
+    FUN_000fc1e0("SetDifficulty", new H0_c43a0(this, (void*)Mbbb40_000bbb40));
+    FUN_000fc1e0("ResetDifficultySelectScreen", new H0_c43a0(this, (void*)Mc04a0_000c04a0));
+    FUN_000fc1e0("ResetGame", new H0_c43a0(this, (void*)Mc04c0_000c04c0));
+    FUN_000fc1e0("ReplayStoryMode", new H0_c43a0(this, (void*)Mc04e0_000c04e0));
+    FUN_000fc1e0("StartGame", new H0_c43a0(this, (void*)Mbecd0_000becd0));
+    FUN_000fc1e0("StartNextMission", new H0_c43a0(this, (void*)Mbef60_000bef60));
+    FUN_000fc1e0("ReturnToNullMission", new H0_c43a0(this, (void*)Mc0500_000c0500));
+    FUN_000fc1e0("ExitSim", new H0_c43a0(this, (void*)Mc0540_000c0540));
+    FUN_000fc1e0("RestartSim", new H0_c43a0(this, (void*)Mc0590_000c0590));
+    FUN_000fc1e0("Continue", new H0_c43a0(this, (void*)Mc05d0_000c05d0));
+    FUN_000fc1e0("SaveGame", new H0_c43a0(this, (void*)Mbbb80_000bbb80));
+    FUN_000fc1e0("ChangeLocale", new H0_c43a0(this, (void*)Mc1f00_000c1f00));
+    FUN_000fc1e0("JumpMarkerSelected", new H0_c43a0(this, (void*)Mbbb90_000bbb90));
+    FUN_000fc1e0("JumpMarkerSelectionCancelled", new H0_c43a0(this, (void*)Mbbbb0_000bbbb0));
+    FUN_000fc1e0("ResetJumpMarkers", new H0_c43a0(this, (void*)Mbbc00_000bbc00));
+    FUN_000fc1e0("AwardCheatersSmashPoints", new H0_c43a0(this, (void*)Mbbc20_000bbc20));
+    FUN_000fc220("VideoBrightnessChanged", new H1(this, (void*)Mbbc50_000bbc50));
+    FUN_000fc200("TargetingLockChanged", new H2_c43a0(this, (void*)Mbbc90_000bbc90));
+    FUN_000fc220("AudioDialogueVolumeChanged", new H1(this, (void*)Mbbcb0_000bbcb0));
+    FUN_000fc220("AudioMusicVolumeChanged", new H1(this, (void*)Mbbcd0_000bbcd0));
+    FUN_000fc220("AudioSoundEffectsVolumeChanged", new H1(this, (void*)Mbbcf0_000bbcf0));
+    FUN_000fc200("AudioQualityChanged", new H2_c43a0(this, (void*)Mbbd10_000bbd10));
+    FUN_000fc200("SubtitlesChanged", new H2_c43a0(this, (void*)Mbbd30_000bbd30));
+    FUN_000fc200("ControlConfigVibrationChanged", new H2_c43a0(this, (void*)Mbbd60_000bbd60));
+    FUN_000fc200("CameraInvertXChanged", new H2_c43a0(this, (void*)Mbbd80_000bbd80));
+    FUN_000fc200("CameraInvertYChanged", new H2_c43a0(this, (void*)Mbbda0_000bbda0));
+    FUN_000fc200("CheatGrayHulkChanged", new H2_c43a0(this, (void*)Mbbdc0_000bbdc0));
+    FUN_000fc200("CheatInvulnerabilityChanged", new H2_c43a0(this, (void*)Mbbdf0_000bbdf0));
+    FUN_000fc200("CheatAllMovesChanged", new H2_c43a0(this, (void*)Mbbe20_000bbe20));
+    FUN_000fc200("MissionSelectedChanged", new H2_c43a0(this, (void*)Mbbef0_000bbef0));
+    FUN_000fc1e0("DoSaveScreens", new H0_c43a0(this, (void*)Mbbf00_000bbf00));
+    FUN_000fc1e0("DoUnlockable", new H0_c43a0(this, (void*)Mc3e70_000c3e70));
+    FUN_000fc1e0("BackScreen", new H0_c43a0(this, (void*)Mb45f0_000b45f0));
+    FUN_000fc1e0("SetUpMoveDescScreen", new H0_c43a0(this, (void*)Mc3e50_000c3e50));
+    FUN_000fc1e0("UpdateStoryRecap", new H0_c43a0(this, (void*)Mbc060_000bc060));
+    FUN_000fc1e0("DoUnlockChapterMoves", new H0_c43a0(this, (void*)Mc05f0_000c05f0));
+    FUN_000fc1e0("DoFECodeInput", new H0_c43a0(this, (void*)Mc2b90_000c2b90));
+    FUN_000fc1e0("DoSimCodeInput", new H0_c43a0(this, (void*)Mc0630_000c0630));
+    FUN_000fc1e0("DoFullscreenAnswer", new H0_c43a0(this, (void*)Mbbf20_000bbf20));
+    FUN_000fc1e0("UnlockAllBonus", new H0_c43a0(this, (void*)Mc4000_000c4000));
+    FUN_000fc1e0("ClearScreenHistory", new H0_c43a0(this, (void*)Mb4610_000b4610));
+    FUN_000fc1e0("StartFE", new H0_c43a0(this, (void*)Mbc080_000bc080));
+    FUN_000fc1e0("UpdateCheatsScreen", new H0_c43a0(this, (void*)Mbc0b0_000bc0b0));
+    FUN_000fc1e0("ApplyCheatsSettings", new H0_c43a0(this, (void*)Mbc0d0_000bc0d0));
+    FUN_000fc1e0("EnterBlonskyFile", new H0_c43a0(this, (void*)Mbbeb0_000bbeb0));
+    FUN_000fc1e0("UpdateControlButtonString", new H0_c43a0(this, (void*)Mbef80_000bef80));
+    FUN_000fc1e0("UpdateVibrationTextControl", new H0_c43a0(this, (void*)Mbbed0_000bbed0));
+    FUN_000fc1e0("UpdateSimAudioWidgets", new H0_c43a0(this, (void*)Mbc0a0_000bc0a0));
+    FUN_000fc1e0("InitMUCheck", new H0_c43a0(this, (void*)Mbc0f0_000bc0f0));
+    FUN_000fc1e0("TriggerAnimationSound", new H0_c43a0(this, (void*)Mbbe50_000bbe50));
+    FUN_000fc1e0("DialogSelectionChanged", new H0_c43a0(this, (void*)Mbbe90_000bbe90));
+    FUN_000fc200("BlonskyFileSelectedChanged", new H2_c43a0(this, (void*)Mbbf60_000bbf60));
+    FUN_000fc1e0("ResetDecryptingSequence", new H0_c43a0(this, (void*)Mc1f30_000c1f30));
+    FUN_000fc1e0("PlayBlonskyFileDialogue", new H0_c43a0(this, (void*)Mbbf70_000bbf70));
+    FUN_000fc1e0("UpdateMissionBriefingScreen", new H0_c43a0(this, (void*)Mbbfa0_000bbfa0));
+    FUN_000fc1e0("UpdateMissionObjectivesScreen", new H0_c43a0(this, (void*)Mbc010_000bc010));
+    FUN_000fc1e0("UpdateHintScreen", new H0_c43a0(this, (void*)Mbbfd0_000bbfd0));
+    FUN_000fc1e0("UpdateSmartHintScreen", new H0_c43a0(this, (void*)Mbbff0_000bbff0));
     FUN_000fc200("BuyableMoveSelectedChanged", new H2_c43a0(this, (void*)FUN_000bc030));
     FUN_000fc200("EnabledMoveSelectedChanged", new H2_c43a0(this, (void*)FUN_000bc040));
-    FUN_000fc200("JumpMarkerSelectedChanged", new H2_c43a0(this, (void*)Mbc050));
+    FUN_000fc200("JumpMarkerSelectedChanged", new H2_c43a0(this, (void*)Mbc050_000bc050));
     return this;
 }
 

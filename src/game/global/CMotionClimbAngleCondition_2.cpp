@@ -27,14 +27,14 @@ extern "C" void FUN_000548b0();
 extern "C" char DAT_003f7550[];
 class CMotionClimbAngleCondition_583f0 {
   public:
-    void Init(int);
+    void Init_00234590(int);
     int w[6];
 };
-extern int g_vftable_58430;
+extern int hulk_at_003f9594;
 struct ConditionFactoryTemplate_58430 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0004adc0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -62,7 +62,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CMotionClimbAngleConditi
 template <> void* fight::ConditionFactoryTemplate<CMotionClimbAngleCondition>::vfunc_5() {
     CMotionClimbAngleCondition_583f0* p = (CMotionClimbAngleCondition_583f0*)operator new(sizeof(CMotionClimbAngleCondition_583f0));
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->w[0] = ((hulk_intptr)DAT_003f7550);
         p->w[3] = 0;
         p->w[4] = 0x3fc90fdb;
@@ -78,9 +78,9 @@ namespace fn_fbf65e06 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_58430@fn_fbf65e06@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_58430::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_58430;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9594;
+    base1_dtor_0004adc0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

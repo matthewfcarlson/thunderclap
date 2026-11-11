@@ -21,31 +21,31 @@ struct CUnlockableMove : CUnlockable {
     virtual CUnlockableMove* vfunc_0(unsigned char);
 };
 struct Helper_93470 {
-    void run();
+    void run_0027af50();
 };
-extern void* vtMove;
-extern void* vtBase_93470;
+extern void* hulk_at_004044b4;
+extern void* hulk_at_0040449c;
 void thunk_FUN_00267090(void*);
-void __cdecl FreeThis(void*);
+void __cdecl FreeThis_0008d330(void*);
 
 
 // 0x00093470 CUnlockableMove::vfunc_0 (84 B): matches/0x00093470.cpp
 // sym: ?vfunc_0@CUnlockableMove@fn_fae5595d@@UAEPAU12@E@Z
 CUnlockableMove* CUnlockableMove::vfunc_0(unsigned char flags) {
-    *(void**)this = &vtMove;
+    *(void**)this = &hulk_at_004044b4;
     Helper_93470* h = (Helper_93470*)((char*)this + 0x40);
-    h->run();
+    h->run_0027af50();
     h = (Helper_93470*)((char*)this + 0x38);
-    h->run();
-    *(void**)this = &vtBase_93470;
+    h->run_0027af50();
+    *(void**)this = &hulk_at_0040449c;
     if (m18) {
         thunk_FUN_00267090(m18);
         m18 = 0;
     }
     h = (Helper_93470*)((char*)this + 0x10);
-    h->run();
+    h->run_0027af50();
     if (flags & 1)
-        FreeThis(this);
+        FreeThis_0008d330(this);
     return this;
 }
 

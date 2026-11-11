@@ -11,7 +11,7 @@
 
 class Thing_1caf40 {
   public:
-    void finish();
+    void finish_001d1d10();
 };
 Thing_1caf40* FUN_001d4c90();
 bool owners::Owner_1caf40::FUN_001caf40() {
@@ -21,7 +21,7 @@ bool owners::Owner_1caf40::FUN_001caf40() {
     if (!((owners::Obj_1d2e80 *)t)->FUN_001d2e80())
         return false;
     ((owners::Obj_1d1d90 *)t)->FUN_001d1d90((hulk_intptr)DAT_00421cb0, value);
-    t->finish();
+    t->finish_001d1d10();
     return true;
 }
 

@@ -12,10 +12,10 @@ namespace fn_fdd8b6eb {} using namespace fn_fdd8b6eb;
 
 // ---- declarations shared by the functions below
 namespace fn_fdd8b6eb {
-extern int* gTable_6ad80;
+extern int* hulk_at_004dcff8;
 class Other_6ae00 {
   public:
-    int call(hulk_intptr, int);
+    int call_00020ad0(hulk_intptr, int);
 };
 extern "C" Other_6ae00* __cdecl FUN_0008d690(int);
 
@@ -32,7 +32,7 @@ void FUN_0006ad60() {
 // 0x0006ad80 CAlertStatusTrack::vfunc_0 (16 B): matches/0x0006ad80.cpp
 // sym: ?vfunc_0@CAlertStatusTrack@@UAEHH@Z
 hulk_intptr CAlertStatusTrack::vfunc_0(int i) {
-    return gTable_6ad80[i];
+    return hulk_at_004dcff8[i];
 }
 
 
@@ -95,7 +95,7 @@ hulk_freg CAlertStatusTrack::vfunc_7() {
 hulk_intptr CAlertStatusTrack::vfunc_12(hulk_intptr param) {
     Other_6ae00* p = FUN_0008d690(0x24);
     if (p)
-        return p->call(param, this->f_10);
+        return p->call_00020ad0(param, this->f_10);
     return 0;
 }
 

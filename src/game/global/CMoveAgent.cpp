@@ -12,24 +12,24 @@ namespace fn_ff1bac5e {} using namespace fn_ff1bac5e;
 namespace fn_ff1bac5e {
 class Origin_102a50 {
   public:
-    void Get(float*);
+    void Get_00059a50(float*);
 };
 class Vec_102a50 {
   public:
     float x, y, z;
-    float Normalize();
+    float Normalize_0022d110();
 };
 class Owner_102a50 {
   public:
     char pad[0x10];
     Origin_102a50* origin;
-    float Scale();
+    float Scale_000356b0();
 };
 class Helper_102b60 {
   public:
-    float f(hulk_intptr, int);
+    float Fnf_000fc4e0(hulk_intptr, int);
 };
-extern volatile const float gZero_102b60;
+extern volatile const float hulk_at_003f32e0;
 struct Triple_102b90 {
     int a, b, c;
 };
@@ -60,12 +60,12 @@ public:
 // sym: ?FUN_00102a50@fn_ff1bac5e@@YAXPAVOwner_102a50@1@PAMPAVVec_102a50@1@@Z
 void FUN_00102a50(Owner_102a50* owner, float* src, Vec_102a50* dst) {
     float local[3];
-    owner->origin->Get(local);
+    owner->origin->Get_00059a50(local);
     dst->x = src[0] - local[0];
     dst->y = src[1] - local[1];
     dst->z = src[2] - local[2];
-    dst->Normalize();
-    float scale = owner->Scale();
+    dst->Normalize_0022d110();
+    float scale = owner->Scale_000356b0();
     dst->x = scale * dst->x;
     dst->y = scale * dst->y;
     dst->z = scale * dst->z;
@@ -83,7 +83,7 @@ class Obj_102ac0 {
 };
 class CAvoidBehaviour_102ac0 {
   public:
-    Obj_102ac0* Make();
+    Obj_102ac0* Make_00109ba0();
 };
 struct CCharacterAgent_000fc760 {
     CCharacterAgent_000fc760(void*);
@@ -106,7 +106,7 @@ CMoveAgent::CMoveAgent(void* arg) : CCharacterAgent_000fc760(arg) {
     CAvoidBehaviour_102ac0* h = (CAvoidBehaviour_102ac0*)FUN_0008d690(0x38);
     Obj_102ac0* q;
     if (h)
-        q = h->Make();
+        q = h->Make_00109ba0();
     else
         q = 0;
     p = q;
@@ -131,14 +131,14 @@ class Ref_102b20 {
 class CMoveAgent {
   public:
     virtual ~CMoveAgent();
-    void finish();
+    void finish_000fc630();
     char pad[0x64];
     Ref_102b20* member;
 };
 CMoveAgent::~CMoveAgent() {
     member->Release();
     member = 0;
-    finish();
+    finish_000fc630();
 }
 } // namespace fn_00102b20
 
@@ -158,8 +158,8 @@ void CMoveAgent::vfunc_9() {
 // 0x00102b60 CMoveAgent::vfunc_3 (39 B): matches/0x00102b60.cpp
 // sym: ?vfunc_3@CMoveAgent@@UAEMHH@Z
 hulk_freg CMoveAgent::vfunc_3(hulk_intptr x, int y) {
-    ((Helper_102b60*)this)->f(x, y);
-    float z = gZero_102b60;
+    ((Helper_102b60*)this)->Fnf_000fc4e0(x, y);
+    float z = hulk_at_003f32e0;
     *(int*)((char*)this + 8) = 0;
     return z;
 }

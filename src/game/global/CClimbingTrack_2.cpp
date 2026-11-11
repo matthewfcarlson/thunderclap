@@ -28,13 +28,13 @@ extern "C" char DAT_003fba38[];
 extern "C" void* __cdecl Allocate(unsigned int);
 class Init_75fd0 {
   public:
-    void InitFn();
+    void InitFn_00236d40();
 };
-extern int g_vftable_76010;
+extern int hulk_at_003fe5cc;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00068ed0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -62,7 +62,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CClimbingTrack>::vfunc_1(voi
 template <> void* fight::TrackFactoryTemplate<CClimbingTrack>::vfunc_5() {
     void* p = Allocate(0x14);
     if (p) {
-        ((Init_75fd0*)p)->InitFn();
+        ((Init_75fd0*)p)->InitFn_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fba38);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0xbf800000;
@@ -78,9 +78,9 @@ namespace fn_f674bded {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f674bded@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_76010;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe5cc;
+    base1_dtor_00068ed0();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

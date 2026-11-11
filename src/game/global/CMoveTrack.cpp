@@ -12,8 +12,8 @@ namespace fn_f28944fe {} using namespace fn_f28944fe;
 
 // ---- declarations shared by the functions below
 namespace fn_f28944fe {
-extern "C" int* g_table_698a0;
-extern float zero_69920;
+extern "C" int* hulk_at_004dcf48;
+extern float hulk_at_003f32e0;
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_69940 {
     int FUN_0001d290(CMoveTrack*, hulk_intptr);
@@ -32,7 +32,7 @@ void FUN_00069880() {
 // 0x000698a0 CMoveTrack::vfunc_0 (16 B): matches/0x000698a0.cpp
 // sym: ?vfunc_0@CMoveTrack@@UAEHH@Z
 hulk_intptr CMoveTrack::vfunc_0(int index) {
-    return g_table_698a0[index];
+    return hulk_at_004dcf48[index];
 }
 
 
@@ -86,8 +86,8 @@ hulk_freg CMoveTrack::vfunc_6() {
 // sym: ?vfunc_7@CMoveTrack@@UAEMXZ
 hulk_freg CMoveTrack::vfunc_7() {
     hulk_freg d = this->f_10 - this->f_0c;
-    if (d < zero_69920)
-        d = zero_69920;
+    if (d < hulk_at_003f32e0)
+        d = hulk_at_003f32e0;
     return d;
 }
 

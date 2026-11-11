@@ -25,7 +25,7 @@ struct TextSelector : FUN_000e9240 {
  int f1d88,f1d8c,f1d90,f1d94,f1d98,f1d9c,f1da0; unsigned int color;
  TextSelector(int arg, const char* name);
 };
-extern void* g_vftable_ebca0[];
+extern void* hulk_at_0040c4e4[];
 class Ref_ebca0 {
   public:
     virtual void F0();
@@ -42,14 +42,14 @@ struct Own_ebca0 {
 };
 struct Sub_ebca0 {
     char c;
-    void Fin() throw();
+    void Fin_000f7960() throw();
 };
 struct Elt {
     Sub_ebca0 s;
     char p[0x27];
     Ref_ebca0* r;
     char p2[0xc];
-    void Fin() throw();
+    void Fin_000f7960() throw();
 };
 class TextSelector_ebca0 {
   public:
@@ -70,7 +70,7 @@ class TextSelector_ebca0 {
     Ref_ebca0* m1d8c;
     Ref_ebca0* m1d90;
     char* m1d94;
-    void Pre() throw();
+    void Pre_000e36c0() throw();
     ~TextSelector_ebca0() throw();
 };
 class A_ebda0 {
@@ -130,7 +130,7 @@ class MenuSelector {
     char pad[0x1da4];
     unsigned char flag;
     unsigned char data[0x80 * 0x40];
-    void Init(unsigned int, unsigned int);
+    void Init_000ebb90(unsigned int, unsigned int);
     MenuSelector* Target(unsigned int, unsigned int);
 };
 
@@ -154,12 +154,12 @@ TextSelector::TextSelector(int arg,const char* name) : FUN_000e9240(arg) {
 // 0x000ebca0 FUN_000ebca0 (245 B): matches/0x000ebca0.cpp
 // sym: ??1TextSelector_ebca0@fn_f9e7f90b@@QAE@XZ
 TextSelector_ebca0::~TextSelector_ebca0() throw() {
-    vptr = g_vftable_ebca0;
+    vptr = hulk_at_0040c4e4;
     if (m1d94) {
         ((owners::Obj_f8c30 *)(ma8->m8))->FUN_000f8c30((const char *)(m1d94 + 0x18));
         m1d94 = 0;
     }
-    Pre();
+    Pre_000e36c0();
     for (int i = 0; i < 128; i++)
         if (e[i].r) {
             e[i].r->Release();
@@ -177,7 +177,7 @@ TextSelector_ebca0::~TextSelector_ebca0() throw() {
         Elt* q = e + 128;
         for (int i = 128; i > 0; i--) {
             q--;
-            q->Fin();
+            q->Fin_000f7960();
         }
     }
     vptr = g_vftable2;
@@ -198,7 +198,7 @@ TextSelector_ebca0::~TextSelector_ebca0() throw() {
         operator delete[](mac);
         mac = 0;
     }
-    s18.Fin();
+    s18.Fin_000f7960();
 }
 
 
@@ -253,7 +253,7 @@ void Object::FUN_000ebe00(Object* src) {
 // 0x000ebef0 FUN_000ebef0 (63 B): matches/0x000ebef0.cpp
 // sym: ?Target@MenuSelector@fn_f9e7f90b@@QAEPAV12@II@Z
 MenuSelector* MenuSelector::Target(unsigned int a, unsigned int b) {
-    Init(a, b);
+    Init_000ebb90(a, b);
     vptr = (void*)((hulk_intptr)DAT_0040c554);
     flag = 1;
     for (int i = 0; i < 0x80; ++i)

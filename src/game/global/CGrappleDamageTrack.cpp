@@ -14,7 +14,7 @@ namespace fn_f7840bc1 {
 struct A_5a4c0 {
 };
 struct B_5a4c0 {
-    void* second();
+    void* second_00059a30();
 };
 struct Data_5a4c0 {
     char pad330[0x330];
@@ -48,7 +48,7 @@ void* CGrappleDamageTrack::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((void *)((owners::Object_592a0 *)(((A_5a4c0*)param)))->FUN_000592a0());
         if (a) {
-            void* b = ((B_5a4c0*)a)->second();
+            void* b = ((B_5a4c0*)a)->second_00059a30();
             if (b) {
                 Data_5a4c0* d = (Data_5a4c0*)b;
                 if (d->p334)

@@ -29,14 +29,14 @@ class CNameFlagConditionBase : public CCondition {
 };
 class CCollisionHeightCondition_4c020 {
   public:
-    void a();
-    void b();
+    void Fna_0027af50();
+    void Fnb_002345b0();
 };
 void thunk_FUN_00267090(void*);
-extern void* CCondition_4c060_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4c060 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CCollisionInterruptCondition : public CCondition_4c060 {
   public:
@@ -45,7 +45,7 @@ class CCollisionInterruptCondition : public CCondition_4c060 {
 extern void* CCondition_4c090_vftable[];
 class CCondition_4c090 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CCollisionHeightCondition : public CCondition_4c090 {
   public:
@@ -58,9 +58,9 @@ class CCollisionHeightCondition : public CCondition_4c090 {
 CNameFlagConditionBase* CNameFlagConditionBase::vfunc_5(int p) {
     CNameFlagConditionBase* s = this;
     *(void (**)())s = &vt_name;
-    ((CCollisionHeightCondition_4c020*)((char*)s + 0x10))->a();
+    ((CCollisionHeightCondition_4c020*)((char*)s + 0x10))->Fna_0027af50();
     *(void (**)())s = &vt_cond;
-    ((CCollisionHeightCondition_4c020*)s)->b();
+    ((CCollisionHeightCondition_4c020*)s)->Fnb_002345b0();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;
@@ -73,8 +73,8 @@ CNameFlagConditionBase* CNameFlagConditionBase::vfunc_5(int p) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CCollisionInterruptCondition* CCollisionInterruptCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4c060_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -89,7 +89,7 @@ CCollisionInterruptCondition* CCollisionInterruptCondition::vfunc_5(signed char 
  // thunk_FUN_00267090
 CCollisionHeightCondition* CCollisionHeightCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4c090_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

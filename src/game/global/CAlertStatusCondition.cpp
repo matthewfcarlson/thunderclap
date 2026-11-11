@@ -22,9 +22,9 @@ struct Obj_4a2d0 {
 struct Helper_4a2d0 {
 };
 struct ObjHelper_4a2d0 {
-    Obj_4a2d0* Second();
+    Obj_4a2d0* Second_00059a30();
 };
-extern int* gTable_4a330;
+extern int* hulk_at_004dc528;
 class CCondition_4a330 {
   public:
     virtual int vfunc_0(int);
@@ -38,12 +38,12 @@ struct Anchor_4a380 {
 };
 struct FightHandle_4a380 {
 };
-extern int* gTable_4a420;
+extern int* hulk_at_004dc530;
 class CCondition_4a420 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_4a490;
+extern int* hulk_at_004dc538;
 class CCondition_4a490 {
   public:
     virtual int vfunc_0(int);
@@ -57,7 +57,7 @@ class CAlertStatusCondition_4a4a0 {
     int m10;
 };
 struct CAlertStatusCondition_nv_4a4a0 {
-    void Init(int);
+    void Init_00234590(int);
 };
 class CCondition_4a4e0 {
   public:
@@ -72,7 +72,7 @@ class CCondition_4a4e0 {
     virtual void v8(void*);
 };
 struct H {
-    void second();
+    void second_00059a30();
 };
 
 } // namespace fn_f4b9a9e9
@@ -84,7 +84,7 @@ int CGrappleMotionStateCondition::vfunc_8(hulk_intptr p) {
         return 0;
     Helper_4a2d0* h = (Helper_4a2d0*)p;
     Obj_4a2d0* x = ((Obj_4a2d0 *)((owners::Object_592a0 *)h)->FUN_000592a0());
-    x = ((ObjHelper_4a2d0*)x)->Second();
+    x = ((ObjHelper_4a2d0*)x)->Second_00059a30();
     if (x->b)
         return x->b;
     if (x->a)
@@ -107,7 +107,7 @@ void FUN_0004a310() {
 // sym: ?vfunc_0@CMotionHitCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CMotionHitCondition::vfunc_0(int index) {
-    int* p = gTable_4a330;
+    int* p = hulk_at_004dc528;
     return p[index];
 }
 
@@ -152,7 +152,7 @@ void FUN_0004a400() {
 // sym: ?vfunc_0@CClimbableCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CClimbableCondition::vfunc_0(int index) {
-    int* p = gTable_4a420;
+    int* p = hulk_at_004dc530;
     return p[index];
 }
 
@@ -171,7 +171,7 @@ void FUN_0004a470() {
 // sym: ?vfunc_0@CAlertStatusCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CAlertStatusCondition::vfunc_0(int index) {
-    int* p = gTable_4a490;
+    int* p = hulk_at_004dc538;
     return p[index];
 }
 
@@ -180,7 +180,7 @@ namespace fn_f4b9a9e9 {
 // 0x0004a4a0 FUN_0004a4a0 (34 B): matches/0x0004a4a0.cpp
 // sym: ?FUN_0004a4a0@fn_f4b9a9e9@@YIPAVCAlertStatusCondition_4a4a0@1@PAV21@PAX@Z
 CAlertStatusCondition_4a4a0* __fastcall FUN_0004a4a0(CAlertStatusCondition_4a4a0* self, void*) {
-    ((CAlertStatusCondition_nv_4a4a0*)(((CAlertStatusCondition*)(self))))->Init(0);
+    ((CAlertStatusCondition_nv_4a4a0*)(((CAlertStatusCondition*)(self))))->Init_00234590(0);
     self->vptr = ((hulk_intptr)DAT_003f7404);
     self->mC = 0;
     self->m10 = 0;
@@ -194,7 +194,7 @@ CAlertStatusCondition_4a4a0* __fastcall FUN_0004a4a0(CAlertStatusCondition_4a4a0
 // Same code shape as 0x0004a260 (propagated; names are from that function)
 void CAlertStatusCondition::vfunc_8(void* __p0) { void * p = (void *)__p0;
 
-    ((H *)((owners::Object_592a0 *)(((H*)p)))->FUN_000592a0())->second();
+    ((H *)((owners::Object_592a0 *)(((H*)p)))->FUN_000592a0())->second_00059a30();
 }
 
 

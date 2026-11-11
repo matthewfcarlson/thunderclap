@@ -9,19 +9,19 @@ namespace fn_f40d35a2 {} using namespace fn_f40d35a2;
 
 // ---- declarations shared by the functions below
 namespace fn_f40d35a2 {
-extern void* FEControl_f10c0_vftable[];
+extern void* hulk_at_0040c42c[];
 class FEControl_f10c0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_000e9030(); // FUN_00236d60, __thiscall, this in ecx
 };
 class TextButton_f10c0 : public FEControl_f10c0 {
   public:
     TextButton_f10c0* vfunc_5(signed char flags);
 };
-extern void* FEObject_f1130_vftable[];
+extern void* hulk_at_0040c61c[];
 class FEObject_f1130 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_000e9030(); // FUN_00236d60, __thiscall, this in ecx
 };
 class TextLabel_f1130 : public FEObject_f1130 {
   public:
@@ -35,8 +35,8 @@ class TextLabel_f1130 : public FEObject_f1130 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 TextButton_f10c0* TextButton_f10c0::vfunc_5(signed char flags) {
-    *(void***)this = FEControl_f10c0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040c42c;
+    Destroy_000e9030();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -50,8 +50,8 @@ TextButton_f10c0* TextButton_f10c0::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 TextLabel_f1130* TextLabel_f1130::vfunc_5(signed char flags) {
-    *(void***)this = FEObject_f1130_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040c61c;
+    Destroy_000e9030();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -69,9 +69,9 @@ struct RelObj_f1160 {
     virtual void A();
     virtual void Release();
 };
-extern "C++" __declspec(nothrow) void __cdecl freeA(void*);
-extern "C++" __declspec(nothrow) void __cdecl freeB(void*);
-extern void* FEAnimation_vftable;
+extern "C++" __declspec(nothrow) void __cdecl freeA_0008d340(void*);
+extern "C++" __declspec(nothrow) void __cdecl freeB_0008d330(void*);
+extern void* hulk_at_0040bfc0;
 
 class FEAnimation {
   public:
@@ -88,18 +88,18 @@ class FEAnimation {
 };
 
 FEAnimation* FEAnimation::vfunc_0(unsigned char param) {
-    *(void**)this = &FEAnimation_vftable;
+    *(void**)this = &hulk_at_0040bfc0;
     _ReadWriteBarrier();
     if (mRel != 0) {
         mRel->Release();
         mRel = 0;
     }
     if (mPtr != 0) {
-        freeA(mPtr);
+        freeA_0008d340(mPtr);
         mPtr = 0;
     }
     if (param & 1) {
-        freeB(this);
+        freeB_0008d330(this);
     }
     return this;
 }

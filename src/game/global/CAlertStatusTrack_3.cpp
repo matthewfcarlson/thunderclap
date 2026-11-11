@@ -19,7 +19,7 @@ class TrackFactoryCasterTemplate_72c40 {
 } // namespace fn_f4b6f30b
 struct CDamageTrack;
 namespace fn_f4b6f30b {
-extern void __cdecl Find(CDamageTrack*, TrackFactoryCasterTemplate_72c40*);
+extern void __cdecl Find_00236ac0(CDamageTrack*, TrackFactoryCasterTemplate_72c40*);
 extern "C" char DAT_003fcd5c[];
 typedef unsigned int u32_73000;
 } // namespace fn_f4b6f30b
@@ -73,13 +73,13 @@ extern "C" void FUN_00072590();
 extern "C" char DAT_003fc10c[];
 struct Obj_75c70 {
     int pad0[5];
-    void Init();
+    void Init_00236d40();
 };
-extern int g_vftable_75cb0;
+extern int hulk_at_003fe540;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006ad60();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -129,7 +129,7 @@ namespace fn_f4b6f30b {
 // sym: ?Target@fn_f4b6f30b@@YAXPAVCDamageTrack@@@Z
 void __cdecl Target(CDamageTrack* track) {
     TrackFactoryCasterTemplate_72c40 c;
-    Find(track, &c);
+    Find_00236ac0(track, &c);
 }
 
 
@@ -1120,7 +1120,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CAlertStatusTrack>::vfunc_1(
 template <> void* fight::TrackFactoryTemplate<CAlertStatusTrack>::vfunc_5() {
     Obj_75c70* p = (Obj_75c70*)FUN_0008d690((int)sizeof(Obj_75c70));
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003fc10c);
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0;
@@ -1136,9 +1136,9 @@ namespace fn_f4b6f30b {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f4b6f30b@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_75cb0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe540;
+    base1_dtor_0006ad60();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

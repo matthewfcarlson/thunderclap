@@ -34,10 +34,10 @@ class Obj {
 };
 class Obj_1bc4e0 {
   public:
-    void DoA();
-    void DoB();
+    void DoA_001c3520();
+    void DoB_001c35f0();
 };
-Obj_1bc4e0* __cdecl GetObj();
+Obj_1bc4e0* __cdecl GetObj_001c3d90();
 struct Vec2_1bc530 {
     float x, y;
     float spare;    // FUN_00292cc0 writes three floats through &p (the third lands here, not on the saved ebp)
@@ -60,9 +60,9 @@ struct Holder_1bc530 {
 Holder_1bc530* FUN_001c3d90();
 class X_1bc710 {
   public:
-    void Run(void*);
+    void Run_001c3850(void*);
 };
-extern X_1bc710* __cdecl Make();
+extern X_1bc710* __cdecl Make_001c3d90();
 struct X {
     char pad[0x18];
     unsigned char* a;
@@ -165,9 +165,9 @@ Triple Obj::Get() {
 // sym: ?target@fn_f0a5b372@@YIXPAVObj_1bc4e0@1@@Z
 void __fastcall target(Obj_1bc4e0* self) {
     Obj_1bc4e0* saved = self;
-    GetObj()->DoA();
-    GetObj()->DoB();
-    ((owners::Thing_1c3770 *)(GetObj()))->FUN_001c3770((hulk_intptr)(Obj_1bc4e0 *)saved);
+    GetObj_001c3d90()->DoA_001c3520();
+    GetObj_001c3d90()->DoB_001c35f0();
+    ((owners::Thing_1c3770 *)(GetObj_001c3d90()))->FUN_001c3770((hulk_intptr)(Obj_1bc4e0 *)saved);
 }
 
 } // namespace fn_f0a5b372
@@ -176,15 +176,15 @@ void __fastcall target(Obj_1bc4e0* self) {
 // sym: _FUN_001bc510
 namespace fn_001bc510 {
 struct Obj_1bc510 {
-    void DoThing();
-    void Finish();
+    void DoThing_001c4230();
+    void Finish_001c3dc0();
 };
-Obj_1bc510* __cdecl GetObj();
+Obj_1bc510* __cdecl GetObj_001c3d90();
 extern "C" void FUN_001bc510(void) {
-    Obj_1bc510* p = GetObj();
-    p->DoThing();
-    p = GetObj();
-    p->Finish();
+    Obj_1bc510* p = GetObj_001c3d90();
+    p->DoThing_001c4230();
+    p = GetObj_001c3d90();
+    p->Finish_001c3dc0();
 }
 } // namespace fn_001bc510
 
@@ -276,8 +276,8 @@ namespace fn_f0a5b372 {
 // 0x001bc710 FUN_001bc710 (12 B): matches/0x001bc710.cpp
 // sym: ?target@fn_f0a5b372@@YGXPAX@Z
 void __stdcall target(void* a) {
-    X_1bc710* x = Make();
-    x->Run(a);
+    X_1bc710* x = Make_001c3d90();
+    x->Run_001c3850(a);
 }
 
 } // namespace fn_f0a5b372
@@ -288,11 +288,11 @@ namespace fn_001bc720 {
 // Same code shape as 0x001bc710 (propagated; names are from that function)
 class X_1bc720 {
   public:
-    void Run();
+    void Run_001c3e10();
 };
-extern X_1bc720* __cdecl Make();
+extern X_1bc720* __cdecl Make_001c3d90();
 void __cdecl target() {
-    Make()->Run();
+    Make_001c3d90()->Run_001c3e10();
 }
 } // namespace fn_001bc720
 

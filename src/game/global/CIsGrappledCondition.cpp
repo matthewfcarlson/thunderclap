@@ -15,24 +15,24 @@ typedef unsigned int u32_52540;
 extern "C" void* __cdecl thunk_FUN_0008d690(unsigned int);
 class Helper_52540 {
   public:
-    void Init();
+    void Init_002343b0();
 };
 class Init2 {
   public:
-    void Init(hulk_uintptr);
+    void Init_0027b040(hulk_uintptr);
 };
 struct CIsGrappledCondition_52580 {
     virtual ~CIsGrappledCondition_52580();
-    void init(int);
+    void init_00234590(int);
 };
 } // namespace fn_f886958e
 void* operator new(size_t);
 namespace fn_f886958e {
-extern void* condition_vftable_52580;
-extern void* ConditionFactory_525b0_vftable[];
+extern void* hulk_at_003f72bc;
+extern void* hulk_at_003f8628[];
 class ConditionFactory_525b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002343d0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ConditionFactoryTemplate_0525b0 : public ConditionFactory_525b0 {
   public:
@@ -47,9 +47,9 @@ template <> void* fight::ConditionFactoryCasterTemplate<CIsGrappledCondition>::v
 
     void* p = thunk_FUN_0008d690(0x10);
     if (p) {
-        ((Helper_52540*)p)->Init();
+        ((Helper_52540*)p)->Init_002343b0();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f8628);
-        ((Init2*)((char*)p + 8))->Init(arg);
+        ((Init2*)((char*)p + 8))->Init_0027b040(arg);
         return (void*)(p);
     }
     return (void*)(0);
@@ -61,8 +61,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<CIsGrappledCondition>::v
 template <> void* fight::ConditionFactoryTemplate<CIsGrappledCondition>::vfunc_5() {
     CIsGrappledCondition_52580* p = (CIsGrappledCondition_52580*)operator new(0x0c);
     if (p) {
-        p->init(0);
-        *(void**)p = &condition_vftable_52580;
+        p->init_00234590(0);
+        *(void**)p = &hulk_at_003f72bc;
         return (void*)(p);
     }
     return (void*)(0);
@@ -76,8 +76,8 @@ namespace fn_f886958e {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ConditionFactoryTemplate_0525b0* ConditionFactoryTemplate_0525b0::vfunc_5(signed char flags) {
-    *(void***)this = ConditionFactory_525b0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f8628;
+    Destroy_002343d0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

@@ -13,12 +13,12 @@ namespace fn_fa7ecd1e {} using namespace fn_fa7ecd1e;
 
 // ---- declarations shared by the functions below
 namespace fn_fa7ecd1e {
-extern int* gTable_499b0;
+extern int* hulk_at_004dc4e0;
 class CCondition_499b0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_49a10;
+extern int* hulk_at_004dc4e8;
 class CCondition_49a10 {
   public:
     virtual int vfunc_0(int);
@@ -43,7 +43,7 @@ void FUN_00049990() {
 // sym: ?vfunc_0@CSmartPropCSMableCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropCSMableCondition::vfunc_0(int index) {
-    int* p = gTable_499b0;
+    int* p = hulk_at_004dc4e0;
     return p[index];
 }
 
@@ -62,7 +62,7 @@ void FUN_000499f0() {
 // sym: ?vfunc_0@CSmartPropStateCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropStateCondition::vfunc_0(int index) {
-    int* p = gTable_49a10;
+    int* p = hulk_at_004dc4e8;
     return p[index];
 }
 

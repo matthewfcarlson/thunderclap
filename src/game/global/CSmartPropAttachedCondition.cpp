@@ -11,7 +11,7 @@ namespace fn_f3159823 {} using namespace fn_f3159823;
 
 // ---- declarations shared by the functions below
 namespace fn_f3159823 {
-extern int* gTable_49140;
+extern int* hulk_at_004dc4a0;
 class CCondition_49140 {
   public:
     virtual int vfunc_0(int);
@@ -28,7 +28,7 @@ extern "C" Player_49190* __fastcall FUN_00059a30(void* x);
 // sym: ?vfunc_0@CSmartPropAttachedCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropAttachedCondition::vfunc_0(int index) {
-    int* p = gTable_49140;
+    int* p = hulk_at_004dc4a0;
     return p[index];
 }
 

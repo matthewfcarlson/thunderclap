@@ -10,7 +10,7 @@ namespace fn_f81bc752 {} using namespace fn_f81bc752;
 
 // ---- declarations shared by the functions below
 namespace fn_f81bc752 {
-extern void* g_vftable_20070[];
+extern void* hulk_at_003f3390[];
 class Ref_20070 {
   public:
     virtual void F0();
@@ -146,7 +146,7 @@ struct Obj_20020 {
     virtual void G();
 };
 extern int VBase;
-extern int VDerived;
+extern int hulk_at_003f3bc4;
 class CAction {
   public:
     CAction();
@@ -170,7 +170,7 @@ CUninterruptibleAction_20020::CUninterruptibleAction_20020(Obj_20020* arg, int v
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f3bc4;
 }
 void CUninterruptibleAction_20020::V0() {}
 } // namespace fn_00020020
@@ -180,7 +180,7 @@ namespace fn_f81bc752 {
 // 0x00020070 FUN_00020070 (36 B): matches/0x00020070.cpp
 // sym: ??1CAction_20070@fn_f81bc752@@QAE@XZ
 CAction_20070::~CAction_20070() {
-    vptr = g_vftable_20070;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -200,7 +200,7 @@ struct Obj_200a0 {
     virtual void G();
 };
 extern int VBase;
-extern int VDerived;
+extern int hulk_at_003f3bec;
 class CAction {
   public:
     CAction();
@@ -224,7 +224,7 @@ CInvulnerableAction_200a0::CInvulnerableAction_200a0(Obj_200a0* arg, int value) 
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f3bec;
 }
 void CInvulnerableAction_200a0::V0() {}
 } // namespace fn_000200a0
@@ -254,7 +254,7 @@ struct Obj_20120 {
     virtual void G();
 };
 extern int VBase;
-extern int VDerived;
+extern int hulk_at_003f3c14;
 class CAction {
   public:
     CAction();
@@ -278,7 +278,7 @@ CRageModeAction_20120::CRageModeAction_20120(Obj_20120* arg, int value) {
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f3c14;
 }
 void CRageModeAction_20120::V0() {}
 } // namespace fn_00020120
@@ -308,7 +308,7 @@ struct Obj_201a0 {
     virtual void G();
 };
 extern int VBase;
-extern int VDerived;
+extern int hulk_at_003f3c3c;
 class CAction {
   public:
     CAction();
@@ -332,7 +332,7 @@ CStageAction_201a0::CStageAction_201a0(Obj_201a0* arg, int value) {
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f3c3c;
 }
 void CStageAction_201a0::V0() {}
 } // namespace fn_000201a0

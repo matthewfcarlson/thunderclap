@@ -23,11 +23,11 @@ class TrackFactoryTemplate_76520 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_76560;
+extern int hulk_at_003fe6ac;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00069c20();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" char DAT_003fe6c8[];
@@ -35,12 +35,12 @@ typedef unsigned int u32_76590;
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Track_76590 {
   public:
-    void Init();
+    void Init_00069c50();
 };
-extern void* CAutoTargetTrack_765c0_vftable[];
+extern void* hulk_at_003f98d0[];
 class CAutoTargetTrack_765c0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f05850fe
 class CGrappleAutoTargetTrack : public CAutoTargetTrack_765c0 {
@@ -71,9 +71,9 @@ namespace fn_f05850fe {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f05850fe@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_76560;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe6ac;
+    base1_dtor_00069c20();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -86,7 +86,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 template <> void* fight::TrackFactoryTemplate<CGrappleAutoTargetTrack>::vfunc_5() {
     void* p = FUN_0008d690(0x3c);
     if (p) {
-        ((Track_76590*)p)->Init();
+        ((Track_76590*)p)->Init_00069c50();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fe6c8);
         return (void*)(p);
     }
@@ -100,8 +100,8 @@ template <> void* fight::TrackFactoryTemplate<CGrappleAutoTargetTrack>::vfunc_5(
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CGrappleAutoTargetTrack* CGrappleAutoTargetTrack::vfunc_5(signed char flags) {
-    *(void***)this = CAutoTargetTrack_765c0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f98d0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

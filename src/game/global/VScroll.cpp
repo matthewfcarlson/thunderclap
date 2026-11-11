@@ -274,8 +274,8 @@ class FEControl_e27b0 {
     virtual void a14();
     virtual void o();
 };
-extern char typeA_e27b0;
-extern char typeB_e27b0;
+extern char hulk_at_0049f4f0;
+extern char hulk_at_0049dba4;
 void* cast(void*, int, void*, void*, int);
 
 } // namespace fn_fdc7ca3e
@@ -283,10 +283,10 @@ void* cast(void*, int, void*, void*, int);
 // 0x000e21e0 FUN_000e21e0 (94 B): matches/0x000e21e0.cpp [wrapped: conflict: VScroll]
 // sym: ??0VScroll@fn_000e21e0@@QAE@HH@Z
 namespace fn_000e21e0 {
-extern int vtbl;
+extern int hulk_at_0040c1ac;
 class VScroll {
   public:
-    void init(int, int);
+    void init_000e1f10(int, int);
     VScroll(int a, int q);
     hulk_uintptr vf;
     char pre[0x3c];
@@ -296,8 +296,8 @@ class VScroll {
     unsigned int b;
 };
 VScroll::VScroll(int a, int q) {
-    init(a, q);
-    vf = (hulk_uintptr)&vtbl;
+    init_000e1f10(a, q);
+    vf = (hulk_uintptr)&hulk_at_0040c1ac;
     for (int i = 0; i < 0x80; i++)
         arr[i] = 0;
     this->a[0] = 0;
@@ -665,7 +665,7 @@ void VScroll::vfunc_11() {
     if (this->f_240 > 0) {
         char* p = (char*)this + 0x40;
         do {
-            int* q = (int*)cast((void*)*(hulk_intptr*)p, 0, &typeB_e27b0, &typeA_e27b0, 0);
+            int* q = (int*)cast((void*)*(hulk_intptr*)p, 0, &hulk_at_0049dba4, &hulk_at_0049f4f0, 0);
             if (q)
                 ((FEControl_e27b0*)q)->o();
             ++i;

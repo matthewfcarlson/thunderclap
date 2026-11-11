@@ -13,7 +13,7 @@ namespace fn_f2961f61 {} using namespace fn_f2961f61;
 namespace fn_f2961f61 {
 class CEncounterGenerator_1fc600 {
   public:
-    void Destroy();
+    void Destroy_001fa8b0();
 };
 class CEncounterGenerator {
   public:
@@ -23,8 +23,8 @@ class CEncounterGenerator {
     virtual void D();
     virtual void E();
 };
-extern void BaseDestroy(void*);
-extern void BaseDestroyVec(void*);
+extern void BaseDestroy_00263f30(void*);
+extern void BaseDestroyVec_00263f40(void*);
 
 
 // 0x001fc600 CEncounterGenerator::vfunc_2 (115 B): matches/0x001fc600.cpp
@@ -39,17 +39,17 @@ CEncounterGenerator* CEncounterGenerator::vfunc_2(unsigned char flags) {
             int i = test + 1;
             do {
                 end -= 0xc70;
-                ((CEncounterGenerator_1fc600*)end)->Destroy();
+                ((CEncounterGenerator_1fc600*)end)->Destroy_001fa8b0();
                 --i;
             } while (i != 0);
         }
         if (flags & 1)
-            BaseDestroyVec(base);
+            BaseDestroyVec_00263f40(base);
         return (CEncounterGenerator*)base;
     }
-    ((CEncounterGenerator_1fc600*)this)->Destroy();
+    ((CEncounterGenerator_1fc600*)this)->Destroy_001fa8b0();
     if (flags & 1)
-        BaseDestroy(this);
+        BaseDestroy_00263f30(this);
     return this;
 }
 

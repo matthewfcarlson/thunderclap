@@ -12,7 +12,7 @@ namespace fn_f21eb17b {} using namespace fn_f21eb17b;
 
 // ---- declarations shared by the functions below
 namespace fn_f21eb17b {
-extern int* g_table_69420;
+extern int* hulk_at_004dcf28;
 struct Param_694a0 {
   public:
     virtual void vfunc1();
@@ -44,7 +44,7 @@ void FUN_00069400() {
 // 0x00069420 CDropTrack::vfunc_0 (16 B): matches/0x00069420.cpp
 // sym: ?vfunc_0@CDropTrack@@UAEHH@Z
 hulk_intptr CDropTrack::vfunc_0(int index) {
-    return g_table_69420[index];
+    return hulk_at_004dcf28[index];
 }
 
 

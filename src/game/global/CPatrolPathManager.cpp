@@ -38,11 +38,11 @@ public:
 struct Pair {
     int a, b;
 };
-Pair __cdecl Lookup(int);
+Pair __cdecl Lookup_0027afb0(int);
 class Obj {
   public:
-    int Find(int, int);
-    unsigned char Do(int);
+    int Find_00106290(int, int);
+    unsigned char Do_00106360(int);
     unsigned char Run(int);
 };
 class CPatrolPathManager_106ad0 {
@@ -399,10 +399,10 @@ bool Registry_106900::Add(const char* name, char flag, int n)
 // sym: ?Run@Obj@fn_fd31b6ef@@QAEEH@Z
 unsigned char Obj::Run(int x) {
     unsigned char r = 0;
-    Pair p = Lookup(x);
-    int i = Find(p.a, p.b);
+    Pair p = Lookup_0027afb0(x);
+    int i = Find_00106290(p.a, p.b);
     if (i != -1)
-        r = Do(i);
+        r = Do_00106360(i);
     return r;
 }
 
@@ -417,7 +417,7 @@ class Function_1069c0 {
     virtual void f();
     Function_1069c0(const char*, int);
 };
-extern unsigned char __cdecl get(const char*);
+extern unsigned char __cdecl get_001d04d0(const char*);
 class Method3 : public Function_1069c0 {
   public:
     virtual void f();
@@ -431,10 +431,10 @@ class Method3 : public Function_1069c0 {
 };
 Method3::Method3(const char* p, hulk_intptr v) : Function_1069c0(p, 3) {
     value = v;
-    d = get(((const char*)&DAT_0048e0e4));
-    a = get(((const char*)&DAT_0048e0f0));
-    b = get(((const char*)&DAT_0048e0e4));
-    c = get(((const char*)&DAT_0048e134));
+    d = get_001d04d0(((const char*)&DAT_0048e0e4));
+    a = get_001d04d0(((const char*)&DAT_0048e0f0));
+    b = get_001d04d0(((const char*)&DAT_0048e0e4));
+    c = get_001d04d0(((const char*)&DAT_0048e134));
 }
 } // namespace fn_001069c0
 
@@ -599,14 +599,14 @@ class Function_106c50 {
     virtual void f();
     char pad[12];
 };
-extern "C++" __declspec(nothrow) char check(const void*);
-extern char key1[], key2[];
+extern "C++" __declspec(nothrow) char check_001d04d0(const void*);
+extern char hulk_at_0048e0e4[], hulk_at_0048e0f0[];
 class CPatrolPathManager;
 class Method1 : public Function_106c50 {
   public:
     Method1(const char* s, CPatrolPathManager* p) : Function_106c50(s, 1), owner(p) {
-        b = check(key1);
-        a = check(key2);
+        b = check_001d04d0(hulk_at_0048e0e4);
+        a = check_001d04d0(hulk_at_0048e0f0);
     }
     virtual void f();
     char a;
@@ -793,7 +793,7 @@ class CDHGameObjectCreator_106f80 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003feefc[];
 namespace pure3d {
 class NonCopyable : public CDHGameObjectCreator_106f80 {
   public:
@@ -804,7 +804,7 @@ class NonCopyable : public CDHGameObjectCreator_106f80 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003feefc;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

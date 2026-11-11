@@ -71,7 +71,7 @@ struct Input32c_a75d0 {
 
 class CGameCamera {
 public:
-    void vfunc_35(float a1, float dt, float a3, float a4);
+    void vfunc_35_000a97e0(float a1, float dt, float a3, float a4);
 };
 
 class CChaseCamera {
@@ -445,7 +445,7 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
         f.u.m3.M3.FUN_0022be40(&p194);
         v21(&f.u.m3.M3);
         b344 = 1;
-        ((CGameCamera *)this)->vfunc_35(a1, dt, a3, a4);
+        ((CGameCamera *)this)->vfunc_35_000a97e0(a1, dt, a3, a4);
         f410 = 0;
     }
 }

@@ -15,10 +15,10 @@ namespace fn_f42ec421 {} using namespace fn_f42ec421;
 extern "C" double __cdecl sin(double);
 #endif
 namespace fn_f42ec421 {
-extern const float one;
-extern const float pi;
-extern const float halfpi;
-extern const float half;
+extern const float hulk_at_003f32dc;
+extern const float hulk_at_00405bd4;
+extern const float hulk_at_00405bdc;
+extern const float hulk_at_003f32f4;
 class Curve_ac6a0 {
   public:
     char p[16];
@@ -36,13 +36,13 @@ class CScriptCamera_aca40 {
     float a;
     float b;
     float c;
-    bool Check();
+    bool Check_0009fa00();
     bool Target(int arg);
 };
-extern void* CGameCamera_acd10_vftable[];
+extern void* hulk_at_00405c04[];
 class CGameCamera_acd10 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_000a9620(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CScriptCamera_acd10 : public CGameCamera_acd10 {
   public:
@@ -65,8 +65,8 @@ namespace fn_f42ec421 {
 // 0x000ac6a0 FUN_000ac6a0 (78 B): matches/0x000ac6a0.cpp
 // sym: ?Evaluate@Curve_ac6a0@fn_f42ec421@@QAEMM@Z
 hulk_freg Curve_ac6a0::Evaluate(float x) {
-    hulk_freg t = ((one - x) * pi + halfpi);
-    t = (hulk_freg)(sin((double)t) + one) * half - x;
+    hulk_freg t = ((hulk_at_003f32dc - x) * hulk_at_00405bd4 + hulk_at_00405bdc);
+    t = (hulk_freg)(sin((double)t) + hulk_at_003f32dc) * hulk_at_003f32f4 - x;
     t = t * scale + x;
     hulk_freg a = t * t;
     hulk_freg b = a * t;
@@ -99,8 +99,8 @@ void owners::Target_ac790::FUN_000ac790(int x) {
 void owners::Thing_ac7a0::FUN_000ac7a0(float a, float b) {
     flag = 1;
     hulk_freg d = mB - mA;
-    x = (one - a) * d;
-    y = (one - b) * d;
+    x = (hulk_at_003f32dc - a) * d;
+    y = (hulk_at_003f32dc - b) * d;
 }
 
 
@@ -345,7 +345,7 @@ namespace fn_f42ec421 {
 bool CScriptCamera_aca40::Target(int arg) {
     if (a >= c)
         return true;
-    if (arg && b >= 0.0f && a > b && Check())
+    if (arg && b >= 0.0f && a > b && Check_0009fa00())
         return true;
     return false;
 }
@@ -368,8 +368,8 @@ namespace fn_f42ec421 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CScriptCamera_acd10* CScriptCamera_acd10::vfunc_5(signed char flags) {
-    *(void***)this = CGameCamera_acd10_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00405c04;
+    Destroy_000a9620();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

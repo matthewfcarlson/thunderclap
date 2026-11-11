@@ -15,7 +15,7 @@ struct Manager_179b0;
 struct Ctx_179b0 {
 };
 struct Manager_179b0 {
-    Manager_179b0* g();
+    Manager_179b0* Fng_00059a30();
 };
 class X_179b0 {
   public:
@@ -31,16 +31,16 @@ class X_179b0 {
 };
 class H {
   public:
-    void* g();
-    unsigned int h(int);
+    void* Fng_00059a30();
+    unsigned int Fnh_0003ea10(int);
 };
 struct Obj_17a00 {
 };
 struct Obj2_17a00 {
-    void* g();
+    void* Fng_00059a30();
 };
 struct Obj3_17a00 {
-    void h(void*);
+    void Fnh_0027af70(void*);
 };
 class CAction_17a00 {
   public:
@@ -51,10 +51,10 @@ class CAction_17a00 {
 struct A_17a30 {
     char pad[8];
     A_17a30(const float& f);
-    void done();
+    void done_0027af50();
 };
 struct Obj_17a30 {
-    void use(A_17a30* a);
+    void use_0027af70(A_17a30* a);
 };
 struct T_17a30 {
 };
@@ -62,7 +62,7 @@ struct Base_17a30 {
     char pad[0x1b50];
 };
 struct U_17a30 {
-    Base_17a30* second();
+    Base_17a30* second_00059a30();
 };
 
 } // namespace fn_f89f20ea
@@ -71,7 +71,7 @@ struct U_17a30 {
 // sym: ?vfunc_6@CAlertStatusAction@@UAE_NH@Z
 bool CAlertStatusAction::vfunc_6(int ) {
     Manager_179b0* p = ((Manager_179b0 *)((owners::Object_592a0 *)((*(Ctx_179b0 * *)&this->f_1c)))->FUN_000592a0());
-    p = p->g();
+    p = p->Fng_00059a30();
     X_179b0* x = *(X_179b0**)((char*)p + 0x1ca0);
     if (x)
         x->f8(this->f_20);
@@ -85,9 +85,9 @@ bool CDeathAction::vfunc_6(int ) {
     H* a = (*(H * *)&this->f_1c);
     void* b = ((void *)((owners::Object_592a0 *)a)->FUN_000592a0());
     H* c = (H*)b;
-    void* d = c->g();
+    void* d = c->Fng_00059a30();
     H* e = (H*)d;
-    e->h(1);
+    e->Fnh_0003ea10(1);
     return false;
 }
 
@@ -97,8 +97,8 @@ bool CDeathAction::vfunc_6(int ) {
 bool CAIHintAction::vfunc_6(int x) {
     Obj_17a00* o = (*(Obj_17a00 * *)&this->f_1c);
     void* a = ((void *)((owners::Object_592a0 *)o)->FUN_000592a0());
-    void* b = ((Obj2_17a00*)a)->g();
-    ((Obj3_17a00*)((char*)b + 0x1b50))->h((char*)(*(Obj_17a00 * *)&this->f_20) + 0x18);
+    void* b = ((Obj2_17a00*)a)->Fng_00059a30();
+    ((Obj3_17a00*)((char*)b + 0x1b50))->Fnh_0027af70((char*)(*(Obj_17a00 * *)&this->f_20) + 0x18);
     return true;
 }
 
@@ -109,9 +109,9 @@ bool CAIHintAction::vfunc_6(int x) {
 void CAIHintAction::vfunc_4() {
     T_17a30* a = (T_17a30*)(*(void * *)&this->f_1c);
     U_17a30* b = (U_17a30*)((void *)((owners::Object_592a0 *)a)->FUN_000592a0());
-    Base_17a30* o = b->second();
+    Base_17a30* o = b->second_00059a30();
     A_17a30 local((*(float*)&DAT_003f335c));
-    ((Obj_17a30*)((char*)o + 0x1b50))->use(&local);
-    local.done();
+    ((Obj_17a30*)((char*)o + 0x1b50))->use_0027af70(&local);
+    local.done_0027af50();
 }
 

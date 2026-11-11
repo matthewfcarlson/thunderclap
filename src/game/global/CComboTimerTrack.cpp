@@ -12,7 +12,7 @@ namespace fn_f976a5d0 {} using namespace fn_f976a5d0;
 
 // ---- declarations shared by the functions below
 namespace fn_f976a5d0 {
-extern int* gComboTimerValues;
+extern int* hulk_at_004dcf80;
 struct Param_69ff0 {
   public:
     virtual void vfunc1();
@@ -27,7 +27,7 @@ struct CTrack_69ff0 {
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 struct Worker_6a010 {
-    int go(unsigned int, unsigned int);
+    int go_0001dbc0(unsigned int, unsigned int);
 };
 
 
@@ -43,7 +43,7 @@ void FUN_00069f70() {
 // 0x00069f90 CComboTimerTrack::vfunc_0 (16 B): matches/0x00069f90.cpp
 // sym: ?vfunc_0@CComboTimerTrack@@UAEHH@Z
 hulk_intptr CComboTimerTrack::vfunc_0(int index) {
-    return gComboTimerValues[index];
+    return hulk_at_004dcf80[index];
 }
 
 
@@ -107,7 +107,7 @@ hulk_intptr CComboTimerTrack::vfunc_12(hulk_intptr __p0) { unsigned int param = 
 
     void* p = FUN_0008d690(0x24);
     if (p)
-        return ((Worker_6a010*)p)->go(param, this->comboTimer);
+        return ((Worker_6a010*)p)->go_0001dbc0(param, this->comboTimer);
     return 0;
 }
 

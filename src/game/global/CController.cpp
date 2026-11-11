@@ -19,7 +19,7 @@ extern "C" void* memset(void*, int, unsigned int);
 namespace fn_fac5a26d {
 class Item_ad990 {
   public:
-    void Release();
+    void Release_000b0db0();
 };
 class CController_ad990 {
   public:
@@ -80,7 +80,7 @@ struct Obj_adb10 {
 };
 class Item_adb90 {
   public:
-    void F(void*, int);
+    void FnF_000b1c90(void*, int);
 };
 class C_adb90 {
   public:
@@ -91,7 +91,7 @@ class C_adb90 {
     void F(int);
 };
 struct Item_adbd0 {
-    void Run();
+    void Run_000b0e20();
 };
 struct Holder_adbd0 {
     char pad[0x10];
@@ -100,7 +100,7 @@ struct Holder_adbd0 {
     void Run();
 };
 struct Item_adc00 {
-    void Apply(int);
+    void Apply_000b2060(int);
 };
 struct Owner_adc00 {
     char pad[0x10];
@@ -148,14 +148,14 @@ class CPhysicalController_ae090 {
   public:
     virtual void Init();
     virtual void Release();
-    CPhysicalController_ae090* Ctor(int i);
+    CPhysicalController_ae090* Ctor_000b23c0(int i);
 };
 class CController_ae090 {
   public:
     char pad[0x10];
     int mCount;
     CPhysicalController_ae090** mItems;
-    void Clear();
+    void Clear_000add70();
     void Alloc(int n);
 };
 extern "C" void* FUN_0008d750(int size, int n);
@@ -240,13 +240,13 @@ class CController {
     int blockF0[17];
     unsigned char field134;
     char _m_pad_135[0x3];
-    void a();
-    void b();
+    void Fna_000ad990();
+    void Fnb_000add70();
     void run();
     void FUN_000ae090(int);
-    void second();
+    void second_000add70();
 };
-extern char controller_vftable, ref_vftable;
+extern char hulk_at_00405d38, hulk_at_003f6098;
 struct ThisCall_000ad990 {
     void FUN_000ad990();
 };
@@ -274,12 +274,12 @@ class CController_ae5a0 {
   public:
     char pad[0x134];
     char flag;
-    void Add(int);
+    void Add_000ae2f0(int);
     void Process();
 };
-Item_ae5a0* GetItems();
+Item_ae5a0* GetItems_002684b0();
 struct CController_ae8a0 {
-    void g(int);
+    void Fng_000ae2f0(int);
 };
 struct X_ae8a0 {
     char pad[4];
@@ -302,7 +302,7 @@ public:
 };
 class B_ae930 {
   public:
-    void F(int);
+    void FnF_000adc00(int);
 };
 class A_ae930 {
   public:
@@ -318,7 +318,7 @@ class C_ae960 {
     int f();
 };
 struct Y_ae980 {
-    void g();
+    void Fng_000adc60();
 };
 struct X_ae980 {
     char pad[4];
@@ -326,7 +326,7 @@ struct X_ae980 {
     void f();
 };
 struct CController_ae990 {
-    void g();
+    void Fng_000ae5a0();
 };
 struct X_ae990 {
     char pad[4];
@@ -342,7 +342,7 @@ void CController_ad990::Reset() {
     while (--i >= 0) {
         Item_ad990* p = items[i];
         if (p)
-            p->Release();
+            p->Release_000b0db0();
     }
     memset(a, 0, sizeof(a));
     memset(b, 0, sizeof(b));
@@ -422,7 +422,7 @@ void C_adb90::F(int p) {
     int i = 0;
     if (count > 0) {
         do {
-            items[i]->F((char*)this + 0xa0, p);
+            items[i]->FnF_000b1c90((char*)this + 0xa0, p);
             ++i;
         } while (i < count);
     }
@@ -433,7 +433,7 @@ void C_adb90::F(int p) {
 // sym: ?Run@Holder_adbd0@fn_fac5a26d@@QAEXXZ
 void Holder_adbd0::Run() {
     for (int i = 0; i < count; ++i)
-        items[i]->Run();
+        items[i]->Run_000b0e20();
 }
 
 
@@ -444,7 +444,7 @@ void Owner_adc00::Apply(int value) {
     int i = 0;
     if (count > 0)
         do {
-            items[i]->Apply(value);
+            items[i]->Apply_000b2060(value);
             ++i;
         } while (i < count);
 }
@@ -606,8 +606,8 @@ namespace fn_fac5a26d {
 // sym: ?run@CController@fn_fac5a26d@@QAEXXZ
 void CController::run() {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00405d38);
-    a();
-    b();
+    Fna_000ad990();
+    Fnb_000add70();
     *(hulk_intptr*)this = ((hulk_intptr)DAT_003f6098);
 }
 
@@ -616,7 +616,7 @@ void CController::run() {
 // sym: ?Alloc@CController_ae090@fn_fac5a26d@@QAEXH@Z
 void CController_ae090::Alloc(int n) {
     if (mCount)
-        Clear();
+        Clear_000add70();
     mCount = n;
     mItems = (CPhysicalController_ae090**)FUN_0008d750(n * 4, 4);
     for (int i = 0; i < n; i++) {
@@ -624,7 +624,7 @@ void CController_ae090::Alloc(int n) {
         void* mem = FUN_0008d710(0x4b0, 4);
         CPhysicalController_ae090* o;
         if (mem)
-            o = ((CPhysicalController_ae090*)mem)->Ctor(i);
+            o = ((CPhysicalController_ae090*)mem)->Ctor_000b23c0(i);
         else
             o = 0;
         CPhysicalController_ae090** slot = &mItems[i];
@@ -773,10 +773,10 @@ CController::CController(int arg) {
 // 0x000ae560 CController::vfunc_2 (49 B): matches/0x000ae560.cpp
 // sym: ?vfunc_2@CController@fn_fac5a26d@@UAEPAV12@H@Z
 CController* CController::vfunc_2(int flags) {
-    *(void**)this = &controller_vftable;
+    *(void**)this = &hulk_at_00405d38;
     ((ThisCall_000ad990*)(this))->FUN_000ad990();
-    second();
-    *(void**)this = &ref_vftable;
+    second_000add70();
+    *(void**)this = &hulk_at_003f6098;
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -788,14 +788,14 @@ CController* CController::vfunc_2(int flags) {
 void CController_ae5a0::Process() {
     flag = 0;
     int i = 0;
-    int n = GetItems()->Count();
+    int n = GetItems_002684b0()->Count();
     if (n > 0) {
         do {
-            Entry_ae5a0* e = GetItems()->At(i);
+            Entry_ae5a0* e = GetItems_002684b0()->At(i);
             if (e && e->IsValid())
-                Add(e->Value());
+                Add_000ae2f0(e->Value());
             ++i;
-            n = GetItems()->Count();
+            n = GetItems_002684b0()->Count();
         } while (i < n);
     }
 }
@@ -817,7 +817,7 @@ namespace fn_fac5a26d {
 // sym: ?f@X_ae8a0@fn_fac5a26d@@QAEXH@Z
 // Same code shape as 0x000244a0 (propagated; names are from that function)
 void X_ae8a0::f(hulk_intptr a0) {
-    p->g(a0);
+    p->Fng_000ae2f0(a0);
 }
 
 
@@ -841,7 +841,7 @@ void Owner_ae8b0::FUN_000ae8b0(const char* name)
 // sym: ?Set@A_ae930@fn_fac5a26d@@QAEXH@Z
 void A_ae930::Set(int x) {
     if (p4) {
-        p4->F(x);
+        p4->FnF_000adc00(x);
         p8 = x;
     } else {
         p8 = x;
@@ -864,7 +864,7 @@ int C_ae960::f() {
 // sym: ?f@X_ae980@fn_fac5a26d@@QAEXXZ
 // Same code shape as 0x000244a0 (propagated; names are from that function)
 void X_ae980::f() {
-    p->g();
+    p->Fng_000adc60();
 }
 
 
@@ -872,7 +872,7 @@ void X_ae980::f() {
 // sym: ?f@X_ae990@fn_fac5a26d@@QAEXXZ
 // Same code shape as 0x000244a0 (propagated; names are from that function)
 void X_ae990::f() {
-    p->g();
+    p->Fng_000ae5a0();
 }
 
 } // namespace fn_fac5a26d

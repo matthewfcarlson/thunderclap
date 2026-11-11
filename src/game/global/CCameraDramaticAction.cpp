@@ -182,7 +182,7 @@ class CCameraDramaticAction {
 
 class Sub_17000 {
   public:
-    void Fn(void* arg);
+    void Fn_0009a1e0(void* arg);
 };
 
 class Obj_17000 {
@@ -191,11 +191,11 @@ class Obj_17000 {
     Sub_17000* sub;
 };
 
-extern Obj_17000* gObj_17000;
+extern Obj_17000* hulk_at_004dd700;
 
 void CCameraDramaticAction::vfunc_4() {
     if (*(char*)(mPtr + 0x84) != 0) {
-        gObj_17000->sub->Fn(gObj_17000);
+        hulk_at_004dd700->sub->Fn_0009a1e0(hulk_at_004dd700);
     }
 }
 } // namespace fn_00017000

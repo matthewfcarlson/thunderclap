@@ -33,13 +33,13 @@ struct CCollisionHitLocationCondition_578b0 {
     virtual void c();
     int pad;
     int x;
-    void Init(int);
+    void Init_00234590(int);
 };
-extern int g_vftable_578f0;
+extern int hulk_at_003f9384;
 struct ConditionFactoryTemplate_578f0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00048b40();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -67,7 +67,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCollisionHitLocationCon
 template <> void* fight::ConditionFactoryTemplate<CCollisionHitLocationCondition>::vfunc_5() {
     CCollisionHitLocationCondition_578b0* p = (CCollisionHitLocationCondition_578b0*)FUN_0008d690(0x14);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f6fa4);
         ((u32_578b0*)p)[3] = 2;
         ((u32_578b0*)p)[4] = 1;
@@ -82,9 +82,9 @@ namespace fn_f52e0250 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_578f0@fn_f52e0250@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_578f0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_578f0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9384;
+    base1_dtor_00048b40();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

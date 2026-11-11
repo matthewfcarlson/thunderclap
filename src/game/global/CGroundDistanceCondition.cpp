@@ -11,10 +11,10 @@ namespace fn_f0912206 {} using namespace fn_f0912206;
 
 // ---- declarations shared by the functions below
 namespace fn_f0912206 {
-extern void* CCondition_4bc70_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4bc70 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CGroundDistanceCondition : public CCondition_4bc70 {
   public:
@@ -28,8 +28,8 @@ class CGroundDistanceCondition : public CCondition_4bc70 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CGroundDistanceCondition* CGroundDistanceCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4bc70_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

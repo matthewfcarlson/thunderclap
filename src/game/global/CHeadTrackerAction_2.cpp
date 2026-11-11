@@ -13,15 +13,15 @@ namespace fn_fd22d1f6 {} using namespace fn_fd22d1f6;
 namespace fn_fd22d1f6 {
 class A_20a00 {
   public:
-    void* get();
+    void* get_000592a0();
 };
 class B_20a00 {
   public:
-    void* next();
+    void* next_00059a40();
 };
 class D {
   public:
-    void act(void*, int);
+    void act_00222970(void*, int);
 };
 class Obj_20a00 {
   public:
@@ -409,10 +409,10 @@ char CHeadTrackerAction::vfunc_7(float dt)
 // 0x00020a00 CHeadTrackerAction::vfunc_4 (62 B): matches/0x00020a00.cpp
 // sym: ?vfunc_4@CHeadTrackerAction@@UAEXXZ
 void CHeadTrackerAction::vfunc_4() {
-    B_20a00* b = (B_20a00*)(*(A_20a00 * *)&this->f_1c)->get();
-    void* y = b->next();
+    B_20a00* b = (B_20a00*)(*(A_20a00 * *)&this->f_1c)->get_000592a0();
+    void* y = b->next_00059a40();
     if (y) {
-        ((D*)y)->act((*(void * *)&this->f_24), 0);
+        ((D*)y)->act_00222970((*(void * *)&this->f_24), 0);
         if ((*(Obj_20a00 * *)&this->f_88)) {
             (*(Obj_20a00 * *)&this->f_88)->f1();
             (*(Obj_20a00 * *)&this->f_88) = 0;

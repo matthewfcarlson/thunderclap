@@ -13,7 +13,7 @@ struct Vec3_18570 {
     int a, b, c;
 };
 struct A_18570 {
-    void* Get();
+    void* Get_000592a0();
 };
 struct B_18570 {
     char pad[0x10];
@@ -21,28 +21,28 @@ struct B_18570 {
     Vec3_18570 pos;
 };
 struct X_18570 {
-    X_18570* Next();
-    void Build(Vec3_18570*, Vec3_18570*);
+    X_18570* Next_00059a30();
+    void Build_00035630(Vec3_18570*, Vec3_18570*);
 };
 struct Final_18570 {
-    void Go(Vec3_18570, int, int, int);
+    void Go_001b4620(Vec3_18570, int, int, int);
 };
 struct G_18570 {
     char pad[0x10];
     Final_18570* f;
 };
-extern G_18570* gManager_18570;
+extern G_18570* hulk_at_004dd700;
 
 } // namespace fn_f766a414
 
 // 0x00018570 CExplosionAction::vfunc_7 (122 B): matches/0x00018570.cpp
 // sym: ?vfunc_7@CExplosionAction@@UAE_NH@Z
 bool CExplosionAction::vfunc_7(int ) {
-    X_18570* p = ((X_18570*)(*(struct A_18570 * *)&this->f_1c)->Get())->Next();
+    X_18570* p = ((X_18570*)(*(struct A_18570 * *)&this->f_1c)->Get_000592a0())->Next_00059a30();
     Vec3_18570 v = (*(struct B_18570 * *)&this->f_20)->pos;
     Vec3_18570 out;
-    p->Build(&v, &out);
-    gManager_18570->f->Go(out, (*(struct B_18570 * *)&this->f_20)->val, 0, 0);
+    p->Build_00035630(&v, &out);
+    hulk_at_004dd700->f->Go_001b4620(out, (*(struct B_18570 * *)&this->f_20)->val, 0, 0);
     return false;
 }
 

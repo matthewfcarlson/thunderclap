@@ -12,10 +12,10 @@ namespace fn_ff23caa7 {} using namespace fn_ff23caa7;
 
 // ---- declarations shared by the functions below
 namespace fn_ff23caa7 {
-extern void* CCondition_4cde0_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4cde0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CSmartPropStateCondition : public CCondition_4cde0 {
   public:
@@ -24,7 +24,7 @@ class CSmartPropStateCondition : public CCondition_4cde0 {
 extern void* CCondition_4ce10_vftable[];
 class CCondition_4ce10 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CPropActorStateCondition : public CCondition_4ce10 {
   public:
@@ -33,7 +33,7 @@ class CPropActorStateCondition : public CCondition_4ce10 {
 extern void* CCondition_4ce40_vftable[];
 class CCondition_4ce40 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CIsInvincibleCondition : public CCondition_4ce40 {
   public:
@@ -42,7 +42,7 @@ class CIsInvincibleCondition : public CCondition_4ce40 {
 extern void* CCondition_4ce70_vftable[];
 class CCondition_4ce70 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CIsGrappledCondition : public CCondition_4ce70 {
   public:
@@ -51,7 +51,7 @@ class CIsGrappledCondition : public CCondition_4ce70 {
 extern void* CCondition_4cea0_vftable[];
 class CCondition_4cea0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CGrappleSizeCondition : public CCondition_4cea0 {
   public:
@@ -60,7 +60,7 @@ class CGrappleSizeCondition : public CCondition_4cea0 {
 extern void* CCondition_4ced0_vftable[];
 class CCondition_4ced0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CLuaNumberCondition : public CCondition_4ced0 {
   public:
@@ -74,8 +74,8 @@ class CLuaNumberCondition : public CCondition_4ced0 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CSmartPropStateCondition* CSmartPropStateCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4cde0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -90,7 +90,7 @@ CSmartPropStateCondition* CSmartPropStateCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CPropActorStateCondition* CPropActorStateCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4ce10_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -105,7 +105,7 @@ CPropActorStateCondition* CPropActorStateCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CIsInvincibleCondition* CIsInvincibleCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4ce40_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -120,7 +120,7 @@ CIsInvincibleCondition* CIsInvincibleCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CIsGrappledCondition* CIsGrappledCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4ce70_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -135,7 +135,7 @@ CIsGrappledCondition* CIsGrappledCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CGrappleSizeCondition* CGrappleSizeCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4cea0_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -150,7 +150,7 @@ CGrappleSizeCondition* CGrappleSizeCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CLuaNumberCondition* CLuaNumberCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4ced0_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

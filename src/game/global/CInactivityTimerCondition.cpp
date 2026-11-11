@@ -11,10 +11,10 @@ namespace fn_fa5db5a6 {} using namespace fn_fa5db5a6;
 
 // ---- declarations shared by the functions below
 namespace fn_fa5db5a6 {
-extern void* CCondition_4d860_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4d860 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CInactivityTimerCondition : public CCondition_4d860 {
   public:
@@ -28,8 +28,8 @@ class CInactivityTimerCondition : public CCondition_4d860 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CInactivityTimerCondition* CInactivityTimerCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4d860_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

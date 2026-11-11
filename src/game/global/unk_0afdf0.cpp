@@ -15,7 +15,7 @@ namespace fn_f7328a2c {} using namespace fn_f7328a2c;
 namespace fn_f7328a2c {
 class Other_afe10 {
   public:
-    void Run(int);
+    void Run_000afb80(int);
 };
 class Thing_afe10 {
   public:
@@ -42,7 +42,7 @@ class CKeyPoseTrack {
     virtual void vfunc_13();
 };
 struct Child_afe80 {
-    void cleanup();
+    void cleanup_000afaf0();
 };
 struct Obj_afe80 {
     char pad[5];
@@ -54,7 +54,7 @@ struct Obj_afe80 {
 struct Node {
     char pad[0x10];
     int count;
-    void F530(int, int, float);
+    void F530_000af530(int, int, float);
 };
 struct Holder_afea0 {
     char pad[8];
@@ -94,7 +94,7 @@ namespace fn_f7328a2c {
 void Thing_afe10::Set(int value) {
     if (flag != (unsigned char)value) {
         if (p)
-            p->Run(value);
+            p->Run_000afb80(value);
         flag = (unsigned char)value;
     }
 }
@@ -154,7 +154,7 @@ namespace fn_f7328a2c {
 // sym: ?run@Obj_afe80@fn_f7328a2c@@QAEXXZ
 void Obj_afe80::run() {
     if (ptr)
-        ptr->cleanup();
+        ptr->cleanup_000afaf0();
     if (flag)
         FUN_002684c0();
 }
@@ -173,8 +173,8 @@ void Holder_afea0::Set(int idx, float a, float b, float c) {
         float x = a * 0.01f;
         float y = b * 0.01f;
         do {
-            n->F530(i, 0, x);
-            n->F530(i, 1, y);
+            n->F530_000af530(i, 0, x);
+            n->F530_000af530(i, 1, y);
             ((owners::Obj_af650 *)n)->FUN_000af650(i, 0, c);
             ((owners::Obj_af650 *)n)->FUN_000af650(i, 1, c);
             i++;

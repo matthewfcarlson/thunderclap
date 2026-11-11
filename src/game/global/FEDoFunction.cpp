@@ -84,7 +84,7 @@ class Obj_e1ad0 {
   public:
     void Set(int index, int value);
 };
-extern int __cdecl Make(int value);
+extern int __cdecl Make_000f6610(int value);
 class FEDoAction_e1b00 {
   public:
     virtual void v0();
@@ -234,8 +234,8 @@ FEDoFunction::FEDoFunction(Owner_e19d0* o, hulk_intptr id, int n) {
 // 0x000e1a60 FUN_000e1a60 (101 B): matches/0x000e1a60.cpp [wrapped: conflict: FEDoFunction]
 // sym: ??1FEDoFunction@fn_000e1a60@@QAE@XZ
 namespace fn_000e1a60 {
-extern int vtFunction;
-extern int vtAction;
+extern int hulk_at_0040c044;
+extern int hulk_at_0040bfa0;
 extern void __cdecl thunk_FUN_00267090(void*);
 class FEDoFunction {
   public:
@@ -246,7 +246,7 @@ class FEDoFunction {
     ~FEDoFunction();
 };
 FEDoFunction::~FEDoFunction() {
-    vptr = (hulk_intptr)&vtFunction;
+    vptr = (hulk_intptr)&hulk_at_0040c044;
     if (items) {
         int i = 0;
         if (count > 0)
@@ -263,7 +263,7 @@ FEDoFunction::~FEDoFunction() {
             items = 0;
         }
     }
-    vptr = (hulk_intptr)&vtAction;
+    vptr = (hulk_intptr)&hulk_at_0040bfa0;
 }
 } // namespace fn_000e1a60
 
@@ -273,7 +273,7 @@ namespace fn_f701c7df {
 // sym: ?Set@Obj_e1ad0@fn_f701c7df@@QAEXHH@Z
 void Obj_e1ad0::Set(int index, int value) {
     if (items)
-        items[index] = Make(value);
+        items[index] = Make_000f6610(value);
 }
 
 } // namespace fn_f701c7df

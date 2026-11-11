@@ -33,13 +33,13 @@ struct Condition_58800 {
     unsigned char padD[3];
     int value;
     int last;
-    void Initialize(int);
+    void Initialize_00234590(int);
 };
-extern int g_vftable_58840;
+extern int hulk_at_003f963c;
 struct ConditionFactoryTemplate_58840 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00049120();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -67,7 +67,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CSmartPropAttachedCondit
 template <> void* fight::ConditionFactoryTemplate<CSmartPropAttachedCondition>::vfunc_5() {
     Condition_58800* p = (Condition_58800*)Allocate(0x18);
     if (p) {
-        p->Initialize(0);
+        p->Initialize_00234590(0);
         p->vptr = (void*)((hulk_intptr)DAT_003f710c);
         p->enabled = 1;
         p->value = 0;
@@ -83,9 +83,9 @@ namespace fn_f662c1ee {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_58840@fn_f662c1ee@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_58840::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_58840;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f963c;
+    base1_dtor_00049120();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

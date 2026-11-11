@@ -12,7 +12,7 @@ namespace fn_fc4ebd1a {} using namespace fn_fc4ebd1a;
 
 // ---- declarations shared by the functions below
 namespace fn_fc4ebd1a {
-extern int* gTable_6a060;
+extern int* hulk_at_004dcf88;
 class CCondition_6a060 {
   public:
     virtual int vfunc_0(int);
@@ -46,7 +46,7 @@ void FUN_0006a040() {
 // sym: ?vfunc_0@CInvincibleTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CInvincibleTrack::vfunc_0(int index) {
-    int* p = gTable_6a060;
+    int* p = hulk_at_004dcf88;
     return p[index];
 }
 

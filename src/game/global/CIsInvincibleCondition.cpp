@@ -45,16 +45,16 @@ class ConditionFactoryCaster_52680 {
 namespace fn_fbd5c058 {
 struct CIsGrappledCondition_526c0 {
     virtual ~CIsGrappledCondition_526c0();
-    void init(int);
+    void init_00234590(int);
 };
 } // namespace fn_fbd5c058
 void* operator new(size_t);
 namespace fn_fbd5c058 {
-extern void* condition_vftable_526c0;
-extern void* ConditionFactory_526f0_vftable[];
+extern void* hulk_at_003f7298;
+extern void* hulk_at_003f8660[];
 class ConditionFactory_526f0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002343d0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ConditionFactoryTemplate_0526f0 : public ConditionFactory_526f0 {
   public:
@@ -78,8 +78,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<CIsInvincibleCondition>:
 template <> void* fight::ConditionFactoryTemplate<CIsInvincibleCondition>::vfunc_5() {
     CIsGrappledCondition_526c0* p = (CIsGrappledCondition_526c0*)operator new(0x0c);
     if (p) {
-        p->init(0);
-        *(void**)p = &condition_vftable_526c0;
+        p->init_00234590(0);
+        *(void**)p = &hulk_at_003f7298;
         return (void*)(p);
     }
     return (void*)(0);
@@ -93,8 +93,8 @@ namespace fn_fbd5c058 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ConditionFactoryTemplate_0526f0* ConditionFactoryTemplate_0526f0::vfunc_5(signed char flags) {
-    *(void***)this = ConditionFactory_526f0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f8660;
+    Destroy_002343d0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

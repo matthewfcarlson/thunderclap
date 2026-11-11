@@ -12,7 +12,7 @@ namespace fn_f3696309 {} using namespace fn_f3696309;
 
 // ---- declarations shared by the functions below
 namespace fn_f3696309 {
-extern int* gTable_6b160;
+extern int* hulk_at_004dd020;
 class CCondition_6b160 {
   public:
     virtual int vfunc_0(int);
@@ -31,7 +31,7 @@ struct CTrack_6b1d0 {
 };
 class Alloc_6b1f0 {
   public:
-    int method(CWallSlideTrack*, hulk_intptr);
+    int method_00020d50(CWallSlideTrack*, hulk_intptr);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
@@ -49,7 +49,7 @@ void FUN_0006b140() {
 // sym: ?vfunc_0@CWallSlideTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CWallSlideTrack::vfunc_0(int index) {
-    int* p = gTable_6b160;
+    int* p = hulk_at_004dd020;
     return p[index];
 }
 
@@ -132,7 +132,7 @@ CTrack::~CTrack() throw() {}
 hulk_intptr CWallSlideTrack::vfunc_12(hulk_intptr param) {
     Alloc_6b1f0* p = (Alloc_6b1f0*)FUN_0008d690(0x38);
     if (p)
-        return p->method(this, param);
+        return p->method_00020d50(this, param);
     return 0;
 }
 

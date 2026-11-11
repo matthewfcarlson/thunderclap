@@ -11,10 +11,10 @@ namespace fn_f50ba1e5 {} using namespace fn_f50ba1e5;
 
 // ---- declarations shared by the functions below
 namespace fn_f50ba1e5 {
-extern void* Entity_83e30_vftable[];
+extern void* hulk_at_003ff9c8[];
 class Entity_83e30 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CVehicle_83e30 : public Entity_83e30 {
   public:
@@ -28,8 +28,8 @@ class CVehicle_83e30 : public Entity_83e30 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CVehicle_83e30* CVehicle_83e30::vfunc_5(signed char flags) {
-    *(void***)this = Entity_83e30_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003ff9c8;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

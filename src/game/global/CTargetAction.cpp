@@ -13,12 +13,12 @@ namespace fn_fc71f465 {} using namespace fn_fc71f465;
 namespace fn_fc71f465 {
 struct ThingB {};
 struct ThingA {
-    ThingB* next();
+    ThingB* next_00059a30();
 };
 struct Start {
 };
 struct R_17ce0 {
-    void call(void*, int);
+    void call_00222970(void*, int);
 };
 extern void* __fastcall FUN_000592a0(void*);
 extern "C" R_17ce0* __fastcall FUN_00059a40(void*);
@@ -38,7 +38,7 @@ struct Manager_17d10 { bool FUN_002edc00(void*); };
 bool CMotionHitGroundHeightAction::vfunc_7(int __p0) { unsigned int arg = (unsigned int)__p0;
 
     ThingA* a = ((ThingA *)((owners::Object_592a0 *)((*(Start * *)&this->f_1c)))->FUN_000592a0());
-    ThingB* b = a->next();
+    ThingB* b = a->next_00059a30();
     *(void**)((char*)b + 0x148) = (*(void * *)&this->f_20);
     return true;
 }
@@ -51,7 +51,7 @@ void CWallSlideAction::vfunc_4() {
     void* a = FUN_000592a0((*(void * *)&this->f_1c));
     R_17ce0* b = FUN_00059a40(a);
     if (b)
-        b->call((*(void * *)&this->f_24), 0);
+        b->call_00222970((*(void * *)&this->f_24), 0);
 }
 
 

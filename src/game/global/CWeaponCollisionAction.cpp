@@ -40,7 +40,7 @@ struct CWeaponCollisionAction {
     void FUN_00232660();
     CWeaponCollisionAction *FUN_0001b080(RefObj_1b080 *a, Owner_1b080 *b, RefObj_1b080 *c);
 };
-extern void* gA_1b120[];
+extern void* hulk_at_003f3390[];
 class Ref_1b120 {
   public:
     virtual void F0();
@@ -191,7 +191,7 @@ CWeaponCollisionAction_1b120::~CWeaponCollisionAction_1b120() {
         m7c->Release();
         m7c = 0;
     }
-    vptr = gA_1b120;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();

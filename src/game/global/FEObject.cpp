@@ -13,7 +13,7 @@ namespace fn_faa2c089 {} using namespace fn_faa2c089;
 
 // ---- declarations shared by the functions below
 namespace fn_faa2c089 {
-extern void* g_vftable_e9030[];
+extern void* hulk_at_0040c208[];
 class Ref_e9030 {
   public:
     virtual void F0();
@@ -159,7 +159,7 @@ void __fastcall FUN_000e9030(CEffectStopTrack*);
 // 0x000e9030 FUN_000e9030 (92 B): matches/0x000e9030.cpp
 // sym: ??1FEObject_e9030@fn_faa2c089@@QAE@XZ
 FEObject_e9030::~FEObject_e9030() throw() {
-    vptr = g_vftable_e9030;
+    vptr = hulk_at_0040c208;
     _ReadWriteBarrier();
     if (m50) {
         m50->Release();

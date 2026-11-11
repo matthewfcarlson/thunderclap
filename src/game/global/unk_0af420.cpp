@@ -173,7 +173,7 @@ public:
     void FUN_000afaf0();
 };
 struct ThisCall_000afaf0 {
-    void Refresh();
+    void Refresh_000afaf0();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned size);
 class Source_afbf0 {
@@ -393,7 +393,7 @@ void Manager_afaf0::FUN_000afaf0() {
 // sym: ?FUN_000afb80@Thing_afb80@owners@@QAEXD@Z
 void owners::Thing_afb80::FUN_000afb80(char x) {
     if (value != x)
-        ((ThisCall_000afaf0*)(this))->Refresh();
+        ((ThisCall_000afaf0*)(this))->Refresh_000afaf0();
     value = x;
 }
 

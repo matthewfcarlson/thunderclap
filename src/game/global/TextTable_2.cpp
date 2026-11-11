@@ -15,7 +15,7 @@ namespace fn_faf882a3 {} using namespace fn_faf882a3;
 namespace fn_faf882a3 {
 class Elem_ed820 {
   public:
-    void Init();
+    void Init_000f7930();
     char d[0x24];
 };
 class FEControl_ed820 {
@@ -40,7 +40,7 @@ class TextTable : public FEControl_ed820 {
 // sym: ??0TextTable@fn_faf882a3@@QAE@H@Z
 TextTable::TextTable(int x) : FEControl_ed820(x) {
     for (int i = 0; i < 0x200; i++)
-        arr[i].Init();
+        arr[i].Init_000f7930();
     m150 = 0;
     m154 = 0;
     m158 = 0;

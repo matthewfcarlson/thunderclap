@@ -50,7 +50,7 @@ class Obj_fce10 {
     virtual int f6();
 };
 struct CControllerAgent_nv_fce10 {
-    float helper(hulk_intptr, int);
+    float helper_000fc4e0(hulk_intptr, int);
 };
 struct Vec3_fce60 { float x, y, z; };
 struct Matrix_fce60 {
@@ -65,10 +65,10 @@ union FloatBits_fce60 {
 };
 struct Vec_fd010 { float x,y,z; hulk_freg FUN_0022d110(); };
 struct Transform_fd010 {  };
-extern void* CCharacterAgent_fd0c0_vftable[];
+extern void* hulk_at_0040d098[];
 class CCharacterAgent_fd0c0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_000fc630(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CControllerAgent_fd0c0 : public CCharacterAgent_fd0c0 {
   public:
@@ -197,7 +197,7 @@ void CControllerAgent::vfunc_9() {
 // 0x000fce10 CControllerAgent::vfunc_3 (68 B): matches/0x000fce10.cpp
 // sym: ?vfunc_3@CControllerAgent@@UAEMHH@Z
 hulk_freg CControllerAgent::vfunc_3(hulk_intptr a, int b) {
-    ((CControllerAgent_nv_fce10*)this)->helper(a, b);
+    ((CControllerAgent_nv_fce10*)this)->helper_000fc4e0(a, b);
     hulk_intptr x = (*(Obj_fce10 * *)&this->f_58)->f6();
     if (*(int*)((char*)x + 0x20a8) >= 0)
         *(float*)((char*)this + 8) = 100.0f;
@@ -285,8 +285,8 @@ void __cdecl FUN_000fd010(Transform_fd010* transform, unsigned int unused1, unsi
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CControllerAgent_fd0c0* CControllerAgent_fd0c0::vfunc_5(signed char flags) {
-    *(void***)this = CCharacterAgent_fd0c0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040d098;
+    Destroy_000fc630();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

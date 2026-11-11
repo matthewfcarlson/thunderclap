@@ -23,18 +23,18 @@ class TrackFactoryTemplate_766c0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_76700;
+extern int hulk_at_003fe75c;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00069e70();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" char DAT_003fe778[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class CGrappleDrainHealthTrack_76730 {
   public:
-    void Init();
+    void Init_00069ea0();
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -42,10 +42,10 @@ class CGrappleDrainHealthTrack_76730 {
     virtual void v4();
     virtual void v5();
 };
-extern void* CDrainHealthTrack_76760_vftable[];
+extern void* hulk_at_003f98d0[];
 class CDrainHealthTrack_76760 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fb1ec90b
 class CGrappleDrainHealthTrack : public CDrainHealthTrack_76760 {
@@ -76,9 +76,9 @@ namespace fn_fb1ec90b {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fb1ec90b@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_76700;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe75c;
+    base1_dtor_00069e70();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -91,7 +91,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 template <> void* fight::TrackFactoryTemplate<CGrappleDrainHealthTrack>::vfunc_5() {
     CGrappleDrainHealthTrack_76730* p = (CGrappleDrainHealthTrack_76730*)FUN_0008d690(0x18);
     if (p) {
-        p->Init();
+        p->Init_00069ea0();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fe778);
         return (void*)(p);
     }
@@ -105,8 +105,8 @@ template <> void* fight::TrackFactoryTemplate<CGrappleDrainHealthTrack>::vfunc_5
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CGrappleDrainHealthTrack* CGrappleDrainHealthTrack::vfunc_5(signed char flags) {
-    *(void***)this = CDrainHealthTrack_76760_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f98d0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

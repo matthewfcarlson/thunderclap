@@ -30,13 +30,13 @@ extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 struct CPropActorStateCondition_58600 {
     virtual void v0();
     U_58600 x[4];
-    void setup(int);
+    void setup_00234590(int);
 };
-extern int g_vftable_58640;
+extern int hulk_at_003f95e8;
 struct ConditionFactoryTemplate_58640 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00049b40();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -64,7 +64,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CPropActorStateCondition
 template <> void* fight::ConditionFactoryTemplate<CPropActorStateCondition>::vfunc_5() {
     CPropActorStateCondition_58600* p = (CPropActorStateCondition_58600*)FUN_0008d690((int)sizeof(CPropActorStateCondition_58600));
     if (p) {
-        p->setup(0);
+        p->setup_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f7274);
         *(U_58600*)((char*)p + 0xc) = 2;
         *(U_58600*)((char*)p + 0x10) = 0;
@@ -79,9 +79,9 @@ namespace fn_f1eed91f {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_58640@fn_f1eed91f@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_58640::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_58640;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f95e8;
+    base1_dtor_00049b40();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

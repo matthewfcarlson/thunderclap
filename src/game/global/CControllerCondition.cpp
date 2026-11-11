@@ -11,10 +11,10 @@ namespace fn_f63868ef {} using namespace fn_f63868ef;
 
 // ---- declarations shared by the functions below
 namespace fn_f63868ef {
-extern void* CCondition_4b040_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4b040 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CStageCondition : public CCondition_4b040 {
   public:
@@ -23,7 +23,7 @@ class CStageCondition : public CCondition_4b040 {
 extern void* CCondition_4b070_vftable[];
 class CCondition_4b070 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CControllerCondition : public CCondition_4b070 {
   public:
@@ -37,8 +37,8 @@ class CControllerCondition : public CCondition_4b070 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CStageCondition* CStageCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4b040_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -53,7 +53,7 @@ CStageCondition* CStageCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CControllerCondition* CControllerCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4b070_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

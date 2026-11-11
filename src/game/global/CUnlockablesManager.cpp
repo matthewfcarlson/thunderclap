@@ -68,7 +68,7 @@ struct Game_93c40 {
  void target(const char* text);
 };
 struct ThisWrap_00093db0 {
-    void Other(int, int);
+    void Other_00093600(int, int);
     void Target(int n, int unused);
 };
 class CUnlockablesManager_93e30 {
@@ -112,7 +112,7 @@ class Function_93fe0 {
     virtual void f0();
     virtual void f1();
 };
-extern "C" bool __cdecl CheckString(const char** ppStr);
+extern "C" bool __cdecl CheckString_001d04d0(const char** ppStr);
 class Function_94000 {
   public:
     virtual void Invoke(const char*, int, const char*, const char*, const char*, const char*);
@@ -156,7 +156,7 @@ typedef void (Owner_94200::*Fn_94200)(int, int, bool);
 struct FUN_001d0480 {
     FUN_001d0480(const char*, int);
 };
-extern char __cdecl Query(const char*);
+extern char __cdecl Query_001d04d0(const char*);
 class Method3_94200 : public FUN_001d0480 {
   public:
     void* v;
@@ -303,7 +303,7 @@ struct Obj_95f50 {
     u32_95f50 b;
 };
 extern "C" u32_95f50 __cdecl FUN_00267f80();
-extern "C" unsigned int __cdecl tick();
+extern "C" unsigned int __cdecl tick_00267f80();
 struct Timer {
     float scale;
     unsigned int last;
@@ -570,7 +570,7 @@ void Game_93c40::target(const char* text) {
 // sym: ?Target@ThisWrap_00093db0@fn_f8b63219@@QAEXHH@Z
 void ThisWrap_00093db0::Target(int n, int unused) {
     if (n >= 0 && n < 0x2fe)
-        this->Other(n, unused);
+        this->Other_00093600(n, unused);
 }
 
 } // namespace fn_f8b63219
@@ -653,13 +653,13 @@ namespace fn_f8b63219 {
 // data: g_str1 = DAT_0048e100, g_str2 = DAT_0048e0f0, g_str3 = DAT_0048e134
 Method6_94000::Method6_94000(const char* name, hulk_intptr data) : Function_94000(name, 6) {
     m_data = data;
-    m_flag7 = CheckString(((const char**)&DAT_0048e100));
-    m_flag1 = CheckString(((const char**)&DAT_0048e0f0));
-    m_flag2 = CheckString(((const char**)&DAT_0048e134));
-    m_flag3 = CheckString(((const char**)&DAT_0048e0f0));
-    m_flag4 = CheckString(((const char**)&DAT_0048e0f0));
-    m_flag5 = CheckString(((const char**)&DAT_0048e0f0));
-    m_flag6 = CheckString(((const char**)&DAT_0048e0f0));
+    m_flag7 = CheckString_001d04d0(((const char**)&DAT_0048e100));
+    m_flag1 = CheckString_001d04d0(((const char**)&DAT_0048e0f0));
+    m_flag2 = CheckString_001d04d0(((const char**)&DAT_0048e134));
+    m_flag3 = CheckString_001d04d0(((const char**)&DAT_0048e0f0));
+    m_flag4 = CheckString_001d04d0(((const char**)&DAT_0048e0f0));
+    m_flag5 = CheckString_001d04d0(((const char**)&DAT_0048e0f0));
+    m_flag6 = CheckString_001d04d0(((const char**)&DAT_0048e0f0));
 }
 
 } // namespace fn_f8b63219
@@ -715,7 +715,7 @@ class Method6_94100 {
     char pad[0xc];
 };
 
-extern "C++" __declspec(nothrow) char __cdecl Lookup(const char* s);
+extern "C++" __declspec(nothrow) char __cdecl Lookup_001d04d0(const char* s);
 
 class Derived_94100 : public Method6_94100 {
   public:
@@ -733,13 +733,13 @@ void Derived_94100::f0() {}
 
 Derived_94100::Derived_94100(hulk_intptr a, hulk_intptr b) : Method6_94100(a, 6) {
     m1c = b;
-    c18 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    c10 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    c11 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    c12 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    c13 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    c14 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    c15 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    c18 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    c10 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    c11 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    c12 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    c13 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    c14 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    c15 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
 }
 } // namespace fn_00094100
 
@@ -783,10 +783,10 @@ void dispatch(Obj* obj, int* a, int unused, Fn fn) {
 Method3_94200::Method3_94200(const char* a, Fn_94200 b) : FUN_001d0480(a, 3) {
     v = (void*)DAT_004046dc;
     value = b;
-    f.retType = Query(((char*)&DAT_0048e100));
-    f.argTypes[0] = Query(((char*)&DAT_0048e134));
-    f.argTypes[1] = Query(((char*)&DAT_0048e134));
-    f.argTypes[2] = Query(&DAT_0048e0e4);
+    f.retType = Query_001d04d0(((char*)&DAT_0048e100));
+    f.argTypes[0] = Query_001d04d0(((char*)&DAT_0048e134));
+    f.argTypes[1] = Query_001d04d0(((char*)&DAT_0048e134));
+    f.argTypes[2] = Query_001d04d0(&DAT_0048e0e4);
 }
 
 } // namespace fn_f8b63219
@@ -812,7 +812,7 @@ template <> void Method3<CUnlockablesManager, void, int, int, bool>::vfunc_2(voi
 // sym: ??0Method3@fn_000942a0@@QAE@HH@Z
 namespace fn_000942a0 {
 
-extern "C++" __declspec(nothrow) unsigned char __cdecl check(const char*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl check_001d04d0(const char*);
 class Function_942a0 {
   public:
     Function_942a0(int, int);
@@ -831,10 +831,10 @@ class Method3 : public Function_942a0 {
 };
 Method3::Method3(hulk_intptr x, hulk_intptr y) : Function_942a0(x, 3) {
     arg = y;
-    v4 = check(((char*)&DAT_0048e100));
-    v1 = check(((char*)&DAT_0048e134));
-    v2 = check(((char*)&DAT_0048e0f0));
-    v3 = check(((char*)&DAT_0048e0f0));
+    v4 = check_001d04d0(((char*)&DAT_0048e100));
+    v1 = check_001d04d0(((char*)&DAT_0048e134));
+    v2 = check_001d04d0(((char*)&DAT_0048e0f0));
+    v3 = check_001d04d0(((char*)&DAT_0048e0f0));
 }
 } // namespace fn_000942a0
 
@@ -1063,11 +1063,11 @@ class Closure1 : public Closure1_945c0 {
     virtual void f();
     int m;
 };
-extern char Get(const char*);
+extern char Get_001d04d0(const char*);
 Closure1_945c0::Closure1_945c0(int a, int b) : Parent(a, 1) {
     n = b;
-    y = Get(((const char*)&DAT_0048e0e4));
-    x = Get(((const char*)&DAT_0048e134));
+    y = Get_001d04d0(((const char*)&DAT_0048e0e4));
+    x = Get_001d04d0(((const char*)&DAT_0048e134));
 }
 Closure1::Closure1(int a, int b, int c) : Closure1_945c0(a, c) {
     m = b;
@@ -1139,8 +1139,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_0040468c[2];
+extern void* hulk_at_0040473c[2];
 
 // Closure2<Owner, void, int, bool>'s constructor (name, object, member function): Function's fields
 // (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
@@ -1161,12 +1161,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_094650* a2, Fn_094650 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_0040468c;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e134));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e0e4));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_0040473c;
     owner = a2;
 }
 } // namespace fn_00094650
@@ -1224,8 +1224,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_0040469c[2];
+extern void* hulk_at_0040474c[2];
 
 // Closure2<Owner, void, int, int>'s constructor (name, object, member function): Function's fields
 // (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
@@ -1246,12 +1246,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_0946f0* a2, Fn_0946f0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_0040469c;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e134));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e134));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_0040474c;
     owner = a2;
 }
 } // namespace fn_000946f0
@@ -1309,8 +1309,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_004046ac[2];
+extern void* hulk_at_0040475c[2];
 
 // Closure2<Owner, void, const char*, int>'s constructor (name, object, member function): Function's fields
 // (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
@@ -1331,12 +1331,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_094790* a2, Fn_094790 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_004046ac;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e0f0));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e134));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_0040475c;
     owner = a2;
 }
 } // namespace fn_00094790
@@ -1387,9 +1387,9 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C++" __declspec(nothrow) unsigned char readFlag(const char*);
-extern char flagA[];
-extern char flagB[];
+extern "C++" __declspec(nothrow) unsigned char readFlag_001d04d0(const char*);
+extern char hulk_at_0048e0f0[];
+extern char hulk_at_0048e134[];
 class Function_94a30 : public CtorV_001d0480 {
   public:
     Function_94a30(const char* s) : CtorV_001d0480(s, 1) { }
@@ -1400,8 +1400,8 @@ class Method1 : public Function_94a30 {
     Fn_94a30 value;
     Method1(const char* s, Fn_94a30 v) : Function_94a30(s) {
         value = v;
-        retType = readFlag(flagA);
-        argTypes[0] = readFlag(flagB);
+        retType = readFlag_001d04d0(hulk_at_0048e0f0);
+        argTypes[0] = readFlag_001d04d0(hulk_at_0048e134);
     }
 };
 class Closure1 : public Method1 {
@@ -1583,7 +1583,7 @@ Obj_95f50* __fastcall FUN_00095f50(Obj_95f50* self) {
 // 0x00095f70 FUN_00095f70 (42 B): matches/0x00095f70.cpp
 // sym: ?Delta@Timer@fn_f8b63219@@QAEMXZ
 hulk_freg Timer::Delta() {
-    unsigned int t = tick();
+    unsigned int t = tick_00267f80();
     unsigned int d = t - last;
     hulk_freg result = (hulk_freg)d * scale;
     last = t;

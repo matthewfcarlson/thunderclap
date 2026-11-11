@@ -35,15 +35,15 @@ class CSmartPropSpawnAction : public CAction {
     CSmartPropSpawnAction(int, Base_1eff0*);
     virtual void A();
 };
-extern int vtAction;
-extern int vtSpawn;
+extern int hulk_at_003f3390;
+extern int hulk_at_003f386c;
 class RefObj_1f040 {
   public:
     virtual void v0();
     virtual void Release();
 };
 struct Tidier {
-    void Tidy();
+    void Tidy_002326a0();
 };
 class CSmartPropUpdateAttachmentAction {
   public:
@@ -313,7 +313,7 @@ class CAction_1f950 : public Action_1f950 {
 // 0x0001eff0 FUN_0001eff0 (78 B): matches/0x0001eff0.cpp
 // sym: ??0CSmartPropSpawnAction@fn_fcc81091@@QAE@HPAVBase_1eff0@1@@Z
 CSmartPropSpawnAction::CSmartPropSpawnAction(int value, Base_1eff0* ref) {
-    *(hulk_intptr*)this = (hulk_intptr)&vtAction;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f3390;
     mRef = 0;
     if (ref)
         ref->Fn();
@@ -321,7 +321,7 @@ CSmartPropSpawnAction::CSmartPropSpawnAction(int value, Base_1eff0* ref) {
         mRef->Release();
     mRef = ref;
     mValue = value;
-    *(hulk_intptr*)this = (hulk_intptr)&vtSpawn;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f386c;
     mOther = 0;
 }
 
@@ -342,7 +342,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         a->Release();
         mA = 0;
     }
-    ((Tidier*)this)->Tidy();
+    ((Tidier*)this)->Tidy_002326a0();
 }
 
 } // namespace fn_fcc81091
@@ -427,7 +427,7 @@ class CSmartPropDetachAction_1f1f0 : public CAction {
     virtual void V1();
 };
 extern int vtAction;
-extern int vtDerived;
+extern int hulk_at_003f38cc;
 CSmartPropDetachAction_1f1f0::CSmartPropDetachAction_1f1f0(Actor_1f1f0* a) {
     *(hulk_intptr*)this = (hulk_intptr)&vtAction;
     mActor = 0;
@@ -436,7 +436,7 @@ CSmartPropDetachAction_1f1f0::CSmartPropDetachAction_1f1f0(Actor_1f1f0* a) {
     if (mActor)
         mActor->Release();
     mActor = a;
-    *(hulk_intptr*)this = (hulk_intptr)&vtDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f38cc;
 }
 } // namespace fn_0001f1f0
 
@@ -696,7 +696,7 @@ struct Obj_1f460 {
     virtual void G();
 };
 extern int VBase;
-extern int VDerived;
+extern int hulk_at_003f3994;
 class CAction {
   public:
     CAction();
@@ -720,7 +720,7 @@ CSmartPropRemoveInstanceAction_1f460::CSmartPropRemoveInstanceAction_1f460(Obj_1
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f3994;
 }
 void CSmartPropRemoveInstanceAction_1f460::V0() {}
 } // namespace fn_0001f460
@@ -750,7 +750,7 @@ struct Obj_1f4e0 {
     virtual void G();
 };
 extern int VBase;
-extern int VDerived;
+extern int hulk_at_003f39bc;
 class CAction {
   public:
     CAction();
@@ -774,7 +774,7 @@ CInvincibleAction_1f4e0::CInvincibleAction_1f4e0(Obj_1f4e0* arg, int value) {
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f39bc;
 }
 void CInvincibleAction_1f4e0::V0() {}
 } // namespace fn_0001f4e0
@@ -817,7 +817,7 @@ class CIntangibleAction_1f560 : public CAction {
     virtual void V1();
 };
 extern int vtAction;
-extern int vtDerived;
+extern int hulk_at_003f39e4;
 CIntangibleAction_1f560::CIntangibleAction_1f560(Actor_1f560* a) {
     *(hulk_intptr*)this = (hulk_intptr)&vtAction;
     mActor = 0;
@@ -826,7 +826,7 @@ CIntangibleAction_1f560::CIntangibleAction_1f560(Actor_1f560* a) {
     if (mActor)
         mActor->Release();
     mActor = a;
-    *(hulk_intptr*)this = (hulk_intptr)&vtDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f39e4;
 }
 } // namespace fn_0001f560
 
@@ -867,7 +867,7 @@ class CIntangibleToActorsAction : public CAction {
     virtual void V1();
 };
 extern int vtAction;
-extern int vtDerived;
+extern int hulk_at_003f3a0c;
 CIntangibleToActorsAction::CIntangibleToActorsAction(Actor_1f5d0* a) {
     *(hulk_intptr*)this = (hulk_intptr)&vtAction;
     mActor = 0;
@@ -876,7 +876,7 @@ CIntangibleToActorsAction::CIntangibleToActorsAction(Actor_1f5d0* a) {
     if (mActor)
         mActor->Release();
     mActor = a;
-    *(hulk_intptr*)this = (hulk_intptr)&vtDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f3a0c;
 }
 } // namespace fn_0001f5d0
 
@@ -983,7 +983,7 @@ CEffectAction *CEffectAction::FUN_0001f6c0(int a, RefObj_1f6c0 *b, RefObj_1f6c0 
 // sym: ?Shutdown@CSmartPropUpdateAttachmentAction@fn_0001f740@@QAEXXZ
 namespace fn_0001f740 {
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
-extern char vftableD[];
+extern char hulk_at_003f3a5c[];
 extern char vftableA[];
 
 class RefObj_1f740 {
@@ -993,7 +993,7 @@ class RefObj_1f740 {
 };
 
 struct Tidier {
-    void Tidy();
+    void Tidy_002326a0();
 };
 
 class CSmartPropUpdateAttachmentAction {
@@ -1006,7 +1006,7 @@ class CSmartPropUpdateAttachmentAction {
 };
 
 void CSmartPropUpdateAttachmentAction::Shutdown() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)hulk_at_003f3a5c;
     RefObj_1f740* b = mB;
     if (b) {
         b->Release();
@@ -1018,7 +1018,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         a->Release();
         mA = 0;
     }
-    ((Tidier*)this)->Tidy();
+    ((Tidier*)this)->Tidy_002326a0();
 }
 } // namespace fn_0001f740
 
@@ -1294,7 +1294,7 @@ CJumpAttackAction* CJumpAttackAction::FUN_0001f980(void* value, Ref* ref) {
 // sym: ?Shutdown@CSmartPropUpdateAttachmentAction@fn_0001f9e0@@QAEXXZ
 namespace fn_0001f9e0 {
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
-extern char vftableD[];
+extern char hulk_at_003f3b24[];
 extern char vftableA[];
 
 class RefObj_1f9e0 {
@@ -1304,7 +1304,7 @@ class RefObj_1f9e0 {
 };
 
 struct Tidier {
-    void Tidy();
+    void Tidy_002326a0();
 };
 
 class CSmartPropUpdateAttachmentAction {
@@ -1317,7 +1317,7 @@ class CSmartPropUpdateAttachmentAction {
 };
 
 void CSmartPropUpdateAttachmentAction::Shutdown() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)hulk_at_003f3b24;
     RefObj_1f9e0* b = mB;
     if (b) {
         b->Release();
@@ -1329,7 +1329,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         a->Release();
         mA = 0;
     }
-    ((Tidier*)this)->Tidy();
+    ((Tidier*)this)->Tidy_002326a0();
 }
 } // namespace fn_0001f9e0
 
@@ -1380,7 +1380,7 @@ COrientAction::COrientAction(int n, Ref* r) : CAction(r) {
 // sym: ?Shutdown@CSmartPropUpdateAttachmentAction@fn_0001fa70@@QAEXXZ
 namespace fn_0001fa70 {
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
-extern char vftableD[];
+extern char hulk_at_003f3b4c[];
 extern char vftableA[];
 
 class RefObj_1fa70 {
@@ -1390,7 +1390,7 @@ class RefObj_1fa70 {
 };
 
 struct Tidier {
-    void Tidy();
+    void Tidy_002326a0();
 };
 
 class CSmartPropUpdateAttachmentAction {
@@ -1403,7 +1403,7 @@ class CSmartPropUpdateAttachmentAction {
 };
 
 void CSmartPropUpdateAttachmentAction::Shutdown() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)hulk_at_003f3b4c;
     RefObj_1fa70* b = mB;
     if (b) {
         b->Release();
@@ -1415,7 +1415,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         a->Release();
         mA = 0;
     }
-    ((Tidier*)this)->Tidy();
+    ((Tidier*)this)->Tidy_002326a0();
 }
 } // namespace fn_0001fa70
 

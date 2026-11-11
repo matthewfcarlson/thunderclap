@@ -12,10 +12,10 @@ namespace fn_f777b6f1 {} using namespace fn_f777b6f1;
 
 // ---- declarations shared by the functions below
 namespace fn_f777b6f1 {
-extern void* CCondition_4be00_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4be00 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CCharacterSizeCondition : public CCondition_4be00 {
   public:
@@ -24,7 +24,7 @@ class CCharacterSizeCondition : public CCondition_4be00 {
 extern void* CCondition_4be30_vftable[];
 class CCondition_4be30 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CCollisionHitLocationCondition : public CCondition_4be30 {
   public:
@@ -33,7 +33,7 @@ class CCollisionHitLocationCondition : public CCondition_4be30 {
 extern void* CCondition_4be60_vftable[];
 class CCondition_4be60 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CCollisionDirectionCondition : public CCondition_4be60 {
   public:
@@ -47,8 +47,8 @@ class CCollisionDirectionCondition : public CCondition_4be60 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CCharacterSizeCondition* CCharacterSizeCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4be00_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -63,7 +63,7 @@ CCharacterSizeCondition* CCharacterSizeCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CCollisionHitLocationCondition* CCollisionHitLocationCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4be30_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -78,7 +78,7 @@ CCollisionHitLocationCondition* CCollisionHitLocationCondition::vfunc_5(signed c
  // thunk_FUN_00267090
 CCollisionDirectionCondition* CCollisionDirectionCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4be60_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

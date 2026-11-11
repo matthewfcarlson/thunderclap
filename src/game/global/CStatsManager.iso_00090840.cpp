@@ -10,7 +10,7 @@ class type_info {
   public:
     virtual ~type_info();
 };
-extern int g_vftable_90840;
+extern int hulk_at_00400c50;
 extern "C" unsigned char __cdecl FUN_001d04d0(const type_info&);
 // Method6<Owner, void, const char*, const char*, int, int, int, int>'s initializer (name, member function): Function's
 // fields (include/decls/data/script.h), then the member-function pointer; returns this.
@@ -21,12 +21,12 @@ class Method6 {
     void* vptr;
     ScriptFunctionFields f;
     Fn_90840 fn;
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
     Method6* Build(const char*, Fn_90840);
 };
 Method6* Method6::Build(const char* name, Fn_90840 mgr) {
-    Init(name, 6);
-    *(void**)this = &g_vftable_90840;
+    Init_001d0480(name, 6);
+    *(void**)this = &hulk_at_00400c50;
     fn = mgr;
     f.retType = FUN_001d04d0(typeid(void));
     f.argTypes[0] = FUN_001d04d0(typeid(const char*));

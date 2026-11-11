@@ -33,13 +33,13 @@ struct CCollisionInterruptCondition_57960 {
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Initializer_57960 {
-    void init(int);
+    void init_00234590(int);
 };
-extern int g_vftable_57990;
+extern int hulk_at_003f93a0;
 struct ConditionFactoryTemplate_57990 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00048e60();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -67,7 +67,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCollisionInterruptCondi
 template <> void* fight::ConditionFactoryTemplate<CCollisionInterruptCondition>::vfunc_5() {
     CCollisionInterruptCondition_57960* p = (CCollisionInterruptCondition_57960*)FUN_0008d690((int)sizeof(CCollisionInterruptCondition_57960));
     if (p) {
-        ((Initializer_57960*)p)->init(0);
+        ((Initializer_57960*)p)->init_00234590(0);
         p->vf = ((hulk_intptr)DAT_003f7034);
         p->flag = 1;
         return (void*)(p);
@@ -81,9 +81,9 @@ namespace fn_f0450c99 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_57990@fn_f0450c99@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_57990::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_57990;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f93a0;
+    base1_dtor_00048e60();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

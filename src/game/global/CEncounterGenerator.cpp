@@ -15,7 +15,7 @@ class CEncounterGenerator {
   public:
     class Inner {
       public:
-        void Close();
+        void Close_0027af50();
         int mValue;
     };
     class CEncounter {
@@ -30,7 +30,7 @@ class CEncounterGenerator {
 // 0x001f94e0 CEncounterGenerator::CEncounter::vfunc_0 (39 B): matches/0x001f94e0.cpp
 // sym: ??_GCEncounter@CEncounterGenerator@fn_fd7b8c6e@@UAEPAXI@Z
 CEncounterGenerator::CEncounter::~CEncounter() {
-    mInner.Close();
+    mInner.Close_0027af50();
 }
 
 } // namespace fn_fd7b8c6e

@@ -113,10 +113,10 @@ class A_e37f0 {
 };
 class Item_e37f0 {
   public:
-    int M(int a, int b);
+    int FnM_000f83f0(int a, int b);
     char pad[0x38];
 };
-extern "C" void f7810(int a, int b, int c);
+extern "C" void f7810_000f7810(int a, int b, int c);
 class Obj_e37f0 {
   public:
     char pad1[0x14];
@@ -186,9 +186,9 @@ class Elem {
     char pad[0x38];
 
   public:
-    int get(int, int);
+    int get_000f83f0(int, int);
 };
-extern "C" void __cdecl finish(int, int, int);
+extern "C" void __cdecl finish_000f7810(int, int, int);
 class Obj {
     char pad[0x14];
     Outer* outer;
@@ -198,7 +198,7 @@ class Obj {
   public:
     void work(int, int, int);
 };
-struct Notifier_e3890 { void Notify(int); };
+struct Notifier_e3890 { void Notify_000f8b90(int); };
 inline void Copy(char* d, const char* s) {
     char c;
     do {
@@ -317,7 +317,7 @@ void Owner_e3770::Set(Obj_e3770* p) {
 void Obj_e37f0::target(int p2, int p3) {
     C_e37f0* c = a->b->c;
     int r = c->GetResult();
-    f7810(items[idx].M(r, 0), p2, p3);
+    f7810_000f7810(items[idx].FnM_000f83f0(r, 0), p2, p3);
 }
 
 
@@ -325,7 +325,7 @@ void Obj_e37f0::target(int p2, int p3) {
 // sym: ?work@Obj@fn_ffa3e06c@@QAEXHHH@Z
 void Obj::work(int index, int a, int b) {
     int v = outer->middle->provider->get();
-    finish(elements[index].get(v, 0), a, b);
+    finish_000f7810(elements[index].get_000f83f0(v, 0), a, b);
 }
 
 
@@ -339,7 +339,7 @@ void Obj_e3890::Target(const char* s, char flag) {
             m154 = n;
             m150 = n;
             if (callback)
-                ((Notifier_e3890*)callback)->Notify(n);
+                ((Notifier_e3890*)callback)->Notify_000f8b90(n);
             Fn();
         }
         ++count;
@@ -407,12 +407,12 @@ class MapThing {
 };
 class Helper_e3a90 {
   public:
-    int go();
+    int go_001fba60();
 };
 int MapThing::vfunc_14() {
     hulk_intptr x = vfunc_13();
     if (x)
-        return ((Helper_e3a90*)x)->go();
+        return ((Helper_e3a90*)x)->go_001fba60();
     return 0;
 }
 } // namespace fn_000e3a90

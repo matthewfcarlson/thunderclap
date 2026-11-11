@@ -137,10 +137,10 @@ struct Obj_1b3f90 {
     void target(Arg_1b3f90*);
 };
 struct Callee_1b3f90 {
-    void call(int);
+    void call_002eccd0(int);
 };
 struct Helper_1b3fc0 {
-    void init(int);
+    void init_002eccd0(int);
 };
 extern "C" void __cdecl FUN_002fa580(int);
 extern "C++" __declspec(nothrow) void __cdecl FUN_001b3c50();
@@ -167,7 +167,7 @@ class Param {
 };
 class Context {
   public:
-    void call(int);
+    void call_002eecb0(int);
 };
 class Target_1b4140 {
   public:
@@ -197,7 +197,7 @@ struct Arg {
 };
 class Mgr {
   public:
-    void Act(void*);
+    void Act_002eecb0(void*);
 };
 typedef unsigned int u32_1b4230;
 struct Obj_1b4230 {
@@ -247,7 +247,7 @@ struct Data {
 };
 class Inner {
   public:
-    void thunk(void*);
+    void thunk_002eecb0(void*);
 };
 struct Mask_1b4360 { unsigned lo, hi; };
 struct Data_1b4360 { char pad[0x58]; Mask_1b4360 a; Mask_1b4360 b; };
@@ -261,7 +261,7 @@ struct Router {
 };
 class D {
   public:
-    void f(void*);
+    void Fnf_002eecb0(void*);
 };
 class C_1b43f0 {
     char pad[8];
@@ -286,7 +286,7 @@ struct Receiver_1b4540 { void FUN_002eecb0(void*); };
 struct Target_1b4540 { char pad0[8]; Receiver_1b4540* receiver; char pad1[0x4f4-0xc]; void* enabled; Container_1b4540* container; bool FUN_001b4540(Argument_1b4540* arg); };
 class OtherClass {
   public:
-    void Other(int a, float b, float c);
+    void Other_002ece90(int a, float b, float c);
 };
 class Target {
   public:
@@ -320,11 +320,11 @@ class Ref {
 };
 class Elem {
   public:
-    void clear();
+    void clear_001b3420();
 };
 class Other {
   public:
-    void clean();
+    void clean_002eee00();
 };
 class Obj {
   public:
@@ -335,7 +335,7 @@ class Obj {
     int x;
     int y;
     int z;
-    void doIt(Vec, int, int, int);
+    void doIt_001b4620(Vec, int, int, int);
     bool Run(Arg* a);
     bool Fn(Data* d);
     void reset();
@@ -558,14 +558,14 @@ struct Obj_1b5ec0 {
     hulk_intptr h;
 };
 struct Mesh_1b5ec0 {
-    void Set(void* c, int v);
+    void Set_001b55c0(void* c, int v);
 };
 int FUN_002ee6d0(Obj_1b5ec0* o);
 struct Ctx_1b5ec0 {
-    void Reg(Obj_1b5ec0* o);
+    void Reg_002ee6d0(Obj_1b5ec0* o);
 };
 void* Cast(hulk_intptr h, int a, const void* from, const void* to, int b);
-extern char TFrom[], TTo[];
+extern char hulk_at_004c38f8[], hulk_at_004c3920[];
 struct Holder_1b5ec0 {
     char pad[8];
     Ctx_1b5ec0* ctx;
@@ -639,11 +639,11 @@ class Arena_1b6380 {
     unsigned int *mStart, *mFree, *mEnd;
     Arena_1b6380();
 };
-extern void* g_vftable_1b6530[];
-extern void* g_base_1b6530[];
+extern void* hulk_at_0041da90[];
+extern void* hulk_at_003f6098[];
 struct Elem_1b6530 {
     char b[0x138];
-    void Fini();
+    void Fini_001b39f0();
 };
 class CCollisionManager_1b6530 {
   public:
@@ -771,7 +771,7 @@ hulk_uintptr __fastcall FUN_001b3300(C_1b3300* self) {
 // sym: ?FUN_001b3320@fn_f5af65ff@@YAXHUVec@1@@Z
 void __cdecl FUN_001b3320(int n, Vec v) {
     if (n >= 0 && n < 13) {
-        ((Obj *)FUN_001b6580())->doIt(v, n, 0, 0);
+        ((Obj *)FUN_001b6580())->doIt_001b4620(v, n, 0, 0);
         _ReadWriteBarrier();
     }
 }
@@ -892,8 +892,8 @@ namespace fn_001b3790 {
 struct Vector {
     float x, y, z;
 };
-extern int c;
-unsigned char __cdecl lookup(const void*);
+extern int hulk_at_0048e10c;
+unsigned char __cdecl lookup_001d04d0(const void*);
 class Function_1b3790 {
   public:
     virtual void f();
@@ -912,9 +912,9 @@ class Function2 : public Function_1b3790 {
 };
 Function2::Function2(int arg, int v) : Function_1b3790(arg, 2) {
     val = v;
-    z = lookup(((int*)&DAT_0048e100));
-    x = lookup(((int*)&DAT_0048e134));
-    y = lookup(&c);
+    z = lookup_001d04d0(((int*)&DAT_0048e100));
+    x = lookup_001d04d0(((int*)&DAT_0048e134));
+    y = lookup_001d04d0(&hulk_at_0048e10c);
 }
 } // namespace fn_001b3790
 
@@ -966,7 +966,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 struct FUN_001d0480 {
     FUN_001d0480(const char*, int);
 };
-extern const int Function4_vftable;
+extern const int hulk_at_0041d994;
 class Function4 : public FUN_001d0480 {
   public:
     hulk_intptr vf;
@@ -975,7 +975,7 @@ class Function4 : public FUN_001d0480 {
     Function4(const char*, ScriptMemberFn);
 };
 Function4::Function4(const char* a, ScriptMemberFn b) : FUN_001d0480(a, 4) {
-    vf = (hulk_intptr)&Function4_vftable;
+    vf = (hulk_intptr)&hulk_at_0041d994;
     fn = b;
     f.retType = FUN_001d04d0(((char*)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e134));
@@ -1255,7 +1255,7 @@ void Obj_1b3f90::target(Arg_1b3f90* arg) {
     c = (hulk_intptr)arg;
     int g = DAT_004c3880;
     b = t;
-    ((Callee_1b3f90*)(*(void**)&DAT_00554c10))->call(g);
+    ((Callee_1b3f90*)(*(void**)&DAT_00554c10))->call_002eccd0(g);
 }
 
 
@@ -1264,7 +1264,7 @@ void Obj_1b3f90::target(Arg_1b3f90* arg) {
 void __fastcall target(Obj_1b3fc0* self) {
     if ((*(int*)&DAT_004e215c) == 0) {
         (*(int*)&DAT_004e215c) = (*(int*)&DAT_00554c10);
-        ((Helper_1b3fc0*)(*(int*)&DAT_00554c10))->init(0x40000000);
+        ((Helper_1b3fc0*)(*(int*)&DAT_00554c10))->init_002eccd0(0x40000000);
     }
     if (self->field == 0)
         self->field = (*(int*)&DAT_00554c14);
@@ -1307,9 +1307,9 @@ bool Target_1b4140::f(Param* p) {
     if (p->first)
         a = p->first->value;
     if (p->second && p->second->value)
-        context->call(p->second->value);
+        context->call_002eecb0(p->second->value);
     if (a)
-        context->call(a);
+        context->call_002eecb0(a);
     return true;
 }
 
@@ -1339,7 +1339,7 @@ bool Obj::Run(Arg* a) {
     void* p = a->p;
     bool r = true;
     if (p)
-        mgr->Act(p);
+        mgr->Act_002eecb0(p);
     else
         r = false;
     return r;
@@ -1374,7 +1374,7 @@ struct Thing {
 };
 class Manager {
   public:
-    void Act(void*);
+    void Act_002eecb0(void*);
 };
 class Obj {
   public:
@@ -1385,7 +1385,7 @@ class Obj {
 bool Obj::Test(Thing* t) {
     bool result = true;
     if (t->item)
-        mgr->Act(t->item);
+        mgr->Act_002eecb0(t->item);
     else
         result = false;
     return result;
@@ -1415,7 +1415,7 @@ bool Obj::Fn(Data* d) {
     void* p = d->ptr;
     bool ok = true;
     if (p)
-        field->thunk(p);
+        field->thunk_002eecb0(p);
     else
         ok = false;
     return ok;
@@ -1447,7 +1447,7 @@ bool C_1b43f0::target(void* p) {
     if (a) {
         void* b = *(void**)((char*)a + 0x74);
         if (b)
-            d->f(b);
+            d->Fnf_002eecb0(b);
     }
     return true;
 }
@@ -1518,7 +1518,7 @@ bool Target_1b4540::FUN_001b4540(Argument_1b4540* arg) {
 // sym: ?Fn@Target@fn_f5af65ff@@QAEXHMM@Z
 void Target::Fn(int a, float b, float c) {
     value = b;
-    (*(OtherClass**)&DAT_00554c10)->Other(a, b, c);
+    (*(OtherClass**)&DAT_00554c10)->Other_002ece90(a, b, c);
 }
 
 
@@ -1587,11 +1587,11 @@ void Obj::reset() {
         r->release();
         ref = 0;
     }
-    other->clean();
+    other->clean_002eee00();
     Elem* p = (Elem*)((char*)this + 0x3b8);
     int n = 4;
     do {
-        p->clear();
+        p->clear_001b3420();
         p = (Elem*)((char*)p - 0x138);
         --n;
     } while (n);
@@ -1910,11 +1910,11 @@ bool Holder_1b5ec0::Add(Obj_1b5ec0* o, int v) {
                 slots[i]->Release();
             slots[i] = o;
             vals[i] = v;
-            ctx->Reg(o);
+            ctx->Reg_002ee6d0(o);
             o = (Obj_1b5ec0*)o->h;
-            void* c = Cast((hulk_intptr)o, 0, TFrom, TTo, 0);
+            void* c = Cast((hulk_intptr)o, 0, hulk_at_004c38f8, hulk_at_004c3920, 0);
             if (c)
-                mesh.Set(c, v);
+                mesh.Set_001b55c0(c, v);
             return true;
         }
         i++;
@@ -2043,8 +2043,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_0041da2c[2];
+extern void* hulk_at_0041da60[2];
 extern void* TAB_48e0f0;
 
 struct FUN_001d0480 {
@@ -2064,12 +2064,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_0041da2c;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e0e4));
     f.argTypes[0] = FUN_001d04d0(&TAB_48e0f0);
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e134));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_0041da60;
     owner = a2;
 }
 } // namespace fn_001b61f0
@@ -2231,7 +2231,7 @@ namespace fn_f5af65ff {
 // 0x001b6530 FUN_001b6530 (74 B): matches/0x001b6530.cpp
 // sym: ??1CCollisionManager_1b6530@fn_f5af65ff@@QAE@XZ
 CCollisionManager_1b6530::~CCollisionManager_1b6530() {
-    *(void* volatile*)&vptr = g_vftable_1b6530;
+    *(void* volatile*)&vptr = hulk_at_0041da90;
 
     void* t = *(void* volatile*)&m594;
     m598 = t;
@@ -2241,10 +2241,10 @@ CCollisionManager_1b6530::~CCollisionManager_1b6530() {
     int i = 4;
     do {
         p--;
-        p->Fini();
+        p->Fini_001b39f0();
         i--;
     } while (i);
-    vptr = g_base_1b6530;
+    vptr = hulk_at_003f6098;
 }
 
 

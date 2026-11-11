@@ -24,17 +24,17 @@ class TrackFactoryTemplate_52430 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_52470;
+extern int hulk_at_003f85e8;
 struct ConditionFactoryTemplate_52470 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00235be0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 struct CFightNodeTimeCondition_524a0 {
     virtual ~CFightNodeTimeCondition_524a0();
     char pad[0x10];
-    void Initialize();
+    void Initialize_00235c10();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Result { char pad[0xdc]; };
@@ -65,9 +65,9 @@ namespace fn_fcf73221 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_52470@fn_fcf73221@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_52470::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_52470;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f85e8;
+    base1_dtor_00235be0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -81,7 +81,7 @@ void* ConditionFactoryTemplate_52470::scalar_dtor(unsigned char flags) {
 template <> void* fight::ConditionFactoryTemplate<CGrappleFightNodeTimeCondition>::vfunc_5() {
     CFightNodeTimeCondition_524a0* p = (CFightNodeTimeCondition_524a0*)FUN_0008d690((int)sizeof(CFightNodeTimeCondition_524a0));
     if (p) {
-        p->Initialize();
+        p->Initialize_00235c10();
         *(void**)p = &conditionVtable;
         return (void*)(p);
     }

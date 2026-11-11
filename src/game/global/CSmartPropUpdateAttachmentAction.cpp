@@ -32,7 +32,7 @@ class RefObj_1ecb0 {
     virtual void Release();
 };
 struct CSmartPropUpdateAttachmentAction_1ecb0 {
-    void Tidy();
+    void Tidy_002326a0();
 };
 struct Ref { virtual void vfunc_0(); virtual void vfunc_1(); };
 struct Attachment { char pad[0x14]; int id; };
@@ -175,7 +175,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         a->Release();
         mA = 0;
     }
-    ((CSmartPropUpdateAttachmentAction_1ecb0*)this)->Tidy();
+    ((CSmartPropUpdateAttachmentAction_1ecb0*)this)->Tidy_002326a0();
 }
 
 

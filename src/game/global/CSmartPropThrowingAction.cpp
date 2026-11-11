@@ -10,7 +10,7 @@ namespace fn_f05d8adb {} using namespace fn_f05d8adb;
 
 // ---- declarations shared by the functions below
 namespace fn_f05d8adb {
-extern void* g_vftable_21fa0[];
+extern void* hulk_at_003f3390[];
 class Ref_21fa0 {
   public:
     virtual void F0();
@@ -40,7 +40,7 @@ class CSmartPropThrowingAction {
 };
 class CSmartPropThrowingAction_21fe0 {
   public:
-    void Go();
+    void Go_002326a0();
 };
 extern void thunk_FUN_00267090(CSmartPropThrowingAction*);
 
@@ -48,7 +48,7 @@ extern void thunk_FUN_00267090(CSmartPropThrowingAction*);
 // 0x00021fa0 CSmartPropThrowAction::vfunc_2 (57 B): matches/0x00021fa0.cpp
 // sym: ?f2@CSmartPropThrowAction_21fa0@fn_f05d8adb@@QAEPAV12@E@Z
 CSmartPropThrowAction_21fa0* CSmartPropThrowAction_21fa0::f2(unsigned char flags) {
-    vptr = g_vftable_21fa0;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -70,7 +70,7 @@ CSmartPropThrowingAction* CSmartPropThrowingAction::V2(int flag) {
         member->Release();
         member = 0;
     }
-    ((CSmartPropThrowingAction_21fe0*)this)->Go();
+    ((CSmartPropThrowingAction_21fe0*)this)->Go_002326a0();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;

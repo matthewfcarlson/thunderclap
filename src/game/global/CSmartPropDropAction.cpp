@@ -14,14 +14,14 @@ struct Obj2_16440;
 struct Obj1_16440 {
 };
 struct Obj2_16440 {
-    Obj2_16440* second();
+    Obj2_16440* second_00059a30();
 };
 class CAction_16460 {
     char pad[0x1c];
 };
 struct HelperA_16460 {
     char pad[0x1c];
-    char* g();
+    char* Fng_00059a30();
 };
 
 } // namespace fn_f7925198
@@ -30,7 +30,7 @@ struct HelperA_16460 {
 // sym: ?vfunc_6@CSmartPropThrowingAction@@UAE_NH@Z
 bool CSmartPropThrowingAction::vfunc_6(int x) {
     Obj2_16440* p = ((Obj2_16440 *)((owners::Object_592a0 *)((*(Obj1_16440 * *)&this->f_1c)))->FUN_000592a0());
-    Obj2_16440* q = p->second();
+    Obj2_16440* q = p->second_00059a30();
     *((char*)q + 0x1f51) = 1;
     return true;
 }
@@ -41,7 +41,7 @@ bool CSmartPropThrowingAction::vfunc_6(int x) {
 void CSmartPropThrowingAction::vfunc_4() {
     HelperA_16460* p = *(HelperA_16460**)((char*)this + 0x1c);
     p = ((HelperA_16460 *)((owners::Object_592a0 *)p)->FUN_000592a0());
-    char* q = p->g();
+    char* q = p->Fng_00059a30();
     q[0x1f51] = 0;
 }
 

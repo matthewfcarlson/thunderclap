@@ -16,7 +16,7 @@ class FEThing_e8c20 {
 };
 class Target_e8c20 {
   public:
-    void go();
+    void go_000e63a0();
 };
 class FEDoAction_e8c20 {
   public:
@@ -39,7 +39,7 @@ class FEDoAction_e8be0 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_0040bfa0[];
 namespace pure3d {
 class NonCopyable : public FEDoAction_e8be0 {
   public:
@@ -50,7 +50,7 @@ class NonCopyable : public FEDoAction_e8be0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_0040bfa0;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -90,6 +90,6 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 // 0x000e8c20 FEDoPopDialog::vfunc_1 (11 B): matches/0x000e8c20.cpp
 // sym: ?vfunc_1@FEDoPopDialog@@UAEXXZ
 void FEDoPopDialog::vfunc_1() {
-    ((Target_e8c20*)(*(FEThing_e8c20 * *)&this->f_10)->m)->go();
+    ((Target_e8c20*)(*(FEThing_e8c20 * *)&this->f_10)->m)->go_000e63a0();
 }
 

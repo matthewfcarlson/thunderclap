@@ -9,7 +9,7 @@ namespace fn_f0d13c42 {} using namespace fn_f0d13c42;
 
 // ---- declarations shared by the functions below
 namespace fn_f0d13c42 {
-extern void* g_vftable_21f20[];
+extern void* hulk_at_003f3390[];
 class Ref_21f20 {
   public:
     virtual void F0();
@@ -30,7 +30,7 @@ class CSmartPropSetStateAction_21f20 : public CAction_21f20 {
 // 0x00021f20 CSmartPropSetStateAction::vfunc_2 (57 B): matches/0x00021f20.cpp
 // sym: ?f2@CSmartPropSetStateAction_21f20@fn_f0d13c42@@QAEPAV12@E@Z
 CSmartPropSetStateAction_21f20* CSmartPropSetStateAction_21f20::f2(unsigned char flags) {
-    vptr = g_vftable_21f20;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

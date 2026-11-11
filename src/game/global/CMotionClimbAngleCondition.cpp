@@ -12,10 +12,10 @@ namespace fn_f7347cb6 {} using namespace fn_f7347cb6;
 
 // ---- declarations shared by the functions below
 namespace fn_f7347cb6 {
-extern void* CCondition_4dc00_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4dc00 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CClimbEdgeCondition : public CCondition_4dc00 {
   public:
@@ -24,7 +24,7 @@ class CClimbEdgeCondition : public CCondition_4dc00 {
 extern void* CCondition_4dc30_vftable[];
 class CCondition_4dc30 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CMotionClimbAngleCondition : public CCondition_4dc30 {
   public:
@@ -38,8 +38,8 @@ class CMotionClimbAngleCondition : public CCondition_4dc30 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CClimbEdgeCondition* CClimbEdgeCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4dc00_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -54,7 +54,7 @@ CClimbEdgeCondition* CClimbEdgeCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CMotionClimbAngleCondition* CMotionClimbAngleCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4dc30_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

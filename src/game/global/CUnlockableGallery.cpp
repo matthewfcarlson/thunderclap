@@ -11,14 +11,14 @@ namespace fn_fbee45d4 {} using namespace fn_fbee45d4;
 
 // ---- declarations shared by the functions below
 namespace fn_fbee45d4 {
-extern void* gG_935b0[];
-extern void* gB_935b0[];
+extern void* hulk_at_004044cc[];
+extern void* hulk_at_0040449c[];
 } // namespace fn_fbee45d4
 void operator delete[](void*);
 namespace fn_fbee45d4 {
 struct S_935b0 {
     int a, b;
-    void Fini();
+    void Fini_0027af50();
 };
 class CUnlockableGallery_935b0 {
   public:
@@ -35,15 +35,15 @@ class CUnlockableGallery_935b0 {
 // 0x000935b0 CUnlockableGallery::vfunc_0 (79 B): matches/0x000935b0.cpp
 // sym: ?f0@CUnlockableGallery_935b0@fn_fbee45d4@@QAEPAV12@E@Z
 CUnlockableGallery_935b0* CUnlockableGallery_935b0::f0(unsigned char flags) {
-    vptr = gG_935b0;
-    sa8.Fini();
+    vptr = hulk_at_004044cc;
+    sa8.Fini_0027af50();
     void* p = m18;
-    vptr = gB_935b0;
+    vptr = hulk_at_0040449c;
     if (p) {
         operator delete[](p);
         m18 = 0;
     }
-    s10.Fini();
+    s10.Fini_0027af50();
     if (flags & 1)
         operator delete(this);
     return this;

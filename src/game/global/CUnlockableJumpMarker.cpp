@@ -13,7 +13,7 @@ namespace fn_f6003de1 {} using namespace fn_f6003de1;
 namespace fn_f6003de1 {
 class Inner_93530 {
   public:
-    void Reset();
+    void Reset_0027af50();
 };
 class CUnlockableJumpMarker_93530 {
   public:
@@ -47,7 +47,7 @@ class CUnlockableMove : public CUnlockableMove_934d0 {
   public:
     CUnlockableMove(int x);
     virtual void g();
-    void Init(int x);
+    void Init_00091fe0(int x);
     char pad1c[4];
     char flag20;
     char pad21[3];
@@ -62,7 +62,7 @@ class CUnlockableMove : public CUnlockableMove_934d0 {
     char flag48;
 };
 CUnlockableMove::CUnlockableMove(int x) : flag20(0), val24(0), val28(-1), flag2c(0), val30(0), flag48(0) {
-    Init(x);
+    Init_00091fe0(x);
 }
 } // namespace fn_000934d0
 
@@ -76,7 +76,7 @@ CUnlockableJumpMarker_93530::~CUnlockableJumpMarker_93530() {
         FreeMem(mPtr18);
         mPtr18 = 0;
     }
-    ((Inner_93530*)((char*)this + 0x10))->Reset();
+    ((Inner_93530*)((char*)this + 0x10))->Reset_0027af50();
 }
 
 } // namespace fn_f6003de1

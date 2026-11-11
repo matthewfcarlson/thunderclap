@@ -24,10 +24,10 @@ class IRefCount_1e8c20 {
     int mRefCount;
 };
 typedef unsigned int U_1e8c70;
-extern U_1e8c70 __cdecl F40750();
-extern void __cdecl F416c0(U_1e8c70, hulk_uintptr, int);
-extern void __cdecl F43090(U_1e8c70, hulk_uintptr);
-extern void __cdecl F42ca0(U_1e8c70, hulk_uintptr);
+extern U_1e8c70 __cdecl F40750_00240750();
+extern void __cdecl F416c0_002416c0(U_1e8c70, hulk_uintptr, int);
+extern void __cdecl F43090_00243090(U_1e8c70, hulk_uintptr);
+extern void __cdecl F42ca0_00242ca0(U_1e8c70, hulk_uintptr);
 class Obj_1e8c70 {
   public:
     char pad[0x34];
@@ -39,7 +39,7 @@ class Target_1e8c70 {
     Obj_1e8c70* p;
 };
 extern "C" int __cdecl get();
-extern "C" void __cdecl action(int, int, float);
+extern "C" void __cdecl action_00242f60(int, int, float);
 class Obj {
     char pad[12];
     int value;
@@ -51,8 +51,8 @@ void *__cdecl FUN_00240750();
 extern "C" void __cdecl FUN_002416c0(void*, void*, float);
 class Manager_1e8e00 {
   public:
-    bool Ready();
-    void Finish();
+    bool Ready_00266750();
+    void Finish_00263e90();
 };
 class State_1e8e00 {
   public:
@@ -71,7 +71,7 @@ class CSoundSequence_1e9180 : public core::IRefCount {
     char pad[0x18];
     void* member;
 };
-extern int seq_vftable_1e9180, base_vftable;
+extern int hulk_at_00423f38, hulk_at_003f6098;
 struct LevelKeys {
     unsigned __int64 keys[28];
 };
@@ -158,12 +158,12 @@ class Obj_1e9900 {
     int count;
     void* Find(int* key);
 };
-int CheckThing();
-void ApplyThing(int, int, float);
+int CheckThing_00240750();
+void ApplyThing_00242f60(int, int, float);
 struct Obj_1e9a90 {
     char pad[12];
     int value;
-    void Reset(int);
+    void Reset_001e8d00(int);
 };
 struct ThisCall_001e9960 {
     void* FUN_001e9960(int);
@@ -223,13 +223,13 @@ namespace fn_f9e85a4e {
 // 0x001e8c70 FUN_001e8c70 (80 B): matches/0x001e8c70.cpp
 // sym: ?target@fn_f9e85a4e@@YIXPAVTarget_1e8c70@1@@Z
 void __fastcall target(Target_1e8c70* self) {
-    U_1e8c70 x = F40750();
+    U_1e8c70 x = F40750_00240750();
     Obj_1e8c70** q = &self->p;
-    F416c0(x, (hulk_uintptr)*q, 0);
+    F416c0_002416c0(x, (hulk_uintptr)*q, 0);
     while ((*q)->field != 0) {
-        F43090(F40750(), 0x3a83126f);
+        F43090_00243090(F40750_00240750(), 0x3a83126f);
     }
-    F42ca0(F40750(), (hulk_uintptr)q);
+    F42ca0_00242ca0(F40750_00240750(), (hulk_uintptr)q);
 }
 
 
@@ -239,7 +239,7 @@ void Obj::fn(unsigned int n) {
     if (get()) {
         int x = get();
         float f = (float)n;
-        action(x, value, f);
+        action_00242f60(x, value, f);
     }
 }
 
@@ -263,9 +263,9 @@ void State_1e8e00::update() {
     int n = value;
     --n;
     if (n == 0) {
-        if ((*(Manager_1e8e00**)&DAT_004e3694)->Ready()) {
+        if ((*(Manager_1e8e00**)&DAT_004e3694)->Ready_00266750()) {
             value = 3;
-            (*(Manager_1e8e00**)&DAT_004e3694)->Finish();
+            (*(Manager_1e8e00**)&DAT_004e3694)->Finish_00263e90();
             (*(Manager_1e8e00**)&DAT_004e3694) = 0;
         }
     }
@@ -284,7 +284,7 @@ X_1e9000* X_1e9000::copy(X_1e9000* p) {
 // 0x001e9180 CSoundSequence::vfunc_2 (56 B): matches/0x001e9180.cpp
 // sym: ?f2@CSoundSequence_1e9180@fn_f9e85a4e@@UAEPAV12@E@Z
 CSoundSequence_1e9180* CSoundSequence_1e9180::f2(unsigned char flag) {
-    *(hulk_ulongptr*)this = (hulk_ulongptr)&seq_vftable_1e9180;
+    *(hulk_ulongptr*)this = (hulk_ulongptr)&hulk_at_00423f38;
     if (member) {
         struct X {
             virtual void a();
@@ -293,7 +293,7 @@ CSoundSequence_1e9180* CSoundSequence_1e9180::f2(unsigned char flag) {
         ((X*)member)->b();
         member = 0;
     }
-    *(hulk_ulongptr*)this = (hulk_ulongptr)&base_vftable;
+    *(hulk_ulongptr*)this = (hulk_ulongptr)&hulk_at_003f6098;
     if (flag & 1)
         thunk(this);
     return this;
@@ -504,10 +504,10 @@ void owners::ThisWrap_001e9a90::FUN_001e9a90(hulk_intptr a, unsigned int b) {
     Obj_1e9a90* p = (Obj_1e9a90*)this->GetThing(((int)a));
     if (p && p != (*(Obj_1e9a90**)&DAT_004e3698)) {
         if ((*(Obj_1e9a90**)&DAT_004e3698))
-            (*(Obj_1e9a90**)&DAT_004e3698)->Reset(b);
-        if (CheckThing()) {
-            int y = CheckThing();
-            ApplyThing(y, p->value, (float)b);
+            (*(Obj_1e9a90**)&DAT_004e3698)->Reset_001e8d00(b);
+        if (CheckThing_00240750()) {
+            int y = CheckThing_00240750();
+            ApplyThing_00242f60(y, p->value, (float)b);
         }
         (*(Obj_1e9a90**)&DAT_004e3698) = p;
     }

@@ -11,10 +11,10 @@ namespace fn_ff117ca4 {} using namespace fn_ff117ca4;
 
 // ---- declarations shared by the functions below
 namespace fn_ff117ca4 {
-extern void* CCondition_4da80_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4da80 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CCharacterBoolCondition : public CCondition_4da80 {
   public:
@@ -38,14 +38,14 @@ class CFightNodePrevCondition : public CCondition {
 };
 class CIntentionSpeedCondition_4dab0 {
   public:
-    void a();
-    void b();
+    void Fna_00234150();
+    void Fnb_002345b0();
 };
 void thunk_FUN_00267090(void*);
 extern void* CCondition_4daf0_vftable[];
 class CCondition_4daf0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CIntentionSpeedCondition : public CCondition_4daf0 {
   public:
@@ -59,8 +59,8 @@ class CIntentionSpeedCondition : public CCondition_4daf0 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CCharacterBoolCondition* CCharacterBoolCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4da80_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -74,9 +74,9 @@ CCharacterBoolCondition* CCharacterBoolCondition::vfunc_5(signed char flags) {
 CFightNodePrevCondition* CFightNodePrevCondition::vfunc_5(int p) {
     CFightNodePrevCondition* s = this;
     *(void (**)())s = &vt_name;
-    ((CIntentionSpeedCondition_4dab0*)((char*)s + 0x10))->a();
+    ((CIntentionSpeedCondition_4dab0*)((char*)s + 0x10))->Fna_00234150();
     *(void (**)())s = &vt_cond;
-    ((CIntentionSpeedCondition_4dab0*)s)->b();
+    ((CIntentionSpeedCondition_4dab0*)s)->Fnb_002345b0();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;
@@ -90,7 +90,7 @@ CFightNodePrevCondition* CFightNodePrevCondition::vfunc_5(int p) {
  // thunk_FUN_00267090
 CIntentionSpeedCondition* CIntentionSpeedCondition::vfunc_5(signed char flags) {
     *(void***)this = CCondition_4daf0_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

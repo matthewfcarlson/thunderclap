@@ -17,7 +17,7 @@ namespace fn_f34eeb08 {
 typedef unsigned int uint_d7030;
 class Helper_d7030 {
   public:
-    void Run(uint_d7030 value);
+    void Run_000cae40(uint_d7030 value);
 };
 class Target_d7030 {
   public:
@@ -49,15 +49,15 @@ class Function_d71d0 {
 };
 class X_d71f0 {
   public:
-    void a(int, int, int);
-    unsigned int b();
-    void c(unsigned int);
+    void Fna_000d3170(int, int, int);
+    unsigned int Fnb_000cae60();
+    void Fnc_000cae40(unsigned int);
 };
 class Y_d71f0 {
   public:
     char pad[4];
     unsigned char x;
-    void a(int, int, int);
+    void Fna_000d40e0(int, int, int);
 };
 class Z {
   public:
@@ -79,7 +79,7 @@ class Sub_d7250 {
 };
 class Inner_d7250 {
   public:
-    unsigned Get();
+    unsigned Get_000cae50();
 };
 class Obj_d7250 {
   public:
@@ -92,7 +92,7 @@ class Obj_d7250 {
 struct Child_d72b0 {
     char pad[4];
     char flag;
-    unsigned int GetFlags();
+    unsigned int GetFlags_000cae50();
 };
 struct Obj_d72b0 {
     char pad[4];
@@ -126,7 +126,7 @@ class IRefCount {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_0040b394[];
 namespace pure3d {
 class NonCopyable : public IRefCount {
   public:
@@ -137,7 +137,7 @@ class NonCopyable : public IRefCount {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_0040b394;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -149,7 +149,7 @@ namespace fn_f34eeb08 {
 // 0x000d7030 FUN_000d7030 (49 B): matches/0x000d7030.cpp
 // sym: ?Run@Target_d7030@fn_f34eeb08@@QAEXI@Z
 void Target_d7030::Run(uint_d7030 value) {
-    middle->Run(value);
+    middle->Run_000cae40(value);
     *((byte*)first + 4) = (byte)((value >> 7) & 1);
     *((byte*)third + 4) = (byte)((value >> 8) & 1);
 }
@@ -212,10 +212,10 @@ namespace fn_f34eeb08 {
 // 0x000d71f0 FUN_000d71f0 (93 B): matches/0x000d71f0.cpp
 // sym: ?f@A_d71f0@fn_f34eeb08@@QAEXHHH@Z
 void A_d71f0::f(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    p8->a(a, b, c);
-    p4->a(a, b, c);
-    unsigned int v = p8->b();
-    p8->c(v);
+    p8->Fna_000d3170(a, b, c);
+    p4->Fna_000d40e0(a, b, c);
+    unsigned int v = p8->Fnb_000cae60();
+    p8->Fnc_000cae40(v);
     p4->x = (unsigned char)((v >> 7) & 1);
     pc->x = (unsigned char)((v >> 8) & 1);
 }
@@ -224,7 +224,7 @@ void A_d71f0::f(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
 // 0x000d7250 FUN_000d7250 (90 B): matches/0x000d7250.cpp
 // sym: ?Run@Obj_d7250@fn_f34eeb08@@QAEXI@Z
 void Obj_d7250::Run(unsigned bits) {
-    unsigned x = inner->Get() & ~0x80u;
+    unsigned x = inner->Get_000cae50() & ~0x80u;
     if (a)
         x |= 0x80;
     if (b)
@@ -239,7 +239,7 @@ void Obj_d7250::Run(unsigned bits) {
 // 0x000d72b0 FUN_000d72b0 (90 B): matches/0x000d72b0.cpp
 // sym: ?Update@Obj_d72b0@fn_f34eeb08@@QAEXI@Z
 void Obj_d72b0::Update(unsigned int mask) {
-    unsigned int flags = b->GetFlags();
+    unsigned int flags = b->GetFlags_000cae50();
     unsigned int keep = mask;
     flags &= 0xffffff7f;
     if (a)
@@ -265,7 +265,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C++" __declspec(nothrow) byte __cdecl GetFlag(void*);
+extern "C++" __declspec(nothrow) byte __cdecl GetFlag_001d04d0(void*);
 class Base : public CtorV_001d0480 {
   public:
     Base(const char* p) : CtorV_001d0480(p, 1) { }
@@ -284,8 +284,8 @@ class Closure1 : public Closure1_d7310 {
 };
 Closure1_d7310::Closure1_d7310(const char* p, ScriptMemberFn c) : Base(p) {
     obj = c;
-    retType = GetFlag(((int*)&DAT_0048e100));
-    argTypes[0] = GetFlag(((int*)&DAT_0048e0e4));
+    retType = GetFlag_001d04d0(((int*)&DAT_0048e100));
+    argTypes[0] = GetFlag_001d04d0(((int*)&DAT_0048e0e4));
 }
 Closure1::Closure1(const char* p, void* e, ScriptMemberFn c) : Closure1_d7310(p, c), extra(e) {}
 } // namespace fn_000d7310
@@ -318,7 +318,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C++" __declspec(nothrow) unsigned char __cdecl lookup(const char*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl lookup_001d04d0(const char*);
 class Function_d73a0 : public CtorV_001d0480 {
   public:
     Function_d73a0(const char* a) : CtorV_001d0480(a, 1) { }
@@ -329,8 +329,8 @@ class Method1 : public Function_d73a0 {
     ScriptMemberFn value;
     Method1(const char* a, ScriptMemberFn c) : Function_d73a0(a) {
         value = c;
-        retType = lookup(((const char*)&DAT_0048e100));
-        argTypes[0] = lookup(((const char*)&DAT_0048e134));
+        retType = lookup_001d04d0(((const char*)&DAT_0048e100));
+        argTypes[0] = lookup_001d04d0(((const char*)&DAT_0048e134));
     }
 };
 class Closure1 : public Method1 {

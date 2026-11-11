@@ -11,10 +11,10 @@ namespace fn_f9802d26 {} using namespace fn_f9802d26;
 
 // ---- declarations shared by the functions below
 namespace fn_f9802d26 {
-extern void* CAxisTimeCondition_4b600_vftable[];
+extern void* hulk_at_003f6d50[];
 class CAxisTimeCondition_4b600 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CAxisArcCondition : public CAxisTimeCondition_4b600 {
   public:
@@ -28,8 +28,8 @@ class CAxisArcCondition : public CAxisTimeCondition_4b600 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CAxisArcCondition* CAxisArcCondition::vfunc_5(signed char flags) {
-    *(void***)this = CAxisTimeCondition_4b600_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

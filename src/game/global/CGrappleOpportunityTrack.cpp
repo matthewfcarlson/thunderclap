@@ -17,14 +17,14 @@ namespace fn_f63372f2 {
 struct A_5a740 {
 };
 struct B_5a740 {
-    void* second();
+    void* second_00059a30();
 };
 struct Data_5a740 {
     char pad330[0x330];
     void* p330;
     void* p334;
 };
-extern int* gTable_5a820;
+extern int* hulk_at_004dc590;
 class CCondition_5a820 {
   public:
     virtual int vfunc_0(int);
@@ -56,27 +56,27 @@ struct CTrack_5a900 {
 struct A_5a910 {
 };
 struct B_5a910 {
-    void* second();
+    void* second_00059a30();
 };
 struct Data_5a910 {
     char pad330[0x330];
     void* p330;
     void* p334;
 };
-extern int* gTable_5a9f0;
+extern int* hulk_at_004dc598;
 class CCondition_5a9f0 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* gA_5aaa0[];
+extern void* hulk_at_003f9944[];
 struct S_5aaa0 {
     int a;
-    void Fini();
+    void Fini_0027af50();
 };
 class CTrack_5aaa0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00068c70();
 };
 class CGrappleAttachTrack_5aaa0 : public CTrack_5aaa0 {
   public:
@@ -90,10 +90,10 @@ class CGrappleAttachTrack_5aaa0 : public CTrack_5aaa0 {
 };
 class R_5aad0 {
   public:
-    int invoke(CGrappleAttachTrack*, hulk_intptr);
+    int invoke_0001dcd0(CGrappleAttachTrack*, hulk_intptr);
 };
 extern R_5aad0* FUN_0008d690(int);
-extern int* gTable_5ab20;
+extern int* hulk_at_004dc5a0;
 class CCondition_5ab20 {
   public:
     virtual int vfunc_0(int);
@@ -124,31 +124,31 @@ class CGrappleSwapTrack_5ab30 : public CTrack_5ab30 {
 extern "C" char DAT_003f9980[];
 class Helper_5abb0 {
   public:
-    void Init();
-    void Finish();
+    void Init_0027af50();
+    void Finish_00068c70();
 };
-extern int* gTable_5ac30;
+extern int* hulk_at_004dc5a8;
 class CCondition_5ac30 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_5acf0;
+extern int* hulk_at_004dc5b0;
 class CCondition_5acf0 {
   public:
     virtual int vfunc_0(int);
 };
-extern float gNegOne;
-extern void* g_a_5ad80[];
+extern float hulk_at_003f3388;
+extern void* hulk_at_003f99f8[];
 struct S1_5ad80 {
-    void Fin();
+    void Fin_00236fd0();
 };
 struct S2_5ad80 {
-    void Fin();
+    void Fin_00234150();
 };
 class Track_5ad80 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class CGrappleOpportunityTrack_5ad80 : public Track_5ad80 {
   public:
@@ -164,9 +164,9 @@ struct Obj_5adb0 {
     int* p334;
 };
 struct Context_5adb0 {
-    Obj_5adb0* second();
+    Obj_5adb0* second_00059a30();
 };
-extern int* gTable_5af20;
+extern int* hulk_at_004dc5b8;
 class CCondition_5af20 {
   public:
     virtual int vfunc_0(int);
@@ -174,15 +174,15 @@ class CCondition_5af20 {
 extern "C" char DAT_003f9a2c[];
 class A_5af80 {
   public:
-    void InitA();
+    void InitA_00236fd0();
 };
 class B_5af80 {
   public:
-    void InitB();
+    void InitB_00234150();
 };
 class CGrappleOpportunityTrack_5af80 {
   public:
-    void Finish();
+    void Finish_00236d60();
 };
 struct Obj_5afb0 {
     char pad[0x330];
@@ -190,9 +190,9 @@ struct Obj_5afb0 {
     int* p334;
 };
 struct Context_5afb0 {
-    Obj_5afb0* second();
+    Obj_5afb0* second_00059a30();
 };
-extern int* gTable_5b0d0;
+extern int* hulk_at_004dc5c0;
 class CCondition_5b0d0 {
   public:
     virtual int vfunc_0(int);
@@ -230,7 +230,7 @@ public:
 struct A_5b230 {
 };
 struct B_5b230 {
-    void* second();
+    void* second_00059a30();
 };
 struct Data_5b230 {
     char pad330[0x330];
@@ -258,7 +258,7 @@ struct CInvincibleAction_5b280 {
 struct A_5b300 {
 };
 struct B_5b300 {
-    void* second();
+    void* second_00059a30();
 };
 struct Data_5b300 {
     char pad330[0x330];
@@ -285,7 +285,7 @@ struct CUninterruptibleAction_5b350 {
 struct A_5b3d0 {
 };
 struct B_5b3d0 {
-    void* second();
+    void* second_00059a30();
 };
 struct Data_5b3d0 {
     char pad330[0x330];
@@ -312,7 +312,7 @@ struct CInvulnerableAction_5b420 {
 struct A_5b4a0 {
 };
 struct B_5b4a0 {
-    void* second();
+    void* second_00059a30();
 };
 struct Data_5b4a0 {
     char pad330[0x330];
@@ -322,7 +322,7 @@ struct Data_5b4a0 {
 struct A_5b560 {
 };
 struct B_5b560 {
-    void* second();
+    void* second_00059a30();
 };
 struct Data_5b560 {
     char pad330[0x330];
@@ -332,7 +332,7 @@ struct Data_5b560 {
 struct A_5b620 {
 };
 struct B_5b620 {
-    void* second();
+    void* second_00059a30();
 };
 struct Data_5b620 {
     char pad330[0x330];
@@ -388,7 +388,7 @@ class ParamValueInt_5b9e0 : public ParamValue_5b9e0 {
   public:
     int pad;
 };
-extern int gVtable;
+extern int hulk_at_003f9af0;
 class ParamValueBool_5b9f0 {
   public:
     virtual void V();
@@ -656,7 +656,7 @@ void* CGrappleAutoTargetTrack::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((void *)((owners::Object_592a0 *)(((A_5a740*)param)))->FUN_000592a0());
         if (a) {
-            void* b = ((B_5a740*)a)->second();
+            void* b = ((B_5a740*)a)->second_00059a30();
             if (b) {
                 Data_5a740* d = (Data_5a740*)b;
                 if (d->p334)
@@ -684,7 +684,7 @@ void FUN_0005a800() {
 // sym: ?vfunc_0@CGrappleLocoStrafe4Track@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CGrappleLocoStrafe4Track::vfunc_0(int index) {
-    int* p = gTable_5a820;
+    int* p = hulk_at_004dc590;
     return p[index];
 }
 
@@ -757,7 +757,7 @@ void* CGrappleLocoStrafe4Track::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((void *)((owners::Object_592a0 *)(((A_5a910*)param)))->FUN_000592a0());
         if (a) {
-            void* b = ((B_5a910*)a)->second();
+            void* b = ((B_5a910*)a)->second_00059a30();
             if (b) {
                 Data_5a910* d = (Data_5a910*)b;
                 if (d->p334)
@@ -785,7 +785,7 @@ void FUN_0005a9d0() {
 // sym: ?vfunc_0@CGrappleAttachTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CGrappleAttachTrack::vfunc_0(int index) {
-    int* p = gTable_5a9f0;
+    int* p = hulk_at_004dc598;
     return p[index];
 }
 
@@ -880,11 +880,11 @@ namespace fn_f63372f2 {
 // 0x0005aaa0 FUN_0005aaa0 (41 B): matches/0x0005aaa0.cpp
 // sym: ??1CGrappleAttachTrack_5aaa0@fn_f63372f2@@QAE@XZ
 CGrappleAttachTrack_5aaa0::~CGrappleAttachTrack_5aaa0() {
-    vptr = gA_5aaa0;
-    s40.Fini();
-    s18.Fini();
-    s10.Fini();
-    Fin();
+    vptr = hulk_at_003f9944;
+    s40.Fini_0027af50();
+    s18.Fini_0027af50();
+    s10.Fini_0027af50();
+    Fin_00068c70();
 }
 
 } // namespace fn_f63372f2
@@ -894,7 +894,7 @@ CGrappleAttachTrack_5aaa0::~CGrappleAttachTrack_5aaa0() {
 hulk_intptr CGrappleAttachTrack::vfunc_12(hulk_intptr param) {
     R_5aad0* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_0001dcd0(this, param);
     return 0;
 }
 
@@ -913,7 +913,7 @@ void FUN_0005ab00() {
 // sym: ?vfunc_0@CGrappleSwapTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CGrappleSwapTrack::vfunc_0(int index) {
-    int* p = gTable_5ab20;
+    int* p = hulk_at_004dc5a0;
     return p[index];
 }
 
@@ -955,9 +955,9 @@ hulk_freg CGrappleSwapTrack::vfunc_7() {
 // sym: ?FUN_0005abb0@CGrappleSwapTrack@@QAEXXZ
 void CGrappleSwapTrack::FUN_0005abb0() {
     *(void**)this = (void*)((hulk_intptr)DAT_003f9980);
-    ((Helper_5abb0*)((char*)this + 0x18))->Init();
-    ((Helper_5abb0*)((char*)this + 0x10))->Init();
-    ((Helper_5abb0*)this)->Finish();
+    ((Helper_5abb0*)((char*)this + 0x18))->Init_0027af50();
+    ((Helper_5abb0*)((char*)this + 0x10))->Init_0027af50();
+    ((Helper_5abb0*)this)->Finish_00068c70();
 }
 
 namespace fn_f63372f2 {
@@ -975,7 +975,7 @@ void FUN_0005ac10() {
 // sym: ?vfunc_0@CGrappleDetachTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CGrappleDetachTrack::vfunc_0(int index) {
-    int* p = gTable_5ac30;
+    int* p = hulk_at_004dc5a8;
     return p[index];
 }
 
@@ -1047,7 +1047,7 @@ void FUN_0005acd0() {
 // sym: ?vfunc_0@CGrappleOpportunityTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CGrappleOpportunityTrack::vfunc_0(int index) {
-    int* p = gTable_5acf0;
+    int* p = hulk_at_004dc5b0;
     return p[index];
 }
 
@@ -1063,13 +1063,13 @@ class Track_5ad00 {
 
 class Sub1_5ad00 {
   public:
-    void Init();
+    void Init_00233dd0();
     char m[0xc];
 };
 
 class Sub2_5ad00 {
   public:
-    void Init();
+    void Init_00236e00();
     char m[0x100];
 };
 
@@ -1091,9 +1091,9 @@ CGrappleOpportunityTrack::CGrappleOpportunityTrack() {
     m0c = 0;
     m10 = -1.0f;
     m14 = -1.0f;
-    s1.Init();
+    s1.Init_00233dd0();
     m24 = 0;
-    s2.Init();
+    s2.Init_00236e00();
     m8 = 1;
 }
 } // namespace fn_0005ad00
@@ -1120,7 +1120,7 @@ void CGrappleOpportunityTrack::vfunc_11(void* __p0) { unsigned long * out = (uns
 // sym: ?vfunc_7@CGrappleOpportunityTrack@@UAEMXZ
 // Same code shape as 0x000695a0 (propagated; names are from that function)
 hulk_freg CGrappleOpportunityTrack::vfunc_7() {
-    return gNegOne;
+    return hulk_at_003f3388;
 }
 
 namespace fn_f63372f2 {
@@ -1128,10 +1128,10 @@ namespace fn_f63372f2 {
 // 0x0005ad80 FUN_0005ad80 (33 B): matches/0x0005ad80.cpp
 // sym: ?f@CGrappleOpportunityTrack_5ad80@fn_f63372f2@@QAEXXZ
 void CGrappleOpportunityTrack_5ad80::f() {
-    vptr = g_a_5ad80;
-    s1.Fin();
-    s2.Fin();
-    Fin();
+    vptr = hulk_at_003f99f8;
+    s1.Fin_00236fd0();
+    s2.Fin_00234150();
+    Fin_00236d60();
 }
 
 } // namespace fn_f63372f2
@@ -1145,7 +1145,7 @@ void* CGrappleOpportunityTrack::vfunc_8(void* __p0, void* __p1) { void * p = (vo
     Obj_5adb0* a = ((Obj_5adb0 *)((owners::Object_592a0 *)(((Context_5adb0*)p)))->FUN_000592a0());
     if (!a)
         return (void*)(0);
-    Obj_5adb0* b = ((Context_5adb0*)a)->second();
+    Obj_5adb0* b = ((Context_5adb0*)a)->second_00059a30();
     if (!b)
         return (void*)(0);
     if (b->p334)
@@ -1204,7 +1204,7 @@ void FUN_0005af00() {
 // sym: ?vfunc_0@CGrappleSequenceTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CGrappleSequenceTrack::vfunc_0(int index) {
-    int* p = gTable_5af20;
+    int* p = hulk_at_004dc5b8;
     return p[index];
 }
 
@@ -1258,7 +1258,7 @@ hulk_freg CGrappleSequenceTrack::vfunc_6() {
 // sym: ?vfunc_7@CGrappleSequenceTrack@@UAEMXZ
 // Same code shape as 0x000695a0 (propagated; names are from that function)
 hulk_freg CGrappleSequenceTrack::vfunc_7() {
-    return gNegOne;
+    return hulk_at_003f3388;
 }
 
 
@@ -1266,9 +1266,9 @@ hulk_freg CGrappleSequenceTrack::vfunc_7() {
 // sym: ?FUN_0005af80@CGrappleSequenceTrack@@QAEXXZ
 void CGrappleSequenceTrack::FUN_0005af80() {
     *(void**)this = (void*)((hulk_intptr)DAT_003f9a2c);
-    ((A_5af80*)((char*)this + 0x1c))->InitA();
-    ((B_5af80*)((char*)this + 0x0c))->InitB();
-    ((CGrappleOpportunityTrack_5af80*)this)->Finish();
+    ((A_5af80*)((char*)this + 0x1c))->InitA_00236fd0();
+    ((B_5af80*)((char*)this + 0x0c))->InitB_00234150();
+    ((CGrappleOpportunityTrack_5af80*)this)->Finish_00236d60();
 }
 
 
@@ -1282,7 +1282,7 @@ void* CGrappleSequenceTrack::vfunc_8(void* __p0, void* __p1) { void * p = (void 
     Obj_5afb0* a = ((Obj_5afb0 *)((owners::Object_592a0 *)(((Context_5afb0*)p)))->FUN_000592a0());
     if (!a)
         return (void*)(0);
-    Obj_5afb0* b = ((Context_5afb0*)a)->second();
+    Obj_5afb0* b = ((Context_5afb0*)a)->second_00059a30();
     if (!b)
         return (void*)(0);
     if (b->p334)
@@ -1339,7 +1339,7 @@ void FUN_0005b0b0() {
 // sym: ?vfunc_0@CGrabTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CGrabTrack::vfunc_0(int index) {
-    int* p = gTable_5b0d0;
+    int* p = hulk_at_004dc5c0;
     return p[index];
 }
 
@@ -1428,12 +1428,12 @@ class CGrabTrack {
 extern "C" void __fastcall FUN_0027af50(void*);
 extern "C" void __fastcall FUN_00234150(void*);
 extern "C" void __fastcall FUN_00234150(void*);
-void __fastcall FD(void*);
+void __fastcall FD_00236d60(void*);
 CGrabTrack::~CGrabTrack() {
     FUN_00234150((char*)this + 0x44);
     FUN_00234150((char*)this + 0x38);
     FUN_0027af50((char*)this + 0x18);
-    FD(this);
+    FD_00236d60(this);
 }
 } // namespace fn_0005b170
 
@@ -1470,7 +1470,7 @@ void* CGrappleInvincibleTrack::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((void *)((owners::Object_592a0 *)(((A_5b230*)param)))->FUN_000592a0());
         if (a) {
-            void* b = ((B_5b230*)a)->second();
+            void* b = ((B_5b230*)a)->second_00059a30();
             if (b) {
                 Data_5b230* d = (Data_5b230*)b;
                 if (d->p334)
@@ -1521,7 +1521,7 @@ void* CGrappleUninterruptibleTrack::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((void *)((owners::Object_592a0 *)(((A_5b300*)param)))->FUN_000592a0());
         if (a) {
-            void* b = ((B_5b300*)a)->second();
+            void* b = ((B_5b300*)a)->second_00059a30();
             if (b) {
                 Data_5b300* d = (Data_5b300*)b;
                 if (d->p334)
@@ -1572,7 +1572,7 @@ void* CGrappleInvulnerableTrack::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((void *)((owners::Object_592a0 *)(((A_5b3d0*)param)))->FUN_000592a0());
         if (a) {
-            void* b = ((B_5b3d0*)a)->second();
+            void* b = ((B_5b3d0*)a)->second_00059a30();
             if (b) {
                 Data_5b3d0* d = (Data_5b3d0*)b;
                 if (d->p334)
@@ -1623,7 +1623,7 @@ void* CGrappleIntangibleTrack::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((void *)((owners::Object_592a0 *)(((A_5b4a0*)param)))->FUN_000592a0());
         if (a) {
-            void* b = ((B_5b4a0*)a)->second();
+            void* b = ((B_5b4a0*)a)->second_00059a30();
             if (b) {
                 Data_5b4a0* d = (Data_5b4a0*)b;
                 if (d->p334)
@@ -1644,7 +1644,7 @@ void* CGrappleSoundTrack::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((void *)((owners::Object_592a0 *)(((A_5b560*)param)))->FUN_000592a0());
         if (a) {
-            void* b = ((B_5b560*)a)->second();
+            void* b = ((B_5b560*)a)->second_00059a30();
             if (b) {
                 Data_5b560* d = (Data_5b560*)b;
                 if (d->p334)
@@ -1665,7 +1665,7 @@ void* CGrappleSmartPropDropTrack::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((void *)((owners::Object_592a0 *)(((A_5b620*)param)))->FUN_000592a0());
         if (a) {
-            void* b = ((B_5b620*)a)->second();
+            void* b = ((B_5b620*)a)->second_00059a30();
             if (b) {
                 Data_5b620* d = (Data_5b620*)b;
                 if (d->p334)
@@ -1743,8 +1743,8 @@ extern "C" char DAT_003f9944[];
 class CGrappleAttachTrack;
 class Helper_5b790 {
   public:
-    void f();
-    void init();
+    void Fnf_0027af50();
+    void init_00068c70();
 };
 class CGrappleAttachTrack {
   public:
@@ -1767,10 +1767,10 @@ class CGrappleAttachTrack {
 extern void FUN_0008d330(CGrappleAttachTrack*);
 CGrappleAttachTrack* CGrappleAttachTrack::vfunc_5(unsigned char param) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f9944);
-    ((Helper_5b790*)((char*)this + 0x40))->f();
-    ((Helper_5b790*)((char*)this + 0x18))->f();
-    ((Helper_5b790*)((char*)this + 0x10))->f();
-    ((Helper_5b790*)this)->init();
+    ((Helper_5b790*)((char*)this + 0x40))->Fnf_0027af50();
+    ((Helper_5b790*)((char*)this + 0x18))->Fnf_0027af50();
+    ((Helper_5b790*)((char*)this + 0x10))->Fnf_0027af50();
+    ((Helper_5b790*)this)->init_00068c70();
     if (param & 1)
         FUN_0008d330(this);
     return this;
@@ -1782,10 +1782,10 @@ CGrappleAttachTrack* CGrappleAttachTrack::vfunc_5(unsigned char param) {
 // sym: ?vfunc_5@CGrappleSwapTrack@fn_0005b7d0@@UAEPAV12@E@Z
 namespace fn_0005b7d0 {
 typedef unsigned char byte_5b7d0;
-extern int vftable_5b7d0;
-void __cdecl FreeMem(void*);
+extern int hulk_at_003f9980;
+void __cdecl FreeMem_0008d330(void*);
 struct Sub_5b7d0 {
-    void Clean();
+    void Clean_0027af50();
     char pad[8];
 };
 class CGrappleSwapTrack {
@@ -1796,18 +1796,18 @@ class CGrappleSwapTrack {
     virtual void v3();
     virtual void v4();
     virtual CGrappleSwapTrack* vfunc_5(byte_5b7d0);
-    void BaseClean();
+    void BaseClean_00068c70();
     char pad[0xc];
     Sub_5b7d0 a;
     Sub_5b7d0 b;
 };
 CGrappleSwapTrack* CGrappleSwapTrack::vfunc_5(byte_5b7d0 flags) {
-    *(hulk_intptr*)this = (hulk_intptr)&vftable_5b7d0;
-    this->b.Clean();
-    this->a.Clean();
-    this->BaseClean();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f9980;
+    this->b.Clean_0027af50();
+    this->a.Clean_0027af50();
+    this->BaseClean_00068c70();
     if (flags & 1)
-        FreeMem(this);
+        FreeMem_0008d330(this);
     return this;
 }
 } // namespace fn_0005b7d0
@@ -1819,11 +1819,11 @@ namespace fn_0005b810 {
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* hulk_at_003f99bc[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CGrappleDetachTrack : public CTrack {
@@ -1831,13 +1831,13 @@ class CGrappleDetachTrack : public CTrack {
     CGrappleDetachTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CGrappleDetachTrack* CGrappleDetachTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f99bc;
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1851,15 +1851,15 @@ namespace fn_0005b840 {
 extern void* g_vftable_5b840[];
 
 struct T1 {
-    void Fini();
+    void Fini_00236fd0();
 };
 struct T2 {
-    void Fini();
+    void Fini_00234150();
 };
 class Track_5b840 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class CGrappleOpportunityTrack : public Track_5b840 {
   public:
@@ -1871,9 +1871,9 @@ class CGrappleOpportunityTrack : public Track_5b840 {
 };
 CGrappleOpportunityTrack* CGrappleOpportunityTrack::vfunc_5(unsigned char flags) {
     vptr = g_vftable_5b840;
-    a28.Fini();
-    a18.Fini();
-    Fin();
+    a28.Fini_00236fd0();
+    a18.Fini_00234150();
+    Fin_00236d60();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -2018,7 +2018,7 @@ namespace fn_f63372f2 {
 // 0x0005b9f0 FUN_0005b9f0 (32 B): matches/0x0005b9f0.cpp
 // sym: ??0ParamBool_5b9f0@fn_f63372f2@@QAE@HH@Z
 ParamBool_5b9f0::ParamBool_5b9f0(int a, int b) : ParamValueBool_5b9f0(a) {
-    *(hulk_intptr*)this = (hulk_intptr)&gVtable;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f9af0;
     m10 = b;
 }
 

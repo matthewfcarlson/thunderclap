@@ -22,7 +22,7 @@ class Callback_e1930 {
     virtual void a();
     virtual void b();
 };
-extern "C" float(__cdecl* GetDelta)();
+extern "C" float(__cdecl* hulk_at_004de948)();
 class FEDoAction_e1930 {
   public:
     virtual void v0();
@@ -52,7 +52,7 @@ void FEDoWait::vfunc_2() {
                 return;
             (*(Callback_e1930 * *)&this->f_3c)->b();
         }
-        (*(float *)&this->f_38) += GetDelta();
+        (*(float *)&this->f_38) += hulk_at_004de948();
     }
 }
 

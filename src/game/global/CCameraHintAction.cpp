@@ -22,13 +22,13 @@ class CMotionTrailAction {
     char pad[0x18];
     Ref_221a0* mRef;
 };
-extern void* CActionVftable;
+extern void* hulk_at_003f3390;
 class CCameraHintAction_221a0 {
   public:
-    void Destroy();
+    void Destroy_002326a0();
 };
-void __cdecl thunk(CMotionTrailAction*);
-extern void* g_vftable_221e0[];
+void __cdecl thunk_0008d330(CMotionTrailAction*);
+extern void* hulk_at_003f3a5c[];
 class Ref_221e0 {
   public:
     virtual void F0();
@@ -115,15 +115,15 @@ class CCameraHintAction_22300 : public CAction_22300 {
 // 0x000221a0 CMotionTrailAction::vfunc_2 (57 B): matches/0x000221a0.cpp
 // sym: ?vfunc_2@CMotionTrailAction@fn_ffe756aa@@UAEPAV12@H@Z
 CMotionTrailAction* CMotionTrailAction::vfunc_2(int flags) {
-    *(void**)this = &CActionVftable;
+    *(void**)this = &hulk_at_003f3390;
     _ReadWriteBarrier();
     if (mRef) {
         mRef->Release();
         mRef = 0;
     }
-    ((CCameraHintAction_221a0*)this)->Destroy();
+    ((CCameraHintAction_221a0*)this)->Destroy_002326a0();
     if (flags & 1)
-        thunk(this);
+        thunk_0008d330(this);
     return this;
 }
 
@@ -131,7 +131,7 @@ CMotionTrailAction* CMotionTrailAction::vfunc_2(int flags) {
 // 0x000221e0 CEffectAction::vfunc_2 (82 B): matches/0x000221e0.cpp
 // sym: ?f2@CEffectAction_221e0@fn_ffe756aa@@QAEPAV12@E@Z
 CEffectAction_221e0* CEffectAction_221e0::f2(unsigned char flags) {
-    vptr = g_vftable_221e0;
+    vptr = hulk_at_003f3a5c;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

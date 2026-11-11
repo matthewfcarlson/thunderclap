@@ -13,7 +13,7 @@ namespace fn_fef3904b {} using namespace fn_fef3904b;
 
 // ---- declarations shared by the functions below
 namespace fn_fef3904b {
-extern int* gTable_77f30;
+extern int* hulk_at_004dd030;
 class CCondition_77f30 {
   public:
     virtual int vfunc_0(int);
@@ -32,16 +32,16 @@ struct CTrack_77f70 {
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_77f80 {
-    unsigned int call(CHeliDeathSpiralTrack*, unsigned int);
+    unsigned int call_00021430(CHeliDeathSpiralTrack*, unsigned int);
 };
-extern int* gTable_77fd0;
+extern int* hulk_at_004dd038;
 class CCondition_77fd0 {
   public:
     virtual int vfunc_0(int);
 };
 class R_78050 {
   public:
-    int invoke(CExplosionTrack*, hulk_intptr);
+    int invoke_000214d0(CExplosionTrack*, hulk_intptr);
 };
 extern R_78050* FUN_0008d690(int);
 class CStageCondition_78170;
@@ -117,7 +117,7 @@ class ParamValueInt_782f0 : public ParamValue_782f0 {
 // sym: ?vfunc_0@CHeliDeathSpiralTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CHeliDeathSpiralTrack::vfunc_0(int index) {
-    int* p = gTable_77f30;
+    int* p = hulk_at_004dd030;
     return p[index];
 }
 
@@ -153,7 +153,7 @@ hulk_intptr CHeliDeathSpiralTrack::vfunc_12(hulk_intptr __p0) { unsigned int x =
 
     void* p = FUN_0008d690(0x48);
     if (p)
-        return (int)(((Helper_77f80*)p)->call(this, x));
+        return (int)(((Helper_77f80*)p)->call_00021430(this, x));
     return (int)(0);
 }
 
@@ -172,7 +172,7 @@ void FUN_00077fb0() {
 // sym: ?vfunc_0@CExplosionTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CExplosionTrack::vfunc_0(int index) {
-    int* p = gTable_77fd0;
+    int* p = hulk_at_004dd038;
     return p[index];
 }
 
@@ -238,7 +238,7 @@ hulk_freg CExplosionTrack::vfunc_7() {
 hulk_intptr CExplosionTrack::vfunc_12(hulk_intptr param) {
     R_78050* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_000214d0(this, param);
     return 0;
 }
 
@@ -276,11 +276,11 @@ namespace fn_000780d0 {
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* hulk_at_003fed30[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CHeliDeathSpiralTrack : public CTrack {
@@ -288,13 +288,13 @@ class CHeliDeathSpiralTrack : public CTrack {
     CHeliDeathSpiralTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CHeliDeathSpiralTrack* CHeliDeathSpiralTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003fed30;
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -307,11 +307,11 @@ namespace fn_00078100 {
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* hulk_at_003fed6c[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CExplosionTrack : public CTrack {
@@ -319,13 +319,13 @@ class CExplosionTrack : public CTrack {
     CExplosionTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CExplosionTrack* CExplosionTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003fed6c;
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

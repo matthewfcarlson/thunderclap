@@ -12,18 +12,18 @@ namespace fn_ffcfe266 {} using namespace fn_ffcfe266;
 // ---- declarations shared by the functions below
 namespace fn_ffcfe266 {
 struct Manager_17020 {
-    void f(void* g, void* b, int v);
+    void Fnf_00099d00(void* g, void* b, int v);
 };
 struct Global_17020 {
     char pad[8];
     Manager_17020* manager;
 };
-extern Global_17020* g_4dd700;
+extern Global_17020* hulk_at_004dd700;
 struct H1 {
-    void* f();
+    void* Fnf_000592a0();
 };
 struct H2_17020 {
-    void* f();
+    void* Fnf_00059a30();
 };
 struct X_17020 {
     char pad[0x14];
@@ -89,7 +89,7 @@ void *FUN_00263ea0(unsigned int);
 extern "C" void __cdecl FUN_00096a90(Target_17050 *t, V3_17050 *v);
 hulk_freg __cdecl FUN_00224ea0(float a, float b);
 struct R_17340 {
-    void call(void*, int);
+    void call_00222970(void*, int);
 };
 extern void* __fastcall FUN_000592a0(void*);
 extern "C" R_17340* __fastcall FUN_00059a40(void*);
@@ -99,8 +99,8 @@ extern "C" R_17340* __fastcall FUN_00059a40(void*);
 // 0x00017020 CCameraHintAction::vfunc_8 (46 B): matches/0x00017020.cpp
 // sym: ?vfunc_8@CCameraHintAction@@UAE_NH@Z
 bool CCameraHintAction::vfunc_8(int ) {
-    void* b = ((H2_17020*)(*(H1 * *)&this->f_1c)->f())->f();
-    g_4dd700->manager->f(g_4dd700, b, (*(X_17020 * *)&this->f_20)->value);
+    void* b = ((H2_17020*)(*(H1 * *)&this->f_1c)->Fnf_000592a0())->Fnf_00059a30();
+    hulk_at_004dd700->manager->Fnf_00099d00(hulk_at_004dd700, b, (*(X_17020 * *)&this->f_20)->value);
     return true;
 }
 
@@ -212,6 +212,6 @@ void CJumpAttackAction::vfunc_4() {
     void* a = FUN_000592a0((*(void * *)&this->f_1c));
     R_17340* b = FUN_00059a40(a);
     if (b)
-        b->call((*(void * *)&this->f_24), 0);
+        b->call_00222970((*(void * *)&this->f_24), 0);
 }
 

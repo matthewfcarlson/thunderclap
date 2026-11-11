@@ -191,7 +191,7 @@ class ISoundManager_c5840 {
 };
 class Helper_c5840 {
   public:
-    void run(void*, void*);
+    void run_001ec480(void*, void*);
 };
 
 
@@ -289,6 +289,6 @@ void CFESoundManager_c5820::f2(int a, int index) {
 void CFESoundManager::vfunc_1(void* __p0, void* __p1) { void * a = (void *)__p0; void * b = (void *)__p1;
 
     if ((*(void * *)&this->f_04))
-        ((Helper_c5840*)(*(void * *)&this->f_04))->run(a, b);
+        ((Helper_c5840*)(*(void * *)&this->f_04))->run_001ec480(a, b);
 }
 

@@ -28,8 +28,8 @@ struct RandState_2039a0 {
 extern "C" RandState_2039a0* __cdecl FUN_000964d0();
 class Obj_203a10 {
   public:
-    bool A(int);
-    bool B(int);
+    bool FnA_00092dc0(int);
+    bool FnB_00092de0(int);
 };
 class Manager_203a10 {
   public:
@@ -39,7 +39,7 @@ class Root_203a10 {
     char pad[0x54];
     Manager_203a10* mgr;
 };
-extern Root_203a10* gRoot_203a10;
+extern Root_203a10* hulk_at_004dd700;
 struct Id_203cd0 { int a, b, c; };
 struct Rec_203cd0 { char pad[0x54]; short value; };
 struct Registry_203cd0 {
@@ -155,7 +155,7 @@ struct Gfx {
 };
 namespace fn_f49dcb8d {
 struct Item_203e00 {
-    void run();
+    void run_002665a0();
 };
 extern void helper();
 struct CWorldStreamManager_203e00 {
@@ -164,10 +164,10 @@ struct CWorldStreamManager_203e00 {
     void target(int index);
 };
 struct Manager_203e30 {
-    int Get();
+    int Get_00264870();
 };
 struct Waiter {
-    bool Ready();
+    bool Ready_00266750();
 };
 struct Target_203e30 {
     void Run(Waiter*);
@@ -190,27 +190,27 @@ struct Item {
   public:
     char _m_pad_0[0x56];
     short value;
-    void Go(void*);
+    void Go_002660a0(void*);
 };
 struct Mgr {
-    Item* Find(int);
+    Item* Find_001c7f10(int);
 };
 struct Root {
     char pad[4];
     Mgr* volatile mgr;
 };
-Root* __cdecl GetRoot();
+Root* __cdecl GetRoot_001c3d90();
 struct Sub_204350 {
-    int Count();
+    int Count_001c7520();
 };
 struct Item_204350 {
-    char Check(int*);
+    char Check_001c6660(int*);
 };
 struct Obj_204350 {
     char pad[4];
     Obj_204350* child;
 };
-extern Obj_204350* GetQuery();
+extern Obj_204350* GetQuery_001c3d90();
 class CWorldStreamManager_204410 {
   public:
     char pad[0x5a4];
@@ -262,13 +262,13 @@ struct Owner_204de0 {
 };
 struct Item_204de0 {
     char pad[0x56];
-    void Destroy();
+    void Destroy_00208ab0();
 };
-extern unsigned char gEnabled_204e40, gMode;
-extern int __cdecl switchState(int);
+extern unsigned char hulk_at_004c91d8, hulk_at_004c91d9;
+extern int __cdecl switchState_00266da0(int);
 struct Item_204e40 {
     char pad[0x3c];
-    void init(const char*, int, int, int);
+    void init_002047c0(const char*, int, int, int);
 };
 struct Obj_204e40 {
     char pad[0x48];
@@ -282,7 +282,7 @@ class Obj_204ea0 {
 };
 class Inner_204ea0 {
   public:
-    void dispose();
+    void dispose_00263e90();
 };
 class A_204ea0 {
   public:
@@ -298,7 +298,7 @@ class A_204ea0 {
     void close();
 };
 extern "C" void FUN_00267110(int);
-extern void fptr(void*);
+extern void fptr_00267090(void*);
 class Obj_204f00 {
   public:
     virtual void f0();
@@ -316,7 +316,7 @@ class Obj_204f00 {
 };
 class S_204f00 {
   public:
-    void run();
+    void run_00263e90();
 };
 class A_204f00 {
   public:
@@ -329,7 +329,7 @@ class A_204f00 {
     Obj_204f00* p30;
     char gap34[4];
     Obj_204f00* p38;
-    void finish(char*, int, int, int);
+    void finish_002047c0(char*, int, int, int);
 };
 extern char DAT_0048d5bc;
 extern char DAT_004c9268;
@@ -351,7 +351,7 @@ class Dummy_2050d0 {
 extern "C" char DAT_00425b54[];
 class Function_2050f0 {
   public:
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
 };
 class Method3_2050f0 : public Function_2050f0 {
   public:
@@ -365,7 +365,7 @@ struct CWorldStreamManager_205170 {
 };
 extern "C" char DAT_00425b64[];
 struct B_2051b0 {
-    void Init(int, int);
+    void Init_001d0480(int, int);
 };
 class Method3_2051b0 {
   public:
@@ -429,7 +429,7 @@ class CActorManager_2055f0 {
 extern "C" char DAT_00425be4[];
 class InitBase_205600 {
   public:
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
 };
 class Method3_205600 {
   public:
@@ -519,7 +519,7 @@ struct CWorldStreamManager_2061c0 {
     void FUN_002061c0(const char *, int, bool);
 };
 extern "C" char DAT_00425c28[];
-extern void* __cdecl Alloc(hulk_uintptr);
+extern void* __cdecl Alloc_00263ea0(hulk_uintptr);
 struct Loader_2062d0 {
     hulk_uintptr vptr;
     int a;
@@ -530,7 +530,7 @@ struct Loader_2062d0 {
 };
 class Manager_2062d0 {
   public:
-    void Register(Loader_2062d0*, unsigned int);
+    void Register_00265210(Loader_2062d0*, unsigned int);
 };
 extern "C" void* FUN_0008d690(unsigned int);
 } // namespace fn_f49dcb8d
@@ -679,8 +679,8 @@ public:
 extern "C" void __stdcall FUN_00203e30(void*);
 class Sub_2078f0 {
   public:
-    int Check();
-    int Other();
+    int Check_00266710();
+    int Other_002666e0();
 };
 class Obj_2078f0 {
   public:
@@ -688,8 +688,8 @@ class Obj_2078f0 {
     Sub_2078f0* m;
     char flag;
     char Run(char);
-    void Do(Sub_2078f0*);
-    char Finish();
+    void Do_00203e30(Sub_2078f0*);
+    char Finish_00207410();
 };
 struct CWorldStreamManager_nv_207b90 {
     void FUN_002071e0(int);
@@ -706,17 +706,17 @@ struct Table_208040 {
 };
 class Subject_208820 {
   public:
-    int GetState();
-    void OnGlobal();
+    int GetState_00266710();
+    void OnGlobal_002666e0();
 };
 struct CWorldStreamManager_nv_208820 {
-    void OnState();
-    void OnOther(Subject_208820*);
-    void Step1();
-    void Step2();
-    void Step3();
-    void Step4();
-    void Step5();
+    void OnState_00207410();
+    void OnOther_00203e30(Subject_208820*);
+    void Step1_002080b0();
+    void Step2_00207d80();
+    void Step3_00207e80();
+    void Step4_00204de0();
+    void Step5_002059d0();
 };
 class Releasable_2088a0 {
 public:
@@ -807,10 +807,10 @@ void owners::Obj_2039a0::FUN_002039a0(int lo, int hi) {
 // sym: ?FUN_00203a10@C_203a10@owners@@QAEXXZ
 void owners::C_203a10::FUN_00203a10() {
     strncpy(name, "hulk", 0x20);
-    Obj_203a10* o = ((Obj_203a10 *)((owners::A_86340 *)(gRoot_203a10->mgr))->FUN_00086340());
+    Obj_203a10* o = ((Obj_203a10 *)((owners::A_86340 *)(hulk_at_004dd700->mgr))->FUN_00086340());
     if (o != 0) {
         int i = 0;
-        while (o->A(i) || !o->B(i)) {
+        while (o->FnA_00092dc0(i) || !o->FnB_00092de0(i)) {
             ++i;
             if (i > 12)
                 return;
@@ -884,7 +884,7 @@ namespace fn_f49dcb8d {
 void CWorldStreamManager_203e00::target(int index) {
     DAT_0052c2a8->cn();
     if (items[index])
-        items[index]->run();
+        items[index]->run_002665a0();
 }
 
 
@@ -892,9 +892,9 @@ void CWorldStreamManager_203e00::target(int index) {
 // sym: ?Run@Target_203e30@fn_f49dcb8d@@QAEXPAUWaiter@2@@Z
 // data: gManager_203e30 = DAT_00527c58
 void Target_203e30::Run(Waiter* w) {
-    int old = (*(Manager_203e30**)&DAT_00527c58)->Get();
+    int old = (*(Manager_203e30**)&DAT_00527c58)->Get_00264870();
     ((owners::C_264860 *)((*(Manager_203e30**)&DAT_00527c58)))->FUN_00264860(250000);
-    while (!w->Ready())
+    while (!w->Ready_00266750())
         FUN_00087990();
     ((owners::C_264860 *)((*(Manager_203e30**)&DAT_00527c58)))->FUN_00264860(old);
 }
@@ -1056,9 +1056,9 @@ namespace fn_f49dcb8d {
 // 0x00204320 FUN_00204320 (37 B): matches/0x00204320.cpp
 // sym: ?FUN_00204320@fn_f49dcb8d@@YGHH@Z
 int __stdcall FUN_00204320(int id) {
-    Root* r = GetRoot();
+    Root* r = GetRoot_001c3d90();
     Mgr* m = r->mgr;
-    Item* item = m->Find(id);
+    Item* item = m->Find_001c7f10(id);
     if (!item)
         return -1;
     return item->value;
@@ -1068,25 +1068,25 @@ int __stdcall FUN_00204320(int id) {
 // 0x00204350 FUN_00204350 (143 B): matches/0x00204350.cpp
 // sym: ?Target@fn_f49dcb8d@@YGDHHH@Z
 char __stdcall Target(int a, int b, int c) {
-    Obj_204350* q = GetQuery();
+    Obj_204350* q = GetQuery_001c3d90();
     if (!q)
         return 0;
-    q = GetQuery();
+    q = GetQuery_001c3d90();
     Obj_204350* h = q->child;
     if (!h)
         return 0;
-    q = GetQuery();
+    q = GetQuery_001c3d90();
     h = q->child;
-    int n = ((Sub_204350*)((char*)h + 0x18))->Count();
+    int n = ((Sub_204350*)((char*)h + 0x18))->Count_001c7520();
     int args[3];
     args[0] = a;
     args[1] = b;
     args[2] = c;
     for (int i = 0; i < n; ++i) {
-        q = GetQuery();
+        q = GetQuery_001c3d90();
         h = q->child;
         Item_204350* item = (Item_204350*)((hulk_intptr)((owners::Thing_1c7f80 *)h)->FUN_001c7f80((unsigned int)i));
-        if (item && item->Check(args))
+        if (item && item->Check_001c6660(args))
             return 1;
     }
     return 0;
@@ -1203,7 +1203,7 @@ void Obj::Add(void* p) {
         ++i;
         ++q;
     } while (i < 2);
-    ((Item *)((owners::Obj_203db0 *)this)->FUN_00203db0((hulk_intptr)p))->Go(m);
+    ((Item *)((owners::Obj_203db0 *)this)->FUN_00203db0((hulk_intptr)p))->Go_002660a0(m);
 }
 
 } // namespace fn_f49dcb8d
@@ -1491,7 +1491,7 @@ void __fastcall target(Owner_204de0* self) {
         Item_204de0* q = (Item_204de0*)(p + n * 0x56);
         while (--n >= 0) {
             q = (Item_204de0*)((char*)q - 0x56);
-            q->Destroy();
+            q->Destroy_00208ab0();
         }
         FreeArray(p - 4);
     }
@@ -1504,12 +1504,12 @@ void __fastcall target(Owner_204de0* self) {
 // 0x00204e40 FUN_00204e40 (93 B): matches/0x00204e40.cpp
 // sym: ?run@Obj_204e40@fn_f49dcb8d@@QAEXXZ
 void Obj_204e40::run() {
-    if (gEnabled_204e40) {
-        int id = 0x13 + (gMode != 0 ? 2 : 0);
-        int old = switchState(7);
+    if (hulk_at_004c91d8) {
+        int id = 0x13 + (hulk_at_004c91d9 != 0 ? 2 : 0);
+        int old = switchState_00266da0(7);
         for (int i = 0; i < 20; i++)
-            items[i].init("room data", id++, 0x25800, 7);
-        switchState(old);
+            items[i].init_002047c0("room data", id++, 0x25800, 7);
+        switchState_00266da0(old);
     }
 }
 
@@ -1518,7 +1518,7 @@ void Obj_204e40::run() {
 // sym: ?close@A_204ea0@fn_f49dcb8d@@QAEXXZ
 void A_204ea0::close() {
     if (ptr38) {
-        ptr38->dispose();
+        ptr38->dispose_00263e90();
         ptr38 = 0;
     }
     if (obj30)
@@ -1528,7 +1528,7 @@ void A_204ea0::close() {
         obj30 = 0;
     }
     if (ptr2c) {
-        fptr(ptr2c);
+        fptr_00267090(ptr2c);
         ptr2c = 0;
     }
     a = 0;
@@ -1541,7 +1541,7 @@ void A_204ea0::close() {
 // sym: ?target@fn_f49dcb8d@@YIXPAVA_204f00@1@@Z
 void __fastcall target(A_204f00* a) {
     a->flag = 0;
-    ((S_204f00*)a->p38)->run();
+    ((S_204f00*)a->p38)->run_00263e90();
     a->p38 = 0;
     if (a->p30) {
         int r = a->p30->f11();
@@ -1550,7 +1550,7 @@ void __fastcall target(A_204f00* a) {
         a->x26 = 0;
         a->p30->f1();
         a->p30 = 0;
-        a->finish((char*)a + 5, old, r, (int)a->x28);
+        a->finish_002047c0((char*)a + 5, old, r, (int)a->x28);
     }
 }
 
@@ -1658,7 +1658,7 @@ namespace fn_f49dcb8d {
 // 0x002050f0 FUN_002050f0 (89 B): matches/0x002050f0.cpp
 // sym: ??0Method3_2050f0@fn_f49dcb8d@@QAE@PBDP8ScriptBoundClass@@AEXXZ@Z
 Method3_2050f0::Method3_2050f0(const char* a, ScriptMemberFn b) {
-    Init(a, 3);
+    Init_001d0480(a, 3);
     vf = (void*)((hulk_intptr)DAT_00425b54);
     mgr = b;
     f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
@@ -1692,7 +1692,7 @@ namespace fn_f49dcb8d {
 // 0x002051b0 FUN_002051b0 (89 B): matches/0x002051b0.cpp
 // sym: ??0Method3_2051b0@fn_f49dcb8d@@QAE@HH@Z
 Method3_2051b0::Method3_2051b0(hulk_intptr a, hulk_intptr b) {
-    ((B_2051b0*)this)->Init(a, 3);
+    ((B_2051b0*)this)->Init_001d0480(a, 3);
     vptr = ((hulk_intptr)DAT_00425b64);
     value1c = b;
     b18 = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
@@ -1858,7 +1858,7 @@ namespace fn_f49dcb8d {
 // sym: ??0Method3_205600@fn_f49dcb8d@@QAE@PBDP8ScriptBoundClass@@AEXXZ@Z
 // data: str1_205600 = DAT_0048e100, str2 = DAT_0048e0f0, str3 = DAT_0048e134, str4 = DAT_0048e0e4
 Method3_205600::Method3_205600(const char* a, ScriptMemberFn b) {
-    ((InitBase_205600*)this)->Init(a, 3);
+    ((InitBase_205600*)this)->Init_001d0480(a, 3);
     vptr = ((hulk_intptr)DAT_00425be4);
     f1c = b;
     f.retType = (char)FUN_001d04d0(((char*)&DAT_0048e100));
@@ -1956,7 +1956,7 @@ class SimpleChunkHandler_205b20 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_205b20 {
   public:
@@ -1967,7 +1967,7 @@ class NonCopyable : public SimpleChunkHandler_205b20 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -2118,13 +2118,13 @@ template <> void Closure0<CWorldStreamManager, const char *>::vfunc_2(void* __p0
 namespace fn_00205e30 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00425b84[2];
+extern void* hulk_at_00425c84[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 // Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h),
 // then Method2's member-function pointer and Closure2's object.
@@ -2139,12 +2139,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00425b84;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e134));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e134));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e134));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e134));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e134));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e134));
+    vfptr = (void*)hulk_at_00425c84;
     owner = a2;
 }
 } // namespace fn_00205e30
@@ -2172,7 +2172,7 @@ template <> void Closure2<CWorldStreamManager, int, int, int>::vfunc_2(void* __p
 // sym: ??0Closure1@fn_00205ee0@@QAE@HHH@Z
 namespace fn_00205ee0 {
 
-extern unsigned char __cdecl f(int*);
+extern unsigned char __cdecl Fnf_001d04d0(int*);
 class Function_205ee0 {
   public:
     Function_205ee0(int, int);
@@ -2188,8 +2188,8 @@ class Method1 : public Function_205ee0 {
   public:
     Method1(int x, int z) : Function_205ee0(x, 1) {
         n1c = z;
-        b18 = f(((int*)&DAT_0048e134));
-        b10 = f(((int*)&DAT_0048e134));
+        b18 = Fnf_001d04d0(((int*)&DAT_0048e134));
+        b10 = Fnf_001d04d0(((int*)&DAT_0048e134));
     }
     virtual void v0();
 };
@@ -2368,8 +2368,8 @@ template <> void Closure3<CWorldStreamManager, void, const char *, int, bool>::v
 // 0x002061e0 FUN_002061e0 (226 B): matches/0x002061e0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
 // sym: ?Dtor@Target_2061e0@fn_002061e0@@QAEXXZ
 namespace fn_002061e0 {
-extern void* vWSM[];
-extern void* vPool[];
+extern void* hulk_at_00425cf4[];
+extern void* hulk_at_00425b20[];
 class Ref_2061e0 {
   public:
     virtual void F0();
@@ -2392,7 +2392,7 @@ struct CWorldStreamManager_2061e0 {
     void Fini() throw();
 };
 void CWorldStreamManager_2061e0::Fini() throw() {
-    vf = vPool;
+    vf = hulk_at_00425b20;
     if (p38) {
         FUN_00263e90(p38);
         p38 = 0;
@@ -2419,7 +2419,7 @@ struct Target_2061e0 {
     void Dtor() throw();
 };
 void Target_2061e0::Dtor() throw() {
-    vf = vWSM;
+    vf = hulk_at_00425cf4;
     CWorldStreamManager_2061e0* p = b + 2;
     for (int i = 2; i; --i) {
         --p;
@@ -2440,7 +2440,7 @@ void Target_2061e0::Dtor() throw() {
 void owners::Owner_2062d0::FUN_002062d0(hulk_intptr value) {
     param = ((int)value);
     Loader_2062d0* r;
-    Loader_2062d0* p = (Loader_2062d0*)Alloc(0x18);
+    Loader_2062d0* p = (Loader_2062d0*)Alloc_00263ea0(0x18);
     if (p != 0) {
         p->a = 0;
         p->b = 0x60000722;
@@ -2452,7 +2452,7 @@ void owners::Owner_2062d0::FUN_002062d0(hulk_intptr value) {
     } else {
         r = 0;
     }
-    (*(Manager_2062d0**)&DAT_00527c58)->Register(r, 0x60000722);
+    (*(Manager_2062d0**)&DAT_00527c58)->Register_00265210(r, 0x60000722);
 }
 
 
@@ -2466,7 +2466,7 @@ extern void* CTrack_vftable[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00204ea0(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CMemoryPool_206c10 : public CTrack {
@@ -2474,13 +2474,13 @@ class CMemoryPool_206c10 : public CTrack {
     CMemoryPool_206c10* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CMemoryPool_206c10* CMemoryPool_206c10::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00204ea0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -3134,21 +3134,21 @@ namespace fn_f49dcb8d {
 char Obj_2078f0::Run(char b) {
     if (!m)
         return 0;
-    int x = m->Check();
+    int x = m->Check_00266710();
     flag = 1;
     if (x != 3) {
         if (b)
-            Do(m);
+            Do_00203e30(m);
         else {
             if ((*(char*)&DAT_004c91da)) {
-                m->Other();
+                m->Other_002666e0();
                 return 0;
             }
-            Do(m);
+            Do_00203e30(m);
             return 0;
         }
     }
-    return Finish();
+    return Finish_00207410();
 }
 
 } // namespace fn_f49dcb8d
@@ -3723,20 +3723,20 @@ CWorldStreamManager::CWorldStreamManager()
 // data: gFlag_208820 = DAT_004c91da
 void CWorldStreamManager::FUN_00208820() {
     if ((*(Subject_208820 * *)&this->f_aec)) {
-        int r = (*(Subject_208820 * *)&this->f_aec)->GetState();
+        int r = (*(Subject_208820 * *)&this->f_aec)->GetState_00266710();
         this->f_af0 = 1;
         if (r == 3)
-            ((CWorldStreamManager_nv_208820*)this)->OnState();
+            ((CWorldStreamManager_nv_208820*)this)->OnState_00207410();
         else if (DAT_004c91da)
-            (*(Subject_208820 * *)&this->f_aec)->OnGlobal();
+            (*(Subject_208820 * *)&this->f_aec)->OnGlobal_002666e0();
         else
-            ((CWorldStreamManager_nv_208820*)this)->OnOther((*(Subject_208820 * *)&this->f_aec));
+            ((CWorldStreamManager_nv_208820*)this)->OnOther_00203e30((*(Subject_208820 * *)&this->f_aec));
     }
-    ((CWorldStreamManager_nv_208820*)this)->Step1();
-    ((CWorldStreamManager_nv_208820*)this)->Step2();
-    ((CWorldStreamManager_nv_208820*)this)->Step3();
-    ((CWorldStreamManager_nv_208820*)this)->Step4();
-    ((CWorldStreamManager_nv_208820*)this)->Step5();
+    ((CWorldStreamManager_nv_208820*)this)->Step1_002080b0();
+    ((CWorldStreamManager_nv_208820*)this)->Step2_00207d80();
+    ((CWorldStreamManager_nv_208820*)this)->Step3_00207e80();
+    ((CWorldStreamManager_nv_208820*)this)->Step4_00204de0();
+    ((CWorldStreamManager_nv_208820*)this)->Step5_002059d0();
     ((owners::C_203a10 *)(((CWorldStreamManager_nv_208820*)this)))->FUN_00203a10();
     this->f_04 = 0;
     this->f_24 = 0;

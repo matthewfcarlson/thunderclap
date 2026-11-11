@@ -24,11 +24,11 @@ class TrackFactoryTemplate_52050 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_52090;
+extern int hulk_at_003f84e8;
 struct ConditionFactoryTemplate_52090 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00235ad0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" char DAT_003f8504[];
@@ -44,7 +44,7 @@ struct CFightNodeParentCondition_520c0 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Helper_520f0 {
   public:
-    int second();
+    int second_00059a30();
 };
 
 } // namespace fn_f85aa0a8
@@ -71,9 +71,9 @@ namespace fn_f85aa0a8 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_52090@fn_f85aa0a8@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_52090::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_52090;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f84e8;
+    base1_dtor_00235ad0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -100,7 +100,7 @@ template <> void* fight::ConditionFactoryTemplate<CFightNodeParentCondition>::vf
 hulk_intptr CFightNodeParentCondition::vfunc_7(void* __p0) { void * arg = (void *)__p0;
 
     hulk_intptr x = ((int)((owners::Object_592a0 *)(((Helper_520f0*)arg)))->FUN_000592a0());
-    return ((Helper_520f0*)x)->second() + 0xdc;
+    return ((Helper_520f0*)x)->second_00059a30() + 0xdc;
 }
 
 

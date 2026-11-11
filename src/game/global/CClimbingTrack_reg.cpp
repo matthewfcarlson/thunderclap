@@ -110,7 +110,7 @@ class CEffectTrack_6d7d0;
 }
 namespace fn_fa9e1582 {
 extern hulk_intptr __cdecl FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int);
-extern int gTypeA_6d810;
+extern int hulk_at_0049850c;
 class CExplosionTrack_6d850;
 extern char DAT_00498f44;
 } // namespace fn_fa9e1582
@@ -229,7 +229,7 @@ class TrackFactoryCaster_6db50 {
     virtual void vfunc_1();
 };
 class CGrappleKeyPoseTrack_6db50;
-extern "C" char VT_6db80[];
+extern "C" char hulk_at_003fcce4[];
 class TrackFactoryCasterTemplate_6db80 {
   public:
     virtual ~TrackFactoryCasterTemplate_6db80() {}
@@ -299,7 +299,7 @@ class TrackFactoryCaster_6dd90 {
     virtual void vfunc_1();
 };
 extern int __cdecl cast(void*, int, void*, void*, int);
-extern int a, b;
+extern int a, hulk_at_00499b70;
 extern char DAT_00499c00;
 } // namespace fn_fa9e1582
 namespace fight {
@@ -532,7 +532,7 @@ class TrackFactoryCaster_6e550 {
     virtual void vfunc_1();
 };
 extern void* g1;
-extern void* g2;
+extern void* hulk_at_0049aca8;
 extern char DAT_0049ad40;
 class CSmartPropThrowingTrack_6e590;
 } // namespace fn_fa9e1582
@@ -580,7 +580,7 @@ struct TypeDescriptor {
     char bytes[8];
 };
 extern TypeDescriptor sourceType;
-extern TypeDescriptor targetType;
+extern TypeDescriptor hulk_at_0049af78;
 extern "C" void* __cdecl performCast(void*, long, TypeDescriptor*, TypeDescriptor*, int);
 } // namespace fn_fa9e1582
 namespace fight {
@@ -727,10 +727,10 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
     virtual int vfunc_0(void*);
 };
 } // namespace fight
-extern int a, b;
+extern int a, hulk_at_00498bbc;
 extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(void*, int, int*, int*, int);
 int fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &a, &hulk_at_00498bbc, 0) != 0;
 }
 } // namespace fn_0006d690
 
@@ -770,9 +770,9 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 };
 } // namespace fight
 extern int __cdecl FUN_00344e74(const char*, int, const void*, const void*, int);
-extern int a, b;
+extern int a, hulk_at_00498d40;
 bool fight::TrackFactoryCasterTemplate::vfunc_0(const char* s) {
-    return FUN_00344e74(s, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(s, 0, &a, &hulk_at_00498d40, 0) != 0;
 }
 } // namespace fn_0006d750
 
@@ -800,7 +800,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CEffectTrack>::vfunc_0(void* 
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::TrackFactoryCasterTemplate<CEffectStopTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_6d810, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -919,7 +919,7 @@ namespace fn_fa9e1582 {
 // 0x0006db80 FUN_0006db80 (9 B): matches/0x0006db80.cpp
 // sym: ??0TrackFactoryCasterTemplate_6db80@fn_fa9e1582@@QAE@XZ
 TrackFactoryCasterTemplate_6db80::TrackFactoryCasterTemplate_6db80() {
-    *(hulk_intptr*)this = (hulk_intptr)VT_6db80;
+    *(hulk_intptr*)this = (hulk_intptr)hulk_at_003fcce4;
 }
 
 } // namespace fn_fa9e1582
@@ -1010,7 +1010,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CGrappleUninterruptibleTrack>
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VCHeadTrackerTrack@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<CHeadTrackerTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return cast(p, 0, &a, &b, 0) != 0;
+    return cast(p, 0, &a, &hulk_at_00499b70, 0) != 0;
 }
 
 
@@ -1120,7 +1120,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CKeyPoseTrack>::vfunc_0(void*
 // sym: ?Cast@TrackFactoryCasterTemplate@fight@fn_0006e050@@UAEHPAX@Z
 namespace fn_0006e050 {
 extern "C++" __declspec(nothrow) int __cdecl testCast(void*, int, void*, void*, int);
-extern int gA, gB;
+extern int gA, hulk_at_0049a160;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -1135,7 +1135,7 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 };
 } // namespace fight
 int fight::TrackFactoryCasterTemplate::Cast(void* p) {
-    return testCast(p, 0, &gA, &gB, 0) != 0;
+    return testCast(p, 0, &gA, &hulk_at_0049a160, 0) != 0;
 }
 } // namespace fn_0006e050
 
@@ -1256,7 +1256,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CPushBackAnimationTrack>::vfu
 // sym: ?vfunc_0@TrackFactoryCasterTemplate@fight@fn_0006e2d0@@UAEHPAX@Z
 namespace fn_0006e2d0 {
 extern int __cdecl check(void*, int, void*, void*, int);
-extern int a, b;
+extern int a, hulk_at_0049a6dc;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -1270,7 +1270,7 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
     virtual void vfunc_1();
 };
 int TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return check(p, 0, &a, &b, 0) != 0;
+    return check(p, 0, &a, &hulk_at_0049a6dc, 0) != 0;
 }
 } // namespace fight
 } // namespace fn_0006e2d0
@@ -1314,7 +1314,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CSmartPropDetachTrack>::vfunc
 // sym: ?vfunc_0@TrackFactoryCasterTemplate@fight@fn_0006e410@@UAEHPAX@Z
 namespace fn_0006e410 {
 extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int a, b;
+extern int a, hulk_at_0049a9a0;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -1329,7 +1329,7 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 };
 } // namespace fight
 int fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &a, &hulk_at_0049a9a0, 0) != 0;
 }
 } // namespace fn_0006e410
 
@@ -1338,7 +1338,7 @@ int fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
 // sym: ?vfunc_0@TrackFactoryCasterTemplateCSmartPropEventTrack@fight@fn_0006e450@@UAE_NPAX@Z
 namespace fn_0006e450 {
 extern "C++" __declspec(nothrow) int match(void*, int, void*, void*, int);
-extern int gA, gB;
+extern int gA, hulk_at_0049aa38;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -1352,7 +1352,7 @@ class TrackFactoryCasterTemplateCSmartPropEventTrack : public TrackFactoryCaster
 };
 } // namespace fight
 bool fight::TrackFactoryCasterTemplateCSmartPropEventTrack::vfunc_0(void* p) {
-    return match(p, 0, &gA, &gB, 0) != 0;
+    return match(p, 0, &gA, &hulk_at_0049aa38, 0) != 0;
 }
 } // namespace fn_0006e450
 
@@ -1386,7 +1386,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CSmartPropSpawnTrack>::vfunc_
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VCSmartPropThrowTrack@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<CSmartPropThrowTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74(p, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(p, 0, &g1, &hulk_at_0049aca8, 0) != 0;
 }
 
 
@@ -1429,7 +1429,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CSoundTrack>::vfunc_0(void* _
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<CStageTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return performCast(p, 0, &sourceType, &targetType, 0) != 0;
+    return performCast(p, 0, &sourceType, &hulk_at_0049af78, 0) != 0;
 }
 
 
@@ -1467,9 +1467,9 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 };
 } // namespace fight
 extern int FUN_00344e74(void*, int, void*, void*, int);
-extern int a, b;
+extern int a, hulk_at_0049b10c;
 int fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &a, &hulk_at_0049b10c, 0) != 0;
 }
 } // namespace fn_0006e750
 

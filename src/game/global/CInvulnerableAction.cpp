@@ -11,9 +11,9 @@ namespace fn_f8bedd60 {} using namespace fn_f8bedd60;
 // ---- declarations shared by the functions below
 namespace fn_f8bedd60 {
 struct Obj_175c0 {
-    Obj_175c0* second();
-    void third(int);
-    void fourth(int);
+    Obj_175c0* second_00059a30();
+    void third_000361c0(int);
+    void fourth_00036140(int);
 };
 struct CAction_175c0 {
     virtual void q();
@@ -22,11 +22,11 @@ struct CAction_175c0 {
 };
 class Obj_175f0 {
   public:
-    Obj_175f0* second();
-    void m40(int);
-    void mC0(int);
-    void m20(void*);
-    void mA0(void*);
+    Obj_175f0* second_00059a30();
+    void m40_00036140(int);
+    void mC0_000361c0(int);
+    void m20_00036120(void*);
+    void mA0_000361a0(void*);
 };
 class Factory_175f0 {
   public:
@@ -38,9 +38,9 @@ class Factory_175f0 {
 // sym: ?vfunc_6@CInvulnerableAction@@UAE_NH@Z
 bool CInvulnerableAction::vfunc_6(int x) {
     Obj_175c0* a = ((Obj_175c0 *)((owners::Object_592a0 *)((*(Obj_175c0 * *)&this->f_1c)))->FUN_000592a0());
-    Obj_175c0* b = a->second();
-    b->third(1);
-    b->fourth(1);
+    Obj_175c0* b = a->second_00059a30();
+    b->third_000361c0(1);
+    b->fourth_00036140(1);
     return true;
 }
 
@@ -49,10 +49,10 @@ bool CInvulnerableAction::vfunc_6(int x) {
 // sym: ?vfunc_4@CInvulnerableAction@@UAEXXZ
 void CInvulnerableAction::vfunc_4() {
     Obj_175f0* x = ((Obj_175f0 *)((owners::Object_592a0 *)((*(Factory_175f0 * *)&this->f_1c)))->FUN_000592a0());
-    Obj_175f0* s = x->second();
-    s->m40(0);
-    s->mC0(0);
-    s->m20((*(void * *)&this->f_20));
-    s->mA0((*(void * *)&this->f_20));
+    Obj_175f0* s = x->second_00059a30();
+    s->m40_00036140(0);
+    s->mC0_000361c0(0);
+    s->m20_00036120((*(void * *)&this->f_20));
+    s->mA0_000361a0((*(void * *)&this->f_20));
 }
 

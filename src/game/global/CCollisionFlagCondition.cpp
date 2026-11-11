@@ -23,24 +23,24 @@ class TrackFactoryTemplate_58de0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_58e20;
+extern int hulk_at_003f9738;
 struct ConditionFactoryTemplate_58e20 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00048d30();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" char DAT_003f9754[];
 class CCollisionFlagCondition_58e50 {
   public:
     hulk_intptr vf;
-    void Init();
+    void Init_00048d60();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern void* CNameFlagConditionBase_58e80_vftable[];
+extern void* hulk_at_003f9754[];
 class CNameFlagConditionBase_58e80 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00048d90(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f9d74a4d
 class CCollisionFlagCondition : public CNameFlagConditionBase_58e80 {
@@ -71,9 +71,9 @@ namespace fn_f9d74a4d {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_58e20@fn_f9d74a4d@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_58e20::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_58e20;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9738;
+    base1_dtor_00048d30();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -86,7 +86,7 @@ void* ConditionFactoryTemplate_58e20::scalar_dtor(unsigned char flags) {
 template <> void* fight::ConditionFactoryTemplate<CCollisionFlagCondition>::vfunc_5() {
     CCollisionFlagCondition_58e50* p = (CCollisionFlagCondition_58e50*)FUN_0008d690(0x18);
     if (p) {
-        p->Init();
+        p->Init_00048d60();
         p->vf = ((hulk_intptr)DAT_003f9754);
         return (void*)(p);
     }
@@ -100,8 +100,8 @@ template <> void* fight::ConditionFactoryTemplate<CCollisionFlagCondition>::vfun
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CCollisionFlagCondition* CCollisionFlagCondition::vfunc_5(signed char flags) {
-    *(void***)this = CNameFlagConditionBase_58e80_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f9754;
+    Destroy_00048d90();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

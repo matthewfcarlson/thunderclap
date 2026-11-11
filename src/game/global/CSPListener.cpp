@@ -163,7 +163,7 @@ class Item_1d8100 {
     virtual void A();
     virtual void B();
     int Get();
-    void Act(int);
+    void Act_0003ee70(int);
 };
 struct Box_1d8100 {
     char pad[0x10];
@@ -239,7 +239,7 @@ class Obj_1d82a0 {
   public:
     char pad[0x21c];
     Base_1d82a0* ptr;
-    void Do();
+    void Do_001d8100();
 };
 struct Node {
     char pad[0x6c];
@@ -251,21 +251,21 @@ struct Holder_1d82d0 {
 };
 class Manager_1d82d0 {
   public:
-    int Find(void*);
-    void Use(int);
+    int Find_00079800(void*);
+    void Use_0007ba60(int);
 };
 struct Root_1d82d0 {
     char pad[0x4c];
     Manager_1d82d0* manager;
 };
-extern Root_1d82d0* gRoot_1d82d0;
+extern Root_1d82d0* hulk_at_004dd700;
 class Obj_1d82d0 {
   public:
     char pad0[0xa0];
     Holder_1d82d0* holder;
     char padA4[0xa8];
     unsigned char active;
-    void Prepare();
+    void Prepare_001d7510();
     int Run();
 };
 class Item_1d8c70 {
@@ -277,7 +277,7 @@ class Item_1d8c70 {
 };
 class Child_1d8c70 {
   public:
-    void Run(int);
+    void Run_0003ee70(int);
 };
 class Old_1d8c70 {
   public:
@@ -291,7 +291,7 @@ class Obj_1d8c70 {
     Item_1d8c70* mItem;
 
   public:
-    void Prep();
+    void Prep_001d8100();
     void Set(Item_1d8c70* p);
 };
 struct CSPListener_1db200 {
@@ -536,7 +536,7 @@ void Manager_1d8100::Run() {
         if (p) {
             int v = box ? box->value : 0;
             if (p->Get() == v)
-                p->Act(0);
+                p->Act_0003ee70(0);
         }
     }
     if (item) {
@@ -657,7 +657,7 @@ bool Target_1d81b0::run(unsigned arg, bool reset) {
 // 0x001d82a0 FUN_001d82a0 (35 B): matches/0x001d82a0.cpp
 // sym: ?target@fn_f9c60317@@YIXPAVObj_1d82a0@1@@Z
 void __fastcall target(Obj_1d82a0* self) {
-    self->Do();
+    self->Do_001d8100();
     if (self->ptr) {
         self->ptr->B();
         self->ptr = 0;
@@ -677,14 +677,14 @@ int Obj_1d82d0::Run() {
         x = 0;
     if (*(int*)(x + 0x6c))
         return -1;
-    Prepare();
-    Manager_1d82d0* m = gRoot_1d82d0->manager;
+    Prepare_001d7510();
+    Manager_1d82d0* m = hulk_at_004dd700->manager;
     void* q = (char*)this + 8;
     if (!((owners::C_79950 *)m)->FUN_00079950((hulk_intptr)q))
         return -1;
-    int r = m->Find(q);
+    int r = m->Find_00079800(q);
     if (r != -1)
-        m->Use(r);
+        m->Use_0007ba60(r);
     return r;
 }
 
@@ -1237,10 +1237,10 @@ namespace fn_f9c60317 {
 // 0x001d8c70 FUN_001d8c70 (85 B): matches/0x001d8c70.cpp
 // sym: ?Set@Obj_1d8c70@fn_f9c60317@@QAEXPAVItem_1d8c70@2@@Z
 void Obj_1d8c70::Set(Item_1d8c70* p) {
-    Prep();
+    Prep_001d8100();
     if (p != 0 && p->mState == 1 && p->mChild != 0) {
         void* q = mAtA0;
-        p->mChild->Run(q ? *(int*)((char*)q + 0x10) : 0);
+        p->mChild->Run_0003ee70(q ? *(int*)((char*)q + 0x10) : 0);
         p->First();
         Old_1d8c70* o = (Old_1d8c70*)mItem;
         if (o)

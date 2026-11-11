@@ -50,7 +50,7 @@ class C_1d5000 {
 struct Obj_1d5040 {
     char pad[0x10];
 };
-extern void* vProp[];
+extern void* hulk_at_00422a0c[];
 class Ref_1d55d0 {
   public:
     virtual void F0();
@@ -58,11 +58,11 @@ class Ref_1d55d0 {
 };
 class Part_1d55d0 {
   public:
-    void Fini() throw();
+    void Fini_0027af50() throw();
 };
 struct Entity_1d55d0 {
     void* vf;
-    void Dtor() throw();
+    void Dtor_0027afd0() throw();
 };
 struct CSPHulkProp_1d55d0 : Entity_1d55d0 {
     char pad[0x8c];
@@ -131,7 +131,7 @@ struct Holder_1d5730 {
 };
 typedef unsigned long U32_1d5c70;
 typedef unsigned __int64 U64_1d5c70;
-extern long __cdecl _atol(const char*);
+extern long __cdecl Fnatol_003454fe(const char*);
 struct Attribute { U32_1d5c70 low, high; const char* text; U32_1d5c70 unused; };
 struct Item_1d5c70 { char pad[0x3c]; int count; Attribute* attributes; };
 struct List_1d5c70 { char pad[0x1c]; Item_1d5c70** begin; Item_1d5c70** end; };
@@ -160,7 +160,7 @@ struct Object {
     int FUN_001d60c0();
 };
 struct X_1d6240 {
-    void Call();
+    void Call_001b6d60();
     X_1d6240* Target();
 };
 class A_1d6270 {
@@ -179,7 +179,7 @@ class A_1d6270 {
     virtual unsigned int f11();
 };
 struct B_1d6270 {
-    void FUN(unsigned int);
+    void FUN_001c5010(unsigned int);
 };
 struct Obj_1d6270 {
     char pad[0x9c];
@@ -206,7 +206,7 @@ class Entity_1d4d50 {
 };
 class M_1d4d50 {
   public:
-    void Init();
+    void Init_0027af00();
     char q[8];
 };
 class CSPHulkProp : public Entity_1d4d50 {
@@ -236,7 +236,7 @@ CSPHulkProp::CSPHulkProp() {
     n = 0;
     o = 0;
     p = 0;
-    mm.Init();
+    mm.Init_0027af00();
 }
 } // namespace fn_001d4d50
 
@@ -526,7 +526,7 @@ extern "C" int FUN_001d54c0(const char* s) {
 // 0x001d55d0 FUN_001d55d0 (82 B): matches/0x001d55d0.cpp
 // sym: ?Dtor2@CSPHulkProp_1d55d0@fn_f590c0bf@@QAEXXZ
 void CSPHulkProp_1d55d0::Dtor2() throw() {
-    vf = vProp;
+    vf = hulk_at_00422a0c;
     _ReadWriteBarrier();
     if (p90) {
         p90->Release();
@@ -536,8 +536,8 @@ void CSPHulkProp_1d55d0::Dtor2() throw() {
         FUN_0008d340(pb8);
         pb8 = 0;
     }
-    pc0.Fini();
-    Entity_1d55d0::Dtor();
+    pc0.Fini_0027af50();
+    Entity_1d55d0::Dtor_0027afd0();
 }
 
 
@@ -625,7 +625,7 @@ long CSPHulkPropInstance_1d5c70::FUN_001d5c70(int index) {
  if (count <= 0) return -1;
  Attribute* attr = item->attributes;
  for (int i=0; i<count; ++i, ++attr) {
-  if (attr->low == low && attr->high == high) return _atol(attr->text);
+  if (attr->low == low && attr->high == high) return Fnatol_003454fe(attr->text);
  }
  return -1;
 }
@@ -652,7 +652,7 @@ long CSPHulkPropInstance_1d5d20::target(int index) {
  if(n <= 0) return 0;
  Property_1d5d20* p = item->properties;
  for(int i=0; i<n; ++i, ++p) {
-  if(p->low == low && p->high == high) return _atol(p->value);
+  if(p->low == low && p->high == high) return Fnatol_003454fe(p->value);
  }
  return 0;
 }
@@ -871,7 +871,7 @@ int Object::FUN_001d60c0() {
 // sym: ?Target@X_1d6240@fn_f590c0bf@@QAEPAU12@XZ
 // Same code shape as 0x00034ad0 (propagated; names are from that function)
 X_1d6240* X_1d6240::Target() {
-    Call();
+    Call_001b6d60();
     return this;
 }
 
@@ -880,7 +880,7 @@ X_1d6240* X_1d6240::Target() {
 // sym: ?FUN_001d6270@fn_f590c0bf@@YIXPAUObj_1d6270@1@@Z
 void __fastcall FUN_001d6270(Obj_1d6270* self) {
     unsigned int x = self->p->f11();
-    self->q->FUN(x);
+    self->q->FUN_001c5010(x);
 }
 
 } // namespace fn_f590c0bf

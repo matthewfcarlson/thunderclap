@@ -28,13 +28,13 @@ extern "C" char DAT_003f742c[];
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 class CRageModeCondition_586b0 {
   public:
-    void Init(int);
+    void Init_00234590(int);
 };
-extern int g_vftable_586e0;
+extern int hulk_at_003f9604;
 struct ConditionFactoryTemplate_586e0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0004a5a0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -62,7 +62,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CRageModeCondition>::vfu
 template <> void* fight::ConditionFactoryTemplate<CRageModeCondition>::vfunc_5() {
     CRageModeCondition_586b0* p = (CRageModeCondition_586b0*)Alloc(0x10);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003f742c);
         *((char*)p + 0xc) = 1;
         return (void*)(p);
@@ -76,9 +76,9 @@ namespace fn_ff2800b1 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_586e0@fn_ff2800b1@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_586e0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_586e0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9604;
+    base1_dtor_0004a5a0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

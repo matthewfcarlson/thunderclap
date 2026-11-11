@@ -62,8 +62,8 @@ struct X_1eedd0 {
     char pad[0x14];
     Sub_1eedd0 sub;
 };
-extern "C" void __fastcall Init(Sub_1eedd0*);
-extern void* VTable_1eedd0;
+extern "C" void __fastcall Init_0027af50(Sub_1eedd0*);
+extern void* hulk_at_003f6098;
 namespace pure3d {
 class NonCopyable : public IRefCount {
   public:
@@ -120,8 +120,8 @@ void Obj::Fn(int x, Pair* p, int y, float z) {
 // 0x001eedd0 FUN_001eedd0 (19 B): matches/0x001eedd0.cpp
 // sym: ?Target@fn_f15f39d0@@YIXPAUX_1eedd0@1@@Z
 void __fastcall Target(X_1eedd0* self) {
-    Init(&self->sub);
-    self->vptr = &VTable_1eedd0;
+    Init_0027af50(&self->sub);
+    self->vptr = &hulk_at_003f6098;
 }
 
 

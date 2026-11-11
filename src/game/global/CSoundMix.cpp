@@ -12,7 +12,7 @@ namespace fn_f9b4d5ee {} using namespace fn_f9b4d5ee;
 
 // ---- declarations shared by the functions below
 namespace fn_f9b4d5ee {
-extern int v_1e85c0[];
+extern int hulk_at_00423f20[];
 class Stream {
   public:
     void Init();
@@ -38,7 +38,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 // 0x001e85c0 FUN_001e85c0 (7 B): matches/0x001e85c0.cpp
 // sym: ?Init@Stream@fn_f9b4d5ee@@QAEXXZ
 void Stream::Init() {
-    *(hulk_intptr*)this = (hulk_intptr)v_1e85c0;
+    *(hulk_intptr*)this = (hulk_intptr)hulk_at_00423f20;
 }
 
 

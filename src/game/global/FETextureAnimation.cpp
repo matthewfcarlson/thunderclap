@@ -9,7 +9,7 @@ namespace fn_ff1486cd {} using namespace fn_ff1486cd;
 
 // ---- declarations shared by the functions below
 namespace fn_ff1486cd {
-extern void* g_vftable_f11f0[];
+extern void* hulk_at_0040c3d0[];
 class Ref_f11f0 {
   public:
     virtual void F0();
@@ -18,9 +18,9 @@ class Ref_f11f0 {
 class FEPoseAnimation_f11f0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_000e8730();
 };
-void Free(void*) throw();
+void Free_0008d330(void*) throw();
 struct Sub_f11f0 {
     char c;
 };
@@ -38,15 +38,15 @@ class FEParticleAnimation_f11f0 : public FEPoseAnimation_f11f0 {
 // 0x000f11f0 FEParticleAnimation::vfunc_0 (57 B): matches/0x000f11f0.cpp
 // sym: ?f@FEParticleAnimation_f11f0@fn_ff1486cd@@QAEPAV12@E@Z
 FEParticleAnimation_f11f0* FEParticleAnimation_f11f0::f(unsigned char fl) {
-    vptr = g_vftable_f11f0;
+    vptr = hulk_at_0040c3d0;
     _ReadWriteBarrier();
     if (m64) {
         m64->Release();
         m64 = 0;
     }
-    Fin();
+    Fin_000e8730();
     if (fl & 1)
-        Free(this);
+        Free_0008d330(this);
     return this;
 }
 

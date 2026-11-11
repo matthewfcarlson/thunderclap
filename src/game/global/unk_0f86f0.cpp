@@ -23,7 +23,7 @@ struct Data_f87c0 {
 class Obj_f87c0 {
   public:
     Data_f87c0* root;
-    void Next(int, int, int);
+    void Next_000f81b0(int, int, int);
     void F(int index, int b, int c);
 };
 struct Blender_f87f0;
@@ -224,8 +224,8 @@ struct Obj_f8bd0 {
 extern char DAT_004a17a8;
 extern char DAT_004a17c4;
 extern "C" int __cdecl FUN_00344e74(hulk_intptr a, int b, void* c, void* d, int e);
-extern int a;
-extern int b;
+extern int hulk_at_004a17a8;
+extern int hulk_at_004a17e4;
 struct This_first {
 };
 extern int __cdecl second(int, int, int*, int*, int);
@@ -272,7 +272,7 @@ void Obj_f87c0::F(int index, int b, int c) {
         value = root->values[index];
     else
         value = 0;
-    Next(value, b, c);
+    Next_000f81b0(value, b, c);
 }
 
 
@@ -518,6 +518,6 @@ hulk_intptr owners::ThisWrap_000f8d40::FUN_000f8d40(int a) {
 // 0x000f8d70 FUN_000f8d70 (36 B): matches/0x000f8d70.cpp
 // sym: ?FUN_000f8d70@Obj_f8d70@owners@@QAEHH@Z
 hulk_intptr owners::Obj_f8d70::FUN_000f8d70(hulk_intptr x) {
-    return second(((owners::Table_f8cc0 *)(((This_first*)this)))->FUN_000f8cc0((const char *)(hulk_uintptr)(int)(((int)x))), 0, &a, &b, 0);
+    return second(((owners::Table_f8cc0 *)(((This_first*)this)))->FUN_000f8cc0((const char *)(hulk_uintptr)(int)(((int)x))), 0, &hulk_at_004a17a8, &hulk_at_004a17e4, 0);
 }
 

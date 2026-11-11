@@ -23,11 +23,11 @@ class TrackFactoryTemplate_56dd0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_56e10;
+extern int hulk_at_003f907c;
 struct ConditionFactoryTemplate_56e10 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00048760();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" char DAT_003f9098[];
@@ -36,10 +36,10 @@ class CAxisDownCondition_56e40 {
     CAxisDownCondition_56e40();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern void* CAxisValueCondition_56e70_vftable[];
+extern void* hulk_at_003f6d50[];
 class CAxisValueCondition_56e70 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fbb05a02
 class CAxisDownCondition : public CAxisValueCondition_56e70 {
@@ -70,9 +70,9 @@ namespace fn_fbb05a02 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_56e10@fn_fbb05a02@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_56e10::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_56e10;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f907c;
+    base1_dtor_00048760();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -99,8 +99,8 @@ template <> void* fight::ConditionFactoryTemplate<CAxisDownCondition>::vfunc_5()
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CAxisDownCondition* CAxisDownCondition::vfunc_5(signed char flags) {
-    *(void***)this = CAxisValueCondition_56e70_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

@@ -11,9 +11,9 @@ namespace fn_f09842b8 {} using namespace fn_f09842b8;
 
 // ---- declarations shared by the functions below
 namespace fn_f09842b8 {
-extern void* vtController;
-extern void* vtDolly;
-void __cdecl Release(void*);
+extern void* hulk_at_0040bcb4;
+extern void* hulk_at_0040bc80;
+void __cdecl Release_0008d330(void*);
 class ControllerState_dd7a0 {
   public:
     void* vt;
@@ -149,7 +149,7 @@ class IDollyControllerState_dd900 {
     virtual void vfunc_11();
     char pad[8];
 };
-extern const int g_table[][2];
+extern const int hulk_at_004a0d74[][2];
 class IDollyControllerState_dd920 {
   public:
     virtual void f0();
@@ -183,7 +183,7 @@ class ControllerPollerBase_dda90 {
 };
 class Helper_dda90 {
   public:
-    int run(int, int);
+    int run_000dd710(int, int);
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 class ControllerPollerBase_ddb40 {
@@ -241,16 +241,16 @@ namespace fn_f09842b8 {
 // 0x000dd7a0 FUN_000dd7a0 (63 B): matches/0x000dd7a0.cpp
 // sym: ?Clear@ControllerState_dd7a0@fn_f09842b8@@QAEXXZ
 void ControllerState_dd7a0::Clear() {
-    vt = &vtController;
+    vt = &hulk_at_0040bcb4;
     if (a) {
-        Release(a);
+        Release_0008d330(a);
         a = 0;
     }
     if (b) {
-        Release(b);
+        Release_0008d330(b);
         b = 0;
     }
-    vt = &vtDolly;
+    vt = &hulk_at_0040bc80;
 }
 
 } // namespace fn_f09842b8
@@ -335,7 +335,7 @@ int ControllerState::vfunc_9() {
 // sym: ?vfunc_10@ControllerState@@UAEMH@Z
 hulk_freg ControllerState::vfunc_10(int arg) {
     float* a = (*(float * *)&this->f_0c);
-    const int* p = g_table[arg];
+    const int* p = hulk_at_004a0d74[arg];
     return a[p[0]] - a[p[1]];
 }
 
@@ -377,13 +377,13 @@ ControllerPoller::ControllerPoller(int a, int b) : ControllerPollerBase_dd940(b)
 // sym: @FUN_000dd970@4
 namespace fn_000dd970 {
 // Same code shape as 0x00060920 (propagated; names are from that function)
-extern int CEffectStopTrack_vftable;
+extern int hulk_at_0040bce8;
 class CEffectStopTrack {
   public:
 };
 void __fastcall FUN_000de170(CEffectStopTrack*);
 extern "C" void __fastcall FUN_000dd970(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)&hulk_at_0040bce8;
     FUN_000de170(self);
 }
 } // namespace fn_000dd970
@@ -430,7 +430,7 @@ void ControllerPoller::vfunc_2() {
 int ControllerPoller::vfunc_5(int param) {
     Helper_dda90* p = (Helper_dda90*)FUN_0008d690(0x14);
     if (p)
-        return p->run(this->f_38, param);
+        return p->run_000dd710(this->f_38, param);
     return 0;
 }
 

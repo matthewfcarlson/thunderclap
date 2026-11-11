@@ -23,11 +23,11 @@ class TrackFactoryTemplate_571c0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_57200;
+extern int hulk_at_003f91c8;
 struct ConditionFactoryTemplate_57200 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_000484f0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class CButtonDownCondition_57230 {
@@ -41,11 +41,11 @@ class CButtonDownCondition_57230 {
     virtual void f5();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vft_57230;
-extern void* CButtonValueCondition_57260_vftable[];
+extern int hulk_at_003f91e4;
+extern void* hulk_at_003f6d50[];
 class CButtonValueCondition_57260 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f35c6cc2
 class CButtonDownCondition : public CButtonValueCondition_57260 {
@@ -76,9 +76,9 @@ namespace fn_f35c6cc2 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_57200@fn_f35c6cc2@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_57200::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_57200;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f91c8;
+    base1_dtor_000484f0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -92,7 +92,7 @@ template <> void* fight::ConditionFactoryTemplate<CButtonDownCondition>::vfunc_5
     CButtonDownCondition_57230* p = (CButtonDownCondition_57230*)FUN_0008d690(0x20);
     if (p) {
         p->CButtonDownCondition_57230::CButtonDownCondition_57230();
-        *(hulk_intptr*)p = (hulk_intptr)&g_vft_57230;
+        *(hulk_intptr*)p = (hulk_intptr)&hulk_at_003f91e4;
         return (void*)(p);
     }
     return (void*)(0);
@@ -105,8 +105,8 @@ template <> void* fight::ConditionFactoryTemplate<CButtonDownCondition>::vfunc_5
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CButtonDownCondition* CButtonDownCondition::vfunc_5(signed char flags) {
-    *(void***)this = CButtonValueCondition_57260_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

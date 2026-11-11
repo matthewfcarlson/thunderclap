@@ -23,11 +23,11 @@ class TrackFactoryTemplate_76930 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_76970;
+extern int hulk_at_003fe864;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006a970();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 class CGrappleInvulnerableTrack_769a0 {
@@ -41,11 +41,11 @@ class CGrappleInvulnerableTrack_769a0 {
     CGrappleInvulnerableTrack_769a0();
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-extern int vtable_769a0;
-extern void* CInvulnerableTrack_769d0_vftable[];
+extern int hulk_at_003fe880;
+extern void* hulk_at_003f98d0[];
 class CInvulnerableTrack_769d0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fd060a0f
 class CGrappleInvulnerableTrack : public CInvulnerableTrack_769d0 {
@@ -76,9 +76,9 @@ namespace fn_fd060a0f {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fd060a0f@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_76970;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe864;
+    base1_dtor_0006a970();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -92,7 +92,7 @@ template <> void* fight::TrackFactoryTemplate<CGrappleInvulnerableTrack>::vfunc_
     CGrappleInvulnerableTrack_769a0* p = (CGrappleInvulnerableTrack_769a0*)Alloc(0x18);
     if (p) {
         p->CGrappleInvulnerableTrack_769a0::CGrappleInvulnerableTrack_769a0();
-        *(hulk_intptr*)p = (hulk_intptr)&vtable_769a0;
+        *(hulk_intptr*)p = (hulk_intptr)&hulk_at_003fe880;
         return (void*)(p);
     }
     return (void*)(0);
@@ -105,8 +105,8 @@ template <> void* fight::TrackFactoryTemplate<CGrappleInvulnerableTrack>::vfunc_
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CGrappleInvulnerableTrack* CGrappleInvulnerableTrack::vfunc_5(signed char flags) {
-    *(void***)this = CInvulnerableTrack_769d0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f98d0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

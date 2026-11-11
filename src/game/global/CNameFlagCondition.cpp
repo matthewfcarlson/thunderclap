@@ -22,11 +22,11 @@ class TrackFactoryTemplate_58f60 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_58fa0;
+extern int hulk_at_003f9794;
 struct ConditionFactoryTemplate_58fa0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00048d30();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 struct Base_58fd0 {
@@ -38,10 +38,10 @@ struct CNameFlagCondition_58fd0 : Base_58fd0 {
     CNameFlagCondition_58fd0() throw() {}
     virtual void f0();
 };
-extern void* CNameFlagConditionBase_59000_vftable[];
+extern void* hulk_at_003f97b0[];
 class CNameFlagConditionBase_59000 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00048d90(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f738f905
 class CNameFlagCondition : public CNameFlagConditionBase_59000 {
@@ -72,9 +72,9 @@ namespace fn_f738f905 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_58fa0@fn_f738f905@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_58fa0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_58fa0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9794;
+    base1_dtor_00048d30();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -95,8 +95,8 @@ template <> void* fight::ConditionFactoryTemplate<CNameFlagCondition>::vfunc_5()
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CNameFlagCondition* CNameFlagCondition::vfunc_5(signed char flags) {
-    *(void***)this = CNameFlagConditionBase_59000_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f97b0;
+    Destroy_00048d90();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

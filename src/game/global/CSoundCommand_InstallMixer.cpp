@@ -45,7 +45,7 @@ class NonCopyable : public CSoundCommand_1ef770 {
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 class Mixer {
   public:
-    void Install(void*, int);
+    void Install_001e9a90(void*, int);
 };
 class Manager {
   public:
@@ -90,7 +90,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 // sym: ?vfunc_1@CSoundCommand_InstallMixer@fn_f3b01e83@@UAEXHH@Z
 // data: gManager = DAT_004e370c
 void CSoundCommand_InstallMixer::vfunc_1(int, int) {
-    (*(Manager**)&DAT_004e370c)->mixer->Install(data, (int)(__int64)value);
+    (*(Manager**)&DAT_004e370c)->mixer->Install_001e9a90(data, (int)(__int64)value);
 }
 
 } // namespace fn_f3b01e83

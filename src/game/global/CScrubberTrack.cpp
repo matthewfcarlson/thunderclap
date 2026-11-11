@@ -12,7 +12,7 @@ namespace fn_f88b40b1 {} using namespace fn_f88b40b1;
 
 // ---- declarations shared by the functions below
 namespace fn_f88b40b1 {
-extern float gNegOne;
+extern float hulk_at_003f3388;
 
 
 // 0x00068df0 FUN_00068df0 (19 B): matches/0x00068df0.cpp
@@ -62,7 +62,7 @@ hulk_freg CScrubberTrack::vfunc_6() {
 // sym: ?vfunc_7@CScrubberTrack@@UAEMXZ
 // Same code shape as 0x000695a0 (propagated; names are from that function)
 hulk_freg CScrubberTrack::vfunc_7() {
-    return gNegOne;
+    return hulk_at_003f3388;
 }
 
 namespace fn_f88b40b1 {

@@ -43,7 +43,7 @@ class Obj_e2f80 {
 };
 class Gate_e30a0 {
   public:
-    void H(int);
+    void FnH_000f8b90(int);
 };
 class FEControl_e30c0 {
   public:
@@ -67,10 +67,10 @@ class FEControl_e30c0 {
     virtual void a17();
     virtual void a18();
 };
-struct Notifier_e30c0 { void Notify(int); };
+struct Notifier_e30c0 { void Notify_000f8b90(int); };
 class Notifier {
   public:
-    void Notify(int);
+    void Notify_000f8b90(int);
 };
 class FEControl_e3660 {
   public:
@@ -194,7 +194,7 @@ void TextSelector::vfunc_24(int value) {
 // sym: ?FUN_000e30a0@TextSelector@@QAEXXZ
 void TextSelector::FUN_000e30a0() {
     if ((*(Gate_e30a0 * *)&this->f_1d94))
-        (*(Gate_e30a0 * *)&this->f_1d94)->H(this->f_154);
+        (*(Gate_e30a0 * *)&this->f_1d94)->FnH_000f8b90(this->f_154);
     vfunc_0();
 }
 
@@ -205,7 +205,7 @@ void TextSelector::vfunc_25(int p) {
     if (this->f_154 != p) {
         this->f_154 = p;
         if (*(int*)((char*)this + 0x1d94))
-            (*(Notifier_e30c0**)((char*)this + 0x1d94))->Notify(p);
+            (*(Notifier_e30c0**)((char*)this + 0x1d94))->Notify_000f8b90(p);
         vfunc_0();
     }
 }
@@ -216,7 +216,7 @@ void TextSelector::vfunc_25(int p) {
 void TextSelector::vfunc_26(int index, int value) {
     *(int*)((char*)this + (index + 7) * 0x38) = value;
     if ((*(Notifier * *)&this->f_1d94))
-        (*(Notifier * *)&this->f_1d94)->Notify(this->f_154);
+        (*(Notifier * *)&this->f_1d94)->Notify_000f8b90(this->f_154);
     vfunc_0();
 }
 

@@ -107,7 +107,7 @@ struct FEMemCardControl_d7ec0 {
     int field;
     char q[0x190];
     unsigned char flag;
-    Y_d7ec0* getY();
+    Y_d7ec0* getY_000fc3d0();
     void target(int);
 };
 class Thing_d7ef0 {
@@ -158,7 +158,7 @@ class Thing_d7ef0 {
     virtual void f43();
     virtual void f44();
 };
-Thing_d7ef0* __cdecl GetThing();
+Thing_d7ef0* __cdecl GetThing_000fc3d0();
 class Control_d7ef0 {
   public:
 };
@@ -238,11 +238,11 @@ struct Source {
     virtual void f43();
     virtual int Get();
 };
-extern Source* __cdecl fetch();
+extern Source* __cdecl fetch_000fc3d0();
 struct Item {
     int value;
     char rest[0x34];
-    void action(int, int, int);
+    void action_000f8500(int, int, int);
 };
 class Owner {
     char pad[0x35c];
@@ -256,11 +256,11 @@ struct Obj_d8150 {
 };
 class B_d8170 {
   public:
-    hulk_intptr f();
+    hulk_intptr Fnf_000b5000();
 };
 class C_d8170 {
   public:
-    int g(int, int);
+    int Fng_000890a0(int, int);
 };
 class FEMemCardControl_d8170 {
   public:
@@ -268,12 +268,12 @@ class FEMemCardControl_d8170 {
     B_d8170* member;
     int target(int a, int b);
 };
-extern int g_d8190;
+extern int hulk_at_004dd6ec;
 struct R_d8190 {
-    int finish(int, int, int);
+    int finish_0008b560(int, int, int);
 };
 struct A_d8190 {
-    R_d8190* call();
+    R_d8190* call_000b5000();
 };
 struct FEMemCardControl_d8190 {
     char pad[0x150];
@@ -282,13 +282,13 @@ struct FEMemCardControl_d8190 {
 };
 class Chain_d81c0 {
   public:
-    void B(int);
-    int C(int, int);
-    void D(int);
+    void FnB_0008ca30(int);
+    int FnC_000892c0(int, int);
+    void FnD_0008c870(int);
 };
 class Manager_d81c0 {
   public:
-    Chain_d81c0* Get();
+    Chain_d81c0* Get_000b5000();
 };
 class Obj_d81c0 {
   public:
@@ -297,16 +297,16 @@ class Obj_d81c0 {
 };
 class B_d8220 {
   public:
-    void F1(int);
-    int F2(int);
-    void F3(int);
+    void F1_0008ca30(int);
+    int F2_0008c810(int);
+    void F3_0008c870(int);
 };
 class A_d8220 {
   public:
 };
 class M_d8220 {
   public:
-    A_d8220* Get();
+    A_d8220* Get_000b5000();
 };
 class FEMemCardControl_d8220 {
   public:
@@ -344,7 +344,7 @@ struct Mgr2_d9080 {
 };
 extern Mgr2_d9080* g_mgr_d9080;
 struct Menu_d9080 {
-    void Show(const char* a, const char* b, const char* f1, const char* f2, const char* ok, int n,
+    void Show_000be230(const char* a, const char* b, const char* f1, const char* f2, const char* ok, int n,
               const char* f3, const char* f4);
 };
 struct FEMemCardControl_d9080 {
@@ -354,7 +354,7 @@ struct FEMemCardControl_d9080 {
     char f3b0;
     char pad3[0x3eb - 0x3b1];
     char f3eb;
-    Menu_d9080* GetMenu();
+    Menu_d9080* GetMenu_000fc3d0();
     void Run(int a, int b);
 };
 struct Mgr_d9100 {
@@ -366,7 +366,7 @@ struct Mgr2_d9100 {
 };
 extern Mgr2_d9100* g_mgr_d9100;
 struct Menu_d9100 {
-    void Show(const char* a, const char* b, const char* f1, const char* f2, const char* ok, int n,
+    void Show_000be230(const char* a, const char* b, const char* f1, const char* f2, const char* ok, int n,
               const char* f3, const char* f4);
 };
 struct FEMemCardControl_d9100 {
@@ -376,7 +376,7 @@ struct FEMemCardControl_d9100 {
     char f3b0;
     char pad3[0x3eb - 0x3b1];
     char f3eb;
-    Menu_d9100* GetMenu();
+    Menu_d9100* GetMenu_000fc3d0();
     void Run(int a, int b);
 };
 class Obj_d9e40 {
@@ -427,7 +427,7 @@ class Obj_d9e40 {
     virtual void v43();
     virtual void v44();
 };
-extern Obj_d9e40* __cdecl getObj();
+extern Obj_d9e40* __cdecl getObj_000fc3d0();
 class FEMemCardControl_d9e40 {
   public:
     char pad0[0x1d0];
@@ -436,7 +436,7 @@ class FEMemCardControl_d9e40 {
     int zero;
     char pad2[0x190];
     unsigned char flag;
-    void helper(int);
+    void helper_000d8990(int);
     void run(int);
 };
 
@@ -729,11 +729,11 @@ class Manager_d7e60 {
     virtual void f43();
     virtual int f44();
 };
-Manager_d7e60* getManager();
+Manager_d7e60* getManager_000fc3d0();
 class Field_d7e60 {
   public:
     int val;
-    void set(char*, int, int);
+    void set_000f8500(char*, int, int);
 };
 class FEControl_d7e60 {
   public:
@@ -766,8 +766,8 @@ void FEMemCardControl::vfunc_3() {
     FEControl_d7e60::vfunc_3();
     x1d0 = 0;
     x18 = 0;
-    Manager_d7e60* m = getManager();
-    field.set((*(char**)&DAT_004a0c7c), m->f44(), 1);
+    Manager_d7e60* m = getManager_000fc3d0();
+    field.set_000f8500((*(char**)&DAT_004a0c7c), m->f44(), 1);
     field.val = 0;
     x220 = 0;
     x25c = 0;
@@ -782,7 +782,7 @@ namespace fn_f70d8f3f {
 // 0x000d7ec0 FUN_000d7ec0 (39 B): matches/0x000d7ec0.cpp
 // sym: ?target@FEMemCardControl_d7ec0@fn_f70d8f3f@@QAEXH@Z
 void FEMemCardControl_d7ec0::target(int arg) {
-    Y_d7ec0* y = getY();
+    Y_d7ec0* y = getY_000fc3d0();
     y->f44();
     flag = 1;
     field = 0;
@@ -792,7 +792,7 @@ void FEMemCardControl_d7ec0::target(int arg) {
 // 0x000d7ef0 FUN_000d7ef0 (57 B): matches/0x000d7ef0.cpp
 // sym: ?Run@FEMemCardControl_d7ef0@fn_f70d8f3f@@QAEXH@Z
 void FEMemCardControl_d7ef0::Run(int unused) {
-    Thing_d7ef0* p = GetThing();
+    Thing_d7ef0* p = GetThing_000fc3d0();
     p->f44();
     ((owners::MenuScreen_bc9f0 *)mControl)->FUN_000bc9f0((hulk_intptr)"DynamicControlButtonLabel", 3);
     mFlag = 1;
@@ -831,11 +831,11 @@ void FEMemCardControl_d7f60::update() {
 // 0x000d7ff0 FUN_000d7ff0 (60 B): matches/0x000d7ff0.cpp
 // sym: ?Run@Owner@fn_f70d8f3f@@QAEXHH@Z
 void Owner::Run(int index, int unused) {
-    Source* s = fetch();
+    Source* s = fetch_000fc3d0();
     int v = s->Get();
     Item* p = &items[index];
     p->value = 0;
-    p->action(((int*)&DAT_004a0c64)[index], v, 1);
+    p->action_000f8500(((int*)&DAT_004a0c64)[index], v, 1);
 }
 
 } // namespace fn_f70d8f3f
@@ -864,23 +864,23 @@ void __fastcall FUN_000d8150(Obj_d8150* p) {
 // 0x000d8170 FUN_000d8170 (31 B): matches/0x000d8170.cpp
 // sym: ?target@FEMemCardControl_d8170@fn_f70d8f3f@@QAEHHH@Z
 int FEMemCardControl_d8170::target(int a, int b) {
-    return ((C_d8170*)member->f())->g(a, b);
+    return ((C_d8170*)member->Fnf_000b5000())->Fng_000890a0(a, b);
 }
 
 
 // 0x000d8190 FUN_000d8190 (37 B): matches/0x000d8190.cpp
 // sym: ?target@FEMemCardControl_d8190@fn_f70d8f3f@@QAEHHH@Z
 int FEMemCardControl_d8190::target(int a, int b) {
-    return ptr->call()->finish(a, b, g_d8190);
+    return ptr->call_000b5000()->finish_0008b560(a, b, hulk_at_004dd6ec);
 }
 
 
 // 0x000d81c0 FUN_000d81c0 (95 B): matches/0x000d81c0.cpp
 // sym: ?target@fn_f70d8f3f@@YIHPAVObj_d81c0@1@PAXHH@Z
 int __fastcall target(Obj_d81c0* self, void*, int x, int y) {
-    ((Chain_d81c0 *)((owners::Obj_89a50 *)(self->m->Get()))->FUN_00089a50())->B(x);
-    int r = self->m->Get()->C(x, y);
-    ((Chain_d81c0 *)((owners::Obj_89a50 *)(self->m->Get()))->FUN_00089a50())->D(x);
+    ((Chain_d81c0 *)((owners::Obj_89a50 *)(self->m->Get_000b5000()))->FUN_00089a50())->FnB_0008ca30(x);
+    int r = self->m->Get_000b5000()->FnC_000892c0(x, y);
+    ((Chain_d81c0 *)((owners::Obj_89a50 *)(self->m->Get_000b5000()))->FUN_00089a50())->FnD_0008c870(x);
     return r;
 }
 
@@ -888,9 +888,9 @@ int __fastcall target(Obj_d81c0* self, void*, int x, int y) {
 // 0x000d8220 FUN_000d8220 (97 B): matches/0x000d8220.cpp
 // sym: ?Run@FEMemCardControl_d8220@fn_f70d8f3f@@QAEHH@Z
 int FEMemCardControl_d8220::Run(int x) {
-    ((B_d8220 *)((owners::Obj_89a50 *)(m->Get()))->FUN_00089a50())->F1(x);
-    int r = ((B_d8220 *)((owners::Obj_89a50 *)(m->Get()))->FUN_00089a50())->F2(x);
-    ((B_d8220 *)((owners::Obj_89a50 *)(m->Get()))->FUN_00089a50())->F3(x);
+    ((B_d8220 *)((owners::Obj_89a50 *)(m->Get_000b5000()))->FUN_00089a50())->F1_0008ca30(x);
+    int r = ((B_d8220 *)((owners::Obj_89a50 *)(m->Get_000b5000()))->FUN_00089a50())->F2_0008c810(x);
+    ((B_d8220 *)((owners::Obj_89a50 *)(m->Get_000b5000()))->FUN_00089a50())->F3_0008c870(x);
     return r;
 }
 
@@ -1214,7 +1214,7 @@ void FEMemCardControl_d88f0::FUN_000d88f0(int key, char *foundNone, char *foundO
 // sym: ?Run@FEMemCardControl_d9080@fn_f70d8f3f@@QAEXHH@Z
 // data: kZero_d9080 = DAT_003f335c
 void FEMemCardControl_d9080::Run(int a, int b) {
-    Menu_d9080* m = GetMenu();
+    Menu_d9080* m = GetMenu_000fc3d0();
     const char* s;
     if (!f3eb) {
         Mgr_d9080* g = g_mgr_d9080->Get();
@@ -1225,7 +1225,7 @@ void FEMemCardControl_d9080::Run(int a, int b) {
     } else {
         s = DAT_004a0ce8;
     }
-    m->Show(s, DAT_004a0c90, ((const char*)&DAT_003f335c), ((const char*)&DAT_003f335c), DAT_00408ee8, 2, ((const char*)&DAT_003f335c), ((const char*)&DAT_003f335c));
+    m->Show_000be230(s, DAT_004a0c90, ((const char*)&DAT_003f335c), ((const char*)&DAT_003f335c), DAT_00408ee8, 2, ((const char*)&DAT_003f335c), ((const char*)&DAT_003f335c));
     f3b0 = 1;
     v21c = 0;
 }
@@ -1235,7 +1235,7 @@ void FEMemCardControl_d9080::Run(int a, int b) {
 // sym: ?Run@FEMemCardControl_d9100@fn_f70d8f3f@@QAEXHH@Z
 // data: kZero_d9100 = DAT_003f335c
 void FEMemCardControl_d9100::Run(int a, int b) {
-    Menu_d9100* m = GetMenu();
+    Menu_d9100* m = GetMenu_000fc3d0();
     const char* s;
     if (!f3eb) {
         Mgr_d9100* g = g_mgr_d9100->Get();
@@ -1246,7 +1246,7 @@ void FEMemCardControl_d9100::Run(int a, int b) {
     } else {
         s = DAT_004a0ce8;
     }
-    m->Show(s, DAT_004a0c98, ((const char*)&DAT_003f335c), ((const char*)&DAT_003f335c), DAT_00408ee8, 2, ((const char*)&DAT_003f335c), ((const char*)&DAT_003f335c));
+    m->Show_000be230(s, DAT_004a0c98, ((const char*)&DAT_003f335c), ((const char*)&DAT_003f335c), DAT_00408ee8, 2, ((const char*)&DAT_003f335c), ((const char*)&DAT_003f335c));
     f3b0 = 1;
     v21c = 0;
 }
@@ -1255,9 +1255,9 @@ void FEMemCardControl_d9100::Run(int a, int b) {
 // 0x000d9e40 FUN_000d9e40 (53 B): matches/0x000d9e40.cpp
 // sym: ?run@FEMemCardControl_d9e40@fn_f70d8f3f@@QAEXH@Z
 void FEMemCardControl_d9e40::run(int unused) {
-    Obj_d9e40* p = getObj();
+    Obj_d9e40* p = getObj_000fc3d0();
     p->v44();
-    helper(value);
+    helper_000d8990(value);
     flag = 1;
     zero = 0;
 }

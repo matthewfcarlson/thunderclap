@@ -106,7 +106,7 @@ class Child_e4d20 {
     virtual void f10(int);
 };
 struct FEContainer_nv_e4d20 {
-    void helper();
+    void helper_000e4640();
 };
 class Child_e4d50 {
   public:
@@ -187,7 +187,7 @@ struct Target_e5330 {
 };
 struct State_e54d0 {
     int value;
-    void action();
+    void action_000fb420();
 };
 struct Obj_e54d0 {
     char pad[0xe0];
@@ -350,7 +350,7 @@ class Owner {
 };
 class Probe_e5f70 {
   public:
-    short* Find(int, int);
+    short* Find_000f83f0(int, int);
 };
 class Item_e5f70 {
     char pad[0x14];
@@ -607,10 +607,10 @@ class X_e65b0 {
     void clear();
 };
 typedef unsigned int u32_e65e0;
-extern void* __cdecl allocThing(u32_e65e0);
+extern void* __cdecl allocThing_0008d690(u32_e65e0);
 class Thing_e65e0 {
   public:
-    u32_e65e0 initialize();
+    u32_e65e0 initialize_000df690();
 };
 extern "C" int __cdecl FUN_0008d690(int);
 class Helper_e6600 {
@@ -730,11 +730,11 @@ class Item_e6a00 {
 };
 class Sub_e6b30 {
   public:
-    void run(int);
+    void run_000e5440(int);
 };
 class Obj_e6b80 {
   public:
-    void Helper(int);
+    void Helper_000e5440(int);
 };
 class Obj_e6be0 {
   public:
@@ -775,13 +775,13 @@ class Sub_e6f60 {
 };
 class Obj_e6f60 {
   public:
-    void run();
+    void run_000363d0();
 };
 struct Manager_e6f60 {
     char pad[0x20];
     void* obj;
 };
-extern Manager_e6f60* gManager_e6f60;
+extern Manager_e6f60* hulk_at_004dd700;
 } // namespace fn_f26f242d
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* memset(void*, int, unsigned int);
@@ -790,7 +790,7 @@ namespace fn_f26f242d {
 struct TD {
     void* vf;
 };
-extern TD FEObject_Type, FEControl_Type, HSlider_Type;
+extern TD hulk_at_0049dba4, hulk_at_0049f4f0, hulk_at_0049f4d8;
 extern "C" void* __cdecl FUN_00344e74(void*, int, TD*, TD*, int);
 extern hulk_intptr __cdecl FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int);
 extern int DAT_0049dba4, DAT_0049f4f0, DAT_004a1274;
@@ -818,13 +818,13 @@ class Callback_e7b90 {
 };
 class Manager_e7b90 {
   public:
-    bool IsActive();
-    int GetValueBits();
-    bool CheckFlag();
-    void Action1();
+    bool IsActive_000f9e90();
+    int GetValueBits_000faeb0();
+    bool CheckFlag_000f9ef0();
+    void Action1_000f9f30();
     int Action2();
-    void Cleanup();
-    void AltCleanup();
+    void Cleanup_000f9fb0();
+    void AltCleanup_000fa0a0();
 };
 class Callback_e7c30 {
   public:
@@ -832,24 +832,24 @@ class Callback_e7c30 {
 };
 class Manager_e7c30 {
   public:
-    bool IsActive();
-    int GetValueBits();
-    bool CheckFlag();
-    void Action1();
+    bool IsActive_000f9e90();
+    int GetValueBits_000faeb0();
+    bool CheckFlag_000f9ef0();
+    void Action1_000f9f30();
     int Action2();
-    void Cleanup();
-    void AltCleanup();
+    void Cleanup_000f9fb0();
+    void AltCleanup_000fa0a0();
 };
 class Arg_e7cd0 {
   public:
-    char F90();
-    unsigned int FAB();
-    char FEF();
-    void F30();
-    char F50();
+    char F90_000f9e90();
+    unsigned int FAB_000faeb0();
+    char FEF_000f9ef0();
+    void F30_000f9f30();
+    char F50_000f9e50();
     unsigned int FB1();
-    void FFB();
-    void FA0();
+    void FFB_000f9fb0();
+    void FA0_000fa0a0();
 };
 class Out_e7cd0 {
   public:
@@ -883,7 +883,7 @@ struct FEThingsBase_e7d90 {
 };
 class Other {
   public:
-    void F();
+    void FnF_000fa0a0();
 };
 class FEThingsBase_e7ec0 {
   public:
@@ -891,7 +891,7 @@ class FEThingsBase_e7ec0 {
 };
 class X_e7f10 {
   public:
-    int fallback();
+    int fallback_000fa0a0();
 };
 class M_e8420 {
   public:
@@ -930,7 +930,7 @@ class Item_e8420 {
 };
 struct Holder_e8420 {
     M_e8420* m;
-    void exec(float, float, float);
+    void exec_00293da0(float, float, float);
 };
 
 } // namespace fn_f26f242d
@@ -1386,7 +1386,7 @@ void FEThingsBase::vfunc_66() {
 namespace fn_000e46f0 {
 typedef unsigned int u32_e46f0;
 typedef unsigned long long u64_e46f0;
-extern u64_e46f0 GetKey(int);
+extern u64_e46f0 GetKey_0027b020(int);
 class FEContainer {
   public:
     virtual void f0();
@@ -1436,7 +1436,7 @@ u32_e46f0 FEContainer::vfunc_36(int x) {
         hulk_uintptr v = *p;
         if (!v)
             return 0;
-        u64_e46f0 k = GetKey(x);
+        u64_e46f0 k = GetKey_0027b020(x);
         if ((u32_e46f0)k == *(u32_e46f0*)(v + 0x10) && (u32_e46f0)(k >> 32) == *(u32_e46f0*)(v + 0x14))
             return *(u32_e46f0*)((char*)self + 0x4c + i * 4);
         ++i;
@@ -1555,10 +1555,10 @@ class FEContainer {
     virtual void* v37(int);
     virtual void vfunc_38(int);
 };
-extern int typeA, typeB;
+extern int typeA, hulk_at_0049f48c;
 void __cdecl helper(void*, int, void*, void*, int);
 void FEContainer::vfunc_38(int n) {
-    helper(v37(n), 0, &typeA, &typeB, 0);
+    helper(v37(n), 0, &typeA, &hulk_at_0049f48c, 0);
 }
 } // namespace fn_000e47b0
 
@@ -1837,10 +1837,10 @@ class FEContainer {
     virtual void f43();
     virtual void vfunc_44(void*);
 };
-extern int a, b;
+extern int a, hulk_at_004a1274;
 void work(int, int, int*, int*, int);
 void FEContainer::vfunc_44(void* x) {
-    work(f39(x), 0, &a, &b, 0);
+    work(f39(x), 0, &a, &hulk_at_004a1274, 0);
 }
 } // namespace fn_000e48a0
 
@@ -1909,7 +1909,7 @@ void FEContainer::vfunc_45(void* p) {
 // 0x000e4900 FEContainer::vfunc_41 (39 B): matches/0x000e4900.cpp [wrapped: macros]
 // sym: ?vfunc_41@FEContainer@fn_000e4900@@UAEXPAX@Z
 namespace fn_000e4900 {
-extern int gOne, gTwo;
+extern int gOne, hulk_at_0049dbbc;
 extern void __cdecl Process(int, int, int*, int*, int);
 class FEContainer {
   public:
@@ -1922,7 +1922,7 @@ class FEContainer {
     virtual void vfunc_41(void*);
 };
 void FEContainer::vfunc_41(void* p) {
-    Process(vfunc_39(p), 0, &gOne, &gTwo, 0);
+    Process(vfunc_39(p), 0, &gOne, &hulk_at_0049dbbc, 0);
 }
 } // namespace fn_000e4900
 #undef V
@@ -1931,7 +1931,7 @@ void FEContainer::vfunc_41(void* p) {
 // 0x000e4930 FEContainer::vfunc_46 (39 B): matches/0x000e4930.cpp [wrapped: conflict: FEContainer]
 // sym: ?v46@FEContainer@fn_000e4930@@UAEXH@Z
 namespace fn_000e4930 {
-extern int g1, g2;
+extern int hulk_at_0049f4c0, g2;
 extern "C++" __declspec(nothrow) void f(int, int, int*, int*, int);
 class FEContainer {
   public:
@@ -1984,7 +1984,7 @@ class FEContainer {
     virtual void v46(int);
 };
 void FEContainer::v46(int x) {
-    f(v39(x), 0, &g2, &g1, 0);
+    f(v39(x), 0, &g2, &hulk_at_0049f4c0, 0);
 }
 } // namespace fn_000e4930
 
@@ -2458,7 +2458,7 @@ void FEContainer::vfunc_52(void* __p0, int y) { void * x = (void *)__p0;
 // 0x000e4d20 FEContainer::vfunc_14 (36 B): matches/0x000e4d20.cpp
 // sym: ?vfunc_14@FEContainer@@UAEXXZ
 void FEContainer::vfunc_14() {
-    ((FEContainer_nv_e4d20*)this)->helper();
+    ((FEContainer_nv_e4d20*)this)->helper_000e4640();
     if ((*(Child_e4d20 * *)&this->f_48)) {
         (*(Child_e4d20 * *)&this->f_48)->f8(0);
         (*(Child_e4d20 * *)&this->f_48)->f10(2);
@@ -3011,7 +3011,7 @@ void __fastcall FUN_000e54d0(Host_e54d0* self) {
             return;
         State_e54d0* s = &o->state;
         if (s->value == 3)
-            s->action();
+            s->action_000fb420();
         ++i;
         ++p;
     } while (i < 0x80);
@@ -3820,7 +3820,7 @@ void Owner_e5f70::Update() {
     do {
         Item_e5f70* p = a[i];
         if (p) {
-            short* q = ((Probe_e5f70*)((char*)p + 0x18))->Find(mgr->get(), 0);
+            short* q = ((Probe_e5f70*)((char*)p + 0x18))->Find_000f83f0(mgr->get(), 0);
             if (q && *q) {
                 p->f141 = 1;
                 p->f74 = 1;
@@ -4246,9 +4246,9 @@ void X_e65b0::clear() {
 // 0x000e65e0 FEThingsBase::vfunc_61 (32 B): matches/0x000e65e0.cpp
 // sym: ?vfunc_61@FEThingsBase@@UAEHH@Z
 int FEThingsBase::vfunc_61(int __p0) {
-    Thing_e65e0* p = (Thing_e65e0*)allocThing(0x800);
+    Thing_e65e0* p = (Thing_e65e0*)allocThing_0008d690(0x800);
     if (p)
-        return (int)(p->initialize());
+        return (int)(p->initialize_000df690());
     return (int)(0);
 }
 
@@ -4607,7 +4607,7 @@ void FEThingsBase::vfunc_17(int p) {
             this->f_17f8 = 2;
             this->f_176c = 2;
             if ((*(int *)&this->f_175c))
-                ((Sub_e6b30*)(*(hulk_intptr *)&this->f_175c))->run(2);
+                ((Sub_e6b30*)(*(hulk_intptr *)&this->f_175c))->run_000e5440(2);
         }
     }
 }
@@ -4623,7 +4623,7 @@ void FEThingsBase::vfunc_19(hulk_intptr x) {
             this->f_17f8 = 3;
             this->f_176c = 2;
             if ((*(Obj_e6b80 * *)&this->f_175c))
-                (*(Obj_e6b80 * *)&this->f_175c)->Helper(2);
+                (*(Obj_e6b80 * *)&this->f_175c)->Helper_000e5440(2);
         }
     }
 }
@@ -4964,11 +4964,11 @@ void FEThingsBase::vfunc_23() {
         ((owners::Fader_e5440 *)((*(Sub_e6f60**)((char*)this + 0x175c))))->FUN_000e5440(*(int*)((char*)this + 0x176c));
     }
     vfunc_24();
-    Manager_e6f60* m = gManager_e6f60;
+    Manager_e6f60* m = hulk_at_004dd700;
     DAT_004e222c = 1;
     if (m->obj && *(void**)((char*)m->obj + 0x124) && (*(char*)&DAT_004e2518)) {
         (*(char*)&DAT_004e2518) = 0;
-        ((Obj_e6f60*)*(void**)((char*)m->obj + 0x124))->run();
+        ((Obj_e6f60*)*(void**)((char*)m->obj + 0x124))->run_000363d0();
     }
 }
 
@@ -5086,8 +5086,8 @@ void FEThingsBase::vfunc_27(int param) {
 // 0x000e7460 FUN_000e7460 (59 B): matches/0x000e7460.cpp
 // sym: ?FUN_000e7460@ThisWrap_000e7460@owners@@QAEPAXPAX@Z
 void* owners::ThisWrap_000e7460::FUN_000e7460(void* p) {
-    return FUN_00344e74(FUN_00344e74(this->FUN_000e7260(p), 0, &FEObject_Type, &FEControl_Type, 0), 0, &FEControl_Type,
-                 &HSlider_Type, 0);
+    return FUN_00344e74(FUN_00344e74(this->FUN_000e7260(p), 0, &hulk_at_0049dba4, &hulk_at_0049f4f0, 0), 0, &hulk_at_0049f4f0,
+                 &hulk_at_0049f4d8, 0);
 }
 
 
@@ -5558,16 +5558,16 @@ namespace fn_f26f242d {
 void __stdcall ProcessManager(Manager_e7b90* mgr, Callback_e7b90* cb) {
     bool flag = false;
 
-    while (mgr->IsActive()) {
-        int val = mgr->GetValueBits();
+    while (mgr->IsActive_000f9e90()) {
+        int val = mgr->GetValueBits_000faeb0();
         if (val == DAT_004a0fec)
             flag = true;
     }
 
-    if (!mgr->CheckFlag())
+    if (!mgr->CheckFlag_000f9ef0())
         return;
 
-    mgr->Action1();
+    mgr->Action1_000f9f30();
 
     while (((owners::ThisWrap_000f9e50 *)mgr)->FUN_000f9e50()) {
         int result = mgr->Action2();
@@ -5575,12 +5575,12 @@ void __stdcall ProcessManager(Manager_e7b90* mgr, Callback_e7b90* cb) {
             if (cb) {
                 cb->Invoke(mgr, result);
             } else {
-                mgr->AltCleanup();
+                mgr->AltCleanup_000fa0a0();
                 break;
             }
         }
     }
-    mgr->Cleanup();
+    mgr->Cleanup_000f9fb0();
 }
 
 
@@ -5590,16 +5590,16 @@ void __stdcall ProcessManager(Manager_e7b90* mgr, Callback_e7b90* cb) {
 void __stdcall ProcessManager(Manager_e7c30* mgr, Callback_e7c30* cb) {
     bool flag = false;
 
-    while (mgr->IsActive()) {
-        int val = mgr->GetValueBits();
+    while (mgr->IsActive_000f9e90()) {
+        int val = mgr->GetValueBits_000faeb0();
         if (val == (*(int*)&DAT_004a0ff0))
             flag = true;
     }
 
-    if (!mgr->CheckFlag())
+    if (!mgr->CheckFlag_000f9ef0())
         return;
 
-    mgr->Action1();
+    mgr->Action1_000f9f30();
 
     while (((owners::ThisWrap_000f9e50 *)mgr)->FUN_000f9e50()) {
         int result = mgr->Action2();
@@ -5607,12 +5607,12 @@ void __stdcall ProcessManager(Manager_e7c30* mgr, Callback_e7c30* cb) {
             if (cb) {
                 cb->Invoke(mgr, result);
             } else {
-                mgr->AltCleanup();
+                mgr->AltCleanup_000fa0a0();
                 break;
             }
         }
     }
-    mgr->Cleanup();
+    mgr->Cleanup_000f9fb0();
 }
 
 
@@ -5620,31 +5620,31 @@ void __stdcall ProcessManager(Manager_e7c30* mgr, Callback_e7c30* cb) {
 // sym: ?Target@FEThingsBase_e7cd0@fn_f26f242d@@QAEXPAVArg_e7cd0@2@PAVOut_e7cd0@2@@Z
 void FEThingsBase_e7cd0::Target(Arg_e7cd0* arg, Out_e7cd0* out) {
     bool b = false;
-    char c = arg->F90();
+    char c = arg->F90_000f9e90();
     while (c) {
-        unsigned int x = arg->FAB();
+        unsigned int x = arg->FAB_000faeb0();
         if (x == 0x27a5e803) {
             if (flag)
                 b = true;
         } else if (x == 0x46ddcbb4 && !flag)
             b = true;
-        c = arg->F90();
+        c = arg->F90_000f9e90();
     }
-    if (arg->FEF()) {
-        arg->F30();
-        if (arg->F50()) {
+    if (arg->FEF_000f9ef0()) {
+        arg->F30_000f9f30();
+        if (arg->F50_000f9e50()) {
             do {
                 unsigned int v = arg->FB1();
                 if (b) {
                     if (!out) {
-                        arg->FA0();
+                        arg->FA0_000fa0a0();
                         break;
                     }
                     out->Fn(arg, v);
                 }
-            } while (arg->F50());
+            } while (arg->F50_000f9e50());
         }
-        arg->FFB();
+        arg->FFB_000f9fb0();
     }
 }
 
@@ -5726,12 +5726,12 @@ class FEThingsBase {
     virtual void f36();
     virtual void f37();
     virtual void vfunc_38(FEThingsBase*, FEThingsBase*);
-    bool test();
-    float value();
+    bool test_000f9e90();
+    float value_000fad30();
 };
 void FEThingsBase::vfunc_38(FEThingsBase* obj, FEThingsBase* p) {
-    if (obj->test()) {
-        float x = obj->value();
+    if (obj->test_000f9e90()) {
+        float x = obj->value_000fad30();
         p->f4(x);
     }
 }
@@ -5754,7 +5754,7 @@ int FEThingsBase_e7ec0::Lookup(int a, int b, Other* c) {
         result = 1;
         break;
     default:
-        c->F();
+        c->FnF_000fa0a0();
         break;
     }
     return result;
@@ -5776,7 +5776,7 @@ int __stdcall target(hulk_intptr a, hulk_intptr b, X_e7f10* c) {
         r = 2;
         break;
     default:
-        c->fallback();
+        c->fallback_000fa0a0();
         break;
     }
     return r;
@@ -6262,7 +6262,7 @@ void FEThingsBase::vfunc_10() {
     if ((*(Item_e8420 * *)&this->f_1760)) {
         if (this->f_1830) {
             (*(Holder_e8420**)&DAT_0052c2ac)->m->start(0);
-            (*(Holder_e8420**)&DAT_0052c2ac)->exec((*(float *)&this->f_1834), (*(float *)&this->f_1834), (*(float *)&this->f_1834));
+            (*(Holder_e8420**)&DAT_0052c2ac)->exec_00293da0((*(float *)&this->f_1834), (*(float *)&this->f_1834), (*(float *)&this->f_1834));
         }
         (*(Item_e8420 * *)&this->f_1760)->run();
         if (this->f_1830)

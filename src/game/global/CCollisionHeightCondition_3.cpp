@@ -38,11 +38,11 @@ class CCollisionHeightCondition_57800 : public Base {
     virtual void f();
     int a, b;
 };
-extern int g_vftable_57840;
+extern int hulk_at_003f9368;
 struct ConditionFactoryTemplate_57840 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00048ef0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -78,9 +78,9 @@ namespace fn_fd594d6c {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_57840@fn_fd594d6c@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_57840::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_57840;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9368;
+    base1_dtor_00048ef0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

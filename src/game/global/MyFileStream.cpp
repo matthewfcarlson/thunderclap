@@ -12,8 +12,8 @@ namespace fn_fa90982c {} using namespace fn_fa90982c;
 
 // ---- declarations shared by the functions below
 namespace fn_fa90982c {
-extern int gameVftable;
-extern int creatorVftable;
+extern int hulk_at_00425008;
+extern int hulk_at_003feefc;
 class Ref_1faa60 {
   public:
     virtual void Release(int);
@@ -74,13 +74,13 @@ struct MyFileStream_1faf70 {
     int a, b, c;
 };
 struct Failure {
-    void Fail();
+    void Fail_003375a0();
 };
 struct Helper_1faf70 {
     int x, y, z;
-    void Init();
-    bool Try(MyFileStream_1faf70*, int, Failure*, void*, int);
-    void Close();
+    void Init_00337870();
+    bool Try_00337a30(MyFileStream_1faf70*, int, Failure*, void*, int);
+    void Close_00337890();
 };
 struct Obj_1faf70 {
     int pad;
@@ -92,11 +92,11 @@ struct Obj_1fb1e0 {
     int b, c, d;
 };
 struct Stream {
-    bool Open(Obj_1fb1e0*, const char*);
-    void Close();
+    bool Open_00337700(Obj_1fb1e0*, const char*);
+    void Close_003375a0();
 };
 struct Manager_1fb1e0 {
-    void Add(void*, int);
+    void Add_00265210(void*, int);
 };
 struct Owner_1fb1e0 {
     char pad[4];
@@ -105,8 +105,8 @@ struct Owner_1fb1e0 {
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern const char filename[];
-extern char MyFileStream_vftable[];
-extern char DataHandlerRawLoader_vftable[];
+extern char hulk_at_0042502c[];
+extern char hulk_at_00425064[];
 
 } // namespace fn_fa90982c
 
@@ -161,10 +161,10 @@ namespace fn_fa90982c {
 // 0x001faa60 FUN_001faa60 (30 B): matches/0x001faa60.cpp
 // sym: ?f@CGameDataHandler_1faa60@fn_fa90982c@@QAEXXZ
 void CGameDataHandler_1faa60::f() {
-    vptr = &gameVftable;
+    vptr = &hulk_at_00425008;
     if (mRef)
         mRef->Release(1);
-    vptr = &creatorVftable;
+    vptr = &hulk_at_003feefc;
 }
 
 } // namespace fn_fa90982c
@@ -339,10 +339,10 @@ void owners::X_1fac60::FUN_001fac60() {
 // 0x001faca0 CDataHandlerObject::vfunc_2 (50 B): matches/0x001faca0.cpp [wrapped: conflict: CDataHandlerObject]
 // sym: ?vfunc_2@CDataHandlerObject@fn_001faca0@@UAEPAXE@Z
 namespace fn_001faca0 {
-void __cdecl DestroyMember(void*);
-void __cdecl DeleteObject(void*);
-extern char CDataHandlerObject_vftable;
-extern char IRefCount_vftable_1faca0;
+void __cdecl DestroyMember_0008d340(void*);
+void __cdecl DeleteObject_00263f30(void*);
+extern char hulk_at_0042501c;
+extern char hulk_at_003f6098;
 
 class CDataHandlerObject {
   public:
@@ -353,11 +353,11 @@ class CDataHandlerObject {
 };
 
 void* CDataHandlerObject::vfunc_2(unsigned char flag) {
-    *(void**)this = (void*)&CDataHandlerObject_vftable;
-    DestroyMember(*(void**)((char*)this + 12));
-    *(void**)this = (void*)&IRefCount_vftable_1faca0;
+    *(void**)this = (void*)&hulk_at_0042501c;
+    DestroyMember_0008d340(*(void**)((char*)this + 12));
+    *(void**)this = (void*)&hulk_at_003f6098;
     if (flag & 1) {
-        DeleteObject(this);
+        DeleteObject_00263f30(this);
     }
     return this;
 }
@@ -397,7 +397,7 @@ struct W_1fad00 {
     int v;
     W_1fad00(const W_1fad00& o) { v = o.v; }
 };
-void __cdecl Init(Iface_1fad00** pp, W_1fad00 w, int a, int b, int c, int d, int e, int f);
+void __cdecl Init_002696d0(Iface_1fad00** pp, W_1fad00 w, int a, int b, int c, int d, int e, int f);
 class MyFileStream {
   public:
     virtual void vfunc_0();
@@ -408,7 +408,7 @@ class MyFileStream {
 };
 bool MyFileStream::vfunc_1(W_1fad00 x) {
     Iface_1fad00** pp = &mIface;
-    Init(pp, x, 0, 0, 1, 0, 1, 1);
+    Init_002696d0(pp, x, 0, 0, 1, 0, 1, 1);
     (*pp)->Call21();
     if ((*pp)->Ok23() && (*pp)->Get15() && (*pp)->Get22() == 0) {
         mB = (*pp)->Get15();
@@ -514,7 +514,7 @@ class Stream_1fae40 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_00424fd8[];
 namespace pure3d {
 class NonCopyable : public Stream_1fae40 {
   public:
@@ -525,7 +525,7 @@ class NonCopyable : public Stream_1fae40 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_00424fd8;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -636,8 +636,8 @@ struct MyFileStream {
 };
 class Stream {
   public:
-    bool Try(MyFileStream* s, int x);
-    void Close();
+    bool Try_00337700(MyFileStream* s, int x);
+    void Close_003375a0();
 };
 class Owner_1faf20 {
   public:
@@ -652,9 +652,9 @@ bool Owner_1faf20::Open(int x) {
     local.b = 0;
     local.c = 0;
     local.v = ((hulk_intptr)DAT_0042502c);
-    if (stream->Try(&local, x))
+    if (stream->Try_00337700(&local, x))
         return true;
-    stream->Close();
+    stream->Close_003375a0();
     return false;
 }
 } // namespace fn_001faf20
@@ -669,13 +669,13 @@ bool Obj_1faf70::Target(hulk_intptr arg) {
     fs.a = 0;
     fs.b = 0;
     fs.c = 0;
-    h.Init();
-    if (h.Try(&fs, arg, y, this, 0)) {
-        h.Close();
+    h.Init_00337870();
+    if (h.Try_00337a30(&fs, arg, y, this, 0)) {
+        h.Close_00337890();
         return true;
     }
-    y->Fail();
-    h.Close();
+    y->Fail_003375a0();
+    h.Close_00337890();
     return false;
 }
 
@@ -695,9 +695,9 @@ class Wrapper_1faff0 {
   public:
     int dummy;
     MyFileStream stream;
-    void Init() throw();
-    void Close() throw();
-    char Read(MyFileStream*, void*, int, Host_1faff0*) throw();
+    void Init_00337c00() throw();
+    void Close_00337c10() throw();
+    char Read_00337c20(MyFileStream*, void*, int, Host_1faff0*) throw();
 };
 class Host_1faff0 {
   public:
@@ -706,12 +706,12 @@ class Host_1faff0 {
 };
 char Host_1faff0::Fn(void* p) {
     Wrapper_1faff0 s;
-    s.Init();
-    if (s.Read(&s.stream, p, y, this)) {
-        s.Close();
+    s.Init_00337c00();
+    if (s.Read_00337c20(&s.stream, p, y, this)) {
+        s.Close_00337c10();
         return 1;
     }
-    s.Close();
+    s.Close_00337c10();
     return 0;
 }
 } // namespace fn_001faff0
@@ -768,23 +768,23 @@ namespace fn_fa90982c {
 // data: gManager_1fb1e0 = DAT_00527c58
 void Owner_1fb1e0::Fn() {
     Obj_1fb1e0 local;
-    local.a = MyFileStream_vftable;
+    local.a = hulk_at_0042502c;
     local.b = 0;
     local.c = 0;
     local.d = 0;
-    if (!stream->Open(&local, "scripts/all_defs.dhd"))
-        stream->Close();
+    if (!stream->Open_00337700(&local, "scripts/all_defs.dhd"))
+        stream->Close_003375a0();
     char* p = (char*)Alloc(0x18);
     if (p) {
         *(int*)(p + 4) = 0;
         *(int*)(p + 8) = 0x60000a00;
         *(int*)(p + 12) = 0;
         *(int*)(p + 16) = 0;
-        *(void**)p = DataHandlerRawLoader_vftable;
+        *(void**)p = hulk_at_00425064;
         *(void**)(p + 20) = this;
     } else
         p = 0;
-    (*(Manager_1fb1e0**)&DAT_00527c58)->Add(p, 0x60000a00);
+    (*(Manager_1fb1e0**)&DAT_00527c58)->Add_00265210(p, 0x60000a00);
 }
 
 } // namespace fn_fa90982c

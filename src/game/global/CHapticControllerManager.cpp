@@ -17,8 +17,8 @@ namespace fn_f8a35d46 {} using namespace fn_f8a35d46;
 namespace fn_f8a35d46 {
 class Obj_b0080 {
   public:
-    void af8(int);
-    void afaf();
+    void af8_000af8e0(int);
+    void afaf_000afaf0();
 };
 class Thing_b0080 {
   public:
@@ -31,10 +31,10 @@ class Thing_b0080 {
 extern "C" char DAT_00405ea8[];
 class Method4_b00b0 {
   public:
-    void Init(int, int);
+    void Init_001d0480(int, int);
     Method4_b00b0(hulk_intptr, hulk_intptr);
 };
-extern "C" unsigned char __cdecl Read(const char*);
+extern "C" unsigned char __cdecl Read_001d04d0(const char*);
 class CHapticControllerManager_b0140 {
   public:
     void Action(int, float, float, float);
@@ -102,7 +102,7 @@ class IRefCount {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_00405ea0[];
 namespace pure3d {
 class NonCopyable : public IRefCount {
   public:
@@ -113,7 +113,7 @@ class NonCopyable : public IRefCount {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_00405ea0;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -127,12 +127,12 @@ namespace fn_f8a35d46 {
 void Thing_b0080::target(int arg) {
     if (flag) {
         if (ptr) {
-            ptr->af8(arg);
+            ptr->af8_000af8e0(arg);
             return;
         }
     } else {
         if (ptr)
-            ptr->afaf();
+            ptr->afaf_000afaf0();
         if (flag)
             FUN_002684c0();
     }
@@ -142,14 +142,14 @@ void Thing_b0080::target(int arg) {
 // 0x000b00b0 FUN_000b00b0 (102 B): matches/0x000b00b0.cpp
 // sym: ??0Method4_b00b0@fn_f8a35d46@@QAE@HH@Z
 Method4_b00b0::Method4_b00b0(hulk_intptr a, hulk_intptr b) {
-    Init(a, 4);
+    Init_001d0480(a, 4);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00405ea8);
     *(int*)((char*)this + 0x1c) = b;
-    *(char*)((char*)this + 0x18) = Read((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    *(char*)((char*)this + 0x10) = Read((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    *(char*)((char*)this + 0x11) = Read((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    *(char*)((char*)this + 0x12) = Read((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    *(char*)((char*)this + 0x13) = Read((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    *(char*)((char*)this + 0x18) = Read_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    *(char*)((char*)this + 0x10) = Read_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    *(char*)((char*)this + 0x11) = Read_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    *(char*)((char*)this + 0x12) = Read_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    *(char*)((char*)this + 0x13) = Read_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
 }
 
 } // namespace fn_f8a35d46

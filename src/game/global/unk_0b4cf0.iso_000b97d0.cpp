@@ -8,7 +8,7 @@
 #include "gen/global.h"
 class Actor_b97d0 {
   public:
-    void A();
+    void FnA_00089390();
 };
 class State_b97d0 {
   public:
@@ -37,7 +37,7 @@ void State_b97d0::Target() {
             state = 9;
             m = FUN_000fc3d0();
             if (m->value == 1 && state != 3) {
-                a->A();
+                a->FnA_00089390();
                 if (b)
                     ((::CScenarioManager *)b)->FUN_001cc620(5);
                 FUN_000fc300();

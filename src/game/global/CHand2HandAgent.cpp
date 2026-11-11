@@ -79,9 +79,9 @@ struct Thing_ffeb0 {
     virtual void a();
     virtual void b();
 };
-extern int handVtable;
+extern int hulk_at_0040d1f4;
 struct CHand2HandAgent_ffeb0 {
-    void run();
+    void run_000fc630();
 };
 void __cdecl thunk_FUN_00267090(void*);
 struct Vec3_101fe0 {
@@ -175,7 +175,7 @@ class CHand2HandAgent : public CCharacterAgent_ff650 {
     int x188;
     int x18c;
     void go();
-    void cleanup();
+    void cleanup_000fc630();
     void vfunc_9();
     float FUN_000fc4e0(int, int);
     void vfunc_16();
@@ -193,7 +193,7 @@ void CHand2HandAgent::go() {
     *(void**)this = &handvtable;
     mThing->f1();
     mThing = 0;
-    cleanup();
+    cleanup_000fc630();
 }
 
 
@@ -835,10 +835,10 @@ namespace fn_f3aa029d {
 // sym: ?vfunc_2@CHand2HandAgent@fn_f3aa029d@@UAEPAV12@E@Z
 CHand2HandAgent* CHand2HandAgent::vfunc_2(unsigned char param) {
     Thing_ffeb0* t = thing;
-    *(hulk_intptr*)this = (hulk_intptr)&handVtable;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0040d1f4;
     t->b();
     thing = 0;
-    ((CHand2HandAgent_ffeb0*)this)->run();
+    ((CHand2HandAgent_ffeb0*)this)->run_000fc630();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;

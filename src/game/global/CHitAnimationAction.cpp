@@ -10,7 +10,7 @@ namespace fn_fb6e77e3 {} using namespace fn_fb6e77e3;
 
 // ---- declarations shared by the functions below
 namespace fn_fb6e77e3 {
-extern void* g_vftable_21780[];
+extern void* hulk_at_003f3390[];
 class Ref_21780 {
   public:
     virtual void F0();
@@ -61,7 +61,7 @@ class COpportunityBallAction_21860 : public CAction_21860 {
     Ref_21860* m;
     COpportunityBallAction_21860* f2(unsigned char flags);
 };
-extern void* g_vftable_218c0[];
+extern void* hulk_at_003f34f0[];
 class Ref_218c0 {
   public:
     virtual void F0();
@@ -90,7 +90,7 @@ CJumpAction_21780* CJumpAction_21780::f2(unsigned char flags) {
         m24->Release();
         m24 = 0;
     }
-    vptr = g_vftable_21780;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -161,7 +161,7 @@ namespace fn_fb6e77e3 {
 // 0x000218c0 CProceduralDurationAnimationAction::vfunc_2 (82 B): matches/0x000218c0.cpp
 // sym: ?f2@CProceduralDurationAnimationAction_218c0@fn_fb6e77e3@@QAEPAV12@E@Z
 CProceduralDurationAnimationAction_218c0* CProceduralDurationAnimationAction_218c0::f2(unsigned char flags) {
-    vptr = g_vftable_218c0;
+    vptr = hulk_at_003f34f0;
     _ReadWriteBarrier();
     if (m1) {
         m1->Release();

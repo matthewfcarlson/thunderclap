@@ -33,7 +33,7 @@ class Obj_604f0 {
     int mVal;
     char SetSlotMax_000604f0(int v);
 };
-extern int* gTable_60520;
+extern int* hulk_at_004dc600;
 class CCondition_60520 {
   public:
     virtual int vfunc_0(int);
@@ -49,9 +49,9 @@ struct Obj_605f0 {
 };
 extern Obj_605f0* FUN_0005a430(int);
 struct Alloc_605f0 {
-    int invoke(CGrappleMotionTrailTrack*, int);
+    int invoke_0001f640(CGrappleMotionTrailTrack*, int);
 };
-extern int* gTable_60650;
+extern int* hulk_at_004dc608;
 class CCondition_60650 {
   public:
     virtual int vfunc_0(int);
@@ -70,20 +70,20 @@ class Obj {
 };
 class Helper_60810 {
   public:
-    int Run(CEffectTrack*, hulk_intptr, hulk_intptr);
+    int Run_0001f6c0(CEffectTrack*, hulk_intptr, hulk_intptr);
 };
-extern void* Get(int);
+extern void* Get_0008d690(int);
 class Obj_60850 {
   public:
-    int run(void*, int, hulk_intptr);
+    int run_0001f6c0(void*, int, hulk_intptr);
 };
 struct Thing_60850 {
     char pad[0x104];
     int value;
 };
-extern void* Alloc(int);
-extern Thing_60850* GetThing(int);
-extern int* gTable_608c0;
+extern void* Alloc_0008d690(int);
+extern Thing_60850* GetThing_0005a430(int);
+extern int* hulk_at_004dc610;
 class CCondition_608c0 {
   public:
     virtual int vfunc_0(int);
@@ -106,7 +106,7 @@ class CEffectStopTrack_608d0 : public CTrack_608d0 {
 };
 class R_60940 {
   public:
-    int invoke(CEffectStopTrack*, hulk_intptr);
+    int invoke_0001f780(CEffectStopTrack*, hulk_intptr);
 };
 extern R_60940* FUN_0008d690(int);
 class CStageCondition_60bf0;
@@ -316,7 +316,7 @@ void FUN_00060500() {
 // sym: ?vfunc_0@CMotionTrailTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CMotionTrailTrack::vfunc_0(int index) {
-    int* p = gTable_60520;
+    int* p = hulk_at_004dc600;
     return p[index];
 }
 
@@ -328,7 +328,7 @@ extern "C" char DAT_003faa44[];
 class Part_60530 {
   public:
     char pad[8];
-    void Init();
+    void Init_0027af50();
 };
 class CMotionTrailTrack {
   public:
@@ -341,21 +341,21 @@ class CMotionTrailTrack {
     Part_60530 p60;
     char d[0x40];
     Part_60530 pa8;
-    void Finish();
+    void Finish_00068c70();
     void Run();
 };
 void CMotionTrailTrack::Run() {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_003faa44);
-    pa8.Init();
+    pa8.Init_0027af50();
     Part_60530* p = &p60;
     int i = 6;
     do {
         p = (Part_60530*)((char*)p - 8);
-        p->Init();
+        p->Init_0027af50();
         --i;
     } while (i != 0);
-    p20.Init();
-    Finish();
+    p20.Init_0027af50();
+    Finish_00068c70();
 }
 } // namespace fn_00060530
 
@@ -415,7 +415,7 @@ hulk_intptr CGrappleMotionTrailTrack::vfunc_12(hulk_intptr arg) {
     Alloc_605f0* p = (Alloc_605f0*)FUN_0008d690(0x28);
     if (p) {
         int v = FUN_0005a430(arg)->value;
-        return p->invoke(self, v);
+        return p->invoke_0001f640(self, v);
     }
     return 0;
 }
@@ -435,7 +435,7 @@ void FUN_00060630() {
 // sym: ?vfunc_0@CEffectTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CEffectTrack::vfunc_0(int index) {
-    int* p = gTable_60650;
+    int* p = hulk_at_004dc608;
     return p[index];
 }
 
@@ -532,19 +532,19 @@ namespace fn_00060720 {
 extern "C" char DAT_003faa80[];
 typedef unsigned int u32_60720;
 struct Helper_60720 {
-    void Init();
+    void Init_0027af50();
 };
 struct CEffectTrack {
     hulk_uintptr vft;
     char pad[0x30 - 4];
-    void Finish();
+    void Finish_00236d60();
 };
 void __fastcall FUN_00060720(CEffectTrack* self) {
     self->vft = ((hulk_intptr)DAT_003faa80);
-    ((Helper_60720*)((char*)self + 0x30))->Init();
-    ((Helper_60720*)((char*)self + 0x28))->Init();
-    ((Helper_60720*)((char*)self + 0x18))->Init();
-    self->Finish();
+    ((Helper_60720*)((char*)self + 0x30))->Init_0027af50();
+    ((Helper_60720*)((char*)self + 0x28))->Init_0027af50();
+    ((Helper_60720*)((char*)self + 0x18))->Init_0027af50();
+    self->Finish_00236d60();
 }
 } // namespace fn_00060720
 
@@ -585,9 +585,9 @@ unsigned char Obj::SetAngles(const Vec* v) {
 // 0x00060810 CEffectTrack::vfunc_10 (45 B): matches/0x00060810.cpp
 // sym: ?vfunc_10@CEffectTrack@@UAEHHHH@Z
 hulk_intptr CEffectTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    void* p = Get(0x2c);
+    void* p = Get_0008d690(0x2c);
     if (p)
-        return ((Helper_60810*)p)->Run(this, c, a);
+        return ((Helper_60810*)p)->Run_0001f6c0(this, c, a);
     return 0;
 }
 
@@ -605,11 +605,11 @@ void* CGrappleEffectTrack::vfunc_8(void* __p0, void* __p1) { hulk_intptr unused 
 // 0x00060850 CGrappleEffectTrack::vfunc_10 (65 B): matches/0x00060850.cpp
 // sym: ?vfunc_10@CGrappleEffectTrack@@UAEHHHH@Z
 hulk_intptr CGrappleEffectTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    void* p = Alloc(0x2c);
+    void* p = Alloc_0008d690(0x2c);
     if (p) {
-        Thing_60850* q = GetThing(c);
+        Thing_60850* q = GetThing_0005a430(c);
         int value = q->value;
-        return ((Obj_60850*)p)->run(this, value, a);
+        return ((Obj_60850*)p)->run_0001f6c0(this, value, a);
     }
     return 0;
 }
@@ -629,7 +629,7 @@ void FUN_000608a0() {
 // sym: ?vfunc_0@CEffectStopTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CEffectStopTrack::vfunc_0(int index) {
-    int* p = gTable_608c0;
+    int* p = hulk_at_004dc610;
     return p[index];
 }
 
@@ -667,13 +667,13 @@ hulk_freg CEffectStopTrack::vfunc_6() {
 // 0x00060920 FUN_00060920 (11 B): matches/0x00060920.cpp [wrapped: conflict: CEffectStopTrack]
 // sym: ?FUN_00060920@fn_00060920@@YIXPAVCEffectStopTrack@1@@Z
 namespace fn_00060920 {
-extern int CEffectStopTrack_vftable;
+extern int hulk_at_003faab4;
 class CEffectStopTrack {
   public:
 };
 extern "C" void __fastcall FUN_00068c70(CEffectStopTrack*);
 void __fastcall FUN_00060920(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)&hulk_at_003faab4;
     FUN_00068c70(self);
 }
 } // namespace fn_00060920
@@ -693,7 +693,7 @@ hulk_freg CEffectStopTrack::vfunc_7() {
 hulk_intptr CEffectStopTrack::vfunc_12(hulk_intptr param) {
     R_60940* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_0001f780(this, param);
     return 0;
 }
 
@@ -817,7 +817,7 @@ namespace fn_00060b40 {
 extern "C" char DAT_003faa80[];
 typedef unsigned char byte_60b40;
 struct Part_60b40 {
-    void init();
+    void init_0027af50();
 };
 struct CEffectTrack {
     hulk_ulongptr vf;
@@ -828,17 +828,17 @@ struct CEffectTrack {
     char p2c[7];
     Part_60b40 a30;
     CEffectTrack* vfunc_5(byte_60b40);
-    void helper();
+    void helper_00236d60();
 };
-extern void cleanup(CEffectTrack*);
+extern void cleanup_0008d330(CEffectTrack*);
 CEffectTrack* CEffectTrack::vfunc_5(byte_60b40 flags) {
     vf = ((hulk_intptr)DAT_003faa80);
-    a30.init();
-    a28.init();
-    a18.init();
-    helper();
+    a30.init_0027af50();
+    a28.init_0027af50();
+    a18.init_0027af50();
+    helper_00236d60();
     if (flags & 1)
-        cleanup(this);
+        cleanup_0008d330(this);
     return this;
 }
 } // namespace fn_00060b40
@@ -854,7 +854,7 @@ extern void* CTrack_vftable[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CEffectStopTrack : public CTrack {
@@ -862,13 +862,13 @@ class CEffectStopTrack : public CTrack {
     CEffectStopTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CEffectStopTrack* CEffectStopTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

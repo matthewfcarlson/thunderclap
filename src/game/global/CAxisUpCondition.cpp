@@ -22,17 +22,17 @@ class TrackFactoryTemplate_570f0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_57130;
+extern int hulk_at_003f917c;
 struct ConditionFactoryTemplate_57130 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00048680();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
-extern void* CAxisTimeCondition_57190_vftable[];
+extern void* hulk_at_003f6d50[];
 class CAxisTimeCondition_57190 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f71d9e3d
 class CAxisUpCondition : public CAxisTimeCondition_57190 {
@@ -63,9 +63,9 @@ namespace fn_f71d9e3d {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_57130@fn_f71d9e3d@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_57130::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_57130;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f917c;
+    base1_dtor_00048680();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -111,8 +111,8 @@ CAxisTimeCondition_57160* Factory::make() {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CAxisUpCondition* CAxisUpCondition::vfunc_5(signed char flags) {
-    *(void***)this = CAxisTimeCondition_57190_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

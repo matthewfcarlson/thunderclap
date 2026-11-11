@@ -22,7 +22,7 @@ struct B_15a20 {
     float value;
 };
 struct C_15a30 {
-    int second();
+    int second_00059a30();
 };
 struct B_15a30 {
 };
@@ -195,7 +195,7 @@ float A_15a20::f() {
 // sym: ?target@Obj_15a30@fn_f8577bee@@QAEHXZ
 // Same code shape as 0x00013ec0 (propagated; names are from that function)
 hulk_intptr Obj_15a30::target() {
-    return ((C_15a30 *)((owners::Object_592a0 *)member)->FUN_000592a0())->second();
+    return ((C_15a30 *)((owners::Object_592a0 *)member)->FUN_000592a0())->second_00059a30();
 }
 
 

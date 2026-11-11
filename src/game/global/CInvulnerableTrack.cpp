@@ -12,7 +12,7 @@ namespace fn_fb04fe61 {} using namespace fn_fb04fe61;
 
 // ---- declarations shared by the functions below
 namespace fn_fb04fe61 {
-extern int* gTable_6a990;
+extern int* hulk_at_004dcfd8;
 class CCondition_6a990 {
   public:
     virtual int vfunc_0(int);
@@ -44,7 +44,7 @@ void FUN_0006a970() {
 // sym: ?vfunc_0@CInvulnerableTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CInvulnerableTrack::vfunc_0(int index) {
-    int* p = gTable_6a990;
+    int* p = hulk_at_004dcfd8;
     return p[index];
 }
 

@@ -13,7 +13,7 @@ namespace fn_f9481d31 {} using namespace fn_f9481d31;
 // ---- declarations shared by the functions below
 namespace fn_f9481d31 {
 extern "C" char DAT_0040d564[];
-void DeleteThing(void*);
+void DeleteThing_00263f30(void*);
 class CPatrolPath {
   public:
     virtual void a();
@@ -24,7 +24,7 @@ class CPatrolPath {
     char pad[12];
     void* field10;
     int field14;
-    void InitMember();
+    void InitMember_0027afd0();
 };
 
 
@@ -34,9 +34,9 @@ CPatrolPath* CPatrolPath::vfunc_2(unsigned char flag) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0040d564);
     ReleaseThing(field10);
     this->field14 = 0;
-    this->InitMember();
+    this->InitMember_0027afd0();
     if (flag & 1)
-        DeleteThing(this);
+        DeleteThing_00263f30(this);
     return this;
 }
 

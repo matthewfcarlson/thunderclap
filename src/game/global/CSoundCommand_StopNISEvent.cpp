@@ -12,7 +12,7 @@ namespace fn_fefd50f1 {} using namespace fn_fefd50f1;
 namespace fn_fefd50f1 {
 class Singleton_1ef720 {
   public:
-    void Run();
+    void Run_001f3ad0();
 };
 
 } // namespace fn_fefd50f1
@@ -27,7 +27,7 @@ class CSoundCommand_1ef700 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_004245a4[];
 namespace pure3d {
 class NonCopyable : public CSoundCommand_1ef700 {
   public:
@@ -38,7 +38,7 @@ class NonCopyable : public CSoundCommand_1ef700 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_004245a4;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -51,6 +51,6 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 // Same code shape as 0x001ef6d0 (propagated; names are from that function)
 // data: gSingleton_1ef720 = DAT_004e370c
 void CSoundCommand_StopNISEvent::vfunc_1(int , int ) {
-    (*(*(Singleton_1ef720***)&DAT_004e370c))->Run();
+    (*(*(Singleton_1ef720***)&DAT_004e370c))->Run_001f3ad0();
 }
 

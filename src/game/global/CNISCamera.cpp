@@ -37,13 +37,13 @@ extern "C" char DAT_00405b2c[];
 typedef unsigned int u32_ac3c0;
 class CNISCamera_ac3c0 {
   public:
-    void BaseInit();
+    void BaseInit_000a9400();
 };
 class Sub_ac3c0 {
   public:
-    void Init(void* p);
+    void Init_0027b040(void* p);
 };
-extern void* g_vftable_ac4c0[];
+extern void* hulk_at_00405b2c[];
 class Ref_ac4c0 {
   public:
     virtual void F0();
@@ -52,7 +52,7 @@ class Ref_ac4c0 {
 class CGameCamera_ac4c0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_000a9620();
 };
 class CNISCamera_ac4c0 : public CGameCamera_ac4c0 {
   public:
@@ -97,7 +97,7 @@ class CNISCamera {
     Vec3_ac4f0* FUN_000ac4f0(Vec3_ac4f0* out);
 };
 extern "C" void __fastcall FUN_000a9620(CNISCamera*);
-void __cdecl thunk(CNISCamera*);
+void __cdecl thunk_00263f30(CNISCamera*);
 
 
 // 0x000ac2c0 FUN_000ac2c0 (248 B): equivalent/0x000ac2c0.cpp
@@ -121,11 +121,11 @@ CHypnoticCamera::CHypnoticCamera() {
 // 0x000ac3c0 FUN_000ac3c0 (52 B): matches/0x000ac3c0.cpp
 // sym: ?target@fn_fe577214@@YIPAVCNISCamera@1@PAV21@@Z
 CNISCamera* __fastcall target(CNISCamera* self) {
-    ((CNISCamera_ac3c0*)self)->BaseInit();
+    ((CNISCamera_ac3c0*)self)->BaseInit_000a9400();
     void* p = (*(void**)&DAT_0049edd0);
     *(hulk_uintptr*)self = ((hulk_intptr)DAT_00405b2c);
     *(u32_ac3c0*)((char*)self + 0xd0) = 3;
-    ((Sub_ac3c0*)((char*)self + 8))->Init(p);
+    ((Sub_ac3c0*)((char*)self + 8))->Init_0027b040(p);
     *(u32_ac3c0*)((char*)self + 0x170) = 0;
     return self;
 }
@@ -146,13 +146,13 @@ void FUN_000ac410() {}
 // 0x000ac4c0 FUN_000ac4c0 (42 B): matches/0x000ac4c0.cpp
 // sym: ??1CNISCamera_ac4c0@fn_fe577214@@QAE@XZ
 CNISCamera_ac4c0::~CNISCamera_ac4c0() {
-    vptr = g_vftable_ac4c0;
+    vptr = hulk_at_00405b2c;
     _ReadWriteBarrier();
     if (m170) {
         m170->Release();
         m170 = 0;
     }
-    Fin();
+    Fin_000a9620();
 }
 
 
@@ -191,7 +191,7 @@ CNISCamera* CNISCamera::vfunc_2(unsigned char flag) {
     }
     FUN_000a9620(this);
     if (flag & 1)
-        thunk(this);
+        thunk_00263f30(this);
     return this;
 }
 

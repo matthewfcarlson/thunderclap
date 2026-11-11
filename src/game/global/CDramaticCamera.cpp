@@ -125,7 +125,7 @@ struct PathSampler {
 };
 struct Sphere_a8890 { float x,y,z,radius; };
 struct Box_a8890 { float minX,minY,minZ,maxX,maxY,maxZ; Sphere_a8890* FUN_000a8890(Sphere_a8890* out); };
-extern void* g_vftable_a8970[];
+extern void* hulk_at_00405754[];
 class Ref_a8970 {
   public:
     virtual void F0();
@@ -134,7 +134,7 @@ class Ref_a8970 {
 class CGameCamera_a8970 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_000a9620();
 };
 class CDramaticCamera_a8970 : public CGameCamera_a8970 {
   public:
@@ -318,7 +318,7 @@ Sphere_a8890* Box_a8890::FUN_000a8890(Sphere_a8890* out) {
 // 0x000a8970 FUN_000a8970 (67 B): matches/0x000a8970.cpp
 // sym: ??1CDramaticCamera_a8970@fn_f6c39404@@QAE@XZ
 CDramaticCamera_a8970::~CDramaticCamera_a8970() {
-    vptr = g_vftable_a8970;
+    vptr = hulk_at_00405754;
     _ReadWriteBarrier();
     if (m170) {
         m170->Release();
@@ -328,7 +328,7 @@ CDramaticCamera_a8970::~CDramaticCamera_a8970() {
         m174->Release();
         m174 = 0;
     }
-    Fin();
+    Fin_000a9620();
 }
 
 
@@ -367,11 +367,11 @@ class CDramaticCamera {
     char pad[0x170 - 4];
     IRelease* volatile a;
     IRelease* volatile b;
-    void BaseCleanup();
+    void BaseCleanup_000a9620();
     void* vfunc_2(unsigned char flag);
 };
 
-extern "C++" __declspec(nothrow) void __cdecl DeleteObj(void* p);
+extern "C++" __declspec(nothrow) void __cdecl DeleteObj_00263f30(void* p);
 
 void* CDramaticCamera::vfunc_2(unsigned char flag) {
     mVftable = (IRelease*)&CDramaticCamera_vftable;
@@ -385,9 +385,9 @@ void* CDramaticCamera::vfunc_2(unsigned char flag) {
         pb->Release();
         b = 0;
     }
-    BaseCleanup();
+    BaseCleanup_000a9620();
     if (flag & 1) {
-        DeleteObj(this);
+        DeleteObj_00263f30(this);
     }
     return this;
 }

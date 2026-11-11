@@ -13,7 +13,7 @@ namespace fn_fb9e703c {} using namespace fn_fb9e703c;
 
 // ---- declarations shared by the functions below
 namespace fn_fb9e703c {
-extern void* g_vftable_af110[];
+extern void* hulk_at_00405e2c[];
 } // namespace fn_fb9e703c
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* memset(void*, int, unsigned int);
@@ -43,7 +43,7 @@ class CGameController : public NonCopyable {
     void* member;
     virtual CGameController* vfunc_2(unsigned char flag);
 };
-void Destroy(CGameController*);
+void Destroy_0008d330(CGameController*);
 struct Samples {
     float v[17];
 };
@@ -110,7 +110,7 @@ static __forceinline void advance(int &state, float &held, float dt, bool active
         }
     }
 }
-extern void* g_vftable_af310[];
+extern void* hulk_at_00405e3c[];
 class Controller_af310 {
   public:
     virtual void Init();
@@ -122,7 +122,7 @@ class Arg_af310 {
 void* operator new(size_t);
 namespace fn_fb9e703c {
 struct CGameController_af310 {
-    Controller_af310* Build(int);
+    Controller_af310* Build_000af110(int);
 };
 class CGameControllerManager_af310 {
   public:
@@ -137,7 +137,7 @@ class CGameControllerManager_af310 {
 // sym: ?ctor@CGameController_af110@fn_fb9e703c@@QAEPAV12@PAVArg_af110@2@@Z
 CGameController_af110* CGameController_af110::ctor(Arg_af110* a) {
     m4 = 0;
-    vptr = g_vftable_af110;
+    vptr = hulk_at_00405e2c;
     m8 = a;
     a->V0();
     memset(arr, 0, 0xa4);
@@ -153,7 +153,7 @@ CGameController* CGameController::vfunc_2(unsigned char flag) {
     ((NonCopyable*)member)->vfunc_1();
     *(void**)this = (void*)((hulk_intptr)DAT_003f6098);
     if (flag & 1)
-        Destroy(this);
+        Destroy_0008d330(this);
     return this;
 }
 
@@ -197,11 +197,11 @@ void InputTracker::FUN_000af170(float dt)
 // 0x000af310 FUN_000af310 (82 B): matches/0x000af310.cpp
 // sym: ?ctor@CGameControllerManager_af310@fn_fb9e703c@@QAEPAV12@PAVArg_af310@2@@Z
 CGameControllerManager_af310* CGameControllerManager_af310::ctor(Arg_af310* a) {
-    vptr = g_vftable_af310;
+    vptr = hulk_at_00405e3c;
     void* p = operator new(0xb0);
     Controller_af310* c;
     if (p) {
-        c = ((CGameController_af310*)p)->Build(((int)((owners::C_ae640 *)a)->FUN_000ae640(0)));
+        c = ((CGameController_af310*)p)->Build_000af110(((int)((owners::C_ae640 *)a)->FUN_000ae640(0)));
     } else
         c = 0;
     controller = c;

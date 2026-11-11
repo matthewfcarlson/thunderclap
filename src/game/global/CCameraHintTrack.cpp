@@ -26,7 +26,7 @@ struct CTrack_6a550 {
 };
 class R_6a570 {
   public:
-    int invoke(CCameraHintTrack*, hulk_intptr);
+    int invoke_0001f900(CCameraHintTrack*, hulk_intptr);
 };
 extern "C" R_6a570* FUN_0008d690(int);
 
@@ -113,7 +113,7 @@ hulk_freg CCameraHintTrack::vfunc_7() {
 hulk_intptr CCameraHintTrack::vfunc_12(hulk_intptr param) {
     R_6a570* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_0001f900(this, param);
     return 0;
 }
 

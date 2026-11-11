@@ -31,7 +31,7 @@ struct R3 {
     unsigned int f68;
 };
 struct R5 {
-    R3* Fn();
+    R3* Fn_00059a40();
 };
 struct R4 {
     char pad[0x10];
@@ -42,19 +42,19 @@ struct R2 {
     R4* f338;
 };
 struct R1 {
-    R2* Fn();
+    R2* Fn_00059a30();
 };
 struct M_15370 {
-    R1* Fn();
+    R1* Fn_000592a0();
 };
-extern char g1_15370[];
-extern char g2_15370[];
+extern char hulk_at_0048d534[];
+extern char hulk_at_0048d554[];
 void* FUN_00344e74(void* e, int a, void* b, void* c, int d);
 struct C_15440 {
-    void run(void*, int, float);
+    void run_00222b50(void*, int, float);
 };
 struct B_15440 {
-    C_15440* getC();
+    C_15440* getC_00059a40();
 };
 struct A_15440 {
 };
@@ -66,17 +66,17 @@ struct A_15440 {
 bool CGrappleLocoStrafe4Action::vfunc_7(int arg) {
     if (!(*(T2 * *)&this->f_24))
         return false;
-    R1* r1 = (*(M_15370 * *)&this->f_1c)->Fn();
-    R2* r2 = r1->Fn();
+    R1* r1 = (*(M_15370 * *)&this->f_1c)->Fn_000592a0();
+    R2* r2 = r1->Fn_00059a30();
     R4* r4 = r2->f338;
     if (!r4)
         return false;
-    R3* r3 = r4->f10->Fn();
+    R3* r3 = r4->f10->Fn_00059a40();
     if (!r3)
         return false;
     for (unsigned int i = 0; i < r3->f68; i++) {
         void* e = ((void *)((owners::C_222e20 *)r3)->FUN_00222e20((unsigned)i));
-        T2* p = (T2*)FUN_00344e74(e, 0, g1_15370, g2_15370, 0);
+        T2* p = (T2*)FUN_00344e74(e, 0, hulk_at_0048d534, hulk_at_0048d554, 0);
         if (p) {
             (*(T2 * *)&this->f_24)->f24 = p->f24;
             (*(T2 * *)&this->f_24)->f12e4 = p->f12e4;
@@ -94,9 +94,9 @@ bool CGrappleLocoStrafe4Action::vfunc_7(int arg) {
 void CGrappleLocoStrafe4Action::vfunc_4() {
     if ((*(void * *)&this->f_24)) {
         B_15440* b = ((B_15440 *)((owners::Object_592a0 *)((*(A_15440 * *)&this->f_1c)))->FUN_000592a0());
-        C_15440* c = b->getC();
+        C_15440* c = b->getC_00059a40();
         if (c)
-            c->run((*(void * *)&this->f_24), 0, -1.0f);
+            c->run_00222b50((*(void * *)&this->f_24), 0, -1.0f);
     }
 }
 

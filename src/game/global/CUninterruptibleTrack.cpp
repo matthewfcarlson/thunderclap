@@ -12,7 +12,7 @@ namespace fn_ff910add {} using namespace fn_ff910add;
 
 // ---- declarations shared by the functions below
 namespace fn_ff910add {
-extern int* gTable_6a8b0;
+extern int* hulk_at_004dcfd0;
 class CCondition_6a8b0 {
   public:
     virtual int vfunc_0(int);
@@ -46,7 +46,7 @@ void FUN_0006a890() {
 // sym: ?vfunc_0@CUninterruptibleTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CUninterruptibleTrack::vfunc_0(int index) {
-    int* p = gTable_6a8b0;
+    int* p = hulk_at_004dcfd0;
     return p[index];
 }
 

@@ -10,7 +10,7 @@ namespace fn_f87d197d {} using namespace fn_f87d197d;
 
 // ---- declarations shared by the functions below
 namespace fn_f87d197d {
-extern int* gTable_4a990;
+extern int* hulk_at_004dc578;
 class CCondition_4a990 {
   public:
     virtual int vfunc_0(int);
@@ -22,7 +22,7 @@ class CCondition_4a990 {
 // sym: ?vfunc_0@CClimbEdgeCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CClimbEdgeCondition::vfunc_0(int index) {
-    int* p = gTable_4a990;
+    int* p = hulk_at_004dc578;
     return p[index];
 }
 

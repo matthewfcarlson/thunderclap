@@ -89,7 +89,7 @@ class IRefCount {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_004007f4[];
 namespace pure3d {
 class NonCopyable : public IRefCount {
   public:
@@ -100,7 +100,7 @@ class NonCopyable : public IRefCount {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_004007f4;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -500,8 +500,8 @@ char MyDriveErrorCallback::vfunc_0(unsigned int code, int a1, int a2, int a3, in
 namespace fn_0008e6b0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_004008a0[2];
+extern void* hulk_at_004009f8[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_8e6b0 {};
@@ -521,12 +521,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_8e6b0* a2, Fn_8e6b0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_004008a0;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e0f0));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_004009f8;
     owner = a2;
 }
 } // namespace fn_0008e6b0

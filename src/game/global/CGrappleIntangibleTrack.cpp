@@ -22,23 +22,23 @@ class TrackFactoryTemplate_76790 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_767d0;
+extern int hulk_at_003fe7b4;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006a120();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 struct CFightNodeTimeCondition_76800 {
     virtual ~CFightNodeTimeCondition_76800();
     char pad[0x10];
-    void Initialize();
+    void Initialize_0006a150();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern void* CIntangibleTrack_76830_vftable[];
+extern void* hulk_at_003f98d0[];
 class CIntangibleTrack_76830 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fbe768a4
 class CGrappleIntangibleTrack : public CIntangibleTrack_76830 {
@@ -69,9 +69,9 @@ namespace fn_fbe768a4 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fbe768a4@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_767d0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe7b4;
+    base1_dtor_0006a120();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -85,7 +85,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 template <> void* fight::TrackFactoryTemplate<CGrappleIntangibleTrack>::vfunc_5() {
     CFightNodeTimeCondition_76800* p = (CFightNodeTimeCondition_76800*)FUN_0008d690((int)sizeof(CFightNodeTimeCondition_76800));
     if (p) {
-        p->Initialize();
+        p->Initialize_0006a150();
         *(void**)p = &conditionVtable;
         return (void*)(p);
     }
@@ -99,8 +99,8 @@ template <> void* fight::TrackFactoryTemplate<CGrappleIntangibleTrack>::vfunc_5(
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CGrappleIntangibleTrack* CGrappleIntangibleTrack::vfunc_5(signed char flags) {
-    *(void***)this = CIntangibleTrack_76830_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f98d0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

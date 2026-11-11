@@ -34,7 +34,7 @@ class COpportunityBallAction_1adb0 : public CAction_1adb0 {
   public:
     COpportunityBallAction_1adb0(int, Obj_1adb0*, int);
 };
-extern void* g_vftable_1ae10[];
+extern void* hulk_at_003f3390[];
 class Ref_1ae10 {
   public:
     virtual void F0();
@@ -121,7 +121,7 @@ COpportunityBallAction_1adb0::COpportunityBallAction_1adb0(int p2, Obj_1adb0* p3
 // 0x0001ae10 FUN_0001ae10 (36 B): matches/0x0001ae10.cpp
 // sym: ??1CAction_1ae10@fn_f8ca2d43@@QAE@XZ
 CAction_1ae10::~CAction_1ae10() {
-    vptr = g_vftable_1ae10;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

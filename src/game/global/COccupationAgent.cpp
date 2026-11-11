@@ -49,7 +49,7 @@ struct Thing_103410 {
     virtual void f1();
 };
 struct COccupationAgent_nv_103410 {
-    void cleanup();
+    void cleanup_000fc630();
 };
 struct Inner_1035e0 {
     char pad[0x14];
@@ -230,7 +230,7 @@ void COccupationAgent::FUN_00103410() {
     *(void**)this = &handvtable;
     (*(Thing_103410 * *)&this->f_5c)->f1();
     (*(Thing_103410 * *)&this->f_5c) = 0;
-    ((COccupationAgent_nv_103410*)this)->cleanup();
+    ((COccupationAgent_nv_103410*)this)->cleanup_000fc630();
 }
 
 
@@ -437,9 +437,9 @@ struct Thing_1037f0 {
     virtual void a();
     virtual void b();
 };
-extern int handVtable;
+extern int hulk_at_0040d468;
 struct COccupationAgent_1037f0 {
-    void run();
+    void run_000fc630();
 };
 void __cdecl thunk_FUN_00267090(void*);
 class COccupationAgent {
@@ -473,10 +473,10 @@ class COccupationAgent {
 };
 COccupationAgent* COccupationAgent::vfunc_2(unsigned char param) {
     Thing_1037f0* t = thing;
-    *(hulk_intptr*)this = (hulk_intptr)&handVtable;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0040d468;
     t->b();
     thing = 0;
-    ((COccupationAgent_1037f0*)this)->run();
+    ((COccupationAgent_1037f0*)this)->run_000fc630();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;

@@ -111,7 +111,7 @@ class C_90440 {
 class X_90450 {
   public:
     char pad[8];
-    void f();
+    void Fnf_0027af00();
     X_90450* target();
 };
 class C_90470 {
@@ -122,13 +122,13 @@ class C_90470 {
 };
 class S_90470 {
   public:
-    void h();
+    void Fnh_0027af50();
 };
 struct V3_90490 {
     int x, y, z;
 };
 struct Sub_90490 {
-    void Get(V3_90490* out);
+    void Get_00059a50(V3_90490* out);
 };
 struct D {
     char p[0x10];
@@ -144,7 +144,7 @@ struct G_90490 {
     char p[0x20];
     C_90490* c;
 };
-extern G_90490* g_g_90490;
+extern G_90490* hulk_at_004dd700;
 struct T_90490 {
     char pad[0x14];
     int mode;
@@ -162,7 +162,7 @@ class Obj_905f0 {
     unsigned char active;
     char rest[0xc80 - 0x1a];
     int count;
-    void process();
+    void process_00090490();
     void target();
 };
 struct Text_90630 {
@@ -189,7 +189,7 @@ struct Table_90630 {
     void FUN_00090630(const char* name, const char* value, int third, int fourth, int fifth, int sixth);
 };
 struct Entry_906f0 {
-    void Act();
+    void Act_00090490();
 };
 struct Ent_90720 {
     char pad[0x38];
@@ -271,7 +271,7 @@ struct Function_90d50 {
 typedef const char* CP;
 class C_90d70 {
   public:
-    void f(CP, CP, int, int, int, int);
+    void Fnf_00090630(CP, CP, int, int, int, int);
     void target();
 };
 class Item_90db0 {
@@ -281,7 +281,7 @@ class Item_90db0 {
     char tail[0x26];
 };
 struct Entry_90df0 {
-    void Act();
+    void Act_00090790();
 };
 class CStatsManager_90e70 {
   public:
@@ -571,8 +571,8 @@ extern "C" int __fastcall FUN_00090440(C_90440* p) {
 // 0x00090450 FUN_00090450 (20 B): matches/0x00090450.cpp
 // sym: ?target@X_90450@fn_f6df19d8@@QAEPAV12@XZ
 X_90450* X_90450::target() {
-    f();
-    ((X_90450*)((char*)this + 8))->f();
+    Fnf_0027af00();
+    ((X_90450*)((char*)this + 8))->Fnf_0027af00();
     return this;
 }
 
@@ -580,8 +580,8 @@ X_90450* X_90450::target() {
 // 0x00090470 FUN_00090470 (19 B): matches/0x00090470.cpp
 // sym: ?f@C_90470@fn_f6df19d8@@QAEXXZ
 void C_90470::f() {
-    ((S_90470*)((char*)this + 8))->h();
-    ((S_90470*)this)->h();
+    ((S_90470*)((char*)this + 8))->Fnh_0027af50();
+    ((S_90470*)this)->Fnh_0027af50();
 }
 
 
@@ -597,10 +597,10 @@ void T_90490::F() {
     if (m > 0) {
         if (m > 2) {
             if (m == 3)
-                i34 = (int)g_g_90490->c->d->f;
+                i34 = (int)hulk_at_004dd700->c->d->f;
         } else {
             V3_90490* p = &a;
-            g_g_90490->c->d->sub->Get(p);
+            hulk_at_004dd700->c->d->sub->Get_00059a50(p);
             b.x = p->x;
             b.y = p->y;
             b.z = p->z;
@@ -616,7 +616,7 @@ void Obj_905f0::target() {
     for (i = 0; i < count; ++i) {
         Obj_905f0* cur = (Obj_905f0*)((char*)this + i * 0x40);
         if (cur->active)
-            cur->process();
+            cur->process_00090490();
     }
 }
 
@@ -653,7 +653,7 @@ void Table_90630::FUN_00090630(const char* name, const char* value, int third, i
 void owners::C_906f0::FUN_000906f0(int x) {
     int i = Find(x);
     if (i != -1)
-        ((Entry_906f0*)((char*)this + i * 64))->Act();
+        ((Entry_906f0*)((char*)this + i * 64))->Act_00090490();
 }
 
 
@@ -851,7 +851,7 @@ template <> void Method0<CStatsManager, bool>::vfunc_2(void* __p0, void* __p1, v
 namespace fn_00090c50 {
 // data: str1_90c50 = DAT_0048e100, str2_90c50 = DAT_0049cad8, str3 = DAT_0049cad8, str4 = DAT_0048e134
 
-char convert(const char*);
+char convert_001d04d0(const char*);
 class Function_90c50 {
   public:
     virtual void Invoke();
@@ -872,10 +872,10 @@ class Method3 : public Function_90c50 {
 };
 Method3::Method3(char* arg, char* n) : Function_90c50(arg, 3) {
     name = n;
-    d = convert(((char*)&DAT_0048e100));
-    a = convert(((char*)&DAT_0049cad8));
-    b = convert(((char*)&DAT_0049cad8));
-    c = convert(((char*)&DAT_0048e134));
+    d = convert_001d04d0(((char*)&DAT_0048e100));
+    a = convert_001d04d0(((char*)&DAT_0049cad8));
+    b = convert_001d04d0(((char*)&DAT_0049cad8));
+    c = convert_001d04d0(((char*)&DAT_0048e134));
 }
 } // namespace fn_00090c50
 
@@ -920,8 +920,8 @@ namespace fn_f6df19d8 {
 // 0x00090d70 FUN_00090d70 (53 B): matches/0x00090d70.cpp
 // sym: ?target@C_90d70@fn_f6df19d8@@QAEXXZ
 void C_90d70::target() {
-    f("xp", "TBS_STATS_EXPERIENCE_POINTS", 0, 0, 0, 0);
-    f("xpaccumulated", "TBS_STATS_EXPERIENCE_POINTS", 0, 0, 0, 0);
+    Fnf_00090630("xp", "TBS_STATS_EXPERIENCE_POINTS", 0, 0, 0, 0);
+    Fnf_00090630("xpaccumulated", "TBS_STATS_EXPERIENCE_POINTS", 0, 0, 0, 0);
 }
 
 } // namespace fn_f6df19d8
@@ -948,7 +948,7 @@ void owners::Obj_90db0::FUN_00090db0(int a, int b) {
 void owners::C_90df0::FUN_00090df0(int x) {
     int i = Find(x);
     if (i != -1)
-        ((Entry_90df0*)((char*)this + i * 64))->Act();
+        ((Entry_90df0*)((char*)this + i * 64))->Act_00090790();
 }
 
 
@@ -1006,8 +1006,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00400c60[2];
+extern void* hulk_at_00400d0c[2];
 
 // Closure2<Owner, void, const char*, int>'s constructor (name, object, member function): Function's fields
 // (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
@@ -1028,12 +1028,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_090eb0* a2, Fn_090eb0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00400c60;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e0f0));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e134));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_00400d0c;
     owner = a2;
 }
 } // namespace fn_00090eb0
@@ -1071,7 +1071,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C++" __declspec(nothrow) unsigned char lookup(const char*);
+extern "C++" __declspec(nothrow) unsigned char lookup_001d04d0(const char*);
 class Function_90f50 : public CtorV_001d0480 {
   public:
     Function_90f50(const char* p) : CtorV_001d0480(p, 1) { }
@@ -1083,8 +1083,8 @@ class Method1 : public Function_90f50 {
     Owner_90f50* arg3;
     Method1(const char* p, Fn_90f50 a) : Function_90f50(p) {
         arg2 = a;
-        retType = lookup(((char*)&DAT_0048e100));
-        argTypes[0] = lookup(((char*)&DAT_0048e0f0));
+        retType = lookup_001d04d0(((char*)&DAT_0048e100));
+        argTypes[0] = lookup_001d04d0(((char*)&DAT_0048e0f0));
     }
 };
 class Closure1 : public Method1 {

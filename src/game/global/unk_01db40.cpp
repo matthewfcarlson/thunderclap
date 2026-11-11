@@ -10,7 +10,7 @@ namespace fn_f1243cbb {} using namespace fn_f1243cbb;
 
 // ---- declarations shared by the functions below
 namespace fn_f1243cbb {
-extern void* g_vftable_1db90[];
+extern void* hulk_at_003f3390[];
 class Ref_1db90 {
   public:
     virtual void F0();
@@ -168,7 +168,7 @@ struct Obj_1db40 {
     virtual void G();
 };
 extern int VBase;
-extern int VDerived;
+extern int hulk_at_003f3704;
 class CAction {
   public:
     CAction();
@@ -192,7 +192,7 @@ CDrainHealthAction::CDrainHealthAction(Obj_1db40* arg, int value) {
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f3704;
 }
 void CDrainHealthAction::V0() {}
 } // namespace fn_0001db40
@@ -202,7 +202,7 @@ namespace fn_f1243cbb {
 // 0x0001db90 FUN_0001db90 (36 B): matches/0x0001db90.cpp
 // sym: ??1CAction_1db90@fn_f1243cbb@@QAE@XZ
 CAction_1db90::~CAction_1db90() {
-    vptr = g_vftable_1db90;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -222,7 +222,7 @@ struct Obj_1dbc0 {
     virtual void G();
 };
 extern int VBase;
-extern int VDerived;
+extern int hulk_at_003f372c;
 class CAction {
   public:
     CAction();
@@ -246,7 +246,7 @@ CComboTimerAction_1dbc0::CComboTimerAction_1dbc0(Obj_1dbc0* arg, int value) {
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f372c;
 }
 void CComboTimerAction_1dbc0::V0() {}
 } // namespace fn_0001dbc0
@@ -501,14 +501,14 @@ class Ref_1ded0 {
     virtual void A();
     virtual void Release();
 };
-extern char grabvt[];
+extern char hulk_at_003f37f4[];
 extern char actionvt[];
 class CAction {
   public:
     char* vptr;
     char pad[0x18];
     Ref_1ded0* m1;
-    void BaseTail();
+    void BaseTail_002326a0();
 };
 class CGrabAction : public CAction {
   public:
@@ -519,7 +519,7 @@ class CGrabAction : public CAction {
     void Cleanup();
 };
 void CGrabAction::Cleanup() {
-    vptr = grabvt;
+    vptr = hulk_at_003f37f4;
     _ReadWriteBarrier();
     if (m2) {
         m2->Release();
@@ -535,7 +535,7 @@ void CGrabAction::Cleanup() {
         m1->Release();
         m1 = 0;
     }
-    BaseTail();
+    BaseTail_002326a0();
 }
 } // namespace fn_0001ded0
 

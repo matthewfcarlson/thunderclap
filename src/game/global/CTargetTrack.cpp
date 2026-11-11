@@ -26,7 +26,7 @@ struct CTrack_6b2a0 {
 };
 class R_6b2c0 {
   public:
-    int invoke(CTargetTrack*, hulk_intptr);
+    int invoke_000213b0(CTargetTrack*, hulk_intptr);
 };
 extern "C" R_6b2c0* FUN_0008d690(int);
 
@@ -103,7 +103,7 @@ hulk_freg CTargetTrack::vfunc_7() {
 hulk_intptr CTargetTrack::vfunc_12(hulk_intptr param) {
     R_6b2c0* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_000213b0(this, param);
     return 0;
 }
 

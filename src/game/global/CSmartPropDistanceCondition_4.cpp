@@ -24,7 +24,7 @@ class TrackFactoryTemplate_59030 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00056710();
-extern int vft_59070;
+extern int hulk_at_003f71e4;
 class CSmartPropDistanceCondition_59070 {
   public:
     hulk_intptr vptr;
@@ -34,20 +34,20 @@ class CSmartPropDistanceCondition_59070 {
     char pad14[4];
     class Inner {
       public:
-        void init();
+        void init_0027af00();
     } inner;
     int pad1c;
     int f;
     int g;
     int h;
-    void setup(int);
+    void setup_00234590(int);
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int g_vftable_590d0;
+extern int hulk_at_003f97d4;
 struct ConditionFactoryTemplate_590d0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_000497b0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -75,11 +75,11 @@ template <> void* fight::ConditionFactoryCasterTemplate<CSmartPropDistanceCondit
 template <> void* fight::ConditionFactoryTemplate<CSmartPropDistanceCondition>::vfunc_5() {
     CSmartPropDistanceCondition_59070* p = (CSmartPropDistanceCondition_59070*)FUN_0008d690(0x30);
     if (p) {
-        p->setup(0);
-        p->vptr = (hulk_intptr)&vft_59070;
+        p->setup_00234590(0);
+        p->vptr = (hulk_intptr)&hulk_at_003f71e4;
         p->one = 1;
         p->val = 1.0f;
-        p->inner.init();
+        p->inner.init_0027af00();
         p->f = 0;
         p->g = 0;
         p->h = 0;
@@ -94,9 +94,9 @@ namespace fn_f0c31a8c {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_590d0@fn_f0c31a8c@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_590d0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_590d0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f97d4;
+    base1_dtor_000497b0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

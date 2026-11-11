@@ -11,10 +11,10 @@ namespace fn_f8dc77cd {} using namespace fn_f8dc77cd;
 
 // ---- declarations shared by the functions below
 namespace fn_f8dc77cd {
-extern void* CCondition_4c2f0_vftable[];
+extern void* hulk_at_003f6d50[];
 class CCondition_4c2f0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CCollisionPushbackYCondition : public CCondition_4c2f0 {
   public:
@@ -28,8 +28,8 @@ class CCollisionPushbackYCondition : public CCondition_4c2f0 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CCollisionPushbackYCondition* CCollisionPushbackYCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4c2f0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

@@ -24,11 +24,11 @@ class TrackFactoryTemplate_75d70 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00071cc0();
-extern int g_vftable_75e00;
+extern int hulk_at_003fe578;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006a4d0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -84,13 +84,13 @@ class TrackFactoryTemplate_CCameraHintTrack : public fight::TrackFactory,
 extern "C" void* FUN_0008d690(unsigned int);
 
 struct InternalHelper {
-    void CallFunc();
+    void CallFunc_00236d40();
 };
 
 void* TrackFactoryTemplate_CCameraHintTrack::vfunc_5() {
     void* ptr = FUN_0008d690(0x18);
     if (ptr != 0) {
-        static_cast<InternalHelper*>(ptr)->CallFunc();
+        static_cast<InternalHelper*>(ptr)->CallFunc_00236d40();
         *(hulk_uintptr*)ptr = ((hulk_intptr)DAT_003fbef4);
         ((unsigned int*)ptr)[3] = 0;
         ((float*)ptr)[4] = -1.0f;
@@ -108,9 +108,9 @@ namespace fn_ff6e009a {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_ff6e009a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_75e00;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe578;
+    base1_dtor_0006a4d0();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

@@ -100,7 +100,7 @@ extern "C" char DAT_0048e10c[];
 struct ThisCall_001d0480 {
   public:
     void FUN_001d0480(const char*, int);
-    void InitHelper(const char*, int);
+    void InitHelper_001d0480(const char*, int);
 };
 class Owner_2cb60 {};
 typedef void (Owner_2cb60::*Fn_2cb60)();
@@ -302,7 +302,7 @@ class Method3_2da60 {
     void* vf;
     ScriptFunctionFields f;
     Fn_2da60 m1c;
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
     Method3_2da60(const char*, Fn_2da60);
 };
 extern "C" char DAT_003f425c[];
@@ -315,7 +315,7 @@ class Method3_2db20 {
     Fn_2db20 member1c;
     Method3_2db20* Init(const char*, Fn_2db20);
 };
-extern int VTable_2dc60;
+extern int hulk_at_003f427c;
 struct Function_2dc60 {
     Function_2dc60(const char*, int);
 };
@@ -443,7 +443,7 @@ class CActorManager_2e800 {
 typedef float (CActorManager_2e800::*Fn_2e800)(const char*);
 extern "C" char DAT_003f407c[];
 extern "C" char DAT_003f439c[];
-u8 GetHelper(const void*);
+u8 GetHelper_001d04d0(const void*);
 class Owner_2e830 {};
 typedef void (Owner_2e830::*Fn_2e830)();
 struct Closure1_2e830 {
@@ -489,7 +489,7 @@ extern "C" char DAT_003f442c[];
 } // namespace fn_f8e68f21
 struct CActorManager {};
 namespace fn_f8e68f21 {
-extern char GetName(const char*);
+extern char GetName_001d04d0(const char*);
 class Closure1_2ed20 {
   public:
     hulk_intptr vt;
@@ -500,7 +500,7 @@ class Closure1_2ed20 {
     char pad19[3];
     CActorManager* p1c;
     void* p20;
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
     Closure1_2ed20(const char*, void*, CActorManager*);
 };
 class CActorManager_2ed90 {
@@ -994,7 +994,7 @@ template <> void Method2<CActorManager, void, const char *, int>::vfunc_2(void* 
 // sym: ??0Method1@fn_0002c700@@QAE@HH@Z
 namespace fn_0002c700 {
 
-extern unsigned char __cdecl GetFlag(const char*);
+extern unsigned char __cdecl GetFlag_001d04d0(const char*);
 class Function_2c700 {
   public:
     virtual void V();
@@ -1009,8 +1009,8 @@ class Method1 : public Function_2c700 {
 };
 Method1::Method1(int a, int b) throw() : Function_2c700(a, 1) {
     *(int*)((char*)this + 0x1c) = b;
-    *(unsigned char*)((char*)this + 0x18) = GetFlag(((char*)&DAT_0048e128));
-    *(unsigned char*)((char*)this + 0x10) = GetFlag(((char*)&DAT_0048e0f0));
+    *(unsigned char*)((char*)this + 0x18) = GetFlag_001d04d0(((char*)&DAT_0048e128));
+    *(unsigned char*)((char*)this + 0x10) = GetFlag_001d04d0(((char*)&DAT_0048e0f0));
 }
 } // namespace fn_0002c700
 
@@ -1121,9 +1121,9 @@ namespace fn_0002c810 {
 extern "C" char DAT_003f408c[];
 typedef unsigned char u8;
 struct ThisCall_001d0480 {
-    void setup(const char*, int);
+    void setup_001d0480(const char*, int);
 };
-u8 __cdecl getval(const void*);
+u8 __cdecl getval_001d04d0(const void*);
 // Method3's initializer (name, member function): Function's fields (include/decls/data/script.h), then the
 // member-function pointer; returns this.
 class Owner_2c810 {};
@@ -1136,13 +1136,13 @@ class Method3 {
     Method3* target(const char*, Fn_2c810);
 };
 Method3* Method3::target(const char* a, Fn_2c810 c) {
-    ((ThisCall_001d0480*)(this))->setup(a, 3);
+    ((ThisCall_001d0480*)(this))->setup_001d0480(a, 3);
     vf = (void*)DAT_003f408c;
     value = c;
-    f.retType = getval(((char*)&DAT_0048e100));
-    f.argTypes[0] = getval(((char*)&DAT_0048e0f0));
-    f.argTypes[1] = getval(((char*)&DAT_0048e128));
-    f.argTypes[2] = getval(((char*)&DAT_0048e0e4));
+    f.retType = getval_001d04d0(((char*)&DAT_0048e100));
+    f.argTypes[0] = getval_001d04d0(((char*)&DAT_0048e0f0));
+    f.argTypes[1] = getval_001d04d0(((char*)&DAT_0048e128));
+    f.argTypes[2] = getval_001d04d0(((char*)&DAT_0048e0e4));
     return this;
 }
 } // namespace fn_0002c810
@@ -1174,7 +1174,7 @@ class Function_2c8b0 {
     Function_2c8b0(const char*, int);
     virtual void f();
 };
-extern "C++" __declspec(nothrow) char __cdecl lookup(const char*);
+extern "C++" __declspec(nothrow) char __cdecl lookup_001d04d0(const char*);
 class Method3 : public Function_2c8b0 {
   public:
     Method3(const char*, hulk_intptr);
@@ -1187,10 +1187,10 @@ class Method3 : public Function_2c8b0 {
 };
 Method3::Method3(const char* name, hulk_intptr x) : Function_2c8b0(name, 3) {
     val = x;
-    d = lookup(((const char*)&DAT_0048e100));
-    a = lookup(((const char*)&DAT_0048e0f0));
-    b = lookup(((const char*)&DAT_0048e128));
-    c = lookup(((const char*)&DAT_0048e0f0));
+    d = lookup_001d04d0(((const char*)&DAT_0048e100));
+    a = lookup_001d04d0(((const char*)&DAT_0048e0f0));
+    b = lookup_001d04d0(((const char*)&DAT_0048e128));
+    c = lookup_001d04d0(((const char*)&DAT_0048e0f0));
 }
 } // namespace fn_0002c8b0
 
@@ -1938,9 +1938,9 @@ namespace fn_0002d960 {
 
 extern "C" char DAT_003f423c[];
 struct ThisCall_001d0480 {
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
 };
-extern "C++" __declspec(nothrow) unsigned char __cdecl Get(void*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl Get_001d04d0(void*);
 // Method5's initializer (name, member function): Function's fields (include/decls/data/script.h), then the
 // member-function pointer; returns this.
 class Owner_2d960 {};
@@ -1952,15 +1952,15 @@ class Method5 : public ScriptFunctionFields {
     Method5* Build(const char* p2, Fn_2d960 p3);
 };
 Method5* Method5::Build(const char* p2, Fn_2d960 p3) {
-    ((ThisCall_001d0480*)(this))->Init(p2, 5);
+    ((ThisCall_001d0480*)(this))->Init_001d0480(p2, 5);
     *(void**)this = (void*)DAT_003f423c;
     arg = p3;
-    retType = Get(((char*)&DAT_0048e100));
-    argTypes[0] = Get(((char*)&DAT_0048e0f0));
-    argTypes[1] = Get(((char*)&DAT_0048e0f0));
-    argTypes[2] = Get(((char*)&DAT_0048e128));
-    argTypes[3] = Get(((char*)&DAT_0048e128));
-    argTypes[4] = Get(((char*)&DAT_0048e128));
+    retType = Get_001d04d0(((char*)&DAT_0048e100));
+    argTypes[0] = Get_001d04d0(((char*)&DAT_0048e0f0));
+    argTypes[1] = Get_001d04d0(((char*)&DAT_0048e0f0));
+    argTypes[2] = Get_001d04d0(((char*)&DAT_0048e128));
+    argTypes[3] = Get_001d04d0(((char*)&DAT_0048e128));
+    argTypes[4] = Get_001d04d0(((char*)&DAT_0048e128));
     return this;
 }
 } // namespace fn_0002d960
@@ -2006,7 +2006,7 @@ namespace fn_f8e68f21 {
 // 0x0002da60 FUN_0002da60 (89 B): matches/0x0002da60.cpp
 // sym: ??0Method3_2da60@fn_f8e68f21@@QAE@PBDP8Owner_2da60@1@AEXXZ@Z
 Method3_2da60::Method3_2da60(const char* p, Fn_2da60 x) {
-    Init(p, 3);
+    Init_001d0480(p, 3);
     vf = (void*)DAT_003f424c;
     m1c = x;
     f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
@@ -2152,7 +2152,7 @@ namespace fn_f8e68f21 {
 // 0x0002dc60 FUN_0002dc60 (89 B): matches/0x0002dc60.cpp
 // sym: ??0Method3_2dc60@fn_f8e68f21@@QAE@PBDP8Owner_2dc60@1@AEXXZ@Z
 Method3_2dc60::Method3_2dc60(const char* a, Fn_2dc60 x) : Function_2dc60(a, 3) {
-    *(void**)this = (void*)&VTable_2dc60;
+    *(void**)this = (void*)&hulk_at_003f427c;
     field1c = x;
     f.retType = FUN_001d04d0(((const char*)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
@@ -2512,7 +2512,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 extern "C" char DAT_003f432c[];
 class Function_2e350 {
   public:
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
 };
 // Method3's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
 // member-function pointer.
@@ -2528,7 +2528,7 @@ class Method3 : public Function_2e350 {
 extern const char s2_2e350[];
 extern const char DAT_0048e10c[];
 Method3::Method3(const char* a, Fn_2e350 x) {
-    Init(a, 3);
+    Init_001d0480(a, 3);
     v = (void*)DAT_003f432c;
     m1c = x;
     f.retType = FUN_001d04d0(((const char*)&DAT_0048e0e4));
@@ -2573,8 +2573,8 @@ template <> Method2<CActorManager, bool, const char *,math::Vector>::~Method2() 
 namespace fn_0002e4f0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f402c[2];
+extern void* hulk_at_003f434c[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2e4f0 {};
@@ -2582,7 +2582,7 @@ typedef void (Owner_2e4f0::*Fn_2e4f0)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -2594,12 +2594,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2e4f0* a2, Fn_2e4f0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f402c;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e0e4));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e0e4));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0e4));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e0e4));
+    vfptr = (void*)hulk_at_003f434c;
     owner = a2;
 }
 } // namespace fn_0002e4f0
@@ -2642,9 +2642,9 @@ void Closure2_CActorManager_bool_const_char_bool::vfunc_2(void *unused, Argument
 namespace fn_0002e5a0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
-extern void* TAB_48e134;
+extern void* hulk_at_003f403c[2];
+extern void* hulk_at_003f435c[2];
+extern void* hulk_at_0048e10c;
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2e5a0 {};
@@ -2652,7 +2652,7 @@ typedef void (Owner_2e5a0::*Fn_2e5a0)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -2664,12 +2664,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2e5a0* a2, Fn_2e5a0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f403c;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e100));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(&TAB_48e134);
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e100));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(&hulk_at_0048e10c);
+    vfptr = (void*)hulk_at_003f435c;
     owner = a2;
 }
 } // namespace fn_0002e5a0
@@ -2712,8 +2712,8 @@ void Closure2::vfunc_2(void *unused, const Arguments *arguments, void *unused2) 
 namespace fn_0002e650 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f404c[2];
+extern void* hulk_at_003f436c[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2e650 {};
@@ -2721,7 +2721,7 @@ typedef void (Owner_2e650::*Fn_2e650)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -2733,12 +2733,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2e650* a2, Fn_2e650 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f404c;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e100));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e128));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e100));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e128));
+    vfptr = (void*)hulk_at_003f436c;
     owner = a2;
 }
 } // namespace fn_0002e650
@@ -2764,8 +2764,8 @@ template <> void Closure2<CActorManager, void, const char *, float>::vfunc_2(voi
 namespace fn_0002e6f0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f405c[2];
+extern void* hulk_at_003f437c[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2e6f0 {};
@@ -2773,7 +2773,7 @@ typedef void (Owner_2e6f0::*Fn_2e6f0)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -2785,12 +2785,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2e6f0* a2, Fn_2e6f0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f405c;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e100));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e134));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e100));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e134));
+    vfptr = (void*)hulk_at_003f437c;
     owner = a2;
 }
 } // namespace fn_0002e6f0
@@ -2823,7 +2823,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C++" __declspec(nothrow) char __cdecl Check(const char*);
+extern "C++" __declspec(nothrow) char __cdecl Check_001d04d0(const char*);
 class Base : public CtorV_001d0480 {
   public:
     Base(const char* x) : CtorV_001d0480(x, 1) { }
@@ -2847,8 +2847,8 @@ Closure1_2e790::Closure1_2e790(const char* x, Owner_2e790* y, Fn_2e790 z) : Meth
 }
 Method::Method(const char* x, Owner_2e790* y, Fn_2e790 z) : Base(x) {
     name = z;
-    retType = Check(((const char*)&DAT_0048e128));
-    argTypes[0] = Check(((const char*)&DAT_0048e0f0));
+    retType = Check_001d04d0(((const char*)&DAT_0048e128));
+    argTypes[0] = Check_001d04d0(((const char*)&DAT_0048e0f0));
 }
 } // namespace fn_0002e790
 
@@ -2876,11 +2876,11 @@ namespace fn_f8e68f21 {
 // 0x0002e830 FUN_0002e830 (76 B): matches/0x0002e830.cpp
 // sym: ?Build@Closure1_2e830@fn_f8e68f21@@QAEPAU12@PBDPAVOwner_2e830@2@P832@AEXXZ@Z
 Closure1_2e830* Closure1_2e830::Build(const char* a, Owner_2e830* b, Fn_2e830 c) {
-    ((ThisCall_001d0480*)(this))->InitHelper(a, 1);
+    ((ThisCall_001d0480*)(this))->InitHelper_001d0480(a, 1);
     vptr = (void*)DAT_003f407c;
     m1c = c;
-    f.retType = GetHelper((const void*)((hulk_intptr)((char*)&DAT_0048e0e4)));
-    f.argTypes[0] = GetHelper((const void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    f.retType = GetHelper_001d04d0((const void*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    f.argTypes[0] = GetHelper_001d04d0((const void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
     vptr = (void*)DAT_003f439c;
     m20 = b;
     return this;
@@ -3042,8 +3042,8 @@ void Closure1_CActorManager_int_const_char::vfunc_2(void* unused, const char** a
 // sym: ??0Closure1@fn_0002ea30@@QAE@PBDPAVOwner_2ea30@1@P821@AEXXZ@Z
 namespace fn_0002ea30 {
 
-extern void* VT_Method1[2];
-extern void* VT_Closure1[2];
+extern void* hulk_at_003f40bc[2];
+extern void* hulk_at_003f43dc[2];
 
 // Closure1's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2ea30 {};
@@ -3051,7 +3051,7 @@ typedef void (Owner_2ea30::*Fn_2ea30)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure1 : public FUN_001d0480 {
   public:
@@ -3063,11 +3063,11 @@ class Closure1 : public FUN_001d0480 {
 };
 
 Closure1::Closure1(const char* a1, Owner_2ea30* a2, Fn_2ea30 a3) : FUN_001d0480(a1, 1) {
-    vfptr = (void*)VT_Method1;
+    vfptr = (void*)hulk_at_003f40bc;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure1;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    vfptr = (void*)hulk_at_003f43dc;
     owner = a2;
 }
 } // namespace fn_0002ea30
@@ -3137,8 +3137,8 @@ template <> void Closure7<CActorManager, bool, const char *,math::Vector, float,
 namespace fn_0002ebe0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f40ec[2];
+extern void* hulk_at_003f440c[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2ebe0 {};
@@ -3146,7 +3146,7 @@ typedef void (Owner_2ebe0::*Fn_2ebe0)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -3158,12 +3158,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2ebe0* a2, Fn_2ebe0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f40ec;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e100));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e0e4));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e100));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e0e4));
+    vfptr = (void*)hulk_at_003f440c;
     owner = a2;
 }
 } // namespace fn_0002ebe0
@@ -3189,8 +3189,8 @@ template <> void Closure2<CActorManager, void, const char *, bool>::vfunc_2(void
 namespace fn_0002ec80 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f40fc[2];
+extern void* hulk_at_003f441c[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2ec80 {};
@@ -3198,7 +3198,7 @@ typedef void (Owner_2ec80::*Fn_2ec80)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -3210,12 +3210,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2ec80* a2, Fn_2ec80 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f40fc;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e100));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e128));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e128));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e100));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e128));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e128));
+    vfptr = (void*)hulk_at_003f441c;
     owner = a2;
 }
 } // namespace fn_0002ec80
@@ -3241,11 +3241,11 @@ namespace fn_f8e68f21 {
 // 0x0002ed20 FUN_0002ed20 (76 B): matches/0x0002ed20.cpp
 // sym: ??0Closure1_2ed20@fn_f8e68f21@@QAE@PBDPAXPAUCActorManager@@@Z
 Closure1_2ed20::Closure1_2ed20(const char* arg, void* p, CActorManager* cm) {
-    Init(arg, 1);
+    Init_001d0480(arg, 1);
     vt = ((hulk_intptr)DAT_003f410c);
     p1c = cm;
-    b18 = GetName((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    b10 = GetName((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    b18 = GetName_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    b10 = GetName_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
     vt = ((hulk_intptr)DAT_003f442c);
     p20 = p;
 }
@@ -3311,7 +3311,7 @@ template <> void Closure0<CActorManager, int>::vfunc_2(void* __p0, void* __p1, v
 namespace fn_0002eeb0 {
 // data: textA = DAT_0048e0f0, textB = DAT_0048e134
 
-extern "C++" __declspec(nothrow) unsigned char __cdecl getFlag(const char*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl getFlag_001d04d0(const char*);
 class Function_2eeb0 {
   public:
     Function_2eeb0(const char*, int);
@@ -3322,8 +3322,8 @@ class Method1 : public Function_2eeb0 {
   public:
     Method1(const char* p, int x) : Function_2eeb0(p, 1) {
         value = x;
-        flagA = getFlag(((char*)&DAT_0048e0f0));
-        flagB = getFlag(((char*)&DAT_0048e134));
+        flagA = getFlag_001d04d0(((char*)&DAT_0048e0f0));
+        flagB = getFlag_001d04d0(((char*)&DAT_0048e134));
     }
     virtual void f();
     unsigned char flagB;
@@ -3380,8 +3380,8 @@ void Closure1<CActorManager, const char*, int>::vfunc_2(void* unused, const char
 namespace fn_0002ef40 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f414c[2];
+extern void* hulk_at_003f446c[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2ef40 {};
@@ -3389,7 +3389,7 @@ typedef void (Owner_2ef40::*Fn_2ef40)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -3401,12 +3401,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2ef40* a2, Fn_2ef40 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f414c;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e0e4));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0e4));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    vfptr = (void*)hulk_at_003f446c;
     owner = a2;
 }
 } // namespace fn_0002ef40
@@ -3435,8 +3435,8 @@ template <> void Closure2<CActorManager, bool, const char *, const char *>::vfun
 namespace fn_0002eff0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f415c[2];
+extern void* hulk_at_003f447c[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2eff0 {};
@@ -3444,7 +3444,7 @@ typedef void (Owner_2eff0::*Fn_2eff0)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -3456,12 +3456,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2eff0* a2, Fn_2eff0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f415c;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e100));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e100));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    vfptr = (void*)hulk_at_003f447c;
     owner = a2;
 }
 } // namespace fn_0002eff0
@@ -3488,7 +3488,7 @@ template <> void Closure2<CActorManager, void, const char *, const char *>::vfun
 namespace fn_0002f090 {
 
 extern char a[];
-extern "C++" __declspec(nothrow) unsigned char __cdecl lookup(const char*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl lookup_001d04d0(const char*);
 class Base {
   public:
     Base(void*, int);
@@ -3513,8 +3513,8 @@ class Closure1 : public Closure1_2f090 {
 };
 Closure1_2f090::Closure1_2f090(void* p, void* v) : Base(p, 1) {
     value = v;
-    flag18 = lookup(a);
-    flag10 = lookup(((char*)&DAT_0048e0f0));
+    flag18 = lookup_001d04d0(a);
+    flag10 = lookup_001d04d0(((char*)&DAT_0048e0f0));
 }
 Closure1::Closure1(void* p, void* v, void* q) : Closure1_2f090(p, q) {
     other = v;
@@ -3643,7 +3643,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-unsigned char __cdecl Lookup(const char*);
+unsigned char __cdecl Lookup_001d04d0(const char*);
 extern const char text2[];
 class Function_2f1e0 : public CtorV_001d0480 {
   public:
@@ -3658,8 +3658,8 @@ class Method1 : public Function_2f1e0 {
     Owner_2f1e0* q;
     Method1(const char* x, Fn_2f1e0 y) : Function_2f1e0(x) {
         p = y;
-        retType = Lookup(((const char*)&DAT_0048e0e4));
-        argTypes[0] = Lookup(text2);
+        retType = Lookup_001d04d0(((const char*)&DAT_0048e0e4));
+        argTypes[0] = Lookup_001d04d0(text2);
     }
 };
 class Closure1 : public Method1 {
@@ -3783,8 +3783,8 @@ template <> void Closure7<CActorManager, void, const char *, float, float, float
 namespace fn_0002f3b0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f41bc[2];
+extern void* hulk_at_003f44dc[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2f3b0 {};
@@ -3792,7 +3792,7 @@ typedef void (Owner_2f3b0::*Fn_2f3b0)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -3804,12 +3804,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2f3b0* a2, Fn_2f3b0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f41bc;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e100));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e134));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e100));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e134));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    vfptr = (void*)hulk_at_003f44dc;
     owner = a2;
 }
 } // namespace fn_0002f3b0
@@ -3836,8 +3836,8 @@ template <> void Closure2<CActorManager, void, int, const char *>::vfunc_2(void*
 namespace fn_0002f450 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f41cc[2];
+extern void* hulk_at_003f44ec[2];
 extern void* TAB_48e0f0;
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
@@ -3846,7 +3846,7 @@ typedef void (Owner_2f450::*Fn_2f450)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -3858,12 +3858,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2f450* a2, Fn_2f450 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f41cc;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e100));
-    f.argTypes[0] = LookupFlag(&TAB_48e0f0);
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e128));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e100));
+    f.argTypes[0] = LookupFlag_001d04d0(&TAB_48e0f0);
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e128));
+    vfptr = (void*)hulk_at_003f44ec;
     owner = a2;
 }
 } // namespace fn_0002f450
@@ -3901,8 +3901,8 @@ void Closure2::vfunc_2(void* unused, int* p, void* unused2) {
 namespace fn_0002f500 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f41dc[2];
+extern void* hulk_at_003f44fc[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2f500 {};
@@ -3910,7 +3910,7 @@ typedef void (Owner_2f500::*Fn_2f500)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -3922,12 +3922,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2f500* a2, Fn_2f500 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f41dc;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e0e4));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e134));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0e4));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e134));
+    vfptr = (void*)hulk_at_003f44fc;
     owner = a2;
 }
 } // namespace fn_0002f500
@@ -4164,11 +4164,11 @@ template <> Closure3<CActorManager, void, const char *, float, float>::~Closure3
 // sym: ??0Closure2@fn_0002f9c0@@QAE@PBDPAVOwner_2f9c0@1@P821@AEXXZ@Z
 namespace fn_0002f9c0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
-extern void* TAB_48e100;
-extern void* TAB_48e0f0;
-extern void* TAB_48e134;
+extern void* hulk_at_003f426c[2];
+extern void* hulk_at_003f458c[2];
+extern void* hulk_at_0048e0e4;
+extern void* hulk_at_0048e0f0;
+extern void* hulk_at_0048e128;
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2f9c0 {};
@@ -4176,7 +4176,7 @@ typedef void (Owner_2f9c0::*Fn_2f9c0)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -4188,12 +4188,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2f9c0* a2, Fn_2f9c0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f426c;
     fn = a3;
-    f.retType = LookupFlag(&TAB_48e100);
-    f.argTypes[0] = LookupFlag(&TAB_48e0f0);
-    f.argTypes[1] = LookupFlag(&TAB_48e134);
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(&hulk_at_0048e0e4);
+    f.argTypes[0] = LookupFlag_001d04d0(&hulk_at_0048e0f0);
+    f.argTypes[1] = LookupFlag_001d04d0(&hulk_at_0048e128);
+    vfptr = (void*)hulk_at_003f458c;
     owner = a2;
 }
 } // namespace fn_0002f9c0
@@ -4253,8 +4253,8 @@ template <> void Closure4<CActorManager, void, const char *, const char *, float
 namespace fn_0002fb60 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f429c[2];
+extern void* hulk_at_003f45bc[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2fb60 {};
@@ -4262,7 +4262,7 @@ typedef void (Owner_2fb60::*Fn_2fb60)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -4274,12 +4274,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2fb60* a2, Fn_2fb60 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f429c;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e134));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e134));
+    vfptr = (void*)hulk_at_003f45bc;
     owner = a2;
 }
 } // namespace fn_0002fb60
@@ -4321,8 +4321,8 @@ void Closure2::vfunc_2(void *unused, const char **arguments, int *result)
 namespace fn_0002fc10 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f42ac[2];
+extern void* hulk_at_003f45cc[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2fc10 {};
@@ -4330,7 +4330,7 @@ typedef void (Owner_2fc10::*Fn_2fc10)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -4342,12 +4342,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2fc10* a2, Fn_2fc10 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f42ac;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e134));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e134));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    vfptr = (void*)hulk_at_003f45cc;
     owner = a2;
 }
 } // namespace fn_0002fc10
@@ -4388,8 +4388,8 @@ void Closure2_CActorManager_int_const_char_const_char::vfunc_2(int unused, const
 namespace fn_0002fcc0 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f42bc[2];
+extern void* hulk_at_003f45dc[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2fcc0 {};
@@ -4397,7 +4397,7 @@ typedef void (Owner_2fcc0::*Fn_2fcc0)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -4409,12 +4409,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2fcc0* a2, Fn_2fcc0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f42bc;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    vfptr = (void*)hulk_at_003f45dc;
     owner = a2;
 }
 } // namespace fn_0002fcc0
@@ -4481,8 +4481,8 @@ template <> void Closure0<CActorManager, float>::vfunc_2(void* __p0, void* __p1,
 namespace fn_0002fe90 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f42ec[2];
+extern void* hulk_at_003f460c[2];
 extern void* TAB_48e100;
 extern void* TAB_48e0f0;
 
@@ -4492,7 +4492,7 @@ typedef void (Owner_2fe90::*Fn_2fe90)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -4504,12 +4504,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2fe90* a2, Fn_2fe90 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f42ec;
     fn = a3;
-    f.retType = LookupFlag(&TAB_48e100);
-    f.argTypes[0] = LookupFlag(&TAB_48e0f0);
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e128));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(&TAB_48e100);
+    f.argTypes[0] = LookupFlag_001d04d0(&TAB_48e0f0);
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e128));
+    vfptr = (void*)hulk_at_003f460c;
     owner = a2;
 }
 } // namespace fn_0002fe90
@@ -4549,8 +4549,8 @@ void Closure2::vfunc_2(int x, int a2, int a3) {
 namespace fn_0002ff20 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f42fc[2];
+extern void* hulk_at_003f461c[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_2ff20 {};
@@ -4558,7 +4558,7 @@ typedef void (Owner_2ff20::*Fn_2ff20)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -4570,12 +4570,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_2ff20* a2, Fn_2ff20 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f42fc;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e128));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e128));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    vfptr = (void*)hulk_at_003f461c;
     owner = a2;
 }
 } // namespace fn_0002ff20
@@ -4706,8 +4706,8 @@ void Closure2::vfunc_2(int x, int a2, int a3) {
 namespace fn_00030130 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_003f433c[2];
+extern void* hulk_at_003f465c[2];
 extern void* TAB_48e134;
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
@@ -4716,7 +4716,7 @@ typedef void (Owner_30130::*Fn_30130)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -4728,12 +4728,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_30130* a2, Fn_30130 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_003f433c;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e0e4));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(&TAB_48e134);
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0e4));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(&TAB_48e134);
+    vfptr = (void*)hulk_at_003f465c;
     owner = a2;
 }
 } // namespace fn_00030130

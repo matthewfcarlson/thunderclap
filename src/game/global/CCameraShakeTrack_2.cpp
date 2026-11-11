@@ -39,13 +39,13 @@ class CCameraShakeTrack_75e70 {
     int y;
     int z;
     int w;
-    void Init();
+    void Init_00236d40();
 };
-extern int g_vftable_75eb0;
+extern int hulk_at_003fe594;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006a2a0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -73,7 +73,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CCameraShakeTrack>::vfunc_1(
 template <> void* fight::TrackFactoryTemplate<CCameraShakeTrack>::vfunc_5() {
     CCameraShakeTrack_75e70* p = (CCameraShakeTrack_75e70*)FUN_0008d690((int)sizeof(CCameraShakeTrack_75e70));
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->x = 0;
         p->y = 0;
         p->z = 0;
@@ -91,9 +91,9 @@ namespace fn_fd0ccaa0 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fd0ccaa0@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_75eb0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe594;
+    base1_dtor_0006a2a0();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

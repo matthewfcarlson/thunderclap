@@ -26,7 +26,7 @@ struct World { char pad[0x44]; Manager_1c9750* manager; };
 namespace fn_ffd7287e {
 extern "C" void __cdecl FUN_00267830(char*, const char*, unsigned);
 typedef unsigned char u8_1c9920;
-__int64 Make(int);
+__int64 Make_0027b020(int);
 struct ThisCall_001c9750 {
 };
 typedef unsigned int u32_1c9a20;
@@ -59,10 +59,10 @@ struct Arg {
     unsigned y;
     void FUN_0027af50();
 };
-int __cdecl Fmt(char*, unsigned int, const char*, ...);
+int __cdecl Fmt_00267760(char*, unsigned int, const char*, ...);
 class Obj_1c9fb0 {
   public:
-    void finish();
+    void finish_001d1d10();
 };
 class This_1c9fb0 {
   public:
@@ -70,7 +70,7 @@ class This_1c9fb0 {
     int a;
     char pad2[0x1c];
     int b;
-    Obj_1c9fb0* get();
+    Obj_1c9fb0* get_001d4c90();
 };
 struct X {
     int a, b, c, d, e, f;
@@ -78,9 +78,9 @@ struct X {
 };
 class Thing_1ca090 {
   public:
-    void finish();
+    void finish_001d1d10();
 };
-Thing_1ca090* GetThing();
+Thing_1ca090* GetThing_001d4c90();
 struct Obj {
   public:
     Obj();
@@ -91,7 +91,7 @@ struct Obj {
     int f;
     int g;
 };
-extern "C" int __cdecl format(char*, int, const char*, ...);
+extern "C" int __cdecl format_00267760(char*, int, const char*, ...);
 class Obj_1ca110 {
   public:
     volatile int a, b;
@@ -124,18 +124,18 @@ struct Request {
 };
 class Item_1cacc0 {
   public:
-    void Finish();
+    void Finish_001d1d10();
 };
-Item_1cacc0* GetItem();
+Item_1cacc0* GetItem_001d4c90();
 struct Pair { unsigned int low, high; };
 } // namespace fn_ffd7287e
 Pair __cdecl FUN_0027b020(unsigned int value);
 namespace fn_ffd7287e {
 typedef unsigned int u32_1caf80;
-extern void __cdecl CopyText(char*, unsigned int, const char*, ...);
+extern void __cdecl CopyText_00267760(char*, unsigned int, const char*, ...);
 class Writer_1cafd0 {
   public:
-    void Close();
+    void Close_001d1d10();
 };
 class Mgr_1cafd0 {
   public:
@@ -143,7 +143,7 @@ class Mgr_1cafd0 {
 };
 class Info_1cafd0 {
   public:
-    const char* Name();
+    const char* Name_00036d00();
 };
 class Look_1cafd0 {
   public:
@@ -152,9 +152,9 @@ struct G_1cafd0 {
     char pad[0x44];
     Look_1cafd0* look;
 };
-extern G_1cafd0* g_game_1cafd0;
-Writer_1cafd0* GetWriter();
-extern void Copy(void*, unsigned int, const char*, ...);
+extern G_1cafd0* hulk_at_004dd700;
+Writer_1cafd0* GetWriter_001d4c90();
+extern void Copy_00267760(void*, unsigned int, const char*, ...);
 struct Data { int kind; int a; int b; int c; int d; char rest[0xc0]; };
 struct Obj_1cb3a0 {
     char pad[4];
@@ -173,11 +173,11 @@ class Owner_1cb770 {
     void Set(Item_1cb770* p);
 };
 struct Slot_1cb7c0 {
-    bool InUse();
+    bool InUse_00231ee0();
     char pad[0x28];
 };
 struct Obj_1cb7c0 {
-    void Set(Slot_1cb7c0* s, int v, int z);
+    void Set_00231ad0(Slot_1cb7c0* s, int v, int z);
 };
 class T_1cb7c0 {
   public:
@@ -185,7 +185,7 @@ class T_1cb7c0 {
     Slot_1cb7c0 mSlots[0x18];
     unsigned Find() {
         for (unsigned i = 0; i < 0x18; i++)
-            if (!mSlots[i].InUse())
+            if (!mSlots[i].InUse_00231ee0())
                 return i;
         return 0xffffffff;
     }
@@ -193,7 +193,7 @@ class T_1cb7c0 {
 };
 struct Entry_1cb840 {
     char pad[0x28];
-    bool IsActive();
+    bool IsActive_00231ee0();
 };
 struct Owner_1cb840 {
     char pad[0x24];
@@ -204,7 +204,7 @@ class Entry_1cb930 {
     int first;
     int second;
     char pad[0x20];
-    bool Check(int);
+    bool Check_00231e80(int);
 };
 class Owner_1cb930 {
   public:
@@ -238,16 +238,16 @@ class Dummy_1cbc00 {
     void Call(void*);
 };
 struct Entry_1cbcb0 {
-    void Set(int, int);
-    void Reset(int);
-    void Finish(int);
+    void Set_002322f0(int, int);
+    void Reset_00231f20(int);
+    void Finish_002324b0(int);
 };
 } // namespace fn_ffd7287e
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 #endif
 namespace fn_ffd7287e {
-extern "C" char __cdecl getFlag(const char*);
+extern "C" char __cdecl getFlag_001d04d0(const char*);
 class Function_1cbe20 {
   public:
     Function_1cbe20(void*, int);
@@ -264,8 +264,8 @@ class Method1_1cbe20 : public Function_1cbe20 {
     virtual void f1();
     Method1_1cbe20(void* p, void* h) : Function_1cbe20(p, 1) {
         handler = h;
-        b = getFlag(((const char*)&DAT_0048e100));
-        a = getFlag(((const char*)&DAT_0048e0e4));
+        b = getFlag_001d04d0(((const char*)&DAT_0048e100));
+        a = getFlag_001d04d0(((const char*)&DAT_0048e0e4));
     }
 };
 class Closure1_1cbe20 : public Method1_1cbe20 {
@@ -326,7 +326,7 @@ class Ref_1cbf90 {
 };
 class Worker_1cbf90 {
   public:
-    void run();
+    void run_00232240();
     char pad[0x28];
 };
 class Root_1cbf90 {
@@ -508,7 +508,7 @@ public:
 };
 struct Item_1cc230 {
     char pad[0x28];
-    void Init();
+    void Init_00232240();
 };
 struct Obj_1cc230 {
     char pad0[0xC];
@@ -591,7 +591,7 @@ owners::Obj_1c9920* owners::Obj_1c9920::FUN_001c9920(int p2, hulk_intptr p3, int
             unsigned int lo, hi;
         } s;
     } u;
-    u.q = Make(((int)p3));
+    u.q = Make_0027b020(((int)p3));
     a = u.s.lo;
     b = u.s.hi;
     c = p5;
@@ -683,9 +683,9 @@ owners::Obj_1c9f40* owners::Obj_1c9f40::FUN_001c9f40(int a, const char* b, const
     this->s1[0] = 0;
     this->s2[0] = 0;
     if (b)
-        Fmt(this->s1, 0x20, "%s", b);
+        Fmt_00267760(this->s1, 0x20, "%s", b);
     if (c)
-        Fmt(this->s2, 0x20, "%s", c);
+        Fmt_00267760(this->s2, 0x20, "%s", c);
     return this;
 }
 
@@ -694,14 +694,14 @@ namespace fn_ffd7287e {
 // 0x001c9fb0 FUN_001c9fb0 (75 B): matches/0x001c9fb0.cpp
 // sym: ?target@fn_ffd7287e@@YI_NPAVThis_1c9fb0@1@@Z
 bool __fastcall target(This_1c9fb0* self) {
-    Obj_1c9fb0* o = self->get();
+    Obj_1c9fb0* o = self->get_001d4c90();
     if (!o)
         return false;
     if (!((owners::Obj_1d2e80 *)o)->FUN_001d2e80())
         return false;
     ((owners::Thing_1d1d50 *)o)->FUN_001d1d50((hulk_uintptr)"eg", (hulk_uintptr)(&self->a));
     ((owners::Thing_1d1d50 *)o)->FUN_001d1d50((hulk_uintptr)"locator", (hulk_uintptr)(&self->b));
-    o->finish();
+    o->finish_001d1d10();
     return true;
 }
 
@@ -747,13 +747,13 @@ X::X(int x) {
 // sym: ?FUN_001ca090@Owner_1ca090@owners@@QAE_NXZ
 // data: checkpoint = DAT_00421ba0
 bool owners::Owner_1ca090::FUN_001ca090() {
-    Thing_1ca090* t = GetThing();
+    Thing_1ca090* t = GetThing_001d4c90();
     if (!t)
         return false;
     if (!((owners::Obj_1d2e80 *)t)->FUN_001d2e80())
         return false;
     ((owners::Obj_1d1dd0 *)t)->FUN_001d1dd0((hulk_intptr)DAT_00421ba0, value);
-    t->finish();
+    t->finish_001d1d10();
     return true;
 }
 
@@ -778,7 +778,7 @@ Obj_1ca110::Obj_1ca110(int u, int v, int w, int y, int z) {
     q = y;
     r = z;
     s = 1;
-    format(text, 64, "%s", v);
+    format_00267760(text, 64, "%s", v);
     x = u;
 }
 
@@ -1058,14 +1058,14 @@ Obj::Obj(int x, int y) {
 // 0x001cacc0 FUN_001cacc0 (75 B): matches/0x001cacc0.cpp
 // sym: ?FUN_001cacc0@Owner_1cacc0@owners@@QAE_NXZ
 bool owners::Owner_1cacc0::FUN_001cacc0() {
-    Item_1cacc0* item = GetItem();
+    Item_1cacc0* item = GetItem_001d4c90();
     if (!item)
         return false;
     if (!((owners::Obj_1d2e80 *)item)->FUN_001d2e80())
         return false;
     ((owners::Obj_1d1dd0 *)item)->FUN_001d1dd0((hulk_intptr)"old", oldValue);
     ((owners::Obj_1d1dd0 *)item)->FUN_001d1dd0((hulk_intptr)"new", newValue);
-    item->Finish();
+    item->Finish_001d1d10();
     return true;
 }
 
@@ -1154,7 +1154,7 @@ owners::Obj_1caf80* owners::Obj_1caf80::FUN_001caf80(const char* a, u32_1caf80 b
     memset(this, 0, 0x54);
     data[0] = 0x54;
     data[1] = 0x1d;
-    CopyText((char*)&data[5], 0x40, "%s", a);
+    CopyText_00267760((char*)&data[5], 0x40, "%s", a);
     data[4] = b;
     return this;
 }
@@ -1163,25 +1163,25 @@ owners::Obj_1caf80* owners::Obj_1caf80::FUN_001caf80(const char* a, u32_1caf80 b
 // 0x001cafd0 FUN_001cafd0 (120 B): matches/0x001cafd0.cpp
 // sym: ?FUN_001cafd0@Actor_1cafd0@owners@@QAE_NXZ
 bool owners::Actor_1cafd0::FUN_001cafd0() {
-    Writer_1cafd0* w = GetWriter();
+    Writer_1cafd0* w = GetWriter_001d4c90();
     if (!w)
         return false;
     if (!((owners::Obj_1d2e80 *)w)->FUN_001d2e80())
         return false;
     ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"tv", (hulk_uintptr)(&mName));
-    G_1cafd0* g = g_game_1cafd0;
+    G_1cafd0* g = hulk_at_004dd700;
     int id = mId;
     if (!g) {
-        w->Close();
+        w->Close_001d1d10();
         return false;
     }
     Look_1cafd0* l = g->look;
     Info_1cafd0* i = ((Info_1cafd0 *)((owners::ThisWrap_00059c10 *)l)->FUN_00059c10((void *)(hulk_uintptr)(int)id));
     if (i)
-        ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"actor", (hulk_uintptr)(i->Name()));
+        ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"actor", (hulk_uintptr)(i->Name_00036d00()));
     else
         ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"actor", (hulk_uintptr)"UNKNOWN");
-    w->Close();
+    w->Close_001d1d10();
     return true;
 }
 
@@ -1192,7 +1192,7 @@ owners::Obj_1cb050* owners::Obj_1cb050::FUN_001cb050(hulk_intptr a, unsigned int
     memset(data, 0, 84);
     data[0] = 0x54;
     data[1] = 0x1e;
-    Copy(&data[5], 0x40, "%s", (const char*)((hulk_uintptr)a));
+    Copy_00267760(&data[5], 0x40, "%s", (const char*)((hulk_uintptr)a));
     data[4] = b;
     return this;
 }
@@ -1251,7 +1251,7 @@ unsigned T_1cb7c0::Alloc(Obj_1cb7c0* o, hulk_intptr v) {
     if (i == 0xffffffff)
         return i;
     (*(char*)&DAT_004c54a0) = 1;
-    o->Set(&mSlots[i], v, 0);
+    o->Set_00231ad0(&mSlots[i], v, 0);
     return i;
 }
 
@@ -1262,7 +1262,7 @@ int Owner_1cb840::Target() {
     int count = 0;
     Entry_1cb840* p = (Entry_1cb840*)((char*)this + 0x24);
     for (int i = 0x18; i != 0; --i, p = (Entry_1cb840*)((char*)p + 0x28)) {
-        if (p->IsActive())
+        if (p->IsActive_00231ee0())
             ++count;
     }
     return count;
@@ -1277,7 +1277,7 @@ bool Owner_1cb930::Find(int value) {
     do {
         int a = entry->first;
         int b = entry->second;
-        bool found = entry->Check(value);
+        bool found = entry->Check_00231e80(value);
         if (value == a || value == b || found)
             return true;
         ++i;
@@ -1365,9 +1365,9 @@ bool owners::Owner_1cbcb0::FUN_001cbcb0(int arg) {
     Entry_1cbcb0* entry = (Entry_1cbcb0*)((char*)this + 0x24);
     do {
         if (active[i] && i >= 0 && i < 0x18) {
-            entry->Set(1, arg);
-            entry->Reset(0);
-            entry->Finish(1);
+            entry->Set_002322f0(1, arg);
+            entry->Reset_00231f20(0);
+            entry->Finish_002324b0(1);
             active[i] = 0;
         }
         ++i;
@@ -1562,7 +1562,7 @@ void Root_1cbf90::clear() {
     b = a;
     Worker_1cbf90* p = &first;
     for (int i = 0; i < 24; i++, p++)
-        p->run();
+        p->run_00232240();
 }
 
 
@@ -1641,7 +1641,7 @@ void ItemQueue::FUN_001cbfe0(float dt)
 void __fastcall Target(Obj_1cc230* self) {
     self->b = self->a;
     for (int i = 0; i < 0x18; ++i)
-        self->items[i].Init();
+        self->items[i].Init_00232240();
 }
 
 
@@ -1826,9 +1826,9 @@ namespace fn_001cc530 {
 extern "C" char DAT_00421dfc[];
 struct Item_1cc530 {
     char data[0x28];
-    void Init();
+    void Init_002325f0();
 };
-extern void ReleaseRef(int);
+extern void ReleaseRef_0008d340(int);
 struct CEventManager {
     void* vt;
     int a;
@@ -1844,12 +1844,12 @@ void __fastcall FUN_001cc530(CEventManager* self) {
     int n = 24;
     do {
         --p;
-        p->Init();
+        p->Init_002325f0();
         --n;
     } while (n != 0);
     self->ref2 = self->ref;
     if (self->ref)
-        ReleaseRef(self->ref);
+        ReleaseRef_0008d340(self->ref);
 }
 } // namespace fn_001cc530
 
@@ -1857,14 +1857,14 @@ void __fastcall FUN_001cc530(CEventManager* self) {
 // 0x001cc570 CEventManager::vfunc_0 (78 B): matches/0x001cc570.cpp [wrapped: conflict: CEventManager]
 // sym: ?vfunc_0@CEventManager@fn_001cc570@@QAEPAXE@Z
 namespace fn_001cc570 {
-extern int gDummy;
+extern int hulk_at_00421dfc;
 
 void __cdecl FUN_0008d340(void*);
 void __cdecl FUN_0008d330(void*);
 
 struct Elem_1cc570 {
     char pad[0x28];
-    void dtor();
+    void dtor_002325f0();
 };
 
 class CEventManager {
@@ -1880,11 +1880,11 @@ class CEventManager {
 };
 
 void* CEventManager::vfunc_0(unsigned char flags) {
-    mVptr = &gDummy;
+    mVptr = &hulk_at_00421dfc;
     Elem_1cc570* p = mArr + 0x18;
     for (int i = 0; i < 0x18; ++i) {
         --p;
-        p->dtor();
+        p->dtor_002325f0();
     }
     void* t = mPtr;
     mPtr2 = t;

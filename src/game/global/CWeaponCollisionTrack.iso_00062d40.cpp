@@ -10,14 +10,14 @@
 #include "gen/global.h"
 
 struct CPropActorSetStateAction_nv_62d40 {
-    int invoke(CPropActorSetStateTrack*, hulk_intptr);
+    int invoke_00021550(CPropActorSetStateTrack*, hulk_intptr);
 };
 extern CPropActorSetStateAction* FUN_0008d690(int);
 
 hulk_intptr CPropActorSetStateTrack::vfunc_12(hulk_intptr param) {
     CPropActorSetStateAction* p = FUN_0008d690((int)sizeof(CPropActorSetStateAction));
     if (p)
-        return ((CPropActorSetStateAction_nv_62d40*)(((CPropActorSetStateAction*)(p))))->invoke(this, param);
+        return ((CPropActorSetStateAction_nv_62d40*)(((CPropActorSetStateAction*)(p))))->invoke_00021550(this, param);
     return 0;
 }
 

@@ -31,8 +31,8 @@ struct Vec3_10ad90 {
 struct List_10ad90 {
     char pad[0xc];
     int count;
-    int GetItem(int i);
-    bool IsSkipped(int id);
+    int GetItem_00024190(int i);
+    bool IsSkipped_00025d30(int id);
 };
 struct Agent_10ad90 {
     char pad[0x20];
@@ -84,7 +84,7 @@ class CSteeringBehaviour_10ac20 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public CSteeringBehaviour_10ac20 {
   public:
@@ -95,7 +95,7 @@ class NonCopyable : public CSteeringBehaviour_10ac20 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -162,8 +162,8 @@ bool CSeparationBehaviour::vfunc_3(hulk_intptr __p0, int ex, void* __p2, int p5,
     out->x = 0.0f;
     if (0 < n) {
         do {
-            int item = a->list->GetItem(i);
-            if (!a->list->IsSkipped(item) && item != ex) {
+            int item = a->list->GetItem_00024190(i);
+            if (!a->list->IsSkipped_00025d30(item) && item != ex) {
                 Vec3_10ad90 tmp;
                 FUN_0010ac60(ex, item, 1.0f, &tmp);
                 out->x += tmp.x;

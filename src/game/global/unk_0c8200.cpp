@@ -33,7 +33,7 @@ class Obj_c8710 {
     virtual void A();
     virtual void B();
 };
-extern void* g_vftable_c87a0[];
+extern void* hulk_at_0040a1f4[];
 class Ref_c87a0 {
   public:
     virtual void F0();
@@ -41,12 +41,12 @@ class Ref_c87a0 {
 };
 struct T1 {
     char c;
-    void Fini();
+    void Fini_0027af50();
 };
 class Entity_c87a0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class CHudMap_c87a0 : public Entity_c87a0 {
   public:
@@ -272,7 +272,7 @@ void Set(Obj_c8710** p, Obj_c8710* v) {
 // 0x000c87a0 FUN_000c87a0 (168 B): matches/0x000c87a0.cpp
 // sym: ??1CHudMap_c87a0@fn_ff187fa7@@QAE@XZ
 CHudMap_c87a0::~CHudMap_c87a0() throw() {
-    *(void* volatile*)&vptr = g_vftable_c87a0;
+    *(void* volatile*)&vptr = hulk_at_0040a1f4;
     Ref_c87a0* t10 = *(Ref_c87a0* volatile*)&m10;
     if (t10) {
         t10->Release();
@@ -303,15 +303,15 @@ CHudMap_c87a0::~CHudMap_c87a0() throw() {
     n = 32;
     do {
         q -= 0x38;
-        ((T1*)q)->Fini();
+        ((T1*)q)->Fini_0027af50();
     } while (--n);
     q = (char*)this + 0x2280;
     n = 128;
     do {
         q -= 0x40;
-        ((T1*)q)->Fini();
+        ((T1*)q)->Fini_0027af50();
     } while (--n);
-    Fin();
+    Fin_0027afd0();
 }
 
 } // namespace fn_ff187fa7
@@ -745,13 +745,13 @@ void Manager_c9100::FUN_000c9100(int index) {
 // sym: ?Clear@Obj@fn_000c91c0@@QAEXXZ
 namespace fn_000c91c0 {
 struct Manager {
-    void Release(int);
+    void Release_001e5bc0(int);
 };
 struct Global {
     char pad[12];
     Manager* manager;
 };
-extern Global* g;
+extern Global* hulk_at_004dd700;
 struct Entry {
     int value;
     char pad[44];
@@ -769,7 +769,7 @@ void Obj::Clear() {
     for (int i = 0; i < 32; i++) {
         Entry* e = &entries[i];
         if (i >= 0 && i < 32 && e->value && (hulk_uintptr)this + 0x2258 + i * 56 != 0) {
-            g->manager->Release(e->handle);
+            hulk_at_004dd700->manager->Release_001e5bc0(e->handle);
             e->handle = -1;
             e->value = 0;
         }

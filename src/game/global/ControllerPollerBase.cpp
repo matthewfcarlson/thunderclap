@@ -25,7 +25,7 @@ class ControllerPollerBase {
     union { int d; void* mRef; };
     void Clear();
 };
-extern void* gVtable_de170;
+extern void* hulk_at_0040be54;
 struct Other { virtual void slot0(); virtual void slot1(); };
 struct Obj { virtual void slot0(); virtual void slot1(); virtual void slot2(); char pad[12]; Other* other; int fields[6]; int tail; int state; int extra; void FUN_000de190(); };
 typedef float(__cdecl* RandomFn)();
@@ -74,7 +74,7 @@ ControllerPollerBase::ControllerPollerBase(void* x) {
 // 0x000de170 FUN_000de170 (31 B): matches/0x000de170.cpp
 // sym: ?Clear@ControllerPollerBase@fn_f551cf1f@@QAEXXZ
 void ControllerPollerBase::Clear() {
-    *(void**)this = &gVtable_de170;
+    *(void**)this = &hulk_at_0040be54;
     _ReadWriteBarrier();
     if (mRef) {
         ((ControllerPollerBase*)mRef)->Release(1);

@@ -13,18 +13,18 @@ namespace fn_f7e28208 {} using namespace fn_f7e28208;
 
 // ---- declarations shared by the functions below
 namespace fn_f7e28208 {
-extern int* gTable_69510;
+extern int* hulk_at_004dcf30;
 class CCondition_69510 {
   public:
     virtual int vfunc_0(int);
 };
-extern float gNegOne;
+extern float hulk_at_003f3388;
 struct Helper_695b0 {
-    void Fin();
+    void Fin_0027af50();
 };
 class CTrack_695b0 {
   public:
-    void Base();
+    void Base_00236d60();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Helper_69660 {
@@ -46,7 +46,7 @@ void FUN_000694f0() {
 // sym: ?vfunc_0@CKeyPoseTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CKeyPoseTrack::vfunc_0(int index) {
-    int* p = gTable_69510;
+    int* p = hulk_at_004dcf30;
     return p[index];
 }
 
@@ -120,7 +120,7 @@ void CKeyPoseTrack::vfunc_13(void* __p0) { unsigned int * p = (unsigned int *)__
 // 0x000695a0 CKeyPoseTrack::vfunc_7 (7 B): matches/0x000695a0.cpp
 // sym: ?vfunc_7@CKeyPoseTrack@@UAEMXZ
 hulk_freg CKeyPoseTrack::vfunc_7() {
-    return gNegOne;
+    return hulk_at_003f3388;
 }
 
 
@@ -128,10 +128,10 @@ hulk_freg CKeyPoseTrack::vfunc_7() {
 // sym: ?FUN_000695b0@CKeyPoseTrack@@QAEXXZ
 void CKeyPoseTrack::FUN_000695b0() {
     *(void**)this = (void*)((hulk_intptr)DAT_003fbb34);
-    ((Helper_695b0*)((char*)this + 0x60))->Fin();
-    ((Helper_695b0*)((char*)this + 0x10))->Fin();
+    ((Helper_695b0*)((char*)this + 0x60))->Fin_0027af50();
+    ((Helper_695b0*)((char*)this + 0x10))->Fin_0027af50();
     *(void**)this = (void*)((hulk_intptr)DAT_003f98d0);
-    ((CTrack_695b0*)this)->Base();
+    ((CTrack_695b0*)this)->Base_00236d60();
 }
 
 

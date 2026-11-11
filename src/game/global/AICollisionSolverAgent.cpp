@@ -255,7 +255,7 @@ struct Obj_1afb80 {
     int type;
 };
 struct Callee_1afb80 {
-    void f(Obj_1afb80*);
+    void Fnf_0003aaf0(Obj_1afb80*);
 };
 struct Host_1afb80 {
     char pad[8];
@@ -334,10 +334,10 @@ struct Object {
     unsigned target(Vec_1af650* start,Vec_1af650* end,unsigned* value,unsigned a4,unsigned a5,unsigned a6,Vec_1af650* output,unsigned a8,unsigned a9);
 };
 extern "C" int __cdecl FUN_00044500(int);
-extern void* CollisionSolverAgent_1b02e0_vftable[];
+extern void* hulk_at_0041d830[];
 class CollisionSolverAgent_1b02e0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002f8820(); // FUN_00236d60, __thiscall, this in ecx
 };
 class AICollisionSolverAgent_1b02e0 : public CollisionSolverAgent_1b02e0 {
   public:
@@ -393,12 +393,12 @@ struct Obj_1b1080 {
 };
 class Item {
   public:
-    char Valid();
-    int Value();
+    char Valid_001d7300();
+    int Value_001d64a0();
 };
 class Owner {
   public:
-    char Do(int, int);
+    char Do_001b0260(int, int);
     char Run(hulk_intptr x, Item* p);
 };
 class Function_1b1640 {
@@ -819,7 +819,7 @@ namespace fn_f7cf5713 {
 // sym: ?target@fn_f7cf5713@@YGHPAUHost_1afb80@1@PAUObj_1afb80@1@@Z
 int __stdcall target(Host_1afb80* a, Obj_1afb80* b) {
     if (b->type == 5)
-        a->sub->f(b);
+        a->sub->Fnf_0003aaf0(b);
     return 1;
 }
 
@@ -1475,8 +1475,8 @@ namespace fn_f7cf5713 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 AICollisionSolverAgent_1b02e0* AICollisionSolverAgent_1b02e0::vfunc_5(signed char flags) {
-    *(void***)this = CollisionSolverAgent_1b02e0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041d830;
+    Destroy_002f8820();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -2384,10 +2384,10 @@ namespace fn_f7cf5713 {
 // 0x001b15b0 FUN_001b15b0 (49 B): matches/0x001b15b0.cpp
 // sym: ?Run@Owner@fn_f7cf5713@@QAEDHPAVItem@2@@Z
 char Owner::Run(hulk_intptr x, Item* p) {
-    char ok = p->Valid();
+    char ok = p->Valid_001d7300();
     if (!ok)
         return ok;
-    return Do(x, p->Value());
+    return Do_001b0260(x, p->Value_001d64a0());
 }
 
 } // namespace fn_f7cf5713
@@ -2403,7 +2403,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-u8 __cdecl query(const char*);
+u8 __cdecl query_001d04d0(const char*);
 class Function_1b15f0 : public CtorV_001d0480 {
   public:
     Function_1b15f0(const char* n) : CtorV_001d0480(n, 2) { }
@@ -2416,9 +2416,9 @@ class Function2 : public Function_1b15f0 {
 };
 Function2::Function2(const char* n, ScriptMemberFn d) : Function_1b15f0(n) {
     data = d;
-    retType = query(((const char*)&DAT_0048e100));
-    argTypes[0] = query(((const char*)&DAT_0048e128));
-    argTypes[1] = query(((const char*)&DAT_0048e128));
+    retType = query_001d04d0(((const char*)&DAT_0048e100));
+    argTypes[0] = query_001d04d0(((const char*)&DAT_0048e128));
+    argTypes[1] = query_001d04d0(((const char*)&DAT_0048e128));
 }
 } // namespace fn_001b15f0
 
@@ -2436,7 +2436,7 @@ template <> void Function2<void, float, float>::vfunc_2(void* __p0, void* __p1, 
 namespace fn_001b1660 {
 // data: strA = DAT_0048e100, strB = DAT_0048e0f0, strC = DAT_0048e128
 
-char __cdecl GetFlag(const char*);
+char __cdecl GetFlag_001d04d0(const char*);
 class Function_1b1660 {
   public:
     virtual void f();
@@ -2452,9 +2452,9 @@ class Function2 : public Function_1b1660 {
 };
 Function2::Function2(void* a, void* b) : Function_1b1660(a, 2) {
     target = b;
-    flag18[0] = GetFlag(((const char*)&DAT_0048e100));
-    ((char*)this)[0x10] = GetFlag(((const char*)&DAT_0048e0f0));
-    ((char*)this)[0x11] = GetFlag(((const char*)&DAT_0048e128));
+    flag18[0] = GetFlag_001d04d0(((const char*)&DAT_0048e100));
+    ((char*)this)[0x10] = GetFlag_001d04d0(((const char*)&DAT_0048e0f0));
+    ((char*)this)[0x11] = GetFlag_001d04d0(((const char*)&DAT_0048e128));
 }
 } // namespace fn_001b1660
 

@@ -118,23 +118,23 @@ public:
     void FUN_000f1890(float dt);
 };
 struct HSlider_nv_f19e0 {
-    void UpdateA(float);
-    void UpdateB(float);
+    void UpdateA_000f1650(float);
+    void UpdateB_000f1890(float);
 };
-extern "C" float(__cdecl* RandomValue)();
-extern void* TextSelector_f1b70_vftable[];
+extern "C" float(__cdecl* hulk_at_004de948)();
+extern void* hulk_at_0040c554[];
 class TextSelector_f1b70 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_000ebca0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class MenuSelector_f1b70 : public TextSelector_f1b70 {
   public:
     MenuSelector_f1b70* vfunc_5(signed char flags);
 };
-extern void* FEObject_f1ba0_vftable[];
+extern void* hulk_at_0040c5c4[];
 class FEObject_f1ba0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_000e9030(); // FUN_00236d60, __thiscall, this in ecx
 };
 class MapThing_f1ba0 : public FEObject_f1ba0 {
   public:
@@ -167,7 +167,7 @@ public:
     float argC;              // 0x124
     void FUN_000f1bd0(ArgPair args, float c);
 };
-extern void* g_vftable_f1d30[];
+extern void* hulk_at_0040c84c[];
 class Ref_f1d30 {
   public:
     virtual void F0();
@@ -176,9 +176,9 @@ class Ref_f1d30 {
 class FEContainer_f1d30 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_000eeac0();
 };
-void Free(void*) throw();
+void Free_0008d330(void*) throw();
 struct Sub_f1d30 {
     char c;
 };
@@ -192,11 +192,11 @@ class FEDialog_f1d30 : public FEContainer_f1d30 {
     FEDialog_f1d30* f(unsigned char fl);
 };
 extern "C" char DAT_0040c61c[];
-extern void* __cdecl alloc(hulk_uintptr);
+extern void* __cdecl alloc_0008d690(hulk_uintptr);
 class TextLabel_f1e00 {
   public:
     virtual void f0();
-    void initialize(int);
+    void initialize_000e2860(int);
     char pad[0x118 - 4];
     volatile int a, b, c, d;
 };
@@ -205,14 +205,14 @@ class DynamicCaster_f20f0 {
     virtual void a();
 };
 struct HSlider_nv_f2150 {
-    void Change2();
-    void Change6();
+    void Change2_000f1570();
+    void Change6_000f17b0();
 };
 struct ThisCall_000f1570 {
-    void action1570();
+    void action1570_000f1570();
 };
 struct ThisCall_000f17b0 {
-    void action17b0();
+    void action17b0_000f17b0();
 };
 class DynamicCaster_f2340 {
   public:
@@ -252,7 +252,7 @@ class Inv {
     virtual void c();
     virtual int use(DynamicCaster_f23d0*, __int64);
 };
-extern __int64 __cdecl fetch(void*);
+extern __int64 __cdecl fetch_0027b020(void*);
 struct Result_f26e0 {
   public:
     virtual void method0();
@@ -264,7 +264,7 @@ struct Obj_f26e0 {
     virtual void v2();
     virtual Result_f26e0* cast(void* caster, __int64 val);
 };
-__int64 __cdecl fun_p2(int p);
+__int64 __cdecl fun_p2_0027b020(int p);
 struct DynamicCaster {
   public:
     virtual void f0();
@@ -281,24 +281,24 @@ struct FETextureAnimation_f26e0 : FEAnimation_f26e0 {
 };
 extern "C" void* __cdecl FUN_0008d690(uint);
 struct FEPoseAnimationInvisible_nv_f2740 {
-    int make(void*, void*);
+    int make_000f24d0(void*, void*);
 };
-extern void* Alloc(hulk_uintptr);
+extern void* Alloc_0008d690(hulk_uintptr);
 class Factory_f27a0 {
   public:
-    int Create(int, int);
+    int Create_000f2460(int, int);
 };
 struct FEParticleAnimation_nv_f2800 {
-    int Build(int, int, int);
+    int Build_000f2680(int, int, int);
 };
 struct FETextureAnimation_nv_f2860 {
-    int make(void*, void*);
+    int make_000f26e0(void*, void*);
 };
 struct FEShaderAnimation_nv_f28c0 {
-    int make(void*, void*);
+    int make_000f2560(void*, void*);
 };
 struct FEBillboardAnimation_nv_f2920 {
-    int Create(int, int);
+    int Create_000f25f0(int, int);
 };
 class Obj_f2d40 {
   public:
@@ -314,7 +314,7 @@ class Manager_f2d40 {
     virtual void C();
     virtual Obj_f2d40* Create(const DynamicCaster_f2d40&, unsigned long long);
 };
-extern unsigned long long __cdecl GetArg(void*);
+extern unsigned long long __cdecl GetArg_0027b020(void*);
 class Owner_f2d40 {
     char pad[0x9a4];
 
@@ -490,7 +490,7 @@ public:
     void FUN_000f5fa0(const char *src, int arg);
 };
 struct API {
-    int B(int, int);
+    int FnB_002843a0(int, int);
 };
 struct V {
     int a;
@@ -504,7 +504,7 @@ struct S_f6370 {
     int d;
     V Target();
 };
-extern int __fastcall g(void*);
+extern int __fastcall Fng_002961d0(void*);
 struct S_f6420 {
     void* p;
     volatile int a;
@@ -581,7 +581,7 @@ struct Obj_f6680 {
 class Arg_f6850 {
   public:
     virtual void F();
-    int G();
+    int FnG_002961d0();
 };
 class Obj_f6850 {
   public:
@@ -657,10 +657,10 @@ struct X_f6ef0 {
     int w[0x48];
     X_f6ef0();
 };
-extern void __cdecl R0(void*);
-extern void __cdecl R1(void*);
-extern void __cdecl R2(void*);
-extern void __cdecl R3(void*);
+extern void __cdecl R0_0008d340(void*);
+extern void __cdecl R1_0008d330(void*);
+extern void __cdecl R2_0008d340(void*);
+extern void __cdecl R3_0008d340(void*);
 class Item_f6f60 {
   public:
     virtual void A();
@@ -680,7 +680,7 @@ class Owner_f6f60 {
     void* p11c;
     void Clear();
 };
-extern "C" void* __cdecl allocbuf(int);
+extern "C" void* __cdecl allocbuf_0008d6d0(int);
 extern "C" void __cdecl freebuf(void*);
 class Buffer_f6ff0 {
   public:
@@ -736,11 +736,11 @@ struct Item_f78f0 {
     unsigned int a, b, c, d;
 };
 typedef unsigned int U32_f7960;
-void ReleaseThing(U32_f7960);
+void ReleaseThing_0008d340(U32_f7960);
 extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 extern void* __cdecl FUN_0008d6d0(int);
 extern void __cdecl FUN_000fb690(void*, const short*, int);
-void release(int);
+void release_0008d340(int);
 class Item_f7ce0 {
   public:
     virtual void a();
@@ -1031,15 +1031,15 @@ void Slider_f1890::FUN_000f1890(float dt)
 void HSlider::vfunc_4() {
     if (this->f_154 == 1) {
         if ((*(float *)&this->f_150) < this->f_160) {
-            this->f_178 = RandomValue() + this->f_178;
-            float x = RandomValue();
-            ((HSlider_nv_f19e0*)this)->UpdateA(x + x);
+            this->f_178 = hulk_at_004de948() + this->f_178;
+            float x = hulk_at_004de948();
+            ((HSlider_nv_f19e0*)this)->UpdateA_000f1650(x + x);
         }
     } else if (this->f_154 == 2) {
         if ((*(float *)&this->f_150) > this->f_15c) {
-            this->f_178 = RandomValue() + this->f_178;
-            float x = RandomValue();
-            ((HSlider_nv_f19e0*)this)->UpdateB(x + x);
+            this->f_178 = hulk_at_004de948() + this->f_178;
+            float x = hulk_at_004de948();
+            ((HSlider_nv_f19e0*)this)->UpdateB_000f1890(x + x);
         }
     }
 }
@@ -1152,8 +1152,8 @@ namespace fn_f5892d97 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 MenuSelector_f1b70* MenuSelector_f1b70::vfunc_5(signed char flags) {
-    *(void***)this = TextSelector_f1b70_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040c554;
+    Destroy_000ebca0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1167,8 +1167,8 @@ MenuSelector_f1b70* MenuSelector_f1b70::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 MapThing_f1ba0* MapThing_f1ba0::vfunc_5(signed char flags) {
-    *(void***)this = FEObject_f1ba0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040c5c4;
+    Destroy_000e9030();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1212,11 +1212,11 @@ extern "C" char DAT_0040c42c[];
 extern "C" char DAT_0040c6a4[];
 class Sub_f1c80 {
   public:
-    void init();
+    void init_000f7960();
 };
 class Sub2_f1c80 {
   public:
-    void init();
+    void init_000e9030();
 };
 void thunk_FUN_00267090(void*);
 class FEControl {
@@ -1251,10 +1251,10 @@ TextTable* TextTable::vfunc_2(unsigned char p) {
     char* q = (char*)this + 0x495c;
     for (int i = 0x200; i != 0; --i) {
         q -= 0x24;
-        ((Sub_f1c80*)q)->init();
+        ((Sub_f1c80*)q)->init_000f7960();
     }
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0040c42c);
-    ((Sub2_f1c80*)this)->init();
+    ((Sub2_f1c80*)this)->init_000e9030();
     if (p & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -1313,15 +1313,15 @@ namespace fn_f5892d97 {
 // 0x000f1d30 FEDialog::vfunc_0 (63 B): matches/0x000f1d30.cpp
 // sym: ?f@FEDialog_f1d30@fn_f5892d97@@QAEPAV12@E@Z
 FEDialog_f1d30* FEDialog_f1d30::f(unsigned char fl) {
-    vptr = g_vftable_f1d30;
+    vptr = hulk_at_0040c84c;
     _ReadWriteBarrier();
     if (m9a4) {
         m9a4->Release();
         m9a4 = 0;
     }
-    Fin();
+    Fin_000eeac0();
     if (fl & 1)
-        Free(this);
+        Free_0008d330(this);
     return this;
 }
 
@@ -1403,7 +1403,7 @@ class FEMenuBase : public FEScreenBase {
     char pad[0x98c];
     Ref_f1d70* field;
     virtual FEMenuBase* vfunc_0(unsigned char);
-    void helper();
+    void helper_000ef400();
 };
 void thunk_FUN_00267090(FEMenuBase*);
 FEMenuBase* FEMenuBase::vfunc_0(unsigned char p) {
@@ -1413,7 +1413,7 @@ FEMenuBase* FEMenuBase::vfunc_0(unsigned char p) {
         field->Release();
         field = 0;
     }
-    helper();
+    helper_000ef400();
     if (p & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -1425,7 +1425,7 @@ FEMenuBase* FEMenuBase::vfunc_0(unsigned char p) {
 // sym: ?f52@FEThingsBase@fn_000f1db0@@UAEPAUTextButton@2@H@Z
 namespace fn_000f1db0 {
 extern "C" void _ReadWriteBarrier();
-extern "C++" __declspec(nothrow) void* __cdecl Alloc(hulk_uintptr) throw();
+extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d690(hulk_uintptr) throw();
 struct ButtonBase {
     ButtonBase(int) throw();
     virtual void g();
@@ -1435,7 +1435,7 @@ struct TextButton : public ButtonBase {
     TextButton(int a) throw();
     virtual void g();
     int a, b, c;
-    void* operator new(size_t) HULK_NEW_THROW { return Alloc(0x160); }
+    void* operator new(size_t) HULK_NEW_THROW { return Alloc_0008d690(0x160); }
 };
 TextButton::TextButton(int x) throw() : ButtonBase(x) {
     _ReadWriteBarrier();
@@ -1508,9 +1508,9 @@ TextButton* FEThingsBase::f52(int arg) {
 // 0x000f1e00 FEThingsBase::vfunc_56 (79 B): matches/0x000f1e00.cpp
 // sym: ?vfunc_56@FEThingsBase@@UAEPAXH@Z
 void* FEThingsBase::vfunc_56(int arg) {
-    TextLabel_f1e00* p = (TextLabel_f1e00*)alloc(0x128);
+    TextLabel_f1e00* p = (TextLabel_f1e00*)alloc_0008d690(0x128);
     if (p) {
-        p->initialize(arg);
+        p->initialize_000e2860(arg);
         p->a = 0;
         *(volatile hulk_intptr*)p = ((hulk_intptr)DAT_0040c61c);
         p->b = 0;
@@ -1614,7 +1614,7 @@ char HSlider::vfunc_10(int op, int value) {
     switch (op) {
     case 2:
         if (this->f_168) {
-            ((HSlider_nv_f2150*)this)->Change2();
+            ((HSlider_nv_f2150*)this)->Change2_000f1570();
             this->f_170 = 2;
             this->f_174 = value;
             (*(int *)&this->f_178) = 0;
@@ -1622,7 +1622,7 @@ char HSlider::vfunc_10(int op, int value) {
         return 1;
     case 6:
         if (this->f_168) {
-            ((HSlider_nv_f2150*)this)->Change6();
+            ((HSlider_nv_f2150*)this)->Change6_000f17b0();
             this->f_174 = value;
             this->f_170 = 6;
             (*(int *)&this->f_178) = 0;
@@ -1641,13 +1641,13 @@ bool HSlider::vfunc_12(int x, int y) {
     switch (x) {
     case 6:
         if (!this->f_168) {
-            ((ThisCall_000f17b0*)(this))->action17b0();
+            ((ThisCall_000f17b0*)(this))->action17b0_000f17b0();
             return true;
         }
         return true;
     case 2:
         if (!this->f_168)
-            ((ThisCall_000f1570*)(this))->action1570();
+            ((ThisCall_000f1570*)(this))->action1570_000f1570();
         return true;
     default:
         return false;
@@ -1688,9 +1688,9 @@ struct Object {
     virtual void c();
     virtual int Load(DynamicCaster_f23a0*, U64);
 };
-extern U64 hash(void*);
+extern U64 hash_0027b020(void*);
 extern "C" hulk_intptr FUN_000f23a0(Object* obj, void* name) {
-    U64 h = hash(name);
+    U64 h = hash_0027b020(name);
     DynamicCaster_f23a0 caster;
     return obj->Load(&caster, h);
 }
@@ -1701,7 +1701,7 @@ namespace fn_f5892d97 {
 // 0x000f23d0 FUN_000f23d0 (42 B): matches/0x000f23d0.cpp
 // sym: _FUN_000f23d0
 extern "C" hulk_intptr __cdecl FUN_000f23d0(Inv* inv, void* name) {
-    __int64 val = fetch(name);
+    __int64 val = fetch_0027b020(name);
     DynamicCaster_f23d0 caster;
     return inv->use(&caster, val);
 }
@@ -1801,7 +1801,7 @@ class Inventory {
     virtual void c();
     virtual Drawable* Find(DynamicCaster_f24d0*, unsigned __int64);
 };
-extern unsigned __int64 __cdecl Hash(const char*);
+extern unsigned __int64 __cdecl Hash_0027b020(const char*);
 class FEAnimation_f24d0 {
   public:
     virtual void a();
@@ -1816,7 +1816,7 @@ class FEPoseAnimationInvisible : public FEAnimation_f24d0 {
 };
 FEPoseAnimationInvisible::FEPoseAnimationInvisible(int a, const char* name) : FEAnimation_f24d0(a, name) {
     Inventory* inv = (*(Inventory**)&DAT_004dd9cc);
-    unsigned __int64 h = Hash(name);
+    unsigned __int64 h = Hash_0027b020(name);
     Drawable* p = inv->Find(&DynamicCaster_f24d0(), h);
     if (p) {
         p->fn();
@@ -1860,7 +1860,7 @@ struct Obj_f2560 {
 };
 
 
-__int64 __cdecl fun_p2(int p);
+__int64 __cdecl fun_p2_0027b020(int p);
 
 struct DynamicCaster {
   public:
@@ -1881,7 +1881,7 @@ struct FEShaderAnimation : FEAnimation_f2560 {
 
 FEShaderAnimation::FEShaderAnimation(int p1, int p2) : FEAnimation_f2560(p1, p2) {
     Obj_f2560* obj = (*(Obj_f2560**)&DAT_004dd9cc);
-    __int64 v = fun_p2(p2);
+    __int64 v = fun_p2_0027b020(p2);
     m_c = obj->cast(&DynamicCaster(), v);
     if (m_c) {
         m_c->method0();
@@ -1933,14 +1933,14 @@ struct Loader {
         return Get(&caster, id);
     }
 };
-extern U64 __cdecl Find(int);
+extern U64 __cdecl Find_0027b020(int);
 struct FEParticleAnimation : FEPoseAnimation_f2680 {
     virtual void v0();
     FEParticleAnimation(int a, int b, int c);
 };
 FEParticleAnimation::FEParticleAnimation(int a, int b, int c) : FEPoseAnimation_f2680(a, b) {
     Loader* l = (*(Loader**)&DAT_004dd9cc);
-    U64 id = Find(b);
+    U64 id = Find_0027b020(b);
     particle = l->Fetch(id);
     if (particle)
         ((Particle*)particle)->AddRef();
@@ -1955,7 +1955,7 @@ namespace fn_f5892d97 {
 // data: g_dat_f26e0 = DAT_004dd9cc
 FETextureAnimation_f26e0::FETextureAnimation_f26e0(int p1, int p2) : FEAnimation_f26e0(p1, p2) {
     Obj_f26e0* obj = (*(Obj_f26e0**)&DAT_004dd9cc);
-    __int64 v = fun_p2(p2);
+    __int64 v = fun_p2_0027b020(p2);
     m_c = obj->cast(&DynamicCaster(), v);
     if (m_c) {
         m_c->method0();
@@ -1970,7 +1970,7 @@ hulk_intptr owners::Y_f2740::FUN_000f2740(void* p) {
     if (!field)
         return 0;
     FEPoseAnimationInvisible* x = (FEPoseAnimationInvisible*)FUN_0008d690((int)sizeof(FEPoseAnimationInvisible));
-    hulk_intptr r = x ? ((FEPoseAnimationInvisible_nv_f2740*)(((FEPoseAnimationInvisible*)(x))))->make(field, p) : 0;
+    hulk_intptr r = x ? ((FEPoseAnimationInvisible_nv_f2740*)(((FEPoseAnimationInvisible*)(x))))->make_000f24d0(field, p) : 0;
     int i = 0;
     do {
         if (slots[i] == 0) {
@@ -1989,10 +1989,10 @@ hulk_intptr owners::Y_f2740::FUN_000f2740(void* p) {
 hulk_intptr owners::Holder_f27a0::FUN_000f27a0(hulk_intptr arg) {
     if (data == 0)
         return 0;
-    Factory_f27a0* obj = (Factory_f27a0*)Alloc(100);
+    Factory_f27a0* obj = (Factory_f27a0*)Alloc_0008d690(100);
     int result;
     if (obj != 0)
-        result = obj->Create(data, ((int)arg));
+        result = obj->Create_000f2460(data, ((int)arg));
     else
         result = 0;
     int i;
@@ -2012,10 +2012,10 @@ hulk_intptr owners::Holder_f27a0::FUN_000f27a0(hulk_intptr arg) {
 hulk_intptr owners::Thing_f2800::FUN_000f2800(hulk_intptr a, hulk_intptr b) {
     if (ref == 0)
         return 0;
-    FEParticleAnimation* p = (FEParticleAnimation*)Alloc(0x68);
+    FEParticleAnimation* p = (FEParticleAnimation*)Alloc_0008d690(0x68);
     int result;
     if (p != 0)
-        result = ((FEParticleAnimation_nv_f2800*)(((FEParticleAnimation*)(p))))->Build(ref, ((int)a), ((int)b));
+        result = ((FEParticleAnimation_nv_f2800*)(((FEParticleAnimation*)(p))))->Build_000f2680(ref, ((int)a), ((int)b));
     else
         result = 0;
     int i = 0;
@@ -2038,7 +2038,7 @@ hulk_intptr owners::Y_f2860::FUN_000f2860(void* p) {
     if (!field)
         return 0;
     FETextureAnimation* x = (FETextureAnimation*)FUN_0008d690((int)sizeof(FETextureAnimation));
-    hulk_intptr r = x ? ((FETextureAnimation_nv_f2860*)(((FETextureAnimation*)(x))))->make(field, p) : 0;
+    hulk_intptr r = x ? ((FETextureAnimation_nv_f2860*)(((FETextureAnimation*)(x))))->make_000f26e0(field, p) : 0;
     int i = 0;
     do {
         if (slots[i] == 0) {
@@ -2059,7 +2059,7 @@ hulk_intptr owners::Y_f28c0::FUN_000f28c0(void* p) {
     if (!field)
         return 0;
     FEShaderAnimation* x = (FEShaderAnimation*)FUN_0008d690((int)sizeof(FEShaderAnimation));
-    hulk_intptr r = x ? ((FEShaderAnimation_nv_f28c0*)(((FEShaderAnimation*)(x))))->make(field, p) : 0;
+    hulk_intptr r = x ? ((FEShaderAnimation_nv_f28c0*)(((FEShaderAnimation*)(x))))->make_000f2560(field, p) : 0;
     int i = 0;
     do {
         if (slots[i] == 0) {
@@ -2079,10 +2079,10 @@ hulk_intptr owners::Y_f28c0::FUN_000f28c0(void* p) {
 hulk_intptr owners::Holder_f2920::FUN_000f2920(hulk_intptr arg) {
     if (data == 0)
         return 0;
-    FEBillboardAnimation* obj = (FEBillboardAnimation*)Alloc(100);
+    FEBillboardAnimation* obj = (FEBillboardAnimation*)Alloc_0008d690(100);
     int result;
     if (obj != 0)
-        result = ((FEBillboardAnimation_nv_f2920*)(((FEBillboardAnimation*)(obj))))->Create(data, ((int)arg));
+        result = ((FEBillboardAnimation_nv_f2920*)(((FEBillboardAnimation*)(obj))))->Create_000f25f0(data, ((int)arg));
     else
         result = 0;
     int i;
@@ -2326,7 +2326,7 @@ void Owner_f2d40::Run(void* p) {
         ++i;
     if (i < 4) {
         Manager_f2d40* m = (*(Manager_f2d40**)&DAT_004dd9cc);
-        unsigned long long a = GetArg(p);
+        unsigned long long a = GetArg_0027b020(p);
         Obj_f2d40* o = m->Create(DynamicCaster_f2d40(), a);
         slots[i] = o;
         if (o)
@@ -2625,10 +2625,10 @@ struct Caster_f2fc0 {
     virtual void c();
     virtual u32_f2fc0 d(const u32_f2fc0&, unsigned long long);
 };
-extern unsigned long long FUN(u32_f2fc0*);
+extern unsigned long long FUN_0027b020(u32_f2fc0*);
 void FEMenuBase::f53(u32_f2fc0* p) {
     Caster_f2fc0* c = (*(Caster_f2fc0**)&DAT_004dd9cc);
-    unsigned long long x = FUN(p);
+    unsigned long long x = FUN_0027b020(p);
     u32_f2fc0 r = c->d(((hulk_intptr)DAT_0040cb2c), x);
     f54(r);
 }
@@ -6075,7 +6075,7 @@ extern "C" void FUN_000f61e0() {}
 V S_f6370::Target() {
     V local;
     ((owners::C_284820 *)api)->FUN_00284820((hulk_intptr)0);
-    ((owners::Obj_2848b0 *)api)->FUN_002848b0((hulk_intptr)(api->B(c, d)), 0, (int*)&local);
+    ((owners::Obj_2848b0 *)api)->FUN_002848b0((hulk_intptr)(api->FnB_002843a0(c, d)), 0, (int*)&local);
     return local;
 }
 
@@ -6122,7 +6122,7 @@ void S_f6420::f() {
         count = 0;
         a = 0;
         *(int*)((char*)this + count * 8 + 8) = 0;
-        result = g(p);
+        result = Fng_002961d0(p);
         last = 0;
     }
 }
@@ -6253,7 +6253,7 @@ Obj_f6850* Obj_f6850::Run(Arg_f6850* arg) {
             mIndex = 0;
             mOne = 0;
             ((int*)this)[mIndex * 2 + 2] = 0;
-            m408 = mArg->G();
+            m408 = mArg->FnG_002961d0();
             m40c = 0;
         }
     }
@@ -6600,13 +6600,13 @@ X_f6ef0::X_f6ef0() {
 // sym: ?Clear@Owner_f6f60@fn_f5892d97@@QAEXXZ
 void Owner_f6f60::Clear() {
     if (p0)
-        R0(p0);
+        R0_0008d340(p0);
     if (p11c)
-        R1(p11c);
+        R1_0008d330(p11c);
     if (pC)
-        R2(pC);
+        R2_0008d340(pC);
     if (p18)
-        R3(p18);
+        R3_0008d340(p18);
     for (int i = 0; i < count; ++i) {
         Item_f6f60* q = items[i];
         if (q) {
@@ -6631,7 +6631,7 @@ namespace fn_f5892d97 {
 void Buffer_f6ff0::Reserve(int n) {
     if (n > capacity) {
         void* old = data;
-        void* fresh = allocbuf(n * 2);
+        void* fresh = allocbuf_0008d6d0(n * 2);
         data = fresh;
         if (old) {
             memcpy(fresh, old, size * 2);
@@ -6903,11 +6903,11 @@ owners::State_f7930* owners::State_f7930::FUN_000f7930() {
 // sym: ?FUN_000f7960@Thing_f7960@owners@@QAEXXZ
 void owners::Thing_f7960::FUN_000f7960() {
     if (mFirst) {
-        ReleaseThing(mFirst);
+        ReleaseThing_0008d340(mFirst);
         mFirst = 0;
     }
     if (mSecond) {
-        ReleaseThing(mSecond);
+        ReleaseThing_0008d340(mSecond);
         mSecond = 0;
     }
 }
@@ -6938,7 +6938,7 @@ void owners::Obj_f79a0::FUN_000f79a0(const short* text, hulk_intptr unused) {
 // sym: ?FUN_000f7a10@Obj_f7a10@owners@@QAEXHH@Z
 void owners::Obj_f7a10::FUN_000f7a10(hulk_intptr value, int unused) {
     if (m10) {
-        release(m10);
+        release_0008d340(m10);
         m10 = 0;
         m14 = ((int)value);
         m20 = -1;

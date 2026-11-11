@@ -209,7 +209,7 @@ public:
 
     int FUN_001bee10();
 };
-extern void* g_vftable_1bef80[];
+extern void* hulk_at_0042147c[];
 class Ref_1bef80 {
   public:
     virtual void F0();
@@ -312,7 +312,7 @@ class Method3_1bf7c0 {
     hulk_intptr vptr;
     ScriptFunctionFields f;
     ScriptMemberFn m1c;
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
     Method3_1bf7c0* Setup(const char*, ScriptMemberFn);
 };
 struct CSubtitleManager_1bf840 { };
@@ -431,7 +431,7 @@ public:
 typedef unsigned int u32_1bfc30;
 struct State_1bfc30 {
     char pad[0x58];
-    int query(int, int);
+    int query_001be0e0(int, int);
 };
 struct sSubtitleCallback_1bfc30 {
     virtual void f0();
@@ -448,7 +448,7 @@ class Overlay_1bfc80 {
     void* vptr;
     void Fin();
 };
-void Free(void*) throw();
+void Free_0008d330(void*) throw();
 class CSubtitleOverlay_1bfc80 : public Overlay_1bfc80 {
   public:
     char pad[0x14];
@@ -572,7 +572,7 @@ class Manager {
   public:
     char pad[0x54];
     char flag;
-    void Do(int, int, int);
+    void Do_001c0650(int, int, int);
 };
 class sSubtitleCallback_1c06f0 {
   public:
@@ -627,10 +627,10 @@ struct Object {
     void FUN_001c0360(int, int);
     int FUN_001c0a40(Context* arg);
 };
-extern "C" unsigned __int64 __cdecl compute(int, int, int);
+extern "C" unsigned __int64 __cdecl compute_002672f0(int, int, int);
 class Obj {
   public:
-    void use(int, unsigned __int64);
+    void use_001c0650(int, unsigned __int64);
     void fn(int a, int b);
 };
 
@@ -655,10 +655,10 @@ int Table::Find(Key k) {
 void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_001be170 {
 
-int Push(int) throw();
+int Push_00266da0(int) throw();
 
 struct CDropShadowDisplayEffect_1be170 {
-    void Init() throw();
+    void Init_000dee40() throw();
 };
 struct Node2_1be170 {
     virtual void v0();
@@ -705,13 +705,13 @@ CSubtitleOverlay::CSubtitleOverlay() throw() {
     m18 = 0;
     b11c = 0;
     b11d = 0;
-    sub.Init();
-    int old = Push(0xe);
+    sub.Init_000dee40();
+    int old = Push_00266da0(0xe);
     m18 = new Shader_1be170;
     m18->init();
     Shader_1be170* q = m18;
     q->c->v6(0x444d4c42, true);
-    Push(old);
+    Push_00266da0(old);
 }
 } // namespace fn_001be170
 
@@ -1432,7 +1432,7 @@ int Effect_1bee10::FUN_001bee10()
 // 0x001bef80 FUN_001bef80 (36 B): matches/0x001bef80.cpp
 // sym: ??1CSubtitleOverlay_1bef80@fn_fed79ca6@@QAE@XZ
 CSubtitleOverlay_1bef80::~CSubtitleOverlay_1bef80() throw() {
-    vptr = g_vftable_1bef80;
+    vptr = hulk_at_0042147c;
     _ReadWriteBarrier();
     if (m18) {
         m18->Release();
@@ -1746,7 +1746,7 @@ template <> void Method1<CSubtitleManager, void, float>::vfunc_2(void* __p0, voi
 // sym: ??0Method3@fn_001bf710@@QAE@HH@Z
 namespace fn_001bf710 {
 
-extern "C++" __declspec(nothrow) char __cdecl ReadFlag(const char*);
+extern "C++" __declspec(nothrow) char __cdecl ReadFlag_001d04d0(const char*);
 class Function_1bf710 {
   public:
     Function_1bf710(int, int);
@@ -1765,10 +1765,10 @@ class Method3 : public Function_1bf710 {
 };
 Method3::Method3(hulk_intptr a, hulk_intptr b) : Function_1bf710(a, 3) {
     field = b;
-    f18 = ReadFlag(((char*)&DAT_0048e100));
-    f10 = ReadFlag(((char*)&DAT_0048e128));
-    f11 = ReadFlag(((char*)&DAT_0048e128));
-    f12 = ReadFlag(((char*)&DAT_0048e128));
+    f18 = ReadFlag_001d04d0(((char*)&DAT_0048e100));
+    f10 = ReadFlag_001d04d0(((char*)&DAT_0048e128));
+    f11 = ReadFlag_001d04d0(((char*)&DAT_0048e128));
+    f12 = ReadFlag_001d04d0(((char*)&DAT_0048e128));
 }
 } // namespace fn_001bf710
 
@@ -1797,7 +1797,7 @@ namespace fn_fed79ca6 {
 // Method3's initializer (name, member function): Function's fields (include/decls/data/script.h), then the
 // member-function pointer; returns this.
 Method3_1bf7c0* Method3_1bf7c0::Setup(const char* a, ScriptMemberFn b) {
-    Init(a, 3);
+    Init_001d0480(a, 3);
     vptr = ((hulk_intptr)DAT_00421520);
     m1c = b;
     f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
@@ -1992,7 +1992,7 @@ void Track::FUN_001bf9b0()
 // sym: ?vfunc_1@sSubtitleManagerCallback@@UAEXHH@Z
 void sSubtitleManagerCallback::vfunc_1(int a, int b) {
     State_1bfc30* p = (*(State_1bfc30 * *)&this->f_04);
-    if (p && p->query(a, b) != -1 && *(int*)((char*)p + 0x20) == 2) {
+    if (p && p->query_001be0e0(a, b) != -1 && *(int*)((char*)p + 0x20) == 2) {
         *(u32_1bfc30*)((char*)p + 4) = 0;
         *(u32_1bfc30*)p = 0xbf800000;
         *((unsigned char*)p + 0xd) = 0;
@@ -2015,7 +2015,7 @@ CSubtitleOverlay_1bfc80* CSubtitleOverlay_1bfc80::f0(unsigned char fl) {
     }
     vptr = g_vftable2;
     if (fl & 1)
-        Free(this);
+        Free_0008d330(this);
     return this;
 }
 
@@ -2142,8 +2142,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_004214a0[2];
+extern void* hulk_at_00421530[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -2162,12 +2162,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_004214a0;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e134));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e134));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_00421530;
     owner = a2;
 }
 } // namespace fn_001bfd70
@@ -2198,7 +2198,7 @@ namespace fn_001bfe10 {
 // data: firstName = DAT_0048e100, secondName = DAT_0048e0e4
 
 typedef unsigned int uint;
-extern "C++" __declspec(nothrow) unsigned char __cdecl lookup(const char*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl lookup_001d04d0(const char*);
 class Function_1bfe10 {
   public:
     Function_1bfe10(void*, int);
@@ -2214,8 +2214,8 @@ class Method1 : public Function_1bfe10 {
   public:
     Method1(void* x, void* z) : Function_1bfe10(x, 1) {
         p = z;
-        b = lookup(((char*)&DAT_0048e100));
-        a = lookup(((char*)&DAT_0048e0e4));
+        b = lookup_001d04d0(((char*)&DAT_0048e100));
+        a = lookup_001d04d0(((char*)&DAT_0048e0e4));
     }
     virtual void v0();
 };
@@ -2386,8 +2386,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_004214e0[2];
+extern void* hulk_at_00421570[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -2406,12 +2406,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_004214e0;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e134));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_00421570;
     owner = a2;
 }
 } // namespace fn_001bffb0
@@ -2790,9 +2790,9 @@ void sSubtitleManagerCallback::vfunc_0(int a, int b) {
     Manager* p = (*(Manager * *)&this->f_04);
     if (p) {
         if (!p->flag)
-            p->Do(2, a, b);
+            p->Do_001c0650(2, a, b);
         else
-            p->Do(0, a, b);
+            p->Do_001c0650(0, a, b);
     }
 }
 
@@ -2958,8 +2958,8 @@ int Object::FUN_001c0a40(Context* arg) {
 // 0x001c0ca0 FUN_001c0ca0 (38 B): matches/0x001c0ca0.cpp
 // sym: ?fn@Obj@fn_fed79ca6@@QAEXHH@Z
 void Obj::fn(int a, int b) {
-    unsigned __int64 v = compute(b, 0, 0);
-    use(a, v);
+    unsigned __int64 v = compute_002672f0(b, 0, 0);
+    use_001c0650(a, v);
 }
 
 } // namespace fn_fed79ca6

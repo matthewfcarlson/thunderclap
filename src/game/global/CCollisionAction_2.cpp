@@ -14,7 +14,7 @@ namespace fn_f54c57d3 {} using namespace fn_f54c57d3;
 
 // ---- declarations shared by the functions below
 namespace fn_f54c57d3 {
-extern void* gA_19420[];
+extern void* hulk_at_003f3390[];
 class Ref_19420 {
   public:
     virtual void F0();
@@ -302,8 +302,8 @@ public:
     void FUN_00019d30(Target_19d30* t, Vec3_19d30* p1, Vec3_19d30* p2);
 };
 struct Game_1a690 {
-    bool Ready();
-    void Go(int a, int b, int c);
+    bool Ready_00035ab0();
+    void Go_0003b580(int a, int b, int c);
     char pad[0x1b49];
     char f1b49;
     char pad2[0x2fe];
@@ -313,10 +313,10 @@ struct Sess {
     Game_1a690* Get();
 };
 struct Mid_1a690 {
-    Game_1a690* Get();
+    Game_1a690* Get_00059a30();
 };
 struct Tgt_1a690 {
-    void Fn(void*);
+    void Fn_001b4200(void*);
 };
 struct Ref_1a690 {
     virtual void v0();
@@ -326,9 +326,9 @@ struct Info_1a690 {
     char pad[0x39];
     char flag;
 };
-Mid_1a690* __stdcall Conv();
+Mid_1a690* __stdcall Conv_001b6580();
 struct Owner_1a690 {
-    Mid_1a690* Get();
+    Mid_1a690* Get_000592a0();
 };
 Sess* Lookup();
 
@@ -424,7 +424,7 @@ CCollisionAction_19420::~CCollisionAction_19420() {
         m48->Release();
         m48 = 0;
     }
-    vptr = gA_19420;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -1278,18 +1278,18 @@ bool CCollisionAction::vfunc_8(float dt)
 // 0x0001a690 CCollisionAction::vfunc_4 (119 B): matches/0x0001a690.cpp
 // sym: ?vfunc_4@CCollisionAction@@UAEXXZ
 void CCollisionAction::vfunc_4() {
-    Game_1a690* g = (*(Owner_1a690 * *)&this->f_1c)->Get()->Get();
+    Game_1a690* g = (*(Owner_1a690 * *)&this->f_1c)->Get_000592a0()->Get_00059a30();
     if ((*(Ref_1a690 * *)&this->f_3c)) {
         Ref_1a690* arg = (*(Ref_1a690 * *)&this->f_3c);
-        ((Tgt_1a690*)Conv())->Fn(arg);
+        ((Tgt_1a690*)Conv_001b6580())->Fn_001b4200(arg);
         if ((*(Ref_1a690 * *)&this->f_3c)) {
             (*(Ref_1a690 * *)&this->f_3c)->Release();
             (*(Ref_1a690 * *)&this->f_3c) = 0;
         }
     }
     if ((*(Info_1a690 * *)&this->f_20)->flag) {
-        if (g->Ready())
-            g->Go(0, 0, 0);
+        if (g->Ready_00035ab0())
+            g->Go_0003b580(0, 0, 0);
     }
     g->f1b49 = 0;
     g->f1e48 = 0;

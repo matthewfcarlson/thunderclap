@@ -13,7 +13,7 @@ namespace fn_f3919bbe {} using namespace fn_f3919bbe;
 
 // ---- declarations shared by the functions below
 namespace fn_f3919bbe {
-void __cdecl ReleaseThing(uint);
+void __cdecl ReleaseThing_0008d330(uint);
 struct Obj_b0ff0 {
     uint a;
     uint b;
@@ -23,7 +23,7 @@ void __cdecl thunk_FUN_00267090(void *p);
 void *__cdecl FUN_0008d750(int size, int align);
 extern "C" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 extern void Ensure(int);
-extern void Copy(void*, const void*, unsigned int);
+extern void Copy_00267830(void*, const void*, unsigned int);
 struct Elem {
     int n;
     char* p;
@@ -153,7 +153,7 @@ class ThisClass {
 // Same code shape as 0x000b0710 (propagated; names are from that function)
 void Obj_b0ff0::Clear() {
     if (b) {
-        ReleaseThing(b);
+        ReleaseThing_0008d330(b);
         a = 0;
         b = 0;
     }
@@ -187,7 +187,7 @@ void owners::StringTable_b1020::FUN_000b1020(int n)
 void owners::Target_b10a0::FUN_000b10a0(int index, const void* source) {
     if (count <= 0)
         Check(1);
-    Copy(data + index * 32, source, 32);
+    Copy_00267830(data + index * 32, source, 32);
 }
 
 
@@ -311,7 +311,7 @@ char Grid::Put(int x, int y, int z, int v) {
 // 0x000b19e0 FUN_000b19e0 (83 B): matches/0x000b19e0.cpp [wrapped: conflict: Obj]
 // sym: ?Copy@Obj@fn_000b19e0@@QAE_NHPBXH@Z
 namespace fn_000b19e0 {
-extern "C++" __declspec(nothrow) void CopyBytes(void*, const void*, unsigned int);
+extern "C++" __declspec(nothrow) void CopyBytes_00267830(void*, const void*, unsigned int);
 struct Elem {
     int count;
     char* data;
@@ -330,7 +330,7 @@ bool Obj::Copy(int index, const void* src, int slot) {
     Elem* e = &elems[index];
     if (e->count <= 0)
         ((owners::StringTable_b1020 *)e)->FUN_000b1020(1);
-    CopyBytes(e->data + slot * 32, src, 32);
+    CopyBytes_00267830(e->data + slot * 32, src, 32);
     changed = 1;
     return true;
 }

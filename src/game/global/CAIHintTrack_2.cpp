@@ -26,18 +26,18 @@ class TrackFactoryTemplate_77990 {
 extern "C" void FUN_00075b50();
 extern "C" char DAT_003fc184[];
 struct Sub_779d0 {
-    void subinit();
+    void subinit_0027af00();
 };
 struct CAIHintTrack_779d0 {
     char pad[32];
-    void init();
+    void init_00236d40();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_77a20;
+extern int hulk_at_003febbc;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006aee0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -65,11 +65,11 @@ template <> void* fight::TrackFactoryCasterTemplate<CAIHintTrack>::vfunc_1(void*
 template <> void* fight::TrackFactoryTemplate<CAIHintTrack>::vfunc_5() {
     CAIHintTrack_779d0* p = (CAIHintTrack_779d0*)FUN_0008d690((int)sizeof(CAIHintTrack_779d0));
     if (p) {
-        p->init();
+        p->init_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fc184);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0xbf800000;
-        ((Sub_779d0*)((char*)p + 0x18))->subinit();
+        ((Sub_779d0*)((char*)p + 0x18))->subinit_0027af00();
         *(unsigned int*)((char*)p + 8) = 1;
         return (void*)(p);
     }
@@ -82,9 +82,9 @@ namespace fn_fab98861 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fab98861@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_77a20;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003febbc;
+    base1_dtor_0006aee0();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

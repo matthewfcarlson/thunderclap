@@ -35,7 +35,7 @@ class Function_1f7720 {
   public:
     Function_1f7720(const char*, int);
 };
-extern char sC[];
+extern char hulk_at_0048e10c[];
 class Method3_1f7720 : public Function_1f7720 {
   public:
     Method3_1f7720(const char*, ScriptMemberFn);
@@ -72,7 +72,7 @@ class Method3_1f78c0 {
     hulk_intptr vtable;
     ScriptFunctionFields f;  // 0x04
     ScriptMemberFn field1c;  // 0x1c
-    void Base(const char*, int);
+    void Base_001d0480(const char*, int);
     Method3_1f78c0* Build(const char*, ScriptMemberFn);
 };
 class CEffectManager_1f7940 {
@@ -159,8 +159,8 @@ Method3_1f7720::Method3_1f7720(const char* a, ScriptMemberFn b) : Function_1f772
     m1c = b;
     f.retType = FUN_001d04d0(((char*)&DAT_0048e134));
     f.argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e0f0));
-    f.argTypes[1] = FUN_001d04d0(sC);
-    f.argTypes[2] = FUN_001d04d0(sC);
+    f.argTypes[1] = FUN_001d04d0(hulk_at_0048e10c);
+    f.argTypes[2] = FUN_001d04d0(hulk_at_0048e10c);
 }
 
 } // namespace fn_f919337e
@@ -206,7 +206,7 @@ namespace fn_f919337e {
 // 0x001f78c0 FUN_001f78c0 (89 B): matches/0x001f78c0.cpp
 // sym: ?Build@Method3_1f78c0@fn_f919337e@@QAEPAV12@PBDP8ScriptBoundClass@@AEXXZ@Z
 Method3_1f78c0* Method3_1f78c0::Build(const char* a, ScriptMemberFn b) {
-    Base(a, 3);
+    Base_001d0480(a, 3);
     vtable = ((hulk_intptr)DAT_00424d6c);
     field1c = b;
     f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0049b95c)));
@@ -342,14 +342,14 @@ template <> void Method1<CEffectManager, bool, bool>::vfunc_2(void* __p0, void* 
 namespace fn_001f7b20 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00424d3c[2];
+extern void* hulk_at_00424dac[2];
 extern void* TAB_48e134;
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 // Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h),
 // then Method2's member-function pointer and Closure2's object.
@@ -364,12 +364,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00424d3c;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e134));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(&TAB_48e134);
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e134));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(&TAB_48e134);
+    vfptr = (void*)hulk_at_00424dac;
     owner = a2;
 }
 } // namespace fn_001f7b20
@@ -447,14 +447,14 @@ void Closure2::vfunc_2(int x, int a2, int a3) {
 namespace fn_001f7c40 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00424d5c[2];
+extern void* hulk_at_00424dcc[2];
 extern void* TAB_48e134;
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 // Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h),
 // then Method2's member-function pointer and Closure2's object.
@@ -469,12 +469,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00424d5c;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e0e4));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e134));
-    f.argTypes[1] = LookupFlag(&TAB_48e134);
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0e4));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e134));
+    f.argTypes[1] = LookupFlag_001d04d0(&TAB_48e134);
+    vfptr = (void*)hulk_at_00424dcc;
     owner = a2;
 }
 } // namespace fn_001f7c40
@@ -558,7 +558,7 @@ template <> void Closure0<CEffectManager, float>::vfunc_2(void* __p0, void* __p1
 namespace fn_001f7e20 {
 // data: name1 = DAT_0049b95c, name2 = DAT_0049cad8
 
-extern unsigned char __cdecl find(char*);
+extern unsigned char __cdecl find_001d04d0(char*);
 class Function_1f7e20 {
   public:
     Function_1f7e20(char*, int);
@@ -574,8 +574,8 @@ class Method1 : public Function_1f7e20 {
     unsigned int x;
     Method1(char* p, unsigned int n) : Function_1f7e20(p, 1) {
         x = n;
-        b = find(((char*)&DAT_0049b95c));
-        a = find(((char*)&DAT_0049cad8));
+        b = find_001d04d0(((char*)&DAT_0049b95c));
+        a = find_001d04d0(((char*)&DAT_0049cad8));
     }
     virtual void f();
 };
@@ -608,7 +608,7 @@ template <> void Closure1<CEffectManager, unsigned int, char *>::vfunc_2(void* _
 namespace fn_001f7eb0 {
 // data: gValue = DAT_0048e0e4
 
-extern "C++" __declspec(nothrow) unsigned char getFlag(void*);
+extern "C++" __declspec(nothrow) unsigned char getFlag_001d04d0(void*);
 class Function_1f7eb0 {
   public:
     Function_1f7eb0(int, int);
@@ -625,8 +625,8 @@ class Method1 : public Function_1f7eb0 {
   public:
     Method1(int p, int q) : Function_1f7eb0(p, 1) {
         x = q;
-        b = getFlag(((int*)&DAT_0048e0e4));
-        a = getFlag(((int*)&DAT_0048e0e4));
+        b = getFlag_001d04d0(((int*)&DAT_0048e0e4));
+        a = getFlag_001d04d0(((int*)&DAT_0048e0e4));
     }
     virtual void fn();
 };

@@ -71,10 +71,10 @@ public:
     float dx, dy, dz;
     Vec3_a92c0 FUN_000a92c0(Context *ctx, Target_a92c0 *t);
 };
-extern void* Camera_a97b0_vftable[];
+extern void* hulk_at_00405894[];
 class Camera_a97b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002926c0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CGameCamera_a97b0 : public Camera_a97b0 {
   public:
@@ -451,8 +451,8 @@ namespace fn_f19d3f35 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CGameCamera_a97b0* CGameCamera_a97b0::vfunc_5(signed char flags) {
-    *(void***)this = Camera_a97b0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00405894;
+    Destroy_002926c0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

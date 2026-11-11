@@ -33,7 +33,7 @@ class Owner_f8df0 {
 };
 class Mgr_f8e70 {
   public:
-    int Check(int x);
+    int Check_000df9e0(int x);
 };
 class Inner_f8e70 {
   public:
@@ -41,7 +41,7 @@ class Inner_f8e70 {
     Mgr_f8e70* mMgr;
 };
 struct NamedValueInt_nv_f8e70 {
-    NamedValueInt* Init(Inner_f8e70* a, int b, int c, int d);
+    NamedValueInt* Init_000f8b20(Inner_f8e70* a, int b, int c, int d);
 };
 class Owner_f8e70 {
   public:
@@ -54,7 +54,7 @@ typedef unsigned char u8_f92b0;
 typedef unsigned int u32_f92b0;
 struct Inner_f92b0 {
     char pad[0x458];
-    int Find(u32_f92b0, u32_f92b0);
+    int Find_000f9140(u32_f92b0, u32_f92b0);
 };
 struct Record_f92f0 {
     int a;
@@ -76,7 +76,7 @@ struct Owner_f92f0 {
     int FUN_000f92f0(int a, int b, char value);
 };
 struct Sub_f94f0 {
-    int Find(int a, int b);
+    int Find_000f9140(int a, int b);
 };
 struct Obj_f94f0 {
     char pad[0x1248];
@@ -107,7 +107,7 @@ struct Store {
 };
 typedef unsigned int U_f95e0;
 struct D {
-    U_f95e0 f(U_f95e0* out, int a, int b, int c);
+    U_f95e0 Fnf_002647e0(U_f95e0* out, int a, int b, int c);
 };
 struct C_f95e0 {
     char pad[0x284];
@@ -155,10 +155,10 @@ NamedValueInt* Owner_f8e70::Create(int a, int b, int c) {
     if (((owners::Table_f8cc0 *)this)->FUN_000f8cc0((const char *)(hulk_uintptr)(int)a))
         return 0;
     NamedValueInt* r = 0;
-    if (c && mInner->mMgr->Check(c)) {
+    if (c && mInner->mMgr->Check_000df9e0(c)) {
         NamedValueInt* p = (NamedValueInt*)operator new(sizeof(NamedValueInt));
         if (p) {
-            r = ((NamedValueInt_nv_f8e70*)(((NamedValueInt*)(p))))->Init(mInner, a, b, c);
+            r = ((NamedValueInt_nv_f8e70*)(((NamedValueInt*)(p))))->Init_000f8b20(mInner, a, b, c);
         } else {
             r = 0;
         }
@@ -179,7 +179,7 @@ int Table::FUN_000f9140(int key1, int key2) { for (int i = 0; i < count; ++i) { 
 // 0x000f92b0 FUN_000f92b0 (54 B): matches/0x000f92b0.cpp
 // sym: ?FUN_000f92b0@Obj_f92b0@owners@@QAE_NIIPAE@Z
 bool owners::Obj_f92b0::FUN_000f92b0(u32_f92b0 a, u32_f92b0 b, u8_f92b0* out) {
-    int i = ((Inner_f92b0*)((char*)this + 0x458))->Find(a, b);
+    int i = ((Inner_f92b0*)((char*)this + 0x458))->Find_000f9140(a, b);
     if (i == -1)
         return false;
     *out = *((u8_f92b0*)this + i + 0x864);
@@ -214,7 +214,7 @@ int Owner_f92f0::FUN_000f92f0(int a, int b, char value)
 // 0x000f94f0 FUN_000f94f0 (54 B): matches/0x000f94f0.cpp
 // sym: ?Get@Obj_f94f0@fn_f696183f@@QAE_NHHPAI@Z
 bool Obj_f94f0::Get(int a, int b, unsigned int* out) {
-    int i = sub.Find(a, b);
+    int i = sub.Find_000f9140(a, b);
     if (i == -1)
         return false;
     *out = vals[i];
@@ -247,7 +247,7 @@ void Store::FUN_000f9530(int a, int b, float value)
 // sym: ?g@C_f95e0@fn_f696183f@@QAEIXZ
 U_f95e0 C_f95e0::g() {
     U_f95e0 local;
-    member->f(&local, 1, 4, 1);
+    member->Fnf_002647e0(&local, 1, 4, 1);
     return local;
 }
 

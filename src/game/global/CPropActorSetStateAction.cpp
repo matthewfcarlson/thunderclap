@@ -27,7 +27,7 @@ class CWallSlideAction_22770 : public CAction_22770 {
     Ref_22770* m1;
     CWallSlideAction_22770* f2(unsigned char flags);
 };
-extern void* g_vftable_227d0[];
+extern void* hulk_at_003f3390[];
 class Ref_227d0 {
   public:
     virtual void F0();
@@ -119,7 +119,7 @@ CWallSlideAction_22770* CWallSlideAction_22770::f2(unsigned char flags) {
 // 0x000227d0 CTargetAction::vfunc_2 (57 B): matches/0x000227d0.cpp
 // sym: ?f2@CTargetAction_227d0@fn_f96a4a22@@QAEPAV12@E@Z
 CTargetAction_227d0* CTargetAction_227d0::f2(unsigned char flags) {
-    vptr = g_vftable_227d0;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

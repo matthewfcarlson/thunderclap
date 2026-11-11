@@ -71,8 +71,8 @@ class Owner_989d0 {
     int zero;
     char pad3[0x28];
     Triple_989d0 t1a8;
-    void helper(Obj_989d0*, void*);
-    Triple_989d0* get(Obj_989d0*, Obj_989d0*);
+    void helper_00098500(Obj_989d0*, void*);
+    Triple_989d0* get_000a9170(Obj_989d0*, Obj_989d0*);
     char F(void*, Obj_989d0*, char, Obj_989d0*);
 };
 class Sub {
@@ -134,8 +134,8 @@ class Owner_98e60 {
 };
 class H {
   public:
-    void A(void*);
-    void B(void*);
+    void FnA_000a91c0(void*);
+    void FnB_000a08d0(void*);
 };
 class Obj_98ed0 {
   public:
@@ -177,16 +177,16 @@ class C_99040 {
 };
 class Result_99050 {
   public:
-    void Finish(int);
+    void Finish_00085f50(int);
 };
 class Aux_99050 {
   public:
-    Result_99050* Create();
+    Result_99050* Create_00086320();
 };
 class Anim_99050 {
   public:
-    void A(int);
-    void B(int);
+    void FnA_000361c0(int);
+    void FnB_00036140(int);
 };
 class Holder_99050 {
   public:
@@ -195,7 +195,7 @@ class Holder_99050 {
 };
 class Target_99050 {
   public:
-    void Do(int);
+    void Do_000d7030(int);
 };
 class Flagged_99050 {
   public:
@@ -634,7 +634,7 @@ class Thing {
     char _m_pad_0[0xc4];
     struct Inner* inner;
     void Set(int v);
-    float Get();
+    float Get_000a0bb0();
 };
 class Owner {
   public:
@@ -648,7 +648,7 @@ struct Inner {
     int value;
 };
 struct Sub_99860 {
-    void Fn(int, int);
+    void Fn_000ac7a0(int, int);
 };
 struct Obj_99860 {
     char pad[0xc4];
@@ -663,11 +663,11 @@ class Obj_99880 {
 };
 struct Sub_99880 {
     char pad[0x1e0];
-    void Fn(int, int);
+    void Fn_000ac7a0(int, int);
 };
 class Sub_998a0 {
   public:
-    void Fn(int, int);
+    void Fn_000ac7a0(int, int);
 };
 class Obj_998a0 {
   public:
@@ -705,7 +705,7 @@ struct Target_998f0 {
     void FUN_000998f0(int a1, int a2, int a3, int a4, int a5, int a6);
 };
 struct Sub_99960 {
-    void Fn(int, int);
+    void Fn_000ac7a0(int, int);
 };
 struct Obj_99960 {
     char pad[0xc4];
@@ -713,7 +713,7 @@ struct Obj_99960 {
     void Fn(int, int);
 };
 struct Obj_999f0 {
-    void G(int, int);
+    void FnG_000ac7a0(int, int);
 };
 class T_999f0 {
   public:
@@ -768,7 +768,7 @@ class Item {
 };
 class Result {
   public:
-    float* Value();
+    float* Value_00036d00();
 };
 class Host {
   public:
@@ -778,7 +778,7 @@ class Host {
 };
 class Child_99aa0 {
   public:
-    void run(int a, int b);
+    void run_000a62c0(int a, int b);
 };
 class Obj_99aa0 {
   public:
@@ -786,10 +786,10 @@ class Obj_99aa0 {
     Child_99aa0* member;
     void f(hulk_intptr x);
 };
-extern int gValue_99aa0;
+extern int hulk_at_004dd700;
 class Helper_99ae0 {
   public:
-    void Run(float f);
+    void Run_000a2f30(float f);
 };
 class Obj_99ae0 {
   public:
@@ -799,7 +799,7 @@ class Obj_99ae0 {
 };
 class Sub_99b50 {
   public:
-    float Get();
+    float Get_000a0bd0();
 };
 class Obj_99b50 {
   public:
@@ -809,7 +809,7 @@ class Obj_99b50 {
 };
 extern const float gMinusOne_99b70 = -1.0f;
 struct X_99b70 {
-    float f();
+    float Fnf_000a0c00();
 };
 struct Obj_99b70 {
     char pad[0xb8];
@@ -826,7 +826,7 @@ class Obj_99b90 {
 };
 class Sub_99bb0 {
   public:
-    float Fn();
+    float Fn_000a0c20();
 };
 class Obj_99bb0 {
   public:
@@ -836,7 +836,7 @@ class Obj_99bb0 {
 };
 class Child {
   public:
-    void Func(int);
+    void Func_000a0c30(int);
 };
 class Obj {
   public:
@@ -1054,15 +1054,15 @@ class Obj_9a090 {
     virtual void V27();
     virtual void F28();
 };
-void* __cdecl Alloc(int);
-Obj_9a090* __fastcall Construct(void* mem);
+void* __cdecl Alloc_00263ea0(int);
+Obj_9a090* __fastcall Construct_000a2430(void* mem);
 class Owner_9a090 {
   public:
     char p0[0x10];
     void* other;
     char p1[0xa4];
     Obj_9a090* item;
-    void Prep();
+    void Prep_00099340();
     void Run();
 };
 struct Resource_9a0e0 {
@@ -1146,7 +1146,7 @@ class Method6_9a6e0 {
     void* v;
     ScriptFunctionFields f;
     Fn_9a6e0 m1c;
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
     Method6_9a6e0* Run(const char*, Fn_9a6e0);
 };
 struct Function_9a780 {
@@ -1173,10 +1173,10 @@ struct Vector_9a890 { float x,y,z; };
 struct Args { float first, second; Vector_9a890 direction; float last; };
 struct CCameraManager_9a890 { int unused; };
 extern "C" char DAT_00404c20[];
-extern char __cdecl Convert(const char*);
+extern char __cdecl Convert_001d04d0(const char*);
 class Method3_9a8e0 {
   public:
-    void Init(void*, int);
+    void Init_001d0480(void*, int);
     Method3_9a8e0(void*, hulk_intptr);
     hulk_intptr vtable;
     char a[0x10 - 4];
@@ -1200,9 +1200,9 @@ class Function_9aa00 {
 extern "C" char DAT_00404c50[];
 class Function_9aaf0 {
   public:
-    void Init(int, int);
+    void Init_001d0480(int, int);
 };
-extern unsigned char __cdecl GetValue(const char*);
+extern unsigned char __cdecl GetValue_001d04d0(const char*);
 class Method3_9aaf0 : public Function_9aaf0 {
   public:
     hulk_intptr vt;
@@ -1216,7 +1216,7 @@ class Method3_9aaf0 : public Function_9aaf0 {
 };
 extern "C" char DAT_00404c60[];
 struct Function_9aba0 {
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
 };
 class Owner_9aba0 {};
 typedef void (Owner_9aba0::*Fn_9aba0)(bool, bool, bool, float);
@@ -1319,7 +1319,7 @@ class Function_9b310 {
 extern "C" char DAT_00404d00[];
 class Helper_9b330 {
   public:
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
 };
 } // namespace fn_f5ef2b3f
 extern "C" unsigned char FUN_001d04d0(hulk_intptr);
@@ -1393,7 +1393,7 @@ class type_info {
     virtual ~type_info();
 };
 namespace fn_f5ef2b3f {
-extern int g_vftable_9b770;
+extern int hulk_at_00404d60;
 class Owner_9b770 {};
 typedef bool (Owner_9b770::*Fn_9b770)(float, float, float, float, bool);
 } // namespace fn_f5ef2b3f
@@ -1447,7 +1447,7 @@ class Method0_9b9f0 : public Function_9b9f0 {
     char pad2[3];
     int value;
 };
-unsigned char __cdecl fun2(hulk_intptr);
+unsigned char __cdecl fun2_001d04d0(hulk_intptr);
 struct Resource_9bc60 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void activate(unsigned); virtual void deactivate(unsigned);
  void FUN_000a08e0(unsigned);
@@ -1501,7 +1501,7 @@ struct Object {
 extern int g;
 class X {
   public:
-    void callee(int, int, int, int, int, int, int, int);
+    void callee_0009c060(int, int, int, int, int, int, int, int);
     void target(int a, int b, int c, int d, int e, int f, int h);
 };
 class CCameraManager_9c2c0 {
@@ -1767,12 +1767,12 @@ char Owner_989d0::F(void* p2, Obj_989d0* p3, char p4, Obj_989d0* p5) {
     a = p3;
     flag = p4;
     if (!p4) {
-        helper(p3, (char*)this + 0x180);
+        helper_00098500(p3, (char*)this + 0x180);
         p3->V31(p2);
     }
     p5->V0();
     b = p5;
-    Triple_989d0* q = get(a, p5);
+    Triple_989d0* q = get_000a9170(a, p5);
     t1a8 = *q;
     zero = 0;
     return 1;
@@ -1818,17 +1818,17 @@ void Owner_98e60::Clear() {
 // sym: ?Run@Obj_98ed0@fn_f5ef2b3f@@QAEXPAX@Z
 void Obj_98ed0::Run(void* arg) {
     if (a)
-        a->A(arg);
+        a->FnA_000a91c0(arg);
     if (b)
-        b->A(arg);
+        b->FnA_000a91c0(arg);
     if (c)
-        c->A(arg);
+        c->FnA_000a91c0(arg);
     if (d)
-        d->A(arg);
+        d->FnA_000a91c0(arg);
     if (e)
-        e->A(arg);
+        e->FnA_000a91c0(arg);
     if (f)
-        f->B(arg);
+        f->FnB_000a08d0(arg);
 }
 
 
@@ -1886,13 +1886,13 @@ void C_99040::SetField(int value) {
 void Obj_99050::F(Arg_99050* arg) {
     bool on = ((flags >> 2) & 1) != 0;
     if (on) {
-        a->Create()->Finish(0);
-        arg->t3c->Do(p98);
+        a->Create_00086320()->Finish_00085f50(0);
+        arg->t3c->Do_000d7030(p98);
         arg->f4->flag = 1;
         Anim_99050* an = arg->h20->anim;
         if (an) {
-            an->A(0);
-            an->B(0);
+            an->FnA_000361c0(0);
+            an->FnB_00036140(0);
         }
         unsigned f = flags & 0xfffffffb;
         p10 = p14;
@@ -2318,14 +2318,14 @@ void Thing::Set(int v) {
 // sym: ?Target@Obj_99860@fn_f5ef2b3f@@QAEXHH@Z
 void Obj_99860::Target(int a0, int a1) {
     ((char*)sub + 0x170);
-    ((Sub_99860*)((char*)sub + 0x170))->Fn(a0, a1);
+    ((Sub_99860*)((char*)sub + 0x170))->Fn_000ac7a0(a0, a1);
 }
 
 
 // 0x00099880 FUN_00099880 (17 B): matches/0x00099880.cpp
 // sym: ?Run@Obj_99880@fn_f5ef2b3f@@QAEXHH@Z
 void Obj_99880::Run(int a0, int a1) {
-    ((Sub_99880*)((char*)m + 0x1e0))->Fn(a0, a1);
+    ((Sub_99880*)((char*)m + 0x1e0))->Fn_000ac7a0(a0, a1);
 }
 
 
@@ -2333,7 +2333,7 @@ void Obj_99880::Run(int a0, int a1) {
 // sym: ?Fn@Obj_998a0@fn_f5ef2b3f@@QAEXHH@Z
 void Obj_998a0::Fn(int a0, int a1) {
     ((char*)mSub + 0x1a8);
-    ((Sub_998a0*)((char*)mSub + 0x1a8))->Fn(a0, a1);
+    ((Sub_998a0*)((char*)mSub + 0x1a8))->Fn_000ac7a0(a0, a1);
 }
 
 
@@ -2367,7 +2367,7 @@ void Target_998f0::FUN_000998f0(int a1, int a2, int a3, int a4, int a5, int a6)
 void Obj_99960::Fn(int a0, int a1) {
     Sub_99960* p = m;
     p = (Sub_99960*)((char*)p + 0x218);
-    p->Fn(a0, a1);
+    p->Fn_000ac7a0(a0, a1);
 }
 
 } // namespace fn_f5ef2b3f
@@ -2377,8 +2377,8 @@ void Obj_99960::Fn(int a0, int a1) {
 namespace fn_000999b0 {
 class Elem {
   public:
-    void A(float);
-    void B(float);
+    void FnA_000ac780(float);
+    void FnB_000ac790(float);
 };
 class Obj {
     char pad[0xc4];
@@ -2388,8 +2388,8 @@ class Obj {
     void Fn(float a, float b);
 };
 void Obj::Fn(float a, float b) {
-    ((Elem*)((char*)p + 0x250))->A(a);
-    ((Elem*)((char*)p + 0x250))->B(b);
+    ((Elem*)((char*)p + 0x250))->FnA_000ac780(a);
+    ((Elem*)((char*)p + 0x250))->FnB_000ac790(b);
 }
 } // namespace fn_000999b0
 
@@ -2398,7 +2398,7 @@ namespace fn_f5ef2b3f {
 // 0x000999f0 FUN_000999f0 (17 B): matches/0x000999f0.cpp
 // sym: ?Target@T_999f0@fn_f5ef2b3f@@QAEXHH@Z
 void T_999f0::Target(int a0, int a1) {
-    ((Obj_999f0*)((char*)p + 0x250))->G(a0, a1);
+    ((Obj_999f0*)((char*)p + 0x250))->FnG_000ac7a0(a0, a1);
 }
 
 
@@ -2429,7 +2429,7 @@ void Obj_99a30::Set(unsigned char v) {
 namespace fn_00099a50 {
 class Inner {
   public:
-    void Work(void*, int);
+    void Work_000a74c0(void*, int);
 };
 class Obj {
   public:
@@ -2440,7 +2440,7 @@ class Obj {
 extern void* global;
 void Obj::Fn(int x) {
     if (p)
-        p->Work(global, x);
+        p->Work_000a74c0(global, x);
 }
 } // namespace fn_00099a50
 
@@ -2455,7 +2455,7 @@ float* Host::Fun() {
     if (x) {
         Result* r = ((Result *)((owners::C_a0b70 *)x)->FUN_000a0b70());
         if (r)
-            p = r->Value();
+            p = r->Value_00036d00();
     }
     return p;
 }
@@ -2467,7 +2467,7 @@ void Obj_99aa0::f(hulk_intptr x) {
     if (member != 0) {
         int v = ((int)((owners::C_a0b70 *)member)->FUN_000a0b70());
         if (v != 0 && x == v)
-            member->run(gValue_99aa0, x);
+            member->run_000a62c0(hulk_at_004dd700, x);
     }
 }
 
@@ -2476,7 +2476,7 @@ void Obj_99aa0::f(hulk_intptr x) {
 // sym: ?Fn@Obj_99ae0@fn_f5ef2b3f@@QAEXM@Z
 void Obj_99ae0::Fn(float f) {
     if (m)
-        m->Run(f);
+        m->Run_000a2f30(f);
 }
 
 } // namespace fn_f5ef2b3f
@@ -2496,11 +2496,11 @@ class A {
 };
 class B {
   public:
-    void G(V v, int n);
+    void FnG_000a2f90(V v, int n);
 };
 void A::F(V v, int n) {
     if (b)
-        b->G(v, n);
+        b->FnG_000a2f90(v, n);
 }
 } // namespace fn_00099b00
 
@@ -2510,7 +2510,7 @@ namespace fn_f5ef2b3f {
 // sym: ?Get@Owner@fn_f5ef2b3f@@QAEMXZ
 float Owner::Get() {
     if (thing)
-        return thing->Get();
+        return thing->Get_000a0bb0();
     return -1.0f;
 }
 
@@ -2520,7 +2520,7 @@ float Owner::Get() {
 float Obj_99b50::Get() {
     Sub_99b50* q = p;
     if (q)
-        return q->Get();
+        return q->Get_000a0bd0();
     return -1.0f;
 }
 
@@ -2529,7 +2529,7 @@ float Obj_99b50::Get() {
 // sym: @FUN_00099b70@4
 extern "C" float __fastcall FUN_00099b70(Obj_99b70* self) {
     if (self->value)
-        return self->value->f();
+        return self->value->Fnf_000a0c00();
     return gMinusOne_99b70;
 }
 
@@ -2547,7 +2547,7 @@ void Obj_99b90::Fn(int a) {
 // data: gConstant = DAT_003f3388
 float Obj_99bb0::Fn() {
     if (mSub)
-        return mSub->Fn();
+        return mSub->Fn_000a0c20();
     return DAT_003f3388;
 }
 
@@ -2556,7 +2556,7 @@ float Obj_99bb0::Fn() {
 // sym: ?Func@Obj@fn_f5ef2b3f@@QAEXH@Z
 void Obj::Func(int x) {
     if (child)
-        child->Func(x);
+        child->Func_000a0c30(x);
 }
 
 } // namespace fn_f5ef2b3f
@@ -2699,7 +2699,7 @@ namespace fn_00099d60 {
 typedef unsigned int U_99d60;
 typedef unsigned char B;
 struct Obj_99d60 {
-    int B(U_99d60* p);
+    int FnB_001c4010(U_99d60* p);
 };
 extern Obj_99d60* __cdecl FUN_001c3d90(void);
 extern "C" int __stdcall FUN_00099d60(U_99d60 a, U_99d60 b, U_99d60 c, U_99d60 d, B flag) {
@@ -2714,7 +2714,7 @@ extern "C" int __stdcall FUN_00099d60(U_99d60 a, U_99d60 b, U_99d60 c, U_99d60 d
     Obj_99d60* o = FUN_001c3d90();
     if (flag)
         return ((owners::Thing_1c4050 *)o)->FUN_001c4050((hulk_intptr)(&x[3]));
-    return o->B(&x[3]);
+    return o->FnB_001c4010(&x[3]);
 }
 } // namespace fn_00099d60
 
@@ -2731,7 +2731,7 @@ class IRefCount {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_00404bf4[];
 namespace pure3d {
 class NonCopyable : public IRefCount {
   public:
@@ -2742,7 +2742,7 @@ class NonCopyable : public IRefCount {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_00404bf4;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -2754,9 +2754,9 @@ namespace fn_f5ef2b3f {
 // 0x0009a090 FUN_0009a090 (70 B): matches/0x0009a090.cpp
 // sym: ?Run@Owner_9a090@fn_f5ef2b3f@@QAEXXZ
 void Owner_9a090::Run() {
-    Prep();
-    void* m = Alloc(0x4c0);
-    item = m ? Construct(m) : 0;
+    Prep_00099340();
+    void* m = Alloc_00263ea0(0x4c0);
+    item = m ? Construct_000a2430(m) : 0;
     item->F0();
     item->F28();
     other = item;
@@ -3109,7 +3109,7 @@ namespace fn_f5ef2b3f {
 // 0x0009a6e0 FUN_0009a6e0 (128 B): matches/0x0009a6e0.cpp
 // sym: ?Run@Method6_9a6e0@fn_f5ef2b3f@@QAEPAV12@PBDP8Owner_9a6e0@2@AEXMMMMMM@Z@Z
 Method6_9a6e0* Method6_9a6e0::Run(const char* a, Fn_9a6e0 b) {
-    Init(a, 6);
+    Init_001d0480(a, 6);
     v = (void*)DAT_00404c00;
     m1c = b;
     f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
@@ -3186,13 +3186,13 @@ namespace fn_f5ef2b3f {
 // 0x0009a8e0 FUN_0009a8e0 (89 B): matches/0x0009a8e0.cpp
 // sym: ??0Method3_9a8e0@fn_f5ef2b3f@@QAE@PAXH@Z
 Method3_9a8e0::Method3_9a8e0(void* p, hulk_intptr value) {
-    Init(p, 3);
+    Init_001d0480(p, 3);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00404c20);
     field1c = value;
-    b18 = Convert(((char*)&DAT_0048e100));
-    b10 = Convert(((char*)&DAT_0048e128));
-    b11 = Convert(((char*)&DAT_0048e128));
-    b12 = Convert(((char*)&DAT_0048e0e4));
+    b18 = Convert_001d04d0(((char*)&DAT_0048e100));
+    b10 = Convert_001d04d0(((char*)&DAT_0048e128));
+    b11 = Convert_001d04d0(((char*)&DAT_0048e128));
+    b12 = Convert_001d04d0(((char*)&DAT_0048e0e4));
 }
 
 } // namespace fn_f5ef2b3f
@@ -3325,13 +3325,13 @@ namespace fn_f5ef2b3f {
 // 0x0009aaf0 FUN_0009aaf0 (89 B): matches/0x0009aaf0.cpp
 // sym: ??0Method3_9aaf0@fn_f5ef2b3f@@QAE@HH@Z
 Method3_9aaf0::Method3_9aaf0(hulk_intptr a, hulk_intptr b) {
-    Init(a, 3);
+    Init_001d0480(a, 3);
     vt = ((hulk_intptr)DAT_00404c50);
     field1c = b;
-    b18 = GetValue((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    b10 = GetValue((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
-    b11 = GetValue((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
-    b12 = GetValue((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    b18 = GetValue_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    b10 = GetValue_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    b11 = GetValue_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    b12 = GetValue_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
 }
 
 } // namespace fn_f5ef2b3f
@@ -3365,7 +3365,7 @@ namespace fn_f5ef2b3f {
 // 0x0009aba0 FUN_0009aba0 (102 B): matches/0x0009aba0.cpp
 // sym: ?Init@Method4_9aba0@fn_f5ef2b3f@@QAEPAV12@PBDP8Owner_9aba0@2@AEX_N11M@Z@Z
 Method4_9aba0* Method4_9aba0::Init(const char* a, Fn_9aba0 p) {
-    Function_9aba0::Init(a, 4);
+    Function_9aba0::Init_001d0480(a, 4);
     vf = (void*)DAT_00404c60;
     member1c = p;
     f.retType = FUN_001d04d0((const void*)((hulk_intptr)((char*)&DAT_0048e100)));
@@ -3745,7 +3745,7 @@ namespace fn_f5ef2b3f {
 // 0x0009b330 FUN_0009b330 (102 B): matches/0x0009b330.cpp
 // sym: ?Fn@Method4_9b330@fn_f5ef2b3f@@QAEPAV12@PBDP8Owner_9b330@2@AEXHMMM@Z@Z
 Method4_9b330* Method4_9b330::Fn(const char* a, Fn_9b330 b) {
-    ((Helper_9b330*)this)->Init(a, 4);
+    ((Helper_9b330*)this)->Init_001d0480(a, 4);
     vtable = (void*)DAT_00404d00;
     m1c = b;
     f.retType = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e100)));
@@ -3917,7 +3917,7 @@ namespace fn_f5ef2b3f {
 // 0x0009b770 FUN_0009b770 (115 B): matches/0x0009b770.cpp
 // sym: ??0Method5_9b770@fn_f5ef2b3f@@QAE@PBDP8Owner_9b770@1@AE_NMMMM_N@Z@Z
 Method5_9b770::Method5_9b770(const char* x, Fn_9b770 y) : FUN_001d0480(x, 5) {
-    *(void**)this = &g_vftable_9b770;
+    *(void**)this = &hulk_at_00404d60;
     n = y;
     fields.retType = FUN_001d04d0(typeid(bool));
     fields.argTypes[0] = FUN_001d04d0(typeid(float));
@@ -4058,7 +4058,7 @@ namespace fn_f5ef2b3f {
 // data: hulk_at_0048e128 = DAT_0048e128
 Method0_9b9f0::Method0_9b9f0(int a, int b) : Function_9b9f0(a, 0) {
     value = b;
-    flag = fun2(((hulk_intptr)((char*)&DAT_0048e128)));
+    flag = fun2_001d04d0(((hulk_intptr)((char*)&DAT_0048e128)));
 }
 
 } // namespace fn_f5ef2b3f
@@ -4501,7 +4501,7 @@ namespace fn_f5ef2b3f {
 // 0x0009c230 FUN_0009c230 (50 B): matches/0x0009c230.cpp
 // sym: ?target@X@fn_f5ef2b3f@@QAEXHHHHHHH@Z
 void X::target(int a, int b, int c, int d, int e, int f, int h) {
-    callee(g, a, b, c, d, e, f, h);
+    callee_0009c060(g, a, b, c, d, e, f, h);
 }
 
 } // namespace fn_f5ef2b3f
@@ -4822,9 +4822,9 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C++" __declspec(nothrow) unsigned char Check(const void*);
-extern char gA[];
-extern char gB[];
+extern "C++" __declspec(nothrow) unsigned char Check_001d04d0(const void*);
+extern char hulk_at_0048e128[];
+extern char hulk_at_0048e100[];
 class Function_9c9a0 : public CtorV_001d0480 {
   public:
     Function_9c9a0(const char* p) : CtorV_001d0480(p, 1) { }
@@ -4835,8 +4835,8 @@ class Method1 : public Function_9c9a0 {
     Fn_9c9a0 x;
     Method1(const char* p, Fn_9c9a0 v) : Function_9c9a0(p) {
         x = v;
-        retType = Check(gB);
-        argTypes[0] = Check(gA);
+        retType = Check_001d04d0(hulk_at_0048e100);
+        argTypes[0] = Check_001d04d0(hulk_at_0048e128);
     }
 };
 class Closure1 : public Method1 {
@@ -4906,7 +4906,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern int g2;
+extern int hulk_at_0048e10c;
 class Base_9ca30 : public CtorV_001d0480 {
   public:
     Base_9ca30(const char* a) : CtorV_001d0480(a, 2) { }
@@ -4920,8 +4920,8 @@ class Closure2_9ca30 : public Base_9ca30 {
 Closure2_9ca30::Closure2_9ca30(const char* a, CCameraManager* p, Fn_9ca30 m) : Base_9ca30(a) {
     mgr = m;
     retType = FUN_001d04d0(((int*)&DAT_0048e100));
-    argTypes[0] = FUN_001d04d0(&g2);
-    argTypes[1] = FUN_001d04d0(&g2);
+    argTypes[0] = FUN_001d04d0(&hulk_at_0048e10c);
+    argTypes[1] = FUN_001d04d0(&hulk_at_0048e10c);
 }
 class Closure2 : public Closure2_9ca30 {
   public:
@@ -4967,7 +4967,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C++" __declspec(nothrow) unsigned char query(void*);
+extern "C++" __declspec(nothrow) unsigned char query_001d04d0(void*);
 class Function_9caf0 : public CtorV_001d0480 {
   public:
     Function_9caf0(const char* p) : CtorV_001d0480(p, 1) { }
@@ -4979,8 +4979,8 @@ class Method1 : public Function_9caf0 {
     Owner_9caf0* extra;
     Method1(const char* p, Fn_9caf0 o) : Function_9caf0(p) {
         owner = o;
-        retType = query(((void**)&DAT_0048e100));
-        argTypes[0] = query(((void**)&DAT_0048e0e4));
+        retType = query_001d04d0(((void**)&DAT_0048e100));
+        argTypes[0] = query_001d04d0(((void**)&DAT_0048e0e4));
     }
 };
 class Closure1 : public Method1 {
@@ -5033,7 +5033,7 @@ template <> void Closure4<CCameraManager, void, int, float, float, float>::vfunc
 // sym: ??0Closure0@fn_0009cc00@@QAE@PAX00@Z
 namespace fn_0009cc00 {
 extern float gFloat;
-extern "C++" __declspec(nothrow) unsigned char __cdecl Check(const float*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl Check_001d04d0(const float*);
 class Function_9cc00 {
   public:
     Function_9cc00(void*, int);
@@ -5043,7 +5043,7 @@ class Method0 : public Function_9cc00 {
   public:
     Method0(void* p, void* q) : Function_9cc00(p, 0) {
         first = q;
-        flag = Check(&gFloat);
+        flag = Check_001d04d0(&gFloat);
     }
     virtual void Invoke();
     char pad[20];
@@ -5097,7 +5097,7 @@ template <> void Closure6<CCameraManager, bool, float, float, float, float, floa
 namespace fn_0009cd10 {
 // data: nameA = DAT_0048e100, nameB = DAT_0048e0f0
 
-extern char __cdecl lookup(const char*);
+extern char __cdecl lookup_001d04d0(const char*);
 class Function_9cd10 {
   public:
     Function_9cd10(const char*, int);
@@ -5113,8 +5113,8 @@ class Method1 : public Function_9cd10 {
   public:
     Method1(const char* n, int p) : Function_9cd10(n, 1) {
         this->p = p;
-        b = lookup(((char*)&DAT_0048e100));
-        a = lookup(((char*)&DAT_0048e0f0));
+        b = lookup_001d04d0(((char*)&DAT_0048e100));
+        a = lookup_001d04d0(((char*)&DAT_0048e0f0));
     }
     virtual void f();
 };
@@ -5241,7 +5241,7 @@ template <> void Closure5<CCameraManager, bool, float, float, float, float, bool
 namespace fn_0009cf40 {
 
 extern char gB[];
-char __cdecl check(const char*);
+char __cdecl check_001d04d0(const char*);
 class Function_9cf40 {
   public:
     virtual void f();
@@ -5260,9 +5260,9 @@ class Method2 : public Function_9cf40 {
     virtual void f();
     Method2(void* p, void* c) : Function_9cf40(p, 2) {
         p1 = c;
-        b18 = check(((char*)&DAT_0048e100));
-        b10 = check(gB);
-        b11 = check(((char*)&DAT_0048e128));
+        b18 = check_001d04d0(((char*)&DAT_0048e100));
+        b10 = check_001d04d0(gB);
+        b11 = check_001d04d0(((char*)&DAT_0048e128));
     }
 };
 class Closure2 : public Method2 {
@@ -6176,13 +6176,13 @@ struct Closure0_9dcb0 : Method0_9dcb0 {
     Closure0_9dcb0(int id, int a, int b) throw();
     virtual void h();
 };
-char GetFlag(void*) throw();
+char GetFlag_001d04d0(void*) throw();
 struct Owner_9dcb0 {
     void Make(int id, int a, int b) throw();
 };
 Method0_9dcb0::Method0_9dcb0(int id, int x, int y) throw() : Function_9dcb0(id, 0) {
     this->a = y;
-    c = GetFlag(((char*)&DAT_0048e128));
+    c = GetFlag_001d04d0(((char*)&DAT_0048e128));
     b = x;
 }
 Closure0_9dcb0::Closure0_9dcb0(int id, int x, int y) throw() : Method0_9dcb0(id, x, y) {}

@@ -27,19 +27,19 @@ extern "C" void FUN_00056990();
 extern "C" char DAT_003f734c[];
 extern "C" void* __cdecl Alloc(hulk_intptr);
 struct Entity_58d70 {
-    void Init();
+    void Init_0027af00();
 };
 struct Condition_58d70 {
     char pad[0xc];
     int value;
     Entity_58d70 ent;
-    void Ctor(int);
+    void Ctor_00234590(int);
 };
-extern int g_vftable_58db0;
+extern int hulk_at_003f971c;
 struct ConditionFactoryTemplate_58db0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00049fd0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -67,10 +67,10 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCharacterTemplateVariat
 template <> void* fight::ConditionFactoryTemplate<CCharacterTemplateVariationCondition>::vfunc_5() {
     Condition_58d70* p = (Condition_58d70*)Alloc(0x18);
     if (p) {
-        p->Ctor(0);
+        p->Ctor_00234590(0);
         *(void**)p = (void*)((hulk_intptr)DAT_003f734c);
         *(int*)((char*)p + 0xc) = 0;
-        p->ent.Init();
+        p->ent.Init_0027af00();
         return (void*)(p);
     }
     return (void*)(0);
@@ -82,9 +82,9 @@ namespace fn_f0389c66 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_58db0@fn_f0389c66@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_58db0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_58db0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f971c;
+    base1_dtor_00049fd0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

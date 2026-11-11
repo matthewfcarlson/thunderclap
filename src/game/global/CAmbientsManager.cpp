@@ -39,11 +39,11 @@ class Object {
     float value;
 };
 struct X_78b70 {
-    void Call();
+    void Call_0027af00();
     X_78b70* Target();
 };
 struct X_78b90 {
-    void Call();
+    void Call_0027af00();
     X_78b90* Target();
 };
 class pddiObject_78c30 {
@@ -235,7 +235,7 @@ class Obj {
     void Run(float x);
     void Set(int n);
 };
-extern float g;
+extern float hulk_at_0049b888;
 class Target_79640 {
   public:
     char pad[0x37a4];
@@ -245,7 +245,7 @@ class Target_79640 {
 };
 class X_79660 {
   public:
-    void call(int);
+    void call_00083d30(int);
 };
 class C_79660 {
   public:
@@ -259,7 +259,7 @@ class Item_796a0 {
   public:
     char pad[0x1c];
     float value;
-    void update(float);
+    void update_00083d30(float);
 };
 class Owner_796a0 {
   public:
@@ -522,7 +522,7 @@ class Owner_7b380 {
     char pad[0x354c];
     Param* entries[20];
     int count;
-    int Find(int, int);
+    int Find_00079220(int, int);
     void Add(Param* p);
 };
 struct Entry_7b3e0 {
@@ -558,7 +558,7 @@ class Thing_7b480 {
   public:
     char pad[0x359c];
     int count;
-    void step(int);
+    void step_0007b3e0(int);
 };
 struct Raw3_7b4f0 {
     int a;
@@ -628,7 +628,7 @@ class Obj_7b9c0 {
   public:
     char pad[0x379c];
     int count;
-    void remove(int);
+    void remove_0007b880(int);
     void target();
 };
 class Item_7b9f0 {
@@ -908,7 +908,7 @@ class Manager_7cc40 {
     char pad[0x3800];
     Item_7cc40* slots[10];
     int count;
-    int Search(int, int);
+    int Search_0007abe0(int, int);
     void Add(Item_7cc40* item);
 };
 class Item_7ccf0 {
@@ -926,7 +926,7 @@ class Obj_7ccf0 {
 };
 class Obj_7cdb0 {
   public:
-    void Process(int);
+    void Process_001e5bc0(int);
 };
 class Holder_7cdb0 {
   public:
@@ -941,7 +941,7 @@ class Thing_7cdb0 {
     int mCount;
     Holder_7cdb0* mHolder;
     void Run();
-    void Cleanup(int);
+    void Cleanup_0007ccf0(int);
 };
 typedef unsigned int u32_7ce10;
 extern void __cdecl Cast(hulk_uintptr, int, const int*, const int*, int);
@@ -999,10 +999,10 @@ class Function_7d360 {
     virtual void vfunc_1();
 };
 extern "C" char DAT_003ff014[];
-extern const char s3[];
+extern const char hulk_at_0048e10c[];
 class Function_7d380 {
   public:
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
 };
 class Owner_7d380 {};
 typedef void (Owner_7d380::*Fn_7d380)();
@@ -1046,9 +1046,9 @@ class Obj_7d5b0 {
 class Mgr_7d5b0 {
   public:
     void Reset();
-    void A(int);
-    void B(int);
-    void C();
+    void FnA_0007b3e0(int);
+    void FnB_0007b880(int);
+    void FnC_0007cdb0();
     char pad0[0xb];
     char flags[0x320 * 8];
     char pad1[0x3548 - 0xb - 0x320 * 8];
@@ -1072,8 +1072,8 @@ struct Pair_7da40 {
     int b;
 };
 struct Obj_7da40 {
-    int first(int, int);
-    void second(int);
+    int first_000797b0(int, int);
+    void second_0007b880(int);
     void target(Pair_7da40*);
 };
 struct Group_7da70 { char pad[0x59c]; int id;  };
@@ -1338,7 +1338,7 @@ struct Frame_7efc0 {
 typedef unsigned int U_80b70;
 class Obj_80ba0 {
   public:
-    float method(unsigned int, unsigned int);
+    float method_000787e0(unsigned int, unsigned int);
 };
 struct Vec3_80cd0 {
     float x, y, z;
@@ -1416,7 +1416,7 @@ namespace fn_f9399ba1 {
 // sym: ?Target@X_78b70@fn_f9399ba1@@QAEPAU12@XZ
 // Same code shape as 0x00034ad0 (propagated; names are from that function)
 X_78b70* X_78b70::Target() {
-    Call();
+    Call_0027af00();
     return this;
 }
 
@@ -1425,7 +1425,7 @@ X_78b70* X_78b70::Target() {
 // sym: ?Target@X_78b90@fn_f9399ba1@@QAEPAU12@XZ
 // Same code shape as 0x00034ad0 (propagated; names are from that function)
 X_78b90* X_78b90::Target() {
-    Call();
+    Call_0027af00();
     return this;
 }
 
@@ -1435,7 +1435,7 @@ X_78b90* X_78b90::Target() {
 // sym: ??1CAmbientsManager@fn_00078bc0@@UAE@XZ
 namespace fn_00078bc0 {
 struct Elem_78bc0 {
-    void D();
+    void FnD_0027af50();
 };
 struct E16 {
     char p[16];
@@ -1465,21 +1465,21 @@ CAmbientsManager::~CAmbientsManager() throw() {
     int i = 10;
     do {
         p--;
-        ((Elem_78bc0*)p)->D();
+        ((Elem_78bc0*)p)->FnD_0027af50();
         i--;
     } while (i != 0);
     E8* q = (E8*)((char*)this + 0x3640);
     i = 20;
     do {
         q--;
-        ((Elem_78bc0*)q)->D();
+        ((Elem_78bc0*)q)->FnD_0027af50();
         i--;
     } while (i != 0);
     p = (E16*)((char*)this + 0x3548);
     i = 10;
     do {
         p--;
-        ((Elem_78bc0*)p)->D();
+        ((Elem_78bc0*)p)->FnD_0027af50();
         i--;
     } while (i != 0);
 }
@@ -1814,7 +1814,7 @@ namespace fn_00079320 {
 struct Item {
     hulk_intptr a, b;
     Item(void*) throw();
-    void Assign(const Item*) throw();
+    void Assign_0027af70(const Item*) throw();
     ~Item() throw();
 };
 class Owner {
@@ -1827,7 +1827,7 @@ class Owner {
 };
 void Owner::Add(void* p) {
     Item t(p);
-    items[count++].Assign(&t);
+    items[count++].Assign_0027af70(&t);
 }
 } // namespace fn_00079320
 
@@ -1942,7 +1942,7 @@ namespace fn_000795a0 {
 extern "C++" { extern float DAT_0049b890; }
 class Item {
   public:
-    void Update(float);
+    void Update_00083d70(float);
 };
 class Obj {
   public:
@@ -1954,7 +1954,7 @@ class Obj {
 void Obj::Run(float value) {
     DAT_0049b890 = value;
     for (int i = 0; i < count; ++i)
-        items[i]->Update(value);
+        items[i]->Update_00083d70(value);
 }
 } // namespace fn_000795a0
 
@@ -1963,7 +1963,7 @@ namespace fn_f9399ba1 {
 // 0x000795f0 FUN_000795f0 (66 B): matches/0x000795f0.cpp
 // sym: ?Run@Obj@fn_f9399ba1@@QAEXM@Z
 void Obj::Run(float x) {
-    g = x;
+    hulk_at_0049b888 = x;
     for (int i = 0; i < count; i++)
         items[i]->Set(x);
 }
@@ -1981,7 +1981,7 @@ void Target_79640::Set(int x, int y) {
 // sym: ?f@C_79660@fn_f9399ba1@@QAEXH@Z
 void C_79660::f(int p) {
     for (int i = 0; i < count; ++i)
-        items[i]->call(p);
+        items[i]->call_00083d30(p);
 }
 
 
@@ -1989,7 +1989,7 @@ void C_79660::f(int p) {
 // sym: ?run@Owner_796a0@fn_f9399ba1@@QAEXM@Z
 void Owner_796a0::run(float x) {
     for (int i = 0; i < count; ++i)
-        items[i]->update(x + items[i]->value);
+        items[i]->update_00083d30(x + items[i]->value);
 }
 
 } // namespace fn_f9399ba1
@@ -2785,7 +2785,7 @@ class ObjectCreator_7af90 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003feefc[];
 namespace pure3d {
 class NonCopyable : public ObjectCreator_7af90 {
   public:
@@ -2796,7 +2796,7 @@ class NonCopyable : public ObjectCreator_7af90 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003feefc;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -2897,7 +2897,7 @@ void Grid_7afb0::FUN_0007afb0(int row, int col, int n, int swap, V3_7afb0* p1, V
 // 0x0007b380 FUN_0007b380 (91 B): matches/0x0007b380.cpp
 // sym: ?Add@Owner_7b380@fn_f9399ba1@@QAEXPAVParam@2@@Z
 void Owner_7b380::Add(Param* p) {
-    int i = Find(p->a, p->b);
+    int i = Find_00079220(p->a, p->b);
     if (i < 0 || entries[i] == 0) {
         i = count;
         if (i != 20) {
@@ -2944,7 +2944,7 @@ void Manager_7b3e0::FUN_0007b3e0(int idx)
 // sym: @FUN_0007b480@4
 extern "C" void __fastcall FUN_0007b480(Thing_7b480* self) {
     while (self->count > 0)
-        self->step(0);
+        self->step_0007b3e0(0);
 }
 
 
@@ -3099,7 +3099,7 @@ void Pool_7b880::run(int slot)
 // sym: ?target@Obj_7b9c0@fn_f9399ba1@@QAEXXZ
 void Obj_7b9c0::target() {
     while (count > 0)
-        remove(0);
+        remove_0007b880(0);
 }
 
 
@@ -3654,7 +3654,7 @@ void Group_7cab0::FUN_0007cab0(int limit)
 // 0x0007cc40 FUN_0007cc40 (91 B): matches/0x0007cc40.cpp
 // sym: ?Add@Manager_7cc40@fn_f9399ba1@@QAEXPAVItem_7cc40@2@@Z
 void Manager_7cc40::Add(Item_7cc40* item) {
-    int index = Search(*(int*)((char*)item + 8), *(int*)((char*)item + 12));
+    int index = Search_0007abe0(*(int*)((char*)item + 8), *(int*)((char*)item + 12));
     if (index < 0 || slots[index] == 0) {
         int n = count;
         if (n != 10) {
@@ -3691,9 +3691,9 @@ void Obj_7ccf0::Remove(int i) {
 void Thing_7cdb0::Run() {
     while (mCount > 0) {
         int* p = mPtr;
-        mHolder->mObj->Process(p[4]);
+        mHolder->mObj->Process_001e5bc0(p[4]);
         if (mPtr != 0 && mPtr == p)
-            Cleanup(0);
+            Cleanup_0007ccf0(0);
     }
 }
 
@@ -3720,7 +3720,7 @@ class Base_7ce30 {
     int pad4[3];
 };
 
-extern "C++" __declspec(nothrow) char GetFlag(const char* name);
+extern "C++" __declspec(nothrow) char GetFlag_001d04d0(const char* name);
 
 class Method5 : public Base_7ce30 {
   public:
@@ -3738,12 +3738,12 @@ void Method5::f0() {}
 
 Method5::Method5(hulk_intptr a, hulk_intptr b) : Base_7ce30(a, 5) {
     m1c = b;
-    m18 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    m10 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    m11 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    m12 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
-    m13 = GetFlag((const char*)((hulk_intptr)DAT_0048e10c));
-    m14 = GetFlag((const char*)((hulk_intptr)DAT_0048e10c));
+    m18 = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    m10 = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    m11 = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    m12 = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    m13 = GetFlag_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    m14 = GetFlag_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
 }
 } // namespace fn_0007ce30
 
@@ -3851,7 +3851,7 @@ class Function_7d050 {
     Function_7d050(const char*, int);
     virtual void f();
 };
-extern "C++" __declspec(nothrow) unsigned char __cdecl check(const char*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl check_001d04d0(const char*);
 class Method3 : public Function_7d050 {
   public:
     Method3(const char*, hulk_intptr);
@@ -3865,10 +3865,10 @@ class Method3 : public Function_7d050 {
 };
 Method3::Method3(const char* s, hulk_intptr k) : Function_7d050(s, 3) {
     n = k;
-    w = check(((const char*)&DAT_0048e100));
-    x = check(((const char*)&DAT_0048e0f0));
-    y = check(((const char*)&DAT_0048e134));
-    z = check(((const char*)&DAT_0048e0e4));
+    w = check_001d04d0(((const char*)&DAT_0048e100));
+    x = check_001d04d0(((const char*)&DAT_0048e0f0));
+    y = check_001d04d0(((const char*)&DAT_0048e134));
+    z = check_001d04d0(((const char*)&DAT_0048e0e4));
 }
 } // namespace fn_0007d050
 
@@ -3980,14 +3980,14 @@ namespace fn_f9399ba1 {
 // 0x0007d380 FUN_0007d380 (102 B): matches/0x0007d380.cpp
 // sym: ??0Method4_7d380@fn_f9399ba1@@QAE@PBDP8Owner_7d380@1@AEXXZ@Z
 Method4_7d380::Method4_7d380(const char* p, Fn_7d380 x) {
-    Init(p, 4);
+    Init_001d0480(p, 4);
     vptr = (void*)DAT_003ff014;
     member1c = x;
     f.retType = FUN_001d04d0(((const char*)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
     f.argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e134));
-    f.argTypes[2] = FUN_001d04d0(s3);
-    f.argTypes[3] = FUN_001d04d0(s3);
+    f.argTypes[2] = FUN_001d04d0(hulk_at_0048e10c);
+    f.argTypes[3] = FUN_001d04d0(hulk_at_0048e10c);
 }
 
 } // namespace fn_f9399ba1
@@ -4063,14 +4063,14 @@ void Mgr_7d5b0::Reset() {
     }
     v3548 = 0;
     while (v359c > 0)
-        A(0);
+        FnA_0007b3e0(0);
     v3640 = 0;
     v3740 = 0;
     while (v379c > 0)
-        B(0);
+        FnB_0007b880(0);
     for (int i = 0; i < 0x320; i++)
         flags[i * 8] = 0;
-    C();
+    FnC_0007cdb0();
     v3828 = 0;
     v37fc = 0;
 }
@@ -4083,24 +4083,24 @@ namespace fn_0007d640 {
 struct Pair {
     int a, b;
 };
-Pair __cdecl lookup(int);
+Pair __cdecl lookup_0027b020(int);
 class Item {
   public:
-    void apply(int);
+    void apply_00080c80(int);
 };
 class Owner {
     char pad[0x354c];
     Item* items[1];
 
   public:
-    int locate(int, int);
+    int locate_00079220(int, int);
     void run(int key, int value);
 };
 void Owner::run(int key, int value) {
-    Pair p = lookup(key);
-    int i = locate(p.a, p.b);
+    Pair p = lookup_0027b020(key);
+    int i = locate_00079220(p.a, p.b);
     if (i >= 0 && items[i])
-        items[i]->apply(value);
+        items[i]->apply_00080c80(value);
 }
 } // namespace fn_0007d640
 
@@ -4111,24 +4111,24 @@ namespace fn_0007d680 {
 struct Pair {
     int a, b;
 };
-extern "C++" __declspec(nothrow) Pair __cdecl getPair(int);
+extern "C++" __declspec(nothrow) Pair __cdecl getPair_0027b020(int);
 class Item {
   public:
-    void act(int);
+    void act_00083d30(int);
 };
 class Obj {
     char pad[0x374c];
     Item* items[1];
 
   public:
-    int find(int, int);
+    int find_000797b0(int, int);
     void fn(int x, int y);
 };
 void Obj::fn(int x, int y) {
-    Pair p = getPair(x);
-    int i = find(p.a, p.b);
+    Pair p = getPair_0027b020(x);
+    int i = find_000797b0(p.a, p.b);
     if (i != -1)
-        items[i]->act(y);
+        items[i]->act_00083d30(y);
 }
 } // namespace fn_0007d680
 
@@ -4139,22 +4139,22 @@ namespace fn_0007d6c0 {
 struct Item {
     char pad[0x1c];
     float value;
-    void Set(float);
+    void Set_00083d30(float);
 };
 class Obj {
   public:
     char pad[0x374c];
     Item* items[1];
-    int Find(__int64);
+    int Find_000797b0(__int64);
     void Run(int id, float delta);
 };
-extern __int64 __cdecl Convert(int);
+extern __int64 __cdecl Convert_0027b020(int);
 void Obj::Run(int id, float delta) {
-    __int64 x = Convert(id);
-    int index = Find(x);
+    __int64 x = Convert_0027b020(id);
+    int index = Find_000797b0(x);
     if (index != -1) {
         Item* p = items[index];
-        p->Set(p->value + delta);
+        p->Set_00083d30(p->value + delta);
     }
 }
 } // namespace fn_0007d6c0
@@ -4376,9 +4376,9 @@ namespace fn_f9399ba1 {
 // 0x0007da40 FUN_0007da40 (38 B): matches/0x0007da40.cpp
 // sym: ?target@Obj_7da40@fn_f9399ba1@@QAEXPAUPair_7da40@2@@Z
 void Obj_7da40::target(Pair_7da40* p) {
-    int i = first(p->a, p->b);
+    int i = first_000797b0(p->a, p->b);
     if (i != -1)
-        second(i);
+        second_0007b880(i);
 }
 
 
@@ -4663,7 +4663,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern const char a[], b[];
+extern const char hulk_at_0048e100[], hulk_at_0048e0f0[];
 class Function_7e120 : public CtorV_001d0480 {
   public:
     Function_7e120(const char* s) : CtorV_001d0480(s, 1) { }
@@ -4676,8 +4676,8 @@ class Method1 : public Function_7e120 {
     Fn_7e120 name;
     Method1(const char* s, Fn_7e120 p) : Function_7e120(s) {
         name = p;
-        retType = FUN_001d04d0(a);
-        argTypes[0] = FUN_001d04d0(b);
+        retType = FUN_001d04d0(hulk_at_0048e100);
+        argTypes[0] = FUN_001d04d0(hulk_at_0048e0f0);
     }
 };
 class Closure1 : public Method1 {
@@ -4721,7 +4721,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C++" __declspec(nothrow) unsigned char Decode(const void*);
+extern "C++" __declspec(nothrow) unsigned char Decode_001d04d0(const void*);
 class Function_7e1b0 : public CtorV_001d0480 {
   public:
     Function_7e1b0(const char* p) : CtorV_001d0480(p, 1) { }
@@ -4734,8 +4734,8 @@ class Method1 : public Function_7e1b0 {
     Fn_7e1b0 arg;
     Method1(const char* p, Fn_7e1b0 x) : Function_7e1b0(p) {
         arg = x;
-        retType = Decode(((int*)&DAT_0048e100));
-        argTypes[0] = Decode(((int*)&DAT_0048e134));
+        retType = Decode_001d04d0(((int*)&DAT_0048e100));
+        argTypes[0] = Decode_001d04d0(((int*)&DAT_0048e134));
     }
 };
 class Closure1 : public Method1 {
@@ -4932,7 +4932,7 @@ template <> void Closure2<CAmbientsManager, void, float, float>::vfunc_2(void* _
 namespace fn_0007e370 {
 // data: keyA = DAT_0048e100, keyB = DAT_0048e0e4
 
-extern "C++" __declspec(nothrow) unsigned char __cdecl Query(const void*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl Query_001d04d0(const void*);
 class Function_7e370 {
   public:
     Function_7e370(int, int);
@@ -4949,8 +4949,8 @@ class Method1 : public Function_7e370 {
   public:
     Method1(int n, int xx) : Function_7e370(n, 1) {
         x = xx;
-        a = Query(((int*)&DAT_0048e100));
-        b = Query(((int*)&DAT_0048e0e4));
+        a = Query_001d04d0(((int*)&DAT_0048e100));
+        b = Query_001d04d0(((int*)&DAT_0048e0e4));
     }
     virtual void f();
 };
@@ -6131,7 +6131,7 @@ namespace fn_f9399ba1 {
 // sym: _FUN_00080ba0
 // data: gObject_80ba0 = DAT_004e5acc
 extern "C" float FUN_00080ba0(unsigned int a, unsigned int b) {
-    return (*(Obj_80ba0**)&DAT_004e5acc)->method(a, b);
+    return (*(Obj_80ba0**)&DAT_004e5acc)->method_000787e0(a, b);
 }
 
 } // namespace fn_f9399ba1

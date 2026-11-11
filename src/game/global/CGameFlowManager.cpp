@@ -16,7 +16,7 @@ namespace fn_f53af43c {} using namespace fn_f53af43c;
 
 // ---- declarations shared by the functions below
 namespace fn_f53af43c {
-U64 __cdecl lookup(int);
+U64 __cdecl lookup_0027b020(int);
 struct Entry {
     U64 key;
     char pad[16];
@@ -65,7 +65,7 @@ class Outer_89820 {
 };
 class Ret_89830 {
   public:
-    void Last(bool);
+    void Last_000b7620(bool);
 };
 class Sub_89830 {
   public:
@@ -88,7 +88,7 @@ class Manager_89830 {
     Sub_89830 sub;
     void Target(hulk_intptr p);
 };
-extern Root_89830* g_89830;
+extern Root_89830* hulk_at_004dd700;
 struct V {
     int x, y, z;
 };
@@ -156,9 +156,9 @@ struct Root_89e10 {
     Sub_89e10* sub;
 };
 extern Root_89e10* g_root;
-int fmt(char* buf, int n, const char* f, ...);
+int fmt_00267760(char* buf, int n, const char* f, ...);
 struct R_89e10 {
-    void Go();
+    void Go_000c3ea0();
 };
 struct Sub_89e10 {
     R_89e10* Get();
@@ -172,20 +172,20 @@ class Obj_89e80 {
   public:
     char flag;
     char other;
-    void Init();
+    void Init_001d4c90();
     char Fn(Manager_89e80*, char);
 };
 struct Entry_89f00 {
     __int64 id;
     char name[16];
 };
-extern "C" __int64 F27b020(int s);
-extern "C" int F267760(char* buf, int n, const char* fmt, ...);
+extern "C" __int64 F27b020_0027b020(int s);
+extern "C" int F267760_00267760(char* buf, int n, const char* fmt, ...);
 class T_89f00 {
   public:
     char pad[0x158];
     Entry_89f00 mE[100];
-    int Find(int k);
+    int Find_00089400(int k);
     void Set(hulk_intptr k, hulk_intptr s);
     inline int FindFree() {
         for (int i = 0; i < 100; i++) {
@@ -340,7 +340,7 @@ class CActorManager_8b250 {
     float Get();
 };
 typedef float (CActorManager_8b250::*Fn_8b250)();
-unsigned char Find(const char*);
+unsigned char Find_001d04d0(const char*);
 class Function_8b280 {
   public:
     virtual void Invoke();
@@ -358,8 +358,8 @@ class Method1_8b280 : public Function_8b280 {
     virtual void Invoke();
     Method1_8b280(const char* n, void* m) : Function_8b280(n, 1) {
         target = m;
-        flag1 = Find(((const char*)&DAT_0048e0e4));
-        flag2 = Find(((const char*)&DAT_0048e0f0));
+        flag1 = Find_001d04d0(((const char*)&DAT_0048e0e4));
+        flag2 = Find_001d04d0(((const char*)&DAT_0048e0f0));
     }
 };
 class Closure1_8b280 : public Method1_8b280 {
@@ -415,7 +415,7 @@ extern "C" int __cdecl FUN_00345804(const char*, const char*, ...);
 // 0x00089400 FUN_00089400 (70 B): matches/0x00089400.cpp
 // sym: ?Find@Obj@fn_f53af43c@@QAEHH@Z
 int Obj::Find(hulk_intptr x) {
-    U64 key = lookup(x);
+    U64 key = lookup_0027b020(x);
     for (int i = 0; i < 100; ++i) {
         if (!entries[i].key)
             return -1;
@@ -537,9 +537,9 @@ void Outer_89820::Forward(int a0) {
 void Manager_89830::Target(hulk_intptr p) {
     Sub_89830* s = &sub;
     ((owners::Obj_88fe0 *)s)->FUN_00088fe0((unsigned int)p);
-    Ret_89830* r = g_89830->m->Get();
+    Ret_89830* r = hulk_at_004dd700->m->Get();
     bool f = s->a != -1 && s->b != -1;
-    r->Last(f);
+    r->Last_000b7620(f);
 }
 
 } // namespace fn_f53af43c
@@ -804,14 +804,14 @@ void owners::W_89e10::FUN_00089e10() {
     Sub_89e10* s = g_root->sub;
     d0 = 0;
     d4 = 1;
-    fmt(d8, 0x20, "c%02dm%02d", 0, 1);
+    fmt_00267760(d8, 0x20, "c%02dm%02d", 0, 1);
     int* q = &i80;
     i84 = -1;
     *q = -1;
     iac = -1;
     ia8 = -1;
     P();
-    s->Get()->Go();
+    s->Get()->Go_000c3ea0();
 }
 
 namespace fn_f53af43c {
@@ -819,7 +819,7 @@ namespace fn_f53af43c {
 // 0x00089e80 FUN_00089e80 (115 B): matches/0x00089e80.cpp
 // sym: ?Fn@Obj_89e80@fn_f53af43c@@QAEDPAVManager_89e80@2@D@Z
 char Obj_89e80::Fn(Manager_89e80* m, char param) {
-    Init();
+    Init_001d4c90();
     char r = 0;
     int x = ((int)((::CScenarioManager *)m)->FUN_001cc840());
     if (x == 2) {
@@ -842,14 +842,14 @@ char Obj_89e80::Fn(Manager_89e80* m, char param) {
 // 0x00089f00 FUN_00089f00 (114 B): matches/0x00089f00.cpp
 // sym: ?Set@T_89f00@fn_f53af43c@@QAEXHH@Z
 void T_89f00::Set(hulk_intptr k, hulk_intptr s) {
-    int i = Find(k);
+    int i = Find_00089400(k);
     if (i == -1)
         i = FindFree();
     if (i == -1)
         return;
     char* b = (char*)this + i * 0x18;
-    *(__int64*)(b + 0x158) = F27b020(k);
-    F267760(b + 0x160, 0x10, "%s", s);
+    *(__int64*)(b + 0x158) = F27b020_0027b020(k);
+    F267760_00267760(b + 0x160, 0x10, "%s", s);
 }
 
 } // namespace fn_f53af43c
@@ -1535,7 +1535,7 @@ template <> void Closure0<CGameFlowManager, bool>::vfunc_2(void* __p0, void* __p
 namespace fn_0008b030 {
 // data: key1 = DAT_0048e100, key2 = DAT_0048e134
 
-extern "C++" __declspec(nothrow) unsigned char __cdecl getFlag(const char*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl getFlag_001d04d0(const char*);
 class CGameFlowManager;
 class Base {
   public:
@@ -1561,8 +1561,8 @@ class Closure1 : public Closure1_8b030 {
 };
 Closure1_8b030::Closure1_8b030(CGameFlowManager* p, int x) : Base(p, 1) {
     val = x;
-    a = getFlag(((const char*)&DAT_0048e100));
-    b = getFlag(((const char*)&DAT_0048e134));
+    a = getFlag_001d04d0(((const char*)&DAT_0048e100));
+    b = getFlag_001d04d0(((const char*)&DAT_0048e134));
 }
 Closure1::Closure1(CGameFlowManager* p, int x, int y) : Closure1_8b030(p, y) {
     extra = x;
@@ -1590,7 +1590,7 @@ template <> void Closure1<CGameFlowManager, void, int>::vfunc_2(void* __p0, void
 // sym: ??0Closure1_8b0c0@fn_0008b0c0@@QAE@PBDHH@Z
 namespace fn_0008b0c0 {
 
-int GetValue(int*);
+int GetValue_001d04d0(int*);
 class Base {
   public:
     Base(const char*, int);
@@ -1615,8 +1615,8 @@ class Closure1_8b0c0 : public Method {
 };
 Method::Method(const char* name, int v) : Base(name, 1) {
     value = v;
-    b = GetValue(((int*)&DAT_0048e100));
-    a = GetValue(((int*)&DAT_0048e0f0));
+    b = GetValue_001d04d0(((int*)&DAT_0048e100));
+    a = GetValue_001d04d0(((int*)&DAT_0048e0f0));
 }
 Closure1_8b0c0::Closure1_8b0c0(const char* name, int v, int w) : Method(name, w) {
     extra = v;
@@ -1725,8 +1725,8 @@ void Closure1::V2(void* a, const char** p, bool* out) {
 namespace fn_0008b310 {
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00400168[2];
+extern void* hulk_at_00400218[2];
 
 // Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
 class Owner_8b310 {};
@@ -1734,7 +1734,7 @@ typedef void (Owner_8b310::*Fn_8b310)();
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+char __cdecl LookupFlag_001d04d0(const void* tbl);
 
 class Closure2 : public FUN_001d0480 {
   public:
@@ -1746,12 +1746,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, Owner_8b310* a2, Fn_8b310 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00400168;
     fn = a3;
-    f.retType = LookupFlag(((void**)&DAT_0048e100));
-    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag(((void**)&DAT_0048e0f0));
-    vfptr = (void*)VT_Closure2;
+    f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e100));
+    f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
+    vfptr = (void*)hulk_at_00400218;
     owner = a2;
 }
 } // namespace fn_0008b310
@@ -1776,7 +1776,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C++" __declspec(nothrow) unsigned char __cdecl get(const char*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl get_001d04d0(const char*);
 struct Function_8b3b0 : public CtorV_001d0480 {
     Function_8b3b0(const char* s) : CtorV_001d0480(s, 1) { }
 };
@@ -1788,8 +1788,8 @@ class Method1 : public Function_8b3b0 {
     Fn_8b3b0 name;
     Method1(const char* s, Fn_8b3b0 n) : Function_8b3b0(s) {
         name = n;
-        retType = get(((const char*)&DAT_0048e0f0));
-        argTypes[0] = get(((const char*)&DAT_0048e0f0));
+        retType = get_001d04d0(((const char*)&DAT_0048e0f0));
+        argTypes[0] = get_001d04d0(((const char*)&DAT_0048e0f0));
     }
 };
 class Closure1 : public Method1 {

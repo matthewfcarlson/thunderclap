@@ -13,28 +13,28 @@ namespace fn_f1bcb140 {} using namespace fn_f1bcb140;
 // ---- declarations shared by the functions below
 namespace fn_f1bcb140 {
 typedef unsigned int U_df5e0;
-void __cdecl Helper(U_df5e0);
+void __cdecl Helper_0008d330(U_df5e0);
 struct Target_df5e0 {
     U_df5e0 a;
     U_df5e0 b;
     void Run();
 };
 typedef unsigned int U_df610;
-void __cdecl Helper(U_df610);
+void __cdecl Helper_0008d330(U_df610);
 struct Target_df610 {
     U_df610 a;
     U_df610 b;
     void Run();
 };
 typedef unsigned int U_df640;
-void __cdecl Helper(U_df640);
+void __cdecl Helper_0008d330(U_df640);
 struct Target_df640 {
     U_df640 a;
     U_df640 b;
     void Run();
 };
 typedef unsigned int U_df670;
-void __cdecl Helper(U_df670);
+void __cdecl Helper_0008d330(U_df670);
 struct Target_df670 {
     U_df670 a;
     U_df670 b;
@@ -84,7 +84,7 @@ class C_df820 {
         int b;
     } e[64];
 };
-int Dup(int a);
+int Dup_000f6610(int a);
 struct Slot_df890 {
     int a;
     int b;
@@ -94,7 +94,7 @@ struct S_df890 {
     Slot_df890 s[64];
     void Add(int a, int b);
 };
-int Conv(int);
+int Conv_000f6610(int);
 class C_df900 {
   public:
     char pad[0x600];
@@ -135,8 +135,8 @@ class Search_dfa60 {
 // 0x000df5e0 FUN_000df5e0 (25 B): matches/0x000df5e0.cpp
 // sym: ?Run@Target_df5e0@fn_f1bcb140@@QAEXXZ
 void Target_df5e0::Run() {
-    Helper(a);
-    Helper(b);
+    Helper_0008d330(a);
+    Helper_0008d330(b);
 }
 
 
@@ -144,8 +144,8 @@ void Target_df5e0::Run() {
 // sym: ?Run@Target_df610@fn_f1bcb140@@QAEXXZ
 // Same code shape as 0x000df5e0 (propagated; names are from that function)
 void Target_df610::Run() {
-    Helper(a);
-    Helper(b);
+    Helper_0008d330(a);
+    Helper_0008d330(b);
 }
 
 
@@ -153,8 +153,8 @@ void Target_df610::Run() {
 // sym: ?Run@Target_df640@fn_f1bcb140@@QAEXXZ
 // Same code shape as 0x000df5e0 (propagated; names are from that function)
 void Target_df640::Run() {
-    Helper(a);
-    Helper(b);
+    Helper_0008d330(a);
+    Helper_0008d330(b);
 }
 
 
@@ -162,8 +162,8 @@ void Target_df640::Run() {
 // sym: ?Run@Target_df670@fn_f1bcb140@@QAEXXZ
 // Same code shape as 0x000df5e0 (propagated; names are from that function)
 void Target_df670::Run() {
-    Helper(a);
-    Helper(b);
+    Helper_0008d330(a);
+    Helper_0008d330(b);
 }
 
 
@@ -264,7 +264,7 @@ void S_df890::Add(int a, int b) {
         p += 8;
     } while (i < 64);
     if (i < 64) {
-        s[i].a = Dup(a);
+        s[i].a = Dup_000f6610(a);
         s[i].b = b;
     }
 }
@@ -295,7 +295,7 @@ void C_df900::F(int a, int b) {
         p = p + 8;
     } while (i < 0x40);
     if (i < 0x40) {
-        e[i * 2] = Conv(a);
+        e[i * 2] = Conv_000f6610(a);
         e[i * 2 + 1] = b;
     }
 }

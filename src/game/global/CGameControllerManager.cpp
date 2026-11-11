@@ -14,7 +14,7 @@ namespace fn_faa012bb {} using namespace fn_faa012bb;
 // ---- declarations shared by the functions below
 namespace fn_faa012bb {
 struct Y_af3c0 {
-    void g(int);
+    void Fng_000af170(int);
 };
 struct X_af3c0 {
     char pad[4];
@@ -56,7 +56,7 @@ namespace fn_faa012bb {
 // sym: ?f@X_af3c0@fn_faa012bb@@QAEXH@Z
 // Same code shape as 0x000244a0 (propagated; names are from that function)
 void X_af3c0::f(int a0) {
-    p->g(a0);
+    p->Fng_000af170(a0);
 }
 
 

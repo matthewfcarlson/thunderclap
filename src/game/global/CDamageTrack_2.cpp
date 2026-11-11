@@ -41,7 +41,7 @@ struct CDamageTrack {
     int x;
     int y;
     int z;
-    void ctor();
+    void ctor_00236d40();
 };
 namespace fn_fed05365 {
 extern "C" void* __cdecl alloc(hulk_uintptr);
@@ -71,7 +71,7 @@ namespace fn_fed05365 {
 void* __cdecl target() {
     CDamageTrack* p = (CDamageTrack*)alloc(0x18);
     if (p) {
-        p->ctor();
+        p->ctor_00236d40();
         p->vptr = ((hulk_intptr)DAT_003fbd14);
         p->x = 0;
         p->y = 0;
@@ -88,23 +88,23 @@ void* __cdecl target() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_00076240@@QAEPAXE@Z
 namespace fn_00076240 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_76240;
+extern int hulk_at_003fe620;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00069da0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_76240;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe620;
+    base1_dtor_00069da0();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_00076240

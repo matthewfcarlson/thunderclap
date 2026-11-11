@@ -14,8 +14,8 @@ namespace fn_ff2916d8 {} using namespace fn_ff2916d8;
 
 // ---- declarations shared by the functions below
 namespace fn_ff2916d8 {
-extern void* g_a_ee000[];
-extern void* g_b_ee000[];
+extern void* hulk_at_0040c6f4[];
+extern void* hulk_at_0040c208[];
 class Ref_ee000 {
   public:
     virtual void F0();
@@ -431,7 +431,7 @@ namespace fn_ff2916d8 {
 // sym: ?f@ImageSelector_ee000@fn_ff2916d8@@QAEXXZ
 void ImageSelector_ee000::f() {
     Item_ee000* it = m2ac;
-    vptr = g_a_ee000;
+    vptr = hulk_at_0040c6f4;
     if (it) {
         ((owners::Obj_f8c30 *)(ma8->pool))->FUN_000f8c30((const char *)(&it->f));
         m2ac = 0;
@@ -442,7 +442,7 @@ void ImageSelector_ee000::f() {
                 arr[i][j]->Release();
                 arr[i][j] = 0;
             }
-    vptr = g_b_ee000;
+    vptr = hulk_at_0040c208;
     _ReadWriteBarrier();
     if (m50) {
         m50->Release();
@@ -580,7 +580,7 @@ void ImageSelector::v21() {
 namespace fn_000ee240 {
 class Receiver {
   public:
-    void notify(int);
+    void notify_000f8b90(int);
 };
 class ImageSelector {
   public:
@@ -620,7 +620,7 @@ void ImageSelector::vfunc_22(int n) {
     if (n >= 0 && n < rows * cols && images[n % cols + (n / cols) * 8]) {
         selected = n;
         if (receiver)
-            receiver->notify(n);
+            receiver->notify_000f8b90(n);
         changed();
     }
 }

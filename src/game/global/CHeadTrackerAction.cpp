@@ -25,12 +25,12 @@ class CAction_17630 {
 };
 class Obj_17630 {
   public:
-    void* first();
-    void* second();
+    void* first_000592a0();
+    void* second_00059a30();
 };
 class H {
   public:
-    void* g();
+    void* Fng_00059a30();
 };
 
 } // namespace fn_f443bc33
@@ -38,8 +38,8 @@ class H {
 // 0x00017630 CRageModeAction::vfunc_6 (35 B): matches/0x00017630.cpp
 // sym: ?vfunc_6@CRageModeAction@@UAE_NH@Z
 bool CRageModeAction::vfunc_6(int arg) {
-    Obj_17630* x = (Obj_17630*)(*(Obj_17630 * *)&this->f_1c)->first();
-    x = (Obj_17630*)x->second();
+    Obj_17630* x = (Obj_17630*)(*(Obj_17630 * *)&this->f_1c)->first_000592a0();
+    x = (Obj_17630*)x->second_00059a30();
     ((owners::C_36250 *)x)->FUN_00036250(this->f_20);
     return true;
 }
@@ -51,7 +51,7 @@ bool CStageAction::vfunc_7(int ) {
     H* x = (H*)(*(void * *)&this->f_1c);
     void* t = ((void *)((owners::Object_592a0 *)x)->FUN_000592a0());
     H* y = (H*)t;
-    void* z = y->g();
+    void* z = y->Fng_00059a30();
     *(void**)((char*)z + 0x1e44) = (*(void * *)&this->f_20);
     return false;
 }

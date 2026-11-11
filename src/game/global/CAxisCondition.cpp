@@ -13,7 +13,7 @@ namespace fn_f0ee63c9 {} using namespace fn_f0ee63c9;
 namespace fn_f0ee63c9 {
 class Helper_48650 {
   public:
-    int second();
+    int second_00059a30();
 };
 
 } // namespace fn_f0ee63c9
@@ -22,7 +22,7 @@ class Helper_48650 {
 // sym: ?vfunc_8@CAxisCondition@@UAEXH@Z
 void CAxisCondition::vfunc_8(hulk_intptr arg) {
     Helper_48650* h = ((Helper_48650 *)((owners::Object_592a0 *)(((Helper_48650*)arg)))->FUN_000592a0());
-    int v = h->second();
+    int v = h->second_00059a30();
     vfunc_9(v, v + this->axis * 0x38 + 0x1ff4);
 }
 

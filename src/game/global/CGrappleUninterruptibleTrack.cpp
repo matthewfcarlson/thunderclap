@@ -22,11 +22,11 @@ class TrackFactoryTemplate_76ad0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_76b10;
+extern int hulk_at_003fe914;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006a890();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 } // namespace fn_f77f55b0
@@ -43,10 +43,10 @@ class CGrappleUninterruptibleTrack_76b40 : public BaseTrack {
     virtual void v0();
     char padding[0x14];
 };
-extern void* CUninterruptibleTrack_76b70_vftable[];
+extern void* hulk_at_003f98d0[];
 class CUninterruptibleTrack_76b70 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f77f55b0
 class CGrappleUninterruptibleTrack : public CUninterruptibleTrack_76b70 {
@@ -77,9 +77,9 @@ namespace fn_f77f55b0 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f77f55b0@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_76b10;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fe914;
+    base1_dtor_0006a890();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -100,8 +100,8 @@ template <> void* fight::TrackFactoryTemplate<CGrappleUninterruptibleTrack>::vfu
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CGrappleUninterruptibleTrack* CGrappleUninterruptibleTrack::vfunc_5(signed char flags) {
-    *(void***)this = CUninterruptibleTrack_76b70_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f98d0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

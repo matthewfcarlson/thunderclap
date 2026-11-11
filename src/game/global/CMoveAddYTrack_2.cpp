@@ -39,16 +39,16 @@ class CMoveAddYTrack {
     float m10;
     float m14;
     int m18;
-    void Init();
+    void Init_00236d40();
 };
 namespace fn_fd7365db {
 extern "C" void* __cdecl FUN_0008d690(int);
-extern int vtable_77260;
-extern int g_vftable_772b0;
+extern int hulk_at_003fbc60;
+extern int hulk_at_003fea68;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00069a50();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -77,10 +77,10 @@ namespace fn_fd7365db {
 CMoveAddYTrack* __fastcall target(void* self) {
     CMoveAddYTrack* p = (CMoveAddYTrack*)FUN_0008d690((int)sizeof(CMoveAddYTrack));
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->m10 = 1.0f;
         p->m14 = 1.0f;
-        *(hulk_intptr*)p = (hulk_intptr)&vtable_77260;
+        *(hulk_intptr*)p = (hulk_intptr)&hulk_at_003fbc60;
         p->mc = 0;
         p->m18 = 0;
         p->m8 = 1;
@@ -94,9 +94,9 @@ CMoveAddYTrack* __fastcall target(void* self) {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fd7365db@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_772b0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fea68;
+    base1_dtor_00069a50();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

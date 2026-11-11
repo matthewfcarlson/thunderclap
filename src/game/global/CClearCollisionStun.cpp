@@ -12,7 +12,7 @@ namespace fn_fa1ead05 {} using namespace fn_fa1ead05;
 
 // ---- declarations shared by the functions below
 namespace fn_fa1ead05 {
-extern "C" int* g_table_6afe0;
+extern "C" int* hulk_at_004dd010;
 struct Param_6b040 {
   public:
     virtual void vfunc1();
@@ -46,7 +46,7 @@ void FUN_0006afc0() {
 // 0x0006afe0 CClearCollisionStun::vfunc_0 (16 B): matches/0x0006afe0.cpp
 // sym: ?vfunc_0@CClearCollisionStun@@UAEHH@Z
 hulk_intptr CClearCollisionStun::vfunc_0(int x) {
-    return g_table_6afe0[x];
+    return hulk_at_004dd010[x];
 }
 
 

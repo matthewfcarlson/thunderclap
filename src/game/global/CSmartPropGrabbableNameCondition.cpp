@@ -12,17 +12,17 @@ namespace fn_fd51c33d {} using namespace fn_fd51c33d;
 
 // ---- declarations shared by the functions below
 namespace fn_fd51c33d {
-extern int* gTable_49760;
+extern int* hulk_at_004dc4c8;
 class CCondition_49760 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_497d0;
+extern int* hulk_at_004dc4d0;
 class CCondition_497d0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_49860;
+extern int* hulk_at_004dc4d8;
 class CCondition_49860 {
   public:
     virtual int vfunc_0(int);
@@ -42,7 +42,7 @@ void FUN_00049740() {
 // sym: ?vfunc_0@CSmartPropAngleCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropAngleCondition::vfunc_0(int index) {
-    int* p = gTable_49760;
+    int* p = hulk_at_004dc4c8;
     return p[index];
 }
 
@@ -61,7 +61,7 @@ void FUN_000497b0() {
 // sym: ?vfunc_0@CSmartPropDistanceCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropDistanceCondition::vfunc_0(int index) {
-    int* p = gTable_497d0;
+    int* p = hulk_at_004dc4d0;
     return p[index];
 }
 
@@ -69,24 +69,24 @@ hulk_intptr CSmartPropDistanceCondition::vfunc_0(int index) {
 // 0x00049820 FUN_00049820 (31 B): matches/0x00049820.cpp [wrapped: conflict: CSmartPropDistanceCondition]
 // sym: ?Build@CSmartPropDistanceCondition@fn_00049820@@QAEXXZ
 namespace fn_00049820 {
-extern int vt1_49820;
-extern int vt2_49820;
+extern int hulk_at_003f71e4;
+extern int hulk_at_003f6d50;
 class CSmartPropDistanceCondition {
   public:
     virtual void V0();
     char pad[0x18 - 4];
     class Part {
       public:
-        void Init();
+        void Init_0027af50();
     } part;
-    void Final();
+    void Final_002345b0();
     void Build();
 };
 void CSmartPropDistanceCondition::Build() {
-    *(hulk_intptr*)this = (hulk_intptr)&vt1_49820;
-    part.Init();
-    *(hulk_intptr*)this = (hulk_intptr)&vt2_49820;
-    Final();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f71e4;
+    part.Init_0027af50();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f6d50;
+    Final_002345b0();
 }
 } // namespace fn_00049820
 
@@ -105,7 +105,7 @@ void FUN_00049840() {
 // sym: ?vfunc_0@CSmartPropGrabbableNameCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropGrabbableNameCondition::vfunc_0(int index) {
-    int* p = gTable_49860;
+    int* p = hulk_at_004dc4d8;
     return p[index];
 }
 
@@ -114,11 +114,11 @@ hulk_intptr CSmartPropGrabbableNameCondition::vfunc_0(int index) {
 // sym: ?Run@CSmartPropGrabbableNameCondition_498a0@fn_000498a0@@QAEXXZ
 namespace fn_000498a0 {
 // Same code shape as 0x0004a030 (propagated; names are from that function)
-extern int vtableA;
+extern int hulk_at_003f7208;
 extern int vtableB;
 class Part_498a0 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class CCondition {
   public:
@@ -129,13 +129,13 @@ class CSmartPropGrabbableNameCondition_498a0 : public CCondition {
     char pad[12];
     Part_498a0 part;
     void Run();
-    void Finish();
+    void Finish_002345b0();
 };
 void CSmartPropGrabbableNameCondition_498a0::Run() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtableA;
-    part.Init();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f7208;
+    part.Init_0027af50();
     *(hulk_intptr*)this = (hulk_intptr)&vtableB;
-    Finish();
+    Finish_002345b0();
 }
 } // namespace fn_000498a0
 

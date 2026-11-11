@@ -13,7 +13,7 @@ namespace fn_f35c3e3c {} using namespace fn_f35c3e3c;
 namespace fn_f35c3e3c {
 class Inner_933a0 {
   public:
-    void Reset();
+    void Reset_0027af50();
 };
 class CUnlockable {
   public:
@@ -30,7 +30,7 @@ CUnlockable::~CUnlockable() {
         FreeMem(mPtr18);
         mPtr18 = 0;
     }
-    ((Inner_933a0*)((char*)this + 0x10))->Reset();
+    ((Inner_933a0*)((char*)this + 0x10))->Reset_0027af50();
 }
 
 } // namespace fn_f35c3e3c

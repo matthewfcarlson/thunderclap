@@ -12,7 +12,7 @@ namespace fn_fb1b52d7 {} using namespace fn_fb1b52d7;
 
 // ---- declarations shared by the functions below
 namespace fn_fb1b52d7 {
-extern int* g_table_6b090;
+extern int* hulk_at_004dd018;
 struct Param_6b0f0 {
   public:
     virtual void vfunc1();
@@ -27,7 +27,7 @@ struct CTrack_6b0f0 {
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 struct Worker_6b110 {
-    int go(unsigned int, unsigned int);
+    int go_00020cd0(unsigned int, unsigned int);
 };
 
 
@@ -43,7 +43,7 @@ void FUN_0006b070() {
 // 0x0006b090 CMotionHitGroundHeightTrack::vfunc_0 (16 B): matches/0x0006b090.cpp
 // sym: ?vfunc_0@CMotionHitGroundHeightTrack@@UAEHH@Z
 hulk_intptr CMotionHitGroundHeightTrack::vfunc_0(int index) {
-    return g_table_6b090[index];
+    return hulk_at_004dd018[index];
 }
 
 
@@ -105,7 +105,7 @@ hulk_intptr CMotionHitGroundHeightTrack::vfunc_12(hulk_intptr __p0) { unsigned i
 
     void* p = FUN_0008d690(0x24);
     if (p)
-        return ((Worker_6b110*)p)->go(param, this->height);
+        return ((Worker_6b110*)p)->go_00020cd0(param, this->height);
     return 0;
 }
 

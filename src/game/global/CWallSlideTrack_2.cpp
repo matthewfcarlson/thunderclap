@@ -48,11 +48,11 @@ class CWallSlideTrack_77900 : public Track_77900 {
     int x28;
     int x2c;
 };
-extern int g_vftable_77960;
+extern int hulk_at_003feba0;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006b140();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -102,9 +102,9 @@ namespace fn_f0c0ad92 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f0c0ad92@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_77960;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003feba0;
+    base1_dtor_0006b140();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

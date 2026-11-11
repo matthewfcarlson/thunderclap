@@ -12,7 +12,7 @@ namespace fn_f3758deb {} using namespace fn_f3758deb;
 
 // ---- declarations shared by the functions below
 namespace fn_f3758deb {
-extern int* gTable_49470;
+extern int* hulk_at_004dc4b8;
 class CCondition_49470 {
   public:
     virtual int vfunc_0(int);
@@ -40,7 +40,7 @@ struct PlayerRef_494c0 {
 struct Owner_494c0 {
     PlayerRef_494c0 *FUN_000592a0();
 };
-extern int* gTable_49570;
+extern int* hulk_at_004dc4c0;
 class CCondition_49570 {
   public:
     virtual int vfunc_0(int);
@@ -60,7 +60,7 @@ void FUN_00049450() {
 // sym: ?vfunc_0@CSmartPropTypeCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropTypeCondition::vfunc_0(int index) {
-    int* p = gTable_49470;
+    int* p = hulk_at_004dc4b8;
     return p[index];
 }
 
@@ -128,7 +128,7 @@ void FUN_00049550() {
 // sym: ?vfunc_0@CSmartPropNameCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropNameCondition::vfunc_0(int index) {
-    int* p = gTable_49570;
+    int* p = hulk_at_004dc4c0;
     return p[index];
 }
 
@@ -144,7 +144,7 @@ class Inner {
 };
 class CCondition {
   public:
-    void Finish();
+    void Finish_002345b0();
 };
 class CSmartPropNameCondition {
   public:
@@ -156,7 +156,7 @@ void CSmartPropNameCondition::Fn() {
     *(void**)this = (void*)((hulk_intptr)DAT_003f719c);
     m.Inner::Inner();
     *(void**)this = (void*)((hulk_intptr)DAT_003f6d50);
-    ((CCondition*)this)->Finish();
+    ((CCondition*)this)->Finish_002345b0();
 }
 } // namespace fn_000495b0
 

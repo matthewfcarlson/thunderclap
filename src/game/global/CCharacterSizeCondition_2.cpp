@@ -31,15 +31,15 @@ class CCharacterSizeCondition_57540 {
     int b;
     int c;
     int d;
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* FUN_0008d690(unsigned int);
-extern int g_vtable_57540[];
-extern int g_vftable_57580;
+extern int hulk_at_003f6f80[];
+extern int hulk_at_003f92f8;
 struct ConditionFactoryTemplate_57580 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00048a70();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -67,8 +67,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCharacterSizeCondition>
 template <> void* fight::ConditionFactoryTemplate<CCharacterSizeCondition>::vfunc_5() {
     CCharacterSizeCondition_57540* p = (CCharacterSizeCondition_57540*)FUN_0008d690((int)sizeof(CCharacterSizeCondition_57540));
     if (p) {
-        p->Init(0);
-        p->x = (hulk_intptr)g_vtable_57540;
+        p->Init_00234590(0);
+        p->x = (hulk_intptr)hulk_at_003f6f80;
         p->c = 0;
         p->d = 0;
         return (void*)(p);
@@ -82,9 +82,9 @@ namespace fn_f8e3f2ed {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_57580@fn_f8e3f2ed@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_57580::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_57580;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f92f8;
+    base1_dtor_00048a70();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

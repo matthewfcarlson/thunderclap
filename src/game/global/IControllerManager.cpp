@@ -14,7 +14,7 @@ namespace fn_f61adc76 {} using namespace fn_f61adc76;
 // ---- declarations shared by the functions below
 namespace fn_f61adc76 {
 struct Callee_b3d80 {
-    void Yes(int);
+    void Yes_000b3bc0(int);
 };
 struct Obj_b3d80 {
     char pad0[4];
@@ -37,7 +37,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 // sym: ?Run@Obj_b3d80@fn_f61adc76@@QAEXH@Z
 void Obj_b3d80::Run(hulk_intptr unused) {
     if (flag)
-        p->Yes(unused);
+        p->Yes_000b3bc0(unused);
     else
         ((owners::Obj_b3b50 *)p)->FUN_000b3b50(1);
 }

@@ -29,17 +29,17 @@ public:
     int v[4];
 };
 struct Renderer_1b86f0 {
-    void Setup(int* out, const char* name);
-    unsigned char GetBool(const char* name, int a, int b);
-    void Finish();
+    void Setup_0023f720(int* out, const char* name);
+    unsigned char GetBool_0023f760(const char* name, int a, int b);
+    void Finish_0023f740();
 };
 struct Ctl_1b86f0 {
-    void Apply(unsigned char v);
+    void Apply_0008db60(unsigned char v);
 };
 extern "C" void* __cdecl FUN_001c3d90();
 class A_1b8770 {
   public:
-    void Fn(int);
+    void Fn_001c1780(int);
 };
 struct R_1b8770 {
     A_1b8770* p;
@@ -146,7 +146,7 @@ struct Manager_1b8780 {
     virtual void f88();
     virtual Item_1b8780* get(int);
 };
-extern Manager_1b8780* gManager_1b8780;
+extern Manager_1b8780* hulk_at_0052c2a8;
 extern "C" int FUN_00266da0(int);
 struct Obj_1b8780 {
     char pad[0x33];
@@ -210,18 +210,18 @@ struct B_1b8dc0 {
 };
 struct C_1b8dc0 {
     int x, y, z;
-    void Init(int a);
-    void Done();
+    void Init_0027b0e0(int a);
+    void Done_0027af50();
 };
 struct M_1b8dc0 {
     char d[64];
-    void Ident();
-    void Set3(int a, int b, int c);
+    void Ident_0022b980();
+    void Set3_0022bc20(int a, int b, int c);
 };
 struct S_1b8dc0 {
-    int Run(C_1b8dc0* c, M_1b8dc0* m, float f, int a);
+    int Run_00283a40(C_1b8dc0* c, M_1b8dc0* m, float f, int a);
 };
-S_1b8dc0* GetS();
+S_1b8dc0* GetS_0027f250();
 struct V3_1b8e40 { float x, y, z; };
 struct Id64_1b8e40 {
     unsigned int lo;
@@ -285,11 +285,11 @@ class DataHandlerObjectCreator {
     virtual const char* g3(void*);
 };
 struct Part_1b90b0 {
-    unsigned Get();
-    void Set(unsigned);
+    unsigned Get_000d6f50();
+    void Set_000d7030(unsigned);
 };
 struct Engine_1b90b0 {
-    void Stop(int);
+    void Stop_000361c0(int);
 };
 struct Sub_1b90b0 {
     char pad[0x124];
@@ -301,43 +301,43 @@ struct Global_1b90b0 {
     char pad2[0x3c - 0x24];
     Part_1b90b0* part;
 };
-extern Global_1b90b0* g_1b90b0;
+extern Global_1b90b0* hulk_at_004dd700;
 struct Item_1b90b0 {
-    void Act(int, float, int, int);
+    void Act_001c3810(int, float, int, int);
 };
-Item_1b90b0* __stdcall Make();
+Item_1b90b0* __stdcall Make_001c3d90();
 class Obj {
   public:
     char _m_pad_0[0x5c];
     int value;
-    void run(int, int, int, int);
+    void run_001c37f0(int, int, int, int);
 };
-Obj* __stdcall make();
+Obj* __stdcall make_001c3d90();
 struct V {
     int a, b, c;
 };
 class A {
   public:
-    void run(float, float);
-    V* get();
+    void run_001c17a0(float, float);
+    V* get_001c39a0();
 };
 struct Holder {
     A* p;
 };
-Holder* __cdecl get();
-A* __cdecl fetch();
+Holder* __cdecl get_001c3d90();
+A* __cdecl fetch_001c3d90();
 struct Vec {
     int x, y, z;
 };
-A* __cdecl findA();
+A* __cdecl findA_001c3d90();
 struct Manager {
-    Obj* Find(int);
+    Obj* Find_001c7f10(int);
 };
 struct Root {
     char pad[4];
     Manager* manager;
 };
-Root* __stdcall GetRoot();
+Root* __stdcall GetRoot_001c3d90();
 class CActorManager_1b9c30 {
   public:
     int dummy;
@@ -352,7 +352,7 @@ class Function_1b9c30 {
 extern "C" char DAT_00420e24[];
 class Function_1b9c50 {
   public:
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
 };
 class Method3_1b9c50 : public Function_1b9c50 {
   public:
@@ -376,10 +376,10 @@ class Function_1b9d60 {
     virtual void f1();
 };
 extern "C" char DAT_00420e44[];
-extern char Helper(const char*);
+extern char Helper_001d04d0(const char*);
 class Function_1b9d80 {
   public:
-    void Init(int, int);
+    void Init_001d0480(int, int);
 };
 class Method6_1b9d80 : public Function_1b9d80 {
   public:
@@ -425,7 +425,7 @@ struct Method4_1ba090 {
     hulk_intptr v;
     ScriptFunctionFields f;
     ScriptMemberFn p1c;
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
     Method4_1ba090(const char*, ScriptMemberFn);
 };
 struct Vec_1ba120 {
@@ -547,7 +547,7 @@ class Raw_1bb630 { public: void FUN_001b9d80(const char*, Fn_1bb630); };
 void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_ff10b020 {
 struct Info_1bb690 {};
-char GetFlag(Info_1bb690*) throw();
+char GetFlag_001d04d0(Info_1bb690*) throw();
 struct Function_1bb690 {
     Function_1bb690(void* h, int z) throw();
     virtual void Run();
@@ -559,7 +559,7 @@ struct Method0_1bb690 : Function_1bb690 {
     int b;
     Method0_1bb690(void* h, int y, int x) throw() : Function_1bb690(h, 0) {
         a = y;
-        f = GetFlag(((Info_1bb690*)&DAT_0048e100));
+        f = GetFlag_001d04d0(((Info_1bb690*)&DAT_0048e100));
         b = x;
     }
 };
@@ -615,13 +615,13 @@ void Owner_1b8690::FUN_001b8690()
 // sym: _FUN_001b86f0@4
 // data: gCurrentVsync = DAT_004c4680, gFlag_1b86f0 = DAT_004c4684, gRenderer = DAT_004dd6e8
 extern "C" void __stdcall FUN_001b86f0(Ctl_1b86f0* ctl) {
-    (*(Renderer_1b86f0**)&DAT_004dd6e8)->Setup(((int*)&DAT_004c4684), "Rendering");
-    unsigned char value = (*(Renderer_1b86f0**)&DAT_004dd6e8)->GetBool("Lock to VSync", 0x60, 1);
+    (*(Renderer_1b86f0**)&DAT_004dd6e8)->Setup_0023f720(((int*)&DAT_004c4684), "Rendering");
+    unsigned char value = (*(Renderer_1b86f0**)&DAT_004dd6e8)->GetBool_0023f760("Lock to VSync", 0x60, 1);
     if (value != DAT_004c4680) {
         DAT_004c4680 = value;
-        ctl->Apply(value);
+        ctl->Apply_0008db60(value);
     }
-    (*(Renderer_1b86f0**)&DAT_004dd6e8)->Finish();
+    (*(Renderer_1b86f0**)&DAT_004dd6e8)->Finish_0023f740();
 }
 
 
@@ -635,14 +635,14 @@ extern "C" void FUN_001b8750() {}
 // sym: ?FUN_001b8770@fn_ff10b020@@YGXH@Z
 void __stdcall FUN_001b8770(int a) {
     R_1b8770* r = (R_1b8770*)FUN_001c3d90();
-    r->p->Fn(a);
+    r->p->Fn_001c1780(a);
 }
 
 
 // 0x001b8780 FUN_001b8780 (72 B): matches/0x001b8780.cpp
 // sym: ?target@fn_ff10b020@@YIXPAUObj_1b8780@1@HE@Z
 void __fastcall target(Obj_1b8780* self, int, unsigned char value) {
-    Item_1b8780* p = gManager_1b8780->get(0x103);
+    Item_1b8780* p = hulk_at_0052c2a8->get(0x103);
     self->field = value;
     if (p) {
         int q = FUN_00266da0(0);
@@ -715,8 +715,8 @@ namespace fn_ff10b020 {
 void __stdcall FUN(float a, float b) {
     if (a <= (*(float*)&DAT_003f32e0) || b <= a)
         return;
-    Holder* h = get();
-    h->p->run(a, b);
+    Holder* h = get_001c3d90();
+    h->p->run_001c17a0(a, b);
 }
 
 } // namespace fn_ff10b020
@@ -726,11 +726,11 @@ void __stdcall FUN(float a, float b) {
 namespace fn_001b88f0 {
 class Obj_1b88f0 {
   public:
-    void Init();
+    void Init_001c3c90();
 };
 Obj_1b88f0* __cdecl FUN_001c3d90();
 void __cdecl FUN_001b88f0() {
-    FUN_001c3d90()->Init();
+    FUN_001c3d90()->Init_001c3c90();
 }
 } // namespace fn_001b88f0
 
@@ -867,14 +867,14 @@ namespace fn_ff10b020 {
 // 0x001b8dc0 FUN_001b8dc0 (119 B): matches/0x001b8dc0.cpp
 // sym: ?Fn@fn_ff10b020@@YGHHUB_1b8dc0@1@UC_1b8dc0@1@H@Z
 int __stdcall Fn(int a1, B_1b8dc0 b, C_1b8dc0 c, int a8) {
-    S_1b8dc0* s = GetS();
+    S_1b8dc0* s = GetS_0027f250();
     M_1b8dc0 m;
-    m.Ident();
+    m.Ident_0022b980();
     ((owners::Target_22be40 *)&m)->FUN_0022be40((const int *)(B_1b8dc0 *)(&b));
-    m.Set3(c.x, c.y, c.z);
-    c.Init(a1);
-    int r = s->Run(&c, &m, -1.0f, a8);
-    c.Done();
+    m.Set3_0022bc20(c.x, c.y, c.z);
+    c.Init_0027b0e0(a1);
+    int r = s->Run_00283a40(&c, &m, -1.0f, a8);
+    c.Done_0027af50();
     return r;
 }
 
@@ -907,10 +907,10 @@ Spawned* __stdcall FUN_001b8e40(const char* name, float x, float y, float z) {
 namespace fn_001b8ec0 {
 void* FUN_0027f250();
 struct Helper_1b8ec0 {
-    void* Run(void*);
+    void* Run_0027ffb0(void*);
 };
 void* __stdcall FUN_001b8ec0(void* arg) {
-    return ((Helper_1b8ec0*)FUN_0027f250())->Run(arg);
+    return ((Helper_1b8ec0*)FUN_0027f250())->Run_0027ffb0(arg);
 }
 } // namespace fn_001b8ec0
 
@@ -1068,13 +1068,13 @@ void CRenderManager_1b9020::FUN_001b9020()
 // 0x001b90b0 FUN_001b90b0 (97 B): matches/0x001b90b0.cpp
 // sym: ?FUN_001b90b0@CRenderManager@@QAEXXZ
 void CRenderManager::FUN_001b90b0() {
-    unsigned x = g_1b90b0->part->Get();
-    g_1b90b0->part->Set((*(unsigned int *)&this->f_24) | x);
-    Make()->Act(1, 0.5f, 0, 0);
-    Engine_1b90b0* e = g_1b90b0->sub->p;
+    unsigned x = hulk_at_004dd700->part->Get_000d6f50();
+    hulk_at_004dd700->part->Set_000d7030((*(unsigned int *)&this->f_24) | x);
+    Make_001c3d90()->Act_001c3810(1, 0.5f, 0, 0);
+    Engine_1b90b0* e = hulk_at_004dd700->sub->p;
     if (e && this->f_32) {
         this->f_32 = 0;
-        e->Stop(0);
+        e->Stop_000361c0(0);
     }
 }
 
@@ -1127,11 +1127,11 @@ void __stdcall FUN_001b9160(int value) {
 namespace fn_001b9180 {
 class Obj {
   public:
-    void Init(float, int, int, int, void*, int);
+    void Init_001c37a0(float, int, int, int, void*, int);
 };
-extern "C++" __declspec(nothrow) Obj* __stdcall Make();
+extern "C++" __declspec(nothrow) Obj* __stdcall Make_001c3d90();
 extern "C" void __stdcall FUN_001b9180(void* p) {
-    Make()->Init(1.0f, 0, 0, 1, p, 1);
+    Make_001c3d90()->Init_001c37a0(1.0f, 0, 0, 1, p, 1);
 }
 } // namespace fn_001b9180
 
@@ -1140,14 +1140,14 @@ namespace fn_ff10b020 {
 // 0x001b91b0 FUN_001b91b0 (26 B): matches/0x001b91b0.cpp
 // sym: ?FUN_001b91b0@fn_ff10b020@@YGXH@Z
 void __stdcall FUN_001b91b0(int x) {
-    make()->run(0, 0, 1, x);
+    make_001c3d90()->run_001c37f0(0, 0, 1, x);
 }
 
 
 // 0x001b91d0 FUN_001b91d0 (41 B): matches/0x001b91d0.cpp
 // sym: ?FUN@fn_ff10b020@@YGPAUV@1@PAU21@@Z
 V* __stdcall FUN(V* out) {
-    *out = *fetch()->get();
+    *out = *fetch_001c3d90()->get_001c39a0();
     return out;
 }
 
@@ -1161,11 +1161,11 @@ struct V {
 };
 class A {
   public:
-    V* Get();
+    V* Get_001c39b0();
 };
 A* __cdecl FUN_001c3d90();
 V __stdcall target() {
-    return *FUN_001c3d90()->Get();
+    return *FUN_001c3d90()->Get_001c39b0();
 }
 } // namespace fn_001b9200
 
@@ -1178,12 +1178,12 @@ struct Vec {
 };
 class Obj {
   public:
-    Vec* get();
+    Vec* get_001c39c0();
 };
 Obj* FUN_001c3d90();
 Vec __stdcall target() {
     Obj* o = FUN_001c3d90();
-    return *o->get();
+    return *o->get_001c39c0();
 }
 } // namespace fn_001b9230
 
@@ -1192,7 +1192,7 @@ namespace fn_ff10b020 {
 // 0x001b9260 FUN_001b9260 (41 B): matches/0x001b9260.cpp
 // sym: ?target@fn_ff10b020@@YG?AUVec@1@XZ
 Vec __stdcall target() {
-    A* a = findA();
+    A* a = findA_001c3d90();
     return *((Vec *)((owners::Object_1c39d0 *)a)->FUN_001c39d0());
 }
 
@@ -1200,9 +1200,9 @@ Vec __stdcall target() {
 // 0x001b9290 FUN_001b9290 (34 B): matches/0x001b9290.cpp
 // sym: ?FUN@fn_ff10b020@@YGXHH@Z
 void __stdcall FUN(hulk_intptr key, int v) {
-    Root* root = GetRoot();
+    Root* root = GetRoot_001c3d90();
     Manager* mgr = root->manager;
-    Obj* o = mgr->Find(key);
+    Obj* o = mgr->Find_001c7f10(key);
     if (o)
         o->value = v;
 }
@@ -1854,7 +1854,7 @@ namespace fn_ff10b020 {
 // Method3's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
 // member-function pointer.
 Method3_1b9c50::Method3_1b9c50(const char* p, ScriptMemberFn x) {
-    Init(p, 3);
+    Init_001d0480(p, 3);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00420e24);
     member1c = x;
     f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
@@ -1905,16 +1905,16 @@ namespace fn_ff10b020 {
 // 0x001b9d80 FUN_001b9d80 (128 B): matches/0x001b9d80.cpp
 // sym: ??0Method6_1b9d80@fn_ff10b020@@QAE@HH@Z
 Method6_1b9d80::Method6_1b9d80(hulk_intptr x, hulk_intptr y) {
-    Init(x, 6);
+    Init_001d0480(x, 6);
     v = ((hulk_intptr)DAT_00420e44);
     field = y;
-    a[8] = Helper(((const char*)&DAT_0048e100));
-    a[0] = Helper(((const char*)&DAT_0048e128));
-    a[1] = Helper(((const char*)&DAT_0048e128));
-    a[2] = Helper(((const char*)&DAT_0048e128));
-    a[3] = Helper(((const char*)&DAT_0048e128));
-    a[4] = Helper(((const char*)&DAT_0048e128));
-    a[5] = Helper(((const char*)&DAT_0048e128));
+    a[8] = Helper_001d04d0(((const char*)&DAT_0048e100));
+    a[0] = Helper_001d04d0(((const char*)&DAT_0048e128));
+    a[1] = Helper_001d04d0(((const char*)&DAT_0048e128));
+    a[2] = Helper_001d04d0(((const char*)&DAT_0048e128));
+    a[3] = Helper_001d04d0(((const char*)&DAT_0048e128));
+    a[4] = Helper_001d04d0(((const char*)&DAT_0048e128));
+    a[5] = Helper_001d04d0(((const char*)&DAT_0048e128));
 }
 
 } // namespace fn_ff10b020
@@ -2036,7 +2036,7 @@ namespace fn_ff10b020 {
 // Method4's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
 // member-function pointer.
 Method4_1ba090::Method4_1ba090(const char* x, ScriptMemberFn y) {
-    Init(x, 4);
+    Init_001d0480(x, 4);
     v = ((hulk_intptr)DAT_00420e84);
     p1c = y;
     f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0049b95c)));
@@ -2152,7 +2152,7 @@ template <> void Method1<CRenderManager, void, float>::vfunc_2(void* __p0, void*
 // sym: ??0Closure1@fn_001ba410@@QAE@HHH@Z
 namespace fn_001ba410 {
 
-extern "C++" __declspec(nothrow) unsigned char probe(const char*);
+extern "C++" __declspec(nothrow) unsigned char probe_001d04d0(const char*);
 class Function_1ba410 {
   public:
     Function_1ba410(int, int);
@@ -2163,8 +2163,8 @@ class Method1 : public Function_1ba410 {
   public:
     int x;
     Method1(int a, int c) : Function_1ba410(a, 1), x(c) {
-        *((unsigned char*)this + 0x18) = probe(((const char*)&DAT_0048e100));
-        *((unsigned char*)this + 0x10) = probe(((const char*)&DAT_0048e0e4));
+        *((unsigned char*)this + 0x18) = probe_001d04d0(((const char*)&DAT_0048e100));
+        *((unsigned char*)this + 0x10) = probe_001d04d0(((const char*)&DAT_0048e0e4));
     }
     virtual void f();
 };
@@ -2233,10 +2233,10 @@ unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
-extern void* TAB_48e100;
-extern void* TAB_48e0f0;
+extern void* hulk_at_00420e34[2];
+extern void* hulk_at_00420ef4[2];
+extern void* hulk_at_0048e100;
+extern void* hulk_at_0048e128;
 extern void* TAB_48e134;
 
 struct FUN_001d0480 {
@@ -2256,12 +2256,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00420e34;
     fn = a3;
-    f.retType = FUN_001d04d0(&TAB_48e100);
-    f.argTypes[0] = FUN_001d04d0(&TAB_48e0f0);
+    f.retType = FUN_001d04d0(&hulk_at_0048e100);
+    f.argTypes[0] = FUN_001d04d0(&hulk_at_0048e128);
     f.argTypes[1] = FUN_001d04d0(&TAB_48e134);
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_00420ef4;
     owner = a2;
 }
 } // namespace fn_001ba510
@@ -2419,7 +2419,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 // Closure1's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
 // Method1's member-function pointer and Closure1's object.
 class CRenderManager;
-extern const char g1[], g2[];
+extern const char g1[], hulk_at_0049b95c[];
 class Function_1ba850 : public ScriptFunctionFields {
   public:
     Function_1ba850(const char*, int);
@@ -2432,7 +2432,7 @@ class Method1 : public Function_1ba850 {
     Method1(const char* p, ScriptMemberFn m) : Function_1ba850(p, 1) {
         fn = m;
         retType = FUN_001d04d0(g1);
-        argTypes[0] = FUN_001d04d0(g2);
+        argTypes[0] = FUN_001d04d0(hulk_at_0049b95c);
     }
 };
 class Closure1 : public Method1 {
@@ -2503,8 +2503,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_00420eb4[2];
+extern void* hulk_at_00420f74[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -2523,12 +2523,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_00420eb4;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e134));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e128));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_00420f74;
     owner = a2;
 }
 } // namespace fn_001ba980
@@ -2557,7 +2557,7 @@ struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C++" __declspec(nothrow) unsigned char __cdecl query(const void*);
+extern "C++" __declspec(nothrow) unsigned char __cdecl query_001d04d0(const void*);
 class Base : public CtorV_001d0480 {
   public:
     Base(const char* name) : CtorV_001d0480(name, 1) { }
@@ -2576,8 +2576,8 @@ class Closure1 : public Closure1_1baa20 {
 };
 Closure1_1baa20::Closure1_1baa20(const char* name, ScriptMemberFn m) : Base(name) {
     fn = m;
-    retType = query(((char*)&DAT_0048e100));
-    argTypes[0] = query(((char*)&DAT_0048e128));
+    retType = query_001d04d0(((char*)&DAT_0048e100));
+    argTypes[0] = query_001d04d0(((char*)&DAT_0048e128));
 }
 Closure1::Closure1(const char* name, void* obj, ScriptMemberFn m) : Closure1_1baa20(name, m) {
     owner = obj;
@@ -3266,7 +3266,7 @@ class CDHGameObjectCreator_1bc020 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003feefc[];
 namespace pure3d {
 class NonCopyable : public CDHGameObjectCreator_1bc020 {
   public:
@@ -3277,7 +3277,7 @@ class NonCopyable : public CDHGameObjectCreator_1bc020 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003feefc;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

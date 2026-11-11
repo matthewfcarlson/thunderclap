@@ -12,7 +12,7 @@ namespace fn_ff301b22 {} using namespace fn_ff301b22;
 
 // ---- declarations shared by the functions below
 namespace fn_ff301b22 {
-extern int* gTable_49b60;
+extern int* hulk_at_004dc4f0;
 class CCondition_49b60 {
   public:
     virtual int vfunc_0(int);
@@ -42,7 +42,7 @@ void FUN_00049b40() {
 // sym: ?vfunc_0@CPropActorStateCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CPropActorStateCondition::vfunc_0(int index) {
-    int* p = gTable_49b60;
+    int* p = hulk_at_004dc4f0;
     return p[index];
 }
 

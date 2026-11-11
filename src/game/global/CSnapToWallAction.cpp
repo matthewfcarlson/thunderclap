@@ -61,13 +61,13 @@ void *FUN_00263ea0(unsigned int);
 hulk_freg FUN_00224f10(const V3_17a80 *v);
 void FUN_00224d70(float angle, V3_17a80 *v);
 struct A_17c40 {
-    void* first();
+    void* first_000592a0();
 };
 struct B_17c40 {
-    B_17c40* second();
+    B_17c40* second_00059a30();
 };
 struct R_17c80 {
-    void call(void*, int);
+    void call_00222970(void*, int);
 };
 extern void* __fastcall FUN_000592a0(void*);
 extern "C" R_17c80* __fastcall FUN_00059a40(void*);
@@ -141,8 +141,8 @@ bool CSnapToWallAction::vfunc_6(int arg) {
 // 0x00017c40 CSnapToWallAction::vfunc_7 (55 B): matches/0x00017c40.cpp
 // sym: ?vfunc_7@CSnapToWallAction@@UAE_NH@Z
 bool CSnapToWallAction::vfunc_7(int arg) {
-    B_17c40* b = (B_17c40*)(*(A_17c40 * *)&this->f_1c)->first();
-    b = b->second();
+    B_17c40* b = (B_17c40*)(*(A_17c40 * *)&this->f_1c)->first_000592a0();
+    b = b->second_00059a30();
     if (*(char*)((char*)(*(B_17c40 * *)&this->f_20) + 0x24)) {
         ((owners::C_359c0 *)b)->FUN_000359c0(1);
         return true;
@@ -159,6 +159,6 @@ void CSnapToWallAction::vfunc_4() {
     void* a = FUN_000592a0((*(void * *)&this->f_1c));
     R_17c80* b = FUN_00059a40(a);
     if (b)
-        b->call((*(void * *)&this->f_24), 0);
+        b->call_00222970((*(void * *)&this->f_24), 0);
 }
 

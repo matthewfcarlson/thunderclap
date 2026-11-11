@@ -114,7 +114,7 @@ namespace fn_f8b0a0f7 {
 struct Obj_595f0 { char pad[0x28]; Vec_595f0 velocity; char pad2[0x28]; float duration; char pad3[4]; float acceleration;
 void FUN_000595f0(const Vec_595f0* v, float scale, float time, float height);
 };
-extern void* g_vftable_59720[];
+extern void* hulk_at_003f9844[];
 class Ref_59720 {
   public:
     virtual void F0();
@@ -123,7 +123,7 @@ class Ref_59720 {
 class Params_59720 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236a50();
 };
 class CFightParams_59720 : public Params_59720 {
   public:
@@ -154,7 +154,7 @@ class Owner_59790 {
     Item_59790* item;
     void Set(Item_59790* p);
 };
-extern void* gA_597c0[];
+extern void* hulk_at_003f985c[];
 extern void* gB_597c0[];
 class Ref_597c0 {
   public:
@@ -163,12 +163,12 @@ class Ref_597c0 {
 };
 struct S_597c0 {
     int a;
-    void Fini();
+    void Fini_00059300();
 };
 class CFightParams_597c0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236a50();
 };
 class CFightParamsCollision_597c0 : public CFightParams_597c0 {
   public:
@@ -180,7 +180,7 @@ class CFightParamsCollision_597c0 : public CFightParams_597c0 {
     ~CFightParamsCollision_597c0();
 };
 struct ThisCall_00059510 {
-    void Init();
+    void Init_00059510();
 };
 class Obj_59820 {
   public:
@@ -278,12 +278,12 @@ class Item_59c80 {
   public:
     virtual void F0();
     virtual void F1();
-    void second(int);
+    void second_00222b90(int);
 };
 class A_59c80 {
   public:
-    void first(int);
-    void second();
+    void first_0003b620(int);
+    void second_00263e90();
 };
 class C_59c80 {
   public:
@@ -371,12 +371,12 @@ class Item_59ee0 {
   public:
     virtual void F0();
     virtual void F1();
-    void second(int);
+    void second_00222b90(int);
 };
 class A_59ee0 {
   public:
-    void first(int);
-    void second();
+    void first_0003b620(int);
+    void second_00263e90();
 };
 class C_59ee0 {
   public:
@@ -390,7 +390,7 @@ struct Resource_59f30 { void FUN_0003b620(int); void FUN_00263e90(); };
 struct Object { virtual void slot0(); virtual void slot1(); void FUN_00222b90(int); };
 struct Item_59f30 { char pad[16]; Resource_59f30* resource; int unused; Object* object; char tail[8]; void* FUN_00059f30(unsigned char flags); };
 struct Inner_5a010 {
-    void f(int);
+    void Fnf_00059f30(int);
 };
 struct Obj_5a010 {
     char pad[8];
@@ -487,7 +487,7 @@ class X_5a3f0 {
 };
 class Y_5a3f0 {
   public:
-    int B();
+    int FnB_00059a30();
 };
 struct Result { char pad[0x330]; void* fallback; void* preferred; };
 struct Middle { Result* FUN_00059a30(); };
@@ -510,11 +510,11 @@ struct Mid {
 };
 class B {
   public:
-    Mid* get();
+    Mid* get_00059a30();
 };
 class A {
   public:
-    B* get();
+    B* get_000592a0();
 };
 
 } // namespace fn_f8b0a0f7
@@ -532,11 +532,11 @@ class CFightParams {
     CFightParams* Init(int);
 };
 struct ThisCall_00236a60 {
-    void BaseInit();
+    void BaseInit_00236a60();
 };
 extern "C++" { extern int fightvftable; }
 CFightParams* CFightParams::Init(int v) {
-    ((ThisCall_00236a60*)(this))->BaseInit();
+    ((ThisCall_00236a60*)(this))->BaseInit_00236a60();
     value = v;
     x = 0;
     y = 0;
@@ -562,7 +562,7 @@ inline void* operator new(size_t, void* p) {
     return p;
 }
 namespace fn_000592c0 {
-extern void* Alloc(hulk_uintptr);
+extern void* Alloc_0008d690(hulk_uintptr);
 
 class Params_592c0 {
   public:
@@ -586,7 +586,7 @@ class CFightParams : public Params_592c0 {
     int field10;
 };
 CFightParams* CFightParams::vfunc_4() {
-    void* mem = Alloc(0x14);
+    void* mem = Alloc_0008d690(0x14);
     if (mem) {
         int x = field8;
         return new (mem) CFightParams(x);
@@ -764,7 +764,7 @@ void Obj_595f0::FUN_000595f0(const Vec_595f0* v, float scale, float time, float 
 // 0x00059720 FUN_00059720 (55 B): matches/0x00059720.cpp
 // sym: ??1CFightParams_59720@fn_f8b0a0f7@@QAE@XZ
 CFightParams_59720::~CFightParams_59720() {
-    vptr = g_vftable_59720;
+    vptr = hulk_at_003f9844;
     _ReadWriteBarrier();
     if (m10) {
         m10->Release();
@@ -774,7 +774,7 @@ CFightParams_59720::~CFightParams_59720() {
         mc->Release();
         mc = 0;
     }
-    Fin();
+    Fin_00236a50();
 }
 
 
@@ -803,8 +803,8 @@ void Owner_59790::Set(Item_59790* p) {
 // 0x000597c0 FUN_000597c0 (69 B): matches/0x000597c0.cpp
 // sym: ??1CFightParamsCollision_597c0@fn_f8b0a0f7@@QAE@XZ
 CFightParamsCollision_597c0::~CFightParamsCollision_597c0() {
-    vptr = gA_597c0;
-    s18.Fini();
+    vptr = hulk_at_003f985c;
+    s18.Fini_00059300();
     vptr = gB_597c0;
     _ReadWriteBarrier();
     if (m10) {
@@ -815,7 +815,7 @@ CFightParamsCollision_597c0::~CFightParamsCollision_597c0() {
         mc->Release();
         mc = 0;
     }
-    Fin();
+    Fin_00236a50();
 }
 
 } // namespace fn_f8b0a0f7
@@ -838,7 +838,7 @@ Obj_59820* __fastcall Target(Obj_59820* self) {
     self->a6c = 0;
     self->a70 = 0;
     self->a84 = 0;
-    ((ThisCall_00059510*)(self))->Init();
+    ((ThisCall_00059510*)(self))->Init_00059510();
     self->id = DAT_00494b30;
     ++DAT_00494b30;
     if (DAT_00494b30 == 0)
@@ -858,11 +858,11 @@ class Res_59890 {
 };
 
 extern int gVftable_59890;
-void __cdecl MyDelete(void*);
+void __cdecl MyDelete_0008d330(void*);
 
 class CFightParams {
   public:
-    void BaseCall();
+    void BaseCall_00236a50();
     CFightParams* vfunc_2(unsigned char flag);
 };
 
@@ -881,9 +881,9 @@ CFightParams* CFightParams::vfunc_2(unsigned char flag) {
         c->Release();
         *cp = 0;
     }
-    BaseCall();
+    BaseCall_00236a50();
     if (flag & 1) {
-        MyDelete(this);
+        MyDelete_0008d330(this);
     }
     return this;
 }
@@ -916,8 +916,8 @@ class Sub {
     int d, e;
     char pad3[0x10];
     int f;
-    void Init(int);
-    Sub(int z) : a(0), b(0), c(0), d(0), e(0), f(0) { Init(z); }
+    void Init_00059370(int);
+    Sub(int z) : a(0), b(0), c(0), d(0), e(0), f(0) { Init_00059370(z); }
 };
 class CFightParamsCollision : public CFightParams_598e0 {
   public:
@@ -944,12 +944,12 @@ class RefObj_59930 {
 
 class SubObj_59930 {
   public:
-    void destroy();
+    void destroy_00059300();
 };
 
 class CFightParams {
   public:
-    void baseDtor();
+    void baseDtor_00236a50();
 };
 
 
@@ -973,7 +973,7 @@ class CFightParamsCollision {
 
 CFightParamsCollision* CFightParamsCollision::vfunc_2(unsigned char flag) {
     this->m_vptr.n = (hulk_uintptr)&CFightParamsCollision_vftable[0];
-    this->m_sub.destroy();
+    this->m_sub.destroy_00059300();
     this->m_vptr.v = (hulk_uintptr)&CFightParams_vftable[0];
     RefObj_59930* p10 = this->m_p10;
     if (p10 != 0) {
@@ -985,7 +985,7 @@ CFightParamsCollision* CFightParamsCollision::vfunc_2(unsigned char flag) {
         pc->vfunc_1();
         this->m_pC = 0;
     }
-    reinterpret_cast<CFightParams*>(this)->baseDtor();
+    reinterpret_cast<CFightParams*>(this)->baseDtor_00236a50();
     if (flag & 1) {
         operator delete(this);
     }
@@ -1134,12 +1134,12 @@ extern "C" void FUN_00059c50(Holder* h, Obj* n) {
 // sym: ?run@C_59c80@fn_f8b0a0f7@@QAEXXZ
 void C_59c80::run() {
     if (a) {
-        a->first(0);
-        a->second();
+        a->first_0003b620(0);
+        a->second_00263e90();
         a = 0;
     }
     if (b) {
-        b->second(1);
+        b->second_00222b90(1);
         if (b) {
             b->F1();
             b = 0;
@@ -1336,12 +1336,12 @@ void EntryTable_59e50::FUN_00059e50(void *key)
 // Same code shape as 0x00059c80 (propagated; names are from that function)
 void C_59ee0::run() {
     if (a) {
-        a->first(0);
-        a->second();
+        a->first_0003b620(0);
+        a->second_00263e90();
         a = 0;
     }
     if (b) {
-        b->second(1);
+        b->second_00222b90(1);
         if (b) {
             b->F1();
             b = 0;
@@ -1381,7 +1381,7 @@ void* Item_59f30::FUN_00059f30(unsigned char flags) {
 void __fastcall FUN_0005a010(Obj_5a010* self) {
     FUN_00059d30(self);
     if (self->a)
-        self->a->f(3);
+        self->a->Fnf_00059f30(3);
     int value = self->b;
     self->a = 0;
     thunk_FUN_00267090(value);
@@ -1741,7 +1741,7 @@ extern "C" hulk_intptr __cdecl FUN_0005a3f0(X_5a3f0* param) {
     if (param != 0) {
         hulk_intptr a = ((int)((owners::Object_592a0 *)param)->FUN_000592a0());
         if (a != 0) {
-            hulk_intptr b = ((Y_5a3f0*)a)->B();
+            hulk_intptr b = ((Y_5a3f0*)a)->FnB_00059a30();
             if (b != 0) {
                 int c = *(int*)(b + 0x334);
                 if (c != 0)
@@ -1768,10 +1768,10 @@ extern "C" void* __cdecl FUN_0005a430(Input* input) { if (!input) return 0; Midd
 extern "C" int __cdecl FUN_0005a470(A* a) {
     if (!a)
         return 0;
-    B* b = a->get();
+    B* b = a->get_000592a0();
     if (!b)
         return 0;
-    Mid* m = b->get();
+    Mid* m = b->get_00059a30();
     if (!m)
         return 0;
     Leaf* p = m->select();

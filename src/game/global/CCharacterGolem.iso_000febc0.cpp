@@ -16,16 +16,16 @@ class CAgent {
 class CPathAgent : public CAgent {};
 class Owner_febc0 {
   public:
-    CAgent* Find(const type_info&);
+    CAgent* Find_000fdd30(const type_info&);
 };
 class CPathAgent_febc0 {
   public:
-    CPathAgent* Make(Owner_febc0*);
+    CPathAgent* Make_001047b0(Owner_febc0*);
 };
 extern "C" void* __cdecl FUN_00266da0(hulk_intptr);
 extern "C" void* __cdecl FUN_0008d690(int);
 void __cdecl FUN_000febc0(Owner_febc0* owner, CPathAgent** out) {
-    CAgent* p = owner->Find(typeid(CPathAgent));
+    CAgent* p = owner->Find_000fdd30(typeid(CPathAgent));
     if (p) {
         CPathAgent* q = dynamic_cast<CPathAgent*>(p);
         if (q)
@@ -39,7 +39,7 @@ void __cdecl FUN_000febc0(Owner_febc0* owner, CPathAgent** out) {
         void* a = FUN_0008d690(0xfc);
         CPathAgent* q;
         if (a)
-            q = ((CPathAgent_febc0*)a)->Make(owner);
+            q = ((CPathAgent_febc0*)a)->Make_001047b0(owner);
         else
             q = 0;
         if (q)

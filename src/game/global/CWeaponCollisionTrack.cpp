@@ -58,7 +58,7 @@ class O_61fa0 {
   public:
     char Set(int x);
 };
-extern int* gTable_62000;
+extern int* hulk_at_004dc618;
 class CCondition_62000 {
   public:
     virtual int vfunc_0(int);
@@ -95,13 +95,13 @@ struct Param_621a0 {
     virtual void p4();
 };
 extern int query(u32_621a0, int, const void*, const void*, int);
-extern void* alloc(hulk_uintptr);
+extern void* alloc_0008d690(hulk_uintptr);
 struct CWeaponCollisionAction_621a0 {
-    u32_621a0 construct(u32_621a0, CWeaponCollisionTrack*, int);
+    u32_621a0 construct_0001b080(u32_621a0, CWeaponCollisionTrack*, int);
 };
-extern const int rtti1;
-extern const int rtti2;
-extern int* gTable_62210;
+extern const int hulk_at_00494b44;
+extern const int hulk_at_00494b60;
+extern int* hulk_at_004dc620;
 class CCondition_62210 {
   public:
     virtual int vfunc_0(int);
@@ -122,10 +122,10 @@ struct Vec {
     float x, y, z;
 };
 struct Helper_62300 {
-    int f(CSmartPropAttachTrack*, hulk_intptr);
+    int Fnf_0001ea30(CSmartPropAttachTrack*, hulk_intptr);
 };
 extern "C" Helper_62300* __cdecl FUN_0008d690(int);
-extern int* gTable_62350;
+extern int* hulk_at_004dc628;
 class CCondition_62350 {
   public:
     virtual int vfunc_0(int);
@@ -142,11 +142,11 @@ struct CTrack_623f0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int vtable_62400;
+extern int hulk_at_003faf9c;
 class Part_62400 {
   public:
     int x[2];
-    void Init();
+    void Init_0027af50();
 };
 class CSmartPropUpdateAttachmentTrack_62400 {
   public:
@@ -154,7 +154,7 @@ class CSmartPropUpdateAttachmentTrack_62400 {
     char pad[0x14];
     Part_62400 p18;
     Part_62400 p20;
-    void Final();
+    void Final_00068c70();
     void Run();
 };
 struct Vector3 { float x, y, z; };
@@ -167,7 +167,7 @@ struct Angles {
     void FUN_00062280(float *out);
     void FUN_00062430(Vector3 *out);
 };
-extern int* gTable_62500;
+extern int* hulk_at_004dc630;
 class CCondition_62500 {
   public:
     virtual int vfunc_0(int);
@@ -184,26 +184,26 @@ void* FUN_0008d690(unsigned int size);
 struct Helper_626e0 {
     int FUN_0001eff0(CSmartPropSpawnTrack*, hulk_intptr);
 };
-extern int* gTable_62730;
+extern int* hulk_at_004dc638;
 class CCondition_62730 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_627f0;
+extern int* hulk_at_004dc640;
 class CCondition_627f0 {
   public:
     virtual int vfunc_0(int);
 };
 class Helper_62860 {
   public:
-    int go(hulk_intptr);
+    int go_0001f1f0(hulk_intptr);
 };
-extern int* gTable_628a0;
+extern int* hulk_at_004dc648;
 class CCondition_628a0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_62990;
+extern int* hulk_at_004dc650;
 class CCondition_62990 {
   public:
     virtual int vfunc_0(int);
@@ -222,7 +222,7 @@ class CSmartPropThrowingTrack_629a0 : public CTrack_629a0 {
     float m10;
     CSmartPropThrowingTrack_629a0();
 };
-extern int* gTable_62a70;
+extern int* hulk_at_004dc658;
 class CCondition_62a70 {
   public:
     virtual int vfunc_0(int);
@@ -233,17 +233,17 @@ class Obj_62ac0 {
   public:
     unsigned int value;
 };
-extern int* gTable_62b40;
+extern int* hulk_at_004dc660;
 class CCondition_62b40 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_62c00;
+extern int* hulk_at_004dc668;
 class CCondition_62c00 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_62cc0;
+extern int* hulk_at_004dc670;
 class CCondition_62cc0 {
   public:
     virtual int vfunc_0(int);
@@ -1018,7 +1018,7 @@ public:
 }
 namespace fn_fa3ff49b {
 struct Obj_65870 {
-    char Check(int, unsigned int);
+    char Check_0022d2b0(int, unsigned int);
 };
 extern "C" float gFive = 5.0f;
 extern "C" float gNegFive = -5.0f;
@@ -1028,7 +1028,7 @@ struct Obj_65a90 {
 };
 class Clock_65ac0 {
   public:
-    float Get();
+    float Get_00086080();
 };
 class Obj_65ac0 {
   public:
@@ -1045,11 +1045,11 @@ struct Manager {
     char _m_pad_0[0x2c];
     union { void* item; void* ptr; };
 };
-extern Manager* gManager;
+extern Manager* hulk_at_004dd700;
 class Active {
   public:
-    float check();
-    float compute();
+    float check_00086080();
+    float compute_00086080();
 };
 class Obj {
   public:
@@ -1084,12 +1084,12 @@ class Obj {
 struct Entity {
     char pad[0x1d40];
     char active;
-    void Update();
+    void Update_000403f0();
 };
 struct EntList_65b80 {
     char pad[0xc];
     int count;
-    Entity* Get(int i);
+    Entity* Get_00024190(int i);
 };
 struct Game_65b80 {
     char pad[0x20];
@@ -1099,7 +1099,7 @@ struct Game_65b80 {
 };
 extern Game_65b80* g_game_65b80;
 struct Clock_65b80 {
-    float Now();
+    float Now_00086080();
 };
 struct Obj_65b80 {
     int mType;
@@ -1112,7 +1112,7 @@ struct Obj_65b80 {
 struct Manager_65c10 {
     char pad[0x0c];
     int count;
-    void* GetItem(int);
+    void* GetItem_00024190(int);
 };
 struct Root_65c10 {
     char pad[0x20];
@@ -1121,7 +1121,7 @@ struct Root_65c10 {
 extern Root_65c10* gRoot_65c10;
 class Finder_65c50 {
   public:
-    int Find(int, int);
+    int Find_00024280(int, int);
 };
 class Manager_65c50 {
   public:
@@ -1188,7 +1188,7 @@ struct PairList {
 };
 typedef unsigned int U_65fb0;
 struct B_65fb0 {
-    U_65fb0 FUN(U_65fb0);
+    U_65fb0 FUN_00230800(U_65fb0);
 };
 struct A_65fb0 {
     U_65fb0 x;
@@ -1197,7 +1197,7 @@ struct A_65fb0 {
 };
 typedef unsigned int U_66020;
 struct B_66020 {
-    U_66020 FUN(U_66020);
+    U_66020 FUN_00230800(U_66020);
 };
 struct A_66020 {
     U_66020 x;
@@ -1219,7 +1219,7 @@ struct Provider {
 extern Provider* gProvider;
 extern Manager* gMgr;
 struct CalcObj {
-    float Calc();
+    float Calc_00086080();
 };
 class Foo {
   public:
@@ -1233,7 +1233,7 @@ struct World {
     int value;
 };
 namespace fn_fa3ff49b {
-extern "C" float __fastcall Run(int);
+extern "C" float __fastcall Run_00086080(int);
 struct Target_66860 {
     Target_66860* Run(int);
 };
@@ -1260,7 +1260,7 @@ class Obj_66a10 {
     struct Pair {
         int a, b;
     } entries[150];
-    void Base();
+    void Base_00066530();
     void Add(const int*);
 };
 typedef unsigned int u32_66a50;
@@ -1295,14 +1295,14 @@ extern u32_66b20 __fastcall FUN_00230ea0(Obj_66b20*);
 extern "C" void __cdecl FUN_00066980();
 typedef unsigned int u32_670a0;
 struct Inner_670a0 {
-    hulk_intptr Find(const void*, void*);
+    hulk_intptr Find_00230ba0(const void*, void*);
 };
 struct S_670a0 {
     char pad[0x2f4];
 };
 class H {
   public:
-    void* lookup(hulk_uintptr, unsigned int);
+    void* lookup_00230ba0(hulk_uintptr, unsigned int);
 };
 struct Rec_67110 { char pad[0x18]; float v18; };
 struct Inner_67110 { float FUN_00086080(); };
@@ -1372,7 +1372,7 @@ public:
 };
 extern "C" void __cdecl FUN_00066930();
 struct Helper_676f0 {
-    void Init(void (*)(), void*);
+    void Init_00230f50(void (*)(), void*);
 };
 struct Obj_676f0 {
     char pad[0x2d8];
@@ -1380,7 +1380,7 @@ struct Obj_676f0 {
 };
 class Base_67870 {
   public:
-    float Compute();
+    float Compute_00086080();
 };
 class Obj_67870 {
   public:
@@ -1389,12 +1389,12 @@ class Obj_67870 {
     char q[0x34c];
     float value;
     void Tick(hulk_intptr);
-    void Do(float*, int);
+    void Do_00067490(float*, int);
 };
 class B_67870 {
   public:
     char p[0x10];
-    void Run(float*);
+    void Run_00059a50(float*);
 };
 class A_67870 {
   public:
@@ -1419,7 +1419,7 @@ extern "C" int atexit(void (*)());
 namespace fn_fa3ff49b {
 extern "C" void cleanup();
 struct Obj_678d0 {
-    void init();
+    void init_000675b0();
 };
 struct Vec_67930 {
     float x, y, z;
@@ -1429,7 +1429,7 @@ struct C_679c0 {
 };
 extern void __fastcall FUN_0027af50(C_679c0*);
 struct Item_67a20 {
-    void tick();
+    void tick_0027af50();
 };
 struct Name_67b00 {
     char data[8];
@@ -2145,7 +2145,7 @@ void FUN_00061fe0() {
 // sym: ?vfunc_0@CWeaponCollisionTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CWeaponCollisionTrack::vfunc_0(int index) {
-    int* p = gTable_62000;
+    int* p = hulk_at_004dc618;
     return p[index];
 }
 
@@ -2224,11 +2224,11 @@ char owners::Obj_62180::FUN_00062180(const char* v) {
 // sym: ?vfunc_10@CWeaponCollisionTrack@@UAEHHHH@Z
 hulk_intptr CWeaponCollisionTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_621a0 a = (u32_621a0)__p0; u32_621a0 b = (u32_621a0)__p1; u32_621a0 c = (u32_621a0)__p2;
 
-    int x = query(c, 0, &rtti1, &rtti2, 0);
+    int x = query(c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (x) {
-        void* p = alloc(0x80);
+        void* p = alloc_0008d690(0x80);
         if (p)
-            return (int)(((CWeaponCollisionAction_621a0*)p)->construct(a, this, x));
+            return (int)(((CWeaponCollisionAction_621a0*)p)->construct_0001b080(a, this, x));
     }
     return (int)(0);
 }
@@ -2248,7 +2248,7 @@ void FUN_000621f0() {
 // sym: ?vfunc_0@CSmartPropAttachTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropAttachTrack::vfunc_0(int index) {
-    int* p = gTable_62210;
+    int* p = hulk_at_004dc620;
     return p[index];
 }
 
@@ -2258,7 +2258,7 @@ hulk_intptr CSmartPropAttachTrack::vfunc_0(int index) {
 namespace fn_00062220 {
 extern "C" char DAT_003faf60[];
 struct Helper_62220 {
-    void Run();
+    void Run_0027af50();
 };
 struct CSmartPropAttachTrack {
     void* vf;
@@ -2266,14 +2266,14 @@ struct CSmartPropAttachTrack {
     void Construct();
 };
 struct Finalizer {
-    void Run();
+    void Run_00068c70();
 };
 void CSmartPropAttachTrack::Construct() {
     vf = (void*)((hulk_intptr)DAT_003faf60);
-    ((Helper_62220*)((char*)this + 0x58))->Run();
-    ((Helper_62220*)((char*)this + 0x20))->Run();
-    ((Helper_62220*)((char*)this + 0x18))->Run();
-    ((Finalizer*)this)->Run();
+    ((Helper_62220*)((char*)this + 0x58))->Run_0027af50();
+    ((Helper_62220*)((char*)this + 0x20))->Run_0027af50();
+    ((Helper_62220*)((char*)this + 0x18))->Run_0027af50();
+    ((Finalizer*)this)->Run_00068c70();
 }
 } // namespace fn_00062220
 
@@ -2332,7 +2332,7 @@ unsigned char Obj::Set(Vec const* v) {
 hulk_intptr CSmartPropAttachTrack::vfunc_12(hulk_intptr a) {
     Helper_62300* p = FUN_0008d690(0x2c);
     if (p)
-        return p->f(this, a);
+        return p->Fnf_0001ea30(this, a);
     return 0;
 }
 
@@ -2351,7 +2351,7 @@ void FUN_00062330() {
 // sym: ?vfunc_0@CSmartPropUpdateAttachmentTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropUpdateAttachmentTrack::vfunc_0(int index) {
-    int* p = gTable_62350;
+    int* p = hulk_at_004dc628;
     return p[index];
 }
 
@@ -2440,10 +2440,10 @@ namespace fn_fa3ff49b {
 // sym: ?Run@CSmartPropUpdateAttachmentTrack_62400@fn_fa3ff49b@@QAEXXZ
 // Same code shape as 0x001703a0 (propagated; names are from that function)
 void CSmartPropUpdateAttachmentTrack_62400::Run() {
-    vt = (hulk_intptr)&vtable_62400;
-    p20.Init();
-    p18.Init();
-    Final();
+    vt = (hulk_intptr)&hulk_at_003faf9c;
+    p20.Init_0027af50();
+    p18.Init_0027af50();
+    Final_00068c70();
 }
 
 
@@ -2495,7 +2495,7 @@ void FUN_000624e0() {
 // sym: ?vfunc_0@CSmartPropSpawnTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropSpawnTrack::vfunc_0(int index) {
-    int* p = gTable_62500;
+    int* p = hulk_at_004dc630;
     return p[index];
 }
 
@@ -2681,7 +2681,7 @@ void FUN_00062710() {
 // sym: ?vfunc_0@CSmartPropSetStateTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropSetStateTrack::vfunc_0(int index) {
-    int* p = gTable_62730;
+    int* p = hulk_at_004dc638;
     return p[index];
 }
 
@@ -2748,7 +2748,7 @@ void FUN_000627d0() {
 // sym: ?vfunc_0@CSmartPropDetachTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropDetachTrack::vfunc_0(int index) {
-    int* p = gTable_627f0;
+    int* p = hulk_at_004dc640;
     return p[index];
 }
 
@@ -2815,7 +2815,7 @@ hulk_freg CSmartPropDetachTrack::vfunc_7() {
 hulk_intptr CSmartPropDetachTrack::vfunc_12(hulk_intptr a) {
     void* p = FUN_0008d690(0x20);
     if (p)
-        return ((Helper_62860*)p)->go(a);
+        return ((Helper_62860*)p)->go_0001f1f0(a);
     return 0;
 }
 
@@ -2834,7 +2834,7 @@ void FUN_00062880() {
 // sym: ?vfunc_0@CSmartPropThrowTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropThrowTrack::vfunc_0(int index) {
-    int* p = gTable_628a0;
+    int* p = hulk_at_004dc648;
     return p[index];
 }
 
@@ -2888,7 +2888,7 @@ void FUN_00062970() {
 // sym: ?vfunc_0@CSmartPropThrowingTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropThrowingTrack::vfunc_0(int index) {
-    int* p = gTable_62990;
+    int* p = hulk_at_004dc650;
     return p[index];
 }
 
@@ -2946,7 +2946,7 @@ void FUN_00062a50() {
 // sym: ?vfunc_0@CSmartPropDropTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropDropTrack::vfunc_0(int index) {
-    int* p = gTable_62a70;
+    int* p = hulk_at_004dc658;
     return p[index];
 }
 
@@ -3017,13 +3017,13 @@ hulk_freg CSmartPropDropTrack::vfunc_7() {
 // sym: ?FUN_00062ae0@fn_00062ae0@@YIXPAVCEffectStopTrack@1@@Z
 namespace fn_00062ae0 {
 // Same code shape as 0x00060920 (propagated; names are from that function)
-extern int CEffectStopTrack_vftable;
+extern int hulk_at_003fb104;
 class CEffectStopTrack {
   public:
 };
 void __fastcall FUN_00068c70(CEffectStopTrack*);
 void __fastcall FUN_00062ae0(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)&hulk_at_003fb104;
     FUN_00068c70(self);
 }
 } // namespace fn_00062ae0
@@ -3043,7 +3043,7 @@ void FUN_00062b20() {
 // sym: ?vfunc_0@CSmartPropEventTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropEventTrack::vfunc_0(int index) {
-    int* p = gTable_62b40;
+    int* p = hulk_at_004dc660;
     return p[index];
 }
 
@@ -3101,7 +3101,7 @@ hulk_freg CSmartPropEventTrack::vfunc_7() {
 namespace fn_00062bb0 {
 typedef unsigned int u32_62bb0;
 struct CSmartPropEventAction_62bb0 {
-    u32_62bb0 call(u32_62bb0, u32_62bb0, u32_62bb0);
+    u32_62bb0 call_0001f3e0(u32_62bb0, u32_62bb0, u32_62bb0);
 };
 struct CSmartPropEventTrack {
     virtual void f0();
@@ -3127,7 +3127,7 @@ extern void* __cdecl FUN_0008d690(int);
 u32_62bb0 CSmartPropEventTrack::vfunc_12(u32_62bb0 arg) {
     void* p = FUN_0008d690(0x28);
     if (p)
-        return ((CSmartPropEventAction_62bb0*)p)->call(arg, d, c);
+        return ((CSmartPropEventAction_62bb0*)p)->call_0001f3e0(arg, d, c);
     return 0;
 }
 } // namespace fn_00062bb0
@@ -3147,7 +3147,7 @@ void FUN_00062be0() {
 // sym: ?vfunc_0@CSmartPropRemoveInstanceTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CSmartPropRemoveInstanceTrack::vfunc_0(int index) {
-    int* p = gTable_62c00;
+    int* p = hulk_at_004dc668;
     return p[index];
 }
 
@@ -3216,7 +3216,7 @@ void FUN_00062ca0() {
 // sym: ?vfunc_0@CPropActorSetStateTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CPropActorSetStateTrack::vfunc_0(int index) {
-    int* p = gTable_62cc0;
+    int* p = hulk_at_004dc670;
     return p[index];
 }
 
@@ -3277,15 +3277,15 @@ hulk_freg CPropActorSetStateTrack::vfunc_7() {
 // 0x00062d70 CWeaponCollisionTrack::vfunc_5 (62 B): matches/0x00062d70.cpp [wrapped: conflict: CWeaponCollisionTrack]
 // sym: ?vfunc_5@CWeaponCollisionTrack@fn_00062d70@@QAEPAV12@E@Z
 namespace fn_00062d70 {
-extern int weaponVftable;
+extern int hulk_at_003faf2c;
 struct SubA_62d70 {
-    void init();
+    void init_00234150();
 };
 struct SubB_62d70 {
-    void init2();
+    void init2_0027af50();
 };
 struct CWeaponCollisionTrack_62d70 {
-    void finish();
+    void finish_00236d60();
 };
 class CWeaponCollisionTrack {
   public:
@@ -3298,15 +3298,15 @@ class CWeaponCollisionTrack {
     SubB_62d70 s48;
     CWeaponCollisionTrack* vfunc_5(unsigned char p);
 };
-void destroy(CWeaponCollisionTrack*);
+void destroy_0008d330(CWeaponCollisionTrack*);
 CWeaponCollisionTrack* CWeaponCollisionTrack::vfunc_5(unsigned char p) {
-    vf = (hulk_intptr)&weaponVftable;
-    s48.init2();
-    s38.init();
-    s2c.init();
-    ((CWeaponCollisionTrack_62d70*)this)->finish();
+    vf = (hulk_intptr)&hulk_at_003faf2c;
+    s48.init2_0027af50();
+    s38.init_00234150();
+    s2c.init_00234150();
+    ((CWeaponCollisionTrack_62d70*)this)->finish_00236d60();
     if (p & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 } // namespace fn_00062d70
@@ -3376,14 +3376,14 @@ CSmartPropAttachTrack::CSmartPropAttachTrack() {
 // 0x00062e40 CSmartPropAttachTrack::vfunc_5 (62 B): matches/0x00062e40.cpp [wrapped: conflict: CSmartPropAttachTrack]
 // sym: ?vfunc_5@CSmartPropAttachTrack@fn_00062e40@@UAEPAU12@E@Z
 namespace fn_00062e40 {
-extern int vftable_62e40;
+extern int hulk_at_003faf60;
 struct CSmartPropAttachTrack;
 void FUN_0008d330(CSmartPropAttachTrack*);
 struct A_62e40 {
-    void f();
+    void Fnf_0027af50();
 };
 struct B_62e40 {
-    void f();
+    void Fnf_00068c70();
 };
 struct CSmartPropAttachTrack {
     virtual void v0();
@@ -3403,11 +3403,11 @@ struct CSmartPropAttachTrack {
     char pad[0x58 - 4];
 };
 CSmartPropAttachTrack* CSmartPropAttachTrack::vfunc_5(unsigned char p) {
-    *(void**)this = &vftable_62e40;
-    ((A_62e40*)((char*)this + 0x58))->f();
-    ((A_62e40*)((char*)this + 0x20))->f();
-    ((A_62e40*)((char*)this + 0x18))->f();
-    ((B_62e40*)this)->f();
+    *(void**)this = &hulk_at_003faf60;
+    ((A_62e40*)((char*)this + 0x58))->Fnf_0027af50();
+    ((A_62e40*)((char*)this + 0x20))->Fnf_0027af50();
+    ((A_62e40*)((char*)this + 0x18))->Fnf_0027af50();
+    ((B_62e40*)this)->Fnf_00068c70();
     if (p & 1)
         FUN_0008d330(this);
     return this;
@@ -3423,17 +3423,17 @@ typedef unsigned char byte_62e80;
 struct CSmartPropUpdateAttachmentTrack {
     char pad[0x24];
 };
-void __fastcall Init(void*);
-void __fastcall Setup(CSmartPropUpdateAttachmentTrack*);
-void __cdecl Destroy(CSmartPropUpdateAttachmentTrack*);
+void __fastcall Init_0027af50(void*);
+void __fastcall Setup_00068c70(CSmartPropUpdateAttachmentTrack*);
+void __cdecl Destroy_0008d330(CSmartPropUpdateAttachmentTrack*);
 CSmartPropUpdateAttachmentTrack* __fastcall
 CSmartPropUpdateAttachmentTrack_vfunc_5(CSmartPropUpdateAttachmentTrack* p, void*, byte_62e80 b) {
     *(hulk_ulongptr*)p = ((hulk_intptr)DAT_003faf9c);
-    Init((char*)p + 0x20);
-    Init((char*)p + 0x18);
-    Setup(p);
+    Init_0027af50((char*)p + 0x20);
+    Init_0027af50((char*)p + 0x18);
+    Setup_00068c70(p);
     if (b & 1)
-        Destroy(p);
+        Destroy_0008d330(p);
     return p;
 }
 } // namespace fn_00062e80
@@ -3459,19 +3459,19 @@ class CSmartPropSpawnTrack {
     virtual void v12();
     virtual void v13();
     char pad[0x94];
-    void finish();
+    void finish_00068c70();
 };
 struct Helper_62ec0 {
-    void call();
+    void call_0027af50();
 };
-extern void* vt_62ec0[];
+extern void* hulk_at_003fafd8[];
 extern void FUN_0008d330(CSmartPropSpawnTrack*);
 CSmartPropSpawnTrack* CSmartPropSpawnTrack::vfunc_5(unsigned char p) {
-    ((void**)this)[0] = vt_62ec0;
-    ((Helper_62ec0*)((char*)this + 0xc8))->call();
-    ((Helper_62ec0*)((char*)this + 0xa0))->call();
-    ((Helper_62ec0*)((char*)this + 0x98))->call();
-    finish();
+    ((void**)this)[0] = hulk_at_003fafd8;
+    ((Helper_62ec0*)((char*)this + 0xc8))->call_0027af50();
+    ((Helper_62ec0*)((char*)this + 0xa0))->call_0027af50();
+    ((Helper_62ec0*)((char*)this + 0x98))->call_0027af50();
+    finish_00068c70();
     if (p & 1)
         FUN_0008d330(this);
     return this;
@@ -3485,11 +3485,11 @@ namespace fn_00062f10 {
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* hulk_at_003fb014[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CSmartPropSetStateTrack : public CTrack {
@@ -3497,13 +3497,13 @@ class CSmartPropSetStateTrack : public CTrack {
     CSmartPropSetStateTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropSetStateTrack* CSmartPropSetStateTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003fb014;
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -3516,11 +3516,11 @@ namespace fn_00062f40 {
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* hulk_at_003fb050[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CSmartPropDetachTrack : public CTrack {
@@ -3528,13 +3528,13 @@ class CSmartPropDetachTrack : public CTrack {
     CSmartPropDetachTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropDetachTrack* CSmartPropDetachTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003fb050;
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -3547,11 +3547,11 @@ namespace fn_00062f70 {
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* hulk_at_003fb08c[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CSmartPropThrowTrack : public CTrack {
@@ -3559,13 +3559,13 @@ class CSmartPropThrowTrack : public CTrack {
     CSmartPropThrowTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropThrowTrack* CSmartPropThrowTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003fb08c;
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -3578,11 +3578,11 @@ namespace fn_00062fa0 {
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* hulk_at_003fb0c8[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CSmartPropThrowingTrack : public CTrack {
@@ -3590,13 +3590,13 @@ class CSmartPropThrowingTrack : public CTrack {
     CSmartPropThrowingTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropThrowingTrack* CSmartPropThrowingTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003fb0c8;
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -3613,7 +3613,7 @@ extern void* CTrack_vftable[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CSmartPropDropTrack : public CTrack {
@@ -3621,13 +3621,13 @@ class CSmartPropDropTrack : public CTrack {
     CSmartPropDropTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropDropTrack* CSmartPropDropTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -3640,11 +3640,11 @@ namespace fn_00063000 {
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* hulk_at_003fb144[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CSmartPropEventTrack : public CTrack {
@@ -3652,13 +3652,13 @@ class CSmartPropEventTrack : public CTrack {
     CSmartPropEventTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropEventTrack* CSmartPropEventTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003fb144;
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -3671,11 +3671,11 @@ namespace fn_00063030 {
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* hulk_at_003fb180[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CSmartPropRemoveInstanceTrack : public CTrack {
@@ -3683,13 +3683,13 @@ class CSmartPropRemoveInstanceTrack : public CTrack {
     CSmartPropRemoveInstanceTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropRemoveInstanceTrack* CSmartPropRemoveInstanceTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003fb180;
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -3702,11 +3702,11 @@ namespace fn_00063060 {
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* hulk_at_003fb1bc[];
 
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00068c70(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CPropActorSetStateTrack : public CTrack {
@@ -3714,13 +3714,13 @@ class CPropActorSetStateTrack : public CTrack {
     CPropActorSetStateTrack* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CPropActorSetStateTrack* CPropActorSetStateTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003fb1bc;
+    Destroy_00068c70();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -5145,7 +5145,7 @@ extern "C" void FUN_00065630()
 // 0x00065870 FUN_00065870 (25 B): matches/0x00065870.cpp
 // sym: _FUN_00065870
 extern "C" int __cdecl FUN_00065870(Obj_65870* object, int value) {
-    return object->Check(value, 0x3727c5ac) == 0;
+    return object->Check_0022d2b0(value, 0x3727c5ac) == 0;
 }
 
 
@@ -5189,7 +5189,7 @@ namespace fn_fa3ff49b {
 // sym: ?Target@Obj_65ac0@fn_fa3ff49b@@QAEXXZ
 void Obj_65ac0::Target() {
     if (mActive) {
-        float now = mClock->Get();
+        float now = mClock->Get_00086080();
         if (mDeadline <= now) {
             mActive = 0;
             mDeadline = 0.0f;
@@ -5204,11 +5204,11 @@ void Obj_65ac0::Target() {
 void Obj::Run() {
     if (active) {
         if (!ptr) {
-            ptr = gManager->item;
+            ptr = hulk_at_004dd700->item;
             if (!ptr)
                 return;
         }
-        if (active->check() == DAT_003f32e0) {
+        if (active->check_00086080() == DAT_003f32e0) {
             a = 0;
             b = 0;
             c = 0;
@@ -5230,15 +5230,15 @@ void Obj_65b80::Tick(int a) {
         if (!v)
             return;
     }
-    if (mClock->Now() >= mNext) {
+    if (mClock->Now_00086080() >= mNext) {
         EntList_65b80* l = g_game_65b80->list;
         int n = l->count;
         for (int i = 0; i < n; i++) {
-            Entity* e = g_game_65b80->list->Get(i);
+            Entity* e = g_game_65b80->list->Get_00024190(i);
             if (e && e->active)
-                e->Update();
+                e->Update_000403f0();
         }
-        mNext = mClock->Now() + mInterval;
+        mNext = mClock->Now_00086080() + mInterval;
     }
 }
 
@@ -5248,7 +5248,7 @@ void Obj_65b80::Tick(int a) {
 void __cdecl Target() {
     int n = gRoot_65c10->manager->count;
     for (int i = 0; i < n; ++i) {
-        void* p = gRoot_65c10->manager->GetItem(i);
+        void* p = gRoot_65c10->manager->GetItem_00024190(i);
         if (p)
             *(int*)((char*)p + 0x214c) = 0;
     }
@@ -5264,7 +5264,7 @@ hulk_intptr __fastcall Target(Owner_65c50* self) {
         Owner_65c50::Entry* e = self->entries;
         do {
             Finder_65c50* f = gManager_65c50->finder;
-            result = f->Find(e->a, e->b);
+            result = f->Find_00024280(e->a, e->b);
             if (*(char*)((char*)result + 0x1b84) != 0)
                 return result;
             ++i;
@@ -5390,7 +5390,7 @@ namespace fn_fa3ff49b {
 // 0x00065fb0 FUN_00065fb0 (20 B): matches/0x00065fb0.cpp
 // sym: ?f@A_65fb0@fn_fa3ff49b@@QAEPAU12@XZ
 A_65fb0* A_65fb0::f() {
-    x = y->FUN(x);
+    x = y->FUN_00230800(x);
     return this;
 }
 
@@ -5399,7 +5399,7 @@ A_65fb0* A_65fb0::f() {
 // sym: ?f@A_66020@fn_fa3ff49b@@QAEPAU12@XZ
 // Same code shape as 0x00065fb0 (propagated; names are from that function)
 A_66020* A_66020::f() {
-    x = y->FUN(x);
+    x = y->FUN_00230800(x);
     return this;
 }
 
@@ -5425,7 +5425,7 @@ void Obj::update() {
         if (!item)
             item = gProvider->item;
         if (item) {
-            float x = active->compute();
+            float x = active->compute_00086080();
             flag = 1;
             result = x + offset;
         }
@@ -5438,7 +5438,7 @@ void Obj::update() {
 char Foo::check(Obj* o) {
     if (q && (p || (p = gMgr->ptr)) && o) {
         *(float*)&o = o->value;
-        return q->Calc() >= *(float*)&o;
+        return q->Calc_00086080() >= *(float*)&o;
     }
     return 0;
 }
@@ -5455,7 +5455,7 @@ float owners::Obj_66280::FUN_00066280() {
         if (!cached)
             return DAT_003f3388;
     }
-    return Run(enabled);
+    return Run_00086080(enabled);
 }
 
 
@@ -5960,7 +5960,7 @@ namespace fn_fa3ff49b {
 // 0x00066a10 FUN_00066a10 (54 B): matches/0x00066a10.cpp
 // sym: ?Add@Obj_66a10@fn_fa3ff49b@@QAEXPBH@Z
 void Obj_66a10::Add(const int* p) {
-    Base();
+    Base_00066530();
     int i = count;
     if (i < 0x96) {
         entries[i].a = p[0];
@@ -6340,7 +6340,7 @@ namespace fn_fa3ff49b {
 // sym: ?Target@fn_fa3ff49b@@YIXPAUS_670a0@1@PAXPAIH@Z
 void __fastcall Target(S_670a0* self, void*, u32_670a0* param, int value) {
     Inner_670a0* p = (Inner_670a0*)((char*)self + 0x2f4);
-    int* result = (int*)p->Find((void*)((hulk_intptr)(void (__cdecl*)())&FUN_00066980), param);
+    int* result = (int*)p->Find_00230ba0((void*)((hulk_intptr)(void (__cdecl*)())&FUN_00066980), param);
     if (result) {
         *(u32_670a0*)((char*)self + 0x380) = param[0];
         *(u32_670a0*)((char*)self + 0x384) = param[1];
@@ -6355,7 +6355,7 @@ void __fastcall Target(S_670a0* self, void*, u32_670a0* param, int value) {
 // data: gZero_670e0 = DAT_003f32e0
 float owners::C_670e0::FUN_000670e0(hulk_uintptr x) {
     H* h = (H*)((char*)this + 0x2f4);
-    void* p = h->lookup(((hulk_intptr)(void (__cdecl*)())&FUN_00066980), ((unsigned int)x));
+    void* p = h->lookup_00230ba0(((hulk_intptr)(void (__cdecl*)())&FUN_00066980), ((unsigned int)x));
     if (!p)
         return DAT_003f32e0;
     return *(float*)((char*)p + 0x18);
@@ -6726,9 +6726,9 @@ Vehicle_675b0 *Vehicle_675b0::FUN_000675b0()
 // 0x000676f0 FUN_000676f0 (56 B): matches/0x000676f0.cpp
 // sym: ?Run@Obj_676f0@fn_fa3ff49b@@QAEXXZ
 void Obj_676f0::Run() {
-    ((Helper_676f0*)((char*)this + 0x310))->Init((void (*)())((hulk_intptr)(void (__cdecl*)())&FUN_00066930), (char*)this + 0x310);
-    ((Helper_676f0*)((char*)this + 0x2f4))->Init((void (*)())((hulk_intptr)(void (__cdecl*)())&FUN_00066a00), (char*)this + 0x2f4);
-    ((Helper_676f0*)((char*)this + 0x2d8))->Init((void (*)())((hulk_intptr)(void (__cdecl*)())&FUN_00066930), (char*)this + 0x2d8);
+    ((Helper_676f0*)((char*)this + 0x310))->Init_00230f50((void (*)())((hulk_intptr)(void (__cdecl*)())&FUN_00066930), (char*)this + 0x310);
+    ((Helper_676f0*)((char*)this + 0x2f4))->Init_00230f50((void (*)())((hulk_intptr)(void (__cdecl*)())&FUN_00066a00), (char*)this + 0x2f4);
+    ((Helper_676f0*)((char*)this + 0x2d8))->Init_00230f50((void (*)())((hulk_intptr)(void (__cdecl*)())&FUN_00066930), (char*)this + 0x2d8);
 }
 
 } // namespace fn_fa3ff49b
@@ -6944,11 +6944,11 @@ namespace fn_fa3ff49b {
 // 0x00067870 FUN_00067870 (96 B): matches/0x00067870.cpp
 // sym: ?Tick@Obj_67870@fn_fa3ff49b@@QAEXH@Z
 void Obj_67870::Tick(hulk_intptr arg) {
-    value = base->Compute();
+    value = base->Compute_00086080();
     float v[3] = {0, 0, 0};
     B_67870* b = gRoot_67870->m->a->y;
-    b->Run(v);
-    Do(v, arg);
+    b->Run_00059a50(v);
+    Do_00067490(v, arg);
 }
 
 
@@ -6958,7 +6958,7 @@ void Obj_67870::Tick(hulk_intptr arg) {
 extern "C" Obj_678d0* FUN_000678d0() {
     if (((*(unsigned int*)&DAT_004dcec0) & 1) == 0) {
         (*(unsigned int*)&DAT_004dcec0) = (*(unsigned int*)&DAT_004dcec0) | 1;
-        (*(Obj_678d0*)&DAT_004dc678).init();
+        (*(Obj_678d0*)&DAT_004dc678).init_000675b0();
         atexit(cleanup);
     }
     return ((Obj_678d0*)&DAT_004dc678);
@@ -6989,7 +6989,7 @@ void owners::C_67a20::FUN_00067a20() {
     int i = 0x40;
     do {
         p = (Item_67a20*)((char*)p - 0x20);
-        p->tick();
+        p->tick_0027af50();
         --i;
     } while (i != 0);
 }
@@ -7184,7 +7184,7 @@ namespace fn_00067e20 {
 
 extern "C" void _ReadWriteBarrier();
 struct Vec {
-    void Init();
+    void Init_0027af00();
 };
 struct Obj {
     int a, b, c, d, e, f;
@@ -7192,7 +7192,7 @@ struct Obj {
     Obj();
 };
 Obj::Obj() {
-    v.Init();
+    v.Init_0027af00();
     ((owners::Target_27b040 *)&v)->FUN_0027b040((hulk_uintptr)(&DAT_003f335c));
     a = 0;
     d = 0;
@@ -8782,13 +8782,13 @@ unsigned char owners::Obj_68c60::FUN_00068c60(int v) {
 // sym: ?FUN_00068c70@fn_00068c70@@YIXPAVCEffectStopTrack@1@@Z
 namespace fn_00068c70 {
 // Same code shape as 0x00060920 (propagated; names are from that function)
-extern int CEffectStopTrack_vftable;
+extern int hulk_at_003f98d0;
 class CEffectStopTrack {
   public:
 };
 void __fastcall FUN_00236d60(CEffectStopTrack*);
 void __fastcall FUN_00068c70(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)&hulk_at_003f98d0;
     FUN_00236d60(self);
 }
 } // namespace fn_00068c70

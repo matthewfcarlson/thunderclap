@@ -10,7 +10,7 @@ namespace fn_f653a3bf {} using namespace fn_f653a3bf;
 
 // ---- declarations shared by the functions below
 namespace fn_f653a3bf {
-extern int* gTable_4a210;
+extern int* hulk_at_004dc520;
 class CCondition_4a210 {
   public:
     virtual int vfunc_0(int);
@@ -33,7 +33,7 @@ struct CMotionStateCondition_nv_4a220 {
 // sym: ?vfunc_0@CMotionStateCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CMotionStateCondition::vfunc_0(int index) {
-    int* p = gTable_4a210;
+    int* p = hulk_at_004dc520;
     return p[index];
 }
 
@@ -71,11 +71,11 @@ class CMotionStateCondition : public CCondition {
     virtual void v8(void*);
 };
 struct H {
-    H* first();
-    void second();
+    H* first_000592a0();
+    void second_00059a30();
 };
 void CMotionStateCondition::v8(void* p) {
-    ((H*)p)->first()->second();
+    ((H*)p)->first_000592a0()->second_00059a30();
 }
 } // namespace fn_0004a260
 

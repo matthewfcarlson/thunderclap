@@ -27,7 +27,7 @@ class CSoundTriggerExecutionState_1eee90 : public core::IRefCount {
     char pad[0x18];
     Member_1eee90 mMember;
 };
-extern "C" void* IRefCount_vftable_1eee90[];
+extern "C" void* hulk_at_003f6098[];
 } // namespace fn_f5500ffb
 void __cdecl operator delete[](void*);
 
@@ -53,7 +53,7 @@ void* CSoundTriggerExecutionState_1eee90::vfunc_2(unsigned char flags) {
                 Member_1eee90* m = (Member_1eee90*)((char*)esi + 0x18);
                 m->~Member_1eee90();
                 --edi;
-                *(void***)esi = IRefCount_vftable_1eee90;
+                *(void***)esi = hulk_at_003f6098;
             } while (edi);
         }
         if (bl & 1) {
@@ -64,7 +64,7 @@ void* CSoundTriggerExecutionState_1eee90::vfunc_2(unsigned char flags) {
 
     Member_1eee90* m = (Member_1eee90*)((char*)esi + 0x18);
     m->~Member_1eee90();
-    *(void***)esi = IRefCount_vftable_1eee90;
+    *(void***)esi = hulk_at_003f6098;
     if (bl & 1) {
         operator delete(esi);
     }

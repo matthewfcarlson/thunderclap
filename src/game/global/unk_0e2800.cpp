@@ -120,7 +120,7 @@ class Outer_e2850 {
     hulk_freg call();
 };
 struct BasePart_e2940 {
-    void Copy(BasePart_e2940*);
+    void Copy_000f83c0(BasePart_e2940*);
 };
 struct Item_e2940 {
     char pad[0x38];
@@ -205,7 +205,7 @@ struct Outer {
 };
 class Elem {
   public:
-    void Set(int, int, int);
+    void Set_000f8500(int, int, int);
 };
 class Obj {
     char pad[0x14];
@@ -215,7 +215,7 @@ class Obj {
   public:
     void Fn(hulk_intptr);
 };
-void ReleaseThing(int);
+void ReleaseThing_0008d330(int);
 struct State_e2c90 { bool FUN_000b4f20();  };
 struct Manager_e2c90 { State_e2c90* FUN_00086280(); };
 } // namespace fn_fb20b5f7
@@ -362,7 +362,7 @@ namespace fn_fb20b5f7 {
 // 0x000e2940 FUN_000e2940 (172 B): matches/0x000e2940.cpp
 // sym: ?Copy@Thing_e2940@fn_fb20b5f7@@QAEXPAU12@@Z
 void Thing_e2940::Copy(Thing_e2940* src) {
-    base.Copy(&src->base);
+    base.Copy_000f83c0(&src->base);
     flag74 = src->flag74;
     field90 = src->field90;
     field94 = src->field94;
@@ -392,7 +392,7 @@ void Thing_e2940::Copy(Thing_e2940* src) {
 // 0x000e2a60 FUN_000e2a60 (40 B): matches/0x000e2a60.cpp
 // sym: ?Fn@Obj@fn_fb20b5f7@@QAEXH@Z
 void Obj::Fn(hulk_intptr x) {
-    elem.Set(x, outer->mid->provider->v44(), 1);
+    elem.Set_000f8500(x, outer->mid->provider->v44(), 1);
 }
 
 } // namespace fn_fb20b5f7
@@ -402,7 +402,7 @@ void Obj::Fn(hulk_intptr x) {
 void owners::Obj_e2ac0::FUN_000e2ac0(hulk_intptr value) {
     int old = field;
     if (old != 0) {
-        ReleaseThing(old);
+        ReleaseThing_0008d330(old);
         field = 0;
         field = ((int)value);
     } else {

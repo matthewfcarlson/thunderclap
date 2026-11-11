@@ -31,14 +31,14 @@ struct CCollisionPushbackYAngleCondition_57c10 {
     char pad[8];
     int fieldC;
     int field10;
-    void Init(int);
+    void Init_00234590(int);
 };
-extern u32_57c10 CCollisionPushbackYAngleCondition_vftable_57c10;
-extern int g_vftable_57c50;
+extern u32_57c10 hulk_at_003f70c4;
+extern int hulk_at_003f9410;
 struct ConditionFactoryTemplate_57c50 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00049040();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -66,8 +66,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCollisionPushbackYAngle
 template <> void* fight::ConditionFactoryTemplate<CCollisionPushbackYAngleCondition>::vfunc_5() {
     CCollisionPushbackYAngleCondition_57c10* p = (CCollisionPushbackYAngleCondition_57c10*)Alloc(0x14);
     if (p) {
-        p->Init(0);
-        p->vptr = (hulk_uintptr)&CCollisionPushbackYAngleCondition_vftable_57c10;
+        p->Init_00234590(0);
+        p->vptr = (hulk_uintptr)&hulk_at_003f70c4;
         p->fieldC = 5;
         p->field10 = 0;
         return (void*)(p);
@@ -81,9 +81,9 @@ namespace fn_ff4b9afe {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_57c50@fn_ff4b9afe@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_57c50::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_57c50;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9410;
+    base1_dtor_00049040();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

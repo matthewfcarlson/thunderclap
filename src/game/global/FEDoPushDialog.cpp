@@ -27,7 +27,7 @@ class Ref_f1250 {
     virtual void f0();
     virtual void Release();
 };
-extern void cleanup(FEParticleSystem*);
+extern void cleanup_0008d330(FEParticleSystem*);
 struct DialogManager_f1290 { void FUN_000be230(const char*,const char*,const char*,const char*,const char*,int,int,int); };
 struct Owner_f1290 { char pad[4]; DialogManager_f1290* manager; };
 struct FEDoAction { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); };
@@ -44,7 +44,7 @@ FEParticleSystem* FEParticleSystem::vfunc_0(unsigned char flags) {
         ptr = 0;
     }
     if (flags & 1)
-        cleanup(this);
+        cleanup_0008d330(this);
     return this;
 }
 

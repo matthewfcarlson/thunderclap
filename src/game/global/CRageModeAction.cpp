@@ -10,7 +10,7 @@ namespace fn_f327212d {} using namespace fn_f327212d;
 
 // ---- declarations shared by the functions below
 namespace fn_f327212d {
-extern void* g_vftable_22340[];
+extern void* hulk_at_003f3b24[];
 class Ref_22340 {
   public:
     virtual void F0();
@@ -28,7 +28,7 @@ class CJumpAttackAction_22340 : public CAction_22340 {
     Ref_22340* m1;
     CJumpAttackAction_22340* f2(unsigned char flags);
 };
-extern int orient_vftable, action_vftable;
+extern int hulk_at_003f3b4c, hulk_at_003f3390;
 class Ref_223a0 {
   public:
     virtual void f0();
@@ -55,7 +55,7 @@ class COrientAction : public CAction {
     Ref_223a0* mSecond;
     char pad2[4];
     Ref_223a0* mFirst;
-    void helper();
+    void helper_002326a0();
 };
 void __cdecl thunk_FUN_00267090(COrientAction*);
 extern void* gA_22400[];
@@ -103,7 +103,7 @@ class CUninterruptibleAction {
     char pad[0x18];
     volatile Ref_224a0* mRef;
     CUninterruptibleAction* f2(unsigned char flags);
-    void Cleanup();
+    void Cleanup_002326a0();
 };
 extern void __cdecl thunk_FUN_00267090(CUninterruptibleAction*);
 extern void* g_vftable_224e0[];
@@ -143,7 +143,7 @@ class CRageModeAction_22520 : public CAction_22520 {
 // 0x00022340 CJumpAttackAction::vfunc_2 (82 B): matches/0x00022340.cpp
 // sym: ?f2@CJumpAttackAction_22340@fn_f327212d@@QAEPAV12@E@Z
 CJumpAttackAction_22340* CJumpAttackAction_22340::f2(unsigned char flags) {
-    vptr = g_vftable_22340;
+    vptr = hulk_at_003f3b24;
     _ReadWriteBarrier();
     if (m1) {
         m1->Release();
@@ -165,21 +165,21 @@ CJumpAttackAction_22340* CJumpAttackAction_22340::f2(unsigned char flags) {
 // 0x000223a0 COrientAction::vfunc_2 (82 B): matches/0x000223a0.cpp
 // sym: ?vfunc_2@COrientAction@fn_f327212d@@UAEPAV12@I@Z
 COrientAction* COrientAction::vfunc_2(unsigned int flags) {
-    *(void**)this = &orient_vftable;
+    *(void**)this = &hulk_at_003f3b4c;
     _ReadWriteBarrier();
     Ref_223a0* q = mFirst;
     if (q) {
         q->Release();
         mFirst = 0;
     }
-    *(void**)this = &action_vftable;
+    *(void**)this = &hulk_at_003f3390;
     _ReadWriteBarrier();
     q = mSecond;
     if (q) {
         q->Release();
         mSecond = 0;
     }
-    helper();
+    helper_002326a0();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -233,7 +233,7 @@ CUninterruptibleAction* CUninterruptibleAction::f2(unsigned char flags) {
         ((Ref_224a0*)mRef)->Release();
         mRef = 0;
     }
-    Cleanup();
+    Cleanup_002326a0();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

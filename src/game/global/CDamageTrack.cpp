@@ -12,13 +12,13 @@ namespace fn_fabeda8f {} using namespace fn_fabeda8f;
 
 // ---- declarations shared by the functions below
 namespace fn_fabeda8f {
-extern int* gTable_69dc0;
+extern int* hulk_at_004dcf70;
 class CCondition_69dc0 {
   public:
     virtual int vfunc_0(int);
 };
 struct Helper_69e40 {
-    int run(hulk_intptr, int, int);
+    int run_0001d9b0(hulk_intptr, int, int);
 };
 extern "C" void* FUN_0008d690(int);
 
@@ -36,7 +36,7 @@ void FUN_00069da0() {
 // sym: ?vfunc_0@CDamageTrack@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CDamageTrack::vfunc_0(int index) {
-    int* p = gTable_69dc0;
+    int* p = hulk_at_004dcf70;
     return p[index];
 }
 
@@ -101,7 +101,7 @@ hulk_freg CDamageTrack::vfunc_7() {
 hulk_intptr CDamageTrack::vfunc_12(hulk_intptr x) {
     Helper_69e40* p = (Helper_69e40*)FUN_0008d690(0x28);
     if (p)
-        return p->run(x, this->damage, this->damageMax);
+        return p->run_0001d9b0(x, this->damage, this->damageMax);
     return 0;
 }
 

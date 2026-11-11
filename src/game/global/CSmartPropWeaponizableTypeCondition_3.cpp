@@ -27,7 +27,7 @@ extern "C" void FUN_000539a0();
 extern "C" char DAT_003f7130[];
 class Condition_58ab0 {
   public:
-    void init(int);
+    void init_00234590(int);
 };
 class CSmartPropWeaponizableTypeCondition_58ab0 {
   public:
@@ -38,11 +38,11 @@ class CSmartPropWeaponizableTypeCondition_58ab0 {
     unsigned int d;
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int g_vftable_58af0;
+extern int hulk_at_003f96ac;
 struct ConditionFactoryTemplate_58af0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00049230();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -70,7 +70,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CSmartPropWeaponizableTy
 template <> void* fight::ConditionFactoryTemplate<CSmartPropWeaponizableTypeCondition>::vfunc_5() {
     CSmartPropWeaponizableTypeCondition_58ab0* p = (CSmartPropWeaponizableTypeCondition_58ab0*)FUN_0008d690((int)sizeof(CSmartPropWeaponizableTypeCondition_58ab0));
     if (p) {
-        ((Condition_58ab0*)p)->init(0);
+        ((Condition_58ab0*)p)->init_00234590(0);
         p->vptr = ((hulk_intptr)DAT_003f7130);
         p->c = 0;
         p->d = 0xffffffff;
@@ -85,9 +85,9 @@ namespace fn_fba35ab2 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_58af0@fn_fba35ab2@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_58af0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_58af0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f96ac;
+    base1_dtor_00049230();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

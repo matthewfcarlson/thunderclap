@@ -13,8 +13,8 @@ namespace fn_f4f1b158 {} using namespace fn_f4f1b158;
 // ---- declarations shared by the functions below
 namespace fn_f4f1b158 {
 extern "C" char DAT_0040bff8[];
-extern int type1_e1840;
-extern int type2_e1840;
+extern int hulk_at_004a10d8;
+extern int hulk_at_004a10f4;
 extern void __cdecl Init(void*, int, int*, int*, int);
 class FEParticleSystem {
   public:
@@ -70,7 +70,7 @@ FEParticleSystem::FEParticleSystem(void* arg, int unused) {
     e = 0;
     f = (int)0xbf800000;
     g = (int)0xbf800000;
-    Init(arg, 0, &type1_e1840, &type2_e1840, 0);
+    Init(arg, 0, &hulk_at_004a10d8, &hulk_at_004a10f4, 0);
     last = 0;
 }
 

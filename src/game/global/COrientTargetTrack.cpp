@@ -22,11 +22,11 @@ class TrackFactoryTemplate_773b0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_773f0;
+extern int hulk_at_003feaa0;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0006a680();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 struct COrientTargetTrack_77420 {
@@ -36,15 +36,15 @@ struct COrientTargetTrack_77420 {
     virtual void d();
     virtual void e();
     virtual void f();
-    void init();
+    void init_0006a6b0();
     char pad[0x28];
 };
 extern "C" void* FUN_0008d690(unsigned int);
-extern void* orient_vtable;
-extern void* COrientTrack_77450_vftable[];
+extern void* hulk_at_003feabc;
+extern void* hulk_at_003f98d0[];
 class COrientTrack_77450 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fcb81868
 class COrientTargetTrack : public COrientTrack_77450 {
@@ -75,9 +75,9 @@ namespace fn_fcb81868 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fcb81868@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_773f0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003feaa0;
+    base1_dtor_0006a680();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -90,8 +90,8 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 template <> void* fight::TrackFactoryTemplate<COrientTargetTrack>::vfunc_5() {
     COrientTargetTrack_77420* p = (COrientTargetTrack_77420*)FUN_0008d690((int)sizeof(COrientTargetTrack_77420));
     if (p) {
-        p->init();
-        *(void**)p = &orient_vtable;
+        p->init_0006a6b0();
+        *(void**)p = &hulk_at_003feabc;
         return (void*)(p);
     }
     return (void*)(0);
@@ -104,8 +104,8 @@ template <> void* fight::TrackFactoryTemplate<COrientTargetTrack>::vfunc_5() {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 COrientTargetTrack* COrientTargetTrack::vfunc_5(signed char flags) {
-    *(void***)this = COrientTrack_77450_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f98d0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

@@ -29,11 +29,11 @@ class Dummy_6f460 {
   public:
     hulk_intptr FUN_0005aa00();
 };
-extern int g_vftable_6f480;
+extern int hulk_at_003fcff0;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0005a9d0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -71,9 +71,9 @@ namespace fn_fdf74c47 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fdf74c47@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_6f480;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fcff0;
+    base1_dtor_0005a9d0();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

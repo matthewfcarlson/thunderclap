@@ -11,10 +11,10 @@ namespace fn_f022e3e8 {} using namespace fn_f022e3e8;
 
 // ---- declarations shared by the functions below
 namespace fn_f022e3e8 {
-extern void* CControllerCondition_4b2b0_vftable[];
+extern void* hulk_at_003f6d50[];
 class CControllerCondition_4b2b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CAxisCondition : public CControllerCondition_4b2b0 {
   public:
@@ -23,7 +23,7 @@ class CAxisCondition : public CControllerCondition_4b2b0 {
 extern void* CAxisCondition_4b2e0_vftable[];
 class CAxisCondition_4b2e0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CAxisTimeCondition : public CAxisCondition_4b2e0 {
   public:
@@ -37,8 +37,8 @@ class CAxisTimeCondition : public CAxisCondition_4b2e0 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CAxisCondition* CAxisCondition::vfunc_5(signed char flags) {
-    *(void***)this = CControllerCondition_4b2b0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f6d50;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -53,7 +53,7 @@ CAxisCondition* CAxisCondition::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CAxisTimeCondition* CAxisTimeCondition::vfunc_5(signed char flags) {
     *(void***)this = CAxisCondition_4b2e0_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

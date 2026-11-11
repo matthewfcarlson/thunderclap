@@ -25,10 +25,10 @@ class TrackFactoryTemplate_59100 {
 };
 extern "C" void FUN_00056830();
 extern "C" void* __cdecl Allocate(unsigned int);
-extern "C" int CondVtable;
+extern "C" int hulk_at_003f7208;
 struct Sub_59140 {
     int x;
-    void Init();
+    void Init_0027af00();
 };
 class Cond_59140 {
   public:
@@ -37,13 +37,13 @@ class Cond_59140 {
     int a, b, c;
     Sub_59140 s;
     int pad;
-    void Initialize(int);
+    void Initialize_00234590(int);
 };
-extern int g_vftable_59180;
+extern int hulk_at_003f97f0;
 struct ConditionFactoryTemplate_59180 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00049840();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -71,10 +71,10 @@ template <> void* fight::ConditionFactoryCasterTemplate<CSmartPropGrabbableNameC
 template <> void* fight::ConditionFactoryTemplate<CSmartPropGrabbableNameCondition>::vfunc_5() {
     Cond_59140* p = (Cond_59140*)Allocate(0x18);
     if (p) {
-        p->Initialize(0);
-        *(hulk_intptr*)p = (hulk_intptr)&CondVtable;
+        p->Initialize_00234590(0);
+        *(hulk_intptr*)p = (hulk_intptr)&hulk_at_003f7208;
         p->c = 0;
-        p->s.Init();
+        p->s.Init_0027af00();
         return (void*)(p);
     }
     return (void*)(0);
@@ -86,9 +86,9 @@ namespace fn_f40eb462 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_59180@fn_f40eb462@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_59180::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_59180;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f97f0;
+    base1_dtor_00049840();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

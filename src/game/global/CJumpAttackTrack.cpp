@@ -26,7 +26,7 @@ struct CTrack_6a630 {
 };
 class Alloc_6a650 {
   public:
-    int method(CJumpAttackTrack*, hulk_intptr);
+    int method_0001f980(CJumpAttackTrack*, hulk_intptr);
 };
 extern "C" Alloc_6a650* FUN_0008d690(int);
 
@@ -79,7 +79,7 @@ hulk_freg CJumpAttackTrack::vfunc_7() {
 hulk_intptr CJumpAttackTrack::vfunc_12(hulk_intptr param) {
     Alloc_6a650* p = FUN_0008d690(0x34);
     if (p)
-        return p->method(this, param);
+        return p->method_0001f980(this, param);
     return 0;
 }
 

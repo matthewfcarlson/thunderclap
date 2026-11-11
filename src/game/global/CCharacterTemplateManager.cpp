@@ -172,10 +172,10 @@ struct Object {
  int count;
  void FUN_00046030(const char* text, float value);
 };
-extern void* RDLHandler_46110_vftable[];
+extern void* hulk_at_003f60b8[];
 class RDLHandler_46110 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027a560(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CCharacterTemplateManager_46110 : public RDLHandler_46110 {
   public:
@@ -794,8 +794,8 @@ void Object::FUN_00046030(const char* text, float value) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CCharacterTemplateManager_46110* CCharacterTemplateManager_46110::vfunc_5(signed char flags) {
-    *(void***)this = RDLHandler_46110_vftable;
-    Destroy();
+    *(void***)this = hulk_at_003f60b8;
+    Destroy_0027a560();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

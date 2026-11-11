@@ -24,22 +24,22 @@ class TrackFactoryTemplate_52130 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_52170;
+extern int hulk_at_003f8528;
 struct ConditionFactoryTemplate_52170 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00235be0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 struct CFightNodeTimeCondition_521a0 {
     virtual ~CFightNodeTimeCondition_521a0();
     char pad[0x10];
-    void Initialize();
+    void Initialize_00235c10();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Helper_521d0 {
   public:
-    int second();
+    int second_00059a30();
 };
 
 } // namespace fn_f006dedf
@@ -66,9 +66,9 @@ namespace fn_f006dedf {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_52170@fn_f006dedf@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_52170::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_52170;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f8528;
+    base1_dtor_00235be0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -81,7 +81,7 @@ void* ConditionFactoryTemplate_52170::scalar_dtor(unsigned char flags) {
 template <> void* fight::ConditionFactoryTemplate<CFightNodeTimeCondition>::vfunc_5() {
     CFightNodeTimeCondition_521a0* p = (CFightNodeTimeCondition_521a0*)FUN_0008d690((int)sizeof(CFightNodeTimeCondition_521a0));
     if (p) {
-        p->Initialize();
+        p->Initialize_00235c10();
         *(void**)p = &conditionVtable;
         return (void*)(p);
     }
@@ -95,7 +95,7 @@ template <> void* fight::ConditionFactoryTemplate<CFightNodeTimeCondition>::vfun
 hulk_intptr CFightNodeTimeCondition::vfunc_7(void* __p0) { void * arg = (void *)__p0;
 
     hulk_intptr x = ((int)((owners::Object_592a0 *)(((Helper_521d0*)arg)))->FUN_000592a0());
-    return ((Helper_521d0*)x)->second() + 0xdc;
+    return ((Helper_521d0*)x)->second_00059a30() + 0xdc;
 }
 
 

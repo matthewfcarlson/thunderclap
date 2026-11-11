@@ -17,7 +17,7 @@ struct CSmartPropNameCondition {
 };
 extern "C" void __fastcall FUN_0027af50(void*);
 extern void __cdecl thunk_FUN_00267090(void*);
-extern int condition_vftable_4c940;
+extern int hulk_at_003f6d50;
 struct V3_4c980 { float x, y, z; };
 class Context { public: char pad[4]; };
 struct Tgt_4c980 {
@@ -73,7 +73,7 @@ CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNa
                                                                     unsigned char flags) {
     p->vptr = &smart_vftable;
     FUN_0027af50((char*)p + 0x18);
-    p->vptr = &condition_vftable_4c940;
+    p->vptr = &hulk_at_003f6d50;
     FUN_002345b0(p);
     if (flags & 1)
         thunk_FUN_00267090(p);

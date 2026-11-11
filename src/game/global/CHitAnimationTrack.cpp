@@ -24,16 +24,16 @@ class TrackFactoryTemplate_6fb10 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_6fb50;
+extern int hulk_at_003fd214;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0005dc80();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 struct CHitAnimationTrack_6fb80 {
     unsigned int* vf;
-    void init();
+    void init_0005dcb0();
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
@@ -60,9 +60,9 @@ namespace fn_fc227ff7 {
 // 0x0006fb50 fight::TrackFactoryTemplate<CHitAnimationTrack>::vfunc_2 (43 B): matches/0x0006fb50.cpp
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fc227ff7@@QAEPAXE@Z
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_6fb50;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fd214;
+    base1_dtor_0005dc80();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -75,7 +75,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 template <> void* fight::TrackFactoryTemplate<CHitAnimationTrack>::vfunc_5() {
     CHitAnimationTrack_6fb80* p = (CHitAnimationTrack_6fb80*)FUN_0008d690(0x50);
     if (p) {
-        p->init();
+        p->init_0005dcb0();
         p->vf = (unsigned int*)&hit_vftable;
         return (void*)(p);
     }

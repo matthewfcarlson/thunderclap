@@ -11,7 +11,7 @@ namespace fn_f33b467c {} using namespace fn_f33b467c;
 // ---- declarations shared by the functions below
 namespace fn_f33b467c {
 struct R_13e90 {
-    void call(void*, int);
+    void call_00222970(void*, int);
 };
 extern void* __fastcall FUN_000592a0(void*);
 extern "C" R_13e90* __fastcall FUN_00059a40(void*);
@@ -64,6 +64,6 @@ void CDropAction::vfunc_4() {
     void* a = FUN_000592a0((*(void * *)&this->f_1c));
     R_13e90* b = FUN_00059a40(a);
     if (b)
-        b->call((*(void * *)&this->f_24), 0);
+        b->call_00222970((*(void * *)&this->f_24), 0);
 }
 

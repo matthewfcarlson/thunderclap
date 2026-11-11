@@ -171,7 +171,7 @@ class Obj {
     char enabled;
     char _m_pad_2959[0x3];
     void Set(const V3* p, int n, const V2* q);
-    void Update();
+    void Update_0008ef00();
     void Update(float x);
 };
 struct X_c7b60 {
@@ -407,7 +407,7 @@ void Obj::Set(const V3* p, int n, const V2* q) {
     d->z = p->z;
     *b = n;
     *c = *q;
-    Update();
+    Update_0008ef00();
 }
 
 

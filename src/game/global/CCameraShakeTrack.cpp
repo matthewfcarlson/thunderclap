@@ -12,10 +12,10 @@ namespace fn_f62dad14 {} using namespace fn_f62dad14;
 
 // ---- declarations shared by the functions below
 namespace fn_f62dad14 {
-extern void* g_table_6a2c0;
+extern void* hulk_at_004dcfa0;
 class R_6a340 {
   public:
-    int invoke(CCameraShakeTrack*, hulk_intptr);
+    int invoke_0001f800(CCameraShakeTrack*, hulk_intptr);
 };
 extern "C" R_6a340* FUN_0008d690(int);
 
@@ -32,7 +32,7 @@ void FUN_0006a2a0() {
 // 0x0006a2c0 CCameraShakeTrack::vfunc_0 (16 B): matches/0x0006a2c0.cpp
 // sym: ?vfunc_0@CCameraShakeTrack@@UAEHH@Z
 hulk_intptr CCameraShakeTrack::vfunc_0(int index) {
-    void** p = (void**)g_table_6a2c0;
+    void** p = (void**)hulk_at_004dcfa0;
     return (hulk_intptr)p[index];
 }
 
@@ -100,7 +100,7 @@ hulk_freg CCameraShakeTrack::vfunc_7() {
 hulk_intptr CCameraShakeTrack::vfunc_12(hulk_intptr param) {
     R_6a340* p = FUN_0008d690(0x24);
     if (p)
-        return p->invoke(this, param);
+        return p->invoke_0001f800(this, param);
     return 0;
 }
 

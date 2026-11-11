@@ -26,13 +26,13 @@ class TrackFactoryTemplate_6f390 {
 extern "C" void FUN_0005cf20();
 typedef unsigned int u32_6f3d0;
 struct CGrabTrack_6f3d0 {
-    hulk_uintptr init();
+    hulk_uintptr init_0005b0e0();
 };
-extern int g_vftable_6f3f0;
+extern int hulk_at_003fcfd4;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0005b0b0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -60,7 +60,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CGrabTrack>::vfunc_1(void* _
 template <> void* fight::TrackFactoryTemplate<CGrabTrack>::vfunc_5() {
     CGrabTrack_6f3d0* p = (CGrabTrack_6f3d0*)operator_new(0x50);
     if (p)
-        return (void*)(p->init());
+        return (void*)(p->init_0005b0e0());
     return (void*)(0);
 }
 
@@ -70,9 +70,9 @@ namespace fn_fb7fd81f {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fb7fd81f@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_6f3f0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003fcfd4;
+    base1_dtor_0005b0b0();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

@@ -25,7 +25,7 @@ class TrackFactoryTemplate_57040 {
 };
 extern "C" void FUN_00052b40();
 extern "C" void* __cdecl Allocate(unsigned int);
-extern "C" int AxisVtable_57080;
+extern "C" int hulk_at_003f6e7c;
 class CAxisSpeedCondition_57080 {
   public:
     virtual void V0();
@@ -33,13 +33,13 @@ class CAxisSpeedCondition_57080 {
     virtual void V2();
     virtual void V3();
     int a, b, c, d, e;
-    void Initialize(int);
+    void Initialize_00234590(int);
 };
-extern int g_vftable_570c0;
+extern int hulk_at_003f9160;
 struct ConditionFactoryTemplate_570c0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_000486f0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -67,9 +67,9 @@ template <> void* fight::ConditionFactoryCasterTemplate<CAxisSpeedCondition>::vf
 template <> void* fight::ConditionFactoryTemplate<CAxisSpeedCondition>::vfunc_5() {
     CAxisSpeedCondition_57080* p = (CAxisSpeedCondition_57080*)Allocate(0x18);
     if (p) {
-        p->Initialize(0);
+        p->Initialize_00234590(0);
         p->c = 0;
-        *(hulk_intptr*)p = (hulk_intptr)&AxisVtable_57080;
+        *(hulk_intptr*)p = (hulk_intptr)&hulk_at_003f6e7c;
         p->d = 4;
         p->e = 0;
         return (void*)(p);
@@ -83,9 +83,9 @@ namespace fn_f38214e1 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_570c0@fn_f38214e1@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_570c0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_570c0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_003f9160;
+    base1_dtor_000486f0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

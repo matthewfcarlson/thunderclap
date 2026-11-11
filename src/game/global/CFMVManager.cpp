@@ -246,7 +246,7 @@ class Function_1b7c90 {
     virtual void vfunc_1();
     virtual void vfunc_2(CFMVManager_1b7c90*, float*, void*);
 };
-extern void* g_vftable_1b7cd0[];
+extern void* hulk_at_0041dc6c[];
 class Ref_1b7cd0 {
   public:
     virtual void F0();
@@ -257,7 +257,7 @@ class Base_1b7cd0 {
     void* vptr;
     void Fin();
 };
-void Free(void*) throw();
+void Free_0008d330(void*) throw();
 class CFMVManager_1b7cd0 : public Base_1b7cd0 {
   public:
     char pad[8];
@@ -365,10 +365,10 @@ class Thing_1b8350 {
     char b130;
     char p131[3];
     int arg134;
-    void Helper(int, unsigned char);
+    void Helper_001b7f40(int, unsigned char);
     void Run(hulk_intptr, int);
 };
-extern int getval();
+extern int getval_00267f80();
 extern "C" void* FUN_0008d690(unsigned int);
 } // namespace fn_ff8e53b8
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
@@ -516,7 +516,7 @@ namespace fn_ff8e53b8 {
 // 0x001b7cd0 CFMVManager::vfunc_0 (50 B): matches/0x001b7cd0.cpp
 // sym: ?f0@CFMVManager_1b7cd0@fn_ff8e53b8@@QAEPAV12@E@Z
 CFMVManager_1b7cd0* CFMVManager_1b7cd0::f0(unsigned char fl) {
-    vptr = g_vftable_1b7cd0;
+    vptr = hulk_at_0041dc6c;
     _ReadWriteBarrier();
     Ref_1b7cd0* t = mc;
     if (t) {
@@ -524,7 +524,7 @@ CFMVManager_1b7cd0* CFMVManager_1b7cd0::f0(unsigned char fl) {
         t->Release();
     }
     if (fl & 1)
-        Free(this);
+        Free_0008d330(this);
     return this;
 }
 
@@ -771,8 +771,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 
-extern void* VT_Method2[2];
-extern void* VT_Closure2[2];
+extern void* hulk_at_0041dc74[2];
+extern void* hulk_at_0041dcc4[2];
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -791,12 +791,12 @@ class Closure2 : public FUN_001d0480 {
 };
 
 Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)VT_Method2;
+    vfptr = (void*)hulk_at_0041dc74;
     fn = a3;
     f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
     f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e0f0));
     f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e134));
-    vfptr = (void*)VT_Closure2;
+    vfptr = (void*)hulk_at_0041dcc4;
     owner = a2;
 }
 } // namespace fn_001b81a0
@@ -849,11 +849,11 @@ namespace fn_ff8e53b8 {
 // sym: ?Run@Thing_1b8350@fn_ff8e53b8@@QAEXHH@Z
 // data: gflag = DAT_004e222c
 void Thing_1b8350::Run(hulk_intptr a, int b) {
-    Helper(a, b114);
+    Helper_001b7f40(a, b114);
     if (inner) {
         flag9 = 0;
         inner->v8();
-        value = getval() + b;
+        value = getval_00267f80() + b;
         (*(unsigned char*)&DAT_004e222c) = 1;
         if (b130 && inner) {
             inner->v10(arg134);

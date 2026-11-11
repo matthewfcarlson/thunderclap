@@ -12,7 +12,7 @@ namespace fn_f2d8fc32 {} using namespace fn_f2d8fc32;
 
 // ---- declarations shared by the functions below
 namespace fn_f2d8fc32 {
-extern int* g_table_6ae50;
+extern int* hulk_at_004dd000;
 class CTrack_6ae80 {
   public:
     virtual void a0();
@@ -32,7 +32,7 @@ class CTrack_6ae80 {
 };
 class Helper_6aec0 {
   public:
-    int go(hulk_intptr);
+    int go_00020b50(hulk_intptr);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
@@ -49,7 +49,7 @@ void FUN_0006ae30() {
 // 0x0006ae50 CDeathTrack::vfunc_0 (16 B): matches/0x0006ae50.cpp
 // sym: ?vfunc_0@CDeathTrack@@UAEHH@Z
 hulk_intptr CDeathTrack::vfunc_0(int arg) {
-    return g_table_6ae50[arg];
+    return hulk_at_004dd000[arg];
 }
 
 
@@ -109,7 +109,7 @@ hulk_freg CDeathTrack::vfunc_7() {
 hulk_intptr CDeathTrack::vfunc_12(hulk_intptr a) {
     void* p = FUN_0008d690(0x20);
     if (p)
-        return ((Helper_6aec0*)p)->go(a);
+        return ((Helper_6aec0*)p)->go_00020b50(a);
     return 0;
 }
 

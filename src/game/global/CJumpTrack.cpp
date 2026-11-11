@@ -12,7 +12,7 @@ namespace fn_f3ca8e6b {} using namespace fn_f3ca8e6b;
 
 // ---- declarations shared by the functions below
 namespace fn_f3ca8e6b {
-extern int* g_table_68fb0;
+extern int* hulk_at_004dcf20;
 class CTrack_69130 {
   public:
     virtual void v0();
@@ -54,10 +54,10 @@ class Obj_69370 {
     int d;
     hulk_freg f(int);
 };
-float callee(int, int, int, int, int);
+float callee_000963c0(int, int, int, int, int);
 class Alloc_693d0 {
   public:
-    int call(CJumpTrack*, hulk_intptr);
+    int call_00018ca0(CJumpTrack*, hulk_intptr);
 };
 extern "C" int __cdecl FUN_0008d690(int);
 
@@ -74,7 +74,7 @@ void FUN_00068f90() {
 // 0x00068fb0 CJumpTrack::vfunc_0 (16 B): matches/0x00068fb0.cpp
 // sym: ?vfunc_0@CJumpTrack@@UAEHH@Z
 hulk_intptr CJumpTrack::vfunc_0(int index) {
-    return g_table_68fb0[index];
+    return hulk_at_004dcf20[index];
 }
 
 
@@ -327,7 +327,7 @@ hulk_freg Curve_692c0::FUN_000692c0(float t) {
 // 0x00069370 FUN_00069370 (32 B): matches/0x00069370.cpp
 // sym: ?f@Obj_69370@fn_f3ca8e6b@@QAEMH@Z
 hulk_freg Obj_69370::f(int x) {
-    return callee(b, a, d, c, x);
+    return callee_000963c0(b, a, d, c, x);
 }
 
 
@@ -347,7 +347,7 @@ double __stdcall target(float a, float b) {
 hulk_intptr CJumpTrack::vfunc_12(hulk_intptr param) {
     hulk_intptr x = FUN_0008d690(0x3c);
     if (x)
-        return ((Alloc_693d0*)x)->call(this, param);
+        return ((Alloc_693d0*)x)->call_00018ca0(this, param);
     return 0;
 }
 

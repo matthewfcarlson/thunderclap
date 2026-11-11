@@ -9,7 +9,7 @@
 #include "gen/owners.h"
 class Writer_1cb0a0 {
   public:
-    void Close();
+    void Close_001d1d10();
 };
 class Mgr_1cb0a0 {
   public:
@@ -17,7 +17,7 @@ class Mgr_1cb0a0 {
 };
 class Info_1cb0a0 {
   public:
-    const char* Name();
+    const char* Name_00036d00();
 };
 class Look_1cb0a0 {
   public:
@@ -37,16 +37,16 @@ bool owners::Actor_1cb0a0::FUN_001cb0a0() {
     World* g = DAT_004dd700;
     int id = mId;
     if (!g) {
-        w->Close();
+        w->Close_001d1d10();
         return false;
     }
     Look_1cb0a0* l = g->look;
     Info_1cb0a0* i = ((Info_1cb0a0 *)((owners::ThisWrap_00059c10 *)l)->FUN_00059c10((void *)(hulk_uintptr)(int)id));
     if (i)
-        ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"actor", (hulk_uintptr)(i->Name()));
+        ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"actor", (hulk_uintptr)(i->Name_00036d00()));
     else
         ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"actor", (hulk_uintptr)"UNKNOWN");
-    w->Close();
+    w->Close_001d1d10();
     return true;
 }
 

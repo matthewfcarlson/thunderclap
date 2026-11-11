@@ -10,7 +10,7 @@ namespace fn_f47061e1 {} using namespace fn_f47061e1;
 
 // ---- declarations shared by the functions below
 namespace fn_f47061e1 {
-extern void* gA_1fcc0[];
+extern void* hulk_at_003f3390[];
 class Ref_1fcc0 {
   public:
     virtual void F0();
@@ -100,7 +100,7 @@ COrientTargetAction_1fcc0::~COrientTargetAction_1fcc0() {
         m28->Release();
         m28 = 0;
     }
-    vptr = gA_1fcc0;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();

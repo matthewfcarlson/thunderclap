@@ -69,7 +69,7 @@ class Actor_aed50 {
   public:
     void invoke(const char*, unsigned char);
 };
-extern "C" unsigned char ReadFlag(const char*);
+extern "C" unsigned char ReadFlag_001d04d0(const char*);
 class Function_aed70 {
   public:
     Function_aed70(void*, int);
@@ -86,8 +86,8 @@ class Method1_aed70 : public Function_aed70 {
   public:
     Method1_aed70(void* a, void* c) : Function_aed70(a, 1) {
         p = c;
-        y = ReadFlag(((const char*)&DAT_0048e100));
-        x = ReadFlag(((const char*)&DAT_0048e0e4));
+        y = ReadFlag_001d04d0(((const char*)&DAT_0048e100));
+        x = ReadFlag_001d04d0(((const char*)&DAT_0048e0e4));
     }
     virtual void v();
 };
@@ -101,7 +101,7 @@ class Actor_aede0 {
   public:
     void fn(unsigned char);
 };
-extern void* refVtable_af0d0;
+extern void* hulk_at_003f6098;
 struct Obj_af0d0 {
     void** vf;
     char pad[4];
@@ -166,7 +166,7 @@ class IRefCount {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_00405d64[];
 namespace pure3d {
 class NonCopyable : public IRefCount {
   public:
@@ -177,7 +177,7 @@ class NonCopyable : public IRefCount {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_00405d64;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -560,7 +560,7 @@ void __fastcall target(Obj_af0d0* self) {
     self->p;
     self->vf = (void**)&gameVtable;
     self->p->b();
-    self->vf = (void**)&refVtable_af0d0;
+    self->vf = (void**)&hulk_at_003f6098;
 }
 
 } // namespace fn_f57ff923

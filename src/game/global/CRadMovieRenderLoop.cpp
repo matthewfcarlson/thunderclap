@@ -134,7 +134,7 @@ struct Ent_1b7290 {
 };
 struct Buf_1b7290 {
     Ent_1b7290 e[1];
-    Buf_1b7290* Init();
+    Buf_1b7290* Init_001b6ed0();
 };
 struct Obj_1b7290 {
     char pad[0x124];
@@ -178,13 +178,13 @@ struct Obj_1b7590 {
 };
 extern void __cdecl thunk(u32_1b7590);
 struct Inner_1b7590 {
-    void method(int);
+    void method_001bf860(int);
 };
 struct Global_1b7590 {
     char pad[0x50];
     Inner_1b7590* value;
 };
-extern Global_1b7590* g_1b7590;
+extern Global_1b7590* hulk_at_004dd700;
 class Ref_1b75d0 {
   public:
     virtual void F();
@@ -224,7 +224,7 @@ class Owner_1b76c0 {
 };
 typedef unsigned int u32_1b7740;
 extern "C" int __cdecl alloc(hulk_intptr);
-extern int movieVtable;
+extern int hulk_at_0041dc30;
 struct Inner_1b7740 {
     virtual void a();
     virtual void b();
@@ -239,7 +239,7 @@ struct Made_1b7740 {
     Inner_1b7740* p;
 };
 struct Shader_nv_1b7740 {
-    Made_1b7740* make();
+    Made_1b7740* make_0028edb0();
 };
 struct CRadMovieRenderLoop_1b7740 {
     hulk_uintptr vptr;
@@ -259,11 +259,11 @@ class Obj3_1b77e0 : public RC {
 };
 class Res_1b77e0 : public RC {};
 struct CRadMovieRenderLoop_nv_1b77e0 {
-    CRadMovieRenderLoop* Init();
+    CRadMovieRenderLoop* Init_001b7740();
 };
 class Mgr_1b77e0 {
   public:
-    void Fn();
+    void Fn_002088a0();
 };
 class Target_1b77e0 {
   public:
@@ -275,10 +275,10 @@ class Target_1b77e0 {
     char pad2[4];
     RC* mSub;
 };
-void* __cdecl Alloc(int size, int tag);
+void* __cdecl Alloc_0008d710(int size, int tag);
 extern "C" int __cdecl FUN_00266da0(int a);
 extern "C" RC* __cdecl FUN_00334910(int a);
-Obj3_1b77e0* __cdecl GetB(int a);
+Obj3_1b77e0* __cdecl GetB_00334010(int a);
 struct Obj {
     virtual void slot0();
     virtual void slot1();
@@ -552,7 +552,7 @@ namespace fn_fbeebd58 {
 void Obj_1b7290::Add(float a, float b, float c, float d) {
     if (!buf) {
         void* m = Alloc(0x504);
-        buf = m ? ((Buf_1b7290*)m)->Init() : 0;
+        buf = m ? ((Buf_1b7290*)m)->Init_001b6ed0() : 0;
     }
     Buf_1b7290* p = buf;
     int* cnt = (int*)p;
@@ -652,7 +652,7 @@ void __fastcall target(Obj_1b7590* p) {
         p->field = 0;
     }
     p->field = 0;
-    g_1b7590->value->method(1);
+    hulk_at_004dd700->value->method_001bf860(1);
 }
 
 
@@ -706,13 +706,13 @@ Owner_1b76c0* Owner_1b76c0::Set(Ref_1b76c0* r) {
 // 0x001b7740 FUN_001b7740 (72 B): matches/0x001b7740.cpp
 // sym: ?FUN_001b7740@fn_fbeebd58@@YIPAUCRadMovieRenderLoop_1b7740@1@PAU21@@Z
 CRadMovieRenderLoop_1b7740* __fastcall FUN_001b7740(CRadMovieRenderLoop_1b7740* self) {
-    self->vptr = (hulk_uintptr)&movieVtable;
+    self->vptr = (hulk_uintptr)&hulk_at_0041dc30;
     self->state = -2;
     self->zero = 0;
     hulk_intptr t = alloc(32);
     Made_1b7740* m;
     if (t)
-        m = ((Shader_nv_1b7740*)(((pure3d::Shader*)(((pure3d::Shader*)t)))))->make();
+        m = ((Shader_nv_1b7740*)(((pure3d::Shader*)(((pure3d::Shader*)t)))))->make_0028edb0();
     else
         m = 0;
     self->made = m;
@@ -731,7 +731,7 @@ class RenderThing_1b7790 {
     virtual void f1();
 };
 extern int rad_vtable;
-extern int ref_vtable;
+extern int hulk_at_003f6098;
 class CRadMovieRenderLoop {
   public:
     virtual void vfunc_0();
@@ -741,13 +741,13 @@ class CRadMovieRenderLoop {
     char pad[8];
     RenderThing_1b7790* member;
 };
-extern void destroy(CRadMovieRenderLoop*);
+extern void destroy_0008d330(CRadMovieRenderLoop*);
 CRadMovieRenderLoop* CRadMovieRenderLoop::vfunc_2(unsigned char flags) {
     *(hulk_intptr*)this = (hulk_intptr)&rad_vtable;
     member->f1();
-    *(hulk_intptr*)this = (hulk_intptr)&ref_vtable;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f6098;
     if (flags & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 } // namespace fn_001b7790
@@ -757,12 +757,12 @@ namespace fn_fbeebd58 {
 // 0x001b77e0 FUN_001b77e0 (189 B): matches/0x001b77e0.cpp
 // sym: ?Run@Target_1b77e0@fn_fbeebd58@@QAEXXZ
 void Target_1b77e0::Run() {
-    mMgr->Fn();
+    mMgr->Fn_002088a0();
     int saved = FUN_00266da0(7);
-    void* mem = Alloc(0x10, 7);
+    void* mem = Alloc_0008d710(0x10, 7);
     RC* s;
     if (mem)
-        s = (RC*)((CRadMovieRenderLoop_nv_1b77e0*)(((CRadMovieRenderLoop*)(((CRadMovieRenderLoop*)mem)))))->Init();
+        s = (RC*)((CRadMovieRenderLoop_nv_1b77e0*)(((CRadMovieRenderLoop*)(((CRadMovieRenderLoop*)mem)))))->Init_001b7740();
     else
         s = 0;
     mSub = s;
@@ -771,7 +771,7 @@ void Target_1b77e0::Run() {
     RC* a = FUN_00334910(7);
     if (a)
         a->AddRef();
-    Obj3_1b77e0* nw = GetB(7);
+    Obj3_1b77e0* nw = GetB_00334010(7);
     Obj3_1b77e0* old = mObj;
     if (old != nw) {
         mObj = nw;

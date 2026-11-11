@@ -40,7 +40,7 @@ class COverlayManager {
     Ref_d6e30* b;
     void clear();
 };
-extern void* g_vftable_d6e70[];
+extern void* hulk_at_0040b370[];
 class Ref_d6e70 {
   public:
     void* vptr;
@@ -85,7 +85,7 @@ void COverlayManager::clear() {
 // 0x000d6e70 COverlayManager::vfunc_0 (69 B): matches/0x000d6e70.cpp
 // sym: ?f2@COverlayManager_d6e70@fn_fc6a9358@@QAEPAV12@E@Z
 COverlayManager_d6e70* COverlayManager_d6e70::f2(unsigned char flags) {
-    vptr = g_vftable_d6e70;
+    vptr = hulk_at_0040b370;
     _ReadWriteBarrier();
     if (m4) {
         m4->f1();

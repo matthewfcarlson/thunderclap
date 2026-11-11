@@ -10,14 +10,14 @@
 #include "gen/global.h"
 
 struct CSmartPropThrowingAction_nv_62a00 {
-    int invoke(CSmartPropThrowingTrack*, hulk_intptr);
+    int invoke_0001f2e0(CSmartPropThrowingTrack*, hulk_intptr);
 };
 extern CSmartPropThrowingAction* FUN_0008d690(int);
 
 hulk_intptr CSmartPropThrowingTrack::vfunc_12(hulk_intptr param) {
     CSmartPropThrowingAction* p = FUN_0008d690((int)sizeof(CSmartPropThrowingAction));
     if (p)
-        return ((CSmartPropThrowingAction_nv_62a00*)(((CSmartPropThrowingAction*)(p))))->invoke(this, param);
+        return ((CSmartPropThrowingAction_nv_62a00*)(((CSmartPropThrowingAction*)(p))))->invoke_0001f2e0(this, param);
     return 0;
 }
 

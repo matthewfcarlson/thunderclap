@@ -13,8 +13,8 @@ namespace fn_f51bb478 {
 
 extern "C" void __cdecl FUN_002684c0();
 struct Helper_ae840 {
-    void a();
-    void d();
+    void Fna_000ad960();
+    void Fnd_000ae130();
 };
 struct Obj_ae840 {
     char pad[4];
@@ -23,20 +23,20 @@ struct Obj_ae840 {
     char flags[13];
     char flags2[2];
     void run();
-    void finish();
+    void finish_000ae660();
 };
 void Obj_ae840::run() {
-    p->a();
+    p->Fna_000ad960();
     FUN_002684c0();
     ++(*(int*)&DAT_004dda40);
-    p->d();
+    p->Fnd_000ae130();
     for (int i = 0; i < 13; ++i)
         if (flags[i])
             ((owners::C_ada30 *)p)->FUN_000ada30(i);
     for (int i = 0; i < 2; ++i)
         if (flags2[i])
             ((owners::X_ada50 *)p)->FUN_000ada50(i);
-    finish();
+    finish_000ae660();
 }
 } // namespace fn_f51bb478
 

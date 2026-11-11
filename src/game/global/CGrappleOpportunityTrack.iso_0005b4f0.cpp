@@ -25,22 +25,22 @@ struct ObjB_5b4f0 {
     }
 };
 struct ObjA_5b4f0 {
-    ObjB_5b4f0* GetB();
+    ObjB_5b4f0* GetB_00059a30();
 };
 struct Input_5b4f0 {
-    ObjA_5b4f0* GetA();
+    ObjA_5b4f0* GetA_000592a0();
 };
 struct CIntangibleAction_nv_5b4f0 {
-    CIntangibleAction* Init(int);
+    CIntangibleAction* Init_0001f560(int);
 };
 void* __cdecl FUN_0008d690(int);
 
 hulk_intptr CGrappleIntangibleTrack::vfunc_12(hulk_intptr __p0) { Input_5b4f0 * p = (Input_5b4f0 *)__p0;
 
     if (p) {
-        ObjA_5b4f0* a = p->GetA();
+        ObjA_5b4f0* a = p->GetA_000592a0();
         if (a) {
-            ObjB_5b4f0* b = a->GetB();
+            ObjB_5b4f0* b = a->GetB_00059a30();
             if (b) {
                 Obj_5b4f0* x = b->Get();
                 if (x) {
@@ -48,7 +48,7 @@ hulk_intptr CGrappleIntangibleTrack::vfunc_12(hulk_intptr __p0) { Input_5b4f0 * 
                     if (y) {
                         CIntangibleAction* z = (CIntangibleAction*)FUN_0008d690((int)sizeof(CIntangibleAction));
                         if (z)
-                            return (hulk_intptr)(((CIntangibleAction_nv_5b4f0*)(((CIntangibleAction*)(z))))->Init(y));
+                            return (hulk_intptr)(((CIntangibleAction_nv_5b4f0*)(((CIntangibleAction*)(z))))->Init_0001f560(y));
                     }
                 }
             }

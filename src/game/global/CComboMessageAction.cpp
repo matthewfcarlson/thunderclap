@@ -23,11 +23,11 @@ class Obj {
 };
 class Lookup {
   public:
-    void Get(void**, int);
+    void Get_00025930(void**, int);
 };
 class Sender {
   public:
-    void Send(int, Message*, int, void*, float);
+    void Send_000d4620(int, Message*, int, void*, float);
 };
 class SenderHolder {
   public:
@@ -41,7 +41,7 @@ class Manager {
     char q[0x18];
     SenderHolder* holder;
 };
-extern Manager* gManager;
+extern Manager* hulk_at_004dd700;
 class CComboMessageAction {
   public:
     virtual void f0();
@@ -62,10 +62,10 @@ class CComboMessageAction {
 // sym: ?vfunc_7@CComboMessageAction@fn_fe84ac2c@@UAEDH@Z
 char CComboMessageAction::vfunc_7(int x) {
     Message* message = &obj->message;
-    Manager* mgr = gManager;
+    Manager* mgr = hulk_at_004dd700;
     void* result;
-    mgr->lookup->Get(&result, obj->id);
-    mgr->holder->sender->Send(1, message, -1, result, -1.0f);
+    mgr->lookup->Get_00025930(&result, obj->id);
+    mgr->holder->sender->Send_000d4620(1, message, -1, result, -1.0f);
     return 0;
 }
 

@@ -32,10 +32,10 @@ struct ThisCall_000e9030 {
     void FUN_000e9030();
 };
 extern void thunk_FUN_00267090(FEObject*);
-extern void* FEObject_f1370_vftable[];
+extern void* hulk_at_0040c42c[];
 class FEObject_f1370 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_000e9030(); // FUN_00236d60, __thiscall, this in ecx
 };
 class FEControl_f1370 : public FEObject_f1370 {
   public:
@@ -138,8 +138,8 @@ FEObject* FEObject::vfunc_2(unsigned char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 FEControl_f1370* FEControl_f1370::vfunc_5(signed char flags) {
-    *(void***)this = FEObject_f1370_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040c42c;
+    Destroy_000e9030();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

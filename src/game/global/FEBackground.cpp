@@ -85,7 +85,7 @@ struct Display_d7950 {
 struct FEBackground_nv_d7950 {
     Vec3_d7950* FUN_000e2800(Vec3_d7950* out);
 };
-extern void* g_vftable_d79c0[];
+extern void* hulk_at_0040b494[];
 class Ref_d79c0 {
   public:
     virtual void F0();
@@ -94,7 +94,7 @@ class Ref_d79c0 {
 class FEControl_d79c0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_000e92b0();
 };
 class FEBackground_d79c0 : public FEControl_d79c0 {
   public:
@@ -111,7 +111,7 @@ class Ref_d7ab0 {
 class FEControl_d7ab0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_000e92b0();
 };
 class FEBackground_d7ab0 : public FEControl_d7ab0 {
   public:
@@ -173,13 +173,13 @@ namespace fn_fb027fad {
 // 0x000d79c0 FUN_000d79c0 (42 B): matches/0x000d79c0.cpp
 // sym: ??1FEBackground_d79c0@fn_fb027fad@@QAE@XZ
 FEBackground_d79c0::~FEBackground_d79c0() throw() {
-    vptr = g_vftable_d79c0;
+    vptr = hulk_at_0040b494;
     _ReadWriteBarrier();
     if (m150) {
         m150->Release();
         m150 = 0;
     }
-    Fin();
+    Fin_000e92b0();
 }
 
 } // namespace fn_fb027fad
@@ -306,7 +306,7 @@ FEBackground_d7ab0* FEBackground_d7ab0::f2(unsigned char flags) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_000e92b0();
     if (flags & 1)
         operator delete(this);
     return this;

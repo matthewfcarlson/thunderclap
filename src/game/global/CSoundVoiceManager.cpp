@@ -17,7 +17,7 @@ namespace fn_f7fca51a {} using namespace fn_f7fca51a;
 namespace fn_f7fca51a {
 struct Part_1f2e40 {
     char pad[8];
-    void Reset();
+    void Reset_0027af00();
 };
 struct Thing_1f2e40 {
     Part_1f2e40 a;
@@ -26,7 +26,7 @@ struct Thing_1f2e40 {
     Thing_1f2e40* Reset();
 };
 struct Sub_1f2e60 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_1f2e60 {
     char pad[0x18];
@@ -149,17 +149,17 @@ extern void __cdecl FUN_00247890(int, float);
 extern "C" void __cdecl FUN_002478b0(int, float);
 extern "C" void __cdecl FUN_002478d0(int, int);
 extern "C" void __cdecl FUN_00247900(int, int);
-extern int __cdecl Find(int, int);
-extern void __cdecl Act(int, int, int, int, int);
+extern int __cdecl Find_0024a370(int, int);
+extern void __cdecl Act_0024ac40(int, int, int, int, int);
 typedef unsigned int u32_1f33b0;
-extern u32_1f33b0 __cdecl Find(u32_1f33b0, u32_1f33b0);
+extern u32_1f33b0 __cdecl Find_0024a370(u32_1f33b0, u32_1f33b0);
 extern "C" u32_1f33b0 __cdecl FUN_0024a9c0(u32_1f33b0, u32_1f33b0);
 extern "C" void __cdecl FUN_00247a10(u32_1f33b0);
 extern "C" void __cdecl FUN_00247a20(u32_1f33b0, u32_1f33b0, u32_1f33b0, u32_1f33b0, u32_1f33b0);
 typedef unsigned int u32_1f3400;
-void F249A90(u32_1f3400 a, u32_1f3400* b);
-void F24A800(u32_1f3400 a, int b);
-void F2497E0(u32_1f3400 a);
+void F249A90_00249a90(u32_1f3400 a, u32_1f3400* b);
+void F24A800_0024a800(u32_1f3400 a, int b);
+void F2497E0_002497e0(u32_1f3400 a);
 struct Pair_1f3400 {
     u32_1f3400 x;
     u32_1f3400 y;
@@ -175,16 +175,16 @@ struct Pair_1f3460 {
 };
 extern void __cdecl FUN_00249a90(void*, Pair_1f3460*);
 extern void __cdecl FUN_0024a800(void*, u32_1f3460);
-extern int FindThing(int, int);
-extern void DoThing(int, int, void*);
+extern int FindThing_0024a370(int, int);
+extern void DoThing_00249bd0(int, int, void*);
 typedef unsigned int u32_1f34f0;
 struct H {
-    void Run();
+    void Run_001e8ac0();
 };
-extern void f2(u32_1f34f0);
-extern void f3(u32_1f34f0, u32_1f34f0);
-extern void f4(u32_1f34f0, u32_1f34f0);
-extern void f5(u32_1f34f0);
+extern void f2_002497e0(u32_1f34f0);
+extern void f3_00249a90(u32_1f34f0, u32_1f34f0);
+extern void f4_0024a800(u32_1f34f0, u32_1f34f0);
+extern void f5_0024af00(u32_1f34f0);
 class Obj_1f34f0 {
   public:
     char p0[4];
@@ -253,10 +253,10 @@ class C_1f3800 {
 };
 class S_1f3800 {
   public:
-    void h();
+    void Fnh_0027af50();
 };
 struct Helper_1f3830 {
-    void Run();
+    void Run_0027af50();
 };
 struct Thing_1f3830 {
     char pad[8];
@@ -289,7 +289,7 @@ void FUN_002497e0(void* p);
 struct T_1f3930 {
 };
 extern float gScale_1f3950;
-void __cdecl Apply(int, float);
+void __cdecl Apply_00247890(int, float);
 class Anim_1f3a50 {
 public:
     char pad0[4];
@@ -506,7 +506,7 @@ struct Obj_1f4610 {
     int guard;
     void Fn(char, char, char);
 };
-extern "C" void __cdecl Wait(int, int);
+extern "C" void __cdecl Wait_00247950(int, int);
 class Obj_1f46a0 {
   public:
     char pad0[8];
@@ -559,7 +559,7 @@ public:
 extern "C" char DAT_00424b0c[];
 class Method3_1f4980 {
   public:
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
     hulk_intptr vf;
     ScriptFunctionFields f;  // 0x04
     ScriptMemberFn a;        // 0x1c
@@ -586,7 +586,7 @@ class Method4_1f4aa0 {
     Method4_1f4aa0(const char*, ScriptMemberFn);
 };
 struct ThisCall_001d0480 {
-    void Init(const char*, int);
+    void Init_001d0480(const char*, int);
 };
 extern "C" char __cdecl Get(void*);
 struct CSoundVoiceManager_1f4b30 {};
@@ -602,9 +602,9 @@ class Obj_1f4b60 {
     int c;
     int d;
     char e;
-    void first();
+    void first_0027af00();
 };
-extern int f2(int, int);
+extern int f2_002673a0(int, int);
 struct Name_1f4c50 {
     unsigned int lo, hi;
     unsigned int tail[2];   // (the constructor writes up to 0xb bytes; the original reuses the tail as the ID temporary)
@@ -776,9 +776,9 @@ class Owner_1f6ba0 {
 // 0x001f2e40 FUN_001f2e40 (28 B): matches/0x001f2e40.cpp
 // sym: ?Reset@Thing_1f2e40@fn_f7fca51a@@QAEPAU12@XZ
 Thing_1f2e40* Thing_1f2e40::Reset() {
-    a.Reset();
-    b.Reset();
-    c.Reset();
+    a.Reset_0027af00();
+    b.Reset_0027af00();
+    c.Reset_0027af00();
     return this;
 }
 
@@ -786,9 +786,9 @@ Thing_1f2e40* Thing_1f2e40::Reset() {
 // 0x001f2e60 FUN_001f2e60 (27 B): matches/0x001f2e60.cpp
 // sym: ?run@Obj_1f2e60@fn_f7fca51a@@QAEXXZ
 void Obj_1f2e60::run() {
-    ((Sub_1f2e60*)((char*)this + 0x10))->f();
-    ((Sub_1f2e60*)((char*)this + 8))->f();
-    ((Sub_1f2e60*)this)->f();
+    ((Sub_1f2e60*)((char*)this + 0x10))->Fnf_0027af50();
+    ((Sub_1f2e60*)((char*)this + 8))->Fnf_0027af50();
+    ((Sub_1f2e60*)this)->Fnf_0027af50();
 }
 
 
@@ -979,10 +979,10 @@ int owners::Obj_1f3370::FUN_001f3370(hulk_intptr arg) {
     int p = member;
     if (p == 0)
         return 0;
-    int found = Find(p, ((int)arg));
+    int found = Find_0024a370(p, ((int)arg));
     if (found == 0)
         return 0;
-    Act(member, found, 1, 0, 0);
+    Act_0024ac40(member, found, 1, 0, 0);
     return 1;
 }
 
@@ -990,7 +990,7 @@ int owners::Obj_1f3370::FUN_001f3370(hulk_intptr arg) {
 // 0x001f33b0 FUN_001f33b0 (80 B): matches/0x001f33b0.cpp
 // sym: ?FUN_001f33b0@Obj_1f33b0@owners@@QAEXI@Z
 void owners::Obj_1f33b0::FUN_001f33b0(u32_1f33b0 arg) {
-    u32_1f33b0 x = Find(mArg, arg);
+    u32_1f33b0 x = Find_0024a370(mArg, arg);
     if (x && !mResult) {
         mFlag = 0;
         u32_1f33b0 y = FUN_0024a9c0(mArg, x);
@@ -1008,10 +1008,10 @@ void owners::Obj_1f3400::FUN_001f3400(u32_1f3400 param) {
     if (a != 0) {
         p.x = 0;
         p.y = param;
-        F249A90(a, &p.x);
-        F24A800(a, 0x32);
+        F249A90_00249a90(a, &p.x);
+        F24A800_0024a800(a, 0x32);
         if (b != 0) {
-            F2497E0(b);
+            F2497E0_002497e0(b);
             b = 0;
         }
     }
@@ -1034,12 +1034,12 @@ void __fastcall FUN_001f3460(Target_1f3460* self, void*) {
 // 0x001f34a0 FUN_001f34a0 (68 B): matches/0x001f34a0.cpp
 // sym: ?FUN_001f34a0@Owner_1f34a0@owners@@QAEXHH@Z
 void owners::Owner_1f34a0::FUN_001f34a0(hulk_intptr param2, int param3) {
-    int found = FindThing(value, ((int)param2));
+    int found = FindThing_0024a370(value, ((int)param2));
     if (found != 0) {
         int local[2];
         local[1] = param3;
         local[0] = 0;
-        DoThing(value, found, local);
+        DoThing_00249bd0(value, found, local);
     }
 }
 
@@ -1049,17 +1049,17 @@ namespace fn_f7fca51a {
 // sym: ?Run@Obj_1f34f0@fn_f7fca51a@@QAEXXZ
 void Obj_1f34f0::Run() {
     if (c)
-        ((H*)c)->Run();
+        ((H*)c)->Run_001e8ac0();
     c = 0;
     d = 0;
     if (i) {
-        f2(i);
+        f2_002497e0(i);
         i = 0;
     }
     if (b) {
-        f3(b, 0);
-        f4(b, 0x32);
-        f5(b);
+        f3_00249a90(b, 0);
+        f4_0024a800(b, 0x32);
+        f5_0024af00(b);
         b = 0;
     }
     e = 0;
@@ -1130,16 +1130,16 @@ Holder_1f3780* Holder_1f3780::FUN_001f3780()
 // sym: ?f@C_1f3800@fn_f7fca51a@@QAEXXZ
 // Same code shape as 0x00090470 (propagated; names are from that function)
 void C_1f3800::f() {
-    ((S_1f3800*)((char*)this + 8))->h();
-    ((S_1f3800*)this)->h();
+    ((S_1f3800*)((char*)this + 8))->Fnh_0027af50();
+    ((S_1f3800*)this)->Fnh_0027af50();
 }
 
 
 // 0x001f3830 FUN_001f3830 (40 B): matches/0x001f3830.cpp
 // sym: ?F@Thing_1f3830@fn_f7fca51a@@QAEPAU12@E@Z
 Thing_1f3830* Thing_1f3830::F(unsigned char flags) {
-    sub.Run();
-    ((Helper_1f3830*)this)->Run();
+    sub.Run_0027af50();
+    ((Helper_1f3830*)this)->Run_0027af50();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -1151,22 +1151,22 @@ Thing_1f3830* Thing_1f3830::F(unsigned char flags) {
 // sym: ?FUN_001f3860@CSoundSequenceVoice@fn_001f3860@@QAEPAU12@E@Z
 namespace fn_001f3860 {
 typedef unsigned char byte_1f3860;
-extern void __cdecl release(void*);
-extern void __cdecl destroy(void*);
-extern int vtable_1f3860;
+extern void __cdecl release_0024af00(void*);
+extern void __cdecl destroy_0008d330(void*);
+extern int hulk_at_00424ae4;
 struct CSoundSequenceVoice {
     int* vf;
     void* m;
     CSoundSequenceVoice* FUN_001f3860(byte_1f3860);
 };
 CSoundSequenceVoice* CSoundSequenceVoice::FUN_001f3860(byte_1f3860 flags) {
-    vf = &vtable_1f3860;
+    vf = &hulk_at_00424ae4;
     if (m) {
-        release(m);
+        release_0024af00(m);
         m = 0;
     }
     if (flags & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 } // namespace fn_001f3860
@@ -1217,7 +1217,7 @@ void owners::Obj_1f3950::FUN_001f3950(float value) {
     if (mPtr != 0 && mBusy == 0) {
         int x = *(int*)(mPtr + 4);
         if (x != 0)
-            Apply(x, value * 0.01f);
+            Apply_00247890(x, value * 0.01f);
     }
 }
 
@@ -1230,7 +1230,7 @@ void owners::Thing_1f3990::FUN_001f3990(float x) {
     if (mA && !mB) {
         int v = *(int*)(mA + 4);
         if (v)
-            Apply(v, x * 0.01f);
+            Apply_00247890(v, x * 0.01f);
     }
 }
 
@@ -1769,7 +1769,7 @@ void Obj_1f4610::Fn(char x, char y, char z) {
             } else if (v == d)
                 continue;
             if (v->h)
-                Wait(v->h, 500);
+                Wait_00247950(v->h, 500);
         }
     }
 }
@@ -1846,7 +1846,7 @@ bool Owner_1f47b0::FUN_001f47b0(Key_1f47b0 *key) {
 // 0x001f4980 FUN_001f4980 (89 B): matches/0x001f4980.cpp
 // sym: ?Fn@Method3_1f4980@fn_f7fca51a@@QAEPAV12@PBDP8ScriptBoundClass@@AEXXZ@Z
 Method3_1f4980* Method3_1f4980::Fn(const char* p, ScriptMemberFn v) {
-    Init(p, 3);
+    Init_001d0480(p, 3);
     vf = ((hulk_intptr)DAT_00424b0c);
     a = v;
     f.retType = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e100)));
@@ -1896,7 +1896,7 @@ namespace fn_f7fca51a {
 // 0x001f4aa0 FUN_001f4aa0 (102 B): matches/0x001f4aa0.cpp
 // sym: ??0Method4_1f4aa0@fn_f7fca51a@@QAE@PBDP8ScriptBoundClass@@AEXXZ@Z
 Method4_1f4aa0::Method4_1f4aa0(const char* a, ScriptMemberFn b) {
-    ((ThisCall_001d0480*)(this))->Init(a, 4);
+    ((ThisCall_001d0480*)(this))->Init_001d0480(a, 4);
     vptr = ((hulk_intptr)DAT_00424b2c);
     m1c = b;
     f.retType = Get((void*)((hulk_intptr)((char*)&DAT_0048e100)));
@@ -1929,10 +1929,10 @@ namespace fn_f7fca51a {
 // 0x001f4b60 FUN_001f4b60 (63 B): matches/0x001f4b60.cpp
 // sym: ?target@fn_f7fca51a@@YIPAVObj_1f4b60@1@PAV21@PAX@Z
 Obj_1f4b60* __fastcall target(Obj_1f4b60* self, void*) {
-    self->first();
+    self->first_0027af00();
     ((owners::Pair_27af60 *)self)->FUN_0027af60(0, 0);
     self->a = 0;
-    self->b = f2(0, 0);
+    self->b = f2_002673a0(0, 0);
     self->c = 999;
     self->d = 0;
     self->e = 0;

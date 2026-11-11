@@ -13,7 +13,7 @@ namespace fn_f0e6ff5d {} using namespace fn_f0e6ff5d;
 namespace fn_f0e6ff5d {
 class Inner_93570 {
   public:
-    void Reset();
+    void Reset_0027af50();
 };
 class CUnlockableMovie_93570 {
   public:
@@ -31,7 +31,7 @@ CUnlockableMovie_93570::~CUnlockableMovie_93570() {
         FreeMem(mPtr18);
         mPtr18 = 0;
     }
-    ((Inner_93570*)((char*)this + 0x10))->Reset();
+    ((Inner_93570*)((char*)this + 0x10))->Reset_0027af50();
 }
 
 } // namespace fn_f0e6ff5d

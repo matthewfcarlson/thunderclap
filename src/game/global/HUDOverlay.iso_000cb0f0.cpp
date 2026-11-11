@@ -18,11 +18,11 @@ class Target {
 };
 class Obj {
   public:
-    void Fn(int a, int b, Vec3 v);
+    void Fn_000c92f0(int a, int b, Vec3 v);
 };
 void Target::Fn(int a, int b, Vec3 v) {
     if (obj)
-        obj->Fn(a, b, v);
+        obj->Fn_000c92f0(a, b, v);
 }
 } // namespace fn_fa4c16dd
 
