@@ -146,7 +146,7 @@ ProximityLight* ProximityLight::vfunc_2(unsigned char flag) {
 
 
 // 0x002c3d60 pure3d::ProximityLight::vfunc_9 (170 B): equivalent/0x002c3d60.cpp [wrapped: conflict: pure3d::ProximityLight]
-// sym: ?vfunc_9@ProximityLight@pure3d@fn_002c3d60@@UAEXI@Z
+// sym: ?vfunc_9@ProximityLight@pure3d@fn_002c3d60@@UAEXI@Z @bbcd7a2cb79b @w099a624701fe
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

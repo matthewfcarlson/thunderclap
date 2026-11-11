@@ -196,7 +196,7 @@ bool pure3d::PNGHandler::vfunc_8(int x) {
 namespace fn_f4f469f6 {
 
 // 0x002ad820 FUN_002ad820 (421 B): equivalent/0x002ad820.cpp
-// sym: _FUN_002ad820
+// sym: _FUN_002ad820 @3d978ea1f628 @w06ba24c5ac0d
 // STATUS: equivalent (tools/equiv.py level 3: 20 inputs, branch coverage 18/18)
 // FUN_002ad820 @ 0x002ad820
 // equiv-conv: FUN_002ad820 eax stack stack
@@ -241,7 +241,7 @@ extern "C" void FUN_002ad820(void *info, void *png, void *sink)
 
 
 // 0x002ad9d0 FUN_002ad9d0 (305 B): equivalent/0x002ad9d0.cpp
-// sym: _FUN_002ad9d0
+// sym: _FUN_002ad9d0 @58da65677cfb @w7d0665a49cd9
 // STATUS: equivalent (tools/equiv.py level 3: 20 inputs, branch coverage 14/14)
 // FUN_002ad9d0 @ 0x002ad9d0
 // FUN_002ad9d0 @ 0x002ad9d0
@@ -285,7 +285,7 @@ extern "C" void FUN_002ad9d0(void *png, void *info, void *sink)
 } // namespace fn_f4f469f6
 
 // 0x002adb10 FUN_002adb10 (144 B): equivalent/0x002adb10.cpp [wrapped: conflict: FUN_00266f00]
-// sym: ?FUN_002adb10@fn_002adb10@@YAHHPAXPAUOutput_2adb10@1@@Z
+// sym: ?FUN_002adb10@fn_002adb10@@YAHHPAXPAUOutput_2adb10@1@@Z @35ba1c28e1ff @w9d3a6d864002
 namespace fn_002adb10 {
 // STATUS: equivalent (tools/equiv.py level 3: 151 inputs, branch coverage 4/4)
 // FUN_002adb10 @ 0x002adb10
@@ -323,7 +323,7 @@ int FUN_002adb10(hulk_intptr index, void* source, Output_2adb10* output) {
 
 
 // 0x002adba0 pure3d::PNGHandler::vfunc_9 (497 B): equivalent/0x002adba0.cpp
-// sym: ?vfunc_9@PNGHandler@pure3d@@UAEXHH@Z
+// sym: ?vfunc_9@PNGHandler@pure3d@@UAEXHH@Z @2b4a91310fce @wc63b49c3d4a6
 // STATUS: equivalent (tools/equiv.py level 3: 20085 inputs, branch coverage 32/32)
 // pure3d::PNGHandler::vfunc_9 @ 0x002adba0
 // pure3d::PNGHandler::vfunc_9 @ 0x002adba0

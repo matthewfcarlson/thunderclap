@@ -4,7 +4,7 @@
 
 
 // 0x003355e0 FUN_003355e0 (84 B): equivalent/0x003355e0.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_003355e0@Owner@fn_fb185358@@QAE_NHPAD@Z
+// sym: ?FUN_003355e0@Owner@fn_fb185358@@QAE_NHPAD@Z @69dc5550f762 @w7f3cc9130578
 #include "gen/owners.h"
 namespace fn_fb185358 {} using namespace fn_fb185358;
 namespace fn_fb185358 {

@@ -42,7 +42,7 @@ public:
 
 
 // 0x00234b20 fight::ParamValueStringList::vfunc_5 (121 B): equivalent/0x00234b20.cpp
-// sym: ?vfunc_5@ParamValueStringList@fight@fn_fff40009@@UAE_NPAX0PAVReader@3@@Z
+// sym: ?vfunc_5@ParamValueStringList@fight@fn_fff40009@@UAE_NPAX0PAVReader@3@@Z @3ade8aba0170 @w6bac13422216
 // STATUS: equivalent (tools/equiv.py level 3: 9091 inputs, branch coverage 2/2)
 // fight::ParamValueStringList::vfunc_5 @ 0x00234b20
 bool fight::ParamValueStringList::vfunc_5(void* a, void* unused, Reader* reader) {

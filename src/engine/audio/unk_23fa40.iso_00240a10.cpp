@@ -4,7 +4,7 @@
 
 
 // 0x00240a10 FUN_00240a10 (410 B): equivalent/0x00240a10.cpp [isolated: code differs from its standalone build]
-// sym: _FUN_00240a10
+// sym: _FUN_00240a10 @f957e11d064d @wef1cf6585a8f
 #include "gen/owners.h"
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"

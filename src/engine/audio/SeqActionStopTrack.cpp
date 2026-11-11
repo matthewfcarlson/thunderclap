@@ -315,7 +315,7 @@ SeqEventStopTrack* SeqEventStopTrack::f4_impl(unsigned char flags) {
 } // namespace fn_fe889925
 
 // 0x00251060 audio::SeqEventStopTrack::vfunc_1 (181 B): equivalent/0x00251060.cpp [wrapped: conflict: FUN_00250ef0; audio::SeqEvent; audio::SeqEventStopTrack]
-// sym: ?vfunc_1@SeqEventStopTrack@audio@fn_00251060@@UAEHPAPAUStream@3@@Z
+// sym: ?vfunc_1@SeqEventStopTrack@audio@fn_00251060@@UAEHPAPAUStream@3@@Z @91cd684903a6 @w8d2dcf82c317
 namespace fn_00251060 {
 // STATUS: equivalent (tools/equiv.py level 3: 1600 inputs, branch coverage 14/14)
 // audio::SeqEventStopTrack::vfunc_1 @ 0x00251060
@@ -401,7 +401,7 @@ SeqAction* audio::SeqActionStopTrack::vfunc_0(int flags) {
 
 
 // 0x00251170 audio::SeqActionStopTrack::vfunc_1 (366 B): equivalent/0x00251170.cpp
-// sym: ?vfunc_1@SeqActionStopTrack@audio@@UAEXPAX@Z
+// sym: ?vfunc_1@SeqActionStopTrack@audio@@UAEXPAX@Z @6d3c301b918f @wd1aac0ffbcc0
 // STATUS: equivalent (tools/equiv.py level 3: 2971 inputs, branch coverage 26/26)
 // audio::SeqActionStopTrack::vfunc_1 @ 0x00251170
 void audio::SeqActionStopTrack::vfunc_1(void* __p0) { Ctx_251170 * ctx = (Ctx_251170 *)__p0;

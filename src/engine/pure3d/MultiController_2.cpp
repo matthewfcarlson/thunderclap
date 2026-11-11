@@ -206,7 +206,7 @@ hulk_freg pure3d::MultiController::vfunc_21() {
 
 
 // 0x002b1990 pure3d::MultiController::vfunc_12 (228 B): equivalent/0x002b1990.cpp [wrapped: conflict: pure3d::MultiController]
-// sym: ?vfunc_12@MultiController@pure3d@fn_002b1990@@UAEHM@Z
+// sym: ?vfunc_12@MultiController@pure3d@fn_002b1990@@UAEHM@Z @5a6f64e9a920 @w1df98353a8d4
 namespace fn_002b1990 {
 // STATUS: equivalent (tools/equiv.py level 3: 148 inputs, branch coverage 16/16)
 // pure3d::MultiController::vfunc_12 @ 0x002b1990
@@ -239,7 +239,7 @@ int MultiController::vfunc_12(float frame) {
 
 
 // 0x002b1a80 pure3d::MultiController::vfunc_14 (271 B): equivalent/0x002b1a80.cpp
-// sym: ?vfunc_14@MultiController@pure3d@@UAEXMM@Z
+// sym: ?vfunc_14@MultiController@pure3d@@UAEXMM@Z @731cce562998 @wf172b5aa77e3
 // STATUS: equivalent (tools/equiv.py level 3: 147 inputs, branch coverage 17/18, incomplete)
 // pure3d::MultiController::vfunc_14 @ 0x002b1a80
 void pure3d::MultiController::vfunc_14(float first, float last) {
@@ -294,7 +294,7 @@ int pure3d::MultiController::vfunc_19() {
 
 
 // 0x002b1c40 pure3d::MultiController::vfunc_20 (300 B): equivalent/0x002b1c40.cpp
-// sym: ?vfunc_20@MultiController@pure3d@@UAEMXZ
+// sym: ?vfunc_20@MultiController@pure3d@@UAEMXZ @ac6e997a2a42 @w58ede6f90516
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 30/30)
 // pure3d::MultiController::vfunc_20 @ 0x002b1c40
 hulk_freg pure3d::MultiController::vfunc_20() {
@@ -398,7 +398,7 @@ bool pure3d::MultiController::f22() {
 
 
 // 0x002b1df0 pure3d::MultiController::vfunc_23 (171 B): equivalent/0x002b1df0.cpp
-// sym: ?vfunc_23@MultiController@pure3d@@UAEXXZ
+// sym: ?vfunc_23@MultiController@pure3d@@UAEXXZ @634faccf1222 @w2c3cd3a20891
 // STATUS: equivalent (tools/equiv.py level 3: 144 inputs, branch coverage 6/6)
 // pure3d::MultiController::vfunc_23 @ 0x002b1df0
 void pure3d::MultiController::vfunc_23() {
@@ -418,7 +418,7 @@ void pure3d::MultiController::vfunc_23() {
 namespace fn_f5757c83 {
 
 // 0x002b1eb0 FUN_002b1eb0 (150 B): equivalent/0x002b1eb0.cpp
-// sym: ?FUN_002b1eb0@Mixer@fn_f5757c83@@QAEXPAVChild_2b1eb0@2@@Z
+// sym: ?FUN_002b1eb0@Mixer@fn_f5757c83@@QAEXPAVChild_2b1eb0@2@@Z @95fa35182fa4 @wa5905199f793
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 12/12)
 // FUN_002b1eb0 @ 0x002b1eb0
 void Mixer::FUN_002b1eb0(Child_2b1eb0 *child)
@@ -447,7 +447,7 @@ void Mixer::FUN_002b1eb0(Child_2b1eb0 *child)
 } // namespace fn_f5757c83
 
 // 0x002b2040 pure3d::MultiController::vfunc_7 (147 B): equivalent/0x002b2040.cpp [wrapped: conflict: pure3d::MultiController]
-// sym: ?vfunc_7@MultiController@pure3d@fn_002b2040@@UAEXXZ
+// sym: ?vfunc_7@MultiController@pure3d@fn_002b2040@@UAEXXZ @b30fb8682c93 @w3628c9192c4f
 namespace fn_002b2040 {
 // STATUS: equivalent (tools/equiv.py level 3: 18370 inputs, branch coverage 6/6)
 // pure3d::MultiController::vfunc_7 @ 0x002b2040

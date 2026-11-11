@@ -4,7 +4,7 @@
 
 
 // 0x00335dd0 FUN_00335dd0 (129 B): equivalent/0x00335dd0.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_00335dd0@Table_335dd0@fn_f7c20245@@QAE_NHHPAH00@Z
+// sym: ?FUN_00335dd0@Table_335dd0@fn_f7c20245@@QAE_NHHPAH00@Z @bc58c5b77045 @w00b8a0a5006c
 #include "gen/owners.h"
 namespace fn_f7c20245 {} using namespace fn_f7c20245;
 namespace fn_f7c20245 {

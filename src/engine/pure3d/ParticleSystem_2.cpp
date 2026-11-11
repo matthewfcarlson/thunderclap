@@ -257,7 +257,7 @@ void ParticleSystem::vfunc_6(void* a, int b) {
 
 
 // 0x002a3740 pure3d::ParticleSystem::vfunc_7 (34 B): equivalent/0x002a3740.cpp [wrapped: conflict: pure3d::DrawableContainer; pure3d::ParticleSystem]
-// sym: ?vfunc_7@ParticleSystem@pure3d@fn_002a3740@@QAEXXZ
+// sym: ?vfunc_7@ParticleSystem@pure3d@fn_002a3740@@QAEXXZ @fc3f24fb87a9 @w61b30096e132
 namespace fn_002a3740 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // pure3d::ParticleSystem::vfunc_7 @ 0x002a3740
@@ -348,7 +348,7 @@ int ParticleSystem::vfunc_18(int index) {
 
 
 // 0x002a37b0 pure3d::ParticleSystem::vfunc_17 (46 B): equivalent/0x002a37b0.cpp [wrapped: conflict: pure3d::DrawableContainer; pure3d::ParticleSystem]
-// sym: ?vfunc_17@ParticleSystem@pure3d@fn_002a37b0@@QAEXHH@Z
+// sym: ?vfunc_17@ParticleSystem@pure3d@fn_002a37b0@@QAEXHH@Z @42467b477c7a @wde3fd3b616fb
 namespace fn_002a37b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // pure3d::ParticleSystem::vfunc_17 @ 0x002a37b0
@@ -393,7 +393,7 @@ ParticleSystem_2a3950::~ParticleSystem_2a3950() throw() {
 } // namespace fn_f1899950
 
 // 0x002a39a0 pure3d::ParticleSystem::vfunc_8 (312 B): equivalent/0x002a39a0.cpp [wrapped: macros]
-// sym: ?run@ParticleSystem@fn_002a39a0@@QAEXPAURenderer_2a39a0@2@H@Z
+// sym: ?run@ParticleSystem@fn_002a39a0@@QAEXPAURenderer_2a39a0@2@H@Z @20dbfe4b85dd @w7b17b3df77ea
 namespace fn_002a39a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 112 inputs, branch coverage 18/18)
 // pure3d::ParticleSystem::vfunc_8 @ 0x002a39a0
@@ -641,7 +641,7 @@ void Owner::Run(int x) {
 
 
 // 0x002a3c80 FUN_002a3c80 (58 B): equivalent/0x002a3c80.cpp
-// sym: ?FUN_002a3c80@Owner@fn_f1899950@@QAEXPAVItem@2@@Z
+// sym: ?FUN_002a3c80@Owner@fn_f1899950@@QAEXPAVItem@2@@Z @399694e73503 @w9e5b535f1127
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002a3c80 @ 0x002a3c80
 void Owner::FUN_002a3c80(Item *next) {
@@ -698,7 +698,7 @@ ParticleSystem* ParticleSystem::vfunc_2(unsigned char p) {
 
 
 // 0x002a3d90 FUN_002a3d90 (135 B): equivalent/0x002a3d90.cpp [wrapped: conflict: pure3d::ParticleSystem]
-// sym: ??0ParticleSystem@pure3d@fn_002a3d90@@QAE@PBV012@@Z
+// sym: ??0ParticleSystem@pure3d@fn_002a3d90@@QAE@PBV012@@Z @9a6e0180f5c4 @we399a3bc6a43
 namespace fn_002a3d90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_002a3d90 @ 0x002a3d90

@@ -4,7 +4,7 @@
 
 
 // 0x00336dd0 FUN_00336dd0 (214 B): equivalent/0x00336dd0.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_00336dd0@Data_336dd0@fn_fc5223e4@@QAEXXZ
+// sym: ?FUN_00336dd0@Data_336dd0@fn_fc5223e4@@QAEXXZ @203a192e0f42 @w51211cc15820
 #include "gen/owners.h"
 #include "decls/data/engine/movie.h"
 namespace fn_fc5223e4 {} using namespace fn_fc5223e4;

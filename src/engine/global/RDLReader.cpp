@@ -44,7 +44,7 @@ void thunk_FUN_00267090(void*);
 } // namespace fn_f3d8c179
 
 // 0x0027ab90 FUN_0027ab90 (159 B): equivalent/0x0027ab90.cpp [wrapped: conflict: RDLReader]
-// sym: ??0RDLReader@fn_0027ab90@@QAE@PBD@Z
+// sym: ??0RDLReader@fn_0027ab90@@QAE@PBD@Z @164c62844621 @wfb48624c88b6
 namespace fn_0027ab90 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_0027ab90 @ 0x0027ab90
@@ -115,7 +115,7 @@ RDLReader::RDLReader(const char *name)
 
 
 // 0x0027ac30 FUN_0027ac30 (192 B): equivalent/0x0027ac30.cpp [wrapped: conflict: RDLReader]
-// sym: ?FUN_0027ac30@RDLReader@fn_0027ac30@@QAE_NPAPAD@Z
+// sym: ?FUN_0027ac30@RDLReader@fn_0027ac30@@QAE_NPAPAD@Z @288887fe0251 @w5070bbbd0c83
 namespace fn_0027ac30 {
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 24/30, incomplete)
 // FUN_0027ac30 @ 0x0027ac30
@@ -174,7 +174,7 @@ bool RDLReader::FUN_0027ac30(char **out)
 
 
 // 0x0027acf0 FUN_0027acf0 (244 B): equivalent/0x0027acf0.cpp
-// sym: ?FUN_0027acf0@ConfigParser_27acf0@owners@@QAE_NPAPAD0@Z
+// sym: ?FUN_0027acf0@ConfigParser_27acf0@owners@@QAE_NPAPAD0@Z @e8ef4523ff87 @w06815e9e4be7
 // STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 31/38, incomplete)
 // FUN_0027acf0 @ 0x0027acf0
 bool owners::ConfigParser_27acf0::FUN_0027acf0(char** outKey, char** outValue) {
@@ -204,7 +204,7 @@ bool owners::ConfigParser_27acf0::FUN_0027acf0(char** outKey, char** outValue) {
 
 
 // 0x0027adf0 RDLReader::vfunc_0 (154 B): equivalent/0x0027adf0.cpp
-// sym: ?vfunc_0@RDLReader@@UAEXH@Z
+// sym: ?vfunc_0@RDLReader@@UAEXH@Z @ef485d580f8e @w8c6625d1fb7c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // RDLReader::vfunc_0 @ 0x0027adf0
 void RDLReader::vfunc_0(hulk_intptr __p0) { const char * path = (const char *)__p0;

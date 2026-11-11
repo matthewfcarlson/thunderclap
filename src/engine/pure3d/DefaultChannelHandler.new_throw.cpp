@@ -78,7 +78,7 @@ struct Frame_28ea80 {
 
 
 // 0x0028ea80 FUN_0028ea80 (432 B): equivalent/0x0028ea80.cpp
-// sym: ?FUN_0028ea80@fn_fdd12815@@YGPAUEntityChannel_28ea80@1@PAUReader@1@PAVLoadContext_28ea80@1@PAVParent_28ea80@1@@Z
+// sym: ?FUN_0028ea80@fn_fdd12815@@YGPAUEntityChannel_28ea80@1@PAUReader@1@PAVLoadContext_28ea80@1@PAVParent_28ea80@1@@Z @4a6b96aec07c @w1aa6e94c3896
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 18/18)
 // FUN_0028ea80 @ 0x0028ea80
 EntityChannel_28ea80 *__stdcall FUN_0028ea80(Reader *r, LoadContext_28ea80 *ctx, Parent_28ea80 *parent)

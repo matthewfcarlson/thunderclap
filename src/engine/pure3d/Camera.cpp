@@ -150,7 +150,7 @@ class Camera_292dc0 : public Entity_292dc0 {
 } // namespace fn_f91e2119
 
 // 0x002926d0 pure3d::Camera::vfunc_5 (171 B): equivalent/0x002926d0.cpp [wrapped: conflict: pure3d::Camera]
-// sym: ?vfunc_5@Camera@pure3d@fn_002926d0@@UAEXMM@Z
+// sym: ?vfunc_5@Camera@pure3d@fn_002926d0@@UAEXMM@Z @7ba91647ae32 @wc445f97fe05e
 namespace fn_002926d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // pure3d::Camera::vfunc_5 @ 0x002926d0
@@ -221,7 +221,7 @@ hulk_freg pure3d::Camera::vfunc_10() {
 
 
 // 0x002927e0 pure3d::Camera::vfunc_11 (188 B): equivalent/0x002927e0.cpp
-// sym: ?vfunc_11@Camera@pure3d@@UAEXHH@Z
+// sym: ?vfunc_11@Camera@pure3d@@UAEXHH@Z @9191a344b355 @we38f3264df42
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/9)
 // pure3d::Camera::vfunc_11 @ 0x002927e0
 void pure3d::Camera::vfunc_11(int __p0, hulk_intptr __p1) { unsigned int which = (unsigned int)__p0; Plane_2927e0 * out = (Plane_2927e0 *)__p1;
@@ -321,7 +321,7 @@ void Camera::vfunc_18(void* a, void* b) {
 } // namespace fn_f91e2119
 
 // 0x00292a90 pure3d::Camera::vfunc_19 (143 B): equivalent/0x00292a90.cpp [wrapped: conflict: Camera]
-// sym: ?vfunc_19@Camera@fn_00292a90@@UAEIPBUVec3_292a90@2@@Z
+// sym: ?vfunc_19@Camera@fn_00292a90@@UAEIPBUVec3_292a90@2@@Z @c9f89c28cd84 @w8835eaa6a7d1
 namespace fn_00292a90 {
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 12/12)
 // pure3d::Camera::vfunc_19 @ 0x00292a90

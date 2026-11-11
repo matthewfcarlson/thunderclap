@@ -159,7 +159,7 @@ bool pure3d::TextureAnimationController::vfunc_26(void* __p0) { Anim * a = (Anim
 
 
 // 0x002a9480 pure3d::TextureAnimationController::vfunc_7 (144 B): equivalent/0x002a9480.cpp
-// sym: ?vfunc_7@TextureAnimationController@pure3d@@UAEXXZ
+// sym: ?vfunc_7@TextureAnimationController@pure3d@@UAEXXZ @a1d1d65e7ddd @w44c1e30bdb36
 // STATUS: equivalent (tools/equiv.py level 3: 222 inputs, branch coverage 8/8)
 // pure3d::TextureAnimationController::vfunc_7 @ 0x002a9480
 void pure3d::TextureAnimationController::vfunc_7() {

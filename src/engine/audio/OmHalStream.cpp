@@ -399,7 +399,7 @@ int __cdecl FUN_0025ab10(Obj* p, int v) {
 } // namespace fn_fd6abdd0
 
 // 0x0025ab30 FUN_0025ab30 (26 B): equivalent/0x0025ab30.cpp [wrapped: conflict: FUN_00246f50]
-// sym: _FUN_0025ab30
+// sym: _FUN_0025ab30 @40c199e0d798 @w4b456f05ead7
 namespace fn_0025ab30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0025ab30 @ 0x0025ab30
@@ -449,7 +449,7 @@ int __cdecl FUN_0025abd0(Obj* o, int v) {
 namespace fn_fd6abdd0 {
 
 // 0x0025abf0 FUN_0025abf0 (31 B): equivalent/0x0025abf0.cpp
-// sym: _FUN_0025abf0
+// sym: _FUN_0025abf0 @9dff88304488 @wcb6ae9cdab10
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // FUN_0025abf0 @ 0x0025abf0
 // FUN_0025abf0 @ 0x0025abf0
@@ -477,7 +477,7 @@ extern "C" int __cdecl FUN_0025ac10(Obj* a, int b) {
 namespace fn_fd6abdd0 {
 
 // 0x0025ac30 FUN_0025ac30 (134 B): equivalent/0x0025ac30.cpp
-// sym: ?FUN_0025ac30@fn_fd6abdd0@@YADPAUWriter_25ac30@1@_K@Z
+// sym: ?FUN_0025ac30@fn_fd6abdd0@@YADPAUWriter_25ac30@1@_K@Z @5087d65bffaf @w7f3e798eee7c
 // STATUS: equivalent (tools/equiv.py level 3: 4853 inputs, branch coverage 8/10, incomplete)
 // FUN_0025ac30 @ 0x0025ac30
 // FUN_0025ac30 @ 0x0025ac30
@@ -624,7 +624,7 @@ Node* __cdecl FUN_0025afd0(Node* head, Node* node) {
 
 
 // 0x0025b010 FUN_0025b010 (604 B): equivalent/0x0025b010.cpp
-// sym: _FUN_0025b010
+// sym: _FUN_0025b010 @394c7c009b90 @w3415c875f53d
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_0025b010 @ 0x0025b010
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -791,7 +791,7 @@ A_25b2c0* __fastcall Target(A_25b2c0* self) {
 } // namespace fn_fd6abdd0
 
 // 0x0025b320 FUN_0025b320 (470 B): equivalent/0x0025b320.cpp [wrapped: conflict: Node]
-// sym: _FUN_0025b320
+// sym: _FUN_0025b320 @4559b45103f1 @we2189e995a34
 namespace fn_0025b320 {
 // STATUS: equivalent (tools/equiv.py level 3: 131 inputs, branch coverage 40/40)
 // FUN_0025b320 @ 0x0025b320
@@ -1043,7 +1043,7 @@ void Obj_25b730::Target(void* a, u32_25b730 b) {
 } // namespace fn_fd6abdd0
 
 // 0x0025b7d0 FUN_0025b7d0 (118 B): equivalent/0x0025b7d0.cpp [wrapped: conflict: Node]
-// sym: _FUN_0025b7d0
+// sym: _FUN_0025b7d0 @c6a9a0630125 @w79a889fe7ed0
 namespace fn_0025b7d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 8/8)
 // FUN_0025b7d0 @ 0x0025b7d0
@@ -1108,7 +1108,7 @@ void __cdecl target(void* p, Obj* o) {
 } // namespace fn_fd6abdd0
 
 // 0x0025b8e0 FUN_0025b8e0 (91 B): equivalent/0x0025b8e0.cpp [wrapped: helper definitions (3 out-of-line function bodies)]
-// sym: ?FUN_0025b8e0@fn_0025b8e0@@YAHPAUTree@1@@Z
+// sym: ?FUN_0025b8e0@fn_0025b8e0@@YAHPAUTree@1@@Z @10869e878e6a @w614263bb9e88
 namespace fn_0025b8e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 18/22, incomplete)
 // FUN_0025b8e0 @ 0x0025b8e0
@@ -1181,7 +1181,7 @@ void Target_25b940::run() {
 } // namespace fn_fd6abdd0
 
 // 0x0025b970 FUN_0025b970 (517 B): equivalent/0x0025b970.cpp [wrapped: conflict: Node]
-// sym: ?FUN_0025b970@Section_25b970@fn_0025b970@@QAEDPAUWriter_25b970@2@@Z
+// sym: ?FUN_0025b970@Section_25b970@fn_0025b970@@QAEDPAUWriter_25b970@2@@Z @18859160671b @wb2d1a14f1925
 namespace fn_0025b970 {
 // STATUS: equivalent (tools/equiv.py level 3: 430 inputs, branch coverage 60/60)
 // FUN_0025b970 @ 0x0025b970
@@ -1362,7 +1362,7 @@ int target(int* stream, C_25bcb0* item) {
 
 
 // 0x0025bce0 FUN_0025bce0 (117 B): equivalent/0x0025bce0.cpp
-// sym: ?FUN_0025bce0@fn_fd6abdd0@@YA_NPAUHolder_25bce0@1@PAUPrinter_25bce0@1@@Z
+// sym: ?FUN_0025bce0@fn_fd6abdd0@@YA_NPAUHolder_25bce0@1@PAUPrinter_25bce0@1@@Z @a8ba3ee0146d @w7f982442dc14
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0025bce0 @ 0x0025bce0
 bool __cdecl FUN_0025bce0(Holder_25bce0 *h, Printer_25bce0 *out)
@@ -1385,7 +1385,7 @@ bool __cdecl FUN_0025bce0(Holder_25bce0 *h, Printer_25bce0 *out)
 
 
 // 0x0025be60 FUN_0025be60 (29 B): equivalent/0x0025be60.cpp
-// sym: _FUN_0025be60
+// sym: _FUN_0025be60 @fbbce6ec32f1 @w18fa89ed2078
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0025be60 @ 0x0025be60
 extern "C" void __cdecl FUN_0025be60(unsigned int *source, unsigned int *destination)
@@ -1486,7 +1486,7 @@ int __fastcall FUN_0025c0c0(void* p) {
 } // namespace fn_fd6abdd0
 
 // 0x0025c0d0 audio::OmHalStream::vfunc_7 (186 B): equivalent/0x0025c0d0.cpp [wrapped: conflict: audio::OmHalStream]
-// sym: ?vfunc_7@OmHalStream@audio@fn_0025c0d0@@UAEIPAXHI@Z
+// sym: ?vfunc_7@OmHalStream@audio@fn_0025c0d0@@UAEIPAXHI@Z @f348e37358b9 @wd75bc2a805a9
 namespace fn_0025c0d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2980 inputs, branch coverage 10/10)
 // audio::OmHalStream::vfunc_7 @ 0x0025c0d0
@@ -1522,7 +1522,7 @@ uint_25c0d0 OmHalStream::vfunc_7(void* output,int format,uint_25c0d0 requested) 
 
 
 // 0x0025c190 audio::OmHalStream::vfunc_6 (235 B): equivalent/0x0025c190.cpp [wrapped: conflict: audio::OmHalStream]
-// sym: ?vfunc_6@OmHalStream@audio@fn_0025c190@@UAEXPAXII@Z
+// sym: ?vfunc_6@OmHalStream@audio@fn_0025c190@@UAEXPAXII@Z @e33b88a7b902 @w89e118e9b177
 namespace fn_0025c190 {
 // STATUS: equivalent (tools/equiv.py level 3: 2659 inputs, branch coverage 14/14)
 // audio::OmHalStream::vfunc_6 @ 0x0025c190
@@ -1625,7 +1625,7 @@ int audio::OmHalStream::vfunc_3() {
 namespace fn_fd6abdd0 {
 
 // 0x0025c320 FUN_0025c320 (212 B): equivalent/0x0025c320.cpp
-// sym: ?FUN_0025c320@fn_fd6abdd0@@YAXPAUHeader_25c320@1@PAURow_25c320@1@EE@Z
+// sym: ?FUN_0025c320@fn_fd6abdd0@@YAXPAUHeader_25c320@1@PAURow_25c320@1@EE@Z @fd8ef21eb077 @wcc01495c3f44
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 15/16, incomplete)
 // FUN_0025c320 @ 0x0025c320
 void __cdecl FUN_0025c320(Header_25c320* header, Row_25c320* output, unsigned char special, unsigned char extra)
@@ -1651,7 +1651,7 @@ void __cdecl FUN_0025c320(Header_25c320* header, Row_25c320* output, unsigned ch
 
 
 // 0x0025c430 FUN_0025c430 (74 B): equivalent/0x0025c430.cpp
-// sym: ?FUN_0025c430@fn_fd6abdd0@@YAEPAPAXI@Z
+// sym: ?FUN_0025c430@fn_fd6abdd0@@YAEPAPAXI@Z @aa2ff051915d @w476265c6e964
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/7)
 // FUN_0025c430 @ 0x0025c430
 unsigned char __cdecl FUN_0025c430(void **destination, unsigned int encoding)
@@ -1670,7 +1670,7 @@ unsigned char __cdecl FUN_0025c430(void **destination, unsigned int encoding)
 
 
 // 0x0025c490 FUN_0025c490 (184 B): equivalent/0x0025c490.cpp
-// sym: _FUN_0025c490
+// sym: _FUN_0025c490 @37ef0129b53a @w2f39f33758ca
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0025c490 @ 0x0025c490
 extern "C" bool __cdecl FUN_0025c490(void * reader, unsigned int* result)
@@ -1691,7 +1691,7 @@ extern "C" bool __cdecl FUN_0025c490(void * reader, unsigned int* result)
 } // namespace fn_fd6abdd0
 
 // 0x0025c6d0 FUN_0025c6d0 (239 B): equivalent/0x0025c6d0.cpp [wrapped: conflict: FUN_00246f50]
-// sym: ?FUN_0025c6d0@fn_0025c6d0@@YA_NPAUContext@1@PBI@Z
+// sym: ?FUN_0025c6d0@fn_0025c6d0@@YA_NPAUContext@1@PBI@Z @d16a9164a331 @wec74cb546206
 namespace fn_0025c6d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1155 inputs, branch coverage 12/12)
 // FUN_0025c6d0 @ 0x0025c6d0
@@ -1723,7 +1723,7 @@ bool __cdecl FUN_0025c6d0(Context* context, const unsigned int* values) {
 namespace fn_fd6abdd0 {
 
 // 0x0025c7c0 FUN_0025c7c0 (76 B): equivalent/0x0025c7c0.cpp
-// sym: _FUN_0025c7c0
+// sym: _FUN_0025c7c0 @31c15a1c1b97 @w39792f6ca575
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 6/6)
 // FUN_0025c7c0 @ 0x0025c7c0
 extern "C" int __cdecl FUN_0025c7c0(void* source, unsigned int* destination)
@@ -1742,7 +1742,7 @@ extern "C" int __cdecl FUN_0025c7c0(void* source, unsigned int* destination)
 
 
 // 0x0025c920 FUN_0025c920 (359 B): equivalent/0x0025c920.cpp
-// sym: ?FUN_0025c920@fn_fd6abdd0@@YAPAVStr_25c920@1@PAV21@PBV21@PB_K1@Z
+// sym: ?FUN_0025c920@fn_fd6abdd0@@YAPAVStr_25c920@1@PAV21@PBV21@PB_K1@Z @000ef12a0f63 @w11ac5aebd37a
 // STATUS: equivalent (tools/equiv.py level 3: 12 inputs, branch coverage 6/8, incomplete)
 // FUN_0025c920 @ 0x0025c920
 Str_25c920* __cdecl FUN_0025c920(Str_25c920* out, const Str_25c920* dir, const unsigned long long* id, const Str_25c920* extra)
@@ -1950,7 +1950,7 @@ bool Header_25cda0::FUN_0025cda0(Stream *s)
 
 
 // 0x0025ce40 FUN_0025ce40 (61 B): equivalent/0x0025ce40.cpp
-// sym: ?FUN_0025ce40@fn_fd6abdd0@@YGEPAPAUFileState@1@@Z
+// sym: ?FUN_0025ce40@fn_fd6abdd0@@YGEPAPAUFileState@1@@Z @d6f7913c828d @w511d8088fcee
 // STATUS: equivalent (tools/equiv.py level 3: 2758 inputs, branch coverage 2/2)
 // FUN_0025ce40 @ 0x0025ce40
 unsigned char __stdcall FUN_0025ce40(FileState **state)
@@ -2000,7 +2000,7 @@ Obj_25cf10* Obj_25cf10::target() {
 
 
 // 0x0025cf70 FUN_0025cf70 (160 B): equivalent/0x0025cf70.cpp
-// sym: _FUN_0025cf70
+// sym: _FUN_0025cf70 @767b011a5a66 @wc7b955fbdedd
 // STATUS: equivalent (tools/equiv.py level 3: 1217 inputs, branch coverage 6/6)
 // FUN_0025cf70 @ 0x0025cf70
 // FUN_0025cf70 @ 0x0025cf70: fills each plane of a surface region with a constant byte and records the size
@@ -2068,7 +2068,7 @@ extern "C" bool FUN_0025d070(Obj_25d070* obj, int arg2, unsigned int arg3, int u
 
 
 // 0x0025d0f0 FUN_0025d0f0 (419 B): equivalent/0x0025d0f0.cpp
-// sym: _FUN_0025d0f0
+// sym: _FUN_0025d0f0 @664da3643828 @w4ac6df0f573a
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 15/18, incomplete)
 // FUN_0025d0f0 @ 0x0025d0f0
 extern "C" void FUN_0025d0f0(Texture *t, int length)
@@ -2235,7 +2235,7 @@ void owners::Obj_25d3f0::FUN_0025d3f0(int* out) {
 
 
 // 0x0025d480 FUN_0025d480 (173 B): equivalent/0x0025d480.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_0025d480@Target_25d480@fn_0025d480@@QAEII@Z
+// sym: ?FUN_0025d480@Target_25d480@fn_0025d480@@QAEII@Z @6cfe2ec24244 @w7c2865eb80a0
 namespace fn_0025d480 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0025d480 @ 0x0025d480

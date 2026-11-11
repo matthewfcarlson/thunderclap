@@ -4,7 +4,7 @@
 
 
 // 0x002535a0 audio::SeqEventVarPitchRand::vfunc_1 (129 B): equivalent/0x002535a0.cpp [isolated: compile error C2732: linkage specification contradicts earlier specification for 'fn_002535a0::FUN_00252470']
-// sym: ?vfunc_1@SeqEventVarPitchRand@audio@fn_f064a97a@@QAEHPAUWriter_2535a0@3@@Z
+// sym: ?vfunc_1@SeqEventVarPitchRand@audio@fn_f064a97a@@QAEHPAUWriter_2535a0@3@@Z @73e82df382dd @w512fdf9284f8
 namespace fn_f064a97a {} using namespace fn_f064a97a;
 namespace fn_f064a97a {
 // STATUS: equivalent (tools/equiv.py level 3: 1534 inputs, branch coverage 10/10)

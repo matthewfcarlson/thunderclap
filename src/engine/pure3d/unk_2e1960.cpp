@@ -601,7 +601,7 @@ public:
 
 
 // 0x002e1960 FUN_002e1960 (2315 B): equivalent/0x002e1960.cpp
-// sym: ?Load@Hdr_2e1960@fn_fcb4ee90@@QAEXHPAUReader@2@HPAVPalList_2e1960@2@PAI@Z
+// sym: ?Load@Hdr_2e1960@fn_fcb4ee90@@QAEXHPAUReader@2@HPAVPalList_2e1960@2@PAI@Z @c0ddd16ec73d @w1f5ecd418e3a
 // STATUS: equivalent (tools/equiv.py level 3: 2161 inputs, branch coverage 134/134)
 // FUN_002e1960 @ 0x002e1960
 // equiv-map: ??0PrimGroupBase@@QAE@XZ = 0x002a5060
@@ -882,7 +882,7 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
 
 
 // 0x002e2a70 FUN_002e2a70 (1577 B): equivalent/0x002e2a70.cpp
-// sym: ?FUN_002e2a70@PrimLoader@fn_fcb4ee90@@QAEXHTSlot2@2@HPAURefObj_2e2a70@2@TSlot5_2e2a70@2@@Z
+// sym: ?FUN_002e2a70@PrimLoader@fn_fcb4ee90@@QAEXHTSlot2@2@HPAURefObj_2e2a70@2@TSlot5_2e2a70@2@@Z @73fb26f78a3b @w7eb61fa2b446
 // STATUS: equivalent (tools/equiv.py level 3: 2670 inputs, branch coverage 119/124, incomplete)
 // FUN_002e2a70 @ 0x002e2a70
 // FUN_002e2a70 @ 0x002e2a70
@@ -1143,7 +1143,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
 } // namespace fn_fcb4ee90
 
 // 0x002e30f0 FUN_002e30f0 (2657 B): equivalent/0x002e30f0.cpp [wrapped: conflict: Gfx; PrimGroup; pure3d::MatrixPaletteList]
-// sym: ?Load@Hdr@fn_002e30f0@@QAEXHPAVReader@2@HPAVPalList_2e30f0@2@@Z
+// sym: ?Load@Hdr@fn_002e30f0@@QAEXHPAVReader@2@HPAVPalList_2e30f0@2@@Z @1cb189e2b0c6 @w1ada80326604
 namespace fn_002e30f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2774 inputs, branch coverage 116/126, incomplete)
 // FUN_002e30f0 @ 0x002e30f0
@@ -1811,7 +1811,7 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
 
 
 // 0x002e3bd0 FUN_002e3bd0 (1657 B): equivalent/0x002e3bd0.cpp [wrapped: using-directive]
-// sym: ?FUN_002e3bd0@Loader@fn_002e3bd0@@QAEXTSlot1@2@TSlot2@2@HPAUPalSrc@2@@Z
+// sym: ?FUN_002e3bd0@Loader@fn_002e3bd0@@QAEXTSlot1@2@TSlot2@2@HPAUPalSrc@2@@Z @40b947a5bd8f @w2d702a468345
 namespace fn_002e3bd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2765 inputs, branch coverage 118/118)
 // FUN_002e3bd0 @ 0x002e3bd0
@@ -2335,7 +2335,7 @@ void Loader::FUN_002e3bd0(Slot1 a1, Slot2 a2, int a3, PalSrc *a4)
 namespace fn_fcb4ee90 {
 
 // 0x002e49a0 FUN_002e49a0 (545 B): equivalent/0x002e49a0.cpp
-// sym: ?FUN_002e49a0@ShaderLoader@fn_fcb4ee90@@QAEDPAUStream@2@PAVLoadContext_2e49a0@2@@Z
+// sym: ?FUN_002e49a0@ShaderLoader@fn_fcb4ee90@@QAEDPAUStream@2@PAVLoadContext_2e49a0@2@@Z @00bfc8c126b8 @w3f69425a3527
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 12/12)
 // FUN_002e49a0 @ 0x002e49a0
 char ShaderLoader::FUN_002e49a0(Stream *s, LoadContext_2e49a0 *ctx)
@@ -2392,7 +2392,7 @@ char ShaderLoader::FUN_002e49a0(Stream *s, LoadContext_2e49a0 *ctx)
 } // namespace fn_fcb4ee90
 
 // 0x002e4bd0 FUN_002e4bd0 (413 B): equivalent/0x002e4bd0.cpp [wrapped: conflict: ShaderLoader]
-// sym: ?FUN_002e4bd0@ShaderLoader@fn_002e4bd0@@QAEDPAUStream@2@PAVLoadContext_2e4bd0@2@@Z
+// sym: ?FUN_002e4bd0@ShaderLoader@fn_002e4bd0@@QAEDPAUStream@2@PAVLoadContext_2e4bd0@2@@Z @dc6d7427eb9e @wcabe63468199
 namespace fn_002e4bd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 8/8)
 // FUN_002e4bd0 @ 0x002e4bd0
@@ -2543,7 +2543,7 @@ char ShaderLoader::FUN_002e4bd0(Stream *s, LoadContext_2e4bd0 *ctx)
 namespace fn_fcb4ee90 {
 
 // 0x002e4d70 FUN_002e4d70 (144 B): equivalent/0x002e4d70.cpp
-// sym: ?FUN_002e4d70@Dispatcher_2e4d70@fn_fcb4ee90@@QAEXHHHHDH@Z
+// sym: ?FUN_002e4d70@Dispatcher_2e4d70@fn_fcb4ee90@@QAEXHHHHDH@Z @319dae267db2 @w73359ff32803
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 12/12)
 // FUN_002e4d70 @ 0x002e4d70
 void Dispatcher_2e4d70::FUN_002e4d70(int a, int b, int c, int d, char direct, int e) {
@@ -2561,7 +2561,7 @@ void Dispatcher_2e4d70::FUN_002e4d70(int a, int b, int c, int d, char direct, in
 
 
 // 0x002e4e00 FUN_002e4e00 (83 B): equivalent/0x002e4e00.cpp
-// sym: ?FUN_002e4e00@Controller@fn_fcb4ee90@@QAEXHHHHD@Z
+// sym: ?FUN_002e4e00@Controller@fn_fcb4ee90@@QAEXHHHHD@Z @ebb791c67697 @wbf79a91a5c8d
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
 // FUN_002e4e00 @ 0x002e4e00
 void Controller::FUN_002e4e00(int first, int second, int third, int fourth, char flag) {

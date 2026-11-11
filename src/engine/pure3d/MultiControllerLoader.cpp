@@ -136,7 +136,7 @@ MultiController::MultiController()
 } // namespace fn_f35e48b8
 
 // 0x002b2710 FUN_002b2710 (179 B): equivalent/0x002b2710.cpp [wrapped: conflict: pure3d::MultiController]
-// sym: ??0MultiController@pure3d@fn_002b2710@@QAE@IMM@Z
+// sym: ??0MultiController@pure3d@fn_002b2710@@QAE@IMM@Z @0d9808fa17c5 @wc6ad8a7ba2c5
 namespace fn_002b2710 {
 // STATUS: equivalent (tools/equiv.py level 3: 155 inputs, branch coverage 10/10)
 // FUN_002b2710 @ 0x002b2710
@@ -163,7 +163,7 @@ MultiController::MultiController(unsigned int count,float durationArg,float rate
 
 
 // 0x002b27d0 FUN_002b27d0 (256 B): equivalent/0x002b27d0.cpp [wrapped: conflict: pure3d::MultiController]
-// sym: ??0MultiController@pure3d@fn_002b27d0@@QAE@ABU012@@Z
+// sym: ??0MultiController@pure3d@fn_002b27d0@@QAE@ABU012@@Z @9a57a4b43aaa @wd947929b5f09
 namespace fn_002b27d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 153 inputs, branch coverage 12/12)
 // FUN_002b27d0 @ 0x002b27d0
@@ -295,7 +295,7 @@ extern "C" void* __cdecl FUN_002b2c30(void * obj, void* p) {
 } // namespace fn_f35e48b8
 
 // 0x002b2ea0 pure3d::MultiControllerLoader::vfunc_5 (1180 B): equivalent/0x002b2ea0.cpp [wrapped: macros]
-// sym: ?vfunc_5@MultiControllerLoader@fn_002b2ea0@@QAEXPAPAVMultiController_2b2ea0@pure3d@2@PA_KPAUReader@2@PAUInventory@2@@Z
+// sym: ?vfunc_5@MultiControllerLoader@fn_002b2ea0@@QAEXPAPAVMultiController_2b2ea0@pure3d@2@PA_KPAUReader@2@PAUInventory@2@@Z @f550cd6988d7 @w023e6d440361
 inline void *operator new(size_t, void *p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -565,7 +565,7 @@ void MultiControllerLoader::vfunc_5(pure3d::MultiController_2b2ea0 **out, unsign
 
 
 // 0x002b3340 pure3d::OldMultiControllerLoader::vfunc_5 (735 B): equivalent/0x002b3340.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase; pure3d::OldMultiControllerLoader]
-// sym: ?vfunc_5@OldMultiControllerLoader@pure3d@fn_002b3340@@UAE_KPAPAUMultiController_2b3340@3@PA_KPAUStream@3@PAUFactory_2b3340@3@@Z
+// sym: ?vfunc_5@OldMultiControllerLoader@pure3d@fn_002b3340@@UAE_KPAPAUMultiController_2b3340@3@PA_KPAUStream@3@PAUFactory_2b3340@3@@Z @7a7c4d735233 @wcc159a626f25
 namespace fn_002b3340 {
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 14/14)
 // pure3d::OldMultiControllerLoader::vfunc_5 @ 0x002b3340

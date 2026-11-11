@@ -329,7 +329,7 @@ SeqEventCrossFade* SeqEventCrossFade::vfunc_4(byte_2556f0 p) {
 
 
 // 0x00255730 audio::SeqEventCrossFade::vfunc_1 (307 B): equivalent/0x00255730.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventCrossFade]
-// sym: ?vfunc_1@SeqEventCrossFade@audio@fn_00255730@@UAEDPAUArchive_255730@3@@Z
+// sym: ?vfunc_1@SeqEventCrossFade@audio@fn_00255730@@UAEDPAUArchive_255730@3@@Z @0d6b1051c937 @wc549747cfe26
 namespace fn_00255730 {
 // STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 24/24)
 // audio::SeqEventCrossFade::vfunc_1 @ 0x00255730
@@ -467,7 +467,7 @@ int SeqEventCrossFade::vfunc_0(void* p) {
 
 
 // 0x00255930 audio::SeqEventCrossFade::vfunc_2 (73 B): equivalent/0x00255930.cpp
-// sym: ?vfunc_2@SeqEventCrossFade@audio@@UAEXH@Z
+// sym: ?vfunc_2@SeqEventCrossFade@audio@@UAEXH@Z @6ba04f85bfb8 @w150adda60fe8
 // STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 2/2)
 // audio::SeqEventCrossFade::vfunc_2 @ 0x00255930
 void audio::SeqEventCrossFade::vfunc_2(hulk_intptr __p0) { SeqContext * context = (SeqContext *)__p0;
@@ -487,7 +487,7 @@ void audio::SeqEventCrossFade::vfunc_2(hulk_intptr __p0) { SeqContext * context 
 namespace fn_fa3ba6ee {
 
 // 0x00255980 FUN_00255980 (88 B): equivalent/0x00255980.cpp
-// sym: ?FUN_00255980@fn_fa3ba6ee@@YG_NPAXPAUHolder@1@@Z
+// sym: ?FUN_00255980@fn_fa3ba6ee@@YG_NPAXPAUHolder@1@@Z @fd4760c1ddd0 @wc7f0dfd6f68c
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 12/12)
 // FUN_00255980 @ 0x00255980
 bool __stdcall FUN_00255980(void* item, Holder* holder) { Node* node = holder->firstLink ? (Node*)((char*)holder->firstLink - 0x34) : 0; bool found = false; while (node) { int result = FUN_00247930(item,node); found = found || result == 3 || result == 4; Node* link = node->nextLink; node = link ? (Node*)((char*)link - 0x34) : 0; } return found; }
@@ -508,7 +508,7 @@ void* audio::SeqEventCrossFadeType::vfunc_3() {
 
 
 // 0x00255a00 audio::SeqActionCrossFade::vfunc_2 (267 B): equivalent/0x00255a00.cpp [wrapped: conflict: audio::SeqActionCrossFade]
-// sym: ?vfunc_2@SeqActionCrossFade@audio@fn_00255a00@@UAEXPAUContext@3@I@Z
+// sym: ?vfunc_2@SeqActionCrossFade@audio@fn_00255a00@@UAEXPAUContext@3@I@Z @0ac0c3ecf975 @wad7054fe4452
 namespace fn_00255a00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // audio::SeqActionCrossFade::vfunc_2 @ 0x00255a00
@@ -547,7 +547,7 @@ void audio::SeqActionCrossFade::vfunc_2(Context* context,unsigned id) {
 namespace fn_fa3ba6ee {
 
 // 0x00255b10 audio::SeqActionCrossFade::vfunc_1 (403 B): equivalent/0x00255b10.cpp
-// sym: ?vfunc_1@SeqActionCrossFade@fn_fa3ba6ee@@UAEXPAUSource_255b10@2@@Z
+// sym: ?vfunc_1@SeqActionCrossFade@fn_fa3ba6ee@@UAEXPAUSource_255b10@2@@Z @e4027c5db81a @w37162e316182
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 32/32)
 // audio::SeqActionCrossFade::vfunc_1 @ 0x00255b10
 void SeqActionCrossFade::vfunc_1(Source_255b10 *src)

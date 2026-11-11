@@ -74,7 +74,7 @@ hulk_freg __cdecl FUN_00018a20(float cosine);
 
 
 // 0x0025e230 FUN_0025e230 (73 B): equivalent/0x0025e230.cpp
-// sym: _FUN_0025e230
+// sym: _FUN_0025e230 @e1409d60db7d @w5552ea412c50
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 7/7)
 // FUN_0025e230 @ 0x0025e230
 // Register-convention helper: the owner arrives in edi (a link-time-generated convention).
@@ -100,7 +100,7 @@ extern "C" void FUN_0025e230(void * owner)
 
 
 // 0x0025e280 FUN_0025e280 (12 B): equivalent/0x0025e280.cpp
-// sym: _FUN_0025e280
+// sym: _FUN_0025e280 @5e99cc14725f @wb528e4393c74
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0025e280 @ 0x0025e280
 // equiv-conv: FUN_0025e230 edi
@@ -110,7 +110,7 @@ extern "C" void __cdecl FUN_0025e280(void* value) {
 
 
 // 0x0025e290 FUN_0025e290 (32 B): equivalent/0x0025e290.cpp
-// sym: _FUN_0025e290
+// sym: _FUN_0025e290 @2dfb8e7f665b @w9c2705cbb62d
 // STATUS: equivalent (tools/equiv.py level 3: 19056 inputs, branch coverage 0/0)
 // FUN_0025e290 @ 0x0025e290
 // FUN_0025e290 @ 0x0025e290
@@ -119,7 +119,7 @@ extern "C" void __cdecl FUN_0025e290(Object* obj) { obj->a=0; obj->b=0; obj->fla
 
 
 // 0x0025e2b0 FUN_0025e2b0 (83 B): equivalent/0x0025e2b0.cpp
-// sym: _FUN_0025e2b0
+// sym: _FUN_0025e2b0 @732b424376f0 @wcbcda6aeaaf8
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 12/12)
 // FUN_0025e2b0 @ 0x0025e2b0
 extern "C" unsigned __cdecl FUN_0025e2b0(void * b_) {
@@ -150,7 +150,7 @@ extern "C" int __cdecl FUN_0025e310(Obj_25e310* p) {
 
 
 // 0x0025e350 FUN_0025e350 (248 B): equivalent/0x0025e350.cpp
-// sym: _FUN_0025e350
+// sym: _FUN_0025e350 @b20f4580e661 @we24ff0645486
 // STATUS: equivalent (tools/equiv.py level 3: 2880 inputs, branch coverage 26/32, incomplete)
 // FUN_0025e350 @ 0x0025e350
 extern "C" bool __cdecl FUN_0025e350(Buffer_25e350* buffer, uint_25e350 amount) {
@@ -192,7 +192,7 @@ extern "C" bool __cdecl FUN_0025e350(Buffer_25e350* buffer, uint_25e350 amount) 
 
 
 // 0x0025e450 FUN_0025e450 (243 B): equivalent/0x0025e450.cpp
-// sym: _FUN_0025e450
+// sym: _FUN_0025e450 @a780ad1df769 @w4a2b7372c9c5
 // STATUS: equivalent (tools/equiv.py level 3: 1853 inputs, branch coverage 31/32, incomplete)
 // FUN_0025e450 @ 0x0025e450
 extern "C" bool __cdecl FUN_0025e450(Buffer_25e450* b, uint_25e450 alignment) {
@@ -231,7 +231,7 @@ extern "C" bool __cdecl FUN_0025e450(Buffer_25e450* b, uint_25e450 alignment) {
 
 
 // 0x0025e550 FUN_0025e550 (59 B): equivalent/0x0025e550.cpp
-// sym: _FUN_0025e550
+// sym: _FUN_0025e550 @ba0be36db39e @w377232ed3bd5
 // STATUS: equivalent (tools/equiv.py level 3: 16562 inputs, branch coverage 0/0)
 // FUN_0025e550 @ 0x0025e550
 // FUN_0025e550 @ 0x0025e550
@@ -240,7 +240,7 @@ extern "C" void __cdecl FUN_0025e550(Object* obj, int first, int third, int four
 
 
 // 0x0025e5f0 FUN_0025e5f0 (141 B): equivalent/0x0025e5f0.cpp
-// sym: ?FUN_0025e5f0@fn_f73d5ad4@@YAMPBUVec3_25e5f0@1@0@Z
+// sym: ?FUN_0025e5f0@fn_f73d5ad4@@YAMPBUVec3_25e5f0@1@0@Z @1a43f5545576 @w36bba7e110b9
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // FUN_0025e5f0 @ 0x0025e5f0
 // Angle in degrees between two vectors.

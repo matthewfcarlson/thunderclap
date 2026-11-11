@@ -161,7 +161,7 @@ Expression_2afb70::~Expression_2afb70() {
 } // namespace fn_fb28d753
 
 // 0x002afba0 pure3d::ExpressionLoader::vfunc_5 (363 B): equivalent/0x002afba0.cpp
-// sym: ?vfunc_5@ExpressionLoader@pure3d@@UAEXPAX00H@Z
+// sym: ?vfunc_5@ExpressionLoader@pure3d@@UAEXPAX00H@Z @96b7947be2b8 @wf75b213495ce
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // pure3d::ExpressionLoader::vfunc_5 @ 0x002afba0
 void pure3d::ExpressionLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { pure3d::Expression_2afba0 ** out = (pure3d::Expression_2afba0 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_2afba0 * s = (Stream_2afba0 *)__p2; void * ctx = (void *)__p3;
@@ -231,7 +231,7 @@ Expression* Expression::f2(int x) {
 namespace fn_fb28d753 {
 
 // 0x002afe80 FUN_002afe80 (82 B): equivalent/0x002afe80.cpp
-// sym: ?FUN_002afe80@Collection@fn_fb28d753@@QAEHH@Z
+// sym: ?FUN_002afe80@Collection@fn_fb28d753@@QAEHH@Z @4d27714530fb @wdaad038e4fd5
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002afe80 @ 0x002afe80
 int Collection::FUN_002afe80(hulk_intptr key) {

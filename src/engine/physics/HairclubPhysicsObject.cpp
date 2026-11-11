@@ -215,7 +215,7 @@ bool owners::C_308e10::FUN_00308e10(int index, unsigned char value) {
 namespace fn_fa60db69 {
 
 // 0x00308e40 FUN_00308e40 (269 B): equivalent/0x00308e40.cpp
-// sym: ?FUN_00308e40@Object@fn_fa60db69@@QAEXPAU12@H@Z
+// sym: ?FUN_00308e40@Object@fn_fa60db69@@QAEXPAU12@H@Z @748c36579f14 @w7856e3417f6e
 // STATUS: equivalent (tools/equiv.py level 3: 609 inputs, branch coverage 8/8)
 // FUN_00308e40 @ 0x00308e40
 void Object::FUN_00308e40(Object* dest,int arg) {
@@ -262,7 +262,7 @@ void HairclubPhysicsObject::vfunc_7() {
 
 
 // 0x00308fe0 FUN_00308fe0 (864 B): equivalent/0x00308fe0.cpp
-// sym: ?FUN_00308fe0@Hairclub@fn_fa60db69@@QAEXXZ
+// sym: ?FUN_00308fe0@Hairclub@fn_fa60db69@@QAEXXZ @c65dfd66d8c3 @w73cbf0a6db82
 // STATUS: equivalent (tools/equiv.py level 3: 440 inputs, branch coverage 18/18)
 // FUN_00308fe0 @ 0x00308fe0
 void Hairclub::FUN_00308fe0()
@@ -418,7 +418,7 @@ physics::HairclubPhysicsObject::~HairclubPhysicsObject() {}
 
 
 // 0x00309520 FUN_00309520 (337 B): equivalent/0x00309520.cpp [wrapped: conflict: physics::HairclubPhysicsObject; physics::PhysicsObject]
-// sym: ??0HairclubPhysicsObject@physics@fn_00309520@@QAE@HPAPAUSource_309520@2@H@Z
+// sym: ??0HairclubPhysicsObject@physics@fn_00309520@@QAE@HPAPAUSource_309520@2@H@Z @59971542d476 @we383658705d7
 namespace fn_00309520 {
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 16/16)
 // FUN_00309520 @ 0x00309520
@@ -556,7 +556,7 @@ HairclubPhysicsObject::HairclubPhysicsObject(hulk_intptr a, Source_309520 **sour
 
 
 // 0x00309680 physics::HairclubPhysicsObject::vfunc_35 (256 B): equivalent/0x00309680.cpp
-// sym: ?vfunc_35@HairclubPhysicsObject@physics@@UAEXM@Z
+// sym: ?vfunc_35@HairclubPhysicsObject@physics@@UAEXM@Z @16e85325c30d @wcf338c19200a
 // STATUS: equivalent (tools/equiv.py level 3: 61 inputs, branch coverage 25/26, incomplete)
 // physics::HairclubPhysicsObject::vfunc_35 @ 0x00309680
 void physics::HairclubPhysicsObject::vfunc_35(float value) {

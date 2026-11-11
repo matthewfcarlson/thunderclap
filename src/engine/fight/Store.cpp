@@ -80,7 +80,7 @@ Store* __fastcall target(Store* self) {
 
 
 // 0x0023c530 fight::Store::vfunc_9 (169 B): equivalent/0x0023c530.cpp
-// sym: ?vfunc_9@Store@fight@fn_f0d621c3@@QAE_NPAURecord_23c530@3@PAUObject@3@K@Z
+// sym: ?vfunc_9@Store@fight@fn_f0d621c3@@QAE_NPAURecord_23c530@3@PAUObject@3@K@Z @e68c80580589 @w321b265da713
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 12/12)
 // fight::Store::vfunc_9 @ 0x0023c530
 namespace fight {

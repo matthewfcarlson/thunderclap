@@ -60,7 +60,7 @@ public:
 namespace fn_f72cb377 {
 
 // 0x002385b0 FUN_002385b0 (95 B): equivalent/0x002385b0.cpp
-// sym: ?FUN_002385b0@fn_f72cb377@@YAXXZ
+// sym: ?FUN_002385b0@fn_f72cb377@@YAXXZ @c25258bbe01e @w9749f6ec8b25
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 4/4)
 // FUN_002385b0 @ 0x002385b0
 void FUN_002385b0()
@@ -79,7 +79,7 @@ void FUN_002385b0()
 
 
 // 0x00238610 FUN_00238610 (95 B): equivalent/0x00238610.cpp
-// sym: ?FUN_00238610@fn_f72cb377@@YAXXZ
+// sym: ?FUN_00238610@fn_f72cb377@@YAXXZ @9d8aae861901 @w1048e3ee5f6a
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
 // FUN_00238610 @ 0x00238610
 void FUN_00238610()

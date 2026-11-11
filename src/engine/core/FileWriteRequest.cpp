@@ -85,7 +85,7 @@ void FileRequest_274020::run() {
 
 
 // 0x00274060 core::FileWriteRequest::vfunc_1 (144 B): equivalent/0x00274060.cpp
-// sym: ?vfunc_1@FileWriteRequest@core@fn_f015241e@@UAEHXZ
+// sym: ?vfunc_1@FileWriteRequest@core@fn_f015241e@@UAEHXZ @aa5d99e9e224 @w136a99df9219
 // STATUS: equivalent (tools/equiv.py level 3: 19896 inputs, branch coverage 4/4)
 // core::FileWriteRequest::vfunc_1 @ 0x00274060
 namespace core {

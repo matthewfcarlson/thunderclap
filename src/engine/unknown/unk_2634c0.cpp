@@ -204,7 +204,7 @@ Node* __cdecl findNext(Header* h, Node* x) {
 
 
 // 0x00263690 FUN_00263690 (604 B): equivalent/0x00263690.cpp
-// sym: _FUN_00263690
+// sym: _FUN_00263690 @394c7c009b90 @w3415c875f53d
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_00263690 @ 0x00263690
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -357,7 +357,7 @@ extern "C" void FUN_00263690(void * tree_, void * x_)
 } // namespace fn_f551a4d0
 
 // 0x00263970 FUN_00263970 (75 B): equivalent/0x00263970.cpp [wrapped: conflict: Node]
-// sym: _FUN_00263970
+// sym: _FUN_00263970 @e439e04b5352 @wfe951715613b
 namespace fn_00263970 {
 // STATUS: equivalent (tools/equiv.py level 3: 615 inputs, branch coverage 15/16, incomplete)
 // FUN_00263970 @ 0x00263970
@@ -383,7 +383,7 @@ extern "C" void * __cdecl FUN_00263970(void * tree_, const void * key) {
 
 
 // 0x002639c0 FUN_002639c0 (489 B): equivalent/0x002639c0.cpp [wrapped: conflict: Node; Tree]
-// sym: ?FUN_002639c0@fn_002639c0@@YADPAUTree@1@PAUNode@1@PAUKey@1@@Z
+// sym: ?FUN_002639c0@fn_002639c0@@YADPAUTree@1@PAUNode@1@PAUKey@1@@Z @741e4ca8fdc1 @w35452d1b56ed
 namespace fn_002639c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1180 inputs, branch coverage 39/52, incomplete)
 // FUN_002639c0 @ 0x002639c0
@@ -569,7 +569,7 @@ extern "C" void FUN_00263bb0(void * tree, void * node) {
 namespace fn_f551a4d0 {
 
 // 0x00263c90 FUN_00263c90 (158 B): equivalent/0x00263c90.cpp
-// sym: ?FUN_00263c90@fn_f551a4d0@@YA_KXZ
+// sym: ?FUN_00263c90@fn_f551a4d0@@YA_KXZ @977842fa41cc @w14a1fc967640
 // STATUS: equivalent (tools/equiv.py level 3: 16731 inputs, branch coverage 4/4)
 // FUN_00263c90 @ 0x00263c90
 // FUN_00263c90 @ 0x00263c90: build a unique 64-bit id from the clock and bump it until it is not in the id set

@@ -25,7 +25,7 @@ struct Info_2ae060 {
 } // namespace fn_f8a52572
 
 // 0x002adf20 pure3d::ImageBuilder::vfunc_0 (253 B): equivalent/0x002adf20.cpp [wrapped: conflict: pure3d::ImageBuilder; pure3d::ImageHandler]
-// sym: ?vfunc_0@ImageBuilder@pure3d@fn_002adf20@@UAE_NHHHHPAX@Z
+// sym: ?vfunc_0@ImageBuilder@pure3d@fn_002adf20@@UAE_NHHHHPAX@Z @a3f1697fca2b @w62135ca5f73b
 namespace fn_002adf20 {
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 12/12)
 // pure3d::ImageBuilder::vfunc_0 @ 0x002adf20

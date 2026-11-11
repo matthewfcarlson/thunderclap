@@ -398,7 +398,7 @@ template <> void content::LoadInventory::DynamicCaster<pure3d::Entity>::vfunc_0(
 
 
 // 0x002358c0 fight::ParamValueInventoryEntity::vfunc_10 (141 B): equivalent/0x002358c0.cpp [wrapped: conflict: ParamValueInventoryEntity; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?FUN_002358c0@ParamValueInventoryEntity@fn_002358c0@@QAEPAVEntity@2@PAXII@Z
+// sym: ?FUN_002358c0@ParamValueInventoryEntity@fn_002358c0@@QAEPAVEntity@2@PAXII@Z @4348a74c610d @w67cb6b6b00f5
 namespace fn_002358c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 427 inputs, branch coverage 16/16)
 // fight::ParamValueInventoryEntity::vfunc_10 @ 0x002358c0

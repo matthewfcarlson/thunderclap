@@ -113,7 +113,7 @@ extern "C" void* FUN_00262400(void * obj, void * p2) {
 
 
 // 0x00262460 FUN_00262460 (214 B): equivalent/0x00262460.cpp
-// sym: _FUN_00262460
+// sym: _FUN_00262460 @45f5ccd1343e @w50fef88b1cf8
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 33/34, incomplete)
 // FUN_00262460 @ 0x00262460
 extern "C" void * __cdecl FUN_00262460(void * path) {
@@ -197,7 +197,7 @@ bool __cdecl FUN_002625a0(Str_2625a0* first, Str_2625a0* second) {
 
 
 // 0x00262620 FUN_00262620 (142 B): equivalent/0x00262620.cpp
-// sym: ?FUN_00262620@fn_f30a0110@@YAPAUStr_262620@1@PAU21@@Z
+// sym: ?FUN_00262620@fn_f30a0110@@YAPAUStr_262620@1@PAU21@@Z @83eea852ea20 @wa15992654213
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 14/14)
 // FUN_00262620 @ 0x00262620
 // Normalises a path string in place: '/' becomes '\\', then any trailing separator is removed.

@@ -392,7 +392,7 @@ char pure3d::DrawableContainer::vfunc_7() {
 
 
 // 0x002a41e0 FUN_002a41e0 (368 B): equivalent/0x002a41e0.cpp [wrapped: macros]
-// sym: ?FUN_002a41e0@Group_2a41e0@fn_002a41e0@@QAEXPAVParent_2a41e0@2@H@Z
+// sym: ?FUN_002a41e0@Group_2a41e0@fn_002a41e0@@QAEXPAVParent_2a41e0@2@H@Z @8ed859dccd65 @w8d920481ec05
 namespace fn_002a41e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19720 inputs, branch coverage 24/24)
 // FUN_002a41e0 @ 0x002a41e0
@@ -531,7 +531,7 @@ void pure3d::DrawableContainer::vfunc_9() {
 namespace fn_f6d01fd6 {
 
 // 0x002a43c0 FUN_002a43c0 (66 B): equivalent/0x002a43c0.cpp
-// sym: ?FUN_002a43c0@Owner@fn_f6d01fd6@@QAEHHH@Z
+// sym: ?FUN_002a43c0@Owner@fn_f6d01fd6@@QAEHHH@Z @44e023cf8ebe @w79837a905970
 // STATUS: equivalent (tools/equiv.py level 3: 763 inputs, branch coverage 8/8)
 // FUN_002a43c0 @ 0x002a43c0
 int Owner::FUN_002a43c0(int key1, int key2) { unsigned count = (unsigned)(end - begin); for (unsigned i = 0; i < count; ++i) { int *object = begin[i].object; if (object[2] == key1 && object[3] == key2) return i; } return -1; }
@@ -551,7 +551,7 @@ int pure3d::DrawableContainer::vfunc_16() {
 
 
 // 0x002a4440 pure3d::DrawableContainer::vfunc_17 (111 B): equivalent/0x002a4440.cpp
-// sym: ?vfunc_17@DrawableContainer@pure3d@@UAEPAXHH@Z
+// sym: ?vfunc_17@DrawableContainer@pure3d@@UAEPAXHH@Z @45f561c15947 @w1c2af3e11f7c
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 12/12)
 // pure3d::DrawableContainer::vfunc_17 @ 0x002a4440
 void* pure3d::DrawableContainer::vfunc_17(int key1, int key2) {
@@ -570,7 +570,7 @@ void* pure3d::DrawableContainer::vfunc_17(int key1, int key2) {
 
 
 // 0x002a44b0 pure3d::DrawableContainer::vfunc_18 (78 B): equivalent/0x002a44b0.cpp [wrapped: conflict: pure3d::DrawableContainer]
-// sym: ?vfunc_18@DrawableContainer@pure3d@fn_002a44b0@@QAEPAXI@Z
+// sym: ?vfunc_18@DrawableContainer@pure3d@fn_002a44b0@@QAEPAXI@Z @1e9e158f1645 @wfefff2c7c4a3
 namespace fn_002a44b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 632 inputs, branch coverage 6/6)
 // pure3d::DrawableContainer::vfunc_18 @ 0x002a44b0
@@ -612,7 +612,7 @@ void DrawableContainer_2a4500::Set(int index, Item_2a4500* item) {
 } // namespace fn_f6d01fd6
 
 // 0x002a4570 pure3d::DrawableContainer::vfunc_12 (314 B): equivalent/0x002a4570.cpp
-// sym: ?vfunc_12@DrawableContainer@pure3d@@UAEXXZ
+// sym: ?vfunc_12@DrawableContainer@pure3d@@UAEXXZ @235dfcee9e2c @w8f5fba1868bf
 // STATUS: equivalent (tools/equiv.py level 3: 8 inputs, branch coverage 6/6)
 // pure3d::DrawableContainer::vfunc_12 @ 0x002a4570
 void pure3d::DrawableContainer::vfunc_12() {
@@ -704,7 +704,7 @@ extern "C" int* FUN_002a4730(int* dst, int count, const int* src) {
 
 
 // 0x002a4760 FUN_002a4760 (110 B): equivalent/0x002a4760.cpp
-// sym: ??0IntVector_2a4760@fn_f6d01fd6@@QAE@ABU01@@Z
+// sym: ??0IntVector_2a4760@fn_f6d01fd6@@QAE@ABU01@@Z @e6af28e42022 @w28f00e00918c
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 9/10, incomplete)
 // FUN_002a4760 @ 0x002a4760
 IntVector_2a4760::IntVector_2a4760(const IntVector_2a4760 &other) throw()
@@ -797,7 +797,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 
 
 // 0x002a4a50 FUN_002a4a50 (171 B): equivalent/0x002a4a50.cpp
-// sym: ?resizeArray@fn_f6d01fd6@@YGXPAUArray_2a4a50@1@I@Z
+// sym: ?resizeArray@fn_f6d01fd6@@YGXPAUArray_2a4a50@1@I@Z @b8b3b96c2b6b @w4100c333ea1e
 // STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 16/18, incomplete)
 // FUN_002a4a50 @ 0x002a4a50
 void __stdcall resizeArray(Array_2a4a50* a, unsigned int count) {
@@ -825,7 +825,7 @@ void __stdcall resizeArray(Array_2a4a50* a, unsigned int count) {
 
 
 // 0x002a4b00 FUN_002a4b00 (297 B): equivalent/0x002a4b00.cpp
-// sym: ?work@Target_2a4b00@fn_f6d01fd6@@QAEXPAUCollection_2a4b00@2@PAUReader@2@I@Z
+// sym: ?work@Target_2a4b00@fn_f6d01fd6@@QAEXPAUCollection_2a4b00@2@PAUReader@2@I@Z @3a96aa0c2ef8 @w817dac3703af
 // STATUS: equivalent (tools/equiv.py level 3: 16697 inputs, branch coverage 10/10)
 // FUN_002a4b00 @ 0x002a4b00
 void Target_2a4b00::work(Collection_2a4b00* collection, Reader* reader, hulk_uintptr arg) {
@@ -960,7 +960,7 @@ void* DrawableContainer::Init(unsigned int arg) {
 } // namespace fn_f6d01fd6
 
 // 0x002a4e40 FUN_002a4e40 (428 B): equivalent/0x002a4e40.cpp [wrapped: conflict: pure3d::DrawableContainer]
-// sym: ??0DrawableContainer@pure3d@fn_002a4e40@@QAE@ABV012@@Z
+// sym: ??0DrawableContainer@pure3d@fn_002a4e40@@QAE@ABV012@@Z @f03d2da46880 @w9c94e0195a47
 namespace fn_002a4e40 {
 // STATUS: equivalent (tools/equiv.py level 3: 157 inputs, branch coverage 22/24, incomplete)
 // FUN_002a4e40 @ 0x002a4e40

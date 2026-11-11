@@ -435,7 +435,7 @@ int Owner_293ea0::Add(Item_293ea0* item) {
 } // namespace fn_fd6a08a7
 
 // 0x00293ef0 FUN_00293ef0 (393 B): equivalent/0x00293ef0.cpp [wrapped: macros]
-// sym: ?run@Target@fn_00293ef0@@QAEXXZ
+// sym: ?run@Target@fn_00293ef0@@QAEXXZ @c39a91528238 @wb84ce6e6c288
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

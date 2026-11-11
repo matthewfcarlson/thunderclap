@@ -75,7 +75,7 @@ extern "C" void __cdecl FUN_00220310(LuaVMLoadState* S);
 
 
 // 0x0021f800 FUN_0021f800 (50 B): equivalent/0x0021f800.cpp
-// sym: _FUN_0021f800
+// sym: _FUN_0021f800 @ef93890ad215 @wae8212b7fa7c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // lundump error: "<chunk name>: <message>" on the stack, then throw LUA_ERRSYNTAX (3).
 // C++ linkage on purpose: equiv.py's 32-bit runs pass a wrong first argument to an extern "C" variadic definition
@@ -95,7 +95,7 @@ void __cdecl FUN_0021f800(LuaVMLoadState* S, const char* fmt, ...) {
 
 
 // 0x0021f8c0 FUN_0021f8c0 (125 B): equivalent/0x0021f8c0.cpp
-// sym: _FUN_0021f8c0
+// sym: _FUN_0021f8c0 @82aeebd749dc @wae7d514e902a
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 12/12)
 // LoadBlock: read size bytes into b, reversed when the chunk's byte order differs.
 // equiv-conv: FUN_0021f800 esi stack
@@ -121,7 +121,7 @@ extern "C" void __cdecl FUN_0021f8c0(char* b, unsigned int size, LuaVMLoadState*
 
 
 // 0x0021f940 FUN_0021f940 (205 B): equivalent/0x0021f940.cpp
-// sym: _FUN_0021f940
+// sym: _FUN_0021f940 @7996c9589a05 @w963174c580bf
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 16/16)
 // LoadVector: read n elements of size bytes into b, each reversed when the chunk's byte order differs.
 // equiv-conv: FUN_0021f800 esi stack
@@ -161,7 +161,7 @@ extern "C" void __cdecl FUN_0021f940(unsigned int n, unsigned char* b, LuaVMLoad
 
 
 // 0x0021fa80 FUN_0021fa80 (101 B): equivalent/0x0021fa80.cpp
-// sym: _FUN_0021fa80
+// sym: _FUN_0021fa80 @50c38fd8b6b9 @w148942b3e515
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // LoadString: a size_t length (32 bits in the chunk, counting the NUL), then the characters; 0 is no string.
 // equiv-conv: FUN_0021f8c0 ecx eax edx
@@ -180,7 +180,7 @@ extern "C" LuaVMString* __cdecl FUN_0021fa80(LuaVMLoadState* S) {
 
 
 // 0x0021faf0 FUN_0021faf0 (92 B): equivalent/0x0021faf0.cpp
-// sym: _FUN_0021faf0
+// sym: _FUN_0021faf0 @c75191dbc1e5 @w23e1077190fc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // LoadCode: the instruction count, then the instructions (32 bits each).
 // equiv-conv: FUN_0021f8c0 ecx eax edx
@@ -199,7 +199,7 @@ extern "C" void __cdecl FUN_0021faf0(LuaVMLoadState* S, LuaVMProto* f) {
 
 
 // 0x0021fb50 FUN_0021fb50 (348 B): equivalent/0x0021fb50.cpp
-// sym: _FUN_0021fb50
+// sym: _FUN_0021fb50 @180a817770a6 @wd8c3f00aebd1
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 17/18, incomplete)
 // LoadLocals: the local variable count, then each one's name, startpc and endpc.
 // equiv-conv: FUN_0021f8c0 ecx eax edx
@@ -249,7 +249,7 @@ extern "C" void __cdecl FUN_0021fb50(LuaVMLoadState* S, LuaVMProto* p) {
 
 
 // 0x0021fcb0 FUN_0021fcb0 (92 B): equivalent/0x0021fcb0.cpp
-// sym: _FUN_0021fcb0
+// sym: _FUN_0021fcb0 @e80f671fbcdf @wc94d61b0d679
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // LoadLines: the line count, then the line of each instruction (32 bits each).
 // equiv-conv: FUN_0021f8c0 ecx eax edx
@@ -268,7 +268,7 @@ extern "C" void __cdecl FUN_0021fcb0(LuaVMLoadState* S, LuaVMProto* f) {
 
 
 // 0x0021fd10 FUN_0021fd10 (261 B): equivalent/0x0021fd10.cpp
-// sym: _FUN_0021fd10
+// sym: _FUN_0021fd10 @e26d9d04f54d @w59b2b5ac53b6
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 18/18)
 // LoadUpvalues: the upvalue name count (0 or nups), then each name.
 // equiv-conv: FUN_0021f8c0 ecx eax edx
@@ -310,7 +310,7 @@ extern "C" void __cdecl FUN_0021fd10(LuaVMLoadState* S, LuaVMProto* f) {
 
 
 // 0x0021fe20 FUN_0021fe20 (553 B): equivalent/0x0021fe20.cpp
-// sym: _FUN_0021fe20
+// sym: _FUN_0021fe20 @c3542f93bebe @wa43647f8e247
 // STATUS: equivalent (tools/equiv.py level 3: 122 inputs, branch coverage 34/34)
 // LoadConstants (nil, number, string constants), then the nested functions.
 // equiv-conv: FUN_0021f800 esi stack
@@ -395,7 +395,7 @@ extern "C" void __cdecl FUN_0021fe20(LuaVMLoadState* S, LuaVMProto* f) {
 } // namespace fn_f816444d
 
 // 0x00220050 FUN_00220050 (451 B): equivalent/0x00220050.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_00220050
+// sym: _FUN_00220050 @aa554f052fe5 @w24db8920a7a6
 namespace fn_00220050 {
 // STATUS: equivalent (tools/equiv.py level 3: 2915 inputs, branch coverage 24/24)
 // LoadFunction: a prototype (anchored on the stack while it loads): source, line, sizes, then its parts.
@@ -477,7 +477,7 @@ extern "C" LuaVMProto* __cdecl FUN_00220050(LuaVMLoadState* S, LuaVMString* p) {
 namespace fn_f816444d {
 
 // 0x00220220 FUN_00220220 (115 B): equivalent/0x00220220.cpp
-// sym: _FUN_00220220
+// sym: _FUN_00220220 @fe8af202837f @w769c20b79c5f
 // STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 10/10)
 // LoadSignature: the chunk starts with "\x1bLua".
 // equiv-conv: FUN_0021f800 esi stack
@@ -504,7 +504,7 @@ extern "C" void __cdecl FUN_00220220(LuaVMLoadState* S) {
 
 
 // 0x002202a0 FUN_002202a0 (92 B): equivalent/0x002202a0.cpp
-// sym: _FUN_002202a0
+// sym: _FUN_002202a0 @b55a47eafaee @wcc36ee4f2c30
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
 // TestSize: the chunk's size byte for a type must be the expected one (the chunk format's sizes).
 // equiv-conv: FUN_0021f800 esi stack
@@ -538,7 +538,7 @@ int d3dLayeredShader::UsesLayeredTexture() {
 
 
 // 0x00220310 FUN_00220310 (354 B): equivalent/0x00220310.cpp
-// sym: _FUN_00220310
+// sym: _FUN_00220310 @b97c994adb81 @w95d70f35ac3e
 // STATUS: equivalent (tools/equiv.py level 3: 3101 inputs, branch coverage 18/20, incomplete)
 // LoadHeader: signature, version 5.1, endianness (swap), the chunk format's sizes (4 each) and the test number.
 // equiv-conv: FUN_00220220 eax
@@ -602,7 +602,7 @@ extern "C" void __cdecl FUN_00220310(LuaVMLoadState* S) {
 
 
 // 0x00220480 FUN_00220480 (82 B): equivalent/0x00220480.cpp
-// sym: _FUN_00220480
+// sym: _FUN_00220480 @985766694c87 @w7483e75f320a
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 6/6)
 // luaU_undump: load a precompiled chunk (the header, then the main function).
 // equiv-conv: FUN_00220310 eax

@@ -183,7 +183,7 @@ bool pure3d::PolySkin::vfunc_3() {
 
 
 // 0x002b78c0 pure3d::PolySkin::vfunc_6 (60 B): equivalent/0x002b78c0.cpp [wrapped: conflict: pure3d::DrawableContainer; pure3d::PolySkin]
-// sym: ?vfunc_6@PolySkin@pure3d@fn_002b78c0@@QAEXHH@Z
+// sym: ?vfunc_6@PolySkin@pure3d@fn_002b78c0@@QAEXHH@Z @8d644395f7f9 @w4fba3cb6053f
 namespace fn_002b78c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // pure3d::PolySkin::vfunc_6 @ 0x002b78c0
@@ -245,7 +245,7 @@ int PolySkin::vfunc_16() {
 } // namespace fn_f0d4c6f4
 
 // 0x002b7990 pure3d::PolySkin::vfunc_17 (64 B): equivalent/0x002b7990.cpp [wrapped: conflict: pure3d::DrawableContainer; pure3d::PolySkin]
-// sym: ?vfunc_17@PolySkin@pure3d@fn_002b7990@@QAEXHH@Z
+// sym: ?vfunc_17@PolySkin@pure3d@fn_002b7990@@QAEXHH@Z @fc6e7b941cee @wd5219d9f83f6
 namespace fn_002b7990 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // pure3d::PolySkin::vfunc_17 @ 0x002b7990
@@ -413,7 +413,7 @@ pure3d::PolySkin::~PolySkin() {}
 
 
 // 0x002b7e50 FUN_002b7e50 (455 B): equivalent/0x002b7e50.cpp [wrapped: conflict: PolySkin; pure3d::DrawablePrimitive; pure3d::PrimGroupSkinnedOptimized; pure3d::PrimGroupSkinnedStreamed]
-// sym: ??0PolySkin@fn_002b7e50@@QAE@PBV01@@Z
+// sym: ??0PolySkin@fn_002b7e50@@QAE@PBV01@@Z @f0914bc04e60 @wd6caf72c3a94
 namespace fn_002b7e50 {
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 42/42)
 // FUN_002b7e50 @ 0x002b7e50

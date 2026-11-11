@@ -252,7 +252,7 @@ void core::DebugConsole::vfunc_11(int value) {
 namespace fn_f42a2f23 {
 
 // 0x0026de40 FUN_0026de40 (423 B): equivalent/0x0026de40.cpp
-// sym: ?FUN_0026de40@Queue_26de40@fn_f42a2f23@@QAEXXZ
+// sym: ?FUN_0026de40@Queue_26de40@fn_f42a2f23@@QAEXXZ @4688285f56c0 @wb208838e2380
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 54/54)
 // FUN_0026de40 @ 0x0026de40
 void Queue_26de40::FUN_0026de40() {
@@ -277,7 +277,7 @@ void Queue_26de40::FUN_0026de40() {
 } // namespace fn_f42a2f23
 
 // 0x0026e030 FUN_0026e030 (171 B): equivalent/0x0026e030.cpp
-// sym: ?FUN_0026e030@Device_26e030@owners@@QAEXXZ
+// sym: ?FUN_0026e030@Device_26e030@owners@@QAEXXZ @69f70f9586c4 @we6efff489215
 // STATUS: equivalent (tools/equiv.py level 3: 12000 inputs, branch coverage 8/8; run with --inputs 12000)
 // FUN_0026e030 @ 0x0026e030
 void owners::Device_26e030::FUN_0026e030() {
@@ -321,7 +321,7 @@ void __fastcall target(Obj_26e0e0* self) {
 
 
 // 0x0026e140 FUN_0026e140 (184 B): equivalent/0x0026e140.cpp
-// sym: ?target@Handler_26e140@fn_f42a2f23@@QAEXPBXI@Z
+// sym: ?target@Handler_26e140@fn_f42a2f23@@QAEXPBXI@Z @112f7d5874fa @wa6e28de50dee
 // STATUS: equivalent (tools/equiv.py level 3: 121 inputs, branch coverage 9/10, incomplete)
 // FUN_0026e140 @ 0x0026e140
 void Handler_26e140::target(const void* source, uint_26e140 length) {
@@ -356,7 +356,7 @@ bool owners::X_26e200::FUN_0026e200(void* p) {
 namespace fn_f42a2f23 {
 
 // 0x0026e240 FUN_0026e240 (86 B): equivalent/0x0026e240.cpp
-// sym: ?FUN_0026e240@Queue_26e240@fn_f42a2f23@@QAEXPBUItem_26e240@2@@Z
+// sym: ?FUN_0026e240@Queue_26e240@fn_f42a2f23@@QAEXPBUItem_26e240@2@@Z @656fd239fc06 @w24dda51a830d
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 4/4)
 // FUN_0026e240 @ 0x0026e240
 void Queue_26e240::FUN_0026e240(const Item_26e240 *item) {
@@ -656,7 +656,7 @@ void Obj_26e600::Target(unsigned int id, char* message) {
 
 
 // 0x0026e650 FUN_0026e650 (124 B): equivalent/0x0026e650.cpp [wrapped: conflict: core::BaseObject; core::DebugConsole; core::IRefCount]
-// sym: ??1DebugConsole@core@fn_0026e650@@QAE@XZ
+// sym: ??1DebugConsole@core@fn_0026e650@@QAE@XZ @72e65e0a3b95 @wc5857990b35a
 namespace fn_0026e650 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0026e650 @ 0x0026e650
@@ -883,7 +883,7 @@ void C_26e970::Fn(int a, int b, int c, int d, char e, char f, char g, char h2, c
 
 
 // 0x0026e9e0 FUN_0026e9e0 (97 B): equivalent/0x0026e9e0.cpp
-// sym: ?target@fn_f42a2f23@@YAXPAPAUObj_26e9e0@1@HH@Z
+// sym: ?target@fn_f42a2f23@@YAXPAPAUObj_26e9e0@1@HH@Z @1b55fcac8f14 @w6a92ac48092a
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 4/4)
 // FUN_0026e9e0 @ 0x0026e9e0
 void __cdecl target(Obj_26e9e0** result, hulk_intptr value, int other) {
@@ -948,7 +948,7 @@ void FUN_0026ed70() {
 } // namespace fn_f42a2f23
 
 // 0x0026ed80 FUN_0026ed80 (164 B): equivalent/0x0026ed80.cpp [wrapped: conflict: core::DebugConsole; core::IDebugConsole; core::Object; core::RefCount]
-// sym: ?FUN_0026ed80@DebugConsole@core@fn_0026ed80@@QAEPAU123@PAXE@Z
+// sym: ?FUN_0026ed80@DebugConsole@core@fn_0026ed80@@QAEPAU123@PAXE@Z @6b6550590e62 @w91eb9048e71a
 namespace fn_0026ed80 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0026ed80 @ 0x0026ed80

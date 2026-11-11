@@ -122,7 +122,7 @@ class TextureFontLoader {
 
 
 // 0x00294b00 FUN_00294b00 (126 B): equivalent/0x00294b00.cpp
-// sym: ?FUN_00294b00@fn_f54d8eff@@YAHPBD0H@Z
+// sym: ?FUN_00294b00@fn_f54d8eff@@YAHPBD0H@Z @911e35209858 @w4a8064d6e764
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 18/20, incomplete)
 // FUN_00294b00 @ 0x00294b00
 // Case-insensitive comparison of at most n characters (strnicmp-style): returns -1, 0 or 1.
@@ -219,7 +219,7 @@ pure3d::Font::~Font() {}
 
 
 // 0x00294e00 pure3d::TextureFont::vfunc_9 (73 B): equivalent/0x00294e00.cpp [wrapped: conflict: pure3d::TextureFont]
-// sym: ?vfunc_9@TextureFont@pure3d@fn_00294e00@@QAEMPBG@Z
+// sym: ?vfunc_9@TextureFont@pure3d@fn_00294e00@@QAEMPBG@Z @9a086b4d24c7 @w22d4b7ef2fc9
 namespace fn_00294e00 {
 // STATUS: equivalent (tools/equiv.py level 3: 18355 inputs, branch coverage 8/8)
 // pure3d::TextureFont::vfunc_9 @ 0x00294e00
@@ -295,7 +295,7 @@ int owners::Search_294ed0::FUN_00294ed0(unsigned short key) {
 namespace fn_f54d8eff {
 
 // 0x00294f10 FUN_00294f10 (422 B): equivalent/0x00294f10.cpp
-// sym: ?Emit@Quad_294f10@fn_f54d8eff@@QAEXPAUVertexSink_294f10@2@PAUSource_294f10@2@MM@Z
+// sym: ?Emit@Quad_294f10@fn_f54d8eff@@QAEXPAUVertexSink_294f10@2@PAUSource_294f10@2@MM@Z @18a67d6aae9f @wda30ba67ecc2
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00294f10 @ 0x00294f10
 void Quad_294f10::Emit(VertexSink_294f10 *out, Source_294f10 *src, float x, float w)
@@ -477,7 +477,7 @@ bool owners::C_295250::FUN_00295250(int x) {
 
 
 // 0x00295270 pure3d::TextureFont::vfunc_18 (105 B): equivalent/0x00295270.cpp [wrapped: conflict: pure3d::TextureFont]
-// sym: ?vfunc_18@TextureFont@pure3d@fn_00295270@@UAEMPBG@Z
+// sym: ?vfunc_18@TextureFont@pure3d@fn_00295270@@UAEMPBG@Z @dcbd1a6e7fc9 @we4dc30828e8a
 namespace fn_00295270 {
 // STATUS: equivalent (tools/equiv.py level 3: 18349 inputs, branch coverage 12/12)
 // pure3d::TextureFont::vfunc_18 @ 0x00295270
@@ -539,7 +539,7 @@ hulk_freg TextureFont::vfunc_18(const unsigned short* text) {
 
 
 // 0x002952e0 pure3d::TextureFont::vfunc_19 (573 B): equivalent/0x002952e0.cpp [wrapped: conflict: TextureFont]
-// sym: ?vfunc_19@TextureFont@fn_002952e0@@UAEXPBGD@Z
+// sym: ?vfunc_19@TextureFont@fn_002952e0@@UAEXPBGD@Z @66b8676eb649 @w64d9b29f0dc6
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -774,7 +774,7 @@ void TextureFont::vfunc_19(const unsigned short* text, char flags)
 
 
 // 0x00295520 FUN_00295520 (157 B): equivalent/0x00295520.cpp [wrapped: conflict: pure3d::TextureFont]
-// sym: ??1TextureFont@pure3d@fn_00295520@@UAE@XZ
+// sym: ??1TextureFont@pure3d@fn_00295520@@UAE@XZ @f9ddd5953911 @w8342c28a6469
 namespace fn_00295520 {
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 14/14)
 // FUN_00295520 @ 0x00295520
@@ -875,7 +875,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x00295620 pure3d::TextureFontLoader::vfunc_5 (1530 B): equivalent/0x00295620.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase; pure3d::Entity; pure3d::Shader (+1)]
-// sym: ?F@TextureFontLoader@fn_00295620@@QAEXPAPAVTextureFont@pure3d@2@PA_KPAUStream@2@PAVFactory_295620@2@@Z
+// sym: ?F@TextureFontLoader@fn_00295620@@QAEXPAPAVTextureFont@pure3d@2@PA_KPAUStream@2@PAVFactory_295620@2@@Z @2153c5843d07 @w0f067f7434c6
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_00295620 {
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 46/50, incomplete)

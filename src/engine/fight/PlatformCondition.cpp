@@ -249,7 +249,7 @@ template <> fight::ParamBool<fight::PlatformCondition>::~ParamBool() {}
 
 
 // 0x0023cce0 FUN_0023cce0 (256 B): equivalent/0x0023cce0.cpp [wrapped: conflict: fight::ParamBool]
-// sym: _FUN_0023cce0
+// sym: _FUN_0023cce0 @cce7cdfb2bb4 @wbac80ea5cc63
 namespace fn_0023cce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 10/10)
 // FUN_0023cce0 @ 0x0023cce0

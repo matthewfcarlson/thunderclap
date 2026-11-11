@@ -124,7 +124,7 @@ extern "C" int* FUN_00250550() {
 } // namespace fn_f289a90f
 
 // 0x00250560 audio::SeqActionWaitBeat::vfunc_6 (77 B): equivalent/0x00250560.cpp [wrapped: conflict: audio::SeqActionWaitBeat]
-// sym: ?vfunc_6@SeqActionWaitBeat@audio@fn_00250560@@QAEXH@Z
+// sym: ?vfunc_6@SeqActionWaitBeat@audio@fn_00250560@@QAEXH@Z @383b476975c6 @w0e6a33ed69b8
 namespace fn_00250560 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // audio::SeqActionWaitBeat::vfunc_6 @ 0x00250560
@@ -224,7 +224,7 @@ int audio::SeqActionWaitBeat::vfunc_5(int ) {
 namespace fn_f289a90f {
 
 // 0x00250640 FUN_00250640 (66 B): equivalent/0x00250640.cpp
-// sym: _FUN_00250640
+// sym: _FUN_00250640 @6d01b1fb79bf @w6bab0353120b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00250640 @ 0x00250640
 extern "C" int __cdecl FUN_00250640(char **buffer, int value, Context *context) {
@@ -267,7 +267,7 @@ SeqActionWaitBeat_250770* SeqActionWaitBeat_250770::vfunc_0(int flag) {
 namespace fn_f289a90f {
 
 // 0x002507c0 FUN_002507c0 (43 B): equivalent/0x002507c0.cpp
-// sym: ??0SeqEventWaitBeat@fn_f289a90f@@QAE@XZ
+// sym: ??0SeqEventWaitBeat@fn_f289a90f@@QAE@XZ @ec8f98f0f364 @wfa6725a6ab04
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002507c0 @ 0x002507c0
 SeqEventWaitBeat::SeqEventWaitBeat() { field8=0; fieldC=0; field10=FUN_002673a0("stitched",0); }
@@ -313,7 +313,7 @@ SeqEventWaitBeat* SeqEventWaitBeat::f4(int x) {
 
 
 // 0x00250820 audio::SeqEventWaitBeat::vfunc_1 (71 B): equivalent/0x00250820.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventWaitBeat]
-// sym: ?vfunc_1@SeqEventWaitBeat@audio@fn_00250820@@UAE_NPAUSeqEventArg@23@@Z
+// sym: ?vfunc_1@SeqEventWaitBeat@audio@fn_00250820@@UAE_NPAUSeqEventArg@23@@Z @4c9290bf2650 @w3594e5a13bea
 namespace fn_00250820 {
 // STATUS: equivalent (tools/equiv.py level 3: 2823 inputs, branch coverage 4/4)
 // audio::SeqEventWaitBeat::vfunc_1 @ 0x00250820

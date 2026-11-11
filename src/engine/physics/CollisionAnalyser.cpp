@@ -243,7 +243,7 @@ void Target_30d760::Set(Vec3_30d760* a, Vec3_30d760* b, int c, int d, int e) {
 
 
 // 0x0030d7c0 FUN_0030d7c0 (108 B): equivalent/0x0030d7c0.cpp
-// sym: ?FUN_0030d7c0@Target_30d7c0@fn_f910b875@@QAEXPAUVec3_30d7c0@2@0MM@Z
+// sym: ?FUN_0030d7c0@Target_30d7c0@fn_f910b875@@QAEXPAUVec3_30d7c0@2@0MM@Z @79e3870176e3 @wcd60ddaec6f7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0030d7c0 @ 0x0030d7c0
 void Target_30d7c0::FUN_0030d7c0(Vec3_30d7c0 *a, Vec3_30d7c0 *b, float c, float d)
@@ -262,7 +262,7 @@ void Target_30d7c0::FUN_0030d7c0(Vec3_30d7c0 *a, Vec3_30d7c0 *b, float c, float 
 } // namespace fn_f910b875
 
 // 0x0030d850 FUN_0030d850 (65 B): equivalent/0x0030d850.cpp
-// sym: ?FUN_0030d850@Range_30d850@owners@@QAEXIIIII@Z
+// sym: ?FUN_0030d850@Range_30d850@owners@@QAEXIIIII@Z @ce5f28068536 @w49bc264b0c5a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0030d850 @ 0x0030d850
 void owners::Range_30d850::FUN_0030d850(uint first, uint firstValue, uint second, uint secondValue, hulk_uintptr last)
@@ -406,7 +406,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 
 
 // 0x0030df50 FUN_0030df50 (321 B): equivalent/0x0030df50.cpp
-// sym: ?FUN_0030df50@CollisionAnalyser_30df50@fn_f910b875@@QAEHXZ
+// sym: ?FUN_0030df50@CollisionAnalyser_30df50@fn_f910b875@@QAEHXZ @bb55f6fc2c31 @w0b4373870c47
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 23/26, incomplete)
 // FUN_0030df50 @ 0x0030df50
 hulk_intptr CollisionAnalyser_30df50::FUN_0030df50()
@@ -473,7 +473,7 @@ hulk_intptr CollisionAnalyser_30df50::FUN_0030df50()
 
 
 // 0x0030e0a0 FUN_0030e0a0 (237 B): equivalent/0x0030e0a0.cpp
-// sym: ?target@Manager_30e0a0@fn_f910b875@@QAEXXZ
+// sym: ?target@Manager_30e0a0@fn_f910b875@@QAEXXZ @41508ee1a5b4 @wfe72acdc62a4
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 15/16, incomplete)
 // FUN_0030e0a0 @ 0x0030e0a0
 // FUN_0030e0a0 @ 0x0030e0a0
@@ -533,7 +533,7 @@ void physics::CollisionAnalyser::vfunc_2(int , int ) {
 namespace fn_f910b875 {
 
 // 0x0030e280 FUN_0030e280 (89 B): equivalent/0x0030e280.cpp
-// sym: ?FUN_0030e280@CollisionAnalyser_30e280@fn_f910b875@@QAEPAUItem@2@XZ
+// sym: ?FUN_0030e280@CollisionAnalyser_30e280@fn_f910b875@@QAEPAUItem@2@XZ @53f8cef330f7 @w4d70593c8693
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 4/4)
 // FUN_0030e280 @ 0x0030e280
 Item* CollisionAnalyser_30e280::FUN_0030e280() {

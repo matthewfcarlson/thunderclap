@@ -236,7 +236,7 @@ bool pure3d::LightAnimationController::vfunc_26(void* __p0) { void * p = (void *
 namespace fn_f5607ee0 {
 
 // 0x002a8840 pure3d::LightAnimationController::vfunc_27 (556 B): equivalent/0x002a8840.cpp
-// sym: ?vfunc_27@LightAnimationController@fn_f5607ee0@@UAEXXZ
+// sym: ?vfunc_27@LightAnimationController@fn_f5607ee0@@UAEXXZ @9142e47bbf31 @wad894f8a699a
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 30/30)
 // pure3d::LightAnimationController::vfunc_27 @ 0x002a8840
 void LightAnimationController::vfunc_27()
@@ -324,7 +324,7 @@ LightAnimationController_2a8a70::~LightAnimationController_2a8a70() {
 
 
 // 0x002a8aa0 FUN_002a8aa0 (263 B): equivalent/0x002a8aa0.cpp
-// sym: ?Set@LightAnimationController_2a8aa0@fn_f5607ee0@@QAEXPAUObject@2@@Z
+// sym: ?Set@LightAnimationController_2a8aa0@fn_f5607ee0@@QAEXPAUObject@2@@Z @4b8d6e798317 @wb06df9fe8e8b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_002a8aa0 @ 0x002a8aa0
 void LightAnimationController_2a8aa0::Set(Object* value) {
@@ -342,7 +342,7 @@ void LightAnimationController_2a8aa0::Set(Object* value) {
 } // namespace fn_f5607ee0
 
 // 0x002a8bb0 pure3d::LightAnimationController::vfunc_28 (1853 B): equivalent/0x002a8bb0.cpp [wrapped: conflict: Light; LightAnimationController]
-// sym: ?v28@LightAnimationController@fn_002a8bb0@@UAEXXZ
+// sym: ?v28@LightAnimationController@fn_002a8bb0@@UAEXXZ @eeaded3d3c7f @w21ec0d2610b5
 namespace fn_002a8bb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 76/84, incomplete)
 // pure3d::LightAnimationController::vfunc_28 @ 0x002a8bb0

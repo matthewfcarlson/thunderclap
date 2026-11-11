@@ -4,7 +4,7 @@
 
 
 // 0x0022e930 FUN_0022e930 (457 B): equivalent/0x0022e930.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_0022e930@Segment_22e930@fn_fefcec7c@@QAEPAUV3_22e930@2@PAU32@I@Z
+// sym: ?FUN_0022e930@Segment_22e930@fn_fefcec7c@@QAEPAUV3_22e930@2@PAU32@I@Z @40f9fde22748 @we2a336b800d2
 #include "gen/owners.h"
 namespace fn_fefcec7c {} using namespace fn_fefcec7c;
 namespace fn_fefcec7c {

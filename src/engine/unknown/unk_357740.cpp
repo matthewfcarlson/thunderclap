@@ -176,7 +176,7 @@ T_357740* T_357740::Set(const V* pa, int p3, int p4, int p5, int p6, int p7, int
 
 
 // 0x003577c0 FUN_003577c0 (415 B): equivalent/0x003577c0.cpp
-// sym: _FUN_003577c0
+// sym: _FUN_003577c0 @6ed628b204fc @w5dbbd1578af7
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 12/12)
 // FUN_003577c0 @ 0x003577c0
 // Is p inside the triangle v1 v2 v3 (all on the plane with normal n)?
@@ -245,7 +245,7 @@ extern "C" bool FUN_003577c0(const void * p_, const void * v1_, const void * v2_
 
 
 // 0x00357960 FUN_00357960 (129 B): equivalent/0x00357960.cpp
-// sym: _FUN_00357960
+// sym: _FUN_00357960 @ee98575d3ee9 @wd2f45368fc93
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00357960 @ 0x00357960
 extern "C" bool FUN_00357960(const void * origin, const void * dir, float reach, const void * p5, const void * p6, const void * p7, const void * n, float* dist, void * hit, void * outN_)
@@ -286,7 +286,7 @@ void Proj(V* d, V** t, float* mn, float* mx) {
 
 
 // 0x00357aa0 FUN_00357aa0 (316 B): equivalent/0x00357aa0.cpp
-// sym: ?FUN_00357aa0@fn_fc83e8cf@@YA_NPAUVec3_357aa0@1@00000@Z
+// sym: ?FUN_00357aa0@fn_fc83e8cf@@YA_NPAUVec3_357aa0@1@00000@Z @3adb10cd99b4 @w2477305d344d
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00357aa0 @ 0x00357aa0
 // Is point `pt` (relative to `origin`), expressed in the basis (ax, ay, az), inside the box `half`?
@@ -327,7 +327,7 @@ bool FUN_00357aa0(Vec3_357aa0 *origin, Vec3_357aa0 *half, Vec3_357aa0 *ax, Vec3_
 
 
 // 0x00357be0 FUN_00357be0 (253 B): equivalent/0x00357be0.cpp
-// sym: ?FUN_00357be0@fn_fc83e8cf@@YAXPAUVec3_357be0@1@000HH@Z
+// sym: ?FUN_00357be0@fn_fc83e8cf@@YAXPAUVec3_357be0@1@000HH@Z @21a80df316e7 @wee8a440e217c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00357be0 @ 0x00357be0
 // Builds the unit direction and length of the segments p0->p1 and p2->p3 and forwards them.
@@ -358,7 +358,7 @@ void FUN_00357be0(Vec3_357be0 *p0, Vec3_357be0 *p1, Vec3_357be0 *p2, Vec3_357be0
 } // namespace fn_fc83e8cf
 
 // 0x00357ce0 FUN_00357ce0 (440 B): equivalent/0x00357ce0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_00357ce0@fn_00357ce0@@YAXPBUVec3_357ce0@1@000PAU21@1_N22@Z
+// sym: ?FUN_00357ce0@fn_00357ce0@@YAXPBUVec3_357ce0@1@000PAU21@1_N22@Z @988feef79061 @w3264d3100409
 namespace fn_00357ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00357ce0 @ 0x00357ce0
@@ -420,7 +420,7 @@ void FUN_00357ce0(const Vec3_357ce0 *p, const Vec3_357ce0 *a, const Vec3_357ce0 
 namespace fn_fc83e8cf {
 
 // 0x00357ea0 FUN_00357ea0 (389 B): equivalent/0x00357ea0.cpp
-// sym: _FUN_00357ea0
+// sym: _FUN_00357ea0 @2f216db5eba0 @wa932b4b10753
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00357ea0 @ 0x00357ea0
 extern "C" void FUN_00357ea0(const void *p, const void *a, const void *b, const void *c, void * out_,
@@ -463,7 +463,7 @@ extern "C" void FUN_00357ea0(const void *p, const void *a, const void *b, const 
 
 
 // 0x00358030 FUN_00358030 (1532 B): equivalent/0x00358030.cpp
-// sym: ?FUN_00358030@fn_fc83e8cf@@YAXPAUV3_358030@1@0D000PAM0011DDD@Z
+// sym: ?FUN_00358030@fn_fc83e8cf@@YAXPAUV3_358030@1@0D000PAM0011DDD@Z @cbe6a3671890 @wc0f21bee3e4c
 // STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 18/18)
 // FUN_00358030 @ 0x00358030
 // Closest approach of a ray (S, D) to the three edges of a triangle; reports the nearest edge.
@@ -584,7 +584,7 @@ void FUN_00358030(V3_358030 *S, V3_358030 *D, char useSegment, V3_358030 *P1, V3
 
 
 // 0x00358630 FUN_00358630 (195 B): equivalent/0x00358630.cpp
-// sym: ?FUN_00358630@fn_fc83e8cf@@YA_NPBUVec3_358630@1@0MMDM0PAM@Z
+// sym: ?FUN_00358630@fn_fc83e8cf@@YA_NPBUVec3_358630@1@0MMDM0PAM@Z @642a6b2812dd @w2678f3933c34
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 4/4)
 // FUN_00358630 @ 0x00358630
 // Interval test along a direction: writes (centre - radius) to *out and returns whether |centre| <= radius.
@@ -618,7 +618,7 @@ bool __cdecl FUN_00358630(const Vec3_358630 *a, const Vec3_358630 *b, float k1, 
 
 
 // 0x00358700 FUN_00358700 (1026 B): equivalent/0x00358700.cpp
-// sym: ?FUN_00358700@fn_fc83e8cf@@YA_NPAUVec3_358700@1@0MMTVecSlot@1@0PAX1PAM00@Z
+// sym: ?FUN_00358700@fn_fc83e8cf@@YA_NPAUVec3_358700@1@0MMTVecSlot@1@0PAX1PAM00@Z @70e5d67fb5d3 @w2d2486a54e07
 // STATUS: equivalent (tools/equiv.py level 3: 19971 inputs, branch coverage 14/14)
 // FUN_00358700 @ 0x00358700
 // Swept sphere (segment start a, direction dir, half length len, radius) against a triangle plane.
@@ -720,7 +720,7 @@ bool FUN_00358700(Vec3_358700 *a, Vec3_358700 *dir, float radius, float len, Vec
 } // namespace fn_fc83e8cf
 
 // 0x00358b10 FUN_00358b10 (1869 B): equivalent/0x00358b10.cpp [wrapped: macros; helper definitions (4 out-of-line function bodies)]
-// sym: _FUN_00358b10
+// sym: _FUN_00358b10 @26ce70b647be @w1fe342eb2f60
 namespace fn_00358b10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3286 inputs, branch coverage 20/20)
 // FUN_00358b10 @ 0x00358b10
@@ -946,7 +946,7 @@ extern "C" bool FUN_00358b10(float *c, float *axis, float radius, float halfLen,
 namespace fn_fc83e8cf {
 
 // 0x00359260 FUN_00359260 (496 B): equivalent/0x00359260.cpp
-// sym: _FUN_00359260
+// sym: _FUN_00359260 @5feb1c12b3d5 @wa7224aee3796
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 14/14)
 // FUN_00359260 @ 0x00359260
 // Ray/plane distance plus triangle containment test; falls back to the closest edge point.
@@ -1004,7 +1004,7 @@ extern "C" bool FUN_00359260(Vec3_359260* origin, float eps, Vec3_359260* a, Vec
 
 
 // 0x00359450 FUN_00359450 (178 B): equivalent/0x00359450.cpp
-// sym: _FUN_00359450
+// sym: _FUN_00359450 @b757b0c5f216 @wa83547b77b74
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 0/0)
 // FUN_00359450 @ 0x00359450
 // Interval of a box (centre c, half extents ext, axes ax/ay/az) projected onto a direction.
@@ -1030,7 +1030,7 @@ extern "C" void __cdecl FUN_00359450(const void * dir_, const void *c, const voi
 
 
 // 0x00359510 FUN_00359510 (835 B): equivalent/0x00359510.cpp
-// sym: ?FUN_00359510@fn_fc83e8cf@@YA_NPBUVec3@1@PBM000000@Z
+// sym: ?FUN_00359510@fn_fc83e8cf@@YA_NPBUVec3@1@PBM000000@Z @65c43ea2e865 @w2f4a25048fd0
 // STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 17/18, incomplete)
 // FUN_00359510 @ 0x00359510
 // Triangle (t0,t1,t2) against an oriented box (center, half extents, three axes): separating-axis test.
@@ -1115,7 +1115,7 @@ bool __cdecl FUN_00359510(const Vec3* center, const float* half, const Vec3* ax0
 
 
 // 0x00359860 FUN_00359860 (541 B): equivalent/0x00359860.cpp
-// sym: ?FUN_00359860@fn_fc83e8cf@@YAMPAUVec3_359860@1@000000@Z
+// sym: ?FUN_00359860@fn_fc83e8cf@@YAMPAUVec3_359860@1@000000@Z @002846f1983e @wf3394bc543c8
 // STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 18/18)
 // FUN_00359860 @ 0x00359860
 // Slab test of a ray against an oriented box: returns the negated smallest per-axis ratio.
@@ -1177,7 +1177,7 @@ hulk_freg FUN_00359860(Vec3_359860 *origin, Vec3_359860 *extent, Vec3_359860 *ax
 } // namespace fn_fc83e8cf
 
 // 0x00359a80 FUN_00359a80 (1805 B): equivalent/0x00359a80.cpp [wrapped: macros]
-// sym: _FUN_00359a80
+// sym: _FUN_00359a80 @54e2ebb3e84b @wf6d824126738
 namespace fn_00359a80 {
 // STATUS: equivalent (tools/equiv.py level 3: 11399 inputs, branch coverage 67/72, incomplete)
 // FUN_00359a80 @ 0x00359a80
@@ -1313,7 +1313,7 @@ extern "C" void FUN_00359a80(const void * plane_, float d, int *pcount, void * v
 namespace fn_fc83e8cf {
 
 // 0x0035a190 FUN_0035a190 (268 B): equivalent/0x0035a190.cpp
-// sym: ?FUN_0035a190@fn_fc83e8cf@@YA_NPAUBox_35a190@1@PAUVec3_35a190@1@11PAH1@Z
+// sym: ?FUN_0035a190@fn_fc83e8cf@@YA_NPAUBox_35a190@1@PAUVec3_35a190@1@11PAH1@Z @bc2b6f5f0e6a @w77894e886afc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_0035a190 @ 0x0035a190
 // Clips the triangle (a, b, c) against the six faces of an oriented box.
@@ -1339,7 +1339,7 @@ bool FUN_0035a190(Box_35a190 *box, Vec3_35a190 *a, Vec3_35a190 *b, Vec3_35a190 *
 
 
 // 0x0035a2a0 FUN_0035a2a0 (542 B): equivalent/0x0035a2a0.cpp
-// sym: ?FUN_0035a2a0@fn_fc83e8cf@@YA_NPAUVec3_35a2a0@1@00000000PAM00@Z
+// sym: ?FUN_0035a2a0@fn_fc83e8cf@@YA_NPAUVec3_35a2a0@1@00000000PAM00@Z @3170b490c4a6 @w05fde517f2e2
 // STATUS: equivalent (tools/equiv.py level 3: 157 inputs, branch coverage 10/10)
 // FUN_0035a2a0 @ 0x0035a2a0
 // Oriented-box overlap: centroid of the clipped contact points and penetration along the reversed direction.
@@ -1419,7 +1419,7 @@ extern "C" char __cdecl FUN_0035a4c0(Vec3_35a4c0 *a1, Vec3_35a4c0 *a2, Vec3_35a4
 
 
 // 0x0035a590 FUN_0035a590 (144 B): equivalent/0x0035a590.cpp
-// sym: ?FUN_0035a590@fn_fc83e8cf@@YAHXZ
+// sym: ?FUN_0035a590@fn_fc83e8cf@@YAHXZ @99175298c974 @w1bfa4cb1fc0c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 11/11)
 // FUN_0035a590 @ 0x0035a590
 // FUN_0035a590 @ 0x0035a590: one-letter language/region code for the index FUN_00209f50 returns (1..9).

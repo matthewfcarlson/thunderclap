@@ -319,7 +319,7 @@ void* audio::SeqEventChannelSendsType::vfunc_3() {
 
 
 // 0x0024fae0 audio::SeqEventChannelSends::vfunc_1 (71 B): equivalent/0x0024fae0.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventChannelSends]
-// sym: ?vfunc_1@SeqEventChannelSends@audio@fn_0024fae0@@UAEEPAPAX@Z
+// sym: ?vfunc_1@SeqEventChannelSends@audio@fn_0024fae0@@UAEEPAPAX@Z @27da0594fbfc @w9d80ac4f1747
 namespace fn_0024fae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2823 inputs, branch coverage 4/4)
 // audio::SeqEventChannelSends::vfunc_1 @ 0x0024fae0
@@ -367,7 +367,7 @@ int SeqEventChannelSends::vfunc_0(void* p) {
 
 
 // 0x0024fb80 audio::SeqEventChannelSends::vfunc_2 (66 B): equivalent/0x0024fb80.cpp
-// sym: ?vfunc_2@SeqEventChannelSends@audio@@UAEXH@Z
+// sym: ?vfunc_2@SeqEventChannelSends@audio@@UAEXH@Z @8f3f8711eb25 @w7f965a9e9551
 // STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
 // audio::SeqEventChannelSends::vfunc_2 @ 0x0024fb80
 void audio::SeqEventChannelSends::vfunc_2(hulk_intptr __p0) { void * channel = (void *)__p0;

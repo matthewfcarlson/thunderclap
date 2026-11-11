@@ -4,7 +4,7 @@
 
 
 // 0x00337c20 FUN_00337c20 (216 B): equivalent/0x00337c20.cpp [isolated: code differs from its standalone build; on include/gen/ and not mergeable]
-// sym: _FUN_00337c20@16
+// sym: _FUN_00337c20@16 @f5d9ff37d36f @wcca3c251afc2
 // STATUS: equivalent (tools/equiv.py level 3: 6527 inputs, branch coverage 8/8)
 // FUN_00337c20 @ 0x00337c20
 #include "gen/movie.h"

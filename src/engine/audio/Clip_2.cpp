@@ -412,7 +412,7 @@ extern "C" void FUN_00245380() {}
 
 
 // 0x00245390 FUN_00245390 (452 B): equivalent/0x00245390.cpp
-// sym: ?FUN_00245390@fn_f6720d1b@@YAPAXPAVStream@1@P6AXXZ@Z
+// sym: ?FUN_00245390@fn_f6720d1b@@YAPAXPAVStream@1@P6AXXZ@Z @101d217764cc @w918194cedff6
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 34/36, incomplete)
 // FUN_00245390 @ 0x00245390
 void *FUN_00245390(Stream *s, void (*pump)())
@@ -541,7 +541,7 @@ void* audio::ClipType::vfunc_2() {
 
 
 // 0x00245720 FUN_00245720 (206 B): equivalent/0x00245720.cpp [wrapped: conflict: audio::Clip]
-// sym: ?target@fn_00245720@@YA_NPAPAUClip@audio@1@PAXPBD1@Z
+// sym: ?target@fn_00245720@@YA_NPAPAUClip@audio@1@PAXPBD1@Z @000f5feb8518 @wd8596531800e
 inline void* __cdecl operator new(size_t,void* p) { return p; }
 namespace fn_00245720 {
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 8/8)
@@ -679,7 +679,7 @@ bool Err(Parser_245b00* p, Ctx* c, const char* fmt, ...) {
 } // namespace fn_f6720d1b
 
 // 0x00245b70 FUN_00245b70 (132 B): equivalent/0x00245b70.cpp
-// sym: ?FUN_00245b70@RingReader_245b70@owners@@QAEEI@Z
+// sym: ?FUN_00245b70@RingReader_245b70@owners@@QAEEI@Z @57e12cb94f83 @w9caf367954d5
 // STATUS: equivalent (tools/equiv.py level 3: 1792 inputs, branch coverage 12/12)
 // FUN_00245b70 @ 0x00245b70
 unsigned char owners::RingReader_245b70::FUN_00245b70(unsigned int index)
@@ -698,7 +698,7 @@ unsigned char owners::RingReader_245b70::FUN_00245b70(unsigned int index)
 namespace fn_f6720d1b {
 
 // 0x00245c50 FUN_00245c50 (102 B): equivalent/0x00245c50.cpp
-// sym: ?FUN_00245c50@fn_f6720d1b@@YA_NPAVTextBuffer@1@PBD@Z
+// sym: ?FUN_00245c50@fn_f6720d1b@@YA_NPAVTextBuffer@1@PBD@Z @ef527fb187f3 @w6f914f07ce11
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00245c50 @ 0x00245c50
 bool __cdecl FUN_00245c50(TextBuffer* buf, const char* text) {
@@ -761,7 +761,7 @@ extern "C" void FUN_00245d40(void * p) {
 
 
 // 0x00246100 FUN_00246100 (282 B): equivalent/0x00246100.cpp
-// sym: _FUN_00246100
+// sym: _FUN_00246100 @79ae925442a9 @w076001dd7e94
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 18/18)
 // FUN_00246100 @ 0x00246100
 extern "C" int __cdecl FUN_00246100(Reader* r) {
@@ -793,7 +793,7 @@ extern "C" int __cdecl FUN_00246100(Reader* r) {
 
 
 // 0x00246220 FUN_00246220 (171 B): equivalent/0x00246220.cpp
-// sym: ?FUN_00246220@fn_f6720d1b@@YA_NPAUReader@1@PAI@Z
+// sym: ?FUN_00246220@fn_f6720d1b@@YA_NPAUReader@1@PAI@Z @6fad24cce309 @w04165b81f28e
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 20/20)
 // FUN_00246220 @ 0x00246220
 bool __cdecl FUN_00246220(Reader* reader, unsigned* result) {
@@ -823,7 +823,7 @@ bool __cdecl FUN_00246220(Reader* reader, unsigned* result) {
 
 
 // 0x00246340 FUN_00246340 (236 B): equivalent/0x00246340.cpp
-// sym: ?FUN_00246340@fn_f6720d1b@@YANPAUParser_246340@1@@Z
+// sym: ?FUN_00246340@fn_f6720d1b@@YANPAUParser_246340@1@@Z @3f11c25b3053 @w2f81b351cc1a
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 18/18)
 // FUN_00246340 @ 0x00246340
 double __cdecl FUN_00246340(Parser_246340* parser) {
@@ -848,7 +848,7 @@ double __cdecl FUN_00246340(Parser_246340* parser) {
 
 
 // 0x00246560 FUN_00246560 (232 B): equivalent/0x00246560.cpp
-// sym: ?FUN_00246560@fn_f6720d1b@@YAIPAUReader@1@PADIPBD@Z
+// sym: ?FUN_00246560@fn_f6720d1b@@YAIPAUReader@1@PADIPBD@Z @7971427a1595 @waf2e32febc0f
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 26/26)
 // FUN_00246560 @ 0x00246560
 unsigned __cdecl FUN_00246560(Reader* reader, char* output, unsigned capacity, const char* delimiters) {
@@ -969,7 +969,7 @@ bool FUN_00246890(Owner* owner, int arg) {
 } // namespace fn_f6720d1b
 
 // 0x002468c0 FUN_002468c0 (80 B): equivalent/0x002468c0.cpp [wrapped: conflict: Stream]
-// sym: ?FUN_002468c0@fn_002468c0@@YAIPAUObject@1@PAXI1@Z
+// sym: ?FUN_002468c0@fn_002468c0@@YAIPAUObject@1@PAXI1@Z @1ed7e1588dcc @wdc998c3c4485
 namespace fn_002468c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002468c0 @ 0x002468c0
@@ -1218,7 +1218,7 @@ bool __fastcall FUN_00246c80(Obj_246c80* self) {
 
 
 // 0x00246cc0 FUN_00246cc0 (103 B): equivalent/0x00246cc0.cpp
-// sym: ?Write@Writer_246cc0@fn_f6720d1b@@QAEDPBXI@Z
+// sym: ?Write@Writer_246cc0@fn_f6720d1b@@QAEDPBXI@Z @7f549f8ef3b2 @w2f0b4d5905a5
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00246cc0 @ 0x00246cc0
 char Writer_246cc0::Write(const void* data, unsigned int count) {
@@ -1311,7 +1311,7 @@ char Stream::ReverseRead(char* p, int n) {
 
 
 // 0x00246e50 FUN_00246e50 (105 B): equivalent/0x00246e50.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?Run@Wrapper_246e50@fn_00246e50@@QAEEPAEH@Z
+// sym: ?Run@Wrapper_246e50@fn_00246e50@@QAEEPAEH@Z @1e0b6e5a3e58 @wc6351f250002
 namespace fn_00246e50 {
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 8/8)
 // FUN_00246e50 @ 0x00246e50

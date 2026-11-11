@@ -4,7 +4,7 @@
 
 
 // 0x0030f870 FUN_0030f870 (403 B): equivalent/0x0030f870.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_0030f870@Skeleton@fn_f9a2be07@@QAEXPAV12@@Z
+// sym: ?FUN_0030f870@Skeleton@fn_f9a2be07@@QAEXPAV12@@Z @a9b029d99c01 @w1c20363e5edc
 #include "gen/owners.h"
 namespace fn_f9a2be07 {} using namespace fn_f9a2be07;
 namespace fn_f9a2be07 {

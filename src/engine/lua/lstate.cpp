@@ -34,7 +34,7 @@ extern "C" void __cdecl FUN_002151d0(LuaVMState* L, void* ud);
 
 
 // 0x00214dd0 FUN_00214dd0 (123 B): equivalent/0x00214dd0.cpp
-// sym: _FUN_00214dd0
+// sym: _FUN_00214dd0 @199bc4b1f140 @w6a6dd72cc3ed
 // STATUS: equivalent (tools/equiv.py level 3: 2982 inputs, branch coverage 0/0)
 // stack_init: allocate the value stack (BASIC_STACK_SIZE 40 + EXTRA_STACK 5) and the CallInfo array of thread L1.
 // equiv-conv: FUN_00214dd0 edi esi
@@ -58,7 +58,7 @@ extern "C" void __cdecl FUN_00214dd0(LuaVMState* L, LuaVMState* L1) {
 
 
 // 0x00214e80 FUN_00214e80 (181 B): equivalent/0x00214e80.cpp
-// sym: _FUN_00214e80
+// sym: _FUN_00214e80 @562a475d551a @w3cecc43883fe
 // STATUS: equivalent (tools/equiv.py level 3: 2965 inputs, branch coverage 0/0)
 // f_luaopen: the protected part of lua_newstate: the udata list's dummy, the stack, the globals and registry tables,
 // the string table, the tag-method names, the reserved words and the fixed memory-error message.
@@ -91,7 +91,7 @@ extern "C" void __cdecl FUN_00214e80(LuaVMState* L, void* ud) {
 
 
 // 0x00214f90 FUN_00214f90 (114 B): equivalent/0x00214f90.cpp
-// sym: _FUN_00214f90
+// sym: _FUN_00214f90 @4cf235eec797 @w6a01d0469303
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 0/0)
 // close_state: close the upvalues, free every object, the string table and the buffer, the main thread's stacks
 // and the state block itself.
@@ -111,7 +111,7 @@ extern "C" void __cdecl FUN_00214f90(LuaVMState* L) {
 
 
 // 0x00215010 FUN_00215010 (120 B): equivalent/0x00215010.cpp
-// sym: _FUN_00215010
+// sym: _FUN_00215010 @1a223280b0ef @w0ec319c9b30c
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 0/0)
 // luaE_newthread: a new thread linked after L, sharing its global state and globals table.
 // equiv-conv: FUN_00214dd0 edi esi
@@ -159,7 +159,7 @@ extern "C" void __cdecl FUN_00215090(LuaVMState* L, LuaVMState* L1) {
 
 
 // 0x002150e0 FUN_002150e0 (233 B): equivalent/0x002150e0.cpp
-// sym: _FUN_002150e0
+// sym: _FUN_002150e0 @29eb73d96976 @w2c90d850ab7c
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 4/4)
 // lua_newstate: allocate the main thread and its global state in one block, set them up, then f_luaopen protected.
 // equiv-conv: FUN_00214f90 esi
@@ -231,7 +231,7 @@ extern "C" void __cdecl FUN_002151d0(LuaVMState* L, void* ud) {
 
 
 // 0x002151e0 FUN_002151e0 (86 B): equivalent/0x002151e0.cpp
-// sym: _FUN_002151e0
+// sym: _FUN_002151e0 @f8a5663e37ea @w8c268d7b7b59
 // STATUS: equivalent (tools/equiv.py level 3: 2548 inputs, branch coverage 2/2)
 // lua_close: on the main thread: close the upvalues, separate the udata, run the finalizers (until none errs),
 // then close_state.

@@ -31,7 +31,7 @@ extern "C" int __cdecl FUN_002673d0(char*, int);
 // 0x00269790 thunk_FUN_00270f90 (5 B): not yet verified
 
 // 0x002697c0 FUN_002697c0 (227 B): equivalent/0x002697c0.cpp
-// sym: _FUN_002697c0
+// sym: _FUN_002697c0 @3d280f5a64f1 @w31564ba4ceed
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 26/26)
 // FUN_002697c0 @ 0x002697c0
 extern "C" void __cdecl FUN_002697c0(const char *source, char *output, char *workspace, char **suffix, const char **remainder)

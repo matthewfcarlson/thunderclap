@@ -324,7 +324,7 @@ extern "C" void __cdecl FUN_00224d70(float angle, Vec3* v) {
 
 
 // 0x00224db0 FUN_00224db0 (229 B): equivalent/0x00224db0.cpp
-// sym: _FUN_00224db0
+// sym: _FUN_00224db0 @daec2201ccab @wd1b99064dae7
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_00224db0 @ 0x00224db0
 extern "C" void __cdecl FUN_00224db0(Matrix* out, const Vec_224db0* a, const Vec_224db0* b) {
@@ -357,7 +357,7 @@ hulk_freg Angle(float a, float b) {
 
 
 // 0x00224f10 FUN_00224f10 (172 B): equivalent/0x00224f10.cpp
-// sym: ?FUN_00224f10@fn_fe002747@@YAMPBUVec3_224f10@1@@Z
+// sym: ?FUN_00224f10@fn_fe002747@@YAMPBUVec3_224f10@1@@Z @3e3ce36c49ef @wf5b094c8ecec
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 4/4)
 // FUN_00224f10 @ 0x00224f10
 hulk_freg __cdecl FUN_00224f10(const Vec3_224f10* v) {
@@ -397,7 +397,7 @@ void choreo2::AnimationDriver::FUN_00225000() {
 
 
 // 0x00225030 FUN_00225030 (156 B): equivalent/0x00225030.cpp
-// sym: ?FUN_00225030@AnimationDriver@choreo2@@QAEXPAX@Z
+// sym: ?FUN_00225030@AnimationDriver@choreo2@@QAEXPAX@Z @21f6648d0aa6 @w091b0f4f94d0
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 6/6)
 // FUN_00225030 @ 0x00225030
 // FUN_00225030: bind to a skeleton and look up the rotation / translation channels of each bone
@@ -458,7 +458,7 @@ void AnimationDriver_225140::Set(float x) {
 
 
 // 0x002251d0 FUN_002251d0 (294 B): equivalent/0x002251d0.cpp
-// sym: ?run@AnimationDriver_2251d0@fn_fe002747@@QAEXPAUInput_2251d0@2@PAX1PAUVec_2251d0@2@@Z
+// sym: ?run@AnimationDriver_2251d0@fn_fe002747@@QAEXPAUInput_2251d0@2@PAX1PAUVec_2251d0@2@@Z @675d670de255 @wbf542e9f78a0
 // STATUS: equivalent (tools/equiv.py level 3: 6630 inputs, branch coverage 6/6)
 // FUN_002251d0 @ 0x002251d0
 void AnimationDriver_2251d0::run(Input_2251d0* input, void* a, void* b, Vec_2251d0* out) {
@@ -481,7 +481,7 @@ void AnimationDriver_2251d0::run(Input_2251d0* input, void* a, void* b, Vec_2251
 
 
 // 0x00225300 choreo2::AnimationDriver::vfunc_10 (928 B): equivalent/0x00225300.cpp
-// sym: ?vfunc_10@AnimationDriver@fn_fe002747@@UAEXPAVPose@2@0PAUPoseData_225300@2@M@Z
+// sym: ?vfunc_10@AnimationDriver@fn_fe002747@@UAEXPAVPose@2@0PAUPoseData_225300@2@M@Z @57eadab2eaed @w890aaddf25b5
 // STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 21/22, incomplete)
 // choreo2::AnimationDriver::vfunc_10 @ 0x00225300
 void AnimationDriver::vfunc_10(Pose* from, Pose* to, PoseData_225300* data, float t)
@@ -562,7 +562,7 @@ void AnimationDriver::vfunc_10(Pose* from, Pose* to, PoseData_225300* data, floa
 } // namespace fn_fe002747
 
 // 0x002256a0 choreo2::AnimationDriver::vfunc_11 (346 B): equivalent/0x002256a0.cpp [wrapped: conflict: AnimationDriver; Channel; Pose]
-// sym: ?vfunc_11@AnimationDriver@fn_002256a0@@UAEDIIPAVPose@2@M@Z
+// sym: ?vfunc_11@AnimationDriver@fn_002256a0@@UAEDIIPAVPose@2@M@Z @89a8c4a9534b @w08787e464986
 namespace fn_002256a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // choreo2::AnimationDriver::vfunc_11 @ 0x002256a0
@@ -665,7 +665,7 @@ char AnimationDriver::vfunc_11(unsigned int a, unsigned int b, Pose *pose, float
 
 
 // 0x00225800 choreo2::AnimationDriver::vfunc_12 (240 B): equivalent/0x00225800.cpp
-// sym: ?vfunc_12@AnimationDriver@choreo2@@UAE_NHH@Z
+// sym: ?vfunc_12@AnimationDriver@choreo2@@UAE_NHH@Z @cc7259b32fe5 @wd3923c9981d9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // choreo2::AnimationDriver::vfunc_12 @ 0x00225800
 bool choreo2::AnimationDriver::vfunc_12(hulk_intptr __p0, hulk_intptr __p1) { Query_225800 * query = (Query_225800 *)__p0; float * result = (float *)__p1;
@@ -686,7 +686,7 @@ bool choreo2::AnimationDriver::vfunc_12(hulk_intptr __p0, hulk_intptr __p1) { Qu
 
 
 // 0x002258f0 choreo2::AnimationDriver::vfunc_13 (83 B): equivalent/0x002258f0.cpp [wrapped: conflict: choreo2::AnimationDriver]
-// sym: ?vfunc_13@AnimationDriver@choreo2@fn_002258f0@@UAE_NXZ
+// sym: ?vfunc_13@AnimationDriver@choreo2@fn_002258f0@@UAE_NXZ @ce3b30a823e7 @w1209437205b2
 namespace fn_002258f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // choreo2::AnimationDriver::vfunc_13 @ 0x002258f0
@@ -733,7 +733,7 @@ bool AnimationDriver::vfunc_13()
 
 
 // 0x00225950 FUN_00225950 (137 B): equivalent/0x00225950.cpp [wrapped: conflict: choreo2::AnimationDriver; choreo2::Driver]
-// sym: ??0AnimationDriver@choreo2@fn_00225950@@QAE@HH@Z
+// sym: ??0AnimationDriver@choreo2@fn_00225950@@QAE@HH@Z @cf0edd9a972f @w4c942458fe94
 namespace fn_00225950 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00225950 @ 0x00225950
@@ -885,7 +885,7 @@ float AnimationDriver_225b30::target() {
 
 
 // 0x00225be0 FUN_00225be0 (112 B): equivalent/0x00225be0.cpp
-// sym: ?FUN_00225be0@fn_fe002747@@YAMMMM_N@Z
+// sym: ?FUN_00225be0@fn_fe002747@@YAMMMM_N@Z @c2bfffe81f23 @wb9aae7d30f27
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 12/12)
 // FUN_00225be0 @ 0x00225be0
 // Clamp v into [lo, hi] (bounds may be given in either order), or wrap it into the range.
@@ -909,7 +909,7 @@ hulk_freg FUN_00225be0(float v, float lo, float hi, bool wrap)
 
 
 // 0x00225c90 FUN_00225c90 (85 B): equivalent/0x00225c90.cpp
-// sym: ?FUN_00225c90@Object@fn_fe002747@@QAEMM@Z
+// sym: ?FUN_00225c90@Object@fn_fe002747@@QAEMM@Z @284631d040d3 @wb3f1d6b6a4e9
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // FUN_00225c90 @ 0x00225c90
 hulk_freg Object::FUN_00225c90(float amount) {
@@ -919,7 +919,7 @@ hulk_freg Object::FUN_00225c90(float amount) {
 } // namespace fn_fe002747
 
 // 0x00225cf0 FUN_00225cf0 (75 B): equivalent/0x00225cf0.cpp
-// sym: ?FUN_00225cf0@Object_225cf0@owners@@QAEXH@Z
+// sym: ?FUN_00225cf0@Object_225cf0@owners@@QAEXH@Z @50c8cf1e7526 @wfe2cb867a39c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00225cf0 @ 0x00225cf0
 void owners::Object_225cf0::FUN_00225cf0(int input) {
@@ -956,7 +956,7 @@ AnimationDriver_225da0* Factory_225da0::Make() {
 
 
 // 0x00225e00 FUN_00225e00 (130 B): equivalent/0x00225e00.cpp
-// sym: ?FUN_00225e00@AnimationDriver@fn_fe002747@@QAEXMUV3_225e00@2@@Z
+// sym: ?FUN_00225e00@AnimationDriver@fn_fe002747@@QAEXMUV3_225e00@2@@Z @eeceb8e36ce7 @w1dae024c1bcf
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00225e00 @ 0x00225e00
 void AnimationDriver::FUN_00225e00(float t, V3_225e00 v)

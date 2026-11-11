@@ -239,7 +239,7 @@ TextBible globalTextBible;
 
 
 // 0x002c3a10 pure3d::TextBible::vfunc_4_adj10 (8 B): equivalent/0x002c3a10.cpp [wrapped: conflict: pure3d::TextBible]
-// sym: ?vfunc_4_adj10@TextBible@pure3d@fn_002c3a10@@QAEXI@Z
+// sym: ?vfunc_4_adj10@TextBible@pure3d@fn_002c3a10@@QAEXI@Z @5d5c4e7817d0 @wfb01bbfec51a
 namespace fn_002c3a10 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // pure3d::TextBible::vfunc_4_adj10 @ 0x002c3a10

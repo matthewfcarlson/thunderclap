@@ -241,7 +241,7 @@ void VertexAnimKeyFrame_2e5a70::f() {
 
 
 // 0x002e5b20 FUN_002e5b20 (1596 B): equivalent/0x002e5b20.cpp
-// sym: ?FUN_002e5b20@fn_f411a916@@YGPAVVertexAnimKeyFrame_2e5b20@1@PAUStream@1@H@Z
+// sym: ?FUN_002e5b20@fn_f411a916@@YGPAVVertexAnimKeyFrame_2e5b20@1@PAUStream@1@H@Z @fb362280bffa @w78411bd7391c
 // STATUS: equivalent (tools/equiv.py level 3: 223 inputs, branch coverage 60/62, incomplete)
 // FUN_002e5b20 @ 0x002e5b20
 VertexAnimKeyFrame_2e5b20 *__stdcall FUN_002e5b20(Stream *s, int unused)
@@ -414,7 +414,7 @@ VertexAnimKeyFrame_2e5b20 *__stdcall FUN_002e5b20(Stream *s, int unused)
 } // namespace fn_f411a916
 
 // 0x002e6160 FUN_002e6160 (94 B): equivalent/0x002e6160.cpp
-// sym: ?FUN_002e6160@Buffer_2e6160@owners@@QAE_NIH@Z
+// sym: ?FUN_002e6160@Buffer_2e6160@owners@@QAE_NIH@Z @13475177e516 @wfa222d388003
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002e6160 @ 0x002e6160
 bool owners::Buffer_2e6160::FUN_002e6160(unsigned int count, hulk_intptr value) {
@@ -467,7 +467,7 @@ void __fastcall target(Obj_2e6210* self) {
 } // namespace fn_f411a916
 
 // 0x002e6270 FUN_002e6270 (208 B): equivalent/0x002e6270.cpp [wrapped: conflict: core::IRefCount; pure3d::VertexAnimKeyFrameList]
-// sym: ??1VertexAnimKeyFrameList@pure3d@fn_002e6270@@QAE@XZ
+// sym: ??1VertexAnimKeyFrameList@pure3d@fn_002e6270@@QAE@XZ @20f1b7da7cc3 @w83a324895167
 namespace fn_002e6270 {
 // STATUS: equivalent (tools/equiv.py level 3: 37 inputs, branch coverage 18/20, incomplete)
 // FUN_002e6270 @ 0x002e6270
@@ -505,7 +505,7 @@ VertexAnimKeyFrameList::~VertexAnimKeyFrameList() throw() {
 namespace fn_f411a916 {
 
 // 0x002e6340 FUN_002e6340 (518 B): equivalent/0x002e6340.cpp
-// sym: ?FUN_002e6340@KeyFrameLoader@fn_f411a916@@QAEPAVVertexAnimKeyFrameList_2e6340@pure3d@@PAUReader@2@PAUParent@2@@Z
+// sym: ?FUN_002e6340@KeyFrameLoader@fn_f411a916@@QAEPAVVertexAnimKeyFrameList_2e6340@pure3d@@PAUReader@2@PAUParent@2@@Z @ec70be92da6c @w33e157f9e244
 // STATUS: equivalent (tools/equiv.py level 3: 34 inputs, branch coverage 19/24, incomplete)
 // FUN_002e6340 @ 0x002e6340
 pure3d::VertexAnimKeyFrameList_2e6340* KeyFrameLoader::FUN_002e6340(Reader* r, Parent* parent)

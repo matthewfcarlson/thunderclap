@@ -5,7 +5,7 @@
 
 
 // 0x003369c0 FUN_003369c0 (896 B): equivalent/0x003369c0.cpp [isolated: macros; code differs from its standalone build]
-// sym: ?FUN_003369c0@Relocator@fn_fb99ca0b@@QAEXD@Z
+// sym: ?FUN_003369c0@Relocator@fn_fb99ca0b@@QAEXD@Z @85d09ee55133 @w85fb5b2616b2
 #include "gen/owners.h"
 namespace fn_fb99ca0b {} using namespace fn_fb99ca0b;
 namespace fn_fb99ca0b {

@@ -550,7 +550,7 @@ struct Parent_28cfd0 {
 
 
 // 0x0028b970 FUN_0028b970 (70 B): equivalent/0x0028b970.cpp
-// sym: ?FUN_0028b970@SimpleChannel@fn_f8c9e634@@QAEXXZ
+// sym: ?FUN_0028b970@SimpleChannel@fn_f8c9e634@@QAEXXZ @a744b4570613 @wc2f041e4b675
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 3/4, incomplete)
 // FUN_0028b970 @ 0x0028b970
 void SimpleChannel::FUN_0028b970() {
@@ -689,7 +689,7 @@ void Float2Channel_28bc20::F() {
 
 
 // 0x0028bcd0 FUN_0028bcd0 (110 B): equivalent/0x0028bcd0.cpp
-// sym: ??1VectorChannel@pure3d@fn_f8c9e634@@UAE@XZ
+// sym: ??1VectorChannel@pure3d@fn_f8c9e634@@UAE@XZ @3c48c2023e55 @w7f462c1e9446
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 6/8, incomplete)
 // FUN_0028bcd0 @ 0x0028bcd0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
@@ -725,7 +725,7 @@ Vector1DOFChannel::Vector1DOFChannel(int a, hulk_intptr b) : VectorChannel_28bd4
 } // namespace fn_f8c9e634
 
 // 0x0028bdb0 FUN_0028bdb0 (103 B): equivalent/0x0028bdb0.cpp [wrapped: conflict: pure3d::Channel]
-// sym: ??1Vector1DOFChannel@pure3d@fn_0028bdb0@@UAE@XZ
+// sym: ??1Vector1DOFChannel@pure3d@fn_0028bdb0@@UAE@XZ @725c91af60f2 @w26cb4bdfe256
 namespace fn_0028bdb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 5/6, incomplete)
 // FUN_0028bdb0 @ 0x0028bdb0
@@ -811,7 +811,7 @@ void Vector2DOFChannel_28beb0::F() {
 
 
 // 0x0028bf20 FUN_0028bf20 (130 B): equivalent/0x0028bf20.cpp
-// sym: ?Construct@Vector3DOFChannel_28bf20@fn_f8c9e634@@QAEPAV12@HH@Z
+// sym: ?Construct@Vector3DOFChannel_28bf20@fn_f8c9e634@@QAEPAV12@HH@Z @6e464a0bbc85 @wab18543f1773
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028bf20 @ 0x0028bf20
 // 0x0028bf20: channel constructor holding 12-byte elements, allocated from the parent pool or the heap
@@ -838,7 +838,7 @@ Vector3DOFChannel_28bf20* Vector3DOFChannel_28bf20::Construct(int a, hulk_intptr
 } // namespace fn_f8c9e634
 
 // 0x0028bfb0 FUN_0028bfb0 (103 B): equivalent/0x0028bfb0.cpp [wrapped: conflict: pure3d::Channel]
-// sym: ??1Vector3DOFChannel@pure3d@fn_0028bfb0@@UAE@XZ
+// sym: ??1Vector3DOFChannel@pure3d@fn_0028bfb0@@UAE@XZ @ca4634c1bc08 @w5069b4fdf171
 namespace fn_0028bfb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 5/6, incomplete)
 // FUN_0028bfb0 @ 0x0028bfb0
@@ -884,7 +884,7 @@ pure3d::Vector3DOFChannel::~Vector3DOFChannel() throw() {
 
 
 // 0x0028c040 FUN_0028c040 (110 B): equivalent/0x0028c040.cpp [wrapped: conflict: pure3d::Channel; pure3d::SimpleChannel]
-// sym: ??1RotationChannel@pure3d@fn_0028c040@@UAE@XZ
+// sym: ??1RotationChannel@pure3d@fn_0028c040@@UAE@XZ @52167682ec1c @w57f312baaa6f
 namespace fn_0028c040 {
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 6/8, incomplete)
 // FUN_0028c040 @ 0x0028c040
@@ -935,7 +935,7 @@ RotationChannel::~RotationChannel() throw() {
 namespace fn_f8c9e634 {
 
 // 0x0028c0b0 FUN_0028c0b0 (126 B): equivalent/0x0028c0b0.cpp
-// sym: ?Construct@QuaternionChannel@fn_f8c9e634@@QAEPAV12@HH@Z
+// sym: ?Construct@QuaternionChannel@fn_f8c9e634@@QAEPAV12@HH@Z @9b97d2549955 @w56dff3c77ee2
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0028c0b0 @ 0x0028c0b0
 // 0x0028c0b0: quaternion channel constructor holding 16-byte elements, allocated from the parent pool or the heap
@@ -1178,7 +1178,7 @@ void BoolChannel_28c3e0::F() {
 
 
 // 0x0028c470 FUN_0028c470 (128 B): equivalent/0x0028c470.cpp
-// sym: ?Construct@ColourChannel_28c470@fn_f8c9e634@@QAEPAV12@HH@Z
+// sym: ?Construct@ColourChannel_28c470@fn_f8c9e634@@QAEPAV12@HH@Z @61f9315b2fde @w87134c3f6ce3
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028c470 @ 0x0028c470
 // 0x0028c470: channel constructor holding 4-byte elements, allocated from the parent pool or the heap
@@ -1218,7 +1218,7 @@ void ColourChannel_28c4f0::F() {
 
 
 // 0x0028c580 FUN_0028c580 (300 B): equivalent/0x0028c580.cpp
-// sym: ?FUN_0028c580@fn_f8c9e634@@YGPAUIntChannel_28c580@1@PAUReader@1@IPAUParent_28c580@1@@Z
+// sym: ?FUN_0028c580@fn_f8c9e634@@YGPAUIntChannel_28c580@1@PAUReader@1@IPAUParent_28c580@1@@Z @1e751bb5778e @wb8398d7821b2
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 12/12)
 // FUN_0028c580 @ 0x0028c580
 IntChannel_28c580 * __stdcall FUN_0028c580(Reader *r, unsigned unused, Parent_28c580 *parent)
@@ -1260,7 +1260,7 @@ IntChannel_28c580 * __stdcall FUN_0028c580(Reader *r, unsigned unused, Parent_28
 
 
 // 0x0028c6b0 FUN_0028c6b0 (300 B): equivalent/0x0028c6b0.cpp
-// sym: ?FUN_0028c6b0@fn_f8c9e634@@YGPAUFloat1Channel_28c6b0@1@PAUReader@1@IPAUParent_28c6b0@1@@Z
+// sym: ?FUN_0028c6b0@fn_f8c9e634@@YGPAUFloat1Channel_28c6b0@1@PAUReader@1@IPAUParent_28c6b0@1@@Z @97413ebf2aef @w9b93d9d6949e
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 12/12)
 // FUN_0028c6b0 @ 0x0028c6b0
 Float1Channel_28c6b0 * __stdcall FUN_0028c6b0(Reader *r, unsigned unused, Parent_28c6b0 *parent)
@@ -1302,7 +1302,7 @@ Float1Channel_28c6b0 * __stdcall FUN_0028c6b0(Reader *r, unsigned unused, Parent
 
 
 // 0x0028c7e0 FUN_0028c7e0 (300 B): equivalent/0x0028c7e0.cpp
-// sym: ?FUN_0028c7e0@fn_f8c9e634@@YGPAUFloat2Channel_28c7e0@1@PAUReader@1@IPAUParent_28c7e0@1@@Z
+// sym: ?FUN_0028c7e0@fn_f8c9e634@@YGPAUFloat2Channel_28c7e0@1@PAUReader@1@IPAUParent_28c7e0@1@@Z @70ee799d65e0 @wb07886d18268
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 12/12)
 // FUN_0028c7e0 @ 0x0028c7e0
 Float2Channel_28c7e0 * __stdcall FUN_0028c7e0(Reader *r, unsigned unused, Parent_28c7e0 *parent)
@@ -1344,7 +1344,7 @@ Float2Channel_28c7e0 * __stdcall FUN_0028c7e0(Reader *r, unsigned unused, Parent
 
 
 // 0x0028c910 FUN_0028c910 (1135 B): equivalent/0x0028c910.cpp
-// sym: ?FUN_0028c910@fn_f8c9e634@@YGPAUObj_28c910@1@TArg1_28c910@1@HTArg3_28c910@1@@Z
+// sym: ?FUN_0028c910@fn_f8c9e634@@YGPAUObj_28c910@1@TArg1_28c910@1@HTArg3_28c910@1@@Z @9faf4dd57fac @wdfd6ee311c5e
 // STATUS: equivalent (tools/equiv.py level 3: 3054 inputs, branch coverage 42/42)
 // FUN_0028c910 @ 0x0028c910
 Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
@@ -1454,7 +1454,7 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
 
 
 // 0x0028cd80 FUN_0028cd80 (289 B): equivalent/0x0028cd80.cpp
-// sym: ?FUN_0028cd80@fn_f8c9e634@@YGPAUResult_28cd80@1@PAUContext@1@IPAUPool_28cd80@1@@Z
+// sym: ?FUN_0028cd80@fn_f8c9e634@@YGPAUResult_28cd80@1@PAUContext@1@IPAUPool_28cd80@1@@Z @0d8f303f2aba @wd8dbf2972f3a
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 10/10)
 // FUN_0028cd80 @ 0x0028cd80
 Result_28cd80* __stdcall FUN_0028cd80(Context* context, unsigned unused, Pool_28cd80* pool) {
@@ -1479,7 +1479,7 @@ Result_28cd80* __stdcall FUN_0028cd80(Context* context, unsigned unused, Pool_28
 
 
 // 0x0028ceb0 FUN_0028ceb0 (288 B): equivalent/0x0028ceb0.cpp
-// sym: ?FUN_0028ceb0@fn_f8c9e634@@YGPAUBoolChannel_28ceb0@1@PAUOwner_28ceb0@1@IPAUPool_28ceb0@1@@Z
+// sym: ?FUN_0028ceb0@fn_f8c9e634@@YGPAUBoolChannel_28ceb0@1@PAUOwner_28ceb0@1@IPAUPool_28ceb0@1@@Z @2763adcc6244 @w5e4f629e961e
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 18/18)
 // FUN_0028ceb0 @ 0x0028ceb0
 BoolChannel_28ceb0* __stdcall FUN_0028ceb0(Owner_28ceb0* owner, unsigned unused, Pool_28ceb0* pool) {
@@ -1505,7 +1505,7 @@ BoolChannel_28ceb0* __stdcall FUN_0028ceb0(Owner_28ceb0* owner, unsigned unused,
 
 
 // 0x0028cfd0 FUN_0028cfd0 (300 B): equivalent/0x0028cfd0.cpp
-// sym: ?FUN_0028cfd0@fn_f8c9e634@@YGPAUColourChannel_28cfd0@1@PAUReader@1@IPAUParent_28cfd0@1@@Z
+// sym: ?FUN_0028cfd0@fn_f8c9e634@@YGPAUColourChannel_28cfd0@1@PAUReader@1@IPAUParent_28cfd0@1@@Z @1b3f51412d7f @w1d1d4fa5533c
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 12/12)
 // FUN_0028cfd0 @ 0x0028cfd0
 ColourChannel_28cfd0 * __stdcall FUN_0028cfd0(Reader *r, unsigned unused, Parent_28cfd0 *parent)

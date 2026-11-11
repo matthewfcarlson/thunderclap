@@ -81,7 +81,7 @@ class CameraLoader {
 } // namespace fn_f4e0afb8
 
 // 0x002c1970 pure3d::CameraLoader::vfunc_5 (436 B): equivalent/0x002c1970.cpp
-// sym: ?vfunc_5@CameraLoader@pure3d@@UAEXPAX00H@Z
+// sym: ?vfunc_5@CameraLoader@pure3d@@UAEXPAX00H@Z @b12361c0711a @w8c797e13fe30
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // pure3d::CameraLoader::vfunc_5 @ 0x002c1970
 void pure3d::CameraLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { pure3d::Camera_2c1970 ** out = (pure3d::Camera_2c1970 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_2c1970 * s = (Stream_2c1970 *)__p2; void * ctx = (void *)__p3;

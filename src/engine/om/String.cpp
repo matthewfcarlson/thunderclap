@@ -167,7 +167,7 @@ char *__cdecl FUN_002611b0(Parser_2619c0 *p);
 
 
 // 0x00260d00 FUN_00260d00 (217 B): equivalent/0x00260d00.cpp
-// sym: ?FUN_00260d00@fn_f6df0856@@YAMPBD@Z
+// sym: ?FUN_00260d00@fn_f6df0856@@YAMPBD@Z @4eb4d8cec31a @w5a0aae2a1182
 // STATUS: equivalent (tools/equiv.py level 3: 20100 inputs, branch coverage 20/22, incomplete)
 // FUN_00260d00 @ 0x00260d00
 // atof-style parser: optional '-', digits, optional '.', up to six fractional digits.
@@ -236,7 +236,7 @@ DynAttrT_260e60* DynAttrT_260e60::Dtor(unsigned char flag) throw() {
 } // namespace fn_f6df0856
 
 // 0x00260f10 FUN_00260f10 (451 B): equivalent/0x00260f10.cpp [wrapped: merged class would differ: Tree_260f10: field nil: Field(+0x4 Node nil) vs Field(+0x4 Node nil)]
-// sym: _FUN_00260f10
+// sym: _FUN_00260f10 @63535a0d0efb @w0efe3539a2d2
 namespace fn_00260f10 {
 // STATUS: equivalent (tools/equiv.py level 3: 169 inputs, branch coverage 39/40, incomplete)
 // FUN_00260f10 @ 0x00260f10
@@ -370,14 +370,14 @@ extern "C" char FUN_00260f10(void * tree_, void * nodeArg_, const unsigned* keyP
 namespace fn_f6df0856 {
 
 // 0x002610e0 FUN_002610e0 (54 B): equivalent/0x002610e0.cpp
-// sym: ?FUN_002610e0@fn_f6df0856@@YAPAXPAUTree@1@PBI@Z
+// sym: ?FUN_002610e0@fn_f6df0856@@YAPAXPAUTree@1@PBI@Z @7117333b1e3d @w66b99381d8b1
 // STATUS: equivalent (tools/equiv.py level 3: 702 inputs, branch coverage 10/10)
 // FUN_002610e0 @ 0x002610e0
 void* __cdecl FUN_002610e0(Tree* tree, const unsigned* key) { Node* node = tree->root; Node* end = &tree->sentinel; while (node != end) { if (*key < node->key) node = node->left; else if (*key > node->key) node = node->right; else { if (node == reinterpret_cast<Node*>(sizeof(Node*))) return 0; return &node->value; } } return 0; }
 
 
 // 0x00261120 FUN_00261120 (137 B): equivalent/0x00261120.cpp
-// sym: ?RegisterString@fn_f6df0856@@YAPAVString@om@1@PAURegistry@1@PAHPBV231@@Z
+// sym: ?RegisterString@fn_f6df0856@@YAPAVString@om@1@PAURegistry@1@PAHPBV231@@Z @e787bc82d6ae @wbe14c23fd64f
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 2/2)
 // FUN_00261120 @ 0x00261120
 // equiv-map: ??0Type@om@@QAE@PAX0HH@Z = 0x002584d0
@@ -397,7 +397,7 @@ om::String* RegisterString(Registry* reg, int* key, const om::String* text) {
 
 
 // 0x002611b0 FUN_002611b0 (499 B): equivalent/0x002611b0.cpp
-// sym: ?FUN_002611b0@fn_f6df0856@@YAPBDPAUInterp_2611b0@1@@Z
+// sym: ?FUN_002611b0@fn_f6df0856@@YAPBDPAUInterp_2611b0@1@@Z @030305cea058 @we6cdb1af7b6b
 // STATUS: equivalent (tools/equiv.py level 3: 400 inputs, branch coverage 38/40, incomplete; run with --inputs 12000)
 // FUN_002611b0 @ 0x002611b0
 const char *__cdecl FUN_002611b0(Interp_2611b0 *in)
@@ -704,7 +704,7 @@ extern "C" hulk_uintptr __cdecl FUN_00261980(U_261980 param) {
 
 
 // 0x002619c0 FUN_002619c0 (111 B): equivalent/0x002619c0.cpp
-// sym: _FUN_002619c0
+// sym: _FUN_002619c0 @27602ca93ac1 @w4f80e911fe91
 // STATUS: equivalent (tools/equiv.py level 3: 1006 inputs, branch coverage 9/10, incomplete)
 // FUN_002619c0 @ 0x002619c0
 extern "C" char *FUN_002619c0(Parser_2619c0 *p)

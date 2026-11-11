@@ -4,7 +4,7 @@
 
 
 // 0x0022e890 FUN_0022e890 (157 B): equivalent/0x0022e890.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_0022e890@Segment_22e890@fn_fc701bfd@@QAEXPAUV3_22e890@2@M@Z
+// sym: ?FUN_0022e890@Segment_22e890@fn_fc701bfd@@QAEXPAUV3_22e890@2@M@Z @6780e184167d @w6a8399103112
 #include "gen/owners.h"
 namespace fn_fc701bfd {} using namespace fn_fc701bfd;
 namespace fn_fc701bfd {

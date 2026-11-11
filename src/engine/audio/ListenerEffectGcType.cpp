@@ -51,7 +51,7 @@ extern "C" OmMetaType* FUN_0024d940() {
 } // namespace fn_f7b972c5
 
 // 0x0024d950 audio::ListenerEffectGcType::vfunc_2 (76 B): equivalent/0x0024d950.cpp [wrapped: conflict: audio::ListenerEffectGcType]
-// sym: ?vfunc_2@ListenerEffectGcType@audio@fn_0024d950@@UAEPAUListenerEffectGc@23@XZ
+// sym: ?vfunc_2@ListenerEffectGcType@audio@fn_0024d950@@UAEPAUListenerEffectGc@23@XZ @3b7634116509 @w73c9eaa534e9
 inline void* operator new(size_t, void* location) { return location; }
 namespace fn_0024d950 {
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 2/2)

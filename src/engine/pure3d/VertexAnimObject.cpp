@@ -63,7 +63,7 @@ VertexAnimObject::~VertexAnimObject() throw() {
 } // namespace fn_f740762b
 
 // 0x002d0fa0 FUN_002d0fa0 (196 B): equivalent/0x002d0fa0.cpp [wrapped: conflict: pure3d::VertexAnimObject]
-// sym: ??0VertexAnimObject@pure3d@fn_002d0fa0@@QAE@PAUSource_2d0fa0@2@@Z
+// sym: ??0VertexAnimObject@pure3d@fn_002d0fa0@@QAE@PAUSource_2d0fa0@2@@Z @cc2ec40f8dd3 @w9d1be1a6642a
 namespace fn_002d0fa0 {
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 12/12)
 // FUN_002d0fa0 @ 0x002d0fa0

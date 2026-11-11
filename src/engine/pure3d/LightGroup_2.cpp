@@ -132,7 +132,7 @@ class LightGroup_2a11b0 : public Entity_2a11b0 {
 
 
 // 0x002a0b00 FUN_002a0b00 (155 B): equivalent/0x002a0b00.cpp
-// sym: ?FUN_002a0b00@Light@fn_fe79e145@@QAEPAU12@PBU12@@Z
+// sym: ?FUN_002a0b00@Light@fn_fe79e145@@QAEPAU12@PBU12@@Z @a4a424719a86 @wd956682ca2f7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002a0b00 @ 0x002a0b00
 Light *Light::FUN_002a0b00(const Light *src)
@@ -158,7 +158,7 @@ Light *Light::FUN_002a0b00(const Light *src)
 
 
 // 0x002a0ba0 FUN_002a0ba0 (284 B): equivalent/0x002a0ba0.cpp
-// sym: ?set@Object@fn_fe79e145@@QAEXPBUVec3_2a0ba0@2@0@Z
+// sym: ?set@Object@fn_fe79e145@@QAEXPBUVec3_2a0ba0@2@0@Z @46ab3894f775 @w951322833b43
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // FUN_002a0ba0 @ 0x002a0ba0
 void Object::set(const Vec3_2a0ba0* v, const Vec3_2a0ba0* upper) {
@@ -178,7 +178,7 @@ void Object::set(const Vec3_2a0ba0* v, const Vec3_2a0ba0* upper) {
 
 
 // 0x002a0d00 FUN_002a0d00 (568 B): equivalent/0x002a0d00.cpp
-// sym: ?FUN_002a0d00@Falloff@fn_fe79e145@@QAEMPBUVec3_2a0d00@2@@Z
+// sym: ?FUN_002a0d00@Falloff@fn_fe79e145@@QAEMPBUVec3_2a0d00@2@@Z @395e1be4fc22 @w30f611f15aff
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 26/26)
 // FUN_002a0d00 @ 0x002a0d00
 hulk_freg Falloff::FUN_002a0d00(const Vec3_2a0d00* p)
@@ -329,7 +329,7 @@ void* pure3d::LightGroup::vfunc_4() {
 
 
 // 0x002a1140 FUN_002a1140 (55 B): equivalent/0x002a1140.cpp [wrapped: conflict: pure3d::LightGroup]
-// sym: ??0LightGroup@pure3d@fn_002a1140@@QAE@H@Z
+// sym: ??0LightGroup@pure3d@fn_002a1140@@QAE@H@Z @4d05ad97e681 @w76cfbf51dba2
 namespace fn_002a1140 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002a1140 @ 0x002a1140

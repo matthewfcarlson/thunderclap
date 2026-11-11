@@ -95,7 +95,7 @@ ParamValueScript_234c00::ParamValueScript_234c00(hulk_intptr a) {
 
 
 // 0x00234c30 fight::ParamValueScript::vfunc_5 (138 B): equivalent/0x00234c30.cpp
-// sym: ?vfunc_5@ParamValueScript@fight@fn_f1ee0f39@@UAE_NHHPAVStream@3@@Z
+// sym: ?vfunc_5@ParamValueScript@fight@fn_f1ee0f39@@UAE_NHHPAVStream@3@@Z @c0eb3f2d86d3 @wd2aee8669074
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // fight::ParamValueScript::vfunc_5 @ 0x00234c30
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x00267090

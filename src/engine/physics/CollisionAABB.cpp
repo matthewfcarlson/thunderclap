@@ -192,7 +192,7 @@ CollisionAABB_3129b0* CollisionAABB_3129b0::vfunc_5(signed char flags) {
 
 
 // 0x003129e0 FUN_003129e0 (208 B): equivalent/0x003129e0.cpp
-// sym: ?FUN_003129e0@fn_f7ee75ab@@YGXPAUVec_3129e0@1@0PAUObject@1@@Z
+// sym: ?FUN_003129e0@fn_f7ee75ab@@YGXPAUVec_3129e0@1@0PAUObject@1@@Z @7820a0a901f4 @w0ef89127c5de
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_003129e0 @ 0x003129e0
 void __stdcall FUN_003129e0(Vec_3129e0* upper, Vec_3129e0* lower, Object* object) {
@@ -219,7 +219,7 @@ void __stdcall FUN_003129e0(Vec_3129e0* upper, Vec_3129e0* lower, Object* object
 } // namespace fn_f7ee75ab
 
 // 0x00312ab0 physics::CollisionAABB::vfunc_11 (88 B): equivalent/0x00312ab0.cpp [wrapped: conflict: physics::CollisionAABB; physics::CollisionVolume]
-// sym: ?vfunc_11@CollisionAABB@physics@fn_00312ab0@@UAEXPAX@Z
+// sym: ?vfunc_11@CollisionAABB@physics@fn_00312ab0@@UAEXPAX@Z @495e52101dc8 @w9ce318db7dd4
 namespace fn_00312ab0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 7/8, incomplete)
 // physics::CollisionAABB::vfunc_11 @ 0x00312ab0
@@ -249,7 +249,7 @@ void CollisionAABB::vfunc_11(void* argument) {
 
 
 // 0x00312b10 physics::CollisionAABB::vfunc_8 (424 B): equivalent/0x00312b10.cpp [wrapped: conflict: physics::CollisionAABB]
-// sym: ?RecomputeBounds@CollisionAABB@physics@fn_00312b10@@UAEXXZ
+// sym: ?RecomputeBounds@CollisionAABB@physics@fn_00312b10@@UAEXXZ @fb43b99a1dff @wc450af6e5c5a
 namespace fn_00312b10 {
 // STATUS: equivalent (tools/equiv.py level 3: 15504 inputs, branch coverage 21/22, incomplete)
 // physics::CollisionAABB::vfunc_8 @ 0x00312b10

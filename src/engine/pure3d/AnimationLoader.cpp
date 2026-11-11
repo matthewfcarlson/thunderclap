@@ -507,7 +507,7 @@ hulk_intptr owners::Target_288a10::FUN_00288a10(int index) {
 namespace fn_f25f8e16 {
 
 // 0x00288a20 FUN_00288a20 (164 B): equivalent/0x00288a20.cpp
-// sym: ?FUN_00288a20@ItemList_288a20@fn_f25f8e16@@QAEPAUItem_288a20@2@H@Z
+// sym: ?FUN_00288a20@ItemList_288a20@fn_f25f8e16@@QAEPAUItem_288a20@2@H@Z @02b0355ac0db @w8603fb2fe9b1
 // STATUS: equivalent (tools/equiv.py level 3: 2560 inputs, branch coverage 19/20, incomplete)
 // FUN_00288a20 @ 0x00288a20
 Item_288a20 *ItemList_288a20::FUN_00288a20(int key)
@@ -550,7 +550,7 @@ Item_288a20 *ItemList_288a20::FUN_00288a20(int key)
 
 
 // 0x00288ad0 FUN_00288ad0 (211 B): equivalent/0x00288ad0.cpp
-// sym: ?FUN_00288ad0@Table_288ad0@fn_f25f8e16@@QAEPAUEntry_288ad0@2@II@Z
+// sym: ?FUN_00288ad0@Table_288ad0@fn_f25f8e16@@QAEPAUEntry_288ad0@2@II@Z @3929352b7ad5 @w84fed98586dc
 // STATUS: equivalent (tools/equiv.py level 3: 162 inputs, branch coverage 27/32, incomplete)
 // FUN_00288ad0 @ 0x00288ad0
 Entry_288ad0 * Table_288ad0::FUN_00288ad0(unsigned int low, unsigned int high) {
@@ -578,7 +578,7 @@ Entry_288ad0 * Table_288ad0::FUN_00288ad0(unsigned int low, unsigned int high) {
 
 
 // 0x00288c40 FUN_00288c40 (195 B): equivalent/0x00288c40.cpp
-// sym: ?FUN_00288c40@Table_288c40@fn_f25f8e16@@QAEHII@Z
+// sym: ?FUN_00288c40@Table_288c40@fn_f25f8e16@@QAEHII@Z @ed30a8bde6aa @wb62d2e040c91
 // STATUS: equivalent (tools/equiv.py level 3: 181 inputs, branch coverage 27/32, incomplete)
 // FUN_00288c40 @ 0x00288c40
 int Table_288c40::FUN_00288c40(unsigned int low, unsigned int high) {
@@ -608,7 +608,7 @@ int Table_288c40::FUN_00288c40(unsigned int low, unsigned int high) {
 
 
 // 0x00288d10 FUN_00288d10 (193 B): equivalent/0x00288d10.cpp
-// sym: ?FUN_00288d10@Object@fn_f25f8e16@@QAE_NMIIPAIPAM@Z
+// sym: ?FUN_00288d10@Object@fn_f25f8e16@@QAE_NMIIPAIPAM@Z @6e4f500e2f35 @wec2f376f9876
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 17/18, incomplete)
 // FUN_00288d10 @ 0x00288d10
 bool Object::FUN_00288d10(float time, unsigned key1, unsigned key2, unsigned* index, float* fraction) {
@@ -631,7 +631,7 @@ bool Object::FUN_00288d10(float time, unsigned key1, unsigned key2, unsigned* in
 
 
 // 0x00288de0 FUN_00288de0 (117 B): equivalent/0x00288de0.cpp
-// sym: ?FUN_00288de0@Curve_288de0@fn_f25f8e16@@QAEMHMII@Z
+// sym: ?FUN_00288de0@Curve_288de0@fn_f25f8e16@@QAEMHMII@Z @7ad1718ad7cf @wbfbbccc08da1
 // STATUS: equivalent (tools/equiv.py level 3: 235 inputs, branch coverage 12/12)
 // FUN_00288de0 @ 0x00288de0
 hulk_freg Curve_288de0::FUN_00288de0(int slot, float x, unsigned int key0, unsigned int key1)
@@ -680,7 +680,7 @@ int Obj_288ea0::Target() {
 } // namespace fn_f25f8e16
 
 // 0x00288eb0 FUN_00288eb0 (444 B): equivalent/0x00288eb0.cpp
-// sym: ?FUN_00288eb0@AnimationLoader@pure3d@@QAEPAXPAXH0@Z
+// sym: ?FUN_00288eb0@AnimationLoader@pure3d@@QAEPAXPAXH0@Z @6b9820ee5c9f @w6c500a207623
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 17/18, incomplete)
 // FUN_00288eb0 @ 0x00288eb0
 void* pure3d::AnimationLoader::FUN_00288eb0(void* __p0, int ctx, void* __p2) { Reader_288eb0 * r = (Reader_288eb0 *)__p0; Alloc_288eb0 * alloc = (Alloc_288eb0 *)__p2;
@@ -751,7 +751,7 @@ void* pure3d::AnimationLoader::FUN_00288eb0(void* __p0, int ctx, void* __p2) { R
 namespace fn_f25f8e16 {
 
 // 0x00289070 FUN_00289070 (456 B): equivalent/0x00289070.cpp
-// sym: ?FUN_00289070@AnimationLoader_289070@fn_f25f8e16@@QAEPAVAnimationMemoryBlock@pure3d@@PAUReader_289070@2@@Z
+// sym: ?FUN_00289070@AnimationLoader_289070@fn_f25f8e16@@QAEPAVAnimationMemoryBlock@pure3d@@PAUReader_289070@2@@Z @daf3a195a216 @wda88eecb5aa6
 // STATUS: equivalent (tools/equiv.py level 3: 17174 inputs, branch coverage 20/20)
 // FUN_00289070 @ 0x00289070
 pure3d::AnimationMemoryBlock* AnimationLoader_289070::FUN_00289070(Reader_289070* r)
@@ -933,7 +933,7 @@ AnimationLoader_2894d0::~AnimationLoader_2894d0() {
 } // namespace fn_f25f8e16
 
 // 0x00289500 pure3d::AnimationLoader::vfunc_5 (1246 B): equivalent/0x00289500.cpp [wrapped: conflict: pure3d::Animation; pure3d::AnimationLoader]
-// sym: ?vfunc_5@AnimationLoader@pure3d@fn_00289500@@UAEXPAPAVAnimation@23@PAUPair_289500@3@PAUReader@3@H@Z
+// sym: ?vfunc_5@AnimationLoader@pure3d@fn_00289500@@UAEXPAPAVAnimation@23@PAUPair_289500@3@PAUReader@3@H@Z @65419a9efd36 @wb715c344e0c7
 namespace fn_00289500 {
 // STATUS: equivalent (tools/equiv.py level 3: 158 inputs, branch coverage 49/54, incomplete)
 // pure3d::AnimationLoader::vfunc_5 @ 0x00289500
@@ -1206,7 +1206,7 @@ void AnimationLoader::vfunc_5(Animation **out, Pair_289500 *outId, Reader *r, in
 namespace fn_f25f8e16 {
 
 // 0x002899e0 FUN_002899e0 (890 B): equivalent/0x002899e0.cpp
-// sym: ?FUN_002899e0@fn_f25f8e16@@YAMPAMPADMMMMDH@Z
+// sym: ?FUN_002899e0@fn_f25f8e16@@YAMPAMPADMMMMDH@Z @374906d891c5 @w372f76753eeb
 // STATUS: equivalent (tools/equiv.py level 3: 20031 inputs, branch coverage 56/56)
 // FUN_002899e0 @ 0x002899e0
 hulk_freg FUN_002899e0(float *p, char *st, float v, float step, float lo, float hi, char flag, int mode)

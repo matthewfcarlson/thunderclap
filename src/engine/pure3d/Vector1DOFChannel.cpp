@@ -35,7 +35,7 @@ void pure3d::Vector1DOFChannel::vfunc_3(int index, void* __p1, void* __p2) { flo
 
 
 // 0x0028a4e0 pure3d::Vector1DOFChannel::vfunc_4 (195 B): equivalent/0x0028a4e0.cpp
-// sym: ?vfunc_4@Vector1DOFChannel@pure3d@@UAEXMH@Z
+// sym: ?vfunc_4@Vector1DOFChannel@pure3d@@UAEXMH@Z @440d280ead01 @wfb95e7521237
 // STATUS: equivalent (tools/equiv.py level 3: 2975 inputs, branch coverage 6/6)
 // pure3d::Vector1DOFChannel::vfunc_4 @ 0x0028a4e0
 void pure3d::Vector1DOFChannel::vfunc_4(float time, hulk_intptr __p1) { Vector_28a4e0 * out = (Vector_28a4e0 *)__p1;

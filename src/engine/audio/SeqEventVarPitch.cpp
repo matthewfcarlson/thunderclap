@@ -273,7 +273,7 @@ int audio::SeqActionVarPitch::vfunc_5(int ) {
 namespace fn_fd3c3557 {
 
 // 0x002538a0 FUN_002538a0 (86 B): equivalent/0x002538a0.cpp
-// sym: ?FUN_002538a0@SeqEventVarPitchType_2538a0@fn_fd3c3557@@QAEPAU12@XZ
+// sym: ?FUN_002538a0@SeqEventVarPitchType_2538a0@fn_fd3c3557@@QAEPAU12@XZ @0f89d369f220 @w1c41e1dff2cb
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002538a0 @ 0x002538a0
 SeqEventVarPitchType_2538a0* SeqEventVarPitchType_2538a0::FUN_002538a0() {
@@ -351,7 +351,7 @@ SeqAction* SeqActionVarPitch::vfunc_0(int flag) {
 } // namespace fn_fd3c3557
 
 // 0x00253a40 audio::SeqEventVarPitch::vfunc_2 (66 B): equivalent/0x00253a40.cpp
-// sym: ?vfunc_2@SeqEventVarPitch@audio@@UAEXH@Z
+// sym: ?vfunc_2@SeqEventVarPitch@audio@@UAEXH@Z @4fc50972ef3f @w71d8f4483c5d
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)
 // audio::SeqEventVarPitch::vfunc_2 @ 0x00253a40
 void audio::SeqEventVarPitch::vfunc_2(hulk_intptr __p0) { audio::Sequencer * sequencer = (audio::Sequencer *)__p0;

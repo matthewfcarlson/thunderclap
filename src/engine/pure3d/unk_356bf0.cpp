@@ -87,7 +87,7 @@ extern "C" unsigned int __cdecl FUN_00356c30(unsigned int value) {
 
 
 // 0x00356e50 FUN_00356e50 (332 B): equivalent/0x00356e50.cpp
-// sym: ?FUN_00356e50@fn_f10b45e7@@YGMPBM@Z
+// sym: ?FUN_00356e50@fn_f10b45e7@@YGMPBM@Z @9e44a5962e5d @w87c0f7de3638
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 0/0)
 // FUN_00356e50 @ 0x00356e50
 // 2D gradient (Perlin) noise at point p[0], p[1].
@@ -129,7 +129,7 @@ hulk_freg __stdcall FUN_00356e50(const float *p)
 
 
 // 0x00356fa0 FUN_00356fa0 (651 B): equivalent/0x00356fa0.cpp
-// sym: ?FUN_00356fa0@fn_f10b45e7@@YGMPAM@Z
+// sym: ?FUN_00356fa0@fn_f10b45e7@@YGMPAM@Z @d9bd4a727249 @w25b088d61d7d
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 0/0)
 // FUN_00356fa0 @ 0x00356fa0
 hulk_freg __stdcall FUN_00356fa0(float *p)
@@ -197,7 +197,7 @@ hulk_freg __stdcall FUN_00356fa0(float *p)
 } // namespace fn_f10b45e7
 
 // 0x003572b0 FUN_003572b0 (1044 B): equivalent/0x003572b0.cpp [wrapped: helper definitions (4 out-of-line function bodies)]
-// sym: ?FUN_003572b0@NoiseInit@fn_003572b0@@QAEXXZ
+// sym: ?FUN_003572b0@NoiseInit@fn_003572b0@@QAEXXZ @1fae2520027b @w2570f42d46c0
 namespace fn_003572b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19873 inputs, branch coverage 21/22, incomplete)
 // FUN_003572b0 @ 0x003572b0

@@ -70,7 +70,7 @@ bool pure3d::DXTNHandler::vfunc_8(int x) {
 namespace fn_f10fa4c6 {
 
 // 0x002de030 FUN_002de030 (460 B): equivalent/0x002de030.cpp
-// sym: _FUN_002de030
+// sym: _FUN_002de030 @a738017d578a @wacf145da8beb
 // STATUS: equivalent (tools/equiv.py level 3: 3092 inputs, branch coverage 35/35)
 // FUN_002de030 @ 0x002de030
 extern "C" void FUN_002de030(void *s, void *tex)

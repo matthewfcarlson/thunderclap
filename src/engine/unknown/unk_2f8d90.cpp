@@ -112,7 +112,7 @@ void Pair_2f8e80::f() {
 } // namespace fn_fefbc573
 
 // 0x002f8ec0 FUN_002f8ec0 (40 B): equivalent/0x002f8ec0.cpp
-// sym: ?FUN_002f8ec0@Obj_2f8ec0@owners@@QAEPAU12@HHHHHH@Z
+// sym: ?FUN_002f8ec0@Obj_2f8ec0@owners@@QAEPAU12@HHHHHH@Z @a0cf9a03f6f2 @w32d3f8d9af07
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002f8ec0 @ 0x002f8ec0
 owners::Obj_2f8ec0* owners::Obj_2f8ec0::FUN_002f8ec0(int a, int b, hulk_intptr c, int d, int e, hulk_intptr f) {
@@ -134,7 +134,7 @@ owners::X_2f8ef0* owners::X_2f8ef0::FUN_002f8ef0(hulk_uintptr p, hulk_uintptr q)
 
 
 // 0x002f8f10 FUN_002f8f10 (417 B): equivalent/0x002f8f10.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002f8f10@Pair_2f8f10@fn_002f8f10@@QAEMM@Z
+// sym: ?FUN_002f8f10@Pair_2f8f10@fn_002f8f10@@QAEMM@Z @bd8f38931a6e @w3aa2014760ae
 namespace fn_002f8f10 {
 // STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 14/14)
 // FUN_002f8f10 @ 0x002f8f10

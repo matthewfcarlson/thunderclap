@@ -445,7 +445,7 @@ int List::Add(fight::OpportunityAction* n) {
 
 
 // 0x00237050 FUN_00237050 (267 B): equivalent/0x00237050.cpp
-// sym: ?FUN_00237050@List_237050@fn_f6c81acf@@QAE_NPAURegistry_237050@2@PAUStream@2@H@Z
+// sym: ?FUN_00237050@List_237050@fn_f6c81acf@@QAE_NPAURegistry_237050@2@PAUStream@2@H@Z @49880a58c742 @wd360de17a055
 // STATUS: equivalent (tools/equiv.py level 3: 9801 inputs, branch coverage 21/22, incomplete)
 // FUN_00237050 @ 0x00237050
 bool List_237050::FUN_00237050(Registry_237050* registry, Stream* stream, int index) {
@@ -722,7 +722,7 @@ void OpportunityAction_237530::Dtor2() throw() {
 } // namespace fn_f6c81acf
 
 // 0x00237590 fight::OpportunityAction::vfunc_5 (278 B): equivalent/0x00237590.cpp [wrapped: conflict: fight::OpportunityAction]
-// sym: ?vfunc_5@OpportunityAction@fight@fn_00237590@@UAE_NHM@Z
+// sym: ?vfunc_5@OpportunityAction@fight@fn_00237590@@UAE_NHM@Z @fea86490945e @wc2a3d60f4042
 namespace fn_00237590 {
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 30/30)
 // fight::OpportunityAction::vfunc_5 @ 0x00237590
@@ -873,7 +873,7 @@ template <> fight::ParamConditionGroup<fight::OpportunityTrack>::~ParamCondition
 namespace fn_f6c81acf {
 
 // 0x002379e0 fight::OpportunityTrack::vfunc_10 (138 B): equivalent/0x002379e0.cpp
-// sym: ?vfunc_10@OpportunityTrack@fn_f6c81acf@@UAEPAXPAX00@Z
+// sym: ?vfunc_10@OpportunityTrack@fn_f6c81acf@@UAEPAXPAX00@Z @5055f2e746bf @w061700de61cc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // fight::OpportunityTrack::vfunc_10 @ 0x002379e0
 void* OpportunityTrack::vfunc_10(void* a1, void* a2, void* a3) {

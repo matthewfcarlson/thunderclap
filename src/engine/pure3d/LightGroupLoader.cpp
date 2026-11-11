@@ -136,7 +136,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x002c1520 pure3d::LightGroupLoader::vfunc_5 (428 B): equivalent/0x002c1520.cpp
-// sym: ?vfunc_5@LightGroupLoader@pure3d@fn_fbf43e6a@@UAEXPAPAULightGroup@3@PAUHash64@3@PAUReader@3@PAVFactory_2c1520@3@@Z
+// sym: ?vfunc_5@LightGroupLoader@pure3d@fn_fbf43e6a@@UAEXPAPAULightGroup@3@PAUHash64@3@PAUReader@3@PAVFactory_2c1520@3@@Z @6ef81a22f0d2 @we249bf32fbad
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 8/8)
 // pure3d::LightGroupLoader::vfunc_5 @ 0x002c1520
 namespace pure3d {

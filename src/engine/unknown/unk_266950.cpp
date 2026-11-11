@@ -283,7 +283,7 @@ int Obj_266b30::Target(int arg) {
 
 
 // 0x00266be0 FUN_00266be0 (73 B): equivalent/0x00266be0.cpp
-// sym: ?FUN_00266be0@State@fn_f49c50bb@@QAEXXZ
+// sym: ?FUN_00266be0@State@fn_f49c50bb@@QAEXXZ @158715ec4b9c @wae1bfe290291
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00266be0 @ 0x00266be0
 void State::FUN_00266be0() { int first = entries[index].first; int second = entries[index].second; int used = context->FUN_00263fc0(); ((owners::S_264510 *)context)->FUN_00264510((unsigned)(first + second - used)); --index; }
@@ -305,7 +305,7 @@ int __fastcall target(C_266c40* p) {
 } // namespace fn_f49c50bb
 
 // 0x00266c60 FUN_00266c60 (43 B): equivalent/0x00266c60.cpp [wrapped: conflict: Object]
-// sym: ?FUN_00266c60@Object@fn_00266c60@@QAEHXZ
+// sym: ?FUN_00266c60@Object@fn_00266c60@@QAEHXZ @a4d0cf28f476 @w0f9d2842e98f
 namespace fn_00266c60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00266c60 @ 0x00266c60
@@ -348,7 +348,7 @@ Obj_266cb0* Obj_266cb0::Init(Stream* s) {
 
 
 // 0x00266d70 FUN_00266d70 (30 B): equivalent/0x00266d70.cpp
-// sym: _FUN_00266d70
+// sym: _FUN_00266d70 @a678cb81575b @wa87e53988893
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00266d70 @ 0x00266d70
 extern "C" void FUN_00266d70()

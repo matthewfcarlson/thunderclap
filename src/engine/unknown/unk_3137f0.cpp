@@ -479,7 +479,7 @@ class SimpleFilter1D {
 
 
 // 0x003137f0 FUN_003137f0 (327 B): equivalent/0x003137f0.cpp
-// sym: ?FUN_003137f0@fn_fc854b07@@YGXPAVBody_3137f0@1@PAUVec3_3137f0@1@MMH@Z
+// sym: ?FUN_003137f0@fn_fc854b07@@YGXPAVBody_3137f0@1@PAUVec3_3137f0@1@MMH@Z @7ae5ac82098b @w3d2d1ac94335
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 16/16)
 // FUN_003137f0 @ 0x003137f0
 void __stdcall FUN_003137f0(Body_3137f0 *body, Vec3_3137f0 *pos, float a, float b, int index)
@@ -525,7 +525,7 @@ void __stdcall FUN_003137f0(Body_3137f0 *body, Vec3_3137f0 *pos, float a, float 
 
 
 // 0x00313940 FUN_00313940 (559 B): equivalent/0x00313940.cpp
-// sym: ?Separated@BoxTest@fn_fc854b07@@QAE_NPAUBox_313940@2@0@Z
+// sym: ?Separated@BoxTest@fn_fc854b07@@QAE_NPAUBox_313940@2@0@Z @0c914d830fce @w08a7fe56529f
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 15/16, incomplete)
 // FUN_00313940 @ 0x00313940
 bool BoxTest::Separated(Box_313940 *a, Box_313940 *b)
@@ -578,7 +578,7 @@ bool BoxTest::Separated(Box_313940 *a, Box_313940 *b)
 } // namespace fn_fc854b07
 
 // 0x00313b70 FUN_00313b70 (1367 B): equivalent/0x00313b70.cpp [wrapped: conflict: FUN_00083d90]
-// sym: ?FUN_00313b70@Sweeper_313b70@fn_00313b70@@QAEDTArg1_313b70@2@TArg2_313b70@2@TArg3_313b70@2@PAUVec3_313b70@2@PAMMTArg7@2@@Z
+// sym: ?FUN_00313b70@Sweeper_313b70@fn_00313b70@@QAEDTArg1_313b70@2@TArg2_313b70@2@TArg3_313b70@2@PAUVec3_313b70@2@PAMMTArg7@2@@Z @b9862590e444 @we37596ccad68
 namespace fn_00313b70 {
 // STATUS: equivalent (tools/equiv.py level 3: 2161 inputs, branch coverage 50/50)
 // FUN_00313b70 @ 0x00313b70
@@ -809,7 +809,7 @@ char Sweeper_313b70::FUN_00313b70(Arg1_313b70 a1, Arg2_313b70 a2, Arg3_313b70 a3
 namespace fn_fc854b07 {
 
 // 0x003140d0 FUN_003140d0 (688 B): equivalent/0x003140d0.cpp
-// sym: ?FUN_003140d0@Tester_3140d0@fn_fc854b07@@QAE_NPAUBox_3140d0@2@PAUShape_3140d0@2@@Z
+// sym: ?FUN_003140d0@Tester_3140d0@fn_fc854b07@@QAE_NPAUBox_3140d0@2@PAUShape_3140d0@2@@Z @92dad38ba545 @w6896aa5e3c8b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_003140d0 @ 0x003140d0
 bool Tester_3140d0::FUN_003140d0(Box_3140d0 *a, Shape_3140d0 *b)
@@ -887,7 +887,7 @@ bool Tester_3140d0::FUN_003140d0(Box_3140d0 *a, Shape_3140d0 *b)
 
 
 // 0x00314380 FUN_00314380 (167 B): equivalent/0x00314380.cpp
-// sym: ?FUN_00314380@fn_fc854b07@@YA_NPAUPlane_314380@1@HPAUVec3_314380@1@1@Z
+// sym: ?FUN_00314380@fn_fc854b07@@YA_NPAUPlane_314380@1@HPAUVec3_314380@1@1@Z @a5b4f197b3f1 @wd30ce946dd09
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 2/2)
 // FUN_00314380 @ 0x00314380
 bool __cdecl FUN_00314380(Plane_314380 *plane, hulk_intptr unused, Vec3_314380 *v, Vec3_314380 *out)
@@ -913,7 +913,7 @@ bool __cdecl FUN_00314380(Plane_314380 *plane, hulk_intptr unused, Vec3_314380 *
 
 
 // 0x00314430 FUN_00314430 (1154 B): equivalent/0x00314430.cpp
-// sym: ?FUN_00314430@Sweeper_314430@fn_fc854b07@@QAE_NPAVPrim_314430@2@PAUV3_314430@2@M1PAM11D@Z
+// sym: ?FUN_00314430@Sweeper_314430@fn_fc854b07@@QAE_NPAVPrim_314430@2@PAUV3_314430@2@M1PAM11D@Z @a34346b6b99d @w0835ad492779
 // STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 43/46, incomplete)
 // FUN_00314430 @ 0x00314430
 bool Sweeper_314430::FUN_00314430(Prim_314430 *p, V3_314430 *a1, float a2, V3_314430 *a3, float *a4, V3_314430 *a5, V3_314430 *a6, char a7)
@@ -1049,7 +1049,7 @@ bool Sweeper_314430::FUN_00314430(Prim_314430 *p, V3_314430 *a1, float a2, V3_31
 
 
 // 0x003148c0 FUN_003148c0 (334 B): equivalent/0x003148c0.cpp
-// sym: ?FUN_003148c0@fn_fc854b07@@YG_NPAUV3_3148c0@1@00000_N@Z
+// sym: ?FUN_003148c0@fn_fc854b07@@YG_NPAUV3_3148c0@1@00000_N@Z @15d1b80cd3d5 @w21051ce65e91
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_003148c0 @ 0x003148c0
 // Solves for the point where two planes' constraints meet along the plane
@@ -1092,7 +1092,7 @@ bool __stdcall FUN_003148c0(V3_3148c0 *a1, V3_3148c0 *a2, V3_3148c0 *a3, V3_3148
 
 
 // 0x00314a10 FUN_00314a10 (456 B): equivalent/0x00314a10.cpp
-// sym: ?FUN_00314a10@Capsule@fn_fc854b07@@QAEHPBUV3_314a10@2@00MMDPAU32@1@Z
+// sym: ?FUN_00314a10@Capsule@fn_fc854b07@@QAEHPBUV3_314a10@2@00MMDPAU32@1@Z @a4e04461346b @w7a012c599dd7
 // STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 12/12)
 // FUN_00314a10 @ 0x00314a10
 int Capsule::FUN_00314a10(const V3_314a10* a1, const V3_314a10* a2, const V3_314a10* axis, float f4, float f5, char flag, V3_314a10* out, V3_314a10* out2)
@@ -1136,7 +1136,7 @@ int Capsule::FUN_00314a10(const V3_314a10* a1, const V3_314a10* a2, const V3_314
 
 
 // 0x00314be0 FUN_00314be0 (838 B): equivalent/0x00314be0.cpp
-// sym: ?FUN_00314be0@ContactManager@fn_fc854b07@@QAEXHHHHHPAUVec3_314be0@2@@Z
+// sym: ?FUN_00314be0@ContactManager@fn_fc854b07@@QAEXHHHHHPAUVec3_314be0@2@@Z @1aec10f68ca0 @we70e341746f1
 // STATUS: equivalent (tools/equiv.py level 3: 3043 inputs, branch coverage 42/50, incomplete)
 // FUN_00314be0 @ 0x00314be0
 void ContactManager::FUN_00314be0(int a1, hulk_intptr a2, hulk_intptr a3, hulk_intptr a4, int a5, Vec3_314be0* normal)
@@ -1248,7 +1248,7 @@ void ContactManager::FUN_00314be0(int a1, hulk_intptr a2, hulk_intptr a3, hulk_i
 
 
 // 0x00314f50 FUN_00314f50 (1739 B): equivalent/0x00314f50.cpp
-// sym: ?FUN_00314f50@Sweep_314f50@fn_fc854b07@@QAEXPAUBoxA_314f50@2@PAUBoxB@2@@Z
+// sym: ?FUN_00314f50@Sweep_314f50@fn_fc854b07@@QAEXPAUBoxA_314f50@2@PAUBoxB@2@@Z @3f1f1b55cef1 @wb6831bc80d40
 // STATUS: equivalent (tools/equiv.py level 3: 20040 inputs, branch coverage 50/50)
 // FUN_00314f50 @ 0x00314f50
 // Sweep::FUN_00314f50 (this=ecx, ret 8): box-vs-box separating-axis sweep. Generated from the original code
@@ -1521,7 +1521,7 @@ void Sweep_314f50::FUN_00314f50(BoxA_314f50 *pa, BoxB *pb)
 
 
 // 0x00315620 FUN_00315620 (576 B): equivalent/0x00315620.cpp
-// sym: ?FUN_00315620@Resolver_315620@fn_fc854b07@@QAE_NPAUVec3_315620@2@0M00M0MMPAVBody_315620@2@1@Z
+// sym: ?FUN_00315620@Resolver_315620@fn_fc854b07@@QAE_NPAUVec3_315620@2@0M00M0MMPAVBody_315620@2@1@Z @7121f1dc9690 @w5475aa5e7214
 // STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 12/12)
 // FUN_00315620 @ 0x00315620
 bool Resolver_315620::FUN_00315620(Vec3_315620* p0, Vec3_315620* axis0, float k0, Vec3_315620* p1, Vec3_315620* axis1, float k1, Vec3_315620* ref, float scale, float sign, Body_315620* b0, Body_315620* b1)
@@ -1586,7 +1586,7 @@ bool Resolver_315620::FUN_00315620(Vec3_315620* p0, Vec3_315620* axis0, float k0
 
 
 // 0x00315860 FUN_00315860 (1073 B): equivalent/0x00315860.cpp
-// sym: ?FUN_00315860@Tester_315860@fn_fc854b07@@QAEXPAUBoxData@2@PAVShape_315860@2@@Z
+// sym: ?FUN_00315860@Tester_315860@fn_fc854b07@@QAEXPAUBoxData@2@PAVShape_315860@2@@Z @184eff379eb0 @wda73448eafbc
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 30/30)
 // FUN_00315860 @ 0x00315860
 void Tester_315860::FUN_00315860(BoxData *box, Shape_315860 *shape)
@@ -1715,7 +1715,7 @@ void Tester_315860::FUN_00315860(BoxData *box, Shape_315860 *shape)
 } // namespace fn_fc854b07
 
 // 0x00315ca0 FUN_00315ca0 (1100 B): equivalent/0x00315ca0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_00315ca0@Resolver@fn_00315ca0@@QAEXPAVBody@2@0@Z
+// sym: ?FUN_00315ca0@Resolver@fn_00315ca0@@QAEXPAVBody@2@0@Z @a3ee62fe3ee8 @w217c41239245
 namespace fn_00315ca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3049 inputs, branch coverage 26/26)
 // FUN_00315ca0 @ 0x00315ca0
@@ -1903,7 +1903,7 @@ void Resolver::FUN_00315ca0(Body *a1, Body *a2)
 namespace fn_fc854b07 {
 
 // 0x003160f0 FUN_003160f0 (791 B): equivalent/0x003160f0.cpp
-// sym: ?FUN_003160f0@Collider_3160f0@fn_fc854b07@@QAEXPAVBoxA_3160f0@2@PAVCapB@2@@Z
+// sym: ?FUN_003160f0@Collider_3160f0@fn_fc854b07@@QAEXPAVBoxA_3160f0@2@PAVCapB@2@@Z @40359616d1bc @wcfa4bf0d27fa
 // STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 20/20)
 // FUN_003160f0 @ 0x003160f0
 void Collider_3160f0::FUN_003160f0(BoxA_3160f0* a, CapB* b)
@@ -1984,7 +1984,7 @@ void Collider_3160f0::FUN_003160f0(BoxA_3160f0* a, CapB* b)
 
 
 // 0x00316410 FUN_00316410 (4607 B): equivalent/0x00316410.cpp
-// sym: ?FUN_00316410@Resolver@fn_fc854b07@@QAEXPAVBody@2@PAUVec3@2@1M0MM_N@Z
+// sym: ?FUN_00316410@Resolver@fn_fc854b07@@QAEXPAVBody@2@PAUVec3@2@1M0MM_N@Z @e6c8bb1d1143 @w16a3c12f98c7
 // STATUS: equivalent (tools/equiv.py level 3: 3111 inputs, branch coverage 99/104, incomplete)
 // FUN_00316410 @ 0x00316410
 // FUN_00316410 @ 0x00316410
@@ -2327,7 +2327,7 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
 
 
 // 0x00317610 FUN_00317610 (225 B): equivalent/0x00317610.cpp
-// sym: ?target@Controller_317610@fn_fc854b07@@QAEXPAXPAUObject@2@PBUVec_317610@2@M@Z
+// sym: ?target@Controller_317610@fn_fc854b07@@QAEXPAXPAUObject@2@PBUVec_317610@2@M@Z @383bf7eef0f9 @w493327440324
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00317610 @ 0x00317610
 void Controller_317610::target(void* a,Object* obj,const Vec_317610* input,float value) {
@@ -2348,7 +2348,7 @@ void Controller_317610::target(void* a,Object* obj,const Vec_317610* input,float
 } // namespace fn_fc854b07
 
 // 0x00317700 FUN_00317700 (4549 B): equivalent/0x00317700.cpp [wrapped: conflict: Vec3]
-// sym: ?FUN_00317700@Resolver@fn_00317700@@QAE_NPAVBody@2@0D_N@Z
+// sym: ?FUN_00317700@Resolver@fn_00317700@@QAE_NPAVBody@2@0D_N@Z @aea6d2ea7a4e @w5797b2b0673c
 namespace fn_00317700 {
 // STATUS: equivalent (tools/equiv.py level 3: 20036 inputs, branch coverage 122/126, incomplete)
 // FUN_00317700 @ 0x00317700
@@ -2791,7 +2791,7 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
 namespace fn_fc854b07 {
 
 // 0x003188d0 FUN_003188d0 (62 B): equivalent/0x003188d0.cpp
-// sym: ?FUN_003188d0@Owner@fn_fc854b07@@QAEEM@Z
+// sym: ?FUN_003188d0@Owner@fn_fc854b07@@QAEEM@Z @3c3968b26b7c @w5c43663b3d4f
 // STATUS: equivalent (tools/equiv.py level 3: 17909 inputs, branch coverage 3/4, incomplete)
 // FUN_003188d0 @ 0x003188d0
 unsigned char Owner::FUN_003188d0(float value)
@@ -2810,7 +2810,7 @@ unsigned char Owner::FUN_003188d0(float value)
 
 
 // 0x00318910 FUN_00318910 (659 B): equivalent/0x00318910.cpp
-// sym: ?FUN_00318910@Solver_318910@fn_fc854b07@@QAEXPAVProbe_318910@2@0@Z
+// sym: ?FUN_00318910@Solver_318910@fn_fc854b07@@QAEXPAVProbe_318910@2@0@Z @f2e3d95bd06e @w959df1b66773
 // STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 21/22, incomplete)
 // FUN_00318910 @ 0x00318910
 void Solver_318910::FUN_00318910(Probe_318910 *a1, Probe_318910 *a2)
@@ -2883,7 +2883,7 @@ void Solver_318910::FUN_00318910(Probe_318910 *a1, Probe_318910 *a2)
 
 
 // 0x00318bb0 FUN_00318bb0 (557 B): equivalent/0x00318bb0.cpp
-// sym: ?Test@Contact_318bb0@fn_fc854b07@@QAEXPAVShape_318bb0@2@0@Z
+// sym: ?Test@Contact_318bb0@fn_fc854b07@@QAEXPAVShape_318bb0@2@0@Z @ede0388227c8 @w334f41926e49
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 14/14)
 // FUN_00318bb0 @ 0x00318bb0
 void Contact_318bb0::Test(Shape_318bb0 *a, Shape_318bb0 *b)
@@ -2961,7 +2961,7 @@ void Contact_318bb0::Test(Shape_318bb0 *a, Shape_318bb0 *b)
 } // namespace fn_fc854b07
 
 // 0x00318de0 FUN_00318de0 (1161 B): equivalent/0x00318de0.cpp [wrapped: macros]
-// sym: ?FUN_00318de0@Collider@fn_00318de0@@QAEXPAVBox@2@0@Z
+// sym: ?FUN_00318de0@Collider@fn_00318de0@@QAEXPAVBox@2@0@Z @2b432463b6ee @wc10d842872fd
 namespace fn_00318de0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // FUN_00318de0 @ 0x00318de0
@@ -3140,7 +3140,7 @@ void Collider::FUN_00318de0(Box *a0, Box *a1)
 
 
 // 0x00319270 FUN_00319270 (195 B): equivalent/0x00319270.cpp [wrapped: conflict: Object]
-// sym: ?target@Solver_319270@fn_00319270@@QAEXPAUObject@2@PAUInput_319270@2@@Z
+// sym: ?target@Solver_319270@fn_00319270@@QAEXPAUObject@2@PAUInput_319270@2@@Z @561a2e307fab @w78ae48ff0818
 namespace fn_00319270 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00319270 @ 0x00319270

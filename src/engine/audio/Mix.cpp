@@ -163,7 +163,7 @@ Node* __cdecl FUN_00259de0(Tree* tree, Node* current) {
 
 
 // 0x00259e20 FUN_00259e20 (604 B): equivalent/0x00259e20.cpp
-// sym: _FUN_00259e20
+// sym: _FUN_00259e20 @394c7c009b90 @w3415c875f53d
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_00259e20 @ 0x00259e20
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -315,7 +315,7 @@ extern "C" void FUN_00259e20(void * tree_, void * x_)
 
 
 // 0x0025a0b0 FUN_0025a0b0 (130 B): equivalent/0x0025a0b0.cpp
-// sym: _FUN_0025a0b0
+// sym: _FUN_0025a0b0 @5fda08ea4099 @wec3968472520
 // STATUS: equivalent (tools/equiv.py level 3: 191 inputs, branch coverage 10/10)
 // FUN_0025a0b0 @ 0x0025a0b0
 extern "C" void FUN_0025a0b0(void *actor)
@@ -340,7 +340,7 @@ extern "C" void FUN_0025a0b0(void *actor)
 } // namespace fn_fac3e8a6
 
 // 0x0025a160 FUN_0025a160 (182 B): equivalent/0x0025a160.cpp [wrapped: conflict: Node]
-// sym: _FUN_0025a160
+// sym: _FUN_0025a160 @e635e7c6d78b @w8eaf54682a6f
 namespace fn_0025a160 {
 // STATUS: equivalent (tools/equiv.py level 3: 880 inputs, branch coverage 24/24)
 // FUN_0025a160 @ 0x0025a160
@@ -385,7 +385,7 @@ extern "C" void __cdecl FUN_0025a160(void * tree_, void * entry_) {
 
 
 // 0x0025a220 FUN_0025a220 (78 B): equivalent/0x0025a220.cpp [wrapped: merged class would differ: List: field sentinel: Field(+0x4 Node sentinel) vs Field(+0x4 Node sentinel)]
-// sym: _FUN_0025a220
+// sym: _FUN_0025a220 @f1b1366e490a @w7ee3e07896e2
 namespace fn_0025a220 {
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 8/8)
 // FUN_0025a220 @ 0x0025a220
@@ -412,7 +412,7 @@ Mix::Mix() throw() : Entity_25a2c0(GetThing()) {
 } // namespace fn_fac3e8a6
 
 // 0x0025a330 audio::MixBuss::vfunc_0 (61 B): equivalent/0x0025a330.cpp
-// sym: ?vfunc_0@MixBuss@audio@@UAEHH@Z
+// sym: ?vfunc_0@MixBuss@audio@@UAEHH@Z @9f7374968b9f @w0038bae0ef40
 // STATUS: equivalent (tools/equiv.py level 3: 2886 inputs, branch coverage 2/2)
 // audio::MixBuss::vfunc_0 @ 0x0025a330
 int audio::MixBuss::vfunc_0(hulk_intptr __p0) { BussData ** data = (BussData **)__p0;
@@ -438,7 +438,7 @@ int audio::MixBuss::vfunc_1(void* __p0) { void * p = (void *)__p0;
 
 
 // 0x0025a3f0 audio::Mix::vfunc_3 (306 B): equivalent/0x0025a3f0.cpp [wrapped: conflict: Tree; audio::Mix]
-// sym: ?vfunc_3@Mix@audio@fn_0025a3f0@@UAEDPAUArchive@3@@Z
+// sym: ?vfunc_3@Mix@audio@fn_0025a3f0@@UAEDPAUArchive@3@@Z @50ba9984d8c5 @wb72251b439de
 namespace fn_0025a3f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2648 inputs, branch coverage 38/38)
 // audio::Mix::vfunc_3 @ 0x0025a3f0
@@ -539,7 +539,7 @@ char Mix::vfunc_3(Archive *ar)
 
 
 // 0x0025a530 audio::Mix::vfunc_4 (155 B): equivalent/0x0025a530.cpp [wrapped: merged class would differ: Mix: multiple bases]
-// sym: ?vfunc_4@Mix@fn_0025a530@@UAE_NH@Z
+// sym: ?vfunc_4@Mix@fn_0025a530@@UAE_NH@Z @83839a9f0f69 @w4b6de2f5008b
 namespace fn_0025a530 {
 // STATUS: equivalent (tools/equiv.py level 3: 192 inputs, branch coverage 10/10)
 // audio::Mix::vfunc_4 @ 0x0025a530
@@ -588,7 +588,7 @@ bool Mix::vfunc_4(int arg)
 
 
 // 0x0025a610 FUN_0025a610 (451 B): equivalent/0x0025a610.cpp [wrapped: conflict: Node]
-// sym: ?FUN_0025a610@fn_0025a610@@YADPAUTree_25a610@1@PAUHolder_25a610@1@PBI@Z
+// sym: ?FUN_0025a610@fn_0025a610@@YADPAUTree_25a610@1@PAUHolder_25a610@1@PBI@Z @b001aa8b154d @wc8bbcb9e65e8
 namespace fn_0025a610 {
 // STATUS: equivalent (tools/equiv.py level 3: 169 inputs, branch coverage 39/40, incomplete)
 // FUN_0025a610 @ 0x0025a610
@@ -738,7 +738,7 @@ void __fastcall target(Mix* self) {
 
 
 // 0x0025a8f0 audio::Mix::vfunc_5 (266 B): equivalent/0x0025a8f0.cpp [wrapped: conflict: audio::Mix; audio::MixBuss]
-// sym: ?vfunc_5@Mix@audio@fn_0025a8f0@@UAE_NPAX@Z
+// sym: ?vfunc_5@Mix@audio@fn_0025a8f0@@UAE_NPAX@Z @abdbda5f3186 @wda18b37df805
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_0025a8f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 20/20)

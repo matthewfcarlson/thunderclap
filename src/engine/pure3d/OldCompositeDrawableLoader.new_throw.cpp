@@ -206,7 +206,7 @@ struct Frame_29a190 {
 
 
 // 0x0029a190 pure3d::CompositeDrawableLoader::vfunc_5 (1180 B): equivalent/0x0029a190.cpp
-// sym: ?vfunc_5@CompositeDrawableLoader@fn_f0ae8a57@@QAEXPAPAVCompositeDrawable@pure3d@2@PA_KPAUReader@2@PAUInventory_29a190@2@@Z
+// sym: ?vfunc_5@CompositeDrawableLoader@fn_f0ae8a57@@QAEXPAPAVCompositeDrawable@pure3d@2@PA_KPAUReader@2@PAUInventory_29a190@2@@Z @6df3852a0f10 @w11d9a14c50e2
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 45/50, incomplete)
 // pure3d::CompositeDrawableLoader::vfunc_5 @ 0x0029a190
 // equiv-map: ??0DrawableBase@pure3d@@QAE@XZ = 0x002a3480

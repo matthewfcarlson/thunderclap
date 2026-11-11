@@ -136,7 +136,7 @@ struct WorldCollisionObject_nv_2fe1f0 {
 
 
 // 0x002fdf40 FUN_002fdf40 (593 B): equivalent/0x002fdf40.cpp
-// sym: ?FUN_002fdf40@Builder@fn_fcf78bc5@@QAEPAXHHH@Z
+// sym: ?FUN_002fdf40@Builder@fn_fcf78bc5@@QAEPAXHHH@Z @268e3fb70bba @w2b040c7e1dbe
 // STATUS: equivalent (tools/equiv.py level 3: 2862 inputs, branch coverage 48/50, incomplete)
 // FUN_002fdf40 @ 0x002fdf40
 void *Builder::FUN_002fdf40(int id, int nameLo, int nameHi)

@@ -34,7 +34,7 @@ extern "C" void __cdecl FUN_00217100(LuaVMState* L, LuaVMGCObject* o, LuaVMGCObj
 
 
 // 0x00219870 FUN_00219870 (54 B): equivalent/0x00219870.cpp
-// sym: _FUN_00219870
+// sym: _FUN_00219870 @19a089646ee5 @w13254ffddf22
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // hashnum: the main position of a number key (the bits of n + 1 modulo the odd node count).
 // equiv-conv: FUN_00219870 esi stack
@@ -52,7 +52,7 @@ extern "C" LuaVMNode* __cdecl FUN_00219870(const LuaVMTable* t, float n) {
 } // namespace fn_fce939df
 
 // 0x002198b0 FUN_002198b0 (185 B): equivalent/0x002198b0.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_002198b0
+// sym: _FUN_002198b0 @f4b36282816c @w5b34d70e9a01
 namespace fn_002198b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 6/6)
 // luaH_mainposition: the node a key hashes to (numbers, booleans, strings by their hash, pointers by address).
@@ -83,7 +83,7 @@ extern "C" LuaVMNode* __cdecl FUN_002198b0(const LuaVMTable* t, const LuaVMTObje
 namespace fn_fce939df {
 
 // 0x00219980 FUN_00219980 (79 B): equivalent/0x00219980.cpp
-// sym: _FUN_00219980
+// sym: _FUN_00219980 @6c04a07af658 @w99b33cc12f0e
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 8/8)
 // arrayindex: a number key's integer value when it is an integer in (0, lim], else -1.
 // equiv-conv: FUN_00219980 esi stack
@@ -101,7 +101,7 @@ extern "C" int __cdecl FUN_00219980(const LuaVMTObject* key, float lim) {
 
 
 // 0x002199d0 FUN_002199d0 (134 B): equivalent/0x002199d0.cpp
-// sym: _FUN_002199d0
+// sym: _FUN_002199d0 @024a0cc92698 @w922d7f338dd6
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 14/14)
 // computesizes: the array size (a power of 2 more than half used) for the integer keys counted per power of 2.
 // equiv-conv: FUN_002199d0 edx stack stack stack
@@ -138,7 +138,7 @@ extern "C" void __cdecl FUN_002199d0(int* nums, int ntotal, int* narray, int* nh
 
 
 // 0x00219a60 FUN_00219a60 (370 B): equivalent/0x00219a60.cpp
-// sym: _FUN_00219a60
+// sym: _FUN_00219a60 @2391b88c6352 @wefbf32df6ddc
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 26/32, incomplete)
 // numuse: count a table's used slots and integer keys per power of 2; the array and hash sizes to resize to.
 // equiv-conv: FUN_002199d0 edx stack stack stack
@@ -199,7 +199,7 @@ extern "C" void __cdecl FUN_00219a60(const LuaVMTable* t, int* narray, int* nhas
 
 
 // 0x00219be0 FUN_00219be0 (67 B): equivalent/0x00219be0.cpp
-// sym: _FUN_00219be0
+// sym: _FUN_00219be0 @7ec4fbba22ec @w1a30945ce992
 // STATUS: equivalent (tools/equiv.py level 3: 2694 inputs, branch coverage 4/4)
 // setarrayvector: resize a table's array part to size slots (the new ones nil).
 // equiv-conv: FUN_00219be0 esi edi stack
@@ -213,7 +213,7 @@ extern "C" void __cdecl FUN_00219be0(LuaVMTable* t, int size, LuaVMState* L) {
 
 
 // 0x00219c30 FUN_00219c30 (131 B): equivalent/0x00219c30.cpp
-// sym: _FUN_00219c30
+// sym: _FUN_00219c30 @cb107404b5c8 @w44df82ec11c8
 // STATUS: equivalent (tools/equiv.py level 3: 115 inputs, branch coverage 8/8)
 // setnodevector: a table's hash part of 2^lsize empty nodes (the global dummy node for 0).
 // equiv-conv: FUN_00219c30 ebx esi stack
@@ -239,7 +239,7 @@ extern "C" void __cdecl FUN_00219c30(LuaVMState* L, LuaVMTable* t, int lsize) {
 
 
 // 0x00219cc0 FUN_00219cc0 (82 B): equivalent/0x00219cc0.cpp
-// sym: _FUN_00219cc0
+// sym: _FUN_00219cc0 @ec74776d2463 @w2acfc791ff13
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 0/0)
 // luaH_new: a table with narray array slots and 2^lnhash nodes.
 // equiv-conv: FUN_00219be0 esi edi stack
@@ -271,7 +271,7 @@ extern "C" void __cdecl FUN_00219d20(LuaVMState* L, LuaVMTable* t) {
 
 
 // 0x00219d80 FUN_00219d80 (55 B): equivalent/0x00219d80.cpp
-// sym: _FUN_00219d80
+// sym: _FUN_00219d80 @10c90b38cb14 @w315fb85d27db
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 6/6)
 // luaH_getany: the value under a key of any type (by raw equality along its chain), or luaO_nilobject.
 // equiv-conv: FUN_00219d80 edi stack
@@ -289,7 +289,7 @@ extern "C" LuaVMTObject* __cdecl FUN_00219d80(const LuaVMTObject* key, LuaVMTabl
 
 
 // 0x00219dc0 FUN_00219dc0 (131 B): equivalent/0x00219dc0.cpp
-// sym: _FUN_00219dc0
+// sym: _FUN_00219dc0 @07aa2ff0f2fa @w71c0d1fe2622
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 10/10)
 // luaH_getnum: the value under an integer key (the array part, else the hash part), or luaO_nilobject.
 extern "C" LuaVMTObject* __cdecl FUN_00219dc0(LuaVMTable* t, int key) {
@@ -329,7 +329,7 @@ extern "C" LuaVMTObject* __cdecl FUN_00219e50(LuaVMTable* t, LuaVMString* key) {
 
 
 // 0x00219e90 FUN_00219e90 (83 B): equivalent/0x00219e90.cpp
-// sym: _FUN_00219e90
+// sym: _FUN_00219e90 @23531b47dc5b @w4f7961963be4
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
 // luaH_get: the value under a key (integers and strings by their fast paths), or luaO_nilobject.
 // equiv-conv: FUN_00219d80 edi stack
@@ -381,7 +381,7 @@ extern "C" LuaVMTObject* __cdecl FUN_00219f60(LuaVMState* L, LuaVMTable* t, int 
 
 
 // 0x00219fb0 FUN_00219fb0 (98 B): equivalent/0x00219fb0.cpp
-// sym: _FUN_00219fb0
+// sym: _FUN_00219fb0 @da0f3faf131e @w3fd6451c9476
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 6/6)
 // luaH_index: the traversal index of a key for next (-1 for nil; array slots first, then the nodes).
 // equiv-conv: FUN_00219980 esi stack
@@ -400,7 +400,7 @@ extern "C" int __cdecl FUN_00219fb0(const LuaVMTObject* key, LuaVMTable* t, LuaV
 
 
 // 0x0021a020 FUN_0021a020 (193 B): equivalent/0x0021a020.cpp
-// sym: _FUN_0021a020
+// sym: _FUN_0021a020 @3897ae74b741 @wa8bb02ffdfe2
 // STATUS: equivalent (tools/equiv.py level 3: 1449 inputs, branch coverage 12/12)
 // luaH_next: the key and value after key (in key[0], key[1]); 0 at the end.
 // equiv-conv: FUN_00219fb0 eax edi stack
@@ -439,7 +439,7 @@ extern "C" int __cdecl FUN_0021a020(LuaVMState* L, LuaVMTable* t, LuaVMTObject* 
 
 
 // 0x0021a0f0 FUN_0021a0f0 (675 B): equivalent/0x0021a0f0.cpp
-// sym: _FUN_0021a0f0
+// sym: _FUN_0021a0f0 @7e7568345268 @w7fcdb93d5732
 // STATUS: equivalent (tools/equiv.py level 3: 8 inputs, branch coverage 25/46, incomplete)
 // resize: give a table nasize array slots and 2^lsize nodes, re-inserting the values that moved.
 // equiv-conv: FUN_00219be0 esi edi stack
@@ -539,7 +539,7 @@ extern "C" void __cdecl FUN_0021a0f0(int nasize, LuaVMTable* t, LuaVMState* L, i
 
 
 // 0x0021a3a0 FUN_0021a3a0 (50 B): equivalent/0x0021a3a0.cpp
-// sym: _FUN_0021a3a0
+// sym: _FUN_0021a3a0 @a168a70f1684 @w64cfde8ab163
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // rehash: resize a table to the sizes its use asks for.
 // equiv-conv: FUN_0021a0f0 eax ecx stack stack
@@ -554,7 +554,7 @@ extern "C" void __cdecl FUN_0021a3a0(LuaVMTable* t, LuaVMState* L) {
 
 
 // 0x0021a3e0 FUN_0021a3e0 (277 B): equivalent/0x0021a3e0.cpp
-// sym: _FUN_0021a3e0
+// sym: _FUN_0021a3e0 @0bbe879e9cff @wc8d1d1dc31d1
 // STATUS: equivalent (tools/equiv.py level 3: 441 inputs, branch coverage 20/20)
 // newkey: insert a key into its main position (moving a colliding node that is not in its own main position to
 // a free node), with the barrier; when no free node is left, rehash and look the key up again.

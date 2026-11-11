@@ -6,7 +6,7 @@
 
 
 // 0x00290bf0 pure3d::prop::StatePropDataLoader::vfunc_5 (3691 B): equivalent/0x00290bf0.cpp [wrapped: macros]
-// sym: ?vfunc_5@StatePropDataLoader@fn_00290bf0@@QAEXPAPAUProp@2@PA_KPAUReader@2@PAUInventory@2@@Z
+// sym: ?vfunc_5@StatePropDataLoader@fn_00290bf0@@QAEXPAPAUProp@2@PA_KPAUReader@2@PAUInventory@2@@Z @f3e4e54ca616 @wef972defce54
 inline void *operator new(size_t, void *p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

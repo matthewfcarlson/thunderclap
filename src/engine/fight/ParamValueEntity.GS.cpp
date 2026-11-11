@@ -24,7 +24,7 @@ struct ParamValueEntity : ParamValue { virtual bool vfunc_5(void*,void*,Context*
 
 
 // 0x00235070 fight::ParamValueEntity::vfunc_5 (205 B): equivalent/0x00235070.cpp
-// sym: ?vfunc_5@ParamValueEntity@fight@fn_f3d93422@@UAE_NPAX0PAUContext@3@@Z
+// sym: ?vfunc_5@ParamValueEntity@fight@fn_f3d93422@@UAE_NPAX0PAUContext@3@@Z @5a256f090239 @w525875e73eaf
 // STATUS: equivalent (tools/equiv.py level 3: 15754 inputs, branch coverage 6/6)
 // fight::ParamValueEntity::vfunc_5 @ 0x00235070
 namespace fight {

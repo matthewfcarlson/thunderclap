@@ -198,7 +198,7 @@ struct Frame_2ac610 {
 
 
 // 0x002ac610 FUN_002ac610 (1616 B): equivalent/0x002ac610.cpp
-// sym: ?FUN_002ac610@Loader@fn_fc263da4@@QAEXHPAUStream@2@PAVCtx_2ac610@2@PAUExtra@2@@Z
+// sym: ?FUN_002ac610@Loader@fn_fc263da4@@QAEXHPAUStream@2@PAVCtx_2ac610@2@PAUExtra@2@@Z @e5620cfef6ff @wf98022200394
 // STATUS: equivalent (tools/equiv.py level 3: 196 inputs, branch coverage 54/64, incomplete)
 // FUN_002ac610 @ 0x002ac610
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

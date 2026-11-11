@@ -228,7 +228,7 @@ int fight::Track::vfunc_9(hulk_intptr , hulk_intptr , hulk_intptr ) {
 namespace fn_f5a78e74 {
 
 // 0x00236bc0 FUN_00236bc0 (136 B): equivalent/0x00236bc0.cpp
-// sym: ?FUN_00236bc0@Source_236bc0@fn_f5a78e74@@QAE_NHPAUSink_236bc0@2@H@Z
+// sym: ?FUN_00236bc0@Source_236bc0@fn_f5a78e74@@QAE_NHPAUSink_236bc0@2@H@Z @6682cb777e5f @w62c88618a91d
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 2/2)
 // FUN_00236bc0 @ 0x00236bc0
 bool Source_236bc0::FUN_00236bc0(int a, Sink_236bc0 *sink, int c)
@@ -249,7 +249,7 @@ bool Source_236bc0::FUN_00236bc0(int a, Sink_236bc0 *sink, int c)
 
 
 // 0x00236c50 fight::Track::vfunc_3 (178 B): equivalent/0x00236c50.cpp
-// sym: ?vfunc_3@Track@fn_f5a78e74@@UAE_N_KHTParamArg_236c50@2@@Z
+// sym: ?vfunc_3@Track@fn_f5a78e74@@UAE_N_KHTParamArg_236c50@2@@Z @2ba3a0d5e550 @w8717447ff019
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // fight::Track::vfunc_3 @ 0x00236c50
 bool Track::vfunc_3(unsigned __int64 id, int extra, ParamArg_236c50 arg)

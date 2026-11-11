@@ -663,7 +663,7 @@ bool pddiBaseShader::v10(int key, int arg) {
 
 
 // 0x00327c20 FUN_00327c20 (72 B): equivalent/0x00327c20.cpp
-// sym: ?FUN_00327c20@fn_fbec554b@@YAXPBDII@Z
+// sym: ?FUN_00327c20@fn_fbec554b@@YAXPBDII@Z @c98582235371 @wfeba0392c502
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00327c20 @ 0x00327c20
 void __cdecl FUN_00327c20(const char* text, hulk_uintptr value1, unsigned int value2)

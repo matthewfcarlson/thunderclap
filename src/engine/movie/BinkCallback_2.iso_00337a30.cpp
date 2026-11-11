@@ -4,7 +4,7 @@
 
 
 // 0x00337a30 FUN_00337a30 (439 B): equivalent/0x00337a30.cpp [isolated: code differs from its standalone build; on include/gen/ and not mergeable]
-// sym: ?FUN_00337a30@Parser_337a30@@QAE_NPAXHPAURegistry_337a30@@PAUListener_337a30@@H@Z
+// sym: ?FUN_00337a30@Parser_337a30@@QAE_NPAXHPAURegistry_337a30@@PAUListener_337a30@@H@Z @9e63523316e7 @w31cbd04e0f0a
 // STATUS: equivalent (tools/equiv.py level 3: 20015 inputs, branch coverage 36/36)
 // FUN_00337a30 @ 0x00337a30
 #include "gen/movie.h"

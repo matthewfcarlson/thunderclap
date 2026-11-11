@@ -102,7 +102,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x002d6790 pure3d::SpriteParticleRenderer::vfunc_4 (977 B): equivalent/0x002d6790.cpp [wrapped: conflict: SpriteParticleRenderer]
-// sym: ?vfunc_4@SpriteParticleRenderer@fn_002d6790@@UAEXPAVEmitter_2d6790@2@@Z
+// sym: ?vfunc_4@SpriteParticleRenderer@fn_002d6790@@UAEXPAVEmitter_2d6790@2@@Z @64db4feeb62a @w521bc3175f91
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

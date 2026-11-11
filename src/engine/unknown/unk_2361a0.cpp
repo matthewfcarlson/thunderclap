@@ -124,7 +124,7 @@ struct C_2366b0 {
 
 
 // 0x002361a0 FUN_002361a0 (176 B): equivalent/0x002361a0.cpp
-// sym: _FUN_002361a0
+// sym: _FUN_002361a0 @b2d6861d1e03 @w3d371fe7da4b
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
 // FUN_002361a0 @ 0x002361a0
 extern "C" void FUN_002361a0()
@@ -147,7 +147,7 @@ extern "C" void FUN_002361a0()
 
 
 // 0x00236340 FUN_00236340 (176 B): equivalent/0x00236340.cpp
-// sym: _FUN_00236340
+// sym: _FUN_00236340 @dd7619bab03d @w7a6bfdf1c7f8
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
 // FUN_00236340 @ 0x00236340
 extern "C" void FUN_00236340()

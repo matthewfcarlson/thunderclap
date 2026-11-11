@@ -213,7 +213,7 @@ bool owners::Buffer_2b1010::FUN_002b1010(unsigned int count, void* arg) {
 
 
 // 0x002b1070 FUN_002b1070 (94 B): equivalent/0x002b1070.cpp
-// sym: ?FUN_002b1070@Buffer_2b1070@owners@@QAE_NIH@Z
+// sym: ?FUN_002b1070@Buffer_2b1070@owners@@QAE_NIH@Z @45ffaba623c5 @w884a6d38e63d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002b1070 @ 0x002b1070
 bool owners::Buffer_2b1070::FUN_002b1070(unsigned count, hulk_intptr value) {
@@ -235,7 +235,7 @@ bool owners::Buffer_2b1070::FUN_002b1070(unsigned count, hulk_intptr value) {
 namespace fn_f8d4917d {
 
 // 0x002b1120 FUN_002b1120 (32 B): equivalent/0x002b1120.cpp
-// sym: ?FUN_002b1120@Thing@fn_f8d4917d@@QAEXI@Z
+// sym: ?FUN_002b1120@Thing@fn_f8d4917d@@QAEXI@Z @341ae72c23ea @wda6383f56023
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002b1120 @ 0x002b1120
 void Thing::FUN_002b1120(unsigned value) {
@@ -253,7 +253,7 @@ void C::target(int x) {
 
 
 // 0x002b1160 FUN_002b1160 (48 B): equivalent/0x002b1160.cpp
-// sym: ?FUN_002b1160@Handler@fn_f8d4917d@@QAEXI@Z
+// sym: ?FUN_002b1160@Handler@fn_f8d4917d@@QAEXI@Z @9a383474294a @we7cd4859f654
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002b1160 @ 0x002b1160
 void Handler::FUN_002b1160(unsigned int value) {
@@ -274,7 +274,7 @@ Thing_2b1200* Thing_2b1200::Destroy(byte_2b1200 flags) {
 
 
 // 0x002b1230 FUN_002b1230 (109 B): equivalent/0x002b1230.cpp
-// sym: ?FUN_002b1230@Target_2b1230@fn_f8d4917d@@QAEXPAUOutVec@2@HPAHH@Z
+// sym: ?FUN_002b1230@Target_2b1230@fn_f8d4917d@@QAEXPAUOutVec@2@HPAHH@Z @d97bb966b712 @w25345b2cc9d0
 // STATUS: equivalent (tools/equiv.py level 3: 198 inputs, branch coverage 4/4)
 // FUN_002b1230 @ 0x002b1230
 void Target_2b1230::FUN_002b1230(OutVec *out, int n, int *idxs, int off)
@@ -384,7 +384,7 @@ bool pure3d::VertexOffsetExpressionMixer::vfunc_3() {
 
 
 // 0x002b15d0 FUN_002b15d0 (162 B): equivalent/0x002b15d0.cpp [wrapped: conflict: pure3d::VertexOffsetExpressionMixer]
-// sym: ??0VertexOffsetExpressionMixer@pure3d@fn_002b15d0@@QAE@PAUSource_2b15d0@2@@Z
+// sym: ??0VertexOffsetExpressionMixer@pure3d@fn_002b15d0@@QAE@PAUSource_2b15d0@2@@Z @445f668103cb @w38fa9a32788f
 namespace fn_002b15d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 8/8)
 // FUN_002b15d0 @ 0x002b15d0
@@ -457,7 +457,7 @@ pure3d::VertexOffsetExpressionMixer::~VertexOffsetExpressionMixer() {}
 
 
 // 0x002b16a0 pure3d::VertexOffsetExpressionMixerLoader::vfunc_5 (456 B): equivalent/0x002b16a0.cpp [wrapped: conflict: VertexOffsetExpressionMixerLoader; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?vfunc_5@VertexOffsetExpressionMixerLoader@fn_002b16a0@@UAEXPAPAUVertexOffsetExpressionMixer_2b16a0@2@PA_KPAUStream@2@PAVLoadContext_2b16a0@2@@Z
+// sym: ?vfunc_5@VertexOffsetExpressionMixerLoader@fn_002b16a0@@UAEXPAPAUVertexOffsetExpressionMixer_2b16a0@2@PA_KPAUStream@2@PAVLoadContext_2b16a0@2@@Z @7dfef58b414d @wdc6e80082b31
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002b16a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)

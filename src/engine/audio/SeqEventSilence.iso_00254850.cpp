@@ -4,7 +4,7 @@
 
 
 // 0x00254850 audio::SeqEventSilence::vfunc_1 (129 B): equivalent/0x00254850.cpp [isolated: compile error C2732: linkage specification contradicts earlier specification for 'fn_00254850::FUN_0024eb60']
-// sym: ?vfunc_1@SeqEventSilence@audio@fn_f4dcd3fd@@QAEHPAUWriter_254850@3@@Z
+// sym: ?vfunc_1@SeqEventSilence@audio@fn_f4dcd3fd@@QAEHPAUWriter_254850@3@@Z @93d2e3874a6d @w8d6b3899068a
 namespace fn_f4dcd3fd {} using namespace fn_f4dcd3fd;
 namespace fn_f4dcd3fd {
 // STATUS: equivalent (tools/equiv.py level 3: 1186 inputs, branch coverage 10/10)

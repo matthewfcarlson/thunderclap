@@ -4,7 +4,7 @@
 
 
 // 0x003356d0 FUN_003356d0 (81 B): equivalent/0x003356d0.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_003356d0@Object@fn_f43e7bad@@QAE_NHPAH00@Z
+// sym: ?FUN_003356d0@Object@fn_f43e7bad@@QAE_NHPAH00@Z @f8fcebd790e2 @we518001cdeab
 #include "gen/owners.h"
 namespace fn_f43e7bad {} using namespace fn_f43e7bad;
 namespace fn_f43e7bad {

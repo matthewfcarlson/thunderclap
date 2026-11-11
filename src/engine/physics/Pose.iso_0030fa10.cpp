@@ -4,7 +4,7 @@
 
 
 // 0x0030fa10 FUN_0030fa10 (486 B): equivalent/0x0030fa10.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_0030fa10@Pose@fn_f6208780@@QAEXPAUSource_30fa10@2@@Z
+// sym: ?FUN_0030fa10@Pose@fn_f6208780@@QAEXPAUSource_30fa10@2@@Z @9ba71de18a7c @wb8d1f3bf8cca
 #include "gen/owners.h"
 namespace fn_f6208780 {} using namespace fn_f6208780;
 namespace fn_f6208780 {

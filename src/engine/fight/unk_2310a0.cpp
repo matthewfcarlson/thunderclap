@@ -244,7 +244,7 @@ struct Node_231960 {
 
 
 // 0x002310a0 FUN_002310a0 (184 B): equivalent/0x002310a0.cpp
-// sym: ?FUN_002310a0@Table_2310a0@fn_f6bca062@@QAEXI@Z
+// sym: ?FUN_002310a0@Table_2310a0@fn_f6bca062@@QAEXI@Z @2334e003f56b @w2c18ddaa7973
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 14/14)
 // FUN_002310a0 @ 0x002310a0
 void Table_2310a0::FUN_002310a0(unsigned int newCapacity) {
@@ -285,7 +285,7 @@ Obj_231160::Obj_231160(hulk_intptr arg) {
 
 
 // 0x00231180 FUN_00231180 (164 B): equivalent/0x00231180.cpp
-// sym: ?FUN_00231180@Probe_231180@fn_f6bca062@@QAEPAXII@Z
+// sym: ?FUN_00231180@Probe_231180@fn_f6bca062@@QAEPAXII@Z @359ffcd7a5ad @w540886df74a3
 // STATUS: equivalent (tools/equiv.py level 3: 2730 inputs, branch coverage 9/10, incomplete)
 // FUN_00231180 @ 0x00231180
 void *Probe_231180::FUN_00231180(unsigned int firstKey, unsigned int secondKey)
@@ -315,7 +315,7 @@ void *Probe_231180::FUN_00231180(unsigned int firstKey, unsigned int secondKey)
 
 
 // 0x00231230 FUN_00231230 (117 B): equivalent/0x00231230.cpp
-// sym: ?FUN_00231230@Probe_231230@fn_f6bca062@@QAEPAUSlot@2@XZ
+// sym: ?FUN_00231230@Probe_231230@fn_f6bca062@@QAEPAUSlot@2@XZ @354d9fc7bc3c @w2dca9f32c9ee
 // STATUS: equivalent (tools/equiv.py level 3: 195 inputs, branch coverage 9/10, incomplete)
 // FUN_00231230 @ 0x00231230
 Slot *Probe_231230::FUN_00231230()
@@ -344,7 +344,7 @@ Slot *Probe_231230::FUN_00231230()
 
 
 // 0x002312b0 FUN_002312b0 (181 B): equivalent/0x002312b0.cpp
-// sym: ?FUN_002312b0@Probe_2312b0@fn_f6bca062@@QAEPAXII@Z
+// sym: ?FUN_002312b0@Probe_2312b0@fn_f6bca062@@QAEPAXII@Z @aa765950b964 @w07149f591d4e
 // STATUS: equivalent (tools/equiv.py level 3: 190 inputs, branch coverage 12/12)
 // FUN_002312b0 @ 0x002312b0
 void * Probe_2312b0::FUN_002312b0(unsigned lo, unsigned hi) {
@@ -367,7 +367,7 @@ void * Probe_2312b0::FUN_002312b0(unsigned lo, unsigned hi) {
 
 
 // 0x00231370 FUN_00231370 (142 B): equivalent/0x00231370.cpp
-// sym: ?FUN_00231370@HashProbe@fn_f6bca062@@QAEPAUHashEntry@2@XZ
+// sym: ?FUN_00231370@HashProbe@fn_f6bca062@@QAEPAUHashEntry@2@XZ @faf0f4c14fa8 @w43eac3e93dde
 // STATUS: equivalent (tools/equiv.py level 3: 178 inputs, branch coverage 12/12)
 // FUN_00231370 @ 0x00231370
 // Advances to the next slot in the open-addressing sequence that holds the key (or is empty).
@@ -443,7 +443,7 @@ Obj::Obj(int a, int b, int c) : x0(a), x4(0), x8(0), xc(0), x10(c), x14(b), x18(
 
 
 // 0x00231590 FUN_00231590 (163 B): equivalent/0x00231590.cpp
-// sym: ?FUN_00231590@Table_231590@fn_f6bca062@@QAEXIIPAX@Z
+// sym: ?FUN_00231590@Table_231590@fn_f6bca062@@QAEXIIPAX@Z @a0f2868cf645 @wc3f1fe4c8309
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 10/10)
 // FUN_00231590 @ 0x00231590
 void Table_231590::FUN_00231590(unsigned int first, unsigned int second, void *item)
@@ -483,7 +483,7 @@ hulk_intptr __fastcall FUN_00231640(C_231640* p) {
 
 
 // 0x00231690 FUN_00231690 (212 B): equivalent/0x00231690.cpp
-// sym: ?FUN_00231690@Table_231690@fn_f6bca062@@QAEXXZ
+// sym: ?FUN_00231690@Table_231690@fn_f6bca062@@QAEXXZ @4c520e8f655e @w5878d741c9a5
 // STATUS: equivalent (tools/equiv.py level 3: 39 inputs, branch coverage 11/12, incomplete)
 // FUN_00231690 @ 0x00231690
 void Table_231690::FUN_00231690() {
@@ -539,7 +539,7 @@ int owners::Obj_231770::FUN_00231770(hulk_uintptr key) {
 namespace fn_f6bca062 {
 
 // 0x002317e0 FUN_002317e0 (180 B): equivalent/0x002317e0.cpp
-// sym: ?FUN_002317e0@Table_2317e0@fn_f6bca062@@QAE_NIII@Z
+// sym: ?FUN_002317e0@Table_2317e0@fn_f6bca062@@QAE_NIII@Z @7f7c211708f1 @w42961fd5f0fc
 // STATUS: equivalent (tools/equiv.py level 3: 212 inputs, branch coverage 14/14)
 // FUN_002317e0 @ 0x002317e0
 bool Table_2317e0::FUN_002317e0(unsigned key, unsigned value, unsigned match) {

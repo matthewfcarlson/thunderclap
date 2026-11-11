@@ -219,7 +219,7 @@ audio::SeqEventContainer::~SeqEventContainer() {}
 
 
 // 0x0024feb0 FUN_0024feb0 (44 B): equivalent/0x0024feb0.cpp [wrapped: conflict: audio::SeqEventCondition]
-// sym: ??0SeqEventCondition@audio@fn_0024feb0@@QAE@XZ
+// sym: ??0SeqEventCondition@audio@fn_0024feb0@@QAE@XZ @a8b5497ff94b @w7514f2ddd10f
 namespace fn_0024feb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0024feb0 @ 0x0024feb0
@@ -269,7 +269,7 @@ void audio::SeqEventCondition::vfunc_2(hulk_intptr __p0) { Receiver * r = (Recei
 
 
 // 0x0024ff60 audio::SeqCommandCondition::vfunc_0 (198 B): equivalent/0x0024ff60.cpp [wrapped: conflict: audio::SeqCommand; audio::SeqCommandCondition]
-// sym: ?vfunc_0@SeqCommandCondition@audio@fn_0024ff60@@UAEIPAUContext@23@@Z
+// sym: ?vfunc_0@SeqCommandCondition@audio@fn_0024ff60@@UAEIPAUContext@23@@Z @5a823d56f97a @wda20728ff822
 namespace fn_0024ff60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 14/14)
 // audio::SeqCommandCondition::vfunc_0 @ 0x0024ff60

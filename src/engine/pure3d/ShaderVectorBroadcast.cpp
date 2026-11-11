@@ -440,7 +440,7 @@ template <> unsigned int Store<Room>::vfunc_1(unsigned int x) {
 namespace fn_f4b93973 {
 
 // 0x0028ef80 pure3d::ShaderTextureBroadcast::vfunc_3 (60 B): equivalent/0x0028ef80.cpp
-// sym: ?vfunc_3@ShaderTextureBroadcast@pure3d@fn_f4b93973@@UAEPAUContext@23@PAU423@@Z
+// sym: ?vfunc_3@ShaderTextureBroadcast@pure3d@fn_f4b93973@@UAEPAUContext@23@PAU423@@Z @c467b23d90d3 @wb15c6b0b928f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // pure3d::ShaderTextureBroadcast::vfunc_3 @ 0x0028ef80
 namespace pure3d {

@@ -4,7 +4,7 @@
 
 
 // 0x00250030 audio::SeqEventConditionType::vfunc_3 (77 B): equivalent/0x00250030.cpp [isolated: conflict: operatornew; on include/gen/ and not mergeable]
-// sym: ?vfunc_3@SeqEventConditionType@audio@@UAEPAXXZ
+// sym: ?vfunc_3@SeqEventConditionType@audio@@UAEPAXXZ @d4450aa0a988 @wf4659281894c
 // STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
 // audio::SeqEventConditionType::vfunc_3 @ 0x00250030
 #include "gen/audio.h"

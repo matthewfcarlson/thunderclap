@@ -4,7 +4,7 @@
 
 
 // 0x00337210 FUN_00337210 (278 B): equivalent/0x00337210.cpp [isolated: code differs from its standalone build]
-// sym: ?target@Manager_337210@fn_f7e186b1@@QAE_NPAUParser_337210@2@@Z
+// sym: ?target@Manager_337210@fn_f7e186b1@@QAE_NPAUParser_337210@2@@Z @ef346543da3a @w60674876bd6e
 #include "gen/owners.h"
 namespace fn_f7e186b1 {} using namespace fn_f7e186b1;
 namespace fn_f7e186b1 {

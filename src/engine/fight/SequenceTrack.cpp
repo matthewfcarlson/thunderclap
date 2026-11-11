@@ -517,7 +517,7 @@ template <> fight::ParamConditionGroup<fight::SequenceTrack>::~ParamConditionGro
 
 
 // 0x00237f40 FUN_00237f40 (213 B): equivalent/0x00237f40.cpp [wrapped: conflict: fight::ParamBranch; fight::ParamConditionGroup; fight::ParamIntConstRange]
-// sym: ?target@fn_00237f40@@YAXXZ
+// sym: ?target@fn_00237f40@@YAXXZ @c090cd98f637 @w5cffb4f32e98
 namespace fn_00237f40 {
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)
 // FUN_00237f40 @ 0x00237f40

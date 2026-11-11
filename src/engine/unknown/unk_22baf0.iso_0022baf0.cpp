@@ -4,7 +4,7 @@
 
 
 // 0x0022baf0 FUN_0022baf0 (299 B): equivalent/0x0022baf0.cpp [isolated: code differs from its standalone build]
-// sym: ?build@Matrix@fn_ff6652fc@@QAEXPBUVec_22baf0@2@M@Z
+// sym: ?build@Matrix@fn_ff6652fc@@QAEXPBUVec_22baf0@2@M@Z @9fe4f618d445 @w7eb562666496
 #include "gen/owners.h"
 namespace fn_ff6652fc {} using namespace fn_ff6652fc;
 namespace fn_ff6652fc {

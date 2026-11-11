@@ -203,7 +203,7 @@ void Listener::FUN_00266220(Source* src)
 } // namespace fn_fa919a6c
 
 // 0x00266280 content::LoadInventory::vfunc_3 (143 B): equivalent/0x00266280.cpp
-// sym: ?vfunc_3@LoadInventory@content@@UAEPAXHHH@Z
+// sym: ?vfunc_3@LoadInventory@content@@UAEPAXHHH@Z @f60b83515d6c @w695d264e4914
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 11/12, incomplete)
 // content::LoadInventory::vfunc_3 @ 0x00266280
 void* content::LoadInventory::vfunc_3(hulk_intptr __p0, int a, int b) { Matcher * matcher = (Matcher *)__p0;
@@ -242,7 +242,7 @@ void __fastcall FUN_00266440(Owner_266440* self) {
 } // namespace fn_fa919a6c
 
 // 0x00266480 FUN_00266480 (139 B): equivalent/0x00266480.cpp [wrapped: conflict: content::LoadInventory]
-// sym: ??0LoadInventory@content@fn_00266480@@QAE@I@Z
+// sym: ??0LoadInventory@content@fn_00266480@@QAE@I@Z @6ebb796d5522 @w06bcb14ba4bc
 namespace fn_00266480 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_00266480 @ 0x00266480

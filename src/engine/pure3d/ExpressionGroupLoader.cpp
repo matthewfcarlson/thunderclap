@@ -292,7 +292,7 @@ ExpressionGroup_2b0100::~ExpressionGroup_2b0100() throw() {
 } // namespace fn_fd745641
 
 // 0x002b0170 pure3d::ExpressionGroupLoader::vfunc_5 (475 B): equivalent/0x002b0170.cpp [wrapped: conflict: ExpressionGroupLoader; content::ObjectLoader; pure3d::ExpressionLoader]
-// sym: ?vfunc_5@ExpressionGroupLoader@fn_002b0170@@UAE_KPAPAUExprGroup_2b0170@2@PA_KPAUReader@2@H@Z
+// sym: ?vfunc_5@ExpressionGroupLoader@fn_002b0170@@UAE_KPAPAUExprGroup_2b0170@2@PA_KPAUReader@2@H@Z @d085d60aa731 @w4c94131cbe2d
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -483,7 +483,7 @@ void B_2b0550::run() {
 } // namespace fn_fd745641
 
 // 0x002b07d0 FUN_002b07d0 (78 B): equivalent/0x002b07d0.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002b07d0@Holder@fn_002b07d0@@QAE_NXZ
+// sym: ?FUN_002b07d0@Holder@fn_002b07d0@@QAE_NXZ @90a4016af869 @w9522312ed1b6
 namespace fn_002b07d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 637 inputs, branch coverage 6/6)
 // FUN_002b07d0 @ 0x002b07d0
@@ -493,7 +493,7 @@ struct Item { char pad[0x14]; float value; }; struct Entry { Item* item; int oth
 namespace fn_fd745641 {
 
 // 0x002b0870 FUN_002b0870 (436 B): equivalent/0x002b0870.cpp
-// sym: ?FUN_002b0870@Curves_2b0870@fn_fd745641@@QAEXXZ
+// sym: ?FUN_002b0870@Curves_2b0870@fn_fd745641@@QAEXXZ @8ffb0de07afb @wb6b8998dcb6b
 // STATUS: equivalent (tools/equiv.py level 3: 12 inputs, branch coverage 18/20, incomplete)
 // FUN_002b0870 @ 0x002b0870
 void Curves_2b0870::FUN_002b0870()
@@ -559,7 +559,7 @@ void Curves_2b0870::FUN_002b0870()
 
 
 // 0x002b0a70 FUN_002b0a70 (293 B): equivalent/0x002b0a70.cpp
-// sym: ?target@fn_fd745641@@YAXPAUList_2b0a70@1@PAUOutput_2b0a70@1@@Z
+// sym: ?target@fn_fd745641@@YAXPAUList_2b0a70@1@PAUOutput_2b0a70@1@@Z @0624c8160ba2 @w042d9483ba53
 // STATUS: equivalent (tools/equiv.py level 3: 42 inputs, branch coverage 14/14)
 // FUN_002b0a70 @ 0x002b0a70
 void __cdecl target(List_2b0a70* list, Output_2b0a70* output) {
@@ -589,7 +589,7 @@ void __cdecl target(List_2b0a70* list, Output_2b0a70* output) {
 
 
 // 0x002b0ba0 FUN_002b0ba0 (301 B): equivalent/0x002b0ba0.cpp
-// sym: ?FUN_002b0ba0@Blender_2b0ba0@fn_fd745641@@QAEXPAUSink_2b0ba0@2@@Z
+// sym: ?FUN_002b0ba0@Blender_2b0ba0@fn_fd745641@@QAEXPAUSink_2b0ba0@2@@Z @180c9936ae5c @w6b75d7beab96
 // STATUS: equivalent (tools/equiv.py level 3: 24 inputs, branch coverage 12/12)
 // FUN_002b0ba0 @ 0x002b0ba0
 void Blender_2b0ba0::FUN_002b0ba0(Sink_2b0ba0 *sink)
@@ -614,7 +614,7 @@ void Blender_2b0ba0::FUN_002b0ba0(Sink_2b0ba0 *sink)
 
 
 // 0x002b0cd0 FUN_002b0cd0 (87 B): equivalent/0x002b0cd0.cpp
-// sym: ?FUN_002b0cd0@Owner@fn_fd745641@@QAEXPAX@Z
+// sym: ?FUN_002b0cd0@Owner@fn_fd745641@@QAEXPAX@Z @577de1f840f7 @w397ca382f064
 // STATUS: equivalent (tools/equiv.py level 3: 2247 inputs, branch coverage 4/4)
 // FUN_002b0cd0 @ 0x002b0cd0
 void Owner::FUN_002b0cd0(void* arg) {
@@ -678,7 +678,7 @@ int* copyWords(int* dst, int count, const int* src) {
 
 
 // 0x002b0e40 FUN_002b0e40 (78 B): equivalent/0x002b0e40.cpp
-// sym: _FUN_002b0e40
+// sym: _FUN_002b0e40 @8cbb3fca80e7 @wdc3110b3f03f
 // STATUS: equivalent (tools/equiv.py level 3: 121 inputs, branch coverage 6/6)
 // FUN_002b0e40 @ 0x002b0e40
 extern "C" Record* __cdecl FUN_002b0e40(Record* destination, int count, const Record* source)
@@ -701,7 +701,7 @@ extern "C" Record* __cdecl FUN_002b0e40(Record* destination, int count, const Re
 
 
 // 0x002b0e90 FUN_002b0e90 (116 B): equivalent/0x002b0e90.cpp
-// sym: ?FUN_002b0e90@Vec_2b0e90@fn_fd745641@@QAEPAU12@PBU12@@Z
+// sym: ?FUN_002b0e90@Vec_2b0e90@fn_fd745641@@QAEPAU12@PBU12@@Z @1bfde5b849ad @w932d798a6b2f
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 9/10, incomplete)
 // FUN_002b0e90 @ 0x002b0e90
 Vec_2b0e90 *Vec_2b0e90::FUN_002b0e90(const Vec_2b0e90 *src)

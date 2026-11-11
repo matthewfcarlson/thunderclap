@@ -585,7 +585,7 @@ Obj_30ed00* Obj_30ed00::Copy(Obj_30ed00* src) {
 
 
 // 0x0030ed60 FUN_0030ed60 (82 B): equivalent/0x0030ed60.cpp
-// sym: ?Traverse@Owner@fn_f346547a@@QAEXXZ
+// sym: ?Traverse@Owner@fn_f346547a@@QAEXXZ @7803cf7a4bce @w0a65565e38d1
 // STATUS: equivalent (tools/equiv.py level 3: 423 inputs, branch coverage 10/10)
 // FUN_0030ed60 @ 0x0030ed60
 // FUN_0030ed60 @ 0x0030ed60
@@ -828,7 +828,7 @@ void Obj_30f1b0::Set(const Four_30f1b0& p) {
 
 
 // 0x0030f1e0 FUN_0030f1e0 (286 B): equivalent/0x0030f1e0.cpp
-// sym: ?blend@Object@fn_f346547a@@QAEXMPAU12@@Z
+// sym: ?blend@Object@fn_f346547a@@QAEXMPAU12@@Z @1ad8878649a0 @w2c1c4d3cf904
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0030f1e0 @ 0x0030f1e0
 void Object::blend(float t,Object* other) {
@@ -1041,7 +1041,7 @@ void Obj::Fn() {
 
 
 // 0x0030f6b0 FUN_0030f6b0 (239 B): equivalent/0x0030f6b0.cpp [wrapped: conflict: physics::Pose]
-// sym: ??0Pose@physics@fn_0030f6b0@@QAE@PAUSource_30f6b0@2@@Z
+// sym: ??0Pose@physics@fn_0030f6b0@@QAE@PAUSource_30f6b0@2@@Z @86854284a302 @wac55d58d621d
 namespace fn_0030f6b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 12/12)
 // FUN_0030f6b0 @ 0x0030f6b0
@@ -1164,7 +1164,7 @@ void PoseEngine_30fc90::V() {
 
 
 // 0x0030fda0 FUN_0030fda0 (241 B): equivalent/0x0030fda0.cpp
-// sym: ?insert@Container_30fda0@fn_f346547a@@QAE_NHPAUItem_30fda0@2@@Z
+// sym: ?insert@Container_30fda0@fn_f346547a@@QAE_NHPAUItem_30fda0@2@@Z @19ba5672e022 @w664ae3b337e5
 // STATUS: equivalent (tools/equiv.py level 3: 456 inputs, branch coverage 17/18, incomplete)
 // FUN_0030fda0 @ 0x0030fda0
 bool Container_30fda0::insert(int group, Item_30fda0* item) {
@@ -1203,7 +1203,7 @@ bool Container_30fea0::Remove(int i, int j) {
 
 
 // 0x0030ff20 FUN_0030ff20 (85 B): equivalent/0x0030ff20.cpp
-// sym: ?FUN_0030ff20@Table@fn_f346547a@@QAEEHH@Z
+// sym: ?FUN_0030ff20@Table@fn_f346547a@@QAEEHH@Z @195e1bb638f9 @wdcb9039d3081
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 11/12, incomplete)
 // FUN_0030ff20 @ 0x0030ff20
 unsigned char Table::FUN_0030ff20(int index, int value) { if (index < 0 || index >= count) return FUN_0030fea0(index, 0); int n = sizes[index]; if (n > 0) { int *list = items[index]; for (int i = 0; i < n; ++i) if (list[i] == value) return FUN_0030fea0(index, i); } return 0; }

@@ -5,7 +5,7 @@
 
 
 // 0x00297f20 pure3d::scenegraph::ScenegraphLoader::vfunc_5 (338 B): equivalent/0x00297f20.cpp [isolated: using-directive; on include/gen/ and not mergeable]
-// sym: ?vfunc_5@ScenegraphLoader@scenegraph@pure3d@@UAEXPAX00H@Z
+// sym: ?vfunc_5@ScenegraphLoader@scenegraph@pure3d@@UAEXPAX00H@Z @8856e92257c8 @w10a13db26f70
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 13/14, incomplete)
 // pure3d::scenegraph::ScenegraphLoader::vfunc_5 @ 0x00297f20
 #include "gen/pure3d.h"

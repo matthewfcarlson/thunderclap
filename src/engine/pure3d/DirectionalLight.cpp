@@ -130,14 +130,14 @@ DirectionalLight_2a2f90* DirectionalLight_2a2f90::vfunc_5(signed char flags) {
 
 
 // 0x002a2fc0 FUN_002a2fc0 (44 B): equivalent/0x002a2fc0.cpp
-// sym: ?FUN_002a2fc0@Obj@fn_ff411229@@QAEXPBUPoint@2@@Z
+// sym: ?FUN_002a2fc0@Obj@fn_ff411229@@QAEXPBUPoint@2@@Z @78b8ae8a5317 @w344959d6c92b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002a2fc0 @ 0x002a2fc0
 void Obj::FUN_002a2fc0(const Point* p) { position = *p; position.FUN_0022d180(); v9(1); }
 
 
 // 0x002a2ff0 pure3d::DirectionalLight::vfunc_9 (175 B): equivalent/0x002a2ff0.cpp
-// sym: ?vfunc_9@DirectionalLight@pure3d@fn_ff411229@@UAEXI@Z
+// sym: ?vfunc_9@DirectionalLight@pure3d@fn_ff411229@@UAEXI@Z @420eb687aab0 @waf6cbe000d15
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 2/2)
 // pure3d::DirectionalLight::vfunc_9 @ 0x002a2ff0
 namespace pure3d {

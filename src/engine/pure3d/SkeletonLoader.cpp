@@ -219,7 +219,7 @@ struct Frame_27c720 {
 
 
 // 0x0027b570 FUN_0027b570 (220 B): equivalent/0x0027b570.cpp
-// sym: ?cleanup@Owner_27b570@fn_f8d8f61c@@QAEXXZ
+// sym: ?cleanup@Owner_27b570@fn_f8d8f61c@@QAEXXZ @089098bc3486 @w06f77d5b9f04
 // STATUS: equivalent (tools/equiv.py level 3: 148 inputs, branch coverage 14/14)
 // FUN_0027b570 @ 0x0027b570
 void Owner_27b570::cleanup() {
@@ -247,7 +247,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 
 
 // 0x0027b670 FUN_0027b670 (147 B): equivalent/0x0027b670.cpp
-// sym: ?FUN_0027b670@RecordTable_27b670@fn_f8d8f61c@@QAEPAURecord_27b670@2@II@Z
+// sym: ?FUN_0027b670@RecordTable_27b670@fn_f8d8f61c@@QAEPAURecord_27b670@2@II@Z @381005c18e94 @wf177df6d1ed6
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 14/14)
 // FUN_0027b670 @ 0x0027b670
 Record_27b670 *RecordTable_27b670::FUN_0027b670(unsigned int keyLo, unsigned int keyHi)
@@ -267,7 +267,7 @@ Record_27b670 *RecordTable_27b670::FUN_0027b670(unsigned int keyLo, unsigned int
 
 
 // 0x0027b710 FUN_0027b710 (118 B): equivalent/0x0027b710.cpp
-// sym: ?Find@Table_27b710@fn_f8d8f61c@@QAEPAUEntry_27b710@2@II@Z
+// sym: ?Find@Table_27b710@fn_f8d8f61c@@QAEPAUEntry_27b710@2@II@Z @da972b32830c @wdea6a72ae01c
 // STATUS: equivalent (tools/equiv.py level 3: 55 inputs, branch coverage 8/8)
 // FUN_0027b710 @ 0x0027b710
 Entry_27b710* Table_27b710::Find(unsigned int a, unsigned int b) {
@@ -283,7 +283,7 @@ Entry_27b710* Table_27b710::Find(unsigned int a, unsigned int b) {
 } // namespace fn_f8d8f61c
 
 // 0x0027b8f0 FUN_0027b8f0 (138 B): equivalent/0x0027b8f0.cpp [wrapped: conflict: FUN_0008d6d0]
-// sym: _FUN_0027b8f0
+// sym: _FUN_0027b8f0 @cc24da305039 @w28913b71a714
 namespace fn_0027b8f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 3/4, incomplete)
 // FUN_0027b8f0 @ 0x0027b8f0
@@ -583,7 +583,7 @@ void* pure3d::Skeleton::vfunc_4() {
 namespace fn_f8d8f61c {
 
 // 0x0027bd70 FUN_0027bd70 (143 B): equivalent/0x0027bd70.cpp
-// sym: ?FUN_0027bd70@ElemVector@fn_f8d8f61c@@QAEXIH@Z
+// sym: ?FUN_0027bd70@ElemVector@fn_f8d8f61c@@QAEXIH@Z @3766d0b96756 @wfd2f3b71f8c5
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0027bd70 @ 0x0027bd70
 void ElemVector::FUN_0027bd70(unsigned int newSize, hulk_intptr fill) {
@@ -606,7 +606,7 @@ void ElemVector::FUN_0027bd70(unsigned int newSize, hulk_intptr fill) {
 } // namespace fn_f8d8f61c
 
 // 0x0027be00 FUN_0027be00 (94 B): equivalent/0x0027be00.cpp
-// sym: ?FUN_0027be00@Buffer_27be00@owners@@QAE_NIH@Z
+// sym: ?FUN_0027be00@Buffer_27be00@owners@@QAE_NIH@Z @c6af926935b5 @w601ec501dc35
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_0027be00 @ 0x0027be00
 bool owners::Buffer_27be00::FUN_0027be00(hulk_uintptr count, hulk_intptr value) { if (begin) return false; if (((unsigned int)count)) { void* data = FUN_0008d6d0(((unsigned int)count) * 40); begin = data; if (data) { end = (char*)data + ((unsigned int)count) * 40; FUN_0027bc30(data, ((unsigned int)count), ((int)value)); return true; } } begin = 0; end = 0; return false; }
@@ -655,7 +655,7 @@ void Wrapper::FUN_0027beb0(void* arg) {
 } // namespace fn_f8d8f61c
 
 // 0x0027bee0 FUN_0027bee0 (408 B): equivalent/0x0027bee0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0Skeleton@pure3d@fn_0027bee0@@QAE@HII@Z
+// sym: ??0Skeleton@pure3d@fn_0027bee0@@QAE@HII@Z @9b362a7058d6 @w739f066288ef
 namespace fn_0027bee0 {
 // STATUS: equivalent (tools/equiv.py level 3: 9 inputs, branch coverage 15/16, incomplete)
 // FUN_0027bee0 @ 0x0027bee0
@@ -799,7 +799,7 @@ pure3d::Skeleton::Skeleton(int n, unsigned int numPartitions, unsigned int numLi
 
 
 // 0x0027c080 FUN_0027c080 (180 B): equivalent/0x0027c080.cpp [wrapped: conflict: pure3d::Skeleton]
-// sym: ?target@Object@fn_0027c080@@QAEPAUPartition@Skeleton@pure3d@2@II@Z
+// sym: ?target@Object@fn_0027c080@@QAEPAUPartition@Skeleton@pure3d@2@II@Z @f5de5fecf235 @w68178d5ddb86
 namespace fn_0027c080 {
 // STATUS: equivalent (tools/equiv.py level 3: 151 inputs, branch coverage 4/4)
 // FUN_0027c080 @ 0x0027c080
@@ -850,7 +850,7 @@ pure3d::Skeleton::Partition* Object::target(unsigned int key, unsigned int value
 
 
 // 0x0027c140 pure3d::SkeletonLoader::vfunc_5 (1491 B): equivalent/0x0027c140.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?F@SkeletonLoader@fn_0027c140@@QAEXPAPAUSkeleton@2@PA_KPAULoader_27c140@2@H@Z
+// sym: ?F@SkeletonLoader@fn_0027c140@@QAEXPAPAUSkeleton@2@PA_KPAULoader_27c140@2@H@Z @6aa61d28780e @w340a48b7c9b5
 namespace fn_0027c140 {
 // STATUS: equivalent (tools/equiv.py level 3: 174 inputs, branch coverage 48/48)
 // pure3d::SkeletonLoader::vfunc_5 @ 0x0027c140
@@ -1130,7 +1130,7 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *l
 
 
 // 0x0027c720 pure3d::LegacySkeletonLoader::vfunc_5 (599 B): equivalent/0x0027c720.cpp
-// sym: ?vfunc_5@LegacySkeletonLoader@pure3d@@UAEXPAX00H@Z
+// sym: ?vfunc_5@LegacySkeletonLoader@pure3d@@UAEXPAX00H@Z @6ee8553bea12 @w12be7a9ed471
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 10/10)
 // pure3d::LegacySkeletonLoader::vfunc_5 @ 0x0027c720
 void pure3d::LegacySkeletonLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr unused) { Skeleton_27c720 ** out = (Skeleton_27c720 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Reader_27c720 * r = (Reader_27c720 *)__p2;

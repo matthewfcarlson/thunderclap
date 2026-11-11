@@ -179,7 +179,7 @@ int audio::SeqActionSilence::vfunc_5(int ) {
 
 
 // 0x00254760 FUN_00254760 (86 B): equivalent/0x00254760.cpp
-// sym: ?FUN_00254760@SeqEventSilenceType@audio@@QAEPAV12@XZ
+// sym: ?FUN_00254760@SeqEventSilenceType@audio@@QAEPAV12@XZ @b125f6c2118d @wb352b892ab25
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00254760 @ 0x00254760
 audio::SeqEventSilenceType* audio::SeqEventSilenceType::FUN_00254760() {

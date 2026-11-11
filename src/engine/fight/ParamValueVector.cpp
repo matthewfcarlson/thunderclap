@@ -66,7 +66,7 @@ ParamValueVector::ParamValueVector(hulk_intptr x) : part(x) {
 
 
 // 0x00234e80 fight::ParamValueVector::vfunc_5 (88 B): equivalent/0x00234e80.cpp
-// sym: ?vfunc_5@ParamValueVector@fight@fn_fa28d91f@@UAEDIIPAUReader@23@@Z
+// sym: ?vfunc_5@ParamValueVector@fight@fn_fa28d91f@@UAEDIIPAUReader@23@@Z @735f704bf705 @w5c9902472b50
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // fight::ParamValueVector::vfunc_5 @ 0x00234e80
 namespace fight {

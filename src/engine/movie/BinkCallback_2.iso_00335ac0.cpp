@@ -5,7 +5,7 @@
 
 
 // 0x00335ac0 FUN_00335ac0 (143 B): equivalent/0x00335ac0.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_00335ac0@Reader@fn_f5ad0173@@QAE_NHHPAI@Z
+// sym: ?FUN_00335ac0@Reader@fn_f5ad0173@@QAE_NHHPAI@Z @5236b2e40975 @wcf5c78b58e5d
 #include "gen/owners.h"
 namespace fn_f5ad0173 {} using namespace fn_f5ad0173;
 namespace fn_f5ad0173 {

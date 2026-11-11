@@ -322,7 +322,7 @@ int Geometry::vfunc_16() {
 
 
 // 0x002c27c0 pure3d::Geometry::vfunc_17 (64 B): equivalent/0x002c27c0.cpp [wrapped: conflict: pure3d::DrawableContainer; pure3d::Geometry]
-// sym: ?vfunc_17@Geometry@pure3d@fn_002c27c0@@QAEXHH@Z
+// sym: ?vfunc_17@Geometry@pure3d@fn_002c27c0@@QAEXHH@Z @7bcd4413e014 @w9f83ea832d5f
 namespace fn_002c27c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // pure3d::Geometry::vfunc_17 @ 0x002c27c0
@@ -443,7 +443,7 @@ GeometryLoader_2c2a70::~GeometryLoader_2c2a70() throw() {
 } // namespace fn_ff9773df
 
 // 0x002c2ab0 pure3d::GeometryLoader::vfunc_5 (1359 B): equivalent/0x002c2ab0.cpp [wrapped: conflict: Geometry; content::ObjectLoader; pure3d::FrameController; pure3d::FrameControllerLoader (+3)]
-// sym: ?vfunc_5@GeometryLoader@pure3d@fn_002c2ab0@@UAE_KPAPAVGeometry@3@PA_KPAULoader_2c2ab0@3@PAUCtx@3@@Z
+// sym: ?vfunc_5@GeometryLoader@pure3d@fn_002c2ab0@@UAE_KPAPAVGeometry@3@PA_KPAULoader_2c2ab0@3@PAUCtx@3@@Z @ba99255f0ba4 @wfc4f56b26af7
 inline void operator delete(void*, void*) throw() {}
 inline void* operator new(size_t, void* p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
@@ -803,7 +803,7 @@ pure3d::Geometry::~Geometry() {}
 
 
 // 0x002c3060 FUN_002c3060 (219 B): equivalent/0x002c3060.cpp [wrapped: conflict: FUN_0008d690; pure3d::Geometry]
-// sym: ??0Geometry@pure3d@fn_002c3060@@QAE@PAU012@@Z
+// sym: ??0Geometry@pure3d@fn_002c3060@@QAE@PAU012@@Z @66ce960358e4 @w88f94542e8f3
 namespace fn_002c3060 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // FUN_002c3060 @ 0x002c3060

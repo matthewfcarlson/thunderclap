@@ -38,7 +38,7 @@ extern "C" int __cdecl FUN_00212d70(LuaVMState* L);
 
 
 // 0x0033d9e0 FUN_0033d9e0 (183 B): equivalent/0x0033d9e0.cpp
-// sym: ?FUN_0033d9e0@fn_f9aa3fa4@@YAXPAULuaVMState@@@Z
+// sym: ?FUN_0033d9e0@fn_f9aa3fa4@@YAXPAULuaVMState@@@Z @4fbe6a27a31c @we2a931c08b6a
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_0033d9e0 @ 0x0033d9e0
 // lbaselib getfunc: push the function of argument 1 (a function or a stack level)
@@ -61,7 +61,7 @@ void __cdecl FUN_0033d9e0(LuaVMState* L) {
 
 
 // 0x0033e250 FUN_0033e250 (369 B): equivalent/0x0033e250.cpp
-// sym: _FUN_0033e250
+// sym: _FUN_0033e250 @2921e1b26ed0 @wd4f347ea04aa
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 15/15)
 // FUN_0033e250 @ 0x0033e250
 extern "C" int __cdecl FUN_0033e250(LuaVMState* L)

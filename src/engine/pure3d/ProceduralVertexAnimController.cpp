@@ -424,7 +424,7 @@ extern "C" void FUN_002a5260() {}
 
 
 // 0x002a5290 FUN_002a5290 (384 B): equivalent/0x002a5290.cpp
-// sym: _FUN_002a5290
+// sym: _FUN_002a5290 @df8bae6804a7 @weee5497579f2
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 18/18; --wine 73 inputs)
 // FUN_002a5290 @ 0x002a5290
 extern "C" void FUN_002a5290(float t, void *a, void *b, unsigned int flags, float *c)
@@ -525,7 +525,7 @@ hulk_freg __fastcall Vec2Normalize(Vec2_2a54e0* v) {
 } // namespace fn_fa65e9c0
 
 // 0x002a5570 FUN_002a5570 (872 B): equivalent/0x002a5570.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_002a5570
+// sym: _FUN_002a5570 @5d6d1f086552 @w21264fddd06f
 namespace fn_002a5570 {
 // STATUS: equivalent (tools/equiv.py level 3: 146 inputs, branch coverage 38/38)
 // FUN_002a5570 @ 0x002a5570
@@ -659,7 +659,7 @@ extern "C" void __cdecl FUN_002a5570(float t, void *a, void *b, unsigned int mas
 namespace fn_fa65e9c0 {
 
 // 0x002a58e0 FUN_002a58e0 (317 B): equivalent/0x002a58e0.cpp
-// sym: ?FUN_002a58e0@fn_fa65e9c0@@YAXPAVTarget_2a58e0@1@0HH@Z
+// sym: ?FUN_002a58e0@fn_fa65e9c0@@YAXPAVTarget_2a58e0@1@0HH@Z @bd13e36a1b3a @wc2f6092aa46e
 // STATUS: equivalent (tools/equiv.py level 3: 1166 inputs, branch coverage 20/20)
 // FUN_002a58e0 @ 0x002a58e0
 void FUN_002a58e0(Target_2a58e0 *self, Target_2a58e0 *obj, int a, int b)
@@ -707,7 +707,7 @@ void FUN_002a58e0(Target_2a58e0 *self, Target_2a58e0 *obj, int a, int b)
 
 
 // 0x002a5a20 FUN_002a5a20 (966 B): equivalent/0x002a5a20.cpp
-// sym: ?FUN_002a5a20@fn_fa65e9c0@@YAXMPAUMesh_2a5a20@1@0IPAUWaveParams@1@@Z
+// sym: ?FUN_002a5a20@fn_fa65e9c0@@YAXMPAUMesh_2a5a20@1@0IPAUWaveParams@1@@Z @fda7fc2e3992 @wc6de533e971c
 // STATUS: equivalent (tools/equiv.py level 3: 5291 inputs, branch coverage 50/54, incomplete)
 // FUN_002a5a20 @ 0x002a5a20
 void FUN_002a5a20(float time, Mesh_2a5a20 *a, Mesh_2a5a20 *b, unsigned int flags, WaveParams *p)
@@ -810,7 +810,7 @@ void FUN_002a5a20(float time, Mesh_2a5a20 *a, Mesh_2a5a20 *b, unsigned int flags
 
 
 // 0x002a5df0 FUN_002a5df0 (479 B): equivalent/0x002a5df0.cpp
-// sym: ?FUN_002a5df0@fn_fa65e9c0@@YAXPAUAnim_2a5df0@1@HHH@Z
+// sym: ?FUN_002a5df0@fn_fa65e9c0@@YAXPAUAnim_2a5df0@1@HHH@Z @a8c5ae586713 @w0622479e9224
 // STATUS: equivalent (tools/equiv.py level 3: 1176 inputs, branch coverage 30/30)
 // FUN_002a5df0 @ 0x002a5df0
 void FUN_002a5df0(Anim_2a5df0 *obj, int a2, int a3, int a4)
@@ -865,7 +865,7 @@ void FUN_002a5df0(Anim_2a5df0 *obj, int a2, int a3, int a4)
 } // namespace fn_fa65e9c0
 
 // 0x002a5fd0 FUN_002a5fd0 (1320 B): equivalent/0x002a5fd0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002a5fd0@fn_002a5fd0@@YAXMPAUSrcMesh@1@PAUDstMesh@1@IPAUParams@1@@Z
+// sym: ?FUN_002a5fd0@fn_002a5fd0@@YAXMPAUSrcMesh@1@PAUDstMesh@1@IPAUParams@1@@Z @85371c5e39ad @w21b5b194f296
 namespace fn_002a5fd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 42/42)
 // FUN_002a5fd0 @ 0x002a5fd0
@@ -1076,7 +1076,7 @@ void FUN_002a5fd0(float t, SrcMesh *a, DstMesh *b, unsigned int flags, Params *c
 namespace fn_fa65e9c0 {
 
 // 0x002a6500 FUN_002a6500 (266 B): equivalent/0x002a6500.cpp
-// sym: ?FUN_002a6500@fn_fa65e9c0@@YAHPAUSource_2a6500@1@III@Z
+// sym: ?FUN_002a6500@fn_fa65e9c0@@YAHPAUSource_2a6500@1@III@Z @856610074fa8 @w4fc22fbe6b35
 // STATUS: equivalent (tools/equiv.py level 3: 1172 inputs, branch coverage 18/18)
 // FUN_002a6500 @ 0x002a6500
 int __cdecl FUN_002a6500(Source_2a6500* source, unsigned int arg2, unsigned int arg3, unsigned int arg4) {
@@ -1104,7 +1104,7 @@ int __cdecl FUN_002a6500(Source_2a6500* source, unsigned int arg2, unsigned int 
 } // namespace fn_fa65e9c0
 
 // 0x002a6610 FUN_002a6610 (328 B): equivalent/0x002a6610.cpp [wrapped: conflict: Node]
-// sym: ?FUN_002a6610@fn_002a6610@@YAXPAVController_2a6610@1@III@Z
+// sym: ?FUN_002a6610@fn_002a6610@@YAXPAVController_2a6610@1@III@Z @2917d89f0989 @wcc6af5af63eb
 namespace fn_002a6610 {
 // STATUS: equivalent (tools/equiv.py level 3: 1194 inputs, branch coverage 16/16)
 // FUN_002a6610 @ 0x002a6610
@@ -1279,7 +1279,7 @@ void Owner_2a67e0::Run() {
 
 
 // 0x002a6840 FUN_002a6840 (109 B): equivalent/0x002a6840.cpp
-// sym: ?FUN_002a6840@Target_2a6840@fn_fa65e9c0@@QAEXXZ
+// sym: ?FUN_002a6840@Target_2a6840@fn_fa65e9c0@@QAEXXZ @263baa6788e7 @wdaf68631dea4
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 8/8)
 // FUN_002a6840 @ 0x002a6840
 void Target_2a6840::FUN_002a6840()
@@ -1335,7 +1335,7 @@ ProceduralVertexAnimController_2a6910::~ProceduralVertexAnimController_2a6910() 
 
 
 // 0x002a6930 FUN_002a6930 (238 B): equivalent/0x002a6930.cpp
-// sym: ?target@ProceduralVertexAnimController_2a6930@fn_fa65e9c0@@QAEXPAUSource_2a6930@2@@Z
+// sym: ?target@ProceduralVertexAnimController_2a6930@fn_fa65e9c0@@QAEXPAUSource_2a6930@2@@Z @5b3bd6de0a10 @w4c6466084a60
 // STATUS: equivalent (tools/equiv.py level 3: 284 inputs, branch coverage 14/14)
 // FUN_002a6930 @ 0x002a6930
 void ProceduralVertexAnimController_2a6930::target(Source_2a6930* input) {
@@ -1362,7 +1362,7 @@ void ProceduralVertexAnimController_2a6930::target(Source_2a6930* input) {
 } // namespace fn_fa65e9c0
 
 // 0x002a6a20 FUN_002a6a20 (332 B): equivalent/0x002a6a20.cpp [wrapped: conflict: pure3d::PrimGroup; pure3d::PrimGroupSkinnedPC; pure3d::PrimGroupSkinnedStreamed]
-// sym: ?FUN_002a6a20@ProceduralVertexAnimController_2a6a20@fn_002a6a20@@QAEXPAUSource_2a6a20@2@@Z
+// sym: ?FUN_002a6a20@ProceduralVertexAnimController_2a6a20@fn_002a6a20@@QAEXPAUSource_2a6a20@2@@Z @ccccf173b4a0 @wa375e89de85a
 namespace fn_002a6a20 {
 // STATUS: equivalent (tools/equiv.py level 3: 3128 inputs, branch coverage 22/22; Wine build 611 inputs, 22/22)
 // FUN_002a6a20 @ 0x002a6a20

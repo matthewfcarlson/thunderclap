@@ -36,7 +36,7 @@ int __cdecl FUN_0024d210() {
 } // namespace fn_f937dacf
 
 // 0x0024d220 om::EntityLoader::vfunc_3 (309 B): equivalent/0x0024d220.cpp [wrapped: conflict: FUN_0024d210]
-// sym: ?vfunc_3@EntityLoader@om@fn_0024d220@@UAEXPAPAVEntry_24d220@3@PAUU64_24d220@3@PAXHH@Z
+// sym: ?vfunc_3@EntityLoader@om@fn_0024d220@@UAEXPAPAVEntry_24d220@3@PAUU64_24d220@3@PAXHH@Z @4f898671c9c9 @w281a85562062
 namespace fn_0024d220 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // om::EntityLoader::vfunc_3 @ 0x0024d220

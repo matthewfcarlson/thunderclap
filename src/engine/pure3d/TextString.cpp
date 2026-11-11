@@ -203,7 +203,7 @@ void __fastcall target(Obj_29b1d0* self) {
 } // namespace fn_f9d9ed06
 
 // 0x0029b210 pure3d::TextString::vfunc_6 (129 B): equivalent/0x0029b210.cpp
-// sym: ?vfunc_6@TextString@pure3d@@UAEXXZ
+// sym: ?vfunc_6@TextString@pure3d@@UAEXXZ @880632b6546a @wfef7ac4508aa
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 4/4)
 // pure3d::TextString::vfunc_6 @ 0x0029b210
 // 0x0029b210: TextString::vfunc_6: draw the string through its font object, wrapping a scale if set

@@ -166,7 +166,7 @@ void FileRequest_273ec0::run() {
 
 
 // 0x00273f00 core::FileReadRequest::vfunc_1 (266 B): equivalent/0x00273f00.cpp
-// sym: ?vfunc_1@FileReadRequest_273f00@fn_f9b32c3b@@QAEHXZ
+// sym: ?vfunc_1@FileReadRequest_273f00@fn_f9b32c3b@@QAEHXZ @466f63045287 @w8dbdc455f26a
 // STATUS: equivalent (tools/equiv.py level 3: 19905 inputs, branch coverage 10/10)
 // core::FileReadRequest::vfunc_1 @ 0x00273f00
 // core::FileReadRequest::vfunc_1 (records.h CoreFile): reads at the file's position (field124) up to its length

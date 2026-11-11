@@ -184,7 +184,7 @@ int __cdecl FUN_00262930(int pos, A* b, A* a) {
 } // namespace fn_f533000b
 
 // 0x002629a0 FUN_002629a0 (297 B): equivalent/0x002629a0.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002629a0@fn_002629a0@@YAXPAFPBEII@Z
+// sym: ?FUN_002629a0@fn_002629a0@@YAXPAFPBEII@Z @0662488aea5e @w6cf99b6230fc
 namespace fn_002629a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 155 inputs, branch coverage 13/16, incomplete)
 // FUN_002629a0 @ 0x002629a0
@@ -248,7 +248,7 @@ void HalRadicalAdpcmDecodeStream::v12() {
 } // namespace fn_f533000b
 
 // 0x00262b20 audio::HalRadicalAdpcmDecodeStream::vfunc_11 (198 B): equivalent/0x00262b20.cpp [wrapped: conflict: audio::HalRadicalAdpcmDecodeStream; audio::HalStream]
-// sym: ?vfunc_11@HalRadicalAdpcmDecodeStream@audio@fn_00262b20@@UAEIXZ
+// sym: ?vfunc_11@HalRadicalAdpcmDecodeStream@audio@fn_00262b20@@UAEIXZ @dd36e6230b02 @we77ea30f837a
 namespace fn_00262b20 {
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 12/12)
 // audio::HalRadicalAdpcmDecodeStream::vfunc_11 @ 0x00262b20
@@ -372,7 +372,7 @@ void audio::HalRadicalAdpcmDecodeStream::vfunc_0() {
 
 
 // 0x00262c70 audio::HalRadicalAdpcmDecodeStream::vfunc_1 (36 B): equivalent/0x00262c70.cpp
-// sym: ?vfunc_1@HalRadicalAdpcmDecodeStream@audio@@UAEHXZ
+// sym: ?vfunc_1@HalRadicalAdpcmDecodeStream@audio@@UAEHXZ @f65bc2d34d23 @wa17ad7242a4c
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 7/7)
 // audio::HalRadicalAdpcmDecodeStream::vfunc_1 @ 0x00262c70
 int audio::HalRadicalAdpcmDecodeStream::vfunc_1() {
@@ -477,7 +477,7 @@ void HalRadicalAdpcmDecodeStream_262d40::f7(int a, int b, int d) {
 } // namespace fn_f533000b
 
 // 0x00262da0 audio::HalRadicalAdpcmDecodeStream::vfunc_6 (88 B): equivalent/0x00262da0.cpp [wrapped: conflict: audio::HalRadicalAdpcmDecodeStream; audio::HalStream]
-// sym: ?vfunc_6@HalRadicalAdpcmDecodeStream@audio@fn_00262da0@@UAEXIII@Z
+// sym: ?vfunc_6@HalRadicalAdpcmDecodeStream@audio@fn_00262da0@@UAEXIII@Z @bd4a44fc6d6c @w11db6a59699f
 namespace fn_00262da0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // audio::HalRadicalAdpcmDecodeStream::vfunc_6 @ 0x00262da0

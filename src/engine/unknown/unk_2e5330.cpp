@@ -134,7 +134,7 @@ public:
 } // namespace fn_f6f319cd
 
 // 0x002e5330 FUN_002e5330 (104 B): equivalent/0x002e5330.cpp
-// sym: ?FUN_002e5330@SortedArray_2e5330@owners@@QAE_NIPAI@Z
+// sym: ?FUN_002e5330@SortedArray_2e5330@owners@@QAE_NIPAI@Z @4fa150ccacb0 @w0487671d57f4
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // FUN_002e5330 @ 0x002e5330
 bool owners::SortedArray_2e5330::FUN_002e5330(unsigned int key, unsigned int* outIndex) {
@@ -233,7 +233,7 @@ extern "C" int* FUN_002e54a0(int* dst, int count, const int* src) {
 
 
 // 0x002e54e0 FUN_002e54e0 (110 B): equivalent/0x002e54e0.cpp
-// sym: ??0IntVec2@fn_f6f319cd@@QAE@ABU01@@Z
+// sym: ??0IntVec2@fn_f6f319cd@@QAE@ABU01@@Z @e6af28e42022 @w28f00e00918c
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 9/10, incomplete)
 // FUN_002e54e0 @ 0x002e54e0
 IntVec2::IntVec2(const IntVec2 &other) throw()
@@ -301,7 +301,7 @@ char Buffer_2e5640::Create(unsigned int count, void* arg) {
 } // namespace fn_f6f319cd
 
 // 0x002e56a0 FUN_002e56a0 (94 B): equivalent/0x002e56a0.cpp
-// sym: ?FUN_002e56a0@Buffer_2e56a0@owners@@QAE_NIH@Z
+// sym: ?FUN_002e56a0@Buffer_2e56a0@owners@@QAE_NIH@Z @88434c616f9f @w24ced63e9050
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002e56a0 @ 0x002e56a0
 bool owners::Buffer_2e56a0::FUN_002e56a0(unsigned count, hulk_intptr value) {
@@ -322,7 +322,7 @@ bool owners::Buffer_2e56a0::FUN_002e56a0(unsigned count, hulk_intptr value) {
 
 
 // 0x002e5700 FUN_002e5700 (94 B): equivalent/0x002e5700.cpp
-// sym: ?FUN_002e5700@Buffer_2e5700@owners@@QAE_NIPAX@Z
+// sym: ?FUN_002e5700@Buffer_2e5700@owners@@QAE_NIPAX@Z @ed4c823653e2 @w5a1a88dab7a6
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002e5700 @ 0x002e5700
 bool owners::Buffer_2e5700::FUN_002e5700(unsigned int count, void* source) {
@@ -378,7 +378,7 @@ Thing_2e5820* Thing_2e5820::Destroy(byte_2e5820 flags) {
 
 
 // 0x002e5850 FUN_002e5850 (133 B): equivalent/0x002e5850.cpp
-// sym: ??0SegmentCursor@fn_f6f319cd@@QAE@PAVSource_2e5850@1@I@Z
+// sym: ??0SegmentCursor@fn_f6f319cd@@QAE@PAVSource_2e5850@1@I@Z @277e6bad06c5 @w5b89015eb0ef
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002e5850 @ 0x002e5850
 SegmentCursor::SegmentCursor(Source_2e5850 *src, unsigned int k)
@@ -436,7 +436,7 @@ extern "C" hulk_uintptr __cdecl FUN_002e59b0(hulk_uintptr p, u32_2e59b0 count, u
 
 
 // 0x002e5a10 FUN_002e5a10 (86 B): equivalent/0x002e5a10.cpp
-// sym: ??0VertexAnimKeyFrame@pure3d@fn_f6f319cd@@QAE@XZ
+// sym: ??0VertexAnimKeyFrame@pure3d@fn_f6f319cd@@QAE@XZ @9910310f0e1f @web42f9758acb
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002e5a10 @ 0x002e5a10
 namespace pure3d {

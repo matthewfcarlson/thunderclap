@@ -168,7 +168,7 @@ struct MemoryDlAllocator_nv_26cf20 {
 
 
 // 0x0026b910 FUN_0026b910 (84 B): equivalent/0x0026b910.cpp
-// sym: _FUN_0026b910
+// sym: _FUN_0026b910 @14a6019ab8d0 @wf9ca3d33696e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0026b910 @ 0x0026b910
 // equiv-conv: FUN_0026b910 eax
@@ -190,7 +190,7 @@ extern "C" void FUN_0026b910(void * state_) {
 
 
 // 0x0026b970 FUN_0026b970 (243 B): equivalent/0x0026b970.cpp
-// sym: _FUN_0026b970
+// sym: _FUN_0026b970 @ba5ad2b52aa8 @wf03cac719989
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 14/14)
 // FUN_0026b970 @ 0x0026b970
 // equiv-conv: FUN_0026b910 eax
@@ -253,7 +253,7 @@ extern "C" void __cdecl FUN_0026b970(void * heap_) {
 
 
 // 0x0026bac0 FUN_0026bac0 (281 B): equivalent/0x0026bac0.cpp
-// sym: ?FUN_0026bac0@fn_f2ae9c07@@YA?AUHeapStats@1@XZ
+// sym: ?FUN_0026bac0@fn_f2ae9c07@@YA?AUHeapStats@1@XZ @1146fb595f45 @w6e2c50b78595
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 14/14)
 // FUN_0026bac0 @ 0x0026bac0
 HeapStats FUN_0026bac0()
@@ -310,7 +310,7 @@ void __cdecl FUN_0026bbe0()
 
 
 // 0x0026bd80 FUN_0026bd80 (214 B): equivalent/0x0026bd80.cpp
-// sym: _FUN_0026bd80
+// sym: _FUN_0026bd80 @9bd95a3d2610 @w99f0d057924d
 // STATUS: equivalent (tools/equiv.py level 3: 2747 inputs, branch coverage 16/16)
 // FUN_0026bd80 @ 0x0026bd80
 extern "C" void __cdecl FUN_0026bd80(void* memory) {
@@ -361,7 +361,7 @@ extern "C" void __cdecl FUN_0026bd80(void* memory) {
 
 
 // 0x0026be70 FUN_0026be70 (454 B): equivalent/0x0026be70.cpp
-// sym: _FUN_0026be70
+// sym: _FUN_0026be70 @7aa3f6c49e66 @wea782fdd4e2c
 // STATUS: equivalent (tools/equiv.py level 3: 3066 inputs, branch coverage 30/34, incomplete)
 // FUN_0026be70 @ 0x0026be70
 // equiv-conv: FUN_0026be70 eax stack
@@ -437,7 +437,7 @@ extern "C" void *__cdecl FUN_0026be70(void * self_, unsigned int amount) {
 
 
 // 0x0026c040 FUN_0026c040 (1152 B): equivalent/0x0026c040.cpp
-// sym: _FUN_0026c040
+// sym: _FUN_0026c040 @6ba743526083 @w3bfccb6467a3
 // STATUS: equivalent (tools/equiv.py level 3: 680 inputs, branch coverage 93/94, incomplete)
 // FUN_0026c040 @ 0x0026c040
 // equiv-conv: FUN_0026be70 eax stack
@@ -636,7 +636,7 @@ void* __cdecl FUN_0026c040(unsigned bytes) {
 
 
 // 0x0026c6a0 FUN_0026c6a0 (287 B): equivalent/0x0026c6a0.cpp
-// sym: _FUN_0026c6a0
+// sym: _FUN_0026c6a0 @c37886df9ec0 @wf51b7c929c81
 // STATUS: equivalent (tools/equiv.py level 3: 2575 inputs, branch coverage 25/26, incomplete)
 // FUN_0026c6a0 @ 0x0026c6a0
 extern "C" void* __cdecl FUN_0026c6a0(unsigned int alignment, unsigned int size)
@@ -692,7 +692,7 @@ extern "C" void* __cdecl FUN_0026c6a0(unsigned int alignment, unsigned int size)
 
 
 // 0x0026c840 FUN_0026c840 (456 B): equivalent/0x0026c840.cpp
-// sym: ?FUN_0026c840@fn_f2ae9c07@@YAPAPAXPAPAXIPBII@Z
+// sym: ?FUN_0026c840@fn_f2ae9c07@@YAPAPAXPAPAXIPBII@Z @81a7aedfd837 @w39f31da5b948
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 32/32)
 // FUN_0026c840 @ 0x0026c840
 // equiv-conv: FUN_0026c840 eax stack stack stack
@@ -748,7 +748,7 @@ void ** __cdecl FUN_0026c840(void **result, uint_26c840 count, const uint_26c840
 
 
 // 0x0026ca80 FUN_0026ca80 (141 B): equivalent/0x0026ca80.cpp
-// sym: ?FUN_0026ca80@MemoryDlAllocator_26ca80@fn_f2ae9c07@@QAEPAU12@HHPBD@Z
+// sym: ?FUN_0026ca80@MemoryDlAllocator_26ca80@fn_f2ae9c07@@QAEPAU12@HHPBD@Z @3cbbcb94e2ef @wc01ebda0bf70
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0026ca80 @ 0x0026ca80
 // The dl allocator's constructor with an arena of `bytes` from heap `heapFrom` (0x0026cf20), which it owns. As
@@ -909,7 +909,7 @@ void core::MemoryDlAllocator::vfunc_1() {
 
 
 // 0x0026cc90 core::MemoryDlAllocator::vfunc_7 (122 B): equivalent/0x0026cc90.cpp [wrapped: conflict: core::MemoryDlAllocator]
-// sym: ?vfunc_7@MemoryDlAllocator@core@fn_0026cc90@@UAEXPAX@Z
+// sym: ?vfunc_7@MemoryDlAllocator@core@fn_0026cc90@@UAEXPAX@Z @53c724b252f3 @w9ae627e2c29a
 namespace fn_0026cc90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // core::MemoryDlAllocator::vfunc_7 @ 0x0026cc90
@@ -950,7 +950,7 @@ void core::MemoryDlAllocator::vfunc_7(void* p) {
 
 
 // 0x0026cd10 core::MemoryDlAllocator::vfunc_4 (122 B): equivalent/0x0026cd10.cpp [wrapped: conflict: core::MemoryDlAllocator]
-// sym: ?vfunc_4@MemoryDlAllocator@core@fn_0026cd10@@QAEXPAX@Z
+// sym: ?vfunc_4@MemoryDlAllocator@core@fn_0026cd10@@QAEXPAX@Z @5d073f11260f @w828d5c109f87
 namespace fn_0026cd10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // core::MemoryDlAllocator::vfunc_4 @ 0x0026cd10
@@ -992,7 +992,7 @@ void core::MemoryDlAllocator::vfunc_4(void *p) {
 
 
 // 0x0026cd90 core::MemoryDlAllocator::vfunc_3 (113 B): equivalent/0x0026cd90.cpp [wrapped: conflict: core::MemoryDlAllocator]
-// sym: ?vfunc_3@MemoryDlAllocator@core@fn_0026cd90@@QAEPAXI@Z
+// sym: ?vfunc_3@MemoryDlAllocator@core@fn_0026cd90@@QAEPAXI@Z @36eabe02f459 @we53c7bb1992a
 namespace fn_0026cd90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // core::MemoryDlAllocator::vfunc_3 @ 0x0026cd90
@@ -1033,7 +1033,7 @@ void* core::MemoryDlAllocator::vfunc_3(unsigned int bytes) {
 
 
 // 0x0026ce10 core::MemoryDlAllocator::vfunc_6 (118 B): equivalent/0x0026ce10.cpp [wrapped: conflict: core::MemoryDlAllocator]
-// sym: ?vfunc_6@MemoryDlAllocator@core@fn_0026ce10@@QAEPAXII@Z
+// sym: ?vfunc_6@MemoryDlAllocator@core@fn_0026ce10@@QAEPAXII@Z @832811b939e1 @wcb697461ce9b
 namespace fn_0026ce10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // core::MemoryDlAllocator::vfunc_6 @ 0x0026ce10
@@ -1074,7 +1074,7 @@ void* core::MemoryDlAllocator::vfunc_6(unsigned int a, unsigned int b) {
 namespace fn_f2ae9c07 {
 
 // 0x0026ce90 FUN_0026ce90 (132 B): equivalent/0x0026ce90.cpp
-// sym: ?FUN_0026ce90@MemoryDlAllocator_26ce90@fn_f2ae9c07@@QAEPAU12@EPAXHPBD@Z
+// sym: ?FUN_0026ce90@MemoryDlAllocator_26ce90@fn_f2ae9c07@@QAEPAU12@EPAXHPBD@Z @d7bfffd3dcdc @w4e65af28edb2
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0026ce90 @ 0x0026ce90
 // The dl allocator's constructor on memory the caller gives it (0x0026cfa0, 0x0026cf60): the arena is [base,

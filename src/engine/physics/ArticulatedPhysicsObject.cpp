@@ -524,7 +524,7 @@ void ArticulatedPhysicsObject::vfunc_7() {
 
 
 // 0x00310550 FUN_00310550 (947 B): equivalent/0x00310550.cpp
-// sym: ?FUN_00310550@Rigid@fn_fec45b2c@@QAEXXZ
+// sym: ?FUN_00310550@Rigid@fn_fec45b2c@@QAEXXZ @86535483a1d8 @w6c532178c961
 // STATUS: equivalent (tools/equiv.py level 3: 212 inputs, branch coverage 22/22)
 // FUN_00310550 @ 0x00310550
 void Rigid::FUN_00310550()
@@ -609,7 +609,7 @@ void Rigid::FUN_00310550()
 } // namespace fn_fec45b2c
 
 // 0x00310910 physics::ArticulatedPhysicsObject::vfunc_24 (235 B): equivalent/0x00310910.cpp
-// sym: ?vfunc_24@ArticulatedPhysicsObject@physics@@UAE_NHHH@Z
+// sym: ?vfunc_24@ArticulatedPhysicsObject@physics@@UAE_NHHH@Z @37c0b276863c @w12d4490ded19
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 8/8)
 // physics::ArticulatedPhysicsObject::vfunc_24 @ 0x00310910
 bool physics::ArticulatedPhysicsObject::vfunc_24(hulk_intptr __p0, hulk_intptr __p1, int index) { const Vec3_310910 * point = (const Vec3_310910 *)__p0; Vec3_310910 * result = (Vec3_310910 *)__p1;
@@ -634,7 +634,7 @@ bool physics::ArticulatedPhysicsObject::vfunc_24(hulk_intptr __p0, hulk_intptr _
 
 
 // 0x00310a00 physics::ArticulatedPhysicsObject::vfunc_25 (180 B): equivalent/0x00310a00.cpp [wrapped: conflict: physics::ArticulatedPhysicsObject; physics::PhysicsObject]
-// sym: ?vfunc_25@ArticulatedPhysicsObject@physics@fn_00310a00@@QAE_NPAUVec_310a00@3@0H@Z
+// sym: ?vfunc_25@ArticulatedPhysicsObject@physics@fn_00310a00@@QAE_NPAUVec_310a00@3@0H@Z @7972b07a4951 @w222e5c5e48a3
 namespace fn_00310a00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // physics::ArticulatedPhysicsObject::vfunc_25 @ 0x00310a00
@@ -671,7 +671,7 @@ bool physics::ArticulatedPhysicsObject::vfunc_26(int a) {
 
 
 // 0x00310ad0 physics::ArticulatedPhysicsObject::vfunc_27 (82 B): equivalent/0x00310ad0.cpp
-// sym: ?vfunc_27@ArticulatedPhysicsObject@physics@@UAEXH@Z
+// sym: ?vfunc_27@ArticulatedPhysicsObject@physics@@UAEXH@Z @fa2386713729 @waf866161bb0d
 // STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 4/4)
 // physics::ArticulatedPhysicsObject::vfunc_27 @ 0x00310ad0
 void physics::ArticulatedPhysicsObject::vfunc_27(int index) {
@@ -721,7 +721,7 @@ void ArticulatedPhysicsObject_310b30::FUN_00310b30(ArticulatedPhysicsObject_310b
 
 
 // 0x00310bc0 FUN_00310bc0 (275 B): equivalent/0x00310bc0.cpp
-// sym: ?FUN_00310bc0@Object@fn_fec45b2c@@QAEXHMPAUVec3_310bc0@2@@Z
+// sym: ?FUN_00310bc0@Object@fn_fec45b2c@@QAEXHMPAUVec3_310bc0@2@@Z @a9367f0aac88 @w0c663b8cab90
 // STATUS: equivalent (tools/equiv.py level 3: 190 inputs, branch coverage 4/4)
 // FUN_00310bc0 @ 0x00310bc0
 void Object::FUN_00310bc0(int index,float scale,Vec3_310bc0* direction) {
@@ -756,7 +756,7 @@ extern "C" void __cdecl FUN_00310d80(unsigned int * p, int n, int limit, unsigne
 
 
 // 0x00310dd0 FUN_00310dd0 (150 B): equivalent/0x00310dd0.cpp
-// sym: ?FUN_00310dd0@fn_fec45b2c@@YAXPAH00@Z
+// sym: ?FUN_00310dd0@fn_fec45b2c@@YAXPAH00@Z @fff34162d876 @w209cc2860326
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 17/18, incomplete)
 // FUN_00310dd0 @ 0x00310dd0
 // std::rotate for a range of 4-byte elements (cycle-leader algorithm)
@@ -809,7 +809,7 @@ void Owner_310e90::Set(Thing_310e90* p) {
 
 
 // 0x00310ec0 FUN_00310ec0 (392 B): equivalent/0x00310ec0.cpp
-// sym: ?FUN_00310ec0@Tree_310ec0@fn_fec45b2c@@QAEXXZ
+// sym: ?FUN_00310ec0@Tree_310ec0@fn_fec45b2c@@QAEXXZ @38a523c96c3f @w0d0ec04ff426
 // STATUS: equivalent (tools/equiv.py level 3: 48 inputs, branch coverage 22/26, incomplete)
 // FUN_00310ec0 @ 0x00310ec0
 void Tree_310ec0::FUN_00310ec0()
@@ -873,7 +873,7 @@ void owners::C_311060::FUN_00311060() {
 
 
 // 0x003110a0 physics::ArticulatedPhysicsObject::vfunc_5 (332 B): equivalent/0x003110a0.cpp [wrapped: conflict: physics::ArticulatedPhysicsObject; physics::PhysicsObject]
-// sym: ?vfunc_5@ArticulatedPhysicsObject@physics@fn_003110a0@@UAEXM@Z
+// sym: ?vfunc_5@ArticulatedPhysicsObject@physics@fn_003110a0@@UAEXM@Z @8db74b25e217 @w714c9cce5485
 namespace fn_003110a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19796 inputs, branch coverage 12/12)
 // physics::ArticulatedPhysicsObject::vfunc_5 @ 0x003110a0
@@ -1136,7 +1136,7 @@ void ArticulatedPhysicsObject::vfunc_20(int a, Mat_311300 *m, int c, int index, 
 
 
 // 0x003113b0 physics::ArticulatedPhysicsObject::vfunc_18 (293 B): equivalent/0x003113b0.cpp [wrapped: conflict: physics::ArticulatedPhysicsObject; physics::PhysicsObject]
-// sym: ?vfunc_18@ArticulatedPhysicsObject@physics@fn_003113b0@@QAE_NPAXPAUVector@3@00HH@Z
+// sym: ?vfunc_18@ArticulatedPhysicsObject@physics@fn_003113b0@@QAE_NPAXPAUVector@3@00HH@Z @dbec3713f6d2 @w7d9b69df8492
 namespace fn_003113b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // physics::ArticulatedPhysicsObject::vfunc_18 @ 0x003113b0
@@ -1170,7 +1170,7 @@ bool physics::ArticulatedPhysicsObject::vfunc_18(void* a,Vector* v,void* c,void*
 
 
 // 0x003114e0 physics::ArticulatedPhysicsObject::vfunc_19 (376 B): equivalent/0x003114e0.cpp [wrapped: conflict: physics::ArticulatedPhysicsObject; physics::PhysicsObject]
-// sym: ?vfunc_19@ArticulatedPhysicsObject@physics@fn_003114e0@@UAEXHHH@Z
+// sym: ?vfunc_19@ArticulatedPhysicsObject@physics@fn_003114e0@@UAEXHHH@Z @0bb9bdcf5f48 @wd48636a8a53a
 namespace fn_003114e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3019 inputs, branch coverage 20/20)
 // physics::ArticulatedPhysicsObject::vfunc_19 @ 0x003114e0
@@ -1303,7 +1303,7 @@ extern "C" void FUN_00311740(unsigned int* data, int index, int count, unsigned 
 
 
 // 0x003117f0 FUN_003117f0 (287 B): equivalent/0x003117f0.cpp
-// sym: ?FUN_003117f0@fn_fec45b2c@@YAXPAI00@Z
+// sym: ?FUN_003117f0@fn_fec45b2c@@YAXPAI00@Z @b90cbbcfac42 @w6c01c9ee97d2
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 32/32)
 // FUN_003117f0 @ 0x003117f0
 void __cdecl FUN_003117f0(UInt* first, UInt* middle, UInt* last)
@@ -1365,7 +1365,7 @@ void __cdecl FUN_00311910(int* first, int* last) {
 
 
 // 0x003119b0 FUN_003119b0 (310 B): equivalent/0x003119b0.cpp
-// sym: _FUN_003119b0
+// sym: _FUN_003119b0 @266cf5ad0e36 @wc42a98a394c7
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 36/42, incomplete)
 // FUN_003119b0 @ 0x003119b0
 // std::_Unguarded_partition for unsigned int* (three-way split around a median pivot).
@@ -1477,7 +1477,7 @@ extern "C" void FUN_00311b20(unsigned* first, unsigned* last) {
 
 
 // 0x00311bd0 FUN_00311bd0 (67 B): equivalent/0x00311bd0.cpp
-// sym: _FUN_00311bd0
+// sym: _FUN_00311bd0 @340c3ea078a2 @w47c86de70fe6
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 4/4)
 // FUN_00311bd0 @ 0x00311bd0
 extern "C" void __cdecl FUN_00311bd0(int* first, int* last) {
@@ -1493,7 +1493,7 @@ extern "C" void __cdecl FUN_00311bd0(int* first, int* last) {
 } // namespace fn_fec45b2c
 
 // 0x00311c20 FUN_00311c20 (203 B): equivalent/0x00311c20.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_00311c20
+// sym: _FUN_00311c20 @49294b19dc88 @w4b37aba64d9a
 namespace fn_00311c20 {
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 12/14, incomplete)
 // FUN_00311c20 @ 0x00311c20
@@ -1529,7 +1529,7 @@ extern "C" void __cdecl FUN_00311c20(int* begin, int* end, int depth) {
 namespace fn_fec45b2c {
 
 // 0x00311d50 FUN_00311d50 (985 B): equivalent/0x00311d50.cpp
-// sym: ?FUN_00311d50@SkeletonBuilder@fn_fec45b2c@@QAEXXZ
+// sym: ?FUN_00311d50@SkeletonBuilder@fn_fec45b2c@@QAEXXZ @d15c02d92f69 @wb100e86b1408
 // STATUS: equivalent (tools/equiv.py level 3: 212 inputs, branch coverage 64/68, incomplete)
 // FUN_00311d50 @ 0x00311d50
 void SkeletonBuilder::FUN_00311d50()
@@ -1648,7 +1648,7 @@ void SkeletonBuilder::FUN_00311d50()
 
 
 // 0x00312130 FUN_00312130 (259 B): equivalent/0x00312130.cpp
-// sym: ?FUN_00312130@Obj_312130@fn_fec45b2c@@QAEXPAU12@PAUContext@2@@Z
+// sym: ?FUN_00312130@Obj_312130@fn_fec45b2c@@QAEXPAU12@PAUContext@2@@Z @1eda7e881b85 @w847ac4b5a57f
 // STATUS: equivalent (tools/equiv.py level 3: 454 inputs, branch coverage 8/8)
 // FUN_00312130 @ 0x00312130
 void Obj_312130::FUN_00312130(Obj_312130* dst, Context* context) {

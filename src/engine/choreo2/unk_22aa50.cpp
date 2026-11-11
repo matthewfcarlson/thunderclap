@@ -76,7 +76,7 @@ LocomotionDriver* LocomotionDriver::Copy(LocomotionDriver* src) {
 
 
 // 0x0022aaa0 FUN_0022aaa0 (241 B): equivalent/0x0022aaa0.cpp
-// sym: _FUN_0022aaa0
+// sym: _FUN_0022aaa0 @5d2a1c8a2871 @w89a5085878b4
 // STATUS: equivalent (tools/equiv.py level 3: 312 inputs, branch coverage 9/10, incomplete)
 // FUN_0022aaa0 @ 0x0022aaa0
 extern "C" float __cdecl FUN_0022aaa0(Pair_22aaa0* entries, Source_22aaa0* source) {
@@ -103,7 +103,7 @@ extern "C" float __cdecl FUN_0022aaa0(Pair_22aaa0* entries, Source_22aaa0* sourc
 } // namespace fn_f986a29e
 
 // 0x0022aba0 FUN_0022aba0 (124 B): equivalent/0x0022aba0.cpp
-// sym: ?FUN_0022aba0@Random_22aba0@owners@@QAEXI@Z
+// sym: ?FUN_0022aba0@Random_22aba0@owners@@QAEXI@Z @c2931303364c @w3762a1216013
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0022aba0 @ 0x0022aba0
 void owners::Random_22aba0::FUN_0022aba0(unsigned int seed)
@@ -120,7 +120,7 @@ void owners::Random_22aba0::FUN_0022aba0(unsigned int seed)
 namespace fn_f986a29e {
 
 // 0x0022aca0 FUN_0022aca0 (299 B): equivalent/0x0022aca0.cpp
-// sym: ?FUN_0022aca0@Random_22aca0@fn_f986a29e@@QAEPAUVector3_22aca0@2@PAU32@@Z
+// sym: ?FUN_0022aca0@Random_22aca0@fn_f986a29e@@QAEPAUVector3_22aca0@2@PAU32@@Z @94e7cbf59e1e @wb718d0b04126
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022aca0 @ 0x0022aca0
 Vector3_22aca0* Random_22aca0::FUN_0022aca0(Vector3_22aca0* result) {
@@ -140,7 +140,7 @@ Vector3_22aca0* Random_22aca0::FUN_0022aca0(Vector3_22aca0* result) {
 
 
 // 0x0022add0 FUN_0022add0 (70 B): equivalent/0x0022add0.cpp
-// sym: ?FUN_0022add0@Object@fn_f986a29e@@QAEXPAM@Z
+// sym: ?FUN_0022add0@Object@fn_f986a29e@@QAEXPAM@Z @79204c2d0bf8 @wcfee4d55160d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022add0 @ 0x0022add0
 void Object::FUN_0022add0(float *out) {
@@ -154,7 +154,7 @@ void Object::FUN_0022add0(float *out) {
 
 
 // 0x0022ae20 FUN_0022ae20 (485 B): equivalent/0x0022ae20.cpp
-// sym: ?FUN_0022ae20@Rng_22ae20@fn_f986a29e@@QAEXPAUV3_22ae20@2@@Z
+// sym: ?FUN_0022ae20@Rng_22ae20@fn_f986a29e@@QAEXPAUV3_22ae20@2@@Z @291f85ccb17c @wfb9a19030b55
 // STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 3/4, incomplete)
 // FUN_0022ae20 @ 0x0022ae20
 void Rng_22ae20::FUN_0022ae20(V3_22ae20 *out)

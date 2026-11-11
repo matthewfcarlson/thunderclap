@@ -175,7 +175,7 @@ fight::ParamValueName* fight::ParamValueName::vfunc_0(int flag) {
 } // namespace fn_ff9a771c
 
 // 0x002353f0 fight::ParamValueName::vfunc_5 (100 B): equivalent/0x002353f0.cpp [wrapped: conflict: fight::ParamValueName]
-// sym: ?vfunc_5@ParamValueName@fight@fn_002353f0@@UAEHHHPAVSink_2353f0@3@@Z
+// sym: ?vfunc_5@ParamValueName@fight@fn_002353f0@@UAEHHHPAVSink_2353f0@3@@Z @9cb6b108476c @w0feba7ea757c
 namespace fn_002353f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 4/4)
 // fight::ParamValueName::vfunc_5 @ 0x002353f0

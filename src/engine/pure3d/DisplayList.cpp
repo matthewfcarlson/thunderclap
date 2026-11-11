@@ -300,7 +300,7 @@ hulk_uintptr owners::X_29b6d0::FUN_0029b6d0(unsigned i) {
 namespace fn_f6d36770 {
 
 // 0x0029b750 FUN_0029b750 (630 B): equivalent/0x0029b750.cpp
-// sym: ?FUN_0029b750@Binder_29b750@fn_f6d36770@@QAEHPAUNode@2@PBUMat_29b750@2@PAURefObj_29b750@2@@Z
+// sym: ?FUN_0029b750@Binder_29b750@fn_f6d36770@@QAEHPAUNode@2@PBUMat_29b750@2@PAURefObj_29b750@2@@Z @9e349daa0bae @web9ad2872b3e
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 42/42)
 // FUN_0029b750 @ 0x0029b750
 int Binder_29b750::FUN_0029b750(Node *a1, const Mat_29b750 *a2, RefObj_29b750 *a3)
@@ -529,7 +529,7 @@ DisplayList_29bdc0::~DisplayList_29bdc0() throw() {
 } // namespace fn_f6d36770
 
 // 0x0029bea0 FUN_0029bea0 (160 B): equivalent/0x0029bea0.cpp [wrapped: conflict: pure3d::DisplayList]
-// sym: ??0DisplayList@pure3d@fn_0029bea0@@QAE@II@Z
+// sym: ??0DisplayList@pure3d@fn_0029bea0@@QAE@II@Z @df288fd77dd0 @wc0ad1cb2719b
 namespace fn_0029bea0 {
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 8/8)
 // FUN_0029bea0 @ 0x0029bea0

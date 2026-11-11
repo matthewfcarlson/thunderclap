@@ -4,7 +4,7 @@
 
 
 // 0x002fa080 FUN_002fa080 (94 B): equivalent/0x002fa080.cpp [isolated: conflict: FUN_002f9ff0; on include/gen/ and not mergeable]
-// sym: ?FUN_002fa080@Buffer_2fa080@owners@@QAE_NIPAX@Z
+// sym: ?FUN_002fa080@Buffer_2fa080@owners@@QAE_NIPAX@Z @b65edb39ee1a @wfad4de36d3c8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002fa080 @ 0x002fa080
 #include "gen/owners.h"

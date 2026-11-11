@@ -4,7 +4,7 @@
 
 
 // 0x00335970 FUN_00335970 (108 B): equivalent/0x00335970.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_00335970@Target_335970@fn_f07928c6@@QAE_NHHPAH@Z
+// sym: ?FUN_00335970@Target_335970@fn_f07928c6@@QAE_NHHPAH@Z @9762e7122720 @w33e051d21c3a
 #include "gen/owners.h"
 namespace fn_f07928c6 {} using namespace fn_f07928c6;
 namespace fn_f07928c6 {

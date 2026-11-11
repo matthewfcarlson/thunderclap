@@ -63,7 +63,7 @@ void DriveRequest_274790::Cleanup() {
 } // namespace fn_f6660075
 
 // 0x002747d0 core::DriveFindFirstRequest::vfunc_1 (111 B): equivalent/0x002747d0.cpp [wrapped: conflict: core::Drive; core::DriveFindFirstRequest]
-// sym: ?vfunc_1@DriveFindFirstRequest@core@fn_002747d0@@UAEHXZ
+// sym: ?vfunc_1@DriveFindFirstRequest@core@fn_002747d0@@UAEHXZ @b0e3af88f1f3 @wdcb231391aa0
 namespace fn_002747d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19866 inputs, branch coverage 4/4)
 // core::DriveFindFirstRequest::vfunc_1 @ 0x002747d0

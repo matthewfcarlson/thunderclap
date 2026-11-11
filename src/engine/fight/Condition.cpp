@@ -148,7 +148,7 @@ void Owner_2344a0::Set(Ref_2344a0* p) {
 
 
 // 0x002344d0 fight::Condition::vfunc_3 (131 B): equivalent/0x002344d0.cpp
-// sym: ?vfunc_3@Condition@fight@fn_fc77ac82@@UAE_N_KHTParamArg_2344d0@3@@Z
+// sym: ?vfunc_3@Condition@fight@fn_fc77ac82@@UAE_N_KHTParamArg_2344d0@3@@Z @1fea448dc399 @wa4452d5c1ca1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // fight::Condition::vfunc_3 @ 0x002344d0
 bool fight::Condition::vfunc_3(unsigned __int64 id, int extra, ParamArg_2344d0 arg)

@@ -389,7 +389,7 @@ struct Owner_302e60 {
 
 
 // 0x00301650 FUN_00301650 (317 B): equivalent/0x00301650.cpp
-// sym: ?FUN_00301650@Contact_301650@fn_f617c19c@@QAEXPAVShape_301650@2@0@Z
+// sym: ?FUN_00301650@Contact_301650@fn_f617c19c@@QAEXPAVShape_301650@2@0@Z @df0d8af7f0c8 @w345e277e6b90
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 4/4)
 // FUN_00301650 @ 0x00301650
     // equiv-conv: FUN_00314be0 ecx stack stack stack stack stack stack
@@ -430,7 +430,7 @@ void Contact_301650::FUN_00301650(Shape_301650 *b, Shape_301650 *a)
 
 
 // 0x00301790 FUN_00301790 (1599 B): equivalent/0x00301790.cpp
-// sym: ?FUN_00301790@Solver@fn_f617c19c@@QAEXPAVPlane_301790@2@PAVShape@2@@Z
+// sym: ?FUN_00301790@Solver@fn_f617c19c@@QAEXPAVPlane_301790@2@PAVShape@2@@Z @c99c320ad4e2 @w252b0510615f
 // STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 47/48, incomplete)
 // FUN_00301790 @ 0x00301790
 // equiv-map: ?thunk_FUN_002fb860@Shape@@QAEXPAUVec3@@H@Z = 0x002fb940
@@ -583,7 +583,7 @@ void Solver::FUN_00301790(Plane_301790 *a0, Shape *shape)
 
 
 // 0x00301e10 FUN_00301e10 (998 B): equivalent/0x00301e10.cpp
-// sym: ?FUN_00301e10@Collider_301e10@fn_f617c19c@@QAEXPAVCap@2@0@Z
+// sym: ?FUN_00301e10@Collider_301e10@fn_f617c19c@@QAEXPAVCap@2@0@Z @b10bec76d307 @w1ff93eec856b
 // STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 30/30)
 // FUN_00301e10 @ 0x00301e10
 void Collider_301e10::FUN_00301e10(Cap* a, Cap* b) {
@@ -693,7 +693,7 @@ void Collider_301e10::FUN_00301e10(Cap* a, Cap* b) {
 
 
 // 0x00302200 FUN_00302200 (421 B): equivalent/0x00302200.cpp
-// sym: ?Resolve@Resolver_302200@fn_f617c19c@@QAEXPAVBody_302200@2@0@Z
+// sym: ?Resolve@Resolver_302200@fn_f617c19c@@QAEXPAVBody_302200@2@0@Z @05a8e9266a61 @w2a69799826d0
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00302200 @ 0x00302200
 void Resolver_302200::Resolve(Body_302200 *a, Body_302200 *b)
@@ -745,7 +745,7 @@ void Resolver_302200::Resolve(Body_302200 *a, Body_302200 *b)
 
 
 // 0x003023b0 FUN_003023b0 (193 B): equivalent/0x003023b0.cpp
-// sym: ?Check@Test_3023b0@fn_f617c19c@@QAE_NPAVShape_3023b0@2@0@Z
+// sym: ?Check@Test_3023b0@fn_f617c19c@@QAE_NPAVShape_3023b0@2@0@Z @2addfe81ff52 @w1dca08914f73
 // STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 8/8)
 // Test_3023b0::Check @ 0x003023b0
 // Demoted from matches/: the original compares the squared distance it just stored with fst (53-bit register
@@ -785,7 +785,7 @@ hulk_freg dist(Obj_302480* a, Obj_302480* b) {
 } // namespace fn_f617c19c
 
 // 0x003024d0 FUN_003024d0 (332 B): equivalent/0x003024d0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_003024d0@fn_003024d0@@YAMPAVBox_3024d0@1@PAVOther_3024d0@1@@Z
+// sym: ?FUN_003024d0@fn_003024d0@@YAMPAVBox_3024d0@1@PAVOther_3024d0@1@@Z @1d4994f19c47 @wee85edc993c1
 namespace fn_003024d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 6/6)
 // FUN_003024d0 @ 0x003024d0
@@ -872,7 +872,7 @@ hulk_freg __cdecl FUN_003024d0(Box_3024d0 *box, Other_3024d0 *other)
 namespace fn_f617c19c {
 
 // 0x00302620 FUN_00302620 (244 B): equivalent/0x00302620.cpp
-// sym: ?FUN_00302620@fn_f617c19c@@YAMPAUShape_302620@1@0@Z
+// sym: ?FUN_00302620@fn_f617c19c@@YAMPAUShape_302620@1@0@Z @0c8f17386103 @w93cffeaf136a
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 4/4)
 // FUN_00302620 @ 0x00302620
 hulk_freg __cdecl FUN_00302620(Shape_302620* a, Shape_302620* b) {
@@ -894,7 +894,7 @@ hulk_freg __cdecl FUN_00302620(Shape_302620* a, Shape_302620* b) {
 
 
 // 0x00302720 FUN_00302720 (129 B): equivalent/0x00302720.cpp
-// sym: ?FUN_00302720@Limit@fn_f617c19c@@QAE_NPAUObj_302720@2@M@Z
+// sym: ?FUN_00302720@Limit@fn_f617c19c@@QAE_NPAUObj_302720@2@M@Z @26db9d07f8cb @w18f63df92bcf
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00302720 @ 0x00302720
 // 0x00302720: update the blend factor of obj from the ratio of v to the summed weights of its two links
@@ -918,7 +918,7 @@ bool Limit::FUN_00302720(Obj_302720* o, float v)
 
 
 // 0x003027b0 FUN_003027b0 (552 B): equivalent/0x003027b0.cpp
-// sym: ?FUN_003027b0@Resolver_3027b0@fn_f617c19c@@QAEDPAUBody_3027b0@2@0@Z
+// sym: ?FUN_003027b0@Resolver_3027b0@fn_f617c19c@@QAEDPAUBody_3027b0@2@0@Z @ca195ba90801 @w8a3c4c644ffa
 // STATUS: equivalent (tools/equiv.py level 3: 3081 inputs, branch coverage 41/41)
 // FUN_003027b0 @ 0x003027b0
 char Resolver_3027b0::FUN_003027b0(Body_3027b0 *a1, Body_3027b0 *a2)
@@ -1009,7 +1009,7 @@ char Resolver_3027b0::FUN_003027b0(Body_3027b0 *a1, Body_3027b0 *a2)
 
 
 // 0x00302a00 FUN_00302a00 (327 B): equivalent/0x00302a00.cpp
-// sym: ?FUN_00302a00@Solver_302a00@fn_f617c19c@@QAEDPAUQuery_302a00@2@TSlot_302a00@2@H@Z
+// sym: ?FUN_00302a00@Solver_302a00@fn_f617c19c@@QAEDPAUQuery_302a00@2@TSlot_302a00@2@H@Z @2b6adca59357 @w6d4caffd3a75
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 22/23, incomplete)
 // FUN_00302a00 @ 0x00302a00
 char Solver_302a00::FUN_00302a00(Query_302a00 *q, Slot_302a00 arg, int a3)
@@ -1113,7 +1113,7 @@ void Collider_302c20::FUN_00302c20(Entity *a, Entity *b)
 
 
 // 0x00302d90 FUN_00302d90 (193 B): equivalent/0x00302d90.cpp
-// sym: ?target@Handler_302d90@fn_f617c19c@@QAE_NPAUPair_302d90@2@@Z
+// sym: ?target@Handler_302d90@fn_f617c19c@@QAE_NPAUPair_302d90@2@@Z @d9c8e2e22554 @w8ddf73c7c213
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 12/12)
 // FUN_00302d90 @ 0x00302d90
 bool Handler_302d90::target(Pair_302d90* pair) {

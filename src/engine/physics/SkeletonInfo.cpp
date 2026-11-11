@@ -27,7 +27,7 @@ struct SkeletonInfo {
 } // namespace fn_f6834bb6
 
 // 0x00312440 FUN_00312440 (931 B): equivalent/0x00312440.cpp [wrapped: conflict: physics::SkeletonInfo; pure3d::Entity]
-// sym: ??0SkeletonInfo@physics@fn_00312440@@QAE@PAUSkeletonSrc@2@@Z
+// sym: ??0SkeletonInfo@physics@fn_00312440@@QAE@PAUSkeletonSrc@2@@Z @9cc685c8d1a3 @w80f772fc8d89
 namespace fn_00312440 {
 // STATUS: equivalent (tools/equiv.py level 3: 31 inputs, branch coverage 34/34)
 // FUN_00312440 @ 0x00312440

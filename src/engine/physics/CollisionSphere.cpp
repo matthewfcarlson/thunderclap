@@ -379,7 +379,7 @@ struct Table {
 
 
 // 0x002efca0 FUN_002efca0 (219 B): equivalent/0x002efca0.cpp
-// sym: ?target@fn_f5d8432d@@YAPAUResult_2efca0@1@PAUBaseInput@1@PBD@Z
+// sym: ?target@fn_f5d8432d@@YAPAUResult_2efca0@1@PAUBaseInput@1@PBD@Z @ad78378b28ee @wcb7ea960c6d9
 // STATUS: equivalent (tools/equiv.py level 3: 19946 inputs, branch coverage 15/16, incomplete)
 // FUN_002efca0 @ 0x002efca0
 Result_2efca0* __cdecl target(BaseInput* input, const char* name) {
@@ -402,7 +402,7 @@ Result_2efca0* __cdecl target(BaseInput* input, const char* name) {
 } // namespace fn_f5d8432d
 
 // 0x002efe50 FUN_002efe50 (81 B): equivalent/0x002efe50.cpp [wrapped: conflict: physics::CollisionSphere]
-// sym: ??0CollisionSphere@physics@fn_002efe50@@QAE@PBUVec3@2@M@Z
+// sym: ??0CollisionSphere@physics@fn_002efe50@@QAE@PBUVec3@2@M@Z @ac8be4629dd4 @w3fcd333c807d
 namespace fn_002efe50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002efe50 @ 0x002efe50
@@ -553,7 +553,7 @@ int FUN_002f0030(float a, float b, float c) {
 } // namespace fn_f5d8432d
 
 // 0x002f0080 FUN_002f0080 (152 B): equivalent/0x002f0080.cpp [wrapped: conflict: FUN_002f0030]
-// sym: ?FUN_002f0080@fn_002f0080@@YA_NPBUV3_2f0080@1@00@Z
+// sym: ?FUN_002f0080@fn_002f0080@@YA_NPBUV3_2f0080@1@00@Z @7e8d24a2c56c @w3bdad45834fe
 namespace fn_002f0080 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_002f0080 @ 0x002f0080
@@ -606,7 +606,7 @@ extern "C" void FUN_002f0120(float a, float b, float* out, char* ok) {
 namespace fn_f5d8432d {
 
 // 0x002f01c0 FUN_002f01c0 (107 B): equivalent/0x002f01c0.cpp
-// sym: ?FUN_002f01c0@fn_f5d8432d@@YAHPBUVec3_2f01c0@1@0@Z
+// sym: ?FUN_002f01c0@fn_f5d8432d@@YAHPBUVec3_2f01c0@1@0@Z @94b06293413f @w789bfc70c7f7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002f01c0 @ 0x002f01c0
 // True when |a| <= limit on every axis (NaN fails).
@@ -631,7 +631,7 @@ int FUN_002f01c0(const Vec3_2f01c0* a, const Vec3_2f01c0* limit)
 } // namespace fn_f5d8432d
 
 // 0x002f0230 FUN_002f0230 (643 B): equivalent/0x002f0230.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002f0230@fn_002f0230@@YAMPBUV3_2f0230@1@00@Z
+// sym: ?FUN_002f0230@fn_002f0230@@YAMPBUV3_2f0230@1@00@Z @8e72e614d3c9 @wea807ceb5e28
 namespace fn_002f0230 {
 // STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 36/36)
 // FUN_002f0230 @ 0x002f0230
@@ -707,7 +707,7 @@ hulk_freg FUN_002f0230(const V3_2f0230 *origin, const V3_2f0230 *dir, const V3_2
 namespace fn_f5d8432d {
 
 // 0x002f04c0 FUN_002f04c0 (301 B): equivalent/0x002f04c0.cpp
-// sym: ?FUN_002f04c0@fn_f5d8432d@@YA_NPBUVec3_2f04c0@1@0MMPAM@Z
+// sym: ?FUN_002f04c0@fn_f5d8432d@@YA_NPBUVec3_2f04c0@1@0MMPAM@Z @3e07894a12cc @w1d01f0f00007
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 8/8)
 // FUN_002f04c0 @ 0x002f04c0
 bool FUN_002f04c0(const Vec3_2f04c0 *c, const Vec3_2f04c0 *d, float maxDist, float radius, float *out)
@@ -745,7 +745,7 @@ bool FUN_002f04c0(const Vec3_2f04c0 *c, const Vec3_2f04c0 *d, float maxDist, flo
 
 
 // 0x002f05f0 FUN_002f05f0 (307 B): equivalent/0x002f05f0.cpp
-// sym: ?FUN_002f05f0@fn_f5d8432d@@YA_NUVec3_2f05f0@1@0TSlot_2f05f0@1@MMPAU21@@Z
+// sym: ?FUN_002f05f0@fn_f5d8432d@@YA_NUVec3_2f05f0@1@0TSlot_2f05f0@1@MMPAU21@@Z @8eb7aa79b1bd @w428cdf6838f9
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 6/6)
 // FUN_002f05f0 @ 0x002f05f0
 // Segment p -> q (both relative to origin) swept with a margin of (r0 + r1);
@@ -805,7 +805,7 @@ bool Test(hulk_intptr a, hulk_intptr b, hulk_intptr c, hulk_intptr d, float* out
 
 
 // 0x002f0780 FUN_002f0780 (322 B): equivalent/0x002f0780.cpp
-// sym: ?FUN_002f0780@fn_f5d8432d@@YA_NUVec3_2f0780@1@0PBU21@0MPAU21@@Z
+// sym: ?FUN_002f0780@fn_f5d8432d@@YA_NUVec3_2f0780@1@0PBU21@0MPAU21@@Z @468a9a09f5df @w70532b061463
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 8/8)
 // FUN_002f0780 @ 0x002f0780
 // Segment p -> q (relative to origin) against a box grown by r; on a hit within the
@@ -848,7 +848,7 @@ bool FUN_002f0780(Vec3_2f0780 p, Vec3_2f0780 q, const Vec3_2f0780 *origin, Vec3_
 
 
 // 0x002f08d0 FUN_002f08d0 (1195 B): equivalent/0x002f08d0.cpp
-// sym: ?FUN_002f08d0@fn_f5d8432d@@YA_NPAUV3_2f08d0@1@00MM0@Z
+// sym: ?FUN_002f08d0@fn_f5d8432d@@YA_NPAUV3_2f08d0@1@00MM0@Z @83066076ee17 @wb616a028a733
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 53/54, incomplete)
 // FUN_002f08d0 @ 0x002f08d0
 // Segment (p -> p + dir) vs sphere around q: finds the entry point.
@@ -954,7 +954,7 @@ bool FUN_002f08d0(V3_2f08d0 *p, V3_2f08d0 *q, V3_2f08d0 *dir, float tol, float r
 
 
 // 0x002f0d80 FUN_002f0d80 (241 B): equivalent/0x002f0d80.cpp
-// sym: ?FUN_002f0d80@fn_f5d8432d@@YA_NUVec3_2f0d80@1@0PAU21@PAXMMM1@Z
+// sym: ?FUN_002f0d80@fn_f5d8432d@@YA_NUVec3_2f0d80@1@0PAU21@PAXMMM1@Z @7982262803d5 @w6f341b94a6be
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002f0d80 @ 0x002f0d80
 bool __cdecl FUN_002f0d80(Vec3_2f0d80 a, Vec3_2f0d80 b, Vec3_2f0d80* center, void* data, float r1, float r2, float r3, Vec3_2f0d80* output) {
@@ -977,7 +977,7 @@ bool __cdecl FUN_002f0d80(Vec3_2f0d80 a, Vec3_2f0d80 b, Vec3_2f0d80* center, voi
 
 
 // 0x002f0e80 FUN_002f0e80 (390 B): equivalent/0x002f0e80.cpp
-// sym: ?FUN_002f0e80@fn_f5d8432d@@YA_NPBUVec3_2f0e80@1@00MPBUVolume_2f0e80@1@PAM@Z
+// sym: ?FUN_002f0e80@fn_f5d8432d@@YA_NPBUVec3_2f0e80@1@00MPBUVolume_2f0e80@1@PAM@Z @1cc7e3bc8718 @w866af15db24e
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_002f0e80 @ 0x002f0e80
 bool FUN_002f0e80(const Vec3_2f0e80 *p0, const Vec3_2f0e80 *p1, const Vec3_2f0e80 *p2, float margin, const Volume_2f0e80 *vol, float *outT)
@@ -1018,7 +1018,7 @@ bool FUN_002f0e80(const Vec3_2f0e80 *p0, const Vec3_2f0e80 *p1, const Vec3_2f0e8
 
 
 // 0x002f1010 FUN_002f1010 (323 B): equivalent/0x002f1010.cpp
-// sym: ?FUN_002f1010@fn_f5d8432d@@YA_NUVec3_2f1010@1@0PAVShape_2f1010@1@MPAU21@@Z
+// sym: ?FUN_002f1010@fn_f5d8432d@@YA_NUVec3_2f1010@1@0PAVShape_2f1010@1@MPAU21@@Z @80cb5e1ebe09 @wf1e7e01643a5
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 6/6)
 // FUN_002f1010 @ 0x002f1010
 // Segment p -> q tested against a shape grown by radius; on a hit writes the world-space hit point.
@@ -1062,7 +1062,7 @@ bool FUN_002f1010(Vec3_2f1010 p, Vec3_2f1010 q, Shape_2f1010 *shape, float radiu
 
 
 // 0x002f1160 FUN_002f1160 (1073 B): equivalent/0x002f1160.cpp
-// sym: ?FUN_002f1160@fn_f5d8432d@@YA_NPAUV3_2f1160@1@00TBits_2f1160@1@TSlot_2f1160@1@@Z
+// sym: ?FUN_002f1160@fn_f5d8432d@@YA_NPAUV3_2f1160@1@00TBits_2f1160@1@TSlot_2f1160@1@@Z @04c541e11c2c @w6ca2bd592557
 // STATUS: equivalent (tools/equiv.py level 3: 20062 inputs, branch coverage 53/54, incomplete)
 // FUN_002f1160 @ 0x002f1160
 bool FUN_002f1160(V3_2f1160 *p, V3_2f1160 *dir, V3_2f1160 *a3, Bits_2f1160 a4, Slot_2f1160 slot)
@@ -1182,7 +1182,7 @@ bool FUN_002f1160(V3_2f1160 *p, V3_2f1160 *dir, V3_2f1160 *a3, Bits_2f1160 a4, S
 
 
 // 0x002f15a0 FUN_002f15a0 (1068 B): equivalent/0x002f15a0.cpp
-// sym: ?FUN_002f15a0@fn_f5d8432d@@YA_NPAUV3_2f15a0@1@00HTArg5@1@PAUHit_2f15a0@1@@Z
+// sym: ?FUN_002f15a0@fn_f5d8432d@@YA_NPAUV3_2f15a0@1@00HTArg5@1@PAUHit_2f15a0@1@@Z @2341bccdfd52 @w8731df50f999
 // STATUS: equivalent (tools/equiv.py level 3: 20100 inputs, branch coverage 62/68, incomplete)
 // FUN_002f15a0 @ 0x002f15a0
 bool FUN_002f15a0(V3_2f15a0 *p, V3_2f15a0 *dir, V3_2f15a0 *a3, int a4, Arg5 a5, Hit_2f15a0 *st)
@@ -1316,7 +1316,7 @@ bool FUN_002f15a0(V3_2f15a0 *p, V3_2f15a0 *dir, V3_2f15a0 *a3, int a4, Arg5 a5, 
 } // namespace fn_f5d8432d
 
 // 0x002f19d0 FUN_002f19d0 (744 B): equivalent/0x002f19d0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002f19d0@fn_002f19d0@@YA_NPAUVec3_2f19d0@1@PAVShape_2f19d0@1@@Z
+// sym: ?FUN_002f19d0@fn_002f19d0@@YA_NPAUVec3_2f19d0@1@PAVShape_2f19d0@1@@Z @a2088ac9c76e @wfd4ac1ad1417
 namespace fn_002f19d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 43/43)
 // FUN_002f19d0 @ 0x002f19d0
@@ -1451,7 +1451,7 @@ bool FUN_002f19d0(Vec3_2f19d0 *p, Shape_2f19d0 *shape)
 namespace fn_f5d8432d {
 
 // 0x002f1ce0 FUN_002f1ce0 (1829 B): equivalent/0x002f1ce0.cpp
-// sym: _FUN_002f1ce0
+// sym: _FUN_002f1ce0 @a67037dd0779 @wcd3c2d60c6d5
 // STATUS: equivalent (tools/equiv.py level 3: 3076 inputs, branch coverage 61/62, incomplete)
 // FUN_002f1ce0 @ 0x002f1ce0
 extern "C" Shape_2f1ce0 *__cdecl FUN_002f1ce0(const V3_2f1ce0 *p, Shape_2f1ce0 *shape, V3_2f1ce0 *out, float *dist)
@@ -1690,7 +1690,7 @@ void Arr_2f2470::Insert(int index, Vec3_2f2470* value) {
 
 
 // 0x002f24f0 FUN_002f24f0 (263 B): equivalent/0x002f24f0.cpp
-// sym: _FUN_002f24f0
+// sym: _FUN_002f24f0 @b1c794d334c0 @w269a8bb63caf
 // STATUS: equivalent (tools/equiv.py level 3: 390 inputs, branch coverage 16/16)
 // FUN_002f24f0 @ 0x002f24f0
 extern "C" void __cdecl FUN_002f24f0(List_2f24f0* list, const Item_2f24f0* item, const Vector* direction, Vector* output, float* valueOut) {
@@ -1726,7 +1726,7 @@ extern "C" void __cdecl FUN_002f24f0(List_2f24f0* list, const Item_2f24f0* item,
 
 
 // 0x002f2670 FUN_002f2670 (78 B): equivalent/0x002f2670.cpp
-// sym: ?FUN_002f2670@Table@fn_f5d8432d@@QAEPAUEntry@2@HH@Z
+// sym: ?FUN_002f2670@Table@fn_f5d8432d@@QAEPAUEntry@2@HH@Z @ace047573f5b @w17a2e92a0c16
 // STATUS: equivalent (tools/equiv.py level 3: 2288 inputs, branch coverage 9/10, incomplete)
 // FUN_002f2670 @ 0x002f2670
 Entry* Table::FUN_002f2670(int first, int second) {

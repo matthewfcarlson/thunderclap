@@ -127,7 +127,7 @@ PointLight_2c3f40* PointLight_2c3f40::vfunc_5(signed char flags) {
 } // namespace fn_f06f3165
 
 // 0x002c3f70 pure3d::PointLight::vfunc_9 (171 B): equivalent/0x002c3f70.cpp [wrapped: conflict: pure3d::PointLight]
-// sym: ?vfunc_9@PointLight@pure3d@fn_002c3f70@@QAEXI@Z
+// sym: ?vfunc_9@PointLight@pure3d@fn_002c3f70@@QAEXI@Z @cebe4c4e8973 @w90d392b8a9d1
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

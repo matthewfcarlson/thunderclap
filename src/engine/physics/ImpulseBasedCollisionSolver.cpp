@@ -652,7 +652,7 @@ S_2f7a90::S_2f7a90(const S_2f7a90& o) {
 
 
 // 0x002f7b00 FUN_002f7b00 (108 B): equivalent/0x002f7b00.cpp
-// sym: ?FUN_002f7b00@Target_2f7b00@fn_f524d977@@QAEXXZ
+// sym: ?FUN_002f7b00@Target_2f7b00@fn_f524d977@@QAEXXZ @3f4be25edd36 @w2de7ba235ea1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002f7b00 @ 0x002f7b00
 void Target_2f7b00::FUN_002f7b00()
@@ -917,7 +917,7 @@ ImpulseBasedCollisionSolver_2f7fc0::~ImpulseBasedCollisionSolver_2f7fc0() {
 
 
 // 0x002f8020 FUN_002f8020 (732 B): equivalent/0x002f8020.cpp
-// sym: ?FUN_002f8020@Solver_2f8020@fn_f524d977@@QAEXPAUList_2f8020@2@HH@Z
+// sym: ?FUN_002f8020@Solver_2f8020@fn_f524d977@@QAEXPAUList_2f8020@2@HH@Z @6faf78b5f491 @w030b791694e2
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 31/38, incomplete)
 // FUN_002f8020 @ 0x002f8020
 void Solver_2f8020::FUN_002f8020(List_2f8020 *l, int unused, int a3)
@@ -1010,7 +1010,7 @@ void Solver_2f8020::FUN_002f8020(List_2f8020 *l, int unused, int a3)
 
 
 // 0x002f8300 FUN_002f8300 (1062 B): equivalent/0x002f8300.cpp
-// sym: ?FUN_002f8300@ImpulseBasedCollisionSolver_2f8300@fn_f524d977@@QAEHXZ
+// sym: ?FUN_002f8300@ImpulseBasedCollisionSolver_2f8300@fn_f524d977@@QAEHXZ @74f608e0b478 @w835321aa2621
 // STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 12/12)
 // FUN_002f8300 @ 0x002f8300
 int ImpulseBasedCollisionSolver_2f8300::FUN_002f8300()
@@ -1136,7 +1136,7 @@ int ImpulseBasedCollisionSolver_2f8300::FUN_002f8300()
 } // namespace fn_f524d977
 
 // 0x002f8730 physics::ImpulseBasedCollisionSolver::vfunc_4 (208 B): equivalent/0x002f8730.cpp [wrapped: conflict: physics::ImpulseBasedCollisionSolver]
-// sym: ?vfunc_4@ImpulseBasedCollisionSolver@physics@fn_002f8730@@UAEMXZ
+// sym: ?vfunc_4@ImpulseBasedCollisionSolver@physics@fn_002f8730@@UAEMXZ @c8454b4676a5 @w9fedb0bb7645
 namespace fn_002f8730 {
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 6/6)
 // physics::ImpulseBasedCollisionSolver::vfunc_4 @ 0x002f8730
@@ -1209,7 +1209,7 @@ void __fastcall FUN_002f8820(Obj_2f8820* p, void*) {
 } // namespace fn_f524d977
 
 // 0x002f8850 physics::CollisionSolverAgent::vfunc_8 (208 B): equivalent/0x002f8850.cpp [wrapped: conflict: physics::CollisionSolverAgent]
-// sym: ?vfunc_8@CollisionSolverAgent@physics@fn_002f8850@@UAEHPAUContact_2f8850@3@H@Z
+// sym: ?vfunc_8@CollisionSolverAgent@physics@fn_002f8850@@UAEHPAUContact_2f8850@3@H@Z @3ed3a8dd9341 @w7f258ca0dd35
 namespace fn_002f8850 {
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 8/8)
 // physics::CollisionSolverAgent::vfunc_8 @ 0x002f8850
@@ -1243,7 +1243,7 @@ int CollisionSolverAgent::vfunc_8(Contact_2f8850* c,int unused) {
 
 
 // 0x002f8920 physics::CollisionSolverAgent::vfunc_9 (219 B): equivalent/0x002f8920.cpp
-// sym: ?vfunc_9@CollisionSolverAgent@physics@@UAEHHH@Z
+// sym: ?vfunc_9@CollisionSolverAgent@physics@@UAEHHH@Z @45d9d17a6540 @wfa416bd8d5a4
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // physics::CollisionSolverAgent::vfunc_9 @ 0x002f8920
 int physics::CollisionSolverAgent::vfunc_9(hulk_intptr __p0, int index) { AgentInput * input = (AgentInput *)__p0;
@@ -1264,7 +1264,7 @@ int physics::CollisionSolverAgent::vfunc_9(hulk_intptr __p0, int index) { AgentI
 namespace fn_f524d977 {
 
 // 0x002f8a00 physics::ImpulseBasedCollisionSolver::vfunc_1 (814 B): equivalent/0x002f8a00.cpp
-// sym: ?vfunc_1@ImpulseBasedCollisionSolver@fn_f524d977@@UAEXXZ
+// sym: ?vfunc_1@ImpulseBasedCollisionSolver@fn_f524d977@@UAEXXZ @fefaffd30d56 @w359c28946194
 // STATUS: equivalent (tools/equiv.py level 3: 20038 inputs, branch coverage 48/48)
 // physics::ImpulseBasedCollisionSolver::vfunc_1 @ 0x002f8a00
 void ImpulseBasedCollisionSolver::vfunc_1()

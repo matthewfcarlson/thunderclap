@@ -247,7 +247,7 @@ void owners::Thing_319ef0::FUN_00319ef0() {
 namespace fn_fdd3dec6 {
 
 // 0x00319f40 FUN_00319f40 (1066 B): equivalent/0x00319f40.cpp
-// sym: ?FUN_00319f40@Tracker_319f40@fn_fdd3dec6@@QAEXXZ
+// sym: ?FUN_00319f40@Tracker_319f40@fn_fdd3dec6@@QAEXXZ @81e418418931 @w6f2010787463
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 38/38)
 // FUN_00319f40 @ 0x00319f40
 void Tracker_319f40::FUN_00319f40()
@@ -475,7 +475,7 @@ Object* Object::init() {
 } // namespace fn_fdd3dec6
 
 // 0x0031a4f0 FUN_0031a4f0 (243 B): equivalent/0x0031a4f0.cpp [wrapped: conflict: Object]
-// sym: ?copy@Object@fn_0031a4f0@@QAEPAU12@PBU12@@Z
+// sym: ?copy@Object@fn_0031a4f0@@QAEPAU12@PBU12@@Z @d9d6f269c03a @w652cdbf5614a
 namespace fn_0031a4f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0031a4f0 @ 0x0031a4f0
@@ -522,7 +522,7 @@ Object* Object::copy(const Object* src) {
 
 
 // 0x0031a5f0 FUN_0031a5f0 (192 B): equivalent/0x0031a5f0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_0031a5f0@Object@fn_0031a5f0@@QAEPAU12@IIIII@Z
+// sym: ?FUN_0031a5f0@Object@fn_0031a5f0@@QAEPAU12@IIIII@Z @773990e6ee35 @w2e71fc029a47
 namespace fn_0031a5f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0031a5f0 @ 0x0031a5f0

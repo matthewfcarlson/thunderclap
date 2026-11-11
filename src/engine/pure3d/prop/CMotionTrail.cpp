@@ -1145,7 +1145,7 @@ int Obj_27f410::run(int key, int arg) {
 
 
 // 0x0027f4a0 FUN_0027f4a0 (146 B): equivalent/0x0027f4a0.cpp
-// sym: ?FUN_0027f4a0@Ring_27f4a0@fn_f4890d4c@@QAEXXZ
+// sym: ?FUN_0027f4a0@Ring_27f4a0@fn_f4890d4c@@QAEXXZ @05e992396c5a @w79abf2a4fc37
 // STATUS: equivalent (tools/equiv.py level 3: 1557 inputs, branch coverage 6/6)
 // FUN_0027f4a0 @ 0x0027f4a0
 void Ring_27f4a0::FUN_0027f4a0()
@@ -1187,7 +1187,7 @@ Obj_27f5a0::Obj_27f5a0() {}
 
 
 // 0x0027f5f0 FUN_0027f5f0 (223 B): equivalent/0x0027f5f0.cpp
-// sym: _FUN_0027f5f0
+// sym: _FUN_0027f5f0 @a357b3d7543f @wa14b11224e6e
 // STATUS: equivalent (tools/equiv.py level 3: 188 inputs, branch coverage 6/6)
 // FUN_0027f5f0 @ 0x0027f5f0
 extern "C" void __cdecl FUN_0027f5f0(int unused, int count, const int* indices, void * vertices_) {
@@ -1227,7 +1227,7 @@ extern "C" void __stdcall FUN_0027f6f0(void * self) {
 } // namespace fn_f4890d4c
 
 // 0x0027f750 FUN_0027f750 (221 B): equivalent/0x0027f750.cpp [wrapped: conflict: Gfx]
-// sym: ?target@Object@fn_0027f750@@QAEXII@Z
+// sym: ?target@Object@fn_0027f750@@QAEXII@Z @a29aa17be786 @w95c30230f91a
 namespace fn_0027f750 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_0027f750 @ 0x0027f750
@@ -1358,7 +1358,7 @@ unsigned char pure3d::prop::CMotionTrail::vfunc_9() {
 
 
 // 0x0027fa00 FUN_0027fa00 (295 B): equivalent/0x0027fa00.cpp
-// sym: ?FUN_0027fa00@State_27fa00@owners@@QAEPAU12@PBU12@@Z
+// sym: ?FUN_0027fa00@State_27fa00@owners@@QAEPAU12@PBU12@@Z @da631e54e2b3 @w850e7cdaa086
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0027fa00 @ 0x0027fa00
 owners::State_27fa00* owners::State_27fa00::FUN_0027fa00(const owners::State_27fa00* source)
@@ -1462,7 +1462,7 @@ float __stdcall FUN_0027ffe0(int unused) {
 
 
 // 0x0027fff0 FUN_0027fff0 (294 B): equivalent/0x0027fff0.cpp
-// sym: ?FUN_0027fff0@fn_f4890d4c@@YGXPAVObject@1@M@Z
+// sym: ?FUN_0027fff0@fn_f4890d4c@@YGXPAVObject@1@M@Z @f7aa7ebe7741 @w0384b1ff1076
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 20/20)
 // FUN_0027fff0 @ 0x0027fff0
 void __stdcall FUN_0027fff0(Object* object, float value) {
@@ -1531,7 +1531,7 @@ void owners::Owner_280160::FUN_00280160() {
 
 
 // 0x002801b0 FUN_002801b0 (460 B): equivalent/0x002801b0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002801b0@VoicePool_2801b0@fn_002801b0@@QAEXM@Z
+// sym: ?FUN_002801b0@VoicePool_2801b0@fn_002801b0@@QAEXM@Z @b20c69512f7e @w20c8bd41ca9e
 namespace fn_002801b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 31/32, incomplete)
 // FUN_002801b0 @ 0x002801b0
@@ -1686,7 +1686,7 @@ void VoicePool_2801b0::FUN_002801b0(float dt)
 namespace fn_f4890d4c {
 
 // 0x00280380 FUN_00280380 (217 B): equivalent/0x00280380.cpp
-// sym: ?FUN_00280380@Manager_280380@fn_f4890d4c@@QAEIPAUResource_280380@2@0PBUKey_280380@2@PBUMatrix@2@I@Z
+// sym: ?FUN_00280380@Manager_280380@fn_f4890d4c@@QAEIPAUResource_280380@2@0PBUKey_280380@2@PBUMatrix@2@I@Z @26bc908223a2 @wb9f2fdecf31f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_00280380 @ 0x00280380
 unsigned Manager_280380::FUN_00280380(Resource_280380* first, Resource_280380* second, const Key_280380* key, const Matrix* matrix, unsigned extra) {
@@ -1718,7 +1718,7 @@ unsigned Manager_280380::FUN_00280380(Resource_280380* first, Resource_280380* s
 
 
 // 0x00280460 FUN_00280460 (141 B): equivalent/0x00280460.cpp
-// sym: ?FUN_00280460@SlotTable_280460@fn_f4890d4c@@QAEHPAVObject@2@HH@Z
+// sym: ?FUN_00280460@SlotTable_280460@fn_f4890d4c@@QAEHPAVObject@2@HH@Z @c2e664485916 @wf45a760a3636
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00280460 @ 0x00280460
 // Claim a free slot (of 100) for a ref-counted object and return the slot's new id (0 when none is free).
@@ -1757,7 +1757,7 @@ int SlotTable_280460::FUN_00280460(Object* object, int arg, int value)
 
 
 // 0x002804f0 FUN_002804f0 (307 B): equivalent/0x002804f0.cpp
-// sym: ?FUN_002804f0@Holder_2804f0@fn_f4890d4c@@QAEHHPAUVec3_2804f0@2@0H@Z
+// sym: ?FUN_002804f0@Holder_2804f0@fn_f4890d4c@@QAEHHPAUVec3_2804f0@2@0H@Z @b77251dd4f5e @wd484fed54b74
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_002804f0 @ 0x002804f0
 int Holder_2804f0::FUN_002804f0(int id, Vec3_2804f0 *from, Vec3_2804f0 *to, int unused)
@@ -1800,7 +1800,7 @@ int Holder_2804f0::FUN_002804f0(int id, Vec3_2804f0 *from, Vec3_2804f0 *to, int 
 } // namespace fn_f4890d4c
 
 // 0x00280630 FUN_00280630 (90 B): equivalent/0x00280630.cpp [wrapped: conflict: Entry; Manager]
-// sym: ?FUN_00280630@Manager@fn_00280630@@QAEXHHD@Z
+// sym: ?FUN_00280630@Manager@fn_00280630@@QAEXHHD@Z @dd34eae360e6 @w94eabcda6470
 namespace fn_00280630 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 13/14, incomplete)
 // FUN_00280630 @ 0x00280630
@@ -1962,7 +1962,7 @@ void Owner_280800::clear() {
 } // namespace fn_f4890d4c
 
 // 0x00280840 FUN_00280840 (361 B): equivalent/0x00280840.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_00280840@fn_00280840@@YAHPBUV3_280840@1@M000@Z
+// sym: ?FUN_00280840@fn_00280840@@YAHPBUV3_280840@1@M000@Z @f36e4f713385 @wd32508b041fd
 namespace fn_00280840 {
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 8/8; --wine 611 inputs)
 // FUN_00280840 @ 0x00280840
@@ -2008,7 +2008,7 @@ int __cdecl FUN_00280840(const V3_280840 *center, float margin, const V3_280840 
 namespace fn_f4890d4c {
 
 // 0x002809b0 FUN_002809b0 (549 B): equivalent/0x002809b0.cpp
-// sym: ?FUN_002809b0@Walker_2809b0@fn_f4890d4c@@QAEXPAUMesh_2809b0@2@HHPAUFace_2809b0@2@1PAPAU42@PAHHHH@Z
+// sym: ?FUN_002809b0@Walker_2809b0@fn_f4890d4c@@QAEXPAUMesh_2809b0@2@HHPAUFace_2809b0@2@1PAPAU42@PAHHHH@Z @5d7263b84b71 @w8ad2a0e1acb6
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 18/22, incomplete)
 // FUN_002809b0 @ 0x002809b0
 void Walker_2809b0::FUN_002809b0(Mesh_2809b0 *mesh, int arg2, int arg3, Face_2809b0 *arg4, Face_2809b0 *node,
@@ -2064,7 +2064,7 @@ void Walker_2809b0::FUN_002809b0(Mesh_2809b0 *mesh, int arg2, int arg3, Face_280
 
 
 // 0x00280be0 FUN_00280be0 (356 B): equivalent/0x00280be0.cpp
-// sym: ?FUN_00280be0@fn_f4890d4c@@YAXPAUPlane_280be0@1@PAUVtx_280be0@1@H1PAH@Z
+// sym: ?FUN_00280be0@fn_f4890d4c@@YAXPAUPlane_280be0@1@PAUVtx_280be0@1@H1PAH@Z @53e9c4286caf @we238712c73eb
 // STATUS: equivalent (tools/equiv.py level 3: 17260 inputs, branch coverage 14/14)
 // FUN_00280be0 @ 0x00280be0
 // Sutherland-Hodgman clip of a closed polygon against one plane.
@@ -2102,7 +2102,7 @@ void FUN_00280be0(Plane_280be0* plane, Vtx_280be0* verts, int count, Vtx_280be0*
 
 
 // 0x00280d90 FUN_00280d90 (4292 B): equivalent/0x00280d90.cpp
-// sym: ?FUN_00280d90@fn_f4890d4c@@YAXPAUVtx_280d90@1@HHPAHUV3_280d90@1@MM@Z
+// sym: ?FUN_00280d90@fn_f4890d4c@@YAXPAUVtx_280d90@1@HHPAHUV3_280d90@1@MM@Z @922c6dcd68eb @w21c96b64aefd
 // STATUS: equivalent (tools/equiv.py level 3: 795 inputs, branch coverage 37/38, incomplete)
 // FUN_00280d90 @ 0x00280d90
 void FUN_00280d90(Vtx_280d90 *verts, int n, int limit, int *outN, V3_280d90 center, float radius, float maxEdge)
@@ -2233,7 +2233,7 @@ void FUN_00280d90(Vtx_280d90 *verts, int n, int limit, int *outN, V3_280d90 cent
 
 
 // 0x00281e60 FUN_00281e60 (360 B): equivalent/0x00281e60.cpp
-// sym: ?FUN_00281e60@fn_f4890d4c@@YAXPBUPlane_281e60@1@PBUVtx_281e60@1@PAU31@PAH@Z
+// sym: ?FUN_00281e60@fn_f4890d4c@@YAXPBUPlane_281e60@1@PBUVtx_281e60@1@PAU31@PAH@Z @07892ce52f80 @w575be71cfcad
 // STATUS: equivalent (tools/equiv.py level 3: 43 inputs, branch coverage 4/4)
 // FUN_00281e60 @ 0x00281e60
 void __cdecl FUN_00281e60(const Plane_281e60* planes, const Vtx_281e60* tri, Vtx_281e60* out, int* outCount)
@@ -2262,7 +2262,7 @@ void __cdecl FUN_00281e60(const Plane_281e60* planes, const Vtx_281e60* tri, Vtx
 
 
 // 0x00281fd0 FUN_00281fd0 (367 B): equivalent/0x00281fd0.cpp
-// sym: ?FUN_00281fd0@fn_f4890d4c@@YAXPAUCtx_281fd0@1@PAUV2_281fd0@1@PAUXform_281fd0@1@HPAPAUTri_281fd0@1@PAUVtx_281fd0@1@@Z
+// sym: ?FUN_00281fd0@fn_f4890d4c@@YAXPAUCtx_281fd0@1@PAUV2_281fd0@1@PAUXform_281fd0@1@HPAPAUTri_281fd0@1@PAUVtx_281fd0@1@@Z @ec7f61190b41 @w89afb069baf9
 // STATUS: equivalent (tools/equiv.py level 3: 55 inputs, branch coverage 8/8)
 // FUN_00281fd0 @ 0x00281fd0
 void FUN_00281fd0(Ctx_281fd0* ctx, V2_281fd0* scale, Xform_281fd0* xf, int n, Tri_281fd0** items, Vtx_281fd0* out)
@@ -2333,7 +2333,7 @@ void Owner_282190::Remove(int key) {
 } // namespace fn_f4890d4c
 
 // 0x002821d0 FUN_002821d0 (495 B): equivalent/0x002821d0.cpp [wrapped: conflict: pure3d::prop::CLightQueue]
-// sym: ??0CLightQueue@prop@pure3d@fn_002821d0@@QAE@XZ
+// sym: ??0CLightQueue@prop@pure3d@fn_002821d0@@QAE@XZ @681c5985ce7e @wf6cfb38ddc08
 namespace fn_002821d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_002821d0 @ 0x002821d0
@@ -2458,7 +2458,7 @@ void Obj_2823c0::Clear() {
 } // namespace fn_f4890d4c
 
 // 0x00282400 FUN_00282400 (507 B): equivalent/0x00282400.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_00282400@Builder@fn_00282400@@QAEXPAUItem_282400@2@@Z
+// sym: ?FUN_00282400@Builder@fn_00282400@@QAEXPAUItem_282400@2@@Z @8f6f798760d1 @we6cdab20e1a3
 namespace fn_00282400 {
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 13/14, incomplete)
 // FUN_00282400 @ 0x00282400
@@ -2891,7 +2891,7 @@ CMotionTrail::CMotionTrail() {
 
 
 // 0x002827e0 pure3d::prop::CMotionTrail::vfunc_10 (195 B): equivalent/0x002827e0.cpp [wrapped: conflict: pure3d::prop::CMotionTrail]
-// sym: ?vfunc_10@CMotionTrail@prop@pure3d@fn_002827e0@@UAEXXZ
+// sym: ?vfunc_10@CMotionTrail@prop@pure3d@fn_002827e0@@UAEXXZ @3f0e2904b203 @w10c67fbb91ac
 namespace fn_002827e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 667 inputs, branch coverage 6/6)
 // pure3d::prop::CMotionTrail::vfunc_10 @ 0x002827e0
@@ -2939,7 +2939,7 @@ void pure3d::prop::CMotionTrail::vfunc_13() {
 
 
 // 0x002828e0 FUN_002828e0 (296 B): equivalent/0x002828e0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_002828e0@Object@fn_002828e0@@QAEXIMPAUResource_2828e0@2@0PBUKey_2828e0@2@PBUTriple_2828e0@2@H1IIIMMM@Z
+// sym: ?FUN_002828e0@Object@fn_002828e0@@QAEXIMPAUResource_2828e0@2@0PBUKey_2828e0@2@PBUTriple_2828e0@2@H1IIIMMM@Z @c552b7fb1706 @w5add3f6cfc60
 namespace fn_002828e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 236 inputs, branch coverage 12/12)
 // FUN_002828e0 @ 0x002828e0
@@ -2973,7 +2973,7 @@ void Object::FUN_002828e0(unsigned a,float b,Resource_2828e0* r2,Resource_2828e0
 namespace fn_f4890d4c {
 
 // 0x00282a10 FUN_00282a10 (739 B): equivalent/0x00282a10.cpp
-// sym: ?Blend@VertexBuf_282a10@fn_f4890d4c@@QAEXPAU12@HMMMMMM@Z
+// sym: ?Blend@VertexBuf_282a10@fn_f4890d4c@@QAEXPAU12@HMMMMMM@Z @316b6e5fec4f @w99ad888a32e6
 // STATUS: equivalent (tools/equiv.py level 3: 2552 inputs, branch coverage 22/22)
 // FUN_00282a10 @ 0x00282a10
 void VertexBuf_282a10::Blend(VertexBuf_282a10 *src, int count, float a3, float a4, float a5, float a6, float a7, float a8)
@@ -3012,7 +3012,7 @@ void VertexBuf_282a10::Blend(VertexBuf_282a10 *src, int count, float a3, float a
 } // namespace fn_f4890d4c
 
 // 0x00282d00 pure3d::prop::CMotionTrail::vfunc_6 (983 B): equivalent/0x00282d00.cpp [wrapped: conflict: DAT_0052c2a8]
-// sym: ?vfunc_6@CMotionTrail@fn_00282d00@@UAEXXZ
+// sym: ?vfunc_6@CMotionTrail@fn_00282d00@@UAEXXZ @7bcd6a42704e @wad6fdb823d0c
 namespace fn_00282d00 {
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 16/16)
 // pure3d::prop::CMotionTrail::vfunc_6 @ 0x00282d00
@@ -3263,7 +3263,7 @@ void pure3d::prop::CMotionTrail::vfunc_8(void* __p0) { Obj_2830e0 * p = (Obj_283
 
 
 // 0x00283110 pure3d::prop::CMotionTrail::vfunc_11 (523 B): equivalent/0x00283110.cpp
-// sym: ?vfunc_11@CMotionTrail@prop@pure3d@@UAEXMH@Z
+// sym: ?vfunc_11@CMotionTrail@prop@pure3d@@UAEXMH@Z @04aefaf5a1d4 @wd3ac202b70e3
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 26/26)
 // pure3d::prop::CMotionTrail::vfunc_11 @ 0x00283110
 void pure3d::prop::CMotionTrail::vfunc_11(float dt, int unused) {
@@ -3447,7 +3447,7 @@ EffectQueue_2834f0::~EffectQueue_2834f0() {
 
 
 // 0x00283510 FUN_00283510 (138 B): equivalent/0x00283510.cpp
-// sym: ?Add@Table_283510@fn_f4890d4c@@QAEHPAURefObj_283510@2@HHH@Z
+// sym: ?Add@Table_283510@fn_f4890d4c@@QAEHPAURefObj_283510@2@HHH@Z @c2678efca2a8 @w8ea1629742fd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00283510 @ 0x00283510
 int Table_283510::Add(RefObj_283510* o, int a, int b, int c) {
@@ -3513,7 +3513,7 @@ void __fastcall FUN_002835e0(CLightQueue* self) {
 } // namespace fn_f4890d4c
 
 // 0x00283640 FUN_00283640 (235 B): equivalent/0x00283640.cpp [wrapped: conflict: Object]
-// sym: ?update@Object@fn_00283640@@QAEXM@Z
+// sym: ?update@Object@fn_00283640@@QAEXM@Z @49c44143ba61 @w7ebaa7ac1d51
 namespace fn_00283640 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // FUN_00283640 @ 0x00283640
@@ -3550,7 +3550,7 @@ void Object::update(float dt) {
 
 
 // 0x00283730 FUN_00283730 (162 B): equivalent/0x00283730.cpp [wrapped: conflict: CMotionTrail]
-// sym: ?FUN_00283730@CMotionTrailQueue@fn_00283730@@QAEPAV12@XZ
+// sym: ?FUN_00283730@CMotionTrailQueue@fn_00283730@@QAEPAV12@XZ @5e0d8f4c334f @w5fb9867707b2
 namespace fn_00283730 {
 // STATUS: equivalent (tools/equiv.py level 3: 2865 inputs, branch coverage 4/4)
 // FUN_00283730 @ 0x00283730
@@ -3677,7 +3677,7 @@ void CMotionTrail::Dtor() {
 namespace fn_f4890d4c {
 
 // 0x00283900 FUN_00283900 (268 B): equivalent/0x00283900.cpp
-// sym: ?FUN_00283900@Manager_283900@fn_f4890d4c@@QAEPAU12@II@Z
+// sym: ?FUN_00283900@Manager_283900@fn_f4890d4c@@QAEPAU12@II@Z @cf959d6c53d3 @w060ae1b7813d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // FUN_00283900 @ 0x00283900
 Manager_283900* Manager_283900::FUN_00283900(unsigned ownerValue, unsigned context) {
@@ -3718,7 +3718,7 @@ void A_283a10::Run(int x) {
 } // namespace fn_f4890d4c
 
 // 0x00283a40 FUN_00283a40 (195 B): equivalent/0x00283a40.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster]
-// sym: ?FUN_00283a40@Target_283a40@fn_00283a40@@QAEIPAUKey_283a40@2@III@Z
+// sym: ?FUN_00283a40@Target_283a40@fn_00283a40@@QAEIPAUKey_283a40@2@III@Z @95e737a07ec2 @w1d428ef4d55e
 namespace fn_00283a40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00283a40 @ 0x00283a40
@@ -3753,7 +3753,7 @@ hulk_uintptr Target_283a40::FUN_00283a40(Key_283a40* key,hulk_uintptr a,unsigned
 
 
 // 0x00283b10 FUN_00283b10 (201 B): equivalent/0x00283b10.cpp [wrapped: conflict: FUN_00266f40; content::LoadInventory::DynamicCaster; pure3d::DrawableHierarchy]
-// sym: ?run@Target_283b10@fn_00283b10@@QAEIPAUKey_283b10@2@IIIII@Z
+// sym: ?run@Target_283b10@fn_00283b10@@QAEIPAUKey_283b10@2@IIIII@Z @2cd3a9d3d3fb @w602eb1faf5e5
 namespace fn_00283b10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00283b10 @ 0x00283b10
@@ -3788,7 +3788,7 @@ unsigned Target_283b10::run(Key_283b10* key,unsigned a,unsigned b,unsigned c,uns
 
 
 // 0x00283be0 FUN_00283be0 (191 B): equivalent/0x00283be0.cpp [wrapped: conflict: FUN_00266f40; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_00283be0@Target_283be0@fn_00283be0@@QAEIPAUPair_283be0@2@III@Z
+// sym: ?FUN_00283be0@Target_283be0@fn_00283be0@@QAEIPAUPair_283be0@2@III@Z @126b0589a92e @w2d7155e2a926
 namespace fn_00283be0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00283be0 @ 0x00283be0
@@ -3842,7 +3842,7 @@ unsigned Target_283be0::FUN_00283be0(Pair_283be0* pair,unsigned a,unsigned b,uns
 
 
 // 0x00283ca0 FUN_00283ca0 (179 B): equivalent/0x00283ca0.cpp [wrapped: conflict: FUN_00266f40; content::LoadInventory; pure3d::DrawableHierarchy]
-// sym: ?FUN_00283ca0@Target_283ca0@fn_00283ca0@@QAEHPAUKey_283ca0@2@III@Z
+// sym: ?FUN_00283ca0@Target_283ca0@fn_00283ca0@@QAEHPAUKey_283ca0@2@III@Z @7181eeada214 @w41ac377c9709
 namespace fn_00283ca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00283ca0 @ 0x00283ca0
@@ -3905,7 +3905,7 @@ pure3d::prop::CDecalQueue::~CDecalQueue() {}
 
 
 // 0x00283e10 FUN_00283e10 (1108 B): equivalent/0x00283e10.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster]
-// sym: ?FUN_00283e10@Target_283e10@fn_00283e10@@QAEIPA_KHPAUWorld@2@PAUV3_283e10@2@2PAMHH@Z
+// sym: ?FUN_00283e10@Target_283e10@fn_00283e10@@QAEIPA_KHPAUWorld@2@PAUV3_283e10@2@2PAMHH@Z @7c2c623e1574 @w368831714e12
 namespace fn_00283e10 {
 // STATUS: equivalent (tools/equiv.py level 3: 158 inputs, branch coverage 26/28, incomplete)
 // FUN_00283e10 @ 0x00283e10

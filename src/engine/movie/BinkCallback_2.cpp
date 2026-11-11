@@ -488,7 +488,7 @@ void __fastcall FUN_003352b0(void* self) {
 
 
 // 0x003353e0 FUN_003353e0 (113 B): equivalent/0x003353e0.cpp
-// sym: ?FUN_003353e0@Slots_3353e0@fn_f964084a@@QAEXHPAUValue_3353e0@2@@Z
+// sym: ?FUN_003353e0@Slots_3353e0@fn_f964084a@@QAEXHPAUValue_3353e0@2@@Z @a4cfab7d8580 @w92a6c76079b2
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 13/13)
 // FUN_003353e0 @ 0x003353e0
 // Copies the value's payload into slot `index`, according to its type.
@@ -729,7 +729,7 @@ extern "C" char __stdcall FUN_003362f0(long* out, Reader* reader, int unused, ch
 namespace fn_f964084a {
 
 // 0x00336380 FUN_00336380 (173 B): equivalent/0x00336380.cpp
-// sym: ?FUN_00336380@Owner_336380@fn_f964084a@@QAE_NPAPAXPAUParser_336380@2@PAUContext@2@PAX@Z
+// sym: ?FUN_00336380@Owner_336380@fn_f964084a@@QAE_NPAPAXPAUParser_336380@2@PAUContext@2@PAX@Z @32aeb377b30d @wdc26912ae2d9
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 8/8)
 // FUN_00336380 @ 0x00336380
 bool Owner_336380::FUN_00336380(void** output, Parser_336380* parser, Context* context, void* unused) {
@@ -979,7 +979,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 
 
 // 0x00337370 FUN_00337370 (69 B): equivalent/0x00337370.cpp
-// sym: ?FUN_00337370@fn_f964084a@@YAEPBD@Z
+// sym: ?FUN_00337370@fn_f964084a@@YAEPBD@Z @1868bc8e1157 @w228b9087ab13
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00337370 @ 0x00337370
 unsigned char __cdecl FUN_00337370(const char* text)
@@ -1030,7 +1030,7 @@ void C_3374a0::f() {
 
 
 // 0x003374c0 FUN_003374c0 (176 B): equivalent/0x003374c0.cpp
-// sym: ?FUN_003374c0@Parser_3374c0@fn_f964084a@@QAEPBDXZ
+// sym: ?FUN_003374c0@Parser_3374c0@fn_f964084a@@QAEPBDXZ @292cf1516659 @w7b1f50630a05
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_003374c0 @ 0x003374c0
 const char * Parser_3374c0::FUN_003374c0() {
@@ -1134,7 +1134,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 
 
 // 0x00337700 FUN_00337700 (360 B): equivalent/0x00337700.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?Load@XmlLoader@fn_00337700@@QAE_NPAX0@Z
+// sym: ?Load@XmlLoader@fn_00337700@@QAE_NPAX0@Z @8c005f33f2e5 @waeefe29224f5
 namespace fn_00337700 {
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 28/28)
 // FUN_00337700 @ 0x00337700
@@ -1244,7 +1244,7 @@ void Obj_337890::Go() {
 
 
 // 0x003378c0 FUN_003378c0 (123 B): equivalent/0x003378c0.cpp
-// sym: ?FUN_003378c0@fn_f964084a@@YIPBDPAUParseError@1@@Z
+// sym: ?FUN_003378c0@fn_f964084a@@YIPBDPAUParseError@1@@Z @76ade42338c9 @wf0cd6794dafc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/13)
 // FUN_003378c0 @ 0x003378c0
 const char* __fastcall FUN_003378c0(ParseError* err) {
@@ -1296,7 +1296,7 @@ hulk_intptr S_337980::run() {
 
 
 // 0x003379c0 FUN_003379c0 (69 B): equivalent/0x003379c0.cpp
-// sym: ?FUN_003379c0@fn_f964084a@@YA_NPBD@Z
+// sym: ?FUN_003379c0@fn_f964084a@@YA_NPBD@Z @3f8d70d544e7 @wcc2090e2087f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_003379c0 @ 0x003379c0
 bool __cdecl FUN_003379c0(const char* text)
@@ -1432,7 +1432,7 @@ void owners::A_337d50::FUN_00337d50() {
 
 
 // 0x00337d60 FUN_00337d60 (63 B): equivalent/0x00337d60.cpp
-// sym: ?FUN_00337d60@Allocator_337d60@owners@@QAEIII@Z
+// sym: ?FUN_00337d60@Allocator_337d60@owners@@QAEIII@Z @7ae0e8ae2789 @w961741c5a638
 // STATUS: equivalent (tools/equiv.py level 3: 2041 inputs, branch coverage 6/6)
 // FUN_00337d60 @ 0x00337d60
 hulk_uintptr owners::Allocator_337d60::FUN_00337d60(unsigned int size, unsigned int alignment) {
@@ -1517,7 +1517,7 @@ void __fastcall target(X_337ea0* p, void*) {
 } // namespace fn_f964084a
 
 // 0x00337ec0 FUN_00337ec0 (48 B): equivalent/0x00337ec0.cpp
-// sym: ?FUN_00337ec0@Object_337ec0@owners@@QAEHXZ
+// sym: ?FUN_00337ec0@Object_337ec0@owners@@QAEHXZ @50ad68bc2520 @w4111432d41fa
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 13/13)
 // FUN_00337ec0 @ 0x00337ec0
 int owners::Object_337ec0::FUN_00337ec0() { switch (kind) { case 0: return 1; case 1: case 3: return 16; case 2: case 5: case 7: case 9: return 8; case 4: return 4; case 6: case 8: return 12; default: return 0; } }
@@ -1525,7 +1525,7 @@ int owners::Object_337ec0::FUN_00337ec0() { switch (kind) { case 0: return 1; ca
 namespace fn_f964084a {
 
 // 0x00337f20 FUN_00337f20 (43 B): equivalent/0x00337f20.cpp
-// sym: ?FUN_00337f20@fn_f964084a@@YAII@Z
+// sym: ?FUN_00337f20@fn_f964084a@@YAII@Z @e40bf3f105ca @w9f7333a02693
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 13/13)
 // FUN_00337f20 @ 0x00337f20
 unsigned int __cdecl FUN_00337f20(unsigned int value)
@@ -1542,7 +1542,7 @@ unsigned int __cdecl FUN_00337f20(unsigned int value)
 } // namespace fn_f964084a
 
 // 0x00337f80 FUN_00337f80 (61 B): equivalent/0x00337f80.cpp
-// sym: ?FUN_00337f80@Value_337f80@owners@@QAEIXZ
+// sym: ?FUN_00337f80@Value_337f80@owners@@QAEIXZ @97c48eab0a4e @w9e5fa82188ea
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 15/15)
 // FUN_00337f80 @ 0x00337f80
 unsigned int owners::Value_337f80::FUN_00337f80() { switch (type) { case 0: return 1; case 1: case 2: case 3: return 4; case 4: { const char *p = *text; unsigned int size = 1; while (*p++) ++size; return size; } case 5: case 7: return 8; case 6: case 8: return 12; default: return 0; } }
@@ -1550,7 +1550,7 @@ unsigned int owners::Value_337f80::FUN_00337f80() { switch (type) { case 0: retu
 namespace fn_f964084a {
 
 // 0x00338000 FUN_00338000 (14 B): equivalent/0x00338000.cpp
-// sym: ??0Obj@fn_f964084a@@QAE@XZ
+// sym: ??0Obj@fn_f964084a@@QAE@XZ @b3d96546a8f5 @w5f3dd28890f8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00338000 @ 0x00338000
 Obj::Obj() {
@@ -1591,7 +1591,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 
 
 // 0x00338030 FUN_00338030 (1209 B): equivalent/0x00338030.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_00338030@AttrDef_338030@fn_00338030@@QAE_NPAVLoader_338030@2@@Z
+// sym: ?FUN_00338030@AttrDef_338030@fn_00338030@@QAE_NPAVLoader_338030@2@@Z @67f453423d27 @w3208f2fe5d48
 namespace fn_00338030 {
 // STATUS: equivalent (tools/equiv.py level 3: 3083 inputs, branch coverage 88/88)
 // FUN_00338030 @ 0x00338030
@@ -1899,7 +1899,7 @@ bool Rd_3386a0::Get(char* out) {
 
 
 // 0x00338710 FUN_00338710 (129 B): equivalent/0x00338710.cpp
-// sym: ?FUN_00338710@fn_f964084a@@YG_NPBD0H@Z
+// sym: ?FUN_00338710@fn_f964084a@@YG_NPBD0H@Z @4f89a69facfd @w75dcb0861e58
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 18/18)
 // FUN_00338710 @ 0x00338710
 // 0x00338710: true if str (of length len, or its strlen when len <= 0) ends with suffix
@@ -1956,7 +1956,7 @@ char* owners::Obj_338800::FUN_00338800(const char* name) {
 
 
 // 0x00338860 FUN_00338860 (22 B): equivalent/0x00338860.cpp
-// sym: ?FUN_00338860@Object_338860@owners@@QAEHH@Z
+// sym: ?FUN_00338860@Object_338860@owners@@QAEHH@Z @0deba1ff42c4 @w92a6c6846121
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_00338860 @ 0x00338860
 // FUN_00338860 @ 0x00338860
@@ -2006,7 +2006,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 namespace fn_f964084a {
 
 // 0x00338a10 FUN_00338a10 (880 B): equivalent/0x00338a10.cpp
-// sym: ?FUN_00338a10@Tokenizer@fn_f964084a@@QAEPADXZ
+// sym: ?FUN_00338a10@Tokenizer@fn_f964084a@@QAEPADXZ @8bd2934cce14 @w7d2dc0ff8543
 // STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 76/82, incomplete)
 // FUN_00338a10 @ 0x00338a10
 char *Tokenizer::FUN_00338a10()

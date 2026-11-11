@@ -127,7 +127,7 @@ bool SeqEventContainer_2607c0::v0(unsigned a) {
 
 
 // 0x00260840 audio::SeqEventContainer::vfunc_1 (194 B): equivalent/0x00260840.cpp
-// sym: ?vfunc_1@SeqEventContainer@audio@fn_f2465100@@UAE_NPAPAUWriter_260840@3@@Z
+// sym: ?vfunc_1@SeqEventContainer@audio@fn_f2465100@@UAE_NPAPAUWriter_260840@3@@Z @ce37a4694de5 @wd63155ad6a64
 // STATUS: equivalent (tools/equiv.py level 3: 1252 inputs, branch coverage 16/16)
 // audio::SeqEventContainer::vfunc_1 @ 0x00260840
 namespace audio {
@@ -153,7 +153,7 @@ bool SeqEventContainer::vfunc_1(Writer_260840** output) {
 } // namespace fn_f2465100
 
 // 0x00260910 audio::SeqEventContainer::vfunc_5 (59 B): equivalent/0x00260910.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventContainer]
-// sym: ?vfunc_5@SeqEventContainer@audio@fn_00260910@@UAEIXZ
+// sym: ?vfunc_5@SeqEventContainer@audio@fn_00260910@@UAEIXZ @3108c3106455 @waa50577d770e
 namespace fn_00260910 {
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 10/10)
 // audio::SeqEventContainer::vfunc_5 @ 0x00260910

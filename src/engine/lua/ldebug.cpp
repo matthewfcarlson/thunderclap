@@ -96,7 +96,7 @@ extern "C" int __cdecl FUN_00213fb0(LuaVMState* L) {
 
 
 // 0x00213fc0 FUN_00213fc0 (107 B): equivalent/0x00213fc0.cpp
-// sym: _FUN_00213fc0
+// sym: _FUN_00213fc0 @5e0efeb95cd4 @w4f6ec7648719
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 13/14, incomplete)
 // lua_getstack: find the activation level levels up (tail calls count) and store its CallInfo index in ar.
 extern "C" int __cdecl FUN_00213fc0(LuaVMState* L, int level, LuaVMDebug* ar) {
@@ -148,7 +148,7 @@ extern "C" const char* __cdecl FUN_00214050(LuaVMState* L, LuaVMDebug* ar, int n
 
 
 // 0x002140c0 FUN_002140c0 (154 B): equivalent/0x002140c0.cpp
-// sym: _FUN_002140c0
+// sym: _FUN_002140c0 @cb36267a24ff @w34d6e34c2e6c
 // STATUS: equivalent (tools/equiv.py level 3: 3104 inputs, branch coverage 12/14, incomplete)
 // lua_setlocal: pop the top value into local n of the activation ar names; its name or NULL.
 extern "C" const char* __cdecl FUN_002140c0(LuaVMState* L, LuaVMDebug* ar, int n) {
@@ -173,7 +173,7 @@ extern "C" const char* __cdecl FUN_002140c0(LuaVMState* L, LuaVMDebug* ar, int n
 
 
 // 0x00214160 FUN_00214160 (107 B): equivalent/0x00214160.cpp
-// sym: _FUN_00214160
+// sym: _FUN_00214160 @168584b56f7c @wf21804a16bdb
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 4/4)
 // funcinfo: fill ar's source, linedefined, what and short_src from the function func.
 // equiv-conv: FUN_00214160 ecx eax
@@ -195,7 +195,7 @@ extern "C" void FUN_00214160(LuaVMDebug* ar, const LuaVMTObject* func) {
 
 
 // 0x002141d0 FUN_002141d0 (74 B): equivalent/0x002141d0.cpp
-// sym: _FUN_002141d0
+// sym: _FUN_002141d0 @d99053d1d493 @w17c2d3c84b19
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 0/0)
 // info_tailcall: fill ar for a tail call's lost activation; push nil as its function.
 // equiv-conv: FUN_002141d0 esi stack
@@ -213,7 +213,7 @@ extern "C" void __cdecl FUN_002141d0(LuaVMDebug* ar, LuaVMState* L) {
 
 
 // 0x00214250 FUN_00214250 (47 B): equivalent/0x00214250.cpp
-// sym: _FUN_00214250
+// sym: _FUN_00214250 @d6fe0c8a3631 @w4cb03f8cec0a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // checkopenop: the instruction after pc takes an open register count (a call with B 0, or OP_SETLISTO).
 // equiv-conv: FUN_00214250 eax edx
@@ -227,7 +227,7 @@ extern "C" int FUN_00214250(const LuaVMProto* pt, int pc) {
 
 
 // 0x00214280 FUN_00214280 (66 B): equivalent/0x00214280.cpp
-// sym: _FUN_00214280
+// sym: _FUN_00214280 @9464b30b1035 @wffade218ad93
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 16/16)
 // checkArgMode: operand r is valid for argument mode mode (0 unused, 2 register, 3 register or constant).
 // equiv-conv: FUN_00214280 ecx edx eax
@@ -243,7 +243,7 @@ extern "C" int FUN_00214280(int r, const LuaVMProto* pt, int mode) {
 } // namespace fn_f9add754
 
 // 0x002142d0 FUN_002142d0 (878 B): equivalent/0x002142d0.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_002142d0
+// sym: _FUN_002142d0 @79878dfb2c04 @wf4fe0034f236
 namespace fn_002142d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 4660 inputs, branch coverage 88/120, incomplete)
 // symbexec (with precheck): check pt's code up to lastpc; the last instruction that wrote reg (the final one when
@@ -430,7 +430,7 @@ extern "C" int __cdecl FUN_002146a0(const LuaVMProto* pt) {
 
 
 // 0x002146c0 FUN_002146c0 (34 B): equivalent/0x002146c0.cpp
-// sym: _FUN_002146c0
+// sym: _FUN_002146c0 @779c108b3ca6 @we22e645cc6c8
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // kname: the name of RK operand c when it is a string constant; "?" otherwise.
 // equiv-conv: FUN_002146c0 eax ecx
@@ -443,7 +443,7 @@ extern "C" const char* FUN_002146c0(int c, const LuaVMProto* p) {
 
 
 // 0x002146f0 FUN_002146f0 (285 B): equivalent/0x002146f0.cpp
-// sym: _FUN_002146f0
+// sym: _FUN_002146f0 @39e934151a03 @wc722c9cc9ac0
 // STATUS: equivalent (tools/equiv.py level 3: 3053 inputs, branch coverage 19/20, incomplete)
 // getobjname: what register reg of ci's Lua function holds ("local", "global", "field", "upvalue", "method") and its name.
 // equiv-conv: FUN_002146c0 eax ecx
@@ -486,7 +486,7 @@ extern "C" const char* __cdecl FUN_002146f0(unsigned reg, LuaVMCallInfo* ci, con
 
 
 // 0x00214840 FUN_00214840 (140 B): equivalent/0x00214840.cpp
-// sym: _FUN_00214840
+// sym: _FUN_00214840 @3185bf46ae87 @wbb4ea622a0bb
 // STATUS: equivalent (tools/equiv.py level 3: 3061 inputs, branch coverage 16/18, incomplete)
 // getfuncname: name the function running in ci from the OP_CALL / OP_TAILCALL of its calling Lua function.
 // equiv-conv: FUN_002146f0 eax stack stack
@@ -522,7 +522,7 @@ extern "C" const char* __cdecl FUN_00214840(LuaVMCallInfo* ci, const char** name
 
 
 // 0x002149b0 FUN_002149b0 (211 B): equivalent/0x002149b0.cpp
-// sym: _FUN_002149b0
+// sym: _FUN_002149b0 @49cb333b34e8 @w413b337655d4
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 8/8)
 // luaG_errormsg: call the error handler (errfunc, else the global _TRACEBACK) on the message on top; throws.
 extern "C" void __cdecl FUN_002149b0(LuaVMState* L) {
@@ -550,7 +550,7 @@ extern "C" void __cdecl FUN_002149b0(LuaVMState* L) {
 
 
 // 0x00214a90 FUN_00214a90 (38 B): equivalent/0x00214a90.cpp
-// sym: _FUN_00214a90
+// sym: _FUN_00214a90 @810d10770395 @w9f294ea29321
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // luaG_runerror: raise the formatted message with the "chunk:line:" prefix.
 // equiv-conv: FUN_00214900 ebx stack
@@ -570,7 +570,7 @@ extern "C" void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...)
 } // namespace fn_f9add754
 
 // 0x00214ac0 FUN_00214ac0 (199 B): equivalent/0x00214ac0.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_00214ac0
+// sym: _FUN_00214ac0 @dd828a793bde @wbb69f946c729
 namespace fn_00214ac0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 18/18)
 // auxgetinfo: fill ar according to the option letters in what for the function f (ci its activation or NULL).
@@ -618,7 +618,7 @@ extern "C" int __cdecl FUN_00214ac0(const char* what, LuaVMDebug* ar, LuaVMCallI
 namespace fn_f9add754 {
 
 // 0x00214bd0 FUN_00214bd0 (183 B): equivalent/0x00214bd0.cpp
-// sym: _FUN_00214bd0
+// sym: _FUN_00214bd0 @26e3a8deacf0 @wcc1c293968e7
 // STATUS: equivalent (tools/equiv.py level 3: 3064 inputs, branch coverage 10/10)
 // lua_getinfo: fill ar for the activation it names, or for the function on top when what starts with '>'.
 // equiv-conv: FUN_00214ac0 eax esi edi stack stack
@@ -649,7 +649,7 @@ extern "C" int __cdecl FUN_00214bd0(LuaVMState* L, const char* what, LuaVMDebug*
 } // namespace fn_f9add754
 
 // 0x00214c90 FUN_00214c90 (141 B): equivalent/0x00214c90.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_00214c90
+// sym: _FUN_00214c90 @fedf11f99926 @wb8125cfc1ba4
 namespace fn_00214c90 {
 // STATUS: equivalent (tools/equiv.py level 3: 2951 inputs, branch coverage 8/8)
 // luaG_typeerror: "attempt to <op> <kind> `<name>' (a <type> value)" when o is a named stack value, else the short form.

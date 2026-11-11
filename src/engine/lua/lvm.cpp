@@ -60,7 +60,7 @@ extern "C" const LuaVMTObject* __cdecl FUN_00217600(const LuaVMTObject* obj, Lua
 
 
 // 0x002176c0 FUN_002176c0 (129 B): equivalent/0x002176c0.cpp
-// sym: _FUN_002176c0
+// sym: _FUN_002176c0 @dd0ab3e1fbc7 @w6c0ffed3c745
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 16/16)
 // traceexec: save the pc and call the count hook or (on a new line or a jump back) the line hook.
 // equiv-conv: FUN_002176c0 ebx edi
@@ -87,7 +87,7 @@ extern "C" void __cdecl FUN_002176c0(LuaVMState* L, const LuaVMInstruction* pc) 
 
 
 // 0x00217750 FUN_00217750 (59 B): equivalent/0x00217750.cpp
-// sym: _FUN_00217750
+// sym: _FUN_00217750 @83e8efe9efbf @w79ef62399d0e
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 0/0)
 // callTM's pushes: the metamethod f and its operands p1, p2 at the top of the stack (the caller moves top).
 // equiv-conv: FUN_00217750 ecx stack eax edx
@@ -100,7 +100,7 @@ extern "C" void __cdecl FUN_00217750(LuaVMState* L, const LuaVMTObject* f, const
 
 
 // 0x00217790 FUN_00217790 (88 B): equivalent/0x00217790.cpp
-// sym: _FUN_00217790
+// sym: _FUN_00217790 @6bcd40f7c484 @w8fda43f6e368
 // STATUS: equivalent (tools/equiv.py level 3: 2866 inputs, branch coverage 2/2)
 // callTMres: call the metamethod pushed at the top (3 slots) for one result and store it in res.
 // equiv-conv: FUN_00217790 ecx eax
@@ -119,7 +119,7 @@ extern "C" void __cdecl FUN_00217790(LuaVMState* L, LuaVMTObject* res) {
 
 
 // 0x00217830 FUN_00217830 (331 B): equivalent/0x00217830.cpp
-// sym: _FUN_00217830
+// sym: _FUN_00217830 @2b7e7fe0d4e0 @w73e733c25e2c
 // STATUS: equivalent (tools/equiv.py level 3: 2137 inputs, branch coverage 18/18)
 // luaV_gettable: t[key] into val, following __index (a table or a function) up to 100 times.
 extern "C" void __cdecl FUN_00217830(LuaVMState* L, const LuaVMTObject* t, LuaVMTObject* key, LuaVMTObject* val) {
@@ -164,7 +164,7 @@ extern "C" void __cdecl FUN_00217830(LuaVMState* L, const LuaVMTObject* t, LuaVM
 
 
 // 0x00217980 FUN_00217980 (363 B): equivalent/0x00217980.cpp
-// sym: _FUN_00217980
+// sym: _FUN_00217980 @8a790b61bf65 @wc81a27aba572
 // STATUS: equivalent (tools/equiv.py level 3: 2124 inputs, branch coverage 24/24)
 // luaV_settable: t[key] = val (with the barrier), following __newindex (a table or a function) up to 100 times.
 extern "C" void __cdecl FUN_00217980(LuaVMState* L, const LuaVMTObject* t, LuaVMTObject* key, LuaVMTObject* val) {
@@ -206,7 +206,7 @@ extern "C" void __cdecl FUN_00217980(LuaVMState* L, const LuaVMTObject* t, LuaVM
 
 
 // 0x00217af0 FUN_00217af0 (107 B): equivalent/0x00217af0.cpp
-// sym: _FUN_00217af0
+// sym: _FUN_00217af0 @054d1d671ef1 @wed2ec50f0c68
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 4/4)
 // call_binTM: call the event's metamethod of p1 (else p2) on p1, p2 into res; 0 when there is none.
 // equiv-conv: FUN_00217790 ecx eax
@@ -228,7 +228,7 @@ extern "C" int __cdecl FUN_00217af0(LuaVMState* L, const LuaVMTObject* p1, const
 
 
 // 0x00217b60 FUN_00217b60 (124 B): equivalent/0x00217b60.cpp
-// sym: _FUN_00217b60
+// sym: _FUN_00217b60 @e608204e5161 @wfcb1f860ac52
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 14/14)
 // get_compTM: the comparison metamethod shared by two metatables, or 0.
 // equiv-conv: FUN_00217b60 edi esi ebx stack
@@ -252,7 +252,7 @@ extern "C" const LuaVMTObject* __cdecl FUN_00217b60(LuaVMTable* mt1, int event, 
 
 
 // 0x00217be0 FUN_00217be0 (158 B): equivalent/0x00217be0.cpp
-// sym: _FUN_00217be0
+// sym: _FUN_00217be0 @af6832084941 @w78071cf5ce54
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 10/10)
 // call_orderTM: the truth of an order metamethod shared by p1 and p2, or -1 when there is none.
 // equiv-conv: FUN_00217790 ecx eax
@@ -280,7 +280,7 @@ extern "C" int __cdecl FUN_00217be0(LuaVMState* L, const LuaVMTObject* p1, int e
 
 
 // 0x00217c80 FUN_00217c80 (104 B): equivalent/0x00217c80.cpp
-// sym: _FUN_00217c80
+// sym: _FUN_00217c80 @8cb139121a24 @w2ddb8a1d156c
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 12/12)
 // l_strcmp: compare two strings by strcoll, part by part across embedded NULs.
 // equiv-conv: FUN_00217c80 ecx eax
@@ -308,7 +308,7 @@ extern "C" int __cdecl FUN_00217c80(const LuaVMString* ls, const LuaVMString* rs
 
 
 // 0x00217cf0 FUN_00217cf0 (133 B): equivalent/0x00217cf0.cpp
-// sym: _FUN_00217cf0
+// sym: _FUN_00217cf0 @40166c2463c4 @w1ae28b07731f
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 12/12)
 // luaV_lessthan: l < r for numbers, strings or by __lt.
 // equiv-conv: FUN_00217be0 eax stack stack ebx
@@ -328,7 +328,7 @@ extern "C" int __cdecl FUN_00217cf0(LuaVMState* L, const LuaVMTObject* l, const 
 
 
 // 0x00217d80 FUN_00217d80 (147 B): equivalent/0x00217d80.cpp
-// sym: _FUN_00217d80
+// sym: _FUN_00217d80 @738ff9b235eb @wbf8a40ed837d
 // STATUS: equivalent (tools/equiv.py level 3: 3034 inputs, branch coverage 16/16)
 // luaV_lessequal: l <= r for numbers, strings, by __le or by not (r < l).
 // equiv-conv: FUN_00217be0 eax stack stack ebx
@@ -352,7 +352,7 @@ extern "C" int __cdecl FUN_00217d80(const LuaVMTObject* l, const LuaVMTObject* r
 
 
 // 0x00217e20 FUN_00217e20 (212 B): equivalent/0x00217e20.cpp
-// sym: _FUN_00217e20
+// sym: _FUN_00217e20 @be38b18c6572 @wcece744f2ac6
 // STATUS: equivalent (tools/equiv.py level 3: 3035 inputs, branch coverage 22/22)
 // luaV_equalval: t1 == t2 for two values of one type (tables and userdata by __eq).
 // equiv-conv: FUN_00217b60 edi esi ebx stack
@@ -390,7 +390,7 @@ extern "C" int __cdecl FUN_00217e20(LuaVMState* L, const LuaVMTObject* t1, const
 
 
 // 0x00217f20 FUN_00217f20 (590 B): equivalent/0x00217f20.cpp
-// sym: _FUN_00217f20
+// sym: _FUN_00217f20 @228a7770b4a5 @w3bd312e206a7
 // STATUS: equivalent (tools/equiv.py level 3: 399 inputs, branch coverage 31/32, incomplete)
 // luaV_concat: concatenate the total values ending at base[last] (strings and numbers, else by __concat).
 extern "C" void __cdecl FUN_00217f20(LuaVMState* L, int total, int last) {
@@ -459,7 +459,7 @@ extern "C" void __cdecl FUN_00217f20(LuaVMState* L, int total, int last) {
 
 
 // 0x00218170 FUN_00218170 (448 B): equivalent/0x00218170.cpp
-// sym: _FUN_00218170
+// sym: _FUN_00218170 @c03800c8f67a @w03660eca137e
 // STATUS: equivalent (tools/equiv.py level 3: 3042 inputs, branch coverage 23/23)
 // Arith: ra = rb op rc for numbers (and convertible strings), ^ by the global __pow, else by a metamethod;
 // saves pc first and returns the (possibly moved) base.
@@ -544,7 +544,7 @@ extern "C" LuaVMTObject* __cdecl FUN_00218170(const LuaVMTObject* rc, const LuaV
 } // namespace fn_fee536da
 
 // 0x00218350 FUN_00218350 (3806 B): equivalent/0x00218350.cpp [wrapped: macros]
-// sym: _FUN_00218350
+// sym: _FUN_00218350 @f4a76019bacb @waa80938230c8
 namespace fn_00218350 {
 // STATUS: equivalent (tools/equiv.py level 3: 958 inputs, branch coverage 228/230, incomplete)
 // luaV_execute: the interpreter loop (calls and returns of Lua functions stay inside the loop, nexeccalls deep).

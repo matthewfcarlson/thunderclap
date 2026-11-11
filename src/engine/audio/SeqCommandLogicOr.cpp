@@ -174,7 +174,7 @@ audio::SeqEventLogicOrType::~SeqEventLogicOrType() {}
 
 
 // 0x00254fc0 audio::SeqEventLogicOr::vfunc_1 (119 B): equivalent/0x00254fc0.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventContainer; audio::SeqEventLogicOr]
-// sym: ?vfunc_1@SeqEventLogicOr@audio@fn_00254fc0@@UAEDPAUArchive_254fc0@3@@Z
+// sym: ?vfunc_1@SeqEventLogicOr@audio@fn_00254fc0@@UAEDPAUArchive_254fc0@3@@Z @75c5976349c9 @w0c3079d83b5d
 namespace fn_00254fc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1186 inputs, branch coverage 10/10)
 // audio::SeqEventLogicOr::vfunc_1 @ 0x00254fc0
@@ -296,7 +296,7 @@ SeqEventLogicOr* SeqEventLogicOr::v4(int flags) {
 
 
 // 0x00255210 audio::SeqEventLogicOr::vfunc_2 (59 B): equivalent/0x00255210.cpp
-// sym: ?vfunc_2@SeqEventLogicOr@audio@@UAEXH@Z
+// sym: ?vfunc_2@SeqEventLogicOr@audio@@UAEXH@Z @4060c46ef6b0 @wcb3f4a827988
 // STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
 // audio::SeqEventLogicOr::vfunc_2 @ 0x00255210
 void audio::SeqEventLogicOr::vfunc_2(hulk_intptr __p0) { Context_255210 * context = (Context_255210 *)__p0;
@@ -311,7 +311,7 @@ void audio::SeqEventLogicOr::vfunc_2(hulk_intptr __p0) { Context_255210 * contex
 
 
 // 0x00255250 audio::SeqCommandLogicOr::vfunc_0 (254 B): equivalent/0x00255250.cpp
-// sym: ?vfunc_0@SeqCommandLogicOr@audio@@UAEXH@Z
+// sym: ?vfunc_0@SeqCommandLogicOr@audio@@UAEXH@Z @3bc7513e9acf @w24998b236691
 // STATUS: equivalent (tools/equiv.py level 3: 18813 inputs, branch coverage 18/18)
 // audio::SeqCommandLogicOr::vfunc_0 @ 0x00255250
 void audio::SeqCommandLogicOr::vfunc_0(int __p0) { Context_255250 * context = (Context_255250 *)__p0;

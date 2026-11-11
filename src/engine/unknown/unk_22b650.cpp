@@ -41,7 +41,7 @@ class Y {
 
 
 // 0x0022b650 FUN_0022b650 (255 B): equivalent/0x0022b650.cpp
-// sym: ?convert@Quaternion_22b650@fn_fddc1d6f@@QAEXPAUMatrix@2@@Z
+// sym: ?convert@Quaternion_22b650@fn_fddc1d6f@@QAEXPAUMatrix@2@@Z @12451810b6ff @we2313c764c24
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0022b650 @ 0x0022b650
 void Quaternion_22b650::convert(Matrix* out) {
@@ -67,7 +67,7 @@ void Quaternion_22b650::convert(Matrix* out) {
 } // namespace fn_fddc1d6f
 
 // 0x0022b750 FUN_0022b750 (261 B): equivalent/0x0022b750.cpp
-// sym: ?FUN_0022b750@Quaternion_22b750@owners@@QAEXPBU12@0M@Z
+// sym: ?FUN_0022b750@Quaternion_22b750@owners@@QAEXPBU12@0M@Z @7bb86c4b19b4 @w23d1447803a2
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 4/4; Wine build 605 inputs, 4/4)
 // FUN_0022b750 @ 0x0022b750
 void owners::Quaternion_22b750::FUN_0022b750(const owners::Quaternion_22b750* a,const owners::Quaternion_22b750* b,float t) {

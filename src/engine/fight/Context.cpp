@@ -220,7 +220,7 @@ void Obj_236830::Target() {
 } // namespace fn_feea6610
 
 // 0x00236840 FUN_00236840 (135 B): equivalent/0x00236840.cpp [wrapped: conflict: fight::Context; pure3d::Entity]
-// sym: ??0Context@fight@fn_00236840@@QAE@XZ
+// sym: ??0Context@fight@fn_00236840@@QAE@XZ @0e15fa4d7108 @wfa41dc669d68
 namespace fn_00236840 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00236840 @ 0x00236840

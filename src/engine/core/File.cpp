@@ -247,7 +247,7 @@ void File_275db0::F0() {
 
 
 // 0x00275dd0 core::File::vfunc_1 (123 B): equivalent/0x00275dd0.cpp
-// sym: ?vfunc_1@File_275dd0@fn_f81ff691@@QAEXXZ
+// sym: ?vfunc_1@File_275dd0@fn_f81ff691@@QAEXXZ @f29ab84439bd @w4f6443878480
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // core::File::vfunc_1 @ 0x00275dd0
 void File_275dd0::vfunc_1()
@@ -323,7 +323,7 @@ void File_275e70::vfunc_8() {
 
 
 // 0x00275eb0 core::File::vfunc_3 (79 B): equivalent/0x00275eb0.cpp
-// sym: ?vfunc_3@File_275eb0@fn_f81ff691@@QAEXPAXII@Z
+// sym: ?vfunc_3@File_275eb0@fn_f81ff691@@QAEXPAXII@Z @65f62b7236cf @w771b689294da
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::File::vfunc_3 @ 0x00275eb0
 void File_275eb0::vfunc_3(void* buffer, unsigned int count, unsigned int flags) {
@@ -335,7 +335,7 @@ void File_275eb0::vfunc_3(void* buffer, unsigned int count, unsigned int flags) 
 
 
 // 0x00275f00 core::File::vfunc_4 (79 B): equivalent/0x00275f00.cpp
-// sym: ?vfunc_4@File_275f00@fn_f81ff691@@QAEHPAXII@Z
+// sym: ?vfunc_4@File_275f00@fn_f81ff691@@QAEHPAXII@Z @70984f4c8682 @w39f211c8a5d0
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::File::vfunc_4 @ 0x00275f00
 int File_275f00::vfunc_4(void* buffer, unsigned int count, unsigned int flags) {
@@ -347,7 +347,7 @@ int File_275f00::vfunc_4(void* buffer, unsigned int count, unsigned int flags) {
 
 
 // 0x00275f50 core::File::vfunc_5 (69 B): equivalent/0x00275f50.cpp
-// sym: ?vfunc_5@File_275f50@fn_f81ff691@@QAEXI@Z
+// sym: ?vfunc_5@File_275f50@fn_f81ff691@@QAEXI@Z @01c9928655b5 @w2786f4d704c1
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::File::vfunc_5 @ 0x00275f50
 void File_275f50::vfunc_5(unsigned int position) {
@@ -359,7 +359,7 @@ void File_275f50::vfunc_5(unsigned int position) {
 
 
 // 0x00275fa0 core::File::vfunc_6 (69 B): equivalent/0x00275fa0.cpp
-// sym: ?vfunc_6@File_275fa0@fn_f81ff691@@QAEHPAI@Z
+// sym: ?vfunc_6@File_275fa0@fn_f81ff691@@QAEHPAI@Z @2db676a61572 @w52924ee95c4b
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::File::vfunc_6 @ 0x00275fa0
 int File_275fa0::vfunc_6(unsigned int* result) {
@@ -371,7 +371,7 @@ int File_275fa0::vfunc_6(unsigned int* result) {
 
 
 // 0x00275ff0 core::File::vfunc_7 (69 B): equivalent/0x00275ff0.cpp
-// sym: ?vfunc_7@File_275ff0@fn_f81ff691@@QAEIPAI@Z
+// sym: ?vfunc_7@File_275ff0@fn_f81ff691@@QAEIPAI@Z @f035b859bb77 @wf1601b6115c3
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::File::vfunc_7 @ 0x00275ff0
 unsigned int File_275ff0::vfunc_7(unsigned int* result) {
@@ -450,7 +450,7 @@ void File_276120::vfunc_17() {
 
 
 // 0x00276160 core::File::vfunc_18 (85 B): equivalent/0x00276160.cpp
-// sym: ?vfunc_18@File_276160@fn_f81ff691@@QAEXPAXI@Z
+// sym: ?vfunc_18@File_276160@fn_f81ff691@@QAEXPAXI@Z @46e533f8acfd @w20dd5a773f79
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // core::File::vfunc_18 @ 0x00276160
 void File_276160::vfunc_18(void* callback, unsigned int context) {
@@ -464,7 +464,7 @@ void File_276160::vfunc_18(void* callback, unsigned int context) {
 
 
 // 0x002761c0 core::File::vfunc_19 (72 B): equivalent/0x002761c0.cpp
-// sym: ?vfunc_19@File_2761c0@fn_f81ff691@@QAEXPAI@Z
+// sym: ?vfunc_19@File_2761c0@fn_f81ff691@@QAEXPAI@Z @521ff26c692a @w71bb2b74036b
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // core::File::vfunc_19 @ 0x002761c0
 void File_2761c0::vfunc_19(hulk_uintptr* signal) {
@@ -609,7 +609,7 @@ extern "C" void FUN_00276340() {
 } // namespace fn_f81ff691
 
 // 0x002763a0 FUN_002763a0 (247 B): equivalent/0x002763a0.cpp [wrapped: conflict: core::File; core::IMutable; core::SaveGameOpenRequest]
-// sym: ??0File@core@fn_002763a0@@QAE@PAVIDevice_2763a0@12@PBDHHHHPAX@Z
+// sym: ??0File@core@fn_002763a0@@QAE@PAVIDevice_2763a0@12@PBDHHHHPAX@Z @a33a80c5b1a8 @w50bc7e6ec7ec
 namespace fn_002763a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_002763a0 @ 0x002763a0
@@ -729,7 +729,7 @@ void File::shutdown() {
 } // namespace fn_f81ff691
 
 // 0x002764d0 FUN_002764d0 (242 B): equivalent/0x002764d0.cpp [wrapped: conflict: FUN_002705f0]
-// sym: ??0File_2764d0@core@fn_002764d0@@QAE@PAUProvider_2764d0@2@PBDIIIIIIE@Z
+// sym: ??0File_2764d0@core@fn_002764d0@@QAE@PAUProvider_2764d0@2@PBDIIIIIIE@Z @89604874ffbf @w4290d9129b69
 namespace fn_002764d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_002764d0 @ 0x002764d0

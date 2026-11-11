@@ -112,7 +112,7 @@ class Obj {
 } // namespace fn_fa862d6d
 
 // 0x002fe570 FUN_002fe570 (64 B): equivalent/0x002fe570.cpp [wrapped: conflict: physics::SimulatedObject]
-// sym: ??0SimulatedObject@physics@fn_002fe570@@QAE@I@Z
+// sym: ??0SimulatedObject@physics@fn_002fe570@@QAE@I@Z @267a87ff9ea8 @wcf3068449347
 namespace fn_002fe570 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002fe570 @ 0x002fe570

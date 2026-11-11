@@ -628,7 +628,7 @@ void Dispatcher_27cc60::FUN_0027cc60(Timeline_27cc60 *timeline, float from, floa
 
 
 // 0x0027cd10 FUN_0027cd10 (553 B): equivalent/0x0027cd10.cpp
-// sym: ?FUN_0027cd10@Renderer_27cd10@fn_f03c5b48@@QAEXPAUQuery_27cd10@2@@Z
+// sym: ?FUN_0027cd10@Renderer_27cd10@fn_f03c5b48@@QAEXPAUQuery_27cd10@2@@Z @9e2e032aab73 @w9dc4c473acf3
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 20/20)
 // FUN_0027cd10 @ 0x0027cd10
 void Renderer_27cd10::FUN_0027cd10(Query_27cd10 *q)
@@ -734,7 +734,7 @@ void* __fastcall FUN_0027cf70(C_27cf70* self) {
 } // namespace fn_f03c5b48
 
 // 0x0027d0f0 FUN_0027d0f0 (747 B): equivalent/0x0027d0f0.cpp [wrapped: conflict: pure3d::DrawableHierarchy; pure3d::prop::StateProp]
-// sym: ??0StateProp@prop@pure3d@fn_0027d0f0@@QAE@PAV0123@@Z
+// sym: ??0StateProp@prop@pure3d@fn_0027d0f0@@QAE@PAV0123@@Z @a799619cd784 @w196e3b0974b4
 namespace fn_0027d0f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 40/40)
 // FUN_0027d0f0 @ 0x0027d0f0
@@ -980,7 +980,7 @@ void* pure3d::prop::StateProp::vfunc_4() {
 namespace fn_f03c5b48 {
 
 // 0x0027d410 FUN_0027d410 (119 B): equivalent/0x0027d410.cpp
-// sym: ?FUN_0027d410@Selector_27d410@fn_f03c5b48@@QAEXPBI@Z
+// sym: ?FUN_0027d410@Selector_27d410@fn_f03c5b48@@QAEXPBI@Z @118e390077cd @wed58e80c3d5f
 // STATUS: equivalent (tools/equiv.py level 3: 170 inputs, branch coverage 8/8)
 // FUN_0027d410 @ 0x0027d410
 void Selector_27d410::FUN_0027d410(const unsigned int* id) {
@@ -1020,7 +1020,7 @@ void Node::FUN_0027d4f0(int key) {
 } // namespace fn_f03c5b48
 
 // 0x0027d580 FUN_0027d580 (147 B): equivalent/0x0027d580.cpp [wrapped: conflict: Node]
-// sym: ?FUN_0027d580@Node@fn_0027d580@@QAEXHH@Z
+// sym: ?FUN_0027d580@Node@fn_0027d580@@QAEXHH@Z @e8c4cbca6e76 @w2ae4330816ec
 namespace fn_0027d580 {
 // STATUS: equivalent (tools/equiv.py level 3: 177 inputs, branch coverage 14/14)
 // FUN_0027d580 @ 0x0027d580
@@ -1101,7 +1101,7 @@ void Node::FUN_0027d580(int keyA, int keyB)
 
 
 // 0x0027d620 pure3d::prop::StateProp::vfunc_12 (94 B): equivalent/0x0027d620.cpp
-// sym: ?vfunc_12@StateProp@prop@pure3d@@UAEXXZ
+// sym: ?vfunc_12@StateProp@prop@pure3d@@UAEXXZ @be781ad56203 @wa8c520735df7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // pure3d::prop::StateProp::vfunc_12 @ 0x0027d620
 void pure3d::prop::StateProp::vfunc_12() {
@@ -1129,7 +1129,7 @@ void pure3d::prop::StateProp::vfunc_13(void* __p0) { Child_27d680 * p = (Child_2
 namespace fn_f03c5b48 {
 
 // 0x0027d6c0 FUN_0027d6c0 (190 B): equivalent/0x0027d6c0.cpp
-// sym: ?remove@Container_27d6c0@fn_f03c5b48@@QAE_NPAUObject@2@@Z
+// sym: ?remove@Container_27d6c0@fn_f03c5b48@@QAE_NPAUObject@2@@Z @b12eeefd8c6b @w231af97da504
 // STATUS: equivalent (tools/equiv.py level 3: 167 inputs, branch coverage 11/12, incomplete)
 // FUN_0027d6c0 @ 0x0027d6c0
 bool Container_27d6c0::remove(Object* object) {
@@ -1160,7 +1160,7 @@ bool Container_27d6c0::remove(Object* object) {
 } // namespace fn_f03c5b48
 
 // 0x0027d780 FUN_0027d780 (942 B): equivalent/0x0027d780.cpp [wrapped: conflict: Node]
-// sym: ?FUN_0027d780@Scene_27d780@fn_0027d780@@QAEXXZ
+// sym: ?FUN_0027d780@Scene_27d780@fn_0027d780@@QAEXXZ @4d8d59e0251d @w0c8b0e8c8894
 namespace fn_0027d780 {
 // STATUS: equivalent (tools/equiv.py level 3: 415 inputs, branch coverage 60/60)
 // FUN_0027d780 @ 0x0027d780
@@ -1478,7 +1478,7 @@ void Scene_27d780::FUN_0027d780()
 namespace fn_f03c5b48 {
 
 // 0x0027db30 FUN_0027db30 (294 B): equivalent/0x0027db30.cpp
-// sym: ?run@Target_27db30@fn_f03c5b48@@QAEXPAVPhysicsInstance@physics@@IIIIIIII@Z
+// sym: ?run@Target_27db30@fn_f03c5b48@@QAEXPAVPhysicsInstance@physics@@IIIIIIII@Z @3647dcea8003 @w58184679e483
 // STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 8/8)
 // FUN_0027db30 @ 0x0027db30
 void Target_27db30::run(physics::PhysicsInstance* parent,U_27db30 a,U_27db30 b,U_27db30 x,U_27db30 y,U_27db30 z,U_27db30 rx,U_27db30 ry,U_27db30 rz) {
@@ -1511,7 +1511,7 @@ void Target_27db30::run(physics::PhysicsInstance* parent,U_27db30 a,U_27db30 b,U
 
 
 // 0x0027dca0 FUN_0027dca0 (130 B): equivalent/0x0027dca0.cpp
-// sym: ?FUN_0027dca0@Chain_27dca0@fn_f03c5b48@@QAEXXZ
+// sym: ?FUN_0027dca0@Chain_27dca0@fn_f03c5b48@@QAEXXZ @d46982bc5163 @w50aafb473ac2
 // STATUS: equivalent (tools/equiv.py level 3: 19468 inputs, branch coverage 4/4)
 // FUN_0027dca0 @ 0x0027dca0
 void Chain_27dca0::FUN_0027dca0()
@@ -1534,7 +1534,7 @@ void Chain_27dca0::FUN_0027dca0()
 
 
 // 0x0027dd30 FUN_0027dd30 (164 B): equivalent/0x0027dd30.cpp
-// sym: ?FUN_0027dd30@Player_27dd30@fn_f03c5b48@@QAEXPAUEffectList@2@MM@Z
+// sym: ?FUN_0027dd30@Player_27dd30@fn_f03c5b48@@QAEXPAUEffectList@2@MM@Z @8e4bf46c755c @w1563e7989293
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 14/14)
 // FUN_0027dd30 @ 0x0027dd30
 void Player_27dd30::FUN_0027dd30(EffectList *list, float lo, float hi)
@@ -1554,7 +1554,7 @@ void Player_27dd30::FUN_0027dd30(EffectList *list, float lo, float hi)
 
 
 // 0x0027dde0 FUN_0027dde0 (102 B): equivalent/0x0027dde0.cpp
-// sym: ?FUN_0027dde0@Obj_27dde0@fn_f03c5b48@@QAEPAHPBX@Z
+// sym: ?FUN_0027dde0@Obj_27dde0@fn_f03c5b48@@QAEPAHPBX@Z @4d4ab2dbd269 @w37131a7e679c
 // STATUS: equivalent (tools/equiv.py level 3: 376 inputs, branch coverage 6/6)
 // FUN_0027dde0 @ 0x0027dde0
 int* Obj_27dde0::FUN_0027dde0(const void* src) {
@@ -1574,7 +1574,7 @@ int* Obj_27dde0::FUN_0027dde0(const void* src) {
 
 
 // 0x0027de50 FUN_0027de50 (90 B): equivalent/0x0027de50.cpp
-// sym: ?FUN_0027de50@Owner@fn_f03c5b48@@QAEPAHHH@Z
+// sym: ?FUN_0027de50@Owner@fn_f03c5b48@@QAEPAHHH@Z @d8f4df54f2f1 @wbae2c0eab64b
 // STATUS: equivalent (tools/equiv.py level 3: 2945 inputs, branch coverage 6/6)
 // FUN_0027de50 @ 0x0027de50
 int *Owner::FUN_0027de50(int a,hulk_intptr b) { int i=0; Range *r=range; if (((r->end-r->begin)&~3)>0) { do { Entry *e=entries[i]; if(e) { Values *v=e->values; v->first=a; v->second=b; } r=range; int end=r->end; int begin=r->begin; ++i; if (!(i < (end-begin)>>2)) break; } while (true); } return (int *)&r->begin; }
@@ -1591,7 +1591,7 @@ template <> void content::LoadInventory::DynamicCaster<pure3d::prop::StatePropDa
 
 
 // 0x0027def0 FUN_0027def0 (988 B): equivalent/0x0027def0.cpp [wrapped: conflict: pure3d::DrawableHierarchy; pure3d::prop::StateProp]
-// sym: ??0StateProp@prop@pure3d@fn_0027def0@@QAE@PAVGroup_27def0@3@H@Z
+// sym: ??0StateProp@prop@pure3d@fn_0027def0@@QAE@PAVGroup_27def0@3@H@Z @c8b2772cbaa5 @wc71c4f92e159
 namespace fn_0027def0 {
 // STATUS: equivalent (tools/equiv.py level 3: 60 inputs, branch coverage 59/64, incomplete)
 // FUN_0027def0 @ 0x0027def0
@@ -1866,7 +1866,7 @@ StateProp::StateProp(Group_27def0 *a, int b)
 
 
 // 0x0027e2d0 FUN_0027e2d0 (481 B): equivalent/0x0027e2d0.cpp [wrapped: conflict: pure3d::prop::StateProp]
-// sym: ??1StateProp@prop@pure3d@fn_0027e2d0@@QAE@XZ
+// sym: ??1StateProp@prop@pure3d@fn_0027e2d0@@QAE@XZ @8a7b4f6fbaa0 @w098ce6f78a93
 namespace fn_0027e2d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 34 inputs, branch coverage 31/34, incomplete)
 // FUN_0027e2d0 @ 0x0027e2d0
@@ -1928,7 +1928,7 @@ StateProp::~StateProp() {
 
 
 // 0x0027e4c0 pure3d::prop::StateProp::vfunc_16 (389 B): equivalent/0x0027e4c0.cpp [wrapped: conflict: FUN_0027f250]
-// sym: ?FUN_0027e4c0@StateProp_27e4c0@fn_0027e4c0@@QAEXH_N@Z
+// sym: ?FUN_0027e4c0@StateProp_27e4c0@fn_0027e4c0@@QAEXH_N@Z @a1a96d4e2c92 @wdcf2b71983b6
 namespace fn_0027e4c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 287 inputs, branch coverage 34/34)
 // pure3d::prop::StateProp::vfunc_16 @ 0x0027e4c0
@@ -2062,7 +2062,7 @@ void StateProp_27e4c0::FUN_0027e4c0(int index, bool notify)
 namespace fn_f03c5b48 {
 
 // 0x0027e650 FUN_0027e650 (260 B): equivalent/0x0027e650.cpp
-// sym: ?FUN_0027e650@Controller_27e650@fn_f03c5b48@@QAEXPAUResource_27e650@2@MM@Z
+// sym: ?FUN_0027e650@Controller_27e650@fn_f03c5b48@@QAEXPAUResource_27e650@2@MM@Z @ab876fcb8f87 @w5ee5e19123ac
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 13/14, incomplete)
 // FUN_0027e650 @ 0x0027e650
 void Controller_27e650::FUN_0027e650(Resource_27e650* incoming, float start, float end) {
@@ -2107,7 +2107,7 @@ void owners::Obj_27e760::FUN_0027e760(U_27e760 param) {
 namespace fn_f03c5b48 {
 
 // 0x0027e780 FUN_0027e780 (260 B): equivalent/0x0027e780.cpp
-// sym: ?target@Object@fn_f03c5b48@@QAEXPAUOutput_27e780@2@PAUInput_27e780@2@@Z
+// sym: ?target@Object@fn_f03c5b48@@QAEXPAUOutput_27e780@2@PAUInput_27e780@2@@Z @c7d782c221f5 @wf1a91c5dd2dd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0027e780 @ 0x0027e780
 void Object::target(Output_27e780* output,Input_27e780* input) { Bones_27e780* bones=provider->v11(); Matrix local,result; switch(input->mode) { case 2: result.FUN_0022b980(); ((owners::Target_22be40 *)&result)->FUN_0022be40((const int *)(Input_27e780 *)input); ((owners::Matrix_22bc20 *)&result)->FUN_0022bc20(input->x, input->y, input->z); break; case 0: case 1: { int mode=input->mode; local.FUN_0022b980(); ((owners::Target_22be40 *)&local)->FUN_0022be40((const int *)(Input_27e780 *)input); ((owners::Matrix_22bc20 *)&local)->FUN_0022bc20(input->x, input->y, input->z); Matrix* parent; if(mode==0) { unsigned index=bones->FUN_002843a0(input->a,input->b); if(index!=65535) parent=&bones->matrices[index]; else parent=v15(); } else parent=v15(); ((owners::Matrix_22ca90 *)&result)->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix *)(&local), (const owners::Matrix_22ca90 *)(Matrix *)parent); break; } } output->FUN_0027dde0(&result); }
@@ -2144,7 +2144,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x0027e920 pure3d::prop::StateProp::vfunc_6 (1131 B): equivalent/0x0027e920.cpp [wrapped: conflict: StateProp]
-// sym: ?v6@StateProp@fn_0027e920@@UAEXMTArg2_27e920@2@@Z
+// sym: ?v6@StateProp@fn_0027e920@@UAEXMTArg2_27e920@2@@Z @a9adc0f9fc02 @we8ecd35031e1
 namespace fn_0027e920 {
 // STATUS: equivalent (tools/equiv.py level 3: 16356 inputs, branch coverage 66/66)
 // pure3d::prop::StateProp::vfunc_6 @ 0x0027e920
@@ -2487,7 +2487,7 @@ bool Owner_27ed90::FUN_0027ed90(Object* object, void* data, unsigned flags) {
 } // namespace fn_f03c5b48
 
 // 0x0027eeb0 pure3d::prop::StatePropLoader::vfunc_5 (201 B): equivalent/0x0027eeb0.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; pure3d::prop::StateProp; pure3d::prop::StatePropLoader]
-// sym: ?vfunc_5@StatePropLoader@prop@pure3d@fn_0027eeb0@@UAEXPAPAUStateProp@234@PAIPAUReader@4@PAUInventory_27eeb0@4@@Z
+// sym: ?vfunc_5@StatePropLoader@prop@pure3d@fn_0027eeb0@@UAEXPAPAUStateProp@234@PAIPAUReader@4@PAUInventory_27eeb0@4@@Z @46a3b9d42b39 @w599dd6d09baf
 namespace fn_0027eeb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // pure3d::prop::StatePropLoader::vfunc_5 @ 0x0027eeb0
@@ -2550,7 +2550,7 @@ void pure3d::prop::StatePropLoader::vfunc_5(StateProp** out, unsigned* id, Reade
 
 
 // 0x0027f070 FUN_0027f070 (312 B): equivalent/0x0027f070.cpp
-// sym: ?FUN_0027f070@Vertex_27f070@owners@@QAEXPBU12@0M@Z
+// sym: ?FUN_0027f070@Vertex_27f070@owners@@QAEXPBU12@0M@Z @3384440c0fb9 @w6af5a362d939
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0027f070 @ 0x0027f070
 void owners::Vertex_27f070::FUN_0027f070(const owners::Vertex_27f070* from, const owners::Vertex_27f070* to, float t)

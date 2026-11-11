@@ -278,7 +278,7 @@ void Image::Fn() {
 
 
 // 0x002bfbe0 FUN_002bfbe0 (195 B): equivalent/0x002bfbe0.cpp
-// sym: ?FUN_002bfbe0@Image32_2bfbe0@fn_fbf8e46b@@QAEXXZ
+// sym: ?FUN_002bfbe0@Image32_2bfbe0@fn_fbf8e46b@@QAEXXZ @faeeabddaf2c @w6d23e844a56d
 // STATUS: equivalent (tools/equiv.py level 3: 55 inputs, branch coverage 4/4)
 // FUN_002bfbe0 @ 0x002bfbe0
 void Image32_2bfbe0::FUN_002bfbe0() {
@@ -308,7 +308,7 @@ void Image32_2bfbe0::FUN_002bfbe0() {
 } // namespace fn_fbf8e46b
 
 // 0x002bfcb0 FUN_002bfcb0 (71 B): equivalent/0x002bfcb0.cpp [wrapped: conflict: pure3d::Image8]
-// sym: ??0Image8@pure3d@fn_002bfcb0@@QAE@XZ
+// sym: ??0Image8@pure3d@fn_002bfcb0@@QAE@XZ @35a4e1b90e1d @w6c280e89a96a
 namespace fn_002bfcb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002bfcb0 @ 0x002bfcb0
@@ -419,7 +419,7 @@ void pure3d::Image8::vfunc_5(int w, int h) {
 
 
 // 0x002bfe10 pure3d::Image8::vfunc_7 (199 B): equivalent/0x002bfe10.cpp
-// sym: ?vfunc_7@Image8@pure3d@@UAEXHH@Z
+// sym: ?vfunc_7@Image8@pure3d@@UAEXHH@Z @c527a559ea3c @w08b69b2d0245
 // STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 10/10)
 // pure3d::Image8::vfunc_7 @ 0x002bfe10
 void pure3d::Image8::vfunc_7(int newWidth, int newHeight) {
@@ -568,7 +568,7 @@ void pure3d::Image32::vfunc_5(int w, int h) {
 
 
 // 0x002c00b0 pure3d::Image32::vfunc_7 (216 B): equivalent/0x002c00b0.cpp
-// sym: ?vfunc_7@Image32@pure3d@@UAEXHH@Z
+// sym: ?vfunc_7@Image32@pure3d@@UAEXHH@Z @360d384ac205 @w14cef8e4fa00
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 10/10)
 // pure3d::Image32::vfunc_7 @ 0x002c00b0
 void pure3d::Image32::vfunc_7(int newWidth, int newHeight) {
@@ -627,7 +627,7 @@ void pure3d::Image32::vfunc_11(unsigned int value) {
 namespace fn_fbf8e46b {
 
 // 0x002c0200 FUN_002c0200 (58 B): equivalent/0x002c0200.cpp
-// sym: _FUN_002c0200
+// sym: _FUN_002c0200 @113c74d4d76f @weef6c8c7a63a
 // STATUS: equivalent (tools/equiv.py level 3: 159 inputs, branch coverage 4/4)
 // FUN_002c0200 @ 0x002c0200
 // equiv-conv: FUN_002c0200 eax edx ecx stack stack stack
@@ -647,7 +647,7 @@ extern "C" void FUN_002c0200(const unsigned char *source, unsigned char *destina
 
 
 // 0x002c0240 FUN_002c0240 (101 B): equivalent/0x002c0240.cpp
-// sym: _FUN_002c0240
+// sym: _FUN_002c0240 @765d68e2faf2 @w5e3fd516791e
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 8/8)
 // FUN_002c0240 @ 0x002c0240
 // equiv-conv: FUN_002c0240 ecx eax ebx stack stack stack stack
@@ -671,7 +671,7 @@ extern "C" void __cdecl FUN_002c0240(void *surf, int y, int x, char *dst, int w,
 
 
 // 0x002c02b0 FUN_002c02b0 (166 B): equivalent/0x002c02b0.cpp
-// sym: ?FUN_002c02b0@fn_fbf8e46b@@YAXPAVSurface_2c02b0@1@HPADHHHHD@Z
+// sym: ?FUN_002c02b0@fn_fbf8e46b@@YAXPAVSurface_2c02b0@1@HPADHHHHD@Z @374d65799de0 @w99126d3ff2c2
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 10/10)
 // FUN_002c02b0 @ 0x002c02b0
 // equiv-conv: FUN_002c02b0 ecx eax stack stack stack stack stack stack
@@ -701,7 +701,7 @@ void FUN_002c02b0(Surface_2c02b0 *surf, int y0, char *dst, int x0, int width, in
 
 
 // 0x002c0360 FUN_002c0360 (124 B): equivalent/0x002c0360.cpp
-// sym: _FUN_002c0360
+// sym: _FUN_002c0360 @64a94ba3dfb3 @w77efa7a48376
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 10/10)
 // FUN_002c0360 @ 0x002c0360
 // Copies a rectangle of 32-bit pixels, skipping those whose colour (low 24 bits) equals `key`.
@@ -722,7 +722,7 @@ extern "C" void __cdecl FUN_002c0360(int rows, int srcStride, unsigned int *dst,
 
 
 // 0x002c03e0 FUN_002c03e0 (102 B): equivalent/0x002c03e0.cpp
-// sym: _FUN_002c03e0
+// sym: _FUN_002c03e0 @4e82ad82b5a9 @w14f4bed9fd3e
 // STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 8/8)
 // FUN_002c03e0 @ 0x002c03e0
 // equiv-conv: FUN_002c03e0 eax ecx edx stack stack stack stack
@@ -739,7 +739,7 @@ extern "C" void FUN_002c03e0(int width, int height, int stride, void * src, unsi
 
 
 // 0x002c0450 FUN_002c0450 (316 B): equivalent/0x002c0450.cpp
-// sym: _FUN_002c0450
+// sym: _FUN_002c0450 @4d470e4d75ad @w8b41a6ede9e7
 // STATUS: equivalent (tools/equiv.py level 3: 39 inputs, branch coverage 16/16)
 // FUN_002c0450 @ 0x002c0450
 // Blits a source surface into a 32-bit ARGB buffer, alpha-blending each pixel.
@@ -778,7 +778,7 @@ extern "C" void FUN_002c0450(int y0, int width, int height, void *src, unsigned 
 
 
 // 0x002c0590 FUN_002c0590 (488 B): equivalent/0x002c0590.cpp
-// sym: ?FUN_002c0590@Loader_2c0590@fn_fbf8e46b@@QAEPAUSprite@2@PAUReader@2@H@Z
+// sym: ?FUN_002c0590@Loader_2c0590@fn_fbf8e46b@@QAEPAUSprite@2@PAUReader@2@H@Z @434fdcd6048b @w246ef94b9661
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 10/12, incomplete)
 // FUN_002c0590 @ 0x002c0590
 Sprite *Loader_2c0590::FUN_002c0590(Reader *r, int unused)
@@ -869,7 +869,7 @@ LightsChooserCache::~LightsChooserCache() {
 
 
 // 0x002c08d0 pure3d::Image8::vfunc_12 (206 B): equivalent/0x002c08d0.cpp [wrapped: conflict: pure3d::Image8]
-// sym: ?vfunc_12@Image8@pure3d@fn_002c08d0@@UAEXPAU123@HHHHHH@Z
+// sym: ?vfunc_12@Image8@pure3d@fn_002c08d0@@UAEXPAU123@HHHHHH@Z @a9a743033960 @w16688ea0447e
 namespace fn_002c08d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // pure3d::Image8::vfunc_12 @ 0x002c08d0
@@ -972,7 +972,7 @@ Image32::Image32(const Image32& o) : Image_2c09e0(o) {
 
 
 // 0x002c0a60 pure3d::Image32::vfunc_12 (376 B): equivalent/0x002c0a60.cpp [wrapped: conflict: Image32]
-// sym: ?vfunc_12@Image32@fn_002c0a60@@UAEXPAV12@HHHHHH@Z
+// sym: ?vfunc_12@Image32@fn_002c0a60@@UAEXPAV12@HHHHHH@Z @4979d54ffe18 @w8b6646e7b11b
 namespace fn_002c0a60 {
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 22/22)
 // pure3d::Image32::vfunc_12 @ 0x002c0a60

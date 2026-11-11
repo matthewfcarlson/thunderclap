@@ -321,7 +321,7 @@ void __cdecl FUN_00307030(u16_307030 value) {
 
 
 // 0x00307060 FUN_00307060 (454 B): equivalent/0x00307060.cpp
-// sym: ?FUN_00307060@Stream@fn_fa930a40@@QAEXPBGH@Z
+// sym: ?FUN_00307060@Stream@fn_fa930a40@@QAEXPBGH@Z @bf4810b6b389 @wf5d822b465d5
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 33/36, incomplete)
 // FUN_00307060 @ 0x00307060
 // A packed stream of 16-bit words: each record has a header (selector in bits 12-13,
@@ -412,7 +412,7 @@ void Stream::FUN_00307060(const unsigned short* limits, hulk_intptr unused)
 } // namespace fn_fa930a40
 
 // 0x00307240 FUN_00307240 (1389 B): equivalent/0x00307240.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_00307240@Stream@fn_00307240@@QAEXTArg_307240@2@@Z
+// sym: ?FUN_00307240@Stream@fn_00307240@@QAEXTArg_307240@2@@Z @9633500c5509 @we1b0410c47aa
 namespace fn_00307240 {
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 84/90, incomplete)
 // FUN_00307240 @ 0x00307240
@@ -692,7 +692,7 @@ void __cdecl target(A_307810* p1, hulk_intptr p2) {
 
 
 // 0x003078a0 FUN_003078a0 (1600 B): equivalent/0x003078a0.cpp
-// sym: ?FUN_003078a0@fn_fa930a40@@YAPAVCollisionMesh@physics@@TSlot_3078a0@1@@Z
+// sym: ?FUN_003078a0@fn_fa930a40@@YAPAVCollisionMesh@physics@@TSlot_3078a0@1@@Z @a444d7a09ca9 @w1a2a335f5f30
 // STATUS: equivalent (tools/equiv.py level 3: 16463 inputs, branch coverage 56/56)
 // FUN_003078a0 @ 0x003078a0
 physics::CollisionMesh *FUN_003078a0(Slot_3078a0 a1)
@@ -869,7 +869,7 @@ char* X_307ef0::next() {
 
 
 // 0x00307f30 FUN_00307f30 (226 B): equivalent/0x00307f30.cpp
-// sym: ?FUN_00307f30@Object@fn_fa930a40@@QAEXH@Z
+// sym: ?FUN_00307f30@Object@fn_fa930a40@@QAEXH@Z @e77a25a32722 @w8fbe1a65936f
 // STATUS: equivalent (tools/equiv.py level 3: 44 inputs, branch coverage 18/18)
 // FUN_00307f30 @ 0x00307f30
 void Object::FUN_00307f30(int n) {
@@ -985,7 +985,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_fa930a40 {
 
 // 0x003080a0 FUN_003080a0 (785 B): equivalent/0x003080a0.cpp
-// sym: ?FUN_003080a0@fn_fa930a40@@YAPAUNode@1@PAUReader@1@@Z
+// sym: ?FUN_003080a0@fn_fa930a40@@YAPAUNode@1@PAUReader@1@@Z @6ac40485a546 @w3f53e394ad60
 // STATUS: equivalent (tools/equiv.py level 3: 1853 inputs, branch coverage 30/31, incomplete)
 // FUN_003080a0 @ 0x003080a0
 Node* __cdecl FUN_003080a0(Reader* r)
@@ -1109,7 +1109,7 @@ Item_3083e0* Container_3083e0::add() {
 } // namespace fn_fa930a40
 
 // 0x00308410 physics::CollisionObjectLoader::vfunc_5 (1157 B): equivalent/0x00308410.cpp
-// sym: ?vfunc_5@CollisionObjectLoader@physics@@UAEXPAX00H@Z
+// sym: ?vfunc_5@CollisionObjectLoader@physics@@UAEXPAX00H@Z @d414aa8a756c @w850f295c6f83
 // STATUS: equivalent (tools/equiv.py level 3: 233 inputs, branch coverage 42/47, incomplete)
 // physics::CollisionObjectLoader::vfunc_5 @ 0x00308410
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -1226,7 +1226,7 @@ void physics::CollisionObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2,
 
 
 // 0x003088d0 physics::WorldCollisionObjectLoader::vfunc_5 (260 B): equivalent/0x003088d0.cpp
-// sym: ?vfunc_5@WorldCollisionObjectLoader@physics@@UAEXPAX00H@Z
+// sym: ?vfunc_5@WorldCollisionObjectLoader@physics@@UAEXPAX00H@Z @fde41f86d74e @wf57a285184a2
 // STATUS: equivalent (tools/equiv.py level 3: 177 inputs, branch coverage 12/12)
 // physics::WorldCollisionObjectLoader::vfunc_5 @ 0x003088d0
 void physics::WorldCollisionObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { Obj_3088d0 ** out = (Obj_3088d0 **)__p0; Name_3088d0 * name = (Name_3088d0 *)__p1; Stream_3088d0 * stream = (Stream_3088d0 *)__p2; unsigned int unused = (unsigned int)__p3;

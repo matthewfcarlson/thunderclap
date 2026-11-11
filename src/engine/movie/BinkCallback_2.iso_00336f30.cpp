@@ -4,7 +4,7 @@
 
 
 // 0x00336f30 FUN_00336f30 (212 B): equivalent/0x00336f30.cpp [isolated: code differs from its standalone build]
-// sym: ?initialize@Target_336f30@fn_ffce5e15@@QAEXPAUSource_336f30@2@E@Z
+// sym: ?initialize@Target_336f30@fn_ffce5e15@@QAEXPAUSource_336f30@2@E@Z @e2ee02eca155 @w99063e6ec5c0
 #include "gen/owners.h"
 #include "decls/data/engine/movie.h"
 namespace fn_ffce5e15 {} using namespace fn_ffce5e15;

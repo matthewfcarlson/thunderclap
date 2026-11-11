@@ -235,7 +235,7 @@ struct Obj_2c6900 {
 } // namespace fn_faaafd8b
 
 // 0x002c4020 FUN_002c4020 (70 B): equivalent/0x002c4020.cpp [wrapped: conflict: pure3d::SpotLight]
-// sym: ??0SpotLight@pure3d@fn_002c4020@@QAE@XZ
+// sym: ??0SpotLight@pure3d@fn_002c4020@@QAE@XZ @fc56c5cf8ec6 @w00b461c4ad8e
 namespace fn_002c4020 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002c4020 @ 0x002c4020
@@ -422,7 +422,7 @@ void pure3d::SpotLight::vfunc_9(int arg) {
 
 
 // 0x002c4360 FUN_002c4360 (1713 B): equivalent/0x002c4360.cpp [wrapped: macros]
-// sym: ?FUN_002c4360@fn_002c4360@@YAXPAUV3@1@0PAXID@Z
+// sym: ?FUN_002c4360@fn_002c4360@@YAXPAUV3@1@0PAXID@Z @93b45cd9a097 @wba3880c4ee9f
 namespace fn_002c4360 {
 // STATUS: equivalent (tools/equiv.py level 3: 552 inputs, branch coverage 4/4)
 // FUN_002c4360 @ 0x002c4360
@@ -612,7 +612,7 @@ void __cdecl FUN_002c4360(V3 *a, V3 *b, void *tex, unsigned int color, char wire
 
 
 // 0x002c4a20 FUN_002c4a20 (649 B): equivalent/0x002c4a20.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_002c4a20@fn_002c4a20@@YAXPAXHHIMM@Z
+// sym: ?FUN_002c4a20@fn_002c4a20@@YAXPAXHHIMM@Z @bb348868d31a @w7573cac24c4a
 namespace fn_002c4a20 {
 // STATUS: equivalent (tools/equiv.py level 3: 30 inputs, branch coverage 8/8)
 // FUN_002c4a20 @ 0x002c4a20
@@ -797,7 +797,7 @@ void FUN_002c4a20(void *a1, int a2, int a3, unsigned color, float nx, float ny)
 
 
 // 0x002c4cb0 FUN_002c4cb0 (706 B): equivalent/0x002c4cb0.cpp [wrapped: conflict: Gfx; Matrix]
-// sym: ?FUN_002c4cb0@fn_002c4cb0@@YAXMPAUV3_2c4cb0@1@HHMM@Z
+// sym: ?FUN_002c4cb0@fn_002c4cb0@@YAXMPAUV3_2c4cb0@1@HHMM@Z @dc85a233de34 @w788510f212c0
 namespace fn_002c4cb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 27 inputs, branch coverage 8/8)
 // FUN_002c4cb0 @ 0x002c4cb0
@@ -1013,7 +1013,7 @@ void B_2c50a0::run() {
 
 
 // 0x002c50c0 FUN_002c50c0 (406 B): equivalent/0x002c50c0.cpp
-// sym: ?FUN_002c50c0@fn_faaafd8b@@YAPAUMatrix@1@PAU21@MMMMMM@Z
+// sym: ?FUN_002c50c0@fn_faaafd8b@@YAPAUMatrix@1@PAU21@MMMMMM@Z @eacbf3ff1d45 @wc41cc4448cd3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002c50c0 @ 0x002c50c0
 // equiv-conv: FUN_002c50c0 ebx stack stack stack stack stack stack
@@ -1061,7 +1061,7 @@ Matrix *FUN_002c50c0(Matrix *out, float fromX, float fromY, float fromZ,
 } // namespace fn_faaafd8b
 
 // 0x002c5260 FUN_002c5260 (1007 B): equivalent/0x002c5260.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_002c5260@fn_002c5260@@YAXMPAUV3_2c5260@1@M0HHM@Z
+// sym: ?FUN_002c5260@fn_002c5260@@YAXMPAUV3_2c5260@1@M0HHM@Z @9f9432749063 @w49cb9a7563a3
 namespace fn_002c5260 {
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 14/14)
 // FUN_002c5260 @ 0x002c5260
@@ -1317,7 +1317,7 @@ void __cdecl FUN_002c5260(float r1, V3_2c5260 *a, float r2, V3_2c5260 *b, int ha
 
 
 // 0x002c5820 FUN_002c5820 (318 B): equivalent/0x002c5820.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_002c5820@CubeDrawer@fn_002c5820@@QAEXPAUVec3_2c5820@2@M@Z
+// sym: ?FUN_002c5820@CubeDrawer@fn_002c5820@@QAEXPAUVec3_2c5820@2@M@Z @079c2791f9f3 @w91d1bb280149
 namespace fn_002c5820 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002c5820 @ 0x002c5820
@@ -1461,7 +1461,7 @@ void CubeDrawer::FUN_002c5820(Vec3_2c5820 *c, float s)
 
 
 // 0x002c59f0 FUN_002c59f0 (213 B): equivalent/0x002c59f0.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_002c59f0@LineDrawer@fn_002c59f0@@QAEXHPBUVec3_2c59f0@2@0PBI@Z
+// sym: ?FUN_002c59f0@LineDrawer@fn_002c59f0@@QAEXHPBUVec3_2c59f0@2@0PBI@Z @fa5773394cc4 @wc0e8a485fccb
 namespace fn_002c59f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1479 inputs, branch coverage 6/6)
 // FUN_002c59f0 @ 0x002c59f0
@@ -1559,7 +1559,7 @@ void LineDrawer::FUN_002c59f0(int count, const Vec3_2c59f0 *a, const Vec3_2c59f0
 
 
 // 0x002c5ad0 FUN_002c5ad0 (216 B): equivalent/0x002c5ad0.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_002c5ad0@Object@fn_002c5ad0@@QAEXPAUVec_2c5ad0@2@@Z
+// sym: ?FUN_002c5ad0@Object@fn_002c5ad0@@QAEXPAUVec_2c5ad0@2@@Z @6c4c288cb729 @wc9c219f4eb11
 namespace fn_002c5ad0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2173 inputs, branch coverage 0/0)
 // FUN_002c5ad0 @ 0x002c5ad0
@@ -1616,7 +1616,7 @@ void Object::FUN_002c5ad0(Vec_2c5ad0* vertices) {
 namespace fn_faaafd8b {
 
 // 0x002c5c90 FUN_002c5c90 (503 B): equivalent/0x002c5c90.cpp
-// sym: ?FUN_002c5c90@Obj_2c5c90@fn_faaafd8b@@QAEXPAUSrc_2c5c90@2@M@Z
+// sym: ?FUN_002c5c90@Obj_2c5c90@fn_faaafd8b@@QAEXPAUSrc_2c5c90@2@M@Z @f8c862569c1b @w7d426fb7c5f1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002c5c90 @ 0x002c5c90
 void Obj_2c5c90::FUN_002c5c90(Src_2c5c90* s, float f)
@@ -1705,7 +1705,7 @@ void B_2c6630::run() {
 } // namespace fn_faaafd8b
 
 // 0x002c66b0 FUN_002c66b0 (395 B): equivalent/0x002c66b0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002c66b0@fn_002c66b0@@YAXMPBUVec3_2c66b0@1@0HHHH@Z
+// sym: ?FUN_002c66b0@fn_002c66b0@@YAXMPBUVec3_2c66b0@1@0HHHH@Z @be2ce140b592 @wef1c88908aea
 namespace fn_002c66b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 4/4)
 // FUN_002c66b0 @ 0x002c66b0
@@ -1768,14 +1768,14 @@ void FUN_002c66b0(float width, const Vec3_2c66b0 *p1, const Vec3_2c66b0 *p2, int
 namespace fn_faaafd8b {
 
 // 0x002c6840 FUN_002c6840 (90 B): equivalent/0x002c6840.cpp
-// sym: ?FUN_002c6840@Object@fn_faaafd8b@@QAEPAU12@XZ
+// sym: ?FUN_002c6840@Object@fn_faaafd8b@@QAEPAU12@XZ @c7914d4e16d3 @we3379d367d45
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 4/4)
 // FUN_002c6840 @ 0x002c6840
 Object* Object::FUN_002c6840() { resource=0; value=-1; a=4.0f; b=4.0f; Resource* r=(*(Manager**)&DAT_0052c2a0)->slot11("simple",0); if(r) r->FUN_00000000(); if(resource) resource->FUN_00000001(); resource=r; r->FUN_00000006(((char*)0x54494c),0); return this; }
 
 
 // 0x002c6900 FUN_002c6900 (374 B): equivalent/0x002c6900.cpp
-// sym: ?FUN_002c6900@Obj_2c6900@fn_faaafd8b@@QAEXPAUSrc_2c6900@2@M@Z
+// sym: ?FUN_002c6900@Obj_2c6900@fn_faaafd8b@@QAEXPAUSrc_2c6900@2@M@Z @d344bc21db59 @w7256a99af559
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // FUN_002c6900 @ 0x002c6900
 void Obj_2c6900::FUN_002c6900(Src_2c6900* s, float f)

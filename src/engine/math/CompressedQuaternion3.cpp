@@ -220,7 +220,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_f5ce7ee6 {
 
 // 0x0028d150 FUN_0028d150 (128 B): equivalent/0x0028d150.cpp
-// sym: ?Construct@CompressedQuaternionChannel_28d150@fn_f5ce7ee6@@QAEPAV12@HH@Z
+// sym: ?Construct@CompressedQuaternionChannel_28d150@fn_f5ce7ee6@@QAEPAV12@HH@Z @f10c6386eb38 @wc2c5966b9184
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028d150 @ 0x0028d150
 // 0x0028d150: channel constructor holding 8-byte elements, allocated from the parent pool or the heap
@@ -247,7 +247,7 @@ CompressedQuaternionChannel_28d150* CompressedQuaternionChannel_28d150::Construc
 } // namespace fn_f5ce7ee6
 
 // 0x0028d220 FUN_0028d220 (121 B): equivalent/0x0028d220.cpp
-// sym: ?FUN_0028d220@Quat16_28d220@owners@@QAEPAMPAM@Z
+// sym: ?FUN_0028d220@Quat16_28d220@owners@@QAEPAMPAM@Z @3297f1ed3cfd @w5119ebd0e57a
 // STATUS: equivalent (tools/equiv.py level 3: 15723 inputs, branch coverage 0/0)
 // FUN_0028d220 @ 0x0028d220
 // FUN_0028d220 @ 0x0028d220
@@ -274,7 +274,7 @@ void QuaternionChannel::vfunc_4(int a, int b, int c) {
 
 
 // 0x0028d2d0 pure3d::CompressedQuaternionChannel<math::CompressedQuaternion8>::vfunc_5 (306 B): equivalent/0x0028d2d0.cpp
-// sym: ?vfunc_5@CompressedQuaternionChannel@fn_f5ce7ee6@@UAEXMPAUQuat_28d2d0@2@@Z
+// sym: ?vfunc_5@CompressedQuaternionChannel@fn_f5ce7ee6@@UAEXMPAUQuat_28d2d0@2@@Z @0c59f5a39868 @wabdee707978f
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 6/6)
 // pure3d::CompressedQuaternionChannel<math::CompressedQuaternion8>::vfunc_5 @ 0x0028d2d0
 void CompressedQuaternionChannel::vfunc_5(float time, Quat_28d2d0 *out)
@@ -352,7 +352,7 @@ void IntChannel::vfunc_1() {
 
 
 // 0x0028d490 FUN_0028d490 (128 B): equivalent/0x0028d490.cpp
-// sym: ?Construct@CompressedQuaternionChannel_28d490@fn_f5ce7ee6@@QAEPAV12@HH@Z
+// sym: ?Construct@CompressedQuaternionChannel_28d490@fn_f5ce7ee6@@QAEPAV12@HH@Z @a45d72a5574e @wdf654e962429
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028d490 @ 0x0028d490
 // 0x0028d490: channel constructor holding 6-byte elements, allocated from the parent pool or the heap
@@ -417,7 +417,7 @@ void QuaternionChannel::vfunc_4(int a, int b, int c) {
 
 
 // 0x0028d590 pure3d::CompressedQuaternionChannel<math::CompressedQuaternion6>::vfunc_5 (319 B): equivalent/0x0028d590.cpp [wrapped: conflict: CompressedQuaternionChannel]
-// sym: ?vfunc_5@CompressedQuaternionChannel@fn_0028d590@@UAEXMPAUQuat_28d590@2@@Z
+// sym: ?vfunc_5@CompressedQuaternionChannel@fn_0028d590@@UAEXMPAUQuat_28d590@2@@Z @87037195656b @w9b26f04ebc4c
 namespace fn_0028d590 {
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 6/6)
 // pure3d::CompressedQuaternionChannel<math::CompressedQuaternion6>::vfunc_5 @ 0x0028d590
@@ -574,7 +574,7 @@ template <> void pure3d::CompressedQuaternionChannel<math::CompressedQuaternion4
 namespace fn_f5ce7ee6 {
 
 // 0x0028d820 FUN_0028d820 (207 B): equivalent/0x0028d820.cpp
-// sym: ?decode@Packed@fn_f5ce7ee6@@QAEPAUQuaternion_28d820@2@PAU32@@Z
+// sym: ?decode@Packed@fn_f5ce7ee6@@QAEPAUQuaternion_28d820@2@PAU32@@Z @880efab796d5 @wa2e1acc57bbd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0028d820 @ 0x0028d820
 Quaternion_28d820* Packed::decode(Quaternion_28d820* out) {
@@ -618,7 +618,7 @@ void QuaternionChannel::vfunc_4(int a, int b, int c) {
 
 
 // 0x0028d920 pure3d::CompressedQuaternionChannel<math::CompressedQuaternion4>::vfunc_5 (306 B): equivalent/0x0028d920.cpp [wrapped: conflict: CompressedQuaternionChannel]
-// sym: ?vfunc_5@CompressedQuaternionChannel@fn_0028d920@@UAEXMPAUQuat_28d920@2@@Z
+// sym: ?vfunc_5@CompressedQuaternionChannel@fn_0028d920@@UAEXMPAUQuat_28d920@2@@Z @464b9012514a @wa17a68eaefde
 namespace fn_0028d920 {
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 6/6)
 // pure3d::CompressedQuaternionChannel<math::CompressedQuaternion4>::vfunc_5 @ 0x0028d920
@@ -746,7 +746,7 @@ void IntChannel::vfunc_1() {
 
 
 // 0x0028dae0 FUN_0028dae0 (124 B): equivalent/0x0028dae0.cpp [wrapped: conflict: CompressedQuaternionChannel]
-// sym: ??0CompressedQuaternionChannel@fn_0028dae0@@QAE@HH@Z
+// sym: ??0CompressedQuaternionChannel@fn_0028dae0@@QAE@HH@Z @d07eef88b34f @w0fa26bdcaac3
 namespace fn_0028dae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0028dae0 @ 0x0028dae0
@@ -811,7 +811,7 @@ template <> void pure3d::CompressedQuaternionChannel<math::CompressedQuaternion3
 namespace fn_f5ce7ee6 {
 
 // 0x0028dbb0 FUN_0028dbb0 (176 B): equivalent/0x0028dbb0.cpp
-// sym: ?unpack@PackedQuaternion_28dbb0@fn_f5ce7ee6@@QAEPAUQuaternion_28dbb0@2@PAU32@@Z
+// sym: ?unpack@PackedQuaternion_28dbb0@fn_f5ce7ee6@@QAEPAUQuaternion_28dbb0@2@PAU32@@Z @9f9ac036d543 @wd3d0b58874c2
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 2/2)
 // FUN_0028dbb0 @ 0x0028dbb0
 Quaternion_28dbb0* PackedQuaternion_28dbb0::unpack(Quaternion_28dbb0* output) {
@@ -856,7 +856,7 @@ void QuaternionChannel::vfunc_4(int a, int b, int c) {
 
 
 // 0x0028dc90 pure3d::CompressedQuaternionChannel<math::CompressedQuaternion3>::vfunc_5 (346 B): equivalent/0x0028dc90.cpp [wrapped: conflict: CompressedQuaternionChannel]
-// sym: ?vfunc_5@CompressedQuaternionChannel@fn_0028dc90@@UAEXMPAUQuat_28dc90@2@@Z
+// sym: ?vfunc_5@CompressedQuaternionChannel@fn_0028dc90@@UAEXMPAUQuat_28dc90@2@@Z @01000e1dd333 @w642b5e311b27
 namespace fn_0028dc90 {
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 6/6)
 // pure3d::CompressedQuaternionChannel<math::CompressedQuaternion3>::vfunc_5 @ 0x0028dc90

@@ -669,7 +669,7 @@ bool pure3d::ShadowMeshImpl::vfunc_3() {
 namespace fn_f35954a7 {
 
 // 0x002b3820 FUN_002b3820 (1097 B): equivalent/0x002b3820.cpp
-// sym: ?FUN_002b3820@Shadow@fn_f35954a7@@QAEXXZ
+// sym: ?FUN_002b3820@Shadow@fn_f35954a7@@QAEXXZ @98e34dc3e22e @w017deaaba73d
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 49/56, incomplete)
 // FUN_002b3820 @ 0x002b3820
 void Shadow::FUN_002b3820()
@@ -772,7 +772,7 @@ void Shadow::FUN_002b3820()
 
 
 // 0x002b3c70 FUN_002b3c70 (1438 B): equivalent/0x002b3c70.cpp
-// sym: ?F@DebugMesh@fn_f35954a7@@QAEXXZ
+// sym: ?F@DebugMesh@fn_f35954a7@@QAEXXZ @dcbb41984329 @wfca7d3473957
 // STATUS: equivalent (tools/equiv.py level 3: 356 inputs, branch coverage 12/12)
 // FUN_002b3c70 @ 0x002b3c70
 void DebugMesh::F()
@@ -913,7 +913,7 @@ void DebugMesh::F()
 } // namespace fn_f35954a7
 
 // 0x002b4210 FUN_002b4210 (1198 B): equivalent/0x002b4210.cpp [wrapped: conflict: Gfx; Shadow]
-// sym: ?FUN_002b4210@Shadow@fn_002b4210@@QAEXXZ
+// sym: ?FUN_002b4210@Shadow@fn_002b4210@@QAEXXZ @76a345044573 @w34053899d4cc
 namespace fn_002b4210 {
 // STATUS: equivalent (tools/equiv.py level 3: 295 inputs, branch coverage 10/10)
 // FUN_002b4210 @ 0x002b4210
@@ -1230,7 +1230,7 @@ void Obj_2b46c0::Do(int p, Source_2b46c0* q) {
 } // namespace fn_f35954a7
 
 // 0x002b4710 FUN_002b4710 (381 B): equivalent/0x002b4710.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_002b4710@Obj_2b4710@fn_002b4710@@QAEXXZ
+// sym: ?FUN_002b4710@Obj_2b4710@fn_002b4710@@QAEXXZ @4ad7ab409d38 @w2096b377b924
 namespace fn_002b4710 {
 // STATUS: equivalent (tools/equiv.py level 3: 154 inputs, branch coverage 4/4)
 // FUN_002b4710 @ 0x002b4710
@@ -1356,7 +1356,7 @@ void Obj_2b4710::FUN_002b4710()
 
 
 // 0x002b4890 FUN_002b4890 (245 B): equivalent/0x002b4890.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_002b4890@Object@fn_002b4890@@QAEXXZ
+// sym: ?FUN_002b4890@Object@fn_002b4890@@QAEXXZ @2343582b799a @w9ab5eea95d05
 namespace fn_002b4890 {
 // STATUS: equivalent (tools/equiv.py level 3: 93 inputs, branch coverage 4/4)
 // FUN_002b4890 @ 0x002b4890
@@ -1426,7 +1426,7 @@ void Object::FUN_002b4890() {
 namespace fn_f35954a7 {
 
 // 0x002b4990 FUN_002b4990 (331 B): equivalent/0x002b4990.cpp
-// sym: ?FUN_002b4990@Mover_2b4990@fn_f35954a7@@QAEXXZ
+// sym: ?FUN_002b4990@Mover_2b4990@fn_f35954a7@@QAEXXZ @76a9523ec4c9 @wb93a99b45dcc
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 11/12, incomplete)
 // FUN_002b4990 @ 0x002b4990
 void Mover_2b4990::FUN_002b4990()
@@ -1478,7 +1478,7 @@ void ShadowSkinTopology::Reset() {
 
 
 // 0x002b4b40 FUN_002b4b40 (365 B): equivalent/0x002b4b40.cpp
-// sym: ?FUN_002b4b40@Tracer_2b4b40@fn_f35954a7@@QAEXPAUNode@2@@Z
+// sym: ?FUN_002b4b40@Tracer_2b4b40@fn_f35954a7@@QAEXPAUNode@2@@Z @164b793424e9 @w39a548c8fa1a
 // STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 13/14, incomplete)
 // FUN_002b4b40 @ 0x002b4b40
 void Tracer_2b4b40::FUN_002b4b40(Node *node)
@@ -2205,7 +2205,7 @@ bool pure3d::ShadowSkinImpl::vfunc_3() {
 
 
 // 0x002b5610 FUN_002b5610 (202 B): equivalent/0x002b5610.cpp [wrapped: conflict: pure3d::ShadowSkinImpl]
-// sym: ??0ShadowSkinImpl@pure3d@fn_002b5610@@QAE@PAUFUN_002b52e0@2@@Z
+// sym: ??0ShadowSkinImpl@pure3d@fn_002b5610@@QAE@PAUFUN_002b52e0@2@@Z @46ee39bc68fe @w2cffcacc2f43
 namespace fn_002b5610 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_002b5610 @ 0x002b5610
@@ -2294,7 +2294,7 @@ void Owner_2b57a0::Set(Item_2b57a0* p) {
 } // namespace fn_f35954a7
 
 // 0x002b57d0 FUN_002b57d0 (2418 B): equivalent/0x002b57d0.cpp [wrapped: macros]
-// sym: ?Update@ShadowMeshImpl@pure3d@fn_002b57d0@@QAEXPAUSkel@3@@Z
+// sym: ?Update@ShadowMeshImpl@pure3d@fn_002b57d0@@QAEXPAUSkel@3@@Z @efe6201e7d0f @w2457c16eb10e
 namespace fn_002b57d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 125 inputs, branch coverage 38/42, incomplete)
 // FUN_002b57d0 @ 0x002b57d0
@@ -2752,7 +2752,7 @@ ShadowMeshBufferLoader* ShadowMeshBufferLoader::f2(unsigned char flag) {
 
 
 // 0x002b7020 pure3d::ShadowSkinLoader::vfunc_5 (2176 B): equivalent/0x002b7020.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?v5@ShadowSkinLoader@pure3d@fn_002b7020@@UAE_KPAPAVTarget_2b7020@3@PA_KPAVReader@3@PAVInv_2b7020@3@@Z
+// sym: ?v5@ShadowSkinLoader@pure3d@fn_002b7020@@UAE_KPAPAVTarget_2b7020@3@PA_KPAVReader@3@PAVInv_2b7020@3@@Z @262da5fdcb19 @wd073e599e50e
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_002b7020 {
 // STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 99/99)

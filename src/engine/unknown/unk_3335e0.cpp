@@ -56,7 +56,7 @@ class Body_333820 {
 } // namespace fn_f0b54823
 
 // 0x003335e0 FUN_003335e0 (360 B): equivalent/0x003335e0.cpp
-// sym: ?FUN_003335e0@Obj_3335e0@owners@@QAEXXZ
+// sym: ?FUN_003335e0@Obj_3335e0@owners@@QAEXXZ @2c6ad95d3be4 @w5619a25df0d9
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 23/23)
 // FUN_003335e0 @ 0x003335e0
 void owners::Obj_3335e0::FUN_003335e0()
@@ -122,7 +122,7 @@ void owners::C_333770::FUN_00333770(int x) {
 namespace fn_f0b54823 {
 
 // 0x00333780 FUN_00333780 (77 B): equivalent/0x00333780.cpp
-// sym: ?FUN_00333780@Object@fn_f0b54823@@QAEXM@Z
+// sym: ?FUN_00333780@Object@fn_f0b54823@@QAEXM@Z @e46f0baaf3df @w40e917982e71
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00333780 @ 0x00333780
 void Object::FUN_00333780(float input) {
@@ -178,7 +178,7 @@ void Body_333820::SetX(int v) {
 } // namespace fn_f0b54823
 
 // 0x00333830 FUN_00333830 (85 B): equivalent/0x00333830.cpp [wrapped: conflict: Object]
-// sym: ?FUN_00333830@Object@fn_00333830@@QAEXM@Z
+// sym: ?FUN_00333830@Object@fn_00333830@@QAEXM@Z @38867181918d @w05beb5d9cc3c
 namespace fn_00333830 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 5/6, incomplete)
 // FUN_00333830 @ 0x00333830

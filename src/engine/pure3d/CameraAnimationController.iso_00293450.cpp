@@ -4,7 +4,7 @@
 
 
 // 0x00293450 pure3d::CameraAnimationController::vfunc_28 (1074 B): equivalent/0x00293450.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_00293450@CameraAnimationController@fn_fb77307f@@QAEHXZ
+// sym: ?FUN_00293450@CameraAnimationController@fn_fb77307f@@QAEHXZ @af4ad6a99817 @w058074bf9fc5
 #include "gen/owners.h"
 namespace fn_fb77307f {} using namespace fn_fb77307f;
 namespace fn_fb77307f {

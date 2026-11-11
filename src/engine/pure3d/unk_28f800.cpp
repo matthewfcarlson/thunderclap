@@ -368,7 +368,7 @@ void Obj_28fa40::f(unsigned int* a, unsigned int* b) {
 
 
 // 0x0028faa0 FUN_0028faa0 (37 B): equivalent/0x0028faa0.cpp
-// sym: ?FUN_0028faa0@Object@fn_fab9a868@@QAEPAUDestination@2@XZ
+// sym: ?FUN_0028faa0@Object@fn_fab9a868@@QAEPAUDestination@2@XZ @92477c92bd14 @w33de8da5945b
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 0/0)
 // FUN_0028faa0 @ 0x0028faa0
 Destination *Object::FUN_0028faa0() {
@@ -397,7 +397,7 @@ void Target_28faf0::run(bool b) {
 
 
 // 0x0028fb20 FUN_0028fb20 (94 B): equivalent/0x0028fb20.cpp
-// sym: _FUN_0028fb20
+// sym: _FUN_0028fb20 @24a1a9a22ad4 @wa597fb2bc5e2
 // STATUS: equivalent (tools/equiv.py level 3: 3096 inputs, branch coverage 14/16, incomplete)
 // FUN_0028fb20 @ 0x0028fb20
 extern "C" void __cdecl FUN_0028fb20(char *destination, const char *path)

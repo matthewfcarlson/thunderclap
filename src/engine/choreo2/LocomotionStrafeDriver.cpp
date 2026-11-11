@@ -285,7 +285,7 @@ LocomotionStrafeDriver::~LocomotionStrafeDriver() {
 
 
 // 0x00225f30 FUN_00225f30 (441 B): equivalent/0x00225f30.cpp
-// sym: ?FUN_00225f30@Obj_225f30@fn_f9d100c9@@QAEPAU12@PAU12@@Z
+// sym: ?FUN_00225f30@Obj_225f30@fn_f9d100c9@@QAEPAU12@PAU12@@Z @0dd3da5cf620 @w83f41cccbfd6
 // STATUS: equivalent (tools/equiv.py level 3: 21 inputs, branch coverage 12/12)
 // FUN_00225f30 @ 0x00225f30
 Obj_225f30 *Obj_225f30::FUN_00225f30(Obj_225f30 *src)
@@ -364,14 +364,14 @@ V3_226150 Obj_226150::Get() {
 
 
 // 0x002261e0 FUN_002261e0 (78 B): equivalent/0x002261e0.cpp
-// sym: ?FUN_002261e0@Object@fn_f9d100c9@@QAEXPAUVec3@2@@Z
+// sym: ?FUN_002261e0@Object@fn_f9d100c9@@QAEXPAUVec3@2@@Z @df640d7068fa @w738af95f1d36
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002261e0 @ 0x002261e0
 void Object::FUN_002261e0(Vec3* output) { Vec3 value; value.x=(*(float*)&DAT_004c9e74); value.y=(*(float*)&DAT_004c9e78); value.z=(*(float*)&DAT_004c9e7c); FUN_00224d70(field,&value); *output=value; }
 
 
 // 0x00226250 FUN_00226250 (124 B): equivalent/0x00226250.cpp
-// sym: ?FUN_00226250@Emitter_226250@fn_f9d100c9@@QAEXPAUV3_226250@2@@Z
+// sym: ?FUN_00226250@Emitter_226250@fn_f9d100c9@@QAEXPAUV3_226250@2@@Z @f651bc68cb42 @w883b8ef803cc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00226250 @ 0x00226250
 // Transforms the default direction by the emitter's transform and scales it by its speed.
@@ -433,7 +433,7 @@ void FUN_00226430(HeapEntry_226430* first, int hole, int top, HeapEntry_226430 v
 
 
 // 0x002264b0 FUN_002264b0 (269 B): equivalent/0x002264b0.cpp
-// sym: ?FUN_002264b0@fn_f9d100c9@@YAXPAUItem_2264b0@1@00@Z
+// sym: ?FUN_002264b0@fn_f9d100c9@@YAXPAUItem_2264b0@1@00@Z @559eaa088b9e @w3836875c6296
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 17/18, incomplete)
 // FUN_002264b0 @ 0x002264b0
 void __cdecl FUN_002264b0(Item_2264b0* first, Item_2264b0* middle, Item_2264b0* last)
@@ -475,7 +475,7 @@ choreo2::LocomotionStrafeDriver::~LocomotionStrafeDriver() {}
 namespace fn_f9d100c9 {
 
 // 0x00226610 FUN_00226610 (660 B): equivalent/0x00226610.cpp
-// sym: ?FUN_00226610@LocomotionStrafeDriver_226610@fn_f9d100c9@@QAEXIPAPAVIdObj_226610@2@PAM@Z
+// sym: ?FUN_00226610@LocomotionStrafeDriver_226610@fn_f9d100c9@@QAEXIPAPAVIdObj_226610@2@PAM@Z @ad125f275360 @wd11ca6888a2c
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 40/40)
 // FUN_00226610 @ 0x00226610
 void LocomotionStrafeDriver_226610::FUN_00226610(unsigned row, IdObj_226610 **ids, float *weights)
@@ -558,7 +558,7 @@ void LocomotionStrafeDriver_226610::FUN_00226610(unsigned row, IdObj_226610 **id
 
 
 // 0x002268f0 FUN_002268f0 (100 B): equivalent/0x002268f0.cpp
-// sym: ?FUN_002268f0@Obj_2268f0@fn_f9d100c9@@QAEXPAUVec3_2268f0@2@@Z
+// sym: ?FUN_002268f0@Obj_2268f0@fn_f9d100c9@@QAEXPAUVec3_2268f0@2@@Z @80cfe3c726e1 @w5184640f4031
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002268f0 @ 0x002268f0
 void Obj_2268f0::FUN_002268f0(Vec3_2268f0 *src)
@@ -590,7 +590,7 @@ hulk_freg Table_226960::FUN_00226960(unsigned int row, float v)
 
 
 // 0x00226a70 FUN_00226a70 (198 B): equivalent/0x00226a70.cpp
-// sym: ?FUN_00226a70@Curve_226a70@fn_f9d100c9@@QAEMMM@Z
+// sym: ?FUN_00226a70@Curve_226a70@fn_f9d100c9@@QAEMMM@Z @66ec5d3dbd76 @wd841b84b1401
 // STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 6/8, incomplete)
 // FUN_00226a70 @ 0x00226a70
 hulk_freg Curve_226a70::FUN_00226a70(float position, float angle) {
@@ -615,7 +615,7 @@ hulk_freg Curve_226a70::FUN_00226a70(float position, float angle) {
 } // namespace fn_f9d100c9
 
 // 0x00226b40 choreo2::LocomotionStrafeDriver::vfunc_10 (914 B): equivalent/0x00226b40.cpp [wrapped: conflict: choreo2::LocomotionStrafeDriver]
-// sym: ?vfunc_10@LocomotionStrafeDriver@choreo2@fn_00226b40@@UAEXTArgBase_226b40@3@TArgPose_226b40@3@PAURig_226b40@3@M@Z
+// sym: ?vfunc_10@LocomotionStrafeDriver@choreo2@fn_00226b40@@UAEXTArgBase_226b40@3@TArgPose_226b40@3@PAURig_226b40@3@M@Z @fe77adee07c4 @w290f3a376aa3
 namespace fn_00226b40 {
 // STATUS: equivalent (tools/equiv.py level 3: 734 inputs, branch coverage 26/26)
 // choreo2::LocomotionStrafeDriver::vfunc_10 @ 0x00226b40
@@ -845,7 +845,7 @@ void choreo2::LocomotionStrafeDriver::vfunc_10(ArgBase_226b40 a, ArgPose_226b40 
 
 
 // 0x00226ee0 choreo2::LocomotionStrafeDriver::vfunc_11 (542 B): equivalent/0x00226ee0.cpp [wrapped: conflict: Channel; Pose; choreo2::LocomotionStrafeDriver]
-// sym: ?vfunc_11@LocomotionStrafeDriver@choreo2@fn_00226ee0@@UAEDIIPAVPose@3@M@Z
+// sym: ?vfunc_11@LocomotionStrafeDriver@choreo2@fn_00226ee0@@UAEDIIPAVPose@3@M@Z @84f24cbdb484 @w854d305f3fce
 namespace fn_00226ee0 {
 // STATUS: equivalent (tools/equiv.py level 3: 6674 inputs, branch coverage 17/18, incomplete)
 // choreo2::LocomotionStrafeDriver::vfunc_11 @ 0x00226ee0
@@ -983,7 +983,7 @@ char choreo2::LocomotionStrafeDriver::vfunc_11(unsigned int a, unsigned int b, P
 
 
 // 0x00227100 choreo2::LocomotionStrafeDriver::vfunc_12 (438 B): equivalent/0x00227100.cpp [wrapped: conflict: FUN_0004af40; LocomotionStrafeDriver]
-// sym: ?vfunc_12@LocomotionStrafeDriver@fn_00227100@@UAE_NPAUSource_227100@2@PAM@Z
+// sym: ?vfunc_12@LocomotionStrafeDriver@fn_00227100@@UAE_NPAUSource_227100@2@PAM@Z @d04622291f4c @w50692e058888
 namespace fn_00227100 {
 // STATUS: equivalent (tools/equiv.py level 3: 17998 inputs, branch coverage 22/22)
 // choreo2::LocomotionStrafeDriver::vfunc_12 @ 0x00227100
@@ -1093,7 +1093,7 @@ bool LocomotionStrafeDriver::vfunc_12(Source_227100 *src, float *out)
 namespace fn_f9d100c9 {
 
 // 0x00227300 FUN_00227300 (196 B): equivalent/0x00227300.cpp
-// sym: _FUN_00227300
+// sym: _FUN_00227300 @ff9bcf2ad356 @w2e731d2c70a9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00227300 @ 0x00227300
 extern "C" void __cdecl FUN_00227300(void * a_, void * b_, void * c)
@@ -1150,7 +1150,7 @@ void FUN_002274a0(Vec_2274a0* first, Vec_2274a0* last, Vec_2274a0* out, Vec_2274
 } // namespace fn_f9d100c9
 
 // 0x00227590 FUN_00227590 (183 B): equivalent/0x00227590.cpp [wrapped: conflict: choreo2::LocomotionStrafeDriver]
-// sym: ??0LocomotionStrafeDriver@choreo2@fn_00227590@@QAE@PAXIIPBI1@Z
+// sym: ??0LocomotionStrafeDriver@choreo2@fn_00227590@@QAE@PAXIIPBI1@Z @a3602cd2f2b0 @w51952b492de1
 namespace fn_00227590 {
 // STATUS: equivalent (tools/equiv.py level 3: 375 inputs, branch coverage 8/8)
 // FUN_00227590 @ 0x00227590
@@ -1238,7 +1238,7 @@ void __cdecl FUN_002277f0(E_2277f0* first, E_2277f0* last) {
 
 
 // 0x002278d0 FUN_002278d0 (74 B): equivalent/0x002278d0.cpp
-// sym: ?FUN_002278d0@Thing@fn_f9d100c9@@QAEMM@Z
+// sym: ?FUN_002278d0@Thing@fn_f9d100c9@@QAEMM@Z @67abcc7c68ef @wd957f6416cad
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_002278d0 @ 0x002278d0
 hulk_freg Thing::FUN_002278d0(float scale) {
@@ -1292,7 +1292,7 @@ void Obj::run(float x) {
 
 
 // 0x00227a10 FUN_00227a10 (971 B): equivalent/0x00227a10.cpp
-// sym: ?FUN_00227a10@fn_f9d100c9@@YA?AURange_227a10@1@PAUElem_227a10@1@0@Z
+// sym: ?FUN_00227a10@fn_f9d100c9@@YA?AURange_227a10@1@PAUElem_227a10@1@0@Z @089991e8ccaa @w10d320cfa72f
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 61/62, incomplete)
 // FUN_00227a10 @ 0x00227a10
 // std::_Unguarded_partition over 12-byte elements ordered descending by the float at +4
@@ -1349,7 +1349,7 @@ Range_227a10 FUN_00227a10(Elem_227a10 *first, Elem_227a10 *last)
 
 
 // 0x00227e20 FUN_00227e20 (124 B): equivalent/0x00227e20.cpp
-// sym: _FUN_00227e20
+// sym: _FUN_00227e20 @5a3286e1c233 @w4ad1a66c2401
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 15/18, incomplete)
 // FUN_00227e20 @ 0x00227e20
 // Insertion sort of [first, last) by descending key.
@@ -1377,7 +1377,7 @@ extern "C" void FUN_00227e20(void * first_, void *last) {
 
 
 // 0x00227ef0 FUN_00227ef0 (154 B): equivalent/0x00227ef0.cpp
-// sym: _FUN_00227ef0
+// sym: _FUN_00227ef0 @3233611142a0 @w4accedab624c
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 4/4)
 // FUN_00227ef0 @ 0x00227ef0
 // Heap-sort phase: repeatedly moves the root to the back and re-sifts.
@@ -1394,7 +1394,7 @@ extern "C" void __cdecl FUN_00227ef0(void *first, void * last_)
 
 
 // 0x00227f90 FUN_00227f90 (289 B): equivalent/0x00227f90.cpp
-// sym: ?FUN_00227f90@fn_f9d100c9@@YAXPAUItem_227f90@1@0H@Z
+// sym: ?FUN_00227f90@fn_f9d100c9@@YAXPAUItem_227f90@1@0H@Z @db3db42142e9 @w5f370168d72f
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 12/14, incomplete)
 // FUN_00227f90 @ 0x00227f90
 void __cdecl FUN_00227f90(Item_227f90* first, Item_227f90* last, hulk_intptr budget) {
@@ -1425,7 +1425,7 @@ void __cdecl FUN_00227f90(Item_227f90* first, Item_227f90* last, hulk_intptr bud
 } // namespace fn_f9d100c9
 
 // 0x00228120 FUN_00228120 (938 B): equivalent/0x00228120.cpp [wrapped: conflict: FUN_0004af40; FUN_00224fc0]
-// sym: ?FUN_00228120@Sampler_228120@fn_00228120@@QAEXM@Z
+// sym: ?FUN_00228120@Sampler_228120@fn_00228120@@QAEXM@Z @c11de106dc66 @we49ee59b1ec1
 namespace fn_00228120 {
 // STATUS: equivalent (tools/equiv.py level 3: 385 inputs, branch coverage 30/30)
 // FUN_00228120 @ 0x00228120

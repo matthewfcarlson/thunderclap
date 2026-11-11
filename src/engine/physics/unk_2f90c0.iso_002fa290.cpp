@@ -5,7 +5,7 @@
 
 
 // 0x002fa290 FUN_002fa290 (585 B): equivalent/0x002fa290.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_002fa290@VisCache@fn_f6089f10@@QAEXTFrame_2fa290@2@PAUItem_2fa290@2@PAUEntry_2fa290@2@@Z
+// sym: ?FUN_002fa290@VisCache@fn_f6089f10@@QAEXTFrame_2fa290@2@PAUItem_2fa290@2@PAUEntry_2fa290@2@@Z @d742bd94305c @w64e59064ab30
 #include "gen/owners.h"
 #include "decls/data/engine/physics.h"
 namespace fn_f6089f10 {} using namespace fn_f6089f10;

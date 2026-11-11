@@ -128,7 +128,7 @@ TypeT_24d6b0::TypeT_24d6b0() {
 } // namespace fn_f8a82533
 
 // 0x0024d720 om::MetaTypeAttrib<int>::vfunc_1 (27 B): equivalent/0x0024d720.cpp [wrapped: conflict: om::MetaTypeAttrib; om::MetaTypeAttribBase]
-// sym: ?vfunc_1@MetaTypeAttrib@om@fn_0024d720@@UAEXHH@Z
+// sym: ?vfunc_1@MetaTypeAttrib@om@fn_0024d720@@UAEXHH@Z @6ba68da91dee @w163cf1e5e15b
 namespace fn_0024d720 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // om::MetaTypeAttrib<int>::vfunc_1 @ 0x0024d720
@@ -139,7 +139,7 @@ void om::MetaTypeAttrib::vfunc_1(int destination, int offset) { FUN_0025ab30(des
 
 
 // 0x0024d740 om::MetaTypeAttrib<int>::vfunc_2 (26 B): equivalent/0x0024d740.cpp [wrapped: conflict: om::MetaTypeAttrib; om::MetaTypeAttribBase]
-// sym: ?vfunc_2@?$MetaTypeAttrib@H@om@fn_0024d740@@UAEXPAXH@Z
+// sym: ?vfunc_2@?$MetaTypeAttrib@H@om@fn_0024d740@@UAEXPAXH@Z @63bbea5733ea @w732cb994973c
 namespace fn_0024d740 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // om::MetaTypeAttrib<int>::vfunc_2 @ 0x0024d740
@@ -164,7 +164,7 @@ template<> void MetaTypeAttrib<int>::vfunc_2(void *destination, int additionalOf
 
 
 // 0x0024d790 om::MetaTypeAttrib<float>::vfunc_1 (27 B): equivalent/0x0024d790.cpp [wrapped: conflict: om::MetaTypeAttribBase]
-// sym: ?vfunc_1@MetaTypeAttribFloat@om@fn_0024d790@@UAEHPAXH@Z
+// sym: ?vfunc_1@MetaTypeAttribFloat@om@fn_0024d790@@UAEHPAXH@Z @20509ecb8720 @wbea8ab986a53
 namespace fn_0024d790 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // om::MetaTypeAttrib<float>::vfunc_1 @ 0x0024d790
@@ -175,7 +175,7 @@ int om::MetaTypeAttribFloat::vfunc_1(void *destination, int offset) { return FUN
 
 
 // 0x0024d7b0 om::MetaTypeAttrib<float>::vfunc_2 (26 B): equivalent/0x0024d7b0.cpp [wrapped: conflict: om::MetaTypeAttrib; om::MetaTypeAttribBase]
-// sym: ?vfunc_2@?$MetaTypeAttrib@M@om@fn_0024d7b0@@UAEHPAX0@Z
+// sym: ?vfunc_2@?$MetaTypeAttrib@M@om@fn_0024d7b0@@UAEHPAX0@Z @f9bf3528673c @wc3de6ea39898
 namespace fn_0024d7b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // om::MetaTypeAttrib<float>::vfunc_2 @ 0x0024d7b0
@@ -217,7 +217,7 @@ extern "C" OmMetaType* FUN_0024d830() {
 } // namespace fn_f8a82533
 
 // 0x0024d840 audio::ListenerEffectXBoxType::vfunc_2 (76 B): equivalent/0x0024d840.cpp
-// sym: ?vfunc_2@ListenerEffectXBoxType@audio@@UAEPAXXZ
+// sym: ?vfunc_2@ListenerEffectXBoxType@audio@@UAEPAXXZ @50b4b4d5a15c @w7a696f4cc0c7
 // STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 2/2)
 // audio::ListenerEffectXBoxType::vfunc_2 @ 0x0024d840
 void* audio::ListenerEffectXBoxType::vfunc_2() {

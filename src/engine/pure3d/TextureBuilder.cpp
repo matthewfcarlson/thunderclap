@@ -107,7 +107,7 @@ void pure3d::TextureBuilder::vfunc_9(int x) {
 namespace fn_f9c5e282 {
 
 // 0x002ae1a0 FUN_002ae1a0 (266 B): equivalent/0x002ae1a0.cpp
-// sym: ?run@Object_2ae1a0@fn_f9c5e282@@QAEHHHHHPAX@Z
+// sym: ?run@Object_2ae1a0@fn_f9c5e282@@QAEHHHHHPAX@Z @48a113ad4cea @w9cdf5c85e7f0
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_002ae1a0 @ 0x002ae1a0
 int Object_2ae1a0::run(int width,int height,int requestedDepth,int unused,void* palette) {
@@ -126,7 +126,7 @@ int Object_2ae1a0::run(int width,int height,int requestedDepth,int unused,void* 
 } // namespace fn_f9c5e282
 
 // 0x002ae2b0 pure3d::TextureBuilder::vfunc_0 (529 B): equivalent/0x002ae2b0.cpp [wrapped: conflict: pure3d::TextureBuilder]
-// sym: ?vfunc_0@TextureBuilder@pure3d@fn_002ae2b0@@UAE_NHHHHH@Z
+// sym: ?vfunc_0@TextureBuilder@pure3d@fn_002ae2b0@@UAE_NHHHHH@Z @42553a1ce8a9 @w33373a30acb4
 namespace fn_002ae2b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3106 inputs, branch coverage 62/62)
 // pure3d::TextureBuilder::vfunc_0 @ 0x002ae2b0
@@ -283,7 +283,7 @@ bool pure3d::TextureBuilder::vfunc_0(int a1, int a2, int a3, int a4, int a5)
 
 
 // 0x002ae5a0 pure3d::TextureBuilder::vfunc_1 (286 B): equivalent/0x002ae5a0.cpp
-// sym: ?vfunc_1@TextureBuilder@pure3d@@UAEXPAX@Z
+// sym: ?vfunc_1@TextureBuilder@pure3d@@UAEXPAX@Z @5f22fb33fdbf @w2a35bac3a86b
 // STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 16/16)
 // pure3d::TextureBuilder::vfunc_1 @ 0x002ae5a0
 void pure3d::TextureBuilder::vfunc_1(void* __p0) { const unsigned int * source = (const unsigned int *)__p0;
@@ -319,7 +319,7 @@ void pure3d::TextureBuilder::vfunc_1(void* __p0) { const unsigned int * source =
 
 
 // 0x002ae6c0 pure3d::TextureBuilder::vfunc_2 (348 B): equivalent/0x002ae6c0.cpp [wrapped: conflict: pure3d::TextureBuilder]
-// sym: ?vfunc_2@TextureBuilder@pure3d@fn_002ae6c0@@UAEXPBE@Z
+// sym: ?vfunc_2@TextureBuilder@pure3d@fn_002ae6c0@@UAEXPBE@Z @a5a4da82d7f2 @wd984b903602a
 namespace fn_002ae6c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 156 inputs, branch coverage 22/22)
 // pure3d::TextureBuilder::vfunc_2 @ 0x002ae6c0

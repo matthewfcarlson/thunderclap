@@ -180,7 +180,7 @@ int List::Add(Node* p) {
 
 
 // 0x00239f10 FUN_00239f10 (267 B): equivalent/0x00239f10.cpp
-// sym: ?FUN_00239f10@List_239f10@fn_f6f801d4@@QAE_NPAUFactory_239f10@2@PAUReader@2@H@Z
+// sym: ?FUN_00239f10@List_239f10@fn_f6f801d4@@QAE_NPAUFactory_239f10@2@PAUReader@2@H@Z @e5a48c68e2d5 @w8e31c7e84130
 // STATUS: equivalent (tools/equiv.py level 3: 174 inputs, branch coverage 21/22, incomplete)
 // FUN_00239f10 @ 0x00239f10
 bool List_239f10::FUN_00239f10(Factory_239f10* factory, Reader* reader, int index) {

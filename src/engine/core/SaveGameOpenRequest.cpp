@@ -99,7 +99,7 @@ void FileRequest_273c70::run() {
 } // namespace fn_f1bb87c2
 
 // 0x00273cb0 core::SaveGameOpenRequest::vfunc_1 (129 B): equivalent/0x00273cb0.cpp
-// sym: ?vfunc_1@SaveGameOpenRequest@core@@UAEHXZ
+// sym: ?vfunc_1@SaveGameOpenRequest@core@@UAEHXZ @59bdffe1a33c @wf74e56f32afc
 // STATUS: equivalent (tools/equiv.py level 3: 19867 inputs, branch coverage 2/2)
 // core::SaveGameOpenRequest::vfunc_1 @ 0x00273cb0
 int core::SaveGameOpenRequest::vfunc_1() {

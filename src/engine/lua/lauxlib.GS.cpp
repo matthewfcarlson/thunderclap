@@ -57,7 +57,7 @@ extern "C" void __cdecl FUN_00338d90(LuaVMState* L, int level)
 
 
 // 0x00339800 FUN_00339800 (561 B): equivalent/0x00339800.cpp
-// sym: _FUN_00339800
+// sym: _FUN_00339800 @d7850d5056fd @w2d1bdae1feeb
 // STATUS: equivalent (tools/equiv.py level 3: 3033 inputs, branch coverage 24/24)
 // FUN_00339800 @ 0x00339800
 // equiv-conv: FUN_003397c0 edi ebx
@@ -125,7 +125,7 @@ extern "C" int __cdecl FUN_00339800(LuaVMState *L, const char *filename)
 
 
 // 0x00339c30 FUN_00339c30 (181 B): equivalent/0x00339c30.cpp
-// sym: _FUN_00339c30
+// sym: _FUN_00339c30 @393953ed6ce8 @wdaa18f38a8be
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 6/6)
 // FUN_00339c30 @ 0x00339c30
 // luaL_argerror

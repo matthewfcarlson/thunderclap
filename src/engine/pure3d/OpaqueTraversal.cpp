@@ -161,7 +161,7 @@ class OpaqueTraversal_2a2e20 {
 
 
 // 0x002a26c0 FUN_002a26c0 (253 B): equivalent/0x002a26c0.cpp
-// sym: ?FUN_002a26c0@fn_ff737d4f@@YAXIIPAUItem_2a26c0@1@0@Z
+// sym: ?FUN_002a26c0@fn_ff737d4f@@YAXIIPAUItem_2a26c0@1@0@Z @b383f3e648a6 @wa236ab08aef6
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 10/10)
 // FUN_002a26c0 @ 0x002a26c0
 void __cdecl FUN_002a26c0(uint_2a26c0 byteIndex, uint_2a26c0 count, Item_2a26c0* input, Item_2a26c0* output)
@@ -187,7 +187,7 @@ void __cdecl FUN_002a26c0(uint_2a26c0 byteIndex, uint_2a26c0 count, Item_2a26c0*
 
 
 // 0x002a27c0 FUN_002a27c0 (249 B): equivalent/0x002a27c0.cpp
-// sym: _FUN_002a27c0
+// sym: _FUN_002a27c0 @8cf91c01b202 @w6ae47ee57c68
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 10/10)
 // FUN_002a27c0 @ 0x002a27c0
 extern "C" void __cdecl FUN_002a27c0(unsigned int byteIndex, unsigned int count, const unsigned int * source, unsigned int * destination)
@@ -297,7 +297,7 @@ void OpaqueTraversal::vfunc_6(Item_2a2be0* item, unsigned int index, int unused)
 } // namespace fn_ff737d4f
 
 // 0x002a2d50 FUN_002a2d50 (129 B): equivalent/0x002a2d50.cpp [wrapped: conflict: OpaqueTraversal]
-// sym: ?FUN_002a2d50@OpaqueTraversal@fn_002a2d50@@QAEPAV12@I@Z
+// sym: ?FUN_002a2d50@OpaqueTraversal@fn_002a2d50@@QAEPAV12@I@Z @2d189e93dae7 @wc09cf9404296
 namespace fn_002a2d50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_002a2d50 @ 0x002a2d50

@@ -167,7 +167,7 @@ void Pose::Update(const Mat_284460 *root)
 } // namespace fn_fffbb65f
 
 // 0x002844f0 FUN_002844f0 (165 B): equivalent/0x002844f0.cpp [wrapped: conflict: Pose]
-// sym: ?FUN_002844f0@Pose@fn_002844f0@@QAEXPBURow16_2844f0@2@@Z
+// sym: ?FUN_002844f0@Pose@fn_002844f0@@QAEXPBURow16_2844f0@2@@Z @b5e5f0917f5c @w67a9f3b81245
 namespace fn_002844f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2533 inputs, branch coverage 8/8)
 // FUN_002844f0 @ 0x002844f0
@@ -217,7 +217,7 @@ void Pose::FUN_002844f0(const Row16_2844f0 *root)
 namespace fn_fffbb65f {
 
 // 0x002845a0 FUN_002845a0 (184 B): equivalent/0x002845a0.cpp
-// sym: ?target@Object@fn_fffbb65f@@QAEXXZ
+// sym: ?target@Object@fn_fffbb65f@@QAEXXZ @e544c65996d2 @w8ed075c2543e
 // STATUS: equivalent (tools/equiv.py level 3: 135 inputs, branch coverage 6/6)
 // FUN_002845a0 @ 0x002845a0
 void Object::target() {
@@ -239,7 +239,7 @@ void Object::target() {
 } // namespace fn_fffbb65f
 
 // 0x00284660 FUN_00284660 (359 B): equivalent/0x00284660.cpp [wrapped: conflict: Matrix]
-// sym: ?FUN_00284660@Pose@fn_00284660@@QAE_NPAV12@MI@Z
+// sym: ?FUN_00284660@Pose@fn_00284660@@QAE_NPAV12@MI@Z @a0c72122825e @w99f7234f0307
 namespace fn_00284660 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00284660 @ 0x00284660
@@ -388,7 +388,7 @@ void owners::Obj_2848b0::FUN_002848b0(hulk_intptr index, int value, int* out) {
 namespace fn_fffbb65f {
 
 // 0x00284910 FUN_00284910 (176 B): equivalent/0x00284910.cpp
-// sym: ??0Pose@pure3d@fn_fffbb65f@@QAE@PAUSkeleton@2@D@Z
+// sym: ??0Pose@pure3d@fn_fffbb65f@@QAE@PAUSkeleton@2@D@Z @baa1d2b3a3b7 @wdbd0ad110a1b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00284910 @ 0x00284910
 namespace pure3d {

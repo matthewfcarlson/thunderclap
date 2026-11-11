@@ -5,7 +5,7 @@
 
 
 // 0x00245680 audio::Clip::vfunc_5 (160 B): equivalent/0x00245680.cpp [isolated: conflict: FUN_00247530; on include/gen/ and not mergeable]
-// sym: ?vfunc_5@Clip@audio@@UAE_NH@Z
+// sym: ?vfunc_5@Clip@audio@@UAE_NH@Z @18e96a58d14c @wb88065d0b124
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // audio::Clip::vfunc_5 @ 0x00245680
 // audio::Clip::vfunc_5 @ 0x00245680: loads a clip from a content stream, logging on failure

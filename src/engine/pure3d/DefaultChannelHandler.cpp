@@ -137,7 +137,7 @@ pure3d::ColourChannel::~ColourChannel() {}
 namespace fn_fc71db16 {
 
 // 0x0028e160 FUN_0028e160 (2075 B): equivalent/0x0028e160.cpp
-// sym: ?FUN_0028e160@fn_fc71db16@@YGPAUPrim_28e160@1@PAVReader@1@HPAUParent_28e160@1@@Z
+// sym: ?FUN_0028e160@fn_fc71db16@@YGPAUPrim_28e160@1@PAVReader@1@HPAUParent_28e160@1@@Z @e744502806f8 @w2e580b65e337
 // STATUS: equivalent (tools/equiv.py level 3: 20158 inputs, branch coverage 84/84)
 // FUN_0028e160 @ 0x0028e160
 Prim_28e160 *__stdcall FUN_0028e160(Reader *R, int unused, Parent_28e160 *parent)
@@ -292,7 +292,7 @@ ChannelLoader::ChannelLoader() {
 } // namespace fn_fc71db16
 
 // 0x0028ec30 pure3d::DefaultChannelHandler::vfunc_4 (282 B): equivalent/0x0028ec30.cpp
-// sym: ?vfunc_4@DefaultChannelHandler@pure3d@@UAEHHHH@Z
+// sym: ?vfunc_4@DefaultChannelHandler@pure3d@@UAEHHHH@Z @5f9577ff195b @w2f353f5ab810
 // STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 12/12)
 // pure3d::DefaultChannelHandler::vfunc_4 @ 0x0028ec30
 int pure3d::DefaultChannelHandler::vfunc_4(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { Channel_28ec30 * c = (Channel_28ec30 *)__p0; void * a = (void *)__p1; void * b = (void *)__p2;

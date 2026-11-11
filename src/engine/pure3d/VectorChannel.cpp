@@ -19,7 +19,7 @@ unsigned int pure3d::VectorChannel::vfunc_2() {
 
 
 // 0x0028a3b0 pure3d::VectorChannel::vfunc_5 (230 B): equivalent/0x0028a3b0.cpp [wrapped: conflict: pure3d::VectorChannel]
-// sym: ?vfunc_5@VectorChannel@pure3d@fn_0028a3b0@@UAEXMMPAUVector@23@@Z
+// sym: ?vfunc_5@VectorChannel@pure3d@fn_0028a3b0@@UAEXMMPAUVector@23@@Z @c783cae9b87b @w242fc543c664
 namespace fn_0028a3b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 2/2)
 // pure3d::VectorChannel::vfunc_5 @ 0x0028a3b0

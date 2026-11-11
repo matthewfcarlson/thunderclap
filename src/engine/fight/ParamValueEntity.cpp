@@ -47,7 +47,7 @@ int fight::ParamValueEntity::vfunc_9(int a, int b) {
 namespace fn_f0fa71c6 {
 
 // 0x00235000 fight::ParamValueEntity::vfunc_10 (105 B): equivalent/0x00235000.cpp
-// sym: ?v10@ParamValueEntity@fn_f0fa71c6@@UAEPAUEntry_235000@2@HHH@Z
+// sym: ?v10@ParamValueEntity@fn_f0fa71c6@@UAEPAUEntry_235000@2@HHH@Z @44f4fa09b1f4 @w33af440bc1cb
 // STATUS: equivalent (tools/equiv.py level 3: 192 inputs, branch coverage 12/12)
 // fight::ParamValueEntity::vfunc_10 @ 0x00235000
 Entry_235000* ParamValueEntity::v10(int param, int key0, int key1)

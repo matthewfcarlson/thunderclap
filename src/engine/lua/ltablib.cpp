@@ -153,7 +153,7 @@ extern "C" int __cdecl FUN_0033aef0(LuaVMState* L) {
 } // namespace fn_ff2a2ef6
 
 // 0x0033b110 FUN_0033b110 (995 B): equivalent/0x0033b110.cpp [wrapped: macros]
-// sym: _FUN_0033b110
+// sym: _FUN_0033b110 @bfcafa5b2a77 @w067f5718dc6b
 namespace fn_0033b110 {
 // STATUS: equivalent (tools/equiv.py level 3: 315 inputs, branch coverage 35/36, incomplete)
 // FUN_0033b110 @ 0x0033b110

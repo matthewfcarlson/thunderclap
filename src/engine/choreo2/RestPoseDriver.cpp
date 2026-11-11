@@ -111,7 +111,7 @@ void choreo2::RestPoseDriver::vfunc_9(int a) {
 namespace fn_f792b616 {
 
 // 0x0022a640 choreo2::RestPoseDriver::vfunc_10 (414 B): equivalent/0x0022a640.cpp
-// sym: ?vfunc_10@RestPoseDriver@fn_f792b616@@UAEXPAUBlend_22a640@2@0PAUPose@2@M@Z
+// sym: ?vfunc_10@RestPoseDriver@fn_f792b616@@UAEXPAUBlend_22a640@2@0PAUPose@2@M@Z @09ee879caaa5 @wa40f5b683175
 // STATUS: equivalent (tools/equiv.py level 3: 47 inputs, branch coverage 12/12)
 // choreo2::RestPoseDriver::vfunc_10 @ 0x0022a640
 void RestPoseDriver::vfunc_10(Blend_22a640 *a, Blend_22a640 *b, Pose *pose, float t)

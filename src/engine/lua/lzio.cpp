@@ -15,7 +15,7 @@ extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int o
 
 
 // 0x0021a550 FUN_0021a550 (58 B): equivalent/0x0021a550.cpp
-// sym: _FUN_0021a550
+// sym: _FUN_0021a550 @995eb067aae4 @w411f41285f76
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 4/4)
 // luaZ_fill: refill the stream's buffer from its reader; the first byte, or -1 at the end.
 extern "C" int __cdecl FUN_0021a550(LuaVMZio* z) {
@@ -34,7 +34,7 @@ extern "C" int __cdecl FUN_0021a550(LuaVMZio* z) {
 
 
 // 0x0021a590 FUN_0021a590 (79 B): equivalent/0x0021a590.cpp
-// sym: _FUN_0021a590
+// sym: _FUN_0021a590 @3518c3ae2e14 @w39a64a5b5c2a
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 7/8, incomplete)
 // luaZ_lookahead: the next byte without consuming it (refilling an empty buffer), or -1 at the end.
 extern "C" int __cdecl FUN_0021a590(LuaVMZio* z) {
@@ -67,7 +67,7 @@ extern "C" void __cdecl FUN_0021a5e0(LuaVMState* L, LuaVMZio* z, LuaVMReader rea
 
 
 // 0x0021a610 FUN_0021a610 (150 B): equivalent/0x0021a610.cpp
-// sym: _FUN_0021a610
+// sym: _FUN_0021a610 @9cde039791dd @wf3bb8f430e4a
 // STATUS: equivalent (tools/equiv.py level 3: 541 inputs, branch coverage 13/14, incomplete)
 // luaZ_read: copy n bytes out of the stream into b; the number of bytes missing.
 extern "C" unsigned int __cdecl FUN_0021a610(LuaVMZio* z, void* b, unsigned int n) {

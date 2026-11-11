@@ -269,7 +269,7 @@ public:
 
 
 // 0x002e22c0 FUN_002e22c0 (1882 B): equivalent/0x002e22c0.cpp
-// sym: ?FUN_002e22c0@Loader_2e22c0@fn_f66a63d8@@QAEXPAXPAVReader@2@HPAUVecObj@2@H@Z
+// sym: ?FUN_002e22c0@Loader_2e22c0@fn_f66a63d8@@QAEXPAXPAVReader@2@HPAUVecObj@2@H@Z @aff18b152916 @w3d130b74eda4
 // STATUS: equivalent (tools/equiv.py level 3: 2785 inputs, branch coverage 121/122, incomplete)
 // FUN_002e22c0 @ 0x002e22c0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

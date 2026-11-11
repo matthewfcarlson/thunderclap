@@ -123,7 +123,7 @@ Locator::Locator() {
 } // namespace fn_f29c4ef1
 
 // 0x002c1770 pure3d::LocatorLoader::vfunc_5 (388 B): equivalent/0x002c1770.cpp
-// sym: ?vfunc_5@LocatorLoader@pure3d@@UAEXPAX00H@Z
+// sym: ?vfunc_5@LocatorLoader@pure3d@@UAEXPAX00H@Z @d445b8d36bb0 @wb146b3faaaec
 // STATUS: equivalent (tools/equiv.py level 3: 15928 inputs, branch coverage 8/8)
 // pure3d::LocatorLoader::vfunc_5 @ 0x002c1770
 void pure3d::LocatorLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { pure3d::Locator_2c1770 ** out = (pure3d::Locator_2c1770 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_2c1770 * s = (Stream_2c1770 *)__p2; void * ctx = (void *)__p3;

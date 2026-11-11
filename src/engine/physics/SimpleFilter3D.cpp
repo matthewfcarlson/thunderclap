@@ -58,7 +58,7 @@ SimpleFilter3D::SimpleFilter3D() {
 
 
 // 0x003196a0 physics::SimpleFilter3D::vfunc_0 (126 B): equivalent/0x003196a0.cpp
-// sym: ?vfunc_0@SimpleFilter3D@physics@fn_f097f303@@UAE_NPBUVec3_3196a0@3@0H@Z
+// sym: ?vfunc_0@SimpleFilter3D@physics@fn_f097f303@@UAE_NPBUVec3_3196a0@3@0H@Z @f6b879e4ccfd @wf9d754e6f1df
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // physics::SimpleFilter3D::vfunc_0 @ 0x003196a0
 // Stores the origin and the reciprocal of each extent; fails unless every extent is positive.
@@ -80,7 +80,7 @@ bool physics::SimpleFilter3D::vfunc_0(const Vec3_3196a0* o, const Vec3_3196a0* e
 
 
 // 0x00319720 physics::SimpleFilter3D::vfunc_1 (430 B): equivalent/0x00319720.cpp
-// sym: ?vfunc_1@SimpleFilter3D@physics@fn_f097f303@@UAEXPBUV3_319720@3@M@Z
+// sym: ?vfunc_1@SimpleFilter3D@physics@fn_f097f303@@UAEXPBUV3_319720@3@M@Z @61e64329ec82 @w121b47fa0d06
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // physics::SimpleFilter3D::vfunc_1 @ 0x00319720
 void physics::SimpleFilter3D::vfunc_1(const V3_319720 *in, float dt)

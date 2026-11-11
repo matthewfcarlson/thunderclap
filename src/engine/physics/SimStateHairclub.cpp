@@ -378,7 +378,7 @@ void C_2fe420::Run(hulk_intptr x) {
 
 
 // 0x002fe480 FUN_002fe480 (167 B): equivalent/0x002fe480.cpp
-// sym: _FUN_002fe480
+// sym: _FUN_002fe480 @87f5e38e9333 @w8644d1f8886e
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 15/16, incomplete)
 // FUN_002fe480 @ 0x002fe480
 extern "C" SimStateHairclub_2fe480 *__cdecl FUN_002fe480(int a, Owner_2fe480 *owner, Provider_2fe480 *provider)

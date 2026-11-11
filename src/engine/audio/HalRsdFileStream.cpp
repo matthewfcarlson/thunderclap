@@ -233,7 +233,7 @@ void audio::HalRsdFileStream::vfunc_5(int amount) {
 
 
 // 0x00262f20 audio::HalRsdFileStream::vfunc_1 (36 B): equivalent/0x00262f20.cpp
-// sym: ?vfunc_1@HalRsdFileStream@audio@@UAEHXZ
+// sym: ?vfunc_1@HalRsdFileStream@audio@@UAEHXZ @21652daed73a @w43852a31f246
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 9/9)
 // audio::HalRsdFileStream::vfunc_1 @ 0x00262f20
 int audio::HalRsdFileStream::vfunc_1() { switch (this->f_44) { case 0: return 0; case 1: case 3: return 1; case 4: case 5: case 6: return 2; default: return 3; } }
@@ -347,7 +347,7 @@ void __fastcall FUN(Obj_2630c0* self) {
 } // namespace fn_fe2967ee
 
 // 0x00263160 FUN_00263160 (136 B): equivalent/0x00263160.cpp [wrapped: conflict: audio::HalRsdFileStream]
-// sym: ??0HalRsdFileStream@audio@fn_00263160@@QAE@PBD0HHHPAHH@Z
+// sym: ??0HalRsdFileStream@audio@fn_00263160@@QAE@PBD0HHHPAHH@Z @f2048e227383 @wc78a528026fc
 namespace fn_00263160 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00263160 @ 0x00263160
@@ -405,7 +405,7 @@ HalRsdFileStream::HalRsdFileStream(const char *nameArg, const char *pathArg, int
 
 
 // 0x002631f0 FUN_002631f0 (146 B): equivalent/0x002631f0.cpp [wrapped: conflict: FUN_00247530; audio::HalRsdFileStream]
-// sym: ?FUN_002631f0@fn_002631f0@@YAPAVHalRsdFileStream@audio@1@PBD0HHHPAHH@Z
+// sym: ?FUN_002631f0@fn_002631f0@@YAPAVHalRsdFileStream@audio@1@PBD0HHHPAHH@Z @5e1b56038474 @wfc46bee19875
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002631f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
@@ -444,7 +444,7 @@ audio::HalRsdFileStream *__cdecl FUN_002631f0(const char *name, const char *path
 
 
 // 0x002632c0 audio::HalRsdFileStream::vfunc_0 (62 B): equivalent/0x002632c0.cpp
-// sym: ?vfunc_0@HalRsdFileStream@audio@@UAEXXZ
+// sym: ?vfunc_0@HalRsdFileStream@audio@@UAEXXZ @b8180fe3383b @wf08642707824
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // audio::HalRsdFileStream::vfunc_0 @ 0x002632c0
 // audio::HalRsdFileStream::vfunc_0 @ 0x002632c0

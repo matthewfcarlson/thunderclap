@@ -60,7 +60,7 @@ extern "C" void __cdecl FUN_002192e0(LuaVMState* L, int newsize) {
 
 
 // 0x00219390 FUN_00219390 (154 B): equivalent/0x00219390.cpp
-// sym: _FUN_00219390
+// sym: _FUN_00219390 @0de391b1cf61 @w195efe1a7086
 // STATUS: equivalent (tools/equiv.py level 3: 134 inputs, branch coverage 4/4)
 // newlstr: a new string of l bytes with hash h, linked into the string table (which doubles when over full).
 // equiv-conv: FUN_00219390 stack stack stack eax
@@ -97,7 +97,7 @@ extern "C" LuaVMString* __cdecl FUN_00219390(LuaVMState* L, const char* str, uns
 
 
 // 0x00219430 FUN_00219430 (160 B): equivalent/0x00219430.cpp
-// sym: _FUN_00219430
+// sym: _FUN_00219430 @6a592759981e @w6a5ac5df6db4
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 14/14)
 // luaS_newlstr: the interned string of l bytes (a dead one found is revived), else a new one.
 // MSVC 7.1 expands memcmp inline (repe cmpsb); so does this.

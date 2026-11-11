@@ -63,7 +63,7 @@ extern "C" OmMetaType* FUN_0024dc40() {
 
 
 // 0x0024dc50 audio::ListenerEffectPspType::vfunc_2 (76 B): equivalent/0x0024dc50.cpp
-// sym: ?vfunc_2@ListenerEffectPspType@audio@fn_f28ff79c@@UAEPAXXZ
+// sym: ?vfunc_2@ListenerEffectPspType@audio@fn_f28ff79c@@UAEPAXXZ @9ee302b572b6 @wdbc6f179d34c
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 2/2)
 // audio::ListenerEffectPspType::vfunc_2 @ 0x0024dc50
 namespace audio {

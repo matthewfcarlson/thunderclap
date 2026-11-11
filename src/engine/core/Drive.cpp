@@ -275,7 +275,7 @@ void Obj_272aa0::Run(hulk_intptr arg) {
 
 
 // 0x00272ae0 FUN_00272ae0 (84 B): equivalent/0x00272ae0.cpp
-// sym: ?FUN_00272ae0@Object@fn_f59a9783@@QAE_NPAI0@Z
+// sym: ?FUN_00272ae0@Object@fn_f59a9783@@QAE_NPAI0@Z @caeedb54f514 @wce41a8582698
 // STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 2/2)
 // FUN_00272ae0 @ 0x00272ae0
 bool Object::FUN_00272ae0(unsigned int *first, unsigned int *second) {
@@ -470,7 +470,7 @@ void core::Drive::vfunc_21(int a) {
 
 
 // 0x00272ca0 core::Drive::vfunc_0_adj4 (8 B): equivalent/0x00272ca0.cpp [wrapped: conflict: core::Drive; core::IRefCount; core::Object]
-// sym: ?vfunc_0_adj4@Object@core@fn_00272ca0@@QAEXI@Z
+// sym: ?vfunc_0_adj4@Object@core@fn_00272ca0@@QAEXI@Z @003c2a31091b @wc0ab97093e5f
 namespace fn_00272ca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // core::Drive::vfunc_0_adj4 @ 0x00272ca0
@@ -575,7 +575,7 @@ Drive_272d90* Drive_272d90::Dtor(unsigned char flag) throw() {
 } // namespace fn_f59a9783
 
 // 0x00272df0 core::Drive::vfunc_3 (259 B): equivalent/0x00272df0.cpp
-// sym: ?vfunc_3@Drive_272df0@core@@QAEXXZ
+// sym: ?vfunc_3@Drive_272df0@core@@QAEXXZ @aeb70e9f52ca @w5850eccf0b6f
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 12/12)
 // core::Drive::vfunc_3 @ 0x00272df0
 // core::Drive::vfunc_3 (records.h CoreDrive): runs the pending requests that belong to the calling thread, then the

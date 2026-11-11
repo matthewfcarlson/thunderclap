@@ -698,7 +698,7 @@ void BinReader_23bb90::Flush() {
 } // namespace fn_f1775e11
 
 // 0x0023bc50 fight::BinReader::vfunc_11 (81 B): equivalent/0x0023bc50.cpp [wrapped: conflict: Stream; fight::BinReader]
-// sym: ?vfunc_11@BinReader@fight@fn_0023bc50@@QAE_NHHPAE@Z
+// sym: ?vfunc_11@BinReader@fight@fn_0023bc50@@QAE_NHHPAE@Z @e358e26296b8 @w5a68f91e3153
 namespace fn_0023bc50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // fight::BinReader::vfunc_11 @ 0x0023bc50
@@ -790,7 +790,7 @@ char fight::BinReader::vfunc_12(int a, int b, void* __p2) { int * out = (int *)_
 
 
 // 0x0023be00 fight::BinReader::vfunc_8 (261 B): equivalent/0x0023be00.cpp [wrapped: conflict: Stream; fight::BinReader]
-// sym: ?vfunc_8@BinReader@fight@fn_0023be00@@UAE_NHHPADH@Z
+// sym: ?vfunc_8@BinReader@fight@fn_0023be00@@UAE_NHHPADH@Z @5dc3d1e95732 @wb6fec5ef90af
 namespace fn_0023be00 {
 // STATUS: equivalent (tools/equiv.py level 3: 356 inputs, branch coverage 22/22)
 // fight::BinReader::vfunc_8 @ 0x0023be00
@@ -842,7 +842,7 @@ bool BinReader::vfunc_8(int a,int b,char* output,int capacity) {
 
 
 // 0x0023bf10 fight::BinReader::vfunc_7 (298 B): equivalent/0x0023bf10.cpp [wrapped: conflict: FUN_00266e00; Stream; fight::BinReader]
-// sym: ?vfunc_7@BinReader@fight@fn_0023bf10@@UAE_NIIPAUValue_23bf10@3@@Z
+// sym: ?vfunc_7@BinReader@fight@fn_0023bf10@@UAE_NIIPAUValue_23bf10@3@@Z @b4982b75e445 @w1e0a9b9dc262
 namespace fn_0023bf10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 14/16, incomplete)
 // fight::BinReader::vfunc_7 @ 0x0023bf10
@@ -892,7 +892,7 @@ bool BinReader::vfunc_7(unsigned a, unsigned b, Value_23bf10* out) {
 
 
 // 0x0023c040 fight::BinReader::vfunc_5 (159 B): equivalent/0x0023c040.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_5@BinReader@fight@fn_0023c040@@UAE_NHHPAE@Z
+// sym: ?vfunc_5@BinReader@fight@fn_0023c040@@UAE_NHHPAE@Z @6eff0e2cce87 @w833617046cb4
 namespace fn_0023c040 {
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 17/19, incomplete)
 // fight::BinReader::vfunc_5 @ 0x0023c040
@@ -962,7 +962,7 @@ bool BinReader::vfunc_5(int a1, int a2, unsigned char *buf)
 
 
 // 0x0023c0e0 fight::BinReader::vfunc_13 (26 B): equivalent/0x0023c0e0.cpp
-// sym: ?vfunc_13@BinReader@fight@@UAEHXZ
+// sym: ?vfunc_13@BinReader@fight@@UAEHXZ @40cfbabb1fb9 @w6ecc57449679
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // fight::BinReader::vfunc_13 @ 0x0023c0e0
 int fight::BinReader::vfunc_13() {

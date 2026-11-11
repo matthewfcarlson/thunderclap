@@ -80,7 +80,7 @@ extern "C" Q __cdecl FUN_002672f0(const char* text, U low, U high) {
 namespace fn_fccd9b35 {
 
 // 0x00267340 FUN_00267340 (92 B): equivalent/0x00267340.cpp
-// sym: _FUN_00267340
+// sym: _FUN_00267340 @e411990dafd0 @w287036b86d94
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_00267340 @ 0x00267340
 extern "C" U64_267340 __cdecl FUN_00267340(const char* text, U32_267340 low, U32_267340 high)
@@ -210,7 +210,7 @@ extern "C" char FUN_002674f0(const char* pattern, const char* text) {
 
 
 // 0x00267660 FUN_00267660 (199 B): equivalent/0x00267660.cpp
-// sym: _FUN_00267660
+// sym: _FUN_00267660 @f000ca1b0477 @w0e33996a9bda
 // STATUS: equivalent (tools/equiv.py level 3: 146 inputs, branch coverage 33/34, incomplete)
 // FUN_00267660 @ 0x00267660
 extern "C" char* __cdecl FUN_00267660(char* path)
@@ -299,7 +299,7 @@ extern "C" void FUN_00267760(char* buffer, unsigned int size, const char* format
 
 
 // 0x00267830 FUN_00267830 (69 B): equivalent/0x00267830.cpp
-// sym: _FUN_00267830
+// sym: _FUN_00267830 @bc1a80ae549f @w75db41fc50c5
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00267830 @ 0x00267830
 extern "C" char * __cdecl FUN_00267830(char *destination, const char *source, int capacity)
@@ -316,7 +316,7 @@ extern "C" char * __cdecl FUN_00267830(char *destination, const char *source, in
 
 
 // 0x00267880 FUN_00267880 (77 B): equivalent/0x00267880.cpp
-// sym: _FUN_00267880
+// sym: _FUN_00267880 @4573a6ed0ed0 @wf6ce2055cdf7
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_00267880 @ 0x00267880
 extern "C" void __cdecl FUN_00267880(char *destination, const char *source, int capacity)
@@ -383,7 +383,7 @@ extern "C" void FUN_00267ad0(u16_267ad0* out) {
 
 
 // 0x00267b10 FUN_00267b10 (144 B): equivalent/0x00267b10.cpp
-// sym: ?FUN_00267b10@fn_fccd9b35@@YAIGEE@Z
+// sym: ?FUN_00267b10@fn_fccd9b35@@YAIGEE@Z @bf140c4eb6a4 @wd3e06fee34a8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 11/12, incomplete)
 // FUN_00267b10 @ 0x00267b10
    // days before each month (non-leap), indexed by month

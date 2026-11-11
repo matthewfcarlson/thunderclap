@@ -53,7 +53,7 @@ PolySkinLoader_2b8040* PolySkinLoader_2b8040::vfunc2(unsigned char f) {
 } // namespace fn_f2d93049
 
 // 0x002b8090 pure3d::PolySkinLoader::vfunc_5 (1613 B): equivalent/0x002b8090.cpp [wrapped: using-directive]
-// sym: ?vfunc_5@PolySkinLoader@pure3d@fn_002b8090@@UAEXPAPAVPolySkin@23@PA_KPAUStream@3@PAUCtx@3@@Z
+// sym: ?vfunc_5@PolySkinLoader@pure3d@fn_002b8090@@UAEXPAPAVPolySkin@23@PA_KPAUStream@3@PAUCtx@3@@Z @c59ac73469d9 @wc08c0e13d53e
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002b8090 {
 // STATUS: equivalent (tools/equiv.py level 3: 15980 inputs, branch coverage 62/65, incomplete)

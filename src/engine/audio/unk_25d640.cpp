@@ -295,7 +295,7 @@ void __fastcall target(X_25d7c0* self) {
 
 
 // 0x0025d7f0 FUN_0025d7f0 (522 B): equivalent/0x0025d7f0.cpp
-// sym: ?FUN_0025d7f0@Self_25d7f0@fn_fc4af378@@QAEXXZ
+// sym: ?FUN_0025d7f0@Self_25d7f0@fn_fc4af378@@QAEXXZ @059d8e1c9c04 @w867855d1c133
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 46/46)
 // FUN_0025d7f0 @ 0x0025d7f0
 void Self_25d7f0::FUN_0025d7f0()
@@ -369,7 +369,7 @@ void Self_25d7f0::FUN_0025d7f0()
 } // namespace fn_fc4af378
 
 // 0x0025da00 FUN_0025da00 (296 B): equivalent/0x0025da00.cpp [wrapped: conflict: Node]
-// sym: ?run@Owner_25da00@fn_0025da00@@QAE_NXZ
+// sym: ?run@Owner_25da00@fn_0025da00@@QAE_NXZ @ac2129dfbd60 @w733452d7b145
 namespace fn_0025da00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 40/40)
 // FUN_0025da00 @ 0x0025da00
@@ -413,7 +413,7 @@ bool Owner_25da00::run() {
 
 
 // 0x0025db30 FUN_0025db30 (98 B): equivalent/0x0025db30.cpp [wrapped: conflict: Node]
-// sym: ?FUN_0025db30@Owner@fn_0025db30@@QAEXXZ
+// sym: ?FUN_0025db30@Owner@fn_0025db30@@QAEXXZ @a8442648e08d @w4c3cee9de8e2
 namespace fn_0025db30 {
 // STATUS: equivalent (tools/equiv.py level 3: 1140 inputs, branch coverage 17/18, incomplete)
 // FUN_0025db30 @ 0x0025db30
@@ -475,7 +475,7 @@ int Owner_25dc20::Add(Item_25dc20* item) {
 
 
 // 0x0025dc60 FUN_0025dc60 (74 B): equivalent/0x0025dc60.cpp
-// sym: _FUN_0025dc60
+// sym: _FUN_0025dc60 @d79e25965199 @w6c5675622250
 // STATUS: equivalent (tools/equiv.py level 3: 1409 inputs, branch coverage 7/7)
 // FUN_0025dc60 @ 0x0025dc60
 // The original searches for the node's predecessor by walking from the head, but the node it removes
@@ -500,7 +500,7 @@ extern "C" void FUN_0025dc60(void * list)
 } // namespace fn_fc4af378
 
 // 0x0025dcb0 FUN_0025dcb0 (73 B): equivalent/0x0025dcb0.cpp [wrapped: conflict: Item]
-// sym: _FUN_0025dcb0
+// sym: _FUN_0025dcb0 @8988cf58e086 @w888c5f60be89
 namespace fn_0025dcb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1404 inputs, branch coverage 7/7)
 // FUN_0025dcb0 @ 0x0025dcb0
@@ -541,7 +541,7 @@ extern "C" void FUN_0025dcb0(void * list)
 namespace fn_fc4af378 {
 
 // 0x0025dd00 FUN_0025dd00 (431 B): equivalent/0x0025dd00.cpp
-// sym: ?FUN_0025dd00@Controller_25dd00@fn_fc4af378@@QAEXH@Z
+// sym: ?FUN_0025dd00@Controller_25dd00@fn_fc4af378@@QAEXH@Z @add4f300a6ba @w24ba11785cd8
 // STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 64/71, incomplete)
 // FUN_0025dd00 @ 0x0025dd00
 void Controller_25dd00::FUN_0025dd00(int arg)
@@ -661,7 +661,7 @@ void C_25df20::Target() {
 } // namespace fn_fc4af378
 
 // 0x0025df40 FUN_0025df40 (127 B): equivalent/0x0025df40.cpp
-// sym: ?FUN_0025df40@Scheduler_25df40@owners@@QAEPAU12@HHH@Z
+// sym: ?FUN_0025df40@Scheduler_25df40@owners@@QAEPAU12@HHH@Z @4f2a6fcfcc82 @wc3b055f3149a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0025df40 @ 0x0025df40
 owners::Scheduler_25df40* owners::Scheduler_25df40::FUN_0025df40(hulk_intptr a, hulk_intptr b, hulk_intptr c)

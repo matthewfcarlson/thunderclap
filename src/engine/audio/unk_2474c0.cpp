@@ -100,7 +100,7 @@ extern "C" int FUN_00247550(hulk_intptr a, hulk_intptr b) {
 
 
 // 0x00247570 FUN_00247570 (71 B): equivalent/0x00247570.cpp
-// sym: _FUN_00247570
+// sym: _FUN_00247570 @083d893685f9 @w19666263306d
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 2/2)
 // FUN_00247570 @ 0x00247570
 extern "C" void __cdecl FUN_00247570(const char *text) {

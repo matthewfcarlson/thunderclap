@@ -78,7 +78,7 @@ class Container_230f50 {
 } // namespace fn_f39652ec
 
 // 0x00230800 FUN_00230800 (75 B): equivalent/0x00230800.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00230800@Tree@fn_00230800@@QAEPAUNode@2@PAU32@@Z
+// sym: ?FUN_00230800@Tree@fn_00230800@@QAEPAUNode@2@PAU32@@Z @f62b42597f6c @wbd029f23cc48
 namespace fn_00230800 {
 // STATUS: equivalent (tools/equiv.py level 3: 471 inputs, branch coverage 15/16, incomplete)
 // FUN_00230800 @ 0x00230800
@@ -124,7 +124,7 @@ void Tree_2308a0::Replace(Node* n) {
 namespace fn_f39652ec {
 
 // 0x00230900 FUN_00230900 (599 B): equivalent/0x00230900.cpp
-// sym: ?FUN_00230900@RbTree_230900@fn_f39652ec@@QAEXPAURbNode_230900@2@@Z
+// sym: ?FUN_00230900@RbTree_230900@fn_f39652ec@@QAEXPAURbNode_230900@2@@Z @a6569af7fff5 @w5e6f89aab37e
 // STATUS: equivalent (tools/equiv.py level 3: 3139 inputs, branch coverage 59/60, incomplete)
 // FUN_00230900 @ 0x00230900
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -328,7 +328,7 @@ Node* Tree_230be0::FindNode(CompareFn_230be0 compare, void* value) {
 
 
 // 0x00230c30 FUN_00230c30 (423 B): equivalent/0x00230c30.cpp
-// sym: ?Insert@Tree_230c30@fn_f39652ec@@QAEXPAUNode@2@P6AH00@Z0@Z
+// sym: ?Insert@Tree_230c30@fn_f39652ec@@QAEXPAUNode@2@P6AH00@Z0@Z @ab6a17d45966 @w277f767e9497
 // STATUS: equivalent (tools/equiv.py level 3: 12082 inputs, branch coverage 35/38, incomplete; run with --inputs 12000)
 // FUN_00230c30 @ 0x00230c30
 void Tree_230c30::Insert(Node *node, int (__cdecl *cmp)(Node *, Node *), Node *parent)
@@ -431,7 +431,7 @@ void Tree_230c30::Insert(Node *node, int (__cdecl *cmp)(Node *, Node *), Node *p
 
 
 // 0x00230de0 FUN_00230de0 (179 B): equivalent/0x00230de0.cpp
-// sym: ?FUN_00230de0@Tree_230de0@fn_f39652ec@@QAEXPAUNode@2@@Z
+// sym: ?FUN_00230de0@Tree_230de0@fn_f39652ec@@QAEXPAUNode@2@@Z @7ff310ea89ff @w247877d6fbdf
 // STATUS: equivalent (tools/equiv.py level 3: 704 inputs, branch coverage 24/24)
 // FUN_00230de0 @ 0x00230de0
 void Tree_230de0::FUN_00230de0(Node* node) {
@@ -483,7 +483,7 @@ extern "C" Node* __fastcall FUN_00230ea0(Node* p) {
 
 
 // 0x00230ec0 FUN_00230ec0 (141 B): equivalent/0x00230ec0.cpp [wrapped: merged class would differ: Tree_230ec0: field nil: Field(+0x4 Node nil) vs Field(+0x4 Node nil)]
-// sym: ?FUN_00230ec0@Tree_230ec0@fn_00230ec0@@QAE_NP6ADPAUNode@2@H@ZH@Z
+// sym: ?FUN_00230ec0@Tree_230ec0@fn_00230ec0@@QAE_NP6ADPAUNode@2@H@ZH@Z @987db732c67e @wb8ea86b8c62c
 namespace fn_00230ec0 {
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 27/28, incomplete)
 // FUN_00230ec0 @ 0x00230ec0

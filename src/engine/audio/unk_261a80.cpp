@@ -72,7 +72,7 @@ int owners::Target_261a80::FUN_00261a80(void* p) {
 namespace fn_fa1df58d {
 
 // 0x00261bb0 FUN_00261bb0 (103 B): equivalent/0x00261bb0.cpp
-// sym: _FUN_00261bb0
+// sym: _FUN_00261bb0 @414adb9f5013 @weaa517994d06
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 2/2; Wine build 603 inputs, 2/2)
 // FUN_00261bb0 @ 0x00261bb0
 extern "C" double FUN_00261bb0(float a1, const int* length, int a3, int a4, float a5) {
@@ -87,7 +87,7 @@ extern "C" double FUN_00261bb0(float a1, const int* length, int a3, int a4, floa
 
 
 // 0x00261c20 FUN_00261c20 (117 B): equivalent/0x00261c20.cpp
-// sym: ?FUN_00261c20@Fraction@fn_fa1df58d@@QAE_NPAPAUStream@2@@Z
+// sym: ?FUN_00261c20@Fraction@fn_fa1df58d@@QAE_NPAPAUStream@2@@Z @323f36be4e62 @w8cf2cc837bdc
 // STATUS: equivalent (tools/equiv.py level 3: 952 inputs, branch coverage 8/8)
 // FUN_00261c20 @ 0x00261c20
 bool Fraction::FUN_00261c20(Stream **w)
@@ -107,7 +107,7 @@ bool Fraction::FUN_00261c20(Stream **w)
 
 
 // 0x00261d10 FUN_00261d10 (81 B): equivalent/0x00261d10.cpp
-// sym: _FUN_00261d10
+// sym: _FUN_00261d10 @79e09ab4c396 @wc0ea57256a94
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 7/7)
 // FUN_00261d10 @ 0x00261d10
 // The original searches for the node's predecessor by walking from the head, but the node it removes
@@ -132,7 +132,7 @@ extern "C" void FUN_00261d10(void * list)
 } // namespace fn_fa1df58d
 
 // 0x00261e60 FUN_00261e60 (135 B): equivalent/0x00261e60.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_00261e60@FloatList@fn_00261e60@@QAE_NPAUOutput_261e60@2@@Z
+// sym: ?FUN_00261e60@FloatList@fn_00261e60@@QAE_NPAUOutput_261e60@2@@Z @d2e0aca5ebdb @wae22017c273f
 namespace fn_00261e60 {
 // STATUS: equivalent (tools/equiv.py level 3: 712 inputs, branch coverage 12/12)
 // FUN_00261e60 @ 0x00261e60
@@ -212,7 +212,7 @@ bool owners::Obj_261ef0::FUN_00261ef0(const char* name) {
 namespace fn_fa1df58d {
 
 // 0x00261f90 FUN_00261f90 (139 B): equivalent/0x00261f90.cpp
-// sym: ?InRange@fn_fa1df58d@@YA_NPAPAULink_261f90@1@MM@Z
+// sym: ?InRange@fn_fa1df58d@@YA_NPAPAULink_261f90@1@MM@Z @9aebf86b7e03 @w945a3dfaf69c
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 19/20, incomplete)
 // FUN_00261f90 @ 0x00261f90
 // true when some item's value lies in the (possibly wrapping) interval (lo, hi]

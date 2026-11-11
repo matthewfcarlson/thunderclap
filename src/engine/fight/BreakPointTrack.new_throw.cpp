@@ -53,7 +53,7 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 
 // 0x0023f3a0 FUN_0023f3a0 (158 B): equivalent/0x0023f3a0.cpp
-// sym: _FUN_0023f3a0
+// sym: _FUN_0023f3a0 @275692dbdeaf @w11ec09501970
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_0023f3a0 @ 0x0023f3a0
 extern "C" void FUN_0023f3a0()

@@ -115,7 +115,7 @@ extern void* hulk_at_003f6098;
 
 
 // 0x00232780 FUN_00232780 (62 B): equivalent/0x00232780.cpp
-// sym: ?FUN_00232780@fn_f81ad613@@YAPAHXZ
+// sym: ?FUN_00232780@fn_f81ad613@@YAPAHXZ @d4dc9569552f @wf53efb21447f
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 2/2)
 // FUN_00232780 @ 0x00232780
 int* __cdecl FUN_00232780() {
@@ -157,7 +157,7 @@ Node* List_232810::Get(int index) {
 
 
 // 0x00232840 FUN_00232840 (43 B): equivalent/0x00232840.cpp
-// sym: ?FUN_00232840@Collection@fn_f81ad613@@QAEPAUEntry@2@II@Z
+// sym: ?FUN_00232840@Collection@fn_f81ad613@@QAEPAUEntry@2@II@Z @6947d9e8ef24 @w0b21358c1031
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00232840 @ 0x00232840
 Entry *Collection::FUN_00232840(unsigned int first, unsigned int second) { for (Entry *entry = head; entry; entry = entry->next) { if (entry->first == first && entry->second == second) return entry; } return 0; }
@@ -165,7 +165,7 @@ Entry *Collection::FUN_00232840(unsigned int first, unsigned int second) { for (
 } // namespace fn_f81ad613
 
 // 0x00232870 FUN_00232870 (359 B): equivalent/0x00232870.cpp [wrapped: conflict: FUN_00266da0]
-// sym: ?FUN_00232870@fn_00232870@@YGPAVChunk_232870@1@PBDHIH@Z
+// sym: ?FUN_00232870@fn_00232870@@YGPAVChunk_232870@1@PBDHIH@Z @4f8361b72d2c @wd8e04a308a58
 namespace fn_00232870 {
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 18/18)
 // FUN_00232870 @ 0x00232870

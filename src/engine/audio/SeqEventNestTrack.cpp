@@ -354,7 +354,7 @@ int SeqEventNestTrack::vfunc_1(Stm_24e760** p) {
 
 
 // 0x0024e870 audio::SeqEventNestTrack::vfunc_2 (156 B): equivalent/0x0024e870.cpp
-// sym: ?FUN_0024e870@SeqEventNestTrack@fn_f724be52@@QAEXPAUEvent_24e870@2@@Z
+// sym: ?FUN_0024e870@SeqEventNestTrack@fn_f724be52@@QAEXPAUEvent_24e870@2@@Z @622861a86459 @w5aa5f19fef95
 // STATUS: equivalent (tools/equiv.py level 3: 782 inputs, branch coverage 10/10)
 // audio::SeqEventNestTrack::vfunc_2 @ 0x0024e870
 // audio::SeqEventNestTrack::vfunc_2: find the nested event for a key and forward to it

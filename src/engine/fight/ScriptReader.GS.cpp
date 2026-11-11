@@ -66,7 +66,7 @@ public:
 
 
 // 0x0023a6b0 FUN_0023a6b0 (1160 B): equivalent/0x0023a6b0.cpp
-// sym: ?FUN_0023a6b0@ScriptReader_23a6b0@fn_f959108d@@QAEXXZ
+// sym: ?FUN_0023a6b0@ScriptReader_23a6b0@fn_f959108d@@QAEXXZ @a7a6314e7da2 @w6bdb15b2a240
 // STATUS: equivalent (tools/equiv.py level 3: 16746 inputs, branch coverage 92/102, incomplete)
 // FUN_0023a6b0 @ 0x0023a6b0
 void ScriptReader_23a6b0::FUN_0023a6b0()

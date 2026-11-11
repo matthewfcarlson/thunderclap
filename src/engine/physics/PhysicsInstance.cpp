@@ -153,7 +153,7 @@ extern void __cdecl Cast(hulk_uintptr, int, const int*, const int*, int);
 } // namespace fn_fb7c7da0
 
 // 0x002fc420 FUN_002fc420 (250 B): equivalent/0x002fc420.cpp
-// sym: ?FUN_002fc420@PhysicsInstance@physics@@QAEXXZ
+// sym: ?FUN_002fc420@PhysicsInstance@physics@@QAEXXZ @944307d28649 @wf4518cccde7b
 // STATUS: equivalent (tools/equiv.py level 3: 1114 inputs, branch coverage 12/12)
 // FUN_002fc420 @ 0x002fc420
 void physics::PhysicsInstance::FUN_002fc420() {
@@ -284,7 +284,7 @@ template <> void content::LoadInventory::DynamicCaster<physics::ArticulatedPhysi
 
 
 // 0x002fc740 FUN_002fc740 (282 B): equivalent/0x002fc740.cpp [wrapped: conflict: DAT_004c60bc; physics::PhysicsInstance]
-// sym: ??0PhysicsInstance@physics@fn_002fc740@@QAE@PAX0PAUInput_2fc740@2@E@Z
+// sym: ??0PhysicsInstance@physics@fn_002fc740@@QAE@PAX0PAUInput_2fc740@2@E@Z @d8bc8dbb2553 @w42f345ebaeed
 namespace fn_002fc740 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_002fc740 @ 0x002fc740
@@ -325,7 +325,7 @@ physics::PhysicsInstance::~PhysicsInstance() {}
 
 
 // 0x002fc880 FUN_002fc880 (170 B): equivalent/0x002fc880.cpp [wrapped: conflict: physics::PhysicsInstance]
-// sym: ??0PhysicsInstance@physics@fn_002fc880@@QAE@PAURef_2fc880@2@PAUInput_2fc880@2@@Z
+// sym: ??0PhysicsInstance@physics@fn_002fc880@@QAE@PAURef_2fc880@2@PAUInput_2fc880@2@@Z @9351e22a5704 @w5fb57c96b609
 namespace fn_002fc880 {
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 14/16, incomplete)
 // FUN_002fc880 @ 0x002fc880
@@ -367,7 +367,7 @@ physics::PhysicsInstance::PhysicsInstance(Ref_2fc880* input, Input_2fc880* data)
 
 
 // 0x002fc990 FUN_002fc990 (150 B): equivalent/0x002fc990.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster]
-// sym: ?FUN_002fc990@fn_002fc990@@YAPAUPhysicsInstance_2fc990@1@IIPAVInventory_2fc990@1@I@Z
+// sym: ?FUN_002fc990@fn_002fc990@@YAPAUPhysicsInstance_2fc990@1@IIPAVInventory_2fc990@1@I@Z @a7d9602ecc29 @we874a87f7487
 namespace fn_002fc990 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002fc990 @ 0x002fc990

@@ -79,7 +79,7 @@ class Container_2e6740 {
 
 
 // 0x002e6570 FUN_002e6570 (172 B): equivalent/0x002e6570.cpp
-// sym: ??0Language@pure3d@fn_f6a40e3d@@QAE@PBDII@Z
+// sym: ??0Language@pure3d@fn_f6a40e3d@@QAE@PBDII@Z @359c35f2016f @w2bcde4c23b70
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 2/2)
 // FUN_002e6570 @ 0x002e6570
 namespace pure3d {

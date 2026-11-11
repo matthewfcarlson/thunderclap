@@ -28,7 +28,7 @@ struct Owner_231ad0 { char pad[0x28]; Node* head; void FUN_00231ad0(Item_231ad0*
 
 
 // 0x00231ad0 FUN_00231ad0 (271 B): equivalent/0x00231ad0.cpp
-// sym: ?FUN_00231ad0@Owner_231ad0@fn_f400f4dc@@QAEXPAUItem_231ad0@2@HI@Z
+// sym: ?FUN_00231ad0@Owner_231ad0@fn_f400f4dc@@QAEXPAUItem_231ad0@2@HI@Z @a6881eeae2f9 @wf9995b3bfd89
 // STATUS: equivalent (tools/equiv.py level 3: 16404 inputs, branch coverage 31/32, incomplete)
 // FUN_00231ad0 @ 0x00231ad0
 void Owner_231ad0::FUN_00231ad0(Item_231ad0* input,hulk_intptr arg,unsigned flags) {

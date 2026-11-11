@@ -44,7 +44,7 @@ extern "C" bool __cdecl FUN_0025a610(void* table, audio::MixBuss* buss, int* key
 
 
 // 0x0025a7e0 FUN_0025a7e0 (114 B): equivalent/0x0025a7e0.cpp
-// sym: ?FUN_0025a7e0@MixRegistry@fn_fee56a04@@QAEPAVMixBuss@audio@2@PAUKey_25a7e0@2@@Z
+// sym: ?FUN_0025a7e0@MixRegistry@fn_fee56a04@@QAEPAVMixBuss@audio@2@PAUKey_25a7e0@2@@Z @ed8872547162 @wf5d8b11fc189
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 4/4)
 // FUN_0025a7e0 @ 0x0025a7e0
 // Creates a mix buss for the key and registers it; frees it again when registration fails.

@@ -247,7 +247,7 @@ void HeapPlace(int* a, int index, int limit, int value, Compare_2a1a60 cmp) {
 
 
 // 0x002a1ac0 FUN_002a1ac0 (150 B): equivalent/0x002a1ac0.cpp
-// sym: ?FUN_002a1ac0@fn_f7803771@@YAXPAH00@Z
+// sym: ?FUN_002a1ac0@fn_f7803771@@YAXPAH00@Z @fff34162d876 @w209cc2860326
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 17/18, incomplete)
 // FUN_002a1ac0 @ 0x002a1ac0
 // std::rotate for a range of 4-byte elements (cycle-leader algorithm)
@@ -312,7 +312,7 @@ void pure3d::TranslucentTraversal::vfunc_4() {
 
 
 // 0x002a1ca0 pure3d::TranslucentTraversal::vfunc_6 (242 B): equivalent/0x002a1ca0.cpp
-// sym: ?vfunc_6@TranslucentTraversal@pure3d@@UAEXPAXIM@Z
+// sym: ?vfunc_6@TranslucentTraversal@pure3d@@UAEXPAXIM@Z @62066553e467 @wdf3791823ea8
 // STATUS: equivalent (tools/equiv.py level 3: 19092 inputs, branch coverage 4/4)
 // pure3d::TranslucentTraversal::vfunc_6 @ 0x002a1ca0
 void pure3d::TranslucentTraversal::vfunc_6(void* __p0, unsigned int index, float depth) { Object_2a1ca0 * object = (Object_2a1ca0 *)__p0;
@@ -409,7 +409,7 @@ void FUN_002a2090(hulk_intptr first, int last, int arg) {
 } // namespace fn_f7803771
 
 // 0x002a2130 FUN_002a2130 (130 B): equivalent/0x002a2130.cpp [wrapped: conflict: pure3d::DisplayTraversal; pure3d::TranslucentTraversal]
-// sym: ??0TranslucentTraversal@pure3d@fn_002a2130@@QAE@I@Z
+// sym: ??0TranslucentTraversal@pure3d@fn_002a2130@@QAE@I@Z @10960ed3b24b @w9e089267f8ee
 namespace fn_002a2130 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_002a2130 @ 0x002a2130
@@ -493,7 +493,7 @@ void __fastcall FUN_002a21c0(TranslucentTraversal* self) {
 } // namespace fn_f7803771
 
 // 0x002a2200 FUN_002a2200 (408 B): equivalent/0x002a2200.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002a2200@fn_002a2200@@YAPAURange_2a2200@1@PAU21@PAH1P6A_NHH@Z@Z
+// sym: ?FUN_002a2200@fn_002a2200@@YAPAURange_2a2200@1@PAU21@PAH1P6A_NHH@Z@Z @469184f11bf2 @wbb1888ababab
 namespace fn_002a2200 {
 // STATUS: equivalent (tools/equiv.py level 3: 10 inputs, branch coverage 37/42, incomplete)
 // FUN_002a2200 @ 0x002a2200
@@ -579,7 +579,7 @@ Range_2a2200 *FUN_002a2200(Range_2a2200 *out, int *first, int *last, Less_2a2200
 namespace fn_f7803771 {
 
 // 0x002a23d0 FUN_002a23d0 (166 B): equivalent/0x002a23d0.cpp
-// sym: ?FUN_002a23d0@fn_f7803771@@YAXPAH0P6A_NHH@Z@Z
+// sym: ?FUN_002a23d0@fn_f7803771@@YAXPAH0P6A_NHH@Z@Z @f81f0341f58e @wa6f27e8e2832
 // STATUS: equivalent (tools/equiv.py level 3: 117 inputs, branch coverage 16/20, incomplete)
 // FUN_002a23d0 @ 0x002a23d0
 // Insertion sort of [first, last) of 4-byte elements with a comparison callback.
@@ -657,7 +657,7 @@ void* TranslucentTraversal::vfunc_2(unsigned char param) {
 namespace fn_f7803771 {
 
 // 0x002a2510 FUN_002a2510 (74 B): equivalent/0x002a2510.cpp
-// sym: ?FUN_002a2510@fn_f7803771@@YAXPAH0H@Z
+// sym: ?FUN_002a2510@fn_f7803771@@YAXPAH0H@Z @15a0aae0e459 @w5e94977ea806
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 4/4)
 // FUN_002a2510 @ 0x002a2510
 void __cdecl FUN_002a2510(int* first, int* last, hulk_intptr value)
@@ -673,7 +673,7 @@ void __cdecl FUN_002a2510(int* first, int* last, hulk_intptr value)
 
 
 // 0x002a2560 FUN_002a2560 (238 B): equivalent/0x002a2560.cpp
-// sym: ?FUN_002a2560@fn_f7803771@@YAXPAH0HPAX@Z
+// sym: ?FUN_002a2560@fn_f7803771@@YAXPAH0HPAX@Z @988cc7b30411 @we487d63f9af1
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 12/14, incomplete)
 // FUN_002a2560 @ 0x002a2560
 void __cdecl FUN_002a2560(int* first, int* last, int depth, void* compare) {

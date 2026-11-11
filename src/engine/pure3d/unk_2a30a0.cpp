@@ -311,7 +311,7 @@ void owners::C_2a31a0::FUN_002a31a0(int x) {
 namespace fn_f3e6e6aa {
 
 // 0x002a3250 FUN_002a3250 (501 B): equivalent/0x002a3250.cpp
-// sym: ?FUN_002a3250@Quad_2a3250@fn_f3e6e6aa@@QAEXXZ
+// sym: ?FUN_002a3250@Quad_2a3250@fn_f3e6e6aa@@QAEXXZ @e28d4fb2bf54 @wa58daf28f899
 // STATUS: equivalent (tools/equiv.py level 3: 2362 inputs, branch coverage 0/0)
 // FUN_002a3250 @ 0x002a3250
 void Quad_2a3250::FUN_002a3250()

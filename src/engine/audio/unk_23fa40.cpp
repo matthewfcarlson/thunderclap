@@ -258,7 +258,7 @@ void owners::Obj_23fb20::FUN_0023fb20(const char *a1, hulk_uintptr a2, hulk_uint
 
 
 // 0x0023fbb0 FUN_0023fbb0 (135 B): equivalent/0x0023fbb0.cpp
-// sym: ?FUN_0023fbb0@String_23fbb0@owners@@QAEPADXZ
+// sym: ?FUN_0023fbb0@String_23fbb0@owners@@QAEPADXZ @630bf9eb69b5 @wd294a1657428
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 10/10)
 // FUN_0023fbb0 @ 0x0023fbb0
 // Makes the text private to this string (copy on write) and returns it.
@@ -289,7 +289,7 @@ char* owners::String_23fbb0::FUN_0023fbb0()
 
 
 // 0x0023fc40 FUN_0023fc40 (80 B): equivalent/0x0023fc40.cpp
-// sym: ?FUN_0023fc40@String_23fc40@owners@@QAEPAU12@PBDH@Z
+// sym: ?FUN_0023fc40@String_23fc40@owners@@QAEPAU12@PBDH@Z @1f1161834b8c @w6fd850af8458
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
 // FUN_0023fc40 @ 0x0023fc40
 owners::String_23fc40 *owners::String_23fc40::FUN_0023fc40(const char *text, int option) { if (!text) { data = (*(char**)&DAT_004cc02c); ++*(unsigned short *)((*(char**)&DAT_004cc02c) - 4); extra = 0; capacity = 2; } else { const char *end = text; while (*end) ++end; hulk_intptr length = end - text; FUN_0023fb20(text, length, length, option); } return this; }
@@ -324,7 +324,7 @@ owners::Thing_23fd20* owners::Thing_23fd20::FUN_0023fd20(int arg) {
 namespace fn_f2774db1 {
 
 // 0x0023fd60 FUN_0023fd60 (114 B): equivalent/0x0023fd60.cpp
-// sym: ?FUN_0023fd60@SharedStr@fn_f2774db1@@QAEPAV12@PADHH@Z
+// sym: ?FUN_0023fd60@SharedStr@fn_f2774db1@@QAEPAV12@PADHH@Z @a6075f315350 @wc6d824425dd9
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 10/10)
 // FUN_0023fd60 @ 0x0023fd60
 // Releases the old buffer reference, then takes the new data in the given mode.
@@ -371,7 +371,7 @@ Out_23fde0* Fn(Out_23fde0* out, int x, const char* fmt, ...) {
 } // namespace fn_f2774db1
 
 // 0x0023fe50 FUN_0023fe50 (147 B): equivalent/0x0023fe50.cpp
-// sym: ?FUN_0023fe50@String_23fe50@owners@@QAEPAU12@PBD@Z
+// sym: ?FUN_0023fe50@String_23fe50@owners@@QAEPAU12@PBD@Z @31155bd992f4 @w86e8158fed23
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 9/10, incomplete)
 // FUN_0023fe50 @ 0x0023fe50
 owners::String_23fe50* owners::String_23fe50::FUN_0023fe50(const char* source) {
@@ -420,7 +420,7 @@ Obj_23fef0* __cdecl Target(Obj_23fef0* a, hulk_uintptr b, ...) {
 } // namespace fn_f2774db1
 
 // 0x0023ff50 FUN_0023ff50 (252 B): equivalent/0x0023ff50.cpp
-// sym: ?FUN_0023ff50@String_23ff50@owners@@QAEPAU12@PAU12@@Z
+// sym: ?FUN_0023ff50@String_23ff50@owners@@QAEPAU12@PAU12@@Z @6f788fcab330 @wb225c4876abc
 // STATUS: equivalent (tools/equiv.py level 3: 690 inputs, branch coverage 26/26)
 // FUN_0023ff50 @ 0x0023ff50
 owners::String_23ff50 *owners::String_23ff50::FUN_0023ff50(owners::String_23ff50 *other) {
@@ -477,7 +477,7 @@ void owners::Str_240060::FUN_00240060() {
 
 
 // 0x00240090 FUN_00240090 (126 B): equivalent/0x00240090.cpp
-// sym: ?FUN_00240090@Handle_240090@owners@@QAEXPBU12@@Z
+// sym: ?FUN_00240090@Handle_240090@owners@@QAEXPBU12@@Z @608504086ebc @w1b2dd1799be6
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 4/4)
 // FUN_00240090 @ 0x00240090
 // Copy-constructs a handle: kind 0 is copied as is, kind 1 is converted through FUN_0023fa40
@@ -539,14 +539,14 @@ owners::Thing_240170* owners::Thing_240170::FUN_00240170(hulk_intptr x) {
 
 
 // 0x00240190 FUN_00240190 (82 B): equivalent/0x00240190.cpp
-// sym: ?FUN_00240190@Text_240190@owners@@QAEPAU12@PBU12@@Z
+// sym: ?FUN_00240190@Text_240190@owners@@QAEPAU12@PBU12@@Z @8eeec57bd2af @w0b27987c4664
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 8/8)
 // FUN_00240190 @ 0x00240190
 owners::Text_240190 *owners::Text_240190::FUN_00240190(const owners::Text_240190 *other) { if (other != this) { if (kind == 2) { short *count = (short *)(data - 4); if (*count == 1) { if (data != (*(char**)&DAT_004cc02c)) FUN_00247570(data - 8); } else --*count; } FUN_00240090(other); } return this; }
 
 
 // 0x002401f0 FUN_002401f0 (135 B): equivalent/0x002401f0.cpp
-// sym: ?FUN_002401f0@String_2401f0@owners@@QAEPAU12@PAU12@@Z
+// sym: ?FUN_002401f0@String_2401f0@owners@@QAEPAU12@PAU12@@Z @390d70d75778 @w2573e7dfe439
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 16/16)
 // FUN_002401f0 @ 0x002401f0
 owners::String_2401f0* owners::String_2401f0::FUN_002401f0(owners::String_2401f0* out) {
@@ -574,7 +574,7 @@ owners::String_2401f0* owners::String_2401f0::FUN_002401f0(owners::String_2401f0
 namespace fn_f2774db1 {
 
 // 0x00240280 FUN_00240280 (135 B): equivalent/0x00240280.cpp
-// sym: ?ToUpper@String@fn_f2774db1@@QAEPAU12@PAU12@@Z
+// sym: ?ToUpper@String@fn_f2774db1@@QAEPAU12@PAU12@@Z @c2338f9f8083 @w7d9b02153c40
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 16/16)
 // FUN_00240280 @ 0x00240280
 String* String::ToUpper(String* out) {
@@ -637,7 +637,7 @@ bool owners::ThisWrap_00240410::FUN_00240410(hulk_intptr value) {
 namespace fn_f2774db1 {
 
 // 0x00240430 FUN_00240430 (198 B): equivalent/0x00240430.cpp
-// sym: ?format@Object@fn_f2774db1@@QAEPAU12@M@Z
+// sym: ?format@Object@fn_f2774db1@@QAEPAU12@M@Z @069939b28598 @wd499a46a47dc
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 7/8, incomplete)
 // FUN_00240430 @ 0x00240430
 Object *Object::format(float value) {
@@ -661,7 +661,7 @@ Object *Object::format(float value) {
 
 
 // 0x00240500 FUN_00240500 (192 B): equivalent/0x00240500.cpp
-// sym: ?FUN_00240500@Object@fn_f2774db1@@QAEPAU12@I@Z
+// sym: ?FUN_00240500@Object@fn_f2774db1@@QAEPAU12@I@Z @8f1f76787839 @wd4e39548503e
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 7/8, incomplete)
 // FUN_00240500 @ 0x00240500
 Object *Object::FUN_00240500(unsigned int value) {
@@ -687,7 +687,7 @@ Object *Object::FUN_00240500(unsigned int value) {
 
 
 // 0x002405c0 FUN_002405c0 (105 B): equivalent/0x002405c0.cpp
-// sym: ?Concat@String@fn_f2774db1@@QAEPAU12@PAU12@M@Z
+// sym: ?Concat@String@fn_f2774db1@@QAEPAU12@PAU12@M@Z @b968d302c882 @w24711b79924b
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 6/6)
 // FUN_002405c0 @ 0x002405c0
 String* String::Concat(String* out, float value) {
@@ -708,7 +708,7 @@ String* String::Concat(String* out, float value) {
 
 
 // 0x00240630 FUN_00240630 (105 B): equivalent/0x00240630.cpp
-// sym: ?Concat@String@fn_f2774db1@@QAEPAU12@PAU12@I@Z
+// sym: ?Concat@String@fn_f2774db1@@QAEPAU12@PAU12@I@Z @7dc7267b4bca @w24edcceb4639
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 6/6)
 // FUN_00240630 @ 0x00240630
 String* String::Concat(String* out, unsigned value) {
@@ -729,7 +729,7 @@ String* String::Concat(String* out, unsigned value) {
 
 
 // 0x002406a0 FUN_002406a0 (105 B): equivalent/0x002406a0.cpp
-// sym: ?FUN_002406a0@Str_2406a0@fn_f2774db1@@QAEPAU12@PAU12@PBX@Z
+// sym: ?FUN_002406a0@Str_2406a0@fn_f2774db1@@QAEPAU12@PAU12@PBX@Z @5a6b301bb7c5 @w5a48e8d5c478
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 6/6)
 // FUN_002406a0 @ 0x002406a0
 Str_2406a0* Str_2406a0::FUN_002406a0(Str_2406a0* ret, const void* rhs) {
@@ -787,7 +787,7 @@ extern "C" hulk_intptr FUN_00240780(void) {
 
 
 // 0x002407a0 FUN_002407a0 (609 B): equivalent/0x002407a0.cpp
-// sym: _FUN_002407a0
+// sym: _FUN_002407a0 @af12df56c7fd @wfd9f4df2d73f
 // STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 12/12)
 // FUN_002407a0 @ 0x002407a0
 extern "C" void FUN_002407a0(unsigned int flags)

@@ -5,7 +5,7 @@
 
 
 // 0x002b6930 pure3d::ShadowMeshBufferLoader::vfunc_5 (1340 B): equivalent/0x002b6930.cpp [isolated: compile error C2039: 'Res_2b6930' : is not a member of 'operator``global namespace''']
-// sym: ?vfunc_5@ShadowMeshBufferLoader@pure3d@@UAEXPAPAUTarget_2b6930@@PA_KPAUStream@@PAX@Z
+// sym: ?vfunc_5@ShadowMeshBufferLoader@pure3d@@UAEXPAPAUTarget_2b6930@@PA_KPAUStream@@PAX@Z @450ea63011e4 @w47e26295fb11
 // STATUS: equivalent (tools/equiv.py level 3: 16581 inputs, branch coverage 34/36, incomplete)
 // pure3d::ShadowMeshBufferLoader::vfunc_5 @ 0x002b6930
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

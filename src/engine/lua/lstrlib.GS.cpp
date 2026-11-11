@@ -79,7 +79,7 @@ extern "C" int __cdecl FUN_0033bde0(LuaVMState* L) {
 
 
 // 0x0033bea0 FUN_0033bea0 (170 B): equivalent/0x0033bea0.cpp
-// sym: _FUN_0033bea0
+// sym: _FUN_0033bea0 @4d0c3b4c7913 @we03e85264bdd
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 6/6)
 // FUN_0033bea0 @ 0x0033bea0
 // string.lower
@@ -166,7 +166,7 @@ extern "C" int __cdecl FUN_0033c0f0(LuaVMState* L) {
 
 
 // 0x0033c1d0 FUN_0033c1d0 (122 B): equivalent/0x0033c1d0.cpp
-// sym: _FUN_0033c1d0
+// sym: _FUN_0033c1d0 @95f018940b01 @w8a27af228d15
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0033c1d0 @ 0x0033c1d0
 // Lua 5.0 str_dump
@@ -183,7 +183,7 @@ extern "C" int __cdecl FUN_0033c1d0(LuaVMState* L) {
 
 
 // 0x0033cff0 FUN_0033cff0 (451 B): equivalent/0x0033cff0.cpp
-// sym: _FUN_0033cff0
+// sym: _FUN_0033cff0 @960de7032488 @wf49d5137ec67
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 22/22)
 // FUN_0033cff0 @ 0x0033cff0
 // lstrlib str_gsub
@@ -234,7 +234,7 @@ extern "C" int __cdecl FUN_0033cff0(LuaVMState* L) {
 
 
 // 0x0033d400 FUN_0033d400 (627 B): equivalent/0x0033d400.cpp
-// sym: _FUN_0033d400
+// sym: _FUN_0033d400 @b4f28797de63 @w2e225bed8976
 // STATUS: equivalent (tools/equiv.py level 3: 2000 inputs, branch coverage 30/30)
 // FUN_0033d400 @ 0x0033d400
 // checked with equiv.py --time-budget 3600 (at the defaults most inputs hit the time budget)

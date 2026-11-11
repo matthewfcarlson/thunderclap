@@ -68,7 +68,7 @@ void FUN_00289f70() {}
 } // namespace fn_ffa7c92d
 
 // 0x00289f80 FUN_00289f80 (225 B): equivalent/0x00289f80.cpp
-// sym: ?FUN_00289f80@Table_289f80@owners@@QAE_NMPAH0@Z
+// sym: ?FUN_00289f80@Table_289f80@owners@@QAE_NMPAH0@Z @2e47e17802f8 @w34cf9ce8c58c
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 11/12, incomplete)
 // FUN_00289f80 @ 0x00289f80
 bool owners::Table_289f80::FUN_00289f80(float value, int* lower, int* upper) {
@@ -110,7 +110,7 @@ void owners::X_28a080::FUN_0028a080(int i, float* out, int* out2) {
 
 
 // 0x0028a0b0 FUN_0028a0b0 (203 B): equivalent/0x0028a0b0.cpp
-// sym: ?FUN_0028a0b0@Track_28a0b0@owners@@QAEXMPAH@Z
+// sym: ?FUN_0028a0b0@Track_28a0b0@owners@@QAEXMPAH@Z @5c07b79a575c @w9d7a480b918e
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 6/6)
 // FUN_0028a0b0 @ 0x0028a0b0
 void owners::Track_28a0b0::FUN_0028a0b0(float time, int* result) {
@@ -141,7 +141,7 @@ unsigned int pure3d::Float1Channel::vfunc_2() {
 
 
 // 0x0028a1c0 FUN_0028a1c0 (176 B): equivalent/0x0028a1c0.cpp
-// sym: ?FUN_0028a1c0@Curve_28a1c0@owners@@QAEXMPAM@Z
+// sym: ?FUN_0028a1c0@Curve_28a1c0@owners@@QAEXMPAM@Z @e4699a3a90ce @we832746ee1c7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_0028a1c0 @ 0x0028a1c0
 void owners::Curve_28a1c0::FUN_0028a1c0(float time, float* output) {
@@ -166,7 +166,7 @@ unsigned int pure3d::Float2Channel::vfunc_2() {
 namespace fn_ffa7c92d {
 
 // 0x0028a2c0 FUN_0028a2c0 (221 B): equivalent/0x0028a2c0.cpp
-// sym: ?FUN_0028a2c0@Track@fn_ffa7c92d@@QAEXMPAUPair_28a2c0@2@@Z
+// sym: ?FUN_0028a2c0@Track@fn_ffa7c92d@@QAEXMPAUPair_28a2c0@2@@Z @1147441a748b @w0da1ba15e81a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_0028a2c0 @ 0x0028a2c0
 void Track::FUN_0028a2c0(float time,Pair_28a2c0* out) {

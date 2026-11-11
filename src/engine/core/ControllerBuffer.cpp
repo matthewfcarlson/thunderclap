@@ -204,7 +204,7 @@ void ControllerBuffer::f2() {
 
 
 // 0x00270840 core::ControllerBuffer::vfunc_2 (97 B): equivalent/0x00270840.cpp [wrapped: conflict: core::ControllerBuffer]
-// sym: ?vfunc_2@ControllerBuffer@core@fn_00270840@@QAEPAU123@E@Z
+// sym: ?vfunc_2@ControllerBuffer@core@fn_00270840@@QAEPAU123@E@Z @cdae33217425 @wabcbd6077bb7
 namespace fn_00270840 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::ControllerBuffer::vfunc_2 @ 0x00270840

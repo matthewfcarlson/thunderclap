@@ -84,7 +84,7 @@ hulk_freg FUN_0024cc00(const Obj_24cc00* p, const Light* l) {
 
 
 // 0x0024ccb0 FUN_0024ccb0 (285 B): equivalent/0x0024ccb0.cpp
-// sym: ?FUN_0024ccb0@fn_f96c52ec@@YAMPAUBody_24ccb0@1@0@Z
+// sym: ?FUN_0024ccb0@fn_f96c52ec@@YAMPAUBody_24ccb0@1@0@Z @ac914b52ce53 @w2dce643fb83a
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 16/16)
 // FUN_0024ccb0 @ 0x0024ccb0
 hulk_freg __cdecl FUN_0024ccb0(Body_24ccb0* p, Body_24ccb0* q) {
@@ -129,7 +129,7 @@ hulk_freg FUN_0024cdd0(float* a, float* b) {
 
 
 // 0x0024ce50 FUN_0024ce50 (208 B): equivalent/0x0024ce50.cpp
-// sym: ?FUN_0024ce50@fn_f96c52ec@@YAMPBUSource_24ce50@1@PBUVec3_24ce50@1@@Z
+// sym: ?FUN_0024ce50@fn_f96c52ec@@YAMPBUSource_24ce50@1@PBUVec3_24ce50@1@@Z @a23b4c66b048 @w9d5a81e4cf9f
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 6/6)
 // FUN_0024ce50 @ 0x0024ce50
 hulk_freg __cdecl FUN_0024ce50(const Source_24ce50* a, const Vec3_24ce50* b) {
@@ -147,7 +147,7 @@ hulk_freg __cdecl FUN_0024ce50(const Source_24ce50* a, const Vec3_24ce50* b) {
 
 
 // 0x0024cf20 FUN_0024cf20 (540 B): equivalent/0x0024cf20.cpp
-// sym: _FUN_0024cf20
+// sym: _FUN_0024cf20 @93bcdb6e325a @w3787cab5cc2c
 // STATUS: equivalent (tools/equiv.py level 3: 20031 inputs, branch coverage 16/18, incomplete)
 // FUN_0024cf20 @ 0x0024cf20
 extern "C" void FUN_0024cf20(void * e_, const void *p, float *outCross, float *outAlong)

@@ -131,7 +131,7 @@ extern "C" void __cdecl FUN_0033a620(LuaVMState* L, LuaVMDebug* ar) {
 
 
 // 0x0033a6b0 FUN_0033a6b0 (74 B): equivalent/0x0033a6b0.cpp
-// sym: _FUN_0033a6b0
+// sym: _FUN_0033a6b0 @9e26bc1a8d6a @w3c526b173cc7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0033a6b0 @ 0x0033a6b0
 // makemask
@@ -148,7 +148,7 @@ extern "C" int __cdecl FUN_0033a6b0(const char* text, int count)
 
 
 // 0x0033a740 FUN_0033a740 (90 B): equivalent/0x0033a740.cpp
-// sym: _FUN_0033a740
+// sym: _FUN_0033a740 @4689a310d63e @w1b74358e9363
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 2/2)
 // FUN_0033a740 @ 0x0033a740
 // gethooktable: pushes registry[KEY_HOOK] (created on first use).
@@ -168,7 +168,7 @@ extern "C" void __cdecl FUN_0033a740(LuaVMState *context)
 
 
 // 0x0033a7a0 FUN_0033a7a0 (215 B): equivalent/0x0033a7a0.cpp
-// sym: _FUN_0033a7a0
+// sym: _FUN_0033a7a0 @d880a6a2de53 @wf61645e53278
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // FUN_0033a7a0 @ 0x0033a7a0
 // db_sethook
@@ -185,7 +185,7 @@ extern "C" int __cdecl FUN_0033a7a0(LuaVMState* state) {
 
 
 // 0x0033a880 FUN_0033a880 (230 B): equivalent/0x0033a880.cpp
-// sym: _FUN_0033a880
+// sym: _FUN_0033a880 @a2cd360524e0 @wdebc5eebab02
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 12/12)
 // FUN_0033a880 @ 0x0033a880
 // db_gethook

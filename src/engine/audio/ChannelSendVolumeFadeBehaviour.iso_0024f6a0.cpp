@@ -4,7 +4,7 @@
 
 
 // 0x0024f6a0 audio::SeqActionChannelSendVolumes::vfunc_1 (242 B): equivalent/0x0024f6a0.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ?vfunc_1@SeqActionChannelSendVolumes@audio@@UAEXPAUContext@2@@Z
+// sym: ?vfunc_1@SeqActionChannelSendVolumes@audio@@UAEXPAUContext@2@@Z @4d863df82bc3 @we1bb3e000276
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 15/16, incomplete)
 // audio::SeqActionChannelSendVolumes::vfunc_1 @ 0x0024f6a0
 #include "decls/data/engine/audio.h"

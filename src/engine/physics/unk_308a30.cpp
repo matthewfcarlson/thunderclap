@@ -158,7 +158,7 @@ void owners::C_308a70::FUN_00308a70(hulk_intptr x) {
 namespace fn_f05f0e87 {
 
 // 0x00308a80 FUN_00308a80 (157 B): equivalent/0x00308a80.cpp
-// sym: ?FUN_00308a80@Trigger_308a80@fn_f05f0e87@@QAEXH@Z
+// sym: ?FUN_00308a80@Trigger_308a80@fn_f05f0e87@@QAEXH@Z @a13800de8b6d @wf3fb1497dc4e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00308a80 @ 0x00308a80
 // FUN_00308a80: arm the trigger once the tracked point is inside 1.5x the radius
@@ -179,7 +179,7 @@ void Trigger_308a80::FUN_00308a80(int unused)
 
 
 // 0x00308b20 FUN_00308b20 (120 B): equivalent/0x00308b20.cpp
-// sym: ?FUN_00308b20@Mover_308b20@fn_f05f0e87@@QAE_NXZ
+// sym: ?FUN_00308b20@Mover_308b20@fn_f05f0e87@@QAE_NXZ @002949a357e3 @w6d5687db3807
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // FUN_00308b20 @ 0x00308b20
 bool Mover_308b20::FUN_00308b20() {
@@ -198,7 +198,7 @@ bool Mover_308b20::FUN_00308b20() {
 
 
 // 0x00308ba0 FUN_00308ba0 (276 B): equivalent/0x00308ba0.cpp
-// sym: ?update@Target_308ba0@fn_f05f0e87@@QAE_NM@Z
+// sym: ?update@Target_308ba0@fn_f05f0e87@@QAE_NM@Z @645eaa5381b0 @w2338a4e50657
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00308ba0 @ 0x00308ba0
 bool Target_308ba0::update(float dt) {

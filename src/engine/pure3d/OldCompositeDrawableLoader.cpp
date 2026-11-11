@@ -695,7 +695,7 @@ extern Allocated_29a170* alloc_00263ea0(int);
 
 
 // 0x002980b0 FUN_002980b0 (90 B): equivalent/0x002980b0.cpp
-// sym: ?FUN_002980b0@Pair3@fn_f40ca5f7@@QAEXPAUVec3@2@@Z
+// sym: ?FUN_002980b0@Pair3@fn_f40ca5f7@@QAEXPAUVec3@2@@Z @6727dab31689 @w44d6e41f23ee
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002980b0 @ 0x002980b0
 void Pair3::FUN_002980b0(Vec3* out) {
@@ -706,7 +706,7 @@ void Pair3::FUN_002980b0(Vec3* out) {
 
 
 // 0x00298180 FUN_00298180 (63 B): equivalent/0x00298180.cpp
-// sym: _FUN_00298180
+// sym: _FUN_00298180 @84d313291030 @w4a7f9a58af6d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00298180 @ 0x00298180
 extern "C" int __cdecl FUN_00298180(int value) {
@@ -763,7 +763,7 @@ bool pure3d::CompositeDrawable::vfunc_3() {
 namespace fn_f40ca5f7 {
 
 // 0x00298530 FUN_00298530 (471 B): equivalent/0x00298530.cpp
-// sym: ?FUN_00298530@Box_298530@fn_f40ca5f7@@QAEXPBUMatrix3_298530@2@PBU12@@Z
+// sym: ?FUN_00298530@Box_298530@fn_f40ca5f7@@QAEXPBUMatrix3_298530@2@PBU12@@Z @4047d94ffed3 @w495a7139b0db
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // FUN_00298530 @ 0x00298530
 void Box_298530::FUN_00298530(const Matrix3_298530* m, const Box_298530* src)
@@ -874,7 +874,7 @@ void owners::Obj_2988e0::FUN_002988e0() {
 namespace fn_f40ca5f7 {
 
 // 0x00298960 FUN_00298960 (87 B): equivalent/0x00298960.cpp
-// sym: ?FUN_00298960@Owner@fn_f40ca5f7@@QAEEPBH@Z
+// sym: ?FUN_00298960@Owner@fn_f40ca5f7@@QAEEPBH@Z @8a92cdd093e2 @wa65b8c77072d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00298960 @ 0x00298960
 unsigned char Owner::FUN_00298960(const int *key) {
@@ -935,7 +935,7 @@ void owners::Mapping_298a60::FUN_00298a60() {
 
 
 // 0x00298b30 pure3d::CompositeDrawable::vfunc_6 (197 B): equivalent/0x00298b30.cpp
-// sym: ?vfunc_6@CompositeDrawable@pure3d@@UAEXHH@Z
+// sym: ?vfunc_6@CompositeDrawable@pure3d@@UAEXHH@Z @33715ec383a6 @w5ff139eed54f
 // STATUS: equivalent (tools/equiv.py level 3: 2661 inputs, branch coverage 20/20)
 // pure3d::CompositeDrawable::vfunc_6 @ 0x00298b30
 void pure3d::CompositeDrawable::vfunc_6(int __p0, int __p1) { unsigned int arg = (unsigned int)__p0; unsigned int flag = (unsigned int)__p1;
@@ -986,7 +986,7 @@ char pure3d::CompositeDrawable::vfunc_7() {
 
 
 // 0x00298cb0 pure3d::CompositeDrawable::vfunc_8 (432 B): equivalent/0x00298cb0.cpp
-// sym: ?vfunc_8@CompositeDrawable@pure3d@@UAEXHH@Z
+// sym: ?vfunc_8@CompositeDrawable@pure3d@@UAEXHH@Z @0aced57464bf @we74120658954
 // STATUS: equivalent (tools/equiv.py level 3: 19980 inputs, branch coverage 22/22)
 // pure3d::CompositeDrawable::vfunc_8 @ 0x00298cb0
 void pure3d::CompositeDrawable::vfunc_8(hulk_intptr __p0, int arg) { Owner_298cb0 * owner = (Owner_298cb0 *)__p0;
@@ -1035,7 +1035,7 @@ void pure3d::CompositeDrawable::vfunc_8(hulk_intptr __p0, int arg) { Owner_298cb
 
 
 // 0x00298e60 pure3d::CompositeDrawable::vfunc_9 (157 B): equivalent/0x00298e60.cpp
-// sym: ?vfunc_9@CompositeDrawable@pure3d@@UAEXXZ
+// sym: ?vfunc_9@CompositeDrawable@pure3d@@UAEXXZ @dcccde4b2500 @w177e4c9ed4a9
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 16/16)
 // pure3d::CompositeDrawable::vfunc_9 @ 0x00298e60
 // pure3d::CompositeDrawable::vfunc_9: run the update hook of every child (in order), then of the two extra drawables
@@ -1061,7 +1061,7 @@ void pure3d::CompositeDrawable::vfunc_9() {
 namespace fn_f40ca5f7 {
 
 // 0x00298f00 pure3d::CompositeDrawable::vfunc_10 (131 B): equivalent/0x00298f00.cpp
-// sym: ?vfunc_10@CompositeDrawable_298f00@fn_f40ca5f7@@UAEXPAVShader@2@@Z
+// sym: ?vfunc_10@CompositeDrawable_298f00@fn_f40ca5f7@@UAEXPAVShader@2@@Z @1ca3c16eae76 @wb0553895baa0
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 12/12)
 // pure3d::CompositeDrawable::vfunc_10 @ 0x00298f00
 void CompositeDrawable_298f00::vfunc_10(Shader *newShader)
@@ -1085,7 +1085,7 @@ void CompositeDrawable_298f00::vfunc_10(Shader *newShader)
 
 
 // 0x00298f90 FUN_00298f90 (57 B): equivalent/0x00298f90.cpp
-// sym: ?FUN_00298f90@Owner@fn_f40ca5f7@@QAEXPAUItem@2@@Z
+// sym: ?FUN_00298f90@Owner@fn_f40ca5f7@@QAEXPAUItem@2@@Z @1fbf6a7aa345 @w6f51f28356cd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00298f90 @ 0x00298f90
 void Owner::FUN_00298f90(Item* p) { if(p) p->FUN_00000000(); if(item) item->FUN_00000004(); item=p; if(p) p->FUN_00288080(value); }
@@ -1093,7 +1093,7 @@ void Owner::FUN_00298f90(Item* p) { if(p) p->FUN_00000000(); if(item) item->FUN_
 } // namespace fn_f40ca5f7
 
 // 0x00299010 pure3d::CompositeDrawable::vfunc_13 (109 B): equivalent/0x00299010.cpp
-// sym: ?vfunc_13@CompositeDrawable@pure3d@@UAEXPAX@Z
+// sym: ?vfunc_13@CompositeDrawable@pure3d@@UAEXPAX@Z @598a25eb245a @wc36161586958
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 8/8)
 // pure3d::CompositeDrawable::vfunc_13 @ 0x00299010
 void pure3d::CompositeDrawable::vfunc_13(void* __p0) { Ref_299010 * r = (Ref_299010 *)__p0;
@@ -1209,7 +1209,7 @@ CompositeDrawable_299250::~CompositeDrawable_299250() throw() {
 } // namespace fn_f40ca5f7
 
 // 0x002992c0 pure3d::CompositeDrawable::vfunc_12 (324 B): equivalent/0x002992c0.cpp
-// sym: ?vfunc_12@CompositeDrawable@pure3d@@UAEXXZ
+// sym: ?vfunc_12@CompositeDrawable@pure3d@@UAEXXZ @0f0cbc8a0106 @w65cbfa2a63e7
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 10/10)
 // pure3d::CompositeDrawable::vfunc_12 @ 0x002992c0
 void pure3d::CompositeDrawable::vfunc_12() {
@@ -1321,7 +1321,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x00299540 FUN_00299540 (89 B): equivalent/0x00299540.cpp [wrapped: conflict: Entry]
-// sym: ?FUN_00299540@Container@fn_00299540@@QAEPAU12@IH@Z
+// sym: ?FUN_00299540@Container@fn_00299540@@QAEPAU12@IH@Z @333c27cd4345 @w6afa5433dd34
 namespace fn_00299540 {
 // STATUS: equivalent (tools/equiv.py level 3: 2618 inputs, branch coverage 9/10, incomplete)
 // FUN_00299540 @ 0x00299540
@@ -1330,7 +1330,7 @@ struct Entry { unsigned char active; char pad[3]; unsigned int first; unsigned i
 
 
 // 0x00299680 FUN_00299680 (140 B): equivalent/0x00299680.cpp [wrapped: conflict: pure3d::CompositeDrawable]
-// sym: ??0ActiveControllerList@CompositeDrawable@pure3d@fn_00299680@@QAE@E@Z
+// sym: ??0ActiveControllerList@CompositeDrawable@pure3d@fn_00299680@@QAE@E@Z @2262c52792c1 @w55f110165b7c
 namespace fn_00299680 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00299680 @ 0x00299680
@@ -1438,7 +1438,7 @@ pure3d::CompositeDrawable::~CompositeDrawable() {}
 namespace fn_f40ca5f7 {
 
 // 0x002998d0 FUN_002998d0 (490 B): equivalent/0x002998d0.cpp
-// sym: ?FUN_002998d0@Owner_2998d0@fn_f40ca5f7@@QAEXE@Z
+// sym: ?FUN_002998d0@Owner_2998d0@fn_f40ca5f7@@QAEXE@Z @fbcf02934e37 @wd47df86bc918
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 41/44, incomplete)
 // FUN_002998d0 @ 0x002998d0
 void Owner_2998d0::FUN_002998d0(unsigned char release)
@@ -1655,7 +1655,7 @@ ActivePrimitiveList_299cd0::ActivePrimitiveList_299cd0(unsigned char n) throw() 
 } // namespace fn_f40ca5f7
 
 // 0x00299da0 FUN_00299da0 (512 B): equivalent/0x00299da0.cpp [wrapped: conflict: pure3d::CompositeDrawable::ActivePrimitiveList]
-// sym: ??0ActivePrimitiveList@CompositeDrawable@pure3d@fn_00299da0@@QAE@ABV0123@@Z
+// sym: ??0ActivePrimitiveList@CompositeDrawable@pure3d@fn_00299da0@@QAE@ABV0123@@Z @b09fa57c1a75 @w77af69ce1da9
 namespace fn_00299da0 {
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 24/24)
 // FUN_00299da0 @ 0x00299da0
@@ -1802,7 +1802,7 @@ ActivePrimitiveList_299fa0::~ActivePrimitiveList_299fa0() {}
 } // namespace fn_f40ca5f7
 
 // 0x0029a010 FUN_0029a010 (343 B): equivalent/0x0029a010.cpp [wrapped: conflict: pure3d::CompositeDrawable]
-// sym: ??0CompositeDrawable@pure3d@fn_0029a010@@QAE@ABV012@@Z
+// sym: ??0CompositeDrawable@pure3d@fn_0029a010@@QAE@ABV012@@Z @22505ea55470 @we61d3e565019
 namespace fn_0029a010 {
 // STATUS: equivalent (tools/equiv.py level 3: 18724 inputs, branch coverage 30/30)
 // FUN_0029a010 @ 0x0029a010
@@ -1956,7 +1956,7 @@ void* pure3d::CompositeDrawable::vfunc_4() {
 
 
 // 0x0029a630 pure3d::OldCompositeDrawableLoader::vfunc_5 (2764 B): equivalent/0x0029a630.cpp [wrapped: macros]
-// sym: ?vfunc_5@OldCompositeDrawableLoader@pure3d@fn_0029a630@@UAEXPAPAUCompositeDrawable@23@PA_KPAUChunk@3@PAULoadInventory@content@3@@Z
+// sym: ?vfunc_5@OldCompositeDrawableLoader@pure3d@fn_0029a630@@UAEXPAPAUCompositeDrawable@23@PA_KPAUChunk@3@PAULoadInventory@content@3@@Z @564718e2222f @w9fc08a5585a8
 inline void* operator new(size_t,void* p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

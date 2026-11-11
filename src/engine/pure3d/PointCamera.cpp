@@ -183,7 +183,7 @@ PointCamera_2c3460* PointCamera_2c3460::vfunc_5(signed char flags) {
 
 
 // 0x002c3490 pure3d::PointCamera::vfunc_26 (377 B): equivalent/0x002c3490.cpp
-// sym: ?vfunc_26@PointCamera@pure3d@fn_f8d4cfbc@@UAEXXZ
+// sym: ?vfunc_26@PointCamera@pure3d@fn_f8d4cfbc@@UAEXXZ @4e55d41407c3 @w745fb6ffad1f
 // STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 6/6)
 // pure3d::PointCamera::vfunc_26 @ 0x002c3490
 namespace pure3d {

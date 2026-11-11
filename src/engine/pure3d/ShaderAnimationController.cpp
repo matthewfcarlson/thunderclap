@@ -220,7 +220,7 @@ bool pure3d::ShaderAnimationController::vfunc_26(void* __p0) { void * p = (void 
 
 
 // 0x002a8450 pure3d::ShaderAnimationController::vfunc_7 (460 B): equivalent/0x002a8450.cpp
-// sym: ?vfunc_7@ShaderAnimationController@pure3d@@UAEXXZ
+// sym: ?vfunc_7@ShaderAnimationController@pure3d@@UAEXXZ @f9c83d82bc9b @wd303900717e8
 // STATUS: equivalent (tools/equiv.py level 3: 141 inputs, branch coverage 18/22, incomplete)
 // pure3d::ShaderAnimationController::vfunc_7 @ 0x002a8450
 void pure3d::ShaderAnimationController::vfunc_7() {

@@ -305,7 +305,7 @@ void QuaternionChannel::vfunc_4(int a, int b, int c) {
 } // namespace fn_f66a22d3
 
 // 0x0028aa20 pure3d::QuaternionChannel::vfunc_5 (241 B): equivalent/0x0028aa20.cpp
-// sym: ?vfunc_5@QuaternionChannel@pure3d@@UAEXMH@Z
+// sym: ?vfunc_5@QuaternionChannel@pure3d@@UAEXMH@Z @be0b3312425d @wc2e91b52f65f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // pure3d::QuaternionChannel::vfunc_5 @ 0x0028aa20
 void pure3d::QuaternionChannel::vfunc_5(float time, hulk_intptr __p1) { Quaternion_28aa20 * out = (Quaternion_28aa20 *)__p1;
@@ -410,7 +410,7 @@ extern "C" int* FUN_0028ace0() {
 } // namespace fn_f66a22d3
 
 // 0x0028ad20 FUN_0028ad20 (290 B): equivalent/0x0028ad20.cpp
-// sym: ?FUN_0028ad20@Track_28ad20@owners@@QAEXMPAI@Z
+// sym: ?FUN_0028ad20@Track_28ad20@owners@@QAEXMPAI@Z @fbdff55df6b4 @w4d6ec3dd9dc2
 // STATUS: equivalent (tools/equiv.py level 3: 2628 inputs, branch coverage 6/6)
 // FUN_0028ad20 @ 0x0028ad20
 void owners::Track_28ad20::FUN_0028ad20(float value,unsigned int* output) {
@@ -431,7 +431,7 @@ void owners::Track_28ad20::FUN_0028ad20(float value,unsigned int* output) {
 
 
 // 0x0028ae50 pure3d::DefaultChannelHandler::vfunc_3 (38 B): equivalent/0x0028ae50.cpp
-// sym: ?vfunc_3@DefaultChannelHandler@pure3d@@UAEHH@Z
+// sym: ?vfunc_3@DefaultChannelHandler@pure3d@@UAEHH@Z @77d641478e94 @w50c4772ff3f5
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 4/4)
 // pure3d::DefaultChannelHandler::vfunc_3 @ 0x0028ae50
 int pure3d::DefaultChannelHandler::vfunc_3(int __p0) { unsigned int channel = (unsigned int)__p0;
@@ -439,7 +439,7 @@ int pure3d::DefaultChannelHandler::vfunc_3(int __p0) { unsigned int channel = (u
 
 
 // 0x0028aea0 pure3d::DefaultChannelHandler::vfunc_5 (218 B): equivalent/0x0028aea0.cpp
-// sym: ?vfunc_5@DefaultChannelHandler@pure3d@@UAEXHHHH@Z
+// sym: ?vfunc_5@DefaultChannelHandler@pure3d@@UAEXHHHH@Z @06b70b1f5af7 @w5e2851c5d51a
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 23/23)
 // pure3d::DefaultChannelHandler::vfunc_5 @ 0x0028aea0
 void pure3d::DefaultChannelHandler::vfunc_5(hulk_intptr __p0, hulk_intptr __p1, int __p2, int __p3) { unsigned int * header = (unsigned int *)__p0; unsigned int * size = (unsigned int *)__p1; unsigned int type = (unsigned int)__p2; unsigned short count = (unsigned short)__p3;
@@ -558,7 +558,7 @@ void F(Pair_28b190* out, Obj_28b190* a, Obj_28b190* b, float t, int n) {
 
 
 // 0x0028b200 FUN_0028b200 (126 B): equivalent/0x0028b200.cpp
-// sym: ?FUN_0028b200@fn_f66a22d3@@YAXPAUVec3_28b200@1@PAVCurve_28b200@1@1MH@Z
+// sym: ?FUN_0028b200@fn_f66a22d3@@YAXPAUVec3_28b200@1@PAVCurve_28b200@1@1MH@Z @11eed555de52 @w8f1eafa49b23
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0028b200 @ 0x0028b200
 // Linearly interpolates between the values of two curves sampled at key.
@@ -577,7 +577,7 @@ void FUN_0028b200(Vec3_28b200* out, Curve_28b200* a, Curve_28b200* b, float t, i
 
 
 // 0x0028b2f0 FUN_0028b2f0 (210 B): equivalent/0x0028b2f0.cpp
-// sym: _FUN_0028b2f0
+// sym: _FUN_0028b2f0 @a67499c9a41d @we73c22907484
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0028b2f0 @ 0x0028b2f0
 extern "C" unsigned int* __cdecl FUN_0028b2f0(unsigned int* output, Source_28b2f0* first, Source_28b2f0* second, float factor, int index) {
@@ -610,7 +610,7 @@ SimpleChannel::SimpleChannel(int size, Owner_28b420* owner) throw() : c(owner), 
 } // namespace fn_f66a22d3
 
 // 0x0028b490 pure3d::SimpleChannel::vfunc_1 (52 B): equivalent/0x0028b490.cpp [wrapped: conflict: pure3d::Channel; pure3d::SimpleChannel]
-// sym: ?vfunc_1@SimpleChannel@pure3d@fn_0028b490@@UAEXXZ
+// sym: ?vfunc_1@SimpleChannel@pure3d@fn_0028b490@@UAEXXZ @38bf24138117 @w55a9554c6238
 namespace fn_0028b490 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 3/4, incomplete)
 // pure3d::SimpleChannel::vfunc_1 @ 0x0028b490

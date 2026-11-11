@@ -132,7 +132,7 @@ void owners::Obj_28fe80::FUN_0028fe80(const char* src) {
 
 
 // 0x0028ff00 FUN_0028ff00 (365 B): equivalent/0x0028ff00.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0StateData@prop@pure3d@fn_0028ff00@@QAE@HHHHHHH@Z
+// sym: ??0StateData@prop@pure3d@fn_0028ff00@@QAE@HHHHHHH@Z @fa182d093ea4 @w98cf8ee7ce1b
 namespace fn_0028ff00 {
 // STATUS: equivalent (tools/equiv.py level 3: 19 inputs, branch coverage 10/10)
 // FUN_0028ff00 @ 0x0028ff00
@@ -499,7 +499,7 @@ template <> void content::LoadInventory::DynamicCaster<physics::PhysicsObject>::
 
 
 // 0x002905e0 FUN_002905e0 (345 B): equivalent/0x002905e0.cpp [wrapped: conflict: core::IRefCount; pure3d::prop::StateData]
-// sym: ?FUN_002905e0@StateData@prop@pure3d@fn_002905e0@@QAEXXZ
+// sym: ?FUN_002905e0@StateData@prop@pure3d@fn_002905e0@@QAEXXZ @71d3e9ccd2fe @weaf4092cf7dd
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_002905e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 32/32)
@@ -727,7 +727,7 @@ pure3d::prop::StateData::~StateData() {}
 
 
 // 0x00290910 FUN_00290910 (176 B): equivalent/0x00290910.cpp [wrapped: conflict: pure3d::prop::StatePropData]
-// sym: ??1StatePropData@prop@pure3d@fn_00290910@@UAE@XZ
+// sym: ??1StatePropData@prop@pure3d@fn_00290910@@UAE@XZ @42919a2991d8 @w3ae5e99e1bd3
 namespace fn_00290910 {
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 16/16)
 // FUN_00290910 @ 0x00290910
@@ -757,7 +757,7 @@ pure3d::prop::StatePropData::~StatePropData() {
 
 
 // 0x002909c0 FUN_002909c0 (93 B): equivalent/0x002909c0.cpp
-// sym: ?FUN_002909c0@Buffer_2909c0@owners@@QAE_NII@Z
+// sym: ?FUN_002909c0@Buffer_2909c0@owners@@QAE_NII@Z @2a59f40fe8ec @w392a9e2e36cf
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002909c0 @ 0x002909c0
 bool owners::Buffer_2909c0::FUN_002909c0(unsigned count, hulk_uintptr value) {
@@ -803,7 +803,7 @@ bool Obj_290ad0::Run(int arg) {
 } // namespace fn_f5d7895e
 
 // 0x00290b30 FUN_00290b30 (185 B): equivalent/0x00290b30.cpp [wrapped: conflict: pure3d::prop::StatePropData]
-// sym: ??0StatePropData@prop@pure3d@fn_00290b30@@QAE@PAURef_290b30@3@00II@Z
+// sym: ??0StatePropData@prop@pure3d@fn_00290b30@@QAE@PAURef_290b30@3@00II@Z @84e24feec56b @wefebd35479b4
 namespace fn_00290b30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00290b30 @ 0x00290b30

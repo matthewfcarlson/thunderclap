@@ -87,7 +87,7 @@ public:
 
 
 // 0x002394c0 fight::ExecuteAction::vfunc_3 (546 B): equivalent/0x002394c0.cpp
-// sym: ?FUN_002394c0@ExecuteAction@fn_f7a4ec2a@@QAEDHH@Z
+// sym: ?FUN_002394c0@ExecuteAction@fn_f7a4ec2a@@QAEDHH@Z @1ecbd1e80efa @w75cca5a01718
 // STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 43/44, incomplete)
 // fight::ExecuteAction::vfunc_3 @ 0x002394c0
 char ExecuteAction::FUN_002394c0(int a1, int a2)

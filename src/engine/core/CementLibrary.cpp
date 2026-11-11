@@ -320,7 +320,7 @@ extern "C" void FUN_00277190(char* p) {
 
 
 // 0x002771b0 FUN_002771b0 (163 B): equivalent/0x002771b0.cpp
-// sym: _FUN_002771b0
+// sym: _FUN_002771b0 @30f13ce175d7 @we8646a395412
 // STATUS: equivalent (tools/equiv.py level 3: 20055 inputs, branch coverage 20/20)
 // FUN_002771b0 @ 0x002771b0
 extern "C" bool __cdecl FUN_002771b0(const char* path)
@@ -341,7 +341,7 @@ extern "C" bool __cdecl FUN_002771b0(const char* path)
 
 
 // 0x00277260 FUN_00277260 (111 B): equivalent/0x00277260.cpp
-// sym: _FUN_00277260
+// sym: _FUN_00277260 @03b2881a60f8 @w90e3f49b52c0
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00277260 @ 0x00277260
 // FUN_00277260 @ 0x00277260
@@ -359,7 +359,7 @@ extern "C" void __cdecl FUN_00277260(void **arg1, const char *path, unsigned int
 
 
 // 0x00277310 FUN_00277310 (98 B): equivalent/0x00277310.cpp
-// sym: ?FUN_00277310@fn_f6ff0ab7@@YAPAXIIPBXI@Z
+// sym: ?FUN_00277310@fn_f6ff0ab7@@YAPAXIIPBXI@Z @da551913162e @we515ae39d878
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 14/14)
 // FUN_00277310 @ 0x00277310
 // equiv-conv: FUN_00277310 eax edi stack stack
@@ -449,7 +449,7 @@ void Obj_277410::Set(int x) {
 } // namespace fn_f6ff0ab7
 
 // 0x00277460 core::CementLibrary::vfunc_7 (150 B): equivalent/0x00277460.cpp [wrapped: conflict: core::CementLibrary]
-// sym: ?vfunc_7@CementLibrary@core@fn_00277460@@UAEXPAPAUFile_277460@3@IIIII@Z
+// sym: ?vfunc_7@CementLibrary@core@fn_00277460@@UAEXPAPAUFile_277460@3@IIIII@Z @dda7a46ae8c1 @wa35d2687c369
 namespace fn_00277460 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // core::CementLibrary::vfunc_7 @ 0x00277460
@@ -845,7 +845,7 @@ void CementLibrary::c(unsigned flags) {
 namespace fn_f6ff0ab7 {
 
 // 0x00277810 core::CementLibrary::vfunc_3_adj4 (412 B): equivalent/0x00277810.cpp
-// sym: ?target@LibraryBase@fn_f6ff0ab7@@QAEXI@Z
+// sym: ?target@LibraryBase@fn_f6ff0ab7@@QAEXI@Z @c5c2e7f85df1 @wcd648e7d85b8
 // STATUS: equivalent (tools/equiv.py level 3: 3074 inputs, branch coverage 29/30; --wine 674 inputs)
 // core::CementLibrary::vfunc_3_adj4 @ 0x00277810
 void LibraryBase::target(unsigned step) {
@@ -859,7 +859,7 @@ void LibraryBase::target(unsigned step) {
 
 
 // 0x002779b0 FUN_002779b0 (139 B): equivalent/0x002779b0.cpp
-// sym: ?FUN_002779b0@CementLibrary_2779b0@fn_f6ff0ab7@@QAE_NIPAUOutput_2779b0@2@@Z
+// sym: ?FUN_002779b0@CementLibrary_2779b0@fn_f6ff0ab7@@QAE_NIPAUOutput_2779b0@2@@Z @f48613485a31 @w074dfc416474
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 8/8)
 // FUN_002779b0 @ 0x002779b0
 // equiv-conv: FUN_00277310 eax edi stack stack
@@ -896,7 +896,7 @@ Thing_277a40::Thing_277a40() {
 } // namespace fn_f6ff0ab7
 
 // 0x00277a70 FUN_00277a70 (156 B): equivalent/0x00277a70.cpp [wrapped: conflict: FUN_002705f0; core::CementLibrary; core::ICementLibrary; core::IFileCompletionCallback (+2)]
-// sym: ?FUN_00277a70@CementLibrary@core@fn_00277a70@@QAEPAU123@PAUResource_277a70@23@0I@Z
+// sym: ?FUN_00277a70@CementLibrary@core@fn_00277a70@@QAEPAU123@PAUResource_277a70@23@0I@Z @30c010adf921 @wc9048ed00e47
 namespace fn_00277a70 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00277a70 @ 0x00277a70
@@ -943,7 +943,7 @@ unsigned int C_277b40::f(char* path, unsigned int arg) {
 
 
 // 0x00277b70 FUN_00277b70 (130 B): equivalent/0x00277b70.cpp
-// sym: ?FUN_00277b70@fn_f6ff0ab7@@YAXPAPAVCementLibrary@core@@IIII@Z
+// sym: ?FUN_00277b70@fn_f6ff0ab7@@YAXPAPAVCementLibrary@core@@IIII@Z @51faba7cbb81 @wda1ddce58c1c
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 4/4)
 // FUN_00277b70 @ 0x00277b70
 void __cdecl FUN_00277b70(core::CementLibrary** out,hulk_uintptr a,unsigned int b,unsigned int c,unsigned int d) {
@@ -988,7 +988,7 @@ void View_277c30::FUN_00277c30() {
 
 
 // 0x00277c40 FUN_00277c40 (84 B): equivalent/0x00277c40.cpp
-// sym: ?FUN_00277c40@State_277c40@fn_f6ff0ab7@@QAEXPAUResource_277c40@2@IIIIIII@Z
+// sym: ?FUN_00277c40@State_277c40@fn_f6ff0ab7@@QAEXPAUResource_277c40@2@IIIIIII@Z @828e588cb3a9 @wf2283d56492c
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00277c40 @ 0x00277c40
 void State_277c40::FUN_00277c40(Resource_277c40* object, unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e, unsigned int f, unsigned int g) {

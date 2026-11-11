@@ -4,7 +4,7 @@
 
 
 // 0x002bc470 FUN_002bc470 (96 B): equivalent/0x002bc470.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ??0OldBillboardObjectLoader@pure3d@fn_f5b05fca@@QAE@XZ
+// sym: ??0OldBillboardObjectLoader@pure3d@fn_f5b05fca@@QAE@XZ @ec6c6099223c @wd47526f9df0c
 namespace fn_f5b05fca {} using namespace fn_f5b05fca;
 namespace fn_f5b05fca {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)

@@ -1020,7 +1020,7 @@ void pure3d::scenegraph::Node::vfunc_14(int value) {
 
 
 // 0x00295d40 pure3d::scenegraph::Node::vfunc_15 (190 B): equivalent/0x00295d40.cpp [wrapped: conflict: pure3d::scenegraph::Node]
-// sym: ?vfunc_15@Node@scenegraph@pure3d@fn_00295d40@@UAEPAU1234@HHHII@Z
+// sym: ?vfunc_15@Node@scenegraph@pure3d@fn_00295d40@@UAEPAU1234@HHHII@Z @ef76b628e89d @wad14330d1716
 namespace fn_00295d40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 22/22)
 // pure3d::scenegraph::Node::vfunc_15 @ 0x00295d40
@@ -1411,7 +1411,7 @@ char pure3d::scenegraph::Scenegraph::vfunc_7() {
 
 
 // 0x00296160 pure3d::scenegraph::Scenegraph::vfunc_8 (81 B): equivalent/0x00296160.cpp
-// sym: ?vfunc_8@Scenegraph@scenegraph@pure3d@@UAEXHH@Z
+// sym: ?vfunc_8@Scenegraph@scenegraph@pure3d@@UAEXHH@Z @46b4e25d587c @w72bc518a835a
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 2/2)
 // pure3d::scenegraph::Scenegraph::vfunc_8 @ 0x00296160
 void pure3d::scenegraph::Scenegraph::vfunc_8(hulk_intptr a, int b) {
@@ -1521,7 +1521,7 @@ Node_296570* Node_296570::vfunc_5(signed char flags) {
 } // namespace fn_f9b7dd8c
 
 // 0x002965a0 pure3d::scenegraph::BranchNode::vfunc_6 (60 B): equivalent/0x002965a0.cpp
-// sym: ?vfunc_6@BranchNode@scenegraph@pure3d@@UAEXHH@Z
+// sym: ?vfunc_6@BranchNode@scenegraph@pure3d@@UAEXHH@Z @c5b52a0a66c0 @wdc626214fefd
 // STATUS: equivalent (tools/equiv.py level 3: 18240 inputs, branch coverage 6/6)
 // pure3d::scenegraph::BranchNode::vfunc_6 @ 0x002965a0
 void pure3d::scenegraph::BranchNode::vfunc_6(hulk_intptr __p0, hulk_intptr __p1) { void * a = (void *)__p0; void * b = (void *)__p1;
@@ -1584,7 +1584,7 @@ void pure3d::scenegraph::BranchNode::vfunc_9() {
 
 
 // 0x002966a0 pure3d::scenegraph::BranchNode::vfunc_10 (118 B): equivalent/0x002966a0.cpp [wrapped: conflict: pure3d::scenegraph::BranchNode; pure3d::scenegraph::Node]
-// sym: ?vfunc_10@BranchNode@scenegraph@pure3d@fn_002966a0@@UAEXHIHH@Z
+// sym: ?vfunc_10@BranchNode@scenegraph@pure3d@fn_002966a0@@UAEXHIHH@Z @1267047345fe @w318a447f3ae0
 namespace fn_002966a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2424 inputs, branch coverage 14/14)
 // pure3d::scenegraph::BranchNode::vfunc_10 @ 0x002966a0
@@ -1663,7 +1663,7 @@ void pure3d::scenegraph::BranchNode::vfunc_18(void* __p0) { Item_296740 * item =
 
 
 // 0x002967a0 pure3d::scenegraph::BranchNode::vfunc_19 (107 B): equivalent/0x002967a0.cpp
-// sym: ?vfunc_19@BranchNode@scenegraph@pure3d@@UAEXH@Z
+// sym: ?vfunc_19@BranchNode@scenegraph@pure3d@@UAEXH@Z @433f599da965 @w7a1d6531c24b
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 12/12)
 // pure3d::scenegraph::BranchNode::vfunc_19 @ 0x002967a0
 void pure3d::scenegraph::BranchNode::vfunc_19(hulk_intptr __p0) { Node_2967a0 * child = (Node_2967a0 *)__p0;
@@ -1690,7 +1690,7 @@ void pure3d::scenegraph::BranchNode::vfunc_19(hulk_intptr __p0) { Node_2967a0 * 
 
 
 // 0x00296810 pure3d::scenegraph::TransformNode::vfunc_6 (53 B): equivalent/0x00296810.cpp [wrapped: conflict: pure3d::scenegraph::BranchNode; pure3d::scenegraph::Node; pure3d::scenegraph::TransformNode]
-// sym: ?vfunc_6@TransformNode@scenegraph@pure3d@fn_00296810@@UAEXHH@Z
+// sym: ?vfunc_6@TransformNode@scenegraph@pure3d@fn_00296810@@UAEXHH@Z @f61e040dd704 @wf0971b3181c5
 namespace fn_00296810 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // pure3d::scenegraph::TransformNode::vfunc_6 @ 0x00296810
@@ -1825,7 +1825,7 @@ void pure3d::scenegraph::TransformNode::vfunc_9() {
 namespace fn_f9b7dd8c {
 
 // 0x00296970 FUN_00296970 (56 B): equivalent/0x00296970.cpp
-// sym: ?FUN_00296970@Owner@fn_f9b7dd8c@@QAEXPAUItem@2@@Z
+// sym: ?FUN_00296970@Owner@fn_f9b7dd8c@@QAEXPAUItem@2@@Z @94c39abfa189 @w0dccd3106ab8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00296970 @ 0x00296970
 void Owner::FUN_00296970(Item *replacement) {
@@ -1838,7 +1838,7 @@ void Owner::FUN_00296970(Item *replacement) {
 } // namespace fn_f9b7dd8c
 
 // 0x002969b0 pure3d::scenegraph::VisibilityNode::vfunc_6 (50 B): equivalent/0x002969b0.cpp [wrapped: conflict: pure3d::scenegraph::BranchNode; pure3d::scenegraph::Node; pure3d::scenegraph::VisibilityNode]
-// sym: ?vfunc_6@VisibilityNode@scenegraph@pure3d@fn_002969b0@@UAEXHH@Z
+// sym: ?vfunc_6@VisibilityNode@scenegraph@pure3d@fn_002969b0@@UAEXHH@Z @671b9441c5c9 @w9a2565a7bcc4
 namespace fn_002969b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // pure3d::scenegraph::VisibilityNode::vfunc_6 @ 0x002969b0
@@ -1939,7 +1939,7 @@ void pure3d::scenegraph::VisibilityNode::vfunc_9() {
 
 
 // 0x00296ae0 FUN_00296ae0 (50 B): equivalent/0x00296ae0.cpp [wrapped: conflict: Owner]
-// sym: ?FUN_00296ae0@Owner@fn_00296ae0@@QAEXPAUItem@2@@Z
+// sym: ?FUN_00296ae0@Owner@fn_00296ae0@@QAEXPAUItem@2@@Z @c87270f4a767 @w9ad196e16fb4
 namespace fn_00296ae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00296ae0 @ 0x00296ae0
@@ -2021,7 +2021,7 @@ Obj_296bb0::~Obj_296bb0() {
 } // namespace fn_f9b7dd8c
 
 // 0x00296be0 pure3d::scenegraph::Scenegraph::vfunc_13 (111 B): equivalent/0x00296be0.cpp
-// sym: ?vfunc_13@Scenegraph@scenegraph@pure3d@@UAEXPAX@Z
+// sym: ?vfunc_13@Scenegraph@scenegraph@pure3d@@UAEXPAX@Z @7a253ea7b863 @wec2ae0f7e7cd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // pure3d::scenegraph::Scenegraph::vfunc_13 @ 0x00296be0
 void pure3d::scenegraph::Scenegraph::vfunc_13(void* __p0) { RefCounted_296be0 * newShader = (RefCounted_296be0 *)__p0;
@@ -2058,7 +2058,7 @@ void pure3d::scenegraph::Scenegraph::vfunc_14() {
 
 
 // 0x00296cb0 pure3d::scenegraph::Scenegraph::vfunc_12 (235 B): equivalent/0x00296cb0.cpp
-// sym: ?vfunc_12@Scenegraph@scenegraph@pure3d@@UAEXXZ
+// sym: ?vfunc_12@Scenegraph@scenegraph@pure3d@@UAEXXZ @fa6c2af766e6 @w3790d160bc1c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // pure3d::scenegraph::Scenegraph::vfunc_12 @ 0x00296cb0
 void pure3d::scenegraph::Scenegraph::vfunc_12() {
@@ -2167,7 +2167,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x00296e50 pure3d::scenegraph::BoundingVolumeUpdater::vfunc_0 (232 B): equivalent/0x00296e50.cpp [wrapped: conflict: pure3d::scenegraph::BoundingVolumeUpdater]
-// sym: ?vfunc_0@BoundingVolumeUpdater@scenegraph@pure3d@fn_00296e50@@UAE_NPAUNode@4@@Z
+// sym: ?vfunc_0@BoundingVolumeUpdater@scenegraph@pure3d@fn_00296e50@@UAE_NPAUNode@4@@Z @f0d7628c10c0 @wdd5f87f761cf
 namespace fn_00296e50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 12/12)
 // pure3d::scenegraph::BoundingVolumeUpdater::vfunc_0 @ 0x00296e50
@@ -2384,7 +2384,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x002971f0 FUN_002971f0 (229 B): equivalent/0x002971f0.cpp [wrapped: conflict: pure3d::scenegraph::BranchNode; pure3d::scenegraph::Node]
-// sym: ?FUN_002971f0@BranchNode@scenegraph@pure3d@fn_002971f0@@QAEPAU1234@PBU1234@@Z
+// sym: ?FUN_002971f0@BranchNode@scenegraph@pure3d@fn_002971f0@@QAEPAU1234@PBU1234@@Z @fc3d72d92018 @w6ddb59ab8b57
 inline void* operator new(size_t, void* p) { return p; }
 namespace fn_002971f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 12/12)
@@ -2509,7 +2509,7 @@ void* pure3d::scenegraph::BranchNode::vfunc_4() {
 
 
 // 0x002973d0 FUN_002973d0 (132 B): equivalent/0x002973d0.cpp [wrapped: conflict: pure3d::scenegraph::BranchNode; pure3d::scenegraph::TransformNode]
-// sym: ??0TransformNode@scenegraph@pure3d@fn_002973d0@@QAE@ABV0123@@Z
+// sym: ??0TransformNode@scenegraph@pure3d@fn_002973d0@@QAE@ABV0123@@Z @a723c9d103d0 @w22afc52b84c0
 namespace fn_002973d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_002973d0 @ 0x002973d0
@@ -2610,7 +2610,7 @@ void* pure3d::scenegraph::TransformNode::vfunc_4() {
 
 
 // 0x00297500 FUN_00297500 (93 B): equivalent/0x00297500.cpp [wrapped: conflict: VisibilityNode]
-// sym: ??0VisibilityNode@fn_00297500@@QAE@PAU01@@Z
+// sym: ??0VisibilityNode@fn_00297500@@QAE@PAU01@@Z @4ded69796c84 @w29d88180d3e7
 namespace fn_00297500 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00297500 @ 0x00297500
@@ -2755,7 +2755,7 @@ VisibilityNode* VisibilityNode::vfunc_2(unsigned char flag) {
 namespace fn_f9b7dd8c {
 
 // 0x00297680 FUN_00297680 (1277 B): equivalent/0x00297680.cpp
-// sym: ?FUN_00297680@SceneLoader_297680@fn_f9b7dd8c@@QAEPAVNode_297680@2@PAUStream_297680@2@PAX@Z
+// sym: ?FUN_00297680@SceneLoader_297680@fn_f9b7dd8c@@QAEPAVNode_297680@2@PAUStream_297680@2@PAX@Z @bcb98329b581 @w331239085155
 // STATUS: equivalent (tools/equiv.py level 3: 20136 inputs, branch coverage 49/51, incomplete)
 // FUN_00297680 @ 0x00297680
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -2889,7 +2889,7 @@ Node_297680 *SceneLoader_297680::FUN_00297680(Stream_297680 *s, void *ctx)
 } // namespace fn_f9b7dd8c
 
 // 0x00297ba0 FUN_00297ba0 (862 B): equivalent/0x00297ba0.cpp [wrapped: conflict: FUN_000c0de0; Node; pure3d::DrawableContainer; pure3d::DrawableHierarchy]
-// sym: ?FUN_00297ba0@SceneLoader_297ba0@fn_00297ba0@@QAEPAVNode@2@PAUStream@2@PAX@Z
+// sym: ?FUN_00297ba0@SceneLoader_297ba0@fn_00297ba0@@QAEPAVNode@2@PAUStream@2@PAX@Z @a3205ec08339 @w1be330bb790c
 namespace fn_00297ba0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3075 inputs, branch coverage 37/37)
 // FUN_00297ba0 @ 0x00297ba0

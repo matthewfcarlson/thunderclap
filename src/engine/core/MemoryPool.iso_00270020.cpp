@@ -5,7 +5,7 @@
 
 
 // 0x00270020 FUN_00270020 (138 B): equivalent/0x00270020.cpp [isolated: code differs from its standalone build; on include/gen/ and not mergeable]
-// sym: ?FUN_00270020@Pool_270020@owners@@QAEXPAXIII0II@Z
+// sym: ?FUN_00270020@Pool_270020@owners@@QAEXPAXIII0II@Z @b12452c48024 @we4fc503ced1c
 // STATUS: equivalent (tools/equiv.py level 3: 41 inputs, branch coverage 6/6)
 // FUN_00270020 @ 0x00270020
 #include "gen/owners.h"

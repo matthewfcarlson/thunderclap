@@ -193,7 +193,7 @@ extern "C" void __cdecl FUN_00265c40(void) {
 
 
 // 0x00265cd0 content::P3DFileHandler::vfunc_3 (799 B): equivalent/0x00265cd0.cpp
-// sym: ?vfunc_3@P3DFileHandler@content@fn_f638de75@@UAEXPAUCtx_265cd0@3@PAUCache_265cd0@3@@Z
+// sym: ?vfunc_3@P3DFileHandler@content@fn_f638de75@@UAEXPAUCtx_265cd0@3@PAUCache_265cd0@3@@Z @63d7fc7850c5 @w446350521156
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 36/38, incomplete)
 // content::P3DFileHandler::vfunc_3 @ 0x00265cd0
 namespace content {

@@ -4,7 +4,7 @@
 
 
 // 0x00335b50 FUN_00335b50 (123 B): equivalent/0x00335b50.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_00335b50@Table_335b50@fn_f50248db@@QAE_NHHPAD@Z
+// sym: ?FUN_00335b50@Table_335b50@fn_f50248db@@QAE_NHHPAD@Z @0641f661f7db @w56bfbe7f2edf
 #include "gen/owners.h"
 namespace fn_f50248db {} using namespace fn_f50248db;
 namespace fn_f50248db {

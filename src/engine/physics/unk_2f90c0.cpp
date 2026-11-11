@@ -369,7 +369,7 @@ void __fastcall target(Container_2f9660* self) {
 
 
 // 0x002f9690 FUN_002f9690 (159 B): equivalent/0x002f9690.cpp
-// sym: ?FUN_002f9690@Pool_2f9690@fn_fe1b1ee9@@QAEPAUElem_2f9690@2@PAUItem_2f9690@2@@Z
+// sym: ?FUN_002f9690@Pool_2f9690@fn_fe1b1ee9@@QAEPAUElem_2f9690@2@PAUItem_2f9690@2@@Z @fb4c19cd5aeb @w5b53bcd5becc
 // STATUS: equivalent (tools/equiv.py level 3: 139 inputs, branch coverage 12/12)
 // FUN_002f9690 @ 0x002f9690
 // FUN_002f9690: find or claim the slot for an item in a pool of 0x50-byte elements
@@ -454,7 +454,7 @@ void owners::Buffer_2f9930::FUN_002f9930(U16* src, int count, hulk_intptr value)
 namespace fn_fe1b1ee9 {
 
 // 0x002f9990 FUN_002f9990 (109 B): equivalent/0x002f9990.cpp
-// sym: ?FUN_002f9990@Vec_2f9990@fn_fe1b1ee9@@QAEPAU12@PAU12@@Z
+// sym: ?FUN_002f9990@Vec_2f9990@fn_fe1b1ee9@@QAEPAU12@PAU12@@Z @92b4875a4ad7 @wc322c23ff22e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002f9990 @ 0x002f9990
 Vec_2f9990 *Vec_2f9990::FUN_002f9990(Vec_2f9990 *src)
@@ -481,7 +481,7 @@ Vec_2f9990 *Vec_2f9990::FUN_002f9990(Vec_2f9990 *src)
 } // namespace fn_fe1b1ee9
 
 // 0x002f9a00 FUN_002f9a00 (122 B): equivalent/0x002f9a00.cpp
-// sym: ?FUN_002f9a00@WideVector_2f9a00@owners@@QAEPAU12@PBU12@@Z
+// sym: ?FUN_002f9a00@WideVector_2f9a00@owners@@QAEPAU12@PBU12@@Z @8a2fd686264b @w167a691ca854
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 9/10, incomplete)
 // FUN_002f9a00 @ 0x002f9a00
 owners::WideVector_2f9a00* owners::WideVector_2f9a00::FUN_002f9a00(const owners::WideVector_2f9a00* other) {
@@ -582,7 +582,7 @@ bool owners::Buffer_2f9b60::FUN_002f9b60(unsigned int count, void* arg) {
 namespace fn_fe1b1ee9 {
 
 // 0x002f9bc0 FUN_002f9bc0 (85 B): equivalent/0x002f9bc0.cpp
-// sym: ?FUN_002f9bc0@Buffer@fn_fe1b1ee9@@QAEXPAGI0@Z
+// sym: ?FUN_002f9bc0@Buffer@fn_fe1b1ee9@@QAEXPAGI0@Z @32abd20fc73d @wc72c33fbadaf
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 13/14, incomplete)
 // FUN_002f9bc0 @ 0x002f9bc0
 void Buffer::FUN_002f9bc0(unsigned short *position, hulk_uintptr count, unsigned short *source) { unsigned short *oldEnd=end; unsigned short *newEnd=oldEnd+count; if ((hulk_ulongptr)newEnd <= (hulk_ulongptr)limit) { end=newEnd; while (oldEnd != position) { --oldEnd; --newEnd; if (newEnd) *newEnd=*oldEnd; } while (count--) { if (position) *position=*source; ++position; } } }
@@ -662,7 +662,7 @@ Pose *Pose::FUN_002f9da0(const Pose *src)
 
 
 // 0x002f9ed0 FUN_002f9ed0 (219 B): equivalent/0x002f9ed0.cpp
-// sym: ?FUN_002f9ed0@Pool_2f9ed0@fn_fe1b1ee9@@QAEIXZ
+// sym: ?FUN_002f9ed0@Pool_2f9ed0@fn_fe1b1ee9@@QAEIXZ @dec660666625 @wb355fe2e3830
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 21/24, incomplete)
 // FUN_002f9ed0 @ 0x002f9ed0
 // Compacts the pool's strings (16-byte records holding [begin, end) ranges of 16-bit characters)
@@ -787,7 +787,7 @@ void __fastcall FUN_002fa0f0(Target_2fa0f0* object) {
 
 
 // 0x002fa180 FUN_002fa180 (97 B): equivalent/0x002fa180.cpp
-// sym: ?FUN_002fa180@Transform@fn_fe1b1ee9@@QAEXI@Z
+// sym: ?FUN_002fa180@Transform@fn_fe1b1ee9@@QAEXI@Z @038f50d4573e @w90370f826313
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002fa180 @ 0x002fa180
 void Transform::FUN_002fa180(unsigned int value)
@@ -810,7 +810,7 @@ void Transform::FUN_002fa180(unsigned int value)
 
 
 // 0x002fa1f0 FUN_002fa1f0 (157 B): equivalent/0x002fa1f0.cpp
-// sym: ?FUN_002fa1f0@Range_2fa1f0@fn_fe1b1ee9@@QAEXPAUDesc_2fa1f0@2@PAUSkeleton@2@@Z
+// sym: ?FUN_002fa1f0@Range_2fa1f0@fn_fe1b1ee9@@QAEXPAUDesc_2fa1f0@2@PAUSkeleton@2@@Z @5324def2cdbf @w3b010f3f54be
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002fa1f0 @ 0x002fa1f0
 // FUN_002fa1f0: set up a range over a shared u16 buffer and fill it from two descriptors
@@ -833,7 +833,7 @@ void Range_2fa1f0::FUN_002fa1f0(Desc_2fa1f0 *d, Skeleton *s)
 
 
 // 0x002fa4e0 FUN_002fa4e0 (150 B): equivalent/0x002fa4e0.cpp
-// sym: _FUN_002fa4e0
+// sym: _FUN_002fa4e0 @5fc8fd3e849c @w4d3b2daffd43
 // STATUS: equivalent (tools/equiv.py level 3: 185 inputs, branch coverage 14/16, incomplete)
 // FUN_002fa4e0 @ 0x002fa4e0
 extern "C" void FUN_002fa4e0(unsigned int n, unsigned int a, unsigned int b)

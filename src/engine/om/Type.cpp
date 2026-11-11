@@ -145,7 +145,7 @@ Node* __cdecl next(Header* root, Node* x) {
 
 
 // 0x00258230 FUN_00258230 (604 B): equivalent/0x00258230.cpp
-// sym: _FUN_00258230
+// sym: _FUN_00258230 @394c7c009b90 @w3415c875f53d
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_00258230 @ 0x00258230
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -309,7 +309,7 @@ Type::Type(const OmKey* baseKey, const OmKey* key, int size, int align) {
 
 
 // 0x00258530 FUN_00258530 (504 B): equivalent/0x00258530.cpp
-// sym: ?FUN_00258530@fn_ff0fd322@@YA_NPAUOmTree@@PAUOmType@@PBUOmKey@@@Z
+// sym: ?FUN_00258530@fn_ff0fd322@@YA_NPAUOmTree@@PAUOmType@@PBUOmKey@@@Z @cddf20613386 @we0fdcac3f421
 // STATUS: equivalent (tools/equiv.py level 3: 1132 inputs, branch coverage 51/52, incomplete)
 // FUN_00258530 @ 0x00258530
 // The tree of om types by key (records.h OmType: the type's node, keyed by its own key; the tree is the OmTree layout,
@@ -422,7 +422,7 @@ bool __cdecl FUN_00258530(OmTree* tree, OmType* item, const OmKey* key)
 
 
 // 0x00258730 FUN_00258730 (182 B): equivalent/0x00258730.cpp
-// sym: ?FUN_00258730@fn_ff0fd322@@YAXPAUOmTree@@PAUOmType@@@Z
+// sym: ?FUN_00258730@fn_ff0fd322@@YAXPAUOmTree@@PAUOmType@@@Z @b7d30cde48e3 @w1ec424f7e1f7
 // STATUS: equivalent (tools/equiv.py level 3: 2941 inputs, branch coverage 24/24)
 // FUN_00258730 @ 0x00258730
 // The tree of om types by key (records.h OmType's node; 0x004cd1a8 is an OmTree without the count).
@@ -471,7 +471,7 @@ Node* FUN_002587f0(Node* head) {
 } // namespace fn_ff0fd322
 
 // 0x00258820 FUN_00258820 (74 B): equivalent/0x00258820.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00258820@fn_00258820@@YAPAUNode@1@PAUTree@1@PAU21@@Z
+// sym: ?FUN_00258820@fn_00258820@@YAPAUNode@1@PAUTree@1@PAU21@@Z @f391ea3141c6 @wd0235b4445e7
 namespace fn_00258820 {
 // STATUS: equivalent (tools/equiv.py level 3: 527 inputs, branch coverage 14/14)
 // FUN_00258820 @ 0x00258820
@@ -503,7 +503,7 @@ Node* __cdecl FUN_00258820(Tree* tree, Node* node)
 namespace fn_ff0fd322 {
 
 // 0x00258870 FUN_00258870 (82 B): equivalent/0x00258870.cpp
-// sym: _FUN_00258870
+// sym: _FUN_00258870 @2275fff2b4a1 @w77ce938d083e
 // STATUS: equivalent (tools/equiv.py level 3: 641 inputs, branch coverage 15/16, incomplete)
 // FUN_00258870 @ 0x00258870
 // The tree of om types by key: the type with this key, or 0 (records.h OmType: the type's node, keyed by its own key).

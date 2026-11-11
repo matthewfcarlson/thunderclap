@@ -80,7 +80,7 @@ void Vector2DOFChannel::vfunc_3(int index, float* time, int* out)
 
 
 // 0x0028a630 pure3d::Vector2DOFChannel::vfunc_4 (321 B): equivalent/0x0028a630.cpp
-// sym: ?vfunc_4@Vector2DOFChannel@fn_ff1c9535@@UAEXTTimeArg@2@TOutSlot@2@@Z
+// sym: ?vfunc_4@Vector2DOFChannel@fn_ff1c9535@@UAEXTTimeArg@2@TOutSlot@2@@Z @24073fd16b3a @w8978ea33e34c
 // STATUS: equivalent (tools/equiv.py level 3: 17318 inputs, branch coverage 6/6)
 // pure3d::Vector2DOFChannel::vfunc_4 @ 0x0028a630
 void Vector2DOFChannel::vfunc_4(TimeArg targ, OutSlot slot)

@@ -4,7 +4,7 @@
 
 
 // 0x002d6100 pure3d::SpriteParticleEmitter::vfunc_12 (489 B): equivalent/0x002d6100.cpp [isolated: conflict: SpriteParticleEmitter; on include/gen/ and not mergeable]
-// sym: ?FUN_002d6100@SpriteParticleEmitter@@QAEXMM@Z
+// sym: ?FUN_002d6100@SpriteParticleEmitter@@QAEXMM@Z @fd8c7a383fcc @w97ee793d0d4b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // pure3d::SpriteParticleEmitter::vfunc_12 @ 0x002d6100
 #include "gen/pure3d.h"

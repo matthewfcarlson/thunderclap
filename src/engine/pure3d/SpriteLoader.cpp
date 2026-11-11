@@ -499,7 +499,7 @@ void FUN_002bd4c0() {}
 } // namespace fn_f43dee86
 
 // 0x002bd570 FUN_002bd570 (544 B): equivalent/0x002bd570.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002bd570@Mosaic@fn_002bd570@@QAEHPAPAUTile_2bd570@2@PAH1@Z
+// sym: ?FUN_002bd570@Mosaic@fn_002bd570@@QAEHPAPAUTile_2bd570@2@PAH1@Z @728c47bea0cf @w46df60ac55d4
 namespace fn_002bd570 {
 // STATUS: equivalent (tools/equiv.py level 3: 16310 inputs, branch coverage 40/42, incomplete)
 // FUN_002bd570 @ 0x002bd570
@@ -607,7 +607,7 @@ int Mosaic::FUN_002bd570(Tile_2bd570 **tiles, int *rows, int *cols)
 namespace fn_f43dee86 {
 
 // 0x002bd790 FUN_002bd790 (855 B): equivalent/0x002bd790.cpp
-// sym: ?FUN_002bd790@Frame9@fn_f43dee86@@QAEXHPAURect_2bd790@2@HHHPAVSurface_2bd790@2@PAVFactory_2bd790@2@@Z
+// sym: ?FUN_002bd790@Frame9@fn_f43dee86@@QAEXHPAURect_2bd790@2@HHHPAVSurface_2bd790@2@PAVFactory_2bd790@2@@Z @23f281d72377 @wf5cc594eca22
 // STATUS: equivalent (tools/equiv.py level 3: 138 inputs, branch coverage 73/80, incomplete)
 // FUN_002bd790 @ 0x002bd790
 void Frame9::FUN_002bd790(int index, Rect_2bd790 *r, int a2, int a3, hulk_intptr src, Surface_2bd790 *s, Factory_2bd790 *f)
@@ -687,7 +687,7 @@ void Frame9::FUN_002bd790(int index, Rect_2bd790 *r, int a2, int a3, hulk_intptr
 
 
 // 0x002bdaf0 FUN_002bdaf0 (464 B): equivalent/0x002bdaf0.cpp
-// sym: ?FUN_002bdaf0@QuadBatch@fn_f43dee86@@QAEXHPBURectInts@2@HH@Z
+// sym: ?FUN_002bdaf0@QuadBatch@fn_f43dee86@@QAEXHPBURectInts@2@HH@Z @f3976fd21337 @we4cf9008f1e1
 // STATUS: equivalent (tools/equiv.py level 3: 19780 inputs, branch coverage 2/2)
 // FUN_002bdaf0 @ 0x002bdaf0
 void QuadBatch::FUN_002bdaf0(int index, const RectInts *r, int w, int h)
@@ -792,7 +792,7 @@ void owners::Thing_2bdd00::FUN_002bdd00(void* p) {
 
 
 // 0x002bdd40 pure3d::Sprite::vfunc_6 (405 B): equivalent/0x002bdd40.cpp
-// sym: ?vfunc_6@Sprite@pure3d@@UAEXXZ
+// sym: ?vfunc_6@Sprite@pure3d@@UAEXXZ @da40eec26eaf @w385339cefae0
 // STATUS: equivalent (tools/equiv.py level 3: 5709 inputs, branch coverage 4/4)
 // pure3d::Sprite::vfunc_6 @ 0x002bdd40
 void pure3d::Sprite::vfunc_6() {
@@ -875,7 +875,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 
 
 // 0x002bdfc0 pure3d::SpriteLoader::vfunc_8 (488 B): equivalent/0x002bdfc0.cpp
-// sym: ?vfunc_8@SpriteLoader@fn_f43dee86@@UAEPAUSprite@2@PAUReader@2@H@Z
+// sym: ?vfunc_8@SpriteLoader@fn_f43dee86@@UAEPAUSprite@2@PAUReader@2@H@Z @01dead05ab17 @wb6a65f9c8d37
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 10/12, incomplete)
 // pure3d::SpriteLoader::vfunc_8 @ 0x002bdfc0
 Sprite *SpriteLoader::vfunc_8(Reader *r, int unused)
@@ -922,7 +922,7 @@ Sprite *SpriteLoader::vfunc_8(Reader *r, int unused)
 } // namespace fn_f43dee86
 
 // 0x002be1b0 pure3d::SpriteLoader::vfunc_9 (522 B): equivalent/0x002be1b0.cpp [wrapped: conflict: Reader; Sprite; content::ObjectLoader; pure3d::SpriteLoader]
-// sym: ?vfunc_9@SpriteLoader@pure3d@fn_002be1b0@@UAEPAUSprite@3@PAUReader@3@H@Z
+// sym: ?vfunc_9@SpriteLoader@pure3d@fn_002be1b0@@UAEPAUSprite@3@PAUReader@3@H@Z @4c27c6456024 @w4f7916c5efa8
 namespace fn_002be1b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 16/16)
 // pure3d::SpriteLoader::vfunc_9 @ 0x002be1b0
@@ -1084,7 +1084,7 @@ pure3d::Sprite::~Sprite() {}
 
 
 // 0x002be440 FUN_002be440 (731 B): equivalent/0x002be440.cpp [wrapped: conflict: Gfx; pure3d::Sprite]
-// sym: ??0Sprite@pure3d@fn_002be440@@QAE@PAPAUItem_2be440@2@HHHPAUShader_2be440@2@HHHH@Z
+// sym: ??0Sprite@pure3d@fn_002be440@@QAE@PAPAUItem_2be440@2@HHHPAUShader_2be440@2@HHHH@Z @fe6a55f874a3 @w7dec16739390
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002be440 {
 // STATUS: equivalent (tools/equiv.py level 3: 15363 inputs, branch coverage 24/24)
@@ -1303,7 +1303,7 @@ pure3d::Sprite::Sprite(Item_2be440 **items_, int w_, int h_, int count_, Shader_
 namespace fn_f43dee86 {
 
 // 0x002be720 FUN_002be720 (740 B): equivalent/0x002be720.cpp
-// sym: ?Load@Loader_2be720@fn_f43dee86@@QAEHPAVSource_2be720@2@PAVImageConverter@pure3d@@@Z
+// sym: ?Load@Loader_2be720@fn_f43dee86@@QAEHPAVSource_2be720@2@PAVImageConverter@pure3d@@@Z @750a8750f25f @w0ab9e4a448b9
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 36/36)
 // FUN_002be720 @ 0x002be720
 // FUN_002be720 @ 0x002be720
@@ -1473,7 +1473,7 @@ bool pure3d::SpriteLoader::vfunc_7() {
 
 
 // 0x002beb20 FUN_002beb20 (381 B): equivalent/0x002beb20.cpp [wrapped: conflict: Gfx; pure3d::Sprite]
-// sym: ??0Sprite@pure3d@fn_002beb20@@QAE@PAUDesc_2beb20@2@PAVShader_2beb20@2@HHHH@Z
+// sym: ??0Sprite@pure3d@fn_002beb20@@QAE@PAUDesc_2beb20@2@PAVShader_2beb20@2@HHHH@Z @0b672566308f @w49fc0945679b
 namespace fn_002beb20 {
 // STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 10/10)
 // FUN_002beb20 @ 0x002beb20
@@ -1728,7 +1728,7 @@ Sprite::Sprite(Desc_2beb20 *d, Shader_2beb20 *r, int s, int a4, int a5, int a6)
 
 
 // 0x002beca0 FUN_002beca0 (138 B): equivalent/0x002beca0.cpp [wrapped: conflict: pure3d::SpriteLoader]
-// sym: ??0SpriteLoader@pure3d@fn_002beca0@@QAE@XZ
+// sym: ??0SpriteLoader@pure3d@fn_002beca0@@QAE@XZ @b31cced559b3 @wf139f347a367
 namespace fn_002beca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002beca0 @ 0x002beca0
@@ -1792,7 +1792,7 @@ SpriteLoader_2bed30* SpriteLoader_2bed30::vfunc2(unsigned char f) {
 } // namespace fn_f43dee86
 
 // 0x002bed90 pure3d::SpriteLoader::vfunc_5 (828 B): equivalent/0x002bed90.cpp [wrapped: conflict: Reader; content::LoadInventory::DynamicCaster; pure3d::SpriteLoader; pure3d::SpriteObject]
-// sym: ?vfunc_5@SpriteLoader@pure3d@fn_002bed90@@UAEHPAPAVSpriteObject@23@PA_KPAUReader@3@PAVCtx_2bed90@3@@Z
+// sym: ?vfunc_5@SpriteLoader@pure3d@fn_002bed90@@UAEHPAPAVSpriteObject@23@PA_KPAUReader@3@PAVCtx_2bed90@3@@Z @310585fd49eb @wb1de98fcca12
 namespace fn_002bed90 {
 // STATUS: equivalent (tools/equiv.py level 3: 183 inputs, branch coverage 26/26)
 // pure3d::SpriteLoader::vfunc_5 @ 0x002bed90

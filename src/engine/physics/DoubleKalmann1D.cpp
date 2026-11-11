@@ -148,7 +148,7 @@ bool DoubleKalmann1D_3199d0::Init(float a, float b, float c) {
 
 
 // 0x00319a40 physics::DoubleKalmann1D::vfunc_1 (109 B): equivalent/0x00319a40.cpp
-// sym: ?vfunc_1@DoubleKalmann1D@fn_fb7d26a7@@UAEMMM@Z
+// sym: ?vfunc_1@DoubleKalmann1D@fn_fb7d26a7@@UAEMMM@Z @0953d2d14f0b @wc599c8ec6060
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // physics::DoubleKalmann1D::vfunc_1 @ 0x00319a40
 hulk_freg DoubleKalmann1D::vfunc_1(float x, float dt)
@@ -169,7 +169,7 @@ hulk_freg DoubleKalmann1D::vfunc_1(float x, float dt)
 } // namespace fn_fb7d26a7
 
 // 0x00319af0 physics::SimpleFilterAbs3D::vfunc_0 (85 B): equivalent/0x00319af0.cpp [wrapped: conflict: physics::SimpleFilter3D; physics::SimpleFilterAbs3D]
-// sym: ?vfunc_0@SimpleFilterAbs3D@physics@fn_00319af0@@UAEEIII@Z
+// sym: ?vfunc_0@SimpleFilterAbs3D@physics@fn_00319af0@@UAEEIII@Z @c15d22603b80 @w8e02565149e7
 namespace fn_00319af0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // physics::SimpleFilterAbs3D::vfunc_0 @ 0x00319af0
@@ -195,7 +195,7 @@ unsigned char SimpleFilterAbs3D::vfunc_0(unsigned int a, unsigned int b, unsigne
 
 
 // 0x00319b50 physics::SimpleFilterAbs3D::vfunc_1 (95 B): equivalent/0x00319b50.cpp [wrapped: conflict: physics::SimpleFilter3D; physics::SimpleFilterAbs3D]
-// sym: ?vfunc_1@SimpleFilterAbs3D@physics@fn_00319b50@@UAEXPBUVec3@23@I@Z
+// sym: ?vfunc_1@SimpleFilterAbs3D@physics@fn_00319b50@@UAEXPBUVec3@23@I@Z @851e8cf9fcaa @w481a9c3dd7c3
 namespace fn_00319b50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // physics::SimpleFilterAbs3D::vfunc_1 @ 0x00319b50

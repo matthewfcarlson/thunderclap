@@ -74,7 +74,7 @@ void owners::X_22b1c0::FUN_0022b1c0(float x) {
 
 
 // 0x0022b220 FUN_0022b220 (175 B): equivalent/0x0022b220.cpp
-// sym: ?FUN_0022b220@Quaternion_22b220@owners@@QAEXMMM@Z
+// sym: ?FUN_0022b220@Quaternion_22b220@owners@@QAEXMMM@Z @2da5c9c04a0f @w49691d1a97f8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022b220 @ 0x0022b220
 void owners::Quaternion_22b220::FUN_0022b220(float a,float b,float c) {
@@ -91,7 +91,7 @@ void owners::Quaternion_22b220::FUN_0022b220(float a,float b,float c) {
 
 
 // 0x0022b370 FUN_0022b370 (349 B): equivalent/0x0022b370.cpp
-// sym: ?FUN_0022b370@Quat_22b370@owners@@QAEXPBM@Z
+// sym: ?FUN_0022b370@Quat_22b370@owners@@QAEXPBM@Z @caf240bc7f3f @w59d03cbf96c9
 // STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 8/10, incomplete)
 // FUN_0022b370 @ 0x0022b370
 // Rotation matrix (row-major 4x4) to quaternion; the result has its w negated.
@@ -137,7 +137,7 @@ void owners::Quat_22b370::FUN_0022b370(const float *m)
 
 
 // 0x0022b4d0 FUN_0022b4d0 (134 B): equivalent/0x0022b4d0.cpp [wrapped: code differs from its standalone build]
-// sym: ?Rotate@Quat_22b4d0@fn_0022b4d0@@QAEXPBUVec3_22b4d0@2@PAU32@@Z
+// sym: ?Rotate@Quat_22b4d0@fn_0022b4d0@@QAEXPBUVec3_22b4d0@2@PAU32@@Z @0c5aa63cfb15 @w2a11f4b02165
 namespace fn_0022b4d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022b4d0 @ 0x0022b4d0

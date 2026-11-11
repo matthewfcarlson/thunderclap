@@ -686,7 +686,7 @@ char ScriptReader_23ac10::get(int index, int* out) {
 
 
 // 0x0023acc0 FUN_0023acc0 (106 B): equivalent/0x0023acc0.cpp
-// sym: ?TotalLength@ScriptReader_23acc0@fn_f7afe597@@QAE_NHPAH@Z
+// sym: ?TotalLength@ScriptReader_23acc0@fn_f7afe597@@QAE_NHPAH@Z @c3e6236a5c4f @w300c2a9ad091
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_0023acc0 @ 0x0023acc0
 bool ScriptReader_23acc0::TotalLength(int index, int* total)
@@ -747,7 +747,7 @@ bool fight::ScriptReader::FUN_0023ada0(int a, void* __p1) { B_23ada0 * b = (B_23
 namespace fn_f7afe597 {
 
 // 0x0023ae90 FUN_0023ae90 (76 B): equivalent/0x0023ae90.cpp
-// sym: ?FUN_0023ae90@ScriptReader_23ae90@fn_f7afe597@@QAEHIII@Z
+// sym: ?FUN_0023ae90@ScriptReader_23ae90@fn_f7afe597@@QAEHIII@Z @f8802d937415 @wd57f41f74af3
 // STATUS: equivalent (tools/equiv.py level 3: 1586 inputs, branch coverage 12/12)
 // FUN_0023ae90 @ 0x0023ae90
 int ScriptReader_23ae90::FUN_0023ae90(unsigned key1, unsigned key2, unsigned mask) {
@@ -859,7 +859,7 @@ int ScriptReader::vfunc_6(int a, int b, int c, int d, int e) {
 } // namespace fn_f7afe597
 
 // 0x0023b070 fight::ScriptReader::vfunc_5 (95 B): equivalent/0x0023b070.cpp [wrapped: conflict: fight::ScriptReader]
-// sym: ?vfunc_5@ScriptReader@fight@fn_0023b070@@QAE_NHHPAX@Z
+// sym: ?vfunc_5@ScriptReader@fight@fn_0023b070@@QAE_NHHPAX@Z @8ee758d3a301 @w854fdd10bb6f
 namespace fn_0023b070 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // fight::ScriptReader::vfunc_5 @ 0x0023b070
@@ -914,7 +914,7 @@ __int64 fight::ScriptReader::vfunc_15() {
 
 
 // 0x0023b140 fight::ScriptReader::vfunc_16 (174 B): equivalent/0x0023b140.cpp
-// sym: ?vfunc_16@ScriptReader@fight@@UAE_JHH@Z
+// sym: ?vfunc_16@ScriptReader@fight@@UAE_JHH@Z @30d33226dbd1 @w6ba087865a69
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // fight::ScriptReader::vfunc_16 @ 0x0023b140
 __int64 fight::ScriptReader::vfunc_16(int __p0, int __p1) { unsigned int low = (unsigned int)__p0; unsigned int high = (unsigned int)__p1;
@@ -1140,7 +1140,7 @@ unsigned int fight::ScriptReader::vfunc_19() {
 
 
 // 0x0023b470 FUN_0023b470 (117 B): equivalent/0x0023b470.cpp [wrapped: conflict: fight::ScriptReader]
-// sym: ??0ScriptReader@fight@fn_0023b470@@QAE@PAVSource_23b470@2@H@Z
+// sym: ??0ScriptReader@fight@fn_0023b470@@QAE@PAVSource_23b470@2@H@Z @9da11340e28f @wa0d974ba7b97
 namespace fn_0023b470 {
 // STATUS: equivalent (tools/equiv.py level 3: 1647 inputs, branch coverage 2/2)
 // FUN_0023b470 @ 0x0023b470

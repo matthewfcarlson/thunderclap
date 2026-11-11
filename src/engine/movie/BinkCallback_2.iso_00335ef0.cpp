@@ -4,7 +4,7 @@
 
 
 // 0x00335ef0 FUN_00335ef0 (123 B): equivalent/0x00335ef0.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_00335ef0@Table_335ef0@fn_fdfeb107@@QAE_NHHPAD@Z
+// sym: ?FUN_00335ef0@Table_335ef0@fn_fdfeb107@@QAE_NHHPAD@Z @489fa2fc5877 @w2c9516c84296
 #include "gen/owners.h"
 namespace fn_fdfeb107 {} using namespace fn_fdfeb107;
 namespace fn_fdfeb107 {

@@ -94,7 +94,7 @@ public:
 
 
 // 0x0023b570 fight::Chunk::vfunc_9 (612 B): equivalent/0x0023b570.cpp
-// sym: ?vfunc_9@Chunk@fight@fn_f914a913@@UAEDPAXPAUWriter_23b570@3@H@Z
+// sym: ?vfunc_9@Chunk@fight@fn_f914a913@@UAEDPAXPAUWriter_23b570@3@H@Z @34278cd04198 @w2ad6b65ca8dc
 // STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 30/30)
 // fight::Chunk::vfunc_9 @ 0x0023b570
 char fight::Chunk::vfunc_9(void *a1, Writer_23b570 *w, int a3)

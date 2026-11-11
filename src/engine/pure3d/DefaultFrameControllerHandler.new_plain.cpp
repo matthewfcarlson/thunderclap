@@ -154,7 +154,7 @@ public:
 
 
 // 0x002870d0 pure3d::OldFrameControllerLoader::vfunc_7 (1841 B): equivalent/0x002870d0.cpp
-// sym: ?v7@OldFrameControllerLoader@fn_fca8c081@@UAEPAVBase_2870d0@2@PBDIPAVStreamHolder@2@PAVReader@2@@Z
+// sym: ?v7@OldFrameControllerLoader@fn_fca8c081@@UAEPAVBase_2870d0@2@PBDIPAVStreamHolder@2@PAVReader@2@@Z @95b6b07681e2 @w51ed9af9c0ae
 // STATUS: equivalent (tools/equiv.py level 3: 3092 inputs, branch coverage 76/86, incomplete)
 // pure3d::OldFrameControllerLoader::vfunc_7 @ 0x002870d0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

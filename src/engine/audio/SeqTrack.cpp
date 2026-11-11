@@ -38,7 +38,7 @@ unsigned char __cdecl FUN_00246f50(audio::Entry *, const char *, ...);
 
 
 // 0x002620e0 audio::SeqTrack::vfunc_1 (241 B): equivalent/0x002620e0.cpp
-// sym: ?vfunc_1@SeqTrack@audio@fn_f61f7dd3@@UAE_NPAX@Z
+// sym: ?vfunc_1@SeqTrack@audio@fn_f61f7dd3@@UAE_NPAX@Z @7cb3289f91f3 @wb18725668124
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 14/14)
 // audio::SeqTrack::vfunc_1 @ 0x002620e0
 bool audio::SeqTrack::vfunc_1(void* stream) {
@@ -58,7 +58,7 @@ bool audio::SeqTrack::vfunc_1(void* stream) {
 
 
 // 0x002621e0 audio::SeqTrack::vfunc_0 (61 B): equivalent/0x002621e0.cpp
-// sym: ?vfunc_0@SeqTrack@audio@fn_f61f7dd3@@UAE_NPAPAUEntry@23@@Z
+// sym: ?vfunc_0@SeqTrack@audio@fn_f61f7dd3@@UAE_NPAPAUEntry@23@@Z @c356925811bb @w634f9bfc21d9
 // STATUS: equivalent (tools/equiv.py level 3: 2886 inputs, branch coverage 2/2)
 // audio::SeqTrack::vfunc_0 @ 0x002621e0
 bool audio::SeqTrack::vfunc_0(Entry **entry) {

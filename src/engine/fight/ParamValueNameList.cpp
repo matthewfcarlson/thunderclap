@@ -110,7 +110,7 @@ ParamValueNameList* ParamValueNameList::f0(int flag) {
 
 
 // 0x002354c0 fight::ParamValueNameList::vfunc_5 (100 B): equivalent/0x002354c0.cpp
-// sym: ?vfunc_5@ParamValueNameList@fight@fn_faf04b50@@UAEHHHPAVSink_2354c0@3@@Z
+// sym: ?vfunc_5@ParamValueNameList@fight@fn_faf04b50@@UAEHHHPAVSink_2354c0@3@@Z @4ab32634b8ff @wd7b2770361e9
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 4/4)
 // fight::ParamValueNameList::vfunc_5 @ 0x002354c0
 int fight::ParamValueNameList::vfunc_5(int a1, int a2, Sink_2354c0 *sink)

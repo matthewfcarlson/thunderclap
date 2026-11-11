@@ -386,7 +386,7 @@ struct SimStateArticulated_nv_2fddf0 {
 } // namespace fn_f0657c79
 
 // 0x002fd360 physics::SimStateArticulated::vfunc_14 (129 B): equivalent/0x002fd360.cpp [wrapped: conflict: physics::SimState; physics::SimStateArticulated]
-// sym: ?vfunc_14@SimStateArticulated@physics@fn_002fd360@@QAEXH@Z
+// sym: ?vfunc_14@SimStateArticulated@physics@fn_002fd360@@QAEXH@Z @56fb937f8482 @w7d5f27bd780e
 namespace fn_002fd360 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // physics::SimStateArticulated::vfunc_14 @ 0x002fd360
@@ -526,7 +526,7 @@ void __fastcall target(Thing_2fd4f0* self) {
 } // namespace fn_f0657c79
 
 // 0x002fd520 physics::SimStateArticulated::vfunc_7 (118 B): equivalent/0x002fd520.cpp
-// sym: ?vfunc_7@SimStateArticulated@physics@@UAEXXZ
+// sym: ?vfunc_7@SimStateArticulated@physics@@UAEXXZ @6bb72b0aabac @w11e1ef0a0247
 // STATUS: equivalent (tools/equiv.py level 3: 2977 inputs, branch coverage 6/6)
 // physics::SimStateArticulated::vfunc_7 @ 0x002fd520
 void physics::SimStateArticulated::vfunc_7() {
@@ -643,7 +643,7 @@ bool physics::SimStateArticulated::vfunc_11() {
 
 
 // 0x002fd8a0 FUN_002fd8a0 (174 B): equivalent/0x002fd8a0.cpp
-// sym: ?FUN_002fd8a0@SimStateArticulated@physics@@QAEXPAX@Z
+// sym: ?FUN_002fd8a0@SimStateArticulated@physics@@QAEXPAX@Z @7fb514757079 @w0f1e7ae325ae
 // STATUS: equivalent (tools/equiv.py level 3: 2970 inputs, branch coverage 14/14)
 // FUN_002fd8a0 @ 0x002fd8a0
 void physics::SimStateArticulated::FUN_002fd8a0(void* __p0) { Resource_2fd8a0 * incoming = (Resource_2fd8a0 *)__p0;
@@ -672,7 +672,7 @@ void physics::SimStateArticulated::FUN_002fd8a0(void* __p0) { Resource_2fd8a0 * 
 namespace fn_f0657c79 {
 
 // 0x002fd950 FUN_002fd950 (195 B): equivalent/0x002fd950.cpp
-// sym: ?FUN_002fd950@Owner_2fd950@fn_f0657c79@@QAEXM@Z
+// sym: ?FUN_002fd950@Owner_2fd950@fn_f0657c79@@QAEXM@Z @321120e665aa @w3b291f3bd6af
 // STATUS: equivalent (tools/equiv.py level 3: 2979 inputs, branch coverage 8/8)
 // FUN_002fd950 @ 0x002fd950
 void Owner_2fd950::FUN_002fd950(float value) {
@@ -702,7 +702,7 @@ void Owner_2fd950::FUN_002fd950(float value) {
 
 
 // 0x002fda20 FUN_002fda20 (421 B): equivalent/0x002fda20.cpp
-// sym: ?Update@Tracker_2fda20@fn_f0657c79@@QAEXXZ
+// sym: ?Update@Tracker_2fda20@fn_f0657c79@@QAEXXZ @aef9166af522 @w5aaf6fa7d3a6
 // STATUS: equivalent (tools/equiv.py level 3: 19895 inputs, branch coverage 16/16)
 // FUN_002fda20 @ 0x002fda20
 void Tracker_2fda20::Update()
@@ -749,7 +749,7 @@ void Tracker_2fda20::Update()
 } // namespace fn_f0657c79
 
 // 0x002fdbd0 FUN_002fdbd0 (190 B): equivalent/0x002fdbd0.cpp [wrapped: conflict: Matrix]
-// sym: ?FUN_002fdbd0@Object@fn_002fdbd0@@QAEXPAUVec_2fdbd0@2@0@Z
+// sym: ?FUN_002fdbd0@Object@fn_002fdbd0@@QAEXPAUVec_2fdbd0@2@0@Z @aaf3f397f464 @wae803c1ba988
 namespace fn_002fdbd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // FUN_002fdbd0 @ 0x002fdbd0
@@ -795,7 +795,7 @@ void Object::FUN_002fdbd0(Vec_2fdbd0* input, Vec_2fdbd0* output) {
 
 
 // 0x002fdc90 FUN_002fdc90 (198 B): equivalent/0x002fdc90.cpp [wrapped: conflict: physics::SimStateArticulated]
-// sym: ??0SimStateArticulated@physics@fn_002fdc90@@QAE@PAUSource_2fdc90@2@PAX@Z
+// sym: ??0SimStateArticulated@physics@fn_002fdc90@@QAE@PAUSource_2fdc90@2@PAX@Z @232329e7de9b @w9e204fb0ba81
 namespace fn_002fdc90 {
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 6/6)
 // FUN_002fdc90 @ 0x002fdc90
@@ -898,7 +898,7 @@ void SimStateArticulated::vfunc_8(int a, int b, int index) {
 namespace fn_f0657c79 {
 
 // 0x002fddf0 FUN_002fddf0 (331 B): equivalent/0x002fddf0.cpp
-// sym: _FUN_002fddf0
+// sym: _FUN_002fddf0 @62133270368b @waf3f2bd1909a
 // STATUS: equivalent (tools/equiv.py level 3: 19978 inputs, branch coverage 29/30, incomplete)
 // FUN_002fddf0 @ 0x002fddf0
 extern "C" Sink_2fddf0 *__cdecl FUN_002fddf0(Chain_2fddf0 *chain, Source_2fddf0 *source, Provider_2fddf0 *provider)

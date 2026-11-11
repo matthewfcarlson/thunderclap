@@ -57,7 +57,7 @@ extern "C" int __cdecl FUN_00215f70(unsigned int value) {
 
 
 // 0x00215fa0 FUN_00215fa0 (62 B): equivalent/0x00215fa0.cpp
-// sym: _FUN_00215fa0
+// sym: _FUN_00215fa0 @5d7b647674a3 @w5408c710f1da
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 10/10)
 // luaO_rawequalObj: same type and the same value (numbers compare as floats).
 extern "C" int __cdecl FUN_00215fa0(const LuaVMTObject* t1, const LuaVMTObject* t2) {
@@ -77,7 +77,7 @@ extern "C" int __cdecl FUN_00215fa0(const LuaVMTObject* t1, const LuaVMTObject* 
 
 
 // 0x00215ff0 FUN_00215ff0 (103 B): equivalent/0x00215ff0.cpp
-// sym: _FUN_00215ff0
+// sym: _FUN_00215ff0 @ac752779859e @w2a740fbda35f
 // STATUS: equivalent (tools/equiv.py level 3: 2576 inputs, branch coverage 8/8)
 // luaO_str2d: a whole string (trailing spaces allowed) as a number.
 extern "C" int __cdecl FUN_00215ff0(const char* str, float* out) {
@@ -96,7 +96,7 @@ extern "C" int __cdecl FUN_00215ff0(const char* str, float* out) {
 
 
 // 0x00216060 FUN_00216060 (82 B): equivalent/0x00216060.cpp
-// sym: _FUN_00216060
+// sym: _FUN_00216060 @fe8ef7391c0d @w3c251d931e5b
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 4/4)
 // pushstr: push the string str (luaO_pushvfstring's helper).
 // equiv-conv: FUN_00216060 esi edx
@@ -114,7 +114,7 @@ extern "C" void __cdecl FUN_00216060(LuaVMState* L, const char* str) {
 
 
 // 0x002160c0 FUN_002160c0 (500 B): equivalent/0x002160c0.cpp
-// sym: _FUN_002160c0
+// sym: _FUN_002160c0 @d0fa77a1b057 @w32ea8d3793bd
 // STATUS: equivalent (tools/equiv.py level 3: 2297 inputs, branch coverage 18/18)
 // luaO_pushvfstring: fmt supports %s %c %d %f %%, the arguments come from the va_list pointer
 // (4-byte slots on the 32-bit builds; va_arg over the 64-bit builds' 8-byte slots, HULK_PTR64).
@@ -237,7 +237,7 @@ extern "C" const char* __cdecl FUN_00216320(LuaVMState* L, const char* fmt, ...)
 
 
 // 0x00216340 FUN_00216340 (334 B): equivalent/0x00216340.cpp
-// sym: _FUN_00216340
+// sym: _FUN_00216340 @639aaf730ed2 @wf84fe6394228
 // STATUS: equivalent (tools/equiv.py level 3: 3108 inputs, branch coverage 25/26, incomplete)
 // luaO_chunkid: a printable chunk id for error messages.
 extern "C" void __cdecl FUN_00216340(char *out, const char *source, int bufflen)

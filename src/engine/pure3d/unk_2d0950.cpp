@@ -136,7 +136,7 @@ extern "C" int * __cdecl FUN_002d0cc0(int *, int, const int *);
 
 
 // 0x002d0950 FUN_002d0950 (244 B): equivalent/0x002d0950.cpp
-// sym: ?target@Object@fn_f491b664@@QAEXPAX00@Z
+// sym: ?target@Object@fn_f491b664@@QAEXPAX00@Z @8e80af90cd2c @w32d1f83f67f6
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 20/20)
 // FUN_002d0950 @ 0x002d0950
 // FUN_002d0950 @ 0x002d0950
@@ -164,7 +164,7 @@ void Object::target(void* arg1, void* arg2, void* arg3) {
 
 
 // 0x002d0a50 FUN_002d0a50 (160 B): equivalent/0x002d0a50.cpp
-// sym: ?target@Object@fn_f491b664@@QAEXIIPAX@Z
+// sym: ?target@Object@fn_f491b664@@QAEXIIPAX@Z @ef91f7c8d485 @we399d3a8f43a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_002d0a50 @ 0x002d0a50
 // equiv-conv: FUN_002cec10 ecx edx esi
@@ -208,7 +208,7 @@ extern "C" int* FUN_002d0cc0(int* dst, int count, const int* src) {
 
 
 // 0x002d0d20 FUN_002d0d20 (113 B): equivalent/0x002d0d20.cpp
-// sym: ?FUN_002d0d20@Dispatcher_2d0d20@fn_f491b664@@QAEXHH@Z
+// sym: ?FUN_002d0d20@Dispatcher_2d0d20@fn_f491b664@@QAEXHH@Z @0e2e2bb788ea @w4863873a0787
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 6/8, incomplete)
 // FUN_002d0d20 @ 0x002d0d20
 // Walks the selected group from its last item down to the first and dispatches each to its handler.
@@ -232,7 +232,7 @@ void Dispatcher_2d0d20::FUN_002d0d20(hulk_intptr selector, int arg)
 
 
 // 0x002d0da0 FUN_002d0da0 (126 B): equivalent/0x002d0da0.cpp
-// sym: ?FUN_002d0da0@Dispatcher_2d0da0@fn_f491b664@@QAEXHHH@Z
+// sym: ?FUN_002d0da0@Dispatcher_2d0da0@fn_f491b664@@QAEXHHH@Z @a1617df590d0 @w9756665ce29e
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 6/8, incomplete)
 // FUN_002d0da0 @ 0x002d0da0
 // Walks a cursor from its index down to 0, sending each object to its handler.
@@ -254,7 +254,7 @@ void Dispatcher_2d0da0::FUN_002d0da0(int arg, int a, int b)
 
 
 // 0x002d0e20 FUN_002d0e20 (113 B): equivalent/0x002d0e20.cpp
-// sym: ?FUN_002d0e20@Dispatcher_2d0e20@fn_f491b664@@QAEXHH@Z
+// sym: ?FUN_002d0e20@Dispatcher_2d0e20@fn_f491b664@@QAEXHH@Z @4b59ae6b168e @wa4615a4b63d7
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 6/8, incomplete)
 // FUN_002d0e20 @ 0x002d0e20
 // Walks the selected group from its last item down to the first and dispatches each to its handler.

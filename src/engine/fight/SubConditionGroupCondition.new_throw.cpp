@@ -34,7 +34,7 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 
 // 0x0023c9f0 FUN_0023c9f0 (95 B): equivalent/0x0023c9f0.cpp
-// sym: _FUN_0023c9f0
+// sym: _FUN_0023c9f0 @556978b3e643 @w65b1721d8978
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
 // FUN_0023c9f0 @ 0x0023c9f0
 extern "C" void FUN_0023c9f0()

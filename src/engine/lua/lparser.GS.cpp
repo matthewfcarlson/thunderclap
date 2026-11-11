@@ -22,7 +22,7 @@ extern "C" void __cdecl FUN_0021cb80(LuaVMLexState* ls);
 
 
 // 0x0021f710 FUN_0021f710 (238 B): equivalent/0x0021f710.cpp
-// sym: _FUN_0021f710
+// sym: _FUN_0021f710 @faca0decad58 @w6c2da1e570b4
 // STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 6/6)
 // luaY_parser: compile the stream z (named name) into the main function's prototype.
 // equiv-conv: FUN_0021cac0 ecx eax

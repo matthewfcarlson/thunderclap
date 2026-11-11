@@ -184,7 +184,7 @@ int audio::SeqActionChannelVolumes::vfunc_5(int ) {
 namespace fn_f5ef859b {
 
 // 0x002519e0 FUN_002519e0 (133 B): equivalent/0x002519e0.cpp
-// sym: ?FUN_002519e0@fn_f5ef859b@@YA_NPAUWriter_2519e0@1@PBE@Z
+// sym: ?FUN_002519e0@fn_f5ef859b@@YA_NPAUWriter_2519e0@1@PBE@Z @c04ab2c733eb @w1b991398a790
 // STATUS: equivalent (tools/equiv.py level 3: 383 inputs, branch coverage 10/10)
 // FUN_002519e0 @ 0x002519e0
 bool FUN_002519e0(Writer_2519e0 *w, const unsigned char *bytes)
@@ -204,7 +204,7 @@ bool FUN_002519e0(Writer_2519e0 *w, const unsigned char *bytes)
 
 
 // 0x00251ad0 FUN_00251ad0 (87 B): equivalent/0x00251ad0.cpp
-// sym: ?FUN_00251ad0@Object@fn_f5ef859b@@QAEHXZ
+// sym: ?FUN_00251ad0@Object@fn_f5ef859b@@QAEHXZ @34c20f564480 @wb19e86673236
 // STATUS: equivalent (tools/equiv.py level 3: 15806 inputs, branch coverage 2/2)
 // FUN_00251ad0 @ 0x00251ad0
 // FUN_00251ad0 @ 0x00251ad0
@@ -214,7 +214,7 @@ hulk_intptr Object::FUN_00251ad0() { Block *p = FUN_00247530(FUN_002477f0()); if
 } // namespace fn_f5ef859b
 
 // 0x00251b40 FUN_00251b40 (86 B): equivalent/0x00251b40.cpp [wrapped: conflict: audio::SeqEventChannelVolumesType]
-// sym: ?FUN_00251b40@SeqEventChannelVolumesType@audio@fn_00251b40@@QAEPAU123@XZ
+// sym: ?FUN_00251b40@SeqEventChannelVolumesType@audio@fn_00251b40@@QAEPAU123@XZ @d03d9587240c @wdfa61429e595
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -291,7 +291,7 @@ audio::SeqEventChannelVolumesType::~SeqEventChannelVolumesType() {}
 namespace fn_f5ef859b {
 
 // 0x00251bc0 FUN_00251bc0 (57 B): equivalent/0x00251bc0.cpp
-// sym: ??0SeqEventChannelVolumes@fn_f5ef859b@@QAE@XZ
+// sym: ??0SeqEventChannelVolumes@fn_f5ef859b@@QAE@XZ @520bc53020f9 @w7d171f646709
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00251bc0 @ 0x00251bc0
 SeqEventChannelVolumes::SeqEventChannelVolumes() { duration=1000; stitched=FUN_002673a0("stitched",0); a=b=c=d=0; }
@@ -380,7 +380,7 @@ audio::ChannelVolumeFadeBehaviour* audio::ChannelVolumeFadeBehaviour::vfunc_0(in
 
 
 // 0x00251ce0 audio::ChannelVolumeFadeBehaviour::vfunc_1 (755 B): equivalent/0x00251ce0.cpp [wrapped: conflict: audio::ChannelVolumeFadeBehaviour]
-// sym: ?vfunc_1@ChannelVolumeFadeBehaviour@audio@fn_00251ce0@@UAE_NHH@Z
+// sym: ?vfunc_1@ChannelVolumeFadeBehaviour@audio@fn_00251ce0@@UAE_NHH@Z @9031f8c5d9e5 @w6bf03d32ab2d
 namespace fn_00251ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19929 inputs, branch coverage 54/54)
 // audio::ChannelVolumeFadeBehaviour::vfunc_1 @ 0x00251ce0
@@ -446,7 +446,7 @@ bool __cdecl Target(void* p, int offset) {
 } // namespace fn_f5ef859b
 
 // 0x00252070 audio::SeqEventChannelVolumesType::vfunc_3 (80 B): equivalent/0x00252070.cpp
-// sym: ?vfunc_3@SeqEventChannelVolumesType@audio@@UAEPAXXZ
+// sym: ?vfunc_3@SeqEventChannelVolumesType@audio@@UAEPAXXZ @afdbbf26f4e5 @w11d3902adb75
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)
 // audio::SeqEventChannelVolumesType::vfunc_3 @ 0x00252070
 void* audio::SeqEventChannelVolumesType::vfunc_3() {
@@ -465,7 +465,7 @@ void* audio::SeqEventChannelVolumesType::vfunc_3() {
 
 
 // 0x002520c0 audio::SeqEventChannelVolumes::vfunc_1 (97 B): equivalent/0x002520c0.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventChannelVolumes]
-// sym: ?vfunc_1@SeqEventChannelVolumes@audio@fn_002520c0@@UAEEPAPAX@Z
+// sym: ?vfunc_1@SeqEventChannelVolumes@audio@fn_002520c0@@UAEEPAPAX@Z @fb219e1bd6b8 @wbd66afcc8bab
 namespace fn_002520c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2853 inputs, branch coverage 6/6)
 // audio::SeqEventChannelVolumes::vfunc_1 @ 0x002520c0
@@ -514,7 +514,7 @@ int audio::SeqEventChannelVolumes::vfunc_0(void* __p0) { void * p = (void *)__p0
 
 
 // 0x00252190 audio::SeqEventChannelVolumes::vfunc_2 (66 B): equivalent/0x00252190.cpp
-// sym: ?vfunc_2@SeqEventChannelVolumes@audio@@UAEXH@Z
+// sym: ?vfunc_2@SeqEventChannelVolumes@audio@@UAEXH@Z @844f015bc48f @w2f2e1e872d2e
 // STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
 // audio::SeqEventChannelVolumes::vfunc_2 @ 0x00252190
 void audio::SeqEventChannelVolumes::vfunc_2(hulk_intptr __p0) { void * context = (void *)__p0;

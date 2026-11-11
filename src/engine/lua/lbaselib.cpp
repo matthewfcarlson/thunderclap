@@ -122,7 +122,7 @@ extern "C" int __cdecl FUN_0033d6e0(LuaVMState* L) {
 
 
 // 0x0033d7a0 FUN_0033d7a0 (272 B): equivalent/0x0033d7a0.cpp
-// sym: _FUN_0033d7a0
+// sym: _FUN_0033d7a0 @04e75786d091 @w8eaedb304b63
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 18/18)
 // FUN_0033d7a0 @ 0x0033d7a0
 // luaB_tonumber
@@ -199,7 +199,7 @@ extern "C" int __cdecl FUN_0033d960(LuaVMState* L) {
 
 
 // 0x0033dad0 FUN_0033dad0 (72 B): equivalent/0x0033dad0.cpp
-// sym: _FUN_0033dad0
+// sym: _FUN_0033dad0 @0b967e71ab51 @w08606197e7d8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0033dad0 @ 0x0033dad0
 // luaB_getfenv
@@ -216,7 +216,7 @@ extern "C" int __cdecl FUN_0033dad0(LuaVMState* L) {
 
 
 // 0x0033db20 FUN_0033db20 (188 B): equivalent/0x0033db20.cpp
-// sym: _FUN_0033db20
+// sym: _FUN_0033db20 @7f1f06834950 @w1dd5291031bf
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_0033db20 @ 0x0033db20
 // luaB_setfenv
@@ -290,7 +290,7 @@ extern "C" int __cdecl FUN_0033dc80(LuaVMState* L) {
 
 
 // 0x0033dca0 FUN_0033dca0 (183 B): equivalent/0x0033dca0.cpp
-// sym: _FUN_0033dca0
+// sym: _FUN_0033dca0 @d05d6160cf49 @waf93b2cf5584
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_0033dca0 @ 0x0033dca0
 // luaB_collectgarbage
@@ -484,7 +484,7 @@ extern "C" int __cdecl FUN_0033e160(LuaVMState* L) {
 
 
 // 0x0033e1b0 FUN_0033e1b0 (70 B): equivalent/0x0033e1b0.cpp
-// sym: _FUN_0033e1b0
+// sym: _FUN_0033e1b0 @3489d266b356 @we111898ae02c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0033e1b0 @ 0x0033e1b0
 // luaB_pcall
@@ -512,7 +512,7 @@ extern "C" int __cdecl FUN_0033e200(LuaVMState* L) {
 
 
 // 0x0033e3f0 FUN_0033e3f0 (212 B): equivalent/0x0033e3f0.cpp
-// sym: _FUN_0033e3f0
+// sym: _FUN_0033e3f0 @b5c0fcbd200d @wf38db5a15c13
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_0033e3f0 @ 0x0033e3f0
 // luaB_newproxy
@@ -545,7 +545,7 @@ extern "C" int __cdecl FUN_0033e3f0(LuaVMState* state)
 
 
 // 0x0033e4d0 FUN_0033e4d0 (51 B): equivalent/0x0033e4d0.cpp
-// sym: ?FUN_0033e4d0@fn_fc191ef1@@YAPBDPAULuaVMState@@@Z
+// sym: ?FUN_0033e4d0@fn_fc191ef1@@YAPBDPAULuaVMState@@@Z @d90dc0d73226 @w3ea818cff1d2
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0033e4d0 @ 0x0033e4d0
 // lbaselib getpath: LUA_PATH or the default
@@ -560,7 +560,7 @@ const char* FUN_0033e4d0(LuaVMState* L)
 
 
 // 0x0033e570 FUN_0033e570 (112 B): equivalent/0x0033e570.cpp
-// sym: ?FUN_0033e570@fn_fc191ef1@@YAXPAULuaVMState@@@Z
+// sym: ?FUN_0033e570@fn_fc191ef1@@YAXPAULuaVMState@@@Z @43b4ece3ec7f @w816e1483fdc6
 // STATUS: equivalent (tools/equiv.py level 3: 2564 inputs, branch coverage 4/4)
 // FUN_0033e570 @ 0x0033e570
 // lbaselib composename: replace each `?' of the path piece on the top by the required name
@@ -584,7 +584,7 @@ void FUN_0033e570(LuaVMState *L)
 
 
 // 0x0033e5e0 FUN_0033e5e0 (517 B): equivalent/0x0033e5e0.cpp
-// sym: _FUN_0033e5e0
+// sym: _FUN_0033e5e0 @dea1e351ef14 @wc617d15d0f10
 // STATUS: equivalent (tools/equiv.py level 3: 3081 inputs, branch coverage 23/24, incomplete)
 // FUN_0033e5e0 @ 0x0033e5e0
 // luaB_require
@@ -643,7 +643,7 @@ extern "C" int __cdecl FUN_0033e5e0(LuaVMState* state) {
 
 
 // 0x0033e7f0 FUN_0033e7f0 (121 B): equivalent/0x0033e7f0.cpp
-// sym: ?FUN_0033e7f0@fn_fc191ef1@@YAHHPAULuaVMState@@0@Z
+// sym: ?FUN_0033e7f0@fn_fc191ef1@@YAHHPAULuaVMState@@0@Z @732dfa594d51 @w11f8a7fc63f9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_0033e7f0 @ 0x0033e7f0
 // Lua 5.0 coroutine auxresume: eax = number of arguments, esi = coroutine, edi = caller state.
@@ -667,7 +667,7 @@ int FUN_0033e7f0(int narg, LuaVMState* co, LuaVMState* L) {
 
 
 // 0x0033e870 FUN_0033e870 (116 B): equivalent/0x0033e870.cpp
-// sym: _FUN_0033e870
+// sym: _FUN_0033e870 @4a3fa8f2da3c @wba14ef3062ac
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0033e870 @ 0x0033e870
 // luaB_coresume
@@ -690,7 +690,7 @@ extern "C" int __cdecl FUN_0033e870(LuaVMState *L)
 
 
 // 0x0033e8f0 FUN_0033e8f0 (95 B): equivalent/0x0033e8f0.cpp
-// sym: _FUN_0033e8f0
+// sym: _FUN_0033e8f0 @aef5ed9b0b99 @w5712dbddd8fe
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0033e8f0 @ 0x0033e8f0
 // luaB_auxwrap (upvalue 1: the coroutine)
@@ -744,7 +744,7 @@ extern "C" int __cdecl FUN_0033e9e0(LuaVMState* L) {
 
 
 // 0x0033ea90 FUN_0033ea90 (150 B): equivalent/0x0033ea90.cpp
-// sym: ?FUN_0033ea90@fn_fc191ef1@@YAXPAULuaVMState@@@Z
+// sym: ?FUN_0033ea90@fn_fc191ef1@@YAXPAULuaVMState@@@Z @5170c83aff98 @wf8cfc29d7da4
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0033ea90 @ 0x0033ea90
 // luaopen_base's base_open: the state is passed in esi
@@ -768,7 +768,7 @@ void FUN_0033ea90(LuaVMState *L)
 
 
 // 0x0033eb30 FUN_0033eb30 (64 B): equivalent/0x0033eb30.cpp
-// sym: _FUN_0033eb30
+// sym: _FUN_0033eb30 @df024c7fef2a @w18a6475511b8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0033eb30 @ 0x0033eb30
 // luaopen_base

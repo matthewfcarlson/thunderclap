@@ -13,7 +13,7 @@ namespace fn_f72aabec {} using namespace fn_f72aabec;
 namespace fn_f72aabec {
 
 // 0x00326dc0 FUN_00326dc0 (49 B): equivalent/0x00326dc0.cpp
-// sym: _FUN_00326dc0
+// sym: _FUN_00326dc0 @1a91ba50fda9 @w18aa2266c7b3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/7)
 // FUN_00326dc0 @ 0x00326dc0
 // equiv-conv: FUN_00326dc0 eax ecx

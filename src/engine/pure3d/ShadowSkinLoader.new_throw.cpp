@@ -109,7 +109,7 @@ public:
 
 
 // 0x002b6170 pure3d::ShadowMeshLoader::vfunc_5 (1740 B): equivalent/0x002b6170.cpp
-// sym: ?vfunc_5@ShadowMeshLoader@pure3d@fn_f5844d48@@UAEXPAPAUTarget_2b6170@3@PA_KPAUStream@3@PAX@Z
+// sym: ?vfunc_5@ShadowMeshLoader@pure3d@fn_f5844d48@@UAEXPAPAUTarget_2b6170@3@PA_KPAUStream@3@PAX@Z @0241b03a40c5 @we6e7a4700748
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 39/39)
 // pure3d::ShadowMeshLoader::vfunc_5 @ 0x002b6170
 namespace pure3d {

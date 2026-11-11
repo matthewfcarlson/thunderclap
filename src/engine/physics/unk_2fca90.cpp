@@ -101,7 +101,7 @@ void owners::X_2fcb80::FUN_002fcb80(float s) {
 namespace fn_f9c93d4f {
 
 // 0x002fcc10 FUN_002fcc10 (195 B): equivalent/0x002fcc10.cpp
-// sym: ?FUN_002fcc10@Matrix@fn_f9c93d4f@@QAEXPBU12@0@Z
+// sym: ?FUN_002fcc10@Matrix@fn_f9c93d4f@@QAEXPBU12@0@Z @d50becd4311d @w9ed5bbe357e0
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002fcc10 @ 0x002fcc10
 void Matrix::FUN_002fcc10(const Matrix* a,const Matrix* b) {
@@ -119,7 +119,7 @@ void Matrix::FUN_002fcc10(const Matrix* a,const Matrix* b) {
 
 
 // 0x002fcd60 FUN_002fcd60 (451 B): equivalent/0x002fcd60.cpp
-// sym: ?FUN_002fcd60@SymTensor@fn_f9c93d4f@@QAEXPBUMat34@2@@Z
+// sym: ?FUN_002fcd60@SymTensor@fn_f9c93d4f@@QAEXPBUMat34@2@@Z @4af1c23a51a0 @wf66c5955a5ff
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // FUN_002fcd60 @ 0x002fcd60
 // x87 (the listing's precision): vx and vy go through the frame (rounded); vz is used once from its register and
@@ -156,7 +156,7 @@ void SymTensor::FUN_002fcd60(const Mat34* a)
 
 
 // 0x002fcf30 FUN_002fcf30 (225 B): equivalent/0x002fcf30.cpp
-// sym: ?FUN_002fcf30@Tensor_2fcf30@fn_f9c93d4f@@QAEXPBUVector@2@@Z
+// sym: ?FUN_002fcf30@Tensor_2fcf30@fn_f9c93d4f@@QAEXPBUVector@2@@Z @0ed5b8c86416 @w835fb50bf2b6
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002fcf30 @ 0x002fcf30
 void Tensor_2fcf30::FUN_002fcf30(const Vector* v) {
@@ -212,7 +212,7 @@ void owners::C_2fd0a0::FUN_002fd0a0() {
 
 
 // 0x002fd0c0 FUN_002fd0c0 (389 B): equivalent/0x002fd0c0.cpp
-// sym: ?FUN_002fd0c0@Sym3_2fd0c0@owners@@QAEXPBU12@@Z
+// sym: ?FUN_002fd0c0@Sym3_2fd0c0@owners@@QAEXPBU12@@Z @ad5f990f99fb @wd6a63d39ca1a
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 2/2)
 // FUN_002fd0c0 @ 0x002fd0c0
 // Inverse of a symmetric 3x3 matrix stored as six floats; zero when the pivot product vanishes.

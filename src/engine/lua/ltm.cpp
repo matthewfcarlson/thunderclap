@@ -17,7 +17,7 @@ extern "C" LuaVMTObject* __cdecl FUN_00219e50(LuaVMTable* t, LuaVMString* key);
 
 
 // 0x00217520 FUN_00217520 (89 B): equivalent/0x00217520.cpp
-// sym: _FUN_00217520
+// sym: _FUN_00217520 @04afb8c74a9c @wc681c10ad78c
 // STATUS: equivalent (tools/equiv.py level 3: 2768 inputs, branch coverage 4/4)
 // luaT_init: intern the event names (luaT_eventname, DAT_00426a24) into the global state's tmname, fixed.
 extern "C" void __cdecl FUN_00217520(LuaVMState* L) {

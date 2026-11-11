@@ -61,7 +61,7 @@ struct Obj_28fe50 {
 
 
 // 0x0028fbc0 FUN_0028fbc0 (225 B): equivalent/0x0028fbc0.cpp
-// sym: _FUN_0028fbc0
+// sym: _FUN_0028fbc0 @9bb3696b2f11 @w6930b73ed29b
 // STATUS: equivalent (tools/equiv.py level 3: 3058 inputs, branch coverage 29/36, incomplete)
 // FUN_0028fbc0 @ 0x0028fbc0
 // Strips a leading "class " keyword and any namespace qualifier ("A::B::") from a type name,
@@ -155,7 +155,7 @@ Obj_28fd30* Obj_28fd30::Target() {
 
 
 // 0x0028fd70 FUN_0028fd70 (184 B): equivalent/0x0028fd70.cpp
-// sym: _FUN_0028fd70
+// sym: _FUN_0028fd70 @7fa8c63cedc3 @wa9e202750a71
 // STATUS: equivalent (tools/equiv.py level 3: 191 inputs, branch coverage 12/12)
 // FUN_0028fd70 @ 0x0028fd70
 extern "C" void __cdecl FUN_0028fd70(Node* node) {

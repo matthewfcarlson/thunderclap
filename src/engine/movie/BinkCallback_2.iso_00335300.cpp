@@ -5,7 +5,7 @@
 
 
 // 0x00335300 FUN_00335300 (212 B): equivalent/0x00335300.cpp [isolated: code differs from its standalone build]
-// sym: ?run@Parser_335300@fn_fabe425a@@QAE_NPAUStream@2@@Z
+// sym: ?run@Parser_335300@fn_fabe425a@@QAE_NPAUStream@2@@Z @9a6ce21361ef @w7804607658a0
 #include "gen/owners.h"
 #include "decls/data/engine/movie.h"
 namespace fn_fabe425a {} using namespace fn_fabe425a;

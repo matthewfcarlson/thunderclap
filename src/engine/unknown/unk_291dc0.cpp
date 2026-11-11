@@ -226,7 +226,7 @@ void __fastcall FUN_0027afd0(CEffectStopTrack*);
 
 
 // 0x00291dc0 FUN_00291dc0 (1377 B): equivalent/0x00291dc0.cpp
-// sym: _FUN_00291dc0
+// sym: _FUN_00291dc0 @1c9f314b019c @wf6b932832fc9
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 62/62)
 // FUN_00291dc0 @ 0x00291dc0
 extern "C" void FUN_00291dc0(){
@@ -335,7 +335,7 @@ extern "C" void FUN_00291dc0(){
 } // namespace fn_f19264ac
 
 // 0x00292330 FUN_00292330 (93 B): equivalent/0x00292330.cpp
-// sym: ?FUN_00292330@Settings_292330@owners@@QAEXXZ
+// sym: ?FUN_00292330@Settings_292330@owners@@QAEXXZ @c71a379c623a @w87e877429857
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00292330 @ 0x00292330
 void owners::Settings_292330::FUN_00292330() {

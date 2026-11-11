@@ -379,7 +379,7 @@ void owners::C_2c6f30::FUN_002c6f30(int a, float* b, int c, float d) {
 namespace fn_f3d8c80d {
 
 // 0x002c6f70 FUN_002c6f70 (254 B): equivalent/0x002c6f70.cpp
-// sym: ?blend@Object@fn_f3d8c80d@@QAEXHPBUValue_2c6f70@2@HM@Z
+// sym: ?blend@Object@fn_f3d8c80d@@QAEXHPBUValue_2c6f70@2@HM@Z @bc73769ba084 @w08b0f637cdda
 // STATUS: equivalent (tools/equiv.py level 3: 2978 inputs, branch coverage 0/0)
 // FUN_002c6f70 @ 0x002c6f70
 void Object::blend(int index, const Value_2c6f70* target, int bank, float fraction) {
@@ -416,7 +416,7 @@ void owners::Thing_2c7070::FUN_002c7070() {
 
 
 // 0x002c7120 FUN_002c7120 (84 B): equivalent/0x002c7120.cpp
-// sym: ?FUN_002c7120@ItemBuffer_2c7120@owners@@QAEXXZ
+// sym: ?FUN_002c7120@ItemBuffer_2c7120@owners@@QAEXXZ @02740867895d @w7d0b22daf8fa
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_002c7120 @ 0x002c7120
 void owners::ItemBuffer_2c7120::FUN_002c7120() { if (!items) { unsigned savedCount = count; void* p = FUN_0008d6d0(savedCount * 12); if (p) FUN_00011520(p, 12, savedCount, ((char*)(void (__cdecl*)())&FUN_00011090)); items = p; flags |= 0x10; } }
@@ -434,7 +434,7 @@ void Obj_2c7180::Clear() {
 } // namespace fn_f3d8c80d
 
 // 0x002c71b0 FUN_002c71b0 (84 B): equivalent/0x002c71b0.cpp
-// sym: ?FUN_002c71b0@Buffer_2c71b0@owners@@QAEXXZ
+// sym: ?FUN_002c71b0@Buffer_2c71b0@owners@@QAEXXZ @b2d16d900fa3 @w585247d250f3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002c71b0 @ 0x002c71b0
 void owners::Buffer_2c71b0::FUN_002c71b0() {
@@ -476,7 +476,7 @@ void owners::Obj_2c7240::FUN_002c7240(int index) {
 
 
 // 0x002c72e0 FUN_002c72e0 (92 B): equivalent/0x002c72e0.cpp
-// sym: ?FUN_002c72e0@Object_2c72e0@owners@@QAEXH@Z
+// sym: ?FUN_002c72e0@Object_2c72e0@owners@@QAEXH@Z @d073a041ea6d @w7f7e63749bf7
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 4/4)
 // FUN_002c72e0 @ 0x002c72e0
 void owners::Object_2c72e0::FUN_002c72e0(int index) {
@@ -497,7 +497,7 @@ void owners::Object_2c72e0::FUN_002c72e0(int index) {
 namespace fn_f3d8c80d {
 
 // 0x002c7340 FUN_002c7340 (772 B): equivalent/0x002c7340.cpp
-// sym: ?FUN_002c7340@MeshBuffers_2c7340@fn_f3d8c80d@@QAEXIII@Z
+// sym: ?FUN_002c7340@MeshBuffers_2c7340@fn_f3d8c80d@@QAEXIII@Z @e50977fee5dc @wfb298504b55f
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 52/52)
 // FUN_002c7340 @ 0x002c7340
 void MeshBuffers_2c7340::FUN_002c7340(unsigned int flags, unsigned int n, unsigned int indexCount)
@@ -579,7 +579,7 @@ void MeshBuffers_2c7340::FUN_002c7340(unsigned int flags, unsigned int n, unsign
 
 
 // 0x002c7690 FUN_002c7690 (893 B): equivalent/0x002c7690.cpp
-// sym: ?FUN_002c7690@fn_f3d8c80d@@YAXPAUMesh@1@PAUVertexSink@1@D@Z
+// sym: ?FUN_002c7690@fn_f3d8c80d@@YAXPAUMesh@1@PAUVertexSink@1@D@Z @dffd3b64f80a @we82971e66918
 // STATUS: equivalent (tools/equiv.py level 3: 113 inputs, branch coverage 46/46)
 // FUN_002c7690 @ 0x002c7690
 // Emit every indexed vertex of a mesh; the mesh arrives in eax, the sink in esi.
@@ -708,7 +708,7 @@ void FUN_002c7690(Mesh *m, VertexSink *out, char useB)
 
 
 // 0x002c7a50 FUN_002c7a50 (943 B): equivalent/0x002c7a50.cpp
-// sym: ?FUN_002c7a50@fn_f3d8c80d@@YAXEPAUSource_2c7a50@1@PAUEmitter_2c7a50@1@@Z
+// sym: ?FUN_002c7a50@fn_f3d8c80d@@YAXEPAUSource_2c7a50@1@PAUEmitter_2c7a50@1@@Z @55768c6093aa @w1f8c2dbc3bc1
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 46/46)
 // FUN_002c7a50 @ 0x002c7a50
 // equiv-conv: FUN_002c7a50 ecx eax esi
@@ -837,7 +837,7 @@ void FUN_002c7a50(unsigned char alt, Source_2c7a50* src, Emitter_2c7a50* out)
 
 
 // 0x002c7e40 FUN_002c7e40 (681 B): equivalent/0x002c7e40.cpp
-// sym: _FUN_002c7e40
+// sym: _FUN_002c7e40 @d80957fed24a @w853093b8a881
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 46/46)
 // FUN_002c7e40 @ 0x002c7e40
 // batch arrives in eax, mode in cl, renderer in esi.
@@ -919,7 +919,7 @@ extern "C" void FUN_002c7e40(Batch_2c7e40 *s, char mode, Renderer_2c7e40 *r)
 
 
 // 0x002c8130 FUN_002c8130 (719 B): equivalent/0x002c8130.cpp
-// sym: _FUN_002c8130
+// sym: _FUN_002c8130 @f0217e548a16 @wa9aff51fd9db
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 46/46)
 // FUN_002c8130 @ 0x002c8130
 // equiv-conv: FUN_002c8130 ecx eax esi
@@ -1019,7 +1019,7 @@ VertexOffsetList::VertexOffsetList(int value) {
 
 
 // 0x002c84a0 FUN_002c84a0 (419 B): equivalent/0x002c84a0.cpp
-// sym: ??0VertexOffsetList@pure3d@fn_f3d8c80d@@QAE@ABU012@@Z
+// sym: ??0VertexOffsetList@pure3d@fn_f3d8c80d@@QAE@ABU012@@Z @4f9690ee6b43 @w39a3eb22c87c
 // STATUS: equivalent (tools/equiv.py level 3: 21 inputs, branch coverage 18/18)
 // FUN_002c84a0 @ 0x002c84a0
 namespace pure3d {
@@ -1102,7 +1102,7 @@ VertexList::VertexList(int p2, int p3, int p4) {
 
 
 // 0x002c8730 FUN_002c8730 (640 B): equivalent/0x002c8730.cpp
-// sym: ??0VertexList@pure3d@fn_f3d8c80d@@QAE@ABU012@@Z
+// sym: ??0VertexList@pure3d@fn_f3d8c80d@@QAE@ABU012@@Z @7163306f4929 @wfd90d0f96e3e
 // STATUS: equivalent (tools/equiv.py level 3: 41 inputs, branch coverage 30/30)
 // FUN_002c8730 @ 0x002c8730
 namespace pure3d {

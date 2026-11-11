@@ -25,7 +25,7 @@ extern "C" void __cdecl FUN_0021acc0(LuaVMDumpState* D);
 
 
 // 0x0021a790 FUN_0021a790 (89 B): equivalent/0x0021a790.cpp
-// sym: _FUN_0021a790
+// sym: _FUN_0021a790 @a685b12e96c0 @w21d755854d71
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 3/3)
 // DumpString: a string as its size (with the NUL; 0 for none) and its characters.
 // equiv-conv: FUN_0021a790 eax esi
@@ -44,7 +44,7 @@ extern "C" void __cdecl FUN_0021a790(const LuaVMString* s, LuaVMDumpState* D) {
 
 
 // 0x0021a830 FUN_0021a830 (230 B): equivalent/0x0021a830.cpp
-// sym: _FUN_0021a830
+// sym: _FUN_0021a830 @f65c87a4ec83 @wdce00ea3da26
 // STATUS: equivalent (tools/equiv.py level 3: 576 inputs, branch coverage 7/7)
 // DumpLocals: the local variables' count, then each one's name, startpc and endpc.
 // equiv-conv: FUN_0021a830 esi stack
@@ -83,7 +83,7 @@ extern "C" void __cdecl FUN_0021a830(LuaVMDumpState* D, const LuaVMProto* f) {
 
 
 // 0x0021a960 FUN_0021a960 (155 B): equivalent/0x0021a960.cpp
-// sym: _FUN_0021a960
+// sym: _FUN_0021a960 @5773cba2e42e @wb358bb7bdc35
 // STATUS: equivalent (tools/equiv.py level 3: 1321 inputs, branch coverage 7/7)
 // DumpUpvalues: the upvalue names' count, then each name.
 // equiv-conv: FUN_0021a960 esi stack
@@ -107,7 +107,7 @@ extern "C" void __cdecl FUN_0021a960(LuaVMDumpState* D, const LuaVMProto* f) {
 
 
 // 0x0021aa00 FUN_0021aa00 (291 B): equivalent/0x0021aa00.cpp
-// sym: _FUN_0021aa00
+// sym: _FUN_0021aa00 @ee0ddb44dd46 @wb25c8012feeb
 // STATUS: equivalent (tools/equiv.py level 3: 644 inputs, branch coverage 15/15)
 // DumpConstants: the constants (a type byte, then a number's 4 bytes or a string) and the nested functions.
 // equiv-conv: FUN_0021aa00 esi stack
@@ -145,7 +145,7 @@ extern "C" void __cdecl FUN_0021aa00(LuaVMDumpState* D, const LuaVMProto* f) {
 
 
 // 0x0021ab30 FUN_0021ab30 (392 B): equivalent/0x0021ab30.cpp
-// sym: _FUN_0021ab30
+// sym: _FUN_0021ab30 @d9503729561e @w265ff9b5089c
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 8/8)
 // DumpFunction: a prototype (its source unless the parent's, header bytes, lines, locals, upvalue names (none when
 // stripped), constants and code).
@@ -194,7 +194,7 @@ extern "C" void __cdecl FUN_0021ab30(const LuaVMProto* f, const LuaVMString* p, 
 
 
 // 0x0021acc0 FUN_0021acc0 (192 B): equivalent/0x0021acc0.cpp
-// sym: _FUN_0021acc0
+// sym: _FUN_0021acc0 @c5e020053093 @waea6742dc6fc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // DumpHeader: the chunk header (signature, version, byte order, the 32-bit sizes, the test number).
 // equiv-conv: FUN_0021acc0 esi
@@ -225,7 +225,7 @@ extern "C" void __cdecl FUN_0021acc0(LuaVMDumpState* D) {
 
 
 // 0x0021ad80 FUN_0021ad80 (72 B): equivalent/0x0021ad80.cpp
-// sym: _FUN_0021ad80
+// sym: _FUN_0021ad80 @3c74f1583033 @w85e06bec0fde
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // luaU_dump: dump a function as a precompiled chunk through w.
 // equiv-conv: FUN_0021acc0 esi

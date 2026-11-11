@@ -43,7 +43,7 @@ template<class T> struct ParamBool {
 
 
 // 0x00236250 FUN_00236250 (231 B): equivalent/0x00236250.cpp
-// sym: _FUN_00236250
+// sym: _FUN_00236250 @995b67afb85c @wcadb8b5b31e1
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_00236250 @ 0x00236250
 extern "C" void FUN_00236250() {

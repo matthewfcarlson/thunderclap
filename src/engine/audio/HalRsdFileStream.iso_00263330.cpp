@@ -4,7 +4,7 @@
 
 
 // 0x00263330 audio::HalRsdFileStream::vfunc_11 (239 B): equivalent/0x00263330.cpp [isolated: conflict: FUN_00247530; on include/gen/ and not mergeable]
-// sym: ?vfunc_11@HalRsdFileStream@audio@@UAEXXZ
+// sym: ?vfunc_11@HalRsdFileStream@audio@@UAEXXZ @bb6c50c8cafb @we93dfc147082
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 18/18)
 // audio::HalRsdFileStream::vfunc_11 @ 0x00263330
 #include "gen/audio.h"

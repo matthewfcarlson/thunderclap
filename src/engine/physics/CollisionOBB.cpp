@@ -311,7 +311,7 @@ void C_2fb950::sum(Vec_2fb950* p, u32_2fb950 a) {
 
 
 // 0x002fb990 FUN_002fb990 (114 B): equivalent/0x002fb990.cpp
-// sym: ?FUN_002fb990@Basis_2fb990@fn_f34550b1@@QAEXPAUV3_2fb990@2@HH@Z
+// sym: ?FUN_002fb990@Basis_2fb990@fn_f34550b1@@QAEXPAUV3_2fb990@2@HH@Z @453939da7052 @w5ad76bc55e30
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002fb990 @ 0x002fb990
 // Blends two of the three axes, weighted by w[], into out.
@@ -423,7 +423,7 @@ physics::CollisionOBB* physics::CollisionOBB::vfunc_2(byte_2fba40 flag) {
 namespace fn_f34550b1 {
 
 // 0x002fba80 FUN_002fba80 (293 B): equivalent/0x002fba80.cpp
-// sym: ?FUN_002fba80@CollisionOBB_2fba80@fn_f34550b1@@QAEXPBUBits3@2@PBUVec3_2fba80@2@000@Z
+// sym: ?FUN_002fba80@CollisionOBB_2fba80@fn_f34550b1@@QAEXPBUBits3@2@PBUVec3_2fba80@2@000@Z @c1150e53ca82 @w5494178ecd37
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 0/0)
 // FUN_002fba80 @ 0x002fba80
 void CollisionOBB_2fba80::FUN_002fba80(const Bits3* p,const Vec3_2fba80* s,const Bits3* x,const Bits3* y,const Bits3* z) {
@@ -443,7 +443,7 @@ void CollisionOBB_2fba80::FUN_002fba80(const Bits3* p,const Vec3_2fba80* s,const
 } // namespace fn_f34550b1
 
 // 0x002fbbb0 physics::CollisionOBB::vfunc_8 (240 B): equivalent/0x002fbbb0.cpp [wrapped: conflict: physics::CollisionOBB]
-// sym: ?vfunc_8@CollisionOBB@physics@fn_002fbbb0@@QAEXXZ
+// sym: ?vfunc_8@CollisionOBB@physics@fn_002fbbb0@@QAEXXZ @7b1781ba0437 @w442cea3b47e1
 namespace fn_002fbbb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // physics::CollisionOBB::vfunc_8 @ 0x002fbbb0
@@ -476,7 +476,7 @@ void physics::CollisionOBB::vfunc_8() {
 
 
 // 0x002fbca0 physics::CollisionOBB::vfunc_9 (41 B): equivalent/0x002fbca0.cpp [wrapped: conflict: physics::CollisionOBB; physics::CollisionVolume]
-// sym: ?vfunc_9@CollisionOBB@physics@fn_002fbca0@@UAEXXZ
+// sym: ?vfunc_9@CollisionOBB@physics@fn_002fbca0@@UAEXXZ @a64800262967 @wc0b6ebf74824
 namespace fn_002fbca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // physics::CollisionOBB::vfunc_9 @ 0x002fbca0
@@ -510,7 +510,7 @@ void CollisionOBB::vfunc_9() {
 namespace fn_f34550b1 {
 
 // 0x002fbcd0 FUN_002fbcd0 (232 B): equivalent/0x002fbcd0.cpp
-// sym: ?projection@Shape_2fbcd0@fn_f34550b1@@QAEMPBUVec_2fbcd0@2@@Z
+// sym: ?projection@Shape_2fbcd0@fn_f34550b1@@QAEMPBUVec_2fbcd0@2@@Z @848255884daa @wb6b11b1411d7
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 2/2)
 // FUN_002fbcd0 @ 0x002fbcd0
 hulk_freg Shape_2fbcd0::projection(const Vec_2fbcd0* v) {
@@ -528,7 +528,7 @@ hulk_freg Shape_2fbcd0::projection(const Vec_2fbcd0* v) {
 
 
 // 0x002fbdc0 FUN_002fbdc0 (227 B): equivalent/0x002fbdc0.cpp
-// sym: ?FUN_002fbdc0@Shape_2fbdc0@fn_f34550b1@@QAEMPBUVec_2fbdc0@2@H@Z
+// sym: ?FUN_002fbdc0@Shape_2fbdc0@fn_f34550b1@@QAEMPBUVec_2fbdc0@2@H@Z @ee3cc6b4d78d @w2c71a1a6a1fe
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 14/14)
 // FUN_002fbdc0 @ 0x002fbdc0
 hulk_freg Shape_2fbdc0::FUN_002fbdc0(const Vec_2fbdc0* v, int excluded) {

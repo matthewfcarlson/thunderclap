@@ -4,7 +4,7 @@
 
 
 // 0x00335840 FUN_00335840 (84 B): equivalent/0x00335840.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_00335840@Object@fn_f9da17d4@@QAE_NHPAD@Z
+// sym: ?FUN_00335840@Object@fn_f9da17d4@@QAE_NHPAD@Z @6560cb4154c9 @w8b7933559193
 #include "gen/owners.h"
 namespace fn_f9da17d4 {} using namespace fn_f9da17d4;
 namespace fn_f9da17d4 {

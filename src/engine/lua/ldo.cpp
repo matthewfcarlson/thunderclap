@@ -40,7 +40,7 @@ extern "C++" __declspec(nothrow) void __cdecl FUN_00215c00(LuaVMState* L, void* 
 
 
 // 0x00215240 FUN_00215240 (83 B): equivalent/0x00215240.cpp
-// sym: _FUN_00215240
+// sym: _FUN_00215240 @e1f3b8745205 @w0a814387aa19
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/7)
 // seterrorobj: the error object of a failed protected call at oldtop (the message, or the fixed memory /
 // error-handler messages), and the top just above it.
@@ -83,7 +83,7 @@ extern "C" LuaVMState* __cdecl FUN_002152b0(LuaVMState* L, int errcode) {
 namespace fn_ffc5dd1e {
 
 // 0x002152f0 FUN_002152f0 (92 B): equivalent/0x002152f0.cpp
-// sym: _FUN_002152f0
+// sym: _FUN_002152f0 @b519ecd5624c @wb273e3087e25
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 2/2)
 // luaD_rawrunprotected: run f(L, ud) with a longjmp record on the error chain; returns its status.
 extern "C" int __cdecl FUN_002152f0(LuaVMState* L, void(__cdecl* f)(LuaVMState* L, void* ud), void* ud) {
@@ -111,7 +111,7 @@ extern "C" int __cdecl FUN_002152f0(LuaVMState* L, void(__cdecl* f)(LuaVMState* 
 
 
 // 0x00215350 FUN_00215350 (117 B): equivalent/0x00215350.cpp
-// sym: _FUN_00215350
+// sym: _FUN_00215350 @b69830f8c24d @wf1448dd45aea
 // STATUS: equivalent (tools/equiv.py level 3: 102 inputs, branch coverage 8/8)
 // correctstack: after the stack moved from oldstack, move top, the open upvalues and every CallInfo with it.
 // equiv-conv: FUN_00215350 eax edx
@@ -128,7 +128,7 @@ extern "C" void __cdecl FUN_00215350(LuaVMState* L, LuaVMTObject* oldstack) {
 
 
 // 0x002153d0 FUN_002153d0 (64 B): equivalent/0x002153d0.cpp
-// sym: _FUN_002153d0
+// sym: _FUN_002153d0 @0a55f54bd8d9 @wcd684a87a74e
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // luaD_reallocstack: resize the stack to newsize slots (EXTRA_STACK 5 above stack_last), then correctstack.
 // equiv-conv: FUN_00215350 eax edx
@@ -159,7 +159,7 @@ extern "C" void __cdecl FUN_00215410(LuaVMState* L, int newsize) {
 
 
 // 0x00215460 FUN_00215460 (123 B): equivalent/0x00215460.cpp
-// sym: _FUN_00215460
+// sym: _FUN_00215460 @6c47e18f740a @we1d61c5f42eb
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 2/2)
 // luaD_growstack: grow the stack by at least n slots, then fix the pointers into it (correctstack).
 // equiv-conv: FUN_00215350 eax edx
@@ -180,7 +180,7 @@ extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n) {
 } // namespace fn_ffc5dd1e
 
 // 0x002155f0 FUN_002155f0 (288 B): equivalent/0x002155f0.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_002155f0
+// sym: _FUN_002155f0 @5f7e00d0f20e @w329dec5f7aab
 namespace fn_002155f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 56 inputs, branch coverage 12/12)
 // adjust_varargs: pad missing fixed arguments with nil and move the extra ones into a new `arg' table (with the
@@ -228,7 +228,7 @@ extern "C" LuaVMTObject* __cdecl FUN_002155f0(LuaVMTObject* base, LuaVMState* L,
 
 
 // 0x00215710 FUN_00215710 (119 B): equivalent/0x00215710.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_00215710
+// sym: _FUN_00215710 @41a02d94df20 @w068e22ff28fe
 namespace fn_00215710 {
 // STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 8/8)
 // tryfuncTM: a non-function call goes through the value's __call metamethod (inserted below the arguments).
@@ -258,7 +258,7 @@ extern "C" LuaVMTObject* __cdecl FUN_00215710(LuaVMState* L, LuaVMTObject* func)
 namespace fn_ffc5dd1e {
 
 // 0x00215790 FUN_00215790 (381 B): equivalent/0x00215790.cpp
-// sym: _FUN_00215790
+// sym: _FUN_00215790 @6ed0064414db @w7714deadb6dc
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 22/22)
 // luaD_precall: enter a function call: a Lua function gets its frame (returns NULL for luaV_execute), a C
 // function runs here (returns its first result).
@@ -315,7 +315,7 @@ extern "C" LuaVMTObject* __cdecl FUN_00215790(LuaVMState* L, LuaVMTObject* func)
 
 
 // 0x00215910 FUN_00215910 (94 B): equivalent/0x00215910.cpp
-// sym: _FUN_00215910
+// sym: _FUN_00215910 @dd843a944a8c @w3c31f1771ec8
 // STATUS: equivalent (tools/equiv.py level 3: 2981 inputs, branch coverage 6/6)
 // callrethooks: the return hook (and one tail-return hook per tail call of a Lua function); the results may move.
 // equiv-conv: FUN_00215910 eax esi
@@ -335,7 +335,7 @@ extern "C" LuaVMTObject* __cdecl FUN_00215910(LuaVMTObject* firstResult, LuaVMSt
 
 
 // 0x00215970 FUN_00215970 (105 B): equivalent/0x00215970.cpp
-// sym: _FUN_00215970
+// sym: _FUN_00215970 @04bdd36fa0af @w2b2b8448f173
 // STATUS: equivalent (tools/equiv.py level 3: 2578 inputs, branch coverage 12/12)
 // luaD_poscall: leave the call: move up to wanted results down to the function's slot (nil-padded).
 // equiv-conv: FUN_00215910 eax esi
@@ -368,7 +368,7 @@ extern "C" void __cdecl FUN_00215970(LuaVMState* L, int wanted, LuaVMTObject* fi
 
 
 // 0x002159e0 FUN_002159e0 (120 B): equivalent/0x002159e0.cpp
-// sym: _FUN_002159e0
+// sym: _FUN_002159e0 @85d26bca2596 @w26e24dbbe561
 // STATUS: equivalent (tools/equiv.py level 3: 3019 inputs, branch coverage 10/10)
 // luaD_call: call func with its arguments above it (C-stack depth checked), then the GC step.
 extern "C" void __cdecl FUN_002159e0(LuaVMState* L, LuaVMTObject* func, int nResults) {
@@ -389,7 +389,7 @@ extern "C" void __cdecl FUN_002159e0(LuaVMState* L, LuaVMTObject* func, int nRes
 
 
 // 0x00215a60 FUN_00215a60 (150 B): equivalent/0x00215a60.cpp
-// sym: _FUN_00215a60
+// sym: _FUN_00215a60 @2c7a104ef79c @we28a45af337a
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 8/8)
 // resume: the protected body of lua_resume: start the coroutine's function, or finish the yielding call, then
 // run the Lua code. The suspended flag is the byte at 0x32 (LuaVMState.status in the records).
@@ -412,7 +412,7 @@ extern "C" void __cdecl FUN_00215a60(LuaVMState* L, void* ud) {
 
 
 // 0x00215b00 FUN_00215b00 (87 B): equivalent/0x00215b00.cpp
-// sym: _FUN_00215b00
+// sym: _FUN_00215b00 @b5865198ce60 @w6b970a52799a
 // STATUS: equivalent (tools/equiv.py level 3: 2976 inputs, branch coverage 4/4)
 // resume_error: the error message as lua_resume's only result.
 // equiv-conv: FUN_00215b00 esi edx
@@ -432,7 +432,7 @@ extern "C" int __cdecl FUN_00215b00(LuaVMState* L, const char* msg) {
 
 
 // 0x00215b60 FUN_00215b60 (148 B): equivalent/0x00215b60.cpp
-// sym: _FUN_00215b60
+// sym: _FUN_00215b60 @2d06878bbd5c @w841d263de6ff
 // STATUS: equivalent (tools/equiv.py level 3: 2976 inputs, branch coverage 10/10)
 // lua_yield: from a C function, keep only its nresults results; mark the thread suspended (the byte at 0x32,
 // LuaVMState.status in the records).
@@ -491,7 +491,7 @@ extern "C" void __cdecl FUN_00215c00(LuaVMState* L, void* ud) {
 namespace fn_ffc5dd1e {
 
 // 0x00215d10 FUN_00215d10 (200 B): equivalent/0x00215d10.cpp
-// sym: _FUN_00215d10
+// sym: _FUN_00215d10 @7a9bc7ca46e8 @w30ae0e9b89c0
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 12/12)
 // lua_resume: resume a suspended coroutine (or start it); on an error the thread is reset to its base.
 // The suspended flag is the byte at 0x32 (LuaVMState.status in the records).
@@ -524,7 +524,7 @@ extern "C" int __cdecl FUN_00215d10(LuaVMState* L, int nargs) {
 
 
 // 0x00215de0 FUN_00215de0 (246 B): equivalent/0x00215de0.cpp
-// sym: _FUN_00215de0
+// sym: _FUN_00215de0 @8c39d0556e17 @wba3a70d91a5c
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 6/6)
 // luaD_pcall: call func(L, u) protected with error function ef; on an error restore the stack (to the byte
 // offset oldtop), the call depth, the CallInfo and the hooks, and set the error object.

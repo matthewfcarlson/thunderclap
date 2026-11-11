@@ -352,7 +352,7 @@ int __fastcall FUN_00232fc0(Node* p) {
 } // namespace fn_f3f1aadd
 
 // 0x00232fe0 FUN_00232fe0 (34 B): equivalent/0x00232fe0.cpp
-// sym: ?FUN_00232fe0@Node_232fe0@owners@@QAEPAU12@XZ
+// sym: ?FUN_00232fe0@Node_232fe0@owners@@QAEPAU12@XZ @e09903816921 @w809246f242bd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00232fe0 @ 0x00232fe0
 owners::Node_232fe0* owners::Node_232fe0::FUN_00232fe0() { if (boundary) return boundary; owners::Node_232fe0* node = this; while (node) { if (node->value) return node->value; node = node->parent; } return 0; }
@@ -514,7 +514,7 @@ bool List::Remove(int n) {
 
 
 // 0x00233320 FUN_00233320 (59 B): equivalent/0x00233320.cpp
-// sym: ?FUN_00233320@Node_233320@owners@@QAEPAU12@HH@Z
+// sym: ?FUN_00233320@Node_233320@owners@@QAEPAU12@HH@Z @99feae2467f5 @w0428d8fd16b7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00233320 @ 0x00233320
 owners::Node_233320 *owners::Node_233320::FUN_00233320(int first, int second) {
@@ -556,7 +556,7 @@ int Branch_2333f0::Target(void* a, void* b) {
 
 
 // 0x002337c0 FUN_002337c0 (426 B): equivalent/0x002337c0.cpp
-// sym: ?ParseBlock@Branch_2337c0@fn_f3f1aadd@@QAEDHPAVLexer@2@H@Z
+// sym: ?ParseBlock@Branch_2337c0@fn_f3f1aadd@@QAEDHPAVLexer@2@H@Z @8086b6c364d4 @waef39cccf69a
 // STATUS: equivalent (tools/equiv.py level 3: 13637 inputs, branch coverage 40/40)
 // FUN_002337c0 @ 0x002337c0
 char Branch_2337c0::ParseBlock(hulk_intptr a0, Lexer *lexer, int index)
@@ -622,7 +622,7 @@ void fight::Branch::FUN_00233970() {
 
 
 // 0x00233990 FUN_00233990 (115 B): equivalent/0x00233990.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00233990@Node@fn_00233990@@QAEPAU12@XZ
+// sym: ?FUN_00233990@Node@fn_00233990@@QAEPAU12@XZ @574d0a266de2 @w23aac7e998bf
 namespace fn_00233990 {
 // STATUS: equivalent (tools/equiv.py level 3: 3052 inputs, branch coverage 22/28, incomplete)
 // FUN_00233990 @ 0x00233990
@@ -665,7 +665,7 @@ Node *Node::FUN_00233990()
 
 
 // 0x00233b30 FUN_00233b30 (114 B): equivalent/0x00233b30.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00233b30@List_233b30@fn_00233b30@@QAEHHPAVNode@2@@Z
+// sym: ?FUN_00233b30@List_233b30@fn_00233b30@@QAEHHPAVNode@2@@Z @b9f201bf880e @w74d0c906ee44
 namespace fn_00233b30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 13/14, incomplete)
 // FUN_00233b30 @ 0x00233b30
@@ -814,7 +814,7 @@ void Holder_233ef0::Set(hulk_intptr unused, Obj_233ef0* x) {
 } // namespace fn_f3f1aadd
 
 // 0x00233f20 FUN_00233f20 (123 B): equivalent/0x00233f20.cpp [wrapped: conflict: FUN_00238190]
-// sym: ?FUN_00233f20@NameHolder_233f20@fn_00233f20@@QAE_NPBD@Z
+// sym: ?FUN_00233f20@NameHolder_233f20@fn_00233f20@@QAE_NPBD@Z @3560526a3702 @w57b80b327b1a
 namespace fn_00233f20 {
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 12/12)
 // FUN_00233f20 @ 0x00233f20

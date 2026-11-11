@@ -451,7 +451,7 @@ ParticleController_2a73d0::ParticleController_2a73d0() {
 } // namespace fn_fa907639
 
 // 0x002a7410 FUN_002a7410 (197 B): equivalent/0x002a7410.cpp [wrapped: conflict: pure3d::ParticleController]
-// sym: ??0ParticleController@pure3d@fn_002a7410@@QAE@ABU012@@Z
+// sym: ??0ParticleController@pure3d@fn_002a7410@@QAE@ABU012@@Z @4e6625c347c6 @w5df8bb1efc7d
 namespace fn_002a7410 {
 // STATUS: equivalent (tools/equiv.py level 3: 56 inputs, branch coverage 12/12)
 // FUN_002a7410 @ 0x002a7410
@@ -546,7 +546,7 @@ void* pure3d::ParticleController::vfunc_4() {
 namespace fn_fa907639 {
 
 // 0x002a75a0 FUN_002a75a0 (340 B): equivalent/0x002a75a0.cpp
-// sym: ?FUN_002a75a0@Holder_2a75a0@fn_fa907639@@QAEXPBUSource_2a75a0@2@@Z
+// sym: ?FUN_002a75a0@Holder_2a75a0@fn_fa907639@@QAEXPBUSource_2a75a0@2@@Z @d0f761b50a98 @wce4032f9f209
 // STATUS: equivalent (tools/equiv.py level 3: 34 inputs, branch coverage 25/30, incomplete)
 // FUN_002a75a0 @ 0x002a75a0
 void Holder_2a75a0::FUN_002a75a0(const Source_2a75a0 *src)

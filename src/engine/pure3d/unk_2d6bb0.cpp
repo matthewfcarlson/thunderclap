@@ -622,7 +622,7 @@ extern "C" U32_2d6dd0 __cdecl FUN_002d6dd0(Obj_2d6dd0* p) {
 
 
 // 0x002d6ea0 FUN_002d6ea0 (44 B): equivalent/0x002d6ea0.cpp
-// sym: _FUN_002d6ea0
+// sym: _FUN_002d6ea0 @93e65479bd77 @we6d73391690e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002d6ea0 @ 0x002d6ea0
 extern "C" hulk_intptr __cdecl FUN_002d6ea0(Object* object)
@@ -648,7 +648,7 @@ extern "C" void FUN_002d6ed0(Obj_2d6ed0* self, int** out) {
 } // namespace fn_fcd359fc
 
 // 0x002d6f10 FUN_002d6f10 (307 B): equivalent/0x002d6f10.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_002d6f10
+// sym: _FUN_002d6f10 @a1616325fc21 @w9563aae9ed67
 namespace fn_002d6f10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3107 inputs, branch coverage 21/21)
 // FUN_002d6f10 @ 0x002d6f10
@@ -740,7 +740,7 @@ extern "C" PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPt
 
 
 // 0x002d7150 FUN_002d7150 (665 B): equivalent/0x002d7150.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002d7150@fn_002d7150@@YAXTPngArg@1@PAUPngInfo_2d7150@1@@Z
+// sym: ?FUN_002d7150@fn_002d7150@@YAXTPngArg@1@PAUPngInfo_2d7150@1@@Z @cf7c9e852bfc @wacfc2f0bba56
 namespace fn_002d7150 {
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 48/48)
 // FUN_002d7150 @ 0x002d7150
@@ -896,7 +896,7 @@ extern "C" void __cdecl FUN_002d73f0(Obj_2d73f0* p, hulk_intptr a) {
 } // namespace fn_fcd359fc
 
 // 0x002d7440 FUN_002d7440 (1084 B): equivalent/0x002d7440.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_002d7440
+// sym: _FUN_002d7440 @6e851aafeeed @w8e82a2cc4bee
 namespace fn_002d7440 {
 // STATUS: equivalent (tools/equiv.py level 3: 1832 inputs, branch coverage 92/95, incomplete)
 // FUN_002d7440 @ 0x002d7440
@@ -1120,7 +1120,7 @@ extern "C" void __cdecl FUN_002d7440(PngStruct_2d7440 *png, unsigned char *row, 
 
 
 // 0x002d7980 FUN_002d7980 (477 B): equivalent/0x002d7980.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002d7980@fn_002d7980@@YAXPAUPngStruct_2d7980@1@PAUPngInfo@1@@Z
+// sym: ?FUN_002d7980@fn_002d7980@@YAXPAUPngStruct_2d7980@1@PAUPngInfo@1@@Z @43561fe2da22 @wde15f237f3e7
 namespace fn_002d7980 {
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 40/40)
 // FUN_002d7980 @ 0x002d7980
@@ -1237,7 +1237,7 @@ void FUN_002d7980(PngStruct_2d7980* png, PngInfo* info)
 namespace fn_fcd359fc {
 
 // 0x002d7b60 FUN_002d7b60 (577 B): equivalent/0x002d7b60.cpp
-// sym: _FUN_002d7b60
+// sym: _FUN_002d7b60 @bf1f3012fd4b @wb6536110d50e
 // STATUS: equivalent (tools/equiv.py level 3: 28 inputs, branch coverage 25/28, incomplete)
 // FUN_002d7b60 @ 0x002d7b60
 // libpng png_read_destroy-style teardown: free every owned buffer, then wipe the struct
@@ -1461,7 +1461,7 @@ extern "C" void FUN_002d9060(void* p) {
 
 
 // 0x002d9170 FUN_002d9170 (326 B): equivalent/0x002d9170.cpp
-// sym: _FUN_002d9170
+// sym: _FUN_002d9170 @474ab52d0bba @w6e250edf9681
 // STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 50/50)
 // FUN_002d9170 @ 0x002d9170
 extern "C" void FUN_002d9170(void *src, void * fmt_)
@@ -1529,7 +1529,7 @@ extern "C" void FUN_002d9170(void *src, void * fmt_)
 
 
 // 0x002d92c0 FUN_002d92c0 (290 B): equivalent/0x002d92c0.cpp
-// sym: _FUN_002d92c0
+// sym: _FUN_002d92c0 @a9bbe2b9b2d2 @wac30466003d3
 // STATUS: equivalent (tools/equiv.py level 3: 2800 inputs, branch coverage 26/26)
 // FUN_002d92c0 @ 0x002d92c0
 extern "C" void __cdecl FUN_002d92c0(void * info, unsigned char* row) {
@@ -1559,7 +1559,7 @@ extern "C" void __cdecl FUN_002d92c0(void * info, unsigned char* row) {
 
 
 // 0x002d93f0 FUN_002d93f0 (420 B): equivalent/0x002d93f0.cpp
-// sym: _FUN_002d93f0
+// sym: _FUN_002d93f0 @0b220912690c @w9472154343f1
 // STATUS: equivalent (tools/equiv.py level 3: 7536 inputs, branch coverage 33/37, incomplete; run with --inputs 12000)
 // FUN_002d93f0 @ 0x002d93f0
 extern "C" void FUN_002d93f0(void *row_info, unsigned char *row, void *sig_bits)
@@ -1657,7 +1657,7 @@ void FUN_002d95c0(X_2d95c0* p, u8_2d95c0* src) {
 
 
 // 0x002d9610 FUN_002d9610 (265 B): equivalent/0x002d9610.cpp
-// sym: _FUN_002d9610
+// sym: _FUN_002d9610 @048041024225 @w285332657e6b
 // STATUS: equivalent (tools/equiv.py level 3: 1854 inputs, branch coverage 24/24)
 // FUN_002d9610 @ 0x002d9610
 extern "C" void __cdecl FUN_002d9610(const void * info, unsigned char* buffer) {
@@ -1715,7 +1715,7 @@ extern "C" void __cdecl FUN_002d9610(const void * info, unsigned char* buffer) {
 
 
 // 0x002d9720 FUN_002d9720 (284 B): equivalent/0x002d9720.cpp
-// sym: _FUN_002d9720
+// sym: _FUN_002d9720 @2444e66e1296 @w970a852b3c7e
 // STATUS: equivalent (tools/equiv.py level 3: 1854 inputs, branch coverage 24/24)
 // FUN_002d9720 @ 0x002d9720
 extern "C" void __cdecl FUN_002d9720(const void * span, unsigned char* buffer)
@@ -1747,7 +1747,7 @@ extern "C" void __cdecl FUN_002d9720(const void * span, unsigned char* buffer)
 
 
 // 0x002d9840 FUN_002d9840 (658 B): equivalent/0x002d9840.cpp
-// sym: _FUN_002d9840
+// sym: _FUN_002d9840 @0a37037534d2 @w9ae4b91e7acb
 // STATUS: equivalent (tools/equiv.py level 3: 20100 inputs, branch coverage 51/52, incomplete)
 // FUN_002d9840 @ 0x002d9840
 extern "C" void FUN_002d9840(void *ri, unsigned char *row, unsigned filler, unsigned flags)
@@ -1864,7 +1864,7 @@ extern "C" void FUN_002d9840(void *ri, unsigned char *row, unsigned filler, unsi
 
 
 // 0x002d9ae0 FUN_002d9ae0 (331 B): equivalent/0x002d9ae0.cpp
-// sym: _FUN_002d9ae0
+// sym: _FUN_002d9ae0 @5a34fb98e7b7 @wd89702a6b367
 // STATUS: equivalent (tools/equiv.py level 3: 137 inputs, branch coverage 24/28, incomplete)
 // FUN_002d9ae0 @ 0x002d9ae0
 // Expands a grayscale (flags 0) or gray+alpha (flags 4) image to RGB(A) in place, walking backwards.
@@ -1942,7 +1942,7 @@ extern "C" void __cdecl FUN_002d9ae0(void *info, unsigned char *data)
 
 
 // 0x002d9c30 FUN_002d9c30 (1727 B): equivalent/0x002d9c30.cpp
-// sym: _FUN_002d9c30
+// sym: _FUN_002d9c30 @7633269e91d2 @w42ce49d63f07
 // STATUS: equivalent (tools/equiv.py level 3: 2571 inputs, branch coverage 89/90, incomplete)
 // FUN_002d9c30 @ 0x002d9c30
 extern "C" int __cdecl FUN_002d9c30(void *png_ptr, void * row_info_, unsigned char *row)
@@ -2108,7 +2108,7 @@ extern "C" int __cdecl FUN_002d9c30(void *png_ptr, void * row_info_, unsigned ch
 } // namespace fn_fcd359fc
 
 // 0x002da380 FUN_002da380 (3923 B): equivalent/0x002da380.cpp [wrapped: macros]
-// sym: ?FUN_002da380@fn_002da380@@YAXPAUpng_row_info@1@PAEPAUpng_color_16@1@22111PAPAG33H@Z
+// sym: ?FUN_002da380@fn_002da380@@YAXPAUpng_row_info@1@PAEPAUpng_color_16@1@22111PAPAG33H@Z @4974fc0ff557 @w4380dd0d0363
 namespace fn_002da380 {
 // STATUS: equivalent (tools/equiv.py level 3: 3337 inputs, branch coverage 230/237, incomplete)
 // FUN_002da380 @ 0x002da380
@@ -2618,7 +2618,7 @@ void __cdecl FUN_002da380(png_row_info *row_info, png_bytep row, png_color_16 *t
 namespace fn_fcd359fc {
 
 // 0x002db320 FUN_002db320 (872 B): equivalent/0x002db320.cpp
-// sym: _FUN_002db320
+// sym: _FUN_002db320 @555316f0b912 @w584562675e55
 // STATUS: equivalent (tools/equiv.py level 3: 3141 inputs, branch coverage 71/71)
 // FUN_002db320 @ 0x002db320
 // libpng png_do_gamma
@@ -2861,7 +2861,7 @@ extern "C" void FUN_002db6b0(void *row_info, unsigned char *row, void *palette, 
 
 
 // 0x002db8d0 FUN_002db8d0 (894 B): equivalent/0x002db8d0.cpp
-// sym: _FUN_002db8d0
+// sym: _FUN_002db8d0 @8015fb8930cb @w9cd75d9e0474
 // STATUS: equivalent (tools/equiv.py level 3: 2789 inputs, branch coverage 65/76, incomplete)
 // FUN_002db8d0 @ 0x002db8d0
 extern "C" void FUN_002db8d0(void * im_, unsigned char *buf, void *key)
@@ -3039,7 +3039,7 @@ extern "C" void FUN_002db8d0(void * im_, unsigned char *buf, void *key)
 
 
 // 0x002dbc50 FUN_002dbc50 (306 B): equivalent/0x002dbc50.cpp
-// sym: _FUN_002dbc50
+// sym: _FUN_002dbc50 @127b7d6f612a @w83c5641cbd0b
 // STATUS: equivalent (tools/equiv.py level 3: 12061 inputs, branch coverage 30/30; run with --inputs 12000)
 // FUN_002dbc50 @ 0x002dbc50
 extern "C" void FUN_002dbc50(void *info, unsigned char *data, unsigned char *rgbToIndex, unsigned char *remap)
@@ -3076,7 +3076,7 @@ extern "C" void FUN_002dbc50(void *info, unsigned char *data, unsigned char *rgb
 
 
 // 0x002dbd90 FUN_002dbd90 (1615 B): equivalent/0x002dbd90.cpp
-// sym: ?FUN_002dbd90@fn_fcd359fc@@YAXPAUGamma@1@@Z
+// sym: ?FUN_002dbd90@fn_fcd359fc@@YAXPAUGamma@1@@Z @fc728c88a8a1 @w5cbbc353a908
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 62/80, incomplete)
 // FUN_002dbd90 @ 0x002dbd90
 void FUN_002dbd90(Gamma *g)
@@ -3223,7 +3223,7 @@ void FUN_002dbd90(Gamma *g)
 
 
 // 0x002dc3e0 FUN_002dc3e0 (2429 B): equivalent/0x002dc3e0.cpp
-// sym: ?FUN_002dc3e0@fn_fcd359fc@@YAXPAUPal_2dc3e0@1@@Z
+// sym: ?FUN_002dc3e0@fn_fcd359fc@@YAXPAUPal_2dc3e0@1@@Z @b026280774ab @wb7e20331dee0
 // STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 90/95, incomplete)
 // FUN_002dc3e0 @ 0x002dc3e0
 void FUN_002dc3e0(Pal_2dc3e0 *p)
@@ -3556,7 +3556,7 @@ extern "C" void FUN_002dd250(Obj_2dd250* p, unsigned char b, int mode) {
 
 
 // 0x002dd2e0 FUN_002dd2e0 (43 B): equivalent/0x002dd2e0.cpp
-// sym: _FUN_002dd2e0
+// sym: _FUN_002dd2e0 @84349957db29 @w40d875dbd93f
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 8/8)
 // FUN_002dd2e0 @ 0x002dd2e0
 extern "C" void __cdecl FUN_002dd2e0(void * data, unsigned char* bytes) { if (((Data *)data)->mode == 1 && ((Data *)data)->flag == 0) { for (unsigned int i = 0; i < ((Data *)data)->length; ++i) bytes[i] = ~bytes[i]; } }

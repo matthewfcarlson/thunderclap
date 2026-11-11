@@ -44,7 +44,7 @@ public:
 
 
 // 0x00234cf0 fight::ParamValueEnum::vfunc_5 (345 B): equivalent/0x00234cf0.cpp
-// sym: ?vfunc_5@ParamValueEnum@fight@fn_f0714a12@@UAEDPAXHPAVContext@3@@Z
+// sym: ?vfunc_5@ParamValueEnum@fight@fn_f0714a12@@UAEDPAXHPAVContext@3@@Z @2c05b9f04a32 @we4e93e56410f
 // STATUS: equivalent (tools/equiv.py level 3: 5195 inputs, branch coverage 23/24, incomplete)
 // fight::ParamValueEnum::vfunc_5 @ 0x00234cf0
 char fight::ParamValueEnum::vfunc_5(void *a1, int a2, Context *ctx)

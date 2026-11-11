@@ -34,7 +34,7 @@ public:
 
 
 // 0x002340b0 FUN_002340b0 (146 B): equivalent/0x002340b0.cpp
-// sym: ?FUN_002340b0@Parser_2340b0@fn_f53a6861@@QAE_NHHPAVReader@2@@Z
+// sym: ?FUN_002340b0@Parser_2340b0@fn_f53a6861@@QAE_NHHPAVReader@2@@Z @a81ed937cfc9 @wec8c03b3a9aa
 // STATUS: equivalent (tools/equiv.py level 3: 8461 inputs, branch coverage 2/2)
 // FUN_002340b0 @ 0x002340b0
 bool Parser_2340b0::FUN_002340b0(int a, int b, Reader *reader)

@@ -4,7 +4,7 @@
 
 
 // 0x0030e320 physics::CollisionAnalyser::vfunc_4 (277 B): equivalent/0x0030e320.cpp [isolated: code differs from its standalone build; on include/gen/ and not mergeable]
-// sym: ?vfunc_4@CollisionAnalyser@physics@@UAEHHHHHHHH@Z
+// sym: ?vfunc_4@CollisionAnalyser@physics@@UAEHHHHHHHH@Z @08a21aba1a92 @wcf6523dbbe65
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 10/10)
 // physics::CollisionAnalyser::vfunc_4 @ 0x0030e320
 #include "gen/physics.h"

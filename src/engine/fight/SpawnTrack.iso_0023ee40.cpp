@@ -4,7 +4,7 @@
 
 
 // 0x0023ee40 FUN_0023ee40 (256 B): equivalent/0x0023ee40.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ?FUN_0023ee40@fn_f8468b6e@@YAXXZ
+// sym: ?FUN_0023ee40@fn_f8468b6e@@YAXXZ @de2b32ccb419 @wb51f7b85524b
 #include "gen/owners.h"
 #include "decls/data/engine/fight.h"
 namespace fn_f8468b6e {} using namespace fn_f8468b6e;

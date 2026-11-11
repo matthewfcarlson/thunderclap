@@ -18,7 +18,7 @@ extern "C" const char* FUN_0021af60(int token, LuaVMLexState* ls);
 
 
 // 0x0021afd0 FUN_0021afd0 (134 B): equivalent/0x0021afd0.cpp
-// sym: _FUN_0021afd0
+// sym: _FUN_0021afd0 @fb81e6fd081f @w35da408d7a45
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 2/2)
 // luaX_lexerror: "source:line: msg" (with "near `token'" when a token is given), then throw a syntax error.
 // equiv-conv: FUN_0021af60 eax edi

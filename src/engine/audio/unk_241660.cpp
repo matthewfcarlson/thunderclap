@@ -211,7 +211,7 @@ extern "C" Node* __cdecl FUN_00241930(Tree* tree, Node* node) {
 
 
 // 0x00241970 FUN_00241970 (604 B): equivalent/0x00241970.cpp
-// sym: _FUN_00241970
+// sym: _FUN_00241970 @394c7c009b90 @wb8331f7a823d
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_00241970 @ 0x00241970
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -446,7 +446,7 @@ extern "C" Node* __cdecl FUN_00241cb0(Node* n, Node* h) {
 namespace fn_f58f7e9f {
 
 // 0x00241cf0 FUN_00241cf0 (604 B): equivalent/0x00241cf0.cpp
-// sym: _FUN_00241cf0
+// sym: _FUN_00241cf0 @394c7c009b90 @wb8331f7a823d
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_00241cf0 @ 0x00241cf0
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.

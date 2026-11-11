@@ -312,7 +312,7 @@ WaitAction_23e0d0::~WaitAction_23e0d0() throw() {
 } // namespace fn_f3d35335
 
 // 0x0023e100 fight::WaitAction::vfunc_3 (159 B): equivalent/0x0023e100.cpp [wrapped: conflict: fight::WaitAction]
-// sym: ?vfunc_3@WaitAction@fight@fn_0023e100@@UAE_NHH@Z
+// sym: ?vfunc_3@WaitAction@fight@fn_0023e100@@UAE_NHH@Z @e5faedbaee91 @w33c440b2c872
 namespace fn_0023e100 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // fight::WaitAction::vfunc_3 @ 0x0023e100

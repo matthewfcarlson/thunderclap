@@ -42,7 +42,7 @@ void FUN_002c3ac0() {}
 
 
 // 0x002c3ad0 pure3d::Font::vfunc_11 (235 B): equivalent/0x002c3ad0.cpp
-// sym: ?vfunc_11@Font@pure3d@fn_f0d385cd@@UAEXPBGI@Z
+// sym: ?vfunc_11@Font@pure3d@fn_f0d385cd@@UAEXPBGI@Z @f904a1d66634 @w674a216ec56b
 // STATUS: equivalent (tools/equiv.py level 3: 344 inputs, branch coverage 16/16)
 // pure3d::Font::vfunc_11 @ 0x002c3ad0
 namespace pure3d {

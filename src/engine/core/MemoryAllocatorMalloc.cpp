@@ -114,7 +114,7 @@ extern "C" void FUN_002670b0(int a, int b, Obj_2670b0* obj) {
 
 
 // 0x00267110 FUN_00267110 (102 B): equivalent/0x00267110.cpp
-// sym: _FUN_00267110
+// sym: _FUN_00267110 @58e7779c2097 @w17f85fa92935
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 7/8, incomplete)
 // FUN_00267110 @ 0x00267110
 extern "C" void __cdecl FUN_00267110(unsigned int index) {

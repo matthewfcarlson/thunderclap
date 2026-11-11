@@ -277,7 +277,7 @@ audio::SeqEventVarTempoType::~SeqEventVarTempoType() {}
 
 
 // 0x00252d80 audio::SeqEventVarTempoType::vfunc_3 (59 B): equivalent/0x00252d80.cpp
-// sym: ?vfunc_3@SeqEventVarTempoType@audio@@UAEPAXXZ
+// sym: ?vfunc_3@SeqEventVarTempoType@audio@@UAEPAXXZ @c1a26a6681f0 @w215a0e0068d3
 // STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
 // audio::SeqEventVarTempoType::vfunc_3 @ 0x00252d80
 void* audio::SeqEventVarTempoType::vfunc_3() {
@@ -305,7 +305,7 @@ SeqEventVarTempo* SeqEventVarTempo::f4(int flags) {
 } // namespace fn_f0c0637a
 
 // 0x00252df0 audio::SeqEventVarTempo::vfunc_1 (129 B): equivalent/0x00252df0.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventVarTempo]
-// sym: ?vfunc_1@SeqEventVarTempo@audio@fn_00252df0@@QAEHPAUWriter_252df0@3@@Z
+// sym: ?vfunc_1@SeqEventVarTempo@audio@fn_00252df0@@QAEHPAUWriter_252df0@3@@Z @ede2080b92ad @w706c3e9c50d2
 namespace fn_00252df0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1534 inputs, branch coverage 10/10)
 // audio::SeqEventVarTempo::vfunc_1 @ 0x00252df0
@@ -375,7 +375,7 @@ SeqActionVarTempo_252ea0* SeqActionVarTempo_252ea0::f0(unsigned char flags) {
 } // namespace fn_f0c0637a
 
 // 0x00252ed0 audio::SeqEventVarTempo::vfunc_2 (66 B): equivalent/0x00252ed0.cpp [wrapped: conflict: audio::SeqActionVarTempo; audio::SeqEvent; audio::SeqEventVarTempo]
-// sym: ?vfunc_2@SeqEventVarTempo@audio@fn_00252ed0@@UAEXPAX@Z
+// sym: ?vfunc_2@SeqEventVarTempo@audio@fn_00252ed0@@UAEXPAX@Z @c3be45bf9e6a @w0f2fecb2ca9f
 namespace fn_00252ed0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)
 // audio::SeqEventVarTempo::vfunc_2 @ 0x00252ed0

@@ -45,7 +45,7 @@ struct BillboardObjectLoader {
 
 
 // 0x002bc3d0 FUN_002bc3d0 (96 B): equivalent/0x002bc3d0.cpp
-// sym: ??0BillboardObjectLoader@pure3d@fn_f0db0e61@@QAE@XZ
+// sym: ??0BillboardObjectLoader@pure3d@fn_f0db0e61@@QAE@XZ @a468846bf1dd @wde1579e7bd78
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
 // FUN_002bc3d0 @ 0x002bc3d0
 namespace pure3d {

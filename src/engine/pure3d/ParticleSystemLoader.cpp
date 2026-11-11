@@ -766,7 +766,7 @@ struct DefaultParticleEmitterHandler_nv_2ad510 {
 
 
 // 0x002aa160 FUN_002aa160 (360 B): equivalent/0x002aa160.cpp
-// sym: ?FUN_002aa160@fn_f07ae39e@@YAPAVSpriteParticleUpdater@pure3d@@I@Z
+// sym: ?FUN_002aa160@fn_f07ae39e@@YAPAVSpriteParticleUpdater@pure3d@@I@Z @16d7f9ce903b @w663315fef1a8
 // STATUS: equivalent (tools/equiv.py level 3: 20036 inputs, branch coverage 22/26, incomplete)
 // FUN_002aa160 @ 0x002aa160
 pure3d::SpriteParticleUpdater* __cdecl FUN_002aa160(unsigned int n)
@@ -810,7 +810,7 @@ pure3d::SpriteParticleUpdater* __cdecl FUN_002aa160(unsigned int n)
 
 
 // 0x002aa300 FUN_002aa300 (387 B): equivalent/0x002aa300.cpp
-// sym: ?FUN_002aa300@fn_f07ae39e@@YAPAVSpriteParticleUpdater@pure3d@@IIIMM@Z
+// sym: ?FUN_002aa300@fn_f07ae39e@@YAPAVSpriteParticleUpdater@pure3d@@IIIMM@Z @640fcc0e8232 @w08a604f7f2d0
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 26/26)
 // FUN_002aa300 @ 0x002aa300
 pure3d::SpriteParticleUpdater *FUN_002aa300(unsigned int kind, unsigned int mode, unsigned int format, float a4, float a5)
@@ -1188,7 +1188,7 @@ void Container_2aafe0::Remove(unsigned i) {
 
 
 // 0x002ab030 pure3d::ParticleSystemLoader::vfunc_5 (1105 B): equivalent/0x002ab030.cpp
-// sym: ?FUN_002ab030@ParticleSystemLoader_2ab030@fn_f07ae39e@@QAEIPAPAVParticleSystem_2ab030@2@PA_KPAUReader@2@I@Z
+// sym: ?FUN_002ab030@ParticleSystemLoader_2ab030@fn_f07ae39e@@QAEIPAPAVParticleSystem_2ab030@2@PA_KPAUReader@2@I@Z @02c0af997e56 @wc86fdc0b9542
 // STATUS: equivalent (tools/equiv.py level 3: 5724 inputs, branch coverage 43/44, incomplete)
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
@@ -1434,7 +1434,7 @@ int* copyWords(int* dst, int count, const int* src) {
 namespace fn_f07ae39e {
 
 // 0x002ab640 FUN_002ab640 (51 B): equivalent/0x002ab640.cpp
-// sym: _FUN_002ab640
+// sym: _FUN_002ab640 @e2ac412f5f8f @we6d3b59a8521
 // STATUS: equivalent (tools/equiv.py level 3: 121 inputs, branch coverage 6/6)
 // FUN_002ab640 @ 0x002ab640
 extern "C" void * __cdecl FUN_002ab640(void * destination_, unsigned int count, const void * source)
@@ -1461,7 +1461,7 @@ pure3d::ParticleGeneratorLoader::~ParticleGeneratorLoader() {}
 
 
 // 0x002ab6a0 FUN_002ab6a0 (216 B): equivalent/0x002ab6a0.cpp [wrapped: conflict: memmove; pure3d::DefaultParticleGeneratorHandler; pure3d::ParticleEmitterLoader; pure3d::ParticleGeneratorLoader]
-// sym: ?init@ParticleEmitterLoader@pure3d@fn_002ab6a0@@QAEPAU123@XZ
+// sym: ?init@ParticleEmitterLoader@pure3d@fn_002ab6a0@@QAEPAU123@XZ @160e54774864 @wf37d415a0792
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_002ab6a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 195 inputs, branch coverage 10/10)
@@ -1682,7 +1682,7 @@ bool owners::Buffer_2aba00::FUN_002aba00(unsigned int count, void* arg) {
 namespace fn_f07ae39e {
 
 // 0x002aba80 FUN_002aba80 (93 B): equivalent/0x002aba80.cpp
-// sym: ?FUN_002aba80@Buffer@fn_f07ae39e@@QAEEIH@Z
+// sym: ?FUN_002aba80@Buffer@fn_f07ae39e@@QAEEIH@Z @91fb665a4e56 @w79e4002785b8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002aba80 @ 0x002aba80
 unsigned char Buffer::FUN_002aba80(unsigned int count, int extra) {
@@ -1703,7 +1703,7 @@ unsigned char Buffer::FUN_002aba80(unsigned int count, int extra) {
 
 
 // 0x002abba0 FUN_002abba0 (481 B): equivalent/0x002abba0.cpp
-// sym: ?FUN_002abba0@fn_f07ae39e@@YGPAVParticlePointGenerator_2abba0@1@PAVReader_2abba0@1@H@Z
+// sym: ?FUN_002abba0@fn_f07ae39e@@YGPAVParticlePointGenerator_2abba0@1@PAVReader_2abba0@1@H@Z @1950946819ff @wdead471cacde
 // STATUS: equivalent (tools/equiv.py level 3: 15667 inputs, branch coverage 18/18)
 // FUN_002abba0 @ 0x002abba0
 ParticlePointGenerator_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
@@ -1762,7 +1762,7 @@ ParticlePointGenerator_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
 
 
 // 0x002abd90 FUN_002abd90 (543 B): equivalent/0x002abd90.cpp
-// sym: ?FUN_002abd90@fn_f07ae39e@@YGPAVParticlePlaneGenerator_2abd90@1@PAUReader_2abd90@1@H@Z
+// sym: ?FUN_002abd90@fn_f07ae39e@@YGPAVParticlePlaneGenerator_2abd90@1@PAUReader_2abd90@1@H@Z @c6818c7e2e0e @wdd76bf600ef5
 // STATUS: equivalent (tools/equiv.py level 3: 15652 inputs, branch coverage 18/18)
 // FUN_002abd90 @ 0x002abd90
 ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int flag)
@@ -1829,7 +1829,7 @@ ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int fla
 
 
 // 0x002abfb0 FUN_002abfb0 (457 B): equivalent/0x002abfb0.cpp
-// sym: ?FUN_002abfb0@fn_f07ae39e@@YGPAVParticleSphereGenerator_2abfb0@1@PAUReader_2abfb0@1@PAX@Z
+// sym: ?FUN_002abfb0@fn_f07ae39e@@YGPAVParticleSphereGenerator_2abfb0@1@PAUReader_2abfb0@1@PAX@Z @b6059c8e9a31 @w31d642e99121
 // STATUS: equivalent (tools/equiv.py level 3: 15709 inputs, branch coverage 18/18)
 // FUN_002abfb0 @ 0x002abfb0
 ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* arg)
@@ -1881,7 +1881,7 @@ ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* a
 } // namespace fn_f07ae39e
 
 // 0x002ac180 FUN_002ac180 (787 B): equivalent/0x002ac180.cpp [wrapped: conflict: Reader]
-// sym: ?FUN_002ac180@fn_002ac180@@YGPAVGenerator_2ac180@1@PAUReader@1@PAXH@Z
+// sym: ?FUN_002ac180@fn_002ac180@@YGPAVGenerator_2ac180@1@PAUReader@1@PAXH@Z @bbb8d6b1e846 @w3dd1cd8b9bd0
 namespace fn_002ac180 {
 // STATUS: equivalent (tools/equiv.py level 3: 168 inputs, branch coverage 49/52, incomplete)
 // FUN_002ac180 @ 0x002ac180
@@ -2079,7 +2079,7 @@ Generator_2ac180* __stdcall FUN_002ac180(Reader* r, void* arg, int kind)
 
 
 // 0x002ac4a0 FUN_002ac4a0 (149 B): equivalent/0x002ac4a0.cpp [wrapped: conflict: pure3d::ParticleAllocator; pure3d::ParticleAllocatorTemplate]
-// sym: ??0?$ParticleAllocatorTemplate@USpriteParticle@pure3d@fn_002ac4a0@@@pure3d@fn_002ac4a0@@QAE@I@Z
+// sym: ??0?$ParticleAllocatorTemplate@USpriteParticle@pure3d@fn_002ac4a0@@@pure3d@fn_002ac4a0@@QAE@I@Z @ecb11b160541 @w466897c79c15
 namespace fn_002ac4a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 4/4)
 // FUN_002ac4a0 @ 0x002ac4a0
@@ -2186,7 +2186,7 @@ int pure3d::DefaultParticleGeneratorHandler::vfunc_4(hulk_intptr __p0, int arg) 
 
 
 // 0x002acc60 FUN_002acc60 (261 B): equivalent/0x002acc60.cpp [wrapped: conflict: memmove; pure3d::DefaultParticleEmitterHandler; pure3d::ParticleSystemLoader]
-// sym: ??0ParticleSystemLoader@pure3d@fn_002acc60@@QAE@XZ
+// sym: ??0ParticleSystemLoader@pure3d@fn_002acc60@@QAE@XZ @9c49b8dc1ca4 @wa5f8aeb68b5b
 namespace fn_002acc60 {
 // STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 16/16)
 // FUN_002acc60 @ 0x002acc60
@@ -2227,7 +2227,7 @@ pure3d::ParticleSystemLoader::ParticleSystemLoader() : a(0),id(0x1580c),b(0),c(0
 
 
 // 0x002acd70 FUN_002acd70 (1941 B): equivalent/0x002acd70.cpp [wrapped: conflict: Reader; content::LoadInventory::DynamicCaster; content::ObjectLoader; pure3d::AnimationLoader]
-// sym: ?FUN_002acd70@Loader_2acd70@fn_002acd70@@QAEPAVObj_2acd70@2@PAVReader@2@PAVInv_2acd70@2@@Z
+// sym: ?FUN_002acd70@Loader_2acd70@fn_002acd70@@QAEPAVObj_2acd70@2@PAVReader@2@PAVInv_2acd70@2@@Z @e8d760d3c2fd @we17a3bc51d19
 namespace fn_002acd70 {
 // STATUS: equivalent (tools/equiv.py level 3: 300 inputs, branch coverage 68/86, incomplete)
 // FUN_002acd70 @ 0x002acd70
@@ -2687,7 +2687,7 @@ void pure3d::DefaultParticleEmitterHandler::vfunc_4(int __p0, int __p1, int __p2
 
 
 // 0x002ad550 pure3d::OldParticleSystemLoader::vfunc_5 (563 B): equivalent/0x002ad550.cpp [wrapped: conflict: Stream; content::ObjectLoader; pure3d::OldParticleSystemLoader]
-// sym: ?vfunc_5@OldParticleSystemLoader@pure3d@fn_002ad550@@UAE_KPAPAUParticleSystem_2ad550@3@PA_KPAUReader@3@H@Z
+// sym: ?vfunc_5@OldParticleSystemLoader@pure3d@fn_002ad550@@UAE_KPAPAUParticleSystem_2ad550@3@PA_KPAUReader@3@H@Z @4a341cfe9008 @wcac4b3021971
 namespace fn_002ad550 {
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 16/18, incomplete)
 // pure3d::OldParticleSystemLoader::vfunc_5 @ 0x002ad550

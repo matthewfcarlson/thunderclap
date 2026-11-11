@@ -288,7 +288,7 @@ void* pure3d::ImageFont::vfunc_4() {
 
 
 // 0x002bf1f0 pure3d::ImageFont::vfunc_9 (56 B): equivalent/0x002bf1f0.cpp
-// sym: ?vfunc_9@ImageFont@pure3d@@UAEHH@Z
+// sym: ?vfunc_9@ImageFont@pure3d@@UAEHH@Z @aeebd2af2a9b @w4a682f8c3cbc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // pure3d::ImageFont::vfunc_9 @ 0x002bf1f0
 int pure3d::ImageFont::vfunc_9(hulk_intptr __p0) { const unsigned short * text = (const unsigned short *)__p0;
@@ -343,7 +343,7 @@ unsigned int ImageFont::vfunc_10(const short* s) {
 
 
 // 0x002bf2a0 pure3d::ImageFont::vfunc_11 (166 B): equivalent/0x002bf2a0.cpp [wrapped: conflict: pure3d::ImageFont]
-// sym: ?vfunc_11@ImageFont@pure3d@fn_002bf2a0@@UAEXPAVCanvas@3@HHPBGI@Z
+// sym: ?vfunc_11@ImageFont@pure3d@fn_002bf2a0@@UAEXPAVCanvas@3@HHPBGI@Z @d22f9455b15d @w2d0b41e34549
 namespace fn_002bf2a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2781 inputs, branch coverage 18/18)
 // pure3d::ImageFont::vfunc_11 @ 0x002bf2a0
@@ -410,7 +410,7 @@ void pure3d::ImageFont::vfunc_11(Canvas *canvas, int a2, int y, const unsigned s
 
 
 // 0x002bf350 FUN_002bf350 (143 B): equivalent/0x002bf350.cpp [wrapped: macros]
-// sym: ?FUN_002bf350@KeyTable@fn_002bf350@@QAEHG@Z
+// sym: ?FUN_002bf350@KeyTable@fn_002bf350@@QAEHG@Z @beb4fce086d9 @wdfe46f33a85a
 namespace fn_002bf350 {
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 18/18)
 // FUN_002bf350 @ 0x002bf350
@@ -459,7 +459,7 @@ int KeyTable::FUN_002bf350(unsigned short key) {
 
 
 // 0x002bf490 pure3d::ImageFont::vfunc_16 (93 B): equivalent/0x002bf490.cpp [wrapped: conflict: pure3d::ImageFont]
-// sym: ?vfunc_16@ImageFont@pure3d@fn_002bf490@@QAEHPBG@Z
+// sym: ?vfunc_16@ImageFont@pure3d@fn_002bf490@@QAEHPBG@Z @18ecf42b896f @w3856dfb88fbd
 namespace fn_002bf490 {
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 12/12)
 // pure3d::ImageFont::vfunc_16 @ 0x002bf490
@@ -469,7 +469,7 @@ namespace pure3d { struct ImageFont { char pad0[0x2c]; int fallback; char pad30[
 namespace fn_fae89b52 {
 
 // 0x002bf4f0 pure3d::ImageFont::vfunc_17 (388 B): equivalent/0x002bf4f0.cpp
-// sym: ?FUN_002bf4f0@ImageFont_2bf4f0@fn_fae89b52@@QAEXPAUCanvas@2@HHPBGI@Z
+// sym: ?FUN_002bf4f0@ImageFont_2bf4f0@fn_fae89b52@@QAEXPAUCanvas@2@HHPBGI@Z @cee9dedc6859 @w11235f86717a
 // STATUS: equivalent (tools/equiv.py level 3: 4989 inputs, branch coverage 22/22)
 // pure3d::ImageFont::vfunc_17 @ 0x002bf4f0
 void ImageFont_2bf4f0::FUN_002bf4f0(Canvas *canvas, int x, int y, const unsigned short *str, unsigned int flags)
@@ -504,7 +504,7 @@ void ImageFont_2bf4f0::FUN_002bf4f0(Canvas *canvas, int x, int y, const unsigned
 } // namespace fn_fae89b52
 
 // 0x002bf680 pure3d::ImageFontLoader::vfunc_5 (875 B): equivalent/0x002bf680.cpp [wrapped: conflict: content::ObjectLoader; pure3d::ImageFont; pure3d::ImageFontLoader; pure3d::ImageLoader]
-// sym: ?vfunc_5@ImageFontLoader@pure3d@fn_002bf680@@UAEHPAPAVImageFont@23@PA_KPAUReader@3@PAX@Z
+// sym: ?vfunc_5@ImageFontLoader@pure3d@fn_002bf680@@UAEHPAPAVImageFont@23@PA_KPAUReader@3@PAX@Z @b9c659ceac05 @w9c6e7ccdb11b
 inline void *operator new(size_t, void *p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

@@ -63,7 +63,7 @@ void FUN_0030ea00() {}
 
 
 // 0x0030ea10 FUN_0030ea10 (114 B): equivalent/0x0030ea10.cpp
-// sym: ?FUN_0030ea10@Shape_30ea10@fn_fe58ce06@@QAEXPBUVec3_30ea10@2@0000I@Z
+// sym: ?FUN_0030ea10@Shape_30ea10@fn_fe58ce06@@QAEXPBUVec3_30ea10@2@0000I@Z @828474353fbf @w2d5b78024651
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0030ea10 @ 0x0030ea10
 void Shape_30ea10::FUN_0030ea10(const Vec3_30ea10 *a, const Vec3_30ea10 *b, const Vec3_30ea10 *c, const Vec3_30ea10 *d, const Vec3_30ea10 *e, unsigned int f)

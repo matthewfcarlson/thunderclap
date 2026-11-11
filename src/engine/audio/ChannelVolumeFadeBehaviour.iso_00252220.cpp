@@ -5,7 +5,7 @@
 
 
 // 0x00252220 audio::SeqActionChannelVolumes::vfunc_1 (206 B): equivalent/0x00252220.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ?vfunc_1@SeqActionChannelVolumes@audio@fn_f6824a53@@UAEXPAUContext@23@@Z
+// sym: ?vfunc_1@SeqActionChannelVolumes@audio@fn_f6824a53@@UAEXPAUContext@23@@Z @7f8beedfe095 @w0bd191c27414
 #include "gen/owners.h"
 #include "decls/data/engine/audio.h"
 namespace fn_f6824a53 {} using namespace fn_f6824a53;

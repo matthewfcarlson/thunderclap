@@ -171,7 +171,7 @@ void fight::Reference::vfunc_6() {
 namespace fn_f8469354 {
 
 // 0x0023c390 fight::Reference::vfunc_8 (119 B): equivalent/0x0023c390.cpp
-// sym: ?vfunc_8@Reference@fight@fn_f8469354@@UAEHII@Z
+// sym: ?vfunc_8@Reference@fight@fn_f8469354@@UAEHII@Z @78dd329779d2 @w6f7857d49c35
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 12/12)
 // fight::Reference::vfunc_8 @ 0x0023c390
 namespace fight {
@@ -198,7 +198,7 @@ int Reference::vfunc_8(unsigned int a, unsigned int b)
 } // namespace fn_f8469354
 
 // 0x0023c410 fight::Reference::vfunc_9 (192 B): equivalent/0x0023c410.cpp [wrapped: on include/gen/, and its TU merges more functions without the headers]
-// sym: ?vfunc_9@Reference@fight@fn_0023c410@@UAE_NPAUContext@3@PAUObject@3@K@Z
+// sym: ?vfunc_9@Reference@fight@fn_0023c410@@UAE_NPAUContext@3@PAUObject@3@K@Z @21837ab3a88f @w94103b2c71c7
 namespace fn_0023c410 {
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 12/12)
 // fight::Reference::vfunc_9 @ 0x0023c410

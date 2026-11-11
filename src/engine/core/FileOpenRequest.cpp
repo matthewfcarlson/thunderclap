@@ -56,7 +56,7 @@ void FileRequest_2738e0::run() {
 } // namespace fn_ff7ceca7
 
 // 0x00273920 core::FileOpenRequest::vfunc_1 (533 B): equivalent/0x00273920.cpp
-// sym: ?vfunc_1@FileOpenRequest@core@@UAEHXZ
+// sym: ?vfunc_1@FileOpenRequest@core@@UAEHXZ @236aca0ed27c @w1ba999bf915c
 // STATUS: equivalent (tools/equiv.py level 3: 19788 inputs, branch coverage 14/14)
 // core::FileOpenRequest::vfunc_1 @ 0x00273920
 // core::FileOpenRequest::vfunc_1 (records.h CoreFile): the file is looked up in the drive's cement libraries

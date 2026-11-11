@@ -96,7 +96,7 @@ hulk_uintptr fight::Bank::vfunc_8(hulk_uintptr __p0, unsigned int __p1) { void *
 
 
 // 0x0023c7c0 fight::Bank::vfunc_9 (169 B): equivalent/0x0023c7c0.cpp [wrapped: conflict: fight::Bank]
-// sym: ?vfunc_9@Bank@fight@fn_0023c7c0@@UAE_NPAUInput_23c7c0@3@PAUObject@3@K@Z
+// sym: ?vfunc_9@Bank@fight@fn_0023c7c0@@UAE_NPAUInput_23c7c0@3@PAUObject@3@K@Z @67e5bff88cd2 @weef51ab08cc8
 namespace fn_0023c7c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 12/12)
 // fight::Bank::vfunc_9 @ 0x0023c7c0

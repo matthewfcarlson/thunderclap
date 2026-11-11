@@ -96,7 +96,7 @@ class LightLoader {
 } // namespace fn_f6242079
 
 // 0x002c0cf0 pure3d::LightLoader::vfunc_5 (1911 B): equivalent/0x002c0cf0.cpp
-// sym: ?vfunc_5@LightLoader@pure3d@@UAEXPAX00H@Z
+// sym: ?vfunc_5@LightLoader@pure3d@@UAEXPAX00H@Z @3a7c5d2850c7 @w5b0d4d6f5b3d
 // STATUS: equivalent (tools/equiv.py level 3: 2697 inputs, branch coverage 70/71, incomplete)
 // pure3d::LightLoader::vfunc_5 @ 0x002c0cf0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

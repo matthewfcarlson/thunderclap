@@ -76,14 +76,14 @@ extern "C" void FUN_00258b80(Obj_258b80* p, float value) {
 
 
 // 0x00258ba0 FUN_00258ba0 (74 B): equivalent/0x00258ba0.cpp
-// sym: _FUN_00258ba0
+// sym: _FUN_00258ba0 @778c66ddd71e @wc411a13b35ed
 // STATUS: equivalent (tools/equiv.py level 3: 129 inputs, branch coverage 4/4)
 // FUN_00258ba0 @ 0x00258ba0
 extern "C" void __cdecl FUN_00258ba0(Owner* owner, Entry* entries, unsigned count) { for (unsigned i=0; i<count; ++i) { Item* item=owner->items[entries[i].index]; item->a=entries[i].a; item->b=entries[i].b; item->c=entries[i].c; item->d=entries[i].d; } }
 
 
 // 0x00258bf0 FUN_00258bf0 (137 B): equivalent/0x00258bf0.cpp
-// sym: ?ApplyPairs@fn_fc3d66b3@@YAXPAUTable_258bf0@1@PAUPair_258bf0@1@I@Z
+// sym: ?ApplyPairs@fn_fc3d66b3@@YAXPAUTable_258bf0@1@PAUPair_258bf0@1@I@Z @f2900d80fb14 @we0e5f1c04659
 // STATUS: equivalent (tools/equiv.py level 3: 129 inputs, branch coverage 8/8)
 // FUN_00258bf0 @ 0x00258bf0
 void __cdecl ApplyPairs(Table_258bf0* table, Pair_258bf0* pairs, unsigned count) {

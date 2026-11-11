@@ -198,7 +198,7 @@ void CMotionTrail::vfunc_8(Obj_2a98f0* p) {
 } // namespace fn_fbb1b687
 
 // 0x002a9920 pure3d::BillboardQuadGroupAnimationController::vfunc_7 (604 B): equivalent/0x002a9920.cpp
-// sym: ?vfunc_7@BillboardQuadGroupAnimationController@pure3d@@UAEXXZ
+// sym: ?vfunc_7@BillboardQuadGroupAnimationController@pure3d@@UAEXXZ @ff20e2e7e088 @wc76f4d0ff55e
 // STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 29/30, incomplete)
 // pure3d::BillboardQuadGroupAnimationController::vfunc_7 @ 0x002a9920
 void pure3d::BillboardQuadGroupAnimationController::vfunc_7() {

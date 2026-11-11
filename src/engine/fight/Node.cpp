@@ -201,7 +201,7 @@ unsigned char Owner_231a40::Run(hulk_intptr a, hulk_intptr b) {
 
 
 // 0x00231c50 fight::Node::vfunc_9 (230 B): equivalent/0x00231c50.cpp [wrapped: conflict: fight::Node]
-// sym: ?vfunc_9@Node@fight@fn_00231c50@@UAE_NPAUContext@3@PAUSource_231c50@3@I@Z
+// sym: ?vfunc_9@Node@fight@fn_00231c50@@UAE_NPAUContext@3@PAUSource_231c50@3@I@Z @d88aca11d3d0 @w5e255316d4c8
 namespace fn_00231c50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 18/18)
 // fight::Node::vfunc_9 @ 0x00231c50

@@ -16,7 +16,7 @@ extern "C" const char* __cdecl FUN_00216320(LuaVMState* L, const char* fmt, ...)
 
 
 // 0x00214900 FUN_00214900 (165 B): equivalent/0x00214900.cpp
-// sym: _FUN_00214900
+// sym: _FUN_00214900 @7908035f0142 @wb01d7def6a8d
 // STATUS: equivalent (tools/equiv.py level 3: 3091 inputs, branch coverage 12/16, incomplete)
 // addinfo: prefix "chunk:line: " to msg (pushed) when the running function is a Lua function.
 // equiv-conv: FUN_00214900 ebx stack

@@ -898,7 +898,7 @@ int pure3d::PrimGroupStreamed::vfunc_5() {
 
 
 // 0x002df5a0 pure3d::PrimGroupStreamed::vfunc_6 (227 B): equivalent/0x002df5a0.cpp [wrapped: conflict: pure3d::PrimGroupStreamed]
-// sym: ?vfunc_6@PrimGroupStreamed@pure3d@fn_002df5a0@@UAEXXZ
+// sym: ?vfunc_6@PrimGroupStreamed@pure3d@fn_002df5a0@@UAEXXZ @1fb375ed8bf2 @w7442a2382977
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1231,7 +1231,7 @@ PrimGroupOptimized::PrimGroupOptimized(Ref_2dfe20* p, int x, int y) : PrimGroup_
 
 
 // 0x002dfe80 FUN_002dfe80 (210 B): equivalent/0x002dfe80.cpp [wrapped: conflict: pure3d::PrimGroupOptimized]
-// sym: ??0PrimGroupOptimized@pure3d@fn_002dfe80@@QAE@PAU012@@Z
+// sym: ??0PrimGroupOptimized@pure3d@fn_002dfe80@@QAE@PAU012@@Z @255c20588677 @w18456fea3679
 namespace fn_002dfe80 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002dfe80 @ 0x002dfe80
@@ -1423,7 +1423,7 @@ PrimGroupStreamed_2e02a0::~PrimGroupStreamed_2e02a0() throw() {
 
 
 // 0x002e02e0 pure3d::PrimGroupStreamed::vfunc_10 (334 B): equivalent/0x002e02e0.cpp
-// sym: ?FUN_002e02e0@PrimGroupStreamed@fn_f1455a33@@QAEXXZ
+// sym: ?FUN_002e02e0@PrimGroupStreamed@fn_f1455a33@@QAEXXZ @7b31b05b0084 @wcfb71da60cae
 // STATUS: equivalent (tools/equiv.py level 3: 59 inputs, branch coverage 12/12)
 // pure3d::PrimGroupStreamed::vfunc_10 @ 0x002e02e0
 void PrimGroupStreamed::FUN_002e02e0()
@@ -1549,7 +1549,7 @@ void* pure3d::PrimGroupSkinnedStreamed::vfunc_4() {
 namespace fn_f1455a33 {
 
 // 0x002e0560 pure3d::PrimGroupSkinnedStreamed::vfunc_10 (129 B): equivalent/0x002e0560.cpp
-// sym: ?FUN_002e0560@PrimGroupSkinnedStreamed_2e0560@fn_f1455a33@@QAEXXZ
+// sym: ?FUN_002e0560@PrimGroupSkinnedStreamed_2e0560@fn_f1455a33@@QAEXXZ @08192263b622 @wf0efb442da58
 // STATUS: equivalent (tools/equiv.py level 3: 16764 inputs, branch coverage 4/4)
 // pure3d::PrimGroupSkinnedStreamed::vfunc_10 @ 0x002e0560
 // 0x002e0560: PrimGroupSkinnedStreamed::vfunc_10: rebuild the bounding box and sphere from the skin points
@@ -1580,7 +1580,7 @@ void Owner_2e05f0::Set(Thing_2e05f0* p) {
 } // namespace fn_f1455a33
 
 // 0x002e0620 FUN_002e0620 (117 B): equivalent/0x002e0620.cpp [wrapped: conflict: pure3d::PrimGroupSkinnedPC]
-// sym: ??0PrimGroupSkinnedPC@pure3d@fn_002e0620@@QAE@HHH@Z
+// sym: ??0PrimGroupSkinnedPC@pure3d@fn_002e0620@@QAE@HHH@Z @49f15f9a28b7 @wafe9e12ba565
 namespace fn_002e0620 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002e0620 @ 0x002e0620
@@ -1670,7 +1670,7 @@ void* pure3d::PrimGroupSkinnedPC::vfunc_4() {
 
 
 // 0x002e0760 FUN_002e0760 (284 B): equivalent/0x002e0760.cpp [wrapped: conflict: pure3d::VertexAnimPrimGroup]
-// sym: ?init@VertexAnimPrimGroup@pure3d@fn_002e0760@@QAEPAU123@PAUSource_2e0760@3@@Z
+// sym: ?init@VertexAnimPrimGroup@pure3d@fn_002e0760@@QAEPAU123@PAUSource_2e0760@3@@Z @66c199a06ffe @w1e9657556cb0
 inline void* __cdecl operator new(size_t, void* address) { return address; }
 namespace fn_002e0760 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
@@ -1686,7 +1686,7 @@ pure3d::VertexAnimPrimGroup* pure3d::VertexAnimPrimGroup::init(Source_2e0760* ot
 
 
 // 0x002e0880 FUN_002e0880 (349 B): equivalent/0x002e0880.cpp [wrapped: conflict: pure3d::DrawablePrimitive; pure3d::VertexAnimPrimGroup]
-// sym: ??0VertexAnimPrimGroup@pure3d@fn_002e0880@@QAE@ABV012@@Z
+// sym: ??0VertexAnimPrimGroup@pure3d@fn_002e0880@@QAE@ABV012@@Z @5fe3702df030 @w383340219818
 namespace fn_002e0880 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_002e0880 @ 0x002e0880
@@ -1845,7 +1845,7 @@ void* pure3d::VertexAnimPrimGroup::vfunc_4() {
 
 
 // 0x002e0a60 pure3d::VertexAnimPrimGroup::vfunc_6 (175 B): equivalent/0x002e0a60.cpp [wrapped: conflict: pure3d::VertexAnimPrimGroup]
-// sym: ?vfunc_6@VertexAnimPrimGroup@pure3d@fn_002e0a60@@UAEXXZ
+// sym: ?vfunc_6@VertexAnimPrimGroup@pure3d@fn_002e0a60@@UAEXXZ @faccdc66046c @w5e7bbac17ee1
 namespace fn_002e0a60 {
 // STATUS: equivalent (tools/equiv.py level 3: 2978 inputs, branch coverage 16/16)
 // pure3d::VertexAnimPrimGroup::vfunc_6 @ 0x002e0a60
@@ -1908,7 +1908,7 @@ void VertexAnimPrimGroup::vfunc_6() {
 namespace fn_f1455a33 {
 
 // 0x002e0b10 pure3d::VertexAnimPrimGroup::vfunc_10 (418 B): equivalent/0x002e0b10.cpp
-// sym: ?vfunc_10@VertexAnimPrimGroup@fn_f1455a33@@UAEXXZ
+// sym: ?vfunc_10@VertexAnimPrimGroup@fn_f1455a33@@UAEXXZ @c300801cd508 @w8cbf077e5cad
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // pure3d::VertexAnimPrimGroup::vfunc_10 @ 0x002e0b10
 void VertexAnimPrimGroup::vfunc_10()
@@ -1943,7 +1943,7 @@ void VertexAnimPrimGroup::vfunc_10()
 
 
 // 0x002e0cc0 FUN_002e0cc0 (857 B): equivalent/0x002e0cc0.cpp
-// sym: ?FUN_002e0cc0@Model_2e0cc0@fn_f1455a33@@QAEXPAUSrc_2e0cc0@2@D@Z
+// sym: ?FUN_002e0cc0@Model_2e0cc0@fn_f1455a33@@QAEXPAUSrc_2e0cc0@2@D@Z @463c7c630fe2 @w5911e9b57f25
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 38/38)
 // FUN_002e0cc0 @ 0x002e0cc0
 void Model_2e0cc0::FUN_002e0cc0(Src_2e0cc0 *src, char flag)
@@ -2000,7 +2000,7 @@ void Model_2e0cc0::FUN_002e0cc0(Src_2e0cc0 *src, char flag)
 
 
 // 0x002e1020 FUN_002e1020 (438 B): equivalent/0x002e1020.cpp
-// sym: ?FUN_002e1020@Dispatcher_2e1020@fn_f1455a33@@QAEXPAUBatch_2e1020@2@HI@Z
+// sym: ?FUN_002e1020@Dispatcher_2e1020@fn_f1455a33@@QAEXPAUBatch_2e1020@2@HI@Z @7f56559f8309 @wd99ac8899263
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 35/36, incomplete)
 // FUN_002e1020 @ 0x002e1020
 void Dispatcher_2e1020::FUN_002e1020(Batch_2e1020 *batch, int ctx, unsigned int mask)
@@ -2049,7 +2049,7 @@ void Dispatcher_2e1020::FUN_002e1020(Batch_2e1020 *batch, int ctx, unsigned int 
 
 
 // 0x002e11e0 FUN_002e11e0 (453 B): equivalent/0x002e11e0.cpp
-// sym: ?FUN_002e11e0@Morph@fn_f1455a33@@QAEXPAUDeltaList@2@M@Z
+// sym: ?FUN_002e11e0@Morph@fn_f1455a33@@QAEXPAUDeltaList@2@M@Z @a10e3e8d341e @w988b15a5c4cd
 // STATUS: equivalent (tools/equiv.py level 3: 22 inputs, branch coverage 8/8)
 // FUN_002e11e0 @ 0x002e11e0
 // Adds weight * delta to each referenced vertex.

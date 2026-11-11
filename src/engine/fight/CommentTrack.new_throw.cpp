@@ -40,7 +40,7 @@ public:
 
 
 // 0x0023dc90 FUN_0023dc90 (95 B): equivalent/0x0023dc90.cpp
-// sym: ?FUN_0023dc90@fn_f010c1af@@YAXXZ
+// sym: ?FUN_0023dc90@fn_f010c1af@@YAXXZ @df7bf089d55f @w93f237048200
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 4/4)
 // FUN_0023dc90 @ 0x0023dc90
 void FUN_0023dc90()
@@ -59,7 +59,7 @@ void FUN_0023dc90()
 
 
 // 0x0023dcf0 FUN_0023dcf0 (95 B): equivalent/0x0023dcf0.cpp
-// sym: ?FUN_0023dcf0@fn_f010c1af@@YAXXZ
+// sym: ?FUN_0023dcf0@fn_f010c1af@@YAXXZ @1f92823d1519 @w4ac90f256ef0
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 4/4)
 // FUN_0023dcf0 @ 0x0023dcf0
 void FUN_0023dcf0()

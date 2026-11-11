@@ -550,7 +550,7 @@ CompDrawVisibilityAnimationController_2a8170* CompDrawVisibilityAnimationControl
 } // namespace fn_fadd80aa
 
 // 0x002a81c0 FUN_002a81c0 (277 B): equivalent/0x002a81c0.cpp
-// sym: ?FUN_002a81c0@CompDrawVisibilityAnimationController@pure3d@@QAEXXZ
+// sym: ?FUN_002a81c0@CompDrawVisibilityAnimationController@pure3d@@QAEXXZ @7e461c8a5249 @w9768680e7646
 // STATUS: equivalent (tools/equiv.py level 3: 11844 inputs, branch coverage 16/16)
 // FUN_002a81c0 @ 0x002a81c0
 void pure3d::CompDrawVisibilityAnimationController::FUN_002a81c0() {

@@ -146,7 +146,7 @@ class Obj_272a20 : public CoreDrive {
 
 
 // 0x002719a0 FUN_002719a0 (113 B): equivalent/0x002719a0.cpp
-// sym: ?FUN_002719a0@fn_f484c341@@YIEIPBE@Z
+// sym: ?FUN_002719a0@fn_f484c341@@YIEIPBE@Z @1839a9c02dd2 @wea40d5ba533c
 // STATUS: equivalent (tools/equiv.py level 3: 113 inputs, branch coverage 24/32, incomplete)
 // FUN_002719a0 @ 0x002719a0
 // equiv-conv: FUN_002719a0 ecx edx
@@ -239,7 +239,7 @@ bool FUN_00271a30(unsigned int ch, unsigned int* out) {
 
 
 // 0x00271b70 FUN_00271b70 (116 B): equivalent/0x00271b70.cpp
-// sym: _FUN_00271b70
+// sym: _FUN_00271b70 @83510850d188 @wb9b2fdba5997
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 12/12)
 // FUN_00271b70 @ 0x00271b70
 // FUN_00271b70 @ 0x00271b70
@@ -282,7 +282,7 @@ extern "C" int __cdecl FUN_00271b70(const unsigned char *text, int *length, int 
 
 
 // 0x00271c00 FUN_00271c00 (216 B): equivalent/0x00271c00.cpp
-// sym: ?encode_utf8@fn_f484c341@@YAHIPAEIIPAIPAX@Z
+// sym: ?encode_utf8@fn_f484c341@@YAHIPAEIIPAIPAX@Z @a9c70ad30020 @w4fbe047a910e
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 18/20, incomplete)
 // FUN_00271c00 @ 0x00271c00
 int __cdecl encode_utf8(unsigned int codepoint, unsigned char *destination, unsigned int capacity, unsigned int replacement, unsigned int *written, void *context)
@@ -310,7 +310,7 @@ int __cdecl encode_utf8(unsigned int codepoint, unsigned char *destination, unsi
 
 
 // 0x00271cf0 FUN_00271cf0 (115 B): equivalent/0x00271cf0.cpp
-// sym: _FUN_00271cf0
+// sym: _FUN_00271cf0 @ecd5925f2741 @w12bbf11eda94
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 10/12, incomplete)
 // FUN_00271cf0 @ 0x00271cf0
 extern "C" int __cdecl FUN_00271cf0(char *destination, const unsigned char *source, unsigned int capacity)
@@ -384,7 +384,7 @@ extern "C" unsigned char __cdecl FUN_00271dd0(const unsigned short* text, unsign
 
 
 // 0x00271e40 FUN_00271e40 (210 B): equivalent/0x00271e40.cpp
-// sym: ?encodeUtf16@fn_f484c341@@YAHIPAGIIPAI1@Z
+// sym: ?encodeUtf16@fn_f484c341@@YAHIPAGIIPAI1@Z @d459edf0fdad @w0ab4c6597164
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 15/18, incomplete)
 // FUN_00271e40 @ 0x00271e40
 int __cdecl encodeUtf16(unsigned int codepoint, unsigned short *output, unsigned int capacity, unsigned int replacement, unsigned int *written, unsigned int *unused)
@@ -439,7 +439,7 @@ int __cdecl FUN_00271f20(unsigned short* destination, const unsigned short* sour
 
 
 // 0x00271fe0 FUN_00271fe0 (129 B): equivalent/0x00271fe0.cpp
-// sym: ?FUN_00271fe0@fn_f484c341@@YAHPBGPAI@Z
+// sym: ?FUN_00271fe0@fn_f484c341@@YAHPBGPAI@Z @d0f15cdefb5e @wd6b550f9b469
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_00271fe0 @ 0x00271fe0
 // Counts the UTF-16 code points of a string, returning -1 on an unpaired surrogate.
@@ -501,7 +501,7 @@ extern "C" int __cdecl FUN_002720b0(uint_2720b0 value, uint_2720b0* outValue, ui
 
 
 // 0x002721c0 FUN_002721c0 (128 B): equivalent/0x002721c0.cpp
-// sym: ?FUN_002721c0@fn_f484c341@@YAFD@Z
+// sym: ?FUN_002721c0@fn_f484c341@@YAFD@Z @7e816639f12a @w1dbb427419cc
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 28/28)
 // FUN_002721c0 @ 0x002721c0
 // equiv-conv: FUN_002721c0 eax
@@ -554,7 +554,7 @@ extern "C" bool __cdecl FUN_00272240(byte_272240* p, uint_272240* count, uint_27
 } // namespace fn_f484c341
 
 // 0x002722b0 FUN_002722b0 (271 B): equivalent/0x002722b0.cpp [wrapped: conflict: FUN_00271a30]
-// sym: ?target@fn_002722b0@@YAHIPAEIIPAII@Z
+// sym: ?target@fn_002722b0@@YAHIPAEIIPAII@Z @7808b331c4fb @w5cb68e3aa459
 namespace fn_002722b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 26/26)
 // FUN_002722b0 @ 0x002722b0
@@ -661,7 +661,7 @@ void FUN_00272560(void) {
 
 
 // 0x002725e0 FUN_002725e0 (193 B): equivalent/0x002725e0.cpp
-// sym: _FUN_002725e0
+// sym: _FUN_002725e0 @95e3332cd792 @w3fde2d27ac50
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/12, incomplete)
 // FUN_002725e0 @ 0x002725e0
 extern "C" void __cdecl FUN_002725e0(const char* text)

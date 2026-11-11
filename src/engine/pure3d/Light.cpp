@@ -251,7 +251,7 @@ void owners::Obj_2a08f0::FUN_002a08f0(int v) {
 
 
 // 0x002a0a70 FUN_002a0a70 (89 B): equivalent/0x002a0a70.cpp [wrapped: conflict: pure3d::Light]
-// sym: ??0Light@pure3d@fn_002a0a70@@QAE@XZ
+// sym: ??0Light@pure3d@fn_002a0a70@@QAE@XZ @55bcde8b8874 @w29c035134e2e
 namespace fn_002a0a70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002a0a70 @ 0x002a0a70

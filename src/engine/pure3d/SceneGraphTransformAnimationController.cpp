@@ -108,7 +108,7 @@ void owners::C_2a77c0::FUN_002a77c0(hulk_intptr x) {
 
 
 // 0x002a77e0 pure3d::SceneGraphTransformAnimationController::vfunc_27 (209 B): equivalent/0x002a77e0.cpp [wrapped: conflict: pure3d::SceneGraphTransformAnimationController]
-// sym: ?vfunc_27@SceneGraphTransformAnimationController@pure3d@fn_002a77e0@@QAEXXZ
+// sym: ?vfunc_27@SceneGraphTransformAnimationController@pure3d@fn_002a77e0@@QAEXXZ @c367e5303cb5 @w4b4925685a47
 namespace fn_002a77e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // pure3d::SceneGraphTransformAnimationController::vfunc_27 @ 0x002a77e0
@@ -150,7 +150,7 @@ void pure3d::SceneGraphTransformAnimationController::vfunc_27() {
 
 
 // 0x002a78c0 pure3d::SceneGraphTransformAnimationController::vfunc_28 (468 B): equivalent/0x002a78c0.cpp [wrapped: conflict: Channel; Node]
-// sym: ?vfunc_28@SceneGraphTransformAnimationController@fn_002a78c0@@UAEXXZ
+// sym: ?vfunc_28@SceneGraphTransformAnimationController@fn_002a78c0@@UAEXXZ @e8058ff6aa9f @w4bca3294ba7c
 namespace fn_002a78c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 12/12)
 // pure3d::SceneGraphTransformAnimationController::vfunc_28 @ 0x002a78c0

@@ -353,7 +353,7 @@ struct SpriteParticleUpdater {
 } // namespace fn_fd69ca5d
 
 // 0x002d1090 FUN_002d1090 (196 B): equivalent/0x002d1090.cpp [wrapped: conflict: pure3d::VertexAnimObject]
-// sym: ?Initialize@VertexAnimObject@pure3d@fn_002d1090@@QAEPAV123@PAUSource_2d1090@3@@Z
+// sym: ?Initialize@VertexAnimObject@pure3d@fn_002d1090@@QAEPAV123@PAUSource_2d1090@3@@Z @deced7a979dc @w23fa2c7bcda8
 namespace fn_002d1090 {
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 12/12)
 // FUN_002d1090 @ 0x002d1090
@@ -499,7 +499,7 @@ extern "C" void __cdecl FUN_002d1370(float delta, int unused, Obj* obj) {
 
 
 // 0x002d1390 FUN_002d1390 (123 B): equivalent/0x002d1390.cpp
-// sym: _FUN_002d1390
+// sym: _FUN_002d1390 @d90efd67ca0f @w91f2126af737
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 0/0)
 // FUN_002d1390 @ 0x002d1390
 // Sets from->angle to the angle of the mapped vector (from - to) plus from->angleOffset.
@@ -514,7 +514,7 @@ extern "C" void FUN_002d1390(int unused1, int unused2, int unused3, int unused4,
 
 
 // 0x002d1410 FUN_002d1410 (123 B): equivalent/0x002d1410.cpp
-// sym: _FUN_002d1410
+// sym: _FUN_002d1410 @be0b3482b8ab @w87a2a2bb838b
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 0/0)
 // FUN_002d1410 @ 0x002d1410
 // Sets from->angle to the angle of the mapped vector (from - to) plus from->angleOffset.
@@ -613,7 +613,7 @@ extern "C" void FUN_002d16d0() {}
 
 
 // 0x002d16e0 FUN_002d16e0 (70 B): equivalent/0x002d16e0.cpp
-// sym: _FUN_002d16e0
+// sym: _FUN_002d16e0 @d5d784b7ab39 @w074da0ed5772
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d16e0 @ 0x002d16e0
 extern "C" void __cdecl FUN_002d16e0(int unused, int index, Context *context, Color *color)
@@ -634,7 +634,7 @@ extern "C" void FUN_002d1730() {
 
 
 // 0x002d1740 FUN_002d1740 (88 B): equivalent/0x002d1740.cpp
-// sym: _FUN_002d1740
+// sym: _FUN_002d1740 @5cbb0586a35b @w570925626566
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d1740 @ 0x002d1740
 extern "C" void __cdecl FUN_002d1740(int unused, int index, Root *root, Result *result) {
@@ -651,7 +651,7 @@ extern "C" void __cdecl FUN_002d17a0(int) {}
 
 
 // 0x002d17b0 FUN_002d17b0 (151 B): equivalent/0x002d17b0.cpp
-// sym: _FUN_002d17b0
+// sym: _FUN_002d17b0 @cc396d4e519a @w00a55032387b
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_002d17b0 @ 0x002d17b0
 extern "C" void __cdecl FUN_002d17b0(float dt, int index, float t, Owner_2d17b0 *owner, State_2d17b0 *state)
@@ -682,7 +682,7 @@ extern "C" void FUN_002d1850(float dt, Ctx_2d1850* c, Obj_2d1850* o) {
 
 
 // 0x002d18b0 FUN_002d18b0 (190 B): equivalent/0x002d18b0.cpp
-// sym: _FUN_002d18b0
+// sym: _FUN_002d18b0 @4737df937ecf @w773d0d4a3877
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_002d18b0 @ 0x002d18b0
 extern "C" void __cdecl FUN_002d18b0(float dt,int index,float t,Context* context,Particle_2d18b0* p) {
@@ -705,7 +705,7 @@ extern "C" void __cdecl FUN_002d18b0(float dt,int index,float t,Context* context
 
 
 // 0x002d1970 FUN_002d1970 (136 B): equivalent/0x002d1970.cpp
-// sym: ?Integrate@fn_fd69ca5d@@YAXMPAUOwner_2d1970@1@PAUParticle_2d1970@1@@Z
+// sym: ?Integrate@fn_fd69ca5d@@YAXMPAUOwner_2d1970@1@PAUParticle_2d1970@1@@Z @ca05a10af42e @w462af7f66f29
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // FUN_002d1970 @ 0x002d1970
 void Integrate(float dt, Owner_2d1970* o, Particle_2d1970* p) {
@@ -726,7 +726,7 @@ void Integrate(float dt, Owner_2d1970* o, Particle_2d1970* p) {
 
 
 // 0x002d1a00 FUN_002d1a00 (241 B): equivalent/0x002d1a00.cpp
-// sym: _FUN_002d1a00
+// sym: _FUN_002d1a00 @323575a8edcd @wa541186a89cd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d1a00 @ 0x002d1a00
 extern "C" void __cdecl FUN_002d1a00(float dt, int index, float fraction, Emitter_2d1a00* emitter, Particle_2d1a00* p) {
@@ -744,7 +744,7 @@ extern "C" void __cdecl FUN_002d1a00(float dt, int index, float fraction, Emitte
 
 
 // 0x002d1b00 FUN_002d1b00 (189 B): equivalent/0x002d1b00.cpp
-// sym: ?FUN_002d1b00@fn_fd69ca5d@@YAXMPAUEmitter_2d1b00@1@PAUParticle_2d1b00@1@@Z
+// sym: ?FUN_002d1b00@fn_fd69ca5d@@YAXMPAUEmitter_2d1b00@1@PAUParticle_2d1b00@1@@Z @b76d1052aab7 @wc05e1ef9de21
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // FUN_002d1b00 @ 0x002d1b00
 void __cdecl FUN_002d1b00(float dt, Emitter_2d1b00* emitter, Particle_2d1b00* particle) {
@@ -767,7 +767,7 @@ void __cdecl FUN_002d1b00(float dt, Emitter_2d1b00* emitter, Particle_2d1b00* pa
 
 
 // 0x002d1bc0 FUN_002d1bc0 (241 B): equivalent/0x002d1bc0.cpp
-// sym: _FUN_002d1bc0
+// sym: _FUN_002d1bc0 @85093b56240a @w84f55e0336bd
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_002d1bc0 @ 0x002d1bc0
 extern "C" void __cdecl FUN_002d1bc0(float dt, int index, float blend, Emitter_2d1bc0 *emitter, Particle_2d1bc0 *p) {
@@ -790,7 +790,7 @@ extern "C" void __cdecl FUN_002d1bc0(float dt, int index, float blend, Emitter_2
 
 
 // 0x002d1cc0 FUN_002d1cc0 (189 B): equivalent/0x002d1cc0.cpp
-// sym: _FUN_002d1cc0
+// sym: _FUN_002d1cc0 @e7426f349ae7 @wef3b8805223e
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // FUN_002d1cc0 @ 0x002d1cc0
 extern "C" void __cdecl FUN_002d1cc0(float dt, Emitter_2d1cc0* emitter, Particle_2d1cc0* particle) {
@@ -844,7 +844,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_fd69ca5d {
 
 // 0x002d1db0 pure3d::SpriteParticleUpdater::vfunc_4 (350 B): equivalent/0x002d1db0.cpp
-// sym: ?FUN_002d1db0@SpriteParticleUpdater@fn_fd69ca5d@@QAEXMPAVEmitter_2d1db0@2@@Z
+// sym: ?FUN_002d1db0@SpriteParticleUpdater@fn_fd69ca5d@@QAEXMPAVEmitter_2d1db0@2@@Z @45c6dcd28574 @wde08f32fb534
 // STATUS: equivalent (tools/equiv.py level 3: 16142 inputs, branch coverage 10/10)
 // pure3d::SpriteParticleUpdater::vfunc_4 @ 0x002d1db0
 void SpriteParticleUpdater::FUN_002d1db0(float dt, Emitter_2d1db0 *em)
@@ -884,7 +884,7 @@ void SpriteParticleUpdater::FUN_002d1db0(float dt, Emitter_2d1db0 *em)
 } // namespace fn_fd69ca5d
 
 // 0x002d1f10 pure3d::SpriteParticleUpdater::vfunc_5 (209 B): equivalent/0x002d1f10.cpp [wrapped: conflict: pure3d::ParticleSystem; pure3d::SpriteParticleUpdater]
-// sym: ?vfunc_5@SpriteParticleUpdater@pure3d@fn_002d1f10@@UAEXMPAUParticleSystem@23@@Z
+// sym: ?vfunc_5@SpriteParticleUpdater@pure3d@fn_002d1f10@@UAEXMPAUParticleSystem@23@@Z @1a49c8c8fd5a @wad556fe87aca
 namespace fn_002d1f10 {
 // STATUS: equivalent (tools/equiv.py level 3: 30 inputs, branch coverage 8/8)
 // pure3d::SpriteParticleUpdater::vfunc_5 @ 0x002d1f10

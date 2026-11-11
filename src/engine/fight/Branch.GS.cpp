@@ -83,7 +83,7 @@ struct Branch {
 } // namespace fn_f023bcd8
 
 // 0x00232cc0 FUN_00232cc0 (170 B): equivalent/0x00232cc0.cpp [wrapped: conflict: DAT_004e5bb0; DAT_004e5bb4]
-// sym: ?FUN_00232cc0@fn_00232cc0@@YAXPAUReader@1@PBDZZ
+// sym: ?FUN_00232cc0@fn_00232cc0@@YAXPAUReader@1@PBDZZ @f7be7f437ebd @w66b91802c946
 namespace fn_00232cc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 4/4)
 // FUN_00232cc0 @ 0x00232cc0
@@ -116,7 +116,7 @@ void __cdecl FUN_00232cc0(Reader* reader, const char* format, ...) {
 
 
 // 0x00233460 FUN_00233460 (259 B): equivalent/0x00233460.cpp
-// sym: ?FUN_00233460@Node_233460@owners@@QAE_NPADH@Z
+// sym: ?FUN_00233460@Node_233460@owners@@QAE_NPADH@Z @7a64d25d595b @wa5448ce8f5e7
 // STATUS: equivalent (tools/equiv.py level 3: 13401 inputs, branch coverage 10/10)
 // FUN_00233460 @ 0x00233460
 bool owners::Node_233460::FUN_00233460(char* output, int capacity) {
@@ -139,7 +139,7 @@ bool owners::Node_233460::FUN_00233460(char* output, int capacity) {
 
 
 // 0x00233580 FUN_00233580 (199 B): equivalent/0x00233580.cpp [wrapped: conflict: FUN_002672f0]
-// sym: ?FUN_00233580@PathNode@fn_00233580@@QAEPAV12@PBD@Z
+// sym: ?FUN_00233580@PathNode@fn_00233580@@QAEPAV12@PBD@Z @507581d0b2d8 @w597c60b198fb
 namespace fn_00233580 {
 // STATUS: equivalent (tools/equiv.py level 3: 18200 inputs, branch coverage 22/22)
 // FUN_00233580 @ 0x00233580
@@ -209,7 +209,7 @@ PathNode* PathNode::FUN_00233580(const char* path)
 namespace fn_f023bcd8 {
 
 // 0x00233650 FUN_00233650 (364 B): equivalent/0x00233650.cpp
-// sym: ?FUN_00233650@Node@fn_f023bcd8@@QAEPAV12@PBD@Z
+// sym: ?FUN_00233650@Node@fn_f023bcd8@@QAEPAV12@PBD@Z @6c8da7c944d8 @wa7b9fd739d3d
 // STATUS: equivalent (tools/equiv.py level 3: 17050 inputs, branch coverage 37/38, incomplete)
 // FUN_00233650 @ 0x00233650
 Node *Node::FUN_00233650(const char *path)
@@ -264,7 +264,7 @@ Node *Node::FUN_00233650(const char *path)
 
 
 // 0x00233c50 FUN_00233c50 (314 B): equivalent/0x00233c50.cpp
-// sym: ?FUN_00233c50@Branch@fn_f023bcd8@@QAEDPAUCtx_233c50@2@PAUWriter_233c50@2@H@Z
+// sym: ?FUN_00233c50@Branch@fn_f023bcd8@@QAEDPAUCtx_233c50@2@PAUWriter_233c50@2@H@Z @23d757769927 @wa346a21233fc
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 14/14)
 // FUN_00233c50 @ 0x00233c50
 char Branch::FUN_00233c50(Ctx_233c50 *ctx, Writer_233c50 *w, int index)

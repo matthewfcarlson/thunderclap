@@ -4,7 +4,7 @@
 
 
 // 0x00335cc0 FUN_00335cc0 (129 B): equivalent/0x00335cc0.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_00335cc0@Reader@fn_f6597df8@@QAE_NHHPAH00@Z
+// sym: ?FUN_00335cc0@Reader@fn_f6597df8@@QAE_NHHPAH00@Z @5abb5b1c8bf9 @wa6e3fb2703c3
 #include "gen/owners.h"
 namespace fn_f6597df8 {} using namespace fn_f6597df8;
 namespace fn_f6597df8 {

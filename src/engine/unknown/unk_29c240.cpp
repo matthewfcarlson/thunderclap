@@ -106,7 +106,7 @@ void FUN_0029c3b0() {
 } // namespace fn_f1c27eb1
 
 // 0x0029c450 FUN_0029c450 (213 B): equivalent/0x0029c450.cpp
-// sym: ?FUN_0029c450@Object_29c450@owners@@QAEPAXPAX@Z
+// sym: ?FUN_0029c450@Object_29c450@owners@@QAEPAXPAX@Z @8a84947c3fd5 @wfab3c99808f5
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_0029c450 @ 0x0029c450
 void* owners::Object_29c450::FUN_0029c450(void* value) {
@@ -141,7 +141,7 @@ hulk_intptr owners::C_29c550::FUN_0029c550(int x) {
 namespace fn_f1c27eb1 {
 
 // 0x0029c560 FUN_0029c560 (155 B): equivalent/0x0029c560.cpp
-// sym: ?FUN_0029c560@Bank@fn_f1c27eb1@@QAEXXZ
+// sym: ?FUN_0029c560@Bank@fn_f1c27eb1@@QAEXXZ @2a090056cd80 @w6769c1f49bd8
 // STATUS: equivalent (tools/equiv.py level 3: 487 inputs, branch coverage 12/12)
 // FUN_0029c560 @ 0x0029c560
 void Bank::FUN_0029c560()

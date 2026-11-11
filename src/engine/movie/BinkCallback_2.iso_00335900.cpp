@@ -4,7 +4,7 @@
 
 
 // 0x00335900 FUN_00335900 (108 B): equivalent/0x00335900.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_00335900@Target_335900@fn_f598d243@@QAE_NHHPAD@Z
+// sym: ?FUN_00335900@Target_335900@fn_f598d243@@QAE_NHHPAD@Z @c6dbfbda287a @wa0e2e6ecf683
 #include "gen/owners.h"
 namespace fn_f598d243 {} using namespace fn_f598d243;
 namespace fn_f598d243 {

@@ -47,7 +47,7 @@ public:
 
 
 // 0x002e01d0 FUN_002e01d0 (121 B): equivalent/0x002e01d0.cpp
-// sym: ??0PrimGroupStreamed@pure3d@fn_fd7377f4@@QAE@HHH@Z
+// sym: ??0PrimGroupStreamed@pure3d@fn_fd7377f4@@QAE@HHH@Z @1db7a5d79aac @w2c657f2fd52c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002e01d0 @ 0x002e01d0
 // equiv-map: ??0Sub@@QAE@HHH@Z = 0x002c86d0

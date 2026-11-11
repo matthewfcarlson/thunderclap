@@ -241,7 +241,7 @@ class Owner_2949e0 {
 
 
 // 0x002940f0 FUN_002940f0 (187 B): equivalent/0x002940f0.cpp
-// sym: ?target@Owner_2940f0@fn_f5f765cb@@QAEXPBUVec_2940f0@2@PAU32@@Z
+// sym: ?target@Owner_2940f0@fn_f5f765cb@@QAEXPBUVec_2940f0@2@PAU32@@Z @adb2f3531e7f @wf2b3bff49055
 // STATUS: equivalent (tools/equiv.py level 3: 29 inputs, branch coverage 4/4)
 // FUN_002940f0 @ 0x002940f0
 void Owner_2940f0::target(const Vec_2940f0* in,Vec_2940f0* out) {
@@ -259,7 +259,7 @@ void Owner_2940f0::target(const Vec_2940f0* in,Vec_2940f0* out) {
 
 
 // 0x002941b0 FUN_002941b0 (189 B): equivalent/0x002941b0.cpp
-// sym: ?target@Object@fn_f5f765cb@@QAEXPAUVec_2941b0@2@0@Z
+// sym: ?target@Object@fn_f5f765cb@@QAEXPAUVec_2941b0@2@0@Z @5e4bf1850ca1 @w335f39eb44a4
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002941b0 @ 0x002941b0
 void Object::target(Vec_2941b0* input, Vec_2941b0* output) {
@@ -279,7 +279,7 @@ void Object::target(Vec_2941b0* input, Vec_2941b0* output) {
 
 
 // 0x00294270 FUN_00294270 (205 B): equivalent/0x00294270.cpp
-// sym: ?transform@Object@fn_f5f765cb@@QAEXPAUVector@2@0@Z
+// sym: ?transform@Object@fn_f5f765cb@@QAEXPAUVector@2@0@Z @2f70b179beb4 @w67f47bd6ba9e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00294270 @ 0x00294270
 void Object::transform(Vector* in,Vector* out) {
@@ -300,7 +300,7 @@ void Object::transform(Vector* in,Vector* out) {
 } // namespace fn_f5f765cb
 
 // 0x00294340 FUN_00294340 (238 B): equivalent/0x00294340.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_00294340@Object@fn_00294340@@QAEXPAUVec3_294340@2@00@Z
+// sym: ?FUN_00294340@Object@fn_00294340@@QAEXPAUVec3_294340@2@00@Z @620d56058bef @w59d8ced76582
 namespace fn_00294340 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00294340 @ 0x00294340
@@ -355,7 +355,7 @@ void Target_294500::run(Vec3_294500 a, Buf_294500* out) {
 } // namespace fn_f5f765cb
 
 // 0x00294550 FUN_00294550 (197 B): equivalent/0x00294550.cpp [wrapped: merged class would differ: Matrix: size 1 vs 64]
-// sym: ?target@Object@fn_00294550@@QAEXUVec_294550@2@PAU32@1@Z
+// sym: ?target@Object@fn_00294550@@QAEXUVec_294550@2@PAU32@1@Z @10f70a5953b9 @wbb4635154d13
 namespace fn_00294550 {
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 4/4)
 // FUN_00294550 @ 0x00294550
@@ -390,7 +390,7 @@ void C_294620::Target(T_294620 a, int d, int e) {
 
 
 // 0x00294670 FUN_00294670 (106 B): equivalent/0x00294670.cpp
-// sym: ?Project@View@fn_f5f765cb@@QAEXUVec3_294670@2@PAM@Z
+// sym: ?Project@View@fn_f5f765cb@@QAEXUVec3_294670@2@PAM@Z @e74f551ef9af @w1cc396e0d2ed
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00294670 @ 0x00294670
 void View::Project(Vec3_294670 pos, float* out)
@@ -420,7 +420,7 @@ void Owner_2946e0::Run(Vec3_2946e0 a, unsigned int d) {
 
 
 // 0x00294720 FUN_00294720 (185 B): equivalent/0x00294720.cpp
-// sym: ?FUN_00294720@Object@fn_f5f765cb@@QAEXMMMPAUVec_294720@2@@Z
+// sym: ?FUN_00294720@Object@fn_f5f765cb@@QAEXMMMPAUVec_294720@2@@Z @6fdeabae8344 @wa3b366176278
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 4/4)
 // FUN_00294720 @ 0x00294720
 void Object::FUN_00294720(float x,float y,float z,Vec_294720* out) {
@@ -434,7 +434,7 @@ void Object::FUN_00294720(float x,float y,float z,Vec_294720* out) {
 
 
 // 0x002947e0 FUN_002947e0 (123 B): equivalent/0x002947e0.cpp
-// sym: ?FUN_002947e0@Holder_2947e0@fn_f5f765cb@@QAEXUV3_2947e0@2@PAU32@@Z
+// sym: ?FUN_002947e0@Holder_2947e0@fn_f5f765cb@@QAEXUV3_2947e0@2@PAU32@@Z @322beaa75f90 @w25daf216cec8
 // STATUS: equivalent (tools/equiv.py level 3: 19853 inputs, branch coverage 4/4)
 // FUN_002947e0 @ 0x002947e0
 void Holder_2947e0::FUN_002947e0(V3_2947e0 in, V3_2947e0 *out) {
@@ -457,7 +457,7 @@ void Holder_2947e0::FUN_002947e0(V3_2947e0 in, V3_2947e0 *out) {
 
 
 // 0x00294880 FUN_00294880 (249 B): equivalent/0x00294880.cpp
-// sym: ??0View@pure3d@fn_f5f765cb@@QAE@XZ
+// sym: ??0View@pure3d@fn_f5f765cb@@QAE@XZ @93a38a10369a @we4aa5fa8caff
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00294880 @ 0x00294880
 pure3d::View::View() {

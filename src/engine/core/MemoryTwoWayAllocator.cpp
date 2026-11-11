@@ -365,7 +365,7 @@ hulk_uintptr MemoryTwoWayAllocator_26d320::f(uint_26d320 x, uint_26d320 y) {
 } // namespace fn_ffa6521f
 
 // 0x0026d3a0 core::MemoryTwoWayAllocator::vfunc_2 (94 B): equivalent/0x0026d3a0.cpp [wrapped: conflict: core::BaseObject; core::IRefCount; core::MemoryTwoWayAllocator]
-// sym: ?vfunc_2@MemoryTwoWayAllocator@core@fn_0026d3a0@@UAEPAU123@E@Z
+// sym: ?vfunc_2@MemoryTwoWayAllocator@core@fn_0026d3a0@@UAEPAU123@E@Z @a124b81b1181 @w61aea731c1ad
 inline void* __cdecl operator new(size_t, void* storage) { return storage; }
 namespace fn_0026d3a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)

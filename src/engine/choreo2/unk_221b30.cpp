@@ -537,7 +537,7 @@ void owners::Obj_221f70::FUN_00221f70(hulk_intptr a, hulk_intptr b) {
 namespace fn_f403c6ef {
 
 // 0x00221f90 FUN_00221f90 (178 B): equivalent/0x00221f90.cpp
-// sym: ?FUN_00221f90@MatrixData_221f90@fn_f403c6ef@@QAE_NXZ
+// sym: ?FUN_00221f90@MatrixData_221f90@fn_f403c6ef@@QAE_NXZ @006d47f8cf30 @w141caa4b696a
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 12/12)
 // FUN_00221f90 @ 0x00221f90
 bool MatrixData_221f90::FUN_00221f90() {
@@ -616,7 +616,7 @@ hulk_freg Obj::FUN_002220d0() {
 namespace fn_f403c6ef {
 
 // 0x00222120 FUN_00222120 (81 B): equivalent/0x00222120.cpp
-// sym: ?FUN_00222120@Object@fn_f403c6ef@@QAEPAUVec3@2@PAU32@@Z
+// sym: ?FUN_00222120@Object@fn_f403c6ef@@QAEPAUVec3@2@PAU32@@Z @e5b436a3b59c @w85171d699419
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00222120 @ 0x00222120
 Vec3 *Object::FUN_00222120(Vec3 *result) {
@@ -631,7 +631,7 @@ Vec3 *Object::FUN_00222120(Vec3 *result) {
 
 
 // 0x00222180 FUN_00222180 (166 B): equivalent/0x00222180.cpp
-// sym: ?FUN_00222180@Node@fn_f403c6ef@@QAEXPAUArg_222180@2@@Z
+// sym: ?FUN_00222180@Node@fn_f403c6ef@@QAEXPAUArg_222180@2@@Z @2985e4d8a614 @w7aeb7d902993
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // FUN_00222180 @ 0x00222180
 void Node::FUN_00222180(Arg_222180 *a)
@@ -654,7 +654,7 @@ void Node::FUN_00222180(Arg_222180 *a)
 
 
 // 0x00222230 FUN_00222230 (126 B): equivalent/0x00222230.cpp
-// sym: ?FUN_00222230@Xform_222230@fn_f403c6ef@@QAEXPAX0@Z
+// sym: ?FUN_00222230@Xform_222230@fn_f403c6ef@@QAEXPAX0@Z @1962f46de093 @w9a08f0aef056
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00222230 @ 0x00222230
 void Xform_222230::FUN_00222230(void* a, void* b)

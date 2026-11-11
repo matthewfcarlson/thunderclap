@@ -4,7 +4,7 @@
 
 
 // 0x002931c0 pure3d::CameraAnimationController::vfunc_27 (649 B): equivalent/0x002931c0.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_002931c0@CameraAnimationController@fn_fbdfd4a6@@QAEXXZ
+// sym: ?FUN_002931c0@CameraAnimationController@fn_fbdfd4a6@@QAEXXZ @a8ca4b34983f @wb9a4928468b1
 #include "gen/owners.h"
 namespace fn_fbdfd4a6 {} using namespace fn_fbdfd4a6;
 namespace fn_fbdfd4a6 {

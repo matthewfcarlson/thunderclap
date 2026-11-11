@@ -145,7 +145,7 @@ void BufMgr::Resize(int n) {
 } // namespace fn_f2588117
 
 // 0x00312ed0 FUN_00312ed0 (200 B): equivalent/0x00312ed0.cpp
-// sym: ?FUN_00312ed0@Groups_312ed0@owners@@QAEHHPAF@Z
+// sym: ?FUN_00312ed0@Groups_312ed0@owners@@QAEHHPAF@Z @fed9128d7d65 @w2147c73f9218
 // STATUS: equivalent (tools/equiv.py level 3: 44 inputs, branch coverage 16/16)
 // FUN_00312ed0 @ 0x00312ed0
 int owners::Groups_312ed0::FUN_00312ed0(int count, short* output) {
@@ -181,7 +181,7 @@ int owners::Groups_312ed0::FUN_00312ed0(int count, short* output) {
 namespace fn_f2588117 {
 
 // 0x00312fa0 FUN_00312fa0 (191 B): equivalent/0x00312fa0.cpp
-// sym: ?FUN_00312fa0@Bounds_312fa0@fn_f2588117@@QAEXPBUVec3_312fa0@2@@Z
+// sym: ?FUN_00312fa0@Bounds_312fa0@fn_f2588117@@QAEXPBUVec3_312fa0@2@@Z @cf83781f4823 @w7032dead9dbb
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 6/6)
 // FUN_00312fa0 @ 0x00312fa0
 void Bounds_312fa0::FUN_00312fa0(const Vec3_312fa0* value) {
@@ -199,7 +199,7 @@ void Bounds_312fa0::FUN_00312fa0(const Vec3_312fa0* value) {
 
 
 // 0x003130a0 FUN_003130a0 (545 B): equivalent/0x003130a0.cpp
-// sym: ?FUN_003130a0@Scaler_3130a0@fn_f2588117@@QAEXPAUV3Pair@2@H@Z
+// sym: ?FUN_003130a0@Scaler_3130a0@fn_f2588117@@QAEXPAUV3Pair@2@H@Z @eb6594ca6e99 @w6f5e359fcfca
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_003130a0 @ 0x003130a0
 void Scaler_3130a0::FUN_003130a0(V3Pair *pairs, int count)
@@ -224,7 +224,7 @@ void Scaler_3130a0::FUN_003130a0(V3Pair *pairs, int count)
 
 
 // 0x003132d0 FUN_003132d0 (369 B): equivalent/0x003132d0.cpp
-// sym: ?FUN_003132d0@HashGrid@fn_f2588117@@QAEXPAUBox_3132d0@2@H@Z
+// sym: ?FUN_003132d0@HashGrid@fn_f2588117@@QAEXPAUBox_3132d0@2@H@Z @b0db1d8c8eb6 @w232e52173492
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 26/26)
 // FUN_003132d0 @ 0x003132d0
 void HashGrid::FUN_003132d0(Box_3132d0* boxes, int count)
@@ -295,7 +295,7 @@ extern "C" void __fastcall FUN_00313530(void* self) {
 
 
 // 0x00313540 FUN_00313540 (260 B): equivalent/0x00313540.cpp
-// sym: _FUN_00313540@16
+// sym: _FUN_00313540@16 @ba99c9339f81 @we25be8d8e6b2
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 27/28, incomplete)
 // FUN_00313540 @ 0x00313540
 extern "C" void __stdcall FUN_00313540(void * out, float a, float b, float c)
@@ -323,7 +323,7 @@ extern "C" void __stdcall FUN_00313540(void * out, float a, float b, float c)
 
 
 // 0x00313650 FUN_00313650 (362 B): equivalent/0x00313650.cpp
-// sym: ?FUN_00313650@fn_f2588117@@YGXPAURanking@1@PBM@Z
+// sym: ?FUN_00313650@fn_f2588117@@YGXPAURanking@1@PBM@Z @66dcec5951fa @wae08f4b41834
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 32/32)
 // FUN_00313650 @ 0x00313650
 void __stdcall FUN_00313650(Ranking *out, const float *v)

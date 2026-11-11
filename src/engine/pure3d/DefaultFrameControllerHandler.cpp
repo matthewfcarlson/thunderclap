@@ -448,7 +448,7 @@ hulk_freg pure3d::AnimationFrameController::vfunc_9() {
 namespace fn_ff70be84 {
 
 // 0x00284b70 pure3d::AnimationFrameController::vfunc_20 (302 B): equivalent/0x00284b70.cpp
-// sym: ?vfunc_20@AnimationFrameController_284b70@fn_ff70be84@@UAEMXZ
+// sym: ?vfunc_20@AnimationFrameController_284b70@fn_ff70be84@@UAEMXZ @757c31b81937 @w4b800fa7871b
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 28/28)
 // pure3d::AnimationFrameController::vfunc_20 @ 0x00284b70
 hulk_freg AnimationFrameController_284b70::vfunc_20()
@@ -535,7 +535,7 @@ int pure3d::SimpleFrameController::vfunc_25() {
 
 
 // 0x00284d20 pure3d::SimpleFrameController::vfunc_6 (88 B): equivalent/0x00284d20.cpp [wrapped: conflict: pure3d::SimpleFrameController]
-// sym: ?vfunc_6@SimpleFrameController@pure3d@fn_00284d20@@UAEXMD@Z
+// sym: ?vfunc_6@SimpleFrameController@pure3d@fn_00284d20@@UAEXMD@Z @45dee052f9ff @w86c52bf71616
 namespace fn_00284d20 {
 // STATUS: equivalent (tools/equiv.py level 3: 15029 inputs, branch coverage 8/8)
 // pure3d::SimpleFrameController::vfunc_6 @ 0x00284d20
@@ -677,7 +677,7 @@ void pure3d::SimpleFrameController::vfunc_15(void* __p0, void* __p1) { int * p =
 
 
 // 0x00284df0 pure3d::SimpleFrameController::vfunc_16 (87 B): equivalent/0x00284df0.cpp
-// sym: ?vfunc_16@SimpleFrameController@pure3d@@UAEXH@Z
+// sym: ?vfunc_16@SimpleFrameController@pure3d@@UAEXH@Z @c918c1a91da8 @w5099d4345f02
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 10/10)
 // pure3d::SimpleFrameController::vfunc_16 @ 0x00284df0
 void pure3d::SimpleFrameController::vfunc_16(int value) {
@@ -703,7 +703,7 @@ unsigned int __fastcall target(C_284e50* self) {
 } // namespace fn_ff70be84
 
 // 0x00284e60 pure3d::SimpleFrameController::vfunc_18 (87 B): equivalent/0x00284e60.cpp
-// sym: ?vfunc_18@SimpleFrameController@pure3d@@UAEXH@Z
+// sym: ?vfunc_18@SimpleFrameController@pure3d@@UAEXH@Z @1ff0c7e5d199 @w69e5949c6023
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 10/10)
 // pure3d::SimpleFrameController::vfunc_18 @ 0x00284e60
 void pure3d::SimpleFrameController::vfunc_18(int value) {
@@ -798,7 +798,7 @@ int pure3d::BlendFrameController::vfunc_25() {
 namespace fn_ff70be84 {
 
 // 0x00284fa0 pure3d::BlendFrameController::vfunc_6 (359 B): equivalent/0x00284fa0.cpp
-// sym: ?vfunc_6@BlendFrameController@fn_ff70be84@@UAEXMD@Z
+// sym: ?vfunc_6@BlendFrameController@fn_ff70be84@@UAEXMD@Z @331d2d8c3689 @wf66917d1c8a2
 // STATUS: equivalent (tools/equiv.py level 3: 287 inputs, branch coverage 22/22)
 // pure3d::BlendFrameController::vfunc_6 @ 0x00284fa0
 void BlendFrameController::vfunc_6(float dt, char force)
@@ -907,7 +907,7 @@ void BlendFrameController::vfunc_15(unsigned* a, unsigned* b) {
 
 
 // 0x002851b0 pure3d::BlendFrameController::vfunc_16 (114 B): equivalent/0x002851b0.cpp [wrapped: merged class would differ: BlendFrameController: array bound 0x108 - 0x2c - sizeof ( Track )]
-// sym: ?vfunc_16@BlendFrameController@fn_002851b0@@UAEXH@Z
+// sym: ?vfunc_16@BlendFrameController@fn_002851b0@@UAEXH@Z @ae6f13032179 @w6380146f7e6a
 namespace fn_002851b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 12/12)
 // pure3d::BlendFrameController::vfunc_16 @ 0x002851b0
@@ -981,7 +981,7 @@ unsigned int __fastcall target(C_285230* self) {
 } // namespace fn_ff70be84
 
 // 0x00285240 pure3d::BlendFrameController::vfunc_18 (95 B): equivalent/0x00285240.cpp [wrapped: conflict: pure3d::BlendFrameController]
-// sym: ?vfunc_18@BlendFrameController@pure3d@fn_00285240@@UAEXH@Z
+// sym: ?vfunc_18@BlendFrameController@pure3d@fn_00285240@@UAEXH@Z @7709742b51e4 @wd9cce85a525d
 namespace fn_00285240 {
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 12/12)
 // pure3d::BlendFrameController::vfunc_18 @ 0x00285240
@@ -1013,7 +1013,7 @@ void BlendFrameController::vfunc_18(int newFrame) {
 
 
 // 0x002852a0 pure3d::BlendFrameController::vfunc_19 (49 B): equivalent/0x002852a0.cpp [wrapped: conflict: pure3d::Animation; pure3d::BlendFrameController]
-// sym: ?vfunc_19@BlendFrameController@pure3d@fn_002852a0@@QAEIXZ
+// sym: ?vfunc_19@BlendFrameController@pure3d@fn_002852a0@@QAEIXZ @6a6184ff0170 @w80bea4eab04d
 namespace fn_002852a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // pure3d::BlendFrameController::vfunc_19 @ 0x002852a0
@@ -1150,7 +1150,7 @@ hulk_uintptr Container_285410::Find(int value) {
 } // namespace fn_ff70be84
 
 // 0x00285460 pure3d::FrameControllerLoader::vfunc_5 (263 B): equivalent/0x00285460.cpp [wrapped: conflict: pure3d::FrameControllerLoader]
-// sym: ?vfunc_5@FrameControllerLoader@pure3d@fn_00285460@@UAEXPAPAXPA_KPAUChunk@3@PAX@Z
+// sym: ?vfunc_5@FrameControllerLoader@pure3d@fn_00285460@@UAEXPAPAXPA_KPAUChunk@3@PAX@Z @4ffad0b78b77 @w8c9140bf5b91
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1225,7 +1225,7 @@ void FrameControllerLoader::vfunc_5(void** output,uint64_285460* key,Chunk* chun
 
 
 // 0x00285570 pure3d::OldFrameControllerLoader::vfunc_5 (209 B): equivalent/0x00285570.cpp [wrapped: conflict: pure3d::OldFrameControllerLoader]
-// sym: ?vfunc_5@OldFrameControllerLoader@pure3d@fn_00285570@@UAEXPAPAXPA_KPAUChunk@3@PAX@Z
+// sym: ?vfunc_5@OldFrameControllerLoader@pure3d@fn_00285570@@UAEXPAPAXPA_KPAUChunk@3@PAX@Z @68e747686483 @w12dd5d4b4145
 namespace fn_00285570 {
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 2/2)
 // pure3d::OldFrameControllerLoader::vfunc_5 @ 0x00285570
@@ -1345,7 +1345,7 @@ AnimationFrameController_285750* AnimationFrameController_285750::vfunc_5(signed
 
 
 // 0x00285780 FUN_00285780 (128 B): equivalent/0x00285780.cpp
-// sym: ?FUN_00285780@SimpleFrameController_285780@fn_ff70be84@@QAEPAV12@PBV12@@Z
+// sym: ?FUN_00285780@SimpleFrameController_285780@fn_ff70be84@@QAEPAV12@PBV12@@Z @ec3639343c80 @w1315738b93e0
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 4/4)
 // FUN_00285780 @ 0x00285780
 // 0x00285780: SimpleFrameController copy constructor
@@ -1392,7 +1392,7 @@ void SimpleFrameController_285800::Dtor2() throw() {
 } // namespace fn_ff70be84
 
 // 0x00285830 pure3d::SimpleFrameController::vfunc_24 (148 B): equivalent/0x00285830.cpp
-// sym: ?vfunc_24@SimpleFrameController@pure3d@@UAEXHHH@Z
+// sym: ?vfunc_24@SimpleFrameController@pure3d@@UAEXHHH@Z @a677f8ebb8fa @w7a094f5d5c37
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // pure3d::SimpleFrameController::vfunc_24 @ 0x00285830
 void pure3d::SimpleFrameController::vfunc_24(hulk_intptr __p0, int start, int unused) { Source_285830 * src = (Source_285830 *)__p0;
@@ -1470,7 +1470,7 @@ void SimpleFrameController::vfunc_12(float frame) {
 
 
 // 0x00285930 pure3d::SimpleFrameController::vfunc_14 (148 B): equivalent/0x00285930.cpp
-// sym: ?vfunc_14@SimpleFrameController@pure3d@@UAEXMM@Z
+// sym: ?vfunc_14@SimpleFrameController@pure3d@@UAEXMM@Z @2e28ad4b037e @wb236275ff30c
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 14/14)
 // pure3d::SimpleFrameController::vfunc_14 @ 0x00285930
 void pure3d::SimpleFrameController::vfunc_14(float newLo, float newHi) {
@@ -1545,7 +1545,7 @@ void __fastcall FUN_00285a70(Target_285a70* p) {
 } // namespace fn_ff70be84
 
 // 0x00285ac0 FUN_00285ac0 (679 B): equivalent/0x00285ac0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0BlendFrameController@pure3d@fn_00285ac0@@QAE@XZ
+// sym: ??0BlendFrameController@pure3d@fn_00285ac0@@QAE@XZ @2926b1b13ce2 @w0a1b1ccb5189
 namespace fn_00285ac0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3090 inputs, branch coverage 5/5)
 // FUN_00285ac0 @ 0x00285ac0
@@ -1651,7 +1651,7 @@ BlendFrameController::BlendFrameController()
 
 
 // 0x00285d70 FUN_00285d70 (476 B): equivalent/0x00285d70.cpp [wrapped: conflict: pure3d::AnimationFrameController; pure3d::BlendFrameController; pure3d::Entity; pure3d::FrameController]
-// sym: ??0BlendFrameController@pure3d@fn_00285d70@@QAE@ABV012@@Z
+// sym: ??0BlendFrameController@pure3d@fn_00285d70@@QAE@ABV012@@Z @67e2e2e4ee9c @wc130020ef16b
 namespace fn_00285d70 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_00285d70 @ 0x00285d70
@@ -1759,7 +1759,7 @@ BlendFrameController::BlendFrameController(const BlendFrameController& src) thro
 
 
 // 0x00285f50 FUN_00285f50 (104 B): equivalent/0x00285f50.cpp [wrapped: conflict: Track; pure3d::BlendFrameController; pure3d::Entity; pure3d::FrameController]
-// sym: ??1BlendFrameController@pure3d@fn_00285f50@@UAE@XZ
+// sym: ??1BlendFrameController@pure3d@fn_00285f50@@UAE@XZ @4aa50930a8a5 @w01a0113c13cb
 namespace fn_00285f50 {
 // STATUS: equivalent (tools/equiv.py level 3: 140 inputs, branch coverage 10/10)
 // FUN_00285f50 @ 0x00285f50
@@ -1808,7 +1808,7 @@ BlendFrameController::~BlendFrameController() throw() {
 
 
 // 0x00285fc0 pure3d::BlendFrameController::vfunc_24 (467 B): equivalent/0x00285fc0.cpp [wrapped: conflict: BlendFrameController; Track]
-// sym: ?vfunc_24@BlendFrameController@fn_00285fc0@@UAEXPAURefObj_285fc0@2@MM@Z
+// sym: ?vfunc_24@BlendFrameController@fn_00285fc0@@UAEXPAURefObj_285fc0@2@MM@Z @ef638f822291 @w744e04919e84
 namespace fn_00285fc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 638 inputs, branch coverage 30/30)
 // pure3d::BlendFrameController::vfunc_24 @ 0x00285fc0
@@ -1934,7 +1934,7 @@ void BlendFrameController::vfunc_24(RefObj_285fc0* obj, float start, float blend
 
 
 // 0x002861a0 pure3d::BlendFrameController::vfunc_12 (103 B): equivalent/0x002861a0.cpp [wrapped: conflict: BlendFrameController; Track]
-// sym: ?vfunc_12@BlendFrameController@fn_002861a0@@UAEXM@Z
+// sym: ?vfunc_12@BlendFrameController@fn_002861a0@@UAEXM@Z @03e9346d5e14 @w644e20f16cc0
 namespace fn_002861a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 12/12)
 // pure3d::BlendFrameController::vfunc_12 @ 0x002861a0
@@ -2009,7 +2009,7 @@ void BlendFrameController::vfunc_12(float x)
 
 
 // 0x00286210 pure3d::BlendFrameController::vfunc_14 (163 B): equivalent/0x00286210.cpp [wrapped: conflict: pure3d::BlendFrameController]
-// sym: ?vfunc_14@BlendFrameController@pure3d@fn_00286210@@UAEXMM@Z
+// sym: ?vfunc_14@BlendFrameController@pure3d@fn_00286210@@UAEXMM@Z @739ad40f8404 @wdc8a227c770a
 namespace fn_00286210 {
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 16/16)
 // pure3d::BlendFrameController::vfunc_14 @ 0x00286210
@@ -2138,7 +2138,7 @@ void BlendFrameController::f23() {
 
 
 // 0x00286300 pure3d::BlendFrameController::vfunc_29 (160 B): equivalent/0x00286300.cpp [wrapped: conflict: pure3d::BlendFrameController]
-// sym: ?vfunc_29@BlendFrameController@pure3d@fn_00286300@@UAEXXZ
+// sym: ?vfunc_29@BlendFrameController@pure3d@fn_00286300@@UAEXXZ @7b41a6f77afc @wc7d537026158
 namespace fn_00286300 {
 // STATUS: equivalent (tools/equiv.py level 3: 140 inputs, branch coverage 12/12)
 // pure3d::BlendFrameController::vfunc_29 @ 0x00286300
@@ -2309,7 +2309,7 @@ SimpleFrameController* SimpleFrameController::vfunc_2(unsigned char flag) {
 
 
 // 0x00286520 FUN_00286520 (121 B): equivalent/0x00286520.cpp [wrapped: conflict: pure3d::DefaultFrameControllerHandler; pure3d::FrameControllerLoader]
-// sym: ??0FrameControllerLoader@pure3d@fn_00286520@@QAE@XZ
+// sym: ??0FrameControllerLoader@pure3d@fn_00286520@@QAE@XZ @12577e54f7a9 @w3572427d7646
 inline void* operator new(size_t, void* p) throw() { return p; }
 namespace fn_00286520 {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
@@ -2430,7 +2430,7 @@ hulk_intptr load(Manager* manager, const char* name) {
 } // namespace fn_ff70be84
 
 // 0x002867b0 pure3d::DefaultFrameControllerHandler::vfunc_4 (2325 B): equivalent/0x002867b0.cpp [wrapped: macros]
-// sym: ?FUN_002867b0@Handler@fn_002867b0@@QAEPAVFcBase@2@PBDIIPAVReader@2@PAVInv@2@@Z
+// sym: ?FUN_002867b0@Handler@fn_002867b0@@QAEPAVFcBase@2@PBDIIPAVReader@2@PAVInv@2@@Z @399a2c49c1da @w6dbfa818a10c
 namespace fn_002867b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3215 inputs, branch coverage 106/106)
 // pure3d::DefaultFrameControllerHandler::vfunc_4 @ 0x002867b0

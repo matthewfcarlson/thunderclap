@@ -309,7 +309,7 @@ extern "C" unsigned char __cdecl FUN_00252470(const char** text, const char* val
 } // namespace fn_f0c19b70
 
 // 0x002524e0 FUN_002524e0 (86 B): equivalent/0x002524e0.cpp
-// sym: ?FUN_002524e0@SeqEventVarVolumeRandType@audio@@QAEPAXXZ
+// sym: ?FUN_002524e0@SeqEventVarVolumeRandType@audio@@QAEPAXXZ @600f408cffe6 @we74d6218be6a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002524e0 @ 0x002524e0
 void* audio::SeqEventVarVolumeRandType::FUN_002524e0() { HULK_SIZE32(AudioSeqEventVarVolumeRand, 0x10); __int64 value = FUN_002672f0("SeqEventVarVolumeRand", 0, 0); Local local; void* p = ((void *)((owners::String_23fc40 *)&local)->FUN_0023fc40("Vol?", (hulk_intptr)0)); ((SeqEventVarVolumeRandType_nv_2524e0*)this)->FUN_002605e0(p, &value, (int)sizeof(AudioSeqEventVarVolumeRand), (int)__alignof(AudioSeqEventVarVolumeRand)); ((owners::Str_240060 *)&local)->FUN_00240060(); *(void**)this = DAT_00429f28; return (void*)(this); }
@@ -347,7 +347,7 @@ SeqEventVarVolumeRand_2525a0* SeqEventVarVolumeRand_2525a0::vfunc_4(int x) {
 } // namespace fn_f0c19b70
 
 // 0x002525d0 audio::SeqEventVarVolumeRand::vfunc_1 (129 B): equivalent/0x002525d0.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventVarVolumeRand]
-// sym: ?vfunc_1@SeqEventVarVolumeRand@audio@fn_002525d0@@QAEHPAUWriter_2525d0@3@@Z
+// sym: ?vfunc_1@SeqEventVarVolumeRand@audio@fn_002525d0@@QAEHPAUWriter_2525d0@3@@Z @3daf4eeb84c9 @w74ded7e17c77
 namespace fn_002525d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1534 inputs, branch coverage 10/10)
 // audio::SeqEventVarVolumeRand::vfunc_1 @ 0x002525d0

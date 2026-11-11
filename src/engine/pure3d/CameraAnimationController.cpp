@@ -154,7 +154,7 @@ hulk_intptr __fastcall target(X_292f20* self) {
 
 
 // 0x00292f60 FUN_00292f60 (354 B): equivalent/0x00292f60.cpp
-// sym: _FUN_00292f60
+// sym: _FUN_00292f60 @034bce1ae3c0 @w14bf34d33ce5
 // STATUS: equivalent (tools/equiv.py level 3: 19525 inputs, branch coverage 22/22)
 // FUN_00292f60 @ 0x00292f60
 // Snap *p to its floor when the two samplers disagree enough; sampler a arrives in esi, b in edi.
@@ -324,7 +324,7 @@ void pure3d::CameraAnimationController::vfunc_5(void* __p0) { hulk_uintptr arg =
 
 
 // 0x002939a0 FUN_002939a0 (79 B): equivalent/0x002939a0.cpp [wrapped: conflict: pure3d::VectorCamera]
-// sym: ??0VectorCamera@pure3d@fn_002939a0@@QAE@XZ
+// sym: ??0VectorCamera@pure3d@fn_002939a0@@QAE@XZ @ac0c38f9418a @wfec5c98ab4c8
 namespace fn_002939a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002939a0 @ 0x002939a0

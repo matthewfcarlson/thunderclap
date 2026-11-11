@@ -325,7 +325,7 @@ void SeqActionClip_255e60::Run(void* data) {
 
 
 // 0x00255ed0 FUN_00255ed0 (124 B): equivalent/0x00255ed0.cpp
-// sym: ?FUN_00255ed0@SeqActionClip_255ed0@fn_f91a83dc@@QAEXPAUBinding_255ed0@2@@Z
+// sym: ?FUN_00255ed0@SeqActionClip_255ed0@fn_f91a83dc@@QAEXPAUBinding_255ed0@2@@Z @80a01c62b431 @w564d4a2a1094
 // STATUS: equivalent (tools/equiv.py level 3: 2455 inputs, branch coverage 0/0)
 // FUN_00255ed0 @ 0x00255ed0
 void SeqActionClip_255ed0::FUN_00255ed0(Binding_255ed0 *binding) {
@@ -411,7 +411,7 @@ audio::SeqEventClipType::~SeqEventClipType() {}
 
 
 // 0x00255ff0 FUN_00255ff0 (66 B): equivalent/0x00255ff0.cpp [wrapped: conflict: audio::SeqEventClip]
-// sym: ??0SeqEventClip@audio@fn_00255ff0@@QAE@XZ
+// sym: ??0SeqEventClip@audio@fn_00255ff0@@QAE@XZ @09d88ce89981 @w2dc13101f6a0
 namespace fn_00255ff0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00255ff0 @ 0x00255ff0
@@ -480,7 +480,7 @@ SeqEventClip* SeqEventClip::f4(int arg) {
 
 
 // 0x00256070 audio::SeqEventClip::vfunc_1 (129 B): equivalent/0x00256070.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventClip]
-// sym: ?vfunc_1@SeqEventClip@audio@fn_00256070@@QAEHPAUWriter_256070@3@@Z
+// sym: ?vfunc_1@SeqEventClip@audio@fn_00256070@@QAEHPAUWriter_256070@3@@Z @90389bbfaecd @w785a146ae975
 namespace fn_00256070 {
 // STATUS: equivalent (tools/equiv.py level 3: 1534 inputs, branch coverage 10/10)
 // audio::SeqEventClip::vfunc_1 @ 0x00256070
@@ -561,7 +561,7 @@ audio::SeqActionClip* audio::SeqActionClip::vfunc_0(int f) {
 namespace fn_f91a83dc {
 
 // 0x00256150 FUN_00256150 (362 B): equivalent/0x00256150.cpp
-// sym: ?FUN_00256150@SeqActionClip_256150@fn_f91a83dc@@QAEXPAUArg_256150@2@@Z
+// sym: ?FUN_00256150@SeqActionClip_256150@fn_f91a83dc@@QAEXPAUArg_256150@2@@Z @2c9aefa884bd @w1c6cff776557
 // STATUS: equivalent (tools/equiv.py level 3: 292 inputs, branch coverage 16/16)
 // FUN_00256150 @ 0x00256150
 void SeqActionClip_256150::FUN_00256150(Arg_256150 *arg)
@@ -656,7 +656,7 @@ void audio::SeqEventClip::vfunc_2(void* p) {
 
 
 // 0x00256370 audio::SeqActionClip::vfunc_1 (125 B): equivalent/0x00256370.cpp
-// sym: ?vfunc_1@SeqActionClip_256370@audio@@UAEXPAUEvent_256370@fn_f91a83dc@@@Z
+// sym: ?vfunc_1@SeqActionClip_256370@audio@@UAEXPAUEvent_256370@fn_f91a83dc@@@Z @34b0b5099931 @wda38e858a815
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // audio::SeqActionClip::vfunc_1 @ 0x00256370
 void audio::SeqActionClip_256370::vfunc_1(Event_256370* e)
@@ -675,7 +675,7 @@ void audio::SeqActionClip_256370::vfunc_1(Event_256370* e)
 
 
 // 0x00256420 audio::SeqActionClip::vfunc_6 (430 B): equivalent/0x00256420.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?vfunc_6@SeqActionClip@fn_00256420@@UAEHPAUCtx_256420@2@@Z
+// sym: ?vfunc_6@SeqActionClip@fn_00256420@@UAEHPAUCtx_256420@2@@Z @8c21d7a115ba @w4daeac21dbd7
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_00256420 {
 // STATUS: equivalent (tools/equiv.py level 3: 125 inputs, branch coverage 29/29)

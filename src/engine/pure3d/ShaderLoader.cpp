@@ -178,7 +178,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x0028f2c0 pure3d::ShaderLoader::vfunc_5 (1313 B): equivalent/0x0028f2c0.cpp
-// sym: ?vfunc_5@ShaderLoader@pure3d@fn_f495b664@@UAEXPAPAVShader@23@PAUPair_28f2c0@3@PAUReader@3@PAVFactory_28f2c0@3@@Z
+// sym: ?vfunc_5@ShaderLoader@pure3d@fn_f495b664@@UAEXPAPAVShader@23@PAUPair_28f2c0@3@PAUReader@3@PAVFactory_28f2c0@3@@Z @f481d138fad6 @wf32d327c07c9
 // STATUS: equivalent (tools/equiv.py level 3: 226 inputs, branch coverage 31/31)
 // pure3d::ShaderLoader::vfunc_5 @ 0x0028f2c0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

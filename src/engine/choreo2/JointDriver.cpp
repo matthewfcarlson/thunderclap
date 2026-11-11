@@ -134,7 +134,7 @@ void choreo2::JointDriver::vfunc_9(int a) {
 
 
 // 0x002249d0 choreo2::JointDriver::vfunc_10 (440 B): equivalent/0x002249d0.cpp [wrapped: conflict: JointDriver]
-// sym: ?vfunc_10@JointDriver@fn_002249d0@@UAEXHPAUTransform_2249d0@2@PAUPoseSet_2249d0@2@M@Z
+// sym: ?vfunc_10@JointDriver@fn_002249d0@@UAEXHPAUTransform_2249d0@2@PAUPoseSet_2249d0@2@M@Z @8da3aca21e13 @w96b4a0867f3d
 namespace fn_002249d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 12/12)
 // choreo2::JointDriver::vfunc_10 @ 0x002249d0
