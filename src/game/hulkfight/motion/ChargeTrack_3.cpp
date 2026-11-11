@@ -38,6 +38,9 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::ChargeTrac
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::motion::ChargeTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::ChargeTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x178e10)
+#endif
 
 
 // 0x00178e30 fight::ParamEnumConstList<hulkfight::motion::ChargeTrack>::vfunc_0 (30 B): matches/0x00178e30.cpp
@@ -45,6 +48,9 @@ template <> fight::ParamFloatConstRange<hulkfight::motion::ChargeTrack>::~ParamF
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<hulkfight::motion::ChargeTrack>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::motion::ChargeTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x178e30)
+#endif
 
 
 // 0x00178e50 fight::ParamBool<hulkfight::motion::ChargeTrack>::vfunc_0 (30 B): matches/0x00178e50.cpp
@@ -52,4 +58,7 @@ template <> fight::ParamEnumConstList<hulkfight::motion::ChargeTrack>::~ParamEnu
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::motion::ChargeTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::motion::ChargeTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x178e50)
+#endif
 

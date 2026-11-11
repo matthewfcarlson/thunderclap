@@ -39,6 +39,9 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::PropAnimat
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::motion::PropAnimationTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::PropAnimationTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x186ef0)
+#endif
 
 
 // 0x00186f10 fight::ParamIntConstRange<hulkfight::motion::PropAnimationTrack>::vfunc_0 (30 B): matches/0x00186f10.cpp
@@ -46,6 +49,9 @@ template <> fight::ParamFloatConstRange<hulkfight::motion::PropAnimationTrack>::
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<hulkfight::motion::PropAnimationTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<hulkfight::motion::PropAnimationTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x186f10)
+#endif
 
 
 // 0x00186f30 fight::ParamEnumConstList<hulkfight::motion::PropAnimationTrack>::vfunc_0 (30 B): matches/0x00186f30.cpp
@@ -53,4 +59,7 @@ template <> fight::ParamIntConstRange<hulkfight::motion::PropAnimationTrack>::~P
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<hulkfight::motion::PropAnimationTrack>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::motion::PropAnimationTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x186f30)
+#endif
 

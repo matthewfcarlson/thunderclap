@@ -38,6 +38,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Turnin
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<hulkfight::motion::TurningVelocityCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::motion::TurningVelocityCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x16a3e0)
+#endif
 
 
 // 0x0016a400 fight::ParamFloatConstRange<hulkfight::motion::TurningVelocityCondition>::vfunc_0 (30 B): matches/0x0016a400.cpp
@@ -45,4 +48,7 @@ template <> fight::ParamEnumConstList<hulkfight::motion::TurningVelocityConditio
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::motion::TurningVelocityCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::TurningVelocityCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x16a400)
+#endif
 

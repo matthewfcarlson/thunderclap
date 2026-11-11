@@ -52,6 +52,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Target
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<hulkfight::motion::TargetLocomotionMotionStateCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::motion::TargetLocomotionMotionStateCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x16a700)
+#endif
 
 
 // 0x0016a730 fight::ConditionFactoryCasterTemplate<hulkfight::motion::TargetHealthPercentCondition>::vfunc_0 (36 B): matches/0x0016a730.cpp
@@ -68,6 +71,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Target
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<hulkfight::motion::TargetHealthPercentCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::motion::TargetHealthPercentCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x16a760)
+#endif
 
 
 // 0x0016a780 fight::ParamFloatConstRange<hulkfight::motion::TargetHealthPercentCondition>::vfunc_0 (30 B): matches/0x0016a780.cpp
@@ -75,4 +81,7 @@ template <> fight::ParamEnumConstList<hulkfight::motion::TargetHealthPercentCond
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::motion::TargetHealthPercentCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::TargetHealthPercentCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x16a780)
+#endif
 

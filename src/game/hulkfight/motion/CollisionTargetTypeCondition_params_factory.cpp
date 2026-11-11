@@ -61,6 +61,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Collis
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<hulkfight::motion::CollisionTargetTypeCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::motion::CollisionTargetTypeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1547b0)
+#endif
 
 
 // 0x001547e0 fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionInterruptPriorityCondition>::vfunc_0 (36 B): matches/0x001547e0.cpp
@@ -76,6 +79,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Collis
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<hulkfight::motion::CollisionInterruptPriorityCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::motion::CollisionInterruptPriorityCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154810)
+#endif
 
 
 // 0x00154840 fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionSourceNameCondition>::vfunc_0 (36 B): matches/0x00154840.cpp
@@ -91,6 +97,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Collis
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<hulkfight::motion::CollisionSourceNameCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::motion::CollisionSourceNameCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154870)
+#endif
 
 
 // 0x001548a0 fight::TrackFactoryCasterTemplate<hulkfight::motion::InterruptAccumulatorSetTrack>::vfunc_0 (36 B): matches/0x001548a0.cpp
@@ -107,4 +116,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::InterruptA
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::motion::InterruptAccumulatorSetTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::InterruptAccumulatorSetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1548d0)
+#endif
 

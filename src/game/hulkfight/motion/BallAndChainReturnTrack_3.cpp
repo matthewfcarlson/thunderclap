@@ -38,6 +38,9 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::BallAndCha
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::motion::BallAndChainReturnTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::BallAndChainReturnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1870f0)
+#endif
 
 
 // 0x00187110 fight::ParamIntConstRange<hulkfight::motion::BallAndChainReturnTrack>::vfunc_0 (30 B): matches/0x00187110.cpp
@@ -45,6 +48,9 @@ template <> fight::ParamFloatConstRange<hulkfight::motion::BallAndChainReturnTra
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<hulkfight::motion::BallAndChainReturnTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<hulkfight::motion::BallAndChainReturnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x187110)
+#endif
 
 
 // 0x00187130 fight::ParamVector<hulkfight::motion::BallAndChainReturnTrack>::vfunc_0 (30 B): matches/0x00187130.cpp
@@ -52,4 +58,7 @@ template <> fight::ParamIntConstRange<hulkfight::motion::BallAndChainReturnTrack
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamVector<hulkfight::motion::BallAndChainReturnTrack>::~ParamVector() {}
+#if defined(HULK_PTR64)
+template class fight::ParamVector<hulkfight::motion::BallAndChainReturnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x187130)
+#endif
 

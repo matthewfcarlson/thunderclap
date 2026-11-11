@@ -425,6 +425,9 @@ extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(void*, TrackFactoryC
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameConstList<hulkfight::motion::PropSpawnTrack>::~ParamNameConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameConstList<hulkfight::motion::PropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1899a0)
+#endif
 
 namespace fn_f6684e61 {
 

@@ -38,6 +38,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::RayCas
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamVector<hulkfight::motion::RayCastTargetCondition>::~ParamVector() {}
+#if defined(HULK_PTR64)
+template class fight::ParamVector<hulkfight::motion::RayCastTargetCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x16a340)
+#endif
 
 
 // 0x0016a360 fight::ParamFloatConstRange<hulkfight::motion::RayCastTargetCondition>::vfunc_0 (30 B): matches/0x0016a360.cpp
@@ -45,6 +48,9 @@ template <> fight::ParamVector<hulkfight::motion::RayCastTargetCondition>::~Para
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::motion::RayCastTargetCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::RayCastTargetCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x16a360)
+#endif
 
 
 // 0x0016a380 fight::ParamBool<hulkfight::motion::RayCastTargetCondition>::vfunc_0 (30 B): matches/0x0016a380.cpp
@@ -52,4 +58,7 @@ template <> fight::ParamFloatConstRange<hulkfight::motion::RayCastTargetConditio
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::motion::RayCastTargetCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::motion::RayCastTargetCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x16a380)
+#endif
 

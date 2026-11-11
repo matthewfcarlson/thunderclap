@@ -37,6 +37,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Collis
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<hulkfight::motion::CollisionChargeCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::motion::CollisionChargeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154610)
+#endif
 
 
 // 0x00154630 fight::ParamFloatConstRange<hulkfight::motion::CollisionChargeCondition>::vfunc_0 (30 B): matches/0x00154630.cpp
@@ -44,6 +47,9 @@ template <> fight::ParamEnumConstList<hulkfight::motion::CollisionChargeConditio
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::motion::CollisionChargeCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::CollisionChargeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154630)
+#endif
 
 
 // 0x00154650 fight::ParamBool<hulkfight::motion::CollisionChargeCondition>::vfunc_0 (30 B): matches/0x00154650.cpp
@@ -51,4 +57,7 @@ template <> fight::ParamFloatConstRange<hulkfight::motion::CollisionChargeCondit
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::motion::CollisionChargeCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::motion::CollisionChargeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154650)
+#endif
 

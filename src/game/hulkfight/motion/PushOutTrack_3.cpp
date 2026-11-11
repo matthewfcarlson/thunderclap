@@ -53,6 +53,9 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::MomentumXZ
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::motion::MomentumXZAddTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::MomentumXZAddTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x179490)
+#endif
 
 
 // 0x001794c0 fight::TrackFactoryCasterTemplate<hulkfight::motion::TargetBreakTrack>::vfunc_0 (36 B): matches/0x001794c0.cpp [wrapped: conflict: DAT_0049850c; fight::TrackFactoryCaster; fight::TrackFactoryCasterTemplate]
@@ -89,6 +92,9 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::TargetBrea
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::motion::TargetBreakTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::TargetBreakTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1794f0)
+#endif
 
 
 // 0x00179520 fight::TrackFactoryCasterTemplate<hulkfight::motion::PushOutTrack>::vfunc_0 (36 B): matches/0x00179520.cpp
@@ -105,6 +111,9 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::PushOutTra
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::motion::PushOutTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::PushOutTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x179550)
+#endif
 
 
 // 0x00179570 fight::ParamVector<hulkfight::motion::PushOutTrack>::vfunc_0 (30 B): matches/0x00179570.cpp
@@ -112,6 +121,9 @@ template <> fight::ParamFloatConstRange<hulkfight::motion::PushOutTrack>::~Param
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamVector<hulkfight::motion::PushOutTrack>::~ParamVector() {}
+#if defined(HULK_PTR64)
+template class fight::ParamVector<hulkfight::motion::PushOutTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x179570)
+#endif
 
 
 // 0x00179590 fight::ParamBool<hulkfight::motion::PushOutTrack>::vfunc_0 (30 B): matches/0x00179590.cpp
@@ -119,4 +131,7 @@ template <> fight::ParamVector<hulkfight::motion::PushOutTrack>::~ParamVector() 
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::motion::PushOutTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::motion::PushOutTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x179590)
+#endif
 

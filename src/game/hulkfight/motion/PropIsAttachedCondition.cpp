@@ -50,6 +50,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropAt
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::motion::PropAtRestCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::motion::PropAtRestCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x186930)
+#endif
 
 
 // 0x00186960 fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropIsAttachedCondition>::vfunc_0 (36 B): matches/0x00186960.cpp
@@ -66,6 +69,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropIs
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<hulkfight::motion::PropIsAttachedCondition>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<hulkfight::motion::PropIsAttachedCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x186990)
+#endif
 
 
 // 0x001869b0 fight::ParamBool<hulkfight::motion::PropIsAttachedCondition>::vfunc_0 (30 B): matches/0x001869b0.cpp
@@ -73,4 +79,7 @@ template <> fight::ParamIntConstRange<hulkfight::motion::PropIsAttachedCondition
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::motion::PropIsAttachedCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::motion::PropIsAttachedCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1869b0)
+#endif
 
