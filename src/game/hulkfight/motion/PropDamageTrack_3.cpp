@@ -40,7 +40,7 @@ class PropDamageTrack_18c3d0 : public Track_18c3d0 {
     int x10;
     int x14;
 };
-extern int g_vftable_18c420;
+extern int hulk_at_0041a898;
 
 } // namespace fn_f18335cb
 
@@ -83,7 +83,7 @@ namespace fn_f18335cb {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f18335cb@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18c420;
+    m_vptr = (void*)&hulk_at_0041a898;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

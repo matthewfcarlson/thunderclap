@@ -24,7 +24,7 @@ extern char DAT_004b1da0;
 struct Data {
     int x;
 };
-extern Data a, b;
+extern Data hulk_at_00491ca8, hulk_at_004b1e68;
 extern int __cdecl check(void*, int, Data*, Data*, int);
 extern char DAT_004b1f30;
 } // namespace fn_fadc1bae
@@ -75,7 +75,7 @@ template <> fight::ParamBool<hulkfight::motion::CollisionThrowCondition>::~Param
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VCollisionSourceSizeCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionSourceSizeCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &a, &b, 0) != 0;
+    return check(p, 0, &hulk_at_00491ca8, &hulk_at_004b1e68, 0) != 0;
 }
 
 

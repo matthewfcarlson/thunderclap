@@ -18,14 +18,14 @@ class FallTrack_1394f0 {
     int m3;
     float m4;
     int m5;
-    void Init();
+    void Init_00236d40();
 };
 class GrappleHoverTrack_1394f0 : public FallTrack_1394f0 {};
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleHoverTrack>::vfunc_5() {
     GrappleHoverTrack_1394f0* p = (GrappleHoverTrack_1394f0*)Alloc(0x18);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->vptr = ((hulk_intptr)DAT_00411be8);
         p->m3 = 0;
         p->m4 = -1.0f;

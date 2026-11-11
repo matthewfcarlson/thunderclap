@@ -25,10 +25,10 @@ class TrackFactoryTemplate_1650b0 {
 extern "C" void FUN_001622b0();
 class LocomotionStrafe4Track_1650f0 {
   public:
-    hulk_intptr Init();
+    hulk_intptr Init_0015baf0();
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-extern int g_vftable_165110;
+extern int hulk_at_00416520;
 
 } // namespace fn_fb2d9485
 
@@ -54,7 +54,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Locomotio
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::LocomotionStrafe4Track>::vfunc_5() {
     LocomotionStrafe4Track_1650f0* p = (LocomotionStrafe4Track_1650f0*)Alloc(0xa8);
     if (p)
-        return (void*)(p->Init());
+        return (void*)(p->Init_0015baf0());
     return (void*)(0);
 }
 
@@ -64,7 +64,7 @@ namespace fn_fb2d9485 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fb2d9485@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_165110;
+    m_vptr = (void*)&hulk_at_00416520;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

@@ -30,14 +30,14 @@ struct CollisionTargetPriorityCondition {
     int pad8;
     int mC;
     int m10;
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* __cdecl FUN_0008d690(int);
-extern int g_vftable_1592e0;
+extern int hulk_at_004155a8;
 struct ConditionFactoryTemplate_1592e0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0014d470();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -66,7 +66,7 @@ namespace fn_fc322d89 {
 void* __cdecl Factory_vfunc5() {
     CollisionTargetPriorityCondition* p = (CollisionTargetPriorityCondition*)FUN_0008d690((int)sizeof(CollisionTargetPriorityCondition));
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->vptr = (int*)((hulk_intptr)DAT_00414010);
         p->mC = 0;
         p->m10 = 0;
@@ -80,9 +80,9 @@ void* __cdecl Factory_vfunc5() {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1592e0@fn_fc322d89@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1592e0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1592e0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004155a8;
+    base1_dtor_0014d470();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

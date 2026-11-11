@@ -15,14 +15,14 @@ namespace fn_ffe35821 {
 struct A_171820 {
 };
 struct B_171820 {
-    void* g();
+    void* Fng_00059a30();
 };
 struct C_171820 {
-    void h(int);
+    void Fnh_00037120(int);
 };
 struct A_171840 {
-    A_171840* f59a30();
-    void f37120(int);
+    A_171840* f59a30_00059a30();
+    void f37120_00037120(int);
 };
 class ActionDef {
 public:
@@ -63,10 +63,10 @@ struct Holder_1718f0 {
     unsigned int id;
 };
 struct Resolver_1718f0 {
-    MotionData* get();
+    MotionData* get_00059a30();
 };
 struct Caller_1718f0 {
-    Resolver_1718f0* get();
+    Resolver_1718f0* get_000592a0();
 };
 struct ChargeAction {
     virtual void v0() {}
@@ -100,8 +100,8 @@ struct Inner_171950 { char pad[0x14]; int v14; };
 // sym: ?vfunc_3@IntentionClearAction@motion@hulkfight@@UAE_NHH@Z
 bool hulkfight::motion::IntentionClearAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     void* p = ((void *)((owners::Object_592a0 *)((*(A_171820 * *)&this->f_20)))->FUN_000592a0());
-    p = ((B_171820*)p)->g();
-    ((C_171820*)p)->h(1);
+    p = ((B_171820*)p)->Fng_00059a30();
+    ((C_171820*)p)->Fnh_00037120(1);
     return true;
 }
 
@@ -110,8 +110,8 @@ bool hulkfight::motion::IntentionClearAction::vfunc_3(hulk_intptr , hulk_intptr 
 // sym: ?vfunc_4@IntentionClearAction@motion@hulkfight@@UAEXXZ
 void hulkfight::motion::IntentionClearAction::vfunc_4() {
     A_171840* x = ((A_171840 *)((owners::Object_592a0 *)((*(A_171840 * *)&this->f_20)))->FUN_000592a0());
-    x = x->f59a30();
-    x->f37120(0);
+    x = x->f59a30_00059a30();
+    x->f37120_00037120(0);
 }
 
 
@@ -147,8 +147,8 @@ namespace fn_ffe35821 {
 // sym: ?vfunc_5@ChargeAction@fn_ffe35821@@UAE_NHM@Z
 bool ChargeAction::vfunc_5(int p2, float p3) {
     if (p2 == 0) {
-        Resolver_1718f0* r = source->get();
-        MotionData* m = r->get();
+        Resolver_1718f0* r = source->get_000592a0();
+        MotionData* m = r->get_00059a30();
         unsigned int id = holder->id;
         if (id != m->id)
             m->value = 0.0f;

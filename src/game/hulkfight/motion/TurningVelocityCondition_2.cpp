@@ -29,15 +29,15 @@ struct Turning {
     int y;
     int z;
     int w;
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-extern int turning_vftable;
-extern int g_vftable_16d740;
+extern int hulk_at_00416738;
+extern int hulk_at_004175a0;
 struct ConditionFactoryTemplate_16d740 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00165d50();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -65,8 +65,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Turni
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::TurningVelocityCondition>::vfunc_5() {
     Turning* p = (Turning*)Alloc(0x14);
     if (p) {
-        p->Init(0);
-        p->vptr = (hulk_intptr)&turning_vftable;
+        p->Init_00234590(0);
+        p->vptr = (hulk_intptr)&hulk_at_00416738;
         p->z = 0;
         p->w = 0;
         return (void*)(p);
@@ -80,9 +80,9 @@ namespace fn_f782cc80 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_16d740@fn_f782cc80@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_16d740::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_16d740;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004175a0;
+    base1_dtor_00165d50();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

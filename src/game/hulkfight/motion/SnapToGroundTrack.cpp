@@ -14,16 +14,16 @@ namespace fn_ffbea55e {} using namespace fn_ffbea55e;
 // ---- declarations shared by the functions below
 namespace fn_ffbea55e {
 struct Tail_16fee0 {
-    void Init();
+    void Init_0027af50();
 };
 struct RestPoseTrack_16fee0 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_16fee0;
-extern int* gTable_16ff20;
+extern void* hulk_at_004178f8;
+extern int* hulk_at_004e1300;
 class CCondition_16ff20 {
   public:
     virtual int vfunc_0(int);
@@ -46,9 +46,9 @@ class SnapToGroundTrack : public Track_16ff30 {
 // sym: ?Run@RestPoseTrack_16fee0@fn_ffbea55e@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void RestPoseTrack_16fee0::Run() {
-    vptr = &vftable_16fee0;
-    ((Tail_16fee0*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_004178f8;
+    ((Tail_16fee0*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 
@@ -65,7 +65,7 @@ void FUN_0016ff00() {
 // sym: ?vfunc_0@SnapToGroundTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::SnapToGroundTrack::vfunc_0(int index) {
-    int* p = gTable_16ff20;
+    int* p = hulk_at_004e1300;
     return p[index];
 }
 

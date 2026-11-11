@@ -12,34 +12,34 @@ namespace fn_fafe1619 {} using namespace fn_fafe1619;
 // ---- declarations shared by the functions below
 namespace fn_fafe1619 {
 struct Tail_171010 {
-    void Init();
+    void Init_0027af50();
 };
 struct FootPivotTrack_171010 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_171010;
+extern void* hulk_at_00417d78;
 struct Thing_171060 {
     int pad[4];
     int value;
 };
 struct ObjC_171060 {
-    void run(int);
+    void run_00035930(int);
 };
 struct ObjB_171060 {
-    ObjC_171060* run();
+    ObjC_171060* run_00059a30();
 };
 struct ObjA_171060 {
-    ObjB_171060* run();
+    ObjB_171060* run_000592a0();
 };
 class A_1710a0 {
   public:
 };
 class B_1710a0 {
   public:
-    void* g();
+    void* Fng_00059a30();
 };
 class C_1710a0 {
   public:
@@ -106,7 +106,7 @@ public:
     Mat4_1710d0 mat;
 };
 struct Two_171290 {
-    void* f();
+    void* Fnf_00059a40();
 };
 
 
@@ -114,9 +114,9 @@ struct Two_171290 {
 // sym: ?Run@FootPivotTrack_171010@fn_fafe1619@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void FootPivotTrack_171010::Run() {
-    vptr = &vftable_171010;
-    ((Tail_171010*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_00417d78;
+    ((Tail_171010*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 } // namespace fn_fafe1619
@@ -126,9 +126,9 @@ void FootPivotTrack_171010::Run() {
 bool hulkfight::motion::LocomotionStateAction::vfunc_5(hulk_intptr param, int unused) {
     if (param)
         return true;
-    ObjB_171060* b = (*(ObjA_171060 * *)&this->f_20)->run();
-    ObjC_171060* c = b->run();
-    c->run((*(Thing_171060 * *)&this->f_1c)->value);
+    ObjB_171060* b = (*(ObjA_171060 * *)&this->f_20)->run_000592a0();
+    ObjC_171060* c = b->run_00059a30();
+    c->run_00035930((*(Thing_171060 * *)&this->f_1c)->value);
     return false;
 }
 
@@ -138,7 +138,7 @@ bool hulkfight::motion::LocomotionStateAction::vfunc_5(hulk_intptr param, int un
 bool hulkfight::motion::MotionStateAction::vfunc_5(hulk_intptr arg, int unused) {
     if (arg == 0) {
         void* a = ((void *)((owners::Object_592a0 *)((*(A_1710a0 * *)&this->f_20)))->FUN_000592a0());
-        void* b = ((B_1710a0*)a)->g();
+        void* b = ((B_1710a0*)a)->Fng_00059a30();
         ((owners::C_359c0 *)(((C_1710a0*)b)))->FUN_000359c0(*(int*)((char*)(*(void * *)&this->f_1c) + 0x14));
     }
     return true;
@@ -206,7 +206,7 @@ bool JointTrackerAction::vfunc_3(int a, int b)
 // Same code shape as 0x00134160 (propagated; names are from that function)
 void hulkfight::motion::JointTrackerAction::vfunc_4() {
     void* x = (*(One * *)&this->f_20)->f();
-    void* y = ((Two_171290*)x)->f();
+    void* y = ((Two_171290*)x)->Fnf_00059a40();
     if (y)
         ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }

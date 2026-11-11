@@ -24,7 +24,7 @@ class TrackFactoryTemplate_18bcc0 {
 };
 extern "C" void FUN_00187da0();
 extern "C" void* __cdecl alloc(hulk_uintptr);
-extern int vt_18bd00;
+extern int hulk_at_004192ac;
 class Obj_18bd00 {
   public:
     virtual void* a();
@@ -35,13 +35,13 @@ class Obj_18bd00 {
     virtual void* f();
     char x[8];
     char flag;
-    void init(int);
+    void init_00234590(int);
 };
-extern int g_vftable_18bd30;
+extern int hulk_at_0041a780;
 struct ConditionFactoryTemplate_18bd30 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00180ae0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -69,8 +69,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::CSMPr
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CSMPropIsCharacterCondition>::vfunc_5() {
     Obj_18bd00* p = (Obj_18bd00*)alloc(16);
     if (p) {
-        p->init(0);
-        *(hulk_intptr*)p = (hulk_intptr)&vt_18bd00;
+        p->init_00234590(0);
+        *(hulk_intptr*)p = (hulk_intptr)&hulk_at_004192ac;
         p->flag = 1;
         return (void*)(p);
     }
@@ -83,9 +83,9 @@ namespace fn_ff307066 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_18bd30@fn_ff307066@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_18bd30::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18bd30;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041a780;
+    base1_dtor_00180ae0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

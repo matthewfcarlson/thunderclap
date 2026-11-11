@@ -32,7 +32,7 @@ class TeleportAction_175890 : public Action_175890 {
     TeleportAction_175890(int target, RefObj_175890* obj);
     virtual void Execute();
 };
-extern void* g_vftable_1758e0[];
+extern void* hulk_at_00417f10[];
 class Ref_1758e0 {
   public:
     virtual void F0();
@@ -56,7 +56,7 @@ class Obj_175920 {
 };
 class Inner_175920 {
   public:
-    void Init();
+    void Init_0027af00();
 };
 class Action_175920 {
   public:
@@ -73,7 +73,7 @@ class TeleportRelativeAction_175920 : public Action_175920 {
     char pad24[4];
     Inner_175920 inner;
 };
-extern int TeleportVtable;
+extern int hulk_at_00417f2c;
 class Ref_175980 {
   public:
     virtual void f0();
@@ -81,7 +81,7 @@ class Ref_175980 {
 };
 class Helper_175980 {
   public:
-    void Clean();
+    void Clean_0027af50();
 };
 class Action_175980 {
   public:
@@ -200,7 +200,7 @@ TeleportAction_175890::TeleportAction_175890(int target, RefObj_175890* obj) {
 // 0x001758e0 FUN_001758e0 (50 B): matches/0x001758e0.cpp
 // sym: ??1TeleportAction_1758e0@fn_fe744ac4@@QAE@XZ
 TeleportAction_1758e0::~TeleportAction_1758e0() {
-    vptr = g_vftable_1758e0;
+    vptr = hulk_at_00417f10;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -217,7 +217,7 @@ TeleportAction_1758e0::~TeleportAction_1758e0() {
 TeleportRelativeAction_175920::TeleportRelativeAction_175920(int arg, Obj_175920* obj) {
     field1c = 0;
     field20 = 0;
-    inner.Init();
+    inner.Init_0027af00();
     field1c = arg;
     if (obj)
         obj->V0();
@@ -231,7 +231,7 @@ TeleportRelativeAction_175920::TeleportRelativeAction_175920(int arg, Obj_175920
 // 0x00175980 FUN_00175980 (58 B): matches/0x00175980.cpp
 // sym: ?Destroy@TeleportRelativeAction@fn_fe744ac4@@QAEXXZ
 void TeleportRelativeAction::Destroy() {
-    vptr = &TeleportVtable;
+    vptr = &hulk_at_00417f2c;
     _ReadWriteBarrier();
     if (m20) {
         m20->f1();
@@ -239,7 +239,7 @@ void TeleportRelativeAction::Destroy() {
     }
     if (m1c)
         m1c = 0;
-    helper.Clean();
+    helper.Clean_0027af50();
     ((fight::Action *)(Action_175980 *)this)->FUN_002326a0();
 }
 

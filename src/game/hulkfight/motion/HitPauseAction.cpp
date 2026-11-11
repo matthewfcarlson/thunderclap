@@ -11,7 +11,7 @@ namespace fn_fa44cb41 {} using namespace fn_fa44cb41;
 // ---- declarations shared by the functions below
 namespace fn_fa44cb41 {
 struct Two_14ef10 {
-    void* f();
+    void* Fnf_00059a40();
 };
 struct Fighter_14ef40 {
     char pad[4];
@@ -57,7 +57,7 @@ public:
 // Same code shape as 0x00134160 (propagated; names are from that function)
 void hulkfight::motion::GroundSlideAction::vfunc_4() {
     void* x = (*(One * *)&this->f_20)->f();
-    void* y = ((Two_14ef10*)x)->f();
+    void* y = ((Two_14ef10*)x)->Fnf_00059a40();
     if (y)
         ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }

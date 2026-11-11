@@ -12,7 +12,7 @@ namespace fn_ff3ae2d4 {} using namespace fn_ff3ae2d4;
 
 // ---- declarations shared by the functions below
 namespace fn_ff3ae2d4 {
-extern int* gTable_180da0;
+extern int* hulk_at_004e1488;
 class CCondition_180da0 {
   public:
     virtual int vfunc_0(int);
@@ -68,7 +68,7 @@ void FUN_00180d80() {
 // sym: ?vfunc_0@PropAnimationTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropAnimationTrack::vfunc_0(int index) {
-    int* p = gTable_180da0;
+    int* p = hulk_at_004e1488;
     return p[index];
 }
 

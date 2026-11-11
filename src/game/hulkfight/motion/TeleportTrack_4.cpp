@@ -26,7 +26,7 @@ extern "C" void FUN_0017a480();
 extern "C" char DAT_00417b68[];
 class TeleportTrackBase {
   public:
-    void Ctor();
+    void Ctor_00236d40();
 };
 struct TeleportTrack_17e700 {
     void* vt;
@@ -38,7 +38,7 @@ struct TeleportTrack_17e700 {
     float last;
 };
 extern "C" void* FUN_0008d690(hulk_uintptr);
-extern int g_vftable_17e750;
+extern int hulk_at_00418edc;
 
 } // namespace fn_f6c39359
 
@@ -64,7 +64,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::TeleportT
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::TeleportTrack>::vfunc_5() {
     TeleportTrack_17e700* p = (TeleportTrack_17e700*)FUN_0008d690((int)sizeof(TeleportTrack_17e700));
     if (p) {
-        ((TeleportTrackBase*)p)->Ctor();
+        ((TeleportTrackBase*)p)->Ctor_00236d40();
         p->vt = (void*)((hulk_intptr)DAT_00417b68);
         p->z1 = 0;
         p->z2 = 0;
@@ -82,7 +82,7 @@ namespace fn_f6c39359 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f6c39359@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17e750;
+    m_vptr = (void*)&hulk_at_00418edc;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

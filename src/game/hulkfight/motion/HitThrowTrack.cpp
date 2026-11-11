@@ -12,7 +12,7 @@ namespace fn_f8d81090 {} using namespace fn_f8d81090;
 
 // ---- declarations shared by the functions below
 namespace fn_f8d81090 {
-extern int* gTable_14dbf0;
+extern int* hulk_at_004e10d8;
 class CCondition_14dbf0 {
   public:
     virtual int vfunc_0(int);
@@ -61,7 +61,7 @@ void FUN_0014dbd0() {
 // sym: ?vfunc_0@HitThrowTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HitThrowTrack::vfunc_0(int index) {
-    int* p = gTable_14dbf0;
+    int* p = hulk_at_004e10d8;
     return p[index];
 }
 

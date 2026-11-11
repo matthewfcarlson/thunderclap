@@ -24,7 +24,7 @@ class TrackFactoryTemplate_18c2d0 {
 };
 extern "C" void FUN_00188570();
 extern "C" void* __cdecl alloc(hulk_uintptr);
-extern int vtable_18c310;
+extern int hulk_at_0041953c;
 class Prop_18c310 {
   public:
     hulk_intptr vptr;
@@ -33,9 +33,9 @@ class Prop_18c310 {
     int a;
     int b;
     int c;
-    void Init();
+    void Init_00236d40();
 };
-extern int g_vftable_18c360;
+extern int hulk_at_0041a87c;
 
 } // namespace fn_f8452970
 
@@ -61,8 +61,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropAddTo
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropAddToMissileCountTrack>::vfunc_5() {
     Prop_18c310* p = (Prop_18c310*)alloc(0x18);
     if (p) {
-        p->Init();
-        p->vptr = (hulk_intptr)&vtable_18c310;
+        p->Init_00236d40();
+        p->vptr = (hulk_intptr)&hulk_at_0041953c;
         p->a = 0;
         p->b = 0;
         p->c = 0;
@@ -78,7 +78,7 @@ namespace fn_f8452970 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f8452970@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18c360;
+    m_vptr = (void*)&hulk_at_0041a87c;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

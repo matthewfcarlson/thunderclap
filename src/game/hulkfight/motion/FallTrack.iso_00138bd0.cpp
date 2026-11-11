@@ -9,18 +9,18 @@
 #include "gen/hulkfight.h"
 
 struct HoverAction_nv_138bd0 {
-    int build(int, int);
+    int build_00134db0(int, int);
 };
-extern int __cdecl Lookup(int);
-extern hulkfight::motion::HoverAction* __cdecl Alloc(int);
+extern int __cdecl Lookup_0005a470(int);
+extern hulkfight::motion::HoverAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::GrappleHoverTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int x = Lookup(c);
+    int x = Lookup_0005a470(c);
     if (x) {
-        hulkfight::motion::HoverAction* p = Alloc(0x24);
+        hulkfight::motion::HoverAction* p = Alloc_0008d690(0x24);
         if (p) {
             int f = this->groundFixup;
-            return ((HoverAction_nv_138bd0*)(((hulkfight::motion::HoverAction*)(p))))->build(f, x);
+            return ((HoverAction_nv_138bd0*)(((hulkfight::motion::HoverAction*)(p))))->build_00134db0(f, x);
         }
     }
     return 0;

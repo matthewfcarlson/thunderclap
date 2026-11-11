@@ -25,10 +25,10 @@ class TrackFactoryTemplate_15a2e0 {
 extern "C" void FUN_00156700();
 class Track_15a320 {
   public:
-    hulk_intptr method();
+    hulk_intptr method_0014e330();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_15a340;
+extern int hulk_at_00415848;
 
 } // namespace fn_f26a8aea
 
@@ -55,7 +55,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::GroundSli
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GroundSlideTrack>::vfunc_5() {
     Track_15a320* p = (Track_15a320*)FUN_0008d690(0x38);
     if (p)
-        return (void*)(p->method());
+        return (void*)(p->method_0014e330());
     return (void*)(0);
 }
 
@@ -65,7 +65,7 @@ namespace fn_f26a8aea {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f26a8aea@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_15a340;
+    m_vptr = (void*)&hulk_at_00415848;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

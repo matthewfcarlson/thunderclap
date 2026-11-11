@@ -16,11 +16,11 @@ struct RefCounted_157150 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_157150[];
+extern char hulk_at_004145f0[];
 namespace hulkfight { namespace motion {
 class NoHitPushbackAction {
   public:
-    void Cleanup();
+    void Cleanup_002326a0();
     NoHitPushbackAction* vfunc_2(int flag);
 
   private:
@@ -37,7 +37,7 @@ class NoHitPushbackAction {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 hulkfight::motion::NoHitPushbackAction* hulkfight::motion::NoHitPushbackAction::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_157150;
+    *p = (hulk_intptr)&hulk_at_004145f0;
     RefCounted_157150* q = *(RefCounted_157150* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -46,7 +46,7 @@ hulkfight::motion::NoHitPushbackAction* hulkfight::motion::NoHitPushbackAction::
     if (m_1c != 0) {
         m_1c = 0;
     }
-    Cleanup();
+    Cleanup_002326a0();
     if (flag & 1) {
         opdel(this);
     }

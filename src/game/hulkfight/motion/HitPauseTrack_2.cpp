@@ -31,7 +31,7 @@ class HitPauseTrack_159cb0 {
     HitPauseTrack_159cb0();
 };
 extern "C" void* __cdecl operator_new(unsigned int);
-extern int g_vftable_159d00;
+extern int hulk_at_0041574c;
 
 } // namespace fn_fceda07a
 
@@ -75,7 +75,7 @@ namespace fn_fceda07a {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fceda07a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_159d00;
+    m_vptr = (void*)&hulk_at_0041574c;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

@@ -13,20 +13,20 @@ class Params_14af40 {
   public:
     int x;
 };
-extern Params_14af40 TypeA_14af40;
-extern Params_14af40 TypeB_14af40;
+extern Params_14af40 hulk_at_00494b44;
+extern Params_14af40 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_14af40*, Params_14af40*, int);
 struct CivilianDetachAction_nv_14af40 {
-    int Init(hulkfight::motion::CivilianDetachTrack*, hulk_intptr);
+    int Init_00149330(hulkfight::motion::CivilianDetachTrack*, hulk_intptr);
 };
-hulkfight::motion::CivilianDetachAction* __cdecl Alloc(int);
+hulkfight::motion::CivilianDetachAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::CivilianDetachTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_14af40, &TypeB_14af40, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::CivilianDetachAction* p = Alloc(0x24);
+        hulkfight::motion::CivilianDetachAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((CivilianDetachAction_nv_14af40*)(((hulkfight::motion::CivilianDetachAction*)(p))))->Init(this, c);
+            return ((CivilianDetachAction_nv_14af40*)(((hulkfight::motion::CivilianDetachAction*)(p))))->Init_00149330(this, c);
     }
     return 0;
 }

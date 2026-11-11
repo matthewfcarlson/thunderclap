@@ -19,13 +19,13 @@ struct TrackFactory_14c390 {
 };
 extern "C" void* __cdecl Allocate(unsigned int);
 struct GrappleHitReactionTrack_nv_14c390 {
-    void* init();
+    void* init_001476d0();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleHitReactionTrack>::vfunc_5() {
     void* p = Allocate(0x58);
     if (p)
-        return (void*)(((GrappleHitReactionTrack_nv_14c390*)(((hulkfight::motion::GrappleHitReactionTrack*)(((hulkfight::motion::GrappleHitReactionTrack*)p)))))->init());
+        return (void*)(((GrappleHitReactionTrack_nv_14c390*)(((hulkfight::motion::GrappleHitReactionTrack*)(((hulkfight::motion::GrappleHitReactionTrack*)p)))))->init_001476d0());
     return (void*)(0);
 }
 

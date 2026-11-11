@@ -21,7 +21,7 @@ class Ref_136850 {
 };
 class AirToGroundTargetAction_136850 {
   public:
-    void Init();
+    void Init_00232660();
 };
 class AirToGroundTargetAction {
   public:
@@ -30,7 +30,7 @@ class AirToGroundTargetAction {
     int a, b, c, d, e, f;
     AirToGroundTargetAction(int x, Ref_136850* r);
 };
-extern void* g_vftable_1368a0[];
+extern void* hulk_at_00411e34[];
 class Ref_1368a0 {
   public:
     virtual void F0();
@@ -53,8 +53,8 @@ class Obj_136d60 {
   public:
     virtual void a();
     virtual void b();
-    Obj_136d60* query();
-    void act(void*, int);
+    Obj_136d60* query_00059a40();
+    void act_00222970(void*, int);
 };
 class Source_136d60 {
   public:
@@ -64,7 +64,7 @@ class Source_136d60 {
 // 0x00136850 FUN_00136850 (80 B): matches/0x00136850.cpp
 // sym: ??0AirToGroundTargetAction@fn_fc9ef4a6@@QAE@HPAVRef_136850@1@@Z
 AirToGroundTargetAction::AirToGroundTargetAction(int x, Ref_136850* r) {
-    ((AirToGroundTargetAction_136850*)this)->Init();
+    ((AirToGroundTargetAction_136850*)this)->Init_00232660();
     Ref_136850* q = r;
     volatile int* p = &vf;
     *(hulk_intptr*)p = ((hulk_intptr)DAT_00411e34);
@@ -87,7 +87,7 @@ AirToGroundTargetAction::AirToGroundTargetAction(int x, Ref_136850* r) {
 // 0x001368a0 FUN_001368a0 (74 B): matches/0x001368a0.cpp
 // sym: ??1AirToGroundTargetAction_1368a0@fn_fc9ef4a6@@QAE@XZ
 AirToGroundTargetAction_1368a0::~AirToGroundTargetAction_1368a0() {
-    vptr = g_vftable_1368a0;
+    vptr = hulk_at_00411e34;
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -345,9 +345,9 @@ char AirToGroundTargetAction::v5(Arg1_1368f0 a1, float dt)
 // sym: ?vfunc_4@AirToGroundTargetAction@motion@hulkfight@@UAEXXZ
 void hulkfight::motion::AirToGroundTargetAction::vfunc_4() {
     Obj_136d60* x = ((Obj_136d60 *)((owners::Object_592a0 *)((*(Source_136d60 * *)&this->f_20)))->FUN_000592a0());
-    x = x->query();
+    x = x->query_00059a40();
     if (x) {
-        x->act((*(void * *)&this->f_24), 0);
+        x->act_00222970((*(void * *)&this->f_24), 0);
         if ((*(Obj_136d60 * *)&this->f_28)) {
             (*(Obj_136d60 * *)&this->f_28)->b();
             (*(Obj_136d60 * *)&this->f_28) = 0;

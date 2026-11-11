@@ -18,8 +18,8 @@ class Ref_175cc0 {
 };
 class Helper_175cc0 {
   public:
-    void Init();
-    void InitSub();
+    void Init_00232660();
+    void InitSub_0027af00();
 };
 class TeleportToLocatorAction_175cc0 {
   public:
@@ -31,7 +31,7 @@ class TeleportToLocatorAction_175cc0 {
     Helper_175cc0 sub;
     TeleportToLocatorAction_175cc0(int x, Ref_175cc0* r);
 };
-extern void* g_vftable_175d10[];
+extern void* hulk_at_00417f48[];
 class Ref_175d10 {
   public:
     virtual void F0();
@@ -43,7 +43,7 @@ class Action_175d10 {
 };
 struct Vec_175d10 {
     int a;
-    void Destroy();
+    void Destroy_0027af50();
 };
 class TeleportToLocatorAction_175d10 : public Action_175d10 {
   public:
@@ -66,11 +66,11 @@ class Link_175d50 {
 };
 class Action_175d50 {
   public:
-    void Init();
+    void Init_00232660();
 };
 class Part_175d50 {
   public:
-    void Init();
+    void Init_0027af00();
 };
 class SyncToLocatorAction_175d50 : public Action_175d50 {
   public:
@@ -86,7 +86,7 @@ class SyncToLocatorAction_175d50 : public Action_175d50 {
     int mZ;
     SyncToLocatorAction_175d50* Func(int a, Ref_175d50* r);
 };
-extern void* g_vftable_175db0[];
+extern void* hulk_at_00417f64[];
 class Ref_175db0 {
   public:
     virtual void F0();
@@ -163,11 +163,11 @@ namespace fn_ff45f2cf {
 // 0x00175cc0 FUN_00175cc0 (80 B): matches/0x00175cc0.cpp
 // sym: ??0TeleportToLocatorAction_175cc0@fn_ff45f2cf@@QAE@HPAVRef_175cc0@1@@Z
 TeleportToLocatorAction_175cc0::TeleportToLocatorAction_175cc0(int x, Ref_175cc0* r) {
-    ((Helper_175cc0*)this)->Init();
+    ((Helper_175cc0*)this)->Init_00232660();
     vptr = ((hulk_intptr)DAT_00417f48);
     value = 0;
     ref = 0;
-    sub.InitSub();
+    sub.InitSub_0027af00();
     value = x;
     if (r)
         r->Add();
@@ -180,7 +180,7 @@ TeleportToLocatorAction_175cc0::TeleportToLocatorAction_175cc0(int x, Ref_175cc0
 // 0x00175d10 FUN_00175d10 (58 B): matches/0x00175d10.cpp
 // sym: ??1TeleportToLocatorAction_175d10@fn_ff45f2cf@@QAE@XZ
 TeleportToLocatorAction_175d10::~TeleportToLocatorAction_175d10() {
-    vptr = g_vftable_175d10;
+    vptr = hulk_at_00417f48;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -188,7 +188,7 @@ TeleportToLocatorAction_175d10::~TeleportToLocatorAction_175d10() {
     }
     if (m1c)
         m1c = 0;
-    m28.Destroy();
+    m28.Destroy_0027af50();
     ((fight::Action *)(Action_175d10 *)this)->FUN_002326a0();
 }
 
@@ -196,11 +196,11 @@ TeleportToLocatorAction_175d10::~TeleportToLocatorAction_175d10() {
 // 0x00175d50 FUN_00175d50 (85 B): matches/0x00175d50.cpp
 // sym: ?Func@SyncToLocatorAction_175d50@fn_ff45f2cf@@QAEPAV12@HPAVRef_175d50@2@@Z
 SyncToLocatorAction_175d50* SyncToLocatorAction_175d50::Func(int a, Ref_175d50* r) {
-    Init();
+    Init_00232660();
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00417f64);
     mA = 0;
     mLink = 0;
-    part.Init();
+    part.Init_0027af00();
     mX = 0;
     mY = 0;
     mZ = 0;
@@ -217,7 +217,7 @@ SyncToLocatorAction_175d50* SyncToLocatorAction_175d50::Func(int a, Ref_175d50* 
 // 0x00175db0 FUN_00175db0 (77 B): matches/0x00175db0.cpp
 // sym: ??1SyncToLocatorAction_175db0@fn_ff45f2cf@@QAE@XZ
 SyncToLocatorAction_175db0::~SyncToLocatorAction_175db0() throw() {
-    vptr = g_vftable_175db0;
+    vptr = hulk_at_00417f64;
     _ReadWriteBarrier();
     if (m30) {
         m30->Release();

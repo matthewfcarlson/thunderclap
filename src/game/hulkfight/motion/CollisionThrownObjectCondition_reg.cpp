@@ -24,7 +24,7 @@ class TrackFactoryCasterTemplate_157b10 {
     TrackFactoryCasterTemplate_157b10() {}
     virtual void cast();
 };
-extern "C" void __cdecl Use(void*, TrackFactoryCasterTemplate_157b10*);
+extern "C" void __cdecl Use_00236ac0(void*, TrackFactoryCasterTemplate_157b10*);
 } // namespace fn_f4e72ed8
 inline void* operator new(size_t, void* p) throw() { return p; }
 namespace fn_f4e72ed8 {
@@ -108,7 +108,7 @@ namespace fn_f4e72ed8 {
 extern "C" char DAT_00415024[];
 class B_1580f0 {
   public:
-    void Fn(void*);
+    void Fn_00236760(void*);
 };
 extern "C" void* FUN_002343e0(void*, void*);
 } // namespace fn_f4e72ed8
@@ -147,35 +147,35 @@ class TrackFactoryCasterTemplate_158260 {
   public:
     virtual Track* Cast(void*);
 };
-Track* FindTrack(const char*, TrackFactoryCasterTemplate_158260*);
+Track* FindTrack_00236ac0(const char*, TrackFactoryCasterTemplate_158260*);
 class TrackFactoryCasterTemplate_158290 {
   public:
     virtual void f() {}
 };
 class Obj {
   public:
-    void Set(void*);
-    void add(void*);
-    void use(void*);
-    void Set(Track*);
-    void Fn(void*);
-    void set(void*);
+    void Set_002367c0(void*);
+    void add_002367c0(void*);
+    void use_002367c0(void*);
+    void Set_002367c0(Track*);
+    void Fn_002367c0(void*);
+    void set_002367c0(void*);
 };
-extern void* __cdecl find(void*, TrackFactoryCasterTemplate_158290*);
+extern void* __cdecl find_00236ac0(void*, TrackFactoryCasterTemplate_158290*);
 class TrackFactoryCasterTemplate_1582c0 {
   public:
     virtual void cast();
 };
 class Track {
   public:
-    void apply(void*);
+    void apply_002367c0(void*);
 };
 class Owner {
   public:
-    void Apply(Track*);
-    void set(void*);
-    void bind(Track*);
-    void* Get(void*);
+    void Apply_002367c0(Track*);
+    void set_002367c0(void*);
+    void bind_002367c0(Track*);
+    void* Get_002367c0(void*);
 };
 extern "C" void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_1582c0*);
 } // namespace fn_f4e72ed8
@@ -269,14 +269,14 @@ class TrackFactoryCasterTemplate_1586a0 {
 };
 class Receiver {
   public:
-    void Set(void*);
+    void Set_002367c0(void*);
 };
-void* Find(void*, TrackFactoryCasterTemplate_1586a0*);
+void* Find_00236ac0(void*, TrackFactoryCasterTemplate_1586a0*);
 class TrackFactoryCasterTemplate_1586d0 {
   public:
     virtual void cast();
 };
-void* lookup(void*, TrackFactoryCasterTemplate_1586d0*);
+void* lookup_00236ac0(void*, TrackFactoryCasterTemplate_1586d0*);
 } // namespace fn_f4e72ed8
 namespace hulkfight { namespace motion {
 class HitReactionTrack_158700 {
@@ -360,22 +360,22 @@ class TrackFactoryCasterTemplate_158a40 {
   public:
     virtual void f();
 };
-void* __cdecl find(const char*, TrackFactoryCasterTemplate_158a40*);
+void* __cdecl find_00236ac0(const char*, TrackFactoryCasterTemplate_158a40*);
 class TrackFactoryCasterTemplate_158aa0 {
   public:
     virtual void Dummy();
 };
-Track* Find(const char*, TrackFactoryCasterTemplate_158aa0*);
+Track* Find_00236ac0(const char*, TrackFactoryCasterTemplate_158aa0*);
 class TrackFactoryCasterTemplate_158ad0 {
   public:
     virtual void cast();
 };
-Track* __cdecl lookup(void*, TrackFactoryCasterTemplate_158ad0*);
+Track* __cdecl lookup_00236ac0(void*, TrackFactoryCasterTemplate_158ad0*);
 class TrackFactoryCasterTemplate_158b00 {
   public:
     virtual void Cast();
 };
-void* __cdecl Find(void*, TrackFactoryCasterTemplate_158b00*);
+void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_158b00*);
 class TrackFactoryCasterTemplate_158b30 {
   public:
     virtual void cast();
@@ -390,15 +390,15 @@ class TrackFactoryCasterTemplate_158b90 {
   public:
     virtual void Cast();
 };
-void* Find(void*, TrackFactoryCasterTemplate_158b90*);
+void* Find_00236ac0(void*, TrackFactoryCasterTemplate_158b90*);
 class TrackFactoryCasterTemplate_158bc0 {
   public:
     virtual void Cast();
 };
-extern void* Find(void*, TrackFactoryCasterTemplate_158bc0*);
+extern void* Find_00236ac0(void*, TrackFactoryCasterTemplate_158bc0*);
 class Factory {
   public:
-    void Add(void*);
+    void Add_002367c0(void*);
 };
 
 
@@ -520,7 +520,7 @@ namespace fn_f4e72ed8 {
 // sym: ?target@fn_f4e72ed8@@YAXPAX@Z
 void __cdecl target(void* p) {
     TrackFactoryCasterTemplate_157b10 c;
-    Use(p, &c);
+    Use_00236ac0(p, &c);
 }
 
 } // namespace fn_f4e72ed8
@@ -613,7 +613,7 @@ void FUN_001580f0(B_1580f0* b, void* a, void* x) {
     void* local;
     *(void**)&local = (void*)((hulk_intptr)DAT_00415024);
     void* p = FUN_002343e0(a, &local);
-    b->Fn(p);
+    b->Fn_00236760(p);
 }
 
 
@@ -644,8 +644,8 @@ extern "C" void FUN_001581b0()
 // sym: _FUN_00158260
 extern "C" void FUN_00158260(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_158260 caster;
-    Track* track = FindTrack(name, &caster);
-    owner->Apply(track);
+    Track* track = FindTrack_00236ac0(name, &caster);
+    owner->Apply_002367c0(track);
 }
 
 
@@ -653,7 +653,7 @@ extern "C" void FUN_00158260(Owner* owner, const char* name) {
 // sym: _FUN_00158290
 extern "C" void FUN_00158290(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_158290 caster;
-    obj->add(find(name, &caster));
+    obj->add_002367c0(find_00236ac0(name, &caster));
 }
 
 
@@ -661,7 +661,7 @@ extern "C" void FUN_00158290(Obj* obj, void* name) {
 // sym: _FUN_001582c0
 extern "C" void FUN_001582c0(Track* t, void* name) {
     TrackFactoryCasterTemplate_1582c0 caster;
-    t->apply(FUN_00236ac0(name, &caster));
+    t->apply_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
@@ -752,7 +752,7 @@ extern "C" void FUN_001582f0()
 // sym: _FUN_001586a0
 extern "C" void FUN_001586a0(Receiver* receiver, void* value) {
     TrackFactoryCasterTemplate_1586a0 caster;
-    receiver->Set(Find(value, &caster));
+    receiver->Set_002367c0(Find_00236ac0(value, &caster));
 }
 
 
@@ -760,8 +760,8 @@ extern "C" void FUN_001586a0(Receiver* receiver, void* value) {
 // sym: _FUN_001586d0
 extern "C" void FUN_001586d0(Owner* owner, void* name) {
     TrackFactoryCasterTemplate_1586d0 caster;
-    void* x = lookup(name, &caster);
-    owner->set(x);
+    void* x = lookup_00236ac0(name, &caster);
+    owner->set_002367c0(x);
 }
 
 
@@ -841,7 +841,7 @@ extern "C" void FUN_00158700()
 extern "C" void __cdecl FUN_00158a10(Obj* obj, void* key) {
     TrackFactoryCasterTemplate_158a10 caster;
     void* p = FUN_00236ac0(key, &caster);
-    obj->Set(p);
+    obj->Set_002367c0(p);
 }
 
 
@@ -849,7 +849,7 @@ extern "C" void __cdecl FUN_00158a10(Obj* obj, void* key) {
 // sym: _FUN_00158a40
 extern "C" void __cdecl FUN_00158a40(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_158a40 c;
-    obj->use(find(name, &c));
+    obj->use_002367c0(find_00236ac0(name, &c));
 }
 
 } // namespace fn_f4e72ed8
@@ -861,14 +861,14 @@ class TrackFactoryCasterTemplate_158a70 {
   public:
     virtual void cast();
 };
-extern "C++" __declspec(nothrow) void* __cdecl find(void*, TrackFactoryCasterTemplate_158a70*);
+extern "C++" __declspec(nothrow) void* __cdecl find_00236ac0(void*, TrackFactoryCasterTemplate_158a70*);
 class Object {
   public:
-    void attach(void*);
+    void attach_002367c0(void*);
 };
 extern "C" void __cdecl FUN_00158a70(Object* obj, void* name) {
     TrackFactoryCasterTemplate_158a70 caster;
-    obj->attach(find(name, &caster));
+    obj->attach_002367c0(find_00236ac0(name, &caster));
 }
 } // namespace fn_00158a70
 
@@ -878,8 +878,8 @@ namespace fn_f4e72ed8 {
 // sym: _FUN_00158aa0
 extern "C" void FUN_00158aa0(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_158aa0 caster;
-    Track* track = Find(name, &caster);
-    obj->Set(track);
+    Track* track = Find_00236ac0(name, &caster);
+    obj->Set_002367c0(track);
 }
 
 
@@ -887,7 +887,7 @@ extern "C" void FUN_00158aa0(Obj* obj, const char* name) {
 // sym: _FUN_00158ad0
 extern "C" void __cdecl FUN_00158ad0(Owner* owner, void* key) {
     TrackFactoryCasterTemplate_158ad0 caster;
-    owner->bind(lookup(key, &caster));
+    owner->bind_002367c0(lookup_00236ac0(key, &caster));
 }
 
 
@@ -895,8 +895,8 @@ extern "C" void __cdecl FUN_00158ad0(Owner* owner, void* key) {
 // sym: _FUN_00158b00
 extern "C" void __cdecl FUN_00158b00(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_158b00 caster;
-    void* result = Find(name, &caster);
-    obj->Fn(result);
+    void* result = Find_00236ac0(name, &caster);
+    obj->Fn_002367c0(result);
 }
 
 
@@ -904,7 +904,7 @@ extern "C" void __cdecl FUN_00158b00(Obj* obj, void* name) {
 // sym: _FUN_00158b30
 extern "C" void FUN_00158b30(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_158b30 c;
-    obj->set(FUN_00236ac0(name, &c));
+    obj->set_002367c0(FUN_00236ac0(name, &c));
 }
 
 
@@ -913,7 +913,7 @@ extern "C" void FUN_00158b30(Obj* obj, const char* name) {
 extern "C" void FUN_00158b60(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_158b60 caster;
     void* p = FUN_00236ac0(name, &caster);
-    obj->Set(p);
+    obj->Set_002367c0(p);
 }
 
 
@@ -921,7 +921,7 @@ extern "C" void FUN_00158b60(Obj* obj, const char* name) {
 // sym: _FUN_00158b90
 extern "C" void* FUN_00158b90(Owner* owner, void* name) {
     TrackFactoryCasterTemplate_158b90 caster;
-    return owner->Get(Find(name, &caster));
+    return owner->Get_002367c0(Find_00236ac0(name, &caster));
 }
 
 
@@ -929,8 +929,8 @@ extern "C" void* FUN_00158b90(Owner* owner, void* name) {
 // sym: _FUN_00158bc0
 extern "C" void FUN_00158bc0(Factory* f, void* name) {
     TrackFactoryCasterTemplate_158bc0 caster;
-    void* obj = Find(name, &caster);
-    f->Add(obj);
+    void* obj = Find_00236ac0(name, &caster);
+    f->Add_002367c0(obj);
 }
 
 } // namespace fn_f4e72ed8
@@ -944,13 +944,13 @@ class TrackFactoryCasterTemplate_158bf0 {
 };
 class Obj {
   public:
-    void Apply(void*);
+    void Apply_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find(void*, TrackFactoryCasterTemplate_158bf0*);
+extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_158bf0*);
 extern "C" void FUN_00158bf0(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_158bf0 caster;
-    void* p = Find(name, &caster);
-    obj->Apply(p);
+    void* p = Find_00236ac0(name, &caster);
+    obj->Apply_002367c0(p);
 }
 } // namespace fn_00158bf0
 

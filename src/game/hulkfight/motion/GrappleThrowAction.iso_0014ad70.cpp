@@ -9,17 +9,17 @@
 #include "gen/hulkfight.h"
 
 struct GrappleThrowAction_nv_14ad70 {
-    int Init(hulkfight::motion::GrappleThrowTrack*, int);
+    int Init_00148a60(hulkfight::motion::GrappleThrowTrack*, int);
 };
-extern int __cdecl GetThing(int);
-extern void* __cdecl Alloc(int);
+extern int __cdecl GetThing_0005a470(int);
+extern void* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::GrappleThrowTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int x = GetThing(c);
+    int x = GetThing_0005a470(c);
     if (x) {
-        hulkfight::motion::GrappleThrowAction* p = (hulkfight::motion::GrappleThrowAction*)Alloc(0x54);
+        hulkfight::motion::GrappleThrowAction* p = (hulkfight::motion::GrappleThrowAction*)Alloc_0008d690(0x54);
         if (p)
-            return ((GrappleThrowAction_nv_14ad70*)(((hulkfight::motion::GrappleThrowAction*)(p))))->Init(this, x);
+            return ((GrappleThrowAction_nv_14ad70*)(((hulkfight::motion::GrappleThrowAction*)(p))))->Init_00148a60(this, x);
     }
     return 0;
 }

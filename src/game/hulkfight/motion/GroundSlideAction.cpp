@@ -69,7 +69,7 @@ class InterruptAccumulatorSetAction_150fd0 : public Action_150fd0 {
     InterruptAccumulatorSetAction_150fd0(int target, RefObj_150fd0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_151020[];
+extern void* hulk_at_00414510[];
 class Ref_151020 {
   public:
     virtual void F0();
@@ -104,7 +104,7 @@ class InterruptPriorityAction_151060 : public Action_151060 {
     InterruptPriorityAction_151060(int target, RefObj_151060* obj);
     virtual void Execute();
 };
-extern void* g_vftable_1510b0[];
+extern void* hulk_at_0041452c[];
 class Ref_1510b0 {
   public:
     virtual void F0();
@@ -140,7 +140,7 @@ class HitWaitAction : public Action_1510f0 {
     RefCounted_1510f0* mB;
     int mC;
 };
-extern void* g_vftable_151140[];
+extern void* hulk_at_00414548[];
 class Ref_151140 {
   public:
     virtual void F0();
@@ -178,7 +178,7 @@ class GroundSlideAction_151180 : public Action_151180 {
     int m28;
     GroundSlideAction_151180(int, Obj_151180*);
 };
-extern void* g_vftable_1511d0[];
+extern void* hulk_at_00414564[];
 class Ref_1511d0 {
   public:
     virtual void F0();
@@ -311,7 +311,7 @@ class HitReactionAction_1517b0 : public Action_1517b0 {
     unsigned char z;
     HitReactionAction_1517b0(int* a, Ref_1517b0* b);
 };
-extern void* g_vftable_151810[];
+extern void* hulk_at_0041459c[];
 class Ref_151810 {
   public:
     void* vptr;
@@ -320,10 +320,10 @@ class Ref_151810 {
 };
 class Sub_151810 {
   public:
-    void Fn();
+    void Fn_002325f0();
 };
 struct GroundSlideAction_nv_151810 {
-    void Fn();
+    void Fn_002326a0();
 };
 class HitReactionAction_151810 {
   public:
@@ -342,23 +342,23 @@ struct Obj_151860 {
 };
 struct Sub_151860 {
     Obj_151860* obj;
-    void Init(int, int);
-    void Set(int);
+    void Init_002322f0(int, int);
+    void Set_00231f20(int);
     void Stop();
-    void Start(int);
-    int End();
+    void Start_002324b0(int);
+    int End_00231ee0();
 };
 struct C3_151860 {
     void f();
 };
 struct C2_151860 {
-    C3_151860* f();
+    C3_151860* Fnf_00035cd0();
 };
 struct C1_151860 {
-    C2_151860* f();
+    C2_151860* Fnf_00059a30();
 };
 struct C0_151860 {
-    C1_151860* f();
+    C1_151860* Fnf_000592a0();
 };
 struct HitReactionAction {
     char p0[0x20];
@@ -401,9 +401,9 @@ struct VObj_151950 {
     virtual void v1();
 };
 struct Sub_151950 {
-    void release();
+    void release_002325f0();
 };
-extern int g_vtable_151950;
+extern int hulk_at_004145b8;
 class HitReactionFloatAction_151950 {
   public:
     void destroy();
@@ -469,7 +469,7 @@ class HitPushbackAddAction_151a30 : public Action_151a30 {
     HitPushbackAddAction_151a30(int target, RefObj_151a30* obj);
     virtual void Execute();
 };
-extern void* g_vftable_151a80[];
+extern void* hulk_at_004145d4[];
 class Ref_151a80 {
   public:
     virtual void F0();
@@ -492,9 +492,9 @@ class Obj_151ac0 {
     virtual void b();
     virtual void c();
     virtual Obj_151ac0* get();
-    void* helper1();
-    Obj_151ac0* helper2();
-    void send(void*, float*);
+    void* helper1_000592a0();
+    Obj_151ac0* helper2_00059a30();
+    void send_00035810(void*, float*);
 };
 class RefObj_151b30 {
   public:
@@ -514,7 +514,7 @@ class NoHitPushbackAction_151b30 : public Action_151b30 {
     NoHitPushbackAction_151b30(int target, RefObj_151b30* obj);
     virtual void Execute();
 };
-extern void* g_vftable_151b80[];
+extern void* hulk_at_004145f0[];
 class Ref_151b80 {
   public:
     virtual void F0();
@@ -546,7 +546,7 @@ class HitPushbackAction_151bc0 : public Ctor_00232660 {
     char gap[0x1c];
     HitPushbackAction_151bc0(int p, Obj_151bc0* q);
 };
-extern void* g_vftable_151c20[];
+extern void* hulk_at_0041460c[];
 class Ref_151c20 {
   public:
     virtual void F0();
@@ -630,7 +630,7 @@ class HitFloatAction : public Action_151de0 {
     Ref* b;
     int c, d, e, f0, g;
 };
-extern void* g_vftable_151e40[];
+extern void* hulk_at_00414628[];
 class Ref_151e40 {
   public:
     virtual void F0();
@@ -666,7 +666,7 @@ class HitDamageAction_151e90 : public Action_151e90 {
     HitDamageAction_151e90(int target, RefObj_151e90* obj);
     virtual void Execute();
 };
-extern void* g_vftable_151ee0[];
+extern void* hulk_at_00414644[];
 class Ref_151ee0 {
   public:
     virtual void F0();
@@ -700,7 +700,7 @@ class HitThrowAction_151f20 : public Action_151f20 {
     char pad[0x1c - 4];
     int mF[9];
 };
-extern void* g_vftable_151f80[];
+extern void* hulk_at_00414660[];
 class Ref_151f80 {
   public:
     virtual void F0();
@@ -724,7 +724,7 @@ struct Tail_1521b0 {
     int field;
 };
 struct Mid_1521b0 {
-    Tail_1521b0* GetTail();
+    Tail_1521b0* GetTail_00059a30();
 };
 struct Obj_1521b0 {
 };
@@ -744,13 +744,13 @@ class Target_1521b0 {
     void Run();
 };
 struct H {
-    void* next();
-    void invoke(int, int);
+    void* next_00059a40();
+    void invoke_00222970(int, int);
 };
 struct HitThrowAction_nv_152450 {
-    void finish();
+    void finish_001521b0();
 };
-extern void* g_vftable_1524d0[];
+extern void* hulk_at_0041467c[];
 class Ref_1524d0 {
   public:
     virtual void F0();
@@ -786,7 +786,7 @@ class HealthAction_152630 : public Action_152630 {
     HealthAction_152630(int target, RefObj_152630* obj);
     virtual void Execute();
 };
-extern void* g_vftable_152680[];
+extern void* hulk_at_00414698[];
 class Ref_152680 {
   public:
     virtual void F0();
@@ -821,7 +821,7 @@ class ClearFightParamsHitRecordAction_1526c0 : public Action_1526c0 {
     ClearFightParamsHitRecordAction_1526c0(int target, RefObj_1526c0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_152710[];
+extern void* hulk_at_004146b4[];
 class Ref_152710 {
   public:
     virtual void F0();
@@ -1184,7 +1184,7 @@ InterruptAccumulatorSetAction_150fd0::InterruptAccumulatorSetAction_150fd0(int t
 // 0x00151020 FUN_00151020 (50 B): matches/0x00151020.cpp
 // sym: ??1InterruptAccumulatorSetAction_151020@fn_f20ed7e3@@QAE@XZ
 InterruptAccumulatorSetAction_151020::~InterruptAccumulatorSetAction_151020() {
-    vptr = g_vftable_151020;
+    vptr = hulk_at_00414510;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1217,7 +1217,7 @@ InterruptPriorityAction_151060::InterruptPriorityAction_151060(int target, RefOb
 // 0x001510b0 FUN_001510b0 (50 B): matches/0x001510b0.cpp
 // sym: ??1InterruptPriorityAction_1510b0@fn_f20ed7e3@@QAE@XZ
 InterruptPriorityAction_1510b0::~InterruptPriorityAction_1510b0() {
-    vptr = g_vftable_1510b0;
+    vptr = hulk_at_0041452c;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1248,7 +1248,7 @@ HitWaitAction::HitWaitAction(void* a, RefCounted_1510f0* b) throw() {
 // 0x00151140 FUN_00151140 (50 B): matches/0x00151140.cpp
 // sym: ??1HitWaitAction_151140@fn_f20ed7e3@@QAE@XZ
 HitWaitAction_151140::~HitWaitAction_151140() {
-    vptr = g_vftable_151140;
+    vptr = hulk_at_00414548;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1281,7 +1281,7 @@ GroundSlideAction_151180::GroundSlideAction_151180(int v, Obj_151180* p) : Actio
 // 0x001511d0 FUN_001511d0 (69 B): matches/0x001511d0.cpp
 // sym: ??1GroundSlideAction_1511d0@fn_f20ed7e3@@QAE@XZ
 GroundSlideAction_1511d0::~GroundSlideAction_1511d0() {
-    vptr = g_vftable_1511d0;
+    vptr = hulk_at_00414564;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -1548,7 +1548,7 @@ HitReactionAction_1517b0::HitReactionAction_1517b0(int* a, Ref_1517b0* b) : mA(0
 // 0x00151810 FUN_00151810 (77 B): matches/0x00151810.cpp
 // sym: ?f@HitReactionAction_151810@fn_f20ed7e3@@QAEXXZ
 void HitReactionAction_151810::f() {
-    vptr = g_vftable_151810;
+    vptr = hulk_at_0041459c;
     _ReadWriteBarrier();
     if (m4c) {
         m4c->f1();
@@ -1560,8 +1560,8 @@ void HitReactionAction_151810::f() {
     }
     if (m1c)
         m1c = 0;
-    m24.Fn();
-    ((GroundSlideAction_nv_151810*)(((hulkfight::motion::GroundSlideAction*)(((hulkfight::motion::GroundSlideAction*)this)))))->Fn();
+    m24.Fn_002325f0();
+    ((GroundSlideAction_nv_151810*)(((hulkfight::motion::GroundSlideAction*)(((hulkfight::motion::GroundSlideAction*)this)))))->Fn_002326a0();
 }
 
 
@@ -1569,22 +1569,22 @@ void HitReactionAction_151810::f() {
 // sym: ?vfunc_5@HitReactionAction@fn_f20ed7e3@@QAEHHH@Z
 int HitReactionAction::vfunc_5(int b, int a) {
     if (!b && !m54)
-        sub.Init(m50, a);
+        sub.Init_002322f0(m50, a);
     Obj_151860* old = m4c;
     m54 = 0;
     if (old != sub.obj) {
-        m20->f()->f()->f();
+        m20->Fnf_000592a0()->Fnf_00059a30()->Fnf_00035cd0();
     }
-    sub.Set(b);
+    sub.Set_00231f20(b);
     if (b == m50 - 1)
-        sub.Start(1);
+        sub.Start_002324b0(1);
     Obj_151860* q = sub.obj;
     if (q)
         q->V0();
     if (m4c)
         m4c->V1();
     m4c = q;
-    return sub.End();
+    return sub.End_00231ee0();
 }
 
 
@@ -1607,7 +1607,7 @@ HitReactionFloatAction_1518f0::HitReactionFloatAction_1518f0(int* a, Ref_1518f0*
 // 0x00151950 FUN_00151950 (77 B): matches/0x00151950.cpp
 // sym: ?destroy@HitReactionFloatAction_151950@fn_f20ed7e3@@QAEXXZ
 void HitReactionFloatAction_151950::destroy() {
-    *(int**)this = &g_vtable_151950;
+    *(int**)this = &hulk_at_004145b8;
     _ReadWriteBarrier();
     if (m4c) {
         m4c->v1();
@@ -1620,7 +1620,7 @@ void HitReactionFloatAction_151950::destroy() {
     if (m1c) {
         m1c = 0;
     }
-    ((Sub_151950*)((char*)this + 0x24))->release();
+    ((Sub_151950*)((char*)this + 0x24))->release_002325f0();
     ((fight::Action *)this)->FUN_002326a0();
 }
 
@@ -1675,7 +1675,7 @@ HitPushbackAddAction_151a30::HitPushbackAddAction_151a30(int target, RefObj_151a
 // 0x00151a80 FUN_00151a80 (50 B): matches/0x00151a80.cpp
 // sym: ??1HitPushbackAddAction_151a80@fn_f20ed7e3@@QAE@XZ
 HitPushbackAddAction_151a80::~HitPushbackAddAction_151a80() {
-    vptr = g_vftable_151a80;
+    vptr = hulk_at_004145d4;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1695,15 +1695,15 @@ bool hulkfight::motion::HitPushbackAddAction::vfunc_3(hulk_intptr __p0, hulk_int
     if ((*(Obj_151ac0 * *)&this->f_20)) {
         Obj_151ac0* p = (*(Obj_151ac0 * *)&this->f_20)->get();
         if (p) {
-            Obj_151ac0* a = (Obj_151ac0*)(*(Obj_151ac0 * *)&this->f_20)->helper1();
-            Obj_151ac0* b = a->helper2();
+            Obj_151ac0* a = (Obj_151ac0*)(*(Obj_151ac0 * *)&this->f_20)->helper1_000592a0();
+            Obj_151ac0* b = a->helper2_00059a30();
             float t = *(float*)((char*)(*(Obj_151ac0 * *)&this->f_1c) + 0x10);
             float* v = (float*)((char*)p + 0x28);
             float out[3];
             out[0] = t * v[0];
             out[1] = t * v[1];
             out[2] = t * v[2];
-            b->send(*(void**)((char*)p + 0x5c), out);
+            b->send_00035810(*(void**)((char*)p + 0x5c), out);
         }
     }
     return false;
@@ -1732,7 +1732,7 @@ NoHitPushbackAction_151b30::NoHitPushbackAction_151b30(int target, RefObj_151b30
 // 0x00151b80 FUN_00151b80 (50 B): matches/0x00151b80.cpp
 // sym: ??1NoHitPushbackAction_151b80@fn_f20ed7e3@@QAE@XZ
 NoHitPushbackAction_151b80::~NoHitPushbackAction_151b80() {
-    vptr = g_vftable_151b80;
+    vptr = hulk_at_004145f0;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1769,7 +1769,7 @@ HitPushbackAction_151bc0::HitPushbackAction_151bc0(int p, Obj_151bc0* q) : Ctor_
 // 0x00151c20 FUN_00151c20 (69 B): matches/0x00151c20.cpp
 // sym: ??1HitPushbackAction_151c20@fn_f20ed7e3@@QAE@XZ
 HitPushbackAction_151c20::~HitPushbackAction_151c20() {
-    vptr = g_vftable_151c20;
+    vptr = hulk_at_0041460c;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -1842,7 +1842,7 @@ HitFloatAction::HitFloatAction(int x, Ref* r) : Action_151de0(), b(0), c(0), d(0
 // 0x00151e40 FUN_00151e40 (69 B): matches/0x00151e40.cpp
 // sym: ??1HitFloatAction_151e40@fn_f20ed7e3@@QAE@XZ
 HitFloatAction_151e40::~HitFloatAction_151e40() {
-    vptr = g_vftable_151e40;
+    vptr = hulk_at_00414628;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -1879,7 +1879,7 @@ HitDamageAction_151e90::HitDamageAction_151e90(int target, RefObj_151e90* obj) {
 // 0x00151ee0 FUN_00151ee0 (50 B): matches/0x00151ee0.cpp
 // sym: ??1HitDamageAction_151ee0@fn_f20ed7e3@@QAE@XZ
 HitDamageAction_151ee0::~HitDamageAction_151ee0() {
-    vptr = g_vftable_151ee0;
+    vptr = hulk_at_00414644;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1910,7 +1910,7 @@ HitThrowAction_151f20::HitThrowAction_151f20(void* p, Thing_151f20* t) : Action_
 // 0x00151f80 FUN_00151f80 (74 B): matches/0x00151f80.cpp
 // sym: ??1HitThrowAction_151f80@fn_f20ed7e3@@QAE@XZ
 HitThrowAction_151f80::~HitThrowAction_151f80() {
-    vptr = g_vftable_151f80;
+    vptr = hulk_at_00414660;
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -2149,7 +2149,7 @@ namespace fn_f20ed7e3 {
 // Same code shape as 0x00135700 (propagated; names are from that function)
 void Target_1521b0::Run() {
     if (mItem != 0 && mItem->kind == 1) {
-        Tail_1521b0* t = ((Mid_1521b0 *)((owners::Object_592a0 *)mA)->FUN_000592a0())->GetTail();
+        Tail_1521b0* t = ((Mid_1521b0 *)((owners::Object_592a0 *)mA)->FUN_000592a0())->GetTail_00059a30();
         P8* p = mItem->p8;
         if (p != 0) {
             int v = t->field;
@@ -2352,10 +2352,10 @@ void hulkfight::motion::HitThrowAction::vfunc_4() {
     H* x = (*(H * *)&this->f_20);
     void* p = ((void *)((owners::Object_592a0 *)x)->FUN_000592a0());
     H* q = (H*)p;
-    p = q->next();
+    p = q->next_00059a40();
     if (p) {
-        ((H*)p)->invoke(this->f_24, 0);
-        ((HitThrowAction_nv_152450*)this)->finish();
+        ((H*)p)->invoke_00222970(this->f_24, 0);
+        ((HitThrowAction_nv_152450*)this)->finish_001521b0();
     }
 }
 
@@ -2404,7 +2404,7 @@ namespace fn_f20ed7e3 {
 // 0x001524d0 FUN_001524d0 (69 B): matches/0x001524d0.cpp
 // sym: ??1HitOrientToPushbackAction_1524d0@fn_f20ed7e3@@QAE@XZ
 HitOrientToPushbackAction_1524d0::~HitOrientToPushbackAction_1524d0() {
-    vptr = g_vftable_1524d0;
+    vptr = hulk_at_0041467c;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -2488,7 +2488,7 @@ HealthAction_152630::HealthAction_152630(int target, RefObj_152630* obj) {
 // 0x00152680 FUN_00152680 (50 B): matches/0x00152680.cpp
 // sym: ??1HealthAction_152680@fn_f20ed7e3@@QAE@XZ
 HealthAction_152680::~HealthAction_152680() {
-    vptr = g_vftable_152680;
+    vptr = hulk_at_00414698;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -2521,7 +2521,7 @@ ClearFightParamsHitRecordAction_1526c0::ClearFightParamsHitRecordAction_1526c0(i
 // 0x00152710 FUN_00152710 (50 B): matches/0x00152710.cpp
 // sym: ??1ClearFightParamsHitRecordAction_152710@fn_f20ed7e3@@QAE@XZ
 ClearFightParamsHitRecordAction_152710::~ClearFightParamsHitRecordAction_152710() {
-    vptr = g_vftable_152710;
+    vptr = hulk_at_004146b4;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

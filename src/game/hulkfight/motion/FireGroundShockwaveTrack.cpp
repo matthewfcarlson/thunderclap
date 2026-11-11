@@ -26,9 +26,9 @@ extern "C" void FUN_0019de50();
 extern "C" void* FUN_0008d690(hulk_uintptr);
 class Obj_1a1240 {
   public:
-    void* Init();
+    void* Init_001945b0();
 };
-extern int g_vftable_1a1260;
+extern int hulk_at_0041c2c0;
 
 } // namespace fn_ff2e6cc6
 
@@ -54,7 +54,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::FireGroun
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FireGroundShockwaveTrack>::vfunc_5() {
     Obj_1a1240* p = (Obj_1a1240*)FUN_0008d690(0xb0);
     if (p)
-        return (void*)(p->Init());
+        return (void*)(p->Init_001945b0());
     return (void*)(0);
 }
 
@@ -64,7 +64,7 @@ namespace fn_ff2e6cc6 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_ff2e6cc6@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1a1260;
+    m_vptr = (void*)&hulk_at_0041c2c0;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

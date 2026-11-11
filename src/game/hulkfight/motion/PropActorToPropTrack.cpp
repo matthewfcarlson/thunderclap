@@ -11,7 +11,7 @@ namespace fn_fd743b52 {} using namespace fn_fd743b52;
 
 // ---- declarations shared by the functions below
 namespace fn_fd743b52 {
-extern int* gTable_180b60;
+extern int* hulk_at_004e1468;
 class CCondition_180b60 {
   public:
     virtual int vfunc_0(int);
@@ -23,7 +23,7 @@ class CCondition_180b60 {
 // sym: ?vfunc_0@PropActorToPropTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropActorToPropTrack::vfunc_0(int index) {
-    int* p = gTable_180b60;
+    int* p = hulk_at_004e1468;
     return p[index];
 }
 

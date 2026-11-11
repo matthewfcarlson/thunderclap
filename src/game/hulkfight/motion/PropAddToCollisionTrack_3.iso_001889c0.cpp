@@ -13,20 +13,20 @@ class Params_1889c0 {
   public:
     int x;
 };
-extern Params_1889c0 TypeA_1889c0;
-extern Params_1889c0 TypeB_1889c0;
+extern Params_1889c0 hulk_at_00494b44;
+extern Params_1889c0 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_1889c0*, Params_1889c0*, int);
 struct PropAddToMissileCountAction_nv_1889c0 {
-    int Init(hulkfight::motion::PropAddToMissileCountTrack*, hulk_intptr);
+    int Init_00183b80(hulkfight::motion::PropAddToMissileCountTrack*, hulk_intptr);
 };
-hulkfight::motion::PropAddToMissileCountAction* __cdecl Alloc(int);
+hulkfight::motion::PropAddToMissileCountAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::PropAddToMissileCountTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_1889c0, &TypeB_1889c0, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::PropAddToMissileCountAction* p = Alloc(0x24);
+        hulkfight::motion::PropAddToMissileCountAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((PropAddToMissileCountAction_nv_1889c0*)(((hulkfight::motion::PropAddToMissileCountAction*)(p))))->Init(this, c);
+            return ((PropAddToMissileCountAction_nv_1889c0*)(((hulkfight::motion::PropAddToMissileCountAction*)(p))))->Init_00183b80(this, c);
     }
     return 0;
 }

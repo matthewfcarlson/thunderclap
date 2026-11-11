@@ -12,7 +12,7 @@ namespace fn_f3dda925 {} using namespace fn_f3dda925;
 
 // ---- declarations shared by the functions below
 namespace fn_f3dda925 {
-extern int* gTable_170f80;
+extern int* hulk_at_004e13b8;
 class CCondition_170f80 {
   public:
     virtual int vfunc_0(int);
@@ -44,7 +44,7 @@ void FUN_00170f60() {
 // sym: ?vfunc_0@FootPivotTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FootPivotTrack::vfunc_0(int index) {
-    int* p = gTable_170f80;
+    int* p = hulk_at_004e13b8;
     return p[index];
 }
 

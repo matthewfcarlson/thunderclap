@@ -27,9 +27,9 @@ extern "C" char DAT_0041932c[];
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 struct Track_18be50 {
     unsigned char pad[0x14];
-    void Init();
+    void Init_00236d40();
 };
-extern int g_vftable_18be90;
+extern int hulk_at_0041a7b8;
 
 } // namespace fn_f4f57fbd
 
@@ -55,7 +55,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropActor
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropActorThinkingTrack>::vfunc_5() {
     Track_18be50* p = (Track_18be50*)Alloc(0x14);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041932c);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *((char*)p + 0x10) = 0;
@@ -70,7 +70,7 @@ namespace fn_f4f57fbd {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f4f57fbd@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18be90;
+    m_vptr = (void*)&hulk_at_0041a7b8;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

@@ -45,11 +45,11 @@ class CollisionSourceIsMissileCondition_1595e0 : public BaseCondition {
 };
 } }
 namespace fn_f966cbed {
-extern int g_vftable_159610;
+extern int hulk_at_00415634;
 struct ConditionFactoryTemplate_159610 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0014d670();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -85,9 +85,9 @@ namespace fn_f966cbed {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_159610@fn_f966cbed@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_159610::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_159610;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00415634;
+    base1_dtor_0014d670();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

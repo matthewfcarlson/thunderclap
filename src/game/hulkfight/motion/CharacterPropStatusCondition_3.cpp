@@ -38,11 +38,11 @@ class Character {
     Character(int);
 };
 extern "C" void* Alloc(hulk_uintptr);
-extern int g_vftable_16de00;
+extern int hulk_at_004176b8;
 struct ConditionFactoryTemplate_16de00 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00166290();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -85,9 +85,9 @@ namespace fn_fb3e6666 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_16de00@fn_fb3e6666@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_16de00::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_16de00;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004176b8;
+    base1_dtor_00166290();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

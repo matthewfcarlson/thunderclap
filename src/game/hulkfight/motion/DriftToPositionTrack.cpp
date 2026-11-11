@@ -12,11 +12,11 @@ namespace fn_f6866440 {} using namespace fn_f6866440;
 
 // ---- declarations shared by the functions below
 namespace fn_f6866440 {
-extern int vtable_1703a0;
+extern int hulk_at_00417a18;
 class Part_1703a0 {
   public:
     int x[2];
-    void Init();
+    void Init_0027af50();
 };
 class MoveJointTrack_1703a0 {
   public:
@@ -24,10 +24,10 @@ class MoveJointTrack_1703a0 {
     char pad[0x14];
     Part_1703a0 p18;
     Part_1703a0 p20;
-    void Final();
+    void Final_00236d60();
     void Run();
 };
-extern int* gTable_1703f0;
+extern int* hulk_at_004e1330;
 class CCondition_1703f0 {
   public:
     virtual int vfunc_0(int);
@@ -49,10 +49,10 @@ struct Track_170450 {
 // 0x001703a0 FUN_001703a0 (33 B): matches/0x001703a0.cpp
 // sym: ?Run@MoveJointTrack_1703a0@fn_f6866440@@QAEXXZ
 void MoveJointTrack_1703a0::Run() {
-    vt = (hulk_intptr)&vtable_1703a0;
-    p20.Init();
-    p18.Init();
-    Final();
+    vt = (hulk_intptr)&hulk_at_00417a18;
+    p20.Init_0027af50();
+    p18.Init_0027af50();
+    Final_00236d60();
 }
 
 
@@ -69,7 +69,7 @@ void FUN_001703d0() {
 // sym: ?vfunc_0@DriftToPositionTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::DriftToPositionTrack::vfunc_0(int index) {
-    int* p = gTable_1703f0;
+    int* p = hulk_at_004e1330;
     return p[index];
 }
 

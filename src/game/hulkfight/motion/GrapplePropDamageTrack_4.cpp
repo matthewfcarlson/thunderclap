@@ -38,9 +38,9 @@ class CCameraShakeTrack_18bfb0 {
     int y;
     int z;
     int w;
-    void Init();
+    void Init_00236d40();
 };
-extern int g_vftable_18bff0;
+extern int hulk_at_0041a7f0;
 
 } // namespace fn_f64057df
 
@@ -67,7 +67,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::GrapplePr
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrapplePropDamageTrack>::vfunc_5() {
     CCameraShakeTrack_18bfb0* p = (CCameraShakeTrack_18bfb0*)FUN_0008d690((int)sizeof(CCameraShakeTrack_18bfb0));
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->x = 0;
         p->y = 0;
         p->z = 0;
@@ -85,7 +85,7 @@ namespace fn_f64057df {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f64057df@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18bff0;
+    m_vptr = (void*)&hulk_at_0041a7f0;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

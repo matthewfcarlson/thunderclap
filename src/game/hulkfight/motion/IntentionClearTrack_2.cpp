@@ -37,9 +37,9 @@ class IntentionClearTrack {
     int a;
     int b;
     int c;
-    void Init();
+    void Init_00236d40();
 };
-extern int g_vftable_17eb90;
+extern int hulk_at_00418f84;
 
 } // namespace fn_fd336137
 
@@ -66,7 +66,7 @@ namespace fn_fd336137 {
 void* __cdecl TrackFactoryTemplate_vfunc_5() {
     IntentionClearTrack* p = (IntentionClearTrack*)FUN_0008d690((int)sizeof(IntentionClearTrack));
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00417cb8);
         p->b = 0;
         p->c = 0xbf800000;
@@ -81,7 +81,7 @@ void* __cdecl TrackFactoryTemplate_vfunc_5() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fd336137@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17eb90;
+    m_vptr = (void*)&hulk_at_00418f84;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

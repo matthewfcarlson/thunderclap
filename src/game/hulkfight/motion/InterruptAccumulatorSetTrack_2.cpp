@@ -30,14 +30,14 @@ class Track {
     virtual void* d();
     virtual void* e();
     virtual void* vfunc_5();
-    void init();
+    void init_00236d40();
     int x;
     int y;
     int z;
     int w;
 };
-extern int vftable_159b40;
-extern int g_vftable_159b80;
+extern int hulk_at_00414210;
+extern int hulk_at_00415714;
 
 } // namespace fn_fb5b8e43
 
@@ -64,8 +64,8 @@ namespace fn_fb5b8e43 {
 void* Track::vfunc_5() {
     Track* p = (Track*)malloc(0x14);
     if (p) {
-        p->init();
-        *(int**)p = &vftable_159b40;
+        p->init_00236d40();
+        *(int**)p = &hulk_at_00414210;
         p->z = 0;
         p->w = 0;
         p->y = 1;
@@ -79,7 +79,7 @@ void* Track::vfunc_5() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fb5b8e43@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_159b80;
+    m_vptr = (void*)&hulk_at_00415714;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

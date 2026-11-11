@@ -12,7 +12,7 @@ namespace fn_f138d560 {} using namespace fn_f138d560;
 
 // ---- declarations shared by the functions below
 namespace fn_f138d560 {
-extern int* gTable_170cd0;
+extern int* hulk_at_004e1398;
 class CCondition_170cd0 {
   public:
     virtual int vfunc_0(int);
@@ -57,7 +57,7 @@ void FUN_00170cb0() {
 // sym: ?vfunc_0@IntentionClearTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::IntentionClearTrack::vfunc_0(int index) {
-    int* p = gTable_170cd0;
+    int* p = hulk_at_004e1398;
     return p[index];
 }
 

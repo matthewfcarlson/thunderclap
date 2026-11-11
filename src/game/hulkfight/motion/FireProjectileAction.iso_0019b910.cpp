@@ -13,20 +13,20 @@ class Params_19b910 {
   public:
     int x;
 };
-extern Params_19b910 TypeA_19b910;
-extern Params_19b910 TypeB_19b910;
+extern Params_19b910 hulk_at_00494b44;
+extern Params_19b910 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_19b910*, Params_19b910*, int);
 struct MissileThrowAction_nv_19b910 {
-    int Init(hulkfight::motion::MissileThrowTrack*, hulk_intptr);
+    int Init_00198560(hulkfight::motion::MissileThrowTrack*, hulk_intptr);
 };
-hulkfight::motion::MissileThrowAction* __cdecl Alloc(int);
+hulkfight::motion::MissileThrowAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::MissileThrowTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_19b910, &TypeB_19b910, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::MissileThrowAction* p = Alloc(0x24);
+        hulkfight::motion::MissileThrowAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((MissileThrowAction_nv_19b910*)(((hulkfight::motion::MissileThrowAction*)(p))))->Init(this, c);
+            return ((MissileThrowAction_nv_19b910*)(((hulkfight::motion::MissileThrowAction*)(p))))->Init_00198560(this, c);
     }
     return 0;
 }

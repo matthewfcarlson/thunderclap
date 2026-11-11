@@ -28,8 +28,8 @@ class Base {
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
 };
-extern void* a;
-extern void* b;
+extern void* hulk_at_00491ca8;
+extern void* hulk_at_004b6f40;
 
 } // namespace fn_fab8e315
 
@@ -52,7 +52,7 @@ template <> fight::ParamBool<hulkfight::motion::TargetingCondition>::~ParamBool(
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VVelocityAnimatedYCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedYCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &hulk_at_00491ca8, &hulk_at_004b6f40, 0) != 0;
 }
 
 

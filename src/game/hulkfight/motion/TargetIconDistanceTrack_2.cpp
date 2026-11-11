@@ -48,7 +48,7 @@ class Derived_17e850 : public Base_17e850 {
     float e;
     int f;
 };
-extern int g_vftable_17e8a0;
+extern int hulk_at_00418f14;
 
 } // namespace fn_f838e587
 
@@ -86,7 +86,7 @@ namespace fn_f838e587 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f838e587@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17e8a0;
+    m_vptr = (void*)&hulk_at_00418f14;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

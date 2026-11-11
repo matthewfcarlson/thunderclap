@@ -40,7 +40,7 @@ struct DriftToPositionTrack_17e350 {
     int field28;
     void FUN_00236d40();
 };
-extern int g_vftable_17e3b0;
+extern int hulk_at_00418e50;
 
 } // namespace fn_f6d45618
 
@@ -90,7 +90,7 @@ namespace fn_f6d45618 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f6d45618@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17e3b0;
+    m_vptr = (void*)&hulk_at_00418e50;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

@@ -28,7 +28,7 @@ class Dummy_165210 {
   public:
     hulk_intptr FUN_0015be30();
 };
-extern int g_vftable_165230;
+extern int hulk_at_00416558;
 
 } // namespace fn_f0264869
 
@@ -65,7 +65,7 @@ namespace fn_f0264869 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f0264869@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_165230;
+    m_vptr = (void*)&hulk_at_00416558;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

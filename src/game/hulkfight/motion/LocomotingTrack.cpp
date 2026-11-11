@@ -22,7 +22,7 @@ class TrackFactoryTemplate_164ec0 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00161380();
-extern int g_vftable_164f40;
+extern int hulk_at_004164cc;
 
 } // namespace fn_fdfc018a
 
@@ -98,7 +98,7 @@ namespace fn_fdfc018a {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fdfc018a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_164f40;
+    m_vptr = (void*)&hulk_at_004164cc;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

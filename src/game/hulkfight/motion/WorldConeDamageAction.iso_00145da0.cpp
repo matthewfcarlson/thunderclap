@@ -7,7 +7,7 @@
 // sym: ?f2@HitEffectAction@@QAEPAV1@E@Z
 #include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
-extern char HitEffectAction_vftable[];
+extern char hulk_at_004130c0[];
 class Ref_145da0 {
   public:
     virtual void f0();
@@ -27,7 +27,7 @@ class HitEffectAction {
     HitEffectAction* f2(unsigned char);
 };
 HitEffectAction* HitEffectAction::f2(unsigned char flags) {
-    vptr = HitEffectAction_vftable;
+    vptr = hulk_at_004130c0;
     _ReadWriteBarrier();
     if (m24) {
         m24->f1();

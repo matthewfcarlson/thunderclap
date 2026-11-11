@@ -14,14 +14,14 @@ namespace fn_f05a6271 {} using namespace fn_f05a6271;
 // ---- declarations shared by the functions below
 namespace fn_f05a6271 {
 typedef unsigned int u32_17bc70;
-extern int TypeA_17bc70;
-extern int TypeB_17bc70;
+extern int hulk_at_00494b44;
+extern int hulk_at_00494b60;
 struct Result_17bc70 {
-    u32_17bc70 Init(void*, void*);
+    u32_17bc70 Init_00176f50(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
-extern Result_17bc70* Alloc(int);
-extern int g_vftable_17bcc0;
+extern Result_17bc70* Alloc_0008d690(int);
+extern int hulk_at_00418014;
 class RefObj_17bcc0 {
   public:
     virtual void vfunc_0();
@@ -41,7 +41,7 @@ struct RefCounted_17bd70 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17bd70[];
+extern char hulk_at_00418030[];
 class SuckAction_17bd70 {
   public:
     SuckAction_17bd70* vfunc_2(int flag);
@@ -57,7 +57,7 @@ struct RefCounted_17be10 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17be10[];
+extern char hulk_at_0041804c[];
 class CriticalMassDrainAction_17be10 {
   public:
     CriticalMassDrainAction_17be10* vfunc_2(int flag);
@@ -71,7 +71,7 @@ class CriticalMassDrainAction_17be10 {
 typedef unsigned int u32_17be60;
 extern int TypeA_17be60, TypeB;
 struct Params_17be60 {
-    int Init(hulkfight::motion::MomentumXZAddTrack*, void*);
+    int Init_001774c0(hulkfight::motion::MomentumXZAddTrack*, void*);
 };
 extern void* Alloc(hulk_uintptr);
 struct RefCounted_17beb0 {
@@ -79,7 +79,7 @@ struct RefCounted_17beb0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17beb0[];
+extern char hulk_at_00418068[];
 class MomentumXZAddAction_17beb0 {
   public:
     MomentumXZAddAction_17beb0* vfunc_2(int flag);
@@ -95,7 +95,7 @@ struct RefCounted_17bf50 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17bf50[];
+extern char hulk_at_00418084[];
 class VisibilityAction_17bf50 {
   public:
     VisibilityAction_17bf50* vfunc_2(int flag);
@@ -111,7 +111,7 @@ struct RefCounted_17bff0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17bff0[];
+extern char hulk_at_004180a0[];
 class SnapToGroundAction_17bff0 {
   public:
     SnapToGroundAction_17bff0* vfunc_2(int flag);
@@ -277,22 +277,22 @@ class Caster_17cbd0 {
 };
 class Obj {
   public:
-    void use(void*);
-    void Apply(void*);
-    void set(void*);
-    void second(int);
-    void Process(void*);
-    void Apply(int);
+    void use_002367c0(void*);
+    void Apply_002367c0(void*);
+    void set_002367c0(void*);
+    void second_002367c0(int);
+    void Process_002367c0(void*);
+    void Apply_002367c0(int);
 };
-void* __cdecl Find(const char*, Caster_17cbd0*);
+void* __cdecl Find_00236ac0(const char*, Caster_17cbd0*);
 class Caster_17cc00 {
   public:
     virtual void Cast();
 };
-extern void* Find(const char*, Caster_17cc00*);
+extern void* Find_00236ac0(const char*, Caster_17cc00*);
 class Track {
   public:
-    void Set(void*);
+    void Set_002367c0(void*);
 };
 class JointRelativeTrack {
 public:
@@ -453,22 +453,22 @@ class Caster_17d180 {
   public:
     virtual void cast();
 };
-void* __cdecl find(const char*, Caster_17d180*);
+void* __cdecl find_00236ac0(const char*, Caster_17d180*);
 class Caster {
   public:
     virtual void* Cast(void*);
 };
 class Owner {
   public:
-    void Attach(Track*);
-    void Apply(void*);
+    void Attach_002367c0(Track*);
+    void Apply_002367c0(void*);
 };
-Track* Find(const char*, Caster*);
+Track* Find_00236ac0(const char*, Caster*);
 class Caster_17d1e0 {
   public:
     virtual void f();
 };
-int first(int, Caster_17d1e0*);
+int first_00236ac0(int, Caster_17d1e0*);
 } // namespace fn_f05a6271
 namespace hulkfight { namespace motion {
 class MoveJointTrack_17d210 {
@@ -542,28 +542,28 @@ public:
 };
 }
 namespace fn_f05a6271 {
-extern ParamRegistry DAT_4e1328;
-extern int DAT_4e132c;
+extern ParamRegistry hulk_at_004e1328;
+extern int hulk_at_004e132c;
 class Caster_17d5b0 {
   public:
     virtual void cast();
 };
-extern void* __cdecl Find(const char*, Caster_17d5b0*);
+extern void* __cdecl Find_00236ac0(const char*, Caster_17d5b0*);
 class Caster_17d610 {
   public:
     virtual void Cast();
 };
-extern int __cdecl Find(int, Caster_17d610*);
+extern int __cdecl Find_00236ac0(int, Caster_17d610*);
 class Caster_17d640 {
   public:
     virtual void cast();
 };
-void* find(const char*, Caster_17d640*);
+void* find_00236ac0(const char*, Caster_17d640*);
 class Caster_17d670 {
   public:
     virtual void Cast();
 };
-void* Find(void*, Caster_17d670*);
+void* Find_00236ac0(void*, Caster_17d670*);
 class PushOutTrack {
 public:
     void FUN_0016f250();
@@ -595,7 +595,7 @@ class Caster_17d8a0 {
   public:
     virtual void f();
 };
-void* __cdecl resolve(void*, Caster_17d8a0*);
+void* __cdecl resolve_00236ac0(void*, Caster_17d8a0*);
 } // namespace fn_f05a6271
 namespace hulkfight { namespace motion {
 class JointPivotTrackerTrack_17d8d0 {
@@ -687,14 +687,14 @@ class Caster_17dc10 {
 };
 class Target {
   public:
-    void Set(void*);
+    void Set_002367c0(void*);
 };
-void* Find(void*, Caster_17dc10*);
+void* Find_00236ac0(void*, Caster_17dc10*);
 class Caster_17dc40 {
   public:
     virtual void Cast();
 };
-extern void* Find(void*, Caster_17dc40*);
+extern void* Find_00236ac0(void*, Caster_17dc40*);
 class FootPivotTrack {
 public:
     void FUN_0016fad0();
@@ -770,10 +770,10 @@ struct ChargeTrack_17e070 {
     char flag18;
     char pad19[3];
     float value1c;
-    void Init();
+    void Init_00236d40();
 };
-extern int chargeVtable;
-extern int g_vftable_17e0c0;
+extern int hulk_at_004178c8;
+extern int hulk_at_00418de0;
 
 } // namespace fn_f05a6271
 
@@ -782,10 +782,10 @@ extern int g_vftable_17e0c0;
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::RestPoseTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17bc70 a = (u32_17bc70)__p0; u32_17bc70 b = (u32_17bc70)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &TypeA_17bc70, &TypeB_17bc70, 0)) {
-        Result_17bc70* q = Alloc(0x28);
+    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+        Result_17bc70* q = Alloc_0008d690(0x28);
         if (q)
-            return (int)(q->Init(this, p));
+            return (int)(q->Init_00176f50(this, p));
     }
     return (int)(0);
 }
@@ -797,7 +797,7 @@ namespace fn_f05a6271 {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* RestPoseAction_17bcc0::vfunc_2(unsigned char flag) {
     volatile RestPoseAction_17bcc0* self = this;
-    self->mVptr = &g_vftable_17bcc0;
+    self->mVptr = &hulk_at_00418014;
     RefObj_17bcc0* t3 = self->m3;
     if (t3) {
         t3->Release();
@@ -824,7 +824,7 @@ void* RestPoseAction_17bcc0::vfunc_2(unsigned char flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 SuckAction_17bd70* SuckAction_17bd70::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17bd70;
+    *p = (hulk_intptr)&hulk_at_00418030;
     RefCounted_17bd70* q = *(RefCounted_17bd70* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -846,7 +846,7 @@ SuckAction_17bd70* SuckAction_17bd70::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 CriticalMassDrainAction_17be10* CriticalMassDrainAction_17be10::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17be10;
+    *p = (hulk_intptr)&hulk_at_0041804c;
     RefCounted_17be10* q = *(RefCounted_17be10* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -870,9 +870,9 @@ CriticalMassDrainAction_17be10* CriticalMassDrainAction_17be10::vfunc_2(int flag
 hulk_intptr hulkfight::motion::MomentumXZAddTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17be60 a = (u32_17be60)__p0; u32_17be60 b = (u32_17be60)__p1; void * p = (void *)__p2;
 
     if (IsKindOf(p, 0, &TypeA_17be60, &TypeB, 0)) {
-        Params_17be60* q = (Params_17be60*)Alloc(0x34);
+        Params_17be60* q = (Params_17be60*)Alloc_0008d690(0x34);
         if (q)
-            return q->Init(this, p);
+            return q->Init_001774c0(this, p);
     }
     return 0;
 }
@@ -884,7 +884,7 @@ namespace fn_f05a6271 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 MomentumXZAddAction_17beb0* MomentumXZAddAction_17beb0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17beb0;
+    *p = (hulk_intptr)&hulk_at_00418068;
     RefCounted_17beb0* q = *(RefCounted_17beb0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -906,7 +906,7 @@ MomentumXZAddAction_17beb0* MomentumXZAddAction_17beb0::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 VisibilityAction_17bf50* VisibilityAction_17bf50::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17bf50;
+    *p = (hulk_intptr)&hulk_at_00418084;
     RefCounted_17bf50* q = *(RefCounted_17bf50* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -928,7 +928,7 @@ VisibilityAction_17bf50* VisibilityAction_17bf50::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 SnapToGroundAction_17bff0* SnapToGroundAction_17bff0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17bff0;
+    *p = (hulk_intptr)&hulk_at_004180a0;
     RefCounted_17bff0* q = *(RefCounted_17bff0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -1203,12 +1203,12 @@ class TrackFactoryCasterTemplate {
 } // namespace fight
 class Thing {
   public:
-    void Set(void*);
+    void Set_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* Find(const char*, fight::TrackFactoryCasterTemplate*);
+extern "C++" __declspec(nothrow) void* Find_00236ac0(const char*, fight::TrackFactoryCasterTemplate*);
 extern "C" void FUN_0017c620(Thing* thing, const char* name) {
     fight::TrackFactoryCasterTemplate caster;
-    thing->Set(Find(name, &caster));
+    thing->Set_002367c0(Find_00236ac0(name, &caster));
 }
 } // namespace fn_0017c620
 
@@ -1307,13 +1307,13 @@ class Caster_17ca00 {
 };
 class Obj {
   public:
-    void Apply(void*);
+    void Apply_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find(void*, Caster_17ca00*);
+extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(void*, Caster_17ca00*);
 extern "C" void __cdecl FUN_0017ca00(Obj* obj, void* value) {
     Caster_17ca00 caster;
-    void* p = Find(value, &caster);
-    obj->Apply(p);
+    void* p = Find_00236ac0(value, &caster);
+    obj->Apply_002367c0(p);
 }
 } // namespace fn_0017ca00
 
@@ -1327,12 +1327,12 @@ class Caster_17ca30 {
 };
 class Obj {
   public:
-    void Set(void*);
+    void Set_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find(void*, Caster_17ca30*);
+extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(void*, Caster_17ca30*);
 extern "C" void __cdecl FUN_0017ca30(Obj* obj, void* name) {
     Caster_17ca30 caster;
-    obj->Set(Find(name, &caster));
+    obj->Set_002367c0(Find_00236ac0(name, &caster));
 }
 } // namespace fn_0017ca30
 
@@ -1382,7 +1382,7 @@ extern "C" void FUN_0017ca60()
 // sym: _FUN_0017cbd0
 extern "C" void __cdecl FUN_0017cbd0(Obj* obj, const char* name) {
     Caster_17cbd0 caster;
-    obj->Apply(Find(name, &caster));
+    obj->Apply_002367c0(Find_00236ac0(name, &caster));
 }
 
 
@@ -1390,8 +1390,8 @@ extern "C" void __cdecl FUN_0017cbd0(Obj* obj, const char* name) {
 // sym: _FUN_0017cc00
 extern "C" void FUN_0017cc00(Track* track, const char* name) {
     Caster_17cc00 caster;
-    void* found = Find(name, &caster);
-    track->Set(found);
+    void* found = Find_00236ac0(name, &caster);
+    track->Set_002367c0(found);
 }
 
 
@@ -1464,13 +1464,13 @@ class Caster {
 };
 class Obj {
   public:
-    void Use(int);
+    void Use_002367c0(int);
 };
-extern int Find(void*, Caster*);
+extern int Find_00236ac0(void*, Caster*);
 extern "C" void FUN_0017cea0(Obj* obj, void* name) {
     Caster c;
-    int x = Find(name, &c);
-    obj->Use(x);
+    int x = Find_00236ac0(name, &c);
+    obj->Use_002367c0(x);
 }
 } // namespace fn_0017cea0
 
@@ -1543,7 +1543,7 @@ extern "C" void FUN_0017ced0()
 // sym: _FUN_0017d180
 extern "C" void __cdecl FUN_0017d180(Obj* obj, const char* name) {
     Caster_17d180 caster;
-    obj->set(find(name, &caster));
+    obj->set_002367c0(find_00236ac0(name, &caster));
 }
 
 
@@ -1551,8 +1551,8 @@ extern "C" void __cdecl FUN_0017d180(Obj* obj, const char* name) {
 // sym: _FUN_0017d1b0
 extern "C" void FUN_0017d1b0(Owner* owner, const char* name) {
     Caster caster;
-    Track* t = Find(name, &caster);
-    owner->Attach(t);
+    Track* t = Find_00236ac0(name, &caster);
+    owner->Attach_002367c0(t);
 }
 
 
@@ -1560,8 +1560,8 @@ extern "C" void FUN_0017d1b0(Owner* owner, const char* name) {
 // sym: _FUN_0017d1e0
 extern "C" void FUN_0017d1e0(Obj* obj, int n) {
     Caster_17d1e0 caster;
-    int x = first(n, &caster);
-    obj->second(x);
+    int x = first_00236ac0(n, &caster);
+    obj->second_002367c0(x);
 }
 
 
@@ -1571,7 +1571,7 @@ extern "C" void FUN_0017d1e0(Obj* obj, int n) {
 // FUN_0017d210 @ 0x0017d210
 extern "C" void FUN_0017d210()
 {
-    if (DAT_4e132c == 0) {
+    if (hulk_at_004e132c == 0) {
         void* params[16];
         void* mem;
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
@@ -1638,9 +1638,9 @@ extern "C" void FUN_0017d210()
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("blendOutTime", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f080);
-        FUN_002347b0(&DAT_4e1328, params, 16);
+        FUN_002347b0(&hulk_at_004e1328, params, 16);
     }
-    DAT_4e132c++;
+    hulk_at_004e132c++;
 }
 
 } // namespace fn_f05a6271
@@ -1652,14 +1652,14 @@ class Caster_17d580 {
   public:
     virtual void Cast();
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find(void*, Caster_17d580*);
+extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(void*, Caster_17d580*);
 class Obj {
   public:
-    void Take(void*);
+    void Take_002367c0(void*);
 };
 extern "C" void __cdecl FUN_0017d580(Obj* obj, void* value) {
     Caster_17d580 caster;
-    obj->Take(Find(value, &caster));
+    obj->Take_002367c0(Find_00236ac0(value, &caster));
 }
 } // namespace fn_0017d580
 
@@ -1669,8 +1669,8 @@ namespace fn_f05a6271 {
 // sym: _FUN_0017d5b0
 extern "C" void FUN_0017d5b0(Obj* obj, const char* name) {
     Caster_17d5b0 caster;
-    void* p = Find(name, &caster);
-    obj->Process(p);
+    void* p = Find_00236ac0(name, &caster);
+    obj->Process_002367c0(p);
 }
 
 } // namespace fn_f05a6271
@@ -1684,13 +1684,13 @@ class Caster {
 };
 class Holder {
   public:
-    void Set(void*);
+    void Set_002367c0(void*);
 };
-void* Find(void*, Caster*);
+void* Find_00236ac0(void*, Caster*);
 void Target(Holder* h, void* x) {
     Caster c;
-    void* p = Find(x, &c);
-    h->Set(p);
+    void* p = Find_00236ac0(x, &c);
+    h->Set_002367c0(p);
 }
 } // namespace fn_0017d5e0
 
@@ -1700,7 +1700,7 @@ namespace fn_f05a6271 {
 // sym: _FUN_0017d610
 extern "C" void FUN_0017d610(Obj* obj, int id) {
     Caster_17d610 caster;
-    obj->Apply(Find(id, &caster));
+    obj->Apply_002367c0(Find_00236ac0(id, &caster));
 }
 
 
@@ -1708,7 +1708,7 @@ extern "C" void FUN_0017d610(Obj* obj, int id) {
 // sym: _FUN_0017d640
 extern "C" void FUN_0017d640(Obj* obj, const char* name) {
     Caster_17d640 c;
-    obj->use(find(name, &c));
+    obj->use_002367c0(find_00236ac0(name, &c));
 }
 
 
@@ -1716,8 +1716,8 @@ extern "C" void FUN_0017d640(Obj* obj, const char* name) {
 // sym: _FUN_0017d670
 extern "C" void FUN_0017d670(Owner* owner, void* key) {
     Caster_17d670 c;
-    void* result = Find(key, &c);
-    owner->Apply(result);
+    void* result = Find_00236ac0(key, &c);
+    owner->Apply_002367c0(result);
 }
 
 
@@ -1778,12 +1778,12 @@ class Caster_17d870 {
 };
 class Track {
   public:
-    void get(void*);
+    void get_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl find(void*, Caster_17d870*);
+extern "C++" __declspec(nothrow) void* __cdecl find_00236ac0(void*, Caster_17d870*);
 extern "C" void FUN_0017d870(Track* t, void* name) {
     Caster_17d870 c;
-    t->get(find(name, &c));
+    t->get_002367c0(find_00236ac0(name, &c));
 }
 } // namespace fn_0017d870
 
@@ -1793,8 +1793,8 @@ namespace fn_f05a6271 {
 // sym: _FUN_0017d8a0
 extern "C" void FUN_0017d8a0(Obj* obj, void* id) {
     Caster_17d8a0 caster;
-    void* p = resolve(id, &caster);
-    obj->use(p);
+    void* p = resolve_00236ac0(id, &caster);
+    obj->use_002367c0(p);
 }
 
 
@@ -1877,7 +1877,7 @@ extern "C" void FUN_0017d8d0()
 // sym: _FUN_0017dc10
 extern "C" void FUN_0017dc10(Target* obj, void* name) {
     Caster_17dc10 caster;
-    obj->Set(Find(name, &caster));
+    obj->Set_002367c0(Find_00236ac0(name, &caster));
 }
 
 
@@ -1885,7 +1885,7 @@ extern "C" void FUN_0017dc10(Target* obj, void* name) {
 // sym: _FUN_0017dc40
 extern "C" void FUN_0017dc40(Target* target, void* name) {
     Caster_17dc40 caster;
-    target->Set(Find(name, &caster));
+    target->Set_002367c0(Find_00236ac0(name, &caster));
 }
 
 } // namespace fn_f05a6271
@@ -1899,12 +1899,12 @@ class Caster_17dc70 {
 };
 class Track {
   public:
-    void apply(void*);
+    void apply_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl find(void*, Caster_17dc70*);
+extern "C++" __declspec(nothrow) void* __cdecl find_00236ac0(void*, Caster_17dc70*);
 extern "C" void __cdecl FUN_0017dc70(Track* track, void* name) {
     Caster_17dc70 caster;
-    track->apply(find(name, &caster));
+    track->apply_002367c0(find_00236ac0(name, &caster));
 }
 } // namespace fn_0017dc70
 
@@ -1918,12 +1918,12 @@ class Caster {
 };
 class Obj {
   public:
-    void Set(void*);
+    void Set_002367c0(void*);
 };
-void* __cdecl Find(const char*, Caster*);
+void* __cdecl Find_00236ac0(const char*, Caster*);
 extern "C" void FUN_0017dca0(Obj* obj, const char* name) {
     Caster caster;
-    obj->Set(Find(name, &caster));
+    obj->Set_002367c0(Find_00236ac0(name, &caster));
 }
 } // namespace fn_0017dca0
 
@@ -1936,12 +1936,12 @@ class Caster {
     virtual void cast();
 };
 struct Owner {
-    void add(void*);
+    void add_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl find(int, Caster*);
+extern "C++" __declspec(nothrow) void* __cdecl find_00236ac0(int, Caster*);
 extern "C" void __cdecl FUN_0017dcd0(Owner* owner, hulk_intptr id) {
     Caster caster;
-    owner->add(find(id, &caster));
+    owner->add_002367c0(find_00236ac0(id, &caster));
 }
 } // namespace fn_0017dcd0
 
@@ -1955,12 +1955,12 @@ class Caster {
 };
 class Obj {
   public:
-    void Act(void*);
+    void Act_002367c0(void*);
 };
-void* __cdecl Find(void*, Caster*);
+void* __cdecl Find_00236ac0(void*, Caster*);
 void __cdecl Target(Obj* obj, void* p) {
     Caster caster;
-    obj->Act(Find(p, &caster));
+    obj->Act_002367c0(Find_00236ac0(p, &caster));
 }
 } // namespace fn_0017dd00
 
@@ -1972,14 +1972,14 @@ class Caster {
   public:
     virtual void Cast();
 };
-extern "C++" __declspec(nothrow) void* Find(void*, Caster*);
+extern "C++" __declspec(nothrow) void* Find_00236ac0(void*, Caster*);
 class Obj {
   public:
-    void Use(void*);
+    void Use_002367c0(void*);
 };
 extern "C" void FUN_0017dd30(Obj* obj, void* name) {
     Caster caster;
-    obj->Use(Find(name, &caster));
+    obj->Use_002367c0(Find_00236ac0(name, &caster));
 }
 } // namespace fn_0017dd30
 
@@ -1993,12 +1993,12 @@ class Caster {
 };
 class Obj {
   public:
-    void Do(void*);
+    void Do_002367c0(void*);
 };
-void* Find(void*, Caster*);
+void* Find_00236ac0(void*, Caster*);
 void Target(Obj* obj, void* key) {
     Caster caster;
-    obj->Do(Find(key, &caster));
+    obj->Do_002367c0(Find_00236ac0(key, &caster));
 }
 } // namespace fn_0017dd60
 
@@ -2012,13 +2012,13 @@ class Caster {
 };
 class Obj {
   public:
-    void Set(void*);
+    void Set_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl Find(void*, Caster*);
 extern "C" void FUN_0017dd90(Obj* obj, void* name) {
     Caster caster;
     void* p = Find(name, &caster);
-    obj->Set(p);
+    obj->Set_002367c0(p);
 }
 } // namespace fn_0017dd90
 
@@ -2030,15 +2030,15 @@ class Caster {
   public:
     virtual void cast();
 };
-extern "C++" __declspec(nothrow) void* __cdecl lookup(void*, Caster*);
+extern "C++" __declspec(nothrow) void* __cdecl lookup_00236ac0(void*, Caster*);
 class Obj {
   public:
-    void* use(void*);
+    void* use_002367c0(void*);
 };
 extern "C" void* FUN_0017ddc0(Obj* obj, void* key) {
     Caster caster;
-    void* result = lookup(key, &caster);
-    return obj->use(result);
+    void* result = lookup_00236ac0(key, &caster);
+    return obj->use_002367c0(result);
 }
 } // namespace fn_0017ddc0
 
@@ -2105,8 +2105,8 @@ extern "C" void FUN_0017ddf0()
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::ChargeTrack>::vfunc_5() {
     ChargeTrack_17e070* p = (ChargeTrack_17e070*)operator new(sizeof(ChargeTrack_17e070));
     if (p) {
-        p->Init();
-        p->vt = (hulk_intptr)&chargeVtable;
+        p->Init_00236d40();
+        p->vt = (hulk_intptr)&hulk_at_004178c8;
         p->padc = 0.0f;
         p->value10 = -1.0f;
         p->pad14 = 0;
@@ -2124,7 +2124,7 @@ namespace fn_f05a6271 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f05a6271@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17e0c0;
+    m_vptr = (void*)&hulk_at_00418de0;
     base1_dtor();
     base2_dtor();
     if (flags & 1)
@@ -2182,23 +2182,23 @@ void* fight::TrackFactory::vfunc_5() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_0017e170@@QAEPAXE@Z
 namespace fn_0017e170 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_17e170;
+extern int hulk_at_00418dfc;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0016ff00();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17e170;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00418dfc;
+    base1_dtor_0016ff00();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_0017e170

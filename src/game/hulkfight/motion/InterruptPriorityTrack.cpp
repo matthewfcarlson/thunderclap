@@ -12,7 +12,7 @@ namespace fn_ff8bbe1b {} using namespace fn_ff8bbe1b;
 
 // ---- declarations shared by the functions below
 namespace fn_ff8bbe1b {
-extern int* gTable_14df40;
+extern int* hulk_at_004e1100;
 class CCondition_14df40 {
   public:
     virtual int vfunc_0(int);
@@ -67,7 +67,7 @@ void FUN_0014df20() {
 // sym: ?vfunc_0@InterruptPriorityTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::InterruptPriorityTrack::vfunc_0(int index) {
-    int* p = gTable_14df40;
+    int* p = hulk_at_004e1100;
     return p[index];
 }
 

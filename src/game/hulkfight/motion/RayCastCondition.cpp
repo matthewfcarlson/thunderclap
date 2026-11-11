@@ -11,19 +11,19 @@ namespace fn_f88f56f3 {} using namespace fn_f88f56f3;
 
 // ---- declarations shared by the functions below
 namespace fn_f88f56f3 {
-extern void* Condition_1677b0_vftable[];
+extern void* hulk_at_004168b8[];
 class Condition_1677b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class VelocityXZAngleCondition_1677b0 : public Condition_1677b0 {
   public:
     VelocityXZAngleCondition_1677b0* vfunc_5(signed char flags);
 };
-extern char threat_vftable_1677e0;
+extern char hulk_at_004168d8;
 struct RayCastCondition_nv_1677e0 {
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(hulkfight::motion::RayCastCondition*);
 class RayCastCondition_1677e0 {
@@ -32,82 +32,82 @@ class RayCastCondition_1677e0 {
     char pad[0x0c];
     RayCastCondition_1677e0* vfunc_5(unsigned char);
 };
-extern void* Condition_167810_vftable[];
+extern void* hulk_at_004168f8[];
 class Condition_167810 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class InLoadedRoomCondition_167810 : public Condition_167810 {
   public:
     InLoadedRoomCondition_167810* vfunc_5(signed char flags);
 };
-extern void* Condition_167840_vftable[];
+extern void* hulk_at_00416918[];
 class Condition_167840 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class VelocityXZCondition_167840 : public Condition_167840 {
   public:
     VelocityXZCondition_167840* vfunc_5(signed char flags);
 };
-extern void* Condition_167870_vftable[];
+extern void* hulk_at_00416938[];
 class Condition_167870 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class VelocityAnimatedXZAngleCondition_167870 : public Condition_167870 {
   public:
     VelocityAnimatedXZAngleCondition_167870* vfunc_5(signed char flags);
 };
-extern void* Condition_1678a0_vftable[];
+extern void* hulk_at_00416958[];
 class Condition_1678a0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class RageModeStateCondition_1678a0 : public Condition_1678a0 {
   public:
     RageModeStateCondition_1678a0* vfunc_5(signed char flags);
 };
-extern void* Condition_1678d0_vftable[];
+extern void* hulk_at_00416978[];
 class Condition_1678d0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ShoreNearCondition_1678d0 : public Condition_1678d0 {
   public:
     ShoreNearCondition_1678d0* vfunc_5(signed char flags);
 };
-extern void* Condition_167900_vftable[];
+extern void* hulk_at_00416998[];
 class Condition_167900 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HealthPercentCondition_167900 : public Condition_167900 {
   public:
     HealthPercentCondition_167900* vfunc_5(signed char flags);
 };
-extern void* Condition_167930_vftable[];
+extern void* hulk_at_004169b8[];
 class Condition_167930 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ThinkingCondition_167930 : public Condition_167930 {
   public:
     ThinkingCondition_167930* vfunc_5(signed char flags);
 };
-extern void* Condition_167960_vftable[];
+extern void* hulk_at_004169d8[];
 class Condition_167960 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class VelocityAnimatedCondition_167960 : public Condition_167960 {
   public:
     VelocityAnimatedCondition_167960* vfunc_5(signed char flags);
 };
-extern void* Condition_167990_vftable[];
+extern void* hulk_at_004169f8[];
 class Condition_167990 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HealthCondition_167990 : public Condition_167990 {
   public:
@@ -175,8 +175,8 @@ public:
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 VelocityXZAngleCondition_1677b0* VelocityXZAngleCondition_1677b0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1677b0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004168b8;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -189,9 +189,9 @@ VelocityXZAngleCondition_1677b0* VelocityXZAngleCondition_1677b0::vfunc_5(signed
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 RayCastCondition_1677e0* RayCastCondition_1677e0::vfunc_5(unsigned char param) {
     RayCastCondition_1677e0* p = this;
-    *(char**)p = &threat_vftable_1677e0;
-    ((RayCastCondition_nv_1677e0*)(((hulkfight::motion::RayCastCondition*)((char*)p + 0x10))))->f1();
-    ((RayCastCondition_nv_1677e0*)(((hulkfight::motion::RayCastCondition*)p)))->f2();
+    *(char**)p = &hulk_at_004168d8;
+    ((RayCastCondition_nv_1677e0*)(((hulkfight::motion::RayCastCondition*)((char*)p + 0x10))))->f1_0027af50();
+    ((RayCastCondition_nv_1677e0*)(((hulkfight::motion::RayCastCondition*)p)))->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((hulkfight::motion::RayCastCondition*)p);
     return p;
@@ -204,8 +204,8 @@ RayCastCondition_1677e0* RayCastCondition_1677e0::vfunc_5(unsigned char param) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 InLoadedRoomCondition_167810* InLoadedRoomCondition_167810::vfunc_5(signed char flags) {
-    *(void***)this = Condition_167810_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004168f8;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -219,8 +219,8 @@ InLoadedRoomCondition_167810* InLoadedRoomCondition_167810::vfunc_5(signed char 
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 VelocityXZCondition_167840* VelocityXZCondition_167840::vfunc_5(signed char flags) {
-    *(void***)this = Condition_167840_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00416918;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -234,8 +234,8 @@ VelocityXZCondition_167840* VelocityXZCondition_167840::vfunc_5(signed char flag
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 VelocityAnimatedXZAngleCondition_167870* VelocityAnimatedXZAngleCondition_167870::vfunc_5(signed char flags) {
-    *(void***)this = Condition_167870_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00416938;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -249,8 +249,8 @@ VelocityAnimatedXZAngleCondition_167870* VelocityAnimatedXZAngleCondition_167870
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 RageModeStateCondition_1678a0* RageModeStateCondition_1678a0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1678a0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00416958;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -264,8 +264,8 @@ RageModeStateCondition_1678a0* RageModeStateCondition_1678a0::vfunc_5(signed cha
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ShoreNearCondition_1678d0* ShoreNearCondition_1678d0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1678d0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00416978;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -279,8 +279,8 @@ ShoreNearCondition_1678d0* ShoreNearCondition_1678d0::vfunc_5(signed char flags)
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HealthPercentCondition_167900* HealthPercentCondition_167900::vfunc_5(signed char flags) {
-    *(void***)this = Condition_167900_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00416998;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -294,8 +294,8 @@ HealthPercentCondition_167900* HealthPercentCondition_167900::vfunc_5(signed cha
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ThinkingCondition_167930* ThinkingCondition_167930::vfunc_5(signed char flags) {
-    *(void***)this = Condition_167930_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004169b8;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -309,8 +309,8 @@ ThinkingCondition_167930* ThinkingCondition_167930::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 VelocityAnimatedCondition_167960* VelocityAnimatedCondition_167960::vfunc_5(signed char flags) {
-    *(void***)this = Condition_167960_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004169d8;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -324,8 +324,8 @@ VelocityAnimatedCondition_167960* VelocityAnimatedCondition_167960::vfunc_5(sign
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HealthCondition_167990* HealthCondition_167990::vfunc_5(signed char flags) {
-    *(void***)this = Condition_167990_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004169f8;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

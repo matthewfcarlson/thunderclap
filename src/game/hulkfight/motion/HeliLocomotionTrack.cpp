@@ -34,9 +34,9 @@ struct Factory_165180 {
 };
 extern "C" void* FUN_0008d690(unsigned int);
 struct Product {
-    hulk_uintptr Initialize();
+    hulk_uintptr Initialize_0015bc90();
 };
-extern int g_vftable_1651a0;
+extern int hulk_at_0041653c;
 
 } // namespace fn_f9bc2ae8
 
@@ -62,7 +62,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HeliLocom
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HeliLocomotionTrack>::vfunc_5() {
     Product* p = (Product*)FUN_0008d690(0xd8);
     if (p)
-        return (void*)(p->Initialize());
+        return (void*)(p->Initialize_0015bc90());
     return (void*)(0);
 }
 
@@ -72,7 +72,7 @@ namespace fn_f9bc2ae8 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f9bc2ae8@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1651a0;
+    m_vptr = (void*)&hulk_at_0041653c;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

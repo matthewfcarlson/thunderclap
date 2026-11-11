@@ -83,7 +83,7 @@ public:
     void FUN_001658a0();
     void FUN_001658c0();
 };
-extern void* __cdecl Alloc(hulk_uintptr);
+extern void* __cdecl Alloc_0008d690(hulk_uintptr);
 class Condition_16d2f0 {
   public:
     virtual void a();
@@ -92,18 +92,18 @@ class Condition_16d2f0 {
     virtual void d();
     virtual void e();
     virtual void f();
-    void Init(int);
+    void Init_00234590(int);
     int x;
     int y;
     int z;
     int w;
     int q;
 };
-extern int g_vftable_16d330;
+extern int hulk_at_004174f8;
 struct ConditionFactoryTemplate_16d330 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00165a30();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -366,10 +366,10 @@ extern "C" void __cdecl FUN_0016cea0(Registry_16cea0* r)
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VChargeCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x00113f80 (propagated; names are from that function)
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::ChargeCondition>::vfunc_5() {
-    Condition_16d2f0* p = (Condition_16d2f0*)Alloc(0x18);
+    Condition_16d2f0* p = (Condition_16d2f0*)Alloc_0008d690(0x18);
     void* result;
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         *(int**)p = &AIHistoryNameCondition_vftable;
         p->z = 0;
         p->w = 0;
@@ -386,9 +386,9 @@ namespace fn_f3263be4 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_16d330@fn_f3263be4@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_16d330::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_16d330;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004174f8;
+    base1_dtor_00165a30();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

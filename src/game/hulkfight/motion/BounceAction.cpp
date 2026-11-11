@@ -29,7 +29,7 @@ class BounceAction : public Ctor_00232660 {
     int m30;
     BounceAction(int, Ref_1364a0*);
 };
-extern void* g_vftable_1364f0[];
+extern void* hulk_at_00411e18[];
 class Ref_1364f0 {
   public:
     virtual void F0();
@@ -147,7 +147,7 @@ BounceAction::BounceAction(int a, Ref_1364a0* r) : Ctor_00232660() {
 // 0x001364f0 FUN_001364f0 (69 B): matches/0x001364f0.cpp
 // sym: ??1BounceAction_1364f0@fn_f4ad64e6@@QAE@XZ
 BounceAction_1364f0::~BounceAction_1364f0() {
-    vptr = g_vftable_1364f0;
+    vptr = hulk_at_00411e18;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

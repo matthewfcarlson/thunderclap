@@ -15,16 +15,16 @@ class A_172650 {
 };
 class B_172650 {
   public:
-    B_172650* next();
-    void finish(void*, int);
+    B_172650* next_00059a40();
+    void finish_00222970(void*, int);
 };
 class A_172760 {
   public:
 };
 class B_172760 {
   public:
-    B_172760* next();
-    void finish(void*, int);
+    B_172760* next_00059a40();
+    void finish_00222970(void*, int);
 };
 
 } // namespace fn_fb8c7993
@@ -35,9 +35,9 @@ void hulkfight::motion::SurfAction::vfunc_4() {
     A_172650* a = (A_172650*)(*(void * *)&this->f_20);
     if (a) {
         B_172650* b = (B_172650*)((A_172650 *)((owners::Object_592a0 *)a)->FUN_000592a0());
-        b = b->next();
+        b = b->next_00059a40();
         if (b)
-            b->finish((*(void * *)&this->f_24), 0);
+            b->finish_00222970((*(void * *)&this->f_24), 0);
     }
 }
 
@@ -91,9 +91,9 @@ void hulkfight::motion::RestPoseAction::vfunc_4() {
     A_172760* a = (A_172760*)(*(void * *)&this->f_20);
     if (a) {
         B_172760* b = (B_172760*)((A_172760 *)((owners::Object_592a0 *)a)->FUN_000592a0());
-        b = b->next();
+        b = b->next_00059a40();
         if (b)
-            b->finish((*(void * *)&this->f_24), 0);
+            b->finish_00222970((*(void * *)&this->f_24), 0);
     }
 }
 

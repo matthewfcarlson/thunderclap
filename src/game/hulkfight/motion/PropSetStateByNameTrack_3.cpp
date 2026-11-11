@@ -14,8 +14,8 @@ struct Base {
     virtual void other();
 };
 extern "C" int __cdecl Lookup(void*, int, void*, void*, int);
-extern void* a;
-extern void* b;
+extern void* hulk_at_0049850c;
+extern void* hulk_at_004bdd60;
 
 } // namespace fn_f356d859
 
@@ -23,7 +23,7 @@ extern void* b;
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VPropSetStateByNameTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::PropSetStateByNameTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Lookup(p, 0, &a, &b, 0) != 0;
+    return Lookup(p, 0, &hulk_at_0049850c, &hulk_at_004bdd60, 0) != 0;
 }
 
 

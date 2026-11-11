@@ -53,19 +53,19 @@ struct T_139f90 {
     char pad[0x40];
     void* p;
 };
-extern int* gTable_13a020;
+extern int* hulk_at_004e0f08;
 class CCondition_13a020 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable_13a060[];
+extern void* hulk_at_00412410[];
 struct Sub_13a060 {
-    void Fin();
+    void Fin_0027af50();
 };
 class Condition_13a060 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002345b0();
 };
 class FrameReachedCondition_13a060 : public Condition_13a060 {
   public:
@@ -73,14 +73,14 @@ class FrameReachedCondition_13a060 : public Condition_13a060 {
     Sub_13a060 sub;
     void f();
 };
-extern int* gTable_13a0a0;
+extern int* hulk_at_004e0f10;
 class CCondition_13a0a0 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vt_13a0e0[];
+extern void* hulk_at_00412430[];
 struct Sub_13a0e0 {
-    void Fin() throw();
+    void Fin_0027af50() throw();
 };
 class Condition_13a0e0 {
   public:
@@ -93,7 +93,7 @@ class FrameCondition_13a0e0 : public Condition_13a0e0 {
     Sub_13a0e0 sub;
     ~FrameCondition_13a0e0() throw();
 };
-extern int* gTable_13a120;
+extern int* hulk_at_004e0f18;
 class CCondition_13a120 {
   public:
     virtual int vfunc_0(int);
@@ -139,15 +139,15 @@ struct Track_13a1a0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern void* g_vftable_13a1b0[];
+extern void* hulk_at_00412450[];
 class Str_13a1b0 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Track_13a1b0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class AnimationTrack_13a1b0 : public Track_13a1b0 {
   public:
@@ -157,7 +157,7 @@ class AnimationTrack_13a1b0 : public Track_13a1b0 {
     Str_13a1b0 s38;
     ~AnimationTrack_13a1b0();
 };
-extern int* gTable_13a200;
+extern int* hulk_at_004e0f20;
 class CCondition_13a200 {
   public:
     virtual int vfunc_0(int);
@@ -200,14 +200,14 @@ struct Track_13a270 {
     virtual void tfunc9();
 };
 typedef unsigned int u32_13a280;
-extern u32_13a280 vtable_13a280;
+extern u32_13a280 hulk_at_00412480;
 struct Sub_13a280 {
-    void Init();
+    void Init_0027af50();
 };
 struct Base_13a280 {
-    void Finish();
+    void Finish_00236d60();
 };
-extern int* gTable_13a2d0;
+extern int* hulk_at_004e0f28;
 class CCondition_13a2d0 {
   public:
     virtual int vfunc_0(int);
@@ -248,12 +248,12 @@ struct Track_13a350 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int vtable_13a360;
+extern int hulk_at_004124b0;
 class Helper_13a360 {
   public:
-    void Init();
+    void Init_0027af50();
 };
-extern int* gTable_13a3b0;
+extern int* hulk_at_004e0f30;
 class CCondition_13a3b0 {
   public:
     virtual int vfunc_0(int);
@@ -297,12 +297,12 @@ struct Track_13a430 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int vtable_13a440;
+extern int hulk_at_004124e0;
 class Helper_13a440 {
   public:
-    void Init();
+    void Init_0027af50();
 };
-extern int* gTable_13a490;
+extern int* hulk_at_004e0f38;
 class CCondition_13a490 {
   public:
     virtual int vfunc_0(int);
@@ -353,10 +353,10 @@ struct Track_13a520 {
 struct A_13a5c0 {
 };
 struct B_13a5c0 {
-    int Check();
+    int Check_00059a40();
 };
 struct C_13a5c0 {
-    bool Finish(void*);
+    bool Finish_00222a00(void*);
 };
 struct Target_13a5c0 {
     char pad[0x20];
@@ -385,10 +385,10 @@ class GrappleAnimationTrack : public AnimationTrack_13a640 {
 struct A_13a670 {
 };
 struct B_13a670 {
-    int Check();
+    int Check_00059a40();
 };
 struct C_13a670 {
-    bool Finish(void*);
+    bool Finish_00222a00(void*);
 };
 struct Target_13a670 {
     char pad[0x20];
@@ -402,10 +402,10 @@ struct State { bool FUN_00222a00(void*); };
 struct A_13a6f0 {
 };
 struct B_13a6f0 {
-    int Check();
+    int Check_00059a40();
 };
 struct C_13a6f0 {
-    bool Finish(void*);
+    bool Finish_00222a00(void*);
 };
 struct Target_13a6f0 {
     char pad[0x20];
@@ -429,8 +429,8 @@ class Obj_13a790 {
 extern char threat_vftable_13a840;
 struct Obj_13a840 {
     int x;
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(Obj_13a840*);
 class FrameReachedCondition_13a840 {
@@ -442,8 +442,8 @@ class FrameReachedCondition_13a840 {
 extern char threat_vftable_13a870;
 struct Obj_13a870 {
     int x;
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(Obj_13a870*);
 class FrameCondition_13a870 {
@@ -469,15 +469,15 @@ struct AnimationTrack_13a8a0 {
     virtual void m();
 };
 struct H {
-    void f();
+    void Fnf_0027af50();
 };
 struct G_13a8a0 {
-    void g();
+    void Fng_00236d60();
 };
 extern void __cdecl thunk_FUN_00267090(AnimationTrack_13a8a0*);
 extern int vftable_13a8a0;
 struct Helper_13a920 {
-    void run();
+    void run_0027af50();
 };
 struct AnimationLinkedTrack_13a920 {
     void* vptr;
@@ -485,13 +485,13 @@ struct AnimationLinkedTrack_13a920 {
     Helper_13a920 h18;
     char pad1d[0x17];
     Helper_13a920 h30;
-    AnimationLinkedTrack_13a920* other();
+    AnimationLinkedTrack_13a920* other_00236d60();
     AnimationLinkedTrack_13a920* vfunc_5(unsigned int);
 };
 extern void* threat_vftable_13a920;
-void destroy(AnimationLinkedTrack_13a920*);
+void destroy_0008d330(AnimationLinkedTrack_13a920*);
 struct Helper_13a960 {
-    void run();
+    void run_0027af50();
 };
 struct AnimationPhaseMatchedTrack_13a960 {
     void* vptr;
@@ -499,11 +499,11 @@ struct AnimationPhaseMatchedTrack_13a960 {
     Helper_13a960 h18;
     char pad1d[0x17];
     Helper_13a960 h30;
-    AnimationPhaseMatchedTrack_13a960* other();
+    AnimationPhaseMatchedTrack_13a960* other_00236d60();
     AnimationPhaseMatchedTrack_13a960* vfunc_5(unsigned int);
 };
 extern void* threat_vftable_13a960;
-void destroy(AnimationPhaseMatchedTrack_13a960*);
+void destroy_0008d330(AnimationPhaseMatchedTrack_13a960*);
 } // namespace fn_f30d2d27
 namespace fight {
 class Params_13a9e0 {
@@ -559,8 +559,8 @@ class FrameCondition {
     int idHi;
     union { int a; unsigned int mode; };
     union { int b; float threshold; };
-    void initialize(int);
-    void initializeExtra();
+    void initialize_00234590(int);
+    void initializeExtra_0027af00();
 };
 class Other_13ad20 {
   public:
@@ -609,10 +609,10 @@ class AnimationTrack_13ae40 {
 };
 class NewObject {
   public:
-    int Init(hulkfight::motion::GrappleAnimationTrack*, int);
+    int Init_0013ad20(hulkfight::motion::GrappleAnimationTrack*, int);
 };
-extern int __cdecl Find(int);
-extern NewObject* __cdecl Alloc(int);
+extern int __cdecl Find_0005a470(int);
+extern NewObject* __cdecl Alloc_0008d690(int);
 class Ref_13ae80 {
   public:
     virtual void Fn0();
@@ -650,8 +650,8 @@ class PhaseObj {
 };
 class Helper_13b040 {
   public:
-    void* next();
-    void act(void*, int);
+    void* next_00059a40();
+    void act_00222970(void*, int);
 };
 class Action_13b080 {
   public:
@@ -683,18 +683,18 @@ struct Obj_13b120 {
 } }
 namespace hulkfight { namespace motion {
 struct Result_13b120 {
-    void StopA(Obj_13b120*, int);
-    void StopB(Obj_13b120*, int, float);
+    void StopA_00222970(Obj_13b120*, int);
+    void StopB_00222b50(Obj_13b120*, int, float);
 };
 } }
 namespace hulkfight { namespace motion {
 struct Mid_13b120 {
-    Result_13b120* Get();
+    Result_13b120* Get_00059a40();
 };
 } }
 namespace hulkfight { namespace motion {
 struct Owner_13b120 {
-    Mid_13b120* Get();
+    Mid_13b120* Get_000592a0();
 };
 } }
 namespace fn_f30d2d27 {
@@ -742,8 +742,8 @@ struct Dial {
 };
 class Helper_13b2a0 {
   public:
-    void* next();
-    void act(void*, int);
+    void* next_00059a40();
+    void act_00222970(void*, int);
 };
 struct Ref_13b2e0 {
     virtual void AddRef();
@@ -763,8 +763,8 @@ struct AnimationLinkedAction_13b2e0 : Action_13b2e0 {
 };
 class Service_13b380 {
   public:
-    Service_13b380* check();
-    void run(void*, int, float);
+    Service_13b380* check_00059a40();
+    void run_00222b50(void*, int, float);
 };
 struct Obj_13b380 {
     virtual void a();
@@ -992,7 +992,7 @@ class ParamValueInt_13b980 : public ParamValue_13b980 {
   public:
     int pad;
 };
-extern void* g_vftable_13b9f0[];
+extern void* hulk_at_00412820[];
 class ConditionFactoryCaster_13b9f0 {
   public:
     void* vptr;
@@ -1003,8 +1003,8 @@ class ConditionFactoryCasterTemplate_13b9f0 : public ConditionFactoryCaster_13b9
     ConditionFactoryCasterTemplate_13b9f0();
 };
 extern int FUN_00344e74(void*, int, hulk_intptr, hulk_intptr, int);
-extern int g_49850c;
-extern int g_4acbf8;
+extern int hulk_at_004acbf8;
+extern int hulk_at_0049850c;
 class TrackFactoryCaster {
   public:
     virtual int vfunc_0(void*);
@@ -1017,7 +1017,7 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 class GrappleAnimationTrack_13bd60;
 extern int __cdecl Check(GrappleAnimationTrack_13bd60*, int, void*, void*, int);
 extern void* a;
-extern void* b;
+extern void* hulk_at_004acd80;
 } // namespace fn_f30d2d27
 namespace fight {
 class TrackFactoryCaster_13bd60 {
@@ -1037,7 +1037,7 @@ class TrackFactoryCasterTemplate_13c1f0 {
   public:
     virtual void cast();
 };
-void __cdecl use(void*, TrackFactoryCasterTemplate_13c1f0*);
+void __cdecl use_00236ac0(void*, TrackFactoryCasterTemplate_13c1f0*);
 class ParamValueName_13c260 {
   public:
     ParamValueName_13c260(int);
@@ -1059,7 +1059,7 @@ class TrackFactoryCasterTemplate_13cb60 {
   public:
     virtual void Cast();
 };
-extern void* Find(const char*, TrackFactoryCasterTemplate_13cb60*);
+extern void* Find_00236ac0(const char*, TrackFactoryCasterTemplate_13cb60*);
 class TrackFactoryCasterTemplate_13cdd0 {
   public:
     virtual void Cast();
@@ -1067,12 +1067,12 @@ class TrackFactoryCasterTemplate_13cdd0 {
 class Track {};
 class Owner {
   public:
-    void set(void*);
-    void Set(void*);
-    Track* Add(Track*);
-    void apply(void*);
+    void set_002367c0(void*);
+    void Set_002367c0(void*);
+    Track* Add_002367c0(Track*);
+    void apply_002367c0(void*);
 };
-Track* Find(const char*, TrackFactoryCasterTemplate_13cdd0*);
+Track* Find_00236ac0(const char*, TrackFactoryCasterTemplate_13cdd0*);
 class TrackFactoryCasterTemplate_13d040 {
   public:
     virtual void cast();
@@ -1094,7 +1094,7 @@ class Condition;
 extern "C" Condition* __cdecl FUN_002343e0(const char*, ConditionFactoryCaster_13d3c0*);
 class Factory {
   public:
-    void add(Condition*);
+    void add_00236760(Condition*);
 };
 } // namespace fn_f30d2d27
 inline void* __cdecl operator new(size_t, void* where) {
@@ -1110,23 +1110,23 @@ class TrackFactoryTemplate_13e330 {
     TrackImpl mTrack;
 };
 typedef unsigned int u32_13e370;
-extern void* __cdecl alloc(hulk_uintptr);
+extern void* __cdecl alloc_0008d690(hulk_uintptr);
 struct Init_13e370 {
-    void f(int);
+    void Fnf_00234590(int);
 };
 struct Sub_13e370 {
-    void f();
+    void Fnf_0027af00();
 };
 struct FrameReachedCondition_13e370 {
     hulk_uintptr vptr;
     char pad[0x1c];
 };
 extern u32_13e370 frame_vtable;
-extern int g_vftable_13e3b0;
+extern int hulk_at_004129a4;
 struct ConditionFactoryTemplate_13e3b0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0013a000();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_13e3e0 {
@@ -1139,11 +1139,11 @@ class TrackFactoryTemplate_13e3e0 {
 };
 extern "C" char DAT_00412430[];
 void* __cdecl operator_new(unsigned int);
-extern int g_vftable_13e460;
+extern int hulk_at_004129c0;
 struct ConditionFactoryTemplate_13e460 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0013a080();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_13e490 {
@@ -1154,7 +1154,7 @@ class TrackFactoryTemplate_13e490 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_13e4f0;
+extern int hulk_at_004129dc;
 class TrackFactoryTemplate_13e520 {
   public:
     TrackFactoryTemplate_13e520() {}
@@ -1165,7 +1165,7 @@ class TrackFactoryTemplate_13e520 {
 };
 typedef unsigned int u32_13e560;
 struct Grapple_13e560 {
-    hulk_uintptr BuildTrack();
+    hulk_uintptr BuildTrack_0013a210();
 };
 class TrackFactoryTemplate_13e5b0 {
   public:
@@ -1175,9 +1175,9 @@ class TrackFactoryTemplate_13e5b0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern void* __cdecl Allocate(unsigned int);
+extern void* __cdecl Allocate_0008d690(unsigned int);
 struct Track_13e5f0 {
-    void* Init();
+    void* Init_0013a2e0();
 };
 class TrackFactoryTemplate_13e640 {
   public:
@@ -1188,7 +1188,7 @@ class TrackFactoryTemplate_13e640 {
     TrackImpl mTrack;
 };
 struct Track_13e680 {
-    void* Init();
+    void* Init_0013a3c0();
 };
 class TrackFactoryTemplate_13e6d0 {
   public:
@@ -1208,7 +1208,7 @@ class TrackFactoryTemplate_13e760 {
 };
 struct CHitAnimationTrack_13e7a0 {
     unsigned int* vf;
-    void init();
+    void init_0013a130();
 };
 
 } // namespace fn_f30d2d27
@@ -1721,7 +1721,7 @@ void FUN_0013a000() {
 // sym: ?vfunc_0@FrameReachedCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FrameReachedCondition::vfunc_0(int index) {
-    int* p = gTable_13a020;
+    int* p = hulk_at_004e0f08;
     return p[index];
 }
 
@@ -1730,9 +1730,9 @@ namespace fn_f30d2d27 {
 // 0x0013a060 FUN_0013a060 (25 B): matches/0x0013a060.cpp
 // sym: ?f@FrameReachedCondition_13a060@fn_f30d2d27@@QAEXXZ
 void FrameReachedCondition_13a060::f() {
-    vptr = g_vftable_13a060;
-    sub.Fin();
-    Fin();
+    vptr = hulk_at_00412410;
+    sub.Fin_0027af50();
+    Fin_002345b0();
 }
 
 
@@ -1749,7 +1749,7 @@ void FUN_0013a080() {
 // sym: ?vfunc_0@FrameCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FrameCondition::vfunc_0(int index) {
-    int* p = gTable_13a0a0;
+    int* p = hulk_at_004e0f10;
     return p[index];
 }
 
@@ -1758,8 +1758,8 @@ namespace fn_f30d2d27 {
 // 0x0013a0e0 FUN_0013a0e0 (25 B): matches/0x0013a0e0.cpp
 // sym: ??1FrameCondition_13a0e0@fn_f30d2d27@@QAE@XZ
 FrameCondition_13a0e0::~FrameCondition_13a0e0() throw() {
-    vptr = g_vt_13a0e0;
-    sub.Fin();
+    vptr = hulk_at_00412430;
+    sub.Fin_0027af50();
 }
 
 
@@ -1776,7 +1776,7 @@ void FUN_0013a100() {
 // sym: ?vfunc_0@AnimationTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::AnimationTrack::vfunc_0(int index) {
-    int* p = gTable_13a120;
+    int* p = hulk_at_004e0f18;
     return p[index];
 }
 
@@ -1811,10 +1811,10 @@ namespace fn_f30d2d27 {
 // 0x0013a1b0 FUN_0013a1b0 (33 B): matches/0x0013a1b0.cpp
 // sym: ??1AnimationTrack_13a1b0@fn_f30d2d27@@QAE@XZ
 AnimationTrack_13a1b0::~AnimationTrack_13a1b0() {
-    vptr = g_vftable_13a1b0;
-    s38.Init();
-    s18.Init();
-    Fin();
+    vptr = hulk_at_00412450;
+    s38.Init_0027af50();
+    s18.Init_0027af50();
+    Fin_00236d60();
 }
 
 
@@ -1831,7 +1831,7 @@ void FUN_0013a1e0() {
 // sym: ?vfunc_0@AnimationChargeTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::AnimationChargeTrack::vfunc_0(int index) {
-    int* p = gTable_13a200;
+    int* p = hulk_at_004e0f20;
     return p[index];
 }
 
@@ -1864,10 +1864,10 @@ hulk_freg hulkfight::motion::AnimationChargeTrack::vfunc_7() {
 // 0x0013a280 FUN_0013a280 (33 B): matches/0x0013a280.cpp
 // sym: ?FUN_0013a280@AnimationChargeTrack@motion@hulkfight@@QAEXXZ
 void hulkfight::motion::AnimationChargeTrack::FUN_0013a280() {
-    *(hulk_uintptr*)this = (hulk_uintptr)&vtable_13a280;
-    ((Sub_13a280*)((char*)this + 0x28))->Init();
-    ((Sub_13a280*)((char*)this + 0x18))->Init();
-    ((Base_13a280*)this)->Finish();
+    *(hulk_uintptr*)this = (hulk_uintptr)&hulk_at_00412480;
+    ((Sub_13a280*)((char*)this + 0x28))->Init_0027af50();
+    ((Sub_13a280*)((char*)this + 0x18))->Init_0027af50();
+    ((Base_13a280*)this)->Finish_00236d60();
 }
 
 namespace fn_f30d2d27 {
@@ -1885,7 +1885,7 @@ void FUN_0013a2b0() {
 // sym: ?vfunc_0@AnimationLinkedTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::AnimationLinkedTrack::vfunc_0(int index) {
-    int* p = gTable_13a2d0;
+    int* p = hulk_at_004e0f28;
     return p[index];
 }
 
@@ -1919,9 +1919,9 @@ hulk_freg hulkfight::motion::AnimationLinkedTrack::vfunc_7() {
 // sym: ?FUN_0013a360@AnimationLinkedTrack@motion@hulkfight@@QAEXXZ
 // Same code shape as 0x0012b640 (propagated; names are from that function)
 void hulkfight::motion::AnimationLinkedTrack::FUN_0013a360() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_13a360;
-    ((Helper_13a360*)((char*)this + 0x30))->Init();
-    ((Helper_13a360*)((char*)this + 0x18))->Init();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004124b0;
+    ((Helper_13a360*)((char*)this + 0x30))->Init_0027af50();
+    ((Helper_13a360*)((char*)this + 0x18))->Init_0027af50();
     ((Ender*)this)->Finish();
 }
 
@@ -1940,7 +1940,7 @@ void FUN_0013a390() {
 // sym: ?vfunc_0@AnimationPhaseMatchedTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::AnimationPhaseMatchedTrack::vfunc_0(int index) {
-    int* p = gTable_13a3b0;
+    int* p = hulk_at_004e0f30;
     return p[index];
 }
 
@@ -1976,9 +1976,9 @@ hulk_freg hulkfight::motion::AnimationPhaseMatchedTrack::vfunc_7() {
 // sym: ?FUN_0013a440@AnimationPhaseMatchedTrack@motion@hulkfight@@QAEXXZ
 // Same code shape as 0x0012b640 (propagated; names are from that function)
 void hulkfight::motion::AnimationPhaseMatchedTrack::FUN_0013a440() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_13a440;
-    ((Helper_13a440*)((char*)this + 0x30))->Init();
-    ((Helper_13a440*)((char*)this + 0x18))->Init();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004124e0;
+    ((Helper_13a440*)((char*)this + 0x30))->Init_0027af50();
+    ((Helper_13a440*)((char*)this + 0x18))->Init_0027af50();
     ((Ender*)this)->Finish();
 }
 
@@ -1997,7 +1997,7 @@ void FUN_0013a470() {
 // sym: ?vfunc_0@AnimationVelocityScaledTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::AnimationVelocityScaledTrack::vfunc_0(int index) {
-    int* p = gTable_13a490;
+    int* p = hulk_at_004e0f38;
     return p[index];
 }
 
@@ -2032,21 +2032,21 @@ hulk_freg hulkfight::motion::AnimationVelocityScaledTrack::vfunc_7() {
 namespace fn_0013a530 {
 class Sub_13a530 {
   public:
-    void Init();
+    void Init_0027af50();
 };
-extern void* AnimationVelocityScaledTrack_vftable;
+extern void* hulk_at_00412510;
 class AnimationVelocityScaledTrack {
   public:
     void* vf;
     char pad[0x3c];
-    void Finish();
+    void Finish_00236d60();
     void Build();
 };
 void AnimationVelocityScaledTrack::Build() {
-    vf = &AnimationVelocityScaledTrack_vftable;
-    ((Sub_13a530*)((char*)this + 0x40))->Init();
-    ((Sub_13a530*)((char*)this + 0x18))->Init();
-    Finish();
+    vf = &hulk_at_00412510;
+    ((Sub_13a530*)((char*)this + 0x40))->Init_0027af50();
+    ((Sub_13a530*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 } // namespace fn_0013a530
 
@@ -2056,10 +2056,10 @@ namespace fn_f30d2d27 {
 // sym: ?Run@Target_13a5c0@fn_f30d2d27@@QAE_NXZ
 bool Target_13a5c0::Run() {
     void* value = ((void *)((owners::Object_592a0 *)field20)->FUN_000592a0());
-    hulk_intptr result = ((B_13a5c0*)value)->Check();
+    hulk_intptr result = ((B_13a5c0*)value)->Check_00059a40();
     if (!result)
         return true;
-    return ((C_13a5c0*)result)->Finish(field24);
+    return ((C_13a5c0*)result)->Finish_00222a00(field24);
 }
 
 } // namespace fn_f30d2d27
@@ -2098,10 +2098,10 @@ namespace fn_f30d2d27 {
 // Same code shape as 0x0013a5c0 (propagated; names are from that function)
 bool Target_13a670::Run() {
     void* value = ((void *)((owners::Object_592a0 *)field20)->FUN_000592a0());
-    hulk_intptr result = ((B_13a670*)value)->Check();
+    hulk_intptr result = ((B_13a670*)value)->Check_00059a40();
     if (!result)
         return true;
-    return ((C_13a670*)result)->Finish(field24);
+    return ((C_13a670*)result)->Finish_00222a00(field24);
 }
 
 } // namespace fn_f30d2d27
@@ -2119,10 +2119,10 @@ namespace fn_f30d2d27 {
 // Same code shape as 0x0013a5c0 (propagated; names are from that function)
 bool Target_13a6f0::Run() {
     void* value = ((void *)((owners::Object_592a0 *)field20)->FUN_000592a0());
-    hulk_intptr result = ((B_13a6f0*)value)->Check();
+    hulk_intptr result = ((B_13a6f0*)value)->Check_00059a40();
     if (!result)
         return true;
-    return ((C_13a6f0*)result)->Finish(field24);
+    return ((C_13a6f0*)result)->Finish_00222a00(field24);
 }
 
 } // namespace fn_f30d2d27
@@ -2163,8 +2163,8 @@ void Set(Obj_13a790** p, Obj_13a790* v) {
 FrameReachedCondition_13a840* FrameReachedCondition_13a840::vfunc_5(unsigned char param) {
     FrameReachedCondition_13a840* p = this;
     *(char**)p = &threat_vftable_13a840;
-    ((Obj_13a840*)((char*)p + 0x10))->f1();
-    ((Obj_13a840*)p)->f2();
+    ((Obj_13a840*)((char*)p + 0x10))->f1_0027af50();
+    ((Obj_13a840*)p)->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((Obj_13a840*)p);
     return p;
@@ -2177,8 +2177,8 @@ FrameReachedCondition_13a840* FrameReachedCondition_13a840::vfunc_5(unsigned cha
 FrameCondition_13a870* FrameCondition_13a870::vfunc_5(unsigned char param) {
     FrameCondition_13a870* p = this;
     *(char**)p = &threat_vftable_13a870;
-    ((Obj_13a870*)((char*)p + 0x10))->f1();
-    ((Obj_13a870*)p)->f2();
+    ((Obj_13a870*)((char*)p + 0x10))->f1_0027af50();
+    ((Obj_13a870*)p)->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((Obj_13a870*)p);
     return p;
@@ -2190,9 +2190,9 @@ FrameCondition_13a870* FrameCondition_13a870::vfunc_5(unsigned char param) {
 // Same code shape as 0x0005e160 (propagated; names are from that function)
 AnimationTrack_13a8a0* AnimationTrack_13a8a0::vfunc_5(int param) {
     *(hulk_intptr*)this = (hulk_intptr)&vftable_13a8a0;
-    ((H*)((char*)this + 0x38))->f();
-    ((H*)((char*)this + 0x18))->f();
-    ((G_13a8a0*)this)->g();
+    ((H*)((char*)this + 0x38))->Fnf_0027af50();
+    ((H*)((char*)this + 0x18))->Fnf_0027af50();
+    ((G_13a8a0*)this)->Fng_00236d60();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -2206,13 +2206,13 @@ namespace fn_0013a8e0 {
 typedef unsigned char byte_13a8e0;
 class Sub_13a8e0 {
   public:
-    void f();
+    void Fnf_0027af50();
 };
 class Base_13a8e0 {
   public:
-    void g();
+    void Fng_00236d60();
 };
-extern void cdel(void*);
+extern void cdel_0008d330(void*);
 extern int vftable_13a8e0;
 class AnimationChargeTrack {
   public:
@@ -2225,11 +2225,11 @@ class AnimationChargeTrack {
 };
 AnimationChargeTrack* AnimationChargeTrack::vfunc_5(byte_13a8e0 param) {
     vf = (hulk_intptr)&vftable_13a8e0;
-    b.f();
-    a.f();
-    ((Base_13a8e0*)this)->g();
+    b.Fnf_0027af50();
+    a.Fnf_0027af50();
+    ((Base_13a8e0*)this)->Fng_00236d60();
     if (param & 1)
-        cdel(this);
+        cdel_0008d330(this);
     return this;
 }
 } // namespace fn_0013a8e0
@@ -2241,11 +2241,11 @@ namespace fn_f30d2d27 {
 // Same code shape as 0x0012bcc0 (propagated; names are from that function)
 AnimationLinkedTrack_13a920* AnimationLinkedTrack_13a920::vfunc_5(unsigned int flags) {
     vptr = &threat_vftable_13a920;
-    h30.run();
-    h18.run();
-    other();
+    h30.run_0027af50();
+    h18.run_0027af50();
+    other_00236d60();
     if (flags & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 
@@ -2255,11 +2255,11 @@ AnimationLinkedTrack_13a920* AnimationLinkedTrack_13a920::vfunc_5(unsigned int f
 // Same code shape as 0x0012bcc0 (propagated; names are from that function)
 AnimationPhaseMatchedTrack_13a960* AnimationPhaseMatchedTrack_13a960::vfunc_5(unsigned int flags) {
     vptr = &threat_vftable_13a960;
-    h30.run();
-    h18.run();
-    other();
+    h30.run_0027af50();
+    h18.run_0027af50();
+    other_00236d60();
     if (flags & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 
@@ -2271,13 +2271,13 @@ namespace fn_0013a9a0 {
 typedef unsigned char byte_13a9a0;
 struct Helper_13a9a0 {
     int x;
-    void run();
+    void run_0027af50();
 };
 struct Main_13a9a0 {
-    void run();
+    void run_00236d60();
 };
 extern int vf_13a9a0;
-extern void cleanup(void*);
+extern void cleanup_0008d330(void*);
 class AnimationVelocityScaledTrack {
   public:
     virtual void v0();
@@ -2298,11 +2298,11 @@ class AnimationVelocityScaledTrack {
 };
 AnimationVelocityScaledTrack* AnimationVelocityScaledTrack::v5(byte_13a9a0 x) {
     *(hulk_intptr*)this = (hulk_intptr)&vf_13a9a0;
-    h40.run();
-    h18.run();
-    ((Main_13a9a0*)this)->run();
+    h40.run_0027af50();
+    h18.run_0027af50();
+    ((Main_13a9a0*)this)->run_00236d60();
     if (x & 1)
-        cleanup(this);
+        cleanup_0008d330(this);
     return this;
 }
 } // namespace fn_0013a9a0
@@ -2516,7 +2516,7 @@ AnimationAction::AnimationAction(int value, Other_13ad20* other) {
 // 0x0013ad70 FUN_0013ad70 (69 B): matches/0x0013ad70.cpp [wrapped: conflict: hulkfight::motion::AnimationAction]
 // sym: ?Destroy@AnimationAction@motion@hulkfight@fn_0013ad70@@QAEXXZ
 namespace fn_0013ad70 {
-extern char AnimAction_vt;
+extern char hulk_at_00412570;
 
 namespace hulkfight {
 namespace motion {
@@ -2530,7 +2530,7 @@ class MemObj {
 class Base_13ad70 {
   public:
     virtual void vf();
-    void Cleanup();
+    void Cleanup_002326a0();
     char pad[0x18];
 };
 
@@ -2544,7 +2544,7 @@ class AnimationAction : public Base_13ad70 {
 
 void AnimationAction::Destroy() {
     volatile int* v = (volatile int*)this;
-    v[0] = (hulk_intptr)&AnimAction_vt;
+    v[0] = (hulk_intptr)&hulk_at_00412570;
     MemObj* a = (MemObj*)v[8];
     if (a) {
         a->Release();
@@ -2559,7 +2559,7 @@ void AnimationAction::Destroy() {
         c->Release();
         v[9] = 0;
     }
-    Base_13ad70::Cleanup();
+    Base_13ad70::Cleanup_002326a0();
 }
 
 } // namespace motion
@@ -2584,11 +2584,11 @@ hulkfight::motion::GrappleAnimationTrack::~GrappleAnimationTrack() {}
 // 0x0013ae40 hulkfight::motion::GrappleAnimationTrack::vfunc_10 (58 B): matches/0x0013ae40.cpp
 // sym: ?vfunc_10@GrappleAnimationTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::GrappleAnimationTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int v = Find(c);
+    int v = Find_0005a470(c);
     if (v) {
-        NewObject* p = Alloc(0x28);
+        NewObject* p = Alloc_0008d690(0x28);
         if (p)
-            return p->Init(this, v);
+            return p->Init_0013ad20(this, v);
     }
     return 0;
 }
@@ -2618,7 +2618,7 @@ AnimationPhaseMatchedAction::AnimationPhaseMatchedAction(int a, Ref_13ae80* r) :
 // sym: ?Destroy@AnimationAction@motion@hulkfight@fn_0013aed0@@QAEXXZ
 namespace fn_0013aed0 {
 // Same code shape as 0x0013ad70 (propagated; names are from that function)
-extern char AnimAction_vt;
+extern char hulk_at_0041258c;
 
 namespace hulkfight {
 namespace motion {
@@ -2632,7 +2632,7 @@ class MemObj {
 class Base_13aed0 {
   public:
     virtual void vf();
-    void Cleanup();
+    void Cleanup_002326a0();
     char pad[0x18];
 };
 
@@ -2646,7 +2646,7 @@ class AnimationAction : public Base_13aed0 {
 
 void AnimationAction::Destroy() {
     volatile int* v = (volatile int*)this;
-    v[0] = (hulk_intptr)&AnimAction_vt;
+    v[0] = (hulk_intptr)&hulk_at_0041258c;
     MemObj* a = (MemObj*)v[8];
     if (a) {
         a->Release();
@@ -2661,7 +2661,7 @@ void AnimationAction::Destroy() {
         c->Release();
         v[9] = 0;
     }
-    Base_13aed0::Cleanup();
+    Base_13aed0::Cleanup_002326a0();
 }
 
 } // namespace motion
@@ -2703,9 +2703,9 @@ bool hulkfight::motion::AnimationPhaseMatchedAction::vfunc_5(hulk_intptr flag, i
 void hulkfight::motion::AnimationPhaseMatchedAction::vfunc_4() {
     if ((*(void * *)&this->f_24)) {
         void* x = ((void *)((owners::Object_592a0 *)(((Helper_13b040*)(*(void * *)&this->f_20))))->FUN_000592a0());
-        x = ((Helper_13b040*)x)->next();
+        x = ((Helper_13b040*)x)->next_00059a40();
         if (x) {
-            ((Helper_13b040*)x)->act((*(void * *)&this->f_24), 0);
+            ((Helper_13b040*)x)->act_00222970((*(void * *)&this->f_24), 0);
             if ((*(void * *)&this->f_24)) {
                 ((PhaseObj*)(*(void * *)&this->f_24))->f1();
                 (*(void * *)&this->f_24) = 0;
@@ -2737,7 +2737,7 @@ AnimationVelocityScaledAction::AnimationVelocityScaledAction(int x, Owner_13b080
 // sym: ?Destroy@AnimationAction@motion@hulkfight@fn_0013b0d0@@QAEXXZ
 namespace fn_0013b0d0 {
 // Same code shape as 0x0013ad70 (propagated; names are from that function)
-extern char AnimAction_vt;
+extern char hulk_at_004125a8;
 
 namespace hulkfight {
 namespace motion {
@@ -2751,7 +2751,7 @@ class MemObj {
 class Base_13b0d0 {
   public:
     virtual void vf();
-    void Cleanup();
+    void Cleanup_002326a0();
     char pad[0x18];
 };
 
@@ -2765,7 +2765,7 @@ class AnimationAction : public Base_13b0d0 {
 
 void AnimationAction::Destroy() {
     volatile int* v = (volatile int*)this;
-    v[0] = (hulk_intptr)&AnimAction_vt;
+    v[0] = (hulk_intptr)&hulk_at_004125a8;
     MemObj* a = (MemObj*)v[8];
     if (a) {
         a->Release();
@@ -2780,7 +2780,7 @@ void AnimationAction::Destroy() {
         c->Release();
         v[9] = 0;
     }
-    Base_13b0d0::Cleanup();
+    Base_13b0d0::Cleanup_002326a0();
 }
 
 } // namespace motion
@@ -2794,13 +2794,13 @@ void AnimationAction::Destroy() {
 void hulkfight::motion::AnimationVelocityScaledAction::vfunc_4() {
     if (!(*(Obj_13b120 * *)&this->f_24))
         return;
-    Result_13b120* p = (*(Owner_13b120 * *)&this->f_20)->Get()->Get();
+    Result_13b120* p = (*(Owner_13b120 * *)&this->f_20)->Get_000592a0()->Get_00059a40();
     if (!p)
         return;
     if ((*(Obj_13b120 * *)&this->f_24)->flag)
-        p->StopB((*(Obj_13b120 * *)&this->f_24), 0, -1.0f);
+        p->StopB_00222b50((*(Obj_13b120 * *)&this->f_24), 0, -1.0f);
     else
-        p->StopA((*(Obj_13b120 * *)&this->f_24), 0);
+        p->StopA_00222970((*(Obj_13b120 * *)&this->f_24), 0);
     if ((*(Obj_13b120 * *)&this->f_24)) {
         (*(Obj_13b120 * *)&this->f_24)->f1();
         (*(Obj_13b120 * *)&this->f_24) = 0;
@@ -2826,7 +2826,7 @@ AnimationChargeAction::AnimationChargeAction(int x, Ref* r) : value(), ref(0), o
 // sym: ?Destroy@AnimationAction@motion@hulkfight@fn_0013b1d0@@QAEXXZ
 namespace fn_0013b1d0 {
 // Same code shape as 0x0013ad70 (propagated; names are from that function)
-extern char AnimAction_vt;
+extern char hulk_at_004125c4;
 
 namespace hulkfight {
 namespace motion {
@@ -2840,7 +2840,7 @@ class MemObj {
 class Base_13b1d0 {
   public:
     virtual void vf();
-    void Cleanup();
+    void Cleanup_002326a0();
     char pad[0x18];
 };
 
@@ -2854,7 +2854,7 @@ class AnimationAction : public Base_13b1d0 {
 
 void AnimationAction::Destroy() {
     volatile int* v = (volatile int*)this;
-    v[0] = (hulk_intptr)&AnimAction_vt;
+    v[0] = (hulk_intptr)&hulk_at_004125c4;
     MemObj* a = (MemObj*)v[8];
     if (a) {
         a->Release();
@@ -2869,7 +2869,7 @@ void AnimationAction::Destroy() {
         c->Release();
         v[9] = 0;
     }
-    Base_13b1d0::Cleanup();
+    Base_13b1d0::Cleanup_002326a0();
 }
 
 } // namespace motion
@@ -2902,9 +2902,9 @@ bool hulkfight::motion::AnimationChargeAction::vfunc_5(hulk_intptr skip, int unu
 void hulkfight::motion::AnimationChargeAction::vfunc_4() {
     if ((*(void * *)&this->f_24)) {
         void* x = ((void *)((owners::Object_592a0 *)(((Helper_13b2a0*)(*(void * *)&this->f_20))))->FUN_000592a0());
-        x = ((Helper_13b2a0*)x)->next();
+        x = ((Helper_13b2a0*)x)->next_00059a40();
         if (x) {
-            ((Helper_13b2a0*)x)->act((*(void * *)&this->f_24), 0);
+            ((Helper_13b2a0*)x)->act_00222970((*(void * *)&this->f_24), 0);
             if ((*(void * *)&this->f_24)) {
                 ((PhaseObj*)(*(void * *)&this->f_24))->f1();
                 (*(void * *)&this->f_24) = 0;
@@ -2936,7 +2936,7 @@ AnimationLinkedAction_13b2e0::AnimationLinkedAction_13b2e0(int a, Ref_13b2e0* r)
 // sym: ?Destroy@AnimationAction@motion@hulkfight@fn_0013b330@@QAEXXZ
 namespace fn_0013b330 {
 // Same code shape as 0x0013ad70 (propagated; names are from that function)
-extern char AnimAction_vt;
+extern char hulk_at_004125e0;
 
 namespace hulkfight {
 namespace motion {
@@ -2950,7 +2950,7 @@ class MemObj {
 class Base_13b330 {
   public:
     virtual void vf();
-    void Cleanup();
+    void Cleanup_002326a0();
     char pad[0x18];
 };
 
@@ -2964,7 +2964,7 @@ class AnimationAction : public Base_13b330 {
 
 void AnimationAction::Destroy() {
     volatile int* v = (volatile int*)this;
-    v[0] = (hulk_intptr)&AnimAction_vt;
+    v[0] = (hulk_intptr)&hulk_at_004125e0;
     MemObj* a = (MemObj*)v[8];
     if (a) {
         a->Release();
@@ -2979,7 +2979,7 @@ void AnimationAction::Destroy() {
         c->Release();
         v[9] = 0;
     }
-    Base_13b330::Cleanup();
+    Base_13b330::Cleanup_002326a0();
 }
 
 } // namespace motion
@@ -2992,9 +2992,9 @@ void AnimationAction::Destroy() {
 void hulkfight::motion::AnimationLinkedAction::vfunc_4() {
     if ((*(void * *)&this->f_24)) {
         Service_13b380* x = ((Service_13b380 *)((owners::Object_592a0 *)((*(Service_13b380 * *)&this->f_20)))->FUN_000592a0());
-        Service_13b380* y = x->check();
+        Service_13b380* y = x->check_00059a40();
         if (y) {
-            y->run((*(void * *)&this->f_24), 0, -1.0f);
+            y->run_00222b50((*(void * *)&this->f_24), 0, -1.0f);
             if ((*(void * *)&this->f_24)) {
                 ((Obj_13b380*)(*(void * *)&this->f_24))->b();
                 (*(void * *)&this->f_24) = 0;
@@ -3380,11 +3380,11 @@ namespace motion {
 class FrameReachedCondition {};
 } // namespace motion
 } // namespace hulkfight
-extern void* a;
-extern void* b;
+extern void* hulk_at_00491ca8;
+extern void* hulk_at_004ac870;
 template <>
 bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::FrameReachedCondition>::vfunc_0(void* p) {
-    return check(p, 0, &a, &b, 0) != 0;
+    return check(p, 0, &hulk_at_00491ca8, &hulk_at_004ac870, 0) != 0;
 }
 } // namespace fn_0013b9a0
 
@@ -3400,7 +3400,7 @@ namespace fn_f30d2d27 {
 // 0x0013b9f0 FUN_0013b9f0 (9 B): matches/0x0013b9f0.cpp
 // sym: ??0ConditionFactoryCasterTemplate_13b9f0@fn_f30d2d27@@QAE@XZ
 ConditionFactoryCasterTemplate_13b9f0::ConditionFactoryCasterTemplate_13b9f0() {
-    vptr = g_vftable_13b9f0;
+    vptr = hulk_at_00412820;
     _ReadWriteBarrier();
 }
 
@@ -3427,10 +3427,10 @@ class FrameCondition {};
 } // namespace motion
 } // namespace hulkfight
 extern int FUN_00344e74(const char*, int, const void*, const void*, int);
-extern int g1, g2;
+extern int g1, hulk_at_004ac928;
 template <>
 bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::FrameCondition>::vfunc_0(const char* p) {
-    return FUN_00344e74(p, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(p, 0, &g1, &hulk_at_004ac928, 0) != 0;
 }
 } // namespace fn_0013ba00
 
@@ -3470,9 +3470,9 @@ class AnimationTrack;
 } // namespace hulkfight
 extern int FUN_00344e74(void*, int, void*, void*, int);
 extern int a;
-extern int b;
+extern int hulk_at_004ac9d8;
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::AnimationTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &a, &hulk_at_004ac9d8, 0) != 0;
 }
 } // namespace fn_0013ba80
 
@@ -3510,7 +3510,7 @@ template <> fight::ParamIntConstRange<hulkfight::motion::AnimationTrack>::~Param
 namespace fn_0013bb40 {
 extern "C++" __declspec(nothrow) int __cdecl Check(void*, int, const void*, const void*, int);
 extern int a;
-extern int b;
+extern int hulk_at_004aca88;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -3530,7 +3530,7 @@ class AnimationChargeTrack;
 } // namespace hulkfight
 template <>
 bool fight::TrackFactoryCasterTemplate<hulkfight::motion::AnimationChargeTrack>::vfunc_0(void* p) {
-    return Check(p, 0, &a, &b, 0) != 0;
+    return Check(p, 0, &a, &hulk_at_004aca88, 0) != 0;
 }
 } // namespace fn_0013bb40
 
@@ -3571,9 +3571,9 @@ class AnimationLinkedTrack {};
 } // namespace hulkfight
 extern "C++" __declspec(nothrow) int __cdecl check(void*, int, void*, void*, int);
 extern void* a;
-extern void* b;
+extern void* hulk_at_004acb40;
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::AnimationLinkedTrack>::vfunc_0(void* p) {
-    return check(p, 0, &a, &b, 0) != 0;
+    return check(p, 0, &a, &hulk_at_004acb40, 0) != 0;
 }
 } // namespace fn_0013bbc0
 
@@ -3596,7 +3596,7 @@ namespace fn_f30d2d27 {
 // 0x0013bc40 fight::TrackFactoryCasterTemplate<hulkfight::motion::AnimationPhaseMatchedTrack>::vfunc_0 (36 B): matches/0x0013bc40.cpp
 // sym: ?vfunc_0@TrackFactoryCasterTemplate@fn_f30d2d27@@UAEHPAX@Z
 int TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return (int)FUN_00344e74(p, 0, (hulk_intptr)&g_4acbf8, (hulk_intptr)&g_49850c, 0) != 0;
+    return (int)FUN_00344e74(p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&hulk_at_004acbf8, 0) != 0;
 }
 
 } // namespace fn_f30d2d27
@@ -3629,9 +3629,9 @@ class Caster : public Base {
     virtual void other();
 };
 extern int fn(void*, int, void*, void*, int);
-extern int a, b;
+extern int a, hulk_at_004accc0;
 int Caster::check(void* p) {
-    return fn(p, 0, &a, &b, 0) != 0;
+    return fn(p, 0, &a, &hulk_at_004accc0, 0) != 0;
 }
 } // namespace fn_0013bcc0
 
@@ -3662,7 +3662,7 @@ template <> fight::ParamIntConstRange<hulkfight::motion::AnimationVelocityScaled
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleAnimationTrack>::vfunc_0(void* __p0) { GrappleAnimationTrack_13bd60 * p = (GrappleAnimationTrack_13bd60 *)__p0;
 
-    return Check(p, 0, &a, &b, 0) != 0;
+    return Check(p, 0, &a, &hulk_at_004acd80, 0) != 0;
 }
 
 
@@ -3671,7 +3671,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleAni
 namespace fn_0013bde0 {
 extern "C" {
 extern "C" char DAT_00412570[];
-extern "C++" { __declspec(nothrow) void __cdecl opdel(void*); }
+extern "C++" { __declspec(nothrow) void __cdecl opdel_0008d330(void*); }
 void _ReadWriteBarrier();
 }
 
@@ -3693,7 +3693,7 @@ class AnimationAction {
     virtual void vfunc_4();
     virtual void vfunc_5();
 
-    void Cleanup();
+    void Cleanup_002326a0();
 
     char pad[0x18];
     int m1c;
@@ -3718,9 +3718,9 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
         b->Release();
         m24 = 0;
     }
-    this->Cleanup();
+    this->Cleanup_002326a0();
     if (param & 1) {
-        opdel(this);
+        opdel_0008d330(this);
     }
     return this;
 }
@@ -3758,7 +3758,7 @@ class AnimationAction {
     virtual void vfunc_4();
     virtual void vfunc_5();
 
-    void Cleanup();
+    void Cleanup_002326a0();
 
     char pad[0x18];
     int m1c;
@@ -3783,7 +3783,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
         b->Release();
         m24 = 0;
     }
-    this->Cleanup();
+    this->Cleanup_002326a0();
     if (param & 1) {
         opdel(this);
     }
@@ -3823,7 +3823,7 @@ class AnimationAction {
     virtual void vfunc_4();
     virtual void vfunc_5();
 
-    void Cleanup();
+    void Cleanup_002326a0();
 
     char pad[0x18];
     int m1c;
@@ -3848,7 +3848,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
         b->Release();
         m24 = 0;
     }
-    this->Cleanup();
+    this->Cleanup_002326a0();
     if (param & 1) {
         opdel(this);
     }
@@ -3888,7 +3888,7 @@ class AnimationAction {
     virtual void vfunc_4();
     virtual void vfunc_5();
 
-    void Cleanup();
+    void Cleanup_002326a0();
 
     char pad[0x18];
     int m1c;
@@ -3913,7 +3913,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
         b->Release();
         m24 = 0;
     }
-    this->Cleanup();
+    this->Cleanup_002326a0();
     if (param & 1) {
         opdel(this);
     }
@@ -3953,7 +3953,7 @@ class AnimationAction {
     virtual void vfunc_4();
     virtual void vfunc_5();
 
-    void Cleanup();
+    void Cleanup_002326a0();
 
     char pad[0x18];
     int m1c;
@@ -3978,7 +3978,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
         b->Release();
         m24 = 0;
     }
-    this->Cleanup();
+    this->Cleanup_002326a0();
     if (param & 1) {
         opdel(this);
     }
@@ -4057,7 +4057,7 @@ namespace fn_f30d2d27 {
 // sym: ?target@fn_f30d2d27@@YAXPAX@Z
 void __cdecl target(void* p) {
     TrackFactoryCasterTemplate_13c1f0 c;
-    use(p, &c);
+    use_00236ac0(p, &c);
 }
 
 } // namespace fn_f30d2d27
@@ -4128,10 +4128,10 @@ class TrackFactoryCasterTemplate_13c290 {
   public:
     virtual void f();
 };
-extern void fun(void*, TrackFactoryCasterTemplate_13c290*);
+extern void fun_00236ac0(void*, TrackFactoryCasterTemplate_13c290*);
 void target(void* p) {
     TrackFactoryCasterTemplate_13c290 c;
-    fun(p, &c);
+    fun_00236ac0(p, &c);
 }
 } // namespace fn_0013c290
 
@@ -4278,7 +4278,7 @@ namespace fn_f30d2d27 {
 // sym: _FUN_0013c620
 extern "C" void FUN_0013c620(Owner* owner, void* name) {
     TrackFactoryCasterTemplate_13c620 caster;
-    owner->set(find(name, &caster));
+    owner->set_002367c0(find(name, &caster));
 }
 
 } // namespace fn_f30d2d27
@@ -4292,12 +4292,12 @@ class TrackFactoryCasterTemplate_13c930 {
 };
 class Obj {
   public:
-    void use(void*);
+    void use_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* find(void*, TrackFactoryCasterTemplate_13c930*);
+extern "C++" __declspec(nothrow) void* find_00236ac0(void*, TrackFactoryCasterTemplate_13c930*);
 extern "C" void FUN_0013c930(Obj* o, void* p) {
     TrackFactoryCasterTemplate_13c930 c;
-    o->use(find(p, &c));
+    o->use_002367c0(find_00236ac0(p, &c));
 }
 } // namespace fn_0013c930
 
@@ -4307,7 +4307,7 @@ namespace fn_f30d2d27 {
 // sym: _FUN_0013cb60
 extern "C" void FUN_0013cb60(Owner* o, const char* name) {
     TrackFactoryCasterTemplate_13cb60 caster;
-    o->Set(Find(name, &caster));
+    o->Set_002367c0(Find_00236ac0(name, &caster));
 }
 
 
@@ -4315,8 +4315,8 @@ extern "C" void FUN_0013cb60(Owner* o, const char* name) {
 // sym: _FUN_0013cdd0
 extern "C" Track* FUN_0013cdd0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_13cdd0 caster;
-    Track* p = Find(name, &caster);
-    return owner->Add(p);
+    Track* p = Find_00236ac0(name, &caster);
+    return owner->Add_002367c0(p);
 }
 
 
@@ -4324,7 +4324,7 @@ extern "C" Track* FUN_0013cdd0(Owner* owner, const char* name) {
 // sym: _FUN_0013d040
 extern "C" void FUN_0013d040(Owner* owner, void* name) {
     TrackFactoryCasterTemplate_13d040 c;
-    owner->apply(lookup(name, &c));
+    owner->apply_002367c0(lookup(name, &c));
 }
 
 
@@ -4333,11 +4333,11 @@ extern "C" void FUN_0013d040(Owner* owner, void* name) {
 extern "C" void __cdecl FUN_0013d3c0(Factory* factory) {
     {
         ConditionFactoryCasterTemplate_13d3c0 frame;
-        factory->add(FUN_002343e0("frame", &frame));
+        factory->add_00236760(FUN_002343e0("frame", &frame));
     }
     {
         Reached reached;
-        factory->add(FUN_002343e0("frameReached", &reached));
+        factory->add_00236760(FUN_002343e0("frameReached", &reached));
     }
 }
 
@@ -4640,13 +4640,13 @@ class TrackFactoryCasterTemplate_13d780 {
 };
 class Target {
   public:
-    void Set(void*);
+    void Set_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find(const char*, TrackFactoryCasterTemplate_13d780*);
+extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_13d780*);
 extern "C" void __cdecl FUN_0013d780(Target* t, const char* name) {
     TrackFactoryCasterTemplate_13d780 caster;
-    void* p = Find(name, &caster);
-    t->Set(p);
+    void* p = Find_00236ac0(name, &caster);
+    t->Set_002367c0(p);
 }
 } // namespace fn_0013d780
 
@@ -5131,11 +5131,11 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Frame
 // 0x0013e370 fight::ConditionFactoryTemplate<hulkfight::motion::FrameReachedCondition>::vfunc_5 (55 B): matches/0x0013e370.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VFrameReachedCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::FrameReachedCondition>::vfunc_5() {
-    FrameReachedCondition_13e370* p = (FrameReachedCondition_13e370*)alloc(0x20);
+    FrameReachedCondition_13e370* p = (FrameReachedCondition_13e370*)alloc_0008d690(0x20);
     if (p) {
-        ((Init_13e370*)p)->f(0);
+        ((Init_13e370*)p)->Fnf_00234590(0);
         p->vptr = (hulk_uintptr)&frame_vtable;
-        ((Sub_13e370*)((char*)p + 0x10))->f();
+        ((Sub_13e370*)((char*)p + 0x10))->Fnf_0027af00();
         *(u32_13e370*)((char*)p + 0x18) = 0;
         return (void*)(p);
     }
@@ -5148,9 +5148,9 @@ namespace fn_f30d2d27 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_13e3b0@fn_f30d2d27@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_13e3b0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_13e3b0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004129a4;
+    base1_dtor_0013a000();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -5181,9 +5181,9 @@ namespace fn_f30d2d27 {
 FrameCondition* target(void) {
     FrameCondition* p = (FrameCondition*)operator_new(0x20);
     if (p) {
-        p->initialize(0);
+        p->initialize_00234590(0);
         *(void**)p = (void*)((hulk_intptr)DAT_00412430);
-        ((FrameCondition*)((char*)p + 0x10))->initializeExtra();
+        ((FrameCondition*)((char*)p + 0x10))->initializeExtra_0027af00();
         p->a = 0;
         p->b = 0;
         return p;
@@ -5196,9 +5196,9 @@ FrameCondition* target(void) {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_13e460@fn_f30d2d27@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_13e460::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_13e460;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004129c0;
+    base1_dtor_0013a080();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -5228,7 +5228,7 @@ namespace fn_f30d2d27 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f30d2d27@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_13e4f0;
+    m_vptr = (void*)&hulk_at_004129dc;
     base1_dtor();
     base2_dtor();
     if (flags & 1)
@@ -5261,7 +5261,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Animation
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::AnimationChargeTrack>::vfunc_5() {
     Grapple_13e560* p = (Grapple_13e560*)operator new(0x40);
     if (p)
-        return (void*)(p->BuildTrack());
+        return (void*)(p->BuildTrack_0013a210());
     return (void*)(0);
 }
 
@@ -5270,23 +5270,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::AnimationCharge
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_0013e580@@QAEPAXE@Z
 namespace fn_0013e580 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_13e580;
+extern int hulk_at_004129f8;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0013a1e0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_13e580;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004129f8;
+    base1_dtor_0013a1e0();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_0013e580
@@ -5313,9 +5313,9 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Animation
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VAnimationLinkedTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x00070420 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::AnimationLinkedTrack>::vfunc_5() {
-    void* p = Allocate(0x48);
+    void* p = Allocate_0008d690(0x48);
     if (p)
-        return (void*)(((Track_13e5f0*)p)->Init());
+        return (void*)(((Track_13e5f0*)p)->Init_0013a2e0());
     return (void*)(0);
 }
 
@@ -5324,23 +5324,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::AnimationLinked
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_0013e610@@QAEPAXE@Z
 namespace fn_0013e610 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_13e610;
+extern int hulk_at_00412a14;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0013a2b0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_13e610;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00412a14;
+    base1_dtor_0013a2b0();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_0013e610
@@ -5367,9 +5367,9 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Animation
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VAnimationPhaseMatchedTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x00070420 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::AnimationPhaseMatchedTrack>::vfunc_5() {
-    void* p = Allocate(0x48);
+    void* p = Allocate_0008d690(0x48);
     if (p)
-        return (void*)(((Track_13e680*)p)->Init());
+        return (void*)(((Track_13e680*)p)->Init_0013a3c0());
     return (void*)(0);
 }
 
@@ -5378,23 +5378,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::AnimationPhaseM
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_0013e6a0@@QAEPAXE@Z
 namespace fn_0013e6a0 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_13e6a0;
+extern int hulk_at_00412a30;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0013a390();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_13e6a0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00412a30;
+    base1_dtor_0013a390();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_0013e6a0
@@ -5421,23 +5421,23 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Animation
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_0013e730@@QAEPAXE@Z
 namespace fn_0013e730 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_13e730;
+extern int hulk_at_00412a4c;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0013a470();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_13e730;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00412a4c;
+    base1_dtor_0013a470();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_0013e730
@@ -5464,9 +5464,9 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleAn
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VGrappleAnimationTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006fb80 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleAnimationTrack>::vfunc_5() {
-    CHitAnimationTrack_13e7a0* p = (CHitAnimationTrack_13e7a0*)alloc(0x50);
+    CHitAnimationTrack_13e7a0* p = (CHitAnimationTrack_13e7a0*)alloc_0008d690(0x50);
     if (p) {
-        p->init();
+        p->init_0013a130();
         p->vf = (unsigned int*)&hit_vftable;
         return (void*)(p);
     }
@@ -5478,23 +5478,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleAnimatio
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_0013e7d0@@QAEPAXE@Z
 namespace fn_0013e7d0 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_13e7d0;
+extern int hulk_at_00412a68;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0013a100();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_13e7d0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00412a68;
+    base1_dtor_0013a100();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_0013e7d0

@@ -74,7 +74,7 @@ public:
     Mat4_1712c0 mat;
 };
 struct Two_171480 {
-    void* f();
+    void* Fnf_00059a40();
 };
 
 
@@ -137,7 +137,7 @@ bool JointPivotTrackerAction::vfunc_3(int a, int b)
 // Same code shape as 0x00134160 (propagated; names are from that function)
 void hulkfight::motion::JointPivotTrackerAction::vfunc_4() {
     void* x = (*(One * *)&this->f_20)->f();
-    void* y = ((Two_171480*)x)->f();
+    void* y = ((Two_171480*)x)->Fnf_00059a40();
     if (y)
         ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }

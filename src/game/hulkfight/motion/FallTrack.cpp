@@ -323,7 +323,7 @@ class ParamValueInt_1374c0 : public ParamValue_1374c0 {
   public:
     int pad;
 };
-extern TypeInfo a, b;
+extern TypeInfo hulk_at_0049850c, hulk_at_004ab9a8;
 extern "C" int __cdecl match(void*, int, TypeInfo*, TypeInfo*, int);
 } // namespace fn_f0de5d41
 namespace fight {
@@ -367,8 +367,8 @@ namespace fn_f0de5d41 {
 extern char DAT_004abba8;
 class Obj {
   public:
-    void Do(void*);
-    void second(int);
+    void Do_002367c0(void*);
+    void second_002367c0(int);
 };
 class TrackFactoryCaster_137660 {
   public:
@@ -461,14 +461,14 @@ template <class T> struct ParamIntConstRange_137b60 : Base_137b60 {
 }
 namespace fn_f0de5d41 {
 extern void __cdecl FUN_002347b0(int*, Base_137b60**, int);
-extern int type1_138b80, type2;
+extern int hulk_at_00494b44, hulk_at_00494b60;
 class Built_138b80 {
   public:
-    int make(int, hulk_intptr);
+    int make_00134db0(int, hulk_intptr);
 };
 extern int __cdecl Check(void*, int, hulk_intptr, hulk_intptr, int);
-extern Built_138b80* __cdecl Allocate(int);
-extern void* g_vftable_138c10[];
+extern Built_138b80* __cdecl Allocate_0008d690(int);
+extern void* hulk_at_00411d68[];
 class Ref_138c10 {
   public:
     virtual void F0();
@@ -484,7 +484,7 @@ class HoverAction_138c10 : public Action_138c10 {
     Ref_138c10* m;
     HoverAction_138c10* f2(unsigned char flags);
 };
-extern int g_vftable_138ca0;
+extern int hulk_at_00411d84;
 class RefObj_138ca0 {
   public:
     virtual void vfunc_0();
@@ -500,12 +500,12 @@ class FallAction_138ca0 {
     void* vfunc_2(unsigned char flag);
 };
 struct Maker_138d00 {
-    int Init(hulkfight::motion::FlyingBrakeTrack*, hulk_intptr);
+    int Init_001353c0(hulkfight::motion::FlyingBrakeTrack*, hulk_intptr);
 };
 extern int TypeA_138d00;
 extern int TypeB_138d00;
-extern void* __cdecl Alloc(int);
-extern int g_vftable_138d50;
+extern void* __cdecl Alloc_0008d690(int);
+extern int hulk_at_00411da8;
 class RefObj_138d50 {
   public:
     virtual void vfunc_0();
@@ -522,7 +522,7 @@ class FlyingBrakeAction_138d50 {
 };
 extern int gTypeA_138db0, gTypeB;
 struct Result_138db0 {
-    int Init(hulkfight::motion::FlyingAttackTrack*, hulk_intptr);
+    int Init_00135470(hulkfight::motion::FlyingAttackTrack*, hulk_intptr);
 };
 class Ref_138e00 {
   public:
@@ -543,11 +543,11 @@ class FlyingAttackAction_138e00 : public Action_138e00 {
     FlyingAttackAction_138e00* f2(unsigned char flags);
 };
 struct Maker_138e60 {
-    int Init(hulkfight::motion::FlyingDashTrack*, hulk_intptr);
+    int Init_00135be0(hulkfight::motion::FlyingDashTrack*, hulk_intptr);
 };
 extern int TypeA_138e60;
 extern int TypeB_138e60;
-extern int g_vftable_138eb0;
+extern int hulk_at_00411de0;
 class RefObj_138eb0 {
   public:
     virtual void vfunc_0();
@@ -566,9 +566,9 @@ extern int FUN_00344e74(int, int, const void*, const void*, int);
 extern void* FUN_0008d690(int);
 class AllocObj_138f10 {
   public:
-    int init(hulkfight::motion::FlyingAutoTargetTrack*, hulk_intptr);
+    int init_00135ef0(hulkfight::motion::FlyingAutoTargetTrack*, hulk_intptr);
 };
-extern void* g_vftable_138f60[];
+extern void* hulk_at_00411dfc[];
 class Ref_138f60 {
   public:
     virtual void F0();
@@ -590,10 +590,10 @@ class FlyingAutoTargetAction_138f60 : public Action_138f60 {
 typedef unsigned int u32_138fc0;
 extern int TypeA_138fc0, TypeB;
 struct Params_138fc0 {
-    int Init(hulkfight::motion::BounceTrack*, void*);
+    int Init_001364a0(hulkfight::motion::BounceTrack*, void*);
 };
 extern void* Alloc(hulk_uintptr);
-extern int g_vftable_139010;
+extern int hulk_at_00411e18;
 class RefObj_139010 {
   public:
     virtual void vfunc_0();
@@ -611,9 +611,9 @@ class BounceAction_139010 {
 typedef unsigned int u32_139070;
 extern int TypeA_139070, TypeB;
 struct Params_139070 {
-    int Init(hulkfight::motion::AirToGroundTargetTrack*, void*);
+    int Init_00136850(hulkfight::motion::AirToGroundTargetTrack*, void*);
 };
-extern void* g_vftable_1390c0[];
+extern void* hulk_at_00411e34[];
 class Ref_1390c0 {
   public:
     virtual void F0();
@@ -638,32 +638,32 @@ class TrackFactoryCasterTemplate_139240 {
 };
 class Manager {
   public:
-    void* get(void*);
+    void* get_002367c0(void*);
 };
-extern void* find(const char*, TrackFactoryCasterTemplate_139240*);
+extern void* find_00236ac0(const char*, TrackFactoryCasterTemplate_139240*);
 class TrackFactoryCasterTemplate_1392a0 {
   public:
     virtual void f();
 };
-extern void* __cdecl Cast(void*, TrackFactoryCasterTemplate_1392a0*);
+extern void* __cdecl Cast_00236ac0(void*, TrackFactoryCasterTemplate_1392a0*);
 class TrackFactoryCasterTemplate_1392d0 {
   public:
     virtual void cast();
 };
 class Recipient {
   public:
-    void use(void*);
+    void use_002367c0(void*);
 };
-extern void* lookup(void*, TrackFactoryCasterTemplate_1392d0*);
+extern void* lookup_00236ac0(void*, TrackFactoryCasterTemplate_1392d0*);
 class TrackFactoryCasterTemplate_139330 {
   public:
     virtual void Cast();
 };
 class Track {
   public:
-    void* Make(void*);
+    void* Make_002367c0(void*);
 };
-extern "C" void* GetTrack(void*, TrackFactoryCasterTemplate_139330*);
+extern "C" void* GetTrack_00236ac0(void*, TrackFactoryCasterTemplate_139330*);
 class TrackFactoryCasterTemplate_139390 {
   public:
     virtual void cast();
@@ -680,18 +680,18 @@ class FlyingDashTrack_139430 {
     unsigned int d;
     unsigned int e;
     unsigned int f;
-    void Init();
+    void Init_00236d40();
 };
-extern int g_vftable_139480;
+extern int hulk_at_0041225c;
 extern "C" void* __cdecl operator_new(unsigned int);
 typedef unsigned int u32_139860;
 struct Init_139860 {
-    hulk_uintptr run();
+    hulk_uintptr run_00133d70();
 };
-extern void* alloc(hulk_uintptr);
+extern void* alloc_0008d690(hulk_uintptr);
 typedef unsigned int u32_1398f0;
 struct CAutoTargetTrack_1398f0 {
-    hulk_uintptr initialize();
+    hulk_uintptr initialize_00133e30();
 };
 
 } // namespace fn_f0de5d41
@@ -1122,7 +1122,7 @@ template <> bool fight::ParamIntConstRange<hulkfight::motion::FlyingAttackTrack>
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::FlyingDashTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return match(p, 0, &a, &b, 0) != 0;
+    return match(p, 0, &hulk_at_0049850c, &hulk_at_004ab9a8, 0) != 0;
 }
 
 
@@ -1310,10 +1310,10 @@ class FlyingAutoTargetTrack {};
 } // namespace motion
 } // namespace hulkfight
 extern void* a;
-extern void* b;
+extern void* hulk_at_004abe50;
 template <>
 int fight::TrackFactoryCasterTemplate<hulkfight::motion::FlyingAutoTargetTrack>::vfunc_0(void* p) {
-    return Find(p, 0, &a, &b, 0) != 0;
+    return Find(p, 0, &a, &hulk_at_004abe50, 0) != 0;
 }
 } // namespace fn_001378a0
 
@@ -1419,11 +1419,11 @@ void target() {
 // 0x00138b80 hulkfight::motion::HoverTrack::vfunc_10 (73 B): matches/0x00138b80.cpp
 // sym: ?vfunc_10@HoverTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::HoverTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    if (Check((void*)c, 0, (hulk_intptr)&type1_138b80, (hulk_intptr)&type2, 0)) {
-        Built_138b80* p = Allocate(0x24);
+    if (Check((void*)c, 0, (hulk_intptr)&hulk_at_00494b44, (hulk_intptr)&hulk_at_00494b60, 0)) {
+        Built_138b80* p = Allocate_0008d690(0x24);
         if (p) {
             int m = this->f_14;
-            return p->make(m, c);
+            return p->make_00134db0(m, c);
         }
     }
     return 0;
@@ -1434,7 +1434,7 @@ namespace fn_f0de5d41 {
 // 0x00138c10 hulkfight::motion::HoverAction::vfunc_2 (57 B): matches/0x00138c10.cpp
 // sym: ?f2@HoverAction_138c10@fn_f0de5d41@@QAEPAV12@E@Z
 HoverAction_138c10* HoverAction_138c10::f2(unsigned char flags) {
-    vptr = g_vftable_138c10;
+    vptr = hulk_at_00411d68;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -1452,7 +1452,7 @@ HoverAction_138c10* HoverAction_138c10::f2(unsigned char flags) {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* FallAction_138ca0::vfunc_2(unsigned char flag) {
     volatile FallAction_138ca0* self = this;
-    self->mVptr = &g_vftable_138ca0;
+    self->mVptr = &hulk_at_00411d84;
     RefObj_138ca0* t3 = self->m3;
     if (t3) {
         t3->Release();
@@ -1479,9 +1479,9 @@ void* FallAction_138ca0::vfunc_2(unsigned char flag) {
 // sym: ?vfunc_10@FlyingBrakeTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::FlyingBrakeTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (IsType((void*)c, 0, &TypeA_138d00, &TypeB_138d00, 0)) {
-        Maker_138d00* p = (Maker_138d00*)Alloc(0x40);
+        Maker_138d00* p = (Maker_138d00*)Alloc_0008d690(0x40);
         if (p)
-            return p->Init(this, c);
+            return p->Init_001353c0(this, c);
     }
     return 0;
 }
@@ -1493,7 +1493,7 @@ namespace fn_f0de5d41 {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* FlyingBrakeAction_138d50::vfunc_2(unsigned char flag) {
     volatile FlyingBrakeAction_138d50* self = this;
-    self->mVptr = &g_vftable_138d50;
+    self->mVptr = &hulk_at_00411da8;
     RefObj_138d50* t3 = self->m3;
     if (t3) {
         t3->Release();
@@ -1520,9 +1520,9 @@ void* FlyingBrakeAction_138d50::vfunc_2(unsigned char flag) {
 // sym: ?vfunc_10@FlyingAttackTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::FlyingAttackTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (TypeCheck((void*)c, 0, &gTypeA_138db0, &gTypeB, 0)) {
-        Result_138db0* p = (Result_138db0*)Alloc(0x3c);
+        Result_138db0* p = (Result_138db0*)Alloc_0008d690(0x3c);
         if (p)
-            return p->Init(this, c);
+            return p->Init_00135470(this, c);
     }
     return 0;
 }
@@ -1561,9 +1561,9 @@ FlyingAttackAction_138e00* FlyingAttackAction_138e00::f2(unsigned char flags) {
 // Same code shape as 0x00138d00 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FlyingDashTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (IsType((void*)c, 0, &TypeA_138e60, &TypeB_138e60, 0)) {
-        Maker_138e60* p = (Maker_138e60*)Alloc(0x40);
+        Maker_138e60* p = (Maker_138e60*)Alloc_0008d690(0x40);
         if (p)
-            return p->Init(this, c);
+            return p->Init_00135be0(this, c);
     }
     return 0;
 }
@@ -1575,7 +1575,7 @@ namespace fn_f0de5d41 {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* FlyingDashAction_138eb0::vfunc_2(unsigned char flag) {
     volatile FlyingDashAction_138eb0* self = this;
-    self->mVptr = &g_vftable_138eb0;
+    self->mVptr = &hulk_at_00411de0;
     RefObj_138eb0* t3 = self->m3;
     if (t3) {
         t3->Release();
@@ -1605,7 +1605,7 @@ hulk_intptr hulkfight::motion::FlyingAutoTargetTrack::vfunc_10(hulk_intptr a, hu
     if (FUN_00344e74(c, 0, &RTTI_Type1, &RTTI_Type2, 0)) {
         AllocObj_138f10* p = (AllocObj_138f10*)FUN_0008d690(0x2c);
         if (p)
-            return p->init(this, c);
+            return p->init_00135ef0(this, c);
     }
     return 0;
 }
@@ -1615,7 +1615,7 @@ namespace fn_f0de5d41 {
 // 0x00138f60 hulkfight::motion::FlyingAutoTargetAction::vfunc_2 (95 B): matches/0x00138f60.cpp
 // sym: ?f2@FlyingAutoTargetAction_138f60@fn_f0de5d41@@QAEPAV12@E@Z
 FlyingAutoTargetAction_138f60* FlyingAutoTargetAction_138f60::f2(unsigned char flags) {
-    vptr = g_vftable_138f60;
+    vptr = hulk_at_00411dfc;
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -1645,9 +1645,9 @@ FlyingAutoTargetAction_138f60* FlyingAutoTargetAction_138f60::f2(unsigned char f
 hulk_intptr hulkfight::motion::BounceTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_138fc0 a = (u32_138fc0)__p0; u32_138fc0 b = (u32_138fc0)__p1; void * p = (void *)__p2;
 
     if (IsKindOf(p, 0, &TypeA_138fc0, &TypeB, 0)) {
-        Params_138fc0* q = (Params_138fc0*)Alloc(0x34);
+        Params_138fc0* q = (Params_138fc0*)Alloc_0008d690(0x34);
         if (q)
-            return q->Init(this, p);
+            return q->Init_001364a0(this, p);
     }
     return 0;
 }
@@ -1659,7 +1659,7 @@ namespace fn_f0de5d41 {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* BounceAction_139010::vfunc_2(unsigned char flag) {
     volatile BounceAction_139010* self = this;
-    self->mVptr = &g_vftable_139010;
+    self->mVptr = &hulk_at_00411e18;
     RefObj_139010* t3 = self->m3;
     if (t3) {
         t3->Release();
@@ -1688,9 +1688,9 @@ void* BounceAction_139010::vfunc_2(unsigned char flag) {
 hulk_intptr hulkfight::motion::AirToGroundTargetTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_139070 a = (u32_139070)__p0; u32_139070 b = (u32_139070)__p1; void * p = (void *)__p2;
 
     if (IsKindOf(p, 0, &TypeA_139070, &TypeB, 0)) {
-        Params_139070* q = (Params_139070*)Alloc(0x34);
+        Params_139070* q = (Params_139070*)Alloc_0008d690(0x34);
         if (q)
-            return q->Init(this, p);
+            return q->Init_00136850(this, p);
     }
     return 0;
 }
@@ -1700,7 +1700,7 @@ namespace fn_f0de5d41 {
 // 0x001390c0 hulkfight::motion::AirToGroundTargetAction::vfunc_2 (95 B): matches/0x001390c0.cpp
 // sym: ?f2@AirToGroundTargetAction_1390c0@fn_f0de5d41@@QAEPAV12@E@Z
 AirToGroundTargetAction_1390c0* AirToGroundTargetAction_1390c0::f2(unsigned char flags) {
-    vptr = g_vftable_1390c0;
+    vptr = hulk_at_00411e34;
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -1727,7 +1727,7 @@ AirToGroundTargetAction_1390c0* AirToGroundTargetAction_1390c0::f2(unsigned char
 // sym: _FUN_00139240
 extern "C" void* FUN_00139240(Manager* m, const char* name) {
     TrackFactoryCasterTemplate_139240 caster;
-    return m->get(find(name, &caster));
+    return m->get_002367c0(find_00236ac0(name, &caster));
 }
 
 } // namespace fn_f0de5d41
@@ -1742,12 +1742,12 @@ class TrackFactoryCasterTemplate_139270 {
 };
 class Owner {
   public:
-    void use(void*);
+    void use_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl find(void*, TrackFactoryCasterTemplate_139270*);
+extern "C++" __declspec(nothrow) void* __cdecl find_00236ac0(void*, TrackFactoryCasterTemplate_139270*);
 extern "C" void FUN_00139270(Owner* owner, void* name) {
     TrackFactoryCasterTemplate_139270 caster;
-    owner->use(find(name, &caster));
+    owner->use_002367c0(find_00236ac0(name, &caster));
 }
 } // namespace fn_00139270
 
@@ -1757,7 +1757,7 @@ namespace fn_f0de5d41 {
 // sym: _FUN_001392a0
 extern "C" void FUN_001392a0(Obj* obj, void* input) {
     TrackFactoryCasterTemplate_1392a0 caster;
-    obj->Do(Cast(input, &caster));
+    obj->Do_002367c0(Cast_00236ac0(input, &caster));
 }
 
 
@@ -1765,8 +1765,8 @@ extern "C" void FUN_001392a0(Obj* obj, void* input) {
 // sym: _FUN_001392d0
 extern "C" void FUN_001392d0(Recipient* r, void* name) {
     TrackFactoryCasterTemplate_1392d0 caster;
-    void* p = lookup(name, &caster);
-    r->use(p);
+    void* p = lookup_00236ac0(name, &caster);
+    r->use_002367c0(p);
 }
 
 } // namespace fn_f0de5d41
@@ -1778,15 +1778,15 @@ class TrackFactoryCasterTemplate_139300 {
   public:
     virtual void Cast();
 };
-extern int __cdecl Find(int, TrackFactoryCasterTemplate_139300*);
+extern int __cdecl Find_00236ac0(int, TrackFactoryCasterTemplate_139300*);
 class Owner {
   public:
-    void Apply(int);
+    void Apply_002367c0(int);
 };
 extern "C" void __cdecl FUN_00139300(Owner* owner, int id) {
     TrackFactoryCasterTemplate_139300 caster;
-    int v = Find(id, &caster);
-    owner->Apply(v);
+    int v = Find_00236ac0(id, &caster);
+    owner->Apply_002367c0(v);
 }
 } // namespace fn_00139300
 
@@ -1796,8 +1796,8 @@ namespace fn_f0de5d41 {
 // sym: _FUN_00139330
 extern "C" void* FUN_00139330(Track* t, void* p) {
     TrackFactoryCasterTemplate_139330 c;
-    void* r = GetTrack(p, &c);
-    return t->Make(r);
+    void* r = GetTrack_00236ac0(p, &c);
+    return t->Make_002367c0(r);
 }
 
 } // namespace fn_f0de5d41
@@ -1811,12 +1811,12 @@ class TrackFactoryCasterTemplate_139360 {
 };
 class Owner {
   public:
-    void Set(void*);
+    void Set_002367c0(void*);
 };
-void* __cdecl Find(const char*, TrackFactoryCasterTemplate_139360*);
+void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_139360*);
 extern "C" void FUN_00139360(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_139360 caster;
-    owner->Set(Find(name, &caster));
+    owner->Set_002367c0(Find_00236ac0(name, &caster));
 }
 } // namespace fn_00139360
 
@@ -1827,7 +1827,7 @@ namespace fn_f0de5d41 {
 extern "C" void FUN_00139390(Obj* o, int n) {
     TrackFactoryCasterTemplate_139390 c;
     int r = first(n, &c);
-    o->second(r);
+    o->second_002367c0(r);
 }
 
 } // namespace fn_f0de5d41
@@ -1841,13 +1841,13 @@ class TrackFactoryCasterTemplate_1393c0 {
 };
 class Manager {
   public:
-    int get(void* p);
+    int get_002367c0(void* p);
 };
-extern "C++" __declspec(nothrow) void* first(void*, TrackFactoryCasterTemplate_1393c0*);
+extern "C++" __declspec(nothrow) void* first_00236ac0(void*, TrackFactoryCasterTemplate_1393c0*);
 extern "C" int __cdecl FUN_001393c0(Manager* mgr, void* name) {
     TrackFactoryCasterTemplate_1393c0 caster;
-    void* p = first(name, &caster);
-    return mgr->get(p);
+    void* p = first_00236ac0(name, &caster);
+    return mgr->get_002367c0(p);
 }
 } // namespace fn_001393c0
 
@@ -1855,9 +1855,9 @@ extern "C" int __cdecl FUN_001393c0(Manager* mgr, void* name) {
 // 0x00139430 fight::TrackFactoryTemplate<hulkfight::motion::FlyingDashTrack>::vfunc_5 (80 B): matches/0x00139430.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VFlyingDashTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FlyingDashTrack>::vfunc_5() {
-    FlyingDashTrack_139430* p = (FlyingDashTrack_139430*)Alloc(0x24);
+    FlyingDashTrack_139430* p = (FlyingDashTrack_139430*)Alloc_0008d690(0x24);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->vt = ((hulk_intptr)DAT_00411bb8);
         p->a = 0;
         p->b = 0xbf800000;
@@ -1876,7 +1876,7 @@ namespace fn_f0de5d41 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f0de5d41@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_139480;
+    m_vptr = (void*)&hulk_at_0041225c;
     base1_dtor();
     base2_dtor();
     if (flags & 1)
@@ -1890,23 +1890,23 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_00139540@@QAEPAXE@Z
 namespace fn_00139540 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_139540;
+extern int hulk_at_00412278;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00133a00();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_139540;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00412278;
+    base1_dtor_00133a00();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_00139540
@@ -1916,23 +1916,23 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_00139610@@QAEPAXE@Z
 namespace fn_00139610 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_139610;
+extern int hulk_at_00412294;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00133a90();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_139610;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00412294;
+    base1_dtor_00133a90();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_00139610
@@ -1953,23 +1953,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::BounceTrack>::v
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_001396a0@@QAEPAXE@Z
 namespace fn_001396a0 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_1396a0;
+extern int hulk_at_004122b0;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00133b40();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1396a0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004122b0;
+    base1_dtor_00133b40();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_001396a0
@@ -1979,23 +1979,23 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_00139730@@QAEPAXE@Z
 namespace fn_00139730 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_139730;
+extern int hulk_at_004122cc;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00133bf0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_139730;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004122cc;
+    base1_dtor_00133bf0();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_00139730
@@ -2005,23 +2005,23 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_001397f0@@QAEPAXE@Z
 namespace fn_001397f0 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_1397f0;
+extern int hulk_at_004122e8;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00133cb0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1397f0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004122e8;
+    base1_dtor_00133cb0();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_001397f0
@@ -2030,9 +2030,9 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // 0x00139860 fight::TrackFactoryTemplate<hulkfight::motion::FallTrack>::vfunc_5 (24 B): matches/0x00139860.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VFallTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FallTrack>::vfunc_5() {
-    void* p = alloc(0x4c);
+    void* p = alloc_0008d690(0x4c);
     if (p)
-        return (void*)(((Init_139860*)p)->run());
+        return (void*)(((Init_139860*)p)->run_00133d70());
     return (void*)(0);
 }
 
@@ -2041,23 +2041,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FallTrack>::vfu
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_00139880@@QAEPAXE@Z
 namespace fn_00139880 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_139880;
+extern int hulk_at_00412304;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00133d40();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_139880;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00412304;
+    base1_dtor_00133d40();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_00139880
@@ -2067,9 +2067,9 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VFlyingAutoTargetTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x00075d20 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FlyingAutoTargetTrack>::vfunc_5() {
-    CAutoTargetTrack_1398f0* p = (CAutoTargetTrack_1398f0*)alloc(0x3c);
+    CAutoTargetTrack_1398f0* p = (CAutoTargetTrack_1398f0*)alloc_0008d690(0x3c);
     if (p)
-        return (void*)(p->initialize());
+        return (void*)(p->initialize_00133e30());
     return (void*)(0);
 }
 
@@ -2078,23 +2078,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FlyingAutoTarge
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_00139910@@QAEPAXE@Z
 namespace fn_00139910 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_139910;
+extern int hulk_at_00412320;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00133e00();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_139910;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00412320;
+    base1_dtor_00133e00();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_00139910

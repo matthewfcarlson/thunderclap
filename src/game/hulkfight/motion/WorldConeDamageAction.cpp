@@ -71,7 +71,7 @@ class Obj {
     int z;
     bool Set(Vec* p);
     char Set(int v);
-    void Set(void*);
+    void Set_002367c0(void*);
 };
 struct Vec3_1434b0 {
     float x, y, z;
@@ -105,48 +105,48 @@ class Obj_1436b0 {
     char m[0x20];
     char Set(int value);
 };
-extern int* gTable_143710;
+extern int* hulk_at_004e0f80;
 class CCondition_143710 {
   public:
     virtual int vfunc_0(int);
 };
 typedef unsigned int u32_143790;
-extern u32_143790 vtable_143790;
+extern u32_143790 hulk_at_00412f14;
 struct Sub_143790 {
-    void Init();
+    void Init_0027af50();
 };
 struct Base_143790 {
-    void Finish();
+    void Finish_00236d60();
 };
-extern int* gTable_1437e0;
+extern int* hulk_at_004e0f88;
 class CCondition_1437e0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_143880;
+extern int* hulk_at_004e0f90;
 class CCondition_143880 {
   public:
     virtual int vfunc_0(int);
 };
-extern int WorldDamageTrack_vftable;
+extern int hulk_at_00412f74;
 class Inner_143900 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class WorldDamageTrack {
   public:
     int* vptr;
     char pad[12];
     Inner_143900 inner;
-    void BaseFn();
+    void BaseFn_00236d60();
     void Fn();
 };
-extern int* gTable_143940;
+extern int* hulk_at_004e0f98;
 class CCondition_143940 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_143a10;
+extern int* hulk_at_004e0fa0;
 class CCondition_143a10 {
   public:
     virtual int vfunc_0(int);
@@ -165,7 +165,7 @@ class MotionBlurTrack : public Track_143a20 {
     float x, y, z;
     int b, c;
 };
-extern int* gTable_143ab0;
+extern int* hulk_at_004e0fa8;
 class CCondition_143ab0 {
   public:
     virtual int vfunc_0(int);
@@ -258,14 +258,14 @@ class Action_1442f0 {
     int value;
 };
 struct Receiver_1442f0 {
-    void call(int);
+    void call_00086100(int);
 };
 struct GlobalObj_1442f0 {
     char pad[0x58];
     Receiver_1442f0* member;
 };
-extern GlobalObj_1442f0* gObj_1442f0;
-extern const float g_zero_144310;
+extern GlobalObj_1442f0* hulk_at_004dd700;
+extern const float hulk_at_003f32e0;
 struct MotionState_144310 {
     virtual void f0();
     virtual void f1();
@@ -282,9 +282,9 @@ struct Registry_144310 {
 };
 Registry_144310* FUN_001c3d90();
 struct X_144590 {
-    X_144590* a();
-    X_144590* b();
-    void e(int);
+    X_144590* Fna_000592a0();
+    X_144590* Fnb_00059a30();
+    void Fne_002834e0(int);
 };
 extern "C" X_144590* __cdecl FUN_0027f250();
 class MotionTrailStopAction {
@@ -300,13 +300,13 @@ class MotionTrailStopAction {
 typedef unsigned char byte_1447b0;
 class Sub_1447b0 {
   public:
-    void f();
+    void Fnf_0027af50();
 };
 class Base_1447b0 {
   public:
-    void g();
+    void Fng_00236d60();
 };
-extern void cdel(void*);
+extern void cdel_0008d330(void*);
 extern int vftable_1447b0;
 class HitEffectTrack_1447b0 {
   public:
@@ -317,10 +317,10 @@ class HitEffectTrack_1447b0 {
     Sub_1447b0 b;
     HitEffectTrack_1447b0* vfunc_5(byte_1447b0 param);
 };
-extern void* Track_1447f0_vftable[];
+extern void* hulk_at_00412f44[];
 class Track_1447f0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class SlowMotionTrack_1447f0 : public Track_1447f0 {
   public:
@@ -329,8 +329,8 @@ class SlowMotionTrack_1447f0 : public Track_1447f0 {
 extern char threat_vftable_144820;
 struct Obj_144820 {
     int x;
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_00236d60();
 };
 extern void thunk_FUN_00267090(Obj_144820*);
 class WorldDamageTrack_144820 {
@@ -339,28 +339,28 @@ class WorldDamageTrack_144820 {
     char pad[0x0c];
     WorldDamageTrack_144820* vfunc_5(unsigned char);
 };
-extern void* Track_144850_vftable[];
+extern void* hulk_at_00412fa4[];
 class Track_144850 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class WorldConeDamageTrack_144850 : public Track_144850 {
   public:
     WorldConeDamageTrack_144850* vfunc_5(signed char flags);
 };
-extern void* Track_144880_vftable[];
+extern void* hulk_at_00412fd4[];
 class Track_144880 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class MotionBlurTrack_144880 : public Track_144880 {
   public:
     MotionBlurTrack_144880* vfunc_5(signed char flags);
 };
-extern void* Track_1448b0_vftable[];
+extern void* hulk_at_00413004[];
 class Track_1448b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class MotionTrailStopTrack_1448b0 : public Track_1448b0 {
   public:
@@ -404,14 +404,14 @@ class Params_144970 {
   public:
     int x;
 };
-extern Params_144970 TypeA_144970;
-extern Params_144970 TypeB_144970;
+extern Params_144970 hulk_at_00494b44;
+extern Params_144970 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_144970*, Params_144970*, int);
 class Object_144970 {
   public:
-    int Init(hulkfight::motion::WorldDamageTrack*, hulk_intptr);
+    int Init_001448e0(hulkfight::motion::WorldDamageTrack*, hulk_intptr);
 };
-Object_144970* __cdecl Alloc(int);
+Object_144970* __cdecl Alloc_0008d690(int);
 class RefObj_1449c0 {
   public:
     virtual void AddRef();
@@ -430,7 +430,7 @@ class WorldConeDamageAction_1449c0 : public Action_1449c0 {
     WorldConeDamageAction_1449c0(int target, RefObj_1449c0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_144a10[];
+extern void* hulk_at_00413050[];
 class Ref_144a10 {
   public:
     virtual void F0();
@@ -462,7 +462,7 @@ extern "C" char DAT_0041306c[];
 typedef unsigned int u32_144af0;
 void* __cdecl Alloc(hulk_uintptr);
 struct SlowMotionAction_144af0 {
-    void init();
+    void init_00232660();
     char pad[0x1c];
     void* volatile owner;
 };
@@ -503,7 +503,7 @@ class MotionTrailStopAction_144b80 : public Action_144b80 {
     MotionTrailStopAction_144b80(int target, RefObj_144b80* obj);
     virtual void Execute();
 };
-extern void* g_vftable_144bd0[];
+extern void* hulk_at_004130a4[];
 class Ref_144bd0 {
   public:
     virtual void F0();
@@ -539,7 +539,7 @@ class HitEffectAction : public Action_144c10 {
     virtual void W();
     HitEffectAction(Ref_144c10*, int, Ref_144c10*);
 };
-extern void* g_vftable_144c80[];
+extern void* hulk_at_004130c0[];
 class Ref_144c80 {
   public:
     virtual void F0();
@@ -559,10 +559,10 @@ class HitEffectAction_144c80 : public Action_144c80 {
 };
 class Effect_144cd0 {
   public:
-    int init(hulk_intptr, hulkfight::motion::HitEffectTrack*, hulk_intptr);
+    int init_00144c10(hulk_intptr, hulkfight::motion::HitEffectTrack*, hulk_intptr);
 };
 extern int check(void*, int, const void*, const void*, int);
-extern void* alloc(hulk_uintptr);
+extern void* alloc_0008d690(hulk_uintptr);
 extern const char type1_144cd0[];
 extern const char type2_144cd0[];
 class CStageCondition_144d60;
@@ -825,7 +825,7 @@ struct RefCounted_145ba0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_145ba0[];
+extern char hulk_at_00413034[];
 class WorldDamageAction_145ba0 {
   public:
     WorldDamageAction_145ba0* vfunc_2(int flag);
@@ -867,8 +867,8 @@ struct SlowMotionAction {
     float measured;
     bool vfunc_3(int a, int b);
 };
-void destroy(SlowMotionAction* p);
-extern void* MotionBlurAction_vftable[];
+void destroy_0008d330(SlowMotionAction* p);
+extern void* hulk_at_00413088[];
 class BaseAction {
   public:
     BaseAction();
@@ -882,7 +882,7 @@ class MBAction : public BaseAction {
     char pad2[0x2c - 0x20 - 4 - 0];
 };
 extern void* motionVtable[];
-extern void DeleteThunk(MotionBlurAction*);
+extern void DeleteThunk_0008d330(MotionBlurAction*);
 struct RefCounted_145d50 {
   public:
     virtual void f0();
@@ -909,16 +909,16 @@ class TrackFactoryCasterTemplate_146130 {
   public:
     virtual void Cast();
 };
-extern void* __cdecl Find(const char*, TrackFactoryCasterTemplate_146130*);
+extern void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_146130*);
 class Factory {
   public:
-    void Add(void*);
+    void Add_002367c0(void*);
 };
 class TrackFactoryCasterTemplate_146370 {
   public:
     virtual void Cast();
 };
-extern void* Find(const char*, TrackFactoryCasterTemplate_146370*);
+extern void* Find_00236ac0(const char*, TrackFactoryCasterTemplate_146370*);
 } // namespace fn_f3c8e3e3
 inline void* __cdecl operator new(size_t, void* where) {
     return where;
@@ -942,10 +942,10 @@ struct SlowMotionTrack {
     float a;
     float b;
     char flag;
-    void Init();
+    void Init_00236d40();
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int g_vftable_146580;
+extern int hulk_at_0041349c;
 class TrackFactoryTemplate_1465b0 {
   public:
     TrackFactoryTemplate_1465b0() {}
@@ -964,7 +964,7 @@ struct TrackFactory_1465f0 {
 };
 extern "C" void* __cdecl Allocate(unsigned int);
 struct Built_1465f0 {
-    void* init();
+    void* init_00143950();
 };
 class TrackFactoryTemplate_146640 {
   public:
@@ -985,7 +985,7 @@ class TrackFactoryTemplate_146710 {
 extern "C" char DAT_00413004[];
 class Motion_146750 {
   public:
-    void Init();
+    void Init_00236d40();
 };
 class TrackFactoryTemplate_1467c0 {
   public:
@@ -997,7 +997,7 @@ class TrackFactoryTemplate_1467c0 {
 };
 class Track_146800 {
   public:
-    hulk_intptr method();
+    hulk_intptr method_00143720();
 };
 extern void* __cdecl operator_new(unsigned int);
 class TrackFactoryTemplate_146850 {
@@ -1010,7 +1010,7 @@ class TrackFactoryTemplate_146850 {
 };
 typedef unsigned int u32_146890;
 struct Grapple_146890 {
-    hulk_uintptr BuildTrack();
+    hulk_uintptr BuildTrack_00143890();
 };
 
 } // namespace fn_f3c8e3e3
@@ -1414,7 +1414,7 @@ void FUN_001436f0() {
 // sym: ?vfunc_0@HitEffectTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HitEffectTrack::vfunc_0(int index) {
-    int* p = gTable_143710;
+    int* p = hulk_at_004e0f80;
     return p[index];
 }
 
@@ -1474,10 +1474,10 @@ hulk_freg hulkfight::motion::HitEffectTrack::vfunc_7() {
 // sym: ?FUN_00143790@HitEffectTrack@motion@hulkfight@@QAEXXZ
 // Same code shape as 0x0013a280 (propagated; names are from that function)
 void hulkfight::motion::HitEffectTrack::FUN_00143790() {
-    *(hulk_uintptr*)this = (hulk_uintptr)&vtable_143790;
-    ((Sub_143790*)((char*)this + 0x28))->Init();
-    ((Sub_143790*)((char*)this + 0x18))->Init();
-    ((Base_143790*)this)->Finish();
+    *(hulk_uintptr*)this = (hulk_uintptr)&hulk_at_00412f14;
+    ((Sub_143790*)((char*)this + 0x28))->Init_0027af50();
+    ((Sub_143790*)((char*)this + 0x18))->Init_0027af50();
+    ((Base_143790*)this)->Finish_00236d60();
 }
 
 namespace fn_f3c8e3e3 {
@@ -1495,7 +1495,7 @@ void FUN_001437c0() {
 // sym: ?vfunc_0@SlowMotionTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::SlowMotionTrack::vfunc_0(int index) {
-    int* p = gTable_1437e0;
+    int* p = hulk_at_004e0f88;
     return p[index];
 }
 
@@ -1564,7 +1564,7 @@ void FUN_00143860() {
 // sym: ?vfunc_0@WorldDamageTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::WorldDamageTrack::vfunc_0(int index) {
-    int* p = gTable_143880;
+    int* p = hulk_at_004e0f90;
     return p[index];
 }
 
@@ -1625,9 +1625,9 @@ namespace fn_f3c8e3e3 {
 // 0x00143900 FUN_00143900 (25 B): matches/0x00143900.cpp
 // sym: ?Fn@WorldDamageTrack@fn_f3c8e3e3@@QAEXXZ
 void WorldDamageTrack::Fn() {
-    vptr = &WorldDamageTrack_vftable;
-    inner.Init();
-    BaseFn();
+    vptr = &hulk_at_00412f74;
+    inner.Init_0027af50();
+    BaseFn_00236d60();
 }
 
 
@@ -1644,7 +1644,7 @@ void FUN_00143920() {
 // sym: ?vfunc_0@WorldConeDamageTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::WorldConeDamageTrack::vfunc_0(int index) {
-    int* p = gTable_143940;
+    int* p = hulk_at_004e0f98;
     return p[index];
 }
 
@@ -1744,7 +1744,7 @@ void FUN_001439f0() {
 // sym: ?vfunc_0@MotionBlurTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::MotionBlurTrack::vfunc_0(int index) {
-    int* p = gTable_143a10;
+    int* p = hulk_at_004e0fa0;
     return p[index];
 }
 
@@ -1789,7 +1789,7 @@ void FUN_00143a90() {
 // sym: ?vfunc_0@MotionTrailStopTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::MotionTrailStopTrack::vfunc_0(int index) {
-    int* p = gTable_143ab0;
+    int* p = hulk_at_004e0fa8;
     return p[index];
 }
 
@@ -2038,7 +2038,7 @@ char SlowMotionAction::vfunc_5(int mode, float dt)
 // 0x001442f0 hulkfight::motion::SlowMotionAction::vfunc_4 (19 B): matches/0x001442f0.cpp
 // sym: ?vfunc_4@SlowMotionAction@motion@hulkfight@@UAEXXZ
 void hulkfight::motion::SlowMotionAction::vfunc_4() {
-    gObj_1442f0->member->call(this->f_20);
+    hulk_at_004dd700->member->call_00086100(this->f_20);
 }
 
 
@@ -2046,7 +2046,7 @@ void hulkfight::motion::SlowMotionAction::vfunc_4() {
 // sym: ?vfunc_3@MotionBlurAction@motion@hulkfight@@UAE_NHH@Z
 bool hulkfight::motion::MotionBlurAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     this->f_20 = (*(MotionState_144310 * *)&this->f_1c)->f6();
-    if ((*(MotionState_144310 * *)&this->f_1c)->value < g_zero_144310)
+    if ((*(MotionState_144310 * *)&this->f_1c)->value < hulk_at_003f32e0)
         return false;
     FUN_001c3d90()->FUN_001c3840((char*)this + 0x24, (char*)this + 0x28);
     return true;
@@ -2184,12 +2184,12 @@ namespace fn_f3c8e3e3 {
 // sym: ?vfunc_4@MotionTrailStopAction@fn_f3c8e3e3@@QAEXXZ
 void MotionTrailStopAction::vfunc_4() {
     if (mCheck) {
-        X_144590* a = ((X_144590*)mCheck)->a();
-        X_144590* b = a->b();
+        X_144590* a = ((X_144590*)mCheck)->Fna_000592a0();
+        X_144590* b = a->Fnb_00059a30();
         X_144590* c = FUN_0027f250();
         int t = mA->value;
         int v = ((int)((owners::X_36cb0 *)b)->FUN_00036cb0((unsigned int)t));
-        c->e(v);
+        c->Fne_002834e0(v);
     }
 }
 
@@ -2253,11 +2253,11 @@ namespace fn_f3c8e3e3 {
 // Same code shape as 0x0013a8e0 (propagated; names are from that function)
 HitEffectTrack_1447b0* HitEffectTrack_1447b0::vfunc_5(byte_1447b0 param) {
     vf = (hulk_intptr)&vftable_1447b0;
-    b.f();
-    a.f();
-    ((Base_1447b0*)this)->g();
+    b.Fnf_0027af50();
+    a.Fnf_0027af50();
+    ((Base_1447b0*)this)->Fng_00236d60();
     if (param & 1)
-        cdel(this);
+        cdel_0008d330(this);
     return this;
 }
 
@@ -2268,8 +2268,8 @@ HitEffectTrack_1447b0* HitEffectTrack_1447b0::vfunc_5(byte_1447b0 param) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 SlowMotionTrack_1447f0* SlowMotionTrack_1447f0::vfunc_5(signed char flags) {
-    *(void***)this = Track_1447f0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00412f44;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -2283,8 +2283,8 @@ SlowMotionTrack_1447f0* SlowMotionTrack_1447f0::vfunc_5(signed char flags) {
 WorldDamageTrack_144820* WorldDamageTrack_144820::vfunc_5(unsigned char param) {
     WorldDamageTrack_144820* p = this;
     *(char**)p = &threat_vftable_144820;
-    ((Obj_144820*)((char*)p + 0x10))->f1();
-    ((Obj_144820*)p)->f2();
+    ((Obj_144820*)((char*)p + 0x10))->f1_0027af50();
+    ((Obj_144820*)p)->f2_00236d60();
     if (param & 1)
         thunk_FUN_00267090((Obj_144820*)p);
     return p;
@@ -2297,8 +2297,8 @@ WorldDamageTrack_144820* WorldDamageTrack_144820::vfunc_5(unsigned char param) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 WorldConeDamageTrack_144850* WorldConeDamageTrack_144850::vfunc_5(signed char flags) {
-    *(void***)this = Track_144850_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00412fa4;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -2312,8 +2312,8 @@ WorldConeDamageTrack_144850* WorldConeDamageTrack_144850::vfunc_5(signed char fl
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 MotionBlurTrack_144880* MotionBlurTrack_144880::vfunc_5(signed char flags) {
-    *(void***)this = Track_144880_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00412fd4;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -2327,8 +2327,8 @@ MotionBlurTrack_144880* MotionBlurTrack_144880::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 MotionTrailStopTrack_1448b0* MotionTrailStopTrack_1448b0::vfunc_5(signed char flags) {
-    *(void***)this = Track_1448b0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00413004;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -2374,11 +2374,11 @@ WorldDamageAction_144930::~WorldDamageAction_144930() throw() {
 // sym: ?vfunc_10@WorldDamageTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::WorldDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_144970, &TypeB_144970, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        Object_144970* p = Alloc(0x24);
+        Object_144970* p = Alloc_0008d690(0x24);
         if (p)
-            return p->Init(this, c);
+            return p->Init_001448e0(this, c);
     }
     return 0;
 }
@@ -2406,7 +2406,7 @@ WorldConeDamageAction_1449c0::WorldConeDamageAction_1449c0(int target, RefObj_14
 // 0x00144a10 FUN_00144a10 (50 B): matches/0x00144a10.cpp
 // sym: ??1WorldConeDamageAction_144a10@fn_f3c8e3e3@@QAE@XZ
 WorldConeDamageAction_144a10::~WorldConeDamageAction_144a10() {
-    vptr = g_vftable_144a10;
+    vptr = hulk_at_00413050;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -2432,9 +2432,9 @@ SlowMotionAction_144aa0::SlowMotionAction_144aa0(int x) : Action_144aa0(), value
 // 0x00144af0 hulkfight::motion::SlowMotionTrack::vfunc_10 (57 B): matches/0x00144af0.cpp
 // sym: ?vfunc_10@SlowMotionTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::SlowMotionTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    SlowMotionAction_144af0* p = (SlowMotionAction_144af0*)Alloc(0x28);
+    SlowMotionAction_144af0* p = (SlowMotionAction_144af0*)Alloc_0008d690(0x28);
     if (p) {
-        p->init();
+        p->init_00232660();
         *(volatile hulk_uintptr*)p = ((hulk_intptr)DAT_0041306c);
         p->owner = 0;
         p->owner = this;
@@ -2475,7 +2475,7 @@ MotionTrailStopAction_144b80::MotionTrailStopAction_144b80(int target, RefObj_14
 // 0x00144bd0 FUN_00144bd0 (50 B): matches/0x00144bd0.cpp
 // sym: ??1MotionTrailStopAction_144bd0@fn_f3c8e3e3@@QAE@XZ
 MotionTrailStopAction_144bd0::~MotionTrailStopAction_144bd0() {
-    vptr = g_vftable_144bd0;
+    vptr = hulk_at_004130a4;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -2510,7 +2510,7 @@ HitEffectAction::HitEffectAction(Ref_144c10* p, int x, Ref_144c10* q) {
 // 0x00144c80 FUN_00144c80 (69 B): matches/0x00144c80.cpp
 // sym: ??1HitEffectAction_144c80@fn_f3c8e3e3@@QAE@XZ
 HitEffectAction_144c80::~HitEffectAction_144c80() {
-    vptr = g_vftable_144c80;
+    vptr = hulk_at_004130c0;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -2531,9 +2531,9 @@ HitEffectAction_144c80::~HitEffectAction_144c80() {
 // sym: ?vfunc_10@HitEffectTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::HitEffectTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (check((void*)c, 0, type1_144cd0, type2_144cd0, 0)) {
-        Effect_144cd0* p = (Effect_144cd0*)alloc(0x28);
+        Effect_144cd0* p = (Effect_144cd0*)alloc_0008d690(0x28);
         if (p)
-            return p->init(a, this, c);
+            return p->init_00144c10(a, this, c);
     }
     return 0;
 }
@@ -2985,7 +2985,7 @@ namespace fn_f3c8e3e3 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 WorldDamageAction_145ba0* WorldDamageAction_145ba0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_145ba0;
+    *p = (hulk_intptr)&hulk_at_00413034;
     RefCounted_145ba0* q = *(RefCounted_145ba0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -3033,7 +3033,7 @@ SlowMotionAction* SlowMotionAction::vfunc_2(unsigned char flags) {
         member = 0;
     ((fight::Action *)this)->FUN_002326a0();
     if (flags & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 
@@ -3042,10 +3042,10 @@ SlowMotionAction* SlowMotionAction::vfunc_2(unsigned char flags) {
 // 0x00145c80 hulkfight::motion::MotionBlurTrack::vfunc_10 (57 B): matches/0x00145c80.cpp
 // sym: ?vfunc_10@MotionBlurTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::MotionBlurTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    MBAction* p = (MBAction*)alloc(0x2c);
+    MBAction* p = (MBAction*)alloc_0008d690(0x2c);
     if (p) {
         p->BaseAction::BaseAction();
-        *(void* volatile*)p = MotionBlurAction_vftable;
+        *(void* volatile*)p = hulk_at_00413088;
         *(void* volatile*)&p->owner = 0;
         p->owner = (void*)this;
         return (hulk_intptr)(p);
@@ -3064,7 +3064,7 @@ MotionBlurAction* MotionBlurAction::vfunc_2(int flag) {
         mObject = 0;
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1)
-        DeleteThunk(this);
+        DeleteThunk_0008d330(this);
     return this;
 }
 
@@ -3145,7 +3145,7 @@ namespace fn_f3c8e3e3 {
 // sym: _FUN_00146130
 extern "C" void __cdecl FUN_00146130(Factory* factory, const char* name) {
     TrackFactoryCasterTemplate_146130 caster;
-    factory->Add(Find(name, &caster));
+    factory->Add_002367c0(Find_00236ac0(name, &caster));
 }
 
 
@@ -3153,7 +3153,7 @@ extern "C" void __cdecl FUN_00146130(Factory* factory, const char* name) {
 // sym: ?FUN_00146370@fn_f3c8e3e3@@YAXPAVObj@1@PBD@Z
 void FUN_00146370(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_146370 caster;
-    obj->Set(Find(name, &caster));
+    obj->Set_002367c0(Find_00236ac0(name, &caster));
 }
 
 } // namespace fn_f3c8e3e3
@@ -3166,13 +3166,13 @@ class TrackFactoryCasterTemplate_1463a0 {
     virtual void Cast();
 };
 struct Target {
-    int Get(void*);
+    int Get_002367c0(void*);
 };
 extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_1463a0*);
 extern "C" int FUN_001463a0(Target* t, void* x) {
     TrackFactoryCasterTemplate_1463a0 c;
     void* p = FUN_00236ac0(x, &c);
-    return t->Get(p);
+    return t->Get_002367c0(p);
 }
 } // namespace fn_001463a0
 
@@ -3229,7 +3229,7 @@ namespace fn_f3c8e3e3 {
 SlowMotionTrack* __cdecl target() {
     SlowMotionTrack* p = (SlowMotionTrack*)FUN_0008d690((int)sizeof(SlowMotionTrack));
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->a = 1.0f;
         p->b = 1.0f;
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00412f44);
@@ -3248,7 +3248,7 @@ SlowMotionTrack* __cdecl target() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f3c8e3e3@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_146580;
+    m_vptr = (void*)&hulk_at_0041349c;
     base1_dtor();
     base2_dtor();
     if (flags & 1)
@@ -3281,7 +3281,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::WorldCone
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::WorldConeDamageTrack>::vfunc_5() {
     void* p = Allocate(0x58);
     if (p)
-        return (void*)(((Built_1465f0*)p)->init());
+        return (void*)(((Built_1465f0*)p)->init_00143950());
     return (void*)(0);
 }
 
@@ -3290,23 +3290,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::WorldConeDamage
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_00146610@@QAEPAXE@Z
 namespace fn_00146610 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_146610;
+extern int hulk_at_004134b8;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00143920();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_146610;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004134b8;
+    base1_dtor_00143920();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_00146610
@@ -3336,7 +3336,7 @@ namespace fn_00146680 {
 extern "C" char DAT_00412fd4[];
 struct MotionBlurTrack {
   public:
-    void Init();
+    void Init_00236d40();
     hulk_intptr vf;
     int mHdr;
     int mOne;
@@ -3352,7 +3352,7 @@ struct MotionBlurTrack {
 MotionBlurTrack* CreateTrack() {
     MotionBlurTrack* p = (MotionBlurTrack*)operator new(sizeof(MotionBlurTrack));
     if (p != 0) {
-        p->Init();
+        p->Init_00236d40();
         p->vf = ((hulk_intptr)DAT_00412fd4);
         p->mZero = 0;
         p->mA = 0.1f;
@@ -3372,23 +3372,23 @@ MotionBlurTrack* CreateTrack() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_001466e0@@QAEPAXE@Z
 namespace fn_001466e0 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_1466e0;
+extern int hulk_at_004134d4;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001439f0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1466e0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004134d4;
+    base1_dtor_001439f0();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_001466e0
@@ -3414,9 +3414,9 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::MotionTra
 // 0x00146750 fight::TrackFactoryTemplate<hulkfight::motion::MotionTrailStopTrack>::vfunc_5 (59 B): matches/0x00146750.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VMotionTrailStopTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::MotionTrailStopTrack>::vfunc_5() {
-    Motion_146750* p = (Motion_146750*)Alloc(0x14);
+    Motion_146750* p = (Motion_146750*)Alloc_0008d690(0x14);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00413004);
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0;
@@ -3431,23 +3431,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::MotionTrailStop
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_00146790@@QAEPAXE@Z
 namespace fn_00146790 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_146790;
+extern int hulk_at_004134f0;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00143a90();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_146790;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004134f0;
+    base1_dtor_00143a90();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_00146790
@@ -3476,7 +3476,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitEffect
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitEffectTrack>::vfunc_5() {
     Track_146800* p = (Track_146800*)operator_new(0x38);
     if (p)
-        return (void*)(p->method());
+        return (void*)(p->method_00143720());
     return (void*)(0);
 }
 
@@ -3485,23 +3485,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitEffectTrack>
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_00146820@@QAEPAXE@Z
 namespace fn_00146820 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_146820;
+extern int hulk_at_0041350c;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001436f0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_146820;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041350c;
+    base1_dtor_001436f0();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_00146820
@@ -3530,7 +3530,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::WorldDama
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::WorldDamageTrack>::vfunc_5() {
     Grapple_146890* p = (Grapple_146890*)operator new(0x40);
     if (p)
-        return (void*)(p->BuildTrack());
+        return (void*)(p->BuildTrack_00143890());
     return (void*)(0);
 }
 
@@ -3539,23 +3539,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::WorldDamageTrac
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_001468b0@@QAEPAXE@Z
 namespace fn_001468b0 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_1468b0;
+extern int hulk_at_00413528;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00143860();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1468b0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00413528;
+    base1_dtor_00143860();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_001468b0

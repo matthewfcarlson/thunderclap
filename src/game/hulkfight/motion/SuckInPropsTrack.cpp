@@ -12,7 +12,7 @@ namespace fn_fb2fdc2a {} using namespace fn_fb2fdc2a;
 
 // ---- declarations shared by the functions below
 namespace fn_fb2fdc2a {
-extern int* gTable_170b90;
+extern int* hulk_at_004e1388;
 class CCondition_170b90 {
   public:
     virtual int vfunc_0(int);
@@ -61,7 +61,7 @@ void FUN_00170b70() {
 // sym: ?vfunc_0@SuckInPropsTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::SuckInPropsTrack::vfunc_0(int index) {
-    int* p = gTable_170b90;
+    int* p = hulk_at_004e1388;
     return p[index];
 }
 

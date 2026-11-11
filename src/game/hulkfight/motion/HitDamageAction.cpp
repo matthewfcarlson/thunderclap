@@ -13,8 +13,8 @@ namespace fn_febef950 {} using namespace fn_febef950;
 namespace fn_febef950 {
 class Mid_14fda0 {
   public:
-    Mid_14fda0* Touch();
-    void Draw(float, int, int, int, int, unsigned char);
+    Mid_14fda0* Touch_00059a30();
+    void Draw_00043350(float, int, int, int, int, unsigned char);
 };
 class Thing_14fda0 {
   public:
@@ -47,8 +47,8 @@ bool hulkfight::motion::HitDamageAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     if ((*(Ref_14fda0 * *)&this->f_20)) {
         Thing_14fda0* t = (*(Ref_14fda0 * *)&this->f_20)->d();
         if (t) {
-            Mid_14fda0* m = ((Mid_14fda0 *)((owners::Object_592a0 *)((*(Ref_14fda0 * *)&this->f_20)))->FUN_000592a0())->Touch();
-            m->Draw(*(float*)((char*)(*(void * *)&this->f_1c) + 0x10) * t->x78, t->x4c, t->x48, t->x7c, 0, t->x91);
+            Mid_14fda0* m = ((Mid_14fda0 *)((owners::Object_592a0 *)((*(Ref_14fda0 * *)&this->f_20)))->FUN_000592a0())->Touch_00059a30();
+            m->Draw_00043350(*(float*)((char*)(*(void * *)&this->f_1c) + 0x10) * t->x78, t->x4c, t->x48, t->x7c, 0, t->x91);
         }
     }
     return (bool)(0);

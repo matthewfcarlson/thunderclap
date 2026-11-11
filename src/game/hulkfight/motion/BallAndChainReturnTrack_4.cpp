@@ -26,9 +26,9 @@ extern "C" void FUN_0018a870();
 typedef unsigned int u32_18c940;
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CKeyPoseTrack_18c940 {
-    hulk_uintptr init();
+    hulk_uintptr init_00181020();
 };
-extern int g_vftable_18c960;
+extern int hulk_at_0041a978;
 
 } // namespace fn_f3f355e9
 
@@ -55,7 +55,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::BallAndCh
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::BallAndChainReturnTrack>::vfunc_5() {
     void* p = FUN_0008d690(0x78);
     if (p)
-        return (void*)(((CKeyPoseTrack_18c940*)p)->init());
+        return (void*)(((CKeyPoseTrack_18c940*)p)->init_00181020());
     return (void*)(0);
 }
 
@@ -65,7 +65,7 @@ namespace fn_f3f355e9 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f3f355e9@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18c960;
+    m_vptr = (void*)&hulk_at_0041a978;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

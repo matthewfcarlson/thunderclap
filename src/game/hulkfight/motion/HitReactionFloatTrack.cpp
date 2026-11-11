@@ -12,7 +12,7 @@ namespace fn_f54c50a4 {} using namespace fn_f54c50a4;
 
 // ---- declarations shared by the functions below
 namespace fn_f54c50a4 {
-extern int* gTable_14dc90;
+extern int* hulk_at_004e10e0;
 class CCondition_14dc90 {
   public:
     virtual int vfunc_0(int);
@@ -39,7 +39,7 @@ class HitReactionFloatTrack : public Track_14dca0 {
     int x30, x34, x38, x3c, x40, x44, x48, x4c;
     char x50;
 };
-extern float gNegOne;
+extern float hulk_at_003f3388;
 
 
 // 0x0014dc70 FUN_0014dc70 (19 B): matches/0x0014dc70.cpp
@@ -55,7 +55,7 @@ void FUN_0014dc70() {
 // sym: ?vfunc_0@HitReactionFloatTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HitReactionFloatTrack::vfunc_0(int index) {
-    int* p = gTable_14dc90;
+    int* p = hulk_at_004e10e0;
     return p[index];
 }
 
@@ -84,6 +84,6 @@ hulk_freg hulkfight::motion::HitReactionFloatTrack::vfunc_6() {
 // sym: ?vfunc_7@HitReactionFloatTrack@motion@hulkfight@@UAEMXZ
 // Same code shape as 0x000695a0 (propagated; names are from that function)
 hulk_freg hulkfight::motion::HitReactionFloatTrack::vfunc_7() {
-    return gNegOne;
+    return hulk_at_003f3388;
 }
 

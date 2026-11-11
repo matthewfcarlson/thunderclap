@@ -34,10 +34,10 @@ struct HitFloatTrack_159fa0 {
     int x;
 };
 struct Initializer_159fa0 {
-    void Init();
+    void Init_00236d40();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_159ff0;
+extern int hulk_at_004157bc;
 
 } // namespace fn_fddba4d1
 
@@ -63,7 +63,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitFloatT
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitFloatTrack>::vfunc_5() {
     HitFloatTrack_159fa0* p = (HitFloatTrack_159fa0*)FUN_0008d690(0x28);
     if (p) {
-        ((Initializer_159fa0*)p)->Init();
+        ((Initializer_159fa0*)p)->Init_00236d40();
         *(int*)((char*)p + 12) = 0;
         *((char*)p + 20) = 0;
         *(int*)((char*)p + 24) = 0;
@@ -83,7 +83,7 @@ namespace fn_fddba4d1 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fddba4d1@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_159ff0;
+    m_vptr = (void*)&hulk_at_004157bc;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

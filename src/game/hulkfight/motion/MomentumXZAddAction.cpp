@@ -11,13 +11,13 @@ namespace fn_f975d6ff {} using namespace fn_f975d6ff;
 // ---- declarations shared by the functions below
 namespace fn_f975d6ff {
 struct Helper1_1727f0 {
-    int f();
+    int Fnf_000592a0();
 };
 struct Helper2_1727f0 {
-    int f();
+    int Fnf_00059a30();
 };
 struct Helper3 {
-    void f(void*);
+    void Fnf_000356c0(void*);
 };
 
 } // namespace fn_f975d6ff
@@ -29,14 +29,14 @@ bool hulkfight::motion::MomentumXZAddAction::vfunc_3(hulk_intptr __p0, hulk_intp
     Helper1_1727f0* p = (*(Helper1_1727f0 * *)&this->f_20);
     if (!p)
         return false;
-    hulk_intptr q = p->f();
+    hulk_intptr q = p->Fnf_000592a0();
     if (!q)
         return false;
     Helper2_1727f0* z = (Helper2_1727f0*)q;
-    hulk_intptr r = z->f();
+    hulk_intptr r = z->Fnf_00059a30();
     if (!r)
         return false;
-    ((Helper3*)r)->f(&this->f_24);
+    ((Helper3*)r)->Fnf_000356c0(&this->f_24);
     this->f_28 = 0;
     return true;
 }

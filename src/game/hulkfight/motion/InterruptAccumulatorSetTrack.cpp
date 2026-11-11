@@ -11,7 +11,7 @@ namespace fn_f0ef64f3 {} using namespace fn_f0ef64f3;
 
 // ---- declarations shared by the functions below
 namespace fn_f0ef64f3 {
-extern int* gTable_14db60;
+extern int* hulk_at_004e10d0;
 class CCondition_14db60 {
   public:
     virtual int vfunc_0(int);
@@ -37,7 +37,7 @@ class InterruptAccumulatorSetTrack : public Track_14db70 {
 // sym: ?vfunc_0@InterruptAccumulatorSetTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::InterruptAccumulatorSetTrack::vfunc_0(int index) {
-    int* p = gTable_14db60;
+    int* p = hulk_at_004e10d0;
     return p[index];
 }
 

@@ -44,11 +44,11 @@ class CollisionInterruptPriorityCondition_159aa0 : public BaseCondition {
 };
 } }
 namespace fn_fdffb444 {
-extern int g_vftable_159ad0;
+extern int hulk_at_004156f8;
 struct ConditionFactoryTemplate_159ad0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0014da60();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -84,9 +84,9 @@ namespace fn_fdffb444 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_159ad0@fn_fdffb444@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_159ad0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_159ad0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004156f8;
+    base1_dtor_0014da60();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

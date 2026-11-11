@@ -14,7 +14,7 @@ class TrackFactoryCaster_186f60 {
     virtual bool vfunc_0(const char*);
     virtual void vfunc_1();
 };
-extern const char a[], b[];
+extern const char hulk_at_0049850c[], hulk_at_004be028[];
 extern "C" int __cdecl check(const char*, int, const char*, const char*, int);
 
 } // namespace fn_f9bb6ced
@@ -23,7 +23,7 @@ extern "C" int __cdecl check(const char*, int, const char*, const char*, int);
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VGrapplePropDamageTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::GrapplePropDamageTrack>::vfunc_0(void* __p0) { const char * s = (const char *)__p0;
 
-    return check(s, 0, a, b, 0) != 0;
+    return check(s, 0, hulk_at_0049850c, hulk_at_004be028, 0) != 0;
 }
 
 

@@ -32,8 +32,8 @@ class HitWaitTrack_159d70 {
     HitWaitTrack_159d70();
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int HitWaitTrack_vftable;
-extern int g_vftable_159db0;
+extern int hulk_at_00414300;
+extern int hulk_at_00415768;
 
 } // namespace fn_fdcd66b6
 
@@ -60,7 +60,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitWaitTrack>::
     HitWaitTrack_159d70* p = (HitWaitTrack_159d70*)FUN_0008d690((int)sizeof(HitWaitTrack_159d70));
     if (p) {
         p->HitWaitTrack_159d70::HitWaitTrack_159d70();
-        *(hulk_intptr*)p = (hulk_intptr)&HitWaitTrack_vftable;
+        *(hulk_intptr*)p = (hulk_intptr)&hulk_at_00414300;
         p->a = 0;
         p->b = 0;
         return (void*)(p);
@@ -74,7 +74,7 @@ namespace fn_fdcd66b6 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fdcd66b6@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_159db0;
+    m_vptr = (void*)&hulk_at_00415768;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

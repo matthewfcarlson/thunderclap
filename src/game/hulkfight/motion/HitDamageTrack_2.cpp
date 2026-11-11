@@ -30,9 +30,9 @@ class HitDamageTrack_15a270 {
     char pad[8];
     int x;
     float y;
-    void init();
+    void init_00236d40();
 };
-extern int g_vftable_15a2b0;
+extern int hulk_at_0041582c;
 
 } // namespace fn_f59a8991
 
@@ -58,7 +58,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitDamage
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitDamageTrack>::vfunc_5() {
     HitDamageTrack_15a270* p = (HitDamageTrack_15a270*)operator new(sizeof(HitDamageTrack_15a270));
     if (p) {
-        p->init();
+        p->init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00414450);
         p->x = 0;
         p->y = 1.0f;
@@ -73,7 +73,7 @@ namespace fn_f59a8991 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f59a8991@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_15a2b0;
+    m_vptr = (void*)&hulk_at_0041582c;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

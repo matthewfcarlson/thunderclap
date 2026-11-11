@@ -26,16 +26,16 @@ extern "C" void FUN_00189f90();
 extern "C" char DAT_004192fc[];
 class Sub_18c760 {
   public:
-    void initSub();
+    void initSub_0027af00();
 };
 class PropSetStateByNameTrack_18c760 {
   public:
-    void baseInit();
+    void baseInit_00236d40();
     char pad[0x18];
     Sub_18c760 sub;
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_18c7b0;
+extern int hulk_at_0041a924;
 
 } // namespace fn_f5f77793
 
@@ -61,11 +61,11 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropSetSt
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropSetStateByNameTrack>::vfunc_5() {
     PropSetStateByNameTrack_18c760* p = (PropSetStateByNameTrack_18c760*)FUN_0008d690(0x20);
     if (p) {
-        p->baseInit();
+        p->baseInit_00236d40();
         *(hulk_ulongptr*)p = ((hulk_intptr)DAT_004192fc);
         *(unsigned long*)((char*)p + 0xc) = 0;
         *(unsigned long*)((char*)p + 0x10) = 0xffffffff;
-        p->sub.initSub();
+        p->sub.initSub_0027af00();
         *(unsigned long*)((char*)p + 8) = 1;
         return (void*)(p);
     }
@@ -78,7 +78,7 @@ namespace fn_f5f77793 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f5f77793@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18c7b0;
+    m_vptr = (void*)&hulk_at_0041a924;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

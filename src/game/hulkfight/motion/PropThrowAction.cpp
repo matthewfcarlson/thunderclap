@@ -113,7 +113,7 @@ class PropActorToPropAction_183950 : public Action_183950 {
     PropActorToPropAction_183950(int target, RefObj_183950* obj);
     virtual void Execute();
 };
-extern void* g_vftable_1839a0[];
+extern void* hulk_at_00419608[];
 class Ref_1839a0 {
   public:
     virtual void F0();
@@ -131,7 +131,7 @@ class PropActorToPropAction_1839a0 : public Action_1839a0 {
     ~PropActorToPropAction_1839a0();
 };
 struct PropActorToPropAction_nv_1839e0 {
-    bool helper();
+    bool helper_00181d30();
 };
 struct Obj_183a00 {
     char pad[0x15];
@@ -158,7 +158,7 @@ class PropActorThinkingAction_183a10 : public Action_183a10 {
     PropActorThinkingAction_183a10(int target, RefObj_183a10* obj);
     virtual void Execute();
 };
-extern void* g_vftable_183a60[];
+extern void* hulk_at_00419624[];
 class Ref_183a60 {
   public:
     virtual void F0();
@@ -196,7 +196,7 @@ class PropAnimationAction_183aa0 : public Action_183aa0 {
     int m28;
     PropAnimationAction_183aa0(int, Obj_183aa0*);
 };
-extern void* g_vftable_183af0[];
+extern void* hulk_at_00419640[];
 class Ref_183af0 {
   public:
     virtual void F0();
@@ -236,7 +236,7 @@ class Anim {
 
   public:
     int state;
-    void set(int, int, int);
+    void set_0027e650(int, int, int);
 };
 class RefObj_183b80 {
   public:
@@ -256,7 +256,7 @@ class PropAddToMissileCountAction_183b80 : public Action_183b80 {
     PropAddToMissileCountAction_183b80(int target, RefObj_183b80* obj);
     virtual void Execute();
 };
-extern void* g_vftable_183bd0[];
+extern void* hulk_at_0041965c[];
 class Ref_183bd0 {
   public:
     virtual void F0();
@@ -325,7 +325,7 @@ class PropSetStateByIndexAction_183ca0 : public Action_183ca0 {
     PropSetStateByIndexAction_183ca0(int target, RefObj_183ca0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_183cf0[];
+extern void* hulk_at_00419694[];
 class Ref_183cf0 {
   public:
     virtual void F0();
@@ -360,7 +360,7 @@ class PropSetStateByNameAction_183db0 : public Action_183db0 {
     PropSetStateByNameAction_183db0(int target, RefObj_183db0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_183e00[];
+extern void* hulk_at_004196b0[];
 class Ref_183e00 {
   public:
     virtual void F0();
@@ -395,7 +395,7 @@ class PropSpawnAction_183e40 : public Action_183e40 {
     PropSpawnAction_183e40(int target, RefObj_183e40* obj);
     virtual void Execute();
 };
-extern void* g_vftable_183e90[];
+extern void* hulk_at_004196cc[];
 class Ref_183e90 {
   public:
     virtual void F0();
@@ -430,7 +430,7 @@ class PropDropAction_183ed0 : public Action_183ed0 {
     PropDropAction_183ed0(int target, RefObj_183ed0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_183f20[];
+extern void* hulk_at_004196e8[];
 class Ref_183f20 {
   public:
     virtual void F0();
@@ -465,7 +465,7 @@ class PropDamageAction_183f60 : public Action_183f60 {
     PropDamageAction_183f60(int target, RefObj_183f60* obj);
     virtual void Execute();
 };
-extern void* g_vftable_183fb0[];
+extern void* hulk_at_00419704[];
 class Ref_183fb0 {
   public:
     virtual void F0();
@@ -500,7 +500,7 @@ class GrapplePropDamageAction_183ff0 : public Action_183ff0 {
     GrapplePropDamageAction_183ff0(int target, RefObj_183ff0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_184040[];
+extern void* hulk_at_00419720[];
 class Ref_184040 {
   public:
     virtual void F0();
@@ -535,7 +535,7 @@ class PropDestroyAction_184080 : public Action_184080 {
     PropDestroyAction_184080(int target, RefObj_184080* obj);
     virtual void Execute();
 };
-extern void* g_vftable_1840d0[];
+extern void* hulk_at_0041973c[];
 class Ref_1840d0 {
   public:
     virtual void F0();
@@ -570,7 +570,7 @@ class PropThrowAction_184110 : public Action_184110 {
     PropThrowAction_184110(int target, RefObj_184110* obj);
     virtual void Execute();
 };
-extern void* g_vftable_184160[];
+extern void* hulk_at_00419758[];
 class Ref_184160 {
   public:
     virtual void F0();
@@ -641,7 +641,7 @@ class BallAndChainSpinAction : public Action_1847e0 {
     Ref* ref;
     int val;
 };
-extern void* g_vftable_184840[];
+extern void* hulk_at_00419790[];
 class Ref_184840 {
   public:
     virtual void F0();
@@ -663,7 +663,7 @@ class Ref_184880 {
     virtual void Fn();
     virtual void Release();
 };
-extern int vtable_184880;
+extern int hulk_at_004197ac;
 class BallAndChainShootAction : public Ctor_00232660 {
   public:
     BallAndChainShootAction(int, Ref_184880*);
@@ -1281,7 +1281,7 @@ PropActorToPropAction_183950::PropActorToPropAction_183950(int target, RefObj_18
 // 0x001839a0 FUN_001839a0 (50 B): matches/0x001839a0.cpp
 // sym: ??1PropActorToPropAction_1839a0@fn_fd95142d@@QAE@XZ
 PropActorToPropAction_1839a0::~PropActorToPropAction_1839a0() {
-    vptr = g_vftable_1839a0;
+    vptr = hulk_at_00419608;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1299,7 +1299,7 @@ PropActorToPropAction_1839a0::~PropActorToPropAction_1839a0() {
 bool hulkfight::motion::PropActorToPropAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) { void * a = (void *)__p0; void * b = (void *)__p1;
 
     if (*((unsigned char*)(*(void * *)&this->f_1c) + 0x15) == 0)
-        return ((PropActorToPropAction_nv_1839e0*)this)->helper();
+        return ((PropActorToPropAction_nv_1839e0*)this)->helper_00181d30();
     return true;
 }
 
@@ -1334,7 +1334,7 @@ PropActorThinkingAction_183a10::PropActorThinkingAction_183a10(int target, RefOb
 // 0x00183a60 FUN_00183a60 (50 B): matches/0x00183a60.cpp
 // sym: ??1PropActorThinkingAction_183a60@fn_fd95142d@@QAE@XZ
 PropActorThinkingAction_183a60::~PropActorThinkingAction_183a60() {
-    vptr = g_vftable_183a60;
+    vptr = hulk_at_00419624;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1367,7 +1367,7 @@ PropAnimationAction_183aa0::PropAnimationAction_183aa0(int v, Obj_183aa0* p) : A
 // 0x00183af0 FUN_00183af0 (74 B): matches/0x00183af0.cpp
 // sym: ??1PropAnimationAction_183af0@fn_fd95142d@@QAE@XZ
 PropAnimationAction_183af0::~PropAnimationAction_183af0() throw() {
-    vptr = g_vftable_183af0;
+    vptr = hulk_at_00419640;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1394,7 +1394,7 @@ PropAnimationAction_183af0::~PropAnimationAction_183af0() throw() {
 void hulkfight::motion::PropAnimationAction::vfunc_4() {
     if ((*(Anim * *)&this->f_24)) {
         if ((*(Anim * *)&this->f_24)->state == -1 && ((owners::C_27cb70 *)((*(Anim * *)&this->f_24)))->FUN_0027cb70() == (hulk_intptr)(*(Ref * *)&this->f_28))
-            (*(Anim * *)&this->f_24)->set(0, 0, 0);
+            (*(Anim * *)&this->f_24)->set_0027e650(0, 0, 0);
         if ((*(Ref * *)&this->f_28)) {
             (*(Ref * *)&this->f_28)->release();
             (*(Ref * *)&this->f_28) = 0;
@@ -1425,7 +1425,7 @@ PropAddToMissileCountAction_183b80::PropAddToMissileCountAction_183b80(int targe
 // 0x00183bd0 FUN_00183bd0 (50 B): matches/0x00183bd0.cpp
 // sym: ??1PropAddToMissileCountAction_183bd0@fn_fd95142d@@QAE@XZ
 PropAddToMissileCountAction_183bd0::~PropAddToMissileCountAction_183bd0() {
-    vptr = g_vftable_183bd0;
+    vptr = hulk_at_0041965c;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1491,7 +1491,7 @@ PropSetStateByIndexAction_183ca0::PropSetStateByIndexAction_183ca0(int target, R
 // 0x00183cf0 FUN_00183cf0 (50 B): matches/0x00183cf0.cpp
 // sym: ??1PropSetStateByIndexAction_183cf0@fn_fd95142d@@QAE@XZ
 PropSetStateByIndexAction_183cf0::~PropSetStateByIndexAction_183cf0() {
-    vptr = g_vftable_183cf0;
+    vptr = hulk_at_00419694;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1524,7 +1524,7 @@ PropSetStateByNameAction_183db0::PropSetStateByNameAction_183db0(int target, Ref
 // 0x00183e00 FUN_00183e00 (50 B): matches/0x00183e00.cpp
 // sym: ??1PropSetStateByNameAction_183e00@fn_fd95142d@@QAE@XZ
 PropSetStateByNameAction_183e00::~PropSetStateByNameAction_183e00() {
-    vptr = g_vftable_183e00;
+    vptr = hulk_at_004196b0;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1557,7 +1557,7 @@ PropSpawnAction_183e40::PropSpawnAction_183e40(int target, RefObj_183e40* obj) {
 // 0x00183e90 FUN_00183e90 (50 B): matches/0x00183e90.cpp
 // sym: ??1PropSpawnAction_183e90@fn_fd95142d@@QAE@XZ
 PropSpawnAction_183e90::~PropSpawnAction_183e90() {
-    vptr = g_vftable_183e90;
+    vptr = hulk_at_004196cc;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1590,7 +1590,7 @@ PropDropAction_183ed0::PropDropAction_183ed0(int target, RefObj_183ed0* obj) {
 // 0x00183f20 FUN_00183f20 (50 B): matches/0x00183f20.cpp
 // sym: ??1PropDropAction_183f20@fn_fd95142d@@QAE@XZ
 PropDropAction_183f20::~PropDropAction_183f20() {
-    vptr = g_vftable_183f20;
+    vptr = hulk_at_004196e8;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1623,7 +1623,7 @@ PropDamageAction_183f60::PropDamageAction_183f60(int target, RefObj_183f60* obj)
 // 0x00183fb0 FUN_00183fb0 (50 B): matches/0x00183fb0.cpp
 // sym: ??1PropDamageAction_183fb0@fn_fd95142d@@QAE@XZ
 PropDamageAction_183fb0::~PropDamageAction_183fb0() {
-    vptr = g_vftable_183fb0;
+    vptr = hulk_at_00419704;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1656,7 +1656,7 @@ GrapplePropDamageAction_183ff0::GrapplePropDamageAction_183ff0(int target, RefOb
 // 0x00184040 FUN_00184040 (50 B): matches/0x00184040.cpp
 // sym: ??1GrapplePropDamageAction_184040@fn_fd95142d@@QAE@XZ
 GrapplePropDamageAction_184040::~GrapplePropDamageAction_184040() {
-    vptr = g_vftable_184040;
+    vptr = hulk_at_00419720;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1689,7 +1689,7 @@ PropDestroyAction_184080::PropDestroyAction_184080(int target, RefObj_184080* ob
 // 0x001840d0 FUN_001840d0 (50 B): matches/0x001840d0.cpp
 // sym: ??1PropDestroyAction_1840d0@fn_fd95142d@@QAE@XZ
 PropDestroyAction_1840d0::~PropDestroyAction_1840d0() {
-    vptr = g_vftable_1840d0;
+    vptr = hulk_at_0041973c;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1722,7 +1722,7 @@ PropThrowAction_184110::PropThrowAction_184110(int target, RefObj_184110* obj) {
 // 0x00184160 FUN_00184160 (50 B): matches/0x00184160.cpp
 // sym: ??1PropThrowAction_184160@fn_fd95142d@@QAE@XZ
 PropThrowAction_184160::~PropThrowAction_184160() {
-    vptr = g_vftable_184160;
+    vptr = hulk_at_00419758;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1784,7 +1784,7 @@ BallAndChainSpinAction::BallAndChainSpinAction(Source* s, Ref* r) : Action_1847e
 // 0x00184840 FUN_00184840 (50 B): matches/0x00184840.cpp
 // sym: ??1BallAndChainSpinAction_184840@fn_fd95142d@@QAE@XZ
 BallAndChainSpinAction_184840::~BallAndChainSpinAction_184840() {
-    vptr = g_vftable_184840;
+    vptr = hulk_at_00419790;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1799,7 +1799,7 @@ BallAndChainSpinAction_184840::~BallAndChainSpinAction_184840() {
 // 0x00184880 FUN_00184880 (108 B): matches/0x00184880.cpp
 // sym: ??0BallAndChainShootAction@fn_fd95142d@@QAE@HPAVRef_184880@1@@Z
 BallAndChainShootAction::BallAndChainShootAction(int a, Ref_184880* b) : Ctor_00232660() {
-    vt = (hulk_intptr)&vtable_184880;
+    vt = (hulk_intptr)&hulk_at_004197ac;
     int* q = &mA;
     *q = 0;
     mRef = 0;
@@ -1843,7 +1843,7 @@ class MemObj {
 class Base_1848f0 {
   public:
     virtual void vf();
-    void Cleanup();
+    void Cleanup_002326a0();
     char pad[0x18];
 };
 
@@ -1872,7 +1872,7 @@ void AnimationAction::Destroy() {
         c->Release();
         v[9] = 0;
     }
-    Base_1848f0::Cleanup();
+    Base_1848f0::Cleanup_002326a0();
 }
 
 } // namespace motion

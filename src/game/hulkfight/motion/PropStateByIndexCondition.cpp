@@ -47,18 +47,18 @@ struct Item_181800 {
     virtual char f11();
 };
 struct A_181800 {
-    void* get();
+    void* get_000592a0();
 };
 struct B_181800 {
-    void* get();
+    void* get_00059a30();
 };
 struct S_181800 {
-    char ready();
-    void* part();
+    char ready_001d7300();
+    void* part_001d72e0();
 };
 extern "C" int __cdecl Check(void*, void*, void*, void*, void*);
-extern char G1[];
-extern char G2[];
+extern char hulk_at_00494b44[];
+extern char hulk_at_00494b60[];
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -113,16 +113,16 @@ extern "C" u32_1817d0 __cdecl FUN_001817d0(void* p, int n) {
 // 0x00181800 hulkfight::motion::PropAtRestCondition::vfunc_6 (124 B): matches/0x00181800.cpp
 // sym: ?vfunc_6@PropAtRestCondition@motion@hulkfight@fn_fc016f38@@UAEDPAX00@Z
 char hulkfight::motion::PropAtRestCondition::vfunc_6(void* a, void* c, void* d) {
-    if (!Check(c, 0, G1, G2, 0))
+    if (!Check(c, 0, hulk_at_00494b44, hulk_at_00494b60, 0))
         return 0;
     char result = 0;
     A_181800* obj = (A_181800*)c;
-    void* p = obj->get();
+    void* p = obj->get_000592a0();
     B_181800* mot = (B_181800*)p;
-    p = mot->get();
+    p = mot->get_00059a30();
     void* state = *(void**)((char*)p + 0x128);
-    if (state && ((S_181800*)state)->ready() && *(int*)((char*)((S_181800*)state)->part() + 0x6c) == 1) {
-        void* part = ((S_181800*)state)->part();
+    if (state && ((S_181800*)state)->ready_001d7300() && *(int*)((char*)((S_181800*)state)->part_001d72e0() + 0x6c) == 1) {
+        void* part = ((S_181800*)state)->part_001d72e0();
         Item_181800* item = *(Item_181800**)((char*)part + 0x70);
         char v = value;
         result = item->f11() == v;

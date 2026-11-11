@@ -16,11 +16,11 @@ struct RefCounted_188d30 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_188d30[];
+extern char hulk_at_004196e8[];
 namespace hulkfight { namespace motion {
 class PropDropAction {
   public:
-    void Cleanup();
+    void Cleanup_002326a0();
     PropDropAction* vfunc_2(int flag);
 
   private:
@@ -37,7 +37,7 @@ class PropDropAction {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 hulkfight::motion::PropDropAction* hulkfight::motion::PropDropAction::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_188d30;
+    *p = (hulk_intptr)&hulk_at_004196e8;
     RefCounted_188d30* q = *(RefCounted_188d30* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -46,7 +46,7 @@ hulkfight::motion::PropDropAction* hulkfight::motion::PropDropAction::vfunc_2(in
     if (m_1c != 0) {
         m_1c = 0;
     }
-    Cleanup();
+    Cleanup_002326a0();
     if (flag & 1) {
         opdel(this);
     }

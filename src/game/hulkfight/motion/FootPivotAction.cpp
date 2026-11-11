@@ -31,7 +31,7 @@ class FootPivotAction : public Action_174c10 {
     int m28;
     FootPivotAction(int, Obj_174c10*);
 };
-extern void* g_vftable_174c60[];
+extern void* hulk_at_00417ebc[];
 class Ref_174c60 {
   public:
     void* vptr;
@@ -142,7 +142,7 @@ FootPivotAction::FootPivotAction(int v, Obj_174c10* p) : Action_174c10() {
 // 0x00174c60 FUN_00174c60 (69 B): matches/0x00174c60.cpp
 // sym: ?f@FootPivotAction_174c60@fn_f18e0a3f@@QAEXXZ
 void FootPivotAction_174c60::f() {
-    vptr = g_vftable_174c60;
+    vptr = hulk_at_00417ebc;
     _ReadWriteBarrier();
     if (m28) {
         m28->f1();

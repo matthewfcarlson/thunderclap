@@ -20,13 +20,13 @@ struct Ctx_171a20 {
 struct Owner_171a20 {  };
 struct Data_171a20 { char pad[0x18]; unsigned int keyLo; unsigned int keyHi; };
 struct A_171b80 {
-    void* f();
+    void* Fnf_000592a0();
 };
 struct B_171b80 {
-    void* f();
+    void* Fnf_00059a40();
 };
 struct C_171b80 {
-    void f(void*, int);
+    void Fnf_00222970(void*, int);
 };
 class Actor_171bb0;
 class Owner_171bb0 {
@@ -34,14 +34,14 @@ class Owner_171bb0 {
 
   public:
     unsigned char flag;
-    Actor_171bb0* GetActor();
+    Actor_171bb0* GetActor_00059a30();
 };
 class Actor_171bb0 {
     char pad[0x2140];
 
   public:
     unsigned char field;
-    void SetPosition(void*);
+    void SetPosition_0003f400(void*);
 };
 class Manager_171bb0 {
   public:
@@ -56,8 +56,8 @@ struct Vec_171ca0 {
 };
 class Obj_171ca0 {
   public:
-    Obj_171ca0* next();
-    void set(Vec_171ca0*);
+    Obj_171ca0* next_00059a30();
+    void set_0003f400(Vec_171ca0*);
 };
 
 } // namespace fn_fc3c0be1
@@ -128,10 +128,10 @@ bool FootPivotAction::vfunc_3(int,int) {
 // 0x00171b80 hulkfight::motion::FootPivotAction::vfunc_4 (37 B): matches/0x00171b80.cpp
 // sym: ?vfunc_4@FootPivotAction@motion@hulkfight@@UAEXXZ
 void hulkfight::motion::FootPivotAction::vfunc_4() {
-    void* a = (*(A_171b80 * *)&this->f_20)->f();
-    void* b = ((B_171b80*)a)->f();
+    void* a = (*(A_171b80 * *)&this->f_20)->Fnf_000592a0();
+    void* b = ((B_171b80*)a)->Fnf_00059a40();
     if (b)
-        ((C_171b80*)b)->f((*(void * *)&this->f_28), 0);
+        ((C_171b80*)b)->Fnf_00222970((*(void * *)&this->f_28), 0);
 }
 
 
@@ -140,10 +140,10 @@ void hulkfight::motion::FootPivotAction::vfunc_4() {
 void hulkfight::motion::DriftToPositionAction::vfunc_4() {
     Owner_171bb0* o = ((Owner_171bb0 *)((owners::Object_592a0 *)((*(Manager_171bb0 * *)&this->f_20)))->FUN_000592a0());
     if (o) {
-        Actor_171bb0* a = o->GetActor();
+        Actor_171bb0* a = o->GetActor_00059a30();
         if (a) {
             if ((*(Owner_171bb0 * *)&this->f_1c)->flag && this->f_52)
-                a->SetPosition((char*)this + 0x40);
+                a->SetPosition_0003f400((char*)this + 0x40);
             a->field = this->f_51;
             ((owners::Target_35ce0 *)a)->FUN_00035ce0(this->f_50);
         }
@@ -205,9 +205,9 @@ bool hulkfight::motion::TeleportAction::vfunc_5(hulk_intptr a, int b) {
     if (!a) {
         if (!(*(Obj_171ca0 * *)&this->f_20))
             return (bool)(0);
-        Obj_171ca0* p = ((Obj_171ca0 *)((owners::Object_592a0 *)((*(Obj_171ca0 * *)&this->f_20)))->FUN_000592a0())->next();
+        Obj_171ca0* p = ((Obj_171ca0 *)((owners::Object_592a0 *)((*(Obj_171ca0 * *)&this->f_20)))->FUN_000592a0())->next_00059a30();
         Vec_171ca0 v = *(Vec_171ca0*)((*(char * *)&this->f_1c) + 0x10);
-        p->set(&v);
+        p->set_0003f400(&v);
     }
     return (bool)(1);
 }

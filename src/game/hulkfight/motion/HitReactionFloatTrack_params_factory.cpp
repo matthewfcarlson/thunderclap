@@ -14,7 +14,7 @@ struct TrackFactoryCaster_1549a0 {
     virtual void vfunc_1();
 };
 extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int a, b;
+extern int hulk_at_0049850c, hulk_at_004b2e30;
 
 } // namespace fn_f3dfe215
 
@@ -22,7 +22,7 @@ extern int a, b;
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VHitReactionFloatTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HitReactionFloatTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &hulk_at_0049850c, &hulk_at_004b2e30, 0) != 0;
 }
 
 

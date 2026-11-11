@@ -37,10 +37,10 @@ class Track {
     int a;
     int b;
     unsigned char c, d, e;
-    void Init();
+    void Init_00236d40();
     void* Make();
 };
-extern int g_vftable_15a200;
+extern int hulk_at_00415810;
 
 } // namespace fn_f28f0564
 
@@ -67,7 +67,7 @@ namespace fn_f28f0564 {
 void* Track::Make() {
     Track* p = (Track*)FUN_0008d690((int)sizeof(Track));
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->a = 0;
         p->b = 0;
         p->c = 0;
@@ -84,7 +84,7 @@ void* Track::Make() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f28f0564@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_15a200;
+    m_vptr = (void*)&hulk_at_00415810;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

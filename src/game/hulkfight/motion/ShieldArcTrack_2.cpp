@@ -34,9 +34,9 @@ class ShieldArcTrack_18c1b0 {
     virtual void D();
     virtual void E();
     u32_18c1b0 pad;
-    void Init();
+    void Init_00236d40();
 };
-extern int g_vftable_18c1f0;
+extern int hulk_at_0041a844;
 
 } // namespace fn_f5aaf014
 
@@ -62,7 +62,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::ShieldArc
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::ShieldArcTrack>::vfunc_5() {
     ShieldArcTrack_18c1b0* p = (ShieldArcTrack_18c1b0*)FUN_0008d690(0x14);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_004194dc);
         *(u32_18c1b0*)((char*)p + 0xc) = 0;
         *(u32_18c1b0*)((char*)p + 0x10) = 0x3fc90fdb;
@@ -78,7 +78,7 @@ namespace fn_f5aaf014 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f5aaf014@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18c1f0;
+    m_vptr = (void*)&hulk_at_0041a844;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

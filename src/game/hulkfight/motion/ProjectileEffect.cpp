@@ -38,7 +38,7 @@ class Ref_195150 {
     virtual void a();
     virtual void Release();
 };
-extern int vt_195150;
+extern int hulk_at_0041b3d8;
 class FireProjectileAction {
   public:
     hulk_intptr vptr;
@@ -74,7 +74,7 @@ FireProjectileAction_195100::FireProjectileAction_195100(int x, Action_195100* p
 // 0x00195150 FUN_00195150 (74 B): matches/0x00195150.cpp
 // sym: ?clean@FireProjectileAction@fn_f6c42f35@@QAEXXZ
 void FireProjectileAction::clean() {
-    vptr = (hulk_intptr)&vt_195150;
+    vptr = (hulk_intptr)&hulk_at_0041b3d8;
     _ReadWriteBarrier();
     if (m2c) {
         m2c->Release();
@@ -798,7 +798,7 @@ class Base_195b30 {
 };
 class Helper_195b30 {
   public:
-    void Use(void*);
+    void Use_0027ffb0(void*);
 };
 extern Helper_195b30* FUN_0027f250();
 class ProjectileEffect {
@@ -809,14 +809,14 @@ class ProjectileEffect {
     void* m1c;
     char pad20[4];
     Base_195b30* m24;
-    void Finish();
+    void Finish_001b6820();
     void Cleanup();
 };
 void ProjectileEffect::Cleanup() {
     *(void**)this = (void*)((hulk_intptr)DAT_0041b3f4);
     if (m1c) {
         Helper_195b30* x = FUN_0027f250();
-        x->Use(m1c);
+        x->Use_0027ffb0(m1c);
     }
     if (m24) {
         m24->V1();
@@ -824,7 +824,7 @@ void ProjectileEffect::Cleanup() {
     }
     if (m18)
         m18 = 0;
-    Finish();
+    Finish_001b6820();
 }
 } // namespace fn_00195b30
 

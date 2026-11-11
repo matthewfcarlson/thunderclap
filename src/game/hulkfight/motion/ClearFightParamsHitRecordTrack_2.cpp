@@ -49,7 +49,7 @@ class ClearFightParamsHitRecordTrack_15a060 : public BaseTrack {
 };
 } }
 namespace fn_f210eeb7 {
-extern int g_vftable_15a0a0;
+extern int hulk_at_004157d8;
 
 } // namespace fn_f210eeb7
 
@@ -83,7 +83,7 @@ namespace fn_f210eeb7 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f210eeb7@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_15a0a0;
+    m_vptr = (void*)&hulk_at_004157d8;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

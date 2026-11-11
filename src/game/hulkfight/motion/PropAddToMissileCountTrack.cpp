@@ -13,7 +13,7 @@ namespace fn_f79bd28d {} using namespace fn_f79bd28d;
 
 // ---- declarations shared by the functions below
 namespace fn_f79bd28d {
-extern int* gTable_1814a0;
+extern int* hulk_at_004e14d0;
 class CCondition_1814a0 {
   public:
     virtual int vfunc_0(int);
@@ -48,7 +48,7 @@ void FUN_00181480() {
 // sym: ?vfunc_0@PropAddToMissileCountTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropAddToMissileCountTrack::vfunc_0(int index) {
-    int* p = gTable_1814a0;
+    int* p = hulk_at_004e14d0;
     return p[index];
 }
 

@@ -54,7 +54,7 @@ class TrackFactory_17e4e0 {
 };
 }
 namespace fn_fb34bd6d {
-extern int g_vftable_17e530;
+extern int hulk_at_00418e88;
 
 } // namespace fn_fb34bd6d
 
@@ -88,7 +88,7 @@ namespace fn_fb34bd6d {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fb34bd6d@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17e530;
+    m_vptr = (void*)&hulk_at_00418e88;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

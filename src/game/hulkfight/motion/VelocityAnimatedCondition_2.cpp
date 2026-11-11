@@ -25,14 +25,14 @@ class TrackFactoryTemplate_16e380 {
 extern "C" void FUN_0016be50();
 extern "C" char DAT_004169d8[];
 struct ConditionFactoryTemplate_nv_16e3c0 {
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_16e400;
+extern int hulk_at_004177b4;
 struct ConditionFactoryTemplate_16e400 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001666f0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -60,7 +60,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Veloc
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedCondition>::vfunc_5() {
     fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedCondition>* p = (fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedCondition>*)FUN_0008d690(0x14);
     if (p) {
-        ((ConditionFactoryTemplate_nv_16e3c0*)(p))->Init(0);
+        ((ConditionFactoryTemplate_nv_16e3c0*)(p))->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_004169d8);
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0;
@@ -75,9 +75,9 @@ namespace fn_f6db3ad8 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_16e400@fn_f6db3ad8@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_16e400::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_16e400;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004177b4;
+    base1_dtor_001666f0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

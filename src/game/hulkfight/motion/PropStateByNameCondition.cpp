@@ -17,8 +17,8 @@ class ConditionFactoryCaster_1869e0 {
 }
 namespace fn_f574dea6 {
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int a;
-extern int b;
+extern int hulk_at_00491ca8;
+extern int hulk_at_004bd7f8;
 
 } // namespace fn_f574dea6
 
@@ -26,7 +26,7 @@ extern int b;
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VPropStateByNameCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropStateByNameCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &hulk_at_00491ca8, &hulk_at_004bd7f8, 0) != 0;
 }
 
 

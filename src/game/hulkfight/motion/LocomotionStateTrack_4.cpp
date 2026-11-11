@@ -27,7 +27,7 @@ extern "C" char DAT_004179e8[];
 extern "C" void* FUN_0008d690(unsigned int);
 class Base_17e2a0 {
   public:
-    void init();
+    void init_00236d40();
 };
 struct LocomotionStateTrack_17e2a0 {
     hulk_intptr vf;
@@ -36,7 +36,7 @@ struct LocomotionStateTrack_17e2a0 {
     int mc;
     int m10;
 };
-extern int g_vftable_17e2e0;
+extern int hulk_at_00418e34;
 
 } // namespace fn_f9c37d7e
 
@@ -62,7 +62,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Locomotio
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::LocomotionStateTrack>::vfunc_5() {
     LocomotionStateTrack_17e2a0* p = (LocomotionStateTrack_17e2a0*)FUN_0008d690((int)sizeof(LocomotionStateTrack_17e2a0));
     if (p) {
-        ((Base_17e2a0*)p)->init();
+        ((Base_17e2a0*)p)->init_00236d40();
         p->vf = ((hulk_intptr)DAT_004179e8);
         p->mc = 0;
         p->m10 = 0;
@@ -78,7 +78,7 @@ namespace fn_f9c37d7e {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f9c37d7e@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17e2e0;
+    m_vptr = (void*)&hulk_at_00418e34;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

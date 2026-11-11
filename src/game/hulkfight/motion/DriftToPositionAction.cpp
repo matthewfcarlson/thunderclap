@@ -16,7 +16,7 @@ struct Ref_174fb0 {
     virtual void g();
 };
 struct Sub_174fb0 {
-    void Init();
+    void Init_0027af00();
     char d[8];
 };
 class Action_174fb0 {
@@ -44,7 +44,7 @@ class DriftToPositionAction_174fb0 : public Action_174fb0 {
     DriftToPositionAction_174fb0(int x, Ref_174fb0* p);
     virtual void v0();
 };
-extern void* g_vftable_175020[];
+extern void* hulk_at_00417ed8[];
 class Ref_175020 {
   public:
     virtual void F0();
@@ -78,7 +78,7 @@ DriftToPositionAction_174fb0::DriftToPositionAction_174fb0(int x, Ref_174fb0* p)
     r = 0;
     flag24 = 1;
     f34 = 0;
-    sub.Init();
+    sub.Init_0027af00();
     f50 = 0;
     f51 = 0;
     f4c = 0;
@@ -98,7 +98,7 @@ DriftToPositionAction_174fb0::DriftToPositionAction_174fb0(int x, Ref_174fb0* p)
 // 0x00175020 FUN_00175020 (58 B): matches/0x00175020.cpp
 // sym: ??1DriftToPositionAction_175020@fn_f735d51c@@QAE@XZ
 DriftToPositionAction_175020::~DriftToPositionAction_175020() throw() {
-    vptr = g_vftable_175020;
+    vptr = hulk_at_00417ed8;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

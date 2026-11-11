@@ -13,20 +13,20 @@ class Params_1917c0 {
   public:
     int x;
 };
-extern Params_1917c0 TypeA_1917c0;
-extern Params_1917c0 TypeB_1917c0;
+extern Params_1917c0 hulk_at_00494b44;
+extern Params_1917c0 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_1917c0*, Params_1917c0*, int);
 struct ImpulseVelocityAction_nv_1917c0 {
-    int Init(hulkfight::motion::ImpulseVelocityTrack*, hulk_intptr);
+    int Init_001909b0(hulkfight::motion::ImpulseVelocityTrack*, hulk_intptr);
 };
-hulkfight::motion::ImpulseVelocityAction* __cdecl Alloc(int);
+hulkfight::motion::ImpulseVelocityAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::ImpulseVelocityTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_1917c0, &TypeB_1917c0, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::ImpulseVelocityAction* p = Alloc(0x24);
+        hulkfight::motion::ImpulseVelocityAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((ImpulseVelocityAction_nv_1917c0*)(((hulkfight::motion::ImpulseVelocityAction*)(p))))->Init(this, c);
+            return ((ImpulseVelocityAction_nv_1917c0*)(((hulkfight::motion::ImpulseVelocityAction*)(p))))->Init_001909b0(this, c);
     }
     return 0;
 }

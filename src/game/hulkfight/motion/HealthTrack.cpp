@@ -13,7 +13,7 @@ namespace fn_f5de4086 {} using namespace fn_f5de4086;
 
 // ---- declarations shared by the functions below
 namespace fn_f5de4086 {
-extern int* gTable_14e210;
+extern int* hulk_at_004e1128;
 class CCondition_14e210 {
   public:
     virtual int vfunc_0(int);
@@ -45,7 +45,7 @@ void FUN_0014e1f0() {
 // sym: ?vfunc_0@HealthTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HealthTrack::vfunc_0(int index) {
-    int* p = gTable_14e210;
+    int* p = hulk_at_004e1128;
     return p[index];
 }
 

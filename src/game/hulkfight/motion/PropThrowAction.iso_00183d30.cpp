@@ -40,7 +40,7 @@ struct Prop_183d30 {
 struct Mgr_183d30 {
     char p[0x128];
     Prop_183d30* dflt;
-    Prop_183d30* Get(int i);
+    Prop_183d30* Get_00035ef0(int i);
 };
 struct Info_183d30 {
     char p[0x10];
@@ -62,7 +62,7 @@ bool hulkfight::motion::PropSetStateByIndexAction::vfunc_5(hulk_intptr __p0, int
             else if (a >= 8)
                 return false;
             else
-                r = m->Get(a);
+                r = m->Get_00035ef0(a);
             if (r) {
                 Vec_183d30* v = &r->v->vec;
                 int i = (*(Info_183d30 * *)&this->f_1c)->b;

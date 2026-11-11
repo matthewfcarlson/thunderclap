@@ -31,7 +31,7 @@ class FlyingAutoTargetAction_135ef0 : public Action_135ef0 {
     int m28;
     FlyingAutoTargetAction_135ef0(int, Obj_135ef0*);
 };
-extern void* g_vftable_135f40[];
+extern void* hulk_at_00411dfc[];
 class Ref_135f40 {
   public:
     virtual void F0();
@@ -73,7 +73,7 @@ FlyingAutoTargetAction_135ef0::FlyingAutoTargetAction_135ef0(int v, Obj_135ef0* 
 // 0x00135f40 FUN_00135f40 (74 B): matches/0x00135f40.cpp
 // sym: ??1FlyingAutoTargetAction_135f40@fn_fa1d6404@@QAE@XZ
 FlyingAutoTargetAction_135f40::~FlyingAutoTargetAction_135f40() {
-    vptr = g_vftable_135f40;
+    vptr = hulk_at_00411dfc;
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();

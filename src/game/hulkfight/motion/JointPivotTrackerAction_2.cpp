@@ -34,7 +34,7 @@ class JointPivotTrackerAction : public Action_173c00 {
     int d;
     JointPivotTrackerAction(int, Ref*);
 };
-extern void* g_vftable_173c50[];
+extern void* hulk_at_00417e0c[];
 class Ref_173c50 {
   public:
     virtual void F0();
@@ -257,7 +257,7 @@ JointPivotTrackerAction::JointPivotTrackerAction(int x, Ref* r) : Action_173c00(
 // 0x00173c50 FUN_00173c50 (80 B): matches/0x00173c50.cpp
 // sym: ??1JointPivotTrackerAction_173c50@fn_fee916a2@@QAE@XZ
 JointPivotTrackerAction_173c50::~JointPivotTrackerAction_173c50() throw() {
-    vptr = g_vftable_173c50;
+    vptr = hulk_at_00417e0c;
     _ReadWriteBarrier();
     if (m80) {
         m80->Release();

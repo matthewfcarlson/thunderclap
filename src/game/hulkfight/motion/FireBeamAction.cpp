@@ -30,7 +30,7 @@ class FireMissileAction_196220 : public Action_196220 {
     FireMissileAction_196220(int target, RefObj_196220* obj);
     virtual void Execute();
 };
-extern void* g_vftable_196270[];
+extern void* hulk_at_0041b414[];
 class Ref_196270 {
   public:
     virtual void F0();
@@ -81,7 +81,7 @@ FireMissileAction_196220::FireMissileAction_196220(int target, RefObj_196220* ob
 // 0x00196270 FUN_00196270 (50 B): matches/0x00196270.cpp
 // sym: ??1FireMissileAction_196270@fn_f9476b2e@@QAE@XZ
 FireMissileAction_196270::~FireMissileAction_196270() {
-    vptr = g_vftable_196270;
+    vptr = hulk_at_0041b414;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

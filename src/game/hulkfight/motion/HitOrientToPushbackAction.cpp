@@ -11,7 +11,7 @@ namespace fn_f9683e92 {} using namespace fn_f9683e92;
 // ---- declarations shared by the functions below
 namespace fn_f9683e92 {
 struct Two_14fef0 {
-    void* f();
+    void* Fnf_00059a40();
 };
 
 } // namespace fn_f9683e92
@@ -60,7 +60,7 @@ bool HitOrientToPushbackAction::vfunc_3(int,int) {
 // Same code shape as 0x00134160 (propagated; names are from that function)
 void hulkfight::motion::HitOrientToPushbackAction::vfunc_4() {
     void* x = (*(One * *)&this->f_20)->f();
-    void* y = ((Two_14fef0*)x)->f();
+    void* y = ((Two_14fef0*)x)->Fnf_00059a40();
     if (y)
         ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }

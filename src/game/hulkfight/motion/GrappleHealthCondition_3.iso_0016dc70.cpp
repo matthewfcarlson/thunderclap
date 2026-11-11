@@ -11,7 +11,7 @@
 class GrappleHealthCondition_16dc70 {
   public:
     GrappleHealthCondition_16dc70();
-    void Init(int x);
+    void Init_00234590(int x);
     virtual void f0() {}
     virtual void f1() {}
     virtual void f2() {}
@@ -31,12 +31,12 @@ GrappleHealthCondition_16dc70::GrappleHealthCondition_16dc70() {
     m20 = 0;
 }
 
-void* Alloc(hulk_uintptr);
+void* Alloc_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::GrappleHealthCondition>::vfunc_5() {
-    GrappleHealthCondition_16dc70* p = (GrappleHealthCondition_16dc70*)Alloc(0x18);
+    GrappleHealthCondition_16dc70* p = (GrappleHealthCondition_16dc70*)Alloc_0008d690(0x18);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->GrappleHealthCondition_16dc70::GrappleHealthCondition_16dc70();
         return (void*)(p);
     }

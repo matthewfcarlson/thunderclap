@@ -33,14 +33,14 @@ class SmartPropIsCargoCondition_18bc60 {
     virtual void V4();
     virtual void V5();
     int a, b, c, d;
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_18bc90;
+extern int hulk_at_0041a764;
 struct ConditionFactoryTemplate_18bc90 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00180a80();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -68,7 +68,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Smart
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::SmartPropIsCargoCondition>::vfunc_5() {
     SmartPropIsCargoCondition_18bc60* p = (SmartPropIsCargoCondition_18bc60*)FUN_0008d690(0x10);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0041928c);
         p->c = 0;
         return (void*)(p);
@@ -82,9 +82,9 @@ namespace fn_fe26452e {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_18bc90@fn_fe26452e@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_18bc90::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18bc90;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041a764;
+    base1_dtor_00180a80();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

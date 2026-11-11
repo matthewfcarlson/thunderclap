@@ -13,20 +13,20 @@ class Params_188870 {
   public:
     int x;
 };
-extern Params_188870 TypeA_188870;
-extern Params_188870 TypeB_188870;
+extern Params_188870 hulk_at_00494b44;
+extern Params_188870 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_188870*, Params_188870*, int);
 struct PropActorThinkingAction_nv_188870 {
-    int Init(hulkfight::motion::PropActorThinkingTrack*, hulk_intptr);
+    int Init_00183a10(hulkfight::motion::PropActorThinkingTrack*, hulk_intptr);
 };
-hulkfight::motion::PropActorThinkingAction* __cdecl Alloc(int);
+hulkfight::motion::PropActorThinkingAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::PropActorThinkingTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_188870, &TypeB_188870, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::PropActorThinkingAction* p = Alloc(0x24);
+        hulkfight::motion::PropActorThinkingAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((PropActorThinkingAction_nv_188870*)(((hulkfight::motion::PropActorThinkingAction*)(p))))->Init(this, c);
+            return ((PropActorThinkingAction_nv_188870*)(((hulkfight::motion::PropActorThinkingAction*)(p))))->Init_00183a10(this, c);
     }
     return 0;
 }

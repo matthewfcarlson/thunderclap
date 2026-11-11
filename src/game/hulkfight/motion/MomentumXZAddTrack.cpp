@@ -12,7 +12,7 @@ namespace fn_f2cad3c1 {} using namespace fn_f2cad3c1;
 
 // ---- declarations shared by the functions below
 namespace fn_f2cad3c1 {
-extern int* gTable_170620;
+extern int* hulk_at_004e1348;
 class CCondition_170620 {
   public:
     virtual int vfunc_0(int);
@@ -58,7 +58,7 @@ void FUN_00170600() {
 // sym: ?vfunc_0@MomentumXZAddTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::MomentumXZAddTrack::vfunc_0(int index) {
-    int* p = gTable_170620;
+    int* p = hulk_at_004e1348;
     return p[index];
 }
 

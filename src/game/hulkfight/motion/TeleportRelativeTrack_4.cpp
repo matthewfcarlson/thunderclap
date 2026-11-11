@@ -55,7 +55,7 @@ class TeleportRelativeTrack_17ea80 : public BaseTrack {
     Fields fields;
     float f28;
 };
-extern int g_vftable_17eae0;
+extern int hulk_at_00418f68;
 
 } // namespace fn_fa4635ce
 
@@ -93,7 +93,7 @@ namespace fn_fa4635ce {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fa4635ce@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17eae0;
+    m_vptr = (void*)&hulk_at_00418f68;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

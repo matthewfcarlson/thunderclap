@@ -29,7 +29,7 @@ class SuckInPropsAction_175fd0 : public Action_175fd0 {
     SuckInPropsAction_175fd0(int target, RefObj_175fd0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_176020[];
+extern void* hulk_at_00417f80[];
 class Ref_176020 {
   public:
     virtual void F0();
@@ -166,7 +166,7 @@ SuckInPropsAction_175fd0::SuckInPropsAction_175fd0(int target, RefObj_175fd0* ob
 // 0x00176020 FUN_00176020 (50 B): matches/0x00176020.cpp
 // sym: ??1SuckInPropsAction_176020@fn_f3a32d27@@QAE@XZ
 SuckInPropsAction_176020::~SuckInPropsAction_176020() {
-    vptr = g_vftable_176020;
+    vptr = hulk_at_00417f80;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

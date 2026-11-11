@@ -68,54 +68,54 @@ class Obj_18cbc0 {
     int mVal;
     char SetValue_0018cbc0(int v);
 };
-extern int* gTable_18cc90;
+extern int* hulk_at_004e1508;
 class CCondition_18cc90 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_18cd00;
+extern int* hulk_at_004e1510;
 class CCondition_18cd00 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable_18cd40[];
+extern void* hulk_at_0041aa68[];
 class Str_18cd40 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Condition_18cd40 {
   public:
     void* vptr;
     char pad[12];
     Str_18cd40 s;
-    void Fin();
+    void Fin_002345b0();
 };
 class GrappleVarCompareCondition_18cd40 : public Condition_18cd40 {
   public:
     ~GrappleVarCompareCondition_18cd40();
 };
-extern int* gTable_18cd80;
+extern int* hulk_at_004e1518;
 class CCondition_18cd80 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable_18cdc0[];
+extern void* hulk_at_0041aa88[];
 class Str_18cdc0 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Condition_18cdc0 {
   public:
     void* vptr;
     char pad[12];
     Str_18cdc0 s;
-    void Fin();
+    void Fin_002345b0();
 };
 class VarCompareCondition_18cdc0 : public Condition_18cdc0 {
   public:
     ~VarCompareCondition_18cdc0();
 };
-extern int* gTable_18ce00;
+extern int* hulk_at_004e1520;
 class CCondition_18ce00 {
   public:
     virtual int vfunc_0(int);
@@ -132,7 +132,7 @@ class TimerSetTrack : public Track_18ce10 {
     virtual void f();
     int a, b, c;
 };
-extern int* gTable_18ce90;
+extern int* hulk_at_004e1528;
 class CCondition_18ce90 {
   public:
     virtual int vfunc_0(int);
@@ -158,9 +158,9 @@ class VarAssignTrack : public Track_18cea0 {
     int b, c, d;
     char flag;
 };
-extern void* g_vt_18cf00[];
+extern void* hulk_at_0041aad8[];
 struct Sub_18cf00 {
-    void Fin() throw();
+    void Fin_0027af50() throw();
 };
 class Track_18cf00 {
   public:
@@ -180,16 +180,16 @@ struct Context_18d0d0 { Vars* FUN_00059a30(); };
 struct Owner_18d0d0 {  };
 class HelperA_18d280 {
   public:
-    void* run();
+    void* run_000592a0();
 };
 class HelperB_18d280 {
   public:
-    void* run();
+    void* run_00059a30();
 };
-extern void* Condition_18d300_vftable[];
+extern void* hulk_at_0041aa48[];
 class Condition_18d300 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class TimerCondition_18d300 : public Condition_18d300 {
   public:
@@ -197,8 +197,8 @@ class TimerCondition_18d300 : public Condition_18d300 {
 };
 extern char threat_vftable_18d330;
 struct TimerCondition_nv_18d330 {
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(hulkfight::motion::TimerCondition*);
 class GrappleVarCompareCondition_18d330 {
@@ -209,8 +209,8 @@ class GrappleVarCompareCondition_18d330 {
 };
 extern char threat_vftable_18d360;
 struct TimerCondition_nv_18d360 {
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 class VarCompareCondition_18d360 {
   public:
@@ -218,10 +218,10 @@ class VarCompareCondition_18d360 {
     char pad[0x0c];
     VarCompareCondition_18d360* vfunc_5(unsigned char);
 };
-extern void* Track_18d390_vftable[];
+extern void* hulk_at_0041aaa8[];
 class Track_18d390 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class TimerSetTrack_18d390 : public Track_18d390 {
   public:
@@ -230,8 +230,8 @@ class TimerSetTrack_18d390 : public Track_18d390 {
 extern char threat_vftable_18d3c0;
 struct Obj_18d3c0 {
     int x;
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_00236d60();
 };
 extern void thunk_FUN_00267090(Obj_18d3c0*);
 class VarAssignTrack_18d3c0 {
@@ -258,7 +258,7 @@ class VarAssignAction_18d3f0 : public Action_18d3f0 {
     VarAssignAction_18d3f0(int target, RefObj_18d3f0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_18d440[];
+extern void* hulk_at_0041ab08[];
 class Ref_18d440 {
   public:
     virtual void F0();
@@ -334,7 +334,7 @@ class TimerSetAction_18d610 : public Action_18d610 {
     TimerSetAction_18d610(int target, RefObj_18d610* obj);
     virtual void Execute();
 };
-extern void* g_vftable_18d660[];
+extern void* hulk_at_0041ab24[];
 class Ref_18d660 {
   public:
     virtual void F0();
@@ -585,8 +585,8 @@ namespace fn_f1f11990 {
 struct TypeRecord {
     void* vtable;
 };
-extern const TypeRecord varAssignType;
-extern const TypeRecord baseTrackType;
+extern const TypeRecord hulk_at_004bf500;
+extern const TypeRecord hulk_at_0049850c;
 extern "C" int __cdecl TrackCast(void*, int, const TypeRecord*, const TypeRecord*, int);
 } // namespace fn_f1f11990
 namespace fight {
@@ -646,13 +646,13 @@ class TrackFactoryCasterTemplate_18e8d0 {
 extern "C" void* FUN_00236ac0(const char*, void*);
 class Factory {
   public:
-    void add(void*);
+    void add_002367c0(void*);
 };
-extern int g_vftable_18e9a0;
+extern int hulk_at_0041ae28;
 struct ConditionFactoryTemplate_18e9a0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0018cc70();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" char DAT_0041aaa8[];
@@ -663,15 +663,15 @@ struct TimerSetTrack_18ea10 {
     int mc;
     int m10;
     int m14;
-    void Init();
+    void Init_00236d40();
 };
 extern "C" void* __cdecl Allocate(unsigned int);
-extern int g_vftable_18ea60;
-extern int g_vftable_18eb10;
+extern int hulk_at_0041ae44;
+extern int hulk_at_0041ae60;
 struct ConditionFactoryTemplate_18eb10 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0018cce0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class Sub {
@@ -680,11 +680,11 @@ class Sub {
 };
 extern char VT_18eb80[];
 extern void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_18ebc0;
+extern int hulk_at_0041ae7c;
 struct ConditionFactoryTemplate_18ebc0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0018cd60();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 } // namespace fn_f1f11990
@@ -895,7 +895,7 @@ void FUN_0018cc70() {
 // sym: ?vfunc_0@TimerCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::TimerCondition::vfunc_0(int index) {
-    int* p = gTable_18cc90;
+    int* p = hulk_at_004e1508;
     return p[index];
 }
 
@@ -914,7 +914,7 @@ void FUN_0018cce0() {
 // sym: ?vfunc_0@GrappleVarCompareCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::GrappleVarCompareCondition::vfunc_0(int index) {
-    int* p = gTable_18cd00;
+    int* p = hulk_at_004e1510;
     return p[index];
 }
 
@@ -923,9 +923,9 @@ namespace fn_f1f11990 {
 // 0x0018cd40 FUN_0018cd40 (25 B): matches/0x0018cd40.cpp
 // sym: ??1GrappleVarCompareCondition_18cd40@fn_f1f11990@@QAE@XZ
 GrappleVarCompareCondition_18cd40::~GrappleVarCompareCondition_18cd40() {
-    vptr = g_vftable_18cd40;
-    s.Init();
-    Fin();
+    vptr = hulk_at_0041aa68;
+    s.Init_0027af50();
+    Fin_002345b0();
 }
 
 
@@ -942,7 +942,7 @@ void FUN_0018cd60() {
 // sym: ?vfunc_0@VarCompareCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::VarCompareCondition::vfunc_0(int index) {
-    int* p = gTable_18cd80;
+    int* p = hulk_at_004e1518;
     return p[index];
 }
 
@@ -951,9 +951,9 @@ namespace fn_f1f11990 {
 // 0x0018cdc0 FUN_0018cdc0 (25 B): matches/0x0018cdc0.cpp
 // sym: ??1VarCompareCondition_18cdc0@fn_f1f11990@@QAE@XZ
 VarCompareCondition_18cdc0::~VarCompareCondition_18cdc0() {
-    vptr = g_vftable_18cdc0;
-    s.Init();
-    Fin();
+    vptr = hulk_at_0041aa88;
+    s.Init_0027af50();
+    Fin_002345b0();
 }
 
 
@@ -970,7 +970,7 @@ void FUN_0018cde0() {
 // sym: ?vfunc_0@TimerSetTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::TimerSetTrack::vfunc_0(int index) {
-    int* p = gTable_18ce00;
+    int* p = hulk_at_004e1520;
     return p[index];
 }
 
@@ -1018,7 +1018,7 @@ void FUN_0018ce70() {
 // sym: ?vfunc_0@VarAssignTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::VarAssignTrack::vfunc_0(int index) {
-    int* p = gTable_18ce90;
+    int* p = hulk_at_004e1528;
     return p[index];
 }
 
@@ -1053,8 +1053,8 @@ namespace fn_f1f11990 {
 // 0x0018cf00 FUN_0018cf00 (25 B): matches/0x0018cf00.cpp
 // sym: ??1VarAssignTrack_18cf00@fn_f1f11990@@QAE@XZ
 VarAssignTrack_18cf00::~VarAssignTrack_18cf00() throw() {
-    vptr = g_vt_18cf00;
-    sub.Fin();
+    vptr = hulk_at_0041aad8;
+    sub.Fin_0027af50();
 }
 
 } // namespace fn_f1f11990
@@ -1272,8 +1272,8 @@ char VarAssignAction::vfunc_3(int a, int b)
 bool hulkfight::motion::TimerSetAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     int i = *(int*)((char*)(*(void * *)&this->f_1c) + 0x10);
     if (i >= 0 && i < 14) {
-        void* x = ((HelperA_18d280*)(*(void * *)&this->f_20))->run();
-        x = ((HelperB_18d280*)x)->run();
+        void* x = ((HelperA_18d280*)(*(void * *)&this->f_20))->run_000592a0();
+        x = ((HelperB_18d280*)x)->run_00059a30();
         *(int*)((char*)x + 0x1e60 + i * 4) = *(int*)((char*)(*(void * *)&this->f_1c) + 0x14);
     }
     return (bool)(0);
@@ -1287,8 +1287,8 @@ namespace fn_f1f11990 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 TimerCondition_18d300* TimerCondition_18d300::vfunc_5(signed char flags) {
-    *(void***)this = Condition_18d300_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041aa48;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1302,8 +1302,8 @@ TimerCondition_18d300* TimerCondition_18d300::vfunc_5(signed char flags) {
 GrappleVarCompareCondition_18d330* GrappleVarCompareCondition_18d330::vfunc_5(unsigned char param) {
     GrappleVarCompareCondition_18d330* p = this;
     *(char**)p = &threat_vftable_18d330;
-    ((TimerCondition_nv_18d330*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)((char*)p + 0x10))))))->f1();
-    ((TimerCondition_nv_18d330*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)p)))))->f2();
+    ((TimerCondition_nv_18d330*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)((char*)p + 0x10))))))->f1_0027af50();
+    ((TimerCondition_nv_18d330*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)p)))))->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((hulkfight::motion::TimerCondition*)p);
     return p;
@@ -1316,8 +1316,8 @@ GrappleVarCompareCondition_18d330* GrappleVarCompareCondition_18d330::vfunc_5(un
 VarCompareCondition_18d360* VarCompareCondition_18d360::vfunc_5(unsigned char param) {
     VarCompareCondition_18d360* p = this;
     *(char**)p = &threat_vftable_18d360;
-    ((TimerCondition_nv_18d360*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)((char*)p + 0x10))))))->f1();
-    ((TimerCondition_nv_18d360*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)p)))))->f2();
+    ((TimerCondition_nv_18d360*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)((char*)p + 0x10))))))->f1_0027af50();
+    ((TimerCondition_nv_18d360*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)p)))))->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((hulkfight::motion::TimerCondition*)p);
     return p;
@@ -1330,8 +1330,8 @@ VarCompareCondition_18d360* VarCompareCondition_18d360::vfunc_5(unsigned char pa
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 TimerSetTrack_18d390* TimerSetTrack_18d390::vfunc_5(signed char flags) {
-    *(void***)this = Track_18d390_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041aaa8;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1345,8 +1345,8 @@ TimerSetTrack_18d390* TimerSetTrack_18d390::vfunc_5(signed char flags) {
 VarAssignTrack_18d3c0* VarAssignTrack_18d3c0::vfunc_5(unsigned char param) {
     VarAssignTrack_18d3c0* p = this;
     *(char**)p = &threat_vftable_18d3c0;
-    ((Obj_18d3c0*)((char*)p + 0x10))->f1();
-    ((Obj_18d3c0*)p)->f2();
+    ((Obj_18d3c0*)((char*)p + 0x10))->f1_0027af50();
+    ((Obj_18d3c0*)p)->f2_00236d60();
     if (param & 1)
         thunk_FUN_00267090((Obj_18d3c0*)p);
     return p;
@@ -1374,7 +1374,7 @@ VarAssignAction_18d3f0::VarAssignAction_18d3f0(int target, RefObj_18d3f0* obj) {
 // 0x0018d440 FUN_0018d440 (50 B): matches/0x0018d440.cpp
 // sym: ??1VarAssignAction_18d440@fn_f1f11990@@QAE@XZ
 VarAssignAction_18d440::~VarAssignAction_18d440() {
-    vptr = g_vftable_18d440;
+    vptr = hulk_at_0041ab08;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1448,7 +1448,7 @@ TimerSetAction_18d610::TimerSetAction_18d610(int target, RefObj_18d610* obj) {
 // 0x0018d660 FUN_0018d660 (50 B): matches/0x0018d660.cpp
 // sym: ??1TimerSetAction_18d660@fn_f1f11990@@QAE@XZ
 TimerSetAction_18d660::~TimerSetAction_18d660() {
-    vptr = g_vftable_18d660;
+    vptr = hulk_at_0041ab24;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1831,7 +1831,7 @@ namespace fn_0018dcd0 {
 struct Info {
     int x;
 };
-extern Info a, b;
+extern Info hulk_at_00491ca8, hulk_at_004bf2e8;
 extern int __cdecl check(void*, int, Info*, Info*, int);
 namespace fight {
 class ConditionFactoryCaster {
@@ -1846,7 +1846,7 @@ class GrappleCaster : public ConditionFactoryCaster {
 };
 } // namespace fight
 int fight::GrappleCaster::vfunc_0(void* p) {
-    return check(p, 0, &a, &b, 0) != 0;
+    return check(p, 0, &hulk_at_00491ca8, &hulk_at_004bf2e8, 0) != 0;
 }
 } // namespace fn_0018dcd0
 
@@ -1915,7 +1915,7 @@ template <> fight::ParamIntConstRange<hulkfight::motion::TimerSetTrack>::~ParamI
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::VarAssignTrack>::vfunc_0(void* __p0) { void * track = (void *)__p0;
 
-    return TrackCast(track, 0, &baseTrackType, &varAssignType, 0) != 0;
+    return TrackCast(track, 0, &hulk_at_0049850c, &hulk_at_004bf500, 0) != 0;
 }
 
 
@@ -2145,11 +2145,11 @@ namespace fn_f1f11990 {
 extern "C" void FUN_0018e8d0(Factory* p) {
     {
         VarCaster a;
-        p->add(FUN_00236ac0("varAssign", &a));
+        p->add_002367c0(FUN_00236ac0("varAssign", &a));
     }
     {
         TrackFactoryCasterTemplate_18e8d0 b;
-        p->add(FUN_00236ac0("timerSet", &b));
+        p->add_002367c0(FUN_00236ac0("timerSet", &b));
     }
 }
 
@@ -2158,7 +2158,7 @@ extern "C" void FUN_0018e8d0(Factory* p) {
 // 0x0018e960 fight::ConditionFactoryTemplate<hulkfight::motion::TimerCondition>::vfunc_5 (59 B): matches/0x0018e960.cpp [wrapped: conflict: Alloc; TimerCondition]
 // sym: ?factory_vfunc5@fn_0018e960@@YAPAUTimerCondition@1@XZ
 namespace fn_0018e960 {
-extern "C++" __declspec(nothrow) void* __cdecl Alloc(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d690(hulk_uintptr);
 extern void* timerVtable;
 struct TimerCondition {
     void* vptr;
@@ -2169,12 +2169,12 @@ struct TimerCondition {
     char flag;
     char pad2[3];
     int d;
-    void Init(int);
+    void Init_00234590(int);
 };
 TimerCondition* factory_vfunc5() {
-    TimerCondition* p = (TimerCondition*)Alloc(0x20);
+    TimerCondition* p = (TimerCondition*)Alloc_0008d690(0x20);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->a = 0;
         p->b = 0;
         p->c = 0;
@@ -2193,9 +2193,9 @@ namespace fn_f1f11990 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_18e9a0@fn_f1f11990@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_18e9a0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18e9a0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041ae28;
+    base1_dtor_0018cc70();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -2208,7 +2208,7 @@ void* ConditionFactoryTemplate_18e9a0::scalar_dtor(unsigned char flags) {
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::TimerSetTrack>::vfunc_5() {
     TimerSetTrack_18ea10* p = (TimerSetTrack_18ea10*)Allocate(0x18);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->vptr = ((hulk_intptr)DAT_0041aaa8);
         p->mc = 0;
         p->m10 = 0;
@@ -2225,7 +2225,7 @@ namespace fn_f1f11990 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f1f11990@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18ea60;
+    m_vptr = (void*)&hulk_at_0041ae44;
     base1_dtor();
     base2_dtor();
     if (flags & 1)
@@ -2280,9 +2280,9 @@ namespace fn_f1f11990 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_18eb10@fn_f1f11990@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_18eb10::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18eb10;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041ae60;
+    base1_dtor_0018cce0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -2311,9 +2311,9 @@ namespace fn_f1f11990 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_18ebc0@fn_f1f11990@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_18ebc0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18ebc0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041ae7c;
+    base1_dtor_0018cd60();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -2333,23 +2333,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::VarAssignTrack>
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_0018ec80@@QAEPAXE@Z
 namespace fn_0018ec80 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_18ec80;
+extern int hulk_at_0041ae98;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0018ce70();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18ec80;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041ae98;
+    base1_dtor_0018ce70();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_0018ec80

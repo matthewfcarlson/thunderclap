@@ -14,16 +14,16 @@ namespace fn_f1dc0121 {} using namespace fn_f1dc0121;
 // ---- declarations shared by the functions below
 namespace fn_f1dc0121 {
 struct Tail_14dd20 {
-    void Init();
+    void Init_0027af50();
 };
 struct HitReactionFloatTrack_14dd20 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_14dd20;
-extern int* gTable_14dd60;
+extern void* hulk_at_00414270;
+extern int* hulk_at_004e10e8;
 class CCondition_14dd60 {
   public:
     virtual int vfunc_0(int);
@@ -47,9 +47,9 @@ class HitPauseTrack : public Track_14dd70 {
 // sym: ?Run@HitReactionFloatTrack_14dd20@fn_f1dc0121@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void HitReactionFloatTrack_14dd20::Run() {
-    vptr = &vftable_14dd20;
-    ((Tail_14dd20*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_00414270;
+    ((Tail_14dd20*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 
@@ -66,7 +66,7 @@ void FUN_0014dd40() {
 // sym: ?vfunc_0@HitPauseTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HitPauseTrack::vfunc_0(int index) {
-    int* p = gTable_14dd60;
+    int* p = hulk_at_004e10e8;
     return p[index];
 }
 

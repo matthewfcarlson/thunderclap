@@ -47,11 +47,11 @@ class Condition_15a690 : public Base {
     int field;
     Sub sub;
 };
-extern int g_vftable_15a6d0;
+extern int hulk_at_004158d4;
 struct ConditionFactoryTemplate_15a6d0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0014dac0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -86,9 +86,9 @@ namespace fn_f4aac511 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_15a6d0@fn_f4aac511@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_15a6d0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_15a6d0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004158d4;
+    base1_dtor_0014dac0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

@@ -14,11 +14,11 @@ namespace fn_f1d496c3 {
 struct Obj_172790 {
     char pad[0x1b0c];
     float amount;
-    float Get();
-    void Set(float, int);
+    float Get_00036090();
+    void Set_0003b1c0(float, int);
 };
 struct Mid_172790 {
-    Obj_172790* GetObj();
+    Obj_172790* GetObj_00059a30();
 };
 struct Source_172790 {
 };
@@ -38,12 +38,12 @@ bool hulkfight::motion::CriticalMassDrainAction::vfunc_3(hulk_intptr x, hulk_int
     Mid_172790* m = ((Mid_172790 *)((owners::Object_592a0 *)((*(Source_172790 * *)&this->f_20)))->FUN_000592a0());
     if (!m)
         return (bool)(0);
-    Obj_172790* o = m->GetObj();
+    Obj_172790* o = m->GetObj_00059a30();
     if (!o)
         return (bool)(0);
     hulk_freg amt = o->amount;
-    if (amt >= o->Get())
-        o->Set(amt - (*(Param_172790 * *)&this->f_1c)->amount, 1);
+    if (amt >= o->Get_00036090())
+        o->Set_0003b1c0(amt - (*(Param_172790 * *)&this->f_1c)->amount, 1);
     return (bool)(0);
 }
 

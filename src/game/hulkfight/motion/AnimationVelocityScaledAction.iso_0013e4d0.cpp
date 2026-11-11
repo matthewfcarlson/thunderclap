@@ -11,14 +11,14 @@
 
 typedef unsigned int u32_13e4d0;
 struct CGrabTrack_13e4d0 {
-    hulk_uintptr init();
+    hulk_uintptr init_0013a130();
 };
 extern "C" void* __cdecl operator_new(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::AnimationTrack>::vfunc_5() {
     CGrabTrack_13e4d0* p = (CGrabTrack_13e4d0*)operator_new(0x50);
     if (p)
-        return (void*)(p->init());
+        return (void*)(p->init_0013a130());
     return (void*)(0);
 }
 

@@ -37,10 +37,10 @@ struct CriticalMassDrainTrack_17e910 : Base_17e910 {
     int m8;
     int mC;
     int m10;
-    void Init();
+    void Init_00236d40();
 };
 extern "C" void* __cdecl operator_new(unsigned int);
-extern int g_vftable_17e950;
+extern int hulk_at_00418f30;
 
 } // namespace fn_ff12b9e5
 
@@ -66,7 +66,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::CriticalM
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::CriticalMassDrainTrack>::vfunc_5() {
     CriticalMassDrainTrack_17e910* p = (CriticalMassDrainTrack_17e910*)operator_new(0x14);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00417c28);
         p->mC = 0;
         p->m10 = 0;
@@ -82,7 +82,7 @@ namespace fn_ff12b9e5 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_ff12b9e5@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17e950;
+    m_vptr = (void*)&hulk_at_00418f30;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

@@ -10,20 +10,20 @@
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_156d90;
-extern int TypeA_156d90;
-extern int TypeB_156d90;
+extern int hulk_at_00494b44;
+extern int hulk_at_00494b60;
 struct HitWaitAction_nv_156d90 {
-    u32_156d90 Init(void*, void*);
+    u32_156d90 Init_001510f0(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
-extern hulkfight::motion::HitWaitAction* Alloc(int);
+extern hulkfight::motion::HitWaitAction* Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::HitWaitTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_156d90 a = (u32_156d90)__p0; u32_156d90 b = (u32_156d90)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &TypeA_156d90, &TypeB_156d90, 0)) {
-        hulkfight::motion::HitWaitAction* q = Alloc(0x28);
+    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+        hulkfight::motion::HitWaitAction* q = Alloc_0008d690(0x28);
         if (q)
-            return (int)(((HitWaitAction_nv_156d90*)(((hulkfight::motion::HitWaitAction*)(q))))->Init(this, p));
+            return (int)(((HitWaitAction_nv_156d90*)(((hulkfight::motion::HitWaitAction*)(q))))->Init_001510f0(this, p));
     }
     return (int)(0);
 }

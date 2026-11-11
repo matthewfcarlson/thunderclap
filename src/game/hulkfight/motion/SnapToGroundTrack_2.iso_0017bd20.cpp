@@ -13,20 +13,20 @@ class Params_17bd20 {
   public:
     int x;
 };
-extern Params_17bd20 TypeA_17bd20;
-extern Params_17bd20 TypeB_17bd20;
+extern Params_17bd20 hulk_at_00494b44;
+extern Params_17bd20 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_17bd20*, Params_17bd20*, int);
 struct SuckAction_nv_17bd20 {
-    int Init(hulkfight::motion::SuckTrack*, hulk_intptr);
+    int Init_00176ff0(hulkfight::motion::SuckTrack*, hulk_intptr);
 };
-hulkfight::motion::SuckAction* __cdecl Alloc(int);
+hulkfight::motion::SuckAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::SuckTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_17bd20, &TypeB_17bd20, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::SuckAction* p = Alloc(0x24);
+        hulkfight::motion::SuckAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((SuckAction_nv_17bd20*)(((hulkfight::motion::SuckAction*)(p))))->Init(this, c);
+            return ((SuckAction_nv_17bd20*)(((hulkfight::motion::SuckAction*)(p))))->Init_00176ff0(this, c);
     }
     return 0;
 }

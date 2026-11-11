@@ -13,16 +13,16 @@ namespace fn_f7901a76 {} using namespace fn_f7901a76;
 // ---- declarations shared by the functions below
 namespace fn_f7901a76 {
 struct Tail_14de80 {
-    void Init();
+    void Init_0027af50();
 };
 struct HitReactionTrack_14de80 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_14de80;
-extern int* gTable_14dec0;
+extern void* hulk_at_004142d0;
+extern int* hulk_at_004e10f8;
 class CCondition_14dec0 {
   public:
     virtual int vfunc_0(int);
@@ -38,17 +38,17 @@ class HitWaitTrack_14ded0 : public Track_14ded0 {
     int m10;
     HitWaitTrack_14ded0();
 };
-extern int vftable[];
-extern float gNegOne;
+extern int hulk_at_00414300[];
+extern float hulk_at_003f3388;
 
 
 // 0x0014de80 FUN_0014de80 (25 B): matches/0x0014de80.cpp
 // sym: ?Run@HitReactionTrack_14de80@fn_f7901a76@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void HitReactionTrack_14de80::Run() {
-    vptr = &vftable_14de80;
-    ((Tail_14de80*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_004142d0;
+    ((Tail_14de80*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 
@@ -65,7 +65,7 @@ void FUN_0014dea0() {
 // sym: ?vfunc_0@HitWaitTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HitWaitTrack::vfunc_0(int index) {
-    int* p = gTable_14dec0;
+    int* p = hulk_at_004e10f8;
     return p[index];
 }
 
@@ -76,7 +76,7 @@ namespace fn_f7901a76 {
 HitWaitTrack_14ded0::HitWaitTrack_14ded0() {
     m0c = 0;
     m10 = 0;
-    *(hulk_intptr*)this = (hulk_intptr)vftable;
+    *(hulk_intptr*)this = (hulk_intptr)hulk_at_00414300;
 }
 
 } // namespace fn_f7901a76
@@ -94,6 +94,6 @@ hulk_freg hulkfight::motion::HitWaitTrack::vfunc_6() {
 // sym: ?vfunc_7@HitWaitTrack@motion@hulkfight@@UAEMXZ
 // Same code shape as 0x000695a0 (propagated; names are from that function)
 hulk_freg hulkfight::motion::HitWaitTrack::vfunc_7() {
-    return gNegOne;
+    return hulk_at_003f3388;
 }
 

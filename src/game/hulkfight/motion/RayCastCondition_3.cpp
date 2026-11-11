@@ -47,8 +47,8 @@ class ConditionFactoryCasterTemplate_16aa10 {
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
 };
-extern void* a;
-extern void* b;
+extern void* hulk_at_00491ca8;
+extern void* hulk_at_004b7580;
 extern "C" int __cdecl check(void*, int, void*, void*, int);
 } // namespace fn_f45cd32f
 namespace fight {
@@ -107,7 +107,7 @@ class HealthPercentCondition_16ac10 {};
 namespace fn_f45cd32f {
 extern char DAT_004b7948;
 extern int typeA;
-extern int typeB;
+extern int hulk_at_004b7a08;
 extern "C" void* __cdecl castThing(void*, int, void*, void*, int);
 } // namespace fn_f45cd32f
 namespace fight {
@@ -640,7 +640,7 @@ template <> fight::ParamBool<hulkfight::motion::RayCastCondition>::~ParamBool() 
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VInLoadedRoomCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::InLoadedRoomCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &hulk_at_00491ca8, &hulk_at_004b7580, 0) != 0;
 }
 
 
@@ -771,7 +771,7 @@ template <> fight::ParamFloatConstRange<hulkfight::motion::HealthPercentConditio
  // namespace fight
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::ThinkingCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return castThing(p, 0, &typeA, &typeB, 0) != 0;
+    return castThing(p, 0, &typeA, &hulk_at_004b7a08, 0) != 0;
 }
 
 

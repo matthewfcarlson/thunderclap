@@ -21,7 +21,7 @@ class SnapToGroundTrack : public Track_16ff70 {
   public:
     virtual ~SnapToGroundTrack() throw();
 };
-extern int* gTable_16ffa0;
+extern int* hulk_at_004e1308;
 class CCondition_16ffa0 {
   public:
     virtual int vfunc_0(int);
@@ -87,7 +87,7 @@ void FUN_0016ff80() {
 // sym: ?vfunc_0@JointRelativeTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::JointRelativeTrack::vfunc_0(int index) {
-    int* p = gTable_16ffa0;
+    int* p = hulk_at_004e1308;
     return p[index];
 }
 

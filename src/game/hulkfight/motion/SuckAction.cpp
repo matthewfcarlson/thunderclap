@@ -17,7 +17,7 @@ class Thing_176f50 {
     virtual void A();
     virtual void B();
 };
-extern char g_vftable_176f50[];
+extern char hulk_at_00418014[];
 class Action_176f50 {
   public:
     void* vptr;
@@ -67,7 +67,7 @@ class SuckAction_176ff0 : public Action_176ff0 {
     SuckAction_176ff0(int target, RefObj_176ff0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_177040[];
+extern void* hulk_at_00418030[];
 class Ref_177040 {
   public:
     virtual void F0();
@@ -191,7 +191,7 @@ Entity_177080* FUN_000969d0(int id);
 // 0x00176f50 FUN_00176f50 (79 B): matches/0x00176f50.cpp
 // sym: ??0RestPoseAction@fn_f9af4c99@@QAE@HPAVThing_176f50@1@@Z
 RestPoseAction::RestPoseAction(int x, Thing_176f50* p) {
-    vptr = g_vftable_176f50;
+    vptr = hulk_at_00418014;
     int* q = &a;
     *q = 0;
     b = 0;
@@ -245,7 +245,7 @@ SuckAction_176ff0::SuckAction_176ff0(int target, RefObj_176ff0* obj) {
 // 0x00177040 FUN_00177040 (50 B): matches/0x00177040.cpp
 // sym: ??1SuckAction_177040@fn_f9af4c99@@QAE@XZ
 SuckAction_177040::~SuckAction_177040() {
-    vptr = g_vftable_177040;
+    vptr = hulk_at_00418030;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

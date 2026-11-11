@@ -8,20 +8,20 @@
 // sym: ?vfunc_10@LocomotingTrack@motion@hulkfight@@UAEHHHH@Z
 #include "gen/hulkfight.h"
 
-extern int RTTI1_1617c0;
-extern int RTTI2_1617c0;
+extern int hulk_at_00494b44;
+extern int hulk_at_00494b60;
 struct LocomotingAction_nv_1617c0 {
-    int Make(void*);
+    int Make_001606d0(void*);
 };
 extern int __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 extern hulkfight::motion::LocomotingAction* __cdecl FUN_0008d690(unsigned int);
 
 hulk_intptr hulkfight::motion::LocomotingTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { void * a = (void *)__p0; void * b = (void *)__p1; void * c = (void *)__p2;
 
-    if (FUN_00344e74(c, 0, &RTTI1_1617c0, &RTTI2_1617c0, 0)) {
+    if (FUN_00344e74(c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
         hulkfight::motion::LocomotingAction* p = FUN_0008d690((int)sizeof(hulkfight::motion::LocomotingAction));
         if (p)
-            return ((LocomotingAction_nv_1617c0*)(((hulkfight::motion::LocomotingAction*)(p))))->Make(c);
+            return ((LocomotingAction_nv_1617c0*)(((hulkfight::motion::LocomotingAction*)(p))))->Make_001606d0(c);
     }
     return 0;
 }

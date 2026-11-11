@@ -13,7 +13,7 @@ namespace fn_faf05650 {} using namespace fn_faf05650;
 
 // ---- declarations shared by the functions below
 namespace fn_faf05650 {
-extern int* gTable_170b00;
+extern int* hulk_at_004e1380;
 class CCondition_170b00 {
   public:
     virtual int vfunc_0(int);
@@ -48,7 +48,7 @@ void FUN_00170ae0() {
 // sym: ?vfunc_0@CriticalMassDrainTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CriticalMassDrainTrack::vfunc_0(int index) {
-    int* p = gTable_170b00;
+    int* p = hulk_at_004e1380;
     return p[index];
 }
 

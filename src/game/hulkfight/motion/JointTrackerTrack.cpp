@@ -10,7 +10,7 @@ namespace fn_f0083b8f {} using namespace fn_f0083b8f;
 
 // ---- declarations shared by the functions below
 namespace fn_f0083b8f {
-extern int* gTable_16fcd0;
+extern int* hulk_at_004e12e8;
 class CCondition_16fcd0 {
   public:
     virtual int vfunc_0(int);
@@ -34,7 +34,7 @@ struct Track_16fd80 {
 // sym: ?vfunc_0@JointTrackerTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::JointTrackerTrack::vfunc_0(int index) {
-    int* p = gTable_16fcd0;
+    int* p = hulk_at_004e12e8;
     return p[index];
 }
 

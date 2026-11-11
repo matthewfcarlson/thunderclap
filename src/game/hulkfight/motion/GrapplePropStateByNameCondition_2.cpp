@@ -26,16 +26,16 @@ extern "C" void FUN_00189a50();
 extern "C" char DAT_0041916c[];
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 struct Base_18c540 {
-    void Init(int);
+    void Init_00234590(int);
 };
 struct Sub_18c540 {
-    void Setup();
+    void Setup_0027af00();
 };
-extern int g_vftable_18c580;
+extern int hulk_at_0041a8d0;
 struct ConditionFactoryTemplate_18c580 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00180690();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -63,11 +63,11 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Grapp
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::GrapplePropStateByNameCondition>::vfunc_5() {
     Base_18c540* p = (Base_18c540*)FUN_0008d690(0x20);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041916c);
         ((uint*)p)[3] = 0xffffffff;
         ((uint*)p)[4] = 0;
-        ((Sub_18c540*)((char*)p + 0x18))->Setup();
+        ((Sub_18c540*)((char*)p + 0x18))->Setup_0027af00();
         return (void*)(p);
     }
     return (void*)((void*)0);
@@ -79,9 +79,9 @@ namespace fn_f4f943b3 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_18c580@fn_f4f943b3@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_18c580::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18c580;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041a8d0;
+    base1_dtor_00180690();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

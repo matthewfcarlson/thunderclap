@@ -13,20 +13,20 @@ class Params_1887d0 {
   public:
     int x;
 };
-extern Params_1887d0 TypeA_1887d0;
-extern Params_1887d0 TypeB_1887d0;
+extern Params_1887d0 hulk_at_00494b44;
+extern Params_1887d0 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_1887d0*, Params_1887d0*, int);
 struct PropActorToPropAction_nv_1887d0 {
-    int Init(hulkfight::motion::PropActorToPropTrack*, hulk_intptr);
+    int Init_00183950(hulkfight::motion::PropActorToPropTrack*, hulk_intptr);
 };
-hulkfight::motion::PropActorToPropAction* __cdecl Alloc(int);
+hulkfight::motion::PropActorToPropAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::PropActorToPropTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_1887d0, &TypeB_1887d0, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::PropActorToPropAction* p = Alloc(0x24);
+        hulkfight::motion::PropActorToPropAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((PropActorToPropAction_nv_1887d0*)(((hulkfight::motion::PropActorToPropAction*)(p))))->Init(this, c);
+            return ((PropActorToPropAction_nv_1887d0*)(((hulkfight::motion::PropActorToPropAction*)(p))))->Init_00183950(this, c);
     }
     return 0;
 }

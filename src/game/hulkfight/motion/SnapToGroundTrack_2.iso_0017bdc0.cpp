@@ -13,20 +13,20 @@ class Params_17bdc0 {
   public:
     int x;
 };
-extern Params_17bdc0 TypeA_17bdc0;
-extern Params_17bdc0 TypeB_17bdc0;
+extern Params_17bdc0 hulk_at_00494b44;
+extern Params_17bdc0 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_17bdc0*, Params_17bdc0*, int);
 struct CriticalMassDrainAction_nv_17bdc0 {
-    int Init(hulkfight::motion::CriticalMassDrainTrack*, hulk_intptr);
+    int Init_00177430(hulkfight::motion::CriticalMassDrainTrack*, hulk_intptr);
 };
-hulkfight::motion::CriticalMassDrainAction* __cdecl Alloc(int);
+hulkfight::motion::CriticalMassDrainAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::CriticalMassDrainTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_17bdc0, &TypeB_17bdc0, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::CriticalMassDrainAction* p = Alloc(0x24);
+        hulkfight::motion::CriticalMassDrainAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((CriticalMassDrainAction_nv_17bdc0*)(((hulkfight::motion::CriticalMassDrainAction*)(p))))->Init(this, c);
+            return ((CriticalMassDrainAction_nv_17bdc0*)(((hulkfight::motion::CriticalMassDrainAction*)(p))))->Init_00177430(this, c);
     }
     return 0;
 }

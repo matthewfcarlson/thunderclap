@@ -41,8 +41,8 @@ class CollisionSourceIsMissileCondition : public Condition, public Param {
 };
 } }
 extern int helper(void*, int, void*, void*, int);
-extern int typeA_14e810;
-extern int typeB_14e810;
+extern int hulk_at_00494b44;
+extern int hulk_at_00494b60;
 struct Source_14e810 {
     virtual void a();
     virtual void b();
@@ -68,7 +68,7 @@ struct CollisionSourceNodeCondition {
 // 0x0014e810 hulkfight::motion::CollisionSourceIsMissileCondition::vfunc_6 (69 B): matches/0x0014e810.cpp
 // sym: ?vfunc_6@CollisionSourceIsMissileCondition@motion@hulkfight@fn_f7bcb928@@UAE_NHPAXH@Z
 bool hulkfight::motion::CollisionSourceIsMissileCondition::vfunc_6(int, void* p, int) {
-    if (helper(p, 0, &typeA_14e810, &typeB_14e810, 0) == 0)
+    if (helper(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0) == 0)
         return false;
     hulk_intptr x = ((Source_14e810*)p)->get();
     if (!x)

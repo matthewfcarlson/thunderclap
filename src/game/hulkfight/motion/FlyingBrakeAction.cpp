@@ -15,7 +15,7 @@ namespace fn_f414acda {} using namespace fn_f414acda;
 
 // ---- declarations shared by the functions below
 namespace fn_f414acda {
-extern int* gTable_133a20;
+extern int* hulk_at_004e0ec8;
 class CCondition_133a20 {
   public:
     virtual int vfunc_0(int);
@@ -47,7 +47,7 @@ struct Track_133a70 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_133ab0;
+extern int* hulk_at_004e0ed0;
 class CCondition_133ab0 {
   public:
     virtual int vfunc_0(int);
@@ -82,7 +82,7 @@ struct Track_133b20 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_133b60;
+extern int* hulk_at_004e0ed8;
 class CCondition_133b60 {
   public:
     virtual int vfunc_0(int);
@@ -116,7 +116,7 @@ struct Track_133bd0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_133c10;
+extern int* hulk_at_004e0ee0;
 class CCondition_133c10 {
   public:
     virtual int vfunc_0(int);
@@ -133,7 +133,7 @@ struct Track_133c90 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_133cd0;
+extern int* hulk_at_004e0ee8;
 class CCondition_133cd0 {
   public:
     virtual int vfunc_0(int);
@@ -164,7 +164,7 @@ struct Track_133d20 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_133d60;
+extern int* hulk_at_004e0ef0;
 class CCondition_133d60 {
   public:
     virtual int vfunc_0(int);
@@ -181,7 +181,7 @@ struct Track_133de0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_133e20;
+extern int* hulk_at_004e0ef8;
 class CCondition_133e20 {
   public:
     virtual int vfunc_0(int);
@@ -207,7 +207,7 @@ struct Track_133ea0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_133ee0;
+extern int* hulk_at_004e0f00;
 class CCondition_133ee0 {
   public:
     virtual int vfunc_0(int);
@@ -225,7 +225,7 @@ struct Track_133f50 {
     virtual void tfunc9();
 };
 struct A_133f80 {
-    A_133f80* Second();
+    A_133f80* Second_00059a30();
 };
 struct V3_133fc0 {
     float x, y, z;
@@ -302,33 +302,33 @@ public:
     V3_133fc0 pos;
 };
 struct Two_134160 {
-    void* f();
+    void* Fnf_00059a40();
 };
 struct Two_1345a0 {
-    void* f();
+    void* Fnf_00059a40();
 };
 struct Two_1346a0 {
-    void* f();
+    void* Fnf_00059a40();
 };
 struct Two_134790 {
-    void* f();
+    void* Fnf_00059a40();
 };
 struct Two_134970 {
-    void* f();
+    void* Fnf_00059a40();
 };
-extern void* Track_134c00_vftable[];
+extern void* hulk_at_00411bb8[];
 class Track_134c00 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class FlyingDashTrack_134c00 : public Track_134c00 {
   public:
     FlyingDashTrack_134c00* vfunc_5(signed char flags);
 };
-extern void* Track_134c30_vftable[];
+extern void* hulk_at_00411be8[];
 class Track_134c30 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class GrappleHoverTrack_134c30 : public Track_134c30 {
   public:
@@ -349,7 +349,7 @@ void FUN_00133a00() {
 // sym: ?vfunc_0@GrappleHoverTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::GrappleHoverTrack::vfunc_0(int index) {
-    int* p = gTable_133a20;
+    int* p = hulk_at_004e0ec8;
     return p[index];
 }
 
@@ -395,7 +395,7 @@ void FUN_00133a90() {
 // sym: ?vfunc_0@FlyingBrakeTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FlyingBrakeTrack::vfunc_0(int index) {
-    int* p = gTable_133ab0;
+    int* p = hulk_at_004e0ed0;
     return p[index];
 }
 
@@ -450,7 +450,7 @@ void FUN_00133b40() {
 // sym: ?vfunc_0@BounceTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::BounceTrack::vfunc_0(int index) {
-    int* p = gTable_133b60;
+    int* p = hulk_at_004e0ed8;
     return p[index];
 }
 
@@ -500,7 +500,7 @@ void FUN_00133bf0() {
 // sym: ?vfunc_0@AirToGroundTargetTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::AirToGroundTargetTrack::vfunc_0(int index) {
-    int* p = gTable_133c10;
+    int* p = hulk_at_004e0ee0;
     return p[index];
 }
 
@@ -564,7 +564,7 @@ void FUN_00133cb0() {
 // sym: ?vfunc_0@HoverTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HoverTrack::vfunc_0(int index) {
-    int* p = gTable_133cd0;
+    int* p = hulk_at_004e0ee8;
     return p[index];
 }
 
@@ -612,7 +612,7 @@ void FUN_00133d40() {
 // sym: ?vfunc_0@FallTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FallTrack::vfunc_0(int index) {
-    int* p = gTable_133d60;
+    int* p = hulk_at_004e0ef0;
     return p[index];
 }
 
@@ -698,7 +698,7 @@ void FUN_00133e00() {
 // sym: ?vfunc_0@FlyingAutoTargetTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FlyingAutoTargetTrack::vfunc_0(int index) {
-    int* p = gTable_133e20;
+    int* p = hulk_at_004e0ef8;
     return p[index];
 }
 
@@ -751,7 +751,7 @@ void FUN_00133ec0() {
 // sym: ?vfunc_0@FlyingAttackTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FlyingAttackTrack::vfunc_0(int index) {
-    int* p = gTable_133ee0;
+    int* p = hulk_at_004e0f00;
     return p[index];
 }
 
@@ -859,7 +859,7 @@ int hulkfight::motion::GrappleHoverTrack::vfunc_8(int a, int b) {
 bool hulkfight::motion::HoverAction::vfunc_5(hulk_intptr param, int unused) {
     if (param == 0) {
         A_133f80* p = ((A_133f80 *)((owners::Object_592a0 *)(((A_133f80*)*(void**)((char*)this + 0x20))))->FUN_000592a0());
-        p = p->Second();
+        p = p->Second_00059a30();
         if (this->f_1c > 0)
             ((owners::C_359c0 *)p)->FUN_000359c0(1);
         else
@@ -925,7 +925,7 @@ bool FallAction::vfunc_3(int a, int b)
 // sym: ?vfunc_4@FallAction@motion@hulkfight@@UAEXXZ
 void hulkfight::motion::FallAction::vfunc_4() {
     void* x = (*(One * *)&this->f_20)->f();
-    void* y = ((Two_134160*)x)->f();
+    void* y = ((Two_134160*)x)->Fnf_00059a40();
     if (y)
         ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }
@@ -1213,7 +1213,7 @@ char FlyingBrakeAction::vfunc_5(int skip, float dt)
 // Same code shape as 0x00134160 (propagated; names are from that function)
 void hulkfight::motion::FlyingBrakeAction::vfunc_4() {
     void* x = (*(One * *)&this->f_20)->f();
-    void* y = ((Two_1345a0*)x)->f();
+    void* y = ((Two_1345a0*)x)->Fnf_00059a40();
     if (y)
         ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }
@@ -1258,7 +1258,7 @@ bool FlyingDashAction::vfunc_5(int state,float dt) {
 // Same code shape as 0x00134160 (propagated; names are from that function)
 void hulkfight::motion::FlyingDashAction::vfunc_4() {
     void* x = (*(One * *)&this->f_20)->f();
-    void* y = ((Two_1346a0*)x)->f();
+    void* y = ((Two_1346a0*)x)->Fnf_00059a40();
     if (y)
         ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }
@@ -1322,7 +1322,7 @@ bool FlyingAutoTargetAction::vfunc_3(int,int) {
 // Same code shape as 0x00134160 (propagated; names are from that function)
 void hulkfight::motion::FlyingAutoTargetAction::vfunc_4() {
     void* x = (*(One * *)&this->f_20)->f();
-    void* y = ((Two_134790*)x)->f();
+    void* y = ((Two_134790*)x)->Fnf_00059a40();
     if (y)
         ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }
@@ -1512,7 +1512,7 @@ char BounceAction::vfunc_3(int a, int b)
 // Same code shape as 0x00134160 (propagated; names are from that function)
 void hulkfight::motion::BounceAction::vfunc_4() {
     void* x = (*(One * *)&this->f_20)->f();
-    void* y = ((Two_134970*)x)->f();
+    void* y = ((Two_134970*)x)->Fnf_00059a40();
     if (y)
         ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }
@@ -1683,8 +1683,8 @@ void __cdecl FUN_00134b60(int* p, int value) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 FlyingDashTrack_134c00* FlyingDashTrack_134c00::vfunc_5(signed char flags) {
-    *(void***)this = Track_134c00_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00411bb8;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1698,8 +1698,8 @@ FlyingDashTrack_134c00* FlyingDashTrack_134c00::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 GrappleHoverTrack_134c30* GrappleHoverTrack_134c30::vfunc_5(signed char flags) {
-    *(void***)this = Track_134c30_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00411be8;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

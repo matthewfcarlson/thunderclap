@@ -24,10 +24,10 @@ class TrackFactoryTemplate_15a4f0 {
 };
 extern "C" void FUN_00157ee0();
 extern "C" void* __cdecl alloc(hulk_uintptr);
-extern "C" int CollisionThrownObjectCondition_vftable;
+extern "C" int hulk_at_004140f0;
 struct Helper_15a530 {
     char pad[8];
-    void Go();
+    void Go_0027af00();
 };
 struct Cond_15a530 {
     void* vp;
@@ -35,13 +35,13 @@ struct Cond_15a530 {
     char flag;
     char pad2[3];
     Helper_15a530 h;
-    void Init(int);
+    void Init_00234590(int);
 };
-extern int g_vftable_15a570;
+extern int hulk_at_0041589c;
 struct ConditionFactoryTemplate_15a570 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0014d740();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -69,10 +69,10 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Colli
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionThrownObjectCondition>::vfunc_5() {
     Cond_15a530* p = (Cond_15a530*)alloc(0x18);
     if (p) {
-        p->Init(0);
-        p->vp = (void*)&CollisionThrownObjectCondition_vftable;
+        p->Init_00234590(0);
+        p->vp = (void*)&hulk_at_004140f0;
         p->flag = 1;
-        p->h.Go();
+        p->h.Go_0027af00();
         return (void*)(p);
     }
     return (void*)(0);
@@ -84,9 +84,9 @@ namespace fn_fab280ce {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_15a570@fn_fab280ce@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_15a570::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_15a570;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041589c;
+    base1_dtor_0014d740();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

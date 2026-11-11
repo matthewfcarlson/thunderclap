@@ -13,20 +13,20 @@ class Params_144a50 {
   public:
     int x;
 };
-extern Params_144a50 TypeA_144a50;
-extern Params_144a50 TypeB_144a50;
+extern Params_144a50 hulk_at_00494b44;
+extern Params_144a50 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_144a50*, Params_144a50*, int);
 struct WorldConeDamageAction_nv_144a50 {
-    int Init(hulkfight::motion::WorldConeDamageTrack*, hulk_intptr);
+    int Init_001449c0(hulkfight::motion::WorldConeDamageTrack*, hulk_intptr);
 };
-hulkfight::motion::WorldConeDamageAction* __cdecl Alloc(int);
+hulkfight::motion::WorldConeDamageAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::WorldConeDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_144a50, &TypeB_144a50, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::WorldConeDamageAction* p = Alloc(0x24);
+        hulkfight::motion::WorldConeDamageAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((WorldConeDamageAction_nv_144a50*)(((hulkfight::motion::WorldConeDamageAction*)(p))))->Init(this, c);
+            return ((WorldConeDamageAction_nv_144a50*)(((hulkfight::motion::WorldConeDamageAction*)(p))))->Init_001449c0(this, c);
     }
     return 0;
 }

@@ -11,10 +11,10 @@ namespace fn_fcf6ea5c {} using namespace fn_fcf6ea5c;
 // ---- declarations shared by the functions below
 namespace fn_fcf6ea5c {
 struct C3_1721c0 {
-    void Apply(void* p, int f);
+    void Apply_00222970(void* p, int f);
 };
 struct C2_1721c0 {
-    C3_1721c0* Get2();
+    C3_1721c0* Get2_00059a40();
 };
 struct C1_1721c0 {
 };
@@ -25,8 +25,8 @@ struct C1_1721c0 {
 // sym: ?vfunc_4@SyncToLocatorAction@motion@hulkfight@@UAEXXZ
 void hulkfight::motion::SyncToLocatorAction::vfunc_4() {
     C2_1721c0* a = ((C2_1721c0 *)((owners::Object_592a0 *)((*(C1_1721c0 * *)&this->f_20)))->FUN_000592a0());
-    C3_1721c0* b = a->Get2();
+    C3_1721c0* b = a->Get2_00059a40();
     if (b)
-        b->Apply((*(void * *)&this->f_30), 0);
+        b->Apply_00222970((*(void * *)&this->f_30), 0);
 }
 

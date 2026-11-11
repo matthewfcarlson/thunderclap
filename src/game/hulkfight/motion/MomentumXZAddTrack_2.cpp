@@ -35,10 +35,10 @@ class MomentumXZAddTrack_17e5a0 {
     int d;
     float x;
     float y;
-    void Init();
+    void Init_00236d40();
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-extern int g_vftable_17e5e0;
+extern int hulk_at_00418ea4;
 
 } // namespace fn_ffaa2cfd
 
@@ -64,7 +64,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::MomentumX
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::MomentumXZAddTrack>::vfunc_5() {
     MomentumXZAddTrack_17e5a0* p = (MomentumXZAddTrack_17e5a0*)Alloc(0x18);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->x = -1.0f;
         p->y = -1.0f;
         *(volatile hulk_intptr*)p = ((hulk_intptr)DAT_00417ad8);
@@ -81,7 +81,7 @@ namespace fn_ffaa2cfd {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_ffaa2cfd@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17e5e0;
+    m_vptr = (void*)&hulk_at_00418ea4;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

@@ -30,7 +30,7 @@ class FlyingBrakeAction : public Action_1353c0 {
     char pad[0x1c - 4];
     int mF[9];
 };
-extern void* g_vftable_135420[];
+extern void* hulk_at_00411da8[];
 class Ref_135420 {
   public:
     virtual void F0();
@@ -54,7 +54,7 @@ struct Ref_135470 {
     virtual void Release();
 };
 struct ThisCall_00232660 {
-    void BaseCtor();
+    void BaseCtor_00232660();
 };
 class FlyingAttackAction {
   public:
@@ -93,7 +93,7 @@ struct Tail_135700 {
     int field;
 };
 struct Mid_135700 {
-    Tail_135700* GetTail();
+    Tail_135700* GetTail_00059a30();
 };
 struct Obj_135700 {
 };
@@ -113,14 +113,14 @@ class FlyingAttackAction_135700 {
     void Run();
 };
 struct A_135ba0 {
-    void init();
-    int check();
+    void init_00059a30();
+    int check_00059a40();
 };
 struct Result_135ba0 {
-    void apply(int, int);
+    void apply_00222970(int, int);
 };
 struct FlyingAttackAction_nv_135ba0 {
-    void mid();
+    void mid_00135700();
 };
 
 
@@ -142,7 +142,7 @@ FlyingBrakeAction::FlyingBrakeAction(void* p, Thing_1353c0* t) : Action_1353c0()
 // 0x00135420 FUN_00135420 (69 B): matches/0x00135420.cpp
 // sym: ??1FlyingBrakeAction_135420@fn_f9de9b68@@QAE@XZ
 FlyingBrakeAction_135420::~FlyingBrakeAction_135420() {
-    vptr = g_vftable_135420;
+    vptr = hulk_at_00411da8;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -161,7 +161,7 @@ FlyingBrakeAction_135420::~FlyingBrakeAction_135420() {
 // 0x00135470 FUN_00135470 (86 B): matches/0x00135470.cpp
 // sym: ?Run@FlyingAttackAction@fn_f9de9b68@@QAEPAV12@PAXPAURef_135470@2@@Z
 FlyingAttackAction* FlyingAttackAction::Run(void* a, Ref_135470* r) {
-    ((ThisCall_00232660*)(this))->BaseCtor();
+    ((ThisCall_00232660*)(this))->BaseCtor_00232660();
     vft = (void*)((hulk_intptr)DAT_00411dc4);
     arg = 0;
     ref = 0;
@@ -376,7 +376,7 @@ namespace fn_f9de9b68 {
 // sym: ?Run@FlyingAttackAction_135700@fn_f9de9b68@@QAEXXZ
 void FlyingAttackAction_135700::Run() {
     if (mItem != 0 && mItem->kind == 1) {
-        Tail_135700* t = ((Mid_135700 *)((owners::Object_592a0 *)mA)->FUN_000592a0())->GetTail();
+        Tail_135700* t = ((Mid_135700 *)((owners::Object_592a0 *)mA)->FUN_000592a0())->GetTail_00059a30();
         P8* p = mItem->p8;
         if (p != 0) {
             int v = t->field;
@@ -610,10 +610,10 @@ bool FlyingAttackAction::vfunc_5(int a, float dt)
 // sym: ?vfunc_4@FlyingAttackAction@motion@hulkfight@@UAEXXZ
 void hulkfight::motion::FlyingAttackAction::vfunc_4() {
     A_135ba0* edi = ((A_135ba0 *)((owners::Object_592a0 *)((*(A_135ba0 * *)&this->f_20)))->FUN_000592a0());
-    edi->init();
-    ((FlyingAttackAction_nv_135ba0*)this)->mid();
-    hulk_intptr result = edi->check();
+    edi->init_00059a30();
+    ((FlyingAttackAction_nv_135ba0*)this)->mid_00135700();
+    hulk_intptr result = edi->check_00059a40();
     if (result)
-        ((Result_135ba0*)result)->apply(this->f_24, 0);
+        ((Result_135ba0*)result)->apply_00222970(this->f_24, 0);
 }
 

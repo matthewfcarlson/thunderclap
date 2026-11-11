@@ -14,16 +14,16 @@ namespace fn_f79dcf9e {} using namespace fn_f79dcf9e;
 // ---- declarations shared by the functions below
 namespace fn_f79dcf9e {
 struct Tail_1707c0 {
-    void Init();
+    void Init_0027af50();
 };
 struct PushOutTrack_1707c0 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_1707c0;
-extern int* gTable_170800;
+extern void* hulk_at_00417b38;
+extern int* hulk_at_004e1360;
 class CCondition_170800 {
   public:
     virtual int vfunc_0(int);
@@ -55,9 +55,9 @@ class TeleportTrack : public Track_170810 {
 // sym: ?Run@PushOutTrack_1707c0@fn_f79dcf9e@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void PushOutTrack_1707c0::Run() {
-    vptr = &vftable_1707c0;
-    ((Tail_1707c0*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_00417b38;
+    ((Tail_1707c0*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 
@@ -74,7 +74,7 @@ void FUN_001707e0() {
 // sym: ?vfunc_0@TeleportTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::TeleportTrack::vfunc_0(int index) {
-    int* p = gTable_170800;
+    int* p = hulk_at_004e1360;
     return p[index];
 }
 

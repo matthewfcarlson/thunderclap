@@ -26,7 +26,7 @@ extern "C" void FUN_00187fa0();
 extern "C" char DAT_0041935c[];
 class PropDropTrack_18bf00 {
   public:
-    void Init();
+    void Init_00236d40();
     hulk_intptr vt;
     int pad;
     int e;
@@ -34,7 +34,7 @@ class PropDropTrack_18bf00 {
     int d;
 };
 extern "C" void* FUN_0008d690(unsigned int);
-extern int g_vftable_18bf40;
+extern int hulk_at_0041a7d4;
 
 } // namespace fn_fd9a71ee
 
@@ -60,7 +60,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropDropT
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropDropTrack>::vfunc_5() {
     PropDropTrack_18bf00* p = (PropDropTrack_18bf00*)FUN_0008d690((int)sizeof(PropDropTrack_18bf00));
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->vt = ((hulk_intptr)DAT_0041935c);
         p->c = 0;
         p->d = -1;
@@ -76,7 +76,7 @@ namespace fn_fd9a71ee {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fd9a71ee@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18bf40;
+    m_vptr = (void*)&hulk_at_0041a7d4;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

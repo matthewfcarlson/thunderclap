@@ -24,7 +24,7 @@ class TrackFactoryTemplate_1591b0 {
 };
 extern "C" void FUN_00155330();
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern void* vtable_1591f0;
+extern void* hulk_at_00413ff0;
 class Condition {
   public:
     virtual void V0();
@@ -36,13 +36,13 @@ class Condition {
     char pad[8];
     int x;
     int y;
-    void Init(int);
+    void Init_00234590(int);
 };
-extern int g_vftable_159230;
+extern int hulk_at_0041558c;
 struct ConditionFactoryTemplate_159230 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0014d400();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -71,8 +71,8 @@ namespace fn_f8633f69 {
 Condition* Condition::vfunc_5() {
     Condition* p = (Condition*)FUN_0008d690((int)sizeof(Condition));
     if (p) {
-        p->Init(0);
-        *(void**)p = &vtable_1591f0;
+        p->Init_00234590(0);
+        *(void**)p = &hulk_at_00413ff0;
         p->x = 0;
         p->y = 0;
         return p;
@@ -85,9 +85,9 @@ Condition* Condition::vfunc_5() {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_159230@fn_f8633f69@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_159230::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_159230;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041558c;
+    base1_dtor_0014d400();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

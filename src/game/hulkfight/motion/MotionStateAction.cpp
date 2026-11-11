@@ -15,12 +15,12 @@ class Params_17b020 {
   public:
     int x;
 };
-extern Params_17b020 TypeA_17b020;
-extern Params_17b020 TypeB_17b020;
+extern Params_17b020 hulk_at_00494b44;
+extern Params_17b020 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_17b020*, Params_17b020*, int);
 class Object_17b020 {
   public:
-    int Init(hulkfight::motion::MotionStateTrack*, hulk_intptr);
+    int Init_00173380(hulkfight::motion::MotionStateTrack*, hulk_intptr);
 };
 extern "C" Object_17b020* __cdecl FUN_0008d690(int);
 struct RefCounted_17b070 {
@@ -28,7 +28,7 @@ struct RefCounted_17b070 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17b070[];
+extern char hulk_at_00417dd4[];
 class MotionStateAction_17b070 {
   public:
     MotionStateAction_17b070* vfunc_2(int flag);
@@ -46,11 +46,11 @@ class MotionStateAction_17b070 {
 // sym: ?vfunc_10@MotionStateTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::MotionStateTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_17b020, &TypeB_17b020, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
         Object_17b020* p = FUN_0008d690(0x24);
         if (p)
-            return p->Init(this, c);
+            return p->Init_00173380(this, c);
     }
     return 0;
 }
@@ -62,7 +62,7 @@ namespace fn_fd31ee0f {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 MotionStateAction_17b070* MotionStateAction_17b070::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17b070;
+    *p = (hulk_intptr)&hulk_at_00417dd4;
     RefCounted_17b070* q = *(RefCounted_17b070* volatile*)&m_20;
     if (q != 0) {
         q->Release();

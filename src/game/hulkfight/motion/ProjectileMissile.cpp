@@ -14,12 +14,12 @@ namespace fn_ff485bc0 {} using namespace fn_ff485bc0;
 namespace fn_ff485bc0 {
 typedef unsigned char byte_19e8e0;
 struct Alloc_19e8e0 {
-    void f(void*, unsigned int);
+    void Fnf_0008ff00(void*, unsigned int);
 };
 namespace hulkfight { namespace motion {
 class ProjectileMissile {
   public:
-    void tick();
+    void tick_0019b460();
     virtual void a();
     virtual void b();
     virtual ProjectileMissile* vfunc_2(byte_19e8e0);
@@ -34,9 +34,9 @@ class ProjectileMissile {
 // 0x0019e8e0 hulkfight::motion::ProjectileMissile::vfunc_2 (37 B): matches/0x0019e8e0.cpp
 // sym: ?vfunc_2@ProjectileMissile@motion@hulkfight@fn_ff485bc0@@UAEPAV1234@E@Z
 hulkfight::motion::ProjectileMissile* hulkfight::motion::ProjectileMissile::vfunc_2(byte_19e8e0 flags) {
-    tick();
+    tick_0019b460();
     if (flags & 1)
-        (*(Alloc_19e8e0*)&DAT_004e2210).f(this, 0xdc);
+        (*(Alloc_19e8e0*)&DAT_004e2210).Fnf_0008ff00(this, 0xdc);
     return this;
 }
 

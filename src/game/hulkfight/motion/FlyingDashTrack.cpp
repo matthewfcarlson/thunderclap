@@ -10,7 +10,7 @@ namespace fn_fecf82fa {} using namespace fn_fecf82fa;
 
 // ---- declarations shared by the functions below
 namespace fn_fecf82fa {
-extern int* gTable_133980;
+extern int* hulk_at_004e0ec0;
 class CCondition_133980 {
   public:
     virtual int vfunc_0(int);
@@ -59,7 +59,7 @@ struct Track_1339e0 {
 // sym: ?vfunc_0@FlyingDashTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FlyingDashTrack::vfunc_0(int index) {
-    int* p = gTable_133980;
+    int* p = hulk_at_004e0ec0;
     return p[index];
 }
 

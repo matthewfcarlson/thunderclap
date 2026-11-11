@@ -29,11 +29,11 @@ class Cond {
   public:
     Cond(int);
 };
-extern int g_vftable_159a30;
+extern int hulk_at_004156dc;
 struct ConditionFactoryTemplate_159a30 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0014d9f0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -76,9 +76,9 @@ namespace fn_f4dd8c50 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_159a30@fn_f4dd8c50@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_159a30::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_159a30;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004156dc;
+    base1_dtor_0014d9f0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

@@ -13,16 +13,16 @@ namespace fn_fde03247 {} using namespace fn_fde03247;
 // ---- declarations shared by the functions below
 namespace fn_fde03247 {
 struct Tail_170030 {
-    void Init();
+    void Init_0027af50();
 };
 struct JointRelativeTrack_170030 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_170030;
-extern int* gTable_170070;
+extern void* hulk_at_00417958;
+extern int* hulk_at_004e1310;
 class CCondition_170070 {
   public:
     virtual int vfunc_0(int);
@@ -68,9 +68,9 @@ struct Track_1700f0 {
 // sym: ?Run@JointRelativeTrack_170030@fn_fde03247@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void JointRelativeTrack_170030::Run() {
-    vptr = &vftable_170030;
-    ((Tail_170030*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_00417958;
+    ((Tail_170030*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 
@@ -87,7 +87,7 @@ void FUN_00170050() {
 // sym: ?vfunc_0@SyncToLocatorTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::SyncToLocatorTrack::vfunc_0(int index) {
-    int* p = gTable_170070;
+    int* p = hulk_at_004e1310;
     return p[index];
 }
 

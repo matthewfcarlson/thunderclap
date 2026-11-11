@@ -9,7 +9,7 @@ namespace fn_f2aa30a1 {} using namespace fn_f2aa30a1;
 
 // ---- declarations shared by the functions below
 namespace fn_f2aa30a1 {
-extern int gA, gB;
+extern int hulk_at_0049850c, hulk_at_004ba0a8;
 extern "C" int __cdecl check(void*, int, const int*, const int*, int);
 } // namespace fn_f2aa30a1
 namespace fight {
@@ -29,7 +29,7 @@ class SyncToLocatorTrack_179020;
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::SyncToLocatorTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &gA, &gB, 0) != 0;
+    return check(p, 0, &hulk_at_0049850c, &hulk_at_004ba0a8, 0) != 0;
 }
 
 

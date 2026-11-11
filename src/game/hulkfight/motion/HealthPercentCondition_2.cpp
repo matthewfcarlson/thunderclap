@@ -43,11 +43,11 @@ class HealthPercentCondition_16e270 : public Condition_16e270 {
     int a;
     int b;
 };
-extern int g_vftable_16e2b0;
+extern int hulk_at_0041777c;
 struct ConditionFactoryTemplate_16e2b0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00166620();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -82,9 +82,9 @@ namespace fn_fe77683c {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_16e2b0@fn_fe77683c@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_16e2b0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_16e2b0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041777c;
+    base1_dtor_00166620();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

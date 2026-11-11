@@ -12,14 +12,14 @@ namespace fn_f659ad5b {} using namespace fn_f659ad5b;
 
 // ---- declarations shared by the functions below
 namespace fn_f659ad5b {
-extern "C" int vtable_170460;
+extern "C" int hulk_at_00417a48;
 class DriftToPositionTrack {
   public:
     hulk_intptr vf;
     char pad[0x24];
     int value;
     void f();
-    void tail();
+    void tail_00236d60();
 };
 extern "C" void __cdecl Free(void*);
 extern "C" void* __cdecl Alloc(hulk_uintptr);
@@ -39,7 +39,7 @@ class Obj {
   public:
     unsigned char Set(const char* p);
 };
-extern int* gTable_170500;
+extern int* hulk_at_004e1338;
 class CCondition_170500 {
   public:
     virtual int vfunc_0(int);
@@ -61,9 +61,9 @@ struct Track_170550 {
 // 0x00170460 FUN_00170460 (29 B): matches/0x00170460.cpp
 // sym: ?f@DriftToPositionTrack@fn_f659ad5b@@QAEXXZ
 void DriftToPositionTrack::f() {
-    vf = (hulk_intptr)&vtable_170460;
+    vf = (hulk_intptr)&hulk_at_00417a48;
     thunk(value);
-    tail();
+    tail_00236d60();
 }
 
 
@@ -95,7 +95,7 @@ void FUN_001704e0() {
 // sym: ?vfunc_0@DriftToHulkTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::DriftToHulkTrack::vfunc_0(int index) {
-    int* p = gTable_170500;
+    int* p = hulk_at_004e1338;
     return p[index];
 }
 

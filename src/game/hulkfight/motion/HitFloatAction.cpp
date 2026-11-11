@@ -79,7 +79,7 @@ public:
     float outB;
 };
 struct Two_14fd70 {
-    void* f();
+    void* Fnf_00059a40();
 };
 
 
@@ -305,7 +305,7 @@ bool HitFloatAction::vfunc_5(Arg1_14fad0 a, float dt)
 // Same code shape as 0x00134160 (propagated; names are from that function)
 void hulkfight::motion::HitFloatAction::vfunc_4() {
     void* x = (*(One * *)&this->f_20)->f();
-    void* y = ((Two_14fd70*)x)->f();
+    void* y = ((Two_14fd70*)x)->Fnf_00059a40();
     if (y)
         ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }

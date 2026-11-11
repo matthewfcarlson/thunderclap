@@ -36,17 +36,17 @@ class Obj_15a5e0 {
 extern "C" void* __cdecl alloc(hulk_uintptr);
 class Temp_15a5e0 {
   public:
-    void Init(int);
+    void Init_00234590(int);
 };
 class Tail_15a5e0 {
   public:
-    void Init();
+    void Init_0027af00();
 };
-extern int g_vftable_15a620;
+extern int hulk_at_004158b8;
 struct ConditionFactoryTemplate_15a620 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0014d900();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -75,10 +75,10 @@ namespace fn_ff9138b1 {
 void* Factory_vfunc5(Obj_15a5e0* self) {
     Obj_15a5e0* p = (Obj_15a5e0*)alloc(0x18);
     if (p) {
-        ((Temp_15a5e0*)p)->Init(0);
+        ((Temp_15a5e0*)p)->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00414170);
         *(int*)((char*)p + 0xc) = 0;
-        ((Tail_15a5e0*)((char*)p + 0x10))->Init();
+        ((Tail_15a5e0*)((char*)p + 0x10))->Init_0027af00();
         return p;
     }
     return 0;
@@ -89,9 +89,9 @@ void* Factory_vfunc5(Obj_15a5e0* self) {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_15a620@fn_ff9138b1@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_15a620::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_15a620;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004158b8;
+    base1_dtor_0014d900();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

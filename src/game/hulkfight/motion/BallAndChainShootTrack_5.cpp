@@ -25,9 +25,9 @@ class TrackFactoryTemplate_18c990 {
 extern "C" void FUN_0018abd0();
 typedef unsigned int U32_18c9d0;
 struct Obj_18c9d0 {
-    hulk_uintptr run();
+    hulk_uintptr run_001811b0();
 };
-extern int g_vftable_18c9f0;
+extern int hulk_at_0041a994;
 
 } // namespace fn_fca894c8
 
@@ -53,7 +53,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::BallAndCh
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::BallAndChainShootTrack>::vfunc_5() {
     Obj_18c9d0* p = (Obj_18c9d0*)operator new(0x98);
     if (p)
-        return (void*)(p->run());
+        return (void*)(p->run_001811b0());
     return (void*)(0);
 }
 
@@ -63,7 +63,7 @@ namespace fn_fca894c8 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fca894c8@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18c9f0;
+    m_vptr = (void*)&hulk_at_0041a994;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

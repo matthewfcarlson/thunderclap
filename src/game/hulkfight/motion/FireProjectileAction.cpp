@@ -34,7 +34,7 @@ class MissilePunchAction_199630 : public Action_199630 {
     MissilePunchAction_199630(int target, RefObj_199630* obj);
     virtual void Execute();
 };
-extern void* g_vftable_199680[];
+extern void* hulk_at_0041b51c[];
 class Ref_199680 {
   public:
     virtual void F0();
@@ -651,12 +651,12 @@ public:
 }
 namespace fn_f740ace1 {
 typedef unsigned int u32_19ada0;
-extern int TypeA_19ada0, TypeB;
+extern int hulk_at_00494b44, hulk_at_00494b60;
 struct Params_19ada0 {
-    int Init(hulkfight::motion::FireProjectileTrack*, void*);
+    int Init_00195100(hulkfight::motion::FireProjectileTrack*, void*);
 };
 extern void* Alloc(hulk_uintptr);
-extern void* g_vftable_19adf0[];
+extern void* hulk_at_0041b3d8[];
 class Ref_19adf0 {
   public:
     virtual void F0();
@@ -675,7 +675,7 @@ class Action_19adf0 {
   public:
     void* vptr;
 };
-void Free(void*) throw();
+void Free_0008d330(void*) throw();
 class FireProjectileAction_19adf0 : public Action_19adf0 {
   public:
     char pad[0x18];
@@ -799,7 +799,7 @@ public:
 extern "C" char DAT_0041b3f4[];
 class H {
   public:
-    void Fn(int);
+    void Fn_0027ffb0(int);
 };
 class ProjectileEffect {
   public:
@@ -820,11 +820,11 @@ class ProjectileEffect {
         virtual void B();
     };
     Obj* m24;
-    void Cleanup();
+    void Cleanup_001b6820();
 };
 class Global_19b350 {
   public:
-    void Free(void*, int);
+    void Free_0008ff00(void*, int);
 };
 extern H* __cdecl FUN_0027f250();
 extern Global_19b350* g_19b350;
@@ -837,15 +837,15 @@ extern Params_19b3c0 TypeB_19b3c0;
 int __cdecl Check(void*, int, Params_19b3c0*, Params_19b3c0*, int);
 class Object_19b3c0 {
   public:
-    int Init(hulkfight::motion::FireMissileTrack*, hulk_intptr);
+    int Init_00196220(hulkfight::motion::FireMissileTrack*, hulk_intptr);
 };
-Object_19b3c0* __cdecl Alloc(int);
+Object_19b3c0* __cdecl Alloc_0008d690(int);
 struct RefCounted_19b410 {
   public:
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_19b410[];
+extern char hulk_at_0041b414[];
 class FireMissileAction_19b410 {
   public:
     FireMissileAction_19b410* vfunc_2(int flag);
@@ -948,7 +948,7 @@ public:
     BeamState* state;
     void FUN_00197610(float dt);
 };
-extern void* g_vftable_19b830[];
+extern void* hulk_at_0041b4a0[];
 class Ref_19b830 {
   public:
     virtual void F0();
@@ -963,16 +963,16 @@ class BeamEffect_19b830 {
     BeamEffect_19b830* f2(unsigned char flags);
 };
 typedef unsigned int u32_19b870;
-extern int TypeA_19b870, TypeB;
+extern int TypeA_19b870, hulk_at_00494b60;
 struct Params_19b870 {
-    int Init(hulkfight::motion::AccuracyLatencyTrack*, void*);
+    int Init_001984c0(hulkfight::motion::AccuracyLatencyTrack*, void*);
 };
 struct RefCounted_19b8c0 {
   public:
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_19b8c0[];
+extern char hulk_at_0041b4a8[];
 class AccuracyLatencyAction_19b8c0 {
   public:
     AccuracyLatencyAction_19b8c0* vfunc_2(int flag);
@@ -988,7 +988,7 @@ struct RefCounted_19b960 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_19b960[];
+extern char hulk_at_0041b4c4[];
 class MissileThrowAction_19b960 {
   public:
     MissileThrowAction_19b960* vfunc_2(int flag);
@@ -1004,7 +1004,7 @@ struct RefCounted_19ba00 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_19ba00[];
+extern char hulk_at_0041b4e0[];
 class FireGroundShockwaveAction_19ba00 {
   public:
     FireGroundShockwaveAction_19ba00* vfunc_2(int flag);
@@ -1054,7 +1054,7 @@ MissilePunchAction_199630::MissilePunchAction_199630(int target, RefObj_199630* 
 // 0x00199680 FUN_00199680 (50 B): matches/0x00199680.cpp
 // sym: ??1MissilePunchAction_199680@fn_f740ace1@@QAE@XZ
 MissilePunchAction_199680::~MissilePunchAction_199680() {
-    vptr = g_vftable_199680;
+    vptr = hulk_at_0041b51c;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -2186,10 +2186,10 @@ void FUN_0019a8d0()
 // Same code shape as 0x00119fb0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FireProjectileTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_19ada0 a = (u32_19ada0)__p0; u32_19ada0 b = (u32_19ada0)__p1; void * p = (void *)__p2;
 
-    if (IsKindOf(p, 0, &TypeA_19ada0, &TypeB, 0)) {
-        Params_19ada0* q = (Params_19ada0*)Alloc(0x34);
+    if (IsKindOf(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+        Params_19ada0* q = (Params_19ada0*)Alloc_0008d690(0x34);
         if (q)
-            return q->Init(this, p);
+            return q->Init_00195100(this, p);
     }
     return 0;
 }
@@ -2199,7 +2199,7 @@ namespace fn_f740ace1 {
 // 0x0019adf0 hulkfight::motion::FireProjectileAction::vfunc_2 (95 B): matches/0x0019adf0.cpp
 // sym: ?f2@FireProjectileAction_19adf0@fn_f740ace1@@QAEPAV12@E@Z
 FireProjectileAction_19adf0* FireProjectileAction_19adf0::f2(unsigned char fl) {
-    vptr = g_vftable_19adf0;
+    vptr = hulk_at_0041b3d8;
     _ReadWriteBarrier();
     if (m2c) {
         m2c->Release();
@@ -2217,7 +2217,7 @@ FireProjectileAction_19adf0* FireProjectileAction_19adf0::f2(unsigned char fl) {
         m1c = 0;
     ((fight::Action *)(Action_19adf0 *)this)->FUN_002326a0();
     if (fl & 1)
-        Free(this);
+        Free_0008d330(this);
     return this;
 }
 
@@ -2383,7 +2383,7 @@ ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0041b3f4);
     if (m1c) {
         H* h = FUN_0027f250();
-        h->Fn(m1c);
+        h->Fn_0027ffb0(m1c);
     }
     if (m24) {
         m24->B();
@@ -2391,9 +2391,9 @@ ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
     }
     if (m18)
         m18 = 0;
-    Cleanup();
+    Cleanup_001b6820();
     if (flags & 1)
-        ((Global_19b350*)((hulk_intptr)DAT_004e2210))->Free(this, 0x50);
+        ((Global_19b350*)((hulk_intptr)DAT_004e2210))->Free_0008ff00(this, 0x50);
     return this;
 }
 
@@ -2405,9 +2405,9 @@ ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
 hulk_intptr hulkfight::motion::FireMissileTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_19b3c0, &TypeB_19b3c0, 0);
     if (result) {
-        Object_19b3c0* p = Alloc(0x24);
+        Object_19b3c0* p = Alloc_0008d690(0x24);
         if (p)
-            return p->Init(this, c);
+            return p->Init_00196220(this, c);
     }
     return 0;
 }
@@ -2419,7 +2419,7 @@ namespace fn_f740ace1 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 FireMissileAction_19b410* FireMissileAction_19b410::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_19b410;
+    *p = (hulk_intptr)&hulk_at_0041b414;
     RefCounted_19b410* q = *(RefCounted_19b410* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -2677,7 +2677,7 @@ bool FireBeamAction::vfunc_5(int phase, float dt)
 // 0x0019b830 hulkfight::motion::BeamEffect::vfunc_0 (64 B): matches/0x0019b830.cpp
 // sym: ?f2@BeamEffect_19b830@fn_f740ace1@@QAEPAV12@E@Z
 BeamEffect_19b830* BeamEffect_19b830::f2(unsigned char flags) {
-    vptr = g_vftable_19b830;
+    vptr = hulk_at_0041b4a0;
     _ReadWriteBarrier();
     if (m14) {
         m14->Release();
@@ -2697,10 +2697,10 @@ BeamEffect_19b830* BeamEffect_19b830::f2(unsigned char flags) {
 // Same code shape as 0x00119fb0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::AccuracyLatencyTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_19b870 a = (u32_19b870)__p0; u32_19b870 b = (u32_19b870)__p1; void * p = (void *)__p2;
 
-    if (IsKindOf(p, 0, &TypeA_19b870, &TypeB, 0)) {
-        Params_19b870* q = (Params_19b870*)Alloc(0x34);
+    if (IsKindOf(p, 0, &TypeA_19b870, &hulk_at_00494b60, 0)) {
+        Params_19b870* q = (Params_19b870*)Alloc_0008d690(0x34);
         if (q)
-            return q->Init(this, p);
+            return q->Init_001984c0(this, p);
     }
     return 0;
 }
@@ -2712,7 +2712,7 @@ namespace fn_f740ace1 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 AccuracyLatencyAction_19b8c0* AccuracyLatencyAction_19b8c0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_19b8c0;
+    *p = (hulk_intptr)&hulk_at_0041b4a8;
     RefCounted_19b8c0* q = *(RefCounted_19b8c0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -2734,7 +2734,7 @@ AccuracyLatencyAction_19b8c0* AccuracyLatencyAction_19b8c0::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 MissileThrowAction_19b960* MissileThrowAction_19b960::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_19b960;
+    *p = (hulk_intptr)&hulk_at_0041b4c4;
     RefCounted_19b960* q = *(RefCounted_19b960* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -2756,7 +2756,7 @@ MissileThrowAction_19b960* MissileThrowAction_19b960::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 FireGroundShockwaveAction_19ba00* FireGroundShockwaveAction_19ba00::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_19ba00;
+    *p = (hulk_intptr)&hulk_at_0041b4e0;
     RefCounted_19ba00* q = *(RefCounted_19ba00* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -2795,12 +2795,12 @@ struct ThisCall_00198ab0 {
     void FUN_00198ab0();
 };
 struct Alloc_19bbd0 {
-    void f(void*, int);
+    void Fnf_0008ff00(void*, int);
 };
 ProjectileGroundShockwave* ProjectileGroundShockwave::vfunc_2(unsigned char flags) {
     ((ThisCall_00198ab0*)(this))->FUN_00198ab0();
     if (flags & 1)
-        ((Alloc_19bbd0*)((hulk_intptr)DAT_004e2210))->f(this, 0xc0);
+        ((Alloc_19bbd0*)((hulk_intptr)DAT_004e2210))->Fnf_0008ff00(this, 0xc0);
     return this;
 }
 } // namespace fn_0019bbd0

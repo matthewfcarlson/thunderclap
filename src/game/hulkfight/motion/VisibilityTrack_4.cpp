@@ -37,8 +37,8 @@ struct Track_17ed70 {
     int y;
     unsigned char z;
 };
-extern void __fastcall init(Track_17ed70*);
-extern int g_vftable_17edb0;
+extern void __fastcall init_00236d40(Track_17ed70*);
+extern int hulk_at_00418fd8;
 
 } // namespace fn_f50f90cf
 
@@ -64,7 +64,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Visibilit
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::VisibilityTrack>::vfunc_5() {
     Track_17ed70* p = (Track_17ed70*)FUN_0008d690((int)sizeof(Track_17ed70));
     if (p) {
-        init(p);
+        init_00236d40(p);
         p->z = 1;
         p->x = 1;
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00417d48);
@@ -80,7 +80,7 @@ namespace fn_f50f90cf {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f50f90cf@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17edb0;
+    m_vptr = (void*)&hulk_at_00418fd8;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

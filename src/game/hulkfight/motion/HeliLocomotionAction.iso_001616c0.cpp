@@ -6,7 +6,7 @@
 // 0x001616c0 hulkfight::motion::ClimbLocomotionAction::vfunc_2 (95 B): matches/0x001616c0.cpp [isolated: conflict: ClimbLocomotionAction; on include/gen/ and not mergeable]
 // sym: ?vfunc_2@ClimbLocomotionAction@@QAEPAU1@E@Z
 #include "gen/fight.h"
-extern void* g_vt_1616c0[];
+extern void* hulk_at_00415bd0[];
 
 class RefObj_1616c0 {
   public:
@@ -14,7 +14,7 @@ class RefObj_1616c0 {
     virtual void Release();
 };
 
-void __cdecl DeleteObj(void*);
+void __cdecl DeleteObj_0008d330(void*);
 
 struct ClimbLocomotionAction {
     void* mVptr;
@@ -28,7 +28,7 @@ struct ClimbLocomotionAction {
 ClimbLocomotionAction* ClimbLocomotionAction::vfunc_2(unsigned char flags) {
     volatile ClimbLocomotionAction* v = this;
     RefObj_1616c0* p;
-    v->mVptr = g_vt_1616c0;
+    v->mVptr = hulk_at_00415bd0;
     p = v->m24;
     if (p) {
         p->Release();
@@ -46,7 +46,7 @@ ClimbLocomotionAction* ClimbLocomotionAction::vfunc_2(unsigned char flags) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flags & 1)
-        DeleteObj(this);
+        DeleteObj_0008d330(this);
     return this;
 }
 

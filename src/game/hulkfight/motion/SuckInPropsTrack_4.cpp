@@ -27,7 +27,7 @@ extern "C" char DAT_00417c58[];
 extern "C" void* __cdecl alloc(hulk_uintptr);
 class S_17e9c0 {
   public:
-    void Init();
+    void Init_00236d40();
     hulk_intptr vp;
     int unk4;
     int unk8;
@@ -37,7 +37,7 @@ class S_17e9c0 {
     float f18;
     float f1c;
 };
-extern int g_vftable_17ea10;
+extern int hulk_at_00418f4c;
 
 } // namespace fn_f047e9f1
 
@@ -64,7 +64,7 @@ namespace fn_f047e9f1 {
 S_17e9c0* __cdecl target() {
     S_17e9c0* p = (S_17e9c0*)alloc(0x20);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->vp = ((hulk_intptr)DAT_00417c58);
         p->f0c = 0;
         p->f10 = -1.0f;
@@ -82,7 +82,7 @@ S_17e9c0* __cdecl target() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f047e9f1@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17ea10;
+    m_vptr = (void*)&hulk_at_00418f4c;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

@@ -10,7 +10,7 @@ namespace fn_fb2d01ed {} using namespace fn_fb2d01ed;
 // ---- declarations shared by the functions below
 namespace fn_fb2d01ed {
 struct Two_1717f0 {
-    void* f();
+    void* Fnf_00059a40();
 };
 
 } // namespace fn_fb2d01ed
@@ -244,7 +244,7 @@ bool JointRelativeAction::vfunc_5(int mode, float delta) {
 // Same code shape as 0x00134160 (propagated; names are from that function)
 void hulkfight::motion::JointRelativeAction::vfunc_4() {
     void* x = (*(One * *)&this->f_20)->f();
-    void* y = ((Two_1717f0*)x)->f();
+    void* y = ((Two_1717f0*)x)->Fnf_00059a40();
     if (y)
         ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }

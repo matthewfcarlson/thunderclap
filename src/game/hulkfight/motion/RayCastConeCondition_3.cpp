@@ -50,7 +50,7 @@ class GrappleReactionTypeCondition_16a4f0 {};
 } }
 namespace fn_fe650bd9 {
 extern int __cdecl check(void*, int, void*, void*, int);
-extern int a, b;
+extern int hulk_at_00491ca8, hulk_at_004b6dc8;
 
 } // namespace fn_fe650bd9
 
@@ -106,7 +106,7 @@ template <> fight::ParamEnumConstList<hulkfight::motion::GrappleReactionTypeCond
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VRayCastConeCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::RayCastConeCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &a, &b, 0) != 0;
+    return check(p, 0, &hulk_at_00491ca8, &hulk_at_004b6dc8, 0) != 0;
 }
 
 

@@ -17,7 +17,7 @@ class TeleportToLocatorTrack_170dc0 {
     int* vptr;
     char pad[12];
     int mArg;
-    void finish();
+    void finish_00236d60();
     void run();
 };
 extern "C" void __cdecl FUN_0008d340(void *);
@@ -27,7 +27,7 @@ struct TextHolder {
     char *text;
     bool SetText_00170de0(const char *value);
 };
-extern int* gTable_170e60;
+extern int* hulk_at_004e13a8;
 class CCondition_170e60 {
   public:
     virtual int vfunc_0(int);
@@ -67,7 +67,7 @@ struct Track_170eb0 {
 void TeleportToLocatorTrack_170dc0::run() {
     vptr = &rawVtable;
     thunk(mArg);
-    finish();
+    finish_00236d60();
 }
 
 
@@ -106,7 +106,7 @@ void FUN_00170e40() {
 // sym: ?vfunc_0@ChargeClearTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::ChargeClearTrack::vfunc_0(int index) {
-    int* p = gTable_170e60;
+    int* p = hulk_at_004e13a8;
     return p[index];
 }
 

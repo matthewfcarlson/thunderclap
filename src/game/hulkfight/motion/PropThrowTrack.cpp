@@ -12,7 +12,7 @@ namespace fn_fb360e22 {} using namespace fn_fb360e22;
 
 // ---- declarations shared by the functions below
 namespace fn_fb360e22 {
-extern int* gTable_180ef0;
+extern int* hulk_at_004e1498;
 class CCondition_180ef0 {
   public:
     virtual int vfunc_0(int);
@@ -44,7 +44,7 @@ void FUN_00180ed0() {
 // sym: ?vfunc_0@PropThrowTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropThrowTrack::vfunc_0(int index) {
-    int* p = gTable_180ef0;
+    int* p = hulk_at_004e1498;
     return p[index];
 }
 

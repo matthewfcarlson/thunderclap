@@ -26,7 +26,7 @@ extern "C" void FUN_001876f0();
 extern "C" char DAT_0041914c[];
 class SmartPropGrabbableCondition {
   public:
-    void Init(int);
+    void Init_00234590(int);
     void* vf;
     char pad0[0xc - 4];
     unsigned char b0c;
@@ -44,11 +44,11 @@ class SmartPropGrabbableCondition {
     char pad5[3];
     int i28;
 };
-extern int g_vftable_18b7f0;
+extern int hulk_at_0041a6a0;
 struct ConditionFactoryTemplate_18b7f0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00180610();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -77,7 +77,7 @@ namespace fn_fe0fc732 {
 SmartPropGrabbableCondition* vfunc_5() {
     SmartPropGrabbableCondition* p = (SmartPropGrabbableCondition*)operator new(sizeof(SmartPropGrabbableCondition));
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->b0c = 0;
         p->i10 = 0;
         p->b14 = 0;
@@ -99,9 +99,9 @@ SmartPropGrabbableCondition* vfunc_5() {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_18b7f0@fn_fe0fc732@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_18b7f0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18b7f0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041a6a0;
+    base1_dtor_00180610();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

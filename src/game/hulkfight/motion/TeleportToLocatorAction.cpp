@@ -11,16 +11,16 @@ namespace fn_f87ef82d {} using namespace fn_f87ef82d;
 // ---- declarations shared by the functions below
 namespace fn_f87ef82d {
 struct B_171d10 {
-    int go();
+    int go_00059a30();
 };
 struct A_171d10 {
-    B_171d10* go();
+    B_171d10* go_000592a0();
 };
 struct C_171d10 {
-    void go(const char*);
+    void go_0027b040(const char*);
 };
 struct D {
-    void go(void*, int);
+    void go_00036e70(void*, int);
 };
 class Locator {
   public:
@@ -29,7 +29,7 @@ class Locator {
 };
 class Helper_171d70 {
   public:
-    int invoke(int);
+    int invoke_0027b040(int);
 };
 class TeleportToLocatorAction {
   public:
@@ -49,12 +49,12 @@ class TeleportToLocatorAction {
 // 0x00171d10 hulkfight::motion::TeleportRelativeAction::vfunc_3 (74 B): matches/0x00171d10.cpp
 // sym: ?vfunc_3@TeleportRelativeAction@motion@hulkfight@@UAE_NHH@Z
 bool hulkfight::motion::TeleportRelativeAction::vfunc_3(hulk_intptr __p0, hulk_intptr ) {
-    hulk_intptr r = (*(A_171d10 * *)&this->f_20)->go()->go();
-    ((C_171d10*)((char*)this + 0x28))->go("teleport_failed");
+    hulk_intptr r = (*(A_171d10 * *)&this->f_20)->go_000592a0()->go_00059a30();
+    ((C_171d10*)((char*)this + 0x28))->go_0027b040("teleport_failed");
     if (!(*(A_171d10 * *)&this->f_20))
         return false;
     if (r)
-        ((D*)r)->go((char*)this + 0x28, 0);
+        ((D*)r)->go_00036e70((char*)this + 0x28, 0);
     return true;
 }
 
@@ -71,7 +71,7 @@ void FUN_00171d60() {}
 bool TeleportToLocatorAction::vfunc_3(int a, int b) {
     if (!active)
         return false;
-    helper.invoke(locator->value);
+    helper.invoke_0027b040(locator->value);
     return true;
 }
 

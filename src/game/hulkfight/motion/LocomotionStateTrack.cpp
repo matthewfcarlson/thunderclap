@@ -13,7 +13,7 @@ namespace fn_f8b7fc8f {} using namespace fn_f8b7fc8f;
 
 // ---- declarations shared by the functions below
 namespace fn_f8b7fc8f {
-extern int* gTable_170260;
+extern int* hulk_at_004e1320;
 class CCondition_170260 {
   public:
     virtual int vfunc_0(int);
@@ -48,7 +48,7 @@ void FUN_00170240() {
 // sym: ?vfunc_0@LocomotionStateTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::LocomotionStateTrack::vfunc_0(int index) {
-    int* p = gTable_170260;
+    int* p = hulk_at_004e1320;
     return p[index];
 }
 

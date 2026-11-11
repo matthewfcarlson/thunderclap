@@ -89,8 +89,8 @@ class HitDamageTrack_154ee0 {};
 namespace fn_ff72ca8e {
 extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(const char*, int, const void*, const void*, int);
 extern char DAT_004b3518;
-extern int gOne;
-extern int gTwo;
+extern int hulk_at_0049850c;
+extern int hulk_at_004b35c0;
 extern "C" void* __cdecl Search(void*, int, int*, int*, int);
 } // namespace fn_ff72ca8e
 namespace fight {
@@ -312,10 +312,10 @@ extern "C" char DAT_00414ad0[];
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 class Param {
   public:
-    void Init(const char*);
+    void Init_00234cc0(const char*);
     char pad[0x20];
 };
-extern "C" void __cdecl Register(void*, void**, int);
+extern "C" void __cdecl Register_002347b0(void*, void**, int);
 } // namespace fn_ff72ca8e
 namespace hulkfight { namespace motion {
 class InterruptAccumulatorSetTrack_155c30 {
@@ -580,7 +580,7 @@ struct RefCounted_156ca0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_156ca0[];
+extern char hulk_at_00414510[];
 class InterruptAccumulatorSetAction_156ca0 {
   public:
     InterruptAccumulatorSetAction_156ca0* vfunc_2(int flag);
@@ -596,7 +596,7 @@ struct RefCounted_156d40 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_156d40[];
+extern char hulk_at_0041452c[];
 class InterruptPriorityAction_156d40 {
   public:
     InterruptPriorityAction_156d40* vfunc_2(int flag);
@@ -612,7 +612,7 @@ struct RefCounted_156de0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_156de0[];
+extern char hulk_at_00414548[];
 class HitWaitAction_156de0 {
   public:
     HitWaitAction_156de0* vfunc_2(int flag);
@@ -627,7 +627,7 @@ extern int FUN_00344e74(int, int, const void*, const void*, int);
 extern void* FUN_0008d690(int);
 class AllocObj_156e30 {
   public:
-    int init(hulkfight::motion::GroundSlideTrack*, hulk_intptr);
+    int init_00151180(hulkfight::motion::GroundSlideTrack*, hulk_intptr);
 };
 
 } // namespace fn_ff72ca8e
@@ -800,7 +800,7 @@ template <> fight::ParamFloatConstRange<hulkfight::motion::HitDamageTrack>::~Par
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::GroundSlideTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Search(p, 0, &gOne, &gTwo, 0) != 0;
+    return Search(p, 0, &hulk_at_0049850c, &hulk_at_004b35c0, 0) != 0;
 }
 
 
@@ -1145,7 +1145,7 @@ extern "C" void FUN_00155bb0() {
     Param* p = (Param*)Alloc(0x20);
     if (p) {
         int v = (*(int*)&DAT_00427754);
-        p->Init("compare");
+        p->Init_00234cc0("compare");
         *(int*)((char*)p + 0x14) = v;
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00414ad0);
         *(hulk_intptr*)((char*)p + 0x10) = ((hulk_intptr)((char*)&DAT_0042773c));
@@ -1153,7 +1153,7 @@ extern "C" void FUN_00155bb0() {
         tmp = p;
     } else
         tmp = 0;
-    Register(((void**)&DAT_004e10c0), &tmp, 1);
+    Register_002347b0(((void**)&DAT_004e10c0), &tmp, 1);
     ++(*(int*)&DAT_004e10c4);
 }
 
@@ -1577,7 +1577,7 @@ extern "C" void FUN_00156bb0()
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 InterruptAccumulatorSetAction_156ca0* InterruptAccumulatorSetAction_156ca0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_156ca0;
+    *p = (hulk_intptr)&hulk_at_00414510;
     RefCounted_156ca0* q = *(RefCounted_156ca0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -1599,7 +1599,7 @@ InterruptAccumulatorSetAction_156ca0* InterruptAccumulatorSetAction_156ca0::vfun
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 InterruptPriorityAction_156d40* InterruptPriorityAction_156d40::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_156d40;
+    *p = (hulk_intptr)&hulk_at_0041452c;
     RefCounted_156d40* q = *(RefCounted_156d40* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -1621,7 +1621,7 @@ InterruptPriorityAction_156d40* InterruptPriorityAction_156d40::vfunc_2(int flag
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 HitWaitAction_156de0* HitWaitAction_156de0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_156de0;
+    *p = (hulk_intptr)&hulk_at_00414548;
     RefCounted_156de0* q = *(RefCounted_156de0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -1646,7 +1646,7 @@ hulk_intptr hulkfight::motion::GroundSlideTrack::vfunc_10(hulk_intptr a, hulk_in
     if (FUN_00344e74(c, 0, &RTTI_Type1, &RTTI_Type2, 0)) {
         AllocObj_156e30* p = (AllocObj_156e30*)FUN_0008d690(0x2c);
         if (p)
-            return p->init(this, c);
+            return p->init_00151180(this, c);
     }
     return 0;
 }

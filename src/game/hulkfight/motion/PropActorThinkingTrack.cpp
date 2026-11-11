@@ -14,16 +14,16 @@ namespace fn_f952d83d {} using namespace fn_f952d83d;
 // ---- declarations shared by the functions below
 namespace fn_f952d83d {
 struct Tail_180c50 {
-    void Init();
+    void Init_0027af50();
 };
 struct PropSetStateByNameTrack_180c50 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_180c50;
-extern int* gTable_180c90;
+extern void* hulk_at_004192fc;
+extern int* hulk_at_004e1478;
 class CCondition_180c90 {
   public:
     virtual int vfunc_0(int);
@@ -47,9 +47,9 @@ class PropActorThinkingTrack : public Track_180ca0 {
 // sym: ?Run@PropSetStateByNameTrack_180c50@fn_f952d83d@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void PropSetStateByNameTrack_180c50::Run() {
-    vptr = &vftable_180c50;
-    ((Tail_180c50*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_004192fc;
+    ((Tail_180c50*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 
@@ -66,7 +66,7 @@ void FUN_00180c70() {
 // sym: ?vfunc_0@PropActorThinkingTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropActorThinkingTrack::vfunc_0(int index) {
-    int* p = gTable_180c90;
+    int* p = hulk_at_004e1478;
     return p[index];
 }
 

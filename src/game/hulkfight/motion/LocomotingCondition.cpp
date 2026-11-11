@@ -14,38 +14,38 @@ namespace fn_f7eb5c06 {} using namespace fn_f7eb5c06;
 
 // ---- declarations shared by the functions below
 namespace fn_f7eb5c06 {
-extern int* gTable_15b780;
+extern int* hulk_at_004e1158;
 class CCondition_15b780 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_15b7e0;
+extern int* hulk_at_004e1160;
 class CCondition_15b7e0 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable_15b820[];
+extern void* hulk_at_00415970[];
 class Str_15b820 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Condition_15b820 {
   public:
     void* vptr;
     char pad[12];
     Str_15b820 s;
-    void Fin();
+    void Fin_002345b0();
 };
 class JointPlantedCondition_15b820 : public Condition_15b820 {
   public:
     ~JointPlantedCondition_15b820();
 };
-extern int* gTable_15b860;
+extern int* hulk_at_004e1168;
 class CCondition_15b860 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_15b8d0;
+extern int* hulk_at_004e1170;
 class CCondition_15b8d0 {
   public:
     virtual int vfunc_0(int);
@@ -75,7 +75,7 @@ struct Track_15b920 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_15b960;
+extern int* hulk_at_004e1178;
 class CCondition_15b960 {
   public:
     virtual int vfunc_0(int);
@@ -104,7 +104,7 @@ struct ClimbLocomotion4Track_15ba50 : Track_15ba50 {
     T_15ba50 m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10;
     ~ClimbLocomotion4Track_15ba50() throw();
 };
-extern int* gTable_15bae0;
+extern int* hulk_at_004e1180;
 class CCondition_15bae0 {
   public:
     virtual int vfunc_0(int);
@@ -135,7 +135,7 @@ class LocomotionStrafe4Track_15bbe0 : public Track_15bbe0 {
     virtual ~LocomotionStrafe4Track_15bbe0() throw();
     Elem_15bbe0 a, b, c, d, e, f, g, h, i, j, k;
 };
-extern int* gTable_15bc80;
+extern int* hulk_at_004e1188;
 class CCondition_15bc80 {
   public:
     virtual int vfunc_0(int);
@@ -185,12 +185,12 @@ struct Track_15bdd0 {
     virtual void tfunc9();
 };
 struct Sub_15bde0 {
-    void init();
+    void init_0027af50();
 };
 struct HeliLocomotionTrack_nv_15bde0 {
-    void parent();
+    void parent_00236d60();
 };
-extern int* gTable_15be20;
+extern int* hulk_at_004e1190;
 class CCondition_15be20 {
   public:
     virtual int vfunc_0(int);
@@ -210,12 +210,12 @@ struct Track_15bec0 {
 struct Sub_15bed0 {
     int a;
     int b;
-    void Clear();
+    void Clear_0027af50();
 };
 class LocomotionSteerTrack {
   public:
     virtual ~LocomotionSteerTrack();
-    void BaseDtor();
+    void BaseDtor_00236d60();
     char pad0[0x24];
     Sub_15bed0 m28;
     Sub_15bed0 m30;
@@ -224,7 +224,7 @@ class LocomotionSteerTrack {
     char pad1[0x8];
     Sub_15bed0 m50;
 };
-extern int* gTable_15bf30;
+extern int* hulk_at_004e1198;
 class CCondition_15bf30 {
   public:
     virtual int vfunc_0(int);
@@ -244,15 +244,15 @@ struct Track_15bfc0 {
 extern "C" char DAT_00415aa0[];
 struct Sub_15bfd0 {
     char pad[8];
-    void init();
+    void init_0027af50();
 };
 class LocomotionSprintTrack {
   public:
     char a[0x30];
     Sub_15bfd0 s0, s1, s2, s3, s4;
-    void finish();
+    void finish_00236d60();
 };
-extern int* gTable_15c030;
+extern int* hulk_at_004e11a0;
 class CCondition_15c030 {
   public:
     virtual int vfunc_0(int);
@@ -294,11 +294,11 @@ struct Track_15c0b0 {
 extern "C" char DAT_00415ad0[];
 class Base_15c0c0 {
   public:
-    void Fin();
+    void Fin_00236d60();
 };
 class Member_15c0c0 {
   public:
-    void Rel();
+    void Rel_0027af50();
     int pad[2];
 };
 class GrappleLocomotionSteerTrack {
@@ -317,12 +317,12 @@ struct A {
     int n;
 };
 struct B {
-    A* get();
+    A* get_00059a30();
 };
 struct C {
-    B* get();
+    B* get_000592a0();
 };
-extern int t1, t2;
+extern int hulk_at_00494b44, hulk_at_00494b60;
 extern "C" void* __cdecl cast(void*, int, void*, void*, int);
 struct Table_15c2a0 {
     char pad0[0x2c];
@@ -345,17 +345,17 @@ public:
     void FUN_0015c2a0(float a0, float a1, float a2, float a3, float a4, float a5);
 };
 struct A_15c460 {
-    void* f592();
+    void* f592_000592a0();
 };
 struct C_15c460 {
-    void f22(void*, int, float);
+    void f22_00222b50(void*, int, float);
 };
 struct D {
-    void f359(int);
+    void f359_00035980(int);
 };
 struct B_15c460 {
-    C_15c460* f9a40();
-    D* f9a30();
+    C_15c460* f9a40_00059a40();
+    D* f9a30_00059a30();
 };
 struct Data_15c4c0 {
     char pad[0x14];
@@ -371,13 +371,13 @@ class C_15c4f0 {
 };
 class Handle_15c540 {
   public:
-    void set(int, int, int);
-    void act(int);
+    void set_00222b50(int, int, int);
+    void act_00035980(int);
 };
 class Ref_15c540 {
   public:
-    Handle_15c540* first();
-    Handle_15c540* second();
+    Handle_15c540* first_00059a40();
+    Handle_15c540* second_00059a30();
 };
 class Manager_15c540 {
   public:
@@ -392,19 +392,19 @@ class A_15c590 {
 };
 class Obj_15c600 {
   public:
-    Obj_15c600* first();
-    Obj_15c600* second();
+    Obj_15c600* first_00059a40();
+    Obj_15c600* second_00059a30();
 };
 class Manager_15c600 {
   public:
 };
 class Setter_15c600 {
   public:
-    void set(hulk_intptr, int, int);
+    void set_00222b50(hulk_intptr, int, int);
 };
 class Fin {
   public:
-    void finish(int);
+    void finish_00035980(int);
 };
 extern TypeDescriptor DAT_0048d534;
 extern TypeDescriptor DAT_004b3b20;
@@ -419,10 +419,10 @@ struct Actor_15c670 {  };
 struct A_15c740 {
 };
 struct B_15c740 {
-    void* Next();
+    void* Next_00059a40();
 };
 struct C_15c740 {
-    void Apply(void*, int, float);
+    void Apply_00222b50(void*, int, float);
 };
 struct Table_15c780 {
     char pad0[0x2c];
@@ -446,15 +446,15 @@ public:
     void FUN_0015c780(float a0, float a1, float a2, float a3, float a4, float a5);
 };
 struct Sub_15c940 {
-    void setA(int a, int b, float c);
-    void setB(int a, int b);
+    void setA_00222b50(int a, int b, float c);
+    void setB_00222970(int a, int b);
 };
 struct Child_15c940 {
-    void doIt(int a);
+    void doIt_00035980(int a);
 };
 struct Obj_15c940 {
-    Sub_15c940* make();
-    Child_15c940* child();
+    Sub_15c940* make_00059a40();
+    Child_15c940* child_00059a30();
 };
 struct Mgr_15c940 {
 };
@@ -484,38 +484,38 @@ struct HeliLocomotionAction {
 struct Sub1_15cb40;
 struct Sub2_15cb40;
 struct Mid_15cb40 {
-    Sub1_15cb40* A();
-    Sub2_15cb40* B();
+    Sub1_15cb40* FnA_00059a40();
+    Sub2_15cb40* FnB_00059a30();
 };
 struct Mgr_15cb40 {
 };
 struct Sub1_15cb40 {
-    void Init(int a, int b);
+    void Init_00222970(int a, int b);
 };
 struct Sub2_15cb40 {
-    void Fin(int a);
+    void Fin_00035980(int a);
 };
 class A_15cb80 {
   public:
 };
 class B_15cb80 {
   public:
-    int second();
-    void third(int);
+    int second_00059a30();
+    void third_00035980(int);
 };
 struct A_15cbb0 {
     void* x;
 };
 struct B_15cbb0 {
-    void* GetNext();
+    void* GetNext_00059a30();
 };
 struct C_15cbb0 {
-    void DoThing(int);
+    void DoThing_00035980(int);
 };
-extern void* Condition_15cce0_vftable[];
+extern void* hulk_at_00415950[];
 class Condition_15cce0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class LocomotingCondition_15cce0 : public Condition_15cce0 {
   public:
@@ -528,7 +528,7 @@ class LocomotingCondition_15cce0 : public Condition_15cce0 {
 // sym: ?vfunc_0@LocomotingCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::LocomotingCondition::vfunc_0(int index) {
-    int* p = gTable_15b780;
+    int* p = hulk_at_004e1158;
     return p[index];
 }
 
@@ -547,7 +547,7 @@ void FUN_0015b7c0() {
 // sym: ?vfunc_0@JointPlantedCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::JointPlantedCondition::vfunc_0(int index) {
-    int* p = gTable_15b7e0;
+    int* p = hulk_at_004e1160;
     return p[index];
 }
 
@@ -556,9 +556,9 @@ namespace fn_f7eb5c06 {
 // 0x0015b820 FUN_0015b820 (25 B): matches/0x0015b820.cpp
 // sym: ??1JointPlantedCondition_15b820@fn_f7eb5c06@@QAE@XZ
 JointPlantedCondition_15b820::~JointPlantedCondition_15b820() {
-    vptr = g_vftable_15b820;
-    s.Init();
-    Fin();
+    vptr = hulk_at_00415970;
+    s.Init_0027af50();
+    Fin_002345b0();
 }
 
 
@@ -575,7 +575,7 @@ void FUN_0015b840() {
 // sym: ?vfunc_0@PhaseCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PhaseCondition::vfunc_0(int index) {
-    int* p = gTable_15b860;
+    int* p = hulk_at_004e1168;
     return p[index];
 }
 
@@ -594,7 +594,7 @@ void FUN_0015b8b0() {
 // sym: ?vfunc_0@LocomotingTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::LocomotingTrack::vfunc_0(int index) {
-    int* p = gTable_15b8d0;
+    int* p = hulk_at_004e1170;
     return p[index];
 }
 
@@ -641,7 +641,7 @@ void FUN_0015b940() {
 // sym: ?vfunc_0@ClimbLocomotion4Track@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::ClimbLocomotion4Track::vfunc_0(int index) {
-    int* p = gTable_15b960;
+    int* p = hulk_at_004e1178;
     return p[index];
 }
 
@@ -737,7 +737,7 @@ void FUN_0015bac0() {
 // sym: ?vfunc_0@LocomotionStrafe4Track@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::LocomotionStrafe4Track::vfunc_0(int index) {
-    int* p = gTable_15bae0;
+    int* p = hulk_at_004e1180;
     return p[index];
 }
 
@@ -838,7 +838,7 @@ void FUN_0015bc60() {
 // sym: ?vfunc_0@HeliLocomotionTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HeliLocomotionTrack::vfunc_0(int index) {
-    int* p = gTable_15bc80;
+    int* p = hulk_at_004e1188;
     return p[index];
 }
 
@@ -908,8 +908,8 @@ hulk_freg hulkfight::motion::HeliLocomotionTrack::vfunc_7() {
 void hulkfight::motion::HeliLocomotionTrack::FUN_0015bde0() {
     Sub_15bde0* p = (Sub_15bde0*)((char*)this + 0xa0);
     *(volatile hulk_ulongptr*)this = ((hulk_intptr)DAT_00415a40);
-    p->init();
-    ((HeliLocomotionTrack_nv_15bde0*)this)->parent();
+    p->init_0027af50();
+    ((HeliLocomotionTrack_nv_15bde0*)this)->parent_00236d60();
 }
 
 namespace fn_f7eb5c06 {
@@ -927,7 +927,7 @@ void FUN_0015be00() {
 // sym: ?vfunc_0@LocomotionSteerTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::LocomotionSteerTrack::vfunc_0(int index) {
-    int* p = gTable_15be20;
+    int* p = hulk_at_004e1190;
     return p[index];
 }
 
@@ -1018,12 +1018,12 @@ namespace fn_f7eb5c06 {
 // 0x0015bed0 FUN_0015bed0 (57 B): matches/0x0015bed0.cpp
 // sym: ??1LocomotionSteerTrack@fn_f7eb5c06@@UAE@XZ
 LocomotionSteerTrack::~LocomotionSteerTrack() {
-    m50.Clear();
-    m40.Clear();
-    m38.Clear();
-    m30.Clear();
-    m28.Clear();
-    BaseDtor();
+    m50.Clear_0027af50();
+    m40.Clear_0027af50();
+    m38.Clear_0027af50();
+    m30.Clear_0027af50();
+    m28.Clear_0027af50();
+    BaseDtor_00236d60();
 }
 
 
@@ -1040,7 +1040,7 @@ void FUN_0015bf10() {
 // sym: ?vfunc_0@LocomotionSprintTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::LocomotionSprintTrack::vfunc_0(int index) {
-    int* p = gTable_15bf30;
+    int* p = hulk_at_004e1198;
     return p[index];
 }
 
@@ -1130,12 +1130,12 @@ namespace fn_f7eb5c06 {
 // sym: ?FUN_0015bfd0@fn_f7eb5c06@@YIXPAVLocomotionSprintTrack@1@PAX@Z
 void __fastcall FUN_0015bfd0(LocomotionSprintTrack* self, void*) {
     *(hulk_intptr*)self = ((hulk_intptr)DAT_00415aa0);
-    self->s4.init();
-    self->s3.init();
-    self->s2.init();
-    self->s1.init();
-    self->s0.init();
-    self->finish();
+    self->s4.init_0027af50();
+    self->s3.init_0027af50();
+    self->s2.init_0027af50();
+    self->s1.init_0027af50();
+    self->s0.init_0027af50();
+    self->finish_00236d60();
 }
 
 
@@ -1152,7 +1152,7 @@ void FUN_0015c010() {
 // sym: ?vfunc_0@GrappleLocomotionSteerTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::GrappleLocomotionSteerTrack::vfunc_0(int index) {
-    int* p = gTable_15c030;
+    int* p = hulk_at_004e11a0;
     return p[index];
 }
 
@@ -1186,12 +1186,12 @@ namespace fn_f7eb5c06 {
 // sym: ?Kill@GrappleLocomotionSteerTrack@fn_f7eb5c06@@QAEXXZ
 void GrappleLocomotionSteerTrack::Kill() {
     vf = ((hulk_intptr)DAT_00415ad0);
-    e.Rel();
-    d.Rel();
-    c.Rel();
-    b.Rel();
-    a.Rel();
-    ((Base_15c0c0*)this)->Fin();
+    e.Rel_0027af50();
+    d.Rel_0027af50();
+    c.Rel_0027af50();
+    b.Rel_0027af50();
+    a.Rel_0027af50();
+    ((Base_15c0c0*)this)->Fin_00236d60();
 }
 
 } // namespace fn_f7eb5c06
@@ -1200,9 +1200,9 @@ void GrappleLocomotionSteerTrack::Kill() {
 // sym: ?vfunc_6@LocomotingCondition@motion@hulkfight@@UAE_NPAX00@Z
 bool hulkfight::motion::LocomotingCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int x = (int)__p0; C * obj = (C *)__p1; int z = (int)__p2;
 
-    if (!cast(obj, 0, &t1, &t2, 0))
+    if (!cast(obj, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0))
         return false;
-    unsigned char v = obj->get()->get()->n > 0;
+    unsigned char v = obj->get_000592a0()->get_00059a30()->n > 0;
     return (unsigned char)(v - (*(unsigned char *)&this->f_0c)) == 0;
 }
 
@@ -1271,13 +1271,13 @@ void RangeSet_15c2a0::FUN_0015c2a0(float a0, float a1, float a2, float a3, float
 // sym: ?vfunc_4@LocomotionStrafeAction@motion@hulkfight@@UAEXXZ
 void hulkfight::motion::LocomotionStrafeAction::vfunc_4() {
     if ((*(void * *)&this->f_20)) {
-        B_15c460* b = (B_15c460*)(*(A_15c460 * *)&this->f_1c)->f592();
-        C_15c460* c = b->f9a40();
+        B_15c460* b = (B_15c460*)(*(A_15c460 * *)&this->f_1c)->f592_000592a0();
+        C_15c460* c = b->f9a40_00059a40();
         if (c) {
-            c->f22((*(void * *)&this->f_20), 0, -1.0f);
-            D* d = b->f9a30();
+            c->f22_00222b50((*(void * *)&this->f_20), 0, -1.0f);
+            D* d = b->f9a30_00059a30();
             if (d)
-                d->f359(0);
+                d->f359_00035980(0);
         }
     }
 }
@@ -1322,12 +1322,12 @@ hulk_freg C_15c4f0::f(float x) {
 void hulkfight::motion::LocomotionSprintAction::vfunc_4() {
     if (this->f_24) {
         Ref_15c540* x = ((Ref_15c540 *)((owners::Object_592a0 *)((*(Manager_15c540 * *)&this->f_20)))->FUN_000592a0());
-        Handle_15c540* h = x->first();
+        Handle_15c540* h = x->first_00059a40();
         if (h) {
-            h->set(this->f_24, 0, (int)0xbf800000);
-            h = x->second();
+            h->set_00222b50(this->f_24, 0, (int)0xbf800000);
+            h = x->second_00059a30();
             if (h)
-                h->act(0);
+                h->act_00035980(0);
         }
     }
 }
@@ -1356,13 +1356,13 @@ hulk_freg A_15c590::F(float v) {
 void hulkfight::motion::LocomotionSteerAction::vfunc_4() {
     if ((*(void * *)&this->f_24)) {
         Obj_15c600* edi = ((Obj_15c600 *)((owners::Object_592a0 *)(((Manager_15c600*)(*(void * *)&this->f_20))))->FUN_000592a0());
-        Obj_15c600* p = edi->first();
+        Obj_15c600* p = edi->first_00059a40();
         if (p) {
-            ((Setter_15c600*)p)->set((hulk_intptr)(*(void * *)&this->f_24), 0, (int)0xbf800000);
+            ((Setter_15c600*)p)->set_00222b50((hulk_intptr)(*(void * *)&this->f_24), 0, (int)0xbf800000);
             if (*((char*)(*(void * *)&this->f_1c) + 0x48)) {
-                p = edi->second();
+                p = edi->second_00059a30();
                 if (p)
-                    ((Fin*)p)->finish(0);
+                    ((Fin*)p)->finish_00035980(0);
             }
         }
     }
@@ -1407,9 +1407,9 @@ return false;
 void hulkfight::motion::GrappleLocomotionSteerAction::vfunc_4() {
     if ((*(void * *)&this->f_24)) {
         void* a = ((void *)((owners::Object_592a0 *)((*(A_15c740 * *)&this->f_20)))->FUN_000592a0());
-        void* b = ((B_15c740*)a)->Next();
+        void* b = ((B_15c740*)a)->Next_00059a40();
         if (b)
-            ((C_15c740*)b)->Apply((*(void * *)&this->f_24), 0, -1.0f);
+            ((C_15c740*)b)->Apply_00222b50((*(void * *)&this->f_24), 0, -1.0f);
     }
 }
 
@@ -1480,13 +1480,13 @@ void RangeSet_15c780::FUN_0015c780(float a0, float a1, float a2, float a3, float
 void hulkfight::motion::ClimbLocomotionAction::vfunc_4() {
     if (this->f_20) {
         Obj_15c940* o = ((Obj_15c940 *)((owners::Object_592a0 *)((*(Mgr_15c940 * *)&this->f_1c)))->FUN_000592a0());
-        Sub_15c940* s = o->make();
+        Sub_15c940* s = o->make_00059a40();
         if (s) {
-            s->setA(this->f_20, 0, -1.0f);
-            s->setB(this->f_24, 0);
-            Child_15c940* c = o->child();
+            s->setA_00222b50(this->f_20, 0, -1.0f);
+            s->setB_00222970(this->f_24, 0);
+            Child_15c940* c = o->child_00059a30();
             if (c)
-                c->doIt(0);
+                c->doIt_00035980(0);
         }
     }
 }
@@ -1583,12 +1583,12 @@ bool HeliLocomotionAction::vfunc_3(int,int) {
 // sym: ?vfunc_4@HeliLocomotionAction@motion@hulkfight@@UAEXXZ
 void hulkfight::motion::HeliLocomotionAction::vfunc_4() {
     Mid_15cb40* m = ((Mid_15cb40 *)((owners::Object_592a0 *)((*(Mgr_15cb40 * *)&this->f_20)))->FUN_000592a0());
-    Sub1_15cb40* s = m->A();
+    Sub1_15cb40* s = m->FnA_00059a40();
     if (s) {
-        s->Init(this->f_24, 0);
-        Sub2_15cb40* t = m->B();
+        s->Init_00222970(this->f_24, 0);
+        Sub2_15cb40* t = m->FnB_00059a30();
         if (t)
-            t->Fin(0);
+            t->Fin_00035980(0);
     }
 }
 
@@ -1602,10 +1602,10 @@ bool hulkfight::motion::LocomotingAction::vfunc_3(hulk_intptr __p0, hulk_intptr 
     x = ((int)((owners::Object_592a0 *)((*(A_15cb80 * *)&this->f_1c)))->FUN_000592a0());
     if (x == 0)
         return false;
-    x = ((B_15cb80*)x)->second();
+    x = ((B_15cb80*)x)->second_00059a30();
     if (x == 0)
         return false;
-    ((B_15cb80*)x)->third(1);
+    ((B_15cb80*)x)->third_00035980(1);
     return true;
 }
 
@@ -1617,9 +1617,9 @@ void hulkfight::motion::LocomotingAction::vfunc_4() {
     if (p) {
         B_15cbb0* q = (B_15cbb0*)((void *)((owners::Object_592a0 *)p)->FUN_000592a0());
         if (q) {
-            C_15cbb0* r = (C_15cbb0*)q->GetNext();
+            C_15cbb0* r = (C_15cbb0*)q->GetNext_00059a30();
             if (r)
-                r->DoThing(0);
+                r->DoThing_00035980(0);
         }
     }
 }
@@ -1632,8 +1632,8 @@ namespace fn_f7eb5c06 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 LocomotingCondition_15cce0* LocomotingCondition_15cce0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_15cce0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00415950;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

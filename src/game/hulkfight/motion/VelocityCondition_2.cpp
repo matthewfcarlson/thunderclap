@@ -27,17 +27,17 @@ extern "C" char DAT_004166b8[];
 extern "C" void* alloc(hulk_uintptr);
 class Condition {
   public:
-    void init(int);
+    void init_00234590(int);
 };
 class Template_16d4f0 {
   public:
     char pad[0x14];
 };
-extern int g_vftable_16d530;
+extern int hulk_at_0041754c;
 struct ConditionFactoryTemplate_16d530 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00165b70();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -66,7 +66,7 @@ namespace fn_f9fa62c7 {
 void* target(Template_16d4f0* self) {
     Condition* p = (Condition*)alloc(0x14);
     if (p) {
-        p->init(0);
+        p->init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_004166b8);
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0;
@@ -80,9 +80,9 @@ void* target(Template_16d4f0* self) {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_16d530@fn_f9fa62c7@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_16d530::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_16d530;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041754c;
+    base1_dtor_00165b70();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

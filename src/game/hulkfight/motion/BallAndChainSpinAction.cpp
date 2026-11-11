@@ -12,10 +12,10 @@ namespace fn_f86d6f14 {} using namespace fn_f86d6f14;
 // ---- declarations shared by the functions below
 namespace fn_f86d6f14 {
 struct Helper_182490 {
-    char* second();
+    char* second_00059a30();
 };
 struct Helper_1824c0 {
-    void* g();
+    void* Fng_00059a30();
 };
 
 } // namespace fn_f86d6f14
@@ -26,7 +26,7 @@ bool hulkfight::motion::PropThrowAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     if (!(*(Helper_182490 * *)&this->f_20))
         return false;
     Helper_182490* p = ((Helper_182490 *)((owners::Object_592a0 *)((*(Helper_182490 * *)&this->f_20)))->FUN_000592a0());
-    *(p->second() + 0x1f51) = 1;
+    *(p->second_00059a30() + 0x1f51) = 1;
     return true;
 }
 
@@ -36,7 +36,7 @@ bool hulkfight::motion::PropThrowAction::vfunc_3(hulk_intptr , hulk_intptr ) {
 bool hulkfight::motion::ShieldArcAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
     if ((*(Helper_1824c0 * *)&this->f_20)) {
         void* a = ((void *)((owners::Object_592a0 *)((*(Helper_1824c0 * *)&this->f_20)))->FUN_000592a0());
-        void* b = ((Helper_1824c0*)a)->g();
+        void* b = ((Helper_1824c0*)a)->Fng_00059a30();
         *(int*)((char*)b + 0x628) = *(int*)((char*)(*(void * *)&this->f_1c) + 0x10);
     }
     return false;

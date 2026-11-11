@@ -45,11 +45,11 @@ class GrappleReactionTypeCondition_16d910 : public BaseCondition {
 };
 } }
 namespace fn_fcd127ab {
-extern int g_vftable_16d950;
+extern int hulk_at_004175f4;
 struct ConditionFactoryTemplate_16d950 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00165ea0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -85,9 +85,9 @@ namespace fn_fcd127ab {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_16d950@fn_fcd127ab@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_16d950::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_16d950;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004175f4;
+    base1_dtor_00165ea0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

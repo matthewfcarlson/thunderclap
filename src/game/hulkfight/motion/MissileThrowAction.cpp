@@ -12,7 +12,7 @@ namespace fn_fbc25767 {} using namespace fn_fbc25767;
 
 // ---- declarations shared by the functions below
 namespace fn_fbc25767 {
-extern void* g_vftable_197f90[];
+extern void* hulk_at_0041b4a0[];
 class Ref_197f90 {
   public:
     virtual void F0();
@@ -129,7 +129,7 @@ struct Ref { virtual void FUN_00000000(); virtual void FUN_00000001(); };
 struct Data { char pad[0x14]; unsigned int a,b; };
 struct Action_1984c0 { virtual void FUN_00000002(); char pad[0x18]; Action_1984c0(); };
 struct AccuracyLatencyAction : Action_1984c0 { Data* data; Ref* ref; unsigned int zero1,zero2,a,b; virtual void FUN_00000003(); AccuracyLatencyAction(Data* d, Ref* r); };
-extern void* g_vftable_198520[];
+extern void* hulk_at_0041b4a8[];
 class Ref_198520 {
   public:
     virtual void F0();
@@ -164,7 +164,7 @@ class MissileThrowAction_198560 : public Action_198560 {
     MissileThrowAction_198560(int target, RefObj_198560* obj);
     virtual void Execute();
 };
-extern void* g_vftable_1985b0[];
+extern void* hulk_at_0041b4c4[];
 class Ref_1985b0 {
   public:
     virtual void F0();
@@ -507,7 +507,7 @@ namespace fn_fbc25767 {
 // 0x00197f90 FUN_00197f90 (44 B): matches/0x00197f90.cpp
 // sym: ??1BeamEffect_197f90@fn_fbc25767@@QAE@XZ
 BeamEffect_197f90::~BeamEffect_197f90() throw() {
-    vptr = g_vftable_197f90;
+    vptr = hulk_at_0041b4a0;
     _ReadWriteBarrier();
     if (m14) {
         m14->Release();
@@ -685,7 +685,7 @@ AccuracyLatencyAction::AccuracyLatencyAction(Data* d, Ref* r) { zero1=0; zero2=0
 // 0x00198520 FUN_00198520 (50 B): matches/0x00198520.cpp
 // sym: ??1AccuracyLatencyAction_198520@fn_fbc25767@@QAE@XZ
 AccuracyLatencyAction_198520::~AccuracyLatencyAction_198520() {
-    vptr = g_vftable_198520;
+    vptr = hulk_at_0041b4a8;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -718,7 +718,7 @@ MissileThrowAction_198560::MissileThrowAction_198560(int target, RefObj_198560* 
 // 0x001985b0 FUN_001985b0 (50 B): matches/0x001985b0.cpp
 // sym: ??1MissileThrowAction_1985b0@fn_fbc25767@@QAE@XZ
 MissileThrowAction_1985b0::~MissileThrowAction_1985b0() {
-    vptr = g_vftable_1985b0;
+    vptr = hulk_at_0041b4c4;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

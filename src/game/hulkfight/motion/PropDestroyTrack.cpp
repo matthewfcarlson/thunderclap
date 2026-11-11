@@ -17,7 +17,7 @@ namespace fn_f1f16d33 {
 extern "C" char DAT_0041959c[];
 class Sub_181640 {
   public:
-    void init();
+    void init_0027af50();
 };
 class PropSpawnTrack {
   public:
@@ -25,12 +25,12 @@ class PropSpawnTrack {
     char pad4[0x0c];
     int mValue;
     char pad14[4];
-    void finish();
+    void finish_00236d60();
     void run();
 };
 extern "C" void __cdecl Free(void*);
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-extern int* gTable_1816f0;
+extern int* hulk_at_004e14e8;
 class CCondition_1816f0 {
   public:
     virtual int vfunc_0(int);
@@ -56,8 +56,8 @@ class PropDestroyTrack : public Track_181700 {
 void PropSpawnTrack::run() {
     vftable = (void*)((hulk_intptr)DAT_0041959c);
     thunk(mValue);
-    ((Sub_181640*)((char*)this + 0x18))->init();
-    finish();
+    ((Sub_181640*)((char*)this + 0x18))->init_0027af50();
+    finish_00236d60();
 }
 
 } // namespace fn_f1f16d33
@@ -90,7 +90,7 @@ void FUN_001816d0() {
 // sym: ?vfunc_0@PropDestroyTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropDestroyTrack::vfunc_0(int index) {
-    int* p = gTable_1816f0;
+    int* p = hulk_at_004e14e8;
     return p[index];
 }
 

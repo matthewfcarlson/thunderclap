@@ -40,10 +40,10 @@ class HitPushbackTrack_15a3b0 {
     int x28;
     int x2c;
     int x30;
-    void init();
+    void init_00236d40();
 };
 extern "C" HitPushbackTrack_15a3b0* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_15a410;
+extern int hulk_at_00415864;
 
 } // namespace fn_ffe3b679
 
@@ -69,7 +69,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitPushba
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitPushbackTrack>::vfunc_5() {
     HitPushbackTrack_15a3b0* p = FUN_0008d690((int)sizeof(HitPushbackTrack_15a3b0));
     if (p) {
-        p->init();
+        p->init_00236d40();
         p->x10 = -1.0f;
         p->x18 = -1.0f;
         p->x0c = 0;
@@ -92,7 +92,7 @@ namespace fn_ffe3b679 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_ffe3b679@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_15a410;
+    m_vptr = (void*)&hulk_at_00415864;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

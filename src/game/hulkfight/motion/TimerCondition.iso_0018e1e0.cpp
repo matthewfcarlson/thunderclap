@@ -13,20 +13,20 @@ class Params_18e1e0 {
   public:
     int x;
 };
-extern Params_18e1e0 TypeA_18e1e0;
-extern Params_18e1e0 TypeB_18e1e0;
+extern Params_18e1e0 hulk_at_00494b44;
+extern Params_18e1e0 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_18e1e0*, Params_18e1e0*, int);
 struct TimerSetAction_nv_18e1e0 {
-    int Init(hulkfight::motion::TimerSetTrack*, hulk_intptr);
+    int Init_0018d610(hulkfight::motion::TimerSetTrack*, hulk_intptr);
 };
-hulkfight::motion::TimerSetAction* __cdecl Alloc(int);
+hulkfight::motion::TimerSetAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::TimerSetTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_18e1e0, &TypeB_18e1e0, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::TimerSetAction* p = Alloc(0x24);
+        hulkfight::motion::TimerSetAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((TimerSetAction_nv_18e1e0*)(((hulkfight::motion::TimerSetAction*)(p))))->Init(this, c);
+            return ((TimerSetAction_nv_18e1e0*)(((hulkfight::motion::TimerSetAction*)(p))))->Init_0018d610(this, c);
     }
     return 0;
 }

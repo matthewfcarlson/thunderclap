@@ -23,8 +23,8 @@ class Params_14e630 {
     virtual void a2();
     virtual Tgt_14e630* Get();
 };
-extern char typeA_14e630;
-extern char typeB_14e630;
+extern char hulk_at_00494b44;
+extern char hulk_at_00494b60;
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 
 } // namespace fn_f8ea6102
@@ -33,7 +33,7 @@ extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 // sym: ?vfunc_6@CollisionSourceTypeCondition@motion@hulkfight@@UAE_NPAX00@Z
 bool hulkfight::motion::CollisionSourceTypeCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Params_14e630 * p = (Params_14e630 *)__p1;
 
-    if (!FUN_00344e74(p, 0, &typeA_14e630, &typeB_14e630, 0))
+    if (!FUN_00344e74(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0))
         return false;
     Tgt_14e630* t = p->Get();
     if (!t)

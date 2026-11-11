@@ -40,7 +40,7 @@ class FlyingDashAction : public Action_135be0 {
     virtual void Fn();
     Fields fields;
 };
-extern void* g_vftable_135c30[];
+extern void* hulk_at_00411de0[];
 class Ref_135c30 {
   public:
     virtual void F0();
@@ -75,7 +75,7 @@ FlyingDashAction::FlyingDashAction(int x, Ref* p) : Action_135be0() {
 // 0x00135c30 FUN_00135c30 (69 B): matches/0x00135c30.cpp
 // sym: ??1FlyingDashAction_135c30@fn_f99e97e2@@QAE@XZ
 FlyingDashAction_135c30::~FlyingDashAction_135c30() {
-    vptr = g_vftable_135c30;
+    vptr = hulk_at_00411de0;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

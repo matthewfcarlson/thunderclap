@@ -32,9 +32,9 @@ struct TrackFactory_15a740 {
 };
 extern "C" void* __cdecl Allocate(unsigned int);
 struct Built_15a740 {
-    void* init();
+    void* init_0014dca0();
 };
-extern int g_vftable_15a760;
+extern int hulk_at_004158f0;
 
 } // namespace fn_f7a21593
 
@@ -61,7 +61,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitReacti
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitReactionFloatTrack>::vfunc_5() {
     void* p = Allocate(0x58);
     if (p)
-        return (void*)(((Built_15a740*)p)->init());
+        return (void*)(((Built_15a740*)p)->init_0014dca0());
     return (void*)(0);
 }
 
@@ -71,7 +71,7 @@ namespace fn_f7a21593 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f7a21593@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_15a760;
+    m_vptr = (void*)&hulk_at_004158f0;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

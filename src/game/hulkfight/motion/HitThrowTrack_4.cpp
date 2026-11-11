@@ -37,9 +37,9 @@ struct HitThrowTrack_159bf0 {
     int f20;
     int f24;
     int f28;
-    void InitTrack();
+    void InitTrack_00236d40();
 };
-extern int g_vftable_159c40;
+extern int hulk_at_00415730;
 
 } // namespace fn_f81168ff
 
@@ -65,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitThrowT
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitThrowTrack>::vfunc_5() {
     HitThrowTrack_159bf0* p = (HitThrowTrack_159bf0*)FUN_0008d690((int)sizeof(HitThrowTrack_159bf0));
     if (p) {
-        p->InitTrack();
+        p->InitTrack_00236d40();
         p->f0c = 0;
         p->f18 = 0;
         p->f24 = 0;
@@ -86,7 +86,7 @@ namespace fn_f81168ff {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f81168ff@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_159c40;
+    m_vptr = (void*)&hulk_at_00415730;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

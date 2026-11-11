@@ -13,12 +13,12 @@ namespace fn_f579a2c4 {} using namespace fn_f579a2c4;
 
 // ---- declarations shared by the functions below
 namespace fn_f579a2c4 {
-extern int vtable_1810c0;
+extern int hulk_at_0041941c;
 struct PropSetStateByIndexTrack_1810c0 {
-    void Init();
-    void Finish();
+    void Init_0027af50();
+    void Finish_00236d60();
 };
-extern int* gTable_181110;
+extern int* hulk_at_004e14a8;
 class CCondition_181110 {
   public:
     virtual int vfunc_0(int);
@@ -44,10 +44,10 @@ class PropSetStateByIndexTrack : public Track_181120 {
 // 0x001810c0 FUN_001810c0 (33 B): matches/0x001810c0.cpp
 // sym: ?FUN_001810c0@BallAndChainReturnTrack@motion@hulkfight@@QAEXXZ
 void hulkfight::motion::BallAndChainReturnTrack::FUN_001810c0() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_1810c0;
-    ((PropSetStateByIndexTrack_1810c0*)((char*)this + 0x60))->Init();
-    ((PropSetStateByIndexTrack_1810c0*)((char*)this + 0x48))->Init();
-    ((PropSetStateByIndexTrack_1810c0*)this)->Finish();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0041941c;
+    ((PropSetStateByIndexTrack_1810c0*)((char*)this + 0x60))->Init_0027af50();
+    ((PropSetStateByIndexTrack_1810c0*)((char*)this + 0x48))->Init_0027af50();
+    ((PropSetStateByIndexTrack_1810c0*)this)->Finish_00236d60();
 }
 
 namespace fn_f579a2c4 {
@@ -65,7 +65,7 @@ void FUN_001810f0() {
 // sym: ?vfunc_0@PropSetStateByIndexTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropSetStateByIndexTrack::vfunc_0(int index) {
-    int* p = gTable_181110;
+    int* p = hulk_at_004e14a8;
     return p[index];
 }
 

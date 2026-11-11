@@ -33,13 +33,13 @@ class Obj_15a480 {
     virtual void* D();
     virtual void* E();
     virtual void* F();
-    void Init();
+    void Init_00236d40();
     char pad[4];
     int x;
     int y;
     float z;
 };
-extern int g_vftable_15a4c0;
+extern int hulk_at_00415880;
 
 } // namespace fn_fd8b40d2
 
@@ -66,7 +66,7 @@ namespace fn_fd8b40d2 {
 void* Obj_15a480::F() {
     Obj_15a480* p = (Obj_15a480*)Alloc(0x14);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_004144e0);
         p->y = 0;
         p->z = -1.0f;
@@ -81,7 +81,7 @@ void* Obj_15a480::F() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fd8b40d2@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_15a4c0;
+    m_vptr = (void*)&hulk_at_00415880;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

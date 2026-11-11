@@ -26,7 +26,7 @@ extern "C" void FUN_001557f0();
 extern "C" char DAT_00414130[];
 class Sub_1597d0 {
   public:
-    void InitSub();
+    void InitSub_00233dd0();
 };
 class CollisionSourceNodeCondition {
   public:
@@ -40,14 +40,14 @@ class CollisionSourceNodeCondition {
     int fieldC;
     Sub_1597d0* unused;
     char p14[8];
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int g_vftable_159810;
+extern int hulk_at_00415688;
 struct ConditionFactoryTemplate_159810 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0014d810();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -76,10 +76,10 @@ namespace fn_f73fc4d4 {
 CollisionSourceNodeCondition* FactoryVfunc5() {
     CollisionSourceNodeCondition* p = (CollisionSourceNodeCondition*)FUN_0008d690(0x20);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         *(hulk_ulongptr*)p = ((hulk_intptr)DAT_00414130);
         p->fieldC = 0;
-        ((Sub_1597d0*)((char*)p + 0x10))->InitSub();
+        ((Sub_1597d0*)((char*)p + 0x10))->InitSub_00233dd0();
         *((char*)p + 0x1c) = 0;
         return p;
     }
@@ -91,9 +91,9 @@ CollisionSourceNodeCondition* FactoryVfunc5() {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_159810@fn_f73fc4d4@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_159810::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_159810;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00415688;
+    base1_dtor_0014d810();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

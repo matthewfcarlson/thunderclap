@@ -15,9 +15,9 @@ namespace fn_fefa0dcd {} using namespace fn_fefa0dcd;
 namespace fn_fefa0dcd {
 typedef unsigned int u32_170100;
 extern void __cdecl thunk_FUN_00267090(u32_170100);
-extern int SyncVftable;
+extern int hulk_at_00417988;
 struct Helper_170100 {
-    void call();
+    void call_0027af50();
 };
 class SyncToLocatorTrack {
   public:
@@ -25,11 +25,11 @@ class SyncToLocatorTrack {
     char pad[0x28 - 4];
     u32_170100 field;
     void f();
-    void finish();
+    void finish_00236d60();
 };
 void thunk_FUN_00267090(void*);
 extern "C" char* __cdecl FUN_0008d6d0(unsigned int);
-extern int* gTable_1701c0;
+extern int* hulk_at_004e1318;
 class CCondition_1701c0 {
   public:
     virtual int vfunc_0(int);
@@ -67,10 +67,10 @@ struct Track_170220 {
 // sym: ?f@SyncToLocatorTrack@fn_fefa0dcd@@QAEXXZ
 void SyncToLocatorTrack::f() {
     u32_170100 x = field;
-    vftable = &SyncVftable;
+    vftable = &hulk_at_00417988;
     thunk_FUN_00267090(x);
-    ((Helper_170100*)((char*)this + 0x20))->call();
-    finish();
+    ((Helper_170100*)((char*)this + 0x20))->call_0027af50();
+    finish_00236d60();
 }
 
 } // namespace fn_fefa0dcd
@@ -108,7 +108,7 @@ void FUN_001701a0() {
 // sym: ?vfunc_0@SuckTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::SuckTrack::vfunc_0(int index) {
-    int* p = gTable_1701c0;
+    int* p = hulk_at_004e1318;
     return p[index];
 }
 

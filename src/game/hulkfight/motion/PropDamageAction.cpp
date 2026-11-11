@@ -13,15 +13,15 @@ namespace fn_f73cfe7c {} using namespace fn_f73cfe7c;
 // ---- declarations shared by the functions below
 namespace fn_f73cfe7c {
 struct Obj_1822d0 {
-    Obj_1822d0* b();
-    unsigned int d(int);
+    Obj_1822d0* Fnb_00059a30();
+    unsigned int Fnd_0003aef0(int);
 };
 struct State_1822d0 {
     char pad[0x10];
     int value;
 };
 struct Tgt_182310 {
-    void G(int, int, int);
+    void FnG_001d6ec0(int, int, int);
 };
 struct Ent_182310 {
     char pad[0x128];
@@ -29,7 +29,7 @@ struct Ent_182310 {
     int i12c;
 };
 struct Holder_182310 {
-    Ent_182310* Find();
+    Ent_182310* Find_00059a30();
 };
 struct Src_182310 {
 };
@@ -52,13 +52,13 @@ class Action_182310 {
 bool hulkfight::motion::PropDropAction::vfunc_3(hulk_intptr x, hulk_intptr y) {
     if ((*(Obj_1822d0 * *)&this->f_20)) {
         Obj_1822d0* p = ((Obj_1822d0 *)((owners::Object_592a0 *)((*(Obj_1822d0 * *)&this->f_20)))->FUN_000592a0());
-        p = p->b();
+        p = p->Fnb_00059a30();
         int n = (*(State_1822d0 * *)&this->f_1c)->value;
         if (n < 0) {
             ((unsigned int)((::CCharacter *)p)->FUN_00040170());
             return false;
         }
-        p->d(n);
+        p->Fnd_0003aef0(n);
     }
     return false;
 }
@@ -71,7 +71,7 @@ bool hulkfight::motion::PropDamageAction::vfunc_3(hulk_intptr , hulk_intptr ) {
         return false;
     {
         Holder_182310* h = ((Holder_182310 *)((owners::Object_592a0 *)((*(Src_182310 * *)&this->f_20)))->FUN_000592a0());
-        Ent_182310* e = h->Find();
+        Ent_182310* e = h->Find_00059a30();
         int i = (*(Cfg_182310 * *)&this->f_1c)->idx;
         if (e) {
             Tgt_182310* t;
@@ -82,7 +82,7 @@ bool hulkfight::motion::PropDamageAction::vfunc_3(hulk_intptr , hulk_intptr ) {
             else
                 return false;
             if (t)
-                t->G((int)(*(Cfg_182310 * *)&this->f_1c)->f, e->i12c, 0);
+                t->FnG_001d6ec0((int)(*(Cfg_182310 * *)&this->f_1c)->f, e->i12c, 0);
         }
     }
     return false;

@@ -11,7 +11,7 @@ namespace fn_fc8fe8a1 {} using namespace fn_fc8fe8a1;
 // ---- declarations shared by the functions below
 namespace fn_fc8fe8a1 {
 extern hulk_intptr __cdecl FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int);
-extern int gTypeA_154780;
+extern int hulk_at_00491ca8;
 class ConditionFactoryCaster_1547e0 {
   public:
     virtual bool vfunc_0(void*);
@@ -19,7 +19,7 @@ class ConditionFactoryCaster_1547e0 {
 };
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern void* g1;
-extern void* g2;
+extern void* hulk_at_004b2b30;
 class CollisionInterruptPriorityCondition_1547e0 {};
 class Condition_154840 {};
 } // namespace fn_fc8fe8a1
@@ -36,7 +36,7 @@ class CollisionSourceNameCondition_154840 {};
 namespace fn_fc8fe8a1 {
 extern char DAT_004b2c00;
 extern "C" int __cdecl CastCheck(void*, void*, void*, void*, void*);
-extern char a, b;
+extern char hulk_at_0049850c, hulk_at_004b2cc8;
 } // namespace fn_fc8fe8a1
 namespace fight {
 class TrackFactoryCaster_1548a0 {
@@ -52,7 +52,7 @@ class TrackFactoryCaster_1548a0 {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionTargetTypeCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_154780, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_00491ca8, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -67,7 +67,7 @@ template <> fight::ParamEnumConstList<hulkfight::motion::CollisionTargetTypeCond
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VCollisionInterruptPriorityCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionInterruptPriorityCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74(p, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(p, 0, &g1, &hulk_at_004b2b30, 0) != 0;
 }
 
 
@@ -98,7 +98,7 @@ template <> fight::ParamEnumConstList<hulkfight::motion::CollisionSourceNameCond
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::InterruptAccumulatorSetTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return CastCheck(p, 0, &a, &b, 0) != 0;
+    return CastCheck(p, 0, &hulk_at_0049850c, &hulk_at_004b2cc8, 0) != 0;
 }
 
 

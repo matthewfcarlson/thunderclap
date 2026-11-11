@@ -25,13 +25,13 @@ class TrackFactoryTemplate_16e670 {
 extern "C" void FUN_0016cb50();
 typedef unsigned int u32_16e6b0;
 struct Grapple_16e6b0 {
-    hulk_uintptr BuildTrack();
+    hulk_uintptr BuildTrack_001663a0();
 };
-extern int g_vftable_16e6d0;
+extern int hulk_at_00417824;
 struct ConditionFactoryTemplate_16e6d0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00166370();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -60,7 +60,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::RayCa
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::RayCastCondition>::vfunc_5() {
     Grapple_16e6b0* p = (Grapple_16e6b0*)operator new(0x40);
     if (p)
-        return (void*)(p->BuildTrack());
+        return (void*)(p->BuildTrack_001663a0());
     return (void*)(0);
 }
 
@@ -70,9 +70,9 @@ namespace fn_fb8e6264 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_16e6d0@fn_fb8e6264@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_16e6d0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_16e6d0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00417824;
+    base1_dtor_00166370();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

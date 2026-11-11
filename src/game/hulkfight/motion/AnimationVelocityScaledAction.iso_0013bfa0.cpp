@@ -10,20 +10,20 @@
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_13bfa0;
-extern int TypeA_13bfa0;
-extern int TypeB_13bfa0;
+extern int hulk_at_00494b44;
+extern int hulk_at_00494b60;
 struct AnimationChargeAction_nv_13bfa0 {
-    u32_13bfa0 Init(void*, void*);
+    u32_13bfa0 Init_0013b180(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
-extern hulkfight::motion::AnimationChargeAction* Alloc(int);
+extern hulkfight::motion::AnimationChargeAction* Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::AnimationChargeTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_13bfa0 a = (u32_13bfa0)__p0; u32_13bfa0 b = (u32_13bfa0)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &TypeA_13bfa0, &TypeB_13bfa0, 0)) {
-        hulkfight::motion::AnimationChargeAction* q = Alloc(0x28);
+    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+        hulkfight::motion::AnimationChargeAction* q = Alloc_0008d690(0x28);
         if (q)
-            return (int)(((AnimationChargeAction_nv_13bfa0*)(((hulkfight::motion::AnimationChargeAction*)(q))))->Init(this, p));
+            return (int)(((AnimationChargeAction_nv_13bfa0*)(((hulkfight::motion::AnimationChargeAction*)(q))))->Init_0013b180(this, p));
     }
     return (int)(0);
 }

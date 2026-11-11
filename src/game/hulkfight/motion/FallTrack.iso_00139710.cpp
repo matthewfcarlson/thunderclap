@@ -11,14 +11,14 @@
 #include "gen/hulkfight.h"
 
 struct AirToGroundTargetTrack_nv_139710 {
-    hulk_intptr method();
+    hulk_intptr method_00133c20();
 };
 extern void* __cdecl operator_new(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::AirToGroundTargetTrack>::vfunc_5() {
     hulkfight::motion::AirToGroundTargetTrack* p = (hulkfight::motion::AirToGroundTargetTrack*)operator_new(0x38);
     if (p)
-        return (void*)(((AirToGroundTargetTrack_nv_139710*)(((hulkfight::motion::AirToGroundTargetTrack*)(p))))->method());
+        return (void*)(((AirToGroundTargetTrack_nv_139710*)(((hulkfight::motion::AirToGroundTargetTrack*)(p))))->method_00133c20());
     return (void*)(0);
 }
 

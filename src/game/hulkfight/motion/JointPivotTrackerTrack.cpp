@@ -12,7 +12,7 @@ namespace fn_f30cb024 {} using namespace fn_f30cb024;
 
 // ---- declarations shared by the functions below
 namespace fn_f30cb024 {
-extern int* gTable_170890;
+extern int* hulk_at_004e1368;
 class CCondition_170890 {
   public:
     virtual int vfunc_0(int);
@@ -44,7 +44,7 @@ void FUN_00170870() {
 // sym: ?vfunc_0@JointPivotTrackerTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::JointPivotTrackerTrack::vfunc_0(int index) {
-    int* p = gTable_170890;
+    int* p = hulk_at_004e1368;
     return p[index];
 }
 

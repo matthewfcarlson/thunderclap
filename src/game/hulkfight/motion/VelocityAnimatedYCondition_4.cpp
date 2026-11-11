@@ -37,7 +37,7 @@ class ConditionFactory_16da60 {
 namespace hulkfight { namespace motion {
 class VelocityAnimatedYCondition_16da60 {
   public:
-    void Init(int);
+    void Init_00234590(int);
     hulk_intptr vptr;
     int m4;
     int m8;
@@ -47,11 +47,11 @@ class VelocityAnimatedYCondition_16da60 {
 } }
 namespace fn_f808ce35 {
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int g_vftable_16daa0;
+extern int hulk_at_0041762c;
 struct ConditionFactoryTemplate_16daa0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00166000();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -80,7 +80,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAni
     hulkfight::motion::VelocityAnimatedYCondition_16da60* p =
         (hulkfight::motion::VelocityAnimatedYCondition_16da60*)FUN_0008d690((int)sizeof(hulkfight::motion::VelocityAnimatedYCondition_16da60));
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->vptr = ((hulk_intptr)DAT_004167f8);
         p->mC = 0;
         p->m10 = 0;
@@ -95,9 +95,9 @@ namespace fn_f808ce35 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_16daa0@fn_f808ce35@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_16daa0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_16daa0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041762c;
+    base1_dtor_00166000();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

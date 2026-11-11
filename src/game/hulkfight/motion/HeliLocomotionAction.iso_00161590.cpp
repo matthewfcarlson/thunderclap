@@ -10,14 +10,14 @@
 #include "gen/hulkfight.h"
 
 struct LocomotionSteerAction_nv_161590 {
-    int Init(hulkfight::motion::LocomotionSteerTrack*, hulk_intptr);
+    int Init_0015e730(hulkfight::motion::LocomotionSteerTrack*, hulk_intptr);
 };
-extern hulkfight::motion::LocomotionSteerAction* Alloc(unsigned int);
+extern hulkfight::motion::LocomotionSteerAction* Alloc_0008d690(unsigned int);
 
 hulk_intptr hulkfight::motion::LocomotionSteerTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    hulkfight::motion::LocomotionSteerAction* p = Alloc(0x30);
+    hulkfight::motion::LocomotionSteerAction* p = Alloc_0008d690(0x30);
     if (p)
-        return ((LocomotionSteerAction_nv_161590*)(((hulkfight::motion::LocomotionSteerAction*)(p))))->Init(this, c);
+        return ((LocomotionSteerAction_nv_161590*)(((hulkfight::motion::LocomotionSteerAction*)(p))))->Init_0015e730(this, c);
     return 0;
 }
 

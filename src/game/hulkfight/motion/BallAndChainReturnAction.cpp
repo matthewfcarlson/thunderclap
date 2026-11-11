@@ -22,27 +22,27 @@ class Mid_1825f0 {
 };
 class Obj_1825f0 {
   public:
-    Mid_1825f0* val();
+    Mid_1825f0* val_00059a30();
 };
 class First_1825f0 {
   public:
 };
 class Entity {
   public:
-    void trigger();
+    void trigger_001d8100();
 };
 class Sink_1825f0 {
   public:
     char pad[0x20];
     void* ptr;
-    void send(int);
+    void send_00029c00(int);
 };
-extern Sink_1825f0* gSink;
+extern Sink_1825f0* hulk_at_004dd700;
 class End_1825f0 {
   public:
-    void finish(int);
+    void finish_0027ffb0(int);
 };
-extern End_1825f0* __stdcall getEnd();
+extern End_1825f0* __stdcall getEnd_0027f250();
 class BallAndChainShootAction_1825f0 {
   public:
     virtual void v0();
@@ -72,10 +72,10 @@ char pad[24]; Settings_182660* settings; Source_182660* source; Vec_182660 origi
 };
 } }
 struct Helper_182c90 {
-    Helper_182c90* f59a30();
-    void f27ffb0(int);
+    Helper_182c90* f59a30_00059a30();
+    void f27ffb0_0027ffb0(int);
 };
-extern Helper_182c90* __cdecl f27f250();
+extern Helper_182c90* __cdecl f27f250_0027f250();
 class BallAndChainReturnAction_182c90 {
   public:
     char pad[0x48];
@@ -88,20 +88,20 @@ class BallAndChainReturnAction_182c90 {
 void BallAndChainShootAction_1825f0::vfunc_4() {
     First_1825f0* f = first;
     Obj_1825f0* o = ((Obj_1825f0 *)((owners::Object_592a0 *)f)->FUN_000592a0());
-    Mid_1825f0* m = o->val();
+    Mid_1825f0* m = o->val_00059a30();
     int x = a->x;
     Entity* e = (Entity*)((void *)((owners::C_35ef0 *)m)->FUN_00035ef0((hulk_intptr)x));
     if (e) {
-        e->trigger();
-        Sink_1825f0* root = gSink;
+        e->trigger_001d8100();
+        Sink_1825f0* root = hulk_at_004dd700;
         if (root) {
             Sink_1825f0* s = (Sink_1825f0*)root->ptr;
             if (s)
-                s->send(((int)((owners::C_1d72e0 *)e)->FUN_001d72e0()));
+                s->send_00029c00(((int)((owners::C_1d72e0 *)e)->FUN_001d72e0()));
         }
     }
-    End_1825f0* end = getEnd();
-    end->finish(ending);
+    End_1825f0* end = getEnd_0027f250();
+    end->finish_0027ffb0(ending);
 }
 
 
@@ -445,10 +445,10 @@ namespace fn_fe353baa {
 // sym: ?vfunc_4@BallAndChainReturnAction_182c90@fn_fe353baa@@QAEXXZ
 void BallAndChainReturnAction_182c90::vfunc_4() {
     Helper_182c90* x = ((Helper_182c90 *)((owners::Object_592a0 *)(((Helper_182c90*)*(void**)(pad + 0x20))))->FUN_000592a0());
-    x = x->f59a30();
+    x = x->f59a30_00059a30();
     ((owners::C_35ef0 *)x)->FUN_00035ef0((hulk_intptr)(*(int*)(*(char**)(pad + 0x1c) + 0x14)));
-    x = f27f250();
-    x->f27ffb0(*(int*)(pad + 0x44));
+    x = f27f250_0027f250();
+    x->f27ffb0_0027ffb0(*(int*)(pad + 0x44));
 }
 
 } // namespace fn_fe353baa

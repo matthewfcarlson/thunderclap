@@ -10,7 +10,7 @@ namespace fn_ffa1c541 {} using namespace fn_ffa1c541;
 // ---- declarations shared by the functions below
 namespace fn_ffa1c541 {
 extern int __cdecl Check(void*, void*, void*, void*, void*);
-extern int a, b;
+extern int hulk_at_00491ca8, hulk_at_004b7270;
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern char DAT_004b7340;
 } // namespace fn_ffa1c541
@@ -27,7 +27,7 @@ class ConditionFactoryCaster_16a890 {
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VTargetCharacterTemplateCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::TargetCharacterTemplateCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Check(p, 0, &a, &b, 0) != 0;
+    return Check(p, 0, &hulk_at_00491ca8, &hulk_at_004b7270, 0) != 0;
 }
 
 

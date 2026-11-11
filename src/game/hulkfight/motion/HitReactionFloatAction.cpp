@@ -11,7 +11,7 @@ namespace fn_fa293b6d {} using namespace fn_fa293b6d;
 namespace fn_fa293b6d {
 class Base_14f620 {
   public:
-    void run();
+    void run_00232240();
 };
 
 } // namespace fn_fa293b6d
@@ -55,6 +55,6 @@ unsigned char HitReactionFloatAction::vfunc_3(unsigned a,unsigned b) {
 // sym: ?vfunc_4@HitReactionFloatAction@motion@hulkfight@@UAEXXZ
 // Same code shape as 0x00147d20 (propagated; names are from that function)
 void hulkfight::motion::HitReactionFloatAction::vfunc_4() {
-    ((Base_14f620*)((char*)this + 0x24))->run();
+    ((Base_14f620*)((char*)this + 0x24))->run_00232240();
 }
 

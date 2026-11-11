@@ -12,13 +12,13 @@ namespace fn_f812a616 {} using namespace fn_f812a616;
 // ---- declarations shared by the functions below
 namespace fn_f812a616 {
 struct Act_182000 {
-    void Run(void* o, unsigned char b);
+    void Run_001b4450(void* o, unsigned char b);
 };
 struct G_182000 {
     char pad[0x10];
     Act_182000* act;
 };
-extern G_182000* gG_182000;
+extern G_182000* hulk_at_004dd700;
 struct Cfg_182000 {
     char pad[0x10];
     int idx;
@@ -29,7 +29,7 @@ struct Ent_182000 {
     void* s128;
 };
 struct Reg2 {
-    Ent_182000* Lookup();
+    Ent_182000* Lookup_00059a30();
 };
 struct Owner_182000 {
 };
@@ -41,7 +41,7 @@ struct Owner_182000 {
 bool hulkfight::motion::PropAddToCollisionAction::vfunc_5(hulk_intptr __p0, int q) { unsigned int p = (unsigned int)__p0;
 
     if (p == 0 && (*(Owner_182000 * *)&this->f_20) != 0) {
-        Ent_182000* e = ((Reg2 *)((owners::Object_592a0 *)((*(Owner_182000 * *)&this->f_20)))->FUN_000592a0())->Lookup();
+        Ent_182000* e = ((Reg2 *)((owners::Object_592a0 *)((*(Owner_182000 * *)&this->f_20)))->FUN_000592a0())->Lookup_00059a30();
         int i = (*(Cfg_182000 * *)&this->f_1c)->idx;
         if (e) {
             void* o;
@@ -53,7 +53,7 @@ bool hulkfight::motion::PropAddToCollisionAction::vfunc_5(hulk_intptr __p0, int 
                 o = ((void *)((owners::C_35ef0 *)e)->FUN_00035ef0((hulk_intptr)i));
             }
             if (o)
-                gG_182000->act->Run(o, (*(Cfg_182000 * *)&this->f_1c)->b);
+                hulk_at_004dd700->act->Run_001b4450(o, (*(Cfg_182000 * *)&this->f_1c)->b);
         }
     }
     return false;

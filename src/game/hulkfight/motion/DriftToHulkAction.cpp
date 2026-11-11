@@ -32,7 +32,7 @@ class DriftToHulkAction : public Action_1755e0 {
     DriftToHulkAction(int, Ref*);
     virtual void v();
 };
-extern void* g_vftable_175630[];
+extern void* hulk_at_00417ef4[];
 class Ref_175630 {
   public:
     virtual void F0();
@@ -142,7 +142,7 @@ DriftToHulkAction::DriftToHulkAction(int n, Ref* b) : Action_1755e0() {
 // 0x00175630 FUN_00175630 (50 B): matches/0x00175630.cpp
 // sym: ??1DriftToHulkAction_175630@fn_fe26f56d@@QAE@XZ
 DriftToHulkAction_175630::~DriftToHulkAction_175630() {
-    vptr = g_vftable_175630;
+    vptr = hulk_at_00417ef4;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

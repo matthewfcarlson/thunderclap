@@ -32,10 +32,10 @@ class PropSetStateByIndexTrack_18c060 {
     int d;
     int e;
     int f;
-    void Init();
+    void Init_00236d40();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_18c0b0;
+extern int hulk_at_0041a80c;
 
 } // namespace fn_fb862f4a
 
@@ -61,7 +61,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropSetSt
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropSetStateByIndexTrack>::vfunc_5() {
     PropSetStateByIndexTrack_18c060* p = (PropSetStateByIndexTrack_18c060*)FUN_0008d690((int)sizeof(PropSetStateByIndexTrack_18c060));
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->a = ((hulk_intptr)DAT_0041944c);
         p->d = 0;
         p->e = -1;
@@ -78,7 +78,7 @@ namespace fn_fb862f4a {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fb862f4a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18c0b0;
+    m_vptr = (void*)&hulk_at_0041a80c;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

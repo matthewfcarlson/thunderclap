@@ -11,7 +11,7 @@ namespace fn_f708d323 {} using namespace fn_f708d323;
 namespace fn_f708d323 {
 class Base_14f2e0 {
   public:
-    void run();
+    void run_00232240();
 };
 
 } // namespace fn_f708d323
@@ -32,6 +32,6 @@ namespace hulkfight { namespace motion { struct HitReactionAction { virtual void
 // sym: ?vfunc_4@HitReactionAction@motion@hulkfight@@UAEXXZ
 // Same code shape as 0x00147d20 (propagated; names are from that function)
 void hulkfight::motion::HitReactionAction::vfunc_4() {
-    ((Base_14f2e0*)((char*)this + 0x24))->run();
+    ((Base_14f2e0*)((char*)this + 0x24))->run_00232240();
 }
 

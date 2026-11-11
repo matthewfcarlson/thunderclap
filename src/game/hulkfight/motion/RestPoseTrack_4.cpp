@@ -26,7 +26,7 @@ extern "C" void FUN_0017ca60();
 extern "C" char DAT_004178f8[];
 class Sub_17eeb0 {
   public:
-    void Init();
+    void Init_0027af00();
 };
 class RestPoseTrack_17eeb0 {
   public:
@@ -46,10 +46,10 @@ class RestPoseTrack_17eeb0 {
     int y;
     int z;
     int q;
-    void Init();
+    void Init_00236d40();
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int g_vftable_17ef10;
+extern int hulk_at_00419010;
 
 } // namespace fn_fdd67982
 
@@ -75,11 +75,11 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::RestPoseT
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::RestPoseTrack>::vfunc_5() {
     RestPoseTrack_17eeb0* p = (RestPoseTrack_17eeb0*)FUN_0008d690(0x30);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_004178f8);
         p->c = 0;
         p->d = -1.0f;
-        p->sub.Init();
+        p->sub.Init_0027af00();
         p->y = -5;
         p->z = 0;
         p->q = 0;
@@ -94,7 +94,7 @@ namespace fn_fdd67982 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fdd67982@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17ef10;
+    m_vptr = (void*)&hulk_at_00419010;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

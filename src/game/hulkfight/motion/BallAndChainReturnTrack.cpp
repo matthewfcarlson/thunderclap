@@ -14,16 +14,16 @@ namespace fn_fa165829 {} using namespace fn_fa165829;
 namespace fn_fa165829 {
 extern "C" char DAT_004193ec[];
 struct Sub_180fc0 {
-    void A();
-    void B();
+    void FnA_0027af50();
+    void FnB_00234150();
 };
 struct PropThrowTrack_180fc0 {
     int* v;
     char pad[0x64];
     void f();
-    void C();
+    void FnC_00236d60();
 };
-extern int* gTable_181010;
+extern int* hulk_at_004e14a0;
 class CCondition_181010 {
   public:
     virtual int vfunc_0(int);
@@ -46,9 +46,9 @@ struct Track_1810b0 {
 // sym: ?f@PropThrowTrack_180fc0@fn_fa165829@@QAEXXZ
 void PropThrowTrack_180fc0::f() {
     v = (int*)((hulk_intptr)DAT_004193ec);
-    ((Sub_180fc0*)((char*)this + 0x78))->A();
-    ((Sub_180fc0*)((char*)this + 0x68))->B();
-    C();
+    ((Sub_180fc0*)((char*)this + 0x78))->FnA_0027af50();
+    ((Sub_180fc0*)((char*)this + 0x68))->FnB_00234150();
+    FnC_00236d60();
 }
 
 
@@ -65,7 +65,7 @@ void FUN_00180ff0() {
 // sym: ?vfunc_0@BallAndChainReturnTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::BallAndChainReturnTrack::vfunc_0(int index) {
-    int* p = gTable_181010;
+    int* p = hulk_at_004e14a0;
     return p[index];
 }
 

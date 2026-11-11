@@ -11,16 +11,16 @@ namespace fn_f45137ab {} using namespace fn_f45137ab;
 // ---- declarations shared by the functions below
 namespace fn_f45137ab {
 struct A_182070 {
-    void* f();
+    void* Fnf_000592a0();
 };
 struct B_182070 {
-    int f();
+    int Fnf_00059a30();
 };
 struct C_182070 {
-    int f(int);
+    int Fnf_00035ef0(int);
 };
 struct D {
-    int f(int*);
+    int Fnf_001d6630(int*);
 };
 
 } // namespace fn_f45137ab
@@ -30,8 +30,8 @@ struct D {
 bool hulkfight::motion::PropSetStateByNameAction::vfunc_5(hulk_intptr __p0, int __p1) { unsigned int param = (unsigned int)__p0;
 
     if (param == 0 && (*(A_182070 * *)&this->f_20) != 0) {
-        A_182070* p = (A_182070*)(*(A_182070 * *)&this->f_20)->f();
-        hulk_intptr x = ((B_182070*)p)->f();
+        A_182070* p = (A_182070*)(*(A_182070 * *)&this->f_20)->Fnf_000592a0();
+        hulk_intptr x = ((B_182070*)p)->Fnf_00059a30();
         int index = (*(int * *)&this->f_1c)[4];
         if (x != 0) {
             if (index < 0)
@@ -39,10 +39,10 @@ bool hulkfight::motion::PropSetStateByNameAction::vfunc_5(hulk_intptr __p0, int 
             else {
                 if (index >= 8)
                     return false;
-                x = ((C_182070*)x)->f(index);
+                x = ((C_182070*)x)->Fnf_00035ef0(index);
             }
             if (x != 0)
-                ((D*)x)->f((int*)((char*)(*(int * *)&this->f_1c) + 0x18));
+                ((D*)x)->Fnf_001d6630((int*)((char*)(*(int * *)&this->f_1c) + 0x18));
         }
     }
     return false;

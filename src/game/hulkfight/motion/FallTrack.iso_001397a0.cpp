@@ -21,12 +21,12 @@ class HoverTrack_1397a0 {
     int c;
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-void __fastcall Init(HoverTrack_1397a0*);
+void __fastcall Init_00236d40(HoverTrack_1397a0*);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HoverTrack>::vfunc_5() {
     HoverTrack_1397a0* p = (HoverTrack_1397a0*)Alloc(0x18);
     if (p) {
-        Init(p);
+        Init_00236d40(p);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00411ca8);
         p->a = 0;
         p->b = (int)0xbf800000;

@@ -24,7 +24,7 @@ class TrackFactoryTemplate_16de30 {
 };
 extern "C" void FUN_0016b9d0();
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int velocityVtable;
+extern int hulk_at_004168b8;
 class VelocityXZAngleCondition_16de70 {
   public:
     virtual void a();
@@ -37,13 +37,13 @@ class VelocityXZAngleCondition_16de70 {
     int y;
     int z;
     float angle;
-    void Init(int);
+    void Init_00234590(int);
 };
-extern int g_vftable_16deb0;
+extern int hulk_at_004176d4;
 struct ConditionFactoryTemplate_16deb0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00166300();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -71,8 +71,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Veloc
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityXZAngleCondition>::vfunc_5() {
     VelocityXZAngleCondition_16de70* p = (VelocityXZAngleCondition_16de70*)FUN_0008d690((int)sizeof(VelocityXZAngleCondition_16de70));
     if (p) {
-        p->Init(0);
-        *(hulk_intptr*)p = (hulk_intptr)&velocityVtable;
+        p->Init_00234590(0);
+        *(hulk_intptr*)p = (hulk_intptr)&hulk_at_004168b8;
         p->z = 0;
         p->angle = 1.57079637f;
         return (void*)(p);
@@ -86,9 +86,9 @@ namespace fn_fcd8d6f8 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_16deb0@fn_fcd8d6f8@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_16deb0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_16deb0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004176d4;
+    base1_dtor_00166300();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

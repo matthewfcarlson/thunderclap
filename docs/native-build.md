@@ -2257,6 +2257,7 @@ reach the same named thunks (build/ren1/scripts/imgdiff.py), the PE checksum fol
 | (before: 652d16407) | | | 1155f411 | 28,899 / 28,884 / 28,891 |
 | renames 1/5, src/engine | 334 / 2,179 | 71598, GATE ok (0 of 2,029) | 1155f411 | 27,256 / 27,240 / 27,248 |
 | renames 2/5, src/game/global | 485 / 2,923 | 71599, GATE ok (0 of 2,012) | f900b656 | 25,236 / 25,216 / 25,227 |
+| renames 3/5, src/game/hulkfight/motion | 346 / 1,923 | 71600, GATE ok (0 of 2,002) | f900b656 | 23,948 / 23,928 / 23,939 |
 
 **Batch 2, the context's first shader.** After its construction, Pure3D's context builds the simple shader through
 the device (0x002a3130 -> 0x0028edb0 -> pddiDevice slot 11 -> the factory table 0x00327c70 -> 0x00327e90):

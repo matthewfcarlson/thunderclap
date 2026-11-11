@@ -13,7 +13,7 @@ namespace fn_f44fe395 {} using namespace fn_f44fe395;
 
 // ---- declarations shared by the functions below
 namespace fn_f44fe395 {
-extern int* gTable_170d60;
+extern int* hulk_at_004e13a0;
 class CCondition_170d60 {
   public:
     virtual int vfunc_0(int);
@@ -59,7 +59,7 @@ void FUN_00170d40() {
 // sym: ?vfunc_0@TeleportToLocatorTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::TeleportToLocatorTrack::vfunc_0(int index) {
-    int* p = gTable_170d60;
+    int* p = hulk_at_004e13a0;
     return p[index];
 }
 

@@ -12,19 +12,19 @@ namespace fn_f64d638a {} using namespace fn_f64d638a;
 // ---- declarations shared by the functions below
 namespace fn_f64d638a {
 typedef unsigned int u32_1890a0;
-extern int TypeA_1890a0;
-extern int TypeB_1890a0;
+extern int hulk_at_00494b44;
+extern int hulk_at_00494b60;
 struct Result_1890a0 {
-    u32_1890a0 Init(void*, void*);
+    u32_1890a0 Init_001847e0(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
-extern Result_1890a0* Alloc(int);
+extern Result_1890a0* Alloc_0008d690(int);
 struct RefCounted_1890f0 {
   public:
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_1890f0[];
+extern char hulk_at_00419790[];
 class BallAndChainSpinAction_1890f0 {
   public:
     BallAndChainSpinAction_1890f0* vfunc_2(int flag);
@@ -36,10 +36,10 @@ class BallAndChainSpinAction_1890f0 {
     RefCounted_1890f0* m_20;
 };
 struct Allocated_189140 {
-    int run(hulkfight::motion::BallAndChainShootTrack*, hulk_intptr);
+    int run_00184880(hulkfight::motion::BallAndChainShootTrack*, hulk_intptr);
 };
 extern int check(void*, int, int*, int*, int);
-extern Allocated_189140* alloc(int);
+extern Allocated_189140* alloc_0008d690(int);
 extern int typeA_189140, typeB;
 typedef unsigned int u32_1891f0;
 struct Track_1891f0 {
@@ -56,7 +56,7 @@ struct Track_1891f0 {
     virtual u32_1891f0 v10(u32_1891f0 a, u32_1891f0 b, u32_1891f0 c);
 };
 struct Obj_1891f0 {
-    u32_1891f0 Init(hulkfight::motion::BallAndChainReturnTrack*, hulk_uintptr);
+    u32_1891f0 Init_00184ef0(hulkfight::motion::BallAndChainReturnTrack*, hulk_uintptr);
 };
 extern int IsType(void*, int, hulk_intptr, hulk_intptr, int);
 extern void* Alloc(hulk_uintptr);
@@ -66,7 +66,7 @@ struct RefCounted_189240 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_189240[];
+extern char hulk_at_004197c8[];
 class BallAndChainReturnAction_189240 {
   public:
     BallAndChainReturnAction_189240* vfunc_2(int flag);
@@ -91,10 +91,10 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::BallAndChainSpinTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1890a0 a = (u32_1890a0)__p0; u32_1890a0 b = (u32_1890a0)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &TypeA_1890a0, &TypeB_1890a0, 0)) {
-        Result_1890a0* q = Alloc(0x28);
+    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+        Result_1890a0* q = Alloc_0008d690(0x28);
         if (q)
-            return (int)(q->Init(this, p));
+            return (int)(q->Init_001847e0(this, p));
     }
     return (int)(0);
 }
@@ -106,7 +106,7 @@ namespace fn_f64d638a {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 BallAndChainSpinAction_1890f0* BallAndChainSpinAction_1890f0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_1890f0;
+    *p = (hulk_intptr)&hulk_at_00419790;
     RefCounted_1890f0* q = *(RefCounted_1890f0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -128,9 +128,9 @@ BallAndChainSpinAction_1890f0* BallAndChainSpinAction_1890f0::vfunc_2(int flag) 
 // sym: ?vfunc_10@BallAndChainShootTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::BallAndChainShootTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (check((void*)c, 0, &typeA_189140, &typeB, 0)) {
-        Allocated_189140* q = alloc(0x54);
+        Allocated_189140* q = alloc_0008d690(0x54);
         if (q)
-            return q->run(this, c);
+            return q->run_00184880(this, c);
     }
     return 0;
 }
@@ -142,7 +142,7 @@ namespace fn_00189190 {
 // Same code shape as 0x0013bde0 (propagated; names are from that function)
 extern "C" {
 extern "C" char DAT_004197ac[];
-extern "C++" { __declspec(nothrow) void __cdecl opdel(void*); }
+extern "C++" { __declspec(nothrow) void __cdecl opdel_0008d330(void*); }
 void _ReadWriteBarrier();
 }
 
@@ -164,7 +164,7 @@ class AnimationAction {
     virtual void vfunc_4();
     virtual void vfunc_5();
 
-    void Cleanup();
+    void Cleanup_002326a0();
 
     char pad[0x18];
     int m1c;
@@ -189,9 +189,9 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
         b->Release();
         m24 = 0;
     }
-    this->Cleanup();
+    this->Cleanup_002326a0();
     if (param & 1) {
-        opdel(this);
+        opdel_0008d330(this);
     }
     return this;
 }
@@ -206,9 +206,9 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
 hulk_intptr hulkfight::motion::BallAndChainReturnTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1891f0 a = (u32_1891f0)__p0; u32_1891f0 b = (u32_1891f0)__p1; hulk_uintptr c = (u32_1891f0)__p2;
 
     if (IsType((void*)c, 0, (hulk_intptr)&typeB, (hulk_intptr)&typeA_1891f0, 0)) {
-        Obj_1891f0* p = (Obj_1891f0*)Alloc(0x48);
+        Obj_1891f0* p = (Obj_1891f0*)Alloc_0008d690(0x48);
         if (p)
-            return (int)(p->Init(this, c));
+            return (int)(p->Init_00184ef0(this, c));
     }
     return (int)(0);
 }
@@ -220,7 +220,7 @@ namespace fn_f64d638a {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 BallAndChainReturnAction_189240* BallAndChainReturnAction_189240::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_189240;
+    *p = (hulk_intptr)&hulk_at_004197c8;
     RefCounted_189240* q = *(RefCounted_189240* volatile*)&m_20;
     if (q != 0) {
         q->Release();

@@ -13,19 +13,19 @@ namespace fn_fb8c937a {} using namespace fn_fb8c937a;
 namespace hulkfight { namespace motion {
 class Q_172910 {
   public:
-    void* f1();
+    void* f1_000592a0();
 };
 } }
 namespace hulkfight { namespace motion {
 class R_172910 {
   public:
-    void* f2();
+    void* f2_00059a30();
 };
 } }
 namespace hulkfight { namespace motion {
 class S_172910 {
   public:
-    void* f3(int);
+    void* f3_00036a80(int);
 };
 } }
 namespace fn_fb8c937a {
@@ -51,11 +51,11 @@ struct Actor_172950 {
  // namespace hulkfight
 bool hulkfight::motion::VisibilityAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     if ((*(void * *)&this->f_20)) {
-        void* x = ((Q_172910*)(*(void * *)&this->f_20))->f1();
+        void* x = ((Q_172910*)(*(void * *)&this->f_20))->f1_000592a0();
         if (x) {
-            void* y = ((R_172910*)x)->f2();
+            void* y = ((R_172910*)x)->f2_00059a30();
             if (y) {
-                void* z = ((S_172910*)y)->f3(1);
+                void* z = ((S_172910*)y)->f3_00036a80(1);
                 *(unsigned char*)((char*)z + 0xa8) = *(((unsigned char*)(*(void * *)&this->f_1c)) + 0x10);
             }
         }

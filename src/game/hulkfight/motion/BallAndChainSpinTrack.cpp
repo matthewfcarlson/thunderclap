@@ -14,14 +14,14 @@ namespace fn_f2c9911e {} using namespace fn_f2c9911e;
 namespace fn_f2c9911e {
 class Helper_181280 {
   public:
-    void Init();
+    void Init_0027af50();
 };
-extern char BallAndChainShootTrack_vftable;
+extern char hulk_at_0041947c;
 class BallAndChainSpinTrack_181280 {
   public:
-    void Finish();
+    void Finish_00236d60();
 };
-extern int* gTable_1812d0;
+extern int* hulk_at_004e14b8;
 class CCondition_1812d0 {
   public:
     virtual int vfunc_0(int);
@@ -67,10 +67,10 @@ struct Track_181340 {
 // 0x00181280 FUN_00181280 (33 B): matches/0x00181280.cpp
 // sym: ?FUN_00181280@BallAndChainShootTrack@motion@hulkfight@@QAEXXZ
 void hulkfight::motion::BallAndChainShootTrack::FUN_00181280() {
-    *(void**)this = &BallAndChainShootTrack_vftable;
-    ((Helper_181280*)((char*)this + 0x78))->Init();
-    ((Helper_181280*)((char*)this + 0x60))->Init();
-    ((BallAndChainSpinTrack_181280*)this)->Finish();
+    *(void**)this = &hulk_at_0041947c;
+    ((Helper_181280*)((char*)this + 0x78))->Init_0027af50();
+    ((Helper_181280*)((char*)this + 0x60))->Init_0027af50();
+    ((BallAndChainSpinTrack_181280*)this)->Finish_00236d60();
 }
 
 namespace fn_f2c9911e {
@@ -88,7 +88,7 @@ void FUN_001812b0() {
 // sym: ?vfunc_0@BallAndChainSpinTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::BallAndChainSpinTrack::vfunc_0(int index) {
-    int* p = gTable_1812d0;
+    int* p = hulk_at_004e14b8;
     return p[index];
 }
 

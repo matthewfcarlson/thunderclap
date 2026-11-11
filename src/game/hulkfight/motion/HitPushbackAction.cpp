@@ -12,14 +12,14 @@ namespace fn_fd4cb946 {} using namespace fn_fd4cb946;
 // ---- declarations shared by the functions below
 namespace fn_fd4cb946 {
 struct X_14f630 {
-    void* a();
-    void* b();
-    void c(int);
+    void* Fna_000592a0();
+    void* Fnb_00059a30();
+    void Fnc_000358c0(int);
 };
 class Obj_14f660 {
   public:
-    Obj_14f660* B();
-    void C(int);
+    Obj_14f660* FnB_00059a30();
+    void FnC_000358c0(int);
 };
 struct V3_14f680 {
     float x, y, z;
@@ -104,7 +104,7 @@ public:
     float f40;
 };
 struct Two_14f950 {
-    void* f();
+    void* Fnf_00059a40();
 };
 
 } // namespace fn_fd4cb946
@@ -114,9 +114,9 @@ struct Two_14f950 {
 bool hulkfight::motion::NoHitPushbackAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
     X_14f630* p = (*(X_14f630 * *)&this->f_20);
     if (p) {
-        X_14f630* a = (X_14f630*)p->a();
-        X_14f630* b = (X_14f630*)a->b();
-        b->c(1);
+        X_14f630* a = (X_14f630*)p->Fna_000592a0();
+        X_14f630* b = (X_14f630*)a->Fnb_00059a30();
+        b->Fnc_000358c0(1);
     }
     return true;
 }
@@ -128,8 +128,8 @@ void hulkfight::motion::NoHitPushbackAction::vfunc_4() {
     Obj_14f660* p = (*(Obj_14f660 * *)&this->f_20);
     if (p) {
         p = ((Obj_14f660 *)((owners::Object_592a0 *)p)->FUN_000592a0());
-        p = p->B();
-        p->C(0);
+        p = p->FnB_00059a30();
+        p->FnC_000358c0(0);
     }
 }
 
@@ -234,7 +234,7 @@ bool HitPushbackAction::vfunc_3(void *a, void *b)
 // Same code shape as 0x00134160 (propagated; names are from that function)
 void hulkfight::motion::HitPushbackAction::vfunc_4() {
     void* x = (*(One * *)&this->f_20)->f();
-    void* y = ((Two_14f950*)x)->f();
+    void* y = ((Two_14f950*)x)->Fnf_00059a40();
     if (y)
         ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }

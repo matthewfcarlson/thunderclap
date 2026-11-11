@@ -57,7 +57,7 @@ class SuckTrack_17e1e0 : public Track_17e1e0 {
 };
 } }
 namespace fn_feb0571f {
-extern int g_vftable_17e230;
+extern int hulk_at_00418e18;
 
 } // namespace fn_feb0571f
 
@@ -91,7 +91,7 @@ namespace fn_feb0571f {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_feb0571f@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17e230;
+    m_vptr = (void*)&hulk_at_00418e18;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

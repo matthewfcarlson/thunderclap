@@ -13,17 +13,17 @@ namespace fn_f66936df {} using namespace fn_f66936df;
 namespace fn_f66936df {
 class Helper_14ee00 {
   public:
-    void* second();
+    void* second_00059a30();
 };
 class Helper_14ee30 {
   public:
-    void* f59a30();
+    void* f59a30_00059a30();
 };
 struct Helper2_14ee60 {
-    void* run();
+    void* run_00059a30();
 };
 struct Helper1_14ee60 {
-    Helper2_14ee60* run();
+    Helper2_14ee60* run_000592a0();
 };
 struct Stats_14ee80 {
     char pad00[0x58];
@@ -61,7 +61,7 @@ public:
 bool hulkfight::motion::InterruptAccumulatorSetAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
     Helper_14ee00* h = (*(Helper_14ee00 * *)&this->f_20);
     void* a = ((void *)((owners::Object_592a0 *)h)->FUN_000592a0());
-    void* b = ((Helper_14ee00*)a)->second();
+    void* b = ((Helper_14ee00*)a)->second_00059a30();
     *(int*)((char*)b + 0x320) = *(int*)((char*)(*(void * *)&this->f_1c) + 0x10);
     return false;
 }
@@ -72,7 +72,7 @@ bool hulkfight::motion::InterruptAccumulatorSetAction::vfunc_3(hulk_intptr __p0,
 bool hulkfight::motion::InterruptPriorityAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     Helper_14ee30* h = (*(Helper_14ee30 * *)&this->f_20);
     Helper_14ee30* q = (Helper_14ee30*)((void *)((owners::Object_592a0 *)h)->FUN_000592a0());
-    void* r = q->f59a30();
+    void* r = q->f59a30_00059a30();
     *(int*)((char*)r + 0x31c) += *(int*)((char*)(*(Helper_14ee30 * *)&this->f_1c) + 0x14);
     return true;
 }
@@ -81,8 +81,8 @@ bool hulkfight::motion::InterruptPriorityAction::vfunc_3(hulk_intptr , hulk_intp
 // 0x0014ee60 hulkfight::motion::InterruptPriorityAction::vfunc_4 (32 B): matches/0x0014ee60.cpp
 // sym: ?vfunc_4@InterruptPriorityAction@motion@hulkfight@@UAEXXZ
 void hulkfight::motion::InterruptPriorityAction::vfunc_4() {
-    Helper2_14ee60* a = (*(Helper1_14ee60 * *)&this->f_20)->run();
-    int* b = (int*)a->run();
+    Helper2_14ee60* a = (*(Helper1_14ee60 * *)&this->f_20)->run_000592a0();
+    int* b = (int*)a->run_00059a30();
     *(int*)((char*)b + 0x31c) -= *(int*)((char*)(*(void * *)&this->f_1c) + 0x14);
 }
 

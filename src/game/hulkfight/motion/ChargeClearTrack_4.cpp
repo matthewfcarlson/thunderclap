@@ -27,7 +27,7 @@ extern "C" char DAT_00417d18[];
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class Track {
   public:
-    void Init();
+    void Init_00236d40();
     hulk_intptr vfptr;
     int a4;
     int a8;
@@ -35,7 +35,7 @@ class Track {
     int a16;
     unsigned char flag;
 };
-extern int g_vftable_17ed00;
+extern int hulk_at_00418fbc;
 
 } // namespace fn_f0814f05
 
@@ -62,7 +62,7 @@ namespace fn_f0814f05 {
 void* __cdecl make_track() {
     Track* p = (Track*)FUN_0008d690((int)sizeof(Track));
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->flag = 1;
         p->a8 = 1;
         p->vfptr = ((hulk_intptr)DAT_00417d18);
@@ -78,7 +78,7 @@ void* __cdecl make_track() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f0814f05@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_17ed00;
+    m_vptr = (void*)&hulk_at_00418fbc;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

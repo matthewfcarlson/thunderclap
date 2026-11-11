@@ -26,9 +26,9 @@ class TrackFactoryTemplate_18c7e0 {
 extern "C" void FUN_0018a100();
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 struct PropAnimationTrack_nv_18c820 {
-    void* init();
+    void* init_00180db0();
 };
-extern int g_vftable_18c840;
+extern int hulk_at_0041a940;
 
 } // namespace fn_f0c97f94
 
@@ -56,7 +56,7 @@ namespace fn_f0c97f94 {
 void* f() {
     hulkfight::motion::PropAnimationTrack* p = (hulkfight::motion::PropAnimationTrack*)FUN_0008d690((int)sizeof(hulkfight::motion::PropAnimationTrack));
     if (p)
-        return ((PropAnimationTrack_nv_18c820*)(((hulkfight::motion::PropAnimationTrack*)(p))))->init();
+        return ((PropAnimationTrack_nv_18c820*)(((hulkfight::motion::PropAnimationTrack*)(p))))->init_00180db0();
     return 0;
 }
 
@@ -65,7 +65,7 @@ void* f() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f0c97f94@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18c840;
+    m_vptr = (void*)&hulk_at_0041a940;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

@@ -13,7 +13,7 @@ namespace fn_f29ef6f2 {} using namespace fn_f29ef6f2;
 
 // ---- declarations shared by the functions below
 namespace fn_f29ef6f2 {
-extern int* gTable_170c30;
+extern int* hulk_at_004e1390;
 class CCondition_170c30 {
   public:
     virtual int vfunc_0(int);
@@ -58,7 +58,7 @@ void FUN_00170c10() {
 // sym: ?vfunc_0@TeleportRelativeTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::TeleportRelativeTrack::vfunc_0(int index) {
-    int* p = gTable_170c30;
+    int* p = hulk_at_004e1390;
     return p[index];
 }
 

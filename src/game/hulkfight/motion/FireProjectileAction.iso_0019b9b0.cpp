@@ -13,20 +13,20 @@ class Params_19b9b0 {
   public:
     int x;
 };
-extern Params_19b9b0 TypeA_19b9b0;
-extern Params_19b9b0 TypeB_19b9b0;
+extern Params_19b9b0 hulk_at_00494b44;
+extern Params_19b9b0 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_19b9b0*, Params_19b9b0*, int);
 struct FireGroundShockwaveAction_nv_19b9b0 {
-    int Init(hulkfight::motion::FireGroundShockwaveTrack*, hulk_intptr);
+    int Init_00198900(hulkfight::motion::FireGroundShockwaveTrack*, hulk_intptr);
 };
-hulkfight::motion::FireGroundShockwaveAction* __cdecl Alloc(int);
+hulkfight::motion::FireGroundShockwaveAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::FireGroundShockwaveTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_19b9b0, &TypeB_19b9b0, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::FireGroundShockwaveAction* p = Alloc(0x24);
+        hulkfight::motion::FireGroundShockwaveAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((FireGroundShockwaveAction_nv_19b9b0*)(((hulkfight::motion::FireGroundShockwaveAction*)(p))))->Init(this, c);
+            return ((FireGroundShockwaveAction_nv_19b9b0*)(((hulkfight::motion::FireGroundShockwaveAction*)(p))))->Init_00198900(this, c);
     }
     return 0;
 }

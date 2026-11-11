@@ -13,20 +13,20 @@ class Params_14ae00 {
   public:
     int x;
 };
-extern Params_14ae00 TypeA_14ae00;
-extern Params_14ae00 TypeB_14ae00;
+extern Params_14ae00 hulk_at_00494b44;
+extern Params_14ae00 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_14ae00*, Params_14ae00*, int);
 struct CivilianThrowAction_nv_14ae00 {
-    int Init(hulkfight::motion::CivilianThrowTrack*, hulk_intptr);
+    int Init_00148eb0(hulkfight::motion::CivilianThrowTrack*, hulk_intptr);
 };
-hulkfight::motion::CivilianThrowAction* __cdecl Alloc(int);
+hulkfight::motion::CivilianThrowAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::CivilianThrowTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_14ae00, &TypeB_14ae00, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::CivilianThrowAction* p = Alloc(0x24);
+        hulkfight::motion::CivilianThrowAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((CivilianThrowAction_nv_14ae00*)(((hulkfight::motion::CivilianThrowAction*)(p))))->Init(this, c);
+            return ((CivilianThrowAction_nv_14ae00*)(((hulkfight::motion::CivilianThrowAction*)(p))))->Init_00148eb0(this, c);
     }
     return 0;
 }

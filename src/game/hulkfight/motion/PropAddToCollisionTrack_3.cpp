@@ -415,7 +415,7 @@ struct RefCounted_188820 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_188820[];
+extern char hulk_at_00419608[];
 class PropActorToPropAction_188820 {
   public:
     PropActorToPropAction_188820* vfunc_2(int flag);
@@ -431,7 +431,7 @@ struct RefCounted_1888c0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_1888c0[];
+extern char hulk_at_00419624[];
 class PropActorThinkingAction_1888c0 {
   public:
     PropActorThinkingAction_1888c0* vfunc_2(int flag);
@@ -446,7 +446,7 @@ extern int FUN_00344e74(int, int, const void*, const void*, int);
 extern void* FUN_0008d690(int);
 class AllocObj_188910 {
   public:
-    int init(hulkfight::motion::PropAnimationTrack*, hulk_intptr);
+    int init_00183aa0(hulkfight::motion::PropAnimationTrack*, hulk_intptr);
 };
 class Ref_188960 {
   public:
@@ -461,7 +461,7 @@ class Action {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    void baseCleanup();
+    void baseCleanup_002326a0();
 };
 class PropAnimationAction : public Action {
   public:
@@ -472,14 +472,14 @@ class PropAnimationAction : public Action {
     Ref_188960* m28;
     virtual int f2(char);
 };
-extern char propVtable[];
-extern void thunk(PropAnimationAction*);
+extern char hulk_at_00419640[];
+extern void thunk_0008d330(PropAnimationAction*);
 struct RefCounted_188a10 {
   public:
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_188a10[];
+extern char hulk_at_0041965c[];
 class PropAddToMissileCountAction_188a10 {
   public:
     PropAddToMissileCountAction_188a10* vfunc_2(int flag);
@@ -1082,7 +1082,7 @@ extern "C" void FUN_00188730()
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 PropActorToPropAction_188820* PropActorToPropAction_188820::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_188820;
+    *p = (hulk_intptr)&hulk_at_00419608;
     RefCounted_188820* q = *(RefCounted_188820* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -1104,7 +1104,7 @@ PropActorToPropAction_188820* PropActorToPropAction_188820::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 PropActorThinkingAction_1888c0* PropActorThinkingAction_1888c0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_1888c0;
+    *p = (hulk_intptr)&hulk_at_00419624;
     RefCounted_1888c0* q = *(RefCounted_1888c0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -1129,7 +1129,7 @@ hulk_intptr hulkfight::motion::PropAnimationTrack::vfunc_10(hulk_intptr a, hulk_
     if (FUN_00344e74(c, 0, &RTTI_Type1, &RTTI_Type2, 0)) {
         AllocObj_188910* p = (AllocObj_188910*)FUN_0008d690(0x2c);
         if (p)
-            return p->init(this, c);
+            return p->init_00183aa0(this, c);
     }
     return 0;
 }
@@ -1139,7 +1139,7 @@ namespace fn_f5c5d2a1 {
 // 0x00188960 hulkfight::motion::PropAnimationAction::vfunc_2 (95 B): matches/0x00188960.cpp
 // sym: ?f2@PropAnimationAction@fn_f5c5d2a1@@UAEHD@Z
 int PropAnimationAction::f2(char param) {
-    *(void**)this = (void*)propVtable;
+    *(void**)this = (void*)hulk_at_00419640;
     _ReadWriteBarrier();
     if (m20) {
         m20->f1();
@@ -1155,9 +1155,9 @@ int PropAnimationAction::f2(char param) {
         m28->f1();
         m28 = 0;
     }
-    this->Action::baseCleanup();
+    this->Action::baseCleanup_002326a0();
     if (param & 1)
-        thunk(this);
+        thunk_0008d330(this);
     return (hulk_intptr)this;
 }
 
@@ -1167,7 +1167,7 @@ int PropAnimationAction::f2(char param) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 PropAddToMissileCountAction_188a10* PropAddToMissileCountAction_188a10::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_188a10;
+    *p = (hulk_intptr)&hulk_at_0041965c;
     RefCounted_188a10* q = *(RefCounted_188a10* volatile*)&m_20;
     if (q != 0) {
         q->Release();

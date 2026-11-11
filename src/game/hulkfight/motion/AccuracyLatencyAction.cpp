@@ -14,17 +14,17 @@ namespace fn_fc8c1e47 {} using namespace fn_fc8c1e47;
 
 // ---- declarations shared by the functions below
 namespace fn_fc8c1e47 {
-extern int* gTable_193bc0;
+extern int* hulk_at_004e1548;
 class CCondition_193bc0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_193c20;
+extern int* hulk_at_004e1550;
 class CCondition_193c20 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_193c80;
+extern int* hulk_at_004e1558;
 class CCondition_193c80 {
   public:
     virtual int vfunc_0(int);
@@ -41,7 +41,7 @@ struct Track_193d90 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern void* g_vftable_193da0[];
+extern void* hulk_at_0041b288[];
 class Ref_193da0 {
   public:
     virtual void F0();
@@ -50,14 +50,14 @@ class Ref_193da0 {
 class Track_193da0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 void Free(void*) throw();
 struct Sub_193da0 {
     char c;
 };
-void __fastcall SubFini(Sub_193da0*) throw();
-void __fastcall SubFini2(Sub_193da0*) throw();
+void __fastcall SubFini_0027af50(Sub_193da0*) throw();
+void __fastcall SubFini2_00234150(Sub_193da0*) throw();
 class FireProjectileTrack_193da0 : public Track_193da0 {
   public:
     char p[0x14];
@@ -72,12 +72,12 @@ class FireProjectileTrack_193da0 : public Track_193da0 {
     Sub_193da0 sa8;
     ~FireProjectileTrack_193da0() throw();
 };
-extern int* gTable_193e10;
+extern int* hulk_at_004e1560;
 class CCondition_193e10 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_193ee0;
+extern int* hulk_at_004e1568;
 class CCondition_193ee0 {
   public:
     virtual int vfunc_0(int);
@@ -114,16 +114,16 @@ struct Track_193f40 {
     virtual void tfunc9();
 };
 struct Tail_193f50 {
-    void Init();
+    void Init_00234150();
 };
 struct MissilePunchTrack_193f50 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_193f50;
-extern int* gTable_193f90;
+extern void* hulk_at_0041b2e8;
+extern int* hulk_at_004e1570;
 class CCondition_193f90 {
   public:
     virtual int vfunc_0(int);
@@ -155,7 +155,7 @@ struct Track_193fe0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_194020;
+extern int* hulk_at_004e1578;
 class CCondition_194020 {
   public:
     virtual int vfunc_0(int);
@@ -175,27 +175,27 @@ struct Track_194200 {
 extern "C" char DAT_0041b348[];
 struct S18 {
     char z[0x18];
-    void Clear();
+    void Clear_0027af50();
 };
 struct S30 {
     char z[0x40];
-    void Clear();
+    void Clear_0027af50();
 };
 struct S70 {
     char z[0x14];
-    void Clear();
+    void Clear_0027af50();
 };
 struct S84 {
     char z[0x2c];
-    void Clear();
+    void Clear_00234150();
 };
 struct SB0 {
     char z[0x10];
-    void Clear();
+    void Clear_00234150();
 };
 struct SC0 {
     char z[0x10];
-    void Clear();
+    void Clear_0027af50();
 };
 struct FireBeamTrack {
     hulk_uintptr vptr;
@@ -206,28 +206,28 @@ struct FireBeamTrack {
     S84 d;
     SB0 e;
     SC0 f;
-    void Finish();
+    void Finish_00236d60();
     void Reset();
 };
-extern int* gTable_194280;
+extern int* hulk_at_004e1580;
 class CCondition_194280 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable_194490[];
+extern void* hulk_at_0041b378[];
 } // namespace fn_fc8c1e47
 void operator delete[](void*);
 namespace fn_fc8c1e47 {
 struct T1 {
-    void Fini();
+    void Fini_0027af50();
 };
 struct T2 {
-    void Fini();
+    void Fini_00234150();
 };
 class Track_194490 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class FireMissileTrack_194490 : public Track_194490 {
   public:
@@ -255,21 +255,21 @@ class FireMissileTrack_194490 : public Track_194490 {
 };
 void* __cdecl FUN_0008d340(void* p);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
-extern int* gTable_1945a0;
+extern int* hulk_at_004e1588;
 class CCondition_1945a0 {
   public:
     virtual int vfunc_0(int);
 };
 extern "C" char DAT_0041b3a8[];
-extern void __fastcall initA(void*);
-extern void __fastcall initB(void*);
-extern void __fastcall finish(void*);
+extern void __fastcall initA_0027af50(void*);
+extern void __fastcall initB_00234150(void*);
+extern void __fastcall finish_00236d60(void*);
 struct FireGroundShockwaveTrack {
   public:
     void* vt;
     char _m_pad_4[0xa4];
     FireGroundShockwaveTrack* vfunc_5(unsigned char flag);
-    void baseInit();
+    void baseInit_00236d60();
 };
 struct Vec3_1947a0 {
     float x, y, z;
@@ -310,31 +310,31 @@ struct Obj {
 typedef unsigned int u32_194d90;
 struct Obj_194d90 {
     char pad[0x20];
-    Obj_194d90* HelperB();
-    void DoWork(int, u32_194d90, u32_194d90);
+    Obj_194d90* HelperB_00059a30();
+    void DoWork_0003b580(int, u32_194d90, u32_194d90);
 };
 struct ObjC_194dd0;
 struct ObjB_194dd0 {
-    ObjC_194dd0* g();
+    ObjC_194dd0* Fng_00059a30();
 };
 struct ObjA_194dd0 {
 };
 struct ObjC_194dd0 {
-    void h(int, int, int);
+    void Fnh_0003b580(int, int, int);
 };
-extern void* Condition_194ee0_vftable[];
+extern void* hulk_at_0041b248[];
 class Condition_194ee0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class PropGrabbableIsMissileCondition_194ee0 : public Condition_194ee0 {
   public:
     PropGrabbableIsMissileCondition_194ee0* vfunc_5(signed char flags);
 };
-extern void* Condition_194f10_vftable[];
+extern void* hulk_at_0041b268[];
 class Condition_194f10 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class PropIsMissileCondition_194f10 : public Condition_194f10 {
   public:
@@ -389,31 +389,31 @@ class FireProjectileTrack : public Track {
     P9c m9c;
     Pa8 ma8;
 };
-extern void* Track_194fa0_vftable[];
+extern void* hulk_at_0041b2b8[];
 class Track_194fa0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class MissileThrowTrack_194fa0 : public Track_194fa0 {
   public:
     MissileThrowTrack_194fa0* vfunc_5(signed char flags);
 };
-extern void* Track_195000_vftable[];
+extern void* hulk_at_0041b318[];
 class Track_195000 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class AccuracyLatencyTrack_195000 : public Track_195000 {
   public:
     AccuracyLatencyTrack_195000* vfunc_5(signed char flags);
 };
 struct Part_1950b0 {
-    void init();
+    void init_0027af50();
 };
 struct Part2_1950b0 {
-    void init2();
+    void init2_00234150();
 };
-void destroy(void*);
+void destroy_0008d330(void*);
 
 } // namespace fn_fc8c1e47
 
@@ -421,7 +421,7 @@ void destroy(void*);
 // sym: ?vfunc_0@PropGrabbableIsMissileCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropGrabbableIsMissileCondition::vfunc_0(int index) {
-    int* p = gTable_193bc0;
+    int* p = hulk_at_004e1548;
     return p[index];
 }
 
@@ -440,7 +440,7 @@ void FUN_00193c00() {
 // sym: ?vfunc_0@PropIsMissileCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropIsMissileCondition::vfunc_0(int index) {
-    int* p = gTable_193c20;
+    int* p = hulk_at_004e1550;
     return p[index];
 }
 
@@ -459,7 +459,7 @@ void FUN_00193c60() {
 // sym: ?vfunc_0@FireProjectileTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FireProjectileTrack::vfunc_0(int index) {
-    int* p = gTable_193c80;
+    int* p = hulk_at_004e1558;
     return p[index];
 }
 
@@ -608,13 +608,13 @@ namespace fn_fc8c1e47 {
 // 0x00193da0 FUN_00193da0 (66 B): matches/0x00193da0.cpp
 // sym: ??1FireProjectileTrack_193da0@fn_fc8c1e47@@QAE@XZ
 FireProjectileTrack_193da0::~FireProjectileTrack_193da0() throw() {
-    vptr = g_vftable_193da0;
-    SubFini2(&sa8);
-    SubFini2(&s9c);
-    SubFini(&s88);
-    SubFini(&s38);
-    SubFini(&s18);
-    Fin();
+    vptr = hulk_at_0041b288;
+    SubFini2_00234150(&sa8);
+    SubFini2_00234150(&s9c);
+    SubFini_0027af50(&s88);
+    SubFini_0027af50(&s38);
+    SubFini_0027af50(&s18);
+    Fin_00236d60();
 }
 
 
@@ -631,7 +631,7 @@ void FUN_00193df0() {
 // sym: ?vfunc_0@MissileThrowTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::MissileThrowTrack::vfunc_0(int index) {
-    int* p = gTable_193e10;
+    int* p = hulk_at_004e1560;
     return p[index];
 }
 
@@ -727,7 +727,7 @@ void FUN_00193ec0() {
 // sym: ?vfunc_0@MissilePunchTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::MissilePunchTrack::vfunc_0(int index) {
-    int* p = gTable_193ee0;
+    int* p = hulk_at_004e1568;
     return p[index];
 }
 
@@ -763,9 +763,9 @@ namespace fn_fc8c1e47 {
 // sym: ?Run@MissilePunchTrack_193f50@fn_fc8c1e47@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void MissilePunchTrack_193f50::Run() {
-    vptr = &vftable_193f50;
-    ((Tail_193f50*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_0041b2e8;
+    ((Tail_193f50*)((char*)this + 0x18))->Init_00234150();
+    Finish_00236d60();
 }
 
 
@@ -782,7 +782,7 @@ void FUN_00193f70() {
 // sym: ?vfunc_0@AccuracyLatencyTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::AccuracyLatencyTrack::vfunc_0(int index) {
-    int* p = gTable_193f90;
+    int* p = hulk_at_004e1570;
     return p[index];
 }
 
@@ -827,7 +827,7 @@ void FUN_00194000() {
 // sym: ?vfunc_0@FireBeamTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FireBeamTrack::vfunc_0(int index) {
-    int* p = gTable_194020;
+    int* p = hulk_at_004e1578;
     return p[index];
 }
 
@@ -1008,13 +1008,13 @@ namespace fn_fc8c1e47 {
 // sym: ?Reset@FireBeamTrack@fn_fc8c1e47@@QAEXXZ
 void FireBeamTrack::Reset() {
     vptr = ((hulk_intptr)DAT_0041b348);
-    f.Clear();
-    e.Clear();
-    d.Clear();
-    c.Clear();
-    b.Clear();
-    a.Clear();
-    Finish();
+    f.Clear_0027af50();
+    e.Clear_00234150();
+    d.Clear_00234150();
+    c.Clear_0027af50();
+    b.Clear_0027af50();
+    a.Clear_0027af50();
+    Finish_00236d60();
 }
 
 
@@ -1031,7 +1031,7 @@ void FUN_00194260() {
 // sym: ?vfunc_0@FireMissileTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FireMissileTrack::vfunc_0(int index) {
-    int* p = gTable_194280;
+    int* p = hulk_at_004e1580;
     return p[index];
 }
 
@@ -1187,18 +1187,18 @@ namespace fn_fc8c1e47 {
 // 0x00194490 FUN_00194490 (119 B): matches/0x00194490.cpp
 // sym: ??1FireMissileTrack_194490@fn_fc8c1e47@@QAE@XZ
 FireMissileTrack_194490::~FireMissileTrack_194490() throw() {
-    vptr = g_vftable_194490;
+    vptr = hulk_at_0041b378;
     operator delete[](mdc);
-    m128.Fini();
-    m100.Fini();
-    me8.Fini();
-    mc8.Fini();
-    mbc.Fini();
-    m38.Fini();
-    m20.Fini();
-    m18.Fini();
-    m10.Fini();
-    Fin();
+    m128.Fini_0027af50();
+    m100.Fini_00234150();
+    me8.Fini_0027af50();
+    mc8.Fini_00234150();
+    mbc.Fini_00234150();
+    m38.Fini_0027af50();
+    m20.Fini_0027af50();
+    m18.Fini_0027af50();
+    m10.Fini_0027af50();
+    Fin_00236d60();
 }
 
 } // namespace fn_fc8c1e47
@@ -1233,7 +1233,7 @@ void FUN_00194580() {
 // sym: ?vfunc_0@FireGroundShockwaveTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FireGroundShockwaveTrack::vfunc_0(int index) {
-    int* p = gTable_1945a0;
+    int* p = hulk_at_004e1588;
     return p[index];
 }
 
@@ -1348,10 +1348,10 @@ namespace fn_fc8c1e47 {
 // sym: ?FUN_001946b0@fn_fc8c1e47@@YIXPAUFireGroundShockwaveTrack@1@PAX@Z
 void __fastcall FUN_001946b0(FireGroundShockwaveTrack* p, void*) {
     *(void**)p = (void*)((hulk_intptr)DAT_0041b3a8);
-    initA((char*)p + 0xa8);
-    initB((char*)p + 0x98);
-    initA((char*)p + 0x40);
-    finish(p);
+    initA_0027af50((char*)p + 0xa8);
+    initB_00234150((char*)p + 0x98);
+    initA_0027af50((char*)p + 0x40);
+    finish_00236d60(p);
 }
 
 } // namespace fn_fc8c1e47
@@ -1785,9 +1785,9 @@ bool hulkfight::motion::MissilePunchAction::vfunc_3(hulk_intptr a, hulk_intptr b
     if (!(*(Obj_194d90 * *)&this->f_20))
         return (bool)(0);
     Obj_194d90* x = ((Obj_194d90 *)((owners::Object_592a0 *)((*(Obj_194d90 * *)&this->f_20)))->FUN_000592a0());
-    x = x->HelperB();
+    x = x->HelperB_00059a30();
     Obj_194d90* y = (*(Obj_194d90 * *)&this->f_1c);
-    x->DoWork(1, *(u32_194d90*)((char*)y + 0x14), *(u32_194d90*)((char*)y + 0x18));
+    x->DoWork_0003b580(1, *(u32_194d90*)((char*)y + 0x14), *(u32_194d90*)((char*)y + 0x18));
     return (bool)(1);
 }
 
@@ -1796,8 +1796,8 @@ bool hulkfight::motion::MissilePunchAction::vfunc_3(hulk_intptr a, hulk_intptr b
 // sym: ?vfunc_4@MissilePunchAction@motion@hulkfight@@UAEXXZ
 void hulkfight::motion::MissilePunchAction::vfunc_4() {
     if ((*(void * *)&this->f_20)) {
-        ObjC_194dd0* c = ((ObjB_194dd0 *)((owners::Object_592a0 *)(((ObjA_194dd0*)(*(void * *)&this->f_20))))->FUN_000592a0())->g();
-        c->h(0, 0, 0);
+        ObjC_194dd0* c = ((ObjB_194dd0 *)((owners::Object_592a0 *)(((ObjA_194dd0*)(*(void * *)&this->f_20))))->FUN_000592a0())->Fng_00059a30();
+        c->Fnh_0003b580(0, 0, 0);
     }
 }
 
@@ -1809,8 +1809,8 @@ namespace fn_fc8c1e47 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 PropGrabbableIsMissileCondition_194ee0* PropGrabbableIsMissileCondition_194ee0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_194ee0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041b248;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1824,8 +1824,8 @@ PropGrabbableIsMissileCondition_194ee0* PropGrabbableIsMissileCondition_194ee0::
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 PropIsMissileCondition_194f10* PropIsMissileCondition_194f10::vfunc_5(signed char flags) {
-    *(void***)this = Condition_194f10_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041b268;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1855,8 +1855,8 @@ FireProjectileTrack* FireProjectileTrack::vfunc_5(unsigned char flag) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 MissileThrowTrack_194fa0* MissileThrowTrack_194fa0::vfunc_5(signed char flags) {
-    *(void***)this = Track_194fa0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041b2b8;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1870,7 +1870,7 @@ MissileThrowTrack_194fa0* MissileThrowTrack_194fa0::vfunc_5(signed char flags) {
 namespace fn_00194fd0 {
 class Sub_194fd0 {
   public:
-    void Init();
+    void Init_00234150();
 };
 class MissilePunchTrack {
   public:
@@ -1887,16 +1887,16 @@ class MissilePunchTrack {
     virtual void v10();
     char pad[0x14];
     Sub_194fd0 sub;
-    void Setup();
+    void Setup_00236d60();
 };
 extern int missileVftable;
-extern void Cleanup(MissilePunchTrack*);
+extern void Cleanup_0008d330(MissilePunchTrack*);
 MissilePunchTrack* MissilePunchTrack::vfunc_5(int flag) {
     *(hulk_intptr*)this = (hulk_intptr)&missileVftable;
-    sub.Init();
-    Setup();
+    sub.Init_00234150();
+    Setup_00236d60();
     if (flag & 1)
-        Cleanup(this);
+        Cleanup_0008d330(this);
     return this;
 }
 } // namespace fn_00194fd0
@@ -1909,8 +1909,8 @@ namespace fn_fc8c1e47 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 AccuracyLatencyTrack_195000* AccuracyLatencyTrack_195000::vfunc_5(signed char flags) {
-    *(void***)this = Track_195000_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041b318;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1924,12 +1924,12 @@ AccuracyLatencyTrack_195000* AccuracyLatencyTrack_195000::vfunc_5(signed char fl
 namespace fn_00195030 {
 class Obj_195030 {
   public:
-    void init27();
-    void init23();
+    void init27_0027af50();
+    void init23_00234150();
 };
 class TrackPart {
   public:
-    void init36();
+    void init36_00236d60();
 };
 class FireBeamTrack {
   public:
@@ -1937,19 +1937,19 @@ class FireBeamTrack {
     char pad[0xbc];
     FireBeamTrack* vfunc_5(unsigned char);
 };
-void destroy(FireBeamTrack*);
-extern int fireVtable;
+void destroy_0008d330(FireBeamTrack*);
+extern int hulk_at_0041b348;
 FireBeamTrack* FireBeamTrack::vfunc_5(unsigned char flag) {
-    vptr = (hulk_intptr)&fireVtable;
-    ((Obj_195030*)((char*)this + 0xc0))->init27();
-    ((Obj_195030*)((char*)this + 0xb0))->init23();
-    ((Obj_195030*)((char*)this + 0x84))->init23();
-    ((Obj_195030*)((char*)this + 0x70))->init27();
-    ((Obj_195030*)((char*)this + 0x30))->init27();
-    ((Obj_195030*)((char*)this + 0x18))->init27();
-    ((TrackPart*)this)->init36();
+    vptr = (hulk_intptr)&hulk_at_0041b348;
+    ((Obj_195030*)((char*)this + 0xc0))->init27_0027af50();
+    ((Obj_195030*)((char*)this + 0xb0))->init23_00234150();
+    ((Obj_195030*)((char*)this + 0x84))->init23_00234150();
+    ((Obj_195030*)((char*)this + 0x70))->init27_0027af50();
+    ((Obj_195030*)((char*)this + 0x30))->init27_0027af50();
+    ((Obj_195030*)((char*)this + 0x18))->init27_0027af50();
+    ((TrackPart*)this)->init36_00236d60();
     if (flag & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 } // namespace fn_00195030
@@ -1967,12 +1967,12 @@ namespace fn_fc8c1e47 {
 // sym: ?vfunc_5@FireGroundShockwaveTrack@fn_fc8c1e47@@QAEPAU12@E@Z
 FireGroundShockwaveTrack* FireGroundShockwaveTrack::vfunc_5(unsigned char flag) {
     vt = (void*)((hulk_intptr)DAT_0041b3a8);
-    ((Part_1950b0*)((char*)this + 0xa8))->init();
-    ((Part2_1950b0*)((char*)this + 0x98))->init2();
-    ((Part_1950b0*)((char*)this + 0x40))->init();
-    baseInit();
+    ((Part_1950b0*)((char*)this + 0xa8))->init_0027af50();
+    ((Part2_1950b0*)((char*)this + 0x98))->init2_00234150();
+    ((Part_1950b0*)((char*)this + 0x40))->init_0027af50();
+    baseInit_00236d60();
     if (flag & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 

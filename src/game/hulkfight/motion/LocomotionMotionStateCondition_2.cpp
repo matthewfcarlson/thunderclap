@@ -30,21 +30,21 @@ class Condition_16d860 {
     virtual void D();
     virtual void E();
     virtual void F();
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int LocomotionVTable;
+extern int hulk_at_00416778;
 struct Locomotion_16d860 {
     int* vptr;
     char pad[8];
     int a;
     int b;
 };
-extern int g_vftable_16d8a0;
+extern int hulk_at_004175d8;
 struct ConditionFactoryTemplate_16d8a0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00165e30();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -72,9 +72,9 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Locom
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::LocomotionMotionStateCondition>::vfunc_5() {
     Condition_16d860* p = (Condition_16d860*)FUN_0008d690(0x14);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         Locomotion_16d860* q = (Locomotion_16d860*)p;
-        q->vptr = &LocomotionVTable;
+        q->vptr = &hulk_at_00416778;
         q->a = 0;
         q->b = 0;
         return (void*)(p);
@@ -88,9 +88,9 @@ namespace fn_f1bdf2cd {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_16d8a0@fn_f1bdf2cd@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_16d8a0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_16d8a0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004175d8;
+    base1_dtor_00165e30();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

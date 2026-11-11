@@ -46,11 +46,11 @@ struct PropMassCondition_18c5f0 : Condition_18c5f0 {
     Sub_18c5f0 s;
     float mass;
 };
-extern int g_vftable_18c640;
+extern int hulk_at_0041a8ec;
 struct ConditionFactoryTemplate_18c640 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00180770();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -90,9 +90,9 @@ PropMassCondition_18c5f0* factory_vfunc_5() {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_18c640@fn_ffe1b429@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_18c640::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18c640;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041a8ec;
+    base1_dtor_00180770();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

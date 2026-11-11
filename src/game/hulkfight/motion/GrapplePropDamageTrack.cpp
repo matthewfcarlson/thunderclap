@@ -14,16 +14,16 @@ namespace fn_f8ded1c2 {} using namespace fn_f8ded1c2;
 // ---- declarations shared by the functions below
 namespace fn_f8ded1c2 {
 struct Tail_180e20 {
-    void Init();
+    void Init_0027af50();
 };
 struct PropAnimationTrack_180e20 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_180e20;
-extern int* gTable_180e60;
+extern void* hulk_at_0041938c;
+extern int* hulk_at_004e1490;
 class CCondition_180e60 {
   public:
     virtual int vfunc_0(int);
@@ -46,9 +46,9 @@ class GrapplePropDamageTrack : public Track_180e70 {
 // sym: ?Run@PropAnimationTrack_180e20@fn_f8ded1c2@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void PropAnimationTrack_180e20::Run() {
-    vptr = &vftable_180e20;
-    ((Tail_180e20*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_0041938c;
+    ((Tail_180e20*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 
@@ -65,7 +65,7 @@ void FUN_00180e40() {
 // sym: ?vfunc_0@GrapplePropDamageTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::GrapplePropDamageTrack::vfunc_0(int index) {
-    int* p = gTable_180e60;
+    int* p = hulk_at_004e1490;
     return p[index];
 }
 

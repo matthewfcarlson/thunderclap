@@ -13,7 +13,7 @@ namespace fn_f947dfa3 {} using namespace fn_f947dfa3;
 
 // ---- declarations shared by the functions below
 namespace fn_f947dfa3 {
-extern int* gTable_1706b0;
+extern int* hulk_at_004e1350;
 class CCondition_1706b0 {
   public:
     virtual int vfunc_0(int);
@@ -46,7 +46,7 @@ void FUN_00170690() {
 // sym: ?vfunc_0@TargetBreakTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::TargetBreakTrack::vfunc_0(int index) {
-    int* p = gTable_1706b0;
+    int* p = hulk_at_004e1350;
     return p[index];
 }
 

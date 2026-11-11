@@ -12,7 +12,7 @@ namespace fn_f126326a {} using namespace fn_f126326a;
 
 // ---- declarations shared by the functions below
 namespace fn_f126326a {
-extern int* gTable_14e320;
+extern int* hulk_at_004e1138;
 class CCondition_14e320 {
   public:
     virtual int vfunc_0(int);
@@ -66,7 +66,7 @@ void FUN_0014e300() {
 // sym: ?vfunc_0@GroundSlideTrack@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::GroundSlideTrack::vfunc_0(int index) {
-    int* p = gTable_14e320;
+    int* p = hulk_at_004e1138;
     return p[index];
 }
 

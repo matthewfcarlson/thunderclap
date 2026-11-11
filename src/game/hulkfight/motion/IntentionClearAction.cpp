@@ -11,13 +11,13 @@ namespace fn_fbf77592 {} using namespace fn_fbf77592;
 
 // ---- declarations shared by the functions below
 namespace fn_fbf77592 {
-extern int ParamsRTTI;
-extern int CFightParamsRTTI;
+extern int hulk_at_00494b44;
+extern int hulk_at_00494b60;
 extern int TypeCheck(void*, int, int*, int*, int);
 extern "C" void* FUN_0008d690(int);
 class Obj_17b0c0 {
   public:
-    int Init(hulkfight::motion::JointTrackerTrack*, void*);
+    int Init_00173410(hulkfight::motion::JointTrackerTrack*, void*);
 };
 extern "C" char DAT_00417df0[];
 class Ref_17b110 {
@@ -29,7 +29,7 @@ class IntentionClearAction_17b110 {
   public:
 };
 class JointTrackerAction;
-void delthis(JointTrackerAction*);
+void delthis_0008d330(JointTrackerAction*);
 class JointTrackerAction {
   public:
     virtual void f0();
@@ -50,7 +50,7 @@ extern int desc1_17b170;
 extern int desc2_17b170;
 int __cdecl check(void* obj, int z, void* d1, void* d2, int z2);
 struct Result_17b170 {
-    int init(void* self, void* p);
+    int init_00173c00(void* self, void* p);
 };
 struct Track_17b170 {
     virtual void v0();
@@ -67,12 +67,12 @@ struct Track_17b170 {
 };
 typedef unsigned int u32_17b1e0;
 struct Result_17b1e0 {
-    int Init(hulkfight::motion::JointRelativeTrack*, u32_17b1e0);
+    int Init_00174660(hulkfight::motion::JointRelativeTrack*, u32_17b1e0);
 };
 extern int __cdecl Check5(u32_17b1e0, int, void*, void*, int);
 extern char g_a_17b1e0;
 extern char g_b_17b1e0;
-extern int g_vftable_17b230;
+extern int hulk_at_00417e30;
 class RefObj_17b230 {
   public:
     virtual void vfunc_0();
@@ -95,15 +95,15 @@ extern Params_17b290 TypeA_17b290;
 extern Params_17b290 TypeB_17b290;
 int __cdecl Check(void*, int, Params_17b290*, Params_17b290*, int);
 struct IntentionClearAction_nv_17b290 {
-    int Init(hulkfight::motion::IntentionClearTrack*, hulk_intptr);
+    int Init_00174700(hulkfight::motion::IntentionClearTrack*, hulk_intptr);
 };
-hulkfight::motion::IntentionClearAction* __cdecl Alloc(int);
+hulkfight::motion::IntentionClearAction* __cdecl Alloc_0008d690(int);
 struct RefCounted_17b2e0 {
   public:
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17b2e0[];
+extern char hulk_at_00417e4c[];
 class IntentionClearAction_17b2e0 {
   public:
     IntentionClearAction_17b2e0* vfunc_2(int flag);
@@ -121,10 +121,10 @@ class IntentionClearAction_17b2e0 {
 // sym: ?vfunc_10@JointTrackerTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::JointTrackerTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr __p2) { void * p = (void *)__p2;
 
-    if (TypeCheck(p, 0, &ParamsRTTI, &CFightParamsRTTI, 0)) {
+    if (TypeCheck(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
         void* q = FUN_0008d690(0x78);
         if (q)
-            return ((Obj_17b0c0*)q)->Init(this, p);
+            return ((Obj_17b0c0*)q)->Init_00173410(this, p);
     }
     return 0;
 }
@@ -153,7 +153,7 @@ JointTrackerAction* JointTrackerAction::vfunc_2(int flag) {
         m1c = 0;
     ((fight::Action *)(((IntentionClearAction_17b110*)this)))->FUN_002326a0();
     if (flag & 1)
-        delthis(this);
+        delthis_0008d330(this);
     return this;
 }
 
@@ -166,7 +166,7 @@ hulk_intptr hulkfight::motion::JointPivotTrackerTrack::vfunc_10(hulk_intptr __p0
     if (check(c, 0, &desc1_17b170, &desc2_17b170, 0)) {
         Result_17b170* p = (Result_17b170*)FUN_0008d690(0x84);
         if (p)
-            return p->init(this, c);
+            return p->init_00173c00(this, c);
     }
     return 0;
 }
@@ -186,7 +186,7 @@ hulk_intptr hulkfight::motion::JointRelativeTrack::vfunc_10(hulk_intptr __p0, hu
     if (Check5(c, 0, &g_b_17b1e0, &g_a_17b1e0, 0)) {
         Result_17b1e0* r = (Result_17b1e0*)FUN_0008d690(100);
         if (r)
-            return r->Init(this, c);
+            return r->Init_00174660(this, c);
     }
     return 0;
 }
@@ -198,7 +198,7 @@ namespace fn_fbf77592 {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* JointRelativeAction_17b230::vfunc_2(unsigned char flag) {
     volatile JointRelativeAction_17b230* self = this;
-    self->mVptr = &g_vftable_17b230;
+    self->mVptr = &hulk_at_00417e30;
     RefObj_17b230* t3 = self->m3;
     if (t3) {
         t3->Release();
@@ -227,9 +227,9 @@ void* JointRelativeAction_17b230::vfunc_2(unsigned char flag) {
 hulk_intptr hulkfight::motion::IntentionClearTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_17b290, &TypeB_17b290, 0);
     if (result) {
-        hulkfight::motion::IntentionClearAction* p = Alloc(0x24);
+        hulkfight::motion::IntentionClearAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((IntentionClearAction_nv_17b290*)(((hulkfight::motion::IntentionClearAction*)(p))))->Init(this, c);
+            return ((IntentionClearAction_nv_17b290*)(((hulkfight::motion::IntentionClearAction*)(p))))->Init_00174700(this, c);
     }
     return 0;
 }
@@ -241,7 +241,7 @@ namespace fn_fbf77592 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 IntentionClearAction_17b2e0* IntentionClearAction_17b2e0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17b2e0;
+    *p = (hulk_intptr)&hulk_at_00417e4c;
     RefCounted_17b2e0* q = *(RefCounted_17b2e0* volatile*)&m_20;
     if (q != 0) {
         q->Release();

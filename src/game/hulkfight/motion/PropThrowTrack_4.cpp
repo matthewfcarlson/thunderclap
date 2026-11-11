@@ -25,10 +25,10 @@ class TrackFactoryTemplate_18c870 {
 extern "C" void FUN_0018a340();
 typedef unsigned int u32_18c8b0;
 struct Prop_18c8b0 {
-    hulk_uintptr init();
+    hulk_uintptr init_00180f00();
 };
 extern "C" void* __cdecl operator_new(unsigned int);
-extern int g_vftable_18c8d0;
+extern int hulk_at_0041a95c;
 
 } // namespace fn_fde74312
 
@@ -54,7 +54,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropThrow
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropThrowTrack>::vfunc_5() {
     Prop_18c8b0* p = (Prop_18c8b0*)operator_new(0x88);
     if (p)
-        return (void*)(p->init());
+        return (void*)(p->init_00180f00());
     return (void*)(0);
 }
 
@@ -64,7 +64,7 @@ namespace fn_fde74312 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fde74312@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_18c8d0;
+    m_vptr = (void*)&hulk_at_0041a95c;
     base1_dtor();
     base2_dtor();
     if (flags & 1)
