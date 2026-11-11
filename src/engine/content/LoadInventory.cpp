@@ -255,7 +255,12 @@ class Pool_266480 {
     char flag;
     char pad1[3];
     unsigned int limit;
-    char pad2[0x24 - 0x14];
+    // (x64t4) the hash table's slot and entry arrays and its sentinel word (fight/unk_2310a0.cpp 0x00231550 /
+    // 0x002310a0), pointer-sized natively: the 0x24-byte allocation was 0xc short of the 64-bit table
+    char pad14[4];
+    void* slots;
+    void* entries;
+    int sentinel;
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 extern "C" unsigned int __cdecl FUN_00356c30(unsigned int n);

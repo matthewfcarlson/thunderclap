@@ -2,6 +2,7 @@
 // object 0x0030e630..0x0030ea00 (kind game, layer engine, confidence high), dominant class physics::CollisionWall
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -180,11 +181,15 @@ void CollisionWall::vfunc_15(unsigned int* p) {
 } // namespace fn_fc25916f
 
 // 0x0030e700 FUN_0030e700 (69 B): equivalent/0x0030e700.cpp [wrapped: conflict: CollisionWall]
-// sym: ??0CollisionWall@fn_0030e700@@QAE@XZ @35097ea1399c @w3624ad621839
+// sym: ??0CollisionWall@fn_0030e700@@QAE@XZ @5884b0411c5a @wd87cff3de568
 namespace fn_0030e700 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0030e700 @ 0x0030e700
-struct FUN_003060a0 { virtual void slot0_00018b30(); FUN_003060a0(); char pad[0x30]; }; struct CollisionWall : FUN_003060a0 { int id; float x,y,z,w; float x2,y2,z2; int a,b,c; CollisionWall(); }; CollisionWall::CollisionWall() { a=0; b=0; c=0; x=0.0f; z=0.0f; y=1.0f; x2=0.0f; y2=y; z2=z; w=0.0f; id=0x4e6e6b28; }
+// (x64t4) the base's words (decls/physics_world.h HulkCollisionWall; was a 0x30-byte pad, the wall's first word the
+// base's last) and CollisionWall's vftable stored by address (DAT_0043201c): the local classes' own vftables were
+// the native link's stubs (the base's slot 0 unbound)
+extern "C" char DAT_0043201c[];  // physics::CollisionWall
+struct FUN_003060a0 : HulkCollisionVolume { FUN_003060a0(); }; struct CollisionWall : FUN_003060a0 { float x,y,z,w; float x2,y2,z2; int a,b,c; CollisionWall(); }; CollisionWall::CollisionWall() { vftable = DAT_0043201c; a=0; b=0; c=0; x=0.0f; z=0.0f; y=1.0f; x2=0.0f; y2=y; z2=z; w=0.0f; i34=0x4e6e6b28; }
 } // namespace fn_0030e700
 
 namespace fn_fc25916f {

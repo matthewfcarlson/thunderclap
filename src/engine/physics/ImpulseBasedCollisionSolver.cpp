@@ -2,6 +2,7 @@
 // object 0x002f79f0..0x002f8d90 (kind game, layer engine, confidence high), dominant class physics::ImpulseBasedCollisionSolver
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -852,12 +853,9 @@ struct Cfg_2f7ee0 {
     int pad2;
     int b;
 };
-// (x64t4) physics::CollisionWall with the words its constructor 0x0030e700 writes (a vftable, its base's 0x30 bytes,
-// eleven words; was a 0x60-byte pad, which the 64-bit constructor overran by 4)
-struct CollisionWall_2f7ee0 {
-    void* vftable;
-    char base[0x30];
-    int words[11];
+// (x64t4) physics::CollisionWall with the words its constructor 0x0030e700 writes (decls/physics_world.h; was a
+// 0x60-byte pad, which the 64-bit constructor overran)
+struct CollisionWall_2f7ee0 : HulkCollisionWall {
     CollisionWall_2f7ee0* Ctor_0030e700() throw();
 };
 struct CollisionObject_2f7ee0 {

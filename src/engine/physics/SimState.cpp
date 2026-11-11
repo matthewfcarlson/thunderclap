@@ -627,7 +627,9 @@ void SimState::vfunc_6(Mat_2ef900 *mat, float dt)
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 23/24, incomplete)
 // FUN_002efa90 @ 0x002efa90
 extern "C" SimState_2efa90* __cdecl FUN_002efa90(Source_2efa90* source, Parent_2efa90* parent, SimState_2efa90* storage) {
- if (!storage) storage = (SimState_2efa90*)FUN_0008d690(0x88);
+ // (x64t4) the state allocated by its constructor's layout (0x002ef7f0: 0x88 bytes on the 32-bit builds, 4 more
+ // than that natively, which its constructor overran)
+ if (!storage) storage = (SimState_2efa90*)FUN_0008d690((unsigned)sizeof(SimState_2ef7f0));
  if (!storage) return 0;
  SimState_2efa90* result = storage->FUN_002ef7f0(0);
  if (!result) return 0;

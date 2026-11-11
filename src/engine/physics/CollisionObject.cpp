@@ -2,6 +2,7 @@
 // object 0x00304640..0x00306450 (kind game, layer engine, confidence high), dominant class physics::CollisionObject
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "gen/owners.h"
 #include "gen/physics.h"
 #define TREE_TU_BEGIN namespace fn_f3c9f944 {
@@ -171,7 +172,7 @@ struct CollisionObject {
     int f74;
     int f78;
     void FUN_0027b070();
-    void FUN_00304b40(int arg);
+    void FUN_00304b40(void* shape);  // (x64t4) a pointer (was `int`: an ABI mismatch natively, unbound)
     CollisionObject *FUN_00304f50(hulk_intptr arg);
 };
 class Inner_305030 {
@@ -286,14 +287,9 @@ struct Vec3_305f00 {
 typedef int u32_306060;
 extern "C" bool __cdecl Check1(u32_306060, hulk_intptr, u32_306060);
 extern "C" char __cdecl Check2_00305c00(u32_306060, u32_306060, u32_306060);
-class CollisionVolume_3060a0 {
+// (x64t4) the words of decls/physics_world.h's HulkCollisionVolume (the owner and children range pointer-sized)
+class CollisionVolume_3060a0 : public HulkCollisionVolume {
   public:
-    void* vptr;
-    int m4;
-    int m8, mc, m10, m14;
-    char c18, c19;
-    int m1c, m20, m24, m28, m2c, m30;
-    float f;
     CollisionVolume_3060a0() throw();
 };
 class Thing_3060e0 {
@@ -746,7 +742,7 @@ CollisionObject *CollisionObject::FUN_00304f50(hulk_intptr arg)
     b72 = 1;
     f78 = 1;
     f6c = 0xf;
-    FUN_00304b40(arg);
+    FUN_00304b40((void*)arg);
     f74 = -1;
     return this;
 }
@@ -1319,10 +1315,10 @@ extern "C" bool __cdecl FUN_00306060(u32_306060 a, u32_306060 b, u32_306060 c) {
 // sym: ??0CollisionVolume_3060a0@fn_f3c9f944@@QAE@XZ
 CollisionVolume_3060a0::CollisionVolume_3060a0() throw() {
     m4 = 0;
-    vptr = vA;
+    vftable = vA;
     _ReadWriteBarrier();
-    m10 = 0;
-    m14 = 0;
+    owner = 0;
+    children = 0;
     c18 = 1;
     c19 = 0;
     _ReadWriteBarrier();
@@ -1334,7 +1330,7 @@ CollisionVolume_3060a0::CollisionVolume_3060a0() throw() {
     m28 = 0;
     m2c = 0;
     m30 = 0;
-    f = 1.0f;
+    f34 = 1.0f;
 }
 
 

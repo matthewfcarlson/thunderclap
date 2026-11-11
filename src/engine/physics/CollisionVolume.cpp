@@ -2,6 +2,7 @@
 // object 0x00306450..0x00306ef0 (kind game, layer engine, confidence high), dominant class physics::CollisionVolume
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 #include "gen/physics.h"
@@ -90,18 +91,17 @@ class Node {
 };
 class Child_3065b0 {
   public:
-    void Update_003065b0(int value);
+    void Update_003065b0(hulk_intptr value);  // (x64t4) 0x003065b0 itself on a child: the owner pointer (was `int`)
 };
 class PtrRange_3065b0 {
   public:
     Child_3065b0** begin;
     Child_3065b0** end;
 };
-class Owner_3065b0 {
+// (x64t4) the volume's words (decls/physics_world.h): the owner and the children range pointer-sized (were a pad,
+// an `int` and a 32-bit offset)
+class Owner_3065b0 : public HulkCollisionVolume {
   public:
-    char pad[0x10];
-    int value;
-    PtrRange_3065b0* items;
     void Set(hulk_intptr v);
 };
 struct Vec3_306650 {
@@ -312,11 +312,11 @@ namespace fn_fecd5d4c {
 // 0x003065b0 FUN_003065b0 (75 B): matches/0x003065b0.cpp
 // sym: ?Set@Owner_3065b0@fn_fecd5d4c@@QAEXH@Z
 void Owner_3065b0::Set(hulk_intptr v) {
-    if (value != v) {
-        value = v;
-        if (items) {
-            for (unsigned int i = 0; i < (unsigned int)(items->end - items->begin); ++i) {
-                items->begin[i]->Update_003065b0(value);
+    if ((hulk_intptr)owner != v) {
+        owner = (void*)v;
+        if (children) {
+            for (unsigned int i = 0; i < (unsigned int)(((PtrRange_3065b0*)children)->end - ((PtrRange_3065b0*)children)->begin); ++i) {
+                ((PtrRange_3065b0*)children)->begin[i]->Update_003065b0((hulk_intptr)owner);
             }
         }
     }

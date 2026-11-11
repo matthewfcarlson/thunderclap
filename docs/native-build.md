@@ -2497,3 +2497,65 @@ one address where the game slots agree); the new local-vftable names B4 brings (
 define, ClosureN<struct X> vs class X); header-declared CRT callers (game/unknown.h); x64t3/x64t4's start-up TUs and
 the replay-pin TUs, which every batch here left alone.
 
+
+**Batch 2 (87a63fbdc), the context's clear values typed on both sides.** pddiRenderContext / pddiBaseContext slot 8
+takes the depth clear value as a `float` and slot 10 the stencil clear value as an `int` (both were `void*`;
+0x0031d510 / 0x0031d530 store them at the state's words 8 / 0xc through `HULK_STATE_AT`, where vfunc_9 / vfunc_11 read
+them: natively the `void*` store covered both words). The 32-bit code of the two signatures is the same (MATCH,
+relocations ok; new pins); the 162 TUs that include gen/pure3d.h: 2,321 matches MATCH with relocations ok, 686
+equivalents compile. src/platform/sdl/pddi changed with it (the user's approval): bgfx_pddi.h's bgfxContext slots 8 /
+10, their bodies in bgfx_context.cpp and the GameBase forwarders in game_base.h take the same types. These files feed
+the pddi/bgfx objects (tools/wine_gfx.py pddi --target win32), not hulk_sdl.lib (its sources are src/platform/sdl's
+top level, audio/, input/ and replay/: tools/platform_libs.py); there is no private flag for the pddi objects, so the
+batch was committed first and the proof's submit rebuilt the shared objects from the committed sources (input_guard's
+"stale, sources clean" path). The same batch has the collision solver's constructor 0x002f7ee0 (the environment's
+words at their 64-bit offsets; CollisionWall allocated with its words, the 0x60-byte pad being 4 short natively) and
+0x00301290's base constructor by address (`FUN_00313500` with the words 0x00313500 writes; this edit was committed with
+2a98ab92d, which took the working copy of unk_2feae0.cpp): MATCH, relocations ok.
+
+**Batch 3, the solver's collision wall and the game's first allocations.** A debug-only canary allocator (a private
+snapshot's copy of 0x00270540 appends 16 bytes to each block and checks the last 256 live blocks on every
+allocation; build/x64t4/dbg/patch_guard.py, never committed) found the earliest native heap overrun: CGame's set-up
+0x00088020 allocates its managers with the XBE's sizes (24, 8, 36, ..., 0x1d38 bytes) and the first of them, the
+CPlatformManager (0x0008d850, 24 bytes), wrote 4 bytes past its block. That overrun is the corruption that crashed
+malloc's free list in LightsChooser's set-up in some layouts.
+
+| where | change | gate |
+|---|---|---|
+| 0x00088020 (equivalent) | the 16 managers it constructs allocated with `HULK_X2_88020(n)`: the XBE's size on the 32-bit builds, twice it on 64-bit (an upper bound for any class of 4-byte words) until each manager's class is one record to take `sizeof` from | same code (hash unchanged) |
+| include/decls/physics_world.h | `HulkCollisionVolume` (physics::CollisionVolume's words as 0x003060a0 writes them; the owner and the children range pointer-sized) and `HulkCollisionWall` | 32-bit offsets unchanged |
+| 0x003060a0 CollisionVolume ctor (match), 0x003065b0 (match) | the volume's words from the record (0x003065b0 stored the owning CollisionObject in an `int` at a 32-bit offset and passed it on as `int`) | MATCH, relocations ok |
+| 0x0030e700 CollisionWall ctor (equivalent) | the base's words from the record and the wall's vftable stored by address (DAT_0043201c; the local classes' vftables were stubs natively) | same code; hash re-recorded (equiv.py 3,000 inputs and `--wine` 600: the vftable relocation now names the address) |
+| 0x002f7ee0 (match) | the wall allocated as `sizeof(HulkCollisionWall)` | MATCH, relocations ok |
+| 0x00304f50 CollisionObject ctor (equivalent) | 0x00304b40 takes the shape as a pointer (was `int`: the native link refused the binding, an ABI mismatch) | same code |
+| 0x002efa90 (equivalent) | the SimState allocated as `sizeof` of its constructor's layout (0x002ef7f0: 0x88 bytes, 4 short natively) | same code |
+| 0x00266480 content::LoadInventory ctor (equivalent) | its hash table's words after `limit` (the slot and entry arrays, the sentinel; was a pad): allocated by `sizeof`, the 0x24 bytes were 0xc short of the 64-bit table (the canary allocator's second find) | same code (hash unchanged) |
+
+Native (no `--allow-compile-failures`; every TU compiles) on 72055's snapshot and map: arm64 macOS / x86-64 Linux /
+arm64 Android unbound **19,076 / 19,056 / 19,067** (control 72054, HEAD a9b5f322a with ren2's batches: 19,078 /
+19,058 / 19,069). macOS: the control's image gets through the physics world's construction to CollisionObject's
+0x00304b40 (fixed here); with the batch the image crashes earlier, in a static initializer (init 374, 0x00360ef0:
+audio::SeqEventClipType's registration walks the SeqEventType tree, 0x002601d0, into a node whose name pointer is
+garbage). Images with each third of the batch reverted (LoadInventory; CGame's allocations; the physics TUs) crash the
+same way, and the start-up's earlier images showed the same kind of layout-dependent damage (0x00363230's table, the
+CPlatformManager's block), so this looks like another overrun of a static object that the batch's image layout
+exposes rather than one of the batch's changes; the next step is a watchpoint on the tree's nodes from process entry
+(the canary allocator does not cover static data).
+
+Gates: the batch's TUs' matches MATCH with relocations ok; equivalents' listings identical to HEAD's and their code
+hashes ok (0x0030e700's re-recorded). Proof 72055 vs control 72054 (HEAD a9b5f322a, studio, seeded): GATE ok (0 of
+2,005 common frames differ). Batch 2: proof 72044 vs control 71967 (87a63fbdc~1), GATE ok (0 of 2,021).
+
+**Follow-ups and decisions.**
+- The shader state-table initializers in src/game/init/dynamic_initializers.cpp (the rest of 0x00363230's family)
+  write tables of callbacks over separately generated data items: a data_gen decision (typed records with
+  pointer-sized callbacks) rather than one block at a time.
+- `HULK_X2_88020` (twice the XBE's size on 64-bit) is an interim for CGame's 16 managers; the alternative is a record
+  per manager class to take `sizeof` from, as reg5 did for the om types. The physics world uses the same doubling
+  (decls/physics_world.h). Worth deciding whether that rule is acceptable elsewhere until the records exist.
+- The canary allocator (build/x64t4/dbg/patch_guard.py, applied to a private snapshot by
+  build/x64t4/scripts/iterg.sh) finds 64-bit overruns at the next allocation; a host-side option for it (an
+  environment switch in the native allocator glue) would make it available to every native iteration.
+- Physics records still missing: the world's parts read through 32-bit offsets inside them (unk_2ed240's `Mgr`), the
+  body pool's views, and CollisionVolume's subclasses (sphere, mesh, OBB, ...), whose views pad over the base's 0x34
+  bytes.

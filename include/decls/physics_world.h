@@ -1,4 +1,4 @@
-// The physics world (x64t4): the object DAT_00554c14 points at, which 0x002ef0b0 (and its constructor 0x002ef050)
+// Physics records (x64t4). The physics world: the object DAT_00554c14 points at, which 0x002ef0b0 (and its constructor 0x002ef050)
 // allocates and builds from four parts: the body pool (0x002eee10, at 0), a flag (0x6c), the collision detector
 // (0x00301290, at 0x70), the impulse-based collision solver (0x002f7ee0, at 0xb0) and the contact buffer (0x00304300,
 // at 0x1b0); 0x1c4 bytes in all. Each part is built and read through its own TU's view, so the parts' 64-bit sizes
@@ -16,5 +16,25 @@
 #define HULK_PW_BUFFER HULK_PW(0x1b0)    // the contact buffer (owners::Buffer_304300 and its words)
 #define HULK_PW_SIZE HULK_PW(0x1c4)
 #define HULK_PW_AT(part, k) (HULK_PW(part) + (k) - (part))
+
+// physics::CollisionVolume's words as its constructor 0x003060a0 writes them (0x38 bytes on the 32-bit builds): the
+// owner (the CollisionObject that 0x003065b0 attaches, a pointer) and the children range are pointer-sized; the last
+// word is a float that CollisionWall's constructor 0x0030e700 overwrites with another constant. Shared by the
+// constructor's, 0x003065b0's and CollisionWall's views (each had its own 32-bit pad or `int`).
+struct HulkCollisionVolume {
+    void* vftable;
+    int m4, m8, mc;
+    void* owner;     // 0x10
+    void* children;  // 0x14
+    char c18, c19;
+    int m1c, m20, m24, m28, m2c, m30;
+    union { float f34; int i34; };
+};
+// physics::CollisionWall (0x0030e700): the base and eleven words (0x60 bytes on the 32-bit builds)
+struct HulkCollisionWall : HulkCollisionVolume {
+    float x, y, z, w;
+    float x2, y2, z2;
+    int a, b, c;
+};
 
 #endif
