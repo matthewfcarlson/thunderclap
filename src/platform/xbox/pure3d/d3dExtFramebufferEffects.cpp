@@ -3642,14 +3642,16 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x003224b0 FUN_003224b0 (269 B): equivalent/0x003224b0.cpp [wrapped: conflict: pure3d::d3dExtFramebufferEffects]
-// sym: ??0d3dExtFramebufferEffects@pure3d@fn_003224b0@@QAE@I@Z
+// sym: ??0d3dExtFramebufferEffects@pure3d@fn_003224b0@@QAE@PAVd3dContext@1@@Z
 namespace fn_003224b0 {
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0; --wine 600 inputs)
 // FUN_003224b0 @ 0x003224b0
+extern "C" char DAT_00433110[];  // pure3d::d3dExtFramebufferEffects's vftable, stored by address (a local class's own
+                                 // vftable would be the 64-bit link's stub)
 namespace pure3d {
 struct d3dExtFramebufferEffects {
- virtual void slot0();
- unsigned int owner; // 04
+ void* vftable;
+ ::pure3d::d3dContext* owner; // 04: the context (0x00324e00 constructs the extension on itself)
  unsigned int f08, f0c;
  unsigned char f10; char pad11[3];
  float f14;
@@ -3673,9 +3675,10 @@ struct d3dExtFramebufferEffects {
  unsigned int fe4;
  float fe8;
  unsigned char fec;
- d3dExtFramebufferEffects(unsigned int value);
+ d3dExtFramebufferEffects(::pure3d::d3dContext* value);
 };
-d3dExtFramebufferEffects::d3dExtFramebufferEffects(unsigned int value) {
+d3dExtFramebufferEffects::d3dExtFramebufferEffects(::pure3d::d3dContext* value) {
+ vftable=DAT_00433110;
  owner=value;
  f08=f0c=0; f10=0; f18=0; f1c=0; f20=0;
  f68=1.0f; f70=1.0f; f6c=0.0f; f78=1.0f;
@@ -5181,79 +5184,95 @@ class Allocator {
   public:
     virtual void AddRef();
 };
-class StateCache : public HeapObj {
+// The objects whose constructors live elsewhere are named by the constructor's address (the native link binds a
+// constructor of a class named FUN_<addr> to the definition there): the state cache (0x00328fc0), the light pool
+// (0x00329430), pure3d::d3dExtFramebufferEffects (0x003224b0) and pure3d::d3dSimpleShader (0x0032a9f0).
+class FUN_00328fc0 : public HeapObj {
   public:
-    StateCache(d3dContext* ctx, int handle) throw();
+    FUN_00328fc0(d3dContext* ctx, int handle) throw();
     char pad[0x124];
 };
-class LightPool : public HeapObj {
+class FUN_00329430 : public HeapObj {
   public:
-    LightPool(d3dContext* ctx) throw();
-    char pad[0x3cf8];
+    FUN_00329430(d3dContext* ctx) throw();
+    char pad[sizeof(Registry_329430)];
 };
-class d3dExtFramebufferEffects_324e00 : public HeapObj {
+class FUN_003224b0 : public HeapObj {
   public:
-    d3dExtFramebufferEffects_324e00(d3dContext* ctx) throw();
+    FUN_003224b0(d3dContext* ctx) throw();
     char pad[0x190];
 };
-class d3dSimpleShader_324e00 : public HeapObj {
+class FUN_0032a9f0 : public HeapObj {
   public:
-    d3dSimpleShader_324e00(d3dContext* ctx) throw();
+    FUN_0032a9f0(d3dContext* ctx) throw();
     virtual void f0();
     char pad[0x94 - 4];
 };
+// The extensions constructed inline store the game's vftables by address (a local class's own vftable would be the
+// 64-bit link's stub).
+extern "C" char DAT_00433164[];  // pure3d::d3dContext
+extern "C" char DAT_00433324[];  // pure3d::d3dExtGammaControl
+extern "C" char DAT_0043307c[];  // pure3d::d3dExtAntialiasControl
+extern "C" char DAT_004330a4[];  // pure3d::d3dExtReadPixels
+extern "C" char DAT_00433094[];  // pure3d::d3dExtGlobalProjectedTexture
+extern "C" char DAT_004330b0[];  // pure3d::d3dExtHardwareSkinning
+extern "C" char DAT_004330d0[];  // pure3d::d3dExtVisibilityTest
+extern "C" char DAT_004330e8[];  // pure3d::d3dExtVertexProgram
+extern "C" char DAT_00433154[];  // pure3d::d3dExtFrameBufferTexture
 class d3dExtGammaControl : public HeapObj {
   public:
-    virtual void f0();
+    void* vftable;
     AssetSource* src;
-    d3dExtGammaControl(AssetSource* s) throw() { src = s; }
+    d3dExtGammaControl(AssetSource* s) throw() { vftable = DAT_00433324; src = s; }
 };
 class d3dExtAntialiasControl : public HeapObj {
   public:
-    virtual void f0();
+    void* vftable;
     d3dContext* ctx;
-    d3dExtAntialiasControl(d3dContext* c) throw() { ctx = c; }
+    d3dExtAntialiasControl(d3dContext* c) throw() { vftable = DAT_0043307c; ctx = c; }
 };
 class d3dExtReadPixels : public HeapObj {
   public:
-    virtual void f0();
+    void* vftable;
     d3dContext* ctx;
-    d3dExtReadPixels(d3dContext* c) throw() { ctx = c; }
+    d3dExtReadPixels(d3dContext* c) throw() { vftable = DAT_004330a4; ctx = c; }
 };
 class d3dExtGlobalProjectedTexture : public HeapObj {
   public:
-    virtual void f0();
+    void* vftable;
     int zero[16];
     char pad[0x444 - 0x44];
     d3dExtGlobalProjectedTexture() throw() {
+        vftable = DAT_00433094;
         for (int i = 0; i < 16; i++)
             zero[i] = 0;
     }
 };
 class d3dExtHardwareSkinning : public HeapObj {
   public:
-    virtual void f0();
+    void* vftable;
     d3dContext* ctx;
-    d3dExtHardwareSkinning(d3dContext* c) throw() { ctx = c; }
+    d3dExtHardwareSkinning(d3dContext* c) throw() { vftable = DAT_004330b0; ctx = c; }
 };
 class d3dExtVisibilityTest : public HeapObj {
   public:
-    virtual void f0();
+    void* vftable;
     d3dContext* ctx;
-    d3dExtVisibilityTest(d3dContext* c) throw() { ctx = c; }
+    d3dExtVisibilityTest(d3dContext* c) throw() { vftable = DAT_004330d0; ctx = c; }
 };
 class d3dExtVertexProgram : public HeapObj {
   public:
-    virtual void f0();
+    void* vftable;
     d3dContext* ctx;
-    d3dExtVertexProgram(d3dContext* c) throw() { ctx = c; }
+    d3dExtVertexProgram(d3dContext* c) throw() { vftable = DAT_004330e8; ctx = c; }
 };
 class d3dExtFrameBufferTexture : public HeapObj {
   public:
-    virtual void f0();
+    void* vftable;
     d3dContext* ctx;
     int a, b, c;
     d3dExtFrameBufferTexture(d3dContext* x) throw() {
+        vftable = DAT_00433154;
         ctx = x;
         a = 0;
         b = 0;
@@ -5267,17 +5286,17 @@ void __stdcall FUN_00354ce2(LargeInt*);
 class FUN_0031f410 {
   public:
     FUN_0031f410(AssetSource* a, Allocator* b) throw();
-    virtual void f0();
+    void* vftable;
     char pad[0x14c - 4];
 };
 class d3dContext : public FUN_0031f410 {
   public:
     int counter;
-    StateCache* stateCache;
+    FUN_00328fc0* stateCache;
     AssetSource* src;
     Allocator* alloc;
     char pad15c[4];
-    d3dSimpleShader_324e00* shaders;
+    FUN_0032a9f0* shaders;
     int handle;
     int f168;
     int f16c;
@@ -5288,7 +5307,7 @@ class d3dContext : public FUN_0031f410 {
     float f180;
     char pad184[0x204 - 0x184];
     int f204;
-    LightPool* lightPool;
+    FUN_00329430* lightPool;
     Matrix lightMatrices[8];
     unsigned char lightDirty[8];
     unsigned char anyLightDirty;
@@ -5303,14 +5322,14 @@ class d3dContext : public FUN_0031f410 {
     d3dExtHardwareSkinning* hwSkinning;
     d3dExtVisibilityTest* visTest;
     d3dExtVertexProgram* vertexProgram;
-    d3dExtFramebufferEffects_324e00* fbEffects;
+    FUN_003224b0* fbEffects;
     d3dExtFrameBufferTexture* fbTexture;
     int f448;
     unsigned char f44c;
-    virtual void f1();
     d3dContext(AssetSource* a, Allocator* b) throw();
 };
 d3dContext::d3dContext(AssetSource* a, Allocator* b) throw() : FUN_0031f410(a, b) {
+    vftable = DAT_00433164;
     counter = 0;
     f168 = 0;
     f204 = 0;
@@ -5324,7 +5343,7 @@ d3dContext::d3dContext(AssetSource* a, Allocator* b) throw() : FUN_0031f410(a, b
     alloc = b;
     b->AddRef();
     handle = src->handle;
-    stateCache = new StateCache(this, handle);
+    stateCache = new FUN_00328fc0(this, handle);
     f16c = 0;
     f170 = 0;
     width = 0x280;
@@ -5334,7 +5353,8 @@ d3dContext::d3dContext(AssetSource* a, Allocator* b) throw() : FUN_0031f410(a, b
     LargeInt freq;
     FUN_00354ce2(&freq);
     msPerTick = 1000.0f / (float)freq.lo;
-    lightPool = new LightPool(this);
+    HULK_SIZE32(Registry_329430, 0x3cf8);
+    lightPool = new FUN_00329430(this);
     for (int i = 0; i < 8; i++) {
         lightMatrices[i].FUN_0022b980();
         lightDirty[i] = 0;
@@ -5347,9 +5367,9 @@ d3dContext::d3dContext(AssetSource* a, Allocator* b) throw() : FUN_0031f410(a, b
     hwSkinning = new d3dExtHardwareSkinning(this);
     visTest = new d3dExtVisibilityTest(this);
     vertexProgram = new d3dExtVertexProgram(this);
-    fbEffects = new d3dExtFramebufferEffects_324e00(this);
+    fbEffects = new FUN_003224b0(this);
     fbTexture = new d3dExtFrameBufferTexture(this);
-    shaders = new d3dSimpleShader_324e00(this);
+    shaders = new FUN_0032a9f0(this);
     shaders->f0();
 }
 } // namespace fn_00324e00

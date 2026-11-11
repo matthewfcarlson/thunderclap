@@ -7,7 +7,12 @@
 #endif
 #include "compat/ptr.h"
 #include "common.h"
+namespace pure3d { class d3dContext; }
 TREE_TU_BEGIN
+// The d3dContext's light pool (0x00329430 builds it; 0x00324e00 allocates it): 20 shader entries of 32 elements.
+struct Element_329430 { char bytes[24]; };
+struct Entry_329430 { unsigned name; char* data; unsigned count; Element_329430 elements[32]; };
+struct Registry_329430 { ::pure3d::d3dContext* owner; int count; Entry_329430 entries[20]; Registry_329430* init(::pure3d::d3dContext*); };
 namespace D3D8 {
 hulk_intptr __stdcall D3DDevice_GetBackBuffer2(int);
 }

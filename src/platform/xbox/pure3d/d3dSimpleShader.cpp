@@ -14,12 +14,9 @@ namespace fn_f1389006 {} using namespace fn_f1389006;
 
 // ---- declarations shared by the functions below
 namespace fn_f1389006 {
-struct Element_329430 { char bytes[24]; };
 extern "C" void FUN_003290a0();
 extern void __stdcall FUN_00011520(void*, unsigned, unsigned, void (*)());
 extern "C" unsigned __cdecl FUN_00329060(const char*);
-struct Entry_329430 { unsigned name; char* data; unsigned count; Element_329430 elements[32]; };
-struct Registry_329430 { unsigned owner; int count; Entry_329430 entries[20]; Registry_329430* init(unsigned); };
 struct Color_329b40 { float r, g, b, a; };
 extern int gFlags_329bb0;
 extern int gValues_329bb0[128];
@@ -245,12 +242,13 @@ class d3dShader_32a9f0 {
     char d;
     int e;
 };
+// pure3d::d3dShader's constructor (0x00333520), on the context the shader belongs to
 struct d3dSimpleShader_nv_32a9f0 {
-    void BaseInit(int);
+    d3dSimpleShader_nv_32a9f0* FUN_00333520(::pure3d::d3dContext*);
 };
 class d3dSimpleShader_32a9f0 : public d3dShader_32a9f0 {
   public:
-    d3dSimpleShader_32a9f0* Init(int);
+    d3dSimpleShader_32a9f0* Init(::pure3d::d3dContext*);
 };
 typedef unsigned char u8_32aa30;
 struct Ref_32aa30 {
@@ -348,10 +346,10 @@ void __stdcall D3DDevice_GetTransform(int state, pure3d::Matrix4_32aca0* out);
 
 
 // 0x00329430 FUN_00329430 (1080 B): equivalent/0x00329430.cpp
-// sym: ?init@Registry_329430@fn_f1389006@@QAEPAU12@I@Z
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// sym: ?init@Registry_329430@fn_f1389006@@QAEPAU12@PAVd3dContext@pure3d@@@Z
+// STATUS: equivalent (tools/equiv.py level 3: 2958 inputs, branch coverage 2/2; --wine 600 inputs)
 // FUN_00329430 @ 0x00329430
-Registry_329430* Registry_329430::init(unsigned arg) {
+Registry_329430* Registry_329430::init(::pure3d::d3dContext* arg) {
  for(int i=0;i<20;++i) FUN_00011520(entries[i].elements,24,32,&FUN_003290a0);
  owner=arg; count=0;
  entries[0].name=FUN_00329060(((char*)&DAT_003f335c));
@@ -975,9 +973,9 @@ void TextureState_32a920::SetTextures(int mode, Texture* t0, Texture* t1, Textur
 
 
 // 0x0032a9f0 FUN_0032a9f0 (57 B): matches/0x0032a9f0.cpp
-// sym: ?Init@d3dSimpleShader_32a9f0@fn_f1389006@@QAEPAV12@H@Z
-d3dSimpleShader_32a9f0* d3dSimpleShader_32a9f0::Init(int x) {
-    ((d3dSimpleShader_nv_32a9f0*)(((pure3d::d3dSimpleShader*)(this))))->BaseInit(x);
+// sym: ?Init@d3dSimpleShader_32a9f0@fn_f1389006@@QAEPAV12@PAVd3dContext@pure3d@@@Z
+d3dSimpleShader_32a9f0* d3dSimpleShader_32a9f0::Init(::pure3d::d3dContext* x) {
+    ((d3dSimpleShader_nv_32a9f0*)(((pure3d::d3dSimpleShader*)(this))))->FUN_00333520(x);
     a = 0;
     b = 0;
     c = 0;

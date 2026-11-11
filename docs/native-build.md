@@ -1936,3 +1936,51 @@ pddiDevice::newDisplay (0x0031b830, `Helper_31b830::f`); the iterations i5-i9 fo
   (invented class names) and a null in the d3dContext constructor. The pddi layer (devices, displays, contexts, the
   ext objects) needs its names by address and records for its layouts (the D3D object word, the 0x14 / 0x49c sizes):
   the next batch.
+
+## The pddi context on the tree: names by address and the game's vftables (x64t1, 2026-11-10)
+
+The first 64-bit batch after the merge-once flip: the edits are tree blocks (src/, checked with `tree_tu.py`), the
+native builds compile the clang-probe snapshot of a Wine build of the tree. Base: HEAD 8397a3314 (the committed tree),
+control 71429 (studio, `--gfx --replay play3 --frames 60000`, private data TUs and a hulk_sdl.lib from a clean archive).
+Native on the control's snapshot and map: arm64 macOS / x86-64 Linux / arm64 Android unbound **29,035 / 29,020 / 29,027**
+(bound by address 14,706 / 14,720 / 14,713); the macOS start-up stopped in pddiBaseContext's constructor 0x0031f410 at
+`vfunc_100` (sh2's stop).
+
+**Iterating needs a fresh binding map.** A name that carries an address (`FUN_0031e610`) binds in the native link only
+when the Wine binding map of the same tree knows that name (native_unbound "not verified: the Wine binding map has no
+binding of the name"): a local relink against the control's map leaves new names unbound. Each iteration is therefore
+a Wine build of the working tree (about 5 minutes on studio with the tree caches), whose snapshot and map the native
+builds use; the same build is the batch's proof.
+
+Batch (all on the d3dContext's construction path, 0x0031b860 -> 0x00324e00 -> 0x0031f410):
+
+| function | change | gate |
+|---|---|---|
+| 0x0031f410 pddiBaseContext ctor (equivalent, wrapped) | the stack set-up / reset calls by address: `FUN_0031e610`, `FUN_0031f190`, `FUN_0031d300` (were `vfunc_100/101/103` of the block's own class, which name no definition) | 3,009 inputs, `--wine` 609 |
+| 0x00324e00 d3dContext ctor (match) | the four external constructors as classes named by their address (`FUN_00328fc0` state cache, `FUN_00329430` light pool, `FUN_003224b0` d3dExtFramebufferEffects, `FUN_0032a9f0` d3dSimpleShader); the context's and the eight inline extensions' vftables stored by address (`DAT_00433164`, `DAT_00433324`, ...: a local class's own vftable is a stub in the 64-bit link); the light pool's allocation is `sizeof(Registry_329430)` (`HULK_SIZE32` 0x3cf8) | MATCH, relocs ok |
+| 0x00328fc0 state cache (match) | the context parameter is `pure3d::d3dContext*` (was `int`); its reset is `FUN_00328f10` returning void (was `Init`, an invented name returning a pointer) | MATCH, relocs ok |
+| 0x00329430 light pool (equivalent) | owner `pure3d::d3dContext*` (was `unsigned`); the record (Element / Entry / Registry_329430) moved to include/platform/xbox/pure3d.h so the allocating TU sizes it | 2,958 inputs, `--wine` 600 |
+| 0x003224b0 d3dExtFramebufferEffects ctor (equivalent, wrapped) | owner `pure3d::d3dContext*`; its vftable stored by address (DAT_00433110) | 3,000 inputs, `--wine` 600 |
+| 0x0032a9f0 d3dSimpleShader init (match) | context `pure3d::d3dContext*`; the base constructor by address (`FUN_00333520`, was `BaseInit(int)`) | MATCH, relocs ok |
+
+The 23 TUs that include include/platform/xbox/pure3d.h: 560 / 560 matches MATCH with relocations ok, 121 equivalents
+compile, the three edited ones re-proven above; re-pinned.
+
+**Proof** 71440 (studio, HEAD + the batch, same inputs as the control): Wine image 2e8232cd = the control's (the
+renamed calls and the vftables reach the same addresses), Wine unbound 1,251, x87 keep list 266; `ckpt_gate.py 71429
+71440` GATE ok (0 of 2,018 common frames differ, PRNG identical).
+
+**Native after the batch** (proof 71440's snapshot and map): **29,015 / 29,000 / 29,007** unbound. macOS: the
+d3dContext constructor runs through its state cache, light pool and the pddiBaseContext constructor, and crashes in
+0x0031eef0 (pddiStack<pddiLightingState>'s constructor) calling `FUN_0031e490`, which that block declares as data
+(`extern char FUN_0031e490;`, the element constructor passed to the vector-constructor helper 0x00011520): the 64-bit
+link stubs the data name and the call jumps into zeros. Android links fail in the shim since mp3's
+src/platform/sdl/xdk/snapshot.cpp (`(char*)ap` on a `va_list` that is a struct on AArch64 Linux); the count is still
+measured.
+
+**Layouts are the next wall.** The constructors above write the context through their own local layouts, which on
+64-bit disagree with include/gen/pure3d.h's (clang `-fdump-record-layouts` on aarch64-pc-windows-msvc: gen's
+pddiBaseContext is 0x190 bytes on 64-bit, d3dContext's `f_14c` at 0x190; 0x00324e00's local base is 0x150; gen's
+pddiObject has one int where 0x0031bac0 writes two, so gen d3dDevice's `f_08` / `f_0c` land 4 bytes off the
+constructor's words; d3dShader 0x00333520 reads the context's state cache at a literal +0x150). The pddi record batch
+moves the pddiObject / pddiBaseContext / d3dContext / d3dDevice constructors and readers onto one record per class.

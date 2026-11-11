@@ -3948,7 +3948,7 @@ void pure3d::pddiBaseContext::vfunc_87(int __p0) { unsigned char flags = (unsign
 // 0x0031f410 FUN_0031f410 (239 B): equivalent/0x0031f410.cpp [wrapped: conflict: FUN_0008d690; pure3d::pddiBaseContext]
 // sym: ??0pddiBaseContext@pure3d@fn_0031f410@@QAE@PAURef_31f410@2@0@Z
 namespace fn_0031f410 {
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 2/2; --wine 609 inputs)
 // FUN_0031f410 @ 0x0031f410
 
 struct Ref_31f410 { virtual void retain(); };
@@ -3963,7 +3963,9 @@ virtual void vfunc_0();
 char pad4[8]; Ref_31f410* first; Ref_31f410* second;
 unsigned state[18]; Matrix matrix; char pad9c[32]; unsigned bc,c0;
 char padc4[56]; unsigned values[12]; char pad12c[24]; Helper_31f410* helper; unsigned char flag148,flag149;
-void vfunc_100(); void vfunc_101(); void vfunc_103();
+// the stack set-up (0x0031e610 vfunc_100, 0x0031f190 vfunc_101) and the reset (0x0031d300 vfunc_103), called directly;
+// named by address so that the native link binds them to their definitions
+void FUN_0031e610(); void FUN_0031f190(); void FUN_0031d300();
 pddiBaseContext(Ref_31f410*,Ref_31f410*);
 };
 pddiBaseContext::pddiBaseContext(Ref_31f410* a,Ref_31f410* b) {
@@ -3971,10 +3973,10 @@ first=0;second=0;matrix=(*(Matrix*)&DAT_004c9f38);
 helper=0;flag148=0;flag149=0;
 first=a;a->retain();second=b;b->retain();
 for(int j=0;j<18;++j) state[j]=0;
-vfunc_100();vfunc_101();
+FUN_0031e610();FUN_0031f190();
 Helper_31f410* h=FUN_0008d690(4);helper=h?h->FUN_00328250(this):0;
 bc=0;c0=0;for(int k=0;k<12;++k) values[k]=0;
-vfunc_103();
+FUN_0031d300();
 }
 }
 } // namespace fn_0031f410

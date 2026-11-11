@@ -24,12 +24,13 @@ virtual void s60(); virtual void s61(); virtual void s62(); virtual void s63(); 
 virtual void s70(); virtual void s71(); virtual void s72(); virtual void s73(); virtual void s74(); virtual void s75(); virtual void s76(); virtual void s77(); virtual void s78(); virtual void s79();
 virtual void s80(); virtual void s81(); virtual void s82(); virtual void s83(); virtual void s84(); virtual void s85(); virtual void s86(); virtual void s87(); virtual void s88(); virtual Item_3287a0* get(int);
 };
+// d3dContext's state cache (0x00328fc0 builds it: the context, its handle, then the reset 0x00328f10)
 class Obj_328fc0 {
   public:
-    int a;
+    pure3d::d3dContext* a;
     int b;
-    Obj_328fc0* Init();
-    Obj_328fc0* Target(int, int);
+    void FUN_00328f10();
+    Obj_328fc0* Target(pure3d::d3dContext*, int);
 };
 namespace D3D8 {
 int __stdcall D3DDevice_CreateVertexShader(const unsigned int* decl, const void* program, unsigned int* handle, int usage);
@@ -300,11 +301,11 @@ void owners::State_328f10::FUN_00328f10() {
 namespace fn_f967e045 {
 
 // 0x00328fc0 FUN_00328fc0 (29 B): matches/0x00328fc0.cpp
-// sym: ?Target@Obj_328fc0@fn_f967e045@@QAEPAV12@HH@Z
-Obj_328fc0* Obj_328fc0::Target(int p2, int p3) {
+// sym: ?Target@Obj_328fc0@fn_f967e045@@QAEPAV12@PAVd3dContext@pure3d@@H@Z
+Obj_328fc0* Obj_328fc0::Target(pure3d::d3dContext* p2, int p3) {
     a = p2;
     b = p3;
-    Init();
+    FUN_00328f10();
     return this;
 }
 
