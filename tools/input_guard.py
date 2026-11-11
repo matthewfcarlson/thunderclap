@@ -467,6 +467,9 @@ def check_submit(ws, live, local_dir, private, allow_stale=False, rebuild=True, 
     if problems and not allow_stale:
         for g, r, _d, _m in todo:
             r["why"] += "; not rebuilt (the submit is refused)"
+        if todo:
+            log("input_guard: also stale, rebuilt from this checkout once the above is resolved: %s" % ", ".join(
+                g.input for g, _r, _d, _m in todo))
         return results, problems
     for g, r, inp_dir, msg in todo:
         log(msg + "; rebuilding it from this checkout (clean in git)")
