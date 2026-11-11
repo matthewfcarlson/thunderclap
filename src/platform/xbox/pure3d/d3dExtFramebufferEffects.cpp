@@ -156,7 +156,7 @@ struct Renderer_320d30 {
  virtual void v90(); virtual void v91(); virtual void v92(); virtual void v93(); virtual void v94(); virtual void v95(); virtual void v96(); virtual void v97(); virtual void v98(); virtual void v99();
  char pad[sizeof(::pure3d::pddiBaseContext) - sizeof(void*)]; int f14c; void* f150; DeviceInfo* device; void* f158; char pad15c[4];
  hulk_intptr f160; int f164[8]; unsigned formats[30]; char pad3[8]; void* object;
- int FUN_00320c60(); unsigned char FUN_00320d30();
+ static void FUN_00320c60(); unsigned char FUN_00320d30();   // (x64t2) 0x00320c60 takes no object
 };
 struct d3dPrimStream_nv_320d30 {
     void* FUN_0031bfa0(Renderer_320d30*);
@@ -375,18 +375,21 @@ class pddiBaseContext {
     virtual void a62();
     virtual void a63();
     virtual void v64(int);
+    void FUN_0031df80(unsigned char);   // (x64t2) pddiBaseContext::vfunc_58, called directly: named by address
 };
 class d3dContext : public pddiBaseContext {
   public:
     virtual void v64(int);
 };
-extern void __stdcall SetStencilEnable(unsigned int);
+namespace D3D8 {
+void __stdcall D3DDevice_SetRenderState_ZEnable(unsigned int);   // (x64t2) was SetStencilEnable (an invented name)
+}
 namespace D3D8 {
 void __stdcall D3DDevice_SetViewport(void*);
 }
 typedef unsigned int u32_321c90;
 struct d3dContext_nv_321c90 {
-    void BaseVfunc76(hulk_uintptr);
+    void FUN_0031e0e0(unsigned long);   // (x64t2) pddiBaseContext::vfunc_76, called directly: named by address
 };
 extern void __stdcall D3DDevice_SetRenderState_FillMode(u32_321c90);
 struct Texture_321d40 {
@@ -2044,13 +2047,15 @@ class pddiBaseContext {
     virtual void f33();
     virtual void f34();
     virtual void vfunc_35(void*);
+    // (x64t2) the base pddiBaseContext::vfunc_35 (0x0031d910), called directly: named by address for the native link
+    void FUN_0031d910(int);   // (the definition's int: the ambient colour gen's signature passes as a pointer)
 };
 class d3dContext : public pddiBaseContext {
   public:
     void vfunc_35(void*);
 };
 void d3dContext::vfunc_35(void* p) {
-    pddiBaseContext::vfunc_35(p);
+    FUN_0031d910((int)(hulk_intptr)p);
     globalA = p;
     globalB = p;
     state |= 0x1000;
@@ -2214,6 +2219,8 @@ class pddiBaseContext {
     virtual void be();
     virtual void bf();
     virtual void vfunc_56(char, char, char, char);
+    // (x64t2) the base pddiBaseContext::vfunc_56 (0x0031df10), called directly: named by address for the native link
+    void FUN_0031df10(char, char, char, char);
 };
 class d3dContext : public pddiBaseContext {
   public:
@@ -2276,10 +2283,10 @@ class d3dContext : public pddiBaseContext {
     virtual void vfunc_56(char, char, char, char);
 };
 } // namespace pure3d
-extern void __fastcall D3D8_D3DDevice_SetRenderState_Simple(int, int);
+extern void __fastcall D3DDevice_SetRenderState_Simple(int, int);   // (x64t2) was D3D8_D3DDevice_... (unbound)
 extern int gRender;
 void pure3d::d3dContext::vfunc_56(char a, char b, char c, char d) {
-    pddiBaseContext::vfunc_56(a, b, c, d);
+    FUN_0031df10(a, b, c, d);
     int bits = 0;
     if (a)
         bits |= 0x10000;
@@ -2289,7 +2296,7 @@ void pure3d::d3dContext::vfunc_56(char a, char b, char c, char d) {
         bits |= 1;
     if (d)
         bits |= 0x1000000;
-    D3D8_D3DDevice_SetRenderState_Simple(0x40358, bits);
+    D3DDevice_SetRenderState_Simple(0x40358, bits);
     gRender = bits;
 }
 } // namespace fn_00321a30
@@ -2300,8 +2307,8 @@ namespace fn_f57e27cb {
 // sym: ?v64@d3dContext@fn_f57e27cb@@UAEXH@Z
 // Same code shape as 0x00321b50 (propagated; names are from that function)
 void d3dContext::v64(int b) {
-    pddiBaseContext::v64(b);
-    SetStencilEnable((unsigned char)b);
+    FUN_0031df80((unsigned char)b);
+    D3D8::D3DDevice_SetRenderState_ZEnable((unsigned char)b);
 }
 
 } // namespace fn_f57e27cb
@@ -2373,6 +2380,8 @@ class pddiBaseContext {
     virtual void v58();
     virtual void v59();
     virtual void v60(int);
+    // (x64t2) the base pddiBaseContext::vfunc_60 (0x0031dfa0), called directly: named by address for the native link
+    void FUN_0031dfa0(int);
 };
 class d3dContext : public pddiBaseContext {
   public:
@@ -2381,7 +2390,7 @@ class d3dContext : public pddiBaseContext {
 extern unsigned int globalState_321ac0;
 void __fastcall D3DDevice_SetRenderState_Simple(unsigned int, unsigned int);
 void d3dContext::vfunc_60(int x) {
-    pddiBaseContext::v60(x);
+    FUN_0031dfa0(x);
     unsigned int v = *(unsigned int*)(((hulk_intptr)((char*)&DAT_004d3a6c)) + x * 4);
     D3DDevice_SetRenderState_Simple(0x40354, v);
     globalState_321ac0 = v;
@@ -2460,10 +2469,8 @@ class pddiBaseContext {
     virtual void f60();
     virtual void f61();
     virtual void vfunc_62(u32_321af0);
-};
-class Device_321af0 {
-  public:
-    void __fastcall Set(u32_321af0);
+    // (x64t2) the base pddiBaseContext::vfunc_62 (0x0031dfc0), called directly: named by address for the native link
+    void FUN_0031dfc0(u8);
 };
 class d3dContext : public pddiBaseContext {
   public:
@@ -2471,10 +2478,11 @@ class d3dContext : public pddiBaseContext {
     void vfunc_62(u32_321af0);
 };
 extern int state;
+void __fastcall D3DDevice_SetRenderState_Simple(u32_321af0, u32_321af0);
 void d3dContext::vfunc_62(u32_321af0 value) {
-    pddiBaseContext::vfunc_62(value);
+    FUN_0031dfc0((u8)value);
     u32_321af0 v = (u8)value;
-    ((Device_321af0*)0x4035c)->Set(v);
+    D3DDevice_SetRenderState_Simple(0x4035c, v);   // (x64t2) was a fastcall member of a fake object at 0x4035c
     state = v;
 }
 } // namespace pure3d
@@ -2561,15 +2569,17 @@ class pddiBaseContext {
     virtual void a62();
     virtual void a63();
     virtual void v64(int);
+    // (x64t2) the base pddiBaseContext::vfunc_64 (0x0031dfe0), called directly: named by address for the native link
+    void FUN_0031dfe0(int);
 };
 class d3dContext : public pddiBaseContext {
   public:
     virtual void v64(int);
 };
-extern void __stdcall SetStencilEnable(unsigned int);
+extern void __stdcall D3DDevice_SetRenderState_StencilEnable(unsigned int);   // (x64t2) was SetStencilEnable
 void d3dContext::v64(int b) {
-    pddiBaseContext::v64(b);
-    SetStencilEnable((unsigned char)b);
+    FUN_0031dfe0(b);
+    D3DDevice_SetRenderState_StencilEnable((unsigned char)b);
 }
 } // namespace fn_00321b50
 
@@ -2650,13 +2660,15 @@ class pddiBaseContext {
     virtual void v64();
     virtual void v65();
     virtual void v66(int);
+    // (x64t2) the base pddiBaseContext::vfunc_66 (0x0031e000), called directly: named by address for the native link
+    void FUN_0031e000(int);
 };
 class d3dContext : public pddiBaseContext {
   public:
     virtual void v66(int);
 };
 void d3dContext::v66(int x) {
-    pddiBaseContext::v66(x);
+    FUN_0031e000(x);
     int v = ((int*)((hulk_intptr)((char*)&DAT_004d3a6c)))[x];
     D3DDevice_SetRenderState_Simple((int*)0x40364, v);
     DAT_0039de28 = v;
@@ -2740,6 +2752,8 @@ class pddiBaseContext {
     virtual void f66();
     virtual void f67();
     virtual void vfunc_68(unsigned long);
+    // (x64t2) the base pddiBaseContext::vfunc_68 (0x0031e020), called directly: named by address for the native link
+    void FUN_0031e020(unsigned long);
 };
 class d3dContext : public pddiBaseContext {
   public:
@@ -2749,7 +2763,7 @@ class d3dContext : public pddiBaseContext {
 extern void __fastcall D3DDevice_SetRenderState_Simple(unsigned long, unsigned long);
 extern unsigned long g_state_321ba0;
 void pure3d::d3dContext::vfunc_68(unsigned long x) {
-    pddiBaseContext::vfunc_68(x);
+    FUN_0031e020(x);
     D3DDevice_SetRenderState_Simple(0x40368, x);
     g_state_321ba0 = x;
 }
@@ -2763,6 +2777,8 @@ namespace pure3d {
 class pddiBaseContext {
   public:
     virtual void vfunc_70(unsigned);
+    // (x64t2) the base pddiBaseContext::vfunc_70 (0x0031e040), called directly: named by address for the native link
+    void FUN_0031e040(unsigned);
 };
 class d3dContext : public pddiBaseContext {
   public:
@@ -2774,7 +2790,7 @@ void __fastcall D3DDevice_SetRenderState_Simple(unsigned, unsigned);
 }
 extern unsigned DAT_0039de30;
 void pure3d::d3dContext::vfunc_70(unsigned x) {
-    pddiBaseContext::vfunc_70(x);
+    FUN_0031e040(x);
     D3D8::D3DDevice_SetRenderState_Simple(0x4036c, x);
     DAT_0039de30 = x;
 }
@@ -2859,16 +2875,18 @@ class pddiBaseContext {
     virtual void v70();
     virtual void v71();
     virtual void vfunc_72(int);
+    // (x64t2) the base pddiBaseContext::vfunc_72 (0x0031e060), called directly: named by address for the native link
+    void FUN_0031e060(int);
 };
 class d3dContext : public pddiBaseContext {
   public:
     void vfunc_72(int);
 };
-extern void __fastcall D3D8_D3DDevice_SetRenderState_Simple(int*, int);
+extern void __fastcall D3DDevice_SetRenderState_Simple(int*, int);   // (x64t2) was D3D8_D3DDevice_... (unbound)
 extern int gRender;
 void d3dContext::vfunc_72(int x) {
-    pddiBaseContext::vfunc_72(x);
-    D3D8_D3DDevice_SetRenderState_Simple((int*)0x40360, x);
+    FUN_0031e060(x);
+    D3DDevice_SetRenderState_Simple((int*)0x40360, x);
     gRender = x;
 }
 } // namespace fn_00321c00
@@ -2957,6 +2975,8 @@ class pddiBaseContext {
     virtual void f72();
     virtual void f73();
     virtual void vfunc_74(int, int, int);
+    // (x64t2) the base pddiBaseContext::vfunc_74 (0x0031e080), called directly: named by address for the native link
+    void FUN_0031e080(int, int, int);
 };
 class d3dContext : public pddiBaseContext {
   public:
@@ -2965,16 +2985,17 @@ class d3dContext : public pddiBaseContext {
 } // namespace pure3d
 extern u32_321c30 DAT_0039de20;
 extern u32_321c30 DAT_0039de24;
-void __stdcall SetStencil(u32_321c30);
-void __fastcall SetSimple(u32_321c30, u32_321c30);
+// (x64t2) the XDK's names (were SetStencil / SetSimple)
+void __stdcall D3DDevice_SetRenderState_StencilFail(u32_321c30);
+void __fastcall D3DDevice_SetRenderState_Simple(u32_321c30, u32_321c30);
 void pure3d::d3dContext::vfunc_74(int a, int b, int c) {
-    pddiBaseContext::vfunc_74(a, b, c);
-    SetStencil(*(u32_321c30*)(((hulk_intptr)((char*)&DAT_004d3a54)) + a * 4));
+    FUN_0031e080(a, b, c);
+    D3DDevice_SetRenderState_StencilFail(*(u32_321c30*)(((hulk_intptr)((char*)&DAT_004d3a54)) + a * 4));
     u32_321c30 x = *(u32_321c30*)(((hulk_intptr)((char*)&DAT_004d3a54)) + b * 4);
-    SetSimple(0x40374, x);
+    D3DDevice_SetRenderState_Simple(0x40374, x);
     DAT_0039de20 = x;
     u32_321c30 y = *(u32_321c30*)(((hulk_intptr)((char*)&DAT_004d3a54)) + c * 4);
-    SetSimple(0x40378, y);
+    D3DDevice_SetRenderState_Simple(0x40378, y);
     DAT_0039de24 = y;
 }
 } // namespace fn_00321c30
@@ -2984,7 +3005,7 @@ void pure3d::d3dContext::vfunc_74(int a, int b, int c) {
 // sym: ?vfunc_76@d3dContext@pure3d@@UAEXK@Z
 void pure3d::d3dContext::vfunc_76(unsigned long __p0) { hulk_uintptr x = (u32_321c90)__p0;
 
-    ((d3dContext_nv_321c90*)(this))->BaseVfunc76(x);
+    ((d3dContext_nv_321c90*)(this))->FUN_0031e0e0((unsigned long)x);
     D3DDevice_SetRenderState_FillMode(*(u32_321c90*)(((hulk_intptr)((char*)&DAT_004d3a8c)) + x * 4));
 }
 
@@ -2997,6 +3018,8 @@ class pddiBaseContext {
   public:
     virtual void f();
     void vfunc_78(unsigned int);
+    // (x64t2) the base pddiBaseContext::vfunc_78 (0x0031e100), called directly: named by address for the native link
+    void FUN_0031e100(unsigned int);
 };
 class d3dContext : public pddiBaseContext {
   public:
@@ -3006,7 +3029,7 @@ class d3dContext : public pddiBaseContext {
 extern unsigned int gFlags_321cb0;
 extern unsigned int gFog;
 void pure3d::d3dContext::vfunc_78(unsigned int x) {
-    pddiBaseContext::vfunc_78(x);
+    FUN_0031e100(x);
     gFlags_321cb0 |= 0x2000;
     gFog = (unsigned char)x;
 }
@@ -3101,6 +3124,8 @@ class pddiBaseContext {
     virtual void f78();
     virtual void f79();
     virtual void vfunc_80(U_321ce0, U_321ce0, U_321ce0);
+    // (x64t2) the base pddiBaseContext::vfunc_80 (0x0031e120), called directly: named by address for the native link
+    void FUN_0031e120(U_321ce0, U_321ce0, U_321ce0);
 };
 class d3dContext : public pddiBaseContext {
   public:
@@ -3108,12 +3133,12 @@ class d3dContext : public pddiBaseContext {
 };
 } // namespace pure3d
 extern U_321ce0 gFlags_321ce0, gState, gFog, gA, gB;
-void __stdcall SetFog(U_321ce0);
+void __stdcall D3DDevice_SetRenderState_FogColor(U_321ce0);   // (x64t2) was SetFog
 void pure3d::d3dContext::vfunc_80(U_321ce0 a, U_321ce0 b, U_321ce0 c) {
-    pddiBaseContext::vfunc_80(a, b, c);
+    FUN_0031e120(a, b, c);
     gFlags_321ce0 |= 0x2000;
     gFog = 3;
-    SetFog(a);
+    D3DDevice_SetRenderState_FogColor(a);
     gA = b;
     gB = c;
     gFlags_321ce0 |= 0x2000;

@@ -2121,7 +2121,7 @@ stacks by `sizeof` of the state records and its stack view starts with the vftab
 src/platform/xbox/pure3d/d3dExtFramebufferEffects.cpp: the viewport set-up 0x00321520 calls the XDK's
 `D3D8::D3DDevice_GetViewport` / `D3DDevice_SetViewport` (were invented names, unbound natively) on gen's d3dContext
 layout (`f_16c`), and d3dContext::vfunc_54 (0x003219f0) calls its base by address (`FUN_0031def0`) and reads the
-state cache's flag through owners::State_328f10. All 189 matches of the two TUs MATCH with relocations ok; every
+state cache's flag through owners::State_328f10. All 200 matches of the two TUs MATCH with relocations ok; every
 equivalent's listing is identical to before. Left: pddiBaseContext::vfunc_8 / vfunc_10 store a `void*` (gen's
 signature) into the view state's 4-byte depth / colour words: the signatures, not the layout, are wrong there.
 
@@ -2130,3 +2130,22 @@ set-up and the context's render-state set-up run (51 imports); the start-up stop
 (0x00321a30): the d3dContext overrides 0x00321990..0x00321ce0 call their pddiBaseContext bases by local names and the
 render-state setters under invented names (`SetStencilEnable`, `SetFog`, `D3D8_D3DDevice_SetRenderState_Simple`,
 18 names). Continued past those, the start-up leaves the pddi set-up and crashes in 0x0028f800 (`Widget_28f800`).
+
+**Batch 5, the d3dContext's render-state overrides.** The overrides 0x00321990..0x00321ce0 (vfunc_35, 56, 58, 60,
+62, 64, 66, 68, 70, 72, 74, 76, 78, 80; matches) call their pddiBaseContext bases by address (`FUN_0031d910`,
+`FUN_0031df10`, ... `FUN_0031e120`: their local `pddiBaseContext::vfunc_N` named no definition) and the XDK by its
+own names (`D3DDevice_SetRenderState_ZEnable` / `_StencilEnable` / `_StencilFail` / `_FogColor` /
+`_SetRenderState_Simple`; were `SetStencilEnable`, `SetStencil`, `SetFog`, `D3D8_D3DDevice_...`, a fastcall member of a
+fake object at 0x4035c). A name bound by its address must also carry the definition's signature (the native link
+checks the IR signature: tools/native_mac.py's addr-why.json says "ABI mismatch" otherwise): the bases take
+`unsigned char` / `unsigned long` / `int` as defined, and 0x00320d30's call of 0x00320c60 is a static member (the
+definition takes no object; 0x00320d30 re-proven: 3,002 inputs, `--wine` 602). pddiBaseContext::vfunc_35 (0x0031d910)
+stores the ambient colour through `HULK_CTX_STATE` / `HULK_STATE_AT` (its view had a 32-bit pad); gen's slot passes
+that colour as a `void*`, the override converts it. Matches MATCH with relocations ok; the other equivalents unchanged.
+
+Proof 71522 vs control 71466 (studio): image 6401bceb, GATE ok (0 of 2,017 common frames differ). Native on 71522's
+snapshot and map: **28,952 / 28,937 / 28,944** unbound (session start 29,010 / 28,995 / 29,002); Android links.
+macOS: no missing name left on the pddi path; the device, display, context, default states and render states are set
+up (56 imports) and the start-up stops in the Pure3D context's constructor 0x0028f800 (`Widget_28f800`, called by
+0x00292560 with the device's info block as its third object): the next stop, with 0x00292560's `FUN_0008d690(0xf8)`
+(a 32-bit instance size) beside it.

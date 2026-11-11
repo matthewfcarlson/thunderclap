@@ -360,12 +360,6 @@ class ParamValue_31d900 {
     virtual void vfunc_4();
 };
 class pddiBaseContext {
-    char pad[0x50];
-    struct X {
-        char pad[0x3e4];
-        int value;
-    }* m;
-
   public:
     void vfunc_35(int);
 };
@@ -1810,8 +1804,9 @@ namespace fn_fc049dac {
 
 // 0x0031d910 pure3d::pddiBaseContext::vfunc_35 (16 B): matches/0x0031d910.cpp
 // sym: ?vfunc_35@pddiBaseContext@fn_fc049dac@@QAEXH@Z
+// (x64t2) the lighting state f_50 through gen's context, its ambient word behind the vftable and the 8 lights
 void pddiBaseContext::vfunc_35(int value) {
-    m->value = value;
+    *(int*)HULK_STATE_AT(HULK_CTX_STATE(this, f_50), 0x3e4) = value;
 }
 
 } // namespace fn_fc049dac
