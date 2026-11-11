@@ -510,6 +510,9 @@ template <> void Method1<CWorldCollisionManager,math::Vector,math::Vector>::vfun
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method1<CWorldCollisionManager,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2021d0)
+#endif
 
 
 // 0x00202290 Method1<CWorldCollisionManager,void,float>::vfunc_0 (30 B): matches/0x00202290.cpp
@@ -527,6 +530,9 @@ template <> void Method1<CWorldCollisionManager, void, float>::vfunc_2(void* __p
     Dummy_2022b0* d = (Dummy_2022b0*)a;
     (d->*(*(void (Dummy_2022b0::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CWorldCollisionManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x202290)
+#endif
 
 
 // 0x00202310 Method0<CWorldCollisionManager,float>::vfunc_0 (30 B): matches/0x00202310.cpp
@@ -534,6 +540,9 @@ template <> void Method1<CWorldCollisionManager, void, float>::vfunc_2(void* __p
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method0<CWorldCollisionManager, float>::~Method0() {}
+#if defined(HULK_PTR64)
+template class Method0<CWorldCollisionManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x202310)
+#endif
 
 
 // 0x00202330 Method0<CWorldCollisionManager,float>::vfunc_2 (34 B): matches/0x00202330.cpp [wrapped: conflict: Function]
@@ -575,6 +584,9 @@ template <> void Method1<CWorldCollisionManager, void, const char *>::vfunc_2(vo
     Dummy_2023c0* d = (Dummy_2023c0*)a;
     (d->*(*(void (Dummy_2023c0::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CWorldCollisionManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2023a0)
+#endif
 
 namespace fn_f0f2b8a0 {
 
@@ -1421,6 +1433,9 @@ Closure1::Closure1(void* x, void* y, void* z) : Closure1_202f20(x, y, z) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CWorldCollisionManager,math::Vector,math::Vector>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CWorldCollisionManager,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x202f70)
+#endif
 
 
 // 0x00202f90 Closure1<CWorldCollisionManager,math::Vector,math::Vector>::vfunc_2 (12 B): matches/0x00202f90.cpp [wrapped: conflict: Closure2; Function; Method2]
@@ -1505,6 +1520,9 @@ template <> void Closure1<CWorldCollisionManager, void, float>::vfunc_2(void* __
 
     ((*(CActorManager_203010 * *)&this->f_20)->*(*(void (CActorManager_203010::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CWorldCollisionManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x202ff0)
+#endif
 
 
 // 0x00203090 Closure0<CWorldCollisionManager,float>::vfunc_2 (35 B): matches/0x00203090.cpp

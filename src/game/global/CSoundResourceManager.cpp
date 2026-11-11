@@ -143,6 +143,9 @@ template <> void Method1<CSoundResourceManager, void, const char *>::vfunc_2(voi
     Dummy_1e9e90* d = (Dummy_1e9e90*)a;
     (d->*(*(void (Dummy_1e9e90::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSoundResourceManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1e9e70)
+#endif
 
 
 // 0x001e9ef0 Method1<CSoundResourceManager,void,char_*>::vfunc_0 (30 B): matches/0x001e9ef0.cpp
@@ -160,6 +163,9 @@ template <> void Method1<CSoundResourceManager, void, char *>::vfunc_2(void* __p
     Dummy_1e9f10* d = (Dummy_1e9f10*)a;
     (d->*(*(void (Dummy_1e9f10::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSoundResourceManager, void, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1e9ef0)
+#endif
 
 
 // 0x001e9f70 Method1<CSoundResourceManager,void,int>::vfunc_0 (30 B): matches/0x001e9f70.cpp
@@ -177,6 +183,9 @@ template <> void Method1<CSoundResourceManager, void, int>::vfunc_2(void* __p0, 
     Dummy_1e9f90* d = (Dummy_1e9f90*)a;
     (d->*(*(void (Dummy_1e9f90::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSoundResourceManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1e9f70)
+#endif
 
 
 // 0x001ea010 FUN_001ea010 (50 B): matches/0x001ea010.cpp
@@ -319,6 +328,9 @@ template <> void Closure1<CSoundResourceManager, void, const char *>::vfunc_2(vo
 
     ((*(CActorManager_1ea420 * *)&this->f_20)->*(*(void (CActorManager_1ea420::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CSoundResourceManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ea400)
+#endif
 
 
 // 0x001ea440 FUN_001ea440 (76 B): matches/0x001ea440.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -370,6 +382,9 @@ template <> void Closure1<CSoundResourceManager, void, char *>::vfunc_2(void* __
 
     ((*(CActorManager_1ea4b0 * *)&this->f_20)->*(*(void (CActorManager_1ea4b0::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CSoundResourceManager, void, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ea490)
+#endif
 
 
 // 0x001ea4d0 FUN_001ea4d0 (76 B): matches/0x001ea4d0.cpp [wrapped: conflict: Closure1; Closure1::Closure1; Method1]

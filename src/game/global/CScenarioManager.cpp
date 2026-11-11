@@ -1160,6 +1160,9 @@ template <> void Method1<CScenarioManager, void, int>::vfunc_2(void* __p0, void*
     Dummy_1cd810* d = (Dummy_1cd810*)a;
     (d->*(*(void (Dummy_1cd810::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CScenarioManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cd7f0)
+#endif
 
 
 // 0x001cd870 Method0<CScenarioManager,int>::vfunc_0 (30 B): matches/0x001cd870.cpp
@@ -1179,6 +1182,9 @@ template <> void Method0<CScenarioManager, int>::vfunc_2(void* __p0, void* __p1,
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method0<CScenarioManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cd870)
+#endif
 
 
 // 0x001cd8f0 Method0<CScenarioManager,float>::vfunc_0 (30 B): matches/0x001cd8f0.cpp
@@ -1186,6 +1192,9 @@ template <> void Method0<CScenarioManager, int>::vfunc_2(void* __p0, void* __p1,
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method0<CScenarioManager, float>::~Method0() {}
+#if defined(HULK_PTR64)
+template class Method0<CScenarioManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cd8f0)
+#endif
 
 
 // 0x001cd910 Method0<CScenarioManager,float>::vfunc_2 (34 B): matches/0x001cd910.cpp [wrapped: conflict: Function]
@@ -1227,6 +1236,9 @@ template <> void Method1<CScenarioManager, void, float>::vfunc_2(void* __p0, voi
     Dummy_1cd9a0* d = (Dummy_1cd9a0*)a;
     (d->*(*(void (Dummy_1cd9a0::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CScenarioManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cd980)
+#endif
 
 
 // 0x001cda00 Method1<CScenarioManager,void,bool>::vfunc_0 (30 B): matches/0x001cda00.cpp
@@ -1243,6 +1255,9 @@ template <> void Method1<CScenarioManager, void, bool>::vfunc_2(void* __p0, void
 
     (obj->*(*(MFn_1cda20 *)&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CScenarioManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cda00)
+#endif
 
 
 // 0x001cda80 Method0<CScenarioManager,bool>::vfunc_0 (30 B): matches/0x001cda80.cpp
@@ -1262,6 +1277,9 @@ template <> void Method0<CScenarioManager, bool>::vfunc_2(void* __p0, void* __p1
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method0<CScenarioManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cda80)
+#endif
 
 
 // 0x001cdb00 Method1<CScenarioManager,float,int>::vfunc_0 (30 B): matches/0x001cdb00.cpp
@@ -1282,6 +1300,9 @@ template <> void Method1<CScenarioManager, float, int>::vfunc_2(void* __p0, void
     if (out)
         *out = x;
 }
+#if defined(HULK_PTR64)
+template class Method1<CScenarioManager, float, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cdb00)
+#endif
 
 
 // 0x001cdba0 Method2<CScenarioManager,void,int,float>::vfunc_0 (30 B): matches/0x001cdba0.cpp
@@ -1301,6 +1322,9 @@ template <> void Method2<CScenarioManager, void, int, float>::vfunc_2(void* __p0
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1cdbc0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CScenarioManager, void, int, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cdba0)
+#endif
 
 
 // 0x001cdc30 Method2<CScenarioManager,int,float,const_char_*>::vfunc_0 (30 B): matches/0x001cdc30.cpp
@@ -1321,6 +1345,9 @@ template <> void Method2<CScenarioManager, int, float, const char *>::vfunc_2(vo
     if (result)
         *result = r;
 }
+#if defined(HULK_PTR64)
+template class Method2<CScenarioManager, int, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cdc30)
+#endif
 
 
 // 0x001cdcd0 Method2<CScenarioManager,void,float,const_char_*>::vfunc_0 (30 B): matches/0x001cdcd0.cpp
@@ -1340,6 +1367,9 @@ template <> void Method2<CScenarioManager, void, float, const char *>::vfunc_2(v
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1cdcf0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CScenarioManager, void, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cdcd0)
+#endif
 
 
 // 0x001cdd50 Method0<CScenarioManager,void>::vfunc_0 (30 B): matches/0x001cdd50.cpp
@@ -1356,6 +1386,9 @@ template <> void Method0<CScenarioManager, void>::vfunc_2(void* __p0, void* __p1
 
     (a->*(*(void (CActorManager_1cdd70::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Method0<CScenarioManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cdd50)
+#endif
 
 
 // 0x001cddc0 Method1<CScenarioManager,void,const_char_*>::vfunc_0 (30 B): matches/0x001cddc0.cpp
@@ -1373,6 +1406,9 @@ template <> void Method1<CScenarioManager, void, const char *>::vfunc_2(void* __
     Dummy_1cdde0* d = (Dummy_1cdde0*)a;
     (d->*(*(void (Dummy_1cdde0::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CScenarioManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cddc0)
+#endif
 
 
 // 0x001cde40 Method1<CScenarioManager,const_char_*,int>::vfunc_0 (30 B): matches/0x001cde40.cpp
@@ -1392,6 +1428,9 @@ template <> void Method1<CScenarioManager, const char *, int>::vfunc_2(void* __p
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CScenarioManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cde40)
+#endif
 
 
 // 0x001cded0 Method2<CScenarioManager,void,int,const_char_*>::vfunc_0 (30 B): matches/0x001cded0.cpp
@@ -1411,6 +1450,9 @@ template <> void Method2<CScenarioManager, void, int, const char *>::vfunc_2(voi
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1cdef0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CScenarioManager, void, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cded0)
+#endif
 
 
 // 0x001cdf50 Method1<CScenarioManager,eMissionObjectiveState,int>::vfunc_0 (30 B): matches/0x001cdf50.cpp
@@ -1430,6 +1472,9 @@ template <> void Method1<CScenarioManager,eMissionObjectiveState, int>::vfunc_2(
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CScenarioManager,eMissionObjectiveState, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cdf50)
+#endif
 
 
 // 0x001cdfe0 Method2<CScenarioManager,void,int,int>::vfunc_0 (30 B): matches/0x001cdfe0.cpp
@@ -1449,6 +1494,9 @@ template <> void Method2<CScenarioManager, void, int, int>::vfunc_2(void* __p0, 
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1ce000::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CScenarioManager, void, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cdfe0)
+#endif
 
 
 // 0x001ce020 FUN_001ce020 (64 B): matches/0x001ce020.cpp
@@ -1516,6 +1564,9 @@ template <> void Closure1<CScenarioManager, void, int>::vfunc_2(void* __p0, void
 
     ((*(CActorManager_1ce0d0 * *)&this->f_20)->*(*(void (CActorManager_1ce0d0::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CScenarioManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce0b0)
+#endif
 
 
 // 0x001ce130 Closure0<CScenarioManager,int>::vfunc_0 (30 B): matches/0x001ce130.cpp
@@ -1536,6 +1587,9 @@ template <> void Closure0<CScenarioManager, int>::vfunc_2(void* __p0, void* __p1
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CScenarioManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce130)
+#endif
 
 
 // 0x001ce1b0 Closure0<CScenarioManager,float>::vfunc_0 (30 B): matches/0x001ce1b0.cpp
@@ -1556,6 +1610,9 @@ template <> void Closure0<CScenarioManager, float>::vfunc_2(void* __p0, void* __
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CScenarioManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce1b0)
+#endif
 
 
 // 0x001ce200 FUN_001ce200 (76 B): matches/0x001ce200.cpp [wrapped: conflict: Closure1; Closure1::Closure1; Method1]
@@ -1635,6 +1692,9 @@ template <> void Closure1<CScenarioManager, void, float>::vfunc_2(void* __p0, vo
 
     ((*(CActorManager_1ce270 * *)&this->f_20)->*(*(void (CActorManager_1ce270::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CScenarioManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce250)
+#endif
 
 
 // 0x001ce290 FUN_001ce290 (76 B): matches/0x001ce290.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -1689,6 +1749,9 @@ template <> void Closure1<CScenarioManager, void, bool>::vfunc_2(void* __p0, voi
 
     ((*(Actor_1ce300 * *)&this->f_20)->*(*(void (Actor_1ce300::**)(unsigned char))&this->f_1c))(*arg);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CScenarioManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce2e0)
+#endif
 
 
 // 0x001ce360 Closure0<CScenarioManager,bool>::vfunc_0 (30 B): matches/0x001ce360.cpp
@@ -1709,6 +1772,9 @@ template <> void Closure0<CScenarioManager, bool>::vfunc_2(void* __p0, void* __p
     if (out)
         *out = b;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CScenarioManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce360)
+#endif
 
 
 // 0x001ce3a0 FUN_001ce3a0 (76 B): matches/0x001ce3a0.cpp [wrapped: conflict: Closure1; Method1]
@@ -1792,6 +1858,9 @@ template <> void Closure1<CScenarioManager, float, int>::vfunc_2(void* __p0, voi
     if (out)
         *out = value;
 }
+#if defined(HULK_PTR64)
+template class Closure1<CScenarioManager, float, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce3f0)
+#endif
 
 
 // 0x001ce440 FUN_001ce440 (89 B): matches/0x001ce440.cpp [wrapped: conflict: Closure2]
@@ -1875,6 +1944,9 @@ template <> void Closure2<CScenarioManager, void, int, float>::vfunc_2(void* __p
 
     ((*(CActorManager_1ce4c0 * *)&this->f_20)->*(*(void (CActorManager_1ce4c0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CScenarioManager, void, int, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce4a0)
+#endif
 
 
 // 0x001ce4e0 FUN_001ce4e0 (89 B): matches/0x001ce4e0.cpp [wrapped: conflict: Closure2]
@@ -1960,6 +2032,9 @@ template <> void Closure2<CScenarioManager, int, float, const char *>::vfunc_2(v
     const char* value = ((*(CScenarioManager_1ce560 * *)&this->f_20)->*(*(const char *(CScenarioManager_1ce560::**)(int, float))&this->f_1c))(args->value, args->fraction);
     if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Closure2<CScenarioManager, int, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce540)
+#endif
 
 
 // 0x001ce590 FUN_001ce590 (89 B): matches/0x001ce590.cpp [wrapped: conflict: Closure2]
@@ -2043,6 +2118,9 @@ template <> void Closure2<CScenarioManager, void, float, const char *>::vfunc_2(
 
     ((*(CActorManager_1ce610 * *)&this->f_20)->*(*(void (CActorManager_1ce610::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CScenarioManager, void, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce5f0)
+#endif
 
 
 // 0x001ce670 Closure0<CScenarioManager,void>::vfunc_0 (30 B): matches/0x001ce670.cpp
@@ -2058,6 +2136,9 @@ template <> Closure0<CScenarioManager, void>::~Closure0() {}
 template <> void Closure0<CScenarioManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_1ce690 * *)&this->f_20)->*(*(void (CActorManager_1ce690::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Closure0<CScenarioManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce670)
+#endif
 
 namespace fn_fdf9c5a9 {
 
@@ -2083,6 +2164,9 @@ template <> void Closure1<CScenarioManager, void, const char *>::vfunc_2(void* _
 
     ((*(CActorManager_1ce710 * *)&this->f_20)->*(*(void (CActorManager_1ce710::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CScenarioManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce6f0)
+#endif
 
 
 // 0x001ce730 FUN_001ce730 (76 B): matches/0x001ce730.cpp [wrapped: conflict: Closure1; Method1]
@@ -2169,6 +2253,9 @@ template <> void Closure1<CScenarioManager, const char *, int>::vfunc_2(void* __
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Closure1<CScenarioManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce780)
+#endif
 
 
 // 0x001ce7c0 FUN_001ce7c0 (89 B): matches/0x001ce7c0.cpp [wrapped: conflict: Closure2]

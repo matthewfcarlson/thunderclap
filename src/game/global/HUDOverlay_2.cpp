@@ -1834,6 +1834,9 @@ template <> void Method0<HUDOverlay, void>::vfunc_2(void* __p0, void* __p1, void
 
     (a->*(*(void (CActorManager_ce910::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Method0<HUDOverlay, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xce8f0)
+#endif
 
 
 // 0x000ce960 Method1<HUDOverlay,void,const_char_*>::vfunc_0 (30 B): matches/0x000ce960.cpp
@@ -1851,6 +1854,9 @@ template <> void Method1<HUDOverlay, void, const char *>::vfunc_2(void* __p0, vo
     Dummy_ce980* d = (Dummy_ce980*)a;
     (d->*(*(void (Dummy_ce980::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<HUDOverlay, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xce960)
+#endif
 
 
 // 0x000ce9e0 Method1<HUDOverlay,void,int>::vfunc_0 (30 B): matches/0x000ce9e0.cpp
@@ -1868,6 +1874,9 @@ template <> void Method1<HUDOverlay, void, int>::vfunc_2(void* __p0, void* __p1,
     Dummy_cea00* d = (Dummy_cea00*)a;
     (d->*(*(void (Dummy_cea00::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<HUDOverlay, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xce9e0)
+#endif
 
 
 // 0x000cea60 Method1<HUDOverlay,void,float>::vfunc_0 (30 B): matches/0x000cea60.cpp
@@ -1885,6 +1894,9 @@ template <> void Method1<HUDOverlay, void, float>::vfunc_2(void* __p0, void* __p
     Dummy_cea80* d = (Dummy_cea80*)a;
     (d->*(*(void (Dummy_cea80::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<HUDOverlay, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcea60)
+#endif
 
 namespace fn_f3fdf6d3 {
 
@@ -1924,6 +1936,9 @@ template <> void Method4<HUDOverlay, void, const char *, float, float,math::Vect
     Vector_ceb30 v; v.x=x.f; v.y=y.f; v.z=z.f;
     (object->*(*(void (HUDOverlay_ceb30::**)(const char *, float, float, Vector_ceb30))&this->f_1c))((const char*)args[0], a.f, b.f, v);
 }
+#if defined(HULK_PTR64)
+template class Method4<HUDOverlay, void, const char *, float, float,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xceb10)
+#endif
 
 
 // 0x000ceb80 FUN_000ceb80 (89 B): matches/0x000ceb80.cpp [wrapped: conflict: HUDOverlay; Method3]
@@ -2004,6 +2019,9 @@ template <> void Method3<HUDOverlay, int, const char *, const char *, float>::vf
     int value = (object->*(*(int (HUDOverlay_cec00::**)(int, const char *, const char *))&this->f_1c))(arguments[0], (const char *)arguments[1], (const char *)arguments[2]);
     if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Method3<HUDOverlay, int, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcebe0)
+#endif
 
 
 // 0x000cec70 Method0<HUDOverlay,int>::vfunc_0 (30 B): matches/0x000cec70.cpp
@@ -2023,6 +2041,9 @@ template <> void Method0<HUDOverlay, int>::vfunc_2(void* __p0, void* __p1, void*
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method0<HUDOverlay, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcec70)
+#endif
 
 
 // 0x000cecf0 Method1<HUDOverlay,void,math::Vector>::vfunc_0 (30 B): matches/0x000cecf0.cpp
@@ -2038,6 +2059,9 @@ template <> void Method1<HUDOverlay, void,math::Vector>::vfunc_2(void* __p0, voi
 
     (o->*(*(void (HUDOverlay_ced10::**)(math::Vector_ced10))&this->f_1c))(*v);
 }
+#if defined(HULK_PTR64)
+template class Method1<HUDOverlay, void,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcecf0)
+#endif
 
 
 // 0x000ced90 Method2<HUDOverlay,int,int,math::Vector>::vfunc_0 (30 B): matches/0x000ced90.cpp
@@ -2058,6 +2082,9 @@ template <> void Method2<HUDOverlay, int, int,math::Vector>::vfunc_2(void* __p0,
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method2<HUDOverlay, int, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xced90)
+#endif
 
 
 // 0x000cee40 Method2<HUDOverlay,void,int,math::Vector>::vfunc_0 (30 B): matches/0x000cee40.cpp
@@ -2075,6 +2102,9 @@ template <> void Method2<HUDOverlay, void, int,math::Vector>::vfunc_2(void* __p0
 
     (owner->*(*(void (HUDOverlay_cee60::**)(int, Vector_cee60))&this->f_1c))(args->index, args->position);
 }
+#if defined(HULK_PTR64)
+template class Method2<HUDOverlay, void, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcee40)
+#endif
 
 
 // 0x000ceee0 Method2<HUDOverlay,int,int,const_char_*>::vfunc_0 (30 B): matches/0x000ceee0.cpp
@@ -2095,6 +2125,9 @@ template <> void Method2<HUDOverlay, int, int, const char *>::vfunc_2(void* __p0
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Method2<HUDOverlay, int, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xceee0)
+#endif
 
 
 // 0x000cef80 Method2<HUDOverlay,void,bool,float>::vfunc_0 (30 B): matches/0x000cef80.cpp
@@ -2111,6 +2144,9 @@ template <> void Method2<HUDOverlay, void, bool, float>::vfunc_2(void* __p0, voi
     HUDOverlay_cefa0* h = (HUDOverlay_cefa0*)a;
     (h->*(*(void (HUDOverlay_cefa0::**)(unsigned char, float))&this->f_1c))(*(unsigned char*)p, *(float*)((char*)p + 4));
 }
+#if defined(HULK_PTR64)
+template class Method2<HUDOverlay, void, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcef80)
+#endif
 
 
 // 0x000cf010 Method2<HUDOverlay,void,int,bool>::vfunc_0 (30 B): matches/0x000cf010.cpp
@@ -2131,6 +2167,9 @@ template <> void Method2<HUDOverlay, void, int, bool>::vfunc_2(void* __p0, void*
     Args* p = (Args*)b;
     (h->*(*(void (HUDOverlay_cf030::**)(int, bool))&this->f_1c))(p->i, p->flag);
 }
+#if defined(HULK_PTR64)
+template class Method2<HUDOverlay, void, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf010)
+#endif
 
 namespace fn_f3fdf6d3 {
 
@@ -2170,6 +2209,9 @@ template <> void Method4<HUDOverlay, int, int, int,math::Vector,math::Vector>::v
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method4<HUDOverlay, int, int, int,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf0c0)
+#endif
 
 namespace fn_f3fdf6d3 {
 
@@ -2190,6 +2232,9 @@ Method3_cf160::Method3_cf160(hulk_intptr a, hulk_intptr c) : Function_cf160(a, 3
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method3<HUDOverlay, void, int, int,math::Vector>::~Method3() {}
+#if defined(HULK_PTR64)
+template class Method3<HUDOverlay, void, int, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf1c0)
+#endif
 
 
 // 0x000cf1e0 Method3<HUDOverlay,void,int,int,math::Vector>::vfunc_2 (57 B): matches/0x000cf1e0.cpp [wrapped: conflict: Arguments; Function; HUDOverlay; Method3]
@@ -2244,6 +2289,9 @@ template <> void Method2<HUDOverlay, void, int, int>::vfunc_2(void* __p0, void* 
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_cf290::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<HUDOverlay, void, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf270)
+#endif
 
 namespace fn_f3fdf6d3 {
 
@@ -2283,6 +2331,9 @@ template <> void Method5<HUDOverlay, int, int, const char *,math::Vector,math::V
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method5<HUDOverlay, int, int, const char *,math::Vector,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf330)
+#endif
 
 
 // 0x000cf440 Method1<HUDOverlay,void,bool>::vfunc_0 (30 B): matches/0x000cf440.cpp
@@ -2299,6 +2350,9 @@ template <> void Method1<HUDOverlay, void, bool>::vfunc_2(void* __p0, void* __p1
 
     (obj->*(*(MFn_cf460 *)&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<HUDOverlay, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf440)
+#endif
 
 
 // 0x000cf490 content::LoadInventory::DynamicCaster<pure3d::Locator>::vfunc_0 (30 B): matches/0x000cf490.cpp
@@ -2425,6 +2479,9 @@ template <> Closure0<HUDOverlay, void>::~Closure0() {}
 template <> void Closure0<HUDOverlay, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_cf830 * *)&this->f_20)->*(*(void (CActorManager_cf830::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Closure0<HUDOverlay, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf810)
+#endif
 
 
 // 0x000cf840 FUN_000cf840 (76 B): matches/0x000cf840.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -2507,6 +2564,9 @@ template <> void Closure1<HUDOverlay, void, const char *>::vfunc_2(void* __p0, v
 
     ((*(CActorManager_cf8b0 * *)&this->f_20)->*(*(void (CActorManager_cf8b0::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<HUDOverlay, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf890)
+#endif
 
 
 // 0x000cf8d0 FUN_000cf8d0 (76 B): matches/0x000cf8d0.cpp [wrapped: conflict: Closure1; Method1]
@@ -2561,6 +2621,9 @@ template <> void Closure1<HUDOverlay, void, int>::vfunc_2(void* __p0, void* __p1
 
     ((*(CActorManager_cf940 * *)&this->f_20)->*(*(void (CActorManager_cf940::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<HUDOverlay, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf920)
+#endif
 
 
 // 0x000cf960 FUN_000cf960 (76 B): matches/0x000cf960.cpp [wrapped: conflict: Closure1; Method1]
@@ -2642,6 +2705,9 @@ template <> void Closure1<HUDOverlay, void, float>::vfunc_2(void* __p0, void* __
 
     ((*(CActorManager_cf9d0 * *)&this->f_20)->*(*(void (CActorManager_cf9d0::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<HUDOverlay, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf9b0)
+#endif
 
 
 // 0x000cfa20 Closure4<HUDOverlay,void,const_char_*,float,float,math::Vector>::vfunc_0 (30 B): matches/0x000cfa20.cpp
@@ -2665,6 +2731,9 @@ template <> void Closure4<HUDOverlay, void, const char *, float, float,math::Vec
     math::Vector_cfa40 v = *(math::Vector_cfa40*)p;
     ((*(HUDOverlay_cfa40 * *)&this->f_20)->*(*(void (HUDOverlay_cfa40::**)(const char *, float, float, math::Vector_cfa40))&this->f_1c))(s, a, b, v);
 }
+#if defined(HULK_PTR64)
+template class Closure4<HUDOverlay, void, const char *, float, float,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfa20)
+#endif
 
 
 // 0x000cfac0 Closure3<HUDOverlay,int,const_char_*,const_char_*,float>::vfunc_0 (30 B): matches/0x000cfac0.cpp
@@ -2672,6 +2741,9 @@ template <> void Closure4<HUDOverlay, void, const char *, float, float,math::Vec
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure3<HUDOverlay, int, const char *, const char *, float>::~Closure3() {}
+#if defined(HULK_PTR64)
+template class Closure3<HUDOverlay, int, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfac0)
+#endif
 
 
 // 0x000cfb50 Closure0<HUDOverlay,int>::vfunc_0 (30 B): matches/0x000cfb50.cpp
@@ -2692,6 +2764,9 @@ template <> void Closure0<HUDOverlay, int>::vfunc_2(void* __p0, void* __p1, void
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Closure0<HUDOverlay, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfb50)
+#endif
 
 
 // 0x000cfb90 FUN_000cfb90 (76 B): matches/0x000cfb90.cpp [wrapped: conflict: Closure1; DAT_0048e10c; Method1]
@@ -2773,6 +2848,9 @@ template <> void Closure1<HUDOverlay, void,math::Vector>::vfunc_2(void* __p0, vo
 
     ((*(HUDOverlay_cfc00 * *)&this->f_20)->*(*(void (HUDOverlay_cfc00::**)(math::Vector_cfc00))&this->f_1c))(*v);
 }
+#if defined(HULK_PTR64)
+template class Closure1<HUDOverlay, void,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfbe0)
+#endif
 
 
 // 0x000cfc30 FUN_000cfc30 (89 B): matches/0x000cfc30.cpp [wrapped: conflict: Closure2; Method2]
@@ -2822,6 +2900,9 @@ Closure2::Closure2(int a, int b, int c) : Method2(a, c) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure2<HUDOverlay, int, int,math::Vector>::~Closure2() {}
+#if defined(HULK_PTR64)
+template class Closure2<HUDOverlay, int, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfc90)
+#endif
 
 
 // 0x000cfcb0 Closure2<HUDOverlay,int,int,math::Vector>::vfunc_2 (61 B): equivalent/0x000cfcb0.cpp [wrapped: conflict: Args; Closure2; HUDOverlay]
@@ -2937,6 +3018,9 @@ template <> void Closure2<HUDOverlay, void, int,math::Vector>::vfunc_2(void* __p
     vector.z = *(const float*)(words + 3);
     ((*(HUDOverlay_cfd70 * *)&this->f_20)->*(*(void (HUDOverlay_cfd70::**)(int, Vector_cfd70))&this->f_1c))(words[0], vector);
 }
+#if defined(HULK_PTR64)
+template class Closure2<HUDOverlay, void, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfd50)
+#endif
 
 namespace fn_f3fdf6d3 {
 
@@ -2954,6 +3038,9 @@ Closure2_cfda0::Closure2_cfda0(int x, int y, int z) : Method2_cfda0(x, z) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure2<HUDOverlay, int, int, const char *>::~Closure2() {}
+#if defined(HULK_PTR64)
+template class Closure2<HUDOverlay, int, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfe00)
+#endif
 
 
 // 0x000cfe50 FUN_000cfe50 (89 B): matches/0x000cfe50.cpp [wrapped: conflict: Closure2; Method2]
@@ -3036,6 +3123,9 @@ template <> void Closure2<HUDOverlay, void, bool, float>::vfunc_2(void* __p0, vo
 
     ((*(HUDOverlay_cfed0 * *)&this->f_20)->*(*(void (HUDOverlay_cfed0::**)(unsigned char, float))&this->f_1c))(args[0], *(float*)(args + 4));
 }
+#if defined(HULK_PTR64)
+template class Closure2<HUDOverlay, void, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfeb0)
+#endif
 
 
 // 0x000cfef0 FUN_000cfef0 (89 B): matches/0x000cfef0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]

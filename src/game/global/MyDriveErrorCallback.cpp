@@ -156,6 +156,9 @@ template <> void Method2<CPlatformManager, void, const char *, const char *>::vf
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_8e150::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CPlatformManager, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8e130)
+#endif
 
 
 // 0x0008e1b0 Method1<CPlatformManager,void,const_char_*>::vfunc_0 (30 B): matches/0x0008e1b0.cpp
@@ -173,6 +176,9 @@ template <> void Method1<CPlatformManager, void, const char *>::vfunc_2(void* __
     Dummy_8e1d0* d = (Dummy_8e1d0*)a;
     (d->*(*(void (Dummy_8e1d0::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CPlatformManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8e1b0)
+#endif
 
 
 // 0x0008e1f0 MyDriveErrorCallback::vfunc_0 (1161 B): equivalent/0x0008e1f0.cpp [wrapped: conflict: FUN_0008e090; MyControllerCallback; MyDriveErrorCallback]

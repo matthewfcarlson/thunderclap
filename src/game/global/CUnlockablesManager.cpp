@@ -592,6 +592,9 @@ template <> void Method1<CUnlockablesManager, bool, int>::vfunc_2(void* __p0, vo
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CUnlockablesManager, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x93e10)
+#endif
 
 
 // 0x00093ea0 Method2<CUnlockablesManager,void,int,bool>::vfunc_0 (30 B): matches/0x00093ea0.cpp
@@ -607,6 +610,9 @@ template <> void Method2<CUnlockablesManager, void, int, bool>::vfunc_2(void* __
 
     (obj->*(*(void (CUnlockablesManager_93ec0::**)(int, bool))&this->f_1c))(args->n, args->b);
 }
+#if defined(HULK_PTR64)
+template class Method2<CUnlockablesManager, void, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x93ea0)
+#endif
 
 
 // 0x00093f30 Method2<CUnlockablesManager,void,int,int>::vfunc_0 (30 B): matches/0x00093f30.cpp
@@ -626,6 +632,9 @@ template <> void Method2<CUnlockablesManager, void, int, int>::vfunc_2(void* __p
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_93f50::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CUnlockablesManager, void, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x93f30)
+#endif
 
 
 // 0x00093fc0 Method2<CUnlockablesManager,void,const_char_*,int>::vfunc_0 (30 B): matches/0x00093fc0.cpp
@@ -645,6 +654,9 @@ template <> void Method2<CUnlockablesManager, void, const char *, int>::vfunc_2(
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_93fe0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CUnlockablesManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x93fc0)
+#endif
 
 namespace fn_f8b63219 {
 
@@ -678,6 +690,9 @@ template <> void Method6<CUnlockablesManager, void, const char *, int, const cha
 
     FUN_000940c0(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94080)
+#endif
 
 
 // 0x000940c0 FUN_000940c0 (53 B): matches/0x000940c0.cpp [wrapped: conflict: Args]
@@ -758,6 +773,9 @@ template <> void Method6<CUnlockablesManager, void, int, const char *, const cha
 
     FUN_000941c0(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method6<CUnlockablesManager, void, int, const char *, const char *, const char *, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94180)
+#endif
 
 namespace fn_f8b63219 {
 
@@ -806,6 +824,9 @@ template <> void Method3<CUnlockablesManager, void, int, int, bool>::vfunc_2(voi
 
     (object->*(*(void (CUnlockablesManager_94280::**)(int, int, int))&this->f_1c))(arguments->first, arguments->second, arguments->third);
 }
+#if defined(HULK_PTR64)
+template class Method3<CUnlockablesManager, void, int, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94260)
+#endif
 
 
 // 0x000942a0 FUN_000942a0 (89 B): matches/0x000942a0.cpp [wrapped: conflict: Method3]
@@ -844,6 +865,9 @@ Method3::Method3(hulk_intptr x, hulk_intptr y) : Function_942a0(x, 3) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method3<CUnlockablesManager, void, int, const char *, const char *>::~Method3() {}
+#if defined(HULK_PTR64)
+template class Method3<CUnlockablesManager, void, int, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94300)
+#endif
 
 
 // 0x00094320 Method3<CUnlockablesManager,void,int,const_char_*,const_char_*>::vfunc_2 (29 B): equivalent/0x00094320.cpp [wrapped: conflict: Arguments; Method3]
@@ -883,6 +907,9 @@ template <> void Method1<CUnlockablesManager, const char *, int>::vfunc_2(void* 
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method1<CUnlockablesManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94380)
+#endif
 
 namespace fn_f8b63219 {
 
@@ -920,6 +947,9 @@ template <> void Method7<CUnlockablesManager, void, const char *, int, const cha
 
     FUN_00094490(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method7<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94450)
+#endif
 
 namespace fn_f8b63219 {
 
@@ -1023,6 +1053,9 @@ template <> void Method4<CUnlockablesManager, void, const char *, int, const cha
     const char* d = *args;
     (object->*(*(void (CUnlockablesManager_94560::**)(const char *, int, const char *, const char *))&this->f_1c))(a, b, c, d);
 }
+#if defined(HULK_PTR64)
+template class Method4<CUnlockablesManager, void, const char *, int, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94540)
+#endif
 
 
 // 0x00094590 FUN_00094590 (45 B): matches/0x00094590.cpp
@@ -1080,6 +1113,9 @@ Closure1::Closure1(int a, int b, int c) : Closure1_945c0(a, c) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CUnlockablesManager, bool, int>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CUnlockablesManager, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94610)
+#endif
 
 
 // 0x00094630 Closure1<CUnlockablesManager,bool,int>::vfunc_2 (30 B): matches/0x00094630.cpp [wrapped: conflict: Closure1]
@@ -1189,6 +1225,9 @@ template <> void Closure2<CUnlockablesManager, void, int, bool>::vfunc_2(void* _
 
     ((*(Actor_946d0 * *)&this->f_20)->*(*(void (Actor_946d0::**)(const char *, unsigned char))&this->f_1c))(p->s, p->b);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CUnlockablesManager, void, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x946b0)
+#endif
 
 
 // 0x000946f0 FUN_000946f0 (89 B): matches/0x000946f0.cpp [wrapped: conflict: Closure2]
@@ -1274,6 +1313,9 @@ template <> void Closure2<CUnlockablesManager, void, int, int>::vfunc_2(void* __
 
     ((*(CActorManager_94770 * *)&this->f_20)->*(*(void (CActorManager_94770::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CUnlockablesManager, void, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94750)
+#endif
 
 
 // 0x00094790 FUN_00094790 (89 B): matches/0x00094790.cpp [wrapped: conflict: Closure2]
@@ -1359,6 +1401,9 @@ template <> void Closure2<CUnlockablesManager, void, const char *, int>::vfunc_2
 
     ((*(CActorManager_94810 * *)&this->f_20)->*(*(void (CActorManager_94810::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CUnlockablesManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x947f0)
+#endif
 
 
 // 0x00094860 Closure6<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x00094860.cpp
@@ -1366,6 +1411,9 @@ template <> void Closure2<CUnlockablesManager, void, const char *, int>::vfunc_2
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>::~Closure6() {}
+#if defined(HULK_PTR64)
+template class Closure6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94860)
+#endif
 
 
 // 0x00094910 Closure6<CUnlockablesManager,void,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 (58 B): equivalent/0x00094910.cpp

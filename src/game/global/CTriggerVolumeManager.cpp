@@ -2257,6 +2257,9 @@ template <> void Method1<CTriggerVolumeManager,math::Vector, const char *>::vfun
  temp = *source;
  if(result) *result = temp;
 }
+#if defined(HULK_PTR64)
+template class Method1<CTriggerVolumeManager,math::Vector, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fe8d0)
+#endif
 
 
 // 0x001fe980 Method1<CTriggerVolumeManager,float,const_char_*>::vfunc_0 (30 B): matches/0x001fe980.cpp
@@ -2277,6 +2280,9 @@ template <> void Method1<CTriggerVolumeManager, float, const char *>::vfunc_2(vo
     if (out)
         *out = x;
 }
+#if defined(HULK_PTR64)
+template class Method1<CTriggerVolumeManager, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fe980)
+#endif
 
 
 // 0x001fea20 Method2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_0 (30 B): matches/0x001fea20.cpp
@@ -2295,6 +2301,9 @@ template <> void Method2<CTriggerVolumeManager, bool, const char *,math::Vector>
  bool value = (manager->*(*(bool (CTriggerVolumeManager_1fea40::**)(const char *, Vector_1fea40))&this->f_1c))(params->name, params->position);
  if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Method2<CTriggerVolumeManager, bool, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fea20)
+#endif
 
 
 // 0x001fead0 Method2<CTriggerVolumeManager,bool,const_char_*,float>::vfunc_0 (30 B): matches/0x001fead0.cpp
@@ -2315,6 +2324,9 @@ template <> void Method2<CTriggerVolumeManager, bool, const char *, float>::vfun
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method2<CTriggerVolumeManager, bool, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fead0)
+#endif
 
 
 // 0x001feb60 Method1<CTriggerVolumeManager,bool,const_char_*>::vfunc_0 (30 B): matches/0x001feb60.cpp
@@ -2334,6 +2346,9 @@ template <> void Method1<CTriggerVolumeManager, bool, const char *>::vfunc_2(voi
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CTriggerVolumeManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1feb60)
+#endif
 
 
 // 0x001febe0 Method0<CTriggerVolumeManager,int>::vfunc_0 (30 B): matches/0x001febe0.cpp
@@ -2353,6 +2368,9 @@ template <> void Method0<CTriggerVolumeManager, int>::vfunc_2(void* __p0, void* 
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method0<CTriggerVolumeManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1febe0)
+#endif
 
 
 // 0x001fec60 Method1<CTriggerVolumeManager,const_char_*,int>::vfunc_0 (30 B): matches/0x001fec60.cpp
@@ -2371,6 +2389,9 @@ template <> void Method1<CTriggerVolumeManager, const char *, int>::vfunc_2(void
     if (result)
         *result = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CTriggerVolumeManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fec60)
+#endif
 
 namespace fn_f3d6a774 {
 
@@ -2409,6 +2430,9 @@ template <> void Method4<CTriggerVolumeManager, bool, const char *,math::Vector,
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method4<CTriggerVolumeManager, bool, const char *,math::Vector,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fed10)
+#endif
 
 
 // 0x001fedf0 Method2<CTriggerVolumeManager,void,const_char_*,bool>::vfunc_0 (30 B): matches/0x001fedf0.cpp
@@ -2416,6 +2440,9 @@ template <> void Method4<CTriggerVolumeManager, bool, const char *,math::Vector,
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method2<CTriggerVolumeManager, void, const char *, bool>::~Method2() {}
+#if defined(HULK_PTR64)
+template class Method2<CTriggerVolumeManager, void, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fedf0)
+#endif
 
 
 // 0x001fee10 Method2<CTriggerVolumeManager,void,const_char_*,bool>::vfunc_2 (25 B): matches/0x001fee10.cpp [wrapped: conflict: Args; CTriggerVolumeManager; Function; Method2]
@@ -2462,6 +2489,9 @@ template <> void Method1<CTriggerVolumeManager, void, const char *>::vfunc_2(voi
     Dummy_1fee90* d = (Dummy_1fee90*)a;
     (d->*(*(void (Dummy_1fee90::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CTriggerVolumeManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fee70)
+#endif
 
 
 // 0x001fef00 Method2<CTriggerVolumeManager,bool,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x001fef00.cpp
@@ -2469,6 +2499,9 @@ template <> void Method1<CTriggerVolumeManager, void, const char *>::vfunc_2(voi
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method2<CTriggerVolumeManager, bool, const char *, const char *>::~Method2() {}
+#if defined(HULK_PTR64)
+template class Method2<CTriggerVolumeManager, bool, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fef00)
+#endif
 
 
 // 0x001fef20 Method2<CTriggerVolumeManager,bool,const_char_*,const_char_*>::vfunc_2 (33 B): matches/0x001fef20.cpp [wrapped: conflict: CTriggerVolumeManager; Function; Method2; Pair]
@@ -2523,6 +2556,9 @@ template <> void Method2<CTriggerVolumeManager, void, const char *, float>::vfun
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1fefc0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CTriggerVolumeManager, void, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fefa0)
+#endif
 
 namespace fn_f3d6a774 {
 
@@ -2559,6 +2595,9 @@ template <> void Method3<CTriggerVolumeManager, bool,math::Vector, const char *,
     if (result)
         *result = r;
 }
+#if defined(HULK_PTR64)
+template class Method3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff040)
+#endif
 
 
 // 0x001ff100 Method2<CTriggerVolumeManager,bool,const_char_*,bool>::vfunc_0 (30 B): matches/0x001ff100.cpp
@@ -2580,6 +2619,9 @@ template <> void Method2<CTriggerVolumeManager, bool, const char *, bool>::vfunc
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method2<CTriggerVolumeManager, bool, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff100)
+#endif
 
 namespace fn_f3d6a774 {
 
@@ -2611,6 +2653,9 @@ template <> void Method4<CTriggerVolumeManager, bool, const char *, int, int, bo
 
     FUN_001ff200(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method4<CTriggerVolumeManager, bool, const char *, int, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff1c0)
+#endif
 
 namespace fn_f3d6a774 {
 
@@ -2646,6 +2691,9 @@ template <> void Method1<CTriggerVolumeManager, int, const char *>::vfunc_2(void
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CTriggerVolumeManager, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff280)
+#endif
 
 namespace fn_f3d6a774 {
 
@@ -2678,6 +2726,9 @@ template <> void Method3<CTriggerVolumeManager, void, const char *, int, bool>::
 
     (manager->*(*(void (CTriggerVolumeManager_1ff340::**)(const char *, int, bool))&this->f_1c))(args->name, args->value, args->enabled);
 }
+#if defined(HULK_PTR64)
+template class Method3<CTriggerVolumeManager, void, const char *, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff320)
+#endif
 
 namespace fn_f3d6a774 {
 
@@ -2710,6 +2761,9 @@ template <> void Method5<CTriggerVolumeManager, const char *, const ::math::Vect
 
     FUN_001ff420(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff3e0)
+#endif
 
 namespace fn_f3d6a774 {
 
@@ -2742,6 +2796,9 @@ template <> void Method1<CTriggerVolumeManager, const char *, const char *>::vfu
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Method1<CTriggerVolumeManager, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff4c0)
+#endif
 
 
 // 0x001ff540 Method1<CTriggerVolumeManager,void,float>::vfunc_0 (30 B): matches/0x001ff540.cpp
@@ -2759,6 +2816,9 @@ template <> void Method1<CTriggerVolumeManager, void, float>::vfunc_2(void* __p0
     Dummy_1ff560* d = (Dummy_1ff560*)a;
     (d->*(*(void (Dummy_1ff560::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CTriggerVolumeManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff540)
+#endif
 
 
 // 0x001ff580 FUN_001ff580 (416 B): equivalent/0x001ff580.cpp [wrapped: conflict: CTriggerVolumeManager]
@@ -3087,6 +3147,9 @@ template <> void Closure1<CTriggerVolumeManager,math::Vector, const char *>::vfu
     Vector_1ffa10 value = ((*(CTriggerVolumeManager_1ffa10 * *)&this->f_20)->*(*(Vector_1ffa10 (CTriggerVolumeManager_1ffa10::**)(const char *))&this->f_1c))(*input);
     if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Closure1<CTriggerVolumeManager,math::Vector, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff9f0)
+#endif
 
 
 // 0x001ffa60 FUN_001ffa60 (76 B): matches/0x001ffa60.cpp [wrapped: conflict: Closure1; Method1]
@@ -3145,6 +3208,9 @@ template <> void Closure1<CTriggerVolumeManager, float, const char *>::vfunc_2(v
     if (out)
         *out = value;
 }
+#if defined(HULK_PTR64)
+template class Closure1<CTriggerVolumeManager, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffab0)
+#endif
 
 
 // 0x001ffb00 FUN_001ffb00 (89 B): matches/0x001ffb00.cpp [wrapped: conflict: Closure2]
@@ -3201,6 +3267,9 @@ template <> void Closure2<CTriggerVolumeManager, bool, const char *,math::Vector
     bool answer = ((*(CTriggerVolumeManager_1ffb80 * *)&this->f_20)->*(*(bool (CTriggerVolumeManager_1ffb80::**)(Vector_1ffb80))&this->f_1c))(*value);
     if (result) *result = answer;
 }
+#if defined(HULK_PTR64)
+template class Closure2<CTriggerVolumeManager, bool, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffb60)
+#endif
 
 
 // 0x001ffbc0 FUN_001ffbc0 (89 B): matches/0x001ffbc0.cpp [wrapped: conflict: Closure2]
@@ -3245,6 +3314,9 @@ Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure2<CTriggerVolumeManager, bool, const char *, float>::~Closure2() {}
+#if defined(HULK_PTR64)
+template class Closure2<CTriggerVolumeManager, bool, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffc20)
+#endif
 
 
 // 0x001ffc40 Closure2<CTriggerVolumeManager,bool,const_char_*,float>::vfunc_2 (40 B): equivalent/0x001ffc40.cpp [wrapped: conflict: CTriggerVolumeManager; Closure2; Function; TriggerArguments]
@@ -3345,6 +3417,9 @@ Closure1::Closure1(const char* s, void* f, ScriptMemberFn o) : Method1(s, o) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CTriggerVolumeManager, bool, const char *>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CTriggerVolumeManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffcc0)
+#endif
 
 
 // 0x001ffce0 Closure1<CTriggerVolumeManager,bool,const_char_*>::vfunc_2 (30 B): matches/0x001ffce0.cpp [wrapped: conflict: Closure1]
@@ -3454,6 +3529,9 @@ template <> void Closure0<CTriggerVolumeManager, int>::vfunc_2(void* __p0, void*
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CTriggerVolumeManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffd40)
+#endif
 
 
 // 0x001ffd80 FUN_001ffd80 (76 B): matches/0x001ffd80.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -3498,6 +3576,9 @@ Closure1::Closure1(const char* name, void* v, ScriptMemberFn w) : Closure1_1ffd8
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CTriggerVolumeManager, const char *, int>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CTriggerVolumeManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffdd0)
+#endif
 
 
 // 0x001ffdf0 Closure1<CTriggerVolumeManager,const_char_*,int>::vfunc_2 (30 B): matches/0x001ffdf0.cpp [wrapped: conflict: Closure1]
@@ -3533,6 +3614,9 @@ int Closure1::v2(CActorManager** obj, const char** arg, int** out) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure4<CTriggerVolumeManager, bool, const char *,math::Vector,math::Vector, float>::~Closure4() {}
+#if defined(HULK_PTR64)
+template class Closure4<CTriggerVolumeManager, bool, const char *,math::Vector,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffe40)
+#endif
 
 
 // 0x001ffe60 Closure4<CTriggerVolumeManager,bool,const_char_*,math::Vector,math::Vector,float>::vfunc_2 (12 B): matches/0x001ffe60.cpp [wrapped: conflict: Closure2; Function; Method2]
@@ -3618,6 +3702,9 @@ template <> void Closure2<CTriggerVolumeManager, void, const char *, bool>::vfun
 
     ((*(Actor_1ffef0 * *)&this->f_20)->*(*(void (Actor_1ffef0::**)(const char *, unsigned char))&this->f_1c))(p->s, p->b);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CTriggerVolumeManager, void, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffed0)
+#endif
 
 
 // 0x001fff10 FUN_001fff10 (76 B): matches/0x001fff10.cpp [wrapped: conflict: Closure1; Closure1::Closure1; Method1]
@@ -3696,6 +3783,9 @@ template <> void Closure1<CTriggerVolumeManager, void, const char *>::vfunc_2(vo
 
     ((*(CActorManager_1fff80 * *)&this->f_20)->*(*(void (CActorManager_1fff80::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CTriggerVolumeManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fff60)
+#endif
 
 
 // 0x001fffa0 FUN_001fffa0 (89 B): matches/0x001fffa0.cpp [wrapped: conflict: Closure2]
@@ -3752,6 +3842,9 @@ template <> void Closure2<CTriggerVolumeManager, bool, const char *, const char 
     if (result)
         *result = value;
 }
+#if defined(HULK_PTR64)
+template class Closure2<CTriggerVolumeManager, bool, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x200000)
+#endif
 
 
 // 0x00200050 FUN_00200050 (89 B): matches/0x00200050.cpp [wrapped: conflict: Closure2]
@@ -3805,6 +3898,9 @@ template <> void Closure2<CTriggerVolumeManager, void, const char *, float>::vfu
 
     ((*(CActorManager_2000d0 * *)&this->f_20)->*(*(void (CActorManager_2000d0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CTriggerVolumeManager, void, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2000b0)
+#endif
 
 
 // 0x00200120 Closure3<CTriggerVolumeManager,bool,math::Vector,const_char_*,bool>::vfunc_0 (30 B): matches/0x00200120.cpp
@@ -3812,6 +3908,9 @@ template <> void Closure2<CTriggerVolumeManager, void, const char *, float>::vfu
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>::~Closure3() {}
+#if defined(HULK_PTR64)
+template class Closure3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x200120)
+#endif
 
 
 // 0x00200190 FUN_00200190 (89 B): matches/0x00200190.cpp [wrapped: conflict: Closure2]
@@ -3869,6 +3968,9 @@ template <> void Closure2<CTriggerVolumeManager, bool, const char *, bool>::vfun
     bool value = ((*(CTriggerVolumeManager_200210 * *)&this->f_20)->*(*(bool (CTriggerVolumeManager_200210::**)(const char *, bool))&this->f_1c))(arguments->name, arguments->value);
     if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Closure2<CTriggerVolumeManager, bool, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2001f0)
+#endif
 
 
 // 0x00200290 Closure4<CTriggerVolumeManager,bool,const_char_*,int,int,bool>::vfunc_2 (62 B): matches/0x00200290.cpp

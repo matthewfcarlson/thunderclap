@@ -2010,6 +2010,9 @@ template <> void Method1<CSoundRealTimeManager, void, const char *>::vfunc_2(voi
     Dummy_1edb60* d = (Dummy_1edb60*)a;
     (d->*(*(void (Dummy_1edb60::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSoundRealTimeManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1edb40)
+#endif
 
 
 // 0x001edbc0 Method0<CSoundRealTimeManager,void>::vfunc_0 (30 B): matches/0x001edbc0.cpp
@@ -2026,6 +2029,9 @@ template <> void Method0<CSoundRealTimeManager, void>::vfunc_2(void* __p0, void*
 
     (a->*(*(void (CActorManager_1edbe0::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Method0<CSoundRealTimeManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1edbc0)
+#endif
 
 
 // 0x001edc30 Method1<CSoundRealTimeManager,void,float>::vfunc_0 (30 B): matches/0x001edc30.cpp
@@ -2043,6 +2049,9 @@ template <> void Method1<CSoundRealTimeManager, void, float>::vfunc_2(void* __p0
     Dummy_1edc50* d = (Dummy_1edc50*)a;
     (d->*(*(void (Dummy_1edc50::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSoundRealTimeManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1edc30)
+#endif
 
 
 // 0x001edcb0 Method1<CSoundRealTimeManager,void,bool>::vfunc_0 (30 B): matches/0x001edcb0.cpp
@@ -2059,6 +2068,9 @@ template <> void Method1<CSoundRealTimeManager, void, bool>::vfunc_2(void* __p0,
 
     (obj->*(*(MFn_1edcd0 *)&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSoundRealTimeManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1edcb0)
+#endif
 
 namespace fn_f014178b {
 
@@ -2093,6 +2105,9 @@ template <> void Method3<CSoundRealTimeManager, void, char *, char *, char *>::v
 
     (manager->*(*(void (CSoundRealTimeManager_1edd70::**)(char *, char *, char *))&this->f_1c))(args->first, args->second, args->third);
 }
+#if defined(HULK_PTR64)
+template class Method3<CSoundRealTimeManager, void, char *, char *, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1edd50)
+#endif
 
 
 // 0x001eddd0 Method1<CSoundRealTimeManager,void,char_*>::vfunc_0 (30 B): matches/0x001eddd0.cpp
@@ -2110,6 +2125,9 @@ template <> void Method1<CSoundRealTimeManager, void, char *>::vfunc_2(void* __p
     Dummy_1eddf0* d = (Dummy_1eddf0*)a;
     (d->*(*(void (Dummy_1eddf0::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSoundRealTimeManager, void, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1eddd0)
+#endif
 
 namespace fn_f014178b {
 
@@ -2142,6 +2160,9 @@ template <> void Method4<CSoundSimManager, void, const char *, const char *, con
 
  (manager->*(*(void (CSoundSimManager_1edea0::**)(const char *, const char *, const char *, const char *))&this->f_1c))(arguments[0], arguments[1], arguments[2], arguments[3]);
 }
+#if defined(HULK_PTR64)
+template class Method4<CSoundSimManager, void, const char *, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ede80)
+#endif
 
 
 // 0x001edf20 Method2<CSoundSimManager,void,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x001edf20.cpp
@@ -2161,6 +2182,9 @@ template <> void Method2<CSoundSimManager, void, const char *, const char *>::vf
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1edf40::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CSoundSimManager, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1edf20)
+#endif
 
 namespace fn_f014178b {
 
@@ -2264,6 +2288,9 @@ template <> void Closure1<CSoundRealTimeManager, void, const char *>::vfunc_2(vo
 
     ((*(CActorManager_1ee190 * *)&this->f_20)->*(*(void (CActorManager_1ee190::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CSoundRealTimeManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ee170)
+#endif
 
 
 // 0x001ee1f0 Closure0<CSoundRealTimeManager,void>::vfunc_0 (30 B): matches/0x001ee1f0.cpp
@@ -2279,6 +2306,9 @@ template <> Closure0<CSoundRealTimeManager, void>::~Closure0() {}
 template <> void Closure0<CSoundRealTimeManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_1ee210 * *)&this->f_20)->*(*(void (CActorManager_1ee210::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Closure0<CSoundRealTimeManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ee1f0)
+#endif
 
 
 // 0x001ee220 FUN_001ee220 (76 B): matches/0x001ee220.cpp [wrapped: conflict: Closure1; Method1]
@@ -2332,6 +2362,9 @@ template <> void Closure1<CSoundRealTimeManager, void, float>::vfunc_2(void* __p
 
     ((*(CActorManager_1ee290 * *)&this->f_20)->*(*(void (CActorManager_1ee290::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CSoundRealTimeManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ee270)
+#endif
 
 
 // 0x001ee2b0 FUN_001ee2b0 (76 B): matches/0x001ee2b0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]

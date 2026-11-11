@@ -1874,6 +1874,9 @@ template <> void Method3<CSoundVoiceManager, void, bool, bool, bool>::vfunc_2(vo
     unsigned int first = ((hulk_uintptr)args & ~255u) | args->first;
     (manager->*(*(void (CSoundVoiceManager_1f4a00::**)(unsigned int, unsigned int, unsigned int))&this->f_1c))(first, args->second, args->third);
 }
+#if defined(HULK_PTR64)
+template class Method3<CSoundVoiceManager, void, bool, bool, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f49e0)
+#endif
 
 
 // 0x001f4a70 Method0<CSoundVoiceManager,void>::vfunc_0 (30 B): matches/0x001f4a70.cpp
@@ -1890,6 +1893,9 @@ template <> void Method0<CSoundVoiceManager, void>::vfunc_2(void* __p0, void* __
 
     (a->*(*(void (CActorManager_1f4a90::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Method0<CSoundVoiceManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f4a70)
+#endif
 
 namespace fn_f7fca51a {
 
@@ -1923,6 +1929,9 @@ template <> void Method4<CSoundVoiceManager, void, char *, char *, char *, int>:
 
     (object->*(*(void (CSoundVoiceManager_1f4b30::**)(char *, char *, char *, int))&this->f_1c))((char *)arguments[0], (char *)arguments[1], (char *)arguments[2], (hulk_intptr)arguments[3]);
 }
+#if defined(HULK_PTR64)
+template class Method4<CSoundVoiceManager, void, char *, char *, char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f4b10)
+#endif
 
 namespace fn_f7fca51a {
 

@@ -1652,6 +1652,9 @@ template <> void Method1<CWorldStreamManager, void, int>::vfunc_2(void* __p0, vo
     Dummy_2050d0* d = (Dummy_2050d0*)a;
     (d->*(*(void (Dummy_2050d0::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CWorldStreamManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2050b0)
+#endif
 
 namespace fn_f49dcb8d {
 
@@ -1686,6 +1689,9 @@ template <> void Method3<CWorldStreamManager, bool, float, float, float>::vfunc_
     if (result)
         *result = value;
 }
+#if defined(HULK_PTR64)
+template class Method3<CWorldStreamManager, bool, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205150)
+#endif
 
 namespace fn_f49dcb8d {
 
@@ -1720,6 +1726,9 @@ template <> void Method3<CWorldStreamManager, int, float, float, float>::vfunc_2
     if (result)
         *result = value;
 }
+#if defined(HULK_PTR64)
+template class Method3<CWorldStreamManager, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205210)
+#endif
 
 
 // 0x002052b0 Method0<CWorldStreamManager,const_char_*>::vfunc_0 (30 B): matches/0x002052b0.cpp
@@ -1739,6 +1748,9 @@ template <> void Method0<CWorldStreamManager, const char *>::vfunc_2(void* __p0,
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method0<CWorldStreamManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2052b0)
+#endif
 
 
 // 0x00205340 Method2<CWorldStreamManager,int,int,int>::vfunc_0 (30 B): matches/0x00205340.cpp
@@ -1759,6 +1771,9 @@ template <> void Method2<CWorldStreamManager, int, int, int>::vfunc_2(void* __p0
     if (result)
         *result = value;
 }
+#if defined(HULK_PTR64)
+template class Method2<CWorldStreamManager, int, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205340)
+#endif
 
 
 // 0x002053d0 Method1<CWorldStreamManager,int,int>::vfunc_0 (30 B): matches/0x002053d0.cpp
@@ -1778,6 +1793,9 @@ template <> void Method1<CWorldStreamManager, int, int>::vfunc_2(void* __p0, voi
     if (result)
         *result = value;
 }
+#if defined(HULK_PTR64)
+template class Method1<CWorldStreamManager, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2053d0)
+#endif
 
 
 // 0x00205450 Method0<CWorldStreamManager,int>::vfunc_0 (30 B): matches/0x00205450.cpp
@@ -1797,6 +1815,9 @@ template <> void Method0<CWorldStreamManager, int>::vfunc_2(void* __p0, void* __
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method0<CWorldStreamManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205450)
+#endif
 
 
 // 0x002054d0 Method1<CWorldStreamManager,bool,int>::vfunc_0 (30 B): matches/0x002054d0.cpp
@@ -1816,6 +1837,9 @@ template <> void Method1<CWorldStreamManager, bool, int>::vfunc_2(void* __p0, vo
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Method1<CWorldStreamManager, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2054d0)
+#endif
 
 
 // 0x00205550 Method0<CWorldStreamManager,bool>::vfunc_0 (30 B): matches/0x00205550.cpp
@@ -1835,6 +1859,9 @@ template <> void Method0<CWorldStreamManager, bool>::vfunc_2(void* __p0, void* _
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method0<CWorldStreamManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205550)
+#endif
 
 
 // 0x002055d0 Method0<CWorldStreamManager,void>::vfunc_0 (30 B): matches/0x002055d0.cpp
@@ -1851,6 +1878,9 @@ template <> void Method0<CWorldStreamManager, void>::vfunc_2(void* __p0, void* _
 
     (a->*(*(void (CActorManager_2055f0::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Method0<CWorldStreamManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2055d0)
+#endif
 
 namespace fn_f49dcb8d {
 
@@ -1883,6 +1913,9 @@ template <> void Method3<CWorldStreamManager, void, const char *, int, bool>::vf
     const char* name = arguments->name;
     (object->*(*(void (CWorldStreamManager_205680::**)(const char *, int, bool))&this->f_1c))(name, arguments->number, arguments->flag);
 }
+#if defined(HULK_PTR64)
+template class Method3<CWorldStreamManager, void, const char *, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205660)
+#endif
 
 namespace fn_f49dcb8d {
 
@@ -2058,6 +2091,9 @@ template <> void Closure1<CWorldStreamManager, void, int>::vfunc_2(void* __p0, v
 
     ((*(CActorManager_205c70 * *)&this->f_20)->*(*(void (CActorManager_205c70::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CWorldStreamManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205c50)
+#endif
 
 
 // 0x00205cc0 Closure3<CWorldStreamManager,bool,float,float,float>::vfunc_0 (30 B): matches/0x00205cc0.cpp
@@ -2076,6 +2112,9 @@ template <> void Closure3<CWorldStreamManager, bool, float, float, float>::vfunc
     bool value = (*(StreamCallback *)&this->f_1c)((*(CWorldStreamManager_205ce0 * *)&this->f_20), 0, arguments[0], arguments[1], arguments[2]);
     if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Closure3<CWorldStreamManager, bool, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205cc0)
+#endif
 
 
 // 0x00205d50 Closure3<CWorldStreamManager,int,float,float,float>::vfunc_0 (30 B): matches/0x00205d50.cpp
@@ -2091,6 +2130,9 @@ template <> Closure3<CWorldStreamManager, int, float, float, float>::~Closure3()
 // Closure3<CWorldStreamManager,int,float,float,float>::vfunc_2 @ 0x00205d70
 template <> void Closure3<CWorldStreamManager, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; const float * args = (const float *)__p1; int * result = (int *)__p2;
  int value = ((*(CWorldStreamManager_205d70 * *)&this->f_20)->*(*(int (CWorldStreamManager_205d70::**)(float, float, float))&this->f_1c))(args[0], args[1], args[2]); if (result) *result = value; }
+#if defined(HULK_PTR64)
+template class Closure3<CWorldStreamManager, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205d50)
+#endif
 
 
 // 0x00205df0 Closure0<CWorldStreamManager,const_char_*>::vfunc_0 (30 B): matches/0x00205df0.cpp
@@ -2111,6 +2153,9 @@ template <> void Closure0<CWorldStreamManager, const char *>::vfunc_2(void* __p0
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CWorldStreamManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205df0)
+#endif
 
 
 // 0x00205e30 FUN_00205e30 (89 B): matches/0x00205e30.cpp [wrapped: conflict: Closure2]
@@ -2166,6 +2211,9 @@ template <> void Closure2<CWorldStreamManager, int, int, int>::vfunc_2(void* __p
     int value = ((*(CWorldStreamManager_205eb0 * *)&this->f_20)->*(*(int (CWorldStreamManager_205eb0::**)(int, int))&this->f_1c))(arguments->first, arguments->second);
     if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Closure2<CWorldStreamManager, int, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205e90)
+#endif
 
 
 // 0x00205ee0 FUN_00205ee0 (76 B): matches/0x00205ee0.cpp [wrapped: conflict: Closure1; Method1]
@@ -2223,6 +2271,9 @@ template <> void Closure1<CWorldStreamManager, int, int>::vfunc_2(void* __p0, vo
     if (result)
         *result = value;
 }
+#if defined(HULK_PTR64)
+template class Closure1<CWorldStreamManager, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205f30)
+#endif
 
 
 // 0x00205fb0 Closure0<CWorldStreamManager,int>::vfunc_0 (30 B): matches/0x00205fb0.cpp
@@ -2243,6 +2294,9 @@ template <> void Closure0<CWorldStreamManager, int>::vfunc_2(void* __p0, void* _
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CWorldStreamManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205fb0)
+#endif
 
 
 // 0x00205ff0 FUN_00205ff0 (76 B): matches/0x00205ff0.cpp [wrapped: conflict: Closure1; Method1]

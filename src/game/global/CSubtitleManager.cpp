@@ -1616,6 +1616,9 @@ template <> void Method2<CSubtitleManager, void, int, int>::vfunc_2(void* __p0, 
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1bf3a0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CSubtitleManager, void, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bf380)
+#endif
 
 
 // 0x001bf400 Method1<CSubtitleManager,void,bool>::vfunc_0 (30 B): matches/0x001bf400.cpp
@@ -1632,6 +1635,9 @@ template <> void Method1<CSubtitleManager, void, bool>::vfunc_2(void* __p0, void
 
     (obj->*(*(MFn_1bf420 *)&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSubtitleManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bf400)
+#endif
 
 
 // 0x001bf480 Method1<CSubtitleManager,void,int>::vfunc_0 (30 B): matches/0x001bf480.cpp
@@ -1649,6 +1655,9 @@ template <> void Method1<CSubtitleManager, void, int>::vfunc_2(void* __p0, void*
     Dummy_1bf4a0* d = (Dummy_1bf4a0*)a;
     (d->*(*(void (Dummy_1bf4a0::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSubtitleManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bf480)
+#endif
 
 namespace fn_fed79ca6 {
 
@@ -1686,6 +1695,9 @@ template <> void Method4<CSubtitleManager, void, int, float, const char *, float
 
     (manager->*(*(void (CSubtitleManager_1bf550::**)(int, float, const char *, float))&this->f_1c))(arguments->number, arguments->start, arguments->text, arguments->end);
 }
+#if defined(HULK_PTR64)
+template class Method4<CSubtitleManager, void, int, float, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bf530)
+#endif
 
 
 // 0x001bf5d0 Method2<CSubtitleManager,void,int,const_char_*>::vfunc_0 (30 B): matches/0x001bf5d0.cpp
@@ -1704,6 +1716,9 @@ template <> void Method2<CSubtitleManager, void, int, const char *>::vfunc_2(voi
     CSubtitleManager_1bf5f0* m = (CSubtitleManager_1bf5f0*)manager;
     (m->*(*(void (CSubtitleManager_1bf5f0::**)(int, int))&this->f_1c))(x, y);
 }
+#if defined(HULK_PTR64)
+template class Method2<CSubtitleManager, void, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bf5d0)
+#endif
 
 
 // 0x001bf650 Method0<CSubtitleManager,bool>::vfunc_0 (30 B): matches/0x001bf650.cpp
@@ -1723,6 +1738,9 @@ template <> void Method0<CSubtitleManager, bool>::vfunc_2(void* __p0, void* __p1
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method0<CSubtitleManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bf650)
+#endif
 
 
 // 0x001bf6d0 Method1<CSubtitleManager,void,float>::vfunc_0 (30 B): matches/0x001bf6d0.cpp
@@ -1740,6 +1758,9 @@ template <> void Method1<CSubtitleManager, void, float>::vfunc_2(void* __p0, voi
     Dummy_1bf6f0* d = (Dummy_1bf6f0*)a;
     (d->*(*(void (Dummy_1bf6f0::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSubtitleManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bf6d0)
+#endif
 
 
 // 0x001bf710 FUN_001bf710 (89 B): matches/0x001bf710.cpp [wrapped: conflict: Method3]
@@ -1789,6 +1810,9 @@ template <> void Method3<CSubtitleManager, void, float, float, float>::vfunc_2(v
     x = *(const unsigned int*)&v->x;
     (manager->*(*(void (CSubtitleManager_1bf790::**)(float, float, float))&this->f_1c))(*(float*)&values, v->y, v->z);
 }
+#if defined(HULK_PTR64)
+template class Method3<CSubtitleManager, void, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bf770)
+#endif
 
 namespace fn_fed79ca6 {
 
@@ -1824,6 +1848,9 @@ template <> void Method3<CSubtitleManager, void, const char *, const char *, flo
 
     (manager->*(*(void (CSubtitleManager_1bf840::**)(const char *, const char *, float))&this->f_1c))(args->first, args->second, args->third);
 }
+#if defined(HULK_PTR64)
+template class Method3<CSubtitleManager, void, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bf820)
+#endif
 
 namespace fn_fed79ca6 {
 
@@ -2190,6 +2217,9 @@ template <> void Closure2<CSubtitleManager, void, int, int>::vfunc_2(void* __p0,
 
     ((*(CActorManager_1bfdf0 * *)&this->f_20)->*(*(void (CActorManager_1bfdf0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CSubtitleManager, void, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bfdd0)
+#endif
 
 
 // 0x001bfe10 FUN_001bfe10 (76 B): matches/0x001bfe10.cpp [wrapped: conflict: Closure1; Method1]
@@ -2245,6 +2275,9 @@ template <> void Closure1<CSubtitleManager, void, bool>::vfunc_2(void* __p0, voi
 
     ((*(Actor_1bfe80 * *)&this->f_20)->*(*(void (Actor_1bfe80::**)(unsigned char))&this->f_1c))(*arg);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CSubtitleManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bfe60)
+#endif
 
 
 // 0x001bfea0 FUN_001bfea0 (76 B): matches/0x001bfea0.cpp [wrapped: helper definitions (3 out-of-line function bodies)]
@@ -2333,6 +2366,9 @@ template <> void Closure1<CSubtitleManager, void, int>::vfunc_2(void* __p0, void
 
     ((*(CActorManager_1bff10 * *)&this->f_20)->*(*(void (CActorManager_1bff10::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CSubtitleManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bfef0)
+#endif
 
 
 // 0x001bff60 Closure4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_0 (30 B): matches/0x001bff60.cpp
@@ -2351,6 +2387,9 @@ template <> void Closure4<CSubtitleManager, void, int, float, const char *, floa
     float time = arguments->time;
     ((*(CSubtitleManager_1bff80 * *)&this->f_20)->*(*(void (CSubtitleManager_1bff80::**)(int, float, const char *, float))&this->f_1c))(arguments->number, time, arguments->text, arguments->duration);
 }
+#if defined(HULK_PTR64)
+template class Closure4<CSubtitleManager, void, int, float, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bff60)
+#endif
 
 
 // 0x001bffb0 FUN_001bffb0 (89 B): matches/0x001bffb0.cpp [wrapped: conflict: Closure2]

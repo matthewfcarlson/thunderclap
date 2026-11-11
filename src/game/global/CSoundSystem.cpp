@@ -438,6 +438,9 @@ template <> void Method2<CSoundSystem, void, char *, char *>::vfunc_2(void* __p0
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1f0ad0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CSoundSystem, void, char *, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0ab0)
+#endif
 
 namespace fn_ffeee61e {
 
@@ -471,6 +474,9 @@ template <> void Method3<CSoundSystem, void, char *, char *, float>::vfunc_2(voi
 
     (object->*(*(void (CSoundSystem_1f0b70::**)(char *, char *, float))&this->f_1c))(args->first, args->second, args->third);
 }
+#if defined(HULK_PTR64)
+template class Method3<CSoundSystem, void, char *, char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0b50)
+#endif
 
 
 // 0x001f0bd0 Method0<CSoundSystem,void>::vfunc_0 (30 B): matches/0x001f0bd0.cpp
@@ -487,6 +493,9 @@ template <> void Method0<CSoundSystem, void>::vfunc_2(void* __p0, void* __p1, vo
 
     (a->*(*(void (CActorManager_1f0bf0::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Method0<CSoundSystem, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0bd0)
+#endif
 
 namespace fn_ffeee61e {
 
@@ -520,6 +529,9 @@ template <> void Method6<CSoundSystem, void, char *, char *, float, float, float
 
     FUN_001f0cc0(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method6<CSoundSystem, void, char *, char *, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0c80)
+#endif
 
 namespace fn_ffeee61e {
 
@@ -565,6 +577,9 @@ template <> void Method4<CSoundSystem, void, char *, char *, float, float>::vfun
     Arguments *a = (Arguments *)args;
     (sound->*(*(void (CSoundSystem_1f0da0::**)(char *, char *, float, float))&this->f_1c))(a->first, a->second, a->third, a->fourth);
 }
+#if defined(HULK_PTR64)
+template class Method4<CSoundSystem, void, char *, char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0d80)
+#endif
 
 namespace fn_ffeee61e {
 
@@ -600,6 +615,9 @@ template <> void Method5<CSoundSystem, void, char *, char *, float, float, float
 
     FUN_001f0e90(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method5<CSoundSystem, void, char *, char *, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0e50)
+#endif
 
 
 // 0x001f0e90 FUN_001f0e90 (50 B): equivalent/0x001f0e90.cpp [wrapped: conflict: Callback]
@@ -649,6 +667,9 @@ template <> void Method6<CSoundSystem, void, char *, char *, char *, float, floa
 
     FUN_001f0f90(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method6<CSoundSystem, void, char *, char *, char *, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0f50)
+#endif
 
 
 // 0x001f0f90 FUN_001f0f90 (59 B): equivalent/0x001f0f90.cpp [wrapped: conflict: Callback]
@@ -679,6 +700,9 @@ template <> void Method1<CSoundSystem, void, float>::vfunc_2(void* __p0, void* _
     Dummy_1f1030* d = (Dummy_1f1030*)a;
     (d->*(*(void (Dummy_1f1030::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSoundSystem, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f1010)
+#endif
 
 namespace fn_ffeee61e {
 
@@ -710,6 +734,9 @@ template <> void Method3<CSoundSystem, void, char *, float, float>::vfunc_2(void
 
     (system->*(*(void (CSoundSystem_1f10d0::**)(char *, float, float))&this->f_1c))(arguments->name, arguments->first, arguments->second);
 }
+#if defined(HULK_PTR64)
+template class Method3<CSoundSystem, void, char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f10b0)
+#endif
 
 
 // 0x001f1140 Method2<CSoundSystem,void,float,float>::vfunc_0 (30 B): matches/0x001f1140.cpp
@@ -729,6 +756,9 @@ template <> void Method2<CSoundSystem, void, float, float>::vfunc_2(void* __p0, 
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1f1160::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CSoundSystem, void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f1140)
+#endif
 
 
 // 0x001f11d0 Method2<CSoundSystem,void,char_*,float>::vfunc_0 (30 B): matches/0x001f11d0.cpp
@@ -748,6 +778,9 @@ template <> void Method2<CSoundSystem, void, char *, float>::vfunc_2(void* __p0,
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1f11f0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CSoundSystem, void, char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f11d0)
+#endif
 
 
 // 0x001f1250 CSoundResourceManager::vfunc_2 (31 B): matches/0x001f1250.cpp [wrapped: conflict: pure3d::NonCopyable]
@@ -1092,6 +1125,9 @@ template <> void Closure2<CSoundSystem, void, char *, char *>::vfunc_2(void* __p
 
     ((*(CActorManager_1f1d70 * *)&this->f_20)->*(*(void (CActorManager_1f1d70::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CSoundSystem, void, char *, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f1d50)
+#endif
 
 
 // 0x001f1dc0 Closure3<CSoundSystem,void,char_*,char_*,float>::vfunc_0 (30 B): matches/0x001f1dc0.cpp
@@ -1109,6 +1145,9 @@ template <> void Closure3<CSoundSystem, void, char *, char *, float>::vfunc_2(vo
 
     ((*(CSoundSystem_1f1de0 * *)&this->f_20)->*(*(void (CSoundSystem_1f1de0::**)(char *, char *, float))&this->f_1c))(args->first, args->second, args->volume);
 }
+#if defined(HULK_PTR64)
+template class Closure3<CSoundSystem, void, char *, char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f1dc0)
+#endif
 
 
 // 0x001f1e40 Closure0<CSoundSystem,void>::vfunc_0 (30 B): matches/0x001f1e40.cpp
@@ -1124,6 +1163,9 @@ template <> Closure0<CSoundSystem, void>::~Closure0() {}
 template <> void Closure0<CSoundSystem, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_1f1e60 * *)&this->f_20)->*(*(void (CActorManager_1f1e60::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Closure0<CSoundSystem, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f1e40)
+#endif
 
 
 // 0x001f1ea0 Closure6<CSoundSystem,void,char_*,char_*,float,float,float,float>::vfunc_0 (30 B): matches/0x001f1ea0.cpp
@@ -1145,6 +1187,9 @@ template <> void Closure6<CSoundSystem, void, char *, char *, float, float, floa
     float u = *(float*)a++;
     ((*(CSoundSystem_1f1ec0 * *)&this->f_20)->*(*(void (CSoundSystem_1f1ec0::**)(char *, char *, float, float, float, float))&this->f_1c))(x, y, z, w, v, u);
 }
+#if defined(HULK_PTR64)
+template class Closure6<CSoundSystem, void, char *, char *, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f1ea0)
+#endif
 
 
 // 0x001f1f60 Closure4<CSoundSystem,void,char_*,char_*,float,float>::vfunc_2 (39 B): equivalent/0x001f1f60.cpp

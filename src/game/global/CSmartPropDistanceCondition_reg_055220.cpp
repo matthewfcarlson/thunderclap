@@ -137,6 +137,9 @@ void ParamBranch::vfunc_6(void* p) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamName<CNameFlagConditionBase>::~ParamName() {}
+#if defined(HULK_PTR64)
+template class fight::ParamName<CNameFlagConditionBase>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x552f0)
+#endif
 
 
 // 0x00055310 fight::ParamName<CSmartPropNameCondition>::vfunc_0 (30 B): matches/0x00055310.cpp
@@ -144,6 +147,9 @@ template <> fight::ParamName<CNameFlagConditionBase>::~ParamName() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamName<CSmartPropNameCondition>::~ParamName() {}
+#if defined(HULK_PTR64)
+template class fight::ParamName<CSmartPropNameCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x55310)
+#endif
 
 
 // 0x00055330 fight::ParamNameConstList<CSmartPropDistanceCondition>::vfunc_0 (30 B): matches/0x00055330.cpp
@@ -151,6 +157,9 @@ template <> fight::ParamName<CSmartPropNameCondition>::~ParamName() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameConstList<CSmartPropDistanceCondition>::~ParamNameConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameConstList<CSmartPropDistanceCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x55330)
+#endif
 
 
 // 0x00055350 fight::ParamName<CSmartPropGrabbableNameCondition>::vfunc_0 (30 B): matches/0x00055350.cpp
@@ -158,6 +167,9 @@ template <> fight::ParamNameConstList<CSmartPropDistanceCondition>::~ParamNameCo
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamName<CSmartPropGrabbableNameCondition>::~ParamName() {}
+#if defined(HULK_PTR64)
+template class fight::ParamName<CSmartPropGrabbableNameCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x55350)
+#endif
 
 
 // 0x00055370 fight::ParamNameList<CCharacterTemplateCondition>::vfunc_0 (30 B): matches/0x00055370.cpp
@@ -165,6 +177,9 @@ template <> fight::ParamName<CSmartPropGrabbableNameCondition>::~ParamName() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameList<CCharacterTemplateCondition>::~ParamNameList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameList<CCharacterTemplateCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x55370)
+#endif
 
 
 // 0x00055390 fight::ParamNameList<CCharacterTemplateVariationCondition>::vfunc_0 (30 B): matches/0x00055390.cpp
@@ -172,6 +187,9 @@ template <> fight::ParamNameList<CCharacterTemplateCondition>::~ParamNameList() 
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameList<CCharacterTemplateVariationCondition>::~ParamNameList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameList<CCharacterTemplateVariationCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x55390)
+#endif
 
 
 // 0x000553b0 fight::ParamNameList<CGrappleCharacterTemplateCondition>::vfunc_0 (30 B): matches/0x000553b0.cpp
@@ -179,6 +197,9 @@ template <> fight::ParamNameList<CCharacterTemplateVariationCondition>::~ParamNa
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameList<CGrappleCharacterTemplateCondition>::~ParamNameList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameList<CGrappleCharacterTemplateCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x553b0)
+#endif
 
 
 // 0x000553d0 FUN_000553d0 (2465 B): matches/0x000553d0.cpp [wrapped: conflict: fight::ConditionFactoryCasterTemplate]

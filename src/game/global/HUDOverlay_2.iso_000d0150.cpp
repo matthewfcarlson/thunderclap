@@ -10,4 +10,7 @@
 
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure5<HUDOverlay, int, int, const char *,math::Vector,math::Vector,math::Vector>::~Closure5() {}
+#if defined(HULK_PTR64)
+template class Closure5<HUDOverlay, int, int, const char *,math::Vector,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd0150)
+#endif
 

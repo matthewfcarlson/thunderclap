@@ -718,6 +718,9 @@ template <> void Method6<CStatsManager, void, const char *, const char *, int, i
 
     FUN_00090900(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method6<CStatsManager, void, const char *, const char *, int, int, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x908c0)
+#endif
 
 namespace fn_f6df19d8 {
 
@@ -753,6 +756,9 @@ template <> void Method2<CStatsManager, void, const char *, int>::vfunc_2(void* 
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_909b0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CStatsManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x90990)
+#endif
 
 
 // 0x00090a10 Method1<CStatsManager,void,const_char_*>::vfunc_0 (30 B): matches/0x00090a10.cpp
@@ -770,6 +776,9 @@ template <> void Method1<CStatsManager, void, const char *>::vfunc_2(void* __p0,
     Dummy_90a30* d = (Dummy_90a30*)a;
     (d->*(*(void (Dummy_90a30::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CStatsManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x90a10)
+#endif
 
 
 // 0x00090a90 Method1<CStatsManager,void,int>::vfunc_0 (30 B): matches/0x00090a90.cpp
@@ -787,6 +796,9 @@ template <> void Method1<CStatsManager, void, int>::vfunc_2(void* __p0, void* __
     Dummy_90ab0* d = (Dummy_90ab0*)a;
     (d->*(*(void (Dummy_90ab0::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CStatsManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x90a90)
+#endif
 
 
 // 0x00090b10 Method0<CStatsManager,int>::vfunc_0 (30 B): matches/0x00090b10.cpp
@@ -806,6 +818,9 @@ template <> void Method0<CStatsManager, int>::vfunc_2(void* __p0, void* __p1, vo
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method0<CStatsManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x90b10)
+#endif
 
 
 // 0x00090b90 Method1<CStatsManager,int,const_char_*>::vfunc_0 (30 B): matches/0x00090b90.cpp
@@ -825,6 +840,9 @@ template <> void Method1<CStatsManager, int, const char *>::vfunc_2(void* __p0, 
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CStatsManager, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x90b90)
+#endif
 
 
 // 0x00090c10 Method0<CStatsManager,bool>::vfunc_0 (30 B): matches/0x00090c10.cpp
@@ -844,6 +862,9 @@ template <> void Method0<CStatsManager, bool>::vfunc_2(void* __p0, void* __p1, v
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method0<CStatsManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x90c10)
+#endif
 
 
 // 0x00090c50 FUN_00090c50 (89 B): matches/0x00090c50.cpp [wrapped: conflict: Method3]
@@ -895,6 +916,9 @@ template <> void Method3<CStatsManager, void, char *, char *, int>::vfunc_2(void
 
     (manager->*(*(void (CStatsManager_90cd0::**)(char *, char *, int))&this->f_1c))(args->first, args->second, args->third);
 }
+#if defined(HULK_PTR64)
+template class Method3<CStatsManager, void, char *, char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x90cb0)
+#endif
 
 
 // 0x00090d30 Method1<CStatsManager,const_char_*,int>::vfunc_0 (30 B): matches/0x00090d30.cpp
@@ -914,6 +938,9 @@ template <> void Method1<CStatsManager, const char *, int>::vfunc_2(void* __p0, 
     if (result)
         *result = value;
 }
+#if defined(HULK_PTR64)
+template class Method1<CStatsManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x90d30)
+#endif
 
 namespace fn_f6df19d8 {
 
@@ -972,6 +999,9 @@ template <> void Closure6<CStatsManager, void, const char *, const char *, int, 
     int f = *p++;
     ((*(CStatsManager_90e70 * *)&this->f_20)->*(*(void (CStatsManager_90e70::**)(const char *, const char *, int, int, int, int))&this->f_1c))((const char*)a, (const char*)b, c, d, e, f);
 }
+#if defined(HULK_PTR64)
+template class Closure6<CStatsManager, void, const char *, const char *, int, int, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x90e50)
+#endif
 
 
 // 0x00090eb0 FUN_00090eb0 (89 B): matches/0x00090eb0.cpp [wrapped: conflict: Closure2]
@@ -1056,6 +1086,9 @@ template <> void Closure2<CStatsManager, void, const char *, int>::vfunc_2(void*
 
     ((*(CActorManager_90f30 * *)&this->f_20)->*(*(void (CActorManager_90f30::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CStatsManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x90f10)
+#endif
 
 
 // 0x00090f50 FUN_00090f50 (76 B): matches/0x00090f50.cpp [wrapped: conflict: Closure1; Method1]
@@ -1112,6 +1145,9 @@ template <> void Closure1<CStatsManager, void, const char *>::vfunc_2(void* __p0
 
     ((*(CActorManager_90fc0 * *)&this->f_20)->*(*(void (CActorManager_90fc0::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CStatsManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x90fa0)
+#endif
 
 
 // 0x00090fe0 FUN_00090fe0 (76 B): matches/0x00090fe0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -1197,6 +1233,9 @@ template <> void Closure1<CStatsManager, void, int>::vfunc_2(void* __p0, void* _
 
     ((*(CActorManager_91050 * *)&this->f_20)->*(*(void (CActorManager_91050::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CStatsManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x91030)
+#endif
 
 
 // 0x000910d0 Closure0<CStatsManager,int>::vfunc_2 (23 B): matches/0x000910d0.cpp

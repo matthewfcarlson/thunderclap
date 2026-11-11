@@ -1643,6 +1643,9 @@ template <> void Method2<ScriptHandler, void, const char *, const char *>::vfunc
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1d3120::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<ScriptHandler, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1d3100)
+#endif
 
 
 // 0x001d3180 Method1<ScriptHandler,float,const_char_*>::vfunc_0 (30 B): matches/0x001d3180.cpp
@@ -1663,6 +1666,9 @@ template <> void Method1<ScriptHandler, float, const char *>::vfunc_2(void* __p0
     if (out)
         *out = x;
 }
+#if defined(HULK_PTR64)
+template class Method1<ScriptHandler, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1d3180)
+#endif
 
 
 // 0x001d3210 Method1<ScriptHandler,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x001d3210.cpp
@@ -1682,6 +1688,9 @@ template <> void Method1<ScriptHandler, const char *, const char *>::vfunc_2(voi
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Method1<ScriptHandler, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1d3210)
+#endif
 
 namespace fn_f55829c3 {
 
@@ -1715,6 +1724,9 @@ template <> Method4<ScriptHandler, void, const char *, const char *, const char 
 // Method4<ScriptHandler,void,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 @ 0x001d32e0
 template <> void Method4<ScriptHandler, void, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ScriptHandler_1d32e0 * handler = (ScriptHandler_1d32e0 *)__p0; const char ** args = (const char **)__p1; void * unused = (void *)__p2;
  (handler->*(*(HandlerMethod *)&this->f_1c))(args[0], args[1], args[2], args[3]); }
+#if defined(HULK_PTR64)
+template class Method4<ScriptHandler, void, const char *, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1d32c0)
+#endif
 
 
 // 0x001d3350 Method1<ScriptHandler,ScriptHandler::script_state,const_char_*>::vfunc_0 (30 B): matches/0x001d3350.cpp
@@ -1734,6 +1746,9 @@ template <> void Method1<ScriptHandler,ScriptHandler::script_state, const char *
     if (out)
         *out = x;
 }
+#if defined(HULK_PTR64)
+template class Method1<ScriptHandler,ScriptHandler::script_state, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1d3350)
+#endif
 
 
 // 0x001d33d0 Method1<ScriptHandler,bool,const_char_*>::vfunc_0 (30 B): matches/0x001d33d0.cpp
@@ -1741,6 +1756,9 @@ template <> void Method1<ScriptHandler,ScriptHandler::script_state, const char *
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method1<ScriptHandler, bool, const char *>::~Method1() {}
+#if defined(HULK_PTR64)
+template class Method1<ScriptHandler, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1d33d0)
+#endif
 
 
 // 0x001d33f0 Method1<ScriptHandler,bool,const_char_*>::vfunc_2 (29 B): matches/0x001d33f0.cpp [wrapped: conflict: Function; Method1; ScriptHandler]
@@ -2064,6 +2082,9 @@ template <> void Closure2<ScriptHandler, void, const char *, const char *>::vfun
 
     ((*(CActorManager_1d4150 * *)&this->f_20)->*(*(void (CActorManager_1d4150::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<ScriptHandler, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1d4130)
+#endif
 
 namespace fn_f55829c3 {
 
@@ -2095,6 +2116,9 @@ template <> void Closure1<ScriptHandler, float, const char *>::vfunc_2(void* __p
     if (out)
         *out = value;
 }
+#if defined(HULK_PTR64)
+template class Closure1<ScriptHandler, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1d41c0)
+#endif
 
 namespace fn_f55829c3 {
 
@@ -2118,6 +2142,9 @@ Closure1_1d4210* Closure1_1d4210::Run(const char* a, ScriptHandler_1d4210* b, Fn
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<ScriptHandler, const char *, const char *>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<ScriptHandler, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1d4260)
+#endif
 
 
 // 0x001d4280 Closure1<ScriptHandler,const_char_*,const_char_*>::vfunc_2 (30 B): matches/0x001d4280.cpp [wrapped: conflict: ScriptHandler]

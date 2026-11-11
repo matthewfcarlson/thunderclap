@@ -170,6 +170,9 @@ template <> void Method1<CSimOverlayManager, void, bool>::vfunc_2(void* __p0, vo
 
     (obj->*(*(MFn_d70d0 *)&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSimOverlayManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd70b0)
+#endif
 
 
 // 0x000d7130 Method1<CSimOverlayManager,void,int>::vfunc_0 (30 B): matches/0x000d7130.cpp
@@ -187,6 +190,9 @@ template <> void Method1<CSimOverlayManager, void, int>::vfunc_2(void* __p0, voi
     Dummy_d7150* d = (Dummy_d7150*)a;
     (d->*(*(void (Dummy_d7150::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CSimOverlayManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd7130)
+#endif
 
 
 // 0x000d71b0 Method0<CSimOverlayManager,int>::vfunc_0 (30 B): matches/0x000d71b0.cpp
@@ -206,6 +212,9 @@ template <> void Method0<CSimOverlayManager, int>::vfunc_2(void* __p0, void* __p
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method0<CSimOverlayManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd71b0)
+#endif
 
 namespace fn_f34eeb08 {
 
@@ -305,6 +314,9 @@ template <> void Closure1<CSimOverlayManager, void, bool>::vfunc_2(void* __p0, v
 
     ((*(Actor_d7380 * *)&this->f_20)->*(*(void (Actor_d7380::**)(unsigned char))&this->f_1c))(*arg);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CSimOverlayManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd7360)
+#endif
 
 
 // 0x000d73a0 FUN_000d73a0 (76 B): matches/0x000d73a0.cpp [wrapped: conflict: Closure1; Method1]

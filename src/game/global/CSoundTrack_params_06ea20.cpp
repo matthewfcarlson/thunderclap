@@ -13,6 +13,9 @@ namespace fn_f0e00859 {} using namespace fn_f0e00859;
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CSoundTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CSoundTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6ea20)
+#endif
 
 
 // 0x0006ea40 fight::ParamString<CSoundTrack>::vfunc_0 (30 B): matches/0x0006ea40.cpp
@@ -20,6 +23,9 @@ template <> fight::ParamFloatConstRange<CSoundTrack>::~ParamFloatConstRange() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamString<CSoundTrack>::~ParamString() {}
+#if defined(HULK_PTR64)
+template class fight::ParamString<CSoundTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6ea40)
+#endif
 
 
 // 0x0006ea60 fight::ParamBool<CSoundTrack>::vfunc_0 (30 B): matches/0x0006ea60.cpp
@@ -27,4 +33,7 @@ template <> fight::ParamString<CSoundTrack>::~ParamString() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<CSoundTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<CSoundTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6ea60)
+#endif
 

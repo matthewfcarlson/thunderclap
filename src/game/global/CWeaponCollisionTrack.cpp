@@ -4449,6 +4449,9 @@ template <> bool fight::ParamIntConstRange<CPropActorSetStateTrack>::vfunc_2() {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CWeaponCollisionTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63d00)
+#endif
 
 
 // 0x00063d20 fight::ParamIntConstRange<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063d20.cpp
@@ -4456,6 +4459,9 @@ template <> fight::ParamFloatConstRange<CWeaponCollisionTrack>::~ParamFloatConst
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CWeaponCollisionTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63d20)
+#endif
 
 
 // 0x00063d40 fight::ParamBool<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063d40.cpp
@@ -4463,6 +4469,9 @@ template <> fight::ParamIntConstRange<CWeaponCollisionTrack>::~ParamIntConstRang
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<CWeaponCollisionTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63d40)
+#endif
 
 
 // 0x00063d60 fight::ParamEnumConstList<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063d60.cpp
@@ -4470,6 +4479,9 @@ template <> fight::ParamBool<CWeaponCollisionTrack>::~ParamBool() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<CWeaponCollisionTrack>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63d60)
+#endif
 
 
 // 0x00063d80 fight::ParamBranch<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063d80.cpp
@@ -4477,6 +4489,9 @@ template <> fight::ParamEnumConstList<CWeaponCollisionTrack>::~ParamEnumConstLis
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBranch<CWeaponCollisionTrack>::~ParamBranch() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBranch<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63d80)
+#endif
 
 
 // 0x00063da0 fight::ParamString<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063da0.cpp
@@ -4484,6 +4499,9 @@ template <> fight::ParamBranch<CWeaponCollisionTrack>::~ParamBranch() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamString<CWeaponCollisionTrack>::~ParamString() {}
+#if defined(HULK_PTR64)
+template class fight::ParamString<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63da0)
+#endif
 
 
 // 0x00063dc0 fight::ParamVector<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063dc0.cpp
@@ -4491,6 +4509,9 @@ template <> fight::ParamString<CWeaponCollisionTrack>::~ParamString() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamVector<CWeaponCollisionTrack>::~ParamVector() {}
+#if defined(HULK_PTR64)
+template class fight::ParamVector<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63dc0)
+#endif
 
 
 // 0x00063de0 fight::ParamBoolPtr<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063de0.cpp
@@ -4498,6 +4519,9 @@ template <> fight::ParamVector<CWeaponCollisionTrack>::~ParamVector() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBoolPtr<CWeaponCollisionTrack>::~ParamBoolPtr() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBoolPtr<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63de0)
+#endif
 
 
 // 0x00063e00 fight::ParamFloatPtrConstRange<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063e00.cpp
@@ -4505,6 +4529,9 @@ template <> fight::ParamBoolPtr<CWeaponCollisionTrack>::~ParamBoolPtr() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatPtrConstRange<CWeaponCollisionTrack>::~ParamFloatPtrConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatPtrConstRange<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63e00)
+#endif
 
 
 // 0x00063e20 fight::ParamFloatConstRange<CSmartPropAttachTrack>::vfunc_0 (30 B): matches/0x00063e20.cpp
@@ -4512,6 +4539,9 @@ template <> fight::ParamFloatPtrConstRange<CWeaponCollisionTrack>::~ParamFloatPt
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CSmartPropAttachTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CSmartPropAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63e20)
+#endif
 
 
 // 0x00063e40 fight::ParamIntConstRange<CSmartPropAttachTrack>::vfunc_0 (30 B): matches/0x00063e40.cpp
@@ -4519,6 +4549,9 @@ template <> fight::ParamFloatConstRange<CSmartPropAttachTrack>::~ParamFloatConst
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CSmartPropAttachTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CSmartPropAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63e40)
+#endif
 
 
 // 0x00063e60 fight::ParamBool<CSmartPropAttachTrack>::vfunc_0 (30 B): matches/0x00063e60.cpp
@@ -4526,6 +4559,9 @@ template <> fight::ParamIntConstRange<CSmartPropAttachTrack>::~ParamIntConstRang
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<CSmartPropAttachTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<CSmartPropAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63e60)
+#endif
 
 
 // 0x00063e80 fight::ParamVector<CSmartPropAttachTrack>::vfunc_0 (30 B): matches/0x00063e80.cpp
@@ -4533,6 +4569,9 @@ template <> fight::ParamBool<CSmartPropAttachTrack>::~ParamBool() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamVector<CSmartPropAttachTrack>::~ParamVector() {}
+#if defined(HULK_PTR64)
+template class fight::ParamVector<CSmartPropAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63e80)
+#endif
 
 
 // 0x00063ea0 fight::ParamFloatConstRange<CSmartPropUpdateAttachmentTrack>::vfunc_0 (30 B): matches/0x00063ea0.cpp
@@ -4540,6 +4579,9 @@ template <> fight::ParamVector<CSmartPropAttachTrack>::~ParamVector() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CSmartPropUpdateAttachmentTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CSmartPropUpdateAttachmentTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63ea0)
+#endif
 
 
 // 0x00063ec0 fight::ParamIntConstRange<CSmartPropUpdateAttachmentTrack>::vfunc_0 (30 B): matches/0x00063ec0.cpp
@@ -4547,6 +4589,9 @@ template <> fight::ParamFloatConstRange<CSmartPropUpdateAttachmentTrack>::~Param
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CSmartPropUpdateAttachmentTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CSmartPropUpdateAttachmentTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63ec0)
+#endif
 
 
 // 0x00063ee0 fight::ParamBool<CSmartPropUpdateAttachmentTrack>::vfunc_0 (30 B): matches/0x00063ee0.cpp
@@ -4554,6 +4599,9 @@ template <> fight::ParamIntConstRange<CSmartPropUpdateAttachmentTrack>::~ParamIn
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<CSmartPropUpdateAttachmentTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<CSmartPropUpdateAttachmentTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63ee0)
+#endif
 
 
 // 0x00063f00 fight::ParamVector<CSmartPropUpdateAttachmentTrack>::vfunc_0 (30 B): matches/0x00063f00.cpp
@@ -4561,6 +4609,9 @@ template <> fight::ParamBool<CSmartPropUpdateAttachmentTrack>::~ParamBool() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamVector<CSmartPropUpdateAttachmentTrack>::~ParamVector() {}
+#if defined(HULK_PTR64)
+template class fight::ParamVector<CSmartPropUpdateAttachmentTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63f00)
+#endif
 
 
 // 0x00063f20 fight::ParamFloatConstRange<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00063f20.cpp
@@ -4568,6 +4619,9 @@ template <> fight::ParamVector<CSmartPropUpdateAttachmentTrack>::~ParamVector() 
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CSmartPropSpawnTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63f20)
+#endif
 
 
 // 0x00063f40 fight::ParamString<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00063f40.cpp
@@ -4575,6 +4629,9 @@ template <> fight::ParamFloatConstRange<CSmartPropSpawnTrack>::~ParamFloatConstR
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamString<CSmartPropSpawnTrack>::~ParamString() {}
+#if defined(HULK_PTR64)
+template class fight::ParamString<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63f40)
+#endif
 
 
 // 0x00063f60 fight::ParamIntConstRange<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00063f60.cpp
@@ -4582,6 +4639,9 @@ template <> fight::ParamString<CSmartPropSpawnTrack>::~ParamString() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CSmartPropSpawnTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63f60)
+#endif
 
 
 // 0x00063f80 fight::ParamBool<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00063f80.cpp
@@ -4589,6 +4649,9 @@ template <> fight::ParamIntConstRange<CSmartPropSpawnTrack>::~ParamIntConstRange
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<CSmartPropSpawnTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63f80)
+#endif
 
 
 // 0x00063fa0 fight::ParamVector<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00063fa0.cpp
@@ -4596,6 +4659,9 @@ template <> fight::ParamBool<CSmartPropSpawnTrack>::~ParamBool() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamVector<CSmartPropSpawnTrack>::~ParamVector() {}
+#if defined(HULK_PTR64)
+template class fight::ParamVector<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63fa0)
+#endif
 
 
 // 0x00063fc0 fight::ParamFloatConstRange<CSmartPropSetStateTrack>::vfunc_0 (30 B): matches/0x00063fc0.cpp
@@ -4603,6 +4669,9 @@ template <> fight::ParamVector<CSmartPropSpawnTrack>::~ParamVector() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CSmartPropSetStateTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CSmartPropSetStateTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63fc0)
+#endif
 
 
 // 0x00063fe0 fight::ParamIntConstRange<CSmartPropSetStateTrack>::vfunc_0 (30 B): matches/0x00063fe0.cpp
@@ -4610,6 +4679,9 @@ template <> fight::ParamFloatConstRange<CSmartPropSetStateTrack>::~ParamFloatCon
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CSmartPropSetStateTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CSmartPropSetStateTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63fe0)
+#endif
 
 
 // 0x00064000 fight::ParamFloatConstRange<CSmartPropDetachTrack>::vfunc_0 (30 B): matches/0x00064000.cpp
@@ -4617,6 +4689,9 @@ template <> fight::ParamIntConstRange<CSmartPropSetStateTrack>::~ParamIntConstRa
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CSmartPropDetachTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CSmartPropDetachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64000)
+#endif
 
 
 // 0x00064020 fight::ParamFloatConstRange<CSmartPropThrowTrack>::vfunc_0 (30 B): matches/0x00064020.cpp
@@ -4624,6 +4699,9 @@ template <> fight::ParamFloatConstRange<CSmartPropDetachTrack>::~ParamFloatConst
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CSmartPropThrowTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CSmartPropThrowTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64020)
+#endif
 
 
 // 0x00064040 fight::ParamIntConstRange<CSmartPropThrowTrack>::vfunc_0 (30 B): matches/0x00064040.cpp
@@ -4631,6 +4709,9 @@ template <> fight::ParamFloatConstRange<CSmartPropThrowTrack>::~ParamFloatConstR
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CSmartPropThrowTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CSmartPropThrowTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64040)
+#endif
 
 
 // 0x00064060 fight::ParamVector<CSmartPropThrowTrack>::vfunc_0 (30 B): matches/0x00064060.cpp
@@ -4638,6 +4719,9 @@ template <> fight::ParamIntConstRange<CSmartPropThrowTrack>::~ParamIntConstRange
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamVector<CSmartPropThrowTrack>::~ParamVector() {}
+#if defined(HULK_PTR64)
+template class fight::ParamVector<CSmartPropThrowTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64060)
+#endif
 
 
 // 0x00064080 fight::ParamBool<CSmartPropThrowTrack>::vfunc_0 (30 B): matches/0x00064080.cpp
@@ -4645,6 +4729,9 @@ template <> fight::ParamVector<CSmartPropThrowTrack>::~ParamVector() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<CSmartPropThrowTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<CSmartPropThrowTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64080)
+#endif
 
 
 // 0x000640a0 fight::ParamFloatConstRange<CSmartPropThrowingTrack>::vfunc_0 (30 B): matches/0x000640a0.cpp
@@ -4652,6 +4739,9 @@ template <> fight::ParamBool<CSmartPropThrowTrack>::~ParamBool() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CSmartPropThrowingTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CSmartPropThrowingTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x640a0)
+#endif
 
 
 // 0x000640c0 fight::ParamFloatConstRange<CSmartPropDropTrack>::vfunc_0 (30 B): matches/0x000640c0.cpp
@@ -4659,6 +4749,9 @@ template <> fight::ParamFloatConstRange<CSmartPropThrowingTrack>::~ParamFloatCon
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CSmartPropDropTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CSmartPropDropTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x640c0)
+#endif
 
 
 // 0x000640e0 fight::ParamIntConstRange<CSmartPropDropTrack>::vfunc_0 (30 B): matches/0x000640e0.cpp
@@ -4666,6 +4759,9 @@ template <> fight::ParamFloatConstRange<CSmartPropDropTrack>::~ParamFloatConstRa
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CSmartPropDropTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CSmartPropDropTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x640e0)
+#endif
 
 
 // 0x00064100 fight::ParamIntConstRange<CSmartPropEventTrack>::vfunc_0 (30 B): matches/0x00064100.cpp
@@ -4673,6 +4769,9 @@ template <> fight::ParamIntConstRange<CSmartPropDropTrack>::~ParamIntConstRange(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CSmartPropEventTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CSmartPropEventTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64100)
+#endif
 
 
 // 0x00064120 fight::ParamEnumConstList<CSmartPropEventTrack>::vfunc_0 (30 B): matches/0x00064120.cpp
@@ -4680,6 +4779,9 @@ template <> fight::ParamIntConstRange<CSmartPropEventTrack>::~ParamIntConstRange
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<CSmartPropEventTrack>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<CSmartPropEventTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64120)
+#endif
 
 
 // 0x00064140 fight::ParamFloatConstRange<CSmartPropEventTrack>::vfunc_0 (30 B): matches/0x00064140.cpp
@@ -4687,6 +4789,9 @@ template <> fight::ParamEnumConstList<CSmartPropEventTrack>::~ParamEnumConstList
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CSmartPropEventTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CSmartPropEventTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64140)
+#endif
 
 
 // 0x00064160 fight::ParamIntConstRange<CSmartPropRemoveInstanceTrack>::vfunc_0 (30 B): matches/0x00064160.cpp
@@ -4694,6 +4799,9 @@ template <> fight::ParamFloatConstRange<CSmartPropEventTrack>::~ParamFloatConstR
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CSmartPropRemoveInstanceTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CSmartPropRemoveInstanceTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64160)
+#endif
 
 
 // 0x00064180 fight::ParamFloatConstRange<CSmartPropRemoveInstanceTrack>::vfunc_0 (30 B): matches/0x00064180.cpp
@@ -4701,6 +4809,9 @@ template <> fight::ParamIntConstRange<CSmartPropRemoveInstanceTrack>::~ParamIntC
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CSmartPropRemoveInstanceTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CSmartPropRemoveInstanceTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64180)
+#endif
 
 
 // 0x000641a0 fight::ParamFloatConstRange<CPropActorSetStateTrack>::vfunc_0 (30 B): matches/0x000641a0.cpp
@@ -4708,6 +4819,9 @@ template <> fight::ParamFloatConstRange<CSmartPropRemoveInstanceTrack>::~ParamFl
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CPropActorSetStateTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CPropActorSetStateTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x641a0)
+#endif
 
 
 // 0x000641c0 fight::ParamIntConstRange<CPropActorSetStateTrack>::vfunc_0 (30 B): matches/0x000641c0.cpp
@@ -4715,6 +4829,9 @@ template <> fight::ParamFloatConstRange<CPropActorSetStateTrack>::~ParamFloatCon
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CPropActorSetStateTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CPropActorSetStateTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x641c0)
+#endif
 
 namespace fn_fa3ff49b {
 
@@ -4935,6 +5052,9 @@ void ParamBranch::vfunc_6(void* p) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamName<CWeaponCollisionTrack>::~ParamName() {}
+#if defined(HULK_PTR64)
+template class fight::ParamName<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x649b0)
+#endif
 
 
 // 0x000649d0 fight::ParamNameConstList<CSmartPropAttachTrack>::vfunc_0 (30 B): matches/0x000649d0.cpp
@@ -4942,6 +5062,9 @@ template <> fight::ParamName<CWeaponCollisionTrack>::~ParamName() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameConstList<CSmartPropAttachTrack>::~ParamNameConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameConstList<CSmartPropAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x649d0)
+#endif
 
 
 // 0x000649f0 fight::ParamName<CSmartPropAttachTrack>::vfunc_0 (30 B): matches/0x000649f0.cpp
@@ -4949,6 +5072,9 @@ template <> fight::ParamNameConstList<CSmartPropAttachTrack>::~ParamNameConstLis
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamName<CSmartPropAttachTrack>::~ParamName() {}
+#if defined(HULK_PTR64)
+template class fight::ParamName<CSmartPropAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x649f0)
+#endif
 
 
 // 0x00064a10 fight::ParamNameConstList<CSmartPropUpdateAttachmentTrack>::vfunc_0 (30 B): matches/0x00064a10.cpp
@@ -4956,6 +5082,9 @@ template <> fight::ParamName<CSmartPropAttachTrack>::~ParamName() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameConstList<CSmartPropUpdateAttachmentTrack>::~ParamNameConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameConstList<CSmartPropUpdateAttachmentTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64a10)
+#endif
 
 
 // 0x00064a30 fight::ParamName<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00064a30.cpp
@@ -4963,6 +5092,9 @@ template <> fight::ParamNameConstList<CSmartPropUpdateAttachmentTrack>::~ParamNa
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamName<CSmartPropSpawnTrack>::~ParamName() {}
+#if defined(HULK_PTR64)
+template class fight::ParamName<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64a30)
+#endif
 
 
 // 0x00064a50 fight::ParamNameConstList<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00064a50.cpp
@@ -4970,6 +5102,9 @@ template <> fight::ParamName<CSmartPropSpawnTrack>::~ParamName() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameConstList<CSmartPropSpawnTrack>::~ParamNameConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameConstList<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64a50)
+#endif
 
 namespace fn_fa3ff49b {
 

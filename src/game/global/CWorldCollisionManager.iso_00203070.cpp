@@ -10,4 +10,7 @@
 
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure0<CWorldCollisionManager, float>::~Closure0() {}
+#if defined(HULK_PTR64)
+template class Closure0<CWorldCollisionManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x203070)
+#endif
 

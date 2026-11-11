@@ -1132,6 +1132,9 @@ template <> void Method1<MessageOverlay, void, const char *>::vfunc_2(void* __p0
     Dummy_d5530* d = (Dummy_d5530*)a;
     (d->*(*(void (Dummy_d5530::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<MessageOverlay, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd5510)
+#endif
 
 namespace fn_f27eef39 {
 
@@ -1170,6 +1173,9 @@ template <> void Method7<MessageOverlay, void, const char *, const char *, const
 
     FUN_000d5620(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method7<MessageOverlay, void, const char *, const char *, const char *, const char *, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd55e0)
+#endif
 
 namespace fn_f27eef39 {
 
@@ -1228,6 +1234,9 @@ template <> void Method3<MessageOverlay, void, const char *, int,math::Vector>::
     math::Vector_d56e0 v = *(math::Vector_d56e0*)p;
     (obj->*(*(void (MessageOverlay_d56e0::**)(const char *, int, math::Vector_d56e0))&this->f_1c))(s, i, v);
 }
+#if defined(HULK_PTR64)
+template class Method3<MessageOverlay, void, const char *, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd56c0)
+#endif
 
 
 // 0x000d5760 Method1<MessageOverlay,void,bool>::vfunc_0 (30 B): matches/0x000d5760.cpp
@@ -1244,6 +1253,9 @@ template <> void Method1<MessageOverlay, void, bool>::vfunc_2(void* __p0, void* 
 
     (obj->*(*(MFn_d5780 *)&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<MessageOverlay, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd5760)
+#endif
 
 
 // 0x000d57e0 Method0<MessageOverlay,void>::vfunc_0 (30 B): matches/0x000d57e0.cpp
@@ -1260,6 +1272,9 @@ template <> void Method0<MessageOverlay, void>::vfunc_2(void* __p0, void* __p1, 
 
     (a->*(*(void (CActorManager_d5800::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Method0<MessageOverlay, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd57e0)
+#endif
 
 
 // 0x000d5850 Method1<MessageOverlay,void,float>::vfunc_0 (30 B): matches/0x000d5850.cpp
@@ -1277,6 +1292,9 @@ template <> void Method1<MessageOverlay, void, float>::vfunc_2(void* __p0, void*
     Dummy_d5870* d = (Dummy_d5870*)a;
     (d->*(*(void (Dummy_d5870::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<MessageOverlay, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd5850)
+#endif
 
 namespace fn_f27eef39 {
 
@@ -1303,6 +1321,9 @@ Method5_d5890* Method5_d5890::Init(const char* arg, Fn_d5890 value) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method5<MessageOverlay, void, int, const char *, int,math::Vector, float>::~Method5() {}
+#if defined(HULK_PTR64)
+template class Method5<MessageOverlay, void, int, const char *, int,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd5910)
+#endif
 
 
 // 0x000d5930 Method5<MessageOverlay,void,int,const_char_*,int,math::Vector,float>::vfunc_2 (70 B): matches/0x000d5930.cpp [wrapped: conflict: Function; MessageOverlay; Method5]
@@ -1606,6 +1627,9 @@ template <> void Closure1<MessageOverlay, void, const char *>::vfunc_2(void* __p
 
     ((*(CActorManager_d6040 * *)&this->f_20)->*(*(void (CActorManager_d6040::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<MessageOverlay, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd6020)
+#endif
 
 
 // 0x000d6090 Closure7<MessageOverlay,void,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x000d6090.cpp
@@ -1628,6 +1652,9 @@ template <> void Closure7<MessageOverlay, void, const char *, const char *, cons
     const char* g = *++a;
     ((*(MessageOverlay_d60b0 * *)&this->f_20)->*(*(void (MessageOverlay_d60b0::**)(const char *, const char *, const char *, const char *, const char *, const char *, const char *))&this->f_1c))(first, b, c, d, e, f, g);
 }
+#if defined(HULK_PTR64)
+template class Closure7<MessageOverlay, void, const char *, const char *, const char *, const char *, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd6090)
+#endif
 
 
 // 0x000d6150 Closure3<MessageOverlay,void,const_char_*,int,math::Vector>::vfunc_2 (56 B): equivalent/0x000d6150.cpp [wrapped: conflict: Closure3; MessageOverlay]
