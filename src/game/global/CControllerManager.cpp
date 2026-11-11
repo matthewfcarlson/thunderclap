@@ -202,6 +202,9 @@ template <> void Method0<CControllerManager, bool>::vfunc_2(void* __p0, void* __
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method0<CControllerManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xaeb00)
+#endif
 
 
 // 0x000aeb90 Method2<CControllerManager,void,int,bool>::vfunc_0 (30 B): matches/0x000aeb90.cpp
@@ -217,6 +220,9 @@ template <> void Method2<CControllerManager, void, int, bool>::vfunc_2(void* __p
 
     (obj->*(*(void (CControllerManager_aebb0::**)(int, bool))&this->f_1c))(args->a, args->b);
 }
+#if defined(HULK_PTR64)
+template class Method2<CControllerManager, void, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xaeb90)
+#endif
 
 
 // 0x000aec10 Method1<CControllerManager,void,bool>::vfunc_0 (30 B): matches/0x000aec10.cpp
@@ -233,6 +239,9 @@ template <> void Method1<CControllerManager, void, bool>::vfunc_2(void* __p0, vo
 
     (obj->*(*(MFn_aec30 *)&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CControllerManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xaec10)
+#endif
 
 
 // 0x000aecb0 Closure0<CControllerManager,bool>::vfunc_2 (23 B): matches/0x000aecb0.cpp

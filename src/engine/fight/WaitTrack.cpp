@@ -415,6 +415,9 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::WaitTrack>::vfunc_0(vo
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<fight::WaitTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<fight::WaitTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23e230)
+#endif
 
 
 // 0x0023e250 FUN_0023e250 (213 B): matches/0x0023e250.cpp [wrapped: conflict: fight::ParamFloatConstRange]

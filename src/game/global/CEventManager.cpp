@@ -1323,6 +1323,9 @@ template <> void Method1<CEventManager, bool, const char *>::vfunc_2(void* __p0,
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CEventManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cbae0)
+#endif
 
 
 // 0x001cbb60 Method1<CEventManager,void,bool>::vfunc_0 (30 B): matches/0x001cbb60.cpp
@@ -1339,6 +1342,9 @@ template <> void Method1<CEventManager, void, bool>::vfunc_2(void* __p0, void* _
 
     (obj->*(*(MFn_1cbb80 *)&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CEventManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cbb60)
+#endif
 
 
 // 0x001cbbe0 Method1<CEventManager,void,const_char_*>::vfunc_0 (30 B): matches/0x001cbbe0.cpp
@@ -1356,6 +1362,9 @@ template <> void Method1<CEventManager, void, const char *>::vfunc_2(void* __p0,
     Dummy_1cbc00* d = (Dummy_1cbc00*)a;
     (d->*(*(void (Dummy_1cbc00::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CEventManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cbbe0)
+#endif
 
 
 // 0x001cbcb0 FUN_001cbcb0 (90 B): matches/0x001cbcb0.cpp
@@ -1432,6 +1441,9 @@ Closure1::Closure1(const char* p, void* q, ScriptMemberFn v) : Method1(p, v) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CEventManager, bool, const char *>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CEventManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cbde0)
+#endif
 
 
 // 0x001cbe00 Closure1<CEventManager,bool,const_char_*>::vfunc_2 (30 B): matches/0x001cbe00.cpp [wrapped: conflict: Closure1]
@@ -1482,6 +1494,9 @@ template <> void Closure1<CEventManager, void, bool>::vfunc_2(void* __p0, void* 
 
     ((*(Actor_1cbe90 * *)&this->f_20)->*(*(void (Actor_1cbe90::**)(unsigned char))&this->f_1c))(*arg);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CEventManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cbe70)
+#endif
 
 
 // 0x001cbeb0 FUN_001cbeb0 (76 B): matches/0x001cbeb0.cpp [wrapped: conflict: Closure1; Closure1::Closure1; Method1]

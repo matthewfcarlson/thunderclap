@@ -913,6 +913,9 @@ template <> void Method1<CCharacterTemplateManager, void, const char *>::vfunc_2
     Dummy_46360* d = (Dummy_46360*)a;
     (d->*(*(void (Dummy_46360::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CCharacterTemplateManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x46340)
+#endif
 
 
 // 0x00046380 CCharacterTemplate::vfunc_2 (30 B): matches/0x00046380.cpp

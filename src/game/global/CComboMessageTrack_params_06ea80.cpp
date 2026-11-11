@@ -13,6 +13,9 @@ namespace fn_f452c69f {} using namespace fn_f452c69f;
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CComboMessageTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CComboMessageTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6ea80)
+#endif
 
 
 // 0x0006eaa0 fight::ParamString<CComboMessageTrack>::vfunc_0 (30 B): matches/0x0006eaa0.cpp
@@ -20,6 +23,9 @@ template <> fight::ParamFloatConstRange<CComboMessageTrack>::~ParamFloatConstRan
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamString<CComboMessageTrack>::~ParamString() {}
+#if defined(HULK_PTR64)
+template class fight::ParamString<CComboMessageTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6eaa0)
+#endif
 
 
 // 0x0006eac0 fight::ParamEnumConstList<CComboMessageTrack>::vfunc_0 (30 B): matches/0x0006eac0.cpp
@@ -27,4 +33,7 @@ template <> fight::ParamString<CComboMessageTrack>::~ParamString() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<CComboMessageTrack>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<CComboMessageTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6eac0)
+#endif
 

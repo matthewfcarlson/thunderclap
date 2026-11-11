@@ -174,6 +174,9 @@ template <> void Method4<CHapticControllerManager, void, int, float, float, floa
     float d = *(float*)(p + 4);
     (obj->*(*(void (CHapticControllerManager_b0140::**)(int, float, float, float))&this->f_1c))(a, b, c, d);
 }
+#if defined(HULK_PTR64)
+template class Method4<CHapticControllerManager, void, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xb0120)
+#endif
 
 
 // 0x000b01b0 Method0<CHapticControllerManager,void>::vfunc_0 (30 B): matches/0x000b01b0.cpp
@@ -190,6 +193,9 @@ template <> void Method0<CHapticControllerManager, void>::vfunc_2(void* __p0, vo
 
     (a->*(*(void (CActorManager_b01d0::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Method0<CHapticControllerManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xb01b0)
+#endif
 
 
 // 0x000b0220 Method1<CHapticControllerManager,void,bool>::vfunc_0 (30 B): matches/0x000b0220.cpp
@@ -206,6 +212,9 @@ template <> void Method1<CHapticControllerManager, void, bool>::vfunc_2(void* __
 
     (obj->*(*(MFn_b0240 *)&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CHapticControllerManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xb0220)
+#endif
 
 
 // 0x000b02b0 Closure4<CHapticControllerManager,void,int,float,float,float>::vfunc_2 (45 B): matches/0x000b02b0.cpp

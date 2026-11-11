@@ -920,6 +920,9 @@ template <> void Method2<CActorManager, bool, const char *, bool>::vfunc_2(void*
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, bool, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c4f0)
+#endif
 
 
 // 0x0002c590 Method2<CActorManager,void,const_char_*,math::Vector>::vfunc_0 (30 B): matches/0x0002c590.cpp
@@ -927,6 +930,9 @@ template <> void Method2<CActorManager, bool, const char *, bool>::vfunc_2(void*
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method2<CActorManager, void, const char *,math::Vector>::~Method2() {}
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, void, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c590)
+#endif
 
 
 // 0x0002c5b0 Method2<CActorManager,void,const_char_*,math::Vector>::vfunc_2 (48 B): equivalent/0x0002c5b0.cpp [wrapped: conflict: Args; CActorManager; Function; Method2]
@@ -969,6 +975,9 @@ template <> void Method2<CActorManager, void, const char *, float>::vfunc_2(void
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_2c650::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, void, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c630)
+#endif
 
 
 // 0x0002c6c0 Method2<CActorManager,void,const_char_*,int>::vfunc_0 (30 B): matches/0x0002c6c0.cpp
@@ -988,6 +997,9 @@ template <> void Method2<CActorManager, void, const char *, int>::vfunc_2(void* 
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_2c6e0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c6c0)
+#endif
 
 
 // 0x0002c700 FUN_0002c700 (63 B): matches/0x0002c700.cpp [wrapped: conflict: Method1]
@@ -1032,6 +1044,9 @@ template <> void Method1<CActorManager, float, const char *>::vfunc_2(void* __p0
     if (out)
         *out = x;
 }
+#if defined(HULK_PTR64)
+template class Method1<CActorManager, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c740)
+#endif
 
 
 // 0x0002c790 FUN_0002c790 (63 B): matches/0x0002c790.cpp [wrapped: conflict: Method1]
@@ -1112,6 +1127,9 @@ template <> void Method1<CActorManager, bool, const char *>::vfunc_2(void* __p0,
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CActorManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c7d0)
+#endif
 
 
 // 0x0002c810 FUN_0002c810 (89 B): matches/0x0002c810.cpp [wrapped: conflict: Method3]
@@ -1163,6 +1181,9 @@ template <> void Method3<CActorManager, void, const char *, float, bool>::vfunc_
 
  (actor->*(*(void (CActorManager_2c890::**)(const char *, float, bool))&this->f_1c))(arguments->text, arguments->value, arguments->enabled);
 }
+#if defined(HULK_PTR64)
+template class Method3<CActorManager, void, const char *, float, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c870)
+#endif
 
 
 // 0x0002c8b0 FUN_0002c8b0 (89 B): matches/0x0002c8b0.cpp [wrapped: conflict: Method3]
@@ -1200,6 +1221,9 @@ Method3::Method3(const char* name, hulk_intptr x) : Function_2c8b0(name, 3) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method3<CActorManager, void, const char *, float, const char *>::~Method3() {}
+#if defined(HULK_PTR64)
+template class Method3<CActorManager, void, const char *, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c910)
+#endif
 
 
 // 0x0002c930 Method3<CActorManager,void,const_char_*,float,const_char_*>::vfunc_2 (29 B): equivalent/0x0002c930.cpp [wrapped: conflict: Function; Method3]
@@ -1241,6 +1265,9 @@ template <> void Method1<CActorManager, int, const char *>::vfunc_2(void* __p0, 
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CActorManager, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c990)
+#endif
 
 
 // 0x0002ca10 Method1<CActorManager,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0002ca10.cpp
@@ -1260,6 +1287,9 @@ template <> void Method1<CActorManager, const char *, const char *>::vfunc_2(voi
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CActorManager, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ca10)
+#endif
 
 
 // 0x0002ca50 FUN_0002ca50 (128 B): matches/0x0002ca50.cpp [wrapped: conflict: Method6]
@@ -1338,6 +1368,9 @@ template <> void Method6<CActorManager, bool, const char *, const char *, const 
 
     FUN_0002cb10(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2cad0)
+#endif
 
 namespace fn_f8e68f21 {
 
@@ -1391,6 +1424,9 @@ template <> void Method7<CActorManager, bool, const char *,math::Vector, float, 
 
     FUN_0002cc30(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method7<CActorManager, bool, const char *,math::Vector, float, const char *, const char *, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2cbf0)
+#endif
 
 namespace fn_f8e68f21 {
 
@@ -1418,6 +1454,9 @@ void FUN_0002cc30(Target_2cc30* self, BlockArg arg, unsigned char* out, Fn_2cc30
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method2<CActorManager, void, const char *, bool>::~Method2() {}
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, void, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2cd00)
+#endif
 
 
 // 0x0002cd20 Method2<CActorManager,void,const_char_*,bool>::vfunc_2 (25 B): matches/0x0002cd20.cpp [wrapped: conflict: Args; CActorManager; Function; Method2]
@@ -1466,6 +1505,9 @@ template <> void Method2<CActorManager, void, float, float>::vfunc_2(void* __p0,
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_2cdb0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2cd90)
+#endif
 
 
 // 0x0002ce10 Method1<CActorManager,void,const_char_*>::vfunc_0 (30 B): matches/0x0002ce10.cpp
@@ -1482,6 +1524,9 @@ template <> void Method1<CActorManager, void, const char *>::vfunc_2(void* __p0,
     Dummy_2ce30* d = (Dummy_2ce30*)a;
     (d->*(*(void (Dummy_2ce30::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CActorManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ce10)
+#endif
 
 
 // 0x0002ce90 Method0<CActorManager,const_char_*>::vfunc_0 (30 B): matches/0x0002ce90.cpp
@@ -1500,6 +1545,9 @@ template <> void Method0<CActorManager, const char *>::vfunc_2(void* __p0, void*
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method0<CActorManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ce90)
+#endif
 
 
 // 0x0002cf10 Method0<CActorManager,int>::vfunc_0 (30 B): matches/0x0002cf10.cpp
@@ -1519,6 +1567,9 @@ template <> void Method0<CActorManager, int>::vfunc_2(void* __p0, void* __p1, vo
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method0<CActorManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2cf10)
+#endif
 
 
 // 0x0002cf90 Method1<CActorManager,const_char_*,int>::vfunc_0 (30 B): matches/0x0002cf90.cpp
@@ -1538,6 +1589,9 @@ template <> void Method1<CActorManager, const char *, int>::vfunc_2(void* __p0, 
     if (out)
         *out = x;
 }
+#if defined(HULK_PTR64)
+template class Method1<CActorManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2cf90)
+#endif
 
 
 // 0x0002d020 Method2<CActorManager,bool,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0002d020.cpp
@@ -1558,6 +1612,9 @@ template <> void Method2<CActorManager, bool, const char *, const char *>::vfunc
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, bool, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d020)
+#endif
 
 
 // 0x0002d0c0 Method2<CActorManager,void,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0002d0c0.cpp
@@ -1577,6 +1634,9 @@ template <> void Method2<CActorManager, void, const char *, const char *>::vfunc
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_2d0e0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d0c0)
+#endif
 
 
 // 0x0002d140 Method1<CActorManager,math::Vector,const_char_*>::vfunc_0 (30 B): matches/0x0002d140.cpp
@@ -1584,6 +1644,9 @@ template <> void Method2<CActorManager, void, const char *, const char *>::vfunc
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method1<CActorManager,math::Vector, const char *>::~Method1() {}
+#if defined(HULK_PTR64)
+template class Method1<CActorManager,math::Vector, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d140)
+#endif
 
 
 // 0x0002d160 Method1<CActorManager,math::Vector,const_char_*>::vfunc_2 (69 B): equivalent/0x0002d160.cpp [wrapped: conflict: CActorManager; Method1]
@@ -1626,6 +1689,9 @@ template <> void Method1<CActorManager, void, int>::vfunc_2(void* __p0, void* __
     Dummy_2d210* d = (Dummy_2d210*)a;
     (d->*(*(void (Dummy_2d210::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CActorManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d1f0)
+#endif
 
 
 // 0x0002d270 Method1<CActorManager,bool,math::Vector>::vfunc_0 (30 B): matches/0x0002d270.cpp
@@ -1644,6 +1710,9 @@ template <> void Method1<CActorManager, bool,math::Vector>::vfunc_2(void* __p0, 
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CActorManager, bool,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d270)
+#endif
 
 
 // 0x0002d310 Method1<CActorManager,const_char_*,math::Vector>::vfunc_0 (30 B): matches/0x0002d310.cpp
@@ -1662,6 +1731,9 @@ template <> void Method1<CActorManager, const char *,math::Vector>::vfunc_2(void
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CActorManager, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d310)
+#endif
 
 namespace fn_f8e68f21 {
 
@@ -1699,6 +1771,9 @@ template <> void Method7<CActorManager, void, const char *, float, float, float,
 
     FUN_0002d440(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method7<CActorManager, void, const char *, float, float, float, float, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d400)
+#endif
 
 
 // 0x0002d440 FUN_0002d440 (88 B): equivalent/0x0002d440.cpp [wrapped: conflict: Args]
@@ -1733,6 +1808,9 @@ template <> void Method2<CActorManager, void, int, const char *>::vfunc_2(void* 
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_2d510::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, void, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d4f0)
+#endif
 
 
 // 0x0002d580 Method2<CActorManager,void,math::Vector,float>::vfunc_0 (30 B): matches/0x0002d580.cpp
@@ -1740,6 +1818,9 @@ template <> void Method2<CActorManager, void, int, const char *>::vfunc_2(void* 
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method2<CActorManager, void,math::Vector, float>::~Method2() {}
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, void,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d580)
+#endif
 
 
 // 0x0002d5a0 Method2<CActorManager,void,math::Vector,float>::vfunc_2 (43 B): matches/0x0002d5a0.cpp [wrapped: conflict: Args; CActorManager; Function; Method2]
@@ -1801,6 +1882,9 @@ template <> void Method2<CActorManager, bool, const char *, int>::vfunc_2(void* 
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, bool, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d620)
+#endif
 
 
 // 0x0002d6b0 Method1<CActorManager,bool,int>::vfunc_0 (30 B): matches/0x0002d6b0.cpp
@@ -1820,6 +1904,9 @@ template <> void Method1<CActorManager, bool, int>::vfunc_2(void* __p0, void* __
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CActorManager, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d6b0)
+#endif
 
 
 // 0x0002d730 Method0<CActorManager,bool>::vfunc_0 (30 B): matches/0x0002d730.cpp
@@ -1838,6 +1925,9 @@ template <> void Method0<CActorManager, bool>::vfunc_2(void* __p0, void* __p1, v
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method0<CActorManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d730)
+#endif
 
 namespace fn_f8e68f21 {
 
@@ -1876,6 +1966,9 @@ template <> void Method4<CActorManager, void, const char *, float, int, float>::
     float other = *(float*)args;
     (actor->*(*(void (CActorManager_2d800::**)(const char *, float, int, float))&this->f_1c))(name, value, count, other);
 }
+#if defined(HULK_PTR64)
+template class Method4<CActorManager, void, const char *, float, int, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d7e0)
+#endif
 
 namespace fn_f8e68f21 {
 
@@ -1898,6 +1991,9 @@ Method4_2d830::Method4_2d830(const char* a, Fn_2d830 b) : FUN_001d0480(a, 4) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method4<CActorManager, void, const char *, float, float, float>::~Method4() {}
+#if defined(HULK_PTR64)
+template class Method4<CActorManager, void, const char *, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d8a0)
+#endif
 
 
 // 0x0002d8c0 Method4<CActorManager,void,const_char_*,float,float,float>::vfunc_2 (46 B): equivalent/0x0002d8c0.cpp [wrapped: conflict: CActorManager; Method4]
@@ -1930,6 +2026,9 @@ template <> void Method0<CActorManager, void>::vfunc_2(void* __p0, void* __p1, v
 
     (a->*(*(void (CActorManager_2d950::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Method0<CActorManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d930)
+#endif
 
 
 // 0x0002d960 FUN_0002d960 (115 B): matches/0x0002d960.cpp [wrapped: conflict: Method5]
@@ -1980,6 +2079,9 @@ template <> void Method5<CActorManager, void, const char *, const char *, float,
 
     FUN_0002da20(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method5<CActorManager, void, const char *, const char *, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d9e0)
+#endif
 
 
 // 0x0002da20 FUN_0002da20 (50 B): matches/0x0002da20.cpp [wrapped: conflict: Callback]
@@ -2022,6 +2124,9 @@ Method3_2da60::Method3_2da60(const char* p, Fn_2da60 x) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method3<CActorManager, bool, const char *, float, float>::~Method3() {}
+#if defined(HULK_PTR64)
+template class Method3<CActorManager, bool, const char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2dac0)
+#endif
 
 
 // 0x0002dae0 Method3<CActorManager,bool,const_char_*,float,float>::vfunc_2 (51 B): matches/0x0002dae0.cpp [wrapped: conflict: CActorManager; Fn; Function; Method3]
@@ -2082,6 +2187,9 @@ Method3_2db20* Method3_2db20::Init(const char* arg1, Fn_2db20 arg2) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method3<CActorManager, void, const char *, float, float>::~Method3() {}
+#if defined(HULK_PTR64)
+template class Method3<CActorManager, void, const char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2db80)
+#endif
 
 
 // 0x0002dba0 Method3<CActorManager,void,const_char_*,float,float>::vfunc_2 (29 B): equivalent/0x0002dba0.cpp [wrapped: conflict: CActorManager; Function; Method3]
@@ -2110,6 +2218,9 @@ void Method3::vfunc_2(CActorManager* actor, ActorArgs* args, void* unused) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method2<CActorManager, bool, const char *, float>::~Method2() {}
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, bool, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2dc10)
+#endif
 
 
 // 0x0002dc30 Method2<CActorManager,bool,const_char_*,float>::vfunc_2 (37 B): matches/0x0002dc30.cpp [wrapped: conflict: CActorManager; Function; Method2]
@@ -2167,6 +2278,9 @@ Method3_2dc60::Method3_2dc60(const char* a, Fn_2dc60 x) : Function_2dc60(a, 3) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method3<CActorManager, void, const char *, const char *, float>::~Method3() {}
+#if defined(HULK_PTR64)
+template class Method3<CActorManager, void, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2dcc0)
+#endif
 
 
 // 0x0002dce0 Method3<CActorManager,void,const_char_*,const_char_*,float>::vfunc_2 (29 B): equivalent/0x0002dce0.cpp [wrapped: conflict: Function; Method3]
@@ -2210,6 +2324,9 @@ Method4_2dd00::Method4_2dd00(const char* a, Fn_2dd00 b) : FUN_001d0480(a, 4) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method4<CActorManager, void, const char *, const char *, float, float>::~Method4() {}
+#if defined(HULK_PTR64)
+template class Method4<CActorManager, void, const char *, const char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2dd70)
+#endif
 
 
 // 0x0002dd90 Method4<CActorManager,void,const_char_*,const_char_*,float,float>::vfunc_2 (40 B): equivalent/0x0002dd90.cpp [wrapped: conflict: Method4]
@@ -2237,6 +2354,9 @@ void Method4::vfunc_2(CActorManager* manager, const Arguments* arguments, void* 
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method2<CActorManager, const char *, const char *, int>::~Method2() {}
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, const char *, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2de10)
+#endif
 
 
 // 0x0002de30 Method2<CActorManager,const_char_*,const_char_*,int>::vfunc_2 (33 B): matches/0x0002de30.cpp [wrapped: conflict: CActorManager; Function; Method2]
@@ -2293,6 +2413,9 @@ template <> void Method2<CActorManager, int, const char *, const char *>::vfunc_
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, int, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2deb0)
+#endif
 
 
 // 0x0002df50 Method2<CActorManager,const_char_*,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0002df50.cpp
@@ -2300,6 +2423,9 @@ template <> void Method2<CActorManager, int, const char *, const char *>::vfunc_
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method2<CActorManager, const char *, const char *, const char *>::~Method2() {}
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2df50)
+#endif
 
 
 // 0x0002df70 Method2<CActorManager,const_char_*,const_char_*,const_char_*>::vfunc_2 (33 B): matches/0x0002df70.cpp [wrapped: conflict: CActorManager; Function; Method2]
@@ -2352,6 +2478,9 @@ template <> void Method1<CActorManager, void, float>::vfunc_2(void* __p0, void* 
     Dummy_2e000* d = (Dummy_2e000*)a;
     (d->*(*(void (Dummy_2e000::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CActorManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2dfe0)
+#endif
 
 
 // 0x0002e060 Method0<CActorManager,float>::vfunc_0 (30 B): matches/0x0002e060.cpp
@@ -2359,6 +2488,9 @@ template <> void Method1<CActorManager, void, float>::vfunc_2(void* __p0, void* 
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method0<CActorManager, float>::~Method0() {}
+#if defined(HULK_PTR64)
+template class Method0<CActorManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e060)
+#endif
 
 
 // 0x0002e080 Method0<CActorManager,float>::vfunc_2 (34 B): matches/0x0002e080.cpp [wrapped: conflict: Function]
@@ -2401,6 +2533,9 @@ template <> void Method2<CActorManager,math::Vector,math::Vector, float>::vfunc_
     if (out != 0)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Method2<CActorManager,math::Vector,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e100)
+#endif
 
 
 // 0x0002e1e0 Method2<CActorManager,float,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0002e1e0.cpp
@@ -2421,6 +2556,9 @@ template <> void Method2<CActorManager, float, const char *, const char *>::vfun
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, float, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e1e0)
+#endif
 
 
 // 0x0002e270 Method1<CActorManager,void,bool>::vfunc_0 (30 B): matches/0x0002e270.cpp
@@ -2436,6 +2574,9 @@ template <> void Method1<CActorManager, void, bool>::vfunc_2(void* __p0, void* _
 
     (obj->*(*(MFn_2e290 *)&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CActorManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e270)
+#endif
 
 namespace fn_f8e68f21 {
 
@@ -2457,6 +2598,9 @@ Method3_2e2b0::Method3_2e2b0(hulk_intptr a, hulk_intptr b) : Function_2e2b0(a, 3
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method3<CActorManager, void, int, int, int>::~Method3() {}
+#if defined(HULK_PTR64)
+template class Method3<CActorManager, void, int, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e310)
+#endif
 
 
 // 0x0002e330 Method3<CActorManager,void,int,int,int>::vfunc_2 (29 B): equivalent/0x0002e330.cpp [wrapped: conflict: Args; CActorManager; Function; Method3]
@@ -2559,6 +2703,9 @@ template <> void Method3<CActorManager, bool, const char *,math::Vector,math::Ve
     if (result)
         *result = r;
 }
+#if defined(HULK_PTR64)
+template class Method3<CActorManager, bool, const char *,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e3b0)
+#endif
 
 
 // 0x0002e490 Method2<CActorManager,bool,const_char_*,math::Vector>::vfunc_0 (30 B): matches/0x0002e490.cpp
@@ -2566,6 +2713,9 @@ template <> void Method3<CActorManager, bool, const char *,math::Vector,math::Ve
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method2<CActorManager, bool, const char *,math::Vector>::~Method2() {}
+#if defined(HULK_PTR64)
+template class Method2<CActorManager, bool, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e490)
+#endif
 
 
 // 0x0002e4f0 FUN_0002e4f0 (89 B): matches/0x0002e4f0.cpp [wrapped: conflict: Closure2]
@@ -2610,6 +2760,9 @@ Closure2::Closure2(const char* a1, Owner_2e4f0* a2, Fn_2e4f0 a3) : FUN_001d0480(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure2<CActorManager, bool, const char *, bool>::~Closure2() {}
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, bool, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e550)
+#endif
 
 
 // 0x0002e570 Closure2<CActorManager,bool,const_char_*,bool>::vfunc_2 (46 B): equivalent/0x0002e570.cpp [wrapped: conflict: Arguments; CActorManager]
@@ -2680,6 +2833,9 @@ Closure2::Closure2(const char* a1, Owner_2e5a0* a2, Fn_2e5a0 a3) : FUN_001d0480(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure2<CActorManager, void, const char *,math::Vector>::~Closure2() {}
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, void, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e600)
+#endif
 
 
 // 0x0002e620 Closure2<CActorManager,void,const_char_*,math::Vector>::vfunc_2 (47 B): equivalent/0x0002e620.cpp [wrapped: conflict: Arguments; CActorManager; Closure2]
@@ -2757,6 +2913,9 @@ template <> void Closure2<CActorManager, void, const char *, float>::vfunc_2(voi
 
     ((*(CActorManager_2e6d0 * *)&this->f_20)->*(*(void (CActorManager_2e6d0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, void, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e6b0)
+#endif
 
 
 // 0x0002e6f0 FUN_0002e6f0 (89 B): matches/0x0002e6f0.cpp [wrapped: conflict: Closure2]
@@ -2810,6 +2969,9 @@ template <> void Closure2<CActorManager, void, const char *, int>::vfunc_2(void*
 
     ((*(CActorManager_2e770 * *)&this->f_20)->*(*(void (CActorManager_2e770::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e750)
+#endif
 
 
 // 0x0002e790 FUN_0002e790 (76 B): matches/0x0002e790.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -2870,6 +3032,9 @@ template <> void Closure1<CActorManager, float, const char *>::vfunc_2(void* __p
     if (out)
         *out = value;
 }
+#if defined(HULK_PTR64)
+template class Closure1<CActorManager, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e7e0)
+#endif
 
 namespace fn_f8e68f21 {
 
@@ -2893,6 +3058,9 @@ Closure1_2e830* Closure1_2e830::Build(const char* a, Owner_2e830* b, Fn_2e830 c)
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CActorManager, bool, const char *>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CActorManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e880)
+#endif
 
 
 // 0x0002e8a0 Closure1<CActorManager,bool,const_char_*>::vfunc_2 (30 B): matches/0x0002e8a0.cpp [wrapped: conflict: Closure1]
@@ -2924,6 +3092,9 @@ void Closure1::V2(void* a, const char** p, bool* out) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure3<CActorManager, void, const char *, float, bool>::~Closure3() {}
+#if defined(HULK_PTR64)
+template class Closure3<CActorManager, void, const char *, float, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e8f0)
+#endif
 
 
 // 0x0002e960 Closure3<CActorManager,void,const_char_*,float,const_char_*>::vfunc_0 (30 B): matches/0x0002e960.cpp
@@ -2944,6 +3115,9 @@ template <> void Closure3<CActorManager, void, const char *, float, const char *
     ((*(CActorManager_2e980 * *)&this->f_20)->*(*(void (CActorManager_2e980::**)(const char *, float, const char *))&this->f_1c))(name, value, other);
     _ReadWriteBarrier();
 }
+#if defined(HULK_PTR64)
+template class Closure3<CActorManager, void, const char *, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e960)
+#endif
 
 
 // 0x0002e9a0 FUN_0002e9a0 (76 B): matches/0x0002e9a0.cpp [wrapped: conflict: Closure1; Method1]
@@ -3013,6 +3187,9 @@ Closure1::Closure1(const char* a, Owner_2e9a0* c, Fn_2e9a0 b) : Method1(a, b) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CActorManager, int, const char *>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CActorManager, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e9f0)
+#endif
 
 
 // 0x0002ea10 Closure1<CActorManager,int,const_char_*>::vfunc_2 (30 B): matches/0x0002ea10.cpp [wrapped: conflict: ActorMethod; CActorManager]
@@ -3078,6 +3255,9 @@ Closure1::Closure1(const char* a1, Owner_2ea30* a2, Fn_2ea30 a3) : FUN_001d0480(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CActorManager, const char *, const char *>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CActorManager, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ea80)
+#endif
 
 
 // 0x0002eaa0 Closure1<CActorManager,const_char_*,const_char_*>::vfunc_2 (30 B): matches/0x0002eaa0.cpp [wrapped: conflict: CActorManager; Closure1]
@@ -3115,6 +3295,9 @@ int Closure1::v2(int a, const char** b, int* out) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>::~Closure6() {}
+#if defined(HULK_PTR64)
+template class Closure6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2eaf0)
+#endif
 
 
 // 0x0002eba0 Closure7<CActorManager,bool,const_char_*,math::Vector,float,const_char_*,const_char_*,bool,const_char_*>::vfunc_0 (30 B): matches/0x0002eba0.cpp
@@ -3130,6 +3313,9 @@ template <> void Closure7<CActorManager, bool, const char *,math::Vector, float,
 
     invoke(this->f_20, y, z, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Closure7<CActorManager, bool, const char *,math::Vector, float, const char *, const char *, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2eba0)
+#endif
 
 
 // 0x0002ebe0 FUN_0002ebe0 (89 B): matches/0x0002ebe0.cpp [wrapped: conflict: Closure2]
@@ -3182,6 +3368,9 @@ template <> void Closure2<CActorManager, void, const char *, bool>::vfunc_2(void
 
     ((*(Actor_2ec60 * *)&this->f_20)->*(*(void (Actor_2ec60::**)(const char *, unsigned char))&this->f_1c))(p->s, p->b);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, void, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ec40)
+#endif
 
 
 // 0x0002ec80 FUN_0002ec80 (89 B): matches/0x0002ec80.cpp [wrapped: conflict: Closure2]
@@ -3235,6 +3424,9 @@ template <> void Closure2<CActorManager, void, float, float>::vfunc_2(void* __p0
 
     ((*(CActorManager_2ed00 * *)&this->f_20)->*(*(void (CActorManager_2ed00::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ece0)
+#endif
 
 namespace fn_f8e68f21 {
 
@@ -3265,6 +3457,9 @@ template <> void Closure1<CActorManager, void, const char *>::vfunc_2(void* __p0
 
     ((*(CActorManager_2ed90 * *)&this->f_20)->*(*(void (CActorManager_2ed90::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CActorManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ed70)
+#endif
 
 
 // 0x0002edf0 Closure0<CActorManager,const_char_*>::vfunc_0 (30 B): matches/0x0002edf0.cpp
@@ -3284,6 +3479,9 @@ template <> void Closure0<CActorManager, const char *>::vfunc_2(void* __p0, void
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CActorManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2edf0)
+#endif
 
 
 // 0x0002ee70 Closure0<CActorManager,int>::vfunc_0 (30 B): matches/0x0002ee70.cpp
@@ -3304,6 +3502,9 @@ template <> void Closure0<CActorManager, int>::vfunc_2(void* __p0, void* __p1, v
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CActorManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ee70)
+#endif
 
 
 // 0x0002eeb0 FUN_0002eeb0 (76 B): matches/0x0002eeb0.cpp [wrapped: conflict: Closure1; Method1]
@@ -3347,6 +3548,9 @@ Closure1::Closure1(const char* p, int y, int x) : Method1(p, x), other(y) {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CActorManager, const char *, int>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CActorManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ef00)
+#endif
 
 
 // 0x0002ef20 Closure1<CActorManager,const_char_*,int>::vfunc_2 (30 B): matches/0x0002ef20.cpp [wrapped: conflict: CActorManager; Closure1]
@@ -3428,6 +3632,9 @@ template <> void Closure2<CActorManager, bool, const char *, const char *>::vfun
     bool value = ((*(CActorManager_2efc0 * *)&this->f_20)->*(*(bool (CActorManager_2efc0::**)(const char *, const char *))&this->f_1c))(args[0], args[1]);
     if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, bool, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2efa0)
+#endif
 
 
 // 0x0002eff0 FUN_0002eff0 (89 B): matches/0x0002eff0.cpp [wrapped: conflict: Closure2]
@@ -3481,6 +3688,9 @@ template <> void Closure2<CActorManager, void, const char *, const char *>::vfun
 
     ((*(CActorManager_2f070 * *)&this->f_20)->*(*(void (CActorManager_2f070::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f050)
+#endif
 
 
 // 0x0002f090 FUN_0002f090 (76 B): matches/0x0002f090.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -3527,6 +3737,9 @@ Closure1::Closure1(void* p, void* v, void* q) : Closure1_2f090(p, q) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CActorManager,math::Vector, const char *>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CActorManager,math::Vector, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f0e0)
+#endif
 
 
 // 0x0002f100 Closure1<CActorManager,math::Vector,const_char_*>::vfunc_2 (70 B): equivalent/0x0002f100.cpp [wrapped: conflict: CActorManager]
@@ -3630,6 +3843,9 @@ template <> void Closure1<CActorManager, void, int>::vfunc_2(void* __p0, void* _
 
     ((*(CActorManager_2f1c0 * *)&this->f_20)->*(*(void (CActorManager_2f1c0::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CActorManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f1a0)
+#endif
 
 
 // 0x0002f1e0 FUN_0002f1e0 (76 B): matches/0x0002f1e0.cpp [wrapped: conflict: Closure1; Method1]
@@ -3678,6 +3894,9 @@ Closure1::Closure1(const char* x, Owner_2f1e0* y, Fn_2f1e0 z) : Method1(x, z) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CActorManager, bool,math::Vector>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CActorManager, bool,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f230)
+#endif
 
 
 // 0x0002f250 Closure1<CActorManager,bool,math::Vector>::vfunc_2 (52 B): matches/0x0002f250.cpp [wrapped: conflict: CActorManager; Closure1; Function]
@@ -3733,6 +3952,9 @@ Closure1_2f290::Closure1_2f290(const char* s, Owner_2f290* x, Fn_2f290 y) : Meth
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CActorManager, const char *,math::Vector>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CActorManager, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f2e0)
+#endif
 
 
 // 0x0002f300 Closure1<CActorManager,const_char_*,math::Vector>::vfunc_2 (52 B): equivalent/0x0002f300.cpp [wrapped: conflict: CActorManager; Closure1]
@@ -3776,6 +3998,9 @@ template <> void Closure7<CActorManager, void, const char *, float, float, float
 
     invoke(this->f_20, y, z, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Closure7<CActorManager, void, const char *, float, float, float, float, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f370)
+#endif
 
 
 // 0x0002f3b0 FUN_0002f3b0 (89 B): matches/0x0002f3b0.cpp [wrapped: conflict: Closure2]
@@ -3829,6 +4054,9 @@ template <> void Closure2<CActorManager, void, int, const char *>::vfunc_2(void*
 
     ((*(CActorManager_2f430 * *)&this->f_20)->*(*(void (CActorManager_2f430::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, void, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f410)
+#endif
 
 
 // 0x0002f450 FUN_0002f450 (89 B): matches/0x0002f450.cpp [wrapped: conflict: Closure2]
@@ -3874,6 +4102,9 @@ Closure2::Closure2(const char* a1, Owner_2f450* a2, Fn_2f450 a3) : FUN_001d0480(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure2<CActorManager, void,math::Vector, float>::~Closure2() {}
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, void,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f4b0)
+#endif
 
 
 // 0x0002f4d0 Closure2<CActorManager,void,math::Vector,float>::vfunc_2 (42 B): matches/0x0002f4d0.cpp [wrapped: conflict: Closure2]
@@ -3949,6 +4180,9 @@ template <> void Closure2<CActorManager, bool, const char *, int>::vfunc_2(void*
     bool value = ((*(CActorManager_2f580 * *)&this->f_20)->*(*(bool (CActorManager_2f580::**)(const char *, int))&this->f_1c))(args->name, args->value);
     if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, bool, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f560)
+#endif
 
 
 // 0x0002f5b0 FUN_0002f5b0 (76 B): matches/0x0002f5b0.cpp [wrapped: conflict: Closure1; Method1]
@@ -4021,6 +4255,9 @@ Closure1::Closure1(const char* mgr, CActorManager_2f5b0* n, Fn_2f5b0 x) : Method
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CActorManager, bool, int>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CActorManager, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f600)
+#endif
 
 
 // 0x0002f620 Closure1<CActorManager,bool,int>::vfunc_2 (30 B): matches/0x0002f620.cpp [wrapped: conflict: Closure1]
@@ -4064,6 +4301,9 @@ template <> void Closure0<CActorManager, bool>::vfunc_2(void* __p0, void* __p1, 
     if (out)
         *out = b;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CActorManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f680)
+#endif
 
 
 // 0x0002f6f0 Closure4<CActorManager,void,const_char_*,float,int,float>::vfunc_0 (30 B): matches/0x0002f6f0.cpp
@@ -4071,6 +4311,9 @@ template <> void Closure0<CActorManager, bool>::vfunc_2(void* __p0, void* __p1, 
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure4<CActorManager, void, const char *, float, int, float>::~Closure4() {}
+#if defined(HULK_PTR64)
+template class Closure4<CActorManager, void, const char *, float, int, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f6f0)
+#endif
 
 
 // 0x0002f710 Closure4<CActorManager,void,const_char_*,float,int,float>::vfunc_2 (45 B): equivalent/0x0002f710.cpp [wrapped: conflict: CActorManager; Closure4]
@@ -4113,6 +4356,9 @@ template <> void Closure4<CActorManager, void, const char *, float, float, float
 
     ((*(CActorManager_2f790 * *)&this->f_20)->*(*(void (CActorManager_2f790::**)(const char *, float, float, float))&this->f_1c))(args->name, args->a, args->b, args->c);
 }
+#if defined(HULK_PTR64)
+template class Closure4<CActorManager, void, const char *, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f770)
+#endif
 
 
 // 0x0002f800 Closure0<CActorManager,void>::vfunc_0 (30 B): matches/0x0002f800.cpp
@@ -4127,6 +4373,9 @@ template <> Closure0<CActorManager, void>::~Closure0() {}
 template <> void Closure0<CActorManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_2f820 * *)&this->f_20)->*(*(void (CActorManager_2f820::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Closure0<CActorManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f800)
+#endif
 
 
 // 0x0002f860 Closure5<CActorManager,void,const_char_*,const_char_*,float,float,float>::vfunc_0 (30 B): matches/0x0002f860.cpp
@@ -4144,6 +4393,9 @@ template <> void Closure5<CActorManager, void, const char *, const char *, float
 
     ((*(CActorManager_2f880 * *)&this->f_20)->*(*(void (CActorManager_2f880::**)(const char *, const char *, float, float, float))&this->f_1c))(args->first, args->second, args->third, args->fourth, args->fifth);
 }
+#if defined(HULK_PTR64)
+template class Closure5<CActorManager, void, const char *, const char *, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f860)
+#endif
 
 
 // 0x0002f8f0 Closure3<CActorManager,bool,const_char_*,float,float>::vfunc_0 (30 B): matches/0x0002f8f0.cpp
@@ -4151,6 +4403,9 @@ template <> void Closure5<CActorManager, void, const char *, const char *, float
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure3<CActorManager, bool, const char *, float, float>::~Closure3() {}
+#if defined(HULK_PTR64)
+template class Closure3<CActorManager, bool, const char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f8f0)
+#endif
 
 
 // 0x0002f980 Closure3<CActorManager,void,const_char_*,float,float>::vfunc_0 (30 B): matches/0x0002f980.cpp
@@ -4158,6 +4413,9 @@ template <> Closure3<CActorManager, bool, const char *, float, float>::~Closure3
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure3<CActorManager, void, const char *, float, float>::~Closure3() {}
+#if defined(HULK_PTR64)
+template class Closure3<CActorManager, void, const char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f980)
+#endif
 
 
 // 0x0002f9c0 FUN_0002f9c0 (89 B): matches/0x0002f9c0.cpp [wrapped: conflict: Closure2]
@@ -4215,6 +4473,9 @@ template <> void Closure2<CActorManager, bool, const char *, float>::vfunc_2(voi
     bool value = ((*(CActorManager_2fa40 * *)&this->f_20)->*(*(bool (CActorManager_2fa40::**)(const char *, float))&this->f_1c))(args->name, args->value);
     if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, bool, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2fa20)
+#endif
 
 
 // 0x0002faa0 Closure3<CActorManager,void,const_char_*,const_char_*,float>::vfunc_0 (30 B): matches/0x0002faa0.cpp
@@ -4222,6 +4483,9 @@ template <> void Closure2<CActorManager, bool, const char *, float>::vfunc_2(voi
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure3<CActorManager, void, const char *, const char *, float>::~Closure3() {}
+#if defined(HULK_PTR64)
+template class Closure3<CActorManager, void, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2faa0)
+#endif
 
 
 // 0x0002fb10 Closure4<CActorManager,void,const_char_*,const_char_*,float,float>::vfunc_0 (30 B): matches/0x0002fb10.cpp
@@ -4246,6 +4510,9 @@ template <> void Closure4<CActorManager, void, const char *, const char *, float
     const Args *args = (const Args *)arguments;
     ((*(CActorManager_2fb30 * *)&this->f_20)->*(*(void (CActorManager_2fb30::**)(const char *, const char *, float, float))&this->f_1c))(args->first, args->second, args->third, args->fourth);
 }
+#if defined(HULK_PTR64)
+template class Closure4<CActorManager, void, const char *, const char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2fb10)
+#endif
 
 
 // 0x0002fb60 FUN_0002fb60 (89 B): matches/0x0002fb60.cpp [wrapped: conflict: Closure2]
@@ -4290,6 +4557,9 @@ Closure2::Closure2(const char* a1, Owner_2fb60* a2, Fn_2fb60 a3) : FUN_001d0480(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure2<CActorManager, const char *, const char *, int>::~Closure2() {}
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, const char *, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2fbc0)
+#endif
 
 
 // 0x0002fbe0 Closure2<CActorManager,const_char_*,const_char_*,int>::vfunc_2 (36 B): equivalent/0x0002fbe0.cpp [wrapped: conflict: ActorMethod; Closure2]
@@ -4358,6 +4628,9 @@ Closure2::Closure2(const char* a1, Owner_2fc10* a2, Fn_2fc10 a3) : FUN_001d0480(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure2<CActorManager, int, const char *, const char *>::~Closure2() {}
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, int, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2fc70)
+#endif
 
 
 // 0x0002fc90 Closure2<CActorManager,int,const_char_*,const_char_*>::vfunc_2 (36 B): equivalent/0x0002fc90.cpp [wrapped: conflict: CActorManager]
@@ -4437,6 +4710,9 @@ template <> void Closure2<CActorManager, const char *, const char *, const char 
     if (result)
         *result = value;
 }
+#if defined(HULK_PTR64)
+template class Closure2<CActorManager, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2fd20)
+#endif
 
 namespace fn_f8e68f21 {
 

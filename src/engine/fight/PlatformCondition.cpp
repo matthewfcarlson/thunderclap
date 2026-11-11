@@ -246,6 +246,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::PlatformCondition>
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<fight::PlatformCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<fight::PlatformCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23ccc0)
+#endif
 
 
 // 0x0023cce0 FUN_0023cce0 (256 B): equivalent/0x0023cce0.cpp [wrapped: conflict: fight::ParamBool]

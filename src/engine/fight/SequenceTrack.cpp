@@ -500,6 +500,9 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::SequenceTrack>::vfunc_
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBranch<fight::SequenceTrack>::~ParamBranch() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBranch<fight::SequenceTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x237ee0)
+#endif
 
 
 // 0x00237f00 fight::ParamIntConstRange<fight::SequenceTrack>::vfunc_0 (30 B): matches/0x00237f00.cpp
@@ -507,6 +510,9 @@ template <> fight::ParamBranch<fight::SequenceTrack>::~ParamBranch() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<fight::SequenceTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<fight::SequenceTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x237f00)
+#endif
 
 
 // 0x00237f20 fight::ParamConditionGroup<fight::SequenceTrack>::vfunc_0 (30 B): matches/0x00237f20.cpp
@@ -514,6 +520,9 @@ template <> fight::ParamIntConstRange<fight::SequenceTrack>::~ParamIntConstRange
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamConditionGroup<fight::SequenceTrack>::~ParamConditionGroup() {}
+#if defined(HULK_PTR64)
+template class fight::ParamConditionGroup<fight::SequenceTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x237f20)
+#endif
 
 
 // 0x00237f40 FUN_00237f40 (213 B): equivalent/0x00237f40.cpp [wrapped: conflict: fight::ParamBranch; fight::ParamConditionGroup; fight::ParamIntConstRange]

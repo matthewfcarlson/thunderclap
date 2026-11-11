@@ -444,6 +444,9 @@ Method3::Method3(const char* p, hulk_intptr v) : Function_1069c0(p, 3) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method3<CPatrolPathManager, bool, const char *, bool, int>::~Method3() {}
+#if defined(HULK_PTR64)
+template class Method3<CPatrolPathManager, bool, const char *, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x106a20)
+#endif
 
 
 // 0x00106a40 Method3<CPatrolPathManager,bool,const_char_*,bool,int>::vfunc_2 (47 B): matches/0x00106a40.cpp [wrapped: conflict: CPatrolPathManager; Function; Method3]
@@ -502,6 +505,9 @@ template <> void Method1<CPatrolPathManager, bool, const char *>::vfunc_2(void* 
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CPatrolPathManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x106ab0)
+#endif
 
 
 // 0x00106af0 FUN_00106af0 (89 B): matches/0x00106af0.cpp [wrapped: conflict: Method3]
@@ -581,6 +587,9 @@ template <> void Method3<CPatrolPathManager, bool, const char *, int,math::Vecto
     bool value = (owner->*(*(bool (CPatrolPathManager_106b70::**)(const char *, int, Vector_106b70))&this->f_1c))(args->name, args->value, args->position);
     if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Method3<CPatrolPathManager, bool, const char *, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x106b50)
+#endif
 
 
 // 0x00106bf0 Closure3<CPatrolPathManager,bool,const_char_*,bool,int>::vfunc_0 (30 B): matches/0x00106bf0.cpp
@@ -588,6 +597,9 @@ template <> void Method3<CPatrolPathManager, bool, const char *, int,math::Vecto
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure3<CPatrolPathManager, bool, const char *, bool, int>::~Closure3() {}
+#if defined(HULK_PTR64)
+template class Closure3<CPatrolPathManager, bool, const char *, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x106bf0)
+#endif
 
 
 // 0x00106c50 FUN_00106c50 (76 B): matches/0x00106c50.cpp [wrapped: conflict: Closure1; Method1]

@@ -629,6 +629,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::PrintCondition>::v
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamString<fight::PrintCondition>::~ParamString() {}
+#if defined(HULK_PTR64)
+template class fight::ParamString<fight::PrintCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x238ed0)
+#endif
 
 
 // 0x00238f00 fight::TrackFactoryCasterTemplate<fight::PrintTrack>::vfunc_0 (36 B): matches/0x00238f00.cpp
@@ -645,6 +648,9 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::PrintTrack>::vfunc_0(v
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<fight::PrintTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<fight::PrintTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x238f30)
+#endif
 
 
 // 0x00238f50 fight::ParamString<fight::PrintTrack>::vfunc_0 (30 B): matches/0x00238f50.cpp
@@ -652,6 +658,9 @@ template <> fight::ParamFloatConstRange<fight::PrintTrack>::~ParamFloatConstRang
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamString<fight::PrintTrack>::~ParamString() {}
+#if defined(HULK_PTR64)
+template class fight::ParamString<fight::PrintTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x238f50)
+#endif
 
 
 // 0x002390f0 fight::PrintTrack::vfunc_10 (86 B): matches/0x002390f0.cpp

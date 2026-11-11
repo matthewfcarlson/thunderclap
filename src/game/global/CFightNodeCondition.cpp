@@ -53,6 +53,9 @@ class Helper_52010 {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<CIntentionSpeedCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<CIntentionSpeedCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51ed0)
+#endif
 
 
 // 0x00051ef0 fight::ParamFloatConstRange<CIntentionSpeedCondition>::vfunc_0 (30 B): matches/0x00051ef0.cpp
@@ -60,6 +63,9 @@ template <> fight::ParamEnumConstList<CIntentionSpeedCondition>::~ParamEnumConst
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CIntentionSpeedCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CIntentionSpeedCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51ef0)
+#endif
 
 
 // 0x00051f10 fight::ParamEnumConstList<CClimbEdgeCondition>::vfunc_0 (30 B): matches/0x00051f10.cpp
@@ -67,6 +73,9 @@ template <> fight::ParamFloatConstRange<CIntentionSpeedCondition>::~ParamFloatCo
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<CClimbEdgeCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<CClimbEdgeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51f10)
+#endif
 
 
 // 0x00051f30 fight::ParamBool<CClimbEdgeCondition>::vfunc_0 (30 B): matches/0x00051f30.cpp
@@ -74,6 +83,9 @@ template <> fight::ParamEnumConstList<CClimbEdgeCondition>::~ParamEnumConstList(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<CClimbEdgeCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<CClimbEdgeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51f30)
+#endif
 
 
 // 0x00051f50 fight::ParamFloatConstRange<CMotionClimbAngleCondition>::vfunc_0 (30 B): matches/0x00051f50.cpp
@@ -81,6 +93,9 @@ template <> fight::ParamBool<CClimbEdgeCondition>::~ParamBool() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CMotionClimbAngleCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CMotionClimbAngleCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51f50)
+#endif
 
 
 // 0x00051f70 fight::ConditionFactoryCasterTemplate<CFightNodeCondition>::vfunc_1 (60 B): matches/0x00051f70.cpp

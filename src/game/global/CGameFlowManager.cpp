@@ -1004,6 +1004,9 @@ template <> void Method0<CGameFlowManager, int>::vfunc_2(void* __p0, void* __p1,
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method0<CGameFlowManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a370)
+#endif
 
 
 // 0x0008a3f0 Method0<CGameFlowManager,const_char_*>::vfunc_0 (30 B): matches/0x0008a3f0.cpp
@@ -1023,6 +1026,9 @@ template <> void Method0<CGameFlowManager, const char *>::vfunc_2(void* __p0, vo
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method0<CGameFlowManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a3f0)
+#endif
 
 
 // 0x0008a470 Method0<CGameFlowManager,bool>::vfunc_0 (30 B): matches/0x0008a470.cpp
@@ -1042,6 +1048,9 @@ template <> void Method0<CGameFlowManager, bool>::vfunc_2(void* __p0, void* __p1
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method0<CGameFlowManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a470)
+#endif
 
 
 // 0x0008a4f0 Method1<CGameFlowManager,void,int>::vfunc_0 (30 B): matches/0x0008a4f0.cpp
@@ -1059,6 +1068,9 @@ template <> void Method1<CGameFlowManager, void, int>::vfunc_2(void* __p0, void*
     Dummy_8a510* d = (Dummy_8a510*)a;
     (d->*(*(void (Dummy_8a510::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CGameFlowManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a4f0)
+#endif
 
 
 // 0x0008a570 Method1<CGameFlowManager,void,const_char_*>::vfunc_0 (30 B): matches/0x0008a570.cpp
@@ -1076,6 +1088,9 @@ template <> void Method1<CGameFlowManager, void, const char *>::vfunc_2(void* __
     Dummy_8a590* d = (Dummy_8a590*)a;
     (d->*(*(void (Dummy_8a590::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CGameFlowManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a570)
+#endif
 
 
 // 0x0008a5f0 Method0<CGameFlowManager,math::Vector>::vfunc_0 (30 B): matches/0x0008a5f0.cpp
@@ -1102,6 +1117,9 @@ template <> void Method0<CGameFlowManager,math::Vector>::vfunc_2(void* __p0, voi
         out->z = r.z;
     }
 }
+#if defined(HULK_PTR64)
+template class Method0<CGameFlowManager,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a5f0)
+#endif
 
 
 // 0x0008a6a0 Method0<CGameFlowManager,float>::vfunc_0 (30 B): matches/0x0008a6a0.cpp
@@ -1109,6 +1127,9 @@ template <> void Method0<CGameFlowManager,math::Vector>::vfunc_2(void* __p0, voi
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method0<CGameFlowManager, float>::~Method0() {}
+#if defined(HULK_PTR64)
+template class Method0<CGameFlowManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a6a0)
+#endif
 
 
 // 0x0008a6c0 Method0<CGameFlowManager,float>::vfunc_2 (34 B): matches/0x0008a6c0.cpp [wrapped: conflict: Function]
@@ -1152,6 +1173,9 @@ template <> void Method1<CGameFlowManager, bool, const char *>::vfunc_2(void* __
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method1<CGameFlowManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a730)
+#endif
 
 
 // 0x0008a7c0 Method2<CGameFlowManager,void,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0008a7c0.cpp
@@ -1171,6 +1195,9 @@ template <> void Method2<CGameFlowManager, void, const char *, const char *>::vf
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_8a7e0::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CGameFlowManager, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a7c0)
+#endif
 
 
 // 0x0008a840 Method1<CGameFlowManager,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0008a840.cpp
@@ -1190,6 +1217,9 @@ template <> void Method1<CGameFlowManager, const char *, const char *>::vfunc_2(
     if (out)
         *out = x;
 }
+#if defined(HULK_PTR64)
+template class Method1<CGameFlowManager, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a840)
+#endif
 
 
 // 0x0008a8c0 Method0<CGameFlowManager,void>::vfunc_0 (30 B): matches/0x0008a8c0.cpp
@@ -1206,6 +1236,9 @@ template <> void Method0<CGameFlowManager, void>::vfunc_2(void* __p0, void* __p1
 
     (a->*(*(void (CActorManager_8a8e0::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Method0<CGameFlowManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a8c0)
+#endif
 
 
 // 0x0008a8f0 FUN_0008a8f0 (706 B): equivalent/0x0008a8f0.cpp [wrapped: conflict: DAT_004dd6ec; World]
@@ -1488,6 +1521,9 @@ template <> void Closure0<CGameFlowManager, int>::vfunc_2(void* __p0, void* __p1
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CGameFlowManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8aef0)
+#endif
 
 
 // 0x0008af70 Closure0<CGameFlowManager,const_char_*>::vfunc_0 (30 B): matches/0x0008af70.cpp
@@ -1508,6 +1544,9 @@ template <> void Closure0<CGameFlowManager, const char *>::vfunc_2(void* __p0, v
     if (out)
         *out = result;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CGameFlowManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8af70)
+#endif
 
 
 // 0x0008aff0 Closure0<CGameFlowManager,bool>::vfunc_0 (30 B): matches/0x0008aff0.cpp
@@ -1528,6 +1567,9 @@ template <> void Closure0<CGameFlowManager, bool>::vfunc_2(void* __p0, void* __p
     if (out)
         *out = b;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CGameFlowManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8aff0)
+#endif
 
 
 // 0x0008b030 FUN_0008b030 (76 B): matches/0x0008b030.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -1584,6 +1626,9 @@ template <> void Closure1<CGameFlowManager, void, int>::vfunc_2(void* __p0, void
 
     ((*(CActorManager_8b0a0 * *)&this->f_20)->*(*(void (CActorManager_8b0a0::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CGameFlowManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8b080)
+#endif
 
 
 // 0x0008b0c0 FUN_0008b0c0 (76 B): matches/0x0008b0c0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -1638,6 +1683,9 @@ template <> void Closure1<CGameFlowManager, void, const char *>::vfunc_2(void* _
 
     ((*(CActorManager_8b130 * *)&this->f_20)->*(*(void (CActorManager_8b130::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CGameFlowManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8b110)
+#endif
 
 
 // 0x0008b190 Closure0<CGameFlowManager,math::Vector>::vfunc_0 (30 B): matches/0x0008b190.cpp
@@ -1657,6 +1705,9 @@ template <> void Closure0<CGameFlowManager,math::Vector>::vfunc_2(void* __p0, vo
     math::Vector_8b1b0 result = ((*(CGameFlowManager_8b1b0 * *)&this->f_20)->*(*(math::Vector_8b1b0 *(CGameFlowManager_8b1b0::**)(math::Vector_8b1b0 *))&this->f_1c))(&temporary)[0];
     if (output) *output = result;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CGameFlowManager,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8b190)
+#endif
 
 
 // 0x0008b230 Closure0<CGameFlowManager,float>::vfunc_0 (30 B): matches/0x0008b230.cpp
@@ -1677,6 +1728,9 @@ template <> void Closure0<CGameFlowManager, float>::vfunc_2(void* __p0, void* __
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CGameFlowManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8b230)
+#endif
 
 namespace fn_f53af43c {
 
@@ -1694,6 +1748,9 @@ Closure1_8b280::Closure1_8b280(const char* name, void* ctx, void* method) : Meth
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure1<CGameFlowManager, bool, const char *>::~Closure1() {}
+#if defined(HULK_PTR64)
+template class Closure1<CGameFlowManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8b2d0)
+#endif
 
 
 // 0x0008b2f0 Closure1<CGameFlowManager,bool,const_char_*>::vfunc_2 (30 B): matches/0x0008b2f0.cpp [wrapped: conflict: Closure1]

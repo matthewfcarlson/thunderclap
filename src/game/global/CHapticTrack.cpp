@@ -217,6 +217,9 @@ template <> bool fight::ParamBool<CHapticTrack>::vfunc_2() {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CHapticTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CHapticTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5d330)
+#endif
 
 
 // 0x0005d350 fight::ParamBool<CHapticTrack>::vfunc_0 (30 B): matches/0x0005d350.cpp
@@ -224,4 +227,7 @@ template <> fight::ParamFloatConstRange<CHapticTrack>::~ParamFloatConstRange() {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<CHapticTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<CHapticTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5d350)
+#endif
 

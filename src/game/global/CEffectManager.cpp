@@ -149,6 +149,9 @@ template <> void Method2<CEffectManager, int, const char *,math::Vector>::vfunc_
     int value = (manager->*(*(int (CEffectManager_1f76e0::**)(const char *, math::Vector_1f76e0))&this->f_1c))(args->name, args->position);
     if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Method2<CEffectManager, int, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f76c0)
+#endif
 
 namespace fn_f919337e {
 
@@ -182,6 +185,9 @@ template <> void Method3<CEffectManager, int, const char *,math::Vector,math::Ve
     if (result)
         *result = r;
 }
+#if defined(HULK_PTR64)
+template class Method3<CEffectManager, int, const char *,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7780)
+#endif
 
 
 // 0x001f7860 Method2<CEffectManager,bool,int,math::Vector>::vfunc_0 (30 B): matches/0x001f7860.cpp
@@ -200,6 +206,9 @@ template <> void Method2<CEffectManager, bool, int,math::Vector>::vfunc_2(void* 
     bool value = (object->*(*(bool (CEffectManager_1f7880::**)(int, math::Vector_1f7880))&this->f_1c))(args->id, args->position);
     if (result) *result = value;
 }
+#if defined(HULK_PTR64)
+template class Method2<CEffectManager, bool, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7860)
+#endif
 
 namespace fn_f919337e {
 
@@ -243,6 +252,9 @@ template <> void Method3<CEffectManager, unsigned int, char *, float, float>::vf
     if (result)
         *result = r;
 }
+#if defined(HULK_PTR64)
+template class Method3<CEffectManager, unsigned int, char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7920)
+#endif
 
 
 // 0x001f79c0 Method0<CEffectManager,float>::vfunc_0 (30 B): matches/0x001f79c0.cpp
@@ -250,6 +262,9 @@ template <> void Method3<CEffectManager, unsigned int, char *, float, float>::vf
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method0<CEffectManager, float>::~Method0() {}
+#if defined(HULK_PTR64)
+template class Method0<CEffectManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f79c0)
+#endif
 
 
 // 0x001f79e0 Method0<CEffectManager,float>::vfunc_2 (34 B): matches/0x001f79e0.cpp [wrapped: conflict: Function]
@@ -281,6 +296,9 @@ void Method0Base_1f79e0::f2(void* a, void* b, float* out) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method1<CEffectManager, unsigned int, char *>::~Method1() {}
+#if defined(HULK_PTR64)
+template class Method1<CEffectManager, unsigned int, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7a50)
+#endif
 
 
 // 0x001f7a70 Method1<CEffectManager,unsigned_int,char_*>::vfunc_2 (29 B): matches/0x001f7a70.cpp [wrapped: conflict: Function; Method1]
@@ -335,6 +353,9 @@ template <> void Method1<CEffectManager, bool, bool>::vfunc_2(void* __p0, void* 
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method1<CEffectManager, bool, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7ad0)
+#endif
 
 
 // 0x001f7b20 FUN_001f7b20 (89 B): matches/0x001f7b20.cpp [wrapped: conflict: Closure2]
@@ -380,6 +401,9 @@ Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure2<CEffectManager, int, const char *,math::Vector>::~Closure2() {}
+#if defined(HULK_PTR64)
+template class Closure2<CEffectManager, int, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7b80)
+#endif
 
 
 // 0x001f7ba0 Closure2<CEffectManager,int,const_char_*,math::Vector>::vfunc_2 (61 B): equivalent/0x001f7ba0.cpp [wrapped: conflict: Arguments; CEffectManager; Closure2]
@@ -410,6 +434,9 @@ void Closure2::vfunc_2(void* unused, Arguments* args, int* result) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure3<CEffectManager, int, const char *,math::Vector,math::Vector>::~Closure3() {}
+#if defined(HULK_PTR64)
+template class Closure3<CEffectManager, int, const char *,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7c10)
+#endif
 
 
 // 0x001f7c30 Closure3<CEffectManager,int,const_char_*,math::Vector,math::Vector>::vfunc_2 (12 B): matches/0x001f7c30.cpp [wrapped: conflict: Closure2; Function; Method2]
@@ -485,6 +512,9 @@ Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure2<CEffectManager, bool, int,math::Vector>::~Closure2() {}
+#if defined(HULK_PTR64)
+template class Closure2<CEffectManager, bool, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7ca0)
+#endif
 
 
 // 0x001f7cc0 Closure2<CEffectManager,bool,int,math::Vector>::vfunc_2 (61 B): equivalent/0x001f7cc0.cpp [wrapped: conflict: CEffectManager; Closure2; EffectArguments]

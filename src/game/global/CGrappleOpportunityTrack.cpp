@@ -2439,6 +2439,9 @@ void ParamBranch::vfunc_6(void* p) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CGrappleLocoStrafe4Track>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CGrappleLocoStrafe4Track>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5bfa0)
+#endif
 
 
 // 0x0005bfc0 fight::ParamIntConstRange<CGrappleLocoStrafe4Track>::vfunc_0 (30 B): matches/0x0005bfc0.cpp
@@ -2446,6 +2449,9 @@ template <> fight::ParamFloatConstRange<CGrappleLocoStrafe4Track>::~ParamFloatCo
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CGrappleLocoStrafe4Track>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CGrappleLocoStrafe4Track>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5bfc0)
+#endif
 
 
 // 0x0005bfe0 fight::ParamFloatConstRange<CGrappleAttachTrack>::vfunc_0 (30 B): matches/0x0005bfe0.cpp
@@ -2453,6 +2459,9 @@ template <> fight::ParamIntConstRange<CGrappleLocoStrafe4Track>::~ParamIntConstR
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CGrappleAttachTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CGrappleAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5bfe0)
+#endif
 
 
 // 0x0005c000 fight::ParamBool<CGrappleAttachTrack>::vfunc_0 (30 B): matches/0x0005c000.cpp
@@ -2460,6 +2469,9 @@ template <> fight::ParamFloatConstRange<CGrappleAttachTrack>::~ParamFloatConstRa
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<CGrappleAttachTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<CGrappleAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c000)
+#endif
 
 
 // 0x0005c020 fight::ParamVector<CGrappleAttachTrack>::vfunc_0 (30 B): matches/0x0005c020.cpp
@@ -2467,6 +2479,9 @@ template <> fight::ParamBool<CGrappleAttachTrack>::~ParamBool() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamVector<CGrappleAttachTrack>::~ParamVector() {}
+#if defined(HULK_PTR64)
+template class fight::ParamVector<CGrappleAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c020)
+#endif
 
 
 // 0x0005c040 fight::ParamIntConstRange<CGrappleAttachTrack>::vfunc_0 (30 B): matches/0x0005c040.cpp
@@ -2474,6 +2489,9 @@ template <> fight::ParamVector<CGrappleAttachTrack>::~ParamVector() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CGrappleAttachTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CGrappleAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c040)
+#endif
 
 
 // 0x0005c060 fight::ParamFloatConstRange<CGrappleSwapTrack>::vfunc_0 (30 B): matches/0x0005c060.cpp
@@ -2481,6 +2499,9 @@ template <> fight::ParamIntConstRange<CGrappleAttachTrack>::~ParamIntConstRange(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CGrappleSwapTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CGrappleSwapTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c060)
+#endif
 
 
 // 0x0005c080 fight::ParamBool<CGrappleSwapTrack>::vfunc_0 (30 B): matches/0x0005c080.cpp
@@ -2488,6 +2509,9 @@ template <> fight::ParamFloatConstRange<CGrappleSwapTrack>::~ParamFloatConstRang
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<CGrappleSwapTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<CGrappleSwapTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c080)
+#endif
 
 
 // 0x0005c0a0 fight::ParamVector<CGrappleSwapTrack>::vfunc_0 (30 B): matches/0x0005c0a0.cpp
@@ -2495,6 +2519,9 @@ template <> fight::ParamBool<CGrappleSwapTrack>::~ParamBool() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamVector<CGrappleSwapTrack>::~ParamVector() {}
+#if defined(HULK_PTR64)
+template class fight::ParamVector<CGrappleSwapTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c0a0)
+#endif
 
 
 // 0x0005c0c0 fight::ParamIntConstRange<CGrappleSwapTrack>::vfunc_0 (30 B): matches/0x0005c0c0.cpp
@@ -2502,6 +2529,9 @@ template <> fight::ParamVector<CGrappleSwapTrack>::~ParamVector() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CGrappleSwapTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CGrappleSwapTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c0c0)
+#endif
 
 
 // 0x0005c0e0 fight::ParamFloatConstRange<CGrappleDetachTrack>::vfunc_0 (30 B): matches/0x0005c0e0.cpp
@@ -2509,6 +2539,9 @@ template <> fight::ParamIntConstRange<CGrappleSwapTrack>::~ParamIntConstRange() 
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CGrappleDetachTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CGrappleDetachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c0e0)
+#endif
 
 
 // 0x0005c100 fight::ParamFloatConstRange<CGrappleOpportunityTrack>::vfunc_0 (30 B): matches/0x0005c100.cpp
@@ -2516,6 +2549,9 @@ template <> fight::ParamFloatConstRange<CGrappleDetachTrack>::~ParamFloatConstRa
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CGrappleOpportunityTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CGrappleOpportunityTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c100)
+#endif
 
 
 // 0x0005c120 fight::ParamBranch<CGrappleOpportunityTrack>::vfunc_0 (30 B): matches/0x0005c120.cpp
@@ -2523,6 +2559,9 @@ template <> fight::ParamFloatConstRange<CGrappleOpportunityTrack>::~ParamFloatCo
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBranch<CGrappleOpportunityTrack>::~ParamBranch() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBranch<CGrappleOpportunityTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c120)
+#endif
 
 
 // 0x0005c140 fight::ParamIntConstRange<CGrappleOpportunityTrack>::vfunc_0 (30 B): matches/0x0005c140.cpp
@@ -2530,6 +2569,9 @@ template <> fight::ParamBranch<CGrappleOpportunityTrack>::~ParamBranch() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CGrappleOpportunityTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CGrappleOpportunityTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c140)
+#endif
 
 
 // 0x0005c160 fight::ParamConditionGroup<CGrappleOpportunityTrack>::vfunc_0 (30 B): matches/0x0005c160.cpp
@@ -2537,6 +2579,9 @@ template <> fight::ParamIntConstRange<CGrappleOpportunityTrack>::~ParamIntConstR
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamConditionGroup<CGrappleOpportunityTrack>::~ParamConditionGroup() {}
+#if defined(HULK_PTR64)
+template class fight::ParamConditionGroup<CGrappleOpportunityTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c160)
+#endif
 
 
 // 0x0005c180 fight::ParamBranch<CGrappleSequenceTrack>::vfunc_0 (30 B): matches/0x0005c180.cpp
@@ -2544,6 +2589,9 @@ template <> fight::ParamConditionGroup<CGrappleOpportunityTrack>::~ParamConditio
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBranch<CGrappleSequenceTrack>::~ParamBranch() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBranch<CGrappleSequenceTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c180)
+#endif
 
 
 // 0x0005c1a0 fight::ParamIntConstRange<CGrappleSequenceTrack>::vfunc_0 (30 B): matches/0x0005c1a0.cpp
@@ -2551,6 +2599,9 @@ template <> fight::ParamBranch<CGrappleSequenceTrack>::~ParamBranch() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CGrappleSequenceTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CGrappleSequenceTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c1a0)
+#endif
 
 
 // 0x0005c1c0 fight::ParamConditionGroup<CGrappleSequenceTrack>::vfunc_0 (30 B): matches/0x0005c1c0.cpp
@@ -2558,6 +2609,9 @@ template <> fight::ParamIntConstRange<CGrappleSequenceTrack>::~ParamIntConstRang
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamConditionGroup<CGrappleSequenceTrack>::~ParamConditionGroup() {}
+#if defined(HULK_PTR64)
+template class fight::ParamConditionGroup<CGrappleSequenceTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c1c0)
+#endif
 
 
 // 0x0005c1e0 fight::ParamFloatConstRange<CGrabTrack>::vfunc_0 (30 B): matches/0x0005c1e0.cpp
@@ -2565,6 +2619,9 @@ template <> fight::ParamConditionGroup<CGrappleSequenceTrack>::~ParamConditionGr
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CGrabTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CGrabTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c1e0)
+#endif
 
 
 // 0x0005c200 fight::ParamVector<CGrabTrack>::vfunc_0 (30 B): matches/0x0005c200.cpp
@@ -2572,6 +2629,9 @@ template <> fight::ParamFloatConstRange<CGrabTrack>::~ParamFloatConstRange() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamVector<CGrabTrack>::~ParamVector() {}
+#if defined(HULK_PTR64)
+template class fight::ParamVector<CGrabTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c200)
+#endif
 
 
 // 0x0005c220 fight::ParamIntConstRange<CGrabTrack>::vfunc_0 (30 B): matches/0x0005c220.cpp
@@ -2579,6 +2639,9 @@ template <> fight::ParamVector<CGrabTrack>::~ParamVector() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CGrabTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CGrabTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c220)
+#endif
 
 
 // 0x0005c240 fight::ParamBool<CGrabTrack>::vfunc_0 (30 B): matches/0x0005c240.cpp
@@ -2586,6 +2649,9 @@ template <> fight::ParamIntConstRange<CGrabTrack>::~ParamIntConstRange() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<CGrabTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<CGrabTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c240)
+#endif
 
 
 // 0x0005c260 fight::ParamBranch<CGrabTrack>::vfunc_0 (30 B): matches/0x0005c260.cpp
@@ -2593,6 +2659,9 @@ template <> fight::ParamBool<CGrabTrack>::~ParamBool() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBranch<CGrabTrack>::~ParamBranch() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBranch<CGrabTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c260)
+#endif
 
 
 // 0x0005c490 FUN_0005c490 (213 B): equivalent/0x0005c490.cpp [wrapped: conflict: fight::ParamBranch; fight::ParamConditionGroup; fight::ParamIntConstRange]
@@ -2765,6 +2834,9 @@ void ParamBranch::vfunc_6(void* p) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamName<CGrappleLocoStrafe4Track>::~ParamName() {}
+#if defined(HULK_PTR64)
+template class fight::ParamName<CGrappleLocoStrafe4Track>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c630)
+#endif
 
 
 // 0x0005c650 fight::ParamNameConstList<CGrappleAttachTrack>::vfunc_0 (30 B): matches/0x0005c650.cpp
@@ -2772,6 +2844,9 @@ template <> fight::ParamName<CGrappleLocoStrafe4Track>::~ParamName() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameConstList<CGrappleAttachTrack>::~ParamNameConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameConstList<CGrappleAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c650)
+#endif
 
 
 // 0x0005c670 fight::ParamNameConstList<CGrappleSwapTrack>::vfunc_0 (30 B): matches/0x0005c670.cpp
@@ -2779,6 +2854,9 @@ template <> fight::ParamNameConstList<CGrappleAttachTrack>::~ParamNameConstList(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameConstList<CGrappleSwapTrack>::~ParamNameConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameConstList<CGrappleSwapTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c670)
+#endif
 
 
 // 0x0005c690 fight::ParamNameConstList<CGrabTrack>::vfunc_0 (30 B): matches/0x0005c690.cpp
@@ -2786,4 +2864,7 @@ template <> fight::ParamNameConstList<CGrappleSwapTrack>::~ParamNameConstList() 
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameConstList<CGrabTrack>::~ParamNameConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameConstList<CGrabTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x5c690)
+#endif
 

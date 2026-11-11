@@ -1062,6 +1062,9 @@ void FUN_001b3950(int unused, int* p, int unused2, Fn fn) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Function2<void, int,math::Vector>::~Function2() {}
+#if defined(HULK_PTR64)
+template class Function2<void, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b3990)
+#endif
 
 
 // 0x001b39b0 Function4<void,int,const_char_*,const_char_*,float>::vfunc_0 (30 B): matches/0x001b39b0.cpp
@@ -1069,6 +1072,9 @@ template <> Function2<void, int,math::Vector>::~Function2() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Function4<void, int, const char *, const char *, float>::~Function4() {}
+#if defined(HULK_PTR64)
+template class Function4<void, int, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b39b0)
+#endif
 
 
 // 0x001b39d0 Function5<void,int,int,float,float,float>::vfunc_0 (30 B): matches/0x001b39d0.cpp
@@ -1076,6 +1082,9 @@ template <> Function4<void, int, const char *, const char *, float>::~Function4(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Function5<void, int, int, float, float, float>::~Function5() {}
+#if defined(HULK_PTR64)
+template class Function5<void, int, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b39d0)
+#endif
 
 namespace fn_f5af65ff {
 
@@ -1859,6 +1868,9 @@ template <> void Method3<CCollisionManager, void, float, float, float>::vfunc_2(
     *(volatile int*)&args = *(int*)p;
     (obj->*(*(void (CCollisionManager_1b5c40::**)(float, float, float))&this->f_1c))(*(float*)&args, p[1], p[2]);
 }
+#if defined(HULK_PTR64)
+template class Method3<CCollisionManager, void, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b5c20)
+#endif
 
 
 // 0x001b5cc0 Method2<CCollisionManager,bool,math::Vector,int>::vfunc_0 (30 B): matches/0x001b5cc0.cpp
@@ -1877,6 +1889,9 @@ template <> void Method2<CCollisionManager, bool,math::Vector, int>::vfunc_2(voi
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method2<CCollisionManager, bool,math::Vector, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b5cc0)
+#endif
 
 namespace fn_f5af65ff {
 

@@ -380,6 +380,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::CommentCondition>:
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamString<fight::CommentCondition>::~ParamString() {}
+#if defined(HULK_PTR64)
+template class fight::ParamString<fight::CommentCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23dc10)
+#endif
 
 
 // 0x0023dc40 fight::TrackFactoryCasterTemplate<fight::CommentTrack>::vfunc_0 (36 B): matches/0x0023dc40.cpp
@@ -396,6 +399,9 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::CommentTrack>::vfunc_0
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamString<fight::CommentTrack>::~ParamString() {}
+#if defined(HULK_PTR64)
+template class fight::ParamString<fight::CommentTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23dc70)
+#endif
 
 namespace fn_f40d2254 {
 

@@ -458,6 +458,9 @@ template <> void Method2<CFMVManager, void, const char *, int>::vfunc_2(void* __
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1b7b60::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CFMVManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b7b40)
+#endif
 
 
 // 0x001b7bc0 Method0<CFMVManager,bool>::vfunc_0 (30 B): matches/0x001b7bc0.cpp
@@ -477,6 +480,9 @@ template <> void Method0<CFMVManager, bool>::vfunc_2(void* __p0, void* __p1, voi
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method0<CFMVManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b7bc0)
+#endif
 
 namespace fn_ff8e53b8 {
 
@@ -510,6 +516,9 @@ template <> void Method4<CFMVManager, void, float, float, float, float>::vfunc_2
     float f1 = *p++;
     (obj->*(*(void (CFMVManager_1b7c90::**)(float, float, float, float))&this->f_1c))(f0, f1, p[0], p[1]);
 }
+#if defined(HULK_PTR64)
+template class Method4<CFMVManager, void, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b7c70)
+#endif
 
 namespace fn_ff8e53b8 {
 

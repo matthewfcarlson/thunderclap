@@ -13,6 +13,9 @@ namespace fn_fb4071e0 {} using namespace fn_fb4071e0;
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<CSmartPropGrabbableNameCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<CSmartPropGrabbableNameCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51b10)
+#endif
 
 
 // 0x00051b30 fight::ParamEnumConstList<CSmartPropCSMableCondition>::vfunc_0 (30 B): matches/0x00051b30.cpp
@@ -20,6 +23,9 @@ template <> fight::ParamEnumConstList<CSmartPropGrabbableNameCondition>::~ParamE
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<CSmartPropCSMableCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<CSmartPropCSMableCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51b30)
+#endif
 
 
 // 0x00051b50 fight::ParamEnumConstList<CSmartPropStateCondition>::vfunc_0 (30 B): matches/0x00051b50.cpp
@@ -27,6 +33,9 @@ template <> fight::ParamEnumConstList<CSmartPropCSMableCondition>::~ParamEnumCon
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<CSmartPropStateCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<CSmartPropStateCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51b50)
+#endif
 
 
 // 0x00051b70 fight::ParamIntConstRange<CSmartPropStateCondition>::vfunc_0 (30 B): matches/0x00051b70.cpp
@@ -34,6 +43,9 @@ template <> fight::ParamEnumConstList<CSmartPropStateCondition>::~ParamEnumConst
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CSmartPropStateCondition>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CSmartPropStateCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51b70)
+#endif
 
 
 // 0x00051b90 fight::ParamEnumConstList<CPropActorStateCondition>::vfunc_0 (30 B): matches/0x00051b90.cpp
@@ -41,6 +53,9 @@ template <> fight::ParamIntConstRange<CSmartPropStateCondition>::~ParamIntConstR
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<CPropActorStateCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<CPropActorStateCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51b90)
+#endif
 
 
 // 0x00051bb0 fight::ParamIntConstRange<CPropActorStateCondition>::vfunc_0 (30 B): matches/0x00051bb0.cpp
@@ -48,6 +63,9 @@ template <> fight::ParamEnumConstList<CPropActorStateCondition>::~ParamEnumConst
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CPropActorStateCondition>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CPropActorStateCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51bb0)
+#endif
 
 
 // 0x00051bd0 fight::ParamEnumConstList<CGrappleSizeCondition>::vfunc_0 (30 B): matches/0x00051bd0.cpp
@@ -55,6 +73,9 @@ template <> fight::ParamIntConstRange<CPropActorStateCondition>::~ParamIntConstR
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<CGrappleSizeCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<CGrappleSizeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51bd0)
+#endif
 
 
 // 0x00051bf0 fight::ParamString<CLuaNumberCondition>::vfunc_0 (30 B): matches/0x00051bf0.cpp
@@ -62,6 +83,9 @@ template <> fight::ParamEnumConstList<CGrappleSizeCondition>::~ParamEnumConstLis
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamString<CLuaNumberCondition>::~ParamString() {}
+#if defined(HULK_PTR64)
+template class fight::ParamString<CLuaNumberCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51bf0)
+#endif
 
 
 // 0x00051c10 fight::ParamEnumConstList<CLuaNumberCondition>::vfunc_0 (30 B): matches/0x00051c10.cpp
@@ -69,6 +93,9 @@ template <> fight::ParamString<CLuaNumberCondition>::~ParamString() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<CLuaNumberCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<CLuaNumberCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51c10)
+#endif
 
 
 // 0x00051c30 fight::ParamFloatConstRange<CLuaNumberCondition>::vfunc_0 (30 B): matches/0x00051c30.cpp
@@ -76,4 +103,7 @@ template <> fight::ParamEnumConstList<CLuaNumberCondition>::~ParamEnumConstList(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CLuaNumberCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CLuaNumberCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x51c30)
+#endif
 

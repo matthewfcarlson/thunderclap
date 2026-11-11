@@ -4994,6 +4994,9 @@ void Function3::vfunc_2(int, void* arg, int) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Function7<void, int, float, float, float, float, float, float>::~Function7() {}
+#if defined(HULK_PTR64)
+template class Function7<void, int, float, float, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x3f030)
+#endif
 
 
 // 0x0003f050 Function3<void,const_char_*,const_char_*,float>::vfunc_0 (30 B): matches/0x0003f050.cpp
@@ -5001,6 +5004,9 @@ template <> Function7<void, int, float, float, float, float, float, float>::~Fun
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Function3<void, const char *, const char *, float>::~Function3() {}
+#if defined(HULK_PTR64)
+template class Function3<void, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x3f050)
+#endif
 
 
 // 0x0003f090 FUN_0003f090 (841 B): equivalent/0x0003f090.cpp [wrapped: conflict: CCharacter; FUN_001c3d90; World]

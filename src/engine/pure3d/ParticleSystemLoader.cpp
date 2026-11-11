@@ -2148,6 +2148,9 @@ ParticleAllocatorTemplate<SpriteParticle>::ParticleAllocatorTemplate(unsigned in
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> pure3d::ParticleAllocatorTemplate<pure3d::SpriteParticle>::~ParticleAllocatorTemplate() {}
+#if defined(HULK_PTR64)
+template class pure3d::ParticleAllocatorTemplate<pure3d::SpriteParticle>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ac550)
+#endif
 
 namespace fn_f07ae39e {
 

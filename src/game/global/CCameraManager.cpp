@@ -3138,6 +3138,9 @@ template <> void Method6<CCameraManager, void, float, float, float, float, float
 
     FUN_0009a7a0(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method6<CCameraManager, void, float, float, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9a760)
+#endif
 
 namespace fn_f5ef2b3f {
 
@@ -3180,6 +3183,9 @@ template <> void Method4<CCameraManager, void, float, float,math::Vector, float>
 
     (manager->*(*(void (CCameraManager_9a890::**)(float, float, Vector_9a890, float))&this->f_1c))(args->first,args->second,args->direction,args->last);
 }
+#if defined(HULK_PTR64)
+template class Method4<CCameraManager, void, float, float,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9a870)
+#endif
 
 namespace fn_f5ef2b3f {
 
@@ -3202,6 +3208,9 @@ Method3_9a8e0::Method3_9a8e0(void* p, hulk_intptr value) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method3<CCameraManager, void, float, float, bool>::~Method3() {}
+#if defined(HULK_PTR64)
+template class Method3<CCameraManager, void, float, float, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9a940)
+#endif
 
 
 // 0x0009a9e0 Method2<CCameraManager,void,float,float>::vfunc_0 (30 B): matches/0x0009a9e0.cpp
@@ -3221,6 +3230,9 @@ template <> void Method2<CCameraManager, void, float, float>::vfunc_2(void* __p0
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_9aa00::**)(const char *, int))&this->f_1c))(s, x);
 }
+#if defined(HULK_PTR64)
+template class Method2<CCameraManager, void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9a9e0)
+#endif
 
 
 // 0x0009aa20 FUN_0009aa20 (102 B): matches/0x0009aa20.cpp [wrapped: conflict: CCameraManager; Method4]
@@ -3289,6 +3301,9 @@ template<> Method4<CCameraManager, void, float, float, float, float>::Method4(co
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method4<CCameraManager, void, float, float, float, float>::~Method4() {}
+#if defined(HULK_PTR64)
+template class Method4<CCameraManager, void, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9aa90)
+#endif
 
 
 // 0x0009aab0 Method4<CCameraManager,void,float,float,float,float>::vfunc_2 (53 B): matches/0x0009aab0.cpp [wrapped: conflict: CCameraManager; Function; Method4]
@@ -3341,6 +3356,9 @@ Method3_9aaf0::Method3_9aaf0(hulk_intptr a, hulk_intptr b) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method3<CCameraManager, void, bool, bool, bool>::~Method3() {}
+#if defined(HULK_PTR64)
+template class Method3<CCameraManager, void, bool, bool, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9ab50)
+#endif
 
 
 // 0x0009ab70 Method3<CCameraManager,void,bool,bool,bool>::vfunc_2 (38 B): equivalent/0x0009ab70.cpp [wrapped: conflict: Method3]
@@ -3383,6 +3401,9 @@ Method4_9aba0* Method4_9aba0::Init(const char* a, Fn_9aba0 p) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method4<CCameraManager, void, bool, bool, bool, float>::~Method4() {}
+#if defined(HULK_PTR64)
+template class Method4<CCameraManager, void, bool, bool, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9ac10)
+#endif
 
 
 // 0x0009ac30 Method4<CCameraManager,void,bool,bool,bool,float>::vfunc_2 (54 B): matches/0x0009ac30.cpp [wrapped: conflict: CCameraManager; Function; Method4]
@@ -3501,6 +3522,9 @@ template <> void Method4<CCameraManager, void, bool, bool, bool, bool>::vfunc_2(
                          ((hulk_uintptr)args & 0xffffff00u) | args[4],
                          args[8], args[12]);
 }
+#if defined(HULK_PTR64)
+template class Method4<CCameraManager, void, bool, bool, bool, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9ace0)
+#endif
 
 namespace fn_f5ef2b3f {
 
@@ -3536,6 +3560,9 @@ template <> void Method5<CCameraManager, void, bool, bool, bool, bool, float>::v
 
     FUN_0009ae00(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method5<CCameraManager, void, bool, bool, bool, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9adc0)
+#endif
 
 
 // 0x0009ae00 FUN_0009ae00 (69 B): equivalent/0x0009ae00.cpp [wrapped: conflict: Callback]
@@ -3590,6 +3617,9 @@ template <> void Method7<CCameraManager, void, bool, bool, bool, bool, bool, boo
 
     FUN_0009af20(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9aee0)
+#endif
 
 namespace fn_f5ef2b3f {
 
@@ -3616,6 +3646,9 @@ template <> void Method0<CCameraManager, void>::vfunc_2(void* __p0, void* __p1, 
 
     (a->*(*(void (CActorManager_9aff0::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Method0<CCameraManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9afd0)
+#endif
 
 
 // 0x0009b040 Method0<CCameraManager,bool>::vfunc_0 (30 B): matches/0x0009b040.cpp
@@ -3635,6 +3668,9 @@ template <> void Method0<CCameraManager, bool>::vfunc_2(void* __p0, void* __p1, 
     if (out)
         *out = r;
 }
+#if defined(HULK_PTR64)
+template class Method0<CCameraManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b040)
+#endif
 
 namespace fn_f5ef2b3f {
 
@@ -3673,6 +3709,9 @@ template <> void Method6<CCameraManager, void, int, int, float, int, int, float>
 
     FUN_0009b140(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method6<CCameraManager, void, int, int, float, int, int, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b100)
+#endif
 
 
 // 0x0009b140 FUN_0009b140 (58 B): equivalent/0x0009b140.cpp [wrapped: conflict: Callback]
@@ -3706,6 +3745,9 @@ template <> void Method1<CCameraManager, void, float>::vfunc_2(void* __p0, void*
     Dummy_9b1e0* d = (Dummy_9b1e0*)a;
     (d->*(*(void (Dummy_9b1e0::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CCameraManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b1c0)
+#endif
 
 
 // 0x0009b250 Method2<CCameraManager,void,math::Vector,math::Vector>::vfunc_0 (30 B): matches/0x0009b250.cpp
@@ -3723,6 +3765,9 @@ template <> void Method2<CCameraManager, void,math::Vector,math::Vector>::vfunc_
 
     (manager->*(*(void (CCameraManager_9b270::**)(math::Vector_9b270, math::Vector_9b270))&this->f_1c))(args[0], args[1]);
 }
+#if defined(HULK_PTR64)
+template class Method2<CCameraManager, void,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b250)
+#endif
 
 
 // 0x0009b2f0 Method1<CCameraManager,void,bool>::vfunc_0 (30 B): matches/0x0009b2f0.cpp
@@ -3739,6 +3784,9 @@ template <> void Method1<CCameraManager, void, bool>::vfunc_2(void* __p0, void* 
 
     (obj->*(*(MFn_9b310 *)&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CCameraManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b2f0)
+#endif
 
 namespace fn_f5ef2b3f {
 
@@ -3763,6 +3811,9 @@ Method4_9b330* Method4_9b330::Fn(const char* a, Fn_9b330 b) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method4<CCameraManager, void, int, float, float, float>::~Method4() {}
+#if defined(HULK_PTR64)
+template class Method4<CCameraManager, void, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b3a0)
+#endif
 
 
 // 0x0009b3c0 Method4<CCameraManager,void,int,float,float,float>::vfunc_2 (46 B): equivalent/0x0009b3c0.cpp [wrapped: conflict: Args; CCameraManager; Function; Method4]
@@ -3810,6 +3861,9 @@ template <> void Method0<CCameraManager,math::Vector>::vfunc_2(void* __p0, void*
         out->z = r.z;
     }
 }
+#if defined(HULK_PTR64)
+template class Method0<CCameraManager,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b430)
+#endif
 
 namespace fn_f5ef2b3f {
 
@@ -3845,6 +3899,9 @@ template <> void Method6<CCameraManager, bool, float, float, float, float, float
 
     FUN_0009b560(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method6<CCameraManager, bool, float, float, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b520)
+#endif
 
 namespace fn_f5ef2b3f {
 
@@ -3877,6 +3934,9 @@ template <> void Method1<CCameraManager, void, const char *>::vfunc_2(void* __p0
     Dummy_9b630* d = (Dummy_9b630*)a;
     (d->*(*(void (Dummy_9b630::**)(void *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Method1<CCameraManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b610)
+#endif
 
 
 // 0x0009b690 Method0<CCameraManager,const_char_*>::vfunc_0 (30 B): matches/0x0009b690.cpp
@@ -3896,6 +3956,9 @@ template <> void Method0<CCameraManager, const char *>::vfunc_2(void* __p0, void
     if (out)
         *out = v;
 }
+#if defined(HULK_PTR64)
+template class Method0<CCameraManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b690)
+#endif
 
 
 // 0x0009b720 Method2<CCameraManager,void,math::Vector,bool>::vfunc_0 (30 B): matches/0x0009b720.cpp
@@ -3911,6 +3974,9 @@ template <> void Method2<CCameraManager, void,math::Vector, bool>::vfunc_2(void*
 
     ((CCameraManager_9b740*)a->*(*(void (CCameraManager_9b740::**)(Vector_9b740, unsigned char))&this->f_1c))(*p, *((unsigned char*)p + 12));
 }
+#if defined(HULK_PTR64)
+template class Method2<CCameraManager, void,math::Vector, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b720)
+#endif
 
 namespace fn_f5ef2b3f {
 
@@ -3943,6 +4009,9 @@ template <> void Method5<CCameraManager, bool, float, float, float, float, bool>
 
     FUN_0009b830(a, b, c, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Method5<CCameraManager, bool, float, float, float, float, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b7f0)
+#endif
 
 
 // 0x0009b830 FUN_0009b830 (92 B): equivalent/0x0009b830.cpp [wrapped: conflict: Callback]
@@ -3979,6 +4048,9 @@ void __cdecl FUN_0009b830(Callback* object, Data* data, unsigned char* result, u
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method2<CCameraManager, void,math::Vector, float>::~Method2() {}
+#if defined(HULK_PTR64)
+template class Method2<CCameraManager, void,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b8e0)
+#endif
 
 
 // 0x0009b900 Method2<CCameraManager,void,math::Vector,float>::vfunc_2 (43 B): matches/0x0009b900.cpp [wrapped: conflict: Args; CCameraManager; Function; Method2]
@@ -4050,6 +4122,9 @@ template <> void Method4<CCameraManager, void, char *, char *, char *, char *>::
     char* d = next(args);
     (obj->*(*(void (CCameraManager_9b9c0::**)(char *, char *, char *, char *))&this->f_1c))(a, b, c, d);
 }
+#if defined(HULK_PTR64)
+template class Method4<CCameraManager, void, char *, char *, char *, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b9a0)
+#endif
 
 namespace fn_f5ef2b3f {
 
@@ -4068,6 +4143,9 @@ Method0_9b9f0::Method0_9b9f0(int a, int b) : Function_9b9f0(a, 0) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Method0<CCameraManager, float>::~Method0() {}
+#if defined(HULK_PTR64)
+template class Method0<CCameraManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9ba30)
+#endif
 
 
 // 0x0009ba50 Method0<CCameraManager,float>::vfunc_2 (34 B): matches/0x0009ba50.cpp [wrapped: conflict: Function]
@@ -4525,6 +4603,9 @@ template <> void Closure6<CCameraManager, void, float, float, float, float, floa
     float e = ((float*)q)[0], f = ((float*)q)[1];
     ((*(CCameraManager_9c2c0 * *)&this->f_20)->*(*(void (CCameraManager_9c2c0::**)(float, float, float, float, float, float))&this->f_1c))(a, b, c, d, e, f);
 }
+#if defined(HULK_PTR64)
+template class Closure6<CCameraManager, void, float, float, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c2a0)
+#endif
 
 
 // 0x0009c350 Closure4<CCameraManager,void,float,float,math::Vector,float>::vfunc_0 (30 B): matches/0x0009c350.cpp
@@ -4545,6 +4626,9 @@ template <> void Closure4<CCameraManager, void, float, float,math::Vector, float
     float c = *p;
     ((*(CCameraManager_9c370 * *)&this->f_20)->*(*(void (CCameraManager_9c370::**)(float, float, math::Vector_9c370, float))&this->f_1c))(a, b, v, c);
 }
+#if defined(HULK_PTR64)
+template class Closure4<CCameraManager, void, float, float,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c350)
+#endif
 
 
 // 0x0009c3f0 Closure3<CCameraManager,void,float,float,bool>::vfunc_0 (30 B): matches/0x0009c3f0.cpp
@@ -4563,6 +4647,9 @@ template <> void Closure3<CCameraManager, void, float, float, bool>::vfunc_2(voi
     ((*(CCameraManager_9c410 * *)&this->f_20)->*(*(void (CCameraManager_9c410::**)(float, float, bool))&this->f_1c))(first, args->second, args->third);
     _ReadWriteBarrier();
 }
+#if defined(HULK_PTR64)
+template class Closure3<CCameraManager, void, float, float, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c3f0)
+#endif
 
 
 // 0x0009c440 FUN_0009c440 (89 B): matches/0x0009c440.cpp [wrapped: conflict: Closure2; Method2]
@@ -4649,6 +4736,9 @@ template <> void Closure2<CCameraManager, void, float, float>::vfunc_2(void* __p
 
     ((*(CActorManager_9c4c0 * *)&this->f_20)->*(*(void (CActorManager_9c4c0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CCameraManager, void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c4a0)
+#endif
 
 
 // 0x0009c510 Closure4<CCameraManager,void,float,float,float,float>::vfunc_0 (30 B): matches/0x0009c510.cpp
@@ -4656,6 +4746,9 @@ template <> void Closure2<CCameraManager, void, float, float>::vfunc_2(void* __p
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure4<CCameraManager, void, float, float, float, float>::~Closure4() {}
+#if defined(HULK_PTR64)
+template class Closure4<CCameraManager, void, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c510)
+#endif
 
 
 // 0x0009c530 Closure4<CCameraManager,void,float,float,float,float>::vfunc_2 (52 B): matches/0x0009c530.cpp [wrapped: conflict: CCameraManager; Closure4; Function; Method4]
@@ -4706,6 +4799,9 @@ template <> void Closure3<CCameraManager, void, bool, bool, bool>::vfunc_2(void*
     p->a = t;
     ((*(Mgr_9c5c0 * *)&this->f_20)->*(*(void (Mgr_9c5c0::**)(unsigned char, unsigned char, unsigned char))&this->f_1c))((unsigned char)t, (unsigned char)p->b, (unsigned char)p->c);
 }
+#if defined(HULK_PTR64)
+template class Closure3<CCameraManager, void, bool, bool, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c5a0)
+#endif
 
 
 // 0x0009c620 Closure4<CCameraManager,void,bool,bool,bool,float>::vfunc_0 (30 B): matches/0x0009c620.cpp
@@ -4725,6 +4821,9 @@ template <> void Closure4<CCameraManager, void, bool, bool, bool, float>::vfunc_
     unsigned int second = (reinterpret_cast<hulk_uintptr>(arguments) & 0xffffff00u) | arguments->second;
     ((*(CCameraManager_9c640 * *)&this->f_20)->*(*(void (CCameraManager_9c640::**)(unsigned int, unsigned int, unsigned int, float))&this->f_1c))(first, second, arguments->third, arguments->fourth);
 }
+#if defined(HULK_PTR64)
+template class Closure4<CCameraManager, void, bool, bool, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c620)
+#endif
 
 
 // 0x0009c6b0 Closure4<CCameraManager,void,bool,bool,bool,bool>::vfunc_0 (30 B): matches/0x0009c6b0.cpp
@@ -4744,6 +4843,9 @@ template <> void Closure4<CCameraManager, void, bool, bool, bool, bool>::vfunc_2
   unsigned second = ((hulk_uintptr)args & 0xffffff00U) | args->second;
   ((*(CCameraManager_9c6d0 * *)&this->f_20)->*(*(void (CCameraManager_9c6d0::**)(unsigned int, unsigned int, unsigned int, unsigned int))&this->f_1c))(first, second, args->third, args->fourth);
 }
+#if defined(HULK_PTR64)
+template class Closure4<CCameraManager, void, bool, bool, bool, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c6b0)
+#endif
 
 
 // 0x0009c740 Closure5<CCameraManager,void,bool,bool,bool,bool,float>::vfunc_0 (30 B): matches/0x0009c740.cpp
@@ -4751,6 +4853,9 @@ template <> void Closure4<CCameraManager, void, bool, bool, bool, bool>::vfunc_2
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure5<CCameraManager, void, bool, bool, bool, bool, float>::~Closure5() {}
+#if defined(HULK_PTR64)
+template class Closure5<CCameraManager, void, bool, bool, bool, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c740)
+#endif
 
 
 // 0x0009c7e0 Closure7<CCameraManager,void,bool,bool,bool,bool,bool,bool,float>::vfunc_0 (30 B): matches/0x0009c7e0.cpp
@@ -4767,6 +4872,9 @@ template <> void Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bo
 
     invoke(this->f_20, y, z, (*(int *)&this->f_1c));
 }
+#if defined(HULK_PTR64)
+template class Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c7e0)
+#endif
 
 
 // 0x0009c860 Closure0<CCameraManager,void>::vfunc_0 (30 B): matches/0x0009c860.cpp
@@ -4782,6 +4890,9 @@ template <> Closure0<CCameraManager, void>::~Closure0() {}
 template <> void Closure0<CCameraManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_9c880 * *)&this->f_20)->*(*(void (CActorManager_9c880::**)())&this->f_1c))();
 }
+#if defined(HULK_PTR64)
+template class Closure0<CCameraManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c860)
+#endif
 
 
 // 0x0009c8d0 Closure0<CCameraManager,bool>::vfunc_0 (30 B): matches/0x0009c8d0.cpp
@@ -4802,6 +4913,9 @@ template <> void Closure0<CCameraManager, bool>::vfunc_2(void* __p0, void* __p1,
     if (out)
         *out = b;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CCameraManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c8d0)
+#endif
 
 
 // 0x0009c940 Closure6<CCameraManager,void,int,int,float,int,int,float>::vfunc_0 (30 B): matches/0x0009c940.cpp
@@ -4809,6 +4923,9 @@ template <> void Closure0<CCameraManager, bool>::vfunc_2(void* __p0, void* __p1,
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> Closure6<CCameraManager, void, int, int, float, int, int, float>::~Closure6() {}
+#if defined(HULK_PTR64)
+template class Closure6<CCameraManager, void, int, int, float, int, int, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c940)
+#endif
 
 
 // 0x0009c9a0 FUN_0009c9a0 (76 B): matches/0x0009c9a0.cpp [wrapped: conflict: Closure1; Method1]
@@ -4865,6 +4982,9 @@ template <> void Closure1<CCameraManager, void, float>::vfunc_2(void* __p0, void
 
     ((*(CActorManager_9ca10 * *)&this->f_20)->*(*(void (CActorManager_9ca10::**)(const char *))&this->f_1c))(*b);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CCameraManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c9f0)
+#endif
 
 
 // 0x0009ca30 FUN_0009ca30 (89 B): matches/0x0009ca30.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -4953,6 +5073,9 @@ template <> void Closure2<CCameraManager, void,math::Vector,math::Vector>::vfunc
 
     ((*(CCameraManager_9cab0 * *)&this->f_20)->*(*(void (CCameraManager_9cab0::**)(math::Vector_9cab0, math::Vector_9cab0))&this->f_1c))(args->first, args->second);
 }
+#if defined(HULK_PTR64)
+template class Closure2<CCameraManager, void,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9ca90)
+#endif
 
 
 // 0x0009caf0 FUN_0009caf0 (76 B): matches/0x0009caf0.cpp [wrapped: conflict: Closure1; Method1]
@@ -5008,6 +5131,9 @@ template <> void Closure1<CCameraManager, void, bool>::vfunc_2(void* __p0, void*
 
     ((*(Actor_9cb60 * *)&this->f_20)->*(*(void (Actor_9cb60::**)(unsigned char))&this->f_1c))(*arg);
 }
+#if defined(HULK_PTR64)
+template class Closure1<CCameraManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9cb40)
+#endif
 
 
 // 0x0009cbb0 Closure4<CCameraManager,void,int,float,float,float>::vfunc_0 (30 B): matches/0x0009cbb0.cpp
@@ -5027,6 +5153,9 @@ template <> void Closure4<CCameraManager, void, int, float, float, float>::vfunc
     float d = *(float*)p++;
     ((*(CCameraManager_9cbd0 * *)&this->f_20)->*(*(void (CCameraManager_9cbd0::**)(int, float, float, float))&this->f_1c))(a, b, c, d);
 }
+#if defined(HULK_PTR64)
+template class Closure4<CCameraManager, void, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9cbb0)
+#endif
 
 
 // 0x0009cc00 FUN_0009cc00 (63 B): matches/0x0009cc00.cpp [wrapped: conflict: Check; Closure0; Method0]
@@ -5081,6 +5210,9 @@ template <> void Closure0<CCameraManager,math::Vector>::vfunc_2(void* __p0, void
     math::Vector_9cc60 copy = *value;
     if (result) *result = copy;
 }
+#if defined(HULK_PTR64)
+template class Closure0<CCameraManager,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9cc40)
+#endif
 
 
 // 0x0009ccf0 Closure6<CCameraManager,bool,float,float,float,float,float,float>::vfunc_2 (29 B): matches/0x0009ccf0.cpp

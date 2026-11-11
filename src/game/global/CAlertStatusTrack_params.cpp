@@ -13,6 +13,9 @@ namespace fn_f9fb5afd {} using namespace fn_f9fb5afd;
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CAlertStatusTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CAlertStatusTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6efa0)
+#endif
 
 
 // 0x0006efc0 fight::ParamEnumConstList<CAlertStatusTrack>::vfunc_0 (30 B): matches/0x0006efc0.cpp
@@ -20,6 +23,9 @@ template <> fight::ParamFloatConstRange<CAlertStatusTrack>::~ParamFloatConstRang
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<CAlertStatusTrack>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<CAlertStatusTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6efc0)
+#endif
 
 
 // 0x0006efe0 fight::ParamFloatConstRange<CDeathTrack>::vfunc_0 (30 B): matches/0x0006efe0.cpp
@@ -27,6 +33,9 @@ template <> fight::ParamEnumConstList<CAlertStatusTrack>::~ParamEnumConstList() 
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CDeathTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CDeathTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6efe0)
+#endif
 
 
 // 0x0006f000 fight::ParamFloatConstRange<CAIHintTrack>::vfunc_0 (30 B): matches/0x0006f000.cpp
@@ -34,6 +43,9 @@ template <> fight::ParamFloatConstRange<CDeathTrack>::~ParamFloatConstRange() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CAIHintTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CAIHintTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6f000)
+#endif
 
 
 // 0x0006f020 fight::ParamFloatConstRange<CClearCollisionStun>::vfunc_0 (30 B): matches/0x0006f020.cpp
@@ -41,6 +53,9 @@ template <> fight::ParamFloatConstRange<CAIHintTrack>::~ParamFloatConstRange() {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CClearCollisionStun>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CClearCollisionStun>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6f020)
+#endif
 
 
 // 0x0006f040 fight::ParamFloatConstRange<CMotionHitGroundHeightTrack>::vfunc_0 (30 B): matches/0x0006f040.cpp
@@ -48,6 +63,9 @@ template <> fight::ParamFloatConstRange<CClearCollisionStun>::~ParamFloatConstRa
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CMotionHitGroundHeightTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CMotionHitGroundHeightTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6f040)
+#endif
 
 
 // 0x0006f060 fight::ParamFloatConstRange<CWallSlideTrack>::vfunc_0 (30 B): matches/0x0006f060.cpp
@@ -55,6 +73,9 @@ template <> fight::ParamFloatConstRange<CMotionHitGroundHeightTrack>::~ParamFloa
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CWallSlideTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CWallSlideTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6f060)
+#endif
 
 
 // 0x0006f080 fight::ParamIntConstRange<CWallSlideTrack>::vfunc_0 (30 B): matches/0x0006f080.cpp
@@ -62,6 +83,9 @@ template <> fight::ParamFloatConstRange<CWallSlideTrack>::~ParamFloatConstRange(
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<CWallSlideTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<CWallSlideTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6f080)
+#endif
 
 
 // 0x0006f0a0 fight::ParamFloatConstRange<CTargetTrack>::vfunc_0 (30 B): matches/0x0006f0a0.cpp
@@ -69,4 +93,7 @@ template <> fight::ParamIntConstRange<CWallSlideTrack>::~ParamIntConstRange() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<CTargetTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<CTargetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x6f0a0)
+#endif
 

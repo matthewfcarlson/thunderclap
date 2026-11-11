@@ -286,6 +286,9 @@ void ParamBranch::vfunc_6(void* p) {
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameConstList<CJointTrack>::~ParamNameConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameConstList<CJointTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x73640)
+#endif
 
 
 // 0x00073660 fight::ParamName<CScrubberTrack>::vfunc_0 (30 B): matches/0x00073660.cpp
@@ -293,6 +296,9 @@ template <> fight::ParamNameConstList<CJointTrack>::~ParamNameConstList() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamName<CScrubberTrack>::~ParamName() {}
+#if defined(HULK_PTR64)
+template class fight::ParamName<CScrubberTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x73660)
+#endif
 
 
 // 0x00073680 fight::ParamName<CKeyPoseTrack>::vfunc_0 (30 B): matches/0x00073680.cpp
@@ -300,6 +306,9 @@ template <> fight::ParamName<CScrubberTrack>::~ParamName() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamName<CKeyPoseTrack>::~ParamName() {}
+#if defined(HULK_PTR64)
+template class fight::ParamName<CKeyPoseTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x73680)
+#endif
 
 
 // 0x000736a0 fight::ParamName<CCameraDramaticTrack>::vfunc_0 (30 B): matches/0x000736a0.cpp
@@ -307,6 +316,9 @@ template <> fight::ParamName<CKeyPoseTrack>::~ParamName() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamName<CCameraDramaticTrack>::~ParamName() {}
+#if defined(HULK_PTR64)
+template class fight::ParamName<CCameraDramaticTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x736a0)
+#endif
 
 
 // 0x000736c0 fight::ParamNameConstList<CHeadTrackerTrack>::vfunc_0 (30 B): matches/0x000736c0.cpp
@@ -314,6 +326,9 @@ template <> fight::ParamName<CCameraDramaticTrack>::~ParamName() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamNameConstList<CHeadTrackerTrack>::~ParamNameConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamNameConstList<CHeadTrackerTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x736c0)
+#endif
 
 
 // 0x000736e0 fight::ParamName<CAIHintTrack>::vfunc_0 (30 B): matches/0x000736e0.cpp
@@ -321,6 +336,9 @@ template <> fight::ParamNameConstList<CHeadTrackerTrack>::~ParamNameConstList() 
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamName<CAIHintTrack>::~ParamName() {}
+#if defined(HULK_PTR64)
+template class fight::ParamName<CAIHintTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x736e0)
+#endif
 
 
 // 0x00073700 FUN_00073700 (4234 B): matches/0x00073700.cpp [wrapped: conflict: fight::TrackFactoryCasterTemplate]

@@ -848,6 +848,9 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::OpportunityTrack>::vfu
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<fight::OpportunityTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<fight::OpportunityTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2377f0)
+#endif
 
 
 // 0x00237810 fight::ParamBranch<fight::OpportunityTrack>::vfunc_0 (30 B): matches/0x00237810.cpp
@@ -855,6 +858,9 @@ template <> fight::ParamFloatConstRange<fight::OpportunityTrack>::~ParamFloatCon
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBranch<fight::OpportunityTrack>::~ParamBranch() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBranch<fight::OpportunityTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x237810)
+#endif
 
 
 // 0x00237830 fight::ParamIntConstRange<fight::OpportunityTrack>::vfunc_0 (30 B): matches/0x00237830.cpp
@@ -862,6 +868,9 @@ template <> fight::ParamBranch<fight::OpportunityTrack>::~ParamBranch() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<fight::OpportunityTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<fight::OpportunityTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x237830)
+#endif
 
 
 // 0x00237850 fight::ParamConditionGroup<fight::OpportunityTrack>::vfunc_0 (30 B): matches/0x00237850.cpp
@@ -869,6 +878,9 @@ template <> fight::ParamIntConstRange<fight::OpportunityTrack>::~ParamIntConstRa
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamConditionGroup<fight::OpportunityTrack>::~ParamConditionGroup() {}
+#if defined(HULK_PTR64)
+template class fight::ParamConditionGroup<fight::OpportunityTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x237850)
+#endif
 
 namespace fn_f6c81acf {
 

@@ -367,6 +367,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::MaybeCondition>::v
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<fight::MaybeCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<fight::MaybeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x238530)
+#endif
 
 
 // 0x00238560 fight::ConditionFactoryCasterTemplate<fight::RandomCondition>::vfunc_0 (36 B): matches/0x00238560.cpp
@@ -383,6 +386,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::RandomCondition>::
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<fight::RandomCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<fight::RandomCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x238590)
+#endif
 
 namespace fn_fc1ade79 {
 

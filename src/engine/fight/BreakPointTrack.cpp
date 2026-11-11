@@ -415,6 +415,9 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::BreakPointTrack>::vfun
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<fight::BreakPointTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<fight::BreakPointTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23f360)
+#endif
 
 
 // 0x0023f380 fight::ParamConditionGroup<fight::BreakPointTrack>::vfunc_0 (30 B): matches/0x0023f380.cpp
@@ -422,6 +425,9 @@ template <> fight::ParamFloatConstRange<fight::BreakPointTrack>::~ParamFloatCons
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamConditionGroup<fight::BreakPointTrack>::~ParamConditionGroup() {}
+#if defined(HULK_PTR64)
+template class fight::ParamConditionGroup<fight::BreakPointTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23f380)
+#endif
 
 
 // 0x0023f440 fight::BreakPointTrack::vfunc_10 (86 B): matches/0x0023f440.cpp
