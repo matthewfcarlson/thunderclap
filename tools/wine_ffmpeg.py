@@ -496,6 +496,8 @@ def movies_win32(logf=None):
     DLLs): all under build/third_party/out/ffmpeg-win32/movies/. Returns a dict of paths."""
     if not os.path.exists(os.path.join(WIN_DIR, "dll/avformat-62.dll")):
         build_win32()
+    import input_guard      # (guard2) hulk_movies.lib.srchash: the sources it is built from (Wine build jobs check it)
+    tok = input_guard.source_stamp("hulk_movies.lib")
     sdl = wine_sdl.backends("win32")
     d = os.path.join(WIN_DIR, "movies")
     os.makedirs(d, exist_ok=True)
@@ -522,6 +524,7 @@ def movies_win32(logf=None):
     r = wine_gfx.run([os.path.join(LLVM, "llvm-lib"), "/nologo", "/out:" + lib, objs["bink_player"]], logf)
     if r.returncode:
         raise SystemExit("hulk_movies.lib: " + r.stderr[-2000:])
+    input_guard.put_stamp(tok, d)
     res.update(movies_lib=lib, shim_obj=objs["movies_bink"], player_obj=objs["bink_player"])
     json.dump(res, open(os.path.join(d, "build.json"), "w"), indent=1)
     return res

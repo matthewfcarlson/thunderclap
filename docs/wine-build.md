@@ -257,7 +257,12 @@ existing library is linked" and carried on). Edits to `src/platform/sdl/pddi/*.c
 unless someone rebuilt those objects.
 
 Each of the three now carries a stamp, the content hash of the sources it was generated from, written by its producer
-(`tools/input_guard.py`; details and the source lists in [compute.md "Wine builds"](compute.md#wine-builds)).
+(`tools/input_guard.py`; details and the source lists in [compute.md "Wine builds"](compute.md#wine-builds)). The movie
+player library (`build/third_party/out/ffmpeg-win32/movies/hulk_movies.lib`, `tools/wine_ffmpeg.py movies`; linked when
+built) is guarded the same way since guard2 (2026-11-10): wine_ffmpeg stamps it, an unstamped one is judged by mtime
+at submit and stamped, and its sources now include `audio/hulk_audio.h` (bink_player.cpp includes it). The first run
+found the shared one older than `audio/hulk_audio.h` and `xdk/movies_bink.cpp` (built 10-22) and rebuilt it from the
+clean checkout in 1.5 s.
 `wine_build_job.py submit` compares the job's sources with each stamp: a stale input whose sources are clean in git is
 rebuilt in the checkout; one whose sources have uncommitted edits (another agent's work in progress) refuses the
 submit with the input, the changed files and the ways out (`--data-src DIR`, `--sdl-src DIR`, `--allow-stale`). The host

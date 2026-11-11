@@ -2,12 +2,13 @@
 
 A Wine build job ships local, untracked inputs that are generated from tracked sources: the data TUs
 (build/data/src, tools/data_gen.py --gen-only), the audio/input platform library
-(build/third_party/out/sdl-backends/win32/hulk_sdl.lib, tools/wine_sdl.py backends --target win32) and the pddi/bgfx
-objects (build/third_party/out/pddi-win32/obj, tools/wine_gfx.py pddi --target win32). When one lags the sources the
+(build/third_party/out/sdl-backends/win32/hulk_sdl.lib, tools/wine_sdl.py backends --target win32), the movie player
+library (build/third_party/out/ffmpeg-win32/movies/hulk_movies.lib, tools/wine_ffmpeg.py movies; when built) and the
+pddi/bgfx objects (build/third_party/out/pddi-win32/obj, tools/wine_gfx.py pddi --target win32). When one lags the sources the
 job builds, the image breaks without a source change (2026-11-10: jobs 71106 and 71282). Each such input carries a
 stamp: the content hash of the sources it was generated from (`<input>/.srchash`, or `<lib>.srchash` next to a
 platform library as tools/platform_libs.py writes it), plus `<stamp>.files.json`, the per-file hashes, so a stale input
-can be explained file by file. The producers write the stamps (data_gen, wine_sdl backends, wine_gfx pddi).
+can be explained file by file. The producers write the stamps (data_gen, wine_sdl backends, wine_ffmpeg movies, wine_gfx pddi).
 
   * submit (tools/wine_build_job.py, check_submit): the job's view of the generating sources (its workspace, --live
     paths from this checkout) is hashed and compared with each input's stamp. A stale shared input is rebuilt here
@@ -171,9 +172,10 @@ class PlatformLib(Guard):
         self.stamp = lib + ".srchash"
         self.what = "%s (tools/%s)" % (lib, " ".join(cmd))
         self.flag = "--sdl-src" if lib == "hulk_sdl.lib" else None
-        # hulk_sdl.lib is required and was stamped by mtime where it is built (platform_libs.stamp_fresh); fs and
-        # movies stay as they were: checked when they carry a stamp, a note otherwise
-        self.unstamped = "mtime" if lib == "hulk_sdl.lib" else "note"
+        # hulk_sdl.lib and hulk_movies.lib (guard2) are judged by mtime where they are built until they carry a stamp
+        # (then stamped: platform_libs.stamp_fresh, or the submit); hulk_fs.lib stays as it was: checked when it
+        # carries a stamp, a note otherwise. Only hulk_sdl.lib is required (fs and movies are linked when built).
+        self.unstamped = "mtime" if lib in ("hulk_sdl.lib", "hulk_movies.lib") else "note"
         self.optional = only_if_built or lib != "hulk_sdl.lib"
 
     def present(self, inp_dir):

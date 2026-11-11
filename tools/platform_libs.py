@@ -20,8 +20,10 @@ PLAT = os.path.join(ROOT, "src/platform/sdl")
 # src/platform/sdl count for every library.
 LIBS = [
     ("fs1/win32/hulk_fs.lib", ["fs"], [], ["wine_fs.py", "backends", "--target", "win32"], True),
-    # (wine_ffmpeg.py movies also rebuilds hulk_sdl.lib)
-    ("ffmpeg-win32/movies/hulk_movies.lib", ["movies"], ["xdk/movies_bink.cpp"], ["wine_ffmpeg.py", "movies"], True),
+    # (wine_ffmpeg.py movies also rebuilds hulk_sdl.lib; the library is movies/bink_player.cpp, which includes
+    #  audio/hulk_audio.h; xdk/movies_bink.cpp is built beside it)
+    ("ffmpeg-win32/movies/hulk_movies.lib", ["movies"], ["audio/hulk_audio.h", "xdk/movies_bink.cpp"],
+     ["wine_ffmpeg.py", "movies"], True),
     ("sdl-backends/win32/hulk_sdl.lib", ["audio", "input", "replay"], [], ["wine_sdl.py", "backends", "--target", "win32"],
      False),
 ]

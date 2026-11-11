@@ -315,5 +315,40 @@ class Scheme(unittest.TestCase):
             subprocess.run(["rm", "-rf", root])
 
 
+class Movies(unittest.TestCase):
+    """(guard2) hulk_movies.lib: guarded like hulk_sdl.lib (by mtime until stamped, then by content), its sources
+    including audio/hulk_audio.h, which bink_player.cpp includes."""
+
+    def test_movies_lib(self):
+        root = os.path.realpath(tempfile.mkdtemp())
+        try:
+            for rel in ("platform_events.h", "movies/bink_player.cpp", "movies/movie.c", "audio/hulk_audio.h",
+                        "audio/hulk_audio.cpp", "xdk/movies_bink.cpp", "xdk/other.cpp"):
+                put(root, "src/platform/sdl/" + rel, rel)
+            g = ig.guard("hulk_movies.lib")
+            self.assertEqual((g.unstamped, g.optional), ("mtime", True))
+            files = g.sources(ig.View(root))
+            self.assertIn("src/platform/sdl/audio/hulk_audio.h", files)
+            self.assertNotIn("src/platform/sdl/audio/hulk_audio.cpp", files)
+            self.assertNotIn("src/platform/sdl/xdk/other.cpp", files)
+            d = os.path.join(root, "build/third_party/out/ffmpeg-win32/movies")
+            view = ig.View(root)
+            self.assertEqual(ig.check(g, d, view, root)["state"], "missing")
+            lib = put(d, "hulk_movies.lib", "lib")
+            old = time.time() - 3600
+            os.utime(lib, (old, old))
+            r = ig.check(g, d, view, root)          # unstamped, older than its sources
+            self.assertEqual((r["state"], r["why"]), ("stale", "no stamp; mtime"))
+            ig.stamp(g, d, view, root)
+            self.assertEqual(ig.check(g, d, view, root)["state"], "fresh")
+            put(root, "src/platform/sdl/audio/hulk_audio.h", "changed")
+            r = ig.check(g, d, view, root)
+            self.assertEqual((r["state"], r["changed"]), ("stale", ["src/platform/sdl/audio/hulk_audio.h"]))
+            self.assertEqual(r["hash"], pl.source_hash(*[x[1:3] for x in pl.LIBS if x[0].endswith("hulk_movies.lib")][0],
+                                                       plat=os.path.join(root, "src/platform/sdl")))
+        finally:
+            subprocess.run(["rm", "-rf", root])
+
+
 if __name__ == "__main__":
     unittest.main()
