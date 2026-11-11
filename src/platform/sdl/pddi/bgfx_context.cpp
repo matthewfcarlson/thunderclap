@@ -201,9 +201,9 @@ void bgfxContext::vfunc_5()
 }
 void bgfxContext::vfunc_6(unsigned int a0) { PDDI_BASE_V(6, FUN_0031d4f0(a0)); }
 int* bgfxContext::vfunc_7(int* a0) { PDDI_BASE(7, FUN_0031d500(a0)); }
-void bgfxContext::vfunc_8(void* a0) { PDDI_BASE_V(8, FUN_0031d510(a0)); }
+void bgfxContext::vfunc_8(float a0) { PDDI_BASE_V(8, FUN_0031d510(a0)); }   // the depth clear value
 float bgfxContext::vfunc_9() { PDDI_BASE(9, FUN_0031d520()); }
-void bgfxContext::vfunc_10(void* a0) { PDDI_BASE_V(10, FUN_0031d530(a0)); }
+void bgfxContext::vfunc_10(int a0) { PDDI_BASE_V(10, FUN_0031d530(a0)); }    // the stencil clear value
 int bgfxContext::vfunc_11() { PDDI_BASE(11, FUN_0031d540()); }
 // slot 12 (0x321580): clear (flags: 1 colour, 2 depth, 4 stencil; the values from the base's clear block). bgfx
 // clears a view at its start: a clear after draws opens the next view. (The game draws a quad instead when it renders

@@ -19,9 +19,9 @@ struct GameBase {
     void FUN_0031d3f0();
     void FUN_0031d4f0(unsigned int);
     int* FUN_0031d500(int*);
-    void FUN_0031d510(void*);
+    void FUN_0031d510(float);
     float FUN_0031d520();
-    void FUN_0031d530(void*);
+    void FUN_0031d530(int);
     int FUN_0031d540();
     void FUN_0031d560(int);
     void FUN_0031d590(int, void*);

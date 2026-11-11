@@ -3396,9 +3396,9 @@ public:
     virtual void vfunc_5() = 0; // slot 5
     virtual void vfunc_6(unsigned int) = 0; // slot 6
     virtual void* vfunc_7(hulk_intptr) = 0; // slot 7
-    virtual void vfunc_8(void*) = 0; // slot 8
+    virtual void vfunc_8(float) = 0; // slot 8 (the depth clear value)
     virtual hulk_freg vfunc_9() = 0; // slot 9
-    virtual void vfunc_10(void*) = 0; // slot 10
+    virtual void vfunc_10(int) = 0; // slot 10 (the stencil clear value)
     virtual int vfunc_11() = 0; // slot 11
     virtual void vfunc_12(int) = 0; // slot 12
     virtual void vfunc_13(int) = 0; // slot 13
@@ -3491,9 +3491,9 @@ public:
     virtual void vfunc_5(); // overrides pure3d::pddiRenderContext slot 5
     virtual void vfunc_6(unsigned int); // overrides pure3d::pddiRenderContext slot 6
     virtual void* vfunc_7(hulk_intptr); // overrides pure3d::pddiRenderContext slot 7
-    virtual void vfunc_8(void*); // overrides pure3d::pddiRenderContext slot 8
+    virtual void vfunc_8(float); // overrides pure3d::pddiRenderContext slot 8
     virtual hulk_freg vfunc_9(); // overrides pure3d::pddiRenderContext slot 9
-    virtual void vfunc_10(void*); // overrides pure3d::pddiRenderContext slot 10
+    virtual void vfunc_10(int); // overrides pure3d::pddiRenderContext slot 10
     virtual int vfunc_11(); // overrides pure3d::pddiRenderContext slot 11
     virtual void vfunc_12(int); // overrides pure3d::pddiRenderContext slot 12
     virtual void vfunc_13(int); // overrides pure3d::pddiRenderContext slot 13

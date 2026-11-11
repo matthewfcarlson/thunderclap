@@ -842,14 +842,22 @@ struct SymMatrix_2f7ee0 {
     char pad[0x1c];
     void Init_002fca90() throw();
 };
+// (x64t4) the environment (DAT_00554c10, 0x002ecf60): pure3d::Entity's words, then its floats (the length and
+// damping words at 0x28 / 0x30 on the 32-bit builds)
 struct Cfg_2f7ee0 {
-    char pad[0x28];
+    void* vftable;
+    char pad04[0xc];
+    float f10[6];
     int a;
     int pad2;
     int b;
 };
+// (x64t4) physics::CollisionWall with the words its constructor 0x0030e700 writes (a vftable, its base's 0x30 bytes,
+// eleven words; was a 0x60-byte pad, which the 64-bit constructor overran by 4)
 struct CollisionWall_2f7ee0 {
-    char pad[0x60];
+    void* vftable;
+    char base[0x30];
+    int words[11];
     CollisionWall_2f7ee0* Ctor_0030e700() throw();
 };
 struct CollisionObject_2f7ee0 {

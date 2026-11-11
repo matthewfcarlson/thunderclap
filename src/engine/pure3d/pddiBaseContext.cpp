@@ -339,12 +339,6 @@ struct State {
 };
 }
 namespace pure3d {
-struct S_31d530 {
-    char pad[0xc];
-    void* value;
-};
-}
-namespace pure3d {
 class pddiObject_31d6c0 {
   public:
     virtual void f0();
@@ -1266,11 +1260,12 @@ void* pure3d::pddiBaseContext::vfunc_7(hulk_intptr __p0) { int * out = (int *)__
 
 
 // 0x0031d510 pure3d::pddiBaseContext::vfunc_8 (13 B): matches/0x0031d510.cpp
-// sym: ?vfunc_8@pddiBaseContext@pure3d@@UAEXPAX@Z
+// sym: ?vfunc_8@pddiBaseContext@pure3d@@UAEXM@Z
  // namespace pure3d
-void pure3d::pddiBaseContext::vfunc_8(void* __p0) { void * p = (void *)__p0;
-
-    *(void**)((char*)(*(void * *)&this->f_48) + 8) = p;
+// (x64t4) the depth clear value, a float in the state's word 8 (vfunc_9 reads it); was a `void*` stored over the
+// state's words 8 and 0xc on 64-bit
+void pure3d::pddiBaseContext::vfunc_8(float depth) {
+    *(float*)HULK_STATE_AT(*(void**)&this->f_48, 8) = depth;
 }
 
 
@@ -1283,11 +1278,11 @@ hulk_freg pure3d::pddiBaseContext::vfunc_9() {
 
 
 // 0x0031d530 pure3d::pddiBaseContext::vfunc_10 (13 B): matches/0x0031d530.cpp
-// sym: ?vfunc_10@pddiBaseContext@pure3d@@UAEXPAX@Z
+// sym: ?vfunc_10@pddiBaseContext@pure3d@@UAEXH@Z
  // namespace pure3d
-void pure3d::pddiBaseContext::vfunc_10(void* __p0) { void * value = (void *)__p0;
-
-    (*(S_31d530 * *)&this->f_48)->value = value;
+// (x64t4) the stencil clear value, an int in the state's word 0xc (vfunc_11 reads it); was a `void*`
+void pure3d::pddiBaseContext::vfunc_10(int stencil) {
+    *(int*)HULK_STATE_AT(*(void**)&this->f_48, 0xc) = stencil;
 }
 
 
