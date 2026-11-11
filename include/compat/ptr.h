@@ -49,4 +49,14 @@ typedef float hulk_freg;
 typedef double hulk_freg;
 #endif
 
+// HULK_PURE64 (ren2): after a stub virtual whose game vftable slot is `_purecall` (0x00344f51): `= 0` on a 64-bit
+// target, nothing on the 32-bit builds. MSVC 7.1 emits the stub classes' vftables in some TUs, where `= 0` would put
+// `__purecall` in the slot and change the verified object; natively the slot then holds the C runtime's `_purecall`
+// (the native CRT table) instead of an unbound name. `virtual void f() HULK_PURE64;`
+#if defined(HULK_PTR64)
+#define HULK_PURE64 = 0
+#else
+#define HULK_PURE64
+#endif
+
 #endif

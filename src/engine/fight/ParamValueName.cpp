@@ -113,8 +113,8 @@ class ParamValueFloat : public ParamValue {
   public:
     ParamValueFloat(unsigned int);
     virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_5();
+    virtual void vfunc_1() HULK_PURE64;
+    virtual void vfunc_5() HULK_PURE64;
     Sub_235360 sub;
 };
 extern void __cdecl thunk_FUN_00267090(ParamValueFloat*);

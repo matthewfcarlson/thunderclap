@@ -958,7 +958,7 @@ void FUN_0026e9e0(void *, void *, unsigned int);
 namespace core {
 struct Object { virtual void obj(); int initialValue; };
 struct RefCount : Object { virtual void obj(); int enabled; };
-struct IDebugConsole { virtual void debug(); };
+struct IDebugConsole { virtual void debug() HULK_PURE64; };
 struct ConsoleOwner { char pad[0x1d4]; void *console; void FUN_0026e030(); };
 struct DebugConsole : IDebugConsole, RefCount {
 void debug(); void obj();

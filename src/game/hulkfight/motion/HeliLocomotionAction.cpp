@@ -550,7 +550,7 @@ class ClimbLocomotionAction : public Action_15eb20 {
     virtual unsigned long long id6();
     virtual void gather(int x, float *p40, float *p3c, float *p38, float *p34, float *p30, float *p2c,
                         float *p28, float *pa, int *p4c, int *p24, float *p20, float *p1c);
-    virtual void _m_vf8();
+    virtual void _m_vf8() HULK_PURE64;
     ClimbLocomotionAction(Thing_15eb20*);
     char _m_pad_4[0x18];
     union { Thing_15eb20* mThing; Target_15ed10 *target; };
@@ -3174,9 +3174,9 @@ namespace motion {
 class ClimbLocomotionAction : public fight::Action {
 public:
     ClimbLocomotionAction(Counted* t);
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8(void*);
+    virtual void vfunc_6() HULK_PURE64;
+    virtual void vfunc_7() HULK_PURE64;
+    virtual void vfunc_8(void*) HULK_PURE64;
     CountedRef target;
     int f_20;
     int f_24;

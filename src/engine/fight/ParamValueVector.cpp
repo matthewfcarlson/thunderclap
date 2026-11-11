@@ -27,7 +27,7 @@ class ParamValueVector : public ParamValue {
 
   public:
     ParamValueVector(hulk_intptr);
-    virtual void G();
+    virtual void G() HULK_PURE64;
 };
 namespace fight {
 struct ValueResult { unsigned first, second, third; };

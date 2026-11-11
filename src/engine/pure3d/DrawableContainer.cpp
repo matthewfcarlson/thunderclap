@@ -1003,7 +1003,7 @@ class DrawableContainer : public DrawableHierarchy_2a4e40 {
 public:
     virtual void vfunc_1_000382a0();
     virtual void vfunc_2();
-    virtual void vfunc_3();
+    virtual void vfunc_3() HULK_PURE64;
     int f40;
     DrawableContainer *self;   // 0x44
     ElemVec_2a4e40 elems;             // 0x48

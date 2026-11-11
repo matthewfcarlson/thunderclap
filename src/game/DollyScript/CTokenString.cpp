@@ -1393,8 +1393,8 @@ namespace DollyScript {
 class CScriptToken {
   public:
     virtual void f0();
-    virtual void f1();
-    virtual CScriptToken* vfunc_2();
+    virtual void f1() HULK_PURE64;
+    virtual CScriptToken* vfunc_2() HULK_PURE64;
     int a, b, c;
     CScriptToken(const CScriptToken& o) : a(o.a), b(o.b), c(o.c) {}
 };

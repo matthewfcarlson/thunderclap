@@ -635,7 +635,7 @@ CCharacterTemplate::CCharacterTemplate()
 namespace fn_00045ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00045ce0 @ 0x00045ce0
-namespace core { struct IRefCount { virtual void slot0(); virtual void slot1(); }; }
+namespace core { struct IRefCount { virtual void slot0() HULK_PURE64; virtual void slot1() HULK_PURE64; }; }
 struct Item_45ce0 { virtual void slot0(); virtual void slot1(); };
 struct Block_45ce0 { char data[16]; void FUN_0027af50(); };
 struct Small_45ce0 { char data[12]; void FUN_00234150(); };

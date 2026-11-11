@@ -638,7 +638,7 @@ void __cdecl FUN_002702a0(void *, unsigned, unsigned, unsigned, unsigned, const 
 extern "C" void *__cdecl FUN_00266e00(unsigned, unsigned);
 namespace core {
 struct ITimerList {
-    virtual void timerMethod();
+    virtual void timerMethod() HULK_PURE64;
 };
 struct Object {
     int id;

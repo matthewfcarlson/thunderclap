@@ -864,7 +864,7 @@ struct PhysicsJoint_30d590 {
     virtual void v24();
     virtual void v25();
     virtual void v26();
-    virtual PhysicsJoint_30d590* d27();
+    virtual PhysicsJoint_30d590* d27() HULK_PURE64;
     virtual void v28_0030c670(PhysicsJoint_30d590* p);
     int m4, m8, mc, m10, m14, m18, m1c;
     int m20, m24, m28;
@@ -4169,7 +4169,7 @@ class PhysicsJoint {
     virtual void vf24();
     virtual void vf25();
     virtual void vf26();
-    virtual PhysicsJoint* vf27();
+    virtual PhysicsJoint* vf27() HULK_PURE64;
     virtual void vf28_0030c670(PhysicsJoint*);
     PhysicsJoint() throw() {}
     char pad1[0x1c];

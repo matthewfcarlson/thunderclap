@@ -121,7 +121,7 @@ class TrackFactory_236d10 : public Entity_236d10 {
 };
 class Track_236d40 {
   public:
-    virtual void f();
+    virtual void f() HULK_PURE64;
     int a;
     int b;
     Track_236d40();
@@ -137,7 +137,7 @@ class Ref_236d60 {
 };
 class Param_236d60 {
   public:
-    virtual void p();
+    virtual void p() HULK_PURE64;
 };
 extern "C" void __fastcall FUN_00234210(void* self);
 class Track_236d60 : public Param_236d60 {

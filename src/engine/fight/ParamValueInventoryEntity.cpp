@@ -163,8 +163,8 @@ class ParamValueScript : public ParamValue {
     Sub_235530 sub;
     ParamValueScript(int);
     virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_5();
+    virtual void vfunc_1() HULK_PURE64;
+    virtual void vfunc_5() HULK_PURE64;
 };
 extern void __cdecl thunk_FUN_00267090(ParamValueScript*);
 ParamValueScript::ParamValueScript(int f) : sub() {

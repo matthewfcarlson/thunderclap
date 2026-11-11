@@ -262,7 +262,7 @@ struct State_277c40 : CoreFileView {
 namespace fn_00277110 {
 namespace core {
 struct IMutable {
-    virtual void m();
+    virtual void m() HULK_PURE64;
 };
 struct InstanceDrive;
 } // namespace core
@@ -606,7 +606,7 @@ namespace fn_002776c0 {
 
 namespace core {
 struct IRefCount {
-    virtual void slot0();
+    virtual void slot0() HULK_PURE64;
 };
 struct OtherRef : IRefCount {};
 struct BaseObject {
@@ -614,7 +614,7 @@ struct BaseObject {
     unsigned allocator;
 };
 struct SafeRefCount {
-    virtual void slot0();
+    virtual void slot0() HULK_PURE64;
     unsigned count;
 };
 } // namespace core
@@ -904,10 +904,10 @@ namespace fn_00277a70 {
 typedef unsigned int uint_277a70;
 void FUN_002705f0();
 namespace core {
-struct ICementLibrary { virtual void slot0(); };
-struct IFileCompletionCallback { virtual void slot0(); };
+struct ICementLibrary { virtual void slot0() HULK_PURE64; };
+struct IFileCompletionCallback { virtual void slot0() HULK_PURE64; };
 struct Object { virtual void slot0(); uint_277a70 tag; };
-struct SafeRefCount { virtual void slot0(); uint_277a70 refs; };
+struct SafeRefCount { virtual void slot0() HULK_PURE64; uint_277a70 refs; };
 struct Resource_277a70 { virtual void slot0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(IFileCompletionCallback*,uint_277a70); };
 struct CementLibrary : ICementLibrary, IFileCompletionCallback, Object, SafeRefCount {
 virtual void slot0();

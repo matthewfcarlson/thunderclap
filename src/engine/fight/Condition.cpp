@@ -96,7 +96,7 @@ class ConditionFactory_234560 : public Entity_234560 {
 };
 class Condition {
   public:
-    virtual void f();
+    virtual void f() HULK_PURE64;
     int b;
     void* c;
     Condition(void*);
@@ -210,7 +210,7 @@ class Ref_2345b0 {
 };
 class Param_2345b0 {
   public:
-    virtual void p();
+    virtual void p() HULK_PURE64;
 };
 extern "C" void __fastcall FUN_00234210(void* self);
 class Condition : public Param_2345b0 {

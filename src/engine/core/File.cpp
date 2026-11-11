@@ -623,8 +623,8 @@ class IFileBase {
 };
 class IMutable {
   public:
-    virtual void m0();
-    virtual void m1();
+    virtual void m0() HULK_PURE64;
+    virtual void m1() HULK_PURE64;
     int refCount;
 };
 class IDevice_2763a0 {

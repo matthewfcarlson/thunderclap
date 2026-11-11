@@ -47,12 +47,12 @@ namespace core {
 struct DriveRequest : Request {
     int field4;
     Drive* drive;
-    virtual void vfunc_1();
+    virtual void vfunc_1() HULK_PURE64;
     virtual bool vfunc_2_002743c0(int);
     virtual void vfunc_3_002743e0();
     virtual void vfunc_4_002743f0();
     virtual void vfunc_5();
-    virtual void vfunc_6();
+    virtual void vfunc_6() HULK_PURE64;
     DriveRequest(unsigned flags);
 };
 }

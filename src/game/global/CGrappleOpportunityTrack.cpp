@@ -37,7 +37,7 @@ class Track_5a830 {
 };
 class CTrack_5a830 : public Track_5a830 {
   public:
-    virtual void A();
+    virtual void A() HULK_PURE64;
     virtual void B();
     CTrack_5a830();
 };

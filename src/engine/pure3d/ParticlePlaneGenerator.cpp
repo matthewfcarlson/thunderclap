@@ -40,13 +40,13 @@ class ParticleGenerator : public Entity_2d20a0 {
   public:
     virtual void m_vf1_000382a0();
     virtual void* m_vf2_002d31b0(char);
-    virtual void _m_vf3();
-    virtual void _m_vf4();
-    virtual void _m_vf5();
-    virtual void _m_vf6();
-    virtual void _m_vf7();
-    virtual void _m_vf8();
-    virtual void _m_vf9();
+    virtual void _m_vf3() HULK_PURE64;
+    virtual void _m_vf4() HULK_PURE64;
+    virtual void _m_vf5() HULK_PURE64;
+    virtual void _m_vf6() HULK_PURE64;
+    virtual void _m_vf7() HULK_PURE64;
+    virtual void _m_vf8() HULK_PURE64;
+    virtual void _m_vf9() HULK_PURE64;
     virtual void vfunc_10(float t);
     virtual void m_vf11_002d2100();
     ParticleGenerator(const void* p);
