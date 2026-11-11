@@ -377,7 +377,7 @@ struct Vec3 { float x,y,z; };  void __cdecl FUN_00224d70(void*, Vec3*); struct C
 namespace fn_001fbb30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001fbb30 @ 0x001fbb30
-struct FUN_0027b070 { virtual void baseVirtual(); char pad[0xc8]; FUN_0027b070(); }; struct CTriggerVolume : FUN_0027b070 { unsigned char stateCC, stateCD, stateCE, stateCF; unsigned int valueD0; CTriggerVolume(); }; CTriggerVolume::CTriggerVolume() { stateCC=0; valueD0=0; stateCE=0; stateCD=1; stateCF=1; }
+struct FUN_0027b070 { virtual void baseVirtual_00038290(); char pad[0xc8]; FUN_0027b070(); }; struct CTriggerVolume : FUN_0027b070 { unsigned char stateCC, stateCD, stateCE, stateCF; unsigned int valueD0; CTriggerVolume(); }; CTriggerVolume::CTriggerVolume() { stateCC=0; valueD0=0; stateCE=0; stateCD=1; stateCF=1; }
 } // namespace fn_001fbb30
 
 namespace fn_f9414999 {
@@ -527,7 +527,7 @@ extern "C" void _ReadWriteBarrier();
 class Entity_1fbf40 {
   public:
     Entity_1fbf40();
-    virtual void fn();
+    virtual void fn_00038290();
 };
 class CLocator : public Entity_1fbf40 {
   public:

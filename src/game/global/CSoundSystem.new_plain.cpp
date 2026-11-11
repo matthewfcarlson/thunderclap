@@ -17,7 +17,7 @@ struct InitObject { void FUN_001ea8b0(int); };
 struct Owner_1f2c00 { void FUN_001f6990(); };
 struct StateData { char data[8]; void FUN_0027af00();  };
 struct CSoundTriggerExecutionState_1f2c00 {
- virtual void slot0();
+ virtual void slot0_001ef970();
  int references;
  int field8, fieldC, field10;
  unsigned char active;

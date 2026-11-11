@@ -816,8 +816,8 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5();
-    virtual void vfunc_6();
+    virtual void v5_0005aa80();
+    virtual void vfunc_6_0005aa90();
     virtual void vfunc_7();
 
     int f0c;

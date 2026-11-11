@@ -354,7 +354,7 @@ hulk_freg ControllerState::vfunc_11(int i) {
 namespace fn_000dd940 {
 class ControllerPollerBase_dd940 {
   public:
-    virtual void Dummy();
+    virtual void Dummy_000de4e0();
     ControllerPollerBase_dd940(int);
 };
 class ControllerPoller : public ControllerPollerBase_dd940 {

@@ -73,7 +73,7 @@ class Helper_1ef930 {
 };
 class CSoundTriggerExecutionState {
   public:
-    virtual void V();
+    virtual void FnV_001ef970();
     int a, b, c, d;
     char e;
     char pad[3];

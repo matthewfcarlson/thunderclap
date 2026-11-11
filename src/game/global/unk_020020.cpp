@@ -82,7 +82,7 @@ public:
 class Action_20220 {
 public:
     Action_20220() throw();
-    virtual void v0();
+    virtual void v0_00018b30();
     char pad04[0x1c - 4];
 };
 class CAction : public Action_20220 {
@@ -95,7 +95,7 @@ public:
             owner->Release();
         owner = r;
     }
-    virtual void v1();
+    virtual void v1_00018b40();
     RefCounted_20220 *owner;
 };
 class CHeadTrackerAction : public CAction {

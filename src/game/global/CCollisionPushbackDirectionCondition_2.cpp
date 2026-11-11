@@ -18,8 +18,8 @@ namespace fn_f8ff7609 {
 class TrackFactoryTemplate_579c0 {
   public:
     TrackFactoryTemplate_579c0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

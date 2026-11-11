@@ -21,12 +21,12 @@ class Str_103340 {
 };
 class CCharacterAgent_103340 {
   public:
-    virtual void Init();
+    virtual void Init_00018b30();
     CCharacterAgent_103340(const char*);
 };
 class COccupationAgent_103340 : public CCharacterAgent_103340 {
   public:
-    virtual void Own();
+    virtual void Own_00018b40();
     char pad04[0x58];
     Thing_103340* m5c;
     int m60;

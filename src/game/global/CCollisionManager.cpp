@@ -2214,7 +2214,7 @@ Registry_1b6440* __cdecl FUN_001d4c90();
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Physics_1b6440 { void FUN_002ece90(int,float,int); };
 struct CCollisionManager {
- virtual void slot0();
+ virtual void slot0_00018b30();
  int a,b,c;
  Part_1b6440 parts[4];
  int d,e,f;

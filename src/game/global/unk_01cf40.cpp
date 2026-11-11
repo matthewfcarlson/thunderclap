@@ -434,7 +434,7 @@ class IRef_1d190 {
 
 class Action_1d190 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_1d190();
 };
 
@@ -443,7 +443,7 @@ class CAction : public Action_1d190 {
     char m_pad[0x18];
     IRef_1d190* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_1d190* p) {
         m_pRef = 0;
         if (p)
@@ -492,7 +492,7 @@ class IRef_1d210 {
 
 class Action_1d210 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_1d210();
 };
 
@@ -501,7 +501,7 @@ class CAction : public Action_1d210 {
     char m_pad[0x18];
     IRef_1d210* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_1d210* p) {
         m_pRef = 0;
         if (p)
@@ -632,7 +632,7 @@ class IRef_1d320 {
 
 class Action_1d320 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_1d320();
 };
 
@@ -641,7 +641,7 @@ class CAction : public Action_1d320 {
     char m_pad[0x18];
     IRef_1d320* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_1d320* p) {
         m_pRef = 0;
         if (p)
@@ -690,7 +690,7 @@ class IRef_1d3a0 {
 
 class Action_1d3a0 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_1d3a0();
 };
 
@@ -699,7 +699,7 @@ class CAction : public Action_1d3a0 {
     char m_pad[0x18];
     IRef_1d3a0* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_1d3a0* p) {
         m_pRef = 0;
         if (p)
@@ -812,12 +812,12 @@ class Helper_1d4c0 {
 class Base_1d4c0 {
   public:
     Base_1d4c0();
-    virtual void Z();
+    virtual void FnZ_00018b30();
 };
 class CAutoTargetAction_1d4c0 : public Base_1d4c0 {
   public:
     CAutoTargetAction_1d4c0(Obj_1d4c0* o);
-    virtual void A();
+    virtual void FnA_00018b40();
     virtual void B();
     char pad[0x18];
     Obj_1d4c0* ref;
@@ -834,7 +834,7 @@ class CAutoTargetAction : public CAutoTargetAction_1d4c0 {
   public:
     CAutoTargetAction(Helper_1d4c0* h, Obj_1d4c0* o);
     virtual void C();
-    virtual void D();
+    virtual void FnD_00015270();
     Helper_1d4c0* x;
     int y;
     int z;

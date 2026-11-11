@@ -66,8 +66,8 @@ class CTrack_69ea0 {
     virtual void g3();
     virtual void g4();
     virtual void g5();
-    virtual void g6();
-    virtual void g7();
+    virtual void g6_00069ee0();
+    virtual void g7_00069ef0();
     virtual void g8();
     virtual void g9();
     CTrack_69ea0();
@@ -87,8 +87,8 @@ class CDrainHealthTrack : public CTrack_69ea0 {
     virtual void f8();
     virtual void f9();
     virtual void fA();
-    virtual void fB();
-    virtual void fC();
+    virtual void fB_00069fe0();
+    virtual void fC_00069ff0();
     virtual void fD();
     virtual void fE();
     virtual void fF();

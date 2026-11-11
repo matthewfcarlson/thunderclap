@@ -49,7 +49,7 @@ struct CScriptToken_f9940 {
 struct CTokenSectionEnd_f9940 : CScriptToken_f9940 {
     virtual u64_f9940 vfunc_1();
 };
-struct FUN_0027b070 { FUN_0027b070(); virtual void dummy(); char pad[12]; int first; int second; int third; };
+struct FUN_0027b070 { FUN_0027b070(); virtual void dummy_00038290(); char pad[12]; int first; int second; int third; };
 struct CRawScript_f9980 : FUN_0027b070 { CRawScript_f9980(int a, int b); };
 extern void __cdecl thunk_0008d340(int);
 struct Reader { char pad[0x10]; char *begin; int length; char *cursor; bool FUN_000f99d0(char *output); };
@@ -954,7 +954,7 @@ class CScriptToken {
   public:
     CScriptToken(CScriptToken const&) throw();
     virtual void f0();
-    virtual void f1();
+    virtual void f1_000f9910();
     virtual CScriptToken* f2();
 };
 class CTokenSectionStart : public CScriptToken {
@@ -1065,8 +1065,8 @@ class CTokenStatement {
 public:
     CTokenStatement(char *t, int a_, int b_) : next(0), a(a_), b(b_), text(t) {}
     virtual void vfunc_0();
-    virtual unsigned long long vfunc_1();
-    virtual void vfunc_2();
+    virtual unsigned long long vfunc_1_000f9c10();
+    virtual void vfunc_2_000fa940();
     int next;
     int a;
     int b;
@@ -1077,8 +1077,8 @@ class CTokenString {
 public:
     CTokenString(char *t, int a_, int b_) : next(0), a(a_), b(b_), text(t) {}
     virtual void vfunc_0();
-    virtual unsigned long long vfunc_1();
-    virtual void vfunc_2();
+    virtual unsigned long long vfunc_1_000f9870();
+    virtual void vfunc_2_000fa940();
     int next;
     int a;
     int b;
@@ -1089,8 +1089,8 @@ class CTokenSectionStart {
 public:
     CTokenSectionStart(int b_) : next(0), a(0), b(b_) {}
     virtual void vfunc_0();
-    virtual unsigned long long vfunc_1();
-    virtual void vfunc_2();
+    virtual unsigned long long vfunc_1_000f9910();
+    virtual void vfunc_2_000fa3f0();
     int next;
     int a;
     int b;
@@ -1100,8 +1100,8 @@ class CTokenSectionEnd {
 public:
     CTokenSectionEnd(int b_) : next(0), a(0), b(b_) {}
     virtual void vfunc_0();
-    virtual unsigned long long vfunc_1();
-    virtual void vfunc_2();
+    virtual unsigned long long vfunc_1_000f9940();
+    virtual void vfunc_2_000fa450();
     int next;
     int a;
     int b;

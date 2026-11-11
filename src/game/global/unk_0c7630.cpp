@@ -46,7 +46,7 @@ struct NameHolder_c7630 {
 namespace pure3d {
 class __declspec(novtable) Entity {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[4];
     NameHolder_c7630 nameHolder;
     void FUN_0027b070();
@@ -77,10 +77,10 @@ struct World { char pad0[0x54]; Holder28_c7630 *holder; };
 namespace fn_f9a0caab {
 class CHudIcons : public pure3d::Entity {
 public:
-    virtual void v1();
+    virtual void v1_000382a0();
     virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual void v3_0027afe0();
+    virtual void v4_0027aff0();
     char enabled;
     char pad11[3];
     int f14;

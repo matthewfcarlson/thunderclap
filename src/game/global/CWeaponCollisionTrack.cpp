@@ -2384,8 +2384,8 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5();
-    virtual void vfunc_6();
+    virtual void v5_000623e0();
+    virtual void vfunc_6_000623f0();
     virtual void vfunc_7();
 
     int f0c, f10, f14;
@@ -2528,8 +2528,8 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5();
-    virtual void vfunc_6();
+    virtual void v5_000625c0();
+    virtual void vfunc_6_000625d0();
     virtual void vfunc_7();
 
     int f0c;
@@ -3340,8 +3340,8 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5();
-    virtual void vfunc_6();
+    virtual void v5_00062260();
+    virtual void vfunc_6_00062270();
     virtual void vfunc_7();
 
     int f0c, f10, f14;

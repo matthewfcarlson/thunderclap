@@ -23,7 +23,7 @@ struct V3_e9af0 {
 namespace CDisplayEffect {
 class DrawableCompositeDrawable {
 public:
-    virtual void v0();
+    virtual void v0_000e8580();
     void *target;
     DrawableCompositeDrawable(void *t) : target(t) {}
 };

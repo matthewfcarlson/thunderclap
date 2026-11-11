@@ -333,7 +333,7 @@ struct Str16 {
 class CCharacterTemplate {
 public:
     CCharacterTemplate();
-    virtual void v0();
+    virtual void v0_00018b30();
     int f4;
     int f8;
     int fc;

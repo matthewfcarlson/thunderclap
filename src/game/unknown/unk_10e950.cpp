@@ -231,7 +231,7 @@ class RefObj_10ec00 {
 class Action_10ec00 {
   public:
     Action_10ec00();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class ButtonAction_10ec00 : public Action_10ec00 {
@@ -239,7 +239,7 @@ class ButtonAction_10ec00 : public Action_10ec00 {
     int mTarget;
     RefObj_10ec00* mObj;
     ButtonAction_10ec00(int target, RefObj_10ec00* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0040dd34[];
 class Ref_10ec50 {

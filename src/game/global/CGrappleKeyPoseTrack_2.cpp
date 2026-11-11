@@ -19,8 +19,8 @@ namespace fn_feba9267 {
 class TrackFactoryTemplate_77ae0 {
   public:
     TrackFactoryTemplate_77ae0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

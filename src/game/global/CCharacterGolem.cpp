@@ -1525,7 +1525,7 @@ Rng_fee10 *FUN_000964d0();
 
 class CCharacterGolem {
 public:
-    virtual void vfunc_0();
+    virtual void vfunc_0_00018b30();
     char pad04[0xf4];
     int f0f8;
     char pad0fc[4];
@@ -1630,8 +1630,8 @@ public:
 class CCharacterAgent_ff180 {
 public:
     CCharacterAgent_ff180(int arg);
-    virtual void v0();
-    virtual void v1();
+    virtual void v0_00018b30();
+    virtual void v1_00018b40();
     virtual void v2();
     virtual void v3();
     virtual void v4();

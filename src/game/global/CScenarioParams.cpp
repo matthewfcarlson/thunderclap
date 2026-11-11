@@ -90,8 +90,8 @@ extern "C" void* __cdecl memcpy(void*, const void*, size_t);
 class Params_1d03d0 {
   public:
     Params_1d03d0();
-    virtual void v0();
-    virtual void v1();
+    virtual void v0_00018b30();
+    virtual void v1_00018b40();
     virtual void v2();
     virtual Params_1d03d0* v3();
     int a;

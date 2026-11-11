@@ -281,8 +281,8 @@ class HitReactionTrack {
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual void v6();
-    virtual void v7();
+    virtual void v6_0014de60();
+    virtual void v7_0014de70();
     virtual void v8();
     virtual void v9();
     virtual void v10();

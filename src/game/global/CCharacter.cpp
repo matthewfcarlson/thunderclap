@@ -5134,8 +5134,8 @@ struct SubObj {
 
 class CCharacter {
 public:
-    virtual void v0();
-    virtual void v1();
+    virtual void v0_00038290();
+    virtual void v1_000382a0();
     char pad04[4];
     unsigned int f08;
     unsigned int f0c;

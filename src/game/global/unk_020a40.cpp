@@ -275,7 +275,7 @@ class IRef_20bc0 {
 
 class Action_20bc0 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_20bc0();
 };
 
@@ -284,7 +284,7 @@ class CAction : public Action_20bc0 {
     char m_pad[0x18];
     IRef_20bc0* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_20bc0* p) {
         m_pRef = 0;
         if (p)
@@ -450,7 +450,7 @@ class Other_20d50 {
 class Action_20d50 {
   public:
     Action_20d50();
-    virtual void X();
+    virtual void FnX_00018b30();
     char pad[0x18];
 };
 class CAction : public Action_20d50 {

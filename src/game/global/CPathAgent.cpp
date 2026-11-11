@@ -1105,7 +1105,7 @@ struct World {
 
 class __declspec(novtable) CCharacterAgent {
 public:
-    virtual void v0();
+    virtual void v0_00018b30();
     char pad04[0x58 - 4];
     Owner_105f50 *owner;
     void FUN_000fc760(Owner_105f50 *o);
@@ -1115,7 +1115,7 @@ public:
 class CPathGraphAgent : public CCharacterAgent {
 public:
     CPathGraphAgent(Owner_105f50 *o);
-    virtual void v1();
+    virtual void v1_00018b40();
     virtual void v2();
     virtual void v3();
     virtual void v4();

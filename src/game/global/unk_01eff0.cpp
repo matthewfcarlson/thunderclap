@@ -359,7 +359,7 @@ class IRef_1f170 {
 
 class Action_1f170 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_1f170();
 };
 
@@ -368,7 +368,7 @@ class CAction : public Action_1f170 {
     char m_pad[0x18];
     IRef_1f170* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_1f170* p) {
         m_pRef = 0;
         if (p)
@@ -468,7 +468,7 @@ class IRef_1f260 {
 
 class Action_1f260 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_1f260();
 };
 
@@ -477,7 +477,7 @@ class CAction : public Action_1f260 {
     char m_pad[0x18];
     IRef_1f260* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_1f260* p) {
         m_pRef = 0;
         if (p)
@@ -526,7 +526,7 @@ class IRef_1f2e0 {
 
 class Action_1f2e0 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_1f2e0();
 };
 
@@ -535,7 +535,7 @@ class CAction : public Action_1f2e0 {
     char m_pad[0x18];
     IRef_1f2e0* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_1f2e0* p) {
         m_pRef = 0;
         if (p)
@@ -584,7 +584,7 @@ class IRef_1f360 {
 
 class Action_1f360 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_1f360();
 };
 
@@ -593,7 +593,7 @@ class CAction : public Action_1f360 {
     char m_pad[0x18];
     IRef_1f360* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_1f360* p) {
         m_pRef = 0;
         if (p)
@@ -1035,7 +1035,7 @@ class IRef_1f780 {
 
 class Action_1f780 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_1f780();
 };
 
@@ -1044,7 +1044,7 @@ class CAction : public Action_1f780 {
     char m_pad[0x18];
     IRef_1f780* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_1f780* p) {
         m_pRef = 0;
         if (p)
@@ -1093,7 +1093,7 @@ class IRef_1f800 {
 
 class Action_1f800 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_1f800();
 };
 
@@ -1102,7 +1102,7 @@ class CAction : public Action_1f800 {
     char m_pad[0x18];
     IRef_1f800* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_1f800* p) {
         m_pRef = 0;
         if (p)
@@ -1204,7 +1204,7 @@ class IRef_1f900 {
 
 class Action_1f900 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_1f900();
 };
 
@@ -1213,7 +1213,7 @@ class CAction : public Action_1f900 {
     char m_pad[0x18];
     IRef_1f900* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_1f900* p) {
         m_pRef = 0;
         if (p)
@@ -1259,7 +1259,7 @@ namespace fn_0001f980 {
 
 struct Ref { virtual void FUN_00000000(); virtual void FUN_00000001(); };
 struct CAction {
-    virtual void slot0();
+    virtual void slot0_00018b30();
     char pad[0x18];
     Ref* reference;
     void* data;

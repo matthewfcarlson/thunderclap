@@ -731,7 +731,7 @@ struct Handle_1c4eb0 { char data[8]; void FUN_0027af30(void*); };
 struct Matrix { char data[0x40]; void FUN_0022b980(); };
 namespace Render {
 struct Object {
- virtual void slot0();
+ virtual void slot0_00018b30();
  unsigned int field4; Handle_1c4eb0 handle;
  Resource_1c4eb0* primary; unsigned int field14; Resource_1c4eb0* secondary; unsigned int field1c;
  unsigned char flags[4]; char padding24[12]; Matrix matrix;

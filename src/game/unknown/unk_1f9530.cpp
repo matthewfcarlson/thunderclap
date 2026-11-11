@@ -692,7 +692,7 @@ struct ElemA {
 namespace pure3d {
 class __declspec(novtable) Entity {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[0xc];
     void FUN_0027b070();
     Entity() { FUN_0027b070(); }
@@ -721,10 +721,10 @@ public:
     };
 
     CEncounterGenerator();
-    virtual void v1();
+    virtual void v1_000382a0();
     virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual void v3_0027afe0();
+    virtual void v4_0027aff0();
 
     char pad10[0x448 - 0x10];
     int f448;

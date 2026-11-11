@@ -661,7 +661,7 @@ struct Words6_b23c0 {
 
 class CPhysicalController {
 public:
-    virtual void f0();
+    virtual void f0_00018b30();
     int field4;
     int field8;
     bool enabled;

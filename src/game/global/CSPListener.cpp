@@ -1501,8 +1501,8 @@ struct CSPHulkPropInstance;
 A_1d8e90* __stdcall FUN_001b6580();
 B_1d8e90* FUN_001c3d90();  // 0-argument singleton getter
 struct CSPHulkPropInstance {
-    virtual void slot0();
-    virtual void slot1();
+    virtual void slot0_00038290();
+    virtual void slot1_000382a0();
     char pad4[0x9c];
     Link_1d8e90* link;
     char padA4[0x70];

@@ -125,7 +125,7 @@ namespace fn_000dc590 {
 class FEBase_dc590 {
 public:
     FEBase_dc590(int arg) throw();
-    virtual void v0();
+    virtual void v0_000e1360();
     char pad04[0x44 - 4];
     int link;
     char pad48[0x118 - 0x48];

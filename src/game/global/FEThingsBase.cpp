@@ -2053,9 +2053,9 @@ struct Owner {
 class FELayout {
 public:
     FELayout(FEContainer* parent, const char* name) throw();
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
+    virtual void f0_000e1ff0();
+    virtual void f1_000e2000();
+    virtual void f2_000e2010();
     virtual void f3();
     virtual void f4();
     virtual void f5();
@@ -2064,16 +2064,16 @@ public:
     virtual void f8();
     virtual void f9();
     virtual void f10();
-    virtual void f11();
-    virtual void f12();
+    virtual void f11_000e21d0();
+    virtual void f12_000e21c0();
     virtual void f13();
     virtual void f14();
     virtual void f15();
     virtual void f16();
     virtual void f17();
-    virtual void AttachObject(FEObject* obj);
+    virtual void AttachObject_000e2130(FEObject* obj);
     virtual bool IsPrimary();
-    virtual void f20();
+    virtual void f20_000e1fa0();
     char pad04[4];
     FEContainer* parent;
     char pad0c[4];
@@ -2088,7 +2088,7 @@ class SingleLayout : public FELayout {
 public:
     SingleLayout(FEContainer* p, const char* n) throw() : FELayout(p, n) { field44 = 0; mLayout = 0; }
     virtual void vfunc_0();
-    virtual void vfunc_1();
+    virtual void vfunc_1_000e20b0();
     virtual void vfunc_2();
     FELayout* mLayout;
     int field44;
@@ -2177,7 +2177,7 @@ FEObject* FEContainer::vfunc_23(FEObject* obj, const char* name)
 
     obj->f6c = owner->v1804;
     obj->f70 = owner->v1808;
-    layout->AttachObject(obj);
+    layout->AttachObject_000e2130(obj);
     if (primary == 0 && layout->IsPrimary())
         primary = layout;
     return obj;
@@ -2640,9 +2640,9 @@ struct Owner {
 class FELayout {
 public:
     FELayout(FEScreenBase_e4fc0* parent, const char* name) throw();
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
+    virtual void f0_000e1ff0();
+    virtual void f1_000e2000();
+    virtual void f2_000e2010();
     virtual void f3();
     virtual void f4();
     virtual void f5();
@@ -2651,16 +2651,16 @@ public:
     virtual void f8();
     virtual void f9();
     virtual void f10();
-    virtual void f11();
-    virtual void f12();
+    virtual void f11_000e21d0();
+    virtual void f12_000e21c0();
     virtual void f13();
     virtual void f14();
     virtual void f15();
     virtual void f16();
     virtual void f17();
-    virtual void AttachObject(FEObject* obj);
+    virtual void AttachObject_000e2130(FEObject* obj);
     virtual bool IsPrimary();
-    virtual void f20();
+    virtual void f20_000e1fa0();
     char pad04[4];
     FEScreenBase_e4fc0* parent;
     char pad0c[4];
@@ -2675,7 +2675,7 @@ class SingleLayout : public FELayout {
 public:
     SingleLayout(FEScreenBase_e4fc0* p, const char* n) throw() : FELayout(p, n) { field44 = 0; mLayout = 0; }
     virtual void vfunc_0();
-    virtual void vfunc_1();
+    virtual void vfunc_1_000e20b0();
     virtual void vfunc_2();
     FELayout* mLayout;
     int field44;
@@ -2764,7 +2764,7 @@ FEObject* FEScreenBase_e4fc0::vfunc_23(FEObject* obj, const char* name)
 
     obj->f6c = owner->v1804;
     obj->f70 = owner->v1808;
-    layout->AttachObject(obj);
+    layout->AttachObject_000e2130(obj);
     if (primary == 0 && layout->IsPrimary())
         primary = layout;
     return obj;
@@ -5285,7 +5285,7 @@ class FEThingsBase {
 public:
     class ParseFunctor {
     public:
-        virtual void vfunc_0(int a, int b);
+        virtual void vfunc_0_000e02d0(int a, int b);
         FEThingsBase* mObj;
         void (FEThingsBase::*mFn)(Param* param, Source_e7770* c, void* d, Args_e7770* args);
         Source_e7770* mC;
@@ -5413,7 +5413,7 @@ class FEThingsBase {
 public:
     class ParseFunctor {
     public:
-        virtual void vfunc_0(int a, int b);
+        virtual void vfunc_0_000e02d0(int a, int b);
         FEThingsBase *mObj;
         void (FEThingsBase::*mFn)(Param *, int, void *, Args_e7930 *);
         hulk_intptr mC;

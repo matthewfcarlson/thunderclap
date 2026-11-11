@@ -2861,7 +2861,7 @@ struct Registry_1b2e50 { void FUN_001d3b70(const char*, void*); };
 
 class __declspec(novtable) CollisionSolverAgent_1b2e50 {
   public:
-    virtual void f0();
+    virtual void f0_00018b30();
     void FUN_002f8800();
     CollisionSolverAgent_1b2e50() { FUN_002f8800(); }
 };
@@ -2869,7 +2869,7 @@ class __declspec(novtable) CollisionSolverAgent_1b2e50 {
 class AICollisionSolverAgent : public CollisionSolverAgent_1b2e50 {
   public:
     AICollisionSolverAgent();
-    virtual void f1();
+    virtual void f1_00018b40();
     virtual void f2();
     virtual void f3();
     virtual void f4();
@@ -2878,7 +2878,7 @@ class AICollisionSolverAgent : public CollisionSolverAgent_1b2e50 {
     virtual void f7();
     virtual void f8();
     virtual void f9();
-    virtual bool vfunc_10(void*, void*);
+    virtual bool vfunc_10_001b0180(void*, void*);
     virtual void f11();
 };
 

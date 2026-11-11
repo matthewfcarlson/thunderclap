@@ -186,7 +186,7 @@ public:
 struct Elem_afbf0 { int f0; char pad[0x2c - 4]; int f2c; };
 class CHapticController {
 public:
-    virtual void v0();
+    virtual void v0_00018b30();
     int f4;
     char f8;
     char pad9[3];

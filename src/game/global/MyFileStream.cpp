@@ -227,7 +227,7 @@ public:
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual bool vfunc_4();
+    virtual bool vfunc_4_001faa30();
     void* buffer;
     int size;
     int position;

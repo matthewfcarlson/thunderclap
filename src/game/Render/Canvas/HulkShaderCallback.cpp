@@ -1345,7 +1345,7 @@ class pddiExtFramebufferEffects : public pddiExtension {
 };
 class GameDrawableInfo {
   public:
-    virtual void v0();
+    virtual void v0_00018b30();
     int field4;
     GameDrawableInfo() { field4 = 0; }
 };
@@ -1636,7 +1636,7 @@ Hud_1c1a40* Hud_1c1a40::FUN_001c1a40() {
     if (mem)
         info = new (mem) pure3d::GameDrawableInfo();
     (*(pure3d::GameDrawableInfo**)&DAT_004e2314) = info;
-    info->v0();
+    info->v0_00018b30();
     return this;
 }
 } // namespace fn_001c1a40

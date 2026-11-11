@@ -1233,7 +1233,7 @@ namespace Render { struct Room; template<class T> struct Store { virtual void sl
 struct Stream { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(unsigned,int); };
 struct Shader_1c9030 { virtual void init(); char pad[12]; Stream* stream; Shader_1c9030* FUN_0028edb0(); };
 struct ShadowData { char data[12]; void FUN_002a30a0(); };
-namespace pure3d { struct ShadowGenerator { virtual void init(); unsigned value; ShadowData data; }; }
+namespace pure3d { struct ShadowGenerator { virtual void init_00018b30(); unsigned value; ShadowData data; }; }
 namespace Render { struct World {
 virtual void slot0(); unsigned pad4,field8,fieldC; Small_1c9030 first; StoreBase rooms; unsigned entries[256]; unsigned field538; unsigned fields53c[4]; unsigned field54c; char pad550[0x200]; Shader_1c9030* resource; unsigned pad754; Small_1c9030 last; pure3d::ShadowGenerator* shadow; World();
 }; }
@@ -1247,7 +1247,7 @@ field538=0; field54c=0; field8=0; fieldC=0;
 Shader_1c9030* r=(Shader_1c9030*)FUN_00263ea0(32); if(r) r=r->FUN_0028edb0(); resource=r; r->init(); resource->stream->s6(0x444d4c42,4);
 pure3d::ShadowGenerator* s=(pure3d::ShadowGenerator*)FUN_0008d690((int)sizeof(pure3d::ShadowGenerator));
 if(s) { s->value=0; new(s) pure3d::ShadowGenerator; s->data.FUN_002a30a0(); }
-shadow=s; s->init();
+shadow=s; s->init_00018b30();
 }
 } // namespace fn_001c9030
 

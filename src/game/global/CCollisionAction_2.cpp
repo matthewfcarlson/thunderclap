@@ -354,7 +354,7 @@ struct Owner_19380 {
 
 struct FUN_00232660 {
     FUN_00232660() throw();
-    virtual void v0();
+    virtual void v0_00018b30();
     char pad04[0x18];
 };
 

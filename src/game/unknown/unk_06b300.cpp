@@ -243,7 +243,7 @@ class ParamValueFloat_6bd00 {
 };
 class ParamFloatConstRange_6bd00 : public ParamValueFloat_6bd00 {
   public:
-    virtual void V1();
+    virtual void V1_0004e0b0();
     char pad[0x0c];
     int mValue;
     ParamFloatConstRange_6bd00(int a, int b);

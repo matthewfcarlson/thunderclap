@@ -33,13 +33,13 @@ struct SubB_1d7890 {
 class __declspec(novtable) StateProp_1d7890 {
 public:
     StateProp_1d7890(ItemList_1d7890 *list, int arg) { FUN_0027def0(list, arg); }
-    virtual void v0();
+    virtual void v0_00038290();
     StateProp_1d7890 *FUN_0027def0(ItemList_1d7890 *list, int arg);
 };
 class CSPHulkPropInstance : public StateProp_1d7890 {
 public:
     CSPHulkPropInstance(Indexer_1d7890 *idx, int arg);
-    virtual void v1();
+    virtual void v1_000382a0();
     char pad4[0x9c];
     Node* node;
     char pada4[0x44];

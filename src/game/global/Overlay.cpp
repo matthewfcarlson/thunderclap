@@ -302,7 +302,7 @@ struct NameHolder_ca3a0 {
 namespace pure3d {
 class __declspec(novtable) Entity {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[4];
     NameHolder_ca3a0 nameHolder;
     void FUN_0027b070();

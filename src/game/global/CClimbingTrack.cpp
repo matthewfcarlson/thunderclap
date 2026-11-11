@@ -64,7 +64,7 @@ class CClimbingTrack : public CTrack_68f00 {
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual void v4();
+    virtual void v4_00068f30();
     CClimbingTrack();
     char pad[4]; // offset 4
     int m8;      // offset 8

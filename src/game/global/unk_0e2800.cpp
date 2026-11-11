@@ -303,7 +303,7 @@ struct SubObject_e2860 {
     void FUN_000f7930();
 };
 struct FEObject {
-    virtual void slot0();
+    virtual void slot0_000e1360();
     unsigned int baseFields[4]; // 04
     unsigned int field14;
     SubObject_e2860 sub; // 18

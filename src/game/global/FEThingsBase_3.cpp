@@ -2727,7 +2727,7 @@ public:
         memset(slots, 0, sizeof(slots));
         owner = 0;
     }
-    virtual void v0();
+    virtual void v0_000e1d70();
     FEThingsBase* owner;
     void* slots[32];
 };
@@ -3597,7 +3597,7 @@ class FEThingsBase {
 public:
     class ParseFunctor {
     public:
-        virtual void vfunc_0(int a, int b);
+        virtual void vfunc_0_000e02d0(int a, int b);
         FEThingsBase *mObj;
         void (FEThingsBase::*mFn)(int, int, int, int);
         hulk_intptr mC;
@@ -3773,7 +3773,7 @@ class FEThingsBase {
 public:
     class ParseFunctor {
     public:
-        virtual void vfunc_0(int a, int b);
+        virtual void vfunc_0_000e02d0(int a, int b);
         FEThingsBase *mObj;
         void (FEThingsBase::*mFn)(int, int, int, int);
         hulk_intptr mC;
@@ -3985,7 +3985,7 @@ class FEThingsBase {
 public:
     class ParseFunctor {
     public:
-        virtual void vfunc_0(int a, int b);
+        virtual void vfunc_0_000e02d0(int a, int b);
         FEThingsBase* mObj;
         void (FEThingsBase::*mFn)(Param* param, Source_f3f00* c, void* d, Args_f3f00* args);
         Source_f3f00* mC;
@@ -4286,7 +4286,7 @@ class FEThingsBase {
 public:
     class ParseFunctor {
     public:
-        virtual void vfunc_0(int a, int b);
+        virtual void vfunc_0_000e02d0(int a, int b);
         FEThingsBase *mObj;
         void (FEThingsBase::*mFn)(Param *, Factory_f42c0 *, Slot3, Args_f42c0 *);
         Factory_f42c0 *mC;
@@ -4908,7 +4908,7 @@ class FEThingsBase {
 public:
     class ParseFunctor {
     public:
-        virtual void vfunc_0(int a, int b);
+        virtual void vfunc_0_000e02d0(int a, int b);
         FEThingsBase *mObj;
         void (FEThingsBase::*mFn)(Param *, int, Target_f4e90 *, Args_f4e90 *);
         hulk_intptr mC;
@@ -5795,7 +5795,7 @@ class FEThingsBase {
 public:
     class ParseFunctor {
     public:
-        virtual void vfunc_0(int a, int b);
+        virtual void vfunc_0_000e02d0(int a, int b);
         FEThingsBase *mObj;
         void (FEThingsBase::*mFn)(ParamSlot param, Source *c, void *d, Args_f5b20 *args);
         Source *mC;

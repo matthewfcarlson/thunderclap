@@ -18,8 +18,8 @@ namespace fn_fab98861 {
 class TrackFactoryTemplate_77990 {
   public:
     TrackFactoryTemplate_77990() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

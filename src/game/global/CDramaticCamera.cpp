@@ -37,7 +37,7 @@ public:
 };
 class __declspec(novtable) CGameCamera_a8400 {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[4];
     ResourceName_a8400 name;      // 0x08
     char pad0c[0xd0 - 0xc];
@@ -154,20 +154,20 @@ struct Mat_a8f70 {
 };
 class CDramaticCamera : public CGameCamera_a8400 {
   public:
-    virtual void _m_vf1();
+    virtual void m_vf1_000382a0();
     virtual void _m_vf2();
-    virtual void _m_vf3();
-    virtual void _m_vf4();
+    virtual void m_vf3_0027afe0();
+    virtual void m_vf4_0027aff0();
     virtual void _m_vf5();
     virtual void _m_vf6();
     virtual void _m_vf7();
-    virtual void _m_vf8();
+    virtual void m_vf8_002927c0();
     virtual void _m_vf9();
-    virtual void _m_vf10();
+    virtual void m_vf10_002927d0();
     virtual void _m_vf11();
     virtual void _m_vf12();
-    virtual void _m_vf13();
-    virtual Mat_a8f70* GetMat();
+    virtual void m_vf13_00292910();
+    virtual Mat_a8f70* GetMat_00292930();
     virtual void _m_vf15();
     virtual void _m_vf16();
     virtual void _m_vf17();
@@ -175,11 +175,11 @@ class CDramaticCamera : public CGameCamera_a8400 {
     virtual void _m_vf19();
     virtual void _m_vf20();
     virtual void _m_vf21();
-    virtual void _m_vf22();
+    virtual void m_vf22_00292b60();
     virtual void _m_vf23();
     virtual void _m_vf24();
     virtual void _m_vf25();
-    virtual void _m_vf26();
+    virtual void m_vf26_00292ba0();
     virtual void vfunc_27(Vec3_a8f70* out);
     CDramaticCamera();
     CameraAnimationController_a8400 *controller;
@@ -336,11 +336,11 @@ CDramaticCamera_a8970::~CDramaticCamera_a8970() {
 // sym: ?vfunc_27@CDramaticCamera@fn_f6c39404@@UAEXPAUVec3_a8f70@2@@Z
 void CDramaticCamera::vfunc_27(Vec3_a8f70* out) {
     Vec3_a8f70 d;
-    Vec3_a8f70* f = &GetMat()->a;
+    Vec3_a8f70* f = &GetMat_00292930()->a;
     d.x = f->x * 10.0f;
     d.y = f->y * 10.0f;
     d.z = f->z * 10.0f;
-    Vec3_a8f70* p = &GetMat()->b;
+    Vec3_a8f70* p = &GetMat_00292930()->b;
     float z = d.z + p->z;
     float y = d.y + p->y;
     float x = d.x + p->x;

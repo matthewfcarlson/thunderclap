@@ -203,7 +203,7 @@ struct PathPoint_1065b0 {
 
 class __declspec(novtable) PathBase {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[4];
     NameHolder_1065b0 name;
     void FUN_0027b070();
@@ -219,7 +219,7 @@ public:
     PathPoint_1065b0 *points;   // 0x10
     int count;           // 0x14
     char closed;         // 0x18
-    virtual void v1();
+    virtual void v1_000382a0();
     CPatrolPath(int n);
 };
 
@@ -309,7 +309,7 @@ char CPatrolPathManager::vfunc_1(Element_1065b0 *elem)
     CPatrolPath *path = 0;
     if (mem)
         path = new (mem) CPatrolPath(n);
-    path->v0();
+    path->v0_00038290();
     path->name.FUN_0027b040(f.u18.pathName);
 
     elem->FUN_003364f0("form", &f.form);
@@ -359,7 +359,7 @@ char CPatrolPathManager::vfunc_1(Element_1065b0 *elem)
         }
     }
     FUN_001062d0(path);
-    path->v1();
+    path->v1_000382a0();
     return 1;
 }
 } // namespace fn_001065b0

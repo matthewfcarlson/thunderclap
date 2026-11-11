@@ -17,8 +17,8 @@ namespace fn_fe9702db {
 class TrackFactoryTemplate_77530 {
   public:
     TrackFactoryTemplate_77530() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -41,7 +41,7 @@ class CSoundTrack_77570 : public Base_77570 {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5();
+    virtual void v5_00069700();
     int one;
     int zero;
     unsigned char flag;

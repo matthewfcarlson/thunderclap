@@ -221,8 +221,8 @@ struct CController_ae2f0 {
 struct Item_ae4b0 { void FUN_000b2810(); };
 class CController {
   public:
-    virtual void _m_vf0();
-    virtual void _m_vf1();
+    virtual void m_vf0_00018b30();
+    virtual void m_vf1_00018b40();
     virtual CController* vfunc_2(int);
     CController(int);
     int field4;

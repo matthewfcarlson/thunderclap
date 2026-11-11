@@ -17,7 +17,7 @@ namespace fn_f57d431a {
 struct StreamBackend {  };
 struct Stream_1fb050 { char pad[0x284]; StreamBackend* backend; void FUN_00266c40(); };
 struct Counter_1fb050 { char pad[0x30]; unsigned count; };
-struct CDataHandlerObject_1fb050 { virtual void vfunc_0(); unsigned refs; unsigned size; void* data; };
+struct CDataHandlerObject_1fb050 { virtual void vfunc_0_00038290(); unsigned refs; unsigned size; void* data; };
 extern "C" int __cdecl FUN_00266da0(int);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned);
 extern void* __cdecl FUN_00263ea0(unsigned);
