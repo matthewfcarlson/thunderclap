@@ -1,5 +1,7 @@
 # Task briefs (non-matching work)
 
+> **Mostly historical.** These briefs date from before the merge-once flip (2026-11-10, F = `e68debc9d`, [merge-once.md](../merge-once.md)): the farm is retired, `matches/` and `equivalent/` are frozen (functions are edited as blocks in the merged tree under `src/`), and patching functions into the XBE (06, part of 10) is retired. `CLAUDE.md` and [roadmap.md](../roadmap.md) describe current work. The ground rules below still apply.
+
 Self-contained briefs for work alongside the matching farm. Each brief has a goal, context, inputs, deliverables and "done when". Pick one, work it end to end, and log notable findings in `docs/journal.md`.
 
 | # | Task | Depends on | Size | Status |
@@ -18,8 +20,8 @@ Self-contained briefs for work alongside the matching farm. Each brief has a goa
 
 ## Ground rules (read first)
 
-**The checkout is shared.** Many agents work in `matches/`, `equivalent/`, `src/` and `tools/` at once, uncommitted (see `CLAUDE.md`):
-- Work in the main checkout. Commit explicit paths only; never `git add -A`, never `checkout`/`restore`/`stash`/`reset` files you didn't write, never delete untracked files.
+**The checkout is shared.** Many agents work in `src/`, `include/`, `tools/` and `docs/` at once (`matches/` and `equivalent/` are frozen: never add or edit files there), uncommitted (see `CLAUDE.md`):
+- Work in the main checkout. Commit explicit paths only (`git commit -m MSG -- paths`); never `git add -A`, never `checkout`/`restore`/`stash`/`reset` files you didn't write, never delete untracked files.
 - Don't touch `build/farm/` (the farm's SQLite DB, ledger and work dirs) and don't start the farm. The DB is single-process.
 - Heavy jobs (equivalence batches, tree builds, regress suites) go through the shared queue, `tools/jobq.py` ([compute.md](../compute.md)).
 - Read-only use of shared build outputs is fine: `build/functions.csv`, `build/rtti.json`, `build/farm/ghidra_c/`, `build/farm/packets/`, the Ghidra project `build/ghidra/` (open it `-readOnly` in headless mode; only one GUI or headless writer at a time), `isos/extracted/`.

@@ -1,15 +1,4 @@
-# Thunderclap
-
-> **Disclaimer.** This is an unofficial, non-commercial fan project. It is not affiliated with, endorsed by or
-> sponsored by Marvel, The Walt Disney Company, Radical Entertainment, Vivendi Universal Games, Activision or
-> Microsoft. "The Incredible Hulk", "Hulk", "Marvel" and all related names, characters and marks are trademarks
-> of their respective owners and are used here only to identify the game this project is compatible with. The
-> repository contains no executables, data or assets from the original release; to use it you need your own
-> legally obtained copy of the game. Nothing here is offered for sale.
-
-A decompilation of **The Incredible Hulk: Ultimate Destruction** (Xbox, 2005, Radical Entertainment), built with LLM help.
-
-The goal is a **native port**: C++ source we can build for the supported targets, SteamOS (x86-64), arm64 macOS and arm64 Android handhelds, with quality-of-life improvements. Functions are byte-matched against the original compiler (MSVC 7.1, `cl` 13.10.3077) where that's cheap, since a match proves correctness for free. Large functions only need to be proven *equivalent*, by differential execution against the original.
+The goal is a **native port**: C++ source we build for the supported targets, x86-64 SteamOS, arm64 macOS and arm64 Android handhelds (Windows is not a target), with quality-of-life improvements. Every game function has verified source: byte-matched against the original compiler (MSVC 7.1, `cl` 13.10.3077) where that's cheap, since a match proves correctness for free, or proven *equivalent* to the original by differential execution.
 
 **This repo contains no game code or assets. You need your own copy of the game.**
 
@@ -19,59 +8,83 @@ The goal is a **native port**: C++ source we can build for the supported targets
 | | Functions | Bytes |
 |---|---|---|
 | Game code (`.text`, excluding XDK/CRT/Bink) | 27,437 | 2.73 MB |
-| Byte-matched (`matches/`) | 22,337 (81.4%) | 892 KB (32.7%) |
-| Proven equivalent (`equivalent/`) | 5,099 (18.6%) | 1836 KB (67.3%) |
+| Byte-matched (`: matches` blocks) | 22,337 (81.4%) | 892 KB (32.7%) |
+| Proven equivalent (`: equivalent` blocks) | 5,099 (18.6%) | 1836 KB (67.3%) |
 | **Verified source, total** | 27,436 (100.0%) | 2727 KB (**100.0%**) |
 <!-- /status -->
 
 ![Treemap of game code in address order, one box per function sized by its bytes: blue is byte-matched, green is proven equivalent, grey is not yet verified](docs/progress-map.svg)
 
-Most matches so far are small functions, so byte coverage is the honest metric. Where things stand (2026-10-21):
+Most matches are small functions, so byte coverage is the honest metric. Where things stand (2026-11-11):
 
-- **Verified source for every game function.** All but one address are byte-matched or proven equivalent; the one left, 0x0035c5b0, is 304 bytes of data, not a function. Families of near-identical functions are proved in bulk (`tools/clone_equivalent.py`, generators in [`tools/equiv_gen/`](tools/equiv_gen/)). Equivalents can still be upgraded to byte-matches (the farm's `--upgrade` mode removes the `equivalent/` copy when a match lands), and readable rewrites of proven sources are re-proven.
-- **Source tree on shared headers.** Link order survives in the XBE, so functions are grouped into recovered object files ([`docs/splits.md`](docs/splits.md)) and generated into a merged tree (`tools/gen_tree.py`) laid out by layer (game, engine, platform/xbox) to build both the Xbox game and the native ports ([`docs/shipping.md`](docs/shipping.md)). 77% of functions sat in merged files at the last measurement (2026-10-20, after the class-consolidation batches); every byte-matched function still matches and every equivalent still compiles to the same code ([`docs/source-tree.md`](docs/source-tree.md)). Moving the remaining stub classes onto the real ones is the next step ([`docs/consolidation-plan.md`](docs/consolidation-plan.md), [`docs/source-tree.md`](docs/source-tree.md#next-steps-ranked)).
-- **Data as source.** Every byte of `.rdata`/`.data`/`.bss` is inventoried ([`config/data.json`](config/data.json): addresses, kinds, names, owners, no game bytes), and 18,832 items are generated as per-object C++ data that byte-matches the XBE, with pointers checked as references to the right targets ([`docs/data.md`](docs/data.md)). Game data is never committed: the data files are generated locally from the player's own XBE.
-- **Lua scripts mapped.** Missions are Lua 5.1-era bytecode; a lister and an inventory of the 749 C++ bindings the scripts can call are in [`docs/lua-scripts.md`](docs/lua-scripts.md), the groundwork for adding missions and areas as plain files.
-- **Hybrid build boots.** The full build (14,614 of our functions patched into the original XBE when it was last boot-tested) runs in xemu through boot, menus and the new-game load, with state checkpoints identical to the original's ([`docs/hybrid-build.md`](docs/hybrid-build.md)). A bisect tool finds the function behind any divergence.
-- **Equivalence checker, round 20** ([`docs/equivalence.md`](docs/equivalence.md)). It runs the original and our code side by side in an emulator and compares calls, memory writes and return values. Each round steers inputs through more of the original's paths (float compares, jump-table cases, chained calls, callee-popped arguments) or closes a gap a real bug exposed, without relaxing a comparison; each change has regression cases (273 now) and must catch every known-bad mutant the previous round caught. Since round 18 it can also check the clang-compiled source the Wine build uses (`--wine`, formerly `--native`, with x87 math run in Unicorn), and `tools/x87_order.py` finds sources whose float arithmetic is grouped differently from the original's. Promotions are checked at 3,000 inputs on the checker Macs (20,000 for fixes). Whenever a round reaches new paths, the equivalents it affects are re-checked; sources rewritten for native fidelity were re-proven at 20,000 inputs.
-- **Trace replay: equivalence checked against real game state.** Function-entry state is recorded while the original game plays in xemu, then replayed through the original and our code, with each callee returning what it really returned ([`docs/equivalence.md`](docs/equivalence.md#trace-replay)). Hundreds of equivalents have been replayed against real calls; replay has caught bugs that 3,000 fuzzed inputs passed (mostly callees writing more than our locals hold). Each equivalent gets a confidence tier, and the hybrid build and bisect can be limited to replay-verified functions. A new promotion is replayed in seconds, if a recorded session reached it.
-- **Record once, replay forever.** The game replays deterministically after the new-game load (the opening movie made the game loop run away; timers and the sound code's random numbers are now pinned). A person can record a session at full speed (`tools/hybrid_test.py record`, analog inputs quantized so recordings stay small) and captures replay it as often as needed, several xemu instances side by side.
-- **Recipes beat retries.** Near-misses that cluster on one symptom get one deep investigation; the fix goes into the agent brief and farm prompt and is applied by cheaper models and scripts. The vtable-store-order recipe turned 13 stuck functions into about 700 matches overnight ([`docs/journal.md`](docs/journal.md)).
-- **Shared compute queue.** Batch checks, regression suites, tree builds and Wine replays go through `tools/jobq.py`, which spreads jobs over the laptop and two remote Macs by free capacity ([`docs/compute.md`](docs/compute.md)). The permuter found nothing in 70 near-misses, so it's retired.
-- **Platform boundary mapped.** Game code reaches the Xbox through 182 XDK/kernel/D3D/DirectSound functions, all in four seams (pure3d D3D backend, radcore platform layer, audio, Bink) plus 8 small functions ([`docs/platform-boundary.md`](docs/platform-boundary.md)). 16:9 and 720p are built in, the 30 fps cap is one flag, and intros can be skipped ([`docs/subsystems.md`](docs/subsystems.md)).
-- **Wine build is playable.** The tree compiles under clang into a 32-bit Windows image that runs under Wine (on the Macs, through Rosetta) on the pddi/bgfx graphics backend and SDL3 platform layer. A live session reaches the first mission with keyboard control and the game's own sound (`tools/play.py`, [`docs/wine-play.md`](docs/wine-play.md)). Replays of the hybrid's recorded session match the original's checkpoints through frame 840 at the last full write-up (lockstep drive I/O makes them deterministic; they run as queue jobs on all three machines). The renderer draws the sky and scene but still differs from the original's frames ([`docs/wine-build.md`](docs/wine-build.md), [`docs/graphics-backend.md`](docs/graphics-backend.md), [`docs/wine-replay.md`](docs/wine-replay.md)).
-- **Terms.** The *Wine build* is today's 32-bit Windows image (clang, i686), run under Wine. *Native builds* are the goal: 64-bit binaries for the supported targets (x86-64 SteamOS, arm64 macOS, arm64 Android handhelds); the Wine build is a development and verification vehicle, not a shipped target. The tools, docs and variables for the Wine build are named `wine_*` (`wine_link.py`, `equiv.py --wine`, `docs/wine-*.md`, `HULK_WINE_*`); the old `native_*` names, `--native` and `HULK_NATIVE_*` still work as aliases.
-- **Shared headers** generated from RTTI: 4,244 classes in 17 headers, with every vtable and base layout checked against the XBE ([`docs/headers.md`](docs/headers.md)).
+- **Verified source for every game function.** All but one address are byte-matched or proven equivalent; the one left, 0x0035c5b0, is 304 bytes of data, not a function. XDK, CRT, D3D and Bink library code is reimplemented from its interfaces, never decompiled, and is not counted ([`docs/platform-boundary.md`](docs/platform-boundary.md)).
+- **One merged source tree is the source of truth** (the merge-once flip, 2026-11-10, freeze point F = `e68debc9d`; [`docs/merge-once.md`](docs/merge-once.md)). `src/game/`, `src/engine/` and `src/platform/xbox/` hold one translation unit per recovered object file ([`docs/splits.md`](docs/splits.md)), in link order (`src/link-order.txt`). Each function is a block headed `// 0xADDR NAME (SIZE B): matches|equivalent` with its pinned symbol; `tools/tree_tu.py` checks a TU's functions, pins symbols and materializes the tree for builds. The per-function sources in `matches/` and `equivalent/` are frozen at F (still verified, read-only; removing them awaits the maintainer's OK).
+- **The Wine build is the development and verification build.** The tree compiles under clang into a 32-bit (i686) Windows image that runs under Wine on the SDL3 platform layer and the pddi/bgfx graphics backend. A live session reaches the first mission with keyboard control, the game's own sound and movies ([`docs/wine-play.md`](docs/wine-play.md)). A change to shared code is proven by a control/proof pair of Wine builds that replay the recorded session `play3` to frame 60,000; `tools/ckpt_gate.py` requires the proof's state checkpoints to agree wherever the control's do ([`docs/wine-build.md`](docs/wine-build.md), [`docs/wine-replay.md`](docs/wine-replay.md), [`docs/compute.md`](docs/compute.md#wine-builds)). The renderer draws the scene but still differs from the original's frames ([`docs/graphics-backend.md`](docs/graphics-backend.md)).
+- **Native 64-bit builds compile and link; start-up is being brought up.** The same tree builds for arm64 macOS (`tools/native_mac.py`) and x86-64 Linux / arm64 Android (`tools/native_elf.py`), keeping the MS C++ ABI ([`docs/native-mac.md`](docs/native-mac.md), [`docs/native-android.md`](docs/native-android.md), [`docs/native-build.md`](docs/native-build.md)). Every tree and data TU compiles (the link refuses a failed TU). The links still stub about 22,100 unresolved names per target (down from about 29,000 on 11-10); [`docs/native-unbound-plan.md`](docs/native-unbound-plan.md) sorts them by root cause and fixes them in source, by the thousand where renames suffice. Start-up batches move the macOS image along the start-up path (now past Pure3D's set-up). Each source edit for 64-bit keeps its 32-bit proof (`equiv.py --x64` checks the 64-bit object against the 32-bit one).
+- **Equivalence checker** ([`docs/equivalence.md`](docs/equivalence.md)). It runs the original and our code side by side in an emulator and compares calls, memory writes and return values. It has been tightened over 29 rounds, each closing a gap without relaxing a comparison, with 400 regression cases (`tests/equiv/regress.py`). It also checks the clang objects the Wine build runs (`--wine`) and the 64-bit objects (`--x64`); `tools/x87_order.py` finds float arithmetic grouped differently from the original's. Promotions are checked at 3,000 inputs.
+- **Trace replay against real game state.** Function-entry state recorded while the original plays in xemu is replayed through the original and our code ([`docs/equivalence.md`](docs/equivalence.md#trace-replay-toolstrace_capturepy-toolsequiv_replaypy)). The game replays deterministically after the new-game load, so a session recorded once (on the hook-only XBE, [`hybrid/`](hybrid/)) is replayed as often as needed, in xemu and by the Wine build.
+- **Data as source.** Every byte of `.rdata`/`.data`/`.bss` is inventoried ([`config/data.json`](config/data.json): addresses, kinds, names, owners, no game bytes) and generated as per-object C++ data that byte-matches the XBE ([`docs/data.md`](docs/data.md)). Game data is never committed: the data TUs are generated locally from the player's own XBE (`tools/data_gen.py`), and builds refuse stale generated inputs (`tools/input_guard.py`).
+- **Shared headers** generated from RTTI: 4,244 classes, every vtable and base layout checked against the XBE ([`docs/headers.md`](docs/headers.md)).
+- **Platform boundary mapped.** Game code reaches the Xbox through 182 XDK/kernel/D3D/DirectSound functions in four seams (pure3d's D3D backend, radcore's platform layer, audio, Bink) plus 8 small functions ([`docs/platform-boundary.md`](docs/platform-boundary.md)); `src/platform/sdl/` reimplements them over SDL3, bgfx and FFmpeg (loaded at runtime for Bink movies).
+- **Lua scripts mapped.** Missions are Lua 5.1-era bytecode; a lister and an inventory of the 749 C++ bindings the scripts call are in [`docs/lua-scripts.md`](docs/lua-scripts.md).
+- **Two versions, one tree.** The faithful port is the 2005 game, exact and replay-checked; a later *remaster* may change rendering and gameplay behind flags ([`docs/remaster.md`](docs/remaster.md)). Online co-op for the remaster is designed and prototyped on the Wine build (lockstep and rollback sessions, a signalling Worker in `net/worker/`; [`docs/multiplayer.md`](docs/multiplayer.md)), and **paused** while the native builds come up. Widescreen and 60 fps options exist in the Wine build's platform layer ([`docs/wine-widescreen-60fps.md`](docs/wine-widescreen-60fps.md)).
+- **Shared compute queue.** Equivalence batches, regression suites, Wine builds and replays go through `tools/jobq.py`, which spreads jobs over the build hosts by free capacity; the laptop takes only graphics runs ([`docs/compute.md`](docs/compute.md)).
+- **Retired:** the model farm (matching and equivalence by cheap models; [`farm/`](farm/) is kept for its pitfall recipes in `farm/src/prompt.ts`), patching our functions into the XBE for a hybrid build in xemu (`hybrid/` now only records), the CPU permuter, and `build_tree.py` as the build's source (`HULK_TREE_SOURCE=0` still selects it).
+- **Terms.** The *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.py`, `docs/wine-*.md`, `HULK_WINE_*`; the old `native_*` names, `--native` and `HULK_NATIVE_*` remain as aliases). *Native* means the 64-bit builds for the supported targets.
 
-## How it works
+## Layout
 
-1. **Recon:** XBE parsing, XDK library IDs (XbSymbolDatabase), and RTTI recovery: 4,244 classes, 13k virtual functions named in Ghidra.
-2. **Packets:** each function gets a precomputed context file with symbolized asm, its class and vtable, and Ghidra's C as a hint.
-3. **Farm:** cheap models (GPT-6 Luna first) run on [pi-durable](https://github.com/earendil-works/pi/tree/main/packages/durable). There are many parallel, crash-resumable conversations, each with one tool that compiles a candidate under wibo and diffs it against the original. Spend is hard-capped.
-4. **Propagation:** functions with identical code shape reuse a verified match without calling a model. 18k small functions collapse to 6.4k shapes.
+| Path | What |
+|---|---|
+| `src/game/`, `src/engine/`, `src/platform/xbox/` | the merged tree: one TU per recovered object, a block per function (edit functions here) |
+| `src/platform/sdl/` | the SDL3 platform layer: XDK/CRT shims, audio, input, files, movies, the pddi/bgfx graphics backend |
+| `include/` | `common.h`, `tree_prelude.h`, tree headers (`game/`, `engine/`, `platform/xbox/`), `gen/` (classes from RTTI), `decls/` (addresses, data declarations), `compat/` |
+| `matches/`, `equivalent/` | per-function sources, frozen at F (read-only) |
+| `config/` | `splits.json` (object ranges), `data.json` (data inventory, no game bytes) |
+| `tools/` | every script: checkers (`compare.py`, `verify_relocs.py`, `equiv.py`), `tree_tu.py`, builds (`wine_*.py`, `native_mac.py`, `native_elf.py`), the queue (`jobq.py`) |
+| `tests/` | checker regression cases and backend tests |
+| `hybrid/` | hooks for recording sessions in xemu |
+| `docs/` | design notes; [`docs/journal.md`](docs/journal.md) is the findings log, [`docs/roadmap.md`](docs/roadmap.md) the plan |
+| `build/`, `isos/` | local only, never committed: compilers, Ghidra, venv, the extracted disc, generated data |
 
-5. **Equivalence:** a large function passes when `tools/equiv.py` finds no behavioural difference from the original across fuzzed and directed inputs. It runs in the farm (`--mode equiv`) and in Claude subagent batches ([`docs/agents/equiv-brief.md`](docs/agents/equiv-brief.md)), and results go to `equivalent/`.
+## Working on a function
 
-Details: [`docs/toolchain.md`](docs/toolchain.md), [`docs/farm.md`](docs/farm.md), [`docs/journal.md`](docs/journal.md) (findings log), [`docs/prior-art.md`](docs/prior-art.md).
+Run from the repo root with `build/venv/bin/python`:
+
+```sh
+tools/packet.py show 0xADDR                                    # asm, Ghidra hint, referenced data
+tools/compare.py src/.../TU.cpp 0xADDR                         # MATCH, or an aligned diff against the XBE
+tools/verify_relocs.py src/.../TU.cpp --addr 0xADDR --json     # every reference hits the right symbol
+tools/equiv.py src/.../TU.cpp 0xADDR --json [--wine | --x64]   # differential execution (promotion: --inputs 3000)
+tools/tree_tu.py check src/.../TU.cpp --relocs                 # every function of a TU
+tools/tree_tu.py pin .                                         # after an edit that changes a symbol
+tools/progress.py --readme                                     # the status table above and the treemap
+```
+
+A `matches` block must still compile to the original's bytes with its references correct; an `equivalent` block needs a fresh passing `equiv.py` run. Heavy jobs go through the queue ([`docs/compute.md`](docs/compute.md)).
+
+## How it got here
+
+1. **Recon:** XBE parsing, XDK library IDs (XbSymbolDatabase), RTTI recovery (4,244 classes, 13k virtual functions named in Ghidra), and object boundaries from link order.
+2. **Matching at scale:** each function got a context packet (symbolized asm, class, vtable, Ghidra's C). A farm of cheap models, with one tool that compiled a candidate under wibo and diffed it, matched most small functions; identical code shapes reused a verified match without a model (18k small functions collapse to 6.4k shapes). Near-misses that clustered on one symptom got one deep investigation, and the fix became a recipe (the vtable-store-order recipe turned 13 stuck functions into about 700 matches overnight).
+3. **Equivalence:** large functions were written for readability and proven by `tools/equiv.py`, by models and Claude subagent batches; families of near-identical functions were proven in bulk by generators ([`tools/equiv_gen/`](tools/equiv_gen/)). Verified bytes went from 21% on 10-10 to ~100% by 10-19.
+4. **The tree:** sources were moved onto shared headers and merged into per-object TUs, then committed as the source of truth (2026-11-10).
+
+Details: [`docs/toolchain.md`](docs/toolchain.md), [`docs/farm.md`](docs/farm.md), [`docs/source-tree.md`](docs/source-tree.md), [`docs/journal.md`](docs/journal.md), [`docs/prior-art.md`](docs/prior-art.md).
 
 ## Roadmap
 
 Full plan: [`docs/roadmap.md`](docs/roadmap.md).
 
-- [x] Toolchain: matching compiler on macOS, Ghidra + RTTI, compare loop
-- [x] Matching farm with cost controls; model benchmark (GPT-6 Luna: 65% on 32–96-byte functions at ~$0.002/match)
-- [x] Reference verification: relocations must hit the right symbols
+- [x] Toolchain: matching compiler on macOS, Ghidra + RTTI, compare loop, reference verification
 - [x] Asset tools: RCF unpack/repack, P3D → PNG/glTF
 - [x] **1. Map the platform boundary**: XDK/kernel/D3D calls from game code; render/camera/HUD/game-loop subsystems
-- [ ] **2. Shared headers and real types/names**: headers generated and verified; 9,159 sources migrated onto them (tree 77% merged). Next: constructors in the headers, the remaining stub classes, real names.
-- [x] **3. Source for every game function**: byte-matched where cheap, behaviour-verified *equivalent* for large ones. Every game function has verified source (table above); the one address left, 0x0035c5b0, is 304 bytes of data, not a function.
-  - Port-priority functions (platform seams first): all verified.
-- [ ] **4. Data**: globals, tables, vtables, strings. Inventory and byte-verified data files done; sources are being wired onto the named items ([`docs/data.md`](docs/data.md)).
-- [ ] **5. Hybrid build in xemu**: boots with 14,614 functions patched in (last full boot test). Next: trace replay of real game state for every equivalent (in progress), so the build only includes equivalents that agree on it, then the full scenario suite ([`docs/tasks/10-hybrid-test-plan.md`](docs/tasks/10-hybrid-test-plan.md)).
-- [ ] **6. Native build**: the 32-bit Wine build first, then 64-bit native builds: x86-64 SteamOS, arm64 macOS and arm64 Android handhelds ([`docs/native-android.md`](docs/native-android.md)). In progress: the Wine build is playable into the first mission (keyboard, sound, movies; [`docs/wine-play.md`](docs/wine-play.md)) and replays the first level deterministically ([`docs/wine-build.md`](docs/wine-build.md)); the 64-bit consolidation has started ([`docs/consolidation-plan.md`](docs/consolidation-plan.md)).
-- [ ] **7. Make it better**: widescreen/FOV/60 fps, higher resolution, HD textures and models. Not started beyond the hybrid-build tweaks (skip intros).
-
-Milestone 3's pace came from the git history of `matches/` and `equivalent/` (verified bytes: 21% on 10-10, 48% on 10-12, 90% on 10-14, ~100% by 10-19). The other milestones have no ETAs: none has a measurable rate yet.
+- [ ] **2. Shared headers and real types/names**: headers generated and verified; the tree is merged and committed. Open: the remaining stub classes, real types where the 64-bit build needs them, real names.
+- [x] **3. Source for every game function**: byte-matched where cheap, proven equivalent for large ones (table above).
+- [ ] **4. Data**: inventory and byte-verified data TUs done; sources are being wired onto the named items ([`docs/data.md`](docs/data.md)).
+- [x] **5. Test harness in xemu**: deterministic recording and replay of real sessions, checkpoints against the original, trace replay. (Patching our functions into the XBE was retired at the flip; the Wine build's replays took its place.)
+- [ ] **6. Wine build, then native builds**: the Wine build plays into the first mission and gates every change by replay; the 64-bit builds for x86-64 SteamOS, arm64 macOS and arm64 Android handhelds compile and link, with the unbound names and start-up in progress ([`docs/native-unbound-plan.md`](docs/native-unbound-plan.md)).
+- [ ] **7. Make it better**: widescreen and 60 fps options in the Wine build; higher resolution, HD textures and models, and the remaster later.
 
 ## Setup
 
@@ -84,6 +97,6 @@ tools/setup_ghidra.sh                             # Ghidra + XBE loader + RTTI i
 build/venv/bin/python tools/compare.py experiments/first-matches/refcount.cpp 0x18b40
 ```
 
-**Match by hand:** `build/venv/bin/python tools/workbench/server.py`, then open http://127.0.0.1:8765. Pick a function (near-misses first). It shows the best earlier model attempt in an editor next to the aligned target/ours assembly diff, plus a C++ diff, Ghidra's decompilation and data context, and a CPU permuter button. A byte-identical, reference-checked result is installed into `matches/`, committed and pushed automatically.
+Building the Wine image: [`docs/wine-build.md`](docs/wine-build.md) (`tools/wine_build_job.py` runs a whole build as one queue job). Native builds: [`docs/native-mac.md`](docs/native-mac.md), [`docs/native-build.md`](docs/native-build.md).
 
-Clean-room: no leaked source (e.g. the Simpsons: Hit & Run leak, which shares this engine) is used or accepted.
+Clean-room: no leaked source (e.g. the Simpsons: Hit & Run leak, which shares this engine) or leaked XDK material is used or accepted.
