@@ -264,7 +264,7 @@ void B_277ce0::target() {
 
 
 // 0x00277d00 FUN_00277d00 (82 B): equivalent/0x00277d00.cpp
-// sym: ?FUN_00277d00@Object@fn_fad5a458@@QAEHPAUInterface_277d00@2@IIIIIIPAII@Z
+// sym: ?FUN_00277d00@Object@fn_fad5a458@@QAEHPAUInterface_277d00@2@IIIIIIPAII@Z @f70145dd03b0 @w4575482bbc53
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_00277d00 @ 0x00277d00
 int Object::FUN_00277d00(Interface_277d00* target, unsigned int a, unsigned int b, unsigned int c, unsigned int offset, unsigned int d, unsigned int e, unsigned int* result, unsigned int f) {
@@ -278,7 +278,7 @@ int Object::FUN_00277d00(Interface_277d00* target, unsigned int a, unsigned int 
 
 
 // 0x00277d60 FUN_00277d60 (683 B): equivalent/0x00277d60.cpp
-// sym: ?target@State_277d60@fn_fad5a458@@QAEHPAUReader@2@IIIIPADIPAII@Z
+// sym: ?target@State_277d60@fn_fad5a458@@QAEHPAUReader@2@IIIIPADIPAII@Z @2ff50b72b51d @w22a5f48e02a1
 // STATUS: equivalent (tools/equiv.py level 3: 526 inputs, branch coverage 38/40, incomplete; run with --inputs 12000)
 // FUN_00277d60 @ 0x00277d60
 int State_277d60::target(Reader* reader,U_277d60 a2,U_277d60 a3,U_277d60 a4,U_277d60 start,char* dest,U_277d60 requested,U_277d60* result,U_277d60 a9) {
@@ -636,7 +636,7 @@ void owners::Obj_2783d0::FUN_002783d0(int* a, int* b) {
 namespace fn_fad5a458 {
 
 // 0x00278410 FUN_00278410 (133 B): equivalent/0x00278410.cpp
-// sym: ?FUN_00278410@XboxSaveDrive_278410@fn_fad5a458@@QAEXXZ
+// sym: ?FUN_00278410@XboxSaveDrive_278410@fn_fad5a458@@QAEXXZ @b03583393748 @wa03f978dd4f2
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 10/10)
 // FUN_00278410 @ 0x00278410
 void XboxSaveDrive_278410::FUN_00278410() { if(kind == 0x55 || !mounted) return; for(int i=0;i<4;++i) { if(handles[i][0] != -1) { FUN_00356611(handles[i][0]); handles[i][0]=-1; } } if(mode == 0x55) XAPILIB::XUnmountMU(-1,-1); else XAPILIB::XUnmountMU(slot-0x31,letter-0x41); mounted=0; }
@@ -658,7 +658,7 @@ unsigned char __stdcall compare(const unsigned short* a, const unsigned short* b
 } // namespace fn_fad5a458
 
 // 0x00278500 FUN_00278500 (407 B): equivalent/0x00278500.cpp
-// sym: ??0XboxSaveDrive_278500@core@@QAE@PBDH@Z
+// sym: ??0XboxSaveDrive_278500@core@@QAE@PBDH@Z @5ea07f6a48c8 @w91908c781550
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_00278500 @ 0x00278500
 core::XboxSaveDrive_278500::XboxSaveDrive_278500(const char* nameArg, int heap) {
@@ -731,7 +731,7 @@ int XboxSaveDrive_2786c0::vfunc_13(unsigned int handle, unsigned int mode, unsig
 
 
 // 0x002786e0 core::XboxSaveDrive::vfunc_0_adj4 (8 B): equivalent/0x002786e0.cpp [wrapped: conflict: core::XboxSaveDrive]
-// sym: ?vfunc_0_adj4@XboxSaveDrive@core@fn_002786e0@@QAEPAV123@E@Z
+// sym: ?vfunc_0_adj4@XboxSaveDrive@core@fn_002786e0@@QAEPAV123@E@Z @65ea14c36fbf @w72215fe2e7f6
 namespace fn_002786e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // core::XboxSaveDrive::vfunc_0_adj4 @ 0x002786e0
@@ -838,14 +838,14 @@ void XboxSaveDrive::Run() {
 
 
 // 0x002787c0 FUN_002787c0 (203 B): equivalent/0x002787c0.cpp
-// sym: ?FUN_002787c0@XboxSaveDrive_2787c0@fn_fad5a458@@QAEHI@Z
+// sym: ?FUN_002787c0@XboxSaveDrive_2787c0@fn_fad5a458@@QAEHI@Z @d2138d0c0304 @w1881c6de4ccf
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 26/26)
 // FUN_002787c0 @ 0x002787c0
 int XboxSaveDrive_2787c0::FUN_002787c0(unsigned int value) { if(value<=0x11) { switch(value) {case 0:return 0;case 2:case 3:case 15:return 1;case 11:return 5;case 17:return 3;default:return 8;} } switch(value) { case 0x1a:return 11; case 0x1b:case 0x3ed:return 5; case 0x22:return 3; case 0x55:return 0; case 0x70:return 7; case 0x48f: { (*(Service_2787c0*)&DAT_0052a228).FUN_00278060(); unsigned int first; ((owners::Obj_2783d0 *)this)->FUN_002783d0((int *)(&first), (int *)(&value)); return ((owners::Bits_2780c0 *)&((*(Service_2787c0*)&DAT_0052a228)))->FUN_002780c0((int)first, (int)value)?3:4; } default:return 8; } }
 
 
 // 0x002788c0 FUN_002788c0 (286 B): equivalent/0x002788c0.cpp
-// sym: ?FUN_002788c0@XboxSaveDrive_2788c0@fn_fad5a458@@QAE_NXZ
+// sym: ?FUN_002788c0@XboxSaveDrive_2788c0@fn_fad5a458@@QAE_NXZ @9db53bd45c68 @w3c174c6717c2
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 14/18, incomplete)
 // FUN_002788c0 @ 0x002788c0
 bool XboxSaveDrive_2788c0::FUN_002788c0() {
@@ -929,7 +929,7 @@ XboxSaveDrive_278a80* XboxSaveDrive_278a80::f2(u8_278a80 flag) {
 } // namespace fn_fad5a458
 
 // 0x00278ab0 core::XboxSaveDrive::vfunc_17 (147 B): equivalent/0x00278ab0.cpp [wrapped: conflict: core::XboxSaveDrive]
-// sym: ?vfunc_17@XboxSaveDrive@core@fn_00278ab0@@QAEHH@Z
+// sym: ?vfunc_17@XboxSaveDrive@core@fn_00278ab0@@QAEHH@Z @d38e12bddb11 @wa39663f0ca0a
 namespace fn_00278ab0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // core::XboxSaveDrive::vfunc_17 @ 0x00278ab0
@@ -951,7 +951,7 @@ int core::XboxSaveDrive::vfunc_17(int value) {
 
 
 // 0x00278b50 FUN_00278b50 (475 B): equivalent/0x00278b50.cpp [wrapped: compile error in a shared declaration (C2556)]
-// sym: ?FUN_00278b50@XboxSaveDrive_278b50@fn_00278b50@@QAEXXZ
+// sym: ?FUN_00278b50@XboxSaveDrive_278b50@fn_00278b50@@QAEXXZ @13cb711d8ec6 @wd90cd4ca3d03
 namespace fn_00278b50 {
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 22/28, incomplete)
 // FUN_00278b50 @ 0x00278b50
@@ -1011,7 +1011,7 @@ void XboxSaveDrive_278b50::FUN_00278b50() {
 
 
 // 0x00278d30 FUN_00278d30 (166 B): equivalent/0x00278d30.cpp [wrapped: compile error C2440: 'initializing' : cannot convert from 'unsigned long (__stdcall *)(void)' to 'unsigned int']
-// sym: ?FUN_00278d30@XboxSaveDrive_278d30@fn_00278d30@@QAEHPAUResult_278d30@2@PAUSource_278d30@2@HI@Z
+// sym: ?FUN_00278d30@XboxSaveDrive_278d30@fn_00278d30@@QAEHPAUResult_278d30@2@PAUSource_278d30@2@HI@Z @01da32721882 @wb6632b52d793
 namespace fn_00278d30 {
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 6/6)
 // FUN_00278d30 @ 0x00278d30
@@ -1050,7 +1050,7 @@ int XboxSaveDrive_278d30::FUN_00278d30(Result_278d30 *result, Source_278d30 *sou
 
 
 // 0x00278de0 FUN_00278de0 (259 B): equivalent/0x00278de0.cpp [wrapped: conflict: DWORD; GetLastError]
-// sym: ?FUN_00278de0@XboxSaveDrive_278de0@fn_00278de0@@QAE_NXZ
+// sym: ?FUN_00278de0@XboxSaveDrive_278de0@fn_00278de0@@QAE_NXZ @a5e968f88534 @wdce41e788bc2
 namespace fn_00278de0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 12/12)
 // FUN_00278de0 @ 0x00278de0
@@ -1098,7 +1098,7 @@ bool XboxSaveDrive_278de0::FUN_00278de0() {
 
 
 // 0x00278ef0 FUN_00278ef0 (616 B): equivalent/0x00278ef0.cpp [wrapped: conflict: FUN_00278180; GetLastError; XCalculateSignatureBegin]
-// sym: ?FUN_00278ef0@XboxSaveDrive_278ef0@fn_00278ef0@@QAE_NII_N@Z
+// sym: ?FUN_00278ef0@XboxSaveDrive_278ef0@fn_00278ef0@@QAE_NII_N@Z @9a314e988778 @w4b4ba2f21ba2
 namespace fn_00278ef0 {
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 25/28, incomplete)
 // FUN_00278ef0 @ 0x00278ef0
@@ -1160,7 +1160,7 @@ bool XboxSaveDrive_278ef0::FUN_00278ef0(uint_278ef0 source, uint_278ef0 length, 
 
 
 // 0x00279160 core::XboxSaveDrive::vfunc_7 (181 B): equivalent/0x00279160.cpp [wrapped: conflict: core::XboxSaveDrive]
-// sym: ?vfunc_7@XboxSaveDrive@core@fn_00279160@@QAEHXZ
+// sym: ?vfunc_7@XboxSaveDrive@core@fn_00279160@@QAEHXZ @02402191afa8 @w6c85f774cc78
 namespace fn_00279160 {
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 24/24)
 // core::XboxSaveDrive::vfunc_7 @ 0x00279160
@@ -1213,7 +1213,7 @@ int core::XboxSaveDrive::vfunc_7() {
 namespace fn_fad5a458 {
 
 // 0x00279220 core::XboxSaveDrive::vfunc_18 (386 B): equivalent/0x00279220.cpp
-// sym: ?vfunc_18@XboxSaveDrive@fn_fad5a458@@UAEHPBD0PAHE@Z
+// sym: ?vfunc_18@XboxSaveDrive@fn_fad5a458@@UAEHPBD0PAHE@Z @0a268eeea4a3 @w228fdd37b97d
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 15/16, incomplete)
 // core::XboxSaveDrive::vfunc_18 @ 0x00279220
 int XboxSaveDrive::vfunc_18(const char *name, const char *source, int *index, unsigned char reuse) {
@@ -1241,7 +1241,7 @@ int XboxSaveDrive::vfunc_18(const char *name, const char *source, int *index, un
 } // namespace fn_fad5a458
 
 // 0x002793b0 core::XboxSaveDrive::vfunc_19 (220 B): equivalent/0x002793b0.cpp [wrapped: conflict: core::XboxSaveDrive]
-// sym: ?vfunc_19@XboxSaveDrive@core@fn_002793b0@@QAEHPAHPAX@Z
+// sym: ?vfunc_19@XboxSaveDrive@core@fn_002793b0@@QAEHPAHPAX@Z @0010f0e8e662 @wa1cce2c77227
 namespace fn_002793b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 14/14)
 // core::XboxSaveDrive::vfunc_19 @ 0x002793b0
@@ -1291,7 +1291,7 @@ int XboxSaveDrive::vfunc_19(int* index, void* result) {
 
 
 // 0x00279490 FUN_00279490 (409 B): equivalent/0x00279490.cpp [wrapped: compile error in a shared declaration (C2556)]
-// sym: ?FUN_00279490@XboxSaveDrive_279490@fn_00279490@@QAE_NII@Z
+// sym: ?FUN_00279490@XboxSaveDrive_279490@fn_00279490@@QAE_NII@Z @f0ebfa4a2f8a @w268beb5534e7
 namespace fn_00279490 {
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 19/20, incomplete)
 // FUN_00279490 @ 0x00279490
@@ -1342,7 +1342,7 @@ bool XboxSaveDrive_279490::FUN_00279490(hulk_uintptr file, uint_279490 block) {
 
 
 // 0x00279630 core::XboxSaveDrive::vfunc_9 (1205 B): equivalent/0x00279630.cpp [wrapped: conflict: XAPILIB::GetLastError; core::XboxSaveDrive]
-// sym: ?vfunc_9@XboxSaveDrive@core@fn_00279630@@UAEHIIEPAUSaveData@3@IPAI1@Z
+// sym: ?vfunc_9@XboxSaveDrive@core@fn_00279630@@UAEHIIEPAUSaveData@3@IPAI1@Z @20e3daf8bff0 @w3a405b8e730e
 namespace fn_00279630 {
 // STATUS: equivalent (tools/equiv.py level 3: 148 inputs, branch coverage 80/84, incomplete)
 // core::XboxSaveDrive::vfunc_9 @ 0x00279630
@@ -1428,7 +1428,7 @@ int core::XboxSaveDrive::vfunc_9(U_279630 name,U_279630 mode,B_279630 writable,S
 
 
 // 0x00279af0 core::XboxSaveDrive::vfunc_11 (182 B): equivalent/0x00279af0.cpp [wrapped: conflict: XAPILIB::GetLastError; core::XboxSaveDrive]
-// sym: ?vfunc_11@XboxSaveDrive@core@fn_00279af0@@UAEHPAXH@Z
+// sym: ?vfunc_11@XboxSaveDrive@core@fn_00279af0@@UAEHPAXH@Z @e4a5f3dba520 @wec23e7781f11
 namespace fn_00279af0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 14/14)
 // core::XboxSaveDrive::vfunc_11 @ 0x00279af0
@@ -1457,7 +1457,7 @@ int core::XboxSaveDrive::vfunc_11(void* handle, int unused) {  // an int: 0 or 1
 namespace fn_fad5a458 {
 
 // 0x00279bb0 core::XboxSaveDrive::vfunc_0_adjbc (152 B): equivalent/0x00279bb0.cpp
-// sym: ?vfunc_0_adjbc@AdjBC@fn_fad5a458@@QAEHPBXIIIIPAXI@Z
+// sym: ?vfunc_0_adjbc@AdjBC@fn_fad5a458@@QAEHPBXIIIIPAXI@Z @8a3261a81c49 @w0602b8ab673f
 // STATUS: equivalent (tools/equiv.py level 3: 635 inputs, branch coverage 8/8)
 // core::XboxSaveDrive::vfunc_0_adjbc @ 0x00279bb0
 int AdjBC::vfunc_0_adjbc(const void *name, unsigned int unused, unsigned int block, unsigned int offset, unsigned int size, void *destination, unsigned int extra)
@@ -1481,7 +1481,7 @@ int AdjBC::vfunc_0_adjbc(const void *name, unsigned int unused, unsigned int blo
 } // namespace fn_fad5a458
 
 // 0x00279c50 core::XboxSaveDrive::vfunc_0_adjc0 (197 B): equivalent/0x00279c50.cpp [wrapped: conflict: XboxSaveDrive]
-// sym: ?vfunc_0_adjc0@SaveWriter@fn_00279c50@@QAEHPAXH0IIPBXPAHH@Z
+// sym: ?vfunc_0_adjc0@SaveWriter@fn_00279c50@@QAEHPAXH0IIPBXPAHH@Z @eab393483749 @w27e7c56a8ca7
 namespace fn_00279c50 {
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 6/6)
 // core::XboxSaveDrive::vfunc_0_adjc0 @ 0x00279c50
@@ -1530,7 +1530,7 @@ int SaveWriter::vfunc_0_adjc0(void* path, int unused, void* data, unsigned offse
 namespace fn_fad5a458 {
 
 // 0x00279d30 FUN_00279d30 (540 B): equivalent/0x00279d30.cpp
-// sym: ?FUN_00279d30@fn_fad5a458@@YAPAEPAEI0II@Z
+// sym: ?FUN_00279d30@fn_fad5a458@@YAPAEPAEI0II@Z @8f2492fee067 @w396fac723073
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 55/56, incomplete)
 // FUN_00279d30 @ 0x00279d30
 Byte_279d30* __cdecl FUN_00279d30(Byte_279d30* input, unsigned int unused, Byte_279d30* output, unsigned int limit, hulk_uintptr fullSize)
@@ -1607,7 +1607,7 @@ Byte_279d30* __cdecl FUN_00279d30(Byte_279d30* input, unsigned int unused, Byte_
 
 
 // 0x00279f80 FUN_00279f80 (205 B): equivalent/0x00279f80.cpp
-// sym: ?FUN_00279f80@fn_fad5a458@@YAEIPBEIPAI1PAUTree_279f80@1@@Z
+// sym: ?FUN_00279f80@fn_fad5a458@@YAEIPBEIPAI1PAUTree_279f80@1@@Z @4524f8ddcfdd @w92ded2419651
 // STATUS: equivalent (tools/equiv.py level 3: 8 inputs, branch coverage 12/14, incomplete)
 // FUN_00279f80 @ 0x00279f80
 // equiv-conv: FUN_00279f80 ecx stack stack stack stack stack
@@ -1644,7 +1644,7 @@ unsigned char FUN_00279f80(unsigned int end, const unsigned char *data, unsigned
 } // namespace fn_fad5a458
 
 // 0x0027a050 FUN_0027a050 (146 B): equivalent/0x0027a050.cpp [wrapped: compile error C2556: 'unsigned int *fn_fad5a458::FUN_0027a050(unsigned int,const unsigned char *,unsigned int,unsigned int *,unsigned int *)']
-// sym: ?FUN_0027a050@fn_0027a050@@YAPAIIPBEIPAI1@Z
+// sym: ?FUN_0027a050@fn_0027a050@@YAPAIIPBEIPAI1@Z @2d39a1b9a1cb @w0e3d6cc7d375
 namespace fn_0027a050 {
 // STATUS: equivalent (tools/equiv.py level 3: 48 inputs, branch coverage 15/16, incomplete)
 // FUN_0027a050 @ 0x0027a050
@@ -1677,7 +1677,7 @@ unsigned int* __cdecl FUN_0027a050(unsigned int distance, const unsigned char* d
 namespace fn_fad5a458 {
 
 // 0x0027a0f0 FUN_0027a0f0 (97 B): equivalent/0x0027a0f0.cpp
-// sym: ?FUN_0027a0f0@fn_fad5a458@@YAIIIPAE@Z
+// sym: ?FUN_0027a0f0@fn_fad5a458@@YAIIIPAE@Z @90480dd28f04 @w66c8812c6783
 // STATUS: equivalent (tools/equiv.py level 3: 48 inputs, branch coverage 5/6, incomplete)
 // FUN_0027a0f0 @ 0x0027a0f0
 // equiv-conv: FUN_0027a0f0 ecx eax esi
@@ -1704,7 +1704,7 @@ unsigned int FUN_0027a0f0(unsigned int length, unsigned int tag, unsigned char *
 } // namespace fn_fad5a458
 
 // 0x0027a160 FUN_0027a160 (522 B): equivalent/0x0027a160.cpp [wrapped: compile error C2440: '=' : cannot convert from 'fn_fad5a458::U_27a160 (__cdecl *)(fn_fad5a458::U_27a160,const unsigned char *,fn_fad5a458::U_]
-// sym: ?FUN_0027a160@fn_0027a160@@YAXPBEIPAEPAIIPAUTable_27a160@1@E@Z
+// sym: ?FUN_0027a160@fn_0027a160@@YAXPBEIPAEPAIIPAUTable_27a160@1@E@Z @0fb4ca9e5fbe @w06414c4ae207
 namespace fn_0027a160 {
 // STATUS: equivalent (tools/equiv.py level 3: 3074 inputs, branch coverage 23/24, incomplete)
 // FUN_0027a160 @ 0x0027a160
@@ -1760,7 +1760,7 @@ void __cdecl FUN_0027a160(const unsigned char *src, U_27a160 length, unsigned ch
 namespace fn_fad5a458 {
 
 // 0x0027a370 FUN_0027a370 (233 B): equivalent/0x0027a370.cpp
-// sym: ?FUN_0027a370@Stream@fn_fad5a458@@QAEHIIIIIIPAII@Z
+// sym: ?FUN_0027a370@Stream@fn_fad5a458@@QAEHIIIIIIPAII@Z @38a3b04d22e6 @w78930d5d1ca6
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 14/14)
 // FUN_0027a370 @ 0x0027a370
 int Stream::FUN_0027a370(hulk_uintptr unused, uint_27a370 key, uint_27a370 mode, uint_27a370 start, uint_27a370 destination, uint_27a370 count, uint_27a370* completed, uint_27a370 flags) {
@@ -1793,7 +1793,7 @@ int Stream::FUN_0027a370(hulk_uintptr unused, uint_27a370 key, uint_27a370 mode,
 } // namespace fn_fad5a458
 
 // 0x0027a460 FUN_0027a460 (246 B): equivalent/0x0027a460.cpp [wrapped: conflict: Stream]
-// sym: ?process@Stream@fn_0027a460@@QAEHIIIIIIPAIII@Z
+// sym: ?process@Stream@fn_0027a460@@QAEHIIIIIIPAIII@Z @373dc5b2c695 @w1e1188523c72
 namespace fn_0027a460 {
 // STATUS: equivalent (tools/equiv.py level 3: 732 inputs, branch coverage 14/14; run with --inputs 12000)
 // FUN_0027a460 @ 0x0027a460

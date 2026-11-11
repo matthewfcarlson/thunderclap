@@ -57,7 +57,7 @@ unsigned char FUN_00258f40(State* state);
 
 
 // 0x00258f40 FUN_00258f40 (78 B): equivalent/0x00258f40.cpp
-// sym: ?FUN_00258f40@fn_f9813241@@YAEPAUSoundPlayer@1@@Z
+// sym: ?FUN_00258f40@fn_f9813241@@YAEPAUSoundPlayer@1@@Z @85b67c630f23 @w14d0cd6bbfbc
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 6/6)
 // FUN_00258f40 @ 0x00258f40
 // equiv-conv: FUN_00258f40 eax
@@ -75,7 +75,7 @@ unsigned char FUN_00258f40(SoundPlayer *player)
 } // namespace fn_f9813241
 
 // 0x00258f90 FUN_00258f90 (1626 B): equivalent/0x00258f90.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_00258f90@fn_00258f90@@YAXPAUState_258f90@1@@Z
+// sym: ?FUN_00258f90@fn_00258f90@@YAXPAUState_258f90@1@@Z @a33f170fd0a6 @wdfac576ea2f3
 namespace fn_00258f90 {
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 58/64, incomplete)
 // FUN_00258f90 @ 0x00258f90
@@ -232,7 +232,7 @@ void __cdecl FUN_00258f90(State_258f90* s)
 namespace fn_f9813241 {
 
 // 0x00259610 FUN_00259610 (1315 B): equivalent/0x00259610.cpp
-// sym: _FUN_00259610
+// sym: _FUN_00259610 @48d444a1bf6d @w484a2b368433
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 67/68, incomplete)
 // FUN_00259610 @ 0x00259610
 extern "C" Player_259610* __cdecl FUN_00259610(uint_259610* types, void* context, Audio_259610* audio)
@@ -318,7 +318,7 @@ extern "C" Player_259610* __cdecl FUN_00259610(uint_259610* types, void* context
 } // namespace fn_f9813241
 
 // 0x00259b40 FUN_00259b40 (157 B): equivalent/0x00259b40.cpp [wrapped: conflict: FUN_0024c740]
-// sym: _FUN_00259b40
+// sym: _FUN_00259b40 @2424497bba28 @w439a480dc521
 namespace fn_00259b40 {
 // STATUS: equivalent (tools/equiv.py level 3: 2958 inputs, branch coverage 10/10)
 // FUN_00259b40 @ 0x00259b40
@@ -358,14 +358,14 @@ extern "C" void __cdecl FUN_00259b40(Object* obj)
 namespace fn_f9813241 {
 
 // 0x00259be0 FUN_00259be0 (100 B): equivalent/0x00259be0.cpp
-// sym: _FUN_00259be0
+// sym: _FUN_00259be0 @7a4aa01093fa @wbdd6aa47b3a4
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 8/8)
 // FUN_00259be0 @ 0x00259be0
 extern "C" bool __cdecl FUN_00259be0(Sound_259be0 *sound) { sound->playing = 1; FUN_00258f90(sound, 1); unsigned int count = (sound->info->flags >> 4) & 31; for (unsigned int i = 0; i < count; ++i) { if (DSOUND::IDirectSoundBuffer_Play(sound->buffers[i]->handle, 0, 0, sound->loop != 0) < 0) return false; } return true; }
 
 
 // 0x00259c50 FUN_00259c50 (35 B): equivalent/0x00259c50.cpp
-// sym: ?FUN_00259c50@fn_f9813241@@YAPAXPAUState@1@@Z
+// sym: ?FUN_00259c50@fn_f9813241@@YAPAXPAUState@1@@Z @9906e14912a0 @wdb1ca1a135cc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00259c50 @ 0x00259c50
 // equiv-conv: FUN_00258f40 eax

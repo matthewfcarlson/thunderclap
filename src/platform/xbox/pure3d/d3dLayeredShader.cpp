@@ -366,7 +366,7 @@ void Obj_32da30::Set(int v) {
 
 
 // 0x0032da40 FUN_0032da40 (72 B): equivalent/0x0032da40.cpp
-// sym: ?FUN_0032da40@fn_ff7bd48b@@YGII@Z
+// sym: ?FUN_0032da40@fn_ff7bd48b@@YGII@Z @1abf25ecfd78 @w7020bdf5a1ff
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 9/9)
 // FUN_0032da40 @ 0x0032da40
 unsigned int __stdcall FUN_0032da40(unsigned int value)
@@ -406,7 +406,7 @@ void Obj_32daf0::Set(int v) {
 } // namespace fn_ff7bd48b
 
 // 0x0032db00 FUN_0032db00 (93 B): equivalent/0x0032db00.cpp
-// sym: ?FUN_0032db00@ShaderState_32db00@owners@@QAEXXZ
+// sym: ?FUN_0032db00@ShaderState_32db00@owners@@QAEXXZ @1e3c8828095e @w88f46da6df01
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 4/4)
 // FUN_0032db00 @ 0x0032db00
 void owners::ShaderState_32db00::FUN_0032db00() {
@@ -452,7 +452,7 @@ d3dLayeredShader_32dbf0* d3dLayeredShader_32dbf0::vfunc_3(unsigned int x) {
 } // namespace fn_ff7bd48b
 
 // 0x0032dc40 pure3d::d3dLayeredShader::vfunc_14 (1065 B): equivalent/0x0032dc40.cpp [wrapped: conflict: pure3d::d3dLayeredShader]
-// sym: ?vfunc_14@d3dLayeredShader@pure3d@fn_0032dc40@@UAEXH@Z
+// sym: ?vfunc_14@d3dLayeredShader@pure3d@fn_0032dc40@@UAEXH@Z @676164b57808 @w1a60ad631905
 namespace fn_0032dc40 {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 55/55)
 // pure3d::d3dLayeredShader::vfunc_14 @ 0x0032dc40
@@ -710,7 +710,7 @@ void Obj::Set(float x) {
 
 
 // 0x0032e0e0 FUN_0032e0e0 (792 B): equivalent/0x0032e0e0.cpp
-// sym: ?FUN_0032e0e0@LightShader@fn_ff7bd48b@@QAEXXZ
+// sym: ?FUN_0032e0e0@LightShader@fn_ff7bd48b@@QAEXXZ @1ef1680c975c @wa685e2d0a119
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 12/12)
 // FUN_0032e0e0 @ 0x0032e0e0
 void LightShader::FUN_0032e0e0() {

@@ -349,7 +349,7 @@ void __stdcall D3DDevice_GetTransform(int state, pure3d::Matrix4_32aca0* out);
 
 
 // 0x00329430 FUN_00329430 (1080 B): equivalent/0x00329430.cpp
-// sym: ?init@Registry_329430@fn_f1389006@@QAEPAU12@PAVd3dContext@pure3d@@@Z
+// sym: ?init@Registry_329430@fn_f1389006@@QAEPAU12@PAVd3dContext@pure3d@@@Z @5ba893044d11 @w62e7181067eb
 // STATUS: equivalent (tools/equiv.py level 3: 2958 inputs, branch coverage 2/2; --wine 600 inputs)
 // FUN_00329430 @ 0x00329430
 Registry_329430* Registry_329430::init(::pure3d::d3dContext* arg) {
@@ -365,7 +365,7 @@ Registry_329430* Registry_329430::init(::pure3d::d3dContext* arg) {
 
 
 // 0x00329b40 FUN_00329b40 (105 B): equivalent/0x00329b40.cpp
-// sym: _FUN_00329b40
+// sym: _FUN_00329b40 @2d64a1b6ce76 @wa8effe9d758d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0; --wine 600 inputs)
 // FUN_00329b40 @ 0x00329b40
 // equiv-conv: FUN_00329b40 ecx stack
@@ -400,7 +400,7 @@ void owners::State_329bb0::FUN_00329bb0(unsigned int index) {
 
 
 // 0x00329c40 FUN_00329c40 (76 B): equivalent/0x00329c40.cpp
-// sym: ?FUN_00329c40@Device_329c40@owners@@QAEXHH@Z
+// sym: ?FUN_00329c40@Device_329c40@owners@@QAEXHH@Z @4fb6b6945f7d @w76b021308f28
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00329c40 @ 0x00329c40
 void owners::Device_329c40::FUN_00329c40(int stage, int value) {
@@ -485,7 +485,7 @@ void owners::Device_329f20::FUN_00329f20(u32_329f20 value) {
 namespace fn_f1389006 {
 
 // 0x00329f70 FUN_00329f70 (321 B): equivalent/0x00329f70.cpp
-// sym: ?FUN_00329f70@Context@fn_f1389006@@QAEXEEPAUMatSrc_329f70@2@@Z
+// sym: ?FUN_00329f70@Context@fn_f1389006@@QAEXEEPAUMatSrc_329f70@2@@Z @2e938385db7f @wf04ba093e6bb
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 16/16)
 // FUN_00329f70 @ 0x00329f70
 // FUN_00329f70 @ 0x00329f70
@@ -606,7 +606,7 @@ void DeviceState_32a220::SetTexture(int stage, Texture* value) {
 } // namespace fn_f1389006
 
 // 0x0032a260 FUN_0032a260 (103 B): equivalent/0x0032a260.cpp [wrapped: compile error C2668: 'fn_f1389006::D3D8::D3DDevice_SetRenderState_Simple' : ambiguous call to overloaded function]
-// sym: ?FUN_0032a260@Object@fn_0032a260@@QAEXXZ
+// sym: ?FUN_0032a260@Object@fn_0032a260@@QAEXXZ @12590c0d5d0e @w01ae77c42227
 namespace fn_0032a260 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_0032a260 @ 0x0032a260
@@ -654,7 +654,7 @@ void __fastcall FUN_0032a2d0(Obj_32a2d0* self) {
 
 
 // 0x0032a320 FUN_0032a320 (169 B): equivalent/0x0032a320.cpp [wrapped: conflict: DAT_0039db10]
-// sym: ?Set@Stage_32a320@fn_0032a320@@QAEXHH@Z
+// sym: ?Set@Stage_32a320@fn_0032a320@@QAEXHH@Z @fa0c5b32ba0e @w00d0c3d3be93
 namespace fn_0032a320 {
 // STATUS: equivalent (tools/equiv.py level 3: 2969 inputs, branch coverage 6/6)
 // FUN_0032a320 @ 0x0032a320
@@ -835,7 +835,7 @@ void* pure3d::d3dSimpleShader::vfunc_23() {
 
 
 // 0x0032a5a0 FUN_0032a5a0 (93 B): equivalent/0x0032a5a0.cpp
-// sym: ?FUN_0032a5a0@ShaderState_32a5a0@owners@@QAEXXZ
+// sym: ?FUN_0032a5a0@ShaderState_32a5a0@owners@@QAEXXZ @78dfd803ebaa @w2317d938857b
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 4/4)
 // FUN_0032a5a0 @ 0x0032a5a0
 void owners::ShaderState_32a5a0::FUN_0032a5a0() {
@@ -847,7 +847,7 @@ void owners::ShaderState_32a5a0::FUN_0032a5a0() {
 namespace fn_f1389006 {
 
 // 0x0032a600 FUN_0032a600 (792 B): equivalent/0x0032a600.cpp
-// sym: ?Upload@LightSet_32a600@fn_f1389006@@QAEXXZ
+// sym: ?Upload@LightSet_32a600@fn_f1389006@@QAEXXZ @b2dbca4804e3 @w135a4795433a
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 12/12)
 // FUN_0032a600 @ 0x0032a600
 void LightSet_32a600::Upload() {
@@ -1004,7 +1004,7 @@ d3dSimpleShader_32aa30* d3dSimpleShader_32aa30::vfunc_3(u8_32aa30 destroy) {
 } // namespace fn_f1389006
 
 // 0x0032aa70 pure3d::d3dSimpleShader::vfunc_14 (445 B): equivalent/0x0032aa70.cpp [wrapped: conflict: DAT_0039de18; pure3d::d3dSimpleShader]
-// sym: ?vfunc_14@d3dSimpleShader@pure3d@fn_0032aa70@@UAEXH@Z
+// sym: ?vfunc_14@d3dSimpleShader@pure3d@fn_0032aa70@@UAEXH@Z @05aa4fa0a514 @w57ad9dc38d2d
 namespace fn_0032aa70 {
 // STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 29/29)
 // pure3d::d3dSimpleShader::vfunc_14 @ 0x0032aa70

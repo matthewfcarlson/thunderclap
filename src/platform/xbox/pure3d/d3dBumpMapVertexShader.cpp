@@ -234,7 +234,7 @@ extern "C" int* FUN_00332c50() {
 } // namespace fn_fad033e0
 
 // 0x00332c60 pure3d::d3dBumpMapVertexShader::vfunc_24 (509 B): equivalent/0x00332c60.cpp
-// sym: ?vfunc_24@d3dBumpMapVertexShader@pure3d@@UAEXXZ
+// sym: ?vfunc_24@d3dBumpMapVertexShader@pure3d@@UAEXXZ @1c45abe53ca7 @wea3ef6aa06b0
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 4/4)
 // pure3d::d3dBumpMapVertexShader::vfunc_24 @ 0x00332c60
 void pure3d::d3dBumpMapVertexShader::vfunc_24() {
@@ -308,7 +308,7 @@ void Holder::Set(Obj* p) {
 
 
 // 0x00332ec0 pure3d::d3dBumpMapVertexShader::vfunc_12 (580 B): equivalent/0x00332ec0.cpp
-// sym: ?vfunc_12@d3dBumpMapVertexShader@pure3d@@UAEXXZ
+// sym: ?vfunc_12@d3dBumpMapVertexShader@pure3d@@UAEXXZ @69a22b564145 @w6274d8cd2d25
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // pure3d::d3dBumpMapVertexShader::vfunc_12 @ 0x00332ec0
 void pure3d::d3dBumpMapVertexShader::vfunc_12() {
@@ -396,7 +396,7 @@ d3dBumpMapVertexShader_333170* d3dBumpMapVertexShader_333170::vfunc_3(byte_33317
 } // namespace fn_fad033e0
 
 // 0x003331c0 pure3d::d3dBumpMapVertexShader::vfunc_14 (414 B): equivalent/0x003331c0.cpp [wrapped: conflict: pure3d::d3dBumpMapVertexShader]
-// sym: ?vfunc_14@d3dBumpMapVertexShader@pure3d@fn_003331c0@@UAEXH@Z
+// sym: ?vfunc_14@d3dBumpMapVertexShader@pure3d@fn_003331c0@@UAEXH@Z @e064ce63b2fa @we3c58992e3c6
 namespace fn_003331c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 12/12)
 // pure3d::d3dBumpMapVertexShader::vfunc_14 @ 0x003331c0

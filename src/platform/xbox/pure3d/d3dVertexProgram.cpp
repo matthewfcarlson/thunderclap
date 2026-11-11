@@ -69,7 +69,7 @@ extern "C" void __stdcall FUN_00013420(void*, int, int, const float*);
 
 
 // 0x003287a0 FUN_003287a0 (377 B): equivalent/0x003287a0.cpp
-// sym: ?FUN_003287a0@fn_f967e045@@YAXXZ
+// sym: ?FUN_003287a0@fn_f967e045@@YAXXZ @9ce4b70416cd @w78a831676b8d
 // STATUS: equivalent (tools/equiv.py level 3: 20066 inputs, branch coverage 17/20, incomplete)
 // FUN_003287a0 @ 0x003287a0
 void __cdecl FUN_003287a0() {
@@ -104,7 +104,7 @@ extern "C" void FUN_00328be0() {}
 } // namespace fn_f967e045
 
 // 0x00328bf0 FUN_00328bf0 (791 B): equivalent/0x00328bf0.cpp [wrapped: compile error C2668: 'fn_f967e045::D3D8::D3DDevice_SetTextureState_TexCoordIndex' : ambiguous call to overloaded function]
-// sym: ?FUN_00328bf0@Material_328bf0@fn_00328bf0@@QAEXXZ
+// sym: ?FUN_00328bf0@Material_328bf0@fn_00328bf0@@QAEXXZ @950c74b28049 @w38e2169208b0
 namespace fn_00328bf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_00328bf0 @ 0x00328bf0
@@ -262,7 +262,7 @@ void Material_328bf0::FUN_00328bf0() {
 
 
 // 0x00328f10 FUN_00328f10 (171 B): equivalent/0x00328f10.cpp
-// sym: ?FUN_00328f10@State_328f10@owners@@QAEXXZ
+// sym: ?FUN_00328f10@State_328f10@owners@@QAEXXZ @b548758758d4 @wc9a47089c2e5
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00328f10 @ 0x00328f10
 void owners::State_328f10::FUN_00328f10() {
@@ -379,7 +379,7 @@ extern "C" void* __fastcall FUN_003290a0(Obj_3290a0* self) {
 namespace fn_f967e045 {
 
 // 0x003290e0 FUN_003290e0 (572 B): equivalent/0x003290e0.cpp
-// sym: ?Get@ShaderCache_3290e0@fn_f967e045@@QAEPAUShaderEntry@2@PBDIIH@Z
+// sym: ?Get@ShaderCache_3290e0@fn_f967e045@@QAEPAUShaderEntry@2@PBDIIH@Z @134c99deb6b4 @wa18e7278dc4a
 // STATUS: equivalent (tools/equiv.py level 3: 42 inputs, branch coverage 43/44, incomplete)
 // FUN_003290e0 @ 0x003290e0
 ShaderEntry* ShaderCache_3290e0::Get(const char* name, unsigned int a, unsigned int flags, int c) {

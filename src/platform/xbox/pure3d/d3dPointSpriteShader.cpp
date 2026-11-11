@@ -463,7 +463,7 @@ d3dPointSpriteShader_32d390* d3dPointSpriteShader_32d390::vfunc_3(u8_32d390 dest
 } // namespace fn_f3432927
 
 // 0x0032d3d0 pure3d::d3dPointSpriteShader::vfunc_14 (471 B): equivalent/0x0032d3d0.cpp
-// sym: ?vfunc_14@d3dPointSpriteShader@pure3d@@UAEXH@Z
+// sym: ?vfunc_14@d3dPointSpriteShader@pure3d@@UAEXH@Z @7aa416c23251 @we63e21dbec94
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // pure3d::d3dPointSpriteShader::vfunc_14 @ 0x0032d3d0
 void pure3d::d3dPointSpriteShader::vfunc_14(int unused) {

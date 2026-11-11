@@ -405,7 +405,7 @@ struct Skin_327860 {
 
 
 // 0x00326e90 FUN_00326e90 (251 B): equivalent/0x00326e90.cpp
-// sym: ?FUN_00326e90@Layout_326e90@fn_fd8cb2f6@@QAEPADPADPAUFormat_326e90@2@II@Z
+// sym: ?FUN_00326e90@Layout_326e90@fn_fd8cb2f6@@QAEPADPADPAUFormat_326e90@2@II@Z @b7c1ce54ac6d @w8c82ce826ddc
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 28/28)
 // FUN_00326e90 @ 0x00326e90
 char* Layout_326e90::FUN_00326e90(char* data, Format_326e90* fmt, unsigned value, unsigned unused) {
@@ -503,7 +503,7 @@ void pure3d::d3dPrimBuffer::vfunc_14(int x) {
 namespace fn_fd8cb2f6 {
 
 // 0x003270c0 FUN_003270c0 (105 B): equivalent/0x003270c0.cpp
-// sym: ?FUN_003270c0@BufferOwner@fn_fd8cb2f6@@QAEXH@Z
+// sym: ?FUN_003270c0@BufferOwner@fn_fd8cb2f6@@QAEXH@Z @e8c5649216e3 @wc720d4b57744
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_003270c0 @ 0x003270c0
 void BufferOwner::FUN_003270c0(int n) {
@@ -540,7 +540,7 @@ void owners::Buffer_327130::FUN_00327130(int n) {
 
 
 // 0x00327190 pure3d::d3dPrimBuffer::vfunc_4 (92 B): equivalent/0x00327190.cpp [wrapped: conflict: pure3d::d3dPrimBuffer]
-// sym: ?vfunc_4@d3dPrimBuffer@pure3d@fn_00327190@@QAEPAURecord_327190@3@XZ
+// sym: ?vfunc_4@d3dPrimBuffer@pure3d@fn_00327190@@QAEPAURecord_327190@3@XZ @5e84ebb77904 @w3a46d8e8a8ec
 namespace fn_00327190 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 3/4, incomplete)
 // pure3d::d3dPrimBuffer::vfunc_4 @ 0x00327190
@@ -655,7 +655,7 @@ void pure3d::d3dPrimBuffer::vfunc_9(void* __p0, int count) { const void * src = 
 namespace fn_fd8cb2f6 {
 
 // 0x003272f0 FUN_003272f0 (238 B): equivalent/0x003272f0.cpp
-// sym: ?Draw@MeshBatch@fn_fd8cb2f6@@QAEXXZ
+// sym: ?Draw@MeshBatch@fn_fd8cb2f6@@QAEXXZ @4f005e690c95 @w60922866e0ed
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 10/10)
 // FUN_003272f0 @ 0x003272f0
 // equiv-conv: FUN_00326dc0 eax ecx
@@ -727,7 +727,7 @@ void pure3d::d3dPrimBufferStream::vfunc_0(int a, int b, int c) {
 
 
 // 0x00327480 pure3d::d3dPrimBufferStream::vfunc_1 (176 B): equivalent/0x00327480.cpp [wrapped: conflict: pure3d::d3dPrimBufferStream; pure3d::pddiPrimBufferStream]
-// sym: ?vfunc_1@d3dPrimBufferStream@pure3d@fn_00327480@@UAEXMMM@Z
+// sym: ?vfunc_1@d3dPrimBufferStream@pure3d@fn_00327480@@UAEXMMM@Z @c5cb2399b5eb @w7590cefcb567
 namespace fn_00327480 {
 // STATUS: equivalent (tools/equiv.py level 3: 19877 inputs, branch coverage 2/2)
 // pure3d::d3dPrimBufferStream::vfunc_1 @ 0x00327480
@@ -885,7 +885,7 @@ void pure3d::d3dPrimBufferStream::vfunc_13(hulk_intptr __p0, int c, hulk_intptr 
 
 
 // 0x00327750 pure3d::d3dPrimBufferStream::vfunc_12 (76 B): equivalent/0x00327750.cpp
-// sym: ?vfunc_12@d3dPrimBufferStream@pure3d@@UAEXHHH@Z
+// sym: ?vfunc_12@d3dPrimBufferStream@pure3d@@UAEXHHH@Z @dcb8fb0a3151 @w1d119a9ddcbf
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // pure3d::d3dPrimBufferStream::vfunc_12 @ 0x00327750
 void pure3d::d3dPrimBufferStream::vfunc_12(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { const Triple_327750 * p = (const Triple_327750 *)__p0; const Triple_327750 * n = (const Triple_327750 *)__p1; const Pair_327750 * uv = (const Pair_327750 *)__p2;
@@ -945,7 +945,7 @@ d3dPrimBuffer* d3dPrimBuffer::f3(unsigned char flag) {
 
 
 // 0x00327860 FUN_00327860 (107 B): equivalent/0x00327860.cpp
-// sym: ?FUN_00327860@Skin_327860@fn_fd8cb2f6@@QAEXHIHHHPBD@Z
+// sym: ?FUN_00327860@Skin_327860@fn_fd8cb2f6@@QAEXHIHHHPBD@Z @7711284a52db @w02aa0e790bf0
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00327860 @ 0x00327860
 void Skin_327860::FUN_00327860(int idx, unsigned int fl, int unused, int a4, int a5, const char *name)

@@ -4,7 +4,7 @@
 
 
 // 0x00329c90 FUN_00329c90 (93 B): equivalent/0x00329c90.cpp [isolated: conflict: DAT_0039db08; on include/gen/ and not mergeable]
-// sym: ?FUN_00329c90@Obj_329c90@owners@@QAEXHH@Z
+// sym: ?FUN_00329c90@Obj_329c90@owners@@QAEXHH@Z @a722781421ec @w1c1bb7b74f3a
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 2/2)
 // FUN_00329c90 @ 0x00329c90
 #include "decls/data/platform/xbox/pure3d.h"

@@ -407,7 +407,7 @@ d3dReflShader_32c4d0* d3dReflShader_32c4d0::vfunc_3(unsigned int x) {
 
 
 // 0x0032c520 pure3d::d3dReflShader::vfunc_14 (568 B): equivalent/0x0032c520.cpp
-// sym: ?vfunc_14@d3dReflShader_32c520@fn_fd5404cd@@QAEXH@Z
+// sym: ?vfunc_14@d3dReflShader_32c520@fn_fd5404cd@@QAEXH@Z @39c46e3562fb @w9118863218e6
 // STATUS: equivalent (tools/equiv.py level 3: 152 inputs, branch coverage 24/24)
 // pure3d::d3dReflShader::vfunc_14 @ 0x0032c520
 void d3dReflShader_32c520::vfunc_14(int) {

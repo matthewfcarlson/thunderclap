@@ -1141,7 +1141,7 @@ void pure3d::d3dExtFramebufferEffects::vfunc_7(unsigned char value) {
 namespace fn_f57e27cb {
 
 // 0x003202b0 FUN_003202b0 (114 B): equivalent/0x003202b0.cpp
-// sym: ?FUN_003202b0@fn_f57e27cb@@YG_NPBDI@Z
+// sym: ?FUN_003202b0@fn_f57e27cb@@YG_NPBDI@Z @de6eace05f27 @w75309eb6b2dc
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_003202b0 @ 0x003202b0
 bool __stdcall FUN_003202b0(const char *source, unsigned int shader)
@@ -1161,7 +1161,7 @@ bool __stdcall FUN_003202b0(const char *source, unsigned int shader)
 
 
 // 0x00320330 FUN_00320330 (506 B): equivalent/0x00320330.cpp
-// sym: ?Setup@d3dExtFramebufferEffects_320330@fn_f57e27cb@@QAEXXZ
+// sym: ?Setup@d3dExtFramebufferEffects_320330@fn_f57e27cb@@QAEXXZ @ab1f723ee121 @w669a48675edd
 // STATUS: equivalent (tools/equiv.py level 3: 20053 inputs, branch coverage 16/16)
 // FUN_00320330 @ 0x00320330
 void d3dExtFramebufferEffects_320330::Setup() {
@@ -1216,7 +1216,7 @@ void pure3d::d3dExtFramebufferEffects::vfunc_3(unsigned char value) {
 namespace fn_f57e27cb {
 
 // 0x00320540 FUN_00320540 (1199 B): equivalent/0x00320540.cpp
-// sym: ?FUN_00320540@ShaderCollection@fn_f57e27cb@@QAEEXZ
+// sym: ?FUN_00320540@ShaderCollection@fn_f57e27cb@@QAEEXZ @1efd85545c63 @wa9ce024a26c3
 // STATUS: equivalent (tools/equiv.py level 3: 60 inputs, branch coverage 73/74, incomplete)
 // FUN_00320540 @ 0x00320540
 unsigned char ShaderCollection::FUN_00320540() {
@@ -1547,7 +1547,7 @@ bool owners::Holder_320d00::FUN_00320d00(int value) {
 namespace fn_f57e27cb {
 
 // 0x00320d30 FUN_00320d30 (1359 B): equivalent/0x00320d30.cpp
-// sym: ?FUN_00320d30@Renderer_320d30@fn_f57e27cb@@QAEEXZ
+// sym: ?FUN_00320d30@Renderer_320d30@fn_f57e27cb@@QAEEXZ @63b29412881b @w14bc8bc889e3
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 58/58)
 // FUN_00320d30 @ 0x00320d30
 unsigned char Renderer_320d30::FUN_00320d30() {
@@ -1671,7 +1671,7 @@ void d3dContext::vfunc_110(int n, char b) {
 namespace fn_f57e27cb {
 
 // 0x00321310 FUN_00321310 (435 B): equivalent/0x00321310.cpp
-// sym: ?FUN_00321310@LightingState@fn_f57e27cb@@QAEXXZ
+// sym: ?FUN_00321310@LightingState@fn_f57e27cb@@QAEXXZ @6c17fa216213 @w56d78f954c1d
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00321310 @ 0x00321310
 // equiv-conv: FUN_0031ffc0 ecx stack
@@ -1757,7 +1757,7 @@ void Thing_321520::f(float a, float b, float c, float d) {
 } // namespace fn_f57e27cb
 
 // 0x00321580 pure3d::d3dContext::vfunc_12 (726 B): equivalent/0x00321580.cpp [wrapped: conflict: pure3d::d3dContext; pure3d::pddiBaseContext]
-// sym: ?vfunc_12@d3dContext@pure3d@fn_00321580@@UAEXI@Z
+// sym: ?vfunc_12@d3dContext@pure3d@fn_00321580@@UAEXI@Z @ad2e0d0f58bb @w59920f24a1e0
 namespace fn_00321580 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 30/32, incomplete)
 // pure3d::d3dContext::vfunc_12 @ 0x00321580
@@ -3189,7 +3189,7 @@ hulk_intptr Obj_321da0::target(hulk_intptr a0, int a1, int a2, int a3) {
 
 
 // 0x00321dc0 FUN_00321dc0 (206 B): equivalent/0x00321dc0.cpp
-// sym: ?FUN_00321dc0@d3dPrimStream_321dc0@fn_f57e27cb@@QAEIPAHH@Z
+// sym: ?FUN_00321dc0@d3dPrimStream_321dc0@fn_f57e27cb@@QAEIPAHH@Z @583c33957b8a @wbbe348e0b917
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 26/26)
 // FUN_00321dc0 @ 0x00321dc0
 unsigned int d3dPrimStream_321dc0::FUN_00321dc0(int *output, int key) {
@@ -3209,7 +3209,7 @@ unsigned int d3dPrimStream_321dc0::FUN_00321dc0(int *output, int key) {
 } // namespace fn_f57e27cb
 
 // 0x00321ea0 pure3d::d3dContext::vfunc_89 (148 B): equivalent/0x00321ea0.cpp [wrapped: conflict: pure3d::d3dContext]
-// sym: ?vfunc_89@d3dContext@pure3d@fn_00321ea0@@QAEHH@Z
+// sym: ?vfunc_89@d3dContext@pure3d@fn_00321ea0@@QAEHH@Z @6522f2bd005f @w674c2601099d
 namespace fn_00321ea0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20028 inputs, branch coverage 18/18)
 // pure3d::d3dContext::vfunc_89 @ 0x00321ea0
@@ -3616,7 +3616,7 @@ void pure3d::d3dExtVertexProgram::vfunc_1(int a0, int a1) {
 
 
 // 0x00322430 pure3d::d3dExtVertexProgram::vfunc_3 (14 B): equivalent/0x00322430.cpp [wrapped: conflict: pure3d::d3dExtVertexProgram]
-// sym: ?vfunc_3@d3dExtVertexProgram@pure3d@fn_00322430@@UAEXHHHH@Z
+// sym: ?vfunc_3@d3dExtVertexProgram@pure3d@fn_00322430@@UAEXHHHH@Z @499164e1c531 @wd2f72b87657e
 namespace fn_00322430 {
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // pure3d::d3dExtVertexProgram::vfunc_3 @ 0x00322430
@@ -3644,7 +3644,7 @@ void d3dExtVertexProgram::vfunc_3(int a0, int a1, int a2, int a3) {
 
 
 // 0x00322440 pure3d::d3dExtVertexProgram::vfunc_2 (72 B): equivalent/0x00322440.cpp
-// sym: ?vfunc_2@d3dExtVertexProgram@pure3d@@UAEXHHHHH@Z
+// sym: ?vfunc_2@d3dExtVertexProgram@pure3d@@UAEXHHHHH@Z @a38ab194c921 @w3eb982f37879
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // pure3d::d3dExtVertexProgram::vfunc_2 @ 0x00322440
 void pure3d::d3dExtVertexProgram::vfunc_2(hulk_intptr __p0, int __p1, int __p2, int __p3, int __p4) { VertexSource * source = (VertexSource *)__p0; unsigned int a = (unsigned int)__p1; unsigned int b = (unsigned int)__p2; unsigned int c = (unsigned int)__p3; unsigned char temporary = (unsigned char)__p4;
@@ -3686,7 +3686,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x003224b0 FUN_003224b0 (269 B): equivalent/0x003224b0.cpp [wrapped: conflict: pure3d::d3dExtFramebufferEffects]
-// sym: ??0d3dExtFramebufferEffects@pure3d@fn_003224b0@@QAE@PAVd3dContext@1@@Z
+// sym: ??0d3dExtFramebufferEffects@pure3d@fn_003224b0@@QAE@PAVd3dContext@1@@Z @694602d59337 @wc865cf514a12
 namespace fn_003224b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0; --wine 600 inputs)
 // FUN_003224b0 @ 0x003224b0
@@ -3810,7 +3810,7 @@ void pure3d::d3dExtFramebufferEffects::vfunc_2() {
 namespace fn_f57e27cb {
 
 // 0x003226d0 FUN_003226d0 (696 B): equivalent/0x003226d0.cpp
-// sym: ?Draw@Overlay@fn_f57e27cb@@QAEXXZ
+// sym: ?Draw@Overlay@fn_f57e27cb@@QAEXXZ @303fb9133d34 @wd89f07a4f622
 // STATUS: equivalent (tools/equiv.py level 3: 18904 inputs, branch coverage 6/6)
 // FUN_003226d0 @ 0x003226d0
 void Overlay::Draw() {
@@ -3881,7 +3881,7 @@ void Overlay::Draw() {
 } // namespace fn_f57e27cb
 
 // 0x00322990 FUN_00322990 (821 B): equivalent/0x00322990.cpp [wrapped: conflict: Overlay]
-// sym: ?Draw@Overlay@fn_00322990@@QAEXXZ
+// sym: ?Draw@Overlay@fn_00322990@@QAEXXZ @a9bc73cdad02 @wfe9d79e92977
 namespace fn_00322990 {
 // STATUS: equivalent (tools/equiv.py level 3: 18262 inputs, branch coverage 11/12, incomplete)
 // FUN_00322990 @ 0x00322990
@@ -4109,7 +4109,7 @@ void Overlay::Draw() {
 
 
 // 0x00322cd0 pure3d::d3dExtFramebufferEffects::vfunc_8 (1119 B): equivalent/0x00322cd0.cpp [wrapped: conflict: pure3d::d3dExtFramebufferEffects]
-// sym: ?vfunc_8@d3dExtFramebufferEffects@pure3d@fn_00322cd0@@UAEXMHMMIMMM@Z
+// sym: ?vfunc_8@d3dExtFramebufferEffects@pure3d@fn_00322cd0@@UAEXMHMMIMMM@Z @a1b484250638 @w1456a23ac841
 namespace fn_00322cd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20075 inputs, branch coverage 57/60, incomplete)
 // pure3d::d3dExtFramebufferEffects::vfunc_8 @ 0x00322cd0
@@ -4131,7 +4131,7 @@ x=(double)sigma*0.45f+0.3f;float square=(float)(x*x);double initial=exp(0.0f/squ
 
 
 // 0x00323130 FUN_00323130 (2016 B): equivalent/0x00323130.cpp [wrapped: compile error C2666: 'fn_f57e27cb::D3D8::D3DDevice_SetPixelShaderConstant' : 2 overloads have similar conversions]
-// sym: ?FUN_00323130@d3dExtFramebufferEffects_323130@fn_00323130@@QAEPAUTexture@D3D8@2@PAU342@0@Z
+// sym: ?FUN_00323130@d3dExtFramebufferEffects_323130@fn_00323130@@QAEPAUTexture@D3D8@2@PAU342@0@Z @ec52a5f04414 @wa86075858c76
 namespace fn_00323130 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 69/70, incomplete)
 // FUN_00323130 @ 0x00323130
@@ -4209,7 +4209,7 @@ void d3dExtFramebufferEffects_323910::Setup() {
 } // namespace fn_f57e27cb
 
 // 0x003239e0 pure3d::d3dExtFramebufferEffects::vfunc_4 (478 B): equivalent/0x003239e0.cpp [wrapped: conflict: pure3d::d3dExtFramebufferEffects]
-// sym: ?vfunc_4@d3dExtFramebufferEffects@pure3d@fn_003239e0@@UAEXMMMMH@Z
+// sym: ?vfunc_4@d3dExtFramebufferEffects@pure3d@fn_003239e0@@UAEXMMMMH@Z @11f24711611c @wd69412e509ba
 namespace fn_003239e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3065 inputs, branch coverage 28/28; --wine 665 inputs)
 // pure3d::d3dExtFramebufferEffects::vfunc_4 @ 0x003239e0
@@ -4268,7 +4268,7 @@ void* pure3d::d3dExtFrameBufferTexture::vfunc_1(int param) {
 
 
 // 0x00323c50 pure3d::d3dExtFrameBufferTexture::vfunc_2 (70 B): equivalent/0x00323c50.cpp
-// sym: ?vfunc_2@d3dExtFrameBufferTexture@pure3d@@UAEXXZ
+// sym: ?vfunc_2@d3dExtFrameBufferTexture@pure3d@@UAEXXZ @fa980c0a54a8 @waa1fabc5161f
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // pure3d::d3dExtFrameBufferTexture::vfunc_2 @ 0x00323c50
 void pure3d::d3dExtFrameBufferTexture::vfunc_2() {
@@ -4620,7 +4620,7 @@ void d3dContext::vfunc_108(int n) {
 
 
 // 0x00323ee0 pure3d::d3dContext::vfunc_109 (901 B): equivalent/0x00323ee0.cpp
-// sym: ?vfunc_109@d3dContext@pure3d@@UAEXXZ
+// sym: ?vfunc_109@d3dContext@pure3d@@UAEXXZ @ad661e8d3a77 @w396468c4d05f
 // STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 22/22)
 // pure3d::d3dContext::vfunc_109 @ 0x00323ee0
 // volatile locals (nf, w2) force the float-rounded memory temporaries the original uses; 0.0f - (lo - hi) reproduces its constant-load order.
@@ -4714,7 +4714,7 @@ void pure3d::d3dContext::vfunc_109() {
 
 
 // 0x00324270 FUN_00324270 (768 B): equivalent/0x00324270.cpp [wrapped: conflict: pure3d::Light; pure3d::Shader]
-// sym: ?FUN_00324270@Shader@pure3d@fn_00324270@@QAEXPAVColorSource@23@@Z
+// sym: ?FUN_00324270@Shader@pure3d@fn_00324270@@QAEXPAVColorSource@23@@Z @b3fa6b00921a @w05676adf9111
 namespace fn_00324270 {
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 18/18)
 // FUN_00324270 @ 0x00324270
@@ -4957,7 +4957,7 @@ void pure3d::d3dExtHardwareSkinning::vfunc_6(hulk_intptr __p0, hulk_intptr __p1)
 namespace fn_f57e27cb {
 
 // 0x00324660 FUN_00324660 (923 B): equivalent/0x00324660.cpp
-// sym: ?Draw@FilterPass@fn_f57e27cb@@QAEXPBUVec3_324660@2@MM0MMHHMM@Z
+// sym: ?Draw@FilterPass@fn_f57e27cb@@QAEXPBUVec3_324660@2@MM0MMHHMM@Z @aac31f5d514e @w772ac4750a55
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 7/8, incomplete)
 // FUN_00324660 @ 0x00324660
 void FilterPass::Draw(const Vec3_324660* a, float f1, float f2, const Vec3_324660* b, float f3, float f4, int w, int h, float u, float v) {
@@ -5051,7 +5051,7 @@ void FilterPass::Draw(const Vec3_324660* a, float f1, float f2, const Vec3_32466
 } // namespace fn_f57e27cb
 
 // 0x00324a00 pure3d::d3dExtFramebufferEffects::vfunc_6 (1021 B): equivalent/0x00324a00.cpp [wrapped: conflict: pure3d::d3dExtFramebufferEffects]
-// sym: ?vfunc_6@d3dExtFramebufferEffects@pure3d@fn_00324a00@@UAEXXZ
+// sym: ?vfunc_6@d3dExtFramebufferEffects@pure3d@fn_00324a00@@UAEXXZ @0ec074a5055f @wd158f902a60f
 namespace fn_00324a00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 14/14)
 // pure3d::d3dExtFramebufferEffects::vfunc_6 @ 0x00324a00
@@ -5423,7 +5423,7 @@ d3dContext::d3dContext(AssetSource* a, Allocator* b) throw() : FUN_0031f410(a, b
 
 
 // 0x00325110 pure3d::d3dExtFramebufferEffects::vfunc_9 (3062 B): equivalent/0x00325110.cpp [wrapped: macros]
-// sym: ?vfunc_9@d3dExtFramebufferEffects@pure3d@fn_00325110@@UAEXXZ
+// sym: ?vfunc_9@d3dExtFramebufferEffects@pure3d@fn_00325110@@UAEXXZ @ff2b17e099f0 @w6356ac644170
 namespace fn_00325110 {
 // STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 26/26)
 // pure3d::d3dExtFramebufferEffects::vfunc_9 @ 0x00325110

@@ -215,7 +215,7 @@ void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const pure3d::Vec4_3
 
 
 // 0x00331620 FUN_00331620 (105 B): equivalent/0x00331620.cpp
-// sym: _FUN_00331620
+// sym: _FUN_00331620 @dfbe6e088397 @w0845f0815dfe
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00331620 @ 0x00331620
 // equiv-conv: FUN_00331620 ecx stack
@@ -377,7 +377,7 @@ void d3dSpheremapVertexShader::vfunc_24() {
 
 
 // 0x00331910 pure3d::d3dSpheremapVertexShader::vfunc_14 (589 B): equivalent/0x00331910.cpp [wrapped: compile error C2668: 'fn_f045d6aa::D3D8::D3DDevice_SetPalette' : ambiguous call to overloaded function]
-// sym: ?vfunc_14@d3dSpheremapVertexShader@pure3d_331910@fn_00331910@@QAEXI@Z
+// sym: ?vfunc_14@d3dSpheremapVertexShader@pure3d_331910@fn_00331910@@QAEXI@Z @636166f56992 @w955dafefe093
 namespace fn_00331910 {
 // STATUS: equivalent (tools/equiv.py level 3: 2941 inputs, branch coverage 24/24)
 // pure3d::d3dSpheremapVertexShader::vfunc_14 @ 0x00331910
@@ -480,7 +480,7 @@ void Obj::Set(Vec3 const* v) {
 } // namespace fn_f045d6aa
 
 // 0x00331c30 FUN_00331c30 (67 B): equivalent/0x00331c30.cpp [wrapped: conflict: pure3d::d3dSpheremapVertexShader]
-// sym: ??0d3dSpheremapVertexShader@pure3d@fn_00331c30@@QAE@I@Z
+// sym: ??0d3dSpheremapVertexShader@pure3d@fn_00331c30@@QAE@I@Z @3220b4efd760 @w14b1d8ab3c98
 namespace fn_00331c30 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00331c30 @ 0x00331c30
@@ -529,7 +529,7 @@ d3dSpheremapVertexShader_331c80* d3dSpheremapVertexShader_331c80::vfunc_3(unsign
 } // namespace fn_f045d6aa
 
 // 0x00331cd0 pure3d::d3dSpheremapVertexShader::vfunc_12 (659 B): equivalent/0x00331cd0.cpp
-// sym: ?vfunc_12@d3dSpheremapVertexShader@pure3d@@UAEXXZ
+// sym: ?vfunc_12@d3dSpheremapVertexShader@pure3d@@UAEXXZ @a1290344ac11 @wc72cf9c588fe
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 14/14)
 // pure3d::d3dSpheremapVertexShader::vfunc_12 @ 0x00331cd0
 // pure3d::d3dSpheremapVertexShader::vfunc_12 @ 0x00331cd0

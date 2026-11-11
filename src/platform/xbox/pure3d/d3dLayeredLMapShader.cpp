@@ -128,7 +128,7 @@ void* pure3d::d3dLayeredLMapShader::vfunc_23() {
 
 
 // 0x0032e8b0 pure3d::d3dLayeredLMapShader::vfunc_14 (567 B): equivalent/0x0032e8b0.cpp [wrapped: conflict: pure3d::d3dLayeredLMapShader]
-// sym: ?vfunc_14@d3dLayeredLMapShader@pure3d@fn_0032e8b0@@UAEXH@Z
+// sym: ?vfunc_14@d3dLayeredLMapShader@pure3d@fn_0032e8b0@@UAEXH@Z @4be738fe90c2 @w564f970220f3
 namespace fn_0032e8b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19759 inputs, branch coverage 35/35)
 // pure3d::d3dLayeredLMapShader::vfunc_14 @ 0x0032e8b0

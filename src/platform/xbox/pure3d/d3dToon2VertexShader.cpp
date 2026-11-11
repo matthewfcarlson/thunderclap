@@ -251,7 +251,7 @@ void Obj::Set(int x) {
 
 
 // 0x0032fd40 FUN_0032fd40 (185 B): equivalent/0x0032fd40.cpp
-// sym: _FUN_0032fd40@4
+// sym: _FUN_0032fd40@4 @9c6f4251b3db @w4a02617d1b8a
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0032fd40 @ 0x0032fd40
 extern "C" void __stdcall FUN_0032fd40(void * result) {
@@ -279,7 +279,7 @@ extern "C" void __stdcall FUN_0032fd40(void * result) {
 
 
 // 0x0032fe00 FUN_0032fe00 (241 B): equivalent/0x0032fe00.cpp
-// sym: ?Fill@GradientTex@fn_f6ae905d@@QAEXXZ
+// sym: ?Fill@GradientTex@fn_f6ae905d@@QAEXXZ @76516aff8a93 @wb413f4c014e9
 // STATUS: equivalent (tools/equiv.py level 3: 476 inputs, branch coverage 9/10, incomplete)
 // FUN_0032fe00 @ 0x0032fe00
 void GradientTex::Fill() {
@@ -307,7 +307,7 @@ void GradientTex::Fill() {
 
 
 // 0x0032ff00 FUN_0032ff00 (90 B): equivalent/0x0032ff00.cpp
-// sym: ?FUN_0032ff00@Object@fn_f6ae905d@@QAEXXZ
+// sym: ?FUN_0032ff00@Object@fn_f6ae905d@@QAEXXZ @895a5c757dd9 @wc64d2e53e958
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_0032ff00 @ 0x0032ff00
 void Object::FUN_0032ff00() {
@@ -359,7 +359,7 @@ d3dToon2VertexShader_32ffe0* d3dToon2VertexShader_32ffe0::vfunc_3(unsigned char 
 } // namespace fn_f6ae905d
 
 // 0x00330040 pure3d::d3dToon2VertexShader::vfunc_24 (782 B): equivalent/0x00330040.cpp [wrapped: conflict: pure3d::d3dToon2VertexShader]
-// sym: ?vfunc_24@d3dToon2VertexShader@pure3d@fn_00330040@@UAEXXZ
+// sym: ?vfunc_24@d3dToon2VertexShader@pure3d@fn_00330040@@UAEXXZ @612e0212896a @w371af56298dd
 namespace fn_00330040 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // pure3d::d3dToon2VertexShader::vfunc_24 @ 0x00330040
@@ -641,7 +641,7 @@ void Obj::Set(float x) {
 
 
 // 0x00330510 pure3d::d3dToon2VertexShader::vfunc_14 (322 B): equivalent/0x00330510.cpp [wrapped: conflict: pure3d::d3dToon2VertexShader]
-// sym: ?vfunc_14@d3dToon2VertexShader@pure3d@fn_00330510@@QAEXH@Z
+// sym: ?vfunc_14@d3dToon2VertexShader@pure3d@fn_00330510@@QAEXH@Z @0300cea07b81 @w459856103468
 namespace fn_00330510 {
 // STATUS: equivalent (tools/equiv.py level 3: 19782 inputs, branch coverage 10/10)
 // pure3d::d3dToon2VertexShader::vfunc_14 @ 0x00330510

@@ -103,7 +103,7 @@ extern "C" void __cdecl FUN_00240c60(int size) {
 
 
 // 0x00240ca0 FUN_00240ca0 (298 B): equivalent/0x00240ca0.cpp
-// sym: _FUN_00240ca0
+// sym: _FUN_00240ca0 @9d1578a1d21d @w5ef30f673e97
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 22/22)
 // FUN_00240ca0 @ 0x00240ca0
 extern "C" void __cdecl FUN_00240ca0(Stats_240ca0 *s) { s->count1=0; s->count2=0; s->slots=0; s->occupied=0; s->capacity=0; s->zero=0; s->unit=0; s->pages=0; s->rounded=0; s->remainder=0; s->unit=4096; s->capacity=(*(Global_240ca0**)&DAT_004e5ce0)->capacity; s->zero=0; s->pages=(*(Global_240ca0**)&DAT_004e5ce0)->capacity>>12; s->rounded=0; s->remainder=0; Item_240ca0 *p=FUN_00257ec0(&(*(Global_240ca0**)&DAT_004e5ce0)->list1); while(p) { ++s->count1; unsigned n=(p->meta->flags>>4)&31; s->slots+=n; for(unsigned i=0;i<n;++i) for(unsigned j=0;j<4;++j) if(p->blocks[i][j]) ++s->occupied; p=FUN_00257ee0(p); } p=FUN_00257ec0(&(*(Global_240ca0**)&DAT_004e5ce0)->list2); while(p) { ++s->count2; unsigned sz=p->size; unsigned pages=sz>>12; unsigned rem=sz&4095; if(rem) ++pages; s->rounded+=pages; s->remainder+=rem; ++s->count2; p=FUN_00257ee0(p); } }
@@ -119,7 +119,7 @@ void __cdecl FUN_00240e00(float x) {
 
 
 // 0x00240eb0 FUN_00240eb0 (159 B): equivalent/0x00240eb0.cpp
-// sym: _FUN_00240eb0
+// sym: _FUN_00240eb0 @8d196f4d9439 @w10880e91369a
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 0/0)
 // FUN_00240eb0 @ 0x00240eb0
 // FUN_00240eb0 @ 0x00240eb0
@@ -141,7 +141,7 @@ extern "C" void FUN_00240eb0() {
 } // namespace fn_f3c58e61
 
 // 0x00240f50 FUN_00240f50 (605 B): equivalent/0x00240f50.cpp [wrapped: conflict: FUN_00257ec0]
-// sym: _FUN_00240f50
+// sym: _FUN_00240f50 @fdfab7416441 @wcb4e0cb00e8e
 namespace fn_00240f50 {
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 28/30, incomplete)
 // FUN_00240f50 @ 0x00240f50
@@ -166,7 +166,7 @@ extern "C" int __cdecl FUN_00240f50() {
 namespace fn_f3c58e61 {
 
 // 0x002411b0 FUN_002411b0 (198 B): equivalent/0x002411b0.cpp
-// sym: ?FUN_002411b0@fn_f3c58e61@@YAXXZ
+// sym: ?FUN_002411b0@fn_f3c58e61@@YAXXZ @47ab178ff0bf @wc8ca73acb2a0
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_002411b0 @ 0x002411b0
 void __cdecl FUN_002411b0() {
@@ -187,7 +187,7 @@ void __cdecl FUN_002411b0() {
 
 
 // 0x00241280 FUN_00241280 (264 B): equivalent/0x00241280.cpp
-// sym: _FUN_00241280
+// sym: _FUN_00241280 @5127cf60451d @w169d8261a1c1
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00241280 @ 0x00241280
 extern "C" void __cdecl FUN_00241280(const unsigned int *settings, float second, float third) { if (!settings) settings = DAT_004e5cb0; for (int i = 0; i < 12; ++i) (*(Listener_241280**)&DAT_004e5ce0)->values[i] = settings[i]; for (int j = 0; j < 12; ++j) (*(Listener_241280**)&DAT_004e5ce0)->environment[j] = DAT_003d5e68[j]; DSOUND::IDirectSound_SetI3DL2Listener((*(Listener_241280**)&DAT_004e5ce0)->sound, (*(Listener_241280**)&DAT_004e5ce0)->environment, 1); (*(Listener_241280**)&DAT_004e5ce0)->flag = 0; (*(Listener_241280**)&DAT_004e5ce0)->third = third; (*(Listener_241280**)&DAT_004e5ce0)->second = second; }
@@ -195,7 +195,7 @@ extern "C" void __cdecl FUN_00241280(const unsigned int *settings, float second,
 } // namespace fn_f3c58e61
 
 // 0x00241390 FUN_00241390 (567 B): equivalent/0x00241390.cpp [wrapped: conflict: FUN_00267f80]
-// sym: _FUN_00241390
+// sym: _FUN_00241390 @16502361c1e8 @w8355edffbd24
 namespace fn_00241390 {
 // STATUS: equivalent (tools/equiv.py level 3: 2871 inputs, branch coverage 4/4)
 // FUN_00241390 @ 0x00241390

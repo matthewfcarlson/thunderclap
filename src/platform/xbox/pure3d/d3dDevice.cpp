@@ -274,7 +274,7 @@ void* pure3d::d3dDevice::vfunc_8(void* __p0) { void * p = (void *)__p0;
 
 
 // 0x0031b8a0 pure3d::d3dDevice::vfunc_9 (184 B): equivalent/0x0031b8a0.cpp
-// sym: ?vfunc_9@d3dDevice@pure3d@@UAEPAXH@Z
+// sym: ?vfunc_9@d3dDevice@pure3d@@UAEPAXH@Z @6b2d49eca792 @w403135b613cc
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 6/6)
 // pure3d::d3dDevice::vfunc_9 @ 0x0031b8a0
 void* pure3d::d3dDevice::vfunc_9(hulk_intptr __p0) { Params_31b8a0 * p = (Params_31b8a0 *)__p0;
@@ -471,7 +471,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_f2bbfa1e {
 
 // 0x0031bc30 FUN_0031bc30 (49 B): equivalent/0x0031bc30.cpp
-// sym: _FUN_0031bc30
+// sym: _FUN_0031bc30 @e1b4964ddefb @wa62ba6ee471f
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 7/7)
 // FUN_0031bc30 @ 0x0031bc30
 // FUN_0031bc30 @ 0x0031bc30
@@ -515,7 +515,7 @@ extern "C" void __fastcall FUN_0031bcf0(d3dPrimStream* self) {
 
 
 // 0x0031bd30 FUN_0031bd30 (267 B): equivalent/0x0031bd30.cpp
-// sym: ?FUN_0031bd30@Target_31bd30@fn_f2bbfa1e@@QAEXIIPAUInput_31bd30@2@II@Z
+// sym: ?FUN_0031bd30@Target_31bd30@fn_f2bbfa1e@@QAEXIIPAUInput_31bd30@2@II@Z @ee0545e5d147 @w69d2a40168c0
 // STATUS: equivalent (tools/equiv.py level 3: 25 inputs, branch coverage 10/10)
 // FUN_0031bd30 @ 0x0031bd30
 void Target_31bd30::FUN_0031bd30(unsigned k,unsigned f,Input_31bd30* obj,unsigned e,unsigned arg) {
@@ -537,7 +537,7 @@ void Target_31bd30::FUN_0031bd30(unsigned k,unsigned f,Input_31bd30* obj,unsigne
 } // namespace fn_f2bbfa1e
 
 // 0x0031be40 pure3d::d3dPrimStream::vfunc_0 (263 B): equivalent/0x0031be40.cpp [wrapped: conflict: pure3d::d3dBasePrimStream; pure3d::d3dPrimStream]
-// sym: ?vfunc_0@d3dPrimStream@pure3d@fn_0031be40@@UAEX_N@Z
+// sym: ?vfunc_0@d3dPrimStream@pure3d@fn_0031be40@@UAEX_N@Z @9ae99402937e @w76280ecf5ba6
 namespace fn_0031be40 {
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 14/14)
 // pure3d::d3dPrimStream::vfunc_0 @ 0x0031be40
@@ -720,7 +720,7 @@ d3dPrimStream::d3dPrimStream(Owner_31bfa0* o) throw() {
 
 
 // 0x0031c080 pure3d::d3dPrimStream::vfunc_1 (248 B): equivalent/0x0031c080.cpp [wrapped: conflict: pure3d::d3dBasePrimStream; pure3d::d3dPrimStream]
-// sym: ?vfunc_1@d3dPrimStream@pure3d@fn_0031c080@@UAEXXZ
+// sym: ?vfunc_1@d3dPrimStream@pure3d@fn_0031c080@@UAEXXZ @22c18fe3aa93 @w644f40509d79
 namespace fn_0031c080 {
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 14/14)
 // pure3d::d3dPrimStream::vfunc_1 @ 0x0031c080
@@ -802,7 +802,7 @@ void pure3d::d3dPrimStream::vfunc_1() {
 namespace fn_f2bbfa1e {
 
 // 0x0031c180 FUN_0031c180 (43 B): equivalent/0x0031c180.cpp
-// sym: _FUN_0031c180
+// sym: _FUN_0031c180 @da19b0721b1a @wa169a1ee46c5
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 6/6)
 // FUN_0031c180 @ 0x0031c180
 // equiv-conv: FUN_0031c180 eax

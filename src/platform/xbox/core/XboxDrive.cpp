@@ -171,7 +171,7 @@ extern "C" void FUN_0026f070() {
 } // namespace fn_f4379f43
 
 // 0x0026f0b0 FUN_0026f0b0 (113 B): equivalent/0x0026f0b0.cpp [wrapped: conflict: core::XboxDrive]
-// sym: ??1XboxDrive@core@fn_0026f0b0@@QAE@XZ
+// sym: ??1XboxDrive@core@fn_0026f0b0@@QAE@XZ @a303bb2f51e4 @wf5cf1fb059e8
 namespace fn_0026f0b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 3/4, incomplete)
 // FUN_0026f0b0 @ 0x0026f0b0
@@ -309,7 +309,7 @@ int core::XboxDrive::vfunc_10(void* __p0, int q) { void * p = (void *)__p0;
 
 
 // 0x0026f210 core::XboxDrive::vfunc_21 (126 B): equivalent/0x0026f210.cpp
-// sym: ?vfunc_21@XboxDrive_26f210@core@@QAEXPBD@Z
+// sym: ?vfunc_21@XboxDrive_26f210@core@@QAEXPBD@Z @9f736051c2b8 @wa32c10f57378
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 7/8, incomplete)
 // core::XboxDrive::vfunc_21 @ 0x0026f210
 namespace core {
@@ -335,7 +335,7 @@ void XboxDrive_26f210::vfunc_21(const char* source) {
 namespace fn_f4379f43 {
 
 // 0x0026f290 FUN_0026f290 (157 B): equivalent/0x0026f290.cpp
-// sym: ?FUN_0026f290@XboxDrive_26f290@fn_f4379f43@@QAEXXZ
+// sym: ?FUN_0026f290@XboxDrive_26f290@fn_f4379f43@@QAEXXZ @df9b4ce1ff0a @w1af2be66d4f8
 // STATUS: equivalent (tools/equiv.py level 3: 2661 inputs, branch coverage 8/8)
 // FUN_0026f290 @ 0x0026f290
 void XboxDrive_26f290::FUN_0026f290()
@@ -368,7 +368,7 @@ void XboxDrive_26f290::FUN_0026f290()
 
 
 // 0x0026f330 FUN_0026f330 (164 B): equivalent/0x0026f330.cpp
-// sym: ?FUN_0026f330@XboxDrive_26f330@fn_f4379f43@@QAEXPBDPADH@Z
+// sym: ?FUN_0026f330@XboxDrive_26f330@fn_f4379f43@@QAEXPBDPADH@Z @f397c8f1ca10 @wbbfa10553aa2
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_0026f330 @ 0x0026f330
 void XboxDrive_26f330::FUN_0026f330(const char* name, char* result, int capacity)
@@ -389,7 +389,7 @@ void XboxDrive_26f330::FUN_0026f330(const char* name, char* result, int capacity
 
 
 // 0x0026f3e0 FUN_0026f3e0 (158 B): equivalent/0x0026f3e0.cpp
-// sym: ?FUN_0026f3e0@XboxDrive_26f3e0@fn_f4379f43@@QAEII@Z
+// sym: ?FUN_0026f3e0@XboxDrive_26f3e0@fn_f4379f43@@QAEII@Z @d16b41a1bcc1 @w34486dd75b98
 // STATUS: equivalent (tools/equiv.py level 3: 20038 inputs, branch coverage 26/26)
 // FUN_0026f3e0 @ 0x0026f3e0
 // core::XboxDrive: an XAPI error code as the drive's error (the callers pass the drive; it is not read)
@@ -421,7 +421,7 @@ unsigned int XboxDrive_26f3e0::FUN_0026f3e0(unsigned int code)
 } // namespace fn_f4379f43
 
 // 0x0026f4b0 FUN_0026f4b0 (114 B): equivalent/0x0026f4b0.cpp [wrapped: conflict: GetLastError]
-// sym: ?FUN_0026f4b0@XboxDrive_26f4b0@fn_0026f4b0@@QAEHPAUResult_26f4b0@2@PAUEntry_26f4b0@2@PAH@Z
+// sym: ?FUN_0026f4b0@XboxDrive_26f4b0@fn_0026f4b0@@QAEHPAUResult_26f4b0@2@PAUEntry_26f4b0@2@PAH@Z @558f63b44f5a @wafad8d7a30f1
 namespace fn_0026f4b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 6/6)
 // FUN_0026f4b0 @ 0x0026f4b0
@@ -557,7 +557,7 @@ int core::XboxDrive::vfunc_20(hulk_intptr __p0) { hulk_uintptr * p = (hulk_uintp
 
 
 // 0x0026f570 FUN_0026f570 (495 B): equivalent/0x0026f570.cpp [wrapped: conflict: FUN_002705f0]
-// sym: ??0XboxDrive_26f570@core@fn_0026f570@@QAE@PBDH@Z
+// sym: ??0XboxDrive_26f570@core@fn_0026f570@@QAE@PBDH@Z @bb1c1547697c @w5ea4e169a678
 namespace fn_0026f570 {
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 14/14)
 // FUN_0026f570 @ 0x0026f570
@@ -629,7 +629,7 @@ int XboxDrive_26f790::f7() {
 } // namespace fn_f4379f43
 
 // 0x0026f7b0 core::XboxDrive::vfunc_8 (356 B): equivalent/0x0026f7b0.cpp [wrapped: conflict: GetLastError]
-// sym: ?vfunc_8@XboxDrive_26f7b0@core@fn_0026f7b0@@QAEHPBDHEPAH1@Z
+// sym: ?vfunc_8@XboxDrive_26f7b0@core@fn_0026f7b0@@QAEHPBDHEPAH1@Z @8c20f7a83de5 @we280a5d72a2e
 namespace fn_0026f7b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 11/14, incomplete)
 // core::XboxDrive::vfunc_8 @ 0x0026f7b0
@@ -709,7 +709,7 @@ U_26f920 XboxDrive_26f920::Run(U_26f920 p2, U_26f920 p3, U_26f920 p4, U_26f920 p
 
 
 // 0x0026f990 core::XboxDrive::vfunc_13 (173 B): equivalent/0x0026f990.cpp
-// sym: ?vfunc_13@XboxDrive_26f990@core@@QAEHPAXKKK0K0PAKK@Z
+// sym: ?vfunc_13@XboxDrive_26f990@core@@QAEHPAXKKK0K0PAKK@Z @43d2d667e302 @wed6fc8538252
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 8/8)
 // core::XboxDrive::vfunc_13 @ 0x0026f990
 // core::XboxDrive::vfunc_13 @ 0x0026f990
@@ -732,7 +732,7 @@ int XboxDrive_26f990::vfunc_13(void* handle, unsigned long a2, unsigned long a3,
 
 
 // 0x0026fa40 core::XboxDrive::vfunc_18 (136 B): equivalent/0x0026fa40.cpp
-// sym: ?vfunc_18@XboxDrive_26fa40@core@@QAEHPBD0PAH_N@Z
+// sym: ?vfunc_18@XboxDrive_26fa40@core@@QAEHPBD0PAH_N@Z @27268b5a1a99 @wb94367f159cc
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 6/6)
 // core::XboxDrive::vfunc_18 @ 0x0026fa40
 // core::XboxDrive::vfunc_18 (records.h CoreXboxDrive): finds the first file of a directory

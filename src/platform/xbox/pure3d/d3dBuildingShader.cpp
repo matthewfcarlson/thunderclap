@@ -252,7 +252,7 @@ extern "C" int* FUN_00332300() {
 } // namespace fn_fd7d5ddc
 
 // 0x00332310 pure3d::d3dBuildingShader::vfunc_14 (752 B): equivalent/0x00332310.cpp [wrapped: conflict: pure3d::d3dBuildingShader]
-// sym: ?vfunc_14@d3dBuildingShader@pure3d@fn_00332310@@QAEXI@Z
+// sym: ?vfunc_14@d3dBuildingShader@pure3d@fn_00332310@@QAEXI@Z @76584f4b7d27 @waa03f9b84fe3
 namespace fn_00332310 {
 // STATUS: equivalent (tools/equiv.py level 3: 2952 inputs, branch coverage 45/45)
 // pure3d::d3dBuildingShader::vfunc_14 @ 0x00332310

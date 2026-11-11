@@ -4,7 +4,7 @@
 
 
 // 0x00333520 FUN_00333520 (147 B): equivalent/0x00333520.cpp [isolated: compile error C2039: 'FUN_00327e00' : is not a member of 'operator``global namespace''']
-// sym: ??0d3dShader@pure3d@fn_00333520@@QAE@PAVd3dContext@1@@Z
+// sym: ??0d3dShader@pure3d@fn_00333520@@QAE@PAVd3dContext@1@@Z @d9d1a58a6614 @w68f26ac8d95e
 #include "gen/pure3d.h"
 namespace fn_00333520 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)

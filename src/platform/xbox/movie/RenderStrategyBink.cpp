@@ -151,7 +151,7 @@ void movie::RenderStrategyBink::vfunc_3() {
 
 
 // 0x00334130 movie::RenderStrategyBink::vfunc_4 (133 B): equivalent/0x00334130.cpp [wrapped: conflict: movie::RenderStrategyBink]
-// sym: ?vfunc_4@RenderStrategyBink@movie@fn_00334130@@UAEIPAUOutput_334130@3@@Z
+// sym: ?vfunc_4@RenderStrategyBink@movie@fn_00334130@@UAEIPAUOutput_334130@3@@Z @7819e374f81f @waed8b40f1e69
 namespace fn_00334130 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // movie::RenderStrategyBink::vfunc_4 @ 0x00334130
@@ -190,7 +190,7 @@ void RenderStrategyBink_3341c0::v5() {
 } // namespace fn_f9e99c55
 
 // 0x003341e0 movie::RenderStrategyBink::vfunc_7 (836 B): equivalent/0x003341e0.cpp [wrapped: conflict: movie::RenderStrategyBink]
-// sym: ?vfunc_7@RenderStrategyBink@movie@fn_003341e0@@UAE_NXZ
+// sym: ?vfunc_7@RenderStrategyBink@movie@fn_003341e0@@UAE_NXZ @76cd4d3a750e @w48680338f378
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -296,7 +296,7 @@ RenderStrategyBink instance;
 
 
 // 0x00334540 FUN_00334540 (165 B): equivalent/0x00334540.cpp [wrapped: conflict: core::Object; core::RefCount; movie::RenderStrategy; movie::RenderStrategyBink]
-// sym: ?FUN_00334540@RenderStrategyBink@movie@fn_00334540@@QAEPAU123@XZ
+// sym: ?FUN_00334540@RenderStrategyBink@movie@fn_00334540@@QAEPAU123@XZ @be5238ca7af9 @wbbab037d2539
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_00334540 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
@@ -354,7 +354,7 @@ RenderStrategyBink_3345f0* RenderStrategyBink_3345f0::f2(u8_3345f0 flag) {
 } // namespace fn_f9e99c55
 
 // 0x00334620 movie::RenderStrategyBink::vfunc_6 (743 B): equivalent/0x00334620.cpp [wrapped: conflict: movie::RenderStrategyBink]
-// sym: ?vfunc_6@RenderStrategyBink@movie@fn_00334620@@UAEXIIHM@Z
+// sym: ?vfunc_6@RenderStrategyBink@movie@fn_00334620@@UAEXIIHM@Z @01aad3b5e30f @wf51e31e37c64
 namespace fn_00334620 {
 // STATUS: equivalent (tools/equiv.py level 3: 155 inputs, branch coverage 43/44, incomplete)
 // movie::RenderStrategyBink::vfunc_6 @ 0x00334620

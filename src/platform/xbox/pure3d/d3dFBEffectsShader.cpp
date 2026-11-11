@@ -201,7 +201,7 @@ extern "C" void FUN_00328260() {}
 
 
 // 0x00328270 FUN_00328270 (621 B): equivalent/0x00328270.cpp
-// sym: ?FUN_00328270@TextDrawer@fn_fb517155@@QAEXPBDHHHH@Z
+// sym: ?FUN_00328270@TextDrawer@fn_fb517155@@QAEXPBDHHHH@Z @532ba1f59000 @wb23598068305
 // STATUS: equivalent (tools/equiv.py level 3: 4328 inputs, branch coverage 30/30)
 // FUN_00328270 @ 0x00328270
 void TextDrawer::FUN_00328270(const char* text, int px, int py, int color, int extra) {
@@ -344,7 +344,7 @@ void X_3285c0::Set(int v) {
 } // namespace fn_fb517155
 
 // 0x003285d0 FUN_003285d0 (183 B): equivalent/0x003285d0.cpp
-// sym: ?FUN_003285d0@AccumulatorSource_3285d0@owners@@QAEXI@Z
+// sym: ?FUN_003285d0@AccumulatorSource_3285d0@owners@@QAEXI@Z @e3444f9ec9cd @we5f3b2b1d8c9
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_003285d0 @ 0x003285d0
 void owners::AccumulatorSource_3285d0::FUN_003285d0(unsigned int unused) {
@@ -421,7 +421,7 @@ extern "C" int* FUN_00328700() {
 } // namespace fn_fb517155
 
 // 0x00328720 FUN_00328720 (71 B): equivalent/0x00328720.cpp [wrapped: conflict: pure3d::d3dFBEffectsShader]
-// sym: ??0d3dFBEffectsShader@pure3d@fn_00328720@@QAE@I@Z
+// sym: ??0d3dFBEffectsShader@pure3d@fn_00328720@@QAE@I@Z @07fdace754f2 @w13cf1ea960c7
 namespace fn_00328720 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00328720 @ 0x00328720

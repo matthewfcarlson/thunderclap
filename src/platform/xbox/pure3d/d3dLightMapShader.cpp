@@ -246,7 +246,7 @@ struct d3dLightMapShader_nv_32be30 {
 namespace fn_f4b94d0d {
 
 // 0x0032b530 FUN_0032b530 (173 B): equivalent/0x0032b530.cpp
-// sym: ?Set@TextureStage@fn_f4b94d0d@@QAEXHHH@Z
+// sym: ?Set@TextureStage@fn_f4b94d0d@@QAEXHHH@Z @a31d6acc44ef @w46c551faea69
 // STATUS: equivalent (tools/equiv.py level 3: 2969 inputs, branch coverage 6/6)
 // FUN_0032b530 @ 0x0032b530
 void TextureStage::Set(int stage, int texCoord, int value) {
@@ -348,7 +348,7 @@ void* pure3d::d3dLightMapShader::vfunc_23() {
 
 
 // 0x0032b6c0 pure3d::d3dLightMapShader::vfunc_14 (514 B): equivalent/0x0032b6c0.cpp
-// sym: ?vfunc_14@d3dLightMapShader@pure3d@@UAEXH@Z
+// sym: ?vfunc_14@d3dLightMapShader@pure3d@@UAEXH@Z @5a4cc0c16581 @wed2853bcc864
 // STATUS: equivalent (tools/equiv.py level 3: 19754 inputs, branch coverage 37/37)
 // pure3d::d3dLightMapShader::vfunc_14 @ 0x0032b6c0
 void pure3d::d3dLightMapShader::vfunc_14(int unused) {
@@ -493,7 +493,7 @@ void Obj_32b980::Set(int v) {
 } // namespace fn_f4b94d0d
 
 // 0x0032b990 FUN_0032b990 (93 B): equivalent/0x0032b990.cpp
-// sym: ?FUN_0032b990@ShaderState_32b990@owners@@QAEXXZ
+// sym: ?FUN_0032b990@ShaderState_32b990@owners@@QAEXXZ @3ce0d75c4f62 @w67333074cec6
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_0032b990 @ 0x0032b990
 void owners::ShaderState_32b990::FUN_0032b990() {
@@ -548,7 +548,7 @@ void Obj::Set(float x) {
 
 
 // 0x0032bb10 FUN_0032bb10 (792 B): equivalent/0x0032bb10.cpp
-// sym: ?Upload@LightSet_32bb10@fn_f4b94d0d@@QAEXXZ
+// sym: ?Upload@LightSet_32bb10@fn_f4b94d0d@@QAEXXZ @7292b7b438bd @wf072ce9561ba
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_0032bb10 @ 0x0032bb10
 void LightSet_32bb10::Upload() {

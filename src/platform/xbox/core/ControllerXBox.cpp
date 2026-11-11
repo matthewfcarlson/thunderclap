@@ -686,7 +686,7 @@ void core::ControllerXBox::vfunc_1() {
 namespace fn_fc99ffef {
 
 // 0x002685a0 core::ControllerXBox::vfunc_17 (233 B): equivalent/0x002685a0.cpp
-// sym: ?vfunc_17@ControllerXBox@fn_fc99ffef@@UAEXH@Z
+// sym: ?vfunc_17@ControllerXBox@fn_fc99ffef@@UAEXH@Z @19c100d944fd @wfee701f9b2a9
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 12/12)
 // core::ControllerXBox::vfunc_17 @ 0x002685a0
 void ControllerXBox::vfunc_17(int arg) {
@@ -730,7 +730,7 @@ void core::ControllerXBox::vfunc_18(int arg) {
 
 
 // 0x002686d0 core::ControllerXBox::vfunc_19 (139 B): equivalent/0x002686d0.cpp [wrapped: conflict: core::ControllerXBox]
-// sym: ?vfunc_19@ControllerXBox@core@fn_002686d0@@UAEXI@Z
+// sym: ?vfunc_19@ControllerXBox@core@fn_002686d0@@UAEXI@Z @01414db21563 @w283e631369bd
 namespace fn_002686d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 12/12)
 // core::ControllerXBox::vfunc_19 @ 0x002686d0
@@ -838,7 +838,7 @@ ControllerXBox* ControllerXBox::Find(const char* name, int which) {
 } // namespace fn_fc99ffef
 
 // 0x00268970 core::ControllerXBox::vfunc_14 (153 B): equivalent/0x00268970.cpp [wrapped: conflict: core::ControllerXBox]
-// sym: ?vfunc_14@ControllerXBox@core@fn_00268970@@UAEPAUEntry_268970@23@PBDH@Z
+// sym: ?vfunc_14@ControllerXBox@core@fn_00268970@@UAEPAUEntry_268970@23@PBDH@Z @709984aa058c @w62b4e32ea790
 namespace fn_00268970 {
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 13/14, incomplete)
 // core::ControllerXBox::vfunc_14 @ 0x00268970
@@ -1086,7 +1086,7 @@ void core::ControllerInputPointXBox::vfunc_12(int __p0) { u32_268d10 arg = (u32_
 
 
 // 0x00268d30 FUN_00268d30 (181 B): equivalent/0x00268d30.cpp
-// sym: ?FUN_00268d30@InputValue_268d30@owners@@QAENPAI@Z
+// sym: ?FUN_00268d30@InputValue_268d30@owners@@QAENPAI@Z @a4e9745d7414 @we22be9effbbe
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 14/14)
 // FUN_00268d30 @ 0x00268d30
 double owners::InputValue_268d30::FUN_00268d30(unsigned int *source)
@@ -1222,7 +1222,7 @@ pure3d::NonCopyable_268f80* pure3d::NonCopyable_268f80::f2(unsigned char param) 
 } // namespace fn_fc99ffef
 
 // 0x00268fa0 FUN_00268fa0 (133 B): equivalent/0x00268fa0.cpp [wrapped: conflict: core::ControllerInputPointXBox; core::ControllerOutputPointXBox; core::ControllerXBox]
-// sym: ??0ControllerXBox@core@fn_00268fa0@@QAE@XZ
+// sym: ??0ControllerXBox@core@fn_00268fa0@@QAE@XZ @9c5980027dd9 @wcd20624430d8
 namespace fn_00268fa0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00268fa0 @ 0x00268fa0
@@ -1262,7 +1262,7 @@ ControllerXBox::ControllerXBox() {
 
 
 // 0x00269030 FUN_00269030 (278 B): equivalent/0x00269030.cpp [wrapped: conflict: core::ControllerSystemXBox; core::IControllerSystem; core::Object]
-// sym: ??0ControllerSystemXBox@core@fn_00269030@@QAE@HH@Z
+// sym: ??0ControllerSystemXBox@core@fn_00269030@@QAE@HH@Z @32c9a96c3c00 @w13cafe2c7baa
 namespace fn_00269030 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00269030 @ 0x00269030
@@ -1359,7 +1359,7 @@ void core::ControllerSystemXBox::vfunc_12() {
 
 
 // 0x002691f0 FUN_002691f0 (199 B): equivalent/0x002691f0.cpp [wrapped: conflict: FUN_00267f80]
-// sym: ?FUN_002691f0@Manager_2691f0@fn_002691f0@@QAEXXZ
+// sym: ?FUN_002691f0@Manager_2691f0@fn_002691f0@@QAEXXZ @030c1c3a8411 @w1a9964fcd244
 namespace fn_002691f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_002691f0 @ 0x002691f0
@@ -1416,7 +1416,7 @@ void Manager_2691f0::FUN_002691f0() {
 namespace fn_fc99ffef {
 
 // 0x002692c0 FUN_002692c0 (300 B): equivalent/0x002692c0.cpp
-// sym: ?FUN_002692c0@Device_2692c0@fn_fc99ffef@@QAEXIIIIIII@Z
+// sym: ?FUN_002692c0@Device_2692c0@fn_fc99ffef@@QAEXIIIIIII@Z @674bbbb8e9be @wdfe7d9fec6c8
 // STATUS: equivalent (tools/equiv.py level 3: 280 inputs, branch coverage 4/4)
 // FUN_002692c0 @ 0x002692c0
 void Device_2692c0::FUN_002692c0(hulk_uintptr a,unsigned int b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,unsigned int g)
@@ -1474,7 +1474,7 @@ void* core::ControllerSystemXBox::vfunc_4(int param) {
 
 
 // 0x00269470 core::ControllerSystemXBox::vfunc_5 (127 B): equivalent/0x00269470.cpp
-// sym: ?vfunc_5@ControllerSystemXBox@core@@UAEPAXH@Z
+// sym: ?vfunc_5@ControllerSystemXBox@core@@UAEPAXH@Z @cb84156f988c @w67b8abfc0109
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 13/14, incomplete)
 // core::ControllerSystemXBox::vfunc_5 @ 0x00269470
 void* core::ControllerSystemXBox::vfunc_5(hulk_intptr __p0) { const char * name = (const char *)__p0;
@@ -1550,7 +1550,7 @@ ControllerSystemXBox* ControllerSystemXBox::f2(u8_269560 flag) {
 } // namespace fn_fc99ffef
 
 // 0x00269590 FUN_00269590 (165 B): equivalent/0x00269590.cpp [wrapped: conflict: ControllerSystemXBox; ControllerXBox; DAT_003f6098; DAT_0042b14c]
-// sym: ?FUN_00269590@ControllerSystemXBox@fn_00269590@@QAEXXZ
+// sym: ?FUN_00269590@ControllerSystemXBox@fn_00269590@@QAEXXZ @67a23f167f37 @w28355f818bfd
 namespace fn_00269590 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00269590 @ 0x00269590

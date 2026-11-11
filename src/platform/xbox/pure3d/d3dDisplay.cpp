@@ -298,7 +298,7 @@ bool d3dDisplay::f5(int p2, int p3, int p4) {
 
 
 // 0x0031adf0 FUN_0031adf0 (113 B): equivalent/0x0031adf0.cpp
-// sym: ?FUN_0031adf0@fn_f5e589ad@@YAHH@Z
+// sym: ?FUN_0031adf0@fn_f5e589ad@@YAHH@Z @ddd6474a3444 @w308f0060600f
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 20/22, incomplete)
 // FUN_0031adf0 @ 0x0031adf0
 int __cdecl FUN_0031adf0(int index) {
@@ -322,7 +322,7 @@ int __cdecl FUN_0031adf0(int index) {
 } // namespace fn_f5e589ad
 
 // 0x0031ae70 pure3d::d3dDisplay::vfunc_4 (772 B): equivalent/0x0031ae70.cpp [wrapped: macros]
-// sym: ?vfunc_4@d3dDisplay@pure3d@fn_0031ae70@@UAE_NPBUDisplayConfig@3@@Z
+// sym: ?vfunc_4@d3dDisplay@pure3d@fn_0031ae70@@UAE_NPBUDisplayConfig@3@@Z @e4f5052a0def @wf45818f7dfe9
 namespace fn_0031ae70 {
 // STATUS: equivalent (tools/equiv.py level 3: 20031 inputs, branch coverage 31/32, incomplete)
 // pure3d::d3dDisplay::vfunc_4 @ 0x0031ae70
@@ -599,7 +599,7 @@ void __fastcall target(Obj_31b1e0* self, void*) {
 namespace fn_f5e589ad {
 
 // 0x0031b230 FUN_0031b230 (264 B): equivalent/0x0031b230.cpp
-// sym: ?Capture@d3dDisplay_31b230@fn_f5e589ad@@QAEHPAEHPBURECT@2@H@Z
+// sym: ?Capture@d3dDisplay_31b230@fn_f5e589ad@@QAEHPAEHPBURECT@2@H@Z @9359a19f83ce @w2a1a8da1e0d0
 // STATUS: equivalent (tools/equiv.py level 3: 40 inputs, branch coverage 10/10)
 // FUN_0031b230 @ 0x0031b230
 int d3dDisplay_31b230::Capture(unsigned char* dest, int unused, const RECT* r, int which) {
@@ -657,7 +657,7 @@ void owners::C_31b360::FUN_0031b360(int* x, int* y, int* z) {
 
 
 // 0x0031b390 FUN_0031b390 (364 B): equivalent/0x0031b390.cpp
-// sym: ?FUN_0031b390@GammaControl_31b390@owners@@QAEXMMM@Z
+// sym: ?FUN_0031b390@GammaControl_31b390@owners@@QAEXMMM@Z @1167cf3fa9fc @w83bf72c79986
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_0031b390 @ 0x0031b390
 void owners::GammaControl_31b390::FUN_0031b390(float r, float g, float b) {

@@ -94,7 +94,7 @@ pure3d::d3dErrorShader::~d3dErrorShader() {}
 
 
 // 0x0032b120 pure3d::d3dErrorShader::vfunc_14 (236 B): equivalent/0x0032b120.cpp [wrapped: conflict: pure3d::d3dErrorShader]
-// sym: ?vfunc_14@d3dErrorShader@pure3d@fn_0032b120@@UAEXH@Z
+// sym: ?vfunc_14@d3dErrorShader@pure3d@fn_0032b120@@UAEXH@Z @cca86ac61996 @we99317246b4c
 namespace fn_0032b120 {
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 14/14)
 // pure3d::d3dErrorShader::vfunc_14 @ 0x0032b120
