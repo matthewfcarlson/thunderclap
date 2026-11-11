@@ -13,7 +13,7 @@ namespace fn_f0dc78b5 {} using namespace fn_f0dc78b5;
 namespace fn_f0dc78b5 {
 class B_1c1280 {
   public:
-    void F(int, int, int, int);
+    void FnF_00293e60(int, int, int, int);
 };
 class A_1c1280 {
   public:
@@ -142,7 +142,7 @@ class Outer_1c1310 {
 };
 class D {
   public:
-    void f(int);
+    void Fnf_0029bc80(int);
 };
 class C_1c1330 {
   public:
@@ -151,8 +151,8 @@ class C_1c1330 {
     void g(int);
 };
 struct Child_1c1340 {
-    void First(int);
-    void Second();
+    void First_0029bc80(int);
+    void Second_0029bb60();
 };
 struct Thing_1c1340 {
     char pad[0xbc];
@@ -171,7 +171,7 @@ class Thing_1c1370 {
 };
 class Manager_1c1370 {
   public:
-    void Prep(int);
+    void Prep_0029bc80(int);
 };
 class Obj_1c1370 {
   public:
@@ -181,8 +181,8 @@ class Obj_1c1370 {
     void Target(char flag);
 };
 struct Child_1c13d0 {
-    void First(int);
-    void Second();
+    void First_0029bc80(int);
+    void Second_0029bb60();
 };
 struct Thing_1c13d0 {
     char pad[0xbc];
@@ -195,7 +195,7 @@ struct Thing_1c13d0 {
 // 0x001c1280 FUN_001c1280 (8 B): matches/0x001c1280.cpp
 // sym: ?F@A_1c1280@fn_f0dc78b5@@QAEXHHHH@Z
 void A_1c1280::F(int a0, int a1, int a2, int a3) {
-    m->F(a0, a1, a2, a3);
+    m->FnF_00293e60(a0, a1, a2, a3);
 }
 
 
@@ -238,15 +238,15 @@ int Outer_1c1310::target(void* arg) {
 // 0x001c1330 FUN_001c1330 (11 B): matches/0x001c1330.cpp
 // sym: ?g@C_1c1330@fn_f0dc78b5@@QAEXH@Z
 void C_1c1330::g(int a0) {
-    member->f(a0);
+    member->Fnf_0029bc80(a0);
 }
 
 
 // 0x001c1340 FUN_001c1340 (44 B): matches/0x001c1340.cpp
 // sym: ?Run@Thing_1c1340@fn_f0dc78b5@@QAEXXZ
 void Thing_1c1340::Run() {
-    child->First(value);
-    child->Second();
+    child->First_0029bc80(value);
+    child->Second_0029bb60();
     ((pure3d::DisplayList *)child)->FUN_0029bba0();
 }
 
@@ -254,7 +254,7 @@ void Thing_1c1340::Run() {
 // 0x001c1370 FUN_001c1370 (69 B): matches/0x001c1370.cpp
 // sym: ?Target@Obj_1c1370@fn_f0dc78b5@@QAEXD@Z
 void Obj_1c1370::Target(char flag) {
-    mBC->Prep(mC0);
+    mBC->Prep_0029bc80(mC0);
     Thing_1c1370* t = ((Thing_1c1370 *)((owners::X_29b6d0 *)mBC)->FUN_0029b6d0(0));
     if (flag)
         t->f3();
@@ -273,8 +273,8 @@ void FUN_001c13c0() {}
 // sym: ?Run@Thing_1c13d0@fn_f0dc78b5@@QAEXXZ
 // Same code shape as 0x001c1340 (propagated; names are from that function)
 void Thing_1c13d0::Run() {
-    child->First(value);
-    child->Second();
+    child->First_0029bc80(value);
+    child->Second_0029bb60();
     ((pure3d::DisplayList *)child)->FUN_0029bba0();
 }
 

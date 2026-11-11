@@ -12,19 +12,19 @@ namespace fn_fbea2d00 {} using namespace fn_fbea2d00;
 // ---- declarations shared by the functions below
 namespace fn_fbea2d00 {
 typedef unsigned int u32_17b330;
-extern int TypeA_17b330;
-extern int TypeB_17b330;
+extern int hulk_at_00494b44;
+extern int hulk_at_00494b60;
 struct Result_17b330 {
-    u32_17b330 Init(void*, void*);
+    u32_17b330 Init_00174790(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
-extern Result_17b330* Alloc(int);
+extern Result_17b330* Alloc_0008d690(int);
 struct RefCounted_17b380 {
   public:
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17b380[];
+extern char hulk_at_00417e68[];
 class ChargeAction_17b380 {
   public:
     ChargeAction_17b380* vfunc_2(int flag);
@@ -40,7 +40,7 @@ struct RefCounted_17b420 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17b420[];
+extern char hulk_at_00417e84[];
 class ChargeClearAction_17b420 {
   public:
     ChargeClearAction_17b420* vfunc_2(int flag);
@@ -56,7 +56,7 @@ struct RefCounted_17b4c0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17b4c0[];
+extern char hulk_at_00417ea0[];
 class PushOutAction_17b4c0 {
   public:
     PushOutAction_17b4c0* vfunc_2(int flag);
@@ -71,9 +71,9 @@ extern int FUN_00344e74(hulk_intptr, int, const void*, const void*, int);
 extern void* FUN_0008d690(int);
 class AllocObj_17b510 {
   public:
-    int init(hulkfight::motion::FootPivotTrack*, hulk_intptr);
+    int init_00174c10(hulkfight::motion::FootPivotTrack*, hulk_intptr);
 };
-extern void* g_vftable_17b560[];
+extern void* hulk_at_00417ebc[];
 class Ref_17b560 {
   public:
     void* vptr;
@@ -96,7 +96,7 @@ class Helper_17b560 {
 extern void __cdecl thunk_FUN_00267090(FootPivotAction*);
 typedef unsigned int u32_17b5c0;
 struct Helper_17b5c0 {
-    int run(hulkfight::motion::DriftToPositionTrack*, u32_17b5c0);
+    int run_00174fb0(hulkfight::motion::DriftToPositionTrack*, u32_17b5c0);
 };
 extern int __cdecl FUN_00344e74(u32_17b5c0, int, const void*, const void*, int);
 extern void* __cdecl FUN_0008d690(unsigned int);
@@ -109,7 +109,7 @@ struct VObj_17b610 {
     virtual void f1();
 };
 struct Sub38_17b610 {
-    void Fn();
+    void Fn_0027af50();
 };
 void __cdecl FUN_0008d330(void* p);
 class DriftToPositionAction {
@@ -131,7 +131,7 @@ class DriftToPositionAction {
 };
 typedef unsigned int u32_17b660;
 struct Created_17b660 {
-    int init(hulkfight::motion::DriftToHulkTrack*, u32_17b660);
+    int init_001755e0(hulkfight::motion::DriftToHulkTrack*, u32_17b660);
 };
 extern int __cdecl check(u32_17b660, int, const void*, const void*, int);
 extern void* __cdecl alloc(hulk_uintptr);
@@ -142,7 +142,7 @@ struct RefCounted_17b6b0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17b6b0[];
+extern char hulk_at_00417ef4[];
 class DriftToHulkAction_17b6b0 {
   public:
     DriftToHulkAction_17b6b0* vfunc_2(int flag);
@@ -158,7 +158,7 @@ struct RefCounted_17b750 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17b750[];
+extern char hulk_at_00417f10[];
 class TeleportAction_17b750 {
   public:
     TeleportAction_17b750* vfunc_2(int flag);
@@ -169,8 +169,8 @@ class TeleportAction_17b750 {
     int m_1c;
     RefCounted_17b750* m_20;
 };
-extern "C" void __cdecl opdelete(void*);
-extern void* const vftable_sym;
+extern "C" void __cdecl opdelete_0008d330(void*);
+extern void* const hulk_at_00417f2c;
 class RelObj_17b7f0 {
   public:
     virtual void f0();
@@ -178,7 +178,7 @@ class RelObj_17b7f0 {
 };
 class Sub28 {
   public:
-    void Fn();
+    void Fn_0027af50();
 };
 class BaseCls_17b7f0 {
   public:
@@ -200,7 +200,7 @@ class TeleportRelativeAction {
 };
 typedef unsigned int u32_17b8e0;
 struct Helper_17b8e0 {
-    int run(hulkfight::motion::SyncToLocatorTrack*, u32_17b8e0);
+    int run_00175d50(hulkfight::motion::SyncToLocatorTrack*, u32_17b8e0);
 };
 extern int __cdecl FUN_00344e74(u32_17b8e0, int, const void*, const void*, int);
 extern const char RTTI1_17b8e0[];
@@ -210,7 +210,7 @@ struct RefCounted_17b9a0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17b9a0[];
+extern char hulk_at_00417f80[];
 class SuckInPropsAction_17b9a0 {
   public:
     SuckInPropsAction_17b9a0* vfunc_2(int flag);
@@ -226,7 +226,7 @@ struct RefCounted_17ba40 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_17ba40[];
+extern char hulk_at_00417f9c[];
 class TargetIconDistanceAction_17ba40 {
   public:
     TargetIconDistanceAction_17ba40* vfunc_2(int flag);
@@ -239,7 +239,7 @@ class TargetIconDistanceAction_17ba40 {
 };
 typedef unsigned int u32_17ba90;
 struct Helper_17ba90 {
-    int run(hulkfight::motion::MoveJointTrack*, u32_17ba90);
+    int run_00176300(hulkfight::motion::MoveJointTrack*, u32_17ba90);
 };
 extern int __cdecl FUN_00344e74(u32_17ba90, int, const void*, const void*, int);
 extern const char RTTI1_17ba90[];
@@ -264,8 +264,8 @@ class MoveJointAction {
     Ref_17bae0* volatile m24;
     Ref_17bae0* volatile m28;
 };
-void destroy(MoveJointAction*);
-extern void* g_vftable_17bb80[];
+void destroy_0008d330(MoveJointAction*);
+extern void* hulk_at_00417fd4[];
 class Ref_17bb80 {
   public:
     virtual void F0();
@@ -284,10 +284,10 @@ class TargetBreakAction_17bb80 : public Action_17bb80 {
 typedef unsigned int u32_17bbc0;
 extern int RTTI1_17bbc0, RTTI2;
 struct Result_17bbc0 {
-    u32_17bbc0 setup(hulkfight::motion::SurfTrack*, hulk_uintptr);
+    u32_17bbc0 setup_00176540(hulkfight::motion::SurfTrack*, hulk_uintptr);
 };
-extern Result_17bbc0* alloc(int);
-extern int g_vftable_17bc10;
+extern Result_17bbc0* alloc_0008d690(int);
+extern int hulk_at_00417ff0;
 class RefObj_17bc10 {
   public:
     virtual void vfunc_0();
@@ -310,10 +310,10 @@ class SurfAction_17bc10 {
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::ChargeTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b330 a = (u32_17b330)__p0; u32_17b330 b = (u32_17b330)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &TypeA_17b330, &TypeB_17b330, 0)) {
-        Result_17b330* q = Alloc(0x28);
+    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+        Result_17b330* q = Alloc_0008d690(0x28);
         if (q)
-            return (int)(q->Init(this, p));
+            return (int)(q->Init_00174790(this, p));
     }
     return (int)(0);
 }
@@ -325,7 +325,7 @@ namespace fn_fbea2d00 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 ChargeAction_17b380* ChargeAction_17b380::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17b380;
+    *p = (hulk_intptr)&hulk_at_00417e68;
     RefCounted_17b380* q = *(RefCounted_17b380* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -347,7 +347,7 @@ ChargeAction_17b380* ChargeAction_17b380::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 ChargeClearAction_17b420* ChargeClearAction_17b420::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17b420;
+    *p = (hulk_intptr)&hulk_at_00417e84;
     RefCounted_17b420* q = *(RefCounted_17b420* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -369,7 +369,7 @@ ChargeClearAction_17b420* ChargeClearAction_17b420::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 PushOutAction_17b4c0* PushOutAction_17b4c0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17b4c0;
+    *p = (hulk_intptr)&hulk_at_00417ea0;
     RefCounted_17b4c0* q = *(RefCounted_17b4c0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -394,7 +394,7 @@ hulk_intptr hulkfight::motion::FootPivotTrack::vfunc_10(hulk_intptr a, hulk_intp
     if (FUN_00344e74(c, 0, &RTTI_Type1, &RTTI_Type2, 0)) {
         AllocObj_17b510* p = (AllocObj_17b510*)FUN_0008d690(0x2c);
         if (p)
-            return p->init(this, c);
+            return p->init_00174c10(this, c);
     }
     return 0;
 }
@@ -404,7 +404,7 @@ namespace fn_fbea2d00 {
 // 0x0017b560 hulkfight::motion::FootPivotAction::vfunc_2 (90 B): matches/0x0017b560.cpp
 // sym: ?f2@FootPivotAction@fn_fbea2d00@@QAEPAV12@E@Z
 FootPivotAction* FootPivotAction::f2(unsigned char flags) {
-    *(void**)this = &g_vftable_17b560;
+    *(void**)this = &hulk_at_00417ebc;
     _ReadWriteBarrier();
     if (m28) {
         m28->f1();
@@ -432,7 +432,7 @@ hulk_intptr hulkfight::motion::DriftToPositionTrack::vfunc_10(hulk_intptr __p0, 
     if (FUN_00344e74(c, 0, RTTI1_17b5c0, RTTI2_17b5c0, 0)) {
         void* p = FUN_0008d690(0x58);
         if (p)
-            return ((Helper_17b5c0*)p)->run(this, c);
+            return ((Helper_17b5c0*)p)->run_00174fb0(this, c);
     }
     return 0;
 }
@@ -453,7 +453,7 @@ DriftToPositionAction* DriftToPositionAction::vfunc_2(unsigned char param) {
         int* q = &m1c;
         *q = 0;
     }
-    m38.Fn();
+    m38.Fn_0027af50();
     ((fight::Action *)this)->FUN_002326a0();
     if (param & 1) {
         FUN_0008d330((void*)this);
@@ -469,9 +469,9 @@ DriftToPositionAction* DriftToPositionAction::vfunc_2(unsigned char param) {
 hulk_intptr hulkfight::motion::DriftToHulkTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b660 a = (u32_17b660)__p0; u32_17b660 b = (u32_17b660)__p1; u32_17b660 c = (u32_17b660)__p2;
 
     if (check(c, 0, &typeA_17b660, &typeB_17b660, 0)) {
-        Created_17b660* p = (Created_17b660*)alloc(0x38);
+        Created_17b660* p = (Created_17b660*)alloc_0008d690(0x38);
         if (p)
-            return p->init(this, c);
+            return p->init_001755e0(this, c);
     }
     return 0;
 }
@@ -483,7 +483,7 @@ namespace fn_fbea2d00 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 DriftToHulkAction_17b6b0* DriftToHulkAction_17b6b0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17b6b0;
+    *p = (hulk_intptr)&hulk_at_00417ef4;
     RefCounted_17b6b0* q = *(RefCounted_17b6b0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -505,7 +505,7 @@ DriftToHulkAction_17b6b0* DriftToHulkAction_17b6b0::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 TeleportAction_17b750* TeleportAction_17b750::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17b750;
+    *p = (hulk_intptr)&hulk_at_00417f10;
     RefCounted_17b750* q = *(RefCounted_17b750* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -526,7 +526,7 @@ TeleportAction_17b750* TeleportAction_17b750::vfunc_2(int flag) {
 // sym: ?vfunc_2@TeleportRelativeAction@fn_fbea2d00@@QAEPAV12@E@Z
 TeleportRelativeAction* TeleportRelativeAction::vfunc_2(unsigned char param) {
     char* self = (char*)this;
-    *(void**)self = (void*)&vftable_sym;
+    *(void**)self = (void*)&hulk_at_00417f2c;
     RelObj_17b7f0** pp = (RelObj_17b7f0**)(self + 0x20);
     RelObj_17b7f0* p = *pp;
     if (p) {
@@ -538,10 +538,10 @@ TeleportRelativeAction* TeleportRelativeAction::vfunc_2(unsigned char param) {
     if (v) {
         *q1c = 0;
     }
-    ((Sub28*)(self + 0x28))->Fn();
+    ((Sub28*)(self + 0x28))->Fn_0027af50();
     ((fight::Action *)(((BaseCls_17b7f0*)self)))->FUN_002326a0();
     if (param & 1) {
-        opdelete(self);
+        opdelete_0008d330(self);
     }
     return (TeleportRelativeAction*)self;
 }
@@ -556,7 +556,7 @@ hulk_intptr hulkfight::motion::SyncToLocatorTrack::vfunc_10(hulk_intptr __p0, hu
     if (FUN_00344e74(c, 0, RTTI1_17b8e0, RTTI2_17b8e0, 0)) {
         void* p = FUN_0008d690(0x58);
         if (p)
-            return ((Helper_17b8e0*)p)->run(this, c);
+            return ((Helper_17b8e0*)p)->run_00175d50(this, c);
     }
     return 0;
 }
@@ -575,7 +575,7 @@ namespace fn_fbea2d00 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 SuckInPropsAction_17b9a0* SuckInPropsAction_17b9a0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17b9a0;
+    *p = (hulk_intptr)&hulk_at_00417f80;
     RefCounted_17b9a0* q = *(RefCounted_17b9a0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -597,7 +597,7 @@ SuckInPropsAction_17b9a0* SuckInPropsAction_17b9a0::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 TargetIconDistanceAction_17ba40* TargetIconDistanceAction_17ba40::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_17ba40;
+    *p = (hulk_intptr)&hulk_at_00417f9c;
     RefCounted_17ba40* q = *(RefCounted_17ba40* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -623,7 +623,7 @@ hulk_intptr hulkfight::motion::MoveJointTrack::vfunc_10(hulk_intptr __p0, hulk_i
     if (FUN_00344e74(c, 0, RTTI1_17ba90, RTTI2_17ba90, 0)) {
         void* p = FUN_0008d690(0x58);
         if (p)
-            return ((Helper_17ba90*)p)->run(this, c);
+            return ((Helper_17ba90*)p)->run_00176300(this, c);
     }
     return 0;
 }
@@ -653,7 +653,7 @@ MoveJointAction* MoveJointAction::v2(unsigned char flag) {
         m1c = 0;
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 
@@ -661,7 +661,7 @@ MoveJointAction* MoveJointAction::v2(unsigned char flag) {
 // 0x0017bb80 hulkfight::motion::TargetBreakAction::vfunc_2 (57 B): matches/0x0017bb80.cpp
 // sym: ?f2@TargetBreakAction_17bb80@fn_fbea2d00@@QAEPAV12@E@Z
 TargetBreakAction_17bb80* TargetBreakAction_17bb80::f2(unsigned char flags) {
-    vptr = g_vftable_17bb80;
+    vptr = hulk_at_00417fd4;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -681,9 +681,9 @@ TargetBreakAction_17bb80* TargetBreakAction_17bb80::f2(unsigned char flags) {
 hulk_intptr hulkfight::motion::SurfTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17bbc0 a = (u32_17bbc0)__p0; u32_17bbc0 b = (u32_17bbc0)__p1; hulk_uintptr c = (u32_17bbc0)__p2;
 
     if (check((void*)c, 0, &RTTI1_17bbc0, &RTTI2, 0)) {
-        Result_17bbc0* p = alloc(0x44);
+        Result_17bbc0* p = alloc_0008d690(0x44);
         if (p)
-            return (int)(p->setup(this, c));
+            return (int)(p->setup_00176540(this, c));
     }
     return (int)(0);
 }
@@ -695,7 +695,7 @@ namespace fn_fbea2d00 {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* SurfAction_17bc10::vfunc_2(unsigned char flag) {
     volatile SurfAction_17bc10* self = this;
-    self->mVptr = &g_vftable_17bc10;
+    self->mVptr = &hulk_at_00417ff0;
     RefObj_17bc10* t3 = self->m3;
     if (t3) {
         t3->Release();

@@ -39,13 +39,13 @@ namespace fn_f1ddef39 {
 void __cdecl FUN_003abdde(int);
 class Obj {
   public:
-    void Run();
+    void Run_002580e0();
     void FUN_003b17b0();
     void FUN_0023fc40(const char*, float);
     void FUN_0025fa00(const char*, int);
     void FUN_0024e670();
     void FUN_002524e0();
-    void Fn();
+    void Fn_002580e0();
 };
 class X {
   public:
@@ -130,8 +130,8 @@ extern "C" typedef struct {
     char* a;
     char* b;
 } Pair_35d030;
-extern char g_name[];
-extern char g_def[];
+extern char hulk_at_004dd750[];
+extern char hulk_at_004dd754[];
 extern "C" void FUN_00363cc0();
 extern "C" void __cdecl FUN_00363cd0();
 } // namespace fn_f1ddef39
@@ -173,7 +173,7 @@ struct Hash_35d3a0 {
 };
 typedef unsigned __int64 U64_35d3c0;
 extern "C" void __cdecl FUN_00363df0();
-extern "C" void __cdecl Shutdown();
+extern "C" void __cdecl Shutdown_00363e00();
 extern "C" void __cdecl FUN_00363e10();
 } // namespace fn_f1ddef39
 extern "C++" __declspec(nothrow) unsigned long long __cdecl FUN_0027b020(const void*);
@@ -263,7 +263,7 @@ class Registry {
     void FUN_002584d0(__int64*, __int64*, int, int);
     void FUN_0025fa00(const char* name, int flags);
 };
-extern Registry g_registry;
+extern Registry hulk_at_004e2778;
 extern void FUN_00364080();
 typedef unsigned __int64 U64;
 class Sub {
@@ -310,8 +310,8 @@ extern "C" TypeInfo_3469f5 DAT_004c8040;
 extern "C" unsigned long long __cdecl FUN_002672f0(const void* p, int a, int b);
 namespace fn_f1ddef39 {
 typedef unsigned long long u64;
-extern int gLow;
-extern int gHigh;
+extern int hulk_at_004e5b50;
+extern int hulk_at_004e5b54;
 typedef unsigned int u32;
 typedef __int64 I64;
 struct MixType_35f300 {
@@ -422,7 +422,7 @@ extern void FUN_003645b0();
 struct Mgr_360ff0 {
     void FUN_002584d0(__int64*, __int64*, int, int);
 };
-extern "C" void __cdecl Done();
+extern "C" void __cdecl Done_00364720();
 extern "C" void __cdecl FUN_00364730();
 typedef unsigned __int64 U64_361630;
 extern void __cdecl FUN_00364740();
@@ -820,59 +820,59 @@ struct Entry_363a10 {
 struct Obj_363af0 {
 };
 struct Obj_363b00 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363b10 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363b20 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363b30 {
-    void f();
+    void Fnf_0027af50();
 };
 extern "C" void __stdcall FUN_0027af50();
 class A_363b40 {
   public:
-    void Fn();
+    void Fn_0027af50();
 };
 extern "C++" __declspec(nothrow) void __fastcall FUN_0027af50(void*);
 struct Obj_363b60 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363b70 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363b80 {
 };
 struct Obj_363b90 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363ba0 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363bb0 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363bc0 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363bd0 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363be0 {
-    void f();
+    void Fnf_0027af50();
 };
 extern "C" void __cdecl FUN_00066930();
 class C_363bf0 {
   public:
-    void init(void*, void*);
+    void init_00230f50(void*, void*);
 };
 struct Obj_363c30 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363c40 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363c50 {
 };
@@ -897,7 +897,7 @@ struct Item {
     hulk_intptr a;
     void* p;
 };
-extern Item items[11];
+extern Item hulk_at_004ddb10[11];
 extern "C" void __cdecl FUN_000b0ff0();
 extern void __stdcall FUN_00013420(void*, int, int, void*);
 struct Obj_363df0 {
@@ -909,40 +909,40 @@ struct Obj_363e10 {
 struct Obj_363e20 {
 };
 struct Obj_363e70 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363e80 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363e90 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363ea0 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363eb0 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363ec0 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363ed0 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363ee0 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363ef0 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363f00 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363f10 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363f20 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363f30 {
 };
@@ -951,30 +951,30 @@ struct Obj_363f40 {
 struct Obj_363f50 {
 };
 struct Obj_363f60 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363f70 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363f80 {
 };
 struct Obj_363f90 {
 };
 struct Obj_363fa0 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363fc0 {
 };
 struct Obj_363fd0 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_363ff0 {
-    void f();
+    void Fnf_002fa750();
 };
 struct Obj_364000 {
 };
 struct CStaticAllocator_364010 {
-    void f();
+    void Fnf_0008ff50();
 };
 struct Obj_364020 {
 };
@@ -989,7 +989,7 @@ struct Obj_364070 {
 struct Obj_3640a0 {
 };
 struct Allocator_3640b0 {
-    void f();
+    void Fnf_002475e0();
 };
 struct Obj_3640c0 {
 };
@@ -998,28 +998,28 @@ struct Obj_3640d0 {
 struct Obj_364120 {
 };
 struct Obj_364130 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_364140 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_364160 {
-    void Run();
+    void Run_002580e0();
 };
 class G_364170 {
   public:
-    void Run();
+    void Run_002580e0();
 };
 class T_364180 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 class A_364190 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 struct Obj_3641a0 {
-    void f();
+    void Fnf_00243350();
 };
 extern "C" char DAT_00429254[];
 class Allocator {
@@ -1028,39 +1028,39 @@ class Allocator {
 };
 class Obj_3641e0 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 struct Obj_3641f0 {
-    void Fn();
+    void Fn_002580e0();
 };
 struct X_364200 {
-    void A();
+    void FnA_002580e0();
 };
 struct Obj_364210 {
-    void Run();
+    void Run_002580e0();
 };
 extern void __fastcall FUN_002580e0(void*);
 class Obj_364230 {
   public:
-    void Run();
+    void Run_002580e0();
 };
 extern char g_data_364240[];
 struct Obj_364240 {
-    void Run();
+    void Run_002580e0();
 };
 struct Obj_364270 {
 };
 class Obj_364280 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 class G_364290 {
   public:
-    void Target();
+    void Target_002580e0();
 };
 class Helper_3642a0 {
   public:
-    void Run();
+    void Run_002580e0();
 };
 struct MetaType_3642d0 {
     void FUN_0025fa80();
@@ -1069,168 +1069,168 @@ struct MetaType_3642f0 {
     void FUN_0025fa80();
 };
 struct Obj_364300 {
-    void f();
+    void Fnf_00243350();
 };
 struct Obj_364330 {
-    void f();
+    void Fnf_00243350();
 };
 extern "C" char g_target_364360[];
 struct Obj_364360 {
-    void Run();
+    void Run_002580e0();
 };
-extern void __fastcall target_func(void*);
+extern void __fastcall target_func_002580e0(void*);
 struct G_364390 {
-    void Run();
+    void Run_002580e0();
 };
 struct Obj_3643a0 {
-    void f();
+    void Fnf_00260680();
 };
 struct Obj_3643c0 {
-    void f();
+    void Fnf_00260680();
 };
 struct Obj_3643d0 {
-    void Fn();
+    void Fn_002580e0();
 };
 struct Obj_3643e0 {
-    void f();
+    void Fnf_00260680();
 };
 class Obj_3643f0 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 struct Obj_364400 {
-    void f();
+    void Fnf_00260680();
 };
 struct Helper_364410 {
-    void Run();
+    void Run_002580e0();
 };
 struct Obj_364420 {
-    void f();
+    void Fnf_00260680();
 };
 class Obj_364430 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 class Sub_364450 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 struct Obj_364460 {
-    void f();
+    void Fnf_00260680();
 };
 class SeqEventChannelSendVolumesType_364470 {
   public:
-    void go();
+    void go_002580e0();
 };
 class Obj_364480 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 struct Obj_364490 {
-    void f();
+    void Fnf_00260680();
 };
 class Obj_3644a0 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 struct Obj_3644d0 {
-    void f();
+    void Fnf_00260680();
 };
 class Obj_3644e0 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 struct Obj_3644f0 {
-    void f();
+    void Fnf_00260680();
 };
 extern void* g364520;
 struct Obj_364520 {
-    void Go();
+    void Go_002580e0();
 };
 struct Obj_364530 {
-    void f();
+    void Fnf_00260680();
 };
 class Obj_364540 {
   public:
-    void Run();
+    void Run_002580e0();
 };
 struct Obj_364550 {
-    void f();
+    void Fnf_00260680();
 };
 struct Obj_364560 {
-    void Fn();
+    void Fn_002580e0();
 };
 struct Obj_364570 {
-    void f();
+    void Fnf_00260680();
 };
 struct Obj_364590 {
-    void f();
+    void Fnf_00260680();
 };
 class Obj_3645a0 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 class Obj_3645c0 {
   public:
-    void Run();
+    void Run_002580e0();
 };
 struct Obj_3645d0 {
-    void f();
+    void Fnf_00260680();
 };
 struct Obj_3645f0 {
-    void f();
+    void Fnf_00260680();
 };
 struct Obj_364610 {
-    void f();
+    void Fnf_00260680();
 };
 struct Obj_364620 {
-    void Run();
+    void Run_002580e0();
 };
 struct Obj_364630 {
-    void f();
+    void Fnf_00243350();
 };
 struct Obj_364650 {
-    void Fn();
+    void Fn_002580e0();
 };
 class Thing_364660 {
   public:
     ~Thing_364660() throw();
 };
 struct G_364670 {
-    void Run();
+    void Run_002580e0();
 };
 struct Obj_364680 {
     void Run();
 };
 void __fastcall FUN_002580e0(Obj_364680*) throw();
 struct Obj_364690 {
-    void Fn();
+    void Fn_002580e0();
 };
 class Obj_3646b0 {
   public:
-    void Run();
+    void Run_002580e0();
 };
 class Obj_3646c0 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 class Obj_3646d0 {
   public:
-    void Run();
+    void Run_002580e0();
 };
 struct Obj_3646e0 {
-    void Init();
+    void Init_002580e0();
 };
 struct Obj_3646f0 {
-    void Run();
+    void Run_002580e0();
 };
 class Obj_364700 {
   public:
-    void Run();
+    void Run_002580e0();
 };
 class Base_364710 {
   public:
-    void Fn();
+    void Fn_002580e0();
 };
 class Obj_364710 : public Base_364710 {
   public:
@@ -1238,18 +1238,18 @@ class Obj_364710 : public Base_364710 {
 };
 class A_364720 {
   public:
-    void Run();
+    void Run_002580e0();
 };
 struct Obj_364730 {
-    void Run();
+    void Run_002580e0();
 };
 class Obj_364750 {
   public:
-    void Run();
+    void Run_002580e0();
 };
 class Obj_364760 {
   public:
-    void Target();
+    void Target_002580e0();
 };
 extern "C" char DAT_003f6098[];
 class IRefCount {
@@ -1258,20 +1258,20 @@ class IRefCount {
 };
 extern "C" void __cdecl thunk_FUN_00267090(int);
 struct ImageConverter_3647b0 {
-    void f();
+    void Fnf_002de240();
 };
 extern "C" {
-void __cdecl thunk(int);
+void __cdecl thunk_0008d340(int);
 }
 extern "C" {
 void __cdecl FUN_002f9fb0(int, int);
 }
-extern void* pddiExtensionVtable;
+extern void* hulk_at_0043276c;
 struct Obj_364810 {
-    void f();
+    void Fnf_00337d40();
 };
 struct Obj_364820 {
-    void f();
+    void Fnf_00337d40();
 };
 
 // 0x0035be88 __unwindfunclet_0035be88 (8 B): not yet verified
@@ -1955,7 +1955,7 @@ void FUN_0035cb40() {
 namespace fn_0035cb50 {
 struct Obj {
 };
-extern Obj gObj;
+extern Obj hulk_at_004dd080;
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 int atexit(void (*)(void));
@@ -1964,7 +1964,7 @@ int atexit(void (*)(void));
 extern "C++" __declspec(nothrow) void FUN_00363c50();
 
 void Reg() {
-    ((owners::String_23fc40 *)&gObj)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
+    ((owners::String_23fc40 *)&hulk_at_004dd080)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
     atexit(FUN_00363c50);
 }
 } // namespace fn_0035cb50
@@ -2137,8 +2137,8 @@ void __stdcall FUN_0035cfd0(void) {
 // sym: ?FUN_0035cff0@fn_f1ddef39@@YAXXZ
 // data: gResultHi = DAT_004dd75c, gResultLo = DAT_004dd758
 void __cdecl FUN_0035cff0() {
-    extern const char gLabel[];
-    __int64 r = FUN_0027b020(gLabel);
+    extern const char hulk_at_00400488[];
+    __int64 r = FUN_0027b020(hulk_at_00400488);
     (*(int*)&DAT_004dd758) = (int)r;
     (*(int*)&DAT_004dd75c) = (int)((unsigned __int64)r >> 32);
 }
@@ -2156,8 +2156,8 @@ void FUN_0035d010() {
 // sym: ?FUN_0035d030@fn_f1ddef39@@YAXXZ
 void FUN_0035d030() {
     unsigned __int64 p = FUN_0027b020("$MACRO_DEFINE");
-    *(unsigned int*)&g_name = (unsigned int)p;
-    *(unsigned int*)&g_def = (unsigned int)(p >> 32);
+    *(unsigned int*)&hulk_at_004dd750 = (unsigned int)p;
+    *(unsigned int*)&hulk_at_004dd754 = (unsigned int)(p >> 32);
 }
 
 
@@ -2357,9 +2357,9 @@ extern "C" int atexit(void (*)(void));
 struct G {
     void Init(const char*, int);
 };
-extern G g;
+extern G hulk_at_004dda08;
 void Init() {
-    ((owners::String_23fc40 *)&g)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
+    ((owners::String_23fc40 *)&hulk_at_004dda08)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
     atexit(FUN_00363d00);
 }
 } // namespace fn_0035d280
@@ -2548,7 +2548,7 @@ void FUN_0035d480() {
 // sym: ?FUN_0035d4a0@fn_f1ddef39@@YAXXZ
 void __cdecl FUN_0035d4a0() {
     ((owners::String_23fc40 *)&gSound)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
-    atexit(Shutdown);
+    atexit(Shutdown_00363e00);
 }
 
 
@@ -4681,7 +4681,7 @@ namespace fn_f1ddef39 {
 // 0x0035ed50 FUN_0035ed50 (29 B): matches/0x0035ed50.cpp
 // sym: ?Init@fn_f1ddef39@@YAXXZ
 void Init() {
-    ((owners::String_23fc40 *)&g_registry)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
+    ((owners::String_23fc40 *)&hulk_at_004e2778)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
     atexit(FUN_00364080);
 }
 
@@ -4989,8 +4989,8 @@ void __cdecl FUN_0035f130() {
 // data: gGlobal = DAT_004ca27c
 void __cdecl FUN_0035f150() {
     unsigned long long v = FUN_002672f0((*(const char**)&DAT_004ca27c), 0, 0);
-    gLow = (int)v;
-    gHigh = (int)(v >> 32);
+    hulk_at_004e5b50 = (int)v;
+    hulk_at_004e5b54 = (int)(v >> 32);
 }
 
 
@@ -5493,13 +5493,13 @@ struct Manager_35f870 {
 extern "C" int __cdecl atexit(void(__cdecl*)());
 #endif
 
-extern void __cdecl cleanup();
+extern void __cdecl cleanup_00364250();
 void __cdecl FUN_0035f870() {
     HULK_SIZE32(AudioHalStreamPlayer, 0xd8);
     U64_35f870 first = FUN_002672f0("HalStreamPlayer", 0, 0);
     U64_35f870 second = FUN_002672f0("Runtime_Hal", 0, 0);
     (*(Manager_35f870*)&DAT_004e61a0).FUN_002584d0(&second, &first, (int)sizeof(AudioHalStreamPlayer), (int)__alignof(AudioHalStreamPlayer));
-    atexit(cleanup);
+    atexit(cleanup_00364250);
 }
 } // namespace fn_0035f870
 
@@ -5833,13 +5833,13 @@ class Registry {
 extern "C" int __cdecl atexit(void(__cdecl*)());
 #endif
 
-extern void __cdecl cleanup();
+extern void __cdecl cleanup_00364360();
 void __cdecl target() {
     HULK_SIZE32(AudioSeqActionChannelSendVolumes, 0x10);
     U64 a = FUN_002672f0(DAT_004299d4, 0, 0);
     U64 b = FUN_002672f0(DAT_00429270, 0, 0);
     (*(Registry*)&DAT_004e6700).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqActionChannelSendVolumes), (int)__alignof(AudioSeqActionChannelSendVolumes));
-    atexit(cleanup);
+    atexit(cleanup_00364360);
 }
 } // namespace fn_0035fd10
 
@@ -6119,7 +6119,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 extern "C" int __cdecl atexit(void(__cdecl*)());
 #endif
 
-extern "C++" __declspec(nothrow) void __cdecl cleanup();
+extern "C++" __declspec(nothrow) void __cdecl cleanup_003643f0();
 class Registry {
   public:
     void FUN_002584d0(unsigned __int64*, unsigned __int64*, int, int);
@@ -6129,7 +6129,7 @@ void init() {
     unsigned __int64 a = FUN_002672f0(DAT_00429c74, 0, 0);
     unsigned __int64 b = FUN_002672f0(DAT_00429270, 0, 0);
     (*(Registry*)&DAT_004e6a18).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqActionWaitBeat), (int)__alignof(AudioSeqActionWaitBeat));
-    atexit(cleanup);
+    atexit(cleanup_003643f0);
 }
 } // namespace fn_003600f0
 #undef DAT_004dd6ec
@@ -6562,7 +6562,7 @@ extern "C++" __declspec(nothrow) __int64 __cdecl FUN_002672f0(const char*, int, 
 extern "C" int __cdecl atexit(void(__cdecl*)());
 #endif
 
-extern "C++" __declspec(nothrow) void __cdecl Finish();
+extern "C++" __declspec(nothrow) void __cdecl Finish_00364580();
 class Registry {
   public:
     void FUN_002584d0(const __int64*, const __int64*, int, int);
@@ -6572,7 +6572,7 @@ void __cdecl Target() {
     __int64 a = FUN_002672f0("SeqActionSilence", 0, 0);
     __int64 b = FUN_002672f0("Runtime_Sequence", 0, 0);
     (*(Registry*)&DAT_004e72b0).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqActionSilence), (int)__alignof(AudioSeqActionSilence));
-    atexit(Finish);
+    atexit(Finish_00364580);
 }
 } // namespace fn_00360b50
 
@@ -6711,10 +6711,10 @@ class SeqEventCrossFadeType_360e20 {
   public:
     virtual void FUN_002555c0();
 };
-extern SeqEventCrossFadeType_360e20 gReg_360e20;
+extern SeqEventCrossFadeType_360e20 hulk_at_004e7508;
 extern "C++" __declspec(nothrow) void __cdecl FUN_003645f0();
 void __cdecl Init() {
-    gReg_360e20.FUN_002555c0();
+    hulk_at_004e7508.FUN_002555c0();
     atexit(FUN_003645f0);
 }
 } // namespace fn_00360e20
@@ -6790,7 +6790,7 @@ extern "C++" __declspec(nothrow) __int64 __cdecl FUN_002672f0(const char*, int, 
 extern "C" int __cdecl atexit(void(__cdecl*)());
 #endif
 
-extern "C++" __declspec(nothrow) void __cdecl Cleanup();
+extern "C++" __declspec(nothrow) void __cdecl Cleanup_00364620();
 class Registry {
   public:
     void FUN_002584d0(__int64*, __int64*, int, int);
@@ -6800,7 +6800,7 @@ void __cdecl FUN_00360f80() {
     __int64 b = FUN_002672f0("SeqBuss", 0, 0);
     __int64 a = FUN_002672f0("Data_Sequence", 0, 0);
     (*(Registry*)&DAT_004e7690).FUN_002584d0(&a, &b, (int)sizeof(AudioSeqBuss), (int)__alignof(AudioSeqBuss));
-    atexit(Cleanup);
+    atexit(Cleanup_00364620);
 }
 } // namespace fn_00360f80
 
@@ -6875,7 +6875,7 @@ extern "C++" __declspec(nothrow) __int64 __cdecl FUN_002672f0(const char*, int, 
 extern "C" int __cdecl atexit(void(__cdecl*)());
 #endif
 
-void __cdecl cleanup();
+void __cdecl cleanup_00364670();
 struct Manager_3610b0 {
     void FUN_002584d0(__int64*, __int64*, int, int);
 };
@@ -6888,7 +6888,7 @@ void __cdecl FUN_003610b0() {
     p.property = FUN_002672f0("Property", 0, 0);
     p.meta = FUN_002672f0("Meta", 0, 0);
     (*(Manager_3610b0*)((char*)&DAT_004e7778)).FUN_002584d0(&p.meta, &p.property, (int)sizeof(OmMetaProperty), (int)__alignof(OmMetaProperty));
-    atexit(cleanup);
+    atexit(cleanup_00364670);
 }
 } // namespace fn_003610b0
 
@@ -6911,12 +6911,12 @@ class Store {
 extern "C" int __cdecl atexit(void(__cdecl*)());
 #endif
 
-extern void __cdecl cleanup();
+extern void __cdecl cleanup_00364680();
 void __cdecl FUN_00361110() {
     Pair a = FUN_002672f0("Properties", 0, 0);
     Pair b = FUN_002672f0("Meta", 0, 0);
     (*(Store*)&DAT_004e77c0).FUN_002584d0(&b, &a, 16, 8);
-    atexit(cleanup);
+    atexit(cleanup_00364680);
 }
 } // namespace fn_00361110
 
@@ -7124,13 +7124,13 @@ struct Registry {
 extern "C" int __cdecl atexit(void(__cdecl*)());
 #endif
 
-extern "C++" __declspec(nothrow) void __cdecl Cleanup();
+extern "C++" __declspec(nothrow) void __cdecl Cleanup_003646f0();
 void __cdecl Init() {
     HULK_SIZE32(OmMetaType, 0x34);
     Pair first = FUN_002672f0("MetaType", 0, 0);
     Pair second = FUN_002672f0("om", 0, 0);
     (*(Registry*)&DAT_004e79d0).FUN_002584d0(&second, &first, (int)sizeof(OmMetaType), (int)__alignof(OmMetaType));
-    atexit(Cleanup);
+    atexit(Cleanup_003646f0);
 }
 } // namespace fn_00361400
 
@@ -7199,7 +7199,7 @@ void FUN_00361570() {
     __int64 a = FUN_002672f0(DAT_0042ab44, 0, 0);
     __int64 b = FUN_002672f0(DAT_0042a620, 0, 0);
     (*(Manager*)&DAT_004e7ac0).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqTrack), (int)__alignof(AudioSeqTrack));
-    atexit(Done);
+    atexit(Done_00364720);
 }
 
 
@@ -7244,7 +7244,7 @@ extern "C++" __declspec(nothrow) U64 __cdecl FUN_002672f0(const char*, int, int)
 extern "C" int __cdecl atexit(void(__cdecl*)());
 #endif
 
-void __cdecl Cleanup();
+void __cdecl Cleanup_00364750();
 class Registry {
   public:
     void FUN_002584d0(U64*, U64*, int, int);
@@ -7254,7 +7254,7 @@ void FUN_00361690() {
     U64 a = FUN_002672f0("HalRsdFileStream", 0, 0);
     U64 b = FUN_002672f0("Runtime_Hal", 0, 0);
     (*(Registry*)&DAT_004e7b98).FUN_002584d0(&b, &a, (int)sizeof(AudioHalRsdFileStream), (int)__alignof(AudioHalRsdFileStream));
-    atexit(Cleanup);
+    atexit(Cleanup_00364750);
 }
 } // namespace fn_00361690
 
@@ -9152,7 +9152,7 @@ extern "C" void FUN_00363af0() {
 // sym: _FUN_00363b00
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363b00() {
-    (*(Obj_363b00*)&DAT_004dc0e8).f();
+    (*(Obj_363b00*)&DAT_004dc0e8).Fnf_0027af50();
 }
 
 
@@ -9160,7 +9160,7 @@ extern "C" void FUN_00363b00() {
 // sym: _FUN_00363b10
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363b10() {
-    (*(Obj_363b10*)&DAT_004dc0f8).f();
+    (*(Obj_363b10*)&DAT_004dc0f8).Fnf_0027af50();
 }
 
 
@@ -9168,7 +9168,7 @@ extern "C" void FUN_00363b10() {
 // sym: _FUN_00363b20
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363b20() {
-    (*(Obj_363b20*)&DAT_004dc108).f();
+    (*(Obj_363b20*)&DAT_004dc108).Fnf_0027af50();
 }
 
 
@@ -9176,14 +9176,14 @@ extern "C" void FUN_00363b20() {
 // sym: _FUN_00363b30
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363b30() {
-    (*(Obj_363b30*)&DAT_004dc118).f();
+    (*(Obj_363b30*)&DAT_004dc118).Fnf_0027af50();
 }
 
 
 // 0x00363b40 FUN_00363b40 (10 B): matches/0x00363b40.cpp
 // sym: _FUN_00363b40
 extern "C" void FUN_00363b40() {
-    (*(A_363b40*)&DAT_004dc128).Fn();
+    (*(A_363b40*)&DAT_004dc128).Fn_0027af50();
 }
 
 
@@ -9198,7 +9198,7 @@ extern "C" void __cdecl FUN_00363b50() {
 // sym: _FUN_00363b60
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363b60() {
-    (*(Obj_363b60*)&DAT_004dc148).f();
+    (*(Obj_363b60*)&DAT_004dc148).Fnf_0027af50();
 }
 
 
@@ -9206,7 +9206,7 @@ extern "C" void FUN_00363b60() {
 // sym: _FUN_00363b70
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363b70() {
-    (*(Obj_363b70*)&DAT_004dc158).f();
+    (*(Obj_363b70*)&DAT_004dc158).Fnf_0027af50();
 }
 
 
@@ -9222,7 +9222,7 @@ extern "C" void FUN_00363b80() {
 // sym: _FUN_00363b90
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363b90() {
-    (*(Obj_363b90*)&DAT_004dc310).f();
+    (*(Obj_363b90*)&DAT_004dc310).Fnf_0027af50();
 }
 
 
@@ -9230,7 +9230,7 @@ extern "C" void FUN_00363b90() {
 // sym: _FUN_00363ba0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363ba0() {
-    (*(Obj_363ba0*)&DAT_004dc2c8).f();
+    (*(Obj_363ba0*)&DAT_004dc2c8).Fnf_0027af50();
 }
 
 
@@ -9238,7 +9238,7 @@ extern "C" void FUN_00363ba0() {
 // sym: _FUN_00363bb0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363bb0() {
-    (*(Obj_363bb0*)&DAT_004dc2d8).f();
+    (*(Obj_363bb0*)&DAT_004dc2d8).Fnf_0027af50();
 }
 
 
@@ -9246,7 +9246,7 @@ extern "C" void FUN_00363bb0() {
 // sym: _FUN_00363bc0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363bc0() {
-    (*(Obj_363bc0*)&DAT_004dc350).f();
+    (*(Obj_363bc0*)&DAT_004dc350).Fnf_0027af50();
 }
 
 
@@ -9254,7 +9254,7 @@ extern "C" void FUN_00363bc0() {
 // sym: _FUN_00363bd0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363bd0() {
-    (*(Obj_363bd0*)&DAT_004dc330).f();
+    (*(Obj_363bd0*)&DAT_004dc330).Fnf_0027af50();
 }
 
 
@@ -9262,16 +9262,16 @@ extern "C" void FUN_00363bd0() {
 // sym: _FUN_00363be0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363be0() {
-    (*(Obj_363be0*)&DAT_004dc340).f();
+    (*(Obj_363be0*)&DAT_004dc340).Fnf_0027af50();
 }
 
 
 // 0x00363bf0 FUN_00363bf0 (61 B): matches/0x00363bf0.cpp
 // sym: _FUN_00363bf0
 extern "C" void __cdecl FUN_00363bf0(void) {
-    ((C_363bf0*)((hulk_intptr)DAT_004dc988))->init((void*)((hulk_intptr)(void (__cdecl*)())&FUN_00066930), (void*)((hulk_intptr)DAT_004dc988));
-    ((C_363bf0*)((hulk_intptr)DAT_004dc96c))->init((void*)((hulk_intptr)(void (__cdecl*)())&FUN_00066a00), (void*)((hulk_intptr)DAT_004dc96c));
-    ((C_363bf0*)((hulk_intptr)DAT_004dc950))->init((void*)((hulk_intptr)(void (__cdecl*)())&FUN_00066930), (void*)((hulk_intptr)DAT_004dc950));
+    ((C_363bf0*)((hulk_intptr)DAT_004dc988))->init_00230f50((void*)((hulk_intptr)(void (__cdecl*)())&FUN_00066930), (void*)((hulk_intptr)DAT_004dc988));
+    ((C_363bf0*)((hulk_intptr)DAT_004dc96c))->init_00230f50((void*)((hulk_intptr)(void (__cdecl*)())&FUN_00066a00), (void*)((hulk_intptr)DAT_004dc96c));
+    ((C_363bf0*)((hulk_intptr)DAT_004dc950))->init_00230f50((void*)((hulk_intptr)(void (__cdecl*)())&FUN_00066930), (void*)((hulk_intptr)DAT_004dc950));
 }
 
 
@@ -9279,7 +9279,7 @@ extern "C" void __cdecl FUN_00363bf0(void) {
 // sym: ?wrapper@fn_f1ddef39@@YAXXZ
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 void wrapper() {
-    (*(Obj_363c30*)&DAT_004dcf00).f();
+    (*(Obj_363c30*)&DAT_004dcf00).Fnf_0027af50();
 }
 
 
@@ -9287,7 +9287,7 @@ void wrapper() {
 // sym: _FUN_00363c40
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363c40() {
-    (*(Obj_363c40*)&DAT_004dd068).f();
+    (*(Obj_363c40*)&DAT_004dd068).Fnf_0027af50();
 }
 
 
@@ -9402,7 +9402,7 @@ extern "C" void FUN_00363d00() {
 // 0x00363d10 FUN_00363d10 (54 B): matches/0x00363d10.cpp
 // sym: _FUN_00363d10
 extern "C" void FUN_00363d10() {
-    Item* it = items + 11;
+    Item* it = hulk_at_004ddb10 + 11;
     int n = 11;
     do {
         --it;
@@ -9420,7 +9420,7 @@ extern "C" void FUN_00363d10() {
 // sym: ?FUN_00363d50@fn_00363d50@@YAXXZ
 namespace fn_00363d50 {
 
-extern "C++" __declspec(nothrow) void __cdecl freeItem(void*);
+extern "C++" __declspec(nothrow) void __cdecl freeItem_0008d330(void*);
 struct Pair {
     int a, b;
 };
@@ -9431,7 +9431,7 @@ void FUN_00363d50() {
         --p;
         hulk_intptr v = p[0].a;
         if (v) {
-            freeItem((void*)v);
+            freeItem_0008d330((void*)v);
             p[-1].b = 0;
             p[0].a = 0;
         }
@@ -9562,7 +9562,7 @@ namespace fn_f1ddef39 {
 // sym: _FUN_00363e70
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363e70() {
-    (*(Obj_363e70*)&DAT_004e0bb0).f();
+    (*(Obj_363e70*)&DAT_004e0bb0).Fnf_0027af50();
 }
 
 
@@ -9570,7 +9570,7 @@ extern "C" void FUN_00363e70() {
 // sym: _FUN_00363e80
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363e80() {
-    (*(Obj_363e80*)&DAT_004e0bc0).f();
+    (*(Obj_363e80*)&DAT_004e0bc0).Fnf_0027af50();
 }
 
 
@@ -9578,7 +9578,7 @@ extern "C" void FUN_00363e80() {
 // sym: _FUN_00363e90
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363e90() {
-    (*(Obj_363e90*)&DAT_004e0bc8).f();
+    (*(Obj_363e90*)&DAT_004e0bc8).Fnf_0027af50();
 }
 
 
@@ -9586,7 +9586,7 @@ extern "C" void FUN_00363e90() {
 // sym: _FUN_00363ea0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363ea0() {
-    (*(Obj_363ea0*)&DAT_004e0bd8).f();
+    (*(Obj_363ea0*)&DAT_004e0bd8).Fnf_0027af50();
 }
 
 
@@ -9594,7 +9594,7 @@ extern "C" void FUN_00363ea0() {
 // sym: _FUN_00363eb0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363eb0() {
-    (*(Obj_363eb0*)&DAT_004e0be0).f();
+    (*(Obj_363eb0*)&DAT_004e0be0).Fnf_0027af50();
 }
 
 
@@ -9602,7 +9602,7 @@ extern "C" void FUN_00363eb0() {
 // sym: _FUN_00363ec0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363ec0() {
-    (*(Obj_363ec0*)&DAT_004e0bf0).f();
+    (*(Obj_363ec0*)&DAT_004e0bf0).Fnf_0027af50();
 }
 
 
@@ -9610,7 +9610,7 @@ extern "C" void FUN_00363ec0() {
 // sym: _FUN_00363ed0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363ed0() {
-    (*(Obj_363ed0*)&DAT_004e0c00).f();
+    (*(Obj_363ed0*)&DAT_004e0c00).Fnf_0027af50();
 }
 
 
@@ -9618,7 +9618,7 @@ extern "C" void FUN_00363ed0() {
 // sym: _FUN_00363ee0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363ee0() {
-    (*(Obj_363ee0*)&DAT_004e0c08).f();
+    (*(Obj_363ee0*)&DAT_004e0c08).Fnf_0027af50();
 }
 
 
@@ -9626,7 +9626,7 @@ extern "C" void FUN_00363ee0() {
 // sym: _FUN_00363ef0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363ef0() {
-    (*(Obj_363ef0*)&DAT_004e0c18).f();
+    (*(Obj_363ef0*)&DAT_004e0c18).Fnf_0027af50();
 }
 
 
@@ -9634,7 +9634,7 @@ extern "C" void FUN_00363ef0() {
 // sym: _FUN_00363f00
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363f00() {
-    (*(Obj_363f00*)((char*)&DAT_004e0d30 + 8)).f();
+    (*(Obj_363f00*)((char*)&DAT_004e0d30 + 8)).Fnf_0027af50();
 }
 
 
@@ -9642,7 +9642,7 @@ extern "C" void FUN_00363f00() {
 // sym: _FUN_00363f10
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363f10() {
-    (*(Obj_363f10*)&DAT_004e0d48).f();
+    (*(Obj_363f10*)&DAT_004e0d48).Fnf_0027af50();
 }
 
 
@@ -9650,7 +9650,7 @@ extern "C" void FUN_00363f10() {
 // sym: _FUN_00363f20
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363f20() {
-    (*(Obj_363f20*)((char*)&DAT_004e0d50 + 8)).f();
+    (*(Obj_363f20*)((char*)&DAT_004e0d50 + 8)).Fnf_0027af50();
 }
 
 
@@ -9682,7 +9682,7 @@ extern "C" void FUN_00363f50() {
 // sym: _FUN_00363f60
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363f60() {
-    (*(Obj_363f60*)&DAT_004e11c8).f();
+    (*(Obj_363f60*)&DAT_004e11c8).Fnf_0027af50();
 }
 
 
@@ -9690,7 +9690,7 @@ extern "C" void FUN_00363f60() {
 // sym: _FUN_00363f70
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363f70() {
-    (*(Obj_363f70*)&DAT_004e12d8).f();
+    (*(Obj_363f70*)&DAT_004e12d8).Fnf_0027af50();
 }
 
 
@@ -9714,7 +9714,7 @@ extern "C" void FUN_00363f90() {
 // sym: _FUN_00363fa0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363fa0() {
-    (*(Obj_363fa0*)&DAT_004e16d8).f();
+    (*(Obj_363fa0*)&DAT_004e16d8).Fnf_0027af50();
 }
 
 } // namespace fn_f1ddef39
@@ -9745,7 +9745,7 @@ extern "C" void FUN_00363fc0() {
 // sym: _FUN_00363fd0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363fd0() {
-    (*(Obj_363fd0*)((char*)&DAT_004e17c0 + 56)).f();
+    (*(Obj_363fd0*)((char*)&DAT_004e17c0 + 56)).Fnf_0027af50();
 }
 
 } // namespace fn_f1ddef39
@@ -9768,7 +9768,7 @@ namespace fn_f1ddef39 {
 // sym: _FUN_00363ff0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00363ff0() {
-    (*(Obj_363ff0*)((char*)&DAT_004e215c + 16)).f();
+    (*(Obj_363ff0*)((char*)&DAT_004e215c + 16)).Fnf_002fa750();
 }
 
 
@@ -9784,7 +9784,7 @@ extern "C" void FUN_00364000() {
 // sym: _FUN_00364010
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364010() {
-    (*(CStaticAllocator_364010*)&DAT_004e2210).f();
+    (*(CStaticAllocator_364010*)&DAT_004e2210).Fnf_0008ff50();
 }
 
 
@@ -9863,10 +9863,10 @@ namespace fn_00364090 {
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 
 struct Obj_364090 {
-    void f();
+    void Fnf_0027af50();
 };
 void wrapper() {
-    (*(Obj_364090*)((char*)&DAT_004e2730 + 8)).f();
+    (*(Obj_364090*)((char*)&DAT_004e2730 + 8)).Fnf_0027af50();
 }
 } // namespace fn_00364090
 
@@ -9884,7 +9884,7 @@ void FUN_003640a0() {
 // sym: _FUN_003640b0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_003640b0() {
-    (*(Allocator_3640b0*)&DAT_004e36c8).f();
+    (*(Allocator_3640b0*)&DAT_004e36c8).Fnf_002475e0();
 }
 
 
@@ -9951,7 +9951,7 @@ extern "C" void FUN_00364120() {
 // sym: _FUN_00364130
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364130() {
-    (*(Obj_364130*)&DAT_004e5bc0).f();
+    (*(Obj_364130*)&DAT_004e5bc0).Fnf_0027af50();
 }
 
 
@@ -9959,7 +9959,7 @@ extern "C" void FUN_00364130() {
 // sym: _FUN_00364140
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364140() {
-    (*(Obj_364140*)&DAT_004e5bd0).f();
+    (*(Obj_364140*)&DAT_004e5bd0).Fnf_0027af50();
 }
 
 } // namespace fn_f1ddef39
@@ -9970,10 +9970,10 @@ namespace fn_00364150 {
 // data: gGlobal_364150 = DAT_004e5d68
 
 struct G_364150 {
-    int F();
+    int FnF_002580e0();
 };
 int __cdecl FUN_00364150() {
-    return (*(G_364150*)((char*)&DAT_004e5d68)).F();
+    return (*(G_364150*)((char*)&DAT_004e5d68)).FnF_002580e0();
 }
 } // namespace fn_00364150
 
@@ -9982,28 +9982,28 @@ namespace fn_f1ddef39 {
 // 0x00364160 FUN_00364160 (10 B): matches/0x00364160.cpp
 // sym: _FUN_00364160
 extern "C" void FUN_00364160() {
-    (*(Obj_364160*)&DAT_004e5db0).Run();
+    (*(Obj_364160*)&DAT_004e5db0).Run_002580e0();
 }
 
 
 // 0x00364170 FUN_00364170 (10 B): matches/0x00364170.cpp
 // sym: _FUN_00364170
 extern "C" void __cdecl FUN_00364170() {
-    (*(G_364170*)&DAT_004e5df8).Run();
+    (*(G_364170*)&DAT_004e5df8).Run_002580e0();
 }
 
 
 // 0x00364180 FUN_00364180 (10 B): matches/0x00364180.cpp
 // sym: _FUN_00364180
 extern "C" void FUN_00364180() {
-    (*(T_364180*)((char*)&DAT_004e5e40)).Fn();
+    (*(T_364180*)((char*)&DAT_004e5e40)).Fn_002580e0();
 }
 
 
 // 0x00364190 FUN_00364190 (10 B): matches/0x00364190.cpp
 // sym: _FUN_00364190
 extern "C" void FUN_00364190() {
-    (*(A_364190*)&DAT_004e5e88).Fn();
+    (*(A_364190*)&DAT_004e5e88).Fn_002580e0();
 }
 
 
@@ -10011,7 +10011,7 @@ extern "C" void FUN_00364190() {
 // sym: _FUN_003641a0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_003641a0() {
-    (*(Obj_3641a0*)&DAT_004e5cf8).f();
+    (*(Obj_3641a0*)&DAT_004e5cf8).Fnf_00243350();
 }
 
 } // namespace fn_f1ddef39
@@ -10022,10 +10022,10 @@ namespace fn_003641b0 {
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 
 struct Obj_3641b0 {
-    void f();
+    void Fnf_00243350();
 };
 void wrapper() {
-    (*(Obj_3641b0*)&DAT_004e5f18).f();
+    (*(Obj_3641b0*)&DAT_004e5f18).Fnf_00243350();
 }
 } // namespace fn_003641b0
 
@@ -10056,28 +10056,28 @@ void InitAllocator() {
 // 0x003641e0 FUN_003641e0 (10 B): matches/0x003641e0.cpp
 // sym: _FUN_003641e0
 extern "C" void FUN_003641e0() {
-    (*(Obj_3641e0*)&DAT_004e5fa8).Fn();
+    (*(Obj_3641e0*)&DAT_004e5fa8).Fn_002580e0();
 }
 
 
 // 0x003641f0 FUN_003641f0 (10 B): matches/0x003641f0.cpp
 // sym: ?FUN_003641f0@fn_f1ddef39@@YAXXZ
 void FUN_003641f0() {
-    (*(Obj_3641f0*)&DAT_004e5ff0).Fn();
+    (*(Obj_3641f0*)&DAT_004e5ff0).Fn_002580e0();
 }
 
 
 // 0x00364200 FUN_00364200 (10 B): matches/0x00364200.cpp
 // sym: ?FUN_00364200@fn_f1ddef39@@YAXXZ
 void FUN_00364200() {
-    (*(X_364200*)((char*)&DAT_004e6038)).A();
+    (*(X_364200*)((char*)&DAT_004e6038)).FnA_002580e0();
 }
 
 
 // 0x00364210 FUN_00364210 (10 B): matches/0x00364210.cpp
 // sym: _FUN_00364210
 extern "C" void FUN_00364210() {
-    (*(Obj_364210*)&DAT_004e6080).Run();
+    (*(Obj_364210*)&DAT_004e6080).Run_002580e0();
 }
 
 
@@ -10091,7 +10091,7 @@ extern "C" void __cdecl FUN_00364220() {
 // 0x00364230 FUN_00364230 (10 B): matches/0x00364230.cpp
 // sym: _FUN_00364230
 extern "C" void __cdecl FUN_00364230() {
-    (*(Obj_364230*)&DAT_004e6110).Run();
+    (*(Obj_364230*)&DAT_004e6110).Run_002580e0();
 }
 
 
@@ -10099,7 +10099,7 @@ extern "C" void __cdecl FUN_00364230() {
 // sym: _FUN_00364240
 // data: g_obj_364240 = DAT_004e6158
 extern "C" void __cdecl FUN_00364240() {
-    (*(Obj_364240*)((char*)&DAT_004e6158)).Run();
+    (*(Obj_364240*)((char*)&DAT_004e6158)).Run_002580e0();
 }
 
 
@@ -10129,14 +10129,14 @@ extern "C" void FUN_00364270() {
 // sym: ?FUN_00364280@fn_f1ddef39@@YAXXZ
 // data: g_obj_364280 = DAT_004e6208
 void FUN_00364280() {
-    (*(Obj_364280*)&DAT_004e6208).Fn();
+    (*(Obj_364280*)&DAT_004e6208).Fn_002580e0();
 }
 
 
 // 0x00364290 FUN_00364290 (10 B): matches/0x00364290.cpp
 // sym: _FUN_00364290
 extern "C" void FUN_00364290() {
-    (*(G_364290*)((char*)&DAT_004e6250)).Target();
+    (*(G_364290*)((char*)&DAT_004e6250)).Target_002580e0();
 }
 
 
@@ -10144,7 +10144,7 @@ extern "C" void FUN_00364290() {
 // sym: _FUN_003642a0
 // data: gHelper_3642a0 = DAT_004e62d8
 extern "C" void __cdecl FUN_003642a0() {
-    (*(Helper_3642a0*)&DAT_004e62d8).Run();
+    (*(Helper_3642a0*)&DAT_004e62d8).Run_002580e0();
 }
 
 } // namespace fn_f1ddef39
@@ -10214,7 +10214,7 @@ extern "C" void FUN_003642f0() {
 // sym: _FUN_00364300
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364300() {
-    (*(Obj_364300*)&DAT_004e64d8).f();
+    (*(Obj_364300*)&DAT_004e64d8).Fnf_00243350();
 }
 
 } // namespace fn_f1ddef39
@@ -10225,10 +10225,10 @@ namespace fn_00364310 {
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 
 struct Obj_364310 {
-    void f();
+    void Fnf_00243350();
 };
 void wrapper() {
-    (*(Obj_364310*)&DAT_004e6548).f();
+    (*(Obj_364310*)&DAT_004e6548).Fnf_00243350();
 }
 } // namespace fn_00364310
 
@@ -10239,10 +10239,10 @@ namespace fn_00364320 {
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 
 struct Obj_364320 {
-    void f();
+    void Fnf_00243350();
 };
 void wrapper() {
-    (*(Obj_364320*)&DAT_004e65b8).f();
+    (*(Obj_364320*)&DAT_004e65b8).Fnf_00243350();
 }
 } // namespace fn_00364320
 
@@ -10252,7 +10252,7 @@ namespace fn_f1ddef39 {
 // sym: _FUN_00364330
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364330() {
-    (*(Obj_364330*)&DAT_004e6628).f();
+    (*(Obj_364330*)&DAT_004e6628).Fnf_00243350();
 }
 
 } // namespace fn_f1ddef39
@@ -10263,10 +10263,10 @@ namespace fn_00364340 {
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 
 struct Obj_364340 {
-    void f();
+    void Fnf_00243350();
 };
 void wrapper() {
-    (*(Obj_364340*)&DAT_004e6468).f();
+    (*(Obj_364340*)&DAT_004e6468).Fnf_00243350();
 }
 } // namespace fn_00364340
 
@@ -10276,7 +10276,7 @@ namespace fn_f1ddef39 {
 // sym: ?FUN_00364360@fn_f1ddef39@@YIXXZ
 // data: g_obj_364360 = DAT_004e6700
 void __fastcall FUN_00364360() {
-    (*(Obj_364360*)&DAT_004e6700).Run();
+    (*(Obj_364360*)&DAT_004e6700).Run_002580e0();
 }
 
 
@@ -10284,7 +10284,7 @@ void __fastcall FUN_00364360() {
 // sym: _FUN_00364370
 // data: g_global = DAT_004e67b8
 extern "C" void __cdecl FUN_00364370() {
-    target_func(((void**)&DAT_004e67b8));
+    target_func_002580e0(((void**)&DAT_004e67b8));
 }
 
 } // namespace fn_f1ddef39
@@ -10295,10 +10295,10 @@ namespace fn_00364380 {
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 
 struct Obj_364380 {
-    void f();
+    void Fnf_00260680();
 };
 void wrapper() {
-    (*(Obj_364380*)((char*)&DAT_004e6750)).f();
+    (*(Obj_364380*)((char*)&DAT_004e6750)).Fnf_00260680();
 }
 } // namespace fn_00364380
 
@@ -10307,7 +10307,7 @@ namespace fn_f1ddef39 {
 // 0x00364390 FUN_00364390 (10 B): matches/0x00364390.cpp
 // sym: _FUN_00364390
 extern "C" void FUN_00364390() {
-    (*(G_364390*)&DAT_004e6800).Run();
+    (*(G_364390*)&DAT_004e6800).Run_002580e0();
 }
 
 
@@ -10315,7 +10315,7 @@ extern "C" void FUN_00364390() {
 // sym: _FUN_003643a0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_003643a0() {
-    (*(Obj_3643a0*)((char*)&DAT_004e6848)).f();
+    (*(Obj_3643a0*)((char*)&DAT_004e6848)).Fnf_00260680();
 }
 
 } // namespace fn_f1ddef39
@@ -10326,10 +10326,10 @@ namespace fn_003643b0 {
 
 extern "C++" __declspec(nothrow) void __stdcall FUN_002580e0(void*);
 struct Obj_3643b0 {
-    void Fn();
+    void Fn_002580e0();
 };
 extern "C" void __stdcall FUN_003643b0() {
-    ((Obj_3643b0*)&(*(int*)&DAT_004e68b0))->Fn();
+    ((Obj_3643b0*)&(*(int*)&DAT_004e68b0))->Fn_002580e0();
 }
 } // namespace fn_003643b0
 
@@ -10339,14 +10339,14 @@ namespace fn_f1ddef39 {
 // sym: _FUN_003643c0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_003643c0() {
-    (*(Obj_3643c0*)&DAT_004e68f8).f();
+    (*(Obj_3643c0*)&DAT_004e68f8).Fnf_00260680();
 }
 
 
 // 0x003643d0 FUN_003643d0 (10 B): matches/0x003643d0.cpp
 // sym: _FUN_003643d0
 extern "C" void FUN_003643d0() {
-    (*(Obj_3643d0*)((char*)&DAT_004e6960)).Fn();
+    (*(Obj_3643d0*)((char*)&DAT_004e6960)).Fn_002580e0();
 }
 
 
@@ -10354,7 +10354,7 @@ extern "C" void FUN_003643d0() {
 // sym: _FUN_003643e0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_003643e0() {
-    (*(Obj_3643e0*)&DAT_004e69b0).f();
+    (*(Obj_3643e0*)&DAT_004e69b0).Fnf_00260680();
 }
 
 
@@ -10362,7 +10362,7 @@ extern "C" void FUN_003643e0() {
 // sym: ?FUN_003643f0@fn_f1ddef39@@YAXXZ
 // data: hulk_at_004e6a18 = DAT_004e6a18
 void __cdecl FUN_003643f0() {
-    ((Obj_3643f0*)((hulk_intptr)DAT_004e6a18))->Fn();
+    ((Obj_3643f0*)((hulk_intptr)DAT_004e6a18))->Fn_002580e0();
 }
 
 
@@ -10370,14 +10370,14 @@ void __cdecl FUN_003643f0() {
 // sym: _FUN_00364400
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364400() {
-    (*(Obj_364400*)((char*)&DAT_004e6a68)).f();
+    (*(Obj_364400*)((char*)&DAT_004e6a68)).Fnf_00260680();
 }
 
 
 // 0x00364410 FUN_00364410 (10 B): matches/0x00364410.cpp
 // sym: _FUN_00364410
 extern "C" void __cdecl FUN_00364410() {
-    ((Helper_364410*)&(*(void**)&DAT_004e6ad0))->Run();
+    ((Helper_364410*)&(*(void**)&DAT_004e6ad0))->Run_002580e0();
 }
 
 
@@ -10385,14 +10385,14 @@ extern "C" void __cdecl FUN_00364410() {
 // sym: _FUN_00364420
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364420() {
-    (*(Obj_364420*)&DAT_004e6b18).f();
+    (*(Obj_364420*)&DAT_004e6b18).Fnf_00260680();
 }
 
 
 // 0x00364430 FUN_00364430 (10 B): matches/0x00364430.cpp
 // sym: _FUN_00364430
 extern "C" void __cdecl FUN_00364430() {
-    (*(Obj_364430*)&DAT_004e6b80).Fn();
+    (*(Obj_364430*)&DAT_004e6b80).Fn_002580e0();
 }
 
 } // namespace fn_f1ddef39
@@ -10403,10 +10403,10 @@ namespace fn_00364440 {
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 
 struct Obj_364440 {
-    void f();
+    void Fnf_00260680();
 };
 void wrapper() {
-    (*(Obj_364440*)&DAT_004e6bc8).f();
+    (*(Obj_364440*)&DAT_004e6bc8).Fnf_00260680();
 }
 } // namespace fn_00364440
 
@@ -10416,7 +10416,7 @@ namespace fn_f1ddef39 {
 // sym: _FUN_00364450
 // data: g_sub_364450 = DAT_004e6c30
 extern "C" void __cdecl FUN_00364450() {
-    (*(Sub_364450*)((char*)&DAT_004e6c30)).Fn();
+    (*(Sub_364450*)((char*)&DAT_004e6c30)).Fn_002580e0();
 }
 
 
@@ -10424,7 +10424,7 @@ extern "C" void __cdecl FUN_00364450() {
 // sym: _FUN_00364460
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364460() {
-    (*(Obj_364460*)((char*)&DAT_004e6c78)).f();
+    (*(Obj_364460*)((char*)&DAT_004e6c78)).Fnf_00260680();
 }
 
 
@@ -10432,14 +10432,14 @@ extern "C" void FUN_00364460() {
 // sym: _FUN_00364470
 // data: globalThing = DAT_004e6ce0
 extern "C" void __cdecl FUN_00364470() {
-    (*(SeqEventChannelSendVolumesType_364470*)&DAT_004e6ce0).go();
+    (*(SeqEventChannelSendVolumesType_364470*)&DAT_004e6ce0).go_002580e0();
 }
 
 
 // 0x00364480 FUN_00364480 (10 B): matches/0x00364480.cpp
 // sym: _FUN_00364480
 extern "C" void __cdecl FUN_00364480() {
-    (*(Obj_364480*)&DAT_004e6d98).Fn();
+    (*(Obj_364480*)&DAT_004e6d98).Fn_002580e0();
 }
 
 
@@ -10447,14 +10447,14 @@ extern "C" void __cdecl FUN_00364480() {
 // sym: _FUN_00364490
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364490() {
-    (*(Obj_364490*)((char*)&DAT_004e6d30)).f();
+    (*(Obj_364490*)((char*)&DAT_004e6d30)).Fnf_00260680();
 }
 
 
 // 0x003644a0 FUN_003644a0 (10 B): matches/0x003644a0.cpp
 // sym: _FUN_003644a0
 extern "C" void FUN_003644a0() {
-    (*(Obj_3644a0*)&DAT_004e6de0).Fn();
+    (*(Obj_3644a0*)&DAT_004e6de0).Fn_002580e0();
 }
 
 } // namespace fn_f1ddef39
@@ -10465,10 +10465,10 @@ namespace fn_003644b0 {
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 
 struct Obj_3644b0 {
-    void f();
+    void Fnf_00260680();
 };
 void wrapper() {
-    (*(Obj_3644b0*)((char*)&DAT_004e6e28)).f();
+    (*(Obj_3644b0*)((char*)&DAT_004e6e28)).Fnf_00260680();
 }
 } // namespace fn_003644b0
 
@@ -10486,14 +10486,14 @@ void __cdecl FUN_003644c0() {
 // sym: _FUN_003644d0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_003644d0() {
-    (*(Obj_3644d0*)&DAT_004e6ed8).f();
+    (*(Obj_3644d0*)&DAT_004e6ed8).Fnf_00260680();
 }
 
 
 // 0x003644e0 FUN_003644e0 (10 B): matches/0x003644e0.cpp
 // sym: _FUN_003644e0
 extern "C" void FUN_003644e0() {
-    (*(Obj_3644e0*)((char*)&DAT_004e6f40)).Fn();
+    (*(Obj_3644e0*)((char*)&DAT_004e6f40)).Fn_002580e0();
 }
 
 
@@ -10501,14 +10501,14 @@ extern "C" void FUN_003644e0() {
 // sym: _FUN_003644f0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_003644f0() {
-    (*(Obj_3644f0*)&DAT_004e6f88).f();
+    (*(Obj_3644f0*)&DAT_004e6f88).Fnf_00260680();
 }
 
 
 // 0x00364500 FUN_00364500 (10 B): matches/0x00364500.cpp
 // sym: _FUN_00364500
 extern "C" void FUN_00364500() {
-    (*(Obj*)&DAT_004e6ff0).Fn();
+    (*(Obj*)&DAT_004e6ff0).Fn_002580e0();
 }
 
 } // namespace fn_f1ddef39
@@ -10519,10 +10519,10 @@ namespace fn_00364510 {
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 
 struct Obj_364510 {
-    void f();
+    void Fnf_00260680();
 };
 void wrapper() {
-    (*(Obj_364510*)((char*)&DAT_004e7038)).f();
+    (*(Obj_364510*)((char*)&DAT_004e7038)).Fnf_00260680();
 }
 } // namespace fn_00364510
 
@@ -10532,7 +10532,7 @@ namespace fn_f1ddef39 {
 // sym: ?FUN_00364520@fn_f1ddef39@@YGXXZ
 // data: hulk_at_004e70a0 = DAT_004e70a0
 void __stdcall FUN_00364520() {
-    ((Obj_364520*)((hulk_intptr)DAT_004e70a0))->Go();
+    ((Obj_364520*)((hulk_intptr)DAT_004e70a0))->Go_002580e0();
 }
 
 
@@ -10540,14 +10540,14 @@ void __stdcall FUN_00364520() {
 // sym: _FUN_00364530
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364530() {
-    (*(Obj_364530*)&DAT_004e70e8).f();
+    (*(Obj_364530*)&DAT_004e70e8).Fnf_00260680();
 }
 
 
 // 0x00364540 FUN_00364540 (10 B): matches/0x00364540.cpp
 // sym: _FUN_00364540
 extern "C" void __cdecl FUN_00364540() {
-    (*(Obj_364540*)((char*)&DAT_004e7150)).Run();
+    (*(Obj_364540*)((char*)&DAT_004e7150)).Run_002580e0();
 }
 
 
@@ -10555,14 +10555,14 @@ extern "C" void __cdecl FUN_00364540() {
 // sym: _FUN_00364550
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364550() {
-    (*(Obj_364550*)&DAT_004e7198).f();
+    (*(Obj_364550*)&DAT_004e7198).Fnf_00260680();
 }
 
 
 // 0x00364560 FUN_00364560 (10 B): matches/0x00364560.cpp
 // sym: ?FUN_00364560@fn_f1ddef39@@YAXXZ
 void __cdecl FUN_00364560() {
-    (*(Obj_364560*)((char*)&DAT_004e7268)).Fn();
+    (*(Obj_364560*)((char*)&DAT_004e7268)).Fn_002580e0();
 }
 
 
@@ -10570,7 +10570,7 @@ void __cdecl FUN_00364560() {
 // sym: _FUN_00364570
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364570() {
-    (*(Obj_364570*)&DAT_004e7200).f();
+    (*(Obj_364570*)&DAT_004e7200).Fnf_00260680();
 }
 
 
@@ -10585,14 +10585,14 @@ void __fastcall FUN_00364580() {
 // sym: _FUN_00364590
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364590() {
-    (*(Obj_364590*)&DAT_004e72f8).f();
+    (*(Obj_364590*)&DAT_004e72f8).Fnf_00260680();
 }
 
 
 // 0x003645a0 FUN_003645a0 (10 B): matches/0x003645a0.cpp
 // sym: _FUN_003645a0
 extern "C" void __cdecl FUN_003645a0() {
-    (*(Obj_3645a0*)((char*)&DAT_004e7360)).Fn();
+    (*(Obj_3645a0*)((char*)&DAT_004e7360)).Fn_002580e0();
 }
 
 } // namespace fn_f1ddef39
@@ -10603,10 +10603,10 @@ namespace fn_003645b0 {
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 
 struct Obj_3645b0 {
-    void f();
+    void Fnf_00260680();
 };
 void wrapper() {
-    (*(Obj_3645b0*)&DAT_004e73a8).f();
+    (*(Obj_3645b0*)&DAT_004e73a8).Fnf_00260680();
 }
 } // namespace fn_003645b0
 
@@ -10615,7 +10615,7 @@ namespace fn_f1ddef39 {
 // 0x003645c0 FUN_003645c0 (10 B): matches/0x003645c0.cpp
 // sym: _FUN_003645c0
 extern "C" void FUN_003645c0() {
-    (*(Obj_3645c0*)&DAT_004e7410).Run();
+    (*(Obj_3645c0*)&DAT_004e7410).Run_002580e0();
 }
 
 
@@ -10623,7 +10623,7 @@ extern "C" void FUN_003645c0() {
 // sym: _FUN_003645d0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_003645d0() {
-    (*(Obj_3645d0*)((char*)&DAT_004e7458)).f();
+    (*(Obj_3645d0*)((char*)&DAT_004e7458)).Fnf_00260680();
 }
 
 } // namespace fn_f1ddef39
@@ -10634,10 +10634,10 @@ namespace fn_003645e0 {
 
 class G_3645e0 {
   public:
-    void Run();
+    void Run_002580e0();
 };
 void __stdcall FUN_003645e0() {
-    (*(G_3645e0*)&DAT_004e74c0).Run();
+    (*(G_3645e0*)&DAT_004e74c0).Run_002580e0();
 }
 } // namespace fn_003645e0
 
@@ -10647,14 +10647,14 @@ namespace fn_f1ddef39 {
 // sym: _FUN_003645f0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_003645f0() {
-    (*(Obj_3645f0*)&DAT_004e7508).f();
+    (*(Obj_3645f0*)&DAT_004e7508).Fnf_00260680();
 }
 
 
 // 0x00364600 FUN_00364600 (10 B): matches/0x00364600.cpp
 // sym: ?FUN_00364600@fn_f1ddef39@@YAXXZ
 void FUN_00364600() {
-    gObj.Run();
+    gObj.Run_002580e0();
 }
 
 
@@ -10662,14 +10662,14 @@ void FUN_00364600() {
 // sym: _FUN_00364610
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364610() {
-    (*(Obj_364610*)&DAT_004e75b8).f();
+    (*(Obj_364610*)&DAT_004e75b8).Fnf_00260680();
 }
 
 
 // 0x00364620 FUN_00364620 (10 B): matches/0x00364620.cpp
 // sym: ?FUN_00364620@fn_f1ddef39@@YIXXZ
 void __fastcall FUN_00364620() {
-    (*(Obj_364620*)&DAT_004e7690).Run();
+    (*(Obj_364620*)&DAT_004e7690).Run_002580e0();
 }
 
 
@@ -10677,7 +10677,7 @@ void __fastcall FUN_00364620() {
 // sym: _FUN_00364630
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364630() {
-    (*(Obj_364630*)((char*)&DAT_004e7620)).f();
+    (*(Obj_364630*)((char*)&DAT_004e7620)).Fnf_00243350();
 }
 
 
@@ -10690,7 +10690,7 @@ extern "C" void FUN_00364640() {}
 // 0x00364650 FUN_00364650 (10 B): matches/0x00364650.cpp
 // sym: ?FUN_00364650@fn_f1ddef39@@YAXXZ
 void FUN_00364650() {
-    (*(Obj_364650*)&DAT_004e76e8).Fn();
+    (*(Obj_364650*)&DAT_004e76e8).Fn_002580e0();
 }
 
 
@@ -10705,7 +10705,7 @@ extern "C" void FUN_00364660() {
 // 0x00364670 FUN_00364670 (10 B): matches/0x00364670.cpp
 // sym: ?FUN_00364670@fn_f1ddef39@@YIXXZ
 void __fastcall FUN_00364670() {
-    (*(G_364670*)((char*)&DAT_004e7778)).Run();
+    (*(G_364670*)((char*)&DAT_004e7778)).Run_002580e0();
 }
 
 
@@ -10719,28 +10719,28 @@ void __fastcall FUN_00364680() throw() {
 // 0x00364690 FUN_00364690 (10 B): matches/0x00364690.cpp
 // sym: _FUN_00364690
 extern "C" void __cdecl FUN_00364690() {
-    (*(Obj_364690*)&DAT_004e7808).Fn();
+    (*(Obj_364690*)&DAT_004e7808).Fn_002580e0();
 }
 
 
 // 0x003646a0 FUN_003646a0 (10 B): matches/0x003646a0.cpp
 // sym: _FUN_003646a0
 extern "C" void FUN_003646a0() {
-    gObj.Run();
+    gObj.Run_002580e0();
 }
 
 
 // 0x003646b0 FUN_003646b0 (10 B): matches/0x003646b0.cpp
 // sym: _FUN_003646b0
 extern "C" void FUN_003646b0() {
-    (*(Obj_3646b0*)&DAT_004e7898).Run();
+    (*(Obj_3646b0*)&DAT_004e7898).Run_002580e0();
 }
 
 
 // 0x003646c0 FUN_003646c0 (10 B): matches/0x003646c0.cpp
 // sym: _FUN_003646c0
 extern "C" void FUN_003646c0() {
-    (*(Obj_3646c0*)&DAT_004e78e0).Fn();
+    (*(Obj_3646c0*)&DAT_004e78e0).Fn_002580e0();
 }
 
 
@@ -10749,28 +10749,28 @@ extern "C" void FUN_003646c0() {
 // data: gData_3646d0 = DAT_004e7928
 void __stdcall Wrapper() {
     Obj_3646d0* p = (Obj_3646d0*)&(*(int*)((char*)&DAT_004e7928));
-    p->Run();
+    p->Run_002580e0();
 }
 
 
 // 0x003646e0 FUN_003646e0 (10 B): matches/0x003646e0.cpp
 // sym: _FUN_003646e0
 extern "C" void FUN_003646e0() {
-    (*(Obj_3646e0*)((char*)&DAT_004e7970)).Init();
+    (*(Obj_3646e0*)((char*)&DAT_004e7970)).Init_002580e0();
 }
 
 
 // 0x003646f0 FUN_003646f0 (10 B): matches/0x003646f0.cpp
 // sym: ?FUN_003646f0@fn_f1ddef39@@YIXXZ
 void __fastcall FUN_003646f0() {
-    (*(Obj_3646f0*)&DAT_004e79d0).Run();
+    (*(Obj_3646f0*)&DAT_004e79d0).Run_002580e0();
 }
 
 
 // 0x00364700 FUN_00364700 (10 B): matches/0x00364700.cpp
 // sym: _FUN_00364700
 extern "C" void __cdecl FUN_00364700() {
-    (*(Obj_364700*)&DAT_004e7a30).Run();
+    (*(Obj_364700*)&DAT_004e7a30).Run_002580e0();
 }
 
 
@@ -10778,7 +10778,7 @@ extern "C" void __cdecl FUN_00364700() {
 // sym: ?Fn@Obj_364710@fn_f1ddef39@@QAEXXZ
 // data: g_base_364710 = DAT_004e7a78
 void Obj_364710::Fn() {
-    ((Base_364710*)&DAT_004e7a78)->Fn();
+    ((Base_364710*)&DAT_004e7a78)->Fn_002580e0();
 }
 
 
@@ -10786,28 +10786,28 @@ void Obj_364710::Fn() {
 // sym: @FUN_00364720@0
 // data: g_obj_364720 = DAT_004e7ac0
 extern "C" void __fastcall FUN_00364720() {
-    (*(A_364720*)&DAT_004e7ac0).Run();
+    (*(A_364720*)&DAT_004e7ac0).Run_002580e0();
 }
 
 
 // 0x00364730 FUN_00364730 (10 B): matches/0x00364730.cpp
 // sym: _FUN_00364730
 extern "C" void __cdecl FUN_00364730() {
-    (*(Obj_364730*)&DAT_004e7b08).Run();
+    (*(Obj_364730*)&DAT_004e7b08).Run_002580e0();
 }
 
 
 // 0x00364750 FUN_00364750 (10 B): matches/0x00364750.cpp
 // sym: ?FUN_00364750@fn_f1ddef39@@YIXXZ
 void __fastcall FUN_00364750() {
-    (*(Obj_364750*)&DAT_004e7b98).Run();
+    (*(Obj_364750*)&DAT_004e7b98).Run_002580e0();
 }
 
 
 // 0x00364760 FUN_00364760 (10 B): matches/0x00364760.cpp
 // sym: _FUN_00364760
 extern "C" void FUN_00364760() {
-    (*(Obj_364760*)&DAT_004e7be0).Target();
+    (*(Obj_364760*)&DAT_004e7be0).Target_002580e0();
 }
 
 
@@ -10838,7 +10838,7 @@ void FUN_00364790(void) {
 // sym: _FUN_003647b0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_003647b0() {
-    (*(ImageConverter_3647b0*)&DAT_00554bd0).f();
+    (*(ImageConverter_3647b0*)&DAT_00554bd0).Fnf_002de240();
 }
 
 
@@ -10847,10 +10847,10 @@ extern "C" void FUN_003647b0() {
 extern "C" {
 void __cdecl FUN_003647c0(void) {
     if ((*(int*)&DAT_00555468) != 0)
-        thunk((*(int*)&DAT_00555468));
+        thunk_0008d340((*(int*)&DAT_00555468));
     if ((*(int*)&DAT_0055545c) != 0) {
         FUN_002f9fb0((*(int*)&DAT_0055545c), (*(int*)&DAT_00555460));
-        thunk((*(int*)&DAT_0055545c));
+        thunk_0008d340((*(int*)&DAT_0055545c));
     }
 }
 }
@@ -10860,7 +10860,7 @@ void __cdecl FUN_003647c0(void) {
 // sym: _FUN_00364800
 // data: gExtension = DAT_004d3a0c
 extern "C" void FUN_00364800() {
-    (*(void**)&DAT_004d3a0c) = &pddiExtensionVtable;
+    (*(void**)&DAT_004d3a0c) = &hulk_at_0043276c;
 }
 
 
@@ -10868,7 +10868,7 @@ extern "C" void FUN_00364800() {
 // sym: _FUN_00364810
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364810() {
-    (*(Obj_364810*)&DAT_0055dbb0).f();
+    (*(Obj_364810*)&DAT_0055dbb0).Fnf_00337d40();
 }
 
 
@@ -10876,7 +10876,7 @@ extern "C" void FUN_00364810() {
 // sym: _FUN_00364820
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_00364820() {
-    (*(Obj_364820*)&DAT_00565fc0).f();
+    (*(Obj_364820*)&DAT_00565fc0).Fnf_00337d40();
 }
 
 

@@ -636,7 +636,7 @@ struct P {
     void InitBool(const char*);
     void InitInt(const char*);
 };
-extern "C++" __declspec(nothrow) void __cdecl Register(void**, void**, int);
+extern "C++" __declspec(nothrow) void __cdecl Register_002347b0(void**, void**, int);
 
 void Target() {
     if ((*(int*)&DAT_004dcf6c) == 0) {
@@ -665,7 +665,7 @@ void Target() {
         M(10, "priority", InitInt, ((int)DAT_003fc664), ((hulk_intptr)(void (__cdecl*)())&FUN_000684c0))
         M(11, "blendInTime", InitFloat, ((int)DAT_003fc624), ((hulk_intptr)(void (__cdecl*)())&FUN_000684d0))
         M(12, "blendOutTime", InitFloat, ((int)DAT_003fc624), ((hulk_intptr)(void (__cdecl*)())&FUN_000684e0))
-        Register((void**)((hulk_intptr)DAT_004dcf68), a, 13);
+        Register_002347b0((void**)((hulk_intptr)DAT_004dcf68), a, 13);
     }
     ++(*(int*)&DAT_004dcf6c);
 }

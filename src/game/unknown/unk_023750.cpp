@@ -40,7 +40,7 @@ struct Obj_23d30 {
     u64_23d30 value;
 };
 struct Sub_23e50 {
-    void* Run();
+    void* Run_00088fa0();
 };
 struct Obj_23e50 {
     char pad[0x80];
@@ -50,7 +50,7 @@ struct Obj_23e50 {
 class Obj_23e60 {
   public:
     char pad[0x80];
-    void Helper();
+    void Helper_00088fb0();
     void Target();
 };
 struct Pair {
@@ -64,7 +64,7 @@ class Obj {
     char _m_pad_0[0x118];
     __int64 value;
     int Fn(hulk_intptr);
-    int Next(Pair);
+    int Next_002843a0(Pair);
     __int64 Get();
 };
 class Obj_24000 {
@@ -125,14 +125,14 @@ void __fastcall target(Obj_23d30* self, void*, const char* name) {
 // 0x00023e50 FUN_00023e50 (11 B): matches/0x00023e50.cpp
 // sym: ?Target@Obj_23e50@fn_f88922b7@@QAEPAXXZ
 void* Obj_23e50::Target() {
-    return sub.Run();
+    return sub.Run_00088fa0();
 }
 
 
 // 0x00023e60 FUN_00023e60 (11 B): matches/0x00023e60.cpp
 // sym: ?Target@Obj_23e60@fn_f88922b7@@QAEXXZ
 void Obj_23e60::Target() {
-    ((Obj_23e60*)((char*)this + 0x80))->Helper();
+    ((Obj_23e60*)((char*)this + 0x80))->Helper_00088fb0();
 }
 
 
@@ -140,7 +140,7 @@ void Obj_23e60::Target() {
 // sym: ?Fn@Obj@fn_f88922b7@@QAEHH@Z
 int Obj::Fn(hulk_intptr x) {
     Pair p = FUN_002672f0(x, 0, 0);
-    return Next(p);
+    return Next_002843a0(p);
 }
 
 

@@ -19,7 +19,7 @@ class IRefCount_1ef970 {
 };
 class Sub_1ef990 {
   public:
-    void Cleanup();
+    void Cleanup_0027af50();
 };
 class Obj_1ef990 {
     char pad[0xa0];
@@ -28,7 +28,7 @@ class Obj_1ef990 {
     Sub_1ef990 sub;
     void* Run(int flags);
 };
-extern void __cdecl thunk(Obj_1ef990*);
+extern void __cdecl thunk_0008d330(Obj_1ef990*);
 void __cdecl thunk_FUN_00267090(void* p);
 struct Id_1ef9c0 {
 };
@@ -65,8 +65,8 @@ public:
 namespace fn_001ef930 {
 class Helper_1ef930 {
   public:
-    void A();
-    void B(int);
+    void FnA_0027af00();
+    void FnB_0027b040(int);
     char pad[8];
     float x;
     int y;
@@ -82,14 +82,14 @@ class CSoundTriggerExecutionState {
 };
 CSoundTriggerExecutionState::CSoundTriggerExecutionState() {
     a = 1;
-    m.A();
+    m.FnA_0027af00();
     b = 0;
     c = 0;
     d = 0;
     e = 0;
     m.x = 100.0f;
     m.y = 0;
-    m.B(0);
+    m.FnB_0027b040(0);
 }
 } // namespace fn_001ef930
 
@@ -124,9 +124,9 @@ namespace fn_f158e6c4 {
 // 0x001ef990 FUN_001ef990 (36 B): matches/0x001ef990.cpp
 // sym: ?Run@Obj_1ef990@fn_f158e6c4@@QAEPAXH@Z
 void* Obj_1ef990::Run(int flags) {
-    sub.Cleanup();
+    sub.Cleanup_0027af50();
     if (flags & 1)
-        thunk(this);
+        thunk_0008d330(this);
     return this;
 }
 

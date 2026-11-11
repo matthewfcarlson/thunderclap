@@ -15,14 +15,14 @@ namespace fn_f342e0ab {} using namespace fn_f342e0ab;
 namespace fn_f342e0ab {
 class Obj_49cc0 {
   public:
-    Obj_49cc0* b();
-    int c();
+    Obj_49cc0* Fnb_00059a30();
+    int Fnc_00036170();
 };
 class Helper_49d40 {
   public:
-    void* Second();
+    void* Second_00059a30();
 };
-extern int* gTable_49d90;
+extern int* hulk_at_004dc4f8;
 class CCondition_49d90 {
   public:
     virtual int vfunc_0(int);
@@ -46,7 +46,7 @@ struct Anchor_49de0 {
 };
 struct FightHandle_49de0 {
 };
-extern int* gTable_49e80;
+extern int* hulk_at_004dc500;
 class CCondition_49e80 {
   public:
     virtual int vfunc_0(int);
@@ -58,17 +58,17 @@ class Obj_49ed0 {
   public:
     char Format(const char* s);
 };
-extern int* gTable_49f10;
+extern int* hulk_at_004dc508;
 class CCondition_49f10 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_49ff0;
+extern int* hulk_at_004dc510;
 class CCondition_49ff0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_4a0d0;
+extern int* hulk_at_004dc518;
 class CCondition_4a0d0 {
   public:
     virtual int vfunc_0(int);
@@ -110,8 +110,8 @@ namespace fn_f342e0ab {
 // sym: ?vfunc_7@fn_f342e0ab@@YGHPAVObj_49cc0@1@@Z
 int __stdcall vfunc_7(Obj_49cc0* p) {
     p = ((Obj_49cc0 *)((owners::Object_592a0 *)p)->FUN_000592a0());
-    p = p->b();
-    return p->c();
+    p = p->Fnb_00059a30();
+    return p->Fnc_00036170();
 }
 
 } // namespace fn_f342e0ab
@@ -151,7 +151,7 @@ int CIsGrappledCondition::vfunc_0(int) {
 bool CIsGrappledCondition::vfunc_7(void* __p0) { Helper_49d40 * p = (Helper_49d40 *)__p0;
 
     void* a = ((void *)((owners::Object_592a0 *)p)->FUN_000592a0());
-    void* b = ((Helper_49d40*)a)->Second();
+    void* b = ((Helper_49d40*)a)->Second_00059a30();
     return *(int*)((char*)b + 0x338) != 0;
 }
 
@@ -170,7 +170,7 @@ void FUN_00049d70() {
 // sym: ?vfunc_0@CGrappleSizeCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CGrappleSizeCondition::vfunc_0(int index) {
-    int* p = gTable_49d90;
+    int* p = hulk_at_004dc4f8;
     return p[index];
 }
 
@@ -216,7 +216,7 @@ void FUN_00049e60() {
 // sym: ?vfunc_0@CLuaNumberCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CLuaNumberCondition::vfunc_0(int index) {
-    int* p = gTable_49e80;
+    int* p = hulk_at_004dc500;
     return p[index];
 }
 
@@ -243,7 +243,7 @@ void FUN_00049ef0() {
 // sym: ?vfunc_0@CCharacterTemplateCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCharacterTemplateCondition::vfunc_0(int index) {
-    int* p = gTable_49f10;
+    int* p = hulk_at_004dc508;
     return p[index];
 }
 
@@ -252,11 +252,11 @@ hulk_intptr CCharacterTemplateCondition::vfunc_0(int index) {
 // sym: ?Run@CCharacterTemplateCondition_49f50@fn_00049f50@@QAEXXZ
 namespace fn_00049f50 {
 // Same code shape as 0x0004a030 (propagated; names are from that function)
-extern int vtableA;
-extern int vtableB;
+extern int hulk_at_003f7328;
+extern int hulk_at_003f6d50;
 class Part_49f50 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class CCondition {
   public:
@@ -267,13 +267,13 @@ class CCharacterTemplateCondition_49f50 : public CCondition {
     char pad[12];
     Part_49f50 part;
     void Run();
-    void Finish();
+    void Finish_002345b0();
 };
 void CCharacterTemplateCondition_49f50::Run() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtableA;
-    part.Init();
-    *(hulk_intptr*)this = (hulk_intptr)&vtableB;
-    Finish();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f7328;
+    part.Init_0027af50();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f6d50;
+    Finish_002345b0();
 }
 } // namespace fn_00049f50
 
@@ -320,7 +320,7 @@ void FUN_00049fd0() {
 // sym: ?vfunc_0@CCharacterTemplateVariationCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCharacterTemplateVariationCondition::vfunc_0(int index) {
-    int* p = gTable_49ff0;
+    int* p = hulk_at_004dc510;
     return p[index];
 }
 
@@ -352,11 +352,11 @@ CCharacterTemplateVariationCondition::CCharacterTemplateVariationCondition() : C
 // 0x0004a030 FUN_0004a030 (31 B): matches/0x0004a030.cpp [wrapped: conflict: CCharacterTemplateVariationCondition; CCondition]
 // sym: ?Run@CCharacterTemplateVariationCondition@fn_0004a030@@QAEXXZ
 namespace fn_0004a030 {
-extern int vtableA;
+extern int hulk_at_003f734c;
 extern int vtableB;
 class Part_4a030 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class CCondition {
   public:
@@ -367,13 +367,13 @@ class CCharacterTemplateVariationCondition : public CCondition {
     char pad[12];
     Part_4a030 part;
     void Run();
-    void Finish();
+    void Finish_002345b0();
 };
 void CCharacterTemplateVariationCondition::Run() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtableA;
-    part.Init();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f734c;
+    part.Init_0027af50();
     *(hulk_intptr*)this = (hulk_intptr)&vtableB;
-    Finish();
+    Finish_002345b0();
 }
 } // namespace fn_0004a030
 
@@ -388,15 +388,15 @@ class Thing_4a050 {
 };
 class Agent_4a050 {
   public:
-    Thing_4a050* get();
+    Thing_4a050* get_00059a30();
 };
 class Arg_4a050 {
   public:
-    Agent_4a050* get();
+    Agent_4a050* get_000592a0();
 };
 class Item_4a050 {
   public:
-    __int64 get();
+    __int64 get_00044370();
 };
 class CCharacterTemplateVariationCondition {
   public:
@@ -413,12 +413,12 @@ class CCharacterTemplateVariationCondition {
     __int64 key;
 };
 bool CCharacterTemplateVariationCondition::vfunc_7(Arg_4a050* arg) {
-    Thing_4a050* t = arg->get()->get();
+    Thing_4a050* t = arg->get_000592a0()->get_00059a30();
     __int64 v;
     if (!t->p)
         v = 0;
     else
-        v = ((Item_4a050*)t->p)->get();
+        v = ((Item_4a050*)t->p)->get_00044370();
     switch (mode) {
     case 0:
         return v == key;
@@ -445,7 +445,7 @@ void FUN_0004a0b0() {
 // sym: ?vfunc_0@CGrappleCharacterTemplateCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CGrappleCharacterTemplateCondition::vfunc_0(int index) {
-    int* p = gTable_4a0d0;
+    int* p = hulk_at_004dc518;
     return p[index];
 }
 
@@ -454,11 +454,11 @@ hulk_intptr CGrappleCharacterTemplateCondition::vfunc_0(int index) {
 // sym: ?Run@CGrappleCharacterTemplateCondition_4a110@fn_0004a110@@QAEXXZ
 namespace fn_0004a110 {
 // Same code shape as 0x0004a030 (propagated; names are from that function)
-extern int vtableA;
+extern int hulk_at_003f7370;
 extern int vtableB;
 class Part_4a110 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class CCondition {
   public:
@@ -469,13 +469,13 @@ class CGrappleCharacterTemplateCondition_4a110 : public CCondition {
     char pad[12];
     Part_4a110 part;
     void Run();
-    void Finish();
+    void Finish_002345b0();
 };
 void CGrappleCharacterTemplateCondition_4a110::Run() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtableA;
-    part.Init();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f7370;
+    part.Init_0027af50();
     *(hulk_intptr*)this = (hulk_intptr)&vtableB;
-    Finish();
+    Finish_002345b0();
 }
 } // namespace fn_0004a110
 

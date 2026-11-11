@@ -19,7 +19,7 @@ class Obj_1c5e20 {
     struct Sub_1c5e20* m;
 };
 struct Sub_1c5e20 {
-    void Helper(int a);
+    void Helper_001c5010(int a);
 };
 struct Result { char pad[0x30]; };
 struct Registry {
@@ -39,7 +39,7 @@ struct Buffer_1c5e80 {
     char data[48];
     unsigned int a, b, c;
     char extra[4];
-    void Init();
+    void Init_0022b980();
 };
 class Child_1c5e80 {
   public:
@@ -65,7 +65,7 @@ class Item_1c5fb0 {
 };
 class Checker_1c5fb0 {
   public:
-    bool test(void*);
+    bool test_0027af90(void*);
 };
 class Owner_1c5fb0 {
   public:
@@ -91,20 +91,20 @@ struct Item_1c6050 {
     char flag;
 };
 struct Holder_1c6050 {
-    Item_1c6050* Find(int);
+    Item_1c6050* Find_001c59d0(int);
 };
 struct Obj_1c6050 {
     char pad[12];
     Holder_1c6050* h;
-    void Poke(int a, int b);
+    void Poke_001c39e0(int a, int b);
 };
 struct Sub_1c6050 {
     char pad[8];
-    void Init();
-    void Set(int);
+    void Init_0027af00();
+    void Set_0027af70(int);
 };
-Obj_1c6050* __stdcall Make2();
-Obj_1c6050* __stdcall Make0();
+Obj_1c6050* __stdcall Make2_001c3d90();
+Obj_1c6050* __stdcall Make0_001c3d90();
 struct CRenderableCharacter_1c6050 {
     void* vf;
     char pad[4];
@@ -118,7 +118,7 @@ struct CRenderableCharacter_1c6050 {
 // sym: ?Fn@Obj_1c5e20@fn_f493c7ef@@QAEXH@Z
 void Obj_1c5e20::Fn(hulk_intptr a) {
     if (m)
-        m->Helper(a);
+        m->Helper_001c5010(a);
 }
 
 } // namespace fn_f493c7ef
@@ -144,7 +144,7 @@ Result* Obj_1c5e60::target() {
 void Obj_1c5e80::f(Data_1c5e80* p) {
     if (m) {
         Buffer_1c5e80 b;
-        b.Init();
+        b.Init_0022b980();
         b.a = p->a;
         b.b = p->b;
         b.c = p->c;
@@ -221,7 +221,7 @@ hulk_intptr Owner_1c5fb0::Find(Checker_1c5fb0* arg) {
     unsigned int i = 0;
     if (count > 0) {
         do {
-            if (arg->test((char*)items[i] + 8))
+            if (arg->test_0027af90((char*)items[i] + 8))
                 return (hulk_intptr)items[i];
             ++i;
         } while (i < count);
@@ -251,12 +251,12 @@ void Bag_1c6000::Remove(Item_1c6000* p) {
 // sym: ?Target@CRenderableCharacter_1c6050@fn_f493c7ef@@QAEPAU12@HH@Z
 CRenderableCharacter_1c6050* CRenderableCharacter_1c6050::Target(int arg1, int arg2) {
     vf = (void*)((hulk_intptr)DAT_00421990);
-    s.Init();
-    s.Set(arg1);
-    Make2()->Poke(arg1, arg2);
-    Obj_1c6050* p = Make0();
+    s.Init_0027af00();
+    s.Set_0027af70(arg1);
+    Make2_001c3d90()->Poke_001c39e0(arg1, arg2);
+    Obj_1c6050* p = Make0_001c3d90();
     Holder_1c6050* h = p->h;
-    Item_1c6050* it = h->Find(arg1);
+    Item_1c6050* it = h->Find_001c59d0(arg1);
     b = (hulk_intptr)it;
     it->flag = 1;
     return this;

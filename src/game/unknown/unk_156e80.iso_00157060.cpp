@@ -13,20 +13,20 @@ class Params_157060 {
   public:
     int x;
 };
-extern Params_157060 TypeA_157060;
-extern Params_157060 TypeB_157060;
+extern Params_157060 hulk_at_00494b44;
+extern Params_157060 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_157060*, Params_157060*, int);
 struct HitPushbackAddAction_nv_157060 {
-    int Init(hulkfight::motion::HitPushbackAddTrack*, hulk_intptr);
+    int Init_00151a30(hulkfight::motion::HitPushbackAddTrack*, hulk_intptr);
 };
-hulkfight::motion::HitPushbackAddAction* __cdecl Alloc(int);
+hulkfight::motion::HitPushbackAddAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::HitPushbackAddTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_157060, &TypeB_157060, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::HitPushbackAddAction* p = Alloc(0x24);
+        hulkfight::motion::HitPushbackAddAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((HitPushbackAddAction_nv_157060*)(((hulkfight::motion::HitPushbackAddAction*)(p))))->Init(this, c);
+            return ((HitPushbackAddAction_nv_157060*)(((hulkfight::motion::HitPushbackAddAction*)(p))))->Init_00151a30(this, c);
     }
     return 0;
 }

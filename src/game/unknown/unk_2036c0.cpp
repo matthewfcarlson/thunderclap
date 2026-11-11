@@ -21,7 +21,7 @@ struct Item {
 };
 struct List {
     char pad[0x18];
-    int Count();
+    int Count_001c7520();
 };
 struct Holder {
     char pad[4];
@@ -84,7 +84,7 @@ void owners::Vec_203780::FUN_00203780(void* item) {
 int owners::Obj_2037a0::FUN_002037a0() {
     Holder* h = FUN_001c3d90();
     List* list = h->list;
-    int count = ((List*)((char*)list + 0x18))->Count();
+    int count = ((List*)((char*)list + 0x18))->Count_001c7520();
     for (int i = 0; i < count; ++i) {
         Item* p = ((Item *)((owners::Thing_1c7f80 *)list)->FUN_001c7f80((unsigned int)i));
         int id = p->id;

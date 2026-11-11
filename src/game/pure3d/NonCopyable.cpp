@@ -53,7 +53,7 @@ namespace fn_fd48bef5 {
 extern "C" int FUN_00096600(const char *a, const char *b);
 class C2_45670 {
   public:
-    int Get();
+    int Get_0008a2b0();
 };
 class C1_45670 {
   public:
@@ -63,7 +63,7 @@ class Mgr_45670 {
     char pad[0x54];
     C1_45670* m54;
 };
-extern Mgr_45670* gMgr_45670;
+extern Mgr_45670* hulk_at_004dd700;
 namespace pure3d {
 class NonCopyable_45800 : public ::core::IRefCount {
   public:
@@ -344,11 +344,11 @@ extern "C" hulk_intptr FUN_000452e0(const char *id, const char *name, int value)
 // sym: ?FUN_00045670@Obj_45670@owners@@QAEMXZ
 float owners::Obj_45670::FUN_00045670() {
     float r = DAT_003f32dc;
-    Mgr_45670* m = gMgr_45670;
+    Mgr_45670* m = hulk_at_004dd700;
     if (m && m->m54) {
         C2_45670* s = ((C2_45670 *)((owners::C_86310 *)(m->m54))->FUN_00086310());
         if (s) {
-            int k = ((C2_45670 *)((owners::C_86310 *)(m->m54))->FUN_00086310())->Get();
+            int k = ((C2_45670 *)((owners::C_86310 *)(m->m54))->FUN_00086310())->Get_0008a2b0();
             switch (k) {
             case 0:
                 r = f314;

@@ -22,7 +22,7 @@ struct Triple_c5a90 {
     U_c5a90 x, y, z;
 };
 struct Helper_c5a90 {
-    U_c5a90 B(U_c5a90, U_c5a90);
+    U_c5a90 FnB_002843a0(U_c5a90, U_c5a90);
 };
 struct Obj_c5a90 {
     Helper_c5a90* h;
@@ -36,10 +36,10 @@ struct Mat {
 };
 class Service {
   public:
-    int B(int, int);
-    void C(int, int, Mat*);
+    int FnB_002843a0(int, int);
+    void FnC_00284860(int, int, Mat*);
 };
-extern int __fastcall g(void*);
+extern int __fastcall Fng_002961d0(void*);
 struct S_c5b40 {
     void* p;
     volatile int a;
@@ -94,7 +94,7 @@ struct Registry_c5e60 {
     void FUN_000af0f0(Entry_c5e60* out);
 };
 struct Owner_c5e60 { Registry_c5e60* FUN_000af3a0(int id); };
-extern "C" bool __cdecl Test(int, int, int, int, int, int, int);
+extern "C" bool __cdecl Test_000c5e60(int, int, int, int, int, int, int);
 struct Vec {
     int x, y, z;
     inline void set(int a, int b, int c) {
@@ -111,7 +111,7 @@ class Obj {
     int b;
     int* p;
     Mat* Fn(Mat* out);
-    void update();
+    void update_0008ef00();
 };
 struct Vec3_c5fa0 {
     unsigned int x, y, z;
@@ -205,7 +205,7 @@ void FUN_000c6330(Vec3_c6840 c0, Vec3_c6840 c1, Vec3_c6840 c2, Vec3_c6840 c3, Ve
 class Arg_c6a20 {
   public:
     virtual void F();
-    int G();
+    int FnG_002961d0();
 };
 class Obj_c6a20 {
   public:
@@ -285,7 +285,7 @@ extern "C" void FUN_000c5a60() {}
 Triple_c5a90* Obj_c5a90::Go(Triple_c5a90* out) {
     Triple_c5a90 t;
     ((owners::C_284820 *)h)->FUN_00284820((hulk_intptr)0);
-    U_c5a90 r = h->B(c, d);
+    U_c5a90 r = h->FnB_002843a0(c, d);
     ((owners::Obj_2848b0 *)h)->FUN_002848b0((hulk_intptr)r, 0, (int *)(Triple_c5a90 *)(&t));
     *out = t;
     return out;
@@ -297,8 +297,8 @@ Triple_c5a90* Obj_c5a90::Go(Triple_c5a90* out) {
 Mat* Obj::Fn(Mat* out) {
     Mat m;
     ((owners::C_284820 *)svc)->FUN_00284820((hulk_intptr)0);
-    int v = svc->B(a, b);
-    svc->C(v, 0, &m);
+    int v = svc->FnB_002843a0(a, b);
+    svc->FnC_00284860(v, 0, &m);
     *out = m;
     return out;
 }
@@ -311,7 +311,7 @@ void S_c5b40::f() {
         count = 0;
         a = 0;
         *(int*)((char*)this + count * 8 + 8) = 0;
-        result = g(p);
+        result = Fng_002961d0(p);
         last = 0;
     }
 }
@@ -398,7 +398,7 @@ bool __cdecl HasEntry(Owner_c5e60* owner, int id, int key, int i0, int i1, int i
 extern "C" bool __cdecl FUN_000c5ef0(int a, int b, int c, int d, int e, int f) {
     int i = 0;
     do {
-        if (Test(a, i, b, c, d, e, f))
+        if (Test_000c5e60(a, i, b, c, d, e, f))
             return true;
         ++i;
     } while (i < 1);
@@ -411,10 +411,10 @@ extern "C" bool __cdecl FUN_000c5ef0(int a, int b, int c, int d, int e, int f) {
 void fun(Obj* o, int a, int b, int c, int d, int e, int f, int g, int h) {
     o->v->set(a, b, c);
     *o->p = g;
-    o->update();
+    o->update_0008ef00();
     o->v->set(d, e, f);
     *o->p = h;
-    o->update();
+    o->update_0008ef00();
 }
 
 
@@ -643,7 +643,7 @@ Obj_c6a20* Obj_c6a20::Run(Arg_c6a20* arg) {
             mIndex = 0;
             mOne = 0;
             ((int*)this)[mIndex * 2 + 2] = 0;
-            m408 = mArg->G();
+            m408 = mArg->FnG_002961d0();
             m40c = 0;
         }
     }

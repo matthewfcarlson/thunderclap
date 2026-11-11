@@ -49,11 +49,11 @@ struct CTokenSectionEnd_f9940 : CScriptToken_f9940 {
 };
 struct FUN_0027b070 { FUN_0027b070(); virtual void dummy(); char pad[12]; int first; int second; int third; };
 struct CRawScript_f9980 : FUN_0027b070 { CRawScript_f9980(int a, int b); };
-extern void __cdecl thunk(int);
+extern void __cdecl thunk_0008d340(int);
 struct Reader { char pad[0x10]; char *begin; int length; char *cursor; bool FUN_000f99d0(char *output); };
 void thunk_FUN_00267090(hulk_intptr);
-extern "C" void __cdecl free_(void* p);
-extern "C" void* __cdecl alloc_(hulk_intptr n);
+extern "C" void __cdecl free__0008d340(void* p);
+extern "C" void* __cdecl alloc__0008d6d0(hulk_intptr n);
 } // namespace fn_fd8937bc
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int strlen(const char*);
@@ -65,16 +65,16 @@ class StrHolder_f9ab0 {
     char* mStr;
     void Set(char* src);
 };
-extern void* CTokenString_vftable;
-extern void* CScriptToken_vftable;
+extern void* hulk_at_0040ce4c;
+extern void* hulk_at_0040ce3c;
 extern void __cdecl thunk_FUN_00267090(void*);
 struct Token_f9b60 {
     void* vptr;
     char pad[12];
     void* p;
 };
-extern void Release(void*);
-extern int vtStatement;
+extern void Release_0008d340(void*);
+extern int hulk_at_0040ceac;
 extern int vtString;
 extern int vtToken;
 struct Obj_f9bc0 {
@@ -89,7 +89,7 @@ class CTokenStatement {
     virtual void vfunc_2();
 };
 extern "C" char DAT_0040cebc[];
-extern "C" unsigned __int64 __cdecl MakeToken(int);
+extern "C" unsigned __int64 __cdecl MakeToken_0027b020(int);
 class CTokenHashed {
   public:
     void* vftable;
@@ -239,7 +239,7 @@ struct Item_fa870 {
 };
 struct Hdr_fa870 {
     int count;
-    void First(Item_fa870*);
+    void First_000f9b00(Item_fa870*);
 };
 struct Lst {
     Hdr_fa870* h;
@@ -297,8 +297,8 @@ struct Obj_fad90 {
     unsigned char mDone;
 };
 extern hulk_intptr __cdecl GetThing(Base_fad90*, int, void*, void*, int);
-extern int desc1_fad90;
-extern int desc2_fad90;
+extern int hulk_at_004a13e4;
+extern int hulk_at_004a140c;
 struct Vec3_fae50 {
     float x, y, z;
 };
@@ -307,7 +307,7 @@ class Obj_fae50 {
     int active;
 
   public:
-    float Next();
+    float Next_000fad30();
     void Get(Vec3_fae50* out);
 };
 struct Obj {
@@ -351,10 +351,10 @@ class CTokenFloat : public CScriptToken {
 }
 namespace fn_fd8937bc {
 struct ThisCall_000f9d70 {
-    int GetThing();
+    int GetThing_000f9d70();
 };
 extern "C" int __cdecl Setup(int, int, void*, void*, int);
-extern int RTTI1_fb110;
+extern int hulk_at_004a1934;
 extern int RTTI2_fb110;
 struct Obj_fb110 {
     char pad[8];
@@ -488,7 +488,7 @@ CRawScript_f9980::CRawScript_f9980(int a, int b) { first=a; third=a; second=b; }
 // sym: ?run@CRawScript@fn_fd8937bc@@QAEXXZ
 void CRawScript::run() {
     vptr = &rawVtable;
-    thunk(mArg);
+    thunk_0008d340(mArg);
     finish();
 }
 
@@ -516,9 +516,9 @@ extern "C" void __fastcall FUN_000f9a80(Obj_f9a80* self) {
 // 0x000f9ab0 FUN_000f9ab0 (79 B): matches/0x000f9ab0.cpp
 // sym: ?Set@StrHolder_f9ab0@fn_fd8937bc@@QAEXPAD@Z
 void StrHolder_f9ab0::Set(char* src) {
-    free_(mStr);
+    free__0008d340(mStr);
     if (src != 0) {
-        mStr = (char*)alloc_(strlen(src) + 1);
+        mStr = (char*)alloc__0008d6d0(strlen(src) + 1);
         strcpy(mStr, src);
     }
 }
@@ -560,26 +560,26 @@ namespace fn_fd8937bc {
 // 0x000f9b60 FUN_000f9b60 (40 B): matches/0x000f9b60.cpp
 // sym: ?FUN_000f9b60@fn_fd8937bc@@YIXPAUToken_f9b60@1@@Z
 void __fastcall FUN_000f9b60(Token_f9b60* self) {
-    self->vptr = &CTokenString_vftable;
+    self->vptr = &hulk_at_0040ce4c;
     if (self->p) {
         thunk_FUN_00267090(self->p);
         self->p = 0;
     }
-    self->vptr = &CScriptToken_vftable;
+    self->vptr = &hulk_at_0040ce3c;
 }
 
 
 // 0x000f9bc0 FUN_000f9bc0 (69 B): matches/0x000f9bc0.cpp
 // sym: ?FUN_000f9bc0@fn_fd8937bc@@YIXPAUObj_f9bc0@1@@Z
 void __fastcall FUN_000f9bc0(Obj_f9bc0* o) {
-    o->vf = &vtStatement;
+    o->vf = &hulk_at_0040ceac;
     if (o->p) {
-        Release(o->p);
+        Release_0008d340(o->p);
         o->p = 0;
     }
     o->vf = &vtString;
     if (o->p) {
-        Release(o->p);
+        Release_0008d340(o->p);
         o->p = 0;
     }
     o->vf = &vtToken;
@@ -600,7 +600,7 @@ CTokenHashed* CTokenHashed::Target(hulk_intptr p1, int p2, int p3, int p4) {
     b = 0;
     c = 0;
     vftable = (void*)((hulk_intptr)DAT_0040cebc);
-    unsigned __int64 v = MakeToken(p1);
+    unsigned __int64 v = MakeToken_0027b020(p1);
     d = (int)v;
     e = (int)(v >> 32);
     b = p2;
@@ -1268,7 +1268,7 @@ void Lst::Put(Item_fa870* it) {
     }
     Item_fa870*& last = *(Item_fa870**)((unsigned char*)&DAT_004e09f8);
     if (h->count == 0) {
-        h->First(it);
+        h->First_000f9b00(it);
         last = it;
         return;
     }
@@ -1289,7 +1289,7 @@ void Lst::Put(Item_fa870* it) {
 // 0x000fa8e0 DollyScript::CRawScript::vfunc_2 (50 B): matches/0x000fa8e0.cpp [wrapped: conflict: CRawScript]
 // sym: ?vfunc_2@CRawScript@fn_000fa8e0@@QAEPAV12@E@Z
 namespace fn_000fa8e0 {
-extern void* CRawScript_vftable;
+extern void* hulk_at_0040ce8c;
 
 class CRawScript {
   public:
@@ -1301,19 +1301,19 @@ class CRawScript {
     char pad[12];
     hulk_intptr m_0x10;
 
-    void Destroy();
+    void Destroy_0027afd0();
     CRawScript* vfunc_2(unsigned char param);
 };
 
-void __cdecl FreeBuffer(void* p);
-void __cdecl DeleteSelf(void* p);
+void __cdecl FreeBuffer_0008d340(void* p);
+void __cdecl DeleteSelf_00263f30(void* p);
 
 CRawScript* CRawScript::vfunc_2(unsigned char param) {
-    *(void**)this = &CRawScript_vftable;
-    FreeBuffer((void*)m_0x10);
-    Destroy();
+    *(void**)this = &hulk_at_0040ce8c;
+    FreeBuffer_0008d340((void*)m_0x10);
+    Destroy_0027afd0();
     if (param & 1) {
-        DeleteSelf(this);
+        DeleteSelf_00263f30(this);
     }
     return this;
 }
@@ -1335,8 +1335,8 @@ pure3d::NonCopyable_0fa920* pure3d::NonCopyable_0fa920::f2(unsigned char param) 
 // sym: ?f2@CTokenString@fn_000fa940@@UAEPAV12@XZ
 namespace fn_000fa940 {
 typedef unsigned int uint;
-void* Alloc(hulk_uintptr);
-uint CopyString(uint);
+void* Alloc_0008d690(hulk_uintptr);
+uint CopyString_000f6610(uint);
 extern char baseVftable[];
 extern char stringVftable[];
 class CScriptToken {
@@ -1354,7 +1354,7 @@ class CTokenString : public CScriptToken {
     uint str;
 };
 CTokenString* CTokenString::f2() {
-    CTokenString* p = (CTokenString*)Alloc(0x14);
+    CTokenString* p = (CTokenString*)Alloc_0008d690(0x14);
     CTokenString* r;
     if (p) {
         *(void**)p = (void*)&baseVftable[0];
@@ -1367,7 +1367,7 @@ CTokenString* CTokenString::f2() {
     } else {
         r = 0;
     }
-    uint v = CopyString(str);
+    uint v = CopyString_000f6610(str);
     r->str = v;
     r->a = 0;
     return r;
@@ -1446,7 +1446,7 @@ struct Type {
     int x;
 };
 extern Type tokType;
-extern Type floatType;
+extern Type hulk_at_004a13bc;
 Node* __cdecl GetToken(Node*, int, Type*, Type*, int);
 class Obj_fad30 {
   public:
@@ -1476,7 +1476,7 @@ float Obj_fad30::run() {
     current = eax;
     if (!eax)
         done = 1;
-    Node* r = GetToken(eax, 0, &tokType, &floatType, 0);
+    Node* r = GetToken(eax, 0, &tokType, &hulk_at_004a13bc, 0);
     return *(float*)((char*)r + 16);
 }
 } // namespace fn_000fad30
@@ -1505,7 +1505,7 @@ hulk_intptr __fastcall Target(Obj_fad90* self) {
     self->mCur = q;
     if (q == 0)
         self->mDone = 1;
-    return *(int*)((char*)GetThing(self->mCur, 0, &desc1_fad90, &desc2_fad90, 0) + 16);
+    return *(int*)((char*)GetThing(self->mCur, 0, &hulk_at_004a13e4, &hulk_at_004a140c, 0) + 16);
 }
 
 
@@ -1517,9 +1517,9 @@ void Obj_fae50::Get(Vec3_fae50* out) {
         out->z = 0.0f;
         out->y = 0.0f;
     } else {
-        float a = Next();
-        float b = Next();
-        float c = Next();
+        float a = Next_000fad30();
+        float b = Next_000fad30();
+        float c = Next_000fad30();
         out->x = a;
         out->y = b;
         out->z = c;
@@ -1576,13 +1576,13 @@ namespace fn_fd8937bc {
 // 0x000fb110 FUN_000fb110 (50 B): matches/0x000fb110.cpp
 // sym: ?Target@fn_fd8937bc@@YIHPAUObj_fb110@1@@Z
 hulk_intptr __fastcall Target(Obj_fb110* self) {
-    int x = ((ThisCall_000f9d70*)(self))->GetThing();
+    int x = ((ThisCall_000f9d70*)(self))->GetThing_000f9d70();
     self->field8 = x;
     if (x == 0)
         self->field15 = 1;
     self->field14 = 0;
     self->fieldc = 0;
-    return Setup(x, 0, &RTTI2_fb110, &RTTI1_fb110, 0);
+    return Setup(x, 0, &RTTI2_fb110, &hulk_at_004a1934, 0);
 }
 
 

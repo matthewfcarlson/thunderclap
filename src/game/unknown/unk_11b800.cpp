@@ -95,7 +95,7 @@ struct S_11c100 {
     char pad[0x40];
     char* Get() { return (char*)this + 0x40; }
 };
-extern int* gTable_11c210;
+extern int* hulk_at_004e0ca8;
 class CCondition_11c210 {
   public:
     virtual int vfunc_0(int);
@@ -105,7 +105,7 @@ class PathLocatorTestCondition {
     int a, b;
     virtual ~PathLocatorTestCondition();
     int d;
-    virtual void hulk_slot_F(); void F();
+    virtual void hulk_slot_F(); void FnF_002345b0();
 };
 extern "C" unsigned int __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
@@ -891,7 +891,7 @@ void FUN_0011c1f0() {
 // sym: ?vfunc_0@PathLocatorTestCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::PathLocatorTestCondition::vfunc_0(int index) {
-    int* p = gTable_11c210;
+    int* p = hulk_at_004e0ca8;
     return p[index];
 }
 
@@ -935,7 +935,7 @@ namespace fn_f18cc536 {
 // sym: ??1PathLocatorTestCondition@fn_f18cc536@@UAE@XZ
 PathLocatorTestCondition::~PathLocatorTestCondition() {
     Cleanup(d);
-    F();
+    FnF_002345b0();
 }
 
 } // namespace fn_f18cc536

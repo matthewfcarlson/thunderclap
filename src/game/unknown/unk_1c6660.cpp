@@ -96,9 +96,9 @@ class C_1c6aa0 {
     char pad[0x0c];
     int value;
 };
-extern "C" unsigned char gFlagByte;
+extern "C" unsigned char hulk_at_004e2388;
 extern "C" unsigned int gFlagWord;
-extern "C" unsigned char gBuffer_1c6ac0;
+extern "C" unsigned char hulk_at_004e2370;
 struct Obj_1c6ac0 {
     char pad[0x10];
     hulk_intptr value;
@@ -131,7 +131,7 @@ class B_1c6bd0 {
 };
 class Part_1c6c40 {
   public:
-    void Cleanup();
+    void Cleanup_001c27c0();
 };
 class Thing_1c6c40 {
   public:
@@ -139,7 +139,7 @@ class Thing_1c6c40 {
     Part_1c6c40 part;
     Thing_1c6c40* Run(unsigned char flags);
 };
-void DeleteThing(Thing_1c6c40*);
+void DeleteThing_0008d330(Thing_1c6c40*);
 
 
 // 0x001c6660 FUN_001c6660 (153 B): equivalent/0x001c6660.cpp
@@ -264,11 +264,11 @@ hulk_intptr __fastcall FUN_001c6ab0(hulk_intptr p) {
 extern "C" void* __fastcall FUN_001c6ac0(Obj_1c6ac0* self, void*) {
     if (self->value)
         return (void*)(self->value + 0x14);
-    unsigned char c = gFlagByte;
+    unsigned char c = hulk_at_004e2388;
     unsigned int one = 1;
     if ((one & c) == 0)
         gFlagWord |= one;
-    return &gBuffer_1c6ac0;
+    return &hulk_at_004e2370;
 }
 
 
@@ -307,9 +307,9 @@ void B_1c6bd0::run() {
 // 0x001c6c40 FUN_001c6c40 (33 B): matches/0x001c6c40.cpp
 // sym: ?Run@Thing_1c6c40@fn_fe13ae73@@QAEPAV12@E@Z
 Thing_1c6c40* Thing_1c6c40::Run(unsigned char flags) {
-    part.Cleanup();
+    part.Cleanup_001c27c0();
     if (flags & 1)
-        DeleteThing(this);
+        DeleteThing_0008d330(this);
     return this;
 }
 

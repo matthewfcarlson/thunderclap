@@ -21,9 +21,9 @@ struct IRefCount {
     virtual void f1();
     virtual void f2();
 };
-extern void destroy(void*);
+extern void destroy_0008d330(void*);
 struct Sub_1c7e60 {
-    void cleanup();
+    void cleanup_002a3120();
 };
 namespace pure3d {
 struct ShadowGenerator : NonCopyable {
@@ -38,10 +38,10 @@ struct ShadowGenerator : NonCopyable {
 // sym: ?vfunc_2@ShadowGenerator@pure3d@fn_fa25ba40@@QAEPAU123@E@Z
  // namespace pure3d
 pure3d::ShadowGenerator* pure3d::ShadowGenerator::vfunc_2(unsigned char flags) {
-    sub.cleanup();
+    sub.cleanup_002a3120();
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f6098);
     if (flags & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 

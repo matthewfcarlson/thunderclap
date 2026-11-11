@@ -23,8 +23,8 @@ class Obj_dddc0 {
 };
 class Inner_dddf0 {
   public:
-    void Reset();
-    bool Process(void*);
+    void Reset_000f7110();
+    bool Process_000f7a80(void*);
 };
 class Target_dddf0 {
   public:
@@ -336,8 +336,8 @@ void Obj_dddc0::f(void* a, void* b) {
 // 0x000dddf0 FUN_000dddf0 (51 B): matches/0x000dddf0.cpp
 // sym: ?Run@Target_dddf0@fn_f683177d@@QAEDPAX@Z
 char Target_dddf0::Run(void* arg) {
-    inner->Reset();
-    bool b = inner->Process(arg);
+    inner->Reset_000f7110();
+    bool b = inner->Process_000f7a80(arg);
     if (b)
         V6();
     return b;

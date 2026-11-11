@@ -11,10 +11,10 @@ namespace fn_f6fed9ea {} using namespace fn_f6fed9ea;
 
 // ---- declarations shared by the functions below
 namespace fn_f6fed9ea {
-extern void* Condition_182f10_vftable[];
+extern void* hulk_at_0041912c[];
 class Condition_182f10 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropMissionCriticalCondition : public Condition_182f10 {
@@ -22,10 +22,10 @@ class PropMissionCriticalCondition : public Condition_182f10 {
     PropMissionCriticalCondition* vfunc_5(signed char flags);
 };
 } }
-extern void* Condition_182f40_vftable[];
+extern void* hulk_at_0041914c[];
 class Condition_182f40 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class SmartPropGrabbableCondition : public Condition_182f40 {
@@ -33,7 +33,7 @@ class SmartPropGrabbableCondition : public Condition_182f40 {
     SmartPropGrabbableCondition* vfunc_5(signed char flags);
 };
 } }
-extern int vftable_182f70;
+extern int hulk_at_0041916c;
 class Condition {
   public:
     virtual void v0();
@@ -46,7 +46,7 @@ class Condition {
 };
 class Elem_182f70 {
   public:
-    void Fn();
+    void Fn_0027af50();
 };
 namespace hulkfight { namespace motion {
 class GrapplePropStateByNameCondition : public Condition {
@@ -60,14 +60,14 @@ class GrapplePropStateByNameCondition : public Condition {
     virtual void v6();
     char pad0[0x14];
     Elem_182f70 elem;
-    void Init();
+    void Init_002345b0();
 };
 } }
-extern void __cdecl thunk(hulkfight::motion::GrapplePropStateByNameCondition*);
-extern void* Condition_182fa0_vftable[];
+extern void __cdecl thunk_0008d330(hulkfight::motion::GrapplePropStateByNameCondition*);
+extern void* hulk_at_0041918c[];
 class Condition_182fa0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropGrabbableIsThrownCondition : public Condition_182fa0 {
@@ -75,10 +75,10 @@ class PropGrabbableIsThrownCondition : public Condition_182fa0 {
     PropGrabbableIsThrownCondition* vfunc_5(signed char flags);
 };
 } }
-extern void* prop_vftable;
+extern void* hulk_at_004191ac;
 class Elem_182fd0 {
   public:
-    void Fn();
+    void Fn_0027af50();
 };
 namespace hulkfight { namespace motion {
 class PropMassCondition {
@@ -92,14 +92,14 @@ class PropMassCondition {
     virtual void v6();
     char pad[0x18 - sizeof(void*)];
     Elem_182fd0 elem;
-    void BaseFn();
+    void BaseFn_002345b0();
 };
 } }
-extern void Cleanup(hulkfight::motion::PropMassCondition*);
-extern void* Condition_183000_vftable[];
+extern void Cleanup_0008d330(hulkfight::motion::PropMassCondition*);
+extern void* hulk_at_004191cc[];
 class Condition_183000 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropAtRestCondition : public Condition_183000 {
@@ -107,10 +107,10 @@ class PropAtRestCondition : public Condition_183000 {
     PropAtRestCondition* vfunc_5(signed char flags);
 };
 } }
-extern void* Condition_183030_vftable[];
+extern void* hulk_at_004191ec[];
 class Condition_183030 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropIsAttachedCondition : public Condition_183030 {
@@ -118,10 +118,10 @@ class PropIsAttachedCondition : public Condition_183030 {
     PropIsAttachedCondition* vfunc_5(signed char flags);
 };
 } }
-extern int vftable_183060;
+extern int hulk_at_0041920c;
 class Sub_183060 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 namespace hulkfight { namespace motion {
 class PropStateByNameCondition {
@@ -134,14 +134,14 @@ class PropStateByNameCondition {
     virtual PropStateByNameCondition* vfunc_5(unsigned int);
     virtual void vfunc_6();
     char pad[0x18 - 4];
-    void Second();
+    void Second_002345b0();
 };
 } }
 extern void thunk_FUN_00267090(void*);
-extern void* Condition_183090_vftable[];
+extern void* hulk_at_0041922c[];
 class Condition_183090 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropStateByIndexCondition : public Condition_183090 {
@@ -149,10 +149,10 @@ class PropStateByIndexCondition : public Condition_183090 {
     PropStateByIndexCondition* vfunc_5(signed char flags);
 };
 } }
-extern void* Condition_1830c0_vftable[];
+extern void* hulk_at_0041924c[];
 class Condition_1830c0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropMissileCountCondition : public Condition_1830c0 {
@@ -160,10 +160,10 @@ class PropMissileCountCondition : public Condition_1830c0 {
     PropMissileCountCondition* vfunc_5(signed char flags);
 };
 } }
-extern void* Condition_1830f0_vftable[];
+extern void* hulk_at_0041926c[];
 class Condition_1830f0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropCollidedWithWorldCondition : public Condition_1830f0 {
@@ -171,10 +171,10 @@ class PropCollidedWithWorldCondition : public Condition_1830f0 {
     PropCollidedWithWorldCondition* vfunc_5(signed char flags);
 };
 } }
-extern void* Condition_183120_vftable[];
+extern void* hulk_at_0041928c[];
 class Condition_183120 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class SmartPropIsCargoCondition : public Condition_183120 {
@@ -182,10 +182,10 @@ class SmartPropIsCargoCondition : public Condition_183120 {
     SmartPropIsCargoCondition* vfunc_5(signed char flags);
 };
 } }
-extern void* Condition_183150_vftable[];
+extern void* hulk_at_004192ac[];
 class Condition_183150 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class CSMPropIsCharacterCondition : public Condition_183150 {
@@ -193,10 +193,10 @@ class CSMPropIsCharacterCondition : public Condition_183150 {
     CSMPropIsCharacterCondition* vfunc_5(signed char flags);
 };
 } }
-extern void* Track_183180_vftable[];
+extern void* hulk_at_004192cc[];
 class Track_183180 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropActorToPropTrack : public Track_183180 {
@@ -204,26 +204,26 @@ class PropActorToPropTrack : public Track_183180 {
     PropActorToPropTrack* vfunc_5(signed char flags);
 };
 } }
-extern void* g_vftable_1831b0[];
+extern void* hulk_at_004192fc[];
 class Str_1831b0 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Track_1831b0 {
   public:
     void* vptr;
     char pad[20];
     Str_1831b0 s;
-    void Fin();
+    void Fin_00236d60();
 };
 class PropSetStateByNameTrack_1831b0 : public Track_1831b0 {
   public:
     void* Del(unsigned char flags);
 };
-extern void* Track_1831e0_vftable[];
+extern void* hulk_at_0041932c[];
 class Track_1831e0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropActorThinkingTrack : public Track_1831e0 {
@@ -231,10 +231,10 @@ class PropActorThinkingTrack : public Track_1831e0 {
     PropActorThinkingTrack* vfunc_5(signed char flags);
 };
 } }
-extern void* Track_183210_vftable[];
+extern void* hulk_at_0041935c[];
 class Track_183210 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropDropTrack : public Track_183210 {
@@ -242,15 +242,15 @@ class PropDropTrack : public Track_183210 {
     PropDropTrack* vfunc_5(signed char flags);
 };
 } }
-extern void* g_vftable_183240[];
+extern void* hulk_at_0041938c[];
 struct Sub_183240 {
     char c;
-    void Fin();
+    void Fin_0027af50();
 };
 class Track_183240 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class PropAnimationTrack_183240 : public Track_183240 {
   public:
@@ -258,10 +258,10 @@ class PropAnimationTrack_183240 : public Track_183240 {
     Sub_183240 sub;
     PropAnimationTrack_183240* f5(unsigned char flags);
 };
-extern void* Track_183270_vftable[];
+extern void* hulk_at_004193bc[];
 class Track_183270 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class GrapplePropDamageTrack : public Track_183270 {
@@ -269,7 +269,7 @@ class GrapplePropDamageTrack : public Track_183270 {
     GrapplePropDamageTrack* vfunc_5(signed char flags);
 };
 } }
-extern void* g_vftable_1832a0[];
+extern void* hulk_at_004193ec[];
 class Ref_1832a0 {
   public:
     virtual void F0();
@@ -278,9 +278,9 @@ class Ref_1832a0 {
 class Track_1832a0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
-void Free(void*) throw();
+void Free_0008d330(void*) throw();
 struct Sub_1832a0 {
     char c;
 };
@@ -296,10 +296,10 @@ class PropThrowTrack_1832a0 : public Track_1832a0 {
 };
 extern "C" char DAT_0041941c[];
 typedef unsigned char u8_1832e0;
-extern void __cdecl cleanup(void*);
+extern void __cdecl cleanup_0008d330(void*);
 class Sub_1832e0 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 namespace hulkfight { namespace motion {
 class BallAndChainReturnTrack {
@@ -315,14 +315,14 @@ class BallAndChainReturnTrack {
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    void BaseInit();
+    void BaseInit_00236d60();
     char pad[0x60 - 4];
 };
 } }
-extern void* Track_183320_vftable[];
+extern void* hulk_at_0041944c[];
 class Track_183320 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropSetStateByIndexTrack : public Track_183320 {
@@ -333,9 +333,9 @@ class PropSetStateByIndexTrack : public Track_183320 {
 extern "C" char DAT_0041947c[];
 typedef unsigned char u8_183350;
 struct Sub_183350 {
-    void Init();
+    void Init_0027af50();
 };
-extern void DeleteObj(void*);
+extern void DeleteObj_0008d330(void*);
 namespace hulkfight { namespace motion {
 class BallAndChainShootTrack {
   public:
@@ -350,14 +350,14 @@ class BallAndChainShootTrack {
     virtual void f8();
     virtual void f9();
     virtual void f10();
-    void BaseInit();
+    void BaseInit_00236d60();
     char pad[0x78 - 4];
 };
 } }
-extern void* Track_183390_vftable[];
+extern void* hulk_at_004194ac[];
 class Track_183390 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class BallAndChainSpinTrack : public Track_183390 {
@@ -365,10 +365,10 @@ class BallAndChainSpinTrack : public Track_183390 {
     BallAndChainSpinTrack* vfunc_5(signed char flags);
 };
 } }
-extern void* Track_1833c0_vftable[];
+extern void* hulk_at_004194dc[];
 class Track_1833c0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class ShieldArcTrack : public Track_1833c0 {
@@ -376,10 +376,10 @@ class ShieldArcTrack : public Track_1833c0 {
     ShieldArcTrack* vfunc_5(signed char flags);
 };
 } }
-extern void* Track_1833f0_vftable[];
+extern void* hulk_at_0041950c[];
 class Track_1833f0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropAddToCollisionTrack : public Track_1833f0 {
@@ -387,10 +387,10 @@ class PropAddToCollisionTrack : public Track_1833f0 {
     PropAddToCollisionTrack* vfunc_5(signed char flags);
 };
 } }
-extern void* Track_183420_vftable[];
+extern void* hulk_at_0041953c[];
 class Track_183420 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropAddToMissileCountTrack : public Track_183420 {
@@ -398,10 +398,10 @@ class PropAddToMissileCountTrack : public Track_183420 {
     PropAddToMissileCountTrack* vfunc_5(signed char flags);
 };
 } }
-extern void* Track_183450_vftable[];
+extern void* hulk_at_0041956c[];
 class Track_183450 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropDamageTrack : public Track_183450 {
@@ -409,11 +409,11 @@ class PropDamageTrack : public Track_183450 {
     PropDamageTrack* vfunc_5(signed char flags);
 };
 } }
-extern "C" void __cdecl thunk_FUN_00267090_2(void*);
-extern char PropSpawnTrack_vftable;
+extern "C" void __cdecl thunk_FUN_00267090_2_0008d330(void*);
+extern char hulk_at_0041959c;
 class SubObj_183480 {
   public:
-    void Reset();
+    void Reset_0027af50();
 };
 namespace hulkfight { namespace motion {
 class PropSpawnTrack {
@@ -430,7 +430,7 @@ class PropSpawnTrack {
     virtual void vfunc_9();
     virtual void vfunc_10();
 
-    void DoSomething();
+    void DoSomething_00236d60();
 
     void* vftable_;
     char pad_04[0x0c];
@@ -438,10 +438,10 @@ class PropSpawnTrack {
     char pad_14[0x04];
 };
 } }
-extern void* Track_1834c0_vftable[];
+extern void* hulk_at_004195cc[];
 class Track_1834c0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 namespace hulkfight { namespace motion {
 class PropDestroyTrack : public Track_1834c0 {
@@ -457,8 +457,8 @@ class PropDestroyTrack : public Track_1834c0 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropMissionCriticalCondition* hulkfight::motion::PropMissionCriticalCondition::vfunc_5(signed char flags) {
-    *(void***)this = Condition_182f10_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041912c;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -472,8 +472,8 @@ hulkfight::motion::PropMissionCriticalCondition* hulkfight::motion::PropMissionC
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::SmartPropGrabbableCondition* hulkfight::motion::SmartPropGrabbableCondition::vfunc_5(signed char flags) {
-    *(void***)this = Condition_182f40_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041914c;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -484,11 +484,11 @@ hulkfight::motion::SmartPropGrabbableCondition* hulkfight::motion::SmartPropGrab
 // 0x00182f70 hulkfight::motion::GrapplePropStateByNameCondition::vfunc_5 (46 B): matches/0x00182f70.cpp
 // sym: ?vfunc_5@GrapplePropStateByNameCondition@motion@hulkfight@fn_f6fed9ea@@UAEPAV1234@H@Z
 hulkfight::motion::GrapplePropStateByNameCondition* hulkfight::motion::GrapplePropStateByNameCondition::vfunc_5(int flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&vftable_182f70;
-    elem.Fn();
-    Init();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0041916c;
+    elem.Fn_0027af50();
+    Init_002345b0();
     if (flag & 1)
-        thunk(this);
+        thunk_0008d330(this);
     return this;
 }
 
@@ -499,8 +499,8 @@ hulkfight::motion::GrapplePropStateByNameCondition* hulkfight::motion::GrapplePr
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropGrabbableIsThrownCondition* hulkfight::motion::PropGrabbableIsThrownCondition::vfunc_5(signed char flags) {
-    *(void***)this = Condition_182fa0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041918c;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -511,11 +511,11 @@ hulkfight::motion::PropGrabbableIsThrownCondition* hulkfight::motion::PropGrabba
 // 0x00182fd0 hulkfight::motion::PropMassCondition::vfunc_5 (46 B): matches/0x00182fd0.cpp
 // sym: ?vfunc_5@PropMassCondition@motion@hulkfight@fn_f6fed9ea@@UAEPAV1234@D@Z
 hulkfight::motion::PropMassCondition* hulkfight::motion::PropMassCondition::vfunc_5(char flag) {
-    *(void**)this = &prop_vftable;
-    elem.Fn();
-    BaseFn();
+    *(void**)this = &hulk_at_004191ac;
+    elem.Fn_0027af50();
+    BaseFn_002345b0();
     if (flag & 1)
-        Cleanup(this);
+        Cleanup_0008d330(this);
     return this;
 }
 
@@ -526,8 +526,8 @@ hulkfight::motion::PropMassCondition* hulkfight::motion::PropMassCondition::vfun
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropAtRestCondition* hulkfight::motion::PropAtRestCondition::vfunc_5(signed char flags) {
-    *(void***)this = Condition_183000_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004191cc;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -541,8 +541,8 @@ hulkfight::motion::PropAtRestCondition* hulkfight::motion::PropAtRestCondition::
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropIsAttachedCondition* hulkfight::motion::PropIsAttachedCondition::vfunc_5(signed char flags) {
-    *(void***)this = Condition_183030_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004191ec;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -554,9 +554,9 @@ hulkfight::motion::PropIsAttachedCondition* hulkfight::motion::PropIsAttachedCon
 // sym: ?vfunc_5@PropStateByNameCondition@motion@hulkfight@fn_f6fed9ea@@UAEPAV1234@I@Z
 hulkfight::motion::PropStateByNameCondition* hulkfight::motion::PropStateByNameCondition::vfunc_5(unsigned int flags) {
     Sub_183060* s = (Sub_183060*)((char*)this + 0x18);
-    *(hulk_intptr*)this = (hulk_intptr)&vftable_183060;
-    s->Init();
-    Second();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0041920c;
+    s->Init_0027af50();
+    Second_002345b0();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -569,8 +569,8 @@ hulkfight::motion::PropStateByNameCondition* hulkfight::motion::PropStateByNameC
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropStateByIndexCondition* hulkfight::motion::PropStateByIndexCondition::vfunc_5(signed char flags) {
-    *(void***)this = Condition_183090_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041922c;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -584,8 +584,8 @@ hulkfight::motion::PropStateByIndexCondition* hulkfight::motion::PropStateByInde
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropMissileCountCondition* hulkfight::motion::PropMissileCountCondition::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1830c0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041924c;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -599,8 +599,8 @@ hulkfight::motion::PropMissileCountCondition* hulkfight::motion::PropMissileCoun
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropCollidedWithWorldCondition* hulkfight::motion::PropCollidedWithWorldCondition::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1830f0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041926c;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -614,8 +614,8 @@ hulkfight::motion::PropCollidedWithWorldCondition* hulkfight::motion::PropCollid
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::SmartPropIsCargoCondition* hulkfight::motion::SmartPropIsCargoCondition::vfunc_5(signed char flags) {
-    *(void***)this = Condition_183120_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041928c;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -629,8 +629,8 @@ hulkfight::motion::SmartPropIsCargoCondition* hulkfight::motion::SmartPropIsCarg
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::CSMPropIsCharacterCondition* hulkfight::motion::CSMPropIsCharacterCondition::vfunc_5(signed char flags) {
-    *(void***)this = Condition_183150_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004192ac;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -644,8 +644,8 @@ hulkfight::motion::CSMPropIsCharacterCondition* hulkfight::motion::CSMPropIsChar
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropActorToPropTrack* hulkfight::motion::PropActorToPropTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_183180_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004192cc;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -656,9 +656,9 @@ hulkfight::motion::PropActorToPropTrack* hulkfight::motion::PropActorToPropTrack
 // 0x001831b0 hulkfight::motion::PropSetStateByNameTrack::vfunc_5 (46 B): matches/0x001831b0.cpp
 // sym: ?Del@PropSetStateByNameTrack_1831b0@fn_f6fed9ea@@QAEPAXE@Z
 void* PropSetStateByNameTrack_1831b0::Del(unsigned char flags) {
-    vptr = g_vftable_1831b0;
-    s.Init();
-    Fin();
+    vptr = hulk_at_004192fc;
+    s.Init_0027af50();
+    Fin_00236d60();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -671,8 +671,8 @@ void* PropSetStateByNameTrack_1831b0::Del(unsigned char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropActorThinkingTrack* hulkfight::motion::PropActorThinkingTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_1831e0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041932c;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -686,8 +686,8 @@ hulkfight::motion::PropActorThinkingTrack* hulkfight::motion::PropActorThinkingT
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropDropTrack* hulkfight::motion::PropDropTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_183210_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041935c;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -698,9 +698,9 @@ hulkfight::motion::PropDropTrack* hulkfight::motion::PropDropTrack::vfunc_5(sign
 // 0x00183240 hulkfight::motion::PropAnimationTrack::vfunc_5 (46 B): matches/0x00183240.cpp
 // sym: ?f5@PropAnimationTrack_183240@fn_f6fed9ea@@QAEPAV12@E@Z
 PropAnimationTrack_183240* PropAnimationTrack_183240::f5(unsigned char flags) {
-    vptr = g_vftable_183240;
-    sub.Fin();
-    Fin();
+    vptr = hulk_at_0041938c;
+    sub.Fin_0027af50();
+    Fin_00236d60();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -713,8 +713,8 @@ PropAnimationTrack_183240* PropAnimationTrack_183240::f5(unsigned char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::GrapplePropDamageTrack* hulkfight::motion::GrapplePropDamageTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_183270_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004193bc;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -725,12 +725,12 @@ hulkfight::motion::GrapplePropDamageTrack* hulkfight::motion::GrapplePropDamageT
 // 0x001832a0 hulkfight::motion::PropThrowTrack::vfunc_5 (54 B): matches/0x001832a0.cpp
 // sym: ?f@PropThrowTrack_1832a0@fn_f6fed9ea@@QAEPAV12@E@Z
 PropThrowTrack_1832a0* PropThrowTrack_1832a0::f(unsigned char fl) {
-    vptr = g_vftable_1832a0;
+    vptr = hulk_at_004193ec;
     FUN_0027af50(&s78);
     FUN_00234150(&s68);
-    Fin();
+    Fin_00236d60();
     if (fl & 1)
-        Free(this);
+        Free_0008d330(this);
     return this;
 }
 
@@ -740,11 +740,11 @@ PropThrowTrack_1832a0* PropThrowTrack_1832a0::f(unsigned char fl) {
 hulkfight::motion::BallAndChainReturnTrack* hulkfight::motion::BallAndChainReturnTrack::vfunc_5(u8_1832e0 flag) {
     Sub_1832e0* a = (Sub_1832e0*)((char*)this + 0x60);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0041941c);
-    a->Init();
-    ((Sub_1832e0*)((char*)this + 0x48))->Init();
-    this->BaseInit();
+    a->Init_0027af50();
+    ((Sub_1832e0*)((char*)this + 0x48))->Init_0027af50();
+    this->BaseInit_00236d60();
     if (flag & 1)
-        cleanup(this);
+        cleanup_0008d330(this);
     return this;
 }
 
@@ -755,8 +755,8 @@ hulkfight::motion::BallAndChainReturnTrack* hulkfight::motion::BallAndChainRetur
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropSetStateByIndexTrack* hulkfight::motion::PropSetStateByIndexTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_183320_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041944c;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -768,11 +768,11 @@ hulkfight::motion::PropSetStateByIndexTrack* hulkfight::motion::PropSetStateByIn
 // sym: ?vfunc_5@BallAndChainShootTrack@motion@hulkfight@fn_f6fed9ea@@UAEPAV1234@E@Z
 hulkfight::motion::BallAndChainShootTrack* hulkfight::motion::BallAndChainShootTrack::vfunc_5(u8_183350 x) {
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_0041947c);
-    ((Sub_183350*)((char*)this + 0x78))->Init();
-    ((Sub_183350*)((char*)this + 0x60))->Init();
-    BaseInit();
+    ((Sub_183350*)((char*)this + 0x78))->Init_0027af50();
+    ((Sub_183350*)((char*)this + 0x60))->Init_0027af50();
+    BaseInit_00236d60();
     if (x & 1)
-        DeleteObj(this);
+        DeleteObj_0008d330(this);
     return this;
 }
 
@@ -783,8 +783,8 @@ hulkfight::motion::BallAndChainShootTrack* hulkfight::motion::BallAndChainShootT
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::BallAndChainSpinTrack* hulkfight::motion::BallAndChainSpinTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_183390_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004194ac;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -798,8 +798,8 @@ hulkfight::motion::BallAndChainSpinTrack* hulkfight::motion::BallAndChainSpinTra
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::ShieldArcTrack* hulkfight::motion::ShieldArcTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_1833c0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004194dc;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -813,8 +813,8 @@ hulkfight::motion::ShieldArcTrack* hulkfight::motion::ShieldArcTrack::vfunc_5(si
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropAddToCollisionTrack* hulkfight::motion::PropAddToCollisionTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_1833f0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041950c;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -828,8 +828,8 @@ hulkfight::motion::PropAddToCollisionTrack* hulkfight::motion::PropAddToCollisio
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropAddToMissileCountTrack* hulkfight::motion::PropAddToMissileCountTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_183420_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041953c;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -843,8 +843,8 @@ hulkfight::motion::PropAddToMissileCountTrack* hulkfight::motion::PropAddToMissi
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropDamageTrack* hulkfight::motion::PropDamageTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_183450_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041956c;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -856,12 +856,12 @@ hulkfight::motion::PropDamageTrack* hulkfight::motion::PropDamageTrack::vfunc_5(
 // sym: ?vfunc_5@PropSpawnTrack@motion@hulkfight@fn_f6fed9ea@@UAEPAXE@Z
 void* hulkfight::motion::PropSpawnTrack::vfunc_5(unsigned char param) {
     void* m = *(void**)((char*)this + 0x10);
-    *(void**)this = (void*)&PropSpawnTrack_vftable;
+    *(void**)this = (void*)&hulk_at_0041959c;
     thunk_FUN_00267090(m);
-    ((SubObj_183480*)((char*)this + 0x18))->Reset();
-    this->DoSomething();
+    ((SubObj_183480*)((char*)this + 0x18))->Reset_0027af50();
+    this->DoSomething_00236d60();
     if (param & 1) {
-        thunk_FUN_00267090_2(this);
+        thunk_FUN_00267090_2_0008d330(this);
     }
     return this;
 }
@@ -873,8 +873,8 @@ void* hulkfight::motion::PropSpawnTrack::vfunc_5(unsigned char param) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::PropDestroyTrack* hulkfight::motion::PropDestroyTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_1834c0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004195cc;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

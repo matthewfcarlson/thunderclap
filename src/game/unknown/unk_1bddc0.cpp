@@ -21,7 +21,7 @@ class Obj_1bddc0 {
 };
 class Obj_1bde90 {
   public:
-    void clean();
+    void clean_000f7850();
 };
 class Thing_1bde90 {
   public:
@@ -32,7 +32,7 @@ class Thing_1bde90 {
 };
 class Obj_1bdeb0 {
   public:
-    void clean();
+    void clean_000f89e0();
 };
 class Thing_1bdeb0 {
   public:
@@ -42,7 +42,7 @@ class Thing_1bdeb0 {
     void target();
 };
 struct Ref_1bded0 {
-    void F(void*);
+    void FnF_000f8970(void*);
 };
 struct Obj_1bded0 {
     char pad[0x34];
@@ -52,7 +52,7 @@ struct Obj_1bded0 {
 };
 class Obj_1bdf00 {
   public:
-    void clean();
+    void clean_000f7ce0();
 };
 class Thing_1bdf00 {
   public:
@@ -120,9 +120,9 @@ namespace fn_fdbebb2a {
 // sym: ?target@Thing_1bde90@fn_fdbebb2a@@QAEXXZ
 void Thing_1bde90::target() {
     if (a)
-        a->clean();
+        a->clean_000f7850();
     if (b)
-        b->clean();
+        b->clean_000f7850();
 }
 
 
@@ -131,9 +131,9 @@ void Thing_1bde90::target() {
 // Same code shape as 0x001bde90 (propagated; names are from that function)
 void Thing_1bdeb0::target() {
     if (a)
-        a->clean();
+        a->clean_000f89e0();
     if (b)
-        b->clean();
+        b->clean_000f89e0();
 }
 
 
@@ -141,9 +141,9 @@ void Thing_1bdeb0::target() {
 // sym: ?Clear@Obj_1bded0@fn_fdbebb2a@@QAEXPAX@Z
 void Obj_1bded0::Clear(void* p) {
     if (a)
-        a->F(p);
+        a->FnF_000f8970(p);
     if (b)
-        b->F(p);
+        b->FnF_000f8970(p);
 }
 
 
@@ -152,9 +152,9 @@ void Obj_1bded0::Clear(void* p) {
 // Same code shape as 0x001bde90 (propagated; names are from that function)
 void Thing_1bdf00::target() {
     if (a)
-        a->clean();
+        a->clean_000f7ce0();
     if (b)
-        b->clean();
+        b->clean_000f7ce0();
 }
 
 

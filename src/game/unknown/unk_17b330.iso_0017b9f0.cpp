@@ -13,20 +13,20 @@ class Params_17b9f0 {
   public:
     int x;
 };
-extern Params_17b9f0 TypeA_17b9f0;
-extern Params_17b9f0 TypeB_17b9f0;
+extern Params_17b9f0 hulk_at_00494b44;
+extern Params_17b9f0 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_17b9f0*, Params_17b9f0*, int);
 struct TargetIconDistanceAction_nv_17b9f0 {
-    int Init(hulkfight::motion::TargetIconDistanceTrack*, hulk_intptr);
+    int Init_00176270(hulkfight::motion::TargetIconDistanceTrack*, hulk_intptr);
 };
-hulkfight::motion::TargetIconDistanceAction* __cdecl Alloc(int);
+hulkfight::motion::TargetIconDistanceAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::TargetIconDistanceTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_17b9f0, &TypeB_17b9f0, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::TargetIconDistanceAction* p = Alloc(0x24);
+        hulkfight::motion::TargetIconDistanceAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((TargetIconDistanceAction_nv_17b9f0*)(((hulkfight::motion::TargetIconDistanceAction*)(p))))->Init(this, c);
+            return ((TargetIconDistanceAction_nv_17b9f0*)(((hulkfight::motion::TargetIconDistanceAction*)(p))))->Init_00176270(this, c);
     }
     return 0;
 }

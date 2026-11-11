@@ -18,8 +18,8 @@ class TrackFactoryCasterTemplate_19c050 {
 };
 class Owner {
   public:
-    void Apply(void*);
-    void Set(void*);
+    void Apply_002367c0(void*);
+    void Set_002367c0(void*);
 };
 extern "C" void* Lookup(void*, TrackFactoryCasterTemplate_19c050*);
 } // namespace fn_fdcf800c
@@ -184,30 +184,30 @@ class TrackFactoryCasterTemplate_19c690 {
 };
 class Obj {
   public:
-    void Do(void*);
-    void Set(void*);
+    void Do_002367c0(void*);
+    void Set_002367c0(void*);
 };
-void* Cast(void*, TrackFactoryCasterTemplate_19c690*);
+void* Cast_00236ac0(void*, TrackFactoryCasterTemplate_19c690*);
 class TrackFactoryCasterTemplate_19c6c0 {
   public:
     virtual void cast();
 };
-void* __cdecl Find(void*, TrackFactoryCasterTemplate_19c6c0*);
+void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_19c6c0*);
 class TrackFactoryCasterTemplate_19c6f0 {
   public:
     virtual void Cast();
 };
-extern void* Find(void*, TrackFactoryCasterTemplate_19c6f0*);
+extern void* Find_00236ac0(void*, TrackFactoryCasterTemplate_19c6f0*);
 class TrackFactoryCasterTemplate_19c720 {
   public:
     virtual void Cast();
 };
-void* __cdecl Find(void*, TrackFactoryCasterTemplate_19c720*);
+void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_19c720*);
 class TrackFactoryCasterTemplate_19d130 {
   public:
     virtual void Cast();
 };
-void* Find(const char*, TrackFactoryCasterTemplate_19d130*);
+void* Find_00236ac0(const char*, TrackFactoryCasterTemplate_19d130*);
 } // namespace fn_fdcf800c
 namespace hulkfight { namespace motion {
 class FireMissileTrack_19d160 {
@@ -472,7 +472,7 @@ struct CasterB {
 extern "C" void* __cdecl FUN_002343e0(const char*, void*);
 class Registry {
   public:
-    void Add(void*);
+    void Add_00236760(void*);
 };
 
 
@@ -480,7 +480,7 @@ class Registry {
 // sym: _FUN_0019c050
 extern "C" void FUN_0019c050(Owner* owner, void* value) {
     TrackFactoryCasterTemplate_19c050 caster;
-    owner->Apply(Lookup(value, &caster));
+    owner->Apply_002367c0(Lookup(value, &caster));
 }
 
 
@@ -619,7 +619,7 @@ void FUN_0019c080()
 // sym: _FUN_0019c690
 extern "C" void FUN_0019c690(Obj* obj, void* p) {
     TrackFactoryCasterTemplate_19c690 c;
-    obj->Do(Cast(p, &c));
+    obj->Do_002367c0(Cast_00236ac0(p, &c));
 }
 
 
@@ -627,8 +627,8 @@ extern "C" void FUN_0019c690(Obj* obj, void* p) {
 // sym: _FUN_0019c6c0
 extern "C" void FUN_0019c6c0(Obj* a, void* b) {
     TrackFactoryCasterTemplate_19c6c0 c;
-    void* p = Find(b, &c);
-    a->Do(p);
+    void* p = Find_00236ac0(b, &c);
+    a->Do_002367c0(p);
 }
 
 
@@ -636,8 +636,8 @@ extern "C" void FUN_0019c6c0(Obj* a, void* b) {
 // sym: _FUN_0019c6f0
 extern "C" void FUN_0019c6f0(Obj* o, void* name) {
     TrackFactoryCasterTemplate_19c6f0 c;
-    void* p = Find(name, &c);
-    o->Set(p);
+    void* p = Find_00236ac0(name, &c);
+    o->Set_002367c0(p);
 }
 
 
@@ -645,8 +645,8 @@ extern "C" void FUN_0019c6f0(Obj* o, void* name) {
 // sym: _FUN_0019c720
 extern "C" void __cdecl FUN_0019c720(Obj* obj, void* arg) {
     TrackFactoryCasterTemplate_19c720 caster;
-    void* p = Find(arg, &caster);
-    obj->Set(p);
+    void* p = Find_00236ac0(arg, &caster);
+    obj->Set_002367c0(p);
 }
 
 
@@ -654,7 +654,7 @@ extern "C" void __cdecl FUN_0019c720(Obj* obj, void* arg) {
 // sym: _FUN_0019d130
 extern "C" void FUN_0019d130(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_19d130 caster;
-    owner->Set(Find(name, &caster));
+    owner->Set_002367c0(Find_00236ac0(name, &caster));
 }
 
 
@@ -921,13 +921,13 @@ class TrackFactoryCasterTemplate {
 } // namespace fight
 class Obj {
   public:
-    void Use(void*);
+    void Use_002367c0(void*);
 };
-void* Find(void*, fight::TrackFactoryCasterTemplate*);
+void* Find_00236ac0(void*, fight::TrackFactoryCasterTemplate*);
 extern "C" void FUN_0019de20(Obj* obj, void* value) {
     fight::TrackFactoryCasterTemplate caster;
-    void* found = Find(value, &caster);
-    obj->Use(found);
+    void* found = Find_00236ac0(value, &caster);
+    obj->Use_002367c0(found);
 }
 } // namespace fn_0019de20
 
@@ -1058,10 +1058,10 @@ extern "C" void __cdecl FUN_0019e3e0(Registry* reg) {
     int slot;
     CasterA* a = reinterpret_cast<CasterA*>(&slot);
     a->CasterA::CasterA();
-    reg->Add(FUN_002343e0(DAT_0041c1b0, a));
+    reg->Add_00236760(FUN_002343e0(DAT_0041c1b0, a));
     CasterB* b = reinterpret_cast<CasterB*>(&slot);
     b->CasterB::CasterB();
-    reg->Add(FUN_002343e0(DAT_0041c1a0, b));
+    reg->Add_00236760(FUN_002343e0(DAT_0041c1a0, b));
 }
 
 } // namespace fn_fdcf800c

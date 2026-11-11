@@ -28,7 +28,7 @@ class Obj {
     char c[0x1cc8];
     int flag;
     void run(hulk_intptr);
-    void f2(int);
+    void f2_000b90c0(int);
 };
 } // namespace fn_f87c96cc
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -111,20 +111,20 @@ public:
 };
 struct Obj_bc4d0;
 extern void* g_b_bc4d0;
-void __cdecl Fa(void*);
-void __cdecl Release(void*);
-Obj_bc4d0* Fc();
+void __cdecl Fa_000fc130(void*);
+void __cdecl Release_0008d340(void*);
+Obj_bc4d0* Fc_000fc1b0();
 struct Obj_bc4d0 {
-    void Fd();
+    void Fd_000f7ce0();
 };
 struct Sub_bc4d0 {
-    void Fe();
+    void Fe_001bdf00();
 };
 struct Mgr_bc4d0 {
-    void Ff();
+    void Ff_002665a0();
 };
 struct Dev_bc4d0 {
-    void Fg(int);
+    void Fg_00294980(int);
 };
 struct Main_bc4d0 {
     char pad0[0x10];
@@ -150,13 +150,13 @@ struct Object {
 };
 class Manager_bc750 {
   public:
-    void A(int);
-    void* B();
-    void D(void*);
+    void FnA_00089a30(int);
+    void* FnB_0008a2f0();
+    void FnD_00089810(void*);
 };
 class Other_bc750 {
   public:
-    void F(void*);
+    void FnF_00093c40(void*);
 };
 class Obj_bc750 {
   public:
@@ -187,7 +187,7 @@ void Obj::run(hulk_intptr arg) {
         FUN_000fc280(arg);
         if (ptr) {
             ((owners::Target_863e0 *)ptr)->FUN_000863e0(6);
-            f2(1);
+            f2_000b90c0(1);
         }
     }
 }
@@ -236,28 +236,28 @@ void QuestionScreen::FUN_000bc230(const char *title, const char *text, const cha
 // sym: ?Run@Main_bc4d0@fn_f87c96cc@@QAEXXZ
 // data: g_mgr_bc4d0 = DAT_004dd9cc
 void Main_bc4d0::Run() {
-    Fa((*(void**)&DAT_0049f3b0));
+    Fa_000fc130((*(void**)&DAT_0049f3b0));
     int i;
     for (i = 0; i < 0x80; i++) {
         if (!a[i])
             break;
-        Release(a[i]);
+        Release_0008d340(a[i]);
         a[i] = 0;
     }
     for (i = 0; i < 0x80; i++) {
         if (!b[i])
             break;
-        Release(b[i]);
+        Release_0008d340(b[i]);
         b[i] = 0;
     }
     FUN_000fc160();
-    Obj_bc4d0* o = Fc();
+    Obj_bc4d0* o = Fc_000fc1b0();
     if (o)
-        o->Fd();
+        o->Fd_000f7ce0();
     if (sub)
-        sub->Fe();
-    (*(Mgr_bc4d0**)&DAT_004dd9cc)->Ff();
-    dev->Fg(arg);
+        sub->Fe_001bdf00();
+    (*(Mgr_bc4d0**)&DAT_004dd9cc)->Ff_002665a0();
+    dev->Fg_00294980(arg);
     state = 3;
     flag = 0;
 }
@@ -294,15 +294,15 @@ void Object::FUN_000bc5c0(const char* name, hulk_intptr id, int mode, int unused
 void Obj_bc750::End() {
     if (m34 && m38) {
         ((::CScenarioManager *)m38)->FUN_001cc620(9);
-        m34->A(0);
-        void* edi = m34->B();
+        m34->FnA_00089a30(0);
+        void* edi = m34->FnB_0008a2f0();
         if (edi) {
             int ebx = ((int)((owners::NameTable_b4cf0 *)this)->FUN_000b4cf0((const char *)edi));
             if (ebx) {
                 if (m4c)
-                    m4c->F(edi);
+                    m4c->FnF_00093c40(edi);
                 ((owners::LevelName_895e0 *)m34)->FUN_000895e0((const char *)(hulk_uintptr)(int)ebx);
-                m34->D(edi);
+                m34->FnD_00089810(edi);
                 FUN_000fc300();
             }
         }

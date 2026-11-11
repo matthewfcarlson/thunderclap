@@ -13,20 +13,20 @@ class Params_188f60 {
   public:
     int x;
 };
-extern Params_188f60 TypeA_188f60;
-extern Params_188f60 TypeB_188f60;
+extern Params_188f60 hulk_at_00494b44;
+extern Params_188f60 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_188f60*, Params_188f60*, int);
 struct PropThrowAction_nv_188f60 {
-    int Init(hulkfight::motion::PropThrowTrack*, hulk_intptr);
+    int Init_00184110(hulkfight::motion::PropThrowTrack*, hulk_intptr);
 };
-hulkfight::motion::PropThrowAction* __cdecl Alloc(int);
+hulkfight::motion::PropThrowAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::PropThrowTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_188f60, &TypeB_188f60, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::PropThrowAction* p = Alloc(0x24);
+        hulkfight::motion::PropThrowAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((PropThrowAction_nv_188f60*)(((hulkfight::motion::PropThrowAction*)(p))))->Init(this, c);
+            return ((PropThrowAction_nv_188f60*)(((hulkfight::motion::PropThrowAction*)(p))))->Init_00184110(this, c);
     }
     return 0;
 }

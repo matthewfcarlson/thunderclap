@@ -45,7 +45,7 @@ class CKeyPoseAction_219c0 : public CAction_219c0 {
     Ref_219c0* m24;
     CKeyPoseAction_219c0* f2(unsigned char flags);
 };
-extern void* g_vftable_21a20[];
+extern void* hulk_at_003f3390[];
 class Ref_21a20 {
   public:
     virtual void F0();
@@ -77,7 +77,7 @@ class CComboMessageAction_21a60 : public CAction_21a60 {
     Ref_21a60* m;
     CComboMessageAction_21a60* f2(unsigned char flags);
 };
-extern void* g_vftable_21aa0[];
+extern void* hulk_at_003f3614[];
 class Ref_21aa0 {
   public:
     virtual void F0();
@@ -127,7 +127,7 @@ class CMoveAddYAction_21b40 : public CAction_21b40 {
     Ref_21b40* m;
     CMoveAddYAction_21b40* f2(unsigned char flags);
 };
-extern void* g_vftable_21b80[];
+extern void* hulk_at_003f368c[];
 class Ref_21b80 {
   public:
     virtual void F0();
@@ -276,7 +276,7 @@ class CSmartPropAttachAction_21e00 : public CAction_21e00 {
     Ref_21e00* m1;
     CSmartPropAttachAction_21e00* f2(unsigned char flags);
 };
-extern void* g_vftable_21e60[];
+extern void* hulk_at_003f3844[];
 class Ref_21e60 {
   public:
     virtual void F0();
@@ -343,7 +343,7 @@ CKeyPoseAction_219c0* CKeyPoseAction_219c0::f2(unsigned char flags) {
 // 0x00021a20 CSoundAction::vfunc_2 (57 B): matches/0x00021a20.cpp
 // sym: ?f2@CSoundAction_21a20@fn_fde8cdef@@QAEPAV12@E@Z
 CSoundAction_21a20* CSoundAction_21a20::f2(unsigned char flags) {
-    vptr = g_vftable_21a20;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -375,7 +375,7 @@ CComboMessageAction_21a60* CComboMessageAction_21a60::f2(unsigned char flags) {
 // 0x00021aa0 CMoveAction::vfunc_2 (82 B): matches/0x00021aa0.cpp
 // sym: ?f2@CMoveAction_21aa0@fn_fde8cdef@@QAEPAV12@E@Z
 CMoveAction_21aa0* CMoveAction_21aa0::f2(unsigned char flags) {
-    vptr = g_vftable_21aa0;
+    vptr = hulk_at_003f3614;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -429,7 +429,7 @@ CMoveAddYAction_21b40* CMoveAddYAction_21b40::f2(unsigned char flags) {
 // 0x00021b80 CSweepAction::vfunc_2 (82 B): matches/0x00021b80.cpp
 // sym: ?f2@CSweepAction_21b80@fn_fde8cdef@@QAEPAV12@E@Z
 CSweepAction_21b80* CSweepAction_21b80::f2(unsigned char flags) {
-    vptr = g_vftable_21b80;
+    vptr = hulk_at_003f368c;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -609,7 +609,7 @@ CSmartPropAttachAction_21e00* CSmartPropAttachAction_21e00::f2(unsigned char fla
 // 0x00021e60 CSmartPropUpdateAttachmentAction::vfunc_2 (82 B): matches/0x00021e60.cpp
 // sym: ?f2@CSmartPropUpdateAttachmentAction_21e60@fn_fde8cdef@@QAEPAV12@E@Z
 CSmartPropUpdateAttachmentAction_21e60* CSmartPropUpdateAttachmentAction_21e60::f2(unsigned char flags) {
-    vptr = g_vftable_21e60;
+    vptr = hulk_at_003f3844;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -632,7 +632,7 @@ CSmartPropUpdateAttachmentAction_21e60* CSmartPropUpdateAttachmentAction_21e60::
 // 0x00021ec0 CSmartPropSpawnAction::vfunc_2 (82 B): matches/0x00021ec0.cpp [wrapped: conflict: CSmartPropSpawnAction]
 // sym: ?vfunc_2@CSmartPropSpawnAction@fn_00021ec0@@QAEPAV12@E@Z
 namespace fn_00021ec0 {
-extern void* g_vftSpawnAction[];
+extern void* hulk_at_003f386c[];
 extern void* g_vftCAction[];
 
 struct IRef_21ec0 {
@@ -640,7 +640,7 @@ struct IRef_21ec0 {
     virtual void Release();
 };
 
-void DestroyAction(void* p);
+void DestroyAction_0008d330(void* p);
 
 class CSmartPropSpawnAction {
   public:
@@ -652,13 +652,13 @@ class CSmartPropSpawnAction {
     char m_pad8[0x40];
 
     CSmartPropSpawnAction* vfunc_2(unsigned char flags);
-    void CleanUp();
+    void CleanUp_002326a0();
 };
 
 CSmartPropSpawnAction* CSmartPropSpawnAction::vfunc_2(unsigned char flags) {
     IRef_21ec0* p;
 
-    m_vftable = (void*)g_vftSpawnAction;
+    m_vftable = (void*)hulk_at_003f386c;
     p = m_pField24;
     if (p != 0) {
         p->Release();
@@ -670,9 +670,9 @@ CSmartPropSpawnAction* CSmartPropSpawnAction::vfunc_2(unsigned char flags) {
         p->Release();
         m_pField1C = 0;
     }
-    CleanUp();
+    CleanUp_002326a0();
     if (flags & 1) {
-        DestroyAction(this);
+        DestroyAction_0008d330(this);
     }
     return this;
 }

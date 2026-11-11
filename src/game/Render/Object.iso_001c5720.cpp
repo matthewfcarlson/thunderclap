@@ -10,12 +10,12 @@
 class Store {
   public:
     virtual void f();
-    void Cleanup2();
+    void Cleanup2_001c7500();
     ~Store();
     int mData;
 };
 Store::~Store() {
     ((Render::StoreBase *)this)->FUN_001c7720();
-    Cleanup2();
+    Cleanup2_001c7500();
 }
 

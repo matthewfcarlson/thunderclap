@@ -227,7 +227,7 @@ struct Object {
 };
 class Sub_601f0 {
   public:
-    void Call();
+    void Call_0027af00();
 };
 struct Data_602a0 {
     int x;
@@ -490,7 +490,7 @@ void Object::FUN_00060170() {
 // 0x000601f0 FUN_000601f0 (25 B): matches/0x000601f0.cpp
 // sym: ?FUN_000601f0@Obj_601f0@owners@@QAEPAU12@XZ
 owners::Obj_601f0* owners::Obj_601f0::FUN_000601f0() {
-    ((Sub_601f0*)((char*)this + 0x140))->Call();
+    ((Sub_601f0*)((char*)this + 0x140))->Call_0027af00();
     G();
     return this;
 }

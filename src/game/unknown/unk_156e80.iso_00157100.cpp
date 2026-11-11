@@ -13,20 +13,20 @@ class Params_157100 {
   public:
     int x;
 };
-extern Params_157100 TypeA_157100;
-extern Params_157100 TypeB_157100;
+extern Params_157100 hulk_at_00494b44;
+extern Params_157100 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_157100*, Params_157100*, int);
 struct NoHitPushbackAction_nv_157100 {
-    int Init(hulkfight::motion::NoHitPushbackTrack*, hulk_intptr);
+    int Init_00151b30(hulkfight::motion::NoHitPushbackTrack*, hulk_intptr);
 };
-hulkfight::motion::NoHitPushbackAction* __cdecl Alloc(int);
+hulkfight::motion::NoHitPushbackAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::NoHitPushbackTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_157100, &TypeB_157100, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::NoHitPushbackAction* p = Alloc(0x24);
+        hulkfight::motion::NoHitPushbackAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((NoHitPushbackAction_nv_157100*)(((hulkfight::motion::NoHitPushbackAction*)(p))))->Init(this, c);
+            return ((NoHitPushbackAction_nv_157100*)(((hulkfight::motion::NoHitPushbackAction*)(p))))->Init_00151b30(this, c);
     }
     return 0;
 }

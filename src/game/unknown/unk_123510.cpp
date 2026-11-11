@@ -150,77 +150,77 @@ class Obj_123a90 {
     char m;
     char SetClearEveryFrame_00123a90(char x);
 };
-extern int* gTable_123ad0;
+extern int* hulk_at_004e0d64;
 class CCondition_123ad0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_123b40;
+extern int* hulk_at_004e0d6c;
 class CCondition_123b40 {
   public:
     virtual int vfunc_0(int);
 };
 struct Tail_123b90 {
-    void Init();
+    void Init_0027af50();
 };
 struct TargetArcCondition_123b90 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_002345b0();
     void Run();
 };
-extern void* vftable_123b90;
-extern int* gTable_123bd0;
+extern void* hulk_at_0040fd34;
+extern int* hulk_at_004e0d74;
 class CCondition_123bd0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_123c40;
+extern int* hulk_at_004e0d7c;
 class CCondition_123c40 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_123cb0;
+extern int* hulk_at_004e0d84;
 class CCondition_123cb0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_123d20;
+extern int* hulk_at_004e0d8c;
 class CCondition_123d20 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_123d90;
+extern int* hulk_at_004e0d94;
 class CCondition_123d90 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_123e00;
+extern int* hulk_at_004e0d9c;
 class CCondition_123e00 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_123e70;
+extern int* hulk_at_004e0da4;
 class CCondition_123e70 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_123ee0;
+extern int* hulk_at_004e0dac;
 class CCondition_123ee0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_123f40;
+extern int* hulk_at_004e0db4;
 class CCondition_123f40 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_123fb0;
+extern int* hulk_at_004e0dbc;
 class CCondition_123fb0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_124020;
+extern int* hulk_at_004e0dc4;
 class CCondition_124020 {
   public:
     virtual int vfunc_0(int);
@@ -734,7 +734,7 @@ void FUN_00123ab0() {
 // sym: ?vfunc_0@TargetDirectionYCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetDirectionYCondition::vfunc_0(int index) {
-    int* p = gTable_123ad0;
+    int* p = hulk_at_004e0d64;
     return p[index];
 }
 
@@ -753,7 +753,7 @@ void FUN_00123b20() {
 // sym: ?vfunc_0@TargetArcCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetArcCondition::vfunc_0(int index) {
-    int* p = gTable_123b40;
+    int* p = hulk_at_004e0d6c;
     return p[index];
 }
 
@@ -763,9 +763,9 @@ namespace fn_f239bcb5 {
 // sym: ?Run@TargetArcCondition_123b90@fn_f239bcb5@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void TargetArcCondition_123b90::Run() {
-    vptr = &vftable_123b90;
-    ((Tail_123b90*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_0040fd34;
+    ((Tail_123b90*)((char*)this + 0x18))->Init_0027af50();
+    Finish_002345b0();
 }
 
 
@@ -782,7 +782,7 @@ void FUN_00123bb0() {
 // sym: ?vfunc_0@TargetTypeCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetTypeCondition::vfunc_0(int index) {
-    int* p = gTable_123bd0;
+    int* p = hulk_at_004e0d74;
     return p[index];
 }
 
@@ -801,7 +801,7 @@ void FUN_00123c20() {
 // sym: ?vfunc_0@TargetDistanceCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetDistanceCondition::vfunc_0(int index) {
-    int* p = gTable_123c40;
+    int* p = hulk_at_004e0d7c;
     return p[index];
 }
 
@@ -820,7 +820,7 @@ void FUN_00123c90() {
 // sym: ?vfunc_0@TargetAngleYCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetAngleYCondition::vfunc_0(int index) {
-    int* p = gTable_123cb0;
+    int* p = hulk_at_004e0d84;
     return p[index];
 }
 
@@ -839,7 +839,7 @@ void FUN_00123d00() {
 // sym: ?vfunc_0@TargetDirectionCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetDirectionCondition::vfunc_0(int index) {
-    int* p = gTable_123d20;
+    int* p = hulk_at_004e0d8c;
     return p[index];
 }
 
@@ -858,7 +858,7 @@ void FUN_00123d70() {
 // sym: ?vfunc_0@TargetDistanceYCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetDistanceYCondition::vfunc_0(int index) {
-    int* p = gTable_123d90;
+    int* p = hulk_at_004e0d94;
     return p[index];
 }
 
@@ -877,7 +877,7 @@ void FUN_00123de0() {
 // sym: ?vfunc_0@TargetOrientationCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetOrientationCondition::vfunc_0(int index) {
-    int* p = gTable_123e00;
+    int* p = hulk_at_004e0d9c;
     return p[index];
 }
 
@@ -896,7 +896,7 @@ void FUN_00123e50() {
 // sym: ?vfunc_0@ProjectileDistanceCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ProjectileDistanceCondition::vfunc_0(int index) {
-    int* p = gTable_123e70;
+    int* p = hulk_at_004e0da4;
     return p[index];
 }
 
@@ -915,7 +915,7 @@ void FUN_00123ec0() {
 // sym: ?vfunc_0@HasTargetCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::HasTargetCondition::vfunc_0(int index) {
-    int* p = gTable_123ee0;
+    int* p = hulk_at_004e0dac;
     return p[index];
 }
 
@@ -934,7 +934,7 @@ void FUN_00123f20() {
 // sym: ?vfunc_0@TargetVelocityYCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetVelocityYCondition::vfunc_0(int index) {
-    int* p = gTable_123f40;
+    int* p = hulk_at_004e0db4;
     return p[index];
 }
 
@@ -953,7 +953,7 @@ void FUN_00123f90() {
 // sym: ?vfunc_0@TargetVelocityCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetVelocityCondition::vfunc_0(int index) {
-    int* p = gTable_123fb0;
+    int* p = hulk_at_004e0dbc;
     return p[index];
 }
 
@@ -972,7 +972,7 @@ void FUN_00124000() {
 // sym: ?vfunc_0@TargetDistanceXZCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetDistanceXZCondition::vfunc_0(int index) {
-    int* p = gTable_124020;
+    int* p = hulk_at_004e0dc4;
     return p[index];
 }
 

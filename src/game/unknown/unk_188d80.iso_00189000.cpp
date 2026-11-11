@@ -13,20 +13,20 @@ class Params_189000 {
   public:
     int x;
 };
-extern Params_189000 TypeA_189000;
-extern Params_189000 TypeB_189000;
+extern Params_189000 hulk_at_00494b44;
+extern Params_189000 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_189000*, Params_189000*, int);
 struct ShieldArcAction_nv_189000 {
-    int Init(hulkfight::motion::ShieldArcTrack*, hulk_intptr);
+    int Init_00184750(hulkfight::motion::ShieldArcTrack*, hulk_intptr);
 };
-hulkfight::motion::ShieldArcAction* __cdecl Alloc(int);
+hulkfight::motion::ShieldArcAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::ShieldArcTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_189000, &TypeB_189000, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::ShieldArcAction* p = Alloc(0x24);
+        hulkfight::motion::ShieldArcAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((ShieldArcAction_nv_189000*)(((hulkfight::motion::ShieldArcAction*)(p))))->Init(this, c);
+            return ((ShieldArcAction_nv_189000*)(((hulkfight::motion::ShieldArcAction*)(p))))->Init_00184750(this, c);
     }
     return 0;
 }

@@ -20,7 +20,7 @@ class Obj_acda0 {
     float GetValue();
 };
 struct Item_acf50 {
-    void Apply(int);
+    void Apply_000b07b0(int);
 };
 struct Owner_acf50 {
     char pad[0x10];
@@ -29,7 +29,7 @@ struct Owner_acf50 {
     void Apply(int);
 };
 struct Item_ad060 {
-    void Apply(int);
+    void Apply_000b07c0(int);
 };
 struct Owner_ad060 {
     char pad[0x10];
@@ -38,7 +38,7 @@ struct Owner_ad060 {
     void Apply(int);
 };
 struct Item_ad170 {
-    void Apply(int);
+    void Apply_000b07d0(int);
 };
 struct Owner_ad170 {
     char pad[0x10];
@@ -47,7 +47,7 @@ struct Owner_ad170 {
     void Apply(int);
 };
 struct Item_ad280 {
-    void Apply(int);
+    void Apply_000b07e0(int);
 };
 struct Owner_ad280 {
     char pad[0x10];
@@ -66,7 +66,7 @@ struct Container_ad2b0 {
     hulk_freg target();
 };
 struct Item_ad390 {
-    void Apply(int);
+    void Apply_000b07f0(int);
 };
 struct Owner_ad390 {
     char pad[0x10];
@@ -85,7 +85,7 @@ struct Collection_ad3c0 {
     hulk_freg FUN_000ad3c0();
 };
 struct Item_ad4a0 {
-    void Apply(int);
+    void Apply_000b0800(int);
 };
 struct Owner_ad4a0 {
     char pad[0x10];
@@ -96,9 +96,9 @@ struct Owner_ad4a0 {
 struct Item_ad580 {
     char pad[0x54];
     int id;
-    int Do(int a, int b);
+    int Do_000b0810(int a, int b);
 };
-int Fallback(int a, int b);
+int Fallback_000b08a0(int a, int b);
 class Manager_ad580 {
     char pad[0x10];
     int count;
@@ -112,9 +112,9 @@ class Item_ad7b0 {
 
   public:
     int key;
-    int action(int a, int b);
+    int action_000b0930(int a, int b);
 };
-int fallback(int a, int b);
+int fallback_000b09c0(int a, int b);
 class Owner_ad7b0 {
     char pad[0x10];
     int count;
@@ -128,7 +128,7 @@ class Item {
 
   public:
     int key;
-    bool Invoke(int a, int b, int c);
+    bool Invoke_000b19e0(int a, int b, int c);
 };
 class Obj {
     char pad[0x10];
@@ -140,7 +140,7 @@ class Obj {
 };
 class Item_ad930 {
   public:
-    void Release();
+    void Release_000b1db0();
 };
 class Owner_ad930 {
   public:
@@ -151,7 +151,7 @@ class Owner_ad930 {
 };
 class Item_ad960 {
   public:
-    void Release();
+    void Release_000b1aa0();
 };
 class Owner_ad960 {
   public:
@@ -184,7 +184,7 @@ void Owner_acf50::Apply(int value) {
     int i = 0;
     if (count > 0)
         do {
-            items[i]->Apply(value);
+            items[i]->Apply_000b07b0(value);
             ++i;
         } while (i < count);
 }
@@ -197,7 +197,7 @@ void Owner_ad060::Apply(int value) {
     int i = 0;
     if (count > 0)
         do {
-            items[i]->Apply(value);
+            items[i]->Apply_000b07c0(value);
             ++i;
         } while (i < count);
 }
@@ -210,7 +210,7 @@ void Owner_ad170::Apply(int value) {
     int i = 0;
     if (count > 0)
         do {
-            items[i]->Apply(value);
+            items[i]->Apply_000b07d0(value);
             ++i;
         } while (i < count);
 }
@@ -223,7 +223,7 @@ void Owner_ad280::Apply(int value) {
     int i = 0;
     if (count > 0)
         do {
-            items[i]->Apply(value);
+            items[i]->Apply_000b07e0(value);
             ++i;
         } while (i < count);
 }
@@ -249,7 +249,7 @@ void Owner_ad390::Apply(int value) {
     int i = 0;
     if (count > 0)
         do {
-            items[i]->Apply(value);
+            items[i]->Apply_000b07f0(value);
             ++i;
         } while (i < count);
 }
@@ -275,7 +275,7 @@ void Owner_ad4a0::Apply(int value) {
     int i = 0;
     if (count > 0)
         do {
-            items[i]->Apply(value);
+            items[i]->Apply_000b0800(value);
             ++i;
         } while (i < count);
 }
@@ -293,13 +293,13 @@ hulk_intptr Manager_ad580::Run(int id, int a, int b) {
         do {
             Item_ad580* p = *cur;
             if (p && p->id == key) {
-                return arr[i]->Do(a, b);
+                return arr[i]->Do_000b0810(a, b);
             }
             ++i;
             ++cur;
         } while (i < n);
     }
-    return Fallback(a, b);
+    return Fallback_000b08a0(a, b);
 }
 
 
@@ -308,10 +308,10 @@ hulk_intptr Manager_ad580::Run(int id, int a, int b) {
 hulk_intptr Owner_ad7b0::run(int key, int a, int b) {
     for (int i = 0; i < count; i++) {
         if (items[i] && items[i]->key == key) {
-            return items[i]->action(a, b);
+            return items[i]->action_000b0930(a, b);
         }
     }
-    return fallback(a, b);
+    return fallback_000b09c0(a, b);
 }
 
 
@@ -325,7 +325,7 @@ bool Obj::Find(int key, int a, int b, int c) {
         do {
             Item* p = *cur;
             if (p && p->key == key)
-                return items[i]->Invoke(a, b, c);
+                return items[i]->Invoke_000b19e0(a, b, c);
             ++i;
             ++cur;
         } while (i < n);
@@ -340,7 +340,7 @@ void Owner_ad930::Clear() {
     for (int i = 0; i < count; ++i) {
         Item_ad930* p = items[i];
         if (p)
-            p->Release();
+            p->Release_000b1db0();
     }
 }
 
@@ -352,7 +352,7 @@ void Owner_ad960::Clear() {
     for (int i = 0; i < count; ++i) {
         Item_ad960* p = items[i];
         if (p)
-            p->Release();
+            p->Release_000b1aa0();
     }
 }
 

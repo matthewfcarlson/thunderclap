@@ -15,12 +15,12 @@ class Params_188d80 {
   public:
     int x;
 };
-extern Params_188d80 TypeA_188d80;
-extern Params_188d80 TypeB_188d80;
+extern Params_188d80 hulk_at_00494b44;
+extern Params_188d80 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_188d80*, Params_188d80*, int);
 class Object_188d80 {
   public:
-    int Init(hulkfight::motion::PropDamageTrack*, hulk_intptr);
+    int Init_00183f60(hulkfight::motion::PropDamageTrack*, hulk_intptr);
 };
 extern "C" Object_188d80* __cdecl FUN_0008d690(int);
 struct RefCounted_188dd0 {
@@ -28,7 +28,7 @@ struct RefCounted_188dd0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_188dd0[];
+extern char hulk_at_00419704[];
 class PropDamageAction_188dd0 {
   public:
     PropDamageAction_188dd0* vfunc_2(int flag);
@@ -47,15 +47,15 @@ extern Params_188e20 TypeA_188e20;
 extern Params_188e20 TypeB_188e20;
 int __cdecl Check(void*, int, Params_188e20*, Params_188e20*, int);
 struct GrapplePropDamageAction_nv_188e20 {
-    int Init(hulkfight::motion::GrapplePropDamageTrack*, hulk_intptr);
+    int Init_00183ff0(hulkfight::motion::GrapplePropDamageTrack*, hulk_intptr);
 };
-hulkfight::motion::GrapplePropDamageAction* __cdecl Alloc(int);
+hulkfight::motion::GrapplePropDamageAction* __cdecl Alloc_0008d690(int);
 struct RefCounted_188e70 {
   public:
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_188e70[];
+extern char hulk_at_00419720[];
 class GrapplePropDamageAction_188e70 {
   public:
     GrapplePropDamageAction_188e70* vfunc_2(int flag);
@@ -71,7 +71,7 @@ struct RefCounted_188f10 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_188f10[];
+extern char hulk_at_0041973c[];
 class PropDestroyAction_188f10 {
   public:
     PropDestroyAction_188f10* vfunc_2(int flag);
@@ -87,7 +87,7 @@ struct RefCounted_188fb0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_188fb0[];
+extern char hulk_at_00419758[];
 class PropThrowAction_188fb0 {
   public:
     PropThrowAction_188fb0* vfunc_2(int flag);
@@ -105,11 +105,11 @@ class PropThrowAction_188fb0 {
 // sym: ?vfunc_10@PropDamageTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_188d80, &TypeB_188d80, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
         Object_188d80* p = FUN_0008d690(0x24);
         if (p)
-            return p->Init(this, c);
+            return p->Init_00183f60(this, c);
     }
     return 0;
 }
@@ -121,7 +121,7 @@ namespace fn_f437b5d0 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 PropDamageAction_188dd0* PropDamageAction_188dd0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_188dd0;
+    *p = (hulk_intptr)&hulk_at_00419704;
     RefCounted_188dd0* q = *(RefCounted_188dd0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -145,9 +145,9 @@ PropDamageAction_188dd0* PropDamageAction_188dd0::vfunc_2(int flag) {
 hulk_intptr hulkfight::motion::GrapplePropDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_188e20, &TypeB_188e20, 0);
     if (result) {
-        hulkfight::motion::GrapplePropDamageAction* p = Alloc(0x24);
+        hulkfight::motion::GrapplePropDamageAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((GrapplePropDamageAction_nv_188e20*)(((hulkfight::motion::GrapplePropDamageAction*)(p))))->Init(this, c);
+            return ((GrapplePropDamageAction_nv_188e20*)(((hulkfight::motion::GrapplePropDamageAction*)(p))))->Init_00183ff0(this, c);
     }
     return 0;
 }
@@ -159,7 +159,7 @@ namespace fn_f437b5d0 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 GrapplePropDamageAction_188e70* GrapplePropDamageAction_188e70::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_188e70;
+    *p = (hulk_intptr)&hulk_at_00419720;
     RefCounted_188e70* q = *(RefCounted_188e70* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -181,7 +181,7 @@ GrapplePropDamageAction_188e70* GrapplePropDamageAction_188e70::vfunc_2(int flag
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 PropDestroyAction_188f10* PropDestroyAction_188f10::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_188f10;
+    *p = (hulk_intptr)&hulk_at_0041973c;
     RefCounted_188f10* q = *(RefCounted_188f10* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -203,7 +203,7 @@ PropDestroyAction_188f10* PropDestroyAction_188f10::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 PropThrowAction_188fb0* PropThrowAction_188fb0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_188fb0;
+    *p = (hulk_intptr)&hulk_at_00419758;
     RefCounted_188fb0* q = *(RefCounted_188fb0* volatile*)&m_20;
     if (q != 0) {
         q->Release();

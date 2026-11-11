@@ -37,10 +37,10 @@ struct ThisCall_001f1c80 {
 };
 extern void thunk_FUN_00267090(CCollisionAction*);
 struct A_1eef70 {
-    void First();
+    void First_001f54c0();
 };
 struct B_1eef70 {
-    void Second();
+    void Second_001e9680();
 };
 struct Obj_1eef70 {
     A_1eef70* a;
@@ -76,7 +76,7 @@ struct Node {
     __int64 value;
     int pad;
     Node* next;
-    Node* Find(Key_1ef180*, char);
+    Node* Find_001ef180(Key_1ef180*, char);
 };
 struct Table_1ef180 {
     Node* parents;
@@ -95,7 +95,7 @@ public:
 };
 class E_1ef350 {
   public:
-    void F();
+    void FnF_0027af50();
 };
 struct Item_1ef370 {
     char pad[8];
@@ -107,7 +107,7 @@ class C_1ef370 {
     void f(hulk_intptr);
 };
 struct Item_1ef390 {
-    void Add(int, int);
+    void Add_0027af60(int, int);
 };
 struct Owner_1ef390 {
     char pad[0x40];
@@ -116,10 +116,10 @@ struct Owner_1ef390 {
 };
 struct Entry_1ef3c0 {
     char pad[8];
-    void Init(void*);
+    void Init_0027af70(void*);
 };
 struct Helper_1ef3c0 {
-    void Finish();
+    void Finish_0027af50();
 };
 
 } // namespace fn_fcd387f7
@@ -157,8 +157,8 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 // 0x001eef70 FUN_001eef70 (19 B): matches/0x001eef70.cpp
 // sym: ?Target@Obj_1eef70@fn_fcd387f7@@QAEXXZ
 void Obj_1eef70::Target() {
-    a->First();
-    b->Second();
+    a->First_001f54c0();
+    b->Second_001e9680();
 }
 
 
@@ -208,7 +208,7 @@ Node* Table_1ef180::Find(Key_1ef180* key, char recurse) {
     }
     if (recurse) {
         while (p && !result) {
-            result = p->Find(key, 1);
+            result = p->Find_001ef180(key, 1);
             p = p->next;
         }
     }
@@ -270,7 +270,7 @@ class Owner_1ef220 {
   public:
     char pad[0x10];
     Node* head;
-    void Finish();
+    void Finish_0027af50();
 };
 void __fastcall target(Owner_1ef220* self) {
     Node* n = self->head;
@@ -279,7 +279,7 @@ void __fastcall target(Owner_1ef220* self) {
         n = c->next;
         c->Release(1);
     }
-    self->Finish();
+    self->Finish_0027af50();
 }
 } // namespace fn_001ef220
 
@@ -363,7 +363,7 @@ void owners::C_1ef350::FUN_001ef350() {
     int n = 8;
     do {
         p = (E_1ef350*)((char*)p - 8);
-        p->F();
+        p->FnF_0027af50();
         --n;
     } while (n != 0);
 }
@@ -385,7 +385,7 @@ void C_1ef370::f(hulk_intptr x) {
 void Owner_1ef390::Add(int a, int b) {
     if (count < 8) {
         Item_1ef390* item = (Item_1ef390*)((char*)this + count * 8);
-        item->Add(a, b);
+        item->Add_0027af60(a, b);
         ++count;
     }
 }
@@ -396,9 +396,9 @@ void Owner_1ef390::Add(int a, int b) {
 // sym: ?FUN_001ef3c0@Owner_1ef3c0@owners@@QAEXPAX0@Z
 void owners::Owner_1ef3c0::FUN_001ef3c0(void* a, void* b) {
     if (count < 8) {
-        ((Entry_1ef3c0*)((char*)this + count * 8))->Init(&a);
+        ((Entry_1ef3c0*)((char*)this + count * 8))->Init_0027af70(&a);
         ++count;
     }
-    ((Helper_1ef3c0*)&a)->Finish();
+    ((Helper_1ef3c0*)&a)->Finish_0027af50();
 }
 

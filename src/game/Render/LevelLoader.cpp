@@ -19,7 +19,7 @@ namespace fn_f9d12736 {} using namespace fn_f9d12736;
 // ---- declarations shared by the functions below
 namespace fn_f9d12736 {
 struct I_1c7e90 {
-    void f(void*, void*);
+    void Fnf_001c7870(void*, void*);
 };
 class C_1c7e90 {
     char pad[0x18];
@@ -39,7 +39,7 @@ class Array {
     unsigned count;
     char pad2[8];
     Item** data;
-    int size();
+    int size_001c7520();
     Item* get(unsigned i) { return i < count ? data[i] : 0; }
 };
 class Owner {
@@ -91,7 +91,7 @@ class Manager_1c8000 {
 };
 class Obj_1c8000 {
   public:
-    void Process(Item_1c8000*);
+    void Process_0029f800(Item_1c8000*);
 };
 class Service_1c8000 {
   public:
@@ -161,15 +161,15 @@ class Node {
     char mHidden;
     char pad3[0x6d];
     float mVal;
-    char Check();
+    char Check_001c4af0();
 };
 struct Mgr_1c84e0 {
-    char Test(const char* s, int a, int b);
+    char Test_0023f760(const char* s, int a, int b);
 };
 class Obj_1c84e0 {
   public:
-    void A(Node* n, float f, int a, int b, int c);
-    void B(int x, Node* n, int y);
+    void FnA_001c7a60(Node* n, float f, int a, int b, int c);
+    void FnB_001c82c0(int x, Node* n, int y);
     void Fn(hulk_intptr x, Node* n, hulk_intptr y);
 };
 const float scale_1c8590 = 1000.0f;
@@ -182,7 +182,7 @@ class Item_1c8590 {
     virtual void e();
     virtual void f();
     virtual void g(float, int);
-    void Update(float);
+    void Update_001c68e0(float);
 };
 class Owner_1c8590 {
   public:
@@ -207,18 +207,18 @@ struct LevelLoader_1c8610 {
     Ref_1c8610* mRef;
     void F();
 };
-extern void* g_a_1c86e0[];
+extern void* hulk_at_00421ad8[];
 class Ref_1c86e0 {
   public:
     virtual void F0();
     virtual void Release();
 };
 struct Q_1c86e0 {
-    void Fin() throw();
+    void Fin_0027af50() throw();
 };
 struct Store {
     void* vptr;
-    void Fin2() throw();
+    void Fin2_001c7500() throw();
 };
 struct H {
     char pad[8];
@@ -227,7 +227,7 @@ struct H {
     int a[0x100];
     int padb;
     int b[4];
-    void Fin() throw();
+    void Fin_0027af50() throw();
 };
 class World_1c86e0 {
   public:
@@ -419,9 +419,9 @@ struct Frame_1c88f0 {
 };
 struct RoomLoader_1c8f60 {
     virtual void Run();
-    RoomLoader_1c8f60* Init(unsigned p);
+    RoomLoader_1c8f60* Init_001c6d10(unsigned p);
 };
-extern RoomLoader_1c8f60* __cdecl Alloc(unsigned n);
+extern RoomLoader_1c8f60* __cdecl Alloc_00263ea0(unsigned n);
 class LevelLoader {
   public:
     hulk_uintptr vptr;
@@ -430,7 +430,7 @@ class LevelLoader {
     RoomLoader_1c8f60* m1c;
     LevelLoader(hulk_uintptr a, hulk_uintptr b);
 };
-extern void* g_vftable_1c8fd0[];
+extern void* hulk_at_00421abc[];
 } // namespace fn_f9d12736
 void operator delete(void*);
 namespace fn_f9d12736 {
@@ -463,14 +463,14 @@ extern void thunk_FUN_00267090(World_1c9140*);
 // 0x001c7e90 FUN_001c7e90 (17 B): matches/0x001c7e90.cpp
 // sym: ?g@C_1c7e90@fn_f9d12736@@QAEXPAX@Z
 void C_1c7e90::g(void* x) {
-    inner.f(x, x);
+    inner.Fnf_001c7870(x, x);
 }
 
 
 // 0x001c7f10 FUN_001c7f10 (87 B): matches/0x001c7f10.cpp
 // sym: ?find@Owner@fn_f9d12736@@QAEPAVItem@2@H@Z
 Item* Owner::find(int id) {
-    int n = arr.size();
+    int n = arr.size_001c7520();
     for (int i = 0; i < n; ++i) {
         if (arr.get(i) && arr.get(i)->id == id)
             return arr.get(i);
@@ -531,11 +531,11 @@ void __stdcall FUN_001c8000(Manager_1c8000* m) {
                 if (item->flag) {
                     Service_1c8000* s = FUN_001c3d90();
                     Obj_1c8000* o = (Obj_1c8000*)s->vt[49];
-                    o->Process(item);
+                    o->Process_0029f800(item);
                 } else {
                     Service_1c8000* s = FUN_001c3d90();
                     Obj_1c8000* o = (Obj_1c8000*)s->vt[48];
-                    o->Process(item);
+                    o->Process_0029f800(item);
                 }
                 ++i;
             } while (i < m->capacity);
@@ -806,16 +806,16 @@ void Obj_1c84e0::Fn(hulk_intptr x, Node* n, hulk_intptr y) {
         return;
     if (n->mHidden)
         return;
-    if (!(*(Mgr_1c84e0**)&DAT_004dd6e8)->Test("Compute Shadows", 0x73, 1))
+    if (!(*(Mgr_1c84e0**)&DAT_004dd6e8)->Test_0023f760("Compute Shadows", 0x73, 1))
         return;
     if (n->mFlag) {
         float f = 0.6f;
-        if (n->Check())
+        if (n->Check_001c4af0())
             f = 1.0f;
-        A(n, f, (int)(n->mVal * 127.0f + 128.0f), 0x80, 0xff);
+        FnA_001c7a60(n, f, (int)(n->mVal * 127.0f + 128.0f), 0x80, 0xff);
     }
     if (n->mChild) {
-        B(x, n, y);
+        FnB_001c82c0(x, n, y);
     }
 }
 
@@ -837,7 +837,7 @@ void Owner_1c8590::Run(float dt) {
         Item_1c8590* p = a[i++];
         if (!p)
             break;
-        p->Update(dt);
+        p->Update_001c68e0(dt);
     }
 }
 
@@ -859,7 +859,7 @@ void LevelLoader_1c8610::F() {
 // 0x001c86e0 FUN_001c86e0 (172 B): matches/0x001c86e0.cpp
 // sym: ?f@World_1c86e0@fn_f9d12736@@QAEXXZ
 void World_1c86e0::f() {
-    *(void* volatile*)&vptr = g_a_1c86e0;
+    *(void* volatile*)&vptr = hulk_at_00421ad8;
     Ref_1c86e0* r8 = *(Ref_1c86e0* volatile*)&m8;
     if (r8) {
         r8->Release();
@@ -877,7 +877,7 @@ void World_1c86e0::f() {
         m760->Release();
         m760 = 0;
     }
-    q758.Fin();
+    q758.Fin_0027af50();
     H* hp = &h;
     int* p = hp->b + 4;
     int n = 4;
@@ -894,8 +894,8 @@ void World_1c86e0::f() {
     Store* s = &h.st;
     s->vptr = g_s;
     ((Render::StoreBase *)s)->FUN_001c7720();
-    s->Fin2();
-    hp->Fin();
+    s->Fin2_001c7500();
+    hp->Fin_0027af50();
 }
 
 
@@ -1189,10 +1189,10 @@ LevelLoader::LevelLoader(hulk_uintptr a, hulk_uintptr b) {
     vptr = ((hulk_intptr)DAT_00421abc);
     m14 = a;
     m18 = b;
-    RoomLoader_1c8f60* t = Alloc(0x18);
+    RoomLoader_1c8f60* t = Alloc_00263ea0(0x18);
     RoomLoader_1c8f60* r;
     if (t)
-        r = t->Init(m14);
+        r = t->Init_001c6d10(m14);
     else
         r = 0;
     m1c = r;
@@ -1203,7 +1203,7 @@ LevelLoader::LevelLoader(hulk_uintptr a, hulk_uintptr b) {
 // 0x001c8fd0 Render::LevelLoader::vfunc_2 (56 B): matches/0x001c8fd0.cpp
 // sym: ?f2@LevelLoader_1c8fd0@fn_f9d12736@@QAEPAV12@E@Z
 LevelLoader_1c8fd0* LevelLoader_1c8fd0::f2(unsigned char flags) {
-    vptr = g_vftable_1c8fd0;
+    vptr = hulk_at_00421abc;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

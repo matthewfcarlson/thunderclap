@@ -12,18 +12,18 @@ extern "C" char DAT_00494b44[];
 extern "C" char DAT_00494b60[];
 extern int Cast(void*, int, void*, void*, int);
 struct Obj_14ec10 {
-    Obj_14ec10* A();
-    Obj_14ec10* B();
-    unsigned char C();
+    Obj_14ec10* FnA_000592a0();
+    Obj_14ec10* FnB_00059a30();
+    unsigned char FnC_000358a0();
 };
 
 bool hulkfight::motion::HitPushbackCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * params = (void *)__p1; void * c = (void *)__p2;
 
     if (!Cast(params, 0, (void*)((hulk_intptr)DAT_00494b44), (void*)((hulk_intptr)DAT_00494b60), 0))
         return false;
-    Obj_14ec10* x = ((Obj_14ec10*)params)->A();
-    Obj_14ec10* y = x->B();
-    unsigned char z = y->C();
+    Obj_14ec10* x = ((Obj_14ec10*)params)->FnA_000592a0();
+    Obj_14ec10* y = x->FnB_00059a30();
+    unsigned char z = y->FnC_000358a0();
     return (unsigned char)(z - this->f_0c) == 0;
 }
 

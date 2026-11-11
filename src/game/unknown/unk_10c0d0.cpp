@@ -225,22 +225,22 @@ class Obj_10c6d0 {
   public:
     char Get();
 };
-extern int* gTable_10c730;
+extern int* hulk_at_004e0ae0;
 class CCondition_10c730 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_10c7a0;
+extern int* hulk_at_004e0ae8;
 class CCondition_10c7a0 {
   public:
     virtual int vfunc_0(int);
 };
 struct Member_10c7d0 {
-    void Release();
+    void Release_00234150();
 };
 struct Condition_10c7d0 {
     virtual void g();
-    void Shutdown();
+    void Shutdown_002345b0();
 };
 struct AIFightNodeCondition_10c7d0 : Condition_10c7d0 {
     char pad[8];
@@ -248,12 +248,12 @@ struct AIFightNodeCondition_10c7d0 : Condition_10c7d0 {
     ~AIFightNodeCondition_10c7d0();
     virtual void f();
 };
-extern int* gTable_10c810;
+extern int* hulk_at_004e0af0;
 class CCondition_10c810 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_10c870;
+extern int* hulk_at_004e0af8;
 class CCondition_10c870 {
   public:
     virtual int vfunc_0(int);
@@ -261,17 +261,17 @@ class CCondition_10c870 {
 int __cdecl FUN_0008d340(void *p);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int size);
 struct Owner { char pad[0x10]; char *text; hulk_intptr SetText_0010c8d0(const char *source); };
-extern int* gTable_10c950;
+extern int* hulk_at_004e0b00;
 class CCondition_10c950 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_10ca30;
+extern int* hulk_at_004e0b08;
 class CCondition_10ca30 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_10caa0;
+extern int* hulk_at_004e0b10;
 class CCondition_10caa0 {
   public:
     virtual int vfunc_0(int);
@@ -283,17 +283,17 @@ extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern "C" unsigned int __cdecl strlen(const char*);
 #endif
 namespace fn_f15aa14c {
-extern int* gTable_10cb80;
+extern int* hulk_at_004e0b18;
 class CCondition_10cb80 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_10cbe0;
+extern int* hulk_at_004e0b20;
 class CCondition_10cbe0 {
   public:
     virtual int vfunc_0(int);
 };
-extern "C" void FreeMem(void*);
+extern "C" void FreeMem_0008d340(void*);
 class Obj {
   public:
     char _m_pad_0[0x10];
@@ -301,38 +301,38 @@ class Obj {
     char SetText_0010cc40(const char* s);
     char SetText_0010ce60(const char* s);
 };
-extern int* gTable_10ccc0;
+extern int* hulk_at_004e0b28;
 class CCondition_10ccc0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_10cda0;
+extern int* hulk_at_004e0b30;
 class CCondition_10cda0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_10ce00;
+extern int* hulk_at_004e0b38;
 class CCondition_10ce00 {
   public:
     virtual int vfunc_0(int);
 };
 extern "C" void __cdecl thunk_FUN_00267090(void*);
-extern int* gTable_10cee0;
+extern int* hulk_at_004e0b40;
 class CCondition_10cee0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_10cf50;
+extern int* hulk_at_004e0b48;
 class CCondition_10cf50 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_10cfc0;
+extern int* hulk_at_004e0b50;
 class CCondition_10cfc0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_10d020;
+extern int* hulk_at_004e0b58;
 class CCondition_10d020 {
   public:
     virtual int vfunc_0(int);
@@ -946,7 +946,7 @@ void FUN_0010c710() {
 // sym: ?vfunc_0@OnBlockedTriangleCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::OnBlockedTriangleCondition::vfunc_0(int index) {
-    int* p = gTable_10c730;
+    int* p = hulk_at_004e0ae0;
     return p[index];
 }
 
@@ -965,7 +965,7 @@ void FUN_0010c780() {
 // sym: ?vfunc_0@AIFightNodeCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::AIFightNodeCondition::vfunc_0(int index) {
-    int* p = gTable_10c7a0;
+    int* p = hulk_at_004e0ae8;
     return p[index];
 }
 
@@ -974,8 +974,8 @@ namespace fn_f15aa14c {
 // 0x0010c7d0 FUN_0010c7d0 (25 B): matches/0x0010c7d0.cpp
 // sym: ??1AIFightNodeCondition_10c7d0@fn_f15aa14c@@QAE@XZ
 AIFightNodeCondition_10c7d0::~AIFightNodeCondition_10c7d0() {
-    m.Release();
-    Shutdown();
+    m.Release_00234150();
+    Shutdown_002345b0();
 }
 
 
@@ -992,7 +992,7 @@ void FUN_0010c7f0() {
 // sym: ?vfunc_0@DefendingCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::DefendingCondition::vfunc_0(int index) {
-    int* p = gTable_10c810;
+    int* p = hulk_at_004e0af0;
     return p[index];
 }
 
@@ -1011,7 +1011,7 @@ void FUN_0010c850() {
 // sym: ?vfunc_0@AIHistoryNameCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::AIHistoryNameCondition::vfunc_0(int index) {
-    int* p = gTable_10c870;
+    int* p = hulk_at_004e0af8;
     return p[index];
 }
 
@@ -1057,7 +1057,7 @@ void FUN_0010c930() {
 // sym: ?vfunc_0@HulkActionLargestCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::HulkActionLargestCondition::vfunc_0(int index) {
-    int* p = gTable_10c950;
+    int* p = hulk_at_004e0b00;
     return p[index];
 }
 
@@ -1066,20 +1066,20 @@ hulk_intptr hulkfight::ai::HulkActionLargestCondition::vfunc_0(int index) {
 // sym: ?run@CRawScript@fn_0010c990@@QAEXXZ
 namespace fn_0010c990 {
 // Same code shape as 0x000f99b0 (propagated; names are from that function)
-extern int rawVtable;
+extern int hulk_at_0040da04;
 class CRawScript {
   public:
     int* vptr;
     char pad[12];
     int mArg;
-    void finish();
+    void finish_002345b0();
     void run();
 };
-extern void __cdecl thunk(int);
+extern void __cdecl thunk_0008d340(int);
 void CRawScript::run() {
-    vptr = &rawVtable;
-    thunk(mArg);
-    finish();
+    vptr = &hulk_at_0040da04;
+    thunk_0008d340(mArg);
+    finish_002345b0();
 }
 } // namespace fn_0010c990
 
@@ -1098,7 +1098,7 @@ void FUN_0010ca10() {
 // sym: ?vfunc_0@PropsToChuckCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::PropsToChuckCondition::vfunc_0(int index) {
-    int* p = gTable_10ca30;
+    int* p = hulk_at_004e0b08;
     return p[index];
 }
 
@@ -1117,7 +1117,7 @@ void FUN_0010ca80() {
 // sym: ?vfunc_0@HulkActionRecentCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::HulkActionRecentCondition::vfunc_0(int index) {
-    int* p = gTable_10caa0;
+    int* p = hulk_at_004e0b10;
     return p[index];
 }
 
@@ -1126,20 +1126,20 @@ hulk_intptr hulkfight::ai::HulkActionRecentCondition::vfunc_0(int index) {
 // sym: ?run@CRawScript@fn_0010cae0@@QAEXXZ
 namespace fn_0010cae0 {
 // Same code shape as 0x000f99b0 (propagated; names are from that function)
-extern int rawVtable;
+extern int hulk_at_0040da44;
 class CRawScript {
   public:
     int* vptr;
     char pad[12];
     int mArg;
-    void finish();
+    void finish_002345b0();
     void run();
 };
-extern void __cdecl thunk(int);
+extern void __cdecl thunk_0008d340(int);
 void CRawScript::run() {
-    vptr = &rawVtable;
-    thunk(mArg);
-    finish();
+    vptr = &hulk_at_0040da44;
+    thunk_0008d340(mArg);
+    finish_002345b0();
 }
 } // namespace fn_0010cae0
 
@@ -1172,7 +1172,7 @@ void FUN_0010cb60() {
 // sym: ?vfunc_0@LeashedCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::LeashedCondition::vfunc_0(int index) {
-    int* p = gTable_10cb80;
+    int* p = hulk_at_004e0b18;
     return p[index];
 }
 
@@ -1191,7 +1191,7 @@ void FUN_0010cbc0() {
 // sym: ?vfunc_0@KeyWordWaitCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::KeyWordWaitCondition::vfunc_0(int index) {
-    int* p = gTable_10cbe0;
+    int* p = hulk_at_004e0b20;
     return p[index];
 }
 
@@ -1200,20 +1200,20 @@ hulk_intptr hulkfight::ai::KeyWordWaitCondition::vfunc_0(int index) {
 // sym: ?run@CRawScript@fn_0010cc20@@QAEXXZ
 namespace fn_0010cc20 {
 // Same code shape as 0x000f99b0 (propagated; names are from that function)
-extern int rawVtable;
+extern int hulk_at_0040da84;
 class CRawScript {
   public:
     int* vptr;
     char pad[12];
     int mArg;
-    void finish();
+    void finish_002345b0();
     void run();
 };
-extern void __cdecl thunk(int);
+extern void __cdecl thunk_0008d340(int);
 void CRawScript::run() {
-    vptr = &rawVtable;
-    thunk(mArg);
-    finish();
+    vptr = &hulk_at_0040da84;
+    thunk_0008d340(mArg);
+    finish_002345b0();
 }
 } // namespace fn_0010cc20
 
@@ -1222,7 +1222,7 @@ namespace fn_f15aa14c {
 // 0x0010cc40 FUN_0010cc40 (82 B): matches/0x0010cc40.cpp
 // sym: ?SetText_0010cc40@Obj@fn_f15aa14c@@QAEDPBD@Z
 char Obj::SetText_0010cc40(const char* s) {
-    FreeMem(name);
+    FreeMem_0008d340(name);
     if (!s) {
         name = 0;
         return 1;
@@ -1246,7 +1246,7 @@ void FUN_0010cca0() {
 // sym: ?vfunc_0@FormationReadyCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::FormationReadyCondition::vfunc_0(int index) {
-    int* p = gTable_10ccc0;
+    int* p = hulk_at_004e0b28;
     return p[index];
 }
 
@@ -1255,20 +1255,20 @@ hulk_intptr hulkfight::ai::FormationReadyCondition::vfunc_0(int index) {
 // sym: ?run@CRawScript@fn_0010cd00@@QAEXXZ
 namespace fn_0010cd00 {
 // Same code shape as 0x000f99b0 (propagated; names are from that function)
-extern int rawVtable;
+extern int hulk_at_0040daa4;
 class CRawScript {
   public:
     int* vptr;
     char pad[12];
     int mArg;
-    void finish();
+    void finish_002345b0();
     void run();
 };
-extern void __cdecl thunk(int);
+extern void __cdecl thunk_0008d340(int);
 void CRawScript::run() {
-    vptr = &rawVtable;
-    thunk(mArg);
-    finish();
+    vptr = &hulk_at_0040daa4;
+    thunk_0008d340(mArg);
+    finish_002345b0();
 }
 } // namespace fn_0010cd00
 
@@ -1287,7 +1287,7 @@ void FUN_0010cd80() {
 // sym: ?vfunc_0@InActiveCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::InActiveCondition::vfunc_0(int index) {
-    int* p = gTable_10cda0;
+    int* p = hulk_at_004e0b30;
     return p[index];
 }
 
@@ -1306,7 +1306,7 @@ void FUN_0010cde0() {
 // sym: ?vfunc_0@HulkActionCountCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::HulkActionCountCondition::vfunc_0(int index) {
-    int* p = gTable_10ce00;
+    int* p = hulk_at_004e0b38;
     return p[index];
 }
 
@@ -1315,20 +1315,20 @@ hulk_intptr hulkfight::ai::HulkActionCountCondition::vfunc_0(int index) {
 // sym: ?run@CRawScript@fn_0010ce40@@QAEXXZ
 namespace fn_0010ce40 {
 // Same code shape as 0x000f99b0 (propagated; names are from that function)
-extern int rawVtable;
+extern int hulk_at_0040dae4;
 class CRawScript {
   public:
     int* vptr;
     char pad[12];
     int mArg;
-    void finish();
+    void finish_002345b0();
     void run();
 };
-extern void __cdecl thunk(int);
+extern void __cdecl thunk_0008d340(int);
 void CRawScript::run() {
-    vptr = &rawVtable;
-    thunk(mArg);
-    finish();
+    vptr = &hulk_at_0040dae4;
+    thunk_0008d340(mArg);
+    finish_002345b0();
 }
 } // namespace fn_0010ce40
 
@@ -1361,7 +1361,7 @@ void FUN_0010cec0() {
 // sym: ?vfunc_0@PropsToSuckCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::PropsToSuckCondition::vfunc_0(int index) {
-    int* p = gTable_10cee0;
+    int* p = hulk_at_004e0b40;
     return p[index];
 }
 
@@ -1380,7 +1380,7 @@ void FUN_0010cf30() {
 // sym: ?vfunc_0@RandomKeyWordWaitCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::RandomKeyWordWaitCondition::vfunc_0(int index) {
-    int* p = gTable_10cf50;
+    int* p = hulk_at_004e0b48;
     return p[index];
 }
 
@@ -1399,7 +1399,7 @@ void FUN_0010cfa0() {
 // sym: ?vfunc_0@TokenCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TokenCondition::vfunc_0(int index) {
-    int* p = gTable_10cfc0;
+    int* p = hulk_at_004e0b50;
     return p[index];
 }
 
@@ -1418,7 +1418,7 @@ void FUN_0010d000() {
 // sym: ?vfunc_0@FightingOtherNPCCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::FightingOtherNPCCondition::vfunc_0(int index) {
-    int* p = gTable_10d020;
+    int* p = hulk_at_004e0b58;
     return p[index];
 }
 

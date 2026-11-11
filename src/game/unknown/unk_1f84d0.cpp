@@ -51,7 +51,7 @@ class Owner_1f8760 {
   public:
     char pad[0x448];
     Child_1f8760* child;
-    Thing_1f8760* Get();
+    Thing_1f8760* Get_001d4c90();
     void Set(Child_1f8760*);
 };
 class D {
@@ -97,12 +97,12 @@ struct Object {
  float target();
 };
 struct Item_1f89e0 {
-    __int64 Key();
+    __int64 Key_000443c0();
 };
 struct Collection_1f89e0 {
     char pad[12];
     int count;
-    Item_1f89e0* Find(__int64);
+    Item_1f89e0* Find_00044ad0(__int64);
 };
 struct Manager_1f89e0 {
     char pad[4];
@@ -116,8 +116,8 @@ struct Owner_1f89e0 {
     Item_1f89e0* value;
     char Test(const char*);
 };
-extern Root_1f89e0* gRoot_1f89e0;
-extern "C" __int64 __cdecl MakeKey(const char*);
+extern Root_1f89e0* hulk_at_004dd700;
+extern "C" __int64 __cdecl MakeKey_0027b020(const char*);
 class Helper_1f8a80 {
   public:
 };
@@ -125,7 +125,7 @@ class Owner_1f8a80 {
   public:
     char pad[0x20];
     volatile int member;
-    Helper_1f8a80* GetHelper();
+    Helper_1f8a80* GetHelper_001d4c90();
     void Set(int);
 };
 struct Vec3_1f8aa0 {
@@ -240,7 +240,7 @@ class Ret_1f9130 {
   public:
 };
 extern "C" Ret_1f9130* FUN_001d4c90();
-extern void InitText(char*, unsigned int, const char*, ...);
+extern void InitText_00267760(char*, unsigned int, const char*, ...);
 class Sub_1f9230 {
   public:
 };
@@ -256,9 +256,9 @@ class Obj_1f9230 {
     unsigned short x52;
 };
 struct Sub_1f93b0 {
-    void f();
+    void Fnf_0027af50();
 };
-void destroy(void*);
+void destroy_0008d330(void*);
 class X_1f93b0 {
     char pad[0x10];
 
@@ -267,11 +267,11 @@ class X_1f93b0 {
 };
 class Elem_1f93e0 {
   public:
-    char Test(int, int, int, int, int, int, int, int, int, int);
+    char Test_001f9130(int, int, int, int, int, int, int, int, int, int);
 };
 class Inner_1f9460 {
   public:
-    void g(int, int);
+    void Fng_001f9370(int, int);
 };
 class Obj_1f9460 {
     char p0[0x6e0];
@@ -294,11 +294,11 @@ class CEncounter {
     class Sub {
       public:
         int x;
-        void Init();
+        void Init_0027af00();
     } sub;
     char pad2[0x52 - 0x34];
     unsigned short field52;
-    void InitEncounter();
+    void InitEncounter_001f9230();
     CEncounter();
 };
 
@@ -424,7 +424,7 @@ namespace fn_f6c21956 {
 // 0x001f8760 FUN_001f8760 (36 B): matches/0x001f8760.cpp
 // sym: ?Set@Owner_1f8760@fn_f6c21956@@QAEXPAVChild_1f8760@2@@Z
 void Owner_1f8760::Set(Child_1f8760* arg) {
-    Thing_1f8760* t = Get();
+    Thing_1f8760* t = Get_001d4c90();
     Child_1f8760* old = child;
     ((owners::Obj_1d1900 *)t)->FUN_001d1900((hulk_intptr)(Child_1f8760 *)old);
     child = arg;
@@ -509,14 +509,14 @@ namespace fn_f6c21956 {
 // sym: ?Test@Owner_1f89e0@fn_f6c21956@@QAEDPBD@Z
 char Owner_1f89e0::Test(const char* name) {
     Owner_1f89e0* saved = this;
-    Collection_1f89e0* c = gRoot_1f89e0->mgr->item;
+    Collection_1f89e0* c = hulk_at_004dd700->mgr->item;
     if (c) {
-        value = c->Find(MakeKey(name));
+        value = c->Find_00044ad0(MakeKey_0027b020(name));
         if (value)
             return 1;
-        __int64 p = MakeKey(name);
+        __int64 p = MakeKey_0027b020(name);
         for (int i = 0; i < c->count; ++i) {
-            if (((Item_1f89e0 *)((owners::C_44ab0 *)c)->FUN_00044ab0(i))->Key() == p) {
+            if (((Item_1f89e0 *)((owners::C_44ab0 *)c)->FUN_00044ab0(i))->Key_000443c0() == p) {
                 saved->value = ((Item_1f89e0 *)((owners::C_44ab0 *)c)->FUN_00044ab0(i));
                 return 1;
             }
@@ -530,7 +530,7 @@ char Owner_1f89e0::Test(const char* name) {
 // 0x001f8a80 FUN_001f8a80 (30 B): matches/0x001f8a80.cpp
 // sym: ?Set@Owner_1f8a80@fn_f6c21956@@QAEXH@Z
 void Owner_1f8a80::Set(int value) {
-    Helper_1f8a80* h = GetHelper();
+    Helper_1f8a80* h = GetHelper_001d4c90();
     ((owners::Obj_1d1900 *)h)->FUN_001d1900((hulk_intptr)member);
     member = value;
 }
@@ -875,7 +875,7 @@ namespace fn_f6c21956 {
 // data: gText_1f9230 = DAT_00424f08, gZero_1f9230 = DAT_003f335c
 void __fastcall Target(Obj_1f9230* self) {
     self->value = 0;
-    InitText((char*)self + 0xc, 0x20, DAT_00424f08);
+    InitText_00267760((char*)self + 0xc, 0x20, DAT_00424f08);
     self->x40 = 0;
     self->x44 = 0;
     self->x48 = 0;
@@ -904,9 +904,9 @@ namespace fn_f6c21956 {
 // 0x001f93b0 FUN_001f93b0 (33 B): matches/0x001f93b0.cpp
 // sym: ?run@X_1f93b0@fn_f6c21956@@QAEPAV12@E@Z
 X_1f93b0* X_1f93b0::run(unsigned char flags) {
-    ((Sub_1f93b0*)((char*)this + 0x10))->f();
+    ((Sub_1f93b0*)((char*)this + 0x10))->Fnf_0027af50();
     if (flags & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 
@@ -917,7 +917,7 @@ X_1f93b0* X_1f93b0::run(unsigned char flags) {
 int owners::Obj_1f93e0::FUN_001f93e0(hulk_intptr a, int b, int c, int d, int e, int f, int g, int h, int i, int j) {
     int r = -1;
     if (count < 16) {
-        if (((Elem_1f93e0*)((char*)this + (count * 5 + 0x8c) * 8))->Test(((int)a), b, c, d, e, f, g, h, i, j)) {
+        if (((Elem_1f93e0*)((char*)this + (count * 5 + 0x8c) * 8))->Test_001f9130(((int)a), b, c, d, e, f, g, h, i, j)) {
             r = count;
             count = r + 1;
         }
@@ -934,7 +934,7 @@ bool Obj_1f9460::f(int a, int b, int x) {
         return false;
     if (b < 0 || b >= n)
         return false;
-    items[a].in.g(b, x);
+    items[a].in.Fng_001f9370(b, x);
     return true;
 }
 
@@ -942,9 +942,9 @@ bool Obj_1f9460::f(int a, int b, int x) {
 // 0x001f94b0 FUN_001f94b0 (34 B): matches/0x001f94b0.cpp
 // sym: ??0CEncounter@fn_f6c21956@@QAE@XZ
 CEncounter::CEncounter() {
-    sub.Init();
+    sub.Init_0027af00();
     field52 = 0;
-    InitEncounter();
+    InitEncounter_001f9230();
 }
 
 } // namespace fn_f6c21956

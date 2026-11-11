@@ -17,17 +17,17 @@ class X {
     int a;
     int b;
     int fn(int x, int y);
-    void other();
+    void other_000fc2f0();
 };
 class A {
   public:
     char pad[4];
     int x;
-    void f();
+    void Fnf_000fc330();
     int g(int, int);
 };
 struct Item_b4640 {
-    void Clear();
+    void Clear_0027af00();
     char pad[8];
 };
 struct Thing_b4640 {
@@ -39,7 +39,7 @@ struct Thing_b4640 {
 };
 struct Sub_b4670 {
     char pad[8];
-    void Clear();
+    void Clear_0027af50();
 };
 struct Thing_b4670 {
     char pad[8];
@@ -100,7 +100,7 @@ extern "C" int __stdcall FUN_000b45e0(int a, int b) {
 int X::fn(int x, int y) {
     if (!b)
         return -1;
-    other();
+    other_000fc2f0();
     return 0;
 }
 
@@ -110,7 +110,7 @@ int X::fn(int x, int y) {
 int A::g(int a, int b) {
     if (!x)
         return -1;
-    f();
+    Fnf_000fc330();
     return 0;
 }
 
@@ -118,10 +118,10 @@ int A::g(int a, int b) {
 // 0x000b4640 FUN_000b4640 (36 B): matches/0x000b4640.cpp
 // sym: ?Run@Thing_b4640@fn_fb479c50@@QAEPAU12@XZ
 Thing_b4640* Thing_b4640::Run() {
-    a.Clear();
-    b.Clear();
-    c.Clear();
-    d.Clear();
+    a.Clear_0027af00();
+    b.Clear_0027af00();
+    c.Clear_0027af00();
+    d.Clear_0027af00();
     return this;
 }
 
@@ -129,10 +129,10 @@ Thing_b4640* Thing_b4640::Run() {
 // 0x000b4670 FUN_000b4670 (35 B): matches/0x000b4670.cpp
 // sym: ?Clear@Thing_b4670@fn_fb479c50@@QAEXXZ
 void Thing_b4670::Clear() {
-    c.Clear();
-    b.Clear();
-    a.Clear();
-    ((Sub_b4670*)this)->Clear();
+    c.Clear_0027af50();
+    b.Clear_0027af50();
+    a.Clear_0027af50();
+    ((Sub_b4670*)this)->Clear_0027af50();
 }
 
 

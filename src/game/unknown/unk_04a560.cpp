@@ -13,57 +13,57 @@ namespace fn_f901265b {} using namespace fn_f901265b;
 
 // ---- declarations shared by the functions below
 namespace fn_f901265b {
-extern int* gTable_4a5c0;
+extern int* hulk_at_004dc540;
 class CCondition_4a5c0 {
   public:
     virtual int vfunc_0(int);
 };
 struct A_4a600 {
-    void* f();
+    void* Fnf_000592a0();
 };
 struct B_4a600 {
-    void* f();
+    void* Fnf_00059a30();
 };
 struct Manager_4a600 {
     char pad[0x1b28];
     int field;
 };
-extern int* gTable_4a650;
+extern int* hulk_at_004dc548;
 class CCondition_4a650 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_4a6c0;
+extern int* hulk_at_004dc550;
 class CCondition_4a6c0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_4a730;
+extern int* hulk_at_004dc558;
 class CCondition_4a730 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_4a7a0;
+extern int* hulk_at_004dc560;
 class CCondition_4a7a0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_4a840;
+extern int* hulk_at_004dc568;
 class CCondition_4a840 {
   public:
     virtual int vfunc_0(int);
 };
-extern int vftA, vftB;
+extern int hulk_at_003f74e0, hulk_at_003f6d50;
 class Sub_4a880 {
   public:
-    void Init();
+    void Init_00234150();
 };
 class CFightNodePrevCondition_4a880 {
   public:
     hulk_intptr vtable;
     char pad[0x10 - 4];
     Sub_4a880 sub;
-    void Finish();
+    void Finish_002345b0();
     void Run();
 };
 struct Node_4a8a0 {
@@ -76,9 +76,9 @@ class Manager_4a8a0 {
 };
 class Helper_4a8a0 {
   public:
-    Node_4a8a0* Get();
+    Node_4a8a0* Get_00059a30();
 };
-extern int* gTable_4a920;
+extern int* hulk_at_004dc570;
 class CCondition_4a920 {
   public:
     virtual int vfunc_0(int);
@@ -97,10 +97,10 @@ struct Obj_4a560 {
     int c;
 };
 struct Helper_4a560 {
-    Obj_4a560* First();
+    Obj_4a560* First_000592a0();
 };
 struct ObjHelper_4a560 {
-    Obj_4a560* Second();
+    Obj_4a560* Second_00059a30();
 };
 struct CGrappleAlertStatusCondition {
     int vfunc_8(hulk_intptr);
@@ -109,8 +109,8 @@ int CGrappleAlertStatusCondition::vfunc_8(hulk_intptr p) {
     if (!p)
         return 0;
     Helper_4a560* h = (Helper_4a560*)p;
-    Obj_4a560* x = h->First();
-    x = ((ObjHelper_4a560*)x)->Second();
+    Obj_4a560* x = h->First_000592a0();
+    x = ((ObjHelper_4a560*)x)->Second_00059a30();
     if (x->b)
         return x->b;
     if (x->a)
@@ -134,7 +134,7 @@ void FUN_0004a5a0() {
 // sym: ?vfunc_0@CRageModeCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CRageModeCondition::vfunc_0(int index) {
-    int* p = gTable_4a5c0;
+    int* p = hulk_at_004dc540;
     return p[index];
 }
 
@@ -144,9 +144,9 @@ hulk_intptr CRageModeCondition::vfunc_0(int index) {
 bool CRageModeCondition::vfunc_7(void* __p0) { void * arg = (void *)__p0;
 
     A_4a600* a = (A_4a600*)arg;
-    void* p = a->f();
+    void* p = a->Fnf_000592a0();
     B_4a600* b = (B_4a600*)p;
-    Manager_4a600* q = (Manager_4a600*)b->f();
+    Manager_4a600* q = (Manager_4a600*)b->Fnf_00059a30();
     bool r = q->field != 0;
     return r == this->f_0c;
 }
@@ -166,7 +166,7 @@ void FUN_0004a630() {
 // sym: ?vfunc_0@CGrappleTimerCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CGrappleTimerCondition::vfunc_0(int index) {
-    int* p = gTable_4a650;
+    int* p = hulk_at_004dc548;
     return p[index];
 }
 
@@ -185,7 +185,7 @@ void FUN_0004a6a0() {
 // sym: ?vfunc_0@CInactivityTimerCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CInactivityTimerCondition::vfunc_0(int index) {
-    int* p = gTable_4a6c0;
+    int* p = hulk_at_004dc550;
     return p[index];
 }
 
@@ -194,7 +194,7 @@ hulk_intptr CInactivityTimerCondition::vfunc_0(int index) {
 // sym: ?vfunc_0@CCharacterFloatCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCharacterFloatCondition::vfunc_0(int index) {
-    int* p = gTable_4a730;
+    int* p = hulk_at_004dc558;
     return p[index];
 }
 
@@ -203,7 +203,7 @@ hulk_intptr CCharacterFloatCondition::vfunc_0(int index) {
 // sym: ?vfunc_0@CCharacterBoolCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCharacterBoolCondition::vfunc_0(int index) {
-    int* p = gTable_4a7a0;
+    int* p = hulk_at_004dc560;
     return p[index];
 }
 
@@ -251,7 +251,7 @@ void FUN_0004a820() {
 // sym: ?vfunc_0@CFightNodePrevCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CFightNodePrevCondition::vfunc_0(int index) {
-    int* p = gTable_4a840;
+    int* p = hulk_at_004dc568;
     return p[index];
 }
 
@@ -260,10 +260,10 @@ namespace fn_f901265b {
 // 0x0004a880 FUN_0004a880 (31 B): matches/0x0004a880.cpp
 // sym: ?Run@CFightNodePrevCondition_4a880@fn_f901265b@@QAEXXZ
 void CFightNodePrevCondition_4a880::Run() {
-    *(hulk_intptr*)this = (hulk_intptr)&vftA;
-    sub.Init();
-    *(hulk_intptr*)this = (hulk_intptr)&vftB;
-    Finish();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f74e0;
+    sub.Init_00234150();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f6d50;
+    Finish_002345b0();
 }
 
 } // namespace fn_f901265b
@@ -274,7 +274,7 @@ bool CFightNodePrevCondition::vfunc_7(void* __p0) { void * arg = (void *)__p0;
 
     Manager_4a8a0* m = (Manager_4a8a0*)arg;
     Node_4a8a0* n = ((Node_4a8a0 *)((owners::Object_592a0 *)m)->FUN_000592a0());
-    Node_4a8a0* r = ((Helper_4a8a0*)n)->Get();
+    Node_4a8a0* r = ((Helper_4a8a0*)n)->Get_00059a30();
     int x = r->a;
     if (this->lastFrame == 0)
         x = r->b;
@@ -303,7 +303,7 @@ void FUN_0004a900() {
 // sym: ?vfunc_0@CIntentionSpeedCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CIntentionSpeedCondition::vfunc_0(int index) {
-    int* p = gTable_4a920;
+    int* p = hulk_at_004dc570;
     return p[index];
 }
 

@@ -11,19 +11,19 @@
 
 typedef unsigned int u32_17b840;
 struct TeleportToLocatorAction_nv_17b840 {
-    u32_17b840 init(hulkfight::motion::TeleportToLocatorTrack*, u32_17b840);
+    u32_17b840 init_00175cc0(hulkfight::motion::TeleportToLocatorTrack*, u32_17b840);
 };
 extern int MatchType(u32_17b840, int, const void*, const void*, int);
-extern hulkfight::motion::TeleportToLocatorAction* Alloc(unsigned int);
-extern const char ParamDesc[];
-extern const char FightParamsDesc[];
+extern hulkfight::motion::TeleportToLocatorAction* Alloc_0008d690(unsigned int);
+extern const char hulk_at_00494b44[];
+extern const char hulk_at_00494b60[];
 
 hulk_intptr hulkfight::motion::TeleportToLocatorTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b840 a = (u32_17b840)__p0; u32_17b840 b = (u32_17b840)__p1; u32_17b840 c = (u32_17b840)__p2;
 
-    if (MatchType(c, 0, ParamDesc, FightParamsDesc, 0)) {
-        hulkfight::motion::TeleportToLocatorAction* p = Alloc(0x30);
+    if (MatchType(c, 0, hulk_at_00494b44, hulk_at_00494b60, 0)) {
+        hulkfight::motion::TeleportToLocatorAction* p = Alloc_0008d690(0x30);
         if (p)
-            return (int)(((TeleportToLocatorAction_nv_17b840*)(((hulkfight::motion::TeleportToLocatorAction*)(p))))->init(this, c));
+            return (int)(((TeleportToLocatorAction_nv_17b840*)(((hulkfight::motion::TeleportToLocatorAction*)(p))))->init_00175cc0(this, c));
     }
     return (int)(0);
 }

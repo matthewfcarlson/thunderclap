@@ -13,7 +13,7 @@ namespace fn_f92e4dc5 {} using namespace fn_f92e4dc5;
 
 // ---- declarations shared by the functions below
 namespace fn_f92e4dc5 {
-extern int* gTable_486a0;
+extern int* hulk_at_004dc410;
 class CCondition_486a0 {
   public:
     virtual int vfunc_0(int);
@@ -22,61 +22,61 @@ extern "C" char DAT_003f6d50[];
 class Obj_486e0 {
   public:
     void* vptr;
-    void BaseF();
+    void BaseF_002345b0();
 };
-extern int* gTable_48710;
+extern int* hulk_at_004dc418;
 class CCondition_48710 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_48780;
+extern int* hulk_at_004dc420;
 class CCondition_48780 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_488b0;
+extern int* hulk_at_004dc428;
 class CCondition_488b0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_48930;
+extern int* hulk_at_004dc430;
 class CCondition_48930 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_489b0;
+extern int* hulk_at_004dc438;
 class CCondition_489b0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_48a20;
+extern int* hulk_at_004dc440;
 class CCondition_48a20 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_48a90;
+extern int* hulk_at_004dc448;
 class CCondition_48a90 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_48b60;
+extern int* hulk_at_004dc450;
 class CCondition_48b60 {
   public:
     virtual int vfunc_0(int);
 };
 struct Target_48bb0 { char pad[0x74]; int value; };
 struct Ctx_48bb0 { virtual void s0(); virtual void s1(); virtual void s2(); virtual Target_48bb0* GetTarget(); };
-extern int* gTable_48c70;
+extern int* hulk_at_004dc458;
 class CCondition_48c70 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_48ce0;
+extern int* hulk_at_004dc460;
 class CCondition_48ce0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_48d50;
+extern int* hulk_at_004dc468;
 class CCondition_48d50 {
   public:
     virtual int vfunc_0(int);
@@ -87,11 +87,11 @@ struct Obj_48db0 {
     int f2;
 };
 struct Stage_48db0 {
-    Obj_48db0* Get();
+    Obj_48db0* Get_00059a30();
 };
 struct Lookup_48db0 {
 };
-extern int* gTable_48e80;
+extern int* hulk_at_004dc470;
 class CCondition_48e80 {
   public:
     virtual int vfunc_0(int);
@@ -109,27 +109,27 @@ class Input_48ec0 {
     virtual void f2();
     virtual Result_48ec0* f3();
 };
-extern int* gTable_48f10;
+extern int* hulk_at_004dc478;
 class CCondition_48f10 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_48f80;
+extern int* hulk_at_004dc480;
 class CCondition_48f80 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_48ff0;
+extern int* hulk_at_004dc488;
 class CCondition_48ff0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_49060;
+extern int* hulk_at_004dc490;
 class CCondition_49060 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_490d0;
+extern int* hulk_at_004dc498;
 class CCondition_490d0 {
   public:
     virtual int vfunc_0(int);
@@ -149,7 +149,7 @@ void FUN_00048680() {
 // sym: ?vfunc_0@CAxisTimeCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CAxisTimeCondition::vfunc_0(int index) {
-    int* p = gTable_486a0;
+    int* p = hulk_at_004dc410;
     return p[index];
 }
 
@@ -167,10 +167,10 @@ struct CAxisTimeCondition {
     CAxisTimeCondition();
 };
 struct ThisCall_00234590 {
-    void Init(int);
+    void Init_00234590(int);
 };
 CAxisTimeCondition::CAxisTimeCondition() {
-    ((ThisCall_00234590*)(this))->Init(0);
+    ((ThisCall_00234590*)(this))->Init_00234590(0);
     fieldC = 0;
     vtable = (void*)((hulk_intptr)DAT_003f6e4c);
     field10 = 4;
@@ -185,7 +185,7 @@ namespace fn_f92e4dc5 {
 void __fastcall FUN_000486e0(Obj_486e0* p) {
     p->vptr = (void*)DAT_003f6d50;
     _ReadWriteBarrier();
-    p->BaseF();
+    p->BaseF_002345b0();
 }
 
 
@@ -202,7 +202,7 @@ void FUN_000486f0() {
 // sym: ?vfunc_0@CAxisSpeedCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CAxisSpeedCondition::vfunc_0(int index) {
-    int* p = gTable_48710;
+    int* p = hulk_at_004dc418;
     return p[index];
 }
 
@@ -221,7 +221,7 @@ void FUN_00048760() {
 // sym: ?vfunc_0@CAxisValueCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CAxisValueCondition::vfunc_0(int index) {
-    int* p = gTable_48780;
+    int* p = hulk_at_004dc420;
     return p[index];
 }
 
@@ -230,7 +230,7 @@ hulk_intptr CAxisValueCondition::vfunc_0(int index) {
 // sym: ?FUN_00048790@fn_00048790@@YIPAVCButtonValueCondition@1@PAV21@@Z
 namespace fn_00048790 {
 // Same code shape as 0x00048520 (propagated; names are from that function)
-extern int g_vft_48790;
+extern int hulk_at_003f6ea8;
 class CButtonValueCondition {
   public:
     hulk_intptr vf;
@@ -251,7 +251,7 @@ CButtonValueCondition* __fastcall FUN_00048790(CButtonValueCondition* self) {
     self->x6 = 4;
     self->x3 = 0;
     self->x5 = 0;
-    self->vf = (hulk_intptr)&g_vft_48790;
+    self->vf = (hulk_intptr)&hulk_at_003f6ea8;
     self->x7 = 0;
     return self;
 }
@@ -325,7 +325,7 @@ void FUN_00048890() {
 // sym: ?vfunc_0@CAxisArcCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CAxisArcCondition::vfunc_0(int index) {
-    int* p = gTable_488b0;
+    int* p = hulk_at_004dc428;
     return p[index];
 }
 
@@ -344,7 +344,7 @@ void FUN_00048910() {
 // sym: ?vfunc_0@CAxisDoubleTapCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CAxisDoubleTapCondition::vfunc_0(int index) {
-    int* p = gTable_48930;
+    int* p = hulk_at_004dc430;
     return p[index];
 }
 
@@ -363,7 +363,7 @@ void FUN_00048990() {
 // sym: ?vfunc_0@CAxisDirectionCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CAxisDirectionCondition::vfunc_0(int index) {
-    int* p = gTable_489b0;
+    int* p = hulk_at_004dc438;
     return p[index];
 }
 
@@ -382,7 +382,7 @@ void FUN_00048a00() {
 // sym: ?vfunc_0@CGroundDistanceCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CGroundDistanceCondition::vfunc_0(int index) {
-    int* p = gTable_48a20;
+    int* p = hulk_at_004dc440;
     return p[index];
 }
 
@@ -401,7 +401,7 @@ void FUN_00048a70() {
 // sym: ?vfunc_0@CCharacterSizeCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCharacterSizeCondition::vfunc_0(int index) {
-    int* p = gTable_48a90;
+    int* p = hulk_at_004dc448;
     return p[index];
 }
 
@@ -450,7 +450,7 @@ void FUN_00048b40() {
 // sym: ?vfunc_0@CCollisionHitLocationCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCollisionHitLocationCondition::vfunc_0(int index) {
-    int* p = gTable_48b60;
+    int* p = hulk_at_004dc450;
     return p[index];
 }
 
@@ -491,7 +491,7 @@ void FUN_00048c50() {
 // sym: ?vfunc_0@CCollisionDirectionCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCollisionDirectionCondition::vfunc_0(int index) {
-    int* p = gTable_48c70;
+    int* p = hulk_at_004dc458;
     return p[index];
 }
 
@@ -510,7 +510,7 @@ void FUN_00048cc0() {
 // sym: ?vfunc_0@CCollisionPushbackDirectionCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCollisionPushbackDirectionCondition::vfunc_0(int index) {
-    int* p = gTable_48ce0;
+    int* p = hulk_at_004dc460;
     return p[index];
 }
 
@@ -529,7 +529,7 @@ void FUN_00048d30() {
 // sym: ?vfunc_0@CNameFlagConditionBase@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CNameFlagConditionBase::vfunc_0(int index) {
-    int* p = gTable_48d50;
+    int* p = hulk_at_004dc468;
     return p[index];
 }
 
@@ -540,7 +540,7 @@ namespace fn_00048d60 {
 extern "C" char DAT_003f7010[];
 class Sub_48d60 {
   public:
-    void Init();
+    void Init_0027af00();
 };
 class CNameFlagConditionBase {
   public:
@@ -557,7 +557,7 @@ CNameFlagConditionBase::CNameFlagConditionBase() {
     ((ThisCall_00234590*)(this))->FUN_00234590(0);
     m0 = ((hulk_intptr)DAT_003f7010);
     mC = 0;
-    sub.Init();
+    sub.Init_0027af00();
 }
 } // namespace fn_00048d60
 
@@ -566,11 +566,11 @@ CNameFlagConditionBase::CNameFlagConditionBase() {
 // sym: ?Run@CNameFlagConditionBase_48d90@fn_00048d90@@QAEXXZ
 namespace fn_00048d90 {
 // Same code shape as 0x0004a030 (propagated; names are from that function)
-extern int vtableA;
-extern int vtableB;
+extern int hulk_at_003f7010;
+extern int hulk_at_003f6d50;
 class Part_48d90 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class CCondition {
   public:
@@ -581,13 +581,13 @@ class CNameFlagConditionBase_48d90 : public CCondition {
     char pad[12];
     Part_48d90 part;
     void Run();
-    void Finish();
+    void Finish_002345b0();
 };
 void CNameFlagConditionBase_48d90::Run() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtableA;
-    part.Init();
-    *(hulk_intptr*)this = (hulk_intptr)&vtableB;
-    Finish();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f7010;
+    part.Init_0027af50();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f6d50;
+    Finish_002345b0();
 }
 } // namespace fn_00048d90
 
@@ -596,7 +596,7 @@ void CNameFlagConditionBase_48d90::Run() {
 // sym: ?vfunc_7@CNameFlagCondition@@UAE_NPAX@Z
 bool CNameFlagCondition::vfunc_7(void* __p0) { hulk_intptr arg = (hulk_intptr)__p0;
 
-    Obj_48db0* obj = ((Stage_48db0 *)((owners::Object_592a0 *)(((Lookup_48db0*)arg)))->FUN_000592a0())->Get();
+    Obj_48db0* obj = ((Stage_48db0 *)((owners::Object_592a0 *)(((Lookup_48db0*)arg)))->FUN_000592a0())->Get_00059a30();
     switch (this->f_0c) {
     case 1:
         return (this->f_10 != obj->f1 || this->f_14 != obj->f2);
@@ -650,7 +650,7 @@ void FUN_00048e60() {
 // sym: ?vfunc_0@CCollisionInterruptCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCollisionInterruptCondition::vfunc_0(int index) {
-    int* p = gTable_48e80;
+    int* p = hulk_at_004dc470;
     return p[index];
 }
 
@@ -680,7 +680,7 @@ void FUN_00048ef0() {
 // sym: ?vfunc_0@CCollisionHeightCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCollisionHeightCondition::vfunc_0(int index) {
-    int* p = gTable_48f10;
+    int* p = hulk_at_004dc478;
     return p[index];
 }
 
@@ -699,7 +699,7 @@ void FUN_00048f60() {
 // sym: ?vfunc_0@CCollisionPushbackVelocityCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCollisionPushbackVelocityCondition::vfunc_0(int index) {
-    int* p = gTable_48f80;
+    int* p = hulk_at_004dc480;
     return p[index];
 }
 
@@ -718,7 +718,7 @@ void FUN_00048fd0() {
 // sym: ?vfunc_0@CCollisionPushbackYCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCollisionPushbackYCondition::vfunc_0(int index) {
-    int* p = gTable_48ff0;
+    int* p = hulk_at_004dc488;
     return p[index];
 }
 
@@ -737,7 +737,7 @@ void FUN_00049040() {
 // sym: ?vfunc_0@CCollisionPushbackYAngleCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCollisionPushbackYAngleCondition::vfunc_0(int index) {
-    int* p = gTable_49060;
+    int* p = hulk_at_004dc490;
     return p[index];
 }
 
@@ -756,7 +756,7 @@ void FUN_000490b0() {
 // sym: ?vfunc_0@CCollisionStunTimeCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CCollisionStunTimeCondition::vfunc_0(int index) {
-    int* p = gTable_490d0;
+    int* p = hulk_at_004dc498;
     return p[index];
 }
 

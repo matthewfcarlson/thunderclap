@@ -189,100 +189,100 @@ union U_14d180 {
     float f;
 };
 static const U_14d180 kU = {0x3c8efa35u};
-extern int* gTable_14d270;
+extern int* hulk_at_004e1028;
 class CCondition_14d270 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d2e0;
+extern int* hulk_at_004e1030;
 class CCondition_14d2e0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d350;
+extern int* hulk_at_004e1038;
 class CCondition_14d350 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d3b0;
+extern int* hulk_at_004e1040;
 class CCondition_14d3b0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d420;
+extern int* hulk_at_004e1048;
 class CCondition_14d420 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d490;
+extern int* hulk_at_004e1050;
 class CCondition_14d490 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d500;
+extern int* hulk_at_004e1058;
 class CCondition_14d500 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d560;
+extern int* hulk_at_004e1060;
 class CCondition_14d560 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d5c0;
+extern int* hulk_at_004e1068;
 class CCondition_14d5c0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d620;
+extern int* hulk_at_004e1070;
 class CCondition_14d620 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d690;
+extern int* hulk_at_004e1078;
 class CCondition_14d690 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d6f0;
+extern int* hulk_at_004e1080;
 class CCondition_14d6f0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d760;
+extern int* hulk_at_004e1088;
 class CCondition_14d760 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable_14d790[];
+extern void* hulk_at_004140f0[];
 class Str_14d790 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Condition_14d790 {
   public:
     void* vptr;
     char pad[12];
     Str_14d790 s;
-    void Fin();
+    void Fin_002345b0();
 };
 class CollisionThrownObjectCondition_14d790 : public Condition_14d790 {
   public:
     ~CollisionThrownObjectCondition_14d790();
 };
-extern int* gTable_14d7d0;
+extern int* hulk_at_004e1090;
 class CCondition_14d7d0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d830;
+extern int* hulk_at_004e1098;
 class CCondition_14d830 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vt_14d870[];
+extern void* hulk_at_00414130[];
 struct Sub_14d870 {
-    void Fin() throw();
+    void Fin_00234150() throw();
 };
 class Condition_14d870 {
   public:
@@ -295,60 +295,60 @@ class CollisionSourceNodeCondition_14d870 : public Condition_14d870 {
     Sub_14d870 sub;
     ~CollisionSourceNodeCondition_14d870() throw();
 };
-extern int* gTable_14d8b0;
+extern int* hulk_at_004e10a0;
 class CCondition_14d8b0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14d920;
+extern int* hulk_at_004e10a8;
 class CCondition_14d920 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable_14d960[];
+extern void* hulk_at_00414170[];
 class Str_14d960 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Condition_14d960 {
   public:
     void* vptr;
     char pad[12];
     Str_14d960 s;
-    void Fin();
+    void Fin_002345b0();
 };
 class CollisionTargetNameCondition_14d960 : public Condition_14d960 {
   public:
     ~CollisionTargetNameCondition_14d960();
 };
-extern int* gTable_14d9a0;
+extern int* hulk_at_004e10b0;
 class CCondition_14d9a0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14da10;
+extern int* hulk_at_004e10b8;
 class CCondition_14da10 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14da80;
+extern int* hulk_at_004e10c0;
 class CCondition_14da80 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_14dae0;
+extern int* hulk_at_004e10c8;
 class CCondition_14dae0 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable_14db20[];
+extern void* hulk_at_004141f0[];
 struct Sub_14db20 {
-    void Fin();
+    void Fin_0027af50();
 };
 class Condition_14db20 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002345b0();
 };
 class CollisionSourceNameCondition_14db20 : public Condition_14db20 {
   public:
@@ -1447,7 +1447,7 @@ void FUN_0014d250() {
 // sym: ?vfunc_0@InterruptAccumulatorCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::InterruptAccumulatorCondition::vfunc_0(int index) {
-    int* p = gTable_14d270;
+    int* p = hulk_at_004e1028;
     return p[index];
 }
 
@@ -1466,7 +1466,7 @@ void FUN_0014d2c0() {
 // sym: ?vfunc_0@CollisionSourceForceMagnitudeCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionSourceForceMagnitudeCondition::vfunc_0(int index) {
-    int* p = gTable_14d2e0;
+    int* p = hulk_at_004e1030;
     return p[index];
 }
 
@@ -1485,7 +1485,7 @@ void FUN_0014d330() {
 // sym: ?vfunc_0@CollisionThrowCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionThrowCondition::vfunc_0(int index) {
-    int* p = gTable_14d350;
+    int* p = hulk_at_004e1038;
     return p[index];
 }
 
@@ -1504,7 +1504,7 @@ void FUN_0014d390() {
 // sym: ?vfunc_0@CollisionSourceSizeCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionSourceSizeCondition::vfunc_0(int index) {
-    int* p = gTable_14d3b0;
+    int* p = hulk_at_004e1040;
     return p[index];
 }
 
@@ -1523,7 +1523,7 @@ void FUN_0014d400() {
 // sym: ?vfunc_0@CollisionSourceTypeCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionSourceTypeCondition::vfunc_0(int index) {
-    int* p = gTable_14d420;
+    int* p = hulk_at_004e1048;
     return p[index];
 }
 
@@ -1542,7 +1542,7 @@ void FUN_0014d470() {
 // sym: ?vfunc_0@CollisionTargetPriorityCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionTargetPriorityCondition::vfunc_0(int index) {
-    int* p = gTable_14d490;
+    int* p = hulk_at_004e1050;
     return p[index];
 }
 
@@ -1561,7 +1561,7 @@ void FUN_0014d4e0() {
 // sym: ?vfunc_0@CollisionDevastatorCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionDevastatorCondition::vfunc_0(int index) {
-    int* p = gTable_14d500;
+    int* p = hulk_at_004e1058;
     return p[index];
 }
 
@@ -1580,7 +1580,7 @@ void FUN_0014d540() {
 // sym: ?vfunc_0@HitPushbackCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HitPushbackCondition::vfunc_0(int index) {
-    int* p = gTable_14d560;
+    int* p = hulk_at_004e1060;
     return p[index];
 }
 
@@ -1599,7 +1599,7 @@ void FUN_0014d5a0() {
 // sym: ?vfunc_0@CollisionTargetIsTargetCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionTargetIsTargetCondition::vfunc_0(int index) {
-    int* p = gTable_14d5c0;
+    int* p = hulk_at_004e1068;
     return p[index];
 }
 
@@ -1618,7 +1618,7 @@ void FUN_0014d600() {
 // sym: ?vfunc_0@CollisionTargetSizeCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionTargetSizeCondition::vfunc_0(int index) {
-    int* p = gTable_14d620;
+    int* p = hulk_at_004e1070;
     return p[index];
 }
 
@@ -1637,7 +1637,7 @@ void FUN_0014d670() {
 // sym: ?vfunc_0@CollisionSourceIsMissileCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionSourceIsMissileCondition::vfunc_0(int index) {
-    int* p = gTable_14d690;
+    int* p = hulk_at_004e1078;
     return p[index];
 }
 
@@ -1656,7 +1656,7 @@ void FUN_0014d6d0() {
 // sym: ?vfunc_0@HitPushbackVelocityCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HitPushbackVelocityCondition::vfunc_0(int index) {
-    int* p = gTable_14d6f0;
+    int* p = hulk_at_004e1080;
     return p[index];
 }
 
@@ -1675,7 +1675,7 @@ void FUN_0014d740() {
 // sym: ?vfunc_0@CollisionThrownObjectCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionThrownObjectCondition::vfunc_0(int index) {
-    int* p = gTable_14d760;
+    int* p = hulk_at_004e1088;
     return p[index];
 }
 
@@ -1684,9 +1684,9 @@ namespace fn_f2fc69c6 {
 // 0x0014d790 FUN_0014d790 (25 B): matches/0x0014d790.cpp
 // sym: ??1CollisionThrownObjectCondition_14d790@fn_f2fc69c6@@QAE@XZ
 CollisionThrownObjectCondition_14d790::~CollisionThrownObjectCondition_14d790() {
-    vptr = g_vftable_14d790;
-    s.Init();
-    Fin();
+    vptr = hulk_at_004140f0;
+    s.Init_0027af50();
+    Fin_002345b0();
 }
 
 
@@ -1703,7 +1703,7 @@ void FUN_0014d7b0() {
 // sym: ?vfunc_0@CollisionExplosionCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionExplosionCondition::vfunc_0(int index) {
-    int* p = gTable_14d7d0;
+    int* p = hulk_at_004e1090;
     return p[index];
 }
 
@@ -1722,7 +1722,7 @@ void FUN_0014d810() {
 // sym: ?vfunc_0@CollisionSourceNodeCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionSourceNodeCondition::vfunc_0(int index) {
-    int* p = gTable_14d830;
+    int* p = hulk_at_004e1098;
     return p[index];
 }
 
@@ -1731,8 +1731,8 @@ namespace fn_f2fc69c6 {
 // 0x0014d870 FUN_0014d870 (25 B): matches/0x0014d870.cpp
 // sym: ??1CollisionSourceNodeCondition_14d870@fn_f2fc69c6@@QAE@XZ
 CollisionSourceNodeCondition_14d870::~CollisionSourceNodeCondition_14d870() throw() {
-    vptr = g_vt_14d870;
-    sub.Fin();
+    vptr = hulk_at_00414130;
+    sub.Fin_00234150();
 }
 
 
@@ -1749,7 +1749,7 @@ void FUN_0014d890() {
 // sym: ?vfunc_0@CollisionChargeCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionChargeCondition::vfunc_0(int index) {
-    int* p = gTable_14d8b0;
+    int* p = hulk_at_004e10a0;
     return p[index];
 }
 
@@ -1768,7 +1768,7 @@ void FUN_0014d900() {
 // sym: ?vfunc_0@CollisionTargetNameCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionTargetNameCondition::vfunc_0(int index) {
-    int* p = gTable_14d920;
+    int* p = hulk_at_004e10a8;
     return p[index];
 }
 
@@ -1777,9 +1777,9 @@ namespace fn_f2fc69c6 {
 // 0x0014d960 FUN_0014d960 (25 B): matches/0x0014d960.cpp
 // sym: ??1CollisionTargetNameCondition_14d960@fn_f2fc69c6@@QAE@XZ
 CollisionTargetNameCondition_14d960::~CollisionTargetNameCondition_14d960() {
-    vptr = g_vftable_14d960;
-    s.Init();
-    Fin();
+    vptr = hulk_at_00414170;
+    s.Init_0027af50();
+    Fin_002345b0();
 }
 
 
@@ -1796,7 +1796,7 @@ void FUN_0014d980() {
 // sym: ?vfunc_0@CollisionDamageHealthCompareCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionDamageHealthCompareCondition::vfunc_0(int index) {
-    int* p = gTable_14d9a0;
+    int* p = hulk_at_004e10b0;
     return p[index];
 }
 
@@ -1815,7 +1815,7 @@ void FUN_0014d9f0() {
 // sym: ?vfunc_0@CollisionTargetTypeCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionTargetTypeCondition::vfunc_0(int index) {
-    int* p = gTable_14da10;
+    int* p = hulk_at_004e10b8;
     return p[index];
 }
 
@@ -1834,7 +1834,7 @@ void FUN_0014da60() {
 // sym: ?vfunc_0@CollisionInterruptPriorityCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionInterruptPriorityCondition::vfunc_0(int index) {
-    int* p = gTable_14da80;
+    int* p = hulk_at_004e10c0;
     return p[index];
 }
 
@@ -1853,7 +1853,7 @@ void FUN_0014dac0() {
 // sym: ?vfunc_0@CollisionSourceNameCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CollisionSourceNameCondition::vfunc_0(int index) {
-    int* p = gTable_14dae0;
+    int* p = hulk_at_004e10c8;
     return p[index];
 }
 
@@ -1862,9 +1862,9 @@ namespace fn_f2fc69c6 {
 // 0x0014db20 FUN_0014db20 (25 B): matches/0x0014db20.cpp
 // sym: ?f@CollisionSourceNameCondition_14db20@fn_f2fc69c6@@QAEXXZ
 void CollisionSourceNameCondition_14db20::f() {
-    vptr = g_vftable_14db20;
-    sub.Fin();
-    Fin();
+    vptr = hulk_at_004141f0;
+    sub.Fin_0027af50();
+    Fin_002345b0();
 }
 
 

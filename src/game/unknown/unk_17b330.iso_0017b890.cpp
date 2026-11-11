@@ -7,8 +7,8 @@
 // sym: ?vfunc_2@TeleportRelativeAction@@QAEPAV1@E@Z
 // Same code shape as 0x0017b7f0 (propagated; names are from that function)
 #include "gen/fight.h"
-extern "C" void __cdecl opdelete(void*);
-extern void* const vftable_sym;
+extern "C" void __cdecl opdelete_0008d330(void*);
+extern void* const hulk_at_00417f48;
 
 class RelObj_17b890 {
   public:
@@ -18,7 +18,7 @@ class RelObj_17b890 {
 
 class Sub28 {
   public:
-    void Fn();
+    void Fn_0027af50();
 };
 
 class BaseCls_17b890 {
@@ -43,7 +43,7 @@ class TeleportRelativeAction {
 
 TeleportRelativeAction* TeleportRelativeAction::vfunc_2(unsigned char param) {
     char* self = (char*)this;
-    *(void**)self = (void*)&vftable_sym;
+    *(void**)self = (void*)&hulk_at_00417f48;
     RelObj_17b890** pp = (RelObj_17b890**)(self + 0x20);
     RelObj_17b890* p = *pp;
     if (p) {
@@ -55,10 +55,10 @@ TeleportRelativeAction* TeleportRelativeAction::vfunc_2(unsigned char param) {
     if (v) {
         *q1c = 0;
     }
-    ((Sub28*)(self + 0x28))->Fn();
+    ((Sub28*)(self + 0x28))->Fn_0027af50();
     ((fight::Action *)(((BaseCls_17b890*)self)))->FUN_002326a0();
     if (param & 1) {
-        opdelete(self);
+        opdelete_0008d330(self);
     }
     return (TeleportRelativeAction*)self;
 }

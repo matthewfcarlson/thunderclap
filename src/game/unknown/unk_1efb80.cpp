@@ -62,7 +62,7 @@ class CSoundCommand_StopNISEvent_1efd00 : public CSoundCommand_1efd00 {
 };
 class Manager {
   public:
-    void Add(CSoundCommand_1efd00*);
+    void Add_001ef260(CSoundCommand_1efd00*);
     void FUN_001ef260(int);
 };
 struct CSoundCommand_InstallMixer_1efd60 { int FUN_001ef730(int, int, int); };
@@ -224,7 +224,7 @@ void __stdcall FUN_001efd00(int id) {
     Manager* m = (*(Manager**)&DAT_004e3710);
     if ((*(Manager**)&DAT_004e3710)) {
         CSoundCommand_StopNISEvent_1efd00* cmd = new (6) CSoundCommand_StopNISEvent_1efd00(id);
-        m->Add(cmd);
+        m->Add_001ef260(cmd);
     }
 }
 
@@ -294,10 +294,10 @@ class Obj_1eff50 {
   public:
     char pad[0x10];
     Node* head;
-    void Flush();
+    void Flush_0027af50();
     Obj_1eff50* Dispose(unsigned char flag);
 };
-void destroy(Obj_1eff50* o);
+void destroy_0008d330(Obj_1eff50* o);
 
 Obj_1eff50* Obj_1eff50::Dispose(unsigned char flag) {
     Node* n = head;
@@ -306,9 +306,9 @@ Obj_1eff50* Obj_1eff50::Dispose(unsigned char flag) {
         n = n->next;
         cur->Release(1);
     }
-    Flush();
+    Flush_0027af50();
     if (flag & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 } // namespace fn_001eff50
@@ -406,7 +406,7 @@ class CSoundCommand_1f0210 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_004245a4[];
 namespace pure3d {
 class NonCopyable : public CSoundCommand_1f0210 {
   public:
@@ -417,7 +417,7 @@ class NonCopyable : public CSoundCommand_1f0210 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_004245a4;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

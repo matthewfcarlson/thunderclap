@@ -44,7 +44,7 @@ class Handler_bbb40 {
 };
 class A_bbb90 {
   public:
-    int Fn();
+    int Fn_000b50d0();
 };
 struct B_bbb90 {
     char pad[4];
@@ -53,7 +53,7 @@ struct B_bbb90 {
 };
 class Sub_bbcd0 {
   public:
-    void Fn(int a);
+    void Fn_001eb9e0(int a);
 };
 class Mgr_bbcd0 {
   public:
@@ -69,7 +69,7 @@ class Obj_bbcd0 {
 };
 class B {
   public:
-    void Run(int);
+    void Run_001eba30(int);
 };
 class A {
   public:
@@ -77,7 +77,7 @@ class A {
     B* b;
     inline void Fn(int n) {
         if (b)
-            b->Run(n);
+            b->Run_001eba30(n);
     }
 };
 class C {
@@ -88,9 +88,9 @@ class C {
 };
 class Child {
   public:
-    void Set(char);
-    void Fn(int, bool);
-    void Fn();
+    void Set_000b5920(char);
+    void Fn_00092870(int, bool);
+    void Fn_000b8f20();
 };
 class Parent {
   public:
@@ -102,11 +102,11 @@ class Owner {
   public:
     char _m_pad_0[0x4c];
     Child* child;
-    void Action();
+    void Action_000b99b0();
 };
 class Item {
   public:
-    void Use(const char*, void*);
+    void Use_001ec480(const char*, void*);
 };
 class Asset {
   public:
@@ -131,7 +131,7 @@ class Layout_bbeb0 {
     void* mVptr;
     struct Sub {
         int mField;
-        void Select(const char* name);
+        void Select_000b78e0(const char* name);
     }* mMember;
     int Get(int a, int b);
 };
@@ -153,7 +153,7 @@ class C_bbf20 {
 };
 class Dest {
   public:
-    void Fn(int);
+    void Fn_000b78e0(int);
 };
 class Obj {
   public:
@@ -162,11 +162,11 @@ class Obj {
     void Set(void* p);
     int Run(int n, int* v);
     int Fn(int a, int b);
-    void Do();
+    void Do_000b5ca0();
 };
 struct Values { int first; int second; };
 struct Helper_bbfd0 {
-    int F();
+    int FnF_000b7ff0();
 };
 class Obj_bbfd0 {
   public:
@@ -176,7 +176,7 @@ class Obj_bbfd0 {
 };
 class Helper_bbff0 {
   public:
-    int Go();
+    int Go_000b8430();
 };
 class Base_bbff0 {
   public:
@@ -188,7 +188,7 @@ class Base_bbff0 {
 extern "C" void __stdcall FUN_000bc040(int a);
 class Y_bc050 {
   public:
-    void Fn(float);
+    void Fn_000b8e70(float);
 };
 class X_bc050 {
   public:
@@ -198,7 +198,7 @@ class X_bc050 {
 };
 class P_bc060 {
   public:
-    int g();
+    int Fng_000b8940();
 };
 class O_bc060 {
   public:
@@ -399,7 +399,7 @@ int B_bbb90::F(int a, int b) {
     A_bbb90* p = m;
     if (!p)
         return -1;
-    int r = p->Fn();
+    int r = p->Fn_000b50d0();
     r = 0;
     return r;
 }
@@ -418,7 +418,7 @@ class Event {
 };
 class Receiver {
   public:
-    void Fire(Event*);
+    void Fire_001cbc20(Event*);
 };
 class Root {
     char pad[48];
@@ -426,7 +426,7 @@ class Root {
   public:
     Receiver* recv;
 };
-extern Root* gRoot;
+extern Root* hulk_at_004dd700;
 class Obj {
   public:
     void* v;
@@ -437,7 +437,7 @@ int Obj::Cancel(int a, int b) {
     if (!p)
         return -1;
     Event e(((char*)&DAT_00407974));
-    gRoot->recv->Fire(&e);
+    hulk_at_004dd700->recv->Fire_001cbc20(&e);
     DAT_004e222c = 1;
     return 0;
 }
@@ -449,7 +449,7 @@ int Obj::Cancel(int a, int b) {
 namespace fn_000bbc00 {
 class Sub {
   public:
-    int Fn();
+    int Fn_00089980();
 };
 struct Obj {
     int pad;
@@ -464,7 +464,7 @@ int Obj::Fn2(int a, int b) {
         return -1;
     Sub* s = *(Sub* volatile*)((char*)p + 0x34);
     if (s)
-        s->Fn();
+        s->Fn_00089980();
     return 0;
 }
 } // namespace fn_000bbc00
@@ -475,7 +475,7 @@ int Obj::Fn2(int a, int b) {
 namespace fn_000bbc20 {
 class Timer {
   public:
-    void Set(int);
+    void Set_000900a0(int);
 };
 class Obj {
   public:
@@ -493,7 +493,7 @@ int Owner::Run(int a, int b) {
         return -1;
     Timer* t = obj->timer;
     if (t)
-        t->Set(50000);
+        t->Set_000900a0(50000);
     return 0;
 }
 } // namespace fn_000bbc20
@@ -524,7 +524,7 @@ void Object::FUN_000bbc50(float input) {
 // 0x000bbc90 FUN_000bbc90 (26 B): matches/0x000bbc90.cpp [wrapped: compile error in a shared declaration (C2143)]
 // sym: ?Check@Obj@fn_000bbc90@@QAEXPAX@Z
 namespace fn_000bbc90 {
-void __cdecl Fn(char);
+void __cdecl Fn_00035db0(char);
 class Obj {
   public:
     int pad;
@@ -533,7 +533,7 @@ class Obj {
 };
 void Obj::Check(void* p) {
     if (ptr)
-        Fn(p == 0);
+        Fn_00035db0(p == 0);
 }
 } // namespace fn_000bbc90
 
@@ -545,10 +545,10 @@ class Inner {
   public:
     char pad[0x3c];
     Inner* ptr;
-    void Fn(int);
+    void Fn_001eba80(int);
     void Dispatch(int x) {
         if (ptr)
-            ptr->Fn(x);
+            ptr->Fn_001eba80(x);
     }
 };
 class Wrapper {
@@ -569,7 +569,7 @@ namespace fn_fc9dd2b5 {
 void Obj_bbcd0::Fn(int a) {
     Mgr_bbcd0* m = mgr;
     if (m->sub)
-        m->sub->Fn(a);
+        m->sub->Fn_001eb9e0(a);
 }
 
 
@@ -586,7 +586,7 @@ void C::Fn(int n) {
 namespace fn_000bbd10 {
 class Inner {
   public:
-    void Run(int);
+    void Run_001ebad0(int);
 };
 class Outer {
   public:
@@ -594,7 +594,7 @@ class Outer {
     Inner* inner;
     inline void Do(int n) {
         if (inner)
-            inner->Run(n);
+            inner->Run_001ebad0(n);
     }
 };
 class Host {
@@ -616,7 +616,7 @@ class Sub {
   public:
     char pad[12];
     unsigned char flag;
-    void Change();
+    void Change_001be490();
 };
 class Holder {
   public:
@@ -635,7 +635,7 @@ void Obj::Set(void* p) {
         Sub* s = holder->sub;
         if (s) {
             if (s->flag != b)
-                s->Change();
+                s->Change_001be490();
             s->flag = b;
         }
     }
@@ -648,7 +648,7 @@ namespace fn_fc9dd2b5 {
 // sym: ?Fn@Parent@fn_fc9dd2b5@@QAEXH@Z
 void Parent::Fn(int value) {
     if (child)
-        child->Set(!value);
+        child->Set_000b5920(!value);
 }
 
 
@@ -684,7 +684,7 @@ void Obj::Fn(void* p) {
 namespace fn_000bbdc0 {
 class Inner {
   public:
-    void Set(int, bool);
+    void Set_00092870(int, bool);
 };
 class Owner {
   public:
@@ -699,7 +699,7 @@ class Target {
 };
 void Target::Run(void* p) {
     if (owner && owner->inner)
-        owner->inner->Set(2, !p);
+        owner->inner->Set_00092870(2, !p);
 }
 } // namespace fn_000bbdc0
 
@@ -709,7 +709,7 @@ void Target::Run(void* p) {
 namespace fn_000bbdf0 {
 class Inner {
   public:
-    void Act(int, char);
+    void Act_00092870(int, char);
 };
 class Obj {
   public:
@@ -722,7 +722,7 @@ class Obj {
 };
 void Obj::Fn(void* p) {
     if (mid && mid->p)
-        mid->p->Act(0x2e4, p == 0);
+        mid->p->Act_00092870(0x2e4, p == 0);
 }
 } // namespace fn_000bbdf0
 
@@ -732,7 +732,7 @@ namespace fn_fc9dd2b5 {
 // sym: ?Run@X@fn_fc9dd2b5@@QAEXH@Z
 void X::Run(int p) {
     if (owner && owner->child)
-        owner->child->Fn(0x1d, !p);
+        owner->child->Fn_00092870(0x1d, !p);
 }
 
 
@@ -747,7 +747,7 @@ int X::Fn(int type, void** p) {
         return -1;
     void* v = *p;
     if (v)
-        q->item->Use(((char*)&DAT_00407b08), v);
+        q->item->Use_001ec480(((char*)&DAT_00407b08), v);
     return 0;
 }
 
@@ -769,7 +769,7 @@ int Layout_bbeb0::Get(int a, int b) {
     struct Sub* p = mMember;
     if (!p)
         return -1;
-    p->Select("blonsky_file_selector");
+    p->Select_000b78e0("blonsky_file_selector");
     return 0;
 }
 
@@ -804,7 +804,7 @@ namespace fn_fc9dd2b5 {
 // sym: ?Fn@Thing@fn_fc9dd2b5@@QAEXH@Z
 void Thing::Fn(int unused) {
     if (p)
-        p->Fn();
+        p->Fn_000b8f20();
 }
 
 
@@ -837,7 +837,7 @@ int C_bbf20::F(int p, char** q) {
 namespace fn_000bbf60 {
 class Obj {
   public:
-    void Do(int);
+    void Do_000b7860(int);
 };
 class Wrap {
   public:
@@ -847,7 +847,7 @@ class Wrap {
 };
 void Wrap::Fn(int x) {
     if (p)
-        p->Do(x);
+        p->Do_000b7860(x);
 }
 } // namespace fn_000bbf60
 
@@ -861,7 +861,7 @@ int Obj::Run(int n, int* v) {
         return -1;
     if (n != 1)
         return -1;
-    q->Fn(*v);
+    q->Fn_000b78e0(*v);
     return 0;
 }
 
@@ -882,7 +882,7 @@ int Handler::FUN_000bbfa0(int type, Values *values) {
 int Obj_bbfd0::Fn(int a, int b) {
     if (m == 0)
         return -1;
-    m->F();
+    m->FnF_000b7ff0();
     return 0;
 }
 
@@ -892,7 +892,7 @@ int Obj_bbfd0::Fn(int a, int b) {
 int Base_bbff0::Fn(int a, int b) {
     if (!mVal)
         return -1;
-    mVal->Go();
+    mVal->Go_000b8430();
     return 0;
 }
 
@@ -935,7 +935,7 @@ extern "C" void __stdcall FUN_000bc040(int a) {}
 // sym: ?Fn@X_bc050@fn_fc9dd2b5@@QAEXM@Z
 void X_bc050::Fn(float unused) {
     if (m)
-        m->Fn(unused);
+        m->Fn_000b8e70(unused);
 }
 
 
@@ -945,7 +945,7 @@ int O_bc060::f(int a, int b) {
     P_bc060* p = m;
     if (!p)
         return -1;
-    p->g();
+    p->Fng_000b8940();
     return 0;
 }
 
@@ -963,7 +963,7 @@ int Obj_bc080::Fn(int a, int b) {
 // 0x000bc0a0 FUN_000bc0a0 (13 B): matches/0x000bc0a0.cpp
 // sym: ?Fn@Obj@fn_fc9dd2b5@@QAEHHH@Z
 int Obj::Fn(int a, int b) {
-    owner->Action();
+    owner->Action_000b99b0();
     return 0;
 }
 
@@ -974,7 +974,7 @@ int Obj::Fn(int a, int b) {
 namespace fn_000bc0b0 {
 class Obj {
   public:
-    void Work();
+    void Work_000b5bf0();
 };
 class Holder {
   public:
@@ -985,7 +985,7 @@ class Holder {
 int Holder::Run(int a, int b) {
     if (!obj)
         return -1;
-    obj->Work();
+    obj->Work_000b5bf0();
     return 0;
 }
 } // namespace fn_000bc0b0
@@ -997,7 +997,7 @@ namespace fn_fc9dd2b5 {
 int Wrapper::Run(int a, int b) {
     if (!obj)
         return -1;
-    obj->Do();
+    obj->Do_000b5ca0();
     return 0;
 }
 

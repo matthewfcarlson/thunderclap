@@ -221,124 +221,124 @@ class O_1659f0 {
     void* m14;
     bool SetConstant_001659f0(void* p);
 };
-extern int* gTable_165a50;
+extern int* hulk_at_004e11d8;
 class CCondition_165a50 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_165ac0;
+extern int* hulk_at_004e11e0;
 class CCondition_165ac0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_165b30;
+extern int* hulk_at_004e11e8;
 class CCondition_165b30 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_165b90;
+extern int* hulk_at_004e11f0;
 class CCondition_165b90 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_165c00;
+extern int* hulk_at_004e11f8;
 class CCondition_165c00 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_165c70;
+extern int* hulk_at_004e1200;
 class CCondition_165c70 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_165ce0;
+extern int* hulk_at_004e1208;
 class CCondition_165ce0 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable_165d30[];
+extern void* hulk_at_00416718[];
 class Str_165d30 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Condition_165d30 {
   public:
     void* vptr;
     char pad[12];
     Str_165d30 s;
-    void Fin();
+    void Fin_002345b0();
 };
 class RayCastTargetCondition_165d30 : public Condition_165d30 {
   public:
     ~RayCastTargetCondition_165d30();
 };
-extern int* gTable_165d70;
+extern int* hulk_at_004e1210;
 class CCondition_165d70 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_165de0;
+extern int* hulk_at_004e1218;
 class CCondition_165de0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_165e50;
+extern int* hulk_at_004e1220;
 class CCondition_165e50 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_165ec0;
+extern int* hulk_at_004e1228;
 class CCondition_165ec0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_165f30;
+extern int* hulk_at_004e1230;
 class CCondition_165f30 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable_165f80[];
+extern void* hulk_at_004167b8[];
 class Str_165f80 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Condition_165f80 {
   public:
     void* vptr;
     char pad[12];
     Str_165f80 s;
-    void Fin();
+    void Fin_002345b0();
 };
 class RayCastConeCondition_165f80 : public Condition_165f80 {
   public:
     ~RayCastConeCondition_165f80();
 };
-extern int* gTable_165fc0;
+extern int* hulk_at_004e1238;
 class CCondition_165fc0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_166020;
+extern int* hulk_at_004e1240;
 class CCondition_166020 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_166090;
+extern int* hulk_at_004e1248;
 class CCondition_166090 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_166100;
+extern int* hulk_at_004e1250;
 class CCondition_166100 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_166170;
+extern int* hulk_at_004e1258;
 class CCondition_166170 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_1661e0;
+extern int* hulk_at_004e1260;
 class CCondition_1661e0 {
   public:
     virtual int vfunc_0(int);
@@ -348,28 +348,28 @@ class TargetCharacterTemplateCondition_166210 {
     int a, b;
     virtual ~TargetCharacterTemplateCondition_166210();
     int d;
-    virtual void hulk_slot_F(); void F();
+    virtual void hulk_slot_F(); void FnF_002345b0();
 };
 extern "C" void __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
-extern int* gTable_1662b0;
+extern int* hulk_at_004e1268;
 class CCondition_1662b0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_166320;
+extern int* hulk_at_004e1270;
 class CCondition_166320 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_166390;
+extern int* hulk_at_004e1278;
 class CCondition_166390 {
   public:
     virtual int vfunc_0(int);
 };
 extern "C" char DAT_004168d8[];
 struct Sub_1663a0 {
-    void Init();
+    void Init_0027af00();
 };
 struct RayCastCondition {
     void* vptr;
@@ -377,41 +377,41 @@ struct RayCastCondition {
     volatile int a[5];
     volatile float b;
     char padc[8];
-    void BaseInit(int);
+    void BaseInit_00234590(int);
     RayCastCondition();
 };
-extern void* g_vftable_1663f0[];
+extern void* hulk_at_004168d8[];
 class Str_1663f0 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Condition_1663f0 {
   public:
     void* vptr;
     char pad[12];
     Str_1663f0 s;
-    void Fin();
+    void Fin_002345b0();
 };
 class RayCastCondition_1663f0 : public Condition_1663f0 {
   public:
     ~RayCastCondition_1663f0();
 };
-extern int* gTable_166430;
+extern int* hulk_at_004e1280;
 class CCondition_166430 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_166490;
+extern int* hulk_at_004e1288;
 class CCondition_166490 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_166500;
+extern int* hulk_at_004e1290;
 class CCondition_166500 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_166570;
+extern int* hulk_at_004e1298;
 class CCondition_166570 {
   public:
     virtual int vfunc_0(int);
@@ -1018,7 +1018,7 @@ void FUN_00165a30() {
 // sym: ?vfunc_0@ChargeCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::ChargeCondition::vfunc_0(int index) {
-    int* p = gTable_165a50;
+    int* p = hulk_at_004e11d8;
     return p[index];
 }
 
@@ -1037,7 +1037,7 @@ void FUN_00165aa0() {
 // sym: ?vfunc_0@TargetMotionStateCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::TargetMotionStateCondition::vfunc_0(int index) {
-    int* p = gTable_165ac0;
+    int* p = hulk_at_004e11e0;
     return p[index];
 }
 
@@ -1056,7 +1056,7 @@ void FUN_00165b10() {
 // sym: ?vfunc_0@IntentionButtonDownAnyCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::IntentionButtonDownAnyCondition::vfunc_0(int index) {
-    int* p = gTable_165b30;
+    int* p = hulk_at_004e11e8;
     return p[index];
 }
 
@@ -1075,7 +1075,7 @@ void FUN_00165b70() {
 // sym: ?vfunc_0@VelocityCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::VelocityCondition::vfunc_0(int index) {
-    int* p = gTable_165b90;
+    int* p = hulk_at_004e11f0;
     return p[index];
 }
 
@@ -1094,7 +1094,7 @@ void FUN_00165be0() {
 // sym: ?vfunc_0@VelocityYCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::VelocityYCondition::vfunc_0(int index) {
-    int* p = gTable_165c00;
+    int* p = hulk_at_004e11f8;
     return p[index];
 }
 
@@ -1113,7 +1113,7 @@ void FUN_00165c50() {
 // sym: ?vfunc_0@VelocityAnimatedXZCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::VelocityAnimatedXZCondition::vfunc_0(int index) {
-    int* p = gTable_165c70;
+    int* p = hulk_at_004e1200;
     return p[index];
 }
 
@@ -1132,7 +1132,7 @@ void FUN_00165cc0() {
 // sym: ?vfunc_0@RayCastTargetCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::RayCastTargetCondition::vfunc_0(int index) {
-    int* p = gTable_165ce0;
+    int* p = hulk_at_004e1208;
     return p[index];
 }
 
@@ -1141,9 +1141,9 @@ namespace fn_f5579237 {
 // 0x00165d30 FUN_00165d30 (25 B): matches/0x00165d30.cpp
 // sym: ??1RayCastTargetCondition_165d30@fn_f5579237@@QAE@XZ
 RayCastTargetCondition_165d30::~RayCastTargetCondition_165d30() {
-    vptr = g_vftable_165d30;
-    s.Init();
-    Fin();
+    vptr = hulk_at_00416718;
+    s.Init_0027af50();
+    Fin_002345b0();
 }
 
 
@@ -1160,7 +1160,7 @@ void FUN_00165d50() {
 // sym: ?vfunc_0@TurningVelocityCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::TurningVelocityCondition::vfunc_0(int index) {
-    int* p = gTable_165d70;
+    int* p = hulk_at_004e1210;
     return p[index];
 }
 
@@ -1179,7 +1179,7 @@ void FUN_00165dc0() {
 // sym: ?vfunc_0@IntentionInputCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::IntentionInputCondition::vfunc_0(int index) {
-    int* p = gTable_165de0;
+    int* p = hulk_at_004e1218;
     return p[index];
 }
 
@@ -1198,7 +1198,7 @@ void FUN_00165e30() {
 // sym: ?vfunc_0@LocomotionMotionStateCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::LocomotionMotionStateCondition::vfunc_0(int index) {
-    int* p = gTable_165e50;
+    int* p = hulk_at_004e1220;
     return p[index];
 }
 
@@ -1217,7 +1217,7 @@ void FUN_00165ea0() {
 // sym: ?vfunc_0@GrappleReactionTypeCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::GrappleReactionTypeCondition::vfunc_0(int index) {
-    int* p = gTable_165ec0;
+    int* p = hulk_at_004e1228;
     return p[index];
 }
 
@@ -1236,7 +1236,7 @@ void FUN_00165f10() {
 // sym: ?vfunc_0@RayCastConeCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::RayCastConeCondition::vfunc_0(int index) {
-    int* p = gTable_165f30;
+    int* p = hulk_at_004e1230;
     return p[index];
 }
 
@@ -1245,9 +1245,9 @@ namespace fn_f5579237 {
 // 0x00165f80 FUN_00165f80 (25 B): matches/0x00165f80.cpp
 // sym: ??1RayCastConeCondition_165f80@fn_f5579237@@QAE@XZ
 RayCastConeCondition_165f80::~RayCastConeCondition_165f80() {
-    vptr = g_vftable_165f80;
-    s.Init();
-    Fin();
+    vptr = hulk_at_004167b8;
+    s.Init_0027af50();
+    Fin_002345b0();
 }
 
 
@@ -1264,7 +1264,7 @@ void FUN_00165fa0() {
 // sym: ?vfunc_0@TargetingCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::TargetingCondition::vfunc_0(int index) {
-    int* p = gTable_165fc0;
+    int* p = hulk_at_004e1238;
     return p[index];
 }
 
@@ -1283,7 +1283,7 @@ void FUN_00166000() {
 // sym: ?vfunc_0@VelocityAnimatedYCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::VelocityAnimatedYCondition::vfunc_0(int index) {
-    int* p = gTable_166020;
+    int* p = hulk_at_004e1240;
     return p[index];
 }
 
@@ -1302,7 +1302,7 @@ void FUN_00166070() {
 // sym: ?vfunc_0@TargetLocomotionMotionStateCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::TargetLocomotionMotionStateCondition::vfunc_0(int index) {
-    int* p = gTable_166090;
+    int* p = hulk_at_004e1248;
     return p[index];
 }
 
@@ -1321,7 +1321,7 @@ void FUN_001660e0() {
 // sym: ?vfunc_0@TargetHealthPercentCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::TargetHealthPercentCondition::vfunc_0(int index) {
-    int* p = gTable_166100;
+    int* p = hulk_at_004e1250;
     return p[index];
 }
 
@@ -1340,7 +1340,7 @@ void FUN_00166150() {
 // sym: ?vfunc_0@GrappleHealthCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::GrappleHealthCondition::vfunc_0(int index) {
-    int* p = gTable_166170;
+    int* p = hulk_at_004e1258;
     return p[index];
 }
 
@@ -1359,7 +1359,7 @@ void FUN_001661c0() {
 // sym: ?vfunc_0@TargetCharacterTemplateCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::TargetCharacterTemplateCondition::vfunc_0(int index) {
-    int* p = gTable_1661e0;
+    int* p = hulk_at_004e1260;
     return p[index];
 }
 
@@ -1370,7 +1370,7 @@ namespace fn_f5579237 {
 // Same code shape as 0x0011c270 (propagated; names are from that function)
 TargetCharacterTemplateCondition_166210::~TargetCharacterTemplateCondition_166210() {
     Cleanup(d);
-    F();
+    FnF_002345b0();
 }
 
 } // namespace fn_f5579237
@@ -1405,7 +1405,7 @@ void FUN_00166290() {
 // sym: ?vfunc_0@CharacterPropStatusCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CharacterPropStatusCondition::vfunc_0(int index) {
-    int* p = gTable_1662b0;
+    int* p = hulk_at_004e1268;
     return p[index];
 }
 
@@ -1424,7 +1424,7 @@ void FUN_00166300() {
 // sym: ?vfunc_0@VelocityXZAngleCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::VelocityXZAngleCondition::vfunc_0(int index) {
-    int* p = gTable_166320;
+    int* p = hulk_at_004e1270;
     return p[index];
 }
 
@@ -1443,7 +1443,7 @@ void FUN_00166370() {
 // sym: ?vfunc_0@RayCastCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::RayCastCondition::vfunc_0(int index) {
-    int* p = gTable_166390;
+    int* p = hulk_at_004e1278;
     return p[index];
 }
 
@@ -1452,9 +1452,9 @@ namespace fn_f5579237 {
 // 0x001663a0 FUN_001663a0 (74 B): matches/0x001663a0.cpp
 // sym: ??0RayCastCondition@fn_f5579237@@QAE@XZ
 RayCastCondition::RayCastCondition() {
-    BaseInit(0);
+    BaseInit_00234590(0);
     vptr = (void*)((hulk_intptr)DAT_004168d8);
-    ((Sub_1663a0*)((char*)this + 0x10))->Init();
+    ((Sub_1663a0*)((char*)this + 0x10))->Init_0027af00();
     a[0] = 0;
     a[1] = 0;
     a[2] = 0;
@@ -1471,9 +1471,9 @@ RayCastCondition::RayCastCondition() {
 // 0x001663f0 FUN_001663f0 (25 B): matches/0x001663f0.cpp
 // sym: ??1RayCastCondition_1663f0@fn_f5579237@@QAE@XZ
 RayCastCondition_1663f0::~RayCastCondition_1663f0() {
-    vptr = g_vftable_1663f0;
-    s.Init();
-    Fin();
+    vptr = hulk_at_004168d8;
+    s.Init_0027af50();
+    Fin_002345b0();
 }
 
 
@@ -1490,7 +1490,7 @@ void FUN_00166410() {
 // sym: ?vfunc_0@InLoadedRoomCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::InLoadedRoomCondition::vfunc_0(int index) {
-    int* p = gTable_166430;
+    int* p = hulk_at_004e1280;
     return p[index];
 }
 
@@ -1509,7 +1509,7 @@ void FUN_00166470() {
 // sym: ?vfunc_0@VelocityXZCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::VelocityXZCondition::vfunc_0(int index) {
-    int* p = gTable_166490;
+    int* p = hulk_at_004e1288;
     return p[index];
 }
 
@@ -1528,7 +1528,7 @@ void FUN_001664e0() {
 // sym: ?vfunc_0@VelocityAnimatedXZAngleCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::VelocityAnimatedXZAngleCondition::vfunc_0(int index) {
-    int* p = gTable_166500;
+    int* p = hulk_at_004e1290;
     return p[index];
 }
 
@@ -1547,7 +1547,7 @@ void FUN_00166550() {
 // sym: ?vfunc_0@RageModeStateCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::RageModeStateCondition::vfunc_0(int index) {
-    int* p = gTable_166570;
+    int* p = hulk_at_004e1298;
     return p[index];
 }
 

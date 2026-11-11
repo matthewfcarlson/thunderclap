@@ -10,18 +10,18 @@
 #include "gen/hulkfight.h"
 
 struct HitThrowAction_nv_1573a0 {
-    int Init(hulkfight::motion::HitThrowTrack*, hulk_intptr);
+    int Init_00151f20(hulkfight::motion::HitThrowTrack*, hulk_intptr);
 };
-extern int TypeA_1573a0;
-extern int TypeB_1573a0;
+extern int hulk_at_00494b44;
+extern int hulk_at_00494b60;
 extern int __cdecl IsType(void*, int, int*, int*, int);
-extern void* __cdecl Alloc(int);
+extern void* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::HitThrowTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    if (IsType((void*)c, 0, &TypeA_1573a0, &TypeB_1573a0, 0)) {
-        hulkfight::motion::HitThrowAction* p = (hulkfight::motion::HitThrowAction*)Alloc(0x40);
+    if (IsType((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+        hulkfight::motion::HitThrowAction* p = (hulkfight::motion::HitThrowAction*)Alloc_0008d690(0x40);
         if (p)
-            return ((HitThrowAction_nv_1573a0*)(((hulkfight::motion::HitThrowAction*)(p))))->Init(this, c);
+            return ((HitThrowAction_nv_1573a0*)(((hulkfight::motion::HitThrowAction*)(p))))->Init_00151f20(this, c);
     }
     return 0;
 }

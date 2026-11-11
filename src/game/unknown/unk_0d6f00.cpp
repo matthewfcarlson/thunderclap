@@ -14,7 +14,7 @@ namespace fn_ff8b4e88 {
 struct B_d6f10 {
 };
 struct C_d6f10 {
-    void y(int);
+    void Fny_000cb870(int);
 };
 struct A_d6f10 {
     int pad;
@@ -44,7 +44,7 @@ struct Obj_d6f50 {
     void* pc;
 };
 struct Helper_d6f50 {
-    uint_d6f50 Get();
+    uint_d6f50 Get_000cae50();
 };
 class A_d6f80 {
   public:
@@ -89,7 +89,7 @@ namespace fn_ff8b4e88 {
 // sym: ?run@A_d6f10@fn_ff8b4e88@@QAEXH@Z
 void A_d6f10::run(int v) {
     ((owners::Obj_d4370 *)b)->FUN_000d4370((hulk_intptr)v);
-    c->y(v);
+    c->Fny_000cb870(v);
 }
 
 
@@ -104,7 +104,7 @@ void Owner_d6f30::Run(int a, void* b) {
 // 0x000d6f50 FUN_000d6f50 (42 B): matches/0x000d6f50.cpp
 // sym: @FUN_000d6f50@4
 extern "C" uint_d6f50 __fastcall FUN_000d6f50(Obj_d6f50* self) {
-    uint_d6f50 v = ((Helper_d6f50*)self->p8)->Get();
+    uint_d6f50 v = ((Helper_d6f50*)self->p8)->Get_000cae50();
     v &= 0xffffff7f;
     if (self->p4)
         v |= 0x80;

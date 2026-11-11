@@ -235,7 +235,7 @@ struct Param {
 } // namespace fn_ff8057c2
 void* operator new(size_t n);
 namespace fn_ff8057c2 {
-void Register(void* reg, Param** arr, int n);
+void Register_002347b0(void* reg, Param** arr, int n);
 struct Base_17a9a0 {
     int vt;
     char pad[0xc];
@@ -301,14 +301,14 @@ class Params_17af80 {
   public:
     int x;
 };
-extern Params_17af80 TypeA_17af80;
-extern Params_17af80 TypeB_17af80;
+extern Params_17af80 hulk_at_00494b44;
+extern Params_17af80 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_17af80*, Params_17af80*, int);
 class Object_17af80 {
   public:
-    int Init(hulkfight::motion::LocomotionStateTrack*, hulk_intptr);
+    int Init_001732f0(hulkfight::motion::LocomotionStateTrack*, hulk_intptr);
 };
-Object_17af80* __cdecl Alloc(int);
+Object_17af80* __cdecl Alloc_0008d690(int);
 
 
 // 0x00179c10 FUN_00179c10 (325 B): equivalent/0x00179c10.cpp
@@ -649,7 +649,7 @@ extern "C" void FUN_0017a9a0() {
         } else {
             arr[1] = 0;
         }
-        Register(((char*)&DAT_004e1380), arr, 2);
+        Register_002347b0(((char*)&DAT_004e1380), arr, 2);
     }
     (*(int*)&DAT_004e1384)++;
 }
@@ -742,11 +742,11 @@ extern "C" void FUN_0017aee0()
 // sym: ?vfunc_10@LocomotionStateTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::LocomotionStateTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_17af80, &TypeB_17af80, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        Object_17af80* p = Alloc(0x24);
+        Object_17af80* p = Alloc_0008d690(0x24);
         if (p)
-            return p->Init(this, c);
+            return p->Init_001732f0(this, c);
     }
     return 0;
 }

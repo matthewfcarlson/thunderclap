@@ -17,7 +17,7 @@ extern "C" void __fastcall FUN_00260680(void*);
 extern void* g_target_364740;
 class Obj_364740 {
   public:
-    void Run();
+    void Run_002580e0();
 };
 
 
@@ -32,7 +32,7 @@ void __fastcall FUN_00364350() {
 // sym: ?FUN_00364740@fn_f8e91467@@YGXXZ
 // data: hulk_at_004e7b08 = DAT_004e7b08
 void __stdcall FUN_00364740() {
-    ((Obj_364740*)((hulk_intptr)(DAT_004e7b50)))->Run();
+    ((Obj_364740*)((hulk_intptr)(DAT_004e7b50)))->Run_002580e0();
 }
 
 } // namespace fn_f8e91467

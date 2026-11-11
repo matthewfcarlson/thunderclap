@@ -13,20 +13,20 @@ class Params_17b700 {
   public:
     int x;
 };
-extern Params_17b700 TypeA_17b700;
-extern Params_17b700 TypeB_17b700;
+extern Params_17b700 hulk_at_00494b44;
+extern Params_17b700 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_17b700*, Params_17b700*, int);
 struct TeleportAction_nv_17b700 {
-    int Init(hulkfight::motion::TeleportTrack*, hulk_intptr);
+    int Init_00175890(hulkfight::motion::TeleportTrack*, hulk_intptr);
 };
-hulkfight::motion::TeleportAction* __cdecl Alloc(int);
+hulkfight::motion::TeleportAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::TeleportTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_17b700, &TypeB_17b700, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::TeleportAction* p = Alloc(0x24);
+        hulkfight::motion::TeleportAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((TeleportAction_nv_17b700*)(((hulkfight::motion::TeleportAction*)(p))))->Init(this, c);
+            return ((TeleportAction_nv_17b700*)(((hulkfight::motion::TeleportAction*)(p))))->Init_00175890(this, c);
     }
     return 0;
 }

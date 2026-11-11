@@ -73,7 +73,7 @@ class Manager_1c1580 {
     virtual void f34();
     virtual void f35(int);
 };
-extern Manager_1c1580* gManager_1c1580;
+extern Manager_1c1580* hulk_at_0052c2a8;
 class Other_1c16a0 {
   public:
     virtual void a();
@@ -200,7 +200,7 @@ struct R_1c1e90 {
     virtual void Rel();
 };
 struct Sub_1c1e90 {
-    void Cleanup();
+    void Cleanup_001c27c0();
     char pad[0xb0];
 };
 struct C_1c1e90 {
@@ -286,8 +286,8 @@ struct Object { virtual void s0(); virtual void s1(); virtual void s2(); virtual
 hulk_freg __cdecl FUN_00018a20(float);
 struct Target_1c20e0 { char pad[8]; Object* object; char pad2[0xa4]; float horizontalLimit,verticalLimit; int FUN_001c20e0(const Input_1c20e0*); };
 struct Sub_1c22f0 {
-    void A(int);
-    void B();
+    void FnA_0029bc80(int);
+    void FnB_0029bb60();
 };
 struct Obj2_1c22f0 {
     virtual void v0();
@@ -295,7 +295,7 @@ struct Obj2_1c22f0 {
     virtual void v2();
 };
 struct Parent_1c22f0 {
-    void Done();
+    void Done_00294080();
 };
 class Thing_1c22f0 {
   public:
@@ -429,7 +429,7 @@ struct Host_1c25c0 {
     int value;
     void target(Obj_1c25c0*, int, int);
 };
-void __stdcall helper(Obj_1c25c0*, int);
+void __stdcall helper_001c2440(Obj_1c25c0*, int);
 class Item_1c2650 {
   public:
     virtual void a();
@@ -470,7 +470,7 @@ class Target_1c2650 {
     Item_1c2650* member;
 
   public:
-    void helper(Item_1c2650*, int);
+    void helper_001c2440(Item_1c2650*, int);
     void fn(Item_1c2650*, int, int);
 };
 typedef unsigned int u32_1c26a0;
@@ -489,7 +489,7 @@ void __stdcall FUN_001c2550(Obj_1c26a0*, u32_1c26a0);
 struct Owner_1c26a0 {
     char pad[0xbc];
     u32_1c26a0 value;
-    void helper(Obj_1c26a0*, u32_1c26a0);
+    void helper_001c2440(Obj_1c26a0*, u32_1c26a0);
     void target(Obj_1c26a0*, u32_1c26a0, u32_1c26a0);
 };
 class X_1c2760 {
@@ -542,7 +542,7 @@ class X {
 };
 struct Entry_1c2c20 {
     int a, b, c;
-    bool Check(const Entry_1c2c20*, unsigned);
+    bool Check_0022d2b0(const Entry_1c2c20*, unsigned);
 };
 class Obj_1c2c20 {
     char pad[0x180];
@@ -677,7 +677,7 @@ struct Owner_1c35f0 {
 };
 class H {
   public:
-    int check(int);
+    int check_001c5b00(int);
 };
 class C_1c3740 {
     char pad[0x0c];
@@ -688,7 +688,7 @@ class C_1c3740 {
 };
 class Y_1c37f0 {
   public:
-    void g(int, int, int, int);
+    void Fng_001c4450(int, int, int, int);
 };
 class X_1c37f0 {
     char pad[0x18];
@@ -698,7 +698,7 @@ class X_1c37f0 {
     void f(int, int, int, int);
 };
 struct Other_1c3800 {
-    void f(int, int, int, int, int);
+    void Fnf_001c4390(int, int, int, int, int);
 };
 struct Obj_1c3800 {
     char pad[0x14];
@@ -707,7 +707,7 @@ struct Obj_1c3800 {
 };
 class Inner_1c3830 {
   public:
-    void f(int, int);
+    void Fnf_001c16e0(int, int);
 };
 class Outer_1c3830 {
   public:
@@ -716,19 +716,19 @@ class Outer_1c3830 {
 };
 class Bc {
   public:
-    void run(int);
+    void run_001c59e0(int);
 };
 class B0_1c3850 {
   public:
-    void run(int);
+    void run_001c16c0(int);
 };
 class B4 {
   public:
-    void run(int);
+    void run_001c8590(int);
 };
 class Bd {
   public:
-    void run(int);
+    void run_001c4620(int);
 };
 class A_1c3850 {
   public:
@@ -758,11 +758,11 @@ struct X_1c39a0 {
 struct X_1c39b0 {
     char pad[0x2c];
 };
-extern "C" int __cdecl state(int);
+extern "C" int __cdecl state_00266da0(int);
 extern "C" void __cdecl report(const char*);
 class Factory {
   public:
-    void* create(int, int);
+    void* create_001c5900(int, int);
 };
 class Owner_1c39e0 {
   public:
@@ -778,9 +778,9 @@ class Scene {
 };
 extern "C" void* __cdecl Alloc(hulk_intptr);
 extern "C" void __cdecl Free(void*);
-extern "C" void __cdecl Print(const char*);
+extern "C" void __cdecl Print_0023f8c0(const char*);
 struct Maker_1c3a40 {
-    void* Make(int, int);
+    void* Make_001c5960(int, int);
 };
 struct Store {
 };
@@ -793,7 +793,7 @@ struct Obj_1c3a40 {
 };
 class Sub_1c3b20 {
   public:
-    int Fn(int, int);
+    int Fn_001c60f0(int, int);
 };
 class C_1c3b20 {
   public:
@@ -803,8 +803,8 @@ class C_1c3b20 {
 };
 class Helper_1c3b30 {
   public:
-    int first(int);
-    void second(int);
+    int first_001c5fb0(int);
+    void second_001c6000(int);
 };
 class Obj_1c3b30 {
   public:
@@ -819,8 +819,8 @@ class D {
 class C_1c3b80 {
   public:
     void* pad[3];
-    int Get(int);
-    void Finish(int);
+    int Get_001c59d0(int);
+    void Finish_001c5a20(int);
 };
 class Obj_1c3b80 {
   public:
@@ -837,7 +837,7 @@ class A_1c3bb0 {
   public:
     char pad[12];
     B_1c3bb0* member;
-    void* f(int);
+    void* Fnf_001c59d0(int);
 };
 class C_1c3bb0 {
   public:
@@ -847,7 +847,7 @@ class C_1c3bb0 {
 };
 class Context {
   public:
-    int* Lookup(int);
+    int* Lookup_001c59d0(int);
 };
 class Obj_1c3bd0 {
   public:
@@ -857,7 +857,7 @@ class Obj_1c3bd0 {
 };
 class B_1c3c10 {
   public:
-    void Method(int, int);
+    void Method_001c1910(int, int);
 };
 class A_1c3c10 {
   public:
@@ -871,7 +871,7 @@ class Inner_1c3c20 {
 };
 class Helper_1c3c20 {
   public:
-    void Stop();
+    void Stop_001c8250();
 };
 class Obj_1c3c20 {
   public:
@@ -891,7 +891,7 @@ struct A_1c3cb0 {
 };
 extern "C" int __fastcall FUN_001c4500(void*);
 struct Inner_1c3cc0 {
-    void Do(hulk_intptr, int, int, int, int);
+    void Do_001c1f30(hulk_intptr, int, int, int, int);
 };
 class X_1c3cc0 {
   public:
@@ -917,7 +917,7 @@ class B_1c3d20 {
 };
 class First_1c3dc0 {
   public:
-    void Cleanup();
+    void Cleanup_001c1e90();
 };
 class Obj_1c3dc0 {
   public:
@@ -935,13 +935,13 @@ class Target_1c3dc0 {
 };
 class Engine_1c4010 {
   public:
-    void Init(void*, int, int, int, int);
-    int Finish(int);
+    void Init_001c1f30(void*, int, int, int, int);
+    int Finish_001c1310(int);
 };
 class Engine_1c4050 {
   public:
-    void Init(void*, int, int, int, int);
-    int Finish(int);
+    void Init_001c1f30(void*, int, int, int, int);
+    int Finish_001c20e0(int);
 };
 class Obj_1c4090 {
   public:
@@ -986,7 +986,7 @@ class Obj_1c4160 {
     Base_1c4160* member;
     hulk_intptr target(unsigned char flag);
 };
-void thunk(Obj_1c4160*);
+void thunk_0008d330(Obj_1c4160*);
 struct Manager_1c4230 {
     void FUN_002659a0(unsigned int);
 };
@@ -1136,7 +1136,7 @@ hulk_intptr Render::Canvas::HulkShaderCallback::vfunc_4(void* __p0) { Arg_1c1580
     if (this->f_08 > 0.0f && p)
         p->shader->f7(0x45444146, 0);
     if (this->f_10 > 0.0f)
-        gManager_1c1580->f35(this->f_18);
+        hulk_at_0052c2a8->f35(this->f_18);
     if (this->f_0c < 1.0f && p)
         p->shader->f6(0x4153524c, 0);
     return result;
@@ -1677,7 +1677,7 @@ void C_1c1e90::Shutdown() {
         (*(R_1c1e90**)&DAT_004e2314)->Rel();
         (*(R_1c1e90**)&DAT_004e2314) = 0;
     }
-    sub.Cleanup();
+    sub.Cleanup_001c27c0();
 }
 
 
@@ -1799,14 +1799,14 @@ namespace fn_ffffca36 {
 // sym: ?Fn@Thing_1c22f0@fn_ffffca36@@QAEXXZ
 // data: g_obj_1c22f0 = DAT_004e2318, kZero_1c22f0 = DAT_003f32e0
 void Thing_1c22f0::Fn() {
-    mSub->A(mVal);
-    mSub->B();
+    mSub->FnA_0029bc80(mVal);
+    mSub->FnB_0029bb60();
     ((pure3d::DisplayList *)mSub)->FUN_0029bba0();
     if ((*(Obj2_1c22f0**)&DAT_004e2318) && mF != DAT_003f32e0) {
         ((owners::Obj_1c16e0 *)this)->FUN_001c16e0(mF, mG);
         (*(Obj2_1c22f0**)&DAT_004e2318)->v2();
     }
-    mParent->Done();
+    mParent->Done_00294080();
 }
 
 } // namespace fn_ffffca36
@@ -1821,7 +1821,7 @@ class ShaderCallback_1c23a0 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public ShaderCallback_1c23a0 {
   public:
@@ -1832,7 +1832,7 @@ class NonCopyable : public ShaderCallback_1c23a0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1923,7 +1923,7 @@ void __stdcall Fn(Obj_1c2550* o, float x) {
 // sym: ?target@Host_1c25c0@fn_ffffca36@@QAEXPAUObj_1c25c0@2@HH@Z
 void Host_1c25c0::target(Obj_1c25c0* p, int a, int b) {
     if (p) {
-        helper(p, b);
+        helper_001c2440(p, b);
         p->f8(value, a);
     }
 }
@@ -1935,7 +1935,7 @@ void Host_1c25c0::target(Obj_1c25c0* p, int a, int b) {
 void Target_1c2650::fn(Item_1c2650* p, int x, int y) {
     if (p) {
         (*(Root_1c2650**)&DAT_0052c2ac)->m->p(0);
-        helper(p, y);
+        helper_001c2440(p, y);
         p->i((hulk_intptr)member, x);
         (*(Root_1c2650**)&DAT_0052c2ac)->m->q(0);
     }
@@ -1947,7 +1947,7 @@ void Target_1c2650::fn(Item_1c2650* p, int x, int y) {
 void Owner_1c26a0::target(Obj_1c26a0* p, u32_1c26a0 a, u32_1c26a0 b) {
     if (p) {
         FUN_001c2550(p, b);
-        helper(p, a);
+        helper_001c2440(p, a);
         p->v8(value, 0);
     }
 }
@@ -2117,7 +2117,7 @@ X::X() {
 // sym: ?Add@Obj_1c2c20@fn_ffffca36@@QAEXPBUEntry_1c2c20@2@@Z
 void Obj_1c2c20::Add(const Entry_1c2c20* p) {
     for (unsigned i = 0; i < count; ++i) {
-        if (((Entry_1c2c20*)this + i)->Check(p, 0x3727c5ac))
+        if (((Entry_1c2c20*)this + i)->Check_0022d2b0(p, 0x3727c5ac))
             return;
     }
     Entry_1c2c20* dst = (Entry_1c2c20*)this + count;
@@ -2456,7 +2456,7 @@ namespace fn_ffffca36 {
 // 0x001c3740 FUN_001c3740 (35 B): matches/0x001c3740.cpp
 // sym: ?f@C_1c3740@fn_ffffca36@@QAEXH@Z
 void C_1c3740::f(hulk_intptr x) {
-    if (member->check(x))
+    if (member->check_001c5b00(x))
         ((owners::Obj_1c5b10 *)member)->FUN_001c5b10((unsigned int)x);
 }
 
@@ -2483,7 +2483,7 @@ namespace fn_ffffca36 {
 // 0x001c37f0 FUN_001c37f0 (8 B): matches/0x001c37f0.cpp
 // sym: ?f@X_1c37f0@fn_ffffca36@@QAEXHHHH@Z
 void X_1c37f0::f(int a0, int a1, int a2, int a3) {
-    p->g(a0, a1, a2, a3);
+    p->Fng_001c4450(a0, a1, a2, a3);
 }
 
 
@@ -2491,7 +2491,7 @@ void X_1c37f0::f(int a0, int a1, int a2, int a3) {
 // sym: ?run@Obj_1c3800@fn_ffffca36@@QAEXHHHHH@Z
 void Obj_1c3800::run(int a, int b, int c, int d, int e) {
     if (value)
-        value->f(a, b, c, d, e);
+        value->Fnf_001c4390(a, b, c, d, e);
 }
 
 } // namespace fn_ffffca36
@@ -2509,7 +2509,7 @@ namespace fn_ffffca36 {
 // 0x001c3830 FUN_001c3830 (7 B): matches/0x001c3830.cpp
 // sym: ?g@Outer_1c3830@fn_ffffca36@@QAEXHH@Z
 void Outer_1c3830::g(int a0, int a1) {
-    p->f(a0, a1);
+    p->Fnf_001c16e0(a0, a1);
 }
 
 
@@ -2517,11 +2517,11 @@ void Outer_1c3830::g(int a0, int a1) {
 // sym: ?go@A_1c3850@fn_ffffca36@@QAEXH@Z
 void A_1c3850::go(int x) {
     if (enabled) {
-        pc->run(x);
-        p0->run(x);
-        p4->run(x);
-        p18->run(x);
-        p14->run(x);
+        pc->run_001c59e0(x);
+        p0->run_001c16c0(x);
+        p4->run_001c8590(x);
+        p18->run_001c4620(x);
+        p14->run_001c4620(x);
     }
 }
 
@@ -2615,13 +2615,13 @@ namespace fn_ffffca36 {
 // 0x001c39e0 FUN_001c39e0 (88 B): matches/0x001c39e0.cpp
 // sym: ?make@Scene@fn_ffffca36@@QAEXHH@Z
 void Scene::make(int a, int b) {
-    int old = state(15);
-    void* o = factory->create(a, b);
+    int old = state_00266da0(15);
+    void* o = factory->create_001c5900(a, b);
     if (o)
         ((owners::Bag_1c8810 *)owner)->FUN_001c8810((hulk_intptr)o);
     else
         report("Object creation failed!\n");
-    state(old);
+    state_00266da0(old);
 }
 
 
@@ -2629,11 +2629,11 @@ void Scene::make(int a, int b) {
 // sym: ?Create@Obj_1c3a40@fn_ffffca36@@QAEXHH@Z
 void Obj_1c3a40::Create(int a, int b) {
     void* p = Alloc(15);
-    void* q = maker->Make(a, b);
+    void* q = maker->Make_001c5960(a, b);
     if (q)
         ((owners::Bag_1c8810 *)store)->FUN_001c8810((hulk_intptr)q);
     else
-        Print("Object creation failed!\n");
+        Print_0023f8c0("Object creation failed!\n");
     Free(p);
 }
 
@@ -2641,26 +2641,26 @@ void Obj_1c3a40::Create(int a, int b) {
 // 0x001c3b20 FUN_001c3b20 (8 B): matches/0x001c3b20.cpp
 // sym: ?Forward@C_1c3b20@fn_ffffca36@@QAEHHH@Z
 hulk_intptr C_1c3b20::Forward(hulk_intptr a0, hulk_intptr a1) {
-    return mSub->Fn(a0, a1);
+    return mSub->Fn_001c60f0(a0, a1);
 }
 
 
 // 0x001c3b30 FUN_001c3b30 (33 B): matches/0x001c3b30.cpp
 // sym: ?target@Obj_1c3b30@fn_ffffca36@@QAEXH@Z
 void Obj_1c3b30::target(hulk_intptr param) {
-    int r = m->first(param);
+    int r = m->first_001c5fb0(param);
     if (r)
-        m->second(r);
+        m->second_001c6000(r);
 }
 
 
 // 0x001c3b80 FUN_001c3b80 (44 B): matches/0x001c3b80.cpp
 // sym: ?Target@Obj_1c3b80@fn_ffffca36@@QAEXH@Z
 void Obj_1c3b80::Target(hulk_intptr arg) {
-    int x = mC->Get(arg);
+    int x = mC->Get_001c59d0(arg);
     if (x) {
         ((owners::C_1c8860 *)m4)->FUN_001c8860(x);
-        mC->Finish(arg);
+        mC->Finish_001c5a20(arg);
     }
 }
 
@@ -2668,7 +2668,7 @@ void Obj_1c3b80::Target(hulk_intptr arg) {
 // 0x001c3bb0 FUN_001c3bb0 (32 B): matches/0x001c3bb0.cpp
 // sym: ?run@C_1c3bb0@fn_ffffca36@@QAEXHH@Z
 void C_1c3bb0::run(hulk_intptr a, int b) {
-    B_1c3bb0* p = (B_1c3bb0*)member->f(a);
+    B_1c3bb0* p = (B_1c3bb0*)member->Fnf_001c59d0(a);
     if (p)
         ((owners::X_1c4d60 *)p)->FUN_001c4d60((unsigned int *)(hulk_uintptr)(int)b);
 }
@@ -2677,7 +2677,7 @@ void C_1c3bb0::run(hulk_intptr a, int b) {
 // 0x001c3bd0 FUN_001c3bd0 (28 B): matches/0x001c3bd0.cpp
 // sym: ?Target@Obj_1c3bd0@fn_ffffca36@@QAEHH@Z
 hulk_intptr Obj_1c3bd0::Target(hulk_intptr arg) {
-    int* p = mContext->Lookup(arg);
+    int* p = mContext->Lookup_001c59d0(arg);
     if (p)
         return (hulk_intptr)p + 0x30;
     return 0;
@@ -2687,7 +2687,7 @@ hulk_intptr Obj_1c3bd0::Target(hulk_intptr arg) {
 // 0x001c3c10 FUN_001c3c10 (7 B): matches/0x001c3c10.cpp
 // sym: ?Fn@A_1c3c10@fn_ffffca36@@QAEXHH@Z
 void A_1c3c10::Fn(int a0, hulk_intptr a1) {
-    m->Method(a0, a1);
+    m->Method_001c1910(a0, a1);
 }
 
 
@@ -2696,7 +2696,7 @@ void A_1c3c10::Fn(int a0, hulk_intptr a1) {
 void Obj_1c3c20::Set(char value) {
     if (p->flag) {
         if (value == 0)
-            h->Stop();
+            h->Stop_001c8250();
         p->flag = value;
     } else {
         p->flag = value;
@@ -2730,7 +2730,7 @@ extern "C" int __fastcall FUN_001c3cb0(A_1c3cb0* self) {
 // 0x001c3cc0 FUN_001c3cc0 (36 B): matches/0x001c3cc0.cpp
 // sym: ?f@X_1c3cc0@fn_ffffca36@@QAEXXZ
 void X_1c3cc0::f() {
-    ((Inner_1c3cc0*)*(hulk_intptr*)this)->Do((hulk_intptr)((char*)this + 0x1c), a, b, c, d);
+    ((Inner_1c3cc0*)*(hulk_intptr*)this)->Do_001c1f30((hulk_intptr)((char*)this + 0x1c), a, b, c, d);
     done = 1;
 }
 
@@ -2753,7 +2753,7 @@ namespace fn_001c3d90 {
 
 class Obj {
   public:
-    Obj* Init() throw();
+    Obj* Init_001c34c0() throw();
     char pad[0x7c];
 };
 Obj* gObj;
@@ -2761,7 +2761,7 @@ extern "C" Obj* FUN_001c3d90() {
     if (!gObj) {
         Obj* p = (Obj*)operator new(sizeof(Obj));
         if (p) {
-            gObj = p->Init();
+            gObj = p->Init_001c34c0();
             return gObj;
         }
         gObj = 0;
@@ -2777,7 +2777,7 @@ namespace fn_ffffca36 {
 void Target_1c3dc0::F() {
     First_1c3dc0* p = mFirst;
     if (p) {
-        p->Cleanup();
+        p->Cleanup_001c1e90();
         thunk_FUN_00267090(p);
     }
     mFirst = 0;
@@ -2969,8 +2969,8 @@ void DebugRender::FUN_001c3e10()
 // sym: ?Target@fn_001c3fd0@@YIHPAVObj_1c3fd0@1@@Z
 namespace fn_001c3fd0 {
 struct Core_1c3fd0 {
-    void Init(void*, int, int, int, int);
-    int Finish();
+    void Init_001c1f30(void*, int, int, int, int);
+    int Finish_001c12c0();
 };
 class Obj_1c3fd0 {
   public:
@@ -2986,10 +2986,10 @@ class Obj_1c3fd0 {
 };
 hulk_intptr __fastcall Target(Obj_1c3fd0* self) {
     if (!self->flag6c) {
-        self->core->Init(&self->field1, self->field5c, self->field60, self->field64, self->field68);
+        self->core->Init_001c1f30(&self->field1, self->field5c, self->field60, self->field64, self->field68);
         self->flag6c = 1;
     }
-    return self->core->Finish();
+    return self->core->Finish_001c12c0();
 }
 } // namespace fn_001c3fd0
 
@@ -2998,10 +2998,10 @@ hulk_intptr __fastcall Target(Obj_1c3fd0* self) {
 // sym: ?FUN_001c4010@Thing_1c4010@owners@@QAEHH@Z
 int owners::Thing_1c4010::FUN_001c4010(hulk_intptr x) {
     if (!done) {
-        (*(Engine_1c4010**)pad)->Init(pad + 0x1c, a, b, c, d);
+        (*(Engine_1c4010**)pad)->Init_001c1f30(pad + 0x1c, a, b, c, d);
         done = 1;
     }
-    return (*(Engine_1c4010**)pad)->Finish(((int)x));
+    return (*(Engine_1c4010**)pad)->Finish_001c1310(((int)x));
 }
 
 
@@ -3010,10 +3010,10 @@ int owners::Thing_1c4010::FUN_001c4010(hulk_intptr x) {
 // Same code shape as 0x001c4010 (propagated; names are from that function)
 int owners::Thing_1c4050::FUN_001c4050(hulk_intptr x) {
     if (!done) {
-        (*(Engine_1c4050**)pad)->Init(pad + 0x1c, a, b, c, d);
+        (*(Engine_1c4050**)pad)->Init_001c1f30(pad + 0x1c, a, b, c, d);
         done = 1;
     }
-    return (*(Engine_1c4050**)pad)->Finish(((int)x));
+    return (*(Engine_1c4050**)pad)->Finish_001c20e0(((int)x));
 }
 
 namespace fn_ffffca36 {
@@ -3055,7 +3055,7 @@ hulk_intptr Obj_1c4160::target(unsigned char flag) {
         member->f1();
     member = 0;
     if (flag & 1)
-        thunk(this);
+        thunk_0008d330(this);
     return (hulk_intptr)this;
 }
 

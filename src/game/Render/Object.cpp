@@ -105,14 +105,14 @@ class ResultThing {
     virtual int f5();
 };
 struct B_1c4ea0 {
-    void Fn(int);
+    void Fn_0027af70(int);
 };
 struct A_1c4ea0 {
     char pad[8];
     B_1c4ea0 b;
     void Forward(int);
 };
-extern void* g_vftable_1c4fb0[];
+extern void* hulk_at_004218c8[];
 class Ref_1c4fb0 {
   public:
     virtual void F0();
@@ -152,7 +152,7 @@ class Item {
     virtual void f();
     virtual void FUN_00000004();
     char _m_pad_4[0x4];
-    void g(int);
+    void Fng_001c4ea0(int);
     void FUN_00000000() { f(); }
 };
 struct Observer { virtual void FUN_00000000(); virtual void FUN_00000004(); virtual void FUN_00000008(); virtual void FUN_0000000c(); virtual void FUN_00000010(); virtual void FUN_00000014(); virtual void FUN_00000018(); virtual void FUN_0000001c(); virtual void FUN_00000020(); virtual void FUN_00000024(); virtual void FUN_00000028(Item *); };
@@ -256,7 +256,7 @@ extern void thunk_FUN_00267090(CCollisionAction*);
 class Store {
   public:
     virtual void f();
-    void Cleanup2();
+    void Cleanup2_001c7500();
     ~Store();
     int mData;
 };
@@ -275,15 +275,15 @@ class Obj_1c56d0 {
 };
 class Arg {
   public:
-    int convert();
+    int convert_001c5b70();
 };
 class X {
   public:
-    void g(int, Arg*);
+    void Fng_001c7870(int, Arg*);
     void f(Arg*);
 };
 struct StoreBase;
-int __fastcall Helper(StoreBase* p);
+int __fastcall Helper_001c5b70(StoreBase* p);
 class StoreBase_1c5790 {
   public:
     virtual void x();
@@ -292,19 +292,19 @@ class StoreBase_1c5790 {
 };
 class ObjectTemplate_1c5790 {
   public:
-    void f();
+    void Fnf_001c5d30();
 };
-void __cdecl ReleaseTemplate(ObjectTemplate_1c5790*);
-extern int g_vftable_1c57c0;
+void __cdecl ReleaseTemplate_0008d330(ObjectTemplate_1c5790*);
+extern int hulk_at_00421914;
 struct Store_1c57c0 {
     void* m_vptr;
-    void base2_dtor();
+    void base2_dtor_001c7500();
     void* scalar_dtor(unsigned char flags);
 };
-extern int g_vftable_1c57f0;
+extern int hulk_at_00421924;
 struct Store_1c57f0 {
     void* m_vptr;
-    void base2_dtor();
+    void base2_dtor_001c7500();
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" char DAT_00421914[];
@@ -313,7 +313,7 @@ extern "C" char DAT_00421934[];
 typedef unsigned int u32_1c5840;
 struct StoreBase {
     char pad[0x120];
-    void Init(unsigned int, int);
+    void Init_001c77e0(unsigned int, int);
 };
 struct ObjectManager {
     hulk_uintptr vft;
@@ -326,14 +326,14 @@ typedef unsigned int u32_1c5900;
 struct Obj_1c5900 {
     virtual void f();
     char pad[4];
-    Obj_1c5900* Create(u32_1c5900);
-    bool Check();
+    Obj_1c5900* Create_001c5c20(u32_1c5900);
+    bool Check_001c4af0();
 };
 struct Finder_1c5900 {
-    Obj_1c5900* Find(u32_1c5900);
+    Obj_1c5900* Find_001c75e0(u32_1c5900);
 };
 struct Registry_1c5900 {
-    void Register(void*, Obj_1c5900*);
+    void Register_001c7870(void*, Obj_1c5900*);
 };
 struct Manager_1c5900 {
     char p0[8];
@@ -369,13 +369,13 @@ struct A_1c59d0 {
     char pad[8];
 };
 struct B_1c59d0 {
-    int F(int);
+    int FnF_001c75e0(int);
 };
 struct X_1c59d0 : A_1c59d0, B_1c59d0 {
     int G(hulk_intptr);
 };
 struct Elem_1c59e0 {
-    void f(int);
+    void Fnf_001c52f0(int);
 };
 class Ref_1c5a20 {
   public:
@@ -384,8 +384,8 @@ class Ref_1c5a20 {
 };
 class Sub_1c5a20 {
   public:
-    Ref_1c5a20* Get(int);
-    void Other(int);
+    Ref_1c5a20* Get_001c75e0(int);
+    void Other_001c7550(int);
     char pad[0x240];
 };
 class Owner_1c5a20 {
@@ -396,13 +396,13 @@ class Owner_1c5a20 {
     void Target(int);
 };
 struct Object_nv_1c5a70 {
-    void Update(int);
+    void Update_001c4ea0(int);
 };
 class Container {
   public:
-    Render::Object* Find(int);
-    void Remove(int);
-    void Erase(void*, Render::Object*);
+    Render::Object* Find_001c75e0(int);
+    void Remove_001c7550(int);
+    void Erase_001c7870(void*, Render::Object*);
 };
 class Owner {
   public:
@@ -419,7 +419,7 @@ class Obj {
     char pad[8];
 
   public:
-    void h(Item*, void*);
+    void Fnh_001c7870(Item*, void*);
     void fn(Item*, int);
 };
 
@@ -710,7 +710,7 @@ namespace fn_f4431f34 {
 // 0x001c4ea0 FUN_001c4ea0 (8 B): matches/0x001c4ea0.cpp
 // sym: ?Forward@A_1c4ea0@fn_f4431f34@@QAEXH@Z
 void A_1c4ea0::Forward(int a0) {
-    b.Fn(a0);
+    b.Fn_0027af70(a0);
 }
 
 } // namespace fn_f4431f34
@@ -773,7 +773,7 @@ namespace fn_f4431f34 {
 // 0x001c4fb0 FUN_001c4fb0 (96 B): matches/0x001c4fb0.cpp
 // sym: ??1Object_1c4fb0@fn_f4431f34@@QAE@XZ
 Object_1c4fb0::~Object_1c4fb0() throw() {
-    vptr = g_vftable_1c4fb0;
+    vptr = hulk_at_004218c8;
     if (m14)
         m14->V10(0);
     if (m14) {
@@ -1049,7 +1049,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 // sym: ??1Store@fn_f4431f34@@QAE@XZ
 Store::~Store() {
     ((Render::StoreBase *)this)->FUN_001c7720();
-    Cleanup2();
+    Cleanup2_001c7500();
 }
 
 } // namespace fn_f4431f34
@@ -1074,14 +1074,14 @@ namespace fn_f4431f34 {
 // 0x001c5740 FUN_001c5740 (25 B): matches/0x001c5740.cpp
 // sym: ?f@X@fn_f4431f34@@QAEXPAVArg@2@@Z
 void X::f(Arg* n) {
-    g(n->convert(), n);
+    Fng_001c7870(n->convert_001c5b70(), n);
 }
 
 
 // 0x001c5780 Render::Store<Render::ObjectTemplate>::vfunc_1 (12 B): matches/0x001c5780.cpp
 // sym: ?vfunc_1@fn_f4431f34@@YGHPAUStoreBase@1@@Z
 int __stdcall vfunc_1(StoreBase* p) {
-    return Helper(p);
+    return Helper_001c5b70(p);
 }
 
 } // namespace fn_f4431f34
@@ -1091,8 +1091,8 @@ int __stdcall vfunc_1(StoreBase* p) {
 template <> void Render::Store<Render::ObjectTemplate>::vfunc_2(void* __p0) { ObjectTemplate_1c5790 * p = (ObjectTemplate_1c5790 *)__p0;
 
     if (this->f_11c && p) {
-        p->f();
-        ReleaseTemplate(p);
+        p->Fnf_001c5d30();
+        ReleaseTemplate_0008d330(p);
     }
 }
 
@@ -1102,9 +1102,9 @@ namespace fn_f4431f34 {
 // sym: ?scalar_dtor@Store_1c57c0@fn_f4431f34@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* Store_1c57c0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1c57c0;
+    m_vptr = (void*)&hulk_at_00421914;
     ((Render::StoreBase *)this)->FUN_001c7720();
-    base2_dtor();
+    base2_dtor_001c7500();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -1115,9 +1115,9 @@ void* Store_1c57c0::scalar_dtor(unsigned char flags) {
 // sym: ?scalar_dtor@Store_1c57f0@fn_f4431f34@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* Store_1c57f0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1c57f0;
+    m_vptr = (void*)&hulk_at_00421924;
     ((Render::StoreBase *)this)->FUN_001c7720();
-    base2_dtor();
+    base2_dtor_001c7500();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -1128,9 +1128,9 @@ void* Store_1c57f0::scalar_dtor(unsigned char flags) {
 // sym: ?Target@fn_f4431f34@@YIPAUObjectManager@1@PAU21@@Z
 ObjectManager* __fastcall Target(ObjectManager* self) {
     self->vft = ((hulk_intptr)DAT_00421934);
-    self->objects.Init(0x40, 0);
+    self->objects.Init_001c77e0(0x40, 0);
     *(hulk_uintptr*)&self->objects = ((hulk_intptr)DAT_00421914);
-    self->templates.Init(0x40, 1);
+    self->templates.Init_001c77e0(0x40, 1);
     *(hulk_uintptr*)&self->templates = ((hulk_intptr)DAT_00421924);
     self->value = 0;
     return self;
@@ -1140,12 +1140,12 @@ ObjectManager* __fastcall Target(ObjectManager* self) {
 // 0x001c5900 FUN_001c5900 (87 B): matches/0x001c5900.cpp
 // sym: ?Run@Manager_1c5900@fn_f4431f34@@QAEPAUObj_1c5900@2@II@Z
 Obj_1c5900* Manager_1c5900::Run(u32_1c5900 a, u32_1c5900 b) {
-    Obj_1c5900* p = finder.Find(b);
+    Obj_1c5900* p = finder.Find_001c75e0(b);
     if (p) {
-        p = p->Create(a);
+        p = p->Create_001c5c20(a);
         p->f();
-        registry.Register((char*)p + 8, p);
-        if (p->Check())
+        registry.Register_001c7870((char*)p + 8, p);
+        if (p->Check_001c4af0())
             saved = p;
         return p;
     }
@@ -1176,7 +1176,7 @@ Object_1c5960 *Mgr_1c5960::FUN_001c5960(int a, int b)
 // 0x001c59d0 FUN_001c59d0 (8 B): matches/0x001c59d0.cpp
 // sym: ?G@X_1c59d0@fn_f4431f34@@QAEHH@Z
 int X_1c59d0::G(hulk_intptr a0) {
-    return B_1c59d0::F(a0);
+    return B_1c59d0::FnF_001c75e0(a0);
 }
 
 } // namespace fn_f4431f34
@@ -1187,7 +1187,7 @@ void owners::Obj_1c59e0::FUN_001c59e0(int arg) {
     int n = count;
     for (int i = 0; i <= n; ++i) {
         if ((unsigned)i < limit && items[i] != 0)
-            ((Elem_1c59e0*)items[i])->f(arg);
+            ((Elem_1c59e0*)items[i])->Fnf_001c52f0(arg);
     }
 }
 
@@ -1196,8 +1196,8 @@ namespace fn_f4431f34 {
 // 0x001c5a20 FUN_001c5a20 (67 B): matches/0x001c5a20.cpp
 // sym: ?Target@Owner_1c5a20@fn_f4431f34@@QAEXH@Z
 void Owner_1c5a20::Target(int arg) {
-    Ref_1c5a20* p = sub.Get(arg);
-    sub.Other(arg);
+    Ref_1c5a20* p = sub.Get_001c75e0(arg);
+    sub.Other_001c7550(arg);
     if (p == m248)
         m248 = 0;
     if (p)
@@ -1209,11 +1209,11 @@ void Owner_1c5a20::Target(int arg) {
 // sym: ?Act@Owner@fn_f4431f34@@QAEXHH@Z
 void Owner::Act(int key, int value) {
     Container* c = &items;
-    Render::Object* n = c->Find(key);
+    Render::Object* n = c->Find_001c75e0(key);
     if (n) {
-        c->Remove(key);
-        ((Object_nv_1c5a70*)(n))->Update(value);
-        c->Erase((char*)n + 8, n);
+        c->Remove_001c7550(key);
+        ((Object_nv_1c5a70*)(n))->Update_001c4ea0(value);
+        c->Erase_001c7870((char*)n + 8, n);
     }
 }
 
@@ -1223,8 +1223,8 @@ void Owner::Act(int key, int value) {
 void Obj::fn(Item* p, int x) {
     if (p) {
         p->f();
-        p->g(x);
-        ((Obj*)((char*)this + 8))->h((Item*)((char*)p + 8), p);
+        p->Fng_001c4ea0(x);
+        ((Obj*)((char*)this + 8))->Fnh_001c7870((Item*)((char*)p + 8), p);
     }
 }
 

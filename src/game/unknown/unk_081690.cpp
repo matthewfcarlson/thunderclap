@@ -136,7 +136,7 @@ public:
     Vec3_83080 dir;
     bool FUN_00083080(Xform_83080 *xf, Vec3_83080 *target, float angle);
 };
-extern void* g_vftable_832b0[];
+extern void* hulk_at_003ff90c[];
 class Ref_832b0 {
   public:
     virtual void F0();
@@ -145,7 +145,7 @@ class Ref_832b0 {
 class Entity_832b0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class CCow_832b0 : public Entity_832b0 {
   public:
@@ -1508,13 +1508,13 @@ namespace fn_fbd4e3f0 {
 // 0x000832b0 FUN_000832b0 (36 B): matches/0x000832b0.cpp
 // sym: ??1CCow_832b0@fn_fbd4e3f0@@QAE@XZ
 CCow_832b0::~CCow_832b0() {
-    vptr = g_vftable_832b0;
+    vptr = hulk_at_003ff90c;
     _ReadWriteBarrier();
     if (m3c) {
         m3c->Release();
         m3c = 0;
     }
-    Fin();
+    Fin_0027afd0();
 }
 
 } // namespace fn_fbd4e3f0

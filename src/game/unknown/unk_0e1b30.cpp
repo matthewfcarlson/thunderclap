@@ -46,7 +46,7 @@ struct Holder_e1b70 {
     char pad[4];
     Inner_e1b70* p;
 };
-extern int vtable_e1c60;
+extern int hulk_at_0040c0a4;
 class FEDoBackMenu_e1c60 {
   public:
     hulk_intptr vptr;
@@ -209,7 +209,7 @@ FEDoPushDialog::FEDoPushDialog(hulk_intptr value, const char* a, const char* b, 
 // 0x000e1c40 FUN_000e1c40 (31 B): matches/0x000e1c40.cpp [wrapped: conflict: FEDoPopDialog]
 // sym: ??0FEDoPopDialog@fn_000e1c40@@QAE@H@Z
 namespace fn_000e1c40 {
-extern int vtable_e1c40;
+extern int hulk_at_0040c08c;
 class FEDoPopDialog {
   public:
     hulk_intptr vptr;
@@ -225,7 +225,7 @@ FEDoPopDialog::FEDoPopDialog(hulk_intptr x) {
     c = -1;
     d = x;
     e = 0;
-    vptr = (hulk_intptr)&vtable_e1c40;
+    vptr = (hulk_intptr)&hulk_at_0040c08c;
 }
 } // namespace fn_000e1c40
 
@@ -239,7 +239,7 @@ FEDoBackMenu_e1c60::FEDoBackMenu_e1c60(hulk_intptr x) {
     c = -1;
     d = x;
     e = 0;
-    vptr = (hulk_intptr)&vtable_e1c60;
+    vptr = (hulk_intptr)&hulk_at_0040c0a4;
 }
 
 } // namespace fn_f5f1b679
@@ -263,14 +263,14 @@ class FEDoScreen {
     char pad[31];
     FEDoScreen(hulk_intptr, const char*);
 };
-extern void Format(char*, int, const char*, ...);
+extern void Format_000dfcc0(char*, int, const char*, ...);
 FEDoScreen::FEDoScreen(hulk_intptr x, const char* s) {
     a = -1;
     b = -1;
     c = x;
     e = 0;
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0040c0bc);
-    Format((char*)this + 0x34, 0x20, "%s", s);
+    Format_000dfcc0((char*)this + 0x34, 0x20, "%s", s);
 }
 } // namespace fn_000e1c90
 

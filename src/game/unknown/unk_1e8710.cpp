@@ -43,7 +43,7 @@ class Holder_1e8880 {
     int mCount;
     void Remove(Item_1e8880* item);
 };
-extern int __cdecl MakeThing(int, int);
+extern int __cdecl MakeThing_0008d710(int, int);
 class Thing_1e8910 {
   public:
     char pad[0x19c];
@@ -52,7 +52,7 @@ class Thing_1e8910 {
 };
 extern "C" char DAT_00423f28[];
 typedef unsigned int u32_1e8960;
-extern void* __cdecl alloc(unsigned int, unsigned int);
+extern void* __cdecl alloc_0008d710(unsigned int, unsigned int);
 struct SoundMix {
     u32_1e8960* vptr;
     u32_1e8960 a;
@@ -83,8 +83,8 @@ struct CSoundSequence {
     IRefCount* member;
     void cleanup();
 };
-extern void* soundvt[];
-extern void* refvt_1e8bf0[];
+extern void* hulk_at_00423f38[];
+extern void* hulk_at_003f6098[];
 
 } // namespace fn_f9c09d09
 
@@ -186,7 +186,7 @@ void Holder_1e8880::Remove(Item_1e8880* item) {
 int __fastcall Target(Thing_1e8910* self) {
     if (self->count >= 200)
         return 0;
-    int value = MakeThing(0x14, 6);
+    int value = MakeThing_0008d710(0x14, 6);
     self->items[self->count] = value;
     value = self->items[self->count];
     ++self->count;
@@ -199,7 +199,7 @@ int __fastcall Target(Thing_1e8910* self) {
 SoundMix* Manager_1e8960::Add() {
     if (count >= 20)
         return 0;
-    SoundMix* p = (SoundMix*)alloc(0x10, 6);
+    SoundMix* p = (SoundMix*)alloc_0008d710(0x10, 6);
     if (p != 0) {
         p->vptr = (u32_1e8960*)((hulk_intptr)DAT_00423f28);
         p->a = 0;
@@ -292,12 +292,12 @@ int* __fastcall FUN_001e8b00(Obj_1e8b00* self) {
 // 0x001e8bf0 FUN_001e8bf0 (36 B): matches/0x001e8bf0.cpp
 // sym: ?cleanup@CSoundSequence@fn_f9c09d09@@QAEXXZ
 void CSoundSequence::cleanup() {
-    vptr = soundvt;
+    vptr = hulk_at_00423f38;
     if (member) {
         member->Release();
         member = 0;
     }
-    vptr = refvt_1e8bf0;
+    vptr = hulk_at_003f6098;
 }
 
 } // namespace fn_f9c09d09

@@ -17,11 +17,11 @@ namespace fn_f9a5903c {} using namespace fn_f9a5903c;
 namespace fn_f9a5903c {
 extern "C" void __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
-extern void* gB_92190[];
-extern void* gM[];
+extern void* hulk_at_0040449c[];
+extern void* hulk_at_004044c4[];
 struct S_92190 {
     int a, b;
-    void Init();
+    void Init_0027af00();
 };
 class CUnlockableMovie_92190 {
   public:
@@ -49,12 +49,12 @@ class CUnlockable {
 };
 extern void __cdecl thunk_FUN_00267090(void*);
 struct Tail_921d0 {
-    void f();
+    void Fnf_0027af50();
 };
 extern "C" char DAT_004044cc[];
 class Sub_92230 {
   public:
-    void Init();
+    void Init_0027af00();
 };
 class CUnlockableGallery {
   public:
@@ -85,7 +85,7 @@ struct Obj_92320 {
     char pad[0x24];
 };
 struct Called {
-    void F(void*);
+    void FnF_0027af30(void*);
 };
 struct Obj_92340 {
     char pad[0xa8];
@@ -93,12 +93,12 @@ struct Obj_92340 {
 };
 class Obj_92410 {
   public:
-    void Setup(const char*, int, int);
+    void Setup_001d2ba0(const char*, int, int);
 };
 class Host_92410 {
   public:
-    Obj_92410* GetObject();
-    void AddThing(Obj_92410*, const char*, int);
+    Obj_92410* GetObject_001d4c90();
+    void AddThing_00092390(Obj_92410*, const char*, int);
     void Target();
 };
 struct Triple_92540 {
@@ -131,15 +131,15 @@ public:
 };
 typedef unsigned int u32_928f0;
 struct H {
-    void call(int);
+    void call_000c2c10(int);
 };
 struct C_928f0 {
     char pad[0xD88];
     H* member;
     void f(int, int);
 };
-extern char RTTI1_928f0;
-extern char RTTI2_928f0;
+extern char hulk_at_0049dab8;
+extern char hulk_at_0049db1c;
 extern void* Cast(void*, int, const void*, const void*, int);
 typedef unsigned char u8_92940;
 struct Obj_92940 {
@@ -147,7 +147,7 @@ struct Obj_92940 {
     u8_92940 value;
 };
 extern char TypeUnlockable[];
-extern char TypeCheat[];
+extern char hulk_at_0049dafc[];
 extern char TypeMove[];
 class Container_92940 {
   public:
@@ -197,7 +197,7 @@ class Obj_92e00 {
     void FUN_00092e00(int a, int b);
 };
 struct ThisCall_00092870 {
-    void Helper(int a, int b);
+    void Helper_00092870(int a, int b);
 };
 struct Game {
     void FUN_000928f0(int x, int y);
@@ -269,7 +269,7 @@ class C_92f70 {
 };
 extern Desc_92f70 descA;
 extern Desc_92f70 descB;
-extern char gA, gB;
+extern char gA, hulk_at_0049db3c;
 struct Inner {
 };
 struct Result {
@@ -347,15 +347,15 @@ namespace fn_f9a5903c {
 // 0x00092190 FUN_00092190 (52 B): matches/0x00092190.cpp
 // sym: ?ctor@CUnlockableMovie_92190@fn_f9a5903c@@QAEPAV12@XZ
 CUnlockableMovie_92190* CUnlockableMovie_92190::ctor() {
-    vptr = gB_92190;
+    vptr = hulk_at_0040449c;
     m8 = 1;
-    s10.Init();
+    s10.Init_0027af00();
     m18 = 0;
     m20 = 0;
     m28 = 0;
     m30 = 0;
     m24 = -1;
-    vptr = gM;
+    vptr = hulk_at_004044c4;
     return this;
 }
 
@@ -368,7 +368,7 @@ void CUnlockable::Destroy() {
         thunk_FUN_00267090(m18);
         m18 = 0;
     }
-    ((Tail_921d0*)((char*)this + 0x10))->f();
+    ((Tail_921d0*)((char*)this + 0x10))->Fnf_0027af50();
 }
 
 
@@ -377,11 +377,11 @@ void CUnlockable::Destroy() {
 CUnlockableGallery* __fastcall FUN_00092230(CUnlockableGallery* p) {
     p->v = ((hulk_intptr)DAT_0040449c);
     p->flag = 1;
-    ((Sub_92230*)((char*)p + 0x10))->Init();
+    ((Sub_92230*)((char*)p + 0x10))->Init_0027af00();
     p->m18 = 0;
     p->v = ((hulk_intptr)DAT_004044cc);
     p->m20 = 0;
-    ((Sub_92230*)((char*)p + 0xa8))->Init();
+    ((Sub_92230*)((char*)p + 0xa8))->Init_0027af00();
     p->mB0 = 0;
     *((unsigned char*)p + 0x24) = 0;
     *((unsigned char*)p + 0x64) = 0;
@@ -395,10 +395,10 @@ CUnlockableGallery* __fastcall FUN_00092230(CUnlockableGallery* p) {
 namespace fn_00092270 {
 extern "C" char DAT_0040449c[];
 extern "C" char DAT_004044cc[];
-void ReleaseThing(void*);
+void ReleaseThing_0008d340(void*);
 class Sub_92270 {
   public:
-    void Fin();
+    void Fin_0027af50();
 };
 class CUnlockableGallery {
   public:
@@ -410,13 +410,13 @@ class CUnlockableGallery {
 };
 void CUnlockableGallery::destroy() {
     *(void**)this = (void*)((hulk_intptr)DAT_004044cc);
-    ((Sub_92270*)((char*)this + 0xa8))->Fin();
+    ((Sub_92270*)((char*)this + 0xa8))->Fin_0027af50();
     *(void**)this = (void*)((hulk_intptr)DAT_0040449c);
     if (m18) {
-        ReleaseThing(m18);
+        ReleaseThing_0008d340(m18);
         m18 = 0;
     }
-    sub10.Fin();
+    sub10.Fin_0027af50();
 }
 } // namespace fn_00092270
 
@@ -447,7 +447,7 @@ hulk_intptr __fastcall FUN_00092330(void* p) {
 // 0x00092340 FUN_00092340 (25 B): matches/0x00092340.cpp
 // sym: ?Target@Obj_92340@fn_f9a5903c@@QAEIPAUCalled@2@@Z
 hulk_uintptr Obj_92340::Target(Called* param) {
-    param->F((char*)this + 0xa8);
+    param->FnF_0027af30((char*)this + 0xa8);
     return (hulk_uintptr)param;
 }
 
@@ -472,13 +472,13 @@ namespace fn_f9a5903c {
 // sym: ?Target@Host_92410@fn_f9a5903c@@QAEXXZ
 // data: gItems_92410 = DAT_0049ceb0
 void Host_92410::Target() {
-    Obj_92410* obj = GetObject();
+    Obj_92410* obj = GetObject_001d4c90();
     if (obj) {
-        obj->Setup("constants", 1, 1);
-        obj->Setup("unlockables", 0, 1);
+        obj->Setup_001d2ba0("constants", 1, 1);
+        obj->Setup_001d2ba0("unlockables", 0, 1);
         int i = 0;
         do {
-            AddThing(obj, ((const char**)&DAT_0049ceb0)[i], i);
+            AddThing_00092390(obj, ((const char**)&DAT_0049ceb0)[i], i);
             ++i;
         } while (i < 0x2fe);
         ((owners::Obj_1d19d0 *)obj)->FUN_001d19d0(2);
@@ -568,11 +568,11 @@ void Container_92870::FUN_00092870(int index, char flag)
 // 0x000928f0 FUN_000928f0 (66 B): matches/0x000928f0.cpp
 // sym: ?f@C_928f0@fn_f9a5903c@@QAEXHH@Z
 void C_928f0::f(int index, int value) {
-    void* p = Cast((void*)*(hulk_uintptr*)((char*)this + index * 4), 0, &RTTI1_928f0, &RTTI2_928f0, 0);
+    void* p = Cast((void*)*(hulk_uintptr*)((char*)this + index * 4), 0, &hulk_at_0049dab8, &hulk_at_0049db1c, 0);
     if (p) {
         *(u32_928f0*)((char*)p + 0x28) = value;
         if (member)
-            member->call(index);
+            member->call_000c2c10(index);
     }
 }
 
@@ -580,7 +580,7 @@ void C_928f0::f(int index, int value) {
 // 0x00092940 FUN_00092940 (81 B): matches/0x00092940.cpp
 // sym: ?Get@Container_92940@fn_f9a5903c@@QAEEH@Z
 u8_92940 Container_92940::Get(int index) {
-    Obj_92940* r = (Obj_92940*)Cast(items[index], 0, TypeUnlockable, TypeCheat, 0);
+    Obj_92940* r = (Obj_92940*)Cast(items[index], 0, TypeUnlockable, hulk_at_0049dafc, 0);
     if (!r)
         r = (Obj_92940*)Cast(items[index], 0, TypeUnlockable, TypeMove, 0);
     if (r)
@@ -716,7 +716,7 @@ namespace fn_f9a5903c {
 void Obj_92e00::FUN_00092e00(int a, int b) {
     if (a >= 0 && a < 0x2fe) {
         a = a;
-        ((ThisCall_00092870*)(this))->Helper(a, b);
+        ((ThisCall_00092870*)(this))->Helper_00092870(a, b);
     }
 }
 
@@ -804,7 +804,7 @@ void C_92f70::F(int c, int b, u8_92f70 d) {
 // sym: ?Run@Owner@fn_f9a5903c@@QAEXHPAX0@Z
 void Owner::Run(int index, void* x, void* y) {
     if (index >= 0x2ca && index <= 0x2dd) {
-        Result* r = Make(items[index], 0, &gA, &gB, 0);
+        Result* r = Make(items[index], 0, &gA, &hulk_at_0049db3c, 0);
         if (r) {
             ((owners::Target_27b040 *)&(r->inner))->FUN_0027b040((hulk_uintptr)x);
             ((owners::TextOwner_92120 *)r)->FUN_00092120((const char *)y);
@@ -901,8 +901,8 @@ void UnlockableList_93150::FUN_00093150(const char *id, int idx, const char *tit
 // sym: ?F@C_931f0@fn_000931f0@@QAEXPADH0H@Z
 namespace fn_000931f0 {
 extern "C++" __declspec(nothrow) void* __cdecl Cast(void*, int, void*, void*, int);
-void __cdecl Setup(void* p, int n, int v, ...);
-extern char TdA[], TdB[];
+void __cdecl Setup_00267760(void* p, int n, int v, ...);
+extern char TdA[], hulk_at_0049db60[];
 inline void Copy(char* d, const char* s) {
     char c;
     do {
@@ -916,7 +916,7 @@ class C_931f0 {
   public:
     void* arr[1];
     void F(char* a, int idx, char* name, int v);
-    void G(char*, int);
+    void FnG_00092c80(char*, int);
 };
 struct M_931f0 {
     char pad[0x28];
@@ -924,13 +924,13 @@ struct M_931f0 {
     char name[1];
 };
 void C_931f0::F(char* a, int idx, char* name, int v) {
-    M_931f0* o = (M_931f0*)Cast(arr[idx], 0, TdA, TdB, 0);
+    M_931f0* o = (M_931f0*)Cast(arr[idx], 0, TdA, hulk_at_0049db60, 0);
     if (o) {
         if (name)
             Copy(o->name, name);
-        Setup(o->a, 8, v);
+        Setup_00267760(o->a, 8, v);
         if (*a)
-            G(a, idx);
+            FnG_00092c80(a, idx);
     }
 }
 } // namespace fn_000931f0

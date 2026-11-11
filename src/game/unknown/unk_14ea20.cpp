@@ -130,8 +130,8 @@ public:
 struct TypeDesc_14ed00 {
     void* vf;
 };
-extern TypeDesc_14ed00 gSrcTD;
-extern TypeDesc_14ed00 gDstTD;
+extern TypeDesc_14ed00 hulk_at_00494b44;
+extern TypeDesc_14ed00 hulk_at_00494b60;
 extern "C" void* __cdecl RTDynamicCast(void* p, long vfDelta, TypeDesc_14ed00* src, TypeDesc_14ed00* dst, int throwErr);
 class BattleObj {
   public:
@@ -360,7 +360,7 @@ namespace fn_f0463da2 {
 // 0x0014ed00 hulkfight::motion::CollisionDevastatorCondition::vfunc_6 (74 B): matches/0x0014ed00.cpp
 // sym: ?vfunc_6@CollisionDevastatorCondition@motion@hulkfight@fn_f0463da2@@UAE_NHPAVFightObject@4@H@Z
 bool hulkfight::motion::CollisionDevastatorCondition::vfunc_6(int a, FightObject* p, int c) {
-    if (RTDynamicCast(p, 0, &gSrcTD, &gDstTD, 0) == 0)
+    if (RTDynamicCast(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0) == 0)
         return false;
     BattleObj* o = p->GetBattleObj();
     if (o == 0)

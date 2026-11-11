@@ -44,10 +44,10 @@ struct CSmartPropNameCondition {
 extern "C" void __fastcall FUN_0027af50(void*);
 extern void __fastcall FUN_00236d60(void*);
 extern void __cdecl thunk_FUN_00267090(void*);
-extern int condition_vftable_6b470;
+extern int hulk_at_003f98d0;
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CScrubberTrack : public CTrack {
   public:
@@ -73,16 +73,16 @@ class CDropTrack : public CTrack {
 };
 class Helper_6b620 {
   public:
-    void f();
+    void Fnf_0027af50();
 };
 class CKeyPoseTrack {
   public:
     int* vptr;
     char pad[0x5c];
     CKeyPoseTrack* vfunc_5(unsigned char flag);
-    void BaseDtor();
+    void BaseDtor_00236d60();
 };
-void Final(CKeyPoseTrack*);
+void Final_0008d330(CKeyPoseTrack*);
 class CSoundTrack : public CTrack {
   public:
     CSoundTrack* vfunc_5(signed char flags);
@@ -100,7 +100,7 @@ class CMoveAddTrack : public CTrack {
     CMoveAddTrack* vfunc_5(signed char flags);
 };
 extern hulk_freg __cdecl FUN_0004af40(float, float, float);
-extern const float degToRad;
+extern const float hulk_at_003f32b8;
 class Obj {
     char pad[0x18];
     float angle;
@@ -175,10 +175,10 @@ class CCameraDramaticTrack {
 };
 class Helper_6b990 {
   public:
-    void init();
-    void finish();
+    void init_0027af50();
+    void finish_00236d60();
 };
-extern char vfCamera, vfTrack;
+extern char hulk_at_003fbeb8, vfTrack;
 void __cdecl thunk_FUN_00267090(CCameraDramaticTrack*);
 class CCameraHintTrack : public CTrack {
   public:
@@ -266,7 +266,7 @@ CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNa
                                                                     unsigned char flags) {
     p->vptr = &smart_vftable;
     FUN_0027af50((char*)p + 0x18);
-    p->vptr = &condition_vftable_6b470;
+    p->vptr = &hulk_at_003f98d0;
     FUN_00236d60(p);
     if (flags & 1)
         thunk_FUN_00267090(p);
@@ -281,7 +281,7 @@ CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNa
  // thunk_FUN_00267090
 CScrubberTrack* CScrubberTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -296,7 +296,7 @@ CScrubberTrack* CScrubberTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CClimbingTrack* CClimbingTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -311,7 +311,7 @@ CClimbingTrack* CClimbingTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CJumpTrack* CJumpTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -340,7 +340,7 @@ hulk_freg Object::FUN_0006b540(float t) {
  // thunk_FUN_00267090
 CDropTrack* CDropTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -352,12 +352,12 @@ CDropTrack* CDropTrack::vfunc_5(signed char flags) {
 // sym: ?vfunc_5@CKeyPoseTrack@fn_fad3cf42@@QAEPAV12@E@Z
 CKeyPoseTrack* CKeyPoseTrack::vfunc_5(unsigned char flag) {
     vptr = (int*)((hulk_intptr)DAT_003fbb34);
-    ((Helper_6b620*)((char*)this + 0x60))->f();
-    ((Helper_6b620*)((char*)this + 0x10))->f();
+    ((Helper_6b620*)((char*)this + 0x60))->Fnf_0027af50();
+    ((Helper_6b620*)((char*)this + 0x10))->Fnf_0027af50();
     vptr = (int*)((hulk_intptr)DAT_003f98d0);
-    BaseDtor();
+    BaseDtor_00236d60();
     if (flag & 1)
-        Final(this);
+        Final_0008d330(this);
     return this;
 }
 
@@ -369,7 +369,7 @@ CKeyPoseTrack* CKeyPoseTrack::vfunc_5(unsigned char flag) {
  // thunk_FUN_00267090
 CSoundTrack* CSoundTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -384,7 +384,7 @@ CSoundTrack* CSoundTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CComboMessageTrack* CComboMessageTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -399,7 +399,7 @@ CComboMessageTrack* CComboMessageTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CMoveTrack* CMoveTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -414,7 +414,7 @@ CMoveTrack* CMoveTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CMoveAddTrack* CMoveAddTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -425,7 +425,7 @@ CMoveAddTrack* CMoveAddTrack::vfunc_5(signed char flags) {
 // 0x0006b750 FUN_0006b750 (41 B): matches/0x0006b750.cpp
 // sym: ?Set@Obj@fn_fad3cf42@@QAE_NM@Z
 bool Obj::Set(float a) {
-    angle = FUN_0004af40(-180.0f, 180.0f, a) * degToRad;
+    angle = FUN_0004af40(-180.0f, 180.0f, a) * hulk_at_003f32b8;
     return true;
 }
 
@@ -437,7 +437,7 @@ bool Obj::Set(float a) {
  // thunk_FUN_00267090
 CMoveAddYTrack* CMoveAddYTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -459,7 +459,7 @@ char X::SetDirection_0006b7b0(float v) {
  // thunk_FUN_00267090
 CSweepTrack* CSweepTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -474,7 +474,7 @@ CSweepTrack* CSweepTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CAutoTargetTrack* CAutoTargetTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -489,7 +489,7 @@ CAutoTargetTrack* CAutoTargetTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CDamageTrack* CDamageTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -504,7 +504,7 @@ CDamageTrack* CDamageTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CDrainHealthTrack* CDrainHealthTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -519,7 +519,7 @@ CDrainHealthTrack* CDrainHealthTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CComboTimerTrack* CComboTimerTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -534,7 +534,7 @@ CComboTimerTrack* CComboTimerTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CInvincibleTrack* CInvincibleTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -549,7 +549,7 @@ CInvincibleTrack* CInvincibleTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CIntangibleTrack* CIntangibleTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -564,7 +564,7 @@ CIntangibleTrack* CIntangibleTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CIntangibleToActorsTrack* CIntangibleToActorsTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -579,7 +579,7 @@ CIntangibleToActorsTrack* CIntangibleToActorsTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CCameraShakeTrack* CCameraShakeTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -591,16 +591,16 @@ CCameraShakeTrack* CCameraShakeTrack::vfunc_5(signed char flags) {
 // sym: ?vfunc_5@CCameraDramaticTrack@fn_fad3cf42@@UAEPAV12@E@Z
 CCameraDramaticTrack* CCameraDramaticTrack::vfunc_5(unsigned char flag) {
     CCameraDramaticTrack* self = this;
-    *(void**)self = &vfCamera;
+    *(void**)self = &hulk_at_003fbeb8;
     Helper_6b990* h = (Helper_6b990*)((char*)self + 0x60);
     int n = 8;
     do {
         h = (Helper_6b990*)((char*)h - 8);
-        h->init();
+        h->init_0027af50();
         --n;
     } while (n);
     *(void**)self = &vfTrack;
-    ((Helper_6b990*)self)->finish();
+    ((Helper_6b990*)self)->finish_00236d60();
     if (flag & 1)
         thunk_FUN_00267090(self);
     return self;
@@ -614,7 +614,7 @@ CCameraDramaticTrack* CCameraDramaticTrack::vfunc_5(unsigned char flag) {
  // thunk_FUN_00267090
 CCameraHintTrack* CCameraHintTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -629,7 +629,7 @@ CCameraHintTrack* CCameraHintTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CJumpAttackTrack* CJumpAttackTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -644,7 +644,7 @@ CJumpAttackTrack* CJumpAttackTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 COrientTrack* COrientTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -659,7 +659,7 @@ COrientTrack* COrientTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CDriftTrack* CDriftTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -674,7 +674,7 @@ CDriftTrack* CDriftTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CUninterruptibleTrack* CUninterruptibleTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -689,7 +689,7 @@ CUninterruptibleTrack* CUninterruptibleTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CInvulnerableTrack* CInvulnerableTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -704,7 +704,7 @@ CInvulnerableTrack* CInvulnerableTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CRageModeTrack* CRageModeTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -719,7 +719,7 @@ CRageModeTrack* CRageModeTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CStageTrack* CStageTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -739,11 +739,11 @@ struct CSmartPropNameCondition {
 extern "C" void __fastcall FUN_0027af50(void*);
 extern void __fastcall FUN_00236d60(void*);
 extern void __cdecl thunk_FUN_00267090(void*);
-extern int smart_vftable;
+extern int hulk_at_003fc0d0;
 extern int condition_vftable_6bb60;
 CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNameCondition* p, void*,
                                                                     unsigned char flags) {
-    p->vptr = &smart_vftable;
+    p->vptr = &hulk_at_003fc0d0;
     FUN_0027af50((char*)p + 0x18);
     p->vptr = &condition_vftable_6bb60;
     FUN_00236d60(p);
@@ -762,7 +762,7 @@ namespace fn_fad3cf42 {
  // thunk_FUN_00267090
 CAlertStatusTrack* CAlertStatusTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -777,7 +777,7 @@ CAlertStatusTrack* CAlertStatusTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CDeathTrack* CDeathTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -797,11 +797,11 @@ struct CSmartPropNameCondition {
 extern "C" void __fastcall FUN_0027af50(void*);
 extern void __fastcall FUN_00236d60(void*);
 extern void __cdecl thunk_FUN_00267090(void*);
-extern int smart_vftable;
+extern int hulk_at_003fc184;
 extern int condition_vftable_6bc00;
 CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNameCondition* p, void*,
                                                                     unsigned char flags) {
-    p->vptr = &smart_vftable;
+    p->vptr = &hulk_at_003fc184;
     FUN_0027af50((char*)p + 0x18);
     p->vptr = &condition_vftable_6bc00;
     FUN_00236d60(p);
@@ -820,7 +820,7 @@ namespace fn_fad3cf42 {
  // thunk_FUN_00267090
 CClearCollisionStun* CClearCollisionStun::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -835,7 +835,7 @@ CClearCollisionStun* CClearCollisionStun::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CMotionHitGroundHeightTrack* CMotionHitGroundHeightTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -850,7 +850,7 @@ CMotionHitGroundHeightTrack* CMotionHitGroundHeightTrack::vfunc_5(signed char fl
  // thunk_FUN_00267090
 CWallSlideTrack* CWallSlideTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -865,7 +865,7 @@ CWallSlideTrack* CWallSlideTrack::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 CTargetTrack* CTargetTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

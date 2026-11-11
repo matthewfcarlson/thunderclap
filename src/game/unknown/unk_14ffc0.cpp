@@ -19,121 +19,121 @@ class Record_14ffc0 {
 };
 class Helper_14ffc0 {
   public:
-    void g();
+    void Fng_00059510();
 };
-extern void* Condition_1501e0_vftable[];
+extern void* hulk_at_00413f70[];
 class Condition_1501e0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class InterruptAccumulatorCondition_1501e0 : public Condition_1501e0 {
   public:
     InterruptAccumulatorCondition_1501e0* vfunc_5(signed char flags);
 };
-extern void* Condition_150210_vftable[];
+extern void* hulk_at_00413f90[];
 class Condition_150210 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionSourceForceMagnitudeCondition_150210 : public Condition_150210 {
   public:
     CollisionSourceForceMagnitudeCondition_150210* vfunc_5(signed char flags);
 };
-extern void* Condition_150240_vftable[];
+extern void* hulk_at_00413fb0[];
 class Condition_150240 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionThrowCondition_150240 : public Condition_150240 {
   public:
     CollisionThrowCondition_150240* vfunc_5(signed char flags);
 };
-extern void* Condition_150270_vftable[];
+extern void* hulk_at_00413fd0[];
 class Condition_150270 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionSourceSizeCondition_150270 : public Condition_150270 {
   public:
     CollisionSourceSizeCondition_150270* vfunc_5(signed char flags);
 };
-extern void* Condition_1502a0_vftable[];
+extern void* hulk_at_00413ff0[];
 class Condition_1502a0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionSourceTypeCondition_1502a0 : public Condition_1502a0 {
   public:
     CollisionSourceTypeCondition_1502a0* vfunc_5(signed char flags);
 };
-extern void* Condition_1502d0_vftable[];
+extern void* hulk_at_00414010[];
 class Condition_1502d0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionTargetPriorityCondition_1502d0 : public Condition_1502d0 {
   public:
     CollisionTargetPriorityCondition_1502d0* vfunc_5(signed char flags);
 };
-extern void* Condition_150300_vftable[];
+extern void* hulk_at_00414030[];
 class Condition_150300 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionDevastatorCondition_150300 : public Condition_150300 {
   public:
     CollisionDevastatorCondition_150300* vfunc_5(signed char flags);
 };
-extern void* Condition_150330_vftable[];
+extern void* hulk_at_00414050[];
 class Condition_150330 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HitPushbackCondition_150330 : public Condition_150330 {
   public:
     HitPushbackCondition_150330* vfunc_5(signed char flags);
 };
-extern void* Condition_150360_vftable[];
+extern void* hulk_at_00414070[];
 class Condition_150360 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionTargetIsTargetCondition_150360 : public Condition_150360 {
   public:
     CollisionTargetIsTargetCondition_150360* vfunc_5(signed char flags);
 };
-extern void* Condition_150390_vftable[];
+extern void* hulk_at_00414090[];
 class Condition_150390 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionTargetSizeCondition_150390 : public Condition_150390 {
   public:
     CollisionTargetSizeCondition_150390* vfunc_5(signed char flags);
 };
-extern void* Condition_1503c0_vftable[];
+extern void* hulk_at_004140b0[];
 class Condition_1503c0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionSourceIsMissileCondition_1503c0 : public Condition_1503c0 {
   public:
     CollisionSourceIsMissileCondition_1503c0* vfunc_5(signed char flags);
 };
-extern void* Condition_1503f0_vftable[];
+extern void* hulk_at_004140d0[];
 class Condition_1503f0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HitPushbackVelocityCondition_1503f0 : public Condition_1503f0 {
   public:
     HitPushbackVelocityCondition_1503f0* vfunc_5(signed char flags);
 };
-extern char threat_vftable_150420;
+extern char hulk_at_004140f0;
 struct Obj_150420 {
     int x;
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(Obj_150420*);
 class CollisionThrownObjectCondition_150420 {
@@ -142,20 +142,20 @@ class CollisionThrownObjectCondition_150420 {
     char pad[0x0c];
     CollisionThrownObjectCondition_150420* vfunc_5(unsigned char);
 };
-extern void* Condition_150450_vftable[];
+extern void* hulk_at_00414110[];
 class Condition_150450 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionExplosionCondition_150450 : public Condition_150450 {
   public:
     CollisionExplosionCondition_150450* vfunc_5(signed char flags);
 };
-extern char threat_vftable_150480;
+extern char hulk_at_00414130;
 struct Obj_150480 {
     int x;
-    void f1();
-    void f2();
+    void f1_00234150();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(Obj_150480*);
 class CollisionSourceNodeCondition_150480 {
@@ -164,20 +164,20 @@ class CollisionSourceNodeCondition_150480 {
     char pad[0x0c];
     CollisionSourceNodeCondition_150480* vfunc_5(unsigned char);
 };
-extern void* Condition_1504b0_vftable[];
+extern void* hulk_at_00414150[];
 class Condition_1504b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionChargeCondition_1504b0 : public Condition_1504b0 {
   public:
     CollisionChargeCondition_1504b0* vfunc_5(signed char flags);
 };
-extern char threat_vftable_1504e0;
+extern char hulk_at_00414170;
 struct Obj_1504e0 {
     int x;
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(Obj_1504e0*);
 class CollisionTargetNameCondition_1504e0 {
@@ -186,38 +186,38 @@ class CollisionTargetNameCondition_1504e0 {
     char pad[0x0c];
     CollisionTargetNameCondition_1504e0* vfunc_5(unsigned char);
 };
-extern void* Condition_150510_vftable[];
+extern void* hulk_at_00414190[];
 class Condition_150510 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionDamageHealthCompareCondition_150510 : public Condition_150510 {
   public:
     CollisionDamageHealthCompareCondition_150510* vfunc_5(signed char flags);
 };
-extern void* Condition_150540_vftable[];
+extern void* hulk_at_004141b0[];
 class Condition_150540 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionTargetTypeCondition_150540 : public Condition_150540 {
   public:
     CollisionTargetTypeCondition_150540* vfunc_5(signed char flags);
 };
-extern void* Condition_150570_vftable[];
+extern void* hulk_at_004141d0[];
 class Condition_150570 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionInterruptPriorityCondition_150570 : public Condition_150570 {
   public:
     CollisionInterruptPriorityCondition_150570* vfunc_5(signed char flags);
 };
-extern char threat_vftable_1505a0;
+extern char hulk_at_004141f0;
 struct Obj_1505a0 {
     int x;
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(Obj_1505a0*);
 class CollisionSourceNameCondition_1505a0 {
@@ -226,25 +226,25 @@ class CollisionSourceNameCondition_1505a0 {
     char pad[0x0c];
     CollisionSourceNameCondition_1505a0* vfunc_5(unsigned char);
 };
-extern void* Track_1505d0_vftable[];
+extern void* hulk_at_00414210[];
 class Track_1505d0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class InterruptAccumulatorSetTrack_1505d0 : public Track_1505d0 {
   public:
     InterruptAccumulatorSetTrack_1505d0* vfunc_5(signed char flags);
 };
-extern void* Track_150600_vftable[];
+extern void* hulk_at_00414240[];
 class Track_150600 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HitThrowTrack_150600 : public Track_150600 {
   public:
     HitThrowTrack_150600* vfunc_5(signed char flags);
 };
-extern void* g_vftable_150630[];
+extern void* hulk_at_00414270[];
 class Mem_150630 {
   public:
     ~Mem_150630();
@@ -252,7 +252,7 @@ class Mem_150630 {
 class Track_150630 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class HitReactionFloatTrack_150630 : public Track_150630 {
   public:
@@ -260,10 +260,10 @@ class HitReactionFloatTrack_150630 : public Track_150630 {
     Mem_150630 m;
     HitReactionFloatTrack_150630* f2(unsigned char flags);
 };
-extern void* Track_150660_vftable[];
+extern void* hulk_at_004142a0[];
 class Track_150660 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HitPauseTrack_150660 : public Track_150660 {
   public:
@@ -288,104 +288,104 @@ class HitReactionTrack {
     virtual void v10();
     char pad[0x14];
     Sub_150690 sub;
-    void BaseCall();
+    void BaseCall_00236d60();
     HitReactionTrack(int);
 };
 extern void __cdecl thunk_FUN_00267090(HitReactionTrack*);
-extern void* Track_1506c0_vftable[];
+extern void* hulk_at_00414300[];
 class Track_1506c0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HitWaitTrack_1506c0 : public Track_1506c0 {
   public:
     HitWaitTrack_1506c0* vfunc_5(signed char flags);
 };
-extern void* Track_1506f0_vftable[];
+extern void* hulk_at_00414330[];
 class Track_1506f0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class InterruptPriorityTrack_1506f0 : public Track_1506f0 {
   public:
     InterruptPriorityTrack_1506f0* vfunc_5(signed char flags);
 };
-extern void* Track_150720_vftable[];
+extern void* hulk_at_00414360[];
 class Track_150720 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HitOrientToPushbackTrack_150720 : public Track_150720 {
   public:
     HitOrientToPushbackTrack_150720* vfunc_5(signed char flags);
 };
-extern void* Track_150750_vftable[];
+extern void* hulk_at_00414390[];
 class Track_150750 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HitFloatTrack_150750 : public Track_150750 {
   public:
     HitFloatTrack_150750* vfunc_5(signed char flags);
 };
-extern void* Track_150780_vftable[];
+extern void* hulk_at_004143c0[];
 class Track_150780 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ClearFightParamsHitRecordTrack_150780 : public Track_150780 {
   public:
     ClearFightParamsHitRecordTrack_150780* vfunc_5(signed char flags);
 };
-extern void* Track_1507b0_vftable[];
+extern void* hulk_at_004143f0[];
 class Track_1507b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HitPushbackAddTrack_1507b0 : public Track_1507b0 {
   public:
     HitPushbackAddTrack_1507b0* vfunc_5(signed char flags);
 };
-extern void* Track_1507e0_vftable[];
+extern void* hulk_at_00414420[];
 class Track_1507e0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HealthTrack_1507e0 : public Track_1507e0 {
   public:
     HealthTrack_1507e0* vfunc_5(signed char flags);
 };
-extern void* Track_150810_vftable[];
+extern void* hulk_at_00414450[];
 class Track_150810 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HitDamageTrack_150810 : public Track_150810 {
   public:
     HitDamageTrack_150810* vfunc_5(signed char flags);
 };
-extern void* Track_150840_vftable[];
+extern void* hulk_at_00414480[];
 class Track_150840 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class GroundSlideTrack_150840 : public Track_150840 {
   public:
     GroundSlideTrack_150840* vfunc_5(signed char flags);
 };
-extern void* Track_150870_vftable[];
+extern void* hulk_at_004144b0[];
 class Track_150870 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HitPushbackTrack_150870 : public Track_150870 {
   public:
     HitPushbackTrack_150870* vfunc_5(signed char flags);
 };
-extern void* Track_1508a0_vftable[];
+extern void* hulk_at_004144e0[];
 class Track_1508a0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class NoHitPushbackTrack_1508a0 : public Track_1508a0 {
   public:
@@ -400,7 +400,7 @@ bool hulkfight::motion::ClearFightParamsHitRecordAction::vfunc_3(hulk_intptr , h
     if ((*(Record_14ffc0 * *)&this->f_20)) {
         void* p = (*(Record_14ffc0 * *)&this->f_20)->f3();
         if (p) {
-            ((Helper_14ffc0*)p)->g();
+            ((Helper_14ffc0*)p)->Fng_00059510();
         }
     }
     return false;
@@ -440,8 +440,8 @@ namespace fn_fb14e9c5 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 InterruptAccumulatorCondition_1501e0* InterruptAccumulatorCondition_1501e0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1501e0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00413f70;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -455,8 +455,8 @@ InterruptAccumulatorCondition_1501e0* InterruptAccumulatorCondition_1501e0::vfun
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionSourceForceMagnitudeCondition_150210* CollisionSourceForceMagnitudeCondition_150210::vfunc_5(signed char flags) {
-    *(void***)this = Condition_150210_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00413f90;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -470,8 +470,8 @@ CollisionSourceForceMagnitudeCondition_150210* CollisionSourceForceMagnitudeCond
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionThrowCondition_150240* CollisionThrowCondition_150240::vfunc_5(signed char flags) {
-    *(void***)this = Condition_150240_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00413fb0;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -485,8 +485,8 @@ CollisionThrowCondition_150240* CollisionThrowCondition_150240::vfunc_5(signed c
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionSourceSizeCondition_150270* CollisionSourceSizeCondition_150270::vfunc_5(signed char flags) {
-    *(void***)this = Condition_150270_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00413fd0;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -500,8 +500,8 @@ CollisionSourceSizeCondition_150270* CollisionSourceSizeCondition_150270::vfunc_
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionSourceTypeCondition_1502a0* CollisionSourceTypeCondition_1502a0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1502a0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00413ff0;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -515,8 +515,8 @@ CollisionSourceTypeCondition_1502a0* CollisionSourceTypeCondition_1502a0::vfunc_
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionTargetPriorityCondition_1502d0* CollisionTargetPriorityCondition_1502d0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1502d0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414010;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -530,8 +530,8 @@ CollisionTargetPriorityCondition_1502d0* CollisionTargetPriorityCondition_1502d0
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionDevastatorCondition_150300* CollisionDevastatorCondition_150300::vfunc_5(signed char flags) {
-    *(void***)this = Condition_150300_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414030;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -545,8 +545,8 @@ CollisionDevastatorCondition_150300* CollisionDevastatorCondition_150300::vfunc_
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HitPushbackCondition_150330* HitPushbackCondition_150330::vfunc_5(signed char flags) {
-    *(void***)this = Condition_150330_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414050;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -560,8 +560,8 @@ HitPushbackCondition_150330* HitPushbackCondition_150330::vfunc_5(signed char fl
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionTargetIsTargetCondition_150360* CollisionTargetIsTargetCondition_150360::vfunc_5(signed char flags) {
-    *(void***)this = Condition_150360_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414070;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -575,8 +575,8 @@ CollisionTargetIsTargetCondition_150360* CollisionTargetIsTargetCondition_150360
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionTargetSizeCondition_150390* CollisionTargetSizeCondition_150390::vfunc_5(signed char flags) {
-    *(void***)this = Condition_150390_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414090;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -590,8 +590,8 @@ CollisionTargetSizeCondition_150390* CollisionTargetSizeCondition_150390::vfunc_
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionSourceIsMissileCondition_1503c0* CollisionSourceIsMissileCondition_1503c0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1503c0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004140b0;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -605,8 +605,8 @@ CollisionSourceIsMissileCondition_1503c0* CollisionSourceIsMissileCondition_1503
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HitPushbackVelocityCondition_1503f0* HitPushbackVelocityCondition_1503f0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1503f0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004140d0;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -619,9 +619,9 @@ HitPushbackVelocityCondition_1503f0* HitPushbackVelocityCondition_1503f0::vfunc_
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 CollisionThrownObjectCondition_150420* CollisionThrownObjectCondition_150420::vfunc_5(unsigned char param) {
     CollisionThrownObjectCondition_150420* p = this;
-    *(char**)p = &threat_vftable_150420;
-    ((Obj_150420*)((char*)p + 0x10))->f1();
-    ((Obj_150420*)p)->f2();
+    *(char**)p = &hulk_at_004140f0;
+    ((Obj_150420*)((char*)p + 0x10))->f1_0027af50();
+    ((Obj_150420*)p)->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((Obj_150420*)p);
     return p;
@@ -634,8 +634,8 @@ CollisionThrownObjectCondition_150420* CollisionThrownObjectCondition_150420::vf
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionExplosionCondition_150450* CollisionExplosionCondition_150450::vfunc_5(signed char flags) {
-    *(void***)this = Condition_150450_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414110;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -648,9 +648,9 @@ CollisionExplosionCondition_150450* CollisionExplosionCondition_150450::vfunc_5(
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 CollisionSourceNodeCondition_150480* CollisionSourceNodeCondition_150480::vfunc_5(unsigned char param) {
     CollisionSourceNodeCondition_150480* p = this;
-    *(char**)p = &threat_vftable_150480;
-    ((Obj_150480*)((char*)p + 0x10))->f1();
-    ((Obj_150480*)p)->f2();
+    *(char**)p = &hulk_at_00414130;
+    ((Obj_150480*)((char*)p + 0x10))->f1_00234150();
+    ((Obj_150480*)p)->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((Obj_150480*)p);
     return p;
@@ -663,8 +663,8 @@ CollisionSourceNodeCondition_150480* CollisionSourceNodeCondition_150480::vfunc_
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionChargeCondition_1504b0* CollisionChargeCondition_1504b0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1504b0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414150;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -677,9 +677,9 @@ CollisionChargeCondition_1504b0* CollisionChargeCondition_1504b0::vfunc_5(signed
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 CollisionTargetNameCondition_1504e0* CollisionTargetNameCondition_1504e0::vfunc_5(unsigned char param) {
     CollisionTargetNameCondition_1504e0* p = this;
-    *(char**)p = &threat_vftable_1504e0;
-    ((Obj_1504e0*)((char*)p + 0x10))->f1();
-    ((Obj_1504e0*)p)->f2();
+    *(char**)p = &hulk_at_00414170;
+    ((Obj_1504e0*)((char*)p + 0x10))->f1_0027af50();
+    ((Obj_1504e0*)p)->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((Obj_1504e0*)p);
     return p;
@@ -692,8 +692,8 @@ CollisionTargetNameCondition_1504e0* CollisionTargetNameCondition_1504e0::vfunc_
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionDamageHealthCompareCondition_150510* CollisionDamageHealthCompareCondition_150510::vfunc_5(signed char flags) {
-    *(void***)this = Condition_150510_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414190;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -707,8 +707,8 @@ CollisionDamageHealthCompareCondition_150510* CollisionDamageHealthCompareCondit
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionTargetTypeCondition_150540* CollisionTargetTypeCondition_150540::vfunc_5(signed char flags) {
-    *(void***)this = Condition_150540_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004141b0;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -722,8 +722,8 @@ CollisionTargetTypeCondition_150540* CollisionTargetTypeCondition_150540::vfunc_
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionInterruptPriorityCondition_150570* CollisionInterruptPriorityCondition_150570::vfunc_5(signed char flags) {
-    *(void***)this = Condition_150570_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004141d0;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -736,9 +736,9 @@ CollisionInterruptPriorityCondition_150570* CollisionInterruptPriorityCondition_
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 CollisionSourceNameCondition_1505a0* CollisionSourceNameCondition_1505a0::vfunc_5(unsigned char param) {
     CollisionSourceNameCondition_1505a0* p = this;
-    *(char**)p = &threat_vftable_1505a0;
-    ((Obj_1505a0*)((char*)p + 0x10))->f1();
-    ((Obj_1505a0*)p)->f2();
+    *(char**)p = &hulk_at_004141f0;
+    ((Obj_1505a0*)((char*)p + 0x10))->f1_0027af50();
+    ((Obj_1505a0*)p)->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((Obj_1505a0*)p);
     return p;
@@ -751,8 +751,8 @@ CollisionSourceNameCondition_1505a0* CollisionSourceNameCondition_1505a0::vfunc_
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 InterruptAccumulatorSetTrack_1505d0* InterruptAccumulatorSetTrack_1505d0::vfunc_5(signed char flags) {
-    *(void***)this = Track_1505d0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414210;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -766,8 +766,8 @@ InterruptAccumulatorSetTrack_1505d0* InterruptAccumulatorSetTrack_1505d0::vfunc_
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HitThrowTrack_150600* HitThrowTrack_150600::vfunc_5(signed char flags) {
-    *(void***)this = Track_150600_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414240;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -778,10 +778,10 @@ HitThrowTrack_150600* HitThrowTrack_150600::vfunc_5(signed char flags) {
 // 0x00150630 hulkfight::motion::HitReactionFloatTrack::vfunc_5 (46 B): matches/0x00150630.cpp
 // sym: ?f2@HitReactionFloatTrack_150630@fn_fb14e9c5@@QAEPAV12@E@Z
 HitReactionFloatTrack_150630* HitReactionFloatTrack_150630::f2(unsigned char flags) {
-    vptr = g_vftable_150630;
+    vptr = hulk_at_00414270;
 
     m.~Mem_150630();
-    Fin();
+    Fin_00236d60();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -794,8 +794,8 @@ HitReactionFloatTrack_150630* HitReactionFloatTrack_150630::f2(unsigned char fla
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HitPauseTrack_150660* HitPauseTrack_150660::vfunc_5(signed char flags) {
-    *(void***)this = Track_150660_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004142a0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -806,7 +806,7 @@ HitPauseTrack_150660* HitPauseTrack_150660::vfunc_5(signed char flags) {
 // 0x00150690 hulkfight::motion::HitReactionTrack::vfunc_5 (46 B): matches/0x00150690.cpp
 // sym: ??0HitReactionTrack@fn_fb14e9c5@@QAE@H@Z
 HitReactionTrack::HitReactionTrack(int flag) {
-    BaseCall();
+    BaseCall_00236d60();
     if (flag & 1)
         thunk_FUN_00267090(this);
 }
@@ -818,8 +818,8 @@ HitReactionTrack::HitReactionTrack(int flag) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HitWaitTrack_1506c0* HitWaitTrack_1506c0::vfunc_5(signed char flags) {
-    *(void***)this = Track_1506c0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414300;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -833,8 +833,8 @@ HitWaitTrack_1506c0* HitWaitTrack_1506c0::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 InterruptPriorityTrack_1506f0* InterruptPriorityTrack_1506f0::vfunc_5(signed char flags) {
-    *(void***)this = Track_1506f0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414330;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -848,8 +848,8 @@ InterruptPriorityTrack_1506f0* InterruptPriorityTrack_1506f0::vfunc_5(signed cha
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HitOrientToPushbackTrack_150720* HitOrientToPushbackTrack_150720::vfunc_5(signed char flags) {
-    *(void***)this = Track_150720_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414360;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -863,8 +863,8 @@ HitOrientToPushbackTrack_150720* HitOrientToPushbackTrack_150720::vfunc_5(signed
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HitFloatTrack_150750* HitFloatTrack_150750::vfunc_5(signed char flags) {
-    *(void***)this = Track_150750_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414390;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -878,8 +878,8 @@ HitFloatTrack_150750* HitFloatTrack_150750::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ClearFightParamsHitRecordTrack_150780* ClearFightParamsHitRecordTrack_150780::vfunc_5(signed char flags) {
-    *(void***)this = Track_150780_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004143c0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -893,8 +893,8 @@ ClearFightParamsHitRecordTrack_150780* ClearFightParamsHitRecordTrack_150780::vf
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HitPushbackAddTrack_1507b0* HitPushbackAddTrack_1507b0::vfunc_5(signed char flags) {
-    *(void***)this = Track_1507b0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004143f0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -908,8 +908,8 @@ HitPushbackAddTrack_1507b0* HitPushbackAddTrack_1507b0::vfunc_5(signed char flag
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HealthTrack_1507e0* HealthTrack_1507e0::vfunc_5(signed char flags) {
-    *(void***)this = Track_1507e0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414420;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -923,8 +923,8 @@ HealthTrack_1507e0* HealthTrack_1507e0::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HitDamageTrack_150810* HitDamageTrack_150810::vfunc_5(signed char flags) {
-    *(void***)this = Track_150810_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414450;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -938,8 +938,8 @@ HitDamageTrack_150810* HitDamageTrack_150810::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 GroundSlideTrack_150840* GroundSlideTrack_150840::vfunc_5(signed char flags) {
-    *(void***)this = Track_150840_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00414480;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -953,8 +953,8 @@ GroundSlideTrack_150840* GroundSlideTrack_150840::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HitPushbackTrack_150870* HitPushbackTrack_150870::vfunc_5(signed char flags) {
-    *(void***)this = Track_150870_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004144b0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -968,8 +968,8 @@ HitPushbackTrack_150870* HitPushbackTrack_150870::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 NoHitPushbackTrack_1508a0* NoHitPushbackTrack_1508a0::vfunc_5(signed char flags) {
-    *(void***)this = Track_1508a0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004144e0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

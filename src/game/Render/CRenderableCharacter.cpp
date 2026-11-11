@@ -21,21 +21,21 @@ class CRenderableCharacter {
 };
 }
 struct Sub_1c60b0 {
-    void f(void*);
-    void g();
+    void Fnf_001c3b80(void*);
+    void Fng_0027af50();
 };
 extern "C" Sub_1c60b0* FUN_001c3d90();
 extern "C" void thunk_FUN_00267090(Render::CRenderableCharacter*);
-extern int g_vft_1c60b0;
+extern int hulk_at_00421990;
 
 
 // 0x001c60b0 Render::CRenderableCharacter::vfunc_0 (56 B): matches/0x001c60b0.cpp
 // sym: ?vfunc_0@CRenderableCharacter@Render@fn_ffaef9d7@@UAEPAV123@E@Z
 Render::CRenderableCharacter* Render::CRenderableCharacter::vfunc_0(unsigned char flag) {
     Sub_1c60b0* p = (Sub_1c60b0*)((char*)this + 8);
-    *(hulk_intptr*)this = (hulk_intptr)&g_vft_1c60b0;
-    FUN_001c3d90()->f(p);
-    p->g();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00421990;
+    FUN_001c3d90()->Fnf_001c3b80(p);
+    p->Fng_0027af50();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;

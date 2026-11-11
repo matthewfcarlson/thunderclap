@@ -24,7 +24,7 @@ struct Obj_1f9630 {
 extern "C" void FUN_001f92f0();
 class R_1f9630 {
   public:
-    Obj_1f9630* find(void (*)(), void*);
+    Obj_1f9630* find_00230ba0(void (*)(), void*);
 };
 class C_1f9630 {
   public:
@@ -34,7 +34,7 @@ class C_1f9630 {
 };
 class Cleanup_1f9630 {
   public:
-    void go();
+    void go_0027af50();
 };
 struct Key_1f9670 {
     int w[4];
@@ -44,21 +44,21 @@ struct Obj_1f9670 {
     unsigned short value;
 };
 struct Sub_1f9670 {
-    int Find(int (*cb)(), void*);
+    int Find_00230ba0(int (*cb)(), void*);
 };
 struct Temp_1f9670 {
-    void Cleanup();
+    void Cleanup_0027af50();
 };
 struct Receiver_1f9670 {
     char pad[0xc6c];
     Sub_1f9670* sub;
     bool Target(Key_1f9670 a, unsigned short v);
 };
-extern int Callback();
+extern int Callback_001f92f0();
 struct Param {
     int a;
     int b;
-    void finish();
+    void finish_0027af50();
 };
 struct Two_1f96b0 {
     volatile unsigned char a, b;
@@ -70,14 +70,14 @@ struct Temp_1f96b0 {
     char pad1[6];
     short b;
     char tail[6];
-    void init(Param*);
-    void finish();
+    void init_0027af30(Param*);
+    void finish_0027af50();
 };
 struct Out_1f96b0 {
     char data[8];
 };
 struct Mgr_1f96b0 {
-    void fn(Out_1f96b0*, Temp_1f96b0*);
+    void fn_001f9530(Out_1f96b0*, Temp_1f96b0*);
 };
 struct Owner_1f96b0 {
     char pad[0xc6c];
@@ -148,7 +148,7 @@ public:
     void FUN_001f9710(Table *owner, const char *label, int a, int b);
 };
 struct Sub_1f9f80 {
-    void Helper();
+    void Helper_0027af50();
 };
 struct Obj_1f9f80 {
     char pad[16];
@@ -172,9 +172,9 @@ class C_1fa610 {
     V* p;
     void target();
 };
-void cb();
+void cb_001f9f80();
 struct This_helper {
-    void helper(void*, void*);
+    void helper_00230f50(void*, void*);
 };
 class Obj_1fa7a0 {
   public:
@@ -332,13 +332,13 @@ namespace fn_f80593ac {
 // sym: ?target@C_1f9630@fn_f80593ac@@QAEGUKey_1f9630@2@@Z
 // a..d: the 16-byte name key passed by value (the callers' Key: 8-byte name + index bytes).
 unsigned short C_1f9630::target(Key_1f9630 a) {
-    Obj_1f9630* o = field->find(FUN_001f92f0, (void*)&a);
+    Obj_1f9630* o = field->find_00230ba0(FUN_001f92f0, (void*)&a);
     if (!o) {
-        ((Cleanup_1f9630*)&a)->go();
+        ((Cleanup_1f9630*)&a)->go_0027af50();
         return 0xfffe;
     }
     unsigned short v = o->value;
-    ((Cleanup_1f9630*)&a)->go();
+    ((Cleanup_1f9630*)&a)->go_0027af50();
     return v;
 }
 
@@ -347,13 +347,13 @@ unsigned short C_1f9630::target(Key_1f9630 a) {
 // sym: ?Target@Receiver_1f9670@fn_f80593ac@@QAE_NUKey_1f9670@2@G@Z
 // a..d: the 16-byte name key passed by value (the callers' Key: 8-byte name + index bytes).
 bool Receiver_1f9670::Target(Key_1f9670 a, unsigned short v) {
-    hulk_intptr r = sub->Find(Callback, &a);
+    hulk_intptr r = sub->Find_00230ba0(Callback_001f92f0, &a);
     if (!r) {
-        ((Temp_1f9670*)&a)->Cleanup();
+        ((Temp_1f9670*)&a)->Cleanup_0027af50();
         return false;
     }
     ((Obj_1f9670*)r)->value = v;
-    ((Temp_1f9670*)&a)->Cleanup();
+    ((Temp_1f9670*)&a)->Cleanup_0027af50();
     return true;
 }
 
@@ -363,14 +363,14 @@ bool Receiver_1f9670::Target(Key_1f9670 a, unsigned short v) {
 // The 8-byte id, passed by value in two stack words (the original copies both with FUN_0027af30).
 void Owner_1f96b0::target(Param x, Two_1f96b0 z, int w, short v) {
     Temp_1f96b0 t;
-    t.init(&x);
+    t.init_0027af30(&x);
     t.c = z.a;
     t.d = z.b;
     t.b = v;
     Out_1f96b0 o;
-    mgr->fn(&o, &t);
-    t.finish();
-    x.finish();
+    mgr->fn_001f9530(&o, &t);
+    t.finish_0027af50();
+    x.finish_0027af50();
 }
 
 
@@ -404,7 +404,7 @@ void Slot_1f9710::FUN_001f9710(Table *owner, const char *label, int a, int b)
 // 0x001f9f80 FUN_001f9f80 (30 B): matches/0x001f9f80.cpp
 // sym: ?Target@fn_f80593ac@@YA_NPAUObj_1f9f80@1@PAUB_1f9f80@1@@Z
 bool Target(Obj_1f9f80* a, B_1f9f80* b) {
-    a->sub.Helper();
+    a->sub.Helper_0027af50();
     b->p->f4(a);
     return true;
 }
@@ -641,7 +641,7 @@ namespace fn_f80593ac {
 // 0x001fa610 FUN_001fa610 (23 B): matches/0x001fa610.cpp
 // sym: ?target@C_1fa610@fn_f80593ac@@QAEXXZ
 void C_1fa610::target() {
-    ((This_helper*)this)->helper((void*)cb, this);
+    ((This_helper*)this)->helper_00230f50((void*)cb_001f9f80, this);
     p->f1();
 }
 

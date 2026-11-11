@@ -61,16 +61,16 @@ class NonCopyable : public SimpleChunkHandler_1c6d40 {
 }
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 struct Sub_1c6d60 {
-    void cleanup();
+    void cleanup_001c2760();
 };
 struct Item_1c6d60 {
     char pad[4];
 };
 typedef unsigned int u32_1c6e20;
 struct Sub_1c6e20 {
-    void clean();
+    void clean_001c27c0();
 };
-void finish(hulk_uintptr);
+void finish_0008d340(hulk_uintptr);
 struct Container_1c6e20 {
     char* begin;
     char* end;
@@ -90,7 +90,7 @@ struct Object {
 };
 class Elem_1c6f70 {
   public:
-    void Cleanup();
+    void Cleanup_001c27c0();
 };
 class Item_1c6f70 {
     char pad[4];
@@ -112,7 +112,7 @@ class Owner_1c6f70 {
     Item_1c6f70* begin;
     Item_1c6f70* end;
     void Clear();
-    void Finish();
+    void Finish_0027af50();
 };
 void __cdecl thunk_FUN_00267090(Item_1c6f70*);
 
@@ -169,7 +169,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 void __cdecl FUN_001c6d60(Item_1c6d60* a, Item_1c6d60* b) {
     for (; a != b; a = (Item_1c6d60*)((char*)a + 0xa8)) {
         if (a)
-            ((Sub_1c6d60*)((char*)a + 4))->cleanup();
+            ((Sub_1c6d60*)((char*)a + 4))->cleanup_001c2760();
     }
 }
 
@@ -181,8 +181,8 @@ void __fastcall target(Container_1c6e20* self) {
     if (p) {
         char* e = self->end;
         for (; p != e; p += 0xa8)
-            ((Sub_1c6e20*)(p + 4))->clean();
-        finish((hulk_uintptr)self->begin);
+            ((Sub_1c6e20*)(p + 4))->clean_001c27c0();
+        finish_0008d340((hulk_uintptr)self->begin);
     }
 }
 
@@ -222,7 +222,7 @@ void Owner_1c6f70::Clear() {
         Item_1c6f70* e = end;
         if (p != e) {
             do {
-                p->element.Cleanup();
+                p->element.Cleanup_001c27c0();
                 p = (Item_1c6f70*)((char*)p + 0xa8);
             } while (p != e);
         }
@@ -246,7 +246,7 @@ void Owner_1c6f70::Clear() {
         Ref_1c6f70** q = &mA;
         *q = 0;
     }
-    Finish();
+    Finish_0027af50();
 }
 
 } // namespace fn_f74b9f55

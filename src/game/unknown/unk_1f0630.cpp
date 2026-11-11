@@ -76,8 +76,8 @@ public:
 
     CSoundCommand_PlayMissionDialogueEvent(const char* name, const char* sub, const char* line, int arg1, float value, int arg2);
 };
-extern "C" unsigned __int64 getMusic(int, int, int);
-extern "C" int getEvent(int, int);
+extern "C" unsigned __int64 getMusic_002672f0(int, int, int);
+extern "C" int getEvent_002673a0(int, int);
 class CSoundCommand_1f0810 {
   public:
     virtual void f();
@@ -125,8 +125,8 @@ extern "C" __int64 __cdecl FUN_002672f0(int, int, int);
 namespace fn_f1aba5fa {
 extern "C" int __cdecl FUN_002673a0(int, int);
 typedef unsigned __int64 u64;
-u64 __cdecl First(int, int, int);
-int __cdecl Second(int, int);
+u64 __cdecl First_002672f0(int, int, int);
+int __cdecl Second_002673a0(int, int);
 class CSoundCommand_1f0960 {
   public:
     virtual void Fn();
@@ -203,7 +203,7 @@ class CSoundCommand_1f0740 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_004245a4[];
 namespace pure3d {
 class NonCopyable : public CSoundCommand_1f0740 {
   public:
@@ -214,7 +214,7 @@ class NonCopyable : public CSoundCommand_1f0740 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_004245a4;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -283,8 +283,8 @@ namespace fn_f1aba5fa {
 // 0x001f0810 FUN_001f0810 (73 B): matches/0x001f0810.cpp
 // sym: ??0CSoundCommand_PlayMusicEvent@fn_f1aba5fa@@QAE@HHH@Z
 CSoundCommand_PlayMusicEvent::CSoundCommand_PlayMusicEvent(hulk_intptr x, int y, int z) : CSoundCommand_1f0810(z) {
-    p.set(getMusic(x, 0, 0));
-    f = getEvent(y, 0);
+    p.set(getMusic_002672f0(x, 0, 0));
+    f = getEvent_002673a0(y, 0);
 }
 
 } // namespace fn_f1aba5fa
@@ -427,10 +427,10 @@ namespace fn_f1aba5fa {
 // 0x001f0960 FUN_001f0960 (73 B): matches/0x001f0960.cpp
 // sym: ??0CSoundCommand_CueNISEvent@fn_f1aba5fa@@QAE@HHH@Z
 CSoundCommand_CueNISEvent::CSoundCommand_CueNISEvent(hulk_intptr x, int y, int z) : CSoundCommand_1f0960(z) {
-    u64 v = First(x, 0, 0);
+    u64 v = First_002672f0(x, 0, 0);
     p.d = (int)v;
     p.e = (int)(v >> 32);
-    f = Second(y, 0);
+    f = Second_002673a0(y, 0);
 }
 
 } // namespace fn_f1aba5fa

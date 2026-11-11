@@ -12,12 +12,12 @@ namespace fn_f3c596a7 {} using namespace fn_f3c596a7;
 // ---- declarations shared by the functions below
 namespace fn_f3c596a7 {
 typedef unsigned int u32_1571a0;
-extern int RTTI1_1571a0, RTTI2;
+extern int hulk_at_00494b44, hulk_at_00494b60;
 struct Result_1571a0 {
-    u32_1571a0 setup(hulkfight::motion::HitPushbackTrack*, hulk_uintptr);
+    u32_1571a0 setup_00151bc0(hulkfight::motion::HitPushbackTrack*, hulk_uintptr);
 };
-extern Result_1571a0* alloc(int);
-extern int g_vftable_1571f0;
+extern Result_1571a0* alloc_0008d690(int);
+extern int hulk_at_0041460c;
 class RefObj_1571f0 {
   public:
     virtual void vfunc_0();
@@ -34,13 +34,13 @@ class HitPushbackAction_1571f0 {
 };
 typedef unsigned int u32_157250;
 struct Created_157250 {
-    int init(hulkfight::motion::HitFloatTrack*, u32_157250);
+    int init_00151de0(hulkfight::motion::HitFloatTrack*, u32_157250);
 };
 extern int __cdecl check(u32_157250, int, const void*, const void*, int);
 extern void* __cdecl alloc(hulk_uintptr);
 extern const int typeA_157250;
 extern const int typeB_157250;
-extern int g_vftable_1572a0;
+extern int hulk_at_00414628;
 class RefObj_1572a0 {
   public:
     virtual void vfunc_0();
@@ -64,15 +64,15 @@ extern Params_157300 TypeB_157300;
 int __cdecl Check(void*, int, Params_157300*, Params_157300*, int);
 class Object_157300 {
   public:
-    int Init(hulkfight::motion::HitDamageTrack*, hulk_intptr);
+    int Init_00151e90(hulkfight::motion::HitDamageTrack*, hulk_intptr);
 };
-Object_157300* __cdecl Alloc(int);
+Object_157300* __cdecl Alloc_0008d690(int);
 struct RefCounted_157350 {
   public:
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_157350[];
+extern char hulk_at_00414644[];
 class HitDamageAction_157350 {
   public:
     HitDamageAction_157350* vfunc_2(int flag);
@@ -83,7 +83,7 @@ class HitDamageAction_157350 {
     int m_1c;
     RefCounted_157350* m_20;
 };
-extern void* g_vftable_1573f0[];
+extern void* hulk_at_00414660[];
 class Ref_1573f0 {
   public:
     virtual void F0();
@@ -102,7 +102,7 @@ class HitThrowAction_1573f0 : public Action_1573f0 {
     Ref_1573f0* m28;
     HitThrowAction_1573f0* f2(unsigned char flags);
 };
-extern int g_vftable_1574a0;
+extern int hulk_at_0041467c;
 class RefObj_1574a0 {
   public:
     virtual void vfunc_0();
@@ -122,7 +122,7 @@ struct RefCounted_157550 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_157550[];
+extern char hulk_at_00414698[];
 class HealthAction_157550 {
   public:
     HealthAction_157550* vfunc_2(int flag);
@@ -140,10 +140,10 @@ class HealthAction_157550 {
 // sym: ?vfunc_10@HitPushbackTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::HitPushbackTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1571a0 a = (u32_1571a0)__p0; u32_1571a0 b = (u32_1571a0)__p1; hulk_uintptr c = (u32_1571a0)__p2;
 
-    if (check((void*)c, 0, &RTTI1_1571a0, &RTTI2, 0)) {
-        Result_1571a0* p = alloc(0x44);
+    if (check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+        Result_1571a0* p = alloc_0008d690(0x44);
         if (p)
-            return (int)(p->setup(this, c));
+            return (int)(p->setup_00151bc0(this, c));
     }
     return (int)(0);
 }
@@ -155,7 +155,7 @@ namespace fn_f3c596a7 {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* HitPushbackAction_1571f0::vfunc_2(unsigned char flag) {
     volatile HitPushbackAction_1571f0* self = this;
-    self->mVptr = &g_vftable_1571f0;
+    self->mVptr = &hulk_at_0041460c;
     RefObj_1571f0* t3 = self->m3;
     if (t3) {
         t3->Release();
@@ -184,9 +184,9 @@ void* HitPushbackAction_1571f0::vfunc_2(unsigned char flag) {
 hulk_intptr hulkfight::motion::HitFloatTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_157250 a = (u32_157250)__p0; u32_157250 b = (u32_157250)__p1; u32_157250 c = (u32_157250)__p2;
 
     if (check(c, 0, &typeA_157250, &typeB_157250, 0)) {
-        Created_157250* p = (Created_157250*)alloc(0x38);
+        Created_157250* p = (Created_157250*)alloc_0008d690(0x38);
         if (p)
-            return p->init(this, c);
+            return p->init_00151de0(this, c);
     }
     return 0;
 }
@@ -198,7 +198,7 @@ namespace fn_f3c596a7 {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* HitFloatAction_1572a0::vfunc_2(unsigned char flag) {
     volatile HitFloatAction_1572a0* self = this;
-    self->mVptr = &g_vftable_1572a0;
+    self->mVptr = &hulk_at_00414628;
     RefObj_1572a0* t3 = self->m3;
     if (t3) {
         t3->Release();
@@ -227,9 +227,9 @@ void* HitFloatAction_1572a0::vfunc_2(unsigned char flag) {
 hulk_intptr hulkfight::motion::HitDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_157300, &TypeB_157300, 0);
     if (result) {
-        Object_157300* p = Alloc(0x24);
+        Object_157300* p = Alloc_0008d690(0x24);
         if (p)
-            return p->Init(this, c);
+            return p->Init_00151e90(this, c);
     }
     return 0;
 }
@@ -241,7 +241,7 @@ namespace fn_f3c596a7 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 HitDamageAction_157350* HitDamageAction_157350::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_157350;
+    *p = (hulk_intptr)&hulk_at_00414644;
     RefCounted_157350* q = *(RefCounted_157350* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -261,7 +261,7 @@ HitDamageAction_157350* HitDamageAction_157350::vfunc_2(int flag) {
 // 0x001573f0 hulkfight::motion::HitThrowAction::vfunc_2 (95 B): matches/0x001573f0.cpp
 // sym: ?f2@HitThrowAction_1573f0@fn_f3c596a7@@QAEPAV12@E@Z
 HitThrowAction_1573f0* HitThrowAction_1573f0::f2(unsigned char flags) {
-    vptr = g_vftable_1573f0;
+    vptr = hulk_at_00414660;
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -289,7 +289,7 @@ HitThrowAction_1573f0* HitThrowAction_1573f0::f2(unsigned char flags) {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* HitOrientToPushbackAction_1574a0::vfunc_2(unsigned char flag) {
     volatile HitOrientToPushbackAction_1574a0* self = this;
-    self->mVptr = &g_vftable_1574a0;
+    self->mVptr = &hulk_at_0041467c;
     RefObj_1574a0* t3 = self->m3;
     if (t3) {
         t3->Release();
@@ -316,7 +316,7 @@ void* HitOrientToPushbackAction_1574a0::vfunc_2(unsigned char flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 HealthAction_157550* HealthAction_157550::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_157550;
+    *p = (hulk_intptr)&hulk_at_00414698;
     RefCounted_157550* q = *(RefCounted_157550* volatile*)&m_20;
     if (q != 0) {
         q->Release();

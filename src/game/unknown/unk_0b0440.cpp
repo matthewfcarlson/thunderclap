@@ -54,7 +54,7 @@ class A_b06e0 {
     int m4;
     A_b06e0();
 };
-void __cdecl ReleaseThing(uint);
+void __cdecl ReleaseThing_0008d330(uint);
 struct Obj_b0710 {
     uint a;
     uint b;
@@ -163,7 +163,7 @@ class Obj_b0db0 {
     Owner_b0db0* p;
     void Run();
 };
-void cleanup(int, int, void*, void*, void*);
+void cleanup_000b0cf0(int, int, void*, void*, void*);
 struct Button_b0e20 {
     virtual void v0();
     virtual void v1();
@@ -417,7 +417,7 @@ A_b06e0::A_b06e0() {
 // sym: ?Clear@Obj_b0710@fn_f3cf613f@@QAEXXZ
 void Obj_b0710::Clear() {
     if (b) {
-        ReleaseThing(b);
+        ReleaseThing_0008d330(b);
         a = 0;
         b = 0;
     }
@@ -696,8 +696,8 @@ void __cdecl FUN_000b0cf0(int groupCount, int recordCount, Group_b0cf0** groups,
 // sym: ?Run@Obj_b0db0@fn_f3cf613f@@QAEXXZ
 void Obj_b0db0::Run() {
     if (p) {
-        cleanup(0xd, 2, (char*)this + 0x3e4, (char*)this + 0x418, (char*)this + 0x488);
-        cleanup(0xb, 2, (char*)this + 0x358, (char*)this + 0x384, (char*)this + 0x48c);
+        cleanup_000b0cf0(0xd, 2, (char*)this + 0x3e4, (char*)this + 0x418, (char*)this + 0x488);
+        cleanup_000b0cf0(0xb, 2, (char*)this + 0x358, (char*)this + 0x384, (char*)this + 0x48c);
         if (p) {
             p->Release();
             p = 0;

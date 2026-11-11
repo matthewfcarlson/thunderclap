@@ -16,7 +16,7 @@ struct RefCounted_1133f0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_1133f0[];
+extern char hulk_at_0040ddc0[];
 class SemaphoreWaitAction_1133f0 {
   public:
     SemaphoreWaitAction_1133f0* vfunc_2(int flag);
@@ -31,20 +31,20 @@ class Params_113440 {
   public:
     int x;
 };
-extern Params_113440 TypeA_113440;
-extern Params_113440 TypeB_113440;
+extern Params_113440 hulk_at_00494b44;
+extern Params_113440 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_113440*, Params_113440*, int);
 class Object_113440 {
   public:
-    int Init(hulkfight::ai::SemaphoreClearTrack*, hulk_intptr);
+    int Init_0010f9d0(hulkfight::ai::SemaphoreClearTrack*, hulk_intptr);
 };
-Object_113440* __cdecl Alloc(int);
+Object_113440* __cdecl Alloc_0008d690(int);
 struct RefCounted_113490 {
   public:
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_113490[];
+extern char hulk_at_0040dddc[];
 class SemaphoreClearAction_113490 {
   public:
     SemaphoreClearAction_113490* vfunc_2(int flag);
@@ -59,14 +59,14 @@ extern int FUN_00344e74(int, int, const void*, const void*, int);
 extern void* FUN_0008d690(int);
 class AllocObj_1134e0 {
   public:
-    int init(hulkfight::ai::KeywordWaitTrack*, hulk_intptr);
+    int init_0010fa60(hulkfight::ai::KeywordWaitTrack*, hulk_intptr);
 };
 struct RefCounted_113530 {
   public:
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_113530[];
+extern char hulk_at_0040ddf8[];
 class KeywordWaitAction_113530 {
   public:
     KeywordWaitAction_113530* vfunc_2(int flag);
@@ -81,22 +81,22 @@ class Caster_1136e0 {
   public:
     virtual void f();
 };
-void other(void*, Caster_1136e0*);
+void other_002343e0(void*, Caster_1136e0*);
 class Caster_113900 {
   public:
     virtual void cast();
 };
 class Obj {
   public:
-    void apply(void*);
-    int Get(void*);
+    void apply_00236760(void*);
+    int Get_00236760(void*);
 };
 extern "C" void* find(const char*, Caster_113900*);
 class Caster_1139f0 {
   public:
     virtual void cast();
 };
-extern void* lookup(const char*, Caster_1139f0*);
+extern void* lookup_002343e0(const char*, Caster_1139f0*);
 class Caster {
   public:
     virtual void cast();
@@ -109,7 +109,7 @@ extern "C" void* Find(const char*, Caster*);
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 SemaphoreWaitAction_1133f0* SemaphoreWaitAction_1133f0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_1133f0;
+    *p = (hulk_intptr)&hulk_at_0040ddc0;
     RefCounted_1133f0* q = *(RefCounted_1133f0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -131,11 +131,11 @@ SemaphoreWaitAction_1133f0* SemaphoreWaitAction_1133f0::vfunc_2(int flag) {
 // sym: ?vfunc_10@SemaphoreClearTrack@ai@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::SemaphoreClearTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_113440, &TypeB_113440, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        Object_113440* p = Alloc(0x24);
+        Object_113440* p = Alloc_0008d690(0x24);
         if (p)
-            return p->Init(this, c);
+            return p->Init_0010f9d0(this, c);
     }
     return 0;
 }
@@ -147,7 +147,7 @@ namespace fn_f054a7c3 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 SemaphoreClearAction_113490* SemaphoreClearAction_113490::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_113490;
+    *p = (hulk_intptr)&hulk_at_0040dddc;
     RefCounted_113490* q = *(RefCounted_113490* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -171,7 +171,7 @@ hulk_intptr hulkfight::ai::KeywordWaitTrack::vfunc_10(hulk_intptr a, hulk_intptr
     if (FUN_00344e74(c, 0, &RTTI_Type1, &RTTI_Type2, 0)) {
         AllocObj_1134e0* p = (AllocObj_1134e0*)FUN_0008d690(0x2c);
         if (p)
-            return p->init(this, c);
+            return p->init_0010fa60(this, c);
     }
     return 0;
 }
@@ -183,7 +183,7 @@ namespace fn_f054a7c3 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 KeywordWaitAction_113530* KeywordWaitAction_113530::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_113530;
+    *p = (hulk_intptr)&hulk_at_0040ddf8;
     RefCounted_113530* q = *(RefCounted_113530* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -204,7 +204,7 @@ KeywordWaitAction_113530* KeywordWaitAction_113530::vfunc_2(int flag) {
 // sym: ?target@fn_f054a7c3@@YAXPAX@Z
 void target(void* p) {
     Caster_1136e0 c;
-    other(p, &c);
+    other_002343e0(p, &c);
 }
 
 } // namespace fn_f054a7c3
@@ -218,12 +218,12 @@ class Caster_1138a0 {
 };
 class Target {
   public:
-    void Apply(void*);
+    void Apply_00236760(void*);
 };
-void* __cdecl Find(void*, Caster_1138a0*);
+void* __cdecl Find_002343e0(void*, Caster_1138a0*);
 extern "C" void FUN_001138a0(Target* target, void* value) {
     Caster_1138a0 caster;
-    target->Apply(Find(value, &caster));
+    target->Apply_00236760(Find_002343e0(value, &caster));
 }
 } // namespace fn_001138a0
 
@@ -235,15 +235,15 @@ class Caster {
   public:
     virtual void Dummy();
 };
-extern "C++" __declspec(nothrow) void* __cdecl Lookup(void*, Caster*);
+extern "C++" __declspec(nothrow) void* __cdecl Lookup_002343e0(void*, Caster*);
 class Object {
   public:
-    void Set(void*);
+    void Set_00236760(void*);
 };
 void __cdecl Target(Object* obj, void* name) {
     Caster caster;
-    void* p = Lookup(name, &caster);
-    obj->Set(p);
+    void* p = Lookup_002343e0(name, &caster);
+    obj->Set_00236760(p);
 }
 } // namespace fn_001138d0
 
@@ -254,7 +254,7 @@ namespace fn_f054a7c3 {
 extern "C" void FUN_00113900(Obj* obj, const char* name) {
     Caster_113900 caster;
     void* p = find(name, &caster);
-    obj->apply(p);
+    obj->apply_00236760(p);
 }
 
 } // namespace fn_f054a7c3
@@ -266,15 +266,15 @@ class Caster_113930 {
   public:
     virtual void Cast();
 };
-void* __cdecl Find(void*, Caster_113930*);
+void* __cdecl Find_002343e0(void*, Caster_113930*);
 class Obj {
   public:
-    void Apply(void*);
+    void Apply_00236760(void*);
 };
 extern "C" void __cdecl FUN_00113930(Obj* obj, void* item) {
     Caster_113930 caster;
-    void* p = Find(item, &caster);
-    obj->Apply(p);
+    void* p = Find_002343e0(item, &caster);
+    obj->Apply_00236760(p);
 }
 } // namespace fn_00113930
 
@@ -296,12 +296,12 @@ class PropsToChuckCondition;
 } // namespace hulkfight
 class Owner {
   public:
-    void Set(void*);
+    void Set_00236760(void*);
 };
-void* Find(const char*, fight::ConditionFactoryCaster*);
+void* Find_002343e0(const char*, fight::ConditionFactoryCaster*);
 extern "C" void FUN_00113990(Owner* owner, const char* name) {
     fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToChuckCondition> caster;
-    owner->Set(Find(name, &caster));
+    owner->Set_00236760(Find_002343e0(name, &caster));
 }
 } // namespace fn_00113990
 
@@ -311,8 +311,8 @@ namespace fn_f054a7c3 {
 // sym: _FUN_001139f0
 extern "C" void FUN_001139f0(Obj* obj, const char* name) {
     Caster_1139f0 caster;
-    void* p = lookup(name, &caster);
-    obj->apply(p);
+    void* p = lookup_002343e0(name, &caster);
+    obj->apply_00236760(p);
 }
 
 } // namespace fn_f054a7c3
@@ -324,14 +324,14 @@ class Caster {
   public:
     virtual void Cast();
 };
-extern "C++" __declspec(nothrow) void* __cdecl find(void*, Caster*);
+extern "C++" __declspec(nothrow) void* __cdecl find_002343e0(void*, Caster*);
 class Factory {
   public:
-    void apply(void*);
+    void apply_00236760(void*);
 };
 extern "C" void __cdecl FUN_00113a20(Factory* f, void* p) {
     Caster caster;
-    f->apply(find(p, &caster));
+    f->apply_00236760(find_002343e0(p, &caster));
 }
 } // namespace fn_00113a20
 
@@ -345,12 +345,12 @@ class Caster {
 };
 class Factory {
   public:
-    void Add(void*);
+    void Add_00236760(void*);
 };
-extern "C++" __declspec(nothrow) void* Find(const char*, Caster*);
+extern "C++" __declspec(nothrow) void* Find_002343e0(const char*, Caster*);
 void Function(Factory* factory, const char* name) {
     Caster c;
-    factory->Add(Find(name, &c));
+    factory->Add_00236760(Find_002343e0(name, &c));
 }
 } // namespace fn_00113a50
 
@@ -364,12 +364,12 @@ class Caster {
 };
 class Obj {
   public:
-    void Set(void*);
+    void Set_00236760(void*);
 };
-void* Find(int, Caster*);
+void* Find_002343e0(int, Caster*);
 extern "C" void FUN_00113a80(Obj* obj, hulk_intptr id) {
     Caster caster;
-    obj->Set(Find(id, &caster));
+    obj->Set_00236760(Find_002343e0(id, &caster));
 }
 } // namespace fn_00113a80
 
@@ -379,7 +379,7 @@ namespace fn_f054a7c3 {
 // sym: _FUN_00113ab0
 extern "C" int FUN_00113ab0(Obj* obj, const char* name) {
     Caster caster;
-    return obj->Get(Find(name, &caster));
+    return obj->Get_00236760(Find(name, &caster));
 }
 
 } // namespace fn_f054a7c3
@@ -400,12 +400,12 @@ template <class T> class ConditionFactoryCasterTemplate {
 } // namespace fight
 class Obj {
   public:
-    void Do(void*);
+    void Do_00236760(void*);
 };
-extern "C++" __declspec(nothrow) void* Lookup(void*, fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition>*);
+extern "C++" __declspec(nothrow) void* Lookup_002343e0(void*, fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition>*);
 extern "C" void FUN_00113ae0(Obj* obj, void* b) {
     fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition> caster;
-    obj->Do(Lookup(b, &caster));
+    obj->Do_00236760(Lookup_002343e0(b, &caster));
 }
 } // namespace fn_00113ae0
 
@@ -419,13 +419,13 @@ class Caster {
 };
 class Owner {
   public:
-    void Fn(void*);
+    void Fn_00236760(void*);
 };
-void* __cdecl Find(void*, Caster*);
+void* __cdecl Find_002343e0(void*, Caster*);
 extern "C" void __cdecl FUN_00113b10(Owner* o, void* key) {
     Caster c;
-    void* p = Find(key, &c);
-    o->Fn(p);
+    void* p = Find_002343e0(key, &c);
+    o->Fn_00236760(p);
 }
 } // namespace fn_00113b10
 
@@ -439,13 +439,13 @@ class Caster {
 };
 class Factory {
   public:
-    void use(void*);
+    void use_00236760(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl lookup(const char*, Caster*);
+extern "C++" __declspec(nothrow) void* __cdecl lookup_002343e0(const char*, Caster*);
 extern "C" void __cdecl FUN_00113b40(Factory* f, const char* name) {
     Caster c;
-    void* p = lookup(name, &c);
-    f->use(p);
+    void* p = lookup_002343e0(name, &c);
+    f->use_00236760(p);
 }
 } // namespace fn_00113b40
 
@@ -463,12 +463,12 @@ class SpecificCaster : public Caster_113b70 {
 };
 class Owner {
   public:
-    void Set(void*);
+    void Set_00236760(void*);
 };
-void* __cdecl Find(void*, Caster_113b70*);
+void* __cdecl Find_002343e0(void*, Caster_113b70*);
 extern "C" void __cdecl FUN_00113b70(Owner* owner, void* key) {
     SpecificCaster caster;
-    owner->Set(Find(key, &caster));
+    owner->Set_00236760(Find_002343e0(key, &caster));
 }
 } // namespace fn_00113b70
 
@@ -480,13 +480,13 @@ struct Caster {
     virtual void Cast();
 };
 struct Owner {
-    void Apply(void*);
+    void Apply_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find(const char*, Caster*);
+extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(const char*, Caster*);
 void __cdecl Target(Owner* owner, const char* name) {
     Caster caster;
-    void* p = Find(name, &caster);
-    owner->Apply(p);
+    void* p = Find_00236ac0(name, &caster);
+    owner->Apply_002367c0(p);
 }
 } // namespace fn_00113ba0
 
@@ -500,12 +500,12 @@ class Caster_113bd0 {
 };
 class Obj {
   public:
-    void Apply(void*);
+    void Apply_002367c0(void*);
 };
-extern void* __cdecl Find(void*, Caster_113bd0*);
+extern void* __cdecl Find_00236ac0(void*, Caster_113bd0*);
 extern "C" void FUN_00113bd0(Obj* obj, void* arg) {
     Caster_113bd0 caster;
-    obj->Apply(Find(arg, &caster));
+    obj->Apply_002367c0(Find_00236ac0(arg, &caster));
 }
 } // namespace fn_00113bd0
 
@@ -519,13 +519,13 @@ class Caster {
 };
 class Obj {
   public:
-    void set(void*);
+    void set_002367c0(void*);
 };
-extern void* find(const char*, Caster*);
+extern void* find_00236ac0(const char*, Caster*);
 extern "C" void FUN_00113c30(Obj* obj, const char* name) {
     Caster c;
-    void* p = find(name, &c);
-    obj->set(p);
+    void* p = find_00236ac0(name, &c);
+    obj->set_002367c0(p);
 }
 } // namespace fn_00113c30
 
@@ -539,13 +539,13 @@ class Caster {
 };
 class Owner {
   public:
-    void use(void*);
+    void use_002367c0(void*);
 };
-void* find(void*, Caster*);
+void* find_00236ac0(void*, Caster*);
 extern "C" void FUN_00113c60(Owner* owner, void* value) {
     Caster caster;
-    void* p = find(value, &caster);
-    owner->use(p);
+    void* p = find_00236ac0(value, &caster);
+    owner->use_002367c0(p);
 }
 } // namespace fn_00113c60
 
@@ -557,15 +557,15 @@ class Caster {
   public:
     virtual void Cast();
 };
-void* __cdecl Find(void*, Caster*);
+void* __cdecl Find_00236ac0(void*, Caster*);
 class Owner {
   public:
-    void* Get(void*);
+    void* Get_002367c0(void*);
 };
 extern "C" void* __cdecl FUN_00113c90(Owner* owner, void* p) {
     Caster caster;
-    void* x = Find(p, &caster);
-    return owner->Get(x);
+    void* x = Find_00236ac0(p, &caster);
+    return owner->Get_002367c0(x);
 }
 } // namespace fn_00113c90
 
@@ -579,12 +579,12 @@ class Caster {
 };
 class Obj {
   public:
-    void take(void*);
+    void take_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* lookup(void*, Caster*);
+extern "C++" __declspec(nothrow) void* lookup_00236ac0(void*, Caster*);
 extern "C" void FUN_00113cc0(Obj* obj, void* name) {
     Caster caster;
-    obj->take(lookup(name, &caster));
+    obj->take_002367c0(lookup_00236ac0(name, &caster));
 }
 } // namespace fn_00113cc0
 
@@ -599,12 +599,12 @@ class Caster {
 class Token {};
 class Factory {
   public:
-    void Set(Token*);
+    void Set_002367c0(Token*);
 };
-Token* Find(void*, Caster*);
+Token* Find_00236ac0(void*, Caster*);
 extern "C" void FUN_00113cf0(Factory* f, void* p) {
     Caster c;
-    f->Set(Find(p, &c));
+    f->Set_002367c0(Find_00236ac0(p, &c));
 }
 } // namespace fn_00113cf0
 
@@ -618,12 +618,12 @@ class Caster {
 };
 class Owner {
   public:
-    void Add(void*);
+    void Add_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find(void*, Caster*);
+extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(void*, Caster*);
 extern "C" void FUN_00113d20(Owner* owner, void* track) {
     Caster caster;
-    owner->Add(Find(track, &caster));
+    owner->Add_002367c0(Find_00236ac0(track, &caster));
 }
 } // namespace fn_00113d20
 

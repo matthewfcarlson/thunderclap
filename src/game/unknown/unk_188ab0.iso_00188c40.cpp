@@ -13,20 +13,20 @@ class Params_188c40 {
   public:
     int x;
 };
-extern Params_188c40 TypeA_188c40;
-extern Params_188c40 TypeB_188c40;
+extern Params_188c40 hulk_at_00494b44;
+extern Params_188c40 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_188c40*, Params_188c40*, int);
 struct PropSpawnAction_nv_188c40 {
-    int Init(hulkfight::motion::PropSpawnTrack*, hulk_intptr);
+    int Init_00183e40(hulkfight::motion::PropSpawnTrack*, hulk_intptr);
 };
-hulkfight::motion::PropSpawnAction* __cdecl Alloc(int);
+hulkfight::motion::PropSpawnAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::PropSpawnTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_188c40, &TypeB_188c40, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::PropSpawnAction* p = Alloc(0x24);
+        hulkfight::motion::PropSpawnAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((PropSpawnAction_nv_188c40*)(((hulkfight::motion::PropSpawnAction*)(p))))->Init(this, c);
+            return ((PropSpawnAction_nv_188c40*)(((hulkfight::motion::PropSpawnAction*)(p))))->Init_00183e40(this, c);
     }
     return 0;
 }

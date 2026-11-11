@@ -12,12 +12,12 @@ namespace fn_f7d9f22f {} using namespace fn_f7d9f22f;
 
 // ---- declarations shared by the functions below
 namespace fn_f7d9f22f {
-extern int* gTable_48470;
+extern int* hulk_at_004dc400;
 class CCondition_48470 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_48510;
+extern int* hulk_at_004dc408;
 class CCondition_48510 {
   public:
     virtual int vfunc_0(int);
@@ -61,7 +61,7 @@ void FUN_00048450() {
 // sym: ?vfunc_0@CButtonCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CButtonCondition::vfunc_0(int index) {
-    int* p = gTable_48470;
+    int* p = hulk_at_004dc400;
     return p[index];
 }
 
@@ -74,12 +74,12 @@ struct CButtonCondition {
     int x04, x08, x0c, x10, x14;
 };
 struct ThisCall_00234590 {
-    void Init(int);
+    void Init_00234590(int);
 };
-extern char buttonVtable;
+extern char hulk_at_003f6dc0;
 CButtonCondition* __fastcall FUN_00048480(CButtonCondition* self) {
-    ((ThisCall_00234590*)(self))->Init(0);
-    self->vptr = &buttonVtable;
+    ((ThisCall_00234590*)(self))->Init_00234590(0);
+    self->vptr = &hulk_at_003f6dc0;
     self->x0c = 0;
     self->x10 = 4;
     self->x14 = 0;
@@ -92,10 +92,10 @@ CButtonCondition* __fastcall FUN_00048480(CButtonCondition* self) {
 // sym: ?f9@CButtonCondition@fn_000484c0@@UAEXPAX@Z
 namespace fn_000484c0 {
 struct A_484c0 {
-    void* f();
+    void* Fnf_000592a0();
 };
 struct B_484c0 {
-    int f();
+    int Fnf_00059a30();
 };
 struct CButtonCondition {
     virtual void f0();
@@ -113,8 +113,8 @@ struct CButtonCondition {
     int mIndex;
 };
 void CButtonCondition::f9(void* arg) {
-    void* p = ((A_484c0*)arg)->f();
-    hulk_intptr v = ((B_484c0*)p)->f();
+    void* p = ((A_484c0*)arg)->Fnf_000592a0();
+    hulk_intptr v = ((B_484c0*)p)->Fnf_00059a30();
     f9((void*)(v + 0x1f58 + mIndex * 12));
 }
 } // namespace fn_000484c0
@@ -134,7 +134,7 @@ void FUN_000484f0() {
 // sym: ?vfunc_0@CButtonValueCondition@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr CButtonValueCondition::vfunc_0(int index) {
-    int* p = gTable_48510;
+    int* p = hulk_at_004dc408;
     return p[index];
 }
 
@@ -142,7 +142,7 @@ hulk_intptr CButtonValueCondition::vfunc_0(int index) {
 // 0x00048520 FUN_00048520 (52 B): matches/0x00048520.cpp [wrapped: conflict: CButtonValueCondition]
 // sym: ?FUN_00048520@fn_00048520@@YIPAVCButtonValueCondition@1@PAV21@@Z
 namespace fn_00048520 {
-extern int g_vft_48520;
+extern int hulk_at_003f6df0;
 class CButtonValueCondition {
   public:
     hulk_intptr vf;
@@ -163,7 +163,7 @@ CButtonValueCondition* __fastcall FUN_00048520(CButtonValueCondition* self) {
     self->x6 = 4;
     self->x3 = 0;
     self->x5 = 0;
-    self->vf = (hulk_intptr)&g_vft_48520;
+    self->vf = (hulk_intptr)&hulk_at_003f6df0;
     self->x7 = 0;
     return self;
 }

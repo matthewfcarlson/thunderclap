@@ -17,7 +17,7 @@ namespace fn_fb68dce8 {
 extern "C" void* __cdecl alloc(hulk_uintptr);
 class CRenderableCharacter_1c60f0 {
   public:
-    CRenderableCharacter_1c60f0* Init(int, int);
+    CRenderableCharacter_1c60f0* Init_001c6050(int, int);
 };
 class Owner {
   public:
@@ -25,7 +25,7 @@ class Owner {
 };
 typedef unsigned int U_1c61c0;
 struct D {
-    U_1c61c0 f(U_1c61c0* out, int a, int b, int c);
+    U_1c61c0 Fnf_002647e0(U_1c61c0* out, int a, int b, int c);
 };
 struct C_1c61c0 {
     char pad[0x284];
@@ -79,7 +79,7 @@ class B_1c6530 {
     void run();
 };
 struct Inner_1c65a0 {
-    void sub();
+    void sub_001c2760();
 };
 struct Obj_1c65a0 {
     char pad[4];
@@ -101,7 +101,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable_1c65d0*);
 CRenderableCharacter_1c60f0* Owner::Create(int a, int b) {
     CRenderableCharacter_1c60f0* p = (CRenderableCharacter_1c60f0*)alloc(0x18);
     if (p) {
-        CRenderableCharacter_1c60f0* q = p->Init(a, b);
+        CRenderableCharacter_1c60f0* q = p->Init_001c6050(a, b);
         if (q) {
             ((owners::Thing_1c5f30 *)this)->FUN_001c5f30((hulk_uintptr)(CRenderableCharacter_1c60f0 *)q);
             return q;
@@ -116,7 +116,7 @@ CRenderableCharacter_1c60f0* Owner::Create(int a, int b) {
 // Same code shape as 0x000f95e0 (propagated; names are from that function)
 U_1c61c0 C_1c61c0::g() {
     U_1c61c0 local;
-    member->f(&local, 1, 4, 1);
+    member->Fnf_002647e0(&local, 1, 4, 1);
     return local;
 }
 
@@ -203,7 +203,7 @@ void B_1c6530::run() {
 // 0x001c65a0 FUN_001c65a0 (15 B): matches/0x001c65a0.cpp
 // sym: ?target@Obj_1c65a0@fn_fb68dce8@@QAEPAU12@XZ
 Obj_1c65a0* Obj_1c65a0::target() {
-    ((Inner_1c65a0*)((char*)this + 4))->sub();
+    ((Inner_1c65a0*)((char*)this + 4))->sub_001c2760();
     return this;
 }
 

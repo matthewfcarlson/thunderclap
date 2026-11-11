@@ -14,23 +14,23 @@ namespace fn_fda30a1e {} using namespace fn_fda30a1e;
 // ---- declarations shared by the functions below
 namespace fn_fda30a1e {
 struct Tail_10d0f0 {
-    void Init();
+    void Init_0027af50();
 };
 struct SemaphoreClearTrack {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_10d0f0;
-extern int* gTable_10d130;
+extern void* hulk_at_0040db84;
+extern int* hulk_at_004e0b68;
 class CCondition_10d130 {
   public:
     virtual int vfunc_0(int);
 };
 extern void *DAT_0040dbb4[];
 struct TokenSupressTrack { void *vptr; char pad4[4]; int enabled; int target; float limit; unsigned char active; char pad15[3]; float value; unsigned char flag1, flag2; void FUN_00236d40(); TokenSupressTrack *FUN_0010d140(); };
-extern int* gTable_10d1c0;
+extern int* hulk_at_004e0b70;
 class CCondition_10d1c0 {
   public:
     virtual int vfunc_0(int);
@@ -53,9 +53,9 @@ class AIHistoryCountTrack : public Track_10d1d0 {
 // 0x0010d0f0 FUN_0010d0f0 (25 B): matches/0x0010d0f0.cpp
 // sym: ?Run@SemaphoreClearTrack@fn_fda30a1e@@QAEXXZ
 void SemaphoreClearTrack::Run() {
-    vptr = &vftable_10d0f0;
-    ((Tail_10d0f0*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_0040db84;
+    ((Tail_10d0f0*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 
@@ -72,7 +72,7 @@ void FUN_0010d110() {
 // sym: ?vfunc_0@TokenSupressTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TokenSupressTrack::vfunc_0(int index) {
-    int* p = gTable_10d130;
+    int* p = hulk_at_004e0b68;
     return p[index];
 }
 
@@ -109,7 +109,7 @@ void FUN_0010d1a0() {
 // sym: ?vfunc_0@AIHistoryCountTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::AIHistoryCountTrack::vfunc_0(int index) {
-    int* p = gTable_10d1c0;
+    int* p = hulk_at_004e0b70;
     return p[index];
 }
 

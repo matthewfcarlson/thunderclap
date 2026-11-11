@@ -6,9 +6,9 @@
 // 0x001c5890 FUN_001c5890 (97 B): matches/0x001c5890.cpp [isolated: conflict: Store; on include/gen/ and not mergeable]
 // sym: ??1ObjectManager_1c5890@@QAE@XZ
 #include "gen/Render.h"
-extern void* g_vtMgr[];
-extern void* g_vtT[];
-extern void* g_vtO[];
+extern void* hulk_at_00421934[];
+extern void* hulk_at_00421924[];
+extern void* hulk_at_00421914[];
 class Ref_1c5890 {
   public:
     virtual void F0();
@@ -22,7 +22,7 @@ struct Store {
     int m10;
     Ref_1c5890** m14;
     char pad2[0x120 - 0x18];
-    void B();
+    void FnB_001c7500();
 };
 struct ObjectManager_1c5890 {
     void* vptr;
@@ -33,7 +33,7 @@ struct ObjectManager_1c5890 {
 };
 ObjectManager_1c5890::~ObjectManager_1c5890() {
     int n = base.m10;
-    vptr = g_vtMgr;
+    vptr = hulk_at_00421934;
     for (int i = 0; i < n; i++) {
         if ((unsigned)i < base.m8) {
             Ref_1c5890* r = base.m14[i];
@@ -41,11 +41,11 @@ ObjectManager_1c5890::~ObjectManager_1c5890() {
                 r->Release();
         }
     }
-    tmpl.vptr = g_vtT;
+    tmpl.vptr = hulk_at_00421924;
     ((Render::StoreBase *)&tmpl)->FUN_001c7720();
-    tmpl.B();
-    base.vptr = g_vtO;
+    tmpl.FnB_001c7500();
+    base.vptr = hulk_at_00421914;
     ((Render::StoreBase *)&base)->FUN_001c7720();
-    base.B();
+    base.FnB_001c7500();
 }
 

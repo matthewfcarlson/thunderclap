@@ -13,20 +13,20 @@ class Params_157500 {
   public:
     int x;
 };
-extern Params_157500 TypeA_157500;
-extern Params_157500 TypeB_157500;
+extern Params_157500 hulk_at_00494b44;
+extern Params_157500 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_157500*, Params_157500*, int);
 struct HealthAction_nv_157500 {
-    int Init(hulkfight::motion::HealthTrack*, hulk_intptr);
+    int Init_00152630(hulkfight::motion::HealthTrack*, hulk_intptr);
 };
-hulkfight::motion::HealthAction* __cdecl Alloc(int);
+hulkfight::motion::HealthAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::HealthTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_157500, &TypeB_157500, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::motion::HealthAction* p = Alloc(0x24);
+        hulkfight::motion::HealthAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((HealthAction_nv_157500*)(((hulkfight::motion::HealthAction*)(p))))->Init(this, c);
+            return ((HealthAction_nv_157500*)(((hulkfight::motion::HealthAction*)(p))))->Init_00152630(this, c);
     }
     return 0;
 }

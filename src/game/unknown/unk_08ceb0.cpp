@@ -125,10 +125,10 @@ extern "C" unsigned int strlen(const char*);
 #endif
 namespace fn_fe5d7f9e {
 extern "C" int __cdecl FUN_00096600(int, const char*);
-extern "C" void __cdecl A();
-extern "C" void __cdecl B();
-extern "C" void __cdecl C();
-extern "C" void __cdecl D();
+extern "C" void __cdecl FnA_002696a0();
+extern "C" void __cdecl FnB_002656a0();
+extern "C" void __cdecl FnC_0026ed70();
+extern "C" void __cdecl FnD_00333ef0();
 extern "C" int __cdecl FUN_0008ed50(int);
 extern "C" char DAT_00400854[];
 class CSPHulkPropLoader {
@@ -137,7 +137,7 @@ class CSPHulkPropLoader {
     CSPHulkPropLoader* Init();
 };
 struct ThisCall_00290740 {
-    void Initialize();
+    void Initialize_00290740();
 };
 class pure3d_d3dToon2VertexShader_8db70 {
   public:
@@ -387,10 +387,10 @@ extern "C" void __stdcall FUN_0008dad0(int x) {}
 // 0x0008db00 FUN_0008db00 (20 B): matches/0x0008db00.cpp
 // sym: _FUN_0008db00
 extern "C" void __cdecl FUN_0008db00() {
-    A();
-    B();
-    C();
-    D();
+    FnA_002696a0();
+    FnB_002656a0();
+    FnC_0026ed70();
+    FnD_00333ef0();
 }
 
 
@@ -404,7 +404,7 @@ extern "C" int __stdcall FUN_0008db20(int x) {
 // 0x0008db30 FUN_0008db30 (18 B): matches/0x0008db30.cpp
 // sym: ?Init@CSPHulkPropLoader@fn_fe5d7f9e@@QAEPAV12@XZ
 CSPHulkPropLoader* CSPHulkPropLoader::Init() {
-    ((ThisCall_00290740*)(this))->Initialize();
+    ((ThisCall_00290740*)(this))->Initialize_00290740();
     *(void**)this = (void*)((hulk_intptr)DAT_00400854);
     return this;
 }

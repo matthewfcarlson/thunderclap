@@ -19,18 +19,18 @@ struct File {
     char pad[0xa8];
     char value;
 };
-extern int typeUnlockable;
-extern int typeGallery;
-extern int typeMove;
-extern int typeFile;
+extern int hulk_at_0049dab8;
+extern int hulk_at_0049db80;
+extern int hulk_at_0049db1c;
+extern int hulk_at_0049dad4;
 void owners::Owner_929a0::FUN_000929a0(int index, char value) {
-    Gallery* a = (Gallery*)Cast(items[index], 0, &typeUnlockable, &typeGallery, 0);
+    Gallery* a = (Gallery*)Cast(items[index], 0, &hulk_at_0049dab8, &hulk_at_0049db80, 0);
     if (a && a->value != value)
         a->value = value;
-    Move_929a0* b = (Move_929a0*)Cast(items[index], 0, &typeUnlockable, &typeMove, 0);
+    Move_929a0* b = (Move_929a0*)Cast(items[index], 0, &hulk_at_0049dab8, &hulk_at_0049db1c, 0);
     if (b && b->value != value)
         b->value = value;
-    File* c = (File*)Cast(items[index], 0, &typeUnlockable, &typeFile, 0);
+    File* c = (File*)Cast(items[index], 0, &hulk_at_0049dab8, &hulk_at_0049dad4, 0);
     if (c && c->value != value)
         c->value = value;
 }

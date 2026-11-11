@@ -78,22 +78,22 @@ class T_115450 {
     int m20;
     char Fn(const S_115450* p);
 };
-extern int* gTable_1156c0;
+extern int* hulk_at_004e0c24;
 class CCondition_1156c0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_115720;
+extern int* hulk_at_004e0c2c;
 class CCondition_115720 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_115790;
+extern int* hulk_at_004e0c34;
 class CCondition_115790 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_115810;
+extern int* hulk_at_004e0c3c;
 class CCondition_115810 {
   public:
     virtual int vfunc_0(int);
@@ -712,7 +712,7 @@ void FUN_001156a0() {
 // sym: ?vfunc_0@HasGroundPointCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::HasGroundPointCondition::vfunc_0(int index) {
-    int* p = gTable_1156c0;
+    int* p = hulk_at_004e0c24;
     return p[index];
 }
 
@@ -731,7 +731,7 @@ void FUN_00115700() {
 // sym: ?vfunc_0@LocatorDistanceCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::LocatorDistanceCondition::vfunc_0(int index) {
-    int* p = gTable_115720;
+    int* p = hulk_at_004e0c2c;
     return p[index];
 }
 
@@ -750,7 +750,7 @@ void FUN_00115770() {
 // sym: ?vfunc_0@ComputeDropZoneCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ComputeDropZoneCondition::vfunc_0(int index) {
-    int* p = gTable_115790;
+    int* p = hulk_at_004e0c34;
     return p[index];
 }
 
@@ -769,7 +769,7 @@ void FUN_001157f0() {
 // sym: ?vfunc_0@HasGroundPointExtendedCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::HasGroundPointExtendedCondition::vfunc_0(int index) {
-    int* p = gTable_115810;
+    int* p = hulk_at_004e0c3c;
     return p[index];
 }
 

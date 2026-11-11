@@ -25,13 +25,13 @@ class StoreBase_1c7cb0 {
 };
 class ObjectTemplate_1c7cb0 {
   public:
-    void f();
+    void Fnf_001c6f70();
 };
-void __cdecl ReleaseTemplate(ObjectTemplate_1c7cb0*);
-extern int g_vftable_1c7dc0;
+void __cdecl ReleaseTemplate_0008d330(ObjectTemplate_1c7cb0*);
+extern int hulk_at_00421a84;
 struct Store_1c7dc0 {
     void* m_vptr;
-    void base2_dtor();
+    void base2_dtor_001c7500();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -51,8 +51,8 @@ template <> int Render::Store<Render::Room>::vfunc_1(int __p0) { unsigned int x 
 template <> void Render::Store<Render::Room>::vfunc_2(void* __p0) { ObjectTemplate_1c7cb0 * p = (ObjectTemplate_1c7cb0 *)__p0;
 
     if (this->f_11c && p) {
-        p->f();
-        ReleaseTemplate(p);
+        p->Fnf_001c6f70();
+        ReleaseTemplate_0008d330(p);
     }
 }
 
@@ -62,9 +62,9 @@ namespace fn_f54b098e {
 // sym: ?scalar_dtor@Store_1c7dc0@fn_f54b098e@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* Store_1c7dc0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1c7dc0;
+    m_vptr = (void*)&hulk_at_00421a84;
     ((Render::StoreBase *)this)->FUN_001c7720();
-    base2_dtor();
+    base2_dtor_001c7500();
     if (flags & 1)
         thunk_delete(this);
     return this;

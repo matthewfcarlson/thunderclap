@@ -11,19 +11,19 @@
 
 typedef unsigned int u32_17b7a0;
 struct TeleportRelativeAction_nv_17b7a0 {
-    u32_17b7a0 init(hulkfight::motion::TeleportRelativeTrack*, u32_17b7a0);
+    u32_17b7a0 init_00175920(hulkfight::motion::TeleportRelativeTrack*, u32_17b7a0);
 };
 extern int MatchType(u32_17b7a0, int, const void*, const void*, int);
-extern hulkfight::motion::TeleportRelativeAction* Alloc(unsigned int);
-extern const char ParamDesc[];
-extern const char FightParamsDesc[];
+extern hulkfight::motion::TeleportRelativeAction* Alloc_0008d690(unsigned int);
+extern const char hulk_at_00494b44[];
+extern const char hulk_at_00494b60[];
 
 hulk_intptr hulkfight::motion::TeleportRelativeTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b7a0 a = (u32_17b7a0)__p0; u32_17b7a0 b = (u32_17b7a0)__p1; u32_17b7a0 c = (u32_17b7a0)__p2;
 
-    if (MatchType(c, 0, ParamDesc, FightParamsDesc, 0)) {
-        hulkfight::motion::TeleportRelativeAction* p = Alloc(0x30);
+    if (MatchType(c, 0, hulk_at_00494b44, hulk_at_00494b60, 0)) {
+        hulkfight::motion::TeleportRelativeAction* p = Alloc_0008d690(0x30);
         if (p)
-            return (int)(((TeleportRelativeAction_nv_17b7a0*)(((hulkfight::motion::TeleportRelativeAction*)(p))))->init(this, c));
+            return (int)(((TeleportRelativeAction_nv_17b7a0*)(((hulkfight::motion::TeleportRelativeAction*)(p))))->init_00175920(this, c));
     }
     return (int)(0);
 }

@@ -78,8 +78,8 @@ public:
 };
 }
 namespace fn_f35d11f7 {
-extern ParamRegistry DAT_4dc590;
-extern int DAT_4dc594;
+extern ParamRegistry hulk_at_004dc590;
+extern int hulk_at_004dc594;
 extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class CGrappleAttachTrack_5ca20 {
 public:
@@ -251,7 +251,7 @@ class X_5d150 {
 // FUN_0005c6b0 @ 0x0005c6b0
 extern "C" void FUN_0005c6b0()
 {
-    if (DAT_4dc594 == 0) {
+    if (hulk_at_004dc594 == 0) {
         void* params[16];
         void* mem;
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
@@ -318,9 +318,9 @@ extern "C" void FUN_0005c6b0()
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("blendOutTime", &::CGrappleLocoStrafe4Track_5c6b0::FUN_0005a110);
-        FUN_002347b0(&DAT_4dc590, params, 16);
+        FUN_002347b0(&hulk_at_004dc590, params, 16);
     }
-    DAT_4dc594++;
+    hulk_at_004dc594++;
 }
 
 

@@ -247,11 +247,11 @@ public:
     void FUN_001e73b0(int id);
 };
 struct This_Lookup {
-    int Lookup(int);
+    int Lookup_001dbfe0(int);
 };
 class Obj {
   public:
-    char Act(int);
+    char Act_001e5bc0(int);
     char Find(int);
 };
 class IRefCount {
@@ -820,9 +820,9 @@ void Pool_1e73b0::FUN_001e73b0(int id)
 // sym: ?Find@Obj@fn_fb8261dc@@QAEDH@Z
 char Obj::Find(int x) {
     char result = 0;
-    int n = ((This_Lookup*)this)->Lookup(x);
+    int n = ((This_Lookup*)this)->Lookup_001dbfe0(x);
     if (n >= 0) {
-        Act(n);
+        Act_001e5bc0(n);
         result = 1;
     }
     return result;

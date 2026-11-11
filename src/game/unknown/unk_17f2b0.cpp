@@ -418,97 +418,97 @@ class O_180560 {
     int m4c;
     bool Set(T_180560* p);
 };
-extern int* gTable_1805d0;
+extern int* hulk_at_004e1400;
 class CCondition_1805d0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_180630;
+extern int* hulk_at_004e1408;
 class CCondition_180630 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_1806b0;
+extern int* hulk_at_004e1410;
 class CCondition_1806b0 {
   public:
     virtual int vfunc_0(int);
 };
 struct Tail_1806f0 {
-    void Init();
+    void Init_0027af50();
 };
 struct GrapplePropStateByNameCondition_1806f0 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_002345b0();
     void Run();
 };
-extern void* vftable_1806f0;
-extern int* gTable_180730;
+extern void* hulk_at_0041916c;
+extern int* hulk_at_004e1418;
 class CCondition_180730 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_180790;
+extern int* hulk_at_004e1420;
 class CCondition_180790 {
   public:
     virtual int vfunc_0(int);
 };
 struct Tail_1807e0 {
-    void Init();
+    void Init_0027af50();
 };
 struct PropMassCondition_1807e0 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_002345b0();
     void Run();
 };
-extern void* vftable_1807e0;
-extern int* gTable_180820;
+extern void* hulk_at_004191ac;
+extern int* hulk_at_004e1428;
 class CCondition_180820 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_180880;
+extern int* hulk_at_004e1430;
 class CCondition_180880 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_1808e0;
+extern int* hulk_at_004e1438;
 class CCondition_1808e0 {
   public:
     virtual int vfunc_0(int);
 };
 struct Tail_180920 {
-    void Init();
+    void Init_0027af50();
 };
 struct PropStateByNameCondition_180920 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_002345b0();
     void Run();
 };
-extern void* vftable_180920;
-extern int* gTable_180960;
+extern void* hulk_at_0041920c;
+extern int* hulk_at_004e1440;
 class CCondition_180960 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_1809d0;
+extern int* hulk_at_004e1448;
 class CCondition_1809d0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_180a40;
+extern int* hulk_at_004e1450;
 class CCondition_180a40 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_180aa0;
+extern int* hulk_at_004e1458;
 class CCondition_180aa0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_180b00;
+extern int* hulk_at_004e1460;
 class CCondition_180b00 {
   public:
     virtual int vfunc_0(int);
@@ -1779,7 +1779,7 @@ void FUN_001805b0() {
 // sym: ?vfunc_0@PropMissionCriticalCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropMissionCriticalCondition::vfunc_0(int index) {
-    int* p = gTable_1805d0;
+    int* p = hulk_at_004e1400;
     return p[index];
 }
 
@@ -1798,7 +1798,7 @@ void FUN_00180610() {
 // sym: ?vfunc_0@SmartPropGrabbableCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::SmartPropGrabbableCondition::vfunc_0(int index) {
-    int* p = gTable_180630;
+    int* p = hulk_at_004e1408;
     return p[index];
 }
 
@@ -1817,7 +1817,7 @@ void FUN_00180690() {
 // sym: ?vfunc_0@GrapplePropStateByNameCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::GrapplePropStateByNameCondition::vfunc_0(int index) {
-    int* p = gTable_1806b0;
+    int* p = hulk_at_004e1410;
     return p[index];
 }
 
@@ -1827,9 +1827,9 @@ namespace fn_f4259b06 {
 // sym: ?Run@GrapplePropStateByNameCondition_1806f0@fn_f4259b06@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void GrapplePropStateByNameCondition_1806f0::Run() {
-    vptr = &vftable_1806f0;
-    ((Tail_1806f0*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_0041916c;
+    ((Tail_1806f0*)((char*)this + 0x18))->Init_0027af50();
+    Finish_002345b0();
 }
 
 
@@ -1846,7 +1846,7 @@ void FUN_00180710() {
 // sym: ?vfunc_0@PropGrabbableIsThrownCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropGrabbableIsThrownCondition::vfunc_0(int index) {
-    int* p = gTable_180730;
+    int* p = hulk_at_004e1418;
     return p[index];
 }
 
@@ -1865,7 +1865,7 @@ void FUN_00180770() {
 // sym: ?vfunc_0@PropMassCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropMassCondition::vfunc_0(int index) {
-    int* p = gTable_180790;
+    int* p = hulk_at_004e1420;
     return p[index];
 }
 
@@ -1875,9 +1875,9 @@ namespace fn_f4259b06 {
 // sym: ?Run@PropMassCondition_1807e0@fn_f4259b06@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void PropMassCondition_1807e0::Run() {
-    vptr = &vftable_1807e0;
-    ((Tail_1807e0*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_004191ac;
+    ((Tail_1807e0*)((char*)this + 0x18))->Init_0027af50();
+    Finish_002345b0();
 }
 
 
@@ -1894,7 +1894,7 @@ void FUN_00180800() {
 // sym: ?vfunc_0@PropAtRestCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropAtRestCondition::vfunc_0(int index) {
-    int* p = gTable_180820;
+    int* p = hulk_at_004e1428;
     return p[index];
 }
 
@@ -1913,7 +1913,7 @@ void FUN_00180860() {
 // sym: ?vfunc_0@PropIsAttachedCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropIsAttachedCondition::vfunc_0(int index) {
-    int* p = gTable_180880;
+    int* p = hulk_at_004e1430;
     return p[index];
 }
 
@@ -1932,7 +1932,7 @@ void FUN_001808c0() {
 // sym: ?vfunc_0@PropStateByNameCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropStateByNameCondition::vfunc_0(int index) {
-    int* p = gTable_1808e0;
+    int* p = hulk_at_004e1438;
     return p[index];
 }
 
@@ -1942,9 +1942,9 @@ namespace fn_f4259b06 {
 // sym: ?Run@PropStateByNameCondition_180920@fn_f4259b06@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void PropStateByNameCondition_180920::Run() {
-    vptr = &vftable_180920;
-    ((Tail_180920*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_0041920c;
+    ((Tail_180920*)((char*)this + 0x18))->Init_0027af50();
+    Finish_002345b0();
 }
 
 
@@ -1961,7 +1961,7 @@ void FUN_00180940() {
 // sym: ?vfunc_0@PropStateByIndexCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropStateByIndexCondition::vfunc_0(int index) {
-    int* p = gTable_180960;
+    int* p = hulk_at_004e1440;
     return p[index];
 }
 
@@ -1980,7 +1980,7 @@ void FUN_001809b0() {
 // sym: ?vfunc_0@PropMissileCountCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropMissileCountCondition::vfunc_0(int index) {
-    int* p = gTable_1809d0;
+    int* p = hulk_at_004e1448;
     return p[index];
 }
 
@@ -2022,7 +2022,7 @@ void FUN_00180a20() {
 // sym: ?vfunc_0@PropCollidedWithWorldCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropCollidedWithWorldCondition::vfunc_0(int index) {
-    int* p = gTable_180a40;
+    int* p = hulk_at_004e1450;
     return p[index];
 }
 
@@ -2041,7 +2041,7 @@ void FUN_00180a80() {
 // sym: ?vfunc_0@SmartPropIsCargoCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::SmartPropIsCargoCondition::vfunc_0(int index) {
-    int* p = gTable_180aa0;
+    int* p = hulk_at_004e1458;
     return p[index];
 }
 
@@ -2060,7 +2060,7 @@ void FUN_00180ae0() {
 // sym: ?vfunc_0@CSMPropIsCharacterCondition@motion@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::CSMPropIsCharacterCondition::vfunc_0(int index) {
-    int* p = gTable_180b00;
+    int* p = hulk_at_004e1460;
     return p[index];
 }
 

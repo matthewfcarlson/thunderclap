@@ -15,7 +15,7 @@ namespace fn_f6c5dfc0 {} using namespace fn_f6c5dfc0;
 // ---- declarations shared by the functions below
 namespace fn_f6c5dfc0 {
 extern "C" char DAT_00421a3c[];
-void thunk(int);
+void thunk_0008d330(int);
 class StoreBase {
   public:
     hulk_intptr vp;
@@ -92,7 +92,7 @@ struct StoreBase_nv_1c7870 {
 extern "C" char DAT_00421a68[];
 class Sub_1c7a00 {
   public:
-    void Init();
+    void Init_002a30a0();
 };
 class ShadowGenerator {
   public:
@@ -228,7 +228,7 @@ public:
 class Store {
   public:
     virtual void f();
-    void Cleanup2();
+    void Cleanup2_001c7500();
     ~Store();
     int mData;
 };
@@ -239,7 +239,7 @@ class Store {
 void StoreBase::Fn() {
     int t = b;
     vp = ((hulk_intptr)DAT_00421a3c);
-    thunk(t);
+    thunk_0008d330(t);
 }
 
 
@@ -419,13 +419,13 @@ struct StoreBase {
     char pad[0x10];
     void* member;
 };
-extern void __cdecl helper(void*);
-extern void* table_1c7840;
+extern void __cdecl helper_0008d330(void*);
+extern void* hulk_at_00421a3c;
 StoreBase* StoreBase::vfunc_0(unsigned char flag) {
-    *(void**)this = &table_1c7840;
-    helper(member);
+    *(void**)this = &hulk_at_00421a3c;
+    helper_0008d330(member);
     if (flag & 1)
-        helper(this);
+        helper_0008d330(this);
     return this;
 }
 } // namespace fn_001c7840
@@ -460,7 +460,7 @@ namespace fn_f6c5dfc0 {
 ShadowGenerator::ShadowGenerator() {
     mValue = 0;
     mVft = ((hulk_intptr)DAT_00421a68);
-    mSub.Init();
+    mSub.Init_002a30a0();
 }
 
 
@@ -527,7 +527,7 @@ void Marker_1c7a60::Draw(Target_1c7a60 *target, float radius, unsigned int gray,
 // Same code shape as 0x001c5640 (propagated; names are from that function)
 Store::~Store() {
     ((Render::StoreBase *)this)->FUN_001c7720();
-    Cleanup2();
+    Cleanup2_001c7500();
 }
 
 } // namespace fn_f6c5dfc0
