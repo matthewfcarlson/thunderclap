@@ -1556,6 +1556,12 @@ def refresh_platform_libs():
             REFRESH[rel] = "fresh (%s)" % how
             continue
         if not build:
+            if st == "stale" and os.environ.get("HULK_WINE_ALLOW_STALE") != "1":
+                # (guard1) a stamped library built from other sources than the job's: the image would link old code
+                # (job 71282: no hulk_session_*). Rebuild and ship it, or submit with --allow-stale.
+                raise SystemExit("link: %s is stale (%s): it was built from other src/platform/sdl sources than this "
+                                 "job's; rebuild it where it is built (tools/%s) or submit with --allow-stale"
+                                 % (os.path.basename(lib), how, " ".join(cmd)))
             REFRESH[rel] = "%s (%s): this machine cannot rebuild it, the existing library is linked" % (st, how)
             print("link: WARNING %s is %s" % (os.path.basename(lib), REFRESH[rel]), flush=True)
             continue

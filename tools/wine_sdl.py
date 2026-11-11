@@ -429,6 +429,8 @@ def backends(target="all"):
         res["host"] = lib
         log("backends host: %s" % os.path.relpath(lib, ROOT))
     if target in ("win32", "all"):
+        import input_guard      # (guard1) hulk_sdl.lib.srchash: the sources it is built from (Wine build jobs check it)
+        tok = input_guard.source_stamp("hulk_sdl.lib")
         d = os.path.join(BK_DIR, "win32")
         os.makedirs(os.path.join(d, "obj"), exist_ok=True)
         logf = os.path.join(d, "build.log")
@@ -445,6 +447,7 @@ def backends(target="all"):
         r = wine_gfx.run([os.path.join(LLVM, "llvm-lib"), "/nologo", "/out:" + lib] + objs, logf)
         if r.returncode:
             raise SystemExit("hulk_sdl.lib: " + r.stderr[-2000:])
+        input_guard.put_stamp(tok, d)
         # the xdk stand-ins as tools/wine_host.py compile_dir builds them for the image, plus HULK_NATIVE_SDL
         os.makedirs(os.path.join(d, "shim"), exist_ok=True)
         jobs = []

@@ -410,6 +410,16 @@ def cmd_submit(a):
             sys.exit("%s is not a workspace (no %s/)" % (ws, d))
     stages = a.stages.split(",") if a.stages else ["build", "probe", "link"] + (["replay"] if a.replay else [])
     files, dele = overlay(ws, a.live or [])
+    # (guard1) the generated local inputs (data TUs, hulk_sdl.lib, the pddi objects) must fit the job's sources: a stale
+    # shared one is rebuilt here when its sources are clean in git, otherwise the submit is refused (tools/input_guard.py)
+    import input_guard
+    private = {d for d, f in (("build/data/src", a.data_src), (TP_OUT + "sdl-backends/win32", a.sdl_src)) if f}
+    guard_res, problems = input_guard.check_submit(ws, a.live or [], local_dir, private, allow_stale=a.allow_stale)
+    if problems:
+        if not a.allow_stale:
+            sys.exit("refused: stale inputs (tools/input_guard.py; docs/compute.md \"Wine builds\")\n  " + "\n  ".join(problems))
+        for p in problems:
+            print("WARNING (--allow-stale): " + p, file=sys.stderr)
     lineage = re.sub(r"[^A-Za-z0-9_.-]", "_", a.lineage or "%s-%s" % (a.name, os.path.basename(ws) if a.workspace else "head"))
     stamp = inputs_stamp()
     host, affinity, to_sync, note = placement(a, lineage, stamp)
@@ -444,7 +454,13 @@ def cmd_submit(a):
         slots = a.slots or 8
     spec = {"lineage": lineage, "stages": stages, "gfx": bool(a.gfx), "state": "seed" if seed else a.state, "map": a.map, "jobs": slots,
             "inputs_stamp": stamp, "deletions": dele, "env": dict(OPT_ENV[a.opt], **dict(e.split("=", 1) for e in a.env or [])),
-            "fetch": a.fetch or [], "slots_low": a.slots_low}
+            "fetch": a.fetch or [], "slots_low": a.slots_low,
+            "inputs_guard": [{k: r.get(k) for k in ("name", "state", "why", "private", "changed") if r.get(k) is not None}
+                             for r in guard_res]}
+    if a.allow_stale:
+        # (guard1) the host's guard (wine_build_run) and wine_link's platform library check let stale inputs through
+        spec["allow_stale"] = True
+        spec["env"].setdefault("HULK_WINE_ALLOW_STALE", "1")
     ov = {"nbrun/wine_build_run.py": os.path.join(ROOT, "tools/wine_build_run.py"),
           "nbrun/wine_replay_job.py": os.path.join(ROOT, "tools/wine_replay_job.py")}
     if seed:
@@ -488,7 +504,7 @@ def cmd_wait(a):
     if os.path.exists(s):
         d = json.load(open(s))
         print(json.dumps({k: d.get(k) for k in ("host", "lineage", "sync", "sources_hash", "decision", "wall", "stages", "link",
-                                                "platform_libs", "replay", "error", "exit") if k in d}, indent=1))
+                                                "platform_libs", "inputs_guard", "replay", "error", "exit") if k in d}, indent=1))
         print("image: " + " ".join("%s=%s" % (k, v[:12]) for k, v in sorted((d.get("image") or {}).items())))
     else:
         print("no summary.json (see build/jobs/out/%s/log)" % a.id)
@@ -641,6 +657,9 @@ def main():
                    "(every game TU at -O1 but tools/wine_opt_exclude.txt's)")
     s.add_argument("--sdl-src", help="a private build/third_party/out/sdl-backends/win32 (hulk_sdl.lib of an audio/input "
                    "change under test: HULK_TP_OUT=OUT tools/wine_sdl.py backends --target win32)")
+    s.add_argument("--allow-stale", action="store_true",
+                   help="build with generated inputs (data TUs, hulk_sdl.lib, pddi objects) that do not fit the job's sources "
+                   "(tools/input_guard.py; default: rebuild them when their sources are clean, else refuse)")
     s.add_argument("--state", default="auto", type=state_arg, metavar="auto|fresh|resume|seed:JOB",
                    help="build_tree --resume policy; seed:JOB starts from control JOB's final state (docs/compute.md)")
     s.add_argument("--map", choices=["auto", "full", "reuse"], default="auto", help="wine_link --reuse-map policy")

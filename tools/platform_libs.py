@@ -25,16 +25,21 @@ LIBS = [
     ("sdl-backends/win32/hulk_sdl.lib", ["audio", "input", "replay"], [], ["wine_sdl.py", "backends", "--target", "win32"],
      False),
 ]
-SKIP = ("__pycache__", ".DS_Store")
+SKIP = ("__pycache__", ".DS_Store", ".git")
+SKIP_SUFFIX = (".pyc", ".orig", ".rej")     # (guard1: what never reaches a build host; tools/input_guard.py hashes the same)
+
+
+def _keep(f):
+    return f not in SKIP and not f.endswith(SKIP_SUFFIX)
 
 
 def sources(dirs, files=(), plat=PLAT):
     """The library's source files (absolute paths), sorted."""
-    out = [os.path.join(plat, f) for f in os.listdir(plat) if os.path.isfile(os.path.join(plat, f)) and f not in SKIP]
+    out = [os.path.join(plat, f) for f in os.listdir(plat) if os.path.isfile(os.path.join(plat, f)) and _keep(f)]
     for d in dirs:
         for dp, dn, fn in os.walk(os.path.join(plat, d)):
             dn[:] = [x for x in dn if x not in SKIP]
-            out += [os.path.join(dp, f) for f in fn if f not in SKIP]
+            out += [os.path.join(dp, f) for f in fn if _keep(f)]
     out += [os.path.join(plat, f) for f in files if os.path.exists(os.path.join(plat, f))]
     return sorted(set(out))
 

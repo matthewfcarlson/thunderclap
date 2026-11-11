@@ -538,6 +538,29 @@ def main():
     env.update(spec.get("env", {}))
     py = os.path.join(lin, "build/venv/bin/python")
 
+    # (guard1) the generated inputs (data TUs, hulk_sdl.lib, the pddi objects) against the job's sources, by the stamps
+    # their producers wrote (tools/input_guard.py, from the job's tools/; a job from before it has none: not checked)
+    try:
+        sys.path.insert(0, os.path.join(lin, "tools"))
+        import input_guard
+    except ImportError:
+        input_guard = None
+    finally:
+        sys.path.pop(0)
+    if input_guard is not None:
+        try:
+            gres = input_guard.host_check(lin, inp)
+        except Exception as e:      # noqa: BLE001 (a guard bug must not cost the build: say so in the summary)
+            gres = [{"name": "?", "state": "error", "why": repr(e)[:300]}]
+        summ["inputs_guard"] = gres
+        stale = [r for r in gres if r["state"] == "stale"]
+        for r in gres:
+            if r["state"] != "fresh":
+                log("inputs guard: %s %s (%s)" % (r["name"], r["state"], r.get("message") or r.get("why")))
+        if stale and not spec.get("allow_stale"):
+            finish(3, "stale inputs (submit with --allow-stale to build anyway): " +
+                   "; ".join(r.get("message", r["name"]) for r in stale))
+
     # toolchain stamp: other tools than the lineage was built with -> all derived state goes
     tc = toolchain(lin, home)
     summ["toolchain"] = tc

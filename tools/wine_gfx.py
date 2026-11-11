@@ -859,6 +859,8 @@ def embed_shaders(gen, profiles):
 
 def pddi_win32():
     """The skeleton for the native image: i686-pc-windows-msvc objects (HULK_PDDI_GAME=1), archived."""
+    import input_guard      # (guard1) obj/.srchash: the sources the objects are built from (Wine build jobs check it)
+    tok = input_guard.source_stamp("pddi")
     cxx, ar, _ = target_cfg("win32")
     gen = os.path.join(PDDI_WIN_DIR, "gen")
     embed_shaders(gen, ["dxbc", "spirv"])     # Direct3D 11 (Wine, Windows) and Vulkan; the backend picks by renderer
@@ -882,6 +884,7 @@ def pddi_win32():
     r = run(ar + ["/out:" + lib] + objs, logf)
     if r.returncode:
         raise SystemExit("pddi win32 archive failed: " + r.stderr[-2000:])
+    input_guard.put_stamp(tok, os.path.join(PDDI_WIN_DIR, "obj"))
     log("pddi win32: %s" % os.path.relpath(lib, ROOT))
     return {"lib": lib, "objects": objs}
 

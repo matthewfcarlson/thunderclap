@@ -1002,9 +1002,21 @@ def main(argv=None):
     ap.add_argument("--gen-only", action="store_true")
     ap.add_argument("--no-decls", action="store_true", help="don't write include/decls/data/")
     a = ap.parse_args(argv)
+    import input_guard      # (guard1) the stamp of the sources the TUs come from: Wine build jobs check it
+    tok = None if a.only else input_guard.source_stamp("data")
     model = Model()
     tus = generate(model, a.only)
     print("data TUs: %d, items: %d" % (len(tus), sum(len(i) for _, i, _ in tus)), flush=True)
+    if not a.only:
+        # TUs of objects that no longer exist (renamed or merged in config/splits.json) would still be compiled and linked
+        made = {os.path.abspath(p) for p, _, _ in tus}
+        gone = [os.path.join(dp, f) for dp, _, fns in os.walk(OUT_SRC) for f in fns
+                if f.endswith(".data.cpp") and os.path.abspath(os.path.join(dp, f)) not in made]
+        for p in gone:
+            os.unlink(p)
+        if gone:
+            print("removed %d data TUs of objects that no longer exist" % len(gone), flush=True)
+        input_guard.put_stamp(tok, OUT_SRC)
     if not a.no_decls and not a.only:
         hs = write_decls(model, tus)
         print("headers: %d in %s" % (len(hs), os.path.relpath(DECLS, ROOT)), flush=True)
