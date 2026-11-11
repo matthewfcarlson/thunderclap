@@ -13,6 +13,8 @@
 #define TREE_TU_END }
 namespace fn_f30d2d27 {} using namespace fn_f30d2d27;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f30d2d27 {
@@ -1015,7 +1017,6 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
     virtual int vfunc_0(void*);
 };
 class GrappleAnimationTrack_13bd60;
-extern int __cdecl Check(GrappleAnimationTrack_13bd60*, int, void*, void*, int);
 extern void* a;
 extern void* hulk_at_004acd80;
 } // namespace fn_f30d2d27
@@ -3667,10 +3668,9 @@ class Caster : public Base {
     virtual int check(void*);
     virtual void other();
 };
-extern int fn(void*, int, void*, void*, int);
 extern int a, hulk_at_004accc0;
 int Caster::check(void* p) {
-    return fn(p, 0, &a, &hulk_at_004accc0, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &a, &hulk_at_004accc0, 0)) != 0;
 }
 } // namespace fn_0013bcc0
 
@@ -3710,7 +3710,7 @@ template class fight::ParamIntConstRange<hulkfight::motion::AnimationVelocitySca
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleAnimationTrack>::vfunc_0(void* __p0) { GrappleAnimationTrack_13bd60 * p = (GrappleAnimationTrack_13bd60 *)__p0;
 
-    return Check(p, 0, &a, &hulk_at_004acd80, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(p), 0, &a, &hulk_at_004acd80, 0)) != 0;
 }
 
 

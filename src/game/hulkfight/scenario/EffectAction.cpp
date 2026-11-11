@@ -16,6 +16,8 @@
 #define TREE_TU_END }
 namespace fn_fc5dbd2a {} using namespace fn_fc5dbd2a;
 #include "game/hulkfight/scenario.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fc5dbd2a {
@@ -1535,12 +1537,10 @@ extern char DAT_004c2650;
 extern "C" char DAT_0048d5bc[];
 extern "C" char DAT_004a15cc[];
 extern "C" char DAT_004c26a4[];
-extern int __cdecl Find(owners::Obj_1a6e50*, int, const char*, const char*, int);
 extern "C" int Compare(void*, int, const char*, const char*, int);
 extern const char hulk_at_0048d5bc[];
 extern const char hulk_at_0049e11c[];
 typedef unsigned int u32_1a6ee0;
-extern void __cdecl Cast(hulk_uintptr, int, const int*, const int*, int);
 typedef unsigned int u32_1a6f10;
 class Item_1a8cb0 {
   public:
@@ -6024,7 +6024,6 @@ template class fight::ParamBool<hulkfight::scenario::NodeShouldRunImmediatelyCon
 // 0x001a6ac0 fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_LocomotionStateNamePreviousCondition>::vfunc_0 (36 B): matches/0x001a6ac0.cpp [wrapped: conflict: fight::ConditionFactoryCaster; fight::ConditionFactoryCasterTemplate]
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VEvent_LocomotionStateNamePreviousCondition@scenario@hulkfight@fn_001a6ac0@@@fight@fn_001a6ac0@@UAE_NPAX@Z
 namespace fn_001a6ac0 {
-extern int __cdecl castCheck(void*, int, void*, void*, int);
 extern int hulk_at_00491ca8, hulk_at_004c20d0;
 namespace fight {
 class ConditionFactoryCaster {
@@ -6046,7 +6045,7 @@ class Event_LocomotionStateNamePreviousCondition;
 template <>
 bool fight::ConditionFactoryCasterTemplate<
     hulkfight::scenario::Event_LocomotionStateNamePreviousCondition>::vfunc_0(void* p) {
-    return castCheck(p, 0, &hulk_at_00491ca8, &hulk_at_004c20d0, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &hulk_at_00491ca8, &hulk_at_004c20d0, 0)) != 0;
 }
 } // namespace fn_001a6ac0
 
@@ -6278,7 +6277,7 @@ void* owners::Owner_1a6e10::FUN_001a6e10() {
 // sym: ?FUN_001a6e50@Obj_1a6e50@owners@@QAEPAU12@XZ
 owners::Obj_1a6e50* owners::Obj_1a6e50::FUN_001a6e50() {
     owners::Obj_1a6e50* p = Get();
-    while (p && Find(p, 0, (const char*)((hulk_intptr)DAT_0048d5bc), (const char*)((hulk_intptr)DAT_004c26a4), 0) == 0)
+    while (p && ((int)(hulk_uintptr)__RTDynamicCast((void*)(p), 0, (void*)((const char*)((hulk_intptr)DAT_0048d5bc)), (void*)((const char*)((hulk_intptr)DAT_004c26a4)), 0)) == 0)
         p = Get();
     return p;
 }
@@ -6302,7 +6301,7 @@ void* owners::Obj_1a6e90::FUN_001a6e90() {
 // Same code shape as 0x00021650 (propagated; names are from that function)
 template <> void content::LoadInventory::DynamicCaster<pure3d::Skeleton>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
 }
 
 
@@ -6311,7 +6310,7 @@ template <> void content::LoadInventory::DynamicCaster<pure3d::Skeleton>::vfunc_
 // Same code shape as 0x00021650 (propagated; names are from that function)
 template <> void content::LoadInventory::DynamicCaster<pure3d::Camera>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
 }
 
 

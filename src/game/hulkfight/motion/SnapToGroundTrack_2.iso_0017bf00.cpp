@@ -2,6 +2,8 @@
 // object 0x0017bc70..0x0017e1a0 (kind game, layer game, confidence high), dominant class hulkfight::motion::SnapToGroundTrack
 // (tree_prelude.h: not needed)
 #include "compat/ptr.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 
 // 0x0017bf00 hulkfight::motion::VisibilityTrack::vfunc_10 (70 B): matches/0x0017bf00.cpp [isolated: conflict: Alloc; on include/gen/ and not mergeable]
@@ -15,14 +17,13 @@ class Params_17bf00 {
 };
 extern Params_17bf00 hulk_at_00494b44;
 extern Params_17bf00 hulk_at_00494b60;
-int __cdecl Check(void*, int, Params_17bf00*, Params_17bf00*, int);
 struct VisibilityAction_nv_17bf00 {
     int Init_00177550(hulkfight::motion::VisibilityTrack*, hulk_intptr);
 };
 hulkfight::motion::VisibilityAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::VisibilityTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
         hulkfight::motion::VisibilityAction* p = Alloc_0008d690(0x24);
         if (p)

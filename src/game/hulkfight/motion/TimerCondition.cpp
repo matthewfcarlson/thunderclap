@@ -12,6 +12,8 @@
 #define TREE_TU_END }
 namespace fn_f1f11990 {} using namespace fn_f1f11990;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f1f11990 {
@@ -587,7 +589,6 @@ struct TypeRecord {
 };
 extern const TypeRecord hulk_at_004bf500;
 extern const TypeRecord hulk_at_0049850c;
-extern "C" int __cdecl TrackCast(void*, int, const TypeRecord*, const TypeRecord*, int);
 } // namespace fn_f1f11990
 namespace fight {
 class TrackFactoryCaster_18de50 {
@@ -1844,7 +1845,6 @@ struct Info {
     int x;
 };
 extern Info hulk_at_00491ca8, hulk_at_004bf2e8;
-extern int __cdecl check(void*, int, Info*, Info*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -1858,7 +1858,7 @@ class GrappleCaster : public ConditionFactoryCaster {
 };
 } // namespace fight
 int fight::GrappleCaster::vfunc_0(void* p) {
-    return check(p, 0, &hulk_at_00491ca8, &hulk_at_004bf2e8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00491ca8), (void*)(&hulk_at_004bf2e8), 0)) != 0;
 }
 } // namespace fn_0018dcd0
 
@@ -1945,7 +1945,7 @@ template class fight::ParamIntConstRange<hulkfight::motion::TimerSetTrack>; // (
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::VarAssignTrack>::vfunc_0(void* __p0) { void * track = (void *)__p0;
 
-    return TrackCast(track, 0, &hulk_at_0049850c, &hulk_at_004bf500, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(track, 0, (void*)(&hulk_at_0049850c), (void*)(&hulk_at_004bf500), 0)) != 0;
 }
 
 

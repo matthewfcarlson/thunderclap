@@ -14,6 +14,8 @@
 #define TREE_TU_END }
 namespace fn_f9c2e0ac {} using namespace fn_f9c2e0ac;
 #include "game/hulkfight/ai.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f9c2e0ac {
@@ -224,7 +226,6 @@ class ThreatDodgeTrack_12b700 : public Track_12b700 {
 extern "C" void __fastcall FUN_0027af50(Sub_12b700*) throw();
 extern const char hulk_at_00494b44[];
 extern const char hulk_at_00494b60[];
-int CheckFn(hulk_intptr a, int b, const void* c, const void* d, int e);
 class Obj2_12b780 {
   public:
     unsigned char Test_00037080(void* a, unsigned char b);
@@ -674,7 +675,6 @@ extern int TypeB_12c970;
 struct Result_12c970 {
     u32_12c970 Init_0012bff0(void*, void*);
 };
-extern int Check(void*, int, int*, int*, int);
 extern Result_12c970* Alloc_0008d690(int);
 struct RefCounted_12c9c0 {
   public:
@@ -1307,7 +1307,7 @@ ThreatDodgeTrack_12b700::~ThreatDodgeTrack_12b700() throw() {
 // sym: ?vfunc_6@ThreatCondition@ai@hulkfight@@UAE_NPAX00@Z
 bool hulkfight::ai::ThreatCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr c = (hulk_intptr)__p1; hulk_intptr d = (hulk_intptr)__p2;
 
-    if (!CheckFn(c, 0, hulk_at_00494b44, hulk_at_00494b60, 0))
+    if (!((int)(hulk_uintptr)__RTDynamicCast((void*)(c), 0, (void*)(hulk_at_00494b44), (void*)(hulk_at_00494b60), 0)))
         return false;
     Obj_12b780* o = ((Obj_12b780 *)((owners::Object_592a0 *)(((Obj_12b780*)c)))->FUN_000592a0());
     Obj2_12b780* x = o->Next_00059a30();
@@ -2239,7 +2239,7 @@ template class fight::ParamBool<hulkfight::ai::ThreatDodgeTrack>; // (ren2) nati
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ThreatBallTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_12c970 a = (u32_12c970)__p0; u32_12c970 b = (u32_12c970)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &TypeA_12c970, &TypeB_12c970, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&TypeA_12c970), (void*)(&TypeB_12c970), 0))) {
         Result_12c970* q = Alloc_0008d690(0x28);
         if (q)
             return (int)(q->Init_0012bff0(this, p));

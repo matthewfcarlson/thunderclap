@@ -11,6 +11,8 @@
 #define TREE_TU_END }
 namespace fn_f7eb5c06 {} using namespace fn_f7eb5c06;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f7eb5c06 {
@@ -323,7 +325,6 @@ struct C {
     B* get_000592a0();
 };
 extern int hulk_at_00494b44, hulk_at_00494b60;
-extern "C" void* __cdecl cast(void*, int, void*, void*, int);
 struct Table_15c2a0 {
     char pad0[0x2c];
     int count;
@@ -1200,7 +1201,7 @@ void GrappleLocomotionSteerTrack::Kill() {
 // sym: ?vfunc_6@LocomotingCondition@motion@hulkfight@@UAE_NPAX00@Z
 bool hulkfight::motion::LocomotingCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int x = (int)__p0; C * obj = (C *)__p1; int z = (int)__p2;
 
-    if (!cast(obj, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0))
+    if (!__RTDynamicCast(obj, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0))
         return false;
     unsigned char v = obj->get_000592a0()->get_00059a30()->n > 0;
     return (unsigned char)(v - (*(unsigned char *)&this->f_0c)) == 0;

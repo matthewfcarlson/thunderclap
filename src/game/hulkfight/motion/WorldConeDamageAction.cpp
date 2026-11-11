@@ -13,6 +13,8 @@
 #define TREE_TU_END }
 namespace fn_f3c8e3e3 {} using namespace fn_f3c8e3e3;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f3c8e3e3 {
@@ -406,7 +408,6 @@ class Params_144970 {
 };
 extern Params_144970 hulk_at_00494b44;
 extern Params_144970 hulk_at_00494b60;
-int __cdecl Check(void*, int, Params_144970*, Params_144970*, int);
 class Object_144970 {
   public:
     int Init_001448e0(hulkfight::motion::WorldDamageTrack*, hulk_intptr);
@@ -561,7 +562,6 @@ class Effect_144cd0 {
   public:
     int init_00144c10(hulk_intptr, hulkfight::motion::HitEffectTrack*, hulk_intptr);
 };
-extern int check(void*, int, const void*, const void*, int);
 extern void* alloc_0008d690(hulk_uintptr);
 extern const char type1_144cd0[];
 extern const char type2_144cd0[];
@@ -749,7 +749,6 @@ class ParamValueInt_1451f0 : public ParamValue_1451f0 {
   public:
     int pad;
 };
-extern int __cdecl check(void*, int, void*, void*, int);
 extern char DAT_0049850c;
 extern char DAT_004adef0;
 } // namespace fn_f3c8e3e3
@@ -2374,7 +2373,7 @@ WorldDamageAction_144930::~WorldDamageAction_144930() throw() {
 // sym: ?vfunc_10@WorldDamageTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::WorldDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
         Object_144970* p = Alloc_0008d690(0x24);
         if (p)
@@ -2530,7 +2529,7 @@ HitEffectAction_144c80::~HitEffectAction_144c80() {
 // 0x00144cd0 hulkfight::motion::HitEffectTrack::vfunc_10 (75 B): matches/0x00144cd0.cpp
 // sym: ?vfunc_10@HitEffectTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::HitEffectTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    if (check((void*)c, 0, type1_144cd0, type2_144cd0, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(type1_144cd0), (void*)(type2_144cd0), 0))) {
         Effect_144cd0* p = (Effect_144cd0*)alloc_0008d690(0x28);
         if (p)
             return p->init_00144c10(a, this, c);
@@ -2834,7 +2833,7 @@ template <> bool fight::ParamIntConstRange<hulkfight::motion::MotionTrailStopTra
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HitEffectTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &DAT_0049850c, &DAT_004adef0, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &DAT_0049850c, &DAT_004adef0, 0)) != 0;
 }
 
 

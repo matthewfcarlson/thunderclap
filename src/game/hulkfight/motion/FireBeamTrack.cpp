@@ -9,11 +9,12 @@
 #define TREE_TU_END }
 namespace fn_f5715835 {} using namespace fn_f5715835;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f5715835 {
 typedef unsigned int u32_1a0ca0;
-extern int __cdecl Check(void*, int, const void*, const void*, int);
 extern void* __cdecl Alloc_0008d690(hulk_uintptr);
 struct NewThing {
     int Init_0019b500(hulkfight::motion::FireBeamTrack*, void*);
@@ -199,7 +200,7 @@ struct Obj_1a1120 {
 // sym: ?vfunc_10@FireBeamTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::FireBeamTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1a0ca0 a = (u32_1a0ca0)__p0; u32_1a0ca0 b = (u32_1a0ca0)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
         NewThing* q = (NewThing*)Alloc_0008d690(0x98);
         if (q)
             return q->Init_0019b500(this, p);

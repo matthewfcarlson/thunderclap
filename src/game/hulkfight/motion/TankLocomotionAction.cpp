@@ -12,6 +12,8 @@
 #define TREE_TU_END }
 namespace fn_fc171dfe {} using namespace fn_fc171dfe;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fc171dfe {
@@ -580,7 +582,6 @@ class Created_191670 {
   public:
     int init_0018f610(hulkfight::motion::TankLocomotionTrack*, hulk_intptr);
 };
-extern int typecheck(void*, int, int*, int*, int);
 extern Created_191670* alloc_0008d690(int);
 extern int g_vftable_1916c0;
 class RefObj_1916c0 {
@@ -603,7 +604,6 @@ class Params_191720 {
 };
 extern Params_191720 TypeA_191720;
 extern Params_191720 TypeB_191720;
-int __cdecl Check(void*, int, Params_191720*, Params_191720*, int);
 struct SimulationAction_nv_191720 {
     int Init_00190920(hulkfight::motion::SimulationTrack*, hulk_intptr);
 };
@@ -2328,7 +2328,7 @@ template class fight::ParamIntConstRange<hulkfight::motion::TankLocomotionTrack>
 // 0x00191670 hulkfight::motion::TankLocomotionTrack::vfunc_10 (73 B): matches/0x00191670.cpp
 // sym: ?vfunc_10@TankLocomotionTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::TankLocomotionTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    if (typecheck((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
         Created_191670* p = alloc_0008d690(0xa4);
         if (p)
             return p->init_0018f610(this, c);
@@ -2370,7 +2370,7 @@ void* TankLocomotionAction_1916c0::vfunc_2(unsigned char flag) {
 // sym: ?vfunc_10@SimulationTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::SimulationTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_191720, &TypeB_191720, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_191720), (void*)(&TypeB_191720), 0));
     if (result) {
         hulkfight::motion::SimulationAction* p = Alloc_0008d690(0x24);
         if (p)

@@ -445,7 +445,6 @@ class Base {
 };
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern char DAT_004c0c00;
-extern "C" int __cdecl CastHelper(void*, int, void*, void*, int);
 extern char DAT_0049850c;
 extern char DAT_004c0cc0;
 } // namespace fn_f740ace1
@@ -511,7 +510,6 @@ class FireBeamTrack_19a4e0 {};
 } }
 namespace fn_f740ace1 {
 extern char DAT_004c0f88;
-extern int __cdecl Lookup(void*, int, void*, void*, int);
 } // namespace fn_f740ace1
 namespace fight {
 class TrackFactoryCaster_19a5e0 {
@@ -834,7 +832,6 @@ class Params_19b3c0 {
 };
 extern Params_19b3c0 TypeA_19b3c0;
 extern Params_19b3c0 TypeB_19b3c0;
-int __cdecl Check(void*, int, Params_19b3c0*, Params_19b3c0*, int);
 class Object_19b3c0 {
   public:
     int Init_00196220(hulkfight::motion::FireMissileTrack*, hulk_intptr);
@@ -1813,7 +1810,7 @@ template class fight::ParamBool<hulkfight::motion::PropIsMissileCondition>; // (
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::FireProjectileTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return CastHelper(p, 0, &DAT_0049850c, &DAT_004c0cc0, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &DAT_0049850c, &DAT_004c0cc0, 0)) != 0;
 }
 
 
@@ -2036,7 +2033,7 @@ template class fight::ParamEnumConstList<hulkfight::motion::FireBeamTrack>; // (
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VFireMissileTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::FireMissileTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Lookup(p, 0, &DAT_0049850c, &DAT_004c1030, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &DAT_0049850c, &DAT_004c1030, 0)) != 0;
 }
 
 
@@ -2502,7 +2499,7 @@ ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
 // sym: ?vfunc_10@FireMissileTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FireMissileTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_19b3c0, &TypeB_19b3c0, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_19b3c0), (void*)(&TypeB_19b3c0), 0));
     if (result) {
         Object_19b3c0* p = Alloc_0008d690(0x24);
         if (p)

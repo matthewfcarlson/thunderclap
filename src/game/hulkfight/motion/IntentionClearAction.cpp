@@ -8,12 +8,13 @@
 #define TREE_TU_END }
 namespace fn_fbf77592 {} using namespace fn_fbf77592;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fbf77592 {
 extern int hulk_at_00494b44;
 extern int hulk_at_00494b60;
-extern int TypeCheck(void*, int, int*, int*, int);
 extern "C" void* FUN_0008d690(int);
 class Obj_17b0c0 {
   public:
@@ -48,7 +49,6 @@ class JointTrackerAction {
 typedef unsigned int u32_17b170;
 extern int desc1_17b170;
 extern int desc2_17b170;
-int __cdecl check(void* obj, int z, void* d1, void* d2, int z2);
 struct Result_17b170 {
     int init_00173c00(void* self, void* p);
 };
@@ -69,7 +69,6 @@ typedef unsigned int u32_17b1e0;
 struct Result_17b1e0 {
     int Init_00174660(hulkfight::motion::JointRelativeTrack*, u32_17b1e0);
 };
-extern int __cdecl Check5(u32_17b1e0, int, void*, void*, int);
 extern char g_a_17b1e0;
 extern char g_b_17b1e0;
 extern int hulk_at_00417e30;
@@ -93,7 +92,6 @@ class Params_17b290 {
 };
 extern Params_17b290 TypeA_17b290;
 extern Params_17b290 TypeB_17b290;
-int __cdecl Check(void*, int, Params_17b290*, Params_17b290*, int);
 struct IntentionClearAction_nv_17b290 {
     int Init_00174700(hulkfight::motion::IntentionClearTrack*, hulk_intptr);
 };
@@ -121,7 +119,7 @@ class IntentionClearAction_17b2e0 {
 // sym: ?vfunc_10@JointTrackerTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::JointTrackerTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr __p2) { void * p = (void *)__p2;
 
-    if (TypeCheck(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
         void* q = FUN_0008d690(0x78);
         if (q)
             return ((Obj_17b0c0*)q)->Init_00173410(this, p);
@@ -163,7 +161,7 @@ JointTrackerAction* JointTrackerAction::vfunc_2(int flag) {
 // sym: ?vfunc_10@JointPivotTrackerTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::JointPivotTrackerTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b170 a = (u32_17b170)__p0; u32_17b170 b = (u32_17b170)__p1; void * c = (void *)__p2;
 
-    if (check(c, 0, &desc1_17b170, &desc2_17b170, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast(c, 0, &desc1_17b170, &desc2_17b170, 0))) {
         Result_17b170* p = (Result_17b170*)FUN_0008d690(0x84);
         if (p)
             return p->init_00173c00(this, c);
@@ -183,7 +181,7 @@ hulkfight::motion::JointPivotTrackerAction::~JointPivotTrackerAction() {}
 // sym: ?vfunc_10@JointRelativeTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::JointRelativeTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b1e0 a = (u32_17b1e0)__p0; u32_17b1e0 b = (u32_17b1e0)__p1; u32_17b1e0 c = (u32_17b1e0)__p2;
 
-    if (Check5(c, 0, &g_b_17b1e0, &g_a_17b1e0, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(c), 0, &g_b_17b1e0, &g_a_17b1e0, 0))) {
         Result_17b1e0* r = (Result_17b1e0*)FUN_0008d690(100);
         if (r)
             return r->Init_00174660(this, c);
@@ -225,7 +223,7 @@ void* JointRelativeAction_17b230::vfunc_2(unsigned char flag) {
 // sym: ?vfunc_10@IntentionClearTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::IntentionClearTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_17b290, &TypeB_17b290, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_17b290), (void*)(&TypeB_17b290), 0));
     if (result) {
         hulkfight::motion::IntentionClearAction* p = Alloc_0008d690(0x24);
         if (p)

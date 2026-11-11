@@ -10,6 +10,8 @@
 #define TREE_TU_END }
 namespace fn_fa2e0d0f {} using namespace fn_fa2e0d0f;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fa2e0d0f {
@@ -40,7 +42,6 @@ class CCondition_166780 {
 };
 extern "C" char DAT_00494b44[];
 extern "C" char DAT_00494b60[];
-extern int __cdecl castcheck(void*, int, void*, void*, int);
 struct Lvl3 {
     unsigned char third_000373d0();
 };
@@ -103,7 +104,6 @@ class CFightParams_166bc0 : public fight::Params_166bc0 {
 public:
     virtual void v1();
 };
-extern int check(void*, int, void*, void*, int);
 struct Obj_166c60 {
     void* getB_00059a30();
 };
@@ -321,7 +321,7 @@ hulk_intptr hulkfight::motion::HealthCondition::vfunc_0(int index) {
 // sym: ?vfunc_6@ThinkingCondition@motion@hulkfight@@UAE_NPAX00@Z
 bool hulkfight::motion::ThinkingCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * p = (void *)__p1; void * c = (void *)__p2;
 
-    if (!castcheck(p, 0, (void*)((hulk_intptr)DAT_00494b44), (void*)((hulk_intptr)DAT_00494b60), 0))
+    if (!((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)((hulk_intptr)DAT_00494b44), (void*)((hulk_intptr)DAT_00494b60), 0)))
         return false;
     Lvl1* q = (Lvl1*)p;
     Lvl2* r = ((Lvl2 *)((owners::Object_592a0 *)q)->FUN_000592a0());
@@ -596,7 +596,7 @@ bool hulkfight::motion::IntentionInputCondition::vfunc_6(void* __p0, void* __p1,
 // sym: ?vfunc_6@TargetingCondition@motion@hulkfight@@UAE_NPAX00@Z
 bool hulkfight::motion::TargetingCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * params = (void *)__p1; void * last = (void *)__p2;
 
-    if (!check(params, 0, (void*)((hulk_intptr)DAT_00494b44), (void*)((hulk_intptr)DAT_00494b60), 0))
+    if (!((int)(hulk_uintptr)__RTDynamicCast(params, 0, (void*)((hulk_intptr)DAT_00494b44), (void*)((hulk_intptr)DAT_00494b60), 0)))
         return false;
     void* x = ((void *)((owners::Object_592a0 *)(((Obj_166c60*)params)))->FUN_000592a0());
     void* y = ((Obj_166c60*)x)->getB_00059a30();

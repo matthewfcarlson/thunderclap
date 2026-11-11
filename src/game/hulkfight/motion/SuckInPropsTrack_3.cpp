@@ -6,6 +6,8 @@
 #define TREE_TU_END }
 namespace fn_f9830261 {} using namespace fn_f9830261;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fight {
@@ -21,7 +23,6 @@ class TargetIconDistanceTrack_1797a0;
 namespace fn_f9830261 {
 extern char DAT_0049850c;
 extern char DAT_004ba968;
-extern "C" void* castTrack(void*, void*, void*, void*, void*);
 } // namespace fn_f9830261
 namespace hulkfight { namespace motion {
 class SuckInPropsTrack_179860;
@@ -43,7 +44,7 @@ class TrackFactoryCaster_179860 {
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VTargetIconDistanceTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::TargetIconDistanceTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return castTrack(p, 0, &DAT_0049850c, &DAT_004ba968, 0) != 0;
+    return __RTDynamicCast(p, 0, &DAT_0049850c, &DAT_004ba968, 0) != 0;
 }
 
 

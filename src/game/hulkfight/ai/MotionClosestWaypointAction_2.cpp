@@ -11,6 +11,8 @@
 #define TREE_TU_END }
 namespace fn_ffc509e9 {} using namespace fn_ffc509e9;
 #include "game/hulkfight/ai.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_ffc509e9 {
@@ -337,7 +339,6 @@ class HasGroundPointCondition {
     virtual void f2();
     virtual void f3();
 };
-extern int __cdecl CastTest(void* a, void* b, void* c, void* d, void* e);
 class CF {
   public:
     virtual int vfunc_0(int a);
@@ -351,7 +352,6 @@ class ConditionFactoryCaster_118930 {
     virtual void f0();
     virtual void f1();
 };
-extern int __cdecl Find(void*, int, void*, void*, int);
 extern char DAT_004a5628;
 } // namespace fn_ffc509e9
 namespace fight {
@@ -366,7 +366,6 @@ class ComputeDropZoneCondition_1189b0 {};
 } }
 namespace fn_ffc509e9 {
 extern int g1;
-extern "C" int __cdecl compare(void*, int, int*, int*, int);
 } // namespace fn_ffc509e9
 namespace fight {
 class ConditionFactoryCaster_118a30 {
@@ -434,7 +433,6 @@ class TrackFactoryCaster_118c70 {
   public:
     virtual int vfunc_0(int a);
 };
-extern int __cdecl check(void*, int, const void*, const void*, int);
 extern char DAT_004a5ae8;
 } // namespace fn_ffc509e9
 namespace fight {
@@ -469,7 +467,6 @@ class Params_119d10 {
 };
 extern Params_119d10 hulk_at_00494b44;
 extern Params_119d10 hulk_at_00494b60;
-int __cdecl Check(void*, int, Params_119d10*, Params_119d10*, int);
 class Object_119d10 {
   public:
     int Init_00116910(hulkfight::ai::MotionStopTrack*, hulk_intptr);
@@ -594,7 +591,6 @@ struct TypeInfo_11a1b0 {
 };
 extern TypeInfo_11a1b0 CFightParamsType_11a1b0;
 extern TypeInfo_11a1b0 FightParamsType_11a1b0;
-int __cdecl IsType(void*, int, TypeInfo_11a1b0*, TypeInfo_11a1b0*, int);
 void* __cdecl Allocate_0008d690(int);
 class Allocated_11a1b0 {
   public:
@@ -1728,7 +1724,7 @@ namespace fn_ffc509e9 {
 // 0x001188d0 fight::ConditionFactoryCasterTemplate<hulkfight::ai::HasGroundPointCondition>::vfunc_0 (36 B): matches/0x001188d0.cpp
 // sym: ?vfunc_0@CF@fn_ffc509e9@@UAEHH@Z
 int CF::vfunc_0(int a) {
-    int r = CastTest((void*)a, 0, &hulk_at_00491ca8, &hulk_at_004a54b8, 0);
+    int r = ((int)(hulk_uintptr)__RTDynamicCast((void*)a, 0, &hulk_at_00491ca8, &hulk_at_004a54b8, 0));
     if (r)
         return 1;
     return 0;
@@ -1779,7 +1775,7 @@ template class fight::ParamFloatConstRange<hulkfight::ai::LocatorDistanceConditi
  // namespace hulkfight
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::ComputeDropZoneCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Find(p, 0, &DAT_00491ca8, &DAT_004a5628, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &DAT_00491ca8, &DAT_004a5628, 0)) != 0;
 }
 
 
@@ -1808,7 +1804,7 @@ template class fight::ParamBool<hulkfight::ai::ComputeDropZoneCondition>; // (re
  // namespace hulkfight
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::HasGroundPointExtendedCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return compare(p, 0, &g1, &g2, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&g1), (void*)(&g2), 0)) != 0;
 }
 
 
@@ -1958,7 +1954,7 @@ template class fight::ParamBool<hulkfight::ai::MotionLocatorTrack>; // (ren2) na
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionTargetTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &DAT_0049850c, &DAT_004a5ae8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&DAT_0049850c), (void*)(&DAT_004a5ae8), 0)) != 0;
 }
 
 
@@ -2095,7 +2091,7 @@ void __cdecl target() {
 // sym: ?vfunc_10@MotionStopTrack@ai@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::MotionStopTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
         Object_119d10* p = Alloc_0008d690(0x24);
         if (p)
@@ -2299,7 +2295,7 @@ void* MotionFleeAction_11a150::vfunc_2(unsigned char flag) {
 // sym: ?vfunc_10@MotionClosestWaypointTrack@ai@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::ai::MotionClosestWaypointTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { void * a = (void *)__p0; void * b = (void *)__p1; void * p = (void *)__p2;
 
-    int ok = IsType(p, 0, &FightParamsType_11a1b0, &CFightParamsType_11a1b0, 0);
+    int ok = ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&FightParamsType_11a1b0), (void*)(&CFightParamsType_11a1b0), 0));
     if (ok) {
         Allocated_11a1b0* x = (Allocated_11a1b0*)Allocate_0008d690(0x68);
         if (x)

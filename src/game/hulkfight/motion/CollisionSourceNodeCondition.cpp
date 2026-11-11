@@ -8,6 +8,8 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f7bcb928 {} using namespace fn_f7bcb928;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f7bcb928 {
@@ -40,7 +42,6 @@ class CollisionSourceIsMissileCondition : public Condition, public Param {
     unsigned char value;
 };
 } }
-extern int helper(void*, int, void*, void*, int);
 extern int hulk_at_00494b44;
 extern int hulk_at_00494b60;
 struct Source_14e810 {
@@ -68,7 +69,7 @@ struct CollisionSourceNodeCondition {
 // 0x0014e810 hulkfight::motion::CollisionSourceIsMissileCondition::vfunc_6 (69 B): matches/0x0014e810.cpp
 // sym: ?vfunc_6@CollisionSourceIsMissileCondition@motion@hulkfight@fn_f7bcb928@@UAE_NHPAXH@Z
 bool hulkfight::motion::CollisionSourceIsMissileCondition::vfunc_6(int, void* p, int) {
-    if (helper(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0) == 0)
+    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) == 0)
         return false;
     hulk_intptr x = ((Source_14e810*)p)->get();
     if (!x)

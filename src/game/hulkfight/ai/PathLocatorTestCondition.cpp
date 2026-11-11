@@ -11,6 +11,8 @@
 #define TREE_TU_END }
 namespace fn_fff5b4af {} using namespace fn_fff5b4af;
 #include "game/hulkfight/ai.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fff5b4af {
@@ -352,7 +354,6 @@ namespace hulkfight { namespace ai {
 class PathFormationTrack_120780;
 } }
 namespace fn_fff5b4af {
-int __cdecl CastFunc(void*, int, void*, void*, int);
 } // namespace fn_fff5b4af
 namespace fight {
 class TrackFactoryCaster_120780 {
@@ -435,7 +436,6 @@ extern int hulk_at_00494b60;
 struct Result_122160 {
     u32_122160 Init_0011d860(void*, void*);
 };
-extern int Check(void*, int, int*, int*, int);
 extern Result_122160* Alloc_0008d690(int);
 extern int hulk_at_0040f5dc;
 class RefObj_1221b0 {
@@ -1565,7 +1565,7 @@ template class fight::ParamBool<hulkfight::ai::RoutTrack>; // (ren2) native only
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::PathFormationTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return CastFunc(p, 0, (void*)&DAT_0049850c, (void*)&DAT_004a66d8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)&DAT_0049850c, (void*)&DAT_004a66d8, 0)) != 0;
 }
 
 
@@ -2066,7 +2066,7 @@ bool PathFormationAction::vfunc_3(int a, int b)
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::StrafeCircleTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_122160 a = (u32_122160)__p0; u32_122160 b = (u32_122160)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
         Result_122160* q = Alloc_0008d690(0x28);
         if (q)
             return (int)(q->Init_0011d860(this, p));

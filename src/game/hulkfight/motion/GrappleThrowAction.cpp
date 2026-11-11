@@ -14,6 +14,8 @@
 #define TREE_TU_END }
 namespace fn_f1739f6f {} using namespace fn_f1739f6f;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f1739f6f {
@@ -294,7 +296,6 @@ struct CivilianAnimationTrack_1478d0 {
 extern void* hulk_at_00413768;
 extern char hulk_at_00494b60;
 extern char hulk_at_00494b44;
-extern int __cdecl check(void*, int, char*, char*, int);
 class Helper_1479f0 {
   public:
     void* getB_00059a30();
@@ -302,7 +303,6 @@ class Helper_1479f0 {
 struct P_147a50 {
     P_147a50* FnB_00059a30();
 };
-extern int __cdecl TypeCheck(void* a, int b, void* c, void* d, int e);
 extern char kDesc1;
 extern char kDesc2;
 struct CivilianAttachedCondition {
@@ -1409,7 +1409,6 @@ extern int TypeB_14ac70;
 struct Result_14ac70 {
     u32_14ac70 Init_001484f0(void*, void*);
 };
-extern int Check(void*, int, int*, int*, int);
 extern Result_14ac70* Alloc_0008d690(int);
 struct RefCounted_14acc0 {
   public:
@@ -3069,7 +3068,7 @@ bool GrappleAttachJointCondition::vfunc_6(void*, Input_147930* input, void*) {
 // sym: ?vfunc_6@GrappleAttachedCondition@motion@hulkfight@@UAE_NPAX00@Z
 bool hulkfight::motion::GrappleAttachedCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { void * p2 = (void *)__p1;
 
-    if (!check(p2, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0))
+    if (!((int)(hulk_uintptr)__RTDynamicCast(p2, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0)))
         return false;
     void* a = ((void *)((owners::Object_592a0 *)(((Helper_1479f0*)p2)))->FUN_000592a0());
     void* b = ((Helper_1479f0*)a)->getB_00059a30();
@@ -3083,7 +3082,7 @@ namespace fn_f1739f6f {
 // 0x00147a50 hulkfight::motion::CivilianAttachedCondition::vfunc_6 (85 B): matches/0x00147a50.cpp
 // sym: ?vfunc_6@CivilianAttachedCondition@fn_f1739f6f@@UAE_NPAX00@Z
 bool CivilianAttachedCondition::vfunc_6(void* a, void* b, void* c) {
-    if (!TypeCheck(b, 0, &kDesc1, &kDesc2, 0))
+    if (!((int)(hulk_uintptr)__RTDynamicCast(b, 0, &kDesc1, &kDesc2, 0)))
         return false;
     P_147a50* p = ((P_147a50 *)((owners::Object_592a0 *)(((P_147a50*)b)))->FUN_000592a0());
     p = p->FnB_00059a30();
@@ -3097,7 +3096,7 @@ bool CivilianAttachedCondition::vfunc_6(void* a, void* b, void* c) {
 // sym: ?vfunc_6@CivilianTargetCondition_147ab0@fn_f1739f6f@@UAE_NPAX00@Z
 // Same code shape as 0x00147a50 (propagated; names are from that function)
 bool CivilianTargetCondition_147ab0::vfunc_6(void* a, void* b, void* c) {
-    if (!TypeCheck(b, 0, &kDesc1, &kDesc2, 0))
+    if (!((int)(hulk_uintptr)__RTDynamicCast(b, 0, &kDesc1, &kDesc2, 0)))
         return false;
     P_147ab0* p = ((P_147ab0 *)((owners::Object_592a0 *)(((P_147ab0*)b)))->FUN_000592a0());
     p = p->FnB_00059a30();
@@ -5237,7 +5236,7 @@ void FUN_0014a3a0() {
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::GrappleStruggleTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_14ac70 a = (u32_14ac70)__p0; u32_14ac70 b = (u32_14ac70)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &TypeA_14ac70, &TypeB_14ac70, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&TypeA_14ac70), (void*)(&TypeB_14ac70), 0))) {
         Result_14ac70* q = Alloc_0008d690(0x28);
         if (q)
             return (int)(q->Init_001484f0(this, p));

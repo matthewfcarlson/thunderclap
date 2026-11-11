@@ -6,6 +6,8 @@
 #define TREE_TU_END }
 namespace fn_fe650bd9 {} using namespace fn_fe650bd9;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fe650bd9 {
@@ -49,7 +51,6 @@ namespace hulkfight { namespace motion {
 class GrappleReactionTypeCondition_16a4f0 {};
 } }
 namespace fn_fe650bd9 {
-extern int __cdecl check(void*, int, void*, void*, int);
 extern int hulk_at_00491ca8, hulk_at_004b6dc8;
 
 } // namespace fn_fe650bd9
@@ -115,7 +116,7 @@ template class fight::ParamEnumConstList<hulkfight::motion::GrappleReactionTypeC
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VRayCastConeCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::RayCastConeCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &hulk_at_00491ca8, &hulk_at_004b6dc8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &hulk_at_00491ca8, &hulk_at_004b6dc8, 0)) != 0;
 }
 
 

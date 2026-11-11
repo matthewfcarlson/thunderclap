@@ -6,10 +6,11 @@
 #define TREE_TU_END }
 namespace fn_f1942bfb {} using namespace fn_f1942bfb;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f1942bfb {
-extern "C" void* __cdecl cast(void*, int, const void*, const void*, int);
 extern "C" char DAT_0049850c, DAT_004bada0;
 } // namespace fn_f1942bfb
 namespace hulkfight { namespace motion {
@@ -29,7 +30,7 @@ class TrackFactoryCaster_179a60 {
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::ChargeClearTrack>::vfunc_0(void* __p0) { void * object = (void *)__p0;
 
-    return cast(object, 0, &DAT_0049850c, &DAT_004bada0, 0) != 0;
+    return __RTDynamicCast(object, 0, (void*)(&DAT_0049850c), (void*)(&DAT_004bada0), 0) != 0;
 }
 
 

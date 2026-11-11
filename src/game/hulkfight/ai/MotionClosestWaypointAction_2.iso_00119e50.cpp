@@ -2,6 +2,8 @@
 // object 0x00117ce0..0x0011b800 (kind game, layer game, confidence high), dominant class hulkfight::ai::MotionClosestWaypointAction
 // (tree_prelude.h: not needed)
 #include "compat/ptr.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 
 // 0x00119e50 hulkfight::ai::MotionTargetTrack::vfunc_10 (70 B): matches/0x00119e50.cpp [isolated: conflict: Alloc; on include/gen/ and not mergeable]
@@ -15,12 +17,11 @@ extern int hulk_at_00494b60;
 struct MotionTargetAction_nv_119e50 {
     u32_119e50 Init_00116a30(void*, void*);
 };
-extern int Check(void*, int, int*, int*, int);
 extern hulkfight::ai::MotionTargetAction* Alloc_0008d690(int);
 
 hulk_intptr hulkfight::ai::MotionTargetTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_119e50 a = (u32_119e50)__p0; u32_119e50 b = (u32_119e50)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
         hulkfight::ai::MotionTargetAction* q = Alloc_0008d690(0x28);
         if (q)
             return (int)(((MotionTargetAction_nv_119e50*)(((hulkfight::ai::MotionTargetAction*)(q))))->Init_00116a30(this, p));

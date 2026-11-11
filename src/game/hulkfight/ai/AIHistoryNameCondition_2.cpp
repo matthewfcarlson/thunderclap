@@ -6,13 +6,14 @@
 #define TREE_TU_END }
 namespace fn_f5cad1e3 {} using namespace fn_f5cad1e3;
 #include "game/hulkfight/ai.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace hulkfight { namespace ai {
 class AIFightNodeCondition_110f00 {};
 } }
 namespace fn_f5cad1e3 {
-extern "C" int __cdecl Cast(void*, int, void*, void*, int);
 } // namespace fn_f5cad1e3
 namespace fight {
 class ConditionFactoryCaster_110f00 {
@@ -58,7 +59,7 @@ extern char DAT_004a3b68;
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VAIFightNodeCondition@ai@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::AIFightNodeCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Cast(p, 0, &DAT_00491ca8, &DAT_004a3a00, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &DAT_00491ca8, &DAT_004a3a00, 0)) != 0;
 }
 
 

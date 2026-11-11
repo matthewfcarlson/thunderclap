@@ -7,6 +7,8 @@
 #define TREE_TU_END }
 namespace fn_fc8fe8a1 {} using namespace fn_fc8fe8a1;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fc8fe8a1 {
@@ -35,7 +37,6 @@ class CollisionSourceNameCondition_154840 {};
 } }
 namespace fn_fc8fe8a1 {
 extern char DAT_004b2c00;
-extern "C" int __cdecl CastCheck(void*, void*, void*, void*, void*);
 extern char hulk_at_0049850c, hulk_at_004b2cc8;
 } // namespace fn_fc8fe8a1
 namespace fight {
@@ -107,7 +108,7 @@ template class fight::ParamEnumConstList<hulkfight::motion::CollisionSourceNameC
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::InterruptAccumulatorSetTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return CastCheck(p, 0, &hulk_at_0049850c, &hulk_at_004b2cc8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &hulk_at_0049850c, &hulk_at_004b2cc8, 0)) != 0;
 }
 
 

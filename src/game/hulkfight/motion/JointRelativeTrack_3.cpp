@@ -6,6 +6,8 @@
 #define TREE_TU_END }
 namespace fn_f59baee4 {} using namespace fn_f59baee4;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f59baee4 {
@@ -24,7 +26,6 @@ namespace hulkfight { namespace motion {
 class SnapToGroundTrack_178f00 {};
 } }
 namespace fn_f59baee4 {
-extern "C" void* __cdecl do_cast(void*, long, const void*, const void*, int);
 extern char DAT_004b9ff8;
 } // namespace fn_f59baee4
 namespace fight {
@@ -63,7 +64,7 @@ template class fight::ParamFloatConstRange<hulkfight::motion::SnapToGroundTrack>
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::JointRelativeTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return do_cast(p, 0, &DAT_0049850c, &DAT_004b9ff8, 0) != 0;
+    return __RTDynamicCast(p, 0, (void*)(&DAT_0049850c), (void*)(&DAT_004b9ff8), 0) != 0;
 }
 
 

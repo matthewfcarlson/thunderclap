@@ -6,6 +6,8 @@
 #define TREE_TU_END }
 namespace fn_fadc1bae {} using namespace fn_fadc1bae;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fight {
@@ -25,7 +27,6 @@ struct Data {
     int x;
 };
 extern Data hulk_at_00491ca8, hulk_at_004b1e68;
-extern int __cdecl check(void*, int, Data*, Data*, int);
 extern char DAT_004b1f30;
 } // namespace fn_fadc1bae
 namespace fight {
@@ -39,7 +40,6 @@ namespace hulkfight { namespace motion {
 class CollisionSourceTypeCondition_154140;
 } }
 namespace fn_fadc1bae {
-extern "C" int __cdecl CastCheck(void*, int, void*, void*, int);
 } // namespace fn_fadc1bae
 namespace fight {
 class ConditionFactoryCaster_1541a0 {
@@ -78,7 +78,7 @@ template class fight::ParamBool<hulkfight::motion::CollisionThrowCondition>; // 
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VCollisionSourceSizeCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionSourceSizeCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return check(p, 0, &hulk_at_00491ca8, &hulk_at_004b1e68, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00491ca8), (void*)(&hulk_at_004b1e68), 0)) != 0;
 }
 
 
@@ -115,7 +115,7 @@ template class fight::ParamEnumConstList<hulkfight::motion::CollisionSourceTypeC
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VCollisionTargetPriorityCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionTargetPriorityCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return CastCheck(p, 0, &DAT_00491ca8, &DAT_004b2000, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &DAT_00491ca8, &DAT_004b2000, 0)) != 0;
 }
 
 

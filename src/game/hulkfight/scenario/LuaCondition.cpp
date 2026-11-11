@@ -11,6 +11,8 @@
 #define TREE_TU_END }
 namespace fn_fd836fc7 {} using namespace fn_fd836fc7;
 #include "game/hulkfight/scenario.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fd836fc7 {
@@ -602,7 +604,6 @@ struct Action_1a1880 {
     Action_1a1880();
     char pad[0x18];
 };
-Result_1a1880* __cdecl MakeResult(Sub_1a1880*, int, void*, void*, int);
 extern char DAT_00494b44;
 extern char DAT_004c13d0;
 
@@ -626,7 +627,7 @@ LuaAction::LuaAction(int a, int b, Sub_1a1880* arg) : m20(0), m24(0) {
     if (m20)
         m20->G();
     m20 = arg;
-    Result_1a1880* r = MakeResult(arg, 0, &DAT_00494b44, &DAT_004c13d0, 0);
+    Result_1a1880* r = ((Result_1a1880 *)__RTDynamicCast((void*)(arg), 0, &DAT_00494b44, &DAT_004c13d0, 0));
     if (r)
         memcpy(&sub, r->Convert_001d03c0(), 0xe0);
 }

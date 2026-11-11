@@ -27,7 +27,6 @@ class TeleportToLocatorTrack_1799c0;
 } }
 namespace fn_f7e413dc {
 extern int hulk_at_0049850c, hulk_at_004bacf0;
-extern "C" int __cdecl cast(void*, int, const int*, const int*, int);
 } // namespace fn_f7e413dc
 namespace fight {
 class TrackFactoryCaster_1799c0 {
@@ -62,7 +61,7 @@ template class fight::ParamFloatConstRange<hulkfight::motion::IntentionClearTrac
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::TeleportToLocatorTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return cast(p, 0, &hulk_at_0049850c, &hulk_at_004bacf0, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_0049850c), (void*)(&hulk_at_004bacf0), 0)) != 0;
 }
 
 

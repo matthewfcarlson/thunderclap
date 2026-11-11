@@ -10,6 +10,8 @@
 #define TREE_TU_END }
 namespace fn_f45cd32f {} using namespace fn_f45cd32f;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f45cd32f {
@@ -108,7 +110,6 @@ namespace fn_f45cd32f {
 extern char DAT_004b7948;
 extern int typeA;
 extern int hulk_at_004b7a08;
-extern "C" void* __cdecl castThing(void*, int, void*, void*, int);
 } // namespace fn_f45cd32f
 namespace fight {
 class ConditionFactoryCaster_16ac90 {
@@ -807,7 +808,7 @@ template class fight::ParamFloatConstRange<hulkfight::motion::HealthPercentCondi
  // namespace fight
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::ThinkingCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return castThing(p, 0, &typeA, &hulk_at_004b7a08, 0) != 0;
+    return __RTDynamicCast(p, 0, &typeA, &hulk_at_004b7a08, 0) != 0;
 }
 
 

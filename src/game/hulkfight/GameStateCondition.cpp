@@ -13,6 +13,8 @@
 #define TREE_TU_END }
 namespace fn_f587a2cf {} using namespace fn_f587a2cf;
 #include "game/hulkfight.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f587a2cf {
@@ -1193,8 +1195,6 @@ class NISSoundTrack_130fc0;
 }
 namespace fn_f587a2cf {
 extern int hulk_at_0049850c, hulk_at_004aabb8;
-extern "C" int __cdecl cast(void*, int, int*, int*, int);
-extern int __cdecl Check(void*, int, void*, void*, int);
 extern char DAT_004aac50;
 } // namespace fn_f587a2cf
 namespace fight {
@@ -4638,7 +4638,7 @@ template class fight::ParamString<hulkfight::StatBeginTrialTrack>; // (ren2) nat
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VNISSoundTrack@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::NISSoundTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return cast(p, 0, &hulk_at_0049850c, &hulk_at_004aabb8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_0049850c), (void*)(&hulk_at_004aabb8), 0)) != 0;
 }
 
 
@@ -4667,7 +4667,7 @@ template class fight::ParamString<hulkfight::NISSoundTrack>; // (ren2) native on
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::DialogueTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Check(p, 0, &DAT_0049850c, &DAT_004aac50, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &DAT_0049850c, &DAT_004aac50, 0)) != 0;
 }
 
 

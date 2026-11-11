@@ -6,10 +6,11 @@
 #define TREE_TU_END }
 namespace fn_f3764e8f {} using namespace fn_f3764e8f;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f3764e8f {
-extern "C" int __cdecl CastCheck(void*, int, void*, void*, int);
 extern char DAT_004b24c8;
 } // namespace fn_f3764e8f
 namespace fight {
@@ -29,7 +30,7 @@ class HitPushbackVelocityCondition_154400 {};
  // namespace hulkfight
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::HitPushbackVelocityCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return CastCheck(p, 0, &DAT_00491ca8, &DAT_004b24c8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &DAT_00491ca8, &DAT_004b24c8, 0)) != 0;
 }
 
 

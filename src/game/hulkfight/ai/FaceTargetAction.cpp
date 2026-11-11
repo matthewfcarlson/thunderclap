@@ -12,6 +12,8 @@
 #define TREE_TU_END }
 namespace fn_f8ed28bc {} using namespace fn_f8ed28bc;
 #include "game/hulkfight/ai.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f8ed28bc {
@@ -267,7 +269,6 @@ class Params_10bd40 {
 };
 extern Params_10bd40 hulk_at_00494b44;
 extern Params_10bd40 hulk_at_00494b60;
-int __cdecl Check(void*, int, Params_10bd40*, Params_10bd40*, int);
 class Object_10bd40 {
   public:
     int Init_0010b980(hulkfight::ai::FaceTargetTrack*, hulk_intptr);
@@ -919,7 +920,7 @@ template class fight::ParamFloatConstRange<hulkfight::ai::FaceMotionTrack>; // (
 // 0x0010bd40 hulkfight::ai::FaceTargetTrack::vfunc_10 (70 B): matches/0x0010bd40.cpp
 // sym: ?vfunc_10@FaceTargetTrack@ai@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::ai::FaceTargetTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
         Object_10bd40* p = Alloc_0008d690(0x24);
         if (p)

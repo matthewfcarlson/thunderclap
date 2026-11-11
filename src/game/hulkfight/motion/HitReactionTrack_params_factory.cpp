@@ -6,10 +6,11 @@
 #define TREE_TU_END }
 namespace fn_f182fbb4 {} using namespace fn_f182fbb4;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f182fbb4 {
-extern "C" void* __cdecl dynamic_cast_helper(void*, int, void*, void*, int);
 } // namespace fn_f182fbb4
 namespace fight {
 class TrackFactoryCaster_154a60 {
@@ -45,7 +46,7 @@ extern char DAT_004b2f88;
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VHitPauseTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HitPauseTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return dynamic_cast_helper(p, 0, &DAT_0049850c, &DAT_004b2ee0, 0) != 0;
+    return __RTDynamicCast(p, 0, &DAT_0049850c, &DAT_004b2ee0, 0) != 0;
 }
 
 

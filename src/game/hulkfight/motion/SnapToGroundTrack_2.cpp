@@ -10,6 +10,8 @@
 #define TREE_TU_END }
 namespace fn_f05a6271 {} using namespace fn_f05a6271;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f05a6271 {
@@ -19,7 +21,6 @@ extern int hulk_at_00494b60;
 struct Result_17bc70 {
     u32_17bc70 Init_00176f50(void*, void*);
 };
-extern int Check(void*, int, int*, int*, int);
 extern Result_17bc70* Alloc_0008d690(int);
 extern int hulk_at_00418014;
 class RefObj_17bcc0 {
@@ -782,7 +783,7 @@ extern int hulk_at_00418de0;
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::RestPoseTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17bc70 a = (u32_17bc70)__p0; u32_17bc70 b = (u32_17bc70)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
         Result_17bc70* q = Alloc_0008d690(0x28);
         if (q)
             return (int)(q->Init_00176f50(this, p));

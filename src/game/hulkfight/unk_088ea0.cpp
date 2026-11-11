@@ -9,6 +9,10 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f9371648 {} using namespace fn_f9371648;
 #include "game/hulkfight.h"
+// (ren2) sscanf's own name (CRT, C linkage)
+#if !defined(HULK_COMPAT_CRT)
+extern "C" int __cdecl sscanf(const char*, const char*, ...);
+#endif
 
 // ---- declarations shared by the functions below
 namespace fn_f9371648 {
@@ -32,7 +36,6 @@ struct X_88fb0 {
     int pad;
     unsigned int value;
 };
-extern void __cdecl Scan(unsigned int, const char*, ...);
 extern "C" void __cdecl FUN_00267760(char*, int, const char*, ...);
 extern int __stdcall Check(void*);
 struct CO {
@@ -178,7 +181,7 @@ unsigned int __fastcall FUN_00088fb0(X_88fb0* p) {
 // sym: ?FUN_00088fe0@Obj_88fe0@owners@@QAEXI@Z
 // data: gCheckObj = DAT_004dd830
 void owners::Obj_88fe0::FUN_00088fe0(unsigned int arg) {
-    Scan(arg, "c%dm%d", &a, &b);
+    sscanf((const char*)(hulk_uintptr)(arg), "c%dm%d", &a, &b);
     FUN_00267760(buf, 32, "c%02dm%02d", a, b);
     ((owners::K_b4c10 *)(hulk_at_004dd700->svc->Run()))->FUN_000b4c10((const char *)(hulk_uintptr)(unsigned int)arg);
     if (a > 1) {

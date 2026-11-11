@@ -9,6 +9,8 @@
 #define TREE_TU_END }
 namespace fn_fb3863ec {} using namespace fn_fb3863ec;
 #include "game/hulkfight/ai.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fb3863ec {
@@ -32,7 +34,6 @@ class Q_10d6b0 {
     void* query_00059a30();
 };
 extern int __cdecl FUN_00344e74(void*, int, hulk_intptr, hulk_intptr, int);
-extern int cast(void*, int, const void*, const void*, int);
 extern char hulk_at_00494b44[];
 extern char hulk_at_00494b60[];
 struct Helper1_10d710 {
@@ -120,7 +121,7 @@ namespace fn_fb3863ec {
 // 0x0010d710 hulkfight::ai::DefendingCondition::vfunc_6 (96 B): matches/0x0010d710.cpp
 // sym: ?vfunc_6@DefendingCondition_10d710@fn_fb3863ec@@UAE_NPAX00@Z
 bool DefendingCondition_10d710::vfunc_6(void* a, void* p, void* b) {
-    if (cast(p, 0, hulk_at_00494b44, hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(hulk_at_00494b44), (void*)(hulk_at_00494b60), 0))) {
         void* x = ((Helper1_10d710*)p)->Get_000592a0();
         void* q = ((Helper2_10d710*)x)->Get_00059a30();
         if (q) {

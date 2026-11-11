@@ -6,6 +6,8 @@
 #define TREE_TU_END }
 namespace fn_fcc97952 {} using namespace fn_fcc97952;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace hulkfight { namespace motion {
@@ -14,7 +16,6 @@ class MomentumXZAddTrack_179460;
 namespace fn_fcc97952 {
 extern char DAT_0049850c;
 extern char DAT_004ba560;
-extern "C" void* __cdecl castTrack(void*, int, const void*, const void*, int);
 } // namespace fn_fcc97952
 namespace fight {
 class TrackFactoryCaster_179460 {
@@ -25,7 +26,6 @@ class TrackFactoryCaster_179460 {
 }
 namespace fn_fcc97952 {
 extern char DAT_004ba6b8;
-extern "C" void* __cdecl findThing(void*, int, void*, void*, int);
 } // namespace fn_fcc97952
 namespace fight {
 class TrackFactoryCaster_179520 {
@@ -44,7 +44,7 @@ class PushOutTrack_179520;
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::MomentumXZAddTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return castTrack(p, 0, &DAT_0049850c, &DAT_004ba560, 0) != 0;
+    return __RTDynamicCast(p, 0, (void*)(&DAT_0049850c), (void*)(&DAT_004ba560), 0) != 0;
 }
 
 
@@ -102,7 +102,7 @@ template class fight::ParamFloatConstRange<hulkfight::motion::TargetBreakTrack>;
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::PushOutTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return findThing(p, 0, &DAT_0049850c, &DAT_004ba6b8, 0) != 0;
+    return __RTDynamicCast(p, 0, &DAT_0049850c, &DAT_004ba6b8, 0) != 0;
 }
 
 

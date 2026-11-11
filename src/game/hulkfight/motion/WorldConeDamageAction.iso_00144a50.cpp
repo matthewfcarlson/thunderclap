@@ -2,6 +2,8 @@
 // object 0x00143100..0x00146900 (kind game, layer game, confidence high), dominant class hulkfight::motion::WorldConeDamageAction
 // (tree_prelude.h: not needed)
 #include "compat/ptr.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 
 // 0x00144a50 hulkfight::motion::WorldConeDamageTrack::vfunc_10 (70 B): matches/0x00144a50.cpp [isolated: conflict: Alloc; on include/gen/ and not mergeable]
@@ -15,14 +17,13 @@ class Params_144a50 {
 };
 extern Params_144a50 hulk_at_00494b44;
 extern Params_144a50 hulk_at_00494b60;
-int __cdecl Check(void*, int, Params_144a50*, Params_144a50*, int);
 struct WorldConeDamageAction_nv_144a50 {
     int Init_001449c0(hulkfight::motion::WorldConeDamageTrack*, hulk_intptr);
 };
 hulkfight::motion::WorldConeDamageAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::WorldConeDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
         hulkfight::motion::WorldConeDamageAction* p = Alloc_0008d690(0x24);
         if (p)

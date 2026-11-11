@@ -13,6 +13,8 @@
 #define TREE_TU_END }
 namespace fn_fc09f66d {} using namespace fn_fc09f66d;
 #include "game/hulkfight/scenario.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fc09f66d {
@@ -180,7 +182,6 @@ class Obj {
     void apply_00236760(void*);
     void set_00236760(void*);
 };
-extern "C" Obj* __cdecl cast(void*, int, void*, void*, int);
 extern char hulk_at_0041d3cc;
 struct Event_PathNameCondition_nv_1ab640 {
     void f1_0027af50();
@@ -1123,7 +1124,7 @@ bool hulkfight::scenario::Event_TriggerVolumeNameCondition::vfunc_6(void* __p0, 
  // namespace hulkfight
 bool hulkfight::scenario::EventCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; void * b = (void *)__p1; int c = (int)__p2;
 
-    Obj* p = cast(b, 0, &desc1, &desc2, 0);
+    Obj* p = ((Obj *)__RTDynamicCast(b, 0, &desc1, &desc2, 0));
     if (!p)
         return (bool)(false);
     return (bool)(p->get_001d03c0()->id == this->f_0c);

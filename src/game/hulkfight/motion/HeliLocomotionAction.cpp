@@ -13,6 +13,8 @@
 #define TREE_TU_END }
 namespace fn_f94adb62 {} using namespace fn_f94adb62;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f94adb62 {
@@ -582,7 +584,6 @@ struct TypeInfo_15f630 {
 };
 extern TypeInfo_15f630 hulk_at_00494b60;
 extern TypeInfo_15f630 hulk_at_00494b44;
-int __cdecl IsType(void*, int, TypeInfo_15f630*, TypeInfo_15f630*, int);
 void* __cdecl Allocate_0008d690(int);
 class Allocated_15f630 {
   public:
@@ -933,7 +934,6 @@ class PhaseCondition_160e70 {};
 } }
 namespace fn_f94adb62 {
 extern char DAT_004b45c0;
-extern int __cdecl Check(void*, int, void*, void*, int);
 extern char DAT_0049850c;
 extern char DAT_004b4670;
 } // namespace fn_f94adb62
@@ -3239,7 +3239,7 @@ ClimbLocomotion4Action_15f5d0::~ClimbLocomotion4Action_15f5d0() throw() {
 // Same code shape as 0x0011a1b0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HeliLocomotionTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { void * a = (void *)__p0; void * b = (void *)__p1; void * p = (void *)__p2;
 
-    int ok = IsType(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int ok = ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (ok) {
         Allocated_15f630* x = (Allocated_15f630*)Allocate_0008d690(0x68);
         if (x)
@@ -3720,7 +3720,7 @@ template class fight::ParamFloatConstRange<hulkfight::motion::PhaseCondition>; /
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::LocomotingTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Check(p, 0, &DAT_0049850c, &DAT_004b4670, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &DAT_0049850c, &DAT_004b4670, 0)) != 0;
 }
 
 

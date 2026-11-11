@@ -9,6 +9,8 @@
 #define TREE_TU_END }
 namespace fn_f0de5d41 {} using namespace fn_f0de5d41;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f0de5d41 {
@@ -324,7 +326,6 @@ class ParamValueInt_1374c0 : public ParamValue_1374c0 {
     int pad;
 };
 extern TypeInfo hulk_at_0049850c, hulk_at_004ab9a8;
-extern "C" int __cdecl match(void*, int, TypeInfo*, TypeInfo*, int);
 } // namespace fn_f0de5d41
 namespace fight {
 class TrackFactoryCaster_1374e0 {
@@ -351,7 +352,6 @@ extern char DAT_0049850c;
 extern char DAT_004aba50;
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern char DAT_004abb00;
-extern "C" void* __cdecl cast(void*, int, const void*, const void*, int);
 } // namespace fn_f0de5d41
 namespace fight {
 class TrackFactoryCaster_1375e0 {
@@ -466,7 +466,6 @@ class Built_138b80 {
   public:
     int make_00134db0(int, hulk_intptr);
 };
-extern int __cdecl Check(void*, int, hulk_intptr, hulk_intptr, int);
 extern Built_138b80* __cdecl Allocate_0008d690(int);
 extern void* hulk_at_00411d68[];
 class Ref_138c10 {
@@ -1122,7 +1121,7 @@ template <> bool fight::ParamIntConstRange<hulkfight::motion::FlyingAttackTrack>
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::FlyingDashTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return match(p, 0, &hulk_at_0049850c, &hulk_at_004ab9a8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_0049850c), (void*)(&hulk_at_004ab9a8), 0)) != 0;
 }
 
 
@@ -1179,7 +1178,7 @@ template class fight::ParamIntConstRange<hulkfight::motion::GrappleHoverTrack>; 
  // namespace hulkfight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::FlyingBrakeTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return cast(p, 0, &DAT_0049850c, &DAT_004abb00, 0) != 0;
+    return __RTDynamicCast(p, 0, (void*)(&DAT_0049850c), (void*)(&DAT_004abb00), 0) != 0;
 }
 
 
@@ -1488,7 +1487,7 @@ void target() {
 // 0x00138b80 hulkfight::motion::HoverTrack::vfunc_10 (73 B): matches/0x00138b80.cpp
 // sym: ?vfunc_10@HoverTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::HoverTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    if (Check((void*)c, 0, (hulk_intptr)&hulk_at_00494b44, (hulk_intptr)&hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)((hulk_intptr)&hulk_at_00494b44), (void*)((hulk_intptr)&hulk_at_00494b60), 0))) {
         Built_138b80* p = Allocate_0008d690(0x24);
         if (p) {
             int m = this->f_14;

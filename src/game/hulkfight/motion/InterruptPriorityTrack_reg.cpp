@@ -11,6 +11,8 @@
 #define TREE_TU_END }
 namespace fn_ff72ca8e {} using namespace fn_ff72ca8e;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fight {
@@ -67,7 +69,6 @@ class HitPushbackAddTrack_154e00 {};
 } }
 namespace fn_ff72ca8e {
 extern char DAT_004b3470;
-extern "C" int __cdecl DoCast(void*, int, void*, void*, int);
 } // namespace fn_ff72ca8e
 namespace fight {
 class TrackFactoryCaster_154e60 {
@@ -91,7 +92,6 @@ extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(const char*, int, cons
 extern char DAT_004b3518;
 extern int hulk_at_0049850c;
 extern int hulk_at_004b35c0;
-extern "C" void* __cdecl Search(void*, int, int*, int*, int);
 } // namespace fn_ff72ca8e
 namespace fight {
 class TrackFactoryCaster_154f40 {
@@ -789,7 +789,7 @@ template class fight::ParamFloatConstRange<hulkfight::motion::HitPushbackAddTrac
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HealthTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return DoCast(p, 0, &DAT_0049850c, &DAT_004b3470, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &DAT_0049850c, &DAT_004b3470, 0)) != 0;
 }
 
 
@@ -836,7 +836,7 @@ template class fight::ParamFloatConstRange<hulkfight::motion::HitDamageTrack>; /
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::GroundSlideTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Search(p, 0, &hulk_at_0049850c, &hulk_at_004b35c0, 0) != 0;
+    return __RTDynamicCast(p, 0, (void*)(&hulk_at_0049850c), (void*)(&hulk_at_004b35c0), 0) != 0;
 }
 
 

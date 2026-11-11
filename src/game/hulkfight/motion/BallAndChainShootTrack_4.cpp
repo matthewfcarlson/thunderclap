@@ -8,6 +8,8 @@
 #define TREE_TU_END }
 namespace fn_f64d638a {} using namespace fn_f64d638a;
 #include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f64d638a {
@@ -17,7 +19,6 @@ extern int hulk_at_00494b60;
 struct Result_1890a0 {
     u32_1890a0 Init_001847e0(void*, void*);
 };
-extern int Check(void*, int, int*, int*, int);
 extern Result_1890a0* Alloc_0008d690(int);
 struct RefCounted_1890f0 {
   public:
@@ -38,7 +39,6 @@ class BallAndChainSpinAction_1890f0 {
 struct Allocated_189140 {
     int run_00184880(hulkfight::motion::BallAndChainShootTrack*, hulk_intptr);
 };
-extern int check(void*, int, int*, int*, int);
 extern Allocated_189140* alloc_0008d690(int);
 extern int typeA_189140, typeB;
 typedef unsigned int u32_1891f0;
@@ -58,7 +58,6 @@ struct Track_1891f0 {
 struct Obj_1891f0 {
     u32_1891f0 Init_00184ef0(hulkfight::motion::BallAndChainReturnTrack*, hulk_uintptr);
 };
-extern int IsType(void*, int, hulk_intptr, hulk_intptr, int);
 extern void* Alloc(hulk_uintptr);
 extern int typeA_1891f0, typeB;
 struct RefCounted_189240 {
@@ -91,7 +90,7 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::BallAndChainSpinTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1890a0 a = (u32_1890a0)__p0; u32_1890a0 b = (u32_1890a0)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
         Result_1890a0* q = Alloc_0008d690(0x28);
         if (q)
             return (int)(q->Init_001847e0(this, p));
@@ -127,7 +126,7 @@ BallAndChainSpinAction_1890f0* BallAndChainSpinAction_1890f0::vfunc_2(int flag) 
 // 0x00189140 hulkfight::motion::BallAndChainShootTrack::vfunc_10 (70 B): matches/0x00189140.cpp
 // sym: ?vfunc_10@BallAndChainShootTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::BallAndChainShootTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    if (check((void*)c, 0, &typeA_189140, &typeB, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&typeA_189140), (void*)(&typeB), 0))) {
         Allocated_189140* q = alloc_0008d690(0x54);
         if (q)
             return q->run_00184880(this, c);
@@ -205,7 +204,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
 // sym: ?vfunc_10@BallAndChainReturnTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::BallAndChainReturnTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1891f0 a = (u32_1891f0)__p0; u32_1891f0 b = (u32_1891f0)__p1; hulk_uintptr c = (u32_1891f0)__p2;
 
-    if (IsType((void*)c, 0, (hulk_intptr)&typeB, (hulk_intptr)&typeA_1891f0, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)((hulk_intptr)&typeB), (void*)((hulk_intptr)&typeA_1891f0), 0))) {
         Obj_1891f0* p = (Obj_1891f0*)Alloc_0008d690(0x48);
         if (p)
             return (int)(p->Init_00184ef0(this, c));

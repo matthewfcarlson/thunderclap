@@ -11,6 +11,8 @@
 #define TREE_TU_END }
 namespace fn_fee140f0 {} using namespace fn_fee140f0;
 #include "game/hulkfight/ai.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fee140f0 {
@@ -90,7 +92,6 @@ namespace fn_fee140f0 {
 extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(const char*, int, void*, void*, int);
 extern char DAT_004a4930;
 extern char DAT_004a49d0;
-int Helper(hulk_intptr a, int b, void* c, void* d, int e);
 class TrackFactoryCaster_111ac0 {
   public:
     virtual void AddRef();
@@ -322,7 +323,6 @@ class Params_113080 {
 };
 extern Params_113080 hulk_at_00494b44;
 extern Params_113080 hulk_at_00494b60;
-int __cdecl Check(void*, int, Params_113080*, Params_113080*, int);
 class Object_113080 {
   public:
     int Init_0010ec00(hulkfight::ai::ButtonTrack*, hulk_intptr);
@@ -645,7 +645,7 @@ template <> TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreWaitTrack>::Track
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VSemaphoreWaitTrack@ai@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreWaitTrack>::vfunc_0(void* __p0) { hulk_intptr arg = (hulk_intptr)__p0;
 
-    int x = Helper(arg, 0, (void*)&DAT_0049850c, (void*)&DAT_004a49d0, 0);
+    int x = ((int)(hulk_uintptr)__RTDynamicCast((void*)(arg), 0, (void*)&DAT_0049850c, (void*)&DAT_004a49d0, 0));
     return (x != 0) ? 1 : 0;
 }
 
@@ -1438,7 +1438,7 @@ extern "C" void FUN_00112f10()
 // sym: ?vfunc_10@ButtonTrack@ai@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ButtonTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
         Object_113080* p = Alloc_0008d690(0x24);
         if (p)
