@@ -282,7 +282,8 @@ def cmd_compile(a):
     if data:
         print("data TUs: %d / %d" % (drep["ok"], drep["tus"]))
     print("64-bit diagnostics (sites):", rep["sixty4"])
-    return 0 if rep["ok"] == rep["tus"] else 1
+    compile_gate(rep, True)
+    return 0 if rep["ok"] == rep["tus"] and not rep.get("data_failed") else 1
 
 
 def attribute(sites):
@@ -717,8 +718,30 @@ def hook_report(game_syms, fmt):
             "game definitions the thunks reach": sum(1 for f in thunks.values() if f), "thunks": len(thunks)}
 
 
+def compile_gate(rep, allow=False):
+    """(ren1) The link refuses a compile report in which a tree or data TU failed (any stage: front end, retarget,
+    back end). A failed TU drops every definition it has from the link, silently: its callers' names fall to stubs and
+    the image runs into them (2026-11: src/engine/fight/Track.cpp, an ambiguous call on 64-bit, took 15 definitions
+    and 656 game vftable slots with it). `allow` (--allow-compile-failures) links anyway, with the same message.
+    Returns the failed TUs ({path: {stage, first}})."""
+    failed = dict(rep.get("failed") or {})
+    failed.update(rep.get("data_failed") or {})
+    if failed:
+        print("native compile: %d TU(s) failed; their definitions are missing from the link:" % len(failed),
+              file=sys.stderr)
+        for p, x in sorted(failed.items()):
+            print("  FAILED %s (%s): %s" % (p, x.get("stage"), str(x.get("first"))[:300]), file=sys.stderr)
+        if not allow:
+            print("native link refused (fix the TUs, or --allow-compile-failures to link without them)",
+                  file=sys.stderr)
+    return failed
+
+
 def cmd_link(a):
     rep = json.load(open(os.path.join(OUT, "report.json")))
+    failed = compile_gate(rep, getattr(a, "allow_compile_failures", False))
+    if failed and not getattr(a, "allow_compile_failures", False):
+        return 2
     objs = sorted(os.path.join(CACHE, os.path.basename(o)) for o in rep["objects"].values())
     syms = nm_macho(objs)
     defined, undef, refs = set(), set(), collections.Counter()
@@ -1051,6 +1074,8 @@ def main(argv=None):
                     help="the Wine build's binding map of the same tree (verifies the address bindings)")
     lk.add_argument("--ld", action="store_true", help="also try ld64 with every unbound symbol stubbed")
     lk.add_argument("--no-addr", action="store_true", help="no bindings by the address in the name (native_unbound.py)")
+    lk.add_argument("--allow-compile-failures", action="store_true",
+                    help="link although tree / data TUs failed to compile (their definitions missing; compile_gate)")
     lk.add_argument("--name-table", action="store_true",
                     help="also bind through the Wine build's binding map (x64-3's inventory; rejected as a link step, "
                          "for comparison only)")

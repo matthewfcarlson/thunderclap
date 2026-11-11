@@ -60,7 +60,7 @@ void owners::Clip_1e8d40::FUN_001e8d40() {
  if (active == 0 && (*(hulk_intptr*)&DAT_004e3694) == 0) {
  char name[16];
  sprintf(name, "%d.%s", this, "clips");
- (*(Manager_1e8d40**)&DAT_00527c58)->FUN_00265920(name, ((hulk_intptr*)&DAT_004e3694), 1);
+ (*(Manager_1e8d40**)&DAT_00527c58)->FUN_00265920(name, ((int*)&DAT_004e3694), 1);
  unsigned int type = kind;
  active = 1;
  double amount = (int)size;

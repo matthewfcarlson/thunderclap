@@ -321,7 +321,8 @@ def cmd_compile(a):
     if data:
         print("data TUs: %d / %d" % (drep["ok"], drep["tus"]))
     print("64-bit diagnostics (sites):", rep["sixty4"])
-    return 0 if rep["ok"] == rep["tus"] else 1
+    nmac.compile_gate(rep, True)
+    return 0 if rep["ok"] == rep["tus"] and not rep.get("data_failed") else 1
 
 
 def cmd_report(a):
@@ -645,7 +646,10 @@ def cmd_link(a):
     import contextlib
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
-        nmac.cmd_link(argparse.Namespace(name_table=False, bindings=a.bindings, ld=a.ld, no_addr=a.no_addr))
+        rc = nmac.cmd_link(argparse.Namespace(name_table=False, bindings=a.bindings, ld=a.ld, no_addr=a.no_addr,
+                                              allow_compile_failures=a.allow_compile_failures))
+    if rc == 2:     # (ren1) compile_gate: a TU failed to compile (the message is on stderr)
+        return 2
     lk = json.load(open(os.path.join(out, "link-report.json")))
     crt = sum(n for g, n in lk["groups"].items() if g.startswith("native CRT table"))
     xdk = sum(n for g, n in lk["groups"].items() if g.startswith("XDK table"))
@@ -674,6 +678,8 @@ def main(argv=None):
     lk = sub.add_parser("link")
     lk.add_argument("--ld", action="store_true", help="also link the image with lld (every unbound name stubbed)")
     lk.add_argument("--no-addr", action="store_true", help="no bindings by the address in the name (native_unbound.py)")
+    lk.add_argument("--allow-compile-failures", action="store_true",
+                    help="link although tree / data TUs failed to compile (native_mac.compile_gate)")
     lk.add_argument("--bindings", default=os.path.join(ROOT, "build/native/bindings.json"),
                     help="the Wine build's binding map of the same tree (verifies the address bindings)")
     rt = sub.add_parser("retarget")

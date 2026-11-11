@@ -2149,3 +2149,27 @@ macOS: no missing name left on the pddi path; the device, display, context, defa
 up (56 imports) and the start-up stops in the Pure3D context's constructor 0x0028f800 (`Widget_28f800`, called by
 0x00292560 with the device's info block as its third object): the next stop, with 0x00292560's `FUN_0008d690(0xf8)`
 (a 32-bit instance size) beside it.
+
+## The front-end failures, the compile gate and the address renames (ren1, 2026-11-11)
+
+docs/native-unbound-plan.md's batches 1 and 2 (plan1). Base HEAD 77214ee51; control 71527 (studio, fresh, `--gfx --replay
+play3 --frames 60000`, private copies of the fresh data TUs and hulk_sdl.lib): image 6401bceb (= x64t2's 71522, the same
+tree). Native on that tree: arm64 macOS / x86-64 Linux / arm64 Android unbound **28,952 / 28,937 / 28,944**.
+
+**B0, the two TUs the 64-bit front end rejected.**
+- src/engine/fight/Track.cpp, fight::Track::vfunc_3 (0x00236c50, equivalent): `FUN_002672f0((*(hulk_uintptr*)&DAT_004ca290), 0, 0)`
+  was ambiguous on 64-bit between the TU's `extern "C"` (int, int, int) and C++ (unsigned int, int, int) declarations.
+  The C++ declaration now takes `const char*` (the definition, 0x002672f0, hashes a string) and the call passes the
+  string pointer `DAT_004ca290` / `DAT_004ca294` itself: the same 4-byte load on 32-bit, the whole pointer on 64-bit.
+- src/game/global/CSoundSequence.GS.cpp:63 (0x001e8d40, equivalent): the `int*` parameter of the local
+  `Manager_1e8d40::FUN_00265920` takes `(int*)&DAT_004e3694` (was `hulk_intptr*`, which does not convert on 64-bit).
+- 32-bit: both equivalents' code unchanged (compare listings identical to HEAD's), every match of the two TUs MATCH with
+  relocations ok. Proof 71528 vs control 71527 (studio): image 6401bceb, `ckpt_gate.py` GATE ok (0 of 2,022 common
+  frames differ).
+- Native (71528's snapshot and map): **28,899 / 28,884 / 28,891**. Track.cpp's 15 definitions are in the link again;
+  their invented callers are B2 names for the rename below.
+
+**The compile gate.** A TU that fails the native compile (front end, retarget or back end) used to drop out of the link
+silently with every definition it has. `tools/native_mac.py` / `native_elf.py link` now refuse a compile report with a
+failed tree or data TU (exit 2, each failure listed on stderr; `--allow-compile-failures` links without them, with the
+same list), and `compile` lists the failures.
