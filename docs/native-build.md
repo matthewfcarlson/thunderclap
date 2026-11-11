@@ -2174,53 +2174,6 @@ silently with every definition it has. `tools/native_mac.py` / `native_elf.py li
 failed tree or data TU (exit 2, each failure listed on stderr; `--allow-compile-failures` links without them, with the
 same list), and `compile` lists the failures.
 
-## The device, Pure3D's context and the matrix stacks on records (x64t3, 2026-11-11)
-
-x64t2's follow-up. Controls on studio (`--gfx --replay play3 --frames 60000`, data TUs and hulk_sdl.lib copied
-privately): 71526 (HEAD 77214ee51) and 71540 (HEAD 3a1d62e88), both image 6401bceb.
-
-**Seeding in tree mode.** A tree-source build wrote no `nb-out/tree-state.json`, so `--state seed:CONTROL` refused
-every control built since the merge-once flip. tools/wine_build_run.py now saves the tree's state after either build
-mode (`save_tree_state()`; materialize's is empty) and decides a tree-mode seed by `tree_seed_decision()`: taken when
-the control's state travelled and the toolchain is the same (submit already pins the control's host). There is no
-fallback state to carry, so no source comparison is needed (seed_decision()'s include/ rule would refuse every batch
-that touches a header). docs/compute.md "Seeding" says so. Proof 71536 (submitted seeded from 71526, before
-`tree_seed_decision()`: the host fell back to fresh): GATE ok; proof 71541 (seeded from 71540): `decision.seed` =
-71540, GATE ok.
-
-**Batch 1**
-
-| where | change | gate |
-|---|---|---|
-| include/gen/pure3d.h pddiDevice / d3dDevice | slot 4 `vfunc_4(void*)` (fills a version record), slot 5 `vfunc_5(void*)` (the current render context); d3dDevice's `hulk_intptr f_10` (the D3D object; size 0x14 as 0x0031ba60 allocates) | 32-bit layouts unchanged apart from d3dDevice 0x10 -> 0x14 (clang record dump before/after, i686-pc-windows-msvc) |
-| 0x0031b7d0 d3dDevice::vfunc_4 (match) | the device's member (was a free `__stdcall vfunc_4(char*)`: on 64-bit it took the device as the record and wrote 18, 11 over its vftable, the start-up's crash in 0x0028f800 at 0xb00000012) | MATCH, relocs ok (new pin) |
-| 0x0031b810 vfunc_5, 0x0031b830 vfunc_7, 0x0031b9d0 vfunc_11, 0x0031ba00 (ctor), 0x0031ba60 (matches) | gen's f_0c / f_10 instead of 32-bit offsets; the device allocated as `sizeof(pure3d::d3dDevice)` | MATCH, relocs ok |
-| include/gen/owners.h X_28f9a0 | Pure3D's context (DAT_0052c2b4) as one record: helper, three matrices, the colour words, the device / render context / display pointers, the two extension words (`hulk_intptr`), the flag; X_28fa30's word a pointer; Obj_28fad0 derives from it | 32-bit offsets unchanged (Obj_28fad0 0xf0 -> 0xf8) |
-| src/engine/pure3d/unk_28f800.cpp: 0x0028f800 (ctor), 0x0028f920, 0x0028fa40, 0x0028fad0, 0x0028faf0 (matches), 0x0028faa0 (equivalent) | the context's views derive from the record (were pads of 0xe0 / 0xe8 bytes) | MATCH, relocs ok; 0x0028faa0 same code |
-| 0x00292560 (match) | allocates `sizeof(owners::X_28f9a0)` (`HULK_SIZE32` 0xf8; was 0xf8) and reads the device / context / display through the record | MATCH, relocs ok |
-| gen d3dContext `_pad_424` | `void* f_424..f_444`, the nine extensions 0x00324e00 creates (f_448 now where the constructor writes it on 64-bit); slot 89 returns `hulk_intptr` (pddiRenderContext, pddiBaseContext, d3dContext) | 32-bit layout unchanged |
-| 0x00321ea0 d3dContext::vfunc_89 (equivalent) | reads gen's f_424..f_448, returns `hulk_intptr` | same code |
-| src/engine/pure3d/pddiBaseContext.cpp matrix stacks | `HULK_CTX_MSTACK(self, i)`: stack i (gen f_20..f_30) as the record 0x0031e610 builds (vftable, capacity, top, matrices); vfunc_13 / 14 / 16 / 17 / 18 (matches), vfunc_93 / 15 / 21 / 22 (equivalents) use it (their views had a 0x1c-byte pad and 32-bit matrix pointers); vfunc_13 calls the identity by member (was an `int` fastcall) | MATCH, relocs ok; equivalents same code |
-| vfunc_19 / 20 (+0x5c), vfunc_25 / 55 / 71 (matches) | gen's `_pad_5c` matrix; the view / render / stencil state words through `HULK_STATE_AT` | MATCH, relocs ok |
-| 0x00323eb0 d3dContext::vfunc_108 (match), 0x00323ee0 vfunc_109 (equivalent) | the matrix stack record via gen's f_20; the view state's vftable before its words | MATCH; same code |
-
-The 160 TUs that include gen/pure3d.h or use the context record: 2,290 matches MATCH with relocations ok, 684
-equivalents compile. Proof 71541 vs control 71540 (studio, seeded): image 1155f411, GATE ok (0 of 2,014 common frames
-differ).
-
-Native on 71541's snapshot and map (HEAD 3a1d62e88, which also has ren1's B0 front-end fixes): arm64 macOS / x86-64
-Linux / arm64 Android unbound **28,899 / 28,884 / 28,891** (control 71526: 28,952 / 28,937 / 28,944, Linux and Android
-then linked without ren1's two TUs). macOS: Pure3D's context is constructed (the version record lands in the caller's
-local, the device keeps its vftable) and its helper's matrix set-up runs; the start-up stops in 0x00292560 at
-`Object::FUN_0028f980` (an empty function the context calls as a member, defined free: ABI mismatch, unbound) and,
-continued, in 0x002a3130 (`alloc` for the thunk 0x00263ea0, an invented name; then the simple shader's construction
-through the device's slot 11, whose result gen declares `void` and whose context argument is an `int`).
-
-Left from x64t2's list: pddiBaseContext::vfunc_8 / vfunc_10 are the clear depth (`float`) and clear stencil (`int`):
-the 32-bit code of `float` / `int` signatures is identical (MATCH tried), but src/platform/sdl/pddi (bgfx_pddi.h,
-game_base.h) overrides and forwards both with `void*`, so the signature change has to land with the bgfx layer's (a
-shared, stamped build input). d3dContext::vfunc_30 still returns its prim stream as `int`.
-
 **The address renames (B1 / B2 / B2b), in five commits by directory.** An invented callee or data name that the Wine
 binding map binds to one address A takes the address: functions `<leaf>_<A>` (the suffix convention; `Fn<leaf>_<A>`
 for a one-letter leaf), data `hulk_at_<A>`; the `jmp` thunks to free / alloc (B1) the same way, `<leaf>_<thunk>` (the
@@ -2285,6 +2238,53 @@ an address (the relocation's original target is the address the name says), on t
   not accepted (the user declined that rule).
 - Today no stub virtual carries its slot's address, so the counts do not move (measured on B0's snapshot: macOS 28,899
   with and without the rule); the slot-naming batch is what it enables. Test: tests/native_host/native_unbound_test.py.
+
+## The device, Pure3D's context and the matrix stacks on records (x64t3, 2026-11-11)
+
+x64t2's follow-up. Controls on studio (`--gfx --replay play3 --frames 60000`, data TUs and hulk_sdl.lib copied
+privately): 71526 (HEAD 77214ee51) and 71540 (HEAD 3a1d62e88), both image 6401bceb.
+
+**Seeding in tree mode.** A tree-source build wrote no `nb-out/tree-state.json`, so `--state seed:CONTROL` refused
+every control built since the merge-once flip. tools/wine_build_run.py now saves the tree's state after either build
+mode (`save_tree_state()`; materialize's is empty) and decides a tree-mode seed by `tree_seed_decision()`: taken when
+the control's state travelled and the toolchain is the same (submit already pins the control's host). There is no
+fallback state to carry, so no source comparison is needed (seed_decision()'s include/ rule would refuse every batch
+that touches a header). docs/compute.md "Seeding" says so. Proof 71536 (submitted seeded from 71526, before
+`tree_seed_decision()`: the host fell back to fresh): GATE ok; proof 71541 (seeded from 71540): `decision.seed` =
+71540, GATE ok.
+
+**Batch 1**
+
+| where | change | gate |
+|---|---|---|
+| include/gen/pure3d.h pddiDevice / d3dDevice | slot 4 `vfunc_4(void*)` (fills a version record), slot 5 `vfunc_5(void*)` (the current render context); d3dDevice's `hulk_intptr f_10` (the D3D object; size 0x14 as 0x0031ba60 allocates) | 32-bit layouts unchanged apart from d3dDevice 0x10 -> 0x14 (clang record dump before/after, i686-pc-windows-msvc) |
+| 0x0031b7d0 d3dDevice::vfunc_4 (match) | the device's member (was a free `__stdcall vfunc_4(char*)`: on 64-bit it took the device as the record and wrote 18, 11 over its vftable, the start-up's crash in 0x0028f800 at 0xb00000012) | MATCH, relocs ok (new pin) |
+| 0x0031b810 vfunc_5, 0x0031b830 vfunc_7, 0x0031b9d0 vfunc_11, 0x0031ba00 (ctor), 0x0031ba60 (matches) | gen's f_0c / f_10 instead of 32-bit offsets; the device allocated as `sizeof(pure3d::d3dDevice)` | MATCH, relocs ok |
+| include/gen/owners.h X_28f9a0 | Pure3D's context (DAT_0052c2b4) as one record: helper, three matrices, the colour words, the device / render context / display pointers, the two extension words (`hulk_intptr`), the flag; X_28fa30's word a pointer; Obj_28fad0 derives from it | 32-bit offsets unchanged (Obj_28fad0 0xf0 -> 0xf8) |
+| src/engine/pure3d/unk_28f800.cpp: 0x0028f800 (ctor), 0x0028f920, 0x0028fa40, 0x0028fad0, 0x0028faf0 (matches), 0x0028faa0 (equivalent) | the context's views derive from the record (were pads of 0xe0 / 0xe8 bytes) | MATCH, relocs ok; 0x0028faa0 same code |
+| 0x00292560 (match) | allocates `sizeof(owners::X_28f9a0)` (`HULK_SIZE32` 0xf8; was 0xf8) and reads the device / context / display through the record | MATCH, relocs ok |
+| gen d3dContext `_pad_424` | `void* f_424..f_444`, the nine extensions 0x00324e00 creates (f_448 now where the constructor writes it on 64-bit); slot 89 returns `hulk_intptr` (pddiRenderContext, pddiBaseContext, d3dContext) | 32-bit layout unchanged |
+| 0x00321ea0 d3dContext::vfunc_89 (equivalent) | reads gen's f_424..f_448, returns `hulk_intptr` | same code |
+| src/engine/pure3d/pddiBaseContext.cpp matrix stacks | `HULK_CTX_MSTACK(self, i)`: stack i (gen f_20..f_30) as the record 0x0031e610 builds (vftable, capacity, top, matrices); vfunc_13 / 14 / 16 / 17 / 18 (matches), vfunc_93 / 15 / 21 / 22 (equivalents) use it (their views had a 0x1c-byte pad and 32-bit matrix pointers); vfunc_13 calls the identity by member (was an `int` fastcall) | MATCH, relocs ok; equivalents same code |
+| vfunc_19 / 20 (+0x5c), vfunc_25 / 55 / 71 (matches) | gen's `_pad_5c` matrix; the view / render / stencil state words through `HULK_STATE_AT` | MATCH, relocs ok |
+| 0x00323eb0 d3dContext::vfunc_108 (match), 0x00323ee0 vfunc_109 (equivalent) | the matrix stack record via gen's f_20; the view state's vftable before its words | MATCH; same code |
+
+The 160 TUs that include gen/pure3d.h or use the context record: 2,290 matches MATCH with relocations ok, 684
+equivalents compile. Proof 71541 vs control 71540 (studio, seeded): image 1155f411, GATE ok (0 of 2,014 common frames
+differ).
+
+Native on 71541's snapshot and map (HEAD 3a1d62e88, which also has ren1's B0 front-end fixes): arm64 macOS / x86-64
+Linux / arm64 Android unbound **28,899 / 28,884 / 28,891** (control 71526: 28,952 / 28,937 / 28,944, Linux and Android
+then linked without ren1's two TUs). macOS: Pure3D's context is constructed (the version record lands in the caller's
+local, the device keeps its vftable) and its helper's matrix set-up runs; the start-up stops in 0x00292560 at
+`Object::FUN_0028f980` (an empty function the context calls as a member, defined free: ABI mismatch, unbound) and,
+continued, in 0x002a3130 (`alloc` for the thunk 0x00263ea0, an invented name; then the simple shader's construction
+through the device's slot 11, whose result gen declares `void` and whose context argument is an `int`).
+
+Left from x64t2's list: pddiBaseContext::vfunc_8 / vfunc_10 are the clear depth (`float`) and clear stencil (`int`):
+the 32-bit code of `float` / `int` signatures is identical (MATCH tried), but src/platform/sdl/pddi (bgfx_pddi.h,
+game_base.h) overrides and forwards both with `void*`, so the signature change has to land with the bgfx layer's (a
+shared, stamped build input). d3dContext::vfunc_30 still returns its prim stream as `int`.
 
 **Batch 2, the context's first shader.** After its construction, Pure3D's context builds the simple shader through
 the device (0x002a3130 -> 0x0028edb0 -> pddiDevice slot 11 -> the factory table 0x00327c70 -> 0x00327e90):
