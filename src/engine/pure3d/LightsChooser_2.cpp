@@ -427,7 +427,7 @@ struct TreeNode_29f600 {
 namespace pure3d {
 class __declspec(novtable) Entity {
 public:
-    virtual void e0();
+    virtual void e0_00038290();
     char pad4[4];
     Name_29f600 name;
     void FUN_0027b070();
@@ -436,9 +436,9 @@ public:
 
 class LightsChooser : public Entity {
 public:
-    virtual void x1();
+    virtual void x1_000382a0();
     virtual void x2();
-    virtual void x3();
+    virtual void x3_0027afe0();
     int color;             // 0x10
     float weight;          // 0x14
     int f18;

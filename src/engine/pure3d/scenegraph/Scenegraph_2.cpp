@@ -17,7 +17,7 @@ namespace fn_f9b7dd8c {
 class B_295c40 {
   public:
     B_295c40();
-    virtual void f();
+    virtual void Fnf_00038290();
 };
 class C_295c40 : public B_295c40 {
   public:
@@ -744,7 +744,7 @@ class Mid_2972e0 : public Base_2972e0 {
 class BranchNode : public Mid_2972e0 {
   public:
     BranchNode(unsigned int n);
-    virtual void g0();
+    virtual void g0_000382a0();
     int m18;
     int** m1c;
     int** m20;
@@ -1219,7 +1219,7 @@ namespace fn_00295f50 {
 class Entity_295f50 {
   public:
     Entity_295f50();
-    virtual void f0();
+    virtual void f0_00038290();
     int pad;
 };
 class Part {
@@ -1234,7 +1234,7 @@ class Node : public Entity_295f50 {
         b = other.b;
         p.Copy_0027af70(other.p);
     }
-    virtual void g();
+    virtual void Fng_000382a0();
     Part p;
     int a, b;
 };
@@ -2528,7 +2528,7 @@ class BranchNode {
 public:
     BranchNode(const BranchNode &source) throw();
     virtual void v0();
-    virtual void v1();
+    virtual void v1_000382a0();
     char pad04[0x24];
 };
 
@@ -2624,7 +2624,7 @@ struct Resource {
 };
 struct BranchNode_297500 {};
 struct VisibilityNode : BranchNode_297500 {
-    virtual void reserved0();
+    virtual void reserved0_00038290();
     char pad[0x24];
     unsigned char visible;
     char pad2[3];

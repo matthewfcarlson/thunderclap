@@ -24,7 +24,7 @@ public:
 namespace pure3d {
 class PrimGroupBase {
 public:
-    virtual void b0();
+    virtual void b0_00038290();
     char pad04[0x3c];
     int f40;
     int f44;
@@ -41,7 +41,7 @@ namespace pure3d {
 class PrimGroupStreamed : public PrimGroupBase {
 public:
     PrimGroupStreamed(int a, int b, int c);
-    virtual void s0();
+    virtual void s0_000382a0();
 };
 }
 

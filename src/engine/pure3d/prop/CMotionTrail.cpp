@@ -892,7 +892,7 @@ class X_2834e0 {
 };
 class EffectQueue_2834f0 {
   public:
-    virtual void f();
+    virtual void Fnf_00038290();
     void Cleanup2_0027afd0();
     ~EffectQueue_2834f0();
     int mData;
@@ -923,7 +923,7 @@ struct Slot_2835a0 {
 };
 class CDecalQueue {
   public:
-    virtual void A();
+    virtual void FnA_00038290();
     CDecalQueue();
     ~CDecalQueue();
     void Init_00280800();
@@ -1821,7 +1821,7 @@ int FUN_00266da0(int heap);
 namespace pure3d {
 class __declspec(novtable) Entity {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[4];
     char nameHolder[8];
     void FUN_0027b070();
@@ -1884,7 +1884,7 @@ namespace pure3d {
 namespace prop {
 class CDecalQueue : public Entity {
 public:
-    virtual void v1();
+    virtual void v1_000382a0();
     int f10;
     int f14;
     int f18;
@@ -2369,7 +2369,7 @@ namespace prop {
 
 class __declspec(novtable) QueueBase {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[0x10];
     void FUN_0027b070();
     QueueBase() { FUN_0027b070(); }
@@ -2385,7 +2385,7 @@ public:
     int f2c;
     char pad30[0x54 - 0x30];
     int f54;
-    virtual void v1();
+    virtual void v1_000382a0();
     virtual void v2();
     CLightQueue();
 };
@@ -2859,7 +2859,7 @@ void Obj_282740::Update(unsigned int key) {
 namespace fn_00282790 {
 class DrawablePrimitive_282790 {
   public:
-    virtual void Dummy();
+    virtual void Dummy_00038290();
     DrawablePrimitive_282790();
 };
 class CMotionTrail : public DrawablePrimitive_282790 {

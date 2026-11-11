@@ -254,10 +254,10 @@ struct Element_2a16c0 { char data[20]; };
 struct DirectionalLight_2a16c0 { char pad[0x12]; unsigned char enabled; DirectionalLight_2a16c0* FUN_002a2e70(); void FUN_002a2ef0(float,float,float); void FUN_002a07a0(int); };
 struct LightGroup_2a16c0 { virtual void slot0(); LightGroup_2a16c0* FUN_002a1140(unsigned int); void FUN_002a1180(int); void FUN_002a0fc0(int,DirectionalLight_2a16c0*); };
 struct Setup_2a16c0 { void FUN_002a30a0(); char bytes[12]; };
-struct FUN_002c6a80 { FUN_002c6a80(); virtual void baseSlot(); char p4[8]; unsigned int flags; unsigned int mode; char p14[4]; };
+struct FUN_002c6a80 { FUN_002c6a80(); virtual void baseSlot_00018b30(); char p4[8]; unsigned int flags; unsigned int mode; char p14[4]; };
 namespace pure3d {
-struct ShadowGenerator { virtual void generatorSlot(); unsigned int zero; Setup_2a16c0 setup; LightGroup_2a16c0* list; };
-struct ShadowTraversal : FUN_002c6a80 { virtual void traversalSlot(); ShadowGenerator generator; unsigned int color,count,used; Element_2a16c0 *begin,*end; ShadowTraversal(unsigned int capacity,unsigned int n); };
+struct ShadowGenerator { virtual void generatorSlot_00018b30(); unsigned int zero; Setup_2a16c0 setup; LightGroup_2a16c0* list; };
+struct ShadowTraversal : FUN_002c6a80 { virtual void traversalSlot_00018b40(); ShadowGenerator generator; unsigned int color,count,used; Element_2a16c0 *begin,*end; ShadowTraversal(unsigned int capacity,unsigned int n); };
 ShadowTraversal::ShadowTraversal(unsigned int capacity,unsigned int n) {
  generator.zero=0;
  generator.setup.FUN_002a30a0();

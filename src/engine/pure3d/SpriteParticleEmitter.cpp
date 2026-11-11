@@ -1161,11 +1161,11 @@ class ParticleEmitter : public DrawablePrimitive_2d4a20 {
   public:
     ParticleEmitter(const ParticleEmitter &src);
     virtual void f0();
-    virtual void f1();
+    virtual void f1_000382a0();
     virtual void f2();
     virtual void f3();
     virtual void f4();
-    virtual void f5();
+    virtual void f5_002d3e50();
     virtual void f6();
     virtual void f7();
     virtual void f8();
@@ -1176,23 +1176,23 @@ class ParticleEmitter : public DrawablePrimitive_2d4a20 {
     virtual void f13();
     virtual void f14();
     virtual void f15();
-    virtual void f16();
+    virtual void f16_002d3e60();
     virtual void f17();
-    virtual float f18(float);
+    virtual float f18_002d3ea0(float);
     virtual void f19();
-    virtual void f20();
+    virtual void f20_002d3ec0();
     virtual void f21();
     virtual void f22();
     virtual void f23();
-    virtual void f24();
+    virtual void f24_002d3fa0();
     virtual void f25();
-    virtual void f26();
+    virtual void f26_002d3fb0();
     virtual void f27();
-    virtual void f28();
+    virtual void f28_002d3fc0();
     virtual void f29();
-    virtual void f30();
+    virtual void f30_002d3fd0();
     virtual void f31();
-    virtual void f32();
+    virtual void f32_002d3fe0();
 
     unsigned matrix[16];
     int field_80;
@@ -1693,7 +1693,7 @@ class SpriteParticleEmitter {
 public:
     class OverLifeAttributes {
     public:
-        virtual void v0();
+        virtual void v0_00018b30();
         int f04;
         int count;                  // 0x08
         int f0c;
@@ -2091,7 +2091,7 @@ public:
 
 class __declspec(novtable) ParticleEmitter_2d63f0 {
 public:
-    virtual void b0();
+    virtual void b0_00038290();
     char pad04[0x94 - 4];
     unsigned int count;      // 0x94
     char pad98[0xa8 - 0x98];
@@ -2108,7 +2108,7 @@ public:
 
 class SpriteParticleEmitter : public ParticleEmitter_2d63f0 {
 public:
-    virtual void f1();
+    virtual void f1_000382a0();
     EmitterState state;      // 0xa8
     RefCounted_2d63f0 *ref1bc;
     RefCounted_2d63f0 *ref1c0;
@@ -2195,7 +2195,7 @@ void __cdecl FUN_0008d340(void*);
 void __cdecl FUN_0008d330(void*);
 namespace pure3d {
 struct SpriteParticleEmitter {
-    virtual void slot0();
+    virtual void slot0_00038290();
     char pad04[0x80];
     Pool_2d6590* pool;
     char pad88[0xc];

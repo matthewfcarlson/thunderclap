@@ -399,7 +399,7 @@ struct Source_2b15d0 {
 
 struct FUN_0027b070 {
     FUN_0027b070() throw();
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[0xc];
 };
 
@@ -422,7 +422,7 @@ public:
     int f30;
     VertexOffsetExpressionMixer(Source_2b15d0 *s);
     void FUN_002b1490();
-    virtual void v1();
+    virtual void v1_000382a0();
 };
 }
 

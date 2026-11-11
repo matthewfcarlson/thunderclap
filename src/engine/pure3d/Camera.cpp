@@ -510,7 +510,7 @@ void View::FUN_00292cc0(PosArg pos, Out *out)
 namespace fn_00292d70 {
 class Entity_292d70 {
   public:
-    virtual void b0();
+    virtual void b0_00038290();
     Entity_292d70();
 };
 class Camera : public Entity_292d70 {
@@ -588,14 +588,14 @@ struct Src_292df0 {
 };
 struct Entity_292df0 {
     Entity_292df0(Src_292df0* s);
-    virtual void bv();
+    virtual void bv_00038290();
     int pad[6];
 };
 struct Camera : Entity_292df0 {
-    virtual void v1();
+    virtual void v1_000382a0();
     virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual void v3_0027afe0();
+    virtual void v4_0027aff0();
     virtual void hulk_slot_Set(int a, int b); void Set_002926d0(int a, int b);
     Camera(Src_292df0* s);
     float f1c, f20;

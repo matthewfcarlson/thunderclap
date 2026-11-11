@@ -16,12 +16,12 @@ namespace fn_fa5e70fd {
 typedef unsigned __int64 U64_24dae0;
 class FUN_0025e6c0 {
   public:
-    virtual void f();
+    virtual void Fnf_0025e740();
     FUN_0025e6c0(const U64_24dae0*, const U64_24dae0*, int, int, int);
 };
 class ListenerEffectWin32Type : public FUN_0025e6c0 {
   public:
-    virtual void g();
+    virtual void Fng_0025e720();
     ListenerEffectWin32Type();
 };
 } // namespace fn_fa5e70fd

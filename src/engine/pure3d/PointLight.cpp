@@ -15,7 +15,7 @@ namespace fn_f06f3165 {} using namespace fn_f06f3165;
 namespace fn_f06f3165 {
 class Light_2c3e10 {
   public:
-    virtual void f();
+    virtual void Fnf_00038290();
     Light_2c3e10();
 };
 class PointLight : public Light_2c3e10 {

@@ -51,7 +51,7 @@ struct Sub_2c3930 {
 };
 struct Entity_2c3930 {
     Entity_2c3930();
-    virtual void h();
+    virtual void Fnh_002c39c0();
     int x;
     Sub_2c3930 s;
 };

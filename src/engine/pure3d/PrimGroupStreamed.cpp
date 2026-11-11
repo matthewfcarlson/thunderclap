@@ -172,13 +172,13 @@ struct C_2df7d0 {
 };
 class RenderObjectLoader_2df7f0 {
   public:
-    virtual void f();
+    virtual void Fnf_00018b30();
     char pad[4];
     RenderObjectLoader_2df7f0();
 };
 class PrimGroupLoader : public RenderObjectLoader_2df7f0 {
   public:
-    virtual void g();
+    virtual void Fng_00018b40();
     int a, b;
     char c, d;
     short e;
@@ -1244,7 +1244,7 @@ struct Base_2dfe80 { char pad[60]; unsigned int f40,kind,width,count,index,f54; 
  Base_2dfe80(Layout_2dfe80* destination,Layout_2dfe80* source) { unsigned int w=source->width,n=source->count; destination->FUN_002a5060(); destination->kind=0; destination->f40=0; destination->width=w; destination->count=n; destination->index=~0u; }
 };
 namespace pure3d {
-struct PrimGroupOptimized : Base_2dfe80 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void copy(void*); PrimGroupOptimized(PrimGroupOptimized* source); };
+struct PrimGroupOptimized : Base_2dfe80 { virtual void v0_00038290(); virtual void v1_000382a0(); virtual void v2(); virtual void v3_0027afe0(); virtual void v4_0027aff0(); virtual void v5_002df510(); virtual void v6_002df540(); virtual void v7_002df520(); virtual void v8(); virtual void v9_002df530(); virtual void v10(); virtual void copy(void*); PrimGroupOptimized(PrimGroupOptimized* source); };
 PrimGroupOptimized::PrimGroupOptimized(PrimGroupOptimized* source) : Base_2dfe80((Layout_2dfe80*)this,(Layout_2dfe80*)source) { buffer=0; kind=source->kind; Descriptor_2dfe80 desc; desc.kind=kind; desc.width=width; for(int i=0;i<7;++i) desc.flags[i]=32; desc.count=count; desc.resource=source->sourceResource ? source->sourceResource->value : 0; desc.a=0; desc.b=0; desc.zero1=0; desc.zero2=0; buffer=(*(Manager_2dfe80**)&DAT_0052c2a0)->create(&desc); void* data=buffer->lock(); source->copy(data); buffer->unlock(data); buffer->s0(); }
 }
 } // namespace fn_002dfe80
@@ -1307,13 +1307,13 @@ struct SP {
 };
 namespace pure3d {
 struct Base_2e0020 {
-    virtual void v0();
+    virtual void v0_00038290();
     Base_2e0020(const Base_2e0020&);
     char pad[0x54];
 };
 struct PrimGroupOptimized : Base_2e0020 {
     PrimGroupOptimized(const PrimGroupOptimized& o) : Base_2e0020(o) { m58 = o.m58.p; }
-    virtual void v1();
+    virtual void v1_000382a0();
     SP m58;
     int m5c;
 };
@@ -1680,7 +1680,7 @@ namespace fn_002e0760 {
 struct Ref_2e0760 { virtual void AddRef(); virtual void Release(); };
 struct Six { unsigned a[6]; }; struct Four_2e0760 { unsigned a[4]; };
 struct Source_2e0760 { virtual void AddRef(); virtual void Release(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual Ref_2e0760* GetRef(); char pad[12]; unsigned type; Six six; Four_2e0760 four; unsigned field3c; Ref_2e0760* resource; unsigned value44; unsigned value48; unsigned value4c; unsigned FUN_002a50b0(); };
-namespace pure3d { struct VertexAnimPrimGroup { virtual void slot0(); char pad[12]; unsigned type; Six six; Four_2e0760 four; unsigned field3c; Ref_2e0760* resource; unsigned value44; unsigned value48; unsigned value4c; unsigned value50; unsigned value54; Source_2e0760* source; unsigned value5c; void FUN_002a5060(); VertexAnimPrimGroup* init(Source_2e0760* other); }; }
+namespace pure3d { struct VertexAnimPrimGroup { virtual void slot0_00038290(); char pad[12]; unsigned type; Six six; Four_2e0760 four; unsigned field3c; Ref_2e0760* resource; unsigned value44; unsigned value48; unsigned value4c; unsigned value50; unsigned value54; Source_2e0760* source; unsigned value5c; void FUN_002a5060(); VertexAnimPrimGroup* init(Source_2e0760* other); }; }
 pure3d::VertexAnimPrimGroup* pure3d::VertexAnimPrimGroup::init(Source_2e0760* other) { unsigned a=other->value48, b=other->value4c; FUN_002a5060(); resource=0; value44=0; value48=a; value4c=b; value50=~0u; new (this) VertexAnimPrimGroup(*this); source=0; value5c=0; type=other->FUN_002a50b0(); Six s=other->six; six=s; Four_2e0760 f=other->four; four=f; value44=other->value44; Ref_2e0760* r=other->GetRef(); if(r) r->AddRef(); if(resource) resource->Release(); resource=r; other->AddRef(); if(source) source->Release(); source=other; return this; }
 } // namespace fn_002e0760
 
@@ -1719,7 +1719,7 @@ namespace pure3d {
 
 class __declspec(novtable) DrawablePrimitive {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[0xc];
     void *f10;
     Vec3_2e0880 bmin;
@@ -1752,13 +1752,13 @@ public:
 class VertexAnimPrimGroup : public DrawablePrimitive {
 public:
     VertexAnimPrimGroup(const VertexAnimPrimGroup &src);
-    virtual void v1();
+    virtual void v1_000382a0();
     virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual RefObj_2e0880 *v7();
+    virtual void v3_002df7c0();
+    virtual void v4_002e0a40();
+    virtual void v5_002df7b0();
+    virtual void v6_002e0a60();
+    virtual RefObj_2e0880 *v7_002df520();
 
 };
 
@@ -1773,7 +1773,7 @@ VertexAnimPrimGroup::VertexAnimPrimGroup(const VertexAnimPrimGroup &src) : Drawa
     plane[3] = src.plane[3];
     f44 = src.f44;
 
-    RefObj_2e0880 *o = ((VertexAnimPrimGroup &)src).v7();
+    RefObj_2e0880 *o = ((VertexAnimPrimGroup &)src).v7_002df520();
     if (o)
         o->AddRef();
     if (obj40)

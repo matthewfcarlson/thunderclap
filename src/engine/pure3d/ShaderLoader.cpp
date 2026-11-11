@@ -72,7 +72,7 @@ struct Name_28f2c0 {
 };
 class __declspec(novtable) Entity_28f2c0 {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[4];
     Name_28f2c0 name;
     void FUN_0027b070();
@@ -138,7 +138,7 @@ public:
     char pad15[3];
     int f18;
     char pad1c[4];
-    virtual void Release();
+    virtual void Release_000382a0();
     Shader() : f14(0), f18(0) {}
 };
 }
@@ -235,7 +235,7 @@ void ShaderLoader::vfunc_5(Shader **out, Pair_28f2c0 *outId, Reader *r, Factory_
             switch (r->FUN_00266a30()) {
             case 0x11001: {
                 if (obj != 0)
-                    obj->Release();
+                    obj->Release_000382a0();
                 r->stream->FUN_002647e0(&fr.len2, 1, 1, 1);
                 unsigned int len = fr.len2;
                 r->stream->FUN_002647e0(fr.buf3, len, 1, 1);

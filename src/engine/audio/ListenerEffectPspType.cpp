@@ -40,7 +40,7 @@ extern "C" void* __cdecl FUN_00247530(void*);
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f28ff79c {
 namespace audio {
-struct ListenerEffectPsp { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); void FUN_0025e6f0(void*); };
+struct ListenerEffectPsp { virtual void vfunc_0_00243360(); virtual void vfunc_1_00243370(); virtual void vfunc_2(); virtual void vfunc_3(); void FUN_0025e6f0(void*); };
 }
 namespace audio {
 struct ListenerEffectPspType : om::Type { virtual void* vfunc_2(); virtual ConfigResult* vfunc_3(); };

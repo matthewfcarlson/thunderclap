@@ -19,13 +19,13 @@ struct Sub_2a3530 {
 };
 struct Entity_2a3530 {
     Entity_2a3530();
-    virtual void f0();
+    virtual void f0_00038290();
     int b4;
     Sub_2a3530 s;
 };
 struct DrawableHierarchy_2a3530 : Entity_2a3530 {
     DrawableHierarchy_2a3530(const DrawableHierarchy_2a3530& o);
-    virtual void f1();
+    virtual void f1_000382a0();
     int m10, m14, m18, m1c, m20, m24, m28, m2c, m30, m34, m38;
 };
 class Item_2a35a0 {

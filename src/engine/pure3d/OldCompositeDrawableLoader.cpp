@@ -1342,7 +1342,7 @@ class CompositeDrawable {
 public:
     class ActiveControllerList {
     public:
-        virtual void v0();
+        virtual void v0_00018b30();
         int refCount;
         char flag;
         char pad9[3];
@@ -1688,7 +1688,7 @@ namespace CompositeDrawable {
 
 class ActivePrimitiveList {
 public:
-    virtual void v0();
+    virtual void v0_00018b30();
     int field04;
     char* bufA;
     char* bufAEnd;
@@ -1856,7 +1856,7 @@ struct Sink50 {
 
 class __declspec(novtable) DrawableHierarchy_29a010 {
 public:
-    virtual void b0();
+    virtual void b0_00038290();
     char pad04[0x3c];
     void FUN_002a3530(const DrawableHierarchy_29a010 *src);
     DrawableHierarchy_29a010(const DrawableHierarchy_29a010 &src) { FUN_002a3530(&src); }
@@ -1865,18 +1865,18 @@ public:
 namespace pure3d {
 class CompositeDrawable : public DrawableHierarchy_29a010 {
 public:
-    virtual void vfunc_1();
+    virtual void vfunc_1_000382a0();
     virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
+    virtual void vfunc_3_00298280();
+    virtual void vfunc_4_0029a170();
+    virtual void vfunc_5_00298270();
     virtual void vfunc_6();
-    virtual void vfunc_7();
+    virtual void vfunc_7_00298c00();
     virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void hulk_slot_vfunc_10(void *clock); void vfunc_10_00298f00(void *clock);
-    virtual void vfunc_11();
-    virtual void vfunc_12();
+    virtual void vfunc_9_00298e60();
+    virtual void hulk_slot_vfunc_10_00298f00(void *clock); void vfunc_10_00298f00(void *clock);
+    virtual void vfunc_11_00298260();
+    virtual void vfunc_12_002992c0();
     Clock_29a010 *clock;
     ActivePrimitiveList_29a010 *children;
     void *f48;
@@ -2000,7 +2000,7 @@ namespace content { struct LoadInventory { template<class T> struct DynamicCaste
 struct Name { void FUN_0027b040(char*); char bytes[0x38]; };
 struct Object { virtual void add(); virtual void release(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void attach(Object*); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual int kind(); char pad[0x3c]; float visibility; void* owner; Object* FUN_0027b240(); };
 struct Entry { int unused; int joint; Object* object; }; struct Group { virtual void add(); char p4[4]; unsigned char* starts; char pc[8]; unsigned char* counts; char p18[0x24]; Entry* entries; Group* FUN_00299cd0(int); void FUN_00298870(); };
-namespace pure3d { struct CompositeDrawable { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void done(); char p4[4]; Name name; Object* skeleton; Group* group; int a,b,c; void FUN_002a3480(); }; struct OldCompositeDrawableLoader { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void vfunc_5(CompositeDrawable**,UID*,Chunk*,content::LoadInventory*); }; }
+namespace pure3d { struct CompositeDrawable { virtual void v0_00038290(); virtual void v1_000382a0(); virtual void v2(); virtual void v3_00298280(); virtual void v4_0029a170(); virtual void v5_00298270(); virtual void v6(); virtual void v7_00298c00(); virtual void v8(); virtual void v9_00298e60(); virtual void v10(); virtual void v11_00298260(); virtual void done_002992c0(); char p4[4]; Name name; Object* skeleton; Group* group; int a,b,c; void FUN_002a3480(); }; struct OldCompositeDrawableLoader { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void vfunc_5(CompositeDrawable**,UID*,Chunk*,content::LoadInventory*); }; }
 void* __cdecl FUN_00263ea0(int); void* __cdecl FUN_0008d690(int); void* __cdecl FUN_0008d6d0(int); void __cdecl FUN_0008d340(void*);  
 void pure3d::OldCompositeDrawableLoader::vfunc_5(CompositeDrawable** result,UID* uid,Chunk* chunk,content::LoadInventory* inventory) {
  struct Workspace {
@@ -2062,7 +2062,7 @@ void pure3d::OldCompositeDrawableLoader::vfunc_5(CompositeDrawable** result,UID*
  if(category==1) objects[i]->attach(composite->skeleton); objects[i]->owner=composite; ++index;
  }
  }
- composite->group->FUN_00298870(); composite->done(); FUN_0008d340(w.skins); FUN_0008d340(w.geometries); FUN_0008d340(w.particles); FUN_0008d340(w.billboards); FUN_0008d340(w.geometryJoints); FUN_0008d340(w.particleJoints); FUN_0008d340(w.billboardJoints); *result=composite;
+ composite->group->FUN_00298870(); composite->done_002992c0(); FUN_0008d340(w.skins); FUN_0008d340(w.geometries); FUN_0008d340(w.particles); FUN_0008d340(w.billboards); FUN_0008d340(w.geometryJoints); FUN_0008d340(w.particleJoints); FUN_0008d340(w.billboardJoints); *result=composite;
 }
 } // namespace fn_0029a630
 #undef READ

@@ -635,11 +635,11 @@ class Obj_23bb60 {
 };
 class BinReader {
   public:
-    virtual void a();
-    virtual void b();
+    virtual void Fna_00038290();
+    virtual void Fnb_000382a0();
     virtual ~BinReader();
-    virtual void f3();
-    virtual void f4();
+    virtual void f3_0023b9b0();
+    virtual void f4_0023ba10();
     virtual void f5();
     virtual void f6();
     virtual void f7();
@@ -648,12 +648,12 @@ class BinReader {
     virtual void f10();
     virtual void f11();
     virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
+    virtual void f13_0023c0e0();
+    virtual void f14_0023c100();
+    virtual void f15_0023ba60();
     virtual void f16();
-    virtual void f17();
-    virtual void f18();
+    virtual void f17_0023c170();
+    virtual void f18_0023b9c0();
     virtual void f19();
     char pad[4];
     Obj_23bb60* obj;

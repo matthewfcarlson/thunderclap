@@ -101,7 +101,7 @@ class Ref_2fe1a0 {
 };
 class Entity_2fe1a0 {
   public:
-    virtual void V();
+    virtual void FnV_00038290();
     Entity_2fe1a0();
 };
 class WorldCollisionObject : public Entity_2fe1a0 {

@@ -362,7 +362,7 @@ namespace audio {
 class HalRsdFileStream {
 public:
     HalRsdFileStream(const char *name, const char *path, int a3, int a4, int a5, int *a6, int a7);
-    virtual void v0();
+    virtual void v0_002632c0();
     Text_263160 name;
     Text_263160 path;
     int f1c;

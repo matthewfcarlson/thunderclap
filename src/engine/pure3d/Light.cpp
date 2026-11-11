@@ -261,7 +261,7 @@ struct Base {
     Base(Light* owner);
 };
 struct Light : Base {
-    virtual void virtualFunction();
+    virtual void virtualFunction_00038290();
     void FUN_0027b070();
     char padding[12];
     unsigned char enabled;

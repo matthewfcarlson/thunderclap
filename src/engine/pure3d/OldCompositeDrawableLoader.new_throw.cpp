@@ -117,19 +117,19 @@ namespace pure3d {
 class DrawableBase {
 public:
     DrawableBase();
-    virtual void v0();
-    virtual void v1();
+    virtual void v0_00038290();
+    virtual void v1_000382a0();
     virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
+    virtual void v3_00298280();
+    virtual void v4_0029a170();
+    virtual void v5_00298270();
     virtual void v6();
-    virtual void v7();
+    virtual void v7_00298c00();
     virtual void v8();
-    virtual void v9();
+    virtual void v9_00298e60();
     virtual void v10();
-    virtual void v11();
-    virtual void v12();
+    virtual void v11_00298260();
+    virtual void v12_002992c0();
     char pad4[4];
     NameField_29a190 name;
     char pad9[0x40 - 9];
@@ -332,7 +332,7 @@ void CompositeDrawableLoader::vfunc_5(pure3d::CompositeDrawable **out, unsigned 
         cd->table->counts[cur]++;
     }
     cd->table->FUN_00298870();
-    cd->v12();
+    cd->v12_002992c0();
     *out = cd;
     *outId = FUN_002672f0(f.name1, 0, 0);
 }

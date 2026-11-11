@@ -26,8 +26,8 @@ struct TrackImpl {
 class ConditionFactoryTemplate_23d740 {
   public:
     ConditionFactoryTemplate_23d740() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

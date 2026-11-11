@@ -1375,7 +1375,7 @@ namespace audio {
 class SeqTrack {
 public:
     virtual ~SeqTrack() throw() { sub.FUN_002607a0(); }
-    virtual bool vfunc_1(Stream *s);
+    virtual bool vfunc_1_002620e0(Stream *s);
     char pad04[0x18];
     Sub_257ce0 sub;
 };
@@ -1407,7 +1407,7 @@ bool Mix::FUN_00257ce0(StreamArg_257ce0 arg)
     for (unsigned int i = 0; i < arg.count; i++) {
         SeqTrack_257ce0 *p = FUN_00247530(FUN_00262030());
         audio::SeqTrack *t = p ? p->FUN_00262090() : 0;
-        if (!t->vfunc_1(s)) {
+        if (!t->vfunc_1_002620e0(s)) {
             t->audio::SeqTrack::~SeqTrack();
             FUN_00247550(FUN_00262030(), t);
             return false;

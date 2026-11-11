@@ -1600,7 +1600,7 @@ namespace pure3d {
 
 class __declspec(novtable) BlendFrameControllerBase {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[0xc];
     void FUN_0027b070();
     BlendFrameControllerBase() { FUN_0027b070(); }
@@ -1617,7 +1617,7 @@ public:
     int f28;
     Entry entries[5];       // 0x2c
     char f108;
-    virtual void v1();
+    virtual void v1_000382a0();
     BlendFrameController();
 };
 
@@ -1659,7 +1659,7 @@ namespace pure3d {
 
 class __declspec(novtable) Entity {
 public:
-    virtual void e0();
+    virtual void e0_00038290();
     char pad4[4];
     int name0;
     int name1;
@@ -2336,7 +2336,7 @@ public:
 class FrameControllerLoader {
 public:
     FrameControllerLoader();
-    virtual void l0();
+    virtual void l0_00038290();
     int f4;
     int id;
     int fc;

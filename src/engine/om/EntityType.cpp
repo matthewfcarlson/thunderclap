@@ -1965,8 +1965,8 @@ extern "C++" __declspec(nothrow) bool __cdecl FUN_002448b0(void *, void *, void 
 namespace om {
 class Entity {
 public:
-    virtual void v0();
-    virtual void v1();
+    virtual void v0_00243360();
+    virtual void v1_00243370();
     virtual void v2();
     virtual void v3();
     virtual void v4();

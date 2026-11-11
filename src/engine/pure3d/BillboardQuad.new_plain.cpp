@@ -32,8 +32,8 @@ struct BillboardQuadGroupLoader : BillboardQuadGroupBase {
 }
 namespace pure3d {
 struct BillboardObjectLoader {
-    virtual void AddRef();
-    virtual void Release();
+    virtual void AddRef_00038290();
+    virtual void Release_000382a0();
     int a;
     int id;
     int b;

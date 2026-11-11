@@ -590,7 +590,7 @@ struct Triple {
 };
 class CollisionCylinder {
 public:
-    virtual void virtual_0();
+    virtual void virtual_0_00018b30();
     unsigned int value04;
     int value08;
     int value0c;
@@ -641,7 +641,7 @@ namespace physics {
 struct Block { void FUN_0030eaa0(); char data[0x40]; };
 class CollisionOBB {
 public:
-    virtual void virtualMethod();
+    virtual void virtualMethod_00018b30();
     int field4;
     int field8;
     int fieldC;

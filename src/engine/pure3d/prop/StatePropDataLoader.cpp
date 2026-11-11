@@ -151,7 +151,7 @@ struct Name_28ff00 {
 namespace pure3d {
 class __declspec(novtable) Entity {
 public:
-    virtual void e0();
+    virtual void e0_00038290();
     char pad4[4];
     Name_28ff00 name;
     void FUN_0027b070();
@@ -161,9 +161,9 @@ public:
 namespace prop {
 class StateData : public Entity {
 public:
-    virtual void x1();
+    virtual void x1_000382a0();
     virtual void x2();
-    virtual void x3();
+    virtual void x3_0027afe0();
     char *base;
     int count4;
     char *area4;
@@ -556,11 +556,11 @@ namespace pure3d {
 namespace prop {
 class StateData {
 public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
+    virtual void vfunc_0_00038290();
+    virtual void vfunc_1_000382a0();
     virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
+    virtual void vfunc_3_0027afe0();
+    virtual void vfunc_4_0027aff0();
     char pad04[0x14 - 4];
     int count14;
     Item10_2905e0 *items18;
@@ -734,7 +734,7 @@ namespace fn_00290910 {
 struct Ref_290910 { virtual void slot0(); virtual void release(); };
 extern "C++" __declspec(nothrow) void __cdecl FUN_00290500(void *, void *);
 void __cdecl FUN_0008d340(void*);
-struct Entity_290910 { virtual void slot0(); char pad[12]; void FUN_0027afd0(); };
+struct Entity_290910 { virtual void slot0_00038290(); char pad[12]; void FUN_0027afd0(); };
 namespace pure3d { namespace prop {
 struct StatePropData : Entity_290910 {
  Ref_290910* a; Ref_290910* b; Ref_290910* c; Ref_290910** begin; Ref_290910** end; Ref_290910** capacity; void* data; unsigned count;

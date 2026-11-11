@@ -364,7 +364,7 @@ namespace pure3d { class VertexAnimObject; }
 struct InitContext { unsigned offset; pure3d::VertexAnimObject* owner; };
 struct Storage_2d1090 { Object** data; unsigned other; void FUN_002d0eb0(unsigned count, InitContext* context); };
 namespace pure3d {
-class VertexAnimObject { public: virtual void v0(); unsigned field4; Object* animation; Storage_2d1090 storage; VertexAnimObject* Initialize(Source_2d1090* source); };
+class VertexAnimObject { public: virtual void v0_00018b30(); unsigned field4; Object* animation; Storage_2d1090 storage; VertexAnimObject* Initialize(Source_2d1090* source); };
 VertexAnimObject* VertexAnimObject::Initialize(Source_2d1090* source) {
  this->VertexAnimObject::VertexAnimObject();
  field4=0; animation=0; storage.data=0; storage.other=0;

@@ -331,7 +331,7 @@ namespace fn_002939a0 {
 // FUN_002939a0 @ 0x002939a0
 class __declspec(novtable) Camera_2939a0 {
   public:
-    virtual void slot0();
+    virtual void slot0_00038290();
     char pad[0xd0 - 4];
     void FUN_00292d70();
     Camera_2939a0() { FUN_00292d70(); }
@@ -340,20 +340,20 @@ namespace pure3d {
 class VectorCamera : public Camera_2939a0 {
   public:
     VectorCamera();
-    virtual void slot1();
+    virtual void slot1_000382a0();
     virtual void slot2();
-    virtual void slot3();
-    virtual void slot4();
+    virtual void slot3_0027afe0();
+    virtual void slot4_0027aff0();
     virtual void slot5();
     virtual void slot6();
     virtual void slot7();
-    virtual void slot8();
+    virtual void slot8_002927c0();
     virtual void slot9();
-    virtual void slot10();
+    virtual void slot10_002927d0();
     virtual void slot11();
     virtual void slot12();
-    virtual void slot13();
-    virtual void slot14();
+    virtual void slot13_00292910();
+    virtual void slot14_00292930();
     virtual void slot15();
     virtual void slot16();
     virtual void slot17();
@@ -361,11 +361,11 @@ class VectorCamera : public Camera_2939a0 {
     virtual void slot19();
     virtual void slot20();
     virtual void slot21();
-    virtual void slot22();
+    virtual void slot22_00292b60();
     virtual void slot23();
     virtual void slot24();
     virtual void slot25();
-    virtual void slot26();
+    virtual void slot26_00293b20();
     int f_d0, f_d4, f_d8, f_dc, f_e0;
     float f_e4;
     int f_e8;

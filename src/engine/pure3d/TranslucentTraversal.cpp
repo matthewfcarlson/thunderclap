@@ -421,12 +421,12 @@ namespace pure3d {
 class DisplayTraversal {
 public:
     DisplayTraversal() throw();
-    virtual void vfunc_0();
-    virtual void vfunc_1();
+    virtual void vfunc_0_00018b30();
+    virtual void vfunc_1_00018b40();
     virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
+    virtual void vfunc_3_002a2690();
+    virtual void vfunc_4_002a1b60();
+    virtual void vfunc_5_002a18e0();
     char pad04[8];
     unsigned int flags;         // 0x0c
     int mode;                   // 0x10

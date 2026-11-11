@@ -263,19 +263,19 @@ class Base_29b3a0 {
 };
 class TextString {
   public:
-    virtual void f0();
-    virtual void f1();
+    virtual void f0_00038290();
+    virtual void f1_000382a0();
     virtual ~TextString();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
+    virtual void f3_0027afe0();
+    virtual void f4_0027aff0();
+    virtual void f5_0029b190();
+    virtual void f6_0029b210();
     virtual void f7();
     virtual void f8();
-    virtual void f9();
+    virtual void f9_0029b180();
     virtual void f10();
-    virtual void f11();
-    virtual void f12();
+    virtual void f11_0029b160();
+    virtual void f12_0029b170();
     char pad[0x3c];
     Base_29b3a0* mBase;
     char p44[4];

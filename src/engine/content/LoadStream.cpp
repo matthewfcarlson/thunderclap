@@ -96,7 +96,7 @@ class Target_2640f0 {
 };
 namespace content {
 struct LoadStream {
-    virtual void hulk_slot_FUN_00263f50(); void FUN_00263f50();
+    virtual void hulk_slot_FUN_00263f50_00038290(); void FUN_00263f50();
     int field04;
     char pad08[4];
     unsigned char flag0c;

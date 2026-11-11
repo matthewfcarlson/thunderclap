@@ -30,7 +30,7 @@ extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 class Entity_2b0060 {
   public:
     Entity_2b0060();
-    virtual void f0();
+    virtual void f0_00038290();
     char pad[0x0c];
 };
 class ExpressionGroup_2b0060 : public Entity_2b0060 {
@@ -40,7 +40,7 @@ class ExpressionGroup_2b0060 : public Entity_2b0060 {
     unsigned int *b, *b2;
     unsigned int *c, *c2;
     ExpressionGroup_2b0060(unsigned int n);
-    virtual void f1();
+    virtual void f1_000382a0();
 };
 } // namespace fn_fd745641
 namespace pure3d {

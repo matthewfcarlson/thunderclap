@@ -1163,7 +1163,7 @@ namespace fight {
 class ScriptReader {
 public:
     ScriptReader(Source_23b470 *src, int b);
-    virtual void v0();
+    virtual void v0_00038290();
     int f4;
     Source_23b470 *src;
     int b;

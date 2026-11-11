@@ -28,7 +28,7 @@ class ParticlePlaneGenerator_2d2070 {
 };
 class Entity_2d20a0 {
   public:
-    virtual void BV();
+    virtual void BV_00038290();
     Entity_2d20a0();
 };
 class Sub_2d20a0 {
@@ -38,7 +38,7 @@ class Sub_2d20a0 {
 };
 class ParticleGenerator : public Entity_2d20a0 {
   public:
-    virtual void _m_vf1();
+    virtual void m_vf1_000382a0();
     virtual void _m_vf2();
     virtual void _m_vf3();
     virtual void _m_vf4();
@@ -48,7 +48,7 @@ class ParticleGenerator : public Entity_2d20a0 {
     virtual void _m_vf8();
     virtual void _m_vf9();
     virtual void vfunc_10(float t);
-    virtual void _m_vf11();
+    virtual void m_vf11_002d2100();
     ParticleGenerator(const void* p);
     char _m_pad_4[0x4];
     Sub_2d20a0 sub;

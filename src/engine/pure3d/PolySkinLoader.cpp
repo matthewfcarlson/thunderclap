@@ -204,7 +204,7 @@ struct LoaderRegistry {
 
 class __declspec(novtable) DrawableContainerBase {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[4];
     Name name;
     char pad10[4];
@@ -225,15 +225,15 @@ public:
 namespace pure3d {
 class PolySkin : public DrawableContainerBase {
 public:
-    virtual void v1();
+    virtual void v1_000382a0();
     virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
+    virtual void v3_002b78b0();
+    virtual void v4_002b8020();
+    virtual void v5_002a3e70();
     virtual void v6();
-    virtual void v7();
+    virtual void v7_002a4150();
     virtual void v8();
-    virtual void v9();
+    virtual void v9_002a4350();
     virtual void SetInfo(int v);
     SkinInfo *info;
     Shared *shared;

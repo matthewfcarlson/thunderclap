@@ -121,7 +121,7 @@ namespace fn_002735d0 {
 class CompletionEventRequest_2735d0 {
   public:
     virtual void F0();
-    virtual void F1();
+    virtual void F1_002735f0();
     virtual ~CompletionEventRequest_2735d0() throw();
 };
 class CompletionEventRequest : public CompletionEventRequest_2735d0 {
@@ -132,7 +132,7 @@ class CompletionEventRequest : public CompletionEventRequest_2735d0 {
 };
 CompletionEventRequest_2735d0::~CompletionEventRequest_2735d0() throw() {}
 CompletionEventRequest::~CompletionEventRequest() throw() {
-    mRequest->F1();
+    mRequest->F1_002735f0();
 }
 } // namespace fn_002735d0
 

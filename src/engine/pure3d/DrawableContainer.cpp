@@ -992,7 +992,7 @@ struct ElemVec_2a4e40 {
 
 class __declspec(novtable) DrawableHierarchy_2a4e40 {
 public:
-    virtual void b0();
+    virtual void b0_00038290();
     char pad04[0x3c];
     void FUN_002a3530(const DrawableHierarchy_2a4e40 *src);
     DrawableHierarchy_2a4e40(const DrawableHierarchy_2a4e40 &src) { FUN_002a3530(&src); }
@@ -1001,7 +1001,7 @@ public:
 namespace pure3d {
 class DrawableContainer : public DrawableHierarchy_2a4e40 {
 public:
-    virtual void vfunc_1();
+    virtual void vfunc_1_000382a0();
     virtual void vfunc_2();
     virtual void vfunc_3();
     int f40;
@@ -1101,7 +1101,7 @@ struct DrawableHierarchy_2a4ff0 {
 class DrawableContainer : public DrawableHierarchy_2a4ff0 {
   public:
     virtual ~DrawableContainer() throw();
-    virtual void Update();
+    virtual void Update_000382a0();
     char pad[0x44];
     Vec_2a4ff0<E_2a4ff0> items;
 };

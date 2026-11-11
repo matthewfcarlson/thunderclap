@@ -36,8 +36,8 @@ struct Stream {
 namespace pure3d {
 class ShadowMeshTopology {
 public:
-    virtual void v0();
-    virtual void v1();
+    virtual void v0_00018b30();
+    virtual void v1_00018b40();
     int f04;
     int f08;
     int f0c;
@@ -132,9 +132,9 @@ void ShadowMeshLoader::vfunc_5(Target_2b6170 **out, unsigned __int64 *outId, Str
     if (mem != 0)
         topo = new (mem) ShadowMeshTopology(f.cntA, f.nf);
     if (topo != 0)
-        topo->v0();
+        topo->v0_00018b30();
     if (f.r0->f44 != 0)
-        f.r0->f44->v1();
+        f.r0->f44->v1_00018b40();
     f.r0->f44 = topo;
 
     void *mem2 = FUN_0008d690(0x18);

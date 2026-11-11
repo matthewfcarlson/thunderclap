@@ -104,8 +104,8 @@ namespace fn_fc1ade79 {
 class TrackFactoryTemplate_238710 {
   public:
     TrackFactoryTemplate_238710() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -129,8 +129,8 @@ struct ConditionFactoryTemplate_238780 {
 class TrackFactoryTemplate_2387b0 {
   public:
     TrackFactoryTemplate_2387b0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

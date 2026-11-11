@@ -19,7 +19,7 @@ class DriveRequest_2757f0 {
 };
 class DriveFormatRequest : public DriveRequest_2757f0 {
   public:
-    virtual void W();
+    virtual void FnW_002745d0();
     DriveFormatRequest(hulk_intptr);
 };
 extern void* hulk_at_0042b9bc[];

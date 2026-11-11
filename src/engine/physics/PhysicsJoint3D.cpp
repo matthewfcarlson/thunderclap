@@ -844,8 +844,8 @@ struct PhysicsJoint_30d590 {
     virtual void v4();
     virtual void v5();
     virtual void v6();
-    virtual void v7();
-    virtual void v8();
+    virtual void v7_0030ca60();
+    virtual void v8_0030ca70();
     virtual void v9();
     virtual void v10();
     virtual void v11();
@@ -865,7 +865,7 @@ struct PhysicsJoint_30d590 {
     virtual void v25();
     virtual void v26();
     virtual PhysicsJoint_30d590* d27();
-    virtual void v28(PhysicsJoint_30d590* p);
+    virtual void v28_0030c670(PhysicsJoint_30d590* p);
     int m4, m8, mc, m10, m14, m18, m1c;
     int m20, m24, m28;
     char p2c[0x1c];
@@ -4058,7 +4058,7 @@ public:
     virtual void f1();
     virtual void f2();
     virtual void f3();
-    virtual void f4();
+    virtual void f4_0030cc40();
     virtual void f5(void *);
     char pad04[0xf8 - 4];
 };
@@ -4116,7 +4116,7 @@ namespace fn_fca90e00 {
 PhysicsJoint_30d590* PhysicsJoint0D_30d590::d27() {
     PhysicsJoint0D_30d590* r = new PhysicsJoint0D_30d590;
     r->Init_0030c690(this);
-    this->v28(r);
+    this->v28_0030c670(r);
     return r;
 }
 
@@ -4149,8 +4149,8 @@ class PhysicsJoint {
     virtual void vf4();
     virtual void vf5();
     virtual void vf6();
-    virtual void vf7();
-    virtual void vf8();
+    virtual void vf7_0030ca60();
+    virtual void vf8_0030ca70();
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
@@ -4170,7 +4170,7 @@ class PhysicsJoint {
     virtual void vf25();
     virtual void vf26();
     virtual PhysicsJoint* vf27();
-    virtual void vf28(PhysicsJoint*);
+    virtual void vf28_0030c670(PhysicsJoint*);
     PhysicsJoint() throw() {}
     char pad1[0x1c];
     Trio_30d5f0 t;
@@ -4190,7 +4190,7 @@ class PhysicsJoint1D : public PhysicsJoint {
 PhysicsJoint* PhysicsJoint1D::vf27() {
     PhysicsJoint1D* clone = new PhysicsJoint1D;
     clone->Init_0030c830(this);
-    this->vf28(clone);
+    this->vf28_0030c670(clone);
     return clone;
 }
 } // namespace fn_0030d5f0

@@ -21,7 +21,7 @@ struct NonCopyable_288820 {
 };
 class AnimationMemoryBlock_288820 : public NonCopyable_288820 {
   public:
-    virtual void f0();
+    virtual void f0_00018b30();
     unsigned int sz1;
     unsigned int sz2;
     int b;
@@ -354,7 +354,7 @@ class SimpleChunkHandler_289e00 {
 class AnimationLoader_289e00 : public SimpleChunkHandler_289e00 {
   public:
     AnimationLoader_289e00();
-    virtual void Dummy();
+    virtual void Dummy_000382a0();
     ChannelLoader_289e00* anim;
     int e, f, g;
 };
@@ -970,7 +970,7 @@ struct Name_289500 {
 
 class __declspec(novtable) Entity_289500 {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[4];
     Name_289500 name;
     void FUN_0027b070();
@@ -1013,7 +1013,7 @@ public:
     Alloc_289500 *f30;
     int f34;
     char *f38;
-    virtual void v1();
+    virtual void v1_000382a0();
     Animation()
         : f10(0), f14(30.0f), f18(0), f1c(0), f20(0), f24(0), f28(0), f2c(0), f30(0), f34(0), f38(0)
     {

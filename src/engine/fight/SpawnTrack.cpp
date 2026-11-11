@@ -453,12 +453,12 @@ class Ref_23ec50 {
 class Action_23ec50 {
   public:
     Action_23ec50();
-    virtual void B();
+    virtual void FnB_00018b30();
 };
 class SpawnAction : public Action_23ec50 {
   public:
     SpawnAction(Owner_23ec50* owner, int value, Ref_23ec50* ref);
-    virtual void V();
+    virtual void FnV_00018b40();
     char p4[0x18];
     int m1c;
     hulk_intptr m20;

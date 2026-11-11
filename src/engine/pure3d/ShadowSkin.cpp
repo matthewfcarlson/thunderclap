@@ -342,16 +342,16 @@ namespace fn_002df190 {
 namespace pure3d {
 class Shadow {
   public:
-    virtual void f0();
+    virtual void f0_00038290();
     Shadow(Shadow*) throw();
 };
 class ShadowMeshBuffer : public Shadow {
     char pad[0x58 - sizeof(Shadow)];
 
   public:
-    virtual void f1();
+    virtual void f1_000382a0();
     virtual void f2();
-    virtual void f3();
+    virtual void f3_002df130();
     virtual ShadowMeshBuffer* vfunc_4();
     ShadowMeshBuffer(ShadowMeshBuffer* p) throw() : Shadow(p) {}
 };

@@ -330,7 +330,7 @@ class ProceduralVertexAnimController_2a68b0 {
 };
 class ProceduralVertexAnimController_2a6910 {
   public:
-    virtual void f();
+    virtual void Fnf_00038290();
     void Cleanup1_002a68b0();
     void Cleanup2_00285800();
     ~ProceduralVertexAnimController_2a6910();

@@ -19,7 +19,7 @@ extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 namespace fn_f5607ee0 {
 class BlendFrameController_2a87c0 {
   public:
-    virtual void Fn();
+    virtual void Fn_00038290();
     BlendFrameController_2a87c0();
 };
 struct Obj_2a8800 {
@@ -74,35 +74,35 @@ public:
 };
 class LightAnimationController : public BlendFrameController_2a87c0 {
   public:
-    virtual void _m_vf1();
+    virtual void m_vf1_000382a0();
     virtual void _m_vf2();
-    virtual void _m_vf3();
-    virtual void _m_vf4();
+    virtual void m_vf3_002a87f0();
+    virtual void m_vf4_002a9380();
     virtual void _m_vf5();
     virtual void _m_vf6();
-    virtual void _m_vf7();
+    virtual void m_vf7_00285330();
     virtual void _m_vf8();
-    virtual void _m_vf9();
-    virtual void _m_vf10();
-    virtual void _m_vf11();
+    virtual void m_vf9_00284b60();
+    virtual void m_vf10_00285110();
+    virtual void m_vf11_00285130();
     virtual void _m_vf12();
-    virtual void _m_vf13();
+    virtual void m_vf13_00285150();
     virtual void _m_vf14();
     virtual void _m_vf15();
     virtual void _m_vf16();
-    virtual void _m_vf17();
+    virtual void m_vf17_00285230();
     virtual void _m_vf18();
-    virtual void _m_vf19();
-    virtual void _m_vf20();
-    virtual void _m_vf21();
-    virtual void _m_vf22();
-    virtual void _m_vf23();
+    virtual void m_vf19_002852a0();
+    virtual void m_vf20_00284b70();
+    virtual void m_vf21_002852e0();
+    virtual void m_vf22_00285300();
+    virtual void m_vf23_002862c0();
     virtual void _m_vf24();
-    virtual void _m_vf25();
+    virtual void m_vf25_00284f80();
     virtual void _m_vf26();
     virtual void vfunc_27();
-    virtual void _m_vf28();
-    virtual void _m_vf29();
+    virtual void m_vf28_002a8bb0();
+    virtual void m_vf29_00286300();
     LightAnimationController();
     char _m_pad_4[0x28];
     Track track;

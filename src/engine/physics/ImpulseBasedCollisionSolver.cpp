@@ -319,10 +319,10 @@ class Chunk {
 class ImpulseBasedCollisionSolver_2f7fc0 {
   public:
     virtual ~ImpulseBasedCollisionSolver_2f7fc0();
-    virtual void vfunc_1();
+    virtual void vfunc_1_002f8a00();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual void vfunc_4();
+    virtual void vfunc_4_002f8730();
     Ref_2f7fc0* r4;
     char pad1[0x8c];
     Chunk c94;

@@ -1168,7 +1168,7 @@ struct Rect_2be440 {
 
 class __declspec(novtable) SpriteBase_2be440 {
 public:
-    virtual void b0();
+    virtual void b0_00038290();
     char pad04[0x3c];
     void FUN_002a5060();
     SpriteBase_2be440() { FUN_002a5060(); }
@@ -1177,8 +1177,8 @@ public:
 class Sprite : public SpriteBase_2be440 {
 public:
     Sprite(Item_2be440 **items, int w, int h, int count, Shader_2be440 *mgr, int margin, int a7, int a8, int a9);
-    virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4(); virtual void a5();
-    virtual void a6(); virtual void a7(); virtual void a8(); virtual void a9(); virtual void a10();
+    virtual void a1_000382a0(); virtual void a2(); virtual void a3_002bd490(); virtual void a4_002bd4a0(); virtual void a5_002bd4b0();
+    virtual void a6_002bdd40(); virtual void a7_002bdce0(); virtual void a8(); virtual void a9_002bdcf0(); virtual void a10();
     virtual void a11(); virtual void a12();
     int count;              // 0x40
     void *buf;              // 0x44
@@ -1633,7 +1633,7 @@ namespace pure3d {
 
 class __declspec(novtable) SpriteBase_2beb20 {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[0x48];
     void FUN_002a5060();
     SpriteBase_2beb20() { FUN_002a5060(); }
@@ -1663,7 +1663,7 @@ public:
     int z98;
     float diag;
     char flagA0;
-    virtual void v1();
+    virtual void v1_000382a0();
     virtual void v2();
     void FUN_002be720(Desc_2beb20 *d, int a);
     void FUN_002bdd00(int a);
@@ -1741,7 +1741,7 @@ struct Table_2beca0 { Table_2beca0* FUN_002af2d0(); };
 namespace pure3d {
 class SpriteLoader {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     int f4, f8, fc, f10;
     ImageConverter_2beca0* lookup;
     ImageLoader_2beca0* child;
@@ -1886,7 +1886,7 @@ public:
 
 class __declspec(novtable) DrawableContainer_2bed90 {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[4];
     NameField_2bed90 name;
     void FUN_002a4e10(int one);
@@ -1897,27 +1897,27 @@ namespace pure3d {
 class SpriteObject : public DrawableContainer_2bed90 {
 public:
     SpriteObject() : DrawableContainer_2bed90(1) {}
-    virtual void v1();
+    virtual void v1_000382a0();
     virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
+    virtual void v3_002bdf00();
+    virtual void v4_002bdf50();
+    virtual void v5_002a3e70();
     virtual void v6();
-    virtual void v7();
+    virtual void v7_002a4150();
     virtual void v8();
-    virtual void v9();
+    virtual void v9_002a4350();
     virtual void v10();
     virtual void v11();
-    virtual void v12();
+    virtual void v12_002a4570();
     virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual void v16();
+    virtual void v14_002a35d0();
+    virtual void v15_002bdf10();
+    virtual void v16_002a4410();
     virtual void v17();
     virtual void v18();
-    virtual void v19();
-    virtual void v20();
-    virtual void v21();
+    virtual void v19_002beaa0();
+    virtual void v20_002beab0();
+    virtual void v21_002be410();
     virtual void setSprite(Sprite* s);
 };
 }

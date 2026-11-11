@@ -15,7 +15,7 @@ namespace fn_f2e8bf74 {
 class ImageHandler_291bc0 {
   public:
     ImageHandler_291bc0();
-    virtual void F();
+    virtual void FnF_00038290();
 };
 class PNGHandler : public ImageHandler_291bc0 {
   public:

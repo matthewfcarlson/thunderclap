@@ -18,17 +18,17 @@ typedef unsigned int uint_2e6570;
 extern "C" void* __cdecl FUN_0008d6d0(uint_2e6570 size);
 struct FUN_0027b070 {
     FUN_0027b070();
-    virtual void baseSlot();
+    virtual void baseSlot_00038290();
     char baseData[12];
 };
 struct StringPart { void FUN_0027b040(const char* text); };
 namespace pure3d {
 class Language : public FUN_0027b070 {
   public:
-    virtual void _m_vf1();
+    virtual void m_vf1_000382a0();
     virtual Language* vfunc_2(int flag);
-    virtual void _m_vf3();
-    virtual void _m_vf4();
+    virtual void m_vf3_0027afe0();
+    virtual void m_vf4_0027aff0();
     Language(const char* text, uint_2e6570 n, uint_2e6570 bytes);
     unsigned char flag;
     char _m_pad_11[0x3];

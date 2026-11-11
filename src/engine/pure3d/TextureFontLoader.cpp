@@ -67,24 +67,24 @@ class Font_2950c0 : public Base {
 };
 class TextureFont : public Font_2950c0 {
   public:
-    virtual void _m_vf1();
+    virtual void m_vf1_000382a0();
     virtual void _m_vf2();
-    virtual void _m_vf3();
-    virtual void _m_vf4();
-    virtual void _m_vf5();
-    virtual void _m_vf6();
-    virtual void _m_vf7();
-    virtual void _m_vf8();
+    virtual void m_vf3_0027afe0();
+    virtual void m_vf4_0027aff0();
+    virtual void m_vf5_00295100();
+    virtual void m_vf6_00295110();
+    virtual void m_vf7_00295120();
+    virtual void m_vf8_00295130();
     virtual void _m_vf9();
     virtual float vfunc_10(short*);
     virtual void _m_vf11();
-    virtual void _m_vf12();
+    virtual void m_vf12_00295140();
     virtual void _m_vf13();
     virtual void _m_vf14();
     virtual void _m_vf15();
-    virtual void _m_vf16();
+    virtual void m_vf16_002951a0();
     virtual void _m_vf17();
-    virtual float vfunc_18(short*);
+    virtual float vfunc_18_00295270(short*);
     virtual void _m_vf19();
     TextureFont();
     int x;
@@ -256,7 +256,7 @@ float TextureFont::vfunc_10(short* s) {
     float best = 0.0f;
     int i = 0;
     while (s[i] != 0) {
-        float v = vfunc_18(s + i);
+        float v = vfunc_18_00295270(s + i);
         if (v > best)
             best = v;
         short c = s[i];
@@ -1017,7 +1017,7 @@ struct Glyph_295620 {
 namespace pure3d {
 class __declspec(novtable) Entity {
 public:
-    virtual void e0();
+    virtual void e0_00038290();
     char pad4[4];
     Name_295620 name;
     void FUN_0027b070();
@@ -1026,23 +1026,23 @@ public:
 
 class TextureFont : public Entity {
 public:
-    virtual void t1();
+    virtual void t1_000382a0();
     virtual void t2();
-    virtual void t3();
-    virtual void t4();
-    virtual void t5();
-    virtual void t6();
-    virtual void t7();
-    virtual void t8();
+    virtual void t3_0027afe0();
+    virtual void t4_0027aff0();
+    virtual void t5_00295100();
+    virtual void t6_00295110();
+    virtual void t7_00295120();
+    virtual void t8_00295130();
     virtual void t9();
     virtual void t10();
     virtual void t11();
-    virtual void t12();
+    virtual void t12_00295140();
     virtual void t13();
     virtual void t14();
     virtual void t15();
-    virtual void t16();
-    virtual void setShader(pure3d::Shader *sh);
+    virtual void t16_002951a0();
+    virtual void setShader_00295220(pure3d::Shader *sh);
     int f10, f14, f18, f1c, f20, f24, f28;
     unsigned int pageCount;
     Texture **pages;
@@ -1113,7 +1113,7 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
         sh->slots->set(0x444d4946, 1);
         sh->slots->set(0x54535441, 0);
     }
-    font->setShader(sh);
+    font->setShader_00295220(sh);
     s->reader->FUN_002647e0(&fr.v14, 1, 4, 1);
     font->f10 = fr.v14;
     s->reader->FUN_002647e0(&fr.v14, 1, 4, 1);

@@ -43,7 +43,7 @@ struct Quat_2c1770 { float x, y, z, w; };
 namespace pure3d {
 class __declspec(novtable) Entity_2c1770 {
 public:
-    virtual void e0();
+    virtual void e0_00038290();
     char pad4[4];
     Name_2c1770 name;
     void FUN_0027b070();
@@ -53,10 +53,10 @@ public:
 namespace pure3d {
 class Locator_2c1770 : public Entity_2c1770 {
 public:
-    virtual void x1();
+    virtual void x1_000382a0();
     virtual void x2();
-    virtual void x3();
-    virtual void x4();
+    virtual void x3_0027afe0();
+    virtual void x4_0027aff0();
     Vec3_2c1770 position;
     Quat_2c1770 rotation;
     Locator_2c1770() throw() {

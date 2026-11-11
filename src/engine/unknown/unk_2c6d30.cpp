@@ -255,7 +255,7 @@ class VertexOffsetList {
 };
 namespace pure3d {
 struct VertexOffsetList {
- virtual void destroy();
+ virtual void destroy_00018b30();
  unsigned int refs, flags, count;
  unsigned int *positions, *normals;
  unsigned int *texcoords[4];
@@ -283,7 +283,7 @@ class VertexList {
 };
 namespace pure3d {
 struct VertexList {
- virtual void slot0();
+ virtual void slot0_00018b30();
  unsigned state, format, count, flags;
  void* streams[18];
  VertexList(const VertexList& source);

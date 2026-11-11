@@ -103,7 +103,7 @@ struct V3_30e630 {
 };
 struct CollisionVolume_30e630 {
     CollisionVolume_30e630();
-    virtual void v0();
+    virtual void v0_00018b30();
     char p[0x18];
 };
 namespace physics {
@@ -116,7 +116,7 @@ struct CollisionWall : CollisionVolume_30e630 {
     V3_30e630 c;
     V3_30e630 d;
     CollisionWall(const V3_30e630* pa, const V3_30e630* pb);
-    virtual void v1();
+    virtual void v1_00018b40();
 };
 } // namespace physics
 physics::CollisionWall::CollisionWall(const V3_30e630* pa, const V3_30e630* pb) {
@@ -184,7 +184,7 @@ void CollisionWall::vfunc_15(unsigned int* p) {
 namespace fn_0030e700 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0030e700 @ 0x0030e700
-struct FUN_003060a0 { virtual void slot0(); FUN_003060a0(); char pad[0x30]; }; struct CollisionWall : FUN_003060a0 { int id; float x,y,z,w; float x2,y2,z2; int a,b,c; CollisionWall(); }; CollisionWall::CollisionWall() { a=0; b=0; c=0; x=0.0f; z=0.0f; y=1.0f; x2=0.0f; y2=y; z2=z; w=0.0f; id=0x4e6e6b28; }
+struct FUN_003060a0 { virtual void slot0_00018b30(); FUN_003060a0(); char pad[0x30]; }; struct CollisionWall : FUN_003060a0 { int id; float x,y,z,w; float x2,y2,z2; int a,b,c; CollisionWall(); }; CollisionWall::CollisionWall() { a=0; b=0; c=0; x=0.0f; z=0.0f; y=1.0f; x2=0.0f; y2=y; z2=z; w=0.0f; id=0x4e6e6b28; }
 } // namespace fn_0030e700
 
 namespace fn_fc25916f {

@@ -205,7 +205,7 @@ namespace fn_0026d210 {
 extern "C" void __cdecl FUN_00267090(void*);
 namespace core {
 struct IRefCount {
-    virtual void f();
+    virtual void Fnf_0026d260();
     ~IRefCount() throw() {}
 };
 struct BaseObject {
@@ -380,7 +380,7 @@ struct IRefCount { virtual void vfunc_0(); virtual void vfunc_1(); };
 struct BaseObject { virtual void vfunc_0_adj4(); };
 struct MemoryTwoWayAllocator : IRefCount, BaseObject {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual MemoryTwoWayAllocator* vfunc_2(unsigned char);
- virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(); virtual void vfunc_15();
+ virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11_0026d150(); virtual void vfunc_12_00267060(); virtual void vfunc_13(); virtual void vfunc_14_0026d0c0(); virtual void vfunc_15();
  virtual void vfunc_0_adj4();
  unsigned int allocator, reserved; void* memory; unsigned int low, high, end;
 };

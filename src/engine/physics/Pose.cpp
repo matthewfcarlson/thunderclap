@@ -1058,7 +1058,7 @@ struct Source_30f6b0 {
  char pad[12]; int count; char pad2[20]; unsigned short* parents;
 };
 namespace physics { struct Pose {
- virtual void slot0();
+ virtual void slot0_00018b30();
  int state; Source_30f6b0* source; Node* nodes;
  Pose(Source_30f6b0*);
 }; }

@@ -27,7 +27,7 @@ struct Name_297f20 {
 namespace pure3d {
 class __declspec(novtable) DrawableHierarchy_297f20 {
 public:
-    virtual void d0();
+    virtual void d0_00038290();
     char pad4[4];
     Name_297f20 name;
     char pad10[0x30];
@@ -38,18 +38,18 @@ public:
 namespace scenegraph {
 class Scenegraph_297f20 : public DrawableHierarchy_297f20 {
 public:
-    virtual void s1();
+    virtual void s1_000382a0();
     virtual void s2();
-    virtual void s3();
-    virtual void s4();
-    virtual void s5();
+    virtual void s3_00296110();
+    virtual void s4_00297130();
+    virtual void s5_00296100();
     virtual void s6();
-    virtual void s7();
+    virtual void s7_00296140();
     virtual void s8();
-    virtual void s9();
+    virtual void s9_002961c0();
     virtual void s10();
     virtual void s11();
-    virtual void Finish();
+    virtual void Finish_00296cb0();
     RefObject_297f20 *child;
     Scenegraph_297f20() throw() { child = 0; }
 };
@@ -115,7 +115,7 @@ void pure3d::scenegraph::ScenegraphLoader::vfunc_5(void* __p0, void* __p1, void*
         }
         s->FUN_00266be0();
     }
-    sg->Finish();
+    sg->Finish_00296cb0();
     *outSg = sg;
     *outId = FUN_002672f0(f.name, 0);
 }

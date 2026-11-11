@@ -88,7 +88,7 @@ void cleanup_0008d340(void*);
 void* __cdecl FUN_0008d6d0(unsigned int);
 namespace pure3d {
 struct Pose {
- virtual void slot0();
+ virtual void slot0_00018b30();
  unsigned int refs;
  Skeleton* skeleton;
  unsigned int count;

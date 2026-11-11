@@ -122,29 +122,29 @@ struct SimpleFrameController_2a73d0 {
 struct ParticleController_2a73d0 : SimpleFrameController_2a73d0 {
     ParticleController_2a73d0();
     virtual void f0();
-    virtual void f1();
+    virtual void f1_000382a0();
     virtual void f2();
-    virtual void f3();
-    virtual void f4();
+    virtual void f3_002a6fb0();
+    virtual void f4_002a7540();
     virtual void f5();
     virtual void f6();
-    virtual void f7();
+    virtual void f7_002a7150();
     virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
+    virtual void f9_00284b60();
+    virtual void f10_002a6fe0();
+    virtual void f11_002a6ff0();
     virtual void f12();
-    virtual void f13();
+    virtual void f13_00284dc0();
     virtual void f14();
     virtual void f15();
     virtual void f16();
-    virtual void f17();
+    virtual void f17_00284e50();
     virtual void f18();
-    virtual void f19();
-    virtual void f20();
-    virtual void f21();
-    virtual void f22();
-    virtual void hulk_slot_vfunc_23(); void vfunc_23();
+    virtual void f19_00284ec0();
+    virtual void f20_002a7000();
+    virtual void f21_00284ee0();
+    virtual void f22_002a71d0();
+    virtual void hulk_slot_vfunc_23_002a7220(); void vfunc_23();
     char m40;
     float m44;
     float m48;
@@ -452,7 +452,7 @@ ParticleController_2a73d0::ParticleController_2a73d0() {
 } // namespace fn_fa907639
 
 // 0x002a7410 FUN_002a7410 (197 B): equivalent/0x002a7410.cpp [wrapped: conflict: pure3d::ParticleController]
-// sym: ??0ParticleController@pure3d@fn_002a7410@@QAE@ABU012@@Z @4e6625c347c6 @w5df8bb1efc7d
+// sym: ??0ParticleController@pure3d@fn_002a7410@@QAE@ABU012@@Z @34a597f705f9 @w0c75339472c1
 namespace fn_002a7410 {
 // STATUS: equivalent (tools/equiv.py level 3: 56 inputs, branch coverage 12/12)
 // FUN_002a7410 @ 0x002a7410
@@ -462,7 +462,7 @@ void* __cdecl FUN_0008d6d0(uint);
 struct SimpleFrameController_2a7410 { virtual void v0(); char pad[0x3c]; SimpleFrameController_2a7410(const SimpleFrameController_2a7410&); };
 namespace pure3d {
 struct ParticleController : SimpleFrameController_2a7410 {
- virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void vfunc_23();
+ virtual void v0(); virtual void v1_000382a0(); virtual void v2(); virtual void v3_002a6fb0(); virtual void v4_002a7540(); virtual void v5(); virtual void v6(); virtual void v7_002a7150(); virtual void v8(); virtual void v9_00284b60(); virtual void v10_002a6fe0(); virtual void v11_002a6ff0(); virtual void v12(); virtual void v13_00284dc0(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17_00284e50(); virtual void v18(); virtual void v19_00284ec0(); virtual void v20_002a7000(); virtual void v21_00284ee0(); virtual void v22_002a71d0(); virtual void vfunc_23_002a7220();
  unsigned char flag; char gap[3]; uint a,b,c; RefObject_2a7410** begin; RefObject_2a7410** end;
  ParticleController(const ParticleController&);
 };
@@ -484,7 +484,7 @@ ParticleController::ParticleController(const ParticleController& src) : SimpleFr
  if(*slot) (*slot)->Release();
  *slot=obj;
  }
- ParticleController::vfunc_23();
+ ParticleController::vfunc_23_002a7220();
 }
 }
 } // namespace fn_002a7410

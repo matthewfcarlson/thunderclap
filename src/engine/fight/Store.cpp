@@ -52,7 +52,7 @@ class Store_23c5e0 : public Bank_23c5e0 {
 };
 class Branch_23c620 {
   public:
-    virtual void f();
+    virtual void Fnf_00038290();
     Branch_23c620(int);
 };
 class Bank : public Branch_23c620 {

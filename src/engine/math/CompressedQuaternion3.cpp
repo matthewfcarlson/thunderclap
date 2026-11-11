@@ -129,7 +129,7 @@ class CompressedQuaternionChannel_28d750 : public RotationChannel_28d750 {
   public:
     void* m18;
     CompressedQuaternionChannel_28d750(int, hulk_intptr);
-    virtual void v1();
+    virtual void v1_0028da90();
 };
 struct CompressedQuaternion4_28d7d0 {
     unsigned int x[4];

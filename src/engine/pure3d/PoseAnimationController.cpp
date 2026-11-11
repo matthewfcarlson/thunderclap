@@ -769,7 +769,7 @@ namespace fn_002886c0 {
 namespace pure3d {
 struct Base_2886c0 {
     Base_2886c0(const Base_2886c0& o);
-    virtual void v0();
+    virtual void v0_00038290();
     char p[0x10c];
 };
 struct PoseAnimationController : Base_2886c0 {
@@ -786,7 +786,7 @@ struct PoseAnimationController : Base_2886c0 {
     int i14c;
     PoseAnimationController(const PoseAnimationController& o);
     void Set_00288080(int);
-    virtual void v1();
+    virtual void v1_000382a0();
 };
 PoseAnimationController::PoseAnimationController(const PoseAnimationController& o) : Base_2886c0(o) {
     i110 = 0;

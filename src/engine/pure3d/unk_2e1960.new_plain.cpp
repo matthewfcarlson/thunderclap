@@ -37,14 +37,14 @@ namespace pure3d {
 class PrimGroup {
 public:
     PrimGroup(int a, int b, int c);
-    virtual void v0();
-    virtual void v1();
+    virtual void v0_00038290();
+    virtual void v1_000382a0();
     virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
+    virtual void v3_002df6e0();
+    virtual void v4_002e0540();
+    virtual void v5_002df6d0();
+    virtual void v6_002df5a0();
+    virtual void v7_002df520();
     virtual void v8(int a);
     char pad04[0x44 - 4];
     int f44;

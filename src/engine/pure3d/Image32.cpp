@@ -533,7 +533,7 @@ extern "C" unsigned int FUN_002c0000() {
 namespace fn_002c0010 {
 class Image {
   public:
-    virtual void V0();
+    virtual void V0_00038290();
     char pad04[0x20];
     int m24;
     virtual ~Image();
@@ -930,10 +930,10 @@ class Image_2c09e0 {
   public:
     Image_2c09e0(const Image32& o);
     virtual void v0();
-    virtual void v1();
+    virtual void v1_000382a0();
     virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual void v3_002bfb00();
+    virtual void v4_002bfb10();
     virtual void v5();
     virtual void v6();
     virtual void v7();
@@ -941,7 +941,7 @@ class Image_2c09e0 {
     virtual void v9();
     virtual void v10();
     virtual void v11();
-    virtual void Copy(const Image32* s, int a, int b, int w, int h, int c, int d);
+    virtual void Copy_002c0a60(const Image32* s, int a, int b, int w, int h, int c, int d);
     char pad[0xc];
     int mW, mH, mBpp;
     char pad2[8];
@@ -965,7 +965,7 @@ Image32::Image32(const Image32& o) : Image_2c09e0(o) {
     char f = mFlag;
     mFlag = 0;
     Image_2c09e0* b = this;
-    b->Copy(&o, 0, 0, o.mW, o.mH, 0, 0);
+    b->Copy_002c0a60(&o, 0, 0, o.mW, o.mH, 0, 0);
     mFlag = f;
 }
 } // namespace fn_002c09e0

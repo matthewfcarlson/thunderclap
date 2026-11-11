@@ -18,13 +18,13 @@ extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 namespace fn_ff685ee7 {
 class SimpleFrameController_2a9cb0 {
   public:
-    virtual void f();
+    virtual void Fnf_00038290();
     char pad[0x3c];
     SimpleFrameController_2a9cb0();
 };
 class ExpressionAnimationController : public SimpleFrameController_2a9cb0 {
   public:
-    virtual void _m_vf1();
+    virtual void m_vf1_000382a0();
     ExpressionAnimationController();
     int a;
     int b;
@@ -122,7 +122,7 @@ namespace fn_ff685ee7 {
 class SimpleFrameController_2aa0a0 {
   public:
     SimpleFrameController_2aa0a0(void* parent);
-    virtual void b0();
+    virtual void b0_00038290();
     char pad[0x3c];
 };
 class ExpressionAnimationController_2aa0a0 : public SimpleFrameController_2aa0a0 {
@@ -133,10 +133,10 @@ class ExpressionAnimationController_2aa0a0 : public SimpleFrameController_2aa0a0
         m[2] = 0;
         m[3] = 0;
     }
-    virtual void f0();
+    virtual void f0_000382a0();
     virtual void f1();
-    virtual void f2();
-    virtual void f3();
+    virtual void f2_002a9cd0();
+    virtual void f3_002aa0a0();
     virtual ExpressionAnimationController_2aa0a0* f4();
     void Fng_002a9ea0(int v);
     int m[4];

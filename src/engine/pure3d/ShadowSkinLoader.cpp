@@ -1857,7 +1857,7 @@ class Ref_2b52e0 {
 };
 class DrawablePrimitive_2b52e0 {
   public:
-    virtual void Q();
+    virtual void FnQ_00038290();
     DrawablePrimitive_2b52e0();
 };
 inline Ref_2b52e0* Acq(Ref_2b52e0* x) {
@@ -1867,7 +1867,7 @@ inline Ref_2b52e0* Acq(Ref_2b52e0* x) {
 }
 class ShadowMeshImpl : public DrawablePrimitive_2b52e0 {
   public:
-    virtual void V();
+    virtual void FnV_000382a0();
     int pad10[3];
     int mValue;
     char pad14[0x2c];

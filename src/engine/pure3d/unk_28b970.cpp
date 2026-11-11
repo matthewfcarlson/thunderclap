@@ -136,7 +136,7 @@ class Float2Channel : public Base_28bba0 {
   public:
     hulk_intptr m18;
     Float2Channel(int, hulk_intptr);
-    virtual void v1();
+    virtual void v1_0028b570();
 };
 }
 extern void* g_c_28bc20[];
@@ -249,7 +249,7 @@ class Vector2DOFChannel_28be20 : public VectorChannel_28be20 {
     Z4 z;
     hulk_intptr m28;
     Vector2DOFChannel_28be20(int, hulk_intptr);
-    virtual void v1();
+    virtual void v1_0028b610();
 };
 class Res_28beb0 {
   public:

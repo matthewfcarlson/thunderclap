@@ -62,7 +62,7 @@ struct NameHolder_312440 {
 namespace pure3d {
 class __declspec(novtable) Entity {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[4];
     NameHolder_312440 nameHolder;
     void FUN_0027b070();
@@ -97,7 +97,7 @@ class SkeletonInfo : public pure3d::Entity {
 public:
     Bone_312440* bones;
     int count;
-    virtual void vfunc_0();
+    virtual void vfunc_0_000382a0();
     SkeletonInfo(SkeletonSrc* src);
 };
 

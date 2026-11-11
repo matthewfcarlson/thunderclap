@@ -600,7 +600,7 @@ struct Registry_2bf680 {
 
 class __declspec(novtable) Entity_2bf680 {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[4];
     NameField_2bf680 name;
     void FUN_0027b070();
@@ -621,18 +621,18 @@ public:
     unsigned int count;
     Glyph_2bf680 *glyphs;
     ImageFont() : f10(0), f14(0), f18(0), f1c(0), f20(0), f24(-1), image(0), f2c(0), count(0), glyphs(0) {}
-    virtual void v1();
+    virtual void v1_000382a0();
     virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
+    virtual void v3_002bf1d0();
+    virtual void v4_002bf1e0();
+    virtual void v5_002bf140();
+    virtual void v6_002bf150();
+    virtual void v7_002bf160();
+    virtual void v8_002bf170();
     virtual void v9();
     virtual void v10();
     virtual void v11();
-    virtual void v12();
+    virtual void v12_002bf180();
     virtual void v13();
 };
 

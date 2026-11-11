@@ -101,7 +101,7 @@ public:
         f14 = (*(Manager_2af2d0**)&DAT_0052c2a4)->getA();
     }
     virtual void slot0();
-    virtual void slot1();
+    virtual void slot1_000382a0();
     virtual void slot2();
     virtual void slot3();
     virtual void slot4();
@@ -112,9 +112,9 @@ public:
     virtual void slot9();
     virtual void slot10();
     virtual void slot11();
-    virtual void slot12();
+    virtual void slot12_00291c00();
     virtual void slot13();
-    virtual void slot14();
+    virtual void slot14_00291c20();
     virtual void slot15();
     int f04;
     int f08;

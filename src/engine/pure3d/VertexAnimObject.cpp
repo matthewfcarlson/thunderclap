@@ -80,7 +80,7 @@ struct Source_2d0fa0 { char padding[0x48]; Entry_2d0fa0* begin; Entry_2d0fa0* en
 struct Array_2d0fa0 { RefObject_2d0fa0** data; unsigned size; void FUN_002d0eb0(unsigned count, unsigned* zero); };
 namespace pure3d {
 struct VertexAnimObject {
- virtual void Slot0();
+ virtual void Slot0_00018b30();
  unsigned field4;
  RefObject_2d0fa0* extra;
  Array_2d0fa0 entries;

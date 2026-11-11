@@ -662,7 +662,7 @@ namespace fn_0026e650 {
 // FUN_0026e650 @ 0x0026e650
 
 namespace core {
-struct IRefCount { virtual void dummy(); ~IRefCount() throw() {} };
+struct IRefCount { virtual void dummy_0026e6d0(); ~IRefCount() throw() {} };
 struct BaseObject { virtual void dummy(); ~BaseObject() throw() {} };
 struct Handler_26e650 { virtual void slot0(); virtual void slot1(); char pad[0x60]; char data[8]; void FUN_0026e140(void *, int); void FUN_0026e3c0(void *); };
 struct DebugConsole : IRefCount, BaseObject { int value; char pad[0x98]; Handler_26e650 *handler; ~DebugConsole() throw(); };

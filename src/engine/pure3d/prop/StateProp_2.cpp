@@ -837,7 +837,7 @@ public:
 namespace pure3d {
 class __declspec(novtable) DrawableHierarchy {
 public:
-    virtual void d0();
+    virtual void d0_00038290();
     char pad4[4];
     Name_27d0f0 name;
     char pad10[0x30];
@@ -848,7 +848,7 @@ public:
 namespace prop {
 class StateProp : public DrawableHierarchy {
 public:
-    virtual void s1();
+    virtual void s1_000382a0();
     int f40;
     int f44;
     Matrix16_27d0f0 matrix;
@@ -1708,7 +1708,7 @@ public:
 namespace pure3d {
 class __declspec(novtable) DrawableHierarchy {
 public:
-    virtual void d0();
+    virtual void d0_00038290();
     char pad4[4];
     Name_27def0 name;
     char pad10[0x30];
@@ -1719,7 +1719,7 @@ public:
 namespace prop {
 class StateProp : public DrawableHierarchy {
 public:
-    virtual void s1();
+    virtual void s1_000382a0();
     int f40;
     int f44;
     Matrix16_27def0 matrix;

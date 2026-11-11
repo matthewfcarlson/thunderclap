@@ -289,7 +289,7 @@ namespace fn_00224be0 {
 class Driver_224be0 {
   public:
     Driver_224be0();
-    virtual void g();
+    virtual void Fng_00038290();
     char b[12];
 };
 class Sub_224be0 {

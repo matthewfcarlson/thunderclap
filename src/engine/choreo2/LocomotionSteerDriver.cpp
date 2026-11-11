@@ -20,7 +20,7 @@ class Item_228590 {
 extern "C" void __fastcall FUN_0022a9c0(void* self);
 class LocomotionSteerDriver_228590 {
   public:
-    virtual void v();
+    virtual void Fnv_00038290();
     char pad[0x2c];
     unsigned count;
     struct Entry {

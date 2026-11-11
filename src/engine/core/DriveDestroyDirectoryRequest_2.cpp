@@ -25,7 +25,7 @@ class DriveRequest_275930 {
 };
 class DriveDestroyDirectoryRequest : public DriveRequest_275930 {
   public:
-    virtual void W();
+    virtual void FnW_00274720();
     char pad[8];
     char name[16];
     char tail;

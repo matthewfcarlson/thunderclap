@@ -65,8 +65,8 @@ struct EffectRegistry;
 } // namespace fn_f8a82533
 namespace audio {
 struct ListenerEffectXBox_24d840 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
+    virtual void vfunc_0_00243360();
+    virtual void vfunc_1_00243370();
     virtual void vfunc_2();
     virtual void vfunc_3();
     void FUN_0025e6f0(EffectRegistry*);

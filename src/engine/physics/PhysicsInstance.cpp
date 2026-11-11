@@ -297,7 +297,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned);
 extern "C" PoseEngine_2fc740* __cdecl FUN_002fddf0(void*,void*,void*);
 extern "C" PoseEngine_2fc740* __cdecl FUN_002efa90(void*,void*,int);
 extern "C" PoseEngine_2fc740* __cdecl FUN_002fe480(Input_2fc740*,void*,void*);
-namespace physics { struct PhysicsInstance { virtual void v0(); unsigned field4; unsigned field8; unsigned char active; char pad[3]; PoseEngine_2fc740* object; PoseEngine_2fc740* wrapper; PhysicsInstance(void*,void*,Input_2fc740*,unsigned char); void FUN_002fc420(); }; }
+namespace physics { struct PhysicsInstance { virtual void v0_00018b30(); unsigned field4; unsigned field8; unsigned char active; char pad[3]; PoseEngine_2fc740* object; PoseEngine_2fc740* wrapper; PhysicsInstance(void*,void*,Input_2fc740*,unsigned char); void FUN_002fc420(); }; }
 physics::PhysicsInstance::PhysicsInstance(void* a,void* b,Input_2fc740* input,unsigned char mode) {
 field4=0; active=1; object=0; wrapper=0;
 PoseEngine_2fc740* result;
@@ -336,7 +336,7 @@ struct PoseEngine_2fc880 : Ref_2fc880 { PoseEngine_2fc880* FUN_00310080(Input_2f
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 namespace physics {
 struct PhysicsInstance {
- virtual void slot0();
+ virtual void slot0_00018b30();
  int field4;
  int field8;
  unsigned char enabled;

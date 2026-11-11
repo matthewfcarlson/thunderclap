@@ -41,7 +41,7 @@ struct RbTree_258230 {
 };
 class Type {
   public:
-    virtual void f();
+    virtual void Fnf_002588d0();
     unsigned int reserved04;
     OmTypeBody body;
     Type(const OmKey* baseKey, const OmKey* key, int size, int align);

@@ -47,7 +47,7 @@ namespace pure3d {
 class BoneMatrixList {
 public:
     BoneMatrixList(MatVec *src);
-    virtual void f0();
+    virtual void f0_00018b30();
     int f4;
     Mat_2e17c0 *begin;
     Mat_2e17c0 *end;

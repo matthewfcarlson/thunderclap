@@ -197,8 +197,8 @@ namespace pure3d {
 class View {
   public:
     View();
-    virtual void slot0();
-    virtual void slot1();
+    virtual void slot0_00018b30();
+    virtual void slot1_00018b40();
     virtual void slot2();
     int refCount;
     int f08, f0c;

@@ -209,15 +209,15 @@ struct Hdr8 {
 };
 class __declspec(novtable) PrimGroupBase {
   public:
-    virtual void p0();
-    virtual void p1();
+    virtual void p0_00038290();
+    virtual void p1_000382a0();
     virtual void p2();
-    virtual void p3();
-    virtual void p4();
-    virtual void p5();
-    virtual void p6();
-    virtual void p7();
-    virtual void p8(Hdr8* v);
+    virtual void p3_0027afe0();
+    virtual void p4_0027aff0();
+    virtual void p5_002df510();
+    virtual void p6_002df540();
+    virtual void p7_002df520();
+    virtual void p8_002dfd70(Hdr8* v);
     PrimGroupBase();
 };
 class __declspec(novtable) PrimGroup : public PrimGroupBase {
@@ -283,8 +283,8 @@ struct NonCopyable_2e2a70 {
 };
 class MatrixPaletteList : public NonCopyable_2e2a70 {
 public:
-    virtual void AddRef();
-    virtual void Release();
+    virtual void AddRef_00018b30();
+    virtual void Release_00018b40();
     IntVec_2e2a70 vec;
     int pad10;
     MatrixPaletteList() { vec.begin = 0; vec.end = 0; }
@@ -636,7 +636,7 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
             obj = 0;
     }
     f.obj = obj;
-    obj->p8(f8);
+    obj->p8_002dfd70(f8);
     obj->f44 = fc;
     FUN_002a46d0(a1, obj);
 
@@ -1091,9 +1091,9 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                     o->palShared = p;
                     MatrixPaletteList *l = a2.list;
                     if (l != 0)
-                        l->AddRef();
+                        l->AddRef_00018b30();
                     if (o->list != 0)
-                        o->list->Release();
+                        o->list->Release_00018b40();
                     o->list = l;
                 }
                 break;
@@ -1411,15 +1411,15 @@ struct Hdr {
 
 class __declspec(novtable) PrimGroupBase {
 public:
-    virtual void p0();
-    virtual void p1();
+    virtual void p0_00038290();
+    virtual void p1_000382a0();
     virtual void p2();
-    virtual void p3();
-    virtual void p4();
-    virtual void p5();
-    virtual void p6();
-    virtual void p7();
-    virtual void p8(Hdr8 *v);
+    virtual void p3_0027afe0();
+    virtual void p4_0027aff0();
+    virtual void p5_002df510();
+    virtual void p6_002df540();
+    virtual void p7_002df520();
+    virtual void p8_002dfd70(Hdr8 *v);
     PrimGroupBase();
 };
 
@@ -1557,7 +1557,7 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
         else
             obj = 0;
     }
-    obj->p8(f8);
+    obj->p8_002dfd70(f8);
     obj->f44 = fc;
     FUN_002a46d0(a1, obj);
 
@@ -1884,8 +1884,8 @@ struct IntVec {
 namespace pure3d {
 class MatrixPaletteList {
 public:
-    virtual void AddRef();
-    virtual void Release();
+    virtual void AddRef_00018b30();
+    virtual void Release_00018b40();
     int pad4;
     IntVec vec;
     MatrixPaletteList() { vec.begin = 0; vec.end = 0; }
@@ -2023,15 +2023,15 @@ public:
 
 class __declspec(novtable) PrimGroupStreamed_2e3bd0 {
 public:
-    virtual void v0();
-    virtual void v1();
+    virtual void v0_00038290();
+    virtual void v1_000382a0();
     virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void SetName(Named *v);
+    virtual void v3_002df6e0();
+    virtual void v4_002e0540();
+    virtual void v5_002df6d0();
+    virtual void v6_002df5a0();
+    virtual void v7_002df520();
+    virtual void SetName_002dfd70(Named *v);
     char pad04[0x40];
     unsigned int f44;
     char pad48[0x10];
@@ -2044,7 +2044,7 @@ public:
 namespace pure3d {
 class PrimGroupSkinnedStreamed : public PrimGroupStreamed_2e3bd0 {
 public:
-    virtual void s0();
+    virtual void s0_002df530();
     RefObj *pal;
     MatrixPaletteList *list;
     PrimGroupSkinnedStreamed(unsigned int a, unsigned int b, unsigned int c) : PrimGroupStreamed_2e3bd0(a, b, c)
@@ -2127,7 +2127,7 @@ void Loader::FUN_002e3bd0(Slot1 a1, Slot2 a2, int a3, PalSrc *a4)
         if (mem != 0)
             g = ((PrimGroupStreamed_2e3bd0 *)mem)->FUN_002e01d0(flags, f18, f1c);
     }
-    g->SetName(f08);
+    g->SetName_002dfd70(f08);
     g->f44 = f0c;
     FUN_002a46d0(a1, g);
     DevObj *dev = DAT_0052c2a8->Get(0x106);
@@ -2315,9 +2315,9 @@ void Loader::FUN_002e3bd0(Slot1 a1, Slot2 a2, int a3, PalSrc *a4)
                 sg->pal = p;
                 MatrixPaletteList *l2 = f.list;
                 if (l2 != 0)
-                    l2->AddRef();
+                    l2->AddRef_00018b30();
                 if (sg->list != 0)
-                    sg->list->Release();
+                    sg->list->Release_00018b40();
                 sg->list = l2;
             }
             break;

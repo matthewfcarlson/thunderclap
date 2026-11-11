@@ -200,14 +200,14 @@ class Group_2aa720 {
 class ParticleEmitterHandlerBase_2aa790 {
   public:
     ParticleEmitterHandlerBase_2aa790();
-    virtual void B();
+    virtual void FnB_00018b30();
 };
 class ParticleEmitterLoader {
   public:
     class ParticleEmitterHandler : public ParticleEmitterHandlerBase_2aa790 {
       public:
         ParticleEmitterHandler();
-        virtual void F();
+        virtual void FnF_00018b40();
     };
 };
 class Obj_2aa860 {
@@ -219,7 +219,7 @@ class Obj_2aa860 {
 class RenderObjectLoader_2aa870 {
   public:
     RenderObjectLoader_2aa870();
-    virtual void A();
+    virtual void FnA_00018b30();
 };
 class OldParticleEmitterLoader : public RenderObjectLoader_2aa870 {
   public:
@@ -258,12 +258,12 @@ class ParticleEmitterLoader_2aae80 {
 };
 class ParticleEmitterHandler_2aaed0 {
   public:
-    virtual void Emit();
+    virtual void Emit_00018b30();
     ParticleEmitterHandler_2aaed0();
 };
 class DefaultParticleEmitterHandler : public ParticleEmitterHandler_2aaed0 {
   public:
-    virtual void Handle();
+    virtual void Handle_00018b40();
     DefaultParticleEmitterHandler();
 };
 extern int hulk_at_0042e08c;
@@ -480,7 +480,7 @@ void* operator new(size_t);
 namespace fn_f07ae39e {
 struct RenderObjectLoader_2ab7c0 {
     virtual void f0();
-    virtual void f1();
+    virtual void f1_00018b40();
     RenderObjectLoader_2ab7c0() throw();
     int x;
 };
@@ -1475,18 +1475,18 @@ void* __cdecl memmove(void*, const void*, unsigned int);
 
 namespace pure3d {
 struct DefaultParticleGeneratorHandler {
- virtual void slot0();
+ virtual void slot0_00018b30();
  unsigned int value;
 };
 struct ParticleGeneratorLoader {
- virtual void slot0();
- virtual void slot1();
+ virtual void slot0_00018b30();
+ virtual void slot1_00018b40();
  unsigned int value;
  unsigned int count;
  DefaultParticleGeneratorHandler* handlers[8];
 };
 struct ParticleEmitterLoader {
- virtual void slot0();
+ virtual void slot0_00018b30();
  unsigned int baseValue;
  unsigned int value;
  unsigned int values[8];
@@ -1505,8 +1505,8 @@ ParticleEmitterLoader* ParticleEmitterLoader::init() {
   p->value=0; p->count=0;
   for(int j=0;j<8;++j) p->handlers[j]=0;
  }
- if(p) p->slot0();
- if(loader) loader->slot1();
+ if(p) p->slot0_00018b30();
+ if(loader) loader->slot1_00018b40();
  loader=p;
  DefaultParticleGeneratorHandler* h=(DefaultParticleGeneratorHandler*)FUN_0008d690((int)sizeof(DefaultParticleGeneratorHandler));
  if(h) { new(h) DefaultParticleGeneratorHandler; h->value=0; }
@@ -1514,7 +1514,7 @@ ParticleEmitterLoader* ParticleEmitterLoader::init() {
  if(h) {
   memmove(p->handlers+1,p->handlers,p->count*4);
   p->handlers[0]=h;
-  h->slot0();
+  h->slot0_00018b30();
   ++p->count;
  }
  return this;
@@ -1549,7 +1549,7 @@ OldParticleSystemLoader_2ab7c0::OldParticleSystemLoader_2ab7c0() {
     if (e)
         e->f0();
     if (m18)
-        m18->f1();
+        m18->f1_00018b40();
     m18 = e;
 }
 
@@ -2207,7 +2207,7 @@ struct ParticleEmitterLoader_2acc60 : Ref_2acc60 { int reserved; int count; Ref_
 struct FUN_002a3e80 : Ref_2acc60 { FUN_002a3e80(); };
 namespace pure3d {
 struct DefaultParticleEmitterHandler : FUN_002a3e80 { virtual void Add(); virtual void Release(); };
-struct ParticleSystemLoader { virtual void V0(); int a,id,b,c,flag; Ref_2acc60* refs[8]; ParticleEmitterLoader_2acc60* list; ParticleSystemLoader(); };
+struct ParticleSystemLoader { virtual void V0_00038290(); int a,id,b,c,flag; Ref_2acc60* refs[8]; ParticleEmitterLoader_2acc60* list; ParticleSystemLoader(); };
 }
 pure3d::ParticleSystemLoader::ParticleSystemLoader() : a(0),id(0x1580c),b(0),c(0),flag(1),list(0) {
  for(int i=0;i<8;++i) refs[i]=0;

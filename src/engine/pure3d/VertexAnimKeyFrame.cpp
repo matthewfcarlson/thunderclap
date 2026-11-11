@@ -171,7 +171,7 @@ struct Parent;
 namespace pure3d {
 class VertexAnimKeyFrameList_2e6340 {
 public:
-    virtual void v0();
+    virtual void v0_00018b30();
     int field04;
     KeyVec keys;
     TrackVec tracks;

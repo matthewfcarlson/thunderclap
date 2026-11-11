@@ -373,10 +373,10 @@ class ExportInfoLoader : public SimpleChunkHandler_2f5130 {
   public:
     ExportInfoLoader() : SimpleChunkHandler_2f5130(0x7030) {}
     virtual void slot0();
-    virtual void slot1();
+    virtual void slot1_000382a0();
     virtual void slot2();
     virtual void slot3();
-    virtual void slot4();
+    virtual void slot4_0008db50();
     virtual void slot5();
 };
 }
@@ -1284,28 +1284,28 @@ hulk_freg physics::SimulatedObject::vfunc_15() {
 namespace fn_002f61c0 {
 class PhysicsObject {
   public:
-    virtual void f0();
-    virtual void f1();
+    virtual void f0_00038290();
+    virtual void f1_000382a0();
     virtual void f2();
-    virtual void f3();
-    virtual void f4();
+    virtual void f3_0027afe0();
+    virtual void f4_0027aff0();
     virtual void f5();
     virtual void f6();
-    virtual void f7();
-    virtual void f8();
+    virtual void f7_002f5870();
+    virtual void f8_002f5860();
     virtual void f9();
-    virtual void f10();
-    virtual void f11();
+    virtual void f10_002f55e0();
+    virtual void f11_002f55d0();
     virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
+    virtual void f13_002f59f0();
+    virtual void f14_002f60d0();
+    virtual void f15_002f6150();
     virtual void f16();
     virtual void f17();
     virtual void f18();
     virtual void f19();
     virtual void f20();
-    virtual void f21();
+    virtual void f21_002f5630();
     virtual void f22();
     virtual void f23();
     virtual void f24();
@@ -1314,16 +1314,16 @@ class PhysicsObject {
     virtual void f27();
     virtual void f28();
     virtual void f29();
-    virtual void f30();
-    virtual void f31();
+    virtual void f30_002f6940();
+    virtual void f31_002f5f60();
     virtual void f32();
     virtual void f33();
     virtual void f34();
     virtual void f35();
-    virtual void f36();
-    virtual void f37();
+    virtual void f36_002f5620();
+    virtual void f37_002f5c40();
     virtual void f38();
-    virtual void f39();
+    virtual void f39_002f5be0();
     PhysicsObject(unsigned char);
     void finish_002fe680();
 };
@@ -1433,7 +1433,7 @@ class SimulatedObject {
 public:
     SimulatedObject(int v) throw();
     virtual ~SimulatedObject() throw();
-    virtual void vfunc_1() throw();
+    virtual void vfunc_1_000382a0() throw();
     char pad4[0xc];
     int f10;
     char pad14[0x10];
@@ -1445,25 +1445,25 @@ public:
 class PhysicsObject : public SimulatedObject {
 public:
     virtual void vfunc_2() throw();
-    virtual void vfunc_3() throw();
-    virtual void vfunc_4() throw();
+    virtual void vfunc_3_0027afe0() throw();
+    virtual void vfunc_4_0027aff0() throw();
     virtual void vfunc_5() throw();
     virtual void hulk_slot_vfunc_6(int v) throw(); void vfunc_6_002f56b0(int v) throw();
-    virtual void hulk_slot_vfunc_7() throw(); void vfunc_7_002f5870() throw();
-    virtual void vfunc_8() throw();
+    virtual void hulk_slot_vfunc_7_002f5870() throw(); void vfunc_7_002f5870() throw();
+    virtual void vfunc_8_002f5860() throw();
     virtual void vfunc_9() throw();
-    virtual void vfunc_10() throw();
-    virtual void vfunc_11() throw();
+    virtual void vfunc_10_002f55e0() throw();
+    virtual void vfunc_11_002f55d0() throw();
     virtual void vfunc_12() throw();
-    virtual void vfunc_13() throw();
-    virtual void vfunc_14() throw();
-    virtual void vfunc_15() throw();
+    virtual void vfunc_13_002f59f0() throw();
+    virtual void vfunc_14_002f60d0() throw();
+    virtual void vfunc_15_002f6150() throw();
     virtual void vfunc_16() throw();
     virtual void vfunc_17() throw();
     virtual void vfunc_18() throw();
     virtual void vfunc_19() throw();
     virtual void vfunc_20() throw();
-    virtual void vfunc_21() throw();
+    virtual void vfunc_21_002f5630() throw();
     virtual void vfunc_22() throw();
     virtual void vfunc_23() throw();
     virtual void vfunc_24() throw();
@@ -1472,16 +1472,16 @@ public:
     virtual void vfunc_27() throw();
     virtual void vfunc_28() throw();
     virtual void vfunc_29() throw();
-    virtual void vfunc_30() throw();
-    virtual void vfunc_31() throw();
+    virtual void vfunc_30_002f6940() throw();
+    virtual void vfunc_31_002f5f60() throw();
     virtual void vfunc_32() throw();
     virtual void vfunc_33() throw();
     virtual void vfunc_34() throw();
     virtual void vfunc_35() throw();
-    virtual void vfunc_36() throw();
-    virtual void vfunc_37() throw();
+    virtual void vfunc_36_002f5620() throw();
+    virtual void vfunc_37_002f5c40() throw();
     virtual void vfunc_38() throw();
-    virtual void hulk_slot_vfunc_39() throw(); void vfunc_39_002f5be0() throw();
+    virtual void hulk_slot_vfunc_39_002f5be0() throw(); void vfunc_39_002f5be0() throw();
     Id64_2f6220 id30;
     int f38;
     int f3c;
@@ -1692,7 +1692,7 @@ class SimulatedObject {
 public:
     SimulatedObject(int v) throw();
     virtual ~SimulatedObject() throw();
-    virtual void vfunc_1() throw();
+    virtual void vfunc_1_000382a0() throw();
     char pad4[0x20];
     int f24;
     int f28;

@@ -674,7 +674,7 @@ struct Name_27bee0 {
 namespace pure3d {
 class __declspec(novtable) Entity {
 public:
-    virtual void e0();
+    virtual void e0_00038290();
     char pad4[4];
     Name_27bee0 name;
     void FUN_0027b070();
@@ -715,10 +715,10 @@ public:
         void FUN_0027be00(unsigned int n, Limb *proto);
     };
 
-    virtual void s1();
+    virtual void s1_000382a0();
     virtual void s2();
-    virtual void s3();
-    virtual void s4();
+    virtual void s3_0027bd50();
+    virtual void s4_0027bd60();
 
     int count;
     char *weights;

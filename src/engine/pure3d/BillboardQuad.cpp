@@ -3372,7 +3372,7 @@ namespace pure3d {
 
 class __declspec(novtable) QuadGroupBase {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[0x3c];
     void FUN_002a5060();
     QuadGroupBase() { FUN_002a5060(); }
@@ -3747,10 +3747,10 @@ struct Chunk {
 class DrawableContainer_2bd300 {
 public:
     DrawableContainer_2bd300(int arg) throw();
-    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-    virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-    virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-    virtual void v12();
+    virtual void v0_00038290(); virtual void v1_000382a0(); virtual void v2(); virtual void v3_002b9650();
+    virtual void v4_002b9660(); virtual void v5_002a3e70(); virtual void v6(); virtual void v7_002a4150();
+    virtual void v8(); virtual void v9_002a4350(); virtual void v10(); virtual void v11();
+    virtual void v12_002a4570();
     char pad04[4];
     int idLo;           // 0x8
     int idHi;           // 0xc
@@ -3795,7 +3795,7 @@ void OldBillboardObjectLoader::vfunc_5(DrawableContainer_2bd300** out, IdPair_2b
     if (mem != 0)
         obj = new (mem) pure3d::BillboardObject(1);
     builder->FUN_002bcf30(obj, chunk, arg);
-    obj->v12();
+    obj->v12_002a4570();
     *out = obj;
     id->lo = obj->idLo;
     id->hi = obj->idHi;

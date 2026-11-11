@@ -18,13 +18,13 @@ struct Vec3_306ef0 {
 };
 class CollisionVolume_306ef0 {
   public:
-    virtual void BaseFn();
+    virtual void BaseFn_00018b30();
     char m_pad[0x64];
     CollisionVolume_306ef0();
 };
 class CollisionRay : public CollisionVolume_306ef0 {
   public:
-    virtual void RayFn();
+    virtual void RayFn_00018b40();
     Vec3_306ef0 m_a; // 0x68
     Vec3_306ef0 m_b; // 0x74
     int m_c;  // 0x80

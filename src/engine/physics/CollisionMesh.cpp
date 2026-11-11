@@ -305,13 +305,13 @@ typedef unsigned int uint;
 
 extern void* __cdecl FUN_002f2750(unsigned __int64);
 struct Matrix { char bytes[64]; void FUN_0022b980(); };
-struct FUN_003060a0 { virtual void baseVirtual(); char bytes[52]; FUN_003060a0(); };
+struct FUN_003060a0 { virtual void baseVirtual_00018b30(); char bytes[52]; FUN_003060a0(); };
 namespace physics {
 struct CollisionMesh : FUN_003060a0 {
- virtual void meshVirtual();
+ virtual void meshVirtual_00018b40();
  uint a,b,c;
  struct SharedData {
- virtual void initialize();
+ virtual void initialize_00018b30();
  uint a,b; char pad[8]; uint c,d; unsigned short e,f,g; char tail[50];
  };
  SharedData* shared; void* material; Matrix m1,m2;
@@ -324,7 +324,7 @@ physics::CollisionMesh::CollisionMesh() {
  (*(void**)&DAT_0055543c)=((char*)((char*)&DAT_00554c30 + 2056)); (*(void**)&DAT_00555440)=((char*)((char*)&DAT_00554c30 + 8));
  SharedData* p=new SharedData;
  if(p) { p->a=0;p->b=0;p->c=0;p->d=0;p->e=0;p->f=0;p->g=0; }
- shared=p; shared->initialize();
+ shared=p; shared->initialize_00018b30();
  material=FUN_002f2750(FUN_0027b020("concrete"));
  m1.FUN_0022b980(); m2.FUN_0022b980();
  id=(*(uint*)&DAT_00555448)+0x3d70000; (*(uint*)&DAT_00555448)=id;

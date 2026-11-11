@@ -16,7 +16,7 @@ namespace fn_fc77ac82 {
 class Entity_2343b0 {
   public:
     Entity_2343b0();
-    virtual void Fn();
+    virtual void Fn_00038290();
 };
 class ConditionFactory : public Entity_2343b0 {
   public:
