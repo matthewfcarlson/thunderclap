@@ -2,6 +2,7 @@
 // object 0x0029f600..0x002a0720 (kind game, layer engine, confidence medium), dominant class pure3d::LightsChooser
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -16,9 +17,21 @@ namespace fn_f5bc90fd {} using namespace fn_f5bc90fd;
 
 // ---- declarations shared by the functions below
 namespace fn_f5bc90fd {
-extern "C" int __cdecl FUN_0008d690(int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (x64t3) the allocator returns a pointer (was `int`)
+// (x64t3) LightsChooser's cache manager: its constructor 0x0029f3d0 (unk_29e7f0.cpp, `CacheManager(void* context, int n)`)
+// by address (was `Init_0029f3d0(int, int)`: another signature, unbound natively), and its size as that constructor's
+// view lays it out (the vftable, a 0x24-byte hash table, three pointers, two counts)
 struct CacheManager_nv_29f7c0 {
-    int Init_0029f3d0(int, int);
+    CacheManager_nv_29f7c0* FUN_0029f3d0(void* context, int n);
+};
+struct CacheManagerRec_29f7c0 {
+    void* vftable;
+    char pool[0x24];
+    void* helper;
+    void* entries;
+    void* pointers;
+    int count;
+    int available;
 };
 class Thing_29f800 {
   public:
@@ -492,12 +505,14 @@ namespace fn_f5bc90fd {
 // 0x0029f7c0 FUN_0029f7c0 (54 B): matches/0x0029f7c0.cpp
 // sym: _FUN_0029f7c0
 extern "C" void FUN_0029f7c0() {
-    if ((*(int*)&DAT_0052cba0) == 0) {
-        hulk_intptr x = FUN_0008d690(0x3c);
+    // (x64t3) the manager is a pointer in DAT_0052cba0 (its readers take it as one); was a 32-bit word
+    if ((*(void**)&DAT_0052cba0) == 0) {
+        HULK_SIZE32(CacheManagerRec_29f7c0, 0x3c);
+        void* x = FUN_0008d690((unsigned int)sizeof(CacheManagerRec_29f7c0));
         if (x != 0)
-            (*(int*)&DAT_0052cba0) = ((CacheManager_nv_29f7c0*)(((pure3d::LightsChooser::CacheManager*)(((pure3d::LightsChooser::CacheManager*)x)))))->Init_0029f3d0(4, 0x100);
+            (*(void**)&DAT_0052cba0) = ((CacheManager_nv_29f7c0*)x)->FUN_0029f3d0((void*)4, 0x100);
         else
-            (*(int*)&DAT_0052cba0) = 0;
+            (*(void**)&DAT_0052cba0) = 0;
     }
 }
 

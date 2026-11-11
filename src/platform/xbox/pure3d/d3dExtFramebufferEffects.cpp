@@ -10,6 +10,13 @@
 #define TREE_TU_BEGIN namespace fn_f57e27cb {
 #define TREE_TU_END }
 namespace fn_f57e27cb {} using namespace fn_f57e27cb;
+// (x64t3) a local view's pad up to gen d3dContext's field F (byte K of the 32-bit context), less the view's own leading
+// bytes B (its vftable pointer, or nothing): the views' fields sit at gen's offsets on 64-bit too (they were 32-bit pads)
+#if defined(HULK_PTR64)
+#define HULK_D3DCTX_PAD(f, k, b) (__builtin_offsetof(::pure3d::d3dContext, f) - (b))
+#else
+#define HULK_D3DCTX_PAD(f, k, b) ((k) - (b))
+#endif
 #include "platform/xbox/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -21,7 +28,7 @@ class Device_320160 {
     void Read(void*, int, int*, void*);
 };
 class Mid_320160 {
-    char pad[0x154];
+    char pad[HULK_D3DCTX_PAD(f_154, 0x154, 0)];
 
   public:
     Device_320160* dev;
@@ -56,7 +63,7 @@ class Viewport_320330 {
     virtual int GetWidth();
 };
 struct Parent_320330 {
-    char pad[0x154];
+    char pad[HULK_D3DCTX_PAD(f_154, 0x154, 0)];
     Viewport_320330* viewport;
 };
 class d3dExtFramebufferEffects_320330 {
@@ -575,7 +582,7 @@ class Base_3223a0 {
     virtual void f8();
 };
 struct Data_3223a0 {
-    char pad[0x154];
+    char pad[HULK_D3DCTX_PAD(f_154, 0x154, 0)];
     unsigned int field;
 };
 struct Inner_3223a0 {
@@ -768,7 +775,7 @@ struct Ctx_3226d0 {
     virtual void f56();
     virtual void f57();
     virtual void f58(int);
-    char pad4[0x154 - 4];
+    char pad4[HULK_D3DCTX_PAD(f_154, 0x154, sizeof(void*))];
     Viewport_3226d0* viewport;
     Factory_3226d0* factory;
 };
@@ -802,7 +809,7 @@ class Viewport_323910 {
     virtual int GetWidth();
 };
 struct Parent_323910 {
-    char pad[0x154];
+    char pad[HULK_D3DCTX_PAD(f_154, 0x154, 0)];
     Viewport_323910* viewport;
 };
 class d3dExtFramebufferEffects_323910 {
@@ -1574,10 +1581,8 @@ namespace D3D8 {
 void __stdcall D3DDevice_SetTexture(unsigned int stage, int texture);
 void __stdcall D3DDevice_SetPalette(unsigned int stage, int palette);
 } // namespace D3D8
-class Helper_321280 {
-  public:
-    void Init();
-};
+void FUN_00327dd0();   // (x64t3) the shader state reset (pddiBaseShader.cpp), a free function: by address (was `Init`,
+                       // a member of a fake object, unbound)
 class pddiBaseContext {
   public:
     virtual void vfunc_0();
@@ -1586,24 +1591,25 @@ class pddiBaseContext {
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
+    void FUN_0031d4c0();   // (x64t3) pddiBaseContext::vfunc_5, called directly: by address (its local name was unbound)
 };
 class d3dContext : public pddiBaseContext {
   public:
     virtual void vfunc_5();
-    char pad[0x150 - 4];
+    char pad[HULK_D3DCTX_PAD(f_150, 0x150, sizeof(void*))];
     struct D {
         int a, b, c[4];
     }* data;
 };
 void d3dContext::vfunc_5() {
-    ((Helper_321280*)this)->Init();
+    FUN_00327dd0();
     D* d = data;
     for (unsigned int i = 0; i < 4; ++i) {
         d->c[i] = 0;
         D3D8::D3DDevice_SetTexture(i, 0);
         D3D8::D3DDevice_SetPalette(i, 0);
     }
-    pddiBaseContext::vfunc_5();
+    FUN_0031d4c0();
 }
 } // namespace fn_00321280
 
@@ -4001,7 +4007,7 @@ struct Ctx_322990 {
     virtual void f56();
     virtual void f57();
     virtual void f58(int);
-    char pad4[0x154 - 4];
+    char pad4[HULK_D3DCTX_PAD(f_154, 0x154, sizeof(void*))];
     Viewport_322990* viewport;
     Factory_322990* factory;
 };
@@ -4341,7 +4347,7 @@ struct Base_323cd0 {
     void FUN_0031e500();
 };
 struct d3dContext : Base_323cd0 {
-    char pad04[0x150 - 4];
+    char pad04[HULK_D3DCTX_PAD(f_150, 0x150, sizeof(void*))];
     A_323cd0* a;
     Resource_323cd0* r154;
     Resource_323cd0* r158;
@@ -4546,7 +4552,7 @@ class d3dContext : public pddiBaseContext {
     virtual void f100();
     virtual void f101();
     virtual void vfunc_102(int);
-    char pad4[0x14c - 4];
+    char pad4[HULK_D3DCTX_PAD(f_14c, 0x14c, sizeof(void*))];
     int counter;
     Aux_323df0* aux;
     RenderTarget* target;
@@ -5071,7 +5077,7 @@ struct Device_324a00 {
     virtual U_324a00 v6();
     virtual U_324a00 v7();
 };
-struct Context { char pad[0x154]; Device_324a00* device; };
+struct Context { char pad[HULK_D3DCTX_PAD(f_154, 0x154, 0)]; Device_324a00* device; };
 struct SurfaceDesc_324a00 { U_324a00 format, type, usage, size, multiSample, width, height; };
 namespace pure3d {
 struct d3dExtFramebufferEffects {
@@ -5424,7 +5430,7 @@ namespace fn_00325110 {
 namespace D3D8 { void __stdcall D3DDevice_GetPixelShader(unsigned*); void __stdcall D3DDevice_GetVertexShader(unsigned*); void __stdcall Get2DSurfaceDesc(void*,int,void*); void __stdcall D3DDevice_SetViewport(void*); void __stdcall D3DDevice_SetRenderState_FillMode(int); void __fastcall D3DDevice_SetRenderState_Simple(int,int); void __stdcall D3DDevice_SetRenderState_ZEnable(int); void __stdcall D3DDevice_SetRenderState_StencilEnable(int); void __stdcall D3DDevice_SetTexture(int,void*); void* __stdcall D3DDevice_GetDepthStencilSurface2(); void* __stdcall D3DDevice_GetRenderTarget2(); void* __stdcall D3DTexture_GetSurfaceLevel2(void*,int); void __stdcall D3DDevice_SetRenderTarget(void*,void*); void __stdcall D3DResource_Release(void*); void __stdcall D3DDevice_SetVertexShader(unsigned); void __stdcall D3DDevice_SetPixelShader(unsigned); void __stdcall D3DDevice_SetRenderState_TextureFactor(unsigned); void __stdcall D3DDevice_DrawVerticesUP(int,int,void*,int); void __stdcall D3DDevice_SetPixelShaderConstant(int,void*,int); } namespace XGRAPHC { int __stdcall XGIsSwizzledFormat(int); }
 #define G(x) extern volatile int DAT_0039##x
 G(db08);G(db10);G(db14);G(db18);G(db1c);G(db20);G(db40);G(db48);G(db4c);G(db50);G(db90);G(db94);G(db98);G(db9c);G(dba0);G(dbc0);G(dbd0);G(dc10);G(dc14);G(dc1c);G(dc20);G(dc90);G(dc94);G(dc9c);G(dca0);G(ddfc);G(de00);G(de08);G(de0c);G(de38);G(de80);G(dea8);G(df3c);G(df4c);G(df50);G(df60);
-struct Screen { virtual void f0();virtual void f1();virtual void f2();virtual void f3();virtual void f4();virtual void f5();virtual int height();virtual int width(); }; struct Context { char pad[0x154];Screen* screen; }; struct Desc { int format;char pad[16];unsigned width,height; }; struct Viewport { int x,y,w,h;float nearZ,farZ; }; struct Vertex { float x,y,z,rhw,u,v; }; struct Vertex2 { float x,y,z,rhw,u,v,s,t; };
+struct Screen { virtual void f0();virtual void f1();virtual void f2();virtual void f3();virtual void f4();virtual void f5();virtual int height();virtual int width(); }; struct Context { char pad[HULK_D3DCTX_PAD(f_154, 0x154, 0)];Screen* screen; }; struct Desc { int format;char pad[16];unsigned width,height; }; struct Viewport { int x,y,w,h;float nearZ,farZ; }; struct Vertex { float x,y,z,rhw,u,v; }; struct Vertex2 { float x,y,z,rhw,u,v,s,t; };
 struct Work { float fx,fy;void* depth;void* target;unsigned oldPS,oldVS;union { float uv[4];struct { int spare[2];int quarterW,quarterH; } size; };int save[23];unsigned p1[4],p0[4];Viewport vp,full,smallVP;Vertex small[4];Vertex2 verts[4];int unused[2];int fullW,fullH;Desc info,db,ds,da; };
 namespace pure3d { struct d3dExtFramebufferEffects { virtual void vfunc_0();virtual void vfunc_1();virtual void vfunc_2();virtual void vfunc_3();virtual void vfunc_4();virtual void vfunc_5();virtual void vfunc_6();virtual void vfunc_7();virtual void vfunc_8();virtual void vfunc_9();virtual void vfunc_10();Context* context;char pad0[0x18];void* source;char pad1[0x58];unsigned char flag7c;char pad2[0x23];unsigned pixel;char pad3[4];void* dest;void* intermediate;void* temp;unsigned char flagb4;char pad4[3];unsigned b8,bc;int c0,c4;char pad5[4];int cc;float d0,d4;char pad6[4];unsigned dc;int e0,e4,e8;unsigned char enabled;void FUN_00323910();void FUN_00320330();void FUN_00320aa0(void*);void FUN_00324660(void*,int,int,void*,int,int,int,int,float,float);void* FUN_00323130(void*,void*); }; }
 void pure3d::d3dExtFramebufferEffects::vfunc_9() {

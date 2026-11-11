@@ -697,7 +697,8 @@ pure3d::LightsChooser::CacheManager::CacheManager(void* context,int n) {
  if(h) h->FUN_00231160(&pool);
  helper=h;
  int length=count;
- EntryArray* block=(EntryArray*)FUN_0008d6d0(length*0x1c+4);
+ // (x64t3) the entries by their size and offset (0x1c and 4 on the 32-bit builds; each holds a Light pointer)
+ EntryArray* block=(EntryArray*)FUN_0008d6d0(length*(unsigned)sizeof(Entry_29f3d0)+(unsigned)(hulk_uintptr)&((EntryArray*)0)->entries);
  Entry_29f3d0* result=0;
  if(block) {
   block->count=length;

@@ -2311,3 +2311,21 @@ init (`Init`, an invented name). With that renamed (batch 3; a local binding-map
 completes and the start-up reaches 0x0029f7c0 (LightsChooser's cache manager: `Init_0029f3d0` names a constructor with
 another signature, the allocator declared `int`, the manager kept in a 32-bit word of DAT_0052cba0), then, continued,
 0x002f2e20 (`Init_002f2d10`) and 0x002ed020 (`Alloc`) in src/engine/physics.
+
+**Batch 3, past Pure3D's set-up into the lights.**
+
+| where | change | gate |
+|---|---|---|
+| 0x00327e90 (match) | the simple shader's init by address (`FUN_0032a9f0`; was `Init`, unbound) | MATCH, relocs ok |
+| src/platform/xbox/pure3d/d3dExtFramebufferEffects.cpp, d3dRefractVertexShader.cpp: 12 local d3dContext views (Mid_320160, Parent_320330, Data_3223a0, the shared view with the viewport and factory, 0x00322990's, Parent_323910, the destructor 0x00323cd0's, 0x00323df0's, 0x00324a00's and 0x00325110's `Context`, d3dRefractVertexShader's shared view and 0x0032f3b0's) | `HULK_D3DCTX_PAD(f, k, b)`: the pad up to gen d3dContext's field f (`k`, the 32-bit offset, on the 32-bit builds; `offsetof` on 64-bit) less the view's vftable; the views' display / state cache / counter fields now sit at gen's offsets | 32-bit code unchanged: matches MATCH with relocations ok, equivalents' listings identical |
+| 0x00321280 d3dContext::vfunc_5 (match) | its base `pddiBaseContext::vfunc_5` by address (`FUN_0031d4c0`) and the shader-state reset as the free function it is (`FUN_00327dd0`; was `Init`, a member of a fake object); its view's pad as above | MATCH, relocs ok |
+| 0x0029f7c0 (match) | LightsChooser's cache manager: the allocator returns a pointer (was `int`), the constructor 0x0029f3d0 by address with its own signature (was `Init_0029f3d0(int, int)`), the manager kept as a pointer in DAT_0052cba0 (its readers take one), allocated as `sizeof` of the constructor's layout (`HULK_SIZE32` 0x3c) | MATCH, relocs ok |
+| 0x0029f3d0 (equivalent) | the entry array allocated by the entries' size and offset (were 0x1c and 4; each entry holds a Light pointer) | same code |
+| 0x0029e6c0 LightsChooserCache ctor (equivalent) | Entity's and the cache's vftables as fields, the cache's stored by address (DAT_0042d604; the local classes' own vftables were stubs natively) | same code |
+
+Proofs 71625 / 71628 vs control 71540 and, rebased on ren1's renames, 71631 vs control 71630 (HEAD ca9d88331, studio,
+seeded): GATE ok (0 of 2,016 common frames differ). Native on 71631's snapshot and map (no `--allow-compile-failures`;
+every tree and data TU compiles): **22,121 / 22,101 / 22,112** unbound (control 71630: 22,126 / 22,106 / 22,117).
+macOS: Pure3D's set-up and the lights' cache manager complete; the start-up stops in the physics set-up:
+0x002f2cb0 (owners::Obj_2f2cb0) calls `finish` (an invented name) and, continued, 0x002ed020 (src/engine/physics/
+SimLength.cpp) calls `Alloc` (an invented name) and dereferences its null result.

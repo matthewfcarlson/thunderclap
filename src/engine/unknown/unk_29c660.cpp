@@ -433,8 +433,11 @@ struct Entry_29e6c0 {
  unsigned int h,i,j,k,l;
  float limit;
 };
+// (x64t3) pure3d::Entity (0x0027b070 constructs it: its vftable, then three words) and the cache's vftable stored by
+// address (DAT_0042d604): the local classes' own vftables were the 64-bit link's stubs (`placeholder`)
+extern "C" char DAT_0042d604[];  // pure3d::LightsChooserCache
 struct FUN_0027b070 {
- virtual void placeholder();
+ void* vftable;
  char pad[12];
  FUN_0027b070();
 };
@@ -443,7 +446,6 @@ struct LightsChooserCache : FUN_0027b070 {
  int count; unsigned int f14,f18; int f1c; float f20; Entry_29e6c0* entries;
  unsigned int f28,f2c,f30,color;
  unsigned char flag; char pad38[3]; unsigned int f3c,f40;
- virtual void placeholder();
  LightsChooserCache(hulk_intptr);
 };
 }
@@ -1517,7 +1519,7 @@ void __stdcall FUN_0029e680(Obj_29e680* p) {
 // FUN_0029e6c0 @ 0x0029e6c0
 namespace pure3d {
 LightsChooserCache::LightsChooserCache(hulk_intptr n) {
- count=n; f14=0; f18=0; f1c=-1; f20=0.001f;
+ count=n; vftable=DAT_0042d604; f14=0; f18=0; f1c=-1; f20=0.001f;
  entries=0; f28=0; f2c=0; f30=0;
  f3c=1; f40=1; color=(*(unsigned int*)&DAT_004cf730); flag=0;
  int size=count>0?count:0;

@@ -10,6 +10,13 @@
 #define TREE_TU_END }
 namespace fn_f721c355 {} using namespace fn_f721c355;
 #include "platform/xbox/pure3d.h"
+// (x64t3) a local view's pad up to gen d3dContext's field F (byte K of the 32-bit context), less the view's own leading
+// bytes B (its vftable pointer, or nothing): the views' fields sit at gen's offsets on 64-bit too (they were 32-bit pads)
+#if defined(HULK_PTR64)
+#define HULK_D3DCTX_PAD(f, k, b) (__builtin_offsetof(::pure3d::d3dContext, f) - (b))
+#else
+#define HULK_D3DCTX_PAD(f, k, b) ((k) - (b))
+#endif
 
 // ---- declarations shared by the functions below
 namespace fn_f721c355 {
@@ -171,7 +178,7 @@ class Context {
     virtual void s61();
     virtual void s62();
     virtual unsigned char Slot63();
-    char pad4[0x154 - 4];
+    char pad4[HULK_D3DCTX_PAD(f_154, 0x154, sizeof(void*))];
     Viewport_32efa0* viewport;
 };
 class d3dRefractVertexShader_32efa0 {
@@ -594,7 +601,7 @@ void FUN_0032ee30(V*,unsigned int);
 struct Material_32f3b0 { unsigned int diffuse,specular,ambient,emissive; float power; };
 struct Light { unsigned int type; V diffuse,specular,ambient; float position[3]; V direction; float rest[6]; };
 struct Surface_32f3b0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual int v6(); virtual int v7(); char pad[0x48c]; unsigned height,width; };
-struct Context { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual unsigned* v36(unsigned*); char pad[0x150]; Surface_32f3b0* surface; void FUN_00321dc0(int*,int); };
+struct Context { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual unsigned* v36(unsigned*); char pad[HULK_D3DCTX_PAD(f_154, 0x154, sizeof(void*))]; Surface_32f3b0* surface; void FUN_00321dc0(int*,int); };
 namespace pure3d { struct d3dRefractVertexShader { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(Material_32f3b0*); virtual void v22(); virtual void v23(); virtual void vfunc_24(); char pad0[12]; Context* context; char pad1[0x24]; unsigned alpha; char pad2[0x41]; unsigned char flag; char pad3[10]; float scale,intensity; }; }
 void pure3d::d3dRefractVertexShader::vfunc_24() {
  struct Scratch { unsigned packed; int surfaceHeight; float height; V result; } scratch;

@@ -271,7 +271,7 @@ class d3dErrorShader_327e60 {
 void* FUN_0008d690(unsigned int);
 class d3dSimpleShader_327e90 {
   public:
-    d3dSimpleShader_327e90* Init(void* arg);
+    d3dSimpleShader_327e90* FUN_0032a9f0(void* arg);   // (x64t3) d3dSimpleShader's init 0x0032a9f0 by address (was `Init`, unbound)
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 class d3dLightMapShader_327ec0 {
@@ -804,7 +804,7 @@ d3dSimpleShader_327e90* FUN_00327e90(void* arg) {
     HULK_SIZE32(pure3d::d3dSimpleShader, 0x94);   // (x64t3) was a literal 0x94
     d3dSimpleShader_327e90* r = (d3dSimpleShader_327e90*)FUN_0008d690((unsigned int)sizeof(pure3d::d3dSimpleShader));
     if (r)
-        return r->Init(arg);
+        return r->FUN_0032a9f0(arg);
     return 0;
 }
 
