@@ -20,7 +20,7 @@ extern "C" void work();
 
 
 // 0x0035be90 FUN_0035be90 (11 B): matches/0x0035be90.cpp
-// sym: $L902
+// sym: $L#0@?target@fn_faf34b04@@YAXXZ
 void target() {
     Thing t;
     try {

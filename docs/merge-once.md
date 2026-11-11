@@ -91,8 +91,14 @@ float __cdecl FUN_00011000(float value) { ... }
 The block line keeps today's form; after the flip it names the kind instead of a file (`matches/0x....cpp` becomes
 `matches`/`equivalent`, with git history as the pointer to the old file). `// sym:` is the function's symbol in its
 TU's MSVC object (written by `tree_tu.py pin` from a full verification; a TU edit that renames the function makes the
-check fall back to the prefix lookup and report `pin_missing`, and `pin` rewrites the line). The notes (STATUS,
-provenance, equiv directives) live in the block.
+check fall back to the prefix lookup and report `pin_missing`, and `pin` rewrites the line). A function that is one of
+MSVC's numbered local labels (an unwind funclet or catch block, `$L68215`: one counter over the whole compile, so any
+header edit reaching the TU renumbers it) is pinned by a key that doesn't move, `// sym: $L#<k>@<owner>`: the k-th (from
+0, in code order) `$L` label of the function OWNER (mangled), whose `__ehhandler$<owner>` follows the label in its
+section (else the nearest function before it). The key resolves to exactly one symbol of the object, which is then
+checked like any pinned symbol (bytes, relocations); a key that resolves to nothing is `pin_missing`. The tree's three
+such blocks (src/game/init/dynamic_initializers.cpp 0x0035c3e0, 0x0035c4c0; dynamic_initializers.Oy-.cpp 0x0035be90)
+carry it since 2026-11-10. The notes (STATUS, provenance, equiv directives) live in the block.
 
 **What "verified" means after the flip** (unchanged in strength):
 

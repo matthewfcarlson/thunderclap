@@ -23,6 +23,8 @@ best-scoring candidate (compare.diff), as in build_tree. Two blocks that land on
 differ can't be told apart without their standalone sources (build_tree.unique_symbols): where those sources still
 exist this tool resolves them the same way; once they are gone a pinned symbol is what tells them apart, so `pin`
 records every function's symbol before the per-function sources are retired.
+A function that is one of MSVC's numbered `$L` labels (funclets, catch blocks) is pinned as `$L#<k>@<owner>`, the
+k-th label of its owning function, since the label numbers move with any header edit (label pins below).
 
 A block's directives (`// equiv-map:`, `// equiv-conv:`, `// equiv-dead:`) are the lines between its block line and
 the next block (HULK_GEN_TREE_NOTES=1 makes gen_tree keep a merged source's notes there).
@@ -277,6 +279,60 @@ def object_key(path):
         return bt.tu_key(ap, open(ap, "rb").read(), compare.DEFAULT_FLAGS + compare.file_flags(ap))
 
 
+# ------------------------------------------------------------------------------------------------------- label pins
+# MSVC numbers its local labels (`$L68215`: the unwind funclets and catch blocks of a function with EH, in .text$x) by
+# one counter over the whole compile, so any header edit that reaches the TU renumbers them. A block whose function is
+# such a label is pinned by a key that doesn't move: `$L#<k>@<owner>`, the k-th (from 0, in code order) `$L` label of
+# the function OWNER (its mangled name). The owner of a label is the function whose `__ehhandler$<owner>` follows it
+# in its section (MSVC emits a function's funclets and then its handler), else the nearest function before it in the
+# section. The key resolves to one symbol of the object, which is then checked as any pinned symbol (bytes, relocs).
+LABEL = re.compile(r"^\$L\d+$")
+LABEL_PIN = re.compile(r"^\$L#(\d+)@(\S+)$")
+EHHANDLER = "__ehhandler$"
+_LK = {}
+
+
+def label_keys(coff):
+    """{label symbol name: its stable pin key} for the `$L` labels of an object whose owner is known."""
+    k = id(coff)
+    if k in _LK and _LK[k][0] is coff:
+        return _LK[k][1]
+    by_sec = collections.defaultdict(list)
+    for s in coff.function_symbols():
+        by_sec[s[2]].append(s)
+    out = {}
+    for sec, syms in by_sec.items():
+        syms.sort(key=lambda s: (s[1], not LABEL.match(s[0])))
+        seen = collections.Counter()
+        for i, s in enumerate(syms):
+            if not LABEL.match(s[0]):
+                continue
+            owner = next((t[0][len(EHHANDLER):] for t in syms[i + 1:] if t[0].startswith(EHHANDLER)), None)
+            if owner is None:
+                owner = next((t[0] for t in reversed(syms[:i]) if not LABEL.match(t[0])
+                              and not t[0].startswith(EHHANDLER)), None)
+            if owner is None:
+                continue
+            out[s[0]] = "$L#%d@%s" % (seen[owner], owner)
+            seen[owner] += 1
+    _LK[k] = (coff, out)
+    return out
+
+
+def resolve_pin(coff, pin):
+    """The object's symbol a `// sym:` pin names, or None: a mangled name as itself, a label key (`$L#k@owner`) as the
+    label it denotes in this object."""
+    if LABEL_PIN.match(pin):
+        hits = [n for n, key in label_keys(coff).items() if key == pin]
+        return hits[0] if len(hits) == 1 else None
+    return pin if any(s[0] == pin for s in coff.function_symbols()) else None
+
+
+def pin_for(coff, symbol):
+    """What `pin` writes for SYMBOL: its label key for an MSVC `$L` label, else the symbol."""
+    return label_keys(coff).get(symbol, symbol) if LABEL.match(symbol) else symbol
+
+
 # ------------------------------------------------------------------------------------------------------- checking
 _V = []
 
@@ -308,9 +364,9 @@ def check_tu(path, relocs=False, rec=None, obj=None, vs_standalone=False):
             r["status"] = "tu_failed"
             out.append(r)
             continue
-        syms = {s[0] for s in v.coff(obj).function_symbols()}
-        if b.get("sym") and b["sym"] in syms and "pins" not in OFF:
-            c = v._check(obj, b, claimed, only=b["sym"])
+        pinned = resolve_pin(v.coff(obj), b["sym"]) if b.get("sym") and "pins" not in OFF else None
+        if pinned:
+            c = v._check(obj, b, claimed, only=pinned)
             c["how"] = "pinned"
         else:
             c = v.check(obj, b, claimed)
@@ -326,6 +382,8 @@ def check_tu(path, relocs=False, rec=None, obj=None, vs_standalone=False):
             r.update({k: c[k] for k in ("status", "symbol", "how", "score") if k in c})
         if c.get("symbol"):
             claimed.add(c["symbol"])
+            if LABEL.match(c["symbol"]):
+                r["pin"] = pin_for(v.coff(obj), c["symbol"])      # (the stable key `pin` writes for a label)
         if vs_standalone and os.path.exists(os.path.join(ROOT, b["src"])):
             a_ = int(b["addr"], 16)
             if b["kind"] == "equivalent" and r.get("symbol"):
@@ -776,12 +834,12 @@ def main(argv=None):
             for l in open(a.records):
                 r = json.loads(l)
                 if r.get("symbol") and r.get("shared_symbol") != "ambiguous":
-                    syms[os.path.join(root, r["tu"])][r["addr"]] = r["symbol"]
+                    syms[os.path.join(root, r["tu"])][r["addr"]] = r.get("pin") or r["symbol"]
         else:
             for p in tree_tus(root):
                 for r in check_tu(p):
                     if r.get("symbol") and r.get("shared_symbol") != "ambiguous":
-                        syms[p][r["addr"]] = r["symbol"]
+                        syms[p][r["addr"]] = r.get("pin") or r["symbol"]
         n = 0
         for p, recs in sorted(syms.items()):
             new = pin_text(p, recs)
