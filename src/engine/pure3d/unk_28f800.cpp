@@ -107,46 +107,25 @@ class Device_28f800 {
     virtual int slot86();
     virtual int slot87();
     virtual int slot88();
-    virtual int slot89(int);
+    virtual hulk_intptr slot89(int);   // (x64t3) the context's vfunc_89: an extension pointer
 };
 struct Source_28f800 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(Device_28f800*); };
 struct Sink_28f800 { virtual void slot0(); };
 struct Mat_28f800 { char data[0x40]; void FUN_0022b980(); };
 struct Helper_28f800 { Helper_28f800* FUN_00293bd0(Device_28f800*); };
-class Widget_28f800 {
+// (x64t3) Pure3D's context: the record is owners::X_28f9a0 (gen/owners.h), one layout for its views here (they had
+// their own 32-bit pads: on 64-bit the pddi objects were read from the wrong words)
+class Widget_28f800 : public owners::X_28f9a0 {
   public:
     Widget_28f800* FUN_0028f800(Source_28f800* src, Sink_28f800* sink, Device_28f800* dev);
-    void* f00;
-    Helper_28f800* helper;
-    void* f08;
-    Mat_28f800 m0c;
-    Mat_28f800 m4c;
-    char pad_8c[0xcc - 0x8c];
-    unsigned int color;
-    float scale;
-    int f_d4;
-    int f_d8;
-    int f_dc;
-    Source_28f800* source;
-    Device_28f800* device;
-    Sink_28f800* sink;
-    int f_ec;
-    int f_f0;
-    unsigned char f_f4;
 };
 class Obj_28f920 {
   public:
     virtual void A();
     virtual void B();
 };
-class Owner_28f920 {
+class Owner_28f920 : public owners::X_28f9a0 {   // (x64t3) the context record (m0 device, m1 context, m2 display)
   public:
-    char first[4];
-    int value;
-    char pad[0xd8];
-    Obj_28f920* m0;
-    Obj_28f920* m1;
-    Obj_28f920* m2;
     void cleanup();
 };
 class A_28f9a0 {
@@ -231,12 +210,7 @@ struct Blk_28fa40 {
     unsigned int d[16];
 };
 extern G_28fa40* gG_28fa40;
-struct Obj_28fa40 {
-    char pad0[4];
-    Holder_28fa40* h;
-    char pad1[4];
-    char buf1[64];
-    char buf2[64];
+struct Obj_28fa40 : owners::X_28f9a0 {   // (x64t3) the context record: h = helper, buf1 / buf2 = world / view
     void f(unsigned int* a, unsigned int* b);
 };
 struct Source {
@@ -248,12 +222,7 @@ struct Source {
     virtual int v18(int flag);
 };
 struct Destination {  };
-struct Object {
-    char pad0[4];
-    Source **source;
-    char pad8[0x44];
-    char location[0x40];
-    Destination destination;
+struct Object : owners::X_28f9a0 {   // (x64t3) the context record: source = helper, location = view, destination = proj
     Destination *FUN_0028faa0();
 };
 class GlobalThing_28faf0 {
@@ -284,12 +253,8 @@ class Other_28faf0 {
     virtual void f13();
     virtual void f14();
 };
-class Target_28faf0 {
+class Target_28faf0 : public owners::X_28f9a0 {   // (x64t3) the context record: other = the display
   public:
-    char pad[0xe8];
-    Other_28faf0* other;
-    char pad2[8];
-    unsigned char flag;
     void run(bool);
 };
 
@@ -298,30 +263,31 @@ class Target_28faf0 {
 // sym: ?FUN_0028f800@Widget_28f800@fn_fab9a868@@QAEPAV12@PAUSource_28f800@2@PAUSink_28f800@2@PAVDevice_28f800@2@@Z
 // FUN_0028f800 @ 0x0028f800
 Widget_28f800* Widget_28f800::FUN_0028f800(Source_28f800* src, Sink_28f800* snk, Device_28f800* dev) {
-    f00 = 0;
+    // (x64t3) the record's names: device = the pddiDevice (src), display (snk), context = the render context (dev)
+    refs = 0;
     f08 = 0;
     f_dc = 0;
-    source = src;
-    sink = snk;
-    device = dev;
+    device = src;
+    display = snk;
+    context = dev;
     src->slot0();
-    sink->slot0();
-    device->slot0();
-    src->slot5(device);
-    color = 0xff000000;
-    scale = 1.0f;
-    f_d4 = 0;
-    device->slot76(0);
-    device->slot58(1);
-    m0c.FUN_0022b980();
-    m4c.FUN_0022b980();
+    ((Sink_28f800*)display)->slot0();
+    ((Device_28f800*)context)->slot0();
+    src->slot5((Device_28f800*)context);
+    a = 0xff000000;
+    *(float*)&b = 1.0f;
+    c = 0;
+    ((Device_28f800*)context)->slot76(0);
+    ((Device_28f800*)context)->slot58(1);
+    ((Mat_28f800*)world)->FUN_0022b980();
+    ((Mat_28f800*)view)->FUN_0022b980();
     void* mem = FUN_0008d690(4);
-    helper = mem ? ((Helper_28f800*)mem)->FUN_00293bd0(device) : 0;
-    f_d8 = 0;
-    color = 0xff000000;
-    f_ec = device->slot89(0x102);
-    f_f0 = device->slot89(0x106);
-    f_f4 = 0;
+    helper = mem ? ((Helper_28f800*)mem)->FUN_00293bd0((Device_28f800*)context) : 0;
+    d = 0;
+    a = 0xff000000;
+    f_ec = ((Device_28f800*)context)->slot89(0x102);
+    f_f0 = ((Device_28f800*)context)->slot89(0x106);
+    flag = 0;
     return this;
 }
 
@@ -330,22 +296,22 @@ Widget_28f800* Widget_28f800::FUN_0028f800(Source_28f800* src, Sink_28f800* snk,
 // sym: ?cleanup@Owner_28f920@fn_fab9a868@@QAEXXZ
 void Owner_28f920::cleanup() {
     Obj_28f920* p;
-    p = m1;
+    p = (Obj_28f920*)context;
     if (p) {
-        m1 = 0;
+        context = 0;
         p->B();
     }
-    p = m2;
+    p = (Obj_28f920*)display;
     if (p) {
-        m2 = 0;
+        display = 0;
         p->B();
     }
-    p = m0;
+    p = (Obj_28f920*)device;
     if (p) {
-        m0 = 0;
+        device = 0;
         p->B();
     }
-    thunk(value);
+    thunk(helper);
 }
 
 
@@ -389,11 +355,11 @@ namespace fn_fab9a868 {
 // 0x0028fa40 FUN_0028fa40 (68 B): matches/0x0028fa40.cpp
 // sym: ?f@Obj_28fa40@fn_fab9a868@@QAEXPAI0@Z
 void Obj_28fa40::f(unsigned int* a, unsigned int* b) {
-    *(Blk_28fa40*)(buf1) = *(Blk_28fa40*)a;
-    *(Blk_28fa40*)(buf2) = *(Blk_28fa40*)b;
-    Holder_28fa40* hh = h;
+    *(Blk_28fa40*)(world) = *(Blk_28fa40*)a;
+    *(Blk_28fa40*)(view) = *(Blk_28fa40*)b;
+    Holder_28fa40* hh = (Holder_28fa40*)helper;
     X_28fa40* xx = hh->x;
-    xx->x14(0, buf1);
+    xx->x14(0, world);
     gG_28fa40->y19(a);
 }
 
@@ -403,8 +369,8 @@ void Obj_28fa40::f(unsigned int* a, unsigned int* b) {
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 0/0)
 // FUN_0028faa0 @ 0x0028faa0
 Destination *Object::FUN_0028faa0() {
-    ((owners::Matrix_22ca90 *)&destination)->FUN_0022ca90((const owners::Matrix_22ca90 *)(hulk_uintptr)(int)((*source)->v18(0)), (const owners::Matrix_22ca90 *)location);
-    return &destination;
+    ((owners::Matrix_22ca90 *)proj)->FUN_0022ca90((const owners::Matrix_22ca90 *)(hulk_uintptr)(int)((*(Source**)helper)->v18(0)), (const owners::Matrix_22ca90 *)view);
+    return (Destination*)proj;
 }
 
 } // namespace fn_fab9a868
@@ -412,7 +378,7 @@ Destination *Object::FUN_0028faa0() {
 // 0x0028fad0 FUN_0028fad0 (7 B): matches/0x0028fad0.cpp
 // sym: ?FUN_0028fad0@Obj_28fad0@owners@@QAEIXZ
 hulk_uintptr owners::Obj_28fad0::FUN_0028fad0() {
-    return value;
+    return (hulk_uintptr)f_ec;   // (x64t3) the context record's extension word (was a view's +0xec)
 }
 
 namespace fn_fab9a868 {
@@ -423,7 +389,7 @@ void Target_28faf0::run(bool b) {
     gThing_28faf0->f5();
     flag = 0;
     if (b)
-        other->f14();
+        ((Other_28faf0*)display)->f14();
 }
 
 

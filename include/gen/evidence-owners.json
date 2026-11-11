@@ -41044,18 +41044,13 @@
    "addr": "0x0028fad0",
    "aliases": 1,
    "members": [
-    "char pad[0xec];",
-    "unsigned int value;",
+    "X_28f9a0 base; // (x64t3) the context record (owners.h: a base class)",
     "hulk_uintptr FUN_0028fad0();"
    ],
    "offsets": {
-    "pad": [
+    "base": [
      0,
      0
-    ],
-    "value": [
-     236,
-     236
     ]
    },
    "reconciled": {
@@ -41063,8 +41058,8 @@
     "return": true
    },
    "size": [
-    240,
-    240
+    248,
+    288
    ],
    "source": "matches/0x0028fad0.cpp",
    "stub": "Obj_28fad0"
@@ -70340,49 +70335,93 @@
    "aliases": 8,
    "members": [
     "int refs;",
-    "char pad[0xc8];",
+    "void* helper;",
+    "void* f08;",
+    "char world[0x40];",
+    "char view[0x40];",
+    "char proj[0x40];",
     "int a, b, c, d;",
-    "char pad2[0x18];",
+    "int f_dc;",
+    "void* device;",
+    "void* context;",
+    "void* display;",
+    "hulk_intptr f_ec, f_f0;",
     "unsigned char flag;",
     "void FUN_0028f9a0();"
    ],
    "offsets": {
-    "a": [
-     204,
-     204
-    ],
-    "b": [
-     208,
-     208
-    ],
-    "c": [
-     212,
-     212
-    ],
-    "d": [
-     216,
-     216
-    ],
-    "flag": [
-     244,
-     244
-    ],
-    "pad": [
-     4,
-     4
-    ],
-    "pad2": [
-     220,
-     220
-    ],
     "refs": [
      0,
      0
+    ],
+    "helper": [
+     4,
+     8
+    ],
+    "f08": [
+     8,
+     16
+    ],
+    "world": [
+     12,
+     24
+    ],
+    "view": [
+     76,
+     88
+    ],
+    "proj": [
+     140,
+     152
+    ],
+    "a": [
+     204,
+     216
+    ],
+    "b": [
+     208,
+     220
+    ],
+    "c": [
+     212,
+     224
+    ],
+    "d": [
+     216,
+     228
+    ],
+    "f_dc": [
+     220,
+     232
+    ],
+    "device": [
+     224,
+     240
+    ],
+    "context": [
+     228,
+     248
+    ],
+    "display": [
+     232,
+     256
+    ],
+    "f_ec": [
+     236,
+     264
+    ],
+    "f_f0": [
+     240,
+     272
+    ],
+    "flag": [
+     244,
+     280
     ]
    },
    "size": [
     248,
-    248
+    288
    ],
    "source": "matches/0x0028f9a0.cpp",
    "stub": "X_28f9a0"
@@ -70392,7 +70431,7 @@
    "aliases": 1,
    "members": [
     "int pad;",
-    "unsigned int value;",
+    "hulk_uintptr value;",
     "hulk_uintptr FUN_0028fa30(unsigned int arg);"
    ],
    "offsets": {
@@ -70402,7 +70441,7 @@
     ],
     "value": [
      4,
-     4
+     8
     ]
    },
    "reconciled": {
@@ -70411,7 +70450,7 @@
    },
    "size": [
     8,
-    8
+    16
    ],
    "source": "matches/0x0028fa30.cpp",
    "stub": "X_28fa30"

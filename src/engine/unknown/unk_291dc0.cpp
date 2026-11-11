@@ -2,6 +2,7 @@
 // object 0x00291dc0..0x002926d0 (kind game, layer engine, confidence low)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/engine/unknown.h"
@@ -192,11 +193,9 @@ struct Device_292560 {
     virtual Context* create(int);
     virtual void* info(Context*);
 };
-struct Object {
-    char pad[0xe0];
-    void* a;
-    void* b;
-    void* c;
+// (x64t3) Pure3D's context: the record is owners::X_28f9a0 (its constructor 0x0028f800 lays it out); a = the device,
+// b = the render context, c = the display (were pointers after a 32-bit pad of 0xe0 bytes)
+struct Object : owners::X_28f9a0 {
     Object* FUN_0028f800(Device_292560*, Context*, void*);
     void FUN_0028f980();
 };
@@ -434,15 +433,16 @@ Object* Owner_292560::FUN_00292560(void* window) {
     device->version(&version);
     FUN_0028fcc0("Context created: PDDI v%d.%d (build %d), '%s'\n", version.major, version.minor,
                  version.build, version.description);
-    Object* allocated = (Object*)FUN_0008d690(0xf8);
+    HULK_SIZE32(owners::X_28f9a0, 0xf8);   // (x64t3) was a literal 0xf8
+    Object* allocated = (Object*)FUN_0008d690((unsigned int)sizeof(owners::X_28f9a0));
     object = allocated ? allocated->FUN_0028f800(device, context, info) : 0;
     object->FUN_0028f980();
     Object* current = object;
     (*(Object**)&DAT_0052c2b4) = current;
     (*(void**)&DAT_0052c2ac) = ((void *)((owners::X_28fa30 *)current)->FUN_0028fa30(0));
-    DAT_0052c2a8 = current->b;
-    (*(void**)&DAT_0052c2a0) = current->a;
-    (*(void**)&DAT_0052c2a4) = current->c;
+    DAT_0052c2a8 = current->context;
+    (*(void**)&DAT_0052c2a0) = current->device;
+    (*(void**)&DAT_0052c2a4) = current->display;
     FUN_002c31b0();
     return object;
 }

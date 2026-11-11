@@ -851,8 +851,9 @@ class Viewport_323ee0 {
     virtual int GetHeight();
     virtual int GetWidth();
 };
-struct ViewInfo {
-    char pad0[0x10];
+struct ViewInfo {   // the view state (gen's f_48): its vftable first, then 32-bit words (x64t3: was a 0x10-byte pad)
+    void* vftable;
+    char pad4[0xc];
     int mode;
     float x0, y0, x1, y1;
     float nearZ, farZ, fov, aspect;
@@ -3207,32 +3208,34 @@ namespace fn_00321ea0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20028 inputs, branch coverage 18/18)
 // pure3d::d3dContext::vfunc_89 @ 0x00321ea0
 // Property getter: returns cached context values by property id; unknown ids fall through to the base default.
+// (x64t3) the extensions and the word after them are gen d3dContext's f_424..f_448 (the view's 32-bit pad put them
+// at 32-bit offsets on 64-bit); the extensions are returned pointer-sized (gen's slot 89 returns hulk_intptr)
+#define HULK_CTX89(f) ((hulk_intptr)((::pure3d::d3dContext*)(void*)this)->f)
 namespace pure3d {
 class d3dContext {
 public:
     virtual void vfunc_0();
-    char pad[0x424 - 4];
-    int v424, v428, v42c, v430, v434, v438, v43c, v440, v444, v448;
-    int vfunc_89(int property);
+    hulk_intptr vfunc_89(int property);
     int FUN_0031e2d0(int property);
 };
 
-int d3dContext::vfunc_89(int property)
+hulk_intptr d3dContext::vfunc_89(int property)
 {
     switch (property) {
-    case 0x101: return v424;
-    case 0x102: return v434;
-    case 0x103: return v440;
-    case 0x104: return v444;
-    case 0x105: return v448;
-    case 0x106: return v43c;
-    case 0x500001: return v428;
-    case 0x500002: return v438;
-    case 0x500004: return v42c;
-    case 0x500005: return v430;
+    case 0x101: return HULK_CTX89(f_424);
+    case 0x102: return HULK_CTX89(f_434);
+    case 0x103: return HULK_CTX89(f_440);
+    case 0x104: return HULK_CTX89(f_444);
+    case 0x105: return HULK_CTX89(f_448);
+    case 0x106: return HULK_CTX89(f_43c);
+    case 0x500001: return HULK_CTX89(f_428);
+    case 0x500002: return HULK_CTX89(f_438);
+    case 0x500004: return HULK_CTX89(f_42c);
+    case 0x500005: return HULK_CTX89(f_430);
     default: return FUN_0031e2d0(property);
     }
 }
+#undef HULK_CTX89
 }
 } // namespace fn_00321ea0
 
@@ -4578,8 +4581,10 @@ namespace fn_00323eb0 {
 // data: g_transformTypes = DAT_004d3a34
 
 typedef unsigned int uint;
+// (x64t3) the matrix stack record (0x0031e610: vftable, capacity, top, matrices), the stacks gen's f_20..f_30
 struct Matrix {
-    char pad[8];
+    void* vftable;
+    int capacity;
     int index;
     hulk_intptr data;
 };
@@ -4599,11 +4604,9 @@ class d3dContext {
     V(109)
     V(110)
 #undef V
-        char pad[0x1c];
-    Matrix* matrices[1];
 };
 void d3dContext::vfunc_108(int n) {
-    Matrix* m = matrices[n];
+    Matrix* m = (Matrix*)(&((::pure3d::pddiBaseContext*)(void*)this)->f_20)[n];
     D3DDevice_SetTransform((((const uint*)&DAT_004d3a34))[n], (char*)m->data + m->index * 64);
 }
 } // namespace fn_00323eb0

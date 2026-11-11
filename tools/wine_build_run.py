@@ -352,6 +352,30 @@ def seed_decision(spec, run, new, lin, tc):
         sd.get("job"), len(addrs), {k: len(v) for k, v in ch.items()})
 
 
+def tree_seed_decision(spec, run, tc):
+    """--state seed:JOB on a tree-source build (x64t3): (seed state path or None, [], reason). materialize has no
+    fallback rounds, so nothing in the seed depends on the sources; the seed is the control's (empty) state, taken when
+    it travelled and the control was built with this toolchain."""
+    sd = spec.get("seed") or {}
+    stp = os.path.join(run, "nbrun/seed-state.json")
+    if not os.path.exists(stp):
+        return None, [], "fresh: the seed's state did not travel"
+    if sd.get("toolchain") != tc:
+        return None, [], "fresh: control %s was built with another toolchain" % sd.get("job")
+    return stp, [], "seed: control %s (tree source: no fallback state to carry; same toolchain)" % sd.get("job")
+
+
+def save_tree_state(lin, out):
+    """After a successful build stage: the tree's final state (nb-out/tree-state.json) and, when recorded, the build's
+    inputs (tree-inputs.json, build3): what a proof seeded from this build (`--state seed:JOB`) starts from and checks.
+    Both build modes write build/tree/state.json (materialize an empty one: the committed tree has no fallbacks)."""
+    st = os.path.join(lin, "build/tree/state.json")
+    if os.path.exists(st):
+        shutil.copyfile(st, os.path.join(out, "tree-state.json"))
+    if os.path.exists(os.path.join(lin, "build/tree/inputs.json")):
+        shutil.copyfile(os.path.join(lin, "build/tree/inputs.json"), os.path.join(out, "tree-inputs.json"))
+
+
 def map_key_reuse(py, env, lin, out):
     """After the tree build: (reuse the binding map?, reason, seconds). The map is reused when the key of the tree now
     (wine_link.py --map-key) equals the one saved with the map (build/native/mapkey.json, which also names the
@@ -580,25 +604,34 @@ def main():
     resume, reuse, why = decide(spec, jload(os.path.join(lin, ".nb/built.json")), jload(os.path.join(lin, ".nb/mapped.json")),
                                 manifest, lin)
     seed, seed_changed = None, []
-    if spec.get("state") == "seed":
+    # (merge-once flip, build6) the committed tree (src/{game,engine,platform/xbox}, src/link-order.txt) is the default
+    # source; HULK_TREE_SOURCE=0, or a checkout from before the flip (no src/link-order.txt), runs build_tree's rounds
+    # over matches/ and equivalent/
+    tree_source = env.get("HULK_TREE_SOURCE", "1") != "0" and os.path.exists(os.path.join(lin, "src", "link-order.txt"))
+    if spec.get("state") == "seed" and tree_source:
+        # (x64t3) a tree-source build keeps no fallback state (materialize's state.json is empty), so the seed carries
+        # nothing that a source change could invalidate: it is taken when the control's state travelled and the
+        # toolchain is the same (the host was checked at submit)
+        seed, seed_changed, why["state"] = tree_seed_decision(spec, run, tc)
+    elif spec.get("state") == "seed":
         seed, seed_changed, why["state"] = seed_decision(spec, run, manifest, lin, tc)
     summ["decision"] = {"resume_state": resume, "reuse_map": reuse, "seed": (spec.get("seed") or {}).get("job") if seed else None,
                         "why": why}
     log("decision: %s" % json.dumps(summ["decision"]))
     ok = True
-    # (merge-once flip, build6) the committed tree (src/{game,engine,platform/xbox}, src/link-order.txt) is the default
-    # source; HULK_TREE_SOURCE=0, or a checkout from before the flip (no src/link-order.txt), runs build_tree's rounds
-    # over matches/ and equivalent/
-    tree_source = env.get("HULK_TREE_SOURCE", "1") != "0" and os.path.exists(os.path.join(lin, "src", "link-order.txt"))
     if "build" in stages and tree_source:
         # (merge-once, docs/merge-once.md) the committed tree is the source: no build_tree rounds, one verification pass
         # over its TUs (tools/tree_tu.py materialize: compiles what the object cache lacks) into build/tree
         argv = [py, "tools/tree_tu.py", "materialize", "--out", os.path.join(lin, "build/tree"), "--jobs", jobs]
         rc, wall = stage("build", argv, env, lin, out)
         summ["wall"]["build"], summ["stages"]["build"] = wall, rc
-        summ["decision"]["why"]["state"] = "tree source: materialize (no fallback rounds)"
+        summ["decision"]["why"]["state"] = "tree source: materialize (no fallback rounds)" + (
+            "; seed %s: %s" % ((spec.get("seed") or {}).get("job"), why["state"]) if spec.get("state") == "seed" else "")
         if rc == 0:
             jsave(os.path.join(lin, ".nb/built.json"), manifest)
+            # (x64t3) the tree build's state too (materialize's: no fallbacks), so a tree-mode control can seed a proof
+            # (`--state seed:CONTROL`: same host and toolchain checked at submit; materialize has nothing to drop)
+            save_tree_state(lin, out)
         else:
             ok = False
     elif "build" in stages:
@@ -616,9 +649,7 @@ def main():
         summ["wall"]["build"], summ["stages"]["build"] = wall, rc
         if rc == 0 and os.path.exists(os.path.join(lin, "build/tree/report.json")):
             jsave(os.path.join(lin, ".nb/built.json"), manifest)
-            shutil.copyfile(os.path.join(lin, "build/tree/state.json"), os.path.join(out, "tree-state.json"))
-            if os.path.exists(os.path.join(lin, "build/tree/inputs.json")):       # (build3: what a seed from this build checks)
-                shutil.copyfile(os.path.join(lin, "build/tree/inputs.json"), os.path.join(out, "tree-inputs.json"))
+            save_tree_state(lin, out)
         else:
             ok = False
     sse = env.get("HULK_WINE_FLOAT", "sse") != "x87"

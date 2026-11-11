@@ -203,9 +203,15 @@ pddiDevice_31b790::pddiDevice_31b790() {
 }
 
 
+} // namespace fn_f2bbfa1e
+
 // 0x0031b7d0 pure3d::d3dDevice::vfunc_4 (61 B): matches/0x0031b7d0.cpp
-// sym: ?vfunc_4@fn_f2bbfa1e@@YGXPAD@Z
-void __stdcall vfunc_4(char* p) {
+// sym: ?vfunc_4@d3dDevice@pure3d@@UAEXPAX@Z
+// (x64t3) the device's own slot 4 (fills the caller's version record: 18, 11, build 56, "XBox Console"); was a free
+// __stdcall function of the version pointer, which on 64-bit took the device itself (this) as the record and
+// overwrote its vftable (the start-up's crash in 0x0028f800). The object is unused, so the 32-bit code is the same.
+void pure3d::d3dDevice::vfunc_4(void* v) {
+    char* p = (char*)v;
     unsigned int* q = (unsigned int*)p;
     q[3] = 10;
     q[0] = 18;
@@ -222,13 +228,12 @@ void __stdcall vfunc_4(char* p) {
     } while (c != 0);
 }
 
-} // namespace fn_f2bbfa1e
-
 // 0x0031b810 pure3d::d3dDevice::vfunc_5 (10 B): matches/0x0031b810.cpp
-// sym: ?vfunc_5@d3dDevice@pure3d@@UAEXH@Z
+// sym: ?vfunc_5@d3dDevice@pure3d@@UAEXPAX@Z
 // Same code shape as 0x00098e20 (propagated; names are from that function)
-void pure3d::d3dDevice::vfunc_5(int x) {
-    this->f_0c = x;
+// (x64t3) the current render context (tContext's constructor 0x0028f800 passes it): a pointer, was `int`
+void pure3d::d3dDevice::vfunc_5(void* x) {
+    this->f_0c = (hulk_intptr)x;
 }
 
 
@@ -247,7 +252,7 @@ void* pure3d::d3dDevice::vfunc_7(int arg) {
     HULK_SIZE32(d3dDisplay_31b830, 0x49c);
     d3dDisplay_31b830* result = (d3dDisplay_31b830*)FUN_0008d690((unsigned int)sizeof(d3dDisplay_31b830));
     if (result)
-        return result->FUN_0031b520(*(int*)((char*)this + 0x10));
+        return result->FUN_0031b520((int)this->f_10);   // (x64t3) gen's f_10 (was a 32-bit offset)
     return 0;
 }
 
@@ -307,7 +312,7 @@ void* pure3d::d3dDevice::vfunc_10(void* __p0) { Params_31b960 * p = (Params_31b9
 // 0x0031b9d0 pure3d::d3dDevice::vfunc_11 (22 B): matches/0x0031b9d0.cpp
 // sym: ?vfunc_11@d3dDevice@pure3d@@UAEXHH@Z
 void pure3d::d3dDevice::vfunc_11(int a, int ) {
-    FUN_00327c70(*(int*)((char*)this + 0xc), a, 0);
+    FUN_00327c70((int)this->f_0c, a, 0);   // (x64t3) gen's f_0c (was a 32-bit offset; still an int argument)
 }
 
 
@@ -323,8 +328,9 @@ namespace fn_f2bbfa1e {
 d3dDevice_31ba00* d3dDevice_31ba00::FUN_0031ba00(hulk_uintptr d3d) {
     ((d3dDevice_nv_31ba00*)(((pure3d::d3dDevice*)(this))))->FUN_0031bac0();
     vftable = ((hulk_intptr)DAT_004324e4);
-    field10 = (u32_31ba00)d3d;
-    fieldC = 0;
+    // (x64t3) gen d3dDevice's words (the view's 32-bit offsets put them 4 bytes short of gen's on 64-bit)
+    ((pure3d::d3dDevice*)this)->f_10 = (hulk_intptr)d3d;
+    ((pure3d::d3dDevice*)this)->f_0c = 0;
     FUN_00328130();
     return this;
 }
@@ -366,8 +372,8 @@ int FUN_0031ba60(int a, int b, d3dDevice_31ba60** out) {
     if (a == 0x12 && b == 0xb) {
         d3dDevice_31ba60* value = *(d3dDevice_31ba60**)&DAT_005554a4;
         if (!value) {
-            HULK_SIZE32(d3dDevice_31ba60, 0x14);
-            d3dDevice_31ba60* p = (d3dDevice_31ba60*)FUN_0008d690((unsigned int)sizeof(d3dDevice_31ba60));
+            HULK_SIZE32(pure3d::d3dDevice, 0x14);   // (x64t3) gen's record (the view was 8 bytes short on 64-bit)
+            d3dDevice_31ba60* p = (d3dDevice_31ba60*)FUN_0008d690((unsigned int)sizeof(pure3d::d3dDevice));
             if (p)
                 value = p->FUN_0031ba00(FUN_0037d240(0));
             else

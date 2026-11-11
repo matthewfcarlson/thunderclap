@@ -15288,25 +15288,34 @@ struct Quat16_28d220 {
     short x, y, z, w; // +0x00
     float* FUN_0028d220(float* out);
 };
-// matches/0x0028f9a0.cpp (stub X_28f9a0), size 0xf8
+// matches/0x0028f9a0.cpp (stub X_28f9a0), size 0xf8 (0x120)
+// (x64t3) Pure3D's context (p3d's, DAT_0052c2b4): 0x00292560 allocates it, 0x0028f800 constructs it, 0x0028f920
+// releases its pddi objects; the views of src/engine/pure3d/unk_28f800.cpp use this record
 struct X_28f9a0 {
     int refs; // +0x00
-    char pad[0xc8]; // +0x04
-    int a, b, c, d; // +0xcc
-    char pad2[0x18]; // +0xdc
-    unsigned char flag; // +0xf4
+    void* helper; // +0x04 (+0x08) (0x00293bd0's object)
+    void* f08; // +0x08 (+0x10)
+    char world[0x40]; // +0x0c (+0x18) (matrices: 0x0022b980 sets them to identity)
+    char view[0x40]; // +0x4c (+0x58)
+    char proj[0x40]; // +0x8c (+0x98)
+    int a, b, c, d; // +0xcc (+0xd8) (a: the clear colour, b: a scale (float 1.0))
+    int f_dc; // +0xdc (+0xe8)
+    void* device; // +0xe0 (+0xf0) (the pddiDevice)
+    void* context; // +0xe4 (+0xf8) (the render context: pddiDevice::vfunc_8's)
+    void* display; // +0xe8 (+0x100) (the display: pddiDevice::vfunc_7's)
+    hulk_intptr f_ec, f_f0; // +0xec (+0x108) (the render context's extensions 0x102 / 0x106: vfunc_89)
+    unsigned char flag; // +0xf4 (+0x118)
     void FUN_0028f9a0();
 };
-// matches/0x0028fa30.cpp (stub X_28fa30), size 0x8
+// matches/0x0028fa30.cpp (stub X_28fa30), size 0x8 (0x10)
 struct X_28fa30 {
     int pad; // +0x00
-    unsigned int value; // +0x04
+    hulk_uintptr value; // +0x04 (+0x08) (x64t3: X_28f9a0's helper, a pointer)
     hulk_uintptr FUN_0028fa30(unsigned int arg);
 };
-// matches/0x0028fad0.cpp (stub Obj_28fad0), size 0xf0
-struct Obj_28fad0 {
-    char pad[0xec]; // +0x00
-    unsigned int value; // +0xec
+// matches/0x0028fad0.cpp (stub Obj_28fad0), size 0xf8 (0x120)
+// (x64t3) the context record X_28f9a0: value = its f_ec (were a 0xec-byte pad and a 4-byte word)
+struct Obj_28fad0 : X_28f9a0 {
     hulk_uintptr FUN_0028fad0();
 };
 // matches/0x0028fe80.cpp (stub Obj), size 0xc (0x10)

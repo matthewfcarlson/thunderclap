@@ -19,6 +19,16 @@ namespace fn_fc049dac {} using namespace fn_fc049dac;
 // words, so on 64-bit everything behind the vftable sits 4 bytes further on
 #define HULK_CTX_STATE(self, f) (*(char**)&((::pure3d::pddiBaseContext*)(void*)(self))->f)
 #define HULK_STATE_AT(p, k) ((char*)(p) + (int)(sizeof(void*) - 4) + (k))
+// (x64t3) matrix stack I (gen's f_20..f_30: world, view, projection, ...) from any view of the context, as the record
+// 0x0031e610 builds (its vftable, capacity, top index, 64-byte matrices); the views had a 0x1c-byte pad before the
+// stack pointers and 32-bit words for the matrices pointer
+struct MatrixStackRec_31e610 {
+    void* vftable;
+    int capacity;
+    int top;
+    char* data;
+};
+#define HULK_CTX_MSTACK(self, i) ((::MatrixStackRec_31e610*)(&((::pure3d::pddiBaseContext*)(void*)(self))->f_20)[i])
 
 // ---- declarations shared by the functions below
 namespace fn_fc049dac {
@@ -1411,17 +1421,12 @@ struct pddiBaseContext {
     virtual void f106();
     virtual void f107();
     virtual void f108(int);
-    char pad[0x1c];
-    struct Item {
-        char x[8];
-        int a, b;
-    }* items[1];
 };
 } // namespace pure3d
-extern "C" void __fastcall FUN_0022b980(int);
+struct Matrix_31d560 { void FUN_0022b980(); };   // (x64t3) math::Matrix::Identity, a member (was an int fastcall)
 void pure3d::pddiBaseContext::vfunc_13(int index) {
-    Item* p = items[index];
-    FUN_0022b980(p->a * 64 + p->b);
+    MatrixStackRec_31e610* p = HULK_CTX_MSTACK(this, index);   // (x64t3)
+    ((Matrix_31d560*)(p->top * 64 + p->data))->FUN_0022b980();
     f108(index);
 }
 } // namespace fn_0031d560
@@ -1453,12 +1458,10 @@ class pddiBaseContext {
                     V(81) V(82) V(83) V(84) V(85) V(86) V(87) V(88) V(89) V(90) V(91) V(92) V(93) V(94) V(95)
                         V(96) V(97) V(98) V(99) V(100) V(101) V(102) V(103) V(104) V(105) V(106)
                             V(107) virtual void f108(int);
-    char pad[0x1c];
-    Entry* entries[1];
 };
 void pddiBaseContext::vfunc_14(int n, unsigned long* src) {
-    Entry* e = entries[n];
-    Block* dst = (Block*)(e->data + e->count * 16);
+    MatrixStackRec_31e610* e = HULK_CTX_MSTACK(this, n);   // (x64t3)
+    Block* dst = (Block*)((unsigned long*)e->data + (unsigned long)e->top * 16);
     *dst = *(Block*)src;
     f108(n);
 }
@@ -1591,16 +1594,14 @@ class pddiBaseContext {
     virtual void f106();
     virtual void f107();
     virtual void f108(int);
-    char pad[28];
-    Item_31d5d0* items[1];
 };
 } // namespace pure3d
 void pure3d::pddiBaseContext::vfunc_17(int i, int p) {
     Vec_31d5d0 t;
-    Item_31d5d0* q = items[i];
-    hulk_uintptr d = q->count * 64 + q->ptr;
+    MatrixStackRec_31e610* q = HULK_CTX_MSTACK(this, i);   // (x64t3)
+    hulk_uintptr d = (hulk_uintptr)(q->top * 64 + q->data);
     t.fill(p, d);
-    *(Vec_31d5d0*)(q->count * 64 + q->ptr) = t;
+    *(Vec_31d5d0*)(q->top * 64 + q->data) = t;
     f108(i);
 }
 } // namespace fn_0031d5d0
@@ -1616,7 +1617,7 @@ struct Matrix {
  void FUN_0022b980();
  void FUN_0022ca90(const Matrix*, const Matrix*);
 };
-struct MatrixStack_31d630 { char pad[8]; unsigned int index; Matrix* matrices; };
+struct MatrixStack_31d630 { void* vftable; int capacity; unsigned int index; Matrix* matrices; };   // (x64t3) the record
 namespace pure3d {
 struct pddiBaseContext {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9();
@@ -1630,12 +1631,11 @@ struct pddiBaseContext {
  virtual void vfunc_80(); virtual void vfunc_81(); virtual void vfunc_82(); virtual void vfunc_83(); virtual void vfunc_84(); virtual void vfunc_85(); virtual void vfunc_86(); virtual void vfunc_87(); virtual void vfunc_88(); virtual void vfunc_89();
  virtual void vfunc_90(); virtual void vfunc_91(); virtual void vfunc_92(); virtual void vfunc_93(int, unsigned int, unsigned int, unsigned int); virtual void vfunc_94(); virtual void vfunc_95(); virtual void vfunc_96(); virtual void vfunc_97(); virtual void vfunc_98(); virtual void vfunc_99();
  virtual void vfunc_100(); virtual void vfunc_101(); virtual void vfunc_102(); virtual void vfunc_103(); virtual void vfunc_104(); virtual void vfunc_105(); virtual void vfunc_106(); virtual void vfunc_107(); virtual void vfunc_108(int);
- char padding[28]; MatrixStack_31d630* stacks[1];
 };
 void pddiBaseContext::vfunc_93(int mode, unsigned int x, unsigned int y, unsigned int z) {
  Matrix scale, result;
  scale.FUN_0022b980();
- MatrixStack_31d630* stack = stacks[mode];
+ MatrixStack_31d630* stack = (MatrixStack_31d630*)HULK_CTX_MSTACK(this, mode);   // (x64t3)
  scale.elements[0] = x;
  scale.elements[5] = y;
  scale.elements[10] = z;
@@ -1653,7 +1653,7 @@ void pddiBaseContext::vfunc_93(int mode, unsigned int x, unsigned int y, unsigne
  // namespace pure3d
 void pure3d::pddiBaseContext::vfunc_19(void* __p0) { const Block_31d6c0 * p = (const Block_31d6c0 *)__p0;
 
-    *(Block_31d6c0*)((char*)this + 0x5c) = *p;
+    *(Block_31d6c0*)this->_pad_5c = *p;   // (x64t3) gen's matrix at +0x5c (was a 32-bit offset)
 }
 
 
@@ -1661,7 +1661,7 @@ void pure3d::pddiBaseContext::vfunc_19(void* __p0) { const Block_31d6c0 * p = (c
 // sym: ?vfunc_20@pddiBaseContext@pure3d@@UAEPAXXZ
  // namespace pure3d
 void* pure3d::pddiBaseContext::vfunc_20() {
-    return (void*)((pure3d::pddiBaseContext*)((char*)this + 0x5c));
+    return (void*)this->_pad_5c;   // (x64t3) gen's matrix at +0x5c (was a 32-bit offset)
 }
 
 
@@ -1677,7 +1677,7 @@ void pure3d::pddiBaseContext::vfunc_24(int value) {
 // 0x0031d710 pure3d::pddiBaseContext::vfunc_25 (7 B): matches/0x0031d710.cpp
 // sym: ?vfunc_25@pddiBaseContext@pure3d@@UAEIXZ
 unsigned int pure3d::pddiBaseContext::vfunc_25() {
-    return *(unsigned int*)(*(hulk_uintptr*)((char*)this + 0x48) + 0x10);
+    return *(unsigned int*)HULK_STATE_AT(*(void**)&this->f_48, 0x10);   // (x64t3) as vfunc_24 writes it
 }
 
 
@@ -2210,7 +2210,7 @@ void pure3d::pddiBaseContext::vfunc_54(int x) {
 // sym: ?vfunc_55@pddiBaseContext@pure3d@@UAEIXZ
  // namespace pure3d
 unsigned int pure3d::pddiBaseContext::vfunc_55() {
-    return *(unsigned int*)(*(hulk_uintptr*)((char*)this + 0x4c) + 4);
+    return *(unsigned int*)HULK_STATE_AT(*(void**)&this->f_4c, 4);   // (x64t3) the render state through gen's f_4c
 }
 
 
@@ -2515,7 +2515,7 @@ void pure3d::pddiBaseContext::vfunc_70(int x) {
 // 0x0031e050 pure3d::pddiBaseContext::vfunc_71 (7 B): matches/0x0031e050.cpp
 // sym: ?vfunc_71@pddiBaseContext@pure3d@@UAEHXZ
 int pure3d::pddiBaseContext::vfunc_71() {
-    return *(int*)(*(hulk_intptr*)((char*)this + 0x58) + 0x10);
+    return *(int*)HULK_STATE_AT(*(void**)&this->f_58, 0x10);   // (x64t3) the stencil state through gen's f_58
 }
 
 
@@ -3131,7 +3131,7 @@ namespace fn_0031e810 {
 // STATUS: equivalent (tools/equiv.py level 3: 2936 inputs, branch coverage 0/0)
 // pure3d::pddiBaseContext::vfunc_15 @ 0x0031e810
 namespace pure3d {
-struct MatrixEntry { char pad[8]; int index; unsigned char* data; };
+struct MatrixEntry { void* vftable; int capacity; int index; unsigned char* data; };   // (x64t3) the record
 class pddiBaseContext {
 public:
   virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2();
@@ -3140,10 +3140,9 @@ public:
   virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11();
   virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14();
   virtual void vfunc_15(int slot);
-  char pad[0x1c]; MatrixEntry* entries[1];
 };
 void pddiBaseContext::vfunc_15(int slot) {
-  MatrixEntry* entry = entries[slot];
+  MatrixEntry* entry = (MatrixEntry*)HULK_CTX_MSTACK(this, slot);   // (x64t3)
   int next = entry->index + 1;
   unsigned char* destination = entry->data + next * 64;
   entry->index = next;
@@ -3269,11 +3268,9 @@ class pddiBaseContext {
     virtual void a106();
     virtual void a107();
     virtual void tail(int);
-    int pad[7];
-    int* arr[1];
 };
 void pddiBaseContext::vfunc_16(int i) {
-    --arr[i][2];
+    --HULK_CTX_MSTACK(this, i)->top;   // (x64t3) was word 2 of a pointer after a 7-word pad
     tail(i);
 }
 } // namespace fn_0031e840
@@ -3338,12 +3335,10 @@ class pddiBaseContext {
     virtual void f45();
     virtual void f46();
     virtual void f47();
-    char pad[0x1c];
-    Item_31e860* items[1];
 };
 int pddiBaseContext::vfunc_18(int index) {
-    Item_31e860* p = items[index];
-    return p->c * 64 + p->d;
+    MatrixStackRec_31e610* p = HULK_CTX_MSTACK(this, index);   // (x64t3) the top matrix (still returned as an int)
+    return (int)(hulk_intptr)(p->top * 64 + p->data);
 }
 } // namespace fn_0031e860
 
@@ -3354,21 +3349,20 @@ namespace fn_0031e880 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // pure3d::pddiBaseContext::vfunc_21 @ 0x0031e880
 struct Matrix { unsigned int words[16]; void FUN_0022b980(); };
-struct MatrixStack_31e880 { char pad[8]; unsigned int depth; Matrix* matrices; };
+struct MatrixStack_31e880 { void* vftable; int capacity; unsigned int depth; Matrix* matrices; };   // (x64t3) the record
 namespace pure3d {
 struct pddiBaseContext {
 virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9();
 virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(); virtual void vfunc_15(); virtual void vfunc_16(); virtual void vfunc_17(); virtual void vfunc_18(); virtual void vfunc_19(); virtual void vfunc_20(); virtual void vfunc_21(int index);
 virtual void vfunc_22(); virtual void vfunc_23(); virtual void vfunc_24(); virtual void vfunc_25(); virtual void vfunc_26(); virtual void vfunc_27(); virtual void vfunc_28(); virtual void vfunc_29(); virtual void vfunc_30(); virtual void vfunc_31(); virtual void vfunc_32(); virtual void vfunc_33(); virtual void vfunc_34(); virtual void vfunc_35(); virtual void vfunc_36(); virtual void vfunc_37(); virtual void vfunc_38(); virtual void vfunc_39(); virtual void vfunc_40(); virtual void vfunc_41(); virtual void vfunc_42(); virtual void vfunc_43(); virtual void vfunc_44(); virtual void vfunc_45(); virtual void vfunc_46(); virtual void vfunc_47(); virtual void vfunc_48(); virtual void vfunc_49(); virtual void vfunc_50(); virtual void vfunc_51(); virtual void vfunc_52(); virtual void vfunc_53(); virtual void vfunc_54(); virtual void vfunc_55(); virtual void vfunc_56(); virtual void vfunc_57(); virtual void vfunc_58(); virtual void vfunc_59(); virtual void vfunc_60(); virtual void vfunc_61(); virtual void vfunc_62(); virtual void vfunc_63(); virtual void vfunc_64(); virtual void vfunc_65(); virtual void vfunc_66(); virtual void vfunc_67(); virtual void vfunc_68(); virtual void vfunc_69(); virtual void vfunc_70(); virtual void vfunc_71(); virtual void vfunc_72(); virtual void vfunc_73(); virtual void vfunc_74(); virtual void vfunc_75(); virtual void vfunc_76(); virtual void vfunc_77(); virtual void vfunc_78(); virtual void vfunc_79(); virtual void vfunc_80(); virtual void vfunc_81(); virtual void vfunc_82(); virtual void vfunc_83(); virtual void vfunc_84(); virtual void vfunc_85(); virtual void vfunc_86(); virtual void vfunc_87(); virtual void vfunc_88(); virtual void vfunc_89(); virtual void vfunc_90(); virtual void vfunc_91(); virtual void vfunc_92(); virtual void vfunc_93(); virtual void vfunc_94(); virtual void vfunc_95(); virtual void vfunc_96(); virtual void vfunc_97(); virtual void vfunc_98(); virtual void vfunc_99(); virtual void vfunc_100(); virtual void vfunc_101(); virtual void vfunc_102(); virtual void vfunc_103(); virtual void vfunc_104(); virtual void vfunc_105(); virtual void vfunc_106(); virtual void vfunc_107(); virtual void vfunc_108(int index);
-char pad[28]; MatrixStack_31e880* stacks[1];
 };
 void pddiBaseContext::vfunc_21(int index) {
-MatrixStack_31e880* stack = stacks[index];
+MatrixStack_31e880* stack = (MatrixStack_31e880*)HULK_CTX_MSTACK(this, index);   // (x64t3)
 ++stack->depth;
 Matrix* destination = &stack->matrices[stack->depth];
 unsigned int* source = (destination - 1)->words;
 for (int i=0;i<16;++i) destination->words[i]=source[i];
-stack = stacks[index];
+stack = (MatrixStack_31e880*)HULK_CTX_MSTACK(this, index);
 stack->matrices[stack->depth].FUN_0022b980();
 vfunc_108(index);
 }
@@ -3383,22 +3377,21 @@ namespace fn_0031e8d0 {
 // pure3d::pddiBaseContext::vfunc_22 @ 0x0031e8d0
 namespace pure3d {
 struct Matrix { unsigned int words[16]; };
-struct MatrixStack { char pad[8]; unsigned int index; Matrix* data; };
+struct MatrixStack { void* vftable; int capacity; unsigned int index; Matrix* data; };   // (x64t3) the record
 struct pddiBaseContext {
 #define V(n) virtual void vfunc_##n();
 V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20) V(21)
 virtual void vfunc_22(int which, const Matrix* matrix);
 V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69) V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79) V(80) V(81) V(82) V(83) V(84) V(85) V(86) V(87) V(88) V(89) V(90) V(91) V(92) V(93) V(94) V(95) V(96) V(97) V(98) V(99) V(100) V(101) V(102) V(103) V(104) V(105) V(106) V(107)
 virtual void vfunc_108(int which);
-char pad[28]; MatrixStack* stacks[4];
 };
 void pddiBaseContext::vfunc_22(int which, const Matrix* matrix) {
- MatrixStack* stack = stacks[which];
+ MatrixStack* stack = (MatrixStack*)HULK_CTX_MSTACK(this, which);   // (x64t3)
  unsigned int index = ++stack->index;
  unsigned int* destination = stack->data[index].words;
  const unsigned int* source = destination - 16;
  for (int i=0; i<16; ++i) destination[i] = source[i];
- stack = stacks[which];
+ stack = (MatrixStack*)HULK_CTX_MSTACK(this, which);
  destination = stack->data[stack->index].words;
  for (int j=0; j<16; ++j) destination[j] = matrix->words[j];
  vfunc_108(which);

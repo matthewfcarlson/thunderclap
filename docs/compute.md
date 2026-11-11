@@ -248,6 +248,14 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   match re-compared, every equivalent against its standalone object, regressions fall back). Rule: seed only from a
   control that ran on the same host (`--host`, as the gate needs anyway) and with the same tools; a control built before
   this change has no `sources.json.gz` and cannot seed (`submit` says so).
+  **Tree mode (since the merge-once flip, x64t3 2026-11-11).** A tree-source build (`tools/tree_tu.py materialize`, the
+  default) has no fallback rounds, so there is nothing to carry over; it still saves its (empty) state as
+  `nb-out/tree-state.json` (`save_tree_state()` in tools/wine_build_run.py), so a tree-mode control is seedable: a
+  proof submitted with `--state seed:CONTROL` is pinned to the control's host (submit) and the host takes the seed
+  (`tree_seed_decision()`) when the control's state travelled and the toolchain is the same; no source comparison,
+  since the empty state depends on no source. Controls built before this change have no `tree-state.json`: rebuild
+  them. `decision.seed` names the control; `decision.why.state` reads "tree source: materialize (no fallback rounds);
+  seed JOB: seed: control JOB (...)".
 - **Faster generate and verify, fewer slots (build2, 2026-11-07).** gen_tree's generate step caches what is the same
   for every TU of a header list (include/gen variants, top-level names, C-linkage notes), parses each function source
   once per build_tree process and keeps tree files whose bytes did not change; its output is byte-identical

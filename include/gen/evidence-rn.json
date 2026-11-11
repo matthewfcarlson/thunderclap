@@ -6651,7 +6651,16 @@
    "0x41c": "int",
    "0x448": "int",
    "0x44c": "char",
-   "0x204": "void*"
+   "0x204": "void*",
+   "0x424": "void*",
+   "0x428": "void*",
+   "0x42c": "void*",
+   "0x430": "void*",
+   "0x434": "void*",
+   "0x438": "void*",
+   "0x43c": "void*",
+   "0x440": "void*",
+   "0x444": "void*"
   },
   "pure3d::d3dDisplay": {
    "0xc": "int",
@@ -6989,6 +6998,9 @@
   },
   "pure3d::pddiObject": {
    "0x8": "int"
+  },
+  "pure3d::d3dDevice": {
+   "0x10": "hulk_intptr"
   }
  },
  "sigs": {
@@ -7668,7 +7680,7 @@
    ]
   ],
   "pure3d::pddiRenderContext::vfunc_89": [
-   "int",
+   "hulk_intptr",
    [
     "int"
    ]
@@ -8337,6 +8349,42 @@
   ],
   "pure3d::d3dDevice::vfunc_7": [
    "void*",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::pddiDevice::vfunc_4": [
+   "void",
+   [
+    "void*"
+   ]
+  ],
+  "pure3d::pddiDevice::vfunc_5": [
+   "void",
+   [
+    "void*"
+   ]
+  ],
+  "pure3d::d3dDevice::vfunc_4": [
+   "void",
+   [
+    "void*"
+   ]
+  ],
+  "pure3d::d3dDevice::vfunc_5": [
+   "void",
+   [
+    "void*"
+   ]
+  ],
+  "pure3d::pddiBaseContext::vfunc_89": [
+   "hulk_intptr",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::d3dContext::vfunc_89": [
+   "hulk_intptr",
    [
     "int"
    ]

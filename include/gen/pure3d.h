@@ -323,8 +323,8 @@ class pddiDevice : public ::pure3d::pddiObject {
 public:
     class MessageCallback;
     virtual ~pddiDevice(); // overrides pure3d::pddiObject slot 3
-    virtual void vfunc_4(int) = 0; // slot 4
-    virtual void vfunc_5(int) = 0; // slot 5
+    virtual void vfunc_4(void*) = 0; // slot 4  (x64t3) fills a version record (0x0031b7d0)
+    virtual void vfunc_5(void*) = 0; // slot 5  (x64t3) the current render context (0x0031b810 keeps it in f_0c)
     virtual unsigned int vfunc_6() = 0; // slot 6
     virtual void* vfunc_7(int) = 0; // slot 7
     virtual void* vfunc_8(void*) = 0; // slot 8
@@ -3477,7 +3477,7 @@ public:
     virtual unsigned char vfunc_86() = 0; // slot 86
     virtual void vfunc_87(int) = 0; // slot 87
     virtual void vfunc_88(unsigned char) = 0; // slot 88
-    virtual int vfunc_89(int) = 0; // slot 89
+    virtual hulk_intptr vfunc_89(int) = 0; // slot 89  (x64t3) an extension pointer or a value (0x00321ea0)
     virtual bool vfunc_90(int) = 0; // slot 90
     virtual void vfunc_91() = 0; // slot 91
     virtual int vfunc_92(void*) = 0; // slot 92
@@ -3571,7 +3571,7 @@ public:
     virtual unsigned char vfunc_86(); // overrides pure3d::pddiRenderContext slot 86
     virtual void vfunc_87(int); // overrides pure3d::pddiRenderContext slot 87
     virtual void vfunc_88(unsigned char); // overrides pure3d::pddiRenderContext slot 88
-    virtual int vfunc_89(int); // overrides pure3d::pddiRenderContext slot 89
+    virtual hulk_intptr vfunc_89(int); // overrides pure3d::pddiRenderContext slot 89
     virtual bool vfunc_90(int); // overrides pure3d::pddiRenderContext slot 90
     virtual void vfunc_91(); // overrides pure3d::pddiRenderContext slot 91
     virtual int vfunc_92(void*); // overrides pure3d::pddiRenderContext slot 92
@@ -3659,7 +3659,7 @@ public:
     virtual void vfunc_78(unsigned int); // overrides pure3d::pddiRenderContext slot 78
     virtual void vfunc_80(int, int, int); // overrides pure3d::pddiRenderContext slot 80
     virtual unsigned int vfunc_84(); // overrides pure3d::pddiRenderContext slot 84
-    virtual int vfunc_89(int); // overrides pure3d::pddiRenderContext slot 89
+    virtual hulk_intptr vfunc_89(int); // overrides pure3d::pddiRenderContext slot 89
     virtual bool vfunc_90(int); // overrides pure3d::pddiRenderContext slot 90
     virtual void vfunc_91(); // overrides pure3d::pddiRenderContext slot 91
     virtual int vfunc_92(void*); // overrides pure3d::pddiRenderContext slot 92
@@ -3692,7 +3692,17 @@ public:
     int f_418;
     int f_41c;
     float f_420;
-    char _pad_424[0x24];
+    // (x64t3) the nine extensions 0x00324e00 creates (gamma, antialias, projected texture, read pixels, skinning,
+    // visibility, vertex program, framebuffer effects, framebuffer texture): pointers (were a 36-byte pad)
+    void* f_424;
+    void* f_428;
+    void* f_42c;
+    void* f_430;
+    void* f_434;
+    void* f_438;
+    void* f_43c;
+    void* f_440;
+    void* f_444;
     int f_448;
     char f_44c;
 };
@@ -3701,8 +3711,8 @@ public:
 class d3dDevice : public ::pure3d::pddiDevice {
 public:
     virtual ~d3dDevice(); // overrides pure3d::pddiObject slot 3
-    virtual void vfunc_4(int); // overrides pure3d::pddiDevice slot 4
-    virtual void vfunc_5(int); // overrides pure3d::pddiDevice slot 5
+    virtual void vfunc_4(void*); // overrides pure3d::pddiDevice slot 4
+    virtual void vfunc_5(void*); // overrides pure3d::pddiDevice slot 5
     virtual unsigned int vfunc_6(); // overrides pure3d::pddiDevice slot 6
     virtual void* vfunc_7(int); // overrides pure3d::pddiDevice slot 7
     virtual void* vfunc_8(void*); // overrides pure3d::pddiDevice slot 8
@@ -3711,6 +3721,7 @@ public:
     virtual void vfunc_11(int, int); // overrides pure3d::pddiDevice slot 11
     virtual void vfunc_12(int, int); // overrides pure3d::pddiDevice slot 12
     hulk_intptr f_0c;
+    hulk_intptr f_10;  // (x64t3) the D3D object 0x0031ba00 keeps (0x0031b830 hands it to the display); size 0x14
 };
 
 // .?AVpddiDisplay@pure3d@@  vftable 0x4323e4 (17)
