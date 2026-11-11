@@ -238,7 +238,7 @@ class CTargetTrack : public CTrack {
 };
 class ParamValueFloat_6bd00 {
   public:
-    virtual void V0();
+    virtual void* V0_0006e840(int);
     ParamValueFloat_6bd00(int a);
 };
 class ParamFloatConstRange_6bd00 : public ParamValueFloat_6bd00 {

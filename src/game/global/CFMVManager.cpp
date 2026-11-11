@@ -379,7 +379,7 @@ class Registry_1b8490 { public:
     void FUN_001b8490(const char* a1, CFMVManager_1b8490* a2, Fn_1b8490 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4> class Closure4_1b8490;
-template<> class Closure4_1b8490<CFMVManager_1b8490, void, float, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_1b8490 fn; CFMVManager_1b8490* owner; Closure4_1b8490(CFMVManager_1b8490* o) { owner = o; } };
+template<> class Closure4_1b8490<CFMVManager_1b8490, void, float, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_001b82f0(int); Fn_1b8490 fn; CFMVManager_1b8490* owner; Closure4_1b8490(CFMVManager_1b8490* o) { owner = o; } };
 class Raw_1b8490 { public: void FUN_001b7c00(const char*, Fn_1b8490); };
 
 
@@ -998,7 +998,7 @@ struct HeapObj {
 
 class MethodBase_1b84f0 : public HeapObj {
   public:
-    virtual void m0();
+    virtual void* m0_001b82f0(int);
     char pad_04[0x1c - 4];
 };
 

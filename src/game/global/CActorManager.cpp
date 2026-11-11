@@ -874,7 +874,7 @@ class Registry_31200 { public:
     void FUN_00031200(const char* a1, CActorManager_31200* a2, Fn_31200 a3);
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3_31200;
-template<> class Closure3_31200<CActorManager_31200, void, int, int, int> : public ScriptFunctionFields { public: virtual void v(); Fn_31200 fn; CActorManager_31200* owner; Closure3_31200(CActorManager_31200* o) { owner = o; } };
+template<> class Closure3_31200<CActorManager_31200, void, int, int, int> : public ScriptFunctionFields { public: virtual void* Fnv_00030090(int); Fn_31200 fn; CActorManager_31200* owner; Closure3_31200(CActorManager_31200* o) { owner = o; } };
 class Raw_31200 { public: void FUN_0002e2b0(const char*, Fn_31200); };
 } // namespace fn_f8e68f21
 namespace math {
@@ -1193,7 +1193,7 @@ namespace fn_0002c8b0 {
 class Function_2c8b0 {
   public:
     Function_2c8b0(const char*, int);
-    virtual void f();
+    virtual void* Fnf_0002c910(int);
 };
 extern "C++" __declspec(nothrow) char __cdecl lookup_001d04d0(const char*);
 class Method3 : public Function_2c8b0 {

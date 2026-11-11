@@ -1821,7 +1821,7 @@ namespace fn_0005e800 {
 class Base {
   public:
     Base(int);
-    virtual void f();
+    virtual void* Fnf_0005ecb0(int);
     char pad[12];
 };
 class CStunAnimationTrack;

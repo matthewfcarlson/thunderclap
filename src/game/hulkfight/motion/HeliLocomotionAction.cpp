@@ -1217,7 +1217,7 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
 };
 struct ParamValueName_161a00 {
     ParamValueName_161a00(int a);
-    virtual void V0();
+    virtual void* V0_00161b50(int);
     char pad[12];
     int m10;
 };

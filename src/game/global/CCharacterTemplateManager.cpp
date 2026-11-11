@@ -251,7 +251,7 @@ class DynamicCaster_46400 {
     DynamicCaster_46400() {}
     virtual void Fna_000462e0(void*);
     virtual void b();
-    virtual void c();
+    virtual void* Fnc_00046340(int);
     virtual bool Fnd_001d04c0(int, int);
 };
 class Loader {

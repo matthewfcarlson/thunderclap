@@ -99,7 +99,7 @@ typedef void (Owner_be5c0::*Fn_be5c0)(const char*, const char*, const char*, con
 class Function_be5c0 : public ScriptFunctionFields {
   public:
     Function_be5c0(const char*, int);
-    virtual void v0();
+    virtual void* v0_000be640(int);
 };
 class Method6_be5c0 : public Function_be5c0 {
   public:
@@ -260,7 +260,7 @@ inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_f53c52ab {
 class __declspec(novtable) MethodBase_bfcc0 : public ScriptFunctionFields {
   public:
-    virtual void m0();
+    virtual void* m0_000be510(int);
     MethodBase_bfcc0(const char* n, int k) { FUN_001d0480(n, k); }
     void FUN_001d0480(const char*, int);
 };

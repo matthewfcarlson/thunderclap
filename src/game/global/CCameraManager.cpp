@@ -1647,7 +1647,7 @@ class Registry_9d380 { public:
     void FUN_0009d380(const char* a1, CCameraManager_9d380* a2, Fn_9d380 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6> class Closure6_9d380;
-template<> class Closure6_9d380<CCameraManager_9d380, void, float, float, float, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_9d380 fn; CCameraManager_9d380* owner; Closure6_9d380(CCameraManager_9d380* o) { owner = o; } };
+template<> class Closure6_9d380<CCameraManager_9d380, void, float, float, float, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_0009c2a0(int); Fn_9d380 fn; CCameraManager_9d380* owner; Closure6_9d380(CCameraManager_9d380* o) { owner = o; } };
 class Raw_9d380 { public: void FUN_0009a6e0(const char*, Fn_9d380); };
 } // namespace fn_f5ef2b3f
 namespace math {
@@ -1660,7 +1660,7 @@ class Registry_9d3e0 { public:
     void FUN_0009d3e0(const char* a1, CCameraManager_9d3e0* a2, Fn_9d3e0 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4> class Closure4_9d3e0;
-template<> class Closure4_9d3e0<CCameraManager_9d3e0, void, float, float, math::Vector_9d3e0, float> : public ScriptFunctionFields { public: virtual void v(); Fn_9d3e0 fn; CCameraManager_9d3e0* owner; Closure4_9d3e0(CCameraManager_9d3e0* o) { owner = o; } };
+template<> class Closure4_9d3e0<CCameraManager_9d3e0, void, float, float, math::Vector_9d3e0, float> : public ScriptFunctionFields { public: virtual void* Fnv_0009c350(int); Fn_9d3e0 fn; CCameraManager_9d3e0* owner; Closure4_9d3e0(CCameraManager_9d3e0* o) { owner = o; } };
 class Raw_9d3e0 { public: void FUN_0009a800(const char*, Fn_9d3e0); };
 class CCameraManager_9d440 {};
 typedef void (CCameraManager_9d440::*Fn_9d440)(float, float, bool);
@@ -1668,7 +1668,7 @@ class Registry_9d440 { public:
     void FUN_0009d440(const char* a1, CCameraManager_9d440* a2, Fn_9d440 a3);
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3_9d440;
-template<> class Closure3_9d440<CCameraManager_9d440, void, float, float, bool> : public ScriptFunctionFields { public: virtual void v(); Fn_9d440 fn; CCameraManager_9d440* owner; Closure3_9d440(CCameraManager_9d440* o) { owner = o; } };
+template<> class Closure3_9d440<CCameraManager_9d440, void, float, float, bool> : public ScriptFunctionFields { public: virtual void* Fnv_0009c3f0(int); Fn_9d440 fn; CCameraManager_9d440* owner; Closure3_9d440(CCameraManager_9d440* o) { owner = o; } };
 class Raw_9d440 { public: void FUN_0009a8e0(const char*, Fn_9d440); };
 class CCameraManager_9d4f0 {};
 typedef void (CCameraManager_9d4f0::*Fn_9d4f0)(float, float, float, float);
@@ -1676,7 +1676,7 @@ class Registry_9d4f0 { public:
     void FUN_0009d4f0(const char* a1, CCameraManager_9d4f0* a2, Fn_9d4f0 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4> class Closure4_9d4f0;
-template<> class Closure4_9d4f0<CCameraManager_9d4f0, void, float, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_9d4f0 fn; CCameraManager_9d4f0* owner; Closure4_9d4f0(CCameraManager_9d4f0* o) { owner = o; } };
+template<> class Closure4_9d4f0<CCameraManager_9d4f0, void, float, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_0009c510(int); Fn_9d4f0 fn; CCameraManager_9d4f0* owner; Closure4_9d4f0(CCameraManager_9d4f0* o) { owner = o; } };
 class Raw_9d4f0 { public: void FUN_0009aa20(const char*, Fn_9d4f0); };
 class CCameraManager_9d550 {};
 typedef void (CCameraManager_9d550::*Fn_9d550)(bool, bool, bool);
@@ -1684,7 +1684,7 @@ class Registry_9d550 { public:
     void FUN_0009d550(const char* a1, CCameraManager_9d550* a2, Fn_9d550 a3);
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3_9d550;
-template<> class Closure3_9d550<CCameraManager_9d550, void, bool, bool, bool> : public ScriptFunctionFields { public: virtual void v(); Fn_9d550 fn; CCameraManager_9d550* owner; Closure3_9d550(CCameraManager_9d550* o) { owner = o; } };
+template<> class Closure3_9d550<CCameraManager_9d550, void, bool, bool, bool> : public ScriptFunctionFields { public: virtual void* Fnv_0009c5a0(int); Fn_9d550 fn; CCameraManager_9d550* owner; Closure3_9d550(CCameraManager_9d550* o) { owner = o; } };
 class Raw_9d550 { public: void FUN_0009aaf0(const char*, Fn_9d550); };
 class CCameraManager_9d5b0 {};
 typedef void (CCameraManager_9d5b0::*Fn_9d5b0)(bool, bool, bool, float);
@@ -1692,7 +1692,7 @@ class Registry_9d5b0 { public:
     void FUN_0009d5b0(const char* a1, CCameraManager_9d5b0* a2, Fn_9d5b0 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4> class Closure4_9d5b0;
-template<> class Closure4_9d5b0<CCameraManager_9d5b0, void, bool, bool, bool, float> : public ScriptFunctionFields { public: virtual void v(); Fn_9d5b0 fn; CCameraManager_9d5b0* owner; Closure4_9d5b0(CCameraManager_9d5b0* o) { owner = o; } };
+template<> class Closure4_9d5b0<CCameraManager_9d5b0, void, bool, bool, bool, float> : public ScriptFunctionFields { public: virtual void* Fnv_0009c620(int); Fn_9d5b0 fn; CCameraManager_9d5b0* owner; Closure4_9d5b0(CCameraManager_9d5b0* o) { owner = o; } };
 class Raw_9d5b0 { public: void FUN_0009aba0(const char*, Fn_9d5b0); };
 class CCameraManager_9d610 {};
 typedef void (CCameraManager_9d610::*Fn_9d610)(bool, bool, bool, bool);
@@ -1700,7 +1700,7 @@ class Registry_9d610 { public:
     void FUN_0009d610(const char* a1, CCameraManager_9d610* a2, Fn_9d610 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4> class Closure4_9d610;
-template<> class Closure4_9d610<CCameraManager_9d610, void, bool, bool, bool, bool> : public ScriptFunctionFields { public: virtual void v(); Fn_9d610 fn; CCameraManager_9d610* owner; Closure4_9d610(CCameraManager_9d610* o) { owner = o; } };
+template<> class Closure4_9d610<CCameraManager_9d610, void, bool, bool, bool, bool> : public ScriptFunctionFields { public: virtual void* Fnv_0009c6b0(int); Fn_9d610 fn; CCameraManager_9d610* owner; Closure4_9d610(CCameraManager_9d610* o) { owner = o; } };
 class Raw_9d610 { public: void FUN_0009ac70(const char*, Fn_9d610); };
 class CCameraManager_9d670 {};
 typedef void (CCameraManager_9d670::*Fn_9d670)(bool, bool, bool, bool, float);
@@ -1708,7 +1708,7 @@ class Registry_9d670 { public:
     void FUN_0009d670(const char* a1, CCameraManager_9d670* a2, Fn_9d670 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Closure5_9d670;
-template<> class Closure5_9d670<CCameraManager_9d670, void, bool, bool, bool, bool, float> : public ScriptFunctionFields { public: virtual void v(); Fn_9d670 fn; CCameraManager_9d670* owner; Closure5_9d670(CCameraManager_9d670* o) { owner = o; } };
+template<> class Closure5_9d670<CCameraManager_9d670, void, bool, bool, bool, bool, float> : public ScriptFunctionFields { public: virtual void* Fnv_0009c740(int); Fn_9d670 fn; CCameraManager_9d670* owner; Closure5_9d670(CCameraManager_9d670* o) { owner = o; } };
 class Raw_9d670 { public: void FUN_0009ad40(const char*, Fn_9d670); };
 class CCameraManager_9d6d0 {};
 typedef void (CCameraManager_9d6d0::*Fn_9d6d0)(bool, bool, bool, bool, bool, bool, float);
@@ -1716,7 +1716,7 @@ class Registry_9d6d0 { public:
     void FUN_0009d6d0(const char* a1, CCameraManager_9d6d0* a2, Fn_9d6d0 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6, class A7> class Closure7_9d6d0;
-template<> class Closure7_9d6d0<CCameraManager_9d6d0, void, bool, bool, bool, bool, bool, bool, float> : public ScriptFunctionFields { public: virtual void v(); Fn_9d6d0 fn; CCameraManager_9d6d0* owner; Closure7_9d6d0(CCameraManager_9d6d0* o) { owner = o; } };
+template<> class Closure7_9d6d0<CCameraManager_9d6d0, void, bool, bool, bool, bool, bool, bool, float> : public ScriptFunctionFields { public: virtual void* Fnv_0009c7e0(int); Fn_9d6d0 fn; CCameraManager_9d6d0* owner; Closure7_9d6d0(CCameraManager_9d6d0* o) { owner = o; } };
 class Raw_9d6d0 { public: void FUN_0009ae50(const char*, Fn_9d6d0); };
 class CCameraManager_9d810 {};
 typedef void (CCameraManager_9d810::*Fn_9d810)(int, int, float, int, int, float);
@@ -1724,7 +1724,7 @@ class Registry_9d810 { public:
     void FUN_0009d810(const char* a1, CCameraManager_9d810* a2, Fn_9d810 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6> class Closure6_9d810;
-template<> class Closure6_9d810<CCameraManager_9d810, void, int, int, float, int, int, float> : public ScriptFunctionFields { public: virtual void v(); Fn_9d810 fn; CCameraManager_9d810* owner; Closure6_9d810(CCameraManager_9d810* o) { owner = o; } };
+template<> class Closure6_9d810<CCameraManager_9d810, void, int, int, float, int, int, float> : public ScriptFunctionFields { public: virtual void* Fnv_0009c940(int); Fn_9d810 fn; CCameraManager_9d810* owner; Closure6_9d810(CCameraManager_9d810* o) { owner = o; } };
 class Raw_9d810 { public: void FUN_0009b080(const char*, Fn_9d810); };
 class CCameraManager_9d960 {};
 typedef void (CCameraManager_9d960::*Fn_9d960)(int, float, float, float);
@@ -1732,7 +1732,7 @@ class Registry_9d960 { public:
     void FUN_0009d960(const char* a1, CCameraManager_9d960* a2, Fn_9d960 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4> class Closure4_9d960;
-template<> class Closure4_9d960<CCameraManager_9d960, void, int, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_9d960 fn; CCameraManager_9d960* owner; Closure4_9d960(CCameraManager_9d960* o) { owner = o; } };
+template<> class Closure4_9d960<CCameraManager_9d960, void, int, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_0009cbb0(int); Fn_9d960 fn; CCameraManager_9d960* owner; Closure4_9d960(CCameraManager_9d960* o) { owner = o; } };
 class Raw_9d960 { public: void FUN_0009b330(const char*, Fn_9d960); };
 class CCameraManager_9da30 {};
 typedef bool (CCameraManager_9da30::*Fn_9da30)(float, float, float, float, float, float);
@@ -1740,7 +1740,7 @@ class Registry_9da30 { public:
     void FUN_0009da30(const char* a1, CCameraManager_9da30* a2, Fn_9da30 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6> class Closure6_9da30;
-template<> class Closure6_9da30<CCameraManager_9da30, bool, float, float, float, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_9da30 fn; CCameraManager_9da30* owner; Closure6_9da30(CCameraManager_9da30* o) { owner = o; } };
+template<> class Closure6_9da30<CCameraManager_9da30, bool, float, float, float, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_0009ccd0(int); Fn_9da30 fn; CCameraManager_9da30* owner; Closure6_9da30(CCameraManager_9da30* o) { owner = o; } };
 class Raw_9da30 { public: void FUN_0009b4a0(const char*, Fn_9da30); };
 class CCameraManager_9dba0 {};
 typedef bool (CCameraManager_9dba0::*Fn_9dba0)(float, float, float, float, bool);
@@ -1748,7 +1748,7 @@ class Registry_9dba0 { public:
     void FUN_0009dba0(const char* a1, CCameraManager_9dba0* a2, Fn_9dba0 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Closure5_9dba0;
-template<> class Closure5_9dba0<CCameraManager_9dba0, bool, float, float, float, float, bool> : public ScriptFunctionFields { public: virtual void v(); Fn_9dba0 fn; CCameraManager_9dba0* owner; Closure5_9dba0(CCameraManager_9dba0* o) { owner = o; } };
+template<> class Closure5_9dba0<CCameraManager_9dba0, bool, float, float, float, float, bool> : public ScriptFunctionFields { public: virtual void* Fnv_0009cf00(int); Fn_9dba0 fn; CCameraManager_9dba0* owner; Closure5_9dba0(CCameraManager_9dba0* o) { owner = o; } };
 class Raw_9dba0 { public: void FUN_0009b770(const char*, Fn_9dba0); };
 class CCameraManager_9dc50 {};
 typedef void (CCameraManager_9dc50::*Fn_9dc50)(char*, char*, char*, char*);
@@ -6460,10 +6460,10 @@ public:
     void FUN_0009c230(bool, bool, bool, bool, bool, bool, float);
     void FUN_0009d1b0(char*, char*, char*, char*);
 };
-template<> class Closure6<CCameraManager, bool, float, float, float, float, float, float> { public: virtual void v(); ScriptFunctionFields fields; bool (CCameraManager::*fn)(float, float, float, float, float, float); CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
-template<> class Closure6<CCameraManager, void, float, float, float, float, float, float> { public: virtual void v(); ScriptFunctionFields fields; void (CCameraManager::*fn)(float, float, float, float, float, float); CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
-template<> class Closure6<CCameraManager, void, int, int, float, int, int, float> { public: virtual void v(); ScriptFunctionFields fields; void (CCameraManager::*fn)(int, int, float, int, int, float); CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
-template<> class Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float> { public: virtual void v(); ScriptFunctionFields fields; void (CCameraManager::*fn)(bool, bool, bool, bool, bool, bool, float); CCameraManager* owner; Closure7(CCameraManager* o) { owner = o; } };
+template<> class Closure6<CCameraManager, bool, float, float, float, float, float, float> { public: virtual void* Fnv_0009ccd0(int); ScriptFunctionFields fields; bool (CCameraManager::*fn)(float, float, float, float, float, float); CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
+template<> class Closure6<CCameraManager, void, float, float, float, float, float, float> { public: virtual void* Fnv_0009c2a0(int); ScriptFunctionFields fields; void (CCameraManager::*fn)(float, float, float, float, float, float); CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
+template<> class Closure6<CCameraManager, void, int, int, float, int, int, float> { public: virtual void* Fnv_0009c940(int); ScriptFunctionFields fields; void (CCameraManager::*fn)(int, int, float, int, int, float); CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
+template<> class Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float> { public: virtual void* Fnv_0009c7e0(int); ScriptFunctionFields fields; void (CCameraManager::*fn)(bool, bool, bool, bool, bool, bool, float); CCameraManager* owner; Closure7(CCameraManager* o) { owner = o; } };
 class Registry { public:
     void FUN_001d3b70(const char*, void*);
 };

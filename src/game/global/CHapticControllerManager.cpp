@@ -87,7 +87,7 @@ class Registry_b03e0 { public:
     void FUN_000b03e0(const char* a1, CHapticControllerManager_b03e0* a2, Fn_b03e0 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4> class Closure4_b03e0;
-template<> class Closure4_b03e0<CHapticControllerManager_b03e0, void, int, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_b03e0 fn; CHapticControllerManager_b03e0* owner; Closure4_b03e0(CHapticControllerManager_b03e0* o) { owner = o; } };
+template<> class Closure4_b03e0<CHapticControllerManager_b03e0, void, int, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_000b0290(int); Fn_b03e0 fn; CHapticControllerManager_b03e0* owner; Closure4_b03e0(CHapticControllerManager_b03e0* o) { owner = o; } };
 class Raw_b03e0 { public: void FUN_000b00b0(const char*, Fn_b03e0); };
 
 } // namespace fn_f8a35d46

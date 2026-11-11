@@ -88,7 +88,7 @@ class ParamValueInt_11fff0 : public ParamValue_11fff0 {
 };
 class Base {
   public:
-    virtual void _m_vf0();
+    virtual void* m_vf0_00120670(int);
     Base(int);
     Base();
     char _m_pad_4[0xc];

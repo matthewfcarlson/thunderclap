@@ -713,7 +713,7 @@ class Registry_d1530 { public:
     void FUN_000d1530(const char* a1, HUDOverlay_d1530* a2, Fn_d1530 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4> class Closure4_d1530;
-template<> class Closure4_d1530<HUDOverlay_d1530, int, int, int, math::Vector_d1530, math::Vector_d1530> : public ScriptFunctionFields { public: virtual void v(); Fn_d1530 fn; HUDOverlay_d1530* owner; Closure4_d1530(HUDOverlay_d1530* o) { owner = o; } };
+template<> class Closure4_d1530<HUDOverlay_d1530, int, int, int, math::Vector_d1530, math::Vector_d1530> : public ScriptFunctionFields { public: virtual void* Fnv_000cffc0(int); Fn_d1530 fn; HUDOverlay_d1530* owner; Closure4_d1530(HUDOverlay_d1530* o) { owner = o; } };
 class Raw_d1530 { public: void FUN_000cf050(const char*, Fn_d1530); };
 } // namespace fn_f3fdf6d3
 namespace math {
@@ -726,7 +726,7 @@ class Registry_d1590 { public:
     void FUN_000d1590(const char* a1, HUDOverlay_d1590* a2, Fn_d1590 a3);
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3_d1590;
-template<> class Closure3_d1590<HUDOverlay_d1590, void, int, int, math::Vector_d1590> : public ScriptFunctionFields { public: virtual void v(); Fn_d1590 fn; HUDOverlay_d1590* owner; Closure3_d1590(HUDOverlay_d1590* o) { owner = o; } };
+template<> class Closure3_d1590<HUDOverlay_d1590, void, int, int, math::Vector_d1590> : public ScriptFunctionFields { public: virtual void* Fnv_000d0020(int); Fn_d1590 fn; HUDOverlay_d1590* owner; Closure3_d1590(HUDOverlay_d1590* o) { owner = o; } };
 class Raw_d1590 { public: void FUN_000cf160(const char*, Fn_d1590); };
 } // namespace fn_f3fdf6d3
 namespace math {

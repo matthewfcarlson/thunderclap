@@ -542,7 +542,7 @@ class Registry_206c90 { public:
     void FUN_00206c90(const char* a1, CWorldStreamManager_206c90* a2, Fn_206c90 a3);
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3_206c90;
-template<> class Closure3_206c90<CWorldStreamManager_206c90, bool, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_206c90 fn; CWorldStreamManager_206c90* owner; Closure3_206c90(CWorldStreamManager_206c90* o) { owner = o; } };
+template<> class Closure3_206c90<CWorldStreamManager_206c90, bool, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_00205cc0(int); Fn_206c90 fn; CWorldStreamManager_206c90* owner; Closure3_206c90(CWorldStreamManager_206c90* o) { owner = o; } };
 class Raw_206c90 { public: void FUN_002050f0(const char*, Fn_206c90); };
 class CWorldStreamManager_206cf0 {};
 typedef int (CWorldStreamManager_206cf0::*Fn_206cf0)(float, float, float);
@@ -550,7 +550,7 @@ class Registry_206cf0 { public:
     void FUN_00206cf0(const char* a1, CWorldStreamManager_206cf0* a2, Fn_206cf0 a3);
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3_206cf0;
-template<> class Closure3_206cf0<CWorldStreamManager_206cf0, int, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_206cf0 fn; CWorldStreamManager_206cf0* owner; Closure3_206cf0(CWorldStreamManager_206cf0* o) { owner = o; } };
+template<> class Closure3_206cf0<CWorldStreamManager_206cf0, int, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_00205d50(int); Fn_206cf0 fn; CWorldStreamManager_206cf0* owner; Closure3_206cf0(CWorldStreamManager_206cf0* o) { owner = o; } };
 class Raw_206cf0 { public: void FUN_002051b0(const char*, Fn_206cf0); };
 class CWorldStreamManager_207000 {};
 typedef void (CWorldStreamManager_207000::*Fn_207000)(const char*, int, bool);

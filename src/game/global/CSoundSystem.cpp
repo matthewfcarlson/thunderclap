@@ -66,7 +66,7 @@ typedef void (Obj::*Callback)(int, int, int, int, int, int);
 class Function_1f0d10 {
   public:
     Function_1f0d10(void* a, int n);
-    virtual void f0();
+    virtual void* f0_001f0d80(int);
     char pad[12];
 };
 class Method4_1f0d10 : public Function_1f0d10 {

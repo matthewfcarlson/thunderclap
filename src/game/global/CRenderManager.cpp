@@ -533,7 +533,7 @@ class Registry_1bb580 { public:
     void FUN_001bb580(const char* a1, CRenderManager_1bb580* a2, Fn_1bb580 a3);
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3_1bb580;
-template<> class Closure3_1bb580<CRenderManager_1bb580, void, int, int, int> : public ScriptFunctionFields { public: virtual void v(); Fn_1bb580 fn; CRenderManager_1bb580* owner; Closure3_1bb580(CRenderManager_1bb580* o) { owner = o; } };
+template<> class Closure3_1bb580<CRenderManager_1bb580, void, int, int, int> : public ScriptFunctionFields { public: virtual void* Fnv_001ba4d0(int); Fn_1bb580 fn; CRenderManager_1bb580* owner; Closure3_1bb580(CRenderManager_1bb580* o) { owner = o; } };
 class Raw_1bb580 { public: void FUN_001b9c50(const char*, Fn_1bb580); };
 class CRenderManager_1bb630 {};
 typedef void (CRenderManager_1bb630::*Fn_1bb630)(float, float, float, float, float, float);
@@ -541,7 +541,7 @@ class Registry_1bb630 { public:
     void FUN_001bb630(const char* a1, CRenderManager_1bb630* a2, Fn_1bb630 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6> class Closure6_1bb630;
-template<> class Closure6_1bb630<CRenderManager_1bb630, void, float, float, float, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_1bb630 fn; CRenderManager_1bb630* owner; Closure6_1bb630(CRenderManager_1bb630* o) { owner = o; } };
+template<> class Closure6_1bb630<CRenderManager_1bb630, void, float, float, float, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_001ba5e0(int); Fn_1bb630 fn; CRenderManager_1bb630* owner; Closure6_1bb630(CRenderManager_1bb630* o) { owner = o; } };
 class Raw_1bb630 { public: void FUN_001b9d80(const char*, Fn_1bb630); };
 } // namespace fn_ff10b020
 void* operator new(size_t) HULK_NEW_THROW;

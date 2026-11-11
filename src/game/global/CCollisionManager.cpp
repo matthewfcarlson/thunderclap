@@ -632,7 +632,7 @@ class Registry_1b62d0 { public:
     void FUN_001b62d0(const char* a1, CCollisionManager_1b62d0* a2, Fn_1b62d0 a3);
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3_1b62d0;
-template<> class Closure3_1b62d0<CCollisionManager_1b62d0, void, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_1b62d0 fn; CCollisionManager_1b62d0* owner; Closure3_1b62d0(CCollisionManager_1b62d0* o) { owner = o; } };
+template<> class Closure3_1b62d0<CCollisionManager_1b62d0, void, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_001b61a0(int); Fn_1b62d0 fn; CCollisionManager_1b62d0* owner; Closure3_1b62d0(CCollisionManager_1b62d0* o) { owner = o; } };
 class Raw_1b62d0 { public: void FUN_001b5bc0(const char*, Fn_1b62d0); };
 extern "C" void* Alloc(hulk_uintptr);
 class Arena_1b6380 {
@@ -1163,7 +1163,7 @@ template <> struct TypeName<math::Vector> { static const char* get() { return DA
 // Function's fields (include/decls/data/script.h) after the vftable.
 class __declspec(novtable) Function : public ScriptFunctionFields {
   public:
-    virtual void f0();
+    virtual void* f0_001b3990(int);
     virtual bool f1_001d04c0(int, int);
     void FUN_001d0480(const char*, int);
     Function(const char* n, int k) { FUN_001d0480(n, k); }

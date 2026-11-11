@@ -115,7 +115,7 @@ class Function_93fe0 {
 extern "C" bool __cdecl CheckString_001d04d0(const char** ppStr);
 class Function_94000 {
   public:
-    virtual void Invoke(const char*, int, const char*, const char*, const char*, const char*);
+    virtual void* Invoke_00094080(int);
     virtual bool AddRef_001d04c0(int, int);
     virtual void Release_000940a0(void*, void*, void*);
     int m_base1;
@@ -271,7 +271,7 @@ class Registry_94de0 { public:
     void FUN_00094de0(const char* a1, CUnlockablesManager_94de0* a2, Fn_94de0 a3);
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3_94de0;
-template<> class Closure3_94de0<CUnlockablesManager_94de0, void, int, int, bool> : public ScriptFunctionFields { public: virtual void v(); Fn_94de0 fn; CUnlockablesManager_94de0* owner; Closure3_94de0(CUnlockablesManager_94de0* o) { owner = o; } };
+template<> class Closure3_94de0<CUnlockablesManager_94de0, void, int, int, bool> : public ScriptFunctionFields { public: virtual void* Fnv_00094980(int); Fn_94de0 fn; CUnlockablesManager_94de0* owner; Closure3_94de0(CUnlockablesManager_94de0* o) { owner = o; } };
 class Raw_94de0 { public: void FUN_00094200(const char*, Fn_94de0); };
 class CUnlockablesManager_94e40 {};
 typedef void (CUnlockablesManager_94e40::*Fn_94e40)(int, const char*, const char*);

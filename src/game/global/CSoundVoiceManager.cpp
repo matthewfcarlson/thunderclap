@@ -751,7 +751,7 @@ class Registry_1f6860 { public:
     void FUN_001f6860(const char* a1, CSoundVoiceManager_1f6860* a2, Fn_1f6860 a3);
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3_1f6860;
-template<> class Closure3_1f6860<CSoundVoiceManager_1f6860, void, bool, bool, bool> : public ScriptFunctionFields { public: virtual void v(); Fn_1f6860 fn; CSoundVoiceManager_1f6860* owner; Closure3_1f6860(CSoundVoiceManager_1f6860* o) { owner = o; } };
+template<> class Closure3_1f6860<CSoundVoiceManager_1f6860, void, bool, bool, bool> : public ScriptFunctionFields { public: virtual void* Fnv_001f5a30(int); Fn_1f6860 fn; CSoundVoiceManager_1f6860* owner; Closure3_1f6860(CSoundVoiceManager_1f6860* o) { owner = o; } };
 class Raw_1f6860 { public: void FUN_001f4980(const char*, Fn_1f6860); };
 class CSoundVoiceManager_1f6930 {};
 typedef void (CSoundVoiceManager_1f6930::*Fn_1f6930)(char*, char*, char*, int);

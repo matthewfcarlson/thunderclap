@@ -1126,7 +1126,7 @@ public:
 class Function_1df560 {
   public:
     Function_1df560(const char*, int);
-    virtual void v0();
+    virtual void* v0_001df690(int);
     char pad[0xc];
 };
 class Function5_1df560 : public Function_1df560 {
@@ -1822,7 +1822,7 @@ class Registry_1e3990 { public:
     void FUN_001e3990(const char* a1, CSPManager_1e3990* a2, Fn_1e3990 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4> class Closure4_1e3990;
-template<> class Closure4_1e3990<CSPManager_1e3990, void, int, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_1e3990 fn; CSPManager_1e3990* owner; Closure4_1e3990(CSPManager_1e3990* o) { owner = o; } };
+template<> class Closure4_1e3990<CSPManager_1e3990, void, int, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_001e1b30(int); Fn_1e3990 fn; CSPManager_1e3990* owner; Closure4_1e3990(CSPManager_1e3990* o) { owner = o; } };
 class Raw_1e3990 { public: void FUN_001dff70(const char*, Fn_1e3990); };
 class CSPManager_1e39f0 {};
 typedef void (CSPManager_1e39f0::*Fn_1e39f0)(int, float, float, float, const char*);
@@ -1888,7 +1888,7 @@ class Registry_1e3dc0 { public:
     void FUN_001e3dc0(const char* a1, CSPManager_1e3dc0* a2, Fn_1e3dc0 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4> class Closure4_1e3dc0;
-template<> class Closure4_1e3dc0<CSPManager_1e3dc0, bool, float, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_1e3dc0 fn; CSPManager_1e3dc0* owner; Closure4_1e3dc0(CSPManager_1e3dc0* o) { owner = o; } };
+template<> class Closure4_1e3dc0<CSPManager_1e3dc0, bool, float, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_001e2240(int); Fn_1e3dc0 fn; CSPManager_1e3dc0* owner; Closure4_1e3dc0(CSPManager_1e3dc0* o) { owner = o; } };
 class Raw_1e3dc0 { public: void FUN_001e08c0(const char*, Fn_1e3dc0); };
 class CSPManager_1e3ee0 {};
 typedef void (CSPManager_1e3ee0::*Fn_1e3ee0)(int, int, const char*);
@@ -1904,7 +1904,7 @@ class Registry_1e3f40 { public:
     void FUN_001e3f40(const char* a1, CSPManager_1e3f40* a2, Fn_1e3f40 a3);
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3_1e3f40;
-template<> class Closure3_1e3f40<CSPManager_1e3f40, void, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_1e3f40 fn; CSPManager_1e3f40* owner; Closure3_1e3f40(CSPManager_1e3f40* o) { owner = o; } };
+template<> class Closure3_1e3f40<CSPManager_1e3f40, void, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_001e2470(int); Fn_1e3f40 fn; CSPManager_1e3f40* owner; Closure3_1e3f40(CSPManager_1e3f40* o) { owner = o; } };
 class Raw_1e3f40 { public: void FUN_001e0b60(const char*, Fn_1e3f40); };
 class CSPManager_1e3ff0 {};
 typedef bool (CSPManager_1e3ff0::*Fn_1e3ff0)(const char*, float, float, int);
@@ -1920,7 +1920,7 @@ class Registry_1e40f0 { public:
     void FUN_001e40f0(const char* a1, CSPManager_1e40f0* a2, Fn_1e40f0 a3);
 };
 template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6> class Closure6_1e40f0;
-template<> class Closure6_1e40f0<CSPManager_1e40f0, void, int, float, float, float, float, int> : public ScriptFunctionFields { public: virtual void v(); Fn_1e40f0 fn; CSPManager_1e40f0* owner; Closure6_1e40f0(CSPManager_1e40f0* o) { owner = o; } };
+template<> class Closure6_1e40f0<CSPManager_1e40f0, void, int, float, float, float, float, int> : public ScriptFunctionFields { public: virtual void* Fnv_001e2770(int); Fn_1e40f0 fn; CSPManager_1e40f0* owner; Closure6_1e40f0(CSPManager_1e40f0* o) { owner = o; } };
 class Raw_1e40f0 { public: void FUN_001e0eb0(const char*, Fn_1e40f0); };
 struct Item_1e4190 {
     char pad0[0xc];
@@ -5773,7 +5773,7 @@ namespace fn_001e0650 {
 class CSPManager;
 class Function_1e0650 {
   public:
-    virtual void basefn();
+    virtual void* basefn_001e06b0(int);
     Function_1e0650(const char*, int);
 };
 class Method3 : public Function_1e0650 {
@@ -6344,7 +6344,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 // Function's fields (include/decls/data/script.h) after the vftable.
 class __declspec(novtable) MethodBase_1e12b0 : public ScriptFunctionFields {
   public:
-    virtual void m0();
+    virtual void* m0_001df6b0(int);
     MethodBase_1e12b0(const char* n, int k) { FUN_001d0480(n, k); }
     void FUN_001d0480(const char*, int);
 };

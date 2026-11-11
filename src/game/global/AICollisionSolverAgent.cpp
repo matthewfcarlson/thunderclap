@@ -2439,7 +2439,7 @@ namespace fn_001b1660 {
 char __cdecl GetFlag_001d04d0(const char*);
 class Function_1b1660 {
   public:
-    virtual void f();
+    virtual void* Fnf_001b16f0(int);
     Function_1b1660(void*, int);
     char pad[20];
 };

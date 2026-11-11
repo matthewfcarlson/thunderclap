@@ -597,7 +597,7 @@ class Registry_1c0980 { public:
     void FUN_001c0980(const char* a1, CSubtitleManager_1c0980* a2, Fn_1c0980 a3);
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3_1c0980;
-template<> class Closure3_1c0980<CSubtitleManager_1c0980, void, float, float, float> : public ScriptFunctionFields { public: virtual void v(); Fn_1c0980 fn; CSubtitleManager_1c0980* owner; Closure3_1c0980(CSubtitleManager_1c0980* o) { owner = o; } };
+template<> class Closure3_1c0980<CSubtitleManager_1c0980, void, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_001c0190(int); Fn_1c0980 fn; CSubtitleManager_1c0980* owner; Closure3_1c0980(CSubtitleManager_1c0980* o) { owner = o; } };
 class Raw_1c0980 { public: void FUN_001bf710(const char*, Fn_1c0980); };
 class CSubtitleManager_1c09e0 {};
 typedef void (CSubtitleManager_1c09e0::*Fn_1c09e0)(const char*, const char*, float);
