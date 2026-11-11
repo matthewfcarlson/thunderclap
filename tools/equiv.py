@@ -9364,6 +9364,9 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     directives of its own block only."""
     import tree_tu
     if src and tree_tu.is_tree_tu(src):
+        # (hash1) a run that can prove a code hash: the tree's own object and directives, the full checker
+        plain = not flags and not mapping and obj_path is None and not seeds and not ONLY_SEEDS and level3_fn is None \
+            and max_level >= 3 and use_names and conventions is None and not clang and not (EQUIV_OFF - {""})
         with tree_tu.active(src):
             try:
                 recs_ = tree_tu.check_tu(src)
@@ -9391,10 +9394,21 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
             # TU's shared part, before its first block, and its block)
             TREE_TEXT[src] = tree_tu.unit_text(src, addr)
             TREE_ADDR.append(addr)
+            # (hash1) the code hash of the object this run checks (tools/code_hash.py): `tree_tu.py hash --proven`
+            # records a block's new hash only from a run of the code as it is now
+            tcode = None
+            if plain and hasattr(tree_tu, "proof_code") and (not symbol or symbol == r_.get("symbol")):
+                try:
+                    tcode = tree_tu.proof_code(src, addr, native, recs_)
+                except Exception as e:      # noqa: BLE001 - no hash: the report just can't prove a hash
+                    tcode = {"error": repr(e)[:300]}
             try:
-                return _verify(src, addr, symbol, flags, n_inputs, max_inputs, mapping, max_level, max_steps, use_names,
+                rep_ = _verify(src, addr, symbol, flags, n_inputs, max_inputs, mapping, max_level, max_steps, use_names,
                                clang, obj_path, keep_runs, time_budget, conventions, level3_fn, seeds, native,
                                src_lines=tree_tu.block_lines(src, addr))
+                if tcode is not None and isinstance(rep_, dict):
+                    rep_["tree_code"] = dict(tcode, n_inputs=n_inputs)
+                return rep_
             finally:
                 TREE_TEXT.pop(src, None)
                 TREE_ADDR.pop()

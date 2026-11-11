@@ -105,9 +105,74 @@ carry it since 2026-11-10. The notes (STATUS, provenance, equiv directives) live
 - matches: `compare.py TU ADDR` MATCH + `verify_relocs.py` ok, on the TU's object (`tree_tu.py verify --relocs`).
 - equivalent: the function's code in the TU's object is the code that was proven (bytes, relocation positions and
   kinds, address targets: build_tree.same_code), or `equiv.py TU ADDR` passes again (3,000 inputs, plus the `--wine`
-  gate at 600, as for a promotion). Proposed: a per-function code hash next to the symbol (`// sym: NAME @code12hex`)
-  so a TU edit that leaves a function's code unchanged needs no new equiv run (the same rule build_tree uses against the
-  standalone build today), and one that changes it is re-proven before it lands.
+  gate at 600, as for a promotion). Implemented 2026-11-11 (hash1) as a per-block code hash on the pin line,
+  `// sym: NAME @<msvc12hex> @w<clang12hex>`: a TU edit that leaves a function's code unchanged needs no new equiv
+  run, and one that changes it is `code_changed` until re-proven ([Code hashes](#code-hashes)).
+
+### Code hashes
+
+Every `equivalent` block records the hashes of the code that was proven (tools/code_hash.py has the definition):
+
+```cpp
+// 0x001c49c0 FUN_001c49c0 (60 B): equivalent
+// sym: ?FUN_001c49c0@Reader_1c49c0@fn_f4431f34@@QAEPAV12@XZ @62436bd00f45 @w519b552cd43b
+```
+
+- `@<hex>`: the function in the TU's MSVC 7.1 object (tree_tu's compile). sha256 (48 bits kept) over the function's
+  bytes (trailing padding stripped, as same_code) and per relocation its offset, type and target, plus every region of
+  the object the proof runs or reads in place (functions defined in the object that are not other blocks: inline
+  members, `$L` unwind funclets, `__ehhandler$`; EH tables, `$SG` strings, static data, `.bss` sizes), plus the block's
+  equiv directives (map/conv/name lines, the `+0xNN taken` claims of equiv-dead). Targets are keyed as the proof binds
+  them: another block of the TU by its address; `__real@`/`__xmm@`/`??_C@` constants by name (their names spell the
+  content); an address in the symbol's own leaf (`FUN_`/`LAB_`/`DAT_`/`PTR_`/`hulk_at_`/`vtbl_`/`rttiTD_<hex>`, or the
+  `Name_00xxxxxx` suffix of a call into .text) or an `equiv-map` line's address; a region of the object as its node
+  number; compiler-local names (`$L<n>`, `$T<n>`, `$SG<n>`, `__ehfuncinfo$`) never by name; anything else (vftables,
+  RTTI, operators, CRT names, `??0`/`??1` of stub classes) by its name. Section-relative relocations (jump tables,
+  clang's unnamed constants) are resolved to (region, offset) with the addend taken out of the bytes. So renames that
+  keep every target's address, `$L`/`$T` renumbering, and edits to other functions of the TU leave it unchanged; a
+  changed byte, relocation position or kind, a call to another address, a changed inline callee or EH table changes
+  it; a rename the rules can't see through (a name with no address) counts as a change. Strictly stronger than
+  build_tree.same_code.
+- `@w<hex>`: the same over the clang object `equiv.py TU ADDR --wine` checks (equiv.compile_native: i686 MS ABI, -O0,
+  the SSE build's IR passes), compiled with an empty x87-keep list (the queue hosts have none; a Wine build lineage's
+  list must not leak in). Needed: the `--wine` proof is of the clang object, and a header edit can change it without
+  touching the MSVC code (`#if defined(__clang__)` / `_MSC_VER` branches, compat/native.h, hulk_freg). The function is
+  found by its MSVC name, or the one name that differs in M <-> N (equiv's mnret rule: a float return clang makes
+  double); where clang has none (an MSVC `$L` funclet) the hash is of the whole clang object. Homebrew's and ~/llvm's
+  clang 22.1.8 give the same hashes (checked on mac2). The 64-bit (`--x64`) check has no hash: it is not a promotion
+  gate.
+
+`tree_tu.py check` / `verify` / `materialize` recompute both (the clang one compiles the TU with clang once, cached in
+`build/tree-cache/whash/` by the TU, the headers clang can reach, the toolchain and the hash code; `--no-wine-code`
+skips it where there is no clang) and report per equivalent block `code` / `wine_code`: `ok`; `changed` (the record's
+`code_changed` lists msvc/wine); `unhashed` (none recorded); `pending` (none recorded, and the TU is listed in
+`config/code-hash-pending.txt`: TUs whose hashes were not filled in yet); `no_object` (clang can't compile the TU). In
+verify's counts, and so in the exit codes of `check`, `verify` and `materialize` (the Wine build's build stage),
+`changed` and `unhashed` are failures like `pinned symbol missing`; `pending` and `no_object` are reported, not failures.
+`verify --changed-since REF` also fails a block that had a hash at REF and has none now (a hash is replaced by
+`hash --proven`, never dropped). `pin` keeps a block's hashes when it rewrites the symbol.
+
+Recording a hash needs a proof of the code as it is now:
+
+```sh
+$J tools/equiv.py TU.cpp 0xADDR --json --inputs 3000 > msvc.json     # its report carries tree_code: the hash it checked
+$J tools/equiv.py TU.cpp 0xADDR --wine --json --inputs 600 > wine.json
+$J tools/tree_tu.py hash TU.cpp --proven msvc.json wine.json          # (jsonl from jobq_equiv.py batches works too)
+```
+
+`hash --proven` writes a block's new `@hash` only from an MSVC run whose `tree_code.msvc` is the code's hash now,
+asked for >= 3,000 inputs and promotable, and a new `@w` hash only from a `--wine` run whose `tree_code.wine` matches,
+asked for >= 600 inputs, passing tools/wine_gate.py and compiled without an x87-keep list; a block whose MSVC code
+changed needs both, one whose clang code alone changed needs the `--wine` run. equiv.py records `tree_code` only for a
+plain run of the tree TU (no extra flags, `--map`, seeds, replay level 3, EQUIV_OFF rules or another symbol). Nothing
+else writes a hash, except `hash . --init RECORDS` for the TUs in config/code-hash-pending.txt: it fills in blocks that
+have none from `hash . --compute OUT --tus LIST --commit SHA` records made in a queue job (whose workspace is
+`git archive HEAD`, the committed code), only where the TU's text is the text hashed and has no uncommitted edits, and
+takes the TU off the list once all its blocks have hashes.
+
+Populated 2026-11-11 (hash1) from the code at 6a71f9a03, which the flip's proofs and every proof since cover: 4,916
+of the 5,099 equivalent blocks in 1,144 TUs, computed in 24 queue jobs (mac2, mac1); the 13 TUs (183 blocks) that had
+uncommitted edits by other agents at the time stay in config/code-hash-pending.txt for a later `--init`.
 
 ### Wrapped and isolated functions
 
@@ -399,7 +464,8 @@ symbols as tree_tu (c59cc5632) and because comments (notes, pins, the header lin
 
 1. Every block already carries its pinned symbol, so the shared-symbol tie-break no longer needs the standalone sources.
    The block lines can name the kind only (`: matches` / `: equivalent`; tree_tu's BLOCK pattern accepts both) and the
-   `--vs-standalone` check retires; equivalent code is then guarded by the code-hash rule (stage 2) or a new equiv run.
+   `--vs-standalone` check retires; equivalent code is then guarded by the code hashes ([Code hashes](#code-hashes),
+   implemented) or a new equiv run.
 2. Retarget what reads per-function paths. That means one address -> TU helper over `tree_tu.scan` for packet.py,
    progress.py (count blocks by kind), tech_debt.py, reach.py, data_inventory.py (source names and offsets), wine_link's
    conv_check key (TUs under src/ instead of matches/ + equivalent/), equiv_batch / jobq_equiv / promote_dispatch, and the

@@ -1,0 +1,15 @@
+# Tree TUs whose equivalent blocks may still lack their code hashes (tools/tree_tu.py: `unhashed` is `pending` here,
+# not a failure). `tree_tu.py hash . --init RECORDS` fills them in from a queue job's `hash . --compute` and drops them.
+src/engine/physics/CollisionMesh.cpp
+src/engine/physics/CollisionMesh.iso_002f47b0.cpp
+src/engine/physics/ExportInfoLoader.cpp
+src/engine/physics/PhysicsPropertiesLoader.cpp
+src/engine/physics/SimLength.cpp
+src/engine/physics/unk_2e6780.cpp
+src/engine/physics/unk_2fa6b0.cpp
+src/engine/pure3d/LightsChooser_2.cpp
+src/engine/pure3d/pddiBaseContext.cpp
+src/engine/unknown/unk_29e7f0.cpp
+src/engine/unknown/unk_2ed240.cpp
+src/engine/unknown/unk_302fa0.cpp
+src/game/init/dynamic_initializers.cpp

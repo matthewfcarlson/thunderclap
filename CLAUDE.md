@@ -37,6 +37,7 @@ python tools/equiv.py TU.cpp 0xADDR --wine      # the clang object the Wine buil
 python tools/equiv.py TU.cpp 0xADDR --x64 --json   # 64-bit object vs the 32-bit clang object (batches: tools/equiv64.py batch LIST OUT)
 python tools/tree_tu.py check src/.../TU.cpp --relocs   # every function of a TU; `verify . --changed-since origin/main --relocs`
 python tools/tree_tu.py pin .                    # after an edit that changes a function's symbol
+python tools/tree_tu.py hash TU.cpp --proven MSVC.json WINE.json   # record a re-proven equivalent block's code hashes
 python tools/tree_tu.py materialize --out build/tree   # local Wine-build input (replaces build_tree.py --rounds 16)
 python tools/native_mac.py compile|link          # arm64 macOS; tools/native_elf.py --target linux-x64|android-arm64 for ELF
 python tools/native_unbound.py classify --dir build/native-mac   # the native link's unbound names by class
@@ -44,8 +45,11 @@ python tools/progress.py --readme                # regenerate the README status 
 python tests/equiv/regress.py                    # checker regression cases (run after any change to equiv.py)
 ```
 
-An edited `matches` block must still MATCH with relocations ok; an edited `equivalent` block needs a fresh promotable
-`equiv.py` run (plus `--wine`, and `--x64` where the 64-bit build compiles it). A 64-bit fix changes the source, never the
+An edited `matches` block must still MATCH with relocations ok. An `equivalent` block carries the hashes of its proven
+code (`// sym: NAME @msvc @wclang`, docs/merge-once.md "Code hashes"): unchanged code needs no new run; `check`/`verify`
+report `code_changed` (a failure) when an edit changed it, and it then needs a fresh promotable `equiv.py` run at 3,000
+inputs plus `--wine` (and `--x64` where the 64-bit build compiles it), recorded with `tree_tu.py hash --proven` (never
+write a hash by hand). A 64-bit fix changes the source, never the
 32-bit proof: re-check both sides.
 
 ## Builds and proofs

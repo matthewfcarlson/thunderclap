@@ -13,6 +13,7 @@ per-function source and check that function inside the TU's object:
   build/venv/bin/python tools/tree_tu.py check TU.cpp [--relocs] [--equiv N] [--json]   # every function of one TU
   build/venv/bin/python tools/tree_tu.py verify ROOT [--changed-since REF | --tus FILE] [--jobs N] [--out OUT.jsonl]
   build/venv/bin/python tools/tree_tu.py pin ROOT [--report report.json]   # write `// sym:` lines (see below)
+  build/venv/bin/python tools/tree_tu.py hash TU.cpp --proven MSVC.json WINE.json   # record re-proven code hashes
 
 How a function is found in its TU's object (the same rules as tools/build_tree.py's Verifier, so a tree that verified
 there verifies here): its pinned symbol (a `// sym: <mangled name>` line right after the block line) when the object
@@ -25,6 +26,12 @@ exist this tool resolves them the same way; once they are gone a pinned symbol i
 records every function's symbol before the per-function sources are retired.
 A function that is one of MSVC's numbered `$L` labels (funclets, catch blocks) is pinned as `$L#<k>@<owner>`, the
 k-th label of its owning function, since the label numbers move with any header edit (label pins below).
+
+Code hashes (docs/merge-once.md "Code hashes", tools/code_hash.py): an equivalent block's pin line also records the
+hashes of the code that was proven, `// sym: PIN @<MSVC object> @w<clang --wine object>`. check / verify / materialize
+recompute them (`--no-wine-code` skips the clang one) and fail a block whose code changed (`code_changed`) or that has
+none (`unhashed`; `pending` while its TU is listed in config/code-hash-pending.txt, which doesn't fail); `hash --proven`
+records new values only from equiv.py runs of the code as it is now (3,000 inputs promotable, --wine at 600).
 
 A block's directives (`// equiv-map:`, `// equiv-conv:`, `// equiv-dead:`) are the lines between its block line and
 the next block (HULK_GEN_TREE_NOTES=1 makes gen_tree keep a merged source's notes there).
@@ -52,7 +59,8 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 BLOCK = re.compile(r"^// (0x[0-9a-f]{8}) (.+?) \((\d+) B\): (matches|equivalent)(?:/0x[0-9a-f]{8}\.cpp)?"
                    r"(?: \[(wrapped|isolated)(?::.*)?\])?\s*$")     # (a reason can hold brackets: `Cell [100] cells`)
 PLACEHOLDER = re.compile(r"^// 0x[0-9a-f]{8} .+ \(\d+ B\): not yet verified\s*$")
-SYM_LINE = re.compile(r"^// sym: (\S+)\s*$")
+SYM_LINE = re.compile(r"^// sym: (\S+)((?:[ \t]+@w?[0-9a-f]{12})*)\s*$")   # the pin, then the code hashes
+HASH_TOKEN = re.compile(r"@(w?)([0-9a-f]{12})")     # `@<hex>` the MSVC object's code, `@w<hex>` the clang object's
 DIRECTIVE = re.compile(r"^\s*//\s*equiv-(?:map|conv|dead|name):")
 PRELUDE = "tree_prelude.h"
 # HULK_TREE_TU_OFF=pins,relocpick: ignore `// sym:` lines / don't prefer the reloc-correct one of several exact candidates
@@ -152,14 +160,20 @@ def scan(path):
         while end > i + 1 and not lines[end - 1].strip():
             end -= 1
         addr, name, size, kind, mode = m.group(1), m.group(2), int(m.group(3)), m.group(4), m.group(5) or "merged"
-        sym = None
+        sym = hsh = whsh = None
         k = i + 1
         if k < end and SYM_LINE.match(lines[k]):
-            sym = SYM_LINE.match(lines[k]).group(1)
+            sm = SYM_LINE.match(lines[k])
+            sym = sm.group(1)
+            for w, hx in HASH_TOKEN.findall(sm.group(2)):
+                if w:
+                    whsh = hx
+                else:
+                    hsh = hx
         src = re.search(r": ((?:matches|equivalent)/0x[0-9a-f]{8}\.cpp)", lines[i])
         blocks.append({"addr": addr, "name": name, "size": size, "kind": kind, "mode": mode,
                        "src": src.group(1) if src else "%s/%s.cpp" % (kind, addr),
-                       "lines": [i + 1, end], "sym": sym, "ns": "fn_%s" % addr[2:] if mode == "wrapped" else None,
+                       "lines": [i + 1, end], "sym": sym, "hash": hsh, "whash": whsh, "ns": "fn_%s" % addr[2:] if mode == "wrapped" else None,
                        "notes": [l for l in lines[i + 1:end] if DIRECTIVE.match(l)]})
     rec = {"path": os.path.relpath(ap, root) if root else ap, "root": root, "blocks": blocks}
     m = re.search(r"^namespace (fn_f[0-9a-f]{7}) \{", text, re.M)       # (the TU namespace, gen_tree's fn_f<7 hex>)
@@ -394,6 +408,8 @@ def check_tu(path, relocs=False, rec=None, obj=None, vs_standalone=False):
         pairs.append((b, r))
     if obj is not None:
         _shared(v, obj, pairs)
+        if "codehash" not in OFF:
+            code_hashes(v.coff(obj), rec, pairs, path)
         if relocs:
             import verify_relocs
             coff = v.coff(obj)
@@ -452,16 +468,205 @@ def record(path, addr):
     raise KeyError("%s has no block for %s" % (path, a))
 
 
+# ------------------------------------------------------------------------------------------------------- code hashes
+# An equivalent block records the hashes of the code that was proven on its pin line, `// sym: PIN @<msvc> @w<clang>`
+# (tools/code_hash.py has the definition). check_tu recomputes the MSVC one from the TU's object, with_wine the clang
+# one from the object `equiv.py TU ADDR --wine` checks. Per block: `code` / `wine_code` ok (the recorded value), changed
+# (not: re-prove, then `hash --proven`), unhashed (none recorded; `pending` while its TU is listed in PENDING, the TUs
+# the hashes were not yet filled in for), no_object (clang can't compile the TU: no --wine proof exists either);
+# `code_changed`: the kinds that changed (a failure, like pin_missing).
+PENDING = os.path.join(ROOT, "config", "code-hash-pending.txt")
+_PENDING = []
+
+
+def pending_tus():
+    """The tree TUs (paths relative to the tree root) whose equivalent blocks may still lack hashes."""
+    if not _PENDING:
+        try:
+            _PENDING.append({l.strip() for l in open(PENDING) if l.strip() and not l.startswith("#")})
+        except OSError:
+            _PENDING.append(set())
+    return _PENDING[0]
+
+
+def _ext(pairs, r):
+    """equiv.py's TREE_EXTERNAL for the block of record R: the TU's other functions by symbol (bound by address)."""
+    return {x["symbol"]: int(x["addr"], 16) for _, x in pairs
+            if x.get("symbol") and x["addr"] != r["addr"] and x["symbol"] != r.get("symbol")}
+
+
+def _mark(r, b, kind, h, tu_path):
+    key, rec_h = ("code", b.get("hash")) if kind == "msvc" else ("wine_code", b.get("whash"))
+    r[key + "_hash"] = h
+    if h is None:
+        r[key] = "no_object"
+        return
+    r[key] = "unhashed" if rec_h is None else "ok" if rec_h == h else "changed"
+    if r[key] == "changed":
+        r["code_changed"] = sorted(set(r.get("code_changed", [])) | {kind})
+
+
+def apply_pending(recs):
+    """unhashed -> pending for the blocks of the TUs PENDING lists (outside the verify cache: the list changes)."""
+    for r in recs:
+        for key in ("code", "wine_code"):
+            if r.get(key) == "unhashed" and r["tu"] in pending_tus():
+                r[key] = "pending"
+    return recs
+
+
+def code_hashes(coff, rec, pairs, path):
+    """Annotate the equivalent records of PAIRS ((block, record) of one TU) with their MSVC code hash."""
+    import code_hash
+    lines = open(path, errors="replace").read().splitlines()
+    fs = {s[0]: s for s in coff.function_symbols()}
+    for b, r in pairs:
+        if r["kind"] != "equivalent" or not r.get("symbol") or r["symbol"] not in fs:
+            continue
+        h = code_hash.function_hash(coff, fs[r["symbol"]], _ext(pairs, r), lines[b["lines"][0] - 1:b["lines"][1]])
+        _mark(r, b, "msvc", h, rec["path"])
+
+
+WCACHE = os.path.join(ROOT, "build/tree-cache/whash")
+_WK = {}
+
+
+def _wine_env_check():
+    if os.environ.get("HULK_WINE_FLOAT", "sse") != "sse" or os.environ.get("HULK_WINE_SANITIZE"):
+        raise RuntimeError("clang code hashes are of the default --wine object: unset HULK_WINE_FLOAT/HULK_WINE_SANITIZE")
+
+
+def _wine_base_key():
+    """What every clang code hash depends on besides the TU: the compiler, its flags, the IR passes, the hash."""
+    if not _WK:
+        import inspect
+        import clang_probe as cp
+        import code_hash
+        import equiv
+        clang = cp.tool("clang++")
+        if not clang:
+            raise RuntimeError("clang code hashes need LLVM's clang++ (clang_probe.tool)")
+        ver = subprocess.run([clang, "--version"], capture_output=True, text=True).stdout.splitlines()[0]
+        ver = re.sub(r"^.*?clang version (\S+).*$", r"\1", ver)     # (Homebrew's and ~/llvm's 22.1.8 are one compiler)
+        h = hashlib.sha1(b"whash1\0" + ver.encode() + repr(cp.CONFIGS["msvc"]["flags"] + cp.COMMON).encode())
+        for m in (code_hash, cp):
+            with open(m.__file__, "rb") as f:
+                h.update(hashlib.sha1(f.read()).digest())
+        h.update(inspect.getsource(equiv.compile_native).encode() + inspect.getsource(wine_hashes).encode()
+                 + inspect.getsource(clang_symbol).encode())
+        h.update(repr(code_hash.xbe_text()).encode())
+        _WK["k"] = h.hexdigest()
+    return _WK["k"]
+
+
+def wine_object(path, outdir):
+    """The clang object `equiv.py PATH ADDR --wine` checks (equiv.compile_native), compiled with an empty x87-keep
+    list (the queue hosts have none; a Wine build lineage's own list must not leak in). Raises CompileError."""
+    import clang_probe as cp
+    import equiv
+    _wine_env_check()
+    old = cp._X87_LIST
+    cp._X87_LIST = set()
+    try:
+        with active(path):
+            return equiv.compile_native(path, outdir)
+    finally:
+        cp._X87_LIST = old
+
+
+def clang_symbol(fs, symbol):
+    """The clang object's name for the MSVC symbol SYMBOL ({name: symbol} FS): itself, else the one name that differs
+    only in M <-> N (a `float` return that clang's hulk_freg makes `double`: equiv.pick_symbol's mnret rule), else None."""
+    if symbol in fs:
+        return symbol
+    c = [n for n in fs if len(n) == len(symbol) and n != symbol and all(x == y or {x, y} == {"M", "N"}
+                                                                          for x, y in zip(n, symbol))]
+    return c[0] if len(c) == 1 else None
+
+
+def wine_hashes(path, recs, rec=None):
+    """{addr: clang code hash or None (the TU doesn't compile with clang)} of the equivalent blocks of RECS (the TU's
+    check records), cached in build/tree-cache/whash/ by the TU's text, the headers clang can reach, the toolchain and
+    the records' symbols."""
+    import code_hash
+    import include_keys
+    import tempfile
+    from compare import Coff
+    ap = os.path.abspath(path)
+    rec = rec or scan(path)
+    eq = [r for r in recs if r["kind"] == "equivalent" and r.get("symbol")]
+    if not eq:
+        return {}
+    text = open(ap, "rb").read()
+    inc = include_dir(ap)
+    d = include_keys.digest(ap, [inc, os.path.join(ROOT, "include")], root=ROOT, force=["compat/native.h"])
+    if d is None:
+        import build_tree
+        d = "all " + build_tree.include_tree_digest(os.path.join(ROOT, "include")) + " " + \
+            build_tree.include_tree_digest(inc)
+    key = hashlib.sha1((_wine_base_key() + "\0" + d + "\0" + json.dumps([(r["addr"], r["symbol"]) for r in recs])).encode()
+                       + b"\0" + text).hexdigest()[:24]
+    cp_ = os.path.join(WCACHE, key + ".json")
+    try:
+        with open(cp_) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        pass
+    os.makedirs(WCACHE, exist_ok=True)
+    out = {}
+    with tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build")) as tmp:
+        try:
+            obj = wine_object(ap, tmp)
+        except Exception as e:      # noqa: BLE001 - CompileError: no clang object, no --wine proof
+            if isinstance(e, RuntimeError):
+                raise
+            obj = None
+        if obj is None:
+            out = {r["addr"]: None for r in eq}
+        else:
+            coff = Coff(obj)
+            fs = {s[0]: s for s in coff.function_symbols()}
+            lines = text.decode("utf-8", "replace").splitlines()
+            blocks = {b["addr"]: b for b in rec["blocks"]}
+            pairs = [(blocks.get(r["addr"]), r) for r in recs]
+            whole = None
+            for r in eq:
+                b = blocks[r["addr"]]
+                cs = clang_symbol(fs, r["symbol"])
+                if cs:
+                    out[r["addr"]] = code_hash.function_hash(coff, fs[cs], _ext(pairs, r),
+                                                             lines[b["lines"][0] - 1:b["lines"][1]])
+                else:       # (clang has no such function, e.g. an MSVC `$L` funclet or `??_G`: the whole object)
+                    whole = whole or code_hash.object_hash(coff)
+                    out[r["addr"]] = whole
+    with open(cp_ + ".%d.tmp" % os.getpid(), "w") as f:
+        json.dump(out, f)
+    os.replace(cp_ + ".%d.tmp" % os.getpid(), cp_)
+    return out
+
+
+def with_wine(path, recs, rec=None):
+    """Annotate check records with their clang code hashes (wine_hashes)."""
+    rec = rec or scan(path)
+    blocks = {b["addr"]: b for b in rec["blocks"]}
+    for addr, h in wine_hashes(path, recs, rec).items():
+        r = next(x for x in recs if x["addr"] == addr)
+        _mark(r, blocks[addr], "wine", h, rec["path"])
+    return apply_pending(recs)
+
+
 # ------------------------------------------------------------------------------------------------------- verify cache
 CACHE = os.path.join(ROOT, "build/tree-cache/tuverify")
 
 
 def _code_key():
     import build_tree
+    import code_hash
     import compare
     import verify_relocs
-    h = hashlib.sha1(b"tuverify1\0" + ",".join(sorted(OFF)).encode())
-    for m in (sys.modules[__name__], build_tree, compare, verify_relocs, sys.modules["xbe"], sys.modules["disasm"]):
+    h = hashlib.sha1(b"tuverify2\0" + ",".join(sorted(OFF)).encode())
+    for m in (sys.modules[__name__], build_tree, compare, verify_relocs, code_hash, sys.modules["xbe"], sys.modules["disasm"],
+              sys.modules["addr_names"]):
         with open(m.__file__, "rb") as f:
             h.update(hashlib.sha1(f.read()).hexdigest().encode())
     with open(build_tree.compare.XBE_PATH, "rb") as f:
@@ -475,8 +680,8 @@ def _code_key():
 _CK = []
 
 
-def cached_check(path, relocs=False, vs_standalone=False):
-    """check_tu through the verify cache: (records, hit?)."""
+def cached_check(path, relocs=False, vs_standalone=False, wine=False):
+    """check_tu through the verify cache: (records, hit?). WINE: with the clang code hashes too (with_wine)."""
     if not _CK:
         _CK.append(_code_key())
     rec = scan(path)
@@ -490,15 +695,16 @@ def cached_check(path, relocs=False, vs_standalone=False):
     p = os.path.join(CACHE, h.hexdigest()[:24] + ".json")
     try:
         with open(p) as f:
-            return json.load(f), True
+            out, hit = json.load(f), True
     except (OSError, ValueError):
-        pass
-    out = check_tu(path, relocs=relocs, rec=rec, vs_standalone=vs_standalone)
-    os.makedirs(CACHE, exist_ok=True)
-    with open(p + ".%d.tmp" % os.getpid(), "w") as f:
-        json.dump(out, f)
-    os.replace(p + ".%d.tmp" % os.getpid(), p)
-    return out, False
+        out, hit = check_tu(path, relocs=relocs, rec=rec, vs_standalone=vs_standalone), False
+        os.makedirs(CACHE, exist_ok=True)
+        with open(p + ".%d.tmp" % os.getpid(), "w") as f:
+            json.dump(out, f)
+        os.replace(p + ".%d.tmp" % os.getpid(), p)
+    if wine:
+        with_wine(path, out, rec)
+    return apply_pending(out), hit
 
 
 def tree_tus(root):
@@ -523,27 +729,56 @@ def changed_tus(root, ref):
 
 
 def _verify_one(args):
-    path, relocs, vs = args
+    path, relocs, vs, wine = args
     try:
-        recs, hit = cached_check(path, relocs, vs)
+        recs, hit = cached_check(path, relocs, vs, wine)
         return path, recs, hit, None
     except Exception as e:      # noqa: BLE001 - keep the sweep going
         return path, [], False, repr(e)[:300]
 
 
-def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False):
-    """Check every block of PATHS (cached); returns the summary. OUT: one JSON record per function."""
+def count_codes(counts, r):
+    """The code-hash part of a record in verify's counts: changed and unhashed are failures (`equivalent ...`)."""
+    for k in r.get("code_changed", []):
+        counts["equivalent code changed (%s)" % k] += 1
+    for key, kind in (("code", "msvc"), ("wine_code", "wine")):
+        st = r.get(key)
+        if st == "unhashed":
+            counts["equivalent code unhashed (%s)" % kind] += 1
+        elif st == "pending":
+            counts["code hash pending (%s)" % kind] += 1
+        elif st == "no_object":
+            counts["code hash: no clang object (%s)" % kind] += 1
+        elif st == "ok":
+            counts["code hash ok (%s)" % kind] += 1
+    if r.get("code_hash_removed"):
+        counts["equivalent code hash removed"] += 1
+
+
+def failing(counts):
+    """verify's failure count of a summary's counts (also materialize's)."""
+    return sum(n for k, n in counts.items() if k.split(" ")[0] in ("matches", "equivalent", "pinned", "ambiguous")
+               and not k.endswith((" match", " compiled", ": same")))
+
+
+def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True, ref=None):
+    """Check every block of PATHS (cached); returns the summary. OUT: one JSON record per function. WINE: the clang
+    code hashes too. REF (a git ref): a block that had a code hash there and has none now is a failure."""
     import multiprocessing
     counts, hits = collections.Counter(), 0
     errors = []
     f = open(out, "w") if out else None
     ctx = multiprocessing.get_context("fork")
     with ctx.Pool(max(1, jobs)) as pool:
-        for path, recs, hit, err in pool.imap_unordered(_verify_one, [(p, relocs, vs_standalone) for p in paths], chunksize=4):
+        for path, recs, hit, err in pool.imap_unordered(_verify_one, [(p, relocs, vs_standalone, wine) for p in paths],
+                                                         chunksize=4):
             hits += hit
             if err:
                 errors.append((path, err))
+            if ref:
+                removed_hashes(path, recs, ref)
             for r in recs:
+                count_codes(counts, r)
                 counts["%s %s" % (r["kind"], r["status"])] += 1
                 if r.get("relocs") and r["relocs"] != "ok":
                     counts["matches relocs %s" % r["relocs"]] += 1
@@ -582,7 +817,7 @@ def _sync_file(src, dst):
     return True
 
 
-def materialize(root, out, jobs=4, relocs=False):
+def materialize(root, out, jobs=4, relocs=False, wine=True):
     """A committed tree (ROOT/src/{game,engine,platform/xbox}, ROOT/include/{common.h,tree_prelude.h,<layer>/...}) as
     build_tree's output in OUT (src/, include/, manifest.json, report.json, an empty state.json), so the Wine build's
     later stages (clang_probe --snapshot, wine_link) read it as they read a tree build: one verification pass (compile
@@ -624,7 +859,7 @@ def materialize(root, out, jobs=4, relocs=False):
     paths = sorted(os.path.join(out, rel) for rel in want)
     tus = [p for p in paths if is_tree_tu(p)]
     recs_out = os.path.join(out, "checks.jsonl")
-    s = verify(tus, jobs=jobs, relocs=relocs, out=recs_out)
+    s = verify(tus, jobs=jobs, relocs=relocs, out=recs_out, wine=wine)
     checks = [json.loads(l) for l in open(recs_out)]
     order = {p: i for i, p in enumerate(sorted(os.path.relpath(p, out) for p in tus))}
     checks.sort(key=lambda r: (order.get(r["tu"], 0), r["addr"]))
@@ -715,10 +950,16 @@ def layout(tree, root):
 
 
 # ------------------------------------------------------------------------------------------------------- pinning
-def pin_text(path, records):
+def sym_line(pin, h=None, wh=None):
+    return "// sym: " + pin + ("" if h is None else " @" + h) + ("" if wh is None else " @w" + wh)
+
+
+def pin_text(path, records, hashes=None):
     """The TU's text with a `// sym:` line after every block line whose function has a symbol in RECORDS ({addr:
-    symbol}); an existing pin is replaced."""
+    symbol}); an existing pin is replaced, keeping its code hashes; a block without a symbol keeps its line as it is.
+    HASHES ({addr: (msvc hash or None, clang hash or None)}): code hashes to write (None: keep the line's)."""
     lines = open(path, errors="replace").read().split("\n")
+    hashes = hashes or {}
     out, i = [], 0
     while i < len(lines):
         l = lines[i]
@@ -726,12 +967,235 @@ def pin_text(path, records):
         m = BLOCK.match(l)
         i += 1
         if m:
-            if i < len(lines) and SYM_LINE.match(lines[i]):
+            old = SYM_LINE.match(lines[i]) if i < len(lines) else None
+            if old:
                 i += 1
-            s = records.get(m.group(1))
+            oh = dict((("w" if w else "m"), hx) for w, hx in HASH_TOKEN.findall(old.group(2))) if old else {}
+            s = records.get(m.group(1)) or (old.group(1) if old else None)
+            nh = hashes.get(m.group(1), (None, None))
+            h, wh = nh[0] or oh.get("m"), nh[1] or oh.get("w")
             if s:
-                out.append("// sym: " + s)
+                out.append(sym_line(s, h, wh))
+            elif h or wh:
+                raise ValueError("%s %s: code hashes without a pinned symbol" % (path, m.group(1)))
     return "\n".join(out)
+
+
+def text_hashes(text):
+    """{addr: (msvc hash, clang hash)} recorded in a TU's text."""
+    out, lines = {}, text.split("\n")
+    for i, l in enumerate(lines[:-1]):
+        m = BLOCK.match(l)
+        sm = SYM_LINE.match(lines[i + 1]) if m else None
+        if sm:
+            hs = dict((("w" if w else "m"), hx) for w, hx in HASH_TOKEN.findall(sm.group(2)))
+            if hs:
+                out[m.group(1)] = (hs.get("m"), hs.get("w"))
+    return out
+
+
+def removed_hashes(path, recs, ref):
+    """Mark `code_hash_removed` on the records of blocks that had a code hash at git REF and have none now (a hash is
+    only replaced by `hash --proven`, never dropped)."""
+    root = find_root(path)
+    rel = os.path.relpath(os.path.abspath(path), ROOT)
+    r_ = subprocess.run(["git", "show", "%s:%s" % (ref, rel)], capture_output=True, text=True, cwd=ROOT, errors="replace")
+    if r_.returncode or not root:
+        return
+    before = text_hashes(r_.stdout)
+    now = text_hashes(open(path, errors="replace").read())
+    for r in recs:
+        if r["kind"] != "equivalent":
+            continue
+        b, n = before.get(r["addr"], (None, None)), now.get(r["addr"], (None, None))
+        if (b[0] and not n[0]) or (b[1] and not n[1]):
+            r["code_hash_removed"] = True
+
+
+# ------------------------------------------------------------------------------------------------------- recording
+MSVC_INPUTS, WINE_INPUTS = 3000, 600
+
+
+def proof_code(src, addr, native, recs):
+    """What equiv.py records in a tree TU's report (`tree_code`): the code hash of the object it checks (the MSVC one,
+    or with NATIVE the clang one; `x87_keep`: the size of the x87-keep list the --wine compile used, which the hash's
+    compile leaves empty)."""
+    a = "0x%08x" % addr
+    r = next((x for x in recs if x["addr"] == a), None)
+    if r is None or r["kind"] != "equivalent" or not r.get("symbol"):
+        return {"error": "no equivalent block with a symbol at %s" % a}
+    if native:
+        import clang_probe as cp
+        rec = scan(src)
+        h = wine_hashes(src, recs, rec).get(a)
+        return {"wine": h, "symbol": r["symbol"], "x87_keep": len(cp._x87_list())}
+    return {"msvc": r.get("code_hash"), "symbol": r["symbol"]}
+
+
+def _load_results(paths):
+    out = collections.defaultdict(list)
+    for p in paths:
+        text = open(p).read()
+        try:
+            recs = [json.loads(text)]
+        except ValueError:
+            recs = [json.loads(l) for l in text.splitlines() if l.strip().startswith("{")]
+        for r in recs:
+            if isinstance(r, dict) and r.get("addr"):
+                out["0x%08x" % int(r["addr"], 16)].append(r)
+    return out
+
+
+def proves(rep, kind, h):
+    """(ok, why): does equiv.py report REP prove the code that hashes to H? msvc: a promotable MSVC run asked for
+    >= 3,000 inputs; wine: a --wine run that passes the promotion gate (tools/wine_gate.py) asked for >= 600."""
+    tc = rep.get("tree_code") or {}
+    if h is None:
+        return False, "no hash to prove"
+    if bool(rep.get("native")) != (kind == "wine"):
+        return False, "another mode"
+    if tc.get(kind) != h:
+        return False, "a run of other code (%s, now %s)" % (tc.get(kind), h)
+    if kind == "msvc":
+        if not rep.get("promotable"):
+            return False, "not promotable (%s)" % rep.get("status")
+        if (tc.get("n_inputs") or 0) < MSVC_INPUTS:
+            return False, "asked for %s inputs (%d needed)" % (tc.get("n_inputs"), MSVC_INPUTS)
+        return True, "promotable at %s inputs" % tc["n_inputs"]
+    import wine_gate
+    ok, why = wine_gate.judge(rep)
+    if not ok:
+        return False, why
+    if tc.get("x87_keep"):
+        return False, "the --wine compile used an x87-keep list (%d functions): run it without one" % tc["x87_keep"]
+    if (tc.get("n_inputs") or 0) < WINE_INPUTS:
+        return False, "asked for %s inputs (%d needed)" % (tc.get("n_inputs"), WINE_INPUTS)
+    return True, why
+
+
+def hash_proven(path, results, addrs=None, dry_run=False):
+    """Record the code hashes of PATH's equivalent blocks that changed (or have none) where RESULTS ({addr: [equiv.py
+    reports]}) prove the code as it is now (proves()); a block whose code didn't change keeps its hashes. Returns the
+    per-block outcome."""
+    rec = scan(path)
+    recs = check_tu(path, rec=rec)
+    with_wine(path, recs, rec)
+    out, new = [], {}
+    for r in recs:
+        if r["kind"] != "equivalent" or (addrs and r["addr"] not in addrs):
+            continue
+        o = {"addr": r["addr"], "code": r.get("code"), "wine_code": r.get("wine_code")}
+        if not r.get("symbol"):
+            o["result"] = "no symbol (%s)" % r["status"]
+            out.append(o)
+            continue
+        want = {}
+        for kind, key in (("msvc", "code"), ("wine", "wine_code")):
+            if r.get(key) in ("ok", "no_object"):
+                continue
+            h = r.get(key + "_hash")
+            why = [proves(x, kind, h) for x in results.get(r["addr"], [])]
+            good = [w for ok, w in why if ok]
+            if good:
+                want[kind] = h
+                o[kind] = good[0]
+            else:
+                o[kind] = "unproven: " + ("; ".join(w for _, w in why) or "no result for this block")
+        if any(str(o.get(k, "")).startswith("unproven") for k in ("msvc", "wine")):
+            o["result"] = "unproven: nothing recorded"
+        elif want:
+            new[r["addr"]] = (want.get("msvc"), want.get("wine"))
+            o["result"] = "recorded"
+        else:
+            o["result"] = "unchanged"
+        out.append(o)
+    if new and not dry_run:
+        _write(path, {r["addr"]: r.get("pin") or r["symbol"] for r in recs if r["addr"] in new}, new)
+    return out
+
+
+def _write(path, pins, hashes):
+    text = pin_text(path, pins, hashes)
+    with open(path + ".tmp", "w") as f:
+        f.write(text)
+    os.replace(path + ".tmp", path)
+
+
+def compute_records(root, paths, jobs=2, commit=None):
+    """Per TU the code hashes of its equivalent blocks as the code stands (for `hash --init`)."""
+    dirty = None
+    if not os.environ.get("JOBQ_JOB"):
+        r_ = subprocess.run(["git", "status", "--porcelain", "--", "src", "include"], capture_output=True, text=True,
+                            cwd=root)
+        dirty = r_.returncode != 0 or bool(r_.stdout.strip())
+    s = verify(paths, jobs=jobs, wine=True, out=None)     # (fills the caches in parallel)
+    for p in paths:
+        recs, _ = cached_check(p, wine=True)
+        text = open(p, "rb").read()
+        yield {"tu": os.path.relpath(p, root), "tu_sha": hashlib.sha1(text).hexdigest(), "commit": commit,
+               "clean": dirty is False or (dirty is None and bool(os.environ.get("JOBQ_JOB"))),
+               "blocks": [{k: r.get(k) for k in ("addr", "symbol", "pin", "code_hash", "wine_code_hash", "code",
+                                                 "wine_code", "status")}
+                          for r in recs if r["kind"] == "equivalent"]}
+    compute_records.summary = s
+
+
+def init_hashes(root, records, dry_run=False):
+    """Fill in the code hashes of the TUs PENDING lists from `hash --compute` records made at the committed tree (a
+    queue job: its workspace is `git archive HEAD`): only blocks with no hash, only TUs whose text is the text the
+    records were computed from and has no uncommitted edits. A TU whose equivalent blocks all have their hashes then
+    leaves PENDING. Returns {written, skipped: {tu: why}}."""
+    pend = pending_tus()
+    done, skipped, written = set(), {}, []
+    for rr in records:
+        tu = rr["tu"]
+        p = os.path.join(root, tu)
+        if tu not in pend:
+            skipped[tu] = "not pending"
+            continue
+        if not rr.get("clean"):
+            skipped[tu] = "computed from a working tree with uncommitted edits"
+            continue
+        if not os.path.exists(p) or hashlib.sha1(open(p, "rb").read()).hexdigest() != rr["tu_sha"]:
+            skipped[tu] = "the TU changed since the hashes were computed"
+            continue
+        d = subprocess.run(["git", "diff", "--quiet", "HEAD", "--", tu], cwd=root)
+        if d.returncode != 0:
+            skipped[tu] = "uncommitted edits"
+            continue
+        rec = scan(p)
+        have = {b["addr"]: b for b in rec["blocks"]}
+        new, pins, left = {}, {}, 0
+        for b in rr["blocks"]:
+            cur = have.get(b["addr"])
+            if cur is None or cur["kind"] != "equivalent":
+                continue
+            if cur.get("hash") or cur.get("whash"):
+                continue
+            if cur.get("sym") and cur["sym"] != (b.get("pin") or b.get("symbol")):
+                left += 1           # (its pin is not the symbol the hash is of: pin first)
+                continue
+            if not b.get("code_hash") or b.get("wine_code") not in ("unhashed", "pending", "no_object", "ok") \
+                    or (b.get("wine_code") != "no_object" and not b.get("wine_code_hash")):
+                left += 1
+                continue
+            new[b["addr"]] = (b["code_hash"], b.get("wine_code_hash"))
+            pins[b["addr"]] = cur.get("sym") or b.get("pin") or b["symbol"]
+        if new and not dry_run:
+            _write(p, pins, new)
+        written.append((tu, len(new)))
+        if left:
+            skipped[tu] = "%d blocks without hashes (no symbol or no object)" % left
+        else:
+            done.add(tu)
+    if done and not dry_run:
+        keep = [l for l in open(PENDING)] if os.path.exists(PENDING) else []
+        with open(PENDING + ".tmp", "w") as f:
+            f.write("".join(l for l in keep if l.strip() not in done))
+        os.replace(PENDING + ".tmp", PENDING)
+        _PENDING.clear()
+    return {"written_tus": len([w for w in written if w[1]]), "written_blocks": sum(n for _, n in written),
+            "done_tus": len(done), "skipped": skipped}
 
 
 def main(argv=None):
@@ -746,6 +1210,7 @@ def main(argv=None):
     p.add_argument("--equiv", type=int, metavar="N", help="also run equiv.py with N inputs on every equivalent function")
     p.add_argument("--wine", action="store_true", help="with --equiv: the Wine build's clang object")
     p.add_argument("--x64", action="store_true", help="with --equiv: the 64-bit check")
+    p.add_argument("--no-wine-code", action="store_true", help="skip the clang code hashes (no clang here)")
     p.add_argument("--json", action="store_true")
     p = sub.add_parser("verify")
     p.add_argument("root", help="the tree root (build/tree, or the checkout once the tree is committed)")
@@ -756,6 +1221,7 @@ def main(argv=None):
     p.add_argument("--vs-standalone", action="store_true", help="while matches/ and equivalent/ exist: equivalent code "
                    "against its standalone build (build_tree's check)")
     p.add_argument("--out", metavar="OUT.jsonl")
+    p.add_argument("--no-wine-code", action="store_true", help="skip the clang code hashes (no clang here)")
     p = sub.add_parser("pin")
     p.add_argument("root")
     p.add_argument("--records", metavar="JSONL", help="records of `verify --out` (default: check every TU)")
@@ -768,16 +1234,56 @@ def main(argv=None):
     p.add_argument("--out", default=os.path.join(ROOT, "build/tree"))
     p.add_argument("--jobs", type=int, default=4)
     p.add_argument("--relocs", action="store_true")
+    p.add_argument("--no-wine-code", action="store_true", help="skip the clang code hashes (no clang here)")
+    p = sub.add_parser("hash", help="record equivalent blocks' code hashes (only from proofs, or `--init` for PENDING)")
+    p.add_argument("paths", nargs="+", help="TUs (--proven), or the tree root (--compute, --init)")
+    p.add_argument("--proven", nargs="+", metavar="RESULT", help="equiv.py --json reports / jsonl: an MSVC run at "
+                   "--inputs 3000 (promotable) and a --wine run (>= 600) of the code as it is now")
+    p.add_argument("--addr", action="append", help="only these blocks (with --proven)")
+    p.add_argument("--compute", metavar="OUT.jsonl", help="write the hashes of the code as it stands (a queue job)")
+    p.add_argument("--tus", metavar="FILE", help="with --compute: TU paths, one per line (default: every TU)")
+    p.add_argument("--commit", help="with --compute: the commit the workspace is (recorded)")
+    p.add_argument("--jobs", type=int, default=2)
+    p.add_argument("--init", metavar="RECORDS.jsonl", help="fill in the TUs of config/code-hash-pending.txt from "
+                   "--compute records")
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
+    if a.cmd == "hash":
+        if a.compute:
+            root = os.path.abspath(a.paths[0])
+            paths = [os.path.abspath(os.path.join(root, l.strip())) for l in open(a.tus) if l.strip()] if a.tus \
+                else tree_tus(root)
+            with open(a.compute, "w") as f:
+                for r in compute_records(root, paths, jobs=a.jobs, commit=a.commit):
+                    f.write(json.dumps(r) + "\n")
+            print(json.dumps(compute_records.summary, indent=1))
+            return 0
+        if a.init:
+            s = init_hashes(os.path.abspath(a.paths[0]), [json.loads(l) for l in open(a.init) if l.strip()],
+                            dry_run=a.dry_run)
+            print(json.dumps(s, indent=1))
+            return 0
+        if not a.proven:
+            ap.error("hash: --proven RESULT..., --compute OUT or --init RECORDS")
+        res = _load_results(a.proven)
+        addrs = {"0x%08x" % int(x, 16) for x in a.addr} if a.addr else None
+        bad = 0
+        for path in a.paths:
+            for o in hash_proven(path, res, addrs, dry_run=a.dry_run):
+                bad += o["result"].startswith(("unproven", "no symbol"))
+                print(json.dumps(dict(o, tu=path)) if a.json else "%s %s  %s%s" % (
+                    o["addr"], o["result"], "msvc: %s " % o["msvc"] if "msvc" in o else "",
+                    "wine: %s" % o["wine"] if "wine" in o else ""))
+        return 1 if bad else 0
     if a.cmd == "layout":
         print(json.dumps(layout(os.path.abspath(a.tree), os.path.abspath(a.root))))
         return 0
     if a.cmd == "materialize":
-        s = materialize(os.path.abspath(a.root), os.path.abspath(a.out), jobs=a.jobs, relocs=a.relocs)
+        s = materialize(os.path.abspath(a.root), os.path.abspath(a.out), jobs=a.jobs, relocs=a.relocs,
+                        wine=not a.no_wine_code)
         print(json.dumps(s, indent=1))
-        bad = sum(n for k, n in s["counts"].items() if k.split(" ")[0] in ("matches", "equivalent", "pinned", "ambiguous")
-                  and not k.endswith((" match", " compiled", ": same")))
-        return 1 if bad or s["n_errors"] else 0
+        return 1 if failing(s["counts"]) or s["n_errors"] else 0
     if a.cmd == "blocks":
         rec = scan(a.tu)
         if a.json:
@@ -789,6 +1295,9 @@ def main(argv=None):
         return 0
     if a.cmd == "check":
         recs = check_tu(a.tu, relocs=a.relocs)
+        if not a.no_wine_code:
+            with_wine(a.tu, recs)
+        apply_pending(recs)
         if a.equiv:
             import equiv
             for r in recs:
@@ -803,15 +1312,19 @@ def main(argv=None):
         bad = 0
         for r in recs:
             ok = r["status"] in ("match", "compiled") and r.get("relocs", "ok") == "ok" and r.get("equiv", "equivalent") \
-                == "equivalent"
+                == "equivalent" and not r.get("code_changed") and "unhashed" not in (r.get("code"), r.get("wine_code"))
             bad += not ok
             if a.json:
                 print(json.dumps(r))
             else:
-                print("%s %-10s %-8s %-10s %s%s%s  %s" % (r["addr"], r["kind"], r["mode"], r["status"],
-                                                        ("relocs " + r["relocs"] + " ") if "relocs" in r else "",
-                                                        ("equiv " + str(r["equiv"]) + " ") if "equiv" in r else "",
-                                                        r.get("how") or "", r.get("symbol") or ""))
+                code = ""
+                if r["kind"] == "equivalent" and "code" in r:
+                    code = "code %s%s " % (r["code"], "/" + r["wine_code"] if "wine_code" in r else "")
+                print("%s %-10s %-8s %-10s %s%s%s%s%s  %s" % (r["addr"], r["kind"], r["mode"], r["status"],
+                                                            ("relocs " + r["relocs"] + " ") if "relocs" in r else "",
+                                                            ("equiv " + str(r["equiv"]) + " ") if "equiv" in r else "",
+                                                            code, "PIN MISSING " if r.get("pin_missing") else "",
+                                                            r.get("how") or "", r.get("symbol") or ""))
         return 1 if bad else 0
     if a.cmd == "verify":
         root = os.path.abspath(a.root)
@@ -822,11 +1335,10 @@ def main(argv=None):
             paths = changed_tus(root, a.changed_since)
         else:
             paths = tree_tus(root)
-        s = verify(paths, jobs=a.jobs, relocs=a.relocs, out=a.out, vs_standalone=a.vs_standalone)
+        s = verify(paths, jobs=a.jobs, relocs=a.relocs, out=a.out, vs_standalone=a.vs_standalone,
+                   wine=not a.no_wine_code, ref=a.changed_since)
         print(json.dumps(s, indent=1))
-        bad = sum(n for k, n in s["counts"].items() if k.split(" ")[0] in ("matches", "equivalent", "pinned", "ambiguous")
-                  and not k.endswith((" match", " compiled", ": same")))
-        return 1 if bad or s["n_errors"] else 0
+        return 1 if failing(s["counts"]) or s["n_errors"] else 0
     if a.cmd == "pin":
         root = os.path.abspath(a.root)
         syms = collections.defaultdict(dict)

@@ -30,7 +30,7 @@ repo got here, not how it works now (`docs/merge-once.md`):
   blocks keep their original source verbatim in `namespace fn_<addr> { }`.
 - A function is a block: `// 0xADDR NAME (SIZE B): matches/0xADDR.cpp` (or `equivalent/...`, plus `[wrapped: why]`;
   the path names the frozen file, the kind is what counts) then `// sym: <mangled>` (its pinned symbol in the TU's MSVC
-  object), its notes (`// STATUS:`, provenance) and its `// equiv-map:` / `equiv-conv:` / `equiv-dead:`
+  object; an equivalent block adds ` @<hex> @w<hex>`, the hashes of its proven MSVC and clang code), its notes (`// STATUS:`, provenance) and its `// equiv-map:` / `equiv-conv:` / `equiv-dead:`
   directives, which are read from that block only. MSVC's numbered `$L` labels (funclets, catch blocks) renumber on any
   header edit, so they are pinned as `$L#k@owner` (the k-th `$L` label of the owning function).
 - **Edit the block in its TU.** `matches/` and `equivalent/` are frozen at F: never add or edit files there; removing
@@ -46,6 +46,7 @@ $J tools/tree_tu.py blocks TU.cpp                    # its functions: address, k
 $J tools/tree_tu.py check TU.cpp --relocs [--equiv N [--wine|--x64]]   # every function of one TU
 $J tools/tree_tu.py verify . --changed-since origin/main --relocs [--jobs N] [--out OUT.jsonl]  # incremental, cached
 $J tools/tree_tu.py pin . [--records OUT.jsonl]      # rewrite `// sym:` after an edit that changes a symbol (pin_missing)
+$J tools/tree_tu.py hash TU.cpp --proven MSVC.json WINE.json   # record re-proven code hashes (code_changed)
 $J tools/tree_tu.py materialize --out build/tree     # the committed tree as a local Wine-build input
 ```
 
@@ -65,9 +66,12 @@ $J tools/x87_order.py TU.cpp 0xADDR                      # float operation group
 $J tests/equiv/regress.py --jobq --name ME               # after ANY change to tools/equiv.py
 ```
 
-- An edited `matches` block: still MATCH, relocations ok. An edited `equivalent` block: a fresh promotable run at 3,000
+- An edited `matches` block: still MATCH, relocations ok. An edited `equivalent` block: if `tree_tu.py check` says its
+  code is unchanged (`code ok/ok`: the recorded code hashes, docs/merge-once.md "Code hashes"; renames to the same
+  addresses and `$L` renumbering keep them) nothing is re-run; if it says `code_changed`, a fresh promotable run at 3,000
   inputs (no level-2 conflicts, >= 75% branch coverage, >= 50 completed), plus `--wine` (promotions gate it at 600
-  inputs, `tools/wine_gate.py`), plus `--x64` where the 64-bit build compiles the TU. A 64-bit fix changes the source,
+  inputs, `tools/wine_gate.py`), then `tree_tu.py hash TU --proven MSVC.json WINE.json` records the new hashes (only
+  from runs of the code as it is now; never edit a hash by hand). Plus `--x64` where the 64-bit build compiles the TU. A 64-bit fix changes the source,
   never the 32-bit proof: re-check both sides. Update the block's `// STATUS:` line with the run that proved it.
 - Slow functions need `--time-budget`/`--steps` and a matching queue `--limit`. Never shard one proof by seed range.
 - Checker rules are switchable (`EQUIV_OFF=rule,...`, `EQ64_OFF=...`, replay `REPLAY_OFF`); dev copies live as untracked
