@@ -9,6 +9,8 @@
 #define TREE_TU_END }
 namespace fn_f54027db {} using namespace fn_f54027db;
 #include "game/global.h"
+// (ren2) __RTtypeid's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTtypeid(void*);
 
 // ---- declarations shared by the functions below
 namespace fn_f54027db {
@@ -77,7 +79,6 @@ class Group {
     Item* items[1];
     unsigned char Check(int id);
 };
-int __cdecl GetVal(int elem);
 class Other_fdd30 {
   public:
     int Check(int v);
@@ -510,7 +511,7 @@ hulk_intptr owners::Container_fdd30::FUN_000fdd30(hulk_intptr arg) {
         int* p = mArray;
         do {
             e = *p;
-            if (o->Check(GetVal(e))) {
+            if (o->Check(((int)(hulk_uintptr)__RTtypeid((void*)(hulk_uintptr)(e))))) {
                 return e;
             }
             ++i;

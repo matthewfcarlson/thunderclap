@@ -11,6 +11,8 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f83362ab {} using namespace fn_f83362ab;
 #include "engine/pure3d.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f83362ab {
@@ -230,7 +232,6 @@ class Result_288770 {
     virtual void k();
     virtual unsigned int run();
 };
-extern Result_288770* __cdecl resolve(void*, int, const void*, const void*, int);
 struct PoseAnimationController_nv_288770 {
     void set_00288080(hulk_uintptr);
 };
@@ -817,11 +818,11 @@ void* pure3d::PoseAnimationController::vfunc_4() {
 // sym: ?vfunc_5@PoseAnimationController@pure3d@@UAEXPAX@Z
 void pure3d::PoseAnimationController::vfunc_5(void* __p0) { void * arg = (void *)__p0;
 
-    Result_288770* p = resolve(arg, 0, &hulk_at_0048f610, &hulk_at_0049b9b8, 0);
+    Result_288770* p = ((Result_288770 *)__RTDynamicCast(arg, 0, (void*)(&hulk_at_0048f610), (void*)(&hulk_at_0049b9b8), 0));
     if (p) {
         ((PoseAnimationController_nv_288770*)this)->set_00288080(p->run());
     } else {
-        hulk_uintptr x = (hulk_uintptr)resolve(arg, 0, &hulk_at_0048f610, &hulk_at_004ce65c, 0);
+        hulk_uintptr x = (hulk_uintptr)((Result_288770 *)__RTDynamicCast(arg, 0, (void*)(&hulk_at_0048f610), (void*)(&hulk_at_004ce65c), 0));
         ((PoseAnimationController_nv_288770*)this)->set_00288080(x);
     }
 }

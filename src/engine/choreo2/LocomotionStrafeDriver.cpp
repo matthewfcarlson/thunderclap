@@ -10,6 +10,10 @@
 #define TREE_TU_END }
 namespace fn_f9d100c9 {} using namespace fn_f9d100c9;
 #include "engine/choreo2.h"
+// (ren2) floor's own name (CRT, C linkage)
+#if !defined(HULK_COMPAT_CRT)
+extern "C" double __cdecl floor(double);
+#endif
 
 // ---- declarations shared by the functions below
 namespace fn_f9d100c9 {
@@ -180,7 +184,6 @@ public:
     Sample_226960 samples[1];
     hulk_freg FUN_00226960(unsigned int row, float v);
 };
-extern double __cdecl __floor_default(double value);
 struct Curve_226a70 {
  char pad[0x2c];
  unsigned int count;
@@ -590,12 +593,12 @@ hulk_freg Table_226960::FUN_00226960(unsigned int row, float v)
 
 
 // 0x00226a70 FUN_00226a70 (198 B): equivalent/0x00226a70.cpp
-// sym: ?FUN_00226a70@Curve_226a70@fn_f9d100c9@@QAEMMM@Z @66ec5d3dbd76 @wd841b84b1401
+// sym: ?FUN_00226a70@Curve_226a70@fn_f9d100c9@@QAEMMM@Z @31380d6464a9 @wa892f4244319
 // STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 6/8, incomplete)
 // FUN_00226a70 @ 0x00226a70
 hulk_freg Curve_226a70::FUN_00226a70(float position, float angle) {
  angle = FUN_0004af40(0.0f, 6.283185307179586f, angle);
- double base = __floor_default(position);
+ double base = floor(position);
  if (base < 0.0f) return 0.0f;
  unsigned int index = (unsigned int)base;
  unsigned int last = count - 1;

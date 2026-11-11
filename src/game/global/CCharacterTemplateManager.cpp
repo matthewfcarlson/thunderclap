@@ -13,6 +13,8 @@
 #define TREE_TU_END }
 namespace fn_f8b6a7cf {} using namespace fn_f8b6a7cf;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f8b6a7cf {
@@ -216,7 +218,6 @@ class Container_461e0 {
 struct Item { virtual void slot0(); virtual void release(); };
 struct Container { char pad[12]; int count; Item **items; unsigned char FUN_00046230(); };
 typedef unsigned int u32_46280;
-extern void __cdecl Cast(hulk_uintptr, int, const int*, const int*, int);
 extern "C" char hulk_at_003f6334[];
 class DynamicCaster_462a0 {
   public:
@@ -867,7 +868,7 @@ unsigned char Container::FUN_00046230() {
 // Same code shape as 0x00021650 (propagated; names are from that function)
 template <> void content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
 }
 
 namespace fn_f8b6a7cf {
@@ -885,7 +886,7 @@ DynamicCaster_462a0::DynamicCaster_462a0() {
 // Same code shape as 0x00021650 (propagated; names are from that function)
 template <> void content::LoadInventory::DynamicCaster<pure3d::ShadowSkin>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
 }
 
 
@@ -894,7 +895,7 @@ template <> void content::LoadInventory::DynamicCaster<pure3d::ShadowSkin>::vfun
 // Same code shape as 0x00021650 (propagated; names are from that function)
 template <> void content::LoadInventory::DynamicCaster<CSPHulkProp>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
 }
 
 

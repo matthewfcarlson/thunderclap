@@ -12,6 +12,8 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fadd80aa {} using namespace fn_fadd80aa;
 #include "engine/pure3d.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fadd80aa {
@@ -40,7 +42,6 @@ extern "C" char DAT_004ce8a4[];
 typedef unsigned int u32_2a7e90;
 extern void* const EntityRTTI_2a7e90;
 extern void* const VisibilityNodeRTTI;
-extern u32_2a7e90 __cdecl FindType(hulk_uintptr, int, void*, void*, int);
 class Obj_2a7ec0 {
   public:
     void Fn_0028ac90(void*, unsigned char*);
@@ -384,7 +385,7 @@ SceneGraphVisibilityAnimationController* SceneGraphVisibilityAnimationController
 // sym: ?vfunc_5@SceneGraphVisibilityAnimationController@pure3d@@UAEXPAX@Z
 void pure3d::SceneGraphVisibilityAnimationController::vfunc_5(void* __p0) { hulk_uintptr arg = (hulk_uintptr)__p0;
 
-    *(u32_2a7e90*)((char*)this + 0x44) = FindType(arg, 0, (void*)((hulk_intptr)DAT_0048f610), (void*)((hulk_intptr)DAT_004ce8a4), 0);
+    *(u32_2a7e90*)((char*)this + 0x44) = ((u32_2a7e90)(hulk_uintptr)__RTDynamicCast((void*)(arg), 0, (void*)((hulk_intptr)DAT_0048f610), (void*)((hulk_intptr)DAT_004ce8a4), 0));
 }
 
 

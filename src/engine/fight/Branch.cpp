@@ -9,6 +9,8 @@
 #define TREE_TU_END }
 namespace fn_f3f1aadd {} using namespace fn_f3f1aadd;
 #include "engine/fight.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f3f1aadd {
@@ -87,7 +89,6 @@ struct Node {
     void target();
 };
 extern int hulk_at_0048e090, hulk_at_004ca2b0;
-void __cdecl fun(Node*, int, void*, void*, int);
 extern void* FUN_00344e74(owners::Node_232f60*, int, const void*, const void*, int);
 extern const int DAT_0048e090;
 extern const int DAT_004ca2b0;
@@ -312,13 +313,13 @@ namespace fn_f3f1aadd {
 // sym: ?target@Node@fn_f3f1aadd@@QAEXXZ
 void Node::target() {
     if (kind == 3) {
-        fun(this, 0, &hulk_at_0048e090, &hulk_at_004ca2b0, 0);
+        __RTDynamicCast((void*)(this), 0, &hulk_at_0048e090, &hulk_at_004ca2b0, 0);
         return;
     }
     Node* q = next;
     while (q && q->kind != 3)
         q = q->next;
-    fun(q, 0, &hulk_at_0048e090, &hulk_at_004ca2b0, 0);
+    __RTDynamicCast((void*)(q), 0, &hulk_at_0048e090, &hulk_at_004ca2b0, 0);
 }
 
 } // namespace fn_f3f1aadd

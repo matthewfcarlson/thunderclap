@@ -11,6 +11,8 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_ff685ee7 {} using namespace fn_ff685ee7;
 #include "engine/pure3d.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_ff685ee7 {
@@ -384,7 +386,6 @@ class SimpleFrameController_2aa0f0 {
     virtual void f25();
     virtual void f26();
 };
-extern void* __cdecl match(void*, int, void*, void*, int);
 extern int hulk_at_0048f610, hulk_at_004ce7fc, hulk_at_004cf460;
 class ExpressionAnimationController : public SimpleFrameController_2aa0f0 {
     char pad[0x40];
@@ -395,12 +396,12 @@ class ExpressionAnimationController : public SimpleFrameController_2aa0f0 {
     void vfunc_5(void*);
 };
 void ExpressionAnimationController::vfunc_5(void* arg) {
-    void* p = match(arg, 0, &hulk_at_0048f610, &hulk_at_004ce7fc, 0);
+    void* p = __RTDynamicCast(arg, 0, &hulk_at_0048f610, &hulk_at_004ce7fc, 0);
     if (p) {
         assign_002a9ea0(p);
         return;
     }
-    p = match(arg, 0, &hulk_at_0048f610, &hulk_at_004cf460, 0);
+    p = __RTDynamicCast(arg, 0, &hulk_at_0048f610, &hulk_at_004cf460, 0);
     SimpleFrameController_2aa0f0* q = *(SimpleFrameController_2aa0f0**)((char*)p + 0x68);
     if (q)
         q->f0();

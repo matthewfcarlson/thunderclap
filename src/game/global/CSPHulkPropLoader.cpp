@@ -10,6 +10,10 @@
 #define TREE_TU_END }
 namespace fn_f590c0bf {} using namespace fn_f590c0bf;
 #include "game/global.h"
+// (ren2) atol's own name (CRT, C linkage)
+#if !defined(HULK_COMPAT_CRT)
+extern "C" long __cdecl atol(const char*);
+#endif
 
 // ---- declarations shared by the functions below
 namespace fn_f590c0bf {
@@ -131,7 +135,6 @@ struct Holder_1d5730 {
 };
 typedef unsigned long U32_1d5c70;
 typedef unsigned __int64 U64_1d5c70;
-extern long __cdecl Fnatol_003454fe(const char*);
 struct Attribute { U32_1d5c70 low, high; const char* text; U32_1d5c70 unused; };
 struct Item_1d5c70 { char pad[0x3c]; int count; Attribute* attributes; };
 struct List_1d5c70 { char pad[0x1c]; Item_1d5c70** begin; Item_1d5c70** end; };
@@ -606,7 +609,7 @@ CSPHulkProp::~CSPHulkProp() {}
 namespace fn_f590c0bf {
 
 // 0x001d5c70 FUN_001d5c70 (175 B): equivalent/0x001d5c70.cpp
-// sym: ?FUN_001d5c70@CSPHulkPropInstance_1d5c70@fn_f590c0bf@@QAEJH@Z @fed943dd6bd1 @wfdbb749caafb
+// sym: ?FUN_001d5c70@CSPHulkPropInstance_1d5c70@fn_f590c0bf@@QAEJH@Z @f3fca7ae15bd @wa4fdfb6dae1f
 // STATUS: equivalent (tools/equiv.py level 3: 19928 inputs, branch coverage 14/14)
 // FUN_001d5c70 @ 0x001d5c70
 long CSPHulkPropInstance_1d5c70::FUN_001d5c70(int index) {
@@ -625,14 +628,14 @@ long CSPHulkPropInstance_1d5c70::FUN_001d5c70(int index) {
  if (count <= 0) return -1;
  Attribute* attr = item->attributes;
  for (int i=0; i<count; ++i, ++attr) {
-  if (attr->low == low && attr->high == high) return Fnatol_003454fe(attr->text);
+  if (attr->low == low && attr->high == high) return atol(attr->text);
  }
  return -1;
 }
 
 
 // 0x001d5d20 FUN_001d5d20 (175 B): equivalent/0x001d5d20.cpp
-// sym: ?target@CSPHulkPropInstance_1d5d20@fn_f590c0bf@@QAEJH@Z @f67acc7c6ef1 @wac8eac8c546c
+// sym: ?target@CSPHulkPropInstance_1d5d20@fn_f590c0bf@@QAEJH@Z @d3909ff69526 @w72f94164a45c
 // STATUS: equivalent (tools/equiv.py level 3: 19966 inputs, branch coverage 14/14)
 // FUN_001d5d20 @ 0x001d5d20
 long CSPHulkPropInstance_1d5d20::target(int index) {
@@ -652,7 +655,7 @@ long CSPHulkPropInstance_1d5d20::target(int index) {
  if(n <= 0) return 0;
  Property_1d5d20* p = item->properties;
  for(int i=0; i<n; ++i, ++p) {
-  if(p->low == low && p->high == high) return Fnatol_003454fe(p->value);
+  if(p->low == low && p->high == high) return atol(p->value);
  }
  return 0;
 }

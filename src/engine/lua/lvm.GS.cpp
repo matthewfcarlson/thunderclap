@@ -9,15 +9,18 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f8247bb0 {} using namespace fn_f8247bb0;
 #include "engine/lua.h"
+// (ren2) sprintf's own name (CRT, C linkage)
+#if !defined(HULK_COMPAT_CRT)
+extern "C" int __cdecl sprintf(char*, const char*, ...);
+#endif
 
 // ---- declarations shared by the functions below
 namespace fn_f8247bb0 {
-extern int __cdecl _sprintf(char*, const char*, ...);
 extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
 
 
 // 0x00217640 FUN_00217640 (128 B): equivalent/0x00217640.cpp
-// sym: _FUN_00217640 @7e878daa5e4e @w8d0d0b03bd5e
+// sym: _FUN_00217640 @e348251c6e1c @w2946635b4585
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 4/4)
 // luaV_tostring: convert a number in place to its string ("%.7g"); 0 when obj is not a number.
 extern "C" int __cdecl FUN_00217640(LuaVMState* L, LuaVMTObject* obj) {
@@ -25,7 +28,7 @@ extern "C" int __cdecl FUN_00217640(LuaVMState* L, LuaVMTObject* obj) {
     if (obj->tt != LUAVM_TNUMBER) {
         return 0;
     }
-    _sprintf(s, "%.7g", (double)obj->value.n);
+    sprintf(s, "%.7g", (double)obj->value.n);
     const char* e = s;
     while (*e != 0)
         e++;

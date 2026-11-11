@@ -11,6 +11,8 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f22c50ed {} using namespace fn_f22c50ed;
 #include "engine/pure3d.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f22c50ed {
@@ -67,7 +69,6 @@ typedef unsigned int u32_2a7b60;
 struct Type_2a7b60 {};
 extern Type_2a7b60 hulk_at_0048f610;
 extern Type_2a7b60 hulk_at_004c29f4;
-extern void* __cdecl Cast(void*, int, Type_2a7b60*, Type_2a7b60*, int);
 
 } // namespace fn_f22c50ed
 
@@ -370,6 +371,6 @@ SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::
 // sym: ?vfunc_5@SceneGraphTransformAnimationController@pure3d@@UAEXPAX@Z
 void pure3d::SceneGraphTransformAnimationController::vfunc_5(void* __p0) { void * p = (void *)__p0;
 
-    (*(void * *)&this->f_110) = Cast(p, 0, &hulk_at_0048f610, &hulk_at_004c29f4, 0);
+    (*(void * *)&this->f_110) = __RTDynamicCast(p, 0, (void*)(&hulk_at_0048f610), (void*)(&hulk_at_004c29f4), 0);
 }
 

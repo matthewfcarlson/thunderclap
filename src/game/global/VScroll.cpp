@@ -8,6 +8,8 @@
 #define TREE_TU_END }
 namespace fn_fdc7ca3e {} using namespace fn_fdc7ca3e;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fdc7ca3e {
@@ -230,7 +232,6 @@ class FELayout_e2760 {
     virtual void vfunc_3();
     virtual void vfunc_4();
 };
-extern FEObject_e2760* castFE(void*, int, hulk_intptr, hulk_intptr, int);
 class FELayout_e27b0 {
   public:
     virtual void f0();
@@ -276,7 +277,6 @@ class FEControl_e27b0 {
 };
 extern char hulk_at_0049f4f0;
 extern char hulk_at_0049dba4;
-void* cast(void*, int, void*, void*, int);
 
 } // namespace fn_fdc7ca3e
 
@@ -651,7 +651,7 @@ hulk_freg VScroll::vfunc_17(int ) {
 // sym: ?vfunc_12@VScroll@@UAEXXZ
 void VScroll::vfunc_12() {
     for (int i = 0; i < this->f_240; ++i) {
-        FEObject_e2760* p = castFE(*(void**)((char*)this + 0x40 + i * 16), 0, ((hulk_intptr)DAT_0049dba4), ((hulk_intptr)DAT_0049f4f0), 0);
+        FEObject_e2760* p = ((FEObject_e2760 *)__RTDynamicCast(*(void**)((char*)this + 0x40 + i * 16), 0, (void*)(((hulk_intptr)DAT_0049dba4)), (void*)(((hulk_intptr)DAT_0049f4f0)), 0));
         if (p)
             p->f16();
     }
@@ -665,7 +665,7 @@ void VScroll::vfunc_11() {
     if (this->f_240 > 0) {
         char* p = (char*)this + 0x40;
         do {
-            int* q = (int*)cast((void*)*(hulk_intptr*)p, 0, &hulk_at_0049dba4, &hulk_at_0049f4f0, 0);
+            int* q = (int*)__RTDynamicCast((void*)*(hulk_intptr*)p, 0, &hulk_at_0049dba4, &hulk_at_0049f4f0, 0);
             if (q)
                 ((FEControl_e27b0*)q)->o();
             ++i;

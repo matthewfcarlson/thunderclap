@@ -14,6 +14,8 @@
 #define TREE_TU_END }
 namespace fn_f53c52ab {} using namespace fn_f53c52ab;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f53c52ab {
@@ -171,7 +173,6 @@ class Dummy_bebc0 {
     void Call(void*);
 };
 typedef unsigned int u32_bebf0;
-extern void __cdecl Cast(hulk_uintptr, int, const int*, const int*, int);
 class Sub_bef60 {
   public:
     int SubFn_000bc750();
@@ -467,7 +468,6 @@ struct Holder_c2b90 {
 };
 extern char hulk_at_0049dba4[], hulk_at_0049faf4[];
 void* Cast_000fc260(int);
-Obj_c2b90* Conv(void*, int, char*, char*, int);
 class CUnlockable_c3db0 {
   public:
     virtual void v0();
@@ -1206,7 +1206,7 @@ template class Method1<CFEManager, void, int>; // (ren2) native only: clang emit
 // Same code shape as 0x00021650 (propagated; names are from that function)
 template <> void content::LoadInventory::DynamicCaster<pure3d::Texture>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
 }
 
 
@@ -2585,7 +2585,7 @@ CFEManager_c1f50* CFEManager_c1f50::vfunc_2(unsigned char flags) {
 int Holder_c2b90::Handle(int a, int* p) {
     if (mT && a == 1) {
         int x = *p;
-        Obj_c2b90* o = Conv(Cast_000fc260(x), 0, hulk_at_0049dba4, hulk_at_0049faf4, 0);
+        Obj_c2b90* o = ((Obj_c2b90 *)__RTDynamicCast(Cast_000fc260(x), 0, (void*)(hulk_at_0049dba4), (void*)(hulk_at_0049faf4), 0));
         if (o) {
             int v = o->mVal;
             mT->FnA_000bfa10(v, 0);

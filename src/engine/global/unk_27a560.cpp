@@ -10,6 +10,10 @@
 #define TREE_LOCAL_pure3d
 namespace fn_ff5ed045 {} using namespace fn_ff5ed045;
 #include "common.h"
+// (ren2) sscanf's own name (CRT, C linkage)
+#if !defined(HULK_COMPAT_CRT)
+extern "C" int __cdecl sscanf(const char*, const char*, ...);
+#endif
 
 // ---- declarations shared by the functions below
 namespace fn_ff5ed045 {
@@ -93,7 +97,6 @@ struct This_FUN_0027a970 {
     bool FUN_0027a970(int a);
 };
 typedef unsigned char bool8_27aac0;
-extern int Format(char*, const char*, float*, float*, float*);
 
 
 // 0x0027a560 FUN_0027a560 (7 B): matches/0x0027a560.cpp
@@ -282,8 +285,7 @@ bool8_27aac0 owners::Obj_27aac0::FUN_0027aac0(hulk_intptr a, int* out) {
 // data: fmt_27ab00 = DAT_0042c120
 bool owners::Obj_27ab00::FUN_0027ab00(hulk_intptr a, float* p) {
     if (Check(((int)a)))
-        return Format((char*)((char*)this + 0xd38 + index * 0x60), DAT_0042c120, p, (float*)((char*)p + 4),
-                      (float*)((char*)p + 8)) == 3;
+        return sscanf((const char*)((char*)((char*)this + 0xd38 + index * 0x60)), DAT_0042c120, p, (float*)((char*)p + 4), (float*)((char*)p + 8)) == 3;
     return false;
 }
 

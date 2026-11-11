@@ -9,6 +9,10 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f16f06b3 {} using namespace fn_f16f06b3;
 #include "engine/core.h"
+// (ren2) strncpy's own name (CRT, C linkage)
+#if !defined(HULK_COMPAT_CRT)
+extern "C" char* __cdecl strncpy(char*, const char*, size_t);
+#endif
 
 // ---- declarations shared by the functions below
 namespace fn_f16f06b3 {
@@ -18,7 +22,6 @@ struct ThisCall_00275600 {
     void FUN_00275600(int);
 };
 extern void FUN_002705f0();
-extern char* _strncpy(char*, const char*, unsigned int);
 class DriveCreateDirectoryRequest {
   public:
     void* vptr;
@@ -61,7 +64,7 @@ DriveCreateDirectoryRequest* DriveCreateDirectoryRequest::Create(int a, char* p)
     ((ThisCall_00275600*)(this))->FUN_00275600(a);
     vptr = (void*)((hulk_intptr)DAT_0042bbc0);
     FUN_002705f0();
-    _strncpy(path, p, 0x10);
+    strncpy(path, p, 0x10);
     path[16] = 0;
     return this;
 }

@@ -13,6 +13,8 @@
 #define TREE_TU_END }
 namespace fn_fa3ff49b {} using namespace fn_fa3ff49b;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fa3ff49b {
@@ -94,7 +96,6 @@ struct Param_621a0 {
     virtual void p2();
     virtual void p4();
 };
-extern int query(u32_621a0, int, const void*, const void*, int);
 extern void* alloc_0008d690(hulk_uintptr);
 struct CWeaponCollisionAction_621a0 {
     u32_621a0 construct_0001b080(u32_621a0, CWeaponCollisionTrack*, int);
@@ -2224,7 +2225,7 @@ char owners::Obj_62180::FUN_00062180(const char* v) {
 // sym: ?vfunc_10@CWeaponCollisionTrack@@UAEHHHH@Z
 hulk_intptr CWeaponCollisionTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_621a0 a = (u32_621a0)__p0; u32_621a0 b = (u32_621a0)__p1; u32_621a0 c = (u32_621a0)__p2;
 
-    int x = query(c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int x = ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(c), 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (x) {
         void* p = alloc_0008d690(0x80);
         if (p)

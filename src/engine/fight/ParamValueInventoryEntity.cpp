@@ -9,6 +9,8 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f30d46c2 {} using namespace fn_f30d46c2;
 #include "engine/fight.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f30d46c2 {
@@ -137,7 +139,6 @@ struct ParamValueConditionGroup {
 };
 extern void FUN_0008d330(ParamValueConditionGroup*);
 typedef unsigned int u32_235870;
-extern void __cdecl Cast(hulk_uintptr, int, const int*, const int*, int);
 
 } // namespace fn_f30d46c2
 
@@ -393,7 +394,7 @@ ParamValueConditionGroup* ParamValueConditionGroup::vfunc_0(int flags) {
 // Same code shape as 0x00021650 (propagated; names are from that function)
 template <> void content::LoadInventory::DynamicCaster<pure3d::Entity>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
 }
 
 

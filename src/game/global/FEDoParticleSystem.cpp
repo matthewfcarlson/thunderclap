@@ -9,13 +9,14 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f4f1b158 {} using namespace fn_f4f1b158;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f4f1b158 {
 extern "C" char DAT_0040bff8[];
 extern int hulk_at_004a10d8;
 extern int hulk_at_004a10f4;
-extern void __cdecl Init(void*, int, int*, int*, int);
 class FEParticleSystem {
   public:
     FEParticleSystem(void*, int);
@@ -70,7 +71,7 @@ FEParticleSystem::FEParticleSystem(void* arg, int unused) {
     e = 0;
     f = (int)0xbf800000;
     g = (int)0xbf800000;
-    Init(arg, 0, &hulk_at_004a10d8, &hulk_at_004a10f4, 0);
+    __RTDynamicCast(arg, 0, (void*)(&hulk_at_004a10d8), (void*)(&hulk_at_004a10f4), 0);
     last = 0;
 }
 

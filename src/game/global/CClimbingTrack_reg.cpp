@@ -7,6 +7,8 @@
 #define TREE_TU_END }
 namespace fn_fa9e1582 {} using namespace fn_fa9e1582;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fa9e1582 {
@@ -298,7 +300,6 @@ class TrackFactoryCaster_6dd90 {
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
 };
-extern int __cdecl cast(void*, int, void*, void*, int);
 extern int a, hulk_at_00499b70;
 extern char DAT_00499c00;
 } // namespace fn_fa9e1582
@@ -358,7 +359,6 @@ class TrackFactoryCaster_6df90 {
 };
 extern char DAT_0049a050;
 class CJumpAttackTrack_6dfd0;
-extern int __cdecl TryCast(void*, int, void*, void*, int);
 } // namespace fn_fa9e1582
 namespace fight {
 class TrackFactoryCaster_6dfd0 {
@@ -379,7 +379,6 @@ class TrackFactoryCaster_6e010 {
 }
 namespace fn_fa9e1582 {
 extern char DAT_0049a1f8;
-extern "C" int __cdecl Factory(void*, void*, void*, void*, int);
 class CMoveTrack_6e0d0;
 } // namespace fn_fa9e1582
 namespace fight {
@@ -581,7 +580,6 @@ struct TypeDescriptor {
 };
 extern TypeDescriptor sourceType;
 extern TypeDescriptor hulk_at_0049af78;
-extern "C" void* __cdecl performCast(void*, long, TypeDescriptor*, TypeDescriptor*, int);
 } // namespace fn_fa9e1582
 namespace fight {
 class TrackFactoryCaster_6e690 {
@@ -1010,7 +1008,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CGrappleUninterruptibleTrack>
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VCHeadTrackerTrack@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<CHeadTrackerTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return cast(p, 0, &a, &hulk_at_00499b70, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &a, &hulk_at_00499b70, 0)) != 0;
 }
 
 
@@ -1103,7 +1101,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CJumpTrack>::vfunc_0(void* __
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<CJumpAttackTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return TryCast(p, 0, (void*)&DAT_0049850c, (void*)&DAT_0049a050, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)&DAT_0049850c, (void*)&DAT_0049a050, 0)) != 0;
 }
 
 
@@ -1144,7 +1142,7 @@ namespace fn_fa9e1582 {
 // 0x0006e090 fight::TrackFactoryCasterTemplate<CMotionTrailTrack>::vfunc_0 (36 B): matches/0x0006e090.cpp
 // sym: ?TrackFactoryCasterTemplate_CMotionTrailTrack_vfunc_0@fn_fa9e1582@@YGHPAX@Z
 int __stdcall TrackFactoryCasterTemplate_CMotionTrailTrack_vfunc_0(void* p) {
-    int r = Factory(p, 0, (void*)&DAT_0049850c, (void*)&DAT_0049a1f8, 0);
+    int r = ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)&DAT_0049850c, (void*)&DAT_0049a1f8, 0));
     return r != 0;
 }
 
@@ -1255,7 +1253,6 @@ template <> bool fight::TrackFactoryCasterTemplate<CPushBackAnimationTrack>::vfu
 // 0x0006e2d0 fight::TrackFactoryCasterTemplate<CRageModeTrack>::vfunc_0 (36 B): matches/0x0006e2d0.cpp [wrapped: conflict: fight::TrackFactoryCaster; fight::TrackFactoryCasterTemplate]
 // sym: ?vfunc_0@TrackFactoryCasterTemplate@fight@fn_0006e2d0@@UAEHPAX@Z
 namespace fn_0006e2d0 {
-extern int __cdecl check(void*, int, void*, void*, int);
 extern int a, hulk_at_0049a6dc;
 namespace fight {
 class TrackFactoryCaster {
@@ -1270,7 +1267,7 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
     virtual void vfunc_1();
 };
 int TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return check(p, 0, &a, &hulk_at_0049a6dc, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &a, &hulk_at_0049a6dc, 0)) != 0;
 }
 } // namespace fight
 } // namespace fn_0006e2d0
@@ -1429,7 +1426,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CSoundTrack>::vfunc_0(void* _
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<CStageTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return performCast(p, 0, &sourceType, &hulk_at_0049af78, 0) != 0;
+    return __RTDynamicCast(p, 0, (void*)(&sourceType), (void*)(&hulk_at_0049af78), 0) != 0;
 }
 
 

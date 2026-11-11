@@ -12,6 +12,10 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f61f5a00 {} using namespace fn_f61f5a00;
 #include "game/global.h"
+// (ren2) sprintf's own name (CRT, C linkage)
+#if !defined(HULK_COMPAT_CRT)
+extern "C" int __cdecl sprintf(char*, const char*, ...);
+#endif
 
 // ---- declarations shared by the functions below
 namespace fn_f61f5a00 {
@@ -1429,13 +1433,12 @@ void TextHost::FUN_000b8f20()
 
 
 // 0x000b9930 FUN_000b9930 (128 B): equivalent/0x000b9930.cpp [wrapped: conflict: FUN_000fc1b0; FUN_000fc260; _sprintf]
-// sym: ?FUN_000b9930@Hud_b9930@fn_000b9930@@QAEXXZ @7530c00db498 @w7bb10212b465
+// sym: ?FUN_000b9930@Hud_b9930@fn_000b9930@@QAEXXZ @ecb6f437dca9 @w516039dc8c48
 namespace fn_000b9930 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000b9930 @ 0x000b9930
 // cl-flags: /GS
 // 0x000b9930: show the experience points value in its HUD label
-extern int __cdecl _sprintf(char*, const char*, ...);
 extern char DAT_0049dba4[];
 extern char DAT_0049f48c[];
 void* __cdecl FUN_000fc260(const char* name);
@@ -1468,7 +1471,7 @@ void Hud_b9930::FUN_000b9930()
     if (stats != 0) {
         Label_b9930* label = (Label_b9930*)FUN_00344e74(FUN_000fc260("experience_points_label"), 0, DAT_0049dba4, DAT_0049f48c, 0);
         if (label != 0) {
-            _sprintf(buf, "%d", stats->FUN_00090110());
+            sprintf(buf, "%d", stats->FUN_00090110());
             label->text.FUN_000f8500(buf, FUN_000fc1b0(), 0);
         }
     }

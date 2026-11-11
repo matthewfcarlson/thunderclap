@@ -11,6 +11,8 @@
 #define TREE_LOCAL_pure3d
 namespace fn_fb8fef2d {} using namespace fn_fb8fef2d;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fb8fef2d {
@@ -228,7 +230,6 @@ extern int hulk_at_004a17a8;
 extern int hulk_at_004a17e4;
 struct This_first {
 };
-extern int __cdecl second(int, int, int*, int*, int);
 
 } // namespace fn_fb8fef2d
 
@@ -518,6 +519,6 @@ hulk_intptr owners::ThisWrap_000f8d40::FUN_000f8d40(int a) {
 // 0x000f8d70 FUN_000f8d70 (36 B): matches/0x000f8d70.cpp
 // sym: ?FUN_000f8d70@Obj_f8d70@owners@@QAEHH@Z
 hulk_intptr owners::Obj_f8d70::FUN_000f8d70(hulk_intptr x) {
-    return second(((owners::Table_f8cc0 *)(((This_first*)this)))->FUN_000f8cc0((const char *)(hulk_uintptr)(int)(((int)x))), 0, &hulk_at_004a17a8, &hulk_at_004a17e4, 0);
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(((owners::Table_f8cc0 *)(((This_first*)this)))->FUN_000f8cc0((const char *)(hulk_uintptr)(int)(((int)x)))), 0, (void*)(&hulk_at_004a17a8), (void*)(&hulk_at_004a17e4), 0));
 }
 

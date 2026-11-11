@@ -17,6 +17,8 @@
 #define TREE_LOCAL_pure3d
 namespace fn_fb0f1f83 {} using namespace fn_fb0f1f83;
 #include "engine/physics.h"
+// (ren2) fprintf's own name (CRT, C linkage)
+extern "C" int __cdecl fprintf(void*, const char*, ...);
 
 // ---- declarations shared by the functions below
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -32,7 +34,6 @@ struct FILE_TYPE { char unused; };
 extern "C" int __cdecl _fwprintf(FILE_TYPE *, const char *);
 extern "C" void __cdecl _longjmp(void *, int);
 namespace fn_fb0f1f83 {
-extern "C" int __cdecl FID_conflict__fwprintf(File *, const char *);
 typedef unsigned int U32_2e6970;
 struct S_2e6970 {
     char pad[0x40];
@@ -641,7 +642,7 @@ extern "C" void __cdecl FUN_002e6930(void *jumpBuffer)
 // equiv-conv: FUN_002e6950 eax
 void FUN_002e6950(const char *message)
 {
-    FID_conflict__fwprintf(((File*)&DAT_004d9a30), "libpng warning: %s\n");
+    fprintf((void*)(((File*)&DAT_004d9a30)), "libpng warning: %s\n");
 }
 
 
@@ -1952,7 +1953,6 @@ namespace fn_002e8940 {
 extern "C" double __cdecl fabs(double);
 #endif
 
-extern int __cdecl _fwprintf(void* stream, const char* format, ...);
 
 struct PngStruct_2e8940 {
     char pad00[0x60];
@@ -2044,8 +2044,8 @@ extern "C" void FUN_002e8940(PngStruct_2e8940* png_ptr, PngInfo_2e8940* info_ptr
             fabs(red_x - 0.64f) > 0.001 || fabs(red_y - 0.33f) > 0.001 || fabs(green_x - 0.3f) > 0.001 ||
             fabs(green_y - 0.6f) > 0.001 || fabs(blue_x - 0.15f) > 0.001 || fabs(blue_y - 0.06f) > 0.001) {
             FUN_002e69d0(png_ptr, "Ignoring incorrect cHRM value when sRGB is also present");
-            _fwprintf(((char*)&DAT_004d9a30), "wx=%f, wy=%f, rx=%f, ry=%f\n", white_x, white_y, red_x, red_y);
-            _fwprintf(((char*)&DAT_004d9a30), "gx=%f, gy=%f, bx=%f, by=%f\n", green_x, green_y, blue_x, blue_y);
+            fprintf(((char*)&DAT_004d9a30), "wx=%f, wy=%f, rx=%f, ry=%f\n", white_x, white_y, red_x, red_y);
+            fprintf(((char*)&DAT_004d9a30), "gx=%f, gy=%f, bx=%f, by=%f\n", green_x, green_y, blue_x, blue_y);
         }
         return;
     }
@@ -2089,7 +2089,6 @@ void __cdecl FUN_002e69d0(png_struct *png_ptr, const char *msg);
 int __cdecl FUN_002e81e0(png_struct *png_ptr, unsigned int skip);
 void __cdecl FUN_002e7580(png_struct *png_ptr, unsigned char *buf, unsigned int length);
 void __cdecl FUN_002eb540(png_struct *png_ptr, png_info *info_ptr, int intent);
-extern int __cdecl _fwprintf(void *stream, const char *format, ...);
 
 // libpng png_handle_sRGB. The first argument's stack slot doubles as the one-byte intent buffer.
 void png_handle_sRGB(png_struct *png_ptr_arg, png_info *info_ptr, unsigned int length)
@@ -2133,7 +2132,7 @@ void png_handle_sRGB(png_struct *png_ptr_arg, png_info *info_ptr, unsigned int l
         int igamma = (int)(png_ptr->gamma * 100000.0f + 0.5);
         if (igamma != 45000) {
             FUN_002e69d0(png_ptr, "Ignoring incorrect gAMA value when sRGB is also present");
-            _fwprintf(DAT_004d9a30, "gamma=%f\n", (double)png_ptr->gamma);
+            fprintf(DAT_004d9a30, "gamma=%f\n", (double)png_ptr->gamma);
         }
     }
 

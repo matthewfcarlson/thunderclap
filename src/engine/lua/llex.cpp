@@ -9,6 +9,8 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f9ca7db9 {} using namespace fn_f9ca7db9;
 #include "engine/lua.h"
+// (ren2) isalnum's own name (CRT, C linkage)
+extern "C" __declspec(nothrow) int __cdecl isalnum(int);
 
 // ---- declarations shared by the functions below
 namespace fn_f9ca7db9 {
@@ -517,7 +519,7 @@ extern "C" void FUN_0021b720(LuaVMLexState* ls, int del, LuaVMSemInfo* seminfo) 
 
 
 // 0x0021bbc0 FUN_0021bbc0 (1310 B): equivalent/0x0021bbc0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_0021bbc0 @55cf5efae54e @wbc83d895057a
+// sym: _FUN_0021bbc0 @72472be06074 @wee4ecac95fa9
 namespace fn_0021bbc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2771 inputs, branch coverage 68/89, incomplete)
 // llex: the next token (its semantic value in seminfo).
@@ -553,7 +555,6 @@ extern "C" int isdigit(int c);
 extern "C" int isalpha(int c);
 #endif
 
-extern "C++" __declspec(nothrow) int isalnum(int c);
 
 static int Zgetc(LuaVMLexState* ls) {
     unsigned int n = ls->z->n;

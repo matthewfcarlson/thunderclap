@@ -12,6 +12,8 @@
 #define TREE_TU_END }
 namespace fn_fedc4c02 {} using namespace fn_fedc4c02;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fedc4c02 {
@@ -169,7 +171,6 @@ extern "C" void* __cdecl lookup(const char*);
 extern "C" Widget* __cdecl convert(void*, int, void*, void*, int);
 extern int hulk_at_0049dba4, hulk_at_0049dbbc;
 extern "C" int __cdecl makeName_000fc260(const char*);
-extern "C" class Selector* __cdecl findSelector(int, int, void*, void*, int);
 extern int gA, gB;
 class Selector {
   public:
@@ -988,7 +989,7 @@ namespace fn_fedc4c02 {
 // 0x000b5a80 FUN_000b5a80 (70 B): matches/0x000b5a80.cpp
 // sym: ?setup@Screen@fn_fedc4c02@@QAEXXZ
 void Screen::setup() {
-    Selector* s = findSelector(makeName_000fc260("pause_config_vibration_selector"), 0, &gA, &gB, 0);
+    Selector* s = ((class Selector *)__RTDynamicCast((void*)(hulk_uintptr)(makeName_000fc260("pause_config_vibration_selector")), 0, &gA, &gB, 0));
     if (s && state)
         s->set(state->flag == 0);
 }
@@ -1095,7 +1096,6 @@ class FEObject {
     virtual void Set(int);
 };
 extern int __cdecl FindName_000fc260(const char*);
-extern hulk_intptr __cdecl LookupThing(int, int, int*, int*, int);
 extern int __cdecl GetFlagThing(int);
 struct Result_b5b90 {
     char Check_00092de0(int);
@@ -1109,8 +1109,7 @@ struct Global_b5b90 {
 };
 extern Global_b5b90* gGlobal_b5b90;
 void FUN_000b5b90() {
-    FEObject* p = (FEObject*)LookupThing(FindName_000fc260("cheat_invulnerability_selector"), 0, (int*)((hulk_intptr)DAT_0049dba4),
-                                         (int*)((hulk_intptr)DAT_0049dbbc), 0);
+    FEObject* p = (FEObject*)((hulk_intptr)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(FindName_000fc260("cheat_invulnerability_selector")), 0, (void*)((int*)((hulk_intptr)DAT_0049dba4)), (void*)((int*)((hulk_intptr)DAT_0049dbbc)), 0));
     if (p) {
         int flag = gGlobal_b5b90->ctx->Get_00086340()->Check_00092de0(0x2e4) == 0;
         p->Set(flag);

@@ -15,6 +15,8 @@
 #define TREE_TU_END }
 namespace fn_f49dcb8d {} using namespace fn_f49dcb8d;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -333,7 +335,6 @@ class A_204f00 {
 };
 extern char DAT_0048d5bc;
 extern char DAT_004c9268;
-void* __cdecl HelperCast(void* p, int a, void* b, void* c, int d);
 class DynamicCasterBase {
   public:
     virtual void* Cast(void*);
@@ -343,7 +344,6 @@ class DynamicCaster : public DynamicCasterBase {
     virtual void* Cast(void*);
 };
 typedef unsigned int u32_205050;
-extern void __cdecl Cast(hulk_uintptr, int, const int*, const int*, int);
 class Dummy_2050d0 {
   public:
     void Call(void*);
@@ -1623,7 +1623,7 @@ namespace fn_f49dcb8d {
 // 0x00205020 content::LoadInventory::DynamicCaster<pure3d::Shadow>::vfunc_0 (30 B): matches/0x00205020.cpp
 // sym: ?Cast@DynamicCaster@fn_f49dcb8d@@UAEPAXPAX@Z
 void* DynamicCaster::Cast(void* p) {
-    return HelperCast(p, 0, (void*)&DAT_0048d5bc, (void*)&DAT_004c9268, 0);
+    return __RTDynamicCast(p, 0, (void*)&DAT_0048d5bc, (void*)&DAT_004c9268, 0);
 }
 
 } // namespace fn_f49dcb8d
@@ -1633,7 +1633,7 @@ void* DynamicCaster::Cast(void* p) {
 // Same code shape as 0x00021650 (propagated; names are from that function)
 template <> void content::LoadInventory::DynamicCaster<physics::WorldCollisionObject>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
 }
 
 

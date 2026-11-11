@@ -11,6 +11,8 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f1b96001 {} using namespace fn_f1b96001;
 #include "engine/lua.h"
+// (ren2) fprintf's own name (CRT, C linkage)
+extern "C" int __cdecl fprintf(void*, const char*, ...);
 
 // ---- declarations shared by the functions below
 namespace fn_f1b96001 {
@@ -65,7 +67,6 @@ extern "C" void* FUN_00347d7a(void*, unsigned int);
 extern "C" void* __cdecl FUN_00339a90(void* ud, void* ptr, unsigned int osize, unsigned int nsize);
 extern "C" LuaVMState* __cdecl FUN_002150e0(LuaVMAlloc f, void* ud);
 extern "C" const char DAT_00428328[];
-extern "C" int __cdecl FID_conflict__fwprintf(void *stream, const char *format, const char *text);
 extern "C" int __cdecl FUN_002139f0(LuaVMState* L, int nargs, int nresults, int errfunc);
 extern "C" void __cdecl FUN_00339ad0(int status, LuaVMState* L);
 extern "C" int __cdecl FUN_00339ba0(LuaVMState* L, const char* buff, unsigned int size, const char* name);
@@ -524,7 +525,7 @@ extern "C" LuaVMState* __cdecl FUN_00339ac0(void) {
 
 
 // 0x00339ad0 FUN_00339ad0 (91 B): equivalent/0x00339ad0.cpp
-// sym: _FUN_00339ad0 @887fb5f3a049 @w974c8d82c42b
+// sym: _FUN_00339ad0 @3cc16107aeed @w48d04bf84c58
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // FUN_00339ad0 @ 0x00339ad0
 // aux_do's error report: a failed chunk's message goes to the global ALERT function, or to stderr.
@@ -539,7 +540,7 @@ extern "C" void __cdecl FUN_00339ad0(int active, LuaVMState *session)
         FUN_002139a0(session, 1, 0);
     } else {
         const char *message = FUN_00213190(session, -2);
-        FID_conflict__fwprintf(((void*)&DAT_004d9a30), DAT_00428328, message);
+        fprintf(((void*)&DAT_004d9a30), DAT_00428328, message);
         FUN_00212d80(session, -3);
     }
 }

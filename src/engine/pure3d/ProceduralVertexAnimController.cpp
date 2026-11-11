@@ -14,6 +14,8 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fa65e9c0 {} using namespace fn_fa65e9c0;
 #include "engine/pure3d.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fa65e9c0 {
@@ -358,7 +360,6 @@ struct ProceduralVertexAnimController_2a6b90 {
     void* scalar_dtor(unsigned char flags);
 };
 typedef unsigned int U_2a6c60;
-extern U_2a6c60 __cdecl Query(hulk_uintptr, U_2a6c60, const void*, const void*, U_2a6c60);
 extern char hulk_at_0048f610;
 struct ProceduralVertexAnimController_nv_2a6c60 {
     void Finish_002a6930(U_2a6c60);
@@ -1556,7 +1557,7 @@ void* ProceduralVertexAnimController::vfunc_4() {
 // Same code shape as 0x00293970 (propagated; names are from that function)
 void pure3d::ProceduralVertexAnimController::vfunc_5(void* __p0) { hulk_uintptr arg = (hulk_uintptr)__p0;
 
-    U_2a6c60 x = Query(arg, 0, &hulk_at_0048f610, &CameraRTTI, 0);
+    U_2a6c60 x = ((U_2a6c60)(hulk_uintptr)__RTDynamicCast((void*)(arg), 0, (void*)(&hulk_at_0048f610), (void*)(&CameraRTTI), 0));
     ((ProceduralVertexAnimController_nv_2a6c60*)this)->Finish_002a6930(x);
 }
 

@@ -10,6 +10,8 @@
 #define TREE_TU_END }
 namespace fn_f26f242d {} using namespace fn_f26f242d;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f26f242d {
@@ -1556,9 +1558,8 @@ class FEContainer {
     virtual void vfunc_38(int);
 };
 extern int typeA, hulk_at_0049f48c;
-void __cdecl helper(void*, int, void*, void*, int);
 void FEContainer::vfunc_38(int n) {
-    helper(v37(n), 0, &typeA, &hulk_at_0049f48c, 0);
+    __RTDynamicCast(v37(n), 0, &typeA, &hulk_at_0049f48c, 0);
 }
 } // namespace fn_000e47b0
 
@@ -1838,9 +1839,8 @@ class FEContainer {
     virtual void vfunc_44(void*);
 };
 extern int a, hulk_at_004a1274;
-void work(int, int, int*, int*, int);
 void FEContainer::vfunc_44(void* x) {
-    work(f39(x), 0, &a, &hulk_at_004a1274, 0);
+    __RTDynamicCast((void*)(hulk_uintptr)(f39(x)), 0, (void*)(&a), (void*)(&hulk_at_004a1274), 0);
 }
 } // namespace fn_000e48a0
 
@@ -1910,7 +1910,6 @@ void FEContainer::vfunc_45(void* p) {
 // sym: ?vfunc_41@FEContainer@fn_000e4900@@UAEXPAX@Z
 namespace fn_000e4900 {
 extern int gOne, hulk_at_0049dbbc;
-extern void __cdecl Process(int, int, int*, int*, int);
 class FEContainer {
   public:
 #define V(n) virtual void vfunc_##n();
@@ -1922,7 +1921,7 @@ class FEContainer {
     virtual void vfunc_41(void*);
 };
 void FEContainer::vfunc_41(void* p) {
-    Process(vfunc_39(p), 0, &gOne, &hulk_at_0049dbbc, 0);
+    __RTDynamicCast((void*)(hulk_uintptr)(vfunc_39(p)), 0, (void*)(&gOne), (void*)(&hulk_at_0049dbbc), 0);
 }
 } // namespace fn_000e4900
 #undef V

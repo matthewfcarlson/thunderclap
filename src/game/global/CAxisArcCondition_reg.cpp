@@ -7,6 +7,8 @@
 #define TREE_TU_END }
 namespace fn_fd94a027 {} using namespace fn_fd94a027;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fd94a027 {
@@ -699,7 +701,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<CCollisionPushbackDirecti
 // 0x00050ac0 fight::ConditionFactoryCasterTemplate<CCollisionPushbackVelocityCondition>::vfunc_0 (36 B): matches/0x00050ac0.cpp [wrapped: conflict: fight::ConditionFactoryCaster; fight::ConditionFactoryCasterTemplate]
 // sym: ?vfunc_0@ConditionFactoryCasterTemplate@fight@fn_00050ac0@@UAE_NPAX@Z
 namespace fn_00050ac0 {
-extern int __cdecl Check(void*, int, void*, void*, int);
 extern void* a;
 extern void* hulk_at_00492be0;
 namespace fight {
@@ -715,7 +716,7 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
 };
 } // namespace fight
 bool fight::ConditionFactoryCasterTemplate::vfunc_0(void* p) {
-    return Check(p, 0, &a, &hulk_at_00492be0, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &a, &hulk_at_00492be0, 0)) != 0;
 }
 } // namespace fn_00050ac0
 
@@ -821,7 +822,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<CGrappleAlertStatusCondit
 // 0x00050d00 fight::ConditionFactoryCasterTemplate<CGrappleCharacterTemplateCondition>::vfunc_0 (36 B): matches/0x00050d00.cpp [wrapped: conflict: fight::ConditionFactoryCasterTemplate]
 // sym: ?vfunc_0@ConditionFactoryCasterTemplate@fight@fn_00050d00@@UAE_NPAX@Z
 namespace fn_00050d00 {
-extern int __cdecl Check(void*, int, void*, void*, int);
 extern void* gA;
 extern void* hulk_at_004931c8;
 namespace fight {
@@ -832,7 +832,7 @@ class ConditionFactoryCasterTemplate {
 };
 } // namespace fight
 bool fight::ConditionFactoryCasterTemplate::vfunc_0(void* p) {
-    return Check(p, 0, &gA, &hulk_at_004931c8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &gA, &hulk_at_004931c8, 0)) != 0;
 }
 } // namespace fn_00050d00
 
@@ -882,7 +882,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<CGrappleSizeCondition>::v
 // sym: ?vfunc_0@ConditionFactoryCasterTemplate@fight@fn_00050e80@@UAE_NPAVCGrappleTimerCondition@3@@Z
 namespace fn_00050e80 {
 class CGrappleTimerCondition;
-int __cdecl Check(CGrappleTimerCondition*, int, void*, void*, int);
 extern void* a;
 extern void* hulk_at_004935c0;
 namespace fight {
@@ -896,7 +895,7 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
     virtual bool vfunc_0(CGrappleTimerCondition*);
 };
 bool ConditionFactoryCasterTemplate::vfunc_0(CGrappleTimerCondition* p) {
-    return Check(p, 0, &a, &hulk_at_004935c0, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(p), 0, &a, &hulk_at_004935c0, 0)) != 0;
 }
 } // namespace fight
 } // namespace fn_00050e80
@@ -923,7 +922,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<CInactivityTimerCondition
 // sym: ?vfunc_0@ConditionFactoryCasterTemplate@fight@fn_00050f40@@UAEHPAUCIntentionSpeedCondition@3@@Z
 namespace fn_00050f40 {
 struct CIntentionSpeedCondition;
-extern int __cdecl Check(CIntentionSpeedCondition*, int, void*, void*, int);
 extern void* gA;
 extern void* hulk_at_004937b8;
 namespace fight {
@@ -938,7 +936,7 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
     virtual void vfunc_1();
 };
 int ConditionFactoryCasterTemplate::vfunc_0(CIntentionSpeedCondition* p) {
-    return Check(p, 0, &gA, &hulk_at_004937b8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(p), 0, &gA, &hulk_at_004937b8, 0)) != 0;
 }
 } // namespace fight
 } // namespace fn_00050f40
@@ -1131,7 +1129,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<CSmartPropGrabbableNameCo
 // 0x00051340 fight::ConditionFactoryCasterTemplate<CSmartPropNameCondition>::vfunc_0 (36 B): matches/0x00051340.cpp [wrapped: conflict: fight::ConditionFactoryCaster; fight::ConditionFactoryCasterTemplate]
 // sym: ?vfunc_0@ConditionFactoryCasterTemplate@fight@fn_00051340@@UAE_NPAX@Z
 namespace fn_00051340 {
-extern int __cdecl Check(void*, int, void*, void*, int);
 extern void* a;
 extern void* hulk_at_004941d0;
 namespace fight {
@@ -1147,7 +1144,7 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
 };
 } // namespace fight
 bool fight::ConditionFactoryCasterTemplate::vfunc_0(void* p) {
-    return Check(p, 0, &a, &hulk_at_004941d0, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &a, &hulk_at_004941d0, 0)) != 0;
 }
 } // namespace fn_00051340
 
@@ -1186,7 +1183,6 @@ bool fight::ConditionFactoryCasterTemplate::vfunc_0(void* p) {
 // 0x00051400 fight::ConditionFactoryCasterTemplate<CSmartPropWeaponizableTypeCondition>::vfunc_0 (36 B): matches/0x00051400.cpp [wrapped: conflict: fight::ConditionFactoryCaster; fight::ConditionFactoryCasterTemplate]
 // sym: ?Test@ConditionFactoryCasterTemplate@fight@fn_00051400@@UAE_NPAX@Z
 namespace fn_00051400 {
-int __cdecl Check(void*, int, void*, void*, int);
 extern void* gA;
 extern void* hulk_at_004943c8;
 namespace fight {
@@ -1202,7 +1198,7 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
 };
 } // namespace fight
 bool fight::ConditionFactoryCasterTemplate::Test(void* p) {
-    return Check(p, 0, &gA, &hulk_at_004943c8, 0) != 0;
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &gA, &hulk_at_004943c8, 0)) != 0;
 }
 } // namespace fn_00051400
 

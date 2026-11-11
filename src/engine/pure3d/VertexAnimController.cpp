@@ -11,6 +11,8 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f729aa84 {} using namespace fn_f729aa84;
 #include "engine/pure3d.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f729aa84 {
@@ -111,7 +113,6 @@ struct R_2a6f40 {
     virtual void f0();
     virtual void f1();
 };
-extern R_2a6f40* Cast(hulk_uintptr, int, Type*, Type*, int);
 extern Type hulk_at_0048f610;
 extern Type hulk_at_0049fc80;
 
@@ -236,7 +237,7 @@ VertexAnimController_2a6f00* VertexAnimController_2a6f00::f2(unsigned char flags
 // sym: ?vfunc_5@VertexAnimController@pure3d@@UAEXPAX@Z
 void pure3d::VertexAnimController::vfunc_5(void* __p0) { hulk_uintptr p = (hulk_uintptr)__p0;
 
-    R_2a6f40* r = Cast(p, 0, &hulk_at_0048f610, &hulk_at_0049fc80, 0);
+    R_2a6f40* r = ((R_2a6f40 *)__RTDynamicCast((void*)(p), 0, (void*)(&hulk_at_0048f610), (void*)(&hulk_at_0049fc80), 0));
     R_2a6f40* n = *(R_2a6f40**)((char*)r + 0x5c);
     if (n)
         n->f0();

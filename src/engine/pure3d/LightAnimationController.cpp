@@ -12,6 +12,8 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f5607ee0 {} using namespace fn_f5607ee0;
 #include "engine/pure3d.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f5607ee0 {
@@ -200,7 +202,6 @@ struct LightAnimationController_2a9380 {
 extern "C" void* __cdecl alloc(hulk_uintptr);
 extern u32_2a9380 camera_vtable_2a9380;
 typedef unsigned int U_2a93e0;
-extern U_2a93e0 __cdecl Query(hulk_uintptr, U_2a93e0, const void*, const void*, U_2a93e0);
 extern char hulk_at_0048f610;
 struct LightAnimationController_nv_2a93e0 {
     void Finish_002a8aa0(U_2a93e0);
@@ -706,7 +707,7 @@ LightAnimationController_2a9380* LightAnimationController_2a9380::f4() {
 // Same code shape as 0x00293970 (propagated; names are from that function)
 void pure3d::LightAnimationController::vfunc_5(void* __p0) { hulk_uintptr arg = (hulk_uintptr)__p0;
 
-    U_2a93e0 x = Query(arg, 0, &hulk_at_0048f610, &CameraRTTI, 0);
+    U_2a93e0 x = ((U_2a93e0)(hulk_uintptr)__RTDynamicCast((void*)(arg), 0, (void*)(&hulk_at_0048f610), (void*)(&CameraRTTI), 0));
     ((LightAnimationController_nv_2a93e0*)this)->Finish_002a8aa0(x);
 }
 

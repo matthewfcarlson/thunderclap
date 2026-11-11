@@ -11,6 +11,8 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fbb1b687 {} using namespace fn_fbb1b687;
 #include "engine/pure3d.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fbb1b687 {
@@ -135,7 +137,6 @@ struct Ent_2a9c50 {
     virtual void b();
 };
 extern int hulk_at_0048f610, hulk_at_004cfaa4;
-extern Obj_2a9c50* cast(void*, int, int*, int*, int);
 
 
 // 0x002a9760 FUN_002a9760 (25 B): matches/0x002a9760.cpp
@@ -324,7 +325,7 @@ void* pure3d::BillboardQuadGroupAnimationController::vfunc_4() {
 // sym: ?vfunc_5@BillboardQuadGroupAnimationController@pure3d@@UAEXPAX@Z
 void pure3d::BillboardQuadGroupAnimationController::vfunc_5(void* __p0) { Obj_2a9c50 * p = (Obj_2a9c50 *)__p0;
 
-    Obj_2a9c50* x = cast(p, 0, &hulk_at_0048f610, &hulk_at_004cfaa4, 0);
+    Obj_2a9c50* x = ((Obj_2a9c50 *)__RTDynamicCast(p, 0, (void*)(&hulk_at_0048f610), (void*)(&hulk_at_004cfaa4), 0));
     if (x)
         x->f0();
     if ((*(Ent_2a9c50 * *)&this->f_40))

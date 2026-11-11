@@ -15,6 +15,8 @@
 #define TREE_TU_END }
 namespace fn_f5af65ff {} using namespace fn_f5af65ff;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f5af65ff {
@@ -564,7 +566,6 @@ int FUN_002ee6d0(Obj_1b5ec0* o);
 struct Ctx_1b5ec0 {
     void Reg_002ee6d0(Obj_1b5ec0* o);
 };
-void* Cast(hulk_intptr h, int a, const void* from, const void* to, int b);
 extern char hulk_at_004c38f8[], hulk_at_004c3920[];
 struct Holder_1b5ec0 {
     char pad[8];
@@ -1927,7 +1928,7 @@ bool Holder_1b5ec0::Add(Obj_1b5ec0* o, int v) {
             vals[i] = v;
             ctx->Reg_002ee6d0(o);
             o = (Obj_1b5ec0*)o->h;
-            void* c = Cast((hulk_intptr)o, 0, hulk_at_004c38f8, hulk_at_004c3920, 0);
+            void* c = __RTDynamicCast((void*)((hulk_intptr)o), 0, (void*)(hulk_at_004c38f8), (void*)(hulk_at_004c3920), 0);
             if (c)
                 mesh.Set_001b55c0(c, v);
             return true;

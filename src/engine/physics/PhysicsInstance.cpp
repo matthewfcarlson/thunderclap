@@ -12,6 +12,8 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fb7c7da0 {} using namespace fn_fb7c7da0;
 #include "engine/physics.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 inline void* __cdecl operator new(size_t, void* p) { return p; }
@@ -148,7 +150,6 @@ class Outer_2fc700 {
     void target(hulk_intptr a, int b);
 };
 typedef unsigned int u32_2fc720;
-extern void __cdecl Cast(hulk_uintptr, int, const int*, const int*, int);
 
 } // namespace fn_fb7c7da0
 
@@ -279,7 +280,7 @@ void Outer_2fc700::target(hulk_intptr a, int b) {
 // Same code shape as 0x00021650 (propagated; names are from that function)
 template <> void content::LoadInventory::DynamicCaster<physics::ArticulatedPhysicsObject>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
 }
 
 

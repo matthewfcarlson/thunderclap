@@ -11,6 +11,8 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f2ae9c07 {} using namespace fn_f2ae9c07;
 #include "engine/core.h"
+// (ren2) fprintf's own name (CRT, C linkage)
+extern "C" int __cdecl fprintf(void*, const char*, ...);
 
 // ---- declarations shared by the functions below
 namespace fn_f2ae9c07 {
@@ -30,7 +32,6 @@ struct HeapStats {
 extern "C" void __cdecl FUN_0026b970(void *);
 struct MemoryStats { unsigned int systemBytes; char pad04[12]; unsigned int inUseBytes; unsigned int maxSystemBytes; char pad18[4]; unsigned int otherBytes; char pad20[8]; };
 extern MemoryStats* __cdecl FUN_0026bac0(MemoryStats* stats);
-extern int __cdecl _fwprintf(void* stream, const char* format, ...);
 extern "C" void __cdecl FUN_0026bd80(void *);
 typedef DlHeapChunk Chunk;
 typedef DlHeapState MState;
@@ -303,9 +304,9 @@ void __cdecl FUN_0026bbe0()
 {
     MemoryStats output;
     MemoryStats stats = *FUN_0026bac0(&output);
-    _fwprintf(((char*)&DAT_004d9a30), "max system bytes = %10u\n", stats.maxSystemBytes);
-    _fwprintf(((char*)&DAT_004d9a30), "system bytes     = %10u\n", stats.systemBytes + stats.inUseBytes);
-    _fwprintf(((char*)&DAT_004d9a30), "in use bytes     = %10u\n", stats.otherBytes + stats.inUseBytes);
+    fprintf(((char*)&DAT_004d9a30), "max system bytes = %10u\n", stats.maxSystemBytes);
+    fprintf(((char*)&DAT_004d9a30), "system bytes     = %10u\n", stats.systemBytes + stats.inUseBytes);
+    fprintf(((char*)&DAT_004d9a30), "in use bytes     = %10u\n", stats.otherBytes + stats.inUseBytes);
 }
 
 

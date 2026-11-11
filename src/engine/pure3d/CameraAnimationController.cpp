@@ -12,6 +12,8 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fa983489 {} using namespace fn_fa983489;
 #include "engine/pure3d.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fa983489 {
@@ -95,7 +97,6 @@ class CameraAnimationController_293890 : public BlendFrameController_293890 {
     CameraAnimationController_293890* f2(unsigned char flags);
 };
 typedef unsigned int U_293970;
-extern U_293970 __cdecl Query(hulk_uintptr, U_293970, const void*, const void*, U_293970);
 extern char hulk_at_0048f610;
 struct CameraAnimationController_nv_293970 {
     void Finish_00293100(U_293970);
@@ -318,7 +319,7 @@ CameraAnimationController* CameraAnimationController::f4() {
 // sym: ?vfunc_5@CameraAnimationController@pure3d@@UAEXPAX@Z
 void pure3d::CameraAnimationController::vfunc_5(void* __p0) { hulk_uintptr arg = (hulk_uintptr)__p0;
 
-    U_293970 x = Query(arg, 0, &hulk_at_0048f610, &CameraRTTI, 0);
+    U_293970 x = ((U_293970)(hulk_uintptr)__RTDynamicCast((void*)(arg), 0, (void*)(&hulk_at_0048f610), (void*)(&CameraRTTI), 0));
     ((CameraAnimationController_nv_293970*)this)->Finish_00293100(x);
 }
 

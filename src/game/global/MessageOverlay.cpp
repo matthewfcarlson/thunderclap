@@ -14,6 +14,8 @@
 #define TREE_TU_END }
 namespace fn_f27eef39 {} using namespace fn_f27eef39;
 #include "game/global.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f27eef39 {
@@ -488,7 +490,6 @@ struct X {
     int state;
     void Run(int);
 };
-extern "C" void* __cdecl cast(void*, int, const void*, const void*, int);
 extern "C" void __cdecl use_000c5a60(void*);
 extern char hulk_at_0049e11c[], hulk_at_004a0a40[];
 class Slots_d6d90 {
@@ -2069,7 +2070,7 @@ void Target_d6b20::FUN_000d6b20(hulk_uintptr unused) {
 void X::Run(int) {
     if (state != 3) {
         void* p = obj->p;
-        use_000c5a60(cast(p, 0, hulk_at_0049e11c, hulk_at_004a0a40, 0));
+        use_000c5a60(__RTDynamicCast(p, 0, (void*)(hulk_at_0049e11c), (void*)(hulk_at_004a0a40), 0));
         if (state == 2)
             state = 0;
     }

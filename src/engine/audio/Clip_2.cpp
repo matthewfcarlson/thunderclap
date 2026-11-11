@@ -12,6 +12,8 @@
 #define TREE_TU_END }
 namespace fn_f6720d1b {} using namespace fn_f6720d1b;
 #include "engine/audio.h"
+// (ren2) fclose's own name (CRT, C linkage)
+extern "C" __declspec(nothrow) int __cdecl fclose(void*);
 
 // ---- declarations shared by the functions below
 namespace fn_f6720d1b {
@@ -912,7 +914,6 @@ bool __cdecl Read(File* f, void* p, unsigned int n) {
 // 0x002467b0 FUN_002467b0 (36 B): matches/0x002467b0.cpp [wrapped: conflict: Stream]
 // sym: ??1StdStream@fn_002467b0@@UAE@XZ
 namespace fn_002467b0 {
-extern "C++" __declspec(nothrow) int __cdecl fclose(void*);
 struct Stream {
     virtual ~Stream() {}
     char pad[0x18];

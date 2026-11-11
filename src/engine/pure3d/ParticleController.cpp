@@ -10,6 +10,8 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fa907639 {} using namespace fn_fa907639;
 #include "engine/pure3d.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace pure3d {
@@ -205,7 +207,6 @@ public:
     void FUN_002a75a0(const Source_2a75a0 *src);
 };
 typedef unsigned int U_2a7700;
-extern U_2a7700 __cdecl Query(hulk_uintptr, U_2a7700, const void*, const void*, U_2a7700);
 extern char EntityRTTI_2a7700;
 struct ParticleController_nv_2a7700 {
     void Finish(U_2a7700);
@@ -610,7 +611,7 @@ void Holder_2a75a0::FUN_002a75a0(const Source_2a75a0 *src)
 // Same code shape as 0x00293970 (propagated; names are from that function)
 void pure3d::ParticleController::vfunc_5(void* __p0) { hulk_uintptr arg = (hulk_uintptr)__p0;
 
-    U_2a7700 x = Query(arg, 0, &EntityRTTI_2a7700, &CameraRTTI, 0);
+    U_2a7700 x = ((U_2a7700)(hulk_uintptr)__RTDynamicCast((void*)(arg), 0, (void*)(&EntityRTTI_2a7700), (void*)(&CameraRTTI), 0));
     ((ParticleController_nv_2a7700*)this)->Finish(x);
 }
 
