@@ -196,8 +196,20 @@ def base_tar(commit, paths, key):
     if not os.path.exists(p):
         os.makedirs(CACHE, exist_ok=True)
         tmp = p + ".%d" % os.getpid()
-        subprocess.run("git archive %s %s | gzip -1 > %s" % (commit, " ".join(map(shlex.quote, paths)), tmp),
-                       shell=True, cwd=ROOT, check=True)
+        # no shell pipe: `git archive | gzip` reported gzip's status, so a git archive that died part-way left a
+        # truncated base (mac2 11-10: config/ and include/ only, tools/ and src/ symlinked to the host's old checkout)
+        with open(tmp, "wb") as f:
+            ga = subprocess.Popen(["git", "archive", commit, "--"] + list(paths), cwd=ROOT, stdout=subprocess.PIPE)
+            gz = subprocess.run(["gzip", "-1"], stdin=ga.stdout, stdout=f)
+            ga.stdout.close()
+            if ga.wait() or gz.returncode:
+                os.unlink(tmp)
+                raise Infra("git archive of the base tree failed (git %s, gzip %s)" % (ga.returncode, gz.returncode))
+        with tarfile.open(tmp, "r:gz") as tf:
+            tops = {m.name.split("/", 1)[0] for m in tf}
+        if not set(paths) <= tops:
+            os.unlink(tmp)
+            raise Infra("base tree %s lacks %s" % (key, sorted(set(paths) - tops)))
         os.replace(tmp, p)
         old = sorted((os.path.join(CACHE, n) for n in os.listdir(CACHE) if n.startswith("base-")),
                      key=os.path.getmtime, reverse=True)
