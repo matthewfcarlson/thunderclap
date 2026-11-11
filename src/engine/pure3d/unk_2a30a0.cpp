@@ -59,9 +59,9 @@ struct Shader_2a3130 {
     virtual void init();
     char pad[12];
     Inner_2a3130* inner;
-    Shader_2a3130* build();
+    Shader_2a3130* FUN_0028edb0();   // (x64t3) the shader's constructor, by address (was `build`, unbound)
 };
-extern void* alloc(hulk_uintptr);
+void* FUN_00263ea0(unsigned int);   // (x64t3) the allocator's jmp thunk 0x00263ea0 (was `alloc`, unbound)
 struct VBuf_2a3250 {
     char pad00[8];
     float *pos;              // 0x08
@@ -287,9 +287,9 @@ Target_2a30a0::Target_2a30a0() {
 // sym: _FUN_002a3130
 extern "C" void FUN_002a3130() {
     if ((*(Shader_2a3130**)&DAT_00554bb4) == 0) {
-        Shader_2a3130* p = (Shader_2a3130*)alloc(0x20);
+        Shader_2a3130* p = (Shader_2a3130*)FUN_00263ea0(0x20);
         if (p)
-            (*(Shader_2a3130**)&DAT_00554bb4) = p->build();
+            (*(Shader_2a3130**)&DAT_00554bb4) = p->FUN_0028edb0();
         else
             (*(Shader_2a3130**)&DAT_00554bb4) = 0;
         (*(Shader_2a3130**)&DAT_00554bb4)->init();

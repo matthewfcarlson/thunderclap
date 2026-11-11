@@ -118,6 +118,7 @@ struct Helper_28f800 { Helper_28f800* FUN_00293bd0(Device_28f800*); };
 class Widget_28f800 : public owners::X_28f9a0 {
   public:
     Widget_28f800* FUN_0028f800(Source_28f800* src, Sink_28f800* sink, Device_28f800* dev);
+    void FUN_0028f980();
 };
 class Obj_28f920 {
   public:
@@ -316,9 +317,11 @@ void Owner_28f920::cleanup() {
 
 
 // 0x0028f980 FUN_0028f980 (1 B): matches/0x0028f980.cpp
-// sym: ?FUN_0028f980@fn_fab9a868@@YAXXZ
+// sym: ?FUN_0028f980@Widget_28f800@fn_fab9a868@@QAEXXZ
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_0028f980() {}
+// (x64t3) a member of the context (0x00292560 calls it on the new context): was a free function, an ABI mismatch for
+// the native link
+void Widget_28f800::FUN_0028f980() {}
 
 
 // 0x0028f990 FUN_0028f990 (1 B): matches/0x0028f990.cpp

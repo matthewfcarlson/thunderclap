@@ -8261,7 +8261,7 @@
    ]
   ],
   "pure3d::pddiRenderContext::vfunc_30": [
-   "int",
+   "void*",
    [
     "hulk_intptr",
     "int",
@@ -8386,6 +8386,40 @@
   "pure3d::d3dContext::vfunc_89": [
    "hulk_intptr",
    [
+    "int"
+   ]
+  ],
+  "pure3d::pddiDevice::vfunc_11": [
+   "void*",
+   [
+    "const char*",
+    "int"
+   ]
+  ],
+  "pure3d::d3dDevice::vfunc_11": [
+   "void*",
+   [
+    "const char*",
+    "int"
+   ]
+  ],
+  "pure3d::pddiBaseContext::vfunc_30": [
+   "void*",
+   [
+    "hulk_intptr",
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::d3dContext::vfunc_30": [
+   "void*",
+   [
+    "hulk_intptr",
+    "int",
+    "int",
+    "int",
     "int"
    ]
   ]

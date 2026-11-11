@@ -104,7 +104,7 @@ class pddiDevice_31b9d0 : public pddiObject_31b9d0 {
     virtual void f12();
     virtual void f13();
 };
-extern "C" void FUN_00327c70(int, int, int);
+extern "C" void* FUN_00327c70(void*, const char*, int);   // (x64t3) the shader factory lookup (pddiBaseShader.cpp)
 extern "C" char DAT_004324e4[];
 typedef unsigned int u32_31ba00;
 struct d3dDevice_31ba00 {
@@ -310,9 +310,11 @@ void* pure3d::d3dDevice::vfunc_10(void* __p0) { Params_31b960 * p = (Params_31b9
 
 
 // 0x0031b9d0 pure3d::d3dDevice::vfunc_11 (22 B): matches/0x0031b9d0.cpp
-// sym: ?vfunc_11@d3dDevice@pure3d@@UAEXHH@Z
-void pure3d::d3dDevice::vfunc_11(int a, int ) {
-    FUN_00327c70((int)this->f_0c, a, 0);   // (x64t3) gen's f_0c (was a 32-bit offset; still an int argument)
+// sym: ?vfunc_11@d3dDevice@pure3d@@UAEPAXPBDH@Z
+// (x64t3) pddiDevice::NewShader(name, ...): the factory's shader for the current context (gen's slot was `void (int,
+// int)`; Pure3D's context keeps the result: 0x0028edb0)
+void* pure3d::d3dDevice::vfunc_11(const char* a, int ) {
+    return FUN_00327c70((void*)this->f_0c, a, 0);
 }
 
 

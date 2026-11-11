@@ -330,7 +330,7 @@ public:
     virtual void* vfunc_8(void*) = 0; // slot 8
     virtual void* vfunc_9(hulk_intptr) = 0; // slot 9
     virtual void* vfunc_10(void*) = 0; // slot 10
-    virtual void vfunc_11(int, int) = 0; // slot 11
+    virtual void* vfunc_11(const char*, int) = 0; // slot 11  (x64t3) a shader by name (0x0031b9d0)
     virtual void vfunc_12(int, int) = 0; // slot 12
     virtual void vfunc_13(int); // slot 13
 };
@@ -3418,7 +3418,7 @@ public:
     virtual void vfunc_27(void*, void*, void*, void*) = 0; // slot 27
     virtual void vfunc_28(unsigned int, unsigned int, unsigned int, unsigned int) = 0; // slot 28
     virtual void vfunc_29(void*, void*, void*, void*) = 0; // slot 29
-    virtual int vfunc_30(hulk_intptr, int, int, int, int) = 0; // slot 30
+    virtual void* vfunc_30(hulk_intptr, int, int, int, int) = 0; // slot 30  (x64t3) the prim stream (0x00321860)
     virtual void vfunc_31(int) = 0; // slot 31
     virtual void vfunc_32(hulk_intptr, hulk_intptr) = 0; // slot 32
     virtual void vfunc_33(int, int, int, int) = 0; // slot 33
@@ -3513,7 +3513,7 @@ public:
     virtual void vfunc_27(void*, void*, void*, void*); // overrides pure3d::pddiRenderContext slot 27
     virtual void vfunc_28(unsigned int, unsigned int, unsigned int, unsigned int); // overrides pure3d::pddiRenderContext slot 28
     virtual void vfunc_29(void*, void*, void*, void*); // overrides pure3d::pddiRenderContext slot 29
-    virtual int vfunc_30(hulk_intptr, int, int, int, int); // overrides pure3d::pddiRenderContext slot 30
+    virtual void* vfunc_30(hulk_intptr, int, int, int, int); // overrides pure3d::pddiRenderContext slot 30
     virtual void vfunc_31(int); // overrides pure3d::pddiRenderContext slot 31
     virtual void vfunc_32(hulk_intptr, hulk_intptr); // overrides pure3d::pddiRenderContext slot 32
     virtual void vfunc_33(int, int, int, int); // overrides pure3d::pddiRenderContext slot 33
@@ -3640,7 +3640,7 @@ public:
     virtual void vfunc_4(); // overrides pure3d::pddiRenderContext slot 4
     virtual void vfunc_5(); // overrides pure3d::pddiRenderContext slot 5
     virtual void vfunc_12(int); // overrides pure3d::pddiRenderContext slot 12
-    virtual int vfunc_30(hulk_intptr, int, int, int, int); // overrides pure3d::pddiRenderContext slot 30
+    virtual void* vfunc_30(hulk_intptr, int, int, int, int); // overrides pure3d::pddiRenderContext slot 30
     virtual void vfunc_31(int); // overrides pure3d::pddiRenderContext slot 31
     virtual void vfunc_32(hulk_intptr, hulk_intptr); // overrides pure3d::pddiRenderContext slot 32
     virtual void vfunc_35(void*); // overrides pure3d::pddiRenderContext slot 35
@@ -3718,7 +3718,7 @@ public:
     virtual void* vfunc_8(void*); // overrides pure3d::pddiDevice slot 8
     virtual void* vfunc_9(hulk_intptr); // overrides pure3d::pddiDevice slot 9
     virtual void* vfunc_10(void*); // overrides pure3d::pddiDevice slot 10
-    virtual void vfunc_11(int, int); // overrides pure3d::pddiDevice slot 11
+    virtual void* vfunc_11(const char*, int); // overrides pure3d::pddiDevice slot 11
     virtual void vfunc_12(int, int); // overrides pure3d::pddiDevice slot 12
     hulk_intptr f_0c;
     hulk_intptr f_10;  // (x64t3) the D3D object 0x0031ba00 keeps (0x0031b830 hands it to the display); size 0x14

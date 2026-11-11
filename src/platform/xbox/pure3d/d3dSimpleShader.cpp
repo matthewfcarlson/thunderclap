@@ -250,6 +250,9 @@ class d3dSimpleShader_32a9f0 : public d3dShader_32a9f0 {
   public:
     d3dSimpleShader_32a9f0* Init(::pure3d::d3dContext*);
 };
+// (x64t3) the simple shader's own words through gen's pure3d::d3dSimpleShader (the view's 0x7c-byte pad put them 0xc
+// bytes short of gen's on 64-bit)
+#define HULK_SS(f) (((::pure3d::d3dSimpleShader*)(void*)this)->f)
 typedef unsigned char u8_32aa30;
 struct Ref_32aa30 {
     virtual void f0();
@@ -976,11 +979,11 @@ void TextureState_32a920::SetTextures(int mode, Texture* t0, Texture* t1, Textur
 // sym: ?Init@d3dSimpleShader_32a9f0@fn_f1389006@@QAEPAV12@PAVd3dContext@pure3d@@@Z
 d3dSimpleShader_32a9f0* d3dSimpleShader_32a9f0::Init(::pure3d::d3dContext* x) {
     ((d3dSimpleShader_nv_32a9f0*)(((pure3d::d3dSimpleShader*)(this))))->FUN_00333520(x);
-    a = 0;
-    b = 0;
-    c = 0;
-    d = 0;
-    e = 0;
+    HULK_SS(f_80) = 0;
+    HULK_SS(f_84) = 0;
+    HULK_SS(f_88) = 0;
+    HULK_SS(f_8c) = 0;
+    HULK_SS(f_90) = 0;
     v = ((hulk_intptr)DAT_0043386c);
     return this;
 }

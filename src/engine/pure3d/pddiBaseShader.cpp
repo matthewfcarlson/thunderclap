@@ -2,6 +2,7 @@
 // object 0x00327910..0x00328250 (kind game, layer engine, confidence high), dominant class pure3d::pddiBaseShader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 #include "decls/data/engine/pure3d.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_fbec554b {
@@ -159,8 +160,10 @@ class pddiBaseShader {
     int id;
     bool v10(int key, int arg);
 };
-struct Entry_327c20 { char text[64]; unsigned int value1; unsigned int value2; };
-typedef int(__cdecl* Handler_327c70)(int, const char*, int);
+// (x64t3) the shader factory table DAT_005555c8 (the data TU's DataRec_005555c8: the name, the factory's address
+// pointer-sized, a word): the factory is called with the render context (a pointer) and returns the new shader
+struct Entry_327c20 { char text[64]; hulk_uintptr value1; unsigned int value2; };
+typedef void*(__cdecl* Handler_327c70)(void*, const char*, int);
 struct Entry_327c70 {
     char name[64];
     Handler_327c70 handler;
@@ -314,21 +317,28 @@ class d3dFBEffectsShader_328100 {
     d3dFBEffectsShader_328100(int) throw();
 };
 typedef void (__cdecl *Callback_328130)();
-void __cdecl FUN_00327e60();
-void __cdecl FUN_00327e90();
-void __cdecl FUN_00327ec0();
-void __cdecl FUN_00327ef0();
-void __cdecl FUN_00327f20();
-void __cdecl FUN_00327f50();
-void __cdecl FUN_00327f80();
-void __cdecl FUN_00327fb0();
-void __cdecl FUN_00327fe0();
-void __cdecl FUN_00328010();
-void __cdecl FUN_00328040();
-void __cdecl FUN_00328070();
-void __cdecl FUN_003280a0();
-void __cdecl FUN_003280d0();
-void __cdecl FUN_00328100();
+// (x64t3) the shader factories 0x00328130 registers, declared as defined (pointer or int argument, the new shader) so
+// that the native link binds them by address (the `void()` declarations were overloads without a definition, and an
+// ABI mismatch); in their own namespace, apart from this TU's definitions of the same names. The factories that still
+// take the context as an `int` truncate it on 64-bit (a follow-up).
+namespace factories_328130 {
+void* __cdecl FUN_00327e60(int);
+void* __cdecl FUN_00327e90(void*);
+void* __cdecl FUN_00327ec0(int);
+void* __cdecl FUN_00327ef0(int);
+void* __cdecl FUN_00327f20(int);
+void* __cdecl FUN_00327f50(int);
+int __cdecl FUN_00327f80(int);
+void* __cdecl FUN_00327fb0(int);
+void* __cdecl FUN_00327fe0(void*);
+void* __cdecl FUN_00328010(int);
+void* __cdecl FUN_00328040(void*);
+void* __cdecl FUN_00328070(int);
+void* __cdecl FUN_003280a0(void*);
+void* __cdecl FUN_003280d0(void*);
+void* __cdecl FUN_00328100(int);
+}
+#define HULK_FACTORY(f) ((Callback_328130)(void*)&factories_328130::f)
 void __cdecl FUN_00327c20(const char*, Callback_328130, int);
 
 
@@ -670,7 +680,7 @@ void __cdecl FUN_00327c20(const char* text, hulk_uintptr value1, unsigned int va
 
 // 0x00327c70 FUN_00327c70 (129 B): matches/0x00327c70.cpp
 // sym: _FUN_00327c70
-extern "C" int __cdecl FUN_00327c70(int first, const char* name, int context) {
+extern "C" void* __cdecl FUN_00327c70(void* first, const char* name, int context) {   // (x64t3) the context and the shader: pointers
     int count = (*(int*)&DAT_005555c0);
     for (int i = 0; i < count; ++i) {
         if (strcmp(name, ((Entry_327c70*)&DAT_005555c8)[i].name) == 0) {
@@ -791,7 +801,8 @@ d3dErrorShader_327e60* __cdecl FUN_00327e60(int x) {
 // 0x00327e90 FUN_00327e90 (33 B): matches/0x00327e90.cpp
 // sym: ?FUN_00327e90@fn_fbec554b@@YAPAVd3dSimpleShader_327e90@1@PAX@Z
 d3dSimpleShader_327e90* FUN_00327e90(void* arg) {
-    d3dSimpleShader_327e90* r = (d3dSimpleShader_327e90*)FUN_0008d690(0x94);
+    HULK_SIZE32(pure3d::d3dSimpleShader, 0x94);   // (x64t3) was a literal 0x94
+    d3dSimpleShader_327e90* r = (d3dSimpleShader_327e90*)FUN_0008d690((unsigned int)sizeof(pure3d::d3dSimpleShader));
     if (r)
         return r->Init(arg);
     return 0;
@@ -956,22 +967,22 @@ d3dFBEffectsShader_328100* __cdecl FUN_00328100(int n) {
 // sym: _FUN_00328130
 // FUN_00328130 @ 0x00328130
 extern "C" void __cdecl FUN_00328130() {
- FUN_00327c20("error", FUN_00327e60, 0);
- FUN_00327c20("simple", FUN_00327e90, 0);
- FUN_00327c20("lightweight", FUN_00327e90, 0);
- FUN_00327c20("lightmap", FUN_00327ec0, 0);
- FUN_00327c20("environment", FUN_00327ef0, 0);
- FUN_00327c20("projtex", FUN_00327f20, 0);
- FUN_00327c20("pointsprite", FUN_00327f50, 0);
- FUN_00327c20("layered", FUN_00327f80, 0);
- FUN_00327c20("layeredlmap", FUN_00327fb0, 0);
- FUN_00327c20("toon2", FUN_00328010, 0);
- FUN_00327c20("toon", FUN_00328040, 0);
- FUN_00327c20("refract", FUN_00327fe0, 0);
- FUN_00327c20("spheremap", FUN_00328070, 0);
- FUN_00327c20("bumpmap", FUN_003280d0, 0);
- FUN_00327c20("layeredReflect", FUN_003280a0, 0);
- FUN_00327c20("fbeffectsshader", FUN_00328100, 0);
+ FUN_00327c20("error", HULK_FACTORY(FUN_00327e60), 0);
+ FUN_00327c20("simple", HULK_FACTORY(FUN_00327e90), 0);
+ FUN_00327c20("lightweight", HULK_FACTORY(FUN_00327e90), 0);
+ FUN_00327c20("lightmap", HULK_FACTORY(FUN_00327ec0), 0);
+ FUN_00327c20("environment", HULK_FACTORY(FUN_00327ef0), 0);
+ FUN_00327c20("projtex", HULK_FACTORY(FUN_00327f20), 0);
+ FUN_00327c20("pointsprite", HULK_FACTORY(FUN_00327f50), 0);
+ FUN_00327c20("layered", HULK_FACTORY(FUN_00327f80), 0);
+ FUN_00327c20("layeredlmap", HULK_FACTORY(FUN_00327fb0), 0);
+ FUN_00327c20("toon2", HULK_FACTORY(FUN_00328010), 0);
+ FUN_00327c20("toon", HULK_FACTORY(FUN_00328040), 0);
+ FUN_00327c20("refract", HULK_FACTORY(FUN_00327fe0), 0);
+ FUN_00327c20("spheremap", HULK_FACTORY(FUN_00328070), 0);
+ FUN_00327c20("bumpmap", HULK_FACTORY(FUN_003280d0), 0);
+ FUN_00327c20("layeredReflect", HULK_FACTORY(FUN_003280a0), 0);
+ FUN_00327c20("fbeffectsshader", HULK_FACTORY(FUN_00328100), 0);
 }
 
 } // namespace fn_fbec554b

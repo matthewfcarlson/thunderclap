@@ -2256,3 +2256,29 @@ reach the same named thunks (build/ren1/scripts/imgdiff.py), the PE checksum fol
 |---|---|---|---|---|
 | (before: 652d16407) | | | 1155f411 | 28,899 / 28,884 / 28,891 |
 | renames 1/5, src/engine | 334 / 2,179 | 71598, GATE ok (0 of 2,029) | 1155f411 | 27,256 / 27,240 / 27,248 |
+
+**Batch 2, the context's first shader.** After its construction, Pure3D's context builds the simple shader through
+the device (0x002a3130 -> 0x0028edb0 -> pddiDevice slot 11 -> the factory table 0x00327c70 -> 0x00327e90):
+
+| where | change | gate |
+|---|---|---|
+| 0x0028f980 (match) | a member of the context (`Widget_28f800`; 0x00292560 calls it on the new context): was a free function, an ABI mismatch natively | MATCH, relocs ok (new pin) |
+| 0x002a3130 (match) | the allocator's jmp thunk by its address (`FUN_00263ea0`, was `alloc`) and the shader's constructor by its address (`FUN_0028edb0`, was `build`): both unbound | MATCH, relocs ok |
+| 0x0028edb0 Shader ctor (match) | the base constructor named by its address (`FUN_0027b070`, was `Entity_28edb0`), the device read from DAT_0052c2a0 (was `gManager_28edb0`, an invented data name) | MATCH, relocs ok |
+| gen pddiDevice / d3dDevice slot 11 | `void* vfunc_11(const char*, int)` (a shader by name; was `void (int, int)`); 0x0031b9d0 returns the lookup's shader and passes the context as a pointer | MATCH, relocs ok (new pin) |
+| 0x00327c70 (match), 0x00327c20 (equivalent) | the factory table's entries are the data TU's record (name, the factory pointer-sized, a word); the lookup takes the context and returns the shader as pointers | MATCH; same code |
+| 0x00328130 (match) | the 16 factories it registers declared as defined (namespace `factories_328130`; the `void()` declarations were overloads without definitions) | MATCH, relocs ok |
+| 0x00327e90 (match), 0x0032a9f0 (match) | the simple shader allocated as `sizeof(pure3d::d3dSimpleShader)` (`HULK_SIZE32` 0x94; was 0x94) and its words written through gen's f_80..f_90 (the view's 0x7c-byte pad) | MATCH, relocs ok |
+| gen slot 30 (pddiRenderContext, pddiBaseContext, d3dContext) | returns `void*` (the prim stream; was `int`); 0x00321860 and 0x0031d800 follow (bgfx's override already returns `void*`) | MATCH, relocs ok (new pins) |
+
+The other factories still take the context as an `int` (and several allocate literal 32-bit sizes): they come up as
+the start-up creates those shaders.
+
+Proofs 71581 (the batch's first half) and 71608 (all of it) vs control 71540 (studio, seeded from it): image
+0c722c7b, GATE ok. The 162 TUs that include gen/pure3d.h or use the changed records: 2,321 matches MATCH with
+relocations ok, 686 equivalents compile. Native on 71608's snapshot and map: **28,879 / 28,864 / 28,871** unbound.
+macOS: the context's simple shader is looked up and built; the start-up stops at 0x00327e90's call of the shader's
+init (`Init`, an invented name). With that renamed (batch 3; a local binding-map copy for the new name), Pure3D's set-up
+completes and the start-up reaches 0x0029f7c0 (LightsChooser's cache manager: `Init_0029f3d0` names a constructor with
+another signature, the allocator declared `int`, the manager kept in a 32-bit word of DAT_0052cba0), then, continued,
+0x002f2e20 (`Init_002f2d10`) and 0x002ed020 (`Alloc`) in src/engine/physics.

@@ -1954,14 +1954,14 @@ void d3dContext::vfunc_12(unsigned int flags) {
 
 
 // 0x00321860 pure3d::d3dContext::vfunc_30 (78 B): matches/0x00321860.cpp
-// sym: ?vfunc_30@d3dContext@pure3d@@UAEHHHHHH@Z
-int pure3d::d3dContext::vfunc_30(hulk_intptr a, int b, int c, int d, int e) {
+// sym: ?vfunc_30@d3dContext@pure3d@@UAEPAXHHHHH@Z
+void* pure3d::d3dContext::vfunc_30(hulk_intptr a, int b, int c, int d, int e) {
     if (!a)
         a = this->f_160;
     if (this->f_414)
         ((d3dContext_nv_321860*)this)->fix();
     ((Worker_321860*)this->f_204)->run(b, c, a, d, e);
-    return (int)(hulk_intptr)this->f_204;   // (the slot's int result: the prim stream pointer, truncated on 64-bit)
+    return this->f_204;   // (x64t3) the prim stream (gen's slot returned int: truncated on 64-bit)
 }
 
 

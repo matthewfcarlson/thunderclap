@@ -1739,9 +1739,9 @@ void pure3d::pddiBaseContext::vfunc_29(void* __p0, void* __p1, void* __p2, void*
 
 
 // 0x0031d800 pure3d::pddiBaseContext::vfunc_30 (5 B): matches/0x0031d800.cpp
-// sym: ?vfunc_30@pddiBaseContext@pure3d@@UAEHHHHHH@Z
+// sym: ?vfunc_30@pddiBaseContext@pure3d@@UAEPAXHHHHH@Z
 // Same code shape as 0x00272bf0 (propagated; names are from that function)
-int pure3d::pddiBaseContext::vfunc_30(hulk_intptr , int , int , int , int ) {
+void* pure3d::pddiBaseContext::vfunc_30(hulk_intptr , int , int , int , int ) {   // (x64t3) a prim stream: void*
     return 0;
 }
 

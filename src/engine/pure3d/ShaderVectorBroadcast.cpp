@@ -34,11 +34,12 @@ struct Manager_28edb0 {
     virtual void f10();
     virtual Service_28edb0* Get(const char*, int);
 };
-extern Manager_28edb0* gManager_28edb0;
-struct Entity_28edb0 {
-    Entity_28edb0();
+// (x64t3) pure3d::Entity's constructor named by its address (0x0027b070) so the native link binds the base call (was
+// Entity_28edb0, unbound); the device is p3d's DAT_0052c2a0 (was gManager_28edb0, an invented data name)
+struct FUN_0027b070 {
+    FUN_0027b070();
 };
-struct Shader : Entity_28edb0 {
+struct Shader : FUN_0027b070 {
     void* vtable;
     char pad4[0xc];
     Service_28edb0* mService;
@@ -211,7 +212,7 @@ Shader::Shader() {
     vtable = (void*)((hulk_intptr)DAT_0042cb44);
     flag = 0;
     value = 0;
-    mService = gManager_28edb0->Get("simple", 0);
+    mService = (*(Manager_28edb0**)&DAT_0052c2a0)->Get("simple", 0);
     mService->f0();
 }
 
