@@ -52,6 +52,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::HasTargetC
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::ai::HasTargetCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::ai::HasTargetCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x127ef0)
+#endif
 
 
 // 0x00127f20 fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetVelocityYCondition>::vfunc_0 (36 B): matches/0x00127f20.cpp
@@ -67,6 +70,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetVelo
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<hulkfight::ai::TargetVelocityYCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::ai::TargetVelocityYCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x127f50)
+#endif
 
 
 // 0x00127f70 fight::ParamFloatConstRange<hulkfight::ai::TargetVelocityYCondition>::vfunc_0 (30 B): matches/0x00127f70.cpp
@@ -74,4 +80,7 @@ template <> fight::ParamEnumConstList<hulkfight::ai::TargetVelocityYCondition>::
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::ai::TargetVelocityYCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::ai::TargetVelocityYCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x127f70)
+#endif
 

@@ -763,6 +763,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::scenario::LuaC
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamScript<hulkfight::scenario::LuaCondition>::~ParamScript() {}
+#if defined(HULK_PTR64)
+template class fight::ParamScript<hulkfight::scenario::LuaCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1a1a60)
+#endif
 
 
 // 0x001a1a90 fight::TrackFactoryCasterTemplate<hulkfight::scenario::LuaTrack>::vfunc_0 (36 B): matches/0x001a1a90.cpp
@@ -778,6 +781,9 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::scenario::LuaTrack
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::scenario::LuaTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::scenario::LuaTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1a1ac0)
+#endif
 
 
 // 0x001a1ae0 fight::ParamScript<hulkfight::scenario::LuaTrack>::vfunc_0 (30 B): matches/0x001a1ae0.cpp
@@ -785,6 +791,9 @@ template <> fight::ParamFloatConstRange<hulkfight::scenario::LuaTrack>::~ParamFl
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamScript<hulkfight::scenario::LuaTrack>::~ParamScript() {}
+#if defined(HULK_PTR64)
+template class fight::ParamScript<hulkfight::scenario::LuaTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1a1ae0)
+#endif
 
 namespace fn_fd836fc7 {
 

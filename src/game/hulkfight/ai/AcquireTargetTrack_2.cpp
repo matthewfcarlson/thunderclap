@@ -438,6 +438,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetFirs
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::ai::TargetFirstShotCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::ai::TargetFirstShotCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x128270)
+#endif
 
 
 // 0x001282a0 fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetInvincibleCondition>::vfunc_0 (36 B): matches/0x001282a0.cpp
@@ -453,6 +456,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetInvi
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::ai::TargetInvincibleCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::ai::TargetInvincibleCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1282d0)
+#endif
 
 
 // 0x00128300 fight::ConditionFactoryCasterTemplate<hulkfight::ai::CanSeeTargetCondition>::vfunc_0 (36 B): matches/0x00128300.cpp
@@ -469,6 +475,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::CanSeeTarg
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::ai::CanSeeTargetCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::ai::CanSeeTargetCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x128330)
+#endif
 
 
 // 0x00128360 fight::TrackFactoryCasterTemplate<hulkfight::ai::TargetClearTrack>::vfunc_0 (36 B): matches/0x00128360.cpp
@@ -485,6 +494,9 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::TargetClearTra
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::ai::TargetClearTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::ai::TargetClearTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x128390)
+#endif
 
 
 // 0x001283b0 fight::ParamBool<hulkfight::ai::TargetClearTrack>::vfunc_0 (30 B): matches/0x001283b0.cpp
@@ -492,6 +504,9 @@ template <> fight::ParamFloatConstRange<hulkfight::ai::TargetClearTrack>::~Param
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::ai::TargetClearTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::ai::TargetClearTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1283b0)
+#endif
 
 
 // 0x001283e0 fight::TrackFactoryCasterTemplate<hulkfight::ai::AcquireTargetTrack>::vfunc_0 (36 B): matches/0x001283e0.cpp
@@ -507,6 +522,9 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::AcquireTargetT
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x128410)
+#endif
 
 
 // 0x00128430 fight::ParamBool<hulkfight::ai::AcquireTargetTrack>::vfunc_0 (30 B): matches/0x00128430.cpp
@@ -514,6 +532,9 @@ template <> fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetTrack>::~Par
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::ai::AcquireTargetTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::ai::AcquireTargetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x128430)
+#endif
 
 
 // 0x00128450 fight::ParamVector<hulkfight::ai::AcquireTargetTrack>::vfunc_0 (30 B): matches/0x00128450.cpp
@@ -521,6 +542,9 @@ template <> fight::ParamBool<hulkfight::ai::AcquireTargetTrack>::~ParamBool() {}
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamVector<hulkfight::ai::AcquireTargetTrack>::~ParamVector() {}
+#if defined(HULK_PTR64)
+template class fight::ParamVector<hulkfight::ai::AcquireTargetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x128450)
+#endif
 
 
 // 0x00128480 fight::TrackFactoryCasterTemplate<hulkfight::ai::ClearProjectileDistanceTrack>::vfunc_0 (36 B): matches/0x00128480.cpp
@@ -537,6 +561,9 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::ClearProjectil
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::ai::ClearProjectileDistanceTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::ai::ClearProjectileDistanceTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1284b0)
+#endif
 
 
 // 0x001284d0 fight::ParamBool<hulkfight::ai::ClearProjectileDistanceTrack>::vfunc_0 (30 B): matches/0x001284d0.cpp
@@ -544,6 +571,9 @@ template <> fight::ParamFloatConstRange<hulkfight::ai::ClearProjectileDistanceTr
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::ai::ClearProjectileDistanceTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::ai::ClearProjectileDistanceTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1284d0)
+#endif
 
 
 // 0x001284f0 FUN_001284f0 (176 B): equivalent/0x001284f0.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamIntConstRange; hulkfight::ai::TargetDirectionYCondition]

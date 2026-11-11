@@ -38,6 +38,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::OnBlockedT
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<hulkfight::ai::OnBlockedTriangleCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::ai::OnBlockedTriangleCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x110e90)
+#endif
 
 
 // 0x00110eb0 fight::ParamBool<hulkfight::ai::OnBlockedTriangleCondition>::vfunc_0 (30 B): matches/0x00110eb0.cpp
@@ -45,6 +48,9 @@ template <> fight::ParamEnumConstList<hulkfight::ai::OnBlockedTriangleCondition>
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::ai::OnBlockedTriangleCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::ai::OnBlockedTriangleCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x110eb0)
+#endif
 
 
 // 0x00110ed0 fight::ParamIntConstRange<hulkfight::ai::OnBlockedTriangleCondition>::vfunc_0 (30 B): matches/0x00110ed0.cpp
@@ -52,4 +58,7 @@ template <> fight::ParamBool<hulkfight::ai::OnBlockedTriangleCondition>::~ParamB
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamIntConstRange<hulkfight::ai::OnBlockedTriangleCondition>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<hulkfight::ai::OnBlockedTriangleCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x110ed0)
+#endif
 

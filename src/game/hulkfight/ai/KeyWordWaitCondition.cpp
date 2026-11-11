@@ -42,6 +42,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::LeashedCon
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamBool<hulkfight::ai::LeashedCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::ai::LeashedCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111210)
+#endif
 
 
 // 0x00111240 fight::ConditionFactoryCasterTemplate<hulkfight::ai::KeyWordWaitCondition>::vfunc_0 (36 B): matches/0x00111240.cpp
@@ -57,6 +60,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::KeyWordWai
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamEnumConstList<hulkfight::ai::KeyWordWaitCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::ai::KeyWordWaitCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111270)
+#endif
 
 
 // 0x00111290 fight::ParamString<hulkfight::ai::KeyWordWaitCondition>::vfunc_0 (30 B): matches/0x00111290.cpp
@@ -64,6 +70,9 @@ template <> fight::ParamEnumConstList<hulkfight::ai::KeyWordWaitCondition>::~Par
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamString<hulkfight::ai::KeyWordWaitCondition>::~ParamString() {}
+#if defined(HULK_PTR64)
+template class fight::ParamString<hulkfight::ai::KeyWordWaitCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111290)
+#endif
 
 
 // 0x001112b0 fight::ParamFloatConstRange<hulkfight::ai::KeyWordWaitCondition>::vfunc_0 (30 B): matches/0x001112b0.cpp
@@ -71,4 +80,7 @@ template <> fight::ParamString<hulkfight::ai::KeyWordWaitCondition>::~ParamStrin
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
 template <> fight::ParamFloatConstRange<hulkfight::ai::KeyWordWaitCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::ai::KeyWordWaitCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1112b0)
+#endif
 
