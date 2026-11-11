@@ -42,12 +42,12 @@ class TextureLoader : public SimpleChunkHandler_2c25b0 {
     A_2c25b0* m14;
     ImageConverter_2c25b0* m18;
 };
-extern int vt1_2c2620, vt2;
-extern void Free(void*);
-extern void Free2(void*);
+extern int hulk_at_0042ec44, hulk_at_003f6098;
+extern void Free_00263f30(void*);
+extern void Free2_0008d330(void*);
 class Obj_2c2620 {
   public:
-    void Fini();
+    void Fini_002ae910();
 };
 class Ref_2c2620 {
   public:
@@ -84,16 +84,16 @@ TextureLoader::TextureLoader() {
 // sym: ?vfunc2@TextureLoader_2c2620@fn_f0efd7bc@@QAEPAV12@E@Z
 TextureLoader_2c2620* TextureLoader_2c2620::vfunc2(unsigned char f) {
     Obj_2c2620* o = a14;
-    vptr = &vt1_2c2620;
+    vptr = &hulk_at_0042ec44;
     if (o) {
-        o->Fini();
-        Free2(o);
+        o->Fini_002ae910();
+        Free2_0008d330(o);
     }
     if (a18)
         a18->Del(1);
-    vptr = &vt2;
+    vptr = &hulk_at_003f6098;
     if (f & 1)
-        Free(this);
+        Free_00263f30(this);
     return this;
 }
 

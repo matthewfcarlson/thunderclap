@@ -456,7 +456,7 @@ class LightGroup : public Entity {
 };
 }
 struct Inner_2e4fb0 {
-    void sub();
+    void sub_002c6d30();
 };
 struct Obj_2e4fb0 {
     char pad[4];
@@ -464,7 +464,7 @@ struct Obj_2e4fb0 {
 };
 class Part_2e5280 {
   public:
-    void Cleanup();
+    void Cleanup_002c6d50();
 };
 class Thing_2e5280 {
   public:
@@ -472,7 +472,7 @@ class Thing_2e5280 {
     Part_2e5280 part;
     Thing_2e5280* Run(unsigned char flags);
 };
-void DeleteThing(Thing_2e5280*);
+void DeleteThing_0008d330(Thing_2e5280*);
 class Ref_2e5310 {
   public:
     virtual void A();
@@ -2596,7 +2596,7 @@ void FUN_002e4ea0() {}
 // sym: ?target@Obj_2e4fb0@fn_fcb4ee90@@QAEPAU12@XZ
 // Same code shape as 0x001c65a0 (propagated; names are from that function)
 Obj_2e4fb0* Obj_2e4fb0::target() {
-    ((Inner_2e4fb0*)((char*)this + 4))->sub();
+    ((Inner_2e4fb0*)((char*)this + 4))->sub_002c6d30();
     return this;
 }
 
@@ -2605,9 +2605,9 @@ Obj_2e4fb0* Obj_2e4fb0::target() {
 // sym: ?Run@Thing_2e5280@fn_fcb4ee90@@QAEPAV12@E@Z
 // Same code shape as 0x001c6c40 (propagated; names are from that function)
 Thing_2e5280* Thing_2e5280::Run(unsigned char flags) {
-    part.Cleanup();
+    part.Cleanup_002c6d50();
     if (flags & 1)
-        DeleteThing(this);
+        DeleteThing_0008d330(this);
     return this;
 }
 

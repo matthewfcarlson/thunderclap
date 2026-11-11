@@ -16,7 +16,7 @@ namespace fn_f0c19b70 {} using namespace fn_f0c19b70;
 
 // ---- declarations shared by the functions below
 namespace fn_f0c19b70 {
-extern void* vtable_252380;
+extern void* hulk_at_00429f0c;
 class SeqEventVarVolumeRand_252380 {
   public:
     void* vf;
@@ -25,7 +25,7 @@ class SeqEventVarVolumeRand_252380 {
     float b;
 };
 struct SeqEventVarVolumeRand_nv_252380 {
-    void Init();
+    void Init_0025fd00();
 };
 extern "C" bool FUN_0025ac10(void*, void*);
 class SeqEventVarVolumeRand_2523a0 : public audio::SeqEvent {
@@ -98,7 +98,7 @@ class SeqEventVarVolumeRand_2525a0 : public audio::SeqEvent {
     virtual SeqEventVarVolumeRand_2525a0* vfunc_4(int);
 };
 extern void FUN_00247550(void*, SeqEventVarVolumeRand_2525a0*);
-extern void* g_vftable_252680[];
+extern void* hulk_at_004298fc[];
 extern void* g_vftable2[];
 } // namespace fn_f0c19b70
 void operator delete(void*);
@@ -152,7 +152,7 @@ class SeqAction_2526b0 {
 namespace fn_f0c19b70 {
 class Random {
   public:
-    float Get(float, float);
+    float Get_000787e0(float, float);
 };
 inline float keep(float x, volatile float& v) {
     v = x;
@@ -176,7 +176,7 @@ class SeqActionVarVolumeRand_2526f0 {
 namespace audio {
 class Receiver {
   public:
-    void Set(SeqActionVarVolumeRand_2526f0*);
+    void Set_0025dc20(SeqActionVarVolumeRand_2526f0*);
 };
 }
 namespace audio {
@@ -208,8 +208,8 @@ extern "C" int* FUN_00252370() {
 // 0x00252380 FUN_00252380 (32 B): matches/0x00252380.cpp
 // sym: ?FUN_00252380@fn_f0c19b70@@YIPAVSeqEventVarVolumeRand_252380@1@PAV21@@Z
 SeqEventVarVolumeRand_252380* __fastcall FUN_00252380(SeqEventVarVolumeRand_252380* self) {
-    ((SeqEventVarVolumeRand_nv_252380*)(((audio::SeqEventVarVolumeRand*)(self))))->Init();
-    self->vf = &vtable_252380;
+    ((SeqEventVarVolumeRand_nv_252380*)(((audio::SeqEventVarVolumeRand*)(self))))->Init_0025fd00();
+    self->vf = &hulk_at_00429f0c;
     self->a = 0.5f;
     self->b = 1.0f;
     return self;
@@ -370,7 +370,7 @@ namespace audio {
 class SeqEvent {
 public:
     virtual void v0();
-    char vfunc_1(Writer_2525d0* w);
+    char vfunc_1_0025fd40(Writer_2525d0* w);
     char pad04[4];
 };
 
@@ -384,7 +384,7 @@ public:
 
 int SeqEventVarVolumeRand::vfunc_1(Writer_2525d0* w)
 {
-    if (!SeqEvent::vfunc_1(w))
+    if (!SeqEvent::vfunc_1_0025fd40(w))
         return 0;
     if (!FUN_00246f50(w->out, "\n[\n"))
         return 0;
@@ -408,7 +408,7 @@ namespace fn_f0c19b70 {
 // sym: ?f2@SeqActionVarVolumeRand_252680@fn_f0c19b70@@QAEPAV12@E@Z
 // data: g_pool_252680 = DAT_004e6de0
 SeqActionVarVolumeRand_252680* SeqActionVarVolumeRand_252680::f2(unsigned char flags) {
-    vptr = g_vftable_252680;
+    vptr = hulk_at_004298fc;
     if (flags & 1)
         Free(((char*)&DAT_004e6de0), this);
     return this;
@@ -425,7 +425,7 @@ void audio::SeqActionVarVolumeRand::vfunc_1(void* __p0) { Context_2526b0 * ctx =
     Range* r = (*(Range * *)&this->f_08);
     float hi = r->b, lo = r->a;
     Target* tgt = ctx->target;
-    tgt->volume = (*(Random**)&DAT_004e5acc)->Get(keep(lo, a), keep(hi, b));
+    tgt->volume = (*(Random**)&DAT_004e5acc)->Get_000787e0(keep(lo, a), keep(hi, b));
     this->f_0c = 0;
 }
 
@@ -436,6 +436,6 @@ void audio::SeqEventVarVolumeRand::vfunc_2(hulk_intptr __p0) { Receiver * r = (R
 
     void* p = FUN_00247530(&bss);
     SeqActionVarVolumeRand_2526f0* a = p ? new (p) SeqActionVarVolumeRand_2526f0(this) : 0;
-    r->Set(a);
+    r->Set_0025dc20(a);
 }
 

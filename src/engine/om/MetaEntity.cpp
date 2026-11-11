@@ -43,7 +43,7 @@ class MetaEntity_25e6f0 {
     MetaEntity_25e6f0* construct(void*);
 };
 struct MetaEntity_nv_25e6f0 {
-    void InitRestPose(void*);
+    void InitRestPose_00244ea0(void*);
 };
 class MetaEntity_25e710 {
   public:
@@ -117,7 +117,7 @@ MetaEntityType::MetaEntityType(const U64_25e6c0* a, const U64_25e6c0* b, int c, 
 // sym: ?construct@MetaEntity_25e6f0@fn_f87db03b@@QAEPAV12@PAX@Z
 // Same code shape as 0x0022a5d0 (propagated; names are from that function)
 MetaEntity_25e6f0* MetaEntity_25e6f0::construct(void* arg) {
-    ((MetaEntity_nv_25e6f0*)(((om::MetaEntity*)(this))))->InitRestPose(arg);
+    ((MetaEntity_nv_25e6f0*)(((om::MetaEntity*)(this))))->InitRestPose_00244ea0(arg);
     *(void**)this = &RestPoseVtable;
     return this;
 }
@@ -138,7 +138,7 @@ namespace fn_0025e720 {
 // Same code shape as 0x0025e740 (propagated; names are from that function)
 class Result_25e720 {
   public:
-    void finish();
+    void finish_0025fc80();
 };
 class EntityType {
   public:
@@ -154,7 +154,7 @@ class MetaEntityType : public EntityType {
 void MetaEntityType::vfunc_0() {
     EntityType::vfunc_0();
     Result_25e720* r = vfunc_3();
-    r->finish();
+    r->finish_0025fc80();
 }
 } // namespace fn_0025e720
 
@@ -164,7 +164,7 @@ void MetaEntityType::vfunc_0() {
 namespace fn_0025e740 {
 class Result_25e740 {
   public:
-    void finish();
+    void finish_0025e850();
 };
 class EntityType {
   public:
@@ -180,7 +180,7 @@ class MetaEntityType : public EntityType {
 void MetaEntityType::vfunc_0() {
     EntityType::vfunc_0();
     Result_25e740* r = vfunc_3();
-    r->finish();
+    r->finish_0025e850();
 }
 } // namespace fn_0025e740
 

@@ -64,7 +64,7 @@ typedef unsigned int u32_2e6bf0;
 void FUN_002e6ab0(u32_2e6bf0, int);
 typedef unsigned int u32_2e6c00;
 typedef u32_2e6c00(__cdecl* Callback_2e6c00)(void*, void*);
-extern u32_2e6c00 __cdecl fallback(void*, void*);
+extern u32_2e6c00 __cdecl fallback_002e6af0(void*, void*);
 struct Obj_2e6c00 {
     char pad[0x210];
     Callback_2e6c00 fn;
@@ -85,7 +85,7 @@ struct Obj_2e6db0 {
     int c;
     Inner_2e6db0* inner;
 };
-int __cdecl helper(int, Obj_2e6db0*, int);
+int __cdecl helper_002ea2a0(int, Obj_2e6db0*, int);
 typedef unsigned int u32_2e6e00;
 struct Obj_2e6e00 {
     char pad0[0x1c];
@@ -216,9 +216,9 @@ void FUN_002e81e0(png_struct_2e84e0 *png_ptr, unsigned int skip);
 void *FUN_002d6c20(png_struct_2e84e0 *png_ptr, unsigned int num, unsigned int size);
 void FUN_002e7580(png_struct_2e84e0 *png_ptr, unsigned char *buf, unsigned int length);
 void FUN_002eb4c0(png_struct_2e84e0 *png_ptr, png_info_2e84e0 *info_ptr, png_color_2e84e0 *palette, int num);
-void Missing(Image*, const char*);
-void BadLength(Image*, const char*);
-void Finish(Image*, int);
+void Missing_002e69a0(Image*, const char*);
+void BadLength_002e69d0(Image*, const char*);
+void Finish_002e81e0(Image*, int);
 struct png_info_2e87e0 {
     char pad00[8];
     unsigned int valid;
@@ -528,9 +528,9 @@ struct z_stream_2ec780 {
     char pad0c[0x18 - 0x0c];
     const char *msg;
 };
-extern void* IRefCount_vftable_2ecca0;
+extern void* hulk_at_0043117c;
 struct Sub2_2eccd0 {
-    void Do();
+    void Do_002f7a60();
 };
 struct PA {
     char pad0[0x38];
@@ -791,7 +791,7 @@ hulk_uintptr __cdecl target(Obj_2e6c00* a, void* b) {
         return 0;
     if (a->fn)
         return a->fn(a, b);
-    return fallback(a, b);
+    return fallback_002e6af0(a, b);
 }
 
 } // namespace fn_fb0f1f83
@@ -843,7 +843,7 @@ int __cdecl target(Obj_2e6db0* p) {
         p->c = 0;
         Inner_2e6db0* q = p->inner;
         q->v0 = q->flag ? 7 : 0;
-        helper(p->inner->arg, p, 0);
+        helper_002ea2a0(p->inner->arg, p, 0);
         return 0;
     }
     return -2;
@@ -1798,12 +1798,12 @@ void FUN_002e84e0(png_struct_2e84e0 *png_ptr, png_info_2e84e0 *info_ptr, unsigne
 // 0x002e8640 FUN_002e8640 (83 B): matches/0x002e8640.cpp
 // sym: _FUN_002e8640
 extern "C" void FUN_002e8640(Image* self, hulk_intptr p2, int p3) {
-    if (((self->flags & 1) == 0 || (self->flags & 4) == 0) && (Missing(self, "No image in file"), p2 == 0))
+    if (((self->flags & 1) == 0 || (self->flags & 4) == 0) && (Missing_002e69a0(self, "No image in file"), p2 == 0))
         return;
     self->flags |= 0x18;
     if (p3 != 0)
-        BadLength(self, "Incorrect IEND chunk length");
-    Finish(self, p3);
+        BadLength_002e69d0(self, "Incorrect IEND chunk length");
+    Finish_002e81e0(self, p3);
 }
 
 } // namespace fn_fb0f1f83
@@ -2807,18 +2807,18 @@ void png_handle_zTXt(PngStruct_2e9c60 *png, void *info, unsigned length)
 namespace fn_002e9fc0 {
 typedef unsigned int u32_2e9fc0;
 typedef unsigned char u8;
-extern void Parse(void*, u8*);
+extern void Parse_002e7620(void*, u8*);
 extern "C++" __declspec(nothrow) void __cdecl FUN_002e69f0(void *, void *);
-extern void Continue(void*, u32_2e9fc0);
+extern void Continue_002e81e0(void*, u32_2e9fc0);
 extern "C" void FUN_002e9fc0(void* self, hulk_uintptr param2, u32_2e9fc0 param3) {
     u8* flag = (u8*)self + 0x114;
-    Parse(self, flag);
+    Parse_002e7620(self, flag);
     if ((*flag & 0x20) == 0 && (FUN_002e69f0(self, (void *)(const char *)"unknown critical chunk"), param2 == 0))
         return;
     u32_2e9fc0* state = (u32_2e9fc0*)((char*)self + 0x60);
     if ((*state & 4) != 0)
         *state |= 8;
-    Continue(self, param3);
+    Continue_002e81e0(self, param3);
 }
 } // namespace fn_002e9fc0
 
@@ -4373,7 +4373,7 @@ extern "C" void __cdecl FUN_002ecb90(unsigned int mode)
 // sym: ?FUN_002ecca0@fn_fb0f1f83@@YIXPAX@Z
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 void __fastcall FUN_002ecca0(void* self) {
-    *(void**)self = &IRefCount_vftable_2ecca0;
+    *(void**)self = &hulk_at_0043117c;
 }
 
 
@@ -4396,10 +4396,10 @@ void owners::Cls_2eccd0::FUN_002eccd0(float f) {
         return;
     b = (*(const float*)&DAT_004d287c) * f;
     if ((*(PA**)&DAT_0055547c)) {
-        (*(PA**)&DAT_0055547c)->s.Do();
+        (*(PA**)&DAT_0055547c)->s.Do_002f7a60();
         (*(PA**)&DAT_0055547c)->f38 = b;
     } else if ((*(PB**)&DAT_00554c14)) {
-        (*(PB**)&DAT_00554c14)->s.Do();
+        (*(PB**)&DAT_00554c14)->s.Do_002f7a60();
         (*(PB**)&DAT_00554c14)->f80 = b;
     }
 }

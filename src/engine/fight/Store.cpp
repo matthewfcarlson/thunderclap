@@ -15,7 +15,7 @@ namespace fn_f0d621c3 {} using namespace fn_f0d621c3;
 namespace fn_f0d621c3 {
 extern "C" char DAT_0042886c[];
 struct ThisCall_0023c640 {
-    void BaseInit(int);
+    void BaseInit_0023c640(int);
 };
 class Store {
   public:
@@ -41,10 +41,10 @@ struct Store {
  bool vfunc_9(Record_23c530*, Object*, DWORD);
 };
 }
-extern void* Bank_23c5e0_vftable[];
+extern void* hulk_at_0042886c[];
 class Bank_23c5e0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0023c660(); // FUN_00236d60, __thiscall, this in ecx
 };
 class Store_23c5e0 : public Bank_23c5e0 {
   public:
@@ -65,7 +65,7 @@ class Bank_23c640 {
     Bank_23c640* construct(void*);
 };
 struct ThisCall_00232e90 {
-    void InitRestPose(void*);
+    void InitRestPose_00232e90(void*);
 };
 void __fastcall FUN_00233970(CEffectStopTrack*);
 
@@ -73,7 +73,7 @@ void __fastcall FUN_00233970(CEffectStopTrack*);
 // 0x0023c500 FUN_0023c500 (20 B): matches/0x0023c500.cpp
 // sym: ?target@fn_f0d621c3@@YIPAVStore@1@PAV21@@Z
 Store* __fastcall target(Store* self) {
-    ((ThisCall_0023c640*)(self))->BaseInit(2);
+    ((ThisCall_0023c640*)(self))->BaseInit_0023c640(2);
     self->vptr = (void*)((hulk_intptr)DAT_0042886c);
     return self;
 }
@@ -109,8 +109,8 @@ bool Store::vfunc_9(Record_23c530* record, Object* object, DWORD arg) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 Store_23c5e0* Store_23c5e0::vfunc_5(signed char flags) {
-    *(void***)this = Bank_23c5e0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042886c;
+    Destroy_0023c660();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -127,7 +127,7 @@ Bank::Bank() : Branch_23c620(0) {}
 // sym: ?construct@Bank_23c640@fn_f0d621c3@@QAEPAV12@PAX@Z
 // Same code shape as 0x0022a5d0 (propagated; names are from that function)
 Bank_23c640* Bank_23c640::construct(void* arg) {
-    ((ThisCall_00232e90*)(this))->InitRestPose(arg);
+    ((ThisCall_00232e90*)(this))->InitRestPose_00232e90(arg);
     *(void**)this = &RestPoseVtable;
     return this;
 }

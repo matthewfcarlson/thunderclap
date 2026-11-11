@@ -113,7 +113,7 @@ struct Globals_2a8840 {
     char pad[8];
     Sink_2a8840 *sink;
 };
-extern void* g_vftable_2a8a70[];
+extern void* hulk_at_0042ddb4[];
 class Ref_2a8a70 {
   public:
     virtual void F0();
@@ -122,7 +122,7 @@ class Ref_2a8a70 {
 class BlendFrameController_2a8a70 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285f50();
 };
 class LightAnimationController_2a8a70 : public BlendFrameController_2a8a70 {
   public:
@@ -151,7 +151,7 @@ class Ref_2a9300 {
 class BlendFrameController_2a9300 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285f50();
 };
 class LightAnimationController_2a9300 : public BlendFrameController_2a9300 {
   public:
@@ -194,16 +194,16 @@ struct LightAnimationController_2a9380 {
     char pad[0x10c];
     u32_2a9380 field110;
     u32_2a9380 field114;
-    void init(LightAnimationController_2a9380*);
-    void finish(u32_2a9380);
+    void init_00285d70(LightAnimationController_2a9380*);
+    void finish_002a8aa0(u32_2a9380);
 };
 extern "C" void* __cdecl alloc(hulk_uintptr);
 extern u32_2a9380 camera_vtable_2a9380;
 typedef unsigned int U_2a93e0;
 extern U_2a93e0 __cdecl Query(hulk_uintptr, U_2a93e0, const void*, const void*, U_2a93e0);
-extern char EntityRTTI_2a93e0;
+extern char hulk_at_0048f610;
 struct LightAnimationController_nv_2a93e0 {
-    void Finish(U_2a93e0);
+    void Finish_002a8aa0(U_2a93e0);
 };
 
 
@@ -313,13 +313,13 @@ void LightAnimationController::vfunc_27()
 // 0x002a8a70 FUN_002a8a70 (42 B): matches/0x002a8a70.cpp
 // sym: ??1LightAnimationController_2a8a70@fn_f5607ee0@@QAE@XZ
 LightAnimationController_2a8a70::~LightAnimationController_2a8a70() {
-    vptr = g_vftable_2a8a70;
+    vptr = hulk_at_0042ddb4;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_00285f50();
 }
 
 
@@ -676,7 +676,7 @@ LightAnimationController_2a9300* LightAnimationController_2a9300::f2(unsigned ch
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_00285f50();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -689,11 +689,11 @@ LightAnimationController_2a9300* LightAnimationController_2a9300::f2(unsigned ch
 LightAnimationController_2a9380* LightAnimationController_2a9380::f4() {
     LightAnimationController_2a9380* p = (LightAnimationController_2a9380*)alloc(0x118);
     if (p) {
-        p->init(this);
+        p->init_00285d70(this);
         *(hulk_uintptr*)p = (hulk_uintptr)&camera_vtable_2a9380;
         p->field110 = 0xffffffff;
         p->field114 = 0;
-        p->finish(field114);
+        p->finish_002a8aa0(field114);
         return p;
     }
     return 0;
@@ -706,7 +706,7 @@ LightAnimationController_2a9380* LightAnimationController_2a9380::f4() {
 // Same code shape as 0x00293970 (propagated; names are from that function)
 void pure3d::LightAnimationController::vfunc_5(void* __p0) { hulk_uintptr arg = (hulk_uintptr)__p0;
 
-    U_2a93e0 x = Query(arg, 0, &EntityRTTI_2a93e0, &CameraRTTI, 0);
-    ((LightAnimationController_nv_2a93e0*)this)->Finish(x);
+    U_2a93e0 x = Query(arg, 0, &hulk_at_0048f610, &CameraRTTI, 0);
+    ((LightAnimationController_nv_2a93e0*)this)->Finish_002a8aa0(x);
 }
 

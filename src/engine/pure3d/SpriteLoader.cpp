@@ -201,12 +201,12 @@ class SpriteObject : public DrawableContainer_2bdee0 {
 };
 extern "C" char DAT_0042e914[];
 typedef unsigned int u32_2bdf50;
-void* __cdecl alloc(hulk_uintptr);
+void* __cdecl alloc_00263ea0(hulk_uintptr);
 } // namespace fn_f43dee86
 namespace pure3d {
 class Builder_2bdf50 {
   public:
-    void init(pure3d::SpriteObject*);
+    void init_002a4e40(pure3d::SpriteObject*);
 };
 }
 namespace fn_f43dee86 {
@@ -239,7 +239,7 @@ struct Frame_2bdfc0 {
 };
 class Other_2be3d0 {
   public:
-    void call(void*);
+    void call_000f6e90(void*);
 };
 } // namespace fn_f43dee86
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -326,10 +326,10 @@ class Obj_2bea10 {
     virtual void f0();
     virtual void f1();
 };
-extern void* DrawableContainer_2bea70_vftable[];
+extern void* hulk_at_0042e914[];
 class DrawableContainer_2bea70 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002a4ff0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class SpriteObject_2bea70 : public DrawableContainer_2bea70 {
   public:
@@ -384,7 +384,7 @@ class B_2beac0 {
 };
 class C_2beac0 {
   public:
-    void run();
+    void run_002ae910();
 };
 struct Sprite {
   public:
@@ -402,7 +402,7 @@ struct Sprite {
     void* p44;
     Thing_2bd430** items;
     Thing_2bd430* p4c;
-    void Tail();
+    void Tail_002a50a0();
     void Destroy();
     void target();
 };
@@ -426,11 +426,11 @@ public:
     char pad4[0x18];
     Factory_2bdfc0 *factory;
 };
-extern int vt1_2bed30, vt2;
-extern void Free2(void*);
+extern int hulk_at_0042e974, hulk_at_003f6098;
+extern void Free2_0008d330(void*);
 class Obj_2bed30 {
   public:
-    void Fini();
+    void Fini_002ae910();
 };
 class Ref_2bed30 {
   public:
@@ -461,7 +461,7 @@ void Sprite::Destroy() {
         items[i]->B();
     Free(items);
     Free(p44);
-    Tail();
+    Tail_002a50a0();
 }
 
 } // namespace fn_f43dee86
@@ -844,9 +844,9 @@ int pure3d::SpriteObject::vfunc_15() {
 // sym: ?vfunc_4@SpriteObject@pure3d@@UAEPAXXZ
  // namespace pure3d
 void* pure3d::SpriteObject::vfunc_4() {
-    pure3d::SpriteObject* p = (pure3d::SpriteObject*)alloc(0x58);
+    pure3d::SpriteObject* p = (pure3d::SpriteObject*)alloc_00263ea0(0x58);
     if (p) {
-        ((Builder_2bdf50*)p)->init(this);
+        ((Builder_2bdf50*)p)->init_002a4e40(this);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0042e914);
         return (void*)(p);
     }
@@ -1054,7 +1054,7 @@ Sprite *pure3d::SpriteLoader::vfunc_9(Reader *r, int unused)
 // sym: ?vfunc_11@Sprite@pure3d@@UAEXPAX@Z
 void pure3d::Sprite::vfunc_11(void* __p0) { Other_2be3d0 * obj = (Other_2be3d0 *)__p0;
 
-    obj->call((char*)this + 0x78);
+    obj->call_000f6e90((char*)this + 0x78);
 }
 
 
@@ -1416,8 +1416,8 @@ namespace fn_f43dee86 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 SpriteObject_2bea70* SpriteObject_2bea70::vfunc_5(signed char flags) {
-    *(void***)this = DrawableContainer_2bea70_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042e914;
+    Destroy_002a4ff0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1450,7 +1450,7 @@ void Sprite::target() {
         b->f(1);
     C_2beac0* q = p;
     if (q) {
-        q->run();
+        q->run_002ae910();
         thunk(q);
     }
     vt = (void*)((hulk_intptr)DAT_003f6098);
@@ -1774,16 +1774,16 @@ namespace fn_f43dee86 {
 // sym: ?vfunc2@SpriteLoader_2bed30@fn_f43dee86@@QAEPAV12@E@Z
 SpriteLoader_2bed30* SpriteLoader_2bed30::vfunc2(unsigned char f) {
     Ref_2bed30* r = a18;
-    vptr = &vt1_2bed30;
+    vptr = &hulk_at_0042e974;
     r->Rel();
     if (a14)
         a14->Del(1);
     Obj_2bed30* o = a1c;
     if (o) {
-        o->Fini();
-        Free2(o);
+        o->Fini_002ae910();
+        Free2_0008d330(o);
     }
-    vptr = &vt2;
+    vptr = &hulk_at_003f6098;
     if (f & 1)
         Free(this);
     return this;

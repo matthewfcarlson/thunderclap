@@ -82,7 +82,7 @@ class Part_2c2730 {
     virtual void f6(int, int);
 };
 struct Geometry_nv_2c2730 {
-    void helper(hulk_intptr, int);
+    void helper_002a41e0(hulk_intptr, int);
 };
 class Obj_2c2770 {
   public:
@@ -113,9 +113,9 @@ class Obj_2c2770 {
 };
 class DrawableContainer_2c2770 {
   public:
-    void vfunc_9();
+    void vfunc_9_002a4350();
 };
-extern int vt1_2c28d0;
+extern int hulk_at_0042ec7c;
 class Ref_2c28d0 {
   public:
     virtual void f0();
@@ -135,7 +135,7 @@ class Geometry_2c28d0 : public DrawableContainer_2c28d0 {
     Ref_2c28d0* a64;
     ~Geometry_2c28d0() throw();
 };
-extern void* g_vftable_2c29b0[];
+extern void* hulk_at_0042eccc[];
 } // namespace fn_ff9773df
 void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_ff9773df {
@@ -209,7 +209,7 @@ class GeometryLoader_2c2a70 : public SimpleChunkHandler_2c2a70 {
     ~GeometryLoader_2c2a70() throw();
 };
 extern void* g_a_2c3160[];
-extern void* g_b_2c3160[];
+extern void* hulk_at_003f6098[];
 } // namespace fn_ff9773df
 void operator delete(void*);
 namespace fn_ff9773df {
@@ -265,7 +265,7 @@ void pure3d::Geometry::vfunc_8(hulk_intptr a, int b) {
         (*(Part_2c2730 * *)&this->f_60)->f6(0, 1);
     if ((*(Part_2c2730 * *)&this->f_64))
         (*(Part_2c2730 * *)&this->f_64)->f6(0, 1);
-    ((Geometry_nv_2c2730*)this)->helper(a, b);
+    ((Geometry_nv_2c2730*)this)->helper_002a41e0(a, b);
 }
 
 
@@ -276,7 +276,7 @@ void pure3d::Geometry::vfunc_9() {
         (*(Obj_2c2770 * *)&this->f_60)->f23();
     if ((*(Obj_2c2770 * *)&this->f_64))
         (*(Obj_2c2770 * *)&this->f_64)->f23();
-    ((DrawableContainer_2c2770*)this)->vfunc_9();
+    ((DrawableContainer_2c2770*)this)->vfunc_9_002a4350();
 }
 
 
@@ -326,7 +326,7 @@ int Geometry::vfunc_16() {
 namespace fn_002c27c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // pure3d::Geometry::vfunc_17 @ 0x002c27c0
-namespace pure3d { struct Item { char pad[8]; int x; int y; }; struct DrawableContainer { void vfunc_17(int, int); }; struct Geometry : DrawableContainer { char pad[0x60 - sizeof(DrawableContainer)]; Item* first; Item* second; void vfunc_17(int, int); }; void Geometry::vfunc_17(int x, int y) { if (first && first->x == x && first->y == y) return; if (second && second->x == x && second->y == y) return; DrawableContainer::vfunc_17(x, y); } }
+namespace pure3d { struct Item { char pad[8]; int x; int y; }; struct DrawableContainer { void vfunc_17_002a4440(int, int); }; struct Geometry : DrawableContainer { char pad[0x60 - sizeof(DrawableContainer)]; Item* first; Item* second; void vfunc_17(int, int); }; void Geometry::vfunc_17(int x, int y) { if (first && first->x == x && first->y == y) return; if (second && second->x == x && second->y == y) return; DrawableContainer::vfunc_17_002a4440(x, y); } }
 } // namespace fn_002c27c0
 
 
@@ -385,7 +385,7 @@ namespace fn_ff9773df {
 // 0x002c28d0 FUN_002c28d0 (81 B): matches/0x002c28d0.cpp
 // sym: ??1Geometry_2c28d0@fn_ff9773df@@QAE@XZ
 Geometry_2c28d0::~Geometry_2c28d0() throw() {
-    vptr = &vt1_2c28d0;
+    vptr = &hulk_at_0042ec7c;
     _ReadWriteBarrier();
     if (a58) {
         a58->Release();
@@ -410,7 +410,7 @@ Geometry_2c28d0::~Geometry_2c28d0() throw() {
 // sym: ??0GeometryLoader_2c29b0@fn_ff9773df@@QAE@XZ
 GeometryLoader_2c29b0::GeometryLoader_2c29b0() {
     m8 = 0x10000;
-    vptr = g_vftable_2c29b0;
+    vptr = hulk_at_0042eccc;
     m14 = 1;
     m18 = -1;
     m4 = 0;
@@ -878,7 +878,7 @@ GeometryLoader_2c3160* GeometryLoader_2c3160::f2(unsigned char flags) {
         m20->Release();
         m20 = 0;
     }
-    vptr = g_b_2c3160;
+    vptr = hulk_at_003f6098;
     if (flags & 1)
         operator delete(this);
     return this;

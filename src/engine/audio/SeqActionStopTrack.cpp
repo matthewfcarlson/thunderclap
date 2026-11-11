@@ -76,8 +76,8 @@ class SeqAction_250ed0 {
     virtual void f6();
 };
 extern "C" bool Check(const char*, const char*, ...);
-extern "C" bool CheckByte(void*, unsigned char);
-extern "C" bool EndCheck(const char*, const char*, ...);
+extern "C" bool CheckByte_0025aa50(void*, unsigned char);
+extern "C" bool EndCheck_00246f50(const char*, const char*, ...);
 struct Obj_250ef0 {
     const char* mName;
 };
@@ -107,16 +107,16 @@ class SeqEventStopTrackType_250f60 : public FUN_002605e0 {
 extern "C" char DAT_00429d1c[];
 typedef unsigned int u32_250fe0;
 struct E_250fe0 {
-    void init();
+    void init_0025fd00();
 };
 struct S_250fe0 {
 };
 extern "C" void* FUN_00247530(void*);
 struct H1 {
-    void run();
+    void run_00240060();
 };
 struct H2_251030 {
-    void run();
+    void run_0025fd10();
 };
 extern void __cdecl FUN_00247550(void*, SeqEventStopTrack*);
 struct Str_251170 {
@@ -261,9 +261,9 @@ extern "C" bool FUN_00250ef0(Obj_250ef0* p, hulk_intptr arg, unsigned char* ch) 
     int a = arg;
     const char* s = p->mName;
     if (Check(s, (const char*)((hulk_intptr)((char*)&DAT_004298a8)), a)) {
-        if (CheckByte(p, *ch)) {
+        if (CheckByte_0025aa50(p, *ch)) {
             p = (Obj_250ef0*)p->mName;
-            return EndCheck((const char*)p, (const char*)((hulk_intptr)((char*)&DAT_00422518)));
+            return EndCheck_00246f50((const char*)p, (const char*)((hulk_intptr)((char*)&DAT_00422518)));
         }
     }
     return false;
@@ -289,7 +289,7 @@ audio::SeqEventStopTrackType::~SeqEventStopTrackType() {}
 void* audio::SeqEventStopTrackType::vfunc_3() {
     E_250fe0* p = (E_250fe0*)FUN_00247530(((char*)&DAT_004e6bc8));
     if (p) {
-        p->init();
+        p->init_0025fd00();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00429d1c);
         ((u32_250fe0*)p)[2] = 0;
         ((u32_250fe0*)p)[3] = 0;
@@ -305,8 +305,8 @@ namespace fn_fe889925 {
 // 0x00251030 audio::SeqEventStopTrack::vfunc_4 (45 B): matches/0x00251030.cpp
 // sym: ?f4_impl@SeqEventStopTrack@fn_fe889925@@QAEPAV12@E@Z
 SeqEventStopTrack* SeqEventStopTrack::f4_impl(unsigned char flags) {
-    ((H1*)((char*)this + 0x10))->run();
-    ((H2_251030*)this)->run();
+    ((H1*)((char*)this + 0x10))->run_00240060();
+    ((H2_251030*)this)->run_0025fd10();
     if (flags & 1)
         FUN_00247550(((char*)&DAT_004e6bc8), this);
     return this;
@@ -367,7 +367,7 @@ int SeqEventStopTrack::vfunc_1(Stream** stream) {
 namespace fn_00251140 {
 // data: seqActionBss = DAT_004e6b80
 
-extern void* seqActionVtable;
+extern void* hulk_at_004298fc;
 extern void __cdecl FUN_00247550(void*, void*);
 class SeqAction {
   public:
@@ -392,7 +392,7 @@ class SeqActionStopTrack : public SeqAction {
 };
 } // namespace audio
 SeqAction* audio::SeqActionStopTrack::vfunc_0(int flags) {
-    *(void**)this = &seqActionVtable;
+    *(void**)this = &hulk_at_004298fc;
     if (flags & 1)
         FUN_00247550(((char*)&DAT_004e6b80), this);
     return this;
@@ -482,7 +482,7 @@ class SeqActionStopTrack {
 };
 class Track {
   public:
-    void action(SeqActionStopTrack*);
+    void action_0025dc20(SeqActionStopTrack*);
 };
 class SeqEventStopTrack : public SeqEvent {
   public:
@@ -492,7 +492,7 @@ class SeqEventStopTrack : public SeqEvent {
 extern "C" void* __cdecl FUN_00247530(void*);
 
 void audio::SeqEventStopTrack::vfunc_2(void* p) {
-    ((Track*)p)->action(new (((char*)((char*)&(*(unsigned char(*)[112])&DAT_004e6b78) + 8))) SeqActionStopTrack(this));
+    ((Track*)p)->action_0025dc20(new (((char*)((char*)&(*(unsigned char(*)[112])&DAT_004e6b78) + 8))) SeqActionStopTrack(this));
 }
 } // namespace fn_002512e0
 

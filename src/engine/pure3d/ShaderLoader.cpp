@@ -15,7 +15,7 @@ namespace fn_f495b664 {} using namespace fn_f495b664;
 
 // ---- declarations shared by the functions below
 namespace fn_f495b664 {
-extern int shaderVtable;
+extern int hulk_at_0042cc04;
 class ShaderLoader {
   public:
     hulk_intptr vptr;
@@ -162,7 +162,7 @@ ShaderLoader::ShaderLoader() {
     b = 0x11000;
     c = 0;
     d = 0;
-    vptr = (hulk_intptr)&shaderVtable;
+    vptr = (hulk_intptr)&hulk_at_0042cc04;
 }
 
 

@@ -20,8 +20,8 @@ class ConditionFactoryCasterTemplate_23d420 {
 extern "C" void* Find(const char*, ConditionFactoryCasterTemplate_23d420*);
 class Owner {
   public:
-    void Apply(void*);
-    void Set(void*);
+    void Apply_00236760(void*);
+    void Set_00236760(void*);
 };
 class Obj_23d450 {
   public:
@@ -36,7 +36,7 @@ class Obj_23d460 {
     bool SetMode_0023d460(int v);
 };
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_23d490;
+extern int* hulk_at_004e5c54;
 class CCondition_23d490 {
   public:
     virtual int vfunc_0(int);
@@ -51,10 +51,10 @@ class Condition_23d4e0 {
     virtual void f5();
     virtual bool vfunc_6(int, int, int);
 };
-extern void* Condition_23d510_vftable[];
+extern void* hulk_at_00428b64[];
 class Condition_23d510 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class DebugCondition_23d510 : public Condition_23d510 {
   public:
@@ -74,7 +74,7 @@ class ParamValueEnum_23d580 : public ParamValue_23d580 {
   public:
     virtual void f();
 };
-extern int gTypeA_23d5e0;
+extern int hulk_at_00491ca8;
 class ConditionFactoryCasterTemplate_23d710 {
   public:
     virtual void Dummy();
@@ -94,14 +94,14 @@ class Factory_23d780 {
     int m10;
 };
 struct DebugCondition_nv_23d780 {
-    void InitFn(int);
+    void InitFn_00234590(int);
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-extern int g_vftable_23d7c0;
+extern int hulk_at_00428bc0;
 struct ConditionFactoryTemplate_23d7c0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0023d470();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -111,7 +111,7 @@ struct ConditionFactoryTemplate_23d7c0 {
 extern "C" void FUN_0023d420(Owner* owner, const char* name) {
     ConditionFactoryCasterTemplate_23d420 caster;
     void* p = Find(name, &caster);
-    owner->Apply(p);
+    owner->Apply_00236760(p);
 }
 
 
@@ -144,7 +144,7 @@ void FUN_0023d470() {
 // sym: ?vfunc_0@DebugCondition@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::DebugCondition::vfunc_0(int index) {
-    int* p = gTable_23d490;
+    int* p = hulk_at_004e5c54;
     return p[index];
 }
 
@@ -170,8 +170,8 @@ namespace fn_fd383094 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 DebugCondition_23d510* DebugCondition_23d510::vfunc_5(signed char flags) {
-    *(void***)this = Condition_23d510_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00428b64;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -222,7 +222,7 @@ template <> bool fight::ParamEnumConstList<fight::DebugCondition>::vfunc_2() {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::ConditionFactoryCasterTemplate<fight::DebugCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_23d5e0, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_00491ca8, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -238,7 +238,7 @@ namespace fn_fd383094 {
 // sym: _FUN_0023d710
 extern "C" void FUN_0023d710(Owner* owner, void* ptr) {
     ConditionFactoryCasterTemplate_23d710 caster;
-    owner->Set(FUN_002343e0(ptr, &caster));
+    owner->Set_00236760(FUN_002343e0(ptr, &caster));
 }
 
 
@@ -247,7 +247,7 @@ extern "C" void FUN_0023d710(Owner* owner, void* ptr) {
 void* Factory_23d780::V5() {
     Factory_23d780* p = (Factory_23d780*)Alloc(0x14);
     if (p) {
-        ((DebugCondition_nv_23d780*)(((fight::DebugCondition*)(((fight::DebugCondition*)p)))))->InitFn(0);
+        ((DebugCondition_nv_23d780*)(((fight::DebugCondition*)(((fight::DebugCondition*)p)))))->InitFn_00234590(0);
         *(hulk_ulongptr*)p = ((hulk_intptr)DAT_00428b64);
         p->m0c = 0;
         p->m10 = 0;
@@ -261,9 +261,9 @@ void* Factory_23d780::V5() {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_23d7c0@fn_fd383094@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_23d7c0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_23d7c0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00428bc0;
+    base1_dtor_0023d470();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

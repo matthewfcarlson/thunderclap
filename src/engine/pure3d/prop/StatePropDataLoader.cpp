@@ -14,23 +14,23 @@ namespace fn_f5d7895e {} using namespace fn_f5d7895e;
 
 // ---- declarations shared by the functions below
 namespace fn_f5d7895e {
-extern "C" void __cdecl releaseMem(void*);
+extern "C" void __cdecl releaseMem_0008d340(void*);
 } // namespace fn_f5d7895e
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int __cdecl strlen(const char*);
 #endif
 namespace fn_f5d7895e {
-extern void __cdecl ReleaseThing(int);
+extern void __cdecl ReleaseThing_0008d340(int);
 class Obj_290070 {
   public:
     char pad[8];
     int ptr;
-    void Reset();
+    void Reset_0027af50();
     Obj_290070* Run(unsigned char flag);
 };
 struct Sub_2900f0 {
     int x;
-    void f();
+    void Fnf_0027af50();
 };
 struct Obj_2900f0 {
     char pad[0x28];
@@ -47,15 +47,15 @@ class Obj_290340 {
   public:
     char pad[8];
     int field;
-    void Init();
-    void Configure(void*);
+    void Init_0027af00();
+    void Configure_0027af70(void*);
     Obj_290340* Run(void*);
 };
 extern void FUN_0027af50();
 class Part_290470 {
   public:
     char x[8];
-    void Clear();
+    void Clear_0027af50();
 };
 class Obj_290470 {
   public:
@@ -63,16 +63,16 @@ class Obj_290470 {
     Part_290470 a, b, c, d;
     Obj_290470* Run(unsigned char flag);
 };
-void Free(Obj_290470*);
-extern void* IRefCount_vftable_2904b0;
+void Free_0008d330(Obj_290470*);
+extern void* hulk_at_003f6098;
 typedef unsigned int u32_290500;
 struct Item_290500 {
     char pad[8];
     volatile u32_290500 handle;
     char rest[4];
-    void Process();
+    void Process_0027af50();
 };
-void __cdecl ReleaseHandle(u32_290500);
+void __cdecl ReleaseHandle_0008d340(u32_290500);
 typedef unsigned int u32_290590;
 typedef unsigned int u32_2905c0;
 extern "C" char DAT_0042cca0[];
@@ -85,20 +85,20 @@ class StatePropDataLoader {
     int c;
     int d;
 };
-extern void* Alloc(hulk_uintptr);
+extern void* Alloc_0008d6d0(hulk_uintptr);
 extern "C" int * __cdecl FUN_002904d0(int *, int, const int *);
 struct Obj_2907f0 {
     int a;
     int b;
 };
 extern "C" void __cdecl FUN_00290500(void *, void *);
-extern void __cdecl g(int);
+extern void __cdecl Fng_0008d340(int);
 class Item_290810 {
   public:
     char pad[8];
     int field;
-    void Init();
-    void Configure(Item_290810*);
+    void Init_0027af00();
+    void Configure_0027af70(Item_290810*);
 };
 void* __cdecl FUN_0008d6d0(unsigned size);
 extern "C" void * __cdecl FUN_00290810(void *, int, void *);
@@ -106,10 +106,10 @@ struct Temp_290ad0 {
     char pad[8];
     hulk_intptr value;
     int extra;
-    void Init();
-    void Fin();
+    void Init_0027af00();
+    void Fin_0027af50();
 };
-extern void Free(void*);
+extern void Free_0008d340(void*);
 class Obj_290ad0 {
   public:
     bool Run(int);
@@ -121,7 +121,7 @@ class Obj_290ad0 {
 // sym: ?FUN_0028fe80@Obj_28fe80@owners@@QAEXPBD@Z
 void owners::Obj_28fe80::FUN_0028fe80(const char* src) {
     if (text) {
-        releaseMem(text);
+        releaseMem_0008d340(text);
         text = 0;
     }
     if (src) {
@@ -254,10 +254,10 @@ namespace fn_f5d7895e {
 // sym: ?Run@Obj_290070@fn_f5d7895e@@QAEPAV12@E@Z
 Obj_290070* Obj_290070::Run(unsigned char flag) {
     if (ptr != 0) {
-        ReleaseThing(ptr);
+        ReleaseThing_0008d340(ptr);
         ptr = 0;
     }
-    Reset();
+    Reset_0027af50();
     if (flag & 1) {
         ReleaseSelf((void*)this);
     }
@@ -268,19 +268,19 @@ Obj_290070* Obj_290070::Run(unsigned char flag) {
 // 0x002900f0 FUN_002900f0 (36 B): matches/0x002900f0.cpp
 // sym: ?FUN_002900f0@Obj_2900f0@fn_f5d7895e@@QAEXXZ
 void Obj_2900f0::FUN_002900f0() {
-    d.f();
-    c.f();
-    b.f();
-    a.f();
+    d.Fnf_0027af50();
+    c.Fnf_0027af50();
+    b.Fnf_0027af50();
+    a.Fnf_0027af50();
 }
 
 
 // 0x00290340 FUN_00290340 (46 B): matches/0x00290340.cpp
 // sym: ?Run@Obj_290340@fn_f5d7895e@@QAEPAV12@PAX@Z
 Obj_290340* Obj_290340::Run(void* arg) {
-    Init();
+    Init_0027af00();
     field = 0;
-    Configure(arg);
+    Configure_0027af70(arg);
     ((owners::Obj_28fe80 *)this)->FUN_0028fe80((const char *)(hulk_uintptr)(int)(*(int*)((char*)arg + 8)));
     return this;
 }
@@ -426,12 +426,12 @@ namespace fn_f5d7895e {
 // 0x00290470 FUN_00290470 (57 B): matches/0x00290470.cpp
 // sym: ?Run@Obj_290470@fn_f5d7895e@@QAEPAV12@E@Z
 Obj_290470* Obj_290470::Run(unsigned char flag) {
-    d.Clear();
-    c.Clear();
-    b.Clear();
-    a.Clear();
+    d.Clear_0027af50();
+    c.Clear_0027af50();
+    b.Clear_0027af50();
+    a.Clear_0027af50();
     if (flag & 1)
-        Free(this);
+        Free_0008d330(this);
     return this;
 }
 
@@ -440,7 +440,7 @@ Obj_290470* Obj_290470::Run(unsigned char flag) {
 // sym: ?FUN_002904b0@fn_f5d7895e@@YIXPAX@Z
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 void __fastcall FUN_002904b0(void* self) {
-    *(void**)self = &IRefCount_vftable_2904b0;
+    *(void**)self = &hulk_at_003f6098;
 }
 
 
@@ -470,10 +470,10 @@ extern "C" void __cdecl FUN_00290500(void * begin, void * end) {
     while (p != ((Item_290500 *)end)) {
         u32_290500 h = p->handle;
         if (h) {
-            ReleaseHandle(h);
+            ReleaseHandle_0008d340(h);
             p->handle = 0;
         }
-        p->Process();
+        p->Process_0027af50();
         p = (Item_290500*)((char*)p + 16);
     }
 }
@@ -671,7 +671,7 @@ bool owners::Buffer_290790::FUN_00290790(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc(count * 4);
+        int* p = (int*)Alloc_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -691,7 +691,7 @@ namespace fn_f5d7895e {
 void __fastcall target(Obj_2907f0* self) {
     if (self->a) {
         FUN_00290500((void *)(hulk_uintptr)(int)(self->a), (void *)(hulk_uintptr)(int)(self->b));
-        g(self->a);
+        Fng_0008d340(self->a);
     }
 }
 
@@ -704,9 +704,9 @@ extern "C" void * __cdecl FUN_00290810(void * p, int count, void * arg) {
         int n = count;
         do {
             if (q != 0) {
-                q->Init();
+                q->Init_0027af00();
                 q->field = 0;
-                q->Configure(((Item_290810 *)arg));
+                q->Configure_0027af70(((Item_290810 *)arg));
                 ((owners::Obj_28fe80 *)q)->FUN_0028fe80((const char *)(hulk_uintptr)(int)(((Item_290810 *)arg)->field));
             }
             q = (Item_290810*)((char*)q + 0x10);
@@ -789,14 +789,14 @@ namespace fn_f5d7895e {
 // sym: ?Run@Obj_290ad0@fn_f5d7895e@@QAE_NH@Z
 bool Obj_290ad0::Run(int arg) {
     Temp_290ad0 t;
-    t.Init();
+    t.Init_0027af00();
     t.value = 0;
     bool r = ((owners::Buffer_2909c0 *)this)->FUN_002909c0((unsigned)arg, (hulk_uintptr)(Temp_290ad0 *)(&t));
     if (t.value) {
-        Free((void*)t.value);
+        Free_0008d340((void*)t.value);
         t.value = 0;
     }
-    t.Fin();
+    t.Fin_0027af50();
     return r;
 }
 

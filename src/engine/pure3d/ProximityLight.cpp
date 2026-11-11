@@ -19,9 +19,9 @@ class ProximityLight {
     char pad[0x54];
     int a, b;
     float c, d;
-    void Init();
+    void Init_002a0a70();
 };
-extern void* lightVftable;
+extern void* hulk_at_0042ee68;
 class Base_2c3ce0 {
   public:
     virtual void V0();
@@ -57,10 +57,10 @@ class X_2c3d00 {
 // 0x002c3c10 FUN_002c3c10 (40 B): matches/0x002c3c10.cpp
 // sym: ?FUN_002c3c10@fn_fd752521@@YIPAVProximityLight@1@PAV21@@Z
 ProximityLight* __fastcall FUN_002c3c10(ProximityLight* self) {
-    self->Init();
+    self->Init_002a0a70();
     self->a = 0;
     self->b = 0;
-    *(void**)self = &lightVftable;
+    *(void**)self = &hulk_at_0042ee68;
     self->c = 1.0f;
     self->d = 10000000.0f;
     return self;
@@ -133,13 +133,13 @@ class ProximityLight {
 };
 extern void* light_vtable;
 extern "C" void __fastcall FUN_002a0720(void*);
-void destroy(ProximityLight*);
+void destroy_00263f30(ProximityLight*);
 ProximityLight* ProximityLight::vfunc_2(unsigned char flag) {
     *(void**)this = &light_vtable;
     value = 4;
     FUN_002a0720((void*)(this));
     if (flag & 1)
-        destroy(this);
+        destroy_00263f30(this);
     return this;
 }
 } // namespace fn_002c3d30

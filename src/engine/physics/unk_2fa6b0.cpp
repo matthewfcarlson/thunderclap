@@ -111,7 +111,7 @@ struct Handler_2fb370 {
  bool FUN_002fb370(Node*, void*, void*);
 };
 struct Part_2fb5d0 {
-    void Init();
+    void Init_0030ea00();
 };
 struct CollisionOBB {
     hulk_uintptr v;
@@ -120,7 +120,7 @@ struct CollisionOBB {
     char pad2[0x3f];
     Part_2fb5d0 a;
     void Target();
-    void Base();
+    void Base_00306ac0();
 };
 
 
@@ -821,9 +821,9 @@ namespace fn_f6175a11 {
 // sym: ?Target@CollisionOBB@fn_f6175a11@@QAEXXZ
 void CollisionOBB::Target() {
     v = ((hulk_intptr)DAT_004317dc);
-    a.Init();
-    b.Init();
-    Base();
+    a.Init_0030ea00();
+    b.Init_0030ea00();
+    Base_00306ac0();
 }
 
 } // namespace fn_f6175a11

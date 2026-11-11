@@ -34,7 +34,7 @@ extern void __cdecl FUN_00302fa0(Entry_3032d0* entries, int hole, int start, Ent
 struct Item_303480 {
     int v[17];
 };
-void helper(Item_303480*, hulk_intptr, hulk_intptr, Item_303480);
+void helper_003032d0(Item_303480*, hulk_intptr, hulk_intptr, Item_303480);
 struct Item_303520 {
     unsigned int prefix[9];
     float key;
@@ -43,7 +43,7 @@ struct Item_303520 {
 };
 struct E_3035d0 {
     int d[17];
-    void Assign(E_3035d0* src);
+    void Assign_002f7a90(E_3035d0* src);
 };
 extern void __cdecl FUN_003032d0(E_3035d0* first, int hole, hulk_intptr len, E_3035d0 v);
 struct Item_303680 {
@@ -217,7 +217,7 @@ void target(Item_303480* first, Item_303480* last) {
         Item_303480* p = first + n;
         do {
             --n;
-            helper(first, n, count, *--p);
+            helper_003032d0(first, n, count, *--p);
         } while (n > 0);
     }
 }
@@ -249,7 +249,7 @@ extern "C" void __cdecl FUN_00303520(void * first, void * second, void * third) 
 // sym: ?FUN_003035d0@fn_f0220b18@@YAXPAUE_3035d0@1@0@Z
 void __cdecl FUN_003035d0(E_3035d0* first, E_3035d0* last) {
     E_3035d0 v = last[-1];
-    last[-1].Assign(first);
+    last[-1].Assign_002f7a90(first);
     FUN_003032d0(first, 0, (last - 1) - first, v);
 }
 

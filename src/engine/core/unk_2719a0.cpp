@@ -31,7 +31,7 @@ extern "C" void __cdecl FUN_00267760(char*, unsigned int, const char*, ...);
 typedef void(__cdecl* Handler_2726e0)(char*);
 class Part_272840 {
   public:
-    void Fini() throw();
+    void Fini_00277540() throw();
 };
 struct Drive_272840 {
     void* v0;
@@ -713,7 +713,7 @@ void Drive_272840::Dtor() throw() {
     v0 = vDrive;
     v4 = vD4;
     vc = vDc;
-    part.Fini();
+    part.Fini_00277540();
     vc = vSafe;
     _ReadWriteBarrier();
     unsigned t = p8;

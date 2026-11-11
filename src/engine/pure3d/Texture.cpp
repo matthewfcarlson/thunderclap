@@ -29,7 +29,7 @@ class Texture_2c1c30 {
     int field10;
 };
 struct Texture_nv_2c1c30 {
-    void Init();
+    void Init_0027b070();
 };
 } // namespace fn_f9a208e6
 namespace pure3d {
@@ -173,7 +173,7 @@ public:
 
     void *FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, hulk_intptr a3, int a4, int a5);
 };
-extern void* g_vftable_2c22d0[];
+extern void* hulk_at_0042ec20[];
 class Ref_2c22d0 {
   public:
     virtual void F0();
@@ -182,7 +182,7 @@ class Ref_2c22d0 {
 class Entity_2c22d0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class Texture_2c22d0 : public Entity_2c22d0 {
   public:
@@ -208,7 +208,7 @@ struct Holder_2c2330 {
 };
 extern "C" void __fastcall FUN_002ae910(void*);
 void __cdecl thunk_FUN_00267090(void*);
-extern int textureVtable, refVtable;
+extern int hulk_at_0042ec44, hulk_at_003f6098;
 struct Name_2c2370 {
     void FUN_0027b040(const char* s);
 };
@@ -242,7 +242,7 @@ class Ref_2c2570 {
 class Entity_2c2570 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class Texture_2c2570 : public Entity_2c2570 {
   public:
@@ -262,7 +262,7 @@ void X_2c1c00::Set(int v) {
 // 0x002c1c30 FUN_002c1c30 (25 B): matches/0x002c1c30.cpp
 // sym: ?FUN_002c1c30@fn_f9a208e6@@YIPAVTexture_2c1c30@1@PAV21@@Z
 Texture_2c1c30* __fastcall FUN_002c1c30(Texture_2c1c30* self) {
-    ((Texture_nv_2c1c30*)(((pure3d::Texture*)(self))))->Init();
+    ((Texture_nv_2c1c30*)(((pure3d::Texture*)(self))))->Init_0027b070();
     self->v = ((hulk_intptr)DAT_0042ec20);
     self->field10 = 0;
     return self;
@@ -485,13 +485,13 @@ void *Loader_2c1f80::FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, hulk_intpt
 // 0x002c22d0 FUN_002c22d0 (36 B): matches/0x002c22d0.cpp
 // sym: ??1Texture_2c22d0@fn_f9a208e6@@QAE@XZ
 Texture_2c22d0::~Texture_2c22d0() {
-    vptr = g_vftable_2c22d0;
+    vptr = hulk_at_0042ec20;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_0027afd0();
 }
 
 
@@ -499,14 +499,14 @@ Texture_2c22d0::~Texture_2c22d0() {
 // sym: ?FUN_002c2330@fn_f9a208e6@@YIXPAVTextureLoader@1@@Z
 void __fastcall FUN_002c2330(TextureLoader* self) {
     void* p = ((Holder_2c2330*)self)->p;
-    *(int**)self = &textureVtable;
+    *(int**)self = &hulk_at_0042ec44;
     if (p) {
         FUN_002ae910(p);
         thunk_FUN_00267090(p);
     }
     if (((Holder_2c2330*)self)->q)
         ((IRefCount*)((Holder_2c2330*)self)->q)->Release(1);
-    *(int**)self = &refVtable;
+    *(int**)self = &hulk_at_003f6098;
 }
 
 
@@ -590,7 +590,7 @@ Texture_2c2570* Texture_2c2570::f2(unsigned char flags) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_0027afd0();
     if (flags & 1)
         operator delete(this);
     return this;

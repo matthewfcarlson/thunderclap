@@ -35,7 +35,7 @@ class O_23ea50 {
     void* GetConditionGroup_0023ea50();
 };
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_23ea80;
+extern int* hulk_at_004e5c80;
 class CCondition_23ea80 {
   public:
     virtual int vfunc_0(int);
@@ -54,20 +54,20 @@ struct Track_23eae0 {
 };
 extern "C" char DAT_00428e80[];
 struct SubA_23eaf0 {
-    void A();
+    void FnA_00236fd0();
 };
 struct SubB_23eaf0 {
-    void B();
+    void FnB_00234150();
 };
 struct SpawnTrack_nv_23eaf0 {
-    void Fin();
+    void Fin_00236d60();
 };
 struct Sub_23eb20 {
-    void Set(int, int);
-    bool Done();
+    void Set_002322f0(int, int);
+    bool Done_00231ee0();
 };
 struct Res_23eb20 {
-    void Bind(Sub_23eb20*, int, int);
+    void Bind_00231ad0(Sub_23eb20*, int, int);
 };
 struct Inner_23eb20 {
     virtual void v0();
@@ -82,7 +82,7 @@ struct Inner_23eb20 {
 };
 struct Check20 {
     char p[0x20];
-    bool Ready(int, int, int);
+    bool Ready_00236f40(int, int, int);
 };
 struct Obj_23eb20 {
     char p[0x14];
@@ -100,7 +100,7 @@ struct SpawnAction {
     bool flag;
     bool vfunc_3(int, int);
 };
-extern void* vSpawn[];
+extern void* hulk_at_00428eb0[];
 class Ref_23ecb0 {
   public:
     virtual void F0();
@@ -108,11 +108,11 @@ class Ref_23ecb0 {
 };
 class Part_23ecb0 {
   public:
-    void Fini() throw();
+    void Fini_002325f0() throw();
 };
 struct Action_23ecb0 {
     void* vf;
-    void Dtor() throw();
+    void Dtor_002326a0() throw();
 };
 struct SpawnAction_23ecb0 : Action_23ecb0 {
     char pad[0x1c];
@@ -150,10 +150,10 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     void(__fastcall* fn)(void*);
     virtual void vfunc_6(void*);
 };
-extern int gTypeA_23edb0;
+extern int hulk_at_0049850c;
 typedef unsigned int uint_23ef40;
 struct Alloc_23ef40 {
-    uint_23ef40 run(uint_23ef40, fight::SpawnTrack*, uint_23ef40);
+    uint_23ef40 run_0023ec50(uint_23ef40, fight::SpawnTrack*, uint_23ef40);
 };
 extern Alloc_23ef40* FUN_0008d690(uint_23ef40);
 extern void* g_vftable_23ef70[];
@@ -165,11 +165,11 @@ class Ref_23ef70 {
 };
 class Sub_23ef70 {
   public:
-    void Fn();
+    void Fn_002325f0();
 };
 class Helper_23ef70 {
   public:
-    void Fn();
+    void Fn_002326a0();
 };
 class SpawnAction_23ef70 {
   public:
@@ -187,9 +187,9 @@ class TrackFactoryCasterTemplate_23efe0 {
 extern "C" void* __cdecl Find(void*, TrackFactoryCasterTemplate_23efe0*);
 class Obj {
   public:
-    void Set(void*);
+    void Set_002367c0(void*);
 };
-extern int g_vftable_23f0a0;
+extern int hulk_at_00428f38;
 
 
 // 0x0023ea20 FUN_0023ea20 (12 B): matches/0x0023ea20.cpp
@@ -235,7 +235,7 @@ void FUN_0023ea60() {
 // sym: ?vfunc_0@SpawnTrack@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::SpawnTrack::vfunc_0(int index) {
-    int* p = gTable_23ea80;
+    int* p = hulk_at_004e5c80;
     return p[index];
 }
 
@@ -295,9 +295,9 @@ hulk_freg fight::SpawnTrack::vfunc_7() {
 // sym: ?FUN_0023eaf0@SpawnTrack@fight@@QAEXXZ
 void fight::SpawnTrack::FUN_0023eaf0() {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00428e80);
-    ((SubA_23eaf0*)((char*)this + 0x20))->A();
-    ((SubB_23eaf0*)((char*)this + 0x14))->B();
-    ((SpawnTrack_nv_23eaf0*)this)->Fin();
+    ((SubA_23eaf0*)((char*)this + 0x20))->FnA_00236fd0();
+    ((SubB_23eaf0*)((char*)this + 0x14))->FnB_00234150();
+    ((SpawnTrack_nv_23eaf0*)this)->Fin_00236d60();
 }
 
 namespace fn_f7aacfaa {
@@ -310,15 +310,15 @@ bool SpawnAction::vfunc_3(int param, int next) {
     Inner_23eb20* i = o->inner;
     if (!i)
         return false;
-    if (!o->c.Ready(a, b, 0))
+    if (!o->c.Ready_00236f40(a, b, 0))
         return false;
     Res_23eb20* r = i->Check(b, 0);
     if (!r)
         return false;
-    r->Bind(&sub, b, 0);
-    sub.Set(param, next);
+    r->Bind_00231ad0(&sub, b, 0);
+    sub.Set_002322f0(param, next);
     flag = true;
-    return sub.Done();
+    return sub.Done_00231ee0();
 }
 
 } // namespace fn_f7aacfaa
@@ -330,10 +330,10 @@ class Child_23eba0 {
     char pad[0x28];
 
   public:
-    void Begin(int, int);
-    void Update(int);
-    void Finish(int);
-    int End();
+    void Begin_002322f0(int, int);
+    void Update_00231f20(int);
+    void Finish_002324b0(int);
+    int End_00231ee0();
 };
 class SpawnAction {
   public:
@@ -350,12 +350,12 @@ class SpawnAction {
 };
 int SpawnAction::vfunc_5(int index, int value) {
     if (index == 0 && !flag)
-        child.Begin(count, value);
+        child.Begin_002322f0(count, value);
     flag = 0;
-    child.Update(index);
+    child.Update_00231f20(index);
     if (index == count - 1)
-        child.Finish(1);
-    return child.End();
+        child.Finish_002324b0(1);
+    return child.End_00231ee0();
 }
 } // namespace fn_0023eba0
 
@@ -365,7 +365,7 @@ int SpawnAction::vfunc_5(int index, int value) {
 namespace fn_0023ec00 {
 class Inner_23ec00 {
   public:
-    void f();
+    void Fnf_00232240();
 };
 class SpawnAction {
     char pad[0x24];
@@ -380,7 +380,7 @@ class SpawnAction {
     virtual void v5();
 };
 void SpawnAction::vfunc_4() {
-    inner.f();
+    inner.Fnf_00232240();
 }
 } // namespace fn_0023ec00
 
@@ -389,15 +389,15 @@ void SpawnAction::vfunc_4() {
 // sym: ?vfunc_5@SpawnTrack@fight@fn_0023ec10@@QAEPAU123@E@Z
 namespace fn_0023ec10 {
 typedef unsigned char u8_23ec10;
-extern int spawn_vftable;
+extern int hulk_at_00428e80;
 struct A_23ec10 {
-    void init();
+    void init_00236fd0();
 };
 struct B_23ec10 {
-    void init();
+    void init_00234150();
 };
 struct SpawnTrack_23ec10 {
-    void init();
+    void init_00236d60();
 };
 namespace fight {
 struct Track {
@@ -419,14 +419,14 @@ struct SpawnTrack : Track {
 };
 } // namespace fight
 // at file scope: a block-scope extern in this member is ::del to MSVC but fight::del to clang (left unbound)
-extern void del(fight::SpawnTrack*);
+extern void del_0008d330(fight::SpawnTrack*);
 fight::SpawnTrack* fight::SpawnTrack::vfunc_5(u8_23ec10 flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&spawn_vftable;
-    ((A_23ec10*)((char*)this + 0x20))->init();
-    ((B_23ec10*)((char*)this + 0x14))->init();
-    ((SpawnTrack_23ec10*)this)->init();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00428e80;
+    ((A_23ec10*)((char*)this + 0x20))->init_00236fd0();
+    ((B_23ec10*)((char*)this + 0x14))->init_00234150();
+    ((SpawnTrack_23ec10*)this)->init_00236d60();
     if (flag & 1) {
-        del(this);
+        del_0008d330(this);
     }
     return this;
 }
@@ -486,15 +486,15 @@ namespace fn_f7aacfaa {
 // 0x0023ecb0 FUN_0023ecb0 (52 B): matches/0x0023ecb0.cpp
 // sym: ?Dtor2@SpawnAction_23ecb0@fn_f7aacfaa@@QAEXXZ
 void SpawnAction_23ecb0::Dtor2() throw() {
-    vf = vSpawn;
+    vf = hulk_at_00428eb0;
     _ReadWriteBarrier();
     if (p24) {
         p24->Release();
         p24 = 0;
     }
     p20->Release();
-    part.Fini();
-    Action_23ecb0::Dtor();
+    part.Fini_002325f0();
+    Action_23ecb0::Dtor_002326a0();
 }
 
 } // namespace fn_f7aacfaa
@@ -558,7 +558,7 @@ void ParamBranch::vfunc_6(void* p) {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::TrackFactoryCasterTemplate<fight::SpawnTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_23edb0, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -589,7 +589,7 @@ hulk_intptr fight::SpawnTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk
 
     Alloc_23ef40* p = FUN_0008d690(0x58);
     if (p)
-        return (int)(p->run(a, this, c));
+        return (int)(p->run_0023ec50(a, this, c));
     return (int)(0);
 }
 
@@ -605,8 +605,8 @@ SpawnAction_23ef70* SpawnAction_23ef70::f2(unsigned char flags) {
         m24 = 0;
     }
     m20->f1();
-    m28.Fn();
-    ((Helper_23ef70*)this)->Fn();
+    m28.Fn_002325f0();
+    ((Helper_23ef70*)this)->Fn_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -617,7 +617,7 @@ SpawnAction_23ef70* SpawnAction_23ef70::f2(unsigned char flags) {
 // sym: _FUN_0023efe0
 extern "C" void FUN_0023efe0(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_23efe0 caster;
-    obj->Set(Find(name, &caster));
+    obj->Set_002367c0(Find(name, &caster));
 }
 
 
@@ -625,7 +625,7 @@ extern "C" void FUN_0023efe0(Obj* obj, void* name) {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f7aacfaa@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_23f0a0;
+    m_vptr = (void*)&hulk_at_00428f38;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

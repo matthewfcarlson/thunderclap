@@ -128,14 +128,14 @@ public:
     char pad24[0x2c - 0x24];
     Slot_2a2be0** order;           // 0x2c
 };
-extern void* g_vftable_2a2de0[];
+extern void* hulk_at_0042d78c[];
 } // namespace fn_ff737d4f
 void operator delete(void*);
 namespace fn_ff737d4f {
 class DisplayTraversal_2a2de0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002c6aa0();
 };
 class OpaqueTraversal_2a2de0 : public DisplayTraversal_2a2de0 {
   public:
@@ -147,7 +147,7 @@ class OpaqueTraversal_2a2de0 : public DisplayTraversal_2a2de0 {
 };
 extern void* g_vftable_2a2e20[];
 struct OpaqueTraversal_nv_2a2e20 {
-    void Fn();
+    void Fn_002c6aa0();
 };
 class OpaqueTraversal_2a2e20 {
   public:
@@ -369,13 +369,13 @@ namespace fn_ff737d4f {
 // 0x002a2de0 FUN_002a2de0 (49 B): matches/0x002a2de0.cpp
 // sym: ??1OpaqueTraversal_2a2de0@fn_ff737d4f@@QAE@XZ
 OpaqueTraversal_2a2de0::~OpaqueTraversal_2a2de0() {
-    vptr = g_vftable_2a2de0;
+    vptr = hulk_at_0042d78c;
     _ReadWriteBarrier();
     if (m2c)
         operator delete(m2c);
     if (m20)
         operator delete(m20);
-    Fin();
+    Fin_002c6aa0();
 }
 
 
@@ -388,7 +388,7 @@ OpaqueTraversal_2a2e20* OpaqueTraversal_2a2e20::f2(unsigned char flags) {
         operator delete[](m2c);
     if (m20)
         operator delete[](m20);
-    ((OpaqueTraversal_nv_2a2e20*)(((pure3d::OpaqueTraversal*)this)))->Fn();
+    ((OpaqueTraversal_nv_2a2e20*)(((pure3d::OpaqueTraversal*)this)))->Fn_002c6aa0();
     if (flags & 1)
         operator delete(this);
     return this;

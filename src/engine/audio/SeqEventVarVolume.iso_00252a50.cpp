@@ -46,11 +46,11 @@ class SeqEventVarVolume : public SeqEvent {
 };
 class Dest {
   public:
-    void add(SeqActionVarVolume*);
+    void add_0025dc20(SeqActionVarVolume*);
 };
 } // namespace audio
 void audio::SeqEventVarVolume::vfunc_2(Dest* p) {
-    p->add(new (((char*)((char*)&(*(unsigned char(*)[112])&DAT_004e6e88) + 8))) SeqActionVarVolume(this));
+    p->add_0025dc20(new (((char*)((char*)&(*(unsigned char(*)[112])&DAT_004e6e88) + 8))) SeqActionVarVolume(this));
 }
 } // namespace fn_f777b0e5
 

@@ -13,11 +13,11 @@ namespace fn_fef6e889 {} using namespace fn_fef6e889;
 namespace fn_fef6e889 {
 class Branch {
   public:
-    void vfunc_7();
+    void vfunc_7_002331f0();
 };
 class Aux_231980 {
   public:
-    void f();
+    void Fnf_00239e10();
 };
 class Node : public Branch {
     char pad[0x28 - sizeof(Branch)];
@@ -26,7 +26,7 @@ class Node : public Branch {
     void vfunc_7();
 };
 struct Node_nv_2319e0 {
-    char helper(hulk_uintptr, unsigned int);
+    char helper_002333f0(hulk_uintptr, unsigned int);
 };
 struct Item_231a00 {
     virtual void v0();
@@ -40,7 +40,7 @@ struct Item_231a00 {
     virtual int Test(int, int);
     int a[3];
     int type;
-    Item_231a00* Next();
+    Item_231a00* Next_00232fc0();
     hulk_intptr target(hulk_intptr);
 };
 
@@ -48,8 +48,8 @@ struct Item_231a00 {
 // 0x00231980 fight::Node::vfunc_7 (19 B): matches/0x00231980.cpp
 // sym: ?vfunc_7@Node@fn_fef6e889@@QAEXXZ
 void Node::vfunc_7() {
-    ((Aux_231980*)((char*)this + 0x28))->f();
-    Branch::vfunc_7();
+    ((Aux_231980*)((char*)this + 0x28))->Fnf_00239e10();
+    Branch::vfunc_7_002331f0();
 }
 
 } // namespace fn_fef6e889
@@ -73,11 +73,11 @@ class Node : public Branch {
     void vfunc_5();
 };
 struct Helper_2319a0 {
-    void run(Node*);
+    void run_00239e30(Node*);
 };
 void Node::vfunc_5() {
     Branch::vfunc_5();
-    ((Helper_2319a0*)((char*)this + 0x28))->run(this);
+    ((Helper_2319a0*)((char*)this + 0x28))->run_00239e30(this);
 }
 } // namespace fn_002319a0
 
@@ -86,7 +86,7 @@ void Node::vfunc_5() {
 // sym: ?vfunc_6@Node@fn_002319c0@@UAEXXZ
 namespace fn_002319c0 {
 struct Part_2319c0 {
-    void run(void*);
+    void run_00239e60(void*);
 };
 class Branch {
   public:
@@ -113,7 +113,7 @@ class Node : public Branch {
     virtual void m();
 };
 void Node::vfunc_6() {
-    part.run(this);
+    part.run_00239e60(this);
     Branch::vfunc_6();
 }
 } // namespace fn_002319c0
@@ -122,7 +122,7 @@ void Node::vfunc_6() {
 // 0x002319e0 fight::Node::vfunc_8 (30 B): matches/0x002319e0.cpp
 // sym: ?vfunc_8@Node@fight@@UAEIII@Z
 hulk_uintptr fight::Node::vfunc_8(hulk_uintptr a, unsigned int b) {
-    if (((Node_nv_2319e0*)this)->helper(a, b))
+    if (((Node_nv_2319e0*)this)->helper_002333f0(a, b))
         return (hulk_uintptr)this;
     return 0;
 }
@@ -132,14 +132,14 @@ namespace fn_fef6e889 {
 // 0x00231a00 FUN_00231a00 (57 B): matches/0x00231a00.cpp
 // sym: ?target@Item_231a00@fn_fef6e889@@QAEHH@Z
 hulk_intptr Item_231a00::target(hulk_intptr param) {
-    Item_231a00* p = Next();
+    Item_231a00* p = Next_00232fc0();
     while (p) {
         if (p->type != 2) {
             int r = p->Test(param, 0);
             if (r)
                 return r;
         }
-        p = p->Next();
+        p = p->Next_00232fc0();
     }
     return 0;
 }

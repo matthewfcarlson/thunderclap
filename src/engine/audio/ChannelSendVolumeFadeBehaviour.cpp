@@ -35,8 +35,8 @@ class SeqAction_24ea80 {
     virtual void f5();
     virtual void f6();
 };
-extern "C" char print(const char*, const char*, ...);
-extern "C" char other(const char**, const char*);
+extern "C" char print_00246f50(const char*, const char*, ...);
+extern "C" char other_0025abb0(const char**, const char*);
 struct Stream {
   public:
     char _m_pad_0[0x24];
@@ -84,7 +84,7 @@ class SeqEventChannelSendVolumesType_24ed10 : public FUN_002605e0 {
     SeqEventChannelSendVolumesType_24ed10() throw();
     virtual void f();
 };
-extern void* g_vftable_24edb0[];
+extern void* hulk_at_004298fc[];
 class SeqActionChannelSendVolumes_24edb0 {
   public:
     void* vptr;
@@ -94,18 +94,18 @@ extern unsigned int FUN_00246f50(unsigned int, const char*, ...);
 const char g_fmt[] = "%s ";
 struct Temp_24f010 {
     char pad[12];
-    void Init();
+    void Init_0023fac0();
     int Value();
-    int Finish();
+    int Finish_0023fb00();
 };
 extern "C" unsigned char __cdecl FUN_0025bce0(int, Temp_24f010*);
-extern int __cdecl Convert(int, int);
+extern int __cdecl Convert_002673a0(int, int);
 struct Writer_24f070 {
     Stream *out;
 };
 char FUN_0024ebe0(Writer_24f070 *w, float *value);
-extern unsigned int GetSize();
-extern unsigned int* Allocate(unsigned int);
+extern unsigned int GetSize_00247800();
+extern unsigned int* Allocate_00247530(unsigned int);
 struct Owner_24f180 {
     char pad[0x40];
     unsigned int* data;
@@ -148,11 +148,11 @@ extern "C" void FUN_00247da0(Tree_24f280* tree, Node* node);
 extern "C" unsigned char __cdecl FUN_0025aad0(void*, const unsigned char*);
 class SeqEvent_24f600 {
   public:
-    bool vfunc_0(void*);
+    bool vfunc_0_0025fd20(void*);
 };
 extern "C" bool FUN_0025abd0(void*, void*);
-extern bool ReadB(void*, void*);
-extern bool ReadC(void*, void*);
+extern bool ReadB_0024f010(void*, void*);
+extern bool ReadC_0024f4a0(void*, void*);
 
 // 0x0024e9e0 audio::SeqEventChannelSendVolumesType::vfunc_0 (5 B): not yet verified
 // 0x0024e9f0 audio::SeqEventChannelSendVolumesType::vfunc_1 (5 B): not yet verified
@@ -229,9 +229,9 @@ namespace fn_f983a9d8 {
 // data: fmt = DAT_004298a8, newline = DAT_00422518
 char target(const char** p, const char* s, const char** q) {
     const char* v = *p;
-    if (print(v, DAT_004298a8, s) && other(p, *q)) {
+    if (print_00246f50(v, DAT_004298a8, s) && other_0025abb0(p, *q)) {
         v = *p;
-        return print(v, DAT_00422518);
+        return print_00246f50(v, DAT_00422518);
     }
     return 0;
 }
@@ -289,7 +289,7 @@ namespace fn_f983a9d8 {
 // sym: ?f0@SeqActionChannelSendVolumes_24edb0@fn_f983a9d8@@QAEPAV12@E@Z
 // data: g_pool_24edb0 = DAT_004e6700
 SeqActionChannelSendVolumes_24edb0* SeqActionChannelSendVolumes_24edb0::f0(unsigned char flags) {
-    vptr = g_vftable_24edb0;
+    vptr = hulk_at_004298fc;
     if (flags & 1)
         Free(((char*)&DAT_004e6700), this);
     return this;
@@ -400,11 +400,11 @@ extern "C" unsigned char FUN_0024eff0(unsigned int* stream, unsigned int text) {
 // sym: ?Target@fn_f983a9d8@@YAEHPAH@Z
 unsigned char Target(int a, int* out) {
     Temp_24f010 t;
-    t.Init();
+    t.Init_0023fac0();
     unsigned char r = FUN_0025bce0(a, &t);
     if (out) {
-        int x = t.Finish();
-        *out = Convert(x, 0);
+        int x = t.Finish_0023fb00();
+        *out = Convert_002673a0(x, 0);
     }
     ((owners::Str_240060 *)&t)->FUN_00240060();
     return r;
@@ -435,7 +435,7 @@ bool FUN_0024f070(Writer_24f070 *w, float *values)
 // 0x0024f180 FUN_0024f180 (53 B): matches/0x0024f180.cpp
 // sym: ?FUN_0024f180@fn_f983a9d8@@YIPAIPAUOwner_24f180@1@@Z
 unsigned int* __fastcall FUN_0024f180(Owner_24f180* self) {
-    unsigned int* p = Allocate(GetSize());
+    unsigned int* p = Allocate_00247530(GetSize_00247800());
     unsigned int* r;
     if (p) {
         for (int i = 0; i != 0x40; ++i)
@@ -726,7 +726,7 @@ bool audio::SeqEventChannelSendVolumes::vfunc_1(void **state) {
 int audio::SeqEventChannelSendVolumes::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
     SeqEvent_24f600* base = reinterpret_cast<SeqEvent_24f600*>(this);
-    if (base->vfunc_0(p) && FUN_0025abd0(p, &this->f_48) && ReadB(p, &this->f_4c) && ReadC(p, &this->f_08))
+    if (base->vfunc_0_0025fd20(p) && FUN_0025abd0(p, &this->f_48) && ReadB_0024f010(p, &this->f_4c) && ReadC_0024f4a0(p, &this->f_08))
         return 1;
     return 0;
 }

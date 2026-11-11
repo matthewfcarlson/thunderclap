@@ -16,8 +16,8 @@ namespace fn_f30a0110 {} using namespace fn_f30a0110;
 namespace fn_f30a0110 {
 class Obj_262400 {
   public:
-    hulk_uintptr A();
-    char* B();
+    hulk_uintptr FnA_0023f990();
+    char* FnB_0023fb00();
 };
 class P2_262400 {
   public:
@@ -49,9 +49,9 @@ struct Str_262620 {
 extern "C" void * __cdecl FUN_00262460(void *);
 class Path_262700 {
   public:
-    unsigned int Length();
-    void SetLength(unsigned int);
-    char* Data();
+    unsigned int Length_0023f990();
+    void SetLength_0023fb10(unsigned int);
+    char* Data_0023fb00();
     void Finish();
 };
 struct Temp_262700 {
@@ -96,10 +96,10 @@ int* FUN_00262320(int* p) {
 // 0x00262400 FUN_00262400 (86 B): matches/0x00262400.cpp
 // sym: _FUN_00262400
 extern "C" void* FUN_00262400(void * obj, void * p2) {
-    if (((Obj_262400 *)obj)->A() > 0) {
-        char* start = ((Obj_262400 *)obj)->B();
-        char* p = (char*)((Obj_262400 *)obj)->A();
-        p += (hulk_uintptr)((Obj_262400 *)obj)->B();
+    if (((Obj_262400 *)obj)->FnA_0023f990() > 0) {
+        char* start = ((Obj_262400 *)obj)->FnB_0023fb00();
+        char* p = (char*)((Obj_262400 *)obj)->FnA_0023f990();
+        p += (hulk_uintptr)((Obj_262400 *)obj)->FnB_0023fb00();
         while (p >= start) {
             if (*p == '.') {
                 ((owners::String_23fe50 *)(((P2_262400 *)p2)))->FUN_0023fe50((const char *)(p + 1));
@@ -228,22 +228,22 @@ Str_262620* __cdecl FUN_00262620(Str_262620* path) {
 // 0x00262700 FUN_00262700 (149 B): matches/0x00262700.cpp
 // sym: _FUN_00262700
 extern "C" Path_262700* FUN_00262700(Path_262700* self, Path_262700* other) {
-    unsigned int n = self->Length();
+    unsigned int n = self->Length_0023f990();
     if (n > 0) {
         char* s = ((owners::String_23fbb0 *)self)->FUN_0023fbb0();
         char c = s[n - 1];
         if (c == '\\' || c == '/') {
             s[n - 1] = 0;
             --n;
-            self->SetLength(n);
+            self->SetLength_0023fb10(n);
         }
     }
-    unsigned int m = other->Length();
+    unsigned int m = other->Length_0023f990();
     if (m > 0) {
-        char* p = self->Data();
+        char* p = self->Data_0023fb00();
         char c = *p;
         if (c != '\\' && c != '/') {
-            if (self->Length() > 0) {
+            if (self->Length_0023f990() > 0) {
                 Temp_262700 t;
                 char* x = ((char *)((owners::String_23fc40 *)&t)->FUN_0023fc40("\\", (hulk_intptr)0));
                 ((owners::String_23ff50 *)self)->FUN_0023ff50((owners::String_23ff50 *)x);

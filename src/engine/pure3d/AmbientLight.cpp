@@ -17,10 +17,10 @@ class AmbientLight {
     virtual void v0();
     char pad[0x50];
     int field;
-    void Init();
+    void Init_002a0a70();
     AmbientLight* Build();
 };
-extern void* AmbientLightVTable;
+extern void* hulk_at_0042d6c8;
 class Dispatch_2a1280 {
   public:
     virtual void f0();
@@ -60,11 +60,11 @@ class Dispatch_2a1280 {
     virtual void f34();
     virtual void f35(int);
 };
-extern Dispatch_2a1280* g_dispatch;
+extern Dispatch_2a1280* hulk_at_0052c2a8;
 extern void* Light_2a12a0_vftable[];
 class Light_2a12a0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002a0720(); // FUN_00236d60, __thiscall, this in ecx
 };
 class AmbientLight_2a12a0 : public Light_2a12a0 {
   public:
@@ -75,8 +75,8 @@ class AmbientLight_2a12a0 : public Light_2a12a0 {
 // 0x002a1230 FUN_002a1230 (25 B): matches/0x002a1230.cpp
 // sym: ?Build@AmbientLight@fn_f43aa70d@@QAEPAV12@XZ
 AmbientLight* AmbientLight::Build() {
-    Init();
-    *(void**)this = &AmbientLightVTable;
+    Init_002a0a70();
+    *(void**)this = &hulk_at_0042d6c8;
     field = 0;
     return this;
 }
@@ -86,7 +86,7 @@ AmbientLight* AmbientLight::Build() {
 // 0x002a1280 pure3d::AmbientLight::vfunc_9 (23 B): matches/0x002a1280.cpp
 // sym: ?vfunc_9@AmbientLight@pure3d@@UAEXH@Z
 void pure3d::AmbientLight::vfunc_9(int x) {
-    return g_dispatch->f35(this->f_14);
+    return hulk_at_0052c2a8->f35(this->f_14);
 }
 
 namespace fn_f43aa70d {
@@ -98,7 +98,7 @@ namespace fn_f43aa70d {
  // thunk_FUN_00267090
 AmbientLight_2a12a0* AmbientLight_2a12a0::vfunc_5(signed char flags) {
     *(void***)this = Light_2a12a0_vftable;
-    Destroy();
+    Destroy_002a0720();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

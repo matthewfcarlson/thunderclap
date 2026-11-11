@@ -13,7 +13,7 @@ namespace fn_fac1015e {} using namespace fn_fac1015e;
 
 // ---- declarations shared by the functions below
 namespace fn_fac1015e {
-extern int* gTable_235a20;
+extern int* hulk_at_004e5bdc;
 class CCondition_235a20 {
   public:
     virtual int vfunc_0(int);
@@ -25,7 +25,7 @@ class FightNodeBaseCondition_235a30 {
 };
 class Elem_235a30 {
   public:
-    void Init();
+    void Init_00233dd0();
 };
 class FightNodeCondition : public FightNodeBaseCondition_235a30 {
   public:
@@ -35,11 +35,11 @@ class FightNodeCondition : public FightNodeBaseCondition_235a30 {
     FightNodeCondition();
     virtual void V2();
 };
-extern int vtableA;
-extern int vtableB;
+extern int hulk_at_00427cf0;
+extern int hulk_at_00427ccc;
 class Part_235a60 {
   public:
-    void Init();
+    void Init_00234150();
 };
 class CCondition {
   public:
@@ -58,21 +58,21 @@ class CCharacterTemplateVariationCondition : public CCondition {
     char pad[12];
     Part_235a60 part;
     void Run();
-    void Finish();
+    void Finish_002345b0();
 };
 namespace fn_fac1015e {
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_235af0;
+extern int* hulk_at_004e5be4;
 class CCondition_235af0 {
   public:
     virtual int vfunc_0(int);
 };
 extern "C" char DAT_00427d14[];
 struct FightNodeTimeCondition_235b00 {
-    void Init(int);
+    void Init_00234590(int);
 };
 struct Part_235b00 {
-    void Init();
+    void Init_00233dd0();
 };
 struct Node {
     char pad00[0x14];
@@ -97,7 +97,7 @@ public:
     char pad14[8];
     char searchAncestors;   // 0x1c
 };
-extern int* gTable_235c00;
+extern int* hulk_at_004e5bec;
 class CCondition_235c00 {
   public:
     virtual int vfunc_0(int);
@@ -117,7 +117,7 @@ class FightNodeTimeCondition : public FightNodeBaseCondition_235c10 {
 void __fastcall FUN_002345b0(CEffectStopTrack*);
 class CTrack {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class FightNodeBaseCondition_235c50 : public CTrack {
   public:
@@ -132,8 +132,8 @@ class CNameFlagConditionBase : public CCondition {
 namespace fn_fac1015e {
 class H {
   public:
-    void a();
-    void b();
+    void Fna_00234150();
+    void Fnb_002345b0();
 };
 void thunk_FUN_00267090(void*);
 class FightNodeTimeCondition_235d00 : public CTrack {
@@ -231,7 +231,7 @@ class ParamValueInt_2360b0 : public ParamValue_2360b0 {
 // sym: ?vfunc_0@FightNodeCondition@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::FightNodeCondition::vfunc_0(int index) {
-    int* p = gTable_235a20;
+    int* p = hulk_at_004e5bdc;
     return p[index];
 }
 
@@ -241,7 +241,7 @@ namespace fn_fac1015e {
 // sym: ??0FightNodeCondition@fn_fac1015e@@QAE@XZ
 FightNodeCondition::FightNodeCondition() : FightNodeBaseCondition_235a30(0) {
     field0c = 0;
-    ((Elem_235a30*)((char*)this + 0x10))->Init();
+    ((Elem_235a30*)((char*)this + 0x10))->Init_00233dd0();
 }
 
 } // namespace fn_fac1015e
@@ -250,10 +250,10 @@ FightNodeCondition::FightNodeCondition() : FightNodeBaseCondition_235a30(0) {
 // sym: ?Run@CCharacterTemplateVariationCondition@@QAEXXZ
 // Same code shape as 0x0004a030 (propagated; names are from that function)
 void CCharacterTemplateVariationCondition::Run() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtableA;
-    part.Init();
-    *(hulk_intptr*)this = (hulk_intptr)&vtableB;
-    Finish();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00427cf0;
+    part.Init_00234150();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00427ccc;
+    Finish_002345b0();
 }
 
 
@@ -308,7 +308,7 @@ void FUN_00235ad0() {
 // sym: ?vfunc_0@FightNodeParentCondition@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::FightNodeParentCondition::vfunc_0(int index) {
-    int* p = gTable_235af0;
+    int* p = hulk_at_004e5be4;
     return p[index];
 }
 
@@ -316,10 +316,10 @@ hulk_intptr fight::FightNodeParentCondition::vfunc_0(int index) {
 // 0x00235b00 FUN_00235b00 (39 B): matches/0x00235b00.cpp
 // sym: ?FUN_00235b00@FightNodeParentCondition@fight@@QAEPAV12@XZ
 fight::FightNodeParentCondition* fight::FightNodeParentCondition::FUN_00235b00() {
-    ((FightNodeTimeCondition_235b00*)this)->Init(0);
+    ((FightNodeTimeCondition_235b00*)this)->Init_00234590(0);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00427d14);
     *(int*)((char*)this + 0x0c) = 0;
-    ((Part_235b00*)((char*)this + 0x10))->Init();
+    ((Part_235b00*)((char*)this + 0x10))->Init_00233dd0();
     *((char*)this + 0x1c) = 1;
     return (fight::FightNodeParentCondition*)(this);
 }
@@ -329,11 +329,11 @@ fight::FightNodeParentCondition* fight::FightNodeParentCondition::FUN_00235b00()
 // sym: ?Run@CCharacterTemplateVariationCondition@fn_00235b30@@QAEXXZ
 namespace fn_00235b30 {
 // Same code shape as 0x0004a030 (propagated; names are from that function)
-extern int vtableA;
+extern int hulk_at_00427d14;
 extern int vtableB;
 class Part_235b30 {
   public:
-    void Init();
+    void Init_00234150();
 };
 class CCondition {
   public:
@@ -344,13 +344,13 @@ class CCharacterTemplateVariationCondition : public CCondition {
     char pad[12];
     Part_235b30 part;
     void Run();
-    void Finish();
+    void Finish_002345b0();
 };
 void CCharacterTemplateVariationCondition::Run() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtableA;
-    part.Init();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00427d14;
+    part.Init_00234150();
     *(hulk_intptr*)this = (hulk_intptr)&vtableB;
-    Finish();
+    Finish_002345b0();
 }
 } // namespace fn_00235b30
 
@@ -401,7 +401,7 @@ void FUN_00235be0() {
 // sym: ?vfunc_0@FightNodeTimeCondition@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::FightNodeTimeCondition::vfunc_0(int index) {
-    int* p = gTable_235c00;
+    int* p = hulk_at_004e5bec;
     return p[index];
 }
 
@@ -432,7 +432,7 @@ void __fastcall FUN_00235c40(CEffectStopTrack* self) {
  // thunk_FUN_00267090
 FightNodeBaseCondition_235c50* FightNodeBaseCondition_235c50::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -447,9 +447,9 @@ FightNodeBaseCondition_235c50* FightNodeBaseCondition_235c50::vfunc_5(signed cha
 CNameFlagConditionBase* CNameFlagConditionBase::vfunc_5(int p) {
     CNameFlagConditionBase* s = this;
     *(void (**)())s = &vt_name;
-    ((H*)((char*)s + 0x10))->a();
+    ((H*)((char*)s + 0x10))->Fna_00234150();
     *(void (**)())s = &vt_cond;
-    ((H*)s)->b();
+    ((H*)s)->Fnb_002345b0();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;
@@ -478,18 +478,18 @@ class CNameFlagConditionBase : public CCondition {
 };
 class FightNodeTimeCondition_235cc0 {
   public:
-    void a();
-    void b();
+    void Fna_00234150();
+    void Fnb_002345b0();
 };
-extern void vt_name();
-extern void vt_cond();
+extern void vt_name_00427d14();
+extern void vt_cond_00427ccc();
 void thunk_FUN_00267090(void*);
 CNameFlagConditionBase* CNameFlagConditionBase::vfunc_5(int p) {
     CNameFlagConditionBase* s = this;
-    *(void (**)())s = &vt_name;
-    ((FightNodeTimeCondition_235cc0*)((char*)s + 0x10))->a();
-    *(void (**)())s = &vt_cond;
-    ((FightNodeTimeCondition_235cc0*)s)->b();
+    *(void (**)())s = &vt_name_00427d14;
+    ((FightNodeTimeCondition_235cc0*)((char*)s + 0x10))->Fna_00234150();
+    *(void (**)())s = &vt_cond_00427ccc;
+    ((FightNodeTimeCondition_235cc0*)s)->Fnb_002345b0();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;
@@ -505,7 +505,7 @@ namespace fn_fac1015e {
  // thunk_FUN_00267090
 FightNodeTimeCondition_235d00* FightNodeTimeCondition_235d00::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
-    Destroy();
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

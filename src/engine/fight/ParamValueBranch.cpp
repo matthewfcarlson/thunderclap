@@ -12,11 +12,11 @@ namespace fn_fd2c6ba9 {} using namespace fn_fd2c6ba9;
 namespace fn_fd2c6ba9 {
 extern "C" char DAT_00427c68[];
 struct Member_235170 {
-    void Init(const char*);
+    void Init_0027b0e0(const char*);
 };
 class Helper_2351c0 {
   public:
-    void Process(int);
+    void Process_00234090(int);
 };
 class ParamValueBranch {
   public:
@@ -36,7 +36,7 @@ class ParamValueBranch {
 // sym: ?FUN_00235170@ParamValueBranch@fight@@QAEPAV12@PBD@Z
 fight::ParamValueBranch* fight::ParamValueBranch::FUN_00235170(const char* name) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
-    ((Member_235170*)((char*)this + 8))->Init(name);
+    ((Member_235170*)((char*)this + 8))->Init_0027b0e0(name);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00427c68);
     return (fight::ParamValueBranch*)(this);
 }
@@ -47,7 +47,7 @@ fight::ParamValueBranch* fight::ParamValueBranch::FUN_00235170(const char* name)
 namespace fn_002351a0 {
 class Helper_2351a0 {
   public:
-    void Process(int);
+    void Process_00233fe0(int);
 };
 namespace fight { class ParamValueBranch {
   public:
@@ -63,7 +63,7 @@ namespace fight { class ParamValueBranch {
 void fight::ParamValueBranch::vfunc_3(int a, int b) {
     hulk_intptr x = Query(a);
     if (x)
-        ((Helper_2351a0*)x)->Process(b);
+        ((Helper_2351a0*)x)->Process_00233fe0(b);
 }
 } // namespace fn_002351a0
 
@@ -75,7 +75,7 @@ namespace fn_fd2c6ba9 {
 void ParamValueBranch::vfunc_3(int a, int b) {
     hulk_intptr x = Query(a);
     if (x)
-        ((Helper_2351c0*)x)->Process(b);
+        ((Helper_2351c0*)x)->Process_00234090(b);
 }
 
 } // namespace fn_fd2c6ba9
@@ -100,7 +100,7 @@ class ParamValueBranch {
 } // namespace fight
 class Result {
   public:
-    char go(int, int, int);
+    char go_002340b0(int, int, int);
 };
 char fight::ParamValueBranch::v5(int x, int y, int z) {
     Result* p = (Result*)v6(x);
@@ -108,7 +108,7 @@ char fight::ParamValueBranch::v5(int x, int y, int z) {
         int first = a;
         int last = z;
         int second = b;
-        return p->go(first, second, last);
+        return p->go_002340b0(first, second, last);
     }
     return 0;
 }

@@ -13,7 +13,7 @@ namespace fn_fcf3cc66 {} using namespace fn_fcf3cc66;
 namespace fn_fcf3cc66 {
 extern "C" char DAT_0042bc60[];
 struct ThisCall_00275600 {
-    void BaseInit(void*);
+    void BaseInit_00275600(void*);
 };
 } // namespace fn_fcf3cc66
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -50,22 +50,22 @@ struct Alloc_275c10 {
 };
 }
 namespace core {
-extern Alloc_275c10* gAlloc;
+extern Alloc_275c10* hulk_at_0052a1e4;
 }
 namespace core {
-extern int gLock;
+extern int hulk_at_0052a1c8;
 }
 namespace core {
-void __cdecl Lock(void* p);
+void __cdecl Lock_0026d850(void* p);
 }
 namespace core {
-void __cdecl Unlock(void* p);
+void __cdecl Unlock_0026d840(void* p);
 }
 namespace core {
-extern void* vtDrive[];
+extern void* hulk_at_0042b9bc[];
 }
 namespace core {
-extern void* vtReq[];
+extern void* hulk_at_0042b914[];
 }
 namespace core {
 class DriveFileDestroyRequest {
@@ -81,7 +81,7 @@ class DriveFileDestroyRequest {
 // 0x00275bd0 FUN_00275bd0 (59 B): matches/0x00275bd0.cpp
 // sym: ?Run@DriveFileDestroyRequest@fn_fcf3cc66@@QAEPAV12@HPAD@Z
 DriveFileDestroyRequest* DriveFileDestroyRequest::Run(hulk_intptr a, char* p) {
-    ((ThisCall_00275600*)(this))->BaseInit((void*)a);
+    ((ThisCall_00275600*)(this))->BaseInit_00275600((void*)a);
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_0042bc60);
     InitMore();
     strncpy((char*)this + 0xc, p, 0x100);
@@ -94,16 +94,16 @@ DriveFileDestroyRequest* DriveFileDestroyRequest::Run(hulk_intptr a, char* p) {
 // sym: ?vfunc_0@DriveFileDestroyRequest@core@fn_fcf3cc66@@UAEPAXI@Z
 namespace core {
 void* DriveFileDestroyRequest::vfunc_0(unsigned flags) {
-    *(void***)this = vtDrive;
+    *(void***)this = hulk_at_0042b9bc;
     mObj->sub.f0();
     mObj->count--;
     mObj->sub.f1();
     mObj->g1();
-    *(void***)this = vtReq;
+    *(void***)this = hulk_at_0042b914;
     if (flags & 1) {
-        Lock(&gLock);
-        gAlloc->Free(this);
-        Unlock(&gLock);
+        Lock_0026d850(&hulk_at_0052a1c8);
+        hulk_at_0052a1e4->Free(this);
+        Unlock_0026d840(&hulk_at_0052a1c8);
     }
     return this;
 }

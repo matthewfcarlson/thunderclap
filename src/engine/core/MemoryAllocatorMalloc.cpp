@@ -40,8 +40,8 @@ struct Obj_2670b0 {
     virtual void F();
 };
 struct Object { virtual void unused(); virtual void FUN_00000000(); };
-extern char vftable_267180;
-void InitAllocator();
+extern char hulk_at_0042af2c;
+void InitAllocator_002705f0();
 struct MemoryAllocatorMalloc {
     void* vptr;
     MemoryAllocatorMalloc* Init();
@@ -141,8 +141,8 @@ extern "C" void __cdecl FUN_00267110(unsigned int index) {
 // 0x00267180 FUN_00267180 (18 B): matches/0x00267180.cpp
 // sym: ?Init@MemoryAllocatorMalloc@fn_f03133a3@@QAEPAU12@XZ
 MemoryAllocatorMalloc* MemoryAllocatorMalloc::Init() {
-    vptr = &vftable_267180;
-    InitAllocator();
+    vptr = &hulk_at_0042af2c;
+    InitAllocator_002705f0();
     return this;
 }
 
@@ -194,9 +194,9 @@ class MemoryAllocatorMalloc {
     virtual void f8();
     virtual int vfunc_9(int a, int b, int c, int d);
 };
-extern int helper(int, int, int, int);
+extern int helper_002705d0(int, int, int, int);
 int MemoryAllocatorMalloc::vfunc_9(int a, int b, int c, int d) {
-    return helper(a, b, c, d);
+    return helper_002705d0(a, b, c, d);
 }
 } // namespace fn_002671e0
 

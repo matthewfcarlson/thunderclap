@@ -16,15 +16,15 @@ namespace fn_f0657c79 {} using namespace fn_f0657c79;
 namespace fn_f0657c79 {
 struct Mat_2fd400 {
     int v[16];
-    void Op();
+    void Op_0022b980();
 };
 struct Inner_2fd400 {
     char pad[0x19];
     char flag;
 };
 struct A88 {
-    void F1();
-    void F2();
+    void F1_0030f650();
+    void F2_0030f4c0();
 };
 struct B74 {
     char pad[0x20];
@@ -32,7 +32,7 @@ struct B74 {
     char pad2[0x68 - 0x24];
     char f68;
     char f69;
-    void G();
+    void FnG_00305030();
 };
 struct C70 {
 };
@@ -67,7 +67,7 @@ class Handler {
 };
 class First {
   public:
-    void Run(int, int);
+    void Run_00310460(int, int);
 };
 class Obj {
     char pad[0x70];
@@ -82,8 +82,8 @@ struct Thing_2fd4f0 {
     void* a;
     void* b;
 };
-extern void __fastcall cleanup(void*);
-extern void __fastcall next(void*);
+extern void __fastcall cleanup_00311050(void*);
+extern void __fastcall next_003062a0(void*);
 struct Joint_2fd520 {
     char pad0[4];
     int f4, f8, fc, f10, f14, f18;
@@ -96,13 +96,13 @@ struct Chain_2fd520 {
 struct H2_2fd5a0;
 struct H3_2fd5a0;
 struct H1 {
-    H2_2fd5a0* first(int);
+    H2_2fd5a0* first_0030f490(int);
 };
 struct H2_2fd5a0 {
-    H3_2fd5a0* second();
+    H3_2fd5a0* second_0030edf0();
 };
 struct H3_2fd5a0 {
-    struct SimStateArticulated* third();
+    struct SimStateArticulated* third_0030f100();
 };
 struct SimState {
     virtual void a();
@@ -127,13 +127,13 @@ struct SimStateArticulated : SimState {
     SimStateArticulated* vfunc_4(int);
 };
 struct Obj1_2fd5e0 {
-    void* f490(int);
+    void* f490_0030f490(int);
 };
 struct Obj2_2fd5e0 {
-    void* edf();
+    void* edf_0030edf0();
 };
 struct Obj3_2fd5e0 {
-    void* f100();
+    void* f100_0030f100();
 };
 struct Inner_2fd620 {
     char pad[0x1fc];
@@ -143,7 +143,7 @@ struct Block_2fd690 {
     unsigned int v[16];
 };
 extern "C" void * __fastcall FUN_0030edf0(void *);
-void* __fastcall FnB(void* p);
+void* __fastcall FnB_0030f100(void* p);
 struct Target_2fd690 {
     unsigned int first;
     char pad[28];
@@ -161,7 +161,7 @@ struct Base_2fd840 {
 };
 class Obj_2fd840 {
   public:
-    void cleanup(int);
+    void cleanup_00312240(int);
 };
 class SimStateArticulated_2fd840 {
   public:
@@ -171,7 +171,7 @@ class SimStateArticulated_2fd840 {
     char p2[0x14];
     Base_2fd840* m88;
     void* m8c;
-    void tail();
+    void tail_002ef2c0();
     void run();
 };
 struct Matrix_2fd8a0 { unsigned int words[16]; };
@@ -248,7 +248,7 @@ struct Tracker_2fda20 {
 };
 class B_2fdd80 {
   public:
-    void H();
+    void FnH_003111f0();
 };
 class A_2fdd80 {
     char pad[0x70];
@@ -256,7 +256,7 @@ class A_2fdd80 {
 
   public:
     void F(int);
-    void O();
+    void FnO_002fda20();
 };
 struct Pose_2fddf0 {
     int words[21];
@@ -421,7 +421,7 @@ struct Body_2fd360 {
 class SimState {
 public:
     virtual void v0();
-    void vfunc_14(int arg);
+    void vfunc_14_002ef3f0(int arg);
 };
 
 class SimStateArticulated : public SimState {
@@ -435,7 +435,7 @@ public:
 
 void SimStateArticulated::vfunc_14(int arg)
 {
-    SimState::vfunc_14(arg);
+    SimState::vfunc_14_002ef3f0(arg);
 
     Body_2fd360* b = body;
     if (b->enabled) {
@@ -471,13 +471,13 @@ void Obj_2fd400::Fn() {
     if (f94)
         return;
     Mat_2fd400 saved = m;
-    m.Op();
+    m.Op_0022b980();
     if (p88) {
-        p88->F1();
-        p88->F2();
+        p88->F1_0030f650();
+        p88->F2_0030f4c0();
     }
     if (p74) {
-        p74->G();
+        p74->FnG_00305030();
         B74* b = p74;
         b->inner->flag = 0;
         b->f68 = 1;
@@ -508,7 +508,7 @@ namespace fn_f0657c79 {
 // sym: ?Run@Obj@fn_f0657c79@@QAEXUArgs@2@@Z
 void Obj::Run(Args v) {
     if (a)
-        a->Run(v.x, v.y);
+        a->Run_00310460(v.x, v.y);
     if (b)
         b->Run(v.x, v.y);
 }
@@ -518,9 +518,9 @@ void Obj::Run(Args v) {
 // sym: ?target@fn_f0657c79@@YIXPAUThing_2fd4f0@1@@Z
 void __fastcall target(Thing_2fd4f0* self) {
     if (self->a)
-        cleanup(self->a);
+        cleanup_00311050(self->a);
     if (self->b)
-        next(*(void**)((char*)self->b + 0x20));
+        next_003062a0(*(void**)((char*)self->b + 0x20));
 }
 
 } // namespace fn_f0657c79
@@ -557,7 +557,7 @@ namespace fn_f0657c79 {
 // sym: ?vfunc_4@SimStateArticulated@fn_f0657c79@@QAEPAU12@H@Z
 SimStateArticulated* SimStateArticulated::vfunc_4(int p) {
     if (p >= 0 && member)
-        return member->first(p)->second()->third();
+        return member->first_0030f490(p)->second_0030edf0()->third_0030f100();
     return (SimStateArticulated*)((char*)this + 0x10);
 }
 
@@ -568,9 +568,9 @@ SimStateArticulated* SimStateArticulated::vfunc_4(int p) {
 void* physics::SimStateArticulated::vfunc_5(int x) {
     if (x >= 0 && (*(void * *)&this->f_88)) {
         Obj1_2fd5e0* a = (Obj1_2fd5e0*)(*(void * *)&this->f_88);
-        Obj2_2fd5e0* b = (Obj2_2fd5e0*)a->f490(x);
-        Obj3_2fd5e0* c = (Obj3_2fd5e0*)b->edf();
-        return (void*)((char*)c->f100() + 0x30);
+        Obj2_2fd5e0* b = (Obj2_2fd5e0*)a->f490_0030f490(x);
+        Obj3_2fd5e0* c = (Obj3_2fd5e0*)b->edf_0030edf0();
+        return (void*)((char*)c->f100_0030f100() + 0x30);
     }
     return (void*)((char*)this + 0x40);
 }
@@ -600,7 +600,7 @@ namespace fn_f0657c79 {
 // sym: ?Init@Target_2fd690@fn_f0657c79@@QAEXI@Z
 void Target_2fd690::Init(unsigned int arg) {
     first = arg;
-    void* p = FnB(FUN_0030edf0((void *)(hulk_uintptr)(unsigned int)arg));
+    void* p = FnB_0030f100(FUN_0030edf0((void *)(hulk_uintptr)(unsigned int)arg));
     data = *(Block_2fd690*)p;
 }
 
@@ -624,12 +624,12 @@ void SimStateArticulated_2fd840::run() {
     if (m8c)
         release((char*)m8c - 4);
     if (m70)
-        m70->cleanup(0);
+        m70->cleanup_00312240(0);
     if (m88) {
         m88->b();
         m88 = 0;
     }
-    tail();
+    tail_002ef2c0();
 }
 
 } // namespace fn_f0657c79
@@ -854,8 +854,8 @@ namespace fn_f0657c79 {
 // sym: ?F@A_2fdd80@fn_f0657c79@@QAEXH@Z
 void A_2fdd80::F(int x) {
     if (p)
-        p->H();
-    O();
+        p->FnH_003111f0();
+    FnO_002fda20();
 }
 
 } // namespace fn_f0657c79
@@ -879,7 +879,7 @@ class SimState {
 };
 struct Part_2fdda0 {
     char data[0x64];
-    void call(int, int);
+    void call_002fdbd0(int, int);
 };
 class SimStateArticulated : public SimState {
   public:
@@ -888,7 +888,7 @@ class SimStateArticulated : public SimState {
 };
 void SimStateArticulated::vfunc_8(int a, int b, int index) {
     if (index >= 0)
-        parts[index].call(a, b);
+        parts[index].call_002fdbd0(a, b);
     else
         SimState::vfunc_8(a, b, -1);
 }

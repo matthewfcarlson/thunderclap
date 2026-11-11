@@ -40,9 +40,9 @@ class MultiController : public FrameController_2b26c0 {
 };
 class Allocated_2b2920 {
   public:
-    hulk_intptr method(pure3d::MultiController*);
+    hulk_intptr method_002b27d0(pure3d::MultiController*);
 };
-extern Allocated_2b2920* alloc(int);
+extern Allocated_2b2920* alloc_00263ea0(int);
 class DynamicCaster_2b2c00 {
   public:
     virtual void cast();
@@ -54,7 +54,7 @@ class Inventory {
     virtual void c();
     virtual void* find(DynamicCaster_2b2c00*, __int64);
 };
-extern __int64 __cdecl getKey(void*);
+extern __int64 __cdecl getKey_0027b020(void*);
 class DynamicCaster_2b2c30 {
   public:
     virtual void cast();
@@ -79,7 +79,7 @@ class SimpleChunkHandler_2b23c0 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_2b23c0 {
   public:
@@ -90,7 +90,7 @@ class NonCopyable : public SimpleChunkHandler_2b23c0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -230,14 +230,14 @@ class MultiController {
     char pad[0x44];
     unsigned int count;
     Controller_2b28d0** items;
-    void Finish();
+    void Finish_00284ac0();
 };
-extern void* vt_2b28d0;
-void Free(void*);
+extern void* hulk_at_0042e4d4;
+void Free_0008d340(void*);
 void __fastcall FUN_002b28d0(MultiController* self) {
     unsigned int i = 0;
     unsigned int n = self->count;
-    *(void**)self = &vt_2b28d0;
+    *(void**)self = &hulk_at_0042e4d4;
     if (n > 0) {
         do {
             Controller_2b28d0** slot = &self->items[i];
@@ -250,8 +250,8 @@ void __fastcall FUN_002b28d0(MultiController* self) {
         } while (i < self->count);
     }
     if (self->items)
-        Free(self->items);
-    self->Finish();
+        Free_0008d340(self->items);
+    self->Finish_00284ac0();
 }
 } // namespace fn_002b28d0
 
@@ -260,9 +260,9 @@ void __fastcall FUN_002b28d0(MultiController* self) {
 // sym: ?vfunc_4@MultiController@pure3d@@UAEPAXXZ
 // Same code shape as 0x0029a170 (propagated; names are from that function)
 void* pure3d::MultiController::vfunc_4() {
-    Allocated_2b2920* p = alloc(0x58);
+    Allocated_2b2920* p = alloc_00263ea0(0x58);
     if (p)
-        return (void*)(p->method(this));
+        return (void*)(p->method_002b27d0(this));
     return (void*)(0);
 }
 
@@ -278,7 +278,7 @@ namespace fn_f35e48b8 {
 // 0x002b2c00 FUN_002b2c00 (42 B): matches/0x002b2c00.cpp
 // sym: _FUN_002b2c00
 extern "C" void* __cdecl FUN_002b2c00(void * inv, void* name) {
-    __int64 key = getKey(name);
+    __int64 key = getKey_0027b020(name);
     DynamicCaster_2b2c00 caster;
     return ((Inventory *)inv)->find(&caster, key);
 }

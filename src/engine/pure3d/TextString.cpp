@@ -29,7 +29,7 @@ class TextString {
     int a48;
     int a4c;
     unsigned char flag;
-    void Init();
+    void Init_002a5060();
     TextString* Foo(Base_29b120* p, int a, int b, unsigned char f);
 };
 class pddiObject_29b190 {
@@ -72,7 +72,7 @@ struct Obj_29b1d0 {
     char p4c[4];
     unsigned char flag;
 };
-void cleanup(u32_29b1d0);
+void cleanup_0008d340(u32_29b1d0);
 extern "C" void __fastcall FUN_002a50a0(Obj_29b1d0*);
 struct Font_29b210 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
@@ -112,13 +112,13 @@ struct Obj_29b330 {
     char pad2[4];
     unsigned char flag;
 };
-void cleanup(int);
+void cleanup_0008d340(int);
 
 
 // 0x0029b120 FUN_0029b120 (59 B): matches/0x0029b120.cpp
 // sym: ?Foo@TextString@fn_f9d9ed06@@QAEPAV12@PAVBase_29b120@2@HHE@Z
 TextString* TextString::Foo(Base_29b120* p, int a, int b, unsigned char f) {
-    Init();
+    Init_002a5060();
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_0042d548);
     this->x44 = -1;
     this->obj = p;
@@ -194,7 +194,7 @@ void FUN_0029b1c0() {}
 void __fastcall target(Obj_29b1d0* self) {
     *(hulk_uintptr*)self = ((hulk_intptr)DAT_0042d548);
     if (self->flag)
-        cleanup(self->value);
+        cleanup_0008d340(self->value);
     self->base->release();
     self->base = 0;
     FUN_002a50a0(self);
@@ -236,7 +236,7 @@ void Owner_29b300::Set(Thing_29b300* p) {
 // sym: ?FUN_0029b330@fn_f9d9ed06@@YIXPAUObj_29b330@1@PAXHE@Z
 void __fastcall FUN_0029b330(Obj_29b330* self, void*, int param2, unsigned char param3) {
     if (self->flag)
-        cleanup(self->value);
+        cleanup_0008d340(self->value);
     self->value = param2;
     self->flag = param3;
 }
@@ -255,7 +255,7 @@ void owners::Obj_29b380::FUN_0029b380(int x) {
 namespace fn_0029b3a0 {
 typedef unsigned char u8;
 typedef unsigned int u32_29b3a0;
-void ReleaseThing(void* p);
+void ReleaseThing_0008d340(void* p);
 class Base_29b3a0 {
   public:
     virtual void f0();
@@ -282,14 +282,14 @@ class TextString {
     hulk_uintptr mThing;
     char p4c[4];
     u8 mFlag;
-    void cleanup();
+    void cleanup_002a50a0();
 };
 TextString::~TextString() {
     if (mFlag)
-        ReleaseThing((void*)mThing);
+        ReleaseThing_0008d340((void*)mThing);
     mBase->f1();
     mBase = 0;
-    cleanup();
+    cleanup_002a50a0();
 }
 } // namespace fn_0029b3a0
 

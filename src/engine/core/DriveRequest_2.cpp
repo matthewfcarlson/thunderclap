@@ -12,7 +12,7 @@ namespace fn_f57d136c {} using namespace fn_f57d136c;
 
 // ---- declarations shared by the functions below
 namespace fn_f57d136c {
-extern void* vReq[];
+extern void* hulk_at_0042b914[];
 class Elem_275600 {
   public:
     virtual void A();
@@ -59,16 +59,16 @@ extern "C" char DAT_0042bb60[];
 class DriveOpenRequest {
   public:
     hulk_intptr vptr;
-    void Init(int);
+    void Init_00275600(int);
     DriveOpenRequest(hulk_intptr);
 };
-extern void __stdcall Finish();
+extern void __stdcall Finish_002705f0();
 
 
 // 0x00275600 FUN_00275600 (80 B): matches/0x00275600.cpp
 // sym: ??0DriveRequest_275600@fn_f57d136c@@QAE@PAVObj_275600@1@@Z
 DriveRequest_275600::DriveRequest_275600(Obj_275600* a) {
-    vf = vReq;
+    vf = hulk_at_0042b914;
     p4 = 0;
     FUN_002705f0();
     vf = vDrive;
@@ -103,9 +103,9 @@ core::DriveRequest* core::DriveRequest::vfunc_0(byte_275650 flag) {
 // 0x002756c0 FUN_002756c0 (30 B): matches/0x002756c0.cpp
 // sym: ??0DriveOpenRequest@fn_f57d136c@@QAE@H@Z
 DriveOpenRequest::DriveOpenRequest(hulk_intptr a) {
-    Init(a);
+    Init_00275600(a);
     vptr = ((hulk_intptr)DAT_0042bb60);
-    Finish();
+    Finish_002705f0();
 }
 
 } // namespace fn_f57d136c

@@ -32,7 +32,7 @@ extern "C" U64 __cdecl FUN_0027b020(int);
 namespace fn_f6d70462 {
 class Manager {
   public:
-    void send(U64, int, int, int, int);
+    void send_002f27c0(U64, int, int, int, int);
 };
 struct S_2f2900 {
     char pad[16];
@@ -63,7 +63,7 @@ class PhysicsPropertiesLoader {
 };
 extern "C" void thunk_FUN_00267090(void*);
 struct Obj_2f2e20 {
-    hulk_intptr Init();
+    hulk_intptr Init_002f2d10();
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 
@@ -107,7 +107,7 @@ Entry_2f27c0* Table_2f27c0::FUN_002f27c0(int key1, int key2, int value1, int val
 // sym: _FUN_002f28d0
 // data: gManager = DAT_00554c30
 extern "C" void __cdecl FUN_002f28d0(int a, int b, int c, int d, int e) {
-    (*(Manager**)&DAT_00554c30)->send(FUN_0027b020(a), b, c, d, e);
+    (*(Manager**)&DAT_00554c30)->send_002f27c0(FUN_0027b020(a), b, c, d, e);
 }
 
 
@@ -203,7 +203,7 @@ class SimpleChunkHandler_2f2c90 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_2f2c90 {
   public:
@@ -214,7 +214,7 @@ class NonCopyable : public SimpleChunkHandler_2f2c90 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -261,7 +261,7 @@ extern "C" void __cdecl FUN_002f2e20() {
     if (!(*(Obj_2f2e20**)&DAT_00554c30)) {
         Obj_2f2e20* p = (Obj_2f2e20*)FUN_0008d690(0x808);
         if (p) {
-            (*(Obj_2f2e20**)&DAT_00554c30) = (Obj_2f2e20*)p->Init();
+            (*(Obj_2f2e20**)&DAT_00554c30) = (Obj_2f2e20*)p->Init_002f2d10();
             return;
         }
         (*(Obj_2f2e20**)&DAT_00554c30) = 0;

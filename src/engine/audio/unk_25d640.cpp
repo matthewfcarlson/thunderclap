@@ -199,7 +199,7 @@ class C_25df20 {
     char pad[0x40];
 
   public:
-    void Finish();
+    void Finish_0025db30();
     void Target();
 };
 struct X_25e090 {
@@ -655,7 +655,7 @@ void __fastcall target(C_25def0* self) {
 void C_25df20::Target() {
     FUN_0025dcb0((char*)this + 0x40);
     *(int*)((char*)this + 0x48) = 0;
-    Finish();
+    Finish_0025db30();
 }
 
 } // namespace fn_fc4af378
@@ -735,8 +735,8 @@ class Obj_25dfc0 {
     int m58;
     char m5c;
     void Fn(void*, char);
-    void End(int);
-    void Db30();
+    void End_0025dd00(int);
+    void Db30_0025db30();
 };
 extern "C++" __declspec(nothrow) void __cdecl FUN_0025dcb0(void *);
 extern "C" void FUN_0024bae0(void*, int);
@@ -747,7 +747,7 @@ void Obj_25dfc0::Fn(void* p, char mode) {
         !(*(char*)((char*)m30 + 0x44) & 2)) {
         FUN_0025dcb0(&m40);
         m48 = 0;
-        Db30();
+        Db30_0025db30();
         ((Inner_25dfc0*)((char*)m30 + 0x1c))->B(this);
     } else {
         for (Node2_25dfc0* n = static_cast<Node2_25dfc0*>(m40); n; n = static_cast<Node2_25dfc0*>(n->next))
@@ -757,7 +757,7 @@ void Obj_25dfc0::Fn(void* p, char mode) {
         m34 = p;
         FUN_0024bae0(p, 0);
     }
-    End(0);
+    End_0025dd00(0);
 }
 } // namespace fn_0025dfc0
 

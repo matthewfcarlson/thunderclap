@@ -13,18 +13,18 @@ namespace fn_ff5ed045 {} using namespace fn_ff5ed045;
 
 // ---- declarations shared by the functions below
 namespace fn_ff5ed045 {
-extern void* IRefCount_vftable_27a560;
+extern void* hulk_at_003f60ac;
 struct E_27a570 {
-    void f();
+    void Fnf_0027af50();
 };
 struct Temp_27a590 {
     char data[8];
-    void Build(int);
-    void Finish();
+    void Build_0027b0e0(int);
+    void Finish_0027af50();
 };
 struct Item_27a590 {
     char data[8];
-    void Copy(Temp_27a590*);
+    void Copy_0027af70(Temp_27a590*);
 };
 class CAction {
   public:
@@ -49,7 +49,7 @@ extern void thunk_FUN_00267090(CCollisionAction*);
 class Slot_27a630 {
   public:
     char pad[8];
-    void Init();
+    void Init_0027af00();
 };
 class Target_27a630 {
   public:
@@ -65,10 +65,10 @@ class RDLObject {
     int b;
     char pad2[0x1f];
     unsigned char c;
-    void Initialize();
+    void Initialize_0027b070();
     RDLObject();
 };
-extern int vtable_27a890;
+extern int hulk_at_0042c0f8;
 } // namespace fn_ff5ed045
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
@@ -100,7 +100,7 @@ extern int Format(char*, const char*, float*, float*, float*);
 // sym: @FUN_0027a560@4
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 extern "C" void __fastcall FUN_0027a560(void* self) {
-    *(void**)self = &IRefCount_vftable_27a560;
+    *(void**)self = &hulk_at_003f60ac;
 }
 
 } // namespace fn_ff5ed045
@@ -112,7 +112,7 @@ void owners::X_27a570::FUN_0027a570() {
     int i = 0x14;
     do {
         p = (E_27a570*)((char*)p - 8);
-        p->f();
+        p->Fnf_0027af50();
         --i;
     } while (i != 0);
 }
@@ -123,9 +123,9 @@ void owners::X_27a570::FUN_0027a570() {
 void owners::Obj_27a590::FUN_0027a590(hulk_intptr a, hulk_intptr b) {
     Temp_27a590 t;
     if (count < 20) {
-        t.Build(((int)a));
-        ((Item_27a590*)((char*)this + count * 8))->Copy(&t);
-        t.Finish();
+        t.Build_0027b0e0(((int)a));
+        ((Item_27a590*)((char*)this + count * 8))->Copy_0027af70(&t);
+        t.Finish_0027af50();
         values[count] = ((int)b);
         ++count;
     }
@@ -148,7 +148,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 // sym: ?Fn@Target_27a630@fn_ff5ed045@@QAEPAV12@XZ
 Target_27a630* Target_27a630::Fn() {
     for (int i = 0; i < 20; ++i)
-        slots[i].Init();
+        slots[i].Init_0027af00();
     values[20] = 0;
     for (int j = 0; j < 20; ++j)
         values[j] = 0;
@@ -169,7 +169,7 @@ extern "C" char* __cdecl strncpy(char*, const char*, size_t);
 extern int DAT_0042c0f8;
 class RDLObject {
   public:
-    void init();
+    void init_0027b070();
     int* vp;
     char pad[12];
     int a;
@@ -179,7 +179,7 @@ class RDLObject {
     RDLObject(const char*);
 };
 RDLObject::RDLObject(const char* p) {
-    init();
+    init_0027b070();
     a = 0;
     b = 0;
     flag = 0;
@@ -193,11 +193,11 @@ namespace fn_ff5ed045 {
 // 0x0027a890 FUN_0027a890 (29 B): matches/0x0027a890.cpp
 // sym: ??0RDLObject@fn_ff5ed045@@QAE@XZ
 RDLObject::RDLObject() {
-    Initialize();
+    Initialize_0027b070();
     a = 0;
     b = 0;
     c = 0;
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_27a890;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0042c0f8;
 }
 
 } // namespace fn_ff5ed045

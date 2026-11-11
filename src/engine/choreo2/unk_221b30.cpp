@@ -43,7 +43,7 @@ class Obj_221ba0 {
     char pad[0x40];
     Pair_221ba0 value;
     int flag;
-    void First();
+    void First_0022b980();
     Obj_221ba0* Run(Pair_221ba0* src, int x);
 };
 struct P_221be0 {
@@ -61,7 +61,7 @@ class X_221be0 {
 };
 class Base_221c20 {
   public:
-    void Init();
+    void Init_0022b980();
 };
 class Thing_221c20 : public Base_221c20 {
     char pad[0x40];
@@ -77,7 +77,7 @@ class Thing_221c20 : public Base_221c20 {
 struct Obj_221c40 {
     char pad[0x40];
     struct Sub {
-        void F(Obj_221c40*);
+        void FnF_0022b650(Obj_221c40*);
     } sub;
     char pad2[0x0c];
     int state;
@@ -124,7 +124,7 @@ class Obj_221cf0 {
 };
 struct Four {
     int a, b, c, d;
-    void Set(int);
+    void Set_0022b1c0(int);
 };
 class Obj {
   public:
@@ -155,7 +155,7 @@ namespace fn_f403c6ef {
 class Obj_221df0;
 class Sub_221df0 {
   public:
-    void Fn(Obj_221df0*);
+    void Fn_0022b650(Obj_221df0*);
 };
 class Obj_221df0 {
   public:
@@ -171,10 +171,10 @@ class Tmp_221df0 {
     char data[0x40];
 };
 struct Work_221e60 {
-    void First(owners::Obj_221e60*);
+    void First_0022b650(owners::Obj_221e60*);
 };
 struct Sub_221eb0 {
-    void call(struct Obj_221eb0*);
+    void call_0022b650(struct Obj_221eb0*);
 };
 struct Obj_221eb0 {
     char pad[0x40];
@@ -190,7 +190,7 @@ class Inner_221ee0 {
 class Obj_221ee0 {
   public:
     void Run();
-    void Other();
+    void Other_0022c1b0();
     char pad0[0x40];
     Inner_221ee0 inner;
     int state;
@@ -198,7 +198,7 @@ class Obj_221ee0 {
 class Obj2_221f70 {
   public:
     char pad[0x40];
-    void callee1(int, int);
+    void callee1_0022b4d0(int, int);
 };
 struct MatrixData_221f90 {
     float matrix[4][4];
@@ -276,7 +276,7 @@ class PartitionDriver {
     virtual ~PartitionDriver();
     char pad[12];
     Member_2222d0* mChild;
-    void Finish();
+    void Finish_0022a910();
 };
 
 
@@ -305,7 +305,7 @@ void Obj_221b70::Copy(const Block_221b70* src) {
 // sym: ?Run@Obj_221ba0@fn_f403c6ef@@QAEPAV12@PAUPair_221ba0@2@H@Z
 // Same code shape as 0x0030f0a0 (propagated; names are from that function)
 Obj_221ba0* Obj_221ba0::Run(Pair_221ba0* src, int x) {
-    First();
+    First_0022b980();
     ((owners::Target_22be40 *)this)->FUN_0022be40((const int *)(hulk_uintptr)(int)x);
     value = *src;
     flag = 1;
@@ -326,7 +326,7 @@ void X_221be0::Copy(const X_221be0& other) {
 // 0x00221c20 FUN_00221c20 (31 B): matches/0x00221c20.cpp
 // sym: ?Run@Thing_221c20@fn_f403c6ef@@QAEXXZ
 void Thing_221c20::Run() {
-    Init();
+    Init_0022b980();
     c = 0;
     b = 0;
     a = 0;
@@ -339,7 +339,7 @@ void Thing_221c20::Run() {
 // sym: ?target@Obj_221c40@fn_f403c6ef@@QAEPAU12@XZ
 Obj_221c40* Obj_221c40::target() {
     if (state == 1) {
-        sub.F(this);
+        sub.FnF_0022b650(this);
         state = 0;
     }
     return this;
@@ -393,7 +393,7 @@ void Obj_221cf0::Set(const Four_221cf0& p) {
 // sym: ?Fn@Obj@fn_f403c6ef@@QAEXH@Z
 void Obj::Fn(int x) {
     Four v;
-    v.Set(x);
+    v.Set_0022b1c0(x);
     f = v;
     flag = 1;
 }
@@ -426,11 +426,11 @@ void Obj_221d60::Fn(Obj_221d60* other, float t) {
 void Obj_221df0::Run(Obj_221df0* other) {
     Obj_221df0* self = this;
     if (self->state == 1) {
-        self->sub.Fn(self);
+        self->sub.Fn_0022b650(self);
         self->state = 0;
     }
     if (other->state == 1) {
-        other->sub.Fn(other);
+        other->sub.Fn_0022b650(other);
         other->state = 0;
     }
     Tmp_221df0 tmp;
@@ -446,7 +446,7 @@ void Obj_221df0::Run(Obj_221df0* other) {
 void owners::Obj_221e60::FUN_00221e60(hulk_uintptr arg) {
     char local[0x40];
     if (state == 1) {
-        ((Work_221e60*)((char*)this + 0x40))->First(this);
+        ((Work_221e60*)((char*)this + 0x40))->First_0022b650(this);
         state = 0;
     }
     ((owners::Matrix_22ca90 *)(((Work_221e60*)local)))->FUN_0022ca90((const owners::Matrix_22ca90 *)(owners :: Obj_221e60 *)this, (const owners::Matrix_22ca90 *)(hulk_uintptr)(unsigned int)(((unsigned int)arg)));
@@ -463,7 +463,7 @@ namespace fn_f403c6ef {
 // sym: ?target@Obj_221eb0@fn_f403c6ef@@QAEXXZ
 void Obj_221eb0::target() {
     if (state == 1) {
-        sub.call(this);
+        sub.call_0022b650(this);
         state = 0;
     }
     ((owners::Matrix_22c120 *)this)->FUN_0022c120();
@@ -483,7 +483,7 @@ void Obj_221ee0::Run() {
         ((owners::Vec4_22b120 *)&inner)->FUN_0022b120();
         break;
     case 2:
-        Other();
+        Other_0022c1b0();
         break;
     }
 }
@@ -495,7 +495,7 @@ void Obj_221ee0::Run() {
 namespace fn_00221f20 {
 class Obj;
 struct Sub {
-    void reset(Obj*);
+    void reset_0022b650(Obj*);
 };
 class Obj {
     char pad[0x40];
@@ -513,7 +513,7 @@ void Obj::dispatch(hulk_intptr a, hulk_intptr b) {
         ((owners::Mat_22c2b0 *)this)->FUN_0022c2b0((float *)(hulk_uintptr)(int)a, (float *)(hulk_uintptr)(int)b);
         break;
     case 1:
-        sub.reset(this);
+        sub.reset_0022b650(this);
         state = 0;
         ((owners::Mat_22c2b0 *)this)->FUN_0022c2b0((float *)(hulk_uintptr)(int)a, (float *)(hulk_uintptr)(int)b);
         break;
@@ -530,7 +530,7 @@ void owners::Obj_221f70::FUN_00221f70(hulk_intptr a, hulk_intptr b) {
     case 2:
         return callee2(((int)a), ((int)b));
     case 1:
-        return ((Obj2_221f70*)((char*)this + 0x40))->callee1(((int)a), ((int)b));
+        return ((Obj2_221f70*)((char*)this + 0x40))->callee1_0022b4d0(((int)a), ((int)b));
     }
 }
 
@@ -674,7 +674,7 @@ void Xform_222230::FUN_00222230(void* a, void* b)
 // sym: ??1PartitionDriver@fn_f403c6ef@@UAE@XZ
 PartitionDriver::~PartitionDriver() {
     mChild->f1();
-    Finish();
+    Finish_0022a910();
 }
 
 } // namespace fn_f403c6ef

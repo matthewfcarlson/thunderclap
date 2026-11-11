@@ -26,7 +26,7 @@ struct Obj {
     unsigned char b;
     Obj() { b = 1; }
     ~Obj();
-    void Init();
+    void Init_003572b0();
 };
 
 
@@ -300,7 +300,7 @@ namespace fn_f10b45e7 {
 // sym: ?getObj@fn_f10b45e7@@YAPAUObj@1@XZ
 Obj* getObj() {
     static Obj obj;
-    obj.Init();
+    obj.Init_003572b0();
     return &obj;
 }
 

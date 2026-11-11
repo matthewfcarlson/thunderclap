@@ -23,7 +23,7 @@ struct CompositeDrawable {
     void* vf;
     char pad[0x3c];
     int a, b, c, d, e;
-    void Init();
+    void Init_002a3480();
     CompositeDrawable* Run();
 };
 class ParamValue_298270 {
@@ -452,7 +452,7 @@ class DrawableHierarchy_299250 {
 class CompositeDrawable_299250 : public DrawableHierarchy_299250 {
   public:
     virtual ~CompositeDrawable_299250() throw();
-    void Clear();
+    void Clear_00299080();
     Ref_299250* a;
     Ref_299250* b;
     Ref_299250* c;
@@ -515,7 +515,7 @@ class CompositeDrawableLoader {
     int e;
     CompositeDrawableLoader();
 };
-extern void* g_vftable_299830[];
+extern void* hulk_at_0042d50c[];
 } // namespace fn_f40ca5f7
 void operator delete(void*);
 namespace fn_f40ca5f7 {
@@ -616,14 +616,14 @@ class Obj {
     virtual void f(DynamicCaster_299bc0*, unsigned __int64);
 };
 extern "C" unsigned __int64 __cdecl Make(int);
-extern int vt1_299cd0;
-extern void* Alloc(hulk_uintptr) throw();
+extern int hulk_at_0042d51c;
+extern void* Alloc_0008d6d0(hulk_uintptr) throw();
 struct Buf_299cd0 {
     char* b;
     char* e;
     void Init(unsigned n) throw() {
         if (n > 0) {
-            b = (char*)Alloc(n);
+            b = (char*)Alloc_0008d6d0(n);
             if (b) {
                 e = b + n;
                 return;
@@ -634,7 +634,7 @@ struct Buf_299cd0 {
     }
 };
 struct Sub_299cd0 {
-    void Fill(unsigned, const unsigned char*) throw();
+    void Fill_00299540(unsigned, const unsigned char*) throw();
 };
 class ActivePrimitiveList_299cd0 {
   public:
@@ -653,14 +653,14 @@ class ActivePrimitiveList_299cd0 {
     Sub_299cd0 s3c;
     ActivePrimitiveList_299cd0(unsigned char n) throw();
 };
-extern void __cdecl Release(void*) throw();
+extern void __cdecl Release_0008d340(void*) throw();
 extern void __cdecl FUN_00299ac0(void*, void*) throw();
 template <int N> struct Buf_299fa0 {
     void* p;
     char pad[N - 4];
     ~Buf_299fa0() {
         if (p)
-            Release(p);
+            Release_0008d340(p);
     }
 };
 struct Range_299fa0 {
@@ -669,7 +669,7 @@ struct Range_299fa0 {
     ~Range_299fa0() {
         if (b) {
             FUN_00299ac0(b, e);
-            Release(b);
+            Release_0008d340(b);
         }
     }
 };
@@ -689,9 +689,9 @@ class ActivePrimitiveList_299fa0 : public IRefCount {
 };
 class Allocated_29a170 {
   public:
-    hulk_intptr method(pure3d::CompositeDrawable*);
+    hulk_intptr method_0029a010(pure3d::CompositeDrawable*);
 };
-extern Allocated_29a170* alloc(int);
+extern Allocated_29a170* alloc_00263ea0(int);
 
 
 // 0x002980b0 FUN_002980b0 (90 B): equivalent/0x002980b0.cpp
@@ -725,7 +725,7 @@ extern "C" int __cdecl FUN_00298180(int value) {
 // 0x00298230 FUN_00298230 (35 B): matches/0x00298230.cpp
 // sym: ?Run@CompositeDrawable@fn_f40ca5f7@@QAEPAU12@XZ
 CompositeDrawable* CompositeDrawable::Run() {
-    Init();
+    Init_002a3480();
     a = 0;
     b = 0;
     c = 0;
@@ -1183,7 +1183,7 @@ namespace fn_f40ca5f7 {
 // 0x00299250 FUN_00299250 (101 B): matches/0x00299250.cpp
 // sym: ??1CompositeDrawable_299250@fn_f40ca5f7@@UAE@XZ
 CompositeDrawable_299250::~CompositeDrawable_299250() throw() {
-    Clear();
+    Clear_00299080();
     if (a) {
         a->Release();
         a = 0;
@@ -1272,7 +1272,7 @@ class SimpleChunkHandler_299430 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_299430 {
   public:
@@ -1283,7 +1283,7 @@ class NonCopyable : public SimpleChunkHandler_299430 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1408,7 +1408,7 @@ namespace fn_f40ca5f7 {
 // 0x00299830 FUN_00299830 (120 B): matches/0x00299830.cpp
 // sym: ??1ActiveControllerList_299830@fn_f40ca5f7@@QAE@XZ
 ActiveControllerList_299830::~ActiveControllerList_299830() {
-    vptr = g_vftable_299830;
+    vptr = hulk_at_0042d50c;
     _ReadWriteBarrier();
     hulk_uintptr n = m28 - m24;
     for (unsigned i = 0; i < n; i++) {
@@ -1638,14 +1638,14 @@ namespace fn_f40ca5f7 {
 // sym: ??0ActivePrimitiveList_299cd0@fn_f40ca5f7@@QAE@E@Z
 ActivePrimitiveList_299cd0::ActivePrimitiveList_299cd0(unsigned char n) throw() {
     a4 = 0;
-    vptr = &vt1_299cd0;
+    vptr = &hulk_at_0042d51c;
     x8.Init(0x20);
     x14.Init(0x20);
     unsigned len = n;
     c20 = 0;
     x24.Init(len);
     x30.Init(len);
-    s3c.Fill(len, &n);
+    s3c.Fill_00299540(len, &n);
     for (unsigned i = 0; i < 0x20; i++) {
         x8.b[i] = 0;
         x14.b[i] = 0;
@@ -1874,7 +1874,7 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
     virtual void vfunc_9();
-    virtual void hulk_slot_vfunc_10(void *clock); void vfunc_10(void *clock);
+    virtual void hulk_slot_vfunc_10(void *clock); void vfunc_10_00298f00(void *clock);
     virtual void vfunc_11();
     virtual void vfunc_12();
     Clock_29a010 *clock;
@@ -1917,7 +1917,7 @@ pure3d::CompositeDrawable::CompositeDrawable(const CompositeDrawable &src)
         }
     }
     if (src.clock != 0)
-        vfunc_10(src.clock->FUN_002842f0());
+        vfunc_10_00298f00(src.clock->FUN_002842f0());
 
     if (src.sink4c != 0) {
         Sink4c *s = src.sink4c->s4();
@@ -1948,9 +1948,9 @@ pure3d::CompositeDrawable::CompositeDrawable(const CompositeDrawable &src)
 // 0x0029a170 pure3d::CompositeDrawable::vfunc_4 (31 B): matches/0x0029a170.cpp
 // sym: ?vfunc_4@CompositeDrawable@pure3d@@UAEPAXXZ
 void* pure3d::CompositeDrawable::vfunc_4() {
-    Allocated_29a170* p = alloc(0x58);
+    Allocated_29a170* p = alloc_00263ea0(0x58);
     if (p)
-        return (void*)(p->method(this));
+        return (void*)(p->method_0029a010(this));
     return (void*)(0);
 }
 

@@ -235,7 +235,7 @@ public:
     Settings_24a510* FUN_0024a510(int ownerArg);
 };
 typedef unsigned int u32_24a590;
-extern void __cdecl F47550(void*, u32_24a590);
+extern void __cdecl F47550_00247550(void*, u32_24a590);
 struct Obj_24a590 {
     char pad[0x3c];
     u32_24a590 m3c;
@@ -335,9 +335,9 @@ class Obj_24a7a0 {
     int m40;
     Obj_24a7a0* Update(u8_24a7a0);
 };
-extern void Copy(void*, hulk_intptr);
+extern void Copy_00247550(void*, hulk_intptr);
 struct Obj_24ace0 {
-    int Do(int, int, int, int, int, int);
+    int Do_0024a5d0(int, int, int, int, int, int);
 };
 extern "C" hulk_intptr __cdecl GetThing(void*);
 struct Child;
@@ -396,12 +396,12 @@ struct Registry {
 };
 struct Obj_24ae50 {
     int x;
-    void Helper();
+    void Helper_0024ad20();
     Obj_24ae50* Bar(unsigned char flag);
 };
 void __cdecl FUN_00247550(void*, Obj_24ae50*);
 struct Obj_24af00 {
-    void Clean();
+    void Clean_0024ad20();
 };
 struct X {
     int a;
@@ -700,12 +700,12 @@ extern "C" void FUN_00258b40(int h, int one);
 hulk_intptr FUN_0025e070();
 int FUN_0025d040(int h);
 extern "C" void FUN_0025e550(Sub_24be00 *s, int a, int b, int c);
-extern void F24bae0(void*, int);
+extern void F24bae0_0024bae0(void*, int);
 extern "C" void FUN_00259b40(void*);
 extern "C" void FUN_0025d300(void*);
 extern "C" void FUN_0025e280(void*);
-extern void* F25e070();
-extern void F247550(void*, void*);
+extern void* F25e070_0025e070();
+extern void F247550_00247550(void*, void*);
 struct Obj_24bf90 {
     void* a;
     void* b;
@@ -2886,8 +2886,8 @@ Settings_24a510* Settings_24a510::FUN_0024a510(int ownerArg) {
 // 0x0024a590 FUN_0024a590 (54 B): matches/0x0024a590.cpp
 // sym: ?target@fn_f9a518a5@@YIXPAUObj_24a590@1@PAX@Z
 void __fastcall target(Obj_24a590* p, void*) {
-    F47550((void*)((hulk_intptr)((char*)((char*)&DAT_004e6158))), p->m40);
-    F47550((void*)((hulk_intptr)DAT_004e6110), p->m3c);
+    F47550_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e6158))), p->m40);
+    F47550_00247550((void*)((hulk_intptr)DAT_004e6110), p->m3c);
     char* q = (char*)p + 0x50;
     FUN_0024a450(q + 0x14);
     FUN_0024a4a0(q);
@@ -2974,13 +2974,13 @@ StreamVoice::StreamVoice(int a0, int a1, Source_24a5d0 *a2, void *a3, int a4, au
 // 0x0024a7a0 FUN_0024a7a0 (82 B): matches/0x0024a7a0.cpp
 // sym: ?Update@Obj_24a7a0@fn_f9a518a5@@QAEPAV12@E@Z
 Obj_24a7a0* Obj_24a7a0::Update(u8_24a7a0 flag) {
-    Copy((void*)((hulk_intptr)((char*)((char*)&DAT_004e6158))), m40);
-    Copy((void*)((hulk_intptr)DAT_004e6110), m3c);
+    Copy_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e6158))), m40);
+    Copy_00247550((void*)((hulk_intptr)DAT_004e6110), m3c);
     char* base = (char*)this + 0x50;
     FUN_0024a450(base + 0x14);
     FUN_0024a4a0(base);
     if (flag & 1)
-        Copy((void*)((hulk_intptr)DAT_004e60c8), (hulk_intptr)this);
+        Copy_00247550((void*)((hulk_intptr)DAT_004e60c8), (hulk_intptr)this);
     return this;
 }
 
@@ -3444,7 +3444,7 @@ namespace fn_f9a518a5 {
 extern "C" int __cdecl FUN_0024ace0(int a, hulk_intptr b, int c, int d, int e, hulk_intptr f) {
     Obj_24ace0* p = (Obj_24ace0*)GetThing((void*)((hulk_intptr)DAT_004e5fa8));
     if (p)
-        return p->Do(a, b, c, d, e, f);
+        return p->Do_0024a5d0(a, b, c, d, e, f);
     return 0;
 }
 
@@ -3516,7 +3516,7 @@ void Registry::FUN_0024ad20()
 // 0x0024ae50 FUN_0024ae50 (35 B): matches/0x0024ae50.cpp
 // sym: ?Bar@Obj_24ae50@fn_f9a518a5@@QAEPAU12@E@Z
 Obj_24ae50* Obj_24ae50::Bar(unsigned char flag) {
-    Helper();
+    Helper_0024ad20();
     if (flag & 1)
         FUN_00247550((void*)((hulk_intptr)DAT_004e5fa8), this);
     return this;
@@ -3527,7 +3527,7 @@ Obj_24ae50* Obj_24ae50::Bar(unsigned char flag) {
 // sym: _FUN_0024af00
 extern "C" void __cdecl FUN_0024af00(Obj_24af00* object) {
     if (object) {
-        object->Clean();
+        object->Clean_0024ad20();
         FUN_00247550(((char*)&DAT_004e5fa8), object);
     }
 }
@@ -4179,16 +4179,16 @@ extern "C" void *FUN_0024be00(int a1, int a2, int a3, int a4, int a5, int a6, in
 // 0x0024bf90 FUN_0024bf90 (176 B): matches/0x0024bf90.cpp
 // sym: _FUN_0024bf90
 extern "C" void FUN_0024bf90(void * p) {
-    F24bae0(((Obj_24bf90 *)p), 1);
+    F24bae0_0024bae0(((Obj_24bf90 *)p), 1);
     FUN_00259b40(((Obj_24bf90 *)p)->c);
     FUN_0025d300(((Obj_24bf90 *)p)->d);
     FUN_0025e280(((Obj_24bf90 *)p)->e);
     if (((Obj_24bf90 *)p)->e)
-        F247550(F25e070(), ((Obj_24bf90 *)p)->e);
+        F247550_00247550(F25e070_0025e070(), ((Obj_24bf90 *)p)->e);
     if (((Obj_24bf90 *)p)->f) {
         FUN_0025e280(((Obj_24bf90 *)p)->f);
         if (((Obj_24bf90 *)p)->f)
-            F247550(F25e070(), ((Obj_24bf90 *)p)->f);
+            F247550_00247550(F25e070_0025e070(), ((Obj_24bf90 *)p)->f);
     }
     if (!((Obj_24bf90 *)p)->b)
         (*(void**)&DAT_004e61e8) = ((Obj_24bf90 *)p)->a;
@@ -4198,7 +4198,7 @@ extern "C" void FUN_0024bf90(void * p) {
         (*(void**)&DAT_004e61ec) = ((Obj_24bf90 *)p)->b;
     else
         *(void**)((char*)((Obj_24bf90 *)p)->a + 4) = ((Obj_24bf90 *)p)->b;
-    F247550(((char*)&DAT_004e61a0), ((Obj_24bf90 *)p));
+    F247550_00247550(((char*)&DAT_004e61a0), ((Obj_24bf90 *)p));
 }
 
 

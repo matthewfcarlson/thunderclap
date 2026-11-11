@@ -19,7 +19,7 @@ class SymMatrix_2fca90 {
     SymMatrix_2fca90();
     virtual ~SymMatrix_2fca90();
 };
-extern void* IRefCount_vftable_2fcaa0;
+extern void* hulk_at_004315d0;
 struct Matrix { int tag; float m11,m12,m13,m22,m23,m33; void FUN_002fcc10(const Matrix* a,const Matrix* b); };
 struct Mat34 {
     float m00, m01, m02, m03;
@@ -58,7 +58,7 @@ SymMatrix_2fca90::SymMatrix_2fca90() {}
 // sym: @FUN_002fcaa0@4
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 extern "C" void __fastcall FUN_002fcaa0(void* self) {
-    *(void**)self = &IRefCount_vftable_2fcaa0;
+    *(void**)self = &hulk_at_004315d0;
 }
 
 } // namespace fn_f9c93d4f

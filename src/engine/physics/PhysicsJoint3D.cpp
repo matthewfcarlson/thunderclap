@@ -210,7 +210,7 @@ class Thing_309b80 {
 extern "C" void FUN_00305800(int*, int, float);
 extern "C" void* alloc(hulk_uintptr);
 struct ThisCall_003099d0 {
-    void called();
+    void called_003099d0();
 };
 union FloatBits_30a270 {
     float f;
@@ -577,13 +577,13 @@ class Obj_30c830 {
     char pad[0xf8];
     unsigned char b;
     unsigned int w0, w1, w2, w3, w4, w5, w6, w7, w8;
-    void CopyBase(const Obj_30c830&);
+    void CopyBase_0030c690(const Obj_30c830&);
     Obj_30c830& Copy(const Obj_30c830&);
 };
 extern "C" char DAT_00431de4[];
 class SymMatrix_30cbb0 {
   public:
-    void Init();
+    void Init_002fcaa0();
 };
 class PhysicsJoint {
   public:
@@ -591,7 +591,7 @@ class PhysicsJoint {
     int m20;
     hulk_intptr m24;
 };
-extern void __cdecl AddRef(void*);
+extern void __cdecl AddRef_0008d340(void*);
 } // namespace fn_fca90e00
 namespace physics {
 class PhysicsJoint_30ce20 {
@@ -782,10 +782,10 @@ struct Vec3 { float x, y, z; };
 }
 namespace fn_fca90e00 {
 struct SymMatrix_30d3a0 {
-    void Destruct();
+    void Destruct_002fcaa0();
 };
-extern "C" void __cdecl FreeBuf(void*);
-extern "C" void __cdecl DeleteObj(void*);
+extern "C" void __cdecl FreeBuf_0008d340(void*);
+extern "C" void __cdecl DeleteObj_0008d330(void*);
 class PhysicsJoint0D_30d3a0 {
   public:
     void* vptr;
@@ -800,7 +800,7 @@ class PhysicsJoint0D_30d3a0 {
     void* vfunc_0(int flags);
 };
 struct SymMatrix_30d420 {
-    void Destruct();
+    void Destruct_002fcaa0();
 };
 class PhysicsJoint1D_30d420 {
   public:
@@ -816,7 +816,7 @@ class PhysicsJoint1D_30d420 {
     void* vfunc_0(int flags);
 };
 struct SymMatrix_30d4a0 {
-    void Destruct();
+    void Destruct_002fcaa0();
 };
 class PhysicsJoint3D_30d4a0 {
   public:
@@ -832,7 +832,7 @@ class PhysicsJoint3D_30d4a0 {
     void* vfunc_0(int flags);
 };
 struct SymMatrix_30d590 {
-    void Init() throw();
+    void Init_002fca90() throw();
     char b[0x1c];
 };
 struct PhysicsJoint0D_30d590;
@@ -877,10 +877,10 @@ struct PhysicsJoint_30d590 {
         m20 = 0;
         m24 = 0;
         m28 = 0;
-        h48.Init();
-        h64.Init();
+        h48.Init_002fca90();
+        h64.Init_002fca90();
     }
-    void Init(PhysicsJoint_30d590* owner);
+    void Init_0030c690(PhysicsJoint_30d590* owner);
 };
 struct PhysicsJoint0D_30d590 : PhysicsJoint_30d590 {
     PhysicsJoint0D_30d590() throw() {}
@@ -889,13 +889,13 @@ struct PhysicsJoint0D_30d590 : PhysicsJoint_30d590 {
 } // namespace fn_fca90e00
 void* operator new(size_t);
 namespace fn_fca90e00 {
-extern "C" void* ALLOC(int);
-extern int PhysicsJoint_vftable;
-extern int PhysicsJoint3D_vftable;
+extern "C" void* ALLOC_0008d690(int);
+extern int hulk_at_00431de4;
+extern int hulk_at_00431f4c;
 class Sub_30d650 {
   public:
     char data[0x1c];
-    void Init();
+    void Init_002fca90();
 };
 struct Obj_30d650 {
     void* m_vtable;
@@ -1445,7 +1445,7 @@ bool owners::Buffer_30a130::FUN_0030a130(int n) {
 // sym: ?FUN_0030a260@C_30a260@owners@@QAEXH@Z
 void owners::C_30a260::FUN_0030a260(hulk_intptr x) {
     value = ((int)x);
-    ((ThisCall_003099d0*)(this))->called();
+    ((ThisCall_003099d0*)(this))->called_003099d0();
 }
 
 namespace fn_fca90e00 {
@@ -2591,13 +2591,13 @@ namespace fn_0030c0a0 {
 struct C3_30c0a0 {
 };
 struct C2_30c0a0 {
-    C3_30c0a0* G();
+    C3_30c0a0* FnG_0030f100();
 };
 struct C1_30c0a0 {
-    C2_30c0a0* F();
+    C2_30c0a0* FnF_0030edf0();
 };
 struct Mgr_30c0a0 {
-    C1_30c0a0* Find(int id);
+    C1_30c0a0* Find_0030f490(int id);
 };
 struct Tbl_30c0a0 {
     char pad[0x10];
@@ -2608,7 +2608,7 @@ struct Own_30c0a0 {
     Mgr_30c0a0* mgr;
     char pad2[0x220 - 0x20c];
     Tbl_30c0a0* tbl;
-    C1_30c0a0* Find(int id) { return mgr->Find(id); }
+    C1_30c0a0* Find(int id) { return mgr->Find_0030f490(id); }
 };
 class PhysicsJoint {
   public:
@@ -2652,13 +2652,13 @@ class PhysicsJoint1D : public PhysicsJoint {
     virtual void vfunc_10(int);
     char pad3[0xfc - 0x1c];
     char blob[4];
-    void Fin();
+    void Fin_0030b3a0();
 };
 void PhysicsJoint1D::vfunc_10(int a) {
     PhysicsJoint::vfunc_10(a);
-    C3_30c0a0* c = mOwn->Find(mC)->F()->G();
+    C3_30c0a0* c = mOwn->Find(mC)->FnF_0030edf0()->FnG_0030f100();
     ((owners::M_22c3b0 *)c)->FUN_0022c3b0((float *)(mOwn->tbl->data + m8 * 0x1c + 0xc), (float *)blob);
-    Fin();
+    Fin_0030b3a0();
     f25();
 }
 } // namespace fn_0030c0a0
@@ -2817,13 +2817,13 @@ class PhysicsJoint1D : public PhysicsJoint {
 };
 } // namespace physics
 struct ThisCall_0030b2c0 {
-    float other(float);
+    float other_0030b2c0(float);
 };
 float physics::PhysicsJoint1D::vfunc_20(float* p) {
     float d = z * p[2] + y * p[1] + x * p[0];
     if (d == DAT_003f32e0)
         return DAT_003f32dc;
-    return ((ThisCall_0030b2c0*)(this))->other(d);
+    return ((ThisCall_0030b2c0*)(this))->other_0030b2c0(d);
 }
 } // namespace fn_0030c3f0
 
@@ -3058,7 +3058,7 @@ State_30c690 *State_30c690::FUN_0030c690(const State_30c690 *other)
 // 0x0030c830 FUN_0030c830 (141 B): matches/0x0030c830.cpp
 // sym: ?Copy@Obj_30c830@fn_fca90e00@@QAEAAV12@ABV12@@Z
 Obj_30c830& Obj_30c830::Copy(const Obj_30c830& src) {
-    CopyBase(src);
+    CopyBase_0030c690(src);
     b = src.b;
     w0 = src.w0;
     w1 = src.w1;
@@ -3253,12 +3253,12 @@ namespace fn_fca90e00 {
 // sym: ?Target@fn_fca90e00@@YIXPAVPhysicsJoint@1@@Z
 void __fastcall Target(PhysicsJoint* self) {
     *(hulk_intptr*)self = ((hulk_intptr)DAT_00431de4);
-    ((SymMatrix_30cbb0*)((char*)self + 0x64))->Init();
-    ((SymMatrix_30cbb0*)((char*)self + 0x48))->Init();
+    ((SymMatrix_30cbb0*)((char*)self + 0x64))->Init_002fcaa0();
+    ((SymMatrix_30cbb0*)((char*)self + 0x48))->Init_002fcaa0();
     hulk_intptr value = self->m20;
     self->m24 = value;
     if (value)
-        AddRef((void*)value);
+        AddRef_0008d340((void*)value);
 }
 
 
@@ -3419,7 +3419,7 @@ extern "C" char DAT_00431de4[];
 // Same code shape as 0x0030cbb0 (propagated; names are from that function)
 class SymMatrix_30cd60 {
   public:
-    void Init();
+    void Init_002fcaa0();
 };
 class PhysicsJoint {
   public:
@@ -3427,15 +3427,15 @@ class PhysicsJoint {
     int m20;
     hulk_intptr m24;
 };
-extern void __cdecl AddRef(void*);
+extern void __cdecl AddRef_0008d340(void*);
 void __fastcall Target(PhysicsJoint* self) {
     *(hulk_intptr*)self = ((hulk_intptr)DAT_00431de4);
-    ((SymMatrix_30cd60*)((char*)self + 0x64))->Init();
-    ((SymMatrix_30cd60*)((char*)self + 0x48))->Init();
+    ((SymMatrix_30cd60*)((char*)self + 0x64))->Init_002fcaa0();
+    ((SymMatrix_30cd60*)((char*)self + 0x48))->Init_002fcaa0();
     hulk_intptr value = self->m20;
     self->m24 = value;
     if (value)
-        AddRef((void*)value);
+        AddRef_0008d340((void*)value);
 }
 } // namespace fn_0030cd60
 
@@ -3446,7 +3446,7 @@ namespace fn_0030cdb0 {
 extern "C" char DAT_00431ed4[];
 class PhysicsJoint_30cdb0 {
   public:
-    void Init(int, int, int);
+    void Init_0030ca80(int, int, int);
 };
 class PhysicsJoint1D : public PhysicsJoint_30cdb0 {
   public:
@@ -3457,7 +3457,7 @@ class PhysicsJoint1D : public PhysicsJoint_30cdb0 {
     PhysicsJoint1D* Init1(int, int, int);
 };
 PhysicsJoint1D* PhysicsJoint1D::Init1(int a, int b, int c) {
-    PhysicsJoint_30cdb0::Init(a, b, c);
+    PhysicsJoint_30cdb0::Init_0030ca80(a, b, c);
     mFlag = 0;
     m108 = 0;
     m11c = 0;
@@ -3593,7 +3593,7 @@ extern "C" char DAT_00431de4[];
 // Same code shape as 0x0030cbb0 (propagated; names are from that function)
 class SymMatrix_30d000 {
   public:
-    void Init();
+    void Init_002fcaa0();
 };
 class PhysicsJoint {
   public:
@@ -3601,15 +3601,15 @@ class PhysicsJoint {
     int m20;
     hulk_intptr m24;
 };
-extern void __cdecl AddRef(void*);
+extern void __cdecl AddRef_0008d340(void*);
 void __fastcall Target(PhysicsJoint* self) {
     *(hulk_intptr*)self = ((hulk_intptr)DAT_00431de4);
-    ((SymMatrix_30d000*)((char*)self + 0x64))->Init();
-    ((SymMatrix_30d000*)((char*)self + 0x48))->Init();
+    ((SymMatrix_30d000*)((char*)self + 0x64))->Init_002fcaa0();
+    ((SymMatrix_30d000*)((char*)self + 0x48))->Init_002fcaa0();
     hulk_intptr value = self->m20;
     self->m24 = value;
     if (value)
-        AddRef((void*)value);
+        AddRef_0008d340((void*)value);
 }
 } // namespace fn_0030d000
 
@@ -3815,7 +3815,7 @@ extern "C" char DAT_00431de4[];
 // Same code shape as 0x0030cbb0 (propagated; names are from that function)
 class SymMatrix_30d2f0 {
   public:
-    void Init();
+    void Init_002fcaa0();
 };
 class PhysicsJoint {
   public:
@@ -3823,15 +3823,15 @@ class PhysicsJoint {
     int m20;
     hulk_intptr m24;
 };
-extern void __cdecl AddRef(void*);
+extern void __cdecl AddRef_0008d340(void*);
 void __fastcall Target(PhysicsJoint* self) {
     *(hulk_intptr*)self = ((hulk_intptr)DAT_00431de4);
-    ((SymMatrix_30d2f0*)((char*)self + 0x64))->Init();
-    ((SymMatrix_30d2f0*)((char*)self + 0x48))->Init();
+    ((SymMatrix_30d2f0*)((char*)self + 0x64))->Init_002fcaa0();
+    ((SymMatrix_30d2f0*)((char*)self + 0x48))->Init_002fcaa0();
     hulk_intptr value = self->m20;
     self->m24 = value;
     if (value)
-        AddRef((void*)value);
+        AddRef_0008d340((void*)value);
 }
 } // namespace fn_0030d2f0
 
@@ -3840,11 +3840,11 @@ void __fastcall Target(PhysicsJoint* self) {
 // sym: ?vfunc_0@PhysicsJoint@fn_0030d320@@QAEPAXH@Z
 namespace fn_0030d320 {
 struct SymMatrix_30d320 {
-    void Destruct();
+    void Destruct_002fcaa0();
 };
 
-extern "C++" __declspec(nothrow) void __cdecl FreeBuf(void*);
-extern "C++" __declspec(nothrow) void __cdecl DeleteObj(void*);
+extern "C++" __declspec(nothrow) void __cdecl FreeBuf_0008d340(void*);
+extern "C++" __declspec(nothrow) void __cdecl DeleteObj_0008d330(void*);
 extern "C" char DAT_00431de4[];
 
 class PhysicsJoint {
@@ -3864,14 +3864,14 @@ class PhysicsJoint {
 void* PhysicsJoint::vfunc_0(int flags) {
     SymMatrix_30d320* p = &m64;
     vptr = (void*)DAT_00431de4;
-    p->Destruct();
-    m48.Destruct();
+    p->Destruct_002fcaa0();
+    m48.Destruct_002fcaa0();
     hulk_intptr v = m20;
     m24 = v;
     if (v)
-        FreeBuf((void*)v);
+        FreeBuf_0008d340((void*)v);
     if (flags & 1)
-        DeleteObj(this);
+        DeleteObj_0008d330(this);
     return this;
 }
 } // namespace fn_0030d320
@@ -3917,14 +3917,14 @@ namespace fn_fca90e00 {
 void* PhysicsJoint0D_30d3a0::vfunc_0(int flags) {
     SymMatrix_30d3a0* p = &m64;
     vptr = (void*)DAT_00431de4;
-    p->Destruct();
-    m48.Destruct();
+    p->Destruct_002fcaa0();
+    m48.Destruct_002fcaa0();
     hulk_intptr v = m20;
     m24 = v;
     if (v)
-        FreeBuf((void*)v);
+        FreeBuf_0008d340((void*)v);
     if (flags & 1)
-        DeleteObj(this);
+        DeleteObj_0008d330(this);
     return this;
 }
 
@@ -3970,14 +3970,14 @@ namespace fn_fca90e00 {
 void* PhysicsJoint1D_30d420::vfunc_0(int flags) {
     SymMatrix_30d420* p = &m64;
     vptr = (void*)DAT_00431de4;
-    p->Destruct();
-    m48.Destruct();
+    p->Destruct_002fcaa0();
+    m48.Destruct_002fcaa0();
     hulk_intptr v = m20;
     m24 = v;
     if (v)
-        FreeBuf((void*)v);
+        FreeBuf_0008d340((void*)v);
     if (flags & 1)
-        DeleteObj(this);
+        DeleteObj_0008d330(this);
     return this;
 }
 
@@ -4023,14 +4023,14 @@ namespace fn_fca90e00 {
 void* PhysicsJoint3D_30d4a0::vfunc_0(int flags) {
     SymMatrix_30d4a0* p = &m64;
     vptr = (void*)DAT_00431de4;
-    p->Destruct();
-    m48.Destruct();
+    p->Destruct_002fcaa0();
+    m48.Destruct_002fcaa0();
     hulk_intptr v = m20;
     m24 = v;
     if (v)
-        FreeBuf((void*)v);
+        FreeBuf_0008d340((void*)v);
     if (flags & 1)
-        DeleteObj(this);
+        DeleteObj_0008d330(this);
     return this;
 }
 
@@ -4115,7 +4115,7 @@ namespace fn_fca90e00 {
 // sym: ?d27@PhysicsJoint0D_30d590@fn_fca90e00@@UAEPAUPhysicsJoint_30d590@2@XZ
 PhysicsJoint_30d590* PhysicsJoint0D_30d590::d27() {
     PhysicsJoint0D_30d590* r = new PhysicsJoint0D_30d590;
-    r->Init(this);
+    r->Init_0030c690(this);
     this->v28(r);
     return r;
 }
@@ -4183,13 +4183,13 @@ class PhysicsJoint {
 class PhysicsJoint1D : public PhysicsJoint {
   public:
     PhysicsJoint1D() throw() {}
-    void Init(PhysicsJoint1D*);
+    void Init_0030c830(PhysicsJoint1D*);
     virtual PhysicsJoint* vf27();
 };
 
 PhysicsJoint* PhysicsJoint1D::vf27() {
     PhysicsJoint1D* clone = new PhysicsJoint1D;
-    clone->Init(this);
+    clone->Init_0030c830(this);
     this->vf28(clone);
     return clone;
 }
@@ -4199,15 +4199,15 @@ PhysicsJoint* PhysicsJoint1D::vf27() {
 // 0x0030d650 physics::PhysicsJoint3D::vfunc_27 (87 B): matches/0x0030d650.cpp
 // sym: ?vfunc_27@PhysicsJoint3D@physics@@UAEPAXXZ
 void* physics::PhysicsJoint3D::vfunc_27() {
-    Obj_30d650* p = (Obj_30d650*)ALLOC(0x15c);
+    Obj_30d650* p = (Obj_30d650*)ALLOC_0008d690(0x15c);
     if (p != 0) {
-        *(void* volatile*)&p->m_vtable = (void*)&PhysicsJoint_vftable;
+        *(void* volatile*)&p->m_vtable = (void*)&hulk_at_00431de4;
         p->a = 0;
         p->b = 0;
         p->c = 0;
-        p->s1.Init();
-        p->s2.Init();
-        *(void* volatile*)&p->m_vtable = (void*)&PhysicsJoint3D_vftable;
+        p->s1.Init_002fca90();
+        p->s2.Init_002fca90();
+        *(void* volatile*)&p->m_vtable = (void*)&hulk_at_00431f4c;
     } else {
         p = 0;
     }

@@ -32,7 +32,7 @@ class I_274a90 {
 class M_274a90 {
   public:
     int dummy;
-    void Call(void* a, int b);
+    void Call_00272b70(void* a, int b);
 };
 class P_274a90 {
   public:
@@ -102,7 +102,7 @@ void core::DriveRequest::FUN_00274a50() {
 // 0x00274a90 core::DriveCancelRequest::vfunc_1 (59 B): matches/0x00274a90.cpp
 // sym: ?vfunc_1@DriveCancelRequest@core@@UAEHXZ
 int core::DriveCancelRequest::vfunc_1() {
-    (*(P_274a90 * *)&this->f_08)->obj->Call((*(P_274a90 * *)&this->f_08), (*(P_274a90 * *)&this->f_08)->x10);
+    (*(P_274a90 * *)&this->f_08)->obj->Call_00272b70((*(P_274a90 * *)&this->f_08), (*(P_274a90 * *)&this->f_08)->x10);
     (*(P_274a90 * *)&this->f_08)->sub.f0();
     (*(P_274a90 * *)&this->f_08)->zero = 0;
     (*(P_274a90 * *)&this->f_08)->sub.f1();

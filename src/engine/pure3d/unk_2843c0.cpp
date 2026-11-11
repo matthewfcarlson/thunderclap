@@ -17,7 +17,7 @@ namespace fn_fffbb65f {} using namespace fn_fffbb65f;
 namespace fn_fffbb65f {
 struct Elem {
     char pad[16];
-    void update(void*);
+    void update_0022b650(void*);
 };
 class Obj {
   public:
@@ -84,7 +84,7 @@ struct Obj_2847f0 {
     char pad[0x1c];
     void* p28;
 };
-void cleanup(void*);
+void cleanup_0008d340(void*);
 void* __cdecl FUN_0008d6d0(unsigned int);
 namespace pure3d {
 struct Pose {
@@ -115,7 +115,7 @@ struct Pose {
 void Obj::run(int) {
     if (dirty) {
         for (unsigned i = 0; i < count; ++i)
-            elems[i].update(data + i * 64);
+            elems[i].update_0022b650(data + i * 64);
         dirty = 0;
         ready = 1;
     }
@@ -325,7 +325,7 @@ void __fastcall target(volatile Obj_2847f0* self) {
         r->B();
         self->m = 0;
     }
-    cleanup(self->p28);
+    cleanup_0008d340(self->p28);
     self->v = (void**)((hulk_intptr)DAT_003f6098);
 }
 
@@ -354,17 +354,17 @@ class Obj {
     Item* items;
     char pad2[4];
     int count;
-    void a(int);
-    void b(int);
-    void c(int);
-    void d(int);
+    void Fna_00284410(int);
+    void Fnb_002843c0(int);
+    void Fnc_00284460(int);
+    void Fnd_002844f0(int);
     void fn(int index, int value, Item* out);
 };
 void Obj::fn(int index, int value, Item* out) {
-    a(value);
-    b(value);
-    c(value);
-    d(value);
+    Fna_00284410(value);
+    Fnb_002843c0(value);
+    Fnc_00284460(value);
+    Fnd_002844f0(value);
     ++count;
     *out = items[index];
 }

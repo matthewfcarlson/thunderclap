@@ -66,20 +66,20 @@ class SeqEventNestTrack_24e590 : public ::audio::SeqEvent {
 namespace fn_f724be52 {
 extern "C" bool __cdecl FUN_0025bce0(void*, void*);
 typedef void* X_24e5e0;
-X_24e5e0 __cdecl WrapThing(X_24e5e0, int);
+X_24e5e0 __cdecl WrapThing_002673a0(X_24e5e0, int);
 extern "C" X_24e5e0 __fastcall FUN_0023fb00(void*);
 struct Obj_24e5e0 {
     X_24e5e0 value;
     X_24e5e0 Run(void*);
 };
 extern "C" unsigned char __cdecl Check1(int, hulk_intptr, ...);
-extern "C" unsigned char __cdecl Validate1(hulk_intptr, int);
-extern "C" unsigned char __cdecl Final1(hulk_intptr, hulk_intptr, ...);
-extern int kTenAddr;
+extern "C" unsigned char __cdecl Validate1_0025bcb0(hulk_intptr, int);
+extern "C" unsigned char __cdecl Final1_00246f50(hulk_intptr, hulk_intptr, ...);
+extern int hulk_at_00422518;
 extern void FUN_00247530(void*);
 typedef unsigned int u32_24e6f0;
-extern void* __cdecl Acquire(void*);
-extern int gVtable_24e6f0;
+extern void* __cdecl Acquire_00247530(void*);
+extern int hulk_at_00429884;
 class NameObj_24e6f0 {
   public:
 };
@@ -88,11 +88,11 @@ class NestTrack_24e6f0 {
     hulk_uintptr vf;
     char pad[4];
     NameObj_24e6f0 name;
-    void init();
+    void init_0025fd00();
 };
 class SeqEventNestTrack_24e730 {
   public:
-    void b();
+    void Fnb_0025fd10();
 };
 struct Stm_24e760 {
     char pad[0x24];
@@ -107,8 +107,8 @@ class SeqEvent {
     virtual SeqEvent* f4(unsigned int);
     virtual void _m_vf5();
 };
-extern bool Match(Stm_24e760*, const char*, ...);
-extern bool ReadTrack(Stm_24e760**, const char*, void*);
+extern bool Match_00246f50(Stm_24e760*, const char*, ...);
+extern bool ReadTrack_0024e600(Stm_24e760**, const char*, void*);
 struct Key {
     char data[12];
     Key() throw();
@@ -207,7 +207,7 @@ extern "C" int* FUN_0024e5d0() {
 // sym: ?Run@Obj_24e5e0@fn_f724be52@@QAEPAXPAX@Z
 X_24e5e0 Obj_24e5e0::Run(void* arg) {
     X_24e5e0 temp = FUN_0023fb00(arg);
-    value = WrapThing(temp, 0);
+    value = WrapThing_002673a0(temp, 0);
     return this;
 }
 
@@ -218,10 +218,10 @@ unsigned char Target(int* p, int a, int b) {
     int v = *p;
     unsigned char r = Check1(v, ((hulk_intptr)((char*)&DAT_004298a8)), a);
     if (r) {
-        r = Validate1((hulk_intptr)p, b);
+        r = Validate1_0025bcb0((hulk_intptr)p, b);
         if (r) {
             p = (int*)*(hulk_intptr*)p;
-            return Final1((hulk_intptr)p, (hulk_intptr)&kTenAddr);
+            return Final1_00246f50((hulk_intptr)p, (hulk_intptr)&hulk_at_00422518);
         }
     }
     return 0;
@@ -311,10 +311,10 @@ audio::SeqEventNestTrackType::~SeqEventNestTrackType() {}
 // sym: ?vfunc_3@SeqEventNestTrackType@audio@@UAEPAXXZ
 // data: gName_24e6f0 = DAT_0042989c, gPool_24e6f0 = DAT_004e6698
 void* audio::SeqEventNestTrackType::vfunc_3() {
-    NestTrack_24e6f0* p = (NestTrack_24e6f0*)Acquire(((char*)&DAT_004e6698));
+    NestTrack_24e6f0* p = (NestTrack_24e6f0*)Acquire_00247530(((char*)&DAT_004e6698));
     if (p) {
-        p->init();
-        p->vf = (hulk_uintptr)&gVtable_24e6f0;
+        p->init_0025fd00();
+        p->vf = (hulk_uintptr)&hulk_at_00429884;
         ((owners::String_23fc40 *)&(p->name))->FUN_0023fc40(DAT_0042989c, (hulk_intptr)2);
         return (void*)(p);
     }
@@ -327,7 +327,7 @@ namespace fn_f724be52 {
 // sym: ?f4@SeqEventNestTrack@fn_f724be52@@UAEPAV12@I@Z
 SeqEventNestTrack* SeqEventNestTrack::f4(unsigned int param) {
     ((owners::Str_240060 *)(((SeqEventNestTrack_24e730*)((char*)this + 8))))->FUN_00240060();
-    ((SeqEventNestTrack_24e730*)this)->b();
+    ((SeqEventNestTrack_24e730*)this)->Fnb_0025fd10();
     if (param & 1)
         FUN_00247550((void*)((hulk_intptr)DAT_004e6698), this);
     return this;
@@ -339,12 +339,12 @@ SeqEventNestTrack* SeqEventNestTrack::f4(unsigned int param) {
 // data: sClose = DAT_004298dc, sName = DAT_004298e0, sOpen = DAT_004298f4
 int SeqEventNestTrack::vfunc_1(Stm_24e760** p) {
     if (SeqEvent::v1(p)) {
-        if (Match(*p, DAT_004298f4)) {
+        if (Match_00246f50(*p, DAT_004298f4)) {
             (*p)->depth++;
-            if (ReadTrack(p, DAT_004298e0, (char*)this + 8)) {
+            if (ReadTrack_0024e600(p, DAT_004298e0, (char*)this + 8)) {
                 (*p)->depth--;
                 Stm_24e760* s = *p;
-                if (Match(s, DAT_004298dc))
+                if (Match_00246f50(s, DAT_004298dc))
                     return 1;
             }
         }

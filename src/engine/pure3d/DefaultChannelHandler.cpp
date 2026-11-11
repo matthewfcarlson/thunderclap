@@ -59,7 +59,7 @@ extern "C" void* memmove(void*, const void*, unsigned);
 extern "C" void* memset(void*, int, unsigned);
 #endif
 namespace fn_fc71db16 {
-void* Alloc(hulk_uintptr n);
+void* Alloc_0008d690(hulk_uintptr n);
 class ChannelHandler_28e9b0 {
   public:
     ChannelHandler_28e9b0() { a = 0; }
@@ -280,7 +280,7 @@ Prim_28e160 *__stdcall FUN_0028e160(Reader *R, int unused, Parent_28e160 *parent
 ChannelLoader::ChannelLoader() {
     count = 0;
     memset(tbl, 0, 64);
-    DefaultChannelHandler_28e9b0* h = new (Alloc(8)) DefaultChannelHandler_28e9b0;
+    DefaultChannelHandler_28e9b0* h = new (Alloc_0008d690(8)) DefaultChannelHandler_28e9b0;
     if (h) {
         memmove(&tbl[1], &tbl[0], count << 2);
         tbl[0] = h;

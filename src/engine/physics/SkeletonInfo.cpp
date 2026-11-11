@@ -13,9 +13,9 @@ namespace fn_f6834bb6 {} using namespace fn_f6834bb6;
 // ---- declarations shared by the functions below
 namespace fn_f6834bb6 {
 extern "C" char DAT_0043223c[];
-void __cdecl thunk(void*);
+void __cdecl thunk_0008d340(void*);
 struct SkeletonInfo_3128d0 {
-    void Dtor();
+    void Dtor_0027afd0();
 };
 struct SkeletonInfo {
     void* vf;
@@ -210,8 +210,8 @@ namespace fn_f6834bb6 {
 void SkeletonInfo::Free() {
     vf = (void*)((hulk_intptr)DAT_0043223c);
     if (member)
-        thunk((char*)member - 4);
-    ((SkeletonInfo_3128d0*)this)->Dtor();
+        thunk_0008d340((char*)member - 4);
+    ((SkeletonInfo_3128d0*)this)->Dtor_0027afd0();
 }
 
 } // namespace fn_f6834bb6

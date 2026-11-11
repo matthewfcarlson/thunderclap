@@ -25,8 +25,8 @@ class A_307810 {
   public:
     char pad[0x284];
     hulk_intptr member;
-    void First();
-    void Last();
+    void First_00266a30();
+    void Last_00266be0();
 };
 class B_307810 {
   public:
@@ -123,7 +123,7 @@ class CollisionObjectLoader {
     unsigned d;
     CollisionObjectLoader();
 };
-extern int WorldCollisionObjectLoader_vftable;
+extern int hulk_at_00431cac;
 class WorldCollisionObjectLoader {
   public:
     virtual void Dummy();
@@ -204,7 +204,7 @@ struct Container_3083e0 {
     int count;
     int capacity;
     Item_3083e0* items;
-    void grow(int);
+    void grow_00304a10(int);
     Item_3083e0* add();
 };
 struct Stream_308410 {
@@ -685,9 +685,9 @@ extern "C" void FUN_003077c0() {}
 // 0x00307810 FUN_00307810 (42 B): matches/0x00307810.cpp
 // sym: ?target@fn_fa930a40@@YAXPAVA_307810@1@H@Z
 void __cdecl target(A_307810* p1, hulk_intptr p2) {
-    p1->First();
+    p1->First_00266a30();
     ((owners::X_2647e0 *)(((B_307810*)p1->member)))->FUN_002647e0((hulk_intptr)p2, (hulk_intptr)3, 4, (hulk_intptr)1);
-    p1->Last();
+    p1->Last_00266be0();
 }
 
 
@@ -922,7 +922,7 @@ class SimpleChunkHandler_308040 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_308040 {
   public:
@@ -933,7 +933,7 @@ class NonCopyable : public SimpleChunkHandler_308040 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -949,7 +949,7 @@ WorldCollisionObjectLoader::WorldCollisionObjectLoader() {
     b = 0x07010025;
     c = 0;
     d = 0;
-    *(hulk_intptr*)this = (hulk_intptr)&WorldCollisionObjectLoader_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00431cac;
 }
 
 } // namespace fn_fa930a40
@@ -1101,7 +1101,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
 // sym: ?add@Container_3083e0@fn_fa930a40@@QAEPAUItem_3083e0@2@XZ
 Item_3083e0* Container_3083e0::add() {
     if (count >= capacity)
-        grow(capacity * 2);
+        grow_00304a10(capacity * 2);
     ++count;
     return (Item_3083e0*)((char*)items + count * 8 - 8);
 }

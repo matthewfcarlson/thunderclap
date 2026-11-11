@@ -44,7 +44,7 @@ class QuaternionChannel {
     void vfunc_4(int a, int b, int c);
 };
 struct Helper_28a9f0 {
-    void call(int);
+    void call_0022b650(int);
 };
 } // namespace fn_f66a22d3
 namespace pure3d {
@@ -120,7 +120,7 @@ class Elem_28b0b0 {
 };
 class Arg_28b0b0 {
   public:
-    void* Get();
+    void* Get_00266c30();
 };
 struct Container_28b0b0 {
     int m_a;
@@ -131,17 +131,17 @@ struct Container_28b0b0 {
 };
 class C_28b100 {
   public:
-    void Decode(int, int*);
+    void Decode_0028a0b0(int, int*);
 };
 struct Obj_28b150 {
-    void Get(int d, float* out);
+    void Get_0028a1c0(int d, float* out);
 };
 struct Pair_28b190 {
     float x, y;
 };
 class Obj_28b190 {
   public:
-    void Get(int, Pair_28b190*);
+    void Get_0028a2c0(int, Pair_28b190*);
 };
 struct Vec3_28b200 {
     float x, y, z;
@@ -155,7 +155,7 @@ public:
     virtual void vfunc_4(int key, Vec3_28b200* out);
 };
 struct Source_28b2f0 { void FUN_0028ad20(int index, unsigned int* result); };
-extern "C" void* __cdecl AllocA(unsigned int) throw();
+extern "C" void* __cdecl AllocA_0008d6d0(unsigned int) throw();
 } // namespace fn_f66a22d3
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memset(void*, int, unsigned int) throw();
@@ -183,7 +183,7 @@ struct Obj_28b4d0 {
     virtual void f0();
     virtual void f1();
 };
-void thunk(int*);
+void thunk_0008d340(int*);
 struct Obj_28b520 {
     virtual void f0();
     virtual void f1();
@@ -227,7 +227,7 @@ struct Obj_28b7d0 {
     virtual void v0();
     virtual void Release();
 };
-void __cdecl Free(void*);
+void __cdecl Free_0008d340(void*);
 inline void Del(Obj_28b7d0*& p) {
     if (p) {
         p->Release();
@@ -299,7 +299,7 @@ namespace fn_f66a22d3 {
 void QuaternionChannel::vfunc_4(int a, int b, int c) {
     char local[16];
     f3(a, b, local);
-    ((Helper_28a9f0*)local)->call(c);
+    ((Helper_28a9f0*)local)->call_0022b650(c);
 }
 
 } // namespace fn_f66a22d3
@@ -330,7 +330,7 @@ namespace fn_0028ab20 {
 typedef unsigned int u32_28ab20;
 struct Buf_28ab20 {
     char d[16];
-    void Fn(u32_28ab20);
+    void Fn_0022b650(u32_28ab20);
 };
 struct RotationChannel {
     virtual void f0();
@@ -346,7 +346,7 @@ struct QuaternionChannel : RotationChannel {
 void QuaternionChannel::vfunc_6(u32_28ab20 a, u32_28ab20 b) {
     Buf_28ab20 buf;
     f5(a, buf.d);
-    buf.Fn(b);
+    buf.Fn_0022b650(b);
 }
 } // namespace fn_0028ab20
 
@@ -514,7 +514,7 @@ hulk_intptr Container_28b0b0::Find(Elem_28b0b0* arg, int p2, hulk_intptr p3) {
     Elem_28b0b0** p = arr;
     if (m_count > 0) {
         do {
-            if (arr[i]->v3(((Arg_28b0b0*)arg)->Get()) == 1)
+            if (arr[i]->v3(((Arg_28b0b0*)arg)->Get_00266c30()) == 1)
                 return arr[i]->v4(arg, p2, p3);
             i++;
         } while (i < m_count);
@@ -528,8 +528,8 @@ hulk_intptr Container_28b0b0::Find(Elem_28b0b0* arg, int p2, hulk_intptr p3) {
 extern "C" int __cdecl FUN_0028b100(C_28b100* a, C_28b100* b, float scale, int input) {
     int x;
     int y;
-    a->Decode(input, &x);
-    b->Decode(input, &y);
+    a->Decode_0028a0b0(input, &x);
+    b->Decode_0028a0b0(input, &y);
     int d = y - x;
     return (int)(__int64)((float)d * scale) + x;
 }
@@ -539,8 +539,8 @@ extern "C" int __cdecl FUN_0028b100(C_28b100* a, C_28b100* b, float scale, int i
 // sym: ?FUN_0028b150@fn_f66a22d3@@YAMPAUObj_28b150@1@0MH@Z
 hulk_freg __cdecl FUN_0028b150(Obj_28b150* a, Obj_28b150* b, float t, int d) {
     float x, y;
-    a->Get(d, &x);
-    b->Get(d, &y);
+    a->Get_0028a1c0(d, &x);
+    b->Get_0028a1c0(d, &y);
     return (y - x) * t + x;
 }
 
@@ -549,8 +549,8 @@ hulk_freg __cdecl FUN_0028b150(Obj_28b150* a, Obj_28b150* b, float t, int d) {
 // sym: ?F@fn_f66a22d3@@YAXPAUPair_28b190@1@PAVObj_28b190@1@1MH@Z
 void F(Pair_28b190* out, Obj_28b190* a, Obj_28b190* b, float t, int n) {
     Pair_28b190 p, q;
-    a->Get(n, &p);
-    b->Get(n, &q);
+    a->Get_0028a2c0(n, &p);
+    b->Get_0028a2c0(n, &q);
     p.x = (q.x - p.x) * t + p.x;
     p.y = (q.y - p.y) * t + p.y;
     *out = p;
@@ -598,7 +598,7 @@ extern "C" unsigned int* __cdecl FUN_0028b2f0(unsigned int* output, Source_28b2f
 // sym: ??0SimpleChannel@fn_f66a22d3@@QAE@HPAVOwner_28b420@1@@Z
 SimpleChannel::SimpleChannel(int size, Owner_28b420* owner) throw() : c(owner), d(size), e(0) {
     if (owner == 0)
-        e = (char*)AllocA(size * 2);
+        e = (char*)AllocA_0008d6d0(size * 2);
     else {
         e = (char*)((void *)((owners::C_2888c0 *)owner)->FUN_002888c0((unsigned)(size * 2), 3));
         Owner_28b420* o = c;
@@ -652,10 +652,10 @@ void pure3d::SimpleChannel::vfunc_1() {
 // sym: ?vfunc_1@IntChannel@pure3d@@UAEXXZ
 void pure3d::IntChannel::vfunc_1() {
     if ((*(Obj_28b4d0 *volatile *)&this->f_0c) == 0)
-        thunk((*(int * *)&this->f_18));
+        thunk_0008d340((*(int * *)&this->f_18));
     (*(int * *)&this->f_18) = 0;
     if ((*(Obj_28b4d0 *volatile *)&this->f_0c) == 0) {
-        thunk((*(int * *)&this->f_14));
+        thunk_0008d340((*(int * *)&this->f_14));
         (*(int * *)&this->f_14) = 0;
         return;
     }
@@ -673,10 +673,10 @@ void pure3d::IntChannel::vfunc_1() {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void pure3d::Float1Channel::vfunc_1() {
     if ((*(Obj_28b520 *volatile *)&this->f_0c) == 0)
-        thunk((*(int * *)&this->f_18));
+        thunk_0008d340((*(int * *)&this->f_18));
     (*(int * *)&this->f_18) = 0;
     if ((*(Obj_28b520 *volatile *)&this->f_0c) == 0) {
-        thunk((*(int * *)&this->f_14));
+        thunk_0008d340((*(int * *)&this->f_14));
         (*(int * *)&this->f_14) = 0;
         return;
     }
@@ -694,10 +694,10 @@ void pure3d::Float1Channel::vfunc_1() {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void pure3d::Float2Channel::vfunc_1() {
     if ((*(Obj_28b570 *volatile *)&this->f_0c) == 0)
-        thunk((*(int * *)&this->f_18));
+        thunk_0008d340((*(int * *)&this->f_18));
     (*(int * *)&this->f_18) = 0;
     if ((*(Obj_28b570 *volatile *)&this->f_0c) == 0) {
-        thunk((*(int * *)&this->f_14));
+        thunk_0008d340((*(int * *)&this->f_14));
         (*(int * *)&this->f_14) = 0;
         return;
     }
@@ -756,10 +756,10 @@ void pure3d::Vector2DOFChannel::vfunc_1() {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void pure3d::Vector3DOFChannel::vfunc_1() {
     if ((*(Obj_28b660 *volatile *)&this->f_0c) == 0)
-        thunk((*(int * *)&this->f_18));
+        thunk_0008d340((*(int * *)&this->f_18));
     (*(int * *)&this->f_18) = 0;
     if ((*(Obj_28b660 *volatile *)&this->f_0c) == 0) {
-        thunk((*(int * *)&this->f_14));
+        thunk_0008d340((*(int * *)&this->f_14));
         (*(int * *)&this->f_14) = 0;
         return;
     }
@@ -777,10 +777,10 @@ void pure3d::Vector3DOFChannel::vfunc_1() {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void pure3d::QuaternionChannel::vfunc_1() {
     if ((*(Obj_28b6b0 *volatile *)&this->f_0c) == 0)
-        thunk((*(int * *)&this->f_18));
+        thunk_0008d340((*(int * *)&this->f_18));
     (*(int * *)&this->f_18) = 0;
     if ((*(Obj_28b6b0 *volatile *)&this->f_0c) == 0) {
-        thunk((*(int * *)&this->f_14));
+        thunk_0008d340((*(int * *)&this->f_14));
         (*(int * *)&this->f_14) = 0;
         return;
     }
@@ -838,10 +838,10 @@ void pure3d::EntityChannel::vfunc_1() {
         }
     }
     if ((*(Obj_28b7d0 * *)&this->f_0c) == 0)
-        Free((*(Obj_28b7d0 ** *)&this->f_18));
+        Free_0008d340((*(Obj_28b7d0 ** *)&this->f_18));
     (*(Obj_28b7d0 ** *)&this->f_18) = 0;
     if ((*(Obj_28b7d0 * *)&this->f_0c) == 0) {
-        Free((*(void * *)&this->f_14));
+        Free_0008d340((*(void * *)&this->f_14));
         (*(void * *)&this->f_14) = 0;
     } else {
         Del((*(Obj_28b7d0 * *)&this->f_0c));
@@ -856,10 +856,10 @@ namespace fn_f66a22d3 {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void BoolChannel_28b840::vfunc_1() {
     if (mObj == 0)
-        thunk(m18);
+        thunk_0008d340(m18);
     m18 = 0;
     if (mObj == 0) {
-        thunk(m14);
+        thunk_0008d340(m14);
         m14 = 0;
         return;
     }
@@ -878,10 +878,10 @@ void BoolChannel_28b840::vfunc_1() {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void pure3d::ColourChannel::vfunc_1() {
     if ((*(Obj_28b890 *volatile *)&this->f_0c) == 0)
-        thunk((*(int * *)&this->f_18));
+        thunk_0008d340((*(int * *)&this->f_18));
     (*(int * *)&this->f_18) = 0;
     if ((*(Obj_28b890 *volatile *)&this->f_0c) == 0) {
-        thunk((*(int * *)&this->f_14));
+        thunk_0008d340((*(int * *)&this->f_14));
         (*(int * *)&this->f_14) = 0;
         return;
     }

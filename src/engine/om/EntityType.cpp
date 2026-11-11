@@ -139,8 +139,8 @@ struct Container { int unused; Link header; };
 struct Iterator { char unused[8]; Link* link; };
 struct Temp_244d10 {
     char x[12];
-    void Init();
-    unsigned long Get();
+    void Init_0023fac0();
+    unsigned long Get_0023fb00();
 };
 extern "C" unsigned char __cdecl FUN_0025bce0(int, Temp_244d10*);
 } // namespace fn_f7032cca
@@ -148,7 +148,7 @@ extern "C" unsigned long long __cdecl FUN_002672f0(unsigned long, int, int);
 namespace fn_f7032cca {
 extern "C++" __declspec(nothrow) void __cdecl FUN_00244610(void *, void *);
 extern void __cdecl FUN_002446d0(void*, void*);
-extern void* vEntity[];
+extern void* hulk_at_00429158[];
 extern "C++" __declspec(nothrow) void * __cdecl FUN_00244b20(void *, void *);
 struct Entity_244f70 {
     void* vf;
@@ -184,7 +184,7 @@ public:
     bool FUN_00245040(const Key_245040 *newKey);
 };
 struct Clip_nv_245340 {
-    void Finish();
+    void Finish_00244f70();
 };
 extern "C" void FUN_0025d300(void*);
 
@@ -1813,10 +1813,10 @@ void* __cdecl FUN_00244cc0(Container* container, Iterator* iterator)
 // sym: ?Target@fn_f7032cca@@YAEHPAK@Z
 unsigned char __cdecl Target(hulk_intptr a, unsigned long* out) {
     Temp_244d10 t;
-    t.Init();
+    t.Init_0023fac0();
     unsigned char r = FUN_0025bce0(a, &t);
     if (out) {
-        unsigned long g = t.Get();
+        unsigned long g = t.Get_0023fb00();
         unsigned long long v = FUN_002672f0(g, 0, 0);
         ((unsigned long long*)out)[0] = v;
     }
@@ -2043,7 +2043,7 @@ namespace fn_f7032cca {
 // sym: ?Dtor@Entity_244f70@fn_f7032cca@@QAEXXZ
 void Entity_244f70::Dtor() throw() {
     void* g = (*(void**)&DAT_004cc08c);
-    vf = vEntity;
+    vf = hulk_at_00429158;
     FUN_00244b20(g, this);
     DAT_004e5f0c = DAT_004e5f0c - 1;
     vf = vIRef;
@@ -2270,6 +2270,6 @@ void audio::Clip::FUN_00245340() {
     *(void**)this = (void*)((hulk_intptr)DAT_0042918c);
     if ((*(void * *)&this->f_28))
         FUN_0025d300((*(void * *)&this->f_28));
-    ((Clip_nv_245340*)this)->Finish();
+    ((Clip_nv_245340*)this)->Finish_00244f70();
 }
 

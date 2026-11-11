@@ -57,10 +57,10 @@ class PartitionDriver {
     PartitionDriver* Run(Base_2223f0* source);
 };
 struct PartitionDriver_222430 {
-    void helper();
+    void helper_0022a910();
 };
-extern void* vtable_222430;
-void destroy(PartitionDriver*);
+extern void* hulk_at_00427260;
+void destroy_00263f30(PartitionDriver*);
 
 
 // 0x002222f0 choreo2::PartitionDriver::vfunc_7 (4 B): matches/0x002222f0.cpp
@@ -117,11 +117,11 @@ PartitionDriver* PartitionDriver::Run(Base_2223f0* source) {
 // 0x00222430 choreo2::PartitionDriver::vfunc_2 (46 B): matches/0x00222430.cpp
 // sym: ?vfunc_2@PartitionDriver@fn_f7ce353a@@UAEPAV12@E@Z
 PartitionDriver* PartitionDriver::vfunc_2(unsigned char param) {
-    *(void**)this = &vtable_222430;
+    *(void**)this = &hulk_at_00427260;
     member->b();
-    ((PartitionDriver_222430*)this)->helper();
+    ((PartitionDriver_222430*)this)->helper_0022a910();
     if (param & 1)
-        destroy(this);
+        destroy_00263f30(this);
     return this;
 }
 

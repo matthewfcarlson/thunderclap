@@ -46,7 +46,7 @@ struct Obj_26e0e0 {
     char padC0[0xc0 - 0x69];
     int state;
 };
-void cleanup(void*);
+void cleanup_0026eef0(void*);
 typedef unsigned int uint_26e140;
 } // namespace fn_f42a2f23
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -74,7 +74,7 @@ struct Queue_26e240 {
 };
 class IB_26e340 {
   public:
-    void helper();
+    void helper_0026d280();
 };
 class ConsoleClient_26e340 : public core::IRefCount, public IB_26e340 {
   public:
@@ -85,7 +85,7 @@ extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042b474[];
 extern "C" char DAT_0042b47c[];
 typedef unsigned int u32_26e360;
-extern void __fastcall Init(void*);
+extern void __fastcall Init_0026e0e0(void*);
 class ConsoleClient {
   public:
     hulk_uintptr a, b, c;
@@ -97,7 +97,7 @@ struct Node {
 };
 class Thing {
   public:
-    void helper(void*, int);
+    void helper_0026e140(void*, int);
     void FUN_0026e400(int);
 };
 class C_26e430 {
@@ -105,9 +105,9 @@ class C_26e430 {
 
   public:
     void f(int);
-    void next(void*, int);
+    void next_0026e140(void*, int);
 };
-extern void __cdecl helper(void*, void*, int, int);
+extern void __cdecl helper_0026ef40(void*, void*, int, int);
 struct S_26e430 {
     int a, b;
 };
@@ -145,22 +145,22 @@ namespace fn_f42a2f23 {
 class Obj_26e5a0 {
   public:
     void Target(unsigned int a, char* src, unsigned int b, unsigned int d);
-    void Send(void* p, int n);
+    void Send_0026e140(void* p, int n);
 };
 class Helper_26e750 {
   public:
-    void run(void*, unsigned int);
+    void run_0026e140(void*, unsigned int);
 };
 struct Target {
-    void f(int*, int);
+    void Fnf_0026e140(int*, int);
 };
 class Helper_26e7c0 {
   public:
-    void run(void*, int);
+    void run_0026e140(void*, int);
 };
 class Helper_26e800 {
   public:
-    void call(void*, unsigned int);
+    void call_0026e140(void*, unsigned int);
 };
 struct Args {
     int a;
@@ -174,9 +174,9 @@ class Obj {
     char _m_pad_a4[0x130];
     Node* head;
     void Remove(Node* node);
-    void Empty();
+    void Empty_0026e0e0();
     void Fn(int x);
-    void Go(Args*);
+    void Go_0026e240(Args*);
 };
 struct Event_26e920 {
     int kind;
@@ -203,7 +203,7 @@ class C_26e970 {
   public:
     char pad[0x9c];
     void* h;
-    void Send(Msg_26e970* m);
+    void Send_0026e240(Msg_26e970* m);
     void Fn(int a, int b, int c, int d, char e, char f, char g, char h2, char i);
 };
 struct Obj_26e9e0 { virtual void FUN_0026e9e0_slot0(); };
@@ -212,13 +212,13 @@ struct ConsoleClient_nv_26e9e0 {
     void* FUN_0026e2a0(int, int);
 };
 struct C_26ed70 {
-    void f();
+    void Fnf_0026eab0();
 };
 typedef unsigned char u8_26ee30;
-extern void __cdecl release(int, void*);
+extern void __cdecl release_00266f00(int, void*);
 class DebugConsole_26ee30 {
   public:
-    void cleanup();
+    void cleanup_0026e650();
     virtual void f0();
     virtual void f1();
     virtual DebugConsole_26ee30* f2(u8_26ee30);
@@ -310,11 +310,11 @@ namespace fn_f42a2f23 {
 void __fastcall target(Obj_26e0e0* self) {
     int x = self->state;
     if (x == 3) {
-        cleanup(&self->field68);
+        cleanup_0026eef0(&self->field68);
         self->state = 0;
     } else if (x == 1 || x == 2) {
-        cleanup(&self->field10);
-        cleanup(&self->field68);
+        cleanup_0026eef0(&self->field10);
+        cleanup_0026eef0(&self->field68);
         self->state = 0;
     }
 }
@@ -373,8 +373,8 @@ void Queue_26e240::FUN_0026e240(const Item_26e240 *item) {
 // sym: ??0ConsoleClient@fn_0026e2a0@@QAE@HH@Z
 namespace fn_0026e2a0 {
 
-void Hook();
-void PoolInit(void* pool, int a, int b, int c, int d, const char* name, int e);
+void Hook_002705f0();
+void PoolInit_002702a0(void* pool, int a, int b, int c, int d, const char* name, int e);
 
 class ConsoleClient_26e2a0 {
   public:
@@ -412,12 +412,12 @@ ConsoleClient_26e2a0::ConsoleClient_26e2a0() {}
 void ConsoleClient_26e2a0::f0() {}
 Obj_26e2a0::Obj_26e2a0() {
     mId = DAT_004cdbb0;
-    Hook();
+    Hook_002705f0();
 }
 void Obj_26e2a0::g0() {}
 RefC::RefC() {
     mRef = 1;
-    Hook();
+    Hook_002705f0();
 }
 void RefC::g1() {}
 void ConsoleClient::f1() {}
@@ -427,8 +427,8 @@ ConsoleClient::ConsoleClient(int a, int b) {
     mPool = 0;
     m1 = 0;
     m2 = 0;
-    PoolInit(&mPool, 0x110, 0x80, 1, a, "ConsoleClient::mInitContentTxBufferPool", 4);
-    Hook();
+    PoolInit_002702a0(&mPool, 0x110, 0x80, 1, a, "ConsoleClient::mInitContentTxBufferPool", 4);
+    Hook_002705f0();
 }
 } // namespace fn_0026e2a0
 
@@ -446,7 +446,7 @@ namespace fn_f42a2f23 {
 // sym: ?vfunc_1@ConsoleClient_26e340@fn_f42a2f23@@UAEXXZ
 // Same code shape as 0x0026d270 (propagated; names are from that function)
 void ConsoleClient_26e340::vfunc_1() {
-    IB_26e340::helper();
+    IB_26e340::helper_0026d280();
 }
 
 } // namespace fn_f42a2f23
@@ -486,7 +486,7 @@ namespace fn_f42a2f23 {
 void ConsoleClient::Run() {
     a = ((hulk_intptr)DAT_0042b47c);
     b = ((hulk_intptr)DAT_0042b474);
-    Init((void*)(this));
+    Init_0026e0e0((void*)(this));
     (*(u32_26e360*)&DAT_004cdbb0) = c;
     b = ((hulk_intptr)DAT_0042af64);
     a = ((hulk_intptr)DAT_003f6098);
@@ -508,7 +508,7 @@ void Obj::Remove(Node* node) {
         } while (*p);
     }
     if (!head)
-        Empty();
+        Empty_0026e0e0();
 }
 
 
@@ -518,7 +518,7 @@ void Thing::FUN_0026e400(int x) {
     int a[2];
     a[0] = 0;
     a[1] = x;
-    helper(a, 8);
+    helper_0026e140(a, 8);
 }
 
 
@@ -528,8 +528,8 @@ void C_26e430::f(int p) {
     S_26e430 s;
     s.a = 8;
     s.b = p;
-    helper(pad + 0x68, &s, 8, 0);
-    next(&s, 8);
+    helper_0026ef40(pad + 0x68, &s, 8, 0);
+    next_0026e140(&s, 8);
 }
 
 } // namespace fn_f42a2f23
@@ -621,7 +621,7 @@ void Obj_26e5a0::Target(unsigned int a, char* src, unsigned int b, unsigned int 
     buf.d = d;
     _strncpy(buf.s, src, 0x54);
     buf.z = 0;
-    Send(&buf, 100);
+    Send_0026e140(&buf, 100);
 }
 
 } // namespace fn_f42a2f23
@@ -636,7 +636,7 @@ extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 
 class Obj_26e600 {
   public:
-    void Helper(void*, unsigned int);
+    void Helper_0026e140(void*, unsigned int);
     void Target(unsigned int, char*);
 };
 void Obj_26e600::Target(unsigned int id, char* message) {
@@ -650,7 +650,7 @@ void Obj_26e600::Target(unsigned int id, char* message) {
     local.b = id;
     strncpy(local.text, message, 0x54);
     local.end = 0;
-    Helper(&local, 0x5c);
+    Helper_0026e140(&local, 0x5c);
 }
 } // namespace fn_0026e600
 
@@ -753,7 +753,7 @@ void core::DebugConsole::vfunc_4(unsigned int p) {
     d.a = 2;
     d.b = (hulk_uintptr)this;
     d.c = p;
-    (*(Helper_26e750 * *)&this->f_a4)->run(&d, 12);
+    (*(Helper_26e750 * *)&this->f_a4)->run_0026e140(&d, 12);
     this->f_94 = p;
 }
 
@@ -765,7 +765,7 @@ void core::DebugConsole::vfunc_5() {
     int a[2];
     a[1] = (hulk_intptr)this;
     a[0] = 3;
-    (*(Target * *)&this->f_a4)->f(a, 8);
+    (*(Target * *)&this->f_a4)->Fnf_0026e140(a, 8);
 }
 
 
@@ -777,7 +777,7 @@ void core::DebugConsole::vfunc_6(int a, int b) {
     local[1] = (hulk_intptr)this;
     local[2] = a;
     local[3] = b;
-    (*(Helper_26e7c0 * *)&this->f_a4)->run(local, 16);
+    (*(Helper_26e7c0 * *)&this->f_a4)->run_0026e140(local, 16);
 }
 
 
@@ -788,7 +788,7 @@ void core::DebugConsole::vfunc_7(int param) {
     local[0] = 5;
     local[1] = (hulk_intptr)this;
     local[2] = param;
-    (*(Helper_26e800 * *)&this->f_a4)->call(local, 12);
+    (*(Helper_26e800 * *)&this->f_a4)->call_0026e140(local, 12);
     this->f_98 = param;
 }
 
@@ -842,7 +842,7 @@ void Obj::Fn(int x) {
     if (flag) {
         a.a = 0;
         a.b = x;
-        Go(&a);
+        Go_0026e240(&a);
     }
 }
 
@@ -877,7 +877,7 @@ void C_26e970::Fn(int a, int b, int c, int d, char e, char f, char g, char h2, c
         m.f2 = h2;
         m.type = 2;
         m.f3 = i;
-        Send(&m);
+        Send_0026e240(&m);
     }
 }
 
@@ -911,8 +911,8 @@ extern "C" char DAT_0042af64[];
 extern "C" char DAT_0042b474[];
 extern "C" char DAT_0042b47c[];
 typedef unsigned int u32_26ea50;
-extern "C++" __declspec(nothrow) void __fastcall init_console(void*);
-extern "C++" __declspec(nothrow) void cleanup_console(u32_26ea50, void*);
+extern "C++" __declspec(nothrow) void __fastcall init_console_0026e0e0(void*);
+extern "C++" __declspec(nothrow) void cleanup_console_00266f00(u32_26ea50, void*);
 class ConsoleClient {
   public:
     virtual void v0();
@@ -925,13 +925,13 @@ class ConsoleClient {
 ConsoleClient* ConsoleClient::vfunc_2(unsigned char flag) {
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_0042b47c);
     *(hulk_uintptr*)((char*)this + 4) = ((hulk_intptr)DAT_0042b474);
-    init_console((void*)(this));
+    init_console_0026e0e0((void*)(this));
     *(u32_26ea50*)((hulk_intptr)((char*)&DAT_004cdbb0)) = field8;
     *(hulk_uintptr*)((char*)this + 4) = ((hulk_intptr)DAT_0042af64);
     *(u32_26ea50*)((hulk_intptr)DAT_005283b0) = 0;
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_003f6098);
     if (flag & 1)
-        cleanup_console(*(u32_26ea50*)((hulk_intptr)((char*)&DAT_004cdbb0)), this);
+        cleanup_console_00266f00(*(u32_26ea50*)((hulk_intptr)((char*)&DAT_004cdbb0)), this);
     return this;
 }
 } // namespace fn_0026ea50
@@ -942,7 +942,7 @@ namespace fn_f42a2f23 {
 // sym: ?FUN_0026ed70@fn_f42a2f23@@YAXXZ
 void FUN_0026ed70() {
     if ((*(C_26ed70**)&DAT_005283b0))
-        (*(C_26ed70**)&DAT_005283b0)->f();
+        (*(C_26ed70**)&DAT_005283b0)->Fnf_0026eab0();
 }
 
 } // namespace fn_f42a2f23
@@ -997,9 +997,9 @@ namespace fn_f42a2f23 {
 // Same code shape as 0x00269560 (propagated; names are from that function)
 // data: globalValue = DAT_004cdbb0
 DebugConsole_26ee30* DebugConsole_26ee30::f2(u8_26ee30 flag) {
-    cleanup();
+    cleanup_0026e650();
     if (flag & 1)
-        release(DAT_004cdbb0, this);
+        release_00266f00(DAT_004cdbb0, this);
     return this;
 }
 

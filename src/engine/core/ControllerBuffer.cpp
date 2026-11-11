@@ -47,7 +47,7 @@ class ControllerBuffer_270670 {
     int mRefCount;
 };
 typedef unsigned int u32_2706a0;
-extern void Free(void*, void*);
+extern void Free_00266f00(void*, void*);
 extern "C" void* FUN_00266e00(void*, u32_2706a0);
 } // namespace fn_fd2c7460
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -113,8 +113,8 @@ void core::ControllerBuffer::vfunc_4(int __p0) { u32_2706a0 n = (u32_2706a0)__p0
     if ((*(u32_2706a0 *)&this->f_14) == n)
         return;
     if ((*(void * *)&this->f_10) && (*(void * *)&this->f_24)) {
-        Free((*(void * *)&this->f_28), (*(void * *)&this->f_10));
-        Free((*(void * *)&this->f_28), (*(void * *)&this->f_24));
+        Free_00266f00((*(void * *)&this->f_28), (*(void * *)&this->f_10));
+        Free_00266f00((*(void * *)&this->f_28), (*(void * *)&this->f_24));
     }
     (*(u32_2706a0 *)&this->f_14) = n;
     (*(void * *)&this->f_10) = FUN_00266e00((*(void * *)&this->f_28), (*(u32_2706a0 *)&this->f_18) * n);

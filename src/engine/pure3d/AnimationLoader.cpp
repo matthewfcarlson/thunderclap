@@ -32,7 +32,7 @@ class AnimationMemoryBlock_288820 : public NonCopyable_288820 {
 };
 extern "C" char DAT_0042c8b4[];
 typedef unsigned int u32_288890;
-void thunk(u32_288890);
+void thunk_0008d340(u32_288890);
 struct AnimationMemoryBlock_288890 {
     hulk_uintptr vf;
     char pad[0x14];
@@ -42,7 +42,7 @@ struct AnimationMemoryBlock_288890 {
 };
 class Sub_288900 {
   public:
-    void Init();
+    void Init_0027af00();
     char pad[8];
 };
 class AnimationGroup {
@@ -70,7 +70,7 @@ class Owner_288960 {
     Item_288960** items;
     Item_288960* Find(int key, int value);
 };
-extern int anim_vt;
+extern int hulk_at_0042c8d0;
 class Entity_2889b0 {
   public:
     virtual void B();
@@ -278,8 +278,8 @@ struct Key {
 } // namespace fn_f25f8e16
 void __cdecl operator delete(void*);
 namespace fn_f25f8e16 {
-extern char gAMBVftable[];
-extern char gIRefCountVftable[];
+extern char hulk_at_0042c8b4[];
+extern char hulk_at_003f6098[];
 class AnimationMemoryBlock {
   public:
     void** mVftable;
@@ -297,7 +297,7 @@ class Item_2893b0 {
 class Entity_2893b0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class Animation_2893b0 : public Entity_2893b0 {
   public:
@@ -325,7 +325,7 @@ class AnimationLoader_2894d0 {
 };
 extern "C" double __cdecl FUN_00047970(float x);
 extern "C" float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
-float __cdecl work(int, int, int, float, int, int, unsigned char, int);
+float __cdecl work_002899e0(int, int, int, float, int, int, unsigned char, int);
 class Obj {
     char pad[0x14];
     float factor;
@@ -374,7 +374,7 @@ struct AnimationLoader {
     char pad18[0x10];
     Ref_289e60* mRef;
 };
-extern void destroy(AnimationLoader*);
+extern void destroy_00263f30(AnimationLoader*);
 
 
 // 0x00288820 FUN_00288820 (97 B): matches/0x00288820.cpp
@@ -393,8 +393,8 @@ AnimationMemoryBlock_288820::AnimationMemoryBlock_288820(unsigned int s1, unsign
 // sym: ?target@AnimationMemoryBlock_288890@fn_f25f8e16@@QAEXXZ
 void AnimationMemoryBlock_288890::target() {
     vf = ((hulk_intptr)DAT_0042c8b4);
-    thunk(a);
-    thunk(b);
+    thunk_0008d340(a);
+    thunk_0008d340(b);
     vf = ((hulk_intptr)DAT_003f6098);
 }
 
@@ -418,7 +418,7 @@ namespace fn_f25f8e16 {
 // 0x00288900 FUN_00288900 (35 B): matches/0x00288900.cpp
 // sym: ??0AnimationGroup@fn_f25f8e16@@QAE@XZ
 AnimationGroup::AnimationGroup() {
-    sub.Init();
+    sub.Init_0027af00();
     a = 0;
     b = 0;
     c = 0;
@@ -474,7 +474,7 @@ Animation::Animation() : Entity_2889b0() {
     x1c[5] = 0;
     x1c[6] = 0;
     x1c[7] = 0;
-    *((hulk_intptr*)this) = (hulk_intptr)&anim_vt;
+    *((hulk_intptr*)this) = (hulk_intptr)&hulk_at_0042c8d0;
     _ReadWriteBarrier();
     x14 = 30.0f;
 }
@@ -834,10 +834,10 @@ int FUN_00289270(Key** a, Key** b) {
 // sym: ?vfunc_2@AnimationMemoryBlock@fn_f25f8e16@@QAEPAV12@E@Z
 AnimationMemoryBlock* AnimationMemoryBlock::vfunc_2(unsigned char flag) {
     void* p18 = mField18;
-    mVftable = (void**)&gAMBVftable;
+    mVftable = (void**)&hulk_at_0042c8b4;
     operator delete[](p18);
     operator delete[](mField1C);
-    mVftable = (void**)&gIRefCountVftable;
+    mVftable = (void**)&hulk_at_003f6098;
     if (flag & 1) {
         operator delete((void*)this);
     }
@@ -856,7 +856,7 @@ class Item_289330 {
 };
 class Sub_289330 {
   public:
-    void run();
+    void run_0027af50();
 };
 class AnimationGroup {
   public:
@@ -869,7 +869,7 @@ class AnimationGroup {
     Item_289330** items;
     Item_289330* active;
 };
-void cleanup(void*);
+void cleanup_0008d340(void*);
 void AnimationGroup::vfunc_1() {
     if (!active) {
         for (unsigned int i = 0; i < count; ++i) {
@@ -877,10 +877,10 @@ void AnimationGroup::vfunc_1() {
             if (it)
                 it->v0(1);
         }
-        cleanup(items);
+        cleanup_0008d340(items);
         return;
     }
-    sub.run();
+    sub.run_0027af50();
     for (unsigned int j = 0; j < count; ++j)
         items[j]->v1();
     if (active) {
@@ -914,7 +914,7 @@ Animation_2893b0::~Animation_2893b0() {
         owner->Release();
         owner = 0;
     }
-    Fin();
+    Fin_0027afd0();
 }
 
 
@@ -1311,10 +1311,10 @@ extern "C" char DAT_0042c8c4[];
 class AnimationGroup {
   public:
     int x;
-    void vfunc_1();
+    void vfunc_1_00289330();
 };
 struct Sub_289d70 {
-    void Helper();
+    void Helper_0027af50();
 };
 class AnimationGroup_289d70 : public AnimationGroup {
   public:
@@ -1324,8 +1324,8 @@ class AnimationGroup_289d70 : public AnimationGroup {
 };
 void AnimationGroup_289d70::Target() {
     *(void**)this = (void*)((hulk_intptr)DAT_0042c8c4);
-    AnimationGroup::vfunc_1();
-    sub.Helper();
+    AnimationGroup::vfunc_1_00289330();
+    sub.Helper_0027af50();
 }
 } // namespace fn_00289d70
 
@@ -1341,7 +1341,7 @@ namespace fn_f25f8e16 {
 // 0x00289db0 FUN_00289db0 (74 B): matches/0x00289db0.cpp
 // sym: ?Run@Obj@fn_f25f8e16@@QAEMHHHMHHEH@Z
 hulk_freg Obj::Run(int a, int b, int c, float value, int d, int e, unsigned char m, int p) {
-    return work(a, b, c, value * factor * 0.001f, d, e, p == 0 ? mode : m, p);
+    return work_002899e0(a, b, c, value * factor * 0.001f, d, e, p == 0 ? mode : m, p);
 }
 
 
@@ -1364,7 +1364,7 @@ AnimationLoader* AnimationLoader::vfunc_2(byte_289e60 flags) {
     }
     *(void**)this = (void*)((hulk_intptr)DAT_003f6098);
     if (flags & 1)
-        destroy(this);
+        destroy_00263f30(this);
     return this;
 }
 
@@ -1375,7 +1375,7 @@ AnimationLoader* AnimationLoader::vfunc_2(byte_289e60 flags) {
 namespace fn_00289ea0 {
 extern "C" char DAT_0042c8c4[];
 struct Sub_289ea0 {
-    void f();
+    void Fnf_0027af50();
 };
 class AnimationGroup {
   public:
@@ -1387,7 +1387,7 @@ extern void __cdecl thunk_FUN_00267090(AnimationGroup*);
 AnimationGroup* AnimationGroup::vfunc_0(unsigned char flags) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042c8c4);
     AnimationGroup::vfunc_1();
-    ((Sub_289ea0*)((char*)this + 8))->f();
+    ((Sub_289ea0*)((char*)this + 8))->Fnf_0027af50();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

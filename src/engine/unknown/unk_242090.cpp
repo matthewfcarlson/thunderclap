@@ -72,7 +72,7 @@ struct Tree_242860 {
     TreeNode_242860 nil;
 };
 extern void* __cdecl FUN_00247530(void*);
-extern "C" void __cdecl ReleaseThing(void*, int);
+extern "C" void __cdecl ReleaseThing_00247550(void*, int);
 extern "C" bool __cdecl FUN_002422e0(void *, void *, int *);
 extern "C" void __cdecl FUN_00257e80(int, void*);
 struct Obj_242c30 {
@@ -88,13 +88,13 @@ struct Item_242ca0 {
 };
 extern "C" void __cdecl FUN_002424a0(void *, void *);
 extern "C" void FUN_00257f00(void*, void*);
-extern void f3(void*, Item_242ca0*);
+extern void f3_00247550(void*, Item_242ca0*);
 struct Obj_242d70 {
     char pad[0x1c];
     unsigned int count;
 };
 extern "C" void __cdecl FUN_00242680(void *, void *);
-void __cdecl F2(void*, Obj_242d70*);
+void __cdecl F2_00247550(void*, Obj_242d70*);
 struct Link_242ec0 {
     Link_242ec0 *next;
     Link_242ec0 *prev;
@@ -622,7 +622,7 @@ extern "C" void __cdecl FUN_00242c10(int* p) {
     int x = *p;
     *p = 0;
     if (x != 0)
-        ReleaseThing((void*)((hulk_intptr)DAT_004e5db0), x);
+        ReleaseThing_00247550((void*)((hulk_intptr)DAT_004e5db0), x);
 }
 
 
@@ -659,7 +659,7 @@ void target(void* param1, Item_242ca0** param2) {
     *param2 = 0;
     FUN_002424a0((char*)param1 + 0x14, (Item_242ca0 *)p);
     FUN_00257f00((char*)p->at20 + 0x28, (char*)p + 0x10);
-    f3(((char*)&DAT_004e5df8), p);
+    f3_00247550(((char*)&DAT_004e5df8), p);
 }
 
 } // namespace fn_f215d331
@@ -729,7 +729,7 @@ extern "C" void __cdecl FUN_00242d70(void* a, Obj_242d70* b) {
         return;
     }
     FUN_00242680(a, (Obj_242d70 *)b);
-    F2((void*)((hulk_intptr)DAT_004e5e88), b);
+    F2_00247550((void*)((hulk_intptr)DAT_004e5e88), b);
 }
 
 } // namespace fn_f215d331

@@ -91,10 +91,10 @@ class Manager_2df540 {
     virtual void f31();
     virtual void f32(int, int);
 };
-extern Manager_2df540* gManager_2df540;
+extern Manager_2df540* hulk_at_0052c2a8;
 class Obj_2df690 {
   public:
-    void FUN(int, int, int);
+    void FUN_002d0950(int, int, int);
 };
 class Obj_2df6b0 {
   public:
@@ -102,7 +102,7 @@ class Obj_2df6b0 {
 };
 class Helper_2df6f0 {
   public:
-    void go(int, int, int);
+    void go_002d0950(int, int, int);
 };
 class Helper_2df710 {
   public:
@@ -234,7 +234,7 @@ struct Obj_2dfc90 {
     Other_2dfc90* p;
     void f(Src_2dfc90* s, Data_2dfc90* d);
 };
-extern void* g_vftable_2dfd40[];
+extern void* hulk_at_0042fb54[];
 class Ref_2dfd40 {
   public:
     virtual void F0();
@@ -243,7 +243,7 @@ class Ref_2dfd40 {
 class DrawablePrimitive_2dfd40 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002a50a0();
 };
 class PrimGroup_2dfd40 : public DrawablePrimitive_2dfd40 {
   public:
@@ -275,7 +275,7 @@ class PrimGroupOptimized : public PrimGroup_2dfde0 {
     PrimGroupOptimized(int a, int b);
     virtual void f();
 };
-extern int vt1_2dffa0;
+extern int hulk_at_0042fba4;
 extern int vt2_2dffa0;
 class Ref_2dffa0 {
   public:
@@ -298,7 +298,7 @@ class PrimGroupOptimized_2dffa0 : public PrimGroup_2dffa0 {
 extern "C" char DAT_0042fbd4[];
 class PrimGroupOptimized_2dffe0 {
   public:
-    void Init();
+    void Init_002a5060();
 };
 class PrimGroupSkinnedOptimized : public PrimGroupOptimized_2dffe0 {
   public:
@@ -315,7 +315,7 @@ class Ref_2e0090 {
     virtual void f();
     virtual void Release();
 };
-extern int vtSkin, vtOpt, vtBase;
+extern int hulk_at_0042fbd4, vtOpt, vtBase;
 class PrimGroupSkinnedOptimized_2e0090 {
   public:
     void* vptr;
@@ -327,11 +327,11 @@ class PrimGroupSkinnedOptimized_2e0090 {
     Ref_2e0090* m60;
     Ref_2e0090* m64;
     void Cleanup();
-    void BaseCleanup();
+    void BaseCleanup_002a50a0();
 };
 class Helper_2e00f0 {
   public:
-    hulk_intptr run(pure3d::PrimGroupSkinnedOptimized*);
+    hulk_intptr run_002e0020(pure3d::PrimGroupSkinnedOptimized*);
 };
 class PrimGroupOptimized_2e0110 {
   public:
@@ -385,7 +385,7 @@ class Owner_2e01a0 {
     Thing_2e01a0* mThing;
     void Set(Thing_2e01a0* p);
 };
-extern int vt1_2e02a0;
+extern int hulk_at_0042fc04;
 extern int vt2_2e02a0;
 class Ref_2e02a0 {
   public:
@@ -433,7 +433,7 @@ public:
     Mesh_2e02e0 *mesh;
     void FUN_002e02e0();
 };
-extern int vt1_2e04e0;
+extern int hulk_at_0042fc3c;
 extern int vt2_2e04e0;
 extern int vt3;
 class Ref_2e04e0 {
@@ -458,7 +458,7 @@ class PrimGroupSkinnedStreamed_2e04e0 : public PrimGroupStreamed_2e04e0 {
 };
 class Helper_2e0540 {
   public:
-    hulk_intptr run(pure3d::PrimGroupSkinnedStreamed*);
+    hulk_intptr run_002e0460(pure3d::PrimGroupSkinnedStreamed*);
 };
 struct Vec3_2e0560 {
     float x, y, z;
@@ -501,7 +501,7 @@ class Owner_2e05f0 {
     Thing_2e05f0* mThing;
     void Set(Thing_2e05f0* p);
 };
-extern int vt1_2e06e0;
+extern int hulk_at_0042fc74;
 class Ref_2e06e0 {
   public:
     virtual void f0();
@@ -525,10 +525,10 @@ class Ref_2e0710 {
     virtual void f1();
 };
 struct PrimGroupSkinnedPC_nv_2e0710 {
-    void init(pure3d::PrimGroupSkinnedPC*);
+    void init_002e0020(pure3d::PrimGroupSkinnedPC*);
 };
-extern void* alloc(hulk_uintptr);
-extern int vt1_2e09e0;
+extern void* alloc_00263ea0(hulk_uintptr);
+extern int hulk_at_0042fca4;
 extern int vt2_2e09e0;
 class Ref_2e09e0 {
   public:
@@ -551,7 +551,7 @@ class VertexAnimPrimGroup_2e09e0 : public PrimGroup_2e09e0 {
 };
 class Other_2e0a40 {
   public:
-    hulk_intptr helper(pure3d::VertexAnimPrimGroup*);
+    hulk_intptr helper_002e0880(pure3d::VertexAnimPrimGroup*);
 };
 struct Ref_2e0b10 {
     virtual void addRef();
@@ -729,7 +729,7 @@ class Ref_2e13b0 {
 class RenderObjectLoader_2e13b0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002a3e90();
 };
 class PrimGroupLoader_2e13b0 : public RenderObjectLoader_2e13b0 {
   public:
@@ -737,7 +737,7 @@ class PrimGroupLoader_2e13b0 : public RenderObjectLoader_2e13b0 {
     Ref_2e13b0* m;
     ~PrimGroupLoader_2e13b0();
 };
-extern void* g_vftable_2e13e0[];
+extern void* hulk_at_0042fb94[];
 class Ref_2e13e0 {
   public:
     virtual void F0();
@@ -746,7 +746,7 @@ class Ref_2e13e0 {
 class RenderObjectLoader_2e13e0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002a3e90();
 };
 class OldPrimGroupLoader_2e13e0 : public RenderObjectLoader_2e13e0 {
   public:
@@ -766,7 +766,7 @@ class Ref_2e1470 {
 class DrawablePrimitive_2e1470 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002a50a0();
 };
 class PrimGroup_2e1470 : public DrawablePrimitive_2e1470 {
   public:
@@ -775,7 +775,7 @@ class PrimGroup_2e1470 : public DrawablePrimitive_2e1470 {
     PrimGroup_2e1470* f2(unsigned char flags);
 };
 extern int vt1_2e14b0, vt2;
-extern void Free(void*);
+extern void Free_00263f30(void*);
 class Ref_2e14b0 {
   public:
     virtual void f0();
@@ -784,7 +784,7 @@ class Ref_2e14b0 {
 class PrimGroup_2e14b0 {
   public:
     void* vptr;
-    void Fini();
+    void Fini_002a50a0();
 };
 class PrimGroupOptimized_2e14b0 : public PrimGroup_2e14b0 {
   public:
@@ -807,7 +807,7 @@ class PrimGroupStreamed_2e1530 {
     char pad2[0x5c - 0x44];
     Ref_2e1530* r5c;
     PrimGroupStreamed_2e1530* vfunc_2(unsigned char f) throw();
-    void Fini() throw();
+    void Fini_002a50a0() throw();
 };
 extern void* g_vt_2e15b0[];
 class Ref_2e15b0 {
@@ -818,7 +818,7 @@ class Ref_2e15b0 {
 class PrimGroupSkinnedOptimized_2e15b0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002e0090();
 };
 class PrimGroupSkinnedPC_2e15b0 : public PrimGroupSkinnedOptimized_2e15b0 {
   public:
@@ -870,7 +870,7 @@ unsigned char pure3d::PrimGroup::vfunc_9() {
 // sym: ?vfunc_6@PrimGroupOptimized@pure3d@@UAEXXZ
 void pure3d::PrimGroupOptimized::vfunc_6() {
     int a = (*(void * *)&this->f_40) ? *(int*)((char*)(*(void * *)&this->f_40) + 0x10) : 0;
-    gManager_2df540->f32(a, (hulk_intptr)(*(void * *)&this->f_58));
+    hulk_at_0052c2a8->f32(a, (hulk_intptr)(*(void * *)&this->f_58));
 }
 
 namespace fn_f1455a33 {
@@ -957,7 +957,7 @@ void pure3d::PrimGroupStreamed::vfunc_6() {
 // 0x002df690 pure3d::PrimGroupStreamed::vfunc_12 (20 B): matches/0x002df690.cpp
 // sym: ?vfunc_12@PrimGroupStreamed@pure3d@@UAEXH@Z
 void pure3d::PrimGroupStreamed::vfunc_12(int a) {
-    (*(Obj_2df690 * *)&this->f_5c)->FUN(a, 0, 0);
+    (*(Obj_2df690 * *)&this->f_5c)->FUN_002d0950(a, 0, 0);
 }
 
 
@@ -987,7 +987,7 @@ bool pure3d::PrimGroupSkinnedStreamed::vfunc_3() {
 // 0x002df6f0 pure3d::PrimGroupSkinnedStreamed::vfunc_12 (24 B): matches/0x002df6f0.cpp
 // sym: ?vfunc_12@PrimGroupSkinnedStreamed@pure3d@@UAEXH@Z
 void pure3d::PrimGroupSkinnedStreamed::vfunc_12(int arg) {
-    ((Helper_2df6f0*)(*(hulk_intptr *)&this->f_5c))->go(arg, this->f_60, this->f_64);
+    ((Helper_2df6f0*)(*(hulk_intptr *)&this->f_5c))->go_002d0950(arg, this->f_60, this->f_64);
 }
 
 
@@ -1147,13 +1147,13 @@ namespace fn_f1455a33 {
 // 0x002dfd40 FUN_002dfd40 (36 B): matches/0x002dfd40.cpp
 // sym: ??1PrimGroup_2dfd40@fn_f1455a33@@QAE@XZ
 PrimGroup_2dfd40::~PrimGroup_2dfd40() {
-    vptr = g_vftable_2dfd40;
+    vptr = hulk_at_0042fb54;
     _ReadWriteBarrier();
     if (m40) {
         m40->Release();
         m40 = 0;
     }
-    Fin();
+    Fin_002a50a0();
 }
 
 } // namespace fn_f1455a33
@@ -1254,7 +1254,7 @@ namespace fn_f1455a33 {
 // 0x002dffa0 FUN_002dffa0 (61 B): matches/0x002dffa0.cpp
 // sym: ??1PrimGroupOptimized_2dffa0@fn_f1455a33@@QAE@XZ
 PrimGroupOptimized_2dffa0::~PrimGroupOptimized_2dffa0() throw() {
-    vptr = &vt1_2dffa0;
+    vptr = &hulk_at_0042fba4;
     _ReadWriteBarrier();
     if (a58) {
         a58->Release();
@@ -1272,7 +1272,7 @@ PrimGroupOptimized_2dffa0::~PrimGroupOptimized_2dffa0() throw() {
 // 0x002dffe0 FUN_002dffe0 (58 B): matches/0x002dffe0.cpp
 // sym: ?setup@PrimGroupSkinnedOptimized@fn_f1455a33@@QAEPAV12@HH@Z
 PrimGroupSkinnedOptimized* PrimGroupSkinnedOptimized::setup(int x, int y) {
-    Init();
+    Init_002a5060();
     a40 = 0;
     a44 = 0;
     a48 = x;
@@ -1335,7 +1335,7 @@ namespace fn_f1455a33 {
 // 0x002e0090 FUN_002e0090 (93 B): matches/0x002e0090.cpp
 // sym: ?Cleanup@PrimGroupSkinnedOptimized_2e0090@fn_f1455a33@@QAEXXZ
 void PrimGroupSkinnedOptimized_2e0090::Cleanup() {
-    *(void* volatile*)&vptr = &vtSkin;
+    *(void* volatile*)&vptr = &hulk_at_0042fbd4;
     _ReadWriteBarrier();
     if (m60) {
         m60->Release();
@@ -1357,7 +1357,7 @@ void PrimGroupSkinnedOptimized_2e0090::Cleanup() {
         m40->Release();
         m40 = 0;
     }
-    BaseCleanup();
+    BaseCleanup_002a50a0();
 }
 
 } // namespace fn_f1455a33
@@ -1368,7 +1368,7 @@ void PrimGroupSkinnedOptimized_2e0090::Cleanup() {
 void* pure3d::PrimGroupSkinnedOptimized::vfunc_4() {
     void* p = thunk_FUN_0008d690(0x68);
     if (p)
-        return (void*)(((Helper_2e00f0*)p)->run(this));
+        return (void*)(((Helper_2e00f0*)p)->run_002e0020(this));
     return (void*)(0);
 }
 
@@ -1407,7 +1407,7 @@ void Owner_2e01a0::Set(Thing_2e01a0* p) {
 // 0x002e02a0 FUN_002e02a0 (61 B): matches/0x002e02a0.cpp
 // sym: ??1PrimGroupStreamed_2e02a0@fn_f1455a33@@QAE@XZ
 PrimGroupStreamed_2e02a0::~PrimGroupStreamed_2e02a0() throw() {
-    vptr = &vt1_2e02a0;
+    vptr = &hulk_at_0042fc04;
     _ReadWriteBarrier();
     if (a5c) {
         a5c->Release();
@@ -1510,7 +1510,7 @@ namespace fn_f1455a33 {
 // 0x002e04e0 FUN_002e04e0 (93 B): matches/0x002e04e0.cpp
 // sym: ??1PrimGroupSkinnedStreamed_2e04e0@fn_f1455a33@@QAE@XZ
 PrimGroupSkinnedStreamed_2e04e0::~PrimGroupSkinnedStreamed_2e04e0() throw() {
-    vptr = &vt1_2e04e0;
+    vptr = &hulk_at_0042fc3c;
     _ReadWriteBarrier();
     if (a60) {
         a60->Release();
@@ -1542,7 +1542,7 @@ PrimGroupSkinnedStreamed_2e04e0::~PrimGroupSkinnedStreamed_2e04e0() throw() {
 void* pure3d::PrimGroupSkinnedStreamed::vfunc_4() {
     void* p = thunk_FUN_0008d690(0x68);
     if (p)
-        return (void*)(((Helper_2e0540*)p)->run(this));
+        return (void*)(((Helper_2e0540*)p)->run_002e0460(this));
     return (void*)(0);
 }
 
@@ -1638,7 +1638,7 @@ namespace fn_f1455a33 {
 // 0x002e06e0 FUN_002e06e0 (36 B): matches/0x002e06e0.cpp
 // sym: ??1PrimGroupSkinnedPC_2e06e0@fn_f1455a33@@QAE@XZ
 PrimGroupSkinnedPC_2e06e0::~PrimGroupSkinnedPC_2e06e0() throw() {
-    vptr = &vt1_2e06e0;
+    vptr = &hulk_at_0042fc74;
     _ReadWriteBarrier();
     if (child) {
         child->Release();
@@ -1651,9 +1651,9 @@ PrimGroupSkinnedPC_2e06e0::~PrimGroupSkinnedPC_2e06e0() throw() {
 // 0x002e0710 pure3d::PrimGroupSkinnedPC::vfunc_4 (79 B): matches/0x002e0710.cpp
 // sym: ?vfunc_4@PrimGroupSkinnedPC@pure3d@@UAEPAXXZ
 void* pure3d::PrimGroupSkinnedPC::vfunc_4() {
-    pure3d::PrimGroupSkinnedPC* p = (pure3d::PrimGroupSkinnedPC*)alloc(0x70);
+    pure3d::PrimGroupSkinnedPC* p = (pure3d::PrimGroupSkinnedPC*)alloc_00263ea0(0x70);
     if (p) {
-        ((PrimGroupSkinnedPC_nv_2e0710*)(p))->init(this);
+        ((PrimGroupSkinnedPC_nv_2e0710*)(p))->init_002e0020(this);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0042fc74);
         *(unsigned int*)((char*)p + 0x68) = 0;
         Ref_2e0710* r = (*(Ref_2e0710 * *)&this->f_68);
@@ -1808,7 +1808,7 @@ namespace fn_f1455a33 {
 // 0x002e09e0 FUN_002e09e0 (87 B): matches/0x002e09e0.cpp
 // sym: ??1VertexAnimPrimGroup_2e09e0@fn_f1455a33@@QAE@XZ
 VertexAnimPrimGroup_2e09e0::~VertexAnimPrimGroup_2e09e0() throw() {
-    vptr = &vt1_2e09e0;
+    vptr = &hulk_at_0042fca4;
     _ReadWriteBarrier();
     if (a40) {
         a40->Release();
@@ -1839,7 +1839,7 @@ void* pure3d::VertexAnimPrimGroup::vfunc_4() {
     pure3d::VertexAnimPrimGroup* self = this;
     Other_2e0a40* p = (Other_2e0a40*)allocate(0x60);
     if (p)
-        return (void*)(p->helper(self));
+        return (void*)(p->helper_002e0880(self));
     return (void*)(0);
 }
 
@@ -2078,20 +2078,20 @@ PrimGroupLoader_2e13b0::~PrimGroupLoader_2e13b0() {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_002a3e90();
 }
 
 
 // 0x002e13e0 FUN_002e13e0 (36 B): matches/0x002e13e0.cpp
 // sym: ??1OldPrimGroupLoader_2e13e0@fn_f1455a33@@QAE@XZ
 OldPrimGroupLoader_2e13e0::~OldPrimGroupLoader_2e13e0() {
-    vptr = g_vftable_2e13e0;
+    vptr = hulk_at_0042fb94;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_002a3e90();
 }
 
 
@@ -2123,7 +2123,7 @@ PrimGroup_2e1470* PrimGroup_2e1470::f2(unsigned char flags) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_002a50a0();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -2145,9 +2145,9 @@ PrimGroupOptimized_2e14b0* PrimGroupOptimized_2e14b0::vfunc2(unsigned char f) {
         a40->Release();
         a40 = 0;
     }
-    Fini();
+    Fini_002a50a0();
     if (f & 1)
-        Free(this);
+        Free_00263f30(this);
     return this;
 }
 
@@ -2176,7 +2176,7 @@ PrimGroupStreamed_2e1530* PrimGroupStreamed_2e1530::vfunc_2(unsigned char f) thr
         r40->release();
         r40 = 0;
     }
-    Fini();
+    Fini_002a50a0();
     if (f & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -2201,7 +2201,7 @@ PrimGroupSkinnedPC_2e15b0* PrimGroupSkinnedPC_2e15b0::f2(unsigned char flags) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_002e0090();
     if (flags & 1)
         operator delete(this);
     return this;

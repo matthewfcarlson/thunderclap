@@ -15,7 +15,7 @@ namespace fn_f937dacf {} using namespace fn_f937dacf;
 namespace fn_f937dacf {
 class Obj_24d210 {
   public:
-    int Fn();
+    int Fn_00264d20();
 };
 extern "C" char DAT_00429394[];
 class EntityLoader {
@@ -30,7 +30,7 @@ class EntityLoader {
 // 0x0024d210 FUN_0024d210 (11 B): matches/0x0024d210.cpp
 // sym: ?FUN_0024d210@fn_f937dacf@@YAHXZ
 int __cdecl FUN_0024d210() {
-    return (*(Obj_24d210**)&DAT_00527c58)->Fn();
+    return (*(Obj_24d210**)&DAT_00527c58)->Fn_00264d20();
 }
 
 } // namespace fn_f937dacf
@@ -177,7 +177,7 @@ EntityLoader::EntityLoader(void* p) {
 // sym: ?vfunc_2@EntityLoader@om@fn_0024d380@@QAEPAV123@E@Z
 namespace fn_0024d380 {
 
-extern int g_vftable_24d380;
+extern int hulk_at_003f6098;
 namespace om { class EntityLoader {
   public:
     hulk_intptr vptr;
@@ -185,7 +185,7 @@ namespace om { class EntityLoader {
 }; }
 extern "C" void FUN_00247550(void*, om::EntityLoader*);
 om::EntityLoader* om::EntityLoader::vfunc_2(unsigned char param) {
-    vptr = (hulk_intptr)&g_vftable_24d380;
+    vptr = (hulk_intptr)&hulk_at_003f6098;
     if (param & 1)
         FUN_00247550((void*)((hulk_intptr)DAT_004e62d8), this);
     return this;

@@ -72,7 +72,7 @@ struct Manager_29ca50 {
     virtual void f37();
     virtual void f38(int, int);
 };
-extern Manager_29ca50* gManager_29ca50;
+extern Manager_29ca50* hulk_at_0052c2a8;
 class Target_29ca50 {
     char pad[0x10];
 
@@ -106,7 +106,7 @@ class Inner_29cc40 {
     virtual void a();
     virtual void b();
 };
-void thunk2(void*);
+void thunk2_0008d340(void*);
 class Target_29cc40 {
   public:
     Inner_29cc40* mObj;
@@ -123,7 +123,7 @@ class Owner_29cc70 {
     Item_29cc70* a[4];
     Owner_29cc70* run(unsigned char);
 };
-extern void __cdecl cleanup(Owner_29cc70*);
+extern void __cdecl cleanup_0008d330(Owner_29cc70*);
 struct Item_29ccb0 {
     char pad0[0x14];
     unsigned int packed;
@@ -231,10 +231,10 @@ class Obj_29dcc0 {
     int field;
     char pad2[0x0c];
     char flag;
-    float A(int, int);
-    float B(int, int);
-    float C(int, int);
-    float D(int, int);
+    float FnA_0029d090(int, int);
+    float FnB_0029d2c0(int, int);
+    float FnC_0029d880(int, int);
+    float FnD_0029d5d0(int, int);
     hulk_freg F(int, int);
 };
 struct Hdr {
@@ -417,7 +417,7 @@ struct ItemList {
 struct Grow_29e640 {
 };
 struct Item_29e680 {
-    void Func(int);
+    void Func_002a0820(int);
 };
 struct Obj_29e680 {
     char pad[0x10];
@@ -472,7 +472,7 @@ void Target_29ca50::run() {
     int i = 0;
     if (count > 0)
         do {
-            gManager_29ca50->f38(i, 0);
+            hulk_at_0052c2a8->f38(i, 0);
             ++i;
         } while (i < count);
 }
@@ -512,7 +512,7 @@ void Pool_29cb70::FUN_0029cb70(unsigned int since)
 // sym: ?run@Target_29cc40@fn_f3bb83d9@@QAEPAV12@E@Z
 Target_29cc40* Target_29cc40::run(unsigned char flags) {
     mObj->b();
-    thunk2(mArg);
+    thunk2_0008d340(mArg);
     if (flags & 1)
         thunk(this);
     return this;
@@ -527,7 +527,7 @@ Owner_29cc70* Owner_29cc70::run(unsigned char flags) {
     a[1]->f1();
     a[0]->f1();
     if (flags & 1)
-        cleanup(this);
+        cleanup_0008d330(this);
     return this;
 }
 
@@ -1227,11 +1227,11 @@ namespace fn_f3bb83d9 {
 // sym: ?F@Obj_29dcc0@fn_f3bb83d9@@QAEMHH@Z
 hulk_freg Obj_29dcc0::F(int a, int b) {
     field = 0;
-    float r = A(a, b);
-    r = r + B(a, b);
-    r = r + C(a, b);
+    float r = FnA_0029d090(a, b);
+    r = r + FnB_0029d2c0(a, b);
+    r = r + FnC_0029d880(a, b);
     if (flag)
-        return D(a, b) + r;
+        return FnD_0029d5d0(a, b) + r;
     return r;
 }
 
@@ -1503,7 +1503,7 @@ void __stdcall FUN_0029e680(Obj_29e680* p) {
                 if (i < p->limit) {
                     Item_29e680* it = p->items[i];
                     if (it)
-                        it->Func(1);
+                        it->Func_002a0820(1);
                 }
                 ++i;
             } while (i < p->count);

@@ -13,8 +13,8 @@ namespace fn_f30ddaac {} using namespace fn_f30ddaac;
 
 // ---- declarations shared by the functions below
 namespace fn_f30ddaac {
-extern char vtA[], vtB[], vtC[], vtD[], vtE[], vtF[];
-void A(void*);
+extern char hulk_at_0042b8f8[], hulk_at_0042b8f0[], hulk_at_0042b8e0[], hulk_at_0042b85c[], hulk_at_0042af64[], hulk_at_003f6098[];
+void FnA_0026d8a0(void*);
 extern "C" void FUN_0026d780(void*);
 extern "C" void FUN_0026dad0(void*);
 extern "C" void FUN_0026d880(void*);
@@ -64,7 +64,7 @@ class Param {
 };
 class Helper_272f90 {
   public:
-    void f();
+    void Fnf_0026f160();
 };
 class DriveThread_272f90 : public IRefCount_272f90, public Param {
   public:
@@ -106,7 +106,7 @@ class Owner_273050 {
     Item_273050* tails[4];
     void Run(int, int);
 };
-void Clean(void*);
+void Clean_0026d890(void*);
 class Thing_2730c0 {
   public:
     virtual void A();
@@ -181,7 +181,7 @@ typedef unsigned char u8_273480;
 extern "C" void __cdecl FUN_00266f00(int, void*);
 class DriveThread_273480 {
   public:
-    void cleanup();
+    void cleanup_00272f00();
     virtual void f0();
     virtual void f1();
     virtual DriveThread_273480* f2(u8_273480);
@@ -202,21 +202,21 @@ class DriveThread_273480 {
 // sym: ?Fn@DriveThread_272f00@fn_f30ddaac@@QAEXXZ
 // data: g_last = DAT_004cdbb0
 void DriveThread_272f00::Fn() {
-    v0 = (int*)vtA;
-    v4 = (int*)vtB;
-    vc = (int*)vtC;
+    v0 = (int*)hulk_at_0042b8f8;
+    v4 = (int*)hulk_at_0042b8f0;
+    vc = (int*)hulk_at_0042b8e0;
     flag = 1;
-    A(&a);
+    FnA_0026d8a0(&a);
     FUN_0026d780(&pad[0x18 - 0x10]);
     FUN_0026dad0(&pad[0x18 - 0x10]);
     FUN_0026d880(&a);
     FUN_0026d880(&b);
     int** q = &vc;
-    *q = (int*)vtD;
+    *q = (int*)hulk_at_0042b85c;
     DAT_004cdbb0 = f8;
     int** q2 = &v4;
-    *q2 = (int*)vtE;
-    v0 = (int*)vtF;
+    *q2 = (int*)hulk_at_0042af64;
+    v0 = (int*)hulk_at_003f6098;
 }
 
 
@@ -235,7 +235,7 @@ void DriveThread_272f70::vfunc_0() {
 // sym: ?vfunc_6@DriveThread_272f90@fn_f30ddaac@@UAEXXZ
 // Same code shape as 0x0023c920 (propagated; names are from that function)
 void DriveThread_272f90::vfunc_6() {
-    ((Helper_272f90*)((char*)this + 0xc))->f();
+    ((Helper_272f90*)((char*)this + 0xc))->Fnf_0026f160();
 }
 
 
@@ -317,7 +317,7 @@ void Owner_273050::Run(int arg, int index) {
             Item_273050* x = *p;
             *p = x->next;
             x->Release(1);
-            Clean((char*)this + 0x68);
+            Clean_0026d890((char*)this + 0x68);
         } else {
             prev = *p;
             p = &prev->next;
@@ -444,7 +444,7 @@ DriveThread_2733c0* DriveThread_2733c0::FUN_002733c0(hulk_uintptr arg1, hulk_uin
 // Same code shape as 0x00269560 (propagated; names are from that function)
 // data: globalValue = DAT_004cdbb0
 DriveThread_273480* DriveThread_273480::f2(u8_273480 flag) {
-    cleanup();
+    cleanup_00272f00();
     if (flag & 1)
         FUN_00266f00(DAT_004cdbb0, this);
     return this;

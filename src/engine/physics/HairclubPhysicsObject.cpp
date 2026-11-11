@@ -14,7 +14,7 @@ namespace fn_fa60db69 {} using namespace fn_fa60db69;
 // ---- declarations shared by the functions below
 namespace fn_fa60db69 {
 struct SymMatrix_nv_308de0 {
-    void Call();
+    void Call_002fca90();
 };
 struct Entry_308e40 {
  char base[0x1c];
@@ -154,12 +154,12 @@ public:
     int partCount;
 };
 typedef unsigned int u32_3094a0;
-extern void* alloc(hulk_uintptr);
+extern void* alloc_00263ea0(hulk_uintptr);
 struct Obj_3094a0 {
-    void init();
+    void init_002f5480();
 };
 struct HairclubPhysicsObject_nv_3094a0 {
-    void build(void*, unsigned int);
+    void build_00308e40(void*, unsigned int);
 };
 struct Strand {
  char pad[0x28];
@@ -188,7 +188,7 @@ void FUN_00308dd0() {}
 // sym: ?FUN_00308de0@SymMatrix@physics@@QAEPAV12@XZ
 // Same code shape as 0x00034ad0 (propagated; names are from that function)
 physics::SymMatrix* physics::SymMatrix::FUN_00308de0() {
-    ((SymMatrix_nv_308de0*)this)->Call();
+    ((SymMatrix_nv_308de0*)this)->Call_002fca90();
     return (SymMatrix*)(this);
 }
 
@@ -339,14 +339,14 @@ namespace fn_003093b0 {
 extern "C" char DAT_00431d1c[];
 struct SymMatrix_3093b0 {
     char pad[0x34];
-    void Destroy();
+    void Destroy_002fcaa0();
 };
-extern void __cdecl FreeArray(void*);
+extern void __cdecl FreeArray_0008d340(void*);
 struct HairclubPhysicsObject {
     void* vptr;
     char pad[0x1f4];
     SymMatrix_3093b0* items;
-    void BaseDestroy();
+    void BaseDestroy_002f5640();
     void Destroy();
 };
 void HairclubPhysicsObject::Destroy() {
@@ -357,11 +357,11 @@ void HairclubPhysicsObject::Destroy() {
         SymMatrix_3093b0* q = p + n;
         while (--n >= 0) {
             q--;
-            q->Destroy();
+            q->Destroy_002fcaa0();
         }
-        FreeArray((char*)p - 4);
+        FreeArray_0008d340((char*)p - 4);
     }
-    BaseDestroy();
+    BaseDestroy_002f5640();
 }
 } // namespace fn_003093b0
 
@@ -394,17 +394,17 @@ void HairclubPhysicsObject_309410::FUN_00309410() {
 // 0x003094a0 physics::HairclubPhysicsObject::vfunc_28 (83 B): matches/0x003094a0.cpp
 // sym: ?vfunc_28@HairclubPhysicsObject@physics@@UAEPAXI@Z
 void* physics::HairclubPhysicsObject::vfunc_28(unsigned int arg) {
-    void* q = alloc(0x200);
+    void* q = alloc_00263ea0(0x200);
     void* p;
     if (q) {
         p = q;
-        ((Obj_3094a0*)p)->init();
+        ((Obj_3094a0*)p)->init_002f5480();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00431d1c);
         *(u32_3094a0*)((char*)p + 0x1f8) = 0;
         *(u32_3094a0*)((char*)p + 0x24) = 2;
     } else
         p = 0;
-    ((HairclubPhysicsObject_nv_3094a0*)this)->build(p, arg);
+    ((HairclubPhysicsObject_nv_3094a0*)this)->build_00308e40(p, arg);
     *(u32_3094a0*)((char*)p + 0x24) = *(u32_3094a0*)((char*)this + 0x24);
     return (void*)(p);
 }

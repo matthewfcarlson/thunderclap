@@ -42,12 +42,12 @@ class Thing_266760 {
     int state;
     void Wait();
 };
-void thunk();
-void step();
+void thunk_002696a0();
+void step_002656a0();
 class Sub_266790 {
   public:
-    int f();
-    int g();
+    int Fnf_00263fc0();
+    int Fng_00263fb0();
 };
 class Obj_266790 {
     char pad0[0x14];
@@ -151,8 +151,8 @@ bool __fastcall target(C_266750* self) {
 // sym: ?Wait@Thing_266760@fn_f4a58842@@QAEXXZ
 void Thing_266760::Wait() {
     while (state != 3) {
-        thunk();
-        step();
+        thunk_002696a0();
+        step_002656a0();
     }
 }
 
@@ -168,8 +168,8 @@ hulk_freg Obj_266790::run() {
         if (sub) {
             // x87: the original stores f() as a float (rounded) and divides it by g() unrounded. A float local, not a
             // cast: clang's x87 code leaves `(float)` of an unsigned unrounded in the register
-            float n = (float)(unsigned int)sub->f();
-            return n / (hulk_freg)(unsigned int)sub->g();
+            float n = (float)(unsigned int)sub->Fnf_00263fc0();
+            return n / (hulk_freg)(unsigned int)sub->Fng_00263fb0();
         }
         return 0.0f;
     default:

@@ -27,9 +27,9 @@ struct Light {
 };
 struct Obj_24cc00 {
     float x, y, z;
-    char Check(const Light* l, int key) const;
+    char Check_0022d2b0(const Light* l, int key) const;
 };
-extern float Dot(const float* a, const float* b);
+extern float Dot_0025e5f0(const float* a, const float* b);
 struct Body_24ccb0 {
  float x,y,z,vx,vy,vz; char pad[0x18]; float a,b;
  bool FUN_0022d2b0(Body_24ccb0*,float);
@@ -55,10 +55,10 @@ struct Obj_24d140 {
     float slot5c;
     float slot60;
 };
-float __cdecl f1(int, Obj_24d140*);
-float __cdecl f2(int, Obj_24d140*);
-float __cdecl f3(int, Obj_24d140*);
-float __cdecl f4(int, Obj_24d140*);
+float __cdecl f1_0024ce50(int, Obj_24d140*);
+float __cdecl f2_0024cc00(int, Obj_24d140*);
+float __cdecl f3_0024cdd0(int, Obj_24d140*);
+float __cdecl f4_0024ccb0(int, Obj_24d140*);
 extern "C" void __cdecl FUN_0024cf20(void *, const void *, float *, float *);
 
 
@@ -66,12 +66,12 @@ extern "C" void __cdecl FUN_0024cf20(void *, const void *, float *, float *);
 // sym: ?FUN_0024cc00@fn_f96c52ec@@YAMPBUObj_24cc00@1@PBULight@1@@Z
 hulk_freg FUN_0024cc00(const Obj_24cc00* p, const Light* l) {
     float d;
-    if (p->Check(l, 0x3727c5ac) == 0) {
+    if (p->Check_0022d2b0(l, 0x3727c5ac) == 0) {
         float v[3];
         v[0] = p->x - l->pos[0];
         v[1] = p->y - l->pos[1];
         v[2] = p->z - l->pos[2];
-        d = Dot(l->dir, v);
+        d = Dot_0025e5f0(l->dir, v);
     } else {
         d = 0.0f;
     }
@@ -213,10 +213,10 @@ extern "C" void FUN_0024cf20(void * e_, const void *p, float *outCross, float *o
 // sym: _FUN_0024d140
 extern "C" void __cdecl FUN_0024d140(int a, Obj_24d140* b) {
     // MSVC evaluates the operands right to left: f1, then f2, then f3
-    float x1 = f1(a, b);
-    float x2 = f2(a, b) * x1;
-    b->value = f3(a, b) * x2;
-    b->slot60 = f4(a, b);
+    float x1 = f1_0024ce50(a, b);
+    float x2 = f2_0024cc00(a, b) * x1;
+    b->value = f3_0024cdd0(a, b) * x2;
+    b->slot60 = f4_0024ccb0(a, b);
     FUN_0024cf20((void *)(hulk_uintptr)(int)a, (Obj_24d140 *)b, &b->slot58, &b->slot5c);
 }
 

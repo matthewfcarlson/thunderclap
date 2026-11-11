@@ -14,7 +14,7 @@ struct Handle_2471f0 {
     virtual void a();
     virtual void close();
 };
-extern void* streamvt_2471f0[];
+extern void* hulk_at_00423f20[];
 namespace om {
 class ContentStream {
   public:
@@ -33,7 +33,7 @@ om::ContentStream* om::ContentStream::vfunc_0(unsigned char p) {
     Handle_2471f0* h = member;
     vt = corevt;
     h->close();
-    vt = streamvt_2471f0;
+    vt = hulk_at_00423f20;
     if (p & 1)
         cleanup(this);
     return this;

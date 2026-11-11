@@ -16,7 +16,7 @@ namespace fn_f2c92ace {
 extern "C" char DAT_0042eb0c[];
 typedef unsigned int u32_2c0be0;
 struct Obj_2c0be0 {
-    void ReleaseThing();
+    void ReleaseThing_002ae910();
 };
 class ImageLoader {
   public:
@@ -29,7 +29,7 @@ class ImageLoader {
     int f;
     void Destroy();
 };
-void __cdecl DropThing(Obj_2c0be0*);
+void __cdecl DropThing_0008d330(Obj_2c0be0*);
 } // namespace fn_f2c92ace
 namespace pure3d {
 struct ImageData {
@@ -46,7 +46,7 @@ struct ImageLoader_nv_2c0c10 {
 namespace fn_f2c92ace {
 class Sub_2c0c40 {
   public:
-    void* Init();
+    void* Init_002af2d0();
 };
 extern "C" void* alloc(hulk_intptr);
 
@@ -57,8 +57,8 @@ void ImageLoader::Destroy() {
     Obj_2c0be0* p = mPtr;
     vptr = ((hulk_intptr)DAT_0042eb0c);
     if (p) {
-        p->ReleaseThing();
-        DropThing(p);
+        p->ReleaseThing_002ae910();
+        DropThing_0008d330(p);
     }
     vptr = ((hulk_intptr)DAT_003f6098);
 }
@@ -92,7 +92,7 @@ void* __fastcall FUN_002c0c40(ImageLoader* p) {
     Sub_2c0c40* s = (Sub_2c0c40*)alloc(0xa4);
     hulk_intptr r;
     if (s)
-        r = (hulk_intptr)s->Init();
+        r = (hulk_intptr)s->Init_002af2d0();
     else
         r = 0;
     p->e = r;
@@ -104,14 +104,14 @@ void* __fastcall FUN_002c0c40(ImageLoader* p) {
 // 0x002c0ca0 pure3d::ImageLoader::vfunc_2 (62 B): matches/0x002c0ca0.cpp [wrapped: conflict: ImageLoader]
 // sym: ?f2@ImageLoader@fn_002c0ca0@@QAEPAV12@E@Z
 namespace fn_002c0ca0 {
-extern char vtImage[];
-extern char vtIRef[];
+extern char hulk_at_0042eb0c[];
+extern char hulk_at_003f6098[];
 class Helper_2c0ca0 {
   public:
-    void cleanup();
+    void cleanup_002ae910();
 };
-void destroy(void*);
-void destroyThis(void*);
+void destroy_0008d330(void*);
+void destroyThis_00263f30(void*);
 class ImageLoader {
   public:
     void* vptr;
@@ -121,14 +121,14 @@ class ImageLoader {
 };
 ImageLoader* ImageLoader::f2(unsigned char p) {
     Helper_2c0ca0* h = mPtr;
-    vptr = vtImage;
+    vptr = hulk_at_0042eb0c;
     if (h) {
-        h->cleanup();
-        destroy(h);
+        h->cleanup_002ae910();
+        destroy_0008d330(h);
     }
-    vptr = vtIRef;
+    vptr = hulk_at_003f6098;
     if (p & 1)
-        destroyThis(this);
+        destroyThis_00263f30(this);
     return this;
 }
 } // namespace fn_002c0ca0

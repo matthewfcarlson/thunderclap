@@ -43,7 +43,7 @@ class Node {
     unsigned int flags;
     char _m_pad_10[0x8];
     int f18;
-    void F(int, int);
+    void FnF_00232600(int, int);
     void FUN_00232600(int a, int b);
 };
 class Owner_231f00 {
@@ -130,7 +130,7 @@ class Item_2321b0 {
     char pad14[4];
     Item_2321b0* next;
     unsigned int flags;
-    void cleanup(int, int);
+    void cleanup_00232600(int, int);
 };
 class Obj_2321b0 {
   public:
@@ -157,13 +157,13 @@ class Obj {
     Ref* e;
     void Set(int x);
     void reset();
-    void init();
+    void init_002321b0();
 };
 class Item_232290 {
   public:
     virtual void A();
     virtual void B();
-    void Handle(Item_232290*);
+    void Handle_002326d0(Item_232290*);
     float pad[3];
     float value;
 };
@@ -267,7 +267,7 @@ class Holder_2326d0 {
     Obj_2326d0* p;
     void Set(Obj_2326d0* value);
 };
-extern void* vAction[];
+extern void* hulk_at_004276ec[];
 extern void FUN_0008d330(void*);
 class Ref_232700 {
   public:
@@ -334,7 +334,7 @@ namespace fn_f7416411 {
 void Owner_231f00::Run() {
     Node* n = head;
     while (n) {
-        n->F(8, 1);
+        n->FnF_00232600(8, 1);
         n = n->next;
     }
 }
@@ -449,7 +449,7 @@ void Obj_2321b0::run() {
         if (b) {
             i->f4();
             --DAT_004e5ae8;
-            i->cleanup(8, 1);
+            i->cleanup_00232600(8, 1);
         }
     }
     if (extra) {
@@ -470,7 +470,7 @@ void Obj_2321b0::run() {
 // 0x00232240 FUN_00232240 (77 B): matches/0x00232240.cpp
 // sym: ?reset@Obj@fn_f7416411@@QAEXXZ
 void Obj::reset() {
-    init();
+    init_002321b0();
     if (e) {
         e->release();
         e = 0;
@@ -505,7 +505,7 @@ bool Owner_232290::Attach(Item_232290* item) {
             first->B();
         first = item;
     } else {
-        s0->Handle(item);
+        s0->Handle_002326d0(item);
     }
     item->A();
     Item_232290* t = second;
@@ -789,7 +789,7 @@ void Holder_2326d0::Set(Obj_2326d0* value) {
 // 0x00232700 fight::Action::vfunc_2 (70 B): matches/0x00232700.cpp
 // sym: ?Dtor@Action_232700@fn_f7416411@@QAEPAU12@E@Z
 Action_232700* Action_232700::Dtor(unsigned char flag) throw() {
-    vf = vAction;
+    vf = hulk_at_004276ec;
     _ReadWriteBarrier();
     if (p8) {
         p8->Release();

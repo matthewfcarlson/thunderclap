@@ -12,7 +12,7 @@ namespace fn_f792b616 {} using namespace fn_f792b616;
 // ---- declarations shared by the functions below
 namespace fn_f792b616 {
 struct ThisCall_002223f0 {
-    void InitRestPose(void*);
+    void InitRestPose_002223f0(void*);
 };
 struct Quat_22a640 {
     float x, y, z, w;
@@ -66,20 +66,20 @@ public:
 class Driver_22a7e0 {
     char pad[1];
 };
-extern void* PartitionDriver_22a800_vftable[];
+extern void* hulk_at_00427480[];
 class PartitionDriver_22a800 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002222d0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class RestPoseDriver_22a800 : public PartitionDriver_22a800 {
   public:
     RestPoseDriver_22a800* vfunc_5(signed char flags);
 };
-void* __cdecl alloc(hulk_uintptr);
+void* __cdecl alloc_00263ea0(hulk_uintptr);
 extern int vt_22a8a0;
 struct RestPoseDriver_nv_22a8a0 {
-    void InitA(choreo2::RestPoseDriver*);
-    void InitB(choreo2::RestPoseDriver*);
+    void InitA_00222590(choreo2::RestPoseDriver*);
+    void InitB_00222460(choreo2::RestPoseDriver*);
 };
 
 } // namespace fn_f792b616
@@ -87,7 +87,7 @@ struct RestPoseDriver_nv_22a8a0 {
 // 0x0022a5d0 FUN_0022a5d0 (25 B): matches/0x0022a5d0.cpp
 // sym: ?FUN_0022a5d0@RestPoseDriver@choreo2@@QAEPAV12@PAX@Z
 choreo2::RestPoseDriver* choreo2::RestPoseDriver::FUN_0022a5d0(void* arg) {
-    ((ThisCall_002223f0*)(this))->InitRestPose(arg);
+    ((ThisCall_002223f0*)(this))->InitRestPose_002223f0(arg);
     *(void**)this = &RestPoseVtable;
     return (choreo2::RestPoseDriver*)(this);
 }
@@ -169,8 +169,8 @@ namespace fn_f792b616 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 RestPoseDriver_22a800* RestPoseDriver_22a800::vfunc_5(signed char flags) {
-    *(void***)this = PartitionDriver_22a800_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00427480;
+    Destroy_002222d0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -182,11 +182,11 @@ RestPoseDriver_22a800* RestPoseDriver_22a800::vfunc_5(signed char flags) {
 // 0x0022a8a0 choreo2::RestPoseDriver::vfunc_5 (52 B): matches/0x0022a8a0.cpp
 // sym: ?vfunc_5@RestPoseDriver@choreo2@@UAEPAXXZ
 void* choreo2::RestPoseDriver::vfunc_5() {
-    choreo2::RestPoseDriver* p = (choreo2::RestPoseDriver*)alloc(0x20);
+    choreo2::RestPoseDriver* p = (choreo2::RestPoseDriver*)alloc_00263ea0(0x20);
     if (p) {
-        ((RestPoseDriver_nv_22a8a0*)(p))->InitA(this);
+        ((RestPoseDriver_nv_22a8a0*)(p))->InitA_00222590(this);
         *(hulk_intptr*)p = (hulk_intptr)&vt_22a8a0;
-        ((RestPoseDriver_nv_22a8a0*)(p))->InitB(this);
+        ((RestPoseDriver_nv_22a8a0*)(p))->InitB_00222460(this);
         return (void*)(p);
     }
     return (void*)(0);

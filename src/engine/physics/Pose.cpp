@@ -64,7 +64,7 @@ class C_30ecf0 {
 class Inner_30ed00 {
   public:
     int data[0x15];
-    void Init();
+    void Init_0030f3a0();
 };
 class Obj_30ed00 {
   public:
@@ -81,7 +81,7 @@ class Node {
     Node** children;
     char pad1[0xa8];
     int state;
-    void Step();
+    void Step_0030ecb0();
 };
 class Owner {
   public:
@@ -100,11 +100,11 @@ class Thing_30edc0 {
     char pad1[0xbc - 0x14 - sizeof(Data_30edc0)];
     int state;
     void Run(Data_30edc0* data);
-    void Finish();
+    void Finish_0030ed60();
 };
 struct Block_30edf0 {
     int a[21];
-    void Finish(int);
+    void Finish_0030f300(int);
 };
 class Obj_30edf0 {
   public:
@@ -115,8 +115,8 @@ class Obj_30edf0 {
     Block_30edf0 dest;
     int state;
 };
-extern int __fastcall clone(int);
-extern void __fastcall notify(Obj_30edf0*);
+extern int __fastcall clone_0030edf0(int);
+extern void __fastcall notify_0030ed60(Obj_30edf0*);
 struct Block_30ee40 {
     unsigned int x[0x15];
 };
@@ -124,36 +124,36 @@ struct Obj_30ee40 {
     char pad[0x68];
     Block_30ee40 data;
     int state;
-    void Update();
+    void Update_0030ed60();
     void Copy(const Block_30ee40*);
 };
 struct B_30ee70 {
-    void F(int);
+    void FnF_0030f120(int);
 };
 struct B_30eed0 {
 };
 struct A_30eed0 {
     char pad[0xBC];
-    void Init();
-    void Finish();
+    void Init_0030edf0();
+    void Finish_0030ed60();
     void Target(int);
 };
 struct B_30ef00 {
-    void F(int);
+    void FnF_0030f1b0(int);
 };
 struct A_30ef00 {
     char pad[0xBC];
-    void Init();
-    void Finish();
+    void Init_0030edf0();
+    void Finish_0030ed60();
     void Target(int);
 };
 struct Blob_30ef30 {
     int d[21];
-    void Fin();
-    void Assign(const Blob_30ef30* o);
+    void Fin_0030f370();
+    void Assign_0030f300(const Blob_30ef30* o);
 };
 struct Src_30ef30 {
-    Blob_30ef30* Get();
+    Blob_30ef30* Get_0030edf0();
 };
 struct Obj_30ef30 {
     int p0;
@@ -168,17 +168,17 @@ class C_30f000 {
   public:
     char pad[0xbc];
     int value;
-    void first();
-    void third();
+    void first_0030ef30();
+    void third_0030ed60();
     void target(int);
 };
 class C_30f030 {
   public:
     char pad[0xbc];
     int value;
-    void first();
-    void second(int);
-    void third();
+    void first_0030ef30();
+    void second_0030f1b0(int);
+    void third_0030ed60();
     void target(int);
 };
 typedef unsigned int u32_30f070;
@@ -198,12 +198,12 @@ class Obj_30f0a0 {
     char pad[0x40];
     Pair_30f0a0 value;
     int flag;
-    void First();
+    void First_0022b980();
     Obj_30f0a0* Run(Pair_30f0a0* src, int x);
 };
 class Base_30f0e0 {
   public:
-    void Init();
+    void Init_0022b980();
 };
 class Thing_30f0e0 : public Base_30f0e0 {
     char pad[0x40];
@@ -219,7 +219,7 @@ class Thing_30f0e0 : public Base_30f0e0 {
 struct Obj_30f100 {
     char pad[0x40];
     struct Sub {
-        void F(Obj_30f100*);
+        void FnF_0022b650(Obj_30f100*);
     } sub;
     char pad2[0x0c];
     int state;
@@ -270,11 +270,11 @@ namespace fn_f346547a {
 class Obj_30f300;
 class Sub_30f300 {
   public:
-    void Fn(Obj_30f300*);
+    void Fn_0022b650(Obj_30f300*);
 };
 class Temp_30f300 {
   public:
-    void Fn(Obj_30f300*, Obj_30f300*);
+    void Fn_0022ca90(Obj_30f300*, Obj_30f300*);
     char data[0x40];
 };
 class Obj_30f300 {
@@ -286,7 +286,7 @@ class Obj_30f300 {
     void Run(Obj_30f300*);
 };
 struct Sub_30f370 {
-    void call(struct Obj_30f370*);
+    void call_0022b650(struct Obj_30f370*);
 };
 struct Obj_30f370 {
     char pad[0x40];
@@ -336,12 +336,12 @@ class Table {
     unsigned char FUN_0030fea0(int index, int position);
     unsigned char FUN_0030ff20(int index, int value);
 };
-extern void* vP[];
-extern void* vR[];
+extern void* hulk_at_0043211c[];
+extern void* hulk_at_003f6098[];
 extern "C++" __declspec(nothrow) void thunk_FUN_00267090(void*) throw();
 struct Elem_30f810 {
     char pad[0xc0];
-    void Fini() throw();
+    void Fini_0030ebd0() throw();
 };
 struct Ref_30f810 {
     virtual void a() throw();
@@ -360,7 +360,7 @@ class Ref_30fc90 {
     virtual void A();
     virtual void B();
 };
-extern void* vt1_30fc90;
+extern void* hulk_at_00432148;
 extern void* vt2_30fc90;
 class PoseEngine_30fc90 {
   public:
@@ -373,7 +373,7 @@ class PoseEngine_30fc90 {
     Ref_30fc90*** arr;
     Ref_30fc90*** rows;
 };
-void __cdecl drop(void*);
+void __cdecl drop_0008d340(void*);
 } // namespace fn_f346547a
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memmove(void*, const void*, unsigned int);
@@ -411,9 +411,9 @@ class Container_30fea0 {
     bool Remove(int i, int j);
 };
 struct Pose_nv_30ff80 {
-    void f650();
-    void f4c0();
-    void fa10(int);
+    void f650_0030f650();
+    void f4c0_0030f4c0();
+    void fa10_0030fa10(int);
 };
 class C_30ff80 {
     char pad0[8];
@@ -471,7 +471,7 @@ class Holder {
 };
 typedef unsigned int u32_310070;
 struct B_310070 {
-    void F(u32_310070, u32_310070);
+    void FnF_0030f510(u32_310070, u32_310070);
 };
 struct A_310070 {
     char pad[8];
@@ -488,7 +488,7 @@ class Res_310080 {
     virtual void F0();
 };
 struct Pose_nv_310080 {
-    physics::Pose* Init(Res_310080* r);
+    physics::Pose* Init_0030fc50(Res_310080* r);
 };
 class PoseEngine_310080 {
   public:
@@ -575,8 +575,8 @@ Obj_30ed00* Obj_30ed00::Copy(Obj_30ed00* src) {
     z[2] = 0;
     z[3] = 0;
     z[4] = 0;
-    one.Init();
-    two.Init();
+    one.Init_0030f3a0();
+    two.Init_0030f3a0();
     one = src->one;
     two = src->two;
     last = src->last;
@@ -602,7 +602,7 @@ void Owner::Traverse() {
             if (n > 0) {
                 int j = 0;
                 do {
-                    p->children[j]->Step();
+                    p->children[j]->Step_0030ecb0();
                     ++j;
                 } while (j < p->count);
             }
@@ -616,7 +616,7 @@ void Owner::Traverse() {
 void Thing_30edc0::Run(Data_30edc0* data) {
     block = *data;
     state = 2;
-    Finish();
+    Finish_0030ed60();
 }
 
 
@@ -626,9 +626,9 @@ Block_30edf0* __fastcall target(Obj_30edf0* p) {
     if (p->state == 2) {
         if (p->value) {
             p->dest = p->source;
-            int x = clone(p->value);
-            p->dest.Finish(x);
-            notify(p);
+            int x = clone_0030edf0(p->value);
+            p->dest.Finish_0030f300(x);
+            notify_0030ed60(p);
         }
         p->state = 0;
     }
@@ -641,7 +641,7 @@ Block_30edf0* __fastcall target(Obj_30edf0* p) {
 void Obj_30ee40::Copy(const Block_30ee40* src) {
     data = *src;
     state = 1;
-    Update();
+    Update_0030ed60();
 }
 
 } // namespace fn_f346547a
@@ -650,7 +650,7 @@ void Obj_30ee40::Copy(const Block_30ee40* src) {
 // sym: ?FUN_0030ee70@A_30ee70@owners@@QAEXH@Z
 void owners::A_30ee70::FUN_0030ee70(hulk_intptr x) {
     Init();
-    ((B_30ee70*)((char*)this + 0x68))->F(((int)x));
+    ((B_30ee70*)((char*)this + 0x68))->FnF_0030f120(((int)x));
     *(int*)((char*)this + 0xbc) = 1;
     Finish();
 }
@@ -661,10 +661,10 @@ namespace fn_f346547a {
 // sym: ?Target@A_30eed0@fn_f346547a@@QAEXH@Z
 // Same code shape as 0x0030ee70 (propagated; names are from that function)
 void A_30eed0::Target(int x) {
-    Init();
+    Init_0030edf0();
     ((owners::Target_22be40 *)(((B_30eed0*)((char*)this + 0x68))))->FUN_0022be40((const int *)(hulk_uintptr)(int)x);
     *(int*)((char*)this + 0xbc) = 1;
-    Finish();
+    Finish_0030ed60();
 }
 
 
@@ -672,10 +672,10 @@ void A_30eed0::Target(int x) {
 // sym: ?Target@A_30ef00@fn_f346547a@@QAEXH@Z
 // Same code shape as 0x0030ee70 (propagated; names are from that function)
 void A_30ef00::Target(int x) {
-    Init();
-    ((B_30ef00*)((char*)this + 0x68))->F(x);
+    Init_0030edf0();
+    ((B_30ef00*)((char*)this + 0x68))->FnF_0030f1b0(x);
     *(int*)((char*)this + 0xbc) = 1;
-    Finish();
+    Finish_0030ed60();
 }
 
 
@@ -684,10 +684,10 @@ void A_30ef00::Target(int x) {
 Blob_30ef30* Obj_30ef30::Update() {
     if (state == 1) {
         if (src) {
-            Blob_30ef30 tmp = *src->Get();
-            tmp.Fin();
+            Blob_30ef30 tmp = *src->Get_0030edf0();
+            tmp.Fin_0030f370();
             cur = saved;
-            cur.Assign(&tmp);
+            cur.Assign_0030f300(&tmp);
         }
         state = 0;
     }
@@ -711,10 +711,10 @@ namespace fn_f346547a {
 // sym: ?target@C_30f000@fn_f346547a@@QAEXH@Z
 // Same code shape as 0x0030efa0 (propagated; names are from that function)
 void C_30f000::target(int arg) {
-    first();
+    first_0030ef30();
     ((owners::Target_22be40 *)(((C_30f000*)((char*)this + 0x14))))->FUN_0022be40((const int *)(hulk_uintptr)(int)arg);
     value = 2;
-    third();
+    third_0030ed60();
 }
 
 
@@ -722,10 +722,10 @@ void C_30f000::target(int arg) {
 // sym: ?target@C_30f030@fn_f346547a@@QAEXH@Z
 // Same code shape as 0x0030efa0 (propagated; names are from that function)
 void C_30f030::target(int arg) {
-    first();
-    ((C_30f030*)((char*)this + 0x14))->second(arg);
+    first_0030ef30();
+    ((C_30f030*)((char*)this + 0x14))->second_0030f1b0(arg);
     value = 2;
-    third();
+    third_0030ed60();
 }
 
 
@@ -746,7 +746,7 @@ Obj_30f070* Obj_30f070::Copy(const Block_30f070* src) {
 // 0x0030f0a0 FUN_0030f0a0 (62 B): matches/0x0030f0a0.cpp
 // sym: ?Run@Obj_30f0a0@fn_f346547a@@QAEPAV12@PAUPair_30f0a0@2@H@Z
 Obj_30f0a0* Obj_30f0a0::Run(Pair_30f0a0* src, int x) {
-    First();
+    First_0022b980();
     ((owners::Target_22be40 *)this)->FUN_0022be40((const int *)(hulk_uintptr)(int)x);
     value = *src;
     flag = 1;
@@ -758,7 +758,7 @@ Obj_30f0a0* Obj_30f0a0::Run(Pair_30f0a0* src, int x) {
 // sym: ?Run@Thing_30f0e0@fn_f346547a@@QAEXXZ
 // Same code shape as 0x00221c20 (propagated; names are from that function)
 void Thing_30f0e0::Run() {
-    Init();
+    Init_0022b980();
     c = 0;
     b = 0;
     a = 0;
@@ -772,7 +772,7 @@ void Thing_30f0e0::Run() {
 // Same code shape as 0x00221c40 (propagated; names are from that function)
 Obj_30f100* Obj_30f100::target() {
     if (state == 1) {
-        sub.F(this);
+        sub.FnF_0022b650(this);
         state = 0;
     }
     return this;
@@ -858,15 +858,15 @@ void Object::blend(float t,Object* other) {
 void Obj_30f300::Run(Obj_30f300* other) {
     Obj_30f300* owner = this;
     if (owner->state == 1) {
-        owner->sub.Fn(owner);
+        owner->sub.Fn_0022b650(owner);
         owner->state = 0;
     }
     if (other->state == 1) {
-        other->sub.Fn(other);
+        other->sub.Fn_0022b650(other);
         other->state = 0;
     }
     Temp_30f300 t;
-    t.Fn(owner, other);
+    t.Fn_0022ca90(owner, other);
     memcpy(owner, &t, 0x40);
     owner->state = 2;
 }
@@ -877,7 +877,7 @@ void Obj_30f300::Run(Obj_30f300* other) {
 // Same code shape as 0x00221eb0 (propagated; names are from that function)
 void Obj_30f370::target() {
     if (state == 1) {
-        sub.call(this);
+        sub.call_0022b650(this);
         state = 0;
     }
     ((owners::Matrix_22c120 *)this)->FUN_0022c120();
@@ -1014,7 +1014,7 @@ void Skeleton::run(Out_30f510* out, bool both)
 namespace fn_0030f650 {
 struct Elem {
     char pad[0xc0];
-    void Fn();
+    void Fn_0030ecf0();
 };
 struct Count {
     char pad[0x10];
@@ -1035,7 +1035,7 @@ void Obj::Fn() {
     else
         n = count->n;
     for (int i = 0; i < n; ++i)
-        elems[i].Fn();
+        elems[i].Fn_0030ecf0();
 }
 } // namespace fn_0030f650
 
@@ -1091,19 +1091,19 @@ namespace fn_f346547a {
 // sym: ??1Pose_30f810@fn_f346547a@@QAE@XZ
 Pose_30f810::~Pose_30f810() throw() {
     Elem_30f810* a = arr;
-    vptr = vP;
+    vptr = hulk_at_0043211c;
     if (a) {
         int n = ((int*)a)[-1];
         Elem_30f810* e = a + n;
         while (--n >= 0) {
             e--;
-            e->Fini();
+            e->Fini_0030ebd0();
         }
         thunk_FUN_00267090((int*)a - 1);
     }
     if (ref)
         ref->release();
-    vptr = vR;
+    vptr = hulk_at_003f6098;
 }
 
 } // namespace fn_f346547a
@@ -1123,7 +1123,7 @@ class Pose {
   public:
     void* vf;
     int a, b, c;
-    void Init(int);
+    void Init_0030fa10(int);
     Pose* Make(int);
 };
 Pose* Pose::Make(int arg) {
@@ -1131,7 +1131,7 @@ Pose* Pose::Make(int arg) {
     b = 0;
     c = 0;
     vf = (void*)((hulk_intptr)DAT_0043211c);
-    Init(arg);
+    Init_0030fa10(arg);
     return this;
 }
 } // namespace fn_0030fc50
@@ -1142,7 +1142,7 @@ namespace fn_f346547a {
 // sym: ?V@PoseEngine_30fc90@fn_f346547a@@UAEXXZ
 void PoseEngine_30fc90::V() {
     int i = count - 1;
-    *(void**)this = &vt1_30fc90;
+    *(void**)this = &hulk_at_00432148;
     if (i >= 0) {
         do {
             int j = ((int*)arr)[i] - 1;
@@ -1151,12 +1151,12 @@ void PoseEngine_30fc90::V() {
                 r->B();
                 --j;
             }
-            drop(rows[i]);
+            drop_0008d340(rows[i]);
             --i;
         } while (i >= 0);
     }
-    drop(rows);
-    drop(arr);
+    drop_0008d340(rows);
+    drop_0008d340(arr);
     obj8->B();
     objc->B();
     *(void**)this = &vt2_30fc90;
@@ -1212,12 +1212,12 @@ unsigned char Table::FUN_0030ff20(int index, int value) { if (index < 0 || index
 // 0x0030ff80 FUN_0030ff80 (44 B): matches/0x0030ff80.cpp
 // sym: ?target@C_30ff80@fn_f346547a@@QAEXD@Z
 void C_30ff80::target(char b) {
-    ((Pose_nv_30ff80*)(((physics::Pose*)(mc))))->f650();
+    ((Pose_nv_30ff80*)(((physics::Pose*)(mc))))->f650_0030f650();
     if (b) {
-        ((Pose_nv_30ff80*)(((physics::Pose*)(mc))))->f4c0();
+        ((Pose_nv_30ff80*)(((physics::Pose*)(mc))))->f4c0_0030f4c0();
         return;
     }
-    ((Pose_nv_30ff80*)(((physics::Pose*)(mc))))->fa10(m8);
+    ((Pose_nv_30ff80*)(((physics::Pose*)(mc))))->fa10_0030fa10(m8);
 }
 
 
@@ -1252,7 +1252,7 @@ void Holder::Run(int index) {
 // 0x00310070 FUN_00310070 (15 B): matches/0x00310070.cpp
 // sym: ?FUN_00310070@fn_f346547a@@YIXPAUA_310070@1@@Z
 void __fastcall FUN_00310070(A_310070* self) {
-    self->b->F(self->a, 0);
+    self->b->FnF_0030f510(self->a, 0);
 }
 
 
@@ -1265,7 +1265,7 @@ PoseEngine_310080* PoseEngine_310080::ctor(Res_310080* a0, int a1, int a2) {
     m14 = a2;
     physics::Pose* h = (physics::Pose*)operator new(0x10);
     if (h)
-        h = ((Pose_nv_310080*)(((physics::Pose*)(h))))->Init(a0);
+        h = ((Pose_nv_310080*)(((physics::Pose*)(h))))->Init_0030fc50(a0);
     else
         h = 0;
     mc = h;

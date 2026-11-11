@@ -20,7 +20,7 @@ class Expression {
     char pad[0x14];
     int a;
     int b;
-    void Init();
+    void Init_0027b070();
 };
 } // namespace fn_fb28d753
 namespace pure3d {
@@ -36,14 +36,14 @@ class Entity_2afb60 {
 };
 }
 namespace fn_fb28d753 {
-extern void* g_vftable_2afb70[];
+extern void* hulk_at_0042e30c[];
 } // namespace fn_fb28d753
 void operator delete(void*);
 namespace fn_fb28d753 {
 class Entity_2afb70 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class Expression_2afb70 : public Entity_2afb70 {
   public:
@@ -121,7 +121,7 @@ class ExpressionLoader {
 // 0x002afb30 FUN_002afb30 (26 B): matches/0x002afb30.cpp
 // sym: ?FUN_002afb30@fn_fb28d753@@YIPAVExpression@1@PAV21@@Z
 Expression* __fastcall FUN_002afb30(Expression* self) {
-    self->Init();
+    self->Init_0027b070();
     self->a = 0;
     self->b = 0;
     *(hulk_intptr*)self = ((hulk_intptr)DAT_0042e30c);
@@ -151,11 +151,11 @@ namespace fn_fb28d753 {
 // 0x002afb70 FUN_002afb70 (38 B): matches/0x002afb70.cpp
 // sym: ??1Expression_2afb70@fn_fb28d753@@QAE@XZ
 Expression_2afb70::~Expression_2afb70() {
-    vptr = g_vftable_2afb70;
+    vptr = hulk_at_0042e30c;
 
     operator delete(m14);
     operator delete(m18);
-    Fin();
+    Fin_0027afd0();
 }
 
 } // namespace fn_fb28d753
@@ -211,9 +211,9 @@ class Expression {
     int pad[4];
     void* a;
     void* b;
-    void Do();
+    void Do_0027afd0();
 };
-extern void __cdecl FreeObj(void*);
+extern void __cdecl FreeObj_00263f30(void*);
 Expression* Expression::f2(int x) {
     Expression* p = this;
     void* q = p->a;
@@ -221,9 +221,9 @@ Expression* Expression::f2(int x) {
     operator delete[](q);
     q = p->b;
     operator delete[](q);
-    p->Do();
+    p->Do_0027afd0();
     if (x & 1)
-        FreeObj(p);
+        FreeObj_00263f30(p);
     return p;
 }
 } // namespace fn_002afe40
@@ -269,7 +269,7 @@ class SimpleChunkHandler_2aff40 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_2aff40 {
   public:
@@ -280,7 +280,7 @@ class NonCopyable : public SimpleChunkHandler_2aff40 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

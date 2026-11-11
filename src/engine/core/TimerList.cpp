@@ -106,7 +106,7 @@ struct Callback_267fd0 {
     virtual void A();
     virtual void B();
 };
-void Init(int);
+void Init_00267090(int);
 struct TimerList_267fd0 {
     void* v0;
     void* v1;
@@ -160,7 +160,7 @@ class Timer {
 } // namespace fn_fc34aa1a
 namespace core {
 struct Timer_268220 {
-    unsigned fun(core::TimerList*, unsigned, unsigned, unsigned, unsigned, unsigned);
+    unsigned fun_00268070(core::TimerList*, unsigned, unsigned, unsigned, unsigned, unsigned);
 };
 }
 namespace core {
@@ -528,7 +528,7 @@ namespace fn_fc34aa1a {
 void TimerList_267fd0::F() {
     v0 = (void*)((hulk_intptr)DAT_0042afd4);
     v1 = (void*)((hulk_intptr)DAT_0042afcc);
-    Init(arg);
+    Init_00267090(arg);
     cb->B();
     DAT_004cdbb0 = value;
     v1 = (void*)((hulk_intptr)DAT_0042af64);
@@ -593,10 +593,10 @@ class Timer {
     int x18;
     int x1c;
     Obj_268070* obj;
-    void vfunc_9();
+    void vfunc_9_00267ca0();
     Timer(Obj_268070* e, int b, int c, int d, char g, int f);
 };
-void InitTimer();
+void InitTimer_002705f0();
 Timer::Timer(Obj_268070* e, int b, int c, int d, char g, int f) {
     x8 = f;
     x0 = ((hulk_intptr)DAT_0042aff0);
@@ -606,10 +606,10 @@ Timer::Timer(Obj_268070* e, int b, int c, int d, char g, int f) {
     x18 = c;
     x1c = d;
     obj = e;
-    InitTimer();
+    InitTimer_002705f0();
     e->f();
     if (g)
-        vfunc_9();
+        vfunc_9_00267ca0();
 }
 } // namespace fn_00268070
 
@@ -683,7 +683,7 @@ typedef unsigned char byte_2681c0;
 typedef unsigned int u32_2681c0;
 extern void __cdecl FUN_00267090(u32_2681c0);
 extern void __cdecl FUN_00266f00(u32_2681c0, void*);
-extern int vtMain, vt4, vtBase, vtRef;
+extern int hulk_at_0042afd4, hulk_at_0042afcc, hulk_at_0042af64, hulk_at_003f6098;
 struct Helper_2681c0 {
     virtual void f0();
     virtual void f1();
@@ -705,13 +705,13 @@ class TimerList {
 };
 TimerList* TimerList::v2(byte_2681c0 p) {
     u32_2681c0 x = field20;
-    *(hulk_uintptr*)this = (hulk_uintptr)&vtMain;
-    *((u32_2681c0*)this + 1) = (hulk_uintptr)&vt4;
+    *(hulk_uintptr*)this = (hulk_uintptr)&hulk_at_0042afd4;
+    *((u32_2681c0*)this + 1) = (hulk_uintptr)&hulk_at_0042afcc;
     FUN_00267090(x);
     helper->f1();
     (*(u32_2681c0*)&DAT_004cdbb0) = field8;
-    *((u32_2681c0*)this + 1) = (hulk_uintptr)&vtBase;
-    *(hulk_uintptr*)this = (hulk_uintptr)&vtRef;
+    *((u32_2681c0*)this + 1) = (hulk_uintptr)&hulk_at_0042af64;
+    *(hulk_uintptr*)this = (hulk_uintptr)&hulk_at_003f6098;
     if (p & 1)
         FUN_00266f00((*(u32_2681c0*)&DAT_004cdbb0), this);
     return this;
@@ -725,7 +725,7 @@ TimerList* TimerList::v2(byte_2681c0 p) {
 void core::TimerList::vfunc_3(hulk_intptr __p0, int __p1, int __p2, int __p3, int __p4, int __p5) { unsigned int * result = (unsigned int *)__p0; unsigned int a = (unsigned int)__p1; unsigned int b = (unsigned int)__p2; unsigned int c = (unsigned int)__p3; unsigned int d = (unsigned int)__p4; unsigned int e = (unsigned int)__p5;
 
     Timer_268220* timer = (*(Source * *)&this->f_18)->get();
-    *result = timer ? timer->fun(this, a, b, c, d, e) : 0;
+    *result = timer ? timer->fun_00268070(this, a, b, c, d, e) : 0;
 }
 
 
@@ -734,7 +734,7 @@ void core::TimerList::vfunc_3(hulk_intptr __p0, int __p1, int __p2, int __p3, in
 namespace fn_00268270 {
 typedef unsigned char u8;
 extern void thunk_FUN_00267090(void*);
-extern void* timerVftable;
+extern void* hulk_at_0042aff0;
 extern void* refVftable;
 class Timer {
   public:
@@ -756,7 +756,7 @@ class Timer {
     u8 active;
 };
 Timer* Timer::vfunc_2(int flag) {
-    *(void**)this = &timerVftable;
+    *(void**)this = &hulk_at_0042aff0;
     if (active)
         Timer::vfunc_10();
     *(void**)this = &refVftable;

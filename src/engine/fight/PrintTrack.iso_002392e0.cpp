@@ -20,7 +20,7 @@ struct InitHelper {
 struct TrackImpl {
     int m0;
     int m1;
-    void setup(void* arg);
+    void setup_0027b040(void* arg);
 };
 
 class TrackFactoryTemplate_2392e0 {
@@ -40,7 +40,7 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::PrintTrack>::vfunc_1(
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_2392e0* t = new (mem) TrackFactoryTemplate_2392e0();
-        t->mTrack.setup(arg);
+        t->mTrack.setup_0027b040(arg);
         postInit();
         return (void*)(t);
     }

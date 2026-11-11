@@ -13,10 +13,10 @@ namespace fn_f3b07bfc {} using namespace fn_f3b07bfc;
 
 // ---- declarations shared by the functions below
 namespace fn_f3b07bfc {
-extern int vtable_2533a0;
+extern int hulk_at_0042a150;
 class SeqEventVarPitchRand {
   public:
-    void init();
+    void init_0025fd00();
     SeqEventVarPitchRand();
     hulk_intptr vptr;
     int unused;
@@ -58,7 +58,7 @@ struct SeqEventVarPitchRand_253530 {
     int pad;
     float a;
     float b;
-    void init();
+    void init_0025fd00();
 };
 class SeqAction {
   public:
@@ -89,11 +89,11 @@ struct Context_253680 {
 }
 namespace audio {
 struct Rand {
-    float between(float, float);
+    float between_000787e0(float, float);
 };
 }
 namespace audio {
-extern Rand* gRand;
+extern Rand* hulk_at_004e5acc;
 }
 
 // 0x00253370 audio::SeqEventVarPitchRandType::vfunc_0 (5 B): not yet verified
@@ -111,8 +111,8 @@ extern "C" int* FUN_00253390() {
 // 0x002533a0 FUN_002533a0 (32 B): matches/0x002533a0.cpp
 // sym: ??0SeqEventVarPitchRand@fn_f3b07bfc@@QAE@XZ
 SeqEventVarPitchRand::SeqEventVarPitchRand() {
-    init();
-    vptr = (hulk_intptr)&vtable_2533a0;
+    init_0025fd00();
+    vptr = (hulk_intptr)&hulk_at_0042a150;
     a = 0x3f4ccccd;
     b = 0x3f99999a;
 }
@@ -268,7 +268,7 @@ audio::SeqEventVarPitchRandType::~SeqEventVarPitchRandType() {}
 void* audio::SeqEventVarPitchRandType::vfunc_3() {
     SeqEventVarPitchRand_253530* p = (SeqEventVarPitchRand_253530*)Alloc(((int*)&DAT_004e70e8));
     if (p) {
-        p->init();
+        p->init_0025fd00();
         p->vf = &rand_vftable;
         p->a = 0.8f;
         p->b = 1.2f;
@@ -336,7 +336,7 @@ void audio::SeqActionVarPitchRand::vfunc_1(void* __p0) { Context_253680 * ctx = 
     float hi = (*(Data * *)&this->f_08)->hi;
     float lo = (*(Data * *)&this->f_08)->lo;
     Sound* snd = ctx->snd;
-    snd->pitch = gRand->between(lo, hi);
+    snd->pitch = hulk_at_004e5acc->between_000787e0(lo, hi);
     this->f_0c = 0;
 }
 
@@ -363,7 +363,7 @@ class SeqActionVarPitchRand {
 };
 class Ctx {
   public:
-    void Add(SeqActionVarPitchRand*);
+    void Add_0025dc20(SeqActionVarPitchRand*);
 };
 class SeqEvent {
   public:
@@ -382,7 +382,7 @@ class SeqEventVarPitchRand : public SeqEvent {
 extern "C" void* FUN_00247530(void*);
 void audio::SeqEventVarPitchRand::v2(Ctx* ctx) {
     void* p = FUN_00247530(DAT_004e70a0);
-    ctx->Add(p ? new (p) SeqActionVarPitchRand(this) : 0);
+    ctx->Add_0025dc20(p ? new (p) SeqActionVarPitchRand(this) : 0);
 }
 } // namespace fn_002536c0
 

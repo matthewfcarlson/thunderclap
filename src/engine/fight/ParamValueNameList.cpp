@@ -15,7 +15,7 @@ namespace fn_faf04b50 {} using namespace fn_faf04b50;
 namespace fn_faf04b50 {
 class Part_235460 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 namespace fight {
 class ParamValueStringList {
@@ -29,7 +29,7 @@ class ParamValueStringList {
 extern "C" void __cdecl thunk_FUN_00267090(fight::ParamValueStringList*);
 class Sub_235490 {
   public:
-    void init();
+    void init_0027af50();
 };
 class ParamValueNameList {
   public:
@@ -90,7 +90,7 @@ public:
 // Same code shape as 0x00235300 (propagated; names are from that function)
 fight::ParamValueStringList* fight::ParamValueStringList::vfunc_0(int flag) {
     vt = (hulk_intptr)&base_vtable;
-    part.Init();
+    part.Init_0027af50();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -102,7 +102,7 @@ fight::ParamValueStringList* fight::ParamValueStringList::vfunc_0(int flag) {
 ParamValueNameList* ParamValueNameList::f0(int flag) {
     ParamValueNameList* p = this;
     *(void**)p = (void*)((hulk_intptr)DAT_004279fc);
-    p->sub.init();
+    p->sub.init_0027af50();
     if (flag & 1)
         thunk_FUN_00267090(p);
     return p;

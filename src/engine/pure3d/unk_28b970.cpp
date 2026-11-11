@@ -53,8 +53,8 @@ struct IntChannel : public FUN_0028b420 {
 };
 }
 extern void* g_f2[];
-extern void* g_c_28ba20[];
-void __cdecl Drop(void*);
+extern void* hulk_at_0042c920[];
+void __cdecl Drop_0008d340(void*);
 class Res_28ba20 {
   public:
     virtual void F0();
@@ -70,7 +70,7 @@ class IntChannel_28ba20 {
     void* p2;
     void Reset() {
         if (!p0)
-            Drop(p1);
+            Drop_0008d340(p1);
         else {
             _ReadWriteBarrier();
             if (p0) {
@@ -82,8 +82,8 @@ class IntChannel_28ba20 {
     }
     void F();
 };
-extern void* g_vF[];
-extern void* g_vS[];
+extern void* hulk_at_0042c97c[];
+extern void* hulk_at_0042c930[];
 extern void* g_vC[];
 } // namespace fn_f8c9e634
 void operator delete(void*);
@@ -107,18 +107,18 @@ namespace pure3d {
 typedef void(__fastcall* Callback_28bba0)(void*);
 }
 namespace pure3d {
-extern void __fastcall ElemCtor(void*);
+extern void __fastcall ElemCtor_000c7920(void*);
 }
 namespace pure3d {
-extern void* Alloc(unsigned int);
+extern void* Alloc_0008d6d0(unsigned int);
 }
 namespace pure3d {
-extern void __stdcall VecNew(void*, int, int, Callback_28bba0);
+extern void __stdcall VecNew_00011520(void*, int, int, Callback_28bba0);
 }
 namespace pure3d {
 class Mem_28bba0 {
   public:
-    void* Make(unsigned int, int);
+    void* Make_002888c0(unsigned int, int);
 };
 }
 namespace pure3d {
@@ -155,7 +155,7 @@ class Float2Channel_28bc20 {
     void* p2;
     void Reset() {
         if (!p0)
-            Drop(p1);
+            Drop_0008d340(p1);
         else {
             _ReadWriteBarrier();
             if (p0) {
@@ -203,7 +203,7 @@ public:
     virtual ~VectorChannel() throw();
 };
 }
-void* Alloc(int n);
+void* Alloc_0008d6d0(int n);
 struct Allocator_28bd40 {  };
 class VectorChannel_28bd40 {
   public:
@@ -223,7 +223,7 @@ class Vector1DOFChannel : public VectorChannel_28bd40 {
 };
 typedef void(__fastcall* Callback_28be20)(void*);
 extern void* Alloc(hulk_uintptr);
-extern void __stdcall VecNew(void*, int, int, Callback_28be20);
+extern void __stdcall VecNew_00011520(void*, int, int, Callback_28be20);
 class Mem_28be20 {
   public:
 };
@@ -261,7 +261,7 @@ class VectorChannel_28beb0 {
     void* vptr;
     char pad[8];
     Res_28beb0* p0;
-    void Fin();
+    void Fin_0028bcd0();
 };
 class Vector2DOFChannel_28beb0 : public VectorChannel_28beb0 {
   public:
@@ -316,7 +316,7 @@ class RotationChannel_28c130 {
     void* vptr;
     char pad[8];
     Res_28c130* p0;
-    void Fin();
+    void Fin_0028c040();
 };
 class QuaternionChannel_28c130 : public RotationChannel_28c130 {
   public:
@@ -342,7 +342,7 @@ class StringChannel_28c240 {
     void* p2;
     void Reset() {
         if (!p0)
-            Drop(p1);
+            Drop_0008d340(p1);
         else {
             _ReadWriteBarrier();
             if (p0) {
@@ -352,7 +352,7 @@ class StringChannel_28c240 {
         }
         p1 = 0;
     }
-    void Clear();
+    void Clear_0028b760();
     void F();
 };
 extern void* g_c_28c310[];
@@ -371,7 +371,7 @@ class EntityChannel_28c310 {
     void* p2;
     void Reset() {
         if (!p0)
-            Drop(p1);
+            Drop_0008d340(p1);
         else {
             _ReadWriteBarrier();
             if (p0) {
@@ -381,7 +381,7 @@ class EntityChannel_28c310 {
         }
         p1 = 0;
     }
-    void Clear();
+    void Clear_0028b7d0();
     void F();
 };
 extern void* g_c_28c3e0[];
@@ -400,7 +400,7 @@ class BoolChannel_28c3e0 {
     void* p2;
     void Reset() {
         if (!p0)
-            Drop(p1);
+            Drop_0008d340(p1);
         else {
             _ReadWriteBarrier();
             if (p0) {
@@ -445,7 +445,7 @@ class ColourChannel_28c4f0 {
     void* p2;
     void Reset() {
         if (!p0)
-            Drop(p1);
+            Drop_0008d340(p1);
         else {
             _ReadWriteBarrier();
             if (p0) {
@@ -584,12 +584,12 @@ IntChannel::IntChannel(int first, hulk_intptr second) : FUN_0028b420(first, seco
 void IntChannel_28ba20::F() {
     vptr = g_f2;
     if (!p0)
-        Drop(p2);
+        Drop_0008d340(p2);
     p2 = 0;
     Reset();
     vptr = g_s;
     Reset();
-    vptr = g_c_28ba20;
+    vptr = hulk_at_0042c920;
 }
 
 } // namespace fn_f8c9e634
@@ -628,7 +628,7 @@ namespace fn_f8c9e634 {
 // 0x0028bb10 FUN_0028bb10 (130 B): matches/0x0028bb10.cpp
 // sym: ??1Float1Channel_28bb10@fn_f8c9e634@@QAE@XZ
 Float1Channel_28bb10::~Float1Channel_28bb10() throw() {
-    vptr = g_vF;
+    vptr = hulk_at_0042c97c;
     if (!m0c)
         operator delete(m18);
     m18 = 0;
@@ -642,7 +642,7 @@ Float1Channel_28bb10::~Float1Channel_28bb10() throw() {
         }
     }
     m14 = 0;
-    vptr = g_vS;
+    vptr = hulk_at_0042c930;
     if (!m0c) {
         operator delete(m14);
         m14 = 0;
@@ -665,11 +665,11 @@ Float2Channel::Float2Channel(int x, hulk_intptr y) : Base_28bba0(x, y) {
     m18 = 0;
     if (mc == 0) {
         int n = m10;
-        void* p = Alloc(n * 8);
-        m18 = (hulk_intptr)(p ? (VecNew(p, 8, n, ElemCtor), p) : 0);
+        void* p = Alloc_0008d6d0(n * 8);
+        m18 = (hulk_intptr)(p ? (VecNew_00011520(p, 8, n, ElemCtor_000c7920), p) : 0);
         return;
     }
-    m18 = (hulk_intptr)mc->Make(m10 << 3, 3);
+    m18 = (hulk_intptr)mc->Make_002888c0(m10 << 3, 3);
 }
 }
 
@@ -679,7 +679,7 @@ Float2Channel::Float2Channel(int x, hulk_intptr y) : Base_28bba0(x, y) {
 void Float2Channel_28bc20::F() {
     vptr = g_f2;
     if (!p0)
-        Drop(p2);
+        Drop_0008d340(p2);
     p2 = 0;
     Reset();
     vptr = g_s;
@@ -717,7 +717,7 @@ Vector1DOFChannel::Vector1DOFChannel(int a, hulk_intptr b) : VectorChannel_28bd4
     hulk_intptr c = m0c;
     p[4] = 0;
     if (c == 0)
-        m28 = Alloc(m10 << 2);
+        m28 = Alloc_0008d6d0(m10 << 2);
     else
         m28 = ((void *)((owners::C_2888c0 *)(((Allocator_28bd40*)c)))->FUN_002888c0((unsigned)(m10 << 2), 3));
 }
@@ -779,8 +779,8 @@ Vector2DOFChannel_28be20::Vector2DOFChannel_28be20(int x, hulk_intptr y) : Vecto
     m28 = 0;
     if (mc == 0) {
         int n = m10;
-        void* p = Alloc(n * 8);
-        m28 = (hulk_intptr)(p ? (VecNew(p, 8, n, ElemCtor), p) : 0);
+        void* p = Alloc_0008d6d0(n * 8);
+        m28 = (hulk_intptr)(p ? (VecNew_00011520(p, 8, n, ElemCtor), p) : 0);
         return;
     }
     m28 = (hulk_intptr)((void *)((owners::C_2888c0 *)mc)->FUN_002888c0((unsigned)(m10 << 3), 3));
@@ -792,12 +792,12 @@ Vector2DOFChannel_28be20::Vector2DOFChannel_28be20(int x, hulk_intptr y) : Vecto
 void Vector2DOFChannel_28beb0::F() {
     if (!p0) {
         vptr = g_f2;
-        Drop(p2);
+        Drop_0008d340(p2);
     } else
         vptr = g_f2;
     p2 = 0;
     if (!p0) {
-        Drop(p1);
+        Drop_0008d340(p1);
     } else {
         _ReadWriteBarrier();
         if (p0) {
@@ -806,7 +806,7 @@ void Vector2DOFChannel_28beb0::F() {
         }
     }
     p1 = 0;
-    Fin();
+    Fin_0028bcd0();
 }
 
 
@@ -965,12 +965,12 @@ QuaternionChannel* QuaternionChannel::Construct(int a, hulk_intptr b)
 void QuaternionChannel_28c130::F() {
     if (!p0) {
         vptr = g_f2;
-        Drop(p2);
+        Drop_0008d340(p2);
     } else
         vptr = g_f2;
     p2 = 0;
     if (!p0) {
-        Drop(p1);
+        Drop_0008d340(p1);
     } else {
         _ReadWriteBarrier();
         if (p0) {
@@ -979,7 +979,7 @@ void QuaternionChannel_28c130::F() {
         }
     }
     p1 = 0;
-    Fin();
+    Fin_0028c040();
 }
 
 } // namespace fn_f8c9e634
@@ -1053,7 +1053,7 @@ namespace fn_f8c9e634 {
 // sym: ?F@StringChannel_28c240@fn_f8c9e634@@QAEXXZ
 void StringChannel_28c240::F() {
     vptr = g_f2;
-    Clear();
+    Clear_0028b760();
     vptr = g_s;
     Reset();
     vptr = g_c_28c240;
@@ -1117,7 +1117,7 @@ namespace fn_f8c9e634 {
 // sym: ?F@EntityChannel_28c310@fn_f8c9e634@@QAEXXZ
 void EntityChannel_28c310::F() {
     vptr = g_f2;
-    Clear();
+    Clear_0028b7d0();
     vptr = g_s;
     Reset();
     vptr = g_c_28c310;
@@ -1134,7 +1134,7 @@ extern "C" void* memset(void*, int, unsigned);
 #endif
 
 void* FUN_0008d6d0(hulk_uintptr n);
-struct Allocator_28c370 { void* Alloc2(unsigned n, int f); };
+struct Allocator_28c370 { void* Alloc2_002888c0(unsigned n, int f); };
 class SimpleChannel_28c370 {
   public:
     SimpleChannel_28c370(int a, int b);
@@ -1156,7 +1156,7 @@ BoolChannel::BoolChannel(int a, int b) : SimpleChannel_28c370(a, b) {
     if (m0 == 0)
         bits = (unsigned*)FUN_0008d6d0(n * 4);
     else
-        bits = (unsigned*)((Allocator_28c370*)m0)->Alloc2(n * 4, 3);
+        bits = (unsigned*)((Allocator_28c370*)m0)->Alloc2_002888c0(n * 4, 3);
     memset(bits, 0, n * 4);
 }
 } // namespace fn_0028c370
@@ -1168,7 +1168,7 @@ namespace fn_f8c9e634 {
 void BoolChannel_28c3e0::F() {
     vptr = g_f2;
     if (!p0)
-        Drop(p2);
+        Drop_0008d340(p2);
     p2 = 0;
     Reset();
     vptr = g_s;
@@ -1208,7 +1208,7 @@ ColourChannel_28c470* ColourChannel_28c470::Construct(int a, hulk_intptr b)
 void ColourChannel_28c4f0::F() {
     vptr = g_f2;
     if (!p0)
-        Drop(p2);
+        Drop_0008d340(p2);
     p2 = 0;
     Reset();
     vptr = g_s;

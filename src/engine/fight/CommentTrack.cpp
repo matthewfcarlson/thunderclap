@@ -15,7 +15,7 @@ namespace fn_f40d2254 {} using namespace fn_f40d2254;
 // ---- declarations shared by the functions below
 namespace fn_f40d2254 {
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_23d830;
+extern int* hulk_at_004e5c5c;
 class CCondition_23d830 {
   public:
     virtual int vfunc_0(int);
@@ -25,10 +25,10 @@ class CommentCondition_23d860 {
     int a, b;
     virtual ~CommentCondition_23d860();
     int d;
-    virtual void hulk_slot_F(); void F();
+    virtual void hulk_slot_F(); void FnF_002345b0();
 };
-extern "C" void __cdecl FreeMem(void*);
-extern int* gTable_23d900;
+extern "C" void __cdecl FreeMem_0008d340(void*);
+extern int* hulk_at_004e5c64;
 class CCondition_23d900 {
   public:
     virtual int vfunc_0(int);
@@ -51,7 +51,7 @@ class CommentTrack_23d950 {
     int a, b;
     virtual ~CommentTrack_23d950();
     int d;
-    virtual void hulk_slot_F(); void F();
+    virtual void hulk_slot_F(); void FnF_00236d60();
 };
 extern "C" void __cdecl release(void*);
 extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
@@ -60,7 +60,7 @@ class Obj {
     char _m_pad_0[0xc];
     char* str;
     char Set(const char* s);
-    void use(void*);
+    void use_00236760(void*);
 };
 inline void copy(char* d, const char* s) {
     char c;
@@ -71,7 +71,7 @@ inline void copy(char* d, const char* s) {
         ++d;
     } while (c);
 }
-extern const VFT CommentCondition_23dab0_vftable;
+extern const VFT hulk_at_00428bf8;
 class CommentCondition_23dab0 {
   public:
     virtual void vfunc_0();
@@ -81,11 +81,11 @@ class CommentCondition_23dab0 {
     virtual void p_vfunc_4();
     void* vfunc_5(unsigned char flag);
     virtual void vfunc_6();
-    void Cleanup();
+    void Cleanup_002345b0();
     char pad[8];
     void* m_p;
 };
-extern const VFT CommentTrack_23daf0_vftable;
+extern const VFT hulk_at_00428c18;
 class CommentTrack_23daf0 {
   public:
     virtual void vfunc_0();
@@ -95,7 +95,7 @@ class CommentTrack_23daf0 {
     virtual void p_vfunc_4();
     void* vfunc_5(unsigned char flag);
     virtual void vfunc_6();
-    void Cleanup();
+    void Cleanup_00236d60();
     char pad[8];
     void* m_p;
 };
@@ -125,8 +125,8 @@ class ParamValueInt_23dbc0 : public ParamValue_23dbc0 {
   public:
     int pad;
 };
-extern int gTypeA_23dbe0;
-extern int gTypeA_23dc40;
+extern int hulk_at_00491ca8;
+extern int hulk_at_0049850c;
 class ConditionFactoryCasterTemplate_23dd90 {
   public:
     virtual void cast();
@@ -146,19 +146,19 @@ class TrackFactoryTemplate_23ddf0 {
     TrackImpl mTrack;
 };
 extern "C" char DAT_00428bf8[];
-extern void* __cdecl alloc(hulk_uintptr);
+extern void* __cdecl alloc_0008d690(hulk_uintptr);
 class CommentCondition_23de30 {
   public:
     hulk_intptr vtable;
     char pad[8];
     int value;
-    void Init(int);
+    void Init_00234590(int);
 };
-extern int g_vftable_23de60;
+extern int hulk_at_00428ca0;
 struct ConditionFactoryTemplate_23de60 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0023d810();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_23de90 {
@@ -169,7 +169,7 @@ class TrackFactoryTemplate_23de90 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_23df10;
+extern int hulk_at_00428cbc;
 
 
 // 0x0023d810 FUN_0023d810 (19 B): matches/0x0023d810.cpp
@@ -185,7 +185,7 @@ void FUN_0023d810() {
 // sym: ?vfunc_0@CommentCondition@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::CommentCondition::vfunc_0(int index) {
-    int* p = gTable_23d830;
+    int* p = hulk_at_004e5c5c;
     return p[index];
 }
 
@@ -196,7 +196,7 @@ namespace fn_f40d2254 {
 // Same code shape as 0x0011c270 (propagated; names are from that function)
 CommentCondition_23d860::~CommentCondition_23d860() {
     Cleanup(d);
-    F();
+    FnF_002345b0();
 }
 
 } // namespace fn_f40d2254
@@ -204,7 +204,7 @@ CommentCondition_23d860::~CommentCondition_23d860() {
 // 0x0023d880 FUN_0023d880 (82 B): matches/0x0023d880.cpp
 // sym: ?FUN_0023d880@Obj_23d880@owners@@QAEDPBD@Z
 char owners::Obj_23d880::FUN_0023d880(const char* s) {
-    FreeMem(text);
+    FreeMem_0008d340(text);
     if (!s) {
         text = 0;
         return 1;
@@ -229,7 +229,7 @@ void FUN_0023d8e0() {
 // sym: ?vfunc_0@CommentTrack@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::CommentTrack::vfunc_0(int index) {
-    int* p = gTable_23d900;
+    int* p = hulk_at_004e5c64;
     return p[index];
 }
 
@@ -266,7 +266,7 @@ namespace fn_f40d2254 {
 // Same code shape as 0x0011c270 (propagated; names are from that function)
 CommentTrack_23d950::~CommentTrack_23d950() {
     Cleanup(d);
-    F();
+    FnF_00236d60();
 }
 
 
@@ -305,9 +305,9 @@ namespace fn_f40d2254 {
 // sym: ?vfunc_5@CommentCondition_23dab0@fn_f40d2254@@QAEPAXE@Z
 // Same code shape as 0x0011cbc0 (propagated; names are from that function)
 void* CommentCondition_23dab0::vfunc_5(unsigned char flag) {
-    *(const VFT**)this = &CommentCondition_23dab0_vftable;
+    *(const VFT**)this = &hulk_at_00428bf8;
     ai_free(m_p);
-    Cleanup();
+    Cleanup_002345b0();
     if (flag & 1) {
         ai_delete(this);
     }
@@ -319,9 +319,9 @@ void* CommentCondition_23dab0::vfunc_5(unsigned char flag) {
 // sym: ?vfunc_5@CommentTrack_23daf0@fn_f40d2254@@QAEPAXE@Z
 // Same code shape as 0x0011cbc0 (propagated; names are from that function)
 void* CommentTrack_23daf0::vfunc_5(unsigned char flag) {
-    *(const VFT**)this = &CommentTrack_23daf0_vftable;
+    *(const VFT**)this = &hulk_at_00428c18;
     ai_free(m_p);
-    Cleanup();
+    Cleanup_00236d60();
     if (flag & 1) {
         ai_delete(this);
     }
@@ -371,7 +371,7 @@ template <> bool fight::ParamString<fight::CommentTrack>::vfunc_2() {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::ConditionFactoryCasterTemplate<fight::CommentCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_23dbe0, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_00491ca8, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -387,7 +387,7 @@ template <> fight::ParamString<fight::CommentCondition>::~ParamString() {}
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::TrackFactoryCasterTemplate<fight::CommentTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_23dc40, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -403,7 +403,7 @@ namespace fn_f40d2254 {
 // sym: _FUN_0023dd90
 extern "C" void FUN_0023dd90(Obj* a, void* b) {
     ConditionFactoryCasterTemplate_23dd90 caster;
-    a->use(lookup(b, &caster));
+    a->use_00236760(lookup(b, &caster));
 }
 
 } // namespace fn_f40d2254
@@ -411,19 +411,19 @@ extern "C" void FUN_0023dd90(Obj* a, void* b) {
 // 0x0023ddc0 FUN_0023ddc0 (38 B): matches/0x0023ddc0.cpp [wrapped: conflict: Track]
 // sym: _FUN_0023ddc0
 namespace fn_0023ddc0 {
-extern char VT_23ddc0[];
+extern char hulk_at_00428c94[];
 struct Track {
     virtual void V();
 };
 extern "C" Track* __cdecl FUN_00236ac0(int, Track*);
 struct Receiver_23ddc0 {
-    void Finish(Track*);
+    void Finish_002367c0(Track*);
 };
 extern "C" void FUN_0023ddc0(Receiver_23ddc0* c, int b) {
     Track t;
-    *(void**)&t = VT_23ddc0;
+    *(void**)&t = hulk_at_00428c94;
     Track* p = FUN_00236ac0(b, &t);
-    c->Finish(p);
+    c->Finish_002367c0(p);
 }
 } // namespace fn_0023ddc0
 
@@ -448,9 +448,9 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::CommentCondition>
 // 0x0023de30 fight::ConditionFactoryTemplate<fight::CommentCondition>::vfunc_5 (47 B): matches/0x0023de30.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCommentCondition@fight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<fight::CommentCondition>::vfunc_5() {
-    CommentCondition_23de30* p = (CommentCondition_23de30*)alloc(0x10);
+    CommentCondition_23de30* p = (CommentCondition_23de30*)alloc_0008d690(0x10);
     if (p) {
-        p->Init(3);
+        p->Init_00234590(3);
         p->vtable = ((hulk_intptr)DAT_00428bf8);
         p->value = 0;
         return (void*)(p);
@@ -464,9 +464,9 @@ namespace fn_f40d2254 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_23de60@fn_f40d2254@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_23de60::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_23de60;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00428ca0;
+    base1_dtor_0023d810();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -536,7 +536,7 @@ namespace fn_f40d2254 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f40d2254@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_23df10;
+    m_vptr = (void*)&hulk_at_00428cbc;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

@@ -26,7 +26,7 @@ class SeqEvent {
 extern "C" bool __cdecl FUN_0025aa80(void*, void*);
 class Sub_255d30 {
   public:
-    bool run(void*);
+    bool run_0025cda0(void*);
 };
 class SeqEventClip : public SeqEvent {
   public:
@@ -161,10 +161,10 @@ class Part {
     char pad2[3];
     unsigned int bits;
     int extra;
-    void init(const char*);
+    void init_00253a90(const char*);
     Part(unsigned char* flag) {
         *flag = 0;
-        init("MyRsdFile");
+        init_00253a90("MyRsdFile");
         flags &= 0xfe;
         bits &= 0x80000000;
         extra = 0;
@@ -249,7 +249,7 @@ extern "C" int* FUN_00255d20() {
 int SeqEventClip::vfunc_0(void* param) {
     if ((char)SeqEvent::vfunc_0(param)) {
         if (FUN_0025aa80(param, (char*)this + 8)) {
-            if (((Sub_255d30*)((char*)this + 0x10))->run(param)) {
+            if (((Sub_255d30*)((char*)this + 0x10))->run_0025cda0(param)) {
                 return 1;
             }
         }
@@ -467,11 +467,11 @@ class SeqEventClip : public SeqEvent {
     virtual void f2();
     virtual void f3();
     virtual SeqEventClip* f4(int);
-    void helper();
+    void helper_0025fd10();
 };
 extern void FUN_00247550(void*, SeqEventClip*);
 SeqEventClip* SeqEventClip::f4(int arg) {
-    helper();
+    helper_0025fd10();
     if (arg & 1)
         FUN_00247550(((int*)&DAT_004e75b8), this);
     return this;
@@ -503,7 +503,7 @@ namespace audio {
 class SeqEvent {
 public:
     virtual void v0();
-    char vfunc_1(Writer_256070* w);
+    char vfunc_1_0025fd40(Writer_256070* w);
     char pad04[4];
 };
 
@@ -517,7 +517,7 @@ public:
 
 int SeqEventClip::vfunc_1(Writer_256070* w)
 {
-    if (!SeqEvent::vfunc_1(w))
+    if (!SeqEvent::vfunc_1_0025fd40(w))
         return 0;
     if (!FUN_00246f50(w->out, "\n[\n"))
         return 0;
@@ -637,7 +637,7 @@ class SeqActionClip : public BaseAction {
 };
 class Target {
   public:
-    void set(SeqActionClip*);
+    void set_0025dc20(SeqActionClip*);
 };
 } // namespace audio
 extern "C" void* FUN_00247530(void*);
@@ -650,7 +650,7 @@ inline audio::SeqActionClip* create(audio::SeqEventClip* p) {
     return 0;
 }
 void audio::SeqEventClip::vfunc_2(void* p) {
-    ((audio::Target*)p)->set(create(this));
+    ((audio::Target*)p)->set_0025dc20(create(this));
 }
 } // namespace fn_00256320
 

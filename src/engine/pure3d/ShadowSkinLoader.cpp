@@ -24,7 +24,7 @@ class X_2b37a0 {
 };
 extern "C" char DAT_0042e554[];
 typedef unsigned int u32_2b37b0;
-void __cdecl release(u32_2b37b0);
+void __cdecl release_0008d340(u32_2b37b0);
 struct Obj_2b37b0 {
     void* vf;
     char pad[12];
@@ -290,7 +290,7 @@ struct TrackFactory_2b4cb0 {
 };
 extern "C" void* __cdecl Allocate(unsigned int);
 struct Built_2b4cb0 {
-    void* init();
+    void* init_002deeb0();
 };
 struct TrackFactory_2b4cd0 {
     virtual void a();
@@ -301,17 +301,17 @@ struct TrackFactory_2b4cd0 {
     virtual void f();
 };
 struct Built_2b4cd0 {
-    void* init();
+    void* init_002defb0();
 };
 extern "C" char DAT_0042e584[];
 struct ThisCall_002a5060 {
-    void Init();
+    void Init_002a5060();
 };
-extern void __fastcall Init(void*);
+extern void __fastcall Init_002a5060(void*);
 typedef unsigned int u32_2b4d90;
-void* alloc(hulk_uintptr);
+void* alloc_00263ea0(hulk_uintptr);
 struct ShadowMeshBufferImpl_nv_2b4d90 {
-    void initialize();
+    void initialize_002a5060();
 };
 class Manager_2b4e00 {
   public:
@@ -391,7 +391,7 @@ class Manager_2b4e00 {
     virtual void m73();
     virtual void m74(int, int, int);
 };
-extern Manager_2b4e00* gManager_2b4e00;
+extern Manager_2b4e00* hulk_at_0052c2a8;
 class Child_2b4e00 {
   public:
     virtual void a();
@@ -404,7 +404,7 @@ class Child_2b4e00 {
 };
 class ShadowMeshBuffer_2b4e60 {
   public:
-    ShadowMeshBuffer_2b4e60* Init(int) throw();
+    ShadowMeshBuffer_2b4e60* Init_002df0b0(int) throw();
 };
 class ShadowMeshBufferLoader {
   public:
@@ -459,7 +459,7 @@ class ShadowMeshImpl : public DrawablePrimitive_2b5240 {
     void* d;
     ShadowMeshImpl();
 };
-extern void* g_vftable_2b5370[];
+extern void* hulk_at_0042e5b4[];
 class Ref_2b5370 {
   public:
     void* vptr;
@@ -468,7 +468,7 @@ class Ref_2b5370 {
 };
 class Helper_2b5370 {
   public:
-    void Fn();
+    void Fn_002a50a0();
 };
 class ShadowMeshImpl_2b5370 {
   public:
@@ -481,7 +481,7 @@ class ShadowMeshImpl_2b5370 {
 };
 class Helper_2b53c0 {
   public:
-    hulk_intptr run(pure3d::ShadowMeshImpl*);
+    hulk_intptr run_002b52e0(pure3d::ShadowMeshImpl*);
 };
 extern void* thunk_FUN_0008d690(int);
 class Obj_2b53f0 {
@@ -502,7 +502,7 @@ class ShadowSkinImpl : public ShadowMeshImpl_2b55b0 {
     int a, b, c, d;
     ShadowSkinImpl();
 };
-extern void* g_vftable_2b56e0[];
+extern void* hulk_at_0042e5e4[];
 } // namespace fn_f35954a7
 void operator delete(void*);
 namespace fn_f35954a7 {
@@ -514,7 +514,7 @@ class Ref_2b56e0 {
 class ShadowMeshImpl_2b56e0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002a50a0();
 };
 class ShadowSkinImpl_2b56e0 : public ShadowMeshImpl_2b56e0 {
   public:
@@ -557,7 +557,7 @@ class ShadowSkinLoader {
     int d;
     ShadowSkinLoader();
 };
-extern void* g_vftable_2b6890[];
+extern void* hulk_at_0042e584[];
 class Ref_2b6890 {
   public:
     virtual void F0();
@@ -566,7 +566,7 @@ class Ref_2b6890 {
 class DrawablePrimitive_2b6890 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002a50a0();
 };
 class ShadowMeshBufferImpl_2b6890 : public DrawablePrimitive_2b6890 {
   public:
@@ -578,8 +578,8 @@ struct I_2b6910 {
     virtual void A();
     virtual void B();
 };
-extern void* shadowVtable;
-extern void* refVtable_2b6910;
+extern void* hulk_at_0042e654;
+extern void* hulk_at_003f6098;
 struct ShadowMeshBufferLoader_2b6910 {
     void* vptr;
     char pad[16];
@@ -594,10 +594,10 @@ class Ref_2b6f30 {
 class Provider_2b6f30 {
   public:
     char pad[0x70];
-    Ref_2b6f30* getObj();
+    Ref_2b6f30* getObj_0027b240();
 };
 struct ShadowSkinImpl_nv_2b6f30 {
-    void helper(Ref_2b6f30*);
+    void helper_002b57d0(Ref_2b6f30*);
 };
 extern void* g_vftable_2b6fb0[];
 class Ref_2b6fb0 {
@@ -608,7 +608,7 @@ class Ref_2b6fb0 {
 class DrawablePrimitive_2b6fb0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002a50a0();
 };
 class ShadowMeshBufferImpl_2b6fb0 : public DrawablePrimitive_2b6fb0 {
   public:
@@ -629,8 +629,8 @@ X_2b37a0::X_2b37a0() {
 // sym: ?target@fn_f35954a7@@YIXPAUObj_2b37b0@1@@Z
 void __fastcall target(Obj_2b37b0* self) {
     self->vf = (void*)((hulk_intptr)DAT_0042e554);
-    release(self->a);
-    release(self->b);
+    release_0008d340(self->a);
+    release_0008d340(self->b);
     self->vf = (void*)((hulk_intptr)DAT_003f6098);
 }
 
@@ -644,7 +644,7 @@ class ShadowMeshTopology_2b37e0 {
     virtual ~ShadowMeshTopology_2b37e0() throw();
 };
 ShadowMeshTopology_2b37e0::~ShadowMeshTopology_2b37e0() throw() {}
-void ReleaseRef(int);
+void ReleaseRef_0008d340(int);
 class ShadowMeshTopology : public ShadowMeshTopology_2b37e0 {
   public:
     int pad04[3];
@@ -653,8 +653,8 @@ class ShadowMeshTopology : public ShadowMeshTopology_2b37e0 {
     virtual ~ShadowMeshTopology() throw();
 };
 ShadowMeshTopology::~ShadowMeshTopology() throw() {
-    ReleaseRef(m10);
-    ReleaseRef(m14);
+    ReleaseRef_0008d340(m10);
+    ReleaseRef_0008d340(m14);
 }
 } // namespace fn_002b37e0
 
@@ -1529,7 +1529,7 @@ void Tracer_2b4b40::FUN_002b4b40(Node *node)
 void* pure3d::ShadowMeshLoader::vfunc_6() {
     void* p = Allocate(0x58);
     if (p)
-        return (void*)(((Built_2b4cb0*)p)->init());
+        return (void*)(((Built_2b4cb0*)p)->init_002deeb0());
     return (void*)(0);
 }
 
@@ -1540,7 +1540,7 @@ void* pure3d::ShadowMeshLoader::vfunc_6() {
 void* pure3d::ShadowSkinLoader::vfunc_6() {
     void* p = Allocate(0x58);
     if (p)
-        return (void*)(((Built_2b4cd0*)p)->init());
+        return (void*)(((Built_2b4cd0*)p)->init_002defb0());
     return (void*)(0);
 }
 
@@ -1548,7 +1548,7 @@ void* pure3d::ShadowSkinLoader::vfunc_6() {
 // 0x002b4cf0 FUN_002b4cf0 (32 B): matches/0x002b4cf0.cpp
 // sym: ?FUN_002b4cf0@ShadowMeshBufferImpl@pure3d@@QAEPAV12@XZ
 pure3d::ShadowMeshBufferImpl* pure3d::ShadowMeshBufferImpl::FUN_002b4cf0() {
-    ((ThisCall_002a5060*)(this))->Init();
+    ((ThisCall_002a5060*)(this))->Init_002a5060();
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042e584);
     *(int*)((char*)this + 0x40) = 0;
     *(int*)((char*)this + 0x10) = 2;
@@ -1601,7 +1601,7 @@ void FUN_002b4d50() {}
 // 0x002b4d60 FUN_002b4d60 (34 B): matches/0x002b4d60.cpp
 // sym: ?FUN_002b4d60@ShadowMeshBufferImpl@pure3d@@QAEPAV12@H@Z
 pure3d::ShadowMeshBufferImpl* pure3d::ShadowMeshBufferImpl::FUN_002b4d60(int arg) {
-    Init(this);
+    Init_002a5060(this);
     *(void**)this = (void*)((hulk_intptr)DAT_0042e584);
     *(int*)((char*)this + 0x40) = 0;
     *(int*)((char*)this + 0x10) = 2;
@@ -1612,9 +1612,9 @@ pure3d::ShadowMeshBufferImpl* pure3d::ShadowMeshBufferImpl::FUN_002b4d60(int arg
 // 0x002b4d90 pure3d::ShadowMeshBufferImpl::vfunc_4 (52 B): matches/0x002b4d90.cpp
 // sym: ?vfunc_4@ShadowMeshBufferImpl@pure3d@@UAEPAXXZ
 void* pure3d::ShadowMeshBufferImpl::vfunc_4() {
-    pure3d::ShadowMeshBufferImpl* p = (pure3d::ShadowMeshBufferImpl*)alloc(0x48);
+    pure3d::ShadowMeshBufferImpl* p = (pure3d::ShadowMeshBufferImpl*)alloc_00263ea0(0x48);
     if (p) {
-        ((ShadowMeshBufferImpl_nv_2b4d90*)(p))->initialize();
+        ((ShadowMeshBufferImpl_nv_2b4d90*)(p))->initialize_002a5060();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0042e584);
         *(u32_2b4d90*)((char*)p + 0x40) = 0;
         *(u32_2b4d90*)((char*)p + 0x10) = 2;
@@ -1635,11 +1635,11 @@ bool pure3d::ShadowMeshBufferImpl::vfunc_3() {
 // 0x002b4e00 pure3d::ShadowMeshBufferImpl::vfunc_6 (92 B): matches/0x002b4e00.cpp
 // sym: ?vfunc_6@ShadowMeshBufferImpl@pure3d@@UAEXXZ
 void pure3d::ShadowMeshBufferImpl::vfunc_6() {
-    gManager_2b4e00->m54(2);
-    gManager_2b4e00->m74(0, 0, 3);
+    hulk_at_0052c2a8->m54(2);
+    hulk_at_0052c2a8->m74(0, 0, 3);
     (*(Child_2b4e00 * *)&this->f_40)->g();
-    gManager_2b4e00->m54(1);
-    gManager_2b4e00->m74(0, 0, 4);
+    hulk_at_0052c2a8->m54(1);
+    hulk_at_0052c2a8->m74(0, 0, 4);
     (*(Child_2b4e00 * *)&this->f_40)->g();
 }
 
@@ -1648,9 +1648,9 @@ namespace fn_f35954a7 {
 // 0x002b4e60 pure3d::ShadowMeshBufferLoader::vfunc_6 (26 B): matches/0x002b4e60.cpp
 // sym: ?vfunc_6@ShadowMeshBufferLoader@fn_f35954a7@@UAEPAVShadowMeshBuffer_2b4e60@2@H@Z
 ShadowMeshBuffer_2b4e60* ShadowMeshBufferLoader::vfunc_6(int x) {
-    ShadowMeshBuffer_2b4e60* p = (ShadowMeshBuffer_2b4e60*)alloc(0x58);
+    ShadowMeshBuffer_2b4e60* p = (ShadowMeshBuffer_2b4e60*)alloc_00263ea0(0x58);
     if (p)
-        return p->Init(x);
+        return p->Init_002df0b0(x);
     return 0;
 }
 
@@ -1670,7 +1670,7 @@ void C_2b5050::f() {
 // 0x002b5070 FUN_002b5070 (76 B): matches/0x002b5070.cpp [wrapped: conflict: alloc]
 // sym: ??0ShadowMeshVertices@fn_002b5070@@QAE@HH@Z
 namespace fn_002b5070 {
-extern "C++" __declspec(nothrow) void* alloc(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* alloc_0008d6d0(hulk_uintptr);
 class ShadowMeshVertices {
   public:
     virtual ~ShadowMeshVertices();
@@ -1687,8 +1687,8 @@ ShadowMeshVertices::ShadowMeshVertices(int a, int b) {
     p2 = 0;
     count = a;
     count2 = b;
-    p1 = alloc(a * 12);
-    p2 = alloc(count2 * 12);
+    p1 = alloc_0008d6d0(a * 12);
+    p2 = alloc_0008d6d0(count2 * 12);
 }
 } // namespace fn_002b5070
 
@@ -1697,9 +1697,9 @@ ShadowMeshVertices::ShadowMeshVertices(int a, int b) {
 // sym: ?vfunc_2@ShadowMeshVertices@pure3d@fn_002b50c0@@UAEPAV123@E@Z
 namespace fn_002b50c0 {
 typedef unsigned char byte_2b50c0;
-void thunk(void*);
-void thunk_val(unsigned int);
-extern void* shadow_vftable;
+void thunk_0008d330(void*);
+void thunk_val_0008d340(unsigned int);
+extern void* hulk_at_0042e554;
 extern void* ref_vftable_2b50c0;
 namespace pure3d {
 class ShadowMeshVertices {
@@ -1710,12 +1710,12 @@ class ShadowMeshVertices {
     char pad[0x10 - 4];
 };
 ShadowMeshVertices* ShadowMeshVertices::vfunc_2(byte_2b50c0 param) {
-    *(void**)this = &shadow_vftable;
-    thunk_val(*(unsigned int*)((char*)this + 0x10));
-    thunk_val(*(unsigned int*)((char*)this + 0x14));
+    *(void**)this = &hulk_at_0042e554;
+    thunk_val_0008d340(*(unsigned int*)((char*)this + 0x10));
+    thunk_val_0008d340(*(unsigned int*)((char*)this + 0x14));
     *(void**)this = &ref_vftable_2b50c0;
     if (param & 1)
-        thunk(this);
+        thunk_0008d330(this);
     return this;
 }
 } // namespace pure3d
@@ -1725,7 +1725,7 @@ ShadowMeshVertices* ShadowMeshVertices::vfunc_2(byte_2b50c0 param) {
 // 0x002b5100 FUN_002b5100 (176 B): matches/0x002b5100.cpp [wrapped: conflict: alloc]
 // sym: ??0ShadowMeshVertices_2b5100@fn_002b5100@@QAE@ABU01@@Z
 namespace fn_002b5100 {
-void* __cdecl alloc(hulk_uintptr) throw();
+void* __cdecl alloc_0008d6d0(hulk_uintptr) throw();
 struct V3_2b5100 {
     unsigned a, b, c;
     void Set(const V3_2b5100& s) {
@@ -1752,8 +1752,8 @@ ShadowMeshVertices_2b5100::ShadowMeshVertices_2b5100(const ShadowMeshVertices_2b
     unsigned i = 0;
     m8 = o.m8;
     mc = o.mc;
-    m10 = (V3_2b5100*)alloc(m8 * 12);
-    m14 = (V3_2b5100*)alloc(mc * 12);
+    m10 = (V3_2b5100*)alloc_0008d6d0(m8 * 12);
+    m14 = (V3_2b5100*)alloc_0008d6d0(mc * 12);
     for (; i < m8; i++)
         m10[i].Set(o.m10[i]);
     for (i = 0; i < mc; i++)
@@ -1767,9 +1767,9 @@ ShadowMeshVertices_2b5100::ShadowMeshVertices_2b5100(const ShadowMeshVertices_2b
 namespace fn_002b5200 {
 // Same code shape as 0x002b50c0 (propagated; names are from that function)
 typedef unsigned char byte_2b5200;
-void thunk(void*);
-void thunk_val(unsigned int);
-extern void* shadow_vftable;
+void thunk_0008d330(void*);
+void thunk_val_0008d340(unsigned int);
+extern void* hulk_at_0042e564;
 extern void* ref_vftable_2b5200;
 namespace pure3d {
 class ShadowMeshVertices {
@@ -1780,12 +1780,12 @@ class ShadowMeshVertices {
     char pad[0x10 - 4];
 };
 ShadowMeshVertices* ShadowMeshVertices::vfunc_2(byte_2b5200 param) {
-    *(void**)this = &shadow_vftable;
-    thunk_val(*(unsigned int*)((char*)this + 0x10));
-    thunk_val(*(unsigned int*)((char*)this + 0x14));
+    *(void**)this = &hulk_at_0042e564;
+    thunk_val_0008d340(*(unsigned int*)((char*)this + 0x10));
+    thunk_val_0008d340(*(unsigned int*)((char*)this + 0x14));
     *(void**)this = &ref_vftable_2b5200;
     if (param & 1)
-        thunk(this);
+        thunk_0008d330(this);
     return this;
 }
 } // namespace pure3d
@@ -1915,7 +1915,7 @@ namespace fn_f35954a7 {
 // 0x002b5370 FUN_002b5370 (74 B): matches/0x002b5370.cpp
 // sym: ?f@ShadowMeshImpl_2b5370@fn_f35954a7@@QAEXXZ
 void ShadowMeshImpl_2b5370::f() {
-    vptr = g_vftable_2b5370;
+    vptr = hulk_at_0042e5b4;
     _ReadWriteBarrier();
     if (m40) {
         m40->f1();
@@ -1929,7 +1929,7 @@ void ShadowMeshImpl_2b5370::f() {
         m48->f1();
         m48 = 0;
     }
-    ((Helper_2b5370*)this)->Fn();
+    ((Helper_2b5370*)this)->Fn_002a50a0();
 }
 
 } // namespace fn_f35954a7
@@ -1940,7 +1940,7 @@ void ShadowMeshImpl_2b5370::f() {
 void* pure3d::ShadowMeshImpl::vfunc_4() {
     Helper_2b53c0* p = (Helper_2b53c0*)thunk_FUN_0008d690(0x70);
     if (p)
-        return (void*)(p->run(this));
+        return (void*)(p->run_002b52e0(this));
     return (void*)(0);
 }
 
@@ -2141,10 +2141,10 @@ void ShadowMeshImpl::vfunc_6() {
 namespace fn_002b5560 {
 typedef unsigned char u8_2b5560;
 typedef unsigned int u32_2b5560;
-extern int shadow_vtable;
+extern int hulk_at_0042e574;
 extern int ref_vtable;
-void release(void*);
-void release_self(void*);
+void release_0008d340(void*);
+void release_self_0008d330(void*);
 class ShadowSkinTopology {
   public:
     virtual void v0();
@@ -2156,13 +2156,13 @@ class ShadowSkinTopology {
     hulk_uintptr d;
 };
 ShadowSkinTopology* ShadowSkinTopology::vfunc_2(u8_2b5560 param) {
-    *(int**)this = &shadow_vtable;
-    release((void*)b);
-    release((void*)c);
-    release((void*)d);
+    *(int**)this = &hulk_at_0042e574;
+    release_0008d340((void*)b);
+    release_0008d340((void*)c);
+    release_0008d340((void*)d);
     *(int**)this = &ref_vtable;
     if (param & 1)
-        release_self((void*)this);
+        release_self_0008d330((void*)this);
     return this;
 }
 } // namespace fn_002b5560
@@ -2244,7 +2244,7 @@ namespace fn_f35954a7 {
 // 0x002b56e0 FUN_002b56e0 (144 B): matches/0x002b56e0.cpp
 // sym: ??1ShadowSkinImpl_2b56e0@fn_f35954a7@@QAE@XZ
 ShadowSkinImpl_2b56e0::~ShadowSkinImpl_2b56e0() {
-    vptr = g_vftable_2b56e0;
+    vptr = hulk_at_0042e5e4;
     _ReadWriteBarrier();
     if (m70) {
         m70->Release();
@@ -2277,7 +2277,7 @@ ShadowSkinImpl_2b56e0::~ShadowSkinImpl_2b56e0() {
         m48->Release();
         m48 = 0;
     }
-    Fin();
+    Fin_002a50a0();
 }
 
 
@@ -2374,7 +2374,7 @@ class ShadowMeshImpl {
     Mat* cache;
     Topo* topo;
     void FUN_002b4b40(Skel* s);
-    void vfunc_6();
+    void vfunc_6_002b5410();
     void Update(Skel* arg);
 };
 } // namespace pure3d
@@ -2490,7 +2490,7 @@ void pure3d::ShadowMeshImpl::Update(Skel* arg) {
         }
     }
     FUN_002b4b40(arg);
-    vfunc_6();
+    vfunc_6_002b5410();
 }
 } // namespace fn_002b57d0
 #undef XF_X
@@ -2527,13 +2527,13 @@ ShadowSkinLoader::ShadowSkinLoader() {
 // 0x002b6890 FUN_002b6890 (36 B): matches/0x002b6890.cpp
 // sym: ??1ShadowMeshBufferImpl_2b6890@fn_f35954a7@@QAE@XZ
 ShadowMeshBufferImpl_2b6890::~ShadowMeshBufferImpl_2b6890() {
-    vptr = g_vftable_2b6890;
+    vptr = hulk_at_0042e584;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_002a50a0();
 }
 
 } // namespace fn_f35954a7
@@ -2551,16 +2551,16 @@ class ShadowMeshBufferLoader {
     int e;
     int f;
 };
-extern "C++" __declspec(nothrow) int __cdecl alloc_mem(int);
-int __fastcall init_obj(int);
+extern "C++" __declspec(nothrow) int __cdecl alloc_mem_0008d690(int);
+int __fastcall init_obj_002df7f0(int);
 ShadowMeshBufferLoader* __fastcall target(ShadowMeshBufferLoader* self) {
     self->b = 0;
     self->c = 0x10023;
     self->d = 0;
     self->e = 0;
     self->a = ((hulk_intptr)DAT_0042e654);
-    int p = alloc_mem(0x2c);
-    self->f = p ? init_obj(p) : 0;
+    int p = alloc_mem_0008d690(0x2c);
+    self->f = p ? init_obj_002df7f0(p) : 0;
     return self;
 }
 } // namespace fn_002b68c0
@@ -2570,9 +2570,9 @@ namespace fn_f35954a7 {
 // 0x002b6910 FUN_002b6910 (25 B): matches/0x002b6910.cpp
 // sym: ?F@ShadowMeshBufferLoader_2b6910@fn_f35954a7@@QAEXXZ
 void ShadowMeshBufferLoader_2b6910::F() {
-    vptr = &shadowVtable;
+    vptr = &hulk_at_0042e654;
     member->B();
-    vptr = &refVtable_2b6910;
+    vptr = &hulk_at_003f6098;
 }
 
 } // namespace fn_f35954a7
@@ -2590,7 +2590,7 @@ struct RelObj_2b6eb0 {
 
 class ShadowMeshImpl {
   public:
-    void BaseCleanup();
+    void BaseCleanup_002a50a0();
 
     void* volatile m_vptr;
     char pad[0x3C];
@@ -2618,7 +2618,7 @@ ShadowMeshImpl* ShadowMeshImpl::vfunc_2(unsigned char flags) {
         c->Release();
         m_c = 0;
     }
-    BaseCleanup();
+    BaseCleanup_002a50a0();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -2637,14 +2637,14 @@ pure3d::ShadowSkinImpl::~ShadowSkinImpl() {}
 // sym: ?vfunc_6@ShadowSkinImpl@pure3d@@UAEXXZ
 void pure3d::ShadowSkinImpl::vfunc_6() {
     if (!(*(Ref_2b6f30 * *)&this->f_7c)) {
-        Ref_2b6f30* r = (*(Provider_2b6f30 * *)&this->f_70)->getObj();
+        Ref_2b6f30* r = (*(Provider_2b6f30 * *)&this->f_70)->getObj_0027b240();
         if (r)
             r->f0();
         if ((*(Ref_2b6f30 * *)&this->f_7c))
             (*(Ref_2b6f30 * *)&this->f_7c)->f1();
         (*(Ref_2b6f30 * *)&this->f_7c) = r;
     }
-    ((ShadowSkinImpl_nv_2b6f30*)this)->helper((*(Ref_2b6f30 * *)&this->f_7c));
+    ((ShadowSkinImpl_nv_2b6f30*)this)->helper_002b57d0((*(Ref_2b6f30 * *)&this->f_7c));
 }
 
 
@@ -2716,7 +2716,7 @@ ShadowMeshBufferImpl_2b6fb0* ShadowMeshBufferImpl_2b6fb0::f2(unsigned char flags
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_002a50a0();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -2739,13 +2739,13 @@ struct ShadowMeshBufferLoader {
     Interface_2b6ff0* member;
     ShadowMeshBufferLoader* f2(unsigned char);
 };
-extern void cleanup(ShadowMeshBufferLoader*);
+extern void cleanup_00263f30(ShadowMeshBufferLoader*);
 ShadowMeshBufferLoader* ShadowMeshBufferLoader::f2(unsigned char flag) {
     vptr = &shadowVftable;
     member->b();
     vptr = &refVftable;
     if (flag & 1)
-        cleanup(this);
+        cleanup_00263f30(this);
     return this;
 }
 } // namespace fn_002b6ff0

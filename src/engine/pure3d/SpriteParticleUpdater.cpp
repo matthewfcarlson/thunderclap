@@ -16,7 +16,7 @@ namespace fn_fd69ca5d {} using namespace fn_fd69ca5d;
 
 // ---- declarations shared by the functions below
 namespace fn_fd69ca5d {
-extern int vt1_2d11f0;
+extern int hulk_at_0042f034;
 class SpriteParticleUpdater_2d11f0 {
   public:
     void* vptr;
@@ -399,7 +399,7 @@ namespace fn_fd69ca5d {
 // sym: ??0SpriteParticleUpdater_2d11f0@fn_fd69ca5d@@QAE@XZ
 SpriteParticleUpdater_2d11f0::SpriteParticleUpdater_2d11f0() throw() {
     a4 = 0;
-    vptr = &vt1_2d11f0;
+    vptr = &hulk_at_0042f034;
     a8 = 0;
     ac = 0;
     a10 = 0;
@@ -823,7 +823,7 @@ class NonCopyable_2d1d90 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public NonCopyable_2d1d90 {
   public:
@@ -834,7 +834,7 @@ class NonCopyable : public NonCopyable_2d1d90 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

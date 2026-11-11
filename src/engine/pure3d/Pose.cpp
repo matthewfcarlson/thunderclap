@@ -13,7 +13,7 @@ namespace fn_f31e307f {} using namespace fn_f31e307f;
 
 // ---- declarations shared by the functions below
 namespace fn_f31e307f {
-extern void* g_vftable_2849c0[];
+extern void* hulk_at_0042c588[];
 } // namespace fn_f31e307f
 void operator delete(void*);
 namespace fn_f31e307f {
@@ -39,7 +39,7 @@ class Pose_2849c0 : public NonCopyable_2849c0 {
 // 0x002849c0 pure3d::Pose::vfunc_2 (69 B): matches/0x002849c0.cpp
 // sym: ?f2@Pose_2849c0@fn_f31e307f@@QAEPAV12@E@Z
 Pose_2849c0* Pose_2849c0::f2(unsigned char flags) {
-    vptr = g_vftable_2849c0;
+    vptr = hulk_at_0042c588;
     _ReadWriteBarrier();
     if (m8) {
         m8->Release();

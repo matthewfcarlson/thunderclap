@@ -43,8 +43,8 @@ class Manager_274be0 {
     virtual void f3();
     virtual void f4(void*);
 };
-extern int gCompletionVtable;
-extern int gRequestVtable;
+extern int hulk_at_0042b934;
+extern int hulk_at_0042b914;
 namespace core {
 class CompletionEventRequest {
   public:
@@ -75,9 +75,9 @@ CompletionEventRequest_274ba0* CompletionEventRequest_274ba0::Init(hulk_uintptr*
 // sym: ?vfunc_0@CompletionEventRequest@core@fn_f232f6a1@@QAEPAXE@Z
 // data: gLock_274be0 = DAT_0052a1c8, gManager_274be0 = DAT_0052a1e4
 void* core::CompletionEventRequest::vfunc_0(unsigned char param) {
-    vptr = &gCompletionVtable;
+    vptr = &hulk_at_0042b934;
     mRequest->f1();
-    vptr = &gRequestVtable;
+    vptr = &hulk_at_0042b914;
     if (param & 1) {
         FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(Manager_274be0**)&DAT_0052a1e4)->f4(this);

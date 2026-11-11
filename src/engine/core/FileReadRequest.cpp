@@ -48,7 +48,7 @@ class Inner_273e60 {
     virtual void a9();
     virtual void a10();
     virtual int k(int, int);
-    int m();
+    int Fnm_00272880();
 };
 class Sub_273e60 {
   public:
@@ -136,7 +136,7 @@ int core::FileCommitRequest::vfunc_1() {
     Data_273e60* d = (*(Data_273e60 *volatile *)&this->f_08);
     Inner_273e60* i = d->inner;
     int x = i->k(d->field, (hulk_intptr)((char*)d + 0x1e));
-    int z = i->m();
+    int z = i->Fnm_00272880();
     (*(Data_273e60 *volatile *)&this->f_08)->sub.a();
     (*(Data_273e60 *volatile *)&this->f_08)->y = z;
     (*(Data_273e60 *volatile *)&this->f_08)->sub.b();

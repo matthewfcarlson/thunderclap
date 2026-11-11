@@ -20,7 +20,7 @@ struct ThisCall_002a4e10 {
 };
 void FUN_0022b980();
 struct Sub_2a3660 {
-    void Init();
+    void Init_0022b980();
 };
 class ParticleSystem {
   public:
@@ -46,7 +46,7 @@ class ParamValue_2a36b0 {
     virtual void f5();
     virtual void f6();
 };
-extern int vt1_2a3950;
+extern int hulk_at_0042d88c;
 class Ref_2a3950 {
   public:
     virtual void f0();
@@ -114,9 +114,9 @@ class Holder {
 };
 class Helper_2a3e20 {
   public:
-    hulk_intptr call(pure3d::ParticleSystem*);
+    hulk_intptr call_002a3d90(pure3d::ParticleSystem*);
 };
-extern void* __cdecl alloc(int);
+extern void* __cdecl alloc_00263ea0(int);
 class Callback_2a3e50 {
   public:
     virtual void b0();
@@ -148,7 +148,7 @@ ParticleSystem* ParticleSystem::Build(void* arg) {
     y = 30.0f;
     a = 0;
     b = 0;
-    sub.Init();
+    sub.Init_0022b980();
     return this;
 }
 
@@ -270,7 +270,7 @@ struct Controller {
     virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
     virtual void slot20(); virtual void slot21(); virtual bool slot22();
 };
-struct DrawableContainer { void vfunc_7(); };
+struct DrawableContainer { void vfunc_7_002a4150(); };
 struct ParticleSystem : DrawableContainer {
     char pad[0xa4];
     Controller *controller;
@@ -278,7 +278,7 @@ struct ParticleSystem : DrawableContainer {
 };
 void ParticleSystem::vfunc_7() {
     if (controller && !controller->slot22()) return;
-    DrawableContainer::vfunc_7();
+    DrawableContainer::vfunc_7_002a4150();
 }
 }
 } // namespace fn_002a3740
@@ -289,7 +289,7 @@ void ParticleSystem::vfunc_7() {
 namespace fn_002a3770 {
 class DrawableContainer {
   public:
-    int vfunc_16();
+    int vfunc_16_002a4410();
 };
 class ParticleSystem : public DrawableContainer {
   public:
@@ -299,8 +299,8 @@ class ParticleSystem : public DrawableContainer {
 };
 int ParticleSystem::vfunc_16() {
     if (mValue)
-        return DrawableContainer::vfunc_16() + 1;
-    return DrawableContainer::vfunc_16();
+        return DrawableContainer::vfunc_16_002a4410() + 1;
+    return DrawableContainer::vfunc_16_002a4410();
 }
 } // namespace fn_002a3770
 
@@ -354,7 +354,7 @@ namespace fn_002a37b0 {
 // pure3d::ParticleSystem::vfunc_17 @ 0x002a37b0
 namespace pure3d {
 struct DrawableContainer {
-    void vfunc_17(int, int);
+    void vfunc_17_002a4440(int, int);
 };
 struct ParticleEntry {
     char padding[8];
@@ -368,7 +368,7 @@ struct ParticleSystem : DrawableContainer {
 };
 void ParticleSystem::vfunc_17(int first, int second) {
     if (!current || current->first != first || current->second != second)
-        DrawableContainer::vfunc_17(first, second);
+        DrawableContainer::vfunc_17_002a4440(first, second);
 }
 }
 } // namespace fn_002a37b0
@@ -378,7 +378,7 @@ namespace fn_f1899950 {
 // 0x002a3950 FUN_002a3950 (67 B): matches/0x002a3950.cpp
 // sym: ??1ParticleSystem_2a3950@fn_f1899950@@QAE@XZ
 ParticleSystem_2a3950::~ParticleSystem_2a3950() throw() {
-    vptr = &vt1_2a3950;
+    vptr = &hulk_at_0042d88c;
     _ReadWriteBarrier();
     if (aa4) {
         aa4->Release();
@@ -671,7 +671,7 @@ class ParticleSystem {
     char pad[0xa4];
     Ref_2a3d30* volatile a;
     Ref_2a3d30* volatile b;
-    void Cleanup();
+    void Cleanup_002a4ff0();
     ParticleSystem* vfunc_2(unsigned char p);
 };
 
@@ -688,7 +688,7 @@ ParticleSystem* ParticleSystem::vfunc_2(unsigned char p) {
         y->Release();
         b = 0;
     }
-    Cleanup();
+    Cleanup_002a4ff0();
     if (p & 1) {
         FUN_00263f30(this);
     }
@@ -772,9 +772,9 @@ ParticleSystem::ParticleSystem(const ParticleSystem *src) : DrawableContainerBas
 // sym: ?vfunc_4@ParticleSystem@pure3d@@UAEPAXXZ
 // Same code shape as 0x002974d0 (propagated; names are from that function)
 void* pure3d::ParticleSystem::vfunc_4() {
-    void* p = alloc(0xb0);
+    void* p = alloc_00263ea0(0xb0);
     if (p)
-        return (void*)(((Helper_2a3e20*)p)->call(this));
+        return (void*)(((Helper_2a3e20*)p)->call_002a3d90(this));
     return (void*)(0);
 }
 

@@ -21,7 +21,7 @@ extern "C" const char* __cdecl FUN_00213190(LuaVMState* L, int idx);
 extern "C" void __cdecl FUN_00347eed(const void*, const void*);
 extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
 extern "C" int __cdecl FUN_00338e20(LuaVMState* L, const char* fmt, ...);
-extern float zero_33d6e0;
+extern float hulk_at_004d9a10;
 extern "C" int __cdecl FUN_00339fe0(LuaVMState* L, int narg, int def);
 extern "C" void __cdecl FUN_00339dc0(LuaVMState* L, int narg);
 extern "C" int __cdecl FUN_00212f70(LuaVMState* L, int idx);
@@ -112,11 +112,11 @@ extern "C" int __cdecl FUN_0033d6e0(LuaVMState* L) {
         if (!s)
             return FUN_00338e20(L, DAT_0042251c);
         if (i > 1)
-            FUN_00347eed(DAT_00434f70, &zero_33d6e0);
-        FUN_00347eed(s, &zero_33d6e0);
+            FUN_00347eed(DAT_00434f70, &hulk_at_004d9a10);
+        FUN_00347eed(s, &hulk_at_004d9a10);
         FUN_00212d80(L, -2);
     }
-    FUN_00347eed(DAT_00422518, &zero_33d6e0);
+    FUN_00347eed(DAT_00422518, &hulk_at_004d9a10);
     return 0;
 }
 

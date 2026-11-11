@@ -37,14 +37,14 @@ extern "C" void FUN_00247550(Pool* pool, Item* item);
 extern "C" bool __cdecl FUN_0025abd0(const char*, unsigned int*);
 extern "C" bool __cdecl FUN_0025ac10(const char*, unsigned int*);
 extern "C" void* __cdecl FUN_00247530(void*);
-extern int gBss_261ef0;
+extern int hulk_at_004e7a30;
 struct Link_261f90 { Link_261f90* next; };
 struct Item_261f90 { float value; Link_261f90 link; };
 extern "C" void __cdecl FUN_00261d10(void *);
 typedef unsigned int u32_262090;
-extern int vtable_262090;
+extern int hulk_at_0042a600;
 struct SeqEventLogicRepeat_262090 {
-    void init();
+    void init_00254c20();
 };
 extern "C" u32_262090 __cdecl FUN_002673a0(const char*, int);
 struct Obj_262090 {
@@ -193,7 +193,7 @@ bool owners::Obj_261ef0::FUN_00261ef0(const char* name) {
         unsigned int value;
         if (!FUN_0025ac10(name, &value))
             return false;
-        int* p = (int*)FUN_00247530(&gBss_261ef0);
+        int* p = (int*)FUN_00247530(&hulk_at_004e7a30);
         if (p)
             *p = value;
         else
@@ -256,8 +256,8 @@ extern "C" int* FUN_00262030() {
 // sym: ?FUN_00262090@fn_fa1df58d@@YIPAUObj_262090@1@PAU21@@Z
 // data: zeroData = DAT_003f335c
 Obj_262090* __fastcall FUN_00262090(Obj_262090* p) {
-    p->vt = (hulk_uintptr)&vtable_262090;
-    p->s.init();
+    p->vt = (hulk_uintptr)&hulk_at_0042a600;
+    p->s.init_00254c20();
     p->a = FUN_002673a0("MySeqTrack", 0);
     p->b = FUN_002673a0((const char*)&(*(int*)&DAT_003f335c), 0);
     p->c[0] &= 0xfc;

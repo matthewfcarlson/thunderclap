@@ -57,8 +57,8 @@ struct GlobalObj_274e00 {
     virtual void d();
     virtual void e(core::DriveCompletionRequest*);
 };
-extern char vtFile[];
-extern char vtRequest[];
+extern char hulk_at_0042b978[];
+extern char hulk_at_0042b914[];
 
 
 // 0x00274d80 FUN_00274d80 (119 B): matches/0x00274d80.cpp
@@ -88,10 +88,10 @@ DriveCompletionRequest_274d80::DriveCompletionRequest_274d80(int a, int b, Obj_2
 // Same code shape as 0x00274d20 (propagated; names are from that function)
 // data: gLock_274e00 = DAT_0052a1c8, gObject_274e00 = DAT_0052a1e4
 core::DriveCompletionRequest* core::DriveCompletionRequest::vfunc_0(u8_274e00 param) {
-    *(void**)this = vtFile;
+    *(void**)this = hulk_at_0042b978;
     mAt10->f1();
     mAtC->f1();
-    *(void**)this = vtRequest;
+    *(void**)this = hulk_at_0042b914;
     if (param & 1) {
         FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(GlobalObj_274e00**)&DAT_0052a1e4)->e(this);

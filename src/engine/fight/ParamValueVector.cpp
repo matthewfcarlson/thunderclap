@@ -12,7 +12,7 @@ namespace fn_fa28d91f {} using namespace fn_fa28d91f;
 
 // ---- declarations shared by the functions below
 namespace fn_fa28d91f {
-extern int vderived;
+extern int hulk_at_00427b94;
 class ParamValue {
   public:
     virtual void F();
@@ -61,7 +61,7 @@ struct ParamValueVector {
 // 0x00234e50 FUN_00234e50 (34 B): matches/0x00234e50.cpp
 // sym: ??0ParamValueVector@fn_fa28d91f@@QAE@H@Z
 ParamValueVector::ParamValueVector(hulk_intptr x) : part(x) {
-    *((hulk_intptr*)this) = (hulk_intptr)&vderived;
+    *((hulk_intptr*)this) = (hulk_intptr)&hulk_at_00427b94;
 }
 
 

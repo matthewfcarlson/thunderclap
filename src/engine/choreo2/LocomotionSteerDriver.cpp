@@ -30,7 +30,7 @@ class LocomotionSteerDriver_228590 {
     ~LocomotionSteerDriver_228590();
 };
 extern "C" float __cdecl FUN_0022aaa0(float, float);
-extern "C" void __cdecl Work(int, int*);
+extern "C" void __cdecl Work_00224d70(int, int*);
 struct V {
   public:
     union { int a; float x; };
@@ -52,7 +52,7 @@ struct Obj_2286b0 {
     unsigned int value;
     Vec3_2286b0 Get();
 };
-float __cdecl Calc(int x);
+float __cdecl Calc_00224f10(int x);
 struct V3_228720 {
     float x, y, z;
 };
@@ -136,7 +136,7 @@ public:
 
     void FUN_00228ac0(unsigned int index, Obj_228ac0 **objs, float weight);
 };
-float Ang(V*);
+float Ang_00224f10(V*);
 class C_228d30 {
   public:
     char pad[0x8ac];
@@ -197,7 +197,7 @@ struct Item_229630 {
     int c;
 };
 void __cdecl FUN_00228910(Item_229630 *first, int hole, int top, Item_229630 value);
-extern void fn(V*, int, hulk_intptr, V);
+extern void fn_00229630(V*, int, hulk_intptr, V);
 struct Elem12_229840 { char data[12]; };
 extern "C" void __cdecl FUN_00229560(void *, void *, void *);
 struct E_2298e0 {
@@ -243,7 +243,7 @@ struct V3_22a550 {
     float x, y, z;
 };
 struct ThisCall_00228720 {
-    void GetVel(V3_22a550* out);
+    void GetVel_00228720(V3_22a550* out);
 };
 struct LocomotionSteerDriver_22a550 {
     virtual void v0();
@@ -260,7 +260,7 @@ struct LocomotionSteerDriver_22a550 {
     bool enabled;
     char pad2[0x900 - 0x89d];
     float px, py, pz;
-    void Base(float dt);
+    void Base_0022a0d0(float dt);
 };
 
 
@@ -308,7 +308,7 @@ V* Obj_228640::Get(V* out) {
     local.a = DAT_004c9e90;
     local.b = DAT_004c9e94;
     local.c = DAT_004c9e98;
-    Work(value, (int*)&local);
+    Work_00224d70(value, (int*)&local);
     *out = local;
     return out;
 }
@@ -330,7 +330,7 @@ Vec3_2286b0 Obj_2286b0::Get() {
 // 0x00228700 FUN_00228700 (26 B): matches/0x00228700.cpp
 // sym: ?FUN_00228700@C_228700@owners@@QAEXH@Z
 void owners::C_228700::FUN_00228700(hulk_intptr x) {
-    value = Calc(((int)x));
+    value = Calc_00224f10(((int)x));
 }
 
 namespace fn_fb966b0a {
@@ -540,7 +540,7 @@ unsigned int GetZero() {
 void C_228d30::F(V* v) {
     V t = *v;
     t.y = 0.0f;
-    a = Ang(&t);
+    a = Ang_00224f10(&t);
     b = sqrt(t.z * t.z + t.x * t.x + t.y * t.y);
 }
 
@@ -1026,7 +1026,7 @@ void __cdecl FUN_00229630(Item_229630 *first, int top, hulk_intptr bottom, Item_
 // sym: ?target@fn_fb966b0a@@YAXPAUV@1@00U21@@Z
 void target(V* begin, V* end, V* out, V a) {
     *out = *begin;
-    fn(begin, 0, end - begin, a);
+    fn_00229630(begin, 0, end - begin, a);
 }
 
 } // namespace fn_fb966b0a
@@ -1387,7 +1387,7 @@ namespace fn_fb966b0a {
 void LocomotionSteerDriver_22a550::Update(float dt) {
     if (enabled && *(int*)((char*)this + 0x18) == 0) {
         V3_22a550 v;
-        ((ThisCall_00228720*)(this))->GetVel(&v);
+        ((ThisCall_00228720*)(this))->GetVel_00228720(&v);
         v.x *= dt;
         v.y *= dt;
         v.z *= dt;
@@ -1395,7 +1395,7 @@ void LocomotionSteerDriver_22a550::Update(float dt) {
         py += v.y;
         pz += v.z;
     }
-    Base(dt);
+    Base_0022a0d0(dt);
 }
 
 } // namespace fn_fb966b0a

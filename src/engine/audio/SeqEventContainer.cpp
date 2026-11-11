@@ -24,8 +24,8 @@ class Result_260730 {
 };
 extern "C" char Parse(int, Pair_260730*);
 extern "C" Result_260730* Find(Pair_260730*);
-extern int vft_container;
-extern int vft_event;
+extern int hulk_at_00429b1c;
+extern int hulk_at_0042aa60;
 extern "C" void FUN_00260590(void*);
 class SeqEventContainer_2607a0 {
   public:
@@ -92,9 +92,9 @@ extern "C" void * FUN_00260730(int param) {
 // 0x002607a0 FUN_002607a0 (29 B): matches/0x002607a0.cpp
 // sym: ?Initialize@SeqEventContainer_2607a0@fn_f2465100@@QAEXXZ
 void SeqEventContainer_2607a0::Initialize() {
-    vptr = &vft_container;
+    vptr = &hulk_at_00429b1c;
     FUN_00260590(&pad[8]);
-    vptr = &vft_event;
+    vptr = &hulk_at_0042aa60;
 }
 
 

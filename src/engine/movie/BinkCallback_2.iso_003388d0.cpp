@@ -42,7 +42,7 @@ class O_3388d0 {
     char pad8[5];
     char c872;
     O_3388d0(hulk_intptr a, int b) throw();
-    void F1(char* p, const unsigned short* w) throw();
+    void F1_00338640(char* p, const unsigned short* w) throw();
 };
 O_3388d0::O_3388d0(hulk_intptr a, int b) throw() {
     m8 = b;
@@ -57,7 +57,7 @@ O_3388d0::O_3388d0(hulk_intptr a, int b) throw() {
     s85a = *(const T3*)"//";
     s862 = *(const T3*)"/*";
     s86a = *(const T3*)"/*";
-    F1(b83a, (const unsigned short*)L"()[]{}=;");
+    F1_00338640(b83a, (const unsigned short*)L"()[]{}=;");
     c872 = 0;
     c1c = 0;
     c41c = 0;

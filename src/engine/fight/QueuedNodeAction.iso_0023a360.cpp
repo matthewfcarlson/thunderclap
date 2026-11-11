@@ -14,11 +14,11 @@ class IRef_23a360 {
 };
 class Member_23a360 {
   public:
-    void dtor();
+    void dtor_002325f0();
     char x;
 };
-extern char vft_428558[];
-void __cdecl opDelete(void*);
+extern char hulk_at_00428558[];
+void __cdecl opDelete_0008d330(void*);
 class QueuedNodeAction {
   public:
     void* vptr;
@@ -30,7 +30,7 @@ class QueuedNodeAction {
     Member_23a360 mC;
 };
 QueuedNodeAction* QueuedNodeAction::vfunc_2(int flag) {
-    vptr = vft_428558;
+    vptr = hulk_at_00428558;
     _ReadWriteBarrier();
     if (mB) {
         mB->Release();
@@ -40,10 +40,10 @@ QueuedNodeAction* QueuedNodeAction::vfunc_2(int flag) {
         mA->Release();
         mA = 0;
     }
-    mC.dtor();
+    mC.dtor_002325f0();
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1)
-        opDelete(this);
+        opDelete_0008d330(this);
     return this;
 }
 

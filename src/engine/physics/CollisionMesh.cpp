@@ -80,7 +80,7 @@ extern "C" int __cdecl FUN_0034483c();
 struct Block_2f39e0 {
     unsigned int x[16];
 };
-void __fastcall Helper(Block_2f39e0*);
+void __fastcall Helper_0022cdb0(Block_2f39e0*);
 struct Obj_2f39e0 {
     char pad[0x4c];
     Block_2f39e0 a;
@@ -90,10 +90,10 @@ struct Obj_2f39e0 {
     void Target(Block_2f39e0* p);
 };
 typedef unsigned short ushort_2f3ac0;
-extern void* CollisionVolume_2f3bb0_vftable[];
+extern void* hulk_at_0043142c[];
 class CollisionVolume_2f3bb0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00306ac0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class WorldCollisionVolume_2f3bb0 : public CollisionVolume_2f3bb0 {
   public:
@@ -102,10 +102,10 @@ class WorldCollisionVolume_2f3bb0 : public CollisionVolume_2f3bb0 {
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0043147c[];
 typedef unsigned int u32_2f3c00;
-extern void ReleaseThing(u32_2f3c00);
+extern void ReleaseThing_0008d340(u32_2f3c00);
 class Other_2f3c00 {
   public:
-    void Do(int);
+    void Do_002f3c60(int);
 };
 class SharedData {
   public:
@@ -117,8 +117,8 @@ class SharedData {
     u32_2f3c00 d;
     Other_2f3c00* e;
 };
-void Free(void* p);
-void Free2(void* p);
+void Free_0008d340(void* p);
+void Free2_0008d330(void* p);
 struct Ref_2f3cd0 {
     virtual void a() throw();
     virtual void release() throw();
@@ -128,7 +128,7 @@ class CollisionMesh_2f3cd0 {
     void* vptr;
     char pad[0x40];
     Ref_2f3cd0* ref;
-    void Fini() throw();
+    void Fini_00306ac0() throw();
     void dtor() throw();
 };
 struct Rec_2f3db0 { int w[6]; Rec_2f3db0* FUN_00298530(void* a, void* b); };
@@ -162,7 +162,7 @@ struct Bounds_2f3e40 {
     char pad30[0x3c - 0x30];
     Vec3_2f3e40 scale;
 };
-void fix(unsigned short*, int, int, int);
+void fix_002f3ac0(unsigned short*, int, int, int);
 static __forceinline void SwapIfLess(unsigned short *a, unsigned short *b)
 {
     if (*a < *b) {
@@ -582,7 +582,7 @@ void Obj_2f39e0::Target(Block_2f39e0* p) {
     Block_2f39e0* src = p;
     *dst = *src;
     b = a;
-    Helper(&b);
+    Helper_0022cdb0(&b);
     flag = 1;
     count = count + 1;
 }
@@ -645,8 +645,8 @@ void FUN_002f3b10(short *first, short *middle, short *last)
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 WorldCollisionVolume_2f3bb0* WorldCollisionVolume_2f3bb0::vfunc_5(signed char flags) {
-    *(void***)this = CollisionVolume_2f3bb0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0043142c;
+    Destroy_00306ac0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -668,15 +668,15 @@ namespace fn_f77c5fbc {
 void __fastcall FUN_002f3c00(SharedData* p) {
     p->vft = ((hulk_intptr)DAT_0043147c);
     if (p->a)
-        ReleaseThing(p->a);
+        ReleaseThing_0008d340(p->a);
     if (p->b)
-        ReleaseThing(p->b);
+        ReleaseThing_0008d340(p->b);
     if (p->c)
-        ReleaseThing(p->c);
+        ReleaseThing_0008d340(p->c);
     if (p->d)
-        ReleaseThing(p->d);
+        ReleaseThing_0008d340(p->d);
     if (p->e)
-        p->e->Do(3);
+        p->e->Do_002f3c60(3);
     p->vft = ((hulk_intptr)DAT_003f6098);
 }
 
@@ -693,12 +693,12 @@ owners::T_2f3c60* owners::T_2f3c60::FUN_002f3c60(unsigned char f) {
             p->Dtor();
         }
         if (f & 1)
-            Free((int*)this - 1);
+            Free_0008d340((int*)this - 1);
         return (owners::T_2f3c60*)((int*)this - 1);
     }
     Dtor();
     if (f & 1)
-        Free2(this);
+        Free2_0008d330(this);
     return this;
 }
 
@@ -714,7 +714,7 @@ void CollisionMesh_2f3cd0::dtor() throw() {
         ref = 0;
     }
     vptr = vB;
-    Fini();
+    Fini_00306ac0();
 }
 
 } // namespace fn_f77c5fbc
@@ -860,7 +860,7 @@ void sift(unsigned short* a, int i, hulk_intptr n, int x) {
         a[i] = a[n - 1];
         i = n - 1;
     }
-    fix(a, i, orig, x);
+    fix_002f3ac0(a, i, orig, x);
 }
 
 } // namespace fn_f77c5fbc
@@ -869,11 +869,11 @@ void sift(unsigned short* a, int i, hulk_intptr n, int x) {
 // sym: ?vfunc_2@CollisionMesh@fn_002f41a0@@UAEPAV12@E@Z
 namespace fn_002f41a0 {
 extern "C" void _ReadWriteBarrier();
-extern char meshVT[];
+extern char hulk_at_0043148c[];
 extern char worldVT[];
 class WorldCollisionVolume {
   public:
-    void Cleanup();
+    void Cleanup_00306ac0();
 };
 class CollisionMesh {
   public:
@@ -904,19 +904,19 @@ class Ref_2f41a0 {
     virtual void f0();
     virtual void Release();
 };
-extern void ReleaseMesh(CollisionMesh*);
+extern void ReleaseMesh_0008d330(CollisionMesh*);
 
 CollisionMesh* CollisionMesh::vfunc_2(unsigned char flag) {
-    *(void**)this = (void*)meshVT;
+    *(void**)this = (void*)hulk_at_0043148c;
     _ReadWriteBarrier();
     if (mMember) {
         ((Ref_2f41a0*)mMember)->Release();
         mMember = 0;
     }
     *(void**)this = (void*)worldVT;
-    ((WorldCollisionVolume*)this)->Cleanup();
+    ((WorldCollisionVolume*)this)->Cleanup_00306ac0();
     if (flag & 1)
-        ReleaseMesh(this);
+        ReleaseMesh_0008d330(this);
     return this;
 }
 } // namespace fn_002f41a0

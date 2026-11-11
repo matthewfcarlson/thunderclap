@@ -18,8 +18,8 @@ struct LocomotionDriver {
     char pad[0x1c];
     int a;
     int b;
-    void InitA(LocomotionDriver*);
-    void InitB(LocomotionDriver*);
+    void InitA_00222590(LocomotionDriver*);
+    void InitB_00222460(LocomotionDriver*);
     LocomotionDriver* Copy(LocomotionDriver*);
 };
 struct Pair_22aaa0 { unsigned a,b; };
@@ -63,9 +63,9 @@ struct Rng_22ae20 {
 // sym: ?Copy@LocomotionDriver@fn_f986a29e@@QAEPAU12@PAU12@@Z
 // data: gCount_22aa50 = DAT_004e5ac4
 LocomotionDriver* LocomotionDriver::Copy(LocomotionDriver* src) {
-    InitA(src);
+    InitA_00222590(src);
     vf = (void*)((hulk_intptr)DAT_00427534);
-    InitB(src);
+    InitB_00222460(src);
     a = src->a;
     b = src->b;
     ++(*(int*)&DAT_004e5ac4);

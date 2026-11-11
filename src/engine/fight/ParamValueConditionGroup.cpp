@@ -12,9 +12,9 @@ namespace fn_fb539295 {} using namespace fn_fb539295;
 
 // ---- declarations shared by the functions below
 namespace fn_fb539295 {
-extern void* g_vt_235220[];
+extern void* hulk_at_004279fc[];
 struct Sub_235220 {
-    void Init(int a) throw();
+    void Init_0027b0e0(int a) throw();
 };
 class ParamValueConditionGroup_235220 {
   public:
@@ -25,7 +25,7 @@ class ParamValueConditionGroup_235220 {
 };
 class Helper_235250 {
   public:
-    void Process(int);
+    void Process_00236ee0(int);
 };
 namespace fight {
 class ParamValueConditionGroup {
@@ -42,7 +42,7 @@ class ParamValueConditionGroup {
 }
 class Helper_235270 {
   public:
-    void Process(int);
+    void Process_00236f10(int);
 };
 class ParamValueConditionGroup_235270 {
   public:
@@ -60,8 +60,8 @@ class ParamValueConditionGroup_235270 {
 // 0x00235220 FUN_00235220 (34 B): matches/0x00235220.cpp
 // sym: ??0ParamValueConditionGroup_235220@fn_fb539295@@QAE@H@Z
 ParamValueConditionGroup_235220::ParamValueConditionGroup_235220(hulk_intptr a) throw() {
-    vptr = g_vt_235220;
-    sub.Init(a);
+    vptr = hulk_at_004279fc;
+    sub.Init_0027b0e0(a);
     vptr = g_vt2;
 }
 
@@ -72,7 +72,7 @@ ParamValueConditionGroup_235220::ParamValueConditionGroup_235220(hulk_intptr a) 
 void fight::ParamValueConditionGroup::vfunc_3(int a, int b) {
     hulk_intptr x = Query(a);
     if (x)
-        ((Helper_235250*)x)->Process(b);
+        ((Helper_235250*)x)->Process_00236ee0(b);
 }
 
 
@@ -82,7 +82,7 @@ void fight::ParamValueConditionGroup::vfunc_3(int a, int b) {
 void ParamValueConditionGroup_235270::vfunc_3(int a, int b) {
     hulk_intptr x = Query(a);
     if (x)
-        ((Helper_235270*)x)->Process(b);
+        ((Helper_235270*)x)->Process_00236f10(b);
 }
 
 } // namespace fn_fb539295
@@ -92,7 +92,7 @@ void ParamValueConditionGroup_235270::vfunc_3(int a, int b) {
 namespace fn_00235290 {
 class Result {
   public:
-    char Work(int, int, int, int);
+    char Work_00237160(int, int, int, int);
 };
 namespace fight {
 class ParamValue {
@@ -119,7 +119,7 @@ char fight::ParamValueConditionGroup::v5(int x, int y, int z) {
         int q = z;
         int aa = a;
         int bb = b;
-        return p->Work(aa, bb, y, q);
+        return p->Work_00237160(aa, bb, y, q);
     }
     return 0;
 }

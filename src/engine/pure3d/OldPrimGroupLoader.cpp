@@ -13,7 +13,7 @@ namespace fn_f07552bd {} using namespace fn_f07552bd;
 
 // ---- declarations shared by the functions below
 namespace fn_f07552bd {
-extern void* g_vftable_2e1650[];
+extern void* hulk_at_0042fb94[];
 } // namespace fn_f07552bd
 void operator delete(void*);
 namespace fn_f07552bd {
@@ -25,7 +25,7 @@ class Ref_2e1650 {
 class RenderObjectLoader_2e1650 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002a3e90();
 };
 class OldPrimGroupLoader_2e1650 : public RenderObjectLoader_2e1650 {
   public:
@@ -38,13 +38,13 @@ class OldPrimGroupLoader_2e1650 : public RenderObjectLoader_2e1650 {
 // 0x002e1650 pure3d::OldPrimGroupLoader::vfunc_2 (57 B): matches/0x002e1650.cpp
 // sym: ?f2@OldPrimGroupLoader_2e1650@fn_f07552bd@@QAEPAV12@E@Z
 OldPrimGroupLoader_2e1650* OldPrimGroupLoader_2e1650::f2(unsigned char flags) {
-    vptr = g_vftable_2e1650;
+    vptr = hulk_at_0042fb94;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_002a3e90();
     if (flags & 1)
         operator delete(this);
     return this;

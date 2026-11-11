@@ -195,10 +195,10 @@ class C_22ec20 {
     int b;
     void f();
 };
-extern void __cdecl ReleaseThing(void*);
-extern void* __cdecl Alloc(hulk_uintptr);
-extern void __stdcall Init(void*, unsigned int, unsigned int, void(__cdecl*)());
-extern void __cdecl ElemCtor();
+extern void __cdecl ReleaseThing_0008d330(void*);
+extern void* __cdecl Alloc_0008d690(hulk_uintptr);
+extern void __stdcall Init_00011520(void*, unsigned int, unsigned int, void(__cdecl*)());
+extern void __cdecl ElemCtor_000a9e50();
 class Obj_22eda0 {
   public:
     int m0, m1;
@@ -209,7 +209,7 @@ class Obj_22eda0 {
     void Target(unsigned int);
 };
 struct Sub_22ef20 {
-    void Update(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
+    void Update_0022e670(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
 };
 struct Cursor_22efb0 {
     void FUN_0022e890(int target, float delta);
@@ -369,12 +369,12 @@ typedef unsigned int U_2306c0;
 struct H {
   public:
     void Run(int a, hulk_intptr originalThis);
-    void run(owners::Obj_2306c0*, U_2306c0*);
+    void run_0022c310(owners::Obj_2306c0*, U_2306c0*);
 };
 class X;
 class Y {
   public:
-    void f(int, X*);
+    void Fnf_0022c310(int, X*);
 };
 class X {
   public:
@@ -1600,15 +1600,15 @@ void Obj_22eda0::Target(unsigned int n) {
     m0 = -1;
     m1 = -1;
     if (count != n) {
-        ReleaseThing(data1);
-        ReleaseThing(data2);
+        ReleaseThing_0008d330(data1);
+        ReleaseThing_0008d330(data2);
         data1 = 0;
         data2 = 0;
         count = n;
         if (n > 0) {
-            void* p = Alloc(n << 4);
+            void* p = Alloc_0008d690(n << 4);
             if (p)
-                Init(p, 0x10, n, ElemCtor);
+                Init_00011520(p, 0x10, n, ElemCtor_000a9e50);
             else
                 p = 0;
             data1 = p;
@@ -1628,7 +1628,7 @@ char owners::Obj_22ef20::FUN_0022ef20(int index, float value) {
     unsigned int a = ((i + 3) % q) * 16 + b, c = ((i + 2) % q) * 16 + b, d = ((i + 1) % q) * 16 + b,
                  e = (i % q) * 16 + b;
     Sub_22ef20* sub = (Sub_22ef20*)((char*)this + 8 + index * 128);
-    sub->Update(mSize, e, d, c, a);
+    sub->Update_0022e670(mSize, e, d, c, a);
     mCache[index] = i;
     return 1;
 }
@@ -2172,7 +2172,7 @@ hulk_freg Segment_2304b0::FUN_002304b0(const Segment_2304b0* o)
 // sym: ?FUN_002306c0@Obj_2306c0@owners@@QAEXH@Z
 void owners::Obj_2306c0::FUN_002306c0(hulk_intptr arg) {
     U_2306c0 temp[4];
-    ((H*)((hulk_uintptr)arg))->run(this, temp);
+    ((H*)((hulk_uintptr)arg))->run_0022c310(this, temp);
     a = temp[0];
     b = temp[1];
     c = temp[2];
@@ -2184,7 +2184,7 @@ namespace fn_f0c6a717 {
 // 0x00230700 FUN_00230700 (18 B): matches/0x00230700.cpp
 // sym: ?g@X@fn_f0c6a717@@QAEXHPAVY@2@@Z
 void X::g(int a, Y* y) {
-    y->f(a, this);
+    y->Fnf_0022c310(a, this);
 }
 
 } // namespace fn_f0c6a717

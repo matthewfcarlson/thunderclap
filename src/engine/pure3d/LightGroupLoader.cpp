@@ -15,7 +15,7 @@ namespace fn_fbf43e6a {} using namespace fn_fbf43e6a;
 
 // ---- declarations shared by the functions below
 namespace fn_fbf43e6a {
-extern int gVtable_2c14c0;
+extern int hulk_at_0042eb60;
 class LightGroupLoader {
   public:
     hulk_intptr vf;
@@ -120,7 +120,7 @@ LightGroupLoader::LightGroupLoader() {
     b = 0x2380;
     c = 0;
     d = 0;
-    vf = (hulk_intptr)&gVtable_2c14c0;
+    vf = (hulk_intptr)&hulk_at_0042eb60;
 }
 
 

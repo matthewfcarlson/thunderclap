@@ -17,7 +17,7 @@ namespace fn_fa1126e6 {} using namespace fn_fa1126e6;
 namespace fn_fa1126e6 {
 class Service_263f50 {
   public:
-    int Get();
+    int Get_00264870();
 };
 class LoadStream_263f50 {
   public:
@@ -51,9 +51,9 @@ struct Job_263fd0 {
     virtual bool IsDone();
 };
 struct Pump_263fd0 {
-    void Tick();
+    void Tick_00264d20();
 };
-Job_263fd0* StartJob(void* dst, int mode, void* src, int one, unsigned n);
+Job_263fd0* StartJob_002703c0(void* dst, int mode, void* src, int one, unsigned n);
 int __cdecl FUN_0026fd50(hulk_intptr a, int b);
 class Inner_2640f0 {
   public:
@@ -83,7 +83,7 @@ class Inner_2640f0 {
 class Manager_2640f0 {
   public:
 };
-extern int getThing();
+extern int getThing_00267f80();
 class Target_2640f0 {
   public:
     char pad0[8];
@@ -129,10 +129,10 @@ class LoadStream {
     void* m24;
     void Init();
     void Destroy();
-    void Setup(int);
+    void Setup_00264310(int);
     LoadStream* Target(hulk_intptr, int, int);
-    void Base0();
-    void Init(void* a);
+    void Base0_00263f50();
+    void Init_00264310(void* a);
 };
 extern "C" void FUN_00267070(void*);
 class Sink_264230 {
@@ -153,7 +153,7 @@ class Obj_264230 {
     char padE[6];
     int pos;
     void target(int);
-    void refresh();
+    void refresh_002640f0();
 };
 class Inner_264270 {
   public:
@@ -279,9 +279,9 @@ class Temp_264ff0 {
     char pad[8];
 
   public:
-    void Init(Owner_264ff0*);
-    Item_264ff0* First();
-    Item_264ff0* Next();
+    void Init_002314a0(Owner_264ff0*);
+    Item_264ff0* First_00231640();
+    Item_264ff0* Next_002314c0();
 };
 class Item_2650e0 {
   public:
@@ -295,9 +295,9 @@ class Temp_2650e0 {
     char pad[8];
 
   public:
-    void Init(Owner_2650e0*);
-    Item_2650e0* First();
-    Item_2650e0* Next();
+    void Init_002314a0(Owner_2650e0*);
+    Item_2650e0* First_00231640();
+    Item_2650e0* Next_002314c0();
 };
 class Releasable_265190 {
 public:
@@ -331,7 +331,7 @@ class Obj {
 };
 class Worker {
   public:
-    void Do(unsigned low, unsigned high, Obj* o);
+    void Do_00231590(unsigned low, unsigned high, Obj* o);
 };
 class Owner {
     char pad[12];
@@ -340,7 +340,7 @@ class Owner {
   public:
     void Run(Obj* o, hulk_intptr n);
 };
-extern "C" unsigned __int64 __cdecl Calc(int n, int a, int b);
+extern "C" unsigned __int64 __cdecl Calc_00267340(int n, int a, int b);
 struct Item_265280 {
     virtual void unused();
     virtual void release();
@@ -360,16 +360,16 @@ struct Queue_265280 {
 };
 struct Temp_265310 {
     char x[0x18];
-    void f(int);
-    int g(int, int);
+    void Fnf_00231160(int);
+    int Fng_00231180(int, int);
 };
 typedef unsigned int u32_265340;
 struct Pair_265340 {
     char data[24];
-    void First(u32_265340);
-    int Second(u32_265340, u32_265340);
+    void First_00231160(u32_265340);
+    int Second_00231180(u32_265340, u32_265340);
 };
-extern unsigned long long __cdecl Parse(char*, int, int);
+extern unsigned long long __cdecl Parse_00267340(char*, int, int);
 } // namespace fn_fa1126e6
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" char *strrchr(const char *s, int c);
@@ -419,7 +419,7 @@ public:
     void FUN_00265390();
 };
 struct Obj_265520 {
-    void Target();
+    void Target_00265390();
 };
 class Obj_265560 {
   public:
@@ -437,8 +437,8 @@ class C_265560 {
 };
 class B_265590 {
   public:
-    void First();
-    void Second();
+    void First_00264ff0();
+    void Second_002650e0();
 };
 class A_265590 {
   public:
@@ -448,7 +448,7 @@ class A_265590 {
     void Run();
 };
 struct Obj_2656a0 {
-    void Target();
+    void Target_002655b0();
 };
 struct Config_2656b0 { unsigned first, second, count, value; };
 struct Block_2656b0 { unsigned capacity, count, used; char padding[12]; void* slots; void* entries; int sentinel; void FUN_00231550(unsigned, unsigned, unsigned); };
@@ -484,7 +484,7 @@ struct S_265920 {
 };
 class C_265920 {
   public:
-    void Fn(S_265920*, int);
+    void Fn_00265810(S_265920*, int);
     void Go(const char* s, int x, int z);
 };
 struct Node { virtual void slot0(); virtual void slot1(); };
@@ -504,7 +504,7 @@ class Thing_265ad0 {
     int field8;
     char padc[8];
     unsigned int a, b, c, d;
-    void step();
+    void step_002655b0();
 };
 struct Params {
     int a, b, c, d;
@@ -544,7 +544,7 @@ void LoadStream_263f50::Init() {
     c[9] = 0;
     c[10] = 0;
     c[11] = 0;
-    unsigned int x = (*(Service_263f50**)&DAT_00527c58)->Get();
+    unsigned int x = (*(Service_263f50**)&DAT_00527c58)->Get_00264870();
     e = 0;
     d = x / 1000;
 }
@@ -574,10 +574,10 @@ void __stdcall F(void* dst, void* src, unsigned n, int mode) {
         memcpy(dst, src, n);
         return;
     }
-    Job_263fd0* j = StartJob(dst, mode, src, 1, n);
+    Job_263fd0* j = StartJob_002703c0(dst, mode, src, 1, n);
     j->v0();
     while (!j->IsDone())
-        (*(Pump_263fd0**)&DAT_00527c58)->Tick();
+        (*(Pump_263fd0**)&DAT_00527c58)->Tick_00264d20();
     j->v1();
 }
 
@@ -614,7 +614,7 @@ void Target_2640f0::run() {
         }
         while (!obj->f20()) {
             ((owners::Q_264d20 *)((*(Manager_2640f0**)&DAT_00527c58)))->FUN_00264d20();
-            result = getThing();
+            result = getThing_00267f80();
         }
     }
 }
@@ -688,7 +688,7 @@ void Obj_264230::target(int amount) {
     sink->f(pos + amount);
     pos += amount;
     if (flag)
-        refresh();
+        refresh_002640f0();
 }
 
 
@@ -762,7 +762,7 @@ LoadStream* LoadStream::Target(hulk_intptr a, int b, int c) {
     Init();
     flagD = 1;
     flagE = (c == 1);
-    Setup(a);
+    Setup_00264310(a);
     return this;
 }
 
@@ -788,24 +788,24 @@ class LoadStream {
     void* a;
     void* b;
 };
-extern int streamvt_264470, refvt;
+extern int hulk_at_0042ae9c, hulk_at_003f6098;
 struct ThisCall_002640f0 {
-    void Init();
+    void Init_002640f0();
 };
 extern "C" void FUN_00267070(void*);
-void Destroy(LoadStream*);
+void Destroy_00263f30(LoadStream*);
 LoadStream* LoadStream::f2(unsigned char flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&streamvt_264470;
-    ((ThisCall_002640f0*)(this))->Init();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0042ae9c;
+    ((ThisCall_002640f0*)(this))->Init_002640f0();
     if (mRef)
         mRef->f1();
     if (a)
         FUN_00267070(a);
     if (b)
         FUN_00267070(b);
-    *(hulk_intptr*)this = (hulk_intptr)&refvt;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f6098;
     if (flag & 1)
-        Destroy(this);
+        Destroy_00263f30(this);
     return this;
 }
 } // namespace fn_00264470
@@ -817,10 +817,10 @@ namespace fn_fa1126e6 {
 LoadStream::LoadStream(void* a, hulk_intptr b, int c) {
     m = 0;
     vp = (void*)((hulk_intptr)DAT_0042ae9c);
-    Base0();
+    Base0_00263f50();
     flag = (c == 1);
     value = ((unsigned char*)a)[0x10c];
-    Init(a);
+    Init_00264310(a);
 }
 
 } // namespace fn_fa1126e6
@@ -1072,11 +1072,11 @@ bool Queue_264e10::Push(Pair_264e10* value) {
 // Same code shape as 0x002366e0 (propagated; names are from that function)
 void __fastcall FUN_00264ff0(Owner_264ff0* self) {
     Temp_264ff0 t;
-    t.Init(self);
-    Item_264ff0* item = t.First();
+    t.Init_002314a0(self);
+    Item_264ff0* item = t.First_00231640();
     while (item) {
         item->V1();
-        item = t.Next();
+        item = t.Next_002314c0();
     }
     ((owners::X_231070 *)self)->FUN_00231070();
 }
@@ -1087,11 +1087,11 @@ void __fastcall FUN_00264ff0(Owner_264ff0* self) {
 // Same code shape as 0x002366e0 (propagated; names are from that function)
 void __fastcall FUN_002650e0(Owner_2650e0* self) {
     Temp_2650e0 t;
-    t.Init(self);
-    Item_2650e0* item = t.First();
+    t.Init_002314a0(self);
+    Item_2650e0* item = t.First_00231640();
     while (item) {
         item->V1();
-        item = t.Next();
+        item = t.Next_002314c0();
     }
     ((owners::X_231070 *)self)->FUN_00231070();
 }
@@ -1128,7 +1128,7 @@ void Queue_265190::FUN_00265190(Releasable_265190* obj) {
 namespace fn_00265210 {
 class D {
   public:
-    void g(void*, int, void*);
+    void Fng_00231590(void*, int, void*);
 };
 class A_265210 {
   public:
@@ -1145,7 +1145,7 @@ void A_265210::f() {}
 void C_265210::run(A_265210* a, void* b) {
     D* mm = m;
     a->f();
-    mm->g(b, 0, a);
+    mm->Fng_00231590(b, 0, a);
 }
 } // namespace fn_00265210
 
@@ -1154,10 +1154,10 @@ namespace fn_fa1126e6 {
 // 0x00265240 FUN_00265240 (57 B): matches/0x00265240.cpp
 // sym: ?Run@Owner@fn_fa1126e6@@QAEXPAVObj@2@H@Z
 void Owner::Run(Obj* o, hulk_intptr n) {
-    unsigned __int64 v = Calc(n, 0, 0);
+    unsigned __int64 v = Calc_00267340(n, 0, 0);
     Worker* w = worker;
     o->Fn();
-    w->Do((unsigned)v, (unsigned)(v >> 32), o);
+    w->Do_00231590((unsigned)v, (unsigned)(v >> 32), o);
 }
 
 
@@ -1192,8 +1192,8 @@ void Queue_265280::clear() {
 // sym: ?FUN_00265310@Obj_265310@owners@@QAEHH@Z
 hulk_intptr owners::Obj_265310::FUN_00265310(hulk_intptr param) {
     Temp_265310 t;
-    t.f(value);
-    return t.g(((int)param), 0);
+    t.Fnf_00231160(value);
+    return t.Fng_00231180(((int)param), 0);
 }
 
 
@@ -1202,10 +1202,10 @@ hulk_intptr owners::Obj_265310::FUN_00265310(hulk_intptr param) {
 hulk_intptr owners::Thing_265340::FUN_00265340(char* text) {
     if (*text == '.')
         ++text;
-    unsigned long long value = Parse(text, 0, 0);
+    unsigned long long value = Parse_00267340(text, 0, 0);
     Pair_265340 local;
-    local.First(field);
-    return local.Second((u32_265340)value, (u32_265340)(value >> 32));
+    local.First_00231160(field);
+    return local.Second_00231180((u32_265340)value, (u32_265340)(value >> 32));
 }
 
 namespace fn_fa1126e6 {
@@ -1270,7 +1270,7 @@ void Queue_265390::FUN_00265390()
 // 0x00265520 FUN_00265520 (9 B): matches/0x00265520.cpp
 // sym: ?FUN_00265520@fn_fa1126e6@@YAXPAX@Z
 void FUN_00265520(void* p) {
-    ((Obj_265520*)p)->Target();
+    ((Obj_265520*)p)->Target_00265390();
 }
 
 
@@ -1288,8 +1288,8 @@ void C_265560::target(Obj_265560* p) {
 // 0x00265590 FUN_00265590 (20 B): matches/0x00265590.cpp
 // sym: ?Run@A_265590@fn_fa1126e6@@QAEXXZ
 void A_265590::Run() {
-    x->First();
-    y->Second();
+    x->First_00264ff0();
+    y->Second_002650e0();
 }
 
 } // namespace fn_fa1126e6
@@ -1362,7 +1362,7 @@ namespace fn_fa1126e6 {
 // Same code shape as 0x000fc1a0 (propagated; names are from that function)
 // data: g_object_2656a0 = DAT_00527c58
 extern "C" void __cdecl FUN_002656a0(void) {
-    (*(Obj_2656a0**)&DAT_00527c58)->Target();
+    (*(Obj_2656a0**)&DAT_00527c58)->Target_002655b0();
 }
 
 
@@ -1430,7 +1430,7 @@ void C_265920::Go(const char* s, int x, int z) {
     l.c = 0;
     if (s)
         strncpy(l.buf, s, 0xff);
-    Fn(&l, x);
+    Fn_00265810(&l, x);
 }
 
 
@@ -1528,7 +1528,7 @@ void __fastcall target(Thing_265ad0* self) {
         else
             n = ((int)(y - self->c) >> 3) + ((int)(self->d - x) >> 3);
         if ((unsigned int)n > 0 || self->field8 != 0)
-            self->step();
+            self->step_002655b0();
         else
             break;
     }

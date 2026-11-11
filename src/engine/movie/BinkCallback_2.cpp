@@ -17,7 +17,7 @@ namespace fn_f964084a {} using namespace fn_f964084a;
 namespace fn_f964084a {
 typedef unsigned int uint_335270;
 extern "C" char DAT_00434300[];
-extern void* IRefCount_vftable_3352b0;
+extern void* hulk_at_00434300;
 struct Value_3353e0 {
     int f0;
     int f4;
@@ -35,13 +35,13 @@ struct Obj {
   public:
     virtual void _m_vf0();
     Obj();
-    void* get();
-    const char* Get();
+    void* get_00337980();
+    const char* Get_00337980();
     void FUN_00337ea0();
 };
 extern "C" char __cdecl convert(void*);
 struct Parser {
-    const char* Get();
+    const char* Get_00337980();
 };
 } // namespace fn_f964084a
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -59,24 +59,24 @@ inline void copy(char* d, const char* s) {
 }
 class Source {
   public:
-    char* Lookup();
+    char* Lookup_00337980();
 };
 class Heap {
   public:
-    void* Allocate(hulk_uintptr, unsigned);
+    void* Allocate_00337d60(hulk_uintptr, unsigned);
 };
 class Owner_336180 {
   public:
-    int Get();
-    void Advance();
+    int Get_00337980();
+    void Advance_003379b0();
 };
 extern float __cdecl FUN_003458c1(int);
 class Reader {
   public:
-    int Get();
-    void Adv();
-    char* GetText();
-    void Advance();
+    int Get_00337980();
+    void Adv_003379b0();
+    char* GetText_00337980();
+    void Advance_003379b0();
 };
 float __cdecl Conv(int);
 struct Parser_336380 { const char* FUN_00337980(); void FUN_003379b0(); };
@@ -93,7 +93,7 @@ typedef bool (__fastcall *Handler_336380)(Owner_336380*, Context*, void*, Parser
 struct Owner_336380 { bool FUN_00336380(void** output, Parser_336380* parser, Context* context, void* unused); };
 class Lookup {
   public:
-    char* Get();
+    char* Get_00337980();
 };
 inline void Copy(char* dst, const char* src) {
     char c;
@@ -104,79 +104,79 @@ inline void Copy(char* dst, const char* src) {
 }
 class Helper_336490 {
   public:
-    int run(int a);
+    int run_00337130(int a);
 };
 class Thing_336490 {
   public:
     int pad;
     Helper_336490* member;
-    void consume(int x, int b);
+    void consume_00335480(int x, int b);
     void combine(hulk_intptr a, hulk_intptr b);
 };
 class Helper_3364c0 {
   public:
-    int run(int a);
+    int run_00337130(int a);
 };
 class Thing_3364c0 {
   public:
     int pad;
     Helper_3364c0* member;
-    void consume(int x, int b);
+    void consume_003354c0(int x, int b);
     void combine(hulk_intptr a, hulk_intptr b);
 };
 class Helper_3364f0 {
   public:
-    int run(int a);
+    int run_00337130(int a);
 };
 class Thing_3364f0 {
   public:
     int pad;
     Helper_3364f0* member;
-    void consume(int x, int b);
+    void consume_00335500(int x, int b);
     void combine(hulk_intptr a, hulk_intptr b);
 };
 class B_3365b0 {
   public:
-    int G(int);
+    int FnG_00337130(int);
 };
 class C_3365b0 {
   public:
     char pad[4];
     B_3365b0* b;
     hulk_intptr F(hulk_intptr);
-    int H(int);
+    int FnH_00335640(int);
 };
 typedef unsigned int U_336600;
 struct Inner_336600 {
-    U_336600 call(U_336600);
+    U_336600 call_00337130(U_336600);
 };
 struct Obj_336600 {
     int pad;
     Inner_336600* p;
-    U_336600 second(U_336600, U_336600, U_336600, U_336600);
+    U_336600 second_003356d0(U_336600, U_336600, U_336600, U_336600);
     U_336600 target(hulk_uintptr, hulk_uintptr, hulk_uintptr, hulk_uintptr);
 };
 class Helper_336690 {
   public:
-    int run(int a);
+    int run_00337130(int a);
 };
 class Thing_336690 {
   public:
     int pad;
     Helper_336690* member;
-    void consume(int x, int b);
+    void consume_003358a0(int x, int b);
     void combine(hulk_intptr a, hulk_intptr b);
 };
 class D {
   public:
-    int helper(int);
-    void f();
+    int helper_00337130(int);
+    void Fnf_00338d80();
 };
 class C_3366f0 {
   public:
     char pad[4];
     D* sub;
-    int second(int, int, int);
+    int second_00335970(int, int, int);
     int target(hulk_intptr, int, hulk_intptr);
 };
 class CAction_336f10 {
@@ -194,7 +194,7 @@ class CAction_336f10 {
 extern void __fastcall SetVtable_003352b0(void*);
 extern void thunk_FUN_00267090(movie::BinkCallback*);
 struct Item_337040 {
-    void Init();
+    void Init_00337ea0();
 };
 struct Obj_337040 {
     char pad0[4];
@@ -228,17 +228,17 @@ class Table_337130 {
     int Find(const char* name);
 };
 struct Item_3371b0 {
-    void Init();
+    void Init_00338000();
 };
 struct Obj_3371b0 {
     hulk_uintptr v;
     char pad[0x44];
     Item_3371b0 items[0x18];
-    void Finish();
+    void Finish_00337040();
 };
 struct Element_3371e0 {
     char pad[0x18];
-    void f();
+    void Fnf_00337e90();
 };
 class CAction {
   public:
@@ -264,7 +264,7 @@ class Child_337460 {
   public:
     char pad[0x81c];
     int value;
-    int Check();
+    int Check_00338a10();
 };
 class Obj_337460 {
   public:
@@ -297,7 +297,7 @@ struct Obj_3375a0 {
 };
 class Elem_3375f0 {
   public:
-    void Init();
+    void Init_003371b0();
 };
 class Container_3375f0 {
   public:
@@ -335,7 +335,7 @@ struct ParseError {
 struct Obj_337980 {
     char pad[0x81c];
     int result;
-    int Query();
+    int Query_00338a10();
 };
 struct S_337980 {
     char pad[4];
@@ -483,7 +483,7 @@ namespace fn_f964084a {
 // sym: ?FUN_003352b0@fn_f964084a@@YIXPAX@Z
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 void __fastcall FUN_003352b0(void* self) {
-    *(void**)self = &IRefCount_vftable_3352b0;
+    *(void**)self = &hulk_at_00434300;
 }
 
 
@@ -538,7 +538,7 @@ void Slots_3353e0::FUN_003353e0(int index, Value_3353e0* v)
 // 0x00335fe0 FUN_00335fe0 (70 B): matches/0x00335fe0.cpp
 // sym: _FUN_00335fe0@16
 extern "C" char __stdcall FUN_00335fe0(char** out, Obj* obj, int unused, char direct) {
-    void* p = obj->get();
+    void* p = obj->get_00337980();
     if (!p)
         return 0;
     if (direct) {
@@ -554,7 +554,7 @@ extern "C" char __stdcall FUN_00335fe0(char** out, Obj* obj, int unused, char di
 // 0x00336030 FUN_00336030 (70 B): matches/0x00336030.cpp
 // sym: _FUN_00336030@16
 extern "C" char __stdcall FUN_00336030(int** p, Parser* parser, int unused, char direct) {
-    const char* s = parser->Get();
+    const char* s = parser->Get_00337980();
     if (!s)
         return 0;
     if (direct) {
@@ -570,7 +570,7 @@ extern "C" char __stdcall FUN_00336030(int** p, Parser* parser, int unused, char
 // 0x00336080 FUN_00336080 (70 B): matches/0x00336080.cpp
 // sym: ?FUN_00336080@fn_f964084a@@YGERAPAJPAUObj@1@HE@Z
 unsigned char __stdcall FUN_00336080(long** volatile p, Obj* out, int x, unsigned char flag) {
-    const char* s = out->Get();
+    const char* s = out->Get_00337980();
     if (!s)
         return 0;
     if (flag) {
@@ -590,10 +590,10 @@ namespace fn_003360d0 {
 extern "C++" __declspec(nothrow) float __cdecl FUN_003458c1(const char*);
 class Obj {
   public:
-    const char* get();
+    const char* get_00337980();
 };
 extern "C" char __stdcall FUN_003360d0(float** out, Obj* obj, int unused, char direct) {
-    const char* p = obj->get();
+    const char* p = obj->get_00337980();
     if (!p)
         return 0;
     if (direct) {
@@ -612,10 +612,10 @@ namespace fn_f964084a {
 // sym: _FUN_00336120@16
 // data: gHeap = DAT_0055dbb0
 extern "C" bool __stdcall FUN_00336120(char** out, Source* src, int b, int c) {
-    char* s = src->Lookup();
+    char* s = src->Lookup_00337980();
     if (!s)
         return false;
-    char* d = (char*)(*(Heap*)&DAT_0055dbb0).Allocate(strlen(s) + 1, 4);
+    char* d = (char*)(*(Heap*)&DAT_0055dbb0).Allocate_00337d60(strlen(s) + 1, 4);
     *out = d;
     copy(d, s);
     return true;
@@ -625,7 +625,7 @@ extern "C" bool __stdcall FUN_00336120(char** out, Source* src, int b, int c) {
 // 0x00336180 FUN_00336180 (98 B): matches/0x00336180.cpp
 // sym: _FUN_00336180@16
 extern "C" char __stdcall FUN_00336180(float* out, Owner_336180* owner, int c, char inPlace) {
-    int v = owner->Get();
+    int v = owner->Get_00337980();
     if (!v)
         return 0;
     float* p;
@@ -634,8 +634,8 @@ extern "C" char __stdcall FUN_00336180(float* out, Owner_336180* owner, int c, c
     else
         p = (float*)*(hulk_intptr*)out;
     *p = FUN_003458c1(v);
-    owner->Advance();
-    v = owner->Get();
+    owner->Advance_003379b0();
+    v = owner->Get_00337980();
     if (!v)
         return 0;
     p[1] = FUN_003458c1(v);
@@ -646,7 +646,7 @@ extern "C" char __stdcall FUN_00336180(float* out, Owner_336180* owner, int c, c
 // 0x003361f0 FUN_003361f0 (130 B): matches/0x003361f0.cpp
 // sym: _FUN_003361f0@16
 extern "C" char __stdcall FUN_003361f0(float** out, Reader* r, int d, char direct) {
-    int v = r->Get();
+    int v = r->Get_00337980();
     if (!v)
         return 0;
     float* p;
@@ -656,13 +656,13 @@ extern "C" char __stdcall FUN_003361f0(float** out, Reader* r, int d, char direc
         p = *out;
     *p = Conv(v);
     ++p;
-    r->Adv();
-    v = r->Get();
+    r->Adv_003379b0();
+    v = r->Get_00337980();
     if (!v)
         return 0;
     *p = Conv(v);
-    r->Adv();
-    v = r->Get();
+    r->Adv_003379b0();
+    v = r->Get_00337980();
     if (!v)
         return 0;
     p[1] = Conv(v);
@@ -673,7 +673,7 @@ extern "C" char __stdcall FUN_003361f0(float** out, Reader* r, int d, char direc
 // 0x00336280 FUN_00336280 (98 B): matches/0x00336280.cpp
 // sym: _FUN_00336280@16
 extern "C" char __stdcall FUN_00336280(long* output, Reader* reader, void* unused, char indirect) {
-    char* text = reader->GetText();
+    char* text = reader->GetText_00337980();
     if (!text)
         return 0;
     long* destination;
@@ -682,8 +682,8 @@ extern "C" char __stdcall FUN_00336280(long* output, Reader* reader, void* unuse
     else
         destination = (long*)*(hulk_intptr*)output;
     *destination = atol(text);
-    reader->Advance();
-    text = reader->GetText();
+    reader->Advance_003379b0();
+    text = reader->GetText_00337980();
     if (!text)
         return 0;
     destination[1] = atol(text);
@@ -697,8 +697,8 @@ extern "C" char __stdcall FUN_00336280(long* output, Reader* reader, void* unuse
 namespace fn_003362f0 {
 class Reader {
   public:
-    char* Get();
-    void Next();
+    char* Get_00337980();
+    void Next_003379b0();
 };
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -706,19 +706,19 @@ extern "C" long __cdecl atol(const char*);
 #endif
 
 extern "C" char __stdcall FUN_003362f0(long* out, Reader* reader, int unused, char inPlace) {
-    char* s = reader->Get();
+    char* s = reader->Get_00337980();
     if (!s)
         return 0;
     long* dest = inPlace ? out : (long*)*out;
     *dest = atol(s);
     dest++;
-    reader->Next();
-    s = reader->Get();
+    reader->Next_003379b0();
+    s = reader->Get_00337980();
     if (!s)
         return 0;
     *dest = atol(s);
-    reader->Next();
-    s = reader->Get();
+    reader->Next_003379b0();
+    s = reader->Get_00337980();
     if (!s)
         return 0;
     dest[1] = atol(s);
@@ -755,7 +755,7 @@ bool Owner_336380::FUN_00336380(void** output, Parser_336380* parser, Context* c
 // sym: _FUN_00336430@16
 // data: gHeap = DAT_0055dbb0
 extern "C" bool __stdcall FUN_00336430(char** out, Lookup* lookup, int a, int b) {
-    char* s = lookup->Get();
+    char* s = lookup->Get_00337980();
     if (!s)
         return false;
     char* d = ((char *)((owners::Allocator_337d60 *)&((*(Heap*)&DAT_0055dbb0)))->FUN_00337d60((unsigned int)(strlen(s) + 1), 4));
@@ -768,7 +768,7 @@ extern "C" bool __stdcall FUN_00336430(char** out, Lookup* lookup, int a, int b)
 // 0x00336490 FUN_00336490 (33 B): matches/0x00336490.cpp
 // sym: ?combine@Thing_336490@fn_f964084a@@QAEXHH@Z
 void Thing_336490::combine(hulk_intptr a, hulk_intptr b) {
-    consume(member->run(a), b);
+    consume_00335480(member->run_00337130(a), b);
 }
 
 
@@ -776,7 +776,7 @@ void Thing_336490::combine(hulk_intptr a, hulk_intptr b) {
 // sym: ?combine@Thing_3364c0@fn_f964084a@@QAEXHH@Z
 // Same code shape as 0x00336490 (propagated; names are from that function)
 void Thing_3364c0::combine(hulk_intptr a, hulk_intptr b) {
-    consume(member->run(a), b);
+    consume_003354c0(member->run_00337130(a), b);
 }
 
 
@@ -784,22 +784,22 @@ void Thing_3364c0::combine(hulk_intptr a, hulk_intptr b) {
 // sym: ?combine@Thing_3364f0@fn_f964084a@@QAEXHH@Z
 // Same code shape as 0x00336490 (propagated; names are from that function)
 void Thing_3364f0::combine(hulk_intptr a, hulk_intptr b) {
-    consume(member->run(a), b);
+    consume_00335500(member->run_00337130(a), b);
 }
 
 
 // 0x003365b0 FUN_003365b0 (28 B): matches/0x003365b0.cpp
 // sym: ?F@C_3365b0@fn_f964084a@@QAEHH@Z
 hulk_intptr C_3365b0::F(hulk_intptr param) {
-    int x = b->G(param);
-    return H(x);
+    int x = b->FnG_00337130(param);
+    return FnH_00335640(x);
 }
 
 
 // 0x00336600 FUN_00336600 (43 B): matches/0x00336600.cpp
 // sym: ?target@Obj_336600@fn_f964084a@@QAEIIIII@Z
 U_336600 Obj_336600::target(hulk_uintptr a, hulk_uintptr b, hulk_uintptr c, hulk_uintptr d) {
-    return second(p->call(a), b, c, d);
+    return second_003356d0(p->call_00337130(a), b, c, d);
 }
 
 
@@ -807,14 +807,14 @@ U_336600 Obj_336600::target(hulk_uintptr a, hulk_uintptr b, hulk_uintptr c, hulk
 // sym: ?combine@Thing_336690@fn_f964084a@@QAEXHH@Z
 // Same code shape as 0x00336490 (propagated; names are from that function)
 void Thing_336690::combine(hulk_intptr a, hulk_intptr b) {
-    consume(member->run(a), b);
+    consume_003358a0(member->run_00337130(a), b);
 }
 
 
 // 0x003366f0 FUN_003366f0 (38 B): matches/0x003366f0.cpp
 // sym: ?target@C_3366f0@fn_f964084a@@QAEHHHH@Z
 int C_3366f0::target(hulk_intptr a, int b, hulk_intptr c) {
-    return second(sub->helper(a), b, c);
+    return second_00335970(sub->helper_00337130(a), b, c);
 }
 
 } // namespace fn_f964084a
@@ -870,7 +870,7 @@ void __fastcall target(Obj_337040* p) {
     Item_337040* q = (Item_337040*)((char*)p + 0x48);
     int i = 0x18;
     do {
-        q->Init();
+        q->Init_00337ea0();
         q = (Item_337040*)((char*)q + 0x18);
         --i;
     } while (i);
@@ -942,11 +942,11 @@ Obj_3371b0* __fastcall FUN_003371b0(Obj_3371b0* self, void*) {
     Item_3371b0* p = (Item_3371b0*)((char*)self + 0x48);
     int n = 0x18;
     do {
-        p->Init();
+        p->Init_00338000();
         p = (Item_3371b0*)((char*)p + 0x18);
         --n;
     } while (n);
-    self->Finish();
+    self->Finish_00337040();
     return self;
 }
 
@@ -960,7 +960,7 @@ void owners::Obj_3371e0::FUN_003371e0() {
     int i = 0x18;
     do {
         p--;
-        p->f();
+        p->Fnf_00337e90();
         --i;
     } while (i);
 }
@@ -1014,7 +1014,7 @@ hulk_intptr Obj_337460::Run() {
     int r;
     int v;
     do {
-        r = child->Check();
+        r = child->Check_00338a10();
         v = child->value;
         result = v;
     } while (r == 0 && v == 0);
@@ -1025,7 +1025,7 @@ hulk_intptr Obj_337460::Run() {
 // 0x003374a0 FUN_003374a0 (11 B): matches/0x003374a0.cpp
 // sym: ?f@C_3374a0@fn_f964084a@@QAEXXZ
 void C_3374a0::f() {
-    p->f();
+    p->Fnf_00338d80();
 }
 
 
@@ -1071,7 +1071,7 @@ Container_3375f0* Container_3375f0::Init() {
     this->m_vptr = (hulk_intptr)((char*)&DAT_00434574);
     char* p = elems;
     for (int i = 0x20; i != 0; --i) {
-        ((Elem_3375f0*)p)->Init();
+        ((Elem_3375f0*)p)->Init_003371b0();
         p += 0x288;
     }
     field4 = 0;
@@ -1285,7 +1285,7 @@ hulk_intptr S_337980::run() {
     int r;
     int x;
     do {
-        r = obj->Query();
+        r = obj->Query_00338a10();
         x = obj->result;
         value = x;
         if (r != 0)

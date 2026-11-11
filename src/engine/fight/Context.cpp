@@ -22,9 +22,9 @@ class Temp_2366e0 {
     char pad[8];
 
   public:
-    void Init(Owner_2366e0*);
-    Item_2366e0* First();
-    Item_2366e0* Next();
+    void Init_002314a0(Owner_2366e0*);
+    Item_2366e0* First_00231640();
+    Item_2366e0* Next_002314c0();
 };
 class Item_236720 {
   public:
@@ -38,9 +38,9 @@ class Temp_236720 {
     char pad[8];
 
   public:
-    void Init(Owner_236720*);
-    Item_236720* First();
-    Item_236720* Next();
+    void Init_002314a0(Owner_236720*);
+    Item_236720* First_00231640();
+    Item_236720* Next_002314c0();
 };
 struct Param {
     virtual void F();
@@ -49,7 +49,7 @@ struct Param {
     int b;
 };
 struct Helper_236760 {
-    void Run(int, int, Param*);
+    void Run_00231590(int, int, Param*);
 };
 struct Owner_236760 {
     char pad[0x14];
@@ -61,7 +61,7 @@ class Helper_236790 {
 
   public:
     Helper_236790(void*);
-    int Run(int, int);
+    int Run_00231180(int, int);
 };
 class Source_2367c0 {
   public:
@@ -72,7 +72,7 @@ class Source_2367c0 {
 };
 class Sub_2367c0 {
   public:
-    void H(int, int, Source_2367c0*);
+    void FnH_00231590(int, int, Source_2367c0*);
 };
 class Owner_2367c0 {
   public:
@@ -84,7 +84,7 @@ struct Inner_2367f0 {};
 struct Tmp_2367f0 {
     char pad[0x18];
     Tmp_2367f0(Inner_2367f0*);
-    int f(int, int);
+    int Fnf_00231180(int, int);
 };
 struct Obj_2367f0 {
     char pad[0x38];
@@ -93,12 +93,12 @@ struct Obj_2367f0 {
 };
 class Obj_236820 {
   public:
-    void A();
+    void FnA_002366e0();
     void Target();
 };
 class Obj_236830 {
   public:
-    void A();
+    void FnA_00236720();
     void Target();
 };
 class Obj_2368d0 {
@@ -107,18 +107,18 @@ class Obj_2368d0 {
     virtual void B();
 };
 struct SubB_2368d0 {
-    void Init();
-    void Fini();
+    void Init_002366e0();
+    void Fini_00231050();
     char pad[0x24];
 };
 struct SubA_2368d0 {
-    void Init();
-    void Fini();
+    void Init_00236720();
+    void Fini_00231050();
     char pad[0x20];
 };
 class Context_2368d0 {
   public:
-    void Dtor();
+    void Dtor_0027afd0();
 };
 class Context {
   public:
@@ -136,11 +136,11 @@ class Context {
 // sym: ?FUN_002366e0@fn_feea6610@@YIXPAVOwner_2366e0@1@@Z
 void __fastcall FUN_002366e0(Owner_2366e0* self) {
     Temp_2366e0 t;
-    t.Init(self);
-    Item_2366e0* item = t.First();
+    t.Init_002314a0(self);
+    Item_2366e0* item = t.First_00231640();
     while (item) {
         item->V1();
-        item = t.Next();
+        item = t.Next_002314c0();
     }
     ((owners::X_231070 *)self)->FUN_00231070();
 }
@@ -151,11 +151,11 @@ void __fastcall FUN_002366e0(Owner_2366e0* self) {
 // Same code shape as 0x002366e0 (propagated; names are from that function)
 void __fastcall FUN_00236720(Owner_236720* self) {
     Temp_236720 t;
-    t.Init(self);
-    Item_236720* item = t.First();
+    t.Init_002314a0(self);
+    Item_236720* item = t.First_00231640();
     while (item) {
         item->V1();
-        item = t.Next();
+        item = t.Next_002314c0();
     }
     ((owners::X_231070 *)self)->FUN_00231070();
 }
@@ -167,7 +167,7 @@ bool Owner_236760::Target(Param* p) {
     int x = p->a;
     int y = p->b;
     p->F();
-    helper.Run(x, y, p);
+    helper.Run_00231590(x, y, p);
     return true;
 }
 
@@ -177,7 +177,7 @@ bool Owner_236760::Target(Param* p) {
 // sym: ?FUN_00236790@Target_236790@owners@@QAEHHH@Z
 int owners::Target_236790::FUN_00236790(int a, int b) {
     Helper_236790 h((char*)this + 0x14);
-    return h.Run(a, b);
+    return h.Run_00231180(a, b);
 }
 
 namespace fn_feea6610 {
@@ -188,7 +188,7 @@ bool Owner_2367c0::F(Source_2367c0* src) {
     int b = src->b;
     int a = src->a;
     src->V();
-    sub.H(b, a, src);
+    sub.FnH_00231590(b, a, src);
     return true;
 }
 
@@ -197,14 +197,14 @@ bool Owner_2367c0::F(Source_2367c0* src) {
 // sym: ?target@Obj_2367f0@fn_feea6610@@QAEHHH@Z
 int Obj_2367f0::target(int a, int b) {
     Tmp_2367f0 t(&inner);
-    return t.f(a, b);
+    return t.Fnf_00231180(a, b);
 }
 
 
 // 0x00236820 FUN_00236820 (16 B): matches/0x00236820.cpp
 // sym: ?Target@Obj_236820@fn_feea6610@@QAEXXZ
 void Obj_236820::Target() {
-    A();
+    FnA_002366e0();
     ((owners::C_231050 *)this)->FUN_00231050();
 }
 
@@ -213,7 +213,7 @@ void Obj_236820::Target() {
 // sym: ?Target@Obj_236830@fn_feea6610@@QAEXXZ
 // Same code shape as 0x00236820 (propagated; names are from that function)
 void Obj_236830::Target() {
-    A();
+    FnA_00236720();
     ((owners::C_231050 *)this)->FUN_00231050();
 }
 
@@ -295,12 +295,12 @@ Context::~Context() {
         p10->B();
         p10 = 0;
     }
-    a38.Init();
-    a38.Fini();
-    b14.Init();
-    b14.Fini();
+    a38.Init_00236720();
+    a38.Fini_00231050();
+    b14.Init_002366e0();
+    b14.Fini_00231050();
     Context_2368d0* b = (Context_2368d0*)this;
-    b->Dtor();
+    b->Dtor_0027afd0();
 }
 
 } // namespace fn_feea6610

@@ -316,7 +316,7 @@ class Item_2a68b0 {
     virtual void A();
     virtual void Release();
 };
-void Free(void*);
+void Free_0008d340(void*);
 class ProceduralVertexAnimController_2a68b0 {
   public:
     char pad[0x40];
@@ -329,8 +329,8 @@ class ProceduralVertexAnimController_2a68b0 {
 class ProceduralVertexAnimController_2a6910 {
   public:
     virtual void f();
-    void Cleanup1();
-    void Cleanup2();
+    void Cleanup1_002a68b0();
+    void Cleanup2_00285800();
     ~ProceduralVertexAnimController_2a6910();
     int mData;
 };
@@ -347,21 +347,21 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern "C" Resource_2a6930* __cdecl FUN_00344e74(void*, int, TypeInfo_2a6930*, TypeInfo_2a6930*, int);
 struct ProceduralVertexAnimController_2a6930 { char pad[0x40]; Source_2a6930* source; unsigned int field44; unsigned int count; pure3d::VertexList** items; void FUN_002a68b0(); void target(Source_2a6930*); };
 struct ProceduralVertexAnimController_nv_2a6b70 {
-    void h1();
-    void h2();
+    void h1_002a67e0();
+    void h2_002a6840();
 };
-extern int g_vftable_2a6b90;
+extern int hulk_at_0042d9dc;
 struct ProceduralVertexAnimController_2a6b90 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_002a68b0();
+    void base2_dtor_00285800();
     void* scalar_dtor(unsigned char flags);
 };
 typedef unsigned int U_2a6c60;
 extern U_2a6c60 __cdecl Query(hulk_uintptr, U_2a6c60, const void*, const void*, U_2a6c60);
-extern char EntityRTTI_2a6c60;
+extern char hulk_at_0048f610;
 struct ProceduralVertexAnimController_nv_2a6c60 {
-    void Finish(U_2a6c60);
+    void Finish_002a6930(U_2a6c60);
 };
 
 } // namespace fn_fa65e9c0
@@ -1318,7 +1318,7 @@ void ProceduralVertexAnimController_2a68b0::Run() {
             ++i;
         } while (i < count);
     }
-    Free(items);
+    Free_0008d340(items);
     items = 0;
     x40 = 0;
     x44 = 0;
@@ -1329,8 +1329,8 @@ void ProceduralVertexAnimController_2a68b0::Run() {
 // sym: ??1ProceduralVertexAnimController_2a6910@fn_fa65e9c0@@QAE@XZ
 // Same code shape as 0x001c5640 (propagated; names are from that function)
 ProceduralVertexAnimController_2a6910::~ProceduralVertexAnimController_2a6910() {
-    Cleanup1();
-    Cleanup2();
+    Cleanup1_002a68b0();
+    Cleanup2_00285800();
 }
 
 
@@ -1472,9 +1472,9 @@ void ProceduralVertexAnimController_2a6a20::FUN_002a6a20(Source_2a6a20 *src)
 // sym: ?vfunc_7@ProceduralVertexAnimController@pure3d@@UAEXXZ
 void pure3d::ProceduralVertexAnimController::vfunc_7() {
     if (this->f_40)
-        ((ProceduralVertexAnimController_nv_2a6b70*)this)->h1();
+        ((ProceduralVertexAnimController_nv_2a6b70*)this)->h1_002a67e0();
     else if (this->f_44)
-        ((ProceduralVertexAnimController_nv_2a6b70*)this)->h2();
+        ((ProceduralVertexAnimController_nv_2a6b70*)this)->h2_002a6840();
 }
 
 namespace fn_fa65e9c0 {
@@ -1483,9 +1483,9 @@ namespace fn_fa65e9c0 {
 // sym: ?scalar_dtor@ProceduralVertexAnimController_2a6b90@fn_fa65e9c0@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ProceduralVertexAnimController_2a6b90::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_2a6b90;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0042d9dc;
+    base1_dtor_002a68b0();
+    base2_dtor_00285800();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -1498,7 +1498,7 @@ void* ProceduralVertexAnimController_2a6b90::scalar_dtor(unsigned char flags) {
 namespace fn_002a6c00 {
 extern "C" char DAT_0042d9dc[];
 typedef unsigned int u32_2a6c00;
-extern void* __cdecl alloc(hulk_uintptr);
+extern void* __cdecl alloc_00263ea0(hulk_uintptr);
 class ProceduralVertexAnimController {
   public:
     virtual void a0();
@@ -1528,21 +1528,21 @@ class ProceduralVertexAnimController {
     virtual void a24();
     virtual void a25();
     virtual void a26();
-    void init(ProceduralVertexAnimController*);
-    void copyfield(u32_2a6c00);
+    void init_00285780(ProceduralVertexAnimController*);
+    void copyfield_002a6930(u32_2a6c00);
     char pad[0x3c];
     u32_2a6c00 field40, field44, field48, field4c, field50;
 };
 void* ProceduralVertexAnimController::vfunc_4() {
-    ProceduralVertexAnimController* p = (ProceduralVertexAnimController*)alloc(0x58);
+    ProceduralVertexAnimController* p = (ProceduralVertexAnimController*)alloc_00263ea0(0x58);
     if (p) {
-        p->init(this);
+        p->init_00285780(this);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0042d9dc);
         p->field40 = 0;
         p->field48 = 0;
         p->field4c = 0;
         if (field40)
-            p->copyfield(field40);
+            p->copyfield_002a6930(field40);
         p->field50 = field50;
         return p;
     }
@@ -1556,7 +1556,7 @@ void* ProceduralVertexAnimController::vfunc_4() {
 // Same code shape as 0x00293970 (propagated; names are from that function)
 void pure3d::ProceduralVertexAnimController::vfunc_5(void* __p0) { hulk_uintptr arg = (hulk_uintptr)__p0;
 
-    U_2a6c60 x = Query(arg, 0, &EntityRTTI_2a6c60, &CameraRTTI, 0);
-    ((ProceduralVertexAnimController_nv_2a6c60*)this)->Finish(x);
+    U_2a6c60 x = Query(arg, 0, &hulk_at_0048f610, &CameraRTTI, 0);
+    ((ProceduralVertexAnimController_nv_2a6c60*)this)->Finish_002a6930(x);
 }
 

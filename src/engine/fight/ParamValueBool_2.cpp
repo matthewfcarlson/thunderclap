@@ -10,10 +10,10 @@ namespace fn_fff9a376 {} using namespace fn_fff9a376;
 
 // ---- declarations shared by the functions below
 namespace fn_fff9a376 {
-extern void* ParamValue_vftable;
+extern void* hulk_at_004279fc;
 extern "C" void __fastcall FUN_0027af50(void*);
 typedef hulk_uintptr U32_2347b0;
-extern void* MakeTemp(int);
+extern void* MakeTemp_00238190(int);
 extern "C" void* FUN_00266da0(void*);
 extern "C" void* FUN_0008d6d0(int);
 class Item {
@@ -23,14 +23,14 @@ class Item {
 extern "C" void __cdecl Free(void*);
 extern "C" char DAT_00427a18[];
 struct Member_234860 {
-    void Init(const char*);
+    void Init_0027b0e0(const char*);
 };
 
 
 // 0x00234780 FUN_00234780 (14 B): matches/0x00234780.cpp
 // sym: ?FUN_00234780@fn_fff9a376@@YIXPAX@Z
 void __fastcall FUN_00234780(void* self) {
-    *(void**)self = &ParamValue_vftable;
+    *(void**)self = &hulk_at_004279fc;
     FUN_0027af50((char*)self + 8);
 }
 
@@ -52,7 +52,7 @@ namespace fn_fff9a376 {
 // 0x002347b0 FUN_002347b0 (91 B): matches/0x002347b0.cpp
 // sym: _FUN_002347b0
 extern "C" void FUN_002347b0(U32_2347b0** out, U32_2347b0* src, int count) {
-    void* p = MakeTemp(0);
+    void* p = MakeTemp_00238190(0);
     p = FUN_00266da0(p);
     *out = (U32_2347b0*)FUN_0008d6d0(count * sizeof(U32_2347b0) + sizeof(U32_2347b0));
     int i;
@@ -85,7 +85,7 @@ void __cdecl FUN_00234810(Item*** list, int* refs) {
 // sym: ?FUN_00234860@ParamValueBool@fight@@QAEPAV12@PBD@Z
 fight::ParamValueBool* fight::ParamValueBool::FUN_00234860(const char* value) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
-    ((Member_234860*)((char*)this + 8))->Init(value);
+    ((Member_234860*)((char*)this + 8))->Init_0027b0e0(value);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00427a18);
     return (fight::ParamValueBool*)(this);
 }

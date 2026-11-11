@@ -16,8 +16,8 @@ class Ref_266900 {
     virtual void f0();
     virtual void f1();
 };
-extern char vtLoad_266900[];
-extern char vtRef_266900[];
+extern char hulk_at_0042aee4[];
+extern char hulk_at_003f6098[];
 namespace content {
 class LoadRequest {
   public:
@@ -30,22 +30,22 @@ class LoadRequest {
     LoadRequest* vfunc_2(bool);
 };
 }
-void thunk(content::LoadRequest*);
+void thunk_00263f30(content::LoadRequest*);
 
 
 // 0x00266900 content::LoadRequest::vfunc_2 (76 B): matches/0x00266900.cpp
 // sym: ?vfunc_2@LoadRequest@content@fn_f6a56b1c@@QAEPAV123@_N@Z
 content::LoadRequest* content::LoadRequest::vfunc_2(bool d) {
-    vt = (hulk_intptr)vtLoad_266900;
+    vt = (hulk_intptr)hulk_at_0042aee4;
     if (a)
         a->f1();
     if (b)
         b->f1();
     if (c)
         c->f1();
-    vt = (hulk_intptr)vtRef_266900;
+    vt = (hulk_intptr)hulk_at_003f6098;
     if (d & 1)
-        thunk(this);
+        thunk_00263f30(this);
     return this;
 }
 

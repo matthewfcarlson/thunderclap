@@ -12,10 +12,10 @@ namespace fn_f024a6a6 {} using namespace fn_f024a6a6;
 
 // ---- declarations shared by the functions below
 namespace fn_f024a6a6 {
-extern void* SubCollisionDetector_301620_vftable[];
+extern void* hulk_at_00431ac0[];
 class SubCollisionDetector_301620 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00313530(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionDetector_301620 : public SubCollisionDetector_301620 {
   public:
@@ -29,8 +29,8 @@ class CollisionDetector_301620 : public SubCollisionDetector_301620 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionDetector_301620* CollisionDetector_301620::vfunc_5(signed char flags) {
-    *(void***)this = SubCollisionDetector_301620_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00431ac0;
+    Destroy_00313530();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

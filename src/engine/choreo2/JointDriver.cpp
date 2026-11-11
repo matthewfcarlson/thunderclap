@@ -15,11 +15,11 @@ namespace fn_f0e84e5f {
 extern "C" char DAT_004272f0[];
 class JointDriver_2248a0 {
   public:
-    void Init();
+    void Init_0022a8e0();
 };
 class Part_2248a0 {
   public:
-    void Init();
+    void Init_00222050();
 };
 class JointDriver {
   public:
@@ -47,7 +47,7 @@ class Driver_224b90 {
 };
 class Helper_224c60 {
   public:
-    hulk_intptr run(choreo2::JointDriver*);
+    hulk_intptr run_00224be0(choreo2::JointDriver*);
 };
 extern void* thunk_FUN_0008d690(int);
 
@@ -56,11 +56,11 @@ extern void* thunk_FUN_0008d690(int);
 // sym: ?Init@JointDriver@fn_f0e84e5f@@QAEPAV12@XZ
 // data: gCount_2248a0 = DAT_004e5aac
 JointDriver* JointDriver::Init() {
-    ((JointDriver_2248a0*)this)->Init();
+    ((JointDriver_2248a0*)this)->Init_0022a8e0();
     this->vptr = (int*)((hulk_intptr)DAT_004272f0);
     mValue = 0;
     mState = 3;
-    ((Part_2248a0*)((char*)this + 0x18))->Init();
+    ((Part_2248a0*)((char*)this + 0x18))->Init_00222050();
     ++(*(int*)&DAT_004e5aac);
     if ((*(int*)&DAT_004e5aac) <= (*(int*)&DAT_004e5ab0)) {
     } else
@@ -79,7 +79,7 @@ extern "C" char DAT_004272f0[];
 class JointDriver {
   public:
     char pad[0x18];
-    void Init();
+    void Init_00222050();
     JointDriver(int arg);
 };
 extern "C" void __fastcall FUN_0022a8e0(void*);
@@ -88,7 +88,7 @@ JointDriver::JointDriver(int arg) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004272f0);
     *(int*)((char*)this + 0x10) = arg;
     *(int*)((char*)this + 0x14) = 3;
-    ((JointDriver*)((char*)this + 0x18))->Init();
+    ((JointDriver*)((char*)this + 0x18))->Init_00222050();
     int a = (*(int*)&DAT_004e5aac);
     int b = (*(int*)&DAT_004e5ab0);
     a++;
@@ -267,13 +267,13 @@ class JointDriver {
 } // namespace choreo2
 class JointDriver_224bb0 {
   public:
-    void call();
+    void call_0022a910();
 };
 extern void thunk_FUN_00267090(choreo2::JointDriver*);
 choreo2::JointDriver* choreo2::JointDriver::vfunc_2(byte_224bb0 param) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_004272f0);
     --(*(int*)&DAT_004e5aac);
-    ((JointDriver_224bb0*)this)->call();
+    ((JointDriver_224bb0*)this)->call_0022a910();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -295,7 +295,7 @@ class Driver_224be0 {
 class Sub_224be0 {
   public:
     Sub_224be0();
-    void Init(void* p);
+    void Init_00221be0(void* p);
     char pad[8];
 };
 struct Arg_224be0 {
@@ -315,7 +315,7 @@ class JointDriver : public Driver_224be0 {
 JointDriver::JointDriver(Arg_224be0* p) {
     m10 = p->a;
     m14 = p->b;
-    m18.Init((char*)p + 0x18);
+    m18.Init_00221be0((char*)p + 0x18);
     int n = (*(int*)&DAT_004e5aac) + 1;
     (*(int*)&DAT_004e5aac) = n;
     if (n > (*(int*)&DAT_004e5ab0))
@@ -330,7 +330,7 @@ void JointDriver::f() {}
 void* choreo2::JointDriver::vfunc_5() {
     Helper_224c60* p = (Helper_224c60*)thunk_FUN_0008d690(0x70);
     if (p)
-        return (void*)(p->run(this));
+        return (void*)(p->run_00224be0(this));
     return (void*)(0);
 }
 

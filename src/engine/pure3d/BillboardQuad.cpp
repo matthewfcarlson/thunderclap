@@ -129,7 +129,7 @@ struct Alloc_2b9660 {
     virtual void q();
     virtual void r();
     virtual void s();
-    void init(pure3d::BillboardObject*);
+    void init_002a4e40(pure3d::BillboardObject*);
 };
 class RenderObjectLoader_2b96a0 {
   public:
@@ -152,10 +152,10 @@ class OldBillboardQuadGroupLoader : public Base_2b96d0 {
     OldBillboardQuadGroupLoader();
     virtual void F();
 };
-extern void* Entity_2b98a0_vftable[];
+extern void* hulk_at_0042e724[];
 class Entity_2b98a0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class BillboardQuad_2b98a0 : public Entity_2b98a0 {
   public:
@@ -178,7 +178,7 @@ public:
 extern void* BillboardQuad_2b9cb0_vftable[];
 class BillboardQuad_2b9cb0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class BillboardCutOffQuad_2b9cb0 : public BillboardQuad_2b9cb0 {
   public:
@@ -420,10 +420,10 @@ public:
     Vec3_2ba220 pos70;
     hulk_freg FUN_002ba220();
 };
-extern void* DrawableContainer_2ba810_vftable[];
+extern void* hulk_at_0042e764[];
 class DrawableContainer_2ba810 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002a4ff0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class BillboardObject_2ba810 : public DrawableContainer_2ba810 {
   public:
@@ -464,13 +464,13 @@ struct Obj_2ba840 {
     Inner_2ba840* p;
 };
 struct BillboardObject_nv_2ba840 {
-    void helper(unsigned int, unsigned int);
+    void helper_002a41e0(unsigned int, unsigned int);
 };
-extern V** gObj_2ba840;
-extern void* RenderObjectLoader_2ba8a0_vftable[];
+extern V** hulk_at_0052c2ac;
+extern void* hulk_at_0042e7b4[];
 class RenderObjectLoader_2ba8a0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002a3e90(); // FUN_00236d60, __thiscall, this in ecx
 };
 class BillboardQuadGroupLoader_2ba8a0 : public RenderObjectLoader_2ba8a0 {
   public:
@@ -569,8 +569,8 @@ struct Frame_2ba8d0 {
     int q110[4];        // 0x98
     char name[0x100];   // 0xa8
 };
-extern void* g_vftable_2bb050[];
-extern void* g_base_2bb050[];
+extern void* hulk_at_0042e7d4[];
+extern void* hulk_at_003f6098[];
 class Ref_2bb050 {
   public:
     virtual void F0();
@@ -583,10 +583,10 @@ class BillboardObjectLoader_2bb050 {
     Ref_2bb050* m14;
     ~BillboardObjectLoader_2bb050();
 };
-extern void* RenderObjectLoader_2bb080_vftable[];
+extern void* hulk_at_0042e7c4[];
 class RenderObjectLoader_2bb080 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002a3e90(); // FUN_00236d60, __thiscall, this in ecx
 };
 class OldBillboardQuadGroupLoader_2bb080 : public RenderObjectLoader_2bb080 {
   public:
@@ -659,7 +659,7 @@ struct Frame {
     int dummy120[4];
     char name[256];
 };
-extern void* g_vftable_2bb5c0[];
+extern void* hulk_at_0042e7f0[];
 class Ref_2bb5c0 {
   public:
     virtual void F0();
@@ -711,10 +711,10 @@ class OldBillboardObjectLoader : public SimpleChunkHandler_2bc4d0 {
     char pad[0x14 - sizeof(SimpleChunkHandler_2bc4d0)];
     SimpleChunkHandler_2bc4d0* volatile mRef;
 };
-extern void __cdecl thunk(OldBillboardObjectLoader*);
+extern void __cdecl thunk_00263f30(OldBillboardObjectLoader*);
 extern "C" void* FUN_0008d6d0(hulk_uintptr);
 extern "C" int * __cdecl FUN_002bb600(int *, int, const int *);
-extern void* g_vftable_2bc5d0[];
+extern void* hulk_at_0042e80c[];
 class Ref_2bc5d0 {
   public:
     virtual void F0();
@@ -723,7 +723,7 @@ class Ref_2bc5d0 {
 class DrawablePrimitive_2bc5d0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002a50a0();
 };
 class BillboardQuadGroup_2bc5d0 : public DrawablePrimitive_2bc5d0 {
   public:
@@ -734,10 +734,10 @@ class BillboardQuadGroup_2bc5d0 : public DrawablePrimitive_2bc5d0 {
     Ref_2bc5d0** e;
     ~BillboardQuadGroup_2bc5d0();
 };
-extern void* BillboardQuadGroup_2bc760_vftable[];
+extern void* hulk_at_0042e840[];
 class BillboardQuadGroup_2bc760 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002bc5d0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class BillboardCutOffQuadGroup_2bc760 : public BillboardQuadGroup_2bc760 {
   public:
@@ -887,11 +887,11 @@ public:
     void FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory_2bc790 *factory);
 };
 struct Chunk_2bceb0 {
-    int Id();
+    int Id_00266c30();
 };
 extern int g_vt_2bceb0;
 struct BO {
-    void InitBase(int);
+    void InitBase_002a4e10(int);
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -912,7 +912,7 @@ struct BO {
     float f;
 };
 struct Helper_2bceb0 {
-    void Fill(BO*, Chunk_2bceb0*, hulk_intptr);
+    void Fill_002bc790(BO*, Chunk_2bceb0*, hulk_intptr);
 };
 } // namespace fn_fff84c72
 void* operator new(size_t);
@@ -1517,7 +1517,7 @@ bool pure3d::BillboardObject::vfunc_3() {
 void* pure3d::BillboardObject::vfunc_4() {
     Alloc_2b9660* p = (Alloc_2b9660*)thunk_FUN_0008d690(0x60);
     if (p) {
-        p->init(this);
+        p->init_002a4e40(this);
         *(hulk_ulongptr*)p = ((hulk_intptr)DAT_0042e764);
         *(unsigned long*)((char*)p + 0x58) = 0x3f800000;
         return (void*)(p);
@@ -1545,8 +1545,8 @@ OldBillboardQuadGroupLoader::OldBillboardQuadGroupLoader() : Base_2b96d0() {}
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 BillboardQuad_2b98a0* BillboardQuad_2b98a0::vfunc_5(signed char flags) {
-    *(void***)this = Entity_2b98a0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042e724;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1710,7 +1710,7 @@ namespace fn_fff84c72 {
  // thunk_FUN_00267090
 BillboardCutOffQuad_2b9cb0* BillboardCutOffQuad_2b9cb0::vfunc_5(signed char flags) {
     *(void***)this = BillboardQuad_2b9cb0_vftable;
-    Destroy();
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -2180,8 +2180,8 @@ namespace fn_fff84c72 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 BillboardObject_2ba810* BillboardObject_2ba810::vfunc_5(signed char flags) {
-    *(void***)this = DrawableContainer_2ba810_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042e764;
+    Destroy_002a4ff0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -2194,11 +2194,11 @@ BillboardObject_2ba810* BillboardObject_2ba810::vfunc_5(signed char flags) {
 // sym: ?vfunc_8@BillboardObject@pure3d@@UAEXHH@Z
 void pure3d::BillboardObject::vfunc_8(hulk_intptr __p0, int __p1) { unsigned int a = (unsigned int)__p0; unsigned int b = (unsigned int)__p1;
 
-    gObj_2ba840[0]->f23(0, (char*)(*(Obj_2ba840 * *)&this->f_48)->p + 0x40);
+    hulk_at_0052c2ac[0]->f23(0, (char*)(*(Obj_2ba840 * *)&this->f_48)->p + 0x40);
     (*(Obj_2ba840 * *)&this->f_48)->p->x = this->f_58;
-    ((BillboardObject_nv_2ba840*)this)->helper(a, b);
+    ((BillboardObject_nv_2ba840*)this)->helper_002a41e0(a, b);
     (*(Obj_2ba840 * *)&this->f_48)->p->x = 0x3f800000;
-    gObj_2ba840[0]->f16(0);
+    hulk_at_0052c2ac[0]->f16(0);
 }
 
 namespace fn_fff84c72 {
@@ -2209,8 +2209,8 @@ namespace fn_fff84c72 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 BillboardQuadGroupLoader_2ba8a0* BillboardQuadGroupLoader_2ba8a0::vfunc_5(signed char flags) {
-    *(void***)this = RenderObjectLoader_2ba8a0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042e7b4;
+    Destroy_002a3e90();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -2404,13 +2404,13 @@ Obj_2ba8d0 *__stdcall FUN_002ba8d0(Reader *r, int unused)
 // 0x002bb050 FUN_002bb050 (36 B): matches/0x002bb050.cpp
 // sym: ??1BillboardObjectLoader_2bb050@fn_fff84c72@@QAE@XZ
 BillboardObjectLoader_2bb050::~BillboardObjectLoader_2bb050() {
-    vptr = g_vftable_2bb050;
+    vptr = hulk_at_0042e7d4;
     _ReadWriteBarrier();
     if (m14) {
         m14->Release();
         m14 = 0;
     }
-    vptr = g_base_2bb050;
+    vptr = hulk_at_003f6098;
 }
 
 
@@ -2420,8 +2420,8 @@ BillboardObjectLoader_2bb050::~BillboardObjectLoader_2bb050() {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 OldBillboardQuadGroupLoader_2bb080* OldBillboardQuadGroupLoader_2bb080::vfunc_5(signed char flags) {
-    *(void***)this = RenderObjectLoader_2bb080_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042e7c4;
+    Destroy_002a3e90();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -2566,7 +2566,7 @@ Base *__stdcall FUN_002bb0b0(Stream *s, void *ctx)
 // 0x002bb5c0 FUN_002bb5c0 (36 B): matches/0x002bb5c0.cpp
 // sym: ??1OldBillboardObjectLoader_2bb5c0@fn_fff84c72@@QAE@XZ
 OldBillboardObjectLoader_2bb5c0::~OldBillboardObjectLoader_2bb5c0() {
-    vptr = g_vftable_2bb5c0;
+    vptr = hulk_at_0042e7f0;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -3267,7 +3267,7 @@ OldBillboardObjectLoader* OldBillboardObjectLoader::v2(int flags) {
     }
     *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_003f6098);
     if (flags & 1)
-        thunk(this);
+        thunk_00263f30(this);
     return this;
 }
 
@@ -3306,7 +3306,7 @@ class DrawablePrimitive_2bc580 {
 };
 class Sub {
   public:
-    void Init();
+    void Init_0022b980();
     char pad[0x40];
 };
 class BillboardQuadGroup : public DrawablePrimitive_2bc580 {
@@ -3328,7 +3328,7 @@ BillboardQuadGroup::BillboardQuadGroup() : DrawablePrimitive_2bc580() {
     _ReadWriteBarrier();
     e = 0;
     g = 0;
-    sub.Init();
+    sub.Init_0022b980();
 }
 } // namespace fn_002bc580
 
@@ -3337,7 +3337,7 @@ namespace fn_fff84c72 {
 // 0x002bc5d0 FUN_002bc5d0 (140 B): matches/0x002bc5d0.cpp
 // sym: ??1BillboardQuadGroup_2bc5d0@fn_fff84c72@@QAE@XZ
 BillboardQuadGroup_2bc5d0::~BillboardQuadGroup_2bc5d0() {
-    vptr = g_vftable_2bc5d0;
+    vptr = hulk_at_0042e80c;
     _ReadWriteBarrier();
     if (m84) {
         m84->Release();
@@ -3352,7 +3352,7 @@ BillboardQuadGroup_2bc5d0::~BillboardQuadGroup_2bc5d0() {
     }
     if (b)
         operator delete(b);
-    Fin();
+    Fin_002a50a0();
 }
 
 } // namespace fn_fff84c72
@@ -3445,8 +3445,8 @@ namespace fn_fff84c72 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 BillboardCutOffQuadGroup_2bc760* BillboardCutOffQuadGroup_2bc760::vfunc_5(signed char flags) {
-    *(void***)this = BillboardQuadGroup_2bc760_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042e840;
+    Destroy_002bc5d0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -3614,16 +3614,16 @@ void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory
 // sym: ?vfunc_5@BillboardObjectLoader@pure3d@@UAEXPAX00H@Z
 void pure3d::BillboardObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr x) { BO ** out = (BO **)__p0; int * info = (int *)__p1; Chunk_2bceb0 * c = (Chunk_2bceb0 *)__p2;
 
-    if (c->Id() == 0x17006) {
+    if (c->Id_00266c30() == 0x17006) {
         BO* o = (BO*)operator new(0x60);
         if (o) {
-            o->InitBase(1);
+            o->InitBase_002a4e10(1);
             *(int**)o = &g_vt_2bceb0;
             o->f = 1.0f;
         } else {
             o = 0;
         }
-        (*(Helper_2bceb0 * *)&this->f_14)->Fill(o, c, x);
+        (*(Helper_2bceb0 * *)&this->f_14)->Fill_002bc790(o, c, x);
         o->Init();
         *out = o;
         info[0] = o->b;

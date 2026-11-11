@@ -164,12 +164,12 @@ struct Obj_276340 {
     virtual void f13();
     virtual void f14(void*, void*, void*);
 };
-extern void* file_vft;
-extern void* file_vft4;
-extern void* ref_vft;
+extern void* hulk_at_0042bd3c;
+extern void* hulk_at_0042bd30;
+extern void* hulk_at_003f6098;
 class Sub_2764a0 {
   public:
-    void fin();
+    void fin_00277c30();
 };
 class Ref_2764a0 {
   public:
@@ -184,7 +184,7 @@ class File {
     Ref_2764a0* r;
     char pad[0x11c];
     Sub_2764a0 sub;
-    void vfunc_21();
+    void vfunc_21_00276240();
     void shutdown();
 };
 struct Mgr_2765d0 {
@@ -718,12 +718,12 @@ namespace fn_f81ff691 {
 // 0x002764a0 FUN_002764a0 (48 B): matches/0x002764a0.cpp
 // sym: ?shutdown@File@fn_f81ff691@@QAEXXZ
 void File::shutdown() {
-    *(void**)this = &file_vft;
-    *((void**)this + 1) = &file_vft4;
-    vfunc_21();
+    *(void**)this = &hulk_at_0042bd3c;
+    *((void**)this + 1) = &hulk_at_0042bd30;
+    vfunc_21_00276240();
     r->y();
-    sub.fin();
-    *(void**)this = &ref_vft;
+    sub.fin_00277c30();
+    *(void**)this = &hulk_at_003f6098;
 }
 
 } // namespace fn_f81ff691

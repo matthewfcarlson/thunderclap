@@ -24,7 +24,7 @@ class ParticlePlaneGenerator_2d2070 {
     unsigned char a;
     char pad11[3];
     int b, c, d, e;
-    void Init();
+    void Init_0027b070();
 };
 class Entity_2d20a0 {
   public:
@@ -34,7 +34,7 @@ class Entity_2d20a0 {
 class Sub_2d20a0 {
   public:
     char d[8];
-    void Init(const void*);
+    void Init_0027af70(const void*);
 };
 class ParticleGenerator : public Entity_2d20a0 {
   public:
@@ -62,7 +62,7 @@ class ParticleGenerator : public Entity_2d20a0 {
 extern "C" char DAT_0042f0a8[];
 class Entry_2d2130 {
   public:
-    int Find(int, int);
+    int Find_00288960(int, int);
 };
 class GeneratorBlendState {
   public:
@@ -90,7 +90,7 @@ class ParticleGenerator_2d2510 {
 };
 class Chunk {
   public:
-    int Find(int a, int b);
+    int Find_00288960(int a, int b);
 };
 class NonCopyable_2d2570 {
   public:
@@ -191,9 +191,9 @@ class ParticleGenerator_2d2b90 {
 extern "C" char DAT_00444152[];
 struct Owner_2d2bd0 {
     int pad;
-    int Find(int, int);
+    int Find_00288960(int, int);
 };
-extern int vtab;
+extern int hulk_at_0042f0c8;
 struct GeneratorBlendState_2d2bd0 {
     int* vptr;
     int a, b, c;
@@ -247,10 +247,10 @@ public:
     float f44, f48, f4c;
     unsigned int vfunc_6(unsigned int count, Mat4_2d2c40* from, Mat4_2d2c40* to, float step, Emitter_2d2c40* em);
 };
-extern void* Entity_2d31b0_vftable[];
+extern void* hulk_at_0042f074[];
 class Entity_2d31b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ParticleGenerator_2d31b0 : public Entity_2d31b0 {
   public:
@@ -262,7 +262,7 @@ struct Elem_2d3340 {
     char pad[8];
     Curve_2d3340* c[3];
 };
-extern float __cdecl Mix(Curve_2d3340*, Curve_2d3340*, float, float);
+extern float __cdecl Mix_0028b150(Curve_2d3340*, Curve_2d3340*, float, float);
 class ParticlePointGenerator {
   public:
     virtual void a();
@@ -326,7 +326,7 @@ class Ref_2d38a0 {
 class ParticleGenerator_2d38a0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class ParticlePointGenerator_2d38a0 : public ParticleGenerator_2d38a0 {
   public:
@@ -339,10 +339,10 @@ class ParticlePointGenerator_2d38a0 : public ParticleGenerator_2d38a0 {
 };
 class Helper_2d3910 {
   public:
-    hulk_intptr run(pure3d::ParticlePointGenerator*);
+    hulk_intptr run_002d3790(pure3d::ParticlePointGenerator*);
 };
-extern "C" void* __cdecl allocThing(unsigned int);
-extern void* g_vftable_2d3ab0[];
+extern "C" void* __cdecl allocThing_00263ea0(unsigned int);
+extern void* hulk_at_0042f10c[];
 extern void* g_base_2d3ab0[];
 class Ref_2d3ab0 {
   public:
@@ -352,7 +352,7 @@ class Ref_2d3ab0 {
 class ParticleGenerator_2d3ab0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class ParticlePlaneGenerator_2d3ab0 : public ParticleGenerator_2d3ab0 {
   public:
@@ -365,9 +365,9 @@ class ParticlePlaneGenerator_2d3ab0 : public ParticleGenerator_2d3ab0 {
 };
 class Other_2d3b20 {
   public:
-    hulk_intptr helper(pure3d::ParticlePlaneGenerator*);
+    hulk_intptr helper_002d3980(pure3d::ParticlePlaneGenerator*);
 };
-extern void* g_vftable_2d3c90[];
+extern void* hulk_at_0042f140[];
 extern void* g_vftable_base[];
 class Ref_2d3c90 {
   public:
@@ -377,7 +377,7 @@ class Ref_2d3c90 {
 class ParticleGenerator_2d3c90 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class ParticleSphereGenerator_2d3c90 : public ParticleGenerator_2d3c90 {
   public:
@@ -390,15 +390,15 @@ class ParticleSphereGenerator_2d3c90 : public ParticleGenerator_2d3c90 {
 };
 class Obj_2d3d00 {
   public:
-    hulk_intptr helper(pure3d::ParticleSphereGenerator*);
+    hulk_intptr helper_002d3b80(pure3d::ParticleSphereGenerator*);
 };
-extern Obj_2d3d00* alloc(int);
+extern Obj_2d3d00* alloc_00263ea0(int);
 
 
 // 0x002d2070 FUN_002d2070 (35 B): matches/0x002d2070.cpp
 // sym: ?FUN_002d2070@fn_fd7a7bd7@@YIPAVParticlePlaneGenerator_2d2070@1@PAV21@@Z
 ParticlePlaneGenerator_2d2070* __fastcall FUN_002d2070(ParticlePlaneGenerator_2d2070* p) {
-    p->Init();
+    p->Init_0027b070();
     p->a = 0;
     p->b = 0;
     p->c = 0;
@@ -417,7 +417,7 @@ ParticleGenerator::ParticleGenerator(const void* p) : Entity_2d20a0() {
     a18 = *(const int*)((const char*)p + 0x18);
     a1c = *(const int*)((const char*)p + 0x1c);
     a20 = *(const int*)((const char*)p + 0x20);
-    sub.Init((const char*)p + 8);
+    sub.Init_0027af70((const char*)p + 8);
 }
 
 } // namespace fn_fd7a7bd7
@@ -441,9 +441,9 @@ GeneratorBlendState::GeneratorBlendState(hulk_intptr x) {
     d = 0;
     if (x != 0) {
         Entry_2d2130* e = (Entry_2d2130*)x;
-        b = e->Find(0x50534f48, 0x31544c46);
-        c = e->Find(0x50534556, 0x31544c46);
-        d = e->Find(0x41564452, 0x31544c46);
+        b = e->Find_00288960(0x50534f48, 0x31544c46);
+        c = e->Find_00288960(0x50534556, 0x31544c46);
+        d = e->Find_00288960(0x41564452, 0x31544c46);
     }
 }
 
@@ -638,11 +638,11 @@ GeneratorBlendState_2d2570::GeneratorBlendState_2d2570(Chunk* c) {
     m14 = 0;
     m18 = 0;
     if (c) {
-        m8 = c->Find(((hulk_intptr)((char*)0x544457)), 0x31544c46);
-        mC = c->Find(((hulk_intptr)((char*)0x544748)), 0x31544c46);
-        m10 = c->Find(0x50534f48, 0x31544c46);
-        m14 = c->Find(0x50534556, 0x31544c46);
-        m18 = c->Find(0x41564452, 0x31544c46);
+        m8 = c->Find_00288960(((hulk_intptr)((char*)0x544457)), 0x31544c46);
+        mC = c->Find_00288960(((hulk_intptr)((char*)0x544748)), 0x31544c46);
+        m10 = c->Find_00288960(0x50534f48, 0x31544c46);
+        m14 = c->Find_00288960(0x50534556, 0x31544c46);
+        m18 = c->Find_00288960(0x41564452, 0x31544c46);
     }
 }
 
@@ -787,12 +787,12 @@ namespace fn_fd7a7bd7 {
 // sym: ??0GeneratorBlendState_2d2bd0@fn_fd7a7bd7@@QAE@PAUOwner_2d2bd0@1@@Z
 GeneratorBlendState_2d2bd0::GeneratorBlendState_2d2bd0(Owner_2d2bd0* arg) {
     a = 0;
-    vptr = &vtab;
+    vptr = &hulk_at_0042f0c8;
     b = 0;
     c = 0;
     if (arg) {
-        b = arg->Find(((int)0x444152), 0x31544c46);
-        c = arg->Find(0x41564452, 0x31544c46);
+        b = arg->Find_00288960(((int)0x444152), 0x31544c46);
+        c = arg->Find_00288960(0x41564452, 0x31544c46);
     }
 }
 
@@ -921,8 +921,8 @@ namespace fn_fd7a7bd7 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ParticleGenerator_2d31b0* ParticleGenerator_2d31b0::vfunc_5(signed char flags) {
-    *(void***)this = Entity_2d31b0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042f074;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -991,7 +991,7 @@ class NonCopyable_2d3320 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public NonCopyable_2d3320 {
   public:
@@ -1002,7 +1002,7 @@ class NonCopyable : public NonCopyable_2d3320 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1020,9 +1020,9 @@ void ParticlePointGenerator::f(float arg) {
         Elem_2d3340** p = points + index;
         Elem_2d3340* a = p[0];
         Elem_2d3340* b = p[1];
-        out[0] = Mix(a->c[0], b->c[0], amount, arg);
-        out[1] = Mix(a->c[1], b->c[1], amount, arg);
-        out[2] = Mix(a->c[2], b->c[2], amount, arg);
+        out[0] = Mix_0028b150(a->c[0], b->c[0], amount, arg);
+        out[1] = Mix_0028b150(a->c[1], b->c[1], amount, arg);
+        out[2] = Mix_0028b150(a->c[2], b->c[2], amount, arg);
     } else {
         Elem_2d3340* p = points[index];
         ((owners::Curve_28a1c0 *)(p->c[0]))->FUN_0028a1c0(arg, &out[0]);
@@ -1241,7 +1241,7 @@ ParticlePointGenerator_2d38a0::~ParticlePointGenerator_2d38a0() {
     if (m2c)
         operator delete(m2c);
     vptr = g_base_2d38a0;
-    Fin();
+    Fin_0027afd0();
 }
 
 } // namespace fn_fd7a7bd7
@@ -1249,9 +1249,9 @@ ParticlePointGenerator_2d38a0::~ParticlePointGenerator_2d38a0() {
 // 0x002d3910 pure3d::ParticlePointGenerator::vfunc_4 (31 B): matches/0x002d3910.cpp
 // sym: ?vfunc_4@ParticlePointGenerator@pure3d@@UAEPAXXZ
 void* pure3d::ParticlePointGenerator::vfunc_4() {
-    void* p = allocThing(0x50);
+    void* p = allocThing_00263ea0(0x50);
     if (p)
-        return (void*)(((Helper_2d3910*)p)->run(this));
+        return (void*)(((Helper_2d3910*)p)->run_002d3790(this));
     return (void*)(0);
 }
 
@@ -1329,7 +1329,7 @@ namespace fn_fd7a7bd7 {
 // 0x002d3ab0 FUN_002d3ab0 (102 B): matches/0x002d3ab0.cpp
 // sym: ??1ParticlePlaneGenerator_2d3ab0@fn_fd7a7bd7@@QAE@XZ
 ParticlePlaneGenerator_2d3ab0::~ParticlePlaneGenerator_2d3ab0() {
-    vptr = g_vftable_2d3ab0;
+    vptr = hulk_at_0042f10c;
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -1345,7 +1345,7 @@ ParticlePlaneGenerator_2d3ab0::~ParticlePlaneGenerator_2d3ab0() {
     if (m2c)
         operator delete(m2c);
     vptr = g_base_2d3ab0;
-    Fin();
+    Fin_0027afd0();
 }
 
 } // namespace fn_fd7a7bd7
@@ -1357,7 +1357,7 @@ void* pure3d::ParticlePlaneGenerator::vfunc_4() {
     pure3d::ParticlePlaneGenerator* self = this;
     Other_2d3b20* p = (Other_2d3b20*)allocate(0x60);
     if (p)
-        return (void*)(p->helper(self));
+        return (void*)(p->helper_002d3980(self));
     return (void*)(0);
 }
 
@@ -1466,7 +1466,7 @@ namespace fn_fd7a7bd7 {
 // 0x002d3c90 FUN_002d3c90 (102 B): matches/0x002d3c90.cpp
 // sym: ??1ParticleSphereGenerator_2d3c90@fn_fd7a7bd7@@QAE@XZ
 ParticleSphereGenerator_2d3c90::~ParticleSphereGenerator_2d3c90() {
-    vptr = g_vftable_2d3c90;
+    vptr = hulk_at_0042f140;
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -1482,7 +1482,7 @@ ParticleSphereGenerator_2d3c90::~ParticleSphereGenerator_2d3c90() {
     if (arr)
         operator delete(arr);
     vptr = g_vftable_base;
-    Fin();
+    Fin_0027afd0();
 }
 
 } // namespace fn_fd7a7bd7
@@ -1491,9 +1491,9 @@ ParticleSphereGenerator_2d3c90::~ParticleSphereGenerator_2d3c90() {
 // sym: ?vfunc_4@ParticleSphereGenerator@pure3d@@UAEPAXXZ
 // Same code shape as 0x00297130 (propagated; names are from that function)
 void* pure3d::ParticleSphereGenerator::vfunc_4() {
-    Obj_2d3d00* p = alloc(0x48);
+    Obj_2d3d00* p = alloc_00263ea0(0x48);
     if (p)
-        return (void*)(p->helper(this));
+        return (void*)(p->helper_002d3b80(this));
     return (void*)(0);
 }
 

@@ -26,7 +26,7 @@ struct Obj_263500 {
     int a;
     int b;
 };
-extern bool8 __cdecl Check(int, const char*, ...);
+extern bool8 __cdecl Check_00246f50(int, const char*, ...);
 extern "C" bool8 __cdecl FUN_0025ac30(int*, int, int);
 struct Node {
   public:
@@ -71,15 +71,15 @@ struct Pair {
 };
 extern "C" char __cdecl lookup(int, Pair*);
 struct Obj {
-    void use(int, int);
+    void use_00263d40(int, int);
 };
 typedef unsigned int u32_263df0;
 struct Item_263df0 {
     char pad[0x10];
     u32_263df0 value;
 };
-__int64 __cdecl F2();
-void __cdecl F3(char*, void*, __int64*);
+__int64 __cdecl F2_00263c90();
+void __cdecl F3_002639c0(char*, void*, __int64*);
 class C_263e30 {
   public:
     char pad[0x10];
@@ -121,7 +121,7 @@ extern "C" int __cdecl FUN_00263500(int* p, Obj_263500* o) {
         a = 0;
         b = 0;
     }
-    if (Check(*p, DAT_0042ae80) && FUN_0025ac30(p, a, b))
+    if (Check_00246f50(*p, DAT_0042ae80) && FUN_0025ac30(p, a, b))
         return 1;
     return 0;
 }
@@ -645,7 +645,7 @@ extern "C" char __cdecl FUN_00263db0(int x, Obj* flag) {
     Pair p;
     if (lookup(x, &p)) {
         if (flag)
-            flag->use(p.a, p.b);
+            flag->use_00263d40(p.a, p.b);
         return 1;
     }
     return 0;
@@ -672,9 +672,9 @@ void C_263e30::Set(int a, __int64* p) {
     __int64 v = *p;
     __int64 t = v;
     if (((int)(hulk_uintptr)FUN_00263970((char *)(((char*)&DAT_004cd4cc)), (__int64 *)(&t))))
-        v = F2();
+        v = F2_00263c90();
     m18 = v;
-    F3(((char*)&DAT_004cd4cc), this, &m18);
+    F3_002639c0(((char*)&DAT_004cd4cc), this, &m18);
 }
 
 

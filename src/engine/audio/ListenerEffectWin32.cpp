@@ -25,7 +25,7 @@ class ListenerEffectWin32 {
     virtual void g();
     virtual void h();
     virtual void i();
-    void BaseCall();
+    void BaseCall_00244f70();
 };
 }
 
@@ -42,7 +42,7 @@ extern "C" int* FUN_0024dba0() {
 // sym: ?vfunc_2@ListenerEffectWin32@audio@fn_f79c238c@@UAEPAV123@H@Z
 // data: gBss_24dbb0 = DAT_004e65b8
 audio::ListenerEffectWin32* audio::ListenerEffectWin32::vfunc_2(int flag) {
-    BaseCall();
+    BaseCall_00244f70();
     if (flag & 1)
         FUN_00247550(((int*)&DAT_004e65b8), this);
     return this;

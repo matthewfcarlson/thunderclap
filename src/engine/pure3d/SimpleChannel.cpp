@@ -13,7 +13,7 @@ namespace fn_ff0c407b {} using namespace fn_ff0c407b;
 
 // ---- declarations shared by the functions below
 namespace fn_ff0c407b {
-extern void* g_vftable_28df60[];
+extern void* hulk_at_0042c930[];
 } // namespace fn_ff0c407b
 void operator delete(void*);
 namespace fn_ff0c407b {
@@ -39,7 +39,7 @@ class SimpleChannel_28df60 : public Channel_28df60 {
 // 0x0028df60 pure3d::SimpleChannel::vfunc_0 (84 B): matches/0x0028df60.cpp
 // sym: ?f0@SimpleChannel_28df60@fn_ff0c407b@@QAEPAV12@E@Z
 SimpleChannel_28df60* SimpleChannel_28df60::f0(unsigned char flags) {
-    vptr = g_vftable_28df60;
+    vptr = hulk_at_0042c930;
     if (!mc) {
         operator delete[](m14);
     } else {

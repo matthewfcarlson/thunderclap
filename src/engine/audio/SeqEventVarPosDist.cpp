@@ -30,7 +30,7 @@ class SeqEventVarPosDist : public SeqEvent_252fc0 {
 };
 class SeqEvent_252fe0 {
   public:
-    bool vfunc_0(void*);
+    bool vfunc_0_0025fd20(void*);
 };
 class SeqAction_253060 {
   public:
@@ -66,13 +66,13 @@ class SeqAction_253090 {
     virtual void f5();
     virtual void f6();
 };
-extern "C" char __cdecl Scan(const char*, const char*, ...);
+extern "C" char __cdecl Scan_00246f50(const char*, const char*, ...);
 struct Node {
     const char* text;
 };
 class Checker {
   public:
-    char Check(Node*);
+    char Check_0025cb40(Node*);
 };
 } // namespace fn_fe1510ce
 extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int) throw();
@@ -115,7 +115,7 @@ struct Stm_253210 {
     char pad[0x24];
     int depth;
 };
-extern bool Match(Stm_253210*, const char*, ...);
+extern bool Match_00246f50(Stm_253210*, const char*, ...);
 extern bool ReadTrack_002530b0(Stm_253210**, const char*, void*);
 class SeqEvent {
   public:
@@ -155,7 +155,7 @@ SeqEventVarPosDist::SeqEventVarPosDist() : SeqEvent_252fc0(), x(1.0f), y(100.0f)
 // sym: ?vfunc_0@SeqEventVarPosDist@audio@@UAEHPAX@Z
 int audio::SeqEventVarPosDist::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    if (((SeqEvent_252fe0*)this)->vfunc_0(p)) {
+    if (((SeqEvent_252fe0*)this)->vfunc_0_0025fd20(p)) {
         if (((PosHelper*)((char*)this + 8))->test(p))
             return 1;
     }
@@ -240,9 +240,9 @@ namespace fn_fe1510ce {
 char __cdecl target(Node* node, char* word, Checker* checker) {
     char* w = word;
     const char* text = node->text;
-    if (Scan(text, DAT_004298a8, w) && checker->Check(node)) {
+    if (Scan_00246f50(text, DAT_004298a8, w) && checker->Check_0025cb40(node)) {
         const char* again = node->text;
-        return Scan(again, DAT_00422518);
+        return Scan_00246f50(again, DAT_00422518);
     }
     return 0;
 }
@@ -296,11 +296,11 @@ class SeqEventVarPosDist : public SeqEvent {
     virtual void f2();
     virtual void f3();
     virtual SeqEventVarPosDist* f4(int);
-    void Prep();
+    void Prep_0025fd10();
 };
 extern void FUN_00247550(void*, SeqEventVarPosDist*);
 SeqEventVarPosDist* SeqEventVarPosDist::f4(int flags) {
-    Prep();
+    Prep_0025fd10();
     if (flags & 1)
         FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e7038))), this);
     return this;
@@ -314,12 +314,12 @@ namespace fn_fe1510ce {
 // data: sClose = DAT_004298dc, sName_0042a108 = DAT_0042a108, sOpen = DAT_004298f4
 int SeqEventVarPosDist_253210::vfunc_1(Stm_253210** p) {
     if (SeqEvent::v1(p)) {
-        if (Match(*p, DAT_004298f4)) {
+        if (Match_00246f50(*p, DAT_004298f4)) {
             (*p)->depth++;
             if (ReadTrack_002530b0(p, DAT_0042a108, (char*)this + 8)) {
                 (*p)->depth--;
                 Stm_253210* s = *p;
-                if (Match(s, DAT_004298dc))
+                if (Match_00246f50(s, DAT_004298dc))
                     return 1;
             }
         }

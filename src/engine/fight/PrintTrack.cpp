@@ -21,16 +21,16 @@ class Obj_238850 {
     char SetTimeBegin_00238850(int x);
 };
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_2388a0;
+extern int* hulk_at_004e5c20;
 class CCondition_2388a0 {
   public:
     virtual int vfunc_0(int);
 };
 typedef unsigned int u32_2388e0;
 void thunk_FUN_00267090(u32_2388e0);
-extern int PrintCondition_2388e0_vftable;
+extern int hulk_at_004282dc;
 struct Condition_2388e0 {
-    void finish();
+    void finish_002345b0();
 };
 struct PrintCondition_2388e0 : Condition_2388e0 {
     void* vt;
@@ -42,7 +42,7 @@ struct PrintCondition_2388e0 : Condition_2388e0 {
 extern "C" void __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
 void __cdecl thunk_FUN_00267090(void* p);
-extern int* gTable_2389f0;
+extern int* hulk_at_004e5c28;
 class CCondition_2389f0 {
   public:
     virtual int vfunc_0(int);
@@ -60,22 +60,22 @@ class PrintTrack : public Track_238a00 {
     virtual void Fn();
 };
 typedef unsigned int u32_238a50;
-extern u32_238a50 PrintTrack_vftable;
-void __cdecl ReleaseThing(int);
+extern u32_238a50 hulk_at_004282fc;
+void __cdecl ReleaseThing_0008d340(int);
 struct PrintTrack_nv_238a50 {
-    void Cleanup();
+    void Cleanup_00236d60();
 };
 class Obj {
   public:
     char _m_pad_0[0x10];
     char* text;
     bool SetChannel_00238a80(const char* value);
-    void Set(void*);
-    void set(void*);
+    void Set_00236760(void*);
+    void set_002367c0(void*);
 };
 typedef unsigned int u32_238c40;
-extern void PrintSomething(hulk_uintptr, u32_238c40, const char*, ...);
-extern char fmt_238c40[];
+extern void PrintSomething_00238bb0(hulk_uintptr, u32_238c40, const char*, ...);
+extern char hulk_at_00428328[];
 class Action_238c70 {
     char pad[0x1c];
 };
@@ -84,17 +84,17 @@ class IRefCount_238c70 {};
 extern int FUN_00238bb0(int, int, const char*, ...);
 const char formatString_238c70[] = "%s\n";
 extern "C" {
-void __cdecl thunk_FUN_00267090b(void*);
+void __cdecl thunk_FUN_00267090b_0008d340(void*);
 }
 extern "C" {
-void __cdecl thunk_FUN_00267090c(void*);
+void __cdecl thunk_FUN_00267090c_0008d330(void*);
 }
 extern "C" {
 extern char g_vftable_target;
 }
 struct BaseCls_238ca0 {
   public:
-    void Dtor();
+    void Dtor_002345b0();
 };
 class PrintCondition_238ca0 {
   public:
@@ -113,13 +113,13 @@ struct Obj_238d20 {
     virtual void F();
     virtual void R();
 };
-extern int PrintAction_238d20_vftable;
+extern int hulk_at_00428330;
 struct PrintAction_238d20 {
     void* vf;
     int pad[6];
     int arg;
     Obj_238d20* object;
-    void Init();
+    void Init_00232660();
     PrintAction_238d20* Build(int, Obj_238d20*);
 };
 class Ref_238d70 {
@@ -176,8 +176,8 @@ class ParamValueInt_238e80 : public ParamValue_238e80 {
   public:
     int pad;
 };
-extern int gTypeA_238ea0;
-extern int gTypeA_238f00;
+extern int hulk_at_00491ca8;
+extern int hulk_at_0049850c;
 extern "C" char DAT_00428330[];
 class Obj_2390f0 {
   public:
@@ -193,7 +193,7 @@ class Obj_2390f0 {
     virtual void F9();
     virtual void F10();
     virtual void F11();
-    void Init();
+    void Init_00232660();
 };
 class Track_2390f0 {
   public:
@@ -210,7 +210,7 @@ class Track_2390f0 {
     virtual void T10();
     virtual void T11();
 };
-extern Obj_2390f0* __cdecl Alloc(int);
+extern Obj_2390f0* __cdecl Alloc_0008d690(int);
 extern void* g_vftable_239150[];
 class Ref_239150 {
   public:
@@ -237,11 +237,11 @@ class TrackFactoryCasterTemplate_239200 {
     virtual void cast();
 };
 extern "C" void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_239200*);
-extern int g_vftable_2392b0;
+extern int hulk_at_004283c4;
 struct ConditionFactoryTemplate_2392b0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00238880();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 } // namespace fn_fbe81dc2
@@ -269,7 +269,7 @@ class PrintTrack_239320 : public Base {
     int y;
     int z;
 };
-extern int g_vftable_239370;
+extern int hulk_at_004283e0;
 
 
 // 0x00238850 FUN_00238850 (12 B): matches/0x00238850.cpp
@@ -293,7 +293,7 @@ void FUN_00238880() {
 // sym: ?vfunc_0@PrintCondition@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::PrintCondition::vfunc_0(int index) {
-    int* p = gTable_2388a0;
+    int* p = hulk_at_004e5c20;
     return p[index];
 }
 
@@ -304,10 +304,10 @@ namespace fn_fbe81dc2 {
 // Same code shape as 0x0012e590 (propagated; names are from that function)
 void PrintCondition_2388e0::dtorish() {
     u32_2388e0 x = a;
-    vt = &PrintCondition_2388e0_vftable;
+    vt = &hulk_at_004282dc;
     thunk_FUN_00267090(x);
     thunk_FUN_00267090(b);
-    Condition_2388e0::finish();
+    Condition_2388e0::finish_002345b0();
 }
 
 } // namespace fn_fbe81dc2
@@ -360,7 +360,7 @@ void FUN_002389d0() {
 // sym: ?vfunc_0@PrintTrack@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::PrintTrack::vfunc_0(int index) {
-    int* p = gTable_2389f0;
+    int* p = hulk_at_004e5c28;
     return p[index];
 }
 
@@ -394,10 +394,10 @@ hulk_freg fight::PrintTrack::vfunc_7() {
 // 0x00238a50 FUN_00238a50 (38 B): matches/0x00238a50.cpp
 // sym: ?FUN_00238a50@PrintTrack@fight@@QAEXXZ
 void fight::PrintTrack::FUN_00238a50() {
-    *(hulk_uintptr*)this = (hulk_uintptr)&PrintTrack_vftable;
-    ReleaseThing(this->f_10);
-    ReleaseThing(this->f_14);
-    ((PrintTrack_nv_238a50*)this)->Cleanup();
+    *(hulk_uintptr*)this = (hulk_uintptr)&hulk_at_004282fc;
+    ReleaseThing_0008d340(this->f_10);
+    ReleaseThing_0008d340(this->f_14);
+    ((PrintTrack_nv_238a50*)this)->Cleanup_00236d60();
 }
 
 namespace fn_fbe81dc2 {
@@ -455,7 +455,7 @@ extern "C" void FUN_00238b60(hulk_intptr a, int b) {
 bool fight::PrintCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_uintptr x = (hulk_uintptr)__p0; hulk_uintptr y = (hulk_uintptr)__p1; hulk_uintptr z = (hulk_uintptr)__p2;
 
     if ((*(u32_238c40 *)&this->f_10))
-        PrintSomething(y, (*(u32_238c40 *)&this->f_0c), fmt_238c40, (*(u32_238c40 *)&this->f_10));
+        PrintSomething_00238bb0(y, (*(u32_238c40 *)&this->f_0c), hulk_at_00428328, (*(u32_238c40 *)&this->f_10));
     return true;
 }
 
@@ -478,10 +478,10 @@ namespace fn_fbe81dc2 {
 void* PrintCondition_238ca0::v5(unsigned char flag) {
     *(char**)this = &g_vftable_target;
     thunk_FUN_00267090(m_p1);
-    thunk_FUN_00267090b(m_p2);
-    ((BaseCls_238ca0*)this)->Dtor();
+    thunk_FUN_00267090b_0008d340(m_p2);
+    ((BaseCls_238ca0*)this)->Dtor_002345b0();
     if (flag & 1) {
-        thunk_FUN_00267090c(this);
+        thunk_FUN_00267090c_0008d330(this);
     }
     return this;
 }
@@ -534,8 +534,8 @@ namespace fn_fbe81dc2 {
 // sym: ?Build@PrintAction_238d20@fn_fbe81dc2@@QAEPAU12@HPAUObj_238d20@2@@Z
 // Same code shape as 0x0012db50 (propagated; names are from that function)
 PrintAction_238d20* PrintAction_238d20::Build(int a, Obj_238d20* p) {
-    Init();
-    vf = &PrintAction_238d20_vftable;
+    Init_00232660();
+    vf = &hulk_at_00428330;
     object = 0;
     arg = a;
     if (p)
@@ -620,7 +620,7 @@ template <> bool fight::ParamString<fight::PrintTrack>::vfunc_2() {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::ConditionFactoryCasterTemplate<fight::PrintCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_238ea0, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_00491ca8, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -636,7 +636,7 @@ template <> fight::ParamString<fight::PrintCondition>::~ParamString() {}
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::TrackFactoryCasterTemplate<fight::PrintTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_238f00, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -658,9 +658,9 @@ template <> fight::ParamString<fight::PrintTrack>::~ParamString() {}
 // sym: ?vfunc_10@PrintTrack@fight@@UAEHHHH@Z
 hulk_intptr fight::PrintTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { Obj_2390f0 * a = (Obj_2390f0 *)__p0; Obj_2390f0 * b = (Obj_2390f0 *)__p1; Obj_2390f0 * p = (Obj_2390f0 *)__p2;
 
-    Obj_2390f0* q = Alloc(0x24);
+    Obj_2390f0* q = Alloc_0008d690(0x24);
     if (q) {
-        q->Init();
+        q->Init_00232660();
         *(fight::PrintTrack**)((char*)q + 0x1c) = this;
         *(hulk_uintptr*)q = ((hulk_intptr)DAT_00428330);
         *(Obj_2390f0**)((char*)q + 0x20) = 0;
@@ -697,7 +697,7 @@ PrintAction_239150* PrintAction_239150::f2(unsigned char flags) {
 // sym: _FUN_002391d0
 extern "C" void FUN_002391d0(Obj* obj, const char* name) {
     ConditionFactoryCasterTemplate_2391d0 caster;
-    obj->Set(Find(name, &caster));
+    obj->Set_00236760(Find(name, &caster));
 }
 
 
@@ -706,7 +706,7 @@ extern "C" void FUN_002391d0(Obj* obj, const char* name) {
 extern "C" void FUN_00239200(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_239200 caster;
     void* p = FUN_00236ac0(name, &caster);
-    obj->set(p);
+    obj->set_002367c0(p);
 }
 
 
@@ -714,9 +714,9 @@ extern "C" void FUN_00239200(Obj* obj, const char* name) {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_2392b0@fn_fbe81dc2@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_2392b0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_2392b0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004283c4;
+    base1_dtor_00238880();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -736,7 +736,7 @@ namespace fn_fbe81dc2 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fbe81dc2@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_239370;
+    m_vptr = (void*)&hulk_at_004283e0;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

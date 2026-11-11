@@ -28,10 +28,10 @@ class Image {
     char b28;
     char b29;
     char _m_pad_2a[0x2];
-    void InitBase();
+    void InitBase_0027b070();
     Image* FUN();
     void Fn();
-    void Next();
+    void Next_0027afd0();
 };
 } // namespace fn_fbf8e46b
 namespace pure3d {
@@ -47,7 +47,7 @@ class Entity_2bfb10 {
 };
 }
 namespace fn_fbf8e46b {
-extern int Image_vftable[];
+extern int hulk_at_0042ea40[];
 extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 extern "C" void* __cdecl FUN_00266e00(int, hulk_uintptr);
 extern "C" void __cdecl FUN_00267090(void*);
@@ -61,22 +61,22 @@ struct Image32_2bfbe0 {
  void FUN_002bfbe0();
 };
 struct Image32_nv_2bfd30 {
-    void Finish();
+    void Finish_0027afd0();
 };
 struct Image_2bfd30 {
     hulk_intptr vf;
     char pad[0x20];
     int m24;
 };
-extern void __cdecl Thunk(int);
+extern void __cdecl Thunk_0008d340(int);
 void Image_Init(Image_2bfd30*);
 } // namespace fn_fbf8e46b
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* memcpy(void*, const void*, unsigned int);
 #endif
 namespace fn_fbf8e46b {
-void __cdecl free_pixels(void*);
-void* __cdecl alloc_pixels(int);
+void __cdecl free_pixels_0008d340(void*);
+void* __cdecl alloc_pixels_0008d6d0(int);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 extern "C" void __cdecl FUN_0008d340(void* data);
 } // namespace fn_fbf8e46b
@@ -86,9 +86,9 @@ extern "C" void* memset(void*, int, unsigned int);
 namespace fn_fbf8e46b {
 struct Image_2bffc0 {
     char pad[0x10];
-    void Init();
+    void Init_0027b070();
 };
-extern int Image32Vtable;
+extern int hulk_at_0042ead4;
 struct Image32 : Image_2bffc0 {
     int field10, field14, field18, field1c, field20, field24;
     unsigned char field28, field29;
@@ -196,7 +196,7 @@ public:
 // 0x002bfad0 FUN_002bfad0 (48 B): matches/0x002bfad0.cpp
 // sym: ?FUN@Image@fn_fbf8e46b@@QAEPAV12@XZ
 Image* Image::FUN() {
-    InitBase();
+    InitBase_0027b070();
     f24 = 0;
     f10 = 0;
     f14 = 0;
@@ -237,7 +237,7 @@ struct Entity_0027b070 {
 };
 class Sub_2bfb20 {
   public:
-    void Copy(const Sub_2bfb20*);
+    void Copy_0027af70(const Sub_2bfb20*);
 };
 struct Image : public Entity_0027b070 {
     int* vt;
@@ -255,7 +255,7 @@ struct Image : public Entity_0027b070 {
 Image::Image(const Image* src) : Entity_0027b070() {
     vt = &ImageVtable;
     if (src)
-        ((Sub_2bfb20*)((char*)this + 8))->Copy((const Sub_2bfb20*)((const char*)src + 8));
+        ((Sub_2bfb20*)((char*)this + 8))->Copy_0027af70((const Sub_2bfb20*)((const char*)src + 8));
     m24 = 0;
     m20 = src->m20;
     m1c = src->m1c;
@@ -271,9 +271,9 @@ namespace fn_fbf8e46b {
 // sym: ?Fn@Image@fn_fbf8e46b@@QAEXXZ
 void Image::Fn() {
     int x = m24;
-    *(hulk_intptr*)this = (hulk_intptr)Image_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)hulk_at_0042ea40;
     thunk_FUN_00267090(x);
-    Next();
+    Next_0027afd0();
 }
 
 
@@ -379,8 +379,8 @@ unsigned int GetZero() {
 void __fastcall Image_Init(Image_2bfd30* self, void*) {
     int x = self->m24;
     self->vf = ((hulk_intptr)DAT_0042ea40);
-    Thunk(x);
-    ((Image32_nv_2bfd30*)(((pure3d::Image32*)(((pure3d::Image32*)self)))))->Finish();
+    Thunk_0008d340(x);
+    ((Image32_nv_2bfd30*)(((pure3d::Image32*)(((pure3d::Image32*)self)))))->Finish_0027afd0();
 }
 
 } // namespace fn_fbf8e46b
@@ -413,8 +413,8 @@ void pure3d::Image8::vfunc_6(int width, int height, void* __p2) { const void * s
 void pure3d::Image8::vfunc_5(int w, int h) {
     this->f_10 = w;
     this->f_14 = h;
-    free_pixels((*(void * *)&this->f_24));
-    (*(void * *)&this->f_24) = alloc_pixels(this->f_14 * this->f_10);
+    free_pixels_0008d340((*(void * *)&this->f_24));
+    (*(void * *)&this->f_24) = alloc_pixels_0008d6d0(this->f_14 * this->f_10);
 }
 
 
@@ -505,7 +505,7 @@ namespace fn_fbf8e46b {
 // 0x002bffc0 FUN_002bffc0 (52 B): matches/0x002bffc0.cpp
 // sym: ?Init@Image32@fn_fbf8e46b@@QAEPAU12@XZ
 Image32* Image32::Init() {
-    Image_2bffc0::Init();
+    Image_2bffc0::Init_0027b070();
     field24 = 0;
     field10 = 0;
     field14 = 0;
@@ -513,7 +513,7 @@ Image32* Image32::Init() {
     field29 = 0;
     field28 = 0;
     field20 = 8;
-    *(hulk_intptr*)this = (hulk_intptr)&Image32Vtable;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0042ead4;
     field18 = 0x20;
     return this;
 }
@@ -537,12 +537,12 @@ class Image {
     char pad04[0x20];
     int m24;
     virtual ~Image();
-    void Finish();
+    void Finish_0027afd0();
 };
 extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 Image::~Image() {
     thunk_FUN_00267090(m24);
-    Finish();
+    Finish_0027afd0();
 }
 } // namespace fn_002c0010
 
@@ -828,19 +828,19 @@ Sprite *Loader_2c0590::FUN_002c0590(Reader *r, int unused)
 // sym: ??_GLightsChooserCache@pure3d@fn_002c0790@@UAEPAXI@Z
 namespace fn_002c0790 {
 // Same code shape as 0x0029e7b0 (propagated; names are from that function)
-extern "C++" __declspec(nothrow) void destroyChooser(void*);
+extern "C++" __declspec(nothrow) void destroyChooser_0008d340(void*);
 namespace pure3d {
 class LightsChooserCache {
   public:
     virtual ~LightsChooserCache();
-    void baseDtor();
+    void baseDtor_0027afd0();
     char pad[0x20];
     void* mPtr;
 };
 
 LightsChooserCache::~LightsChooserCache() {
-    destroyChooser(mPtr);
-    baseDtor();
+    destroyChooser_0008d340(mPtr);
+    baseDtor_0027afd0();
 }
 } // namespace pure3d
 } // namespace fn_002c0790
@@ -855,14 +855,14 @@ namespace pure3d {
 class LightsChooserCache {
   public:
     virtual ~LightsChooserCache();
-    void baseDtor();
+    void baseDtor_0027afd0();
     char pad[0x20];
     void* mPtr;
 };
 
 LightsChooserCache::~LightsChooserCache() {
     destroyChooser(mPtr);
-    baseDtor();
+    baseDtor_0027afd0();
 }
 } // namespace pure3d
 } // namespace fn_002c07d0
@@ -907,14 +907,14 @@ namespace pure3d {
 class LightsChooserCache {
   public:
     virtual ~LightsChooserCache();
-    void baseDtor();
+    void baseDtor_0027afd0();
     char pad[0x20];
     void* mPtr;
 };
 
 LightsChooserCache::~LightsChooserCache() {
     destroyChooser(mPtr);
-    baseDtor();
+    baseDtor_0027afd0();
 }
 } // namespace pure3d
 } // namespace fn_002c09a0
@@ -923,8 +923,8 @@ LightsChooserCache::~LightsChooserCache() {
 // 0x002c09e0 FUN_002c09e0 (113 B): matches/0x002c09e0.cpp [wrapped: conflict: Image32]
 // sym: ??0Image32@fn_002c09e0@@QAE@ABV01@@Z
 namespace fn_002c09e0 {
-void Free(void*);
-void* Alloc(int);
+void Free_0008d340(void*);
+void* Alloc_0008d6d0(int);
 class Image32;
 class Image_2c09e0 {
   public:
@@ -960,8 +960,8 @@ Image32::Image32(const Image32& o) : Image_2c09e0(o) {
     int w = o.mW;
     mW = w;
     mH = h;
-    Free(mData);
-    mData = (int*)Alloc(mH * mW * 4);
+    Free_0008d340(mData);
+    mData = (int*)Alloc_0008d6d0(mH * mW * 4);
     char f = mFlag;
     mFlag = 0;
     Image_2c09e0* b = this;

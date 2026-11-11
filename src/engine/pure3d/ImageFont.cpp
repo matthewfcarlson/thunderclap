@@ -127,7 +127,7 @@ public:
     int FUN_002bf350(int ch);
     void FUN_002bf4f0(Canvas *canvas, int x, int y, const unsigned short *str, unsigned int flags);
 };
-extern void* g_vftable_2bf9f0[];
+extern void* hulk_at_0042e9bc[];
 class Ref_2bf9f0 {
   public:
     virtual void F0();
@@ -136,7 +136,7 @@ class Ref_2bf9f0 {
 class Entity_2bf9f0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class ImageFont_2bf9f0 : public Entity_2bf9f0 {
   public:
@@ -761,7 +761,7 @@ namespace fn_fae89b52 {
 // 0x002bf9f0 FUN_002bf9f0 (55 B): matches/0x002bf9f0.cpp
 // sym: ??1ImageFont_2bf9f0@fn_fae89b52@@QAE@XZ
 ImageFont_2bf9f0::~ImageFont_2bf9f0() throw() {
-    vptr = g_vftable_2bf9f0;
+    vptr = hulk_at_0042e9bc;
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -769,7 +769,7 @@ ImageFont_2bf9f0::~ImageFont_2bf9f0() throw() {
     }
     if (m34)
         operator delete[](m34 - 4);
-    Fin();
+    Fin_0027afd0();
 }
 
 
@@ -795,7 +795,7 @@ class SimpleChunkHandler_2bfa50 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_2bfa50 {
   public:
@@ -806,7 +806,7 @@ class NonCopyable : public SimpleChunkHandler_2bfa50 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -826,7 +826,7 @@ class Ref_2bfa70 {
 };
 class Entity_2bfa70 {
   public:
-    void BaseDtor();
+    void BaseDtor_0027afd0();
 };
 extern void __cdecl FUN_00263f30(void*);
 extern void __cdecl thunk_FUN_00267090(void*);
@@ -848,7 +848,7 @@ ImageFont* ImageFont::f2(unsigned char flags) {
     }
     if (m34)
         thunk_FUN_00267090(m34 - 4);
-    BaseDtor();
+    BaseDtor_0027afd0();
     if (flags & 1)
         FUN_00263f30(this);
     return this;

@@ -42,13 +42,13 @@ class ColorState {
 };
 extern "C" char DAT_0043209c[];
 struct PoseDriver_nv_30eb10 {
-    void InitBase();
+    void InitBase_0027b070();
 };
 void __fastcall FUN_0027afd0(CEffectStopTrack*);
-extern void* Entity_30eb60_vftable[];
+extern void* hulk_at_0043209c[];
 class Entity_30eb60 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class PoseDriver_30eb60 : public Entity_30eb60 {
   public:
@@ -97,7 +97,7 @@ ColorState::ColorState() {
 // 0x0030eb10 FUN_0030eb10 (22 B): matches/0x0030eb10.cpp
 // sym: ?FUN_0030eb10@fn_fe58ce06@@YIPAVPoseDriver@physics@@PAV23@@Z
 physics::PoseDriver* __fastcall FUN_0030eb10(physics::PoseDriver* self) {
-    ((PoseDriver_nv_30eb10*)(((physics::PoseDriver*)(self))))->InitBase();
+    ((PoseDriver_nv_30eb10*)(((physics::PoseDriver*)(self))))->InitBase_0027b070();
     *(void**)self = (void*)((hulk_intptr)DAT_0043209c);
     (*(char *)&self->f_10) = 1;
     return self;
@@ -139,8 +139,8 @@ void __fastcall FUN_0030eb50(CEffectStopTrack* self) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 PoseDriver_30eb60* PoseDriver_30eb60::vfunc_5(signed char flags) {
-    *(void***)this = Entity_30eb60_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0043209c;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

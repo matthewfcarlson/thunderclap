@@ -35,7 +35,7 @@ class ControllerBuffer {
     int f;
     ControllerBuffer(int);
 };
-void InitBase();
+void InitBase_002705f0();
 enum GameMemoryAllocator { GMA_DEFAULT };
 extern "C" void* FUN_00266e00(GameMemoryAllocator heap, hulk_uintptr size);
 } // namespace fn_f44852ae
@@ -160,7 +160,7 @@ ControllerBuffer::ControllerBuffer(int value) {
     vptr = ((hulk_intptr)DAT_0042b6b0);
     vptr4 = ((hulk_intptr)DAT_0042afa8);
     ref = *(int*)((hulk_intptr)((char*)&DAT_004cdbb0));
-    InitBase();
+    InitBase_002705f0();
     vptr = ((hulk_intptr)DAT_0042b688);
     vptr4 = ((hulk_intptr)DAT_0042b680);
     enabled = 1;
@@ -171,7 +171,7 @@ ControllerBuffer::ControllerBuffer(int value) {
     e = 0;
     pad = 0;
     f = value;
-    InitBase();
+    InitBase_002705f0();
 }
 
 

@@ -32,7 +32,7 @@ struct DrawablePrimitive_2d3de0 {
     char p[0x3c];
 };
 struct Sub_2d3de0 {
-    void Init();
+    void Init_0022b980();
     char q[0x40];
 };
 struct ParticleEmitter_2d3de0 : DrawablePrimitive_2d3de0 {
@@ -126,10 +126,10 @@ extern "C" char DAT_00415247[];
 extern "C" char DAT_00445053[];
 extern "C" char DAT_0046494c[];
 extern "C" char DAT_00495053[];
-extern int vt1_2d4040;
+extern int hulk_at_0042f26c;
 class Src_2d4040 {
   public:
-    void* Find(unsigned a, unsigned b) throw();
+    void* Find_00288960(unsigned a, unsigned b) throw();
 };
 class EmitterBlendState_2d4040 {
   public:
@@ -138,9 +138,9 @@ class EmitterBlendState_2d4040 {
     EmitterBlendState_2d4040(Src_2d4040* s) throw();
 };
 typedef unsigned int U_2d4350;
-extern U_2d4350 vt1_2d4350;
-extern U_2d4350 vt2_2d4350;
-void drop(U_2d4350);
+extern U_2d4350 hulk_at_0042f27c;
+extern U_2d4350 hulk_at_003f6098;
+void drop_0008d340(U_2d4350);
 class OverLifeAttributes_2d4350 {
   public:
     hulk_uintptr vptr;
@@ -167,7 +167,7 @@ struct V {
     char b[64];
     V(const void*, const void*);
 };
-extern void* g_vftable_2d4b50[];
+extern void* hulk_at_0042f1e4[];
 class Ref_2d4b50 {
   public:
     virtual void F0();
@@ -176,7 +176,7 @@ class Ref_2d4b50 {
 class DrawablePrimitive_2d4b50 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002a50a0();
 };
 class ParticleEmitter_2d4b50 : public DrawablePrimitive_2d4b50 {
   public:
@@ -512,8 +512,8 @@ class Obj_2d5e70 {
     virtual void b();
 };
 struct Inner_2d5ec0 {
-    void A(int, int, void*);
-    void B(int, int, int, int, void*);
+    void FnA_002d53d0(int, int, void*);
+    void FnB_002d50c0(int, int, int, int, void*);
 };
 struct SpriteParticleEmitter_2d5ec0 {
     char pad0[0x40];
@@ -557,7 +557,7 @@ struct Item_2d5fe0 { char pad[0x2c]; volatile float current; volatile float limi
 struct Pool_2d5fe0 { char pad[8]; volatile unsigned count; Item_2d5fe0* volatile* volatile items; };
 struct Updater_2d5fe0 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void update(float, pure3d::SpriteParticleEmitter*); virtual void special(float, pure3d::SpriteParticleEmitter*); };
 struct Sub_2d63a0 {
-    void Init();
+    void Init_002d4200();
     char pad[0x114];
 };
 struct ParticleEmitter_2d63a0 {
@@ -573,7 +573,7 @@ struct SpriteParticleEmitter_2d63a0 : ParticleEmitter_2d63a0 {
 };
 class Obj_2d66b0 {
   public:
-    hulk_intptr run(pure3d::SpriteParticleEmitter*);
+    hulk_intptr run_002d63f0(pure3d::SpriteParticleEmitter*);
 };
 extern "C" Obj_2d66b0* alloc(hulk_intptr);
 
@@ -601,7 +601,7 @@ ParticleEmitter_2d3de0::ParticleEmitter_2d3de0() {
     b0 = 0;
     b1 = 1;
     b2 = 0;
-    s.Init();
+    s.Init_0022b980();
 }
 
 } // namespace fn_f0cbe20f
@@ -715,7 +715,7 @@ namespace fn_f0cbe20f {
 // sym: ??0EmitterBlendState_2d4040@fn_f0cbe20f@@QAE@PAVSrc_2d4040@1@@Z
 EmitterBlendState_2d4040::EmitterBlendState_2d4040(Src_2d4040* s) throw() {
     v[0] = 0;
-    vptr = &vt1_2d4040;
+    vptr = &hulk_at_0042f26c;
     v[1] = 0;
     v[2] = 0;
     v[3] = 0;
@@ -734,23 +734,23 @@ EmitterBlendState_2d4040::EmitterBlendState_2d4040(Src_2d4040* s) throw() {
     v[16] = 0;
     v[17] = 0;
     if (s) {
-        v[1] = s->Find(((hulk_intptr)((char*)0x544152)), 0x31544c46);
-        v[2] = s->Find(((int)0x46494c), 0x31544c46);
-        v[3] = s->Find(0x5646494c, 0x31544c46);
-        v[4] = s->Find(((int)0x445053), 0x31544c46);
-        v[5] = s->Find(0x56445053, 0x31544c46);
-        v[6] = s->Find(0x5a4953, 0x31544c46);
-        v[7] = s->Find(0x565a4953, 0x31544c46);
-        v[8] = s->Find(((int)0x495053), 0x31544c46);
-        v[9] = s->Find(0x56495053, 0x31544c46);
-        v[10] = s->Find(((hulk_intptr)((char*)0x544757)), 0x31544c46);
-        v[11] = s->Find(0x56544757, 0x31544c46);
-        v[12] = s->Find(((int)0x415247), 0x31544c46);
-        v[13] = s->Find(((int)0x415244), 0x31544c46);
-        v[14] = s->Find(((hulk_intptr)((char*)0x524c43)), ((hulk_intptr)((char*)0x524c43)));
-        v[15] = s->Find(0x56524c43, ((hulk_intptr)((char*)0x544e49)));
-        v[16] = s->Find(((hulk_intptr)((char*)0x504c41)), ((hulk_intptr)((char*)0x544e49)));
-        v[17] = s->Find(0x56504c41, ((hulk_intptr)((char*)0x544e49)));
+        v[1] = s->Find_00288960(((hulk_intptr)((char*)0x544152)), 0x31544c46);
+        v[2] = s->Find_00288960(((int)0x46494c), 0x31544c46);
+        v[3] = s->Find_00288960(0x5646494c, 0x31544c46);
+        v[4] = s->Find_00288960(((int)0x445053), 0x31544c46);
+        v[5] = s->Find_00288960(0x56445053, 0x31544c46);
+        v[6] = s->Find_00288960(0x5a4953, 0x31544c46);
+        v[7] = s->Find_00288960(0x565a4953, 0x31544c46);
+        v[8] = s->Find_00288960(((int)0x495053), 0x31544c46);
+        v[9] = s->Find_00288960(0x56495053, 0x31544c46);
+        v[10] = s->Find_00288960(((hulk_intptr)((char*)0x544757)), 0x31544c46);
+        v[11] = s->Find_00288960(0x56544757, 0x31544c46);
+        v[12] = s->Find_00288960(((int)0x415247), 0x31544c46);
+        v[13] = s->Find_00288960(((int)0x415244), 0x31544c46);
+        v[14] = s->Find_00288960(((hulk_intptr)((char*)0x524c43)), ((hulk_intptr)((char*)0x524c43)));
+        v[15] = s->Find_00288960(0x56524c43, ((hulk_intptr)((char*)0x544e49)));
+        v[16] = s->Find_00288960(((hulk_intptr)((char*)0x504c41)), ((hulk_intptr)((char*)0x544e49)));
+        v[17] = s->Find_00288960(0x56504c41, ((hulk_intptr)((char*)0x544e49)));
     }
 }
 
@@ -774,16 +774,16 @@ State_2d4200* State_2d4200::FUN_002d4200() {
 // 0x002d4350 FUN_002d4350 (92 B): matches/0x002d4350.cpp
 // sym: ?f@OverLifeAttributes_2d4350@fn_f0cbe20f@@QAEXXZ
 void OverLifeAttributes_2d4350::f() {
-    vptr = (hulk_uintptr)&vt1_2d4350;
-    drop(a[0]);
-    drop(a[1]);
-    drop(a[2]);
-    drop(a[3]);
-    drop(a[4]);
-    drop(a[5]);
-    drop(a[6]);
-    drop(a[7]);
-    vptr = (hulk_uintptr)&vt2_2d4350;
+    vptr = (hulk_uintptr)&hulk_at_0042f27c;
+    drop_0008d340(a[0]);
+    drop_0008d340(a[1]);
+    drop_0008d340(a[2]);
+    drop_0008d340(a[3]);
+    drop_0008d340(a[4]);
+    drop_0008d340(a[5]);
+    drop_0008d340(a[6]);
+    drop_0008d340(a[7]);
+    vptr = (hulk_uintptr)&hulk_at_003f6098;
 }
 
 } // namespace fn_f0cbe20f
@@ -1262,7 +1262,7 @@ namespace fn_f0cbe20f {
 // 0x002d4b50 FUN_002d4b50 (126 B): matches/0x002d4b50.cpp
 // sym: ??1ParticleEmitter_2d4b50@fn_f0cbe20f@@QAE@XZ
 ParticleEmitter_2d4b50::~ParticleEmitter_2d4b50() {
-    vptr = g_vftable_2d4b50;
+    vptr = hulk_at_0042f1e4;
     _ReadWriteBarrier();
     if (m80) {
         m80->Release();
@@ -1284,7 +1284,7 @@ ParticleEmitter_2d4b50::~ParticleEmitter_2d4b50() {
         m90->Release();
         m90 = 0;
     }
-    Fin();
+    Fin_002a50a0();
 }
 
 } // namespace fn_f0cbe20f
@@ -1994,10 +1994,10 @@ namespace fn_f0cbe20f {
 // sym: ?target@SpriteParticleEmitter_2d5ec0@fn_f0cbe20f@@QAEXH@Z
 void SpriteParticleEmitter_2d5ec0::target(int arg) {
     if (!flag)
-        inner.A(arg, items[index], (char*)this + 0x40);
+        inner.FnA_002d53d0(arg, items[index], (char*)this + 0x40);
     else {
         int* q = items + index;
-        inner.B(arg, q[0], q[1], value9c, (char*)this + 0x40);
+        inner.FnB_002d50c0(arg, q[0], q[1], value9c, (char*)this + 0x40);
     }
 }
 
@@ -2064,7 +2064,7 @@ namespace fn_f0cbe20f {
 // 0x002d63a0 FUN_002d63a0 (73 B): matches/0x002d63a0.cpp
 // sym: ??0SpriteParticleEmitter_2d63a0@fn_f0cbe20f@@QAE@XZ
 SpriteParticleEmitter_2d63a0::SpriteParticleEmitter_2d63a0() {
-    sub.Init();
+    sub.Init_002d4200();
     f1bc = 0;
     f1c0 = 0;
     f1c4 = 0;
@@ -2265,7 +2265,7 @@ SpriteParticleEmitter::~SpriteParticleEmitter() {
 void* pure3d::SpriteParticleEmitter::vfunc_4() {
     Obj_2d66b0* p = alloc(0x1e0);
     if (p)
-        return (void*)(p->run(this));
+        return (void*)(p->run_002d63f0(this));
     return (void*)(0);
 }
 

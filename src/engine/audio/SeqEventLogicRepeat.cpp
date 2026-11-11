@@ -315,10 +315,10 @@ namespace audio { class SeqCommandLogicRepeat : public SeqCommand {
     virtual void vfunc_0();
     virtual SeqCommandLogicRepeat* vfunc_1(int);
 }; }
-extern int SeqCommand_vftable;
+extern int hulk_at_00429ac8;
 extern "C" void __cdecl FUN_00247550(void*, void*);
 audio::SeqCommandLogicRepeat* audio::SeqCommandLogicRepeat::vfunc_1(int x) {
-    *(hulk_intptr*)this = (hulk_intptr)&SeqCommand_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00429ac8;
     if (x & 1)
         FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e7360))), this);
     return this;

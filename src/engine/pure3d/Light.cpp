@@ -72,7 +72,7 @@ struct Manager_2a0770 {
     virtual void f37();
     virtual void f38(int, int);
 };
-extern Manager_2a0770* gManager_2a0770;
+extern Manager_2a0770* hulk_at_0052c2a8;
 class C_2a07a0 {
   public:
     virtual void f0();
@@ -105,10 +105,10 @@ class C_2a0820 {
     unsigned char field;
     void target(unsigned char);
 };
-extern void* Entity_2a0ad0_vftable[];
+extern void* hulk_at_0042d668[];
 class Entity_2a0ad0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class Light_2a0ad0 : public Entity_2a0ad0 {
   public:
@@ -157,7 +157,7 @@ void pure3d::Light::vfunc_5(int x) {
 // sym: ?vfunc_6@Light@pure3d@@UAEXXZ
 void pure3d::Light::vfunc_6() {
     if (this->f_24 != -1) {
-        gManager_2a0770->f38(this->f_24, 0);
+        hulk_at_0052c2a8->f38(this->f_24, 0);
         this->f_10 = 0;
         this->f_24 = -1;
     }
@@ -307,8 +307,8 @@ namespace fn_fc62e156 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 Light_2a0ad0* Light_2a0ad0::vfunc_5(signed char flags) {
-    *(void***)this = Entity_2a0ad0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042d668;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

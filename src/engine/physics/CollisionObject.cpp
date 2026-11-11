@@ -35,8 +35,8 @@ class Inner_3046f0 {
     virtual void f8();
     virtual void f9();
     virtual void f10();
-    void Stop();
-    void Start();
+    void Stop_00306380();
+    void Start_00306300();
 };
 class Obj_3046f0 {
   public:
@@ -48,8 +48,8 @@ class Obj_3046f0 {
     char a, b;
     void Set(char x);
 };
-extern "C" void* __cdecl AllocFunc(int size);
-extern "C" void __cdecl FreeFunc(void* ptr);
+extern "C" void* __cdecl AllocFunc_0008d6d0(int size);
+extern "C" void __cdecl FreeFunc_0008d340(void* ptr);
 } // namespace fn_f3c9f944
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memcpy(void* dst, const void* src, size_t size);
@@ -90,8 +90,8 @@ class Ref_304b40 {
   public:
     virtual void A();
     virtual void B();
-    int Resolve(int, unsigned char);
-    void Update(CollisionObject_304b40*);
+    int Resolve_00306190(int, unsigned char);
+    void Update_003065b0(CollisionObject_304b40*);
 };
 struct Entry_304b40 {
     int a;
@@ -135,13 +135,13 @@ class Buffer_304da0 {
     int capacity;
     Item_304da0* data;
     Buffer_304da0& Assign(const Buffer_304da0& other);
-    void Reserve(int n);
+    void Reserve_00304930(int n);
 };
 struct Container_304e50 {
     int count;
     int capacity;
     char* data;
-    void Ensure(int);
+    void Ensure_00304930(int);
     char* Next();
 };
 struct Item { char pad[8]; void *allocation; char tail[4]; };
@@ -216,10 +216,10 @@ struct Vec_305190 {
     int count;
     int cap;
     Ent_305190* data;
-    void Grow(int n);
+    void Grow_00304930(int n);
 };
 struct Sub_305190 {
-    int F(int a, unsigned char b);
+    int FnF_00306190(int a, unsigned char b);
 };
 class T_305190 {
   public:
@@ -250,7 +250,7 @@ extern "C" double sin(double);
 namespace fn_f3c9f944 {
 struct Vec_3059c0 {
     float x, y, z;
-    float Len();
+    float Len_0022d110();
 };
 struct Q_3059c0 {
     float x, y, z, w;
@@ -285,7 +285,7 @@ struct Vec3_305f00 {
 };
 typedef int u32_306060;
 extern "C" bool __cdecl Check1(u32_306060, hulk_intptr, u32_306060);
-extern "C" char __cdecl Check2(u32_306060, u32_306060, u32_306060);
+extern "C" char __cdecl Check2_00305c00(u32_306060, u32_306060, u32_306060);
 class CollisionVolume_3060a0 {
   public:
     void* vptr;
@@ -384,11 +384,11 @@ Obj_304640::Obj_304640() : m0(0), m4(0), m8(0), m9(0), mc(0), m10(0) {}
 void Obj_3046f0::Set(char x) {
     if (active && !x) {
         active = x;
-        inner->Stop();
+        inner->Stop_00306380();
     } else if (!active && x) {
         inner->f10();
         active = x;
-        inner->Start();
+        inner->Start_00306300();
         a = 0;
         b = 0;
     }
@@ -412,7 +412,7 @@ void owners::Buffer_3048a0::FUN_003048a0(int newCapacity) {
     if (mCapacity >= newCapacity)
         return;
 
-    void* newData = AllocFunc(newCapacity);
+    void* newData = AllocFunc_0008d6d0(newCapacity);
     if (mSize > 0) {
         if (mFlag) {
             for (int i = 0; i < mSize; ++i) {
@@ -423,7 +423,7 @@ void owners::Buffer_3048a0::FUN_003048a0(int newCapacity) {
         }
     }
 
-    FreeFunc(mData);
+    FreeFunc_0008d340(mData);
     mData = newData;
     mCapacity = newCapacity;
 }
@@ -501,12 +501,12 @@ void CollisionObject_304b40::Set(Ref_304b40* p) {
     if (current)
         current->B();
     current = p;
-    p->Update(this);
+    p->Update_003065b0(this);
     flag = 1;
     for (int i = 0; i < count; ++i) {
         Entry_304b40* e = (Entry_304b40*)((char*)entries + i * 0x14);
-        e->x = current->Resolve(e->a, e->c[0]);
-        e->y = current->Resolve(e->b, e->c[1]);
+        e->x = current->Resolve_00306190(e->a, e->c[0]);
+        e->y = current->Resolve_00306190(e->b, e->c[1]);
     }
 }
 
@@ -588,7 +588,7 @@ namespace fn_f3c9f944 {
 // sym: ?Assign@Buffer_304da0@fn_f3c9f944@@QAEAAV12@ABV12@@Z
 Buffer_304da0& Buffer_304da0::Assign(const Buffer_304da0& other) {
     if (capacity < other.capacity)
-        Reserve(other.capacity);
+        Reserve_00304930(other.capacity);
     count = other.count;
     for (int i = 0; i < count; ++i)
         data[i] = other.data[i];
@@ -601,7 +601,7 @@ Buffer_304da0& Buffer_304da0::Assign(const Buffer_304da0& other) {
 char* Container_304e50::Next() {
     int cap = capacity;
     if (count >= cap)
-        Ensure(cap * 2);
+        Ensure_00304930(cap * 2);
     ++count;
     return data + count * 20 - 20;
 }
@@ -775,27 +775,27 @@ class CollisionObject {
 };
 class H38_304ff0 {
   public:
-    void run();
+    void run_00304e80();
 };
 class H10_304ff0 {
   public:
-    void run();
+    void run_0027af50();
 };
 class CollisionObject_304ff0 {
   public:
-    void run();
+    void run_0027afd0();
 };
-extern void thunk(void*);
+extern void thunk_0008d340(void*);
 void CollisionObject::destroy() {
     Ref_304ff0* r = mRef;
     vptr = ((hulk_intptr)DAT_00431b08);
     if (r)
         r->f1();
-    ((H38_304ff0*)sub)->run();
+    ((H38_304ff0*)sub)->run_00304e80();
     if (mPtr)
-        thunk((char*)mPtr - 4);
-    ((H10_304ff0*)((char*)this + 0x10))->run();
-    ((CollisionObject_304ff0*)this)->run();
+        thunk_0008d340((char*)mPtr - 4);
+    ((H10_304ff0*)((char*)this + 0x10))->run_0027af50();
+    ((CollisionObject_304ff0*)this)->run_0027afd0();
 }
 } // namespace fn_00304ff0
 
@@ -866,7 +866,7 @@ void T_305190::Add(int a, int b, int c, unsigned char d) {
     Vec_305190* v = &mVec;
     mFlag = 1;
     if (v->count >= v->cap)
-        v->Grow(v->cap * 2);
+        v->Grow_00304930(v->cap * 2);
     v->count++;
     Ent_305190* e = &v->data[v->count - 1];
     e->a = a;
@@ -874,8 +874,8 @@ void T_305190::Add(int a, int b, int c, unsigned char d) {
     e->c = (char)c;
     e->d = d;
     if (mSub) {
-        e->x = mSub->F(a, c);
-        e->y = mSub->F(e->b, e->d);
+        e->x = mSub->FnF_00306190(a, c);
+        e->y = mSub->FnF_00306190(e->b, e->d);
     }
 }
 
@@ -926,18 +926,18 @@ class Ref_305320 {
     virtual void f0();
     virtual void f1();
 };
-extern int collisionVtable;
+extern int hulk_at_00431b08;
 class H38_305320 {
   public:
-    void run38();
+    void run38_00304e80();
 };
 class H10_305320 {
   public:
-    void run10();
+    void run10_0027af50();
 };
 class CollisionObject_305320 {
   public:
-    void run0();
+    void run0_0027afd0();
 };
 namespace physics { class CollisionObject {
   public:
@@ -955,21 +955,21 @@ namespace physics { class CollisionObject {
     hulk_intptr field30;
     char pad34[4];
 }; }
-void __cdecl freeA(void*);
-void __cdecl freeB(void*);
+void __cdecl freeA_0008d340(void*);
+void __cdecl freeB_00263f30(void*);
 physics::CollisionObject* physics::CollisionObject::vfunc_2(unsigned char p) {
-    *(hulk_intptr*)this = (hulk_intptr)&collisionVtable;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00431b08;
     if (field20) {
         Ref_305320* r = *(Ref_305320**)&field20;
         r->f1();
     }
-    ((H38_305320*)((char*)this + 0x38))->run38();
+    ((H38_305320*)((char*)this + 0x38))->run38_00304e80();
     if (field30)
-        freeA((char*)field30 - 4);
-    ((H10_305320*)((char*)this + 0x10))->run10();
-    ((CollisionObject_305320*)this)->run0();
+        freeA_0008d340((char*)field30 - 4);
+    ((H10_305320*)((char*)this + 0x10))->run10_0027af50();
+    ((CollisionObject_305320*)this)->run0_0027afd0();
     if (p & 1)
-        freeB(this);
+        freeB_00263f30(this);
     return this;
 }
 } // namespace fn_00305320
@@ -1137,7 +1137,7 @@ namespace fn_f3c9f944 {
 extern "C" bool FUN_003059c0(Vec_3059c0* a, Q_3059c0* b) {
     Vec_3059c0 v = *a;
     bool r = false;
-    hulk_freg t = v.Len();
+    hulk_freg t = v.Len_0022d110();
     if (t > 0.0001f) {
         t = t * 0.5f;
         b->w = (hulk_freg)cos(t);
@@ -1311,7 +1311,7 @@ extern "C" bool __cdecl FUN_00306060(u32_306060 a, u32_306060 b, u32_306060 c) {
     char r = Check1(a, b, c);
     if (r == 0)
         return false;
-    return Check2(a, b, c);
+    return Check2_00305c00(a, b, c);
 }
 
 

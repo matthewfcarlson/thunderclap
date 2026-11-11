@@ -37,7 +37,7 @@ struct V {
 class C_262ec0 {
     char pad[0x10];
 };
-extern void __fastcall f(void*);
+extern void __fastcall Fnf_00240060(void*);
 class Device_262ee0 {
   public:
     virtual void f0();
@@ -68,7 +68,7 @@ extern "C" u8 __cdecl FUN_0024c2b0(u32_262f70);
 extern "C" u32_262f70 __cdecl FUN_0024c2f0(void*);
 class Inner_262fc0 {
   public:
-    void call();
+    void call_0023fb00();
 };
 struct Dev_262fe0 {
     virtual void v0();
@@ -92,7 +92,7 @@ struct Dev_262fe0 {
     virtual void v18();
     virtual void Sync(unsigned* g);
 };
-void G1(unsigned*, int);
+void G1_0026d860(unsigned*, int);
 extern "C" void FUN_0026d890(unsigned*);
 extern "C" void FUN_0026d880(unsigned*);
 class HalRsdFileStream {
@@ -188,7 +188,7 @@ class Obj_263420 {
 }
 namespace audio {
 struct Aux_263420 {
-    void f();
+    void Fnf_00240060();
 };
 }
 namespace fn_fe2967ee {
@@ -214,8 +214,8 @@ extern "C" Stream* __cdecl FUN_00262e60(int param) {
 // 0x00262ec0 FUN_00262ec0 (20 B): matches/0x00262ec0.cpp
 // sym: ?target@fn_fe2967ee@@YIXPAVC_262ec0@1@@Z
 void __fastcall target(C_262ec0* self) {
-    f((char*)self + 0x10);
-    f((char*)self + 4);
+    Fnf_00240060((char*)self + 0x10);
+    Fnf_00240060((char*)self + 4);
 }
 
 } // namespace fn_fe2967ee
@@ -272,7 +272,7 @@ void* audio::HalRsdFileStream::vfunc_9(int index) {
 // sym: ?vfunc_10@HalRsdFileStream@audio@@UAEXXZ
 // Same code shape as 0x002226e0 (propagated; names are from that function)
 void audio::HalRsdFileStream::vfunc_10() {
-    ((Inner_262fc0*)((char*)this + 0x10))->call();
+    ((Inner_262fc0*)((char*)this + 0x10))->call_0023fb00();
 }
 
 
@@ -293,7 +293,7 @@ unsigned HalRsdFileStream::vfunc_7(int a, int b, unsigned n) {
     else
         mLen = n;
     if (mLen > 0) {
-        G1(&n, 0);
+        G1_0026d860(&n, 0);
         mDev->Read(a, mLen, b);
         mDev->Sync(&n);
         FUN_0026d890(&n);
@@ -479,8 +479,8 @@ void audio::HalRsdFileStream::vfunc_12() {
         (*(Obj_263420 * *)&this->f_20)->f1();
     if ((*(void * *)&this->f_24))
         FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e7b50))), (*(void * *)&this->f_24));
-    ((audio::Aux_263420*)((char*)this + 0x10))->f();
-    ((audio::Aux_263420*)((char*)this + 4))->f();
+    ((audio::Aux_263420*)((char*)this + 0x10))->Fnf_00240060();
+    ((audio::Aux_263420*)((char*)this + 4))->Fnf_00240060();
     FUN_00247550((void*)((hulk_intptr)((char*)&DAT_004e7b98)), this);
 }
 

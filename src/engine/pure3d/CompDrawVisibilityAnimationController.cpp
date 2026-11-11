@@ -22,18 +22,18 @@ class SceneGraphVisibilityAnimationController {
     char pad[0x3c];
     int a;
     int b;
-    void base_ctor();
-    void base_init(int);
+    void base_ctor_00284cd0();
+    void base_init_00284ad0(int);
     void* init();
 };
 struct SceneGraphVisibilityAnimationController_nv_2a7c30 {
-    void init(pure3d::SceneGraphVisibilityAnimationController*);
-    void setup(int);
+    void init_00285780(pure3d::SceneGraphVisibilityAnimationController*);
+    void setup_00284ad0(int);
 };
-extern void* __cdecl alloc(hulk_uintptr);
-extern int vtable_2a7c30;
+extern void* __cdecl alloc_00263ea0(hulk_uintptr);
+extern int hulk_at_0042dc24;
 struct Helper_2a7d10 {
-    void Decode(void* a, u8* out);
+    void Decode_0028ac90(void* a, u8* out);
 };
 extern "C" char DAT_0048f610[];
 extern "C" char DAT_004ce8a4[];
@@ -43,7 +43,7 @@ extern void* const VisibilityNodeRTTI;
 extern u32_2a7e90 __cdecl FindType(hulk_uintptr, int, void*, void*, int);
 class Obj_2a7ec0 {
   public:
-    void Fn(void*, unsigned char*);
+    void Fn_0028ac90(void*, unsigned char*);
 };
 struct A_2a7ec0 {
     char pad[0x28];
@@ -71,11 +71,11 @@ struct X_2a7fd0 {
     u32_2a7fd0 b;
     void f();
 };
-extern void* Alloc(hulk_uintptr);
+extern void* Alloc_0008d6d0(hulk_uintptr);
 extern "C" int * __cdecl FUN_002a7f30(int *, int, const int *);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 extern "C" char * __cdecl FUN_002a7f60(char *, int, const char *);
-extern void* g_vftable[];
+extern void* hulk_at_0042dc94[];
 class SimpleFrameController_2a80c0 {
   public:
     SimpleFrameController_2a80c0();
@@ -94,7 +94,7 @@ class CompDrawVisibilityAnimationController_2a80c0 : public SimpleFrameControlle
     int m54;
 };
 extern int vt1_2a80f0;
-extern void Free(void*);
+extern void Free_0008d340(void*);
 class SimpleFrameController_2a80f0 {
   public:
     void* vptr;
@@ -110,11 +110,11 @@ class CompDrawVisibilityAnimationController_2a80f0 : public SimpleFrameControlle
     ~CompDrawVisibilityAnimationController_2a80f0() throw();
 };
 extern int vt1_2a8170;
-extern void Free2(void*);
+extern void Free2_00263f30(void*);
 class SimpleFrameController_2a8170 {
   public:
     void* vptr;
-    void Fini();
+    void Fini_00285800();
 };
 class CompDrawVisibilityAnimationController_2a8170 : public SimpleFrameController_2a8170 {
   public:
@@ -179,23 +179,23 @@ class Obj_2a8360 {
     u32_2a8360 unused4c;
     u32_2a8360 a50;
     u32_2a8360 a54;
-    void init(pure3d::CompDrawVisibilityAnimationController*);
+    void init_00285780(pure3d::CompDrawVisibilityAnimationController*);
 };
 extern void* __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 struct Helper_2a83b0 {
 };
-extern char Entity_RTTI;
-extern char CompositeDrawable_RTTI;
+extern char hulk_at_0048f610;
+extern char hulk_at_0049b9b8;
 
 
 // 0x002a7b90 FUN_002a7b90 (35 B): matches/0x002a7b90.cpp
 // sym: ?init@SceneGraphVisibilityAnimationController@fn_fadd80aa@@QAEPAXXZ
 void* SceneGraphVisibilityAnimationController::init() {
-    base_ctor();
+    base_ctor_00284cd0();
     vtable = (void*)((hulk_intptr)DAT_0042dc24);
     a = 0;
     b = 0;
-    base_init(1);
+    base_init_00284ad0(1);
     return this;
 }
 
@@ -212,13 +212,13 @@ bool pure3d::SceneGraphVisibilityAnimationController::vfunc_3() {
 // 0x002a7c30 pure3d::SceneGraphVisibilityAnimationController::vfunc_4 (72 B): matches/0x002a7c30.cpp
 // sym: ?vfunc_4@SceneGraphVisibilityAnimationController@pure3d@@UAEPAXXZ
 void* pure3d::SceneGraphVisibilityAnimationController::vfunc_4() {
-    pure3d::SceneGraphVisibilityAnimationController* p = (pure3d::SceneGraphVisibilityAnimationController*)alloc(0x48);
+    pure3d::SceneGraphVisibilityAnimationController* p = (pure3d::SceneGraphVisibilityAnimationController*)alloc_00263ea0(0x48);
     if (p) {
-        ((SceneGraphVisibilityAnimationController_nv_2a7c30*)(p))->init(this);
-        *(hulk_intptr*)p = (hulk_intptr)&vtable_2a7c30;
+        ((SceneGraphVisibilityAnimationController_nv_2a7c30*)(p))->init_00285780(this);
+        *(hulk_intptr*)p = (hulk_intptr)&hulk_at_0042dc24;
         (*(int *)&p->f_40) = (*(int *)&this->f_40);
         p->f_44 = 0;
-        ((SceneGraphVisibilityAnimationController_nv_2a7c30*)(p))->setup(1);
+        ((SceneGraphVisibilityAnimationController_nv_2a7c30*)(p))->setup_00284ad0(1);
         p->f_44 = this->f_44;
         return (void*)(p);
     }
@@ -262,7 +262,7 @@ class SimpleFrameController {
 };
 class D {
   public:
-    void* get(void*, int);
+    void* get_00288960(void*, int);
 };
 class C_2a7c80 {
   public:
@@ -276,7 +276,7 @@ class SceneGraphVisibilityAnimationController : public SimpleFrameController {
 void SceneGraphVisibilityAnimationController::vfunc_24(int a, int b, int c) {
     SimpleFrameController::vfunc_24(a, b, c);
     D* d = ((D *)((owners::Target_288a10 *)field3c)->FUN_00288a10(0));
-    field40 = d->get((void*)((hulk_intptr)((char*)0x534956)), 0x4c4f4f42);
+    field40 = d->get_00288960((void*)((hulk_intptr)((char*)0x534956)), 0x4c4f4f42);
 }
 } // namespace fn_002a7c80
 
@@ -302,7 +302,7 @@ void owners::Thing_2a7cf0::FUN_002a7cf0(hulk_intptr x) {
 // sym: ?vfunc_7@SceneGraphVisibilityAnimationController@pure3d@@UAEXXZ
 void pure3d::SceneGraphVisibilityAnimationController::vfunc_7() {
     u8 x;
-    (*(Helper_2a7d10 * *)&this->f_40)->Decode((*(void * *)&this->f_34), &x);
+    (*(Helper_2a7d10 * *)&this->f_40)->Decode_0028ac90((*(void * *)&this->f_34), &x);
     *((u8*)(*(void * *)&this->f_44) + 0x28) = x;
 }
 
@@ -395,7 +395,7 @@ void pure3d::CompDrawVisibilityAnimationController::vfunc_7() {
     for (int i = 0; i < n; i++) {
         if ((*(unsigned char * *)&this->f_50)[i] != 0xff && (*(Obj_2a7ec0 ** *)&this->f_44)[i]) {
             unsigned char x;
-            (*(Obj_2a7ec0 ** *)&this->f_44)[i]->Fn((*(void * *)&this->f_34), &x);
+            (*(Obj_2a7ec0 ** *)&this->f_44)[i]->Fn_0028ac90((*(void * *)&this->f_34), &x);
             (*(C_2a7ec0 * *)&this->f_40)->b->bytes[(*(unsigned char * *)&this->f_50)[i] * 12] = x;
         }
     }
@@ -470,7 +470,7 @@ bool owners::Buffer_2a8000::FUN_002a8000(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc(count * 4);
+        int* p = (int*)Alloc_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -509,7 +509,7 @@ namespace fn_fadd80aa {
 // sym: ??0CompDrawVisibilityAnimationController_2a80c0@fn_fadd80aa@@QAE@XZ
 CompDrawVisibilityAnimationController_2a80c0::CompDrawVisibilityAnimationController_2a80c0() {
     m40 = 0;
-    *(void**)this = g_vftable;
+    *(void**)this = hulk_at_0042dc94;
     _ReadWriteBarrier();
     m44 = 0;
     m48 = 0;
@@ -525,9 +525,9 @@ CompDrawVisibilityAnimationController_2a80f0::~CompDrawVisibilityAnimationContro
     a40 = 0;
     _ReadWriteBarrier();
     if (a50)
-        Free(a50);
+        Free_0008d340(a50);
     if (a44)
-        Free((void*)a44);
+        Free_0008d340((void*)a44);
 }
 
 
@@ -538,12 +538,12 @@ CompDrawVisibilityAnimationController_2a8170* CompDrawVisibilityAnimationControl
     a40 = 0;
     _ReadWriteBarrier();
     if (a50)
-        Free(a50);
+        Free_0008d340(a50);
     if (a44)
-        Free((void*)a44);
-    Fini();
+        Free_0008d340((void*)a44);
+    Fini_00285800();
     if (f & 1)
-        Free2(this);
+        Free2_00263f30(this);
     return this;
 }
 
@@ -610,9 +610,9 @@ void pure3d::CompDrawVisibilityAnimationController::FUN_002a8310(int x) {
 // 0x002a8360 pure3d::CompDrawVisibilityAnimationController::vfunc_4 (77 B): matches/0x002a8360.cpp
 // sym: ?vfunc_4@CompDrawVisibilityAnimationController@pure3d@@UAEPAXXZ
 void* pure3d::CompDrawVisibilityAnimationController::vfunc_4() {
-    Obj_2a8360* p = (Obj_2a8360*)alloc(0x60);
+    Obj_2a8360* p = (Obj_2a8360*)alloc_00263ea0(0x60);
     if (p) {
-        p->init(this);
+        p->init_00285780(this);
         p->value = 0;
         p->vf = ((hulk_intptr)DAT_0042dc94);
         p->a44 = 0;
@@ -631,7 +631,7 @@ void* pure3d::CompDrawVisibilityAnimationController::vfunc_4() {
 // sym: ?vfunc_5@CompDrawVisibilityAnimationController@pure3d@@UAEXPAX@Z
 void pure3d::CompDrawVisibilityAnimationController::vfunc_5(void* __p0) { void * arg = (void *)__p0;
 
-    (*(void * *)&this->f_40) = FUN_00344e74(arg, 0, &Entity_RTTI, &CompositeDrawable_RTTI, 0);
+    (*(void * *)&this->f_40) = FUN_00344e74(arg, 0, &hulk_at_0048f610, &hulk_at_0049b9b8, 0);
     ((pure3d::CompDrawVisibilityAnimationController *)(((Helper_2a83b0*)this)))->FUN_002a81c0();
 }
 

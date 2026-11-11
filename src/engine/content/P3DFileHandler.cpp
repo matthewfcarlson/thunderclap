@@ -15,7 +15,7 @@ namespace fn_f638de75 {} using namespace fn_f638de75;
 // ---- declarations shared by the functions below
 namespace fn_f638de75 {
 extern "C" void Init(void*);
-extern "C" void AddRef(void*);
+extern "C" void AddRef_0008d340(void*);
 extern "C" void Release(void*);
 struct Obj_265bf0 {
     char pad0[1];
@@ -161,12 +161,12 @@ void __fastcall Target(Obj_265bf0* self) {
     self->m28 = p;
     self->m2c = p;
     if (p)
-        AddRef(p);
+        AddRef_0008d340(p);
     p = self->m1c;
     self->m14 = p;
     self->m18 = p;
     if (p)
-        AddRef(p);
+        AddRef_0008d340(p);
     Release(self);
 }
 

@@ -68,7 +68,7 @@ namespace physics {
 struct SimCGSValue { virtual void slot0(); float a; float value; void FUN_002ecca0(); };
 }
 namespace physics {
-struct SimLength : SimCGSValue { void FUN_002ecf20(int); void vfunc_1(float); };
+struct SimLength : SimCGSValue { void FUN_002ecf20(int); void vfunc_1_002ecd50(float); };
 }
 struct Body_308ba0 { float FUN_002ef420(); };
 struct Properties_308ba0 { char pad[0x28]; float mass; float unused; float stiffness; };
@@ -108,7 +108,7 @@ class HairclubPhysicsObject {
     int field1f8;
 };
 struct ThisCall_002f5480 {
-    void BaseCtor();
+    void BaseCtor_002f5480();
 };
 
 } // namespace fn_f05f0e87
@@ -214,7 +214,7 @@ bool Target_308ba0::update(float dt) {
   physics::SimLength& temp=static_cast<physics::SimLength&>(storage);
   temp.FUN_002ecf20(0);
   Body_308ba0* b=owner->body;
-  temp.vfunc_1(b ? b->FUN_002ef420() : 100.0f);
+  temp.vfunc_1_002ecd50(b ? b->FUN_002ef420() : 100.0f);
   double v=(double)lengthScale/temp.value;
   length=temp.value;
   dirty=0;
@@ -235,7 +235,7 @@ SimpleFilterAbs3D::SimpleFilterAbs3D()
 // 0x00308da0 FUN_00308da0 (35 B): matches/0x00308da0.cpp
 // sym: ?FUN_00308da0@fn_f05f0e87@@YIPAVHairclubPhysicsObject@1@PAV21@@Z
 HairclubPhysicsObject* __fastcall FUN_00308da0(HairclubPhysicsObject* self) {
-    ((ThisCall_002f5480*)(self))->BaseCtor();
+    ((ThisCall_002f5480*)(self))->BaseCtor_002f5480();
     self->vftable = ((hulk_intptr)DAT_00431d1c);
     self->field1f8 = 0;
     self->field24 = 2;

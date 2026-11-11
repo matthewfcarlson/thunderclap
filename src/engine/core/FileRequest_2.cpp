@@ -32,8 +32,8 @@ class Alloc_274eb0 {
     virtual void d();
     virtual void Free(void* p);
 };
-extern void* ReqVtbl[];
-extern void* FileReqVtbl[];
+extern void* hulk_at_0042b914[];
+extern void* hulk_at_0042b99c[];
 class Sub_274eb0 {
   public:
     virtual void a();
@@ -88,10 +88,10 @@ class FileOpenByKeyRequest_274fc0 {
     char pad[12 - 4];
     int y;
     int z;
-    void Init(int);
+    void Init_00274e60(int);
     FileOpenByKeyRequest_274fc0(hulk_intptr, int, hulk_intptr);
 };
-extern void Finish();
+extern void Finish_002705f0();
 class Alloc_274ff0 {
   public:
     virtual void a();
@@ -121,7 +121,7 @@ class FileOpenByKeyRequest_274ff0 {
     FileOpenByKeyRequest_274ff0* Dtor(unsigned char flag);
 };
 extern "C" char DAT_0042ba40[];
-void FreeFinish();
+void FreeFinish_002705f0();
 class SaveGameOpenRequest {
   public:
     hulk_intptr vptr;
@@ -131,7 +131,7 @@ class SaveGameOpenRequest {
     char pad11[3];
     int field14;
     int field18;
-    void init(int);
+    void init_00274e60(int);
     SaveGameOpenRequest* FUN_00275060(int, int, unsigned char, int, int);
 };
 class Inner_2750a0 {
@@ -214,12 +214,12 @@ CoreRequest* FileRequest_274e60::run(hulk_uintptr arg) {
 // sym: ?Dtor@FileRequest@fn_f7190711@@QAEPAV12@E@Z
 // data: gAlloc_274eb0 = DAT_0052a1e4
 FileRequest* FileRequest::Dtor(unsigned char flag) {
-    vt = FileReqVtbl;
+    vt = hulk_at_0042b99c;
     mH->mSub.a();
     mH->mCount--;
     mH->mSub.b();
     mH->b();
-    vt = ReqVtbl;
+    vt = hulk_at_0042b914;
     if (flag & 1) {
         FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(Alloc_274eb0**)&DAT_0052a1e4)->Free(this);
@@ -263,11 +263,11 @@ FileOpenRequest_274f50* FileOpenRequest_274f50::f0(unsigned char flags) {
 // 0x00274fc0 FUN_00274fc0 (44 B): matches/0x00274fc0.cpp
 // sym: ??0FileOpenByKeyRequest_274fc0@fn_f7190711@@QAE@HHH@Z
 FileOpenByKeyRequest_274fc0::FileOpenByKeyRequest_274fc0(hulk_intptr x, int yy, hulk_intptr zz) {
-    Init(x);
+    Init_00274e60(x);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042ba20);
     y = yy;
     z = zz;
-    Finish();
+    Finish_002705f0();
 }
 
 
@@ -275,12 +275,12 @@ FileOpenByKeyRequest_274fc0::FileOpenByKeyRequest_274fc0(hulk_intptr x, int yy, 
 // sym: ?Dtor@FileOpenByKeyRequest_274ff0@fn_f7190711@@QAEPAV12@E@Z
 // data: gAlloc_274ff0 = DAT_0052a1e4
 FileOpenByKeyRequest_274ff0* FileOpenByKeyRequest_274ff0::Dtor(unsigned char flag) {
-    vt = FileReqVtbl;
+    vt = hulk_at_0042b99c;
     mH->mSub.a();
     mH->mCount--;
     mH->mSub.b();
     mH->b();
-    vt = ReqVtbl;
+    vt = hulk_at_0042b914;
     if (flag & 1) {
         FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(Alloc_274ff0**)&DAT_0052a1e4)->Free(this);
@@ -293,13 +293,13 @@ FileOpenByKeyRequest_274ff0* FileOpenByKeyRequest_274ff0::Dtor(unsigned char fla
 // 0x00275060 FUN_00275060 (58 B): matches/0x00275060.cpp
 // sym: ?FUN_00275060@SaveGameOpenRequest@fn_f7190711@@QAEPAV12@HHEHH@Z
 SaveGameOpenRequest* SaveGameOpenRequest::FUN_00275060(int a, int b, unsigned char c, int d, int e) {
-    init(a);
+    init_00274e60(a);
     fieldC = b;
     vptr = ((hulk_intptr)DAT_0042ba40);
     field10 = c;
     field14 = d;
     field18 = e;
-    FreeFinish();
+    FreeFinish_002705f0();
     return this;
 }
 

@@ -21,14 +21,14 @@ namespace fn_f105060a {
 class DriveFindFirstRequest {
   public:
     virtual void V0();
-    void InitBase(void*);
+    void InitBase_00275600(void*);
     DriveFindFirstRequest* Init(void* a, char* src, int v);
     char pad0[8];
     char name[0x100];
     char pad[4];
     int value;
 };
-extern int vtDrive, vtRequest;
+extern int hulk_at_0042b9bc, hulk_at_0042b914;
 class Elem_275a30 {
   public:
     virtual void A();
@@ -100,7 +100,7 @@ class DriveFindNextRequest_275ad0 {
 // 0x002759e0 FUN_002759e0 (69 B): matches/0x002759e0.cpp
 // sym: ?Init@DriveFindFirstRequest@fn_f105060a@@QAEPAV12@PAXPADH@Z
 DriveFindFirstRequest* DriveFindFirstRequest::Init(void* a, char* src, int v) {
-    InitBase(a);
+    InitBase_00275600(a);
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042bc00);
     value = v;
     InitMore();
@@ -114,12 +114,12 @@ DriveFindFirstRequest* DriveFindFirstRequest::Init(void* a, char* src, int v) {
 // sym: ?vfunc_0@DriveFindFirstRequest@core@fn_f105060a@@UAEPAV123@H@Z
 // data: globalG = DAT_0052a1e4
 core::DriveFindFirstRequest* core::DriveFindFirstRequest::vfunc_0(int flag) {
-    ((hulk_intptr*)this)[0] = (hulk_intptr)&vtDrive;
+    ((hulk_intptr*)this)[0] = (hulk_intptr)&hulk_at_0042b9bc;
     ((Elem_275a30*)((char*)object + 4))->A();
     --((int*)((char*)object))[5];
     ((Elem_275a30*)((char*)object + 4))->B();
     object->B();
-    ((hulk_intptr*)this)[0] = (hulk_intptr)&vtRequest;
+    ((hulk_intptr*)this)[0] = (hulk_intptr)&hulk_at_0042b914;
     if (flag & 1) {
         FUN_0026d850((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
         (*(G_275a30**)&DAT_0052a1e4)->e(this);

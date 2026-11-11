@@ -22,11 +22,11 @@ class Manager {
     V(67) V(68) V(69) virtual int v70(int);
     V(71) virtual int v72(int);
 };
-extern Manager* gManager;
+extern Manager* hulk_at_0052c2a8;
 void owners::Target_2a31d0::FUN_002a31d0() {
-    Manager* m = gManager;
+    Manager* m = hulk_at_0052c2a8;
     m->v62(0);
-    value = gManager->v55();
+    value = hulk_at_0052c2a8->v55();
     m->v60(5);
     m->v64(1);
     m->v66(1);

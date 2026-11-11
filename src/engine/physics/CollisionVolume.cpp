@@ -34,7 +34,7 @@ class Own_306490 {
 };
 class Sub_306490 {
   public:
-    void Update();
+    void Update_00306490();
 };
 class Vec_306490 {
   public:
@@ -90,7 +90,7 @@ class Node {
 };
 class Child_3065b0 {
   public:
-    void Update(int value);
+    void Update_003065b0(int value);
 };
 class PtrRange_3065b0 {
   public:
@@ -132,8 +132,8 @@ struct Shape_306790 {
 };
 extern "C" bool __cdecl FUN_00306650(void *, void *, float);
 struct CollisionVolume_nv_306910 {
-    void helper1();
-    void helper2();
+    void helper1_00306490();
+    void helper2_00306510();
 };
 class Item_306930 {
 public:
@@ -154,8 +154,8 @@ public:
     void FUN_00306930(Item_306930 *item);
 };
 typedef unsigned char byte_306a90;
-extern void __cdecl Ref(void*);
-extern void __cdecl Free(void*);
+extern void __cdecl Ref_0008d340(void*);
+extern void __cdecl Free_0008d330(void*);
 struct Obj_306a90 {
     int a;
     hulk_intptr b;
@@ -181,7 +181,7 @@ class CollisionVolume_306ac0 {
     Vec_306ac0* v;
     ~CollisionVolume_306ac0() throw();
 };
-extern char VT_306c00[];
+extern char hulk_at_004312dc[];
 class CollisionSphere {
   public:
     CollisionSphere();
@@ -258,7 +258,7 @@ void Cls_306490::Run() {
     }
     if (mVec) {
         for (unsigned i = 0; i < (unsigned)(mVec->mEnd - mVec->mBegin); i++) {
-            mVec->mBegin[i]->Update();
+            mVec->mBegin[i]->Update_00306490();
         }
     }
 }
@@ -316,7 +316,7 @@ void Owner_3065b0::Set(hulk_intptr v) {
         value = v;
         if (items) {
             for (unsigned int i = 0; i < (unsigned int)(items->end - items->begin); ++i) {
-                items->begin[i]->Update(value);
+                items->begin[i]->Update_003065b0(value);
             }
         }
     }
@@ -459,8 +459,8 @@ void physics::CollisionVolume::vfunc_12(CollisionVolume* other, void* arg) {
 // 0x00306910 physics::CollisionVolume::vfunc_10 (28 B): matches/0x00306910.cpp
 // sym: ?vfunc_10@CollisionVolume@physics@@UAEXXZ
 void physics::CollisionVolume::vfunc_10() {
-    ((CollisionVolume_nv_306910*)this)->helper1();
-    ((CollisionVolume_nv_306910*)this)->helper2();
+    ((CollisionVolume_nv_306910*)this)->helper1_00306490();
+    ((CollisionVolume_nv_306910*)this)->helper2_00306510();
     vfunc_8();
     this->f_19 = 1;
 }
@@ -550,9 +550,9 @@ Obj_306a90* Obj_306a90::Run(byte_306a90 flags) {
     hulk_intptr value = a;
     b = value;
     if (value)
-        Ref((void*)value);
+        Ref_0008d340((void*)value);
     if (flags & 1)
-        Free((void*)this);
+        Free_0008d330((void*)this);
     return this;
 }
 
@@ -698,7 +698,7 @@ CollisionSphere::CollisionSphere() {
     j = 0;
     k = 0;
     l = 0x3f800000;
-    vptr = (hulk_intptr)VT_306c00;
+    vptr = (hulk_intptr)hulk_at_004312dc;
 }
 
 } // namespace fn_fecd5d4c

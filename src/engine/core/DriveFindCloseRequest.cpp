@@ -53,7 +53,7 @@ class Obj_2748a0 {
     virtual void s17();
     virtual void s18();
     virtual int call19(void*, int);
-    int* Fetch();
+    int* Fetch_00272880();
 };
 class Sub_2748a0 {
   public:
@@ -164,7 +164,7 @@ void DriveRequest_274860::Run() {
 int core::DriveFindNextRequest::vfunc_1() {
     Obj_2748a0* o = (*(Drive_2748a0 * *)&this->f_08)->obj;
     int r = o->call19((char*)(*(Drive_2748a0 * *)&this->f_08) + 0x1c, this->f_0c);
-    hulk_intptr v = (hulk_intptr)o->Fetch();
+    hulk_intptr v = (hulk_intptr)o->Fetch_00272880();
     (*(Drive_2748a0 * *)&this->f_08)->sub.a();
     (*(Drive_2748a0 * *)&this->f_08)->result = v;
     (*(Drive_2748a0 * *)&this->f_08)->sub.b();

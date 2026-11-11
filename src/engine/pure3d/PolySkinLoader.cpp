@@ -14,8 +14,8 @@ namespace fn_f2d93049 {} using namespace fn_f2d93049;
 
 // ---- declarations shared by the functions below
 namespace fn_f2d93049 {
-extern int vt1_2b8040, vt2;
-extern void Free(void*);
+extern int hulk_at_0042e6e4, hulk_at_003f6098;
+extern void Free_00263f30(void*);
 class Ref_2b8040 {
   public:
     virtual void f0();
@@ -34,7 +34,7 @@ class PolySkinLoader_2b8040 {
 // 0x002b8040 pure3d::PolySkinLoader::vfunc_2 (75 B): matches/0x002b8040.cpp
 // sym: ?vfunc2@PolySkinLoader_2b8040@fn_f2d93049@@QAEPAV12@E@Z
 PolySkinLoader_2b8040* PolySkinLoader_2b8040::vfunc2(unsigned char f) {
-    vptr = &vt1_2b8040;
+    vptr = &hulk_at_0042e6e4;
     _ReadWriteBarrier();
     if (a1c) {
         a1c->Release();
@@ -44,9 +44,9 @@ PolySkinLoader_2b8040* PolySkinLoader_2b8040::vfunc2(unsigned char f) {
         a20->Release();
         a20 = 0;
     }
-    vptr = &vt2;
+    vptr = &hulk_at_003f6098;
     if (f & 1)
-        Free(this);
+        Free_00263f30(this);
     return this;
 }
 

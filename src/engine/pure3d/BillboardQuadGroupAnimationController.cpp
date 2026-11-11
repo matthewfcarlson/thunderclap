@@ -23,7 +23,7 @@ class BillboardQuadGroupAnimationController_2a9760 {
     BillboardQuadGroupAnimationController_2a9760();
 };
 extern "C" char DAT_00475142[];
-extern void* g_vftable_2a98c0[];
+extern void* hulk_at_0042dedc[];
 class Ref_2a98c0 {
   public:
     virtual void F0();
@@ -32,7 +32,7 @@ class Ref_2a98c0 {
 class SimpleFrameController_2a98c0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285800();
 };
 class BillboardQuadGroupAnimationController_2a98c0 : public SimpleFrameController_2a98c0 {
   public:
@@ -113,7 +113,7 @@ class Ref_2a9b80 {
 class SimpleFrameController_2a9b80 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285800();
 };
 class BillboardQuadGroupAnimationController_2a9b80 : public SimpleFrameController_2a9b80 {
   public:
@@ -122,7 +122,7 @@ class BillboardQuadGroupAnimationController_2a9b80 : public SimpleFrameControlle
     BillboardQuadGroupAnimationController_2a9b80* f2(unsigned char flags);
 };
 struct BillboardQuadGroupAnimationController_nv_2a9c00 {
-    void initialize(pure3d::BillboardQuadGroupAnimationController*);
+    void initialize_00285780(pure3d::BillboardQuadGroupAnimationController*);
 };
 extern "C" int BQVtable;
 extern "C" void* __cdecl alloc(hulk_uintptr);
@@ -134,7 +134,7 @@ struct Ent_2a9c50 {
     virtual void a();
     virtual void b();
 };
-extern int rttiA_2a9c50, rttiB;
+extern int hulk_at_0048f610, hulk_at_004cfaa4;
 extern Obj_2a9c50* cast(void*, int, int*, int*, int);
 
 
@@ -174,13 +174,13 @@ namespace fn_fbb1b687 {
 // 0x002a98c0 FUN_002a98c0 (36 B): matches/0x002a98c0.cpp
 // sym: ??1BillboardQuadGroupAnimationController_2a98c0@fn_fbb1b687@@QAE@XZ
 BillboardQuadGroupAnimationController_2a98c0::~BillboardQuadGroupAnimationController_2a98c0() {
-    vptr = g_vftable_2a98c0;
+    vptr = hulk_at_0042dedc;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_00285800();
 }
 
 
@@ -290,7 +290,7 @@ BillboardQuadGroupAnimationController_2a9b80* BillboardQuadGroupAnimationControl
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_00285800();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -303,7 +303,7 @@ BillboardQuadGroupAnimationController_2a9b80* BillboardQuadGroupAnimationControl
 void* pure3d::BillboardQuadGroupAnimationController::vfunc_4() {
     pure3d::BillboardQuadGroupAnimationController* p = (pure3d::BillboardQuadGroupAnimationController*)alloc(0x48);
     if (p) {
-        ((BillboardQuadGroupAnimationController_nv_2a9c00*)(p))->initialize(this);
+        ((BillboardQuadGroupAnimationController_nv_2a9c00*)(p))->initialize_00285780(this);
         *(hulk_intptr*)p = (hulk_intptr)&BQVtable;
         int* z = (int*)((char*)p + 0x40);
         *z = 0;
@@ -324,7 +324,7 @@ void* pure3d::BillboardQuadGroupAnimationController::vfunc_4() {
 // sym: ?vfunc_5@BillboardQuadGroupAnimationController@pure3d@@UAEXPAX@Z
 void pure3d::BillboardQuadGroupAnimationController::vfunc_5(void* __p0) { Obj_2a9c50 * p = (Obj_2a9c50 *)__p0;
 
-    Obj_2a9c50* x = cast(p, 0, &rttiA_2a9c50, &rttiB, 0);
+    Obj_2a9c50* x = cast(p, 0, &hulk_at_0048f610, &hulk_at_004cfaa4, 0);
     if (x)
         x->f0();
     if ((*(Ent_2a9c50 * *)&this->f_40))

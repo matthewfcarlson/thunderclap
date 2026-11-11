@@ -2220,3 +2220,39 @@ Left from x64t2's list: pddiBaseContext::vfunc_8 / vfunc_10 are the clear depth 
 the 32-bit code of `float` / `int` signatures is identical (MATCH tried), but src/platform/sdl/pddi (bgfx_pddi.h,
 game_base.h) overrides and forwards both with `void*`, so the signature change has to land with the bgfx layer's (a
 shared, stamped build input). d3dContext::vfunc_30 still returns its prim stream as `int`.
+
+**The address renames (B1 / B2 / B2b), in five commits by directory.** An invented callee or data name that the Wine
+binding map binds to one address A takes the address: functions `<leaf>_<A>` (the suffix convention; `Fn<leaf>_<A>`
+for a one-letter leaf), data `hulk_at_<A>`; the `jmp` thunks to free / alloc (B1) the same way, `<leaf>_<thunk>` (the
+native link binds a thunk's name to its target's definition, verify_relocs holds it to the thunk). The rewriter is
+build/ren1/scripts/rename2.py (plan1's prototype made a tool run):
+- input: the macOS link's unbound names classified on B0's proof (71528's snapshot and map; plan1's classify2.py);
+- libclang on the native front end's target, cursors by their 64-bit mangled name, references by canonical declaration;
+  a rename is made only where every site spells the name in the TU;
+- skipped: operators (166), names declared or referenced in a header (1,685: owners.h / include/gen, a header batch),
+  a new name already declared in the same scope (623), names in an `equiv-map` / `equiv-conv` line (2);
+- every edited TU parsed again for aarch64 and i686 (`#if` branches); a rename named in an error is dropped;
+- each TU in its own process with a time limit; libclang crashed on six TUs (Clip_2.cpp, unk_23fa40.cpp,
+  DrawableContainer.cpp, ExpressionGroupLoader.cpp, ParticleController.cpp, TextBible.cpp), which keep their names;
+- left alone: x64t3's pddi / d3d / Pure3D start-up TUs, the TUs of the replay-pin functions, B0's two TUs.
+
+**The 32-bit gate (every edited TU, queue jobs; build/ren1/scripts/objcmp.py).** The TU's MSVC object before and after
+must have byte-identical sections and the same relocations, with the relocation targets paired one to one and every
+changed pair a rename (MSVC's `$L` / `$T` labels may renumber: 16 TUs); then tree_tu's check `--relocs` must give each
+match the same status as before. The first round failed nine TUs on verify_relocs' `name_address_mismatch`: a C name
+(`release`, `Init`, `Release`, `Free`) is one symbol for every TU, the map binds it to one address, and a call in that
+TU reached another (free's `jmp` thunk instead of free; 0x0027af50 vs another helper). Those renames were dropped in
+those TUs. ProjectileGroundShockwave.cpp (a call in a `__clang__` / `#else` branch only MSVC sees) keeps its names.
+Final: **9,860 renames in 1,441 TUs** (two TUs another agent is editing left out), all objects identical modulo the renames, every match MATCH with relocations
+ok as before; equivalents' objects identical, so their proofs carry over (no `equiv-map` line names a renamed symbol).
+
+Base HEAD 652d16407 (x64t3's batch 1 landed meanwhile); control 71585 (studio, fresh): image 1155f411. The proofs
+are seeded from it, each with renames 1..k (`--gfx --replay play3 --frames 60000`). From the second commit on the image
+is f900b656: CSPHulkPropLoader.cpp's `_atol` is now `Fnatol_003454fe` (the CRT's atol, which the Wine link binds to
+the host's), which reorders three import thunks (atol, floor, `__RTtypeid`) in the image; the 67 calls that differ
+reach the same named thunks (build/ren1/scripts/imgdiff.py), the PE checksum follows.
+
+| commit | TUs / renames | proof vs 71585 | image | native unbound macOS / Linux / Android |
+|---|---|---|---|---|
+| (before: 652d16407) | | | 1155f411 | 28,899 / 28,884 / 28,891 |
+| renames 1/5, src/engine | 334 / 2,179 | 71598, GATE ok (0 of 2,029) | 1155f411 | 27,256 / 27,240 / 27,248 |

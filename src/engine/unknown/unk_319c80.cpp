@@ -17,7 +17,7 @@ namespace fn_fdd3dec6 {} using namespace fn_fdd3dec6;
 namespace fn_fdd3dec6 {
 class Data_319e90 {
   public:
-    void Init(void* src);
+    void Init_0031a8b0(void* src);
 };
 struct Element_319e90 {
     void* header;
@@ -156,10 +156,10 @@ struct Obj_31a800 {
     int state;
 };
 extern "C" {
-extern float c;
+extern float hulk_at_004d34e8;
 }
 extern "C" {
-extern float d;
+extern float hulk_at_004d34ec;
 }
 class Obj_31a830 {
   public:
@@ -217,14 +217,14 @@ void Container_319e90::Add(void* param2, void* param3) {
         char buffer[0x64];
         *(void**)buffer = param2;
         Data_319e90* temp = (Data_319e90*)(buffer + 4);
-        temp->Init(param3);
+        temp->Init_0031a8b0(param3);
 
         if (mCurrent < mEnd) {
             Element_319e90* oldCurrent = mCurrent;
             mCurrent = (Element_319e90*)((char*)mCurrent + 0x64);
             if (oldCurrent) {
                 oldCurrent->header = *(void**)buffer;
-                oldCurrent->data.Init(temp);
+                oldCurrent->data.Init_0031a8b0(temp);
             }
         }
     }
@@ -649,9 +649,9 @@ Obj_31a830::Obj_31a830() {
     v[18] = 0.0f;
     v[19] = (*(float*)&DAT_004d34e0);
     v[20] = (*(float*)&DAT_004d34e4);
-    v[21] = c;
-    v[22] = d * c;
-    v[23] = DAT_004d34f0 * c;
+    v[21] = hulk_at_004d34e8;
+    v[22] = hulk_at_004d34ec * hulk_at_004d34e8;
+    v[23] = DAT_004d34f0 * hulk_at_004d34e8;
 }
 
 } // namespace fn_fdd3dec6

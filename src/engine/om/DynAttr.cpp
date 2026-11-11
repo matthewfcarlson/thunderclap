@@ -50,7 +50,7 @@ class Owner_260be0 {
 extern "C" char DAT_0042aad0[];
 typedef unsigned int u32_260c70;
 struct ThisCall_002584d0 {
-    void Init(void*, void*, int, int);
+    void Init_002584d0(void*, void*, int, int);
 };
 namespace pure3d {
 class NonCopyable : public IRefCount {
@@ -191,7 +191,7 @@ extern "C" int FUN_00260be0(Owner_260be0* owner, float value) {
 // sym: @FUN_00260c70@8
 extern "C" void* __fastcall FUN_00260c70(void* p, void* edx) {
     HULK_SIZE32(OmDynAttrString, 0x24);
-    ((ThisCall_002584d0*)(p))->Init((void*)((hulk_intptr)DAT_004e58d0), (void*)((hulk_intptr)DAT_004e58c8), (int)sizeof(OmDynAttrString), (int)__alignof(OmDynAttrString));
+    ((ThisCall_002584d0*)(p))->Init_002584d0((void*)((hulk_intptr)DAT_004e58d0), (void*)((hulk_intptr)DAT_004e58c8), (int)sizeof(OmDynAttrString), (int)__alignof(OmDynAttrString));
     *(hulk_uintptr*)p = ((hulk_intptr)DAT_0042aad0);
     return p;
 }

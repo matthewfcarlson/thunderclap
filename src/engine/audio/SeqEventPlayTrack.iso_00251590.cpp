@@ -24,7 +24,7 @@ class SeqEvent_251590 {
     char pad2[3];
     class Field {
       public:
-        void init(const char*, int);
+        void init_0023fc40(const char*, int);
     } field;
     SeqEvent_251590();
 };
@@ -37,15 +37,15 @@ class SeqEventPlayTrack_251590 : public SeqEvent_251590 {
     virtual void d();
 };
 } // namespace audio
-extern void* alloc(char*);
+extern void* alloc_00247530(char*);
 inline void* operator new(size_t n, char* h) {
-    return alloc(h);
+    return alloc_00247530(h);
 }
 audio::SeqEventPlayTrack_251590::SeqEventPlayTrack_251590() {
     x = 0;
     y = 0;
     flag = 0;
-    field.init("MySeqTrack", 2);
+    field.init_0023fc40("MySeqTrack", 2);
 }
 void* audio::SeqEventPlayTrackType::vfunc_3() {
     return (void*)(new (((char*)((char*)&DAT_004e6c78))) audio::SeqEventPlayTrack_251590);

@@ -14,9 +14,9 @@ namespace fn_fe7c326e {} using namespace fn_fe7c326e;
 namespace fn_fe7c326e {
 struct Obj_234cc0 {
     int x, y;
-    void Init(int);
+    void Init_0027b0e0(int);
 };
-extern "C" int v1_234cc0, v2;
+extern "C" int hulk_at_004279fc, hulk_at_00427b20;
 class ParamValue {
   public:
     virtual void A();
@@ -289,9 +289,9 @@ class ParamValueEnum : public ParamValue {
 // 0x00234cc0 FUN_00234cc0 (34 B): matches/0x00234cc0.cpp
 // sym: ??0ParamValueEnum@fn_fe7c326e@@QAE@H@Z
 ParamValueEnum::ParamValueEnum(hulk_intptr x) {
-    *(hulk_intptr*)this = (hulk_intptr)&v1_234cc0;
-    ((Obj_234cc0*)((char*)this + 8))->Init(x);
-    *(hulk_intptr*)this = (hulk_intptr)&v2;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004279fc;
+    ((Obj_234cc0*)((char*)this + 8))->Init_0027b0e0(x);
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00427b20;
 }
 
 } // namespace fn_fe7c326e

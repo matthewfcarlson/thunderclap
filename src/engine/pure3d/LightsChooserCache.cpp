@@ -13,12 +13,12 @@ namespace fn_ffbb471a {} using namespace fn_ffbb471a;
 
 // ---- declarations shared by the functions below
 namespace fn_ffbb471a {
-extern "C" void destroyChooser(void*);
+extern "C" void destroyChooser_0008d340(void*);
 namespace pure3d {
 class LightsChooserCache {
   public:
     virtual ~LightsChooserCache();
-    void baseDtor();
+    void baseDtor_0027afd0();
     char pad[0x20];
     void* mPtr;
 };
@@ -29,8 +29,8 @@ class LightsChooserCache {
 // sym: ??_GLightsChooserCache@pure3d@fn_ffbb471a@@UAEPAXI@Z
 namespace pure3d {
 LightsChooserCache::~LightsChooserCache() {
-    destroyChooser(mPtr);
-    baseDtor();
+    destroyChooser_0008d340(mPtr);
+    baseDtor_0027afd0();
 }
 }
 

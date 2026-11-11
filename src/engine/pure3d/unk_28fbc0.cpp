@@ -18,14 +18,14 @@ struct Source_28fbc0 {
 };
 extern "C" Source_28fbc0 *__cdecl FUN_003449e4(const char *name);
 struct Owner_28fcf0 {
-    void* Get();
+    void* Get_002314c0();
 };
 extern "C" int __cdecl FUN_00344e74(void*, int, const char*, const char*, int);
-extern "C" const char g1_28fcf0[];
-extern "C" const char g2_28fcf0[];
+extern "C" const char hulk_at_0048d5bc[];
+extern "C" const char hulk_at_0048f610[];
 struct Obj_28fd30 {
-    Obj_28fd30* Get();
-    Obj_28fd30* Tail();
+    Obj_28fd30* Get_00231640();
+    Obj_28fd30* Tail_0028fcf0();
     Obj_28fd30* Target();
 };
 extern int __cdecl FUN_00344e74(Obj_28fd30*, int, void*, void*, int);
@@ -47,7 +47,7 @@ class Obj_28fe30 {
   public:
     char pad[8];
     int value;
-    void reset();
+    void reset_0027af00();
     Obj_28fe30* target();
 };
 typedef unsigned int u32_28fe50;
@@ -55,7 +55,7 @@ void __cdecl thunk_FUN_00267090(u32_28fe50);
 struct Obj_28fe50 {
     char pad[8];
     u32_28fe50 field;
-    void base();
+    void base_0027af50();
     void method();
 };
 
@@ -133,11 +133,11 @@ extern "C" void FUN_0028fcc0() {}
 // 0x0028fcf0 FUN_0028fcf0 (61 B): matches/0x0028fcf0.cpp
 // sym: ?FUN_0028fcf0@fn_f6be11fc@@YIPAXPAUOwner_28fcf0@1@PAX@Z
 void* __fastcall FUN_0028fcf0(Owner_28fcf0* self, void*) {
-    void* p = self->Get();
+    void* p = self->Get_002314c0();
     while (p) {
-        if (FUN_00344e74(p, 0, g1_28fcf0, g2_28fcf0, 0))
+        if (FUN_00344e74(p, 0, hulk_at_0048d5bc, hulk_at_0048f610, 0))
             break;
-        p = self->Get();
+        p = self->Get_002314c0();
     }
     return p;
 }
@@ -147,10 +147,10 @@ void* __fastcall FUN_0028fcf0(Owner_28fcf0* self, void*) {
 // sym: ?Target@Obj_28fd30@fn_f6be11fc@@QAEPAU12@XZ
 // Same code shape as 0x001a9260 (propagated; names are from that function)
 Obj_28fd30* Obj_28fd30::Target() {
-    Obj_28fd30* p = Get();
+    Obj_28fd30* p = Get_00231640();
     if (FUN_00344e74(p, 0, &g1_28fd30, &g2_28fd30, 0))
         return p;
-    return Tail();
+    return Tail_0028fcf0();
 }
 
 
@@ -175,7 +175,7 @@ extern "C" void __cdecl FUN_0028fd70(Node* node) {
 // 0x0028fe30 FUN_0028fe30 (19 B): matches/0x0028fe30.cpp
 // sym: ?target@Obj_28fe30@fn_f6be11fc@@QAEPAV12@XZ
 Obj_28fe30* Obj_28fe30::target() {
-    reset();
+    reset_0027af00();
     value = 0;
     return this;
 }
@@ -188,7 +188,7 @@ void Obj_28fe50::method() {
         thunk_FUN_00267090(field);
         field = 0;
     }
-    base();
+    base_0027af50();
 }
 
 } // namespace fn_f6be11fc

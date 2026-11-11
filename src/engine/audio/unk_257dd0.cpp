@@ -22,7 +22,7 @@ struct Head_257e80 {
 };
 typedef unsigned int u32_257ec0;
 typedef unsigned int u32_257ee0;
-extern void* IRefCount_vftable_2580e0;
+extern void* hulk_at_0042a6ac;
 
 
 // 0x00257dd0 FUN_00257dd0 (18 B): matches/0x00257dd0.cpp
@@ -103,7 +103,7 @@ int Count(Node** p) {
 // sym: @FUN_002580e0@4
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 extern "C" void __fastcall FUN_002580e0(void* self) {
-    *(void**)self = &IRefCount_vftable_2580e0;
+    *(void**)self = &hulk_at_0042a6ac;
 }
 
 } // namespace fn_fea88065

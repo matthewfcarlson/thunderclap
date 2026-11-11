@@ -16,7 +16,7 @@ namespace fn_f9a4f3e3 {} using namespace fn_f9a4f3e3;
 namespace fn_f9a4f3e3 {
 extern "C" char DAT_00429dcc[];
 struct SeqEventPlayTrack_nv_2513d0 {
-    void Init();
+    void Init_0025fd00();
 };
 class Track_2513d0 {
   public:
@@ -34,7 +34,7 @@ class SeqEventPlayTrack_2513d0 {
 class SeqEvent {
   public:
     virtual int dummy();
-    bool vfunc_0(void*);
+    bool vfunc_0_0025fd20(void*);
 };
 extern "C" bool __cdecl FUN_0025abd0(void*, void*);
 extern "C" bool __cdecl FUN_0025aa80(void*, void*);
@@ -100,12 +100,12 @@ class SeqEventPlayTrack_2515e0 : public SeqEvent_2515e0 {
 };
 class A_2515e0 {
   public:
-    void f();
+    void Fnf_00240060();
 };
 struct SeqEventPlayTrack_nv_2515e0 {
-    void f();
+    void Fnf_0025fd10();
 };
-void __cdecl f47550(void*, SeqEventPlayTrack_2515e0*);
+void __cdecl f47550_00247550(void*, SeqEventPlayTrack_2515e0*);
 class SeqActionPlayTrack {
   public:
     int* vptr;
@@ -139,7 +139,7 @@ extern "C" int* FUN_002513c0() {
 // 0x002513d0 FUN_002513d0 (44 B): matches/0x002513d0.cpp
 // sym: ?Target@fn_f9a4f3e3@@YIPAVSeqEventPlayTrack_2513d0@1@PAV21@@Z
 SeqEventPlayTrack_2513d0* __fastcall Target(SeqEventPlayTrack_2513d0* self) {
-    ((SeqEventPlayTrack_nv_2513d0*)(((audio::SeqEventPlayTrack*)self)))->Init();
+    ((SeqEventPlayTrack_nv_2513d0*)(((audio::SeqEventPlayTrack*)self)))->Init_0025fd00();
     self->vptr = ((hulk_intptr)DAT_00429dcc);
     self->a = 0;
     self->b = 0;
@@ -152,7 +152,7 @@ SeqEventPlayTrack_2513d0* __fastcall Target(SeqEventPlayTrack_2513d0* self) {
 // 0x00251400 audio::SeqEventPlayTrack::vfunc_0 (103 B): matches/0x00251400.cpp
 // sym: ?vfunc_0@SeqEventPlayTrack@fn_f9a4f3e3@@UAEHPAX@Z
 int SeqEventPlayTrack::vfunc_0(void* p) {
-    if (SeqEvent::vfunc_0(p) && FUN_0025abd0(p, &a) && FUN_0025abd0(p, &b) && FUN_0025aa80(p, &c) && FUN_0025bce0(p, &d))
+    if (SeqEvent::vfunc_0_0025fd20(p) && FUN_0025abd0(p, &a) && FUN_0025abd0(p, &b) && FUN_0025aa80(p, &c) && FUN_0025bce0(p, &d))
         return 1;
     return 0;
 }
@@ -238,10 +238,10 @@ namespace fn_f9a4f3e3 {
 // sym: ?vfunc_4@SeqEventPlayTrack_2515e0@fn_f9a4f3e3@@UAEPAV12@E@Z
 // Same code shape as 0x0024fee0 (propagated; names are from that function)
 SeqEventPlayTrack_2515e0* SeqEventPlayTrack_2515e0::vfunc_4(unsigned char flag) {
-    ((A_2515e0*)((char*)this + 0x14))->f();
-    ((SeqEventPlayTrack_nv_2515e0*)(((audio::SeqEventPlayTrack*)this)))->f();
+    ((A_2515e0*)((char*)this + 0x14))->Fnf_00240060();
+    ((SeqEventPlayTrack_nv_2515e0*)(((audio::SeqEventPlayTrack*)this)))->Fnf_0025fd10();
     if (flag & 1)
-        f47550(((char*)((char*)&DAT_004e6c78)), this);
+        f47550_00247550(((char*)((char*)&DAT_004e6c78)), this);
     return this;
 }
 

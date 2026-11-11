@@ -30,20 +30,20 @@ struct Small_2fc130 {
 };
 struct Big_2fc130 {
     unsigned int x[0x15];
-    Small_2fc130* f100();
-    void f120(Small_2fc130*);
+    Small_2fc130* f100_0030f100();
+    void f120_0030f120(Small_2fc130*);
 };
 struct Joint2 {
     char pad[8];
     void* item;
-    void b980(Small_2fc130*);
+    void b980_00309b80(Small_2fc130*);
 };
 struct Obj_2fc130 {
-    Big_2fc130* edf0();
-    void ee40(Big_2fc130*);
+    Big_2fc130* edf0_0030edf0();
+    void ee40_0030ee40(Big_2fc130*);
 };
 struct Arg_2fc130 {
-    Obj_2fc130* f490(void*);
+    Obj_2fc130* f490_0030f490(void*);
 };
 extern "C" char DAT_0043186c[];
 class RootMatrixDriver {
@@ -55,7 +55,7 @@ class RootMatrixDriver {
 };
 class PhysicsJointMatrixModifier_2fc1d0 {
   public:
-    void Init();
+    void Init_0030eb10();
 };
 class Item_2fc320 {
   public:
@@ -199,14 +199,14 @@ void physics::PhysicsJointMatrixModifier::vfunc_9(hulk_intptr __p0) { Arg_2fc130
     if (!this->f_10)
         return;
     void* it = (*(Joint2 * *)&this->f_18)->item;
-    Obj_2fc130* obj = arg->f490(it);
-    Big_2fc130* bp = obj->edf0();
+    Obj_2fc130* obj = arg->f490_0030f490(it);
+    Big_2fc130* bp = obj->edf0_0030edf0();
     Big_2fc130 big = *bp;
-    Small_2fc130* sp = big.f100();
+    Small_2fc130* sp = big.f100_0030f100();
     Small_2fc130 small = *sp;
-    (*(Joint2 * *)&this->f_18)->b980(&small);
-    big.f120(&small);
-    obj->ee40(&big);
+    (*(Joint2 * *)&this->f_18)->b980_00309b80(&small);
+    big.f120_0030f120(&small);
+    obj->ee40_0030ee40(&big);
 }
 
 namespace fn_f55081c6 {
@@ -214,7 +214,7 @@ namespace fn_f55081c6 {
 // 0x002fc1d0 FUN_002fc1d0 (27 B): matches/0x002fc1d0.cpp
 // sym: ??0RootMatrixDriver@fn_f55081c6@@QAE@H@Z
 RootMatrixDriver::RootMatrixDriver(int x) {
-    ((PhysicsJointMatrixModifier_2fc1d0*)this)->Init();
+    ((PhysicsJointMatrixModifier_2fc1d0*)this)->Init_0030eb10();
     value = x;
     vf = ((hulk_intptr)DAT_0043186c);
 }

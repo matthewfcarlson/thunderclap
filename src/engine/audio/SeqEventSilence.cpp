@@ -21,7 +21,7 @@ class SeqEventSilence {
     int pad4;
     int a;
     int b;
-    void Init();
+    void Init_0025fd00();
 };
 bool FUN_0025abd0(void*, void*);
 class SeqEventSilence_254670 : public audio::SeqEvent {
@@ -81,9 +81,9 @@ struct SeqEventSilence_2547e0 {
     u32_2547e0 unk;
     int duration;
     int end;
-    void initialize();
+    void initialize_0025fd00();
 };
-extern void* g_vftable_254920[];
+extern void* hulk_at_004298fc[];
 class SeqActionSilence_254920 {
   public:
     void* vptr;
@@ -104,7 +104,7 @@ extern "C" int* FUN_00254640() {
 // 0x00254650 FUN_00254650 (32 B): matches/0x00254650.cpp
 // sym: ?FUN_00254650@fn_f967ffb0@@YIPAVSeqEventSilence@1@PAV21@@Z
 SeqEventSilence* __fastcall FUN_00254650(SeqEventSilence* self) {
-    self->Init();
+    self->Init_0025fd00();
     self->vptr = (int*)((hulk_intptr)DAT_0042a30c);
     self->a = 500;
     self->b = 1000;
@@ -206,7 +206,7 @@ audio::SeqEventSilenceType::~SeqEventSilenceType() {}
 void* audio::SeqEventSilenceType::vfunc_3() {
     SeqEventSilence_2547e0* p = (SeqEventSilence_2547e0*)FUN_00247530(((char*)&DAT_004e72f8));
     if (p) {
-        p->initialize();
+        p->initialize_0025fd00();
         p->vptr = ((hulk_intptr)DAT_0042a30c);
         p->duration = 500;
         p->end = 1000;
@@ -228,7 +228,7 @@ class SeqEvent {
     virtual void v3();
     virtual SeqEvent* v4(int);
     virtual void v5();
-    void Prepare();
+    void Prepare_0025fd10();
 };
 class SeqEventSilence : public SeqEvent {
   public:
@@ -240,7 +240,7 @@ class SeqEventSilence : public SeqEvent {
 };
 extern void FUN_00247550(void*, SeqEventSilence*);
 SeqEventSilence* SeqEventSilence::v4(int flags) {
-    Prepare();
+    Prepare_0025fd10();
     if (flags & 1)
         FUN_00247550(DAT_004e72f8, this);
     return this;
@@ -253,7 +253,7 @@ namespace fn_f967ffb0 {
 // sym: ?f0@SeqActionSilence_254920@fn_f967ffb0@@QAEPAV12@E@Z
 // data: g_pool_254920 = DAT_004e72b0
 SeqActionSilence_254920* SeqActionSilence_254920::f0(unsigned char flags) {
-    vptr = g_vftable_254920;
+    vptr = hulk_at_004298fc;
     if (flags & 1)
         Free(((char*)&DAT_004e72b0), this);
     return this;
@@ -285,10 +285,10 @@ class SeqActionSilence : public SeqAction {
     virtual void vfunc_6(int);
 };
 } // namespace audio
-extern "C++" __declspec(nothrow) int __cdecl tick();
+extern "C++" __declspec(nothrow) int __cdecl tick_00267f80();
 void audio::SeqActionSilence::vfunc_6(int) {
     if (state == 3) {
-        int t = tick();
+        int t = tick_00267f80();
         elapsed += t - last;
         last = t;
         if ((float)elapsed >= duration) {
@@ -337,7 +337,7 @@ class SeqEventSilence : public SeqEvent {
 };
 extern "C" void* __cdecl FUN_00247530(void*);
 extern "C" int __cdecl FUN_000113e0(int, int);
-extern char VT_2549a0[];
+extern char hulk_at_0042a36c[];
 class Helper_2549a0 {
   public:
     void FUN_0025dc20(SeqActionSilence*);
@@ -346,7 +346,7 @@ void SeqEventSilence::v2(int arg) {
     SeqActionSilence* a = (SeqActionSilence*)FUN_00247530(((char*)&DAT_004e72b0));
     SeqActionSilence* r;
     if (a) {
-        a->vf = (hulk_intptr)VT_2549a0;
+        a->vf = (hulk_intptr)hulk_at_0042a36c;
         a->owner = this;
         int x = mc;
         int y = m8;

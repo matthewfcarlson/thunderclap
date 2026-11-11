@@ -32,7 +32,7 @@ class Target_22ba00 {
 };
 class X {
   public:
-    void f(void*);
+    void Fnf_0022b650(void*);
 };
 class Y {
   public:
@@ -161,7 +161,7 @@ void __fastcall TargetFn(Target_22ba00* self) {
 // 0x0022ba20 FUN_0022ba20 (13 B): matches/0x0022ba20.cpp
 // sym: ?target@Y@fn_fddc1d6f@@QAEXPAVX@2@@Z
 void Y::target(X* p) {
-    p->f(this);
+    p->Fnf_0022b650(this);
 }
 
 } // namespace fn_fddc1d6f

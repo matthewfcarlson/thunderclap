@@ -22,7 +22,7 @@ struct DriveMediaRequest_275750 : DriveRequest_275750 {
     int value;
     DriveMediaRequest_275750(hulk_intptr x, int y);
 };
-extern void* g_vftable_275780[];
+extern void* hulk_at_0042b9bc[];
 class Pool_275780 {
   public:
     virtual void v0();
@@ -67,7 +67,7 @@ DriveMediaRequest_275750::DriveMediaRequest_275750(hulk_intptr x, int y) : Drive
 // data: g_lock_275780 = DAT_0052a1c8, g_pool_275780 = DAT_0052a1e4
 DriveMediaRequest_275780* DriveMediaRequest_275780::f0(unsigned char flags) {
     Big_275780* p = m8;
-    vptr = g_vftable_275780;
+    vptr = hulk_at_0042b9bc;
     p->sub.v0();
     m8->cnt--;
     m8->sub.v1();

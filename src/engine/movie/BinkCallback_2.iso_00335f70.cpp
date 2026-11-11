@@ -18,7 +18,7 @@ struct Manager_335f70 {
     char pad[0x44];
     int count;
 };
-extern int Size(int);
+extern int Size_00337f20(int);
 class Obj_335f70 {
   public:
     char pad[4];
@@ -36,7 +36,7 @@ int Obj_335f70::Fetch(int index, int n) {
     int* p = (int*)((char*)data[index] + 4);
     if (((Node *)((owners::Thing_337090 *)mgr)->FUN_00337090(index))->child->first != 10)
         return 0;
-    p = (int*)((char*)p + Size(10) * n);
+    p = (int*)((char*)p + Size_00337f20(10) * n);
     return *p;
 }
 } // namespace fn_f55c1305

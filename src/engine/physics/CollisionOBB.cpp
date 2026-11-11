@@ -80,7 +80,7 @@ class C_2fb950 {
     virtual void f1();
     virtual void f2();
     virtual Vec_2fb950* get();
-    void helper(Vec_2fb950*, u32_2fb950);
+    void helper_002fb860(Vec_2fb950*, u32_2fb950);
     void sum(Vec_2fb950*, u32_2fb950);
 };
 struct V3_2fb990 {
@@ -113,7 +113,7 @@ struct Shape_2fbdc0 {
 };
 class Part_2fbed0 {
   public:
-    void Init();
+    void Init_0030eaa0();
 };
 class CollisionOBB_2fbed0 {
   public:
@@ -122,8 +122,8 @@ class CollisionOBB_2fbed0 {
     Part_2fbed0 p1;
     char pad2[0x3f];
     Part_2fbed0 p2;
-    void Base();
-    void Build(int, int, int, int, int);
+    void Base_003060a0();
+    void Build_002fba80(int, int, int, int, int);
     CollisionOBB_2fbed0* Target(hulk_intptr, hulk_intptr, hulk_intptr, hulk_intptr, hulk_intptr);
 };
 
@@ -302,7 +302,7 @@ void Obj_2fb860::FUN_002fb860(Vec_2fb860* out, int index) {
 // 0x002fb950 FUN_002fb950 (55 B): matches/0x002fb950.cpp
 // sym: ?sum@C_2fb950@fn_f34550b1@@QAEXPAUVec_2fb950@2@I@Z
 void C_2fb950::sum(Vec_2fb950* p, u32_2fb950 a) {
-    helper(p, a);
+    helper_002fb860(p, a);
     Vec_2fb950* q = get();
     p->x += q->x;
     p->y += q->y;
@@ -356,15 +356,15 @@ extern "C" char DAT_004317dc[];
 typedef unsigned char byte_2fba40;
 class H1 {
   public:
-    void f();
+    void Fnf_0030ea00();
 };
 class H2_2fba40 {
   public:
-    void f();
+    void Fnf_0030ea00();
 };
 class CollisionOBB_2fba40 {
   public:
-    void f();
+    void Fnf_00306ac0();
 };
 namespace physics {
 class CollisionVolume {
@@ -407,15 +407,15 @@ class CollisionOBB : public CollisionVolume {
     char pad[0x78];
 };
 } // namespace physics
-void cleanup(physics::CollisionOBB*);
+void cleanup_0008d330(physics::CollisionOBB*);
 physics::CollisionOBB* physics::CollisionOBB::vfunc_2(byte_2fba40 flag) {
     CollisionOBB* self = this;
     *(hulk_ulongptr*)self = ((hulk_intptr)DAT_004317dc);
-    ((H1*)((char*)self + 0x7c))->f();
-    ((H2_2fba40*)((char*)self + 0x3c))->f();
-    ((CollisionOBB_2fba40*)self)->f();
+    ((H1*)((char*)self + 0x7c))->Fnf_0030ea00();
+    ((H2_2fba40*)((char*)self + 0x3c))->Fnf_0030ea00();
+    ((CollisionOBB_2fba40*)self)->Fnf_00306ac0();
     if (flag & 1)
-        cleanup(self);
+        cleanup_0008d330(self);
     return self;
 }
 } // namespace fn_002fba40
@@ -550,11 +550,11 @@ hulk_freg Shape_2fbdc0::FUN_002fbdc0(const Vec_2fbdc0* v, int excluded) {
 // 0x002fbed0 FUN_002fbed0 (68 B): matches/0x002fbed0.cpp
 // sym: ?Target@CollisionOBB_2fbed0@fn_f34550b1@@QAEPAV12@HHHHH@Z
 CollisionOBB_2fbed0* CollisionOBB_2fbed0::Target(hulk_intptr a, hulk_intptr b, hulk_intptr c, hulk_intptr d, hulk_intptr e) {
-    Base();
+    Base_003060a0();
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004317dc);
-    p1.Init();
-    p2.Init();
-    Build(a, b, c, d, e);
+    p1.Init_0030eaa0();
+    p2.Init_0030eaa0();
+    Build_002fba80(a, b, c, d, e);
     return this;
 }
 

@@ -33,7 +33,7 @@ class DirectionalLight : public Light_2a2e70 {
     Color color;
 };
 struct H {
-    void run();
+    void run_0022d180();
 };
 class C_2a2ef0 {
   public:
@@ -51,10 +51,10 @@ class C_2a2ef0 {
     H h;
     int target(int x, int y, int z);
 };
-extern void* Light_2a2f90_vftable[];
+extern void* hulk_at_0042d7c8[];
 class Light_2a2f90 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002a0720(); // FUN_00236d60, __thiscall, this in ecx
 };
 class DirectionalLight_2a2f90 : public Light_2a2f90 {
   public:
@@ -98,7 +98,7 @@ int C_2a2ef0::target(int x, int y, int z) {
     *(int*)((char*)this + 0x58) = x;
     *(int*)((char*)this + 0x5c) = y;
     *(int*)((char*)this + 0x60) = z;
-    h.run();
+    h.run_0022d180();
     return f9(1);
 }
 
@@ -120,8 +120,8 @@ namespace fn_ff411229 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 DirectionalLight_2a2f90* DirectionalLight_2a2f90::vfunc_5(signed char flags) {
-    *(void***)this = Light_2a2f90_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042d7c8;
+    Destroy_002a0720();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

@@ -35,7 +35,7 @@ struct Buf_294500 {
     char pad[12];
 };
 struct Sub_294500 {
-    unsigned int getval();
+    unsigned int getval_0028faa0();
 };
 struct Mgr_294500 {
     Sub_294500* sub;
@@ -67,8 +67,8 @@ struct T_294620 {
 };
 class C_294620 {
   public:
-    void Prep(T_294620* a, T_294620* out);
-    void Finish(T_294620 t, int d, int e);
+    void Prep_00294270(T_294620* a, T_294620* out);
+    void Finish_00294550(T_294620 t, int d, int e);
     void Target(T_294620 a, int d, int e);
 };
 struct Vec3_294670 { float x, y, z; };
@@ -145,7 +145,7 @@ class Owner_2946e0 {
   public:
     char pad[0x18];
     Source_2946e0* source;
-    void Process(Scratch_2946e0*, unsigned int);
+    void Process_002940f0(Scratch_2946e0*, unsigned int);
     void Run(Vec3_2946e0 a, unsigned int d);
 };
 struct Vec_294720 { float x,y,z;  };
@@ -345,7 +345,7 @@ namespace fn_f5f765cb {
 // a..c: a vector passed by value.
 void Target_294500::run(Vec3_294500 a, Buf_294500* out) {
     Buf_294500 local;
-    ((owners::C_22d240 *)&local)->FUN_0022d240((hulk_intptr)(&a), (hulk_intptr)((*(Mgr_294500**)&DAT_0052c2b0)->sub->getval()));
+    ((owners::C_22d240 *)&local)->FUN_0022d240((hulk_intptr)(&a), (hulk_intptr)((*(Mgr_294500**)&DAT_0052c2b0)->sub->getval_0028faa0()));
     if (obj) {
         unsigned int v = obj->get();
         ((owners::C_22d240 *)out)->FUN_0022d240((hulk_intptr)(&local), (hulk_intptr)v);
@@ -384,8 +384,8 @@ namespace fn_f5f765cb {
 // sym: ?Target@C_294620@fn_f5f765cb@@QAEXUT_294620@2@HH@Z
 void C_294620::Target(T_294620 a, int d, int e) {
     T_294620 t;
-    Prep(&a, &t);
-    Finish(t, d, e);
+    Prep_00294270(&a, &t);
+    Finish_00294550(t, d, e);
 }
 
 
@@ -414,7 +414,7 @@ void Owner_2946e0::Run(Vec3_2946e0 a, unsigned int d) {
         unsigned int x = source->Get();
         Scratch_2946e0 temp;
         ((owners::C_22d240 *)&temp)->FUN_0022d240((hulk_intptr)(&a), (hulk_intptr)x);
-        Process(&temp, d);
+        Process_002940f0(&temp, d);
     }
 }
 

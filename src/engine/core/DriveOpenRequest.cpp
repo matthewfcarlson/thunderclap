@@ -34,7 +34,7 @@ class D {
     virtual int s5();
     virtual int s6();
     virtual int s7();
-    int Helper();
+    int Helper_00272880();
 };
 class Q_274480 {
   public:
@@ -112,7 +112,7 @@ void core::DriveRequest::FUN_00274440() {
 int core::DriveOpenRequest::vfunc_1() {
     D* d = (*(P_274480 * *)&this->f_08)->d;
     int a = d->s7();
-    int b = d->Helper();
+    int b = d->Helper_00272880();
     (*(P_274480 * *)&this->f_08)->q.s0();
     (*(P_274480 * *)&this->f_08)->f18 = b;
     (*(P_274480 * *)&this->f_08)->q.s1();

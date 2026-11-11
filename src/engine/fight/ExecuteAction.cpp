@@ -14,7 +14,7 @@ namespace fn_fd5a1171 {} using namespace fn_fd5a1171;
 // ---- declarations shared by the functions below
 namespace fn_fd5a1171 {
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_239420;
+extern int* hulk_at_004e5c38;
 class CCondition_239420 {
   public:
     virtual int vfunc_0(int);
@@ -56,12 +56,12 @@ struct Track_239480 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern void* g_vt_239490[];
+extern void* hulk_at_00428418[];
 struct SubA_239490 {
-    void Fin() throw();
+    void Fin_00236fd0() throw();
 };
 struct SubB_239490 {
-    void Fin() throw();
+    void Fin_00234150() throw();
 };
 class Track_239490 {
   public:
@@ -81,7 +81,7 @@ class Action_239770 {
 };
 class Base_239770 {
   public:
-    void vfunc();
+    void vfunc_00232240();
 };
 class ExecuteAction : public Action_239770, public Base_239770 {
   public:
@@ -111,15 +111,15 @@ class ExecuteTrack {
 };
 class A_239780 {
   public:
-    void First();
+    void First_00236fd0();
 };
 class B_239780 {
   public:
-    void Second();
+    void Second_00234150();
 };
 class C_239780 {
   public:
-    void Third();
+    void Third_00236d60();
 };
 extern void __cdecl thunk_FUN_00267090(ExecuteTrack*);
 struct Ref_2397c0 {
@@ -156,11 +156,11 @@ class Ref_239870 {
 };
 class Part_239870 {
   public:
-    void Fini() throw();
+    void Fini_002325f0() throw();
 };
 struct Action_239870 {
     void* vf;
-    void Dtor() throw();
+    void Dtor_002326a0() throw();
 };
 struct ExecuteAction_239870 : Action_239870 {
     char pad[0x18];
@@ -214,18 +214,18 @@ class ParamValueInt_239990 : public ParamValue_239990 {
   public:
     int pad;
 };
-extern int gTypeA_2399e0;
+extern int hulk_at_0049850c;
 struct ExecuteAction_239bd0 {
     int FUN_002397c0(int, ExecuteTrack*, int, int, void*, int, int);
 };
 extern "C" ExecuteAction_239bd0* __cdecl FUN_0008d690(int);
-extern char VT_239c50[];
+extern char hulk_at_004284e4[];
 struct Track {
     virtual void V();
 };
 extern "C" Track* __cdecl FUN_00236ac0(int, Track*);
 struct Receiver_239c50 {
-    void Finish(Track*);
+    void Finish_002367c0(Track*);
 };
 } // namespace fn_fd5a1171
 inline void* __cdecl operator new(size_t, void* where) {
@@ -281,7 +281,7 @@ class ExecuteTrack_239cc0 : public Base {
 };
 }
 namespace fn_fd5a1171 {
-extern int g_vftable_239d10;
+extern int hulk_at_004284f0;
 
 } // namespace fn_fd5a1171
 
@@ -337,7 +337,7 @@ void FUN_00239400() {
 // sym: ?vfunc_0@ExecuteTrack@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::ExecuteTrack::vfunc_0(int index) {
-    int* p = gTable_239420;
+    int* p = hulk_at_004e5c38;
     return p[index];
 }
 
@@ -370,9 +370,9 @@ namespace fn_fd5a1171 {
 // 0x00239490 FUN_00239490 (33 B): matches/0x00239490.cpp
 // sym: ??1ExecuteTrack_239490@fn_fd5a1171@@QAE@XZ
 ExecuteTrack_239490::~ExecuteTrack_239490() throw() {
-    vptr = g_vt_239490;
-    a.Fin();
-    b.Fin();
+    vptr = hulk_at_00428418;
+    a.Fin_00236fd0();
+    b.Fin_00234150();
 }
 
 } // namespace fn_fd5a1171
@@ -394,10 +394,10 @@ class Action {
 };
 class Sub_2396f0 {
   public:
-    void Init(unsigned int, int);
-    void Run(unsigned int);
-    bool Check(int);
-    void Finish();
+    void Init_002322f0(unsigned int, int);
+    void Run_00231f20(unsigned int);
+    bool Check_002324b0(int);
+    void Finish_00231ee0();
 };
 namespace fight {
 class ExecuteAction : public Action {
@@ -411,18 +411,18 @@ class ExecuteAction : public Action {
 } // namespace fight
 void fight::ExecuteAction::V5(unsigned int index, int arg) {
     if (index == 0 && !mFlag)
-        sub.Init(mCount, arg);
+        sub.Init_002322f0(mCount, arg);
     mFlag = 0;
-    sub.Run(index);
+    sub.Run_00231f20(index);
     if (index == mCount - 1) {
-        if (sub.Check(0)) {
+        if (sub.Check_002324b0(0)) {
             flags &= 0xfffffffc;
-            sub.Finish();
+            sub.Finish_00231ee0();
             return;
         }
         flags = (flags & 0xfffffffd) | 1;
     }
-    sub.Finish();
+    sub.Finish_00231ee0();
 }
 } // namespace fn_002396f0
 
@@ -431,7 +431,7 @@ namespace fn_fd5a1171 {
 // 0x00239770 fight::ExecuteAction::vfunc_4 (8 B): matches/0x00239770.cpp
 // sym: ?vfunc_4@ExecuteAction@fn_fd5a1171@@QAEXXZ
 void ExecuteAction::vfunc_4() {
-    Base_239770::vfunc();
+    Base_239770::vfunc_00232240();
 }
 
 
@@ -440,9 +440,9 @@ void ExecuteAction::vfunc_4() {
 ExecuteTrack* ExecuteTrack::vfunc_5(int flags) {
     ExecuteTrack* p = this;
     *(hulk_ulongptr*)p = ((hulk_intptr)DAT_00428418);
-    ((A_239780*)((char*)p + 0x24))->First();
-    ((B_239780*)((char*)p + 0x14))->Second();
-    ((C_239780*)p)->Third();
+    ((A_239780*)((char*)p + 0x24))->First_00236fd0();
+    ((B_239780*)((char*)p + 0x14))->Second_00234150();
+    ((C_239780*)p)->Third_00236d60();
     if (flags & 1)
         thunk_FUN_00267090(p);
     return p;
@@ -493,8 +493,8 @@ void ExecuteAction_239870::Dtor2() throw() {
         p1c->Release();
         p1c = 0;
     }
-    p38.Fini();
-    Action_239870::Dtor();
+    p38.Fini_002325f0();
+    Action_239870::Dtor_002326a0();
 }
 
 } // namespace fn_fd5a1171
@@ -576,7 +576,7 @@ void ParamBranch::vfunc_6(void* p) {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::TrackFactoryCasterTemplate<fight::ExecuteTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_2399e0, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -637,9 +637,9 @@ namespace fn_fd5a1171 {
 // sym: _FUN_00239c50
 extern "C" void FUN_00239c50(Receiver_239c50* c, int b) {
     Track t;
-    *(void**)&t = VT_239c50;
+    *(void**)&t = hulk_at_004284e4;
     Track* p = FUN_00236ac0(b, &t);
-    c->Finish(p);
+    c->Finish_002367c0(p);
 }
 
 } // namespace fn_fd5a1171
@@ -674,7 +674,7 @@ namespace fn_fd5a1171 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fd5a1171@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_239d10;
+    m_vptr = (void*)&hulk_at_004284f0;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

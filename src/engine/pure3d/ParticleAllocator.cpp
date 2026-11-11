@@ -14,7 +14,7 @@ namespace fn_f16f11c1 {} using namespace fn_f16f11c1;
 
 // ---- declarations shared by the functions below
 namespace fn_f16f11c1 {
-extern void* IRefCount_vftable_2d3d80;
+extern void* hulk_at_003f6098;
 extern "C" char DAT_0042f190[];
 class ParticleAllocator {
   public:
@@ -43,7 +43,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 // sym: ?FUN_002d3d80@fn_f16f11c1@@YIXPAX@Z
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 void __fastcall FUN_002d3d80(void* self) {
-    *(void**)self = &IRefCount_vftable_2d3d80;
+    *(void**)self = &hulk_at_003f6098;
 }
 
 

@@ -89,10 +89,10 @@ struct Frame_2c1770 {
     int count;
     char name[0x100];
 };
-extern void* Entity_2c1900_vftable[];
+extern void* hulk_at_0042eb98[];
 class Entity_2c1900 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class Locator_2c1900 : public Entity_2c1900 {
   public:
@@ -164,8 +164,8 @@ namespace fn_f29c4ef1 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 Locator_2c1900* Locator_2c1900::vfunc_5(signed char flags) {
-    *(void***)this = Entity_2c1900_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042eb98;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -195,7 +195,7 @@ class SimpleChunkHandler_2c1950 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_2c1950 {
   public:
@@ -206,7 +206,7 @@ class NonCopyable : public SimpleChunkHandler_2c1950 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

@@ -15,7 +15,7 @@ namespace fn_ff9a771c {} using namespace fn_ff9a771c;
 namespace fn_ff9a771c {
 class Part_235300 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 namespace fight {
 class ParamValueBool {
@@ -29,7 +29,7 @@ class ParamValueBool {
 extern "C" void __cdecl thunk_FUN_00267090(fight::ParamValueBool*);
 class Part_2353c0 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 namespace fight {
 class ParamValueName {
@@ -47,7 +47,7 @@ extern "C++" __declspec(nothrow) void __cdecl thunk_FUN_00267090(fight::ParamVal
 // sym: ?vfunc_0@ParamValueBool@fight@fn_ff9a771c@@QAEPAV123@H@Z
 fight::ParamValueBool* fight::ParamValueBool::vfunc_0(int flag) {
     vt = (hulk_intptr)&base_vtable;
-    part.Init();
+    part.Init_0027af50();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -61,7 +61,7 @@ namespace fn_00235330 {
 extern "C" char DAT_004279fc[];
 class Inner_235330 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class ParamValue {
   public:
@@ -79,13 +79,13 @@ class ParamValueInt : public ParamValue {
   public:
     virtual ParamValueInt* f0(int);
 };
-extern void Cleanup(ParamValueInt*);
+extern void Cleanup_0008d330(ParamValueInt*);
 ParamValueInt* ParamValueInt::f0(int flags) {
     int* q = (int*)this;
     *(hulk_intptr*)q = ((hulk_intptr)DAT_004279fc);
-    inner.Init();
+    inner.Init_0027af50();
     if (flags & 1)
-        Cleanup(this);
+        Cleanup_0008d330(this);
     return this;
 }
 } // namespace fn_00235330
@@ -128,7 +128,7 @@ ParamValueFloat::ParamValueFloat(unsigned int flags) {
 // 0x00235390 fight::ParamValueString::vfunc_0 (39 B): matches/0x00235390.cpp [wrapped: merged class would differ: ParamValueString: field part: Field(+0xc Part_235390 part) vs Field(+0x8 Part_235390 part)]
 // sym: ?vfunc_0@ParamValueString@fight@fn_00235390@@UAEPAV123@H@Z
 namespace fn_00235390 {
-extern int base_vtable;
+extern int hulk_at_004279fc;
 class ParamValue {
   public:
     virtual ParamValue* vfunc_0(int);
@@ -140,7 +140,7 @@ class ParamValue {
 };
 class Part_235390 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 namespace fight { class ParamValueString : public ParamValue {
   public:
@@ -151,8 +151,8 @@ namespace fight { class ParamValueString : public ParamValue {
 }; }
 extern void thunk_FUN_00267090(fight::ParamValueString*);
 fight::ParamValueString* fight::ParamValueString::vfunc_0(int x) {
-    *(hulk_intptr*)this = (hulk_intptr)&base_vtable;
-    part.Init();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004279fc;
+    part.Init_0027af50();
     if (x & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -166,7 +166,7 @@ namespace fn_ff9a771c {
 // Same code shape as 0x00235300 (propagated; names are from that function)
 fight::ParamValueName* fight::ParamValueName::vfunc_0(int flag) {
     vt = (hulk_intptr)&base_vtable;
-    part.Init();
+    part.Init_0027af50();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;

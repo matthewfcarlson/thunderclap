@@ -38,10 +38,10 @@ class Holder_293bd0 {
     Holder_293bd0* FUN_00293bd0(Obj_293bd0*);
 };
 struct Global_293bf0 {
-    void a();
-    void b(unsigned);
+    void Fna_0022b980();
+    void Fnb_0022ba30(unsigned);
 };
-extern Global_293bf0 g_293bf0;
+extern Global_293bf0 hulk_at_0052c2d8;
 struct Obj_293bf0 {
     virtual void f0();
     virtual void f1();
@@ -68,8 +68,8 @@ struct Target_293bf0 {
 };
 extern char g52c2d8[4];
 struct Global_293c20 {
-    void a();
-    void b(unsigned);
+    void Fna_0022b980();
+    void Fnb_0022ba70(unsigned);
 };
 extern Global_293c20 g_293c20;
 struct Obj_293c20 {
@@ -97,8 +97,8 @@ struct Target_293c20 {
     void run(unsigned);
 };
 struct Global_293c50 {
-    void a();
-    void b(unsigned);
+    void Fna_0022b980();
+    void Fnb_0022bab0(unsigned);
 };
 extern Global_293c50 g_293c50;
 struct Obj_293c50 {
@@ -146,16 +146,16 @@ struct V {
     virtual void x17(int, int);
 };
 struct G_293c80 {
-    void a();
-    void b(int, int, int);
+    void Fna_0022b980();
+    void Fnb_0022bc20(int, int, int);
 };
 struct T_293c80 {
     V* p;
     void f(int, int, int);
 };
 struct G_293cc0 {
-    void a();
-    void b(int, int, int);
+    void Fna_0022b980();
+    void Fnb_0022bcd0(int, int, int);
 };
 struct T_293cc0 {
     V* p;
@@ -165,9 +165,9 @@ struct Data_293d00 {
     int a, b, c;
 };
 extern Data_293d00 gData_293d00;
-extern int gA_293d00, gB, gC;
+extern int hulk_at_0052c308, hulk_at_0052c30c, hulk_at_0052c310;
 struct InitObj_293d00 {
-    void foo();
+    void foo_0022b980();
 };
 extern InitObj_293d00 gInit_293d00;
 class Host_293d00 {
@@ -221,15 +221,15 @@ struct Holder_293d40 {
     Obj_293d40* p;
 };
 struct Sub_293d40 {
-    void init();
+    void init_0022b980();
 };
 struct C_293d40 {
     Holder_293d40 h;
     void run(U_293d40, U_293d40, U_293d40);
 };
 struct G_293da0 {
-    void a();
-    void b(int, int, int);
+    void Fna_0022b980();
+    void Fnb_0022be60(int, int, int);
 };
 struct T_293da0 {
     V* p;
@@ -304,8 +304,8 @@ Holder_293bd0* Holder_293bd0::FUN_00293bd0(Obj_293bd0* p) {
 // 0x00293bf0 FUN_00293bf0 (46 B): matches/0x00293bf0.cpp
 // sym: ?run@Target_293bf0@fn_fd6a08a7@@QAEXI@Z
 void Target_293bf0::run(unsigned arg) {
-    g_293bf0.a();
-    g_293bf0.b(arg);
+    hulk_at_0052c2d8.Fna_0022b980();
+    hulk_at_0052c2d8.Fnb_0022ba30(arg);
     obj->f17(0, g52c2d8);
 }
 
@@ -314,8 +314,8 @@ void Target_293bf0::run(unsigned arg) {
 // sym: ?run@Target_293c20@fn_fd6a08a7@@QAEXI@Z
 // Same code shape as 0x00293bf0 (propagated; names are from that function)
 void Target_293c20::run(unsigned arg) {
-    g_293c20.a();
-    g_293c20.b(arg);
+    g_293c20.Fna_0022b980();
+    g_293c20.Fnb_0022ba70(arg);
     obj->f17(0, g52c2d8);
 }
 
@@ -324,8 +324,8 @@ void Target_293c20::run(unsigned arg) {
 // sym: ?run@Target_293c50@fn_fd6a08a7@@QAEXI@Z
 // Same code shape as 0x00293bf0 (propagated; names are from that function)
 void Target_293c50::run(unsigned arg) {
-    g_293c50.a();
-    g_293c50.b(arg);
+    g_293c50.Fna_0022b980();
+    g_293c50.Fnb_0022bab0(arg);
     obj->f17(0, g52c2d8);
 }
 
@@ -334,8 +334,8 @@ void Target_293c50::run(unsigned arg) {
 // sym: ?f@T_293c80@fn_fd6a08a7@@QAEXHHH@Z
 // data: glob_293c80 = DAT_0052c2d8
 void T_293c80::f(int a, int b, int c) {
-    (*(G_293c80*)&DAT_0052c2d8).a();
-    (*(G_293c80*)&DAT_0052c2d8).b(a, b, c);
+    (*(G_293c80*)&DAT_0052c2d8).Fna_0022b980();
+    (*(G_293c80*)&DAT_0052c2d8).Fnb_0022bc20(a, b, c);
     p->x17(0, (hulk_intptr)&(*(G_293c80*)&DAT_0052c2d8));
 }
 
@@ -345,8 +345,8 @@ void T_293c80::f(int a, int b, int c) {
 // Same code shape as 0x00293c80 (propagated; names are from that function)
 // data: glob_293cc0 = DAT_0052c2d8
 void T_293cc0::f(int a, int b, int c) {
-    (*(G_293cc0*)&DAT_0052c2d8).a();
-    (*(G_293cc0*)&DAT_0052c2d8).b(a, b, c);
+    (*(G_293cc0*)&DAT_0052c2d8).Fna_0022b980();
+    (*(G_293cc0*)&DAT_0052c2d8).Fnb_0022bcd0(a, b, c);
     p->x17(0, (hulk_intptr)&(*(G_293cc0*)&DAT_0052c2d8));
 }
 
@@ -354,10 +354,10 @@ void T_293cc0::f(int a, int b, int c) {
 // 0x00293d00 FUN_00293d00 (60 B): matches/0x00293d00.cpp
 // sym: ?run@Owner_293d00@fn_fd6a08a7@@QAEXPAUData_293d00@2@@Z
 void Owner_293d00::run(Data_293d00* p) {
-    gInit_293d00.foo();
-    gA_293d00 = p->a;
-    gB = p->b;
-    gC = p->c;
+    gInit_293d00.foo_0022b980();
+    hulk_at_0052c308 = p->a;
+    hulk_at_0052c30c = p->b;
+    hulk_at_0052c310 = p->c;
     host->f17(0, &gData_293d00);
 }
 
@@ -368,7 +368,7 @@ void C_293d40::run(U_293d40 a, U_293d40 b, U_293d40 c) {
     (*(U_293d40*)&DAT_0052c2c8) = a;
     (*(U_293d40*)&DAT_0052c2cc) = b;
     (*(U_293d40*)&DAT_0052c2d0) = c;
-    (*(Sub_293d40*)&DAT_0052c2d8).init();
+    (*(Sub_293d40*)&DAT_0052c2d8).init_0022b980();
     (*(U_293d40*)&DAT_0052c308) = (*(U_293d40*)&DAT_0052c2c8);
     (*(U_293d40*)&DAT_0052c30c) = (*(U_293d40*)&DAT_0052c2cc);
     (*(U_293d40*)&DAT_0052c310) = (*(U_293d40*)&DAT_0052c2d0);
@@ -381,8 +381,8 @@ void C_293d40::run(U_293d40 a, U_293d40 b, U_293d40 c) {
 // Same code shape as 0x00293c80 (propagated; names are from that function)
 // data: glob_293da0 = DAT_0052c2d8
 void T_293da0::f(int a, int b, int c) {
-    (*(G_293da0*)&DAT_0052c2d8).a();
-    (*(G_293da0*)&DAT_0052c2d8).b(a, b, c);
+    (*(G_293da0*)&DAT_0052c2d8).Fna_0022b980();
+    (*(G_293da0*)&DAT_0052c2d8).Fnb_0022be60(a, b, c);
     p->x17(0, (hulk_intptr)&(*(G_293da0*)&DAT_0052c2d8));
 }
 

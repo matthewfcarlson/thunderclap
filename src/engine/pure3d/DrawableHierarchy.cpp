@@ -14,7 +14,7 @@ namespace fn_fbc2d490 {} using namespace fn_fbc2d490;
 // ---- declarations shared by the functions below
 namespace fn_fbc2d490 {
 struct Sub_2a3530 {
-    void Copy(const Sub_2a3530* o);
+    void Copy_0027af70(const Sub_2a3530* o);
     char p[8];
 };
 struct Entity_2a3530 {
@@ -38,7 +38,7 @@ class Obj_2a35d0 {
     virtual void f0();
     virtual void f1();
 };
-extern void* g_vftable_2a35f0[];
+extern void* hulk_at_0042d82c[];
 class Ref_2a35f0 {
   public:
     virtual void F0();
@@ -47,7 +47,7 @@ class Ref_2a35f0 {
 class Entity_2a35f0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class DrawableHierarchy_2a35f0 : public Entity_2a35f0 {
   public:
@@ -67,7 +67,7 @@ class Ref_2a3620 {
 class Entity_2a3620 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class DrawableHierarchy_2a3620 : public Entity_2a3620 {
   public:
@@ -99,7 +99,7 @@ unsigned int GetZero() {
 // sym: ??0DrawableHierarchy_2a3530@fn_fbc2d490@@QAE@ABU01@@Z
 DrawableHierarchy_2a3530::DrawableHierarchy_2a3530(const DrawableHierarchy_2a3530& o) {
     m10 = 0;
-    s.Copy(&o.s);
+    s.Copy_0027af70(&o.s);
     m14 = o.m14;
     m18 = o.m18;
     m1c = o.m1c;
@@ -141,13 +141,13 @@ namespace fn_fbc2d490 {
 // 0x002a35f0 FUN_002a35f0 (36 B): matches/0x002a35f0.cpp
 // sym: ??1DrawableHierarchy_2a35f0@fn_fbc2d490@@QAE@XZ
 DrawableHierarchy_2a35f0::~DrawableHierarchy_2a35f0() {
-    vptr = g_vftable_2a35f0;
+    vptr = hulk_at_0042d82c;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_0027afd0();
 }
 
 
@@ -160,7 +160,7 @@ DrawableHierarchy_2a3620* DrawableHierarchy_2a3620::f2(unsigned char flags) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_0027afd0();
     if (flags & 1)
         operator delete(this);
     return this;

@@ -75,7 +75,7 @@ class Obj_2c7210 {
     char pad2[8];
     void* value;
 };
-void __cdecl cleanup(void*);
+void __cdecl cleanup_0008d340(void*);
 extern "C" void __cdecl FUN_000c7920();
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern "C" void __stdcall Init(void*, int, int, const float*);
@@ -278,7 +278,7 @@ class VertexList {
     int q;
     int r;
     int s;
-    void init(int, int, int);
+    void init_002c7340(int, int, int);
     VertexList(int, int, int);
 };
 namespace pure3d {
@@ -452,7 +452,7 @@ namespace fn_f3d8c80d {
 // 0x002c7210 FUN_002c7210 (33 B): matches/0x002c7210.cpp
 // sym: ?FUN_002c7210@fn_f3d8c80d@@YIXPAVObj_2c7210@1@@Z
 void __fastcall FUN_002c7210(Obj_2c7210* self) {
-    cleanup(self->value);
+    cleanup_0008d340(self->value);
     self->value = 0;
     self->flags &= ~0x20u;
 }
@@ -1097,7 +1097,7 @@ VertexList::VertexList(int p2, int p3, int p4) {
     pad[3] = 0;
     pad[4] = 0;
     pad[5] = 0;
-    init(p2, p3, p4);
+    init_002c7340(p2, p3, p4);
 }
 
 

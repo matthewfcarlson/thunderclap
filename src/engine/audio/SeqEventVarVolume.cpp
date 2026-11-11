@@ -17,7 +17,7 @@ namespace fn_fa65be09 {
 extern "C" char DAT_00429fac[];
 class SeqEvent_2527b0 {
   public:
-    void Init();
+    void Init_0025fd00();
 };
 class SeqEventVarVolume : public SeqEvent_2527b0 {
   public:
@@ -98,7 +98,7 @@ class SeqEventVarVolume_252930 {
     void* vptr;
     u32_252930 pad;
     float volume;
-    void Init();
+    void Init_0025fd00();
 };
 }
 namespace fn_fa65be09 {
@@ -107,7 +107,7 @@ struct Stm_252990 {
     char pad[0x24];
     int depth;
 };
-extern bool Match(Stm_252990*, const char*, ...);
+extern bool Match_00246f50(Stm_252990*, const char*, ...);
 extern "C" bool FUN_00252470(Stm_252990**, const char*, void*);
 class SeqEvent {
   public:
@@ -144,7 +144,7 @@ extern "C" int* FUN_002527a0() {
 // 0x002527b0 FUN_002527b0 (25 B): matches/0x002527b0.cpp
 // sym: ?Build@SeqEventVarVolume@fn_fa65be09@@QAEPAV12@XZ
 SeqEventVarVolume* SeqEventVarVolume::Build() {
-    Init();
+    Init_0025fd00();
     vtable = ((hulk_intptr)DAT_00429fac);
     volume = 1.0f;
     return this;
@@ -249,7 +249,7 @@ audio::SeqEventVarVolumeType::~SeqEventVarVolumeType() {}
 void* audio::SeqEventVarVolumeType::vfunc_3() {
     audio::SeqEventVarVolume_252930* p = FUN_00247530((void*)((char*)&DAT_004e6ed8));
     if (p) {
-        p->Init();
+        p->Init_0025fd00();
         p->vptr = (void*)((hulk_intptr)DAT_00429fac);
         p->volume = 1.0f;
         return (void*)(p);
@@ -264,12 +264,12 @@ namespace fn_fa65be09 {
 // data: sClose = DAT_004298dc, sName_00429ff0 = DAT_00429ff0, sOpen = DAT_004298f4
 int SeqEventVarVolume_252990::vfunc_1(Stm_252990** p) {
     if (SeqEvent::v1(p)) {
-        if (Match(*p, DAT_004298f4)) {
+        if (Match_00246f50(*p, DAT_004298f4)) {
             (*p)->depth++;
             if (FUN_00252470(p, DAT_00429ff0, (char*)this + 8)) {
                 (*p)->depth--;
                 Stm_252990* s = *p;
-                if (Match(s, DAT_004298dc))
+                if (Match_00246f50(s, DAT_004298dc))
                     return 1;
             }
         }

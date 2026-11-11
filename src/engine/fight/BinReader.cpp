@@ -13,7 +13,7 @@ namespace fn_f1775e11 {} using namespace fn_f1775e11;
 extern "C" void* memcpy(void*, const void*, unsigned);
 #endif
 namespace fn_f1775e11 {
-extern void* refVtable_23b880;
+extern void* hulk_at_003f6098;
 struct Obj_23b880 {
     void** vf;
     char pad[4];
@@ -123,12 +123,12 @@ struct DataReader_23b950 {
     struct Helper_23b950* member;
 };
 struct Helper_23b950 {
-    u32_23b950 call(u32_23b950, u32_23b950, u32_23b950, u32_23b950);
+    u32_23b950 call_002647e0(u32_23b950, u32_23b950, u32_23b950, u32_23b950);
 };
 class Helper_23b970 {
   public:
-    unsigned int f1();
-    unsigned int f2();
+    unsigned int f1_00263fc0();
+    unsigned int f2_00263fb0();
 };
 class Inner_23b9c0 {
   public:
@@ -223,14 +223,14 @@ class IFileDataReader {
     int pad;
     Inner_23bad0* inner;
 };
-extern int vtFight;
+extern int hulk_at_00428744;
 extern int vtRef_23bad0;
-extern void cleanup(IFileDataReader*);
+extern void cleanup_00263f30(IFileDataReader*);
 class Arg_23bb00 {
   public:
     virtual void Init();
 };
-extern int table_23bb00;
+extern int hulk_at_00428760;
 class StreamDataReader {
   public:
     hulk_intptr vf;
@@ -287,7 +287,7 @@ struct ThisCall_0023bb90 {
 } // namespace fn_f1775e11
 namespace fight {
 struct BinReader_nv_23c100 {
-    void helper();
+    void helper_0023bb90();
 };
 }
 namespace fn_f1775e11 {
@@ -302,7 +302,7 @@ class Stream_23c110 {
 } // namespace fn_f1775e11
 namespace fight {
 struct BinReader_nv_23c110 {
-    void Prep();
+    void Prep_0023bb90();
 };
 }
 namespace fight {
@@ -331,7 +331,7 @@ struct Reader_23c170 {
 }
 namespace fight {
 struct BinReader_nv_23c170 {
-    void init();
+    void init_0023bb90();
 };
 }
 namespace fn_f1775e11 {
@@ -344,7 +344,7 @@ class Stream_23c1f0 {
     virtual void Read(void*, int);
 };
 struct BinReader_nv_23c1f0 {
-    void Update();
+    void Update_0023bb90();
 };
 
 } // namespace fn_f1775e11
@@ -378,7 +378,7 @@ void __fastcall target(Obj_23b880* self) {
     self->p;
     self->vf = (void**)&gameVtable;
     self->p->b();
-    self->vf = (void**)&refVtable_23b880;
+    self->vf = (void**)&hulk_at_003f6098;
 }
 
 } // namespace fn_f1775e11
@@ -437,7 +437,7 @@ unsigned int fight::StreamDataReader::vfunc_3() {
 // sym: ?vfunc_4@StreamDataReader@fight@@UAEHHH@Z
 int fight::StreamDataReader::vfunc_4(hulk_intptr __p0, int __p1) { u32_23b950 a = (u32_23b950)__p0; u32_23b950 b = (u32_23b950)__p1;
 
-    (*(struct Helper_23b950 * *)&this->f_08)->call(a, b, 1, 1);
+    (*(struct Helper_23b950 * *)&this->f_08)->call_002647e0(a, b, 1, 1);
     return (int)(b);
 }
 
@@ -445,8 +445,8 @@ int fight::StreamDataReader::vfunc_4(hulk_intptr __p0, int __p1) { u32_23b950 a 
 // 0x0023b970 fight::StreamDataReader::vfunc_5 (30 B): matches/0x0023b970.cpp
 // sym: ?vfunc_5@StreamDataReader@fight@@UAE_NXZ
 bool fight::StreamDataReader::vfunc_5() {
-    unsigned int a = (*(Helper_23b970 * *)&this->f_08)->f1();
-    unsigned int b = (*(Helper_23b970 * *)&this->f_08)->f2();
+    unsigned int a = (*(Helper_23b970 * *)&this->f_08)->f1_00263fc0();
+    unsigned int b = (*(Helper_23b970 * *)&this->f_08)->f2_00263fb0();
     return b <= a;
 }
 
@@ -463,14 +463,14 @@ class BinReader_23b990 {
   public:
     virtual void f();
     virtual ~BinReader_23b990();
-    void Fin();
+    void Fin_00232c30();
     int pad4;
     Reader* reader;
 };
 void BinReader_23b990::f() {}
 BinReader_23b990::~BinReader_23b990() {
     reader->g();
-    Fin();
+    Fin_00232c30();
 }
 } // namespace fn_0023b990
 
@@ -571,11 +571,11 @@ IFileDataReader_23baa0::IFileDataReader_23baa0(Reader* r) {
 // sym: ?v2@IFileDataReader@fn_f1775e11@@UAEPAV12@I@Z
 IFileDataReader* IFileDataReader::v2(unsigned int flags) {
     Inner_23bad0* p = inner;
-    *(volatile hulk_intptr*)this = (hulk_intptr)&vtFight;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&hulk_at_00428744;
     p->f1();
     *(volatile hulk_intptr*)this = (hulk_intptr)&vtRef_23bad0;
     if (flags & 1)
-        cleanup(this);
+        cleanup_00263f30(this);
     return this;
 }
 
@@ -584,7 +584,7 @@ IFileDataReader* IFileDataReader::v2(unsigned int flags) {
 // sym: ??0StreamDataReader@fn_f1775e11@@QAE@PAVArg_23bb00@1@H@Z
 StreamDataReader::StreamDataReader(Arg_23bb00* x, int y) {
     a = 0;
-    vf = (hulk_intptr)&table_23bb00;
+    vf = (hulk_intptr)&hulk_at_00428760;
     q = y;
     p = x;
     p->Init();
@@ -612,14 +612,14 @@ class StreamDataReader : public DataReader_23bb30 {
     DataReader_23bb30* mObj;
     virtual StreamDataReader* vfunc_2(int);
 };
-extern void Destroy(StreamDataReader*);
+extern void Destroy_00263f30(StreamDataReader*);
 StreamDataReader* StreamDataReader::vfunc_2(int flags) {
     DataReader_23bb30* p = mObj;
     ((hulk_intptr*)this)[0] = ((hulk_intptr)DAT_00428760);
     p->B();
     ((hulk_intptr*)this)[0] = ((hulk_intptr)DAT_003f6098);
     if (flags & 1)
-        Destroy(this);
+        Destroy_00263f30(this);
     return this;
 }
 } // namespace fn_0023bb30
@@ -657,11 +657,11 @@ class BinReader {
     virtual void f19();
     char pad[4];
     Obj_23bb60* obj;
-    void helper();
+    void helper_00232c30();
 };
 BinReader::~BinReader() {
     obj->b();
-    helper();
+    helper_00232c30();
 }
 } // namespace fn_0023bb60
 
@@ -975,7 +975,7 @@ int fight::BinReader::vfunc_13() {
 // sym: ?vfunc_14@BinReader@fight@@UAE_JXZ
  // namespace fight
 __int64 fight::BinReader::vfunc_14() {
-    ((BinReader_nv_23c100*)this)->helper();
+    ((BinReader_nv_23c100*)this)->helper_0023bb90();
     return (__int64)(*(unsigned long long*)((char*)this + 0x28));
 }
 
@@ -984,7 +984,7 @@ __int64 fight::BinReader::vfunc_14() {
 // sym: ?vfunc_16@BinReader@fight@@UAE_JHH@Z
  // namespace fight
 __int64 fight::BinReader::vfunc_16(int , int ) {
-    ((BinReader_nv_23c110*)this)->Prep();
+    ((BinReader_nv_23c110*)this)->Prep_0023bb90();
     this->f_18 = this->f_28;
     this->f_1c = this->f_2c;
     (*(Stream_23c110 * *)&this->f_08)->Read((*(char (*)[4])&this->f_20), 4);
@@ -1011,7 +1011,7 @@ __int64 fight::BinReader::vfunc_16(int , int ) {
 // sym: ?vfunc_17@BinReader@fight@@UAEXXZ
  // namespace fight
 void fight::BinReader::vfunc_17() {
-    ((BinReader_nv_23c170*)this)->init();
+    ((BinReader_nv_23c170*)this)->init_0023bb90();
     this->f_18 = 0;
     this->f_1c = 0;
     (*(int *)&this->f_20) = 0;
@@ -1068,6 +1068,6 @@ void fight::BinReader::FUN_0023c1f0() {
     int t = k;
     (*(unsigned char *)&this->f_0d) = ((unsigned int)t >> 1) & 1;
     (*(unsigned char *)&this->f_0e) = ((unsigned int)t >> 2) & 1;
-    ((BinReader_nv_23c1f0*)this)->Update();
+    ((BinReader_nv_23c1f0*)this)->Update_0023bb90();
 }
 

@@ -49,7 +49,7 @@ extern "C" void __cdecl FUN_002416c0(Ctrl *ctrl, Actor_25a0b0 *actor, int arg);
 extern "C" int __cdecl FUN_00267f80();
 extern "C" void __cdecl FUN_00243090(Ctrl *ctrl, float dt);
 extern "C" hulk_intptr __cdecl GetThing() throw();
-extern "C" void __cdecl Func(void*) throw();
+extern "C" void __cdecl Func_00257dd0(void*) throw();
 class Entity_25a2c0 {
   public:
     Entity_25a2c0(int) throw();
@@ -405,7 +405,7 @@ Mix::Mix() throw() : Entity_25a2c0(GetThing()) {
     p44 = e;
     p38 = e;
     m48 = 0;
-    Func(m28);
+    Func_00257dd0(m28);
 }
 
 // 0x0025a310 audio::Mix::vfunc_8 (5 B): not yet verified
@@ -724,7 +724,7 @@ namespace fn_0025a8c0 {
 extern "C" char DAT_0042a6e4[];
 struct Mix {
     int pad[14];
-    void Finish();
+    void Finish_00244f70();
 };
 extern "C++" __declspec(nothrow) void __cdecl FUN_0025a220(void *);
 extern "C" void __cdecl FUN_00257df0(void*);
@@ -732,7 +732,7 @@ void __fastcall target(Mix* self) {
     self->pad[0] = ((hulk_intptr)DAT_0042a6e4);
     FUN_0025a220(&self->pad[14]);
     FUN_00257df0(&self->pad[10]);
-    self->Finish();
+    self->Finish_00244f70();
 }
 } // namespace fn_0025a8c0
 
@@ -783,7 +783,7 @@ bool audio::Mix::vfunc_5(void* stream) {
 // 0x0025aa00 audio::Mix::vfunc_2 (65 B): matches/0x0025aa00.cpp [wrapped: merged class would differ: Mix: multiple bases]
 // sym: ?f2@Mix@fn_0025aa00@@UAEPAV12@E@Z
 namespace fn_0025aa00 {
-extern char mixVftable;
+extern char hulk_at_0042a6e4;
 void f70();
 class Mix {
   public:
@@ -797,19 +797,19 @@ class Mix {
     virtual void f7();
     virtual void f8();
     char pad[0x38 - 4];
-    void setup();
+    void setup_00244f70();
 };
 extern "C++" __declspec(nothrow) void __cdecl FUN_0025a220(void *);
 extern "C" void FUN_00257df0(void*);
-int f660();
-int f550(int, Mix*);
+int f660_00241660();
+int f550_00247550(int, Mix*);
 Mix* Mix::f2(unsigned char x) {
-    *(void**)this = &mixVftable;
+    *(void**)this = &hulk_at_0042a6e4;
     FUN_0025a220((char*)this + 0x38);
     FUN_00257df0((char*)this + 0x28);
-    setup();
+    setup_00244f70();
     if (x & 1) {
-        f550(f660(), this);
+        f550_00247550(f660_00241660(), this);
     }
     return this;
 }

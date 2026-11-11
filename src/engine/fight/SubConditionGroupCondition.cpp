@@ -14,17 +14,17 @@ namespace fn_fe0ef8b4 {} using namespace fn_fe0ef8b4;
 // ---- declarations shared by the functions below
 namespace fn_fe0ef8b4 {
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_23c8d0;
+extern int* hulk_at_004e5c44;
 class CCondition_23c8d0 {
   public:
     virtual int vfunc_0(int);
 };
 struct Member_23c900 {
-    void Release();
+    void Release_00236fd0();
 };
 struct Condition_23c900 {
     virtual void g();
-    void Shutdown();
+    void Shutdown_002345b0();
 };
 struct SubConditionGroupCondition_23c900 : Condition_23c900 {
     char pad[8];
@@ -52,7 +52,7 @@ class Param {
 };
 class Helper_23c920 {
   public:
-    int f(int, int, int);
+    int Fnf_00236f40(int, int, int);
 };
 class SubConditionGroupCondition : public Condition, public Param {
   public:
@@ -75,7 +75,7 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     void(__fastcall* fn)(void*);
     virtual void vfunc_6(void*);
 };
-extern int gTypeA_23c9a0;
+extern int hulk_at_00491ca8;
 class ConditionFactoryCasterTemplate_23ca70 {
   public:
     virtual void dummy();
@@ -104,16 +104,16 @@ class Condition_23cae0 {
     virtual void b();
     virtual void c();
     virtual void d();
-    void Init(int);
+    void Init_00234590(int);
 };
 struct Tail_23cae0 {
-    void InitTail();
+    void InitTail_00236e00();
 };
-extern int g_vftable_23cb10;
+extern int hulk_at_00428948;
 struct ConditionFactoryTemplate_23cb10 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0023c8b0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -140,7 +140,7 @@ void FUN_0023c8b0() {
 // sym: ?vfunc_0@SubConditionGroupCondition@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::SubConditionGroupCondition::vfunc_0(int index) {
-    int* p = gTable_23c8d0;
+    int* p = hulk_at_004e5c44;
     return p[index];
 }
 
@@ -150,15 +150,15 @@ namespace fn_fe0ef8b4 {
 // sym: ??1SubConditionGroupCondition_23c900@fn_fe0ef8b4@@QAE@XZ
 // Same code shape as 0x0010c7d0 (propagated; names are from that function)
 SubConditionGroupCondition_23c900::~SubConditionGroupCondition_23c900() {
-    m.Release();
-    Shutdown();
+    m.Release_00236fd0();
+    Shutdown_002345b0();
 }
 
 
 // 0x0023c920 fight::SubConditionGroupCondition::vfunc_6 (8 B): matches/0x0023c920.cpp
 // sym: ?vfunc_6@SubConditionGroupCondition@fn_fe0ef8b4@@UAEHHHH@Z
 int SubConditionGroupCondition::vfunc_6(int a0, int a1, int a2) {
-    return ((Helper_23c920*)((char*)this + 0xc))->f(a0, a1, a2);
+    return ((Helper_23c920*)((char*)this + 0xc))->Fnf_00236f40(a0, a1, a2);
 }
 
 } // namespace fn_fe0ef8b4
@@ -170,7 +170,7 @@ extern "C" char DAT_004288fc[];
 class SubConditionGroupCondition;
 struct Part_23c930 {
     char pad[12];
-    void Init();
+    void Init_00236fd0();
 };
 class SubConditionGroupCondition {
   public:
@@ -181,16 +181,16 @@ class SubConditionGroupCondition {
     virtual void v4();
     virtual SubConditionGroupCondition* vfunc_5(int);
     virtual void v6();
-    void Finalize();
+    void Finalize_002345b0();
 };
-extern void __cdecl DestroySub(SubConditionGroupCondition*);
+extern void __cdecl DestroySub_0008d330(SubConditionGroupCondition*);
 SubConditionGroupCondition* SubConditionGroupCondition::vfunc_5(int flags) {
     Part_23c930* p = (Part_23c930*)((char*)this + 12);
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_004288fc);
-    p->Init();
-    Finalize();
+    p->Init_00236fd0();
+    Finalize_002345b0();
     if (flags & 1)
-        DestroySub(this);
+        DestroySub_0008d330(this);
     return this;
 }
 } // namespace fn_0023c930
@@ -211,7 +211,7 @@ void ParamBranch::vfunc_6(void* p) {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::ConditionFactoryCasterTemplate<fight::SubConditionGroupCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_23c9a0, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_00491ca8, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -254,9 +254,9 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::SubConditionGroup
 template <> void* fight::ConditionFactoryTemplate<fight::SubConditionGroupCondition>::vfunc_5() {
     Condition_23cae0* p = (Condition_23cae0*)FUN_0008d690(0x10);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_004288fc);
-        ((Tail_23cae0*)((char*)p + 12))->InitTail();
+        ((Tail_23cae0*)((char*)p + 12))->InitTail_00236e00();
         return (void*)(p);
     }
     return (void*)(0);
@@ -268,9 +268,9 @@ namespace fn_fe0ef8b4 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_23cb10@fn_fe0ef8b4@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_23cb10::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_23cb10;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00428948;
+    base1_dtor_0023c8b0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

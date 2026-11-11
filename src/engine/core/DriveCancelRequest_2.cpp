@@ -17,9 +17,9 @@ class DriveCancelRequest {
   public:
     hulk_intptr value;
     DriveCancelRequest(hulk_intptr);
-    void Init(int);
+    void Init_00275600(int);
 };
-extern void Helper();
+extern void Helper_002705f0();
 struct Lock_275ca0 {
     virtual void lock();
     virtual void unlock();
@@ -61,9 +61,9 @@ struct DriveRequest : Request {
 // 0x00275c80 FUN_00275c80 (30 B): matches/0x00275c80.cpp
 // sym: ??0DriveCancelRequest@fn_f241e4e6@@QAE@H@Z
 DriveCancelRequest::DriveCancelRequest(hulk_intptr arg) {
-    Init(arg);
+    Init_00275600(arg);
     value = ((hulk_intptr)DAT_0042bc80);
-    Helper();
+    Helper_002705f0();
 }
 
 

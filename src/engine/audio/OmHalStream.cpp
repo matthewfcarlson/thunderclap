@@ -18,13 +18,13 @@ namespace fn_fd6abdd0 {
 extern int __cdecl FUN_00246f50(void*, const char*, ...);
 typedef unsigned char BYTE;
 struct Obj_25aa80 {
-    bool Query(BYTE*, int, int, int);
+    bool Query_00246f00(BYTE*, int, int, int);
 };
 extern int __cdecl FUN_00246f50(const char*, const char*, ...);
 extern int __cdecl FUN_00246f50(int, const char*, ...);
 class Handler {
   public:
-    int Fn(int, int, int, int);
+    int Fn_00246f00(int, int, int, int);
 };
 extern "C" int __cdecl FUN_00246f50(unsigned int, const char*, ...);
 struct Writer_25ac30 {
@@ -74,7 +74,7 @@ struct RbTree_25b010 {
 };
 struct E_25b2c0 {
     char x[12];
-    void Init();
+    void Init_0023fac0();
 };
 struct A_25b2c0 {
     char pad[0x10];
@@ -101,16 +101,16 @@ struct Obj {
     Elem a;
     Elem b;
     Elem arr[10];
-    int Fn(int, int, int, int);
-    void call(int, int, int, int);
-    int DoThing(void*, int, int, int);
+    int Fn_00246f00(int, int, int, int);
+    void call_00246f00(int, int, int, int);
+    int DoThing_00246f00(void*, int, int, int);
 };
 struct Holder {
     Obj* volatile obj;
 };
-void freeobj(void*, Obj*);
+void freeobj_00247550(void*, Obj*);
 extern "C++" __declspec(nothrow) void __cdecl FUN_0025b7d0(void *);
-extern void __cdecl FuncB(void*);
+extern void __cdecl FuncB_0008d330(void*);
 class Target_25b940 {
   public:
     void* p;
@@ -123,7 +123,7 @@ struct S_25bbd0 {
 };
 class C_25bcb0 {
   public:
-    int Get();
+    int Get_0023fb00();
 };
 const char format[] = "\"%s\"";
 struct Reader {
@@ -143,9 +143,9 @@ class A_25bec0 {
     virtual void* f1();
     virtual void* f2();
 };
-extern void* __cdecl helper(A_25bec0*);
+extern void* __cdecl helper_00262e60(A_25bec0*);
 extern "C" bool __cdecl Check(void*, void*);
-void __fastcall helper(void* p);
+void __fastcall helper_0023fb00(void* p);
 class HalStream_25c0b0 {
   public:
     virtual void a0();
@@ -204,7 +204,7 @@ public:
     const char* FUN_0023fb00();
 };
 Str_25c920* __cdecl FUN_00262700(Str_25c920* path, const Str_25c920* part);
-extern void __stdcall init();
+extern void __stdcall init_0024c710();
 struct Pair {
     int a, b;
 };
@@ -230,12 +230,12 @@ class OmHalStream {
 };
 struct Temp_25ccf0 {
     char pad[12];
-    void Init();
-    int Get();
+    void Init_0023fac0();
+    int Get_0023fb00();
 };
-unsigned char __cdecl Work(int, Temp_25ccf0*);
+unsigned char __cdecl Work_0025bce0(int, Temp_25ccf0*);
 struct Receiver_25ccf0 {
-    void Send(int);
+    void Send_00253a90(int);
 };
 struct Pair_25cda0 {
     int a, b;
@@ -259,7 +259,7 @@ public:
 struct FileState { char padding[0x24]; int count; };
 extern "C++" __declspec(nothrow) unsigned char __cdecl FUN_00246f50(FileState *, const char *, ...);
 struct Inner_25cf10 {
-    void f();
+    void Fnf_0023fac0();
 };
 struct Obj_25cf10 {
     char pad[0x1c];
@@ -335,7 +335,7 @@ struct Obj_25d300 {
     void* p;
     char pad2[8];
 };
-void __cdecl f247550(void*, void*);
+void __cdecl f247550_00247550(void*, void*);
 extern "C" int FUN_0024afe0(int);
 
 
@@ -355,7 +355,7 @@ extern "C" int __cdecl FUN_0025aa50(void** value, char flag) {
 bool __cdecl Target(hulk_uintptr a, bool* out) {
     Obj_25aa80* o = *(Obj_25aa80**)a;
     BYTE* b = (BYTE*)&a;
-    if (o->Query(b, 1, 1, 1)) {
+    if (o->Query_00246f00(b, 1, 1, 1)) {
         *out = *b != 0;
         return true;
     }
@@ -376,7 +376,7 @@ extern "C" int __cdecl FUN_0025aab0(const char** value, signed char number) {
 // sym: ?FUN_0025aad0@fn_fd6abdd0@@YAHPAUHolder@1@H@Z
 int __cdecl FUN_0025aad0(Holder* p, int n) {
     Obj* o = p->obj;
-    return o->Fn(n, 1, 1, 1);
+    return o->Fn_00246f00(n, 1, 1, 1);
 }
 
 
@@ -393,7 +393,7 @@ extern "C" int __cdecl FUN_0025aaf0(const int* value, unsigned char flag) {
 // sym: ?FUN_0025ab10@fn_fd6abdd0@@YAHPAUObj@1@H@Z
 int __cdecl FUN_0025ab10(Obj* p, int v) {
     Handler* h = p->handler;
-    return h->Fn(v, 1, 1, 1);
+    return h->Fn_00246f00(v, 1, 1, 1);
 }
 
 } // namespace fn_fd6abdd0
@@ -416,7 +416,7 @@ namespace fn_fd6abdd0 {
 // sym: _FUN_0025ab50
 extern "C" void FUN_0025ab50(Holder* a, int b) {
     Obj* o = a->obj;
-    o->call(b, 4, 1, 1);
+    o->call_00246f00(b, 4, 1, 1);
 }
 
 
@@ -434,7 +434,7 @@ extern "C" int __cdecl FUN_0025abb0(const unsigned int* value, unsigned int arg)
 namespace fn_0025abd0 {
 class Target {
   public:
-    int Fn(int, int, int, int);
+    int Fn_00246f00(int, int, int, int);
 };
 class Obj {
   public:
@@ -442,7 +442,7 @@ class Obj {
 };
 int __cdecl FUN_0025abd0(Obj* o, int v) {
     Target* t = o->p;
-    return t->Fn(v, 4, 1, 1);
+    return t->Fn_00246f00(v, 4, 1, 1);
 }
 } // namespace fn_0025abd0
 
@@ -467,10 +467,10 @@ struct Target {};
 struct Obj {
     Target* p;
 };
-int __fastcall Do(Target*, int, int, int, int, int);
+int __fastcall Do_00246f00(Target*, int, int, int, int, int);
 extern "C" int __cdecl FUN_0025ac10(Obj* a, int b) {
     Target* p = *(Target* volatile*)&a->p;
-    return Do(p, b, b, 4, 1, 1);
+    return Do_00246f00(p, b, b, 4, 1, 1);
 }
 } // namespace fn_0025ac10
 
@@ -501,7 +501,7 @@ char FUN_0025ac30(Writer_25ac30 *w, unsigned __int64 value)
 // sym: ?Target@fn_fd6abdd0@@YAHPCRAUObj@1@PAX@Z
 int Target(Obj* volatile* a, void* b) {
     Obj* obj = *a;
-    return obj->DoThing(b, 8, 1, 1);
+    return obj->DoThing_00246f00(b, 8, 1, 1);
 }
 
 
@@ -778,11 +778,11 @@ extern "C" void FUN_0025b010(void * tree_, void * x_)
 // 0x0025b2c0 FUN_0025b2c0 (51 B): matches/0x0025b2c0.cpp
 // sym: ?Target@fn_fd6abdd0@@YIPAUA_25b2c0@1@PAU21@@Z
 A_25b2c0* __fastcall Target(A_25b2c0* self) {
-    self->a.Init();
-    self->b.Init();
+    self->a.Init_0023fac0();
+    self->b.Init_0023fac0();
     int i = 10;
     do {
-        self->c[10 - i].Init();
+        self->c[10 - i].Init_0023fac0();
         --i;
     } while (i != 0);
     return self;
@@ -1101,7 +1101,7 @@ void __cdecl target(void* p, Obj* o) {
         } while (--n);
         ((owners::Str_240060 *)&(o->b))->FUN_00240060();
         ((owners::Str_240060 *)&(o->a))->FUN_00240060();
-        freeobj(((char*)((char*)&DAT_004e7778)), o);
+        freeobj_00247550(((char*)((char*)&DAT_004e7778)), o);
     }
 }
 
@@ -1175,7 +1175,7 @@ void Target_25b940::run() {
         FUN_0025b7d0(q);
     q = *(void* volatile*)&p;
     if (q)
-        FuncB(q);
+        FuncB_0008d330(q);
 }
 
 } // namespace fn_fd6abdd0
@@ -1356,7 +1356,7 @@ void __fastcall target(S_25bbd0* self) {
 // sym: ?target@fn_fd6abdd0@@YAHPAHPAVC_25bcb0@1@@Z
 int target(int* stream, C_25bcb0* item) {
     int value = *stream;
-    int result = item->Get();
+    int result = item->Get_0023fb00();
     return FUN_00246f50(value, format, result);
 }
 
@@ -1412,7 +1412,7 @@ unsigned int __cdecl target(int a, hulk_intptr b) {
 extern "C" void* __cdecl FUN_0025bec0(A_25bec0* p) {
     void* q = p->f2();
     if ((*(unsigned int*)q & 15) == 4)
-        return helper(p);
+        return helper_00262e60(p);
     return p;
 }
 
@@ -1447,7 +1447,7 @@ extern "C" int* FUN_0025c040() {
 // 0x0025c080 audio::OmHalStream::vfunc_10 (11 B): matches/0x0025c080.cpp
 // sym: ?vfunc_10@OmHalStream@audio@@UAEXXZ
 void audio::OmHalStream::vfunc_10() {
-    helper((char*)this + 0x1bc);
+    helper_0023fb00((char*)this + 0x1bc);
 }
 
 namespace fn_fd6abdd0 {
@@ -1616,9 +1616,9 @@ class OmHalStream : public HalStream {
     int vfunc_3();
 };
 } // namespace audio
-int helper(void*);
+int helper_0024c2f0(void*);
 int audio::OmHalStream::vfunc_3() {
-    return helper(&data[0]);
+    return helper_0024c2f0(&data[0]);
 }
 } // namespace fn_0025c310
 
@@ -1790,7 +1790,7 @@ Str_25c920* __cdecl FUN_0025c920(Str_25c920* out, const Str_25c920* dir, const u
 // 0x0025ca90 FUN_0025ca90 (24 B): matches/0x0025ca90.cpp
 // sym: _FUN_0025ca90
 extern "C" Pair* FUN_0025ca90(Pair* dst, Pair* src) {
-    init();
+    init_0024c710();
     *dst = *src;
     return dst;
 }
@@ -1815,7 +1815,7 @@ void* LookupKey(int a1, Key_25cab0* key, int a3, int a4) {
 // 0x0025cb40 FUN_0025cb40 (117 B): matches/0x0025cb40.cpp [wrapped: conflict: Check]
 // sym: ?Run@Target_25cb40@fn_0025cb40@@QAEDPAPAUNode@2@@Z
 namespace fn_0025cb40 {
-extern "C++" __declspec(nothrow) char __cdecl Check(void*, const char*, ...);
+extern "C++" __declspec(nothrow) char __cdecl Check_00246f50(void*, const char*, ...);
 extern "C" char __cdecl FUN_00252470(void*, const char*, void*);
 struct Node {
     char pad[0x24];
@@ -1826,13 +1826,13 @@ class Target_25cb40 {
     char Run(Node**);
 };
 char Target_25cb40::Run(Node** p) {
-    if (Check(*p, "\n[\n")) {
+    if (Check_00246f50(*p, "\n[\n")) {
         ++(*p)->count;
         if (FUN_00252470(p, "mMin", this)) {
             if (FUN_00252470(p, "mMax", (char*)this + 4)) {
                 --(*p)->count;
                 Node* n = *p;
-                if (Check(n, "]"))
+                if (Check_00246f50(n, "]"))
                     return 1;
             }
         }
@@ -1916,10 +1916,10 @@ OmHalStream* OmHalStream::Init(unsigned char flag) {
 // sym: ?Target@fn_fd6abdd0@@YAEHPAUReceiver_25ccf0@1@@Z
 unsigned char Target(int a, Receiver_25ccf0* b) {
     Temp_25ccf0 t;
-    t.Init();
-    unsigned char r = Work(a, &t);
+    t.Init_0023fac0();
+    unsigned char r = Work_0025bce0(a, &t);
     if (b)
-        b->Send(t.Get());
+        b->Send_00253a90(t.Get_0023fb00());
     ((owners::Str_240060 *)&t)->FUN_00240060();
     return r;
 }
@@ -1975,15 +1975,15 @@ struct OmHalStream {
     void vfunc_12();
 };
 } // namespace audio
-extern int om_vftable;
+extern int hulk_at_0042a850;
 struct Sub_25ce80 {
-    void call();
+    void call_00240060();
 };
 extern void __cdecl FUN_00247550(void*, audio::OmHalStream*);
 void audio::OmHalStream::vfunc_12() {
     if (this) {
-        *(void**)this = &om_vftable;
-        ((Sub_25ce80*)((char*)this + 0x1bc))->call();
+        *(void**)this = &hulk_at_0042a850;
+        ((Sub_25ce80*)((char*)this + 0x1bc))->call_00240060();
         FUN_00247550((void*)((hulk_intptr)DAT_004e7808), this);
     }
 }
@@ -1994,7 +1994,7 @@ namespace fn_fd6abdd0 {
 // 0x0025cf10 FUN_0025cf10 (15 B): matches/0x0025cf10.cpp
 // sym: ?target@Obj_25cf10@fn_fd6abdd0@@QAEPAU12@XZ
 Obj_25cf10* Obj_25cf10::target() {
-    inner.f();
+    inner.Fnf_0023fac0();
     return this;
 }
 
@@ -2140,7 +2140,7 @@ extern "C" void __cdecl FUN_0025d300(Obj_25d300* p) {
     if (p->p)
         FUN_00240c60(p->p);
     ((owners::Str_240060 *)(((At*)((char*)p + 0x1c))))->FUN_00240060();
-    f247550(DAT_004e7898, p);
+    f247550_00247550(DAT_004e7898, p);
 }
 
 } // namespace fn_fd6abdd0

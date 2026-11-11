@@ -103,7 +103,7 @@ class Manager_292b60 {
     virtual void f27();
     virtual void f28(int, int, int, int);
 };
-extern Manager_292b60* gManager_292b60;
+extern Manager_292b60* hulk_at_0052c2a8;
 struct Block_292ba0 {
     int x[16];
 };
@@ -137,10 +137,10 @@ public:
 
     void FUN_00292cc0(PosArg pos, Out *out);
 };
-extern void* Entity_292dc0_vftable[];
+extern void* hulk_at_0042cedc[];
 class Entity_292dc0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class Camera_292dc0 : public Entity_292dc0 {
   public:
@@ -386,7 +386,7 @@ void pure3d::Camera::vfunc_22() {
     vfunc_5((*(int *)&this->f_10), (*(int *)&this->f_14));
     if (!this->f_cc)
         vfunc_26();
-    gManager_292b60->f28((*(int *)&this->f_1c), (*(int *)&this->f_20), (*(int *)&this->f_10), this->f_18);
+    hulk_at_0052c2a8->f28((*(int *)&this->f_1c), (*(int *)&this->f_20), (*(int *)&this->f_10), this->f_18);
 }
 
 
@@ -520,24 +520,24 @@ class Camera : public Entity_292d70 {
     virtual void v2() = 0;
     virtual void v3() = 0;
     virtual void v4() = 0;
-    virtual void hulk_slot_vfunc_5(float, float) = 0; void vfunc_5(float, float);
+    virtual void hulk_slot_vfunc_5(float, float) = 0; void vfunc_5_002926d0(float, float);
     char p0[0x18];
     float a;
     float b;
     char p1[0x28];
     struct Sub {
         char x[0x40];
-        void init();
+        void init_0022b980();
     } sub1, sub2;
     unsigned char flag;
     Camera();
 };
 Camera::Camera() : Entity_292d70() {
-    vfunc_5(1.5707964f, 1.0f);
+    vfunc_5_002926d0(1.5707964f, 1.0f);
     a = 1.0f;
     b = 1000.0f;
-    sub1.init();
-    sub2.init();
+    sub1.init_0022b980();
+    sub2.init_0022b980();
     flag = 1;
 }
 } // namespace fn_00292d70
@@ -550,8 +550,8 @@ namespace fn_f91e2119 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 Camera_292dc0* Camera_292dc0::vfunc_5(signed char flags) {
-    *(void***)this = Entity_292dc0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042cedc;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -565,7 +565,7 @@ Camera_292dc0* Camera_292dc0::vfunc_5(signed char flags) {
 namespace fn_00292df0 {
 struct Mat_292df0 {
     float m[16];
-    void Init();
+    void Init_0022b980();
 };
 struct Src_292df0 {
     virtual void v0();
@@ -596,7 +596,7 @@ struct Camera : Entity_292df0 {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void hulk_slot_Set(int a, int b); void Set(int a, int b);
+    virtual void hulk_slot_Set(int a, int b); void Set_002926d0(int a, int b);
     Camera(Src_292df0* s);
     float f1c, f20;
     char p[0x28];
@@ -604,13 +604,13 @@ struct Camera : Entity_292df0 {
     char flag;
 };
 Camera::Camera(Src_292df0* s) : Entity_292df0(s) {
-    Set(s->a, s->b);
+    Set_002926d0(s->a, s->b);
     f1c = s->F8();
     f20 = s->F10();
-    m4c.Init();
-    m8c.Init();
+    m4c.Init_0022b980();
+    m8c.Init_0022b980();
     m8c = *s->GetMat();
-    m4c.Init();
+    m4c.Init_0022b980();
     flag = 0;
 }
 } // namespace fn_00292df0
@@ -622,7 +622,7 @@ namespace fn_00292e70 {
 typedef unsigned int u32_292e70;
 namespace pure3d {
 struct Sub_292e70 {
-    void update();
+    void update_0022c120();
 };
 struct Block_292e70 {
     u32_292e70 v[16];
@@ -637,7 +637,7 @@ void Camera::vfunc_21(const u32_292e70* p) {
     field = *(const Block_292e70*)p;
     flag = 1;
     *(Block_292e70*)((char*)this + 0x4c) = field;
-    ((Sub_292e70*)((char*)this + 0x4c))->update();
+    ((Sub_292e70*)((char*)this + 0x4c))->update_0022c120();
 }
 } // namespace pure3d
 } // namespace fn_00292e70

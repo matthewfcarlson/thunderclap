@@ -126,7 +126,7 @@ struct PoseAnimationController_287e20 {
  char pad0[0x28]; unsigned count; Group_287e20 groups[5]; char pad1[8]; Info_287e20* info; char pad2[8]; Result_287e20* results[5]; unsigned char dirty;
  unsigned char FUN_00285340(); void update();
 };
-extern void* g_vftable_287f40[];
+extern void* hulk_at_0042c81c[];
 } // namespace fn_f83362ab
 void operator delete(void*);
 namespace fn_f83362ab {
@@ -138,7 +138,7 @@ class Ref_287f40 {
 class BlendFrameController_287f40 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285f50();
 };
 class PoseAnimationController_287f40 : public BlendFrameController_287f40 {
   public:
@@ -210,11 +210,11 @@ public:
 namespace pure3d {
 class Helper_288740 {
   public:
-    hulk_intptr run(pure3d::PoseAnimationController*);
+    hulk_intptr run_002886c0(pure3d::PoseAnimationController*);
 };
 }
 namespace fn_f83362ab {
-extern int EntityType, CompositeType, PoseType;
+extern int hulk_at_0048f610, hulk_at_0049b9b8, hulk_at_004ce65c;
 class Result_288770 {
   public:
     virtual void a();
@@ -232,7 +232,7 @@ class Result_288770 {
 };
 extern Result_288770* __cdecl resolve(void*, int, const void*, const void*, int);
 struct PoseAnimationController_nv_288770 {
-    void set(hulk_uintptr);
+    void set_00288080(hulk_uintptr);
 };
 
 } // namespace fn_f83362ab
@@ -352,7 +352,7 @@ void PoseAnimationController_287e20::update() {
 // 0x00287f40 FUN_00287f40 (116 B): matches/0x00287f40.cpp
 // sym: ??1PoseAnimationController_287f40@fn_f83362ab@@QAE@XZ
 PoseAnimationController_287f40::~PoseAnimationController_287f40() throw() {
-    vptr = g_vftable_287f40;
+    vptr = hulk_at_0042c81c;
     _ReadWriteBarrier();
     if (m110) {
         m110->Release();
@@ -369,7 +369,7 @@ PoseAnimationController_287f40::~PoseAnimationController_287f40() throw() {
     }
     if (m134)
         operator delete(m134);
-    Fin();
+    Fin_00285f50();
 }
 
 } // namespace fn_f83362ab
@@ -441,11 +441,11 @@ class PoseAnimationController : public BlendFrameController {
     virtual void g4();
     virtual void g5();
     virtual void vfunc_6(int, char);
-    void helper();
+    void helper_00287db0();
 };
 void PoseAnimationController::vfunc_6(int a, char b) {
     BlendFrameController::f6(a, 0);
-    helper();
+    helper_00287db0();
     if (flag == 1 || b == 1)
         BlendFrameController::f7();
 }
@@ -474,11 +474,11 @@ class BlendFrameController {
 class PoseAnimationController : public BlendFrameController {
   public:
     virtual void vfunc_12(int);
-    void helper();
+    void helper_00287db0();
 };
 void PoseAnimationController::vfunc_12(int param) {
     BlendFrameController::vfunc_12(param);
-    helper();
+    helper_00287db0();
 }
 } // namespace fn_00288060
 
@@ -534,8 +534,8 @@ void PoseAnimationController_288080::FUN_00288080(Skeleton *sk)
 namespace fn_002882a0 {
 namespace pure3d {
 struct Sub {
-    float calc();
-    int convert();
+    float calc_00284f70();
+    int convert_00284f50();
 };
 class PoseAnimationController {
   public:
@@ -546,13 +546,13 @@ class PoseAnimationController {
     float value;
     char pad3[4];
     float other;
-    void pre();
-    void post(int, float, float, float);
+    void pre_00287e20();
+    void post_00287a40(int, float, float, float);
 };
 void PoseAnimationController::vfunc_27() {
     if (!(value < 1e-5f)) {
-        pre();
-        post(sub.convert(), sub.calc(), value, other);
+        pre_00287e20();
+        post_00287a40(sub.convert_00284f50(), sub.calc_00284f70(), value, other);
     }
 }
 } // namespace pure3d
@@ -784,7 +784,7 @@ struct PoseAnimationController : Base_2886c0 {
     int i148;
     int i14c;
     PoseAnimationController(const PoseAnimationController& o);
-    void Set(int);
+    void Set_00288080(int);
     virtual void v1();
 };
 PoseAnimationController::PoseAnimationController(const PoseAnimationController& o) : Base_2886c0(o) {
@@ -795,7 +795,7 @@ PoseAnimationController::PoseAnimationController(const PoseAnimationController& 
     i14c = 0;
     i11c = 0;
     i134 = 0;
-    Set(o.i110);
+    Set_00288080(o.i110);
     c131 = o.c131;
     i14c = o.i14c;
 }
@@ -808,7 +808,7 @@ PoseAnimationController::PoseAnimationController(const PoseAnimationController& 
 void* pure3d::PoseAnimationController::vfunc_4() {
     pure3d::Helper_288740* p = (pure3d::Helper_288740*)thunk_FUN_0008d690(0x150);
     if (p)
-        return (void*)(p->run(this));
+        return (void*)(p->run_002886c0(this));
     return (void*)(0);
 }
 
@@ -817,12 +817,12 @@ void* pure3d::PoseAnimationController::vfunc_4() {
 // sym: ?vfunc_5@PoseAnimationController@pure3d@@UAEXPAX@Z
 void pure3d::PoseAnimationController::vfunc_5(void* __p0) { void * arg = (void *)__p0;
 
-    Result_288770* p = resolve(arg, 0, &EntityType, &CompositeType, 0);
+    Result_288770* p = resolve(arg, 0, &hulk_at_0048f610, &hulk_at_0049b9b8, 0);
     if (p) {
-        ((PoseAnimationController_nv_288770*)this)->set(p->run());
+        ((PoseAnimationController_nv_288770*)this)->set_00288080(p->run());
     } else {
-        hulk_uintptr x = (hulk_uintptr)resolve(arg, 0, &EntityType, &PoseType, 0);
-        ((PoseAnimationController_nv_288770*)this)->set(x);
+        hulk_uintptr x = (hulk_uintptr)resolve(arg, 0, &hulk_at_0048f610, &hulk_at_004ce65c, 0);
+        ((PoseAnimationController_nv_288770*)this)->set_00288080(x);
     }
 }
 

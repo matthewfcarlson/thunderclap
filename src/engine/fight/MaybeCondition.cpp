@@ -16,12 +16,12 @@ namespace fn_fc1ade79 {} using namespace fn_fc1ade79;
 // ---- declarations shared by the functions below
 namespace fn_fc1ade79 {
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_238200;
+extern int* hulk_at_004e5c0c;
 class CCondition_238200 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_238260;
+extern int* hulk_at_004e5c14;
 class CCondition_238260 {
   public:
     virtual int vfunc_0(int);
@@ -30,19 +30,19 @@ struct RandomState { uint low; uint high; };
 typedef float(__cdecl* Callback_238350)(unsigned int, unsigned int);
 typedef float(__cdecl* Fn_2383a0)(int, int);
 extern float zeroValue_2383a0;
-extern void* Condition_2383f0_vftable[];
+extern void* hulk_at_004281f0[];
 class Condition_2383f0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class MaybeCondition_2383f0 : public Condition_2383f0 {
   public:
     MaybeCondition_2383f0* vfunc_5(signed char flags);
 };
-extern void* Condition_238420_vftable[];
+extern void* hulk_at_00428210[];
 class Condition_238420 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class RandomCondition_238420 : public Condition_238420 {
   public:
@@ -74,7 +74,7 @@ class ParamValueInt_2384e0 : public ParamValue_2384e0 {
   public:
     int pad;
 };
-extern int gTypeA_238500;
+extern int hulk_at_00491ca8;
 extern int gTypeA_238560;
 class ConditionFactoryCasterTemplate_2386b0 {
   public:
@@ -82,9 +82,9 @@ class ConditionFactoryCasterTemplate_2386b0 {
 };
 class Owner {
   public:
-    void apply(void*);
+    void apply_00236760(void*);
 };
-void* locate(const char*, ConditionFactoryCasterTemplate_2386b0*);
+void* locate_002343e0(const char*, ConditionFactoryCasterTemplate_2386b0*);
 class RandomCondition {
   public:
     virtual void F();
@@ -92,9 +92,9 @@ class RandomCondition {
 class Obj_2386e0 {
   public:
     virtual void A();
-    void Use(void*);
+    void Use_00236760(void*);
 };
-extern void* Build(void* arg, void* storage);
+extern void* Build_002343e0(void* arg, void* storage);
 extern "C" char DAT_0042827c[];
 } // namespace fn_fc1ade79
 inline void* __cdecl operator new(size_t, void* where) {
@@ -119,11 +119,11 @@ class Obj {
     int c;
     Obj(int);
 };
-extern int g_vftable_238780;
+extern int hulk_at_00428288;
 struct ConditionFactoryTemplate_238780 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_002381e0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_2387b0 {
@@ -140,13 +140,13 @@ struct RandomCondition_2387f0 {
     hulk_intptr vf;
     int pad[2];
     int value;
-    void Init(int);
+    void Init_00234590(int);
 };
-extern int g_vftable_238820;
+extern int hulk_at_004282a4;
 struct ConditionFactoryTemplate_238820 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00238240();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -198,7 +198,7 @@ void FUN_002381e0() {
 // sym: ?vfunc_0@MaybeCondition@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::MaybeCondition::vfunc_0(int index) {
-    int* p = gTable_238200;
+    int* p = hulk_at_004e5c0c;
     return p[index];
 }
 
@@ -217,7 +217,7 @@ void FUN_00238240() {
 // sym: ?vfunc_0@RandomCondition@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::RandomCondition::vfunc_0(int index) {
-    int* p = gTable_238260;
+    int* p = hulk_at_004e5c14;
     return p[index];
 }
 
@@ -292,8 +292,8 @@ namespace fn_fc1ade79 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 MaybeCondition_2383f0* MaybeCondition_2383f0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_2383f0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004281f0;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -307,8 +307,8 @@ MaybeCondition_2383f0* MaybeCondition_2383f0::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 RandomCondition_238420* RandomCondition_238420::vfunc_5(signed char flags) {
-    *(void***)this = Condition_238420_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00428210;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -358,7 +358,7 @@ template <> bool fight::ParamFloatConstRange<fight::RandomCondition>::vfunc_2() 
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::ConditionFactoryCasterTemplate<fight::MaybeCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_238500, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_00491ca8, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -390,8 +390,8 @@ namespace fn_fc1ade79 {
 // sym: _FUN_002386b0
 extern "C" void FUN_002386b0(Owner* owner, const char* name) {
     ConditionFactoryCasterTemplate_2386b0 c;
-    void* p = locate(name, &c);
-    owner->apply(p);
+    void* p = locate_002343e0(name, &c);
+    owner->apply_00236760(p);
 }
 
 
@@ -400,8 +400,8 @@ extern "C" void FUN_002386b0(Owner* owner, const char* name) {
 extern "C" void FUN_002386e0(void* a, void* b) {
     RandomCondition local;
     *(hulk_intptr*)&local = (hulk_intptr)DAT_0042827c;
-    void* r = Build(b, &local);
-    ((Obj_2386e0*)a)->Use(r);
+    void* r = Build_002343e0(b, &local);
+    ((Obj_2386e0*)a)->Use_00236760(r);
 }
 
 } // namespace fn_fc1ade79
@@ -442,9 +442,9 @@ namespace fn_fc1ade79 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_238780@fn_fc1ade79@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_238780::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_238780;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00428288;
+    base1_dtor_002381e0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -474,7 +474,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::RandomCondition>:
 template <> void* fight::ConditionFactoryTemplate<fight::RandomCondition>::vfunc_5() {
     RandomCondition_2387f0* p = (RandomCondition_2387f0*)alloc(0x10);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->vf = ((hulk_intptr)DAT_00428210);
         p->value = 0;
     } else {
@@ -489,9 +489,9 @@ namespace fn_fc1ade79 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_238820@fn_fc1ade79@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_238820::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_238820;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004282a4;
+    base1_dtor_00238240();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

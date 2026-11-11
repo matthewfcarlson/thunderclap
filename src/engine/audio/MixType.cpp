@@ -14,7 +14,7 @@ namespace fn_ff111a58 {
 typedef unsigned int u32_242070;
 extern "C" void* __cdecl FUN_00247530(void*);
 struct Callee_242070 {
-    hulk_uintptr run();
+    hulk_uintptr run_0025a2c0();
 };
 
 } // namespace fn_ff111a58
@@ -26,7 +26,7 @@ struct Callee_242070 {
 void* audio::MixType::vfunc_2() {
     void* p = FUN_00247530(((char*)&DAT_004e5cf8));
     if (p)
-        return (void*)(((Callee_242070*)p)->run());
+        return (void*)(((Callee_242070*)p)->run_0025a2c0());
     return (void*)(0);
 }
 

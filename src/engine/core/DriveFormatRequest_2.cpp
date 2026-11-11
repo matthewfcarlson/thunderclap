@@ -22,7 +22,7 @@ class DriveFormatRequest : public DriveRequest_2757f0 {
     virtual void W();
     DriveFormatRequest(hulk_intptr);
 };
-extern void* g_vftable_275810[];
+extern void* hulk_at_0042b9bc[];
 class Pool_275810 {
   public:
     virtual void v0();
@@ -65,7 +65,7 @@ DriveFormatRequest::DriveFormatRequest(hulk_intptr x) : DriveRequest_2757f0(x) {
 // data: g_lock_275810 = DAT_0052a1c8, g_pool_275810 = DAT_0052a1e4
 DriveFormatRequest_275810* DriveFormatRequest_275810::f0(unsigned char flags) {
     Big_275810* p = m8;
-    vptr = g_vftable_275810;
+    vptr = hulk_at_0042b9bc;
     p->sub.v0();
     m8->cnt--;
     m8->sub.v1();

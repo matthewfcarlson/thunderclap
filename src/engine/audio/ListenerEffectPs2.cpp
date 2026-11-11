@@ -24,7 +24,7 @@ class ListenerEffectPs2 {
     virtual void F6();
     virtual void F7();
     virtual void F8();
-    void Base();
+    void Base_00244f70();
 };
 extern "C" void FUN_00247550(void*, ListenerEffectPs2*);
 
@@ -40,7 +40,7 @@ extern "C" int* FUN_0024daa0() {
 // 0x0024dab0 audio::ListenerEffectPs2::vfunc_2 (35 B): matches/0x0024dab0.cpp
 // sym: ?F2@ListenerEffectPs2@fn_fc5b0623@@UAEPAV12@E@Z
 ListenerEffectPs2* ListenerEffectPs2::F2(unsigned char flag) {
-    Base();
+    Base_00244f70();
     if (flag & 1)
         FUN_00247550((void*)((hulk_intptr)DAT_004e6548), this);
     return this;

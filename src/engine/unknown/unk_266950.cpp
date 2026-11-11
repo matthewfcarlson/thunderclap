@@ -72,7 +72,7 @@ struct Object {
 };
 class Manager_266b30 {
   public:
-    int Get();
+    int Get_00263fc0();
 };
 struct E_266b30 {
     int a, b, c, d;
@@ -113,7 +113,7 @@ class CAgent {
 class Obj_266cb0 {
   public:
     Obj_266cb0* Init(Stream* s);
-    void Next(unsigned int v);
+    void Next_00266b30(unsigned int v);
     char m0;
     char pad[0x27f];
     int m280;
@@ -272,7 +272,7 @@ uint_266a30 Object::FUN_00266a30() {
 // sym: ?Target@Obj_266b30@fn_f49c50bb@@QAEHH@Z
 int Obj_266b30::Target(int arg) {
     count++;
-    e[count].d = mgr->Get() - 4;
+    e[count].d = mgr->Get_00263fc0() - 4;
     e[count].a = arg;
     ((owners::X_2647e0 *)mgr)->FUN_002647e0((hulk_intptr)(&arg), (hulk_intptr)1, 4, (hulk_intptr)1);
     e[count].b = arg;
@@ -342,7 +342,7 @@ Obj_266cb0* Obj_266cb0::Init(Stream* s) {
         m284->m0f = (m284->m0f == 0);
         v = 0xff443350;
     }
-    Next(v);
+    Next_00266b30(v);
     return this;
 }
 

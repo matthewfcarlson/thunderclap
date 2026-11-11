@@ -46,11 +46,11 @@ class CDisplayEffect {
         DrawableText(void* x, void* y);
     };
 };
-extern void* IRefCount_vftable_2475e0;
+extern void* hulk_at_00429254;
 struct Tmp_247610 {
     char pad[sizeof(OmType)];  // an om::Type (records.h)
-    Tmp_247610* init(void*, void*, unsigned, unsigned);
-    void cleanup();
+    Tmp_247610* init_002584d0(void*, void*, unsigned, unsigned);
+    void cleanup_002580e0();
 };
 struct Alloc_247610 {
     void*(__cdecl* f0)();
@@ -128,7 +128,7 @@ CDisplayEffect::DrawableText::DrawableText(void* x, void* y) {
 // sym: ?FUN_002475e0@fn_f882a82e@@YIXPAX@Z
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 void __fastcall FUN_002475e0(void* self) {
-    *(void**)self = &IRefCount_vftable_2475e0;
+    *(void**)self = &hulk_at_00429254;
 }
 
 
@@ -142,9 +142,9 @@ extern "C" void* __cdecl FUN_00247610(int a, int b, unsigned size, unsigned alig
         align = 8;
     size += align;
     Tmp_247610 t;
-    Tmp_247610* ptr = t.init(((char*)&DAT_004e5f88), ((char*)&DAT_004e5f90), size, align);
+    Tmp_247610* ptr = t.init_002584d0(((char*)&DAT_004e5f88), ((char*)&DAT_004e5f90), size, align);
     char* p = (char*)(*(Alloc_247610**)&DAT_004cc1fc)->alloc((*(Alloc_247610**)&DAT_004cc1fc), ptr);
-    t.cleanup();
+    t.cleanup_002580e0();
     char* q = p + align;
     *(unsigned*)(q - 4) = align;
     *(unsigned*)(q - 8) = size;

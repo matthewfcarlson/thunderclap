@@ -31,13 +31,13 @@ class ParamValueNameList : public ParamValueStringList_234bd0 {
 }
 class Receiver_234bd0 {
   public:
-    void run(void*);
+    void run_0027b040(void*);
 };
-extern void* g_vftable_234c00[];
-extern void* g_vftable2[];
+extern void* hulk_at_004279fc[];
+extern void* hulk_at_00427b00[];
 class Sub_234c00 {
   public:
-    void Init(int a);
+    void Init_0027b0e0(int a);
 };
 class ParamValueScript_234c00 {
   public:
@@ -80,7 +80,7 @@ bool fight::ParamValueNameList::vfunc_6(void* a, void* b) {
     void* x = get(a);
     if (!x)
         return false;
-    ((Receiver_234bd0*)x)->run(b);
+    ((Receiver_234bd0*)x)->run_0027b040(b);
     return true;
 }
 
@@ -88,9 +88,9 @@ bool fight::ParamValueNameList::vfunc_6(void* a, void* b) {
 // 0x00234c00 FUN_00234c00 (34 B): matches/0x00234c00.cpp
 // sym: ??0ParamValueScript_234c00@fn_f1ee0f39@@QAE@H@Z
 ParamValueScript_234c00::ParamValueScript_234c00(hulk_intptr a) {
-    vptr = g_vftable_234c00;
-    sub.Init(a);
-    vptr = g_vftable2;
+    vptr = hulk_at_004279fc;
+    sub.Init_0027b0e0(a);
+    vptr = hulk_at_00427b00;
 }
 
 

@@ -17,7 +17,7 @@ class ConditionFactoryCasterTemplate_23d220 {
 };
 class Obj {
   public:
-    void Apply(void*);
+    void Apply_00236760(void*);
 };
 extern "C" void* Get(void*, ConditionFactoryCasterTemplate_23d220*);
 class ConditionFactoryCasterTemplate_23d250 {
@@ -26,7 +26,7 @@ class ConditionFactoryCasterTemplate_23d250 {
 };
 class Handler {
   public:
-    void Set(void*);
+    void Set_00236760(void*);
 };
 extern "C" void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_23d250*);
 } // namespace fn_f1fd5fb3
@@ -47,28 +47,28 @@ class Param_23d2e0 {
 };
 }
 namespace fn_f1fd5fb3 {
-extern void* Condition_23d2f0_vftable[];
+extern void* hulk_at_00428ad0[];
 class Condition_23d2f0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class FalseCondition_23d2f0 : public Condition_23d2f0 {
   public:
     FalseCondition_23d2f0* vfunc_5(signed char flags);
 };
 extern "C" void __cdecl FUN_0008d330(void* p);
-extern int gTypeA_23d330;
+extern int hulk_at_00491ca8;
 extern "C" char DAT_00428afc[];
 class Sub_23d360 {
   public:
 };
 class Obj_23d360 {
   public:
-    void Init();
+    void Init_002343b0();
     char pad[8];
     Sub_23d360 sub;
 };
-extern void* __cdecl alloc(hulk_uintptr);
+extern void* __cdecl alloc_00263ea0(hulk_uintptr);
 class FactoryBase {
   public:
     virtual void V0();
@@ -80,13 +80,13 @@ class Caster_23d360 : public FactoryBase {
 };
 struct CIsGrappledCondition_23d3a0 {
     virtual ~CIsGrappledCondition_23d3a0();
-    void init(int);
+    void init_00234590(int);
 };
 extern void* condition_vftable_23d3a0;
-extern void* ConditionFactory_23d3d0_vftable[];
+extern void* hulk_at_00428afc[];
 class ConditionFactory_23d3d0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002343d0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ConditionFactoryTemplate_23d3d0 : public ConditionFactory_23d3d0 {
   public:
@@ -99,7 +99,7 @@ class ConditionFactoryTemplate_23d3d0 : public ConditionFactory_23d3d0 {
 extern "C" void FUN_0023d220(Obj* obj, void* x) {
     ConditionFactoryCasterTemplate_23d220 caster;
     void* p = Get(x, &caster);
-    obj->Apply(p);
+    obj->Apply_00236760(p);
 }
 
 
@@ -108,7 +108,7 @@ extern "C" void FUN_0023d220(Obj* obj, void* x) {
 extern "C" void __cdecl FUN_0023d250(Handler* h, void* p) {
     ConditionFactoryCasterTemplate_23d250 caster;
     void* v = FUN_002343e0(p, &caster);
-    h->Set(v);
+    h->Set_00236760(v);
 }
 
 } // namespace fn_f1fd5fb3
@@ -158,8 +158,8 @@ namespace fn_f1fd5fb3 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 FalseCondition_23d2f0* FalseCondition_23d2f0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_23d2f0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00428ad0;
+    Destroy_002345b0();
     if (flags & 1) {
         FUN_0008d330(this);
     }
@@ -173,7 +173,7 @@ FalseCondition_23d2f0* FalseCondition_23d2f0::vfunc_5(signed char flags) {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::ConditionFactoryCasterTemplate<fight::FalseCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_23d330, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_00491ca8, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -181,9 +181,9 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::FalseCondition>::v
 // sym: ?vfunc_1@?$ConditionFactoryCasterTemplate@VFalseCondition@fight@@@fight@@UAEPAXPAX@Z
 template <> void* fight::ConditionFactoryCasterTemplate<fight::FalseCondition>::vfunc_1(void* __p0) { void * a = (void *)__p0;
 
-    Obj_23d360* p = (Obj_23d360*)alloc(16);
+    Obj_23d360* p = (Obj_23d360*)alloc_00263ea0(16);
     if (p) {
-        p->Init();
+        p->Init_002343b0();
         *((void**)p) = (void*)((hulk_intptr)DAT_00428afc);
         ((owners::Target_27b040 *)&(p->sub))->FUN_0027b040((hulk_uintptr)a);
         return (void*)(p);
@@ -198,7 +198,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::FalseCondition>::
 template <> void* fight::ConditionFactoryTemplate<fight::FalseCondition>::vfunc_5() {
     CIsGrappledCondition_23d3a0* p = (CIsGrappledCondition_23d3a0*)operator new(0x0c);
     if (p) {
-        p->init(0);
+        p->init_00234590(0);
         *(void**)p = &condition_vftable_23d3a0;
         return (void*)(p);
     }
@@ -213,8 +213,8 @@ namespace fn_f1fd5fb3 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ConditionFactoryTemplate_23d3d0* ConditionFactoryTemplate_23d3d0::vfunc_5(signed char flags) {
-    *(void***)this = ConditionFactory_23d3d0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00428afc;
+    Destroy_002343d0();
     if (flags & 1) {
         FUN_00263f30(this);
     }

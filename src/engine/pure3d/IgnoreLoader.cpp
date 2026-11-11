@@ -14,9 +14,9 @@ namespace fn_ff304548 {} using namespace fn_ff304548;
 // ---- declarations shared by the functions below
 namespace fn_ff304548 {
 struct Arg_291d60 {
-    bool more();
-    void skip();
-    void finish();
+    bool more_002669f0();
+    void skip_00266a30();
+    void finish_00266be0();
 };
 
 } // namespace fn_ff304548
@@ -31,7 +31,7 @@ class FileLoader_291d20 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public FileLoader_291d20 {
   public:
@@ -42,7 +42,7 @@ class NonCopyable : public FileLoader_291d20 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -54,9 +54,9 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 // sym: ?vfunc_5@IgnoreLoader@pure3d@@UAEXPAX00H@Z
 void pure3d::IgnoreLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { Arg_291d60 * arg = (Arg_291d60 *)__p2;
 
-    while (arg->more()) {
-        arg->skip();
-        arg->finish();
+    while (arg->more_002669f0()) {
+        arg->skip_00266a30();
+        arg->finish_00266be0();
     }
     this->f_0c = 0;
 }

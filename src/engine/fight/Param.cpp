@@ -32,7 +32,7 @@ class B_234150 {
     A_234150* a;
     int b;
 };
-extern void* IRefCount_vftable_234210;
+extern void* hulk_at_00427958;
 class IRefCount {
   public:
     virtual void f0();
@@ -116,7 +116,7 @@ extern "C" int __fastcall FUN_00234150(B_234150* p) {
 // sym: @FUN_00234210@4
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 extern "C" void __fastcall FUN_00234210(void* self) {
-    *(void**)self = &IRefCount_vftable_234210;
+    *(void**)self = &hulk_at_00427958;
 }
 
 

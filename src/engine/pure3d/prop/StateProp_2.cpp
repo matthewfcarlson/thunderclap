@@ -119,7 +119,7 @@ class Obj_27cb40 {
     void set(float);
 };
 struct X_27cc40 {
-    void Call();
+    void Call_0027af00();
     X_27cc40* Target();
 };
 struct Dispatcher_27cc60;
@@ -218,7 +218,7 @@ class C_27cf70 {
 };
 class Obj_27d3e0 {
   public:
-    hulk_intptr call(pure3d::prop::StateProp*);
+    hulk_intptr call_0027d0f0(pure3d::prop::StateProp*);
 };
 extern void* __cdecl thunk_FUN_0008d690(int);
 struct Key_27d410 { char pad[8]; unsigned int a; unsigned int b; };
@@ -604,7 +604,7 @@ namespace fn_f03c5b48 {
 // sym: ?Target@X_27cc40@fn_f03c5b48@@QAEPAU12@XZ
 // Same code shape as 0x00034ad0 (propagated; names are from that function)
 X_27cc40* X_27cc40::Target() {
-    Call();
+    Call_0027af00();
     return this;
 }
 
@@ -973,7 +973,7 @@ StateProp::StateProp(StateProp *src)
 void* pure3d::prop::StateProp::vfunc_4() {
     void* p = thunk_FUN_0008d690(0xe8);
     if (p)
-        return (void*)(((Obj_27d3e0*)p)->call(this));
+        return (void*)(((Obj_27d3e0*)p)->call_0027d0f0(this));
     return (void*)(0);
 }
 
@@ -2124,7 +2124,7 @@ class SimpleChunkHandler_27e8b0 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_27e8b0 {
   public:
@@ -2135,7 +2135,7 @@ class NonCopyable : public SimpleChunkHandler_27e8b0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

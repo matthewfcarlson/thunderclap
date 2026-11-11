@@ -48,7 +48,7 @@ class Inner_222550 {
   public:
     char pad[16];
     int value;
-    int make(int, int);
+    int make_0027b670(int, int);
 };
 class Base_222550 {
   public:
@@ -56,7 +56,7 @@ class Base_222550 {
     Inner_222550* inner;
     int a, b, c;
     void f(int, int);
-    void helper(int);
+    void helper_002224a0(int);
 };
 class Obj_222590 {
   public:
@@ -85,10 +85,10 @@ struct Arg_222620 {
 };
 struct Sub_222620 {
     char x[4];
-    void Init();
+    void Init_00222050();
 };
 struct Puppet_nv_222620 {
-    void BaseInit();
+    void BaseInit_0027b070();
 };
 class Target_2226b0 {
   public:
@@ -100,7 +100,7 @@ class Target_2226b0 {
 };
 class Inner_2226e0 {
   public:
-    void call(int);
+    void call_00221c60(int);
 };
 class Obj_2226e0 {
   public:
@@ -117,7 +117,7 @@ class Obj_2226f0 {
 };
 class Inner_222700 {
   public:
-    void call(int);
+    void call_00221d20(int);
 };
 class Obj_222700 {
   public:
@@ -126,7 +126,7 @@ class Obj_222700 {
 };
 class Inner_222710 {
   public:
-    void call(int);
+    void call_00222180(int);
 };
 class Obj_222710 {
   public:
@@ -135,7 +135,7 @@ class Obj_222710 {
 };
 class Inner_222720 {
   public:
-    void call(int);
+    void call_00221cf0(int);
 };
 class Obj_222720 {
   public:
@@ -347,7 +347,7 @@ struct Manager_222f40 {
 };
 class A_223060 {
   public:
-    int f();
+    int Fnf_00221c40();
 };
 class B_223060 {
   public:
@@ -389,15 +389,15 @@ struct Item_2233e0 {
 };
 struct Sub_2235f0 {
     char pad[0x54];
-    void init();
+    void init_00222050();
 };
 struct Puppet {
     void* vt;
     char pad[0xc];
     Sub_2235f0 sub;
     int a, b;
-    void baseInit();
-    void finish(int);
+    void baseInit_0027b070();
+    void finish_002232d0(int);
     Puppet* ctor(int arg);
 };
 struct Elem40 { char data[40]; };
@@ -435,7 +435,7 @@ class Obj_223f50 {
     char pad1[0x280];
     unsigned char dirty;
 };
-extern "C" void __cdecl Move(void*, void*, int);
+extern "C" void __cdecl Move_00223dc0(void*, void*, int);
 struct Matrix {
     float m[16];
 };
@@ -611,8 +611,8 @@ void Base_222550::f(int x, int y) {
         b = 0;
         c = inner->value - 1;
     } else {
-        int z = inner->make(x, y);
-        helper(z);
+        int z = inner->make_0027b670(x, y);
+        helper_002224a0(z);
     }
 }
 
@@ -638,9 +638,9 @@ PartitionDriver::PartitionDriver(const PartitionDriver* src) : Driver_222590() {
 // sym: ?FUN_00222620@Puppet@choreo2@@QAEPAV12@PAX@Z
 choreo2::Puppet* choreo2::Puppet::FUN_00222620(void* __p0) { Arg_222620 * param = (Arg_222620 *)__p0;
 
-    ((Puppet_nv_222620*)this)->BaseInit();
+    ((Puppet_nv_222620*)this)->BaseInit_0027b070();
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_004272b8);
-    ((Sub_222620*)((char*)this + 0x10))->Init();
+    ((Sub_222620*)((char*)this + 0x10))->Init_00222050();
     *(u32_222620*)((char*)this + 0x68) = 0;
     *(u8*)((char*)this + 0x2ec) = 0;
     *(Arg_222620**)((char*)this + 0x64) = param;
@@ -668,7 +668,7 @@ class Puppet {
         Ref_222660* ref;
         char pad[36];
     } items[1];
-    void Tail();
+    void Tail_0027afd0();
     ~Puppet();
 };
 void Puppet::f0() {}
@@ -685,7 +685,7 @@ Puppet::~Puppet() {
         } while (k != 0);
     }
     m64->Release();
-    Tail();
+    Tail_0027afd0();
 }
 } // namespace fn_00222660
 
@@ -709,7 +709,7 @@ hulk_intptr __fastcall FUN_002226b0(Target_2226b0* self) {
 // 0x002226e0 FUN_002226e0 (8 B): matches/0x002226e0.cpp
 // sym: ?target@Obj_2226e0@fn_fe86d092@@QAEXH@Z
 void Obj_2226e0::target(hulk_intptr a0) {
-    ((Inner_2226e0*)((char*)this + 0x10))->call(a0);
+    ((Inner_2226e0*)((char*)this + 0x10))->call_00221c60(a0);
 }
 
 
@@ -725,7 +725,7 @@ void Obj_2226f0::target(hulk_intptr a0) {
 // sym: ?target@Obj_222700@fn_fe86d092@@QAEXH@Z
 // Same code shape as 0x002226e0 (propagated; names are from that function)
 void Obj_222700::target(int a0) {
-    ((Inner_222700*)((char*)this + 0x10))->call(a0);
+    ((Inner_222700*)((char*)this + 0x10))->call_00221d20(a0);
 }
 
 
@@ -733,7 +733,7 @@ void Obj_222700::target(int a0) {
 // sym: ?target@Obj_222710@fn_fe86d092@@QAEXH@Z
 // Same code shape as 0x002226e0 (propagated; names are from that function)
 void Obj_222710::target(hulk_intptr a0) {
-    ((Inner_222710*)((char*)this + 0x10))->call(a0);
+    ((Inner_222710*)((char*)this + 0x10))->call_00222180(a0);
 }
 
 
@@ -741,7 +741,7 @@ void Obj_222710::target(hulk_intptr a0) {
 // sym: ?target@Obj_222720@fn_fe86d092@@QAEXH@Z
 // Same code shape as 0x002226e0 (propagated; names are from that function)
 void Obj_222720::target(hulk_intptr a0) {
-    ((Inner_222720*)((char*)this + 0x10))->call(a0);
+    ((Inner_222720*)((char*)this + 0x10))->call_00221cf0(a0);
 }
 
 
@@ -989,7 +989,7 @@ void Manager_222f40::FUN_00222f40(float dt) {
 // 0x00223060 FUN_00223060 (22 B): matches/0x00223060.cpp
 // sym: ?f@C_223060@fn_fe86d092@@QAEXXZ
 void C_223060::f() {
-    int x = a.f();
+    int x = a.Fnf_00221c40();
     ((owners::C_284820 *)(((B_223060*)*(void**)((char*)this + 0x64))))->FUN_00284820((hulk_intptr)x);
 }
 
@@ -1167,12 +1167,12 @@ namespace fn_fe86d092 {
 // 0x002235f0 FUN_002235f0 (48 B): matches/0x002235f0.cpp
 // sym: ?ctor@Puppet@fn_fe86d092@@QAEPAU12@H@Z
 Puppet* Puppet::ctor(int arg) {
-    baseInit();
+    baseInit_0027b070();
     vt = (void*)((hulk_intptr)DAT_004272b8);
-    sub.init();
+    sub.init_00222050();
     a = 0;
     b = 0;
-    finish(arg);
+    finish_002232d0(arg);
     return this;
 }
 
@@ -1185,7 +1185,7 @@ extern "C" char DAT_004272b8[];
 class Puppet;
 class Aux_223670 {
   public:
-    void Init();
+    void Init_00222050();
 };
 class Puppet {
   public:
@@ -1195,22 +1195,22 @@ class Puppet {
     virtual void f3();
     virtual void f4();
     virtual Puppet* f5();
-    void InitA();
-    void InitC(Puppet*);
+    void InitA_0027b070();
+    void InitC_002232d0(Puppet*);
     char pad[0x60];
     int x;
     int y;
 };
-extern void* __cdecl allocThunk(unsigned int);
+extern void* __cdecl allocThunk_00263ea0(unsigned int);
 Puppet* Puppet::f5() {
-    Puppet* p = (Puppet*)allocThunk(0x2f0);
+    Puppet* p = (Puppet*)allocThunk_00263ea0(0x2f0);
     if (p) {
-        p->InitA();
+        p->InitA_0027b070();
         *((hulk_intptr*)p) = ((hulk_intptr)DAT_004272b8);
-        ((Aux_223670*)((char*)p + 0x10))->Init();
+        ((Aux_223670*)((char*)p + 0x10))->Init_00222050();
         p->x = 0;
         p->y = 0;
-        p->InitC(this);
+        p->InitC_002232d0(this);
         return p;
     } else {
         return 0;
@@ -1433,7 +1433,7 @@ void __fastcall Target(Obj_223f50* p) {
         char* end = (char*)p + 0x6c + p->count * 0x28;
         p->dirty = 0;
         char* base = (char*)p + 0x6c;
-        Move(base, end, (int)(end - base) / 0x28);
+        Move_00223dc0(base, end, (int)(end - base) / 0x28);
     }
 }
 

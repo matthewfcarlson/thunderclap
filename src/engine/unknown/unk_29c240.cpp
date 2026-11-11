@@ -28,7 +28,7 @@ struct LightsChooserCache {
     char pad[0x20];
     int value;
     void target();
-    void finish();
+    void finish_0027afd0();
 };
 struct Rec_29c560 { char flag; char pad[0x3f]; };
 } // namespace fn_f1c27eb1
@@ -127,7 +127,7 @@ void LightsChooserCache::target() {
     int x = value;
     vftable = (void*)((hulk_intptr)DAT_0042d604);
     thunk_FUN_00267090(x);
-    finish();
+    finish_0027afd0();
 }
 
 } // namespace fn_f1c27eb1

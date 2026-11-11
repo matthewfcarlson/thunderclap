@@ -103,7 +103,7 @@ class SeqAction_250250 {
 };
 typedef unsigned int u32_250310;
 extern "C" void* __cdecl FUN_00247530(void*);
-extern int gVtable_250310;
+extern int hulk_at_00429b6c;
 class NameObj_250310 {
   public:
 };
@@ -112,7 +112,7 @@ class NestTrack_250310 {
     hulk_uintptr vf;
     char pad[4];
     NameObj_250310 name;
-    void init();
+    void init_0025fd00();
 };
 class Elem_250350 {
   public:
@@ -135,7 +135,7 @@ class SeqEventWait : public SeqEvent {
     virtual void f2();
     virtual void f3();
     virtual SeqEventWait* f4(int);
-    void Finish();
+    void Finish_0025fd10();
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
 } // namespace fn_f0ad381b
@@ -153,7 +153,7 @@ class SeqActionWait_250460 {
 namespace fn_f0ad381b {
 class Target {
   public:
-    void set(audio::SeqActionWait_250460*);
+    void set_0025dc20(audio::SeqActionWait_250460*);
 };
 } // namespace fn_f0ad381b
 namespace audio {
@@ -371,8 +371,8 @@ audio::SeqEventWaitType::~SeqEventWaitType() {}
 void* audio::SeqEventWaitType::vfunc_3() {
     NestTrack_250310* p = (NestTrack_250310*)FUN_00247530(((char*)&DAT_004e69b0));
     if (p) {
-        p->init();
-        p->vf = (hulk_uintptr)&gVtable_250310;
+        p->init_0025fd00();
+        p->vf = (hulk_uintptr)&hulk_at_00429b6c;
         ((owners::String_23fc40 *)&(p->name))->FUN_0023fc40(DAT_00429b84, (hulk_intptr)2);
         return (void*)(p);
     }
@@ -385,7 +385,7 @@ namespace fn_f0ad381b {
 // sym: ?f4@SeqEventWait@fn_f0ad381b@@UAEPAV12@H@Z
 SeqEventWait* SeqEventWait::f4(int flags) {
     ((owners::Str_240060 *)&sub)->FUN_00240060();
-    Finish();
+    Finish_0025fd10();
     if (flags & 1)
         FUN_00247550(((int*)&DAT_004e69b0), this);
     return this;
@@ -415,7 +415,7 @@ namespace audio {
 class SeqEvent {
 public:
     virtual void v0();
-    char vfunc_1(Writer_250380 *w);
+    char vfunc_1_0025fd40(Writer_250380 *w);
     char pad04[4];
 };
 
@@ -427,7 +427,7 @@ public:
 
 int SeqEventWait::vfunc_1(Writer_250380 *w)
 {
-    if (!SeqEvent::vfunc_1(w))
+    if (!SeqEvent::vfunc_1_0025fd40(w))
         return 0;
     if (!FUN_00246f50(w->out, "\n[\n"))
         return 0;
@@ -484,6 +484,6 @@ audio::SeqActionWait* audio::SeqActionWait::vfunc_0(int x) {
 void audio::SeqEventWait::vfunc_2(hulk_intptr __p0) { Target * p = (Target *)__p0;
 
     audio::SeqActionWait_250460* a = (audio::SeqActionWait_250460*)alloc(&bss);
-    p->set(a ? (a->audio::SeqActionWait_250460::SeqActionWait_250460(this), a) : 0);
+    p->set_0025dc20(a ? (a->audio::SeqActionWait_250460::SeqActionWait_250460(this), a) : 0);
 }
 

@@ -57,10 +57,10 @@ struct Object {
     int x, y, z;
     void Set(Triple_2c3410* p);
 };
-extern void* Camera_2c3460_vftable[];
+extern void* hulk_at_0042ed5c[];
 class Camera_2c3460 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002926c0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class PointCamera_2c3460 : public Camera_2c3460 {
   public:
@@ -173,8 +173,8 @@ void Object::Set(Triple_2c3410* p) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 PointCamera_2c3460* PointCamera_2c3460::vfunc_5(signed char flags) {
-    *(void***)this = Camera_2c3460_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042ed5c;
+    Destroy_002926c0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

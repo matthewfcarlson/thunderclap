@@ -28,8 +28,8 @@ class SeqAction_2554b0 {
     int mState;
     int mHandle;
 };
-extern int __cdecl Find(int, int);
-extern void __cdecl Stop(int);
+extern int __cdecl Find_00247930(int, int);
+extern void __cdecl Stop_002497e0(int);
 extern "C" void __cdecl FUN_00247a20(int, int, int, bool, int);
 struct Obj_2554b0 {
     char pad[0x3c];
@@ -46,7 +46,7 @@ class SeqAction_255560 {
     virtual void f6();
     char pad[8];
 };
-void ReleaseThing(int);
+void ReleaseThing_002497e0(int);
 typedef unsigned __int64 U64;
 } // namespace fn_fa3ba6ee
 extern "C" U64 __cdecl FUN_002672f0(const char*, int, int) throw();
@@ -79,7 +79,7 @@ class Track {
     Track(const char*, int);
     char pad[12];
 };
-char* __cdecl find(const char*, int);
+char* __cdecl find_002673a0(const char*, int);
 struct Ptr {
     char* p;
     inline Ptr& operator=(char* v) {
@@ -118,7 +118,7 @@ struct Holder { char pad[0x48]; Node* firstLink; };
 int __cdecl FUN_00247930(void* item, Node* node);
 typedef unsigned int u32_2559e0;
 struct Callee_2559e0 {
-    hulk_uintptr run();
+    hulk_uintptr run_00255690();
 };
 struct Item_255b10;
 struct Pair_255b10 {
@@ -206,7 +206,7 @@ void audio::SeqActionCrossFade::vfunc_6(hulk_intptr __p0) { void * p = (void *)_
     switch (this->f_0c) {
     case 1: {
         int value = ((Obj_2554b0*)p)->value;
-        int h = Find(value, this->f_10);
+        int h = Find_00247930(value, this->f_10);
         if (h) {
             if (h > 1 && h <= 4)
                 this->f_0c = 2;
@@ -219,10 +219,10 @@ void audio::SeqActionCrossFade::vfunc_6(hulk_intptr __p0) { void * p = (void *)_
     }
     case 3: {
         int value = ((Obj_2554b0*)p)->value;
-        int h = Find(value, this->f_10);
+        int h = Find_00247930(value, this->f_10);
         if (!h) {
             this->f_0c = h;
-            Stop(this->f_10);
+            Stop_002497e0(this->f_10);
             this->f_10 = 0;
         }
         break;
@@ -243,7 +243,7 @@ void audio::SeqActionCrossFade::vfunc_3(hulk_intptr a) {
 // sym: ?vfunc_4@SeqActionCrossFade@audio@@UAEXH@Z
 void audio::SeqActionCrossFade::vfunc_4(int unused) {
     if (this->f_10) {
-        ReleaseThing(this->f_10);
+        ReleaseThing_002497e0(this->f_10);
         this->f_10 = 0;
     }
     this->f_0c = 0;
@@ -286,7 +286,7 @@ SeqActionCrossFade_255660* SeqActionCrossFade_255660::vfunc_0(int flag) {
 // 0x00255690 FUN_00255690 (83 B): matches/0x00255690.cpp
 // sym: ??0SeqEventCrossFade@fn_fa3ba6ee@@QAE@XZ
 SeqEventCrossFade::SeqEventCrossFade() : a(0), b(1000), c(0), d(1000), e(0), f(0), track("MySeqTrack", 2) {
-    name = find("stitched", 0);
+    name = find_002673a0("stitched", 0);
     x = 0;
     y = 0;
 }
@@ -300,13 +300,13 @@ namespace fn_002556f0 {
 
 typedef unsigned char byte_2556f0;
 struct Sub1_2556f0 {
-    void m();
+    void Fnm_00262020();
 };
 struct Sub2_2556f0 {
-    void m();
+    void Fnm_00240060();
 };
 struct Sub3_2556f0 {
-    void m();
+    void Fnm_0025fd10();
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
 struct SeqEventCrossFade {
@@ -318,9 +318,9 @@ struct SeqEventCrossFade {
     char pad[0x2c - 4];
 };
 SeqEventCrossFade* SeqEventCrossFade::vfunc_4(byte_2556f0 p) {
-    reinterpret_cast<Sub1_2556f0*>((char*)this + 0x2c)->m();
-    reinterpret_cast<Sub2_2556f0*>((char*)this + 0x1c)->m();
-    reinterpret_cast<Sub3_2556f0*>(this)->m();
+    reinterpret_cast<Sub1_2556f0*>((char*)this + 0x2c)->Fnm_00262020();
+    reinterpret_cast<Sub2_2556f0*>((char*)this + 0x1c)->Fnm_00240060();
+    reinterpret_cast<Sub3_2556f0*>(this)->Fnm_0025fd10();
     if (p & 1)
         FUN_00247550(((char*)&DAT_004e7508), this);
     return this;
@@ -443,7 +443,7 @@ extern "C" char FUN_0025bce0(void*, void*);
 extern "C" char FUN_0024f010(void*, void*);
 class Tail_255870 {
   public:
-    char f(void*);
+    char Fnf_00261ef0(void*);
 };
 class SeqEventCrossFade : public SeqEvent {
   public:
@@ -459,7 +459,7 @@ int SeqEventCrossFade::vfunc_0(void* p) {
     if ((char)SeqEvent::vfunc_0(p) && FUN_0025abd0(p, (char*)this + 8) && FUN_0025abd0(p, (char*)this + 12) &&
         FUN_0025abd0(p, (char*)this + 16) && FUN_0025abd0(p, (char*)this + 20) && FUN_0025aa80(p, (char*)this + 24) &&
         FUN_0025aa80(p, (char*)this + 25) && FUN_0025bce0(p, (char*)this + 28) && FUN_0024f010(p, (char*)this + 40) &&
-        tail.f(p))
+        tail.Fnf_00261ef0(p))
         return 1;
     return 0;
 }
@@ -502,7 +502,7 @@ bool __stdcall FUN_00255980(void* item, Holder* holder) { Node* node = holder->f
 void* audio::SeqEventCrossFadeType::vfunc_3() {
     void* p = FUN_00247530(((char*)&DAT_004e7508));
     if (p)
-        return (void*)(((Callee_2559e0*)p)->run());
+        return (void*)(((Callee_2559e0*)p)->run_00255690());
     return (void*)(0);
 }
 

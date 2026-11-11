@@ -72,9 +72,9 @@ class Temp_266440 {
     char pad[8];
 
   public:
-    void Init(Owner_266440*);
-    Item_266440* First();
-    Item_266440* Next();
+    void Init_002314a0(Owner_266440*);
+    Item_266440* First_00231640();
+    Item_266440* Next_002314c0();
 };
 class Arg_266510 {
   public:
@@ -82,7 +82,7 @@ class Arg_266510 {
 };
 class Helper_266510 {
   public:
-    void call(void*, void*, Arg_266510*);
+    void call_00231590(void*, void*, Arg_266510*);
 };
 class Obj_266540 {
   public:
@@ -96,27 +96,27 @@ class C_2665a0 {
   public:
     char pad[12];
     C_2665a0* field;
-    void g();
+    void Fng_00266440();
     void f();
 };
 class Obj_2665b0 {
   public:
-    void A();
+    void FnA_00266440();
     void Target();
 };
 class Thing_2665c0 {
   public:
-    void First();
+    void First_00266440();
     Thing_2665c0* Target(unsigned char);
 };
-void __cdecl Third(Thing_2665c0*);
+void __cdecl Third_0008d330(Thing_2665c0*);
 struct Other_2665f0 {
     virtual void f0();
     virtual void f1();
 };
 struct Helper_2665f0 {
-    void f0();
-    void f1();
+    void f0_00266440();
+    void f1_00231050();
 };
 struct LoadInventory_2665f0 {
     void* vf;
@@ -125,9 +125,9 @@ struct LoadInventory_2665f0 {
     void* b;
     void run();
 };
-extern void* vtLoad_2665f0;
-extern void* vtRef_2665f0;
-extern void thunk(void*);
+extern void* hulk_at_0042aec8;
+extern void* hulk_at_003f6098;
+extern void thunk_0008d330(void*);
 extern "C" char DAT_0042aec8[];
 class Ref_266630 {
   public:
@@ -136,8 +136,8 @@ class Ref_266630 {
 };
 class Ops {
   public:
-    void a();
-    void b();
+    void Fna_00266440();
+    void Fnb_00231050();
 };
 class LoadInventory {
   public:
@@ -230,11 +230,11 @@ namespace fn_fa919a6c {
 // Same code shape as 0x002366e0 (propagated; names are from that function)
 void __fastcall FUN_00266440(Owner_266440* self) {
     Temp_266440 t;
-    t.Init(self);
-    Item_266440* item = t.First();
+    t.Init_002314a0(self);
+    Item_266440* item = t.First_00231640();
     while (item) {
         item->V1();
-        item = t.Next();
+        item = t.Next_002314c0();
     }
     ((owners::X_231070 *)self)->FUN_00231070();
 }
@@ -302,7 +302,7 @@ void content::LoadInventory::vfunc_4(void* __p0, void* __p1, void* __p2) { void 
 
     Helper_266510* h = (*(Helper_266510 * *)&this->f_0c);
     arg->run();
-    h->call(a, b, arg);
+    h->call_00231590(a, b, arg);
 }
 
 
@@ -323,7 +323,7 @@ namespace fn_fa919a6c {
 // 0x002665a0 FUN_002665a0 (8 B): matches/0x002665a0.cpp
 // sym: ?f@C_2665a0@fn_fa919a6c@@QAEXXZ
 void C_2665a0::f() {
-    field->g();
+    field->Fng_00266440();
 }
 
 
@@ -331,7 +331,7 @@ void C_2665a0::f() {
 // sym: ?Target@Obj_2665b0@fn_fa919a6c@@QAEXXZ
 // Same code shape as 0x00236820 (propagated; names are from that function)
 void Obj_2665b0::Target() {
-    A();
+    FnA_00266440();
     ((owners::C_231050 *)this)->FUN_00231050();
 }
 
@@ -339,10 +339,10 @@ void Obj_2665b0::Target() {
 // 0x002665c0 FUN_002665c0 (37 B): matches/0x002665c0.cpp
 // sym: ?Target@Thing_2665c0@fn_fa919a6c@@QAEPAV12@E@Z
 Thing_2665c0* Thing_2665c0::Target(unsigned char flags) {
-    First();
+    First_00266440();
     ((owners::C_231050 *)this)->FUN_00231050();
     if (flags & 1)
-        Third(this);
+        Third_0008d330(this);
     return this;
 }
 
@@ -351,15 +351,15 @@ Thing_2665c0* Thing_2665c0::Target(unsigned char flags) {
 // sym: ?run@LoadInventory_2665f0@fn_fa919a6c@@QAEXXZ
 void LoadInventory_2665f0::run() {
     void* x = a;
-    vf = &vtLoad_2665f0;
+    vf = &hulk_at_0042aec8;
     if (x) {
-        ((Helper_2665f0*)x)->f0();
-        ((Helper_2665f0*)x)->f1();
-        thunk(x);
+        ((Helper_2665f0*)x)->f0_00266440();
+        ((Helper_2665f0*)x)->f1_00231050();
+        thunk_0008d330(x);
     }
     if (b)
         ((Other_2665f0*)b)->f1();
-    vf = &vtRef_2665f0;
+    vf = &hulk_at_003f6098;
 }
 
 
@@ -369,8 +369,8 @@ LoadInventory* LoadInventory::vfunc_2(unsigned char b) {
     Ops* p = mA;
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042aec8);
     if (p) {
-        p->a();
-        p->b();
+        p->Fna_00266440();
+        p->Fnb_00231050();
         thunk_FUN_00267090((void*)p);
     }
     if (mB)

@@ -14,7 +14,7 @@ namespace fn_f30d46c2 {} using namespace fn_f30d46c2;
 namespace fn_f30d46c2 {
 class Part_235560 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class ParamValueEnum_235560 {
   public:
@@ -26,7 +26,7 @@ class ParamValueEnum_235560 {
 extern "C" void __cdecl thunk_FUN_00267090(ParamValueEnum_235560*);
 class Part_235590 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class ParamValueVector_235590 {
   public:
@@ -38,7 +38,7 @@ class ParamValueVector_235590 {
 extern "C++" __declspec(nothrow) void __cdecl thunk_FUN_00267090(ParamValueVector_235590*);
 class Sub_235620 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class ParamValueInventoryEntity {
   public:
@@ -73,8 +73,8 @@ class Iter_235650 {
   public:
     int pad[3];
     Iter_235650(int);
-    int First();
-    int Next();
+    int First_00231640();
+    int Next_002314c0();
 };
 struct Manager_2356f0 { char pad00[0xc]; void* list; };
 struct Iter_2356f0 {
@@ -109,7 +109,7 @@ public:
 }
 class Inner_235800 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 extern void __cdecl thunk_FUN_00267090(void*);
 class ParamValue {
@@ -127,7 +127,7 @@ class ParamValueBranch : public ParamValue {
     virtual void* v0(unsigned int);
 };
 struct Sub_235830 {
-    void Init();
+    void Init_0027af50();
 };
 struct ParamValueConditionGroup {
     hulk_intptr vptr;
@@ -180,7 +180,7 @@ namespace fn_f30d46c2 {
 // Same code shape as 0x00235300 (propagated; names are from that function)
 ParamValueEnum_235560* ParamValueEnum_235560::vfunc_0(int flag) {
     vt = (hulk_intptr)&base_vtable;
-    part.Init();
+    part.Init_0027af50();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -192,7 +192,7 @@ ParamValueEnum_235560* ParamValueEnum_235560::vfunc_0(int flag) {
 // Same code shape as 0x00235300 (propagated; names are from that function)
 ParamValueVector_235590* ParamValueVector_235590::vfunc_0(int flag) {
     vt = (hulk_intptr)&base_vtable;
-    part.Init();
+    part.Init_0027af50();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -214,19 +214,19 @@ class ParamValue {
 };
 class Elem_2355c0 {
   public:
-    void Fn();
+    void Fn_0027af50();
 };
 class ParamValueColour : public ParamValue {
   public:
     char gap[4];
     virtual ParamValueColour* vfunc_0(int);
 };
-extern int vftable_2355c0;
+extern int hulk_at_004279fc;
 extern void FUN_0008d330(ParamValueColour*);
 ParamValueColour* ParamValueColour::vfunc_0(int flags) {
-    *(hulk_intptr*)this = (hulk_intptr)&vftable_2355c0;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004279fc;
     Elem_2355c0* q = (Elem_2355c0*)((char*)this + 8);
-    q->Fn();
+    q->Fn_0027af50();
     if (flags & 1)
         FUN_0008d330(this);
     return this;
@@ -240,7 +240,7 @@ namespace fn_002355f0 {
 extern void* pvtable;
 extern void thunk_FUN_00267090(void*);
 struct Sub_2355f0 {
-    void Init();
+    void Init_0027af50();
 };
 class ParamValue {
   public:
@@ -268,7 +268,7 @@ class ParamValueEntity : public ParamValue {
 };
 ParamValueEntity* ParamValueEntity::v0(unsigned int flags) {
     *(void**)this = &pvtable;
-    sub.Init();
+    sub.Init_0027af50();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -282,7 +282,7 @@ namespace fn_f30d46c2 {
 ParamValueInventoryEntity* ParamValueInventoryEntity::vfunc_0(int flag) {
     ParamValueInventoryEntity* self = this;
     *(hulk_ulongptr*)self = ((hulk_intptr)DAT_004279fc);
-    ((Sub_235620*)((char*)self + 8))->Init();
+    ((Sub_235620*)((char*)self + 8))->Init_0027af50();
     if (flag & 1)
         thunk_FUN_00267090(self);
     return self;
@@ -301,14 +301,14 @@ int ParamValueInventoryEntity_235650::f7(int wanted, int limit) {
     int n = 1;
     Iter_235650 it(m->value);
     *(Manager_235650**)((char*)&it + 8) = m;
-    int item = it.First();
+    int item = it.First_00231640();
     while (item) {
         if (f6(wanted, item)) {
             if (limit == n)
                 return item;
             ++n;
         }
-        item = it.Next();
+        item = it.Next_002314c0();
     }
     return 0;
 }
@@ -369,7 +369,7 @@ int ParamValueInventoryEntity::vfunc_9(Entity *owner, Item *wanted)
 // sym: ?v0@ParamValueBranch@fn_f30d46c2@@UAEPAXI@Z
 void* ParamValueBranch::v0(unsigned int flags) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
-    ((Inner_235800*)((char*)this + 8))->Init();
+    ((Inner_235800*)((char*)this + 8))->Init_0027af50();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -380,7 +380,7 @@ void* ParamValueBranch::v0(unsigned int flags) {
 // sym: ?vfunc_0@ParamValueConditionGroup@fn_f30d46c2@@QAEPAU12@H@Z
 ParamValueConditionGroup* ParamValueConditionGroup::vfunc_0(int flags) {
     vptr = ((hulk_intptr)DAT_004279fc);
-    sub.Init();
+    sub.Init_0027af50();
     if (flags & 1)
         FUN_0008d330(this);
     return this;

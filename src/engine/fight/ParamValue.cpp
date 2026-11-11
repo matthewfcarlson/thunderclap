@@ -14,7 +14,7 @@ namespace fn_f5a13b5b {} using namespace fn_f5a13b5b;
 namespace fn_f5a13b5b {
 class Part_2352d0 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 namespace fight {
 class ParamValue {
@@ -33,7 +33,7 @@ extern "C" void __cdecl thunk_FUN_00267090(fight::ParamValue*);
 // Same code shape as 0x00235300 (propagated; names are from that function)
 fight::ParamValue* fight::ParamValue::vfunc_0(int flag) {
     vt = (hulk_intptr)&base_vtable;
-    part.Init();
+    part.Init_0027af50();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;

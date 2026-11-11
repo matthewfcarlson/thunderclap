@@ -22,7 +22,7 @@ class SeqEvent_25fd00 {
     SeqEvent_25fd00();
     virtual ~SeqEvent_25fd00();
 };
-extern void* IRefCount_vftable_25fd10;
+extern void* hulk_at_0042aa60;
 typedef unsigned int u32_25fd20;
 extern "C" int FUN_00263db0(hulk_uintptr, u32_25fd20);
 struct Node {
@@ -121,7 +121,7 @@ SeqEvent_25fd00::SeqEvent_25fd00() {}
 // sym: @FUN_0025fd10@4
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 extern "C" void __fastcall FUN_0025fd10(void* self) {
-    *(void**)self = &IRefCount_vftable_25fd10;
+    *(void**)self = &hulk_at_0042aa60;
 }
 
 } // namespace fn_f3ff1114
@@ -140,8 +140,8 @@ namespace fn_0025fd40 {
 typedef unsigned char u8_25fd40;
 struct Buf_25fd40 {
     u8_25fd40 d[32];
-    void init();
-    void fini();
+    void init_002634c0();
+    void fini_00263d30();
 };
 extern "C" u8_25fd40 __cdecl FUN_00263500(int, Buf_25fd40*);
 namespace audio {
@@ -156,9 +156,9 @@ struct SeqEvent {
 } // namespace audio
 u8_25fd40 audio::SeqEvent::vfunc_1(int p) {
     Buf_25fd40 b;
-    b.init();
+    b.init_002634c0();
     u8_25fd40 r = FUN_00263500(p, &b);
-    b.fini();
+    b.fini_00263d30();
     return r;
 }
 } // namespace fn_0025fd40

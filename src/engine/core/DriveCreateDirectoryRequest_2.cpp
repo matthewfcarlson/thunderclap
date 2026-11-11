@@ -44,8 +44,8 @@ struct Alloc_2758c0 {
     virtual void d();
     virtual void free(void*);
 };
-extern void* g_a_2758c0[];
-extern void* g_b_2758c0[];
+extern void* hulk_at_0042b9bc[];
+extern void* hulk_at_0042b914[];
 class DriveCreateDirectoryRequest_2758c0 {
   public:
     void* vptr;
@@ -71,12 +71,12 @@ DriveCreateDirectoryRequest* DriveCreateDirectoryRequest::Create(int a, char* p)
 // sym: ?f0@DriveCreateDirectoryRequest_2758c0@fn_f16f06b3@@QAEPAV12@E@Z
 // data: g_alloc = DAT_0052a1e4, g_pool_2758c0 = DAT_0052a1c8
 DriveCreateDirectoryRequest_2758c0* DriveCreateDirectoryRequest_2758c0::f0(unsigned char flags) {
-    vptr = g_a_2758c0;
+    vptr = hulk_at_0042b9bc;
     drive->lk.lock();
     --drive->refs;
     drive->lk.unlock();
     drive->release();
-    vptr = g_b_2758c0;
+    vptr = hulk_at_0042b914;
     if (flags & 1) {
         FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(Alloc_2758c0**)&DAT_0052a1e4)->free(this);

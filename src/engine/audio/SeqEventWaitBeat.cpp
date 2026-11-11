@@ -16,7 +16,7 @@ namespace fn_f289a90f {} using namespace fn_f289a90f;
 // ---- declarations shared by the functions below
 namespace fn_f289a90f {
 struct Obj_2504b0 {
-    void Do(int a);
+    void Do_00261e60(int a);
 };
 class Obj_2504e0 {
   public:
@@ -83,7 +83,7 @@ class Inner_250870 {
 };
 class Helper_250870 {
   public:
-    bool Probe(void*);
+    bool Probe_0025fd20(void*);
 };
 
 
@@ -91,7 +91,7 @@ class Helper_250870 {
 // sym: ?FUN_002504b0@fn_f289a90f@@YAXHH@Z
 void __cdecl FUN_002504b0(int a, hulk_intptr b) {
     Obj_2504b0* p = (Obj_2504b0*)b;
-    p->Do(a);
+    p->Do_00261e60(a);
 }
 
 
@@ -354,7 +354,7 @@ bool audio::SeqEventWaitBeat::vfunc_1(audio::SeqEventArg* arg) {
 // sym: ?vfunc_0@SeqEventWaitBeat@audio@@UAEHPAX@Z
 int audio::SeqEventWaitBeat::vfunc_0(void* __p0) { void * arg = (void *)__p0;
 
-    if (((Helper_250870*)this)->Probe(arg) && FUN_0024f010(arg, &this->f_10) && ((owners::Obj_261ef0 *)(((Inner_250870*)((char*)this + 8))))->FUN_00261ef0((const char *)arg))
+    if (((Helper_250870*)this)->Probe_0025fd20(arg) && FUN_0024f010(arg, &this->f_10) && ((owners::Obj_261ef0 *)(((Inner_250870*)((char*)this + 8))))->FUN_00261ef0((const char *)arg))
         return 1;
     return 0;
 }

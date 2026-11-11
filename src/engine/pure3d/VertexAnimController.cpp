@@ -36,7 +36,7 @@ struct Geometry_2a6d10 {
     void FUN_002d0d20(void*, int);
     void FUN_002d0da0(void*, float, int);
 };
-extern void* g_vftable_2a6e50[];
+extern void* hulk_at_0042da6c[];
 class Ref_2a6e50 {
   public:
     virtual void F0();
@@ -45,7 +45,7 @@ class Ref_2a6e50 {
 class SimpleFrameController_2a6e50 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285800();
 };
 class VertexAnimController_2a6e50 : public SimpleFrameController_2a6e50 {
   public:
@@ -54,10 +54,10 @@ class VertexAnimController_2a6e50 : public SimpleFrameController_2a6e50 {
     ~VertexAnimController_2a6e50();
 };
 extern "C" char DAT_0042da6c[];
-void* __cdecl alloc(hulk_uintptr);
+void* __cdecl alloc_00263ea0(hulk_uintptr);
 class Base_2a6e80 {
   public:
-    void init(pure3d::VertexAnimController*);
+    void init_00285780(pure3d::VertexAnimController*);
 };
 class Helper_2a6e80 {
   public:
@@ -97,7 +97,7 @@ class Ref_2a6f00 {
 class SimpleFrameController_2a6f00 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285800();
 };
 class VertexAnimController_2a6f00 : public SimpleFrameController_2a6f00 {
   public:
@@ -112,8 +112,8 @@ struct R_2a6f40 {
     virtual void f1();
 };
 extern R_2a6f40* Cast(hulk_uintptr, int, Type*, Type*, int);
-extern Type entityType;
-extern Type geometryType;
+extern Type hulk_at_0048f610;
+extern Type hulk_at_0049fc80;
 
 
 // 0x002a6cb0 FUN_002a6cb0 (25 B): matches/0x002a6cb0.cpp
@@ -170,13 +170,13 @@ namespace fn_f729aa84 {
 // 0x002a6e50 FUN_002a6e50 (36 B): matches/0x002a6e50.cpp
 // sym: ??1VertexAnimController_2a6e50@fn_f729aa84@@QAE@XZ
 VertexAnimController_2a6e50::~VertexAnimController_2a6e50() {
-    vptr = g_vftable_2a6e50;
+    vptr = hulk_at_0042da6c;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_00285800();
 }
 
 } // namespace fn_f729aa84
@@ -184,9 +184,9 @@ VertexAnimController_2a6e50::~VertexAnimController_2a6e50() {
 // 0x002a6e80 pure3d::VertexAnimController::vfunc_4 (79 B): matches/0x002a6e80.cpp
 // sym: ?vfunc_4@VertexAnimController@pure3d@@UAEPAXXZ
 void* pure3d::VertexAnimController::vfunc_4() {
-    pure3d::VertexAnimController* p = (pure3d::VertexAnimController*)alloc(0x48);
+    pure3d::VertexAnimController* p = (pure3d::VertexAnimController*)alloc_00263ea0(0x48);
     if (p) {
-        ((Base_2a6e80*)p)->init(this);
+        ((Base_2a6e80*)p)->init_00285780(this);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0042da6c);
         (*(Helper_2a6e80 * *)&p->f_40) = 0;
         Helper_2a6e80* old = (*(Helper_2a6e80 * *)&this->f_40);
@@ -224,7 +224,7 @@ VertexAnimController_2a6f00* VertexAnimController_2a6f00::f2(unsigned char flags
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_00285800();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -236,7 +236,7 @@ VertexAnimController_2a6f00* VertexAnimController_2a6f00::f2(unsigned char flags
 // sym: ?vfunc_5@VertexAnimController@pure3d@@UAEXPAX@Z
 void pure3d::VertexAnimController::vfunc_5(void* __p0) { hulk_uintptr p = (hulk_uintptr)__p0;
 
-    R_2a6f40* r = Cast(p, 0, &entityType, &geometryType, 0);
+    R_2a6f40* r = Cast(p, 0, &hulk_at_0048f610, &hulk_at_0049fc80, 0);
     R_2a6f40* n = *(R_2a6f40**)((char*)r + 0x5c);
     if (n)
         n->f0();

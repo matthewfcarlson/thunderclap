@@ -239,7 +239,7 @@ struct Owner_29bc80 {
     Item_29bc80** items;
     void set(Ref_29bc80* p);
 };
-extern void* g_vftable_29bdc0[];
+extern void* hulk_at_0042d59c[];
 } // namespace fn_f6d36770
 void operator delete(void*);
 namespace fn_f6d36770 {
@@ -251,7 +251,7 @@ class Ref_29bdc0 {
 class Entity_29bdc0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class DisplayList_29bdc0 : public Entity_29bdc0 {
   public:
@@ -505,7 +505,7 @@ void Owner_29bc80::set(Ref_29bc80* p) {
 // 0x0029bdc0 FUN_0029bdc0 (125 B): matches/0x0029bdc0.cpp
 // sym: ??1DisplayList_29bdc0@fn_f6d36770@@QAE@XZ
 DisplayList_29bdc0::~DisplayList_29bdc0() throw() {
-    vptr = g_vftable_29bdc0;
+    vptr = hulk_at_0042d59c;
     _ReadWriteBarrier();
     ((pure3d::DisplayList *)this)->FUN_0029bba0();
     for (unsigned i = 0; i < m10; i++) {
@@ -523,7 +523,7 @@ DisplayList_29bdc0::~DisplayList_29bdc0() throw() {
         operator delete(m28);
     if (m1c)
         operator delete(m1c);
-    Fin();
+    Fin_0027afd0();
 }
 
 } // namespace fn_f6d36770

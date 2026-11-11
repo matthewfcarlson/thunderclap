@@ -22,7 +22,7 @@ class Node {
     virtual void G();
     char _m_pad_4[0xc];
     Node* next;
-    void Rel(Node*);
+    void Rel_002365b0(Node*);
 };
 class List_232810 {
   public:
@@ -95,7 +95,7 @@ public:
     int FUN_00232ae0(Source_232ae0 *source, unsigned int size);
 };
 struct B_232b80 {
-    int f();
+    int Fnf_00263fb0();
 };
 class Obj {
   public:
@@ -111,7 +111,7 @@ struct Holder {
         }
     }
 };
-extern void* IRefCount_vftable_232c30;
+extern void* hulk_at_003f6098;
 
 
 // 0x00232780 FUN_00232780 (62 B): equivalent/0x00232780.cpp
@@ -305,9 +305,9 @@ void Owner_232a80::Set(Node* arg) {
             last = p;
             p = p->next;
         }
-        arg->Rel(p);
+        arg->Rel_002365b0(p);
         if (last) {
-            last->Rel(arg);
+            last->Rel_002365b0(arg);
             return;
         }
         arg->F();
@@ -346,7 +346,7 @@ int Loader_232ae0::FUN_00232ae0(Source_232ae0 *source, unsigned int size)
 // sym: ?FUN_00232b80@A_232b80@owners@@QAEHHHH@Z
 int owners::A_232b80::FUN_00232b80(hulk_intptr a, hulk_intptr b, int c) {
     B_232b80* x = (B_232b80*)((hulk_intptr)b);
-    int r = x->f();
+    int r = x->Fnf_00263fb0();
     return g(((int)a), ((hulk_intptr)b), r, c);
 }
 
@@ -365,7 +365,7 @@ extern "C" void FUN_00232bb0() {
 // sym: ?FUN_00232c30@fn_f81ad613@@YIXPAX@Z
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 void __fastcall FUN_00232c30(void* self) {
-    *(void**)self = &IRefCount_vftable_232c30;
+    *(void**)self = &hulk_at_003f6098;
 }
 
 } // namespace fn_f81ad613

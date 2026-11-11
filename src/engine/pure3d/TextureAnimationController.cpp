@@ -74,7 +74,7 @@ struct Binding_2a9480 {
     char pad00[0x10];
     Receiver_2a9480 *receiver;      // 0x10
 };
-extern void* g_vftable_2a9510[];
+extern void* hulk_at_0042de4c[];
 class Ref_2a9510 {
   public:
     virtual void F0();
@@ -83,7 +83,7 @@ class Ref_2a9510 {
 class SimpleFrameController_2a9510 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285800();
 };
 class TextureAnimationController_2a9510 : public SimpleFrameController_2a9510 {
   public:
@@ -114,7 +114,7 @@ class Ref_2a9570 {
 class SimpleFrameController_2a9570 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285800();
 };
 class TextureAnimationController_2a9570 : public SimpleFrameController_2a9570 {
   public:
@@ -124,9 +124,9 @@ class TextureAnimationController_2a9570 : public SimpleFrameController_2a9570 {
 };
 extern "C" char DAT_0042de4c[];
 struct TextureAnimationController_nv_2a95f0 {
-    void Init(pure3d::TextureAnimationController*);
+    void Init_00285780(pure3d::TextureAnimationController*);
 };
-extern void* __cdecl Alloc(hulk_uintptr);
+extern void* __cdecl Alloc_00263ea0(hulk_uintptr);
 
 
 // 0x002a9410 FUN_002a9410 (25 B): matches/0x002a9410.cpp
@@ -183,13 +183,13 @@ namespace fn_f097dcce {
 // 0x002a9510 FUN_002a9510 (36 B): matches/0x002a9510.cpp
 // sym: ??1TextureAnimationController_2a9510@fn_f097dcce@@QAE@XZ
 TextureAnimationController_2a9510::~TextureAnimationController_2a9510() {
-    vptr = g_vftable_2a9510;
+    vptr = hulk_at_0042de4c;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_00285800();
 }
 
 
@@ -214,7 +214,7 @@ TextureAnimationController_2a9570* TextureAnimationController_2a9570::f2(unsigne
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_00285800();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -225,9 +225,9 @@ TextureAnimationController_2a9570* TextureAnimationController_2a9570::f2(unsigne
 // 0x002a95f0 pure3d::TextureAnimationController::vfunc_4 (79 B): matches/0x002a95f0.cpp
 // sym: ?vfunc_4@TextureAnimationController@pure3d@@UAEPAXXZ
 void* pure3d::TextureAnimationController::vfunc_4() {
-    pure3d::TextureAnimationController* p = (pure3d::TextureAnimationController*)Alloc(0x48);
+    pure3d::TextureAnimationController* p = (pure3d::TextureAnimationController*)Alloc_00263ea0(0x48);
     if (p) {
-        ((TextureAnimationController_nv_2a95f0*)(p))->Init(this);
+        ((TextureAnimationController_nv_2a95f0*)(p))->Init_00285780(this);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0042de4c);
         (*(pure3d::TextureAnimationController * *)&p->f_40) = 0;
         pure3d::TextureAnimationController* r = (*(pure3d::TextureAnimationController * *)&this->f_40);

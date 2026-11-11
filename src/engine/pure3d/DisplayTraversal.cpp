@@ -14,7 +14,7 @@ namespace fn_fa8bb1a6 {} using namespace fn_fa8bb1a6;
 
 // ---- declarations shared by the functions below
 namespace fn_fa8bb1a6 {
-extern void* gVtable_2c6a80;
+extern void* hulk_at_0042ef74;
 extern "C" char DAT_0042ef74[];
 class Ref_2c6ad0 {
   public:
@@ -33,14 +33,14 @@ class DisplayTraversal {
     union { int e; Ref_2c6ad0* volatile mRef; };
     DisplayTraversal* F2(unsigned int);
 };
-extern void Destroy(DisplayTraversal*);
+extern void Destroy_0008d330(DisplayTraversal*);
 
 
 // 0x002c6a80 FUN_002c6a80 (31 B): matches/0x002c6a80.cpp
 // sym: ??0DisplayTraversal@fn_fa8bb1a6@@QAE@XZ
 DisplayTraversal::DisplayTraversal() {
     a = 0;
-    vptr = &gVtable_2c6a80;
+    vptr = &hulk_at_0042ef74;
     flag = 1;
     c = -1;
     d = 0;
@@ -91,7 +91,7 @@ DisplayTraversal* DisplayTraversal::F2(unsigned int flags) {
     }
     vf = ((hulk_intptr)DAT_003f6098);
     if (flags & 1)
-        Destroy(this);
+        Destroy_0008d330(this);
     return this;
 }
 

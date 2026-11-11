@@ -13,7 +13,7 @@ namespace fn_f7ad5fe2 {} using namespace fn_f7ad5fe2;
 
 // ---- declarations shared by the functions below
 namespace fn_f7ad5fe2 {
-extern void* g_vftable_2e1920[];
+extern void* hulk_at_0042fce4[];
 } // namespace fn_f7ad5fe2
 void operator delete(void*);
 namespace fn_f7ad5fe2 {
@@ -32,7 +32,7 @@ class MatrixPaletteList_2e1920 : public NonCopyable_2e1920 {
 // 0x002e1920 pure3d::MatrixPaletteList::vfunc_2 (53 B): matches/0x002e1920.cpp
 // sym: ?f2@MatrixPaletteList_2e1920@fn_f7ad5fe2@@QAEPAV12@E@Z
 MatrixPaletteList_2e1920* MatrixPaletteList_2e1920::f2(unsigned char flags) {
-    vptr = g_vftable_2e1920;
+    vptr = hulk_at_0042fce4;
     _ReadWriteBarrier();
     if (m8)
         operator delete[](m8);

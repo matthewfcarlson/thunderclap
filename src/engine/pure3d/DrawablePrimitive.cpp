@@ -26,7 +26,7 @@ class DrawablePrimitive : public Entity_2a5060 {
     int a[11];
     DrawablePrimitive();
 };
-extern int drawable_vtable;
+extern int hulk_at_0042d978;
 class Obj_2a50b0 {
     char pad[0x10];
 
@@ -36,7 +36,7 @@ class Obj_2a50b0 {
 extern void* Entity_2a5120_vftable[];
 class Entity_2a5120 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class DrawablePrimitive_2a5120 : public Entity_2a5120 {
   public:
@@ -48,7 +48,7 @@ class DrawablePrimitive_2a5120 : public Entity_2a5120 {
 // sym: ??0DrawablePrimitive@fn_fdccf8a8@@QAE@XZ
 DrawablePrimitive::DrawablePrimitive() : Entity_2a5060() {
     a[0] = 0;
-    *((hulk_intptr*)this) = (hulk_intptr)&drawable_vtable;
+    *((hulk_intptr*)this) = (hulk_intptr)&hulk_at_0042d978;
     _ReadWriteBarrier();
     a[1] = 0;
     a[2] = 0;
@@ -87,7 +87,7 @@ unsigned int __fastcall FUN_002a50b0(Obj_2a50b0* self) {
  // thunk_FUN_00267090
 DrawablePrimitive_2a5120* DrawablePrimitive_2a5120::vfunc_5(signed char flags) {
     *(void***)this = Entity_2a5120_vftable;
-    Destroy();
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

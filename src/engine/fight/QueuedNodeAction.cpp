@@ -26,19 +26,19 @@ class QueuedNodeAction : public Action_23a210 {
     int m_flags;      // 0xc
     char pad_c[0x1c]; // 0x10 - 0x2c (28 bytes)
     struct Data {
-        void func_22f0(int a, int b);
-        void func_1f20(int a);
-        bool func_24b0(int a);
-        void func_1ee0();
+        void func_22f0_002322f0(int a, int b);
+        void func_1f20_00231f20(int a);
+        bool func_24b0_002324b0(int a);
+        void func_1ee0_00231ee0();
         char pad[0x28]; // size 0x28 to reach 0x54
     } m_data;           // 0x2c
     int m_54;           // 0x54
     char m_58;          // 0x58
 };
 struct Action_23a290 {
-    void target();
+    void target_00232240();
 };
-extern void* g_vftable_23a320[];
+extern void* hulk_at_00428558[];
 class Ref_23a320 {
   public:
     virtual void F0();
@@ -46,7 +46,7 @@ class Ref_23a320 {
 };
 class Sub_23a320 {
   public:
-    void Fini();
+    void Fini_002325f0();
 };
 class Action_23a320 {
   public:
@@ -128,19 +128,19 @@ namespace fn_fb73e034 {
 // sym: ?vfunc_5@QueuedNodeAction@fn_fb73e034@@UAEXHH@Z
 void QueuedNodeAction::vfunc_5(int param1, int param2) {
     if (param1 == 0 && m_58 == 0) {
-        m_data.func_22f0(m_54, param2);
+        m_data.func_22f0_002322f0(m_54, param2);
     }
     m_58 = 0;
-    m_data.func_1f20(param1);
+    m_data.func_1f20_00231f20(param1);
     if (param1 == m_54 - 1) {
-        if (m_data.func_24b0(0)) {
+        if (m_data.func_24b0_002324b0(0)) {
             m_flags &= 0xfffffffc;
-            m_data.func_1ee0();
+            m_data.func_1ee0_00231ee0();
             return;
         }
         m_flags = (m_flags & 0xfffffffd) | 1;
     }
-    m_data.func_1ee0();
+    m_data.func_1ee0_00231ee0();
 }
 
 } // namespace fn_fb73e034
@@ -148,7 +148,7 @@ void QueuedNodeAction::vfunc_5(int param1, int param2) {
 // 0x0023a290 fight::QueuedNodeAction::vfunc_4 (8 B): matches/0x0023a290.cpp
 // sym: ?vfunc_4@QueuedNodeAction@fight@@UAEXXZ
 void fight::QueuedNodeAction::vfunc_4() {
-    ((Action_23a290*)((char*)this + 0x2c))->target();
+    ((Action_23a290*)((char*)this + 0x2c))->target_00232240();
 }
 
 
@@ -205,7 +205,7 @@ namespace fn_fb73e034 {
 // 0x0023a320 FUN_0023a320 (63 B): matches/0x0023a320.cpp
 // sym: ??1QueuedNodeAction_23a320@fn_fb73e034@@QAE@XZ
 QueuedNodeAction_23a320::~QueuedNodeAction_23a320() {
-    vptr = g_vftable_23a320;
+    vptr = hulk_at_00428558;
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -215,7 +215,7 @@ QueuedNodeAction_23a320::~QueuedNodeAction_23a320() {
         m1c->Release();
         m1c = 0;
     }
-    m2c.Fini();
+    m2c.Fini_002325f0();
     ((fight::Action *)(Action_23a320 *)this)->FUN_002326a0();
 }
 

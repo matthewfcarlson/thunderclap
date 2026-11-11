@@ -269,11 +269,11 @@ class Owner_27fee0 {
 };
 class A_27ff40 {
   public:
-    void f(int, int);
+    void Fnf_0027f2a0(int, int);
 };
 class B_27ff40 {
   public:
-    void f(int, int);
+    void Fnf_0027f750(int, int);
 };
 class V {
   public:
@@ -298,8 +298,8 @@ class C_27ff40 {
 };
 class D {
   public:
-    void f();
-    int f(int, int, int, int, int, int, int, int);
+    void Fnf_0027f4a0();
+    int Fnf_00283e10(int, int, int, int, int, int, int, int);
 };
 class C_27ff80 {
   public:
@@ -311,7 +311,7 @@ class C_27ff80 {
 extern "C" void _ReadWriteBarrier();
 namespace fn_f4890d4c {
 struct Sub_27ff90 {
-    void Forward(int a, int b, int c);
+    void Forward_0027f330(int a, int b, int c);
 };
 struct Owner_27ff90 {
     char pad[12];
@@ -322,21 +322,21 @@ class C_27ffb0 {
   public:
     char pad[12];
     C_27ffb0* field;
-    int g(int);
+    int Fng_0027f380(int);
     int f(int);
 };
 class C_27ffc0 {
   public:
     char pad[12];
     C_27ffc0* field;
-    int g(int, int);
+    int Fng_0027f3c0(int, int);
     int f(int, hulk_intptr);
 };
 class C_27ffd0 {
   public:
     char pad[12];
     C_27ffd0* field;
-    void g(int, int);
+    void Fng_0027f410(int, int);
     void f(int, int);
 };
 extern const float g_value_27ffe0;
@@ -653,7 +653,7 @@ class CMotionTrailQueue {
     char _m_pad_4c[0xc];
     u32_282650 state;
     union { u8* bytes; u32_27f830 field5c; };
-    void Run();
+    void Run_002a4ff0();
     void Finish();
     void vfunc_9();
 };
@@ -685,7 +685,7 @@ class Obj_282690 {
 };
 class Helper_282690 {
   public:
-    void helper(void*, int, int, int);
+    void helper_0029b9d0(void*, int, int, int);
 };
 class Item_2826e0 {
   public:
@@ -838,13 +838,13 @@ class C_283450 {
   public:
     char pad[12];
     C_283450* field;
-    void g(int, int, int, int);
+    void Fng_002804f0(int, int, int, int);
     void f(hulk_intptr, hulk_intptr, hulk_intptr, int);
 };
 class Sub {
   public:
-    void Fn(int a, int b, int c);
-    int Call(int a, int b);
+    void Fn_00280630(int a, int b, int c);
+    int Call_0027b200(int a, int b);
 };
 class Target {
     char pad[12];
@@ -857,9 +857,9 @@ typedef void(__fastcall* Fn_283480)(void*);
 struct Obj_283480 {
     Fn_283480* v;
 };
-extern Obj_283480* gObj_283480;
+extern Obj_283480* hulk_at_0052c2a8;
 struct U_283480 {
-    void f(int);
+    void Fnf_00282140(int);
 };
 struct T_283480 {
     char pad[0x10];
@@ -872,7 +872,7 @@ struct Obj_2834b0 {
 };
 extern Obj_2834b0* gObj_2834b0;
 struct U_2834b0 {
-    void f(int);
+    void Fnf_00282190(int);
 };
 struct T_2834b0 {
     char pad[0x10];
@@ -881,7 +881,7 @@ struct T_2834b0 {
 };
 class Y_2834e0 {
   public:
-    void g(int);
+    void Fng_00282740(int);
 };
 class X_2834e0 {
     char pad[0x18];
@@ -893,7 +893,7 @@ class X_2834e0 {
 class EffectQueue_2834f0 {
   public:
     virtual void f();
-    void Cleanup2();
+    void Cleanup2_0027afd0();
     ~EffectQueue_2834f0();
     int mData;
 };
@@ -926,8 +926,8 @@ class CDecalQueue {
     virtual void A();
     CDecalQueue();
     ~CDecalQueue();
-    void Init();
-    void Tail();
+    void Init_00280800();
+    void Tail_0027afd0();
     char pad[0x34];
     Slot_2835a0 items[100];
 };
@@ -954,7 +954,7 @@ struct V3_2837e0 {
     int a, b, c;
 };
 struct Inner_2837e0 {
-    void Fn(int a, int b, int c, int d, int e, int f, int g, int h, V3_2837e0 v, int i, int j, int k);
+    void Fn_002828e0(int a, int b, int c, int d, int e, int f, int g, int h, V3_2837e0 v, int i, int j, int k);
 };
 struct Obj_2837e0 {
     char pad0[0x48];
@@ -984,10 +984,10 @@ struct Manager_283900 {
  Manager_283900* FUN_00283900(unsigned ownerValue, unsigned context);
 };
 struct B_283a10 {
-    void F(int);
+    void FnF_002801b0(int);
 };
 struct C_283a10 {
-    void G(int);
+    void FnG_00283640(int);
 };
 class A_283a10 {
   public:
@@ -1003,7 +1003,7 @@ struct Triple_283d60 {
 };
 class Mgr_283d60 {
   public:
-    int Fn(int, int, int, int, int, int, int, int, Triple_283d60, int, int, int);
+    int Fn_002837e0(int, int, int, int, int, int, int, int, Triple_283d60, int, int, int);
 };
 class Obj_283d60 {
     char pad[24];
@@ -1012,10 +1012,10 @@ class Obj_283d60 {
   public:
     int Go(int, int, int, int, int, int, int, int, Triple_283d60, int, int, int);
 };
-extern int g_vftable_283dc0;
+extern int hulk_at_0042c4dc;
 struct EffectQueue_283dc0 {
     void* m_vptr;
-    void base2_dtor();
+    void base2_dtor_0027afd0();
     void* scalar_dtor(unsigned char flags);
 };
 class C_2842e0 {
@@ -1294,7 +1294,7 @@ void CMotionTrailQueue::Finish() {
     u32_27f830 x = field5c;
     vtable = ((hulk_intptr)DAT_0042c48c);
     thunk_FUN_00267090(x);
-    Run();
+    Run_002a4ff0();
 }
 
 } // namespace fn_f4890d4c
@@ -1409,8 +1409,8 @@ void Owner_27fee0::Clear() {
 // 0x0027ff40 FUN_0027ff40 (49 B): matches/0x0027ff40.cpp
 // sym: ?f@C_27ff40@fn_f4890d4c@@QAEXHH@Z
 void C_27ff40::f(int x, int y) {
-    a->f(x, y);
-    b->f(x, y);
+    a->Fnf_0027f2a0(x, y);
+    b->Fnf_0027f750(x, y);
     c->f(x, y);
 }
 
@@ -1418,14 +1418,14 @@ void C_27ff40::f(int x, int y) {
 // 0x0027ff80 FUN_0027ff80 (8 B): matches/0x0027ff80.cpp
 // sym: ?target@C_27ff80@fn_f4890d4c@@QAEXXZ
 void C_27ff80::target() {
-    member->f();
+    member->Fnf_0027f4a0();
 }
 
 
 // 0x0027ff90 FUN_0027ff90 (26 B): matches/0x0027ff90.cpp
 // sym: ?fn@Owner_27ff90@fn_f4890d4c@@QAEXHHH@Z
 void Owner_27ff90::fn(int a, int b, int c) {
-    m_sub->Forward(a, b, c);
+    m_sub->Forward_0027f330(a, b, c);
     _ReadWriteBarrier();
 }
 
@@ -1434,7 +1434,7 @@ void Owner_27ff90::fn(int a, int b, int c) {
 // sym: ?f@C_27ffb0@fn_f4890d4c@@QAEHH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 int C_27ffb0::f(int a0) {
-    return field->g(a0);
+    return field->Fng_0027f380(a0);
 }
 
 
@@ -1442,7 +1442,7 @@ int C_27ffb0::f(int a0) {
 // sym: ?f@C_27ffc0@fn_f4890d4c@@QAEHHH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 int C_27ffc0::f(int a0, hulk_intptr a1) {
-    return field->g(a0, a1);
+    return field->Fng_0027f3c0(a0, a1);
 }
 
 
@@ -1450,7 +1450,7 @@ int C_27ffc0::f(int a0, hulk_intptr a1) {
 // sym: ?f@C_27ffd0@fn_f4890d4c@@QAEXHH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 void C_27ffd0::f(int a0, int a1) {
-    field->g(a0, a1);
+    field->Fng_0027f410(a0, a1);
 }
 
 
@@ -2762,26 +2762,26 @@ void Builder::FUN_00282400(Item_282400* item)
 // 0x00282610 pure3d::prop::CMotionTrailQueue::vfunc_2 (50 B): matches/0x00282610.cpp [wrapped: conflict: CMotionTrailQueue]
 // sym: ?vfunc_2@CMotionTrailQueue@fn_00282610@@QAEPAV12@E@Z
 namespace fn_00282610 {
-extern "C++" __declspec(nothrow) void __cdecl subFree(void* p);
-extern "C++" __declspec(nothrow) void __cdecl objDelete(void* p);
-extern const char CMotionTrailQueue_vftable[];
+extern "C++" __declspec(nothrow) void __cdecl subFree_0008d340(void* p);
+extern "C++" __declspec(nothrow) void __cdecl objDelete_00263f30(void* p);
+extern const char hulk_at_0042c48c[];
 
 class CMotionTrailQueue {
   public:
     virtual ~CMotionTrailQueue();
     char pad[0x58];
     void* m_sub;
-    void Cleanup();
+    void Cleanup_002a4ff0();
     CMotionTrailQueue* vfunc_2(unsigned char flag);
 };
 
 CMotionTrailQueue* CMotionTrailQueue::vfunc_2(unsigned char flag) {
     void* sub = m_sub;
-    *(const char**)this = CMotionTrailQueue_vftable;
-    subFree(sub);
-    Cleanup();
+    *(const char**)this = hulk_at_0042c48c;
+    subFree_0008d340(sub);
+    Cleanup_002a4ff0();
     if (flag & 1) {
-        objDelete((void*)this);
+        objDelete_00263f30((void*)this);
     }
     return this;
 }
@@ -2808,7 +2808,7 @@ void pure3d::prop::CMotionTrailQueue::vfunc_8(hulk_intptr a, int b) {
     for (int i = 0; i < 6; ++i) {
         if ((*(char * *)&this->f_5c)[i * 8 + 4]) {
             if (a) {
-                ((Helper_282690*)a)->helper(this, i, 0, b);
+                ((Helper_282690*)a)->helper_0029b9d0(this, i, 0, b);
             } else {
                 Obj_282690* o = *(Obj_282690**)((*(char * *)&this->f_48) + i * 16);
                 o->f6();
@@ -2877,15 +2877,15 @@ class CMotionTrail : public DrawablePrimitive_282790 {
     void* r;
     CMotionTrail();
 };
-extern void* __cdecl Alloc(hulk_uintptr);
+extern void* __cdecl Alloc_0008d6d0(hulk_uintptr);
 void CMotionTrail::V() {}
 CMotionTrail::CMotionTrail() {
     a = 0;
     b = 0;
     x = 1;
-    p = Alloc(8000);
-    q = Alloc(0x18);
-    r = Alloc(0x48);
+    p = Alloc_0008d6d0(8000);
+    q = Alloc_0008d6d0(0x18);
+    r = Alloc_0008d6d0(0x48);
 }
 } // namespace fn_00282790
 
@@ -3400,14 +3400,14 @@ void C_2833f0::target() {
 // sym: ?f@C_283450@fn_f4890d4c@@QAEXHHHH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 void C_283450::f(hulk_intptr a0, hulk_intptr a1, hulk_intptr a2, int a3) {
-    field->g(a0, a1, a2, a3);
+    field->Fng_002804f0(a0, a1, a2, a3);
 }
 
 
 // 0x00283460 FUN_00283460 (26 B): matches/0x00283460.cpp
 // sym: ?Fn@Target@fn_f4890d4c@@QAEXHHH@Z
 void Target::Fn(int a, int b, int c) {
-    ptr->Fn(a, b, c);
+    ptr->Fn_00280630(a, b, c);
     _ReadWriteBarrier();
 }
 
@@ -3415,8 +3415,8 @@ void Target::Fn(int a, int b, int c) {
 // 0x00283480 FUN_00283480 (34 B): matches/0x00283480.cpp
 // sym: ?go@T_283480@fn_f4890d4c@@QAEXH@Z
 void T_283480::go(int x) {
-    gObj_283480->v[91](gObj_283480);
-    m->f(x);
+    hulk_at_0052c2a8->v[91](hulk_at_0052c2a8);
+    m->Fnf_00282140(x);
 }
 
 
@@ -3425,7 +3425,7 @@ void T_283480::go(int x) {
 // Same code shape as 0x00283480 (propagated; names are from that function)
 void T_2834b0::go(int x) {
     gObj_2834b0->v[91](gObj_2834b0);
-    m->f(x);
+    m->Fnf_00282190(x);
 }
 
 
@@ -3433,7 +3433,7 @@ void T_2834b0::go(int x) {
 // sym: ?f@X_2834e0@fn_f4890d4c@@QAEXH@Z
 // Same code shape as 0x001c37f0 (propagated; names are from that function)
 void X_2834e0::f(int a0) {
-    p->g(a0);
+    p->Fng_00282740(a0);
 }
 
 
@@ -3442,7 +3442,7 @@ void X_2834e0::f(int a0) {
 // Same code shape as 0x001c5640 (propagated; names are from that function)
 EffectQueue_2834f0::~EffectQueue_2834f0() {
     ((owners::Owner_280160 *)this)->FUN_00280160();
-    Cleanup2();
+    Cleanup2_0027afd0();
 }
 
 
@@ -3475,14 +3475,14 @@ int Table_283510::Add(RefObj_283510* o, int a, int b, int c) {
 // 0x002835a0 FUN_002835a0 (57 B): matches/0x002835a0.cpp
 // sym: ??1CDecalQueue@fn_f4890d4c@@QAE@XZ
 CDecalQueue::~CDecalQueue() {
-    Init();
+    Init_00280800();
     for (int i = 0; i < 100; i++) {
         if (items[i].p) {
             items[i].p->B();
             items[i].p = 0;
         }
     }
-    Tail();
+    Tail_0027afd0();
 }
 
 
@@ -3619,7 +3619,7 @@ namespace fn_f4890d4c {
 unsigned Obj_2837e0::Run(int a, int b, int c, int d, int e, int f, int g, int h, V3_2837e0 v, int i, int j, int k) {
     unsigned n = mCount;
     unsigned idx = n % 6;
-    ((Inner_2837e0*)(*(char**)(mArr + idx * 16)))->Fn(a, b, c, d, e, f, g, h, v, i, j, k);
+    ((Inner_2837e0*)(*(char**)(mArr + idx * 16)))->Fn_002828e0(a, b, c, d, e, f, g, h, v, i, j, k);
     *(unsigned*)(mInfo + idx * 8) = n;
     *(char*)(mInfo + idx * 8 + 4) = 1;
     mCount++;
@@ -3632,7 +3632,7 @@ unsigned Obj_2837e0::Run(int a, int b, int c, int d, int e, int f, int g, int h,
 // sym: ?Dtor@CMotionTrail@fn_00283870@@QAEXXZ
 namespace fn_00283870 {
 extern "C" void _ReadWriteBarrier();
-extern char CMotionTrail_vftable[];
+extern char hulk_at_0042c52c[];
 class Ref_283870 {
   public:
     virtual void f0();
@@ -3640,7 +3640,7 @@ class Ref_283870 {
 };
 class DrawablePrimitive_283870 {
   public:
-    void BaseDtor();
+    void BaseDtor_002a50a0();
 };
 extern void __cdecl thunk_FUN_00267090(void*);
 class CMotionTrail : public DrawablePrimitive_283870 {
@@ -3657,7 +3657,7 @@ class CMotionTrail : public DrawablePrimitive_283870 {
     void Dtor();
 };
 void CMotionTrail::Dtor() {
-    vptr = CMotionTrail_vftable;
+    vptr = hulk_at_0042c52c;
     _ReadWriteBarrier();
     if (m40) {
         m40->f1();
@@ -3670,7 +3670,7 @@ void CMotionTrail::Dtor() {
     thunk_FUN_00267090(m64);
     thunk_FUN_00267090(m74);
     thunk_FUN_00267090(m78);
-    BaseDtor();
+    BaseDtor_002a50a0();
 }
 } // namespace fn_00283870
 
@@ -3710,8 +3710,8 @@ Manager_283900* Manager_283900::FUN_00283900(unsigned ownerValue, unsigned conte
 // 0x00283a10 FUN_00283a10 (42 B): matches/0x00283a10.cpp
 // sym: ?Run@A_283a10@fn_f4890d4c@@QAEXH@Z
 void A_283a10::Run(int x) {
-    a->F(x);
-    b->G(x);
+    a->FnF_002801b0(x);
+    b->FnG_00283640(x);
     c->f6(x, 0);
 }
 
@@ -3879,7 +3879,7 @@ namespace fn_f4890d4c {
 // 0x00283d60 FUN_00283d60 (91 B): matches/0x00283d60.cpp
 // sym: ?Go@Obj_283d60@fn_f4890d4c@@QAEHHHHHHHHHUTriple_283d60@2@HHH@Z
 int Obj_283d60::Go(int a, int b, int c, int d, int e, int f, int g, int h, Triple_283d60 t, int j, int k, int l) {
-    return mgr->Fn(a, b, c, d, e, f, g, h, t, j, k, l);
+    return mgr->Fn_002837e0(a, b, c, d, e, f, g, h, t, j, k, l);
 }
 
 
@@ -3887,9 +3887,9 @@ int Obj_283d60::Go(int a, int b, int c, int d, int e, int f, int g, int h, Tripl
 // sym: ?scalar_dtor@EffectQueue_283dc0@fn_f4890d4c@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* EffectQueue_283dc0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_283dc0;
+    m_vptr = (void*)&hulk_at_0042c4dc;
     ((owners::Owner_280160 *)this)->FUN_00280160();
-    base2_dtor();
+    base2_dtor_0027afd0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -4188,7 +4188,7 @@ namespace fn_f4890d4c {
 // sym: ?target@C_2842e0@fn_f4890d4c@@QAEHHHHHHHHH@Z
 // Same code shape as 0x0027ff80 (propagated; names are from that function)
 hulk_intptr C_2842e0::target(hulk_intptr a0, int a1, int a2, hulk_intptr a3, hulk_intptr a4, hulk_intptr a5, int a6, int a7) {
-    return member->f(a0, a1, a2, a3, a4, a5, a6, a7);
+    return member->Fnf_00283e10(a0, a1, a2, a3, a4, a5, a6, a7);
 }
 
 
@@ -4212,7 +4212,7 @@ Clone * Frames_2842f0::FUN_002842f0()
 // 0x002843a0 FUN_002843a0 (21 B): matches/0x002843a0.cpp
 // sym: ?Fn@Thing@fn_f4890d4c@@QAEHHH@Z
 int Thing::Fn(int a, int b) {
-    int r_ret = field->Call(a, b);
+    int r_ret = field->Call_0027b200(a, b);
     _ReadWriteBarrier();
     return r_ret;
 }

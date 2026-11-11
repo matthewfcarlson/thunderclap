@@ -35,7 +35,7 @@ class Obj_23e4f0 {
     Sub_23e4f0* GetConditionGroup_0023e4f0();
 };
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_23e520;
+extern int* hulk_at_004e5c74;
 class CCondition_23e520 {
   public:
     virtual int vfunc_0(int);
@@ -68,20 +68,20 @@ struct Track_23e570 {
 };
 class Inner_23e580 {
   public:
-    void Init();
+    void Init_00236fd0();
 };
 struct StopTrack_nv_23e580 {
-    void Finish();
+    void Finish_00236d60();
 };
-extern int StopTrack_vftable;
-extern int gState_23e5a0;
+extern int hulk_at_00428db0;
+extern int hulk_at_004e5c7c;
 class Helper_23e5a0 {
   public:
-    bool Check(int, int, int);
+    bool Check_00236f40(int, int, int);
 };
 class Finisher {
   public:
-    void Finish();
+    void Finish_00231f00();
 };
 class Ref_23e610 {
   public:
@@ -90,9 +90,9 @@ class Ref_23e610 {
 };
 class Action_23e610 {
   public:
-    void Init();
+    void Init_00232660();
 };
-extern int StopVtable;
+extern int hulk_at_00428de0;
 class StopAction : public Action_23e610 {
   public:
     char pad[0x1c];
@@ -110,7 +110,7 @@ class Ref_23e670 {
 };
 struct Action_23e670 {
     void* vf;
-    void Dtor() throw();
+    void Dtor_002326a0() throw();
 };
 struct StopAction_23e670 : Action_23e670 {
     char pad[0x18];
@@ -148,7 +148,7 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     void(__fastcall* fn)(void*);
     virtual void vfunc_6(void*);
 };
-extern int gTypeA_23e730;
+extern int hulk_at_0049850c;
 typedef unsigned int U_23e880;
 extern void* __cdecl FUN_0008d690(int);
 class Helper_23e880 {
@@ -174,20 +174,20 @@ class StopAction_23e8c0 {
     char pad20[8];
     Ref_23e8c0* volatile m28;
 };
-void destroy(StopAction_23e8c0*);
-extern char VT_23e930[];
+void destroy_0008d330(StopAction_23e8c0*);
+extern char hulk_at_00428e3c[];
 struct Track {
     virtual void V();
 };
 extern "C" Track* __cdecl FUN_00236ac0(int, Track*);
 struct Receiver_23e930 {
-    void Finish(Track*);
+    void Finish_002367c0(Track*);
 };
 extern "C" char DAT_00428db0[];
 extern "C" void* __cdecl operator_new(unsigned int);
 class Inner_23e9a0 {
   public:
-    void init();
+    void init_00236e00();
 };
 class StopTrack_23e9a0 {
   public:
@@ -197,9 +197,9 @@ class StopTrack_23e9a0 {
     int zero;
     float value;
     Inner_23e9a0 inner;
-    void init();
+    void init_00236d40();
 };
-extern int g_vftable_23e9f0;
+extern int hulk_at_00428e48;
 
 
 // 0x0023e4d0 FUN_0023e4d0 (12 B): matches/0x0023e4d0.cpp
@@ -238,7 +238,7 @@ void FUN_0023e500() {
 // sym: ?vfunc_0@StopTrack@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::StopTrack::vfunc_0(int index) {
-    int* p = gTable_23e520;
+    int* p = hulk_at_004e5c74;
     return p[index];
 }
 
@@ -272,9 +272,9 @@ hulk_freg fight::StopTrack::vfunc_7() {
 // 0x0023e580 FUN_0023e580 (25 B): matches/0x0023e580.cpp
 // sym: ?FUN_0023e580@StopTrack@fight@@QAEXXZ
 void fight::StopTrack::FUN_0023e580() {
-    *(hulk_intptr*)this = (hulk_intptr)&StopTrack_vftable;
-    ((Inner_23e580*)((char*)this + 0x14))->Init();
-    ((StopTrack_nv_23e580*)this)->Finish();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00428db0;
+    ((Inner_23e580*)((char*)this + 0x14))->Init_00236fd0();
+    ((StopTrack_nv_23e580*)this)->Finish_00236d60();
 }
 
 
@@ -282,9 +282,9 @@ void fight::StopTrack::FUN_0023e580() {
 // sym: ?vfunc_5@StopAction@fight@@UAE_NHH@Z
  // namespace fight
 bool fight::StopAction::vfunc_5(hulk_intptr value, int unused) {
-    if (value == gState_23e5a0) {
-        if (((char*)(*(Helper_23e5a0 * *)&this->f_20), ((Helper_23e5a0*)((char*)(*(Helper_23e5a0 * *)&this->f_20) + 0x14)))->Check(this->f_1c, this->f_28, 0)) {
-            (*(Finisher * *)&this->f_24)->Finish();
+    if (value == hulk_at_004e5c7c) {
+        if (((char*)(*(Helper_23e5a0 * *)&this->f_20), ((Helper_23e5a0*)((char*)(*(Helper_23e5a0 * *)&this->f_20) + 0x14)))->Check_00236f40(this->f_1c, this->f_28, 0)) {
+            (*(Finisher * *)&this->f_24)->Finish_00231f00();
             return false;
         }
     }
@@ -298,7 +298,7 @@ namespace fn_0023e5e0 {
 extern "C" char DAT_00428db0[];
 class Helper_23e5e0 {
   public:
-    void first();
+    void first_00236fd0();
 };
 class StopTrack {
   public:
@@ -310,16 +310,16 @@ class StopTrack {
     virtual StopTrack* vfunc_5(unsigned char flag);
     char pad[0x14 - 4];
     Helper_23e5e0 h;
-    void second();
+    void second_00236d60();
 };
-void __cdecl destroy(StopTrack*);
+void __cdecl destroy_0008d330(StopTrack*);
 
 StopTrack* StopTrack::vfunc_5(unsigned char flag) {
     *(void**)this = (void*)((hulk_intptr)DAT_00428db0);
-    h.first();
-    second();
+    h.first_00236fd0();
+    second_00236d60();
     if (flag & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 } // namespace fn_0023e5e0
@@ -329,8 +329,8 @@ namespace fn_fe4accdf {
 // 0x0023e610 FUN_0023e610 (83 B): matches/0x0023e610.cpp
 // sym: ??0StopAction@fn_fe4accdf@@QAE@PAVRef_23e610@1@HH0@Z
 StopAction::StopAction(Ref_23e610* a, int b, int c, Ref_23e610* d) {
-    Init();
-    *(hulk_intptr*)this = (hulk_intptr)&StopVtable;
+    Init_00232660();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00428de0;
     mArg = c;
     mOther = 0;
     mRef = a;
@@ -354,7 +354,7 @@ void StopAction_23e670::Dtor2() throw() {
         p28 = 0;
     }
     p1c->Release();
-    Action_23e670::Dtor();
+    Action_23e670::Dtor_002326a0();
 }
 
 } // namespace fn_fe4accdf
@@ -392,7 +392,7 @@ void ParamBranch::vfunc_6(void* p) {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::TrackFactoryCasterTemplate<fight::StopTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_23e730, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -434,7 +434,7 @@ StopAction_23e8c0* StopAction_23e8c0::vfunc_2(unsigned char param) {
     m1c->f1();
     ((fight::Action *)this)->FUN_002326a0();
     if (param & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 
@@ -443,9 +443,9 @@ StopAction_23e8c0* StopAction_23e8c0::vfunc_2(unsigned char param) {
 // sym: _FUN_0023e930
 extern "C" void FUN_0023e930(Receiver_23e930* c, int b) {
     Track t;
-    *(void**)&t = VT_23e930;
+    *(void**)&t = hulk_at_00428e3c;
     Track* p = FUN_00236ac0(b, &t);
-    c->Finish(p);
+    c->Finish_002367c0(p);
 }
 
 } // namespace fn_fe4accdf
@@ -455,11 +455,11 @@ extern "C" void FUN_0023e930(Receiver_23e930* c, int b) {
 template <> void* fight::TrackFactoryTemplate<fight::StopTrack>::vfunc_5() {
     StopTrack_23e9a0* p = (StopTrack_23e9a0*)operator_new(0x18);
     if (p) {
-        p->init();
+        p->init_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428db0);
         p->zero = 0;
         p->value = -1.0f;
-        p->inner.init();
+        p->inner.init_00236e00();
         p->flag = 1;
         return (void*)(p);
     }
@@ -472,7 +472,7 @@ namespace fn_fe4accdf {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fe4accdf@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_23e9f0;
+    m_vptr = (void*)&hulk_at_00428e48;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

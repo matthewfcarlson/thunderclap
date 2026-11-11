@@ -27,7 +27,7 @@ class DriveCompletionRequest_273750 {
     void Finish();
 };
 struct Callee_273780 {
-    void f(core::DriveCompletionRequest*);
+    void Fnf_002728e0(core::DriveCompletionRequest*);
 };
 struct Inner_273780 {
     char pad[12];
@@ -80,7 +80,7 @@ void DriveCompletionRequest_273750::Finish() {
 // sym: ?vfunc_1@DriveCompletionRequest@core@@UAEHXZ
 // Same code shape as 0x002736e0 (propagated; names are from that function)
 int core::DriveCompletionRequest::vfunc_1() {
-    (*(Inner_273780 * *)&this->f_0c)->callee->f(this);
+    (*(Inner_273780 * *)&this->f_0c)->callee->Fnf_002728e0(this);
     return 3;
 }
 

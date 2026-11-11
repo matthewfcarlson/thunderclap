@@ -22,7 +22,7 @@ class MeshData {
 class Shadow_2deeb0 {
   public:
     Shadow_2deeb0(int) throw();
-    void Set(int, MeshData*) throw();
+    void Set_002a4500(int, MeshData*) throw();
     virtual void dummy();
 };
 class ShadowMesh : public Shadow_2deeb0 {
@@ -30,10 +30,10 @@ class ShadowMesh : public Shadow_2deeb0 {
     ShadowMesh() throw();
     virtual void dummy();
 };
-extern void* Shadow_2def20_vftable[];
+extern void* hulk_at_0042f994[];
 class Shadow_2def20 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002a4ff0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ShadowMesh_2def20 : public Shadow_2def20 {
   public:
@@ -49,16 +49,16 @@ class ShadowSkin : public Shadow_2defb0 {
   public:
     ShadowSkin();
     virtual void v();
-    void set(int, void*);
+    void set_002a4500(int, void*);
 };
 class ShadowSkinImpl_2defb0 {
   public:
-    void* get();
+    void* get_002b55b0();
 };
 extern void* Shadow_2df020_vftable[];
 class Shadow_2df020 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002a4ff0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ShadowSkin_2df020 : public Shadow_2df020 {
   public:
@@ -66,21 +66,21 @@ class ShadowSkin_2df020 : public Shadow_2df020 {
 };
 extern "C" char DAT_0042fa64[];
 struct ShadowSkin_nv_2df070 {
-    void Init(pure3d::ShadowSkin*);
+    void Init_002a4e40(pure3d::ShadowSkin*);
 };
-extern void* __cdecl alloc(int);
+extern void* __cdecl alloc_00263ea0(int);
 class ShadowMeshBuffer_2df0b0 {
   public:
     virtual void f();
     ShadowMeshBuffer_2df0b0* construct(void*);
 };
 struct ShadowSkin_nv_2df0b0 {
-    void InitRestPose(void*);
+    void InitRestPose_002a4e10(void*);
 };
 extern void* Shadow_2df140_vftable[];
 class Shadow_2df140 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002a4ff0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ShadowMeshBuffer_2df140 : public Shadow_2df140 {
   public:
@@ -88,19 +88,19 @@ class ShadowMeshBuffer_2df140 : public Shadow_2df140 {
 };
 class Helper_2df210 {
   public:
-    void run();
+    void run_002b4710();
 };
 class Helper_2df220 {
   public:
-    void run(int, int);
+    void run_002b46c0(int, int);
 };
 class Helper_2df230 {
   public:
-    void run();
+    void run_002b4890();
 };
 class Inner_2df240 {
   public:
-    void f(int);
+    void Fnf_002b57d0(int);
 };
 class ShadowSkin_2df250 {
     char pad[0x48];
@@ -113,15 +113,15 @@ class ShadowSkin_2df250 {
 };
 class Helper_2df290 {
   public:
-    void run();
+    void run_002b4710();
 };
 class Helper_2df2a0 {
   public:
-    void run(int, int);
+    void run_002b46c0(int, int);
 };
 class Helper_2df2b0 {
   public:
-    void run();
+    void run_002b4890();
 };
 
 
@@ -129,7 +129,7 @@ class Helper_2df2b0 {
 // sym: ??0ShadowMesh@fn_fb97e5a1@@QAE@XZ
 ShadowMesh::ShadowMesh() throw() : Shadow_2deeb0(1) {
     MeshData* p = new MeshData;
-    Set(0, p);
+    Set_002a4500(0, p);
 }
 
 
@@ -157,8 +157,8 @@ namespace fn_fb97e5a1 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ShadowMesh_2def20* ShadowMesh_2def20::vfunc_5(signed char flags) {
-    *(void***)this = Shadow_2def20_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042f994;
+    Destroy_002a4ff0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -177,15 +177,15 @@ class ShadowMesh {
 };
 class ShadowSkin_2def70 {
   public:
-    void Call(ShadowMesh*);
+    void Call_002a4e40(ShadowMesh*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl thunk_FUN_0008d690(unsigned int);
-extern int vtable_2def70[];
+extern int hulk_at_0042f9fc[];
 ShadowMesh* ShadowMesh::vfunc_4() {
     ShadowMesh* p = (ShadowMesh*)thunk_FUN_0008d690(0x58);
     if (p) {
-        ((ShadowSkin_2def70*)p)->Call(this);
-        p->vptr = vtable_2def70;
+        ((ShadowSkin_2def70*)p)->Call_002a4e40(this);
+        p->vptr = hulk_at_0042f9fc;
         return p;
     }
     return 0;
@@ -198,8 +198,8 @@ namespace fn_fb97e5a1 {
 // 0x002defb0 FUN_002defb0 (69 B): matches/0x002defb0.cpp
 // sym: ??0ShadowSkin@fn_fb97e5a1@@QAE@XZ
 ShadowSkin::ShadowSkin() : Shadow_2defb0(1) {
-    ShadowSkinImpl_2defb0* b = (ShadowSkinImpl_2defb0*)alloc(0x80);
-    set(0, b ? b->get() : 0);
+    ShadowSkinImpl_2defb0* b = (ShadowSkinImpl_2defb0*)alloc_00263ea0(0x80);
+    set_002a4500(0, b ? b->get_002b55b0() : 0);
 }
 
 } // namespace fn_fb97e5a1
@@ -228,7 +228,7 @@ namespace fn_fb97e5a1 {
  // thunk_FUN_00267090
 ShadowSkin_2df020* ShadowSkin_2df020::vfunc_5(signed char flags) {
     *(void***)this = Shadow_2df020_vftable;
-    Destroy();
+    Destroy_002a4ff0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -240,9 +240,9 @@ ShadowSkin_2df020* ShadowSkin_2df020::vfunc_5(signed char flags) {
 // 0x002df070 pure3d::ShadowSkin::vfunc_4 (44 B): matches/0x002df070.cpp
 // sym: ?vfunc_4@ShadowSkin@pure3d@@UAEPAXXZ
 void* pure3d::ShadowSkin::vfunc_4() {
-    pure3d::ShadowSkin* q = (pure3d::ShadowSkin*)alloc(0x58);
+    pure3d::ShadowSkin* q = (pure3d::ShadowSkin*)alloc_00263ea0(0x58);
     if (q) {
-        ((ShadowSkin_nv_2df070*)(q))->Init(this);
+        ((ShadowSkin_nv_2df070*)(q))->Init_002a4e40(this);
         *(hulk_intptr*)q = ((hulk_intptr)DAT_0042fa64);
         return (void*)(q);
     }
@@ -256,7 +256,7 @@ namespace fn_fb97e5a1 {
 // sym: ?construct@ShadowMeshBuffer_2df0b0@fn_fb97e5a1@@QAEPAV12@PAX@Z
 // Same code shape as 0x0022a5d0 (propagated; names are from that function)
 ShadowMeshBuffer_2df0b0* ShadowMeshBuffer_2df0b0::construct(void* arg) {
-    ((ShadowSkin_nv_2df0b0*)(((pure3d::ShadowSkin*)(((pure3d::ShadowSkin*)(this))))))->InitRestPose(arg);
+    ((ShadowSkin_nv_2df0b0*)(((pure3d::ShadowSkin*)(((pure3d::ShadowSkin*)(this))))))->InitRestPose_002a4e10(arg);
     *(void**)this = &RestPoseVtable;
     return this;
 }
@@ -325,7 +325,7 @@ namespace fn_fb97e5a1 {
  // thunk_FUN_00267090
 ShadowMeshBuffer_2df140* ShadowMeshBuffer_2df140::vfunc_5(signed char flags) {
     *(void***)this = Shadow_2df140_vftable;
-    Destroy();
+    Destroy_002a4ff0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -395,7 +395,7 @@ void pure3d::ShadowMesh::vfunc_23(unsigned int x) {
 // 0x002df210 pure3d::ShadowMesh::vfunc_21 (10 B): matches/0x002df210.cpp
 // sym: ?vfunc_21@ShadowMesh@pure3d@@UAEXXZ
 void pure3d::ShadowMesh::vfunc_21() {
-    (*(*(Helper_2df210 ** *)&this->f_48))->run();
+    (*(*(Helper_2df210 ** *)&this->f_48))->run_002b4710();
 }
 
 
@@ -403,7 +403,7 @@ void pure3d::ShadowMesh::vfunc_21() {
 // sym: ?vfunc_19@ShadowMesh@pure3d@@UAEXHH@Z
 // Same code shape as 0x002df210 (propagated; names are from that function)
 void pure3d::ShadowMesh::vfunc_19(int a0, int a1) {
-    (*(*(Helper_2df220 ** *)&this->f_48))->run(a0, a1);
+    (*(*(Helper_2df220 ** *)&this->f_48))->run_002b46c0(a0, a1);
 }
 
 
@@ -411,7 +411,7 @@ void pure3d::ShadowMesh::vfunc_19(int a0, int a1) {
 // sym: ?vfunc_22@ShadowMesh@pure3d@@UAEXXZ
 // Same code shape as 0x002df210 (propagated; names are from that function)
 void pure3d::ShadowMesh::vfunc_22() {
-    (*(*(Helper_2df230 ** *)&this->f_48))->run();
+    (*(*(Helper_2df230 ** *)&this->f_48))->run_002b4890();
 }
 
 
@@ -420,7 +420,7 @@ void pure3d::ShadowMesh::vfunc_22() {
 void pure3d::ShadowSkin::vfunc_24(int a0) {
     Inner_2df240* p = (*(Inner_2df240 * *)&this->f_48);
     Inner_2df240* q = (Inner_2df240*)*(volatile void* const volatile*)p;
-    q->f(a0);
+    q->Fnf_002b57d0(a0);
 }
 
 namespace fn_fb97e5a1 {
@@ -450,7 +450,7 @@ void pure3d::ShadowSkin::vfunc_23(unsigned int x) {
 // sym: ?vfunc_21@ShadowSkin@pure3d@@UAEXXZ
 // Same code shape as 0x002df210 (propagated; names are from that function)
 void pure3d::ShadowSkin::vfunc_21() {
-    (*(*(Helper_2df290 ** *)&this->f_48))->run();
+    (*(*(Helper_2df290 ** *)&this->f_48))->run_002b4710();
 }
 
 
@@ -458,7 +458,7 @@ void pure3d::ShadowSkin::vfunc_21() {
 // sym: ?vfunc_19@ShadowSkin@pure3d@@UAEXHH@Z
 // Same code shape as 0x002df210 (propagated; names are from that function)
 void pure3d::ShadowSkin::vfunc_19(int a0, int a1) {
-    (*(*(Helper_2df2a0 ** *)&this->f_48))->run(a0, a1);
+    (*(*(Helper_2df2a0 ** *)&this->f_48))->run_002b46c0(a0, a1);
 }
 
 
@@ -466,7 +466,7 @@ void pure3d::ShadowSkin::vfunc_19(int a0, int a1) {
 // sym: ?vfunc_22@ShadowSkin@pure3d@@UAEXXZ
 // Same code shape as 0x002df210 (propagated; names are from that function)
 void pure3d::ShadowSkin::vfunc_22() {
-    (*(*(Helper_2df2b0 ** *)&this->f_48))->run();
+    (*(*(Helper_2df2b0 ** *)&this->f_48))->run_002b4890();
 }
 
 

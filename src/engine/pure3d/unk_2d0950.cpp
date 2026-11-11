@@ -40,7 +40,7 @@ extern "C" void FUN_002cec10(Object*,bool,unsigned);
 extern "C" void FUN_002cd130(Object*,bool,unsigned);
 extern "C" void FUN_002c7e40(Object*,bool,unsigned);
 extern "C" void FUN_002c8130(bool,Object*,unsigned);
-void __fastcall cleanup(void*);
+void __fastcall cleanup_002df7d0(void*);
 struct Item_2d0d20 {
     char pad[0xc];
     int slot;           // 0xc
@@ -182,7 +182,7 @@ void owners::X_2d0c80::FUN_002d0c80() {
     for (unsigned int i = 0; i < n; ++i) {
         void* p = begin[i];
         if (p)
-            cleanup(p);
+            cleanup_002df7d0(p);
     }
 }
 

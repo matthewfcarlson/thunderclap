@@ -52,9 +52,9 @@ class CacheManager_29f590 {
     int m34;
     ~CacheManager_29f590();
 };
-void __cdecl Free(void*);
-void __cdecl Free2(void*);
-void __cdecl Free3(void*);
+void __cdecl Free_0008d340(void*);
+void __cdecl Free2_0008d340(void*);
+void __cdecl Free3_0008d330(void*);
 
 
 // 0x0029f570 pure3d::LightsChooser::CacheManager::vfunc_0 (30 B): matches/0x0029f570.cpp
@@ -78,10 +78,10 @@ CacheManager_29f590::~CacheManager_29f590() {
             p->B();
         }
     }
-    Free((void*)m30);
+    Free_0008d340((void*)m30);
     if (m2c != 0)
-        Free2((char*)m2c - 4);
-    Free3((void*)m28);
+        Free2_0008d340((char*)m2c - 4);
+    Free3_0008d330((void*)m28);
     ((owners::C_231050 *)(((End_29f590*)((char*)this + 4))))->FUN_00231050();
 }
 

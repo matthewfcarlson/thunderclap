@@ -62,7 +62,7 @@ class D {
     virtual int s5();
     virtual int s6();
     virtual int s7();
-    int Helper();
+    int Helper_00272880();
 };
 class Q_2743f0 {
   public:
@@ -131,7 +131,7 @@ hulk_intptr core::DriveRequest::vfunc_3() {
 int core::DriveRequest::vfunc_4() {
     D* d = (*(P_2743f0 * *)&this->f_08)->d;
     int a = d->s7();
-    int b = d->Helper();
+    int b = d->Helper_00272880();
     (*(P_2743f0 * *)&this->f_08)->q.s0();
     (*(P_2743f0 * *)&this->f_08)->f18 = b;
     (*(P_2743f0 * *)&this->f_08)->q.s1();

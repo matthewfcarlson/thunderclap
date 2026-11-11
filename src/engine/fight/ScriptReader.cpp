@@ -19,7 +19,7 @@ class StringReader_23a3f0 {
     unsigned int mLength;
     unsigned int mPosition;
 };
-extern void* refVtable_23a440;
+extern void* hulk_at_003f6098;
 struct Obj_23a440 {
     void** vf;
     char pad[4];
@@ -117,11 +117,11 @@ class Source_23a550 {
 };
 class Helper_23a5c0 {
   public:
-    unsigned getA();
-    unsigned getB();
+    unsigned getA_00263fc0();
+    unsigned getB_00263fb0();
 };
 struct X_23a5f0 {
-    void Call();
+    void Call_0027af00();
     X_23a5f0* Target();
 };
 class Reader {
@@ -224,17 +224,17 @@ struct ScriptReader_23acc0 {
 extern "C" void __cdecl FUN_00267880(char*, hulk_intptr, int);
 struct B_23ada0 {
 };
-extern "C" void* F238190(int a);
-extern "C" void* F266e00(void* a, int n);
-extern "C" void F267090(void* p);
+extern "C" void* F238190_00238190(int a);
+extern "C" void* F266e00_00266e00(void* a, int n);
+extern "C" void F267090_00267090(void* p);
 struct ScriptReader_nv_23ada0 {
-    bool Size(int a, int* n);
+    bool Size_0023acc0(int a, int* n);
 };
 struct Entry { unsigned key1; unsigned key2; unsigned flags; char padding[12]; };
 struct ScriptReader_23ae90 { char padding[0x12c]; int count; Entry entries[1]; int FUN_0023ae90(unsigned key1, unsigned key2, unsigned mask); };
 struct ScriptReader_nv_23aee0 {
-    int helper1(int, int, int);
-    int helper2(int, int);
+    int helper1_0023ae90(int, int, int);
+    int helper2_0023abb0(int, int);
 };
 struct Entry_23af40 {
     int type;
@@ -259,13 +259,13 @@ class ScriptReader {
     int count;
     char _m_pad_130[0x8];
     Entry_23af40 e[1];
-    int helper1(int, int, int);
-    int helper2(int, int);
-    int Find(int a, int b, int c);
-    int helper2(int, int, int);
+    int helper1_0023ae90(int, int, int);
+    int helper2_0023ac10(int, int);
+    int Find_0023ae90(int a, int b, int c);
+    int helper2_0023ad30(int, int, int);
 };
 struct ScriptReader_nv_23afe0 {
-    int first(int, int, int);
+    int first_0023ae90(int, int, int);
 };
 struct Reader_23b010 {
     virtual void a();
@@ -283,8 +283,8 @@ struct Reader_23b010 {
     virtual void vfunc_12(int, int, int);
 };
 struct ScriptReader_nv_23b010 {
-    int helper(int, int, int);
-    int finish(int, int);
+    int helper_0023ae90(int, int, int);
+    int finish_0023ada0(int, int);
 };
 struct Pair_23b140 {
  unsigned int low, high;
@@ -301,8 +301,8 @@ namespace fn_f7afe597 {
 struct Inner_23b1f0 {
 };
 struct ScriptReader_nv_23b1f0 {
-    void helper();
-    void finish();
+    void helper_0023ab40();
+    void finish_0023a6b0();
 };
 extern "C" char DAT_00428590[];
 class Obj_23b2f0 {
@@ -326,7 +326,7 @@ class RenderThing_23b350 {
     virtual void f0();
     virtual void f1();
 };
-extern int rad_vtable;
+extern int hulk_at_004285b0;
 extern int ref_vtable;
 class StreamStringReader_23b350 {
   public:
@@ -337,8 +337,8 @@ class StreamStringReader_23b350 {
     char pad[8];
     RenderThing_23b350* member;
 };
-extern void destroy(StreamStringReader_23b350*);
-extern void* vSR[];
+extern void destroy_00263f30(StreamStringReader_23b350*);
+extern void* hulk_at_0042866c[];
 class Ref_23b3b0 {
   public:
     virtual void F0();
@@ -346,18 +346,18 @@ class Ref_23b3b0 {
 };
 struct Elem_23b3b0 {
     char b[0x18];
-    void Fini() throw();
+    void Fini_0027af50() throw();
 };
 struct Elem8 {
     char b[8];
-    void Fini() throw();
+    void Fini_0027af50() throw();
 };
 struct Reader_23b3b0 {
     void* vf;
-    void Dtor() throw();
+    void Dtor_00232c30() throw();
 };
 struct ScriptReader_23b3b0 : Reader_23b3b0 {
-    void Pre() throw();
+    void Pre_0023ab40() throw();
     int p4;
     Ref_23b3b0* p8;
     char pad[0x10c];
@@ -414,7 +414,7 @@ void __fastcall target(Obj_23a440* self) {
     self->p;
     self->vf = (void**)&gameVtable;
     self->p->b();
-    self->vf = (void**)&refVtable_23a440;
+    self->vf = (void**)&hulk_at_003f6098;
 }
 
 } // namespace fn_f7afe597
@@ -569,8 +569,8 @@ int StreamStringReader::vfunc_5() {
 bool fight::StreamStringReader::vfunc_6() {
     if (this->f_11)
         return false;
-    unsigned a = (*(Helper_23a5c0 * *)&this->f_0c)->getA();
-    unsigned b = (*(Helper_23a5c0 * *)&this->f_0c)->getB();
+    unsigned a = (*(Helper_23a5c0 * *)&this->f_0c)->getA_00263fc0();
+    unsigned b = (*(Helper_23a5c0 * *)&this->f_0c)->getB_00263fb0();
     return a >= b;
 }
 
@@ -580,7 +580,7 @@ namespace fn_f7afe597 {
 // sym: ?Target@X_23a5f0@fn_f7afe597@@QAEPAU12@XZ
 // Same code shape as 0x00034ad0 (propagated; names are from that function)
 X_23a5f0* X_23a5f0::Target() {
-    Call();
+    Call_0027af00();
     return this;
 }
 
@@ -732,15 +732,15 @@ bool fight::ScriptReader::FUN_0023ad30(int index, char* out, int arg) {
 bool fight::ScriptReader::FUN_0023ada0(int a, void* __p1) { B_23ada0 * b = (B_23ada0 *)__p1;
 
     int n = 0;
-    if (!((ScriptReader_nv_23ada0*)this)->Size(a, &n))
+    if (!((ScriptReader_nv_23ada0*)this)->Size_0023acc0(a, &n))
         return false;
     int len = n + 1;
-    void* p = F266e00(F238190(1), len);
+    void* p = F266e00_00266e00(F238190_00238190(1), len);
     bool r = ((fight::ScriptReader *)(((ScriptReader_nv_23ada0*)this)))->FUN_0023ad30(a, (char *)p, len);
     if (!r)
         return false;
     ((owners::Target_27b040 *)b)->FUN_0027b040((hulk_uintptr)p);
-    F267090(p);
+    F267090_00267090(p);
     return r;
 }
 
@@ -767,8 +767,8 @@ int ScriptReader_23ae90::FUN_0023ae90(unsigned key1, unsigned key2, unsigned mas
 // 0x0023aee0 fight::ScriptReader::vfunc_11 (39 B): matches/0x0023aee0.cpp
 // sym: ?vfunc_11@ScriptReader@fight@@UAEHHHH@Z
 int fight::ScriptReader::vfunc_11(int a, int b, int c) {
-    int x = ((ScriptReader_nv_23aee0*)this)->helper1(a, b, 3);
-    return ((ScriptReader_nv_23aee0*)this)->helper2(x, c);
+    int x = ((ScriptReader_nv_23aee0*)this)->helper1_0023ae90(a, b, 3);
+    return ((ScriptReader_nv_23aee0*)this)->helper2_0023abb0(x, c);
 }
 
 namespace fn_f7afe597 {
@@ -777,15 +777,15 @@ namespace fn_f7afe597 {
 // sym: ?vfunc_11@ScriptReader@fn_f7afe597@@UAEHHHH@Z
 // Same code shape as 0x0023aee0 (propagated; names are from that function)
 int ScriptReader::vfunc_11(int a, int b, int c) {
-    int x = helper1(a, b, 3);
-    return helper2(x, c);
+    int x = helper1_0023ae90(a, b, 3);
+    return helper2_0023ac10(x, c);
 }
 
 
 // 0x0023af40 fight::ScriptReader::vfunc_9 (97 B): matches/0x0023af40.cpp
 // sym: ?v9@ScriptReader@fn_f7afe597@@UAE_NHHPAM@Z
 bool ScriptReader::v9(int a, int b, float* out) {
-    int i = Find(a, b, 3);
+    int i = Find_0023ae90(a, b, 3);
     if (i >= 0 && i < count) {
         switch (e[i].type) {
         case 1:
@@ -820,13 +820,13 @@ struct Reader {
     virtual void vfunc_12(int, int, int);
 };
 struct ScriptReader : Reader {
-    int helper(int, int, int);
-    int finish(int, int);
+    int helper_0023ae90(int, int, int);
+    int finish_0023acc0(int, int);
     void vfunc_12(int, int, int);
 };
 void ScriptReader::vfunc_12(int a, int b, int c) {
-    int x = helper(a, b, 4);
-    finish(x, c);
+    int x = helper_0023ae90(a, b, 4);
+    finish_0023acc0(x, c);
 }
 } // namespace fn_0023afb0
 
@@ -834,7 +834,7 @@ void ScriptReader::vfunc_12(int a, int b, int c) {
 // 0x0023afe0 fight::ScriptReader::vfunc_8 (44 B): matches/0x0023afe0.cpp
 // sym: ?vfunc_8@ScriptReader@fight@@UAEXHHHH@Z
 void fight::ScriptReader::vfunc_8(int a, int b, int c, int d) {
-    int x = ((ScriptReader_nv_23afe0*)this)->first(a, b, 4);
+    int x = ((ScriptReader_nv_23afe0*)this)->first_0023ae90(a, b, 4);
     ((fight::ScriptReader *)(((ScriptReader_nv_23afe0*)this)))->FUN_0023ad30(x, (char *)(hulk_uintptr)(int)c, d);
 }
 
@@ -843,8 +843,8 @@ void fight::ScriptReader::vfunc_8(int a, int b, int c, int d) {
 // sym: ?vfunc_7@ScriptReader@fight@@UAEXHHH@Z
 // Same code shape as 0x0023afb0 (propagated; names are from that function)
 void fight::ScriptReader::vfunc_7(int a, int b, int c) {
-    int x = ((ScriptReader_nv_23b010*)this)->helper(a, b, 4);
-    ((ScriptReader_nv_23b010*)this)->finish(x, c);
+    int x = ((ScriptReader_nv_23b010*)this)->helper_0023ae90(a, b, 4);
+    ((ScriptReader_nv_23b010*)this)->finish_0023ada0(x, c);
 }
 
 namespace fn_f7afe597 {
@@ -852,8 +852,8 @@ namespace fn_f7afe597 {
 // 0x0023b040 fight::ScriptReader::vfunc_6 (44 B): matches/0x0023b040.cpp
 // sym: ?vfunc_6@ScriptReader@fn_f7afe597@@UAEHHHHHH@Z
 int ScriptReader::vfunc_6(int a, int b, int c, int d, int e) {
-    int x = helper1(a, b, 4);
-    return helper2(x, d, e);
+    int x = helper1_0023ae90(a, b, 4);
+    return helper2_0023ad30(x, d, e);
 }
 
 } // namespace fn_f7afe597
@@ -942,12 +942,12 @@ __int64 fight::ScriptReader::vfunc_16(int __p0, int __p1) { unsigned int low = (
 void fight::ScriptReader::vfunc_17() {
     --this->f_10;
     ((owners::Target_27b040 *)(((Inner_23b1f0*)((char*)this + 0x118))))->FUN_0027b040((hulk_uintptr)0);
-    ((ScriptReader_nv_23b1f0*)this)->helper();
+    ((ScriptReader_nv_23b1f0*)this)->helper_0023ab40();
     if (this->f_10 >= 0) {
         int x = (*(volatile int *)&this->f_120);
         x |= (*(volatile int *)&this->f_124);
         if (x == 0)
-            ((ScriptReader_nv_23b1f0*)this)->finish();
+            ((ScriptReader_nv_23b1f0*)this)->finish_0023a6b0();
     }
 }
 
@@ -1079,11 +1079,11 @@ namespace fn_f7afe597 {
 // sym: ?vfunc_2@StreamStringReader_23b350@fn_f7afe597@@UAEPAV12@E@Z
 // Same code shape as 0x001b7790 (propagated; names are from that function)
 StreamStringReader_23b350* StreamStringReader_23b350::vfunc_2(unsigned char flags) {
-    *(hulk_intptr*)this = (hulk_intptr)&rad_vtable;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004285b0;
     member->f1();
     *(hulk_intptr*)this = (hulk_intptr)&ref_vtable;
     if (flags & 1)
-        destroy(this);
+        destroy_00263f30(this);
     return this;
 }
 
@@ -1100,18 +1100,18 @@ namespace fn_f7afe597 {
 // 0x0023b3b0 FUN_0023b3b0 (80 B): matches/0x0023b3b0.cpp
 // sym: ?Dtor2@ScriptReader_23b3b0@fn_f7afe597@@QAEXXZ
 void ScriptReader_23b3b0::Dtor2() throw() {
-    vf = vSR;
+    vf = hulk_at_0042866c;
     _ReadWriteBarrier();
-    Pre();
+    Pre_0023ab40();
     p8->Release();
     Elem_23b3b0* p = arr + 0x200;
     for (int i = 0x200; i; --i) {
         --p;
-        p->Fini();
+        p->Fini_0027af50();
     }
-    e120.Fini();
-    e118.Fini();
-    Reader_23b3b0::Dtor();
+    e120.Fini_0027af50();
+    e118.Fini_0027af50();
+    Reader_23b3b0::Dtor_00232c30();
 }
 
 } // namespace fn_f7afe597

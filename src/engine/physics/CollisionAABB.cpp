@@ -67,10 +67,10 @@ class C_312940 {
   public:
     char pad[0x38];
 };
-extern void* CollisionVolume_3129b0_vftable[];
+extern void* hulk_at_00432274[];
 class CollisionVolume_3129b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00306ac0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionAABB_3129b0 : public CollisionVolume_3129b0 {
   public:
@@ -182,8 +182,8 @@ namespace fn_f7ee75ab {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionAABB_3129b0* CollisionAABB_3129b0::vfunc_5(signed char flags) {
-    *(void***)this = CollisionVolume_3129b0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00432274;
+    Destroy_00306ac0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

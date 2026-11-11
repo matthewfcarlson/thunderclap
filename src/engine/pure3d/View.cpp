@@ -13,7 +13,7 @@ namespace fn_f58bed2c {} using namespace fn_f58bed2c;
 
 // ---- declarations shared by the functions below
 namespace fn_f58bed2c {
-extern int viewvt, refvt;
+extern int hulk_at_0042d0bc, hulk_at_003f6098;
 class IRefCount {
   public:
     virtual void A();
@@ -33,7 +33,7 @@ class View {
 // 0x00294a10 FUN_00294a10 (65 B): matches/0x00294a10.cpp
 // sym: ?Cleanup@View@fn_f58bed2c@@QAEXXZ
 void View::Cleanup() {
-    ((hulk_intptr*)this)[0] = (hulk_intptr)&viewvt;
+    ((hulk_intptr*)this)[0] = (hulk_intptr)&hulk_at_0042d0bc;
     if (mRef)
         mRef->Release();
     for (int i = 0; i < 32; i++) {
@@ -42,7 +42,7 @@ void View::Cleanup() {
             arr[i] = 0;
         }
     }
-    ((hulk_intptr*)this)[0] = (hulk_intptr)&refvt;
+    ((hulk_intptr*)this)[0] = (hulk_intptr)&hulk_at_003f6098;
 }
 
 } // namespace fn_f58bed2c

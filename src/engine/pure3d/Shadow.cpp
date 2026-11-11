@@ -13,10 +13,10 @@ namespace fn_f524fe64 {} using namespace fn_f524fe64;
 
 // ---- declarations shared by the functions below
 namespace fn_f524fe64 {
-extern void* DrawableContainer_2dee20_vftable[];
+extern void* hulk_at_0042f994[];
 class DrawableContainer_2dee20 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002a4ff0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class Shadow_2dee20 : public DrawableContainer_2dee20 {
   public:
@@ -30,8 +30,8 @@ class Shadow_2dee20 : public DrawableContainer_2dee20 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 Shadow_2dee20* Shadow_2dee20::vfunc_5(signed char flags) {
-    *(void***)this = DrawableContainer_2dee20_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042f994;
+    Destroy_002a4ff0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

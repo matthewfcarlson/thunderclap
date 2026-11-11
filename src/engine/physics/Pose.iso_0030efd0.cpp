@@ -13,15 +13,15 @@ class C_30efd0 {
   public:
     char pad[0xbc];
     int value;
-    void first();
-    void third();
+    void first_0030ef30();
+    void third_0030ed60();
     void target(int);
 };
 void C_30efd0::target(int arg) {
-    first();
+    first_0030ef30();
     ((owners::Obj_30f140 *)(((C_30efd0*)((char*)this + 0x14))))->FUN_0030f140((owners::Obj_30f140 *)(hulk_uintptr)(int)arg);
     value = 2;
-    third();
+    third_0030ed60();
 }
 } // namespace fn_fdcf1476
 

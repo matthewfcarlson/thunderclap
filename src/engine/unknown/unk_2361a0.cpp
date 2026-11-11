@@ -108,7 +108,7 @@ class Owner_2365b0 {
 struct Tmp_236630 {
     char pad[0x18];
     Tmp_236630(void*);
-    void Run(int, int);
+    void Run_00231180(int, int);
 };
 struct C_236630 {
     void F(int, int);
@@ -116,7 +116,7 @@ struct C_236630 {
 struct Tmp_2366b0 {
     char pad[0x18];
     Tmp_2366b0(void*);
-    void Run(int, int);
+    void Run_00231180(int, int);
 };
 struct C_2366b0 {
     void F(int, int);
@@ -196,7 +196,7 @@ void Owner_2365b0::Set(Item_2365b0* p) {
 // sym: ?F@C_236630@fn_fa6aa741@@QAEXHH@Z
 void C_236630::F(int a, int b) {
     Tmp_236630 t(this);
-    t.Run(a, b);
+    t.Run_00231180(a, b);
 }
 
 
@@ -205,7 +205,7 @@ void C_236630::F(int a, int b) {
 // Same code shape as 0x00236630 (propagated; names are from that function)
 void C_2366b0::F(int a, int b) {
     Tmp_2366b0 t(this);
-    t.Run(a, b);
+    t.Run_00231180(a, b);
 }
 
 } // namespace fn_fa6aa741

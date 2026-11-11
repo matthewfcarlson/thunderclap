@@ -28,7 +28,7 @@ namespace audio {
 class SeqEvent {
 public:
     virtual void v0();
-    char vfunc_1(Writer_2535a0* w);
+    char vfunc_1_0025fd40(Writer_2535a0* w);
     char pad04[4];
 };
 
@@ -42,7 +42,7 @@ public:
 
 int SeqEventVarPitchRand::vfunc_1(Writer_2535a0* w)
 {
-    if (!SeqEvent::vfunc_1(w))
+    if (!SeqEvent::vfunc_1_0025fd40(w))
         return 0;
     if (!FUN_00246f50(w->out, "\n[\n"))
         return 0;

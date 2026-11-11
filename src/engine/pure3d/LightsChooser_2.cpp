@@ -18,7 +18,7 @@ namespace fn_f5bc90fd {} using namespace fn_f5bc90fd;
 namespace fn_f5bc90fd {
 extern "C" int __cdecl FUN_0008d690(int);
 struct CacheManager_nv_29f7c0 {
-    int Init(int, int);
+    int Init_0029f3d0(int, int);
 };
 class Thing_29f800 {
   public:
@@ -33,7 +33,7 @@ class Thing_29f800 {
 class Item_29f800 {
   public:
     Thing_29f800* owner;
-    void Apply(int, int);
+    void Apply_0029eda0(int, int);
 };
 class Manager_29f800 {
     char pad[0x24];
@@ -48,7 +48,7 @@ struct Inner_29f840 {
 };
 struct Entry_29f840 {
     Inner_29f840* mInner;
-    void Set(int idx, Item* it); // FUN_0029eda0
+    void Set_0029eda0(int idx, Item* it); // FUN_0029eda0
 };
 struct Src_29f840 {
     char pad[0x10];
@@ -56,7 +56,7 @@ struct Src_29f840 {
     unsigned mCount; // 0x14
     Item** mItems;   // 0x18
 };
-struct Grow_29f840 { int Grow(int n); };
+struct Grow_29f840 { int Grow_002a1180(int n); };
 struct Owner_29f840 {
     char pad[0x24];
     int mTotal;
@@ -152,7 +152,7 @@ public:
     bool FUN_0029fc00(hulk_intptr mode, Region_29fc00 *region, Entry_29fc00 *entry);
 };
 struct Y_29fca0 {
-    bool Chk(void* a, int b);
+    bool Chk_0022d2b0(void* a, int b);
 };
 struct N_29fca0 {
     char p[0x1c];
@@ -162,7 +162,7 @@ struct N_29fca0 {
     char m28[0x14];
     int m3c;
     int m40;
-    void Do(int a);
+    void Do_0029ea40(int a);
 };
 struct X_29fca0 {
     char p[0x24];
@@ -170,13 +170,13 @@ struct X_29fca0 {
     bool Fn(int a, Y_29fca0* y, N_29fca0* n);
 };
 struct Obj_29fd20 {
-    void Method(int v, void* self);
+    void Method_0029f4d0(int v, void* self);
 };
-extern int vt1_29fd40;
+extern int hulk_at_0042d630;
 } // namespace fn_f5bc90fd
 void operator delete(void*) throw();
 namespace fn_f5bc90fd {
-void Free(void*) throw();
+void Free_0008d340(void*) throw();
 class Ref_29fd40 {
   public:
     virtual void f0() throw();
@@ -187,7 +187,7 @@ struct S_29fd40 {
     void* buf;
     ~S_29fd40() throw() {
         r->Release();
-        Free(buf);
+        Free_0008d340(buf);
     }
 };
 struct S2_29fd40 {
@@ -209,7 +209,7 @@ class Entity_29fd40 {
 };
 class LightsChooser_29fd40 : public Entity_29fd40 {
   public:
-    void Fini() throw();
+    void Fini_0029fa30() throw();
     char p[0x28];
     S_29fd40* s2c;
     S_29fd40* s30;
@@ -222,31 +222,31 @@ class LightsChooser_29fd40 : public Entity_29fd40 {
     ~LightsChooser_29fd40() throw();
 };
 struct Manager_29ffd0 {
-    int Make();
-    int Finish(int, hulk_intptr);
+    int Make_0029f280();
+    int Finish_0029f0b0(int, hulk_intptr);
 };
 struct Obj_29ffd0 {
     char pad0[0x10];
     int field10;
     char pad14[0x30];
     Manager_29ffd0* field44;
-    void Stage(int, int, int);
-    void Other(int, hulk_intptr);
+    void Stage_0029fe60(int, int, int);
+    void Other_0029faf0(int, hulk_intptr);
     void target(int, hulk_intptr);
 };
 struct Item_29ffd0 {
-    void Last();
+    void Last_0029c560();
 };
 class Worker_2a0020 {
   public:
-    int get();
+    int get_0029f280();
 };
 class Thing_2a0020 {
   public:
     char pad[0x44];
     Worker_2a0020* member;
     void f(int a, int b);
-    void apply(int x, int a, int b);
+    void apply_0029fe60(int x, int a, int b);
 };
 struct Item {
     void FUN_002a0820(int v);
@@ -298,8 +298,8 @@ public:
 };
 class Obj_2a0580 {
   public:
-    int get();
-    void last(int, void*);
+    int get_0029f2e0();
+    void last_0029f0b0(int, void*);
 };
 class A_2a0580 {
     char pad[0x10];
@@ -310,7 +310,7 @@ class A_2a0580 {
 
   public:
     void f(int, int);
-    void mid(int, int, int);
+    void mid_002a0050(int, int, int);
 };
 struct Vec3_2a05c0 {
     float x, y, z;
@@ -340,27 +340,27 @@ struct Obj_2a05c0 {
     int field_14;
 };
 struct H {
-    int get();
+    int get_0029f340();
 };
 struct C_2a0650 {
     char pad[0x44];
     H* h;
     void f(int a, int b, int c);
-    void other(int, int, int, int);
+    void other_002a05c0(int, int, int, int);
 };
 struct Result_2a06d0 {
     char pad[0x18];
 };
 struct Finder_2a06d0 {
     char pad[0x28];
-    Result_2a06d0* find(int, int);
+    Result_2a06d0* find_00231180(int, int);
 };
 struct Root_2a06d0 {
     char pad[0x28];
     Finder_2a06d0* finder;
 };
 struct Owner_2a06d0 {
-    void act(Result_2a06d0*, int);
+    void act_0029ffd0(Result_2a06d0*, int);
 };
 
 } // namespace fn_f5bc90fd
@@ -495,7 +495,7 @@ extern "C" void FUN_0029f7c0() {
     if ((*(int*)&DAT_0052cba0) == 0) {
         hulk_intptr x = FUN_0008d690(0x3c);
         if (x != 0)
-            (*(int*)&DAT_0052cba0) = ((CacheManager_nv_29f7c0*)(((pure3d::LightsChooser::CacheManager*)(((pure3d::LightsChooser::CacheManager*)x)))))->Init(4, 0x100);
+            (*(int*)&DAT_0052cba0) = ((CacheManager_nv_29f7c0*)(((pure3d::LightsChooser::CacheManager*)(((pure3d::LightsChooser::CacheManager*)x)))))->Init_0029f3d0(4, 0x100);
         else
             (*(int*)&DAT_0052cba0) = 0;
     }
@@ -510,7 +510,7 @@ void Manager_29f800::Run(hulk_intptr arg) {
         if (p) {
             int value = p->owner->field;
             ((owners::A_2a1180 *)(p->owner))->FUN_002a1180(value + 1);
-            p->Apply(value, arg);
+            p->Apply_0029eda0(value, arg);
             ++count;
         }
     }
@@ -532,8 +532,8 @@ void Owner_29f840::Run(Src_29f840* s) {
         if (!e)
             continue;
         int c = *(int*)((char*)e->mInner + 0x14);
-        ((Grow_29f840*)e->mInner)->Grow(c + 1);
-        e->Set(c, it);
+        ((Grow_29f840*)e->mInner)->Grow_002a1180(c + 1);
+        e->Set_0029eda0(c, it);
         mTotal++;
     }
 }
@@ -669,12 +669,12 @@ bool X_29fca0::Fn(int a, Y_29fca0* y, N_29fca0* n) {
     if (n) {
         int c = --n->m3c;
         if (c > 0) {
-            n->Do(a);
+            n->Do_0029ea40(a);
             r = true;
         } else {
             n->m3c = n->m40 + c;
-            if (y->Chk(n->m28, n->m20) && m24 == n->m1c) {
-                n->Do(a);
+            if (y->Chk_0022d2b0(n->m28, n->m20) && m24 == n->m1c) {
+                n->Do_0029ea40(a);
                 r = true;
             }
         }
@@ -688,7 +688,7 @@ bool X_29fca0::Fn(int a, Y_29fca0* y, N_29fca0* n) {
 // sym: ?FUN_0029fd20@Caller_29fd20@owners@@QAEXH@Z
 // data: gObject_29fd20 = DAT_0052cba0
 void owners::Caller_29fd20::FUN_0029fd20(hulk_intptr value) {
-    (*(Obj_29fd20**)&DAT_0052cba0)->Method(((int)value), this);
+    (*(Obj_29fd20**)&DAT_0052cba0)->Method_0029f4d0(((int)value), this);
 }
 
 namespace fn_f5bc90fd {
@@ -696,8 +696,8 @@ namespace fn_f5bc90fd {
 // 0x0029fd40 FUN_0029fd40 (275 B): matches/0x0029fd40.cpp
 // sym: ??1LightsChooser_29fd40@fn_f5bc90fd@@QAE@XZ
 LightsChooser_29fd40::~LightsChooser_29fd40() throw() {
-    vptr = &vt1_29fd40;
-    Fini();
+    vptr = &hulk_at_0042d630;
+    Fini_0029fa30();
     if (s2c)
         delete s2c;
     if (s30)
@@ -805,12 +805,12 @@ namespace fn_f5bc90fd {
 // sym: ?target@Obj_29ffd0@fn_f5bc90fd@@QAEXHH@Z
 void Obj_29ffd0::target(int a, hulk_intptr b) {
     if (!b) {
-        int v = field44->Make();
-        Stage(v, a, 0);
-        field44->Finish(v, (hulk_intptr)&field10);
+        int v = field44->Make_0029f280();
+        Stage_0029fe60(v, a, 0);
+        field44->Finish_0029f0b0(v, (hulk_intptr)&field10);
     } else {
-        Other(a, b);
-        ((Item_29ffd0*)b)->Last();
+        Other_0029faf0(a, b);
+        ((Item_29ffd0*)b)->Last_0029c560();
     }
 }
 
@@ -818,8 +818,8 @@ void Obj_29ffd0::target(int a, hulk_intptr b) {
 // 0x002a0020 FUN_002a0020 (33 B): matches/0x002a0020.cpp
 // sym: ?f@Thing_2a0020@fn_f5bc90fd@@QAEXHH@Z
 void Thing_2a0020::f(int a, int b) {
-    int x = member->get();
-    apply(x, a, b);
+    int x = member->get_0029f280();
+    apply_0029fe60(x, a, b);
 }
 
 
@@ -951,9 +951,9 @@ void Skin::FUN_002a0050(A *a, B *b, C *c)
 // 0x002a0580 FUN_002a0580 (50 B): matches/0x002a0580.cpp
 // sym: ?f@A_2a0580@fn_f5bc90fd@@QAEXHH@Z
 void A_2a0580::f(int x, int y) {
-    int t = p->get();
-    mid(t, x, y);
-    p->last(t, &field);
+    int t = p->get_0029f2e0();
+    mid_002a0050(t, x, y);
+    p->last_0029f0b0(t, &field);
 }
 
 
@@ -984,8 +984,8 @@ void Track::FUN_002a05c0(Obj_2a05c0* a, void* b, Other_2a05c0* c, int d)
 // 0x002a0650 FUN_002a0650 (38 B): matches/0x002a0650.cpp
 // sym: ?f@C_2a0650@fn_f5bc90fd@@QAEXHHH@Z
 void C_2a0650::f(int a, int b, int c) {
-    int x = h->get();
-    other(x, a, b, c);
+    int x = h->get_0029f340();
+    other_002a05c0(x, a, b, c);
 }
 
 } // namespace fn_f5bc90fd
@@ -1004,12 +1004,12 @@ namespace fn_f5bc90fd {
 void __stdcall target(int arg) {
     Root_2a06d0* p = (*(Root_2a06d0**)&DAT_0052cba0);
     Finder_2a06d0* f = p->finder;
-    Result_2a06d0* r = f->find(arg, 0);
+    Result_2a06d0* r = f->find_00231180(arg, 0);
     if (r) {
         int* q = (*(int**)&DAT_0052c2b4);
         if (*(int*)((char*)r + 0x14) == *q) {
             Owner_2a06d0* o = *(Owner_2a06d0**)((char*)r + 0x10);
-            o->act(r, *(int*)((char*)r + 0xc));
+            o->act_0029ffd0(r, *(int*)((char*)r + 0xc));
         }
     }
 }

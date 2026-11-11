@@ -104,7 +104,7 @@ class SubCollisionDetector {
     int z;
     SubCollisionDetector();
 };
-extern void* IRefCount_vftable_313530;
+extern void* hulk_at_004322f8;
 struct Order { int largest; int middle; int smallest; };
 struct Ranking {
     int best;
@@ -290,7 +290,7 @@ SubCollisionDetector::SubCollisionDetector() : a(0), b(0), c(0), d(0), x(0), y(0
 // sym: @FUN_00313530@4
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 extern "C" void __fastcall FUN_00313530(void* self) {
-    *(void**)self = &IRefCount_vftable_313530;
+    *(void**)self = &hulk_at_004322f8;
 }
 
 

@@ -36,7 +36,7 @@ class ListenerEffectXBox : public MetaEntity {
 extern "C" void FUN_00241280(void*, int, int);
 typedef unsigned int u32_24d690;
 struct ListenerEffectXBoxType_nv_24d690 {
-    void Init(void*, void*, int, int);
+    void Init_002584d0(void*, void*, int, int);
 };
 struct Obj_24d690 {
     void* vf;
@@ -111,7 +111,7 @@ bool ListenerEffectXBox::vfunc_4(int x) {
 // 0x0024d690 FUN_0024d690 (32 B): matches/0x0024d690.cpp
 // sym: ?Target@fn_f8a82533@@YIPAUObj_24d690@1@PAU21@@Z
 Obj_24d690* __fastcall Target(Obj_24d690* self) {
-    ((ListenerEffectXBoxType_nv_24d690*)(((audio::ListenerEffectXBoxType*)(((audio::ListenerEffectXBoxType*)(self))))))->Init((void*)((hulk_intptr)DAT_004e6328), (void*)((hulk_intptr)DAT_004e6320), 0x30, 4);
+    ((ListenerEffectXBoxType_nv_24d690*)(((audio::ListenerEffectXBoxType*)(((audio::ListenerEffectXBoxType*)(self))))))->Init_002584d0((void*)((hulk_intptr)DAT_004e6328), (void*)((hulk_intptr)DAT_004e6320), 0x30, 4);
     self->vf = (void*)((hulk_intptr)DAT_00429434);
     return self;
 }
@@ -257,7 +257,7 @@ class MetaEntity {
     virtual void g();
     virtual void h();
     virtual void i();
-    void cleanup();
+    void cleanup_00244f70();
 };
 class MetaEntity_24d8a0 : public MetaEntity {};
 class IRefCount {};
@@ -275,7 +275,7 @@ class ListenerEffectXBox : public MetaEntity_24d8a0, public IRefCount {
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
 ListenerEffectXBox* ListenerEffectXBox::vfunc_2(int flag) {
-    cleanup();
+    cleanup_00244f70();
     if (flag & 1)
         FUN_00247550(DAT_004e6468, this);
     return this;

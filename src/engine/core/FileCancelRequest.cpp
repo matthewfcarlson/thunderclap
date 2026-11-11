@@ -17,7 +17,7 @@ struct Sub_2742f0 {
     virtual void b();
 };
 struct Inner_2742f0 {
-    void run(P_2742f0* p, int v);
+    void run_00272b70(P_2742f0* p, int v);
 };
 struct P_2742f0 {
     int x;
@@ -60,7 +60,7 @@ class d3dShader_274330 : public pddiBaseShader_274330 {
 // 0x002742f0 core::FileCancelRequest::vfunc_1 (59 B): matches/0x002742f0.cpp
 // sym: ?vfunc_1@FileCancelRequest@core@@UAEHXZ
 int core::FileCancelRequest::vfunc_1() {
-    (*(P_2742f0 * *)&this->f_08)->i->run((*(P_2742f0 * *)&this->f_08), (*(P_2742f0 * *)&this->f_08)->c);
+    (*(P_2742f0 * *)&this->f_08)->i->run_00272b70((*(P_2742f0 * *)&this->f_08), (*(P_2742f0 * *)&this->f_08)->c);
     (*(P_2742f0 * *)&this->f_08)->s.a();
     (*(P_2742f0 * *)&this->f_08)->d = 0;
     (*(P_2742f0 * *)&this->f_08)->s.b();

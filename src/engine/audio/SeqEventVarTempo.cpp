@@ -28,7 +28,7 @@ class SeqEventB {
 };
 class TempoCheck {
   public:
-    bool check(void*);
+    bool check_00261a80(void*);
 };
 extern "C" bool __cdecl FUN_0025ac10(void*, void*);
 class SeqAction_252c30 {
@@ -61,11 +61,11 @@ class SeqAction_252c70 {
     virtual void f5();
     virtual void f6();
 };
-extern "C" char __cdecl parse(const char*, const char*, ...);
-extern "C" char __cdecl parse2(const char*, const char*, ...);
+extern "C" char __cdecl parse_00246f50(const char*, const char*, ...);
+extern "C" char __cdecl parse2_00246f50(const char*, const char*, ...);
 class Reader {
   public:
-    char consume(char**);
+    char consume_00261c20(char**);
 };
 class FUN_00240060 {
   public:
@@ -111,7 +111,7 @@ class SeqEvent {
     virtual void f3();
     virtual SeqEvent* f4(int);
     virtual void f5();
-    void setup();
+    void setup_0025fd10();
 };
 class SeqEventVarTempo : public SeqEvent {
   public:
@@ -122,7 +122,7 @@ class SeqEventVarTempo : public SeqEvent {
     virtual SeqEventVarTempo* f4(int);
 };
 extern void FUN_00247550(const char*, SeqEventVarTempo*);
-extern void* g_vftable_252ea0[];
+extern void* hulk_at_004298fc[];
 class SeqActionVarTempo_252ea0 {
   public:
     void* vptr;
@@ -171,7 +171,7 @@ SeqEventVarTempo::SeqEventVarTempo() : SeqEvent(), a(4), b(4), tempo(120.0f) {
 // sym: ?vfunc_0@SeqEventVarTempo@audio@@UAEHPAX@Z
 int audio::SeqEventVarTempo::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    if (((SeqEventB*)this)->SeqEventB::vfunc_0(p) && ((TempoCheck*)((char*)this + 8))->check(p) &&
+    if (((SeqEventB*)this)->SeqEventB::vfunc_0(p) && ((TempoCheck*)((char*)this + 8))->check_00261a80(p) &&
         FUN_0025ac10(p, (char*)this + 0x10))
         return 1;
     return 0;
@@ -254,9 +254,9 @@ namespace fn_f0c0637a {
 // sym: _FUN_00252c90
 extern "C" char FUN_00252c90(char** s, char* p, void * r) {
     char* value = *s;
-    if (parse(value, "%s ", p) && ((Reader *)r)->consume(s)) {
+    if (parse_00246f50(value, "%s ", p) && ((Reader *)r)->consume_00261c20(s)) {
         value = *s;
-        return parse2(value, "\n");
+        return parse2_00246f50(value, "\n");
     }
     return 0;
 }
@@ -296,7 +296,7 @@ namespace fn_f0c0637a {
 // 0x00252dc0 audio::SeqEventVarTempo::vfunc_4 (35 B): matches/0x00252dc0.cpp
 // sym: ?f4@SeqEventVarTempo@fn_f0c0637a@@UAEPAV12@H@Z
 SeqEventVarTempo* SeqEventVarTempo::f4(int flags) {
-    SeqEvent::setup();
+    SeqEvent::setup_0025fd10();
     if (flags & 1)
         FUN_00247550(((char*)&DAT_004e6f88), this);
     return this;
@@ -328,7 +328,7 @@ namespace audio {
 class SeqEvent {
 public:
     virtual void v0();
-    char vfunc_1(Writer_252df0* w);
+    char vfunc_1_0025fd40(Writer_252df0* w);
     char pad04[4];
 };
 
@@ -342,7 +342,7 @@ public:
 
 int SeqEventVarTempo::vfunc_1(Writer_252df0* w)
 {
-    if (!SeqEvent::vfunc_1(w))
+    if (!SeqEvent::vfunc_1_0025fd40(w))
         return 0;
     if (!FUN_00246f50(w->out, "\n[\n"))
         return 0;
@@ -366,7 +366,7 @@ namespace fn_f0c0637a {
 // sym: ?f0@SeqActionVarTempo_252ea0@fn_f0c0637a@@QAEPAV12@E@Z
 // data: g_pool_252ea0 = DAT_004e6f40
 SeqActionVarTempo_252ea0* SeqActionVarTempo_252ea0::f0(unsigned char flags) {
-    vptr = g_vftable_252ea0;
+    vptr = hulk_at_004298fc;
     if (flags & 1)
         Free(((char*)((char*)&DAT_004e6f40)), this);
     return this;

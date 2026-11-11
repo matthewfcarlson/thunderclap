@@ -82,10 +82,10 @@ class C_2c41e0 {
     int a, b, c;
     void target(int, int, int);
 };
-extern void* Light_2c4220_vftable[];
+extern void* hulk_at_0042ef00[];
 class Light_2c4220 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002a0720(); // FUN_00236d60, __thiscall, this in ecx
 };
 class SpotLight_2c4220 : public Light_2c4220 {
   public:
@@ -195,7 +195,7 @@ struct Input {
     int v;
     float f;
 };
-extern void __cdecl work(float, float*, int, int, int, int);
+extern void __cdecl work_002c4cb0(float, float*, int, int, int, int);
 struct Thing {
     int a, b, c, d;
     void fn(Input*, float);
@@ -371,8 +371,8 @@ namespace fn_faaafd8b {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 SpotLight_2c4220* SpotLight_2c4220::vfunc_5(signed char flags) {
-    *(void***)this = Light_2c4220_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042ef00;
+    Destroy_002a0720();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1679,7 +1679,7 @@ void Obj_2c5c90::FUN_002c5c90(Src_2c5c90* s, float f)
 // 0x002c5e90 FUN_002c5e90 (53 B): matches/0x002c5e90.cpp
 // sym: ?fn@Thing@fn_faaafd8b@@QAEXPAUInput@2@M@Z
 void Thing::fn(Input* in, float x) {
-    work(x * 0.25f, &in->f, a, (b = in->v), c, d);
+    work_002c4cb0(x * 0.25f, &in->f, a, (b = in->v), c, d);
 }
 
 

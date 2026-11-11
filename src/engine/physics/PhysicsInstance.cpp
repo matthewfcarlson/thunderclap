@@ -55,7 +55,7 @@ class PhysicsInstance_2fc520 {
 };
 class Global_2fc520 {
   public:
-    void call(int);
+    void call_002eecb0(int);
 };
 struct Matrix {
     int m[16];
@@ -114,11 +114,11 @@ class Sub2_2fc670 {
 };
 class Sub3_2fc670 {
   public:
-    void Fn(int);
+    void Fn_003046f0(int);
 };
 class Sub1_2fc670 {
   public:
-    void Set(int);
+    void Set_002ef8b0(int);
     char pad[0x70];
     Sub2_2fc670* a;
     Sub3_2fc670* b;
@@ -181,7 +181,7 @@ namespace fn_fb7c7da0 {
 // data: global_2fc520 = DAT_00554c14
 void PhysicsInstance_2fc520::Destroy() {
     vptr = (void*)((hulk_intptr)DAT_00431898);
-    (*(Global_2fc520**)&DAT_00554c14)->call(*(int*)((char*)obj + 0x74));
+    (*(Global_2fc520**)&DAT_00554c14)->call_002eecb0(*(int*)((char*)obj + 0x74));
     if (ref)
         ref->Release();
     obj->Release();
@@ -237,17 +237,17 @@ char Obj_2fc670::Change(int s) {
         return 1;
     switch (s) {
     case 0:
-        mSub->Set(1);
-        mSub->b->Fn(1);
+        mSub->Set_002ef8b0(1);
+        mSub->b->Fn_003046f0(1);
         break;
     case 1:
         if (!mSub->a)
             return 0;
-        mSub->Set(1);
+        mSub->Set_002ef8b0(1);
         mSub->a->v13();
         break;
     case 2:
-        mSub->Set(0);
+        mSub->Set_002ef8b0(0);
         break;
     default:
         return 0;

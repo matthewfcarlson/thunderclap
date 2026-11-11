@@ -54,7 +54,7 @@ class Node {
     virtual void _m_vf4();
     virtual Node* clone();
     union { Node* link; Node* next; };
-    void Set(Node*);
+    void Set_00236b70(Node*);
     void FUN_00236b70(Node* nextNode);
 };
 class Owner_239e30 {
@@ -108,7 +108,7 @@ class Obj_23a020 {
 class Owner_23a020 {
   public:
     bool Target(int a, int b, int c, Obj_23a020* obj);
-    void Work(int, Obj_23a020*, int);
+    void Work_00239f10(int, Obj_23a020*, int);
 };
 
 
@@ -170,9 +170,9 @@ int List::Add(Node* p) {
         n = n->link;
         ++i;
     }
-    p->Set(n);
+    p->Set_00236b70(n);
     if (last)
-        last->Set(p);
+        last->Set_00236b70(p);
     else
         head = p;
     return i;
@@ -226,7 +226,7 @@ bool Owner_23a020::Target(int a, int b, int c, Obj_23a020* obj) {
     if ((unsigned int)(v >> 32) != (unsigned int)b)
         return false;
     obj->Act(a, b);
-    Work(c, obj, -1);
+    Work_00239f10(c, obj, -1);
     obj->Done();
     return true;
 }

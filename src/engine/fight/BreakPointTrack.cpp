@@ -15,7 +15,7 @@ namespace fn_f27320e9 {} using namespace fn_f27320e9;
 // ---- declarations shared by the functions below
 namespace fn_f27320e9 {
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_23f110;
+extern int* hulk_at_004e5c88;
 class CCondition_23f110 {
   public:
     virtual int vfunc_0(int);
@@ -34,14 +34,14 @@ class BreakPointTrack : public Track_23f120 {
     int zero;
     Part part;
 };
-extern void* g_vftable_23f170[];
+extern void* hulk_at_00428f70[];
 struct Sub_23f170 {
-    void Fin();
+    void Fin_00236fd0();
 };
 class Track_23f170 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class BreakPointTrack_23f170 : public Track_23f170 {
   public:
@@ -60,8 +60,8 @@ class BreakPointAction {
 };
 extern char threat_vftable_23f1f0;
 struct BreakPointTrack_nv_23f1f0 {
-    void f1();
-    void f2();
+    void f1_00236fd0();
+    void f2_00236d60();
 };
 extern void thunk_FUN_00267090(fight::BreakPointTrack*);
 class BreakPointTrack_23f1f0 {
@@ -74,13 +74,13 @@ struct Obj_23f220 {
     virtual void F();
     virtual void R();
 };
-extern int BreakPointAction_23f220_vftable;
+extern int hulk_at_00428fa0;
 struct BreakPointAction_23f220 {
     void* vf;
     int pad[6];
     int arg;
     Obj_23f220* object;
-    void Init();
+    void Init_00232660();
     BreakPointAction_23f220* Build(int, Obj_23f220*);
 };
 extern void* g_vftable_23f270[];
@@ -128,7 +128,7 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     void(__fastcall* fn)(void*);
     virtual void vfunc_6(void*);
 };
-extern int gTypeA_23f330;
+extern int hulk_at_0049850c;
 } // namespace fn_f27320e9
 void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace fn_f27320e9 {
@@ -197,13 +197,13 @@ class BreakPointAction_23f4a0 : public Action_23f4a0 {
     Ref_23f4a0* m;
     BreakPointAction_23f4a0* f2(unsigned char flags);
 };
-extern char VT_23f500[];
+extern char hulk_at_00428ffc[];
 struct Track {
     virtual void V();
 };
 extern "C" Track* __cdecl FUN_00236ac0(int, Track*);
 struct Receiver_23f500 {
-    void Finish(Track*);
+    void Finish_002367c0(Track*);
 };
 } // namespace fn_f27320e9
 inline void* __cdecl operator new(size_t, void* where) {
@@ -221,11 +221,11 @@ class TrackFactoryTemplate_23f530 {
 extern "C" void FUN_0023f3a0();
 class Base_23f570 {
   public:
-    void init();
+    void init_00236d40();
 };
 class Sub_23f570 {
   public:
-    void init2();
+    void init2_00236e00();
 };
 struct Obj_23f570 {
     hulk_intptr vf;
@@ -235,7 +235,7 @@ struct Obj_23f570 {
 };
 extern int breakpoint_vftable;
 extern "C" void* __cdecl alloc(hulk_uintptr);
-extern int g_vftable_23f5b0;
+extern int hulk_at_00429008;
 
 } // namespace fn_f27320e9
 
@@ -268,7 +268,7 @@ void FUN_0023f0f0() {
 // sym: ?vfunc_0@BreakPointTrack@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::BreakPointTrack::vfunc_0(int index) {
-    int* p = gTable_23f110;
+    int* p = hulk_at_004e5c88;
     return p[index];
 }
 
@@ -303,9 +303,9 @@ namespace fn_f27320e9 {
 // 0x0023f170 FUN_0023f170 (25 B): matches/0x0023f170.cpp
 // sym: ?f@BreakPointTrack_23f170@fn_f27320e9@@QAEXXZ
 void BreakPointTrack_23f170::f() {
-    vptr = g_vftable_23f170;
-    sub.Fin();
-    Fin();
+    vptr = hulk_at_00428f70;
+    sub.Fin_00236fd0();
+    Fin_00236d60();
 }
 
 
@@ -334,8 +334,8 @@ u8_23f1d0 BreakPointAction::vfunc_3(u32_23f1d0 a, u32_23f1d0 b) {
 BreakPointTrack_23f1f0* BreakPointTrack_23f1f0::vfunc_5(unsigned char param) {
     BreakPointTrack_23f1f0* p = this;
     *(char**)p = &threat_vftable_23f1f0;
-    ((BreakPointTrack_nv_23f1f0*)(((fight::BreakPointTrack*)((char*)p + 0x10))))->f1();
-    ((BreakPointTrack_nv_23f1f0*)(((fight::BreakPointTrack*)p)))->f2();
+    ((BreakPointTrack_nv_23f1f0*)(((fight::BreakPointTrack*)((char*)p + 0x10))))->f1_00236fd0();
+    ((BreakPointTrack_nv_23f1f0*)(((fight::BreakPointTrack*)p)))->f2_00236d60();
     if (param & 1)
         thunk_FUN_00267090((fight::BreakPointTrack*)p);
     return p;
@@ -346,8 +346,8 @@ BreakPointTrack_23f1f0* BreakPointTrack_23f1f0::vfunc_5(unsigned char param) {
 // sym: ?Build@BreakPointAction_23f220@fn_f27320e9@@QAEPAU12@HPAUObj_23f220@2@@Z
 // Same code shape as 0x0012db50 (propagated; names are from that function)
 BreakPointAction_23f220* BreakPointAction_23f220::Build(int a, Obj_23f220* p) {
-    Init();
-    vf = &BreakPointAction_23f220_vftable;
+    Init_00232660();
+    vf = &hulk_at_00428fa0;
     object = 0;
     arg = a;
     if (p)
@@ -406,7 +406,7 @@ void ParamBranch::vfunc_6(void* p) {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::TrackFactoryCasterTemplate<fight::BreakPointTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_23f330, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -454,9 +454,9 @@ BreakPointAction_23f4a0* BreakPointAction_23f4a0::f2(unsigned char flags) {
 // sym: _FUN_0023f500
 extern "C" void FUN_0023f500(Receiver_23f500* c, int b) {
     Track t;
-    *(void**)&t = VT_23f500;
+    *(void**)&t = hulk_at_00428ffc;
     Track* p = FUN_00236ac0(b, &t);
-    c->Finish(p);
+    c->Finish_002367c0(p);
 }
 
 } // namespace fn_f27320e9
@@ -483,10 +483,10 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::BreakPointTrack>::vfu
 template <> void* fight::TrackFactoryTemplate<fight::BreakPointTrack>::vfunc_5() {
     Obj_23f570* p = (Obj_23f570*)alloc(0x14);
     if (p) {
-        ((Base_23f570*)p)->init();
+        ((Base_23f570*)p)->init_00236d40();
         p->vf = (hulk_intptr)&breakpoint_vftable;
         p->c = 0;
-        ((Sub_23f570*)((char*)p + 0x10))->init2();
+        ((Sub_23f570*)((char*)p + 0x10))->init2_00236e00();
         p->b = 1;
         return (void*)(p);
     }
@@ -499,7 +499,7 @@ namespace fn_f27320e9 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f27320e9@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_23f5b0;
+    m_vptr = (void*)&hulk_at_00429008;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

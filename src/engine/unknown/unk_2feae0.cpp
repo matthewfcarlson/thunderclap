@@ -335,7 +335,7 @@ public:
 
     Pools *FUN_00300a00();
 };
-extern void __cdecl Release(void*);
+extern void __cdecl Release_0008d340(void*);
 struct Elem_300ea0 {
     char data[0x6c];
     Elem_300ea0 *FUN_00300a00();
@@ -354,10 +354,10 @@ public:
 };
 class Small_300fa0 {
   public:
-    void A(int);
-    void B();
-    void C();
-    void D();
+    void FnA_00300d80(int);
+    void FnB_002f79f0();
+    void FnC_003012c0();
+    void FnD_00304350();
 };
 class Obj_300fa0 {
   public:
@@ -373,8 +373,8 @@ class Obj_300fa0 {
     Small_300fa0 s68;
     Obj_300fa0* Run(unsigned char flags);
 };
-void relA(void*);
-void relB(void*);
+void relA_0008d340(void*);
+void relB_0008d330(void*);
 struct Vec3_3011a0 {
     float x, y, z;
 };
@@ -388,10 +388,10 @@ struct Ent_3011a0 {
 };
 struct Slot_3011a0 {
     char pad[0x6c];
-    void Process(Ent_3011a0* e, unsigned flags);
+    void Process_003010a0(Ent_3011a0* e, unsigned flags);
 };
 struct Sub_3011a0 {
-    void Add(Vec3_3011a0* v);
+    void Add_00312fa0(Vec3_3011a0* v);
 };
 class Sim_3011a0 {
   public:
@@ -406,7 +406,7 @@ struct Owner_301290 {
     char pad[0x30];
     int value;
 };
-extern int vtable_301290;
+extern int hulk_at_00431ac0;
 struct SubCollisionDetector_00313500 {
     SubCollisionDetector_00313500();
 };
@@ -1088,7 +1088,7 @@ extern "C" void FUN_00300270(unsigned* first, unsigned* last) {
 // sym: ?Target@Owner@fn_00300320@@QAEXHH@Z
 namespace fn_00300320 {
 struct Item {
-    void Fn(int, int);
+    void Fn_002fffa0(int, int);
     char pad[0x6c];
 };
 struct Owner {
@@ -1098,7 +1098,7 @@ struct Owner {
     void Target(int a, int b);
 };
 void Owner::Target(int a, int b) {
-    items[b].Fn(a, value);
+    items[b].Fn_002fffa0(a, value);
 }
 } // namespace fn_00300320
 
@@ -1176,7 +1176,7 @@ extern "C" void __cdecl FUN_00300510(int *first, int *last)
 namespace fn_00300580 {
 struct Item_300580 {
     char pad[0x6c];
-    void Process();
+    void Process_00300360();
 };
 struct Container_300580 {
     Item_300580* items;
@@ -1185,7 +1185,7 @@ struct Container_300580 {
 void __fastcall Target(Container_300580* self) {
     int i;
     for (i = 0; i < self->count; ++i)
-        self->items[i].Process();
+        self->items[i].Process_00300360();
 }
 } // namespace fn_00300580
 
@@ -1431,23 +1431,23 @@ void owners::Obj_300b50::FUN_00300b50() {
     void* p = p4;
     q4 = p;
     if (p)
-        Release(p);
+        Release_0008d340(p);
     p = p3;
     q3 = p;
     if (p)
-        Release(p);
+        Release_0008d340(p);
     p = p2;
     q2 = p;
     if (p)
-        Release(p);
+        Release_0008d340(p);
     p = p1;
     q1 = p;
     if (p)
-        Release(p);
+        Release_0008d340(p);
     p = p0;
     q0 = p;
     if (p)
-        Release(p);
+        Release_0008d340(p);
 }
 
 
@@ -1551,7 +1551,7 @@ void* owners::Item_300d80::FUN_00300d80(unsigned char flags) {
 // sym: ?Target@fn_00300e60@@YIXPAUObj_300e60@1@@Z
 namespace fn_00300e60 {
 struct Child_300e60 {
-    void F(int);
+    void FnF_00300d80(int);
 };
 void __fastcall FUN_002f79f0(void* self);
 void __fastcall FUN_003012c0(void* self);
@@ -1566,7 +1566,7 @@ struct Obj_300e60 {
 };
 void __fastcall Target(Obj_300e60* p) {
     if (p->first)
-        p->first->F(3);
+        p->first->FnF_00300d80(3);
     FUN_002f79f0((char*)p + 0x68);
     FUN_003012c0((char*)p + 0x28);
     FUN_00304350((char*)p + 0x18);
@@ -1621,15 +1621,15 @@ void ElemPool::FUN_00300ea0(int n)
 // sym: ?Run@Obj_300fa0@fn_fb493392@@QAEPAV12@E@Z
 Obj_300fa0* Obj_300fa0::Run(unsigned char flags) {
     if (p0)
-        ((Small_300fa0*)p0)->A(3);
-    s68.B();
-    s28.C();
-    s18.D();
+        ((Small_300fa0*)p0)->FnA_00300d80(3);
+    s68.FnB_002f79f0();
+    s28.FnC_003012c0();
+    s18.FnD_00304350();
     pc = p8;
     if (p8)
-        relA(p8);
+        relA_0008d340(p8);
     if (flags & 1)
-        relB(this);
+        relB_0008d330(this);
     return this;
 }
 
@@ -1701,7 +1701,7 @@ namespace fn_fb493392 {
 // 0x003011a0 FUN_003011a0 (100 B): matches/0x003011a0.cpp
 // sym: ?Update@Sim_3011a0@fn_fb493392@@QAEXPAUEnt_3011a0@2@H@Z
 void Sim_3011a0::Update(Ent_3011a0* e, int i) {
-    mSlots[i].Process(e, mFlags);
+    mSlots[i].Process_003010a0(e, mFlags);
     if (mFlags & 8) {
         Xf_3011a0* x = e->xf;
         Vec3_3011a0 v;
@@ -1712,7 +1712,7 @@ void Sim_3011a0::Update(Ent_3011a0* e, int i) {
         v.x = x0;
         v.y = y;
         v.z = z;
-        mSub.Add(&v);
+        mSub.Add_00312fa0(&v);
     }
 }
 
@@ -1721,7 +1721,7 @@ void Sim_3011a0::Update(Ent_3011a0* e, int i) {
 // sym: ??0CollisionDetector@fn_fb493392@@QAE@XZ
 // data: g_owner = DAT_00554c10
 CollisionDetector::CollisionDetector() : SubCollisionDetector_00313500() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_301290;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00431ac0;
     *(int*)((char*)this + 0x3c) = 0;
     *(int*)((char*)this + 0x10) = *(int*)((char*)(*(Owner_301290**)&DAT_00554c10) + 0x30);
 }

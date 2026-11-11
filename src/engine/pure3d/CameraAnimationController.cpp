@@ -19,7 +19,7 @@ extern "C" char DAT_0042cf7c[];
 struct CameraAnimationController {
     unsigned int pad[0x44];
 };
-extern void __fastcall BaseInit(CameraAnimationController*, void*);
+extern void __fastcall BaseInit_00285ac0(CameraAnimationController*, void*);
 class X_292f20 {
     char pad[0x114];
 
@@ -50,7 +50,7 @@ class Ref_2930d0 {
 class BlendFrameController_2930d0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285f50();
 };
 class CameraAnimationController_2930d0 : public BlendFrameController_2930d0 {
   public:
@@ -64,9 +64,9 @@ class Base_293100 {
     virtual void Release();
 };
 struct TypeInfo_293100 {};
-extern TypeInfo_293100 tiSrc;
-extern TypeInfo_293100 tiA;
-extern TypeInfo_293100 tiB;
+extern TypeInfo_293100 hulk_at_0049e11c;
+extern TypeInfo_293100 hulk_at_004a0a40;
+extern TypeInfo_293100 hulk_at_004cf0f0;
 class CameraAnimationController_293100 {
   public:
     char pad[0x110];
@@ -74,7 +74,7 @@ class CameraAnimationController_293100 {
     Base_293100* mObj;
     void Set(Base_293100* p);
 };
-extern void* g_vt_293890[];
+extern void* hulk_at_0042cf7c[];
 } // namespace fn_fa983489
 void operator delete(void*);
 namespace fn_fa983489 {
@@ -86,7 +86,7 @@ class Ref_293890 {
 class BlendFrameController_293890 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285f50();
 };
 class CameraAnimationController_293890 : public BlendFrameController_293890 {
   public:
@@ -96,9 +96,9 @@ class CameraAnimationController_293890 : public BlendFrameController_293890 {
 };
 typedef unsigned int U_293970;
 extern U_293970 __cdecl Query(hulk_uintptr, U_293970, const void*, const void*, U_293970);
-extern char EntityRTTI_293970;
+extern char hulk_at_0048f610;
 struct CameraAnimationController_nv_293970 {
-    void Finish(U_293970);
+    void Finish_00293100(U_293970);
 };
 struct Triple_293ac0 {
     int a, b, c;
@@ -115,7 +115,7 @@ struct Object {
 // 0x00292eb0 FUN_00292eb0 (38 B): matches/0x00292eb0.cpp
 // sym: ?FUN_00292eb0@fn_fa983489@@YIPAUCameraAnimationController@1@PAU21@PAX@Z
 CameraAnimationController* __fastcall FUN_00292eb0(CameraAnimationController* self, void* edx) {
-    BaseInit(self, edx);
+    BaseInit_00285ac0(self, edx);
     self->pad[0] = ((hulk_intptr)DAT_0042cf7c);
     self->pad[0x44] = 0xffffffff;
     self->pad[0x45] = 0;
@@ -205,7 +205,7 @@ CameraAnimationController_2930d0::~CameraAnimationController_2930d0() {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_00285f50();
 }
 
 
@@ -219,7 +219,7 @@ void CameraAnimationController_293100::Set(Base_293100* p) {
     mType = -1;
     if (!p)
         return;
-    if (DynCast(p, 0, &tiSrc, &tiA, 0)) {
+    if (DynCast(p, 0, &hulk_at_0049e11c, &hulk_at_004a0a40, 0)) {
         p->AddRef();
         if (mObj)
             mObj->Release();
@@ -228,7 +228,7 @@ void CameraAnimationController_293100::Set(Base_293100* p) {
         *q = 0;
         return;
     }
-    if (DynCast(p, 0, &tiSrc, &tiB, 0)) {
+    if (DynCast(p, 0, &hulk_at_0049e11c, &hulk_at_004cf0f0, 0)) {
         p->AddRef();
         if (mObj)
             mObj->Release();
@@ -242,13 +242,13 @@ void CameraAnimationController_293100::Set(Base_293100* p) {
 // 0x00293890 pure3d::CameraAnimationController::vfunc_2 (63 B): matches/0x00293890.cpp
 // sym: ?f2@CameraAnimationController_293890@fn_fa983489@@QAEPAV12@E@Z
 CameraAnimationController_293890* CameraAnimationController_293890::f2(unsigned char flags) {
-    vptr = g_vt_293890;
+    vptr = hulk_at_0042cf7c;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_00285f50();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -294,19 +294,19 @@ struct CameraAnimationController {
     char pad[0x10c];
     u32_293910 field110;
     u32_293910 field114;
-    void init(CameraAnimationController*);
-    void finish(u32_293910);
+    void init_00285d70(CameraAnimationController*);
+    void finish_00293100(u32_293910);
 };
-extern "C++" __declspec(nothrow) void* __cdecl alloc(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* __cdecl alloc_00263ea0(hulk_uintptr);
 extern u32_293910 camera_vtable_293910;
 CameraAnimationController* CameraAnimationController::f4() {
-    CameraAnimationController* p = (CameraAnimationController*)alloc(0x118);
+    CameraAnimationController* p = (CameraAnimationController*)alloc_00263ea0(0x118);
     if (p) {
-        p->init(this);
+        p->init_00285d70(this);
         *(hulk_uintptr*)p = (hulk_uintptr)&camera_vtable_293910;
         p->field110 = 0xffffffff;
         p->field114 = 0;
-        p->finish(field114);
+        p->finish_00293100(field114);
         return p;
     }
     return 0;
@@ -318,8 +318,8 @@ CameraAnimationController* CameraAnimationController::f4() {
 // sym: ?vfunc_5@CameraAnimationController@pure3d@@UAEXPAX@Z
 void pure3d::CameraAnimationController::vfunc_5(void* __p0) { hulk_uintptr arg = (hulk_uintptr)__p0;
 
-    U_293970 x = Query(arg, 0, &EntityRTTI_293970, &CameraRTTI, 0);
-    ((CameraAnimationController_nv_293970*)this)->Finish(x);
+    U_293970 x = Query(arg, 0, &hulk_at_0048f610, &CameraRTTI, 0);
+    ((CameraAnimationController_nv_293970*)this)->Finish_00293100(x);
 }
 
 

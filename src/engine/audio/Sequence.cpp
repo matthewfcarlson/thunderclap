@@ -46,15 +46,15 @@ struct RbTree_256940 {
 };
 extern "C" char DAT_0042a600[];
 struct Sub_256c80 {
-    void Init();
+    void Init_002607a0();
 };
 class SeqTrack {
   public:
     char pad[0x1c];
     SeqTrack* Build(unsigned char);
 };
-int __cdecl GetTrack();
-void __cdecl Cleanup(int, SeqTrack*);
+int __cdecl GetTrack_00262030();
+void __cdecl Cleanup_00247550(int, SeqTrack*);
 struct N_256e80 {
     N_256e80* next;
     N_256e80* l;
@@ -75,7 +75,7 @@ struct Container_257250 {
     Node* head;
     Node* FindLast();
 };
-extern int __cdecl helper(void*, unsigned int);
+extern int __cdecl helper_00256e80(void*, unsigned int);
 struct Writer_257290 {
     char pad0[0x24];
     int indent;
@@ -119,8 +119,8 @@ class Entity_257b00 {
     virtual void a();
     virtual void b();
 };
-void InitA(void*);
-void InitB(void*);
+void InitA_00256d40(void*);
+void InitB_00257730(void*);
 extern void* DAT_0042a640[];
 void FUN_00256d40(void*);
 void FUN_00257730(void*);
@@ -128,7 +128,7 @@ void FUN_00247550(void*, void*);
 class Entity_257c90 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00244f70();
 };
 class Sequence_257c90 : public Entity_257c90 {
   public:
@@ -148,10 +148,10 @@ class Entity_257d80 {
     virtual void f1();
 };
 struct Sequence_nv_257d80 {
-    bool first(hulk_intptr);
-    bool second(hulk_intptr);
+    bool first_00257b30(hulk_intptr);
+    bool second_00257ce0(hulk_intptr);
 };
-extern bool __cdecl check(int, int*);
+extern bool __cdecl check_0025abd0(int, int*);
 
 
 // 0x00256660 FUN_00256660 (6 B): matches/0x00256660.cpp
@@ -506,9 +506,9 @@ namespace fn_f06eb07d {
 // sym: ?Build@SeqTrack@fn_f06eb07d@@QAEPAV12@E@Z
 SeqTrack* SeqTrack::Build(unsigned char flags) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042a600);
-    ((Sub_256c80*)((char*)this + 0x1c))->Init();
+    ((Sub_256c80*)((char*)this + 0x1c))->Init_002607a0();
     if (flags & 1)
-        Cleanup(GetTrack(), this);
+        Cleanup_00247550(GetTrack_00262030(), this);
     return this;
 }
 
@@ -803,7 +803,7 @@ Node* Container_257250::FindLast() {
 // 0x00257270 FUN_00257270 (20 B): matches/0x00257270.cpp
 // sym: ?FUN_00257270@C_257270@owners@@QAEHI@Z
 hulk_intptr owners::C_257270::FUN_00257270(hulk_uintptr x) {
-    return helper((char*)this + 0x44, ((unsigned int)x));
+    return helper_00256e80((char*)this + 0x44, ((unsigned int)x));
 }
 
 namespace fn_f06eb07d {
@@ -1234,8 +1234,8 @@ class Entity {
 } // namespace om
 extern char g_pool_2579f0[];
 void Release2(void*, void*) throw();
-void F1(void*) throw();
-void F2(void*) throw();
+void F1_00256d40(void*) throw();
+void F2_00257730(void*) throw();
 namespace audio {
 class Sequence : public om::Entity {
   public:
@@ -1251,8 +1251,8 @@ class Sequence : public om::Entity {
 };
 Sequence::~Sequence() throw() {
     sb.Reset();
-    F1(m3c);
-    F2(m44);
+    F1_00256d40(m3c);
+    F2_00257730(m44);
 }
 } // namespace audio
 } // namespace fn_002579f0
@@ -1263,8 +1263,8 @@ Sequence::~Sequence() throw() {
 bool audio::Sequence::vfunc_4(int __p0) { unsigned int p = (unsigned int)__p0;
 
     *(void**)((char*)this + 0x28) = (char*)this + 0x2c;
-    InitA((char*)this + 0x3c);
-    InitB((char*)this + 0x44);
+    InitA_00256d40((char*)this + 0x3c);
+    InitB_00257730((char*)this + 0x44);
     return (bool)(vfunc_5(p));
 }
 
@@ -1355,7 +1355,7 @@ Sequence_257c90* Sequence_257c90::f2(unsigned char flags) {
     sb.Reset();
     FUN_00256d40(m3c);
     FUN_00257730(m44);
-    Fin();
+    Fin_00244f70();
     if (flags & 1)
         FUN_00247550(((char*)((char*)&DAT_004e7620)), this);
     return this;
@@ -1423,7 +1423,7 @@ bool Mix::FUN_00257ce0(StreamArg_257ce0 arg)
 // sym: ?vfunc_5@Sequence@audio@@UAE_NH@Z
 bool audio::Sequence::vfunc_5(hulk_intptr x) {
     int t;
-    if (check(x, &t) && t == 1 && ((Sequence_nv_257d80*)this)->first(x) && ((Sequence_nv_257d80*)this)->second(x))
+    if (check_0025abd0(x, &t) && t == 1 && ((Sequence_nv_257d80*)this)->first_00257b30(x) && ((Sequence_nv_257d80*)this)->second_00257ce0(x))
         return true;
     return false;
 }

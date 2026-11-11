@@ -44,10 +44,10 @@ class X_2c3f00 {
     int c;
     void Set(int x, int y, int z);
 };
-extern void* Light_2c3f40_vftable[];
+extern void* hulk_at_0042eeb0[];
 class Light_2c3f40 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002a0720(); // FUN_00236d60, __thiscall, this in ecx
 };
 class PointLight_2c3f40 : public Light_2c3f40 {
   public:
@@ -116,8 +116,8 @@ namespace fn_f06f3165 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 PointLight_2c3f40* PointLight_2c3f40::vfunc_5(signed char flags) {
-    *(void***)this = Light_2c3f40_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042eeb0;
+    Destroy_002a0720();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

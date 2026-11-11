@@ -13,7 +13,7 @@ namespace fn_f7efdb18 {} using namespace fn_f7efdb18;
 
 // ---- declarations shared by the functions below
 namespace fn_f7efdb18 {
-extern void* g_vftable_28f240[];
+extern void* hulk_at_0042cb44[];
 } // namespace fn_f7efdb18
 void operator delete(void*);
 namespace fn_f7efdb18 {
@@ -25,7 +25,7 @@ class Ref_28f240 {
 class Entity_28f240 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class Shader_28f240 : public Entity_28f240 {
   public:
@@ -38,13 +38,13 @@ class Shader_28f240 : public Entity_28f240 {
 // 0x0028f240 pure3d::Shader::vfunc_2 (57 B): matches/0x0028f240.cpp
 // sym: ?f2@Shader_28f240@fn_f7efdb18@@QAEPAV12@E@Z
 Shader_28f240* Shader_28f240::f2(unsigned char flags) {
-    vptr = g_vftable_28f240;
+    vptr = hulk_at_0042cb44;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_0027afd0();
     if (flags & 1)
         operator delete(this);
     return this;

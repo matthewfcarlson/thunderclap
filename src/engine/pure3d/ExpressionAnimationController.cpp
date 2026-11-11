@@ -30,7 +30,7 @@ class ExpressionAnimationController : public SimpleFrameController_2a9cb0 {
     int d;
     ExpressionAnimationController* vfunc_2(int flag);
 };
-extern void* g_vftable_2a9de0[];
+extern void* hulk_at_0042df6c[];
 class Ref_2a9de0 {
   public:
     void* vptr;
@@ -38,7 +38,7 @@ class Ref_2a9de0 {
     virtual void f1();
 };
 struct ExpressionAnimationController_nv_2a9de0 {
-    void Fn();
+    void Fn_00285800();
 };
 class ExpressionAnimationController_2a9de0 {
   public:
@@ -100,8 +100,8 @@ class Source_2a9f30 {
     Ref_2a9f30* mRef;
 };
 extern char gVftable_2aa000[];
-extern void __cdecl freefn(void*);
-extern void __cdecl opdel(void*);
+extern void __cdecl freefn_0008d340(void*);
+extern void __cdecl opdel_00263f30(void*);
 class RefObj_2aa000 {
   public:
     virtual void f0();
@@ -109,9 +109,9 @@ class RefObj_2aa000 {
 };
 class ExpressionAnimationController_2aa000 {
   public:
-    void BaseDtor();
+    void BaseDtor_00285800();
 };
-extern void* __cdecl alloc(hulk_uintptr);
+extern void* __cdecl alloc_00263ea0(hulk_uintptr);
 } // namespace fn_ff685ee7
 inline void* operator new(size_t, void* where) {
     return where;
@@ -136,7 +136,7 @@ class ExpressionAnimationController_2aa0a0 : public SimpleFrameController_2aa0a0
     virtual void f2();
     virtual void f3();
     virtual ExpressionAnimationController_2aa0a0* f4();
-    void g(int v);
+    void Fng_002a9ea0(int v);
     int m[4];
 };
 
@@ -164,7 +164,7 @@ namespace fn_ff685ee7 {
 // 0x002a9de0 FUN_002a9de0 (67 B): matches/0x002a9de0.cpp
 // sym: ?f@ExpressionAnimationController_2a9de0@fn_ff685ee7@@QAEXXZ
 void ExpressionAnimationController_2a9de0::f() {
-    vptr = g_vftable_2a9de0;
+    vptr = hulk_at_0042df6c;
     _ReadWriteBarrier();
     if (m40) {
         m40->f1();
@@ -175,7 +175,7 @@ void ExpressionAnimationController_2a9de0::f() {
         m44 = 0;
     }
     operator delete[](m4c);
-    ((ExpressionAnimationController_nv_2a9de0*)(((pure3d::ExpressionAnimationController*)this)))->Fn();
+    ((ExpressionAnimationController_nv_2a9de0*)(((pure3d::ExpressionAnimationController*)this)))->Fn_00285800();
 }
 
 } // namespace fn_ff685ee7
@@ -327,10 +327,10 @@ ExpressionAnimationController* ExpressionAnimationController::vfunc_2(int flag) 
         *(int*)(b + 0x44) = 0;
     }
     _ReadWriteBarrier();
-    freefn(*(void**)(b + 0x4c));
-    ((ExpressionAnimationController_2aa000*)this)->BaseDtor();
+    freefn_0008d340(*(void**)(b + 0x4c));
+    ((ExpressionAnimationController_2aa000*)this)->BaseDtor_00285800();
     if (flag & 1) {
-        opdel(this);
+        opdel_00263f30(this);
     }
     return this;
 }
@@ -339,11 +339,11 @@ ExpressionAnimationController* ExpressionAnimationController::vfunc_2(int flag) 
 // 0x002aa0a0 pure3d::ExpressionAnimationController::vfunc_4 (72 B): matches/0x002aa0a0.cpp
 // sym: ?f4@ExpressionAnimationController_2aa0a0@fn_ff685ee7@@UAEPAV12@XZ
 ExpressionAnimationController_2aa0a0* ExpressionAnimationController_2aa0a0::f4() {
-    ExpressionAnimationController_2aa0a0* p = (ExpressionAnimationController_2aa0a0*)alloc(0x50);
+    ExpressionAnimationController_2aa0a0* p = (ExpressionAnimationController_2aa0a0*)alloc_00263ea0(0x50);
     ExpressionAnimationController_2aa0a0* z = 0;
     if (p != z) {
         new (p) ExpressionAnimationController_2aa0a0(this);
-        p->g(m[0]);
+        p->Fng_002a9ea0(m[0]);
         return p;
     }
     return z;
@@ -385,22 +385,22 @@ class SimpleFrameController_2aa0f0 {
     virtual void f26();
 };
 extern void* __cdecl match(void*, int, void*, void*, int);
-extern int typeEntity, typeVertexMixer, typePolySkin;
+extern int hulk_at_0048f610, hulk_at_004ce7fc, hulk_at_004cf460;
 class ExpressionAnimationController : public SimpleFrameController_2aa0f0 {
     char pad[0x40];
 
   public:
     SimpleFrameController_2aa0f0* mField;
-    void assign(void*);
+    void assign_002a9ea0(void*);
     void vfunc_5(void*);
 };
 void ExpressionAnimationController::vfunc_5(void* arg) {
-    void* p = match(arg, 0, &typeEntity, &typeVertexMixer, 0);
+    void* p = match(arg, 0, &hulk_at_0048f610, &hulk_at_004ce7fc, 0);
     if (p) {
-        assign(p);
+        assign_002a9ea0(p);
         return;
     }
-    p = match(arg, 0, &typeEntity, &typePolySkin, 0);
+    p = match(arg, 0, &hulk_at_0048f610, &hulk_at_004cf460, 0);
     SimpleFrameController_2aa0f0* q = *(SimpleFrameController_2aa0f0**)((char*)p + 0x68);
     if (q)
         q->f0();

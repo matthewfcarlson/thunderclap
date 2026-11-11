@@ -12,7 +12,7 @@ namespace fn_fb5aa021 {} using namespace fn_fb5aa021;
 
 // ---- declarations shared by the functions below
 namespace fn_fb5aa021 {
-void init();
+void init_002705f0();
 class Request {
   public:
     hulk_intptr v;
@@ -43,10 +43,10 @@ struct CompletionCallbackRequest {
 CompletionCallbackRequest::CompletionCallbackRequest(int arg) {
     v = ((hulk_intptr)DAT_0042b914);
     a = 0;
-    init();
+    init_002705f0();
     v = ((hulk_intptr)DAT_0042b9dc);
     b = arg;
-    init();
+    init_002705f0();
 }
 
 

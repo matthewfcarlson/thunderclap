@@ -19,7 +19,7 @@ class ImageConverter_2de230 {
     ImageConverter_2de230();
     virtual ~ImageConverter_2de230();
 };
-extern void* IRefCount_vftable_2de240;
+extern void* hulk_at_0042f900;
 extern char DAT_004d098c[];
 extern char DAT_004d09a8[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -198,10 +198,10 @@ extern "C" void __cdecl FUN_002de6c0(unsigned short *, void *, void *);
 extern "C" void __cdecl FUN_002de790(unsigned char *, void *, const unsigned *);
 extern "C" void __cdecl FUN_002de8b0(unsigned int *, void *, void *);
 typedef unsigned int u32_2dea00;
-void* alloc(hulk_uintptr);
+void* alloc_00263ea0(hulk_uintptr);
 class Image32_2dea00 {
   public:
-    void* run();
+    void* run_002bffc0();
 };
 struct PixelFormat_2dea50 {
     char pad0[8];
@@ -273,7 +273,7 @@ ImageConverter_2de230::ImageConverter_2de230() {}
 // sym: ?FUN_002de240@fn_f9c3d788@@YIXPAX@Z
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 void __fastcall FUN_002de240(void* self) {
-    *(void**)self = &IRefCount_vftable_2de240;
+    *(void**)self = &hulk_at_0042f900;
 }
 
 
@@ -592,10 +592,10 @@ extern "C" void __stdcall FUN_002de9c0(void * item, void * context)
 // 0x002dea00 pure3d::ImageConverter::vfunc_4 (67 B): matches/0x002dea00.cpp
 // sym: ?vfunc_4@ImageConverter@fn_f9c3d788@@QAEPAXPAX@Z
 void* ImageConverter::vfunc_4(void* p) {
-    hulk_intptr t = (hulk_intptr)alloc(0x30);
+    hulk_intptr t = (hulk_intptr)alloc_00263ea0(0x30);
     void* x;
     if (t) {
-        x = ((Image32_2dea00*)t)->run();
+        x = ((Image32_2dea00*)t)->run_002bffc0();
     } else
         x = 0;
     struct Pair {

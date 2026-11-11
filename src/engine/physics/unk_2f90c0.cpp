@@ -86,7 +86,7 @@ struct X_2f9b30 {
     u32_2f9b30 b;
     void f();
 };
-extern void* Alloc(hulk_uintptr);
+extern void* Alloc_0008d6d0(hulk_uintptr);
 extern "C" unsigned int * __cdecl FUN_002f98c0(unsigned int *, unsigned int, unsigned int *);
 struct Buffer { char pad[4]; unsigned short *end; unsigned short *limit; void FUN_002f9bc0(unsigned short *position, hulk_uintptr count, unsigned short *source); };
 struct Range {
@@ -96,7 +96,7 @@ struct Range {
 struct Object {
     void FUN_002f9ca0(unsigned int value);
 };
-void Release(void*);
+void Release_0008d340(void*);
 struct Obj_2f9cd0 {
     char pad[0x30];
     int a;
@@ -116,7 +116,7 @@ class Str_2f9d00 {
     unsigned short* first;
     unsigned short* last;
     unsigned short* cap;
-    void grow(unsigned short*, unsigned, unsigned short*);
+    void grow_002f9bc0(unsigned short*, unsigned, unsigned short*);
     void fn(unsigned n, unsigned short* p);
 };
 class C_2f9d60 {
@@ -181,20 +181,20 @@ struct Entry {
     char pad2[8];
 };
 struct Item_2f9ff0 {
-    void f(int);
+    void Fnf_002f9da0(int);
 };
 struct Obj_2fa030 {
     int a;
     int b;
 };
-extern void __cdecl g(int);
+extern void __cdecl Fng_0008d340(int);
 struct Obj_2fa050 {
     void* a;
     void* b;
     void Target();
 };
-extern void __cdecl ReleaseThing(int);
-extern void __cdecl DoPair(int, int);
+extern void __cdecl ReleaseThing_0008d340(int);
+extern void __cdecl DoPair_002f9fb0(int, int);
 struct Target_2fa0f0 {
     int first;
     int second;
@@ -567,7 +567,7 @@ bool owners::Buffer_2f9b60::FUN_002f9b60(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        begin = (int*)Alloc(count * 8);
+        begin = (int*)Alloc_0008d6d0(count * 8);
         if (begin != 0) {
             end = (int*)((char*)begin + count * 8);
             FUN_002f98c0((unsigned int *)(void *)begin, count, (unsigned int *)(void *)arg);
@@ -604,11 +604,11 @@ void Obj_2f9cd0::f() {
     hulk_intptr x = c;
     d = x;
     if (x)
-        Release((void*)x);
+        Release_0008d340((void*)x);
     x = a;
     b = x;
     if (x)
-        Release((void*)x);
+        Release_0008d340((void*)x);
 }
 
 
@@ -619,7 +619,7 @@ void Str_2f9d00::fn(unsigned n, unsigned short* p) {
         ((owners::Buffer_2f9340 *)this)->FUN_002f9340((unsigned int)n);
     unsigned count = (unsigned)(last - first);
     if (n > count) {
-        grow(last, n - count, p);
+        grow_002f9bc0(last, n - count, p);
         return;
     }
     if (n < count) {
@@ -742,7 +742,7 @@ extern "C" hulk_intptr __cdecl FUN_002f9ff0(Item_2f9ff0* p, int count, int b) {
         Item_2f9ff0* q = p;
         do {
             if (q)
-                q->f(b);
+                q->Fnf_002f9da0(b);
             q = (Item_2f9ff0*)((char*)q + 0x50);
             --n;
         } while (n != 0);
@@ -758,7 +758,7 @@ extern "C" hulk_intptr __cdecl FUN_002f9ff0(Item_2f9ff0* p, int count, int b) {
 void __fastcall target(Obj_2fa030* self) {
     if (self->a) {
         f(self->a, self->b);
-        g(self->a);
+        Fng_0008d340(self->a);
     }
 }
 
@@ -768,7 +768,7 @@ void __fastcall target(Obj_2fa030* self) {
 void Obj_2fa050::Target() {
     Cleanup(a, b);
     if (a)
-        Release(a);
+        Release_0008d340(a);
     a = 0;
     b = 0;
 }
@@ -778,10 +778,10 @@ void Obj_2fa050::Target() {
 // sym: ?FUN_002fa0f0@fn_fe1b1ee9@@YIXPAUTarget_2fa0f0@1@@Z
 void __fastcall FUN_002fa0f0(Target_2fa0f0* object) {
     if (object->third != 0)
-        ReleaseThing(object->third);
+        ReleaseThing_0008d340(object->third);
     if (object->first != 0) {
-        DoPair(object->first, object->second);
-        ReleaseThing(object->first);
+        DoPair_002f9fb0(object->first, object->second);
+        ReleaseThing_0008d340(object->first);
     }
 }
 

@@ -16,10 +16,10 @@ namespace fn_f2e163a0 {} using namespace fn_f2e163a0;
 
 // ---- declarations shared by the functions below
 namespace fn_f2e163a0 {
-extern int vftable_2a1310;
+extern int hulk_at_003f6098;
 class Sub_2a1310 {
   public:
-    void Init();
+    void Init_002a3120();
 };
 class IRefCount_2a1310 {
   public:
@@ -61,7 +61,7 @@ struct Holder {
     unsigned int count;
     void FUN_002a15d0(unsigned int newCount);
 };
-extern void* g_vftable_2a17c0[];
+extern void* hulk_at_0042d714[];
 } // namespace fn_f2e163a0
 void operator delete(void*);
 namespace fn_f2e163a0 {
@@ -73,11 +73,11 @@ class Ref_2a17c0 {
 class DisplayTraversal_2a17c0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002c6aa0();
 };
 struct Sub_2a17c0 {
     char c;
-    void Fini();
+    void Fini_002a3120();
 };
 class ShadowTraversal_2a17c0 : public DisplayTraversal_2a17c0 {
   public:
@@ -105,7 +105,7 @@ class Mem_2a1810 {
 class DisplayTraversal_2a1810 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002c6aa0();
 };
 class ShadowTraversal_2a1810 : public DisplayTraversal_2a1810 {
   public:
@@ -124,8 +124,8 @@ class ShadowTraversal_2a1810 : public DisplayTraversal_2a1810 {
 // 0x002a1310 FUN_002a1310 (19 B): matches/0x002a1310.cpp
 // sym: ?Init@IRefCount_2a1310@fn_f2e163a0@@QAEXXZ
 void IRefCount_2a1310::Init() {
-    sub.Init();
-    *(hulk_intptr*)this = (hulk_intptr)&vftable_2a1310;
+    sub.Init_002a3120();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f6098;
 }
 
 
@@ -286,7 +286,7 @@ namespace fn_f2e163a0 {
 // 0x002a17c0 FUN_002a17c0 (67 B): matches/0x002a17c0.cpp
 // sym: ??1ShadowTraversal_2a17c0@fn_f2e163a0@@QAE@XZ
 ShadowTraversal_2a17c0::~ShadowTraversal_2a17c0() {
-    vptr = g_vftable_2a17c0;
+    vptr = hulk_at_0042d714;
     _ReadWriteBarrier();
     if (m2c) {
         m2c->Release();
@@ -294,9 +294,9 @@ ShadowTraversal_2a17c0::~ShadowTraversal_2a17c0() {
     }
     if (m3c)
         operator delete(m3c);
-    sub.Fini();
+    sub.Fini_002a3120();
     m18 = g_vftable2;
-    Fin();
+    Fin_002c6aa0();
 }
 
 
@@ -313,7 +313,7 @@ ShadowTraversal_2a1810* ShadowTraversal_2a1810::f2(unsigned char flags) {
         operator delete[](m3c);
     m20.~Mem_2a1810();
     vptr2 = g_ref_2a1810;
-    Fin();
+    Fin_002c6aa0();
     if (flags & 1)
         operator delete(this);
     return this;

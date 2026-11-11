@@ -32,7 +32,7 @@ class O_237b90 {
     int* GetConditionGroup_00237b90();
 };
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_237bc0;
+extern int* hulk_at_004e5c04;
 class CCondition_237bc0 {
   public:
     virtual int vfunc_0(int);
@@ -52,18 +52,18 @@ class SequenceTrack : public Track_237bd0 {
     int other;
     PartB b;
 };
-extern float gNegOne;
-extern void* g_a_237c20[];
+extern float hulk_at_003f3388;
+extern void* hulk_at_00428100[];
 struct S1_237c20 {
-    void Fin();
+    void Fin_00236fd0();
 };
 struct S2_237c20 {
-    void Fin();
+    void Fin_00234150();
 };
 class Track_237c20 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class SequenceTrack_237c20 : public Track_237c20 {
   public:
@@ -100,7 +100,7 @@ class Ref_237d30 {
 };
 struct Action_237d30 {
     void* vf;
-    void Dtor() throw();
+    void Dtor_002326a0() throw();
 };
 struct SequenceAction_237d30 : Action_237d30 {
     char pad[0x18];
@@ -141,14 +141,14 @@ class ParamValueInt_237e60 : public ParamValue_237e60 {
   public:
     int pad;
 };
-extern int gTypeA_237eb0;
-extern char VT_2380a0[];
+extern int hulk_at_0049850c;
+extern char hulk_at_004281ac[];
 struct Track {
     virtual void V();
 };
 extern "C" Track* __cdecl FUN_00236ac0(int, Track*);
 struct Receiver_2380a0 {
-    void Finish(Track*);
+    void Finish_002367c0(Track*);
 };
 } // namespace fn_f55fdae2
 inline void* __cdecl operator new(size_t, void* where) {
@@ -168,15 +168,15 @@ extern "C" char DAT_00428100[];
 typedef unsigned int u32_238110;
 void* __cdecl operator_new(unsigned int);
 struct Obj_238110 {
-    void Ctor();
+    void Ctor_00236d40();
 };
 struct Sub1_238110 {
-    void Init1();
+    void Init1_00233dd0();
 };
 struct Sub2_238110 {
-    void Init2();
+    void Init2_00236e00();
 };
-extern int g_vftable_238160;
+extern int hulk_at_004281b8;
 
 
 // 0x00237b70 FUN_00237b70 (4 B): matches/0x00237b70.cpp
@@ -214,7 +214,7 @@ void FUN_00237ba0() {
 // sym: ?vfunc_0@SequenceTrack@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::SequenceTrack::vfunc_0(int index) {
-    int* p = gTable_237bc0;
+    int* p = hulk_at_004e5c04;
     return p[index];
 }
 
@@ -240,7 +240,7 @@ hulk_freg fight::SequenceTrack::vfunc_6() {
 // sym: ?vfunc_7@SequenceTrack@fight@@UAEMXZ
 // Same code shape as 0x000695a0 (propagated; names are from that function)
 hulk_freg fight::SequenceTrack::vfunc_7() {
-    return gNegOne;
+    return hulk_at_003f3388;
 }
 
 namespace fn_f55fdae2 {
@@ -248,10 +248,10 @@ namespace fn_f55fdae2 {
 // 0x00237c20 FUN_00237c20 (33 B): matches/0x00237c20.cpp
 // sym: ?f@SequenceTrack_237c20@fn_f55fdae2@@QAEXXZ
 void SequenceTrack_237c20::f() {
-    vptr = g_a_237c20;
-    s1.Fin();
-    s2.Fin();
-    Fin();
+    vptr = hulk_at_00428100;
+    s1.Fin_00236fd0();
+    s2.Fin_00234150();
+    Fin_00236d60();
 }
 
 } // namespace fn_f55fdae2
@@ -262,11 +262,11 @@ namespace fn_00237c50 {
 extern char SequenceTrack_vftable[];
 class SubA_237c50 {
   public:
-    void Init();
+    void Init_00236fd0();
 };
 class SubB_237c50 {
   public:
-    void Init();
+    void Init_00234150();
 };
 class SequenceTrack {
   public:
@@ -286,14 +286,14 @@ class SequenceTrack {
     char q[0xf];
     SubA_237c50 a1;
     char r[8];
-    void Finish();
+    void Finish_00236d60();
 };
 void __cdecl thunk_FUN_00267090(SequenceTrack*);
 SequenceTrack* SequenceTrack::V5(int x) {
     *(char**)this = SequenceTrack_vftable;
-    a1.Init();
-    b.Init();
-    Finish();
+    a1.Init_00236fd0();
+    b.Init_00234150();
+    Finish_00236d60();
     if (x & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -361,7 +361,7 @@ void SequenceAction_237d30::Dtor2() throw() {
         p1c->Release();
         p1c = 0;
     }
-    Action_237d30::Dtor();
+    Action_237d30::Dtor_002326a0();
 }
 
 } // namespace fn_f55fdae2
@@ -373,7 +373,7 @@ class ResultObj {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
-    void init(int a, int b, int c);
+    void init_00231ad0(int a, int b, int c);
 };
 
 class Creator {
@@ -391,7 +391,7 @@ class Creator {
 
 class Sub_237d90 {
   public:
-    char fn(int a, int b, int c);
+    char fn_00236f40(int a, int b, int c);
 };
 
 class SequenceAction {
@@ -417,7 +417,7 @@ class SequenceAction {
 void SequenceAction::vfunc_4() {
     if (!mCreator)
         return;
-    if (!m2c->fn(m1c, m34, 0))
+    if (!m2c->fn_00236f40(m1c, m34, 0))
         return;
     ResultObj* edi = mCreator->create(m34, 0);
     if (!edi)
@@ -427,7 +427,7 @@ void SequenceAction::vfunc_4() {
     if (cur)
         cur->vfunc_1();
     m38 = edi;
-    edi->init(m30, m34, m28);
+    edi->init_00231ad0(m30, m34, m28);
 }
 } // namespace fn_00237d90
 
@@ -491,7 +491,7 @@ void ParamBranch::vfunc_6(void* p) {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::TrackFactoryCasterTemplate<fight::SequenceTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_237eb0, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -553,10 +553,10 @@ void target() {
 // sym: ?vfunc_10@SequenceTrack@fn_00238020@@QAEIIII@Z
 namespace fn_00238020 {
 typedef unsigned int u32_238020;
-extern void* Alloc(hulk_uintptr);
+extern void* Alloc_0008d690(hulk_uintptr);
 class Builder {
   public:
-    u32_238020 Run(u32_238020, hulk_uintptr, u32_238020, u32_238020, void*, u32_238020, u32_238020);
+    u32_238020 Run_00237c90(u32_238020, hulk_uintptr, u32_238020, u32_238020, void*, u32_238020, u32_238020);
 };
 class Track {
   public:
@@ -581,10 +581,10 @@ class SequenceTrack : public Track {
     u32_238020 vfunc_10(u32_238020, u32_238020, u32_238020);
 };
 u32_238020 SequenceTrack::vfunc_10(u32_238020 a, u32_238020 b, u32_238020 c) {
-    Builder* p = (Builder*)Alloc(0x3c);
+    Builder* p = (Builder*)Alloc_0008d690(0x3c);
     if (p) {
         u32_238020 x = field0c;
-        return p->Run(a, (hulk_uintptr)this, x, field18, &pad1c, b, c);
+        return p->Run_00237c90(a, (hulk_uintptr)this, x, field18, &pad1c, b, c);
     }
     return 0;
 }
@@ -603,9 +603,9 @@ namespace fn_f55fdae2 {
 // sym: _FUN_002380a0
 extern "C" void FUN_002380a0(Receiver_2380a0* c, int b) {
     Track t;
-    *(void**)&t = VT_2380a0;
+    *(void**)&t = hulk_at_004281ac;
     Track* p = FUN_00236ac0(b, &t);
-    c->Finish(p);
+    c->Finish_002367c0(p);
 }
 
 } // namespace fn_f55fdae2
@@ -632,13 +632,13 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::SequenceTrack>::vfunc
 template <> void* fight::TrackFactoryTemplate<fight::SequenceTrack>::vfunc_5() {
     Obj_238110* p = (Obj_238110*)operator_new(0x20);
     if (p) {
-        p->Ctor();
+        p->Ctor_00236d40();
         Sub1_238110* s1 = (Sub1_238110*)((char*)p + 0xc);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428100);
-        s1->Init1();
+        s1->Init1_00233dd0();
         Sub2_238110* s2 = (Sub2_238110*)((char*)p + 0x1c);
         *(u32_238110*)((char*)p + 0x18) = 1;
-        s2->Init2();
+        s2->Init2_00236e00();
         *(u32_238110*)((char*)p + 8) = 1;
         return (void*)(p);
     }
@@ -651,7 +651,7 @@ namespace fn_f55fdae2 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f55fdae2@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_238160;
+    m_vptr = (void*)&hulk_at_004281b8;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

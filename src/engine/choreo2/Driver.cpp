@@ -12,9 +12,9 @@ namespace fn_f92753c8 {} using namespace fn_f92753c8;
 // ---- declarations shared by the functions below
 namespace fn_f92753c8 {
 struct Driver_nv_22a8e0 {
-    void Init();
+    void Init_0027b070();
 };
-extern int vtable_22a8e0;
+extern int hulk_at_004274d8;
 class Driver_22a8e0 {
   public:
     int* mVtable;
@@ -31,7 +31,7 @@ namespace fn_f92753c8 {
 class Entity_22a950 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_0027afd0();
 };
 class Driver_22a950 : public Entity_22a950 {
   public:
@@ -43,8 +43,8 @@ class Driver_22a950 : public Entity_22a950 {
 // sym: @FUN_0022a8e0@4
 // data: gCount_22a8e0 = DAT_004e5abc
 extern "C" Driver_22a8e0* __fastcall FUN_0022a8e0(Driver_22a8e0* self) {
-    ((Driver_nv_22a8e0*)(((choreo2::Driver*)(self))))->Init();
-    self->mVtable = &vtable_22a8e0;
+    ((Driver_nv_22a8e0*)(((choreo2::Driver*)(self))))->Init_0027b070();
+    self->mVtable = &hulk_at_004274d8;
     ++(*(int*)&DAT_004e5abc);
     if ((*(int*)&DAT_004e5abc) <= (*(int*)&DAT_004e5ac0))
         return self;
@@ -87,7 +87,7 @@ Driver_22a950* Driver_22a950::f2(unsigned char flags) {
     vptr = g_vftable_22a950;
     _ReadWriteBarrier();
     (*(int*)&DAT_004e5abc)--;
-    Fin();
+    Fin_0027afd0();
     if (flags & 1)
         operator delete(this);
     return this;

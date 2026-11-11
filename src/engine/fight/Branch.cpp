@@ -15,12 +15,12 @@ namespace fn_f3f1aadd {
 class Local_232c40 {
   public:
     char data[8];
-    void Init();
-    void Finish();
+    void Init_0027af00();
+    void Finish_0027af50();
 };
 class Helper_232c40 {
   public:
-    void Do(Local_232c40*);
+    void Do_0027af70(Local_232c40*);
 };
 class T_232c40 {
   public:
@@ -61,10 +61,10 @@ extern "C" __int64 __cdecl helper(hulk_intptr, int, int);
 extern "C" char DAT_00427898[];
 typedef unsigned int u32_232e90;
 struct Branch_232e90 {
-    void Init();
+    void Init_0027b070();
 };
 struct Inner_232e90 {
-    void Init();
+    void Init_00236e00();
 };
 class Branch {
   public:
@@ -86,7 +86,7 @@ struct Node {
     int value;
     void target();
 };
-extern int a, b;
+extern int hulk_at_0048e090, hulk_at_004ca2b0;
 void __cdecl fun(Node*, int, void*, void*, int);
 extern void* FUN_00344e74(owners::Node_232f60*, int, const void*, const void*, int);
 extern const int DAT_0048e090;
@@ -107,11 +107,11 @@ struct Node_2331f0 {
     Node_2331f0* next;
 };
 struct Helper_2331f0 {
-    void go();
+    void go_00236ec0();
 };
 class Sub_233390 {
   public:
-    void helper(fight::Branch*);
+    void helper_00236ee0(fight::Branch*);
 };
 class Node_233390 {
   public:
@@ -137,10 +137,10 @@ class Node_2333c0 {
     Node_2333c0* next;
 };
 struct Helper_2333c0 {
-    void f(void*);
+    void Fnf_00236f10(void*);
 };
 struct Inner_2333f0 {
-    int Helper(void*, void*, void*);
+    int Helper_00236f40(void*, void*, void*);
 };
 struct Branch_2333f0 {
     char pad[0x18];
@@ -208,8 +208,8 @@ public:
 };
 class Branch_233970 {
   public:
-    void init();
-    void finish();
+    void init_00236fd0();
+    void finish_0027afd0();
 };
 class Thing_233dd0 {
   public:
@@ -246,11 +246,11 @@ class Holder_233fa0 {
 // sym: ?Target@T_232c40@fn_f3f1aadd@@QAEDHHPAVHelper_232c40@2@@Z
 char T_232c40::Target(int a, int b, Helper_232c40* h) {
     Local_232c40 x;
-    x.Init();
+    x.Init_0027af00();
     bool r = Run(a, b, &x);
     if (r)
-        ((Helper_232c40*)((char*)h + 8))->Do(&x);
-    x.Finish();
+        ((Helper_232c40*)((char*)h + 8))->Do_0027af70(&x);
+    x.Finish_0027af50();
     return r;
 }
 
@@ -282,11 +282,11 @@ void Obj::Fn(int a, int b) {
 // 0x00232e90 FUN_00232e90 (56 B): matches/0x00232e90.cpp
 // sym: ?Build@Branch@fn_f3f1aadd@@QAEPAV12@I@Z
 Branch* Branch::Build(u32_232e90 param) {
-    ((Branch_232e90*)this)->Init();
+    ((Branch_232e90*)this)->Init_0027b070();
     *((hulk_uintptr*)this) = ((hulk_intptr)DAT_00427898);
     arg = param;
     field14 = 0;
-    inner.Init();
+    inner.Init_00236e00();
     field1c = 0;
     field20 = 0;
     return this;
@@ -312,13 +312,13 @@ namespace fn_f3f1aadd {
 // sym: ?target@Node@fn_f3f1aadd@@QAEXXZ
 void Node::target() {
     if (kind == 3) {
-        fun(this, 0, &a, &b, 0);
+        fun(this, 0, &hulk_at_0048e090, &hulk_at_004ca2b0, 0);
         return;
     }
     Node* q = next;
     while (q && q->kind != 3)
         q = q->next;
-    fun(q, 0, &a, &b, 0);
+    fun(q, 0, &hulk_at_0048e090, &hulk_at_004ca2b0, 0);
 }
 
 } // namespace fn_f3f1aadd
@@ -455,7 +455,7 @@ void Owner::FUN_002331c0() {
 // 0x002331f0 fight::Branch::vfunc_7 (50 B): matches/0x002331f0.cpp
 // sym: ?vfunc_7@Branch@fight@@UAEXXZ
 void fight::Branch::vfunc_7() {
-    ((Helper_2331f0*)((char*)this + 0x18))->go();
+    ((Helper_2331f0*)((char*)this + 0x18))->go_00236ec0();
     Node_2331f0* p = (*(Node_2331f0 * *)&this->f_1c);
     while (p) {
         Node_2331f0* c = p;
@@ -529,7 +529,7 @@ owners::Node_233320 *owners::Node_233320::FUN_00233320(int first, int second) {
 // 0x00233390 fight::Branch::vfunc_5 (35 B): matches/0x00233390.cpp
 // sym: ?vfunc_5@Branch@fight@@UAEXXZ
 void fight::Branch::vfunc_5() {
-    ((Sub_233390*)((char*)this + 0x18))->helper(this);
+    ((Sub_233390*)((char*)this + 0x18))->helper_00236ee0(this);
     for (Node_233390* p = (*(Node_233390 * *)&this->f_1c); p; p = p->next)
         p->f5();
 }
@@ -543,7 +543,7 @@ void fight::Branch::vfunc_6() {
         p->f6();
         p = p->next;
     }
-    ((Helper_2333c0*)((char*)this + 0x18))->f(this);
+    ((Helper_2333c0*)((char*)this + 0x18))->Fnf_00236f10(this);
 }
 
 namespace fn_f3f1aadd {
@@ -551,7 +551,7 @@ namespace fn_f3f1aadd {
 // 0x002333f0 FUN_002333f0 (22 B): matches/0x002333f0.cpp
 // sym: ?Target@Branch_2333f0@fn_f3f1aadd@@QAEHPAX0@Z
 int Branch_2333f0::Target(void* a, void* b) {
-    return inner.Helper(this, a, b);
+    return inner.Helper_00236f40(this, a, b);
 }
 
 
@@ -616,8 +616,8 @@ char Branch_2337c0::ParseBlock(hulk_intptr a0, Lexer *lexer, int index)
 void fight::Branch::FUN_00233970() {
     *(void**)this = (void*)((hulk_intptr)DAT_00427898);
     fight::Branch::vfunc_7();
-    ((Branch_233970*)((char*)this + 0x18))->init();
-    ((Branch_233970*)this)->finish();
+    ((Branch_233970*)((char*)this + 0x18))->init_00236fd0();
+    ((Branch_233970*)this)->finish_0027afd0();
 }
 
 
@@ -730,8 +730,8 @@ class Owner_233bb0 {
     Node* head;
 
   public:
-    void F(int);
-    void G(int, Node*);
+    void FnF_00233230(int);
+    void FnG_00233b30(int, Node*);
     char H(int i, int v);
 };
 char Owner_233bb0::H(int i, int v) {
@@ -748,8 +748,8 @@ char Owner_233bb0::H(int i, int v) {
     if (!n)
         return 0;
     n->A();
-    F(i);
-    G(v, n);
+    FnF_00233230(i);
+    FnG_00233b30(v, n);
     n->B();
     return 1;
 }
@@ -763,7 +763,7 @@ typedef unsigned char u8_233d90;
 namespace fight {
 class Other_233d90 {
   public:
-    void f1();
+    void f1_00236fd0();
 };
 class Branch {
   public:
@@ -777,16 +777,16 @@ class Branch {
     virtual void v7x();
     char pad[0x14];
     Other_233d90 sub;
-    void vfunc_7();
-    void base_fn();
+    void vfunc_7_002331f0();
+    void base_fn_0027afd0();
 };
-extern "C++" { extern char fight_Branch_vftable[]; }
+extern "C++" { extern char hulk_at_00427898[]; }
 void __cdecl thunk_FUN_00267090(Branch*);
 Branch* Branch::vfunc_2(u8_233d90 param) {
-    *(void**)this = (void*)fight_Branch_vftable;
-    vfunc_7();
-    sub.f1();
-    base_fn();
+    *(void**)this = (void*)hulk_at_00427898;
+    vfunc_7_002331f0();
+    sub.f1_00236fd0();
+    base_fn_0027afd0();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;

@@ -14,7 +14,7 @@ namespace fn_f8d4917d {} using namespace fn_f8d4917d;
 
 // ---- declarations shared by the functions below
 namespace fn_f8d4917d {
-extern int g_vtable_2b0f40;
+extern int hulk_at_0042e39c;
 class VertexOffsetExpressionMixerLoader {
   public:
     hulk_intptr m0;
@@ -24,7 +24,7 @@ class VertexOffsetExpressionMixerLoader {
     int m10;
     VertexOffsetExpressionMixerLoader();
 };
-extern void* Alloc(hulk_uintptr);
+extern void* Alloc_0008d6d0(hulk_uintptr);
 void* __cdecl FUN_0008d6d0(unsigned size);
 extern "C" void __cdecl FUN_002b0e40(void* data, unsigned count, int value);
 struct Pair { unsigned a; unsigned b; };
@@ -65,7 +65,7 @@ struct Item {
     void FUN_002b0e90(Item* source);
 };
 typedef unsigned int u32_2b1390;
-extern void __cdecl releaseThing(u32_2b1390);
+extern void __cdecl releaseThing_0008d340(u32_2b1390);
 struct Entry_2b1390 {
     u32_2b1390 value;
     char pad[12];
@@ -138,7 +138,7 @@ VertexOffsetExpressionMixerLoader::VertexOffsetExpressionMixerLoader() {
     m8 = 0x21002;
     mC = 0;
     m10 = 0;
-    m0 = (hulk_intptr)&g_vtable_2b0f40;
+    m0 = (hulk_intptr)&hulk_at_0042e39c;
 }
 
 } // namespace fn_f8d4917d
@@ -153,7 +153,7 @@ class SimpleChunkHandler_2b0f60 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_2b0f60 {
   public:
@@ -164,7 +164,7 @@ class NonCopyable : public SimpleChunkHandler_2b0f60 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -178,7 +178,7 @@ bool owners::Buffer_2b0fb0::FUN_002b0fb0(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        begin = (int*)Alloc(count * 8);
+        begin = (int*)Alloc_0008d6d0(count * 8);
         if (begin != 0) {
             end = (int*)((char*)begin + count * 8);
             Init(begin, count, arg);
@@ -198,7 +198,7 @@ bool owners::Buffer_2b1010::FUN_002b1010(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc(count * 4);
+        int* p = (int*)Alloc_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -312,8 +312,8 @@ namespace fn_002b1330 {
 struct E_2b1330 {
     char b[16];
 };
-extern "C++" __declspec(nothrow) void* __cdecl Alloc(hulk_uintptr);
-extern "C++" __declspec(nothrow) void __cdecl Init(void*, unsigned int, void*);
+extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d6d0(hulk_uintptr);
+extern "C++" __declspec(nothrow) void __cdecl Init_002b12d0(void*, unsigned int, void*);
 class Buffer_2b1330 {
   public:
     E_2b1330* data;
@@ -324,10 +324,10 @@ char Buffer_2b1330::Create(unsigned int count, void* arg) {
     if (data)
         return 0;
     if (count > 0) {
-        data = (E_2b1330*)Alloc(count * sizeof(E_2b1330));
+        data = (E_2b1330*)Alloc_0008d6d0(count * sizeof(E_2b1330));
         if (data) {
             end = data + count;
-            Init(data, count, arg);
+            Init_002b12d0(data, count, arg);
             return 1;
         }
     }
@@ -344,7 +344,7 @@ namespace fn_f8d4917d {
 void __cdecl FUN_002b1390(Entry_2b1390* begin, Entry_2b1390* end) {
     for (; begin != end; ++begin) {
         if (begin->value != 0)
-            releaseThing(begin->value);
+            releaseThing_0008d340(begin->value);
     }
 }
 

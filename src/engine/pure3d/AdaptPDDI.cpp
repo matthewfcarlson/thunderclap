@@ -19,7 +19,7 @@ extern "C" void FUN_002b53f0();
 extern "C" void FUN_002a3460();
 extern "C" void FUN_0029c3b0();
 extern "C" void FUN_0028fcb0(void*);
-void Helper(int a, int b, int c);
+void Helper_002726e0(int a, int b, int c);
 
 
 // 0x002c31b0 FUN_002c31b0 (15 B): matches/0x002c31b0.cpp
@@ -63,6 +63,6 @@ void pure3d::AdaptPDDI::vfunc_1(void* __p0) { void * p = (void *)__p0;
 // 0x002c3210 pure3d::AdaptPDDI::vfunc_2 (26 B): matches/0x002c3210.cpp
 // sym: ?vfunc_2@AdaptPDDI@pure3d@@UAEXHHH@Z
 void pure3d::AdaptPDDI::vfunc_2(int a, int b, int c) {
-    Helper(a, b, c);
+    Helper_002726e0(a, b, c);
 }
 

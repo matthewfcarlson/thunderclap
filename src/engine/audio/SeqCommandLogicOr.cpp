@@ -17,11 +17,11 @@ namespace fn_fee5f112 {} using namespace fn_fee5f112;
 namespace fn_fee5f112 {
 class SeqEvent_254e80 {
   public:
-    bool vfunc_0(void*);
+    bool vfunc_0_0025fd20(void*);
 };
 class SeqEventContainer_254e80 {
   public:
-    bool vfunc_0(void*);
+    bool vfunc_0_002607c0(void*);
 };
 extern "C" bool FUN_0025ac10(void*, void*);
 } // namespace fn_fee5f112
@@ -43,7 +43,7 @@ class SeqEventLogicOrType_254f40 : public FUN_002605e0 {
     SeqEventLogicOrType_254f40() throw();
     virtual void g();
 };
-extern void* g_vftable_255060[];
+extern void* hulk_at_00429ac8[];
 class SeqCommandLogicOr_255060 {
   public:
     void* vptr;
@@ -95,7 +95,7 @@ namespace audio {
 struct SeqCommand_255250 { virtual void vfunc_0(Context_255250*); virtual void vfunc_1(); unsigned unknown; CommandList_255250* list; };
 }
 namespace fn_fee5f112 {
-void* __cdecl Alloc(char*);
+void* __cdecl Alloc_00247530(char*);
 } // namespace fn_fee5f112
 namespace audio {
 class SeqEventBase {
@@ -142,8 +142,8 @@ extern "C" int* FUN_00254e70() {
 // sym: ?vfunc_0@SeqEventLogicOr@audio@@UAEHPAX@Z
 int audio::SeqEventLogicOr::vfunc_0(void* __p0) { void * arg = (void *)__p0;
 
-    if (((SeqEvent_254e80*)this)->vfunc_0(arg) && FUN_0025ac10(arg, (char*)this + 0x14) &&
-        ((SeqEventContainer_254e80*)this)->vfunc_0(arg))
+    if (((SeqEvent_254e80*)this)->vfunc_0_0025fd20(arg) && FUN_0025ac10(arg, (char*)this + 0x14) &&
+        ((SeqEventContainer_254e80*)this)->vfunc_0_002607c0(arg))
         return 1;
     return 0;
 }
@@ -208,7 +208,7 @@ public:
 
 class SeqEventContainer {
 public:
-    char vfunc_1(Archive_254fc0 *ar);
+    char vfunc_1_00260840(Archive_254fc0 *ar);
 };
 
 class SeqEventLogicOr : public SeqEvent {
@@ -226,7 +226,7 @@ char SeqEventLogicOr::vfunc_1(Archive_254fc0 *ar)
     ar->writer->indent++;
     if (!FUN_00252470(ar, "mSpread", &spread))
         return 0;
-    if (!((SeqEventContainer *)this)->vfunc_1(ar))
+    if (!((SeqEventContainer *)this)->vfunc_1_00260840(ar))
         return 0;
     ar->writer->indent--;
     if (!FUN_00246f50(ar->writer, "]\n"))
@@ -243,7 +243,7 @@ namespace fn_fee5f112 {
 // sym: ?f2@SeqCommandLogicOr_255060@fn_fee5f112@@QAEPAV12@E@Z
 // data: g_bss = DAT_004e7410
 SeqCommandLogicOr_255060* SeqCommandLogicOr_255060::f2(unsigned char flags) {
-    vptr = g_vftable_255060;
+    vptr = hulk_at_00429ac8;
 
     if (flags & 1)
         Free(((char*)&DAT_004e7410), this);
@@ -275,7 +275,7 @@ class SeqEventContainer {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    void Init();
+    void Init_002607a0();
 };
 class SeqEventLogicOr : public SeqEventContainer {
   public:
@@ -287,7 +287,7 @@ class SeqEventLogicOr : public SeqEventContainer {
 };
 extern void __cdecl FUN_00247550(void*, SeqEventLogicOr*);
 SeqEventLogicOr* SeqEventLogicOr::v4(int flags) {
-    Init();
+    Init_002607a0();
     if (flags & 1)
         FUN_00247550(((char*)((char*)&DAT_004e7458)), this);
     return this;
@@ -350,7 +350,7 @@ void audio::SeqCommandLogicOr::vfunc_0(int __p0) { Context_255250 * context = (C
 // data: bss = DAT_004e7458
  // namespace audio
 void* audio::SeqEventLogicOrType::vfunc_3() {
-    void* p = Alloc(((char*)((char*)&DAT_004e7458)));
+    void* p = Alloc_00247530(((char*)((char*)&DAT_004e7458)));
     return (void*)(p ? new (p) SeqEventLogicOr_255350 : 0);
 }
 

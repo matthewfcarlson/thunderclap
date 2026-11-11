@@ -82,10 +82,10 @@ struct WallOwner { char pad[0x18]; WallResult *result; };
 }
 namespace fn_fc25916f {
 struct WallResponse {  };
-extern void* CollisionVolume_30e930_vftable[];
+extern void* hulk_at_0043201c[];
 class CollisionVolume_30e930 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00306ac0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionWall_30e930 : public CollisionVolume_30e930 {
   public:
@@ -99,7 +99,7 @@ class CollisionWall_30e930 : public CollisionVolume_30e930 {
 namespace fn_0030e630 {
 struct V3_30e630 {
     int x, y, z;
-    void Fix();
+    void Fix_0022d180();
 };
 struct CollisionVolume_30e630 {
     CollisionVolume_30e630();
@@ -128,7 +128,7 @@ physics::CollisionWall::CollisionWall(const V3_30e630* pa, const V3_30e630* pb) 
     a.y = pa->y;
     a.z = pa->z;
     V3_30e630* p = &b;
-    p->Fix();
+    p->Fix_0022d180();
     c.x = p->x;
     c.y = p->y;
     c.z = p->z;
@@ -248,7 +248,7 @@ class CollisionVolume {
 };
 struct Vec3_30e830 {
     float x, y, z;
-    void Normalize();
+    void Normalize_0022d180();
 };
 namespace physics {
 class CollisionWall : public CollisionVolume {
@@ -260,7 +260,7 @@ class CollisionWall : public CollisionVolume {
 } // namespace physics
 void physics::CollisionWall::vfunc_7(float x) {
     Vec3_30e830* p = &v;
-    p->Normalize();
+    p->Normalize_0022d180();
     hulk_freg q = DAT_003f32dc / x;
     p->x *= q;
     p->y *= q;
@@ -322,8 +322,8 @@ namespace fn_fc25916f {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionWall_30e930* CollisionWall_30e930::vfunc_5(signed char flags) {
-    *(void***)this = CollisionVolume_30e930_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0043201c;
+    Destroy_00306ac0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

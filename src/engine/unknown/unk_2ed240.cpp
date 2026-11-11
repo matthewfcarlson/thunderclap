@@ -105,7 +105,7 @@ public:
 };
 typedef unsigned int u32_2ed6e0;
 struct Sub_2ed6e0 {
-    void Call(void*, u32_2ed6e0, int);
+    void Call_002f8020(void*, u32_2ed6e0, int);
 };
 namespace pure3d {
 class Entity {
@@ -552,8 +552,8 @@ struct State_2eecc0 {
 };
 class Inner_2eedd0 {
   public:
-    void First();
-    void Second(void*, void*, int);
+    void First_002eea80();
+    void Second_002f8020(void*, void*, int);
 };
 class Obj_2eedd0 {
   public:
@@ -588,27 +588,27 @@ public:
 void __cdecl operator delete[](void*);
 namespace fn_f671dae7 {
 struct CollisionDetector_2ef050 {
-    void f();
+    void Fnf_00301290();
 };
 struct ImpulseBasedCollisionSolver_2ef050 {
-    void f();
+    void Fnf_002f7ee0();
 };
 struct S3_2ef050 {
-    void f();
+    void Fnf_00304300();
 };
 struct C_2ef050 {
     char pad[0x70];
-    void f();
+    void Fnf_002eee10();
     C_2ef050* target();
 };
 struct A_2ef080 {
-    void one();
+    void one_00304350();
 };
 struct ImpulseBasedCollisionSolver_2ef080 {
-    void two();
+    void two_002f79f0();
 };
 struct CollisionDetector_2ef080 {
-    void three();
+    void three_003012c0();
 };
 struct Obj_2ef080 {
     char p70[0x70];
@@ -621,28 +621,28 @@ struct Obj_2ef080 {
 };
 class Obj_2ef0b0 {
   public:
-    void Init();
+    void Init_002eee10();
 };
 class CollisionDetector_2ef0b0 {
   public:
-    void Init();
+    void Init_00301290();
 };
 class ImpulseBasedCollisionSolver_2ef0b0 {
   public:
-    void Init();
+    void Init_002f7ee0();
 };
 class Obj1B0 {
   public:
-    void Init();
+    void Init_00304300();
 };
 struct CollisionDetector_2ef110 {
-    void f1();
+    void f1_003012c0();
 };
 struct ImpulseBasedCollisionSolver_2ef110 {
-    void f2();
+    void f2_002f79f0();
 };
 struct D {
-    void f3();
+    void f3_00304350();
 };
 struct C_2ef110 {
     char p0[0x70];
@@ -653,20 +653,20 @@ struct C_2ef110 {
     D c;
     C_2ef110* target(unsigned char flag);
 };
-void destroy(C_2ef110*);
+void destroy_0008d330(C_2ef110*);
 class CollisionDetector_2ef150 {
   public:
-    void f();
+    void Fnf_003012c0();
     char pad[0x40];
 };
 class ImpulseBasedCollisionSolver_2ef150 {
   public:
-    void f();
+    void Fnf_002f79f0();
     char pad[0x100];
 };
 class C {
   public:
-    void f();
+    void Fnf_00304350();
 };
 class Obj {
   public:
@@ -675,7 +675,7 @@ class Obj {
     ImpulseBasedCollisionSolver_2ef150 b;
     C c;
 };
-extern "C" void __cdecl freeObj(void*);
+extern "C" void __cdecl freeObj_0008d330(void*);
 struct Vec_2ef200 {
     float x, y, z;
 };
@@ -718,8 +718,8 @@ class Target_2ef270 {
     unsigned char a, b;
     void run();
 };
-extern int simVtable;
-extern int refVtable_2ef2c0;
+extern int hulk_at_00431214;
+extern int hulk_at_003f6098;
 class Obj_2ef2c0 {
   public:
     virtual void f0();
@@ -915,7 +915,7 @@ void SweepAndPrune::FUN_002ed3d0(unsigned int index)
 // 0x002ed6e0 FUN_002ed6e0 (25 B): matches/0x002ed6e0.cpp
 // sym: ?FUN_002ed6e0@Obj_2ed6e0@owners@@QAEXI@Z
 void owners::Obj_2ed6e0::FUN_002ed6e0(u32_2ed6e0 arg) {
-    ((Sub_2ed6e0*)((char*)this + 0xb0))->Call((char*)this + 0x2c, arg, 0);
+    ((Sub_2ed6e0*)((char*)this + 0xb0))->Call_002f8020((char*)this + 0x2c, arg, 0);
 }
 
 namespace fn_f671dae7 {
@@ -1470,8 +1470,8 @@ void State_2eecc0::reset() {
 // 0x002eedd0 FUN_002eedd0 (34 B): matches/0x002eedd0.cpp
 // sym: ?Run@Obj_2eedd0@fn_f671dae7@@QAEXPAX@Z
 void Obj_2eedd0::Run(void* arg) {
-    ((Inner_2eedd0*)this)->First();
-    ((Inner_2eedd0*)((char*)this + 0xb0))->Second((char*)this + 0x2c, arg, 0);
+    ((Inner_2eedd0*)this)->First_002eea80();
+    ((Inner_2eedd0*)((char*)this + 0xb0))->Second_002f8020((char*)this + 0x2c, arg, 0);
 }
 
 // 0x002eee00 thunk_FUN_002eecc0 (5 B): not yet verified
@@ -1625,10 +1625,10 @@ namespace fn_f671dae7 {
 // 0x002ef050 FUN_002ef050 (46 B): matches/0x002ef050.cpp
 // sym: ?target@C_2ef050@fn_f671dae7@@QAEPAU12@XZ
 C_2ef050* C_2ef050::target() {
-    f();
-    ((CollisionDetector_2ef050*)(pad + 0x70))->f();
-    ((ImpulseBasedCollisionSolver_2ef050*)(pad + 0xb0))->f();
-    ((S3_2ef050*)(pad + 0x1b0))->f();
+    Fnf_002eee10();
+    ((CollisionDetector_2ef050*)(pad + 0x70))->Fnf_00301290();
+    ((ImpulseBasedCollisionSolver_2ef050*)(pad + 0xb0))->Fnf_002f7ee0();
+    ((S3_2ef050*)(pad + 0x1b0))->Fnf_00304300();
     pad[0x6c] = 0;
     return this;
 }
@@ -1637,9 +1637,9 @@ C_2ef050* C_2ef050::target() {
 // 0x002ef080 FUN_002ef080 (41 B): matches/0x002ef080.cpp
 // sym: ?target@Obj_2ef080@fn_f671dae7@@QAEXXZ
 void Obj_2ef080::target() {
-    a.one();
-    b.two();
-    c.three();
+    a.one_00304350();
+    b.two_002f79f0();
+    c.three_003012c0();
     ((owners::Obj_2eefc0 *)this)->FUN_002eefc0();
 }
 
@@ -1651,10 +1651,10 @@ extern "C" void FUN_002ef0b0() {
     if ((*(void**)&DAT_00554c14) == 0) {
         void* p = Alloc(0x1c4);
         if (p != 0) {
-            ((Obj_2ef0b0*)p)->Init();
-            ((CollisionDetector_2ef0b0*)((char*)p + 0x70))->Init();
-            ((ImpulseBasedCollisionSolver_2ef0b0*)((char*)p + 0xb0))->Init();
-            ((Obj1B0*)((char*)p + 0x1b0))->Init();
+            ((Obj_2ef0b0*)p)->Init_002eee10();
+            ((CollisionDetector_2ef0b0*)((char*)p + 0x70))->Init_00301290();
+            ((ImpulseBasedCollisionSolver_2ef0b0*)((char*)p + 0xb0))->Init_002f7ee0();
+            ((Obj1B0*)((char*)p + 0x1b0))->Init_00304300();
             *((char*)p + 0x6c) = 0;
             (*(void**)&DAT_00554c14) = p;
         } else
@@ -1666,12 +1666,12 @@ extern "C" void FUN_002ef0b0() {
 // 0x002ef110 FUN_002ef110 (62 B): matches/0x002ef110.cpp
 // sym: ?target@C_2ef110@fn_f671dae7@@QAEPAU12@E@Z
 C_2ef110* C_2ef110::target(unsigned char flag) {
-    c.f3();
-    b.f2();
-    a.f1();
+    c.f3_00304350();
+    b.f2_002f79f0();
+    a.f1_003012c0();
     ((owners::Obj_2eefc0 *)this)->FUN_002eefc0();
     if (flag & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 
@@ -1681,11 +1681,11 @@ C_2ef110* C_2ef110::target(unsigned char flag) {
 void destroyObj() {
     Obj* p = (*(Obj**)&DAT_00554c14);
     if (p) {
-        p->c.f();
-        p->b.f();
-        p->a.f();
+        p->c.Fnf_00304350();
+        p->b.Fnf_002f79f0();
+        p->a.Fnf_003012c0();
         ((owners::Obj_2eefc0 *)p)->FUN_002eefc0();
-        freeObj(p);
+        freeObj_0008d330(p);
     }
     (*(Obj**)&DAT_00554c14) = 0;
 }
@@ -1717,7 +1717,7 @@ void Target_2ef270::run() {
 // sym: ?Cleanup@SimState@fn_f671dae7@@QAEXXZ
 void SimState::Cleanup() {
     Inner_2ef2c0* a = m74;
-    vptr = &simVtable;
+    vptr = &hulk_at_00431214;
     if (a) {
         a->value = 0;
         m74->Release();
@@ -1726,7 +1726,7 @@ void SimState::Cleanup() {
         m70->Do(0);
         m70->Release();
     }
-    vptr = &refVtable_2ef2c0;
+    vptr = &hulk_at_003f6098;
 }
 
 } // namespace fn_f671dae7

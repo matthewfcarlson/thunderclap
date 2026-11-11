@@ -57,8 +57,8 @@ struct Obj_2d6d10 {
     char padb4;
     unsigned char b5;
 };
-extern void __cdecl Process(void* ctx, void* p);
-extern void __cdecl Finish(Obj_2d6d10*);
+extern void __cdecl Process_002e6c40(void* ctx, void* p);
+extern void __cdecl Finish_002d6d00(Obj_2d6d10*);
 typedef unsigned int U32_2d6dd0;
 struct Obj_2d6dd0 {
     char pad[0x5c];
@@ -131,9 +131,9 @@ struct Obj_2d7df0 {
     char rest[0x214 - 0x3c];
     int field214;
 };
-void F1(Obj_2d7df0*, Obj_2d7df0*, Obj_2d7df0*);
-void F2(Obj_2d7df0*, int);
-void F3(Obj_2d7df0*, int);
+void F1_002d7b60(Obj_2d7df0*, Obj_2d7df0*, Obj_2d7df0*);
+void F2_002e6c40(Obj_2d7df0*, int);
+void F3_002e6ab0(Obj_2d7df0*, int);
 typedef unsigned int uint_2d7e90;
 struct Obj_2d7e90 {
     char pad[8];
@@ -501,7 +501,7 @@ struct png_row_info_2dd5c0 {
     unsigned char pixel_depth;
 };
 typedef void(__cdecl* ReadFn_2dd690)(void*, void*, unsigned int);
-extern "C" void __cdecl Fail(void*, const char*);
+extern "C" void __cdecl Fail_002e69a0(void*, const char*);
 struct Obj_2dd690 {
     char pad[0x50];
     ReadFn_2dd690 fn;
@@ -592,25 +592,25 @@ void __cdecl Target(void* ctx, Obj_2d6d10* s) {
         int i = 0;
         if (s->count > 0) {
             do {
-                Process(ctx, s->items[i].p);
+                Process_002e6c40(ctx, s->items[i].p);
                 ++i;
             } while (i < s->count);
         }
-        Process(ctx, s->items);
+        Process_002e6c40(ctx, s->items);
     }
-    Process(ctx, s->a0);
-    Process(ctx, s->ac);
+    Process_002e6c40(ctx, s->a0);
+    Process_002e6c40(ctx, s->ac);
     if (s->b0) {
         int i = 0;
         if (s->b5 > 0) {
             do {
-                Process(ctx, s->b0[i]);
+                Process_002e6c40(ctx, s->b0[i]);
                 ++i;
             } while (i < (int)s->b5);
         }
-        Process(ctx, s->b0);
+        Process_002e6c40(ctx, s->b0);
     }
-    Finish(s);
+    Finish_002d6d00(s);
 }
 
 
@@ -1317,18 +1317,18 @@ void FUN_002d7df0(Obj_2d7df0** a, Obj_2d7df0** b, Obj_2d7df0** c) {
     if (c)
         z = *c;
     int q = x->field214;
-    F1(x, y, z);
+    F1_002d7b60(x, y, z);
     if (y) {
-        F2(x, y->field38);
-        F3(y, q);
+        F2_002e6c40(x, y->field38);
+        F3_002e6ab0(y, q);
         *b = 0;
     }
     if (z) {
-        F2(x, z->field38);
-        F3(z, q);
+        F2_002e6c40(x, z->field38);
+        F3_002e6ab0(z, q);
         *c = 0;
     }
-    F3(x, q);
+    F3_002e6ab0(x, q);
     *a = 0;
 }
 
@@ -3759,7 +3759,7 @@ extern "C" void __cdecl FUN_002dd690(void * p, void* data, unsigned int length) 
     if (fn)
         fn(((Obj_2dd690 *)p), data, length);
     else
-        Fail(((Obj_2dd690 *)p), "Call to NULL read function");
+        Fail_002e69a0(((Obj_2dd690 *)p), "Call to NULL read function");
 }
 
 

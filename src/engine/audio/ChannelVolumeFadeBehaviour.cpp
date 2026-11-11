@@ -82,11 +82,11 @@ class SeqEvent_252130 {
 };
 class SeqEventCheck {
   public:
-    bool CheckBase(void* p);
+    bool CheckBase_0025fd20(void* p);
 };
 extern "C" bool FUN_0025abd0(void*, void*);
 extern "C" bool FUN_0024f010(void*, void*);
-bool Read3(void*, void*);
+bool Read3_00252030(void*, void*);
 struct AllocationPool { char byte; };
 void* __cdecl FUN_00247530(AllocationPool*);
 } // namespace fn_f5ef859b
@@ -310,7 +310,7 @@ class SeqEvent {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    void Base();
+    void Base_0025fd10();
 };
 class SeqEventChannelVolumes : public SeqEvent {
   public:
@@ -318,7 +318,7 @@ class SeqEventChannelVolumes : public SeqEvent {
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
 SeqEventChannelVolumes* SeqEventChannelVolumes::f4(int flag) {
-    Base();
+    Base_0025fd10();
     if (flag & 1)
         FUN_00247550(((char*)((char*)&DAT_004e6d30)), this);
     return this;
@@ -500,10 +500,10 @@ unsigned char audio::SeqEventChannelVolumes::vfunc_1(void **stream) {
 // sym: ?vfunc_0@SeqEventChannelVolumes@audio@@UAEHPAX@Z
 int audio::SeqEventChannelVolumes::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    if (((SeqEventCheck*)this)->CheckBase(p)) {
+    if (((SeqEventCheck*)this)->CheckBase_0025fd20(p)) {
         if (FUN_0025abd0(p, (char*)this + 0x18)) {
             if (FUN_0024f010(p, (char*)this + 0x1c)) {
-                if (Read3(p, (char*)this + 8)) {
+                if (Read3_00252030(p, (char*)this + 8)) {
                     return 1;
                 }
             }

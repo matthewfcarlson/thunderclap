@@ -46,7 +46,7 @@ class Dev_2745d0 {
     virtual void a12();
     virtual void a13();
     virtual unsigned g();
-    unsigned MakeValue();
+    unsigned MakeValue_00272880();
 };
 struct Ctx_2745d0 {
     char pad0[4];
@@ -115,7 +115,7 @@ void core::DriveRequest::FUN_00274590() {
 int core::DriveFormatRequest::vfunc_1() {
     Dev_2745d0* d = (*(Ctx_2745d0 * *)&this->f_08)->dev;
     unsigned x = d->g();
-    unsigned y = d->MakeValue();
+    unsigned y = d->MakeValue_00272880();
     (*(Ctx_2745d0 * *)&this->f_08)->sub.v0();
     (*(Ctx_2745d0 * *)&this->f_08)->value = y;
     (*(Ctx_2745d0 * *)&this->f_08)->sub.v1();

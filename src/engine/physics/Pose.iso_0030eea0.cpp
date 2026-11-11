@@ -13,15 +13,15 @@ struct B_30eea0 {
 };
 struct A_30eea0 {
     char pad[0xBC];
-    void Init();
-    void Finish();
+    void Init_0030edf0();
+    void Finish_0030ed60();
     void Target(int);
 };
 void A_30eea0::Target(int x) {
-    Init();
+    Init_0030edf0();
     ((owners::Obj_30f140 *)(((B_30eea0*)((char*)this + 0x68))))->FUN_0030f140((owners::Obj_30f140 *)(hulk_uintptr)(int)x);
     *(int*)((char*)this + 0xbc) = 1;
-    Finish();
+    Finish_0030ed60();
 }
 } // namespace fn_f149c202
 

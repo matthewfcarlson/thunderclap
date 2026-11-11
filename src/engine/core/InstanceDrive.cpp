@@ -67,14 +67,14 @@ class Checker_276980 {
     virtual void e();
     virtual void f();
     virtual char check();
-    void Finish(void*, int, int);
+    void Finish_00272b60(void*, int, int);
 };
-extern void __cdecl Parse(int, char*, char*, int*, int*);
-extern void* __cdecl Allocate(int);
+extern void __cdecl Parse_002697c0(int, char*, char*, int*, int*);
+extern void* __cdecl Allocate_00273560(int);
 class InstanceDrive;
 class Builder {
   public:
-    Builder* make(InstanceDrive*, int, int);
+    Builder* make_002759e0(InstanceDrive*, int, int);
 };
 class Other_276cf0 {
   public:
@@ -84,31 +84,31 @@ class Other_276cf0 {
     virtual void tick();
 };
 struct InstanceDrive_nv_276d60 {
-    void g(int, int);
+    void Fng_00272920(int, int);
 };
 struct InstanceDrive_nv_276d70 {
-    void g(int);
+    void Fng_00272960(int);
 };
 struct InstanceDrive_nv_276d80 {
-    void g(int);
+    void Fng_00272990(int);
 };
 struct InstanceDrive_nv_276d90 {
-    void g(int);
+    void Fng_00272990(int);
 };
 struct InstanceDrive_nv_276da0 {
-    void g();
+    void Fng_00272a80();
 };
 struct InstanceDrive_nv_276db0 {
-    void g(int);
+    void Fng_00272a40(int);
 };
 struct InstanceDrive_nv_276dc0 {
-    void g(int);
+    void Fng_002729f0(int);
 };
 struct InstanceDrive_nv_276dd0 {
-    void g(int);
+    void Fng_00272b40(int);
 };
 struct InstanceDrive_nv_276de0 {
-    void g(int, int);
+    void Fng_00272ae0(int, int);
 };
 class Ref_276ec0 {
   public:
@@ -281,9 +281,9 @@ struct Obj_2770a0 {
     virtual void x3();
     virtual void x4(void*);
 };
-extern void* vtmain;
-extern void* vtbase;
-extern void* vtref;
+extern void* hulk_at_0042bddc;
+extern void* hulk_at_0042bdd0;
+extern void* hulk_at_003f6098;
 
 
 // 0x00276650 FUN_00276650 (45 B): matches/0x00276650.cpp
@@ -630,17 +630,17 @@ void InstanceDrive::vfunc_8(int p2, int p3) {
     char local118[20];
     int local120 = 0;
     int local11c = 0;
-    Parse(p2, local104, local118, &local11c, &local120);
+    Parse_002697c0(p2, local104, local118, &local11c, &local120);
     int value = local11c;
     if (checker->check() & 0x80)
         value = local120;
-    Builder* b = (Builder*)Allocate(0x114);
+    Builder* b = (Builder*)Allocate_00273560(0x114);
     Builder* r;
     if (b)
-        r = b->make(this, value, p3);
+        r = b->make_002759e0(this, value, p3);
     else
         r = 0;
-    checker->Finish(r, field10, 0);
+    checker->Finish_00272b60(r, field10, 0);
 }
 
 } // namespace fn_ff53bcc9
@@ -937,8 +937,8 @@ class Guard {
 };
 class Obj {
   public:
-    char ready();
-    void* get();
+    char ready_00272a80();
+    void* get_00272880();
 };
 class InstanceDrive {
   public:
@@ -953,8 +953,8 @@ class InstanceDrive {
 void* InstanceDrive::vfunc_23() {
     guard.enter();
     void* result;
-    if (obj->ready())
-        result = obj->get();
+    if (obj->ready_00272a80())
+        result = obj->get_00272880();
     else
         result = value;
     guard.leave();
@@ -968,7 +968,7 @@ void* InstanceDrive::vfunc_23() {
 // sym: ?vfunc_24@InstanceDrive@core@@UAEXHH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 void core::InstanceDrive::vfunc_24(int a0, int a1) {
-    ((InstanceDrive_nv_276d60*)((*(core::InstanceDrive * *)&this->f_0c)))->g(a0, a1);
+    ((InstanceDrive_nv_276d60*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272920(a0, a1);
 }
 
 
@@ -976,7 +976,7 @@ void core::InstanceDrive::vfunc_24(int a0, int a1) {
 // sym: ?vfunc_25@InstanceDrive@core@@UAEXH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 void core::InstanceDrive::vfunc_25(int a0) {
-    ((InstanceDrive_nv_276d70*)((*(core::InstanceDrive * *)&this->f_0c)))->g(a0);
+    ((InstanceDrive_nv_276d70*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272960(a0);
 }
 
 
@@ -984,7 +984,7 @@ void core::InstanceDrive::vfunc_25(int a0) {
 // sym: ?vfunc_26@InstanceDrive@core@@UAEXH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 void core::InstanceDrive::vfunc_26(int a0) {
-    ((InstanceDrive_nv_276d80*)((*(core::InstanceDrive * *)&this->f_0c)))->g(a0);
+    ((InstanceDrive_nv_276d80*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272990(a0);
 }
 
 
@@ -992,7 +992,7 @@ void core::InstanceDrive::vfunc_26(int a0) {
 // sym: ?vfunc_27@InstanceDrive@core@@UAEXH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 void core::InstanceDrive::vfunc_27(int a0) {
-    ((InstanceDrive_nv_276d90*)((*(core::InstanceDrive * *)&this->f_0c)))->g(a0);
+    ((InstanceDrive_nv_276d90*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272990(a0);
 }
 
 
@@ -1000,7 +1000,7 @@ void core::InstanceDrive::vfunc_27(int a0) {
 // sym: ?vfunc_28@InstanceDrive@core@@UAEXXZ
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 void core::InstanceDrive::vfunc_28() {
-    ((InstanceDrive_nv_276da0*)((*(core::InstanceDrive * *)&this->f_0c)))->g();
+    ((InstanceDrive_nv_276da0*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272a80();
 }
 
 
@@ -1008,7 +1008,7 @@ void core::InstanceDrive::vfunc_28() {
 // sym: ?vfunc_29@InstanceDrive@core@@UAEXH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 void core::InstanceDrive::vfunc_29(int a0) {
-    ((InstanceDrive_nv_276db0*)((*(core::InstanceDrive * *)&this->f_0c)))->g(a0);
+    ((InstanceDrive_nv_276db0*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272a40(a0);
 }
 
 
@@ -1016,7 +1016,7 @@ void core::InstanceDrive::vfunc_29(int a0) {
 // sym: ?vfunc_30@InstanceDrive@core@@UAEXH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 void core::InstanceDrive::vfunc_30(int a0) {
-    ((InstanceDrive_nv_276dc0*)((*(core::InstanceDrive * *)&this->f_0c)))->g(a0);
+    ((InstanceDrive_nv_276dc0*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_002729f0(a0);
 }
 
 
@@ -1024,7 +1024,7 @@ void core::InstanceDrive::vfunc_30(int a0) {
 // sym: ?vfunc_31@InstanceDrive@core@@UAEXH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 void core::InstanceDrive::vfunc_31(int a0) {
-    ((InstanceDrive_nv_276dd0*)((*(core::InstanceDrive * *)&this->f_0c)))->g(a0);
+    ((InstanceDrive_nv_276dd0*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272b40(a0);
 }
 
 
@@ -1032,7 +1032,7 @@ void core::InstanceDrive::vfunc_31(int a0) {
 // sym: ?vfunc_32@InstanceDrive@core@@UAEXHH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
 void core::InstanceDrive::vfunc_32(int a0, int a1) {
-    ((InstanceDrive_nv_276de0*)((*(core::InstanceDrive * *)&this->f_0c)))->g(a0, a1);
+    ((InstanceDrive_nv_276de0*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272ae0(a0, a1);
 }
 
 
@@ -1237,10 +1237,10 @@ extern "C" void FUN_00277050() {
 // sym: ?vfunc_2@InstanceDrive@fn_ff53bcc9@@UAEPAV12@E@Z
 // data: g_obj_2770a0 = DAT_0052a224
 InstanceDrive* InstanceDrive::vfunc_2(unsigned char flag) {
-    *(void**)this = &vtmain;
-    *(void**)((char*)this + 4) = &vtbase;
+    *(void**)this = &hulk_at_0042bddc;
+    *(void**)((char*)this + 4) = &hulk_at_0042bdd0;
     drive->v1();
-    *(void**)this = &vtref;
+    *(void**)this = &hulk_at_003f6098;
     if (flag & 1) {
         FUN_0026d850((void*)((hulk_intptr)DAT_0052a208));
         (*(Obj_2770a0**)&DAT_0052a224)->x4(this);

@@ -101,7 +101,7 @@ struct Base_262cc0 {
     virtual void f1();
     virtual int f2();
 };
-extern uint __cdecl Decode(uint*, int);
+extern uint __cdecl Decode_0024c4d0(uint*, int);
 struct HalRadicalAdpcmDecodeStream_262d40 {
     virtual void f0();
     virtual void f1();
@@ -463,7 +463,7 @@ namespace fn_f533000b {
 // 0x00262d40 audio::HalRadicalAdpcmDecodeStream::vfunc_7 (81 B): matches/0x00262d40.cpp
 // sym: ?f7@HalRadicalAdpcmDecodeStream_262d40@fn_f533000b@@UAEXHHH@Z
 void HalRadicalAdpcmDecodeStream_262d40::f7(int a, int b, int d) {
-    uint v = Decode((uint*)((char*)this + 8), d);
+    uint v = Decode_0024c4d0((uint*)((char*)this + 8), d);
     uint q = v >> 5;
     uint m = *((uint*)((char*)this + 8)) >> 4;
     uint n = (m & 31) * q;

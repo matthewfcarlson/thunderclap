@@ -33,12 +33,12 @@ class Obj_23df80 {
     char Fn(int x);
 };
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_23dfb0;
+extern int* hulk_at_004e5c6c;
 class CCondition_23dfb0 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable[];
+extern void* hulk_at_00428cf4[];
 class Track_23dfc0 {
   public:
     void* vptr;
@@ -52,11 +52,11 @@ class WaitTrack : public Track_23dfc0 {
     int m14;
     WaitTrack() throw();
 };
-extern float gNegOne;
+extern float hulk_at_003f3388;
 extern void* Track_23e050_vftable[];
 class Track_23e050 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class WaitTrack_23e050 : public Track_23e050 {
   public:
@@ -66,13 +66,13 @@ struct Obj_23e080 {
     virtual void F();
     virtual void R();
 };
-extern int WaitAction_23e080_vftable;
+extern int hulk_at_00428d24;
 struct WaitAction_23e080 {
     void* vf;
     int pad[6];
     int arg;
     Obj_23e080* object;
-    void Init();
+    void Init_00232660();
     WaitAction_23e080* Build(int, Obj_23e080*);
 };
 class Ref_23e0d0 {
@@ -103,7 +103,7 @@ class ParamValueInt_23e1e0 : public ParamValue_23e1e0 {
   public:
     int pad;
 };
-extern int gTypeA_23e200;
+extern int hulk_at_0049850c;
 extern "C" char DAT_00428d24[];
 class Ref_23e330 {
   public:
@@ -113,9 +113,9 @@ class Ref_23e330 {
 class Action_23e330 {
   public:
     virtual void v0();
-    void Init();
+    void Init_00232660();
 };
-extern void* Alloc(hulk_uintptr);
+extern void* Alloc_0008d690(hulk_uintptr);
 extern void* g_vftable_23e390[];
 class Ref_23e390 {
   public:
@@ -137,7 +137,7 @@ struct Temp_23e3f0 {
     void* vptr;
 };
 struct A_23e3f0 {
-    void G(void*);
+    void FnG_002367c0(void*);
 };
 struct B_23e3f0 {};
 extern "C" void* FUN_00236ac0(B_23e3f0*, Temp_23e3f0*);
@@ -155,14 +155,14 @@ class TrackFactoryTemplate_23e420 {
     TrackImpl mTrack;
 };
 extern "C++" __declspec(nothrow) void FUN_0023e250();
-extern void __fastcall InitTrack(void*);
+extern void __fastcall InitTrack_00236d40(void*);
 extern int WaitTrackVtable;
 struct WaitTrack_23e460 {
     int* vptr;
     int pad4[2];
     int x, y, z;
 };
-extern int g_vftable_23e4a0;
+extern int hulk_at_00428d78;
 
 
 // 0x0023df40 FUN_0023df40 (12 B): matches/0x0023df40.cpp
@@ -202,7 +202,7 @@ void FUN_0023df90() {
 // sym: ?vfunc_0@WaitTrack@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::WaitTrack::vfunc_0(int index) {
-    int* p = gTable_23dfb0;
+    int* p = hulk_at_004e5c6c;
     return p[index];
 }
 
@@ -214,7 +214,7 @@ WaitTrack::WaitTrack() throw() : Track_23dfc0() {
     m0c = 0;
     m10 = 0;
     m14 = 0;
-    vptr = g_vftable;
+    vptr = hulk_at_00428cf4;
 }
 
 } // namespace fn_f3d35335
@@ -232,7 +232,7 @@ hulk_freg fight::WaitTrack::vfunc_6() {
 // sym: ?vfunc_7@WaitTrack@fight@@UAEMXZ
 // Same code shape as 0x000695a0 (propagated; names are from that function)
 hulk_freg fight::WaitTrack::vfunc_7() {
-    return gNegOne;
+    return hulk_at_003f3388;
 }
 
 
@@ -272,7 +272,7 @@ namespace fn_f3d35335 {
  // thunk_FUN_00267090
 WaitTrack_23e050* WaitTrack_23e050::vfunc_5(signed char flags) {
     *(void***)this = Track_23e050_vftable;
-    Destroy();
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -284,8 +284,8 @@ WaitTrack_23e050* WaitTrack_23e050::vfunc_5(signed char flags) {
 // sym: ?Build@WaitAction_23e080@fn_f3d35335@@QAEPAU12@HPAUObj_23e080@2@@Z
 // Same code shape as 0x0012db50 (propagated; names are from that function)
 WaitAction_23e080* WaitAction_23e080::Build(int a, Obj_23e080* p) {
-    Init();
-    vf = &WaitAction_23e080_vftable;
+    Init_00232660();
+    vf = &hulk_at_00428d24;
     object = 0;
     arg = a;
     if (p)
@@ -406,7 +406,7 @@ template <> bool fight::ParamFloatConstRange<fight::WaitTrack>::vfunc_2() {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::TrackFactoryCasterTemplate<fight::WaitTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_23e200, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -464,9 +464,9 @@ extern "C" void FUN_0023e250() {
 // sym: ?vfunc_10@WaitTrack@fight@@UAEHHHH@Z
 hulk_intptr fight::WaitTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { void * p2 = (void *)__p0; void * p3 = (void *)__p1; Ref_23e330 * p4 = (Ref_23e330 *)__p2;
 
-    Action_23e330* r = (Action_23e330*)Alloc(0x28);
+    Action_23e330* r = (Action_23e330*)Alloc_0008d690(0x28);
     if (r) {
-        r->Init();
+        r->Init_00232660();
         *(void**)((char*)r + 0x1c) = this;
         *(hulk_ulongptr*)r = ((hulk_intptr)DAT_00428d24);
         *(unsigned long*)((char*)r + 0x20) = 0;
@@ -505,7 +505,7 @@ extern "C" void FUN_0023e3f0(A_23e3f0* a, B_23e3f0* b) {
     Temp_23e3f0 t;
     t.vptr = (void*)((hulk_intptr)DAT_00428d60);
     void* r = FUN_00236ac0(b, &t);
-    a->G(r);
+    a->FnG_002367c0(r);
 }
 
 } // namespace fn_f3d35335
@@ -532,7 +532,7 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::WaitTrack>::vfunc_1(v
 template <> void* fight::TrackFactoryTemplate<fight::WaitTrack>::vfunc_5() {
     WaitTrack_23e460* p = (WaitTrack_23e460*)operator new(sizeof(WaitTrack_23e460));
     if (p) {
-        InitTrack(p);
+        InitTrack_00236d40(p);
         p->vptr = (int*)&WaitTrackVtable;
         p->x = 0;
         p->y = 0;
@@ -548,7 +548,7 @@ namespace fn_f3d35335 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f3d35335@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_23e4a0;
+    m_vptr = (void*)&hulk_at_00428d78;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

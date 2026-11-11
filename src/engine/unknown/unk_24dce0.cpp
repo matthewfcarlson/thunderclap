@@ -16,20 +16,20 @@ namespace fn_fb3c10a1 {} using namespace fn_fb3c10a1;
 // ---- declarations shared by the functions below
 namespace fn_fb3c10a1 {
 struct Helper_24dce0 {
-    void init(void*, void*, int, int);
-    void fini();
+    void init_002584d0(void*, void*, int, int);
+    void fini_002580e0();
 };
-extern int __cdecl F247530(void*);
+extern int __cdecl F247530_00247530(void*);
 struct MetaTypeAttribScalar {
     void* vftable;
     MetaTypeAttribScalar* vfunc_0(unsigned char flags);
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
-extern "C" void* g_BaseVftable;
+extern "C" void* hulk_at_00429420;
 struct TypeT_24de80 {
     char pad[0x48];
-    void* Build();
-    void Destroy();
+    void* Build_0024d690();
+    void Destroy_002580e0();
 };
 class MetaTypeAttribBase_24e440 {
   public:
@@ -71,10 +71,10 @@ void FUN_0024e4c0(pure3d::NonCopyable_24e4a0*);
 // sym: ?target@fn_fb3c10a1@@YAHXZ
 int __cdecl target() {
     char local[sizeof(OmType)];  // an om::Type (records.h)
-    ((Helper_24dce0*)local)->init((void*)((hulk_intptr)DAT_004e6328), (void*)((hulk_intptr)DAT_004e6320), 0x30, 4);
+    ((Helper_24dce0*)local)->init_002584d0((void*)((hulk_intptr)DAT_004e6328), (void*)((hulk_intptr)DAT_004e6320), 0x30, 4);
     *(void**)local = (void*)((hulk_intptr)DAT_00429434);
-    int result = F247530(local);
-    ((Helper_24dce0*)local)->fini();
+    int result = F247530_00247530(local);
+    ((Helper_24dce0*)local)->fini_002580e0();
     return result;
 }
 
@@ -88,16 +88,16 @@ extern char DAT_00429440[];
 struct Obj_24dd30 {
     void* vptr;
     char d[sizeof(OmType) - sizeof(void*)];  // the rest of an om::Type (records.h)
-    void Init(char*, char*, int, int);
-    void Finish();
+    void Init_002584d0(char*, char*, int, int);
+    void Finish_002580e0();
 };
 extern void* FUN_00247530(void*);
 void* target() {
     Obj_24dd30 o;
-    o.Init(DAT_004e6338, DAT_004e6330, 0x30, 4);
+    o.Init_002584d0(DAT_004e6338, DAT_004e6330, 0x30, 4);
     o.vptr = DAT_00429440;
     void* p = FUN_00247530(&o);
-    o.Finish();
+    o.Finish_002580e0();
     return p;
 }
 } // namespace fn_0024dd30
@@ -154,11 +154,11 @@ namespace fn_fb3c10a1 {
 // 0x0024de80 om::MetaTypeAttribScalar<int>::vfunc_0 (57 B): matches/0x0024de80.cpp
 // sym: ?vfunc_0@MetaTypeAttribScalar@fn_fb3c10a1@@QAEPAU12@E@Z
 MetaTypeAttribScalar* MetaTypeAttribScalar::vfunc_0(unsigned char flags) {
-    *(void**)this = &g_BaseVftable;
+    *(void**)this = &hulk_at_00429420;
     if (flags & 1) {
         TypeT_24de80 buf;
-        FUN_00247550(buf.Build(), this);
-        buf.Destroy();
+        FUN_00247550(buf.Build_0024d690(), this);
+        buf.Destroy_002580e0();
     }
     return this;
 }
@@ -179,16 +179,16 @@ extern "C++" { extern void* g_BaseVftable; }
 
 struct TypeT_24dec0 {
     char pad[0x48];
-    void* Build();
-    void Destroy();
+    void* Build_0024d6b0();
+    void Destroy_002580e0();
 };
 
 MetaTypeAttribScalar* MetaTypeAttribScalar::vfunc_0(unsigned char flags) {
     *(void**)this = &g_BaseVftable;
     if (flags & 1) {
         TypeT_24dec0 buf;
-        FUN_00247550(buf.Build(), this);
-        buf.Destroy();
+        FUN_00247550(buf.Build_0024d6b0(), this);
+        buf.Destroy_002580e0();
     }
     return this;
 }
@@ -398,20 +398,20 @@ namespace fn_0024e460 {
 
 extern "C" char DAT_0042986c[];
 typedef unsigned int u32_24e460;
-extern char g2;
+extern char hulk_at_004e6348;
 struct A_24e460 {
-    void Init(void*, void*, int, int);
+    void Init_002584d0(void*, void*, int, int);
 };
-extern void Work(void*, u32_24e460);
+extern void Work_00247550(void*, u32_24e460);
 struct C_24e460 {
-    void End();
+    void End_002580e0();
 };
 extern "C" void FUN_0024e460(u32_24e460 value) {
     char local[sizeof(OmType)];  // an om::Type (records.h)
-    ((A_24e460*)local)->Init(&g2, ((char*)&DAT_004e6340), 0x1c, 4);
+    ((A_24e460*)local)->Init_002584d0(&hulk_at_004e6348, ((char*)&DAT_004e6340), 0x1c, 4);
     *(void**)local = (void*)((hulk_intptr)DAT_0042986c);
-    Work(local, value);
-    ((C_24e460*)local)->End();
+    Work_00247550(local, value);
+    ((C_24e460*)local)->End_002580e0();
 }
 } // namespace fn_0024e460
 
@@ -431,7 +431,7 @@ pure3d::NonCopyable_24e4a0* pure3d::NonCopyable_24e4a0::f2(unsigned char param) 
 // sym: _FUN_0024e4c0
 namespace fn_0024e4c0 {
 
-extern char g2;
+extern char hulk_at_004e6358;
 class Type_24e4c0 {
   public:
     virtual void vf();
@@ -442,13 +442,13 @@ class Type_24e4c0 {
 class TypeT_24e4c0 : public Type_24e4c0 {
   public:
     virtual void vf();
-    TypeT_24e4c0() throw() : Type_24e4c0(&g2, ((char*)&DAT_004e6350), 0x1c, 4) {}
+    TypeT_24e4c0() throw() : Type_24e4c0(&hulk_at_004e6358, ((char*)&DAT_004e6350), 0x1c, 4) {}
     ~TypeT_24e4c0() throw();
 };
-extern void process(TypeT_24e4c0*, void*) throw();
+extern void process_00247550(TypeT_24e4c0*, void*) throw();
 extern "C" void FUN_0024e4c0(void* p) {
     TypeT_24e4c0 t;
-    process(&t, p);
+    process_00247550(&t, p);
 }
 } // namespace fn_0024e4c0
 

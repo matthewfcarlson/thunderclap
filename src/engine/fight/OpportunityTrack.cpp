@@ -76,7 +76,7 @@ class Holder_236fd0 {
     void Clear();
 };
 struct OpportunityAction_nv_236ff0 {
-    void Link(fight::OpportunityAction*);
+    void Link_002344a0(fight::OpportunityAction*);
 };
 class List {
   public:
@@ -117,7 +117,7 @@ class Obj_237160 {
 class Owner_237160 {
   public:
     bool Target(int a, int b, int c, Obj_237160* obj);
-    void Work(int, Obj_237160*, int);
+    void Work_00237050(int, Obj_237160*, int);
 };
 class B_237260 {
   public:
@@ -130,24 +130,24 @@ class A_237260 {
     B_237260* GetPtr();
 };
 extern "C" void FUN_00234810(void*, void*);
-extern int* gTable_2372b0;
+extern int* hulk_at_004e5bf4;
 class CCondition_2372b0 {
   public:
     virtual int vfunc_0(int);
 };
-extern float gNegOne;
+extern float hulk_at_003f3388;
 struct SubA_237330 {
     void* v;
-    void Fin() throw();
+    void Fin_00236fd0() throw();
 };
 struct SubB_237330 {
     void* v;
-    void Fin() throw();
+    void Fin_00234150() throw();
 };
 class Track_237330 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class OpportunityTrack_237330 : public Track_237330 {
   public:
@@ -157,22 +157,22 @@ class OpportunityTrack_237330 : public Track_237330 {
     SubA_237330 a;
     ~OpportunityTrack_237330() throw();
 };
-extern int gPayload;
-extern void(__cdecl* gUnknown)(int, int, int, int*, int*);
+extern int hulk_at_004e5c00;
+extern void(__cdecl* hulk_at_004e5bfc)(int, int, int, int*, int*);
 struct Receiver_2373e0 {
-    void run(int, int, int);
+    void run_00231ad0(int, int, int);
 };
 extern void* g_vftable_00427ff0[];
 struct T1 {
-    void Fini();
+    void Fini_00236fd0();
 };
 struct T2 {
-    void Fini();
+    void Fini_00234150();
 };
 class Track_237430 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class OpportunityTrack_237430 : public Track_237430 {
   public:
@@ -218,7 +218,7 @@ class Ref_237530 {
 };
 struct Action_237530 {
     void* vf;
-    void Dtor() throw();
+    void Dtor_002326a0() throw();
 };
 struct OpportunityAction_237530 : Action_237530 {
     char pad[0x18];
@@ -274,7 +274,7 @@ class ParamValueInt_237770 : public ParamValue_237770 {
   public:
     int pad;
 };
-extern int gTypeA_2377c0;
+extern int hulk_at_0049850c;
 void* __cdecl FUN_0008d690(unsigned size);
 struct Sub_2379e0 { int w[3]; };
 class Node {
@@ -318,7 +318,7 @@ class TrackFactoryCasterTemplate_237ab0 {
 };
 class Target {
   public:
-    void Method(void*);
+    void Method_002367c0(void*);
 };
 extern "C" void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_237ab0*);
 } // namespace fn_f6c81acf
@@ -337,10 +337,10 @@ class TrackFactoryTemplate_237ae0 {
 extern "C" void FUN_00237870();
 typedef unsigned int u32_237b20;
 struct Grapple_237b20 {
-    hulk_uintptr ctor();
+    hulk_uintptr ctor_002372c0();
 };
-extern void* __cdecl Alloc(hulk_uintptr);
-extern int g_vftable_237b40;
+extern void* __cdecl Alloc_0008d690(hulk_uintptr);
+extern int hulk_at_004280c8;
 
 
 // 0x00236e00 FUN_00236e00 (9 B): matches/0x00236e00.cpp
@@ -435,9 +435,9 @@ int List::Add(fight::OpportunityAction* n) {
         p = (*(fight::OpportunityAction * *)&p->f_04);
         ++count;
     }
-    ((OpportunityAction_nv_236ff0*)(n))->Link(p);
+    ((OpportunityAction_nv_236ff0*)(n))->Link_002344a0(p);
     if (last)
-        ((OpportunityAction_nv_236ff0*)(last))->Link(n);
+        ((OpportunityAction_nv_236ff0*)(last))->Link_002344a0(n);
     else
         head = n;
     return count;
@@ -481,7 +481,7 @@ bool Owner_237160::Target(int a, int b, int c, Obj_237160* obj) {
     if ((unsigned int)(v >> 32) != (unsigned int)b)
         return false;
     obj->Act(a, b);
-    Work(c, obj, -1);
+    Work_00237050(c, obj, -1);
     obj->Done();
     return true;
 }
@@ -550,7 +550,7 @@ void FUN_00237290() {
 // sym: ?vfunc_0@OpportunityTrack@fight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr fight::OpportunityTrack::vfunc_0(int index) {
-    int* p = gTable_2372b0;
+    int* p = hulk_at_004e5bf4;
     return p[index];
 }
 
@@ -606,7 +606,7 @@ hulk_freg fight::OpportunityTrack::vfunc_6() {
 // sym: ?vfunc_7@OpportunityTrack@fight@@UAEMXZ
 // Same code shape as 0x000695a0 (propagated; names are from that function)
 hulk_freg fight::OpportunityTrack::vfunc_7() {
-    return gNegOne;
+    return hulk_at_003f3388;
 }
 
 namespace fn_f6c81acf {
@@ -615,9 +615,9 @@ namespace fn_f6c81acf {
 // sym: ??1OpportunityTrack_237330@fn_f6c81acf@@QAE@XZ
 OpportunityTrack_237330::~OpportunityTrack_237330() throw() {
     vptr = g_vA;
-    a.Fin();
-    b.Fin();
-    Fin();
+    a.Fin_00236fd0();
+    b.Fin_00234150();
+    Fin_00236d60();
 }
 
 } // namespace fn_f6c81acf
@@ -628,8 +628,8 @@ bool fight::OpportunityAction::vfunc_3(hulk_intptr value, hulk_intptr unused) {
     hulk_intptr adjusted = value - 1;
     this->f_40 = adjusted;
     this->f_44 = adjusted;
-    if (gUnknown)
-        gUnknown(this->f_1c, this->f_3c, gPayload, &this->f_40, &this->f_44);
+    if (hulk_at_004e5bfc)
+        hulk_at_004e5bfc(this->f_1c, this->f_3c, hulk_at_004e5c00, &this->f_40, &this->f_44);
     return true;
 }
 
@@ -639,7 +639,7 @@ bool fight::OpportunityAction::vfunc_3(hulk_intptr value, hulk_intptr unused) {
 // data: zero_2373e0 = DAT_003f32e0
 void fight::OpportunityAction::vfunc_4() {
     if (this->f_28 < (*(float*)&DAT_003f32e0) && (*(Receiver_2373e0 * *)&this->f_4c))
-        (*(Receiver_2373e0 * *)&this->f_4c)->run(this->f_38, this->f_3c, this->f_30);
+        (*(Receiver_2373e0 * *)&this->f_4c)->run_00231ad0(this->f_38, this->f_3c, this->f_30);
 }
 
 namespace fn_f6c81acf {
@@ -648,9 +648,9 @@ namespace fn_f6c81acf {
 // sym: ?vfunc_5@OpportunityTrack_237430@fn_f6c81acf@@QAEPAV12@E@Z
 OpportunityTrack_237430* OpportunityTrack_237430::vfunc_5(unsigned char flags) {
     vptr = g_vftable_00427ff0;
-    a28.Fini();
-    a18.Fini();
-    Fin();
+    a28.Fini_00236fd0();
+    a18.Fini_00234150();
+    Fin_00236d60();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -716,7 +716,7 @@ void OpportunityAction_237530::Dtor2() throw() {
         p1c->Release();
         p1c = 0;
     }
-    Action_237530::Dtor();
+    Action_237530::Dtor_002326a0();
 }
 
 } // namespace fn_f6c81acf
@@ -839,7 +839,7 @@ void ParamBranch::vfunc_6(void* p) {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::TrackFactoryCasterTemplate<fight::OpportunityTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_2377c0, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -902,7 +902,7 @@ namespace fn_f6c81acf {
 // sym: _FUN_00237ab0
 extern "C" void FUN_00237ab0(Target* target, const char* name) {
     TrackFactoryCasterTemplate_237ab0 caster;
-    target->Method(FUN_00236ac0(name, &caster));
+    target->Method_002367c0(FUN_00236ac0(name, &caster));
 }
 
 } // namespace fn_f6c81acf
@@ -928,9 +928,9 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::OpportunityTrack>::vf
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VOpportunityTrack@fight@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006f850 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<fight::OpportunityTrack>::vfunc_5() {
-    Grapple_237b20* p = (Grapple_237b20*)Alloc(0x2c);
+    Grapple_237b20* p = (Grapple_237b20*)Alloc_0008d690(0x2c);
     if (p)
-        return (void*)(p->ctor());
+        return (void*)(p->ctor_002372c0());
     return (void*)(0);
 }
 
@@ -940,7 +940,7 @@ namespace fn_f6c81acf {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f6c81acf@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_237b40;
+    m_vptr = (void*)&hulk_at_004280c8;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

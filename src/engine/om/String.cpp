@@ -19,17 +19,17 @@ typedef unsigned int U_260de0;
 struct H {
     void* vt;
     char pad[sizeof(OmType) - sizeof(void*)];  // the rest of an om::Type (records.h)
-    void f(void*, void*, int, int);
-    void g();
+    void Fnf_002584d0(void*, void*, int, int);
+    void Fng_002580e0();
 };
-extern U_260de0 __cdecl f2475(void*);
-extern char vft_260de0[];
+extern U_260de0 __cdecl f2475_00247530(void*);
+extern char hulk_at_0042aad0[];
 class Part_260e60 {
   public:
 };
 struct TypeT_260e60 {
     char b[0x48];
-    TypeT_260e60* Init() throw();
+    TypeT_260e60* Init_00260c70() throw();
     ~TypeT_260e60() throw();
 };
 struct DynAttrT_260e60;
@@ -138,15 +138,15 @@ hulk_intptr FUN_002610e0(int m, int* k);
 void FUN_00261120(int m, int* k, Iter_261460* it);
 struct Helper_261460 {
     char d[16];
-    int Get();
+    int Get_0023fb00();
 };
 struct Ctx_261500 {
     char pad[0x2004];
     char* out;
 };
-const char* Next(Ctx_261500*);
+const char* Next_002611b0(Ctx_261500*);
 extern "C" const char* __cdecl FUN_002611b0(const char*);
-extern "C" char* __cdecl getText(char*);
+extern "C" char* __cdecl getText_002611b0(char*);
 extern "C++" __declspec(nothrow) void* __cdecl FUN_002611b0(void*);
 extern "C" hulk_freg __cdecl FUN_00260d00(void*);
 struct Parser;
@@ -157,7 +157,7 @@ extern "C++" __declspec(nothrow) hulk_freg __cdecl FUN_00260d00(char*);
 extern "C" void __cdecl FUN_00260be0(char*, float);
 void __cdecl FUN_00260be0(const char *s, float v);
 typedef unsigned int U_261980;
-extern char* GetText(U_261980);
+extern char* GetText_002611b0(U_261980);
 extern "C" U_261980 FUN_00260b60(U_261980);
 struct Parser_2619c0 {
     char pad[0x2004];
@@ -212,10 +212,10 @@ hulk_freg __cdecl FUN_00260d00(const char *s)
 // sym: ?target@fn_f6df0856@@YAIXZ
 U_260de0 __cdecl target() {
     H h;
-    h.f((void*)((hulk_intptr)DAT_004e58d0), (void*)((hulk_intptr)DAT_004e58c8), 0x24, 4);
-    h.vt = vft_260de0;
-    U_260de0 r = f2475(&h);
-    h.g();
+    h.Fnf_002584d0((void*)((hulk_intptr)DAT_004e58d0), (void*)((hulk_intptr)DAT_004e58c8), 0x24, 4);
+    h.vt = hulk_at_0042aad0;
+    U_260de0 r = f2475_00247530(&h);
+    h.Fng_002580e0();
     return r;
 }
 
@@ -228,7 +228,7 @@ DynAttrT_260e60* DynAttrT_260e60::Dtor(unsigned char flag) throw() {
     vf = vB;
     if (flag & 1) {
         TypeT_260e60 l;
-        FUN_00247550(l.Init(), this);
+        FUN_00247550(l.Init_00260c70(), this);
     }
     return this;
 }
@@ -489,7 +489,7 @@ extern "C" int __cdecl FUN_00261460(int* p) {
     char tmp[12];
     int key;
     Helper_261460* h = ((Helper_261460 *)((owners::String_23fc40 *)(((Helper_261460*)tmp)))->FUN_0023fc40((const char *)(hulk_uintptr)(int)a, (hulk_intptr)2));
-    int r = h->Get();
+    int r = h->Get_0023fb00();
     key = FUN_002673a0(r, 0);
     ((owners::Str_240060 *)(((Helper_261460*)tmp)))->FUN_00240060();
     Helper_261460* f = (Helper_261460*)FUN_002610e0(*p, &key);
@@ -510,7 +510,7 @@ extern "C" char* FUN_00261500(Ctx_261500* c) {
     char* start = c->out;
     *start = 0;
     char* d = start;
-    const char* s = Next(c);
+    const char* s = Next_002611b0(c);
     while (*s) {
         c->out = d;
         const char* p = s;
@@ -522,7 +522,7 @@ extern "C" char* FUN_00261500(Ctx_261500* c) {
             c->out = c->out + 1;
             ch = *p;
         }
-        s = Next(c);
+        s = Next_002611b0(c);
     }
     *d = 0;
     c->out++;
@@ -543,8 +543,8 @@ extern "C" const char* __cdecl FUN_00261570(const char* s) {
 // sym: _FUN_002615d0
 // data: yesStr = DAT_00429b50
 extern "C" char* __cdecl FUN_002615d0(char* p) {
-    char* a = getText(p);
-    char* b = getText(p);
+    char* a = getText_002611b0(p);
+    char* b = getText_002611b0(p);
     return strcmp(a, b) ? ((char*)&DAT_00429b50) : ((char*)&DAT_004269b4);
 }
 
@@ -692,14 +692,14 @@ extern "C" void __cdecl FUN_00261920(char* s) {
 // 0x00261980 FUN_00261980 (61 B): matches/0x00261980.cpp
 // sym: _FUN_00261980
 extern "C" hulk_uintptr __cdecl FUN_00261980(U_261980 param) {
-    char* p = GetText(param);
+    char* p = GetText_002611b0(param);
     if (*p == 't') {
-        hulk_uintptr result = (hulk_uintptr)GetText(param);
+        hulk_uintptr result = (hulk_uintptr)GetText_002611b0(param);
         FUN_00260b60(param);
         return result;
     }
     FUN_00260b60(param);
-    return (hulk_uintptr)GetText(param);
+    return (hulk_uintptr)GetText_002611b0(param);
 }
 
 

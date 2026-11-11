@@ -21,9 +21,9 @@ struct Ref_2f79f0 {
 };
 struct SymMatrix_2f79f0 {
     char x[1];
-    void init();
+    void init_002fcaa0();
 };
-extern int vt_2f79f0;
+extern int hulk_at_004316e8;
 class ImpulseBasedCollisionSolver_2f79f0 {
   public:
     virtual void v();
@@ -39,7 +39,7 @@ class ImpulseBasedCollisionSolver_2f79f0 {
     void cleanup();
 };
 struct Y_2f7a40 {
-    void m(int);
+    void Fnm_003046f0(int);
 };
 struct X_2f7a40 {
     char pad[0x74];
@@ -204,7 +204,7 @@ struct Link {
     char pad[0x1c];
     Value* val;
 };
-extern "C" float __cdecl blend(Value*, Value*);
+extern "C" float __cdecl blend_002f2930(Value*, Value*);
 class Obj {
   public:
     char a[0x14];
@@ -269,7 +269,7 @@ class Obj_2f7dc0 {
   public:
     char pad[0x6c];
     int state;
-    void helper(int);
+    void helper_002ef8b0(int);
 };
 class Ref_2f7dc0 {
   public:
@@ -283,7 +283,7 @@ class Ref_2f7dc0 {
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CollisionAnalyser_nv_2f7e50 {
-    void* init();
+    void* init_0030e480();
 };
 struct Obj_2f7e50 {
     char pad[8];
@@ -313,7 +313,7 @@ class Ref_2f7fc0 {
 };
 class Chunk {
   public:
-    void init();
+    void init_002fcaa0();
     char pad[0x1c];
 };
 class ImpulseBasedCollisionSolver_2f7fc0 {
@@ -594,21 +594,21 @@ struct Thing_2f8d70 {
 // 0x002f79f0 FUN_002f79f0 (70 B): matches/0x002f79f0.cpp
 // sym: ?cleanup@ImpulseBasedCollisionSolver_2f79f0@fn_f524d977@@QAEXXZ
 void ImpulseBasedCollisionSolver_2f79f0::cleanup() {
-    *(hulk_intptr*)this = (hulk_intptr)&vt_2f79f0;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004316e8;
     if (a)
         a->f1();
     if (b)
         b->f1();
-    ecc.init();
-    eb0.init();
-    e94.init();
+    ecc.init_002fcaa0();
+    eb0.init_002fcaa0();
+    e94.init_002fcaa0();
 }
 
 
 // 0x002f7a40 FUN_002f7a40 (17 B): matches/0x002f7a40.cpp
 // sym: ?target@C_2f7a40@fn_f524d977@@QAEXXZ
 void C_2f7a40::target() {
-    field->y->m(1);
+    field->y->Fnm_003046f0(1);
 }
 
 
@@ -718,7 +718,7 @@ hulk_freg Obj::Get() {
     if (first && second) {
         Value* r = right->val;
         Value* l = left->val;
-        return blend(l, r);
+        return blend_002f2930(l, r);
     }
     if (first)
         return left->val->v;
@@ -766,9 +766,9 @@ int physics::CollisionSolverAgent::vfunc_5(void* __p0, void* __p1) { void * p = 
 unsigned int physics::CollisionSolverAgent::vfunc_6(hulk_uintptr __p0, unsigned int __p1, hulk_uintptr __p2, unsigned int __p3, unsigned int __p4, unsigned int __p5, unsigned int __p6, hulk_uintptr __p7, hulk_uintptr __p8) { void * a = (void *)__p0; int b = (int)__p1; void * c = (void *)__p2; int d = (int)__p3; int e = (int)__p4; int f = (int)__p5; int g = (int)__p6; int * p = (int *)__p7; int * q = (int *)__p8;
 
     if (*p && !((Ref_2f7dc0*)*(hulk_intptr*)p)->state && !((Obj_2f7dc0*)a)->state)
-        ((Obj_2f7dc0*)a)->helper(1);
+        ((Obj_2f7dc0*)a)->helper_002ef8b0(1);
     if (*q && !((Ref_2f7dc0*)*(hulk_intptr*)q)->state && !((Obj_2f7dc0*)c)->state)
-        ((Obj_2f7dc0*)c)->helper(1);
+        ((Obj_2f7dc0*)c)->helper_002ef8b0(1);
     if ((*(void * *)&this->f_08))
         ((Ref_2f7dc0*)(*(void * *)&this->f_08))->f4(a, b, c, d, e, f, g);
     return (unsigned int)(0);
@@ -792,7 +792,7 @@ void __fastcall FUN_002f7e50(Obj_2f7e50* self) {
         void* p = FUN_0008d690(0x6c);
         void* r;
         if (p != 0) {
-            r = ((CollisionAnalyser_nv_2f7e50*)(((physics::CollisionAnalyser*)(((physics::CollisionAnalyser*)p)))))->init();
+            r = ((CollisionAnalyser_nv_2f7e50*)(((physics::CollisionAnalyser*)(((physics::CollisionAnalyser*)p)))))->init_0030e480();
         } else {
             r = 0;
         }
@@ -836,11 +836,11 @@ namespace fn_002f7ee0 {
 extern void* DAT_004316e8[];
 struct SubA_2f7ee0 {
     char pad[0x88];
-    void Init() throw();
+    void Init_002f8d70() throw();
 };
 struct SymMatrix_2f7ee0 {
     char pad[0x1c];
-    void Init() throw();
+    void Init_002fca90() throw();
 };
 struct Cfg_2f7ee0 {
     char pad[0x28];
@@ -850,12 +850,12 @@ struct Cfg_2f7ee0 {
 };
 struct CollisionWall_2f7ee0 {
     char pad[0x60];
-    CollisionWall_2f7ee0* Ctor() throw();
+    CollisionWall_2f7ee0* Ctor_0030e700() throw();
 };
 struct CollisionObject_2f7ee0 {
     char pad[8];
     char tail[0x80];
-    CollisionObject_2f7ee0* Ctor(CollisionWall_2f7ee0*) throw();
+    CollisionObject_2f7ee0* Ctor_00304f50(CollisionWall_2f7ee0*) throw();
 };
 struct Ref_2f7ee0 {
     virtual void a() throw();
@@ -882,18 +882,18 @@ ImpulseBasedCollisionSolver_2f7ee0::ImpulseBasedCollisionSolver_2f7ee0() throw()
     vptr = DAT_004316e8;
     m4 = 0;
     m8 = 0;
-    sa.Init();
-    s1.Init();
-    s2.Init();
-    s3.Init();
+    sa.Init_002f8d70();
+    s1.Init_002fca90();
+    s2.Init_002fca90();
+    s3.Init_002fca90();
     cf4 = 0;
     mf8 = 3;
     me8 = (*(Cfg_2f7ee0**)&DAT_00554c10)->b;
     mec = (*(Cfg_2f7ee0**)&DAT_00554c10)->a;
     CollisionWall_2f7ee0* p = (CollisionWall_2f7ee0*)FUN_0008d690((int)sizeof(CollisionWall_2f7ee0));
-    CollisionWall_2f7ee0* q = p ? p->Ctor() : 0;
+    CollisionWall_2f7ee0* q = p ? p->Ctor_0030e700() : 0;
     CollisionObject_2f7ee0* r = (CollisionObject_2f7ee0*)thunk_FUN_0008d690(0x80);
-    CollisionObject_2f7ee0* t = r ? r->Ctor(q) : 0;
+    CollisionObject_2f7ee0* t = r ? r->Ctor_00304f50(q) : 0;
     Ref_2f7ee0* x = FUN_002efa90(t, 0, 0);
     mfc = x;
     x->a();
@@ -910,9 +910,9 @@ ImpulseBasedCollisionSolver_2f7fc0::~ImpulseBasedCollisionSolver_2f7fc0() {
         r4->f1();
     if (rfc)
         rfc->f1();
-    ccc.init();
-    cb0.init();
-    c94.init();
+    ccc.init_002fcaa0();
+    cb0.init_002fcaa0();
+    c94.init_002fcaa0();
 }
 
 
@@ -1360,7 +1360,7 @@ class CollisionSolverAgent {
     Ref_2f8d30* mPtr;
     CollisionSolverAgent* vfunc_2(unsigned char);
 };
-extern void thunk(CollisionSolverAgent*);
+extern void thunk_0008d330(CollisionSolverAgent*);
 CollisionSolverAgent* CollisionSolverAgent::vfunc_2(unsigned char flag) {
     vptr = ((hulk_intptr)DAT_00431700);
     if (mPtr) {
@@ -1369,7 +1369,7 @@ CollisionSolverAgent* CollisionSolverAgent::vfunc_2(unsigned char flag) {
     }
     vptr = ((hulk_intptr)DAT_003f6098);
     if (flag & 1)
-        thunk(this);
+        thunk_0008d330(this);
     return this;
 }
 } // namespace fn_002f8d30

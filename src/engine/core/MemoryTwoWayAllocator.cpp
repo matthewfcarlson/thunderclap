@@ -42,7 +42,7 @@ class RefCount_26d1e0 : public Object_26d1e0 {
 extern void __cdecl FUN_00266f00(int, RefCount_26d1e0*);
 class IB_26d270 {
   public:
-    void helper();
+    void helper_0026d280();
 };
 class MemoryTwoWayAllocator_26d270 : public core::IMemoryTwoWayAllocator, public IB_26d270 {
   public:
@@ -77,7 +77,7 @@ class MemoryTwoWayAllocator {
     char _m_pad_4[0xc];
     unsigned int a;
     unsigned int b;
-    void helper(unsigned int, unsigned int);
+    void helper_0026d320(unsigned int, unsigned int);
 };
 typedef unsigned int uint_26d320;
 extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr, uint_26d320);
@@ -251,7 +251,7 @@ namespace fn_ffa6521f {
 // 0x0026d270 core::MemoryTwoWayAllocator::vfunc_1 (8 B): matches/0x0026d270.cpp
 // sym: ?vfunc_1@MemoryTwoWayAllocator_26d270@fn_ffa6521f@@UAEXXZ
 void MemoryTwoWayAllocator_26d270::vfunc_1() {
-    IB_26d270::helper();
+    IB_26d270::helper_0026d280();
 }
 
 
@@ -426,7 +426,7 @@ namespace fn_ffa6521f {
 void MemoryTwoWayAllocator::vfunc_6(unsigned int x, unsigned int y) {
     if (y <= 4)
         y = 4;
-    helper(x, y);
+    helper_0026d320(x, y);
 }
 
 } // namespace fn_ffa6521f

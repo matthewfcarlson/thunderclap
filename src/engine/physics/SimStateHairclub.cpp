@@ -52,7 +52,7 @@ class Owner_2fe270 {
     Inner_2fe270* inner;
     char pad2[0x50 - 0x24];
     char flag;
-    void Helper(int);
+    void Helper_003046f0(int);
 };
 namespace physics {
 class SimStateHairclub : public SimState {
@@ -77,8 +77,8 @@ class A_2fe2e0 {
     void* m70;
     void* m74;
 };
-extern void __fastcall thunk(void*);
-extern void __fastcall other(void*);
+extern void __fastcall thunk_00309490(void*);
+extern void __fastcall other_003062a0(void*);
 extern "C" char DAT_004319a4[];
 class Ref_2fe3a0 {
   public:
@@ -231,9 +231,9 @@ void physics::SimStateHairclub::vfunc_14(int x) {
     SimState::vfunc_14(x);
     Owner_2fe270* o = owner;
     if (o->flag) {
-        owner->Helper(0);
+        owner->Helper_003046f0(0);
         owner->inner->f10();
-        owner->Helper(1);
+        owner->Helper_003046f0(1);
     } else {
         o->inner->f10();
     }
@@ -254,10 +254,10 @@ void Obj_2fe2c0::Fn() {
 void __fastcall target(A_2fe2e0* self) {
     void* p = self->m70;
     if (p && *(int*)((char*)p + 0x24) == 2)
-        thunk(p);
+        thunk_00309490(p);
     void* q = self->m74;
     if (q)
-        other(*(void**)((char*)q + 0x20));
+        other_003062a0(*(void**)((char*)q + 0x20));
 }
 
 } // namespace fn_fc07f3fa
@@ -434,7 +434,7 @@ class SimStateHairclub {
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    void cleanup();
+    void cleanup_002ef2c0();
     char pad[0x84];
     struct Ref_2fe530* member;
 };
@@ -442,7 +442,7 @@ struct Ref_2fe530 {
     virtual void a();
     virtual void b();
 };
-void release(SimStateHairclub*);
+void release_0008d330(SimStateHairclub*);
 SimStateHairclub* SimStateHairclub::vfunc_2(unsigned char p) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_004319a4);
     Ref_2fe530* volatile* pm = &member;
@@ -451,9 +451,9 @@ SimStateHairclub* SimStateHairclub::vfunc_2(unsigned char p) {
         m->b();
         member = 0;
     }
-    cleanup();
+    cleanup_002ef2c0();
     if (p & 1)
-        release(this);
+        release_0008d330(this);
     return this;
 }
 } // namespace fn_002fe530

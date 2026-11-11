@@ -13,7 +13,7 @@ namespace fn_fa73f5c5 {} using namespace fn_fa73f5c5;
 
 // ---- declarations shared by the functions below
 namespace fn_fa73f5c5 {
-extern void* g_vftable_2e1610[];
+extern void* hulk_at_0042fb84[];
 } // namespace fn_fa73f5c5
 void operator delete(void*);
 namespace fn_fa73f5c5 {
@@ -25,7 +25,7 @@ class Ref_2e1610 {
 class RenderObjectLoader_2e1610 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002a3e90();
 };
 class PrimGroupLoader_2e1610 : public RenderObjectLoader_2e1610 {
   public:
@@ -38,13 +38,13 @@ class PrimGroupLoader_2e1610 : public RenderObjectLoader_2e1610 {
 // 0x002e1610 pure3d::PrimGroupLoader::vfunc_2 (57 B): matches/0x002e1610.cpp
 // sym: ?f2@PrimGroupLoader_2e1610@fn_fa73f5c5@@QAEPAV12@E@Z
 PrimGroupLoader_2e1610* PrimGroupLoader_2e1610::f2(unsigned char flags) {
-    vptr = g_vftable_2e1610;
+    vptr = hulk_at_0042fb84;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_002a3e90();
     if (flags & 1)
         operator delete(this);
     return this;

@@ -15,11 +15,11 @@ namespace fn_fa9c7cf4 {} using namespace fn_fa9c7cf4;
 
 // ---- declarations shared by the functions below
 namespace fn_fa9c7cf4 {
-extern void* Alloc(hulk_uintptr);
+extern void* Alloc_0008d6d0(hulk_uintptr);
 extern "C" void FUN_002e1440(void*, unsigned int, void*);
 struct Mat_2e1750 {
     char d[64];
-    void Init();
+    void Init_0022b980();
 };
 class NonCopyable_2e1750 {
   public:
@@ -85,7 +85,7 @@ bool owners::Buffer_2e16f0::FUN_002e16f0(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc(count * 4);
+        int* p = (int*)Alloc_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -103,14 +103,14 @@ namespace fn_fa9c7cf4 {
 // 0x002e1750 FUN_002e1750 (104 B): matches/0x002e1750.cpp
 // sym: ??0BoneMatrixList@fn_fa9c7cf4@@QAE@I@Z
 BoneMatrixList::BoneMatrixList(unsigned n) {
-    if (n > 0 && (b = (Mat_2e1750*)Alloc(n * 64)) != 0) {
+    if (n > 0 && (b = (Mat_2e1750*)Alloc_0008d6d0(n * 64)) != 0) {
         c = b + n;
     } else {
         b = 0;
         c = 0;
     }
     for (unsigned i = 0; i < n; i++)
-        b[i].Init();
+        b[i].Init_0022b980();
 }
 
 
@@ -148,7 +148,7 @@ namespace fn_002e1840 {
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042fcd4[];
 extern "C" void _ReadWriteBarrier();
-extern void __cdecl ReleaseThing(void*);
+extern void __cdecl ReleaseThing_0008d340(void*);
 struct BoneMatrixList {
     void* vptr;
     char pad[4];
@@ -160,7 +160,7 @@ void BoneMatrixList::Destroy() {
     _ReadWriteBarrier();
     void* p = *(void* volatile*)&item;
     if (p)
-        ReleaseThing(p);
+        ReleaseThing_0008d340(p);
     vptr = (void*)((hulk_intptr)DAT_003f6098);
 }
 } // namespace fn_002e1840

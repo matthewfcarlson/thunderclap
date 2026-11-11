@@ -13,7 +13,7 @@ namespace fn_f877d14e {} using namespace fn_f877d14e;
 // ---- declarations shared by the functions below
 namespace fn_f877d14e {
 struct PartitionDriver_22a980 {
-    void Init(int);
+    void Init_002223f0(int);
 };
 struct LocomotionDriver : PartitionDriver_22a980 {
     hulk_intptr vptr;
@@ -22,9 +22,9 @@ struct LocomotionDriver : PartitionDriver_22a980 {
     int b;
     LocomotionDriver* Init(int);
 };
-extern int vtable_22a9c0;
+extern int hulk_at_00427534;
 struct LocomotionDriver_nv_22a9c0 {
-    void cleanup();
+    void cleanup_002222d0();
 };
 struct Driver_22a9c0 {
     int* vptr;
@@ -35,7 +35,7 @@ struct Driver_22a9c0 {
 // sym: ?Init@LocomotionDriver@fn_f877d14e@@QAEPAU12@H@Z
 // data: gCount_22a980 = DAT_004e5ac4, gHigh_22a980 = DAT_004e5ac8
 LocomotionDriver* LocomotionDriver::Init(int x) {
-    PartitionDriver_22a980::Init(x);
+    PartitionDriver_22a980::Init_002223f0(x);
     a = 0;
     b = 0;
     vptr = ((hulk_intptr)DAT_00427534);
@@ -51,9 +51,9 @@ LocomotionDriver* LocomotionDriver::Init(int x) {
 // Same code shape as 0x0022a910 (propagated; names are from that function)
 // data: g_count_22a9c0 = DAT_004e5ac4
 extern "C" void __fastcall FUN_0022a9c0(Driver_22a9c0* self) {
-    self->vptr = &vtable_22a9c0;
+    self->vptr = &hulk_at_00427534;
     --(*(int*)&DAT_004e5ac4);
-    ((LocomotionDriver_nv_22a9c0*)(((choreo2::LocomotionDriver*)(((choreo2::LocomotionDriver*)(self))))))->cleanup();
+    ((LocomotionDriver_nv_22a9c0*)(((choreo2::LocomotionDriver*)(((choreo2::LocomotionDriver*)(self))))))->cleanup_002222d0();
 }
 
 } // namespace fn_f877d14e
@@ -84,7 +84,7 @@ namespace fn_0022aa20 {
 extern "C" char DAT_00427534[];
 class LocomotionDriver_22aa20 {
   public:
-    void Fn();
+    void Fn_002222d0();
 };
 class LocomotionDriver {
   public:
@@ -108,7 +108,7 @@ extern void __cdecl thunk_FUN_00267090(LocomotionDriver*);
 LocomotionDriver* LocomotionDriver::vfunc_2(int flags) {
     *(void**)this = (void*)((hulk_intptr)DAT_00427534);
     (*(int*)&DAT_004e5ac4)--;
-    ((LocomotionDriver_22aa20*)this)->Fn();
+    ((LocomotionDriver_22aa20*)this)->Fn_002222d0();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

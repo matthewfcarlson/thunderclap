@@ -63,7 +63,7 @@ struct Obj_226150 {
     int value;
     V3_226150 Get();
 };
-void Transform(int, V3_226150*);
+void Transform_00224d70(int, V3_226150*);
 void __cdecl FUN_00224d70(void*,Vec3*);
 struct Object { char pad[0x12e4]; void* field; void FUN_002261e0(Vec3* output); };
 struct V3_226250 {
@@ -191,18 +191,18 @@ struct Point_227300 { unsigned int x; union { float y; unsigned int yBits; }; un
 struct V {
     float a, b, c;
 };
-extern void Sort(V*, int, int, V);
+extern void Sort_00226430(V*, int, int, V);
 struct Vec_2274a0 {
     int x, y, z;
 };
 extern void FUN_002273d0(Vec_2274a0*, int, hulk_intptr, Vec_2274a0);
 extern "C" char DAT_004273c4[];
 typedef unsigned int u32_227650;
-void* __cdecl alloc_obj(unsigned int);
+void* __cdecl alloc_obj_00263ea0(unsigned int);
 class Helper_227650 {
   public:
-    void a(choreo2::LocomotionStrafeDriver*);
-    void b(choreo2::LocomotionStrafeDriver*);
+    void Fna_0022aa50(choreo2::LocomotionStrafeDriver*);
+    void Fnb_00225f30(choreo2::LocomotionStrafeDriver*);
 };
 struct Elem12_227750 { char data[12]; };
 extern "C" void __cdecl FUN_00227300(void *, void *, void *);
@@ -226,16 +226,16 @@ class Obj_227970 {
     int count;
     char q[0x12e0 - 0x30];
     float a, b, result;
-    float Scale(int, float);
+    float Scale_00226960(int, float);
     void Target(float);
 };
-extern float __cdecl Calc(float, float);
-extern "C" float __cdecl calc(float, float);
+extern float __cdecl Calc_00224fc0(float, float);
+extern "C" float __cdecl calc_00224fc0(float, float);
 class Obj {
   public:
     char pad[0x12e0];
     float a, b, c;
-    float apply(float, float);
+    float apply_00226a70(float, float);
     void run(float);
 };
 struct Elem_227a10 {
@@ -358,7 +358,7 @@ V3_226150 Obj_226150::Get() {
     t.a = DAT_004c9e74;
     t.b = DAT_004c9e78;
     t.c = DAT_004c9e7c;
-    Transform(value, &t);
+    Transform_00224d70(value, &t);
     return t;
 }
 
@@ -1136,7 +1136,7 @@ void FUN_002273d0(V* arr, int b, int n, V value) {
         arr[b] = arr[n - 1];
         b = n - 1;
     }
-    Sort(arr, b, start, value);
+    Sort_00226430(arr, b, start, value);
 }
 
 
@@ -1194,11 +1194,11 @@ LocomotionStrafeDriver::LocomotionStrafeDriver(void* context,unsigned w,unsigned
 // 0x00227650 choreo2::LocomotionStrafeDriver::vfunc_5 (55 B): matches/0x00227650.cpp
 // sym: ?vfunc_5@LocomotionStrafeDriver@choreo2@@UAEPAXXZ
 void* choreo2::LocomotionStrafeDriver::vfunc_5() {
-    void* p = alloc_obj(0x1330);
+    void* p = alloc_obj_00263ea0(0x1330);
     if (p) {
-        ((Helper_227650*)p)->a(this);
+        ((Helper_227650*)p)->Fna_0022aa50(this);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_004273c4);
-        ((Helper_227650*)p)->b(this);
+        ((Helper_227650*)p)->Fnb_00225f30(this);
         return (void*)(p);
     }
     return (void*)(0);
@@ -1275,8 +1275,8 @@ void Obj_227970::Target(float param) {
     float x = a;
     float y = b;
     int n = count - 1;
-    float r = Calc(y, x);
-    float s = Scale(n, r);
+    float r = Calc_00224fc0(y, x);
+    float s = Scale_00226960(n, r);
     result = s * param;
 }
 
@@ -1286,8 +1286,8 @@ void Obj_227970::Target(float param) {
 void Obj::run(float x) {
     float aa = a;
     float bb = b;
-    float y = calc(bb, aa);
-    c = apply(x, y);
+    float y = calc_00224fc0(bb, aa);
+    c = apply_00226a70(x, y);
 }
 
 

@@ -64,10 +64,10 @@ class SeqEventChannelSendsType_24f950 : public FUN_002605e0 {
 };
 typedef unsigned int u32_24f9d0;
 extern "C" u32_24f9d0 __cdecl FUN_002673a0(const char*, int);
-extern u32_24f9d0 VTable_24f9d0;
+extern u32_24f9d0 hulk_at_00429a60;
 class SeqEventChannelSends_24f9d0 {
   public:
-    void Ctor();
+    void Ctor_0025fd00();
 };
 class SeqEventChannelSends {
   public:
@@ -224,8 +224,8 @@ namespace fn_f2b964a3 {
 // 0x0024f9d0 FUN_0024f9d0 (53 B): matches/0x0024f9d0.cpp
 // sym: ??0SeqEventChannelSends@fn_f2b964a3@@QAE@XZ
 SeqEventChannelSends::SeqEventChannelSends() {
-    ((SeqEventChannelSends_24f9d0*)this)->Ctor();
-    vt = &VTable_24f9d0;
+    ((SeqEventChannelSends_24f9d0*)this)->Ctor_0025fd00();
+    vt = &hulk_at_00429a60;
     result = FUN_002673a0("this", 0);
     for (int i = 0; i < 64; ++i)
         values[i] = 0;
@@ -246,7 +246,7 @@ class SeqEvent {
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    void helper();
+    void helper_0025fd10();
 };
 class SeqEventChannelSends : public SeqEvent {
   public:
@@ -258,7 +258,7 @@ class SeqEventChannelSends : public SeqEvent {
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
 SeqEventChannelSends* SeqEventChannelSends::v4(int a) {
-    helper();
+    helper_0025fd10();
     if (a & 1)
         FUN_00247550(((char*)((char*)&DAT_004e6848)), this);
     return this;
@@ -282,8 +282,8 @@ class SeqAction {
     virtual void vfunc_5();
     virtual void vfunc_6();
 };
-extern void Init(void*, void*);
-extern int baseVtable;
+extern void Init_00247550(void*, void*);
+extern int hulk_at_004298fc;
 class SeqActionChannelSends : public SeqAction {
   public:
     virtual SeqActionChannelSends* vfunc_0(int);
@@ -296,9 +296,9 @@ class SeqActionChannelSends : public SeqAction {
 };
 } // namespace audio
 audio::SeqActionChannelSends* audio::SeqActionChannelSends::vfunc_0(int x) {
-    *(hulk_ulongptr*)this = (hulk_ulongptr)&baseVtable;
+    *(hulk_ulongptr*)this = (hulk_ulongptr)&hulk_at_004298fc;
     if (x & 1)
-        Init(((char*)&DAT_004e6800), this);
+        Init_00247550(((char*)&DAT_004e6800), this);
     return this;
 }
 } // namespace fn_0024fa60
@@ -347,7 +347,7 @@ class SeqEvent {
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    bool baseCheck(void*);
+    bool baseCheck_0025fd20(void*);
 };
 class SeqEventChannelSends : public SeqEvent {
   public:
@@ -357,7 +357,7 @@ class SeqEventChannelSends : public SeqEvent {
 extern "C" bool __cdecl FUN_0024f010(void*, void*);
 extern "C" bool __cdecl FUN_0025c7c0(void*, void*);
 int SeqEventChannelSends::vfunc_0(void* p) {
-    if (SeqEvent::baseCheck(p))
+    if (SeqEvent::baseCheck_0025fd20(p))
         if (FUN_0024f010(p, (char*)this + 0x108))
             if (FUN_0025c7c0(p, (char*)this + 8))
                 return 1;

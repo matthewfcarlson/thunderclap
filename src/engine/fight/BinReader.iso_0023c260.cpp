@@ -10,7 +10,7 @@ class Stream {
   public:
     virtual void Init();
 };
-extern char readerVtable[];
+extern char hulk_at_0042877c[];
 class BinReader {
   public:
     void* vptr;
@@ -27,7 +27,7 @@ class BinReader {
 };
 BinReader* BinReader::Build(Stream* s) {
     field4 = 0;
-    vptr = readerVtable;
+    vptr = hulk_at_0042877c;
     b0c = 0;
     b0d = 0;
     b0e = 0;

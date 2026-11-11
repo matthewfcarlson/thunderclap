@@ -12,9 +12,9 @@ namespace fn_f5a236af {} using namespace fn_f5a236af;
 namespace fn_f5a236af {
 typedef int FILE;
 extern "C" int __cdecl fclose(FILE*);
-extern "C" void __cdecl destroy(void*);
-extern int stdvt[];
-extern int streamvt_247080[];
+extern "C" void __cdecl destroy_0008d330(void*);
+extern int hulk_at_0042920c[];
+extern int hulk_at_00423f20[];
 namespace om {
 class StdStream {
   public:
@@ -30,12 +30,12 @@ class StdStream {
 // 0x00247080 om::StdStream::vfunc_0 (56 B): matches/0x00247080.cpp
 // sym: ?vfunc_0@StdStream@om@fn_f5a236af@@QAEPAV123@E@Z
 om::StdStream* om::StdStream::vfunc_0(unsigned char flags) {
-    vt = stdvt;
+    vt = hulk_at_0042920c;
     if (opened)
         fclose(file);
-    vt = streamvt_247080;
+    vt = hulk_at_00423f20;
     if (flags & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 

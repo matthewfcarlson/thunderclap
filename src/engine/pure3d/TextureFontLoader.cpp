@@ -27,7 +27,7 @@ class Obj_294d70 {
     int c;
     int d;
     int e;
-    void Init();
+    void Init_002c3aa0();
     Obj_294d70* Target();
 };
 const float zero_294e50 = 0.0f;
@@ -107,7 +107,7 @@ class Obj_295220 {
 };
 class Other_295250 {
   public:
-    int g(int);
+    int Fng_00294ed0(int);
 };
 extern "C" char DAT_0042d1b0[];
 class TextureFontLoader {
@@ -180,7 +180,7 @@ extern "C" int FUN_00294c70(char* src, unsigned short* dst, int limit) {
 // 0x00294d70 FUN_00294d70 (34 B): matches/0x00294d70.cpp
 // sym: ?Target@Obj_294d70@fn_f54d8eff@@QAEPAV12@XZ
 Obj_294d70* Obj_294d70::Target() {
-    Init();
+    Init_002c3aa0();
     a = 0;
     b = 0;
     c = 0;
@@ -467,7 +467,7 @@ void pure3d::TextureFont::vfunc_17(void* __p0) { Obj_295220 * p = (Obj_295220 *)
 // 0x00295250 FUN_00295250 (32 B): matches/0x00295250.cpp
 // sym: ?FUN_00295250@C_295250@owners@@QAE_NH@Z
 bool owners::C_295250::FUN_00295250(int x) {
-    int r = ((Other_295250*)this)->g(x);
+    int r = ((Other_295250*)this)->Fng_00294ed0(x);
     if (r >= 0) {
         value = r;
         return true;
@@ -855,7 +855,7 @@ class SimpleChunkHandler_2955e0 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_2955e0 {
   public:
@@ -866,7 +866,7 @@ class NonCopyable : public SimpleChunkHandler_2955e0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

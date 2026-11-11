@@ -30,7 +30,7 @@ class Param_2fe610 {
     virtual void pvfunc_1();
 };
 }
-extern int physics_vftable;
+extern int hulk_at_00431a04;
 class Child_2fe680 {
   public:
     virtual void f0();
@@ -49,11 +49,11 @@ class SimulatedObject {
     char _m_pad_21[0x3];
     int field24;
     int field28;
-    void Init();
+    void Init_0027b070();
     void Finish();
 };
 struct SimulatedObject_2fe680 {
-    void Tail();
+    void Tail_0027afd0();
 };
 extern int gVtable_2fe680;
 class C_2fe6a0 {
@@ -98,7 +98,7 @@ class Ref {
 class Part {
   public:
     char pad[16];
-    void copy(Part* src);
+    void copy_0027af70(Part* src);
 };
 class Obj {
   public:
@@ -224,11 +224,11 @@ namespace fn_fa862d6d {
 // sym: ??0SimulatedObject@fn_fa862d6d@@QAE@XZ
 // data: g_counter_2fe640 = DAT_00555478
 SimulatedObject::SimulatedObject() {
-    Init();
+    Init_0027b070();
     field10 = 0;
     field18 = 0;
     field1c = 0;
-    vptr = (hulk_intptr)&physics_vftable;
+    vptr = (hulk_intptr)&hulk_at_00431a04;
     field20 = 1;
     field24 = 3;
     field28 = (*(int*)&DAT_00555478);
@@ -242,7 +242,7 @@ void SimulatedObject::Finish() {
     vftable = &gVtable_2fe680;
     if (member)
         member->f1();
-    ((SimulatedObject_2fe680*)this)->Tail();
+    ((SimulatedObject_2fe680*)this)->Tail_0027afd0();
 }
 
 
@@ -283,7 +283,7 @@ void Obj::fn(Obj* dst, int x) {
     *(int*)((char*)dst + 0x14) = 0;
     if (ptr)
         dst->ptr->add();
-    dst->part.copy(&part);
+    dst->part.copy_0027af70(&part);
 }
 
 } // namespace fn_fa862d6d
@@ -329,16 +329,16 @@ struct SimulatedObject {
     virtual void v29();
     char pad[0x18];
     Ref_2fe730* member;
-    void helper();
+    void helper_0027afd0();
 };
-void thunk(SimulatedObject*);
+void thunk_00263f30(SimulatedObject*);
 SimulatedObject* SimulatedObject::vfunc_2(unsigned int flag) {
     *(void**)this = &vftable_2fe730;
     if (member)
         member->b();
-    helper();
+    helper_0027afd0();
     if (flag & 1)
-        thunk(this);
+        thunk_00263f30(this);
     return this;
 }
 } // namespace fn_002fe730

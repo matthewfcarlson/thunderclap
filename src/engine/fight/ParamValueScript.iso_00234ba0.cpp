@@ -11,12 +11,12 @@
 extern "C" char DAT_004279fc[];
 extern "C" char DAT_00427adc[];
 struct Member_234ba0 {
-    void Init(const char*);
+    void Init_0027b0e0(const char*);
 };
 
 fight::ParamValueNameList* fight::ParamValueNameList::FUN_00234ba0(const char* name) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
-    ((Member_234ba0*)((char*)this + 8))->Init(name);
+    ((Member_234ba0*)((char*)this + 8))->Init_0027b0e0(name);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00427adc);
     return (fight::ParamValueNameList*)(this);
 }

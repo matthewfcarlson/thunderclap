@@ -11,26 +11,26 @@ namespace fn_f787eff2 {} using namespace fn_f787eff2;
 
 // ---- declarations shared by the functions below
 namespace fn_f787eff2 {
-extern void* Condition_23cfc0_vftable[];
+extern void* hulk_at_00428a24[];
 class Condition_23cfc0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class NotCondition_23cfc0 : public Condition_23cfc0 {
   public:
     NotCondition_23cfc0* vfunc_5(signed char flags);
 };
 extern "C" void __cdecl FUN_0008d330(void* p);
-extern void* Condition_23cff0_vftable[];
+extern void* hulk_at_00428a44[];
 class Condition_23cff0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class OrCondition_23cff0 : public Condition_23cff0 {
   public:
     OrCondition_23cff0* vfunc_5(signed char flags);
 };
-extern int gTypeA_23d030;
+extern int hulk_at_00491ca8;
 extern int gTypeA_23d070;
 extern "C" char DAT_00428a24[];
 typedef unsigned int u32_23d0e0;
@@ -41,12 +41,12 @@ struct NotCondition_23d0e0 {
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_23d0e0 {
-    void f(int);
+    void Fnf_00234590(int);
 };
-extern void* ConditionFactory_23d110_vftable[];
+extern void* hulk_at_00428a7c[];
 class ConditionFactory_23d110 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002343d0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ConditionFactoryTemplate_23d110 : public ConditionFactory_23d110 {
   public:
@@ -60,18 +60,18 @@ class ConditionFactoryCaster_23d140 {
 };
 class Helper_23d140 {
   public:
-    void Init();
+    void Init_002343b0();
 };
 extern "C" void* __cdecl alloc(hulk_uintptr);
 extern "C" char DAT_00428a44[];
 typedef unsigned int u32_23d180;
 struct Init_23d180 {
-    void init(int);
+    void init_00234590(int);
 };
-extern void* ConditionFactory_23d1b0_vftable[];
+extern void* hulk_at_00428a98[];
 class ConditionFactory_23d1b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002343d0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ConditionFactoryTemplate_23d1b0 : public ConditionFactory_23d1b0 {
   public:
@@ -163,8 +163,8 @@ namespace fn_f787eff2 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 NotCondition_23cfc0* NotCondition_23cfc0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_23cfc0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00428a24;
+    Destroy_002345b0();
     if (flags & 1) {
         FUN_0008d330(this);
     }
@@ -178,8 +178,8 @@ NotCondition_23cfc0* NotCondition_23cfc0::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 OrCondition_23cff0* OrCondition_23cff0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_23cff0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00428a44;
+    Destroy_002345b0();
     if (flags & 1) {
         FUN_0008d330(this);
     }
@@ -193,7 +193,7 @@ OrCondition_23cff0* OrCondition_23cff0::vfunc_5(signed char flags) {
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::ConditionFactoryCasterTemplate<fight::NotCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_23d030, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_00491ca8, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -217,12 +217,12 @@ class ConditionFactoryCaster {
 };
 class BaseAllocated {
   public:
-    void Init();
+    void Init_002343b0();
 };
 class Elem_23d0a0 {
   public:
 };
-extern "C++" __declspec(nothrow) void* __cdecl alloc(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* __cdecl alloc_00263ea0(hulk_uintptr);
 class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
   public:
     virtual void V0();
@@ -230,9 +230,9 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
 };
 void ConditionFactoryCasterTemplate::V0() {}
 ConditionFactoryCasterTemplate* ConditionFactoryCasterTemplate::V1(int x) {
-    BaseAllocated* p = (BaseAllocated*)alloc(0x10);
+    BaseAllocated* p = (BaseAllocated*)alloc_00263ea0(0x10);
     if (p) {
-        p->Init();
+        p->Init_002343b0();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428a7c);
         ((owners::Target_27b040 *)(((Elem_23d0a0*)((char*)p + 8))))->FUN_0027b040((hulk_uintptr)x);
         return (ConditionFactoryCasterTemplate*)p;
@@ -247,7 +247,7 @@ ConditionFactoryCasterTemplate* ConditionFactoryCasterTemplate::V1(int x) {
 template <> void* fight::ConditionFactoryTemplate<fight::NotCondition>::vfunc_5() {
     NotCondition_23d0e0* p = (NotCondition_23d0e0*)FUN_0008d690(0xc);
     if (p) {
-        ((Helper_23d0e0*)p)->f(2);
+        ((Helper_23d0e0*)p)->Fnf_00234590(2);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428a24);
         return (void*)(p);
     }
@@ -262,8 +262,8 @@ namespace fn_f787eff2 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ConditionFactoryTemplate_23d110* ConditionFactoryTemplate_23d110::vfunc_5(signed char flags) {
-    *(void***)this = ConditionFactory_23d110_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00428a7c;
+    Destroy_002343d0();
     if (flags & 1) {
         FUN_00263f30(this);
     }
@@ -278,7 +278,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::OrCondition>::vfu
 
     void* q = alloc(0x10);
     if (q) {
-        ((Helper_23d140*)q)->Init();
+        ((Helper_23d140*)q)->Init_002343b0();
         *(hulk_uintptr*)q = ((hulk_intptr)DAT_00428a98);
         ((owners::Target_27b040 *)(((Helper_23d140*)((char*)q + 8))))->FUN_0027b040((hulk_uintptr)p);
         return (void*)(q);
@@ -292,7 +292,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::OrCondition>::vfu
 template <> void* fight::ConditionFactoryTemplate<fight::OrCondition>::vfunc_5() {
     Init_23d180* p = (Init_23d180*)FUN_0008d690(12);
     if (p) {
-        p->init(1);
+        p->init_00234590(1);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428a44);
         return (void*)(p);
     }
@@ -307,8 +307,8 @@ namespace fn_f787eff2 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ConditionFactoryTemplate_23d1b0* ConditionFactoryTemplate_23d1b0::vfunc_5(signed char flags) {
-    *(void***)this = ConditionFactory_23d1b0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00428a98;
+    Destroy_002343d0();
     if (flags & 1) {
         FUN_00263f30(this);
     }

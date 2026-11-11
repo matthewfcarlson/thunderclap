@@ -101,7 +101,7 @@ struct Animation_2a8450 {
 };
 }
 namespace fn_f8dbb66d {
-extern void* g_vftable_2a8620[];
+extern void* hulk_at_0042dd24[];
 class Ref_2a8620 {
   public:
     virtual void F0();
@@ -110,7 +110,7 @@ class Ref_2a8620 {
 class SimpleFrameController_2a8620 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285800();
 };
 class ShaderAnimationController_2a8620 : public SimpleFrameController_2a8620 {
   public:
@@ -141,7 +141,7 @@ class Ref_2a8680 {
 class SimpleFrameController_2a8680 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00285800();
 };
 class ShaderAnimationController_2a8680 : public SimpleFrameController_2a8680 {
   public:
@@ -185,9 +185,9 @@ class ShaderAnimationController_2a8700 : public SimpleFrameController_2a8700 {
     char pad[0x40 - sizeof(SimpleFrameController_2a8700)];
     SimpleFrameController_2a8700* mRef;
     virtual SimpleFrameController_2a8700* own4();
-    void setup(ShaderAnimationController_2a8700*);
+    void setup_00285780(ShaderAnimationController_2a8700*);
 };
-extern void* __cdecl alloc(hulk_uintptr);
+extern void* __cdecl alloc_00263ea0(hulk_uintptr);
 
 
 // 0x002a83e0 FUN_002a83e0 (25 B): matches/0x002a83e0.cpp
@@ -286,13 +286,13 @@ namespace fn_f8dbb66d {
 // 0x002a8620 FUN_002a8620 (36 B): matches/0x002a8620.cpp
 // sym: ??1ShaderAnimationController_2a8620@fn_f8dbb66d@@QAE@XZ
 ShaderAnimationController_2a8620::~ShaderAnimationController_2a8620() {
-    vptr = g_vftable_2a8620;
+    vptr = hulk_at_0042dd24;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_00285800();
 }
 
 
@@ -317,7 +317,7 @@ ShaderAnimationController_2a8680* ShaderAnimationController_2a8680::f2(unsigned 
         m->Release();
         m = 0;
     }
-    Fin();
+    Fin_00285800();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -328,9 +328,9 @@ ShaderAnimationController_2a8680* ShaderAnimationController_2a8680::f2(unsigned 
 // sym: ?own4@ShaderAnimationController_2a8700@fn_f8dbb66d@@UAEPAVSimpleFrameController_2a8700@2@XZ
 SimpleFrameController_2a8700* ShaderAnimationController_2a8700::own4() {
     ShaderAnimationController_2a8700* self = this;
-    ShaderAnimationController_2a8700* p = (ShaderAnimationController_2a8700*)alloc(0x48);
+    ShaderAnimationController_2a8700* p = (ShaderAnimationController_2a8700*)alloc_00263ea0(0x48);
     if (p) {
-        p->setup(self);
+        p->setup_00285780(self);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0042dd24);
         p->mRef = 0;
         SimpleFrameController_2a8700* q = self->mRef;

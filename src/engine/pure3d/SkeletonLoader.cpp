@@ -104,9 +104,9 @@ struct Source_27bb30 {
     u32_27bb30 b;
     u32_27bb30 c;
 };
-extern void* g_vt_27bc90[];
-void Free(void*) throw();
-void Free2(void*) throw();
+extern void* hulk_at_0042c204[];
+void Free_0008d330(void*) throw();
+void Free2_0008d340(void*) throw();
 struct E28 {
     virtual ~E28();
     char p[0x24];
@@ -116,7 +116,7 @@ struct E18 {
     char p[0x14];
 };
 struct M2c {
-    void Fin() throw();
+    void Fin_0027b570() throw();
 };
 class Entity_27bc90 {
   public:
@@ -361,7 +361,7 @@ class SimpleChunkHandler_27b9a0 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_27b9a0 {
   public:
@@ -372,7 +372,7 @@ class NonCopyable : public SimpleChunkHandler_27b9a0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -533,24 +533,24 @@ namespace fn_f8d8f61c {
 // sym: ??1Skeleton_27bc90@fn_f8d8f61c@@QAE@XZ
 // data: g_cnt = DAT_0052c288, g_shared = DAT_004ce410
 Skeleton_27bc90::~Skeleton_27bc90() throw() {
-    vptr = g_vt_27bc90;
+    vptr = hulk_at_0042c204;
     if (--(*(int*)&DAT_0052c288) == 0) {
         if (DAT_004ce410)
-            Free(DAT_004ce410);
+            Free_0008d330(DAT_004ce410);
         DAT_004ce410 = 0;
     }
-    Free2(m30);
+    Free2_0008d340(m30);
     M2c* p = m2c;
     if (p) {
-        p->Fin();
-        Free(p);
+        p->Fin_0027b570();
+        Free_0008d330(p);
     }
     E28* s = m44;
     if (s) {
         E28* e = m48;
         for (; s != e; s++)
             s->~E28();
-        Free2(m44);
+        Free2_0008d340(m44);
     }
     E18* u = m38;
     E18* t = m34;
@@ -559,7 +559,7 @@ Skeleton_27bc90::~Skeleton_27bc90() throw() {
     E18* b = m34;
     m38 = b;
     if (b)
-        Free2(b);
+        Free2_0008d340(b);
 }
 
 } // namespace fn_f8d8f61c

@@ -15,7 +15,7 @@ extern char* strncpy(char*, const char*, int);
 
 class Console2 {
   public:
-    void Func(void* msg, int n);
+    void Func_0026e140(void* msg, int n);
 };
 
 struct Msg_26e840 {
@@ -36,6 +36,6 @@ void core::DebugConsole::vfunc_8(void* __p0, unsigned int p3, unsigned int p4) {
     msg.p4 = p4;
     strncpy(msg.buf, s, 0x54);
     msg.buf[83] = 0;
-    c->Func(&msg, 100);
+    c->Func_0026e140(&msg, 100);
 }
 

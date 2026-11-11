@@ -9,10 +9,10 @@
 #include "gen/physics.h"
 
 struct PhysicsObject_2f78c0 {
-    int call();
+    int call_002f5480();
 };
 struct PhysicsObject_nv_2f78c0 {
-    void work(hulk_intptr, int);
+    void work_002f75d0(hulk_intptr, int);
 };
 extern PhysicsObject_2f78c0* __cdecl thunk_FUN_0008d690(unsigned int);
 
@@ -21,10 +21,10 @@ void* physics::PhysicsObject::vfunc_28(unsigned int __p0) { int arg = (int)__p0;
     PhysicsObject_2f78c0* p = thunk_FUN_0008d690(0x1f8);
     hulk_intptr result;
     if (p)
-        result = p->call();
+        result = p->call_002f5480();
     else
         result = 0;
-    ((PhysicsObject_nv_2f78c0*)this)->work(result, arg);
+    ((PhysicsObject_nv_2f78c0*)this)->work_002f75d0(result, arg);
     return (void*)(result);
 }
 

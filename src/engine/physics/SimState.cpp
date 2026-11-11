@@ -25,7 +25,7 @@ class Obj_2ef3f0 {
 };
 class Old_2ef3f0 {
   public:
-    void cleanup();
+    void cleanup_00263e90();
 };
 struct Inner_2ef420 {
     char pad[0x34];
@@ -48,7 +48,7 @@ class SimulatedObject {
 class PhysicsObject : public SimulatedObject {
   public:
     virtual void v1();
-    void Finish(int);
+    void Finish_002fe6a0(int);
 };
 struct Obj_2ef440 {
     char pad70[0x70];
@@ -66,8 +66,8 @@ struct Obj1c {
     u32_2ef4a0 val;
 };
 extern void* Cast(void*, int, const void*, const void*, int);
-extern int TypeA_2ef4a0;
-extern int TypeB_2ef4a0;
+extern int hulk_at_004c60bc;
+extern int hulk_at_004c60e4;
 class C_2ef4a0 {
   public:
     char pad[0x70];
@@ -119,7 +119,7 @@ struct Motion_2ef760 {
 extern "C" void __cdecl FUN_00305630(Vec3_2ef760 *out, Pose *a, Pose *b, float dt);
 struct Sub_2ef7f0 {
     char pad[0x40];
-    void Init() throw();
+    void Init_0022b980() throw();
 };
 class SimState_2ef7f0 {
   public:
@@ -136,7 +136,7 @@ class SimState_2ef7f0 {
 };
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_00431214[];
-void freeit(void*);
+void freeit_0008d330(void*);
 class Obj_2ef850 {
   public:
     virtual void a();
@@ -362,7 +362,7 @@ void physics::SimState::vfunc_14(void* __p0) { Obj_2ef3f0 * p = (Obj_2ef3f0 *)__
     if (p)
         p->f();
     if ((*(Obj_2ef3f0 * *)&this->f_74))
-        ((Old_2ef3f0*)(*(Obj_2ef3f0 * *)&this->f_74))->cleanup();
+        ((Old_2ef3f0*)(*(Obj_2ef3f0 * *)&this->f_74))->cleanup_00263e90();
     (*(Obj_2ef3f0 * *)&this->f_74) = p;
 }
 
@@ -384,7 +384,7 @@ void Obj_2ef440::Target(int arg) {
         ((owners::C_304740 *)m74)->FUN_00304740((hulk_intptr)arg);
     if (m70) {
         if (dynamic_cast<PhysicsObject*>(m70)) {
-            dynamic_cast<PhysicsObject*>(m70)->Finish(arg);
+            dynamic_cast<PhysicsObject*>(m70)->Finish_002fe6a0(arg);
         }
     }
 }
@@ -396,8 +396,8 @@ u32_2ef4a0 __fastcall Target(C_2ef4a0* self) {
     if (self->cached)
         return self->cached->val;
     if (self->source) {
-        if (Cast(self->source, 0, &TypeA_2ef4a0, &TypeB_2ef4a0, 0)) {
-            return ((Obj18_2ef4a0*)Cast(self->source, 0, &TypeA_2ef4a0, &TypeB_2ef4a0, 0))->val;
+        if (Cast(self->source, 0, &hulk_at_004c60bc, &hulk_at_004c60e4, 0)) {
+            return ((Obj18_2ef4a0*)Cast(self->source, 0, &hulk_at_004c60bc, &hulk_at_004c60e4, 0))->val;
         }
     }
     return 0;
@@ -527,7 +527,7 @@ SimState_2ef7f0::SimState_2ef7f0(int a) throw() {
     m80 = 0;
     c84 = 0;
     c85 = 0;
-    sub.Init();
+    sub.Init_0022b980();
 }
 
 
@@ -548,7 +548,7 @@ SimState* SimState::f2(unsigned char flag) {
     }
     *(void**)this = (void*)((hulk_intptr)DAT_003f6098);
     if (flag & 1)
-        freeit(this);
+        freeit_0008d330(this);
     return this;
 }
 

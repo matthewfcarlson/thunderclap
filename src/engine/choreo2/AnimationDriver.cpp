@@ -45,14 +45,14 @@ __forceinline float Abs(float x) {
 }
 struct Vec3_224f10 { float x,y,z; };
 extern hulk_freg __cdecl FUN_00224ea0(float x, float z);
-float Helper(float, float, float);
+float Helper_0004af40(float, float, float);
 extern "C" char DAT_00427368[];
 struct Inner_225000 {
     virtual void A();
     virtual void B();
 };
 struct AnimationDriver_nv_225000 {
-    void Tail();
+    void Tail_002222d0();
 };
 struct Id_225030 {
     int lo;
@@ -209,14 +209,14 @@ class AnimationDriver_225a20 {
     char pad236[2];
     int d238;
     int d23c;
-    void First(AnimationDriver_225a20*);
+    void First_00222460(AnimationDriver_225a20*);
     AnimationDriver_225a20* Copy(AnimationDriver_225a20*);
 };
 struct AnimationDriver_225b30 {
     char pad[0x224];
     unsigned char a;
     unsigned char b;
-    float fallback();
+    float fallback_00225ab0();
     float target();
 };
 hulk_freg __cdecl FUN_0004af40(float lo, float hi, float v);
@@ -233,13 +233,13 @@ struct Object {
 hulk_freg __cdecl FUN_00225be0(float, int, int, unsigned char, unsigned char, int, int);
 extern hulk_freg __cdecl FUN_00225be0(int, int, int, unsigned char);
 struct This_GetValue {
-    float GetValue(int);
+    float GetValue_00225c90(int);
 };
 extern "C" void* __cdecl alloc(hulk_uintptr);
 struct AnimationDriver_225da0 {
     hulk_intptr v;
-    void InitA(void*);
-    void InitB(void*);
+    void InitA_00222590(void*);
+    void InitB_00225a20(void*);
 };
 struct Factory_225da0 {
     AnimationDriver_225da0* Make();
@@ -380,7 +380,7 @@ hulk_freg __cdecl FUN_00224f10(const Vec3_224f10* v) {
 // 0x00224fc0 FUN_00224fc0 (31 B): matches/0x00224fc0.cpp
 // sym: ?Target@fn_fe002747@@YAMMM@Z
 hulk_freg Target(float from, float to) {
-    return Helper(-3.1415927f, 3.1415927f, to - from);
+    return Helper_0004af40(-3.1415927f, 3.1415927f, to - from);
 }
 
 } // namespace fn_fe002747
@@ -392,7 +392,7 @@ void choreo2::AnimationDriver::FUN_00225000() {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00427368);
     (*(Inner_225000 * *)&this->f_20)->B();
     --DAT_004e5ab4;
-    ((AnimationDriver_nv_225000*)this)->Tail();
+    ((AnimationDriver_nv_225000*)this)->Tail_002222d0();
 }
 
 
@@ -799,17 +799,17 @@ struct AnimationDriver {
     void* vptr;
     char pad[0x1c];
     Load* member;
-    void Cleanup();
+    void Cleanup_002222d0();
     AnimationDriver* vfunc_2(u8_2259e0 flag);
 };
-void thunk(AnimationDriver*);
+void thunk_00263f30(AnimationDriver*);
 AnimationDriver* AnimationDriver::vfunc_2(u8_2259e0 flag) {
     this->vptr = (void*)((hulk_intptr)DAT_00427368);
     this->member->f1();
     --DAT_004e5ab4;
-    this->Cleanup();
+    this->Cleanup_002222d0();
     if (flag & 1)
-        thunk(this);
+        thunk_00263f30(this);
     return this;
 }
 } // namespace fn_002259e0
@@ -819,7 +819,7 @@ namespace fn_fe002747 {
 // 0x00225a20 FUN_00225a20 (140 B): matches/0x00225a20.cpp
 // sym: ?Copy@AnimationDriver_225a20@fn_fe002747@@QAEPAV12@PAV12@@Z
 AnimationDriver_225a20* AnimationDriver_225a20::Copy(AnimationDriver_225a20* src) {
-    First(src);
+    First_00222460(src);
     ((choreo2::AnimationDriver *)this)->FUN_00225030((void *)(hulk_uintptr)(int)(src->value20));
     b224 = src->b224;
     b225 = src->b225;
@@ -880,7 +880,7 @@ float AnimationDriver_225b30::target() {
         return -1.0f;
     if (b)
         return -1.0f;
-    return fallback();
+    return fallback_00225ab0();
 }
 
 
@@ -932,7 +932,7 @@ void owners::Object_225cf0::FUN_00225cf0(int input) {
 // 0x00225d40 choreo2::AnimationDriver::vfunc_9 (23 B): matches/0x00225d40.cpp
 // sym: ?vfunc_9@AnimationDriver@choreo2@@UAEXH@Z
 void choreo2::AnimationDriver::vfunc_9(int x) {
-    this->f_23c = ((This_GetValue*)this)->GetValue(x);
+    this->f_23c = ((This_GetValue*)this)->GetValue_00225c90(x);
 }
 
 namespace fn_fe002747 {
@@ -943,9 +943,9 @@ namespace fn_fe002747 {
 AnimationDriver_225da0* Factory_225da0::Make() {
     AnimationDriver_225da0* p = (AnimationDriver_225da0*)alloc(0x240);
     if (p != 0) {
-        p->InitA(this);
+        p->InitA_00222590(this);
         p->v = ((hulk_intptr)DAT_00427368);
-        p->InitB(this);
+        p->InitB_00225a20(this);
         ++DAT_004e5ab4;
         if (DAT_004e5ab4 > DAT_004e5ab8)
             DAT_004e5ab8 = DAT_004e5ab4;

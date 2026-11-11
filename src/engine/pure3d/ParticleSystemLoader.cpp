@@ -118,7 +118,7 @@ class Elem_2aa590 {
 };
 class Arg_2aa590 {
   public:
-    void* Get();
+    void* Get_00266c30();
 };
 struct Container_2aa590 {
     int m_a;
@@ -178,7 +178,7 @@ class Obj_2aa710 {
 };
 class Arg_2aa720 {
   public:
-    int Convert();
+    int Convert_00266c30();
 };
 class Item_2aa720 {
   public:
@@ -230,8 +230,8 @@ class Ref_2aae10 {
     virtual void a();
     virtual void Release();
 };
-extern int particleVtable;
-extern int refVtable_2aae10;
+extern int hulk_at_0042dffc;
+extern int hulk_at_003f6098;
 class ParticleGeneratorLoader {
   public:
     int* vptr;
@@ -253,7 +253,7 @@ class ParticleEmitterLoader_2aae80 {
     unsigned count;
     Ref_2aae80* items[8];
     Ref_2aae80* last;
-    void BaseDestroy();
+    void BaseDestroy_002a3e90();
     void F();
 };
 class ParticleEmitterHandler_2aaed0 {
@@ -266,7 +266,7 @@ class DefaultParticleEmitterHandler : public ParticleEmitterHandler_2aaed0 {
     virtual void Handle();
     DefaultParticleEmitterHandler();
 };
-extern int vtLoader;
+extern int hulk_at_0042e08c;
 extern int vtRef_2aaf10;
 class Ref_2aaf10 {
   public:
@@ -460,7 +460,7 @@ public:
     BindTable *table;
     unsigned FUN_002ab030(ParticleSystem_2ab030 **out, Key_2ab030 *outId, Reader *reader, unsigned arg);
 };
-extern int vt1_2ab4b0, vt2;
+extern int hulk_at_0042e0a8, vt2;
 class Ref_2ab4b0 {
   public:
     virtual void f0();
@@ -526,7 +526,7 @@ class OldParticleSystemLoader_2ab830 {
 } // namespace fn_f07ae39e
 void operator delete(void*);
 namespace fn_f07ae39e {
-extern void* Alloc(hulk_uintptr);
+extern void* Alloc_0008d6d0(hulk_uintptr);
 struct Buffer { char* begin; char* end; unsigned char FUN_002aba80(unsigned int count, int extra); };
 void* __cdecl FUN_0008d6d0(unsigned int size);
 extern "C" void * __cdecl FUN_002ab640(void *, unsigned int, const void *);
@@ -742,12 +742,12 @@ class ParticleAllocatorTemplate {
 };
 class Chunk_2ac5b0 {
   public:
-    int Type();
+    int Type_00266c30();
 };
 struct DefaultParticleGeneratorHandler_nv_2ac5b0 {
-    int A(Chunk_2ac5b0*, int);
-    int B(Chunk_2ac5b0*, int);
-    int C(Chunk_2ac5b0*, int);
+    int FnA_002abba0(Chunk_2ac5b0*, int);
+    int FnB_002abd90(Chunk_2ac5b0*, int);
+    int FnC_002abfb0(Chunk_2ac5b0*, int);
 };
 typedef unsigned int u32_2ad510;
 struct HandlerBase {
@@ -758,10 +758,10 @@ struct HandlerBase {
     virtual void e(u32_2ad510, u32_2ad510, u32_2ad510, u32_2ad510);
 };
 struct Query_2ad510 {
-    void* GetType();
+    void* GetType_00266c30();
 };
 struct DefaultParticleEmitterHandler_nv_2ad510 {
-    void Dispatch(u32_2ad510, hulk_uintptr, u32_2ad510, u32_2ad510);
+    void Dispatch_002ac610(u32_2ad510, hulk_uintptr, u32_2ad510, u32_2ad510);
 };
 
 
@@ -907,7 +907,7 @@ hulk_intptr Container_2aa590::Find(Elem_2aa590* arg, hulk_intptr p2) {
     Elem_2aa590** p = arr;
     if (m_count > 0) {
         do {
-            if (arr[i]->v3(((Arg_2aa590*)arg)->Get()) == 1)
+            if (arr[i]->v3(((Arg_2aa590*)arg)->Get_00266c30()) == 1)
                 return arr[i]->v4(arg, p2);
             i++;
         } while (i < m_count);
@@ -1010,7 +1010,7 @@ void Group_2aa720::Fn(hulk_intptr a, Arg_2aa720* b, int c) {
     if (count > 0) {
         Item_2aa720** p = items;
         do {
-            if ((*p)->Test(b->Convert()) == 1) {
+            if ((*p)->Test(b->Convert_00266c30()) == 1) {
                 items[i]->Run(a, b, c, extra);
                 return;
             }
@@ -1060,14 +1060,14 @@ OldParticleEmitterLoader::OldParticleEmitterLoader() : RenderObjectLoader_2aa870
 // 0x002aae10 FUN_002aae10 (61 B): matches/0x002aae10.cpp
 // sym: ?cleanup@ParticleGeneratorLoader@fn_f07ae39e@@QAEXXZ
 void ParticleGeneratorLoader::cleanup() {
-    vptr = &particleVtable;
+    vptr = &hulk_at_0042dffc;
     for (unsigned i = 0; i < count; ++i) {
         if (items[i]) {
             items[i]->Release();
             items[i] = 0;
         }
     }
-    vptr = &refVtable_2aae10;
+    vptr = &hulk_at_003f6098;
 }
 
 } // namespace fn_f07ae39e
@@ -1120,7 +1120,7 @@ void ParticleEmitterLoader_2aae80::F() {
         last->Release();
         last = 0;
     }
-    BaseDestroy();
+    BaseDestroy_002a3e90();
 }
 
 
@@ -1133,7 +1133,7 @@ DefaultParticleEmitterHandler::DefaultParticleEmitterHandler() {}
 // sym: ?Destroy@ParticleSystemLoader_2aaf10@fn_f07ae39e@@QAEXXZ
 void ParticleSystemLoader_2aaf10::Destroy() {
     unsigned int i = 0;
-    *(hulk_intptr*)this = (hulk_intptr)&vtLoader;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0042e08c;
     while (i < count) {
         if (items[i]) {
             items[i]->Release();
@@ -1315,7 +1315,7 @@ namespace fn_f07ae39e {
 // 0x002ab4b0 FUN_002ab4b0 (55 B): matches/0x002ab4b0.cpp
 // sym: ??1OldParticleSystemLoader_2ab4b0@fn_f07ae39e@@QAE@XZ
 OldParticleSystemLoader_2ab4b0::~OldParticleSystemLoader_2ab4b0() throw() {
-    vptr = &vt1_2ab4b0;
+    vptr = &hulk_at_0042e0a8;
     _ReadWriteBarrier();
     if (a14) {
         a14->Release();
@@ -1582,7 +1582,7 @@ bool owners::Buffer_2ab880::FUN_002ab880(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc(count * 4);
+        int* p = (int*)Alloc_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -1603,7 +1603,7 @@ bool owners::Buffer_2ab8e0::FUN_002ab8e0(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc(count * 4);
+        int* p = (int*)Alloc_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -1624,7 +1624,7 @@ bool owners::Buffer_2ab940::FUN_002ab940(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc(count * 4);
+        int* p = (int*)Alloc_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -1645,7 +1645,7 @@ bool owners::Buffer_2ab9a0::FUN_002ab9a0(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc(count * 4);
+        int* p = (int*)Alloc_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -1666,7 +1666,7 @@ bool owners::Buffer_2aba00::FUN_002aba00(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc(count * 4);
+        int* p = (int*)Alloc_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -2170,15 +2170,15 @@ void ParticleAllocatorTemplate::FUN_002ac570() {
 int pure3d::DefaultParticleGeneratorHandler::vfunc_4(hulk_intptr __p0, int arg) { Chunk_2ac5b0 * chunk = (Chunk_2ac5b0 *)__p0;
 
     int result = 0;
-    switch (chunk->Type()) {
+    switch (chunk->Type_00266c30()) {
     case 0x15b00:
-        result = ((DefaultParticleGeneratorHandler_nv_2ac5b0*)this)->A(chunk, arg);
+        result = ((DefaultParticleGeneratorHandler_nv_2ac5b0*)this)->FnA_002abba0(chunk, arg);
         break;
     case 0x15b01:
-        result = ((DefaultParticleGeneratorHandler_nv_2ac5b0*)this)->B(chunk, arg);
+        result = ((DefaultParticleGeneratorHandler_nv_2ac5b0*)this)->FnB_002abd90(chunk, arg);
         break;
     case 0x15b02:
-        result = ((DefaultParticleGeneratorHandler_nv_2ac5b0*)this)->C(chunk, arg);
+        result = ((DefaultParticleGeneratorHandler_nv_2ac5b0*)this)->FnC_002abfb0(chunk, arg);
         break;
     }
     return result;
@@ -2681,8 +2681,8 @@ Obj_2acd70 *Loader_2acd70::FUN_002acd70(Reader *R, Inv_2acd70 *a1)
 // sym: ?vfunc_4@DefaultParticleEmitterHandler@pure3d@@UAEXHHHH@Z
 void pure3d::DefaultParticleEmitterHandler::vfunc_4(int __p0, int __p1, int __p2, int __p3) { u32_2ad510 first = (u32_2ad510)__p0; hulk_uintptr obj = (u32_2ad510)__p1; u32_2ad510 third = (u32_2ad510)__p2; u32_2ad510 fourth = (u32_2ad510)__p3;
 
-    if ((hulk_uintptr)((Query_2ad510*)obj)->GetType() == 0x15900)
-        ((DefaultParticleEmitterHandler_nv_2ad510*)this)->Dispatch(first, obj, third, fourth);
+    if ((hulk_uintptr)((Query_2ad510*)obj)->GetType_00266c30() == 0x15900)
+        ((DefaultParticleEmitterHandler_nv_2ad510*)this)->Dispatch_002ac610(first, obj, third, fourth);
 }
 
 

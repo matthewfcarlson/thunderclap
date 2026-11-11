@@ -21,17 +21,17 @@ class ArticulatedPhysicsObject_3101f0 {
     ArticulatedPhysicsObject_3101f0* Init();
 };
 struct ArticulatedPhysicsObject_nv_3101f0 {
-    void InitBase();
+    void InitBase_002f5480();
 };
-extern int vtable_3103e0;
+extern int hulk_at_0043217c;
 class Obj_3103e0 {
   public:
     virtual void Kill(int);
     virtual void Release();
 };
-extern void Free(void*);
+extern void Free_0008d340(void*);
 struct ArticulatedPhysicsObject_nv_3103e0 {
-    void Tail();
+    void Tail_002f5640();
 };
 struct Vec3_310490 {
     int x, y, z;
@@ -46,15 +46,15 @@ struct Holder_310490 {
 };
 struct Ctx_310490 {
   public:
-    void* Get(int);
+    void* Get_0030f490(int);
 };
 struct A_310490 {
   public:
-    void* Next();
+    void* Next_0030edf0();
 };
 struct B_310490 {
   public:
-    void* Next();
+    void* Next_0030f100();
 };
 struct C_310490 {
   public:
@@ -235,7 +235,7 @@ struct Node {
     float f7c;
     char _m_pad_80[0x70];
     float fF0;
-    void clean();
+    void clean_003099d0();
 };
 class ArticulatedPhysicsObject : public PhysicsObject {
   public:
@@ -273,8 +273,8 @@ struct Tree_310ec0 {
 };
 class Sub_311060 {
   public:
-    void second(int);
-    void third();
+    void second_00308ba0(int);
+    void third_00308b20();
 };
 struct ThisCall_00310550 {
     void FUN_00310550();
@@ -284,13 +284,13 @@ struct State_3111f0 {
     char busy;
 };
 struct H3_3111f0 {
-    void* Get();
+    void* Get_0030f100();
 };
 struct H2_3111f0 {
-    H3_3111f0* Get();
+    H3_3111f0* Get_0030edf0();
 };
 struct H1 {
-    H2_3111f0* Get(int);
+    H2_3111f0* Get_0030f490(int);
 };
 struct Item_3111f0 {
     virtual void a();
@@ -317,7 +317,7 @@ struct Obj_3111f0 {
     char pad3[4];
     H1* helper;
     void Run();
-    void Tail();
+    void Tail_00310550();
 };
 extern "C" void __cdecl FUN_00310d80(unsigned int *, int, int, unsigned int);
 typedef unsigned int UInt;
@@ -428,16 +428,16 @@ class Owner_312240 {
     virtual void Notify();
     char pad[0x204];
     Item_312240* item;
-    void HelperA();
-    void HelperB();
+    void HelperA_00311d50();
+    void HelperB_003111f0();
     void Set(Item_312240*);
 };
 class Helper_3122a0 {
   public:
-    void Init();
+    void Init_002f5480();
 };
 struct ArticulatedPhysicsObject_nv_3122a0 {
-    void Setup(void*, unsigned int);
+    void Setup_00312130(void*, unsigned int);
 };
 extern "C" void* __cdecl alloc(hulk_uintptr);
 
@@ -445,7 +445,7 @@ extern "C" void* __cdecl alloc(hulk_uintptr);
 // 0x003101f0 FUN_003101f0 (35 B): matches/0x003101f0.cpp
 // sym: ?Init@ArticulatedPhysicsObject_3101f0@fn_fec45b2c@@QAEPAV12@XZ
 ArticulatedPhysicsObject_3101f0* ArticulatedPhysicsObject_3101f0::Init() {
-    ((ArticulatedPhysicsObject_nv_3101f0*)(((physics::ArticulatedPhysicsObject*)(this))))->InitBase();
+    ((ArticulatedPhysicsObject_nv_3101f0*)(((physics::ArticulatedPhysicsObject*)(this))))->InitBase_002f5480();
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_0043217c);
     *(unsigned int*)((char*)this + 0x1fc) = 0;
     *(unsigned int*)((char*)this + 0x24) = 1;
@@ -463,7 +463,7 @@ void FUN_00310220() {}
 // 0x003103e0 FUN_003103e0 (118 B): matches/0x003103e0.cpp
 // sym: ?FUN_003103e0@ArticulatedPhysicsObject@physics@@QAEXXZ
 void physics::ArticulatedPhysicsObject::FUN_003103e0() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_3103e0;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0043217c;
     if ((*(Obj_3103e0 * *)&this->f_220))
         (*(Obj_3103e0 * *)&this->f_220)->Release();
     if ((*(Obj_3103e0 * *)&this->f_208))
@@ -473,9 +473,9 @@ void physics::ArticulatedPhysicsObject::FUN_003103e0() {
         if (p)
             p->Kill(1);
     }
-    Free((*(Obj_3103e0 ** *)&this->f_1f8));
-    Free((*(void * *)&this->f_1fc));
-    ((ArticulatedPhysicsObject_nv_3103e0*)this)->Tail();
+    Free_0008d340((*(Obj_3103e0 ** *)&this->f_1f8));
+    Free_0008d340((*(void * *)&this->f_1fc));
+    ((ArticulatedPhysicsObject_nv_3103e0*)this)->Tail_002f5640();
 }
 
 
@@ -502,9 +502,9 @@ void Root_310490::Do(int index, Vec3_310490* out, char flag) {
             return;
         }
     }
-    void* a = context->Get(index);
-    void* b = ((A_310490*)a)->Next();
-    void* c = ((B_310490*)b)->Next();
+    void* a = context->Get_0030f490(index);
+    void* b = ((A_310490*)a)->Next_0030edf0();
+    void* c = ((B_310490*)b)->Next_0030f100();
     ((owners::M_22c3b0 *)(((C_310490*)c)))->FUN_0022c3b0((float *)(holder->records + index * 7), (float *)(Vec3_310490 *)out);
 }
 
@@ -516,7 +516,7 @@ void ArticulatedPhysicsObject::vfunc_7() {
     int i = 0;
     if (mCount > 0) {
         do {
-            mItems[i]->clean();
+            mItems[i]->clean_003099d0();
             ++i;
         } while (i < mCount);
     }
@@ -644,11 +644,11 @@ struct Body_310a00 {
  short unused; short active; char pad[0x78]; Vec_310a00 position;
 };
 namespace physics {
-struct PhysicsObject { bool vfunc_25(Vec_310a00*,Vec_310a00*,int); };
+struct PhysicsObject { bool vfunc_25_002f5d20(Vec_310a00*,Vec_310a00*,int); };
 struct ArticulatedPhysicsObject : PhysicsObject { char pad[0x1fc]; Body_310a00** bodies; bool vfunc_25(Vec_310a00*,Vec_310a00*,int); };
 }
 bool physics::ArticulatedPhysicsObject::vfunc_25(Vec_310a00* out,Vec_310a00* input,int index) {
- if(index<0) return PhysicsObject::vfunc_25(out,input,-1);
+ if(index<0) return PhysicsObject::vfunc_25_002f5d20(out,input,-1);
  if(bodies[index]->active>0) {
  bodies[index]->s22(input);
  Vec_310a00& p=bodies[index]->position;
@@ -867,8 +867,8 @@ void owners::C_311060::FUN_00311060() {
     ((ThisCall_00310550*)(this))->FUN_00310550();
     b = 0x4e6e6b28;
     Sub_311060* p = (Sub_311060*)((char*)this + 0x168);
-    p->second(0x3c83126f);
-    p->third();
+    p->second_00308ba0(0x3c83126f);
+    p->third_00308b20();
 }
 
 
@@ -972,10 +972,10 @@ void Obj_3111f0::Run() {
     if (state->busy)
         return;
     for (int i = 0; i < count; i++) {
-        H2_3111f0* h = helper->Get(items[i]->id);
-        items[i]->Use(h->Get()->Get());
+        H2_3111f0* h = helper->Get_0030f490(items[i]->id);
+        items[i]->Use(h->Get_0030edf0()->Get_0030f100());
     }
-    Tail();
+    Tail_00310550();
 }
 
 } // namespace fn_fec45b2c
@@ -1015,14 +1015,14 @@ class ArticulatedPhysicsObject {
     char s[0x14];
     int field214, field218;
     unsigned char f21c, f21d;
-    void first(int, int, int);
+    void first_00310b30(int, int, int);
 };
 class Elem_311270 {
     char p[0xef];
     unsigned char enabled;
 
   public:
-    void second(int, int);
+    void second_0030a270(int, int);
 };
 } // namespace physics
 void physics::ArticulatedPhysicsObject::vfunc_17(int a1, int a2, int a3, int a4, int a5) {
@@ -1033,8 +1033,8 @@ void physics::ArticulatedPhysicsObject::vfunc_17(int a1, int a2, int a3, int a4,
             f148 = 1;
             return;
         }
-        first(a3, a4, a5);
-        ((Elem_311270*)items[a4])->second(a1, a2);
+        first_00310b30(a3, a4, a5);
+        ((Elem_311270*)items[a4])->second_0030a270(a1, a2);
         field218 = 0;
         field214 = 0;
         f21c = 0;
@@ -1148,7 +1148,7 @@ struct Body_3113b0 {
 namespace physics {
 struct PhysicsObject {
  char pad[0x40]; float mass; char pad2[0x1b8]; Body_3113b0** bodies; char pad3[0x14]; unsigned int state214,state218; unsigned char state21c;
- bool vfunc_18(void*,Vector*,void*,void*,int,int);
+ bool vfunc_18_002f5c70(void*,Vector*,void*,void*,int,int);
 };
 struct ArticulatedPhysicsObject : PhysicsObject {
  void FUN_00310b30(void*,int,int);
@@ -1157,13 +1157,13 @@ struct ArticulatedPhysicsObject : PhysicsObject {
 }
 bool physics::ArticulatedPhysicsObject::vfunc_18(void* a,Vector* v,void* c,void* d,int index,int last) {
  if (!(mass > 0.0f)) return false;
- if(index < 0 || !bodies[index]->enabled) return PhysicsObject::vfunc_18(a,v,c,d,-1,-1);
+ if(index < 0 || !bodies[index]->enabled) return PhysicsObject::vfunc_18_002f5c70(a,v,c,d,-1,-1);
  Vector copy = *v;
  FUN_00310b30(d,index,last);
  bool result = bodies[index]->slot14(a,&copy,c);
  state218 = 0; state214 = 0; state21c = 0;
  if(result && (copy.z*copy.z + copy.x*copy.x + copy.y*copy.y > 1e-05f))
- return PhysicsObject::vfunc_18(a,&copy,c,d,-1,-1);
+ return PhysicsObject::vfunc_18_002f5c70(a,&copy,c,d,-1,-1);
  return result;
 }
 } // namespace fn_003113b0
@@ -1693,8 +1693,8 @@ void Owner_312240::Set(Item_312240* next) {
             old->Release();
         item = next;
         next->Use();
-        HelperA();
-        HelperB();
+        HelperA_00311d50();
+        HelperB_003111f0();
         Notify();
     }
 }
@@ -1706,14 +1706,14 @@ void Owner_312240::Set(Item_312240* next) {
 void* physics::ArticulatedPhysicsObject::vfunc_28(unsigned int a) {
     void* p = alloc(0x238);
     if (p) {
-        ((Helper_3122a0*)p)->Init();
+        ((Helper_3122a0*)p)->Init_002f5480();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0043217c);
         *(unsigned int*)((char*)p + 0x1fc) = 0;
         *(unsigned int*)((char*)p + 0x24) = 1;
     } else {
         p = 0;
     }
-    ((ArticulatedPhysicsObject_nv_3122a0*)this)->Setup(p, a);
+    ((ArticulatedPhysicsObject_nv_3122a0*)this)->Setup_00312130(p, a);
     *(unsigned int*)((char*)p + 0x24) = *(unsigned int*)((char*)this + 0x24);
     return (void*)((physics::ArticulatedPhysicsObject*)p);
 }

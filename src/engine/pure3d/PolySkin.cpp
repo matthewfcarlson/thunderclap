@@ -26,10 +26,10 @@ class Ref_2b7900 {
 };
 class H {
   public:
-    void two(void*, void*);
+    void two_002dfc90(void*, void*);
 };
 struct PolySkin_nv_2b7900 {
-    void last(hulk_intptr, int);
+    void last_002a41e0(hulk_intptr, int);
 };
 class DrawableContainer {
   public:
@@ -59,7 +59,7 @@ class PolySkin : public DrawableContainer {
     int y;
     int vfunc_16();
 };
-extern void* g_vftable_2b7c00[];
+extern void* hulk_at_0042e694[];
 class Ref_2b7c00 {
   public:
     virtual void F0();
@@ -68,7 +68,7 @@ class Ref_2b7c00 {
 class DrawableContainer_2b7c00 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002a4ff0();
 };
 class PolySkin_2b7c00 : public DrawableContainer_2b7c00 {
   public:
@@ -87,7 +87,7 @@ class Thing_2b7c80 {
     virtual void A();
     virtual void B();
 };
-extern void* g_vftable_2b7d30[];
+extern void* hulk_at_0042e6e4[];
 } // namespace fn_f0d4c6f4
 void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_f0d4c6f4 {
@@ -161,7 +161,7 @@ class PolySkinLoader_2b7df0 : public SimpleChunkHandler_2b7df0 {
     ~PolySkinLoader_2b7df0() throw();
 };
 struct Helper_2b8020 {
-    hulk_intptr f(pure3d::PolySkin*);
+    hulk_intptr Fnf_002b7e50(pure3d::PolySkin*);
 };
 
 } // namespace fn_f0d4c6f4
@@ -193,7 +193,7 @@ struct Child {
 };
 struct DrawableContainer {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5();
- void vfunc_6(int, int);
+ void vfunc_6_002a40d0(int, int);
 };
 struct PolySkin : DrawableContainer {
  char pad[0x68];
@@ -204,7 +204,7 @@ struct PolySkin : DrawableContainer {
 void PolySkin::vfunc_6(int a, int b) {
  if (first) first->vfunc_6(a,b);
  if (second) second->vfunc_6(a,b);
- DrawableContainer::vfunc_6(a,b);
+ DrawableContainer::vfunc_6_002a40d0(a,b);
 }
 }
 } // namespace fn_002b78c0
@@ -218,8 +218,8 @@ void pure3d::PolySkin::vfunc_8(hulk_intptr a, int b) {
     if ((*(Ref_2b7900 * *)&this->f_70))
         (*(Ref_2b7900 * *)&this->f_70)->f6(0, 1);
     ((owners::C_284820 *)(((H*)(*(void * *)&this->f_60))))->FUN_00284820((hulk_intptr)0);
-    ((H*)(*(H * *)&this->f_58))->two((*(void * *)&this->f_5c), (*(void * *)&this->f_60));
-    ((PolySkin_nv_2b7900*)this)->last(a, b);
+    ((H*)(*(H * *)&this->f_58))->two_002dfc90((*(void * *)&this->f_5c), (*(void * *)&this->f_60));
+    ((PolySkin_nv_2b7900*)this)->last_002a41e0(a, b);
 }
 
 
@@ -251,7 +251,7 @@ namespace fn_002b7990 {
 // pure3d::PolySkin::vfunc_17 @ 0x002b7990
 namespace pure3d {
 struct Item { char pad[8]; int first; int second; };
-struct DrawableContainer { void vfunc_17(int, int); };
+struct DrawableContainer { void vfunc_17_002a4440(int, int); };
 struct PolySkin : DrawableContainer {
     char pad[0x6c - sizeof(DrawableContainer)];
     Item* primary;
@@ -261,7 +261,7 @@ struct PolySkin : DrawableContainer {
 void PolySkin::vfunc_17(int first, int second) {
     if ((!primary || primary->first != first || primary->second != second) &&
         (!secondary || secondary->first != first || secondary->second != second))
-        DrawableContainer::vfunc_17(first, second);
+        DrawableContainer::vfunc_17_002a4440(first, second);
 }
 }
 } // namespace fn_002b7990
@@ -320,7 +320,7 @@ namespace fn_f0d4c6f4 {
 // 0x002b7c00 FUN_002b7c00 (126 B): matches/0x002b7c00.cpp
 // sym: ??1PolySkin_2b7c00@fn_f0d4c6f4@@QAE@XZ
 PolySkin_2b7c00::~PolySkin_2b7c00() {
-    vptr = g_vftable_2b7c00;
+    vptr = hulk_at_0042e694;
     _ReadWriteBarrier();
     if (m58) {
         m58->Release();
@@ -350,7 +350,7 @@ PolySkin_2b7c00::~PolySkin_2b7c00() {
         m70->Release();
         m70 = 0;
     }
-    Fin();
+    Fin_002a4ff0();
 }
 
 } // namespace fn_f0d4c6f4
@@ -373,7 +373,7 @@ namespace fn_f0d4c6f4 {
 // sym: ??0PolySkinLoader_2b7d30@fn_f0d4c6f4@@QAE@XZ
 PolySkinLoader_2b7d30::PolySkinLoader_2b7d30() {
     m8 = 0x10001;
-    vptr = g_vftable_2b7d30;
+    vptr = hulk_at_0042e6e4;
     m14 = 1;
     m18 = -1;
     m4 = 0;
@@ -585,7 +585,7 @@ PolySkin::PolySkin(const PolySkin* src) : DrawableContainer_2b7e50(src)
 void* pure3d::PolySkin::vfunc_4() {
     Helper_2b8020* p = (Helper_2b8020*)thunk_FUN_0008d690(0x78);
     if (p)
-        return (void*)(p->f(this));
+        return (void*)(p->Fnf_002b7e50(this));
     return (void*)(0);
 }
 

@@ -12,7 +12,7 @@ namespace fn_f106b04d {} using namespace fn_f106b04d;
 namespace fn_f106b04d {
 extern "C" char DAT_00427a58[];
 struct Member_234960 {
-    void Init(const char*);
+    void Init_0027b0e0(const char*);
 };
 
 } // namespace fn_f106b04d
@@ -21,7 +21,7 @@ struct Member_234960 {
 // sym: ?FUN_00234960@ParamValueFloat@fight@@QAEPAV12@PBD@Z
 fight::ParamValueFloat* fight::ParamValueFloat::FUN_00234960(const char* name) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
-    ((Member_234960*)((char*)this + 8))->Init(name);
+    ((Member_234960*)((char*)this + 8))->Init_0027b0e0(name);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00427a58);
     return (fight::ParamValueFloat*)(this);
 }

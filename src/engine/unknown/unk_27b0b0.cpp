@@ -29,17 +29,17 @@ class Entity_27b0b0 {
     int c;
     Entity_27b0b0(void*);
 };
-extern void* Entity_vftable;
+extern void* hulk_at_0042c180;
 struct X {
     unsigned int a, b;
     X(hulk_intptr n);
 };
-extern "C" unsigned __int64 __cdecl make(int, int, hulk_intptr);
-extern void __cdecl release(void*);
+extern "C" unsigned __int64 __cdecl make_002672f0(int, int, hulk_intptr);
+extern void __cdecl release_0008d330(void*);
 struct Entry { unsigned int first; unsigned int second; };
 struct Table { char pad0[0x10]; unsigned int count; char pad1[0x10]; Entry *entries; unsigned int FUN_0027b200(unsigned int first, unsigned int second); };
 struct Pose_nv_27b240 {
-    int DoThing(pure3d::Pose*, int);
+    int DoThing_00284910(pure3d::Pose*, int);
 };
 extern "C" pure3d::Pose* __cdecl FUN_0008d690(int);
 struct Matrix { unsigned int words[16];   };
@@ -53,7 +53,7 @@ extern "C" void* __cdecl Allocate(unsigned int);
 // sym: ??0Entity_27b0b0@fn_fdc3a51a@@QAE@PAX@Z
 Entity_27b0b0::Entity_27b0b0(void* param) {
     a = 0;
-    vptr = &Entity_vftable;
+    vptr = &hulk_at_0042c180;
     b = 0;
     c = 0;
     if (param) {
@@ -69,7 +69,7 @@ X::X(hulk_intptr n) {
     unsigned __int64 v = 0;
     a = (unsigned int)v;
     b = (unsigned int)(v >> 32);
-    v = n ? make(n, 0, 0) : 0;
+    v = n ? make_002672f0(n, 0, 0) : 0;
     a = (unsigned int)v;
     b = (unsigned int)(v >> 32);
 }
@@ -81,7 +81,7 @@ X::X(hulk_intptr n) {
 extern "C" void FUN_0027b1d0() {
     if (--(*(int*)&DAT_0052c288) == 0) {
         if (DAT_004ce410)
-            release(DAT_004ce410);
+            release_0008d330(DAT_004ce410);
         DAT_004ce410 = 0;
     }
 }
@@ -99,7 +99,7 @@ unsigned int Table::FUN_0027b200(unsigned int first, unsigned int second) { for 
 int __fastcall target(pure3d::Pose* self, void*) {
     pure3d::Pose* p = FUN_0008d690((int)sizeof(pure3d::Pose));
     if (p)
-        return ((Pose_nv_27b240*)(((pure3d::Pose*)(p))))->DoThing(self, 0);
+        return ((Pose_nv_27b240*)(((pure3d::Pose*)(p))))->DoThing_00284910(self, 0);
     return 0;
 }
 

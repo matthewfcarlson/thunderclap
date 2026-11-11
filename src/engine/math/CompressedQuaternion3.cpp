@@ -42,7 +42,7 @@ class QuaternionChannel {
     void vfunc_4(int a, int b, int c);
 };
 struct Helper_28d2a0 {
-    void call(int);
+    void call_0022b650(int);
 };
 struct Quat_28d2d0 {
     float x, y, z, w;
@@ -77,7 +77,7 @@ struct Obj_28d440 {
     virtual void f0();
     virtual void f1();
 };
-void thunk(int*);
+void thunk_0008d340(int*);
 class IntChannel {
   public:
     char pad0[12];
@@ -106,14 +106,14 @@ public:
 };
 class Decoder_28d510 {
   public:
-    void* Decode(void*);
+    void* Decode_001db820(void*);
 };
 struct Q_28d510 {
     unsigned int a, b, c, d;
 };
 typedef void(__fastcall* Callback_28d750)(void*);
-extern void* Alloc(hulk_uintptr);
-extern void __stdcall VecNew(void*, int, int, Callback_28d750);
+extern void* Alloc_0008d6d0(hulk_uintptr);
+extern void __stdcall VecNew_00011520(void*, int, int, Callback_28d750);
 class Mem_28d750 {
   public:
 };
@@ -136,7 +136,7 @@ struct CompressedQuaternion4_28d7d0 {
 };
 struct PackedQ {
     unsigned int v;
-    CompressedQuaternion4_28d7d0* Decode(CompressedQuaternion4_28d7d0* tmp);
+    CompressedQuaternion4_28d7d0* Decode_0028d820(CompressedQuaternion4_28d7d0* tmp);
 };
 struct Quaternion_28d820 { float x,y,z,w; };
 struct Packed { unsigned int bits; Quaternion_28d820* decode(Quaternion_28d820* out); };
@@ -158,32 +158,32 @@ struct PackedQuaternion_28dbb0 {
  signed char x,y,z;
  Quaternion_28dbb0* unpack(Quaternion_28dbb0* output);
 };
-extern int g_vftable_28de70;
+extern int hulk_at_0042caa8;
 struct CompressedQuaternionChannel_28de70 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0028d440();
+    void base2_dtor_0028c040();
     void* scalar_dtor(unsigned char flags);
 };
-extern int g_vftable_28dea0;
+extern int hulk_at_0042cac8;
 struct CompressedQuaternionChannel_28dea0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0028d700();
+    void base2_dtor_0028c040();
     void* scalar_dtor(unsigned char flags);
 };
-extern int g_vftable_28ded0;
+extern int hulk_at_0042cae8;
 struct CompressedQuaternionChannel_28ded0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0028da90();
+    void base2_dtor_0028c040();
     void* scalar_dtor(unsigned char flags);
 };
-extern int g_vftable_28df00;
+extern int hulk_at_0042cb08;
 struct CompressedQuaternionChannel_28df00 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0028de20();
+    void base2_dtor_0028c040();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -199,7 +199,7 @@ class ChannelHandler_28d130 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public ChannelHandler_28d130 {
   public:
@@ -210,7 +210,7 @@ class NonCopyable : public ChannelHandler_28d130 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -269,7 +269,7 @@ namespace fn_f5ce7ee6 {
 void QuaternionChannel::vfunc_4(int a, int b, int c) {
     char local[16];
     f3(a, b, local);
-    ((Helper_28d2a0*)local)->call(c);
+    ((Helper_28d2a0*)local)->call_0022b650(c);
 }
 
 
@@ -308,7 +308,7 @@ namespace fn_0028d410 {
 typedef unsigned int u32_28d410;
 struct Buf_28d410 {
     char d[16];
-    void Fn(u32_28d410);
+    void Fn_0022b650(u32_28d410);
 };
 struct RotationChannel {
     virtual void f0();
@@ -324,7 +324,7 @@ struct QuaternionChannel : RotationChannel {
 void QuaternionChannel::vfunc_6(u32_28d410 a, u32_28d410 b) {
     Buf_28d410 buf;
     f5(a, buf.d);
-    buf.Fn(b);
+    buf.Fn_0022b650(b);
 }
 } // namespace fn_0028d410
 
@@ -335,10 +335,10 @@ namespace fn_f5ce7ee6 {
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
 void IntChannel::vfunc_1() {
     if (mObj == 0)
-        thunk(m18);
+        thunk_0008d340(m18);
     m18 = 0;
     if (mObj == 0) {
-        thunk(m14);
+        thunk_0008d340(m14);
         m14 = 0;
         return;
     }
@@ -385,7 +385,7 @@ template <> void pure3d::CompressedQuaternionChannel<math::CompressedQuaternion6
     short v = (*(short * *)&this->f_14)[index];
     *time = (float)(int)v;
     char local[16];
-    Q_28d510* p = (Q_28d510*)((Decoder_28d510*)((*(char * *)&this->f_18) + index * 6))->Decode(local);
+    Q_28d510* p = (Q_28d510*)((Decoder_28d510*)((*(char * *)&this->f_18) + index * 6))->Decode_001db820(local);
     *(Q_28d510*)out = *p;
 }
 
@@ -406,12 +406,12 @@ class QuaternionChannel {
     void vfunc_4(int a, int b, int c);
 };
 struct Helper_28d560 {
-    void call(int);
+    void call_0022b650(int);
 };
 void QuaternionChannel::vfunc_4(int a, int b, int c) {
     char local[16];
     f3(a, b, local);
-    ((Helper_28d560*)local)->call(c);
+    ((Helper_28d560*)local)->call_0022b650(c);
 }
 } // namespace fn_0028d560
 
@@ -486,7 +486,7 @@ namespace fn_0028d6d0 {
 typedef unsigned int u32_28d6d0;
 struct Buf_28d6d0 {
     char d[16];
-    void Fn(u32_28d6d0);
+    void Fn_0022b650(u32_28d6d0);
 };
 struct RotationChannel {
     virtual void f0();
@@ -502,7 +502,7 @@ struct QuaternionChannel : RotationChannel {
 void QuaternionChannel::vfunc_6(u32_28d6d0 a, u32_28d6d0 b) {
     Buf_28d6d0 buf;
     f5(a, buf.d);
-    buf.Fn(b);
+    buf.Fn_0022b650(b);
 }
 } // namespace fn_0028d6d0
 
@@ -515,7 +515,7 @@ struct Obj_28d700 {
     virtual void f0();
     virtual void f1();
 };
-void thunk(int*);
+void thunk_0008d340(int*);
 class IntChannel {
   public:
     char pad0[12];
@@ -527,10 +527,10 @@ class IntChannel {
 };
 void IntChannel::vfunc_1() {
     if (mObj == 0)
-        thunk(m18);
+        thunk_0008d340(m18);
     m18 = 0;
     if (mObj == 0) {
-        thunk(m14);
+        thunk_0008d340(m14);
         m14 = 0;
         return;
     }
@@ -551,8 +551,8 @@ CompressedQuaternionChannel_28d750::CompressedQuaternionChannel_28d750(int x, hu
     m18 = 0;
     if (mc == 0) {
         int n = m10;
-        void* p = Alloc(n * 4);
-        m18 = (p ? (VecNew(p, 4, n, ElemCtor), p) : 0);
+        void* p = Alloc_0008d6d0(n * 4);
+        m18 = (p ? (VecNew_00011520(p, 4, n, ElemCtor), p) : 0);
         return;
     }
     m18 = ((void *)((owners::C_2888c0 *)mc)->FUN_002888c0((unsigned)(m10 << 2), 3));
@@ -567,7 +567,7 @@ template <> void pure3d::CompressedQuaternionChannel<math::CompressedQuaternion4
     int value = (*(short * *)&this->f_14)[index];
     *time = (float)value;
     CompressedQuaternion4_28d7d0 temp;
-    CompressedQuaternion4_28d7d0* p = (*(PackedQ * *)&this->f_18)[index].Decode(&temp);
+    CompressedQuaternion4_28d7d0* p = (*(PackedQ * *)&this->f_18)[index].Decode_0028d820(&temp);
     *out = *p;
 }
 
@@ -607,12 +607,12 @@ class QuaternionChannel {
     void vfunc_4(int a, int b, int c);
 };
 struct Helper_28d8f0 {
-    void call(int);
+    void call_0022b650(int);
 };
 void QuaternionChannel::vfunc_4(int a, int b, int c) {
     char local[16];
     f3(a, b, local);
-    ((Helper_28d8f0*)local)->call(c);
+    ((Helper_28d8f0*)local)->call_0022b650(c);
 }
 } // namespace fn_0028d8f0
 
@@ -687,7 +687,7 @@ namespace fn_0028da60 {
 typedef unsigned int u32_28da60;
 struct Buf_28da60 {
     char d[16];
-    void Fn(u32_28da60);
+    void Fn_0022b650(u32_28da60);
 };
 struct RotationChannel {
     virtual void f0();
@@ -703,7 +703,7 @@ struct QuaternionChannel : RotationChannel {
 void QuaternionChannel::vfunc_6(u32_28da60 a, u32_28da60 b) {
     Buf_28da60 buf;
     f5(a, buf.d);
-    buf.Fn(b);
+    buf.Fn_0022b650(b);
 }
 } // namespace fn_0028da60
 
@@ -716,7 +716,7 @@ struct Obj_28da90 {
     virtual void f0();
     virtual void f1();
 };
-void thunk(int*);
+void thunk_0008d340(int*);
 class IntChannel {
   public:
     char pad0[12];
@@ -728,10 +728,10 @@ class IntChannel {
 };
 void IntChannel::vfunc_1() {
     if (mObj == 0)
-        thunk(m18);
+        thunk_0008d340(m18);
     m18 = 0;
     if (mObj == 0) {
-        thunk(m14);
+        thunk_0008d340(m14);
         m14 = 0;
         return;
     }
@@ -845,12 +845,12 @@ class QuaternionChannel {
     void vfunc_4(int a, int b, int c);
 };
 struct Helper_28dc60 {
-    void call(int);
+    void call_0022b650(int);
 };
 void QuaternionChannel::vfunc_4(int a, int b, int c) {
     char local[16];
     f3(a, b, local);
-    ((Helper_28dc60*)local)->call(c);
+    ((Helper_28dc60*)local)->call_0022b650(c);
 }
 } // namespace fn_0028dc60
 
@@ -925,7 +925,7 @@ namespace fn_0028ddf0 {
 typedef unsigned int u32_28ddf0;
 struct Buf_28ddf0 {
     char d[16];
-    void Fn(u32_28ddf0);
+    void Fn_0022b650(u32_28ddf0);
 };
 struct RotationChannel {
     virtual void f0();
@@ -941,7 +941,7 @@ struct QuaternionChannel : RotationChannel {
 void QuaternionChannel::vfunc_6(u32_28ddf0 a, u32_28ddf0 b) {
     Buf_28ddf0 buf;
     f5(a, buf.d);
-    buf.Fn(b);
+    buf.Fn_0022b650(b);
 }
 } // namespace fn_0028ddf0
 
@@ -954,7 +954,7 @@ struct Obj_28de20 {
     virtual void f0();
     virtual void f1();
 };
-void thunk(int*);
+void thunk_0008d340(int*);
 class IntChannel {
   public:
     char pad0[12];
@@ -966,10 +966,10 @@ class IntChannel {
 };
 void IntChannel::vfunc_1() {
     if (mObj == 0)
-        thunk(m18);
+        thunk_0008d340(m18);
     m18 = 0;
     if (mObj == 0) {
-        thunk(m14);
+        thunk_0008d340(m14);
         m14 = 0;
         return;
     }
@@ -988,9 +988,9 @@ namespace fn_f5ce7ee6 {
 // sym: ?scalar_dtor@CompressedQuaternionChannel_28de70@fn_f5ce7ee6@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* CompressedQuaternionChannel_28de70::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_28de70;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0042caa8;
+    base1_dtor_0028d440();
+    base2_dtor_0028c040();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -1001,9 +1001,9 @@ void* CompressedQuaternionChannel_28de70::scalar_dtor(unsigned char flags) {
 // sym: ?scalar_dtor@CompressedQuaternionChannel_28dea0@fn_f5ce7ee6@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* CompressedQuaternionChannel_28dea0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_28dea0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0042cac8;
+    base1_dtor_0028d700();
+    base2_dtor_0028c040();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -1014,9 +1014,9 @@ void* CompressedQuaternionChannel_28dea0::scalar_dtor(unsigned char flags) {
 // sym: ?scalar_dtor@CompressedQuaternionChannel_28ded0@fn_f5ce7ee6@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* CompressedQuaternionChannel_28ded0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_28ded0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0042cae8;
+    base1_dtor_0028da90();
+    base2_dtor_0028c040();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -1027,9 +1027,9 @@ void* CompressedQuaternionChannel_28ded0::scalar_dtor(unsigned char flags) {
 // sym: ?scalar_dtor@CompressedQuaternionChannel_28df00@fn_f5ce7ee6@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* CompressedQuaternionChannel_28df00::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_28df00;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0042cb08;
+    base1_dtor_0028de20();
+    base2_dtor_0028c040();
     if (flags & 1)
         thunk_delete(this);
     return this;

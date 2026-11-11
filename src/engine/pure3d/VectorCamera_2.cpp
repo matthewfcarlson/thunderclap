@@ -14,16 +14,16 @@ namespace fn_f42720ef {} using namespace fn_f42720ef;
 // ---- declarations shared by the functions below
 namespace fn_f42720ef {
 struct H {
-    void init();
-    void combine(void*, void*);
+    void init_0022d180();
+    void combine_0022bec0(void*, void*);
 };
 struct M_293b20 {
     unsigned int v[16];
 };
-extern void* Camera_293ba0_vftable[];
+extern void* hulk_at_0042d014[];
 class Camera_293ba0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002926c0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class VectorCamera_293ba0 : public Camera_293ba0 {
   public:
@@ -36,9 +36,9 @@ class VectorCamera_293ba0 : public Camera_293ba0 {
 // sym: ?vfunc_26@VectorCamera@pure3d@@UAEXXZ
 void pure3d::VectorCamera::vfunc_26() {
     char* b = (char*)this;
-    ((H*)(b + 0xdc))->init();
-    ((H*)(b + 0xe8))->init();
-    ((H*)(b + 0x8c))->combine(b + 0xdc, b + 0xe8);
+    ((H*)(b + 0xdc))->init_0022d180();
+    ((H*)(b + 0xe8))->init_0022d180();
+    ((H*)(b + 0x8c))->combine_0022bec0(b + 0xdc, b + 0xe8);
     *(volatile int*)(b + 0xbc) = *(volatile int*)(b + 0xd0);
     *(volatile int*)(b + 0xc0) = *(volatile int*)(b + 0xd4);
     *(volatile int*)(b + 0xc4) = *(volatile int*)(b + 0xd8);
@@ -55,8 +55,8 @@ namespace fn_f42720ef {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 VectorCamera_293ba0* VectorCamera_293ba0::vfunc_5(signed char flags) {
-    *(void***)this = Camera_293ba0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042d014;
+    Destroy_002926c0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

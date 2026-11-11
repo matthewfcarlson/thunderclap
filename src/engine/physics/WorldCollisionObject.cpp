@@ -119,7 +119,7 @@ class PhysicsThing {
     unsigned char c;
 };
 struct WorldCollisionObject_nv_2fe1d0 {
-    void BaseCtor();
+    void BaseCtor_0027b070();
 };
 class Ref_2fe1f0 {
   public:
@@ -131,7 +131,7 @@ class Entity_2fe1f0 {
     void finish();
 };
 struct WorldCollisionObject_nv_2fe1f0 {
-    void finish();
+    void finish_0027afd0();
 };
 
 
@@ -234,7 +234,7 @@ WorldCollisionObject::WorldCollisionObject(Ref_2fe1a0* r) : Entity_2fe1a0() {
 // 0x002fe1d0 FUN_002fe1d0 (29 B): matches/0x002fe1d0.cpp
 // sym: ?Target@fn_fcf78bc5@@YIPAVPhysicsThing@1@PAV21@@Z
 PhysicsThing* __fastcall Target(PhysicsThing* self) {
-    ((WorldCollisionObject_nv_2fe1d0*)(((physics::WorldCollisionObject*)(((physics::WorldCollisionObject*)(self))))))->BaseCtor();
+    ((WorldCollisionObject_nv_2fe1d0*)(((physics::WorldCollisionObject*)(((physics::WorldCollisionObject*)(self))))))->BaseCtor_0027b070();
     *(hulk_intptr*)self = ((hulk_intptr)DAT_00431968);
     self->b = 0;
     self->c = 1;
@@ -249,14 +249,14 @@ void physics::WorldCollisionObject::FUN_002fe1f0() {
     *(void**)this = (void*)((hulk_intptr)DAT_00431968);
     if ((*(Ref_2fe1f0 * *)&this->f_10))
         (*(Ref_2fe1f0 * *)&this->f_10)->f1();
-    ((WorldCollisionObject_nv_2fe1f0*)this)->finish();
+    ((WorldCollisionObject_nv_2fe1f0*)this)->finish_0027afd0();
 }
 
 
 // 0x002fe210 physics::WorldCollisionObject::vfunc_2 (50 B): matches/0x002fe210.cpp [wrapped: conflict: WorldCollisionObject]
 // sym: ?f2@WorldCollisionObject@fn_002fe210@@UAEPAV12@E@Z
 namespace fn_002fe210 {
-extern void* vftable_2fe210;
+extern void* hulk_at_00431968;
 class Entity_2fe210 {
   public:
     virtual void f0();
@@ -267,16 +267,16 @@ class WorldCollisionObject : public Entity_2fe210 {
     virtual WorldCollisionObject* f2(unsigned char);
     char pad[12];
     void* member10;
-    void helper();
+    void helper_0027afd0();
 };
-void __cdecl thunk(WorldCollisionObject*);
+void __cdecl thunk_00263f30(WorldCollisionObject*);
 WorldCollisionObject* WorldCollisionObject::f2(unsigned char flag) {
-    *(void**)this = &vftable_2fe210;
+    *(void**)this = &hulk_at_00431968;
     if (member10)
         ((Entity_2fe210*)member10)->f1();
-    helper();
+    helper_0027afd0();
     if (flag & 1)
-        thunk(this);
+        thunk_00263f30(this);
     return this;
 }
 } // namespace fn_002fe210

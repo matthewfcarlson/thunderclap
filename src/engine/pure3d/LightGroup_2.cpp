@@ -109,8 +109,8 @@ class Entity_2a1130 {
 namespace fn_fe79e145 {
 struct Sub_2a1180 {
 };
-extern int vt1_2a11b0;
-extern void Free(void*);
+extern int hulk_at_0042d694;
+extern void Free_0008d340(void*);
 class Ref_2a11b0 {
   public:
     virtual void f0();
@@ -355,7 +355,7 @@ namespace fn_fe79e145 {
 // 0x002a11b0 FUN_002a11b0 (81 B): matches/0x002a11b0.cpp
 // sym: ??1LightGroup_2a11b0@fn_fe79e145@@QAE@XZ
 LightGroup_2a11b0::~LightGroup_2a11b0() throw() {
-    vptr = &vt1_2a11b0;
+    vptr = &hulk_at_0042d694;
     for (int i = 0; i < n; i++) {
         Ref_2a11b0* r = arr[i];
         if (r)
@@ -365,7 +365,7 @@ LightGroup_2a11b0::~LightGroup_2a11b0() throw() {
     cap = 0;
     _ReadWriteBarrier();
     if (arr)
-        Free(arr);
+        Free_0008d340(arr);
 }
 
 } // namespace fn_fe79e145

@@ -13,10 +13,10 @@ namespace fn_ff20f16b {} using namespace fn_ff20f16b;
 
 // ---- declarations shared by the functions below
 namespace fn_ff20f16b {
-extern void* DisplayList_29c050_vftable[];
+extern void* hulk_at_0042d5b4[];
 class DisplayList_29c050 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0029bdc0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class DrawableDisplayList_29c050 : public DisplayList_29c050 {
   public:
@@ -30,8 +30,8 @@ class DrawableDisplayList_29c050 : public DisplayList_29c050 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 DrawableDisplayList_29c050* DrawableDisplayList_29c050::vfunc_5(signed char flags) {
-    *(void***)this = DisplayList_29c050_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042d5b4;
+    Destroy_0029bdc0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

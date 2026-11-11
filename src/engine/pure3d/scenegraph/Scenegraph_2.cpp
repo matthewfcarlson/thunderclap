@@ -32,11 +32,11 @@ class Base_295c70 {
   public:
     hulk_uintptr vf;
     char pad[4];
-    void Init();
+    void Init_0027b070();
 };
 class Child_295c70 {
   public:
-    void Copy(void*);
+    void Copy_0027af70(void*);
 };
 class Thing_295c70 : public Base_295c70 {
   public:
@@ -363,10 +363,10 @@ class pure3d_scenegraph_Traversal_Visitor {
     int pad;
     int callback;
 };
-extern void* Entity_296570_vftable[];
+extern void* hulk_at_0042d1ec[];
 class Entity_296570 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class Node_296570 : public Entity_296570 {
   public:
@@ -582,7 +582,7 @@ struct Obj_296aa0 {
 extern void* Node_296b20_vftable[];
 class Node_296b20 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class LeafNode_296b20 : public Node_296b20 {
   public:
@@ -595,7 +595,7 @@ class Ref_296b50 {
     virtual void Release() throw();
 };
 struct DrawableNode_nv_296b50 {
-    void Finish();
+    void Finish_0027afd0();
 };
 class Item_296b80 {
   public:
@@ -668,8 +668,8 @@ namespace fn_f9b7dd8c {
 struct Sphere_296cb0 { float x,y,z,r; };
 struct Bounds_296cb0 { float v[6]; Sphere_296cb0* FUN_000a8890(Sphere_296cb0* out); };
 void __cdecl FUN_00296220(void* root, pure3d::scenegraph::BoundingVolumeUpdater_296cb0* updater);
-extern int vt1_296fd0, vt2;
-extern void Free(void*);
+extern int hulk_at_0042d28c, vt2;
+extern void Free_00263f30(void*);
 class Ref_296fd0 {
   public:
     virtual void f0();
@@ -678,7 +678,7 @@ class Ref_296fd0 {
 class Root_296fd0 {
   public:
     void* vptr;
-    void Fini();
+    void Fini_0027afd0();
 };
 class D : public Root_296fd0 {
   public:
@@ -703,17 +703,17 @@ class Obj_297010 {
 };
 class Base_297010 {
   public:
-    void Init();
+    void Init_0027b070();
 };
 class Name_297010 {
   public:
-    void Copy(Name_297010*);
+    void Copy_0027af70(Name_297010*);
 };
 class Helper_297080 {
   public:
-    hulk_intptr run(pure3d::scenegraph::DrawableNode*);
+    hulk_intptr run_00297010(pure3d::scenegraph::DrawableNode*);
 };
-extern void* __cdecl alloc(int);
+extern void* __cdecl alloc_00263ea0(int);
 extern "C" char DAT_0042d348[];
 class Obj_297150 {
   public:
@@ -750,19 +750,19 @@ class BranchNode : public Mid_2972e0 {
     int** m20;
 };
 struct Helper_2973b0 {
-    hulk_intptr f(pure3d::scenegraph::BranchNode*);
+    hulk_intptr Fnf_002971f0(pure3d::scenegraph::BranchNode*);
 };
 extern "C" void* __cdecl thunk_FUN_0008d690(int);
 extern "C" char DAT_0042d3bc[];
 typedef unsigned int u32_297460;
 struct Base_297460 {
-    void Init(u32_297460);
+    void Init_002972e0(u32_297460);
 };
 struct Part_297460 {
-    void Init();
+    void Init_0022b980();
     char pad[0x40];
 };
-extern int vt1_2974a0;
+extern int hulk_at_0042d3bc;
 class Ref_2974a0 {
   public:
     virtual void f0();
@@ -781,9 +781,9 @@ class TransformNode_2974a0 : public BranchNode_2974a0 {
 };
 class Helper_2974d0 {
   public:
-    hulk_intptr call(pure3d::scenegraph::TransformNode*);
+    hulk_intptr call_002973d0(pure3d::scenegraph::TransformNode*);
 };
-extern int vt1_297590;
+extern int hulk_at_0042d414;
 class Ref_297590 {
   public:
     virtual void f0();
@@ -802,7 +802,7 @@ class VisibilityNode_297590 : public BranchNode_297590 {
 };
 class Other_2975c0 {
   public:
-    hulk_intptr helper(pure3d::scenegraph::VisibilityNode*);
+    hulk_intptr helper_00297500(pure3d::scenegraph::VisibilityNode*);
 };
 class Ref_297600 {
   public:
@@ -819,7 +819,7 @@ class TransformNode {
     union { u32_297460 field; Ref_297600* ref; };
     TransformNode* Init(u32_297460);
     TransformNode* vfunc_2(unsigned int p);
-    void helper();
+    void helper_00297350();
 };
 void __cdecl thunk_FUN_00267090(TransformNode*);
 void *thunk_FUN_0008d690(unsigned int size);
@@ -971,11 +971,11 @@ namespace fn_f9b7dd8c {
 // 0x00295c70 FUN_00295c70 (48 B): matches/0x00295c70.cpp
 // sym: ?Run@Thing_295c70@fn_f9b7dd8c@@QAEPAV12@PAX@Z
 Thing_295c70* Thing_295c70::Run(void* src) {
-    Init();
+    Init_0027b070();
     vf = ((hulk_intptr)DAT_0042d1ec);
     a = ((u32_295c70*)src)[4];
     b = ((u32_295c70*)src)[5];
-    ((Child_295c70*)((char*)this + 8))->Copy((char*)src + 8);
+    ((Child_295c70*)((char*)this + 8))->Copy_0027af70((char*)src + 8);
     return this;
 }
 
@@ -1131,7 +1131,7 @@ namespace pure3d {
 namespace scenegraph {
 struct Mat {
     unsigned int v[16];
-    void combine(Mat*, Mat*);
+    void combine_0022ca90(Mat*, Mat*);
 };
 class Node {
   public:
@@ -1173,7 +1173,7 @@ pure3d::scenegraph::Mat* pure3d::scenegraph::TransformNode::vfunc_17() {
     if (flagByte & 4) {
         if (other) {
             Mat* m = other->vfunc_17();
-            world.combine(&local, m);
+            world.combine_0022ca90(&local, m);
             flags &= ~4;
         } else {
             unsigned int f = flags;
@@ -1224,7 +1224,7 @@ class Entity_295f50 {
 };
 class Part {
   public:
-    void Copy(const Part&);
+    void Copy_0027af70(const Part&);
     char x[8];
 };
 class Node : public Entity_295f50 {
@@ -1232,7 +1232,7 @@ class Node : public Entity_295f50 {
     Node(const Node& other) : Entity_295f50() {
         a = other.a;
         b = other.b;
-        p.Copy(other.p);
+        p.Copy_0027af70(other.p);
     }
     virtual void g();
     Part p;
@@ -1510,8 +1510,8 @@ namespace fn_f9b7dd8c {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 Node_296570* Node_296570::vfunc_5(signed char flags) {
-    *(void***)this = Entity_296570_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042d1ec;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1884,7 +1884,7 @@ class Child_296a50 {
     virtual void f4();
     virtual void f5();
     virtual void f6(int, int);
-    bool check();
+    bool check_00284ae0();
 };
 class BranchNode {
   public:
@@ -1918,7 +1918,7 @@ class VisibilityNode : public BranchNode {
 };
 void VisibilityNode::f8(int a, int b, int c) {
     if (!(flags & 1)) {
-        if (child && !child->check())
+        if (child && !child->check_00284ae0())
             child->f6(0, 1);
         if (enabled == 1)
             BranchNode::f8(a, b, c);
@@ -1970,7 +1970,7 @@ namespace fn_f9b7dd8c {
  // thunk_FUN_00267090
 LeafNode_296b20* LeafNode_296b20::vfunc_5(signed char flags) {
     *(void***)this = Node_296b20_vftable;
-    Destroy();
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1989,7 +1989,7 @@ void pure3d::scenegraph::DrawableNode::FUN_00296b50() {
         (*(Ref_296b50 * *)&this->f_18) = 0;
     }
     *(void**)this = (void*)((hulk_intptr)DAT_0042d1ec);
-    ((DrawableNode_nv_296b50*)this)->Finish();
+    ((DrawableNode_nv_296b50*)this)->Finish_0027afd0();
 }
 
 namespace fn_f9b7dd8c {
@@ -2088,7 +2088,7 @@ class Visitor_296de0 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_0042d324[];
 namespace pure3d {
 class NonCopyable : public Visitor_296de0 {
   public:
@@ -2099,7 +2099,7 @@ class NonCopyable : public Visitor_296de0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_0042d324;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -2122,10 +2122,10 @@ struct ShaderCallbackVisitor : Visitor_296e00 {
     virtual void vfunc_0();
     virtual ShaderCallbackVisitor* vfunc_1(byte_296e00);
 };
-extern void* shaderVtable;
+extern void* hulk_at_0042d330;
 void thunk_FUN_00267090(ShaderCallbackVisitor*);
 ShaderCallbackVisitor* ShaderCallbackVisitor::vfunc_1(byte_296e00 param) {
-    *(void**)this = &shaderVtable;
+    *(void**)this = &hulk_at_0042d330;
     if (mThing)
         ((Visitor_296e00*)mThing)->v1();
     if (param & 1)
@@ -2147,7 +2147,7 @@ class Visitor_296e30 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_0042d33c[];
 namespace pure3d {
 class NonCopyable : public Visitor_296e30 {
   public:
@@ -2158,7 +2158,7 @@ class NonCopyable : public Visitor_296e30 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_0042d33c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -2202,16 +2202,16 @@ namespace fn_f9b7dd8c {
 // 0x00296fd0 pure3d::scenegraph::DrawableNode::vfunc_2 (63 B): matches/0x00296fd0.cpp
 // sym: ?vfunc2@D@fn_f9b7dd8c@@QAEPAV12@E@Z
 D* D::vfunc2(unsigned char f) {
-    vptr = &vt1_296fd0;
+    vptr = &hulk_at_0042d28c;
     _ReadWriteBarrier();
     if (a18) {
         a18->Release();
         a18 = 0;
     }
     vptr = &vt2;
-    Fini();
+    Fini_0027afd0();
     if (f & 1)
-        Free(this);
+        Free_00263f30(this);
     return this;
 }
 
@@ -2219,11 +2219,11 @@ D* D::vfunc2(unsigned char f) {
 // 0x00297010 FUN_00297010 (104 B): matches/0x00297010.cpp
 // sym: ?Build@Obj_297010@fn_f9b7dd8c@@QAEPAV12@PAV12@@Z
 Obj_297010* Obj_297010::Build(Obj_297010* src) {
-    ((Base_297010*)this)->Init();
+    ((Base_297010*)this)->Init_0027b070();
     vptr = ((hulk_intptr)DAT_0042d1ec);
     x[3] = src->x[3];
     x[4] = src->x[4];
-    ((Name_297010*)((char*)this + 8))->Copy((Name_297010*)((char*)src + 8));
+    ((Name_297010*)((char*)this + 8))->Copy_0027af70((Name_297010*)((char*)src + 8));
     vptr = ((hulk_intptr)DAT_0042d28c);
     c = 0;
     if (src->c) {
@@ -2242,9 +2242,9 @@ Obj_297010* Obj_297010::Build(Obj_297010* src) {
 // 0x00297080 pure3d::scenegraph::DrawableNode::vfunc_4 (31 B): matches/0x00297080.cpp
 // sym: ?vfunc_4@DrawableNode@scenegraph@pure3d@@UAEPAXXZ
 void* pure3d::scenegraph::DrawableNode::vfunc_4() {
-    void* p = alloc(0x20);
+    void* p = alloc_00263ea0(0x20);
     if (p)
-        return (void*)(((Helper_297080*)p)->run(this));
+        return (void*)(((Helper_297080*)p)->run_00297010(this));
     return (void*)(0);
 }
 
@@ -2277,9 +2277,9 @@ class Scenegraph {
     virtual void v14();
     char pad[0x3c];
     Obj_2970a0* volatile mObj;
-    void cleanup();
+    void cleanup_002a35f0();
 };
-void __cdecl thunk(Scenegraph*);
+void __cdecl thunk_00263f30(Scenegraph*);
 Scenegraph* Scenegraph::vfunc_2(unsigned char flag) {
     *(volatile hulk_ulongptr*)this = ((hulk_intptr)DAT_0042d2dc);
     Obj_2970a0* p = mObj;
@@ -2287,9 +2287,9 @@ Scenegraph* Scenegraph::vfunc_2(unsigned char flag) {
         p->b();
         mObj = 0;
     }
-    cleanup();
+    cleanup_002a35f0();
     if (flag & 1)
-        thunk(this);
+        thunk_00263f30(this);
     return this;
 }
 } // namespace fn_002970a0
@@ -2364,7 +2364,7 @@ class SimpleChunkHandler_297170 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_297170 {
   public:
@@ -2375,7 +2375,7 @@ class NonCopyable : public SimpleChunkHandler_297170 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -2462,8 +2462,8 @@ BranchNode::BranchNode(unsigned int n) {
 // 0x00297350 FUN_00297350 (84 B): matches/0x00297350.cpp [wrapped: conflict: D]
 // sym: ??1D@fn_00297350@@QAE@XZ
 namespace fn_00297350 {
-extern int vt1_297350, vt2;
-extern void Free(void*);
+extern int hulk_at_0042d364, vt2;
+extern void Free_0008d340(void*);
 class Ref_297350 {
   public:
     virtual void f0();
@@ -2482,7 +2482,7 @@ class D : public Root_297350 {
     ~D() throw();
 };
 D::~D() throw() {
-    vptr = &vt1_297350;
+    vptr = &hulk_at_0042d364;
     for (unsigned i = 0; i < n; i++) {
         Ref_297350** pp = &arr[i];
         Ref_297350* r = *pp;
@@ -2492,7 +2492,7 @@ D::~D() throw() {
         }
     }
     if (arr)
-        Free(arr);
+        Free_0008d340(arr);
     vptr = &vt2;
 }
 } // namespace fn_00297350
@@ -2503,7 +2503,7 @@ D::~D() throw() {
 void* pure3d::scenegraph::BranchNode::vfunc_4() {
     Helper_2973b0* p = (Helper_2973b0*)thunk_FUN_0008d690(0x28);
     if (p)
-        return (void*)(p->f(this));
+        return (void*)(p->Fnf_002971f0(this));
     return (void*)(0);
 }
 
@@ -2577,11 +2577,11 @@ namespace fn_f9b7dd8c {
 // 0x00297460 FUN_00297460 (51 B): matches/0x00297460.cpp
 // sym: ?Init@TransformNode@fn_f9b7dd8c@@QAEPAV12@I@Z
 TransformNode* TransformNode::Init(u32_297460 arg) {
-    ((Base_297460*)this)->Init(arg);
+    ((Base_297460*)this)->Init_002972e0(arg);
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_0042d3bc);
     field = 0;
-    a.Init();
-    b.Init();
+    a.Init_0022b980();
+    b.Init_0022b980();
     return this;
 }
 
@@ -2589,7 +2589,7 @@ TransformNode* TransformNode::Init(u32_297460 arg) {
 // 0x002974a0 FUN_002974a0 (42 B): matches/0x002974a0.cpp
 // sym: ??1TransformNode_2974a0@fn_f9b7dd8c@@QAE@XZ
 TransformNode_2974a0::~TransformNode_2974a0() throw() {
-    vptr = &vt1_2974a0;
+    vptr = &hulk_at_0042d3bc;
     _ReadWriteBarrier();
     if (aa8) {
         aa8->Release();
@@ -2602,9 +2602,9 @@ TransformNode_2974a0::~TransformNode_2974a0() throw() {
 // 0x002974d0 pure3d::scenegraph::TransformNode::vfunc_4 (34 B): matches/0x002974d0.cpp
 // sym: ?vfunc_4@TransformNode@scenegraph@pure3d@@UAEPAXXZ
 void* pure3d::scenegraph::TransformNode::vfunc_4() {
-    void* p = alloc(0xb0);
+    void* p = alloc_00263ea0(0xb0);
     if (p)
-        return (void*)(((Helper_2974d0*)p)->call(this));
+        return (void*)(((Helper_2974d0*)p)->call_002973d0(this));
     return (void*)(0);
 }
 
@@ -2673,7 +2673,7 @@ namespace fn_f9b7dd8c {
 // 0x00297590 FUN_00297590 (36 B): matches/0x00297590.cpp
 // sym: ??1VisibilityNode_297590@fn_f9b7dd8c@@QAE@XZ
 VisibilityNode_297590::~VisibilityNode_297590() throw() {
-    vptr = &vt1_297590;
+    vptr = &hulk_at_0042d414;
     _ReadWriteBarrier();
     if (a2c) {
         a2c->Release();
@@ -2686,9 +2686,9 @@ VisibilityNode_297590::~VisibilityNode_297590() throw() {
 // 0x002975c0 pure3d::scenegraph::VisibilityNode::vfunc_4 (31 B): matches/0x002975c0.cpp
 // sym: ?vfunc_4@VisibilityNode@scenegraph@pure3d@@UAEPAXXZ
 void* pure3d::scenegraph::VisibilityNode::vfunc_4() {
-    void* p = alloc(0x30);
+    void* p = alloc_00263ea0(0x30);
     if (p)
-        return (void*)(((Other_2975c0*)p)->helper(this));
+        return (void*)(((Other_2975c0*)p)->helper_00297500(this));
     return (void*)(0);
 }
 
@@ -2710,7 +2710,7 @@ TransformNode* TransformNode::vfunc_2(unsigned int p) {
         r->f1();
         ref = 0;
     }
-    helper();
+    helper_00297350();
     if (p & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -2735,9 +2735,9 @@ class VisibilityNode {
     virtual VisibilityNode* vfunc_2(unsigned char);
     char pad[0x28];
     Ref_297640* member;
-    void cleanup();
+    void cleanup_00297350();
 };
-void thunk(VisibilityNode*);
+void thunk_00263f30(VisibilityNode*);
 VisibilityNode* VisibilityNode::vfunc_2(unsigned char flag) {
     *(void**)this = &vt_297640;
     _ReadWriteBarrier();
@@ -2745,9 +2745,9 @@ VisibilityNode* VisibilityNode::vfunc_2(unsigned char flag) {
         member->b();
         member = 0;
     }
-    cleanup();
+    cleanup_00297350();
     if (flag & 1)
-        thunk(this);
+        thunk_00263f30(this);
     return this;
 }
 } // namespace fn_00297640

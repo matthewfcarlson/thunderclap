@@ -48,7 +48,7 @@ class Pair_27af90 {
     int b;
     bool operator==(const Pair_27af90& other);
 };
-extern void* IRefCount_vftable_27afd0;
+extern void* hulk_at_003f6098;
 
 
 // 0x0027aec0 FUN_0027aec0 (46 B): matches/0x0027aec0.cpp
@@ -139,7 +139,7 @@ extern "C" unsigned __int64 __cdecl FUN_0027afb0(const char* name) {
 // sym: @FUN_0027afd0@4
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 extern "C" void __fastcall FUN_0027afd0(void* self) {
-    *(void**)self = &IRefCount_vftable_27afd0;
+    *(void**)self = &hulk_at_003f6098;
 }
 
 } // namespace fn_f3f84338

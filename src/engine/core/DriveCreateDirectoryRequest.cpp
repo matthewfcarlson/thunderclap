@@ -45,7 +45,7 @@ class Service_274670 {
 };
 class Helper_274670 {
   public:
-    int Run();
+    int Run_00272880();
 };
 struct Manager_274670 {
     virtual void Reset();
@@ -108,7 +108,7 @@ void core::DriveRequest::FUN_00274630() {
 int core::DriveCreateDirectoryRequest::vfunc_1() {
     Service_274670* svc = (*(Data_274670 * *)&this->f_08)->service;
     int value = svc->a15((int*)((char*)this + 12));
-    int result = ((Helper_274670*)svc)->Run();
+    int result = ((Helper_274670*)svc)->Run_00272880();
     (*(Data_274670 * *)&this->f_08)->manager.Reset();
     (*(Data_274670 * *)&this->f_08)->stored = result;
     (*(Data_274670 * *)&this->f_08)->manager.Finish();

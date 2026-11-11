@@ -15,10 +15,10 @@ namespace fn_f22c50ed {} using namespace fn_f22c50ed;
 // ---- declarations shared by the functions below
 namespace fn_f22c50ed {
 struct SceneGraphTransformAnimationController_nv_2a7730 {
-    void First();
-    void Second(int);
+    void First_00285ac0();
+    void Second_00284ad0(int);
 };
-extern void* gVftable_2a7730;
+extern void* hulk_at_0042db8c;
 struct Param_2a7790 {
     char pad[0x1c];
     int tag;
@@ -58,15 +58,15 @@ struct SceneGraphTransformAnimationController {
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    void init();
+    void init_00285f50();
     char pad[0x110 - 4];
     int member;
 };
-void destroy(SceneGraphTransformAnimationController*);
+void destroy_00263f30(SceneGraphTransformAnimationController*);
 typedef unsigned int u32_2a7b60;
 struct Type_2a7b60 {};
-extern Type_2a7b60 EntityType;
-extern Type_2a7b60 TransformNodeType;
+extern Type_2a7b60 hulk_at_0048f610;
+extern Type_2a7b60 hulk_at_004c29f4;
 extern void* __cdecl Cast(void*, int, Type_2a7b60*, Type_2a7b60*, int);
 
 } // namespace fn_f22c50ed
@@ -74,10 +74,10 @@ extern void* __cdecl Cast(void*, int, Type_2a7b60*, Type_2a7b60*, int);
 // 0x002a7730 FUN_002a7730 (37 B): matches/0x002a7730.cpp
 // sym: ?FUN_002a7730@SceneGraphTransformAnimationController@pure3d@@QAEPAV12@XZ
 pure3d::SceneGraphTransformAnimationController* pure3d::SceneGraphTransformAnimationController::FUN_002a7730() {
-    ((SceneGraphTransformAnimationController_nv_2a7730*)this)->First();
-    *(void**)this = &gVftable_2a7730;
+    ((SceneGraphTransformAnimationController_nv_2a7730*)this)->First_00285ac0();
+    *(void**)this = &hulk_at_0042db8c;
     this->f_110 = 0;
-    ((SceneGraphTransformAnimationController_nv_2a7730*)this)->Second(1);
+    ((SceneGraphTransformAnimationController_nv_2a7730*)this)->Second_00284ad0(1);
     return (pure3d::SceneGraphTransformAnimationController*)(this);
 }
 
@@ -328,9 +328,9 @@ namespace fn_f22c50ed {
 SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::vfunc_2(u8_2a7aa0 flag) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042db8c);
     member = 0;
-    init();
+    init_00285f50();
     if (flag & 1)
-        destroy(this);
+        destroy_00263f30(this);
     return this;
 }
 
@@ -346,18 +346,18 @@ class SceneGraphTransformAnimationController {
     char pad[0x10c];
     int field;
     SceneGraphTransformAnimationController* vfunc_4();
-    void copy(SceneGraphTransformAnimationController*);
-    void initialize(int);
+    void copy_00285d70(SceneGraphTransformAnimationController*);
+    void initialize_00284ad0(int);
 };
-extern "C++" __declspec(nothrow) void* alloc(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* alloc_00263ea0(hulk_uintptr);
 
 SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::vfunc_4() {
-    SceneGraphTransformAnimationController* p = (SceneGraphTransformAnimationController*)alloc(0x118);
+    SceneGraphTransformAnimationController* p = (SceneGraphTransformAnimationController*)alloc_00263ea0(0x118);
     if (p) {
-        p->copy(this);
+        p->copy_00285d70(this);
         p->vf = ((hulk_intptr)DAT_0042db8c);
         p->field = 0;
-        p->initialize(1);
+        p->initialize_00284ad0(1);
         p->field = field;
         return p;
     }
@@ -370,6 +370,6 @@ SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::
 // sym: ?vfunc_5@SceneGraphTransformAnimationController@pure3d@@UAEXPAX@Z
 void pure3d::SceneGraphTransformAnimationController::vfunc_5(void* __p0) { void * p = (void *)__p0;
 
-    (*(void * *)&this->f_110) = Cast(p, 0, &EntityType, &TransformNodeType, 0);
+    (*(void * *)&this->f_110) = Cast(p, 0, &hulk_at_0048f610, &hulk_at_004c29f4, 0);
 }
 

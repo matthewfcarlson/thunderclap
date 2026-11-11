@@ -13,21 +13,21 @@ namespace fn_f150b671 {} using namespace fn_f150b671;
 // ---- declarations shared by the functions below
 namespace fn_f150b671 {
 struct SeqEventCondition_nv_24fc60 {
-    bool Base0(void*);
-    bool Base1(void*);
+    bool Base0_0025fd20(void*);
+    bool Base1_002607c0(void*);
 };
 extern "C" bool FUN_0025bce0(void*, void*);
 class SeqEvent_24fd90 {
   public:
-    char vfunc_1(int*);
+    char vfunc_1_0025fd40(int*);
 };
 class SeqEventContainer_24fd90 {
   public:
-    char vfunc_1(int*);
+    char vfunc_1_00260840(int*);
 };
 extern "C" char Parse(const char*, const char*, ...);
-extern "C" char Expr(int*, const char*, char*);
-extern void* g_vftable[];
+extern "C" char Expr_0024e600(int*, const char*, char*);
+extern void* hulk_at_00429b1c[];
 class SeqEvent_24fe70 {
   public:
     void* vptr;
@@ -52,13 +52,13 @@ class SeqEventCondition : public SeqEventContainer {
 };
 class A_24fee0 {
   public:
-    void f();
+    void Fnf_00240060();
 };
 class SeqEventCondition_24fee0 {
   public:
-    void f();
+    void Fnf_002607a0();
 };
-void __cdecl f47550(void*, SeqEventCondition*);
+void __cdecl f47550_00247550(void*, SeqEventCondition*);
 extern void* __cdecl alloc(void*);
 } // namespace fn_f150b671
 inline void* operator new(size_t, void* heap) {
@@ -78,7 +78,7 @@ class SeqCommandCondition_24ff10 {
 namespace audio {
 class Receiver {
   public:
-    void send(SeqCommandCondition_24ff10*);
+    void send_0025dba0(SeqCommandCondition_24ff10*);
 };
 }
 
@@ -99,7 +99,7 @@ extern "C" int* FUN_0024fc50() {
 // sym: ?vfunc_0@SeqEventCondition@audio@@UAEHPAX@Z
 int audio::SeqEventCondition::vfunc_0(void* __p0) { void * arg = (void *)__p0;
 
-    if (((SeqEventCondition_nv_24fc60*)this)->Base0(arg) && ((SeqEventCondition_nv_24fc60*)this)->Base1(arg) && FUN_0025bce0(arg, (char*)this + 0x14))
+    if (((SeqEventCondition_nv_24fc60*)this)->Base0_0025fd20(arg) && ((SeqEventCondition_nv_24fc60*)this)->Base1_002607c0(arg) && FUN_0025bce0(arg, (char*)this + 0x14))
         return 1;
     return 0;
 }
@@ -156,9 +156,9 @@ audio::SeqEventConditionType::~SeqEventConditionType() {}
 // sym: ?vfunc_1@SeqEventCondition@audio@@UAEHPAX@Z
 int audio::SeqEventCondition::vfunc_1(void* __p0) { int * p = (int *)__p0;
 
-    if (((SeqEvent_24fd90*)this)->vfunc_1(p) && Parse((const char*)*(hulk_intptr*)p, "\n[\n")) {
+    if (((SeqEvent_24fd90*)this)->vfunc_1_0025fd40(p) && Parse((const char*)*(hulk_intptr*)p, "\n[\n")) {
         ++*(int*)((char*)*(hulk_intptr*)p + 0x24);
-        if (((SeqEventContainer_24fd90*)this)->vfunc_1(p) && Expr(p, "mExpression", (char*)this + 0x14)) {
+        if (((SeqEventContainer_24fd90*)this)->vfunc_1_00260840(p) && Expr_0024e600(p, "mExpression", (char*)this + 0x14)) {
             --*(int*)((char*)*(hulk_intptr*)p + 0x24);
             p = (int*)*(hulk_intptr*)p;
             if (Parse((const char*)p, "]\n"))
@@ -203,7 +203,7 @@ SeqEventContainer::SeqEventContainer() {
     SeqEvent_24fe70::~SeqEvent_24fe70();
     int* q = &m8;
     *q = 0;
-    vptr = g_vftable;
+    vptr = hulk_at_00429b1c;
     _ReadWriteBarrier();
     mc = 0;
     m10 = 0;
@@ -250,10 +250,10 @@ namespace fn_f150b671 {
 // sym: ?vfunc_4@SeqEventCondition@fn_f150b671@@UAEPAV12@E@Z
 // data: gBss_24fee0 = DAT_004e68f8
 SeqEventCondition* SeqEventCondition::vfunc_4(unsigned char flag) {
-    ((A_24fee0*)((char*)this + 0x14))->f();
-    ((SeqEventCondition_24fee0*)this)->f();
+    ((A_24fee0*)((char*)this + 0x14))->Fnf_00240060();
+    ((SeqEventCondition_24fee0*)this)->Fnf_002607a0();
     if (flag & 1)
-        f47550(((char*)&DAT_004e68f8), this);
+        f47550_00247550(((char*)&DAT_004e68f8), this);
     return this;
 }
 
@@ -264,7 +264,7 @@ SeqEventCondition* SeqEventCondition::vfunc_4(unsigned char flag) {
  // namespace audio
 void audio::SeqEventCondition::vfunc_2(hulk_intptr __p0) { Receiver * r = (Receiver *)__p0;
 
-    r->send(new (&bss) SeqCommandCondition_24ff10(this));
+    r->send_0025dba0(new (&bss) SeqCommandCondition_24ff10(this));
 }
 
 

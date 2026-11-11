@@ -65,10 +65,10 @@ class CollisionSphere : public CollisionVolume {
 class Other {
   public:
 };
-extern void* CollisionVolume_2effd0_vftable[];
+extern void* hulk_at_004312dc[];
 class CollisionVolume_2effd0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00306ac0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionSphere_2effd0 : public CollisionVolume_2effd0 {
   public:
@@ -95,7 +95,7 @@ union Slot_2f05f0 {
 };
 char FUN_002f0080(Vec3_2f05f0 *p, Vec3_2f05f0 *q, Vec3_2f05f0 *extent);
 char FUN_002f04c0(Vec3_2f05f0 *p, Vec3_2f05f0 *dir, float len, float radius, float *t);
-extern float Compute(int, int, int);
+extern float Compute_002f0230(int, int, int);
 struct Vec3_2f0780 {
     float x, y, z;
 };
@@ -353,7 +353,7 @@ struct Buffer_2f2440 {
     int count;
     int capacity;
     char* data;
-    void Reserve(int);
+    void Reserve_00201cd0(int);
     char* Next();
 };
 class Vec3_2f2470 {
@@ -365,7 +365,7 @@ class Arr_2f2470 {
     int count;
     int capacity;
     Vec3_2f2470* data;
-    void Grow(int);
+    void Grow_00201cd0(int);
     void Insert(int index, Vec3_2f2470* value);
 };
 struct Item_2f24f0 { union { float value; unsigned int bits; }; unsigned int second; unsigned int third; };
@@ -526,8 +526,8 @@ namespace fn_f5d8432d {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionSphere_2effd0* CollisionSphere_2effd0::vfunc_5(signed char flags) {
-    *(void***)this = CollisionVolume_2effd0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_004312dc;
+    Destroy_00306ac0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -794,7 +794,7 @@ bool FUN_002f05f0(Vec3_2f05f0 p, Vec3_2f05f0 q, Slot_2f05f0 origin, float r0, fl
 // 0x002f0730 FUN_002f0730 (65 B): matches/0x002f0730.cpp
 // sym: ?Test@fn_f5d8432d@@YA_NHHHHPAM@Z
 bool Test(hulk_intptr a, hulk_intptr b, hulk_intptr c, hulk_intptr d, float* out) {
-    float x = Compute(a, c, d);
+    float x = Compute_002f0230(a, c, d);
     *out = x;
     if (x >= 0.0f) {
         if (x <= DAT_003f32dc)
@@ -1670,7 +1670,7 @@ extern "C" Shape_2f1ce0 *__cdecl FUN_002f1ce0(const V3_2f1ce0 *p, Shape_2f1ce0 *
 // sym: ?Next@Buffer_2f2440@fn_f5d8432d@@QAEPADXZ
 char* Buffer_2f2440::Next() {
     if (count >= capacity)
-        Reserve(capacity * 2);
+        Reserve_00201cd0(capacity * 2);
     ++count;
     return data + count * 12 - 12;
 }
@@ -1680,7 +1680,7 @@ char* Buffer_2f2440::Next() {
 // sym: ?Insert@Arr_2f2470@fn_f5d8432d@@QAEXHPAVVec3_2f2470@2@@Z
 void Arr_2f2470::Insert(int index, Vec3_2f2470* value) {
     if (count >= capacity)
-        Grow(count * 2);
+        Grow_00201cd0(count * 2);
     int i;
     for (i = count; i > index; --i)
         data[i] = data[i - 1];
@@ -1764,10 +1764,10 @@ namespace fn_002f2750 {
 
 class Obj_2f2750 {
   public:
-    int method(unsigned int, unsigned int);
+    int method_002f2670(unsigned int, unsigned int);
 };
 extern "C" int FUN_002f2750(unsigned int a, unsigned int b) {
-    return (*(Obj_2f2750**)&DAT_00554c30)->method(a, b);
+    return (*(Obj_2f2750**)&DAT_00554c30)->method_002f2670(a, b);
 }
 } // namespace fn_002f2750
 

@@ -313,8 +313,8 @@ class Owner_302b70 {
     char pad[12];
     int field;
     void F(Item_302b70*, Item_302b70*);
-    void Pair(Item_302b70*, Item_302b70*);
-    void Order(Item_302b70*, Item_302b70*);
+    void Pair_00302c20(Item_302b70*, Item_302b70*);
+    void Order_003027b0(Item_302b70*, Item_302b70*);
 };
 class Entity;
 struct EntityList_302c20 {
@@ -382,8 +382,8 @@ struct Owner_302e60 {
     int result;
     char pad34[8];
     float decrement;
-    char Check(Entry_302e60*);
-    void Update(int, int);
+    char Check_00302d90(Entry_302e60*);
+    void Update_00302b70(int, int);
     void Run();
 };
 
@@ -1062,19 +1062,19 @@ void Owner_302b70::F(Item_302b70* a, Item_302b70* b) {
     if (a->Check(b, field)) {
         if (!a->flag) {
             if (a->value)
-                Pair(a, b);
+                Pair_00302c20(a, b);
         } else if (!b->flag) {
             if (b->value)
-                Pair(b, a);
+                Pair_00302c20(b, a);
         } else if (a->Compare() == 1 || b->Compare() == 1)
-            Pair(b, a);
+            Pair_00302c20(b, a);
         else {
             int x = a->Compare();
             int y = b->Compare();
             if (x > y)
-                Order(a, b);
+                Order_003027b0(a, b);
             else
-                Order(b, a);
+                Order_003027b0(b, a);
         }
     }
 }
@@ -1146,10 +1146,10 @@ void Owner_302e60::Run() {
         result = 0;
         if (p->active) {
             if (p->value <= 0.0f) {
-                if (Check(p)) {
+                if (Check_00302d90(p)) {
                     int x = *(int*)((char*)p->b + 0x20);
                     int y = *(int*)((char*)p->a + 0x20);
-                    Update(y, x);
+                    Update_00302b70(y, x);
                     p->c = result;
                 }
             } else

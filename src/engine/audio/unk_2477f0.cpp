@@ -53,10 +53,10 @@ class Obj_247970 {
     int value;
 };
 struct X_2479a0 {
-    void A();
+    void FnA_0025def0();
     X_2479a0* Target(unsigned char flag);
 };
-extern int __cdecl B();
+extern int __cdecl FnB_0025d3d0();
 extern "C" void __cdecl FUN_00247550(int, X_2479a0*);
 struct Obj_247a10 {
     char pad[0x3c];
@@ -64,7 +64,7 @@ struct Obj_247a10 {
 };
 class Obj_247a20 {
   public:
-    void Start(hulk_intptr, int);
+    void Start_0025dfc0(hulk_intptr, int);
 };
 class State_247a20 {
   public:
@@ -221,9 +221,9 @@ extern "C" void FUN_00247970(Obj_247970* self, int value) {
 // 0x002479a0 FUN_002479a0 (36 B): matches/0x002479a0.cpp
 // sym: ?Target@X_2479a0@fn_f5890810@@QAEPAU12@E@Z
 X_2479a0* X_2479a0::Target(unsigned char flag) {
-    A();
+    FnA_0025def0();
     if (flag & 1)
-        FUN_00247550(B(), this);
+        FUN_00247550(FnB_0025d3d0(), this);
     return this;
 }
 
@@ -243,7 +243,7 @@ extern "C" void FUN_00247a20(Owner_247a20* owner, State_247a20* state, Obj_247a2
     state->mStatus = 1;
     if (obj) {
         if (((owners::Object_25d3e0 *)(state->mObj))->FUN_0025d3e0() == 0) {
-            state->mObj->Start((hulk_intptr)obj, flag);
+            state->mObj->Start_0025dfc0((hulk_intptr)obj, flag);
             if (FUN_0024afe0(obj) == 2) {
                 state->mStatus = 3;
                 return;

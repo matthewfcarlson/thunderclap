@@ -34,7 +34,7 @@ extern "C" void FUN_0023e3f0(void* a, const char* s);
 typedef unsigned int U_236a30;
 void FUN_00236940(U_236a30);
 extern "C" void __cdecl FUN_002369c0(void *);
-extern void* IRefCount_vftable_236a50;
+extern void* hulk_at_003f6098;
 extern "C" char DAT_00427f28[];
 class Params {
   public:
@@ -102,7 +102,7 @@ void FUN_00236a30(U_236a30 x) {
 // sym: ?FUN_00236a50@fn_f44dc5d7@@YIXPAX@Z
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 void __fastcall FUN_00236a50(void* self) {
-    *(void**)self = &IRefCount_vftable_236a50;
+    *(void**)self = &hulk_at_003f6098;
 }
 
 

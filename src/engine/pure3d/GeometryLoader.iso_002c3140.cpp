@@ -9,14 +9,14 @@
 #include "gen/pure3d.h"
 
 struct Geometry_nv_2c3140 {
-    hulk_intptr run(pure3d::Geometry*);
+    hulk_intptr run_002c3060(pure3d::Geometry*);
 };
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);
 
 void* pure3d::Geometry::vfunc_4() {
     void* p = thunk_FUN_0008d690(0x68);
     if (p)
-        return (void*)(((Geometry_nv_2c3140*)(((pure3d::Geometry*)(((pure3d::Geometry*)p)))))->run(this));
+        return (void*)(((Geometry_nv_2c3140*)(((pure3d::Geometry*)(((pure3d::Geometry*)p)))))->run_002c3060(this));
     return (void*)(0);
 }
 

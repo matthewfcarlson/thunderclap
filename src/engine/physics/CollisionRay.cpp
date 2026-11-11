@@ -78,10 +78,10 @@ void __fastcall FUN_00306ac0(CEffectStopTrack*);
 class Helper_306fd0 {
   public:
 };
-extern void* CollisionVolume_307000_vftable[];
+extern void* hulk_at_00431bec[];
 class CollisionVolume_307000 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00306ac0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class CollisionRay_307000 : public CollisionVolume_307000 {
   public:
@@ -191,8 +191,8 @@ namespace fn_f163d5a2 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CollisionRay_307000* CollisionRay_307000::vfunc_5(signed char flags) {
-    *(void***)this = CollisionVolume_307000_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00431bec;
+    Destroy_00306ac0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

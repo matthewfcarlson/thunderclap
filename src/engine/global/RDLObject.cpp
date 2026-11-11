@@ -10,10 +10,10 @@ namespace fn_ffb1fb44 {} using namespace fn_ffb1fb44;
 
 // ---- declarations shared by the functions below
 namespace fn_ffb1fb44 {
-extern void* Entity_27ab50_vftable[];
+extern void* hulk_at_0042c0f8[];
 class Entity_27ab50 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class RDLObject_27ab50 : public Entity_27ab50 {
   public:
@@ -27,8 +27,8 @@ class RDLObject_27ab50 : public Entity_27ab50 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 RDLObject_27ab50* RDLObject_27ab50::vfunc_5(signed char flags) {
-    *(void***)this = Entity_27ab50_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0042c0f8;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

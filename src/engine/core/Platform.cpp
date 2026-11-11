@@ -26,7 +26,7 @@ class X_26f000 {
     char pad[4];
     char b;
 };
-extern X_26f000* g_26f000;
+extern X_26f000* hulk_at_005283c8;
 extern "C" int* FUN_002705f0();
 class Obj_26f020 {
   public:
@@ -67,7 +67,7 @@ namespace fn_fb3b39af {
 // 0x0026f000 FUN_0026f000 (18 B): matches/0x0026f000.cpp
 // sym: _FUN_0026f000
 extern "C" void FUN_0026f000() {
-    X_26f000* p = g_26f000;
+    X_26f000* p = hulk_at_005283c8;
     p->b = 0;
     p->h(0);
 }

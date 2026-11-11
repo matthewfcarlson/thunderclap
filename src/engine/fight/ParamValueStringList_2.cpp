@@ -12,13 +12,13 @@ namespace fn_f7578ec5 {} using namespace fn_f7578ec5;
 namespace fn_f7578ec5 {
 extern "C" char DAT_00427a98[];
 struct Member_234a90 {
-    void Init(const char*);
+    void Init_0027b0e0(const char*);
 };
-extern int vtBase_234af0;
-extern int vtList;
+extern int hulk_at_004279fc;
+extern int hulk_at_00427abc;
 class Part_234af0 {
   public:
-    void Init(int);
+    void Init_0027b0e0(int);
 };
 class ParamValueStringList {
   public:
@@ -34,7 +34,7 @@ class ParamValueStringList {
 // sym: ?FUN_00234a90@ParamValueName@fight@@QAEPAV12@PBD@Z
 fight::ParamValueName* fight::ParamValueName::FUN_00234a90(const char* name) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
-    ((Member_234a90*)((char*)this + 8))->Init(name);
+    ((Member_234a90*)((char*)this + 8))->Init_0027b0e0(name);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00427a98);
     return (fight::ParamValueName*)(this);
 }
@@ -60,13 +60,13 @@ namespace fight { class ParamValueName : public ParamValueString {
 }; }
 class Receiver_234ac0 {
   public:
-    void run(void*);
+    void run_0027b040(void*);
 };
 bool fight::ParamValueName::vfunc_6(void* a, void* b) {
     void* x = get(a);
     if (!x)
         return false;
-    ((Receiver_234ac0*)x)->run(b);
+    ((Receiver_234ac0*)x)->run_0027b040(b);
     return true;
 }
 } // namespace fn_00234ac0
@@ -77,9 +77,9 @@ namespace fn_f7578ec5 {
 // sym: ??0ParamValueStringList@fn_f7578ec5@@QAE@H@Z
 ParamValueStringList::ParamValueStringList(hulk_intptr x) {
     int* p = &vptr;
-    *(hulk_intptr*)p = (hulk_intptr)&vtBase_234af0;
-    part.Init(x);
-    *(hulk_intptr*)p = (hulk_intptr)&vtList;
+    *(hulk_intptr*)p = (hulk_intptr)&hulk_at_004279fc;
+    part.Init_0027b0e0(x);
+    *(hulk_intptr*)p = (hulk_intptr)&hulk_at_00427abc;
 }
 
 } // namespace fn_f7578ec5

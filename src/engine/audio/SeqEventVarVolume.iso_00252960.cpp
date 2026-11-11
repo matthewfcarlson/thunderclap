@@ -7,7 +7,7 @@
 // sym: ?vfunc_4@SeqEventVarVolume@fn_f3cd7fd2@@UAEPAV12@E@Z
 namespace fn_f3cd7fd2 {} using namespace fn_f3cd7fd2;
 namespace fn_f3cd7fd2 {
-extern void* g_name;
+extern void* hulk_at_004e6ed8;
 void __cdecl FUN_00247550(void*, void*);
 void __fastcall FUN_0025fd10(void*);
 class SeqEvent {
@@ -31,7 +31,7 @@ class SeqEventVarVolume : public SeqEvent {
 class SeqEventVarVolume* SeqEventVarVolume::vfunc_4(unsigned char flags) {
     FUN_0025fd10((void*)(this));
     if (flags & 1)
-        FUN_00247550(&g_name, this);
+        FUN_00247550(&hulk_at_004e6ed8, this);
     return this;
 }
 } // namespace fn_f3cd7fd2

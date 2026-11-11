@@ -46,7 +46,7 @@ namespace fn_fbd591a0 {
 extern "C" bool __cdecl FUN_0025bce0(void*, void*);
 struct Temp_250a80 {
     char bytes[12];
-    void init();
+    void init_0023fac0();
 };
 extern "C" void FUN_002613b0(int, Temp_250a80*, int);
 class SeqAction_250ad0 {
@@ -91,7 +91,7 @@ class SeqEventExpressionType_250b20 : public FUN_002605e0 {
 };
 typedef unsigned int u32_250ba0;
 extern "C" void* __cdecl FUN_00247530(void*);
-extern int gVtable_250ba0;
+extern int hulk_at_00429c8c;
 class NameObj_250ba0 {
   public:
 };
@@ -100,13 +100,13 @@ class NestTrack_250ba0 {
     hulk_uintptr vf;
     char pad[4];
     NameObj_250ba0 name;
-    void init();
+    void init_0025fd00();
 };
 struct Stm_250c10 {
     char pad[0x24];
     int depth;
 };
-extern bool Match(Stm_250c10*, const char*, ...);
+extern bool Match_00246f50(Stm_250c10*, const char*, ...);
 extern "C" bool FUN_0024e600(Stm_250c10**, const char*, void*);
 class SeqEvent {
   public:
@@ -141,7 +141,7 @@ class SeqActionExpression_250cd0 {
 namespace audio {
 class Engine {
   public:
-    void send(SeqActionExpression_250cd0*);
+    void send_0025dc20(SeqActionExpression_250cd0*);
 };
 }
 namespace audio {
@@ -239,7 +239,7 @@ void audio::SeqActionExpression::vfunc_2(int , int ) {
 void audio::SeqActionExpression::vfunc_1(void* __p0) { hulk_intptr p = (hulk_intptr)__p0;
 
     Temp_250a80 t;
-    t.init();
+    t.init_0023fac0();
     FUN_002613b0(*(int*)(p + 0x3c) + 0x5c, &t, this->f_08 + 8);
     this->f_0c = 0;
     ((owners::Str_240060 *)&t)->FUN_00240060();
@@ -292,8 +292,8 @@ audio::SeqEventExpressionType::~SeqEventExpressionType() {}
 void* audio::SeqEventExpressionType::vfunc_3() {
     NestTrack_250ba0* p = (NestTrack_250ba0*)FUN_00247530(((char*)&DAT_004e6b18));
     if (p) {
-        p->init();
-        p->vf = (hulk_uintptr)&gVtable_250ba0;
+        p->init_0025fd00();
+        p->vf = (hulk_uintptr)&hulk_at_00429c8c;
         ((owners::String_23fc40 *)&(p->name))->FUN_0023fc40(DAT_00429ca4, (hulk_intptr)2);
         return (void*)(p);
     }
@@ -307,7 +307,7 @@ namespace fn_00250be0 {
 
 class Helper_250be0 {
   public:
-    void Fn();
+    void Fn_00240060();
 };
 class SeqEventExpression {
   public:
@@ -317,13 +317,13 @@ class SeqEventExpression {
     virtual void v3();
     virtual SeqEventExpression* v4(int);
     virtual void v5();
-    void Fn();
+    void Fn_0025fd10();
     char pad[8];
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
 SeqEventExpression* SeqEventExpression::v4(int x) {
-    ((Helper_250be0*)((char*)this + 8))->Fn();
-    this->Fn();
+    ((Helper_250be0*)((char*)this + 8))->Fn_00240060();
+    this->Fn_0025fd10();
     if (x & 1)
         FUN_00247550(((char*)&DAT_004e6b18), this);
     return this;
@@ -337,12 +337,12 @@ namespace fn_fbd591a0 {
 // data: sClose = DAT_004298dc, sName_00429b00 = DAT_00429b00, sOpen = DAT_004298f4
 int SeqEventExpression_250c10::vfunc_1(Stm_250c10** p) {
     if (SeqEvent::v1(p)) {
-        if (Match(*p, DAT_004298f4)) {
+        if (Match_00246f50(*p, DAT_004298f4)) {
             (*p)->depth++;
             if (FUN_0024e600(p, DAT_00429b00, (char*)this + 8)) {
                 (*p)->depth--;
                 Stm_250c10* s = *p;
-                if (Match(s, DAT_004298dc))
+                if (Match_00246f50(s, DAT_004298dc))
                     return 1;
             }
         }
@@ -379,9 +379,9 @@ class SeqActionExpression : public SeqAction {
 };
 } // namespace audio
 extern "C" void __cdecl FUN_00247550(void*, void*);
-extern void* seq_vftable_250ca0[];
+extern void* hulk_at_004298fc[];
 audio::SeqActionExpression* audio::SeqActionExpression::vfunc_0(int x) {
-    *(void**)this = seq_vftable_250ca0;
+    *(void**)this = hulk_at_004298fc;
     if (x & 1)
         FUN_00247550((void*)((hulk_intptr)DAT_004e6ad0), this);
     return this;
@@ -394,6 +394,6 @@ audio::SeqActionExpression* audio::SeqActionExpression::vfunc_0(int x) {
  // namespace audio
 void audio::SeqEventExpression::vfunc_2(hulk_intptr __p0) { audio::Engine * e = (audio::Engine *)__p0;
 
-    e->send(new audio::SeqActionExpression_250cd0(this));
+    e->send_0025dc20(new audio::SeqActionExpression_250cd0(this));
 }
 

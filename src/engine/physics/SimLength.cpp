@@ -16,7 +16,7 @@ namespace fn_fae3921a {} using namespace fn_fae3921a;
 
 // ---- declarations shared by the functions below
 namespace physics {
-extern const float one;
+extern const float hulk_at_004d287c;
 }
 namespace physics {
 class SimCGSValue_2ecd70 {
@@ -40,10 +40,10 @@ class SimUnits_2ecda0 {
     virtual void f2();
     virtual float vfunc_3();
 };
-extern void* Entity_2ece00_vftable[];
+extern void* hulk_at_00431184[];
 class Entity_2ece00 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class Environment_2ece00 : public Entity_2ece00 {
   public:
@@ -60,7 +60,7 @@ struct SystemB {
     char pad00[0xb0];
     Listener_2ece90 listener;
 };
-extern void* gVtable_2ecf20;
+extern void* hulk_at_004311b0;
 struct SimLength {
     void* vptr;
     float value;
@@ -74,7 +74,7 @@ struct SimTime {
     SimTime(float time);
 };
 struct Environment_nv_2ed020 {
-    physics::Environment* Init();
+    physics::Environment* Init_002ecf60();
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 
@@ -85,7 +85,7 @@ extern "C" void* __cdecl Alloc(hulk_uintptr);
  // namespace physics
 void physics::SimLength::vfunc_1(float value) {
     *(float*)((char*)this + 8) = value;
-    *(float*)((char*)this + 4) = one * value;
+    *(float*)((char*)this + 4) = hulk_at_004d287c * value;
 }
 
 
@@ -123,7 +123,7 @@ class SimUnits_2ecdc0 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_0043117c[];
 namespace pure3d {
 class NonCopyable : public SimUnits_2ecdc0 {
   public:
@@ -134,7 +134,7 @@ class NonCopyable : public SimUnits_2ecdc0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_0043117c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -178,8 +178,8 @@ namespace fn_fae3921a {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 Environment_2ece00* Environment_2ece00::vfunc_5(signed char flags) {
-    *(void***)this = Entity_2ece00_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00431184;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -216,7 +216,7 @@ namespace fn_fae3921a {
 // sym: ??0SimLength@fn_fae3921a@@QAE@M@Z
 // data: gScale_2ecf20 = DAT_004d287c
 SimLength::SimLength(float x) {
-    vptr = &gVtable_2ecf20;
+    vptr = &hulk_at_004311b0;
     raw = x;
     value = (*(const float*)&DAT_004d287c) * x;
 }
@@ -350,7 +350,7 @@ extern "C" void __cdecl FUN_002ed020() {
     if (p == 0) {
         p = (physics::Environment*)Alloc(0x38);
         if (p != 0)
-            p = ((Environment_nv_2ed020*)(((physics::Environment*)(p))))->Init();
+            p = ((Environment_nv_2ed020*)(((physics::Environment*)(p))))->Init_002ecf60();
         else
             p = 0;
         (*(physics::Environment**)&DAT_00554c10) = p;

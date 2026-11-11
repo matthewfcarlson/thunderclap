@@ -34,7 +34,7 @@ class Obj_2e55a0 {
   public:
     char pad[0x14];
     Entry_2e55a0* entries;
-    char Check(int, int*);
+    char Check_002e5330(int, int*);
     hulk_intptr Count(int);
 };
 struct Row_2e55e0 {
@@ -97,7 +97,7 @@ struct Item_2e5920 {
     int a, b, c;
 };
 extern "C" void __fastcall FUN_002c6d50(Item_2e5920*);
-void __cdecl Finish(Item_2e5920*);
+void __cdecl Finish_0008d340(Item_2e5920*);
 struct Owner_2e5920 {
     Item_2e5920* begin;
     Item_2e5920* end;
@@ -106,7 +106,7 @@ typedef unsigned int u32_2e59b0;
 class Obj_2e59b0 {
   public:
     char pad[12];
-    void Work(u32_2e59b0);
+    void Work_002e54e0(u32_2e59b0);
 };
 namespace pure3d {
 class VertexAnimKeyFrame {
@@ -262,7 +262,7 @@ IntVec2::IntVec2(const IntVec2 &other) throw()
 // 0x002e55a0 FUN_002e55a0 (55 B): matches/0x002e55a0.cpp
 // sym: ?Count@Obj_2e55a0@fn_f6f319cd@@QAEHH@Z
 hulk_intptr Obj_2e55a0::Count(int index) {
-    if (Check(index, &index) == 1) {
+    if (Check_002e5330(index, &index) == 1) {
         Entry_2e55a0* e = entries + index;
         return (e->end - e->begin);
     }
@@ -412,7 +412,7 @@ void __fastcall Target(Owner_2e5920* self) {
             FUN_002c6d50((Item_2e5920*)((char*)p + 4));
             p = (Item_2e5920*)((char*)p + 12);
         }
-        Finish(self->begin);
+        Finish_0008d340(self->begin);
     }
 }
 
@@ -425,7 +425,7 @@ extern "C" hulk_uintptr __cdecl FUN_002e59b0(hulk_uintptr p, u32_2e59b0 count, u
         u32_2e59b0 i = count;
         do {
             if (q)
-                q->Work(arg);
+                q->Work_002e54e0(arg);
             q = (Obj_2e59b0*)((char*)q + 12);
             i--;
         } while (i != 0);

@@ -59,7 +59,7 @@ struct CollisionAnalyser_30d900 {
     hulk_intptr Find(int* key);
 };
 struct Sub_30d980 {
-    void Process();
+    void Process_00319f40();
 };
 struct Item_30d980 {
     char pad[0x10];
@@ -137,10 +137,10 @@ struct Entry_30e0a0 { char pad[16]; Item_30e0a0* item; };
 void __cdecl FUN_0030dbd0(Entry_30e0a0*,Entry_30e0a0*,Entry_30e0a0*);
 struct Manager_30e0a0 { char pad[4]; Entry_30e0a0* first; Entry_30e0a0* last; float cutoff; char pad10[4]; Entry_30e0a0* storage; Entry_30e0a0* end; char pad1c[12]; Item_30e0a0** out; Item_30e0a0** outEnd; void target(); };
 struct Elem_30e250 {
-    void process();
+    void process_00319f40();
 };
 struct CollisionAnalyser_nv_30e250 {
-    void init();
+    void init_0030e0a0();
 };
 struct CollisionAnalyser_30e280 {
  char pad0[4];
@@ -171,10 +171,10 @@ class CollisionAnalyser_30e480 : public Base_30e480 {
     Buf_30e480 b0, b1, b2, b3;
     CollisionAnalyser_30e480() throw();
 };
-extern void* g_vftable_30e570[];
+extern void* hulk_at_00431fe0[];
 class Sub_30e570 {
   public:
-    void Fini();
+    void Fini_00319ef0();
 };
 struct E1 {
     char pad[0x10];
@@ -182,7 +182,7 @@ struct E1 {
 };
 struct E2 {
     char pad[0xa4];
-    void Fini();
+    void Fini_0031a800();
 };
 class CollisionAnalyser_30e570 {
   public:
@@ -340,7 +340,7 @@ void Owner_30d980::Target() {
     Item_30d980* p = begin;
     if (p <= end) {
         do {
-            p->sub->Process();
+            p->sub->Process_00319f40();
             Item_30d980* old = p;
             p = (Item_30d980*)((char*)p + 0x14);
             if (old == end)
@@ -516,12 +516,12 @@ void owners::A_30e190::FUN_0030e190(int x) {
 // 0x0030e250 physics::CollisionAnalyser::vfunc_2 (46 B): matches/0x0030e250.cpp
 // sym: ?vfunc_2@CollisionAnalyser@physics@@UAEXHH@Z
 void physics::CollisionAnalyser::vfunc_2(int , int ) {
-    ((CollisionAnalyser_nv_30e250*)this)->init();
+    ((CollisionAnalyser_nv_30e250*)this)->init_0030e0a0();
     unsigned char* p = (*(unsigned char * *)&this->f_04);
     this->f_10 = 0;
     if (p <= (*(unsigned char * *)&this->f_08)) {
         do {
-            ((Elem_30e250*)*(void**)(p + 0x10))->process();
+            ((Elem_30e250*)*(void**)(p + 0x10))->process_00319f40();
             unsigned char* old = p;
             p += 0x14;
             if (old == (*(unsigned char * *)&this->f_08))
@@ -599,12 +599,12 @@ CollisionAnalyser_30e480::CollisionAnalyser_30e480() throw() {
 // 0x0030e570 FUN_0030e570 (146 B): matches/0x0030e570.cpp
 // sym: ??1CollisionAnalyser_30e570@fn_f910b875@@QAE@XZ
 CollisionAnalyser_30e570::~CollisionAnalyser_30e570() throw() {
-    vptr = g_vftable_30e570;
+    vptr = hulk_at_00431fe0;
     E1* p = m4;
     if (p <= m8) {
         E1* c;
         do {
-            p->s->Fini();
+            p->s->Fini_00319ef0();
             c = p;
             p++;
         } while (c != m8);
@@ -614,7 +614,7 @@ CollisionAnalyser_30e570::~CollisionAnalyser_30e570() throw() {
         operator delete(m44);
     E2* e = m38;
     for (E2* q = m34; q != e; q++)
-        q->Fini();
+        q->Fini_0031a800();
     m38 = m34;
     if (m34)
         operator delete(m34);

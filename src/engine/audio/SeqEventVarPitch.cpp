@@ -81,7 +81,7 @@ struct SeqEventVarPitchType_2538a0 {
     void FUN_002605e0(Pitch*, unsigned __int64*, int, int);
 };
 extern void* DAT_0042a20c[];
-void* Alloc(char*);
+void* Alloc_00247530(char*);
 } // namespace fn_fd3c3557
 inline void* operator new(size_t, void* p) {
     return p;
@@ -113,7 +113,7 @@ class SeqEventVarPitch_253950 : public ::audio::SeqEvent {
     virtual void v2();
     virtual void v3();
     virtual SeqEventVarPitch_253950* vfunc_4(int);
-    void Helper();
+    void Helper_0025fd10();
 };
 }
 namespace fn_fd3c3557 {
@@ -122,7 +122,7 @@ struct Stm_253980 {
     char pad[0x24];
     int depth;
 };
-extern bool Match(Stm_253980*, const char*, ...);
+extern bool Match_00246f50(Stm_253980*, const char*, ...);
 extern "C" bool FUN_00252470(Stm_253980**, const char*, void*);
 class SeqEvent {
   public:
@@ -301,7 +301,7 @@ audio::SeqEventVarPitchType::~SeqEventVarPitchType() {}
 // data: gHeap = DAT_004e7198
  // namespace audio
 void* audio::SeqEventVarPitchType::vfunc_3() {
-    void* p = Alloc(((char*)&DAT_004e7198));
+    void* p = Alloc_00247530(((char*)&DAT_004e7198));
     if (p)
         return (void*)(new (p) audio::SeqEventVarPitch_253920);
     return (void*)(0);
@@ -311,7 +311,7 @@ void* audio::SeqEventVarPitchType::vfunc_3() {
 // 0x00253950 audio::SeqEventVarPitch::vfunc_4 (35 B): matches/0x00253950.cpp
 // sym: ?vfunc_4@SeqEventVarPitch_253950@audio@@UAEPAV12@H@Z
 audio::SeqEventVarPitch_253950* audio::SeqEventVarPitch_253950::vfunc_4(int x) {
-    Helper();
+    Helper_0025fd10();
     if (x & 1)
         FUN_00247550(((char*)&DAT_004e7198), this);
     return this;
@@ -324,12 +324,12 @@ namespace fn_fd3c3557 {
 // data: sClose = DAT_004298dc, sName_0042a238 = DAT_0042a238, sOpen = DAT_004298f4
 int SeqEventVarPitch_253980::vfunc_1(Stm_253980** p) {
     if (SeqEvent::v1(p)) {
-        if (Match(*p, DAT_004298f4)) {
+        if (Match_00246f50(*p, DAT_004298f4)) {
             (*p)->depth++;
             if (FUN_00252470(p, DAT_0042a238, (char*)this + 8)) {
                 (*p)->depth--;
                 Stm_253980* s = *p;
-                if (Match(s, DAT_004298dc))
+                if (Match_00246f50(s, DAT_004298dc))
                     return 1;
             }
         }

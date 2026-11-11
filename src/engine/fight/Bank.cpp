@@ -31,7 +31,7 @@ hulk_freg __cdecl FUN_00238350(void *ctx);
 struct Bank_nv_23c670 {
     bool FUN_002333f0(void *ctx, int b);
 };
-extern void* Branch_23c870_vftable[];
+extern void* hulk_at_004288b4[];
 class Branch_23c870 {
   public:
      // FUN_00236d60, __thiscall, this in ecx
@@ -139,7 +139,7 @@ namespace fn_f1f0ad99 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 Bank_23c870* Bank_23c870::vfunc_5(signed char flags) {
-    *(void***)this = Branch_23c870_vftable;
+    *(void***)this = hulk_at_004288b4;
     ((fight::Branch *)(Branch_23c870 *)this)->FUN_00233970();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

@@ -15,7 +15,7 @@ namespace fn_f902c78b {} using namespace fn_f902c78b;
 // ---- declarations shared by the functions below
 namespace fn_f902c78b {
 extern "C" void first(char*);
-extern "C" __int64 second(char*, int, int);
+extern "C" __int64 second_002672f0(char*, int, int);
 class Thing {
   public:
     __int64 value;
@@ -23,7 +23,7 @@ class Thing {
 };
 class SeqEvent_253c70 {
   public:
-    bool vfunc_0(void*);
+    bool vfunc_0_0025fd20(void*);
 };
 class Reader {
 public:
@@ -129,7 +129,7 @@ struct Param {
     char y[4];
     Sub_253f10* b;
 };
-void __cdecl Sink(u32_253f10, float);
+void __cdecl Sink_0024b040(u32_253f10, float);
 struct Source { char pad0[0x1c]; float *value; float scale2; float scale1; };
 struct Factor { char pad[0x14]; float value; };
 struct Context { char pad0[4]; Source *source; char pad1[0x2c]; void *destination; char pad2[4]; Factor *factor; };
@@ -158,10 +158,10 @@ extern "C" void FUN_0024cb50(void *h, void *v);
 extern "C" void FUN_0024cb70(void *h, void *v);
 extern "C" void FUN_0024c910(void *h, int a, int b);
 extern "C" void FUN_0024c950(void *h, int v);
-extern "C" char __cdecl output(const char*, const char*, ...);
+extern "C" char __cdecl output_00246f50(const char*, const char*, ...);
 class Handler {
   public:
-    char check(char**);
+    char check_0025ce40(char**);
 };
 } // namespace fn_f902c78b
 extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int) throw();
@@ -181,7 +181,7 @@ struct SeqEventStreamType : FUN_002605e0 {
 };
 class Helper_254160 {
   public:
-    void Run();
+    void Run_0025fd10();
 };
 struct Stm_254190 {
     char pad[0x24];
@@ -205,7 +205,7 @@ class SeqEventStream : public SeqEvent {
     virtual SeqEventStream* f4(int);
 };
 extern void __cdecl FUN_00247550(void*, SeqEventStream*);
-extern bool Match(Stm_254190*, const char*, ...);
+extern bool Match_00246f50(Stm_254190*, const char*, ...);
 extern bool ReadTrack_00254000(Stm_254190**, const char*, void*);
 class SeqEventStream_254190 : public SeqEvent {
     char pad[8];
@@ -213,7 +213,7 @@ class SeqEventStream_254190 : public SeqEvent {
   public:
     int vfunc_1(Stm_254190**);
 };
-extern void* g_vftable_254230[];
+extern void* hulk_at_004298fc[];
 class SeqActionStream_254230 {
   public:
     void* vptr;
@@ -263,7 +263,7 @@ struct SeqActionStream_nv_254260 {
 namespace fn_f902c78b {
 extern "C" char DAT_0042a2b0[];
 struct Sub_254520 {
-    void Setup(const char* s);
+    void Setup_00253a90(const char* s);
     char pad[8];
     u8 flags;
     char p2[3];
@@ -273,7 +273,7 @@ struct Sub_254520 {
 class Stream_254520 {
   public:
     hulk_intptr vf;
-    void BaseInit();
+    void BaseInit_0025fd00();
     char pad[4];
     Sub_254520 sub;
 };
@@ -292,7 +292,7 @@ Thing::Thing(char* s) {
         ++s;
     } while (c);
     first(buf);
-    value = second(buf, 0, 0);
+    value = second_002672f0(buf, 0, 0);
 }
 
 // 0x00253c30 audio::SeqEventStreamType::vfunc_0 (5 B): not yet verified
@@ -320,7 +320,7 @@ extern "C" int* FUN_00253c60() {
 // Same code shape as 0x00252fe0 (propagated; names are from that function)
 int audio::SeqEventStream::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    if (((SeqEvent_253c70*)this)->vfunc_0(p)) {
+    if (((SeqEvent_253c70*)this)->vfunc_0_0025fd20(p)) {
         if (((PosHelper*)((char*)this + 8))->test(p))
             return 1;
     }
@@ -451,7 +451,7 @@ void __stdcall Target(Param* p) {
     x = x * p->f;
     x = x * *p->c->p;
     x = x * p->c->s;
-    Sink(p->a, x);
+    Sink_0024b040(p->a, x);
 }
 
 
@@ -484,9 +484,9 @@ void __stdcall FUN_00253f70(Src_253f70 *s)
 // data: ending = DAT_00422518, fmt = DAT_004298a8
 char work(char** text, const char* value, Handler* handler) {
     char* s = *text;
-    if (output(s, DAT_004298a8, value) && handler->check(text)) {
+    if (output_00246f50(s, DAT_004298a8, value) && handler->check_0025ce40(text)) {
         s = *text;
-        return output(s, DAT_00422518);
+        return output_00246f50(s, DAT_00422518);
     }
     return 0;
 }
@@ -543,7 +543,7 @@ namespace fn_f902c78b {
 // 0x00254160 audio::SeqEventStream::vfunc_4 (35 B): matches/0x00254160.cpp
 // sym: ?f4@SeqEventStream@fn_f902c78b@@UAEPAV12@H@Z
 SeqEventStream* SeqEventStream::f4(int flag) {
-    ((Helper_254160*)this)->Run();
+    ((Helper_254160*)this)->Run_0025fd10();
     if (flag & 1)
         FUN_00247550((void*)((hulk_intptr)DAT_004e7200), this);
     return this;
@@ -555,12 +555,12 @@ SeqEventStream* SeqEventStream::f4(int flag) {
 // data: sClose_0042a2c8 = DAT_0042a2c8, sName_0042a2cc = DAT_0042a2cc, sOpen = DAT_004298f4
 int SeqEventStream_254190::vfunc_1(Stm_254190** p) {
     if (SeqEvent::v1(p)) {
-        if (Match(*p, DAT_004298f4)) {
+        if (Match_00246f50(*p, DAT_004298f4)) {
             (*p)->depth++;
             if (ReadTrack_00254000(p, DAT_0042a2cc, (char*)this + 8)) {
                 (*p)->depth--;
                 Stm_254190* s = *p;
-                if (Match(s, DAT_0042a2c8))
+                if (Match_00246f50(s, DAT_0042a2c8))
                     return 1;
             }
         }
@@ -573,7 +573,7 @@ int SeqEventStream_254190::vfunc_1(Stm_254190** p) {
 // sym: ?f0@SeqActionStream_254230@fn_f902c78b@@QAEPAV12@E@Z
 // data: g_pool_254230 = DAT_004e7268
 SeqActionStream_254230* SeqActionStream_254230::f0(unsigned char flags) {
-    vptr = g_vftable_254230;
+    vptr = hulk_at_004298fc;
     if (flags & 1)
         Free(((char*)((char*)&DAT_004e7268)), this);
     return this;
@@ -780,10 +780,10 @@ int audio::SeqActionStream::vfunc_6(Stream *s)
 void* audio::SeqEventStreamType::vfunc_3() {
     Stream_254520* p = (Stream_254520*)FUN_00247530(((int*)&DAT_004e7200));
     if (p) {
-        p->BaseInit();
+        p->BaseInit_0025fd00();
         Sub_254520* s = &p->sub;
         p->vf = ((hulk_intptr)DAT_0042a2b0);
-        s->Setup("MyRsdFile");
+        s->Setup_00253a90("MyRsdFile");
         s->flags &= 0xfe;
         s->bits &= 0x80000000;
         s->zero = 0;

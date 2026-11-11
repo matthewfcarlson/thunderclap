@@ -15,9 +15,9 @@ namespace fn_f8469354 {} using namespace fn_f8469354;
 namespace fn_f8469354 {
 extern "C" char DAT_00428824[];
 struct ThisCall_00232e90 {
-    void AllocRef(int);
+    void AllocRef_00232e90(int);
 };
-void __fastcall InitSub(void* p);
+void __fastcall InitSub_00233dd0(void* p);
 class Reference_23c2c0 {
   public:
     virtual void f();
@@ -57,7 +57,7 @@ class Reference : public Branch {
 };
 }
 struct Helper_23c330 {
-    void f(int, int);
+    void Fnf_00233fa0(int, int);
 };
 namespace fight {
 extern Reference *DAT_004e5c40;
@@ -67,9 +67,9 @@ extern Reference *DAT_004e5c40;
 // 0x0023c2c0 FUN_0023c2c0 (28 B): matches/0x0023c2c0.cpp
 // sym: ?init@Reference_23c2c0@fn_f8469354@@QAEPAV12@XZ
 Reference_23c2c0* Reference_23c2c0::init() {
-    ((ThisCall_00232e90*)(this))->AllocRef(4);
+    ((ThisCall_00232e90*)(this))->AllocRef_00232e90(4);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00428824);
-    InitSub((char*)this + 0x28);
+    InitSub_00233dd0((char*)this + 0x28);
     return this;
 }
 
@@ -96,7 +96,7 @@ Node* __fastcall target(Owner_23c300* self) {
 // 0x0023c330 fight::Reference::vfunc_7 (23 B): matches/0x0023c330.cpp
 // sym: ?vfunc_7@Reference@fight@fn_f8469354@@UAEXXZ
 void fight::Reference::vfunc_7() {
-    ((Helper_23c330*)((char*)this + 0x28))->f(0, 0);
+    ((Helper_23c330*)((char*)this + 0x28))->Fnf_00233fa0(0, 0);
     Branch::vfunc_7();
 }
 
@@ -122,11 +122,11 @@ namespace fight { class Reference : public Branch {
     void vfunc_5();
 }; }
 struct Helper_23c350 {
-    void run(fight::Reference*);
+    void run_00233fe0(fight::Reference*);
 };
 void fight::Reference::vfunc_5() {
     Branch::vfunc_5();
-    ((Helper_23c350*)((char*)this + 0x28))->run(this);
+    ((Helper_23c350*)((char*)this + 0x28))->run_00233fe0(this);
 }
 } // namespace fn_0023c350
 
@@ -136,7 +136,7 @@ void fight::Reference::vfunc_5() {
 namespace fn_0023c370 {
 // Same code shape as 0x002319c0 (propagated; names are from that function)
 struct Part_23c370 {
-    void run(void*);
+    void run_00234090(void*);
 };
 class Branch {
   public:
@@ -163,7 +163,7 @@ namespace fight { class Reference : public Branch {
     virtual void m();
 }; }
 void fight::Reference::vfunc_6() {
-    part.run(this);
+    part.run_00234090(this);
     Branch::vfunc_6();
 }
 } // namespace fn_0023c370
@@ -245,7 +245,7 @@ namespace fn_0023c4d0 {
 extern "C" char DAT_00428824[];
 class Elem_23c4d0 {
   public:
-    void Fn();
+    void Fn_00234150();
 };
 namespace fight { class Reference {
   public:
@@ -260,13 +260,13 @@ namespace fight { class Reference {
     virtual void I();
     virtual void J();
     char pad[0x28 - 4];
-    void Init();
+    void Init_00233970();
 }; }
 extern void __cdecl FUN_00263f30(fight::Reference*);
 fight::Reference* fight::Reference::vfunc_2(int flag) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00428824);
-    ((Elem_23c4d0*)((char*)this + 0x28))->Fn();
-    Init();
+    ((Elem_23c4d0*)((char*)this + 0x28))->Fn_00234150();
+    Init_00233970();
     if (flag & 1)
         FUN_00263f30(this);
     return this;

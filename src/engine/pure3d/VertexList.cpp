@@ -13,8 +13,8 @@ namespace fn_f7aa76dc {} using namespace fn_f7aa76dc;
 
 // ---- declarations shared by the functions below
 namespace fn_f7aa76dc {
-extern int vt1_2c89b0, vt2;
-extern void Free(void*);
+extern int hulk_at_0042efc0, hulk_at_003f6098;
+extern void Free_0008d340(void*);
 class Ref_2c89b0 {
   public:
     virtual void f0();
@@ -405,7 +405,7 @@ static __forceinline Vec2_2cec10 Add2(const Vec2_2cec10& a, const Vec2_2cec10& b
     v.x = a.x + b.x;
     return v;
 }
-extern int vertex_vftable;
+extern int hulk_at_0042efb0;
 extern int ref_vftable_2d0800;
 class VertexOffsetList {
   public:
@@ -420,27 +420,27 @@ class VertexOffsetList {
 // 0x002c89b0 FUN_002c89b0 (195 B): matches/0x002c89b0.cpp
 // sym: ??1VertexList_2c89b0@fn_f7aa76dc@@QAE@XZ
 VertexList_2c89b0::~VertexList_2c89b0() {
-    vptr = &vt1_2c89b0;
-    Free(p14);
-    Free(p18);
-    Free(p1c);
-    Free(p20);
-    Free(p24);
-    Free(p28);
-    Free(p2c);
-    Free(p30);
-    Free(p34);
+    vptr = &hulk_at_0042efc0;
+    Free_0008d340(p14);
+    Free_0008d340(p18);
+    Free_0008d340(p1c);
+    Free_0008d340(p20);
+    Free_0008d340(p24);
+    Free_0008d340(p28);
+    Free_0008d340(p2c);
+    Free_0008d340(p30);
+    Free_0008d340(p34);
     for (int i = 0; i < 4; i++)
-        Free(q[i]);
+        Free_0008d340(q[i]);
     for (int i = 0; i < 2; i++)
-        Free(r[i]);
-    Free(p50);
-    Free(p54);
+        Free_0008d340(r[i]);
+    Free_0008d340(p50);
+    Free_0008d340(p54);
     if (a58) {
         a58->Release();
         a58 = 0;
     }
-    vptr = &vt2;
+    vptr = &hulk_at_003f6098;
 }
 
 } // namespace fn_f7aa76dc
@@ -1839,7 +1839,7 @@ extern "C" void FUN_002cec10(Source_2cec10* src, unsigned char flag, VertexSink_
 // sym: ?Clear@VertexOffsetList@fn_f7aa76dc@@QAEXXZ
 void VertexOffsetList::Clear() {
 atexit:;
-    vptr = &vertex_vftable;
+    vptr = &hulk_at_0042efb0;
     ReleaseThing((void*)a);
     ReleaseThing((void*)b);
     int* p = c;

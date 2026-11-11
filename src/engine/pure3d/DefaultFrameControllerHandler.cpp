@@ -17,7 +17,7 @@ namespace fn_ff70be84 {} using namespace fn_ff70be84;
 
 // ---- declarations shared by the functions below
 namespace fn_ff70be84 {
-extern char vtable_symbol[];
+extern char hulk_at_0042c5bc[];
 class FrameController {
   public:
     virtual void f();
@@ -27,10 +27,10 @@ class FrameController {
 };
 class Base_284a70 {
   public:
-    void initialize();
+    void initialize_0027b070();
 };
 struct AnimationFrameController {
-    void Init();
+    void Init_0027b070();
     hulk_uintptr vptr;
     char pad4[0xc];
     unsigned char field10;
@@ -38,7 +38,7 @@ struct AnimationFrameController {
     float field18;
     AnimationFrameController();
 };
-extern unsigned int vtable_284af0;
+extern unsigned int hulk_at_0042c624;
 struct Status_284b70 {
     char pad[0x18];
     char state;
@@ -79,7 +79,7 @@ class SimpleFrameController {
     char pad[0x40];
 };
 struct ThisCall_0027b070 {
-    void Init();
+    void Init_0027b070();
 };
 class C_284e50 {
     char pad[0x20];
@@ -155,7 +155,7 @@ public:
 };
 } // namespace fn_ff70be84
 namespace pure3d {
-extern const float defaultValue;
+extern const float hulk_at_003fb868;
 }
 namespace fn_ff70be84 {
 class C_285230 {
@@ -166,7 +166,7 @@ class C_285230 {
 };
 } // namespace fn_ff70be84
 namespace pure3d {
-extern const float zero;
+extern const float hulk_at_003f32e0;
 }
 namespace fn_ff70be84 {
 class Item_285410 {
@@ -197,7 +197,7 @@ class SimpleChunkHandler_285650 {
 extern void* Entity_285720_vftable[];
 class Entity_285720 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class FrameController_285720 : public Entity_285720 {
   public:
@@ -206,7 +206,7 @@ class FrameController_285720 : public Entity_285720 {
 extern void* FrameController_285750_vftable[];
 class FrameController_285750 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class AnimationFrameController_285750 : public FrameController_285750 {
   public:
@@ -238,7 +238,7 @@ public:
     void FUN_0027b0b0(const SimpleFrameController_285780* src);
     SimpleFrameController_285780* FUN_00285780(const SimpleFrameController_285780* src);
 };
-extern void* vSFC[];
+extern void* hulk_at_0042c694[];
 extern void* vFC[];
 class Ref_285800 {
   public:
@@ -247,7 +247,7 @@ class Ref_285800 {
 };
 struct AnimationFrameController_285800 {
     void* vf;
-    void Dtor() throw();
+    void Dtor_0027afd0() throw();
 };
 struct SimpleFrameController_285800 : AnimationFrameController_285800 {
     char pad[0x38];
@@ -289,7 +289,7 @@ struct Target_285a70 {
     char pad[3];
     Data_285a70* data;
 };
-extern void* vFCL[];
+extern void* hulk_at_0042c7b0[];
 class Ref_2863d0 {
   public:
     virtual void F0();
@@ -337,12 +337,12 @@ struct Manager {
     virtual void f2();
     virtual int find(DynamicCaster_286780*, __int64);
 };
-extern __int64 __cdecl hash(const char*);
+extern __int64 __cdecl hash_0027b020(const char*);
 class BlendFrameController_287860 {
   public:
     BlendFrameController_287860();
 };
-extern int vtable_287860;
+extern int hulk_at_0042c81c;
 class PoseAnimationController_287860 : public BlendFrameController_287860 {
   public:
     char pad[0x10f];
@@ -365,8 +365,8 @@ hulk_freg FUN_00284a10(float x) {
 // 0x00284a70 FUN_00284a70 (22 B): matches/0x00284a70.cpp
 // sym: ?reset@FrameController@fn_ff70be84@@QAEPAV12@XZ
 FrameController* FrameController::reset() {
-    ((Base_284a70*)this)->initialize();
-    *(void**)this = vtable_symbol;
+    ((Base_284a70*)this)->initialize_0027b070();
+    *(void**)this = hulk_at_0042c5bc;
     value = 0;
     return this;
 }
@@ -379,7 +379,7 @@ namespace fn_00284a90 {
 extern void* frameVtable;
 class Base_284a90 {
   public:
-    void Init(void*);
+    void Init_0027b0b0(void*);
 };
 class FrameController {
   public:
@@ -387,7 +387,7 @@ class FrameController {
     FrameController(void*);
 };
 FrameController::FrameController(void* p) {
-    ((Base_284a90*)this)->Init(p);
+    ((Base_284a90*)this)->Init_0027b0b0(p);
     *(void**)this = &frameVtable;
     ((char*)this)[0x10] = ((char*)p)[0x10];
 }
@@ -423,9 +423,9 @@ namespace fn_ff70be84 {
 // 0x00284af0 FUN_00284af0 (29 B): matches/0x00284af0.cpp
 // sym: ??0AnimationFrameController@fn_ff70be84@@QAE@XZ
 AnimationFrameController::AnimationFrameController() {
-    Init();
+    Init_0027b070();
     field10 = 0;
-    vptr = (hulk_uintptr)&vtable_284af0;
+    vptr = (hulk_uintptr)&hulk_at_0042c624;
     field18 = 1.0f;
 }
 
@@ -509,7 +509,7 @@ namespace fn_ff70be84 {
 // 0x00284cd0 FUN_00284cd0 (59 B): matches/0x00284cd0.cpp
 // sym: @FUN_00284cd0@4
 extern "C" SimpleFrameController* __fastcall FUN_00284cd0(SimpleFrameController* p) {
-    ((ThisCall_0027b070*)(p))->Init();
+    ((ThisCall_0027b070*)(p))->Init_0027b070();
     p->pad[0x10] = 0;
     *(int*)(p->pad + 0x20) = 0;
     *(int*)(p->pad + 0x24) = 0;
@@ -853,7 +853,7 @@ hulk_freg pure3d::BlendFrameController::vfunc_10() {
     unsigned int n = this->f_28;
     if (n > 0)
         return *(float*)(*(hulk_intptr*)((char*)this + 0x28 + n * 0x2c) + 0x14);
-    return defaultValue;
+    return hulk_at_003fb868;
 }
 
 
@@ -1047,7 +1047,7 @@ unsigned int BlendFrameController::vfunc_19() {
 hulk_freg pure3d::BlendFrameController::vfunc_21() {
     if (this->f_28 > 0)
         return *(float*)((char*)this + this->f_28 * 0x2c + 0x18);
-    return zero;
+    return hulk_at_003f32e0;
 }
 
 
@@ -1115,7 +1115,7 @@ class NonCopyable_2853f0 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public NonCopyable_2853f0 {
   public:
@@ -1126,7 +1126,7 @@ class NonCopyable : public NonCopyable_2853f0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1321,7 +1321,7 @@ namespace fn_ff70be84 {
  // thunk_FUN_00267090
 FrameController_285720* FrameController_285720::vfunc_5(signed char flags) {
     *(void***)this = Entity_285720_vftable;
-    Destroy();
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1336,7 +1336,7 @@ FrameController_285720* FrameController_285720::vfunc_5(signed char flags) {
  // thunk_FUN_00267090
 AnimationFrameController_285750* AnimationFrameController_285750::vfunc_5(signed char flags) {
     *(void***)this = FrameController_285750_vftable;
-    Destroy();
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1378,7 +1378,7 @@ SimpleFrameController_285780* SimpleFrameController_285780::FUN_00285780(const S
 // 0x00285800 FUN_00285800 (42 B): matches/0x00285800.cpp
 // sym: ?Dtor2@SimpleFrameController_285800@fn_ff70be84@@QAEXXZ
 void SimpleFrameController_285800::Dtor2() throw() {
-    vf = vSFC;
+    vf = hulk_at_0042c694;
     _ReadWriteBarrier();
     if (p3c) {
         p3c->Release();
@@ -1386,7 +1386,7 @@ void SimpleFrameController_285800::Dtor2() throw() {
     }
     vf = vFC;
     _ReadWriteBarrier();
-    AnimationFrameController_285800::Dtor();
+    AnimationFrameController_285800::Dtor_0027afd0();
 }
 
 } // namespace fn_ff70be84
@@ -2083,7 +2083,7 @@ void pure3d::BlendFrameController::vfunc_14(float lo, float hi)
 namespace fn_002862c0 {
 class Sub_2862c0 {
   public:
-    void invoke();
+    void invoke_00285a70();
 };
 class BlendFrameController {
   public:
@@ -2129,7 +2129,7 @@ void BlendFrameController::f23() {
     while (m28 > 1)
         f29();
     if (m28 == 1)
-        sub.invoke();
+        sub.invoke_00285a70();
     m20 = 0;
     m24 = 0;
     m18 = 1.0f;
@@ -2225,7 +2225,7 @@ namespace fn_ff70be84 {
 // 0x002863d0 FUN_002863d0 (52 B): matches/0x002863d0.cpp
 // sym: ?Dtor@FrameControllerLoader_2863d0@fn_ff70be84@@QAEXXZ
 void FrameControllerLoader_2863d0::Dtor() throw() {
-    vf = vFCL;
+    vf = hulk_at_0042c7b0;
     Ref_2863d0** p = arr;
     for (int i = 4; i; --i) {
         if (*p) {
@@ -2284,14 +2284,14 @@ class SimpleFrameController {
     virtual void a();
     virtual void b();
     virtual SimpleFrameController* vfunc_2(unsigned char);
-    void cleanup();
+    void cleanup_0027afd0();
     char pad[0x38];
     struct Obj {
         virtual void a();
         virtual void b();
     }* member;
 };
-extern void destroy(SimpleFrameController*);
+extern void destroy_00263f30(SimpleFrameController*);
 SimpleFrameController* SimpleFrameController::vfunc_2(unsigned char flag) {
     *(void**)this = &simpleVftable;
     _ReadWriteBarrier();
@@ -2300,9 +2300,9 @@ SimpleFrameController* SimpleFrameController::vfunc_2(unsigned char flag) {
         member = 0;
     }
     *(void**)this = &frameVftable;
-    cleanup();
+    cleanup_0027afd0();
     if (flag & 1)
-        destroy(this);
+        destroy_00263f30(this);
     return this;
 }
 } // namespace fn_002864c0
@@ -2422,7 +2422,7 @@ hulk_intptr __cdecl FUN_00286750(Inventory* inv, void* p) {
 // 0x00286780 FUN_00286780 (42 B): matches/0x00286780.cpp
 // sym: ?load@fn_ff70be84@@YAHPAUManager@1@PBD@Z
 hulk_intptr load(Manager* manager, const char* name) {
-    __int64 h = hash(name);
+    __int64 h = hash_0027b020(name);
     DynamicCaster_286780 caster;
     return manager->find(&caster, h);
 }
@@ -2901,7 +2901,7 @@ PoseAnimationController_287860::PoseAnimationController_287860() {
     *(int*)((char*)this + 0x14c) = 0;
     *(int*)((char*)this + 0x11c) = 0;
     *(int*)((char*)this + 0x134) = 0;
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_287860;
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0042c81c;
     *(int*)((char*)this + 0x114) = 0x3f800000;
     *(int*)((char*)this + 0x148) = 0xffff;
 }

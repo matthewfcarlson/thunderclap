@@ -85,10 +85,10 @@ public:
     virtual void vfunc_4(int extra, Param *param);
 };
 }
-extern void* Entity_234560_vftable[];
+extern void* hulk_at_00427990[];
 class Entity_234560 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_0027afd0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ConditionFactory_234560 : public Entity_234560 {
   public:
@@ -178,8 +178,8 @@ bool fight::Condition::vfunc_3(unsigned __int64 id, int extra, ParamArg_2344d0 a
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ConditionFactory_234560* ConditionFactory_234560::vfunc_5(signed char flags) {
-    *(void***)this = Entity_234560_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00427990;
+    Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -245,18 +245,18 @@ namespace fight { struct Condition {
     hulk_uintptr vptr;
     Obj_2345e0* mRef;
     Condition* vfunc_5(unsigned char flags);
-    void reset();
+    void reset_00234210();
 }; }
-void Destroy(fight::Condition*);
+void Destroy_0008d330(fight::Condition*);
 fight::Condition* fight::Condition::vfunc_5(unsigned char flags) {
     Obj_2345e0* p = mRef;
     vptr = ((hulk_intptr)DAT_004279ac);
     if (p)
         p->s5(1);
     mRef = 0;
-    reset();
+    reset_00234210();
     if (flags & 1)
-        Destroy(this);
+        Destroy_0008d330(this);
     return this;
 }
 } // namespace fn_002345e0

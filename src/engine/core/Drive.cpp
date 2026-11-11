@@ -212,7 +212,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 extern "C" void FUN_00266f00(unsigned, void*);
 class Part_272d90 {
   public:
-    void Fini() throw();
+    void Fini_00277540() throw();
 };
 struct Drive_272d90 {
     void* v0;
@@ -474,7 +474,7 @@ void core::Drive::vfunc_21(int a) {
 namespace fn_00272ca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // core::Drive::vfunc_0_adj4 @ 0x00272ca0
-namespace core { struct IRefCount { virtual void vfunc_0(); }; struct Object { void vfunc_0_adj4(unsigned flags); }; struct Drive : IRefCount, Object { void vfunc_2(unsigned flags); }; } void core::Object::vfunc_0_adj4(unsigned flags) { static_cast<core::Drive*>(this)->core::Drive::vfunc_2(flags); }
+namespace core { struct IRefCount { virtual void vfunc_0(); }; struct Object { void vfunc_0_adj4(unsigned flags); }; struct Drive : IRefCount, Object { void vfunc_2_00272d90(unsigned flags); }; } void core::Object::vfunc_0_adj4(unsigned flags) { static_cast<core::Drive*>(this)->core::Drive::vfunc_2_00272d90(flags); }
 } // namespace fn_00272ca0
 
 namespace fn_f59a9783 {
@@ -560,7 +560,7 @@ Drive_272d90* Drive_272d90::Dtor(unsigned char flag) throw() {
     v0 = vDrive;
     v4 = vD4;
     vc = vDc;
-    part.Fini();
+    part.Fini_00277540();
     vc = vSafe;
     _ReadWriteBarrier();
     unsigned t = p8;

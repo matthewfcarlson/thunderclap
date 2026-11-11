@@ -16,10 +16,10 @@ namespace fn_f419e76e {} using namespace fn_f419e76e;
 namespace fn_f419e76e {
 extern "C" char DAT_004313cc[];
 struct Part_2f2e70 {
-    void Init();
+    void Init_00306e00();
 };
 struct CollisionCylinder_nv_2f2e70 {
-    void Finish();
+    void Finish_00306ac0();
 };
 struct CollisionCylinder_2f2e70 {
     void* vptr;
@@ -58,7 +58,7 @@ class CollisionVolume {
 };
 class Vec_2f2f60 {
   public:
-    void normalize();
+    void normalize_0022d180();
     float x, y, z;
 };
 class CollisionCylinder : public CollisionVolume {
@@ -71,7 +71,7 @@ class CollisionCylinder : public CollisionVolume {
     Vec_2f2f60 v;
     float x7c;
     float x80;
-    void base(float);
+    void base_00306560(float);
     void vfunc_7(float);
     void f() { f5(); }
     void j() { f9(); }
@@ -102,9 +102,9 @@ struct Helper_2f2ff0 {
 // sym: ?Target@CollisionCylinder_2f2e70@fn_f419e76e@@QAEXXZ
 void CollisionCylinder_2f2e70::Target() {
     vptr = (void*)((hulk_intptr)DAT_004313cc);
-    ((Part_2f2e70*)((char*)this + 0x64))->Init();
-    ((Part_2f2e70*)((char*)this + 0x38))->Init();
-    ((CollisionCylinder_nv_2f2e70*)(((physics::CollisionCylinder*)(((physics::CollisionCylinder*)this)))))->Finish();
+    ((Part_2f2e70*)((char*)this + 0x64))->Init_00306e00();
+    ((Part_2f2e70*)((char*)this + 0x38))->Init_00306e00();
+    ((CollisionCylinder_nv_2f2e70*)(((physics::CollisionCylinder*)(((physics::CollisionCylinder*)this)))))->Finish_00306ac0();
 }
 
 } // namespace fn_f419e76e
@@ -165,13 +165,13 @@ void CollisionCylinder::vfunc_7(float p) {
     x50 = p * x7c;
     x54 = p * x80;
     Vec_2f2f60* q = &v;
-    q->normalize();
+    q->normalize_0022d180();
     hulk_freg f = DAT_003f32dc / p;
     q->x = f * q->x;
     q->y = f * q->y;
     q->z = f * q->z;
     j();
-    base(p);
+    base_00306560(p);
 }
 
 } // namespace fn_f419e76e
@@ -224,9 +224,9 @@ void physics::CollisionCylinder::vfunc_5(int a, int b) {}
 // sym: ?vfunc_2@CollisionCylinder@physics@fn_002f3030@@QAEPAU123@E@Z
 namespace fn_002f3030 {
 typedef unsigned char u8_2f3030;
-extern int vtable_2f3030;
+extern int hulk_at_004313cc;
 struct Part_2f3030 {
-    void init();
+    void init_00306e00();
 };
 namespace physics {
 struct CollisionCylinder {
@@ -247,17 +247,17 @@ struct CollisionCylinder {
     virtual void o();
     char pad[0x64 - 4];
     CollisionCylinder* vfunc_2(u8_2f3030);
-    void base();
+    void base_00306ac0();
 };
 } // namespace physics
-void cleanup(physics::CollisionCylinder*);
+void cleanup_0008d330(physics::CollisionCylinder*);
 physics::CollisionCylinder* physics::CollisionCylinder::vfunc_2(u8_2f3030 flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_2f3030;
-    ((Part_2f3030*)((char*)this + 0x64))->init();
-    ((Part_2f3030*)((char*)this + 0x38))->init();
-    base();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004313cc;
+    ((Part_2f3030*)((char*)this + 0x64))->init_00306e00();
+    ((Part_2f3030*)((char*)this + 0x38))->init_00306e00();
+    base_00306ac0();
     if (flag & 1)
-        cleanup(this);
+        cleanup_0008d330(this);
     return this;
 }
 } // namespace fn_002f3030
@@ -333,7 +333,7 @@ namespace physics {
 struct CollisionVolume {
     char padding[0x34];
     float extent;
-    void vfunc_9();
+    void vfunc_9_00306450();
 };
 struct CollisionCylinder : CollisionVolume {
     char padding2[0x50 - 0x38];
@@ -350,7 +350,7 @@ void CollisionCylinder::vfunc_9() {
     } else {
         extent = halfHeight + radius;
     }
-    CollisionVolume::vfunc_9();
+    CollisionVolume::vfunc_9_00306450();
 }
 }
 } // namespace fn_002f3270

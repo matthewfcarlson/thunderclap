@@ -219,12 +219,12 @@ class Obj_231900 {
 extern "C" char DAT_00427688[];
 class Base_231940 {
   public:
-    void Init(int);
+    void Init_00232e90(int);
     char pad[0x28];
 };
 class Sub_231940 {
   public:
-    void Init();
+    void Init_00239d50();
 };
 class Node {
   public:
@@ -232,9 +232,9 @@ class Node {
     Sub_231940 sub;
     Node* InitNode();
 };
-extern void* vtable_231960;
+extern void* hulk_at_00427688;
 struct Sub_231960 {
-    void init();
+    void init_00239e90();
 };
 struct Node_231960 {
     void* vt;
@@ -579,9 +579,9 @@ void* Obj_231900::Get() {
 // 0x00231940 FUN_00231940 (28 B): matches/0x00231940.cpp
 // sym: ?InitNode@Node@fn_f6bca062@@QAEPAV12@XZ
 Node* Node::InitNode() {
-    b.Init(1);
+    b.Init_00232e90(1);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00427688);
-    sub.Init();
+    sub.Init_00239d50();
     return this;
 }
 
@@ -589,8 +589,8 @@ Node* Node::InitNode() {
 // 0x00231960 FUN_00231960 (25 B): matches/0x00231960.cpp
 // sym: ?target@Node_231960@fn_f6bca062@@QAEXXZ
 void Node_231960::target() {
-    vt = &vtable_231960;
-    ((Sub_231960*)((char*)this + 0x28))->init();
+    vt = &hulk_at_00427688;
+    ((Sub_231960*)((char*)this + 0x28))->init_00239e90();
     ((fight::Branch *)this)->FUN_00233970();
 }
 

@@ -14,13 +14,13 @@ namespace fn_f411a916 {} using namespace fn_f411a916;
 
 // ---- declarations shared by the functions below
 namespace fn_f411a916 {
-extern void* g_vt_2e5a70[];
-extern void* g_b_2e5a70[];
+extern void* hulk_at_0042fd48[];
+extern void* hulk_at_003f6098[];
 } // namespace fn_f411a916
 void operator delete(void*);
 namespace fn_f411a916 {
 struct S_2e5a70 {
-    void Fini() throw();
+    void Fini_002c6d50() throw();
 };
 struct E_2e5a70 {
     char pad[4];
@@ -36,7 +36,7 @@ struct VE {
             E_2e5a70* p = b;
             E_2e5a70* end = e;
             while (p != end) {
-                p->s.Fini();
+                p->s.Fini_002c6d50();
                 p++;
             }
             operator delete(b);
@@ -215,7 +215,7 @@ public:
 // 0x002e5a70 FUN_002e5a70 (163 B): matches/0x002e5a70.cpp
 // sym: ?f@VertexAnimKeyFrame_2e5a70@fn_f411a916@@QAEXXZ
 void VertexAnimKeyFrame_2e5a70::f() {
-    vptr = g_vt_2e5a70;
+    vptr = hulk_at_0042fd48;
     {
         VE* p = v + 2;
         int n = 2;
@@ -236,7 +236,7 @@ void VertexAnimKeyFrame_2e5a70::f() {
         operator delete(m20);
     if (m14)
         operator delete(m14);
-    vptr = g_b_2e5a70;
+    vptr = hulk_at_003f6098;
 }
 
 

@@ -234,7 +234,7 @@ struct Container_29f280 {
     Item_29f280** items;
 };
 struct Receiver_29f280 {
-    void second(int, Item_29f280*);
+    void second_002a0fc0(int, Item_29f280*);
 };
 struct Obj_29f280 {
     Container_29f280* container;
@@ -258,7 +258,7 @@ class List_29f2e0 {
     int count;
     char pad14[4];
     Item_29f2e0** items;
-    void process(int, Item_29f2e0*);
+    void process_002a0fc0(int, Item_29f2e0*);
 };
 class Obj_29f2e0 {
   public:
@@ -287,7 +287,7 @@ struct Arr_29f340 {
     Item_29f340** items;
 };
 struct Context {
-    void process(int, Item_29f340*);
+    void process_002a0fc0(int, Item_29f340*);
 };
 struct Obj_29f340 {
     char x[8];
@@ -300,7 +300,7 @@ struct Obj_29f340 {
 struct Tmp_29f3a0 {
     char pad[0x18];
     Tmp_29f3a0(void*);
-    void Run(int, int);
+    void Run_00231180(int, int);
 };
 struct C_29f3a0 {
     void F(int, int);
@@ -610,7 +610,7 @@ int* __fastcall FUN_0029f280(Obj_29f280* self) {
         Container_29f280* c = self->container;
         Item_29f280* item = i < c->count ? c->items[i] : (Item_29f280*)0;
         item->f6();
-        self->receiver->second(i, item);
+        self->receiver->second_002a0fc0(i, item);
     }
     return (int*)self->receiver;
 }
@@ -629,7 +629,7 @@ hulk_intptr Obj_29f2e0::run() {
             else
                 x = 0;
             x->f6();
-            list->process(i, x);
+            list->process_002a0fc0(i, x);
             ++i;
         } while (i < n);
     }
@@ -650,7 +650,7 @@ hulk_intptr Obj_29f340::run() {
             else
                 p = 0;
             p->f();
-            ctx->process(i, p);
+            ctx->process_002a0fc0(i, p);
             ++i;
         } while (i < n);
     return (hulk_intptr)ctx;
@@ -662,7 +662,7 @@ hulk_intptr Obj_29f340::run() {
 // Same code shape as 0x00236630 (propagated; names are from that function)
 void C_29f3a0::F(int a, int b) {
     Tmp_29f3a0 t(this);
-    t.Run(a, b);
+    t.Run_00231180(a, b);
 }
 
 } // namespace fn_fa427f67

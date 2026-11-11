@@ -31,7 +31,7 @@ unsigned __int64 FUN_002672f0(void* a, int b, int c);
 namespace fn_f83389b9 {
 typedef unsigned int U32_27b040;
 typedef unsigned __int64 U64_27b040;
-U64_27b040 __cdecl MakeThing(U32_27b040, U32_27b040, U32_27b040);
+U64_27b040 __cdecl MakeThing_002672f0(U32_27b040, U32_27b040, U32_27b040);
 extern "C" char DAT_0042c180[];
 class Entity {
   public:
@@ -91,7 +91,7 @@ extern "C" unsigned __int64 FUN_0027b020(void* a) {
 U64_27b040 owners::Target_27b040::FUN_0027b040(hulk_uintptr value) {
     U64_27b040 result;
     if (((U32_27b040)value))
-        result = MakeThing(((U32_27b040)value), 0, 0);
+        result = MakeThing_002672f0(((U32_27b040)value), 0, 0);
     else
         result = 0;
     a = (U32_27b040)result;
@@ -122,7 +122,7 @@ class LoadObject_27b090 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public LoadObject_27b090 {
   public:
@@ -133,7 +133,7 @@ class NonCopyable : public LoadObject_27b090 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

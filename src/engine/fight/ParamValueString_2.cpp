@@ -15,7 +15,7 @@ namespace fn_f9940245 {
 extern "C" char DAT_00427a78[];
 class Sub_2349e0 {
   public:
-    void Init(const char*);
+    void Init_0027b0e0(const char*);
 };
 class ParamValueString {
   public:
@@ -30,7 +30,7 @@ class ParamValueString {
 // sym: ??0ParamValueString@fn_f9940245@@QAE@PBD@Z
 ParamValueString::ParamValueString(const char* s) {
     vf = ((hulk_intptr)DAT_004279fc);
-    sub.Init(s);
+    sub.Init_0027b0e0(s);
     vf = ((hulk_intptr)DAT_00427a78);
 }
 

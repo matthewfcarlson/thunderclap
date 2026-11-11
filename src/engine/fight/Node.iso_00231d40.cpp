@@ -10,7 +10,7 @@
 extern "C" char DAT_00427688[];
 class Part_231d40 {
   public:
-    void init();
+    void init_00239e90();
 };
 class Node {
   public:
@@ -26,13 +26,13 @@ class Node {
     virtual void f9();
     char pad[0x28 - 4];
 };
-extern void third(Node*);
+extern void third_00263f30(Node*);
 Node* Node::vfunc_2(unsigned char p) {
     *(void**)this = (void*)((hulk_intptr)DAT_00427688);
-    ((Part_231d40*)((char*)this + 0x28))->init();
+    ((Part_231d40*)((char*)this + 0x28))->init_00239e90();
     ((fight::Branch *)this)->FUN_00233970();
     if (p & 1)
-        third(this);
+        third_00263f30(this);
     return this;
 }
 

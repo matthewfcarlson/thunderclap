@@ -134,7 +134,7 @@ class Obj {
 };
 extern "C" int __cdecl FUN_00270ba0();
 extern "C" int __cdecl FUN_0026fd50(int, int);
-extern int __cdecl f66eb0(int, int, int);
+extern int __cdecl f66eb0_00266eb0(int, int, int);
 struct X_277670 {
     char pad[0x14];
     int a;
@@ -143,10 +143,10 @@ struct X_277670 {
     int arg;
     void f();
 };
-extern void __cdecl helper(int, int);
+extern void __cdecl helper_00266f20(int, int);
 class Inner_2777b0 {
   public:
-    void call();
+    void call_0026f160();
 };
 class A_2777e0 {
   public:
@@ -198,7 +198,7 @@ typedef unsigned char u8_277b10;
 extern "C" void __cdecl FUN_00266f00(int, void*);
 class CementLibrary_277b10 {
   public:
-    void cleanup();
+    void cleanup_002776c0();
     virtual void f0();
     virtual void f1();
     virtual CementLibrary_277b10* f2(u8_277b10);
@@ -215,7 +215,7 @@ class CementLibrary_277b10 {
 };
 extern "C" unsigned int __cdecl FUN_002698b0(char*);
 struct CementLibrary_nv_277b40 {
-    unsigned int f(unsigned int, unsigned int);
+    unsigned int Fnf_002779b0(unsigned int, unsigned int);
 };
 struct C_277b40 {
     unsigned int f(char*, unsigned int);
@@ -580,7 +580,7 @@ void owners::Obj_277630::FUN_00277630(int a, hulk_intptr b, int c) {
         m20 = a;
         int x = FUN_0026fd50(FUN_00270ba0(), c);
         m18 = x;
-        m14 = f66eb0(m20, x, ((int)b));
+        m14 = f66eb0_00266eb0(m20, x, ((int)b));
     }
     ++m1c;
 }
@@ -591,7 +591,7 @@ namespace fn_f6ff0ab7 {
 // sym: ?f@X_277670@fn_f6ff0ab7@@QAEXXZ
 void X_277670::f() {
     if (refs == 1) {
-        helper(arg, a);
+        helper_00266f20(arg, a);
         a = 0;
         b = 0;
     }
@@ -715,7 +715,7 @@ void core::CementLibrary::vfunc_0() {
 // sym: ?vfunc_1@CementLibrary@core@@UAEXXZ
 // Same code shape as 0x002226e0 (propagated; names are from that function)
 void core::CementLibrary::vfunc_1() {
-    ((Inner_2777b0*)((char*)this + 0x10))->call();
+    ((Inner_2777b0*)((char*)this + 0x10))->call_0026f160();
 }
 
 
@@ -925,7 +925,7 @@ namespace fn_f6ff0ab7 {
 // Same code shape as 0x00269560 (propagated; names are from that function)
 // data: globalValue = DAT_004cdbb0
 CementLibrary_277b10* CementLibrary_277b10::f2(u8_277b10 flag) {
-    cleanup();
+    cleanup_002776c0();
     if (flag & 1)
         FUN_00266f00(DAT_004cdbb0, this);
     return this;
@@ -938,7 +938,7 @@ unsigned int C_277b40::f(char* path, unsigned int arg) {
     if (*path == '\\')
         ++path;
     unsigned int x = FUN_002698b0(path);
-    return ((CementLibrary_nv_277b40*)(((core::CementLibrary*)this)))->f(x, arg);
+    return ((CementLibrary_nv_277b40*)(((core::CementLibrary*)this)))->Fnf_002779b0(x, arg);
 }
 
 

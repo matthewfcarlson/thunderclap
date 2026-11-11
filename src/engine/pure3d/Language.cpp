@@ -37,11 +37,11 @@ class Language : public FUN_0027b070 {
     union { void* first; void* x; };
     union { void* second; void* y; };
     union { void* third; void* z; };
-    void finish();
+    void finish_0027afd0();
 };
 }
 extern "C" char DAT_0042fd84[];
-void __cdecl Release(void*) throw();
+void __cdecl Release_0008d340(void*) throw();
 class Entity_2e6620 {
   public:
     ~Entity_2e6620();
@@ -60,8 +60,8 @@ class Hash {
     unsigned int divisor;
     unsigned int Calc(const char* s);
 };
-void release(void*);
-void destroy(void*);
+void release_0008d340(void*);
+void destroy_00263f30(void*);
 typedef int(__cdecl* CompareFn_2e6740)(const void*, const void*);
 } // namespace fn_f6a40e3d
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -104,9 +104,9 @@ Language::Language(const char* text, uint_2e6570 n, uint_2e6570 bytes) : FUN_002
 // sym: ??1Language@fn_f6a40e3d@@QAE@XZ
 Language::~Language() {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042fd84);
-    Release(a);
-    Release(b);
-    Release(c);
+    Release_0008d340(a);
+    Release_0008d340(b);
+    Release_0008d340(c);
 }
 
 
@@ -136,12 +136,12 @@ unsigned int FUN_002e66a0(unsigned int* a, unsigned int* b) {
 // sym: ?vfunc_2@Language@pure3d@fn_f6a40e3d@@UAEPAV123@H@Z
 pure3d::Language* pure3d::Language::vfunc_2(int flag) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042fd84);
-    release(x);
-    release(y);
-    release(z);
-    finish();
+    release_0008d340(x);
+    release_0008d340(y);
+    release_0008d340(z);
+    finish_0027afd0();
     if (flag & 1)
-        destroy(this);
+        destroy_00263f30(this);
     return this;
 }
 

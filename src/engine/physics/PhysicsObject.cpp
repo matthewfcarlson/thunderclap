@@ -42,7 +42,7 @@ class Param_2f5590 {
 } // namespace fn_ff237b18
 namespace physics {
 struct Part_2f55b0 {
-    void work(int);
+    void work_00308ba0(int);
 };
 }
 namespace fn_ff237b18 {
@@ -130,15 +130,15 @@ struct SimCGSValue_2f60f0 {
 };
 }
 namespace fn_ff237b18 {
-extern int gSimVtable;
+extern int hulk_at_0043119c;
 } // namespace fn_ff237b18
 namespace physics {
 struct SimCGSValue_2f6170 {
     void* vtable;
     float value;
     unsigned int extra;
-    void Init(float);
-    void Done();
+    void Init_002ecf20(float);
+    void Done_002ecca0();
 };
 }
 namespace fn_ff237b18 {
@@ -146,7 +146,7 @@ struct Data_2f6940 {
     char p[0x68];
     float x;
 };
-extern int vftable_2f7060;
+extern int hulk_at_00431680;
 class PhysicsObjectLoader {
   public:
     hulk_intptr vptr;
@@ -539,7 +539,7 @@ void physics::SimulatedObject::vfunc_29(int x) {
  // namespace physics
 void physics::PhysicsObject::vfunc_9(int a0) {
     (*(char *)&this->f_1c4) = 1;
-    ((Part_2f55b0*)((char*)this + 0x168))->work(a0);
+    ((Part_2f55b0*)((char*)this + 0x168))->work_00308ba0(a0);
 }
 
 
@@ -656,31 +656,31 @@ namespace fn_002f5640 {
 extern "C" char DAT_004315dc[];
 class Big_2f5640 {
   public:
-    void Init();
+    void Init_00308a60();
 };
 class SymMatrix_2f5640 {
   public:
-    void Init();
+    void Init_002fcaa0();
 };
 class Base_2f5640 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class PhysicsObject {
   public:
     void* vt;
     char pad[0x168 - 4];
-    void Finish();
+    void Finish_002fe680();
     void Setup();
 };
 void PhysicsObject::Setup() {
     vt = (void*)((hulk_intptr)DAT_004315dc);
-    ((Big_2f5640*)((char*)this + 0x168))->Init();
-    ((SymMatrix_2f5640*)((char*)this + 0x114))->Init();
-    ((SymMatrix_2f5640*)((char*)this + 0xf8))->Init();
-    ((SymMatrix_2f5640*)((char*)this + 0xdc))->Init();
-    ((Base_2f5640*)((char*)this + 0x30))->Init();
-    Finish();
+    ((Big_2f5640*)((char*)this + 0x168))->Init_00308a60();
+    ((SymMatrix_2f5640*)((char*)this + 0x114))->Init_002fcaa0();
+    ((SymMatrix_2f5640*)((char*)this + 0xf8))->Init_002fcaa0();
+    ((SymMatrix_2f5640*)((char*)this + 0xdc))->Init_002fcaa0();
+    ((Base_2f5640*)((char*)this + 0x30))->Init_0027af50();
+    Finish_002fe680();
 }
 } // namespace fn_002f5640
 
@@ -886,7 +886,7 @@ class BlockA {
     int m_x;
     int m_y;
     int m_data[5];
-    void Set(void* p);
+    void Set_002fcd60(void* p);
 };
 
 class BlockB {
@@ -954,7 +954,7 @@ void PhysicsObject::vfunc_39() {
     p->m_data[2] = ps[2];
     p->m_data[3] = ps[3];
     p->m_data[4] = ps[4];
-    p->Set(&m_58);
+    p->Set_002fcd60(&m_58);
     ((owners::Sym3_2fd0c0 *)&m_blockB)->FUN_002fd0c0((const owners::Sym3_2fd0c0 *)(BlockA *)p);
 }
 } // namespace fn_002f5be0
@@ -1089,7 +1089,7 @@ struct Out_2f5ec0 {
 };
 class Helper_2f5ec0 {
   public:
-    void Transform(float*);
+    void Transform_002fcf30(float*);
 };
 class PhysicsObject {
   public:
@@ -1132,7 +1132,7 @@ void PhysicsObject::f20(float* p, Out_2f5ec0* out, int, int, int) {
     out->d = *(float*)&m3;
     out->e = *(float*)&m4;
     out->f = *(float*)&m5;
-    ((Helper_2f5ec0*)out)->Transform(t);
+    ((Helper_2f5ec0*)out)->Transform_002fcf30(t);
     out->a = offset + out->a;
     out->d = offset + out->d;
     out->f = out->f + offset;
@@ -1270,11 +1270,11 @@ float PhysicsObject::vfunc_15() {
  // namespace physics
 hulk_freg physics::SimulatedObject::vfunc_15() {
     SimCGSValue_2f6170 value;
-    value.Init(10.0f);
+    value.Init_002ecf20(10.0f);
     float denom = value.value;
     float result = vfunc_14() / denom;
-    value.vtable = &gSimVtable;
-    value.Done();
+    value.vtable = &hulk_at_0043119c;
+    value.Done_002ecca0();
     return result;
 }
 
@@ -1325,33 +1325,33 @@ class PhysicsObject {
     virtual void f38();
     virtual void f39();
     PhysicsObject(unsigned char);
-    void finish();
+    void finish_002fe680();
 };
 struct A_2f61c0 {
-    void a();
+    void Fna_00308a60();
 };
 struct SymMatrix_2f61c0 {
-    void b();
+    void Fnb_002fcaa0();
 };
 struct C_2f61c0 {
-    void c();
+    void Fnc_002fcaa0();
 };
 struct D {
-    void d();
+    void Fnd_002fcaa0();
 };
 struct E_2f61c0 {
-    void e();
+    void Fne_0027af50();
 };
-extern void destroy(PhysicsObject*);
+extern void destroy_00263f30(PhysicsObject*);
 PhysicsObject::PhysicsObject(unsigned char flag) {
-    ((A_2f61c0*)((char*)this + 0x168))->a();
-    ((SymMatrix_2f61c0*)((char*)this + 0x114))->b();
-    ((C_2f61c0*)((char*)this + 0xf8))->c();
-    ((D*)((char*)this + 0xdc))->d();
-    ((E_2f61c0*)((char*)this + 0x30))->e();
-    finish();
+    ((A_2f61c0*)((char*)this + 0x168))->Fna_00308a60();
+    ((SymMatrix_2f61c0*)((char*)this + 0x114))->Fnb_002fcaa0();
+    ((C_2f61c0*)((char*)this + 0xf8))->Fnc_002fcaa0();
+    ((D*)((char*)this + 0xdc))->Fnd_002fcaa0();
+    ((E_2f61c0*)((char*)this + 0x30))->Fne_0027af50();
+    finish_002fe680();
     if (flag & 1)
-        destroy(this);
+        destroy_00263f30(this);
 }
 } // namespace fn_002f61c0
 
@@ -1448,8 +1448,8 @@ public:
     virtual void vfunc_3() throw();
     virtual void vfunc_4() throw();
     virtual void vfunc_5() throw();
-    virtual void hulk_slot_vfunc_6(int v) throw(); void vfunc_6(int v) throw();
-    virtual void hulk_slot_vfunc_7() throw(); void vfunc_7() throw();
+    virtual void hulk_slot_vfunc_6(int v) throw(); void vfunc_6_002f56b0(int v) throw();
+    virtual void hulk_slot_vfunc_7() throw(); void vfunc_7_002f5870() throw();
     virtual void vfunc_8() throw();
     virtual void vfunc_9() throw();
     virtual void vfunc_10() throw();
@@ -1481,7 +1481,7 @@ public:
     virtual void vfunc_36() throw();
     virtual void vfunc_37() throw();
     virtual void vfunc_38() throw();
-    virtual void hulk_slot_vfunc_39() throw(); void vfunc_39() throw();
+    virtual void hulk_slot_vfunc_39() throw(); void vfunc_39_002f5be0() throw();
     Id64_2f6220 id30;
     int f38;
     int f3c;
@@ -1591,7 +1591,7 @@ PhysicsObject::PhysicsObject(int arg, V3_2f6220 *pos, SymMatrix *inertia, int ow
     va8.z = v98.z;
     pada4 = (va8.x * va8.x + va8.y * va8.y + va8.z * va8.z < 1e-05f) ? 1 : 0;
     if (f10) {
-        vfunc_6(0);
+        vfunc_6_002f56b0(0);
     }
     vcc.z = 0;
     vcc.y = 0;
@@ -1614,8 +1614,8 @@ PhysicsObject::PhysicsObject(int arg, V3_2f6220 *pos, SymMatrix *inertia, int ow
     v13c.y = 0;
     v13c.x = 0;
     b1d0 = 0;
-    vfunc_39();
-    vfunc_7();
+    vfunc_39_002f5be0();
+    vfunc_7_002f5870();
 }
 
 }
@@ -2324,7 +2324,7 @@ PhysicsObjectLoader::PhysicsObjectLoader() {
     b = 0x7011000;
     c = 0;
     d = 0;
-    vptr = (hulk_intptr)&vftable_2f7060;
+    vptr = (hulk_intptr)&hulk_at_00431680;
 }
 
 } // namespace fn_ff237b18
@@ -2339,7 +2339,7 @@ class SimpleChunkHandler_2f7080 {
     virtual void f1();
     virtual void f2();
 };
-extern void* refcount_vftable[];
+extern void* hulk_at_003f6098[];
 namespace pure3d {
 class NonCopyable : public SimpleChunkHandler_2f7080 {
   public:
@@ -2350,7 +2350,7 @@ class NonCopyable : public SimpleChunkHandler_2f7080 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = hulk_at_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

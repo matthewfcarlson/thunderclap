@@ -184,7 +184,7 @@ struct Object_2a1ca0 { char pad[0x40]; Collection_2a1ca0* collection; void* extr
 struct Entry_2a1ca0 { float depth; float result; Object_2a1ca0* object; Item_2a1ca0* item; Collection_2a1ca0* collection; void* extra; };
 typedef unsigned char(__cdecl* Compare_2a1e00)(int, int);
 typedef char(__cdecl* Cmp)(int, int);
-void Fix(int*, int, int, int, Cmp);
+void Fix_002a1a60(int*, int, int, int, Cmp);
 typedef int Elem4;
 void __cdecl FUN_002a1e00(Elem4 *a, Elem4 *b, Elem4 *c, void *cmp);
 void FUN_002a1e60(hulk_intptr, hulk_intptr, hulk_intptr, int, int);
@@ -372,7 +372,7 @@ void Target(int* a, int b, int c, int d, Cmp fn) {
         a[b] = a[c - 1];
         b = c - 1;
     }
-    Fix(a, b, original, d, fn);
+    Fix_002a1a60(a, b, original, d, fn);
 }
 
 
@@ -611,7 +611,7 @@ void __cdecl operator delete(void*);
 namespace fn_002a24c0 {
 
 
-extern const int TranslucentTraversal_vftable;
+extern const int hulk_at_0042d750;
 
 namespace pure3d {
 
@@ -625,7 +625,7 @@ class TranslucentTraversal {
     virtual void vfunc_5();
     virtual void vfunc_6();
 
-    void BaseDtor();
+    void BaseDtor_002c6aa0();
 
     char pad0[0x1c - 4];
     void* m1c;
@@ -635,7 +635,7 @@ class TranslucentTraversal {
 
 void* TranslucentTraversal::vfunc_2(unsigned char param) {
     volatile int* v = (volatile int*)this;
-    *v = (hulk_intptr)&TranslucentTraversal_vftable;
+    *v = (hulk_intptr)&hulk_at_0042d750;
     void* p28 = (void*)*(volatile hulk_intptr*)((char*)v + 0x28);
     if (p28 != 0) {
         operator delete[](p28);
@@ -644,7 +644,7 @@ void* TranslucentTraversal::vfunc_2(unsigned char param) {
     if (p1c != 0) {
         operator delete[](p1c);
     }
-    BaseDtor();
+    BaseDtor_002c6aa0();
     if ((param & 1) != 0) {
         operator delete(this);
     }
