@@ -160,6 +160,41 @@ def _plan_thunk():
     nu._JMP.clear()
 
 
+@case("vftable slots from IR; plan_link's slot rule (names the map has no binding of)")
+def _plan_slots():
+    ir = ('@"??_7A@fn_f1@@6B@$rtti" = linkonce_odr unnamed_addr constant { [3 x ptr] } { [3 x ptr] '
+          '[ptr @"??_R4A@fn_f1@@6B@", ptr @"?v0_00038290@A@fn_f1@@UEAAXXZ", ptr null] }\n'
+          '@"??_7A@fn_f1@@6B@" = linkonce_odr unnamed_addr alias ptr, getelementptr inbounds ({ [3 x ptr] }, '
+          'ptr @"??_7A@fn_f1@@6B@$rtti", i32 0, i32 0, i32 1)\n')
+    vt = nu.vftable_slots(ir)
+    assert vt == {"??_7A@fn_f1@@6B@": ["?v0_00038290@A@fn_f1@@UEAAXXZ", None]}, vt
+    a, b = "/x/a.o", "/x/b.o"
+    d = "?Release@LoadObject@content@@UEAAXXZ"            # the definition at 0x00038290
+    r_slot = "?v0_00038290@A@fn_f1@@UEAAXXZ"               # slot 0 of A's vftable; the game's slot 0 is 0x00038290
+    r_bad = "?v1_00038290@B@fn_f1@@UEAAXXZ"                # slot 1 of B's: the game's slot 1 is 0x000382a0
+    r_call = "?Other_00038290@C@fn_f1@@QEAAXXZ"            # only called: no slot proves it
+    syms = {a: ({d}, set()), b: (set(), {r_slot, r_bad, r_call})}
+    sigs = {a: {d: "void(ptr)"}, b: {r_slot: "void(ptr)", r_bad: "void(ptr)", r_call: "void(ptr)"}}
+    vts = {b: {"??_7A@fn_f1@@6B@": [r_slot], "??_7B@fn_f1@@6B@": ["?x@B@fn_f1@@UEAAXXZ", r_bad]}}
+
+    class X:                                               # the game's vftables at 0x00400010 (A) and 0x00400020 (B)
+        data = (0x38290).to_bytes(4, "little") + (0x382a0).to_bytes(4, "little") + bytes(8) + \
+            (0x382a0).to_bytes(4, "little") + (0x382a0).to_bytes(4, "little")
+        def offset(self, va):
+            return va - 0x400010 if 0x400010 <= va < 0x400028 else None
+    sp = nu.SlotProof(vts, {"??_7A@fn_f1@@6B@": 0x400010, "??_7B@fn_f1@@6B@": 0x400020}, xbe=X(),
+                      vt_items={0x400010: 2, 0x400020: 2})
+    nu.cp.undname = lambda names: {n: n for n in names}
+    ren, why, bound = nu.plan_link([a, b], syms, FakeDefs({0x38290: d}), set(), (), sigs, verify=FakeVerify({}),
+                                   slots=sp)
+    assert ren == {b: {r_slot: d}}, ren
+    assert why[r_slot][0] == "bound (same IR signature), the name verified by its vftable slots", why[r_slot]
+    assert why[r_bad][0].startswith("not verified"), why[r_bad]
+    assert why[r_call][0].startswith("not verified"), why[r_call]
+    _ren, why0, _b = nu.plan_link([a, b], syms, FakeDefs({0x38290: d}), set(), (), sigs, verify=FakeVerify({}))
+    assert why0[r_slot][0].startswith("not verified"), why0[r_slot]     # no sidecars, no rule
+
+
 def main():
     bad = 0
     for name, f in CASES:

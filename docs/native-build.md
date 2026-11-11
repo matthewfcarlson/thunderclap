@@ -2261,6 +2261,31 @@ reach the same named thunks (build/ren1/scripts/imgdiff.py), the PE checksum fol
 | renames 4/5, src/game/hulkfight (ai, scenario, top level) | 177 / 1,372 | 71601, GATE ok (0 of 2,013) | f900b656 | 22,984 / 22,964 / 22,975 |
 | renames 5/5, src/game (unknown, Render, init, ...) | 99 / 1,463 | 71602, GATE ok (0 of 2,031) | f900b656 | **22,146 / 22,126 / 22,137** |
 
+All five: **28,899 / 28,884 / 28,891 -> 22,146 / 22,126 / 22,137** (-6,753 / -6,758 / -6,754; plan1's prototype measured
+-6,130). The renamed names that do not bind yet carry an address now and show their real reason in addr-why.json (an
+IR signature that differs: B6b; data declared wider than its item). A last proof of everything on HEAD ebc5fb247 (with
+x64t3's batch 2) plus renames 4 and 5: 71627 vs control 71585, GATE ok (0 of 2,032 common frames differ; image 824d4f66, x64t3's code changes included).
+Left for later batches: the 1,685 header-declared names (owners.h / include/gen), constructors / destructors of stub
+classes (the class-level rename), the CRT routines under invented C++ names (`__RTDynamicCast` callers: renaming to the
+CRT name needs `extern "C"`), the six TUs libclang crashed on, ProjectileGroundShockwave.cpp.
+
+**Slot names verified by their vftable slot (the user's rule, 2026-11-11).** The Wine binding map has no binding of a
+virtual member's name: the Wine link aliases the slots of local vftables and never records the slot functions. So a
+stub virtual named by its slot's address (`v4_00038290`, batch 5 of the plan) stayed "not verified: the Wine binding map
+has no binding of the name". tools/native_unbound.py now verifies such a name the way verify_relocs verifies a name with
+an address (the relocation's original target is the address the name says), on the vftable's relocations:
+- the native compiles write `<obj>.vt.json` beside each object: every local vftable's slots (`vftable_slots()`, from the
+  retargeted IR);
+- `SlotProof`: a code-address name (`FUN_` / suffix) the map has no binding of is verified when it sits in a local
+  vftable slot, the map binds that local vftable to a game vftable V (relocation position or equiv.py), slot k is
+  inside V's item (config/data.json) and the XBE word at V + 4k is the name's address, for every slot that holds it;
+- the binding is then plan_link's as for any name (the tree's definition at that address, with the same IR
+  signature): `bound (...), the name verified by its vftable slots`. Nothing is redirected; a name only called, or in
+  a slot whose game word differs, stays unverified. Address-only references with a different declared signature are
+  not accepted (the user declined that rule).
+- Today no stub virtual carries its slot's address, so the counts do not move (measured on B0's snapshot: macOS 28,899
+  with and without the rule); the slot-naming batch is what it enables. Test: tests/native_host/native_unbound_test.py.
+
 **Batch 2, the context's first shader.** After its construction, Pure3D's context builds the simple shader through
 the device (0x002a3130 -> 0x0028edb0 -> pddiDevice slot 11 -> the factory table 0x00327c70 -> 0x00327e90):
 

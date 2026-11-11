@@ -530,6 +530,33 @@ def ir_signatures(ir):
     return out
 
 
+VT_CONST = re.compile(r'^(@"[^"]+"|@[\w.$?@-]+) = [^\n]*?constant \{ \[\d+ x ptr\] \} \{ \[\d+ x ptr\] \[([^\n]*)\] \}\s*(?:,[^\n]*)?$', re.M)
+VT_GEP = re.compile(r'^(@"[^"]+"|@[\w.$?@-]+) = [^\n]*?alias ptr, getelementptr inbounds \(\{ \[\d+ x ptr\] \}, '
+                    r'ptr (@"[^"]+"|@[\w.$?@-]+), i32 0, i32 0, i32 (\d+)\)', re.M)
+VT_SLOT = re.compile(r'^ptr (@"[^"]+"|@[\w.$?@-]+)$')
+
+
+def vftable_slots(ir):
+    """(ren1) {vftable symbol (MS spelling): [slot k's symbol or None, ...]} of the vftables a retargeted module
+    defines: clang's `??_7X@...@6B@` alias into its {locator, slots} constant (native_mac.retarget's `$rtti` record),
+    or a `??_7` constant of slots alone. plan_link's slot rule reads it (`<obj>.vt.json`)."""
+    def nm(t):
+        return t[1:].strip('"')
+    arrays = {}
+    for m in VT_CONST.finditer(ir):
+        arrays[nm(m.group(1))] = [nm(VT_SLOT.match(e).group(1)) if VT_SLOT.match(e) else None
+                                  for e in _split_ir(m.group(2))]
+    out = {}
+    for m in VT_GEP.finditer(ir):
+        a, k = arrays.get(nm(m.group(2))), int(m.group(3))
+        if a is not None and nm(m.group(1)).startswith("??_7"):
+            out[nm(m.group(1))] = a[k:]
+    for n, a in arrays.items():
+        if n.startswith("??_7") and n not in out and not n.endswith("$rtti"):
+            out[n] = a
+    return out
+
+
 def save_signatures(ir, obj, unescape=None):
     """Called by the native compiles after the retarget: `<obj>.sig.json` beside the object `obj` (names in MS
     spelling; `unescape` reads ELF's `#` back as `@`)."""
@@ -537,6 +564,12 @@ def save_signatures(ir, obj, unescape=None):
     if unescape:
         sig = {unescape(k): v for k, v in sig.items()}
     p = sig_path(obj)
+    vt = vftable_slots(ir)
+    if unescape:
+        vt = {unescape(k): [unescape(x) if x else x for x in v] for k, v in vt.items()}
+    with open(vt_path(obj) + ".tmp", "w") as f:
+        json.dump(vt, f, separators=(",", ":"))
+    os.replace(vt_path(obj) + ".tmp", vt_path(obj))
     with open(p + ".tmp", "w") as f:
         json.dump(sig, f, separators=(",", ":"))
     os.replace(p + ".tmp", p)
@@ -548,6 +581,80 @@ def has_signatures(obj):
 
 def sig_path(obj):
     return (obj[:-2] if obj.endswith(".o") else obj) + ".sig.json"
+
+
+def vt_path(obj):
+    return (obj[:-2] if obj.endswith(".o") else obj) + ".vt.json"
+
+
+def load_vftables(objs):
+    """{obj: {vftable: [slot symbols]}} (objects compiled before the sidecar existed: absent)."""
+    out = {}
+    for o in objs:
+        p = vt_path(o)
+        if os.path.exists(p):
+            out[o] = json.load(open(p))
+    return out
+
+
+class SlotProof:
+    """(ren1; the user's rule of 2026-11-11) A name that carries a code address and that the Wine binding map has no
+    binding of, because the Wine link aliases the slots of local vftables and never records the slot functions' names,
+    is verified when every slot of a local vftable that holds it holds the function its name says: the Wine binding map
+    binds that local vftable to the game's vftable V (by relocation position or equiv.py), and the XBE word in the same
+    slot of V is the name's address. This is verify_relocs' check of a name with an address (the relocation's original
+    target is the address the name says), made on the vftable's relocations instead of a function's. It verifies a
+    name and binds nothing new: the binding is still plan_link's (the tree's definition at that address, with the same
+    IR signature). It does not accept a name that is referenced but never seen in a slot, and it never redirects a
+    local vftable (its slots keep their own symbols; only names proven equal to a definition bind)."""
+
+    def __init__(self, vts, bindings_raw, xbe=None, vt_items=None):
+        self.vts = vts                  # {obj: {vftable: [slot symbols]}}
+        self.raw = bindings_raw         # {vftable symbol: game vftable address (slot 0)} from the Wine map
+        self.xbe = xbe                  # (tests: an object with offset(va) and data)
+        self.vt_items = vt_items        # {first slot's address: slot count} (tests)
+        self.where = {}
+
+    def _slots_of(self, o):
+        w = self.where.get(o)
+        if w is None:
+            w = collections.defaultdict(list)
+            for vt, slots in (self.vts.get(o) or {}).items():
+                for k, x in enumerate(slots):
+                    if x:
+                        w[x].append((vt, k))
+            self.where[o] = w
+        return w
+
+    def _word(self, va):
+        if self.xbe is None:
+            import compare
+            from xbe import Xbe
+            self.xbe = getattr(jmp_target, "xbe", None) or Xbe(compare.XBE_PATH)
+            jmp_target.xbe = self.xbe
+        if self.vt_items is None:
+            items = json.load(open(os.path.join(ROOT, "config/data.json")))["items"]
+            # {first slot's address: slot count} of the game's vftables (the item starts at the locator word)
+            self.vt_items = {int(i["addr"], 16) + 4: (i["size"] - 4) // 4 for i in items if i.get("kind") == "vtable"}
+        o = self.xbe.offset(va)
+        return int.from_bytes(self.xbe.data[o:o + 4], "little") if o is not None else None
+
+    def verify(self, o, sym, addr):
+        """(True, detail) when SYM sits in local vftable slots of object O and every one is proven to hold ADDR."""
+        occ = self._slots_of(o).get(sym)
+        if not occ:
+            return False, "not in a local vftable slot"
+        for vt, k in occ:
+            v = self.raw.get(vt)
+            if v is None:
+                return False, "%s: no binding of the vftable in the Wine binding map" % vt
+            self._word(v)
+            n = self.vt_items.get(v)
+            if n is None or k >= n:
+                return False, "%s slot %d: not a slot of a game vftable at %#x" % (vt, k, v)
+            if self._word(v + 4 * k) != addr:
+                return False, "%s slot %d: the game's slot holds %#x" % (vt, k, self._word(v + 4 * k) or 0)
+        return True, "%d slot(s), e.g. %s slot %d" % (len(occ), occ[0][0], occ[0][1])
 
 
 def load_signatures(objs):
@@ -620,7 +727,7 @@ def abi_key(sig):
     return re.sub(r"\bptr\b", "i64", sig)
 
 
-def plan_link(objs, syms, defs, data_defined, label_defined=(), sigs=None, verify=None):
+def plan_link(objs, syms, defs, data_defined, label_defined=(), sigs=None, verify=None, slots=None):
     """The address bindings the link makes: ({obj: {referenced name: definition}}, {name: (class, detail)}).
 
     A name binds in an object when it carries an address (name_address()), the tree defines that address (`defs`:
@@ -633,9 +740,14 @@ def plan_link(objs, syms, defs, data_defined, label_defined=(), sigs=None, verif
     wrong (sources propagated from a function of the same code shape keep its callees' names: `FUN_00019420` for the
     destructor 0x00067a20). The binding map has, per name, the address its relocations were proven to reach; a name
     binds only where that address is the one the name says (for `thunk_FUN_x`: x, or a `jmp` thunk to x; calling
-    the thunk is calling x). Without a map, nothing binds."""
+    the thunk is calling x). Without a map, nothing binds.
+
+    `slots` (SlotProof; default: from the objects' `.vt.json` sidecars and `verify`'s map): a code-address name the
+    map has no binding of is verified by the local vftable slots that hold it (SlotProof's rule)."""
     if sigs is None:
         sigs = load_signatures(objs)
+    if slots is None and verify is not None and getattr(verify, "vftables", None) is not None:
+        slots = SlotProof(load_vftables(objs), verify.vftables)
     def addr_of(s):
         a, how = name_address(s)
         if a is None:
@@ -689,7 +801,11 @@ def plan_link(objs, syms, defs, data_defined, label_defined=(), sigs=None, verif
                 if verify is None:
                     target, cls = None, "not verified (no Wine binding map given)"
                 elif w is None:
-                    target, cls = None, "not verified: the Wine binding map has no binding of the name"
+                    ok, sdet = slots.verify(o, s, a) if slots is not None and how in ("fun", "suffix") else (False, "")
+                    if ok:
+                        det = "name verified by its vftable slots: " + sdet
+                    else:
+                        target, cls = None, "not verified: the Wine binding map has no binding of the name"
                 elif w[1] is None:
                     target, cls = None, "not verified: ambiguous in the Wine binding map"
                 elif int(w[1], 16) != a and not (how == "thunk" and jmp_target(int(w[1], 16)) == a):
@@ -719,6 +835,8 @@ def plan_link(objs, syms, defs, data_defined, label_defined=(), sigs=None, verif
                         cls, det = "bound (the caller ignores the result)", ""
                     else:
                         cls, det = "ABI mismatch: " + sig_diff(rs, ds), "%s / %s" % (rs, ds)
+                if cls.startswith("bound") and det.startswith("name verified by its vftable slots"):
+                    cls = cls + ", the name verified by its vftable slots"
                 if cls.startswith("bound"):
                     renames[o][s] = target
                     per_name[s][0] += 1
@@ -825,6 +943,7 @@ class WineIndex(dict):
     def __init__(self):
         super().__init__()
         self.by_name = collections.defaultdict(set)
+        self.vftables = None
 
     def lookup(self, sym, dem):
         k = norm(dem.get(sym, sym)) if sym.startswith("?") else c_plain32(sym)
@@ -846,6 +965,8 @@ def wine_index(bindings_path):
     names = list(b["bindings"]) + list(b.get("ambiguous", {}))
     dem = cp.undname(sorted(s for s in names if s.startswith("?")))
     idx = WineIndex()
+    # (ren1) the local vftables' game addresses by their own symbol (SlotProof): MS spelling, the same on 64-bit
+    idx.vftables = {s: int(v["addr"], 16) for s, v in b["bindings"].items() if s.startswith("??_7") and v.get("addr")}
     for s, v in b["bindings"].items():
         k = norm(dem.get(s, s)) if s.startswith("?") else c_plain32(s)
         idx[k] = ("+".join(sorted(set(v["how"]))) if isinstance(v.get("how"), list) else str(v.get("how")),
