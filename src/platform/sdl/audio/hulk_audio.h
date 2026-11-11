@@ -60,6 +60,12 @@ enum { HULK_CLOCK_DEVICE = 0, HULK_CLOCK_FRAME = 1, HULK_CLOCK_MANUAL = 2 };
 // first. Opens SDL's default playback device except in manual mode; without a device the mixer still runs and
 // do_work advances it by wall time. Returns 1.
 int hulk_audio_init(void);
+// mp3: voices and stream rings from this allocator (the rollback arena, HULK_SNAP=1; OWNS tells its blocks from
+// SDL's); hulk_audio_lock_state(1/0) holds the mixer while the snapshot copies or restores the audio state
+void hulk_audio_set_allocator(void* (*alloc)(unsigned), void (*release)(void*), int (*owns)(const void*));
+void hulk_audio_lock_state(int on);
+unsigned hulk_audio_state_size(void);                   // the mixer state a snapshot holds (voice list, clock)
+void hulk_audio_state_copy(void* buf, int restore);    // (call with hulk_audio_lock_state held)
 void hulk_audio_shutdown(void);
 void hulk_audio_set_clock(int mode, unsigned frames_per_work);
 int hulk_audio_set_capture(const char* wav_path);   // 16-bit stereo 48 kHz WAV of everything rendered; 0 closes

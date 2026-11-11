@@ -237,6 +237,11 @@ static struct {
     int lead_min, lead_max;
     Uint64 last_frame_ns, gap_max_ns, gap_win_max_ns;  // wall time between session frames: what a player sees
     unsigned hitches, hitches_win;                     // gaps over 50 ms (a 30 fps frame is 33.3)
+    // mp3: the latency probe's OR override (hulk_session_pad_or)
+    int probe;
+    int or_on[HULK_INPUT_PORTS];
+    HulkPadState or_s[HULK_INPUT_PORTS];
+    unsigned or_reads;
 } g_hs;
 
 #if HS_CONTROL_PORT
@@ -297,11 +302,14 @@ static void hs_init(void)
     g_hs.start_ms = SDL_GetTicks();
     g_hs.first_bad_frame = 0xffffffffu;
     g_hs.rtt_min = 0xffffffffu;
+    g_hs.probe = SDL_getenv("HULK_LAT_PROBE") != 0;
     const char* role = SDL_getenv("HULK_NET");
     if (role && SDL_strcmp(role, "send") == 0)
         g_hs.role = 1;
     else if (role && SDL_strcmp(role, "recv") == 0)
         g_hs.role = 2;
+    else if (role && SDL_strcmp(role, "rb") == 0)
+        g_hs.role = 3;
     g_hs.lead = hs_env_u("HULK_NET_LEAD", 8);
     g_hs.redundancy = hs_env_u("HULK_NET_REDUNDANCY", 32);
     g_hs.hash_every = hs_env_u("HULK_NET_HASH_EVERY", 30);
@@ -326,8 +334,9 @@ static void hs_init(void)
                 hs_log("net: cannot bind UDP port %u; session off", port);
                 g_hs.role = 0;
             } else
-                hs_log("net: role %s, port %u, peer %s, lead %u, redundancy %u, hash every %u", g_hs.role == 1 ? "send" : "recv",
-                       port, peer, g_hs.lead, g_hs.redundancy, g_hs.hash_every);
+                hs_log("net: role %s, port %u, peer %s, lead %u, redundancy %u, hash every %u",
+                       g_hs.role == 1 ? "send" : g_hs.role == 2 ? "recv" : "rb", port, peer, g_hs.lead, g_hs.redundancy,
+                       g_hs.hash_every);
         }
     }
 #if HS_CONTROL_PORT
@@ -351,7 +360,21 @@ int hulk_session_active(void)
     if (g_ctl.on)
         return 1;
 #endif
-    return g_hs.role != 0;
+    return g_hs.role != 0 || g_hs.probe;
+}
+
+void hulk_session_pad_or(unsigned port, const HulkPadState* s)
+{
+    if (port >= HULK_INPUT_PORTS)
+        return;
+    g_hs.or_on[port] = s != 0;
+    if (s)
+        g_hs.or_s[port] = *s;
+}
+
+unsigned hulk_session_pad_or_reads(void)
+{
+    return g_hs.or_reads;
 }
 
 unsigned hulk_session_hash_interval(void)
@@ -484,7 +507,7 @@ static unsigned hs_send_one(unsigned seq, unsigned end, Uint64 now)
 // every unacknowledged record (at most HULK_NET_REDUNDANCY of them) in as many datagrams as they need
 static void hs_send_packet(void)
 {
-    if (g_hs.role == 0 || g_hs.failed)
+    if (g_hs.role == 0 || g_hs.role == 3 || g_hs.failed)
         return;
     Uint64 now = SDL_GetTicks();
     unsigned from = 0, end = 0;
@@ -543,7 +566,7 @@ static void hs_recv_frame(unsigned seq, unsigned rb, unsigned re, unsigned nchg,
 
 static void hs_pump(void)
 {
-    if (g_hs.role == 0)
+    if (g_hs.role == 0 || g_hs.role == 3)
         return;
     unsigned char b[2048];
     hs_addr from;
@@ -816,11 +839,14 @@ static int hs_recv_read(unsigned idx, unsigned port, HulkPadState* out)
     return g_hs.cur_ret[port];
 }
 
+static int rb_read(unsigned port, int ret, HulkPadState* out);
 static int ws_read(void* self, unsigned port, HulkPadState* out)
 {
     int ret = g_hs_inner->read(g_hs_inner->self, port, out);
     if (port >= HULK_INPUT_PORTS)
         return ret;
+    if (g_hs.role == 3)
+        return rb_read(port, ret, out);
     unsigned idx = g_hs.reads++;
     if (g_hs.role == 2)
         return hs_recv_read(idx, port, out);
@@ -830,6 +856,16 @@ static int ws_read(void* self, unsigned port, HulkPadState* out)
         ret = 1;
     }
 #endif
+    if (g_hs.or_on[port]) {
+        const HulkPadState& o = g_hs.or_s[port];
+        out->buttons |= o.buttons;
+        for (int i = 0; i < 8; i++)
+            out->analog[i] |= o.analog[i];
+        for (int i = 0; i < 4; i++)
+            if (o.thumb[i])
+                out->thumb[i] = o.thumb[i];
+        g_hs.or_reads++;
+    }
     if (g_hs.role == 1) {
         if (!g_hs.last_have[port] || g_hs.last_ret[port] != (unsigned char)ret ||
             SDL_memcmp(&g_hs.last[port], out, sizeof(*out)) != 0) {
@@ -911,7 +947,7 @@ void hulk_session_frame(unsigned frame, int have_hash, unsigned hash)
             g_ctl.step_left--;
     }
 #endif
-    if (g_hs.role == 0)
+    if (g_hs.role == 0 || g_hs.role == 3)
         return;
     if (have_hash) {
         HsHash* h = hs_hash_slot(frame);
@@ -987,4 +1023,772 @@ void hulk_session_frame(unsigned frame, int have_hash, unsigned hash)
     g_hs.last_frame_ns = now;
     if (frame % HS_LOG_EVERY == 0)
         hs_stats(0);
+}
+
+// ---------------------------------------------------------------------------------------------
+// mp3: the rollback session (HULK_NET=rb, hulk_session.h). Inputs are keyed by frame: frame F's input is what the
+// reads between GameClock::Update's entry of F and of F+1 return. A frame's input for one player is a list of
+// changes (read k within the frame, state) applied over the previous frame's last state; player 1 changes only at
+// read 0, player 0 (a recording's polls) at any read up to kRbReads - 1. From read kRbReads on (a loading screen
+// polling inside one frame) both instances return their own input source's read: the recording's auto-START rule
+// gives the same taps on both (it depends on the read count only), and without that rule the last merged state.
+//
+// Wire format "HRB1" (little endian, one datagram, at most kRbMtu bytes):
+//   header 40: u32 magic, u8 player, u8 nhash, u16 nframes, u32 frame (the sender's newest simulated frame), u32 ack
+//              (the receiver's next missing frame of the sender's player), u32 t_send, u32 t_echo, u32 echo_hold,
+//              u32 local_through (the sender's player has input up to here, exclusive), u32 0, u32 0
+//   nhash x 12: u32 frame, u32 small hash, u32 big hash (final frames only)
+//   nframes x:  u32 frame, u8 nchg, then nchg x 19: u8 read, 18 bytes HulkPadState
+enum { kRbReads = 61, kRbMtu = 1400, kRbMaxSlots = 64, kRbHashKeep = 4 };
+
+struct RbChg {
+    unsigned char k;
+    HulkPadState s;
+};
+struct RbFrame {
+    unsigned char have, nchg;
+    unsigned off;                // into the player's change pool
+    HulkPadState fin;            // the state after the frame's last change (valid once have and the frames before)
+};
+struct RbPlayer {
+    RbFrame* f;
+    unsigned fcap;
+    RbChg* pool;
+    unsigned npool, poolcap;
+    unsigned through;            // frames [0, through) are complete and decoded in order
+};
+static struct {
+    int init, me;                // me: this instance's player (0 or 1)
+    unsigned window, delay, slots, p1_from;
+    unsigned rng;                // player 1's generator
+    unsigned hold, hold_left;
+    HulkPadState gen;
+    RbPlayer pl[2];
+    // per frame of the remote player: what the last simulation used for it
+    unsigned char* used_pred;
+    HulkPadState* pred;
+    unsigned char* reads;        // reads made in the frame's last simulation (capped at kRbReads)
+    unsigned predcap;
+    unsigned cur, k;             // the frame being simulated and the next read in it
+    unsigned max_sim;            // the newest frame simulated so far (+1; 0: none)
+    unsigned pending;            // the earliest frame whose prediction was wrong (0xffffffff: none)
+    int resim;
+    unsigned resim_to;
+    Uint64 resim_t0;
+    unsigned slot_frame[kRbMaxSlots];
+    // hashes (every hash_every frames): ours as computed by each frame's last simulation, the peer's as received
+    unsigned* hs_small;
+    unsigned* hs_big;
+    unsigned char* hs_have;      // 1 ours, 2 final, 4 remote, 8 compared
+    unsigned* hr_small;
+    unsigned* hr_big;
+    unsigned hcap, final_through;
+    // peer
+    unsigned peer_frame, peer_ack, peer_through;
+    Uint64 peer_seen_ms;
+    unsigned peer_tsend;
+    Uint64 peer_tsend_at, last_send_ms;
+    // stats
+    unsigned rollbacks, resim_frames, predicted, mispredicted, stalls, cant;
+    Uint64 resim_ns, stall_ns, save_ns, restore_ns, hash_ns;
+    unsigned save_n, restore_n, hash_n;
+    unsigned depth[kRbMaxSlots];
+    unsigned hash_ok, hash_bad, big_bad, first_bad;
+    double adv;                  // smoothed frame advantage over the peer
+    unsigned throttled;
+    unsigned fps;                // the session's own pacing (HULK_NET_RB_FPS; run with HULK_FPS_CAP=0): new frames
+    Uint64 deadline_ns;          // only, so a resimulation runs at full speed
+    Uint64 last_fresh_ns, gap_max_ns;
+    unsigned hitches;            // gaps over 50 ms between new frames
+    unsigned fibers_seen, barriers;
+    Uint64 barrier_ns;
+} g_rb;
+
+int hulk_session_rb_active(void)
+{
+    hs_init();
+    return g_hs.role == 3;
+}
+
+int hulk_session_rb_resimulating(void)
+{
+    return g_rb.resim;
+}
+
+static void* rb_grow(void* p, unsigned* cap, unsigned need, unsigned size)
+{
+    return hs_grow(p, cap, need, size);
+}
+
+static RbFrame* rb_frame(RbPlayer* p, unsigned f)
+{
+    unsigned cap = p->fcap;
+    RbFrame* q = (RbFrame*)rb_grow(p->f, &cap, f + 1, sizeof(RbFrame));
+    if (!q)
+        return 0;
+    p->f = q;
+    p->fcap = cap;
+    return &q[f];
+}
+
+static int rb_add_chg(RbPlayer* p, unsigned k, const HulkPadState* s)
+{
+    unsigned cap = p->poolcap;
+    RbChg* q = (RbChg*)rb_grow(p->pool, &cap, p->npool + 1, sizeof(RbChg));
+    if (!q)
+        return 0;
+    p->pool = q;
+    p->poolcap = cap;
+    q[p->npool].k = (unsigned char)k;
+    q[p->npool].s = *s;
+    p->npool++;
+    return 1;
+}
+
+static void rb_init(void)
+{
+    if (g_rb.init)
+        return;
+    g_rb.init = 1;
+    g_rb.me = (int)hs_env_u("HULK_NET_RB_PLAYER", 0) ? 1 : 0;
+    g_rb.window = hs_env_u("HULK_NET_RB_WINDOW", 8);
+    g_rb.delay = hs_env_u("HULK_NET_RB_DELAY", 0);
+    g_rb.p1_from = hs_env_u("HULK_NET_RB_P1_FROM", 12000);
+    g_rb.fps = hs_env_u("HULK_NET_RB_FPS", 30);
+    g_rb.rng = hs_env_u("HULK_NET_RB_SEED", 12345) | 1;
+    g_rb.pending = 0xffffffffu;
+    g_rb.first_bad = 0xffffffffu;
+    if (g_rb.window < 1)
+        g_rb.window = 1;
+    // the local player's first DELAY frames: no input (the frames its delayed input never reaches)
+    RbPlayer* me = &g_rb.pl[g_rb.me];
+    for (unsigned f = 0; f < g_rb.delay; f++) {
+        RbFrame* r = rb_frame(me, f);
+        if (r) {
+            r->have = 1;
+            r->off = me->npool;
+        }
+    }
+    me->through = g_rb.delay;
+    hs_log("rb: player %d, window %u, input delay %u, player 1 from frame %u", g_rb.me, g_rb.window, g_rb.delay,
+           g_rb.p1_from);
+}
+
+// the player's state at read K of frame F (complete frames); BASE: the state before the frame
+static HulkPadState rb_state_at(const RbPlayer* p, unsigned f, unsigned k)
+{
+    HulkPadState s;
+    if (f)
+        s = p->f[f - 1].fin;
+    else
+        SDL_zero(s);
+    const RbFrame& r = p->f[f];
+    for (unsigned j = 0; j < r.nchg; j++) {
+        if (p->pool[r.off + j].k > k)
+            break;
+        s = p->pool[r.off + j].s;
+    }
+    return s;
+}
+
+static void rb_merge(const HulkPadState* a, const HulkPadState* b, HulkPadState* out)
+{
+    out->buttons = (unsigned short)(a->buttons | b->buttons);
+    for (int i = 0; i < 8; i++)
+        out->analog[i] = a->analog[i] > b->analog[i] ? a->analog[i] : b->analog[i];
+    int sa = a->thumb[0] || a->thumb[1], ra = a->thumb[2] || a->thumb[3];
+    out->thumb[0] = sa ? a->thumb[0] : b->thumb[0];
+    out->thumb[1] = sa ? a->thumb[1] : b->thumb[1];
+    out->thumb[2] = ra ? a->thumb[2] : b->thumb[2];
+    out->thumb[3] = ra ? a->thumb[3] : b->thumb[3];
+}
+
+// a complete remote frame arrived in order: its final state, and whether the simulation predicted it wrong
+static void rb_remote_complete(unsigned f)
+{
+    RbPlayer* p = &g_rb.pl[!g_rb.me];
+    RbFrame* r = &p->f[f];
+    r->fin = rb_state_at(p, f, 255);
+    if (f >= g_rb.max_sim || f >= g_rb.predcap || !g_rb.used_pred[f])
+        return;
+    // the reads the last simulation of F made (0..n-1): each must have seen the predicted state
+    unsigned n = g_rb.reads[f], j = 0;
+    HulkPadState s;
+    if (f)
+        s = p->f[f - 1].fin;
+    else
+        SDL_zero(s);
+    while (j < r->nchg && p->pool[r->off + j].k == 0)
+        s = p->pool[r->off + j++].s;
+    int bad = n && SDL_memcmp(&s, &g_rb.pred[f], sizeof(s)) != 0;
+    for (; j < r->nchg && !bad; j++) {
+        if (p->pool[r->off + j].k >= n)
+            break;
+        bad = SDL_memcmp(&p->pool[r->off + j].s, &g_rb.pred[f], sizeof(s)) != 0;
+    }
+    if (bad) {
+        g_rb.mispredicted++;
+        if (f < g_rb.pending)
+            g_rb.pending = f;
+    }
+    g_rb.used_pred[f] = 0;
+}
+
+static void rb_send(void);
+static void rb_pump(void)
+{
+    unsigned char b[2048];
+    hs_addr from;
+    RbPlayer* p = &g_rb.pl[!g_rb.me];
+    for (;;) {
+        int n = hs_recv(g_hs.sock, b, sizeof(b), &from);
+        if (n < 40)
+            break;
+        if (hs_get32(b) != 0x31425248u /* "HRB1" */ || b[4] == (unsigned char)g_rb.me)
+            continue;
+        Uint64 now = SDL_GetTicks();
+        g_hs.pkts_in++;
+        g_rb.peer_seen_ms = now;
+        g_hs.peer_seen = 1;
+        g_hs.peer_last_ms = now;
+        unsigned pf = hs_get32(b + 8);
+        if (pf > g_rb.peer_frame)
+            g_rb.peer_frame = pf;
+        unsigned ack = hs_get32(b + 12);
+        if (ack > g_rb.peer_ack)
+            g_rb.peer_ack = ack;
+        g_rb.peer_tsend = hs_get32(b + 16);
+        g_rb.peer_tsend_at = now;
+        unsigned echo = hs_get32(b + 20), hold = hs_get32(b + 24);
+        if (echo) {
+            unsigned rtt = (unsigned)now - echo - hold;
+            if (rtt < 60000) {
+                g_hs.rtt_last = rtt;
+                g_hs.rtt_sum += rtt;
+                g_hs.rtt_n++;
+                if (rtt < g_hs.rtt_min)
+                    g_hs.rtt_min = rtt;
+                if (rtt > g_hs.rtt_max)
+                    g_hs.rtt_max = rtt;
+            }
+        }
+        unsigned nhash = b[5], nframes = b[6] | (unsigned)b[7] << 8;
+        const unsigned char* q = b + 40;
+        const unsigned char* end = b + n;
+        for (unsigned i = 0; i < nhash && q + 12 <= end; i++, q += 12) {
+            unsigned fr = hs_get32(q);
+            if (!g_hs.hash_every || fr % g_hs.hash_every)
+                continue;
+            unsigned j = fr / g_hs.hash_every, cap = g_rb.hcap;
+            unsigned* a = (unsigned*)rb_grow(g_rb.hr_small, &cap, j + 1, 4);
+            if (!a)
+                continue;
+            g_rb.hr_small = a;
+            cap = g_rb.hcap;
+            a = (unsigned*)rb_grow(g_rb.hr_big, &cap, j + 1, 4);
+            if (!a)
+                continue;
+            g_rb.hr_big = a;
+            cap = g_rb.hcap;
+            a = (unsigned*)rb_grow(g_rb.hs_small, &cap, j + 1, 4);
+            if (!a)
+                continue;
+            g_rb.hs_small = a;
+            cap = g_rb.hcap;
+            a = (unsigned*)rb_grow(g_rb.hs_big, &cap, j + 1, 4);
+            if (!a)
+                continue;
+            g_rb.hs_big = a;
+            cap = g_rb.hcap;
+            unsigned char* h = (unsigned char*)rb_grow(g_rb.hs_have, &cap, j + 1, 1);
+            if (!h)
+                continue;
+            g_rb.hs_have = h;
+            g_rb.hcap = cap;
+            if (!(h[j] & 4)) {
+                h[j] |= 4;
+                g_rb.hr_small[j] = hs_get32(q + 4);
+                g_rb.hr_big[j] = hs_get32(q + 8);
+            }
+        }
+        for (unsigned i = 0; i < nframes && q + 5 <= end; i++) {
+            unsigned fr = hs_get32(q), nc = q[4];
+            if (q + 5 + 19 * nc > end)
+                break;
+            RbFrame* r = rb_frame(p, fr);
+            if (r && !r->have) {
+                r->off = p->npool;
+                r->nchg = 0;
+                for (unsigned j = 0; j < nc; j++) {
+                    HulkPadState s;
+                    hs_get_pad(q + 5 + 19 * j + 1, &s);
+                    if (rb_add_chg(p, q[5 + 19 * j], &s))
+                        r->nchg++;
+                }
+                r->have = 1;
+            }
+            q += 5 + 19 * nc;
+        }
+        while (p->through < p->fcap && p->f[p->through].have)
+            rb_remote_complete(p->through++);
+    }
+}
+
+// my player's frames the peer has not acknowledged (at most HULK_NET_REDUNDANCY), and the last final hashes
+static void rb_send(void)
+{
+    Uint64 now = SDL_GetTicks();
+    RbPlayer* me = &g_rb.pl[g_rb.me];
+    RbPlayer* re = &g_rb.pl[!g_rb.me];
+    unsigned from = g_rb.peer_ack, end = me->through;
+    if (end > from + g_hs.redundancy)
+        end = from + g_hs.redundancy;
+    do {
+        unsigned char b[kRbMtu];
+        unsigned n = 40, nhash = 0, nframes = 0;
+        if (g_hs.hash_every && g_rb.hs_have) {
+            unsigned last = g_rb.final_through / g_hs.hash_every;
+            for (unsigned k = 0; k < kRbHashKeep && k <= last; k++) {
+                unsigned j = last - k;
+                if (j < g_rb.hcap && (g_rb.hs_have[j] & 2)) {
+                    hs_put32(b + n, j * g_hs.hash_every);
+                    hs_put32(b + n + 4, g_rb.hs_small[j]);
+                    hs_put32(b + n + 8, g_rb.hs_big[j]);
+                    n += 12;
+                    nhash++;
+                }
+            }
+        }
+        for (; from < end; from++) {
+            const RbFrame& r = me->f[from];
+            if (n + 5 + 19 * r.nchg > kRbMtu)
+                break;
+            hs_put32(b + n, from);
+            b[n + 4] = r.nchg;
+            n += 5;
+            for (unsigned j = 0; j < r.nchg; j++) {
+                b[n] = me->pool[r.off + j].k;
+                hs_put_pad(b + n + 1, &me->pool[r.off + j].s);
+                n += 19;
+            }
+            nframes++;
+        }
+        hs_put32(b, 0x31425248u);
+        b[4] = (unsigned char)g_rb.me;
+        b[5] = (unsigned char)nhash;
+        b[6] = (unsigned char)nframes;
+        b[7] = (unsigned char)(nframes >> 8);
+        hs_put32(b + 8, g_rb.max_sim);
+        hs_put32(b + 12, re->through);
+        hs_put32(b + 16, (unsigned)now);
+        hs_put32(b + 20, g_rb.peer_tsend);
+        hs_put32(b + 24, g_rb.peer_tsend_at ? (unsigned)(now - g_rb.peer_tsend_at) : 0);
+        hs_put32(b + 28, me->through);
+        hs_put32(b + 32, 0);
+        hs_put32(b + 36, 0);
+        if (hs_send(g_hs.sock, b, (int)n, &g_hs.peer) > 0) {
+            g_hs.pkts_out++;
+            g_hs.bytes_out += n;
+        }
+    } while (from < end);
+    g_rb.last_send_ms = now;
+}
+
+// player 1's input for frame F: a seeded random walk (holds of 2-20 frames; idle, a face button, a stick direction)
+static void rb_gen_p1(unsigned f, HulkPadState* s)
+{
+    if (f < g_rb.p1_from) {
+        SDL_zerop(s);
+        return;
+    }
+    if (!g_rb.hold_left) {
+        unsigned r = g_rb.rng = g_rb.rng * 1664525u + 1013904223u;
+        g_rb.hold_left = 2 + (r >> 8) % 19;
+        SDL_zero(g_rb.gen);
+        unsigned what = (r >> 16) % 10;
+        static const short dir[8][2] = {{32767, 0}, {23170, 23170}, {0, 32767}, {-23170, 23170},
+                                        {-32767, 0}, {-23170, -23170}, {0, -32767}, {23170, -23170}};
+        if (what >= 4 && what <= 7)
+            g_rb.gen.analog[what - 4] = 255;                     // A, B, X, Y
+        else if (what >= 8) {
+            unsigned d = (r >> 24) & 7;
+            g_rb.gen.thumb[0] = dir[d][0];
+            g_rb.gen.thumb[1] = dir[d][1];
+            if (what == 9)
+                g_rb.gen.analog[0] = 255;                        // a jump while moving
+        }
+    }
+    g_rb.hold_left--;
+    *s = g_rb.gen;
+}
+
+static int rb_read(unsigned port, int ret, HulkPadState* out)
+{
+    if (port != 0)
+        return ret;
+    rb_init();
+    if (!g_rb.max_sim) {                 // before the first frame: an idle pad on both instances
+        SDL_zerop(out);
+        return 1;
+    }
+    unsigned f = g_rb.cur, k = g_rb.k++;
+    if (k >= kRbReads) {
+        HulkReplayInfo ri;
+        if (hulk_replay_info(&ri) && ri.autostart)
+            return ret;                  // the recording's auto-START rule (the same on both instances)
+        k = kRbReads - 1;
+    }
+    if (f < g_rb.predcap && k < kRbReads && g_rb.reads[f] < k + 1)
+        g_rb.reads[f] = (unsigned char)(k + 1);
+    RbPlayer* me = &g_rb.pl[g_rb.me];
+    RbPlayer* re = &g_rb.pl[!g_rb.me];
+    // my player 0 on its first simulation of a frame: the input source's read is this frame's input (DELAY frames on)
+    if (g_rb.me == 0 && f + 1 == g_rb.max_sim && !g_rb.resim) {
+        unsigned t = f + g_rb.delay;
+        RbFrame* r = rb_frame(me, t);
+        if (r && k < kRbReads) {
+            if (k == 0) {
+                r->off = me->npool;
+                r->nchg = 0;
+                r->have = 0;
+            }
+            HulkPadState prev;
+            if (r->nchg)
+                prev = me->pool[r->off + r->nchg - 1].s;
+            else if (t)
+                prev = me->f[t - 1].fin;
+            else
+                SDL_zero(prev);
+            if (SDL_memcmp(&prev, out, sizeof(prev)) && rb_add_chg(me, k, out))
+                r->nchg++;
+        }
+    }
+    HulkPadState mine, theirs, merged;
+    mine = f < me->fcap && me->f[f].have ? rb_state_at(me, f, k) : (f && f - 1 < me->fcap ? me->f[f - 1].fin : HulkPadState());
+    if (g_rb.me == 0 && f + 1 == g_rb.max_sim && !g_rb.resim && !g_rb.delay)
+        mine = *out;                     // (the frame being recorded: its state so far)
+    if (f < re->through)
+        theirs = rb_state_at(re, f, k);
+    else if (f < g_rb.predcap)
+        theirs = g_rb.pred[f];
+    else
+        SDL_zero(theirs);
+    rb_merge(g_rb.me == 0 ? &mine : &theirs, g_rb.me == 0 ? &theirs : &mine, &merged);
+    *out = merged;
+    return 1;
+}
+
+static void rb_close_local(unsigned f)
+{
+    // my player 0's frame F (input for F + DELAY) is complete at the start of F + 1
+    RbPlayer* me = &g_rb.pl[g_rb.me];
+    unsigned t = f + g_rb.delay;
+    RbFrame* r = rb_frame(me, t);
+    if (!r)
+        return;
+    if (g_rb.k == 0 && !r->have) {       // no read at all in the frame: no change
+        r->off = me->npool;
+        r->nchg = 0;
+    }
+    r->have = 1;
+    r->fin = rb_state_at(me, t, 255);
+    me->through = t + 1;
+}
+
+static void rb_stats(int final)
+{
+    unsigned avg = g_hs.rtt_n ? (unsigned)(g_hs.rtt_sum / g_hs.rtt_n) : 0;
+    hs_log("rb stats frame %u: rollbacks %u, resimulated %u frames (%llu us total, %llu us per frame), predicted %u frames, "
+           "mispredicted %u, cannot-rollback %u, stalls %u (%llu ms), save %llu us avg (%u), restore %llu us avg (%u), "
+           "hash %llu us avg (%u), hashes ok %u bad %u (big hash bad %u, first bad %d), rtt avg %u max %u ms, "
+           "advantage %.2f, throttled %u, hitches>50ms %u, worst gap %llu ms, fiber barriers %u (%llu ms), pkts out %u in %u%s",
+           g_rb.max_sim, g_rb.rollbacks, g_rb.resim_frames, (unsigned long long)(g_rb.resim_ns / 1000),
+           (unsigned long long)(g_rb.resim_frames ? g_rb.resim_ns / 1000 / g_rb.resim_frames : 0), g_rb.predicted,
+           g_rb.mispredicted, g_rb.cant, g_rb.stalls, (unsigned long long)(g_rb.stall_ns / 1000000),
+           (unsigned long long)(g_rb.save_n ? g_rb.save_ns / 1000 / g_rb.save_n : 0), g_rb.save_n,
+           (unsigned long long)(g_rb.restore_n ? g_rb.restore_ns / 1000 / g_rb.restore_n : 0), g_rb.restore_n,
+           (unsigned long long)(g_rb.hash_n ? g_rb.hash_ns / 1000 / g_rb.hash_n : 0), g_rb.hash_n, g_rb.hash_ok,
+           g_rb.hash_bad, g_rb.big_bad, (int)g_rb.first_bad, avg, g_hs.rtt_max, g_rb.adv, g_rb.throttled, g_rb.hitches,
+           (unsigned long long)(g_rb.gap_max_ns / 1000000), g_rb.barriers, (unsigned long long)(g_rb.barrier_ns / 1000000),
+           g_hs.pkts_out,
+           g_hs.pkts_in, final ? " (final)" : "");
+    for (unsigned d = 0; d < kRbMaxSlots; d++)
+        if (g_rb.depth[d])
+            hs_log("rb depth %u: %u", d, g_rb.depth[d]);
+}
+
+// hashes: frame F's hashes are final once every input before F is known (and was used: no rollback pending)
+static void rb_hash_final(void)
+{
+    if (!g_hs.hash_every || g_rb.resim || g_rb.pending != 0xffffffffu)
+        return;
+    unsigned upto = g_rb.pl[!g_rb.me].through;   // frames < upto have their real remote input
+    if (upto > g_rb.max_sim)
+        upto = g_rb.max_sim;
+    // frame F's state depends on frames < F: final for F <= upto
+    for (unsigned F = (g_rb.final_through / g_hs.hash_every + 1) * g_hs.hash_every; F <= upto; F += g_hs.hash_every) {
+        unsigned j = F / g_hs.hash_every;
+        if (j >= g_rb.hcap || !(g_rb.hs_have[j] & 1))
+            break;
+        g_rb.hs_have[j] |= 2;
+        g_rb.final_through = F;
+    }
+    for (unsigned j = 0; j < g_rb.hcap; j++) {
+        unsigned char& h = g_rb.hs_have[j];
+        if ((h & 6) != 6 || (h & 8))
+            continue;
+        h |= 8;
+        int ok = g_rb.hs_small[j] == g_rb.hr_small[j];
+        int big = g_rb.hs_big[j] == g_rb.hr_big[j];
+        if (ok)
+            g_rb.hash_ok++;
+        else {
+            g_rb.hash_bad++;
+            if (g_rb.first_bad == 0xffffffffu)
+                g_rb.first_bad = j * g_hs.hash_every;
+        }
+        if (!big)
+            g_rb.big_bad++;
+        hs_log("net hash frame %u local %08x remote %08x %s big %08x %08x %s", j * g_hs.hash_every, g_rb.hs_small[j],
+               g_rb.hr_small[j], ok ? "ok" : "DIVERGED", g_rb.hs_big[j], g_rb.hr_big[j], big ? "same" : "DIFFERS");
+    }
+}
+
+unsigned hulk_session_rb_frame(unsigned F, const HulkSnapOps* ops)
+{
+    rb_init();
+    if (g_hs.failed)
+        return F;
+    RbPlayer* re = &g_rb.pl[!g_rb.me];
+    unsigned slots = ops->slots < kRbMaxSlots ? ops->slots : kRbMaxSlots;
+    if (g_rb.window + 2 > slots)
+        g_rb.window = slots - 2;
+    // the frame that just ended (F - 1) on its first simulation: my player 0's input for it is complete
+    if (F && F == g_rb.max_sim && !g_rb.resim && g_rb.me == 0)
+        rb_close_local(F - 1);
+    if (g_rb.resim && F == g_rb.resim_to) {
+        g_rb.resim = 0;
+        g_rb.resim_ns += SDL_GetTicksNS() - g_rb.resim_t0;
+    }
+    if (!g_rb.resim) {
+        rb_pump();
+        if (g_rb.pending != 0xffffffffu) {
+            unsigned m = g_rb.pending;
+            g_rb.pending = 0xffffffffu;
+            if (m < F) {
+                Uint64 t = SDL_GetTicksNS();
+                if (F - m < slots && g_rb.slot_frame[m % slots] == m && ops->restore(m % slots, m)) {
+                    g_rb.restore_ns += SDL_GetTicksNS() - t;
+                    g_rb.restore_n++;
+                    g_rb.rollbacks++;
+                    g_rb.depth[F - m < kRbMaxSlots ? F - m : kRbMaxSlots - 1]++;
+                    g_rb.resim_frames += F - m;
+                    g_rb.resim = 1;
+                    g_rb.resim_to = F;
+                    g_rb.resim_t0 = t;
+                    F = m;
+                } else {
+                    g_rb.cant++;
+                    hs_log("rb: frame %u: cannot roll back to frame %u (no snapshot): the instances will part", F, m);
+                }
+            }
+        }
+    }
+    int fresh = F >= g_rb.max_sim;
+    // a fiber ran or a drive request was posted in the frame that just ended: no rollback can cross it, so before going on every input
+    // up to here must be known (and any wrong prediction fixed now, while a restore still can)
+    if (fresh && !g_rb.resim && ops->fibers) {
+        unsigned fb = ops->fibers();
+        if (fb != g_rb.fibers_seen) {
+            g_rb.fibers_seen = fb;
+            Uint64 t0 = SDL_GetTicksNS();
+            g_rb.barriers++;
+            while (!g_hs.failed && re->through < F) {
+                rb_pump();
+                if (SDL_GetTicks() - g_rb.last_send_ms >= 10)
+                    rb_send();
+                if (hs_timed_out())
+                    break;
+                SDL_DelayNS(250000);
+            }
+            g_rb.barrier_ns += SDL_GetTicksNS() - t0;
+            if (g_rb.pending != 0xffffffffu && g_rb.pending < F) {
+                g_rb.cant++;
+                hs_log("rb: frame %u: a misprediction at frame %u lies before a fiber run or a drive post: no rollback possible",
+                       F, g_rb.pending);
+                g_rb.pending = 0xffffffffu;
+            }
+        }
+    }
+    if (fresh && !g_rb.resim) {
+        // the prediction window: wait while the peer's input is more than WINDOW frames behind
+        Uint64 t0 = 0;
+        while (!g_hs.failed && F >= re->through + g_rb.window) {
+            if (!t0)
+                t0 = SDL_GetTicksNS();
+            rb_pump();
+            if (SDL_GetTicks() - g_rb.last_send_ms >= 10)
+                rb_send();
+            if (hs_timed_out())
+                break;
+            SDL_DelayNS(250000);
+        }
+        if (t0) {
+            g_rb.stalls++;
+            g_rb.stall_ns += SDL_GetTicksNS() - t0;
+        }
+        if (g_rb.pending != 0xffffffffu && g_rb.pending < F) {
+            // inputs that arrived while waiting proved a prediction wrong: roll back at once
+            unsigned m = g_rb.pending;
+            g_rb.pending = 0xffffffffu;
+            Uint64 t = SDL_GetTicksNS();
+            if (F - m < slots && g_rb.slot_frame[m % slots] == m && ops->restore(m % slots, m)) {
+                g_rb.restore_ns += SDL_GetTicksNS() - t;
+                g_rb.restore_n++;
+                g_rb.rollbacks++;
+                g_rb.depth[F - m < kRbMaxSlots ? F - m : kRbMaxSlots - 1]++;
+                g_rb.resim_frames += F - m;
+                g_rb.resim = 1;
+                g_rb.resim_to = F;
+                g_rb.resim_t0 = t;
+                F = m;
+                fresh = 0;
+            } else
+                g_rb.cant++;
+        }
+        // the session's pacing: one new frame per 1/fps s (a frame that is late resets the deadline: no catching up)
+        if (fresh && g_rb.fps) {
+            Uint64 period = 1000000000ull / g_rb.fps, now = SDL_GetTicksNS();
+            if (!g_rb.deadline_ns || now > g_rb.deadline_ns + 2 * period)
+                g_rb.deadline_ns = now;
+            g_rb.deadline_ns += period;
+            if (now < g_rb.deadline_ns)
+                SDL_DelayPrecise(g_rb.deadline_ns - now);
+            now = SDL_GetTicksNS();
+            if (g_rb.last_fresh_ns) {
+                Uint64 gap = now - g_rb.last_fresh_ns;
+                if (gap > g_rb.gap_max_ns)
+                    g_rb.gap_max_ns = gap;
+                if (gap > 50000000ull)
+                    g_rb.hitches++;
+            }
+            g_rb.last_fresh_ns = now;
+        }
+        // frame advantage (GGPO's time sync): ahead of the peer by more than a frame on average: give a quarter frame
+        if (fresh && g_rb.peer_tsend_at) {
+            double remote = g_rb.peer_frame + (double)(SDL_GetTicks() - g_rb.peer_tsend_at + g_hs.rtt_last / 2) / 33.333;
+            g_rb.adv = g_rb.adv * 0.95 + ((double)F - remote) * 0.05;
+            if (g_rb.adv > 1.0) {
+                g_rb.throttled++;
+                SDL_DelayNS(8000000);
+            }
+        }
+    }
+    // the snapshot of F's start (every simulation of F: a later rollback may need it)
+    Uint64 t = SDL_GetTicksNS();
+    if (ops->save(F % slots, F))
+        g_rb.slot_frame[F % slots] = F;
+    g_rb.save_ns += SDL_GetTicksNS() - t;
+    g_rb.save_n++;
+    // F's inputs: the remote player's real input, or the prediction (the last state known)
+    unsigned cap = g_rb.predcap;
+    void* a = rb_grow(g_rb.pred, &cap, F + 1, sizeof(HulkPadState));
+    if (a) {
+        g_rb.pred = (HulkPadState*)a;
+        cap = g_rb.predcap;
+        a = rb_grow(g_rb.used_pred, &cap, F + 1, 1);
+        if (a) {
+            g_rb.used_pred = (unsigned char*)a;
+            cap = g_rb.predcap;
+            a = rb_grow(g_rb.reads, &cap, F + 1, 1);
+            if (a) {
+                g_rb.reads = (unsigned char*)a;
+                g_rb.predcap = cap;
+            }
+        }
+    }
+    if (F < g_rb.predcap) {
+        g_rb.reads[F] = 0;
+        if (F < re->through)
+            g_rb.used_pred[F] = 0;
+        else {
+            if (re->through)
+                g_rb.pred[F] = re->f[re->through - 1].fin;
+            else
+                SDL_zero(g_rb.pred[F]);
+            if (!g_rb.used_pred[F] && fresh)
+                g_rb.predicted++;
+            g_rb.used_pred[F] = 1;
+        }
+    }
+    // my player 1's input for F + DELAY (first simulation only)
+    if (g_rb.me == 1 && fresh && !g_rb.resim) {
+        RbPlayer* me = &g_rb.pl[1];
+        unsigned tf = F + g_rb.delay;
+        RbFrame* r = rb_frame(me, tf);
+        if (r && !r->have) {
+            HulkPadState s, prev;
+            rb_gen_p1(tf, &s);
+            if (tf)
+                prev = me->f[tf - 1].fin;
+            else
+                SDL_zero(prev);
+            r->off = me->npool;
+            r->nchg = 0;
+            if (SDL_memcmp(&s, &prev, sizeof(s)) && rb_add_chg(me, 0, &s))
+                r->nchg = 1;
+            r->fin = s;
+            r->have = 1;
+            me->through = tf + 1;
+        }
+    }
+    g_rb.cur = F;
+    g_rb.k = 0;
+    if (fresh)
+        g_rb.max_sim = F + 1;
+    // the hashes of F's start (recomputed by every simulation of F)
+    if (g_hs.hash_every && F % g_hs.hash_every == 0) {
+        unsigned j = F / g_hs.hash_every, hc = g_rb.hcap;
+        int okg = 1;
+        unsigned* p1 = (unsigned*)rb_grow(g_rb.hs_small, &hc, j + 1, 4);
+        okg &= p1 != 0;
+        if (p1)
+            g_rb.hs_small = p1;
+        hc = g_rb.hcap;
+        unsigned* p2 = (unsigned*)rb_grow(g_rb.hs_big, &hc, j + 1, 4);
+        okg &= p2 != 0;
+        if (p2)
+            g_rb.hs_big = p2;
+        hc = g_rb.hcap;
+        unsigned* p3 = (unsigned*)rb_grow(g_rb.hr_small, &hc, j + 1, 4);
+        okg &= p3 != 0;
+        if (p3)
+            g_rb.hr_small = p3;
+        hc = g_rb.hcap;
+        unsigned* p4 = (unsigned*)rb_grow(g_rb.hr_big, &hc, j + 1, 4);
+        okg &= p4 != 0;
+        if (p4)
+            g_rb.hr_big = p4;
+        hc = g_rb.hcap;
+        unsigned char* p5 = (unsigned char*)rb_grow(g_rb.hs_have, &hc, j + 1, 1);
+        okg &= p5 != 0;
+        if (p5)
+            g_rb.hs_have = p5;
+        if (okg) {
+            g_rb.hcap = hc;
+            Uint64 th = SDL_GetTicksNS();
+            g_rb.hs_small[j] = ops->hash_small(F);
+            g_rb.hs_big[j] = ops->hash_big();
+            g_rb.hash_ns += SDL_GetTicksNS() - th;
+            g_rb.hash_n++;
+            g_rb.hs_have[j] |= 1;
+        }
+    }
+    if (!g_rb.resim) {
+        rb_hash_final();
+        rb_send();
+        if (F % HS_LOG_EVERY == 0 && fresh)
+            rb_stats(0);
+    }
+    return F;
 }

@@ -123,8 +123,27 @@ static hulk_u32 hulk_io_posts, hulk_io_waits, hulk_io_timeouts, hulk_snd_calls;
 extern "C" hulk_u32 hulk_native_frame_no;    // (startup.cpp: the probes' frame number)
 static void hulk_io_frame_sync(void);
 static void hulk_ls_log_stats(void);
+extern "C" void HULK_CDECL hulk_snap_frame(hulk_uptr esp);
+extern "C" hulk_u32 HULK_CDECL hulk_io_post_count(void) { return hulk_io_posts; }
+// mp3: the M0 session hash of the current state, for the rollback session (xdk/snapshot.cpp)
+static const void* hulk_last_clock;
+extern "C" unsigned HULK_CDECL hulk_session_small_hash(hulk_u32 fno) {
+    HulkCkptState st;
+    st.rng = DAT_004e5ad0;
+    st.boot_step = DAT_0049fb40;
+    st.camera_ptr = (const void* const*)DAT_004e231c;
+    st.clock = hulk_last_clock;
+    st.clock_at_entry = 1;
+    unsigned char pb[HULK_PRNG_BYTES];
+    hulk_prng_bytes(pb);
+    return hulk_session_state_hash(fno, &st, pb);
+}
 extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
     hulk_io_frame_sync();
+    hulk_last_clock = clock;
+    // mp3: rollback snapshots and their tests (xdk/snapshot.cpp; nothing unless HULK_SNAP=1): may restore an earlier
+    // frame's state, hulk_native_frame_no included, before the frame number moves on
+    hulk_snap_frame((hulk_uptr)__builtin_frame_address(0));
     hulk_native_frame_no++;
     HulkCkptState st;
     st.rng = DAT_004e5ad0;
@@ -345,14 +364,14 @@ extern "C" void* HULK_CDECL hulk_sound_rng(void) {
     return FUN_000964d0();
 }
 
-extern "C" int HULK_HOST_CDECL hulk_host_rand(void);
+extern "C" int HULK_HOST_CDECL hulk_crt_rand(void);    // (crt_glue.cpp: msvcrt's rand, the main thread's state in the image)
 extern "C" int HULK_CDECL hulk_sound_rand(void) {
     HulkReplayInfo ri;
     if (replay_open(&ri) && (ri.flags & 512u)) {
         hulk_snd_rand = hulk_snd_rand * 214013u + 2531011u;
         return (int)((hulk_snd_rand >> 16) & 0x7fffu);
     }
-    return hulk_host_rand();
+    return hulk_crt_rand();
 }
 
 extern "C" int HULK_CDECL FUN_000113e0(int lo, int hi);
@@ -740,9 +759,9 @@ extern "C" void* HULK_CDECL FUN_000964d0();
 extern "C" void* HULK_CDECL hulk_sound_rng(void) {
     return FUN_000964d0();
 }
-extern "C" int HULK_HOST_CDECL hulk_host_rand(void);
+extern "C" int HULK_HOST_CDECL hulk_crt_rand(void);    // (crt_glue.cpp: msvcrt's rand, the main thread's state in the image)
 extern "C" int HULK_CDECL hulk_sound_rand(void) {
-    return hulk_host_rand();
+    return hulk_crt_rand();
 }
 extern "C" int HULK_CDECL FUN_000113e0(int lo, int hi);
 extern "C" int HULK_CDECL hulk_seq_randint(int lo, int hi) {
@@ -789,6 +808,7 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
     hulk_native_frame_no++;
     (void)clock;
 }
+extern "C" hulk_u32 HULK_CDECL hulk_io_post_count(void) { return 0; }
 
 extern "C" void HULK_CDECL hulk_replay_startup(void) {
     hulk_seq_rng_ptr = *(hulk_u32*)DAT_004e5acc;

@@ -22,6 +22,12 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GlobalMemoryStatus(hulk_uptr a0) {
 
 static hulk_u32 hulk_heaps_;
 
+// mp3: with HULK_SNAP=1 the heaps are the rollback arena (xdk/snapshot.cpp), zeroed like the host blocks
+extern "C" int HULK_CDECL hulk_snap_on(void);
+extern "C" void* HULK_CDECL hulk_snap_alloc(hulk_u32 size);
+extern "C" void HULK_CDECL hulk_snap_free(void* p);
+extern "C" hulk_u32 HULK_CDECL hulk_snap_size(const void* p);
+
 extern "C" hulk_uptr HULK_STDCALL hulk_xdk_HeapCreate(hulk_u32 a0, hulk_u32 a1, hulk_u32 a2) {
     (void)a0; (void)a1; (void)a2;
     HULK_XDK_TRACE("HeapCreate");
@@ -34,18 +40,25 @@ extern "C" hulk_uptr HULK_STDCALL hulk_xdk_HeapAlloc(hulk_uptr heap, hulk_u32 fl
     // zeroed whatever the flags (8 = HEAP_ZERO_MEMORY): the Xbox's heaps grow over fresh, zeroed pages, the host's
     // malloc recycles (crt_glue.cpp hulk_crt_malloc, docs/native-build.md native11)
     (void)flags;
+    if (hulk_snap_on())
+        return (hulk_uptr)hulk_snap_alloc(size);
     return (hulk_uptr)hulk_host_calloc(1, size ? size : 1);
 }
 
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_HeapFree(hulk_uptr heap, hulk_u32 flags, hulk_uptr p) {
     (void)heap; (void)flags;
     HULK_XDK_TRACE("HeapFree");
-    hulk_host_free((void*)p);
+    if (hulk_snap_on())
+        hulk_snap_free((void*)p);
+    else
+        hulk_host_free((void*)p);
     return 1;
 }
 
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_HeapSize(hulk_uptr heap, hulk_u32 flags, hulk_uptr p) {
     (void)heap; (void)flags;
     HULK_XDK_TRACE("HeapSize");
+    if (p && hulk_snap_on())
+        return hulk_snap_size((const void*)p);
     return p ? hulk_host__msize((void*)p) : 0xffffffffu;
 }

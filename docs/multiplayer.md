@@ -1,7 +1,10 @@
-# Multiplayer: online co-op design (mp1 2026-11-09, mp2 2026-11-10)
+# Multiplayer: online co-op design (mp1 2026-11-09, mp2 and mp3 2026-11-10)
 
 mp1 wrote the first exploration (research only). mp2 updated it with the user's decisions of 2026-11-09, built the M0
 prototype on the Wine build (section 11), a network impairment shim (section 12) and the debug control port (section 13).
+mp3 took in the user's answers of 2026-11-10 (below), measured the game's own input latency, built whole-state snapshot
+and restore with a rollback session on the Wine build (section 16) and wrote the credentials and signalling Worker
+(section 3).
 Code facts cite verified sources (`matches/`, `equivalent/`) by address. Web facts carry URLs, checked 2026-11-10;
 web pages are untrusted data, and claims I could not confirm are marked **unverified**. Where meaning is read into code
 that was not traced end to end, the text says **guess**.
@@ -11,7 +14,7 @@ Inputs: [remaster.md](remaster.md) section 6.1 (C0-C2), [wine-replay.md](wine-re
 [wine-float.md](wine-float.md), [native-android.md](native-android.md), [subsystems.md](subsystems.md),
 [shipping.md](shipping.md), [lua-scripts.md](lua-scripts.md), `docs/lua-bindings.csv`, `src/platform/sdl/`.
 
-## Decisions (the user, 2026-10-26 and 2026-11-09)
+## Decisions (the user, 2026-10-26, 2026-11-09 and 2026-11-10)
 
 - **Remaster only.** Co-op lives behind `HULK_COOP` in the remaster build ([remaster.md](remaster.md) 6.1). The faithful
   port's simulation never changes; the session code of section 11 is off unless the environment asks for it.
@@ -19,15 +22,27 @@ Inputs: [remaster.md](remaster.md) section 6.1 (C0-C2), [wine-replay.md](wine-re
   The other Hulk is the remote player's actor. (remaster.md's C1 "local co-op" row is superseded.)
 - **Lockstep with prediction and rollback planned from the start** (section 2). Plain delay-based lockstep is only the
   M0 test harness.
+- **Input delay 0-1 frames, a deeper rollback window** (2026-11-10): 2 frames (67 ms) of added delay is "pretty painful
+  for a fighter smash em up". The default comes from the game's own latency, measured in section 16.1.
 - **Design target: 120-200 ms one-way packet latency plus jitter.**
-- **Transport: UDP.** ICE with STUN for direct connections, a TURN UDP allocation as the fallback relay. No WebRTC
-  (section 3). Credentials and signalling from a Cloudflare Worker on the free tier; no paid spend.
+- **Transport: UDP.** ICE with STUN for direct connections, a TURN UDP allocation as the fallback relay (libjuice,
+  MPL-2.0). No WebRTC (section 3). Credentials and signalling from a Cloudflare Worker on the free tier; no paid spend.
+  **The user already has a Cloudflare TURN key** (2026-11-10), used by another of their projects whose Worker mints
+  short-lived ICE credentials from two Worker secrets; Hulk's Worker follows that pattern (section 3.1). Agents write
+  the Worker and its deploy steps; the user deploys it.
 - **Web, wasm and WebGPU port: tabled.** mp1's analysis is in [web-port.md](web-port.md); nothing here depends on it.
 - **Cross-platform play (x86-64 SteamOS and arm64 macOS/Android) is required on day 1** (section 4).
 - **Respawn as if Ultimate Destruction had shipped with co-op**, Halo-style: a dead player respawns once no enemies are
-  around (section 8). **Co-op works in free roam** as well as in missions.
-- **Player 2 is a second Hulk with a different skin**; the two characters must differ (section 6.5).
-- **The host's save drives the session** and is transferred to the guest (section 6.6).
+  around (section 8). **Approved as proposed** (2026-11-10): no engaged enemy within 30 m and no damage to the partner
+  for 5 s, a 30 s fallback, partner revive, a smash-point penalty in free roam. **Co-op works in free roam** as well as
+  in missions.
+- **Player 2 is a second Hulk with a different skin**; the two characters must differ. **Co-op always offers at least
+  two skins**, even when the host has unlocked none. **A story mission that forces a skin applies it to the host's Hulk
+  (P0; "P1" in the user's words), and the second Hulk (P1) gets a tinted version of the same skin** (2026-11-10;
+  section 6.5).
+- **One save, the host's** (2026-11-10): the session runs from the host's save and writes only to it. There is one
+  store: both players share the movesets and upgrades the host has. The guest earns nothing of its own (section 6.6).
+- **First cross-platform test machine (M2):** a Steam Deck or ROG Ally X, not available yet.
 - **Mission scripts stay untouched.** The single-player script API gets a co-op meaning in our C++ bindings, plus engine
   events; our own original Lua add-ons only as a last resort (section 9). Game scripts are game content: never
   committed, shipped or quoted.
@@ -39,9 +54,10 @@ Inputs: [remaster.md](remaster.md) section 6.1 (C0-C2), [wine-replay.md](wine-re
 
 Each instance simulates the whole game; peers exchange only pad states (18 bytes per player per frame, 30 Hz). At the
 target latency (4-6 frames one way, 8-12 round trip) plain lockstep needs about 8-12 frames of input delay per player
-(270-400 ms), which M0 measured (section 11.3), so the design is **rollback with a small input delay**: 2 frames of input delay, up
-to 8 frames of prediction, frame-advantage throttling, and resimulation of the mispredicted frames inside one 33 ms
-tick (section 2). The pieces that exist: a Wine build that replays play3 bit-identically across hosts for 60,000
+(270-400 ms), which M0 measured (section 11.3), so the design is **rollback with no input delay**: 0 frames of input
+delay (the game itself moves the body 1 frame after a press, measured in 16.1), up to 10 frames of prediction,
+frame-advantage throttling, and resimulation of the mispredicted frames inside one 33 ms tick (section 2). mp3 built
+whole-state snapshot and restore and a two-instance rollback session on the Wine build (section 16). The pieces that exist: a Wine build that replays play3 bit-identically across hosts for 60,000
 frames; and now (mp2) a live session mode in which a second instance takes every pad read from the first over UDP,
 with a wider state hash (actors, health, life state, mission state; no camera) compared every 30 frames. The pieces
 that do not exist: whole-state snapshot and restore (section 2.5), the 64-bit builds running the game (cross-platform
@@ -117,9 +133,9 @@ present inside the current tick.
 
 | parameter | proposal | why |
 |---|---|---|
-| input delay D | **2 frames** (67 ms), user-tunable 0-3 | removes 2 frames of every rollback; 67 ms is below what most players notice in a brawler (**guess**; to be playtested) |
-| prediction window (max rollback) | **8 frames** (267 ms) | covers one-way 200 ms + jitter + cadence - D ≈ 4-7 frames with margin. Beyond it the instance stalls instead of predicting further |
-| typical rollback depth | 4-6 frames at 160 ms one way | (latency + cadence)/33 - D |
+| input delay D | **0 frames** (the user, 2026-11-10: 2 frames is "pretty painful"); 1 as an option | the game already shows a move 1 frame after the press (measured, 16.1); every frame of delay adds 33 ms on top |
+| prediction window (max rollback) | **10 frames** (333 ms) | covers one-way 200 ms + jitter + cadence ≈ 8-9 frames at D = 0. Beyond it the instance stalls instead of predicting further |
+| typical rollback depth | 5-7 frames at 160 ms one way | (latency + cadence)/33 - D, with D = 0 |
 | snapshot cadence | every frame inside the window (ring of 9) | a rollback restores the frame before the first misprediction |
 
 **How often a rollback happens.** play3's recording has an input change on **4.2% of frames** (2,445 of about 58,500
@@ -178,7 +194,8 @@ skip particle and effect updates that do not feed the simulation (to be proven p
 
 ### 2.4 What the player feels
 
-- **Own Hulk**: responsive (input delay D = 2 frames, plus the game's own one to two frames).
+- **Own Hulk**: as responsive as single player at D = 0. The game itself moves the body 1 frame after the press
+  (measured, 16.1), then the display pipeline adds its refreshes.
 - **Partner's Hulk**: predicted; when the partner presses a button the local view of the partner snaps by up to the
   rollback depth (a punch starts 4-6 frames "late" and the animation skips its first frames). Smoothing the partner's
   rendered transform for a few frames after a correction hides the snap (presentation only, never fed back to the sim).
@@ -253,6 +270,63 @@ would use it only for tests; plain sockets suffice there, as in M0).
   A connection is a few dozen requests: far below the limits.
 - **Zero-infrastructure fallback:** paste a connection code (candidates as text) or LAN play (host candidates only). No
   Worker needed for the first tests.
+
+### 3.1 The netplay Worker (`net/worker/`, mp3)
+
+Written, tested offline, **not deployed** (the user deploys it). It lives in a new top-level `net/worker/` and not in
+`tools/`. `tools/` holds development scripts that run in the checkout; the Worker is a deployable service with its own
+package, wrangler config and tests, and the game's client side is under `src/platform/sdl/net/`. It follows the pattern of the user's
+other project (a Worker that mints short-lived ICE credentials from the secrets `TURN_KEY_ID` and
+`TURN_KEY_API_TOKEN`), written fresh for Hulk. Like that one it is a single ES module with no runtime dependencies.
+
+| route | request | response |
+|---|---|---|
+| `POST /ice` (alias `/turn`) | none | `{iceServers:[{urls, username?, credential?}], ttl, turn, note?}`: only `stun:` and UDP `turn:` URLs on the ports in `ICE_UDP_PORTS` (3478, 443); `turns:`, `transport=tcp` and port 53 are dropped. Without the secrets: STUN only (`turn:false`). If the API fails: 502 with the STUN list. Past the daily cap: 429 with the STUN list and no API call |
+| `POST /rooms` | `{settings?}` (opaque JSON up to 4 KB: build identity, data hashes, section 5) | 201 `{code, token, role:"host", expiresAt}`; the code is 6 characters from an unambiguous 29-character alphabet |
+| `POST /rooms/<code>/join` | none | `{token, role:"guest", settings, expiresAt}`; 409 when full, 404 when missing or expired |
+| `POST /rooms/<code>/settings` | `{settings}` | host only |
+| `POST /rooms/<code>/signal` | `{description?, candidates?, gatheringDone?}` (libjuice's description and trickled candidates) | `{ok:true}` |
+| `GET /rooms/<code>` | none | `{role, joined, settings, peer:{description, candidates, gatheringDone}, expiresAt}` (polled every 1-2 s) |
+| `DELETE /rooms/<code>` | none | either side ends the room |
+
+- **Rooms:** one Durable Object per room (SQLite backend, free plan). An alarm expires a room 10 minutes after creation
+  if no guest joins, and 2 h after creation in any case. Calls after create or join carry a bearer token, compared in
+  constant time.
+- **Limits:**
+  - Request size: 16 KB per request, 4 KB per description, 256 bytes per candidate, 32 candidates per side.
+  - Per room: 200 requests in its lifetime.
+  - Per UTC day: 2,000 credentials and 5,000 rooms, counted by a global `Quota` Durable Object.
+  - Credential TTL: `ICE_TTL_S` = 4 h, clamped at 48 h.
+  - All of these are `vars` in `net/worker/wrangler.jsonc`.
+- **Native client stub:** `src/platform/sdl/net/hulk_ice_config.{h,cpp}`.
+  - `hulk_ice_fetch(base, out, err, len)` POSTs to `<base>/ice` through libcurl, loaded at run time with
+    `SDL_LoadObject`. SteamOS and macOS ship libcurl. Android needs a JNI `HttpURLConnection` path, which is not
+    written yet.
+  - `hulk_ice_parse` turns the JSON into up to 8 servers (host, port, TURN or not, username, credential), ready for
+    libjuice's `juice_config_t`.
+  - `HULK_NET_WORKER` names the Worker.
+- **Tests:**
+  - `node net/worker/test/worker_test.mjs` uses an in-memory Durable Object stub and a mocked Cloudflare API: 81 checks pass.
+  - `tests/net/ice_config_test.cpp` is built with `-DHULK_ICE_NO_FETCH` and needs no SDL: 37 checks pass. It also
+    passes under ASan and UBSan.
+  - An end-to-end fetch against a local mock server worked on the laptop.
+- **Left out:** the other project gates `/turn` behind a proof of disc ownership (hashes of random pieces of the
+  player's disc, checked against a table made at deploy time) and per-IP rate limits. Both are open questions
+  (section 15).
+
+**Deploy (the user):**
+
+1. Install and log in: `cd net/worker && npm install`, then `npx wrangler login`. The only dependency is wrangler, a
+   dev dependency.
+2. TURN secrets (optional): `npx wrangler secret put TURN_KEY_ID`, then
+   `npx wrangler secret put TURN_KEY_API_TOKEN`. Paste the values when asked; never put them in a file in the
+   repository. Without them the Worker hands out STUN only.
+3. Check the limits in `wrangler.jsonc` (`vars`), then run `npx wrangler deploy`. It prints the Worker's URL,
+   `https://hulk-netplay.<your-subdomain>.workers.dev`.
+4. Smoke test: `curl -X POST https://hulk-netplay.<your-subdomain>.workers.dev/ice` shows `"turn":true` once the
+   secrets are set.
+5. Point the game at it: `HULK_NET_WORKER=https://hulk-netplay.<your-subdomain>.workers.dev`. For local testing, run
+   `npx wrangler dev` and set `HULK_NET_WORKER=http://localhost:8787`.
 
 ## 4. Cross-platform bit-exact determinism (x86-64 and arm64)
 
@@ -362,13 +436,20 @@ leader. Heaps get headroom for two focus points; every peer uses the same sizes.
   definition finds its model in the loaded inventory is **not traced** (**guess**: by fixed names inside the skin's
   `global_<skin>.p3d`, which would make two skins' resources collide).
 
-**Co-op rule.** P1's skin is chosen by the guest from the skins the **host's save** has unlocked; if it equals P0's (or
-the host has unlocked none), P1 gets a fixed alternative so the two always differ: `grey_hulk` when P0 is `hulk`, else
-`hulk`. The pair is part of the session settings (section 5). The engine work (M5): load the second skin's
-`art/global_<skin>.p3d` into a second inventory (a second +0xaa0-style slot owned by our co-op code), resolve P1's model
-from it, and keep the story-mission override applying to P0 only. **First check (open):** whether two `global_*.p3d`
-files can be resident together or their resource names collide; if they collide, the fallback is a tint of P0's model
-(a material parameter in the remaster renderer), which still makes the characters differ but is not a real skin.
+**Co-op rule (the user, 2026-11-10).**
+
+- **Two skins at least, always.** The guest picks P1's skin from the skins the host's save has unlocked plus the co-op
+  pair: `hulk` and `grey_hulk` are always offered in a co-op session, whatever the save holds (co-op's own grant; the
+  save is not changed). If the guest's choice equals P0's, P1 gets the other one of the pair (`grey_hulk` when P0 is
+  `hulk`, else `hulk`). The pair is part of the session settings (section 5).
+- **Forced skins.** When the level load forces a skin for a story mission (0x206320 forces `joefixit` or a national Hulk
+  for certain mission ids), **P0 wears the forced skin and P1 wears a tinted version of the same skin**: one skin's
+  resources, P1's model drawn with a tint (a material parameter in the remaster renderer). The mission's look stays as
+  designed and the two players still differ.
+- **Engine work (M5):** load the second skin's `art/global_<skin>.p3d` into a second inventory (a second +0xaa0-style
+  slot owned by our co-op code) and resolve P1's model from it; the tint path for forced skins. **First check (open):**
+  whether two `global_*.p3d` files can be resident together or their resource names collide. If they collide, the
+  tint is also the fallback for the free choice (P1 = P0's skin, tinted), which still makes the characters differ.
 
 ### 6.6 The host's save drives the session
 
@@ -384,8 +465,13 @@ is the new-game reset. The file layer is `core::XboxSaveDrive` over `src/platfor
 hash, and the guest writes it into a slot of its own `CGameFlowManager` and calls `FUN_0008a8f0` as the load screen does.
 The guest's own saves are never touched (the record lives in memory; the guest's save drive is read-only for the
 session). Both instances then start from the same state; the session hash's first window checks it. Not in the record
-and sent separately: the skins (6.5), the session seed and date, and options that reach the sim. **Open (user):** whether
-the guest earns anything (smash points, unlocks) for its own save; the simplest rule is no.
+and sent separately: the skins (6.5), the session seed and date, and options that reach the sim.
+
+**One save (the user, 2026-11-10).** The session writes only the host's save. There is a single store: smash points,
+purchased moves and upgrades are the host's and both Hulks use them (the moveset and upgrade checks read the one
+unlockables record, so P1 has whatever P0 has). The guest earns nothing for its own save; its saves are never read or
+written during a session. Progress made in co-op (missions, smash points, purchases) is saved by the host's normal
+save points.
 
 ### 6.7 Keeping it in the remaster build
 
@@ -435,7 +521,7 @@ roam as in missions, is the scripts' (through the event queue) plus the fail scr
 behind 0xbc1e0's screen was not found). Free roam and missions share the same C++ path; the only fork is the screen
 choice by the chapter counter.
 
-### 8.2 The co-op rule
+### 8.2 The co-op rule (approved by the user, 2026-11-10)
 
 A Hulk whose health reaches zero is **down**, not dead to the world:
 
@@ -455,8 +541,7 @@ A Hulk whose health reaches zero is **down**, not dead to the world:
   `am_GetActorStaticGroundPoint` 0x26d50's data; not inside a building or water), with 3 s of invulnerability
   (`am_SetActorInvulnerable`'s mechanism). Health: full (0x401a0, the health initializer). Rage/meter: empty.
 - **Fallback timer:** if the partner never gets out of combat, respawn anyway after **30 s** at the partner's last safe
-  point (Halo's rule waits forever; a brawler with endless free-roam military escalation needs a ceiling). **User
-  choice.**
+  point (Halo's rule waits forever; a brawler with endless free-roam military escalation needs a ceiling).
 - **Partner assist (remaster mechanic):** the partner can stand over the downed Hulk for 2 s (hold a button) to revive
   him at half health on the spot, even in combat. It makes co-op feel like co-op and costs one input.
 - **Penalty:** free roam: lose a share of the smash points earned since the last respawn (mirrors the original's
@@ -701,7 +786,7 @@ A localhost-only UDP port for tests and start-up debugging (`src/platform/sdl/in
 | Phase | Work | Exit criterion |
 |---|---|---|
 | **M0: lockstep harness on the Wine build** (done, section 11) | session mode (`HULK_NET`), state hash, shim, control port | two instances agree at every hash across hosts and under impairment |
-| **M1: session mode without a recording** | the pins as `HULK_SESSION=lockstep` (vclock, syncio 5, frame audio clock, sound/sequencer RNG isolation, session seed and date) instead of a recording's flags; live SDL pad on A | a live-played session agrees across two hosts |
+| **M1: session mode without a recording** (mp3: built, not met; 16.3) | the rollback session `HULK_NET=rb` (inputs from each instance, prediction, restore, resimulation); the pins still come from a recording's header; next: rollback-safe drive I/O (16.4) | a session through the shim agrees across two hosts |
 | **M2: cross-build determinism** (needs the 64-bit builds to run the game) | play3 on x86-64 and arm64 gated against the Wine build; the M0 pair across x86-64 ↔ arm64; arena allocator; pointer-order audit | determinism class A = {x86-64 SteamOS, arm64 macOS, arm64 Android} |
 | **M3: snapshot and rollback** | arena + dirty-page snapshots, restore, resimulation with render/audio/I/O suppressed, prediction, frame-advantage throttling; the control port's `snapshot`/`restore` as the test hook | 8-frame rollbacks inside a 33 ms tick on the slowest target; a rollback test (restore N frames back, resimulate, same hash) passes every frame of play3 |
 | **M4: transport** | libjuice ICE (STUN, TURN UDP), connection codes, then the Worker (credentials, rooms) after the employer check | two machines on different networks at 120-200 ms play with no desync |
@@ -714,18 +799,220 @@ handhelds; script missions built around one Hulk.
 
 ## 15. Open questions for the user
 
-1. **Rollback parameters:** input delay 2 frames (67 ms) and an 8-frame prediction window, as proposed? Or a larger
-   input delay (3) to halve rollback cost on handhelds?
-2. **TURN:** may a Cloudflare Realtime TURN key be created on the free allowance (1,000 GB/month shared with the SFU)?
-   Whether it needs a payment method on file is unverified; nothing has been created or deployed. And the employer
-   check before any public endpoint.
-3. **Respawn tuning (8.2):** 30 m / 5 s out-of-combat rule, 30 s fallback timer, partner revive (2 s hold, half health),
-   a smash-point penalty in free roam: keep, change, or drop any of them?
-4. **Second skin (6.5):** if two `global_<skin>.p3d` packs cannot be resident together, is a tinted P0 model acceptable
-   as the fallback, or should P2's skin be restricted to skins whose resources do not collide?
-5. **Progression:** does the guest earn anything for its own save (smash points, unlocks), or is a co-op session the
-   host's progress only (proposed)?
-6. **Story-mission skin overrides:** the game forces a skin in some missions (6.5). Apply the override to P0 only (P1
-   keeps their skin), or to both?
-7. **Hosts for M2:** which machines run the first x86-64 ↔ arm64 cross-build session once the 64-bit builds run the game
-   (a SteamOS/Linux x86-64 box is not among the queue hosts today)?
+The questions of 2026-11-10 are answered (Decisions, top). New ones:
+
+1. **Worker: ownership gating.** Should the netplay Worker require proof of game ownership before it mints TURN
+   credentials? The other project's Worker uses a disc pass. Without gating, anyone with the URL can mint
+   credentials up to the daily cap (3.1).
+2. **Worker: per-IP rate limits.** Should it add per-IP limits as well as the global daily caps? Whether Workers
+   rate-limit bindings are on the free plan is unverified.
+3. **Worker: caps.** Are the defaults right: 2,000 credentials and 5,000 rooms a day, 4 h credential TTL, 200
+   requests per room? Should TURN on port 443/udp stay in the list?
+4. **Co-op load timing.** One way to make drive I/O rollback-safe completes a co-op session's file requests W frames
+   after they are posted (16.4). Loads would take about 0.3 s longer in co-op only. Acceptable, or should the drive
+   thread be snapshotted instead (more work, no timing change)?
+5. **Steam Deck latency test.** When the Deck or Ally X arrives, measure the display pipeline on it (a camera at
+   240 fps, or a latency tester). This is the part of input latency the Wine build cannot measure (16.1).
+
+## 16. Snapshots, rollback and the game's own latency (mp3, Wine build)
+
+### 16.1 The game's own input latency
+
+Measured on the Wine build with play3 (jobs 71409 and 71417, studio).
+
+- **Method:** `HULK_LAT_PROBE=150:15:9000`.
+  1. Every 150 frames from 9,000, take a snapshot at frame F.
+  2. Run 15 frames once for each test input, holding the input from F on and ORing it over the recording's pad.
+     A button is held 4 frames (a tap); a stick stays held.
+  3. Run the same 15 frames once with nothing added (the baseline). The run then goes on as recorded.
+  4. Compare each input's run with the baseline, frame by frame, on four signals:
+     - the main actor's input block (+0x1f58, the 0x43 words 0xb3660 copies from the pad);
+     - the rest of the actor object;
+     - its position;
+     - the camera position.
+- **What the counts mean:** each number is the first frame whose result differs, counted from the frame in which the
+  changed pad was first read. That read is always the frame where the input begins. 0 means the frame's own update
+  shows it.
+- **Samples:** 180 probes (30 per input), excluding 91 windows skipped at a barrier (16.2). A probe where an input
+  changed nothing in 15 frames (a cutscene, a menu, or the recording already pressing the button) is not counted.
+
+| input | input block | actor state | position | camera | n |
+|---|---|---|---|---|---|
+| A (jump) | 0 | 0 (22 of 25) | **5** (22 of 23: the jump's wind-up) | 5 | 23-25 |
+| B | 0 | 0 | 1 | 1 | 20-23 |
+| X (attack) | 0 | 0 (20 of 21) | 1 (16 of 21; 4 at 4 frames) | 1 | 21-23 |
+| Y | 0 | 0 | 1 (16 of 20; 4 at 4 frames) | 1 | 20-23 |
+| left stick right | 0 | 0 | 1 (20 of 22) | 1 | 22-23 |
+| left stick up | 0 | 0 | 1 (20 of 22) | 1 | 22-23 |
+
+- **Measured:**
+  - The game reacts to a pad read in the frame that reads it: the fighter's input block and its state change in that
+    frame's update.
+  - Movement and attacks move the body and the camera **one frame later (33 ms)**.
+  - A jump leaves the ground 5 frames (167 ms) after the press. That is the animation's wind-up, the same in single
+    player, not input lag.
+- **How the frame is shown (from the code, not measured):** the frame's update runs, then `CGame::Render` draws it in
+  the same main-loop iteration, then the present. So the game's own latency, from the press to the first frame drawn
+  with the body moving, is **1 frame (33 ms)** of simulation.
+- **Not measured: the display pipeline after the present.** That is the swap chain, the compositor and the display:
+  typically one or two refreshes, host-dependent. The headless Wine run has no display (the probe's draw signal
+  needed the prebuilt pddi library to change and was dropped). It is to be measured with a camera or a latency
+  tester on the Steam Deck. mp2's "one to two frames" covers the simulation's 1 frame plus about one refresh.
+- **Recommendation:**
+  - **Input delay 0** by default. A 1-frame delay makes the body's first move 2 frames after the press, plus the
+    display: 67 ms or more before anything a player sees. Offer 1 as an option for links that roll back too deeply.
+  - **A prediction window of 10 frames (333 ms)**: 200 ms one way, plus the jitter tail, plus up to one frame of send
+    cadence, comes to 8-9 frames.
+  - **The cost:** with mp2's measured resimulation cost (job 71005: 2.1 ms average gameplay frame, 5.7 ms median
+    worst frame of a window, 9.2 ms p90), a 10-frame rollback is about 21 ms of average frames. That fits a 33 ms tick
+    on the Wine build at average frames but not at the worst ones (57-92 ms). A native build needs **about 2 ms per
+    worst gameplay frame** on the slowest handheld for 10-frame rollbacks inside one tick. 4-6-frame rollbacks, the
+    typical depth at 160 ms one way, need half that.
+
+### 16.2 Snapshot and restore
+
+Built in `src/platform/sdl/xdk/snapshot.cpp`. Everything is off unless `HULK_SNAP=1`.
+
+- **The arena.** With the switch on, every game allocation comes from one reserved range. That covers malloc,
+  calloc, realloc and free (0x3479aa, 0x347aa0, 0x347d7a, 0x3479bc) and the XAPI heaps.
+  - The allocator's own state (size-class free lists, the top, counters) lives inside the range. A copy of the range
+    is therefore a copy of the heap, and a restored heap hands out exactly the addresses it handed out the first time.
+  - Blocks are zeroed, as the host blocks are.
+  - Freed blocks wait in an 8,192-entry quarantine, also inside the range, before they can be reused. This is closer
+    to the host heap's behaviour.
+  - Every pointer the game holds into its heap is therefore the same on both peers, whatever happened before.
+- **The image's data.** `tools/rollback_test.py ranges` reads the link map and lists what to copy besides the arena:
+  - the game's `.data` and `.bss`;
+  - the platform state the simulation reads: the virtual clock, the frame number, the sound code's private
+    generators, the main thread's `rand()` state (Lua's `math.random`), XInput handles, and the replay cursor.
+
+  Render, audio-device, file, thread and log state stay out.
+- **`rand()`.** The main thread's state moved from msvcrt's thread data into the image (`crt_glue.cpp`). The sequence
+  is the same, and the switch does not change it.
+- **Where.** Snapshot and restore happen at `GameClock::Update`'s entry, on the main loop's call path only: a restore
+  needs the same stack depth as the save. The frames above that call, `CGame::Tick` and the main loop, keep nothing
+  across it.
+- **The restore test** (`HULK_RB_TEST=E:D`) runs on play3:
+  1. Snapshot at frame F, run D frames, and hash the whole snapshot.
+  2. Restore F and run the same D frames again (the replay cursor is restored with the state).
+  3. Compare the two hashes. On a difference it logs the differing words, with the arena chunk each belongs to.
+
+  Each window also lists the platform calls made inside it, such as file opens and render-resource creation.
+
+Results on play3, the Wine build at e72df1f82 (lineage mp3-dev, image 71415):
+
+| run | windows | exact | different | skipped (barrier) | notes |
+|---|---|---|---|---|---|
+| 71416: restore test, every 200 frames, depth 8, fiber and drive-post barriers | 115 to frame 23,220 | **68** | **0** | 47 (44 drive posts, 3 fibers) | the run stopped at frame ~23,250 (crash; see the open problem below) |
+| 71418: the same without the drive-post barrier | 75 to frame 15,240 | 71 | 2 (6 words of one 28 KB buffer) | 2 (fibers) | the crash came earlier (frame ~15,250) |
+| 71413: arena on, no restores | none | | | | **play3 to frame 60,360: every checkpoint matches** except the five known transients, as without the arena (71414) |
+
+- **The arena is faithful.** play3 replays to the end with every game allocation in the arena.
+- **Size and time per snapshot** (71416, 68 windows):
+  - Size: state 19-37 MB (median 32.7 MB), of which 1.9 MB is image data and the rest the arena.
+  - Time: save 1.2 ms (median; p90 1.7 ms) and restore 1.2 ms (p90 1.4 ms), both memcpy on studio under Rosetta.
+- **Dirty pages after one frame:** a median of 298 4 KB pages (1.2 MB; at most 521, or 2.1 MB) out of about 8,000. An
+  incremental snapshot of dirty pages would copy about 4% of the state per frame.
+- **Barriers found:**
+  - **The loader fiber** (radcore) keeps its stack in host memory. A restore across a fiber switch crashed a level
+    unload (play3's frame 2600). Fiber switches are now a barrier.
+  - **The drive thread** runs game code with state on its own stack between lockstep steps. Restores across drive
+    posts compared equal at the window's end (71418), but led to a crash later. Drive posts are now a barrier too
+    (`HULK_SNAP_IO_BARRIER=0` turns it off).
+  - In gameplay, drive posts are frequent: 44 of 115 windows of 8 frames had one, because the world streams.
+- **Platform state that had to join the snapshot:**
+  - **The sound voices.** A voice is the game's sound-buffer handle; voices and their stream rings are now allocated
+    from the arena, and the mixer's voice list and clock are copied with the snapshot.
+  - **The pddi front end's static data.**
+  - **The main thread's `rand()` state.**
+- **Open problem:** a crash after about 70 exact restores (71416, frame ~23,250, in pure3d geometry code). It is not
+  caused by any single window. Something host-side still drifts across restores, and it is not yet found. The
+  windows' platform calls are now only sound-buffer calls.
+
+M3's exit criterion (a restore test on every frame of play3) is not met yet.
+
+### 16.3 M1: the rollback session (`HULK_NET=rb`)
+
+`input/hulk_session.cpp`, wire format "HRB1".
+
+- **Two players, one instance each.** The game has one controller, so it reads both pads merged: buttons ORed, the
+  first non-zero stick. Either player's input therefore changes the simulation.
+  - Player 0's input is the recording's polls: up to 61 reads a frame, as a list of changes.
+  - Player 1's input is a seeded random walk: holds of 2-20 frames of idle, a face button, a stick direction, or a
+    jump while moving. It starts at frame 12,000.
+  - Reads past 61 in one frame (a loading screen) return the recording's auto-START taps, which are the same on both
+    instances.
+- **Inputs are keyed by frame.** Each instance sends its player's frames until the peer acknowledges them.
+- **Prediction and rollback.**
+  - A frame without the remote input is predicted as the last state known.
+  - When the real input arrives and differs from the prediction for any read the simulation made, the instance
+    restores that frame's snapshot (a ring of 10, one per frame) and runs forward again.
+  - While resimulating, frame pacing is off.
+  - An instance waits when the remote input is more than `HULK_NET_RB_WINDOW` frames behind.
+  - Frame-advantage throttling: an instance sleeps a quarter frame while it is more than one frame ahead on average.
+- **Hashes.** Every 30 frames, once a frame is final (every input before it known), both instances compare two hashes:
+  - the M0 session hash (actors, health, mission state);
+  - a whole-state hash of the arena and the game data.
+- **Running it:**
+  - `tools/rollback_test.py pair` starts both instances and the shim on one host.
+  - `submit --pair` sends the same as a queue job.
+
+Run 71422: one host (studio), both instances paced at 30 fps by the session. The shim was set to 120-200 ms one way
+(this seed drew about 170 ms; RTT averaged 348 ms), pareto jitter 15 ms, 2% loss in bursts, 1% reorder, 0.5%
+duplicates. Window 10, input delay 0, player 1's random input from frame 10,000.
+
+| | A (player 0, play3's polls) | B (player 1) |
+|---|---|---|
+| frames run together | 526 (until B stopped sending) | 515 |
+| small hashes (actors, mission) | 10 ok to frame 300, then DIVERGED | the same |
+| big hash (arena + game data) | differs at every compare, even while the small hash agrees | |
+| snapshot per frame | 3.4 ms average (ring of 12) | 3.5 ms |
+| barrier waits (fiber or drive post) | 12 in 300 frames, 3.6 s | 12, 1.8 s |
+| rollbacks | 0 (no misprediction found before the parting) | 0; 3 mispredictions found after a barrier: not repairable |
+
+- **What happened:**
+  - Prediction ran: 300 of 301 frames were predicted on each side. Both instances agreed at every hash to frame 300.
+  - At frame 302, B predicted A's front-end input wrongly in a frame that also posted drive requests. The barrier of
+    16.2 forbids that rollback, so the instances parted.
+  - In the front end the game posts drive requests almost every few frames (menus stream). With drive posts as a
+    barrier, almost any misprediction lands before one.
+- **The big hash** differs between the two processes from frame 30 on. The arena holds per-process bytes: host
+  pointers in game memory and uninitialised stack bytes copied into buffers (16.2). It needs the per-process ranges
+  found and excluded before it can be a desync check. The small hash is the reliable one today.
+- **Result: M1 is not met.** The session machinery works up to the first misprediction that a barrier blocks. No
+  divergence came from prediction or restore themselves before that point, but the run ends there.
+
+### 16.5 The default build is unchanged (Wine proof)
+
+Both builds are at the merge-once freeze point F (e68debc9d), with data TUs regenerated at F, on studio.
+
+- **Control:** 71423, fresh, `--gfx`, a private `hulk_sdl.lib` built from F's own sources. The shared prebuilt
+  library predates mp2's session code: the image could not resolve `hulk_session_active`.
+- **Proof:** 71424, `--state seed:71423`, the mp3 sources, the mp3 `hulk_sdl.lib`.
+- Both replayed play3 to frame 60,000 with no session or snapshot variables set.
+- **`tools/ckpt_gate.py 71423 71424`: GATE ok.** 2,029 common checkpoints, 0 diverged on either side; particle-RNG
+  hashes identical at all 2,029.
+- **The one change that does not depend on a switch:** the CRT rows for rand/srand/free/realloc/calloc now bind to
+  `hulk_crt_*` glue. The glue keeps msvcrt's behaviour; rand's main-thread state lives in the image.
+
+### 16.4 What is left (plan)
+
+1. **Make drive I/O rollback-safe**, since it cannot stay a barrier. Two options:
+   - **Snapshot the drive thread's state**, in one of two ways:
+     - give the drive its own small fiber whose stack is arena memory, so the snapshot covers it;
+     - or prove the drive routine (0x2731d0) keeps nothing across steps and fix what it does keep.
+   - **Delay completion deterministically:** a request posted in frame F completes at frame F + W on both peers,
+     once F is confirmed. That changes load timing in co-op only; single player keeps lockstep I/O.
+2. **The loader fiber.** Loads are rare, so stalling until every input is confirmed is acceptable. It is built (the
+   fiber barrier) and costs one RTT per load frame.
+3. **Find the remaining host state** behind the crash after about 70 restores.
+   - **Method:** dump the host-side objects a window touches, sound and pddi first, and compare their state after
+     each pass.
+4. **Make the big hash comparable across processes:** find and exclude the per-process words (the restore test's
+   diff dump finds them).
+5. **Then run M1 again:** a session to 20,000+ frames through the shim, the restore test on every frame of play3,
+   and the depth histogram and resimulation time, which this run could not reach.
+6. **Then M3 proper:**
+   - incremental snapshots (about 4% of pages per frame);
+   - render and audio suppressed while resimulating;
+   - the 64-bit builds' timing.

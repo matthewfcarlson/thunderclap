@@ -95,8 +95,71 @@ char* hulk_crt_host_path(const char* p, char* buf, hulk_u32 size) {
 // the host's malloc returns recycled memory, and code that reads a field its constructor leaves (GameClock's
 // elapsed time, the camera's position before its first update: both hashed by the replay checkpoints) saw the
 // host's old bytes. docs/native-build.md native11.
+// mp3: with HULK_SNAP=1 every game allocation comes from the rollback arena (src/platform/sdl/xdk/snapshot.cpp); free,
+// realloc and calloc then go there too (a pointer from outside the arena still goes to the host's).
+int HULK_HOST_CDECL hulk_snap_on(void);
+void* HULK_HOST_CDECL hulk_snap_alloc(hulk_u32 size);
+void HULK_HOST_CDECL hulk_snap_free(void* p);
+void* HULK_HOST_CDECL hulk_snap_realloc(void* p, hulk_u32 size);
+
+static hulk_u32 hulk_crt_rand_tid;
+hulk_u32 HULK_HOST_STDCALL hulk_host_GetCurrentThreadId(void);
+
 void* HULK_HOST_CDECL hulk_crt_malloc(hulk_u32 size) {
+    if (!hulk_crt_rand_tid)
+        hulk_crt_rand_tid = hulk_host_GetCurrentThreadId();   // the first allocation: start-up, on the main thread
+    if (hulk_snap_on())
+        return hulk_snap_alloc(size);
     return hulk_host_calloc(1, size ? size : 1);
+}
+
+// free 0x003479bc, realloc 0x00347d7a, calloc 0x00347aa0: the host's, or the arena's with HULK_SNAP=1
+void HULK_HOST_CDECL hulk_crt_free(void* p) {
+    if (hulk_snap_on())
+        hulk_snap_free(p);
+    else
+        hulk_host_free(p);
+}
+
+void* HULK_HOST_CDECL hulk_crt_realloc(void* p, hulk_u32 size) {
+    if (hulk_snap_on())
+        return hulk_snap_realloc(p, size);
+    return hulk_host_realloc(p, size);
+}
+
+void* HULK_HOST_CDECL hulk_crt_calloc(hulk_u32 n, hulk_u32 size) {
+    if (hulk_snap_on())
+        return n && size > 0xffffffffu / n ? 0 : hulk_snap_alloc(n * size);
+    return hulk_host_calloc(n, size);
+}
+
+// rand 0x0034774c, srand 0x0034773f: msvcrt's generator (holdrand * 214013 + 2531011, bits 16..30), its state per
+// thread. The main thread's (the thread of the first malloc) state lives here, in the image, so that a rollback snapshot covers it (msvcrt keeps it in
+// its thread data); other threads keep msvcrt's own. The same sequence either way.
+hulk_u32 hulk_crt_rand_state = 1;
+int HULK_HOST_CDECL hulk_host_rand(void);
+void HULK_HOST_CDECL hulk_host_srand(hulk_u32 seed);
+
+static int hulk_crt_rand_main(void) {
+    hulk_u32 t = hulk_host_GetCurrentThreadId();
+    if (!hulk_crt_rand_tid)
+        hulk_crt_rand_tid = t;
+    return t == hulk_crt_rand_tid;
+}
+
+int HULK_HOST_CDECL hulk_crt_rand(void) {
+    if (!hulk_crt_rand_main())
+        return hulk_host_rand();
+    hulk_crt_rand_state = hulk_crt_rand_state * 214013u + 2531011u;
+    return (int)((hulk_crt_rand_state >> 16) & 0x7fffu);
+}
+
+void HULK_HOST_CDECL hulk_crt_srand(hulk_u32 seed) {
+    if (!hulk_crt_rand_main()) {
+        hulk_host_srand(seed);
+        return;
+    }
+    hulk_crt_rand_state = seed;
 }
 
 void* HULK_HOST_CDECL hulk_crt_fopen(const char* path, const char* mode) {

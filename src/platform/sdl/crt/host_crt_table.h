@@ -221,7 +221,7 @@
     C(0x0034625f, hulk_crt_fclose, "_fclose fclose") \
     C(0x003463c7, hulk_crt_fwrite, "fwrite") \
     C(0x0034650b, hulk_crt_fread, "fread") \
-    C(0x00347d7a, realloc, "") \
+    C(0x00347d7a, hulk_crt_realloc, "") \
     C(0x003465b3, hulk_crt_fopen, "fopen") \
     C(0x003465c6, strtok, "strtok") \
     C(0x00346890, strrchr, "_strrchr strrchr") \
@@ -235,14 +235,14 @@
     C(0x003472cb, strtod, "strtod") \
     C(0x00347380, strcspn, "_strcspn strcspn") \
     C(0x003473c6, strcmp, "strcmp") \
-    C(0x0034773f, srand, "_srand srand") \
-    C(0x0034774c, rand, "_rand rand") \
+    C(0x0034773f, hulk_crt_srand, "_srand srand") \
+    C(0x0034774c, hulk_crt_rand, "_rand rand") \
     C(0x00347792, hulk_crt_fprintf, "_fwprintf fprintf") \
     C(0x003479aa, hulk_crt_malloc, "") \
-    C(0x003479bc, free, "free") \
+    C(0x003479bc, hulk_crt_free, "free") \
     C(0x003481ba, ceil, "ceil __ceil_default") \
     C(0x00347a14, bsearch, "_bsearch bsearch") \
-    C(0x00347aa0, calloc, "calloc") \
+    C(0x00347aa0, hulk_crt_calloc, "calloc") \
     C(0x00347b53, strerror, "strerror") \
     C(0x00347ba4, _errno, "_errno") \
     C(0x00347c95, hulk_crt_ungetc, "_ungetc ungetc") \

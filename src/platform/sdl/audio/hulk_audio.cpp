@@ -79,6 +79,29 @@ static struct {
     float devbuf[2 * 512];          // the device callback's buffer (its thread only)
 } g_audio;
 
+// mp3: the rollback snapshot (xdk/snapshot.cpp, HULK_SNAP=1) gives the voices an allocator of its own: a voice is
+// the game's sound buffer handle, so it must live in the snapshotted arena with the rest of the game's state
+static void* (*g_valloc)(unsigned);
+static void (*g_vfree)(void*);
+static int (*g_vowns)(const void*);
+void hulk_audio_set_allocator(void* (*alloc)(unsigned), void (*release)(void*), int (*owns)(const void*))
+{
+    g_valloc = alloc;
+    g_vfree = release;
+    g_vowns = owns;
+}
+static void* v_calloc(size_t n)
+{
+    return g_valloc ? g_valloc((unsigned)n) : SDL_calloc(1, n);
+}
+static void v_free(void* p)
+{
+    if (p && g_vowns && g_vowns(p))
+        g_vfree(p);
+    else
+        SDL_free(p);
+}
+
 static void lock()
 {
     if (g_audio.lock)
@@ -89,6 +112,44 @@ static void unlock()
 {
     if (g_audio.lock)
         SDL_UnlockMutex(g_audio.lock);
+}
+
+// the mixer state the game sees (the voice list and the frame clock; the voices themselves are in the arena): copied
+// into or out of BUF by the rollback snapshot. Host buffers (scratch, the device stream, capture) are not part of it.
+struct HulkAudioSimState {
+    HulkVoice* voices;
+    unsigned nvoices;
+    unsigned long long rendered, wall_ns;
+    HulkI3DL2 listener;
+};
+unsigned hulk_audio_state_size(void)
+{
+    return sizeof(HulkAudioSimState);
+}
+void hulk_audio_state_copy(void* buf, int restore)
+{
+    HulkAudioSimState* st = (HulkAudioSimState*)buf;
+    if (restore) {
+        g_audio.voices = st->voices;
+        g_audio.nvoices = st->nvoices;
+        g_audio.rendered = st->rendered;
+        g_audio.wall_ns = st->wall_ns;
+        g_audio.listener = st->listener;
+    } else {
+        st->voices = g_audio.voices;
+        st->nvoices = g_audio.nvoices;
+        st->rendered = g_audio.rendered;
+        st->wall_ns = g_audio.wall_ns;
+        st->listener = g_audio.listener;
+    }
+}
+
+void hulk_audio_lock_state(int on)
+{
+    if (on)
+        lock();
+    else
+        unlock();
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -224,7 +285,7 @@ static HulkVoice* voice_create(const HulkAudioFormat* format, const HulkMixBin* 
                                unsigned stream_frames)
 {
     hulk_audio_init();
-    HulkVoice* v = (HulkVoice*)SDL_calloc(1, sizeof(HulkVoice));
+    HulkVoice* v = (HulkVoice*)v_calloc(sizeof(HulkVoice));
     if (!v)
         return 0;
     if (stream_frames) {
@@ -252,9 +313,9 @@ static HulkVoice* voice_create(const HulkAudioFormat* format, const HulkMixBin* 
     if (v->stream) {
         v->fmt.codec = HULK_CODEC_PCM;
         v->fmt.bits = 16;
-        v->sring = (short*)SDL_calloc((size_t)v->scap * v->fmt.channels, sizeof(short));
+        v->sring = (short*)v_calloc((size_t)v->scap * v->fmt.channels * sizeof(short));
         if (!v->sring) {
-            SDL_free(v);
+            v_free(v);
             return 0;
         }
     }
@@ -337,8 +398,8 @@ void hulk_audio_voice_release(HulkVoice* v)
             break;
         }
     unlock();
-    SDL_free(v->sring);
-    SDL_free(v);
+    v_free(v->sring);
+    v_free(v);
 }
 
 void hulk_audio_voice_set_data(HulkVoice* v, const void* data, unsigned bytes)
@@ -840,7 +901,8 @@ void hulk_audio_shutdown(void)
     unlock();
     while (v) {
         HulkVoice* n = v->next;
-        SDL_free(v);
+        v_free(v->sring);
+        v_free(v);
         v = n;
     }
     SDL_free(g_audio.scratch);
