@@ -4,7 +4,7 @@
 
 
 // 0x0007e100 Closure3<CAmbientsManager,void,const_char_*,int,bool>::vfunc_2 (30 B): equivalent/0x0007e100.cpp [isolated: conflict: AmbientArgs; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure3@VCAmbientsManager@@XPBDH_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure3@VCAmbientsManager@@XPBDH_N@@UAEXPAX00@Z @bf9aeccd3fbc @w8cf46082fadf
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CAmbientsManager,void,const_char_*,int,bool>::vfunc_2 @ 0x0007e100
 #include "gen/global.h"

@@ -70,7 +70,7 @@ public:
 
 
 // 0x001fb260 FUN_001fb260 (153 B): equivalent/0x001fb260.cpp
-// sym: ?FUN_001fb260@DataLoader_1fb260@fn_f428f7d4@@QAE_NTInventoryArg_1fb260@2@@Z
+// sym: ?FUN_001fb260@DataLoader_1fb260@fn_f428f7d4@@QAE_NTInventoryArg_1fb260@2@@Z @574fed1393ab @w296b47dd35e4
 // STATUS: equivalent (tools/equiv.py level 3: 4502 inputs, branch coverage 6/6)
 // FUN_001fb260 @ 0x001fb260
 bool DataLoader_1fb260::FUN_001fb260(InventoryArg_1fb260 arg)
@@ -96,7 +96,7 @@ bool DataLoader_1fb260::FUN_001fb260(InventoryArg_1fb260 arg)
 
 
 // 0x001fb300 FUN_001fb300 (153 B): equivalent/0x001fb300.cpp
-// sym: ?FUN_001fb300@DataLoader_1fb300@fn_f428f7d4@@QAE_NTInventoryArg_1fb300@2@@Z
+// sym: ?FUN_001fb300@DataLoader_1fb300@fn_f428f7d4@@QAE_NTInventoryArg_1fb300@2@@Z @b904fbdd8c2a @w31563c817535
 // STATUS: equivalent (tools/equiv.py level 3: 4505 inputs, branch coverage 6/6)
 // FUN_001fb300 @ 0x001fb300
 bool DataLoader_1fb300::FUN_001fb300(InventoryArg_1fb300 arg)

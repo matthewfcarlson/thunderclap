@@ -4,7 +4,7 @@
 
 
 // 0x001123a0 FUN_001123a0 (274 B): equivalent/0x001123a0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?target@fn_f37097d7@@YAXXZ
+// sym: ?target@fn_f37097d7@@YAXXZ @01c359cf2c48 @w59f8228dad81
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"

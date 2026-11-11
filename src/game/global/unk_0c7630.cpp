@@ -254,7 +254,7 @@ struct SlotTable_c80a0 {
 
 
 // 0x000c7630 FUN_000c7630 (751 B): equivalent/0x000c7630.cpp
-// sym: ??0CHudIcons@fn_f9a0caab@@QAE@XZ
+// sym: ??0CHudIcons@fn_f9a0caab@@QAE@XZ @92ef8dc17464 @wc34e481f9e92
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 42/42)
 // FUN_000c7630 @ 0x000c7630
 // equiv-map: ?FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -420,7 +420,7 @@ void Container_c79a0::Fn() {
 } // namespace fn_f9a0caab
 
 // 0x000c7a10 FUN_000c7a10 (57 B): equivalent/0x000c7a10.cpp [wrapped: conflict: Obj]
-// sym: ?FUN_000c7a10@Obj@fn_000c7a10@@QAEPAU12@XZ
+// sym: ?FUN_000c7a10@Obj@fn_000c7a10@@QAEPAU12@XZ @b42071f93db1 @wa4201efaa2a3
 namespace fn_000c7a10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000c7a10 @ 0x000c7a10
@@ -487,7 +487,7 @@ hulk_uintptr __fastcall target(X_c7b60* self) {
 
 
 // 0x000c7b70 FUN_000c7b70 (228 B): equivalent/0x000c7b70.cpp
-// sym: ?FUN_000c7b70@Manager_c7b70@fn_f9a0caab@@QAEHHIII@Z
+// sym: ?FUN_000c7b70@Manager_c7b70@fn_f9a0caab@@QAEHHIII@Z @01f5e962dbf0 @wd78280316cf5
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000c7b70 @ 0x000c7b70
 int Manager_c7b70::FUN_000c7b70(int id,unsigned int x,unsigned int y,unsigned int z) {
@@ -519,7 +519,7 @@ int Manager_c7b70::FUN_000c7b70(int id,unsigned int x,unsigned int y,unsigned in
 } // namespace fn_f9a0caab
 
 // 0x000c7c60 FUN_000c7c60 (168 B): equivalent/0x000c7c60.cpp [wrapped: conflict: World]
-// sym: ?FUN_000c7c60@Owner_c7c60@fn_000c7c60@@QAEHIPBX@Z
+// sym: ?FUN_000c7c60@Owner_c7c60@fn_000c7c60@@QAEHIPBX@Z @7bbd497d29cc @wbb3be02e3e6a
 namespace fn_000c7c60 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 10/10)
 // FUN_000c7c60 @ 0x000c7c60
@@ -579,7 +579,7 @@ int Owner_c7c60::FUN_000c7c60(unsigned int key, const void* input) {
 
 
 // 0x000c7d10 FUN_000c7d10 (353 B): equivalent/0x000c7d10.cpp [wrapped: conflict: World]
-// sym: ?FUN_000c7d10@Table_c7d10@fn_000c7d10@@QAEHHH@Z
+// sym: ?FUN_000c7d10@Table_c7d10@fn_000c7d10@@QAEHHH@Z @37cbadbf78aa @wb08bbed53729
 namespace fn_000c7d10 {
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 9/10, incomplete)
 // FUN_000c7d10 @ 0x000c7d10
@@ -716,7 +716,7 @@ int Table_c7d10::FUN_000c7d10(int a, hulk_intptr b)
 namespace fn_f9a0caab {
 
 // 0x000c7e80 FUN_000c7e80 (198 B): equivalent/0x000c7e80.cpp
-// sym: ?target@Object@fn_f9a0caab@@QAEHII@Z
+// sym: ?target@Object@fn_f9a0caab@@QAEHII@Z @45fdde107449 @wa6ce94e7e9d8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000c7e80 @ 0x000c7e80
 int Object::target(unsigned int arg1, unsigned int arg2) { int i; for(i=0;i<128;++i) if(entries[i].type==-1) break; if(i==128) return -1; Entry_c7e80& e=entries[i]; e.type=5; Resource_c7e80 temporary; Resource_c7e80* p=temporary.FUN_0027af00(); e.resource.FUN_0027af70(p); temporary.FUN_0027af50(); e.a=0; e.b=0; e.c=0; e.d=0; e.e=0; e.f=0; e.g=0; e.h=0; e.value=arg1; e.flag=0; return i; }
@@ -724,7 +724,7 @@ int Object::target(unsigned int arg1, unsigned int arg2) { int i; for(i=0;i<128;
 } // namespace fn_f9a0caab
 
 // 0x000c7f50 FUN_000c7f50 (191 B): equivalent/0x000c7f50.cpp [wrapped: conflict: Object; World]
-// sym: ?target@Object@fn_000c7f50@@QAEHEH@Z
+// sym: ?target@Object@fn_000c7f50@@QAEHEH@Z @9bb895a806b0 @webe3538e6f8e
 namespace fn_000c7f50 {
 // STATUS: equivalent (tools/equiv.py level 3: 795 inputs, branch coverage 32/32)
 // FUN_000c7f50 @ 0x000c7f50
@@ -787,7 +787,7 @@ int Object::target(unsigned char flag, int value) {
 namespace fn_f9a0caab {
 
 // 0x000c8010 FUN_000c8010 (138 B): equivalent/0x000c8010.cpp
-// sym: ?Reset@SlotTable_c8010@fn_f9a0caab@@QAEXXZ
+// sym: ?Reset@SlotTable_c8010@fn_f9a0caab@@QAEXXZ @37afff6ea2a3 @w3fc22216fe7a
 // STATUS: equivalent (tools/equiv.py level 3: 663 inputs, branch coverage 4/4)
 // FUN_000c8010 @ 0x000c8010
 void SlotTable_c8010::Reset() {
@@ -810,7 +810,7 @@ void SlotTable_c8010::Reset() {
 
 
 // 0x000c80a0 FUN_000c80a0 (149 B): equivalent/0x000c80a0.cpp
-// sym: ?Release@SlotTable_c80a0@fn_f9a0caab@@QAEXH@Z
+// sym: ?Release@SlotTable_c80a0@fn_f9a0caab@@QAEXH@Z @290aa2d3ffff @w1c6d8b38438c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000c80a0 @ 0x000c80a0
 // Frees every slot holding the given tag.

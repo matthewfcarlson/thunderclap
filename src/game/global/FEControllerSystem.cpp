@@ -106,7 +106,7 @@ void Owner_b3ef0::Clear() {
 } // namespace fn_f30893a2
 
 // 0x000b3f10 FEControllerSystem::vfunc_1 (731 B): equivalent/0x000b3f10.cpp [wrapped: helper definitions (3 out-of-line function bodies)]
-// sym: ?vfunc_1@FEControllerSystem@fn_000b3f10@@UAEXHPAM@Z
+// sym: ?vfunc_1@FEControllerSystem@fn_000b3f10@@UAEXHPAM@Z @d6c3fad248a6 @wb9162937f2ec
 namespace fn_000b3f10 {
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 28/34, incomplete)
 // FEControllerSystem::vfunc_1 @ 0x000b3f10

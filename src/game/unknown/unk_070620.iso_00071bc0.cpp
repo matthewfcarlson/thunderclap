@@ -4,7 +4,7 @@
 
 
 // 0x00071bc0 FUN_00071bc0 (256 B): equivalent/0x00071bc0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?target@fn_f54903fc@@YAXXZ
+// sym: ?target@fn_f54903fc@@YAXXZ @cfd2a27351c2 @w957461fded6c
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 namespace fn_f54903fc {} using namespace fn_f54903fc;

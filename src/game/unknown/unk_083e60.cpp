@@ -149,7 +149,7 @@ class Obj_85d70 {
 
 
 // 0x00083e60 FUN_00083e60 (1367 B): equivalent/0x00083e60.cpp
-// sym: ?FUN_00083e60@Rig@fn_fb2690e0@@QAEXUVec3@2@00@Z
+// sym: ?FUN_00083e60@Rig@fn_fb2690e0@@QAEXUVec3@2@00@Z @94e665a45ff6 @w6c16e1aa810c
 // STATUS: equivalent (tools/equiv.py level 3: 15598 inputs, branch coverage 10/10)
 // FUN_00083e60 @ 0x00083e60
 void Rig::FUN_00083e60(Vec3 U, Vec3 V, Vec3 P)
@@ -259,7 +259,7 @@ void Rig::FUN_00083e60(Vec3 U, Vec3 V, Vec3 P)
 
 
 // 0x000843c0 FUN_000843c0 (587 B): equivalent/0x000843c0.cpp
-// sym: ?FUN_000843c0@Mover_843c0@fn_fb2690e0@@QAE_NTArgs_843c0@2@@Z
+// sym: ?FUN_000843c0@Mover_843c0@fn_fb2690e0@@QAE_NTArgs_843c0@2@@Z @fe2d0801dcbf @w667c06f948f0
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 12/12)
 // FUN_000843c0 @ 0x000843c0
 bool Mover_843c0::FUN_000843c0(Args_843c0 args)
@@ -325,7 +325,7 @@ bool Mover_843c0::FUN_000843c0(Args_843c0 args)
 } // namespace fn_fb2690e0
 
 // 0x00084610 FUN_00084610 (530 B): equivalent/0x00084610.cpp [wrapped: conflict: World]
-// sym: ?FUN_00084610@Pointer@fn_00084610@@QAEXM@Z
+// sym: ?FUN_00084610@Pointer@fn_00084610@@QAEXM@Z @9b46b8009f6a @we7fde5ddf64f
 namespace fn_00084610 {
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 24/24)
 // FUN_00084610 @ 0x00084610
@@ -475,7 +475,7 @@ void Pointer::FUN_00084610(float dt)
 
 
 // 0x00084830 FUN_00084830 (230 B): equivalent/0x00084830.cpp [wrapped: conflict: World]
-// sym: ?FUN_00084830@Object@fn_00084830@@QAEXI@Z
+// sym: ?FUN_00084830@Object@fn_00084830@@QAEXI@Z @ad40e5efd9a9 @w18a69e9267ac
 namespace fn_00084830 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00084830 @ 0x00084830
@@ -521,7 +521,7 @@ void Object::FUN_00084830(unsigned arg) { direction.y=0.0f; direction.FUN_0022d1
 namespace fn_fb2690e0 {
 
 // 0x00084920 FUN_00084920 (795 B): equivalent/0x00084920.cpp
-// sym: ?FUN_00084920@Tracker_84920@fn_fb2690e0@@QAEXUV3_84920@2@00@Z
+// sym: ?FUN_00084920@Tracker_84920@fn_fb2690e0@@QAEXUV3_84920@2@00@Z @acd3ee53d922 @w85f376b82118
 // STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 10/10)
 // FUN_00084920 @ 0x00084920
 void Tracker_84920::FUN_00084920(V3_84920 na, V3_84920 nb, V3_84920 nc)
@@ -589,7 +589,7 @@ void Tracker_84920::FUN_00084920(V3_84920 na, V3_84920 nb, V3_84920 nc)
 } // namespace fn_fb2690e0
 
 // 0x00084c40 FUN_00084c40 (4083 B): equivalent/0x00084c40.cpp [wrapped: conflict: World]
-// sym: ?FUN_00084c40@Mover_84c40@fn_00084c40@@QAEXM@Z
+// sym: ?FUN_00084c40@Mover_84c40@fn_00084c40@@QAEXM@Z @805ae7d41acc @w4fc537d10165
 namespace fn_00084c40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3062 inputs, branch coverage 140/142, incomplete; Wine build 3062 inputs, 140/142)
 // FUN_00084c40 @ 0x00084c40

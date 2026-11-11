@@ -222,7 +222,7 @@ void Target_15a40::run(Event_15a40* event, int, int) {
 } // namespace fn_f8577bee
 
 // 0x00015b20 CSmartPropAttachAction::vfunc_4 (792 B): equivalent/0x00015b20.cpp
-// sym: ?vfunc_4@CSmartPropAttachAction@@UAEXXZ
+// sym: ?vfunc_4@CSmartPropAttachAction@@UAEXXZ @602e533775f8 @wc80c93266ddd
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 38/40, incomplete)
 // CSmartPropAttachAction::vfunc_4 @ 0x00015b20
 // equiv-map: ?thunk_FUN_0027d410@Target@@QAEXPBUKey@@@Z = 0x001d6630

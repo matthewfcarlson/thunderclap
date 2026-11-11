@@ -975,7 +975,7 @@ extern "C" bool __cdecl FUN_00056460(Registry_56460* registry) {
 
 
 // 0x00056620 FUN_00056620 (231 B): equivalent/0x00056620.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamIntConstRange; fight::ParamName]
-// sym: ?target@fn_00056620@@YAXXZ
+// sym: ?target@fn_00056620@@YAXXZ @6c8a472bc475 @w2d94e896f50a
 inline void* operator new(size_t,void* p) { return p; }
 namespace fn_00056620 {
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 8/8)
@@ -1010,7 +1010,7 @@ void target() {
 
 
 // 0x00056710 FUN_00056710 (274 B): equivalent/0x00056710.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamFloatConstRange; fight::ParamNameConstList; fight::ParamVector]
-// sym: ?target@fn_00056710@@YAXXZ
+// sym: ?target@fn_00056710@@YAXXZ @7c45722bf0c8 @w6a06e7073dac
 namespace fn_00056710 {
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 10/10)
 // FUN_00056710 @ 0x00056710

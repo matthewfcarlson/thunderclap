@@ -71,7 +71,7 @@ hulk_intptr hulkfight::motion::BallAndChainReturnTrack::vfunc_0(int index) {
 
 
 // 0x00181020 FUN_00181020 (115 B): equivalent/0x00181020.cpp [wrapped: conflict: hulkfight::motion::BallAndChainReturnTrack]
-// sym: ?FUN_00181020@BallAndChainReturnTrack@motion@hulkfight@fn_00181020@@QAEPAV1234@XZ
+// sym: ?FUN_00181020@BallAndChainReturnTrack@motion@hulkfight@fn_00181020@@QAEPAV1234@XZ @d897b7f16516 @w2a376bfa0bf9
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_00181020 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)

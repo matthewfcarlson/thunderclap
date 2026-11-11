@@ -5,7 +5,7 @@
 
 
 // 0x000a3040 FUN_000a3040 (2170 B): equivalent/0x000a3040.cpp [isolated: helper definitions (2 out-of-line function bodies); code differs from its standalone build]
-// sym: ?Update@CChaseCamera_a3040@fn_fd86564e@@QAEXMM@Z
+// sym: ?Update@CChaseCamera_a3040@fn_fd86564e@@QAEXMM@Z @1e76c89436b0 @we6a574a2a561
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 namespace fn_fd86564e {} using namespace fn_fd86564e;

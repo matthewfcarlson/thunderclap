@@ -53,7 +53,7 @@ public:
 } // namespace fn_f9024596
 
 // 0x001e8d40 FUN_001e8d40 (183 B): equivalent/0x001e8d40.cpp
-// sym: ?FUN_001e8d40@Clip_1e8d40@owners@@QAEXXZ
+// sym: ?FUN_001e8d40@Clip_1e8d40@owners@@QAEXXZ @0b64eb284ff1 @w3035267bd626
 // STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 11/12, incomplete)
 // FUN_001e8d40 @ 0x001e8d40
 void owners::Clip_1e8d40::FUN_001e8d40() {
@@ -73,7 +73,7 @@ void owners::Clip_1e8d40::FUN_001e8d40() {
 namespace fn_f9024596 {
 
 // 0x001e95c0 FUN_001e95c0 (185 B): equivalent/0x001e95c0.cpp
-// sym: ?update@Target_1e95c0@fn_f9024596@@QAEXM_N@Z
+// sym: ?update@Target_1e95c0@fn_f9024596@@QAEXM_N@Z @de303c0605f1 @w6756f70ef062
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 16/16)
 // FUN_001e95c0 @ 0x001e95c0
 void Target_1e95c0::update(float time, bool active) {
@@ -96,7 +96,7 @@ void Target_1e95c0::update(float time, bool active) {
 
 
 // 0x001e9960 FUN_001e9960 (296 B): equivalent/0x001e9960.cpp
-// sym: ?FUN_001e9960@Registry_1e9960@fn_f9024596@@QAEPAUSlot_1e9960@2@PBD@Z
+// sym: ?FUN_001e9960@Registry_1e9960@fn_f9024596@@QAEPAUSlot_1e9960@2@PBD@Z @fbc7470b5430 @w7e3aefd9dfe0
 // STATUS: equivalent (tools/equiv.py level 3: 9159 inputs, branch coverage 18/18)
 // FUN_001e9960 @ 0x001e9960
 // Looks a slot up by its resource name hashed with a ".Mix" suffix.

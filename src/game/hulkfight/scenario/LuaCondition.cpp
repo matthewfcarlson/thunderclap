@@ -530,7 +530,7 @@ bool hulkfight::scenario::LuaAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
 
 
 // 0x001a1700 hulkfight::scenario::LuaAction::vfunc_5 (233 B): equivalent/0x001a1700.cpp [wrapped: conflict: hulkfight::scenario::LuaAction]
-// sym: ?vfunc_5@LuaAction@scenario@hulkfight@fn_001a1700@@UAE_NHH@Z
+// sym: ?vfunc_5@LuaAction@scenario@hulkfight@fn_001a1700@@UAE_NHH@Z @b6005a4dca24 @w52f43a4c1438
 namespace fn_001a1700 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // hulkfight::scenario::LuaAction::vfunc_5 @ 0x001a1700
@@ -810,7 +810,7 @@ void FUN_001a1b00() {
 } // namespace fn_fd836fc7
 
 // 0x001a1b60 FUN_001a1b60 (213 B): equivalent/0x001a1b60.cpp [wrapped: conflict: fight::ParamFloatConstRange; fight::ParamScript]
-// sym: ?FUN_001a1b60@fn_001a1b60@@YAXXZ
+// sym: ?FUN_001a1b60@fn_001a1b60@@YAXXZ @e821b5c161a2 @w0447def177e4
 namespace fn_001a1b60 {
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 8/8)
 // FUN_001a1b60 @ 0x001a1b60

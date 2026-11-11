@@ -62,7 +62,7 @@ public:
 namespace fn_fd54d364 {
 
 // 0x0010bc00 FUN_0010bc00 (158 B): equivalent/0x0010bc00.cpp
-// sym: ?FUN_0010bc00@fn_fd54d364@@YAXXZ
+// sym: ?FUN_0010bc00@fn_fd54d364@@YAXXZ @f743eb883553 @w8e50ff95ed30
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 6/6)
 // FUN_0010bc00 @ 0x0010bc00
 void FUN_0010bc00()
@@ -85,7 +85,7 @@ void FUN_0010bc00()
 
 
 // 0x0010bca0 FUN_0010bca0 (158 B): equivalent/0x0010bca0.cpp
-// sym: ?FUN_0010bca0@fn_fd54d364@@YAXXZ
+// sym: ?FUN_0010bca0@fn_fd54d364@@YAXXZ @8cd78e82eb67 @w94017029b147
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_0010bca0 @ 0x0010bca0
 void FUN_0010bca0()

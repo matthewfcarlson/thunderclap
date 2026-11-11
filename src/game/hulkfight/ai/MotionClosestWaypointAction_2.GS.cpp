@@ -30,7 +30,7 @@ struct Target_117da0 { char pad[0x1c]; Bounds_117da0* bounds; Source_117da0* sou
 
 
 // 0x00117da0 FUN_00117da0 (290 B): equivalent/0x00117da0.cpp
-// sym: ?run@Target_117da0@fn_fef696d1@@QAE_NXZ
+// sym: ?run@Target_117da0@fn_fef696d1@@QAE_NXZ @76d29fa3a002 @wbeb7bbee6d6f
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 24/24)
 // FUN_00117da0 @ 0x00117da0
 bool Target_117da0::run() {

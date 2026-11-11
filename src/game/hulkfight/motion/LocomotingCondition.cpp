@@ -647,7 +647,7 @@ hulk_intptr hulkfight::motion::ClimbLocomotion4Track::vfunc_0(int index) {
 
 
 // 0x0015b970 FUN_0015b970 (182 B): equivalent/0x0015b970.cpp [wrapped: conflict: hulkfight::motion::ClimbLocomotion4Track]
-// sym: ??0ClimbLocomotion4Track@motion@hulkfight@fn_0015b970@@QAE@XZ
+// sym: ??0ClimbLocomotion4Track@motion@hulkfight@fn_0015b970@@QAE@XZ @b04c71b3272d @w9a82d9469110
 namespace fn_0015b970 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0015b970 @ 0x0015b970
@@ -743,7 +743,7 @@ hulk_intptr hulkfight::motion::LocomotionStrafe4Track::vfunc_0(int index) {
 
 
 // 0x0015baf0 FUN_0015baf0 (196 B): equivalent/0x0015baf0.cpp [wrapped: conflict: hulkfight::motion::LocomotionStrafe4Track]
-// sym: ??0LocomotionStrafe4Track@motion@hulkfight@fn_0015baf0@@QAE@XZ
+// sym: ??0LocomotionStrafe4Track@motion@hulkfight@fn_0015baf0@@QAE@XZ @a9de58bf44f3 @wbaf5eb973164
 namespace fn_0015baf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0015baf0 @ 0x0015baf0
@@ -845,7 +845,7 @@ hulk_intptr hulkfight::motion::HeliLocomotionTrack::vfunc_0(int index) {
 namespace fn_f7eb5c06 {
 
 // 0x0015bc90 FUN_0015bc90 (302 B): equivalent/0x0015bc90.cpp
-// sym: ?ctor@HeliLocomotionTrack@fn_f7eb5c06@@QAEPAU12@XZ
+// sym: ?ctor@HeliLocomotionTrack@fn_f7eb5c06@@QAEPAU12@XZ @6e790dd78289 @w8396adec38d4
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0015bc90 @ 0x0015bc90
 HeliLocomotionTrack *HeliLocomotionTrack::ctor() {
@@ -933,7 +933,7 @@ hulk_intptr hulkfight::motion::LocomotionSteerTrack::vfunc_0(int index) {
 
 
 // 0x0015be30 FUN_0015be30 (118 B): equivalent/0x0015be30.cpp [wrapped: conflict: hulkfight::motion::LocomotionSteerTrack]
-// sym: ?FUN_0015be30@LocomotionSteerTrack@motion@hulkfight@fn_0015be30@@QAEPAV1234@XZ
+// sym: ?FUN_0015be30@LocomotionSteerTrack@motion@hulkfight@fn_0015be30@@QAEPAV1234@XZ @6293beaf5262 @w56700328d6ed
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_0015be30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
@@ -1046,7 +1046,7 @@ hulk_intptr hulkfight::motion::LocomotionSprintTrack::vfunc_0(int index) {
 
 
 // 0x0015bf40 FUN_0015bf40 (105 B): equivalent/0x0015bf40.cpp [wrapped: conflict: hulkfight::motion::LocomotionSprintTrack]
-// sym: ?FUN_0015bf40@LocomotionSprintTrack@motion@hulkfight@fn_0015bf40@@QAEPAV1234@XZ
+// sym: ?FUN_0015bf40@LocomotionSprintTrack@motion@hulkfight@fn_0015bf40@@QAEPAV1234@XZ @4e19b539c422 @w782aee0c976a
 namespace fn_0015bf40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0015bf40 @ 0x0015bf40
@@ -1209,7 +1209,7 @@ bool hulkfight::motion::LocomotingCondition::vfunc_6(void* __p0, void* __p1, voi
 namespace fn_f7eb5c06 {
 
 // 0x0015c2a0 FUN_0015c2a0 (439 B): equivalent/0x0015c2a0.cpp
-// sym: ?FUN_0015c2a0@RangeSet_15c2a0@fn_f7eb5c06@@QAEXMMMMMM@Z
+// sym: ?FUN_0015c2a0@RangeSet_15c2a0@fn_f7eb5c06@@QAEXMMMMMM@Z @44d88004b64a @w86c9e1ebaa25
 // STATUS: equivalent (tools/equiv.py level 3: 3034 inputs, branch coverage 18/18)
 // FUN_0015c2a0 @ 0x0015c2a0
 void RangeSet_15c2a0::FUN_0015c2a0(float a0, float a1, float a2, float a3, float a4, float a5)
@@ -1378,7 +1378,7 @@ void* hulkfight::motion::GrappleLocomotionSteerTrack::vfunc_8(void* __p0, void* 
 
 
 // 0x0015c670 hulkfight::motion::GrappleLocomotionSteerAction::vfunc_5 (200 B): equivalent/0x0015c670.cpp
-// sym: ?vfunc_5@GrappleLocomotionSteerAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@GrappleLocomotionSteerAction@motion@hulkfight@@UAE_NHH@Z @6218bd70aeeb @w238838123978
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 14/14)
 // hulkfight::motion::GrappleLocomotionSteerAction::vfunc_5 @ 0x0015c670
 bool hulkfight::motion::GrappleLocomotionSteerAction::vfunc_5(hulk_intptr flag, int unused) {
@@ -1416,7 +1416,7 @@ void hulkfight::motion::GrappleLocomotionSteerAction::vfunc_4() {
 namespace fn_f7eb5c06 {
 
 // 0x0015c780 FUN_0015c780 (439 B): equivalent/0x0015c780.cpp
-// sym: ?FUN_0015c780@RangeSet_15c780@fn_f7eb5c06@@QAEXMMMMMM@Z
+// sym: ?FUN_0015c780@RangeSet_15c780@fn_f7eb5c06@@QAEXMMMMMM@Z @2095cad2181c @w6771851a46d5
 // STATUS: equivalent (tools/equiv.py level 3: 3034 inputs, branch coverage 18/18)
 // FUN_0015c780 @ 0x0015c780
 void RangeSet_15c780::FUN_0015c780(float a0, float a1, float a2, float a3, float a4, float a5)
@@ -1509,7 +1509,7 @@ void hulkfight::motion::ClimbLocomotion4Action::vfunc_8(void* __p0) { void * out
 namespace fn_f7eb5c06 {
 
 // 0x0015c9c0 FUN_0015c9c0 (154 B): equivalent/0x0015c9c0.cpp
-// sym: ?FUN_0015c9c0@HeliLocomotionAction@fn_f7eb5c06@@QAEPAU12@PAUSource_15c9c0@2@PAURefObj_15c9c0@2@@Z
+// sym: ?FUN_0015c9c0@HeliLocomotionAction@fn_f7eb5c06@@QAEPAU12@PAUSource_15c9c0@2@PAURefObj_15c9c0@2@@Z @f309cec0489d @wd2434cb4d25c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0015c9c0 @ 0x0015c9c0
 HeliLocomotionAction *HeliLocomotionAction::FUN_0015c9c0(Source_15c9c0 *src, RefObj_15c9c0 *target)
@@ -1538,7 +1538,7 @@ HeliLocomotionAction *HeliLocomotionAction::FUN_0015c9c0(Source_15c9c0 *src, Ref
 } // namespace fn_f7eb5c06
 
 // 0x0015ca60 hulkfight::motion::HeliLocomotionAction::vfunc_3 (219 B): equivalent/0x0015ca60.cpp [wrapped: conflict: hulkfight::motion::HeliLocomotionAction]
-// sym: ?vfunc_3@HeliLocomotionAction@motion@hulkfight@fn_0015ca60@@UAE_NHH@Z
+// sym: ?vfunc_3@HeliLocomotionAction@motion@hulkfight@fn_0015ca60@@UAE_NHH@Z @cdde7acf3cfb @wc9ef7e2a3f3e
 namespace fn_0015ca60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::HeliLocomotionAction::vfunc_3 @ 0x0015ca60

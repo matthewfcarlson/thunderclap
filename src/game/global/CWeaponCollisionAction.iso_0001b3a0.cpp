@@ -4,7 +4,7 @@
 
 
 // 0x0001b3a0 CWeaponCollisionAction::vfunc_6 (335 B): equivalent/0x0001b3a0.cpp [isolated: compile error C2664: 'fn_0001b3a0::AnimSet::FUN_001d7330' : cannot convert parameter 1 from 'fn_0001b3a0::CWeaponCollisionAction *const ' to ]
-// sym: ?FUN_0001b3a0@CWeaponCollisionAction@fn_fc9c13cb@@UAE_NH@Z
+// sym: ?FUN_0001b3a0@CWeaponCollisionAction@fn_fc9c13cb@@UAE_NH@Z @a470689413c1 @wa72b53aac1ec
 namespace fn_fc9c13cb {} using namespace fn_fc9c13cb;
 namespace fn_fc9c13cb {
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 26/26)

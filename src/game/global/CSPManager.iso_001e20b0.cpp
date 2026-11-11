@@ -4,7 +4,7 @@
 
 
 // 0x001e20b0 Closure3<CSPManager,void,const_char_*,const_char_*,math::Vector>::vfunc_2 (56 B): equivalent/0x001e20b0.cpp [isolated: conflict: Arguments; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure3@VCSPManager@@XPBDPBDVVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure3@VCSPManager@@XPBDPBDVVector@math@@@@UAEXPAX00@Z @d2144190d08a @w0e17802db584
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CSPManager,void,const_char_*,const_char_*,math::Vector>::vfunc_2 @ 0x001e20b0
 #include "gen/global.h"

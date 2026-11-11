@@ -48,7 +48,7 @@ extern "C" void __cdecl FUN_002347b0(unsigned*, void**, unsigned);
 
 
 // 0x000527d0 FUN_000527d0 (245 B): equivalent/0x000527d0.cpp
-// sym: _FUN_000527d0
+// sym: _FUN_000527d0 @d3f46395cd35 @w96d0eacd6fd6
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_000527d0 @ 0x000527d0
 extern "C" void __cdecl FUN_000527d0() {

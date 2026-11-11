@@ -42,7 +42,7 @@ bool CClimbingAction::vfunc_7(int ) {
 
 
 // 0x00013b90 CJumpAction::vfunc_6 (422 B): equivalent/0x00013b90.cpp [wrapped: conflict: CJumpAction]
-// sym: ?vfunc_6@CJumpAction@fn_00013b90@@UAEDH@Z
+// sym: ?vfunc_6@CJumpAction@fn_00013b90@@UAEDH@Z @8f3da99422c4 @w097370edd8d8
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

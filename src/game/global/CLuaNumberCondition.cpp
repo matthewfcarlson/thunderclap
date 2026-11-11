@@ -160,7 +160,7 @@ CLuaNumberCondition* CLuaNumberCondition::vfunc_5(signed char flags) {
 } // namespace fn_ff23caa7
 
 // 0x0004cf00 CLuaNumberCondition::vfunc_7 (200 B): equivalent/0x0004cf00.cpp [wrapped: conflict: CLuaNumberCondition]
-// sym: ?vfunc_7@CLuaNumberCondition@fn_0004cf00@@UAE_NPAX@Z
+// sym: ?vfunc_7@CLuaNumberCondition@fn_0004cf00@@UAE_NPAX@Z @048de5ccac3f @w2c8c9f97a30d
 namespace fn_0004cf00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CLuaNumberCondition::vfunc_7 @ 0x0004cf00

@@ -39,7 +39,7 @@ public:
 
 
 // 0x001ef470 CSoundCommand_PlayInterruptEvent::vfunc_1 (123 B): equivalent/0x001ef470.cpp
-// sym: ?vfunc_1@CSoundCommand_PlayInterruptEvent@fn_f825b68b@@UAEXHH@Z
+// sym: ?vfunc_1@CSoundCommand_PlayInterruptEvent@fn_f825b68b@@UAEXHH@Z @13c081082a58 @wc50780b80daa
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // CSoundCommand_PlayInterruptEvent::vfunc_1 @ 0x001ef470
 void CSoundCommand_PlayInterruptEvent::vfunc_1(int arg, int unused) {

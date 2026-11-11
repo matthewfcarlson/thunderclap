@@ -9,7 +9,7 @@
 
 
 // 0x000d1720 FUN_000d1720 (5339 B): equivalent/0x000d1720.cpp [wrapped: macros; helper definitions (2 out-of-line function bodies)]
-// sym: ??0HUDOverlay@fn_000d1720@@QAE@XZ
+// sym: ??0HUDOverlay@fn_000d1720@@QAE@XZ @e4f21812ed15 @wd8f4662cd8ba
 inline void* operator new(hulk_uintptr,void* p){return p;}
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

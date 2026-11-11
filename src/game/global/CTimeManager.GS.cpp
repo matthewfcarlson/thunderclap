@@ -66,7 +66,7 @@ void Timer::FUN_00086450() {
 } // namespace fn_ffdc64b2
 
 // 0x000873a0 FUN_000873a0 (618 B): equivalent/0x000873a0.cpp [wrapped: macros]
-// sym: ?update@Main@fn_000873a0@@QAEXXZ
+// sym: ?update@Main@fn_000873a0@@QAEXXZ @100ea426cfd9 @w9fc6b0911eaa
 namespace fn_000873a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3063 inputs, branch coverage 21/21)
 // FUN_000873a0 @ 0x000873a0
@@ -185,7 +185,7 @@ void __cdecl FUN_000879c0() {
 } // namespace fn_ffdc64b2
 
 // 0x00088020 FUN_00088020 (1281 B): equivalent/0x00088020.cpp [wrapped: conflict: DAT_004dd700; _sprintf]
-// sym: ?FUN_00088020@Base_88020@fn_00088020@@QAEXXZ
+// sym: ?FUN_00088020@Base_88020@fn_00088020@@QAEXXZ @2158f66c33c1 @w1a0ac46d8a79
 namespace fn_00088020 {
 // STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 63/66, incomplete)
 // FUN_00088020 @ 0x00088020
@@ -206,7 +206,7 @@ void Base_88020::FUN_00088020(){ void* p; p=FUN_0008d690(24); f1c=p?((C0_88020*)
 
 
 // 0x00088940 FUN_00088940 (565 B): equivalent/0x00088940.cpp [wrapped: macros]
-// sym: ?run@Obj_88940@fn_00088940@@QAEXPAUContext@2@PAUMission_88940@2@@Z
+// sym: ?run@Obj_88940@fn_00088940@@QAEXPAUContext@2@PAUMission_88940@2@@Z @177a598f3895 @wee03094025ee
 namespace fn_00088940 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00088940 @ 0x00088940

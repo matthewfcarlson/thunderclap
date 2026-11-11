@@ -175,7 +175,7 @@ CClimbableCondition* CClimbableCondition::vfunc_5(signed char flags) {
 } // namespace fn_f4fa62f8
 
 // 0x0004d130 CClimbableCondition::vfunc_7 (1354 B): equivalent/0x0004d130.cpp [wrapped: conflict: CClimbableCondition]
-// sym: ?vfunc_7@CClimbableCondition@fn_0004d130@@UAEDTArg_4d130@2@@Z
+// sym: ?vfunc_7@CClimbableCondition@fn_0004d130@@UAEDTArg_4d130@2@@Z @bd0ad2cc54cc @w19412aff2bb5
 namespace fn_0004d130 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 28/28)
 // CClimbableCondition::vfunc_7 @ 0x0004d130

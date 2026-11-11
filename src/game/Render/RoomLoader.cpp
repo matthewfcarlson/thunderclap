@@ -188,7 +188,7 @@ void __fastcall target(Container_1c6e20* self) {
 
 
 // 0x001c6e60 FUN_001c6e60 (269 B): equivalent/0x001c6e60.cpp
-// sym: ?init@Object@fn_f74b9f55@@QAEPAU12@PAXPAURef_1c6e60@2@1IPBUWords3@2@GPBUWords6_1c6e60@2@PBUWords4@2@@Z
+// sym: ?init@Object@fn_f74b9f55@@QAEPAU12@PAXPAURef_1c6e60@2@1IPBUWords3@2@GPBUWords6_1c6e60@2@PBUWords4@2@@Z @eb62a69aa484 @w1c9f81e6178f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001c6e60 @ 0x001c6e60
 Object* Object::init(void* arg, Ref_1c6e60* a, Ref_1c6e60* b, unsigned int count, const Words3* p, unsigned short m, const Words6_1c6e60* d, const Words4* e) {

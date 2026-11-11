@@ -1251,7 +1251,7 @@ CAction_1f950::~CAction_1f950() {
 } // namespace fn_fcc81091
 
 // 0x0001f980 FUN_0001f980 (83 B): equivalent/0x0001f980.cpp [wrapped: conflict: CAction]
-// sym: ?FUN_0001f980@CJumpAttackAction@fn_0001f980@@QAEPAU12@PAXPAURef@2@@Z
+// sym: ?FUN_0001f980@CJumpAttackAction@fn_0001f980@@QAEPAU12@PAXPAURef@2@@Z @c57086f47071 @w875bb6ae2b28
 inline void* operator new(size_t, void* place) { return place; }
 namespace fn_0001f980 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)

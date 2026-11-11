@@ -20,7 +20,7 @@ extern "C" R_14e60* __fastcall FUN_00059a40(void*);
 } // namespace fn_fe68592f
 
 // 0x00014c80 CMoveAction::vfunc_6 (182 B): equivalent/0x00014c80.cpp [wrapped: conflict: CMoveAction]
-// sym: ?vfunc_6@CMoveAction@fn_00014c80@@UAE_NH@Z
+// sym: ?vfunc_6@CMoveAction@fn_00014c80@@UAE_NH@Z @c0b1391f0673 @w1399e385c9eb
 namespace fn_00014c80 {
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 4/4)
 // CMoveAction::vfunc_6 @ 0x00014c80
@@ -54,7 +54,7 @@ bool CMoveAction::vfunc_6(int) {
 
 
 // 0x00014d40 CMoveAction::vfunc_7 (282 B): equivalent/0x00014d40.cpp [wrapped: conflict: CMoveAction]
-// sym: ?vfunc_7@CMoveAction@fn_00014d40@@UAE_NM@Z
+// sym: ?vfunc_7@CMoveAction@fn_00014d40@@UAE_NM@Z @fee569cd8ef0 @wae95a5ae9377
 namespace fn_00014d40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 4/4)
 // CMoveAction::vfunc_7 @ 0x00014d40

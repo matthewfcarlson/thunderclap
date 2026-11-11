@@ -160,7 +160,7 @@ extern "C" void FUN_0008c710(void * a, unsigned short* d) {
 
 
 // 0x0008c740 FUN_0008c740 (121 B): equivalent/0x0008c740.cpp
-// sym: ?FUN_0008c740@SlotSet@fn_f93cbeb5@@QAEHHPAIH@Z
+// sym: ?FUN_0008c740@SlotSet@fn_f93cbeb5@@QAEHHPAIH@Z @78bd4c8ea1d6 @w7205194c5dfd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
 // FUN_0008c740 @ 0x0008c740
 int SlotSet::FUN_0008c740(int index, unsigned int* outBits, hulk_intptr value) {
@@ -221,7 +221,7 @@ int Owner_8c810::target(int i) {
 
 
 // 0x0008c870 FUN_0008c870 (171 B): equivalent/0x0008c870.cpp
-// sym: ?reset@Manager_8c870@fn_f93cbeb5@@QAEXH@Z
+// sym: ?reset@Manager_8c870@fn_f93cbeb5@@QAEXH@Z @55f645ad483b @wd7f39a439211
 // STATUS: equivalent (tools/equiv.py level 3: 2963 inputs, branch coverage 4/4)
 // FUN_0008c870 @ 0x0008c870
 void Manager_8c870::reset(int index) {

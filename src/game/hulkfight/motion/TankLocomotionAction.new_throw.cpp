@@ -150,7 +150,7 @@ public:
 
 
 // 0x001910d0 FUN_001910d0 (158 B): equivalent/0x001910d0.cpp
-// sym: ?FUN_001910d0@fn_fca9d983@@YAXXZ
+// sym: ?FUN_001910d0@fn_fca9d983@@YAXXZ @ce5235d6f544 @w4541e7fd2b9a
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_001910d0 @ 0x001910d0
 void FUN_001910d0()
@@ -173,7 +173,7 @@ void FUN_001910d0()
 
 
 // 0x00191170 FUN_00191170 (1276 B): equivalent/0x00191170.cpp
-// sym: ?FUN_00191170@fn_fca9d983@@YAXXZ
+// sym: ?FUN_00191170@fn_fca9d983@@YAXXZ @98bbdd6ed323 @wbfb11c13f3cf
 // STATUS: equivalent (tools/equiv.py level 3: 2339 inputs, branch coverage 50/50)
 // FUN_00191170 @ 0x00191170
 void FUN_00191170()
@@ -284,7 +284,7 @@ void FUN_00191170()
 
 
 // 0x00191940 FUN_00191940 (409 B): equivalent/0x00191940.cpp
-// sym: ?FUN_00191940@fn_fca9d983@@YAXXZ
+// sym: ?FUN_00191940@fn_fca9d983@@YAXXZ @73dab1838f60 @we9592fc0b8e6
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 16/16)
 // FUN_00191940 @ 0x00191940
 void FUN_00191940()

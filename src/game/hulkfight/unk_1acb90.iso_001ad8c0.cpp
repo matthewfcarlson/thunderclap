@@ -4,7 +4,7 @@
 
 
 // 0x001ad8c0 FUN_001ad8c0 (1507 B): equivalent/0x001ad8c0.cpp [isolated: compile error C2888: 'int Graph::F(fn_001ad8c0::V3 *,fn_001ad8c0::V3 *,int,float,float,int,char,char,int,int,char,float,float)' : symbol cann]
-// sym: ?F@Graph@@QAEHPAUV3@@0HMMHDDHHDMM@Z
+// sym: ?F@Graph@@QAEHPAUV3@@0HMMHDDHHDMM@Z @899b6cc99d6b @w7570497ef6f1
 // STATUS: equivalent (tools/equiv.py level 3: 417 inputs, branch coverage 79/80, incomplete)
 // FUN_001ad8c0 @ 0x001ad8c0
 

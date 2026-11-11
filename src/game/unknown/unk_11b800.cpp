@@ -897,7 +897,7 @@ hulk_intptr hulkfight::ai::PathLocatorTestCondition::vfunc_0(int index) {
 
 
 // 0x0011c220 FUN_0011c220 (74 B): equivalent/0x0011c220.cpp [wrapped: conflict: hulkfight::ai::PathLocatorTestCondition]
-// sym: ??0PathLocatorTestCondition@ai@hulkfight@fn_0011c220@@QAE@XZ
+// sym: ??0PathLocatorTestCondition@ai@hulkfight@fn_0011c220@@QAE@XZ @e77b4db8ca85 @w3e67890a98b3
 namespace fn_0011c220 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0011c220 @ 0x0011c220
@@ -941,7 +941,7 @@ PathLocatorTestCondition::~PathLocatorTestCondition() {
 } // namespace fn_f18cc536
 
 // 0x0011c290 FUN_0011c290 (82 B): equivalent/0x0011c290.cpp
-// sym: ?FUN_0011c290@Object_11c290@owners@@QAEHPBD@Z
+// sym: ?FUN_0011c290@Object_11c290@owners@@QAEHPBD@Z @8995356c7814 @wba86295ec9e7
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0011c290 @ 0x0011c290
 int owners::Object_11c290::FUN_0011c290(const char *source) {

@@ -73,7 +73,7 @@ hulk_intptr CHeadTrackerTrack::vfunc_0(int index) {
 
 
 // 0x0006ac20 FUN_0006ac20 (151 B): equivalent/0x0006ac20.cpp [wrapped: conflict: CHeadTrackerTrack]
-// sym: ??0CHeadTrackerTrack@fn_0006ac20@@QAE@XZ
+// sym: ??0CHeadTrackerTrack@fn_0006ac20@@QAE@XZ @4d2ef3106600 @wa9de63d83af6
 namespace fn_0006ac20 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0006ac20 @ 0x0006ac20

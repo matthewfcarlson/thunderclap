@@ -241,7 +241,7 @@ void TextSelector::vfunc_14(int x) {
 
 
 // 0x000e3170 TextSelector::vfunc_12 (1235 B): equivalent/0x000e3170.cpp [wrapped: macros]
-// sym: ?vfunc_12@TextSelector@fn_000e3170@@UAEDIH@Z
+// sym: ?vfunc_12@TextSelector@fn_000e3170@@UAEDIH@Z @d1012f401150 @w059f6475b311
 namespace fn_000e3170 {
 // STATUS: equivalent (tools/equiv.py level 3: 3073 inputs, branch coverage 86/97, incomplete)
 // TextSelector::vfunc_12 @ 0x000e3170
@@ -494,7 +494,7 @@ hulk_freg TextSelector::vfunc_9() {
 
 
 // 0x000e3670 TextSelector::vfunc_6 (42 B): equivalent/0x000e3670.cpp
-// sym: ?vfunc_6@TextSelector@@UAEXH@Z
+// sym: ?vfunc_6@TextSelector@@UAEXH@Z @b7194eb6fd1c @wcfd9dfdb5adf
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // TextSelector::vfunc_6 @ 0x000e3670
 void TextSelector::vfunc_6(hulk_intptr __p0) { Receiver * receiver = (Receiver *)__p0;

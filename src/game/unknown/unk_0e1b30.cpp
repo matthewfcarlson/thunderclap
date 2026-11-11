@@ -170,7 +170,7 @@ void FEDoMenu::vfunc_1() {
 
 
 // 0x000e1b90 FUN_000e1b90 (168 B): equivalent/0x000e1b90.cpp [wrapped: conflict: FEDoPushDialog; FUN_000dfcc0]
-// sym: ??0FEDoPushDialog@fn_000e1b90@@QAE@HPBD0000H@Z
+// sym: ??0FEDoPushDialog@fn_000e1b90@@QAE@HPBD0000H@Z @532299616043 @w387b2d0a754a
 namespace fn_000e1b90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000e1b90 @ 0x000e1b90

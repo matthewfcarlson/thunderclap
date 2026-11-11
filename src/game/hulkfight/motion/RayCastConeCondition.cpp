@@ -332,7 +332,7 @@ bool hulkfight::motion::ThinkingCondition::vfunc_6(void* __p0, void* __p1, void*
 
 
 // 0x00166820 hulkfight::motion::RayCastConeCondition::vfunc_6 (799 B): equivalent/0x00166820.cpp [wrapped: conflict: CFightParams; fight::Params; hulkfight::motion::RayCastConeCondition]
-// sym: ?vfunc_6@RayCastConeCondition@motion@hulkfight@fn_00166820@@UAE_NHPAVParams@fight@4@H@Z
+// sym: ?vfunc_6@RayCastConeCondition@motion@hulkfight@fn_00166820@@UAE_NHPAVParams@fight@4@H@Z @ba7f74258753 @w9bad3331aaf5
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -544,7 +544,7 @@ bool RayCastConeCondition::vfunc_6(int a0, fight::Params* a1, int a2)
 
 
 // 0x00166b40 hulkfight::motion::IntentionButtonDownAnyCondition::vfunc_6 (121 B): equivalent/0x00166b40.cpp
-// sym: ?vfunc_6@IntentionButtonDownAnyCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@IntentionButtonDownAnyCondition@motion@hulkfight@@UAE_NPAX00@Z @ebe074a54509 @w5647646b64c6
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // hulkfight::motion::IntentionButtonDownAnyCondition::vfunc_6 @ 0x00166b40
 bool hulkfight::motion::IntentionButtonDownAnyCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int unused1 = (int)__p0; fight::Params_166b40 * params = (fight::Params_166b40 *)__p1; int unused2 = (int)__p2;
@@ -564,7 +564,7 @@ bool hulkfight::motion::IntentionButtonDownAnyCondition::vfunc_6(void* __p0, voi
 
 
 // 0x00166bc0 hulkfight::motion::IntentionInputCondition::vfunc_6 (160 B): equivalent/0x00166bc0.cpp
-// sym: ?vfunc_6@IntentionInputCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@IntentionInputCondition@motion@hulkfight@@UAE_NPAX00@Z @133c1407e978 @w690349ebd486
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 20/20)
 // hulkfight::motion::IntentionInputCondition::vfunc_6 @ 0x00166bc0
 // hulkfight::motion::IntentionInputCondition::vfunc_6 @ 0x00166bc0: checks the requested pad inputs against the controller state
@@ -605,7 +605,7 @@ bool hulkfight::motion::TargetingCondition::vfunc_6(void* __p0, void* __p1, void
 
 
 // 0x00166cb0 hulkfight::motion::GrappleReactionTypeCondition::vfunc_6 (196 B): equivalent/0x00166cb0.cpp [wrapped: conflict: DAT_00494b44; DAT_00494b60; hulkfight::motion::GrappleReactionTypeCondition]
-// sym: ?vfunc_6@GrappleReactionTypeCondition@motion@hulkfight@fn_00166cb0@@UAE_NPAXPAUActor_166cb0@4@0@Z
+// sym: ?vfunc_6@GrappleReactionTypeCondition@motion@hulkfight@fn_00166cb0@@UAE_NPAXPAUActor_166cb0@4@0@Z @b82070aa6fe4 @wee13b26d9a1c
 namespace fn_00166cb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // hulkfight::motion::GrappleReactionTypeCondition::vfunc_6 @ 0x00166cb0
@@ -642,7 +642,7 @@ bool GrappleReactionTypeCondition::vfunc_6(void*, Actor_166cb0* actor, void*) {
 
 
 // 0x00166d90 hulkfight::motion::InLoadedRoomCondition::vfunc_6 (147 B): equivalent/0x00166d90.cpp [wrapped: conflict: CFightParams; DAT_004dd700; World; fight::Params (+1)]
-// sym: ?vfunc_6@InLoadedRoomCondition@motion@hulkfight@fn_00166d90@@QAE_NHPAVParams@fight@4@H@Z
+// sym: ?vfunc_6@InLoadedRoomCondition@motion@hulkfight@fn_00166d90@@QAE_NHPAVParams@fight@4@H@Z @90a4f13bc7b6 @w52d117267ada
 namespace fn_00166d90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::InLoadedRoomCondition::vfunc_6 @ 0x00166d90
@@ -711,7 +711,7 @@ bool InLoadedRoomCondition::vfunc_6(int arg0, fight::Params *params, int arg2)
 
 
 // 0x00166e30 hulkfight::motion::ShoreNearCondition::vfunc_6 (400 B): equivalent/0x00166e30.cpp [wrapped: conflict: World]
-// sym: ?FUN_00166e30@ShoreNearCondition@fn_00166e30@@UAEDHPAVParams_166e30@fight@2@H@Z
+// sym: ?FUN_00166e30@ShoreNearCondition@fn_00166e30@@UAEDHPAVParams_166e30@fight@2@H@Z @b435ceb17242 @w206634eeb3fa
 namespace fn_00166e30 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 16/16)
 // hulkfight::motion::ShoreNearCondition::vfunc_6 @ 0x00166e30
@@ -856,7 +856,7 @@ char ShoreNearCondition::FUN_00166e30(int a1, fight::Params_166e30 *params, int 
 
 
 // 0x00166fc0 hulkfight::motion::RayCastTargetCondition::vfunc_6 (514 B): equivalent/0x00166fc0.cpp [wrapped: conflict: Skeleton; World]
-// sym: ?vfunc_6@RayCastTargetCondition@fn_00166fc0@@QAEDHPAUObj1_166fc0@2@H@Z
+// sym: ?vfunc_6@RayCastTargetCondition@fn_00166fc0@@QAEDHPAUObj1_166fc0@2@H@Z @e4ff3ca9026c @w6c36c4043e06
 namespace fn_00166fc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 25/26, incomplete)
 // hulkfight::motion::RayCastTargetCondition::vfunc_6 @ 0x00166fc0
@@ -1043,7 +1043,7 @@ char RayCastTargetCondition::vfunc_6(int arg0, Obj1_166fc0* target, int arg2)
 
 
 // 0x001671d0 hulkfight::motion::CharacterPropStatusCondition::vfunc_6 (160 B): equivalent/0x001671d0.cpp [wrapped: conflict: hulkfight::motion::CharacterPropStatusCondition]
-// sym: ?vfunc_6@CharacterPropStatusCondition@motion@hulkfight@fn_001671d0@@UAE_NHPAUSource_1671d0@4@H@Z
+// sym: ?vfunc_6@CharacterPropStatusCondition@motion@hulkfight@fn_001671d0@@UAE_NHPAUSource_1671d0@4@H@Z @de7270f7bfcd @w1eb47f25ecd9
 namespace fn_001671d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 20/20)
 // hulkfight::motion::CharacterPropStatusCondition::vfunc_6 @ 0x001671d0
@@ -1106,7 +1106,7 @@ bool hulkfight::motion::CharacterPropStatusCondition::vfunc_6(int a, Source_1671
 
 
 // 0x00167290 hulkfight::motion::TargetMotionStateCondition::vfunc_6 (100 B): equivalent/0x00167290.cpp
-// sym: ?vfunc_6@TargetMotionStateCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@TargetMotionStateCondition@motion@hulkfight@@UAE_NPAX00@Z @a74dd210a86a @wbdbe90ac11e4
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 14/14)
 // hulkfight::motion::TargetMotionStateCondition::vfunc_6 @ 0x00167290
 bool hulkfight::motion::TargetMotionStateCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a1 = (int)__p0; Owner_167290 * owner = (Owner_167290 *)__p1; int a3 = (int)__p2;
@@ -1143,7 +1143,7 @@ bool hulkfight::motion::LocomotionMotionStateCondition::vfunc_6(void* __p0, void
 
 
 // 0x00167350 hulkfight::motion::TargetLocomotionMotionStateCondition::vfunc_6 (106 B): equivalent/0x00167350.cpp
-// sym: ?vfunc_6@TargetLocomotionMotionStateCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@TargetLocomotionMotionStateCondition@motion@hulkfight@@UAE_NPAX00@Z @f7f1ed190b49 @w699a408716be
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 12/12)
 // hulkfight::motion::TargetLocomotionMotionStateCondition::vfunc_6 @ 0x00167350
 bool hulkfight::motion::TargetLocomotionMotionStateCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { void * a1 = (void *)__p0; Target_167350 * target = (Target_167350 *)__p1; void * a3 = (void *)__p2;

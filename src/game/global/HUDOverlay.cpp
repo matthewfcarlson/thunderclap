@@ -676,7 +676,7 @@ void HUDOverlay::vfunc_2() {
 namespace fn_fb3f3f46 {
 
 // 0x000caa60 FUN_000caa60 (77 B): equivalent/0x000caa60.cpp
-// sym: ?FUN_000caa60@fn_fb3f3f46@@YGXPADPAH@Z
+// sym: ?FUN_000caa60@fn_fb3f3f46@@YGXPADPAH@Z @be6fe615e729 @w0c9a53ffa266
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_000caa60 @ 0x000caa60
 void __stdcall FUN_000caa60(char *state, int *value)
@@ -1058,7 +1058,7 @@ void Parent::Go(int a, int b) {
 
 
 // 0x000cb190 FUN_000cb190 (106 B): equivalent/0x000cb190.cpp
-// sym: ?Forward@Wrapper_cb190@fn_fb3f3f46@@QAEHHHUVec3_cb190@2@00@Z
+// sym: ?Forward@Wrapper_cb190@fn_fb3f3f46@@QAEHHHUVec3_cb190@2@00@Z @215ba11e9ece @w4d0158fda182
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000cb190 @ 0x000cb190
 int Wrapper_cb190::Forward(int a, int b, Vec3_cb190 p, Vec3_cb190 q, Vec3_cb190 r)
@@ -1196,7 +1196,7 @@ void HUDOverlay::vfunc_5(int a) {
 namespace fn_fb3f3f46 {
 
 // 0x000cb6f0 FUN_000cb6f0 (94 B): equivalent/0x000cb6f0.cpp
-// sym: ?FUN_000cb6f0@Object@fn_fb3f3f46@@QAEMHH@Z
+// sym: ?FUN_000cb6f0@Object@fn_fb3f3f46@@QAEMHH@Z @96b81ec8b4cf @w975db8b59ff5
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // FUN_000cb6f0 @ 0x000cb6f0
 hulk_freg Object::FUN_000cb6f0(int position, int index) {
@@ -1217,7 +1217,7 @@ hulk_freg Object::FUN_000cb6f0(int position, int index) {
 
 
 // 0x000cb750 FUN_000cb750 (106 B): equivalent/0x000cb750.cpp
-// sym: ?Sample@Sampler_cb750@fn_fb3f3f46@@QAEMHH@Z
+// sym: ?Sample@Sampler_cb750@fn_fb3f3f46@@QAEMHH@Z @9059db30b10f @w83046938c86c
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 2/2)
 // FUN_000cb750 @ 0x000cb750
 hulk_freg Sampler_cb750::Sample(int a, int b)
@@ -1237,7 +1237,7 @@ hulk_freg Sampler_cb750::Sample(int a, int b)
 
 
 // 0x000cb7d0 FUN_000cb7d0 (107 B): equivalent/0x000cb7d0.cpp
-// sym: _FUN_000cb7d0
+// sym: _FUN_000cb7d0 @c20e4cc3d487 @w521db6bdbba9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000cb7d0 @ 0x000cb7d0
 // equiv-conv: FUN_000cb7d0 ecx edx stack
@@ -1296,7 +1296,7 @@ HUDOverlay* HUDOverlay::vfunc_0(unsigned char flags) {
 namespace fn_fb3f3f46 {
 
 // 0x000cb870 FUN_000cb870 (975 B): equivalent/0x000cb870.cpp
-// sym: ?FUN_000cb870@Resources_cb870@fn_fb3f3f46@@QAEXPAUBits_cb870@2@@Z
+// sym: ?FUN_000cb870@Resources_cb870@fn_fb3f3f46@@QAEXPAUBits_cb870@2@@Z @7f1cd8f5a1d9 @w6a0f3d52fb37
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 94/94)
 // FUN_000cb870 @ 0x000cb870
 void Resources_cb870::FUN_000cb870(Bits_cb870 *bits)
@@ -1364,7 +1364,7 @@ void Resources_cb870::FUN_000cb870(Bits_cb870 *bits)
 
 
 // 0x000cbc40 FUN_000cbc40 (2970 B): equivalent/0x000cbc40.cpp
-// sym: ?FUN_000cbc40@HUDOverlay_cbc40@fn_fb3f3f46@@QAEXM@Z
+// sym: ?FUN_000cbc40@HUDOverlay_cbc40@fn_fb3f3f46@@QAEXM@Z @90c4f6dd84f4 @w8427508362ea
 // STATUS: equivalent (tools/equiv.py level 3: 5746 inputs, branch coverage 150/150)
 // FUN_000cbc40 @ 0x000cbc40
 // equiv-conv: FUN_000cb7d0 ecx edx stack

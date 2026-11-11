@@ -206,7 +206,7 @@ FlyingAttackAction_1354d0::~FlyingAttackAction_1354d0() {
 } // namespace fn_f9de9b68
 
 // 0x00135520 hulkfight::motion::FlyingAttackAction::vfunc_3 (472 B): equivalent/0x00135520.cpp [wrapped: conflict: FlyingAttackAction]
-// sym: ?vfunc_3@FlyingAttackAction@fn_00135520@@UAE_NHH@Z
+// sym: ?vfunc_3@FlyingAttackAction@fn_00135520@@UAE_NHH@Z @ad061c90f88d @w29114149fde6
 namespace fn_00135520 {
 // STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 14/14)
 // hulkfight::motion::FlyingAttackAction::vfunc_3 @ 0x00135520
@@ -393,7 +393,7 @@ void FlyingAttackAction_135700::Run() {
 } // namespace fn_f9de9b68
 
 // 0x00135760 hulkfight::motion::FlyingAttackAction::vfunc_5 (1073 B): equivalent/0x00135760.cpp [wrapped: conflict: FlyingAttackAction]
-// sym: ?vfunc_5@FlyingAttackAction@fn_00135760@@UAE_NHM@Z
+// sym: ?vfunc_5@FlyingAttackAction@fn_00135760@@UAE_NHM@Z @18e2098f2fe1 @w1dd32b5001e8
 namespace fn_00135760 {
 // STATUS: equivalent (tools/equiv.py level 3: 20015 inputs, branch coverage 32/32)
 // hulkfight::motion::FlyingAttackAction::vfunc_5 @ 0x00135760

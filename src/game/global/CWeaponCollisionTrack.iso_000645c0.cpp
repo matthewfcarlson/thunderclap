@@ -4,7 +4,7 @@
 
 
 // 0x000645c0 FUN_000645c0 (158 B): equivalent/0x000645c0.cpp [isolated: compile error C2039: 'FUN_00061f50' : is not a member of 'CSmartPropDropTrack']
-// sym: _FUN_000645c0
+// sym: _FUN_000645c0 @99459488f16c @w32e22a80d22f
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
 // FUN_000645c0 @ 0x000645c0
 #include "decls/data/game/global.h"

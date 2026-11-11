@@ -144,7 +144,7 @@ void CChaseAgent::vfunc_9() {
 
 
 // 0x000fc970 CChaseAgent::vfunc_3 (351 B): equivalent/0x000fc970.cpp
-// sym: ?vfunc_3@CChaseAgent@@UAEMHH@Z
+// sym: ?vfunc_3@CChaseAgent@@UAEMHH@Z @33356ab84ef8 @we842c03a254a
 // STATUS: equivalent (tools/equiv.py level 3: 3081 inputs, branch coverage 40/40)
 // CChaseAgent::vfunc_3 @ 0x000fc970
 hulk_freg CChaseAgent::vfunc_3(hulk_intptr __p0, int a) { Unit_fc970 * arg = (Unit_fc970 *)__p0;
@@ -201,7 +201,7 @@ hulk_freg CChaseAgent::vfunc_3(hulk_intptr __p0, int a) { Unit_fc970 * arg = (Un
 
 
 // 0x000fcad0 CChaseAgent::vfunc_7 (62 B): equivalent/0x000fcad0.cpp [wrapped: conflict: CChaseAgent]
-// sym: ?vfunc_7@CChaseAgent@fn_000fcad0@@UAEXH@Z
+// sym: ?vfunc_7@CChaseAgent@fn_000fcad0@@UAEXH@Z @14d0909148e9 @wfe967db2b171
 namespace fn_000fcad0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CChaseAgent::vfunc_7 @ 0x000fcad0
@@ -244,7 +244,7 @@ CChaseAgent_fcb40* CChaseAgent_fcb40::vfunc_5(signed char flags) {
 } // namespace fn_f0405f54
 
 // 0x000fcb70 CChaseAgent::vfunc_4 (437 B): equivalent/0x000fcb70.cpp [wrapped: conflict: CChaseAgent]
-// sym: ?vfunc_4@CChaseAgent@fn_000fcb70@@UAEXPAXMH@Z
+// sym: ?vfunc_4@CChaseAgent@fn_000fcb70@@UAEXPAXMH@Z @50ea76bdbec0 @w9f5f1e446efa
 namespace fn_000fcb70 {
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 18/18)
 // CChaseAgent::vfunc_4 @ 0x000fcb70

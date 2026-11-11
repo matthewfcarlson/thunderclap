@@ -28,7 +28,7 @@ hulk_intptr CClimbEdgeCondition::vfunc_0(int index) {
 
 
 // 0x0004a9d0 CClimbEdgeCondition::vfunc_7 (977 B): equivalent/0x0004a9d0.cpp [wrapped: conflict: CClimbEdgeCondition]
-// sym: ?vfunc_7@CClimbEdgeCondition@fn_0004a9d0@@UAE_NPAUParams@2@@Z
+// sym: ?vfunc_7@CClimbEdgeCondition@fn_0004a9d0@@UAE_NPAUParams@2@@Z @857b3889bf5b @w0de868372802
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

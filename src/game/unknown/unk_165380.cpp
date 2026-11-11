@@ -1376,7 +1376,7 @@ TargetCharacterTemplateCondition_166210::~TargetCharacterTemplateCondition_16621
 } // namespace fn_f5579237
 
 // 0x00166230 FUN_00166230 (82 B): equivalent/0x00166230.cpp
-// sym: ?FUN_00166230@Thing_166230@owners@@QAE_NPBD@Z
+// sym: ?FUN_00166230@Thing_166230@owners@@QAE_NPBD@Z @ceb1083b6fd1 @w2ae63d33cad5
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_00166230 @ 0x00166230
 bool owners::Thing_166230::FUN_00166230(const char *source) {

@@ -116,7 +116,7 @@ void hulkfight::motion::IntentionClearAction::vfunc_4() {
 
 
 // 0x00171860 hulkfight::motion::ChargeAction::vfunc_3 (139 B): equivalent/0x00171860.cpp
-// sym: ?vfunc_3@ChargeAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@ChargeAction@motion@hulkfight@@UAE_NHH@Z @67ec6eef6edc @w69f5b6919a79
 // STATUS: equivalent (tools/equiv.py level 3: 19924 inputs, branch coverage 8/8)
 // hulkfight::motion::ChargeAction::vfunc_3 @ 0x00171860
 // Charge action update: track which action step is running and publish its progress ratio.

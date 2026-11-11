@@ -5,7 +5,7 @@
 
 
 // 0x0012ec80 FUN_0012ec80 (82 B): equivalent/0x0012ec80.cpp [isolated: conflict: FUN_0008d340; on include/gen/ and not mergeable]
-// sym: ?FUN_0012ec80@Item_12ec80@owners@@QAEHPBD@Z
+// sym: ?FUN_0012ec80@Item_12ec80@owners@@QAEHPBD@Z @3fe6b841677b @wf797545cfe4b
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012ec80 @ 0x0012ec80
 #include "gen/owners.h"

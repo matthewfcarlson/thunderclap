@@ -78,7 +78,7 @@ CSmartPropCSMableCondition* CSmartPropCSMableCondition::vfunc_5(signed char flag
 } // namespace fn_f5d3a323
 
 // 0x0004cbe0 CSmartPropCSMableCondition::vfunc_7 (489 B): equivalent/0x0004cbe0.cpp [wrapped: conflict: CSmartPropCSMableCondition]
-// sym: ?vfunc_7@CSmartPropCSMableCondition@fn_0004cbe0@@UAEDPAX@Z
+// sym: ?vfunc_7@CSmartPropCSMableCondition@fn_0004cbe0@@UAEDPAX@Z @5bfaa7bcf6ec @we6a69686498e
 namespace fn_0004cbe0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 19/19)
 // CSmartPropCSMableCondition::vfunc_7 @ 0x0004cbe0

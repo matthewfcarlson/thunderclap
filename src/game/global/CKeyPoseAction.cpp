@@ -106,7 +106,7 @@ public:
 
 
 // 0x00022ff0 CKeyPoseAction::vfunc_6 (281 B): equivalent/0x00022ff0.cpp
-// sym: ?vfunc_6@CKeyPoseAction@fn_f372509d@@UAE_NH@Z
+// sym: ?vfunc_6@CKeyPoseAction@fn_f372509d@@UAE_NH@Z @b86edcb0b625 @wd96c1a698c75
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 6/6)
 // CKeyPoseAction::vfunc_6 @ 0x00022ff0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

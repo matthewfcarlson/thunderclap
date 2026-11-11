@@ -26,7 +26,7 @@ extern int __cdecl FUN_000964a0(char*, unsigned, const char*, ...);
 } // namespace fn_f57d431a
 
 // 0x001fb050 DataHandlerRawLoader::vfunc_5 (221 B): equivalent/0x001fb050.cpp
-// sym: ?vfunc_5@DataHandlerRawLoader@@UAEXPAX00H@Z
+// sym: ?vfunc_5@DataHandlerRawLoader@@UAEXPAX00H@Z @626543548415 @w84302fac356d
 // STATUS: equivalent (tools/equiv.py level 3: 16785 inputs, branch coverage 2/2)
 // DataHandlerRawLoader::vfunc_5 @ 0x001fb050
 void DataHandlerRawLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { CDataHandlerObject_1fb050 ** out = (CDataHandlerObject_1fb050 **)__p0; unsigned long long * id = (unsigned long long *)__p1; Stream_1fb050 * stream = (Stream_1fb050 *)__p2; unsigned int unused = (unsigned int)__p3;

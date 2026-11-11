@@ -5,7 +5,7 @@
 
 
 // 0x0001a710 FUN_0001a710 (1683 B): equivalent/0x0001a710.cpp [isolated: macros; compile error C2664: 'fn_0001a710::Player::FUN_00035c30' : cannot convert parameter 1 from 'fn_0001a710::Item *' to 'fn_f54c57d3::Item *']
-// sym: ?FUN_0001a710@SpawnAction@fn_f19b6a3c@@QAEXPAUItem@2@PAUV3@2@1@Z
+// sym: ?FUN_0001a710@SpawnAction@fn_f19b6a3c@@QAEXPAUItem@2@PAUV3@2@1@Z @e51be3b059a1 @wa0677ed60689
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)

@@ -96,7 +96,7 @@ void FireProjectileAction::clean() {
 } // namespace fn_f6c42f35
 
 // 0x001951a0 hulkfight::motion::FireProjectileAction::vfunc_3 (238 B): equivalent/0x001951a0.cpp [wrapped: conflict: hulkfight::motion::FireProjectileAction]
-// sym: ?vfunc_3@FireProjectileAction@motion@hulkfight@fn_001951a0@@UAE_NII@Z
+// sym: ?vfunc_3@FireProjectileAction@motion@hulkfight@fn_001951a0@@UAE_NII@Z @0e3d1fa65262 @w37931f29fcb5
 namespace fn_001951a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // hulkfight::motion::FireProjectileAction::vfunc_3 @ 0x001951a0
@@ -149,7 +149,7 @@ bool FireProjectileAction::vfunc_3(unsigned,unsigned) {
 
 
 // 0x00195290 FUN_00195290 (708 B): equivalent/0x00195290.cpp [wrapped: conflict: World]
-// sym: ?FUN_00195290@fn_00195290@@YA_NPAUV3_195290@1@PAPAX1000PAPAUShape_195290@1@PAUHandle_195290@1@DPADH@Z
+// sym: ?FUN_00195290@fn_00195290@@YA_NPAUV3_195290@1@PAPAX1000PAPAUShape_195290@1@PAUHandle_195290@1@DPADH@Z @4966aaf0e1f7 @wa79dc65382fe
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -374,7 +374,7 @@ bool FUN_00195290(V3_195290 *self, void **out2, void **out1, V3_195290 *origin, 
 
 
 // 0x00195560 FUN_00195560 (855 B): equivalent/0x00195560.cpp [wrapped: conflict: World]
-// sym: ?FUN_00195560@fn_00195560@@YA_NPAUV3_195560@1@PAUSrc_195560@1@0HPAVMgr_195560@1@20MMHHDMD@Z
+// sym: ?FUN_00195560@fn_00195560@@YA_NPAUV3_195560@1@PAUSrc_195560@1@0HPAVMgr_195560@1@20MMHHDMD@Z @85ff736544c9 @w219cbc0160ed
 namespace fn_00195560 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 42/42)
 // FUN_00195560 @ 0x00195560
@@ -612,7 +612,7 @@ bool FUN_00195560(V3_195560 *self, Src_195560 *src, V3_195560 *b, int id, Mgr_19
 
 
 // 0x001958c0 FUN_001958c0 (455 B): equivalent/0x001958c0.cpp [wrapped: conflict: World]
-// sym: ?FUN_001958c0@fn_001958c0@@YA_NHPAUHolder_1958c0@1@HHHHPAUV3_1958c0@1@MMHH@Z
+// sym: ?FUN_001958c0@fn_001958c0@@YA_NHPAUHolder_1958c0@1@HHHHPAUV3_1958c0@1@MMHH@Z @5ea0fbbcb437 @wa08a17bf863e
 namespace fn_001958c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3033 inputs, branch coverage 30/30)
 // FUN_001958c0 @ 0x001958c0
@@ -754,7 +754,7 @@ bool FUN_001958c0(int id, Holder_1958c0 *h, int a2, int a3, int a4, int a5, V3_1
 
 
 // 0x00195a90 FUN_00195a90 (132 B): equivalent/0x00195a90.cpp [wrapped: conflict: hulkfight::motion::ProjectileEffect]
-// sym: ??0ProjectileEffect@motion@hulkfight@fn_00195a90@@QAE@PAUOwner_195a90@3@@Z
+// sym: ??0ProjectileEffect@motion@hulkfight@fn_00195a90@@QAE@PAUOwner_195a90@3@@Z @f4e771712b25 @w22e519189055
 namespace fn_00195a90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00195a90 @ 0x00195a90
@@ -830,7 +830,7 @@ void ProjectileEffect::Cleanup() {
 
 
 // 0x00195bb0 hulkfight::motion::ProjectileEffect::vfunc_4 (1639 B): equivalent/0x00195bb0.cpp [wrapped: conflict: FUN_0027f250; World; hulkfight::motion::ProjectileEffect]
-// sym: ?vfunc_4@ProjectileEffect@motion@hulkfight@fn_00195bb0@@UAEXM@Z
+// sym: ?vfunc_4@ProjectileEffect@motion@hulkfight@fn_00195bb0@@UAEXM@Z @5c543a77b5e5 @wef0ed0c63cac
 namespace fn_00195bb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3047 inputs, branch coverage 58/58)
 // hulkfight::motion::ProjectileEffect::vfunc_4 @ 0x00195bb0

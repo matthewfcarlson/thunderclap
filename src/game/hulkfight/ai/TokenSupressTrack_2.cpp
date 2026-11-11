@@ -69,7 +69,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::TokenSupressT
 
 
 // 0x00114910 fight::TrackFactoryTemplate<hulkfight::ai::TokenSupressTrack>::vfunc_5 (75 B): equivalent/0x00114910.cpp
-// sym: ?vfunc_5@?$TrackFactoryTemplate@VTokenSupressTrack@ai@hulkfight@@@fight@@UAEPAXXZ
+// sym: ?vfunc_5@?$TrackFactoryTemplate@VTokenSupressTrack@ai@hulkfight@@@fight@@UAEPAXXZ @f876689da899 @w899417931db9
 // STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
 // fight::TrackFactoryTemplate<hulkfight::ai::TokenSupressTrack>::vfunc_5 @ 0x00114910
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::TokenSupressTrack>::vfunc_5() {

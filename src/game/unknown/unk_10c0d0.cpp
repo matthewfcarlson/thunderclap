@@ -1028,7 +1028,7 @@ void CRawScript::run() {
 
 
 // 0x0010c8d0 FUN_0010c8d0 (82 B): equivalent/0x0010c8d0.cpp
-// sym: ?SetText_0010c8d0@Owner@fn_f15aa14c@@QAEHPBD@Z
+// sym: ?SetText_0010c8d0@Owner@fn_f15aa14c@@QAEHPBD@Z @40a668c6d2d0 @w6e9ccdf703b1
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // SetText_0010c8d0 @ 0x0010c8d0
 hulk_intptr Owner::SetText_0010c8d0(const char *source) {

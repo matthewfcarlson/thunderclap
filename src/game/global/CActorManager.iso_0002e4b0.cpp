@@ -4,7 +4,7 @@
 
 
 // 0x0002e4b0 Method2<CActorManager,bool,const_char_*,math::Vector>::vfunc_2 (58 B): equivalent/0x0002e4b0.cpp [isolated: conflict: Arguments; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Method2@VCActorManager@@_NPBDVVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method2@VCActorManager@@_NPBDVVector@math@@@@UAEXPAX00@Z @5070c124e04e @w8cf067245f4c
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method2<CActorManager,bool,const_char_*,math::Vector>::vfunc_2 @ 0x0002e4b0
 #include "gen/global.h"

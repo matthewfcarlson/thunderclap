@@ -4,7 +4,7 @@
 
 
 // 0x00053cd0 FUN_00053cd0 (176 B): equivalent/0x00053cd0.cpp [isolated: compile error C2664: 'fn_00053cd0::fight::ParamEnumConstList<T>::ParamEnumConstList(const char *,const char ** ,int,void (__thiscall CSmartPr]
-// sym: _FUN_00053cd0
+// sym: _FUN_00053cd0 @03c45a624eaf @w49cbf3848e8d
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_00053cd0 @ 0x00053cd0
 #include "decls/data/engine/unknown.h"

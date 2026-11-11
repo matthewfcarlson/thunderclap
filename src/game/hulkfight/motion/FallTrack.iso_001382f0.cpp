@@ -4,7 +4,7 @@
 
 
 // 0x001382f0 FUN_001382f0 (213 B): equivalent/0x001382f0.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ?FUN_001382f0@fn_fd2a43d4@@YAXXZ
+// sym: ?FUN_001382f0@fn_fd2a43d4@@YAXXZ @56b15dca0047 @wd9152599fe22
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight/motion.h"
 namespace fn_fd2a43d4 {} using namespace fn_fd2a43d4;

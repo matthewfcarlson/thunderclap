@@ -63,7 +63,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x00078610 FUN_00078610 (227 B): equivalent/0x00078610.cpp
-// sym: _FUN_00078610
+// sym: _FUN_00078610 @624d547724bc @w01088127ca48
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_00078610 @ 0x00078610
 extern "C" void FUN_00078610() {
@@ -110,7 +110,7 @@ owners::Vec3_78750* owners::Vec3_78750::FUN_00078750(owners::Vec3_78750* out, ow
 namespace fn_f3f3201f {
 
 // 0x00078780 FUN_00078780 (85 B): equivalent/0x00078780.cpp
-// sym: ?FUN_00078780@RandomState@fn_f3f3201f@@QAEMXZ
+// sym: ?FUN_00078780@RandomState@fn_f3f3201f@@QAEMXZ @22afe0c31dd3 @w5b2e526cfd9f
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_00078780 @ 0x00078780
 hulk_freg RandomState::FUN_00078780() {

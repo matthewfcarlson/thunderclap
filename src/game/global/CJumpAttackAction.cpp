@@ -106,7 +106,7 @@ bool CCameraHintAction::vfunc_8(int ) {
 
 
 // 0x00017050 CJumpAttackAction::vfunc_6 (535 B): equivalent/0x00017050.cpp
-// sym: ?vfunc_6@CJumpAttackAction@@UAE_NH@Z
+// sym: ?vfunc_6@CJumpAttackAction@@UAE_NH@Z @620fd97defc6 @wc2bd1a6cb40b
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 12/12)
 // CJumpAttackAction::vfunc_6 @ 0x00017050
 bool CJumpAttackAction::vfunc_6(int arg) {
@@ -174,7 +174,7 @@ bool CJumpAttackAction::vfunc_6(int arg) {
 
 
 // 0x00017270 CJumpAttackAction::vfunc_7 (208 B): equivalent/0x00017270.cpp [wrapped: conflict: CJumpAttackAction]
-// sym: ?vfunc_7@CJumpAttackAction@fn_00017270@@QAE_NM@Z
+// sym: ?vfunc_7@CJumpAttackAction@fn_00017270@@QAE_NM@Z @192b1500b0ce @w3da1be19b835
 namespace fn_00017270 {
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 2/2)
 // CJumpAttackAction::vfunc_7 @ 0x00017270

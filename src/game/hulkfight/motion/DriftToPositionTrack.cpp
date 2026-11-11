@@ -75,7 +75,7 @@ hulk_intptr hulkfight::motion::DriftToPositionTrack::vfunc_0(int index) {
 
 
 // 0x00170400 FUN_00170400 (59 B): equivalent/0x00170400.cpp [wrapped: conflict: hulkfight::motion::DriftToPositionTrack]
-// sym: ??0DriftToPositionTrack@motion@hulkfight@fn_00170400@@QAE@XZ
+// sym: ??0DriftToPositionTrack@motion@hulkfight@fn_00170400@@QAE@XZ @6f211d54b0d8 @wfcb01c7746aa
 namespace fn_00170400 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00170400 @ 0x00170400

@@ -86,14 +86,14 @@ public:
 
 
 // 0x000139b0 FUN_000139b0 (66 B): equivalent/0x000139b0.cpp
-// sym: _FUN_000139b0
+// sym: _FUN_000139b0 @a3993bc11e62 @w2b42cd3b1c37
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000139b0 @ 0x000139b0
 extern "C" void __cdecl FUN_000139b0(Pair *p, Context *context, Receiver *receiver) { int a=p->first; int b=p->second; if(a || b) { Obj2 *intermediate=context->FUN_000592a0(); Obj *obj=intermediate->FUN_00059a30(); int result=obj->mid->worker->FUN_0027b670(a,b); if(result) receiver->FUN_002224a0(result); } }
 
 
 // 0x00013a00 CJointAction::vfunc_6 (305 B): equivalent/0x00013a00.cpp
-// sym: ?vfunc_6@CJointAction@fn_faa3d017@@UAEDH@Z
+// sym: ?vfunc_6@CJointAction@fn_faa3d017@@UAEDH@Z @0bc29606619f @w440501e023a2
 // STATUS: equivalent (tools/equiv.py level 3: 19948 inputs, branch coverage 10/10)
 // CJointAction::vfunc_6 @ 0x00013a00
 char CJointAction::vfunc_6(int arg)

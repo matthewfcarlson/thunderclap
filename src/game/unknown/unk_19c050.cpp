@@ -485,7 +485,7 @@ extern "C" void FUN_0019c050(Owner* owner, void* value) {
 
 
 // 0x0019c080 FUN_0019c080 (1547 B): equivalent/0x0019c080.cpp
-// sym: ?FUN_0019c080@fn_fdcf800c@@YAXXZ
+// sym: ?FUN_0019c080@fn_fdcf800c@@YAXXZ @dab271606ee1 @w4c0f7ee42285
 // STATUS: equivalent (tools/equiv.py level 3: 1655 inputs, branch coverage 60/60)
 // FUN_0019c080 @ 0x0019c080
 void FUN_0019c080()
@@ -659,7 +659,7 @@ extern "C" void FUN_0019d130(Owner* owner, const char* name) {
 
 
 // 0x0019d160 FUN_0019d160 (3259 B): equivalent/0x0019d160.cpp
-// sym: _FUN_0019d160
+// sym: _FUN_0019d160 @cf29edf97144 @w3b0c565fd03c
 // STATUS: equivalent (tools/equiv.py level 3: 918 inputs, branch coverage 120/120)
 // FUN_0019d160 @ 0x0019d160
 extern "C" void FUN_0019d160()
@@ -934,7 +934,7 @@ extern "C" void FUN_0019de20(Obj* obj, void* value) {
 namespace fn_fdcf800c {
 
 // 0x0019de50 FUN_0019de50 (1412 B): equivalent/0x0019de50.cpp
-// sym: _FUN_0019de50
+// sym: _FUN_0019de50 @7cb090194c68 @w29bf4743fe2f
 // STATUS: equivalent (tools/equiv.py level 3: 1980 inputs, branch coverage 54/54)
 // FUN_0019de50 @ 0x0019de50
 extern "C" void FUN_0019de50()

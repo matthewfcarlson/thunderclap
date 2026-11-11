@@ -4,7 +4,7 @@
 
 
 // 0x00187e00 FUN_00187e00 (256 B): equivalent/0x00187e00.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?target@fn_f98e2230@@YAXXZ
+// sym: ?target@fn_f98e2230@@YAXXZ @5540325e7a93 @w139b3a4918fc
 #include "gen/owners.h"
 #include "decls/data/game/unknown.h"
 namespace fn_f98e2230 {} using namespace fn_f98e2230;

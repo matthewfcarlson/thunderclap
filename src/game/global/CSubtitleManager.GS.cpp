@@ -235,7 +235,7 @@ public:
 
 
 // 0x001bea80 FUN_001bea80 (524 B): equivalent/0x001bea80.cpp
-// sym: ?FUN_001bea80@Overlay@fn_f03fc358@@QAEXXZ
+// sym: ?FUN_001bea80@Overlay@fn_f03fc358@@QAEXXZ @f05fc200663c @wb6c22651e172
 // STATUS: equivalent (tools/equiv.py level 3: 7413 inputs, branch coverage 2/2)
 // FUN_001bea80 @ 0x001bea80
 void Overlay::FUN_001bea80()
@@ -279,7 +279,7 @@ void Overlay::FUN_001bea80()
 
 
 // 0x001bec90 FUN_001bec90 (382 B): equivalent/0x001bec90.cpp
-// sym: ?FUN_001bec90@Overlay@fn_f03fc358@@QAEXXZ
+// sym: ?FUN_001bec90@Overlay@fn_f03fc358@@QAEXXZ @294aca72c6c0 @w3fa7fcd13052
 // STATUS: equivalent (tools/equiv.py level 3: 12891 inputs, branch coverage 2/2)
 // FUN_001bec90 @ 0x001bec90
 void Overlay::FUN_001bec90()

@@ -464,7 +464,7 @@ template <> Method3<CSoundSystem, void, char *, char *, float>::~Method3() {}
 
 
 // 0x001f0b70 Method3<CSoundSystem,void,char_*,char_*,float>::vfunc_2 (29 B): equivalent/0x001f0b70.cpp
-// sym: ?vfunc_2@?$Method3@VCSoundSystem@@XPADPADM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method3@VCSoundSystem@@XPADPADM@@UAEXPAX00@Z @a7a6d240b96d @w7a58705a9035
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CSoundSystem,void,char_*,char_*,float>::vfunc_2 @ 0x001f0b70
 template <> void Method3<CSoundSystem, void, char *, char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CSoundSystem_1f0b70 * object = (CSoundSystem_1f0b70 *)__p0; CallArgs * args = (CallArgs *)__p1; void * unused = (void *)__p2;
@@ -557,7 +557,7 @@ template <> Method4<CSoundSystem, void, char *, char *, float, float>::~Method4(
 
 
 // 0x001f0da0 Method4<CSoundSystem,void,char_*,char_*,float,float>::vfunc_2 (40 B): equivalent/0x001f0da0.cpp
-// sym: ?vfunc_2@?$Method4@VCSoundSystem@@XPADPADMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method4@VCSoundSystem@@XPADPADMM@@UAEXPAX00@Z @06f2e20faa8a @wcaf4bfffddb3
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method4<CSoundSystem,void,char_*,char_*,float,float>::vfunc_2 @ 0x001f0da0
 template <> void Method4<CSoundSystem, void, char *, char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CSoundSystem_1f0da0 * sound = (CSoundSystem_1f0da0 *)__p0; void * args = (void *)__p1; void * unused = (void *)__p2;
@@ -603,7 +603,7 @@ template <> void Method5<CSoundSystem, void, char *, char *, float, float, float
 
 
 // 0x001f0e90 FUN_001f0e90 (50 B): equivalent/0x001f0e90.cpp [wrapped: conflict: Callback]
-// sym: ?FUN_001f0e90@fn_001f0e90@@YAXPAUReceiver@1@PAUValues@1@HP821@AEXHHHHH@Z@Z
+// sym: ?FUN_001f0e90@fn_001f0e90@@YAXPAUReceiver@1@PAUValues@1@HP821@AEXHHHHH@Z@Z @90a47938d0a5 @w83c856a5e08e
 namespace fn_001f0e90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f0e90 @ 0x001f0e90
@@ -652,7 +652,7 @@ template <> void Method6<CSoundSystem, void, char *, char *, char *, float, floa
 
 
 // 0x001f0f90 FUN_001f0f90 (59 B): equivalent/0x001f0f90.cpp [wrapped: conflict: Callback]
-// sym: ?FUN_001f0f90@fn_001f0f90@@YAXPAUObj@1@PBIIP821@AEXIIIIII@Z@Z
+// sym: ?FUN_001f0f90@fn_001f0f90@@YAXPAUObj@1@PBIIP821@AEXIIIIII@Z@Z @43a5f43fe16b @wcc373d8b34f3
 namespace fn_001f0f90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f0f90 @ 0x001f0f90
@@ -703,7 +703,7 @@ template <> Method3<CSoundSystem, void, char *, float, float>::~Method3() {}
 
 
 // 0x001f10d0 Method3<CSoundSystem,void,char_*,float,float>::vfunc_2 (29 B): equivalent/0x001f10d0.cpp
-// sym: ?vfunc_2@?$Method3@VCSoundSystem@@XPADPADM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method3@VCSoundSystem@@XPADPADM@@UAEXPAX00@Z @a7a6d240b96d @w7a58705a9035
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CSoundSystem,void,char_*,float,float>::vfunc_2 @ 0x001f10d0
 template <> void Method3<CSoundSystem, void, char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CSoundSystem_1f10d0 * system = (CSoundSystem_1f10d0 *)__p0; SoundArguments * arguments = (SoundArguments *)__p1; void * unused = (void *)__p2;
@@ -781,7 +781,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_ffeee61e {
 
 // 0x001f1270 FUN_001f1270 (153 B): equivalent/0x001f1270.cpp
-// sym: ?FUN_001f1270@SoundResourceManager@fn_ffeee61e@@QAEPAV12@XZ
+// sym: ?FUN_001f1270@SoundResourceManager@fn_ffeee61e@@QAEPAV12@XZ @f05344da7020 @wea39432e40d9
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // FUN_001f1270 @ 0x001f1270
 SoundResourceManager *SoundResourceManager::FUN_001f1270()
@@ -849,7 +849,7 @@ void Owner_1f1350::Run(int arg) {
 
 
 // 0x001f13b0 FUN_001f13b0 (198 B): equivalent/0x001f13b0.cpp
-// sym: ?FUN_001f13b0@Object@fn_ffeee61e@@QAEXPAX0@Z
+// sym: ?FUN_001f13b0@Object@fn_ffeee61e@@QAEXPAX0@Z @89f4dc83a813 @wed70a225d761
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 14/14)
 // FUN_001f13b0 @ 0x001f13b0
 void Object::FUN_001f13b0(void* value, void* source) {
@@ -881,7 +881,7 @@ void Object::FUN_001f13b0(void* value, void* source) {
 } // namespace fn_ffeee61e
 
 // 0x001f1480 FUN_001f1480 (182 B): equivalent/0x001f1480.cpp [wrapped: conflict: Node]
-// sym: ?FUN_001f1480@Owner_1f1480@fn_001f1480@@QAEXPAX0M@Z
+// sym: ?FUN_001f1480@Owner_1f1480@fn_001f1480@@QAEXPAX0M@Z @863527e3beb7 @w510e17cf4f7e
 namespace fn_001f1480 {
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 12/12)
 // FUN_001f1480 @ 0x001f1480
@@ -919,7 +919,7 @@ void Owner_1f1480::FUN_001f1480(void* value, void* key, float weight) {
 namespace fn_ffeee61e {
 
 // 0x001f1540 FUN_001f1540 (90 B): equivalent/0x001f1540.cpp
-// sym: ?FUN_001f1540@fn_ffeee61e@@YGXPAX00@Z
+// sym: ?FUN_001f1540@fn_ffeee61e@@YGXPAX00@Z @180fe9376142 @w38c60b89b855
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001f1540 @ 0x001f1540
 void __stdcall FUN_001f1540(void *a, void *b, void *c) {
@@ -937,14 +937,14 @@ void __stdcall FUN_001f1540(void *a, void *b, void *c) {
 
 
 // 0x001f15a0 FUN_001f15a0 (90 B): equivalent/0x001f15a0.cpp
-// sym: ?FUN_001f15a0@fn_ffeee61e@@YGXPAX00@Z
+// sym: ?FUN_001f15a0@fn_ffeee61e@@YGXPAX00@Z @1d9cc2d9ef5c @w50ad66a5de8b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001f15a0 @ 0x001f15a0
 void __stdcall FUN_001f15a0(void *a, void *b, void *c) { if (!a || !b) return; Manager *manager = (*(Manager**)&DAT_004e3710); if (!manager) return; Item *item = (Item *)FUN_0008d710(0x20, 6); if (item) item = item->FUN_001f01c0(a, b, c); manager->FUN_001ef260(item); }
 
 
 // 0x001f1600 FUN_001f1600 (105 B): equivalent/0x001f1600.cpp
-// sym: ?FUN_001f1600@fn_ffeee61e@@YGXHHHHHH@Z
+// sym: ?FUN_001f1600@fn_ffeee61e@@YGXHHHHHH@Z @9b564625df3c @w040a60ea6b48
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 8/8)
 // FUN_001f1600 @ 0x001f1600
 void __stdcall FUN_001f1600(int a, int b, int c, int d, int e, int f)
@@ -964,7 +964,7 @@ void __stdcall FUN_001f1600(int a, int b, int c, int d, int e, int f)
 
 
 // 0x001f1670 FUN_001f1670 (100 B): equivalent/0x001f1670.cpp
-// sym: ?FUN_001f1670@fn_ffeee61e@@YGXHHHHH@Z
+// sym: ?FUN_001f1670@fn_ffeee61e@@YGXHHHHH@Z @db0867fa44a1 @wdb9fb240f61b
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 8/8)
 // FUN_001f1670 @ 0x001f1670
 void __stdcall FUN_001f1670(int a, int b, int c, int d, int e)
@@ -984,7 +984,7 @@ void __stdcall FUN_001f1670(int a, int b, int c, int d, int e)
 
 
 // 0x001f16e0 FUN_001f16e0 (95 B): equivalent/0x001f16e0.cpp
-// sym: ?FUN_001f16e0@fn_ffeee61e@@YGXPAX0II@Z
+// sym: ?FUN_001f16e0@fn_ffeee61e@@YGXPAX0II@Z @f7689a46a6f1 @w1c57d30fa4b6
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001f16e0 @ 0x001f16e0
 void __stdcall FUN_001f16e0(void* a, void* b, unsigned c, unsigned d) {
@@ -1003,7 +1003,7 @@ void __stdcall FUN_001f16e0(void* a, void* b, unsigned c, unsigned d) {
 } // namespace fn_ffeee61e
 
 // 0x001f1c30 FUN_001f1c30 (78 B): equivalent/0x001f1c30.cpp [wrapped: conflict: FUN_0008d710]
-// sym: ?FUN_001f1c30@fn_001f1c30@@YGXHH@Z
+// sym: ?FUN_001f1c30@fn_001f1c30@@YGXHH@Z @bb1dc08c29dc @w0252feb68f0a
 namespace fn_001f1c30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001f1c30 @ 0x001f1c30
@@ -1102,7 +1102,7 @@ template <> Closure3<CSoundSystem, void, char *, char *, float>::~Closure3() {}
 
 
 // 0x001f1de0 Closure3<CSoundSystem,void,char_*,char_*,float>::vfunc_2 (28 B): equivalent/0x001f1de0.cpp
-// sym: ?vfunc_2@?$Closure3@VCSoundSystem@@XPADPADM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure3@VCSoundSystem@@XPADPADM@@UAEXPAX00@Z @737c210bc5da @wc1b59fcf3196
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CSoundSystem,void,char_*,char_*,float>::vfunc_2 @ 0x001f1de0
 template <> void Closure3<CSoundSystem, void, char *, char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { SoundArgs * args = (SoundArgs *)__p1;
@@ -1148,7 +1148,7 @@ template <> void Closure6<CSoundSystem, void, char *, char *, float, float, floa
 
 
 // 0x001f1f60 Closure4<CSoundSystem,void,char_*,char_*,float,float>::vfunc_2 (39 B): equivalent/0x001f1f60.cpp
-// sym: ?vfunc_2@?$Closure4@VCSoundSystem@@XPADPADMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure4@VCSoundSystem@@XPADPADMM@@UAEXPAX00@Z @35da6a76506a @wda143db70d1f
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CSoundSystem,void,char_*,char_*,float,float>::vfunc_2 @ 0x001f1f60
 template <> void Closure4<CSoundSystem, void, char *, char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arguments * args = (Arguments *)__p1;
@@ -1367,7 +1367,7 @@ void C_1f22f0::Run(float x, bool flag) {
 
 
 // 0x001f2390 FUN_001f2390 (83 B): equivalent/0x001f2390.cpp
-// sym: ?FUN_001f2390@Registry_1f2390@fn_ffeee61e@@QAEXPBDPAVCSoundSystem_1f2390@2@P832@AEXPAD2M@Z@Z
+// sym: ?FUN_001f2390@Registry_1f2390@fn_ffeee61e@@QAEXPBDPAVCSoundSystem_1f2390@2@P832@AEXPAD2M@Z@Z @ef7d2a3c098b @wc86dd37b32b3
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001f2390 @ 0x001f2390
 // FUN_001f2390 @ 0x001f2390  (generated by tools/equiv_gen/reg_helper.py)
@@ -1386,7 +1386,7 @@ void Registry_1f2390::FUN_001f2390(const char* a1, CSoundSystem_1f2390* a2, Fn_1
 } // namespace fn_ffeee61e
 
 // 0x001f23f0 FUN_001f23f0 (109 B): equivalent/0x001f23f0.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ?FUN_001f23f0@Registry_1f23f0@fn_001f23f0@@QAEXPBDPAVCSoundSystem@2@P832@AEXXZ@Z
+// sym: ?FUN_001f23f0@Registry_1f23f0@fn_001f23f0@@QAEXPBDPAVCSoundSystem@2@P832@AEXXZ@Z @0be8ad4e75cf @w937c3889a41d
 namespace fn_001f23f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001f23f0 @ 0x001f23f0
@@ -1472,7 +1472,7 @@ void Registry_1f23f0::FUN_001f23f0(const char* name, CSoundSystem* owner, void (
 namespace fn_ffeee61e {
 
 // 0x001f2460 FUN_001f2460 (83 B): equivalent/0x001f2460.cpp
-// sym: ?FUN_001f2460@Registry_1f2460@fn_ffeee61e@@QAEXPBDPAVCSoundSystem_1f2460@2@P832@AEXPAD2MMMM@Z@Z
+// sym: ?FUN_001f2460@Registry_1f2460@fn_ffeee61e@@QAEXPBDPAVCSoundSystem_1f2460@2@P832@AEXPAD2MMMM@Z@Z @feb9f6d4dd51 @wf87fa5080564
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001f2460 @ 0x001f2460
 // FUN_001f2460 @ 0x001f2460  (generated by tools/equiv_gen/reg_helper.py)
@@ -1490,7 +1490,7 @@ void Registry_1f2460::FUN_001f2460(const char* a1, CSoundSystem_1f2460* a2, Fn_1
 
 
 // 0x001f24c0 FUN_001f24c0 (83 B): equivalent/0x001f24c0.cpp
-// sym: ?FUN_001f24c0@Registry_1f24c0@fn_ffeee61e@@QAEXPBDPAVCSoundSystem_1f24c0@2@P832@AEXPAD2MM@Z@Z
+// sym: ?FUN_001f24c0@Registry_1f24c0@fn_ffeee61e@@QAEXPBDPAVCSoundSystem_1f24c0@2@P832@AEXPAD2MM@Z@Z @5bb90e9caa92 @wa4f36cf196d0
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001f24c0 @ 0x001f24c0
 // FUN_001f24c0 @ 0x001f24c0  (generated by tools/equiv_gen/reg_helper.py)
@@ -1508,7 +1508,7 @@ void Registry_1f24c0::FUN_001f24c0(const char* a1, CSoundSystem_1f24c0* a2, Fn_1
 
 
 // 0x001f2520 FUN_001f2520 (83 B): equivalent/0x001f2520.cpp
-// sym: ?FUN_001f2520@Registry_1f2520@fn_ffeee61e@@QAEXPBDPAVCSoundSystem_1f2520@2@P832@AEXPAD2MMM@Z@Z
+// sym: ?FUN_001f2520@Registry_1f2520@fn_ffeee61e@@QAEXPBDPAVCSoundSystem_1f2520@2@P832@AEXPAD2MMM@Z@Z @5f6f93f6a887 @w3ec6a10d6bf3
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001f2520 @ 0x001f2520
 // FUN_001f2520 @ 0x001f2520  (generated by tools/equiv_gen/reg_helper.py)
@@ -1526,7 +1526,7 @@ void Registry_1f2520::FUN_001f2520(const char* a1, CSoundSystem_1f2520* a2, Fn_1
 
 
 // 0x001f2580 FUN_001f2580 (83 B): equivalent/0x001f2580.cpp
-// sym: ?FUN_001f2580@Registry_1f2580@fn_ffeee61e@@QAEXPBDPAVCSoundSystem_1f2580@2@P832@AEXPAD22MMM@Z@Z
+// sym: ?FUN_001f2580@Registry_1f2580@fn_ffeee61e@@QAEXPBDPAVCSoundSystem_1f2580@2@P832@AEXPAD22MMM@Z@Z @4553117a7b10 @w179b3cc137d1
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001f2580 @ 0x001f2580
 // FUN_001f2580 @ 0x001f2580  (generated by tools/equiv_gen/reg_helper.py)
@@ -1544,7 +1544,7 @@ void Registry_1f2580::FUN_001f2580(const char* a1, CSoundSystem_1f2580* a2, Fn_1
 
 
 // 0x001f2630 FUN_001f2630 (83 B): equivalent/0x001f2630.cpp
-// sym: ?FUN_001f2630@Registry_1f2630@fn_ffeee61e@@QAEXPBDPAVCSoundSystem_1f2630@2@P832@AEXPADMM@Z@Z
+// sym: ?FUN_001f2630@Registry_1f2630@fn_ffeee61e@@QAEXPBDPAVCSoundSystem_1f2630@2@P832@AEXPADMM@Z@Z @3b2aaf4ea8c8 @w601e1b1d07bf
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001f2630 @ 0x001f2630
 // FUN_001f2630 @ 0x001f2630  (generated by tools/equiv_gen/reg_helper.py)
@@ -1563,7 +1563,7 @@ void Registry_1f2630::FUN_001f2630(const char* a1, CSoundSystem_1f2630* a2, Fn_1
 } // namespace fn_ffeee61e
 
 // 0x001f2730 FUN_001f2730 (1217 B): equivalent/0x001f2730.cpp [wrapped: conflict: CSoundSystem; Closure1; Function; Method1]
-// sym: ?FUN_001f2730@CSoundSystem@fn_001f2730@@QAEXXZ
+// sym: ?FUN_001f2730@CSoundSystem@fn_001f2730@@QAEXXZ @1be8cbe57ef8 @w30db4fcbc35e
 namespace fn_001f2730 {
 // STATUS: equivalent (tools/equiv.py level 3: 455 inputs, branch coverage 38/38)
 // FUN_001f2730 @ 0x001f2730

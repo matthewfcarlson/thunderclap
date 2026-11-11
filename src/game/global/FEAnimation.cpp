@@ -404,7 +404,7 @@ float Obj_e0710::Get() {
 } // namespace fn_f9d29c80
 
 // 0x000e07c0 FUN_000e07c0 (129 B): equivalent/0x000e07c0.cpp [wrapped: macros]
-// sym: ?FUN_000e07c0@fn_000e07c0@@YAXPAUState_e07c0@1@IIIIIII@Z
+// sym: ?FUN_000e07c0@fn_000e07c0@@YAXPAUState_e07c0@1@IIIIIII@Z @a1c78fe426f4 @wd1d84d1f6c15
 namespace fn_000e07c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2966 inputs, branch coverage 0/0; Wine build 600 inputs, 0/0)
 // FUN_000e07c0 @ 0x000e07c0
@@ -445,7 +445,7 @@ void __cdecl FUN_000e07c0(State_e07c0* state, unsigned x1, unsigned y1, unsigned
 namespace fn_f9d29c80 {
 
 // 0x000e0850 FUN_000e0850 (342 B): equivalent/0x000e0850.cpp
-// sym: ?FUN_000e0850@fn_f9d29c80@@YAHUVec3_e0850@1@000HH@Z
+// sym: ?FUN_000e0850@fn_f9d29c80@@YAHUVec3_e0850@1@000HH@Z @2918b102ef5c @w93789e367f2a
 // STATUS: equivalent (tools/equiv.py level 3: 13927 inputs, branch coverage 4/4)
 // FUN_000e0850 @ 0x000e0850
 // FUN_000e0850 @ 0x000e0850
@@ -471,7 +471,7 @@ int __cdecl FUN_000e0850(Vec3_e0850 p0, Vec3_e0850 p1, Vec3_e0850 p2, Vec3_e0850
 
 
 // 0x000e09b0 FUN_000e09b0 (213 B): equivalent/0x000e09b0.cpp
-// sym: _FUN_000e09b0
+// sym: _FUN_000e09b0 @d2fdd12c9135 @w3a0cff773ebc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000e09b0 @ 0x000e09b0
 extern "C" int __cdecl FUN_000e09b0(float x1, float y1, float z1, float x2, float y2, float z2, unsigned int e, unsigned int f)
@@ -486,7 +486,7 @@ extern "C" int __cdecl FUN_000e09b0(float x1, float y1, float z1, float x2, floa
 } // namespace fn_f9d29c80
 
 // 0x000e0a90 FUN_000e0a90 (548 B): equivalent/0x000e0a90.cpp [wrapped: conflict: Gfx]
-// sym: _FUN_000e0a90
+// sym: _FUN_000e0a90 @a00b8cf52dd1 @w07f34d7ac5cd
 namespace fn_000e0a90 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000e0a90 @ 0x000e0a90
@@ -614,7 +614,7 @@ extern "C" void FUN_000e0a90(int a4, float w, float h, int unused, float d, unsi
 
 
 // 0x000e0cc0 FUN_000e0cc0 (388 B): equivalent/0x000e0cc0.cpp [wrapped: conflict: Gfx]
-// sym: _FUN_000e0cc0
+// sym: _FUN_000e0cc0 @0710b0ce4e62 @w8dbd62d38ce9
 namespace fn_000e0cc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000e0cc0 @ 0x000e0cc0
@@ -752,7 +752,7 @@ extern "C" void FUN_000e0cc0(float w, float h, int unused, unsigned int color, i
 
 
 // 0x000e0e50 FUN_000e0e50 (838 B): equivalent/0x000e0e50.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_000e0e50@fn_000e0e50@@YAXUVec3_e0e50@1@0000000HH@Z
+// sym: ?FUN_000e0e50@fn_000e0e50@@YAXUVec3_e0e50@1@0000000HH@Z @6b4ad0b0b8af @wcd3948504124
 namespace fn_000e0e50 {
 // STATUS: equivalent (tools/equiv.py level 3: 8493 inputs, branch coverage 4/4)
 // FUN_000e0e50 @ 0x000e0e50
@@ -892,7 +892,7 @@ void __cdecl FUN_000e0e50(Vec3_e0e50 c0, Vec3_e0e50 c1, Vec3_e0e50 c2, Vec3_e0e5
 namespace fn_f9d29c80 {
 
 // 0x000e11a0 FUN_000e11a0 (445 B): equivalent/0x000e11a0.cpp
-// sym: ?FUN_000e11a0@fn_f9d29c80@@YAXUVec3_e11a0@1@HH@Z
+// sym: ?FUN_000e11a0@fn_f9d29c80@@YAXUVec3_e11a0@1@HH@Z @db6c46893536 @wfca4b8d11cfb
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000e11a0 @ 0x000e11a0
 void FUN_000e11a0(Vec3_e11a0 extent, int a, int b)
@@ -937,7 +937,7 @@ void IValueChangedSender::vfunc_0() {
 
 
 // 0x000e13c0 FUN_000e13c0 (120 B): equivalent/0x000e13c0.cpp [wrapped: conflict: FEAnimation]
-// sym: ??0FEAnimation@fn_000e13c0@@QAE@HPBD@Z
+// sym: ??0FEAnimation@fn_000e13c0@@QAE@HPBD@Z @48df339f5b5c @w16d80406fbaa
 namespace fn_000e13c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_000e13c0 @ 0x000e13c0
@@ -1050,7 +1050,7 @@ void FEAnimation::vfunc_1(AnimTarget* p) {
 
 
 // 0x000e14b0 FEAnimation::vfunc_2 (88 B): equivalent/0x000e14b0.cpp [wrapped: conflict: DAT_004de948; FEAnimation]
-// sym: ?vfunc_2@FEAnimation@fn_000e14b0@@UAEXXZ
+// sym: ?vfunc_2@FEAnimation@fn_000e14b0@@UAEXXZ @1423e7b2e209 @w4a54b6c850c0
 namespace fn_000e14b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 10/10)
 // FEAnimation::vfunc_2 @ 0x000e14b0
@@ -1098,7 +1098,7 @@ void FEAnimation::vfunc_2()
 
 
 // 0x000e1510 FEPoseAnimation::vfunc_3 (94 B): equivalent/0x000e1510.cpp [wrapped: conflict: FEAnimation; FEPoseAnimation]
-// sym: ?vfunc_3@FEPoseAnimation@fn_000e1510@@UAEXXZ
+// sym: ?vfunc_3@FEPoseAnimation@fn_000e1510@@UAEXXZ @740e4911c0bc @we2e61f6f5485
 namespace fn_000e1510 {
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 2/2)
 // FEPoseAnimation::vfunc_3 @ 0x000e1510
@@ -1156,7 +1156,7 @@ hulk_freg FEPoseAnimation::vfunc_5() {
 
 
 // 0x000e15b0 FEParticleAnimation::vfunc_3 (94 B): equivalent/0x000e15b0.cpp [wrapped: conflict: FEParticleAnimation]
-// sym: ?vfunc_3@FEParticleAnimation@fn_000e15b0@@UAEXXZ
+// sym: ?vfunc_3@FEParticleAnimation@fn_000e15b0@@UAEXXZ @cde66b40003e @wc626af3f84b2
 namespace fn_000e15b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 2/2)
 // FEParticleAnimation::vfunc_3 @ 0x000e15b0
@@ -1262,7 +1262,7 @@ void FEParticleSystem::vfunc_2() {
 
 
 // 0x000e16a0 FEParticleSystem::vfunc_3 (94 B): equivalent/0x000e16a0.cpp [wrapped: conflict: FEParticleSystem]
-// sym: ?vfunc_3@FEParticleSystem@fn_000e16a0@@UAEXXZ
+// sym: ?vfunc_3@FEParticleSystem@fn_000e16a0@@UAEXXZ @000bb7d0e743 @wc682a080e6fe
 namespace fn_000e16a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 2/2)
 // FEParticleSystem::vfunc_3 @ 0x000e16a0

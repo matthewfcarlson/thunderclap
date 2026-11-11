@@ -56,7 +56,7 @@ hulk_intptr CSmartPropWeaponTypeCondition::vfunc_0(int index) {
 
 
 // 0x000493b0 CSmartPropWeaponTypeCondition::vfunc_7 (155 B): equivalent/0x000493b0.cpp
-// sym: ?vfunc_7@CSmartPropWeaponTypeCondition@@UAE_NPAX@Z
+// sym: ?vfunc_7@CSmartPropWeaponTypeCondition@@UAE_NPAX@Z @f8cd7f5753c9 @w3ba70ecbd14e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // CSmartPropWeaponTypeCondition::vfunc_7 @ 0x000493b0
 // CSmartPropWeaponTypeCondition::vfunc_7: does the held weapon's type match

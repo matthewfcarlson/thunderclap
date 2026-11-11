@@ -4,7 +4,7 @@
 
 
 // 0x00064280 FUN_00064280 (95 B): equivalent/0x00064280.cpp [isolated: compile error C2039: 'FUN_00061e50' : is not a member of 'CSmartPropDetachTrack']
-// sym: _FUN_00064280
+// sym: _FUN_00064280 @f91235ed8bdd @w9cb9a1dfca8b
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 4/4)
 // FUN_00064280 @ 0x00064280
 #include "decls/data/game/global.h"

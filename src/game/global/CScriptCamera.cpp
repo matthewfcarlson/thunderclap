@@ -105,7 +105,7 @@ void owners::Thing_ac7a0::FUN_000ac7a0(float a, float b) {
 
 
 // 0x000ac7d0 FUN_000ac7d0 (462 B): equivalent/0x000ac7d0.cpp [wrapped: conflict: CScriptCamera]
-// sym: ??0CScriptCamera@fn_000ac7d0@@QAE@XZ
+// sym: ??0CScriptCamera@fn_000ac7d0@@QAE@XZ @291a25affb0f @w20f39b39f210
 namespace fn_000ac7d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000ac7d0 @ 0x000ac7d0

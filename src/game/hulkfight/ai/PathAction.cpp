@@ -283,7 +283,7 @@ public:
 
 
 // 0x0011e4a0 hulkfight::ai::PathAction::vfunc_5 (5509 B): equivalent/0x0011e4a0.cpp
-// sym: ?vfunc_5@PathAction@ai@hulkfight@fn_fb5d7c9c@@UAEDHM@Z
+// sym: ?vfunc_5@PathAction@ai@hulkfight@fn_fb5d7c9c@@UAEDHM@Z @f570a7a4d5aa @waf6c33876088
 // STATUS: equivalent (tools/equiv.py level 3: 3337 inputs, branch coverage 240/259, incomplete)
 // hulkfight::ai::PathAction::vfunc_5 @ 0x0011e4a0
 namespace hulkfight { namespace ai {

@@ -7,7 +7,7 @@
 // 0x000ec350 MapThing::vfunc_3 (5 B): not yet verified
 
 // 0x000ec360 MapThing::vfunc_5 (1751 B): equivalent/0x000ec360.cpp [wrapped: macros]
-// sym: ?vfunc_5@MapThing@fn_000ec360@@UAEXXZ
+// sym: ?vfunc_5@MapThing@fn_000ec360@@UAEXXZ @fd606e435821 @w08fb7ef6b98d
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

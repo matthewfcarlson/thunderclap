@@ -106,7 +106,7 @@ void BallAndChainShootAction_1825f0::vfunc_4() {
 
 
 // 0x00182660 hulkfight::motion::BallAndChainReturnAction::vfunc_3 (222 B): equivalent/0x00182660.cpp
-// sym: ?vfunc_3@BallAndChainReturnAction@motion@hulkfight@fn_fe353baa@@UAE_NII@Z
+// sym: ?vfunc_3@BallAndChainReturnAction@motion@hulkfight@fn_fe353baa@@UAE_NII@Z @bc451244a8f8 @wdd0eecc6070e
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 4/4)
 // hulkfight::motion::BallAndChainReturnAction::vfunc_3 @ 0x00182660
 namespace hulkfight { namespace motion {
@@ -132,7 +132,7 @@ bool BallAndChainReturnAction::vfunc_3(unsigned,unsigned) {
 } // namespace fn_fe353baa
 
 // 0x00182740 hulkfight::motion::BallAndChainReturnAction::vfunc_5 (1355 B): equivalent/0x00182740.cpp [wrapped: conflict: hulkfight::motion::BallAndChainReturnAction]
-// sym: ?vfunc_5@BallAndChainReturnAction@motion@hulkfight@fn_00182740@@UAE_NHM@Z
+// sym: ?vfunc_5@BallAndChainReturnAction@motion@hulkfight@fn_00182740@@UAE_NHM@Z @7faab281d7dd @w9afcf4689833
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

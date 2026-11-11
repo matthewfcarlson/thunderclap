@@ -173,7 +173,7 @@ Data_df690::Data_df690() {}
 
 
 // 0x000df700 FUN_000df700 (167 B): equivalent/0x000df700.cpp
-// sym: ?FUN_000df700@PairTable@fn_f1bcb140@@QAEXXZ
+// sym: ?FUN_000df700@PairTable@fn_f1bcb140@@QAEXXZ @27f20bf90aa6 @w613d32e9bac4
 // STATUS: equivalent (tools/equiv.py level 3: 771 inputs, branch coverage 8/8)
 // FUN_000df700 @ 0x000df700
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d330

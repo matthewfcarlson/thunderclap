@@ -136,7 +136,7 @@ void FEParticleSystem::Cleanup() {
 
 
 // 0x000e8a90 FUN_000e8a90 (141 B): equivalent/0x000e8a90.cpp
-// sym: ??0FEDoAnimation@fn_ffdab178@@QAE@PAVFEContainer@1@PBD@Z
+// sym: ??0FEDoAnimation@fn_ffdab178@@QAE@PAVFEContainer@1@PBD@Z @1723beda844f @w73c76dd663ac
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000e8a90 @ 0x000e8a90
 // FEDoAnimation constructor: reset the animation state and look the named entry up in the owning screen.

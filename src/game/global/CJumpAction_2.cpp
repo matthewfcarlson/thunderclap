@@ -120,7 +120,7 @@ struct Frame_18d40 {
 
 
 // 0x00018d40 CJumpAction::vfunc_7 (856 B): equivalent/0x00018d40.cpp
-// sym: ?vfunc_7@CJumpAction@fn_fe2b3c0f@@UAE_NM@Z
+// sym: ?vfunc_7@CJumpAction@fn_fe2b3c0f@@UAE_NM@Z @f76576a6e5ff @w596af4882d22
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 20/20)
 // CJumpAction::vfunc_7 @ 0x00018d40
 bool CJumpAction::vfunc_7(float dt)

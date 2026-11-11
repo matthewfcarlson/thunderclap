@@ -4,7 +4,7 @@
 
 
 // 0x00072a20 FUN_00072a20 (158 B): equivalent/0x00072a20.cpp [isolated: compile error C2664: 'fn_00072a20::fight::ParamFloatConstRange<T>::ParamFloatConstRange(const char *,void (__thiscall CTargetTrack::* )(void)]
-// sym: _FUN_00072a20
+// sym: _FUN_00072a20 @eaf3c814d6bc @wa557d3786d81
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_00072a20 @ 0x00072a20
 #include "decls/data/game/global.h"

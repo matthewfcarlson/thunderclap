@@ -150,7 +150,7 @@ public:
 
 
 // 0x00022d00 CStunAnimationAction::vfunc_6 (751 B): equivalent/0x00022d00.cpp
-// sym: ?vfunc_6@CStunAnimationAction@fn_f089a1f8@@UAE_NH@Z
+// sym: ?vfunc_6@CStunAnimationAction@fn_f089a1f8@@UAE_NH@Z @f550e9efa83f @w884cb44fef45
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 42/42; Wine build 631 inputs, 42/42)
 // CStunAnimationAction::vfunc_6 @ 0x00022d00
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

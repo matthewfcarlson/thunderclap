@@ -4,7 +4,7 @@
 
 
 // 0x001379f0 FUN_001379f0 (358 B): equivalent/0x001379f0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called; on include/gen/ and not mergeable]
-// sym: ?FUN_001379f0@@YAXXZ
+// sym: ?FUN_001379f0@@YAXXZ @561ecf526e4a @wb766831fd9f3
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 14/14)
 // FUN_001379f0 @ 0x001379f0
 #include "decls/data/game/unknown.h"

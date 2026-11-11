@@ -312,7 +312,7 @@ Object_17af80* __cdecl Alloc_0008d690(int);
 
 
 // 0x00179c10 FUN_00179c10 (325 B): equivalent/0x00179c10.cpp
-// sym: ?FUN_00179c10@fn_ff8057c2@@YAXXZ
+// sym: ?FUN_00179c10@fn_ff8057c2@@YAXXZ @cc263a2237bd @w31278abd342e
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 12/12)
 // FUN_00179c10 @ 0x00179c10
 void FUN_00179c10()
@@ -348,7 +348,7 @@ void FUN_00179c10()
 
 
 // 0x00179d60 FUN_00179d60 (95 B): equivalent/0x00179d60.cpp
-// sym: ?FUN_00179d60@fn_ff8057c2@@YAXXZ
+// sym: ?FUN_00179d60@fn_ff8057c2@@YAXXZ @80e9922d809d @w5e8f7eea750e
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 4/4)
 // FUN_00179d60 @ 0x00179d60
 void FUN_00179d60()
@@ -367,7 +367,7 @@ void FUN_00179d60()
 
 
 // 0x00179dc0 FUN_00179dc0 (358 B): equivalent/0x00179dc0.cpp
-// sym: _FUN_00179dc0
+// sym: _FUN_00179dc0 @6581b81c9a9b @w3af5df5b5457
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 14/14)
 // FUN_00179dc0 @ 0x00179dc0
 extern "C" void FUN_00179dc0()
@@ -407,7 +407,7 @@ extern "C" void FUN_00179dc0()
 
 
 // 0x00179f30 FUN_00179f30 (170 B): equivalent/0x00179f30.cpp
-// sym: _FUN_00179f30
+// sym: _FUN_00179f30 @ee6826e94088 @w47e831858b81
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 6/6)
 // FUN_00179f30 @ 0x00179f30
 extern "C" void FUN_00179f30()
@@ -430,7 +430,7 @@ extern "C" void FUN_00179f30()
 
 
 // 0x00179fe0 FUN_00179fe0 (409 B): equivalent/0x00179fe0.cpp
-// sym: _FUN_00179fe0
+// sym: _FUN_00179fe0 @bc491c1438ea @wa3552a894f51
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 16/16)
 // FUN_00179fe0 @ 0x00179fe0
 extern "C" void FUN_00179fe0()
@@ -473,7 +473,7 @@ extern "C" void FUN_00179fe0()
 
 
 // 0x0017a420 FUN_0017a420 (95 B): equivalent/0x0017a420.cpp
-// sym: _FUN_0017a420
+// sym: _FUN_0017a420 @c4b50e640876 @w8ccbefda1d54
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 4/4)
 // FUN_0017a420 @ 0x0017a420
 extern "C" void FUN_0017a420()
@@ -492,7 +492,7 @@ extern "C" void FUN_0017a420()
 
 
 // 0x0017a480 FUN_0017a480 (158 B): equivalent/0x0017a480.cpp
-// sym: _FUN_0017a480
+// sym: _FUN_0017a480 @58083968d8f5 @w83b55ff7ef24
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_0017a480 @ 0x0017a480
 extern "C" void FUN_0017a480()
@@ -515,7 +515,7 @@ extern "C" void FUN_0017a480()
 
 
 // 0x0017a520 FUN_0017a520 (817 B): equivalent/0x0017a520.cpp
-// sym: _FUN_0017a520
+// sym: _FUN_0017a520 @422569fc01d8 @w1b0c3dde7e5e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 32/32)
 // FUN_0017a520 @ 0x0017a520
 extern "C" void FUN_0017a520()
@@ -590,7 +590,7 @@ extern "C" void FUN_0017a520()
 
 
 // 0x0017a860 FUN_0017a860 (307 B): equivalent/0x0017a860.cpp
-// sym: _FUN_0017a860
+// sym: _FUN_0017a860 @baa1b5dbabba @w09c26df65477
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 12/12)
 // FUN_0017a860 @ 0x0017a860
 extern "C" void FUN_0017a860()
@@ -656,7 +656,7 @@ extern "C" void FUN_0017a9a0() {
 
 
 // 0x0017aa40 FUN_0017aa40 (307 B): equivalent/0x0017aa40.cpp
-// sym: _FUN_0017aa40
+// sym: _FUN_0017aa40 @2a49e5292e51 @wd9f554f0aae5
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 12/12)
 // FUN_0017aa40 @ 0x0017aa40
 extern "C" void FUN_0017aa40()
@@ -692,7 +692,7 @@ extern "C" void FUN_0017aa40()
 
 
 // 0x0017ac80 FUN_0017ac80 (158 B): equivalent/0x0017ac80.cpp
-// sym: _FUN_0017ac80
+// sym: _FUN_0017ac80 @bbd2a2c7b423 @w9e059a52282e
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_0017ac80 @ 0x0017ac80
 extern "C" void FUN_0017ac80()
@@ -715,7 +715,7 @@ extern "C" void FUN_0017ac80()
 
 
 // 0x0017aee0 FUN_0017aee0 (158 B): equivalent/0x0017aee0.cpp
-// sym: _FUN_0017aee0
+// sym: _FUN_0017aee0 @a0237b2447a5 @wa307e2bd225b
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_0017aee0 @ 0x0017aee0
 extern "C" void FUN_0017aee0()

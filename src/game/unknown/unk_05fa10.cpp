@@ -286,7 +286,7 @@ class Obj_60450 {
 
 
 // 0x0005fa10 FUN_0005fa10 (460 B): equivalent/0x0005fa10.cpp
-// sym: _FUN_0005fa10
+// sym: _FUN_0005fa10 @4b78b42fa8a2 @w1a62c898c9a9
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 18/18)
 // FUN_0005fa10 @ 0x0005fa10
 extern "C" void FUN_0005fa10()
@@ -333,7 +333,7 @@ extern "C" void FUN_0005fa10()
 
 
 // 0x0005fbe0 FUN_0005fbe0 (784 B): equivalent/0x0005fbe0.cpp
-// sym: _FUN_0005fbe0
+// sym: _FUN_0005fbe0 @fe8a8dc65ebc @wc92ed906f70c
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 30/30)
 // FUN_0005fbe0 @ 0x0005fbe0
 extern "C" void FUN_0005fbe0()
@@ -404,7 +404,7 @@ extern "C" void FUN_0005fbe0()
 
 
 // 0x0005fef0 FUN_0005fef0 (631 B): equivalent/0x0005fef0.cpp
-// sym: _FUN_0005fef0
+// sym: _FUN_0005fef0 @dcfa6e5b5b42 @wa801744abcc5
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 24/24)
 // FUN_0005fef0 @ 0x0005fef0
 extern "C" void FUN_0005fef0()
@@ -463,7 +463,7 @@ extern "C" void FUN_0005fef0()
 
 
 // 0x00060170 FUN_00060170 (118 B): equivalent/0x00060170.cpp
-// sym: ?FUN_00060170@Object@fn_fe2e62b7@@QAEXXZ
+// sym: ?FUN_00060170@Object@fn_fe2e62b7@@QAEXXZ @b45888004883 @w90958a31a05c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00060170 @ 0x00060170
 void Object::FUN_00060170() {

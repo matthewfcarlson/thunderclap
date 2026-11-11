@@ -107,7 +107,7 @@ hulk_freg CUninterruptibleTrack::vfunc_7() {
 
 
 // 0x0006a930 CUninterruptibleTrack::vfunc_12 (52 B): equivalent/0x0006a930.cpp
-// sym: ?vfunc_12@CUninterruptibleTrack@@UAEHH@Z
+// sym: ?vfunc_12@CUninterruptibleTrack@@UAEHH@Z @3b4025b32642 @wdfbdb5ebcb1b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CUninterruptibleTrack::vfunc_12 @ 0x0006a930
 hulk_intptr CUninterruptibleTrack::vfunc_12(hulk_intptr arg) { CUninterruptibleAction_6a930* item = (CUninterruptibleAction_6a930*)FUN_0008d690(0x24); if (!item) return (int)(0); return (hulk_intptr)(item->FUN_00020020(arg, this->extensionTime)); }

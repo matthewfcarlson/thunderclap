@@ -56,7 +56,7 @@ struct Manager_1fdc90 {
 
 
 // 0x001fd9a0 FUN_001fd9a0 (737 B): equivalent/0x001fd9a0.cpp
-// sym: ?FUN_001fd9a0@Manager_1fd9a0@fn_faf408b8@@QAE_NPBD@Z
+// sym: ?FUN_001fd9a0@Manager_1fd9a0@fn_faf408b8@@QAE_NPBD@Z @8fec18ca25b7 @wd59816f8ffe0
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 31/32, incomplete)
 // FUN_001fd9a0 @ 0x001fd9a0
 bool Manager_1fd9a0::FUN_001fd9a0(const char* file) {
@@ -141,7 +141,7 @@ bool Manager_1fd9a0::FUN_001fd9a0(const char* file) {
 
 
 // 0x001fdc90 FUN_001fdc90 (533 B): equivalent/0x001fdc90.cpp
-// sym: ?FUN_001fdc90@Manager_1fdc90@fn_faf408b8@@QAE_NHPBD@Z
+// sym: ?FUN_001fdc90@Manager_1fdc90@fn_faf408b8@@QAE_NHPBD@Z @8b381d4cf464 @w083b2741bf9d
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 32/32)
 // FUN_001fdc90 @ 0x001fdc90
 bool Manager_1fdc90::FUN_001fdc90(int id,const char* file) {

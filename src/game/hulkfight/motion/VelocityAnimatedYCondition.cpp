@@ -20,7 +20,7 @@ struct A_168280 {  };
 } // namespace fn_f563e818
 
 // 0x00168280 hulkfight::motion::VelocityAnimatedYCondition::vfunc_6 (232 B): equivalent/0x00168280.cpp
-// sym: ?vfunc_6@VelocityAnimatedYCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@VelocityAnimatedYCondition@motion@hulkfight@@UAE_NPAX00@Z @a1df613b64c9 @wc10fb2e99946
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // hulkfight::motion::VelocityAnimatedYCondition::vfunc_6 @ 0x00168280
 bool hulkfight::motion::VelocityAnimatedYCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { A_168280 * actor = (A_168280 *)__p1;

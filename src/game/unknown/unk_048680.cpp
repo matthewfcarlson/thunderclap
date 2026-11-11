@@ -407,7 +407,7 @@ hulk_intptr CCharacterSizeCondition::vfunc_0(int index) {
 
 
 // 0x00048ae0 CCharacterSizeCondition::vfunc_7 (81 B): equivalent/0x00048ae0.cpp [wrapped: conflict: CCharacterSizeCondition]
-// sym: ?vfunc_7@CCharacterSizeCondition@fn_00048ae0@@QAEIPAUInput@2@@Z
+// sym: ?vfunc_7@CCharacterSizeCondition@fn_00048ae0@@QAEIPAUInput@2@@Z @7dc3c931b254 @w209fbfd22043
 namespace fn_00048ae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 10/10)
 // CCharacterSizeCondition::vfunc_7 @ 0x00048ae0
@@ -456,7 +456,7 @@ hulk_intptr CCollisionHitLocationCondition::vfunc_0(int index) {
 
 
 // 0x00048bb0 CCollisionHitLocationCondition::vfunc_7 (136 B): equivalent/0x00048bb0.cpp
-// sym: ?vfunc_7@CCollisionHitLocationCondition@@UAE_NPAX@Z
+// sym: ?vfunc_7@CCollisionHitLocationCondition@@UAE_NPAX@Z @d432f25969a2 @w27ce5600593c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // CCollisionHitLocationCondition::vfunc_7 @ 0x00048bb0
 bool CCollisionHitLocationCondition::vfunc_7(void* __p0) { Ctx_48bb0 * ctx = (Ctx_48bb0 *)__p0;
@@ -608,7 +608,7 @@ bool CNameFlagCondition::vfunc_7(void* __p0) { hulk_intptr arg = (hulk_intptr)__
 
 
 // 0x00048e10 CCollisionFlagCondition::vfunc_7 (78 B): equivalent/0x00048e10.cpp [wrapped: conflict: CCollisionFlagCondition]
-// sym: ?vfunc_7@CCollisionFlagCondition@fn_00048e10@@QAEIPAUCollisionContext@2@@Z
+// sym: ?vfunc_7@CCollisionFlagCondition@fn_00048e10@@QAEIPAUCollisionContext@2@@Z @231ab62ca109 @wcf688f7529bc
 namespace fn_00048e10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 14/14)
 // CCollisionFlagCondition::vfunc_7 @ 0x00048e10

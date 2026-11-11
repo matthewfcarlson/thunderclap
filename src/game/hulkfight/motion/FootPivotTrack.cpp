@@ -50,7 +50,7 @@ hulk_intptr hulkfight::motion::FootPivotTrack::vfunc_0(int index) {
 
 
 // 0x00170f90 FUN_00170f90 (87 B): equivalent/0x00170f90.cpp [wrapped: conflict: hulkfight::motion::FootPivotTrack]
-// sym: ??0FootPivotTrack@motion@hulkfight@fn_00170f90@@QAE@XZ
+// sym: ??0FootPivotTrack@motion@hulkfight@fn_00170f90@@QAE@XZ @3def6327762d @we88dbe521b69
 namespace fn_00170f90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00170f90 @ 0x00170f90

@@ -4,7 +4,7 @@
 
 
 // 0x000719a0 FUN_000719a0 (213 B): equivalent/0x000719a0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_000719a0
+// sym: _FUN_000719a0 @295a117fcdbc @w33cadea3833c
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 namespace fn_fb4a3d99 {} using namespace fn_fb4a3d99;

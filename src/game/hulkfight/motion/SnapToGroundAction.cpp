@@ -65,7 +65,7 @@ bool hulkfight::motion::VisibilityAction::vfunc_3(hulk_intptr , hulk_intptr ) {
 
 
 // 0x00172950 hulkfight::motion::SnapToGroundAction::vfunc_3 (219 B): equivalent/0x00172950.cpp
-// sym: ?vfunc_3@SnapToGroundAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@SnapToGroundAction@motion@hulkfight@@UAE_NHH@Z @ac0eff491ca0 @wa1ae415bbdd7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // hulkfight::motion::SnapToGroundAction::vfunc_3 @ 0x00172950
 bool hulkfight::motion::SnapToGroundAction::vfunc_3(hulk_intptr , hulk_intptr ) {

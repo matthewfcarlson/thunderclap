@@ -62,7 +62,7 @@ public:
 
 
 // 0x000c8200 FUN_000c8200 (521 B): equivalent/0x000c8200.cpp
-// sym: ?FUN_000c8200@Obj_c8200@fn_f2af3f62@@QAEHHPAIMMMMMMMMM@Z
+// sym: ?FUN_000c8200@Obj_c8200@fn_f2af3f62@@QAEHHPAIMMMMMMMMM@Z @02d4457f3d6d @w2b07b6451976
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
 // FUN_000c8200 @ 0x000c8200
 int Obj_c8200::FUN_000c8200(int a0, unsigned int *a1, float a2, float a3, float a4,
@@ -119,7 +119,7 @@ int Obj_c8200::FUN_000c8200(int a0, unsigned int *a1, float a2, float a3, float 
 } // namespace fn_f2af3f62
 
 // 0x000c9550 FUN_000c9550 (381 B): equivalent/0x000c9550.cpp [wrapped: conflict: World]
-// sym: ?FUN_000c9550@fn_000c9550@@YGXPBDPAUTarget_c9550@1@H@Z
+// sym: ?FUN_000c9550@fn_000c9550@@YGXPBDPAUTarget_c9550@1@H@Z @a59d82e60e34 @w3a65b8244bca
 namespace fn_000c9550 {
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 14/14)
 // FUN_000c9550 @ 0x000c9550

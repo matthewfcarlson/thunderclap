@@ -133,7 +133,7 @@ CAction_1ae10::~CAction_1ae10() {
 } // namespace fn_f8ca2d43
 
 // 0x0001ae40 COpportunityBallAction::vfunc_8 (566 B): equivalent/0x0001ae40.cpp
-// sym: ?vfunc_8@COpportunityBallAction@@UAE_NH@Z
+// sym: ?vfunc_8@COpportunityBallAction@@UAE_NH@Z @20877d4d023a @w75224b707ada
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 22/24, incomplete)
 // COpportunityBallAction::vfunc_8 @ 0x0001ae40
 bool COpportunityBallAction::vfunc_8(int arg) {

@@ -128,7 +128,7 @@ void owners::C_a9130::FUN_000a9130(int index, int value) {
 namespace fn_f19d3f35 {
 
 // 0x000a9170 FUN_000a9170 (45 B): equivalent/0x000a9170.cpp
-// sym: _FUN_000a9170@8
+// sym: _FUN_000a9170@8 @33f32bca1a76 @w922b0ae62f17
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000a9170 @ 0x000a9170
 extern "C" Object* __stdcall FUN_000a9170(Object* first, Object* second) {
@@ -203,7 +203,7 @@ void CAgent::vfunc_7(int a) {
 namespace fn_f19d3f35 {
 
 // 0x000a91e0 FUN_000a91e0 (120 B): equivalent/0x000a91e0.cpp
-// sym: ?FUN_000a91e0@Owner_a91e0@fn_f19d3f35@@QAE_NPBUVec3_a91e0@2@@Z
+// sym: ?FUN_000a91e0@Owner_a91e0@fn_f19d3f35@@QAE_NPBUVec3_a91e0@2@@Z @964923ef2cd4 @wdd46e71b9895
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000a91e0 @ 0x000a91e0
 bool Owner_a91e0::FUN_000a91e0(const Vec3_a91e0* target) {
@@ -219,7 +219,7 @@ bool Owner_a91e0::FUN_000a91e0(const Vec3_a91e0* target) {
 
 
 // 0x000a92c0 FUN_000a92c0 (154 B): equivalent/0x000a92c0.cpp
-// sym: ?FUN_000a92c0@Offset_a92c0@fn_f19d3f35@@QAE?AUVec3_a92c0@2@PAUContext@2@PAUTarget_a92c0@2@@Z
+// sym: ?FUN_000a92c0@Offset_a92c0@fn_f19d3f35@@QAE?AUVec3_a92c0@2@PAUContext@2@PAUTarget_a92c0@2@@Z @18370b4ef73f @w9e575b18b0b6
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000a92c0 @ 0x000a92c0
 Vec3_a92c0 Offset_a92c0::FUN_000a92c0(Context *ctx, Target_a92c0 *t)
@@ -338,7 +338,7 @@ void CGameCamera::vfunc_27(void* __p0) { unsigned int * p = (unsigned int *)__p0
 
 
 // 0x000a9400 FUN_000a9400 (177 B): equivalent/0x000a9400.cpp [wrapped: conflict: CGameCamera; pure3d::Camera]
-// sym: ??0CGameCamera@fn_000a9400@@QAE@XZ
+// sym: ??0CGameCamera@fn_000a9400@@QAE@XZ @735048832553 @w64544bb976d8
 namespace fn_000a9400 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000a9400 @ 0x000a9400
@@ -393,7 +393,7 @@ CGameCamera::CGameCamera() {
 
 
 // 0x000a94c0 FUN_000a94c0 (342 B): equivalent/0x000a94c0.cpp [wrapped: conflict: CGameCamera; pure3d::Camera]
-// sym: ??0CGameCamera@fn_000a94c0@@QAE@ABU01@@Z
+// sym: ??0CGameCamera@fn_000a94c0@@QAE@ABU01@@Z @8b79d3579a2d @w3d5863359b33
 namespace fn_000a94c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000a94c0 @ 0x000a94c0

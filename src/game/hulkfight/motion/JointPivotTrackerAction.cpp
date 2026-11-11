@@ -79,7 +79,7 @@ struct Two_171480 {
 
 
 // 0x001712c0 hulkfight::motion::JointPivotTrackerAction::vfunc_3 (437 B): equivalent/0x001712c0.cpp
-// sym: ?vfunc_3@JointPivotTrackerAction@fn_f3bedcbc@@UAE_NHH@Z
+// sym: ?vfunc_3@JointPivotTrackerAction@fn_f3bedcbc@@UAE_NHH@Z @633731af5611 @w1e76c1b091e5
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 6/6)
 // hulkfight::motion::JointPivotTrackerAction::vfunc_3 @ 0x001712c0
 bool JointPivotTrackerAction::vfunc_3(int a, int b)

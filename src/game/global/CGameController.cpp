@@ -159,7 +159,7 @@ CGameController* CGameController::vfunc_2(unsigned char flag) {
 
 
 // 0x000af170 FUN_000af170 (348 B): equivalent/0x000af170.cpp
-// sym: ?FUN_000af170@InputTracker@fn_fb9e703c@@QAEXM@Z
+// sym: ?FUN_000af170@InputTracker@fn_fb9e703c@@QAEXM@Z @ff51fcab7152 @w13700d501880
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
 // FUN_000af170 @ 0x000af170
 void InputTracker::FUN_000af170(float dt)

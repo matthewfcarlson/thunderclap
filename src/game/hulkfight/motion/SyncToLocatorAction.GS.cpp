@@ -140,7 +140,7 @@ struct Frame_171e60 {
 
 
 // 0x00171e60 hulkfight::motion::SyncToLocatorAction::vfunc_3 (856 B): equivalent/0x00171e60.cpp
-// sym: ?vfunc_3@SyncToLocatorAction@fn_fb0ac428@@UAE_NHH@Z
+// sym: ?vfunc_3@SyncToLocatorAction@fn_fb0ac428@@UAE_NHH@Z @8ec37b656576 @wd6e05b12e2da
 // STATUS: equivalent (tools/equiv.py level 3: 20051 inputs, branch coverage 31/32, incomplete)
 // hulkfight::motion::SyncToLocatorAction::vfunc_3 @ 0x00171e60
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

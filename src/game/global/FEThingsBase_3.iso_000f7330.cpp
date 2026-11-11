@@ -5,7 +5,7 @@
 
 
 // 0x000f7330 FUN_000f7330 (899 B): equivalent/0x000f7330.cpp [isolated: code differs from its standalone build; on include/gen/ and not mergeable]
-// sym: ?FUN_000f7330@GlyphRun@@QAEXPAGHHHPAUCallback_f7330@@@Z
+// sym: ?FUN_000f7330@GlyphRun@@QAEXPAGHHHPAUCallback_f7330@@@Z @5345c9bd1e1c @w6d333eb2413a
 // STATUS: equivalent (tools/equiv.py level 3: 19995 inputs, branch coverage 42/42)
 // FUN_000f7330 @ 0x000f7330
 #include "decls/data/engine/pure3d/prop.h"

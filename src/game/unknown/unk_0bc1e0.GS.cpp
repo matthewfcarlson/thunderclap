@@ -236,7 +236,7 @@ extern "C" TextManager_bd050* FUN_000fc3d0();
 
 
 // 0x000bc3c0 FUN_000bc3c0 (264 B): equivalent/0x000bc3c0.cpp
-// sym: ?FUN_000bc3c0@fn_ff542b10@@YGXPBDPAVTarget_bc3c0@1@H@Z
+// sym: ?FUN_000bc3c0@fn_ff542b10@@YGXPBDPAVTarget_bc3c0@1@H@Z @ebbee815681e @w834956468788
 // STATUS: equivalent (tools/equiv.py level 3: 3566 inputs, branch coverage 8/8)
 // FUN_000bc3c0 @ 0x000bc3c0
 void __stdcall FUN_000bc3c0(const char* src, Target_bc3c0* target, int arg) {
@@ -299,7 +299,7 @@ void Menu_bc6a0::FUN_000bc6a0()
 
 
 // 0x000bc900 FUN_000bc900 (234 B): equivalent/0x000bc900.cpp
-// sym: ?FUN_000bc900@Object@fn_ff542b10@@QAEHPAGHHH@Z
+// sym: ?FUN_000bc900@Object@fn_ff542b10@@QAEHPAGHHH@Z @dce0047d8acd @w645c958202ca
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 2/2)
 // FUN_000bc900 @ 0x000bc900
 int Object::FUN_000bc900(WideChar* output, int position, int key, int entryIndex) {
@@ -378,7 +378,7 @@ void owners::MenuScreen_bc9f0::FUN_000bc9f0(hulk_intptr id, int code)
 
 
 // 0x000bd050 FUN_000bd050 (347 B): equivalent/0x000bd050.cpp
-// sym: ?FUN_000bd050@MenuScreen_bd050@owners@@QAEXXZ
+// sym: ?FUN_000bd050@MenuScreen_bd050@owners@@QAEXXZ @0e8516c5dec6 @w65e38c7577c6
 // STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 0/0)
 // FUN_000bd050 @ 0x000bd050
 void owners::MenuScreen_bd050::FUN_000bd050() {

@@ -71,7 +71,7 @@ public:
 
 
 // 0x000de9a0 FUN_000de9a0 (958 B): equivalent/0x000de9a0.cpp
-// sym: ?FUN_000de9a0@InputMapper@fn_f6230dba@@QAEXD@Z
+// sym: ?FUN_000de9a0@InputMapper@fn_f6230dba@@QAEXD@Z @c9ea894ad2ee @we9b5c7bf4664
 // STATUS: equivalent (tools/equiv.py level 3: 3191 inputs, branch coverage 75/76, incomplete)
 // FUN_000de9a0 @ 0x000de9a0
 void InputMapper::FUN_000de9a0(char skip)

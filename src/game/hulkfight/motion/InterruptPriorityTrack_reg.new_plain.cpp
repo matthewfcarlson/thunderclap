@@ -108,7 +108,7 @@ extern "C" void FUN_00155270() {
 
 
 // 0x00155330 FUN_00155330 (190 B): equivalent/0x00155330.cpp [wrapped: conflict: Param; fight::ParamEnumConstList]
-// sym: _FUN_00155330
+// sym: _FUN_00155330 @d3b16e9e0c8f @wab1c64862edc
 namespace fn_00155330 {
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_00155330 @ 0x00155330
@@ -222,7 +222,7 @@ extern "C" void __cdecl FUN_001555c0() {
 
 
 // 0x001557f0 FUN_001557f0 (231 B): equivalent/0x001557f0.cpp [wrapped: conflict: fight::ParamBool; fight::ParamBranch; fight::ParamEnumConstList]
-// sym: ?target@fn_001557f0@@YAXXZ
+// sym: ?target@fn_001557f0@@YAXXZ @04be5aafdb45 @w7c0d541b4eaf
 namespace fn_001557f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_001557f0 @ 0x001557f0
@@ -254,7 +254,7 @@ void target() {
 namespace fn_f8a523c5 {
 
 // 0x001558e0 FUN_001558e0 (231 B): equivalent/0x001558e0.cpp
-// sym: ?target@fn_f8a523c5@@YAXXZ
+// sym: ?target@fn_f8a523c5@@YAXXZ @cb332813ee9c @w11641f4868d0
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 8/8)
 // FUN_001558e0 @ 0x001558e0
 void target() {

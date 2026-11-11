@@ -172,7 +172,7 @@ class PushOutAction : public Action_1748b0 {
 
 
 // 0x00174660 FUN_00174660 (74 B): equivalent/0x00174660.cpp
-// sym: ?FUN_00174660@JointRelativeAction@fn_f2f1fd83@@QAEPAU12@IPAVRef@2@@Z
+// sym: ?FUN_00174660@JointRelativeAction@fn_f2f1fd83@@QAEPAU12@IPAVRef@2@@Z @b528d438baf6 @w1aa144ab323b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00174660 @ 0x00174660
 JointRelativeAction * JointRelativeAction::FUN_00174660(unsigned int value, Ref *ref) {

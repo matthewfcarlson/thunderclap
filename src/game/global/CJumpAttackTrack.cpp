@@ -49,7 +49,7 @@ extern "C" int __stdcall FUN_0006a5c0(int a1) {
 } // namespace fn_fddc6665
 
 // 0x0006a5d0 FUN_0006a5d0 (67 B): equivalent/0x0006a5d0.cpp [wrapped: conflict: CJumpAttackTrack]
-// sym: ??0CJumpAttackTrack@fn_0006a5d0@@QAE@XZ
+// sym: ??0CJumpAttackTrack@fn_0006a5d0@@QAE@XZ @872e5a09578f @w0d921f87ed66
 namespace fn_0006a5d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0006a5d0 @ 0x0006a5d0

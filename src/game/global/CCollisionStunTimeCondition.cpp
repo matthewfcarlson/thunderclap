@@ -39,7 +39,7 @@ CCollisionStunTimeCondition* CCollisionStunTimeCondition::vfunc_5(signed char fl
 } // namespace fn_fb02dbc9
 
 // 0x0004c580 CCollisionStunTimeCondition::vfunc_7 (189 B): equivalent/0x0004c580.cpp [wrapped: conflict: CCollisionStunTimeCondition]
-// sym: ?vfunc_7@CCollisionStunTimeCondition@fn_0004c580@@UAE_NPAUContext@2@@Z
+// sym: ?vfunc_7@CCollisionStunTimeCondition@fn_0004c580@@UAE_NPAUContext@2@@Z @94bd85f824f6 @wd48a6afea88e
 namespace fn_0004c580 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CCollisionStunTimeCondition::vfunc_7 @ 0x0004c580

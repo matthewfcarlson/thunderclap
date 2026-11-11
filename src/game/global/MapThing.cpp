@@ -260,7 +260,7 @@ X_e36a0* X_e36a0::Target() {
 
 
 // 0x000e36c0 FUN_000e36c0 (138 B): equivalent/0x000e36c0.cpp
-// sym: ?FUN_000e36c0@HintList@fn_ffa3e06c@@QAEXXZ
+// sym: ?FUN_000e36c0@HintList@fn_ffa3e06c@@QAEXXZ @708a1535d368 @wfb54019b1388
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 8/8)
 // FUN_000e36c0 @ 0x000e36c0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
@@ -349,7 +349,7 @@ void Obj_e3890::Target(const char* s, char flag) {
 } // namespace fn_ffa3e06c
 
 // 0x000e3900 MapThing::vfunc_11 (152 B): equivalent/0x000e3900.cpp
-// sym: ?vfunc_11@MapThing@@UAEXH@Z
+// sym: ?vfunc_11@MapThing@@UAEXH@Z @4177c6d48b64 @w9890824fb1d1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // MapThing::vfunc_11 @ 0x000e3900
 // Finds the region that contains the entity's position and selects it.

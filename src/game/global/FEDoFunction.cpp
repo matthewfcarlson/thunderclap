@@ -195,7 +195,7 @@ void FEDoSound::vfunc_1() {
 
 
 // 0x000e19d0 FUN_000e19d0 (136 B): equivalent/0x000e19d0.cpp [wrapped: conflict: FEDoFunction]
-// sym: ??0FEDoFunction@fn_000e19d0@@QAE@PAUOwner_e19d0@1@HH@Z
+// sym: ??0FEDoFunction@fn_000e19d0@@QAE@PAUOwner_e19d0@1@HH@Z @b81f51762542 @wae6b62903806
 namespace fn_000e19d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 226 inputs, branch coverage 10/10)
 // FUN_000e19d0 @ 0x000e19d0

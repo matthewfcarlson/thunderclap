@@ -144,7 +144,7 @@ static __forceinline void *LoadAnim(StrafeData_23160 *sd, int idx, void *slot)
 
 
 // 0x00023160 CGrappleLocoStrafe4Action::vfunc_6 (1154 B): equivalent/0x00023160.cpp
-// sym: ?vfunc_6@CGrappleLocoStrafe4Action@fn_f698f5f9@@UAE_NH@Z
+// sym: ?vfunc_6@CGrappleLocoStrafe4Action@fn_f698f5f9@@UAE_NH@Z @885583d57c37 @w111a31e0f235
 // STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 52/54, incomplete)
 // CGrappleLocoStrafe4Action::vfunc_6 @ 0x00023160
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

@@ -5,7 +5,7 @@
 
 
 // 0x0007f310 FUN_0007f310 (318 B): equivalent/0x0007f310.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_0007f310@Manager_7f310@fn_f804b1ac@@QAEPAVNode@2@HHHH@Z
+// sym: ?FUN_0007f310@Manager_7f310@fn_f804b1ac@@QAEPAVNode@2@HHHH@Z @a84979095c2f @w0f1e80ae870a
 #include "gen/owners.h"
 namespace fn_f804b1ac {} using namespace fn_f804b1ac;
 namespace fn_f804b1ac {

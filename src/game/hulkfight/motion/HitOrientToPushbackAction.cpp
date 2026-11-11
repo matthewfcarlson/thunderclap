@@ -17,7 +17,7 @@ struct Two_14fef0 {
 } // namespace fn_f9683e92
 
 // 0x0014fe00 hulkfight::motion::HitOrientToPushbackAction::vfunc_3 (233 B): equivalent/0x0014fe00.cpp [wrapped: conflict: hulkfight::motion::HitOrientToPushbackAction]
-// sym: ?vfunc_3@HitOrientToPushbackAction@motion@hulkfight@fn_0014fe00@@UAE_NHH@Z
+// sym: ?vfunc_3@HitOrientToPushbackAction@motion@hulkfight@fn_0014fe00@@UAE_NHH@Z @c511d38e17f5 @w6c89b921661a
 namespace fn_0014fe00 {
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 8/8)
 // hulkfight::motion::HitOrientToPushbackAction::vfunc_3 @ 0x0014fe00

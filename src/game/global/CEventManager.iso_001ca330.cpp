@@ -4,7 +4,7 @@
 
 
 // 0x001ca330 FUN_001ca330 (154 B): equivalent/0x001ca330.cpp [isolated: conflict: FUN_001d4c90; World; on include/gen/ and not mergeable]
-// sym: ?FUN_001ca330@WaypointEvent_1ca330@owners@@QAE_NXZ
+// sym: ?FUN_001ca330@WaypointEvent_1ca330@owners@@QAE_NXZ @6be41928df89 @wf9d7184e9391
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001ca330 @ 0x001ca330
 #include "decls/address.h"

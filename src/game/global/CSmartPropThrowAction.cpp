@@ -91,7 +91,7 @@ bool CSmartPropDetachAction::vfunc_6(int unused) {
 
 
 // 0x00016120 CSmartPropThrowAction::vfunc_6 (788 B): equivalent/0x00016120.cpp [wrapped: conflict: CSmartPropThrowAction]
-// sym: ?vfunc_6@CSmartPropThrowAction@fn_00016120@@UAE_NH@Z
+// sym: ?vfunc_6@CSmartPropThrowAction@fn_00016120@@UAE_NH@Z @fb24f151b32d @wcebf4787df01
 namespace fn_00016120 {
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 24/24)
 // CSmartPropThrowAction::vfunc_6 @ 0x00016120

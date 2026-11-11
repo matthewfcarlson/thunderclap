@@ -95,7 +95,7 @@ FlyingAutoTargetAction_135f40::~FlyingAutoTargetAction_135f40() {
 } // namespace fn_fa1d6404
 
 // 0x00135f90 hulkfight::motion::FlyingAutoTargetAction::vfunc_5 (1289 B): equivalent/0x00135f90.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_5@FlyingAutoTargetAction@motion@hulkfight@fn_00135f90@@UAEDHM@Z
+// sym: ?vfunc_5@FlyingAutoTargetAction@motion@hulkfight@fn_00135f90@@UAEDHM@Z @f1e8205b1670 @wa2998e9b4ce1
 namespace fn_00135f90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 48/48)
 // hulkfight::motion::FlyingAutoTargetAction::vfunc_5 @ 0x00135f90

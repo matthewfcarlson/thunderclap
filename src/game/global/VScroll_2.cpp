@@ -156,7 +156,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x000e8cf0 FUN_000e8cf0 (389 B): equivalent/0x000e8cf0.cpp [wrapped: conflict: FEControl; FEObject; VScroll]
-// sym: ?FUN_000e8cf0@VScroll@fn_000e8cf0@@QAEXHH@Z
+// sym: ?FUN_000e8cf0@VScroll@fn_000e8cf0@@QAEXHH@Z @36418bc99efb @w1bbe3e08ad8c
 namespace fn_000e8cf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 31/34, incomplete)
 // FUN_000e8cf0 @ 0x000e8cf0
@@ -330,7 +330,7 @@ void VScroll::FUN_000e8cf0(int idx, int mode)
 
 
 // 0x000e8e80 VScroll::vfunc_7 (306 B): equivalent/0x000e8e80.cpp [wrapped: conflict: FEControl; FELayout; FEObject; VScroll]
-// sym: ?vfunc_7@VScroll@fn_000e8e80@@UAEDHH@Z
+// sym: ?vfunc_7@VScroll@fn_000e8e80@@UAEDHH@Z @290c02e18ab5 @w22360d3a55fa
 namespace fn_000e8e80 {
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 29/34, incomplete)
 // VScroll::vfunc_7 @ 0x000e8e80

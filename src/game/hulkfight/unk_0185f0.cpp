@@ -316,7 +316,7 @@ hulk_freg __fastcall FUN_00018990(float* p) {
 
 
 // 0x000189c0 FUN_000189c0 (83 B): equivalent/0x000189c0.cpp
-// sym: ?FUN_000189c0@fn_f7aff818@@YAMM@Z
+// sym: ?FUN_000189c0@fn_f7aff818@@YAMM@Z @c3b65b7c3ea4 @wfa67871c53ed
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 6/6; Wine build 3003 inputs, 6/6)
 // FUN_000189c0 @ 0x000189c0
 // Clamping asin: the argument is limited to [-1, 1] (NaN becomes -1) before the CRT's __CIasin.
@@ -331,7 +331,7 @@ hulk_freg __cdecl FUN_000189c0(float x)
 
 
 // 0x00018a20 FUN_00018a20 (83 B): equivalent/0x00018a20.cpp
-// sym: ?FUN_00018a20@fn_f7aff818@@YAMM@Z
+// sym: ?FUN_00018a20@fn_f7aff818@@YAMM@Z @5bf24cdf8282 @wcbfc3d2fe84c
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 6/6)
 // FUN_00018a20 @ 0x00018a20
 // Clamping acos: the argument is limited to [-1, 1] (NaN becomes -1) before the CRT's __CIacos.

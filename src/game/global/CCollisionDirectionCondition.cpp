@@ -88,7 +88,7 @@ CCollisionDirectionCondition* CCollisionDirectionCondition::vfunc_5(signed char 
 } // namespace fn_f777b6f1
 
 // 0x0004be90 CCollisionDirectionCondition::vfunc_7 (167 B): equivalent/0x0004be90.cpp [wrapped: conflict: CCollisionDirectionCondition]
-// sym: ?vfunc_7@CCollisionDirectionCondition@fn_0004be90@@UAE_NPAUContext@2@@Z
+// sym: ?vfunc_7@CCollisionDirectionCondition@fn_0004be90@@UAE_NPAUContext@2@@Z @74520406a8a0 @wad8008d479d1
 namespace fn_0004be90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // CCollisionDirectionCondition::vfunc_7 @ 0x0004be90

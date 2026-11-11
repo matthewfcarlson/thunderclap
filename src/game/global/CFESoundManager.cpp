@@ -196,7 +196,7 @@ class Helper_c5840 {
 
 
 // 0x000c4ef0 FUN_000c4ef0 (644 B): equivalent/0x000c4ef0.cpp
-// sym: ?FUN_000c4ef0@Frontend_c4ef0@fn_f49e96f9@@QAEXPAX00PAUInput_c4ef0@2@000@Z
+// sym: ?FUN_000c4ef0@Frontend_c4ef0@fn_f49e96f9@@QAEXPAX00PAUInput_c4ef0@2@000@Z @8deb17b27f1a @w3123c547175a
 // STATUS: equivalent (tools/equiv.py level 3: 19785 inputs, branch coverage 14/14)
 // FUN_000c4ef0 @ 0x000c4ef0
 void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4, void *a5, void *a6, void *a7)

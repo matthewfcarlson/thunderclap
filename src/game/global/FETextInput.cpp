@@ -118,7 +118,7 @@ class Obj_dc9e0 {
 } // namespace fn_fb73efad
 
 // 0x000dc590 FUN_000dc590 (112 B): equivalent/0x000dc590.cpp [wrapped: conflict: FEControl; FETextInput]
-// sym: ??0FETextInput@fn_000dc590@@QAE@H@Z
+// sym: ??0FETextInput@fn_000dc590@@QAE@H@Z @e6a5b88bffbd @w29466f467d50
 namespace fn_000dc590 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000dc590 @ 0x000dc590
@@ -221,7 +221,7 @@ void FUN_000dc720() {}
 
 
 // 0x000dc730 FUN_000dc730 (131 B): equivalent/0x000dc730.cpp
-// sym: ?FUN_000dc730@FETextInput_dc730@fn_fb73efad@@QAEXXZ
+// sym: ?FUN_000dc730@FETextInput_dc730@fn_fb73efad@@QAEXXZ @2a9066bb2bd4 @w1de361245a13
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 6/6)
 // FUN_000dc730 @ 0x000dc730
 void FETextInput_dc730::FUN_000dc730()
@@ -381,7 +381,7 @@ FETextInput::~FETextInput() {}
 
 
 // 0x000dcae0 FETextInput::vfunc_5 (1376 B): equivalent/0x000dcae0.cpp [wrapped: conflict: DAT_004a0d38; FETextInput]
-// sym: ?vfunc_5@FETextInput@fn_000dcae0@@UAEXXZ
+// sym: ?vfunc_5@FETextInput@fn_000dcae0@@UAEXXZ @010f95ab1e3d @w7c95b38f7b60
 namespace fn_000dcae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 38/38)
 // FETextInput::vfunc_5 @ 0x000dcae0
@@ -738,7 +738,7 @@ void FETextInput::vfunc_5()
 
 
 // 0x000dd040 FETextInput::vfunc_12 (735 B): equivalent/0x000dd040.cpp [wrapped: conflict: FETextInput]
-// sym: ?vfunc_12@FETextInput@fn_000dd040@@UAE_NHH@Z
+// sym: ?vfunc_12@FETextInput@fn_000dd040@@UAE_NHH@Z @1b7558c77339 @w797caa867e70
 namespace fn_000dd040 {
 // STATUS: equivalent (tools/equiv.py level 3: 3088 inputs, branch coverage 60/60)
 // FETextInput::vfunc_12 @ 0x000dd040

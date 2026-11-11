@@ -52,7 +52,7 @@ void HSlider::vfunc_14(int ) {
 
 
 // 0x000e2e20 HSlider::vfunc_6 (41 B): equivalent/0x000e2e20.cpp
-// sym: ?vfunc_6@HSlider@@UAEXH@Z
+// sym: ?vfunc_6@HSlider@@UAEXH@Z @66148ac3e10f @w12d5313ccbc7
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // HSlider::vfunc_6 @ 0x000e2e20
 void HSlider::vfunc_6(hulk_intptr __p0) { Other * other = (Other *)__p0;

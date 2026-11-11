@@ -160,7 +160,7 @@ void FootPivotAction_174c60::f() {
 } // namespace fn_f18e0a3f
 
 // 0x00174cb0 hulkfight::motion::FootPivotAction::vfunc_5 (759 B): equivalent/0x00174cb0.cpp
-// sym: ?vfunc_5@FootPivotAction@motion@hulkfight@@UAE_NHM@Z
+// sym: ?vfunc_5@FootPivotAction@motion@hulkfight@@UAE_NHM@Z @bef30f912ccd @wbd7cc0ad6c1f
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 20/20)
 // hulkfight::motion::FootPivotAction::vfunc_5 @ 0x00174cb0
 namespace hulkfight { namespace motion {

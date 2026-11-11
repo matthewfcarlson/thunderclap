@@ -89,7 +89,7 @@ void hulkfight::motion::InterruptPriorityAction::vfunc_4() {
 namespace fn_f66936df {
 
 // 0x0014ee80 hulkfight::motion::HitWaitAction::vfunc_5 (143 B): equivalent/0x0014ee80.cpp
-// sym: ?vfunc_5@HitWaitAction@fn_f66936df@@UAE_NHM@Z
+// sym: ?vfunc_5@HitWaitAction@fn_f66936df@@UAE_NHM@Z @1af3a723e0a6 @w35f211d6d973
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // hulkfight::motion::HitWaitAction::vfunc_5 @ 0x0014ee80
 bool HitWaitAction::vfunc_5(int a, float dt) {

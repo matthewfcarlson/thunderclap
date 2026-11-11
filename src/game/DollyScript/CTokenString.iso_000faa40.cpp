@@ -4,7 +4,7 @@
 
 
 // 0x000faa40 FUN_000faa40 (636 B): equivalent/0x000faa40.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_000faa40@Handler_faa40@fn_f138d869@@QAE_NPAVNode@2@@Z
+// sym: ?FUN_000faa40@Handler_faa40@fn_f138d869@@QAE_NPAVNode@2@@Z @c8f13c250fe3 @w5637cee30072
 #include "gen/owners.h"
 #include "decls/data/game/DollyScript.h"
 namespace fn_f138d869 {} using namespace fn_f138d869;

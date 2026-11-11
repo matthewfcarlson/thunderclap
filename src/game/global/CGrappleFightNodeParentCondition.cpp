@@ -93,7 +93,7 @@ template <> void* fight::ConditionFactoryTemplate<CGrappleFightNodeParentConditi
 
 
 // 0x000523c0 CGrappleFightNodeParentCondition::vfunc_7 (70 B): equivalent/0x000523c0.cpp
-// sym: ?vfunc_7@CGrappleFightNodeParentCondition@@UAEHPAX@Z
+// sym: ?vfunc_7@CGrappleFightNodeParentCondition@@UAEHPAX@Z @2d7d8caea0d7 @w8fa6254b59b2
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 9/10, incomplete)
 // CGrappleFightNodeParentCondition::vfunc_7 @ 0x000523c0
 hulk_intptr CGrappleFightNodeParentCondition::vfunc_7(void* __p0) { Input * input = (Input *)__p0;

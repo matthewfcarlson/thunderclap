@@ -94,7 +94,7 @@ struct Frame_e7260 {
 
 
 // 0x000e70d0 FUN_000e70d0 (391 B): equivalent/0x000e70d0.cpp
-// sym: ?FUN_000e70d0@Registry_e70d0@fn_fcae020b@@QAEPAXPBD@Z
+// sym: ?FUN_000e70d0@Registry_e70d0@fn_fcae020b@@QAEPAXPBD@Z @6518c7d5ae17 @wf753f823b3a7
 // STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 42/42)
 // FUN_000e70d0 @ 0x000e70d0
 void* Registry_e70d0::FUN_000e70d0(const char* name) {
@@ -157,7 +157,7 @@ void* Registry_e70d0::FUN_000e70d0(const char* name) {
 
 
 // 0x000e7260 FUN_000e7260 (408 B): equivalent/0x000e7260.cpp
-// sym: ?FUN_000e7260@Registry_e7260@fn_fcae020b@@QAEHPBD@Z
+// sym: ?FUN_000e7260@Registry_e7260@fn_fcae020b@@QAEHPBD@Z @631d465665ff @wdda7d434beb1
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 44/44)
 // FUN_000e7260 @ 0x000e7260
 int Registry_e7260::FUN_000e7260(const char *name)

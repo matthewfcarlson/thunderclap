@@ -266,7 +266,7 @@ float A_14580::f() {
 
 
 // 0x000145b0 FUN_000145b0 (532 B): equivalent/0x000145b0.cpp
-// sym: ?FUN_000145b0@Tracker_145b0@fn_f4b0ec38@@QAEXHHH@Z
+// sym: ?FUN_000145b0@Tracker_145b0@fn_f4b0ec38@@QAEXHHH@Z @ce00a7337d92 @w565380c65d3d
 // STATUS: equivalent (tools/equiv.py level 3: 18665 inputs, branch coverage 43/44, incomplete)
 // FUN_000145b0 @ 0x000145b0
 void Tracker_145b0::FUN_000145b0(int a1, int a2, int a3)

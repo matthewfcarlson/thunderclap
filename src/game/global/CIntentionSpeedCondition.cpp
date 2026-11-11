@@ -100,7 +100,7 @@ CIntentionSpeedCondition* CIntentionSpeedCondition::vfunc_5(signed char flags) {
 } // namespace fn_ff117ca4
 
 // 0x0004db20 CIntentionSpeedCondition::vfunc_7 (191 B): equivalent/0x0004db20.cpp [wrapped: conflict: CIntentionSpeedCondition]
-// sym: ?vfunc_7@CIntentionSpeedCondition@fn_0004db20@@UAE_NPAUContext@2@@Z
+// sym: ?vfunc_7@CIntentionSpeedCondition@fn_0004db20@@UAE_NPAUContext@2@@Z @c3f235ffd066 @w249547620292
 namespace fn_0004db20 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // CIntentionSpeedCondition::vfunc_7 @ 0x0004db20

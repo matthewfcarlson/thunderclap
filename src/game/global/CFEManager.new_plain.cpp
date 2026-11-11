@@ -7,7 +7,7 @@
 
 
 // 0x000c0e40 FUN_000c0e40 (1514 B): equivalent/0x000c0e40.cpp [wrapped: macros]
-// sym: ??0CFEManager@fn_000c0e40@@QAE@XZ
+// sym: ??0CFEManager@fn_000c0e40@@QAE@XZ @9971a4f95ed2 @wf9ac5661b924
 inline void* __cdecl operator new(hulk_uintptr,void* p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

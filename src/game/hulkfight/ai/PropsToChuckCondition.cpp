@@ -22,7 +22,7 @@ extern Manager_10d840* __cdecl FUN_000678d0();
 } // namespace fn_fa335f81
 
 // 0x0010d840 hulkfight::ai::PropsToChuckCondition::vfunc_6 (201 B): equivalent/0x0010d840.cpp
-// sym: ?vfunc_6@PropsToChuckCondition@ai@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@PropsToChuckCondition@ai@hulkfight@@UAE_NPAX00@Z @e2dda4358be4 @w132ee5d3c697
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 22/22)
 // hulkfight::ai::PropsToChuckCondition::vfunc_6 @ 0x0010d840
 bool hulkfight::ai::PropsToChuckCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Entity_10d840 * entity = (Entity_10d840 *)__p1;

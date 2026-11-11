@@ -122,7 +122,7 @@ class X_44c30 {
 
 
 // 0x00044910 FUN_00044910 (163 B): equivalent/0x00044910.cpp
-// sym: ?FUN_00044910@Obj_44910@fn_fe338dd9@@QAE_NXZ
+// sym: ?FUN_00044910@Obj_44910@fn_fe338dd9@@QAE_NXZ @1d8902efb80a @w77b3285d9caf
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00044910 @ 0x00044910
 // Look up five-plus-one named entries in the global registry and seed the six handles.
@@ -143,7 +143,7 @@ bool Obj_44910::FUN_00044910()
 
 
 // 0x000449c0 FUN_000449c0 (172 B): equivalent/0x000449c0.cpp
-// sym: ?FUN_000449c0@Obj_449c0@fn_fe338dd9@@QAE_NXZ
+// sym: ?FUN_000449c0@Obj_449c0@fn_fe338dd9@@QAE_NXZ @c5562acae832 @wda7b98ed8939
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000449c0 @ 0x000449c0
 // Look up two named entries in the global registry and seed the six handles (reverse order of FUN_00044910).

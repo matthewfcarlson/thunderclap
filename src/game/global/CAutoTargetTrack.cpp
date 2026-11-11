@@ -77,7 +77,7 @@ hulk_intptr CAutoTargetTrack::vfunc_0(int index) {
 
 
 // 0x00069c50 FUN_00069c50 (84 B): equivalent/0x00069c50.cpp [wrapped: conflict: CAutoTargetTrack]
-// sym: ??0CAutoTargetTrack@fn_00069c50@@QAE@XZ
+// sym: ??0CAutoTargetTrack@fn_00069c50@@QAE@XZ @ead1a80e0207 @w0fe2113f90b4
 namespace fn_00069c50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00069c50 @ 0x00069c50

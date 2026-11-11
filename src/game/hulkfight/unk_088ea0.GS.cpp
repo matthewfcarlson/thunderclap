@@ -24,7 +24,7 @@ struct Manager_890a0 {
 
 
 // 0x000890a0 FUN_000890a0 (183 B): equivalent/0x000890a0.cpp
-// sym: ?FUN_000890a0@Manager_890a0@fn_faa011cc@@QAEHIH@Z
+// sym: ?FUN_000890a0@Manager_890a0@fn_faa011cc@@QAEHIH@Z @044033355c5e @w710e6d0e7c2d
 // STATUS: equivalent (tools/equiv.py level 3: 3420 inputs, branch coverage 6/6)
 // FUN_000890a0 @ 0x000890a0
 int Manager_890a0::FUN_000890a0(unsigned int source, int index) {

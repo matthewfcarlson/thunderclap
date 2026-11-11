@@ -4,7 +4,7 @@
 
 
 // 0x000ef030 FEContainer::vfunc_5 (208 B): equivalent/0x000ef030.cpp [isolated: conflict: DAT_0049dba4; on include/gen/ and not mergeable]
-// sym: ?vfunc_5@FEContainer@@UAEXXZ
+// sym: ?vfunc_5@FEContainer@@UAEXXZ @bb75a202a79b @w500bc155e528
 // STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 12/12)
 // FEContainer::vfunc_5 @ 0x000ef030
 #include "gen/global.h"

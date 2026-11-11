@@ -39,7 +39,7 @@ CCollisionPushbackVelocityCondition* CCollisionPushbackVelocityCondition::vfunc_
 } // namespace fn_f746edeb
 
 // 0x0004c1f0 CCollisionPushbackVelocityCondition::vfunc_7 (219 B): equivalent/0x0004c1f0.cpp [wrapped: conflict: CCollisionPushbackVelocityCondition]
-// sym: ?vfunc_7@CCollisionPushbackVelocityCondition@fn_0004c1f0@@UAE_NPAUParams@2@@Z
+// sym: ?vfunc_7@CCollisionPushbackVelocityCondition@fn_0004c1f0@@UAE_NPAUParams@2@@Z @ae06560203b4 @w3c5514bb94f5
 namespace fn_0004c1f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CCollisionPushbackVelocityCondition::vfunc_7 @ 0x0004c1f0

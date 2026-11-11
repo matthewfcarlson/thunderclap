@@ -4,7 +4,7 @@
 
 
 // 0x0016b2c0 FUN_0016b2c0 (256 B): equivalent/0x0016b2c0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?target@fn_ffeca5cb@@YAXXZ
+// sym: ?target@fn_ffeca5cb@@YAXXZ @0097276299ef @w5f18fcce86bd
 #include "gen/owners.h"
 #include "decls/data/game/unknown.h"
 namespace fn_ffeca5cb {} using namespace fn_ffeca5cb;

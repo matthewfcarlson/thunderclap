@@ -75,7 +75,7 @@ extern "C" R_17c80* __fastcall FUN_00059a40(void*);
 } // namespace fn_ff7f5c68
 
 // 0x00017a80 CSnapToWallAction::vfunc_6 (448 B): equivalent/0x00017a80.cpp
-// sym: ?vfunc_6@CSnapToWallAction@@UAE_NH@Z
+// sym: ?vfunc_6@CSnapToWallAction@@UAE_NH@Z @f77aa0ec1a94 @wfba6ca5f75ac
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 6/6)
 // CSnapToWallAction::vfunc_6 @ 0x00017a80
 bool CSnapToWallAction::vfunc_6(int arg) {

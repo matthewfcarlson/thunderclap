@@ -49,7 +49,7 @@ public:
 
 
 // 0x001efa40 FUN_001efa40 (309 B): equivalent/0x001efa40.cpp
-// sym: ?FUN_001efa40@SoundObjects@fn_fb766009@@QAEXDHH@Z
+// sym: ?FUN_001efa40@SoundObjects@fn_fb766009@@QAEXDHH@Z @0eee44584f07 @wabd3c5b55460
 // STATUS: equivalent (tools/equiv.py level 3: 1096 inputs, branch coverage 6/6)
 // FUN_001efa40 @ 0x001efa40
 void SoundObjects::FUN_001efa40(char load, int id1, int id2)

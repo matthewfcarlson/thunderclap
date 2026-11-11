@@ -4,7 +4,7 @@
 
 
 // 0x00204880 FUN_00204880 (327 B): equivalent/0x00204880.cpp [isolated: code differs from its standalone build; on include/gen/ and not mergeable]
-// sym: ?FUN_00204880@Loader_204880@@QAEXTSlot_204880@@H@Z
+// sym: ?FUN_00204880@Loader_204880@@QAEXTSlot_204880@@H@Z @4599f680c020 @wfcf0ffa1cf7f
 // STATUS: equivalent (tools/equiv.py level 3: 16690 inputs, branch coverage 10/10)
 // FUN_00204880 @ 0x00204880
 #include "gen/content.h"

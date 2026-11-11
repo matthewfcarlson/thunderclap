@@ -4,7 +4,7 @@
 
 
 // 0x0018e590 FUN_0018e590 (231 B): equivalent/0x0018e590.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?FUN_0018e590@fn_f0930188@@YAXXZ
+// sym: ?FUN_0018e590@fn_f0930188@@YAXXZ @06c88ede65a1 @w564cf7dce444
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/motion.h"

@@ -4,7 +4,7 @@
 
 
 // 0x00054660 FUN_00054660 (231 B): equivalent/0x00054660.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00054660
+// sym: _FUN_00054660 @bd275717ed52 @wd0019b14456b
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"

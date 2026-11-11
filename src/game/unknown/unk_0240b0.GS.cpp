@@ -133,7 +133,7 @@ struct Frame_2a4b0 {
 
 
 // 0x0002a4b0 FUN_0002a4b0 (841 B): equivalent/0x0002a4b0.cpp
-// sym: ?FUN_0002a4b0@Mgr_2a4b0@fn_f7d76d3a@@QAEDHD@Z
+// sym: ?FUN_0002a4b0@Mgr_2a4b0@fn_f7d76d3a@@QAEDHD@Z @76c9f51499ed @w0e508004dba7
 // STATUS: equivalent (tools/equiv.py level 3: 19683 inputs, branch coverage 62/64, incomplete)
 // FUN_0002a4b0 @ 0x0002a4b0
 char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)

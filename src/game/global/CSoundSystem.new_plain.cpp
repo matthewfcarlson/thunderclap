@@ -38,7 +38,7 @@ struct Target_1f2c00 {
 
 
 // 0x001f2c00 FUN_001f2c00 (221 B): equivalent/0x001f2c00.cpp
-// sym: ?FUN_001f2c00@Target_1f2c00@fn_fe4d26cb@@QAEXH@Z
+// sym: ?FUN_001f2c00@Target_1f2c00@fn_fe4d26cb@@QAEXH@Z @928fd585ce91 @w2986d4b98b8f
 // STATUS: equivalent (tools/equiv.py level 3: 225 inputs, branch coverage 6/6)
 // FUN_001f2c00 @ 0x001f2c00
 void Target_1f2c00::FUN_001f2c00(int arg) {

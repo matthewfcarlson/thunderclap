@@ -85,7 +85,7 @@ struct Owner_1d4460 : public ScriptHandlerFields {
 
 
 // 0x001d0a40 FUN_001d0a40 (516 B): equivalent/0x001d0a40.cpp
-// sym: _FUN_001d0a40
+// sym: _FUN_001d0a40 @de9ad15c24e2 @wce6e5811460e
 // STATUS: equivalent (tools/equiv.py level 3: 2606 inputs, branch coverage 30/30)
 // FUN_001d0a40 @ 0x001d0a40
 // Lua error handler: pushes the "LUA SCRIPT ERROR" banner and a stack traceback.
@@ -152,7 +152,7 @@ extern "C" int FUN_001d0a40(LuaVMState* L)
 
 
 // 0x001d0e00 FUN_001d0e00 (150 B): equivalent/0x001d0e00.cpp
-// sym: ?FUN_001d0e00@fn_f932887f@@YAXPAULuaVMState@@@Z
+// sym: ?FUN_001d0e00@fn_f932887f@@YAXPAULuaVMState@@@Z @c495babb882e @wb50685e5f3d5
 // STATUS: equivalent (tools/equiv.py level 3: 2566 inputs, branch coverage 12/12)
 // FUN_001d0e00 @ 0x001d0e00
 // Walks the call stack; frames whose first namewhat letter is not f, g, l or t get source cleared.
@@ -183,7 +183,7 @@ void FUN_001d0e00(LuaVMState *L)
 } // namespace fn_f932887f
 
 // 0x001d2020 FUN_001d2020 (236 B): equivalent/0x001d2020.cpp [wrapped: macros]
-// sym: _FUN_001d2020
+// sym: _FUN_001d2020 @28ea96eb469b @w33f9aadddab3
 namespace fn_001d2020 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // FUN_001d2020 @ 0x001d2020
@@ -237,7 +237,7 @@ extern "C" int __cdecl FUN_001d2020(LuaVMState* state) {
 
 
 // 0x001d22a0 FUN_001d22a0 (935 B): equivalent/0x001d22a0.cpp [wrapped: conflict: FUN_00213190]
-// sym: _FUN_001d22a0
+// sym: _FUN_001d22a0 @83130e595724 @w8343c0460c73
 namespace fn_001d22a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3202 inputs, branch coverage 48/51, incomplete)
 // FUN_001d22a0 @ 0x001d22a0
@@ -446,7 +446,7 @@ extern "C" int FUN_001d22a0(LuaVMState* L)
 namespace fn_f932887f {
 
 // 0x001d2ee0 FUN_001d2ee0 (333 B): equivalent/0x001d2ee0.cpp
-// sym: ?FUN_001d2ee0@ScriptTable@fn_f932887f@@QAEDPAVActor@2@@Z
+// sym: ?FUN_001d2ee0@ScriptTable@fn_f932887f@@QAEDPAVActor@2@@Z @a8ff88e055d4 @w518ebf88eac0
 // STATUS: equivalent (tools/equiv.py level 3: 13662 inputs, branch coverage 4/4)
 // FUN_001d2ee0 @ 0x001d2ee0
 char ScriptTable::FUN_001d2ee0(Actor *actor)
@@ -482,7 +482,7 @@ char ScriptTable::FUN_001d2ee0(Actor *actor)
 
 
 // 0x001d36f0 FUN_001d36f0 (612 B): equivalent/0x001d36f0.cpp
-// sym: ?run@Handler_1d36f0@fn_f932887f@@QAEHPAXH@Z
+// sym: ?run@Handler_1d36f0@fn_f932887f@@QAEHPAXH@Z @013c0b0bf160 @wf9d63178d137
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 23/26, incomplete)
 // FUN_001d36f0 @ 0x001d36f0
 int Handler_1d36f0::run(void* name,int unusedArg) {
@@ -511,7 +511,7 @@ int Handler_1d36f0::run(void* name,int unusedArg) {
 
 
 // 0x001d3960 FUN_001d3960 (410 B): equivalent/0x001d3960.cpp
-// sym: ?FUN_001d3960@ScriptHandler@fn_f932887f@@QAEHXZ
+// sym: ?FUN_001d3960@ScriptHandler@fn_f932887f@@QAEHXZ @12bbb6b24431 @w99d4db97b1dc
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 17/20, incomplete)
 // FUN_001d3960 @ 0x001d3960
 int ScriptHandler::FUN_001d3960()
@@ -568,7 +568,7 @@ int ScriptHandler::FUN_001d3960()
 } // namespace fn_f932887f
 
 // 0x001d3f60 FUN_001d3f60 (331 B): equivalent/0x001d3f60.cpp [wrapped: conflict: ScriptHandler]
-// sym: ?FUN_001d3f60@ScriptHandler@fn_001d3f60@@QAEXXZ
+// sym: ?FUN_001d3f60@ScriptHandler@fn_001d3f60@@QAEXXZ @fd3bc8e8800e @w36772ed2ac27
 namespace fn_001d3f60 {
 // STATUS: equivalent (tools/equiv.py level 3: 6847 inputs, branch coverage 13/16, incomplete)
 // FUN_001d3f60 @ 0x001d3f60

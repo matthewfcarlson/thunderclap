@@ -88,7 +88,7 @@ bool hulkfight::ai::AIFightNodeCondition::vfunc_6(void* __p0, void* __p1, void* 
 
 
 // 0x0010dc30 hulkfight::ai::RandomKeyWordWaitCondition::vfunc_6 (168 B): equivalent/0x0010dc30.cpp
-// sym: ?vfunc_6@RandomKeyWordWaitCondition@ai@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@RandomKeyWordWaitCondition@ai@hulkfight@@UAE_NPAX00@Z @18c8c470b64c @wc47f5e13d44d
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 24/24)
 // hulkfight::ai::RandomKeyWordWaitCondition::vfunc_6 @ 0x0010dc30
 bool hulkfight::ai::RandomKeyWordWaitCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Actor_10dc30 * actor = (Actor_10dc30 *)__p1;

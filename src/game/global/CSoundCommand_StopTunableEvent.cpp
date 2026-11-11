@@ -71,7 +71,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 } // namespace fn_f622a04d
 
 // 0x001f0550 CSoundCommand_StopTunableEvent::vfunc_1 (216 B): equivalent/0x001f0550.cpp [wrapped: conflict: CSoundCommand_StopTunableEvent]
-// sym: ?vfunc_1@CSoundCommand_StopTunableEvent@fn_001f0550@@UAEXII@Z
+// sym: ?vfunc_1@CSoundCommand_StopTunableEvent@fn_001f0550@@UAEXII@Z @97f5be1a69cd @w817b892d4c1a
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

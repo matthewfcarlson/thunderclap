@@ -39,7 +39,7 @@ CInactivityTimerCondition* CInactivityTimerCondition::vfunc_5(signed char flags)
 } // namespace fn_fa5db5a6
 
 // 0x0004d890 CInactivityTimerCondition::vfunc_7 (193 B): equivalent/0x0004d890.cpp [wrapped: conflict: CInactivityTimerCondition]
-// sym: ?vfunc_7@CInactivityTimerCondition@fn_0004d890@@UAE_NPAUContext@2@@Z
+// sym: ?vfunc_7@CInactivityTimerCondition@fn_0004d890@@UAE_NPAUContext@2@@Z @2d5328bdcff1 @w68e12e395f2d
 namespace fn_0004d890 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // CInactivityTimerCondition::vfunc_7 @ 0x0004d890

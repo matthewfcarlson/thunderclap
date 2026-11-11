@@ -17,7 +17,7 @@ extern "C" unsigned long __cdecl FUN_00345d81(const char*, char**, int);
 
 
 // 0x00096d80 FUN_00096d80 (205 B): equivalent/0x00096d80.cpp
-// sym: _FUN_00096d80
+// sym: _FUN_00096d80 @29ed280c6ad8 @wbaf1e13b17cf
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 6/6)
 // FUN_00096d80 @ 0x00096d80
 extern "C" unsigned __int64 __cdecl FUN_00096d80(const char* text)

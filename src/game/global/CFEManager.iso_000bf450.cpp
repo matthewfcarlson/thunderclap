@@ -4,7 +4,7 @@
 
 
 // 0x000bf450 FUN_000bf450 (141 B): equivalent/0x000bf450.cpp [isolated: conflict: FUN_000fc3d0; on include/gen/ and not mergeable]
-// sym: ?FUN_000bf450@MenuState@@QAEXPBDH@Z
+// sym: ?FUN_000bf450@MenuState@@QAEXPBDH@Z @c2f04bb5f23c @w40fd0a05fdd0
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_000bf450 @ 0x000bf450
 // Demo/attract screen: remember the menu name; without a "go back" request show the quit-demo dialog,

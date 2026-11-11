@@ -39,7 +39,7 @@ CCharacterFloatCondition* CCharacterFloatCondition::vfunc_5(signed char flags) {
 } // namespace fn_f995c03d
 
 // 0x0004d9a0 CCharacterFloatCondition::vfunc_7 (190 B): equivalent/0x0004d9a0.cpp [wrapped: conflict: CCharacterFloatCondition]
-// sym: ?vfunc_7@CCharacterFloatCondition@fn_0004d9a0@@UAE_NPAUContext@2@@Z
+// sym: ?vfunc_7@CCharacterFloatCondition@fn_0004d9a0@@UAE_NPAUContext@2@@Z @4d11721f8967 @w27a048174e16
 namespace fn_0004d9a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // CCharacterFloatCondition::vfunc_7 @ 0x0004d9a0

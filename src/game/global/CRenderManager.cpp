@@ -594,7 +594,7 @@ class Raw_1bb7d0 { public: void FUN_001ba090(const char*, Fn_1bb7d0); };
 
 
 // 0x001b8690 FUN_001b8690 (96 B): equivalent/0x001b8690.cpp
-// sym: ?FUN_001b8690@Owner_1b8690@fn_ff10b020@@QAEXXZ
+// sym: ?FUN_001b8690@Owner_1b8690@fn_ff10b020@@QAEXXZ @149975c5bb74 @wadf3177de501
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001b8690 @ 0x001b8690
 void Owner_1b8690::FUN_001b8690()
@@ -827,7 +827,7 @@ unsigned char __fastcall FUN_001b8b30(Obj_1b8b30* p) {
 } // namespace fn_ff10b020
 
 // 0x001b8b60 FUN_001b8b60 (605 B): equivalent/0x001b8b60.cpp [wrapped: macros]
-// sym: _FUN_001b8b60
+// sym: _FUN_001b8b60 @b74bab14b354 @w27610237eb67
 namespace fn_001b8b60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3092 inputs, branch coverage 46/46)
 // FUN_001b8b60 @ 0x001b8b60
@@ -916,7 +916,7 @@ void* __stdcall FUN_001b8ec0(void* arg) {
 
 
 // 0x001b8ee0 CRenderManager::vfunc_1 (271 B): equivalent/0x001b8ee0.cpp
-// sym: ?vfunc_1@CRenderManager@@UAE_NPAX@Z
+// sym: ?vfunc_1@CRenderManager@@UAE_NPAX@Z @f13e26109544 @wb4f2ca012a3c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // CRenderManager::vfunc_1 @ 0x001b8ee0
 bool CRenderManager::vfunc_1(void* __p0) { Reader_1b8ee0 * reader = (Reader_1b8ee0 *)__p0;
@@ -1225,7 +1225,7 @@ void __stdcall target(u32_1b92c0 value) {
 
 
 // 0x001b93a0 FUN_001b93a0 (1341 B): equivalent/0x001b93a0.cpp [wrapped: conflict: FUN_001c3d90; World]
-// sym: ?FUN_001b93a0@Frontend_1b93a0@fn_001b93a0@@QAEXPAUFrame_1b93a0@2@PAUScene_1b93a0@2@PAVMenu_1b93a0@2@PAVOverlays_1b93a0@2@HH@Z
+// sym: ?FUN_001b93a0@Frontend_1b93a0@fn_001b93a0@@QAEXPAUFrame_1b93a0@2@PAUScene_1b93a0@2@PAVMenu_1b93a0@2@PAVOverlays_1b93a0@2@HH@Z @bf8ad8ab4db2 @wd3c7ebca4f7c
 namespace fn_001b93a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 83/96, incomplete)
 // FUN_001b93a0 @ 0x001b93a0
@@ -1595,7 +1595,7 @@ void Frontend_1b93a0::FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Men
 
 
 // 0x001b98e0 FUN_001b98e0 (463 B): equivalent/0x001b98e0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_001b98e0@CRenderManager_1b98e0@fn_001b98e0@@QAEHMMMMMM@Z
+// sym: ?FUN_001b98e0@CRenderManager_1b98e0@fn_001b98e0@@QAEHMMMMMM@Z @fa6dce19354e @wbf2449e0adb4
 namespace fn_001b98e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 32/38, incomplete)
 // FUN_001b98e0 @ 0x001b98e0
@@ -1795,7 +1795,7 @@ int CRenderManager_1b98e0::FUN_001b98e0(float a0, float a1, float a2, float a3, 
 
 
 // 0x001b9ab0 FUN_001b9ab0 (138 B): equivalent/0x001b9ab0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?SetColor@fn_001b9ab0@@YGHHHH@Z
+// sym: ?SetColor@fn_001b9ab0@@YGHHHH@Z @f3218102b791 @wfba4f0ad0b5d
 namespace fn_001b9ab0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3054 inputs, branch coverage 15/18, incomplete)
 // FUN_001b9ab0 @ 0x001b9ab0
@@ -1814,7 +1814,7 @@ int __stdcall SetColor(int r, int g, int b) {
 
 
 // 0x001b9b40 FUN_001b9b40 (138 B): equivalent/0x001b9b40.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?SetColor@fn_001b9b40@@YGHHHH@Z
+// sym: ?SetColor@fn_001b9b40@@YGHHHH@Z @9bcaac472bd1 @w77075f907605
 namespace fn_001b9b40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3054 inputs, branch coverage 15/18, incomplete)
 // FUN_001b9b40 @ 0x001b9b40
@@ -1873,7 +1873,7 @@ template <> Method3<CRenderManager, void, int, int, int>::~Method3() {}
 
 
 // 0x001b9cd0 Method3<CRenderManager,void,int,int,int>::vfunc_2 (29 B): equivalent/0x001b9cd0.cpp
-// sym: ?vfunc_2@?$Method3@VCRenderManager@@XHHH@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method3@VCRenderManager@@XHHH@@UAEXPAX00@Z @a7a6d240b96d @w2ac42a573389
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CRenderManager,void,int,int,int>::vfunc_2 @ 0x001b9cd0
 template <> void Method3<CRenderManager, void, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CRenderManager_1b9cd0 * object = (CRenderManager_1b9cd0 *)__p0; const int * args = (const int *)__p1; void * unused = (void *)__p2;
@@ -1937,7 +1937,7 @@ template <> void Method6<CRenderManager, void, float, float, float, float, float
 namespace fn_ff10b020 {
 
 // 0x001b9e40 FUN_001b9e40 (82 B): equivalent/0x001b9e40.cpp
-// sym: ?FUN_001b9e40@fn_ff10b020@@YAXPAXPBUValues@1@HP6AXHHHHHH@Z@Z
+// sym: ?FUN_001b9e40@fn_ff10b020@@YAXPAXPBUValues@1@HP6AXHHHHHH@Z@Z @76081efbe4fb @w1f3f96e9dee0
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001b9e40 @ 0x001b9e40
 void __cdecl FUN_001b9e40(void *context, const Values *values, int unused, Callback callback)
@@ -2016,7 +2016,7 @@ template <> void Method4<CRenderManager, unsigned int, const char *, float, floa
 
 
 // 0x001ba040 FUN_001ba040 (70 B): equivalent/0x001ba040.cpp [wrapped: conflict: Callback]
-// sym: ?FUN_001ba040@fn_001ba040@@YAXPAUCaller@1@PAUArgs@1@PAHP821@AEHHHHH@Z@Z
+// sym: ?FUN_001ba040@fn_001ba040@@YAXPAUCaller@1@PAUArgs@1@PAHP821@AEHHHHH@Z@Z @369971183f67 @w490dced5be09
 namespace fn_001ba040 {
 // STATUS: equivalent (tools/equiv.py level 3: 2975 inputs, branch coverage 2/2)
 // FUN_001ba040 @ 0x001ba040
@@ -2056,7 +2056,7 @@ template <> Method4<CRenderManager, unsigned int, const char *,math::Vector,math
 
 
 // 0x001ba120 Method4<CRenderManager,unsigned_int,const_char_*,math::Vector,math::Vector,float>::vfunc_2 (110 B): equivalent/0x001ba120.cpp
-// sym: ?vfunc_2@?$Method4@VCRenderManager@@IPBDVVector@math@@V23@M@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method4@VCRenderManager@@IPBDVVector@math@@V23@M@@UAEXPAX00@Z @e1f85de89946 @w8e30c855c2fa
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method4<CRenderManager,unsigned_int,const_char_*,math::Vector,math::Vector,float>::vfunc_2 @ 0x001ba120
 template <> void Method4<CRenderManager, unsigned int, const char *,math::Vector,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CRenderManager_1ba120 * obj = (CRenderManager_1ba120 *)__p0; Args_1ba120 * args = (Args_1ba120 *)__p1; unsigned int * out = (unsigned int *)__p2;
@@ -2294,7 +2294,7 @@ template <> Closure6<CRenderManager, void, float, float, float, float, float, fl
 
 
 // 0x001ba600 Closure6<CRenderManager,void,float,float,float,float,float,float>::vfunc_2 (85 B): equivalent/0x001ba600.cpp
-// sym: ?vfunc_2@?$Closure6@VCRenderManager@@XMMMMMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure6@VCRenderManager@@XMMMMMM@@UAEXPAX00@Z @d87f9086673d @wf22810fd6db9
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure6<CRenderManager,void,float,float,float,float,float,float>::vfunc_2 @ 0x001ba600
 template <> void Closure6<CRenderManager, void, float, float, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const float * arguments = (const float *)__p1; void * unused2 = (void *)__p2;
@@ -2460,7 +2460,7 @@ template <> void Closure1<CRenderManager, void, unsigned int>::vfunc_2(void* __p
 
 
 // 0x001ba940 Closure0<CRenderManager,math::Vector>::vfunc_2 (63 B): equivalent/0x001ba940.cpp
-// sym: ?vfunc_2@?$Closure0@VCRenderManager@@VVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure0@VCRenderManager@@VVector@math@@@@UAEXPAX00@Z @5b5ca72bc2e3 @w5e2fdc9f34f2
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure0<CRenderManager,math::Vector>::vfunc_2 @ 0x001ba940
 template <> void Closure0<CRenderManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; int b = (int)__p1; math::Vector_1ba940 * result = (math::Vector_1ba940 *)__p2;
@@ -2596,7 +2596,7 @@ template <> void Closure1<CRenderManager, void, float>::vfunc_2(void* __p0, void
 namespace fn_ff10b020 {
 
 // 0x001bb580 FUN_001bb580 (83 B): equivalent/0x001bb580.cpp
-// sym: ?FUN_001bb580@Registry_1bb580@fn_ff10b020@@QAEXPBDPAVCRenderManager_1bb580@2@P832@AEXHHH@Z@Z
+// sym: ?FUN_001bb580@Registry_1bb580@fn_ff10b020@@QAEXPBDPAVCRenderManager_1bb580@2@P832@AEXHHH@Z@Z @3484b9884c61 @wbaec67eed9c5
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001bb580 @ 0x001bb580
 // FUN_001bb580 @ 0x001bb580  (generated by tools/equiv_gen/reg_helper.py)
@@ -2614,7 +2614,7 @@ void Registry_1bb580::FUN_001bb580(const char* a1, CRenderManager_1bb580* a2, Fn
 
 
 // 0x001bb630 FUN_001bb630 (83 B): equivalent/0x001bb630.cpp
-// sym: ?FUN_001bb630@Registry_1bb630@fn_ff10b020@@QAEXPBDPAVCRenderManager_1bb630@2@P832@AEXMMMMMM@Z@Z
+// sym: ?FUN_001bb630@Registry_1bb630@fn_ff10b020@@QAEXPBDPAVCRenderManager_1bb630@2@P832@AEXMMMMMM@Z@Z @189ca8c953e3 @w6fbd9681608b
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001bb630 @ 0x001bb630
 // FUN_001bb630 @ 0x001bb630  (generated by tools/equiv_gen/reg_helper.py)
@@ -2642,7 +2642,7 @@ void Owner_1bb690::Make(void* h, int x, int y) {
 } // namespace fn_ff10b020
 
 // 0x001bb700 FUN_001bb700 (109 B): equivalent/0x001bb700.cpp [wrapped: conflict: CRenderManager; Closure0; Method0]
-// sym: ?FUN_001bb700@Registry_1bb700@fn_001bb700@@QAEXPBDPAVCRenderManager@2@P832@AE_NXZ@Z
+// sym: ?FUN_001bb700@Registry_1bb700@fn_001bb700@@QAEXPBDPAVCRenderManager@2@P832@AE_NXZ@Z @fad7dd55f967 @we0d540f022ca
 namespace fn_001bb700 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001bb700 @ 0x001bb700
@@ -2728,7 +2728,7 @@ void Registry_1bb700::FUN_001bb700(const char* name, CRenderManager* owner, bool
 namespace fn_ff10b020 {
 
 // 0x001bb770 FUN_001bb770 (83 B): equivalent/0x001bb770.cpp
-// sym: ?FUN_001bb770@Registry_1bb770@fn_ff10b020@@QAEXPBDPAVCRenderManager_1bb770@2@P832@AEI0MMM@Z@Z
+// sym: ?FUN_001bb770@Registry_1bb770@fn_ff10b020@@QAEXPBDPAVCRenderManager_1bb770@2@P832@AEI0MMM@Z@Z @a90f6d8111ac @w6d0983fff29b
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001bb770 @ 0x001bb770
 // FUN_001bb770 @ 0x001bb770  (generated by tools/equiv_gen/reg_helper.py)
@@ -2746,7 +2746,7 @@ void Registry_1bb770::FUN_001bb770(const char* a1, CRenderManager_1bb770* a2, Fn
 
 
 // 0x001bb7d0 FUN_001bb7d0 (83 B): equivalent/0x001bb7d0.cpp
-// sym: ?FUN_001bb7d0@Registry_1bb7d0@fn_ff10b020@@QAEXPBDPAVCRenderManager_1bb7d0@2@P832@AEI0VVector_1bb7d0@math@@2M@Z@Z
+// sym: ?FUN_001bb7d0@Registry_1bb7d0@fn_ff10b020@@QAEXPBDPAVCRenderManager_1bb7d0@2@P832@AEI0VVector_1bb7d0@math@@2M@Z@Z @2287d82bd815 @wc87d3d62ebac
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001bb7d0 @ 0x001bb7d0
 // FUN_001bb7d0 @ 0x001bb7d0  (generated by tools/equiv_gen/reg_helper.py)
@@ -2765,7 +2765,7 @@ void Registry_1bb7d0::FUN_001bb7d0(const char* a1, CRenderManager_1bb7d0* a2, Fn
 } // namespace fn_ff10b020
 
 // 0x001bb880 FUN_001bb880 (109 B): equivalent/0x001bb880.cpp [wrapped: conflict: CRenderManager; Closure0; DAT_0048e10c; Method0]
-// sym: ?FUN_001bb880@Registry_1bb880@fn_001bb880@@QAEXPBDPAVCRenderManager@2@P832@AE?AVVector@math@2@XZ@Z
+// sym: ?FUN_001bb880@Registry_1bb880@fn_001bb880@@QAEXPBDPAVCRenderManager@2@P832@AE?AVVector@math@2@XZ@Z @5c3697fb9fee @wf5d6c74ba2e6
 namespace fn_001bb880 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001bb880 @ 0x001bb880
@@ -2854,7 +2854,7 @@ void Registry_1bb880::FUN_001bb880(const char* name, CRenderManager* owner, math
 
 
 // 0x001bb990 FUN_001bb990 (1676 B): equivalent/0x001bb990.cpp [wrapped: conflict: CRenderManager; Closure1; Closure3; Closure4 (+6)]
-// sym: ??0CRenderManager@fn_001bb990@@QAE@XZ
+// sym: ??0CRenderManager@fn_001bb990@@QAE@XZ @ea2fcbb88dc9 @w84a4ea37ad9d
 namespace fn_001bb990 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 36/36)
 // FUN_001bb990 @ 0x001bb990

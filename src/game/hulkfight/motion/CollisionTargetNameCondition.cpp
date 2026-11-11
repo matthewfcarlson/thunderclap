@@ -34,7 +34,7 @@ struct CollisionTargetNameCondition {
 
 
 // 0x0014e760 hulkfight::motion::CollisionTargetNameCondition::vfunc_6 (170 B): equivalent/0x0014e760.cpp
-// sym: ?vfunc_6@CollisionTargetNameCondition@motion@hulkfight@fn_f4d474da@@UAE_NPAXPAUInput_14e760@4@0@Z
+// sym: ?vfunc_6@CollisionTargetNameCondition@motion@hulkfight@fn_f4d474da@@UAE_NPAXPAUInput_14e760@4@0@Z @807198771a29 @w625d4f0f8683
 // STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 30/30)
 // hulkfight::motion::CollisionTargetNameCondition::vfunc_6 @ 0x0014e760
 namespace hulkfight { namespace motion {

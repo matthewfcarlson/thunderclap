@@ -81,7 +81,7 @@ public:
 
 
 // 0x00174940 hulkfight::motion::PushOutAction::vfunc_5 (709 B): equivalent/0x00174940.cpp
-// sym: ?vfunc_5@PushOutAction@motion@hulkfight@fn_f4a7e04a@@UAE_NHH@Z
+// sym: ?vfunc_5@PushOutAction@motion@hulkfight@fn_f4a7e04a@@UAE_NHH@Z @cd5cec620ad9 @wf4cbc3fd2ac3
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 22/22)
 // hulkfight::motion::PushOutAction::vfunc_5 @ 0x00174940
 namespace hulkfight { namespace motion {

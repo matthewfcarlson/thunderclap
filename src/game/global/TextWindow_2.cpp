@@ -83,7 +83,7 @@ class Target_ece40 {
 } // namespace fn_fc766a14
 
 // 0x000ecd70 FUN_000ecd70 (125 B): equivalent/0x000ecd70.cpp [wrapped: on include/gen/, and its TU merges more functions without the headers]
-// sym: ??0TextWindow@fn_000ecd70@@QAE@H@Z
+// sym: ??0TextWindow@fn_000ecd70@@QAE@H@Z @a66726eb2984 @w05e67a56d782
 namespace fn_000ecd70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000ecd70 @ 0x000ecd70
@@ -176,7 +176,7 @@ void __fastcall target(Target_ece40* s) {
 } // namespace fn_fc766a14
 
 // 0x000ed360 TextWindow::vfunc_3 (159 B): equivalent/0x000ed360.cpp [wrapped: conflict: TextWindow]
-// sym: ?vfunc_3@TextWindow@fn_000ed360@@UAEXXZ
+// sym: ?vfunc_3@TextWindow@fn_000ed360@@UAEXXZ @12eb3636912b @w961464842dd5
 namespace fn_000ed360 {
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 0/0)
 // TextWindow::vfunc_3 @ 0x000ed360
@@ -343,7 +343,7 @@ void TextWindow::vfunc_3()
 
 
 // 0x000ed400 TextWindow::vfunc_5 (1053 B): equivalent/0x000ed400.cpp [wrapped: on include/gen/, and its TU merges more functions without the headers]
-// sym: ?vfunc_5@TextWindow@fn_000ed400@@UAEXXZ
+// sym: ?vfunc_5@TextWindow@fn_000ed400@@UAEXXZ @6e0859d495ab @wa0f6e73ad254
 namespace fn_000ed400 {
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 28/28)
 // TextWindow::vfunc_5 @ 0x000ed400

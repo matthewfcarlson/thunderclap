@@ -14,7 +14,7 @@ namespace fn_f5a66c40 {} using namespace fn_f5a66c40;
 namespace fn_f5a66c40 {
 
 // 0x000fbc00 FUN_000fbc00 (446 B): equivalent/0x000fbc00.cpp
-// sym: _FUN_000fbc00
+// sym: _FUN_000fbc00 @4657e9dcd4b3 @w1c7cdae71929
 // STATUS: equivalent (tools/equiv.py level 3: 18083 inputs, branch coverage 40/41, incomplete)
 // FUN_000fbc00 @ 0x000fbc00
 extern "C" hulk_intptr FUN_000fbc00(unsigned short *buf, unsigned int count, const char *fmt, char *ap)
@@ -128,7 +128,7 @@ extern "C" hulk_intptr FUN_000fbc00(unsigned short *buf, unsigned int count, con
 
 
 // 0x000fbe00 FUN_000fbe00 (446 B): equivalent/0x000fbe00.cpp
-// sym: ?FUN_000fbe00@fn_f5a66c40@@YAHPAGIPBGPAD@Z
+// sym: ?FUN_000fbe00@fn_f5a66c40@@YAHPAGIPBGPAD@Z @3dc087c0e9cb @wc2735a26afcb
 // STATUS: equivalent (tools/equiv.py level 3: 16642 inputs, branch coverage 40/41, incomplete)
 // FUN_000fbe00 @ 0x000fbe00
 hulk_intptr FUN_000fbe00(unsigned short *buf, unsigned int count, const unsigned short *fmt, char *ap)

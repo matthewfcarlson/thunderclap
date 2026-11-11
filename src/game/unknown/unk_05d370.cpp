@@ -88,7 +88,7 @@ class Owner_5d6c0 {
 
 
 // 0x0005d370 FUN_0005d370 (307 B): equivalent/0x0005d370.cpp
-// sym: _FUN_0005d370
+// sym: _FUN_0005d370 @79ce3a878ed3 @w7d7ed62a3918
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 12/12)
 // FUN_0005d370 @ 0x0005d370
 extern "C" void FUN_0005d370()

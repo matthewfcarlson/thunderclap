@@ -99,7 +99,7 @@ public:
 
 
 // 0x001c6fe0 Render::RoomLoader::vfunc_5 (1296 B): equivalent/0x001c6fe0.cpp
-// sym: ?vfunc_5@RoomLoader@Render@fn_fbd1ac8b@@UAEXPAHPA_KPAUStream@3@PAX@Z
+// sym: ?vfunc_5@RoomLoader@Render@fn_fbd1ac8b@@UAEXPAHPA_KPAUStream@3@PAX@Z @bdc39d746a08 @w3fb0904b9f11
 // STATUS: equivalent (tools/equiv.py level 3: 140 inputs, branch coverage 17/18, incomplete)
 // Render::RoomLoader::vfunc_5 @ 0x001c6fe0
 namespace Render {

@@ -5,7 +5,7 @@
 
 
 // 0x000390e0 FUN_000390e0 (503 B): equivalent/0x000390e0.cpp [isolated: code differs from its standalone build; on include/gen/ and not mergeable]
-// sym: ?FUN_000390e0@Probe_390e0@@QAEHPBUVec3_390e0@@0MPAU2@@Z
+// sym: ?FUN_000390e0@Probe_390e0@@QAEHPBUVec3_390e0@@0MPAU2@@Z @f58b52ca9a5e @we7b2b7387ed6
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 16/16)
 // FUN_000390e0 @ 0x000390e0
 #include "decls/data/game/global.h"

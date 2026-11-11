@@ -162,7 +162,7 @@ void CSmartPropNameCondition::Fn() {
 
 
 // 0x000495d0 CSmartPropNameCondition::vfunc_7 (359 B): equivalent/0x000495d0.cpp [wrapped: conflict: CSmartPropNameCondition]
-// sym: ?vfunc_7@CSmartPropNameCondition@fn_000495d0@@UAE_NPAX@Z
+// sym: ?vfunc_7@CSmartPropNameCondition@fn_000495d0@@UAE_NPAX@Z @6e2154a02cb1 @wbc9b46102dd4
 namespace fn_000495d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 164 inputs, branch coverage 51/52, incomplete)
 // CSmartPropNameCondition::vfunc_7 @ 0x000495d0

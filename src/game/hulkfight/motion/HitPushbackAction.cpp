@@ -136,7 +136,7 @@ void hulkfight::motion::NoHitPushbackAction::vfunc_4() {
 namespace fn_fd4cb946 {
 
 // 0x0014f680 hulkfight::motion::HitPushbackAction::vfunc_3 (718 B): equivalent/0x0014f680.cpp
-// sym: ?vfunc_3@HitPushbackAction@fn_fd4cb946@@UAE_NPAX0@Z
+// sym: ?vfunc_3@HitPushbackAction@fn_fd4cb946@@UAE_NPAX0@Z @7538a14f0966 @w5b99793fb116
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 29/30, incomplete)
 // hulkfight::motion::HitPushbackAction::vfunc_3 @ 0x0014f680
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

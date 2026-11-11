@@ -38,7 +38,7 @@ hulk_intptr hulkfight::motion::BallAndChainShootTrack::vfunc_0(int index) {
 
 
 // 0x001811b0 FUN_001811b0 (164 B): equivalent/0x001811b0.cpp [wrapped: conflict: hulkfight::motion::BallAndChainShootTrack]
-// sym: ??0BallAndChainShootTrack@motion@hulkfight@fn_001811b0@@QAE@XZ
+// sym: ??0BallAndChainShootTrack@motion@hulkfight@fn_001811b0@@QAE@XZ @c0bcf6e45c31 @w0248eb0b272a
 namespace fn_001811b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001811b0 @ 0x001811b0

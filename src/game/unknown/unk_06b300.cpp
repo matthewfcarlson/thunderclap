@@ -320,7 +320,7 @@ CJumpTrack* CJumpTrack::vfunc_5(signed char flags) {
 
 
 // 0x0006b540 FUN_0006b540 (172 B): equivalent/0x0006b540.cpp
-// sym: ?FUN_0006b540@Object@fn_fad3cf42@@QAEMM@Z
+// sym: ?FUN_0006b540@Object@fn_fad3cf42@@QAEMM@Z @cb9a793a869b @wb9040271d1aa
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 10/10)
 // FUN_0006b540 @ 0x0006b540
 hulk_freg Object::FUN_0006b540(float t) {

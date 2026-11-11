@@ -478,7 +478,7 @@ u64_f9940 CTokenSectionEnd_f9940::vfunc_1() {
 
 
 // 0x000f9980 FUN_000f9980 (37 B): equivalent/0x000f9980.cpp
-// sym: ??0CRawScript_f9980@fn_fd8937bc@@QAE@HH@Z
+// sym: ??0CRawScript_f9980@fn_fd8937bc@@QAE@HH@Z @6652cfacdd0e @w3319bad596a9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000f9980 @ 0x000f9980
 CRawScript_f9980::CRawScript_f9980(int a, int b) { first=a; third=a; second=b; }
@@ -494,7 +494,7 @@ void CRawScript::run() {
 
 
 // 0x000f99d0 FUN_000f99d0 (84 B): equivalent/0x000f99d0.cpp
-// sym: ?FUN_000f99d0@Reader@fn_fd8937bc@@QAE_NPAD@Z
+// sym: ?FUN_000f99d0@Reader@fn_fd8937bc@@QAE_NPAD@Z @c235c651df82 @w2e316a2a6525
 // STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 9/10, incomplete)
 // FUN_000f99d0 @ 0x000f99d0
 bool Reader::FUN_000f99d0(char *output) { char *dest=output; if ((int)(cursor-begin)<length) { do { *dest++=*cursor; ++cursor; if (*cursor=='\n') { ++cursor; break; } } while ((int)(cursor-begin)<length); } *dest=0; return dest!=output; }
@@ -653,7 +653,7 @@ void __fastcall ClearEntries(Entry_f9d20* p) {
 
 
 // 0x000f9d70 FUN_000f9d70 (221 B): equivalent/0x000f9d70.cpp
-// sym: ?FUN_000f9d70@Cursor_f9d70@fn_fd8937bc@@QAEPAXXZ
+// sym: ?FUN_000f9d70@Cursor_f9d70@fn_fd8937bc@@QAEPAXXZ @baf2fe99e589 @w71b364cdfbb8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 33/34, incomplete)
 // FUN_000f9d70 @ 0x000f9d70
 void* Cursor_f9d70::FUN_000f9d70() {
@@ -736,7 +736,7 @@ bool __fastcall FUN_000f9ef0(Owner_f9ef0* self) {
 } // namespace fn_fd8937bc
 
 // 0x000f9f30 FUN_000f9f30 (119 B): equivalent/0x000f9f30.cpp [wrapped: conflict: Node]
-// sym: ?FUN_000f9f30@Chain_f9f30@fn_000f9f30@@QAEXXZ
+// sym: ?FUN_000f9f30@Chain_f9f30@fn_000f9f30@@QAEXXZ @13b7f4f643d7 @wc396e810908e
 namespace fn_000f9f30 {
 // STATUS: equivalent (tools/equiv.py level 3: 1911 inputs, branch coverage 22/22)
 // FUN_000f9f30 @ 0x000f9f30
@@ -788,7 +788,7 @@ void Chain_f9f30::FUN_000f9f30() {
 
 
 // 0x000f9fb0 FUN_000f9fb0 (116 B): equivalent/0x000f9fb0.cpp [wrapped: conflict: Node]
-// sym: ?FUN_000f9fb0@NodeList_f9fb0@fn_000f9fb0@@QAEXXZ
+// sym: ?FUN_000f9fb0@NodeList_f9fb0@fn_000f9fb0@@QAEXXZ @692bafc52a88 @w5110813d9f70
 namespace fn_000f9fb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 19/20, incomplete)
 // FUN_000f9fb0 @ 0x000f9fb0
@@ -1029,7 +1029,7 @@ pure3d::NonCopyable_0fa490* pure3d::NonCopyable_0fa490::f2(unsigned char param) 
 
 
 // 0x000fa5a0 FUN_000fa5a0 (717 B): equivalent/0x000fa5a0.cpp [wrapped: merged class would differ: CTokenSectionStart: field a: Field(+0x18 int a) vs Field(+0x8 int a)]
-// sym: ?FUN_000fa5a0@fn_000fa5a0@@YGPAVCToken@DollyScript@1@PAPADPBDHH1@Z
+// sym: ?FUN_000fa5a0@fn_000fa5a0@@YGPAVCToken@DollyScript@1@PAPADPBDHH1@Z @d8a52a26e84f @w7d96cd6b700d
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_000fa5a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 253 inputs, branch coverage 76/76)
@@ -1629,7 +1629,7 @@ extern "C" char FUN_000fb1c0(int id) {
 } // namespace fn_fd8937bc
 
 // 0x000fb240 FUN_000fb240 (80 B): equivalent/0x000fb240.cpp
-// sym: ?FUN_000fb240@Inventory_fb240@owners@@QAEPAXPAX@Z
+// sym: ?FUN_000fb240@Inventory_fb240@owners@@QAEPAXPAX@Z @eecf7bf41037 @w351dd7793d9b
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_000fb240 @ 0x000fb240
 // FUN_000fb240 @ 0x000fb240

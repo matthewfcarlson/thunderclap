@@ -50,7 +50,7 @@ hulk_intptr hulkfight::motion::PropThrowTrack::vfunc_0(int index) {
 
 
 // 0x00180f00 FUN_00180f00 (146 B): equivalent/0x00180f00.cpp [wrapped: conflict: hulkfight::motion::PropThrowTrack]
-// sym: ?FUN_00180f00@PropThrowTrack@motion@hulkfight@fn_00180f00@@QAEPAV1234@XZ
+// sym: ?FUN_00180f00@PropThrowTrack@motion@hulkfight@fn_00180f00@@QAEPAV1234@XZ @c9905223d9e6 @wf8cf7a9d5983
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_00180f00 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)

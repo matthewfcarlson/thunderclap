@@ -107,7 +107,7 @@ extern "C" void* FUN_000964d0(void) {
 
 
 // 0x000964e0 FUN_000964e0 (96 B): equivalent/0x000964e0.cpp
-// sym: ?FUN_000964e0@fn_ff9d56b0@@YAMXZ
+// sym: ?FUN_000964e0@fn_ff9d56b0@@YAMXZ @ef427a018a9a @web4ed377eaf3
 // STATUS: equivalent (tools/equiv.py level 3: 19809 inputs, branch coverage 0/0)
 // FUN_000964e0 @ 0x000964e0
 hulk_freg FUN_000964e0()
@@ -132,7 +132,7 @@ hulk_freg FUN_00096540(float a, float b) {
 
 
 // 0x00096600 FUN_00096600 (112 B): equivalent/0x00096600.cpp
-// sym: _FUN_00096600
+// sym: _FUN_00096600 @8944b7581ddb @w92c09faa9dda
 // STATUS: equivalent (tools/equiv.py level 3: 3054 inputs, branch coverage 15/18, incomplete)
 // FUN_00096600 @ 0x00096600
 // Case-insensitive strcmp
@@ -157,7 +157,7 @@ extern "C" int FUN_00096600(const char* s1, const char* s2)
 
 
 // 0x00096670 FUN_00096670 (104 B): equivalent/0x00096670.cpp
-// sym: _FUN_00096670
+// sym: _FUN_00096670 @3525692d3019 @w047b49ab3d69
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_00096670 @ 0x00096670
 extern "C" int __cdecl FUN_00096670(const char* s1, const char* s2, unsigned int n) {
@@ -207,7 +207,7 @@ extern "C" void FUN_000966f0() {
 
 
 // 0x00096740 FUN_00096740 (584 B): equivalent/0x00096740.cpp
-// sym: _FUN_00096740
+// sym: _FUN_00096740 @ceb95f951c9e @wd61266b3fe19
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/8, incomplete)
 // FUN_00096740 @ 0x00096740
 extern "C" void FUN_00096740() {

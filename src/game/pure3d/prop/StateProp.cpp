@@ -164,7 +164,7 @@ class Inner_1d7b70 {
 
 
 // 0x001d7890 FUN_001d7890 (736 B): equivalent/0x001d7890.cpp
-// sym: ??0CSPHulkPropInstance@fn_f4e931d5@@QAE@PAUIndexer_1d7890@1@H@Z
+// sym: ??0CSPHulkPropInstance@fn_f4e931d5@@QAE@PAUIndexer_1d7890@1@H@Z @cb15bf9979fd @w48f6e57b1a25
 // STATUS: equivalent (tools/equiv.py level 3: 3043 inputs, branch coverage 15/16, incomplete)
 // FUN_001d7890 @ 0x001d7890
 CSPHulkPropInstance::CSPHulkPropInstance(Indexer_1d7890 *idx, int arg)

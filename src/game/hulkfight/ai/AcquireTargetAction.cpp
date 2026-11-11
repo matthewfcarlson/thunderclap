@@ -506,7 +506,7 @@ hulk_intptr hulkfight::ai::AcquireTargetTrack::vfunc_0(int index) {
 
 
 // 0x001243a0 FUN_001243a0 (64 B): equivalent/0x001243a0.cpp [wrapped: conflict: hulkfight::ai::AcquireTargetTrack]
-// sym: ??0AcquireTargetTrack@ai@hulkfight@fn_001243a0@@QAE@XZ
+// sym: ??0AcquireTargetTrack@ai@hulkfight@fn_001243a0@@QAE@XZ @d2ee33c05c8e @wcf529dfdabab
 namespace fn_001243a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001243a0 @ 0x001243a0
@@ -632,7 +632,7 @@ bool hulkfight::ai::HasTargetCondition::vfunc_6(void* __p0, void* __p1, void* __
 namespace fn_f712cb17 {
 
 // 0x001245b0 hulkfight::ai::AcquireTargetCondition::vfunc_6 (410 B): equivalent/0x001245b0.cpp
-// sym: ?vfunc_6@AcquireTargetCondition@fn_f712cb17@@UAEDHPAUOwner_1245b0@2@H@Z
+// sym: ?vfunc_6@AcquireTargetCondition@fn_f712cb17@@UAEDHPAUOwner_1245b0@2@H@Z @7b165c989211 @w08624b289e7b
 // STATUS: equivalent (tools/equiv.py level 3: 12028 inputs, branch coverage 34/34; run with --inputs 12000)
 // hulkfight::ai::AcquireTargetCondition::vfunc_6 @ 0x001245b0
 char AcquireTargetCondition::vfunc_6(int unused1, Owner_1245b0 *owner, int unused3)
@@ -678,7 +678,7 @@ char AcquireTargetCondition::vfunc_6(int unused1, Owner_1245b0 *owner, int unuse
 } // namespace fn_f712cb17
 
 // 0x00124750 hulkfight::ai::TargetTypeCondition::vfunc_6 (127 B): equivalent/0x00124750.cpp
-// sym: ?vfunc_6@TargetTypeCondition@ai@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@TargetTypeCondition@ai@hulkfight@@UAE_NPAX00@Z @28faa266b339 @wd4eb2e1b0a46
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 16/16)
 // hulkfight::ai::TargetTypeCondition::vfunc_6 @ 0x00124750
 bool hulkfight::ai::TargetTypeCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int unused1 = (int)__p0; Entity_124750 * entity = (Entity_124750 *)__p1; int unused2 = (int)__p2;
@@ -711,7 +711,7 @@ bool hulkfight::ai::TargetTypeCondition::vfunc_6(void* __p0, void* __p1, void* _
 
 
 // 0x001247d0 hulkfight::ai::CanSeeTargetCondition::vfunc_6 (476 B): equivalent/0x001247d0.cpp [wrapped: conflict: World]
-// sym: ?vfunc_6@CanSeeTargetCondition@fn_001247d0@@UAEDHPAVParams_1247d0@fight@2@H@Z
+// sym: ?vfunc_6@CanSeeTargetCondition@fn_001247d0@@UAEDHPAVParams_1247d0@fight@2@H@Z @92eb42df0ca6 @wa31f71f34156
 namespace fn_001247d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3294 inputs, branch coverage 27/28, incomplete; Wine build 689 inputs, 27/28)
 // hulkfight::ai::CanSeeTargetCondition::vfunc_6 @ 0x001247d0
@@ -871,7 +871,7 @@ char CanSeeTargetCondition::vfunc_6(int a, fight::Params_1247d0* params, int c)
 
 
 // 0x001249b0 hulkfight::ai::TargetInvincibleCondition::vfunc_6 (123 B): equivalent/0x001249b0.cpp
-// sym: ?vfunc_6@TargetInvincibleCondition@ai@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@TargetInvincibleCondition@ai@hulkfight@@UAE_NPAX00@Z @b8977fbd1f75 @w352c6492cd10
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 14/14)
 // hulkfight::ai::TargetInvincibleCondition::vfunc_6 @ 0x001249b0
 bool hulkfight::ai::TargetInvincibleCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; void * obj = (void *)__p1; int c = (int)__p2;

@@ -7,7 +7,7 @@
 
 
 // 0x000a75d0 CChaseCamera::vfunc_35 (3401 B): equivalent/0x000a75d0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_35@CChaseCamera@fn_000a75d0@@QAEXMMMM@Z
+// sym: ?vfunc_35@CChaseCamera@fn_000a75d0@@QAEXMMMM@Z @ee2f8cdee157 @wa4ea870be460
 namespace fn_000a75d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20052 inputs, branch coverage 130/130)
 // CChaseCamera::vfunc_35 @ 0x000a75d0

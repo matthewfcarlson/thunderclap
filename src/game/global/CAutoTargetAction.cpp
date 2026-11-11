@@ -114,7 +114,7 @@ public:
 
 
 // 0x0001d570 CAutoTargetAction::vfunc_7 (1082 B): equivalent/0x0001d570.cpp
-// sym: ?vfunc_7@CAutoTargetAction@fn_fbb06d2a@@UAEDM@Z
+// sym: ?vfunc_7@CAutoTargetAction@fn_fbb06d2a@@UAEDM@Z @a739413a6efa @w04d665a00177
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 44/44)
 // CAutoTargetAction::vfunc_7 @ 0x0001d570
 char CAutoTargetAction::vfunc_7(float dt)

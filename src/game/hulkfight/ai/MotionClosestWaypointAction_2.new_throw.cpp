@@ -270,7 +270,7 @@ public:
 namespace fn_fda5378a {
 
 // 0x00118e40 FUN_00118e40 (158 B): equivalent/0x00118e40.cpp
-// sym: ?FUN_00118e40@fn_fda5378a@@YAXXZ
+// sym: ?FUN_00118e40@fn_fda5378a@@YAXXZ @1dcbf964f785 @w16f1a73127b5
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 6/6)
 // FUN_00118e40 @ 0x00118e40
 void FUN_00118e40()
@@ -293,7 +293,7 @@ void FUN_00118e40()
 
 
 // 0x00118ee0 FUN_00118ee0 (176 B): equivalent/0x00118ee0.cpp
-// sym: ?FUN_00118ee0@fn_fda5378a@@YAXXZ
+// sym: ?FUN_00118ee0@fn_fda5378a@@YAXXZ @15b84e19d96f @we21b2d1a2c1f
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 6/6)
 // FUN_00118ee0 @ 0x00118ee0
 void FUN_00118ee0()
@@ -316,7 +316,7 @@ void FUN_00118ee0()
 
 
 // 0x00118f90 FUN_00118f90 (358 B): equivalent/0x00118f90.cpp
-// sym: ?FUN_00118f90@fn_fda5378a@@YAXXZ
+// sym: ?FUN_00118f90@fn_fda5378a@@YAXXZ @f07f1fbcadba @w64d8c44259d6
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 14/14)
 // FUN_00118f90 @ 0x00118f90
 void FUN_00118f90()
@@ -356,7 +356,7 @@ void FUN_00118f90()
 
 
 // 0x00119100 FUN_00119100 (511 B): equivalent/0x00119100.cpp
-// sym: ?FUN_00119100@fn_fda5378a@@YAXXZ
+// sym: ?FUN_00119100@fn_fda5378a@@YAXXZ @892e29151ded @wbba6ec77869f
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 20/20)
 // FUN_00119100 @ 0x00119100
 void FUN_00119100()
@@ -407,7 +407,7 @@ void FUN_00119100()
 
 
 // 0x001193e0 FUN_001193e0 (158 B): equivalent/0x001193e0.cpp
-// sym: ?FUN_001193e0@fn_fda5378a@@YAXXZ
+// sym: ?FUN_001193e0@fn_fda5378a@@YAXXZ @7e8024615307 @wfee6f77abe46
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_001193e0 @ 0x001193e0
 void FUN_001193e0()
@@ -430,7 +430,7 @@ void FUN_001193e0()
 
 
 // 0x00119480 FUN_00119480 (307 B): equivalent/0x00119480.cpp
-// sym: ?FUN_00119480@fn_fda5378a@@YAXXZ
+// sym: ?FUN_00119480@fn_fda5378a@@YAXXZ @740fad131b4c @w151df125218f
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 12/12)
 // FUN_00119480 @ 0x00119480
 void FUN_00119480()
@@ -466,7 +466,7 @@ void FUN_00119480()
 
 
 // 0x001195c0 FUN_001195c0 (460 B): equivalent/0x001195c0.cpp
-// sym: ?FUN_001195c0@fn_fda5378a@@YAXXZ
+// sym: ?FUN_001195c0@fn_fda5378a@@YAXXZ @56437c5c8e1b @w83ebd5d960e4
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_001195c0 @ 0x001195c0
 void FUN_001195c0()
@@ -513,7 +513,7 @@ void FUN_001195c0()
 
 
 // 0x00119790 FUN_00119790 (307 B): equivalent/0x00119790.cpp
-// sym: ?FUN_00119790@fn_fda5378a@@YAXXZ
+// sym: ?FUN_00119790@fn_fda5378a@@YAXXZ @5f69afa9aae3 @w13e403a8ec1e
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 12/12)
 // FUN_00119790 @ 0x00119790
 void FUN_00119790()
@@ -549,7 +549,7 @@ void FUN_00119790()
 
 
 // 0x001198d0 FUN_001198d0 (460 B): equivalent/0x001198d0.cpp
-// sym: ?FUN_001198d0@fn_fda5378a@@YAXXZ
+// sym: ?FUN_001198d0@fn_fda5378a@@YAXXZ @000aed61b64f @w51c1afd3116c
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_001198d0 @ 0x001198d0
 void FUN_001198d0()
@@ -596,7 +596,7 @@ void FUN_001198d0()
 
 
 // 0x00119aa0 FUN_00119aa0 (613 B): equivalent/0x00119aa0.cpp
-// sym: ?FUN_00119aa0@fn_fda5378a@@YAXXZ
+// sym: ?FUN_00119aa0@fn_fda5378a@@YAXXZ @0c1e3fdc368e @w9af3851c1b41
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 24/24)
 // FUN_00119aa0 @ 0x00119aa0
 void FUN_00119aa0()
@@ -655,7 +655,7 @@ void FUN_00119aa0()
 
 
 // 0x0011ab30 FUN_0011ab30 (664 B): equivalent/0x0011ab30.cpp
-// sym: ?FUN_0011ab30@fn_fda5378a@@YAXXZ
+// sym: ?FUN_0011ab30@fn_fda5378a@@YAXXZ @4057707e7445 @w9cc5cb0d459c
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
 // FUN_0011ab30 @ 0x0011ab30
 void FUN_0011ab30()

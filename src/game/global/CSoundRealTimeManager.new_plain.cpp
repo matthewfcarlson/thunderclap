@@ -9,7 +9,7 @@
 
 
 // 0x001ee820 FUN_001ee820 (924 B): equivalent/0x001ee820.cpp [wrapped: macros; helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_001ee820@CSoundRealTimeManager@fn_001ee820@@QAEXXZ
+// sym: ?FUN_001ee820@CSoundRealTimeManager@fn_001ee820@@QAEXXZ @7ac337ceeb79 @w50db677a0da1
 HULK_NATIVE_INLINE void* __cdecl operator new(hulk_uintptr, void* p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

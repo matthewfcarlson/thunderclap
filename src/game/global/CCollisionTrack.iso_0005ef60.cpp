@@ -4,7 +4,7 @@
 
 
 // 0x0005ef60 FUN_0005ef60 (95 B): equivalent/0x0005ef60.cpp [isolated: compile error C2039: 'FUN_0005d8f0' : is not a member of 'CClearHitRecordsTrack']
-// sym: _FUN_0005ef60
+// sym: _FUN_0005ef60 @a4f2b5563bd2 @w2c7338c32d31
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 4/4)
 // FUN_0005ef60 @ 0x0005ef60
 #include "decls/data/game/global.h"

@@ -1215,7 +1215,7 @@ extern "C" void FUN_0017c620(Thing* thing, const char* name) {
 namespace fn_f05a6271 {
 
 // 0x0017c650 FUN_0017c650 (933 B): equivalent/0x0017c650.cpp
-// sym: _FUN_0017c650
+// sym: _FUN_0017c650 @ed9f49ce204b @w15d6c7af4405
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 36/36)
 // FUN_0017c650 @ 0x0017c650
 extern "C" void FUN_0017c650()
@@ -1339,7 +1339,7 @@ extern "C" void __cdecl FUN_0017ca30(Obj* obj, void* name) {
 namespace fn_f05a6271 {
 
 // 0x0017ca60 FUN_0017ca60 (358 B): equivalent/0x0017ca60.cpp
-// sym: _FUN_0017ca60
+// sym: _FUN_0017ca60 @c2779d21229a @w7aac995ae6c0
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 14/14)
 // FUN_0017ca60 @ 0x0017ca60
 extern "C" void FUN_0017ca60()
@@ -1396,7 +1396,7 @@ extern "C" void FUN_0017cc00(Track* track, const char* name) {
 
 
 // 0x0017cc30 FUN_0017cc30 (613 B): equivalent/0x0017cc30.cpp
-// sym: _FUN_0017cc30
+// sym: _FUN_0017cc30 @19491d48245d @w23b1deba88f0
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
 // FUN_0017cc30 @ 0x0017cc30
 extern "C" void FUN_0017cc30()
@@ -1477,7 +1477,7 @@ extern "C" void FUN_0017cea0(Obj* obj, void* name) {
 namespace fn_f05a6271 {
 
 // 0x0017ced0 FUN_0017ced0 (678 B): equivalent/0x0017ced0.cpp
-// sym: _FUN_0017ced0
+// sym: _FUN_0017ced0 @2a2028bfaf9b @w4378baffa689
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
 // FUN_0017ced0 @ 0x0017ced0
 extern "C" void FUN_0017ced0()
@@ -1566,7 +1566,7 @@ extern "C" void FUN_0017d1e0(Obj* obj, int n) {
 
 
 // 0x0017d210 FUN_0017d210 (868 B): equivalent/0x0017d210.cpp
-// sym: _FUN_0017d210
+// sym: _FUN_0017d210 @349d8f786f61 @wc0fd0d999dbf
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
 // FUN_0017d210 @ 0x0017d210
 extern "C" void FUN_0017d210()
@@ -1722,7 +1722,7 @@ extern "C" void FUN_0017d670(Owner* owner, void* key) {
 
 
 // 0x0017d6a0 FUN_0017d6a0 (460 B): equivalent/0x0017d6a0.cpp
-// sym: _FUN_0017d6a0
+// sym: _FUN_0017d6a0 @61eae1ca18e2 @w793c539dce88
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_0017d6a0 @ 0x0017d6a0
 extern "C" void FUN_0017d6a0()
@@ -1799,7 +1799,7 @@ extern "C" void FUN_0017d8a0(Obj* obj, void* id) {
 
 
 // 0x0017d8d0 FUN_0017d8d0 (831 B): equivalent/0x0017d8d0.cpp
-// sym: _FUN_0017d8d0
+// sym: _FUN_0017d8d0 @3b2a4c945e8b @w54a93db2ac84
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 32/32)
 // FUN_0017d8d0 @ 0x0017d8d0
 extern "C" void FUN_0017d8d0()
@@ -2045,7 +2045,7 @@ extern "C" void* FUN_0017ddc0(Obj* obj, void* key) {
 namespace fn_f05a6271 {
 
 // 0x0017ddf0 FUN_0017ddf0 (562 B): equivalent/0x0017ddf0.cpp
-// sym: _FUN_0017ddf0
+// sym: _FUN_0017ddf0 @8fae0e3dc400 @w22c2a1c9ba59
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 22/22)
 // FUN_0017ddf0 @ 0x0017ddf0
 extern "C" void FUN_0017ddf0()

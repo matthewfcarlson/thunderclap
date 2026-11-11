@@ -5,7 +5,7 @@
 
 
 // 0x0019ba50 hulkfight::motion::FireGroundShockwaveAction::vfunc_5 (369 B): equivalent/0x0019ba50.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?vfunc_5@FireGroundShockwaveAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@FireGroundShockwaveAction@motion@hulkfight@@UAE_NHH@Z @a8db02425100 @wacb3f8c2a616
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 7/8, incomplete)
 // hulkfight::motion::FireGroundShockwaveAction::vfunc_5 @ 0x0019ba50
 #include "gen/hulkfight.h"

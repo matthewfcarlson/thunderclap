@@ -130,7 +130,7 @@ extern "C" __int64 FUN_0027b020(void*);
 namespace fn_fd3ccc71 {
 
 // 0x000c9720 FUN_000c9720 (189 B): equivalent/0x000c9720.cpp
-// sym: ?target@Object@fn_fd3ccc71@@QAEXUVec3_c9720@2@@Z
+// sym: ?target@Object@fn_fd3ccc71@@QAEXUVec3_c9720@2@@Z @e09560ed15cf @wcc9cbaa0c760
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_000c9720 @ 0x000c9720
 void Object::target(Vec3_c9720 input) {
@@ -144,7 +144,7 @@ void Object::target(Vec3_c9720 input) {
 
 
 // 0x000c9810 FUN_000c9810 (856 B): equivalent/0x000c9810.cpp
-// sym: ?FUN_000c9810@Tracker_c9810@fn_fd3ccc71@@QAEXM@Z
+// sym: ?FUN_000c9810@Tracker_c9810@fn_fd3ccc71@@QAEXM@Z @f92ecefc8608 @w4c5ba2155fd7
 // STATUS: equivalent (tools/equiv.py level 3: 377 inputs, branch coverage 46/50, incomplete)
 // FUN_000c9810 @ 0x000c9810
 void Tracker_c9810::FUN_000c9810(float dt)
@@ -246,7 +246,7 @@ extern "C" hulk_intptr FUN_000c9ba0(Obj* obj, void* input) {
 } // namespace fn_fd3ccc71
 
 // 0x000ca3a0 FUN_000ca3a0 (914 B): equivalent/0x000ca3a0.cpp [wrapped: conflict: CHudMap; World; content::LoadInventory::DynamicCaster; pure3d::Entity]
-// sym: ??0CHudMap@fn_000ca3a0@@QAE@XZ
+// sym: ??0CHudMap@fn_000ca3a0@@QAE@XZ @cb65cfcc8957 @wef27afd02d47
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_000ca3a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 566 inputs, branch coverage 29/30, incomplete)

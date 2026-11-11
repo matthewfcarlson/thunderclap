@@ -603,7 +603,7 @@ struct O_1d7810 {
 
 
 // 0x001d64c0 FUN_001d64c0 (275 B): equivalent/0x001d64c0.cpp
-// sym: ?FUN_001d64c0@Object@fn_fff2a2ba@@QAEHXZ
+// sym: ?FUN_001d64c0@Object@fn_fff2a2ba@@QAEHXZ @4f0b5bbf4a59 @w8d18c6953d02
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // FUN_001d64c0 @ 0x001d64c0
 int Object::FUN_001d64c0() {
@@ -707,7 +707,7 @@ hulk_freg __fastcall FUN_001d6670(Obj_1d6670* self) {
 
 
 // 0x001d66b0 FUN_001d66b0 (191 B): equivalent/0x001d66b0.cpp
-// sym: ?target@Object@fn_fff2a2ba@@QAEXPAUVec_1d66b0@2@PAUOrientation_1d66b0@2@@Z
+// sym: ?target@Object@fn_fff2a2ba@@QAEXPAUVec_1d66b0@2@PAUOrientation_1d66b0@2@@Z @1afd0c0cb842 @w42135c90085c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001d66b0 @ 0x001d66b0
 void Object::target(Vec_1d66b0* position, Orientation_1d66b0* orientation) {
@@ -727,7 +727,7 @@ void Object::target(Vec_1d66b0* position, Orientation_1d66b0* orientation) {
 
 
 // 0x001d6770 FUN_001d6770 (344 B): equivalent/0x001d6770.cpp
-// sym: ?FUN_001d6770@StateWalker@fn_fff2a2ba@@QAEXXZ
+// sym: ?FUN_001d6770@StateWalker@fn_fff2a2ba@@QAEXXZ @609fd9906478 @wb2f447a97b4f
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 33/38, incomplete)
 // FUN_001d6770 @ 0x001d6770
 void StateWalker::FUN_001d6770()
@@ -902,7 +902,7 @@ void owners::A_1d69e0::FUN_001d69e0(int a) {
 namespace fn_fff2a2ba {
 
 // 0x001d69f0 FUN_001d69f0 (135 B): equivalent/0x001d69f0.cpp
-// sym: ?FUN_001d69f0@Skeleton@fn_fff2a2ba@@QAEXPAUV3_1d69f0@2@@Z
+// sym: ?FUN_001d69f0@Skeleton@fn_fff2a2ba@@QAEXPAUV3_1d69f0@2@@Z @f5b258d2ec76 @w68c966836cb6
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 2/2)
 // FUN_001d69f0 @ 0x001d69f0
 // Position of the bone this skeleton tracks (or the default offset transformed by its matrix).
@@ -1165,7 +1165,7 @@ void CSPHulkPropInstance::vfunc_8(hulk_intptr x, int y) {
 
 
 // 0x001d6e10 FUN_001d6e10 (173 B): equivalent/0x001d6e10.cpp [wrapped: conflict: World]
-// sym: ?FUN_001d6e10@Owner_1d6e10@fn_001d6e10@@QAEXPAUEntry_1d6e10@2@@Z
+// sym: ?FUN_001d6e10@Owner_1d6e10@fn_001d6e10@@QAEXPAUEntry_1d6e10@2@@Z @dc9da0294b36 @w7469358ce483
 namespace fn_001d6e10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // FUN_001d6e10 @ 0x001d6e10
@@ -1239,7 +1239,7 @@ void Owner_1d6e10::FUN_001d6e10(Entry_1d6e10* incoming) {
 
 
 // 0x001d6ec0 FUN_001d6ec0 (571 B): equivalent/0x001d6ec0.cpp [wrapped: conflict: FUN_0027afb0; World]
-// sym: ?FUN_001d6ec0@Receiver_1d6ec0@fn_001d6ec0@@QAE_NHPAURef_1d6ec0@2@_N@Z
+// sym: ?FUN_001d6ec0@Receiver_1d6ec0@fn_001d6ec0@@QAE_NHPAURef_1d6ec0@2@_N@Z @13691fffbfc7 @w94409098215b
 namespace fn_001d6ec0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 54/54)
 // FUN_001d6ec0 @ 0x001d6ec0
@@ -1475,7 +1475,7 @@ int Obj_1d7100::Find(int index) {
 
 
 // 0x001d7150 FUN_001d7150 (134 B): equivalent/0x001d7150.cpp
-// sym: ?SelectById@Manager_1d7150@fn_fff2a2ba@@QAE_NH@Z
+// sym: ?SelectById@Manager_1d7150@fn_fff2a2ba@@QAE_NH@Z @c1f180e76d9f @wc8bf3eaa0352
 // STATUS: equivalent (tools/equiv.py level 3: 204 inputs, branch coverage 8/8)
 // FUN_001d7150 @ 0x001d7150
 bool Manager_1d7150::SelectById(int id)
@@ -1498,7 +1498,7 @@ bool Manager_1d7150::SelectById(int id)
 } // namespace fn_fff2a2ba
 
 // 0x001d71e0 FUN_001d71e0 (178 B): equivalent/0x001d71e0.cpp [wrapped: conflict: World]
-// sym: ?FUN_001d71e0@Object@fn_001d71e0@@QAEXPAUReference@2@@Z
+// sym: ?FUN_001d71e0@Object@fn_001d71e0@@QAEXPAUReference@2@@Z @f88add6db4df @w9a10e8ab0dcf
 namespace fn_001d71e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_001d71e0 @ 0x001d71e0
@@ -1606,7 +1606,7 @@ void Owner_1d7330::Set(Item_1d7330* p) {
 
 
 // 0x001d7360 FUN_001d7360 (141 B): equivalent/0x001d7360.cpp
-// sym: ?FUN_001d7360@Node@fn_fff2a2ba@@QAE_NPAUVec4Bits@2@@Z
+// sym: ?FUN_001d7360@Node@fn_fff2a2ba@@QAE_NPAUVec4Bits@2@@Z @56ffb8fc84ea @w2200f1f31ef7
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 10/10)
 // FUN_001d7360 @ 0x001d7360
 // Fill `out` (x, y, z, w) from the attached transform source and its parent chain, then hand it to
@@ -1757,7 +1757,7 @@ void* Obj::Get(int index) {
 
 
 // 0x001d77c0 FUN_001d77c0 (78 B): equivalent/0x001d77c0.cpp
-// sym: ?FUN_001d77c0@Object@fn_fff2a2ba@@QAEPAXXZ
+// sym: ?FUN_001d77c0@Object@fn_fff2a2ba@@QAEPAXXZ @7e2127cf801e @wd39380415df4
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001d77c0 @ 0x001d77c0
 void *Object::FUN_001d77c0() {

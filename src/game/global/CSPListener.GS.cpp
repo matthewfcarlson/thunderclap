@@ -164,7 +164,7 @@ void __stdcall FUN_001db110(unsigned int unused) {
 
 
 // 0x001db230 CSPListener::vfunc_0 (1220 B): equivalent/0x001db230.cpp
-// sym: ?vfunc_0@CSPListener@fn_f4dda826@@UAEXPAUEv_1db230@2@I@Z
+// sym: ?vfunc_0@CSPListener@fn_f4dda826@@UAEXPAUEv_1db230@2@I@Z @43ad8d6b8987 @w470044eecfd1
 // STATUS: equivalent (tools/equiv.py level 3: 3065 inputs, branch coverage 30/30)
 // CSPListener::vfunc_0 @ 0x001db230
 // equiv-map: ??0Name@@QAE@ABU0@@Z = 0x0027af30

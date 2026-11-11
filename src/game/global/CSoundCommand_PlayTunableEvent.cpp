@@ -54,7 +54,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x001f02b0 CSoundCommand_PlayTunableEvent::vfunc_1 (227 B): equivalent/0x001f02b0.cpp
-// sym: ?vfunc_1@CSoundCommand_PlayTunableEvent@fn_f8678f71@@UAEXKK@Z
+// sym: ?vfunc_1@CSoundCommand_PlayTunableEvent@fn_f8678f71@@UAEXKK@Z @9eb3823f6b4d @wff24f4a3f4ad
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // CSoundCommand_PlayTunableEvent::vfunc_1 @ 0x001f02b0
 void CSoundCommand_PlayTunableEvent::vfunc_1(U32_1f02b0 arg, U32_1f02b0 unused) {

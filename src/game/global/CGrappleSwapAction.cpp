@@ -85,7 +85,7 @@ public:
 
 
 // 0x000157c0 CGrappleSwapAction::vfunc_6 (423 B): equivalent/0x000157c0.cpp
-// sym: ?vfunc_6@CGrappleSwapAction@fn_fec14785@@UAEDH@Z
+// sym: ?vfunc_6@CGrappleSwapAction@fn_fec14785@@UAEDH@Z @7f6c304b8d73 @wfd1ed4ade582
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 10/10)
 // CGrappleSwapAction::vfunc_6 @ 0x000157c0
 char CGrappleSwapAction::vfunc_6(int arg)

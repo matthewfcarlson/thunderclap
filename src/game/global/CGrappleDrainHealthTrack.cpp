@@ -68,7 +68,7 @@ void* CGrappleDrainHealthTrack::vfunc_11(hulk_intptr param) {
 
 
 // 0x0005a5e0 CGrappleDrainHealthTrack::vfunc_12 (155 B): equivalent/0x0005a5e0.cpp
-// sym: ?vfunc_12@CGrappleDrainHealthTrack@@UAEHH@Z
+// sym: ?vfunc_12@CGrappleDrainHealthTrack@@UAEHH@Z @b57a254ff63b @w687741c4a523
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 17/18, incomplete)
 // CGrappleDrainHealthTrack::vfunc_12 @ 0x0005a5e0
 // CGrappleDrainHealthTrack::vfunc_12: spawn the drain effect for the grappled opponent

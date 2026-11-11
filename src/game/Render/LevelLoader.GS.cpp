@@ -105,7 +105,7 @@ public:
 
 
 // 0x001c9160 Render::LevelLoader::vfunc_5 (1001 B): equivalent/0x001c9160.cpp
-// sym: ?vfunc_5@LevelLoader@Render@fn_fcbe5f6e@@UAEXPAHPAUId64_1c9160@3@PAUReader@3@PAUInventory_1c9160@3@@Z
+// sym: ?vfunc_5@LevelLoader@Render@fn_fcbe5f6e@@UAEXPAHPAUId64_1c9160@3@PAUReader@3@PAUInventory_1c9160@3@@Z @822d2be88f1c @w076db472f833
 // STATUS: equivalent (tools/equiv.py level 3: 1053 inputs, branch coverage 26/26)
 // Render::LevelLoader::vfunc_5 @ 0x001c9160
 namespace Render {

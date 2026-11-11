@@ -4,7 +4,7 @@
 
 
 // 0x001ac490 FUN_001ac490 (231 B): equivalent/0x001ac490.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?FUN_001ac490@fn_f585229e@@YAXXZ
+// sym: ?FUN_001ac490@fn_f585229e@@YAXXZ @897e701f2158 @w6ef97e5337c1
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/scenario.h"

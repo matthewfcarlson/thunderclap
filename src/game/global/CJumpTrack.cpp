@@ -293,7 +293,7 @@ hulk_freg CJumpTrack::vfunc_7() {
 namespace fn_f3ca8e6b {
 
 // 0x00069210 FUN_00069210 (173 B): equivalent/0x00069210.cpp
-// sym: ?FUN_00069210@Curve_69210@fn_f3ca8e6b@@QAEMM@Z
+// sym: ?FUN_00069210@Curve_69210@fn_f3ca8e6b@@QAEMM@Z @8777d06539c4 @w253041b25953
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 11/12, incomplete)
 // FUN_00069210 @ 0x00069210
 hulk_freg Curve_69210::FUN_00069210(float t) {
@@ -308,7 +308,7 @@ hulk_freg Curve_69210::FUN_00069210(float t) {
 
 
 // 0x000692c0 FUN_000692c0 (169 B): equivalent/0x000692c0.cpp
-// sym: ?FUN_000692c0@Curve_692c0@fn_f3ca8e6b@@QAEMM@Z
+// sym: ?FUN_000692c0@Curve_692c0@fn_f3ca8e6b@@QAEMM@Z @8ae024cd445a @we69af9e5290d
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 10/10)
 // FUN_000692c0 @ 0x000692c0
 hulk_freg Curve_692c0::FUN_000692c0(float t) {

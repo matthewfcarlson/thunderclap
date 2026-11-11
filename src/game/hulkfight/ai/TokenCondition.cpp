@@ -71,7 +71,7 @@ struct World {
 
 
 // 0x0010dcf0 hulkfight::ai::TokenCondition::vfunc_6 (356 B): equivalent/0x0010dcf0.cpp
-// sym: ?vfunc_6@TokenCondition@ai@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@TokenCondition@ai@hulkfight@@UAE_NPAX00@Z @22293afd97a9 @w0f0a6df5f094
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 30/30)
 // hulkfight::ai::TokenCondition::vfunc_6 @ 0x0010dcf0
 bool hulkfight::ai::TokenCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int arg0 = (int)__p0; fight::Params_10dcf0 * params = (fight::Params_10dcf0 *)__p1; int arg2 = (int)__p2;

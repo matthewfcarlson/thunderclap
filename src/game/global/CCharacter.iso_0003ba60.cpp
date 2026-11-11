@@ -5,7 +5,7 @@
 
 
 // 0x0003ba60 FUN_0003ba60 (916 B): equivalent/0x0003ba60.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_0003ba60@Fighter_3ba60@fn_fa5d0406@@QAEXPAUArgs_3ba60@2@H@Z
+// sym: ?FUN_0003ba60@Fighter_3ba60@fn_fa5d0406@@QAEXPAUArgs_3ba60@2@H@Z @d25373895437 @w4d70ddc3eee6
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 namespace fn_fa5d0406 {} using namespace fn_fa5d0406;

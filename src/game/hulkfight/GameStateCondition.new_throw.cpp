@@ -161,7 +161,7 @@ public:
 
 
 // 0x00131560 FUN_00131560 (158 B): equivalent/0x00131560.cpp [wrapped: conflict: fight::ParamString]
-// sym: ?FUN_00131560@fn_00131560@@YAXXZ
+// sym: ?FUN_00131560@fn_00131560@@YAXXZ @a7127770efab @w23dbe306ac24
 namespace fn_00131560 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_00131560 @ 0x00131560
@@ -222,7 +222,7 @@ void FUN_00131560()
 namespace fn_fccc5d95 {
 
 // 0x00131850 FUN_00131850 (158 B): equivalent/0x00131850.cpp
-// sym: ?FUN_00131850@fn_fccc5d95@@YAXXZ
+// sym: ?FUN_00131850@fn_fccc5d95@@YAXXZ @f116d437ab95 @wf294cb4cf34c
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 6/6)
 // FUN_00131850 @ 0x00131850
 void FUN_00131850()
@@ -245,7 +245,7 @@ void FUN_00131850()
 
 
 // 0x001319f0 FUN_001319f0 (409 B): equivalent/0x001319f0.cpp
-// sym: ?FUN_001319f0@fn_fccc5d95@@YAXXZ
+// sym: ?FUN_001319f0@fn_fccc5d95@@YAXXZ @fd0d32b3b8df @wac316aaaefad
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 16/16)
 // FUN_001319f0 @ 0x001319f0
 void FUN_001319f0()
@@ -288,7 +288,7 @@ void FUN_001319f0()
 
 
 // 0x00131c90 FUN_00131c90 (158 B): equivalent/0x00131c90.cpp
-// sym: _FUN_00131c90
+// sym: _FUN_00131c90 @cb16a66d54cd @w870b8295e5fd
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_00131c90 @ 0x00131c90
 extern "C" void FUN_00131c90()
@@ -311,7 +311,7 @@ extern "C" void FUN_00131c90()
 
 
 // 0x00131d30 FUN_00131d30 (158 B): equivalent/0x00131d30.cpp
-// sym: _FUN_00131d30
+// sym: _FUN_00131d30 @97e49054967d @wf4af16387740
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 6/6)
 // FUN_00131d30 @ 0x00131d30
 extern "C" void FUN_00131d30()
@@ -334,7 +334,7 @@ extern "C" void FUN_00131d30()
 
 
 // 0x00131dd0 FUN_00131dd0 (158 B): equivalent/0x00131dd0.cpp
-// sym: _FUN_00131dd0
+// sym: _FUN_00131dd0 @3f3ac862551c @w5a8548fd0fdd
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
 // FUN_00131dd0 @ 0x00131dd0
 extern "C" void FUN_00131dd0()

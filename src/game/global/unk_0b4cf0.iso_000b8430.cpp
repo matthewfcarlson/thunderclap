@@ -4,7 +4,7 @@
 
 
 // 0x000b8430 FUN_000b8430 (631 B): equivalent/0x000b8430.cpp [isolated: conflict: DAT_0049f470; on include/gen/ and not mergeable]
-// sym: ?FUN_000b8430@HintMenu_b8430@owners@@QAEXXZ
+// sym: ?FUN_000b8430@HintMenu_b8430@owners@@QAEXXZ @37d4a219cf0e @w71a97ebbbdb2
 // STATUS: equivalent (tools/equiv.py level 3: 177 inputs, branch coverage 48/48)
 // FUN_000b8430 @ 0x000b8430
 #include "gen/owners.h"

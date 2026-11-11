@@ -4,7 +4,7 @@
 
 
 // 0x00059990 CFightParamsCollision::vfunc_4 (98 B): equivalent/0x00059990.cpp [isolated: helper definitions (2 out-of-line function bodies); compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ?vfunc_4@CFightParamsCollision@fn_ff6d7003@@UAEPAU12@XZ
+// sym: ?vfunc_4@CFightParamsCollision@fn_ff6d7003@@UAEPAU12@XZ @171aaf02d774 @wa2cfab6e0119
 namespace fn_ff6d7003 {} using namespace fn_ff6d7003;
 namespace fn_ff6d7003 {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)

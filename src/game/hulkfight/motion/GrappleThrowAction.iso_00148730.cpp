@@ -5,7 +5,7 @@
 
 
 // 0x00148730 hulkfight::motion::GrappleHitReactionTrack::vfunc_9 (269 B): equivalent/0x00148730.cpp [isolated: conflict: DAT_00494b44; FUN_00344e74; on include/gen/ and not mergeable]
-// sym: ?vfunc_9@GrappleHitReactionTrack@motion@hulkfight@@UAEHHHH@Z
+// sym: ?vfunc_9@GrappleHitReactionTrack@motion@hulkfight@@UAEHHHH@Z @c77361e4e86e @w787f8ddbbbc9
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 8/8)
 // hulkfight::motion::GrappleHitReactionTrack::vfunc_9 @ 0x00148730
 // hulkfight::motion::GrappleHitReactionTrack::vfunc_9 @ 0x00148730

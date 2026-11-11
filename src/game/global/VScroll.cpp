@@ -321,7 +321,7 @@ void VScroll::vfunc_1() {
 
 
 // 0x000e2280 VScroll::vfunc_2 (360 B): equivalent/0x000e2280.cpp [wrapped: conflict: FELayout; VScroll]
-// sym: ?vfunc_2@VScroll@fn_000e2280@@UAEXXZ
+// sym: ?vfunc_2@VScroll@fn_000e2280@@UAEXXZ @cb867981fe79 @w4b27edc9e55a
 namespace fn_000e2280 {
 // STATUS: equivalent (tools/equiv.py level 3: 19494 inputs, branch coverage 8/8)
 // VScroll::vfunc_2 @ 0x000e2280
@@ -544,7 +544,7 @@ void VScroll::vfunc_18(void* __p0) { void * item = (void *)__p0;
 
 
 // 0x000e25e0 VScroll::vfunc_14 (197 B): equivalent/0x000e25e0.cpp [wrapped: conflict: VScroll]
-// sym: ?vfunc_14@VScroll@fn_000e25e0@@UAEPAUVec3_e25e0@2@PAU32@H@Z
+// sym: ?vfunc_14@VScroll@fn_000e25e0@@UAEPAUVec3_e25e0@2@PAU32@H@Z @bd9cc7799243 @w921a1a72bcc9
 namespace fn_000e25e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 384 inputs, branch coverage 8/8)
 // VScroll::vfunc_14 @ 0x000e25e0

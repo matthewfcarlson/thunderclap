@@ -88,7 +88,7 @@ CGrappleTimerCondition* CGrappleTimerCondition::vfunc_5(signed char flags) {
 } // namespace fn_fc1bb4c1
 
 // 0x0004d710 CGrappleTimerCondition::vfunc_7 (299 B): equivalent/0x0004d710.cpp [wrapped: conflict: CGrappleTimerCondition]
-// sym: ?vfunc_7@CGrappleTimerCondition@fn_0004d710@@UAE_NPAUContext@2@@Z
+// sym: ?vfunc_7@CGrappleTimerCondition@fn_0004d710@@UAE_NPAUContext@2@@Z @16a5038232ac @wa55e4b4b53b8
 namespace fn_0004d710 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // CGrappleTimerCondition::vfunc_7 @ 0x0004d710

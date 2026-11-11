@@ -38,7 +38,7 @@ int __stdcall vfunc_0(int index) {
 } // namespace fn_f6b1b8f2
 
 // 0x00069a80 FUN_00069a80 (44 B): equivalent/0x00069a80.cpp [wrapped: conflict: CMoveAddYTrack]
-// sym: ??0CMoveAddYTrack@fn_00069a80@@QAE@XZ
+// sym: ??0CMoveAddYTrack@fn_00069a80@@QAE@XZ @208de16e361c @wac61ab08cd32
 namespace fn_00069a80 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00069a80 @ 0x00069a80

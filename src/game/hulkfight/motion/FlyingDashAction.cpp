@@ -93,7 +93,7 @@ FlyingDashAction_135c30::~FlyingDashAction_135c30() {
 } // namespace fn_f99e97e2
 
 // 0x00135c80 hulkfight::motion::FlyingDashAction::vfunc_3 (621 B): equivalent/0x00135c80.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_3@FlyingDashAction@motion@hulkfight@fn_00135c80@@UAEDHH@Z
+// sym: ?vfunc_3@FlyingDashAction@motion@hulkfight@fn_00135c80@@UAEDHH@Z @dbfb16e63198 @wdee9d7656e27
 namespace fn_00135c80 {
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::FlyingDashAction::vfunc_3 @ 0x00135c80

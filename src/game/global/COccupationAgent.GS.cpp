@@ -202,7 +202,7 @@ public:
 
 
 // 0x00103c30 COccupationAgent::vfunc_4 (2818 B): equivalent/0x00103c30.cpp
-// sym: ?vfunc_4@COccupationAgent@fn_f17f4098@@UAEXPAUCtx2_103c30@2@MH@Z
+// sym: ?vfunc_4@COccupationAgent@fn_f17f4098@@UAEXPAUCtx2_103c30@2@MH@Z @bddb66aef290 @web86b8c40a09
 // STATUS: equivalent (tools/equiv.py level 3: 3079 inputs, branch coverage 92/98, incomplete)
 // COccupationAgent::vfunc_4 @ 0x00103c30
 void COccupationAgent::vfunc_4(Ctx2_103c30* a1, float a2, int a3)

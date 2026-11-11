@@ -40,7 +40,7 @@ hulk_intptr hulkfight::motion::JointTrackerTrack::vfunc_0(int index) {
 
 
 // 0x0016fce0 FUN_0016fce0 (140 B): equivalent/0x0016fce0.cpp [wrapped: conflict: hulkfight::motion::JointTrackerTrack]
-// sym: ??0JointTrackerTrack@motion@hulkfight@fn_0016fce0@@QAE@XZ
+// sym: ??0JointTrackerTrack@motion@hulkfight@fn_0016fce0@@QAE@XZ @de611c9254c1 @w05ad81d2d943
 namespace fn_0016fce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0016fce0 @ 0x0016fce0

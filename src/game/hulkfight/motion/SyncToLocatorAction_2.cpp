@@ -236,7 +236,7 @@ SyncToLocatorAction_175db0::~SyncToLocatorAction_175db0() throw() {
 } // namespace fn_ff45f2cf
 
 // 0x00175e00 hulkfight::motion::SyncToLocatorAction::vfunc_5 (457 B): equivalent/0x00175e00.cpp
-// sym: ?vfunc_5@SyncToLocatorAction@motion@hulkfight@@UAE_NHM@Z
+// sym: ?vfunc_5@SyncToLocatorAction@motion@hulkfight@@UAE_NHM@Z @3bd4dae7ab3c @w448265b6a3b0
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // hulkfight::motion::SyncToLocatorAction::vfunc_5 @ 0x00175e00
 bool hulkfight::motion::SyncToLocatorAction::vfunc_5(int skip, float dt)

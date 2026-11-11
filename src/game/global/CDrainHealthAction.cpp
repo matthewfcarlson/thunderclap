@@ -32,7 +32,7 @@ extern "C" R_15270* __fastcall FUN_00059a40(void*);
 } // namespace fn_f7a61a1c
 
 // 0x000151a0 CAutoTargetAction::vfunc_6 (195 B): equivalent/0x000151a0.cpp
-// sym: ?vfunc_6@CAutoTargetAction@@UAE_NH@Z
+// sym: ?vfunc_6@CAutoTargetAction@@UAE_NH@Z @a76d3ab654ff @w5206693865a6
 // STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 4/4)
 // CAutoTargetAction::vfunc_6 @ 0x000151a0
 bool CAutoTargetAction::vfunc_6(int ) { Actor_151a0* actor=((Context_151a0 *)((owners::Object_592a0 *)((*(Owner_151a0 * *)&this->f_1c)))->FUN_000592a0())->FUN_00059a40(); if(!actor) return false; unsigned int a=(*(Params_151a0 * *)&this->f_20)->a,b=(*(Params_151a0 * *)&this->f_20)->b,c=(*(Params_151a0 * *)&this->f_20)->c; Effect_151a0* e=(Effect_151a0*)FUN_00263ea0(112); if(e) e=e->FUN_002248f0(0); (*(Effect_151a0 * *)&this->f_24)=e; ((owners::Target_27b040 *)&(e->name))->FUN_0027b040((hulk_uintptr)"autoTarget"); (*(Effect_151a0 * *)&this->f_24)->vfunc_0(); float v=actor->value.FUN_002220d0(); (*(Effect_151a0 * *)&this->f_24)->value.FUN_00221d20(v); (*(Effect_151a0 * *)&this->f_24)->mode=2; actor->FUN_00222890((*(Effect_151a0 * *)&this->f_24),-1.0f,a,1.0f,b,c,-1.0f); return true; }
@@ -50,7 +50,7 @@ void CAutoTargetAction::vfunc_4() {
 
 
 // 0x000152a0 CDrainHealthAction::vfunc_7 (142 B): equivalent/0x000152a0.cpp [wrapped: conflict: CDrainHealthAction]
-// sym: ?vfunc_7@CDrainHealthAction@fn_000152a0@@UAE_NTDtArg@2@@Z
+// sym: ?vfunc_7@CDrainHealthAction@fn_000152a0@@UAE_NTDtArg@2@@Z @3b437853fafc @w4a604be27d61
 namespace fn_000152a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // CDrainHealthAction::vfunc_7 @ 0x000152a0

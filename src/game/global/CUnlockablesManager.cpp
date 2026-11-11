@@ -322,7 +322,7 @@ extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 } // namespace fn_f8b63219
 
 // 0x00093600 FUN_00093600 (846 B): equivalent/0x00093600.cpp [wrapped: conflict: CUnlockable; CUnlockableBlonskyFile; CUnlockableGallery; CUnlockableMove]
-// sym: ?FUN_00093600@Menu_93600@fn_00093600@@QAEXHD@Z
+// sym: ?FUN_00093600@Menu_93600@fn_00093600@@QAEXHD@Z @6d03cc7c5669 @w5126dbf49d98
 namespace fn_00093600 {
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 85/86, incomplete)
 // FUN_00093600 @ 0x00093600
@@ -442,7 +442,7 @@ void Menu_93600::FUN_00093600(int index, char on)
 namespace fn_f8b63219 {
 
 // 0x00093950 FUN_00093950 (647 B): equivalent/0x00093950.cpp
-// sym: ?FUN_00093950@Menu_93950@fn_f8b63219@@QAEXPBDDPAEPAD1PAH@Z
+// sym: ?FUN_00093950@Menu_93950@fn_f8b63219@@QAEXPBDDPAEPAD1PAH@Z @d069d1b555a1 @w5ce309bb2228
 // STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 51/58, incomplete)
 // FUN_00093950 @ 0x00093950
 void Menu_93950::FUN_00093950(const char *name, char wait, unsigned char *outFound, char *outLinked, unsigned char *outPicked, int *outPos)
@@ -527,7 +527,7 @@ void Menu_93950::FUN_00093950(const char *name, char wait, unsigned char *outFou
 
 
 // 0x00093c40 FUN_00093c40 (358 B): equivalent/0x00093c40.cpp
-// sym: ?target@Game_93c40@fn_f8b63219@@QAEXPBD@Z
+// sym: ?target@Game_93c40@fn_f8b63219@@QAEXPBD@Z @8e2b810d9b4a @w1a69eea3438b
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 51/52, incomplete)
 // FUN_00093c40 @ 0x00093c40
 void Game_93c40::target(const char* text) {
@@ -799,7 +799,7 @@ template <> Method3<CUnlockablesManager, void, int, int, bool>::~Method3() {}
 
 
 // 0x00094280 Method3<CUnlockablesManager,void,int,int,bool>::vfunc_2 (31 B): equivalent/0x00094280.cpp
-// sym: ?vfunc_2@?$Method3@VCUnlockablesManager@@XHH_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method3@VCUnlockablesManager@@XHH_N@@UAEXPAX00@Z @df298f4335fd @w022c10218034
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CUnlockablesManager,void,int,int,bool>::vfunc_2 @ 0x00094280
 template <> void Method3<CUnlockablesManager, void, int, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesManager_94280 * object = (CUnlockablesManager_94280 *)__p0; Arguments * arguments = (Arguments *)__p1; void * unused = (void *)__p2;
@@ -847,7 +847,7 @@ template <> Method3<CUnlockablesManager, void, int, const char *, const char *>:
 
 
 // 0x00094320 Method3<CUnlockablesManager,void,int,const_char_*,const_char_*>::vfunc_2 (29 B): equivalent/0x00094320.cpp [wrapped: conflict: Arguments; Method3]
-// sym: ?vfunc_2@Method3@fn_00094320@@UAEXPAUCUnlockablesManager@2@PAUArguments@2@PAX@Z
+// sym: ?vfunc_2@Method3@fn_00094320@@UAEXPAUCUnlockablesManager@2@PAUArguments@2@PAX@Z @a7a6d240b96d @w9b83a8b8e93b
 namespace fn_00094320 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CUnlockablesManager,void,int,const_char_*,const_char_*>::vfunc_2 @ 0x00094320
@@ -1369,7 +1369,7 @@ template <> Closure6<CUnlockablesManager, void, const char *, int, const char *,
 
 
 // 0x00094910 Closure6<CUnlockablesManager,void,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 (58 B): equivalent/0x00094910.cpp
-// sym: ?vfunc_2@?$Closure6@VCUnlockablesManager@@XHPBDPBDPBDPBDH@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure6@VCUnlockablesManager@@XHPBDPBDPBDPBDH@@UAEXPAX00@Z @d87f9086673d @w3c3165c7de60
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure6<CUnlockablesManager,void,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 @ 0x00094910
 template <> void Closure6<CUnlockablesManager, void, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { const CallArgs * args = (const CallArgs *)__p1;
@@ -1429,7 +1429,7 @@ template <> void Closure1<CUnlockablesManager, const char *, int>::vfunc_2(void*
 
 
 // 0x00094b10 Closure7<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 (73 B): equivalent/0x00094b10.cpp
-// sym: ?vfunc_2@?$Closure7@VCUnlockablesManager@@XPBDHPBDPBDPBDPBDH@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure7@VCUnlockablesManager@@XPBDHPBDPBDPBDPBDH@@UAEXPAX00@Z @c0251080410d @waf7fe9cdae89
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure7<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 @ 0x00094b10
 template <> void Closure7<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const unsigned int * args = (const unsigned int *)__p1; void * unused2 = (void *)__p2;
@@ -1453,7 +1453,7 @@ template <> void Closure4<CUnlockablesManager, void, const char *, int, const ch
 namespace fn_f8b63219 {
 
 // 0x00094d20 FUN_00094d20 (83 B): equivalent/0x00094d20.cpp
-// sym: ?FUN_00094d20@Registry_94d20@fn_f8b63219@@QAEXPBDPAVCUnlockablesManager_94d20@2@P832@AEX0H0000@Z@Z
+// sym: ?FUN_00094d20@Registry_94d20@fn_f8b63219@@QAEXPBDPAVCUnlockablesManager_94d20@2@P832@AEX0H0000@Z@Z @88f0bf731b98 @w8e5ca56a3c8c
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00094d20 @ 0x00094d20
 // FUN_00094d20 @ 0x00094d20  (generated by tools/equiv_gen/reg_helper.py)
@@ -1471,7 +1471,7 @@ void Registry_94d20::FUN_00094d20(const char* a1, CUnlockablesManager_94d20* a2,
 
 
 // 0x00094d80 FUN_00094d80 (83 B): equivalent/0x00094d80.cpp
-// sym: ?FUN_00094d80@Registry_94d80@fn_f8b63219@@QAEXPBDPAVCUnlockablesManager_94d80@2@P832@AEXH0000H@Z@Z
+// sym: ?FUN_00094d80@Registry_94d80@fn_f8b63219@@QAEXPBDPAVCUnlockablesManager_94d80@2@P832@AEXH0000H@Z@Z @f8a218994029 @wd7a1885fe6ee
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00094d80 @ 0x00094d80
 // FUN_00094d80 @ 0x00094d80  (generated by tools/equiv_gen/reg_helper.py)
@@ -1489,7 +1489,7 @@ void Registry_94d80::FUN_00094d80(const char* a1, CUnlockablesManager_94d80* a2,
 
 
 // 0x00094de0 FUN_00094de0 (83 B): equivalent/0x00094de0.cpp
-// sym: ?FUN_00094de0@Registry_94de0@fn_f8b63219@@QAEXPBDPAVCUnlockablesManager_94de0@2@P832@AEXHH_N@Z@Z
+// sym: ?FUN_00094de0@Registry_94de0@fn_f8b63219@@QAEXPBDPAVCUnlockablesManager_94de0@2@P832@AEXHH_N@Z@Z @7844e44f6703 @w82d77c27511f
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00094de0 @ 0x00094de0
 // FUN_00094de0 @ 0x00094de0  (generated by tools/equiv_gen/reg_helper.py)
@@ -1507,7 +1507,7 @@ void Registry_94de0::FUN_00094de0(const char* a1, CUnlockablesManager_94de0* a2,
 
 
 // 0x00094e40 FUN_00094e40 (83 B): equivalent/0x00094e40.cpp
-// sym: ?FUN_00094e40@Registry_94e40@fn_f8b63219@@QAEXPBDPAVCUnlockablesManager_94e40@2@P832@AEXH00@Z@Z
+// sym: ?FUN_00094e40@Registry_94e40@fn_f8b63219@@QAEXPBDPAVCUnlockablesManager_94e40@2@P832@AEXH00@Z@Z @ea5e22ca9420 @we7029c6da855
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00094e40 @ 0x00094e40
 // FUN_00094e40 @ 0x00094e40  (generated by tools/equiv_gen/reg_helper.py)
@@ -1525,7 +1525,7 @@ void Registry_94e40::FUN_00094e40(const char* a1, CUnlockablesManager_94e40* a2,
 
 
 // 0x00094ef0 FUN_00094ef0 (83 B): equivalent/0x00094ef0.cpp
-// sym: ?FUN_00094ef0@Registry_94ef0@fn_f8b63219@@QAEXPBDPAVCUnlockablesManager_94ef0@2@P832@AEX0H0000H@Z@Z
+// sym: ?FUN_00094ef0@Registry_94ef0@fn_f8b63219@@QAEXPBDPAVCUnlockablesManager_94ef0@2@P832@AEX0H0000H@Z@Z @18a83c736d1c @w238a7ceac156
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00094ef0 @ 0x00094ef0
 // FUN_00094ef0 @ 0x00094ef0  (generated by tools/equiv_gen/reg_helper.py)
@@ -1543,7 +1543,7 @@ void Registry_94ef0::FUN_00094ef0(const char* a1, CUnlockablesManager_94ef0* a2,
 
 
 // 0x00094f50 FUN_00094f50 (83 B): equivalent/0x00094f50.cpp
-// sym: ?FUN_00094f50@Registry_94f50@fn_f8b63219@@QAEXPBDPAVCUnlockablesManager_94f50@2@P832@AEX0H00@Z@Z
+// sym: ?FUN_00094f50@Registry_94f50@fn_f8b63219@@QAEXPBDPAVCUnlockablesManager_94f50@2@P832@AEX0H00@Z@Z @062fcc0c9686 @wd6270baa0075
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00094f50 @ 0x00094f50
 // FUN_00094f50 @ 0x00094f50  (generated by tools/equiv_gen/reg_helper.py)
@@ -1592,7 +1592,7 @@ hulk_freg Timer::Delta() {
 
 
 // 0x00095fa0 FUN_00095fa0 (59 B): equivalent/0x00095fa0.cpp
-// sym: _FUN_00095fa0
+// sym: _FUN_00095fa0 @2086c6a3a0ff @weeae25799702
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00095fa0 @ 0x00095fa0
 extern "C" void __cdecl FUN_00095fa0(float *v, float angle) {
@@ -1606,7 +1606,7 @@ extern "C" void __cdecl FUN_00095fa0(float *v, float angle) {
 
 
 // 0x00096020 FUN_00096020 (229 B): equivalent/0x00096020.cpp
-// sym: ?FUN_00096020@fn_f8b63219@@YAXPAUMatrix@1@PBUVec_96020@1@1@Z
+// sym: ?FUN_00096020@fn_f8b63219@@YAXPAUMatrix@1@PBUVec_96020@1@1@Z @22bad220d02e @w11355d5faf2a
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_00096020 @ 0x00096020
 void __cdecl FUN_00096020(Matrix* out, const Vec_96020* a, const Vec_96020* b) {
@@ -1640,7 +1640,7 @@ void __cdecl FUN_00096020(Matrix* out, const Vec_96020* a, const Vec_96020* b) {
 } // namespace fn_f8b63219
 
 // 0x00096110 FUN_00096110 (291 B): equivalent/0x00096110.cpp [wrapped: conflict: Matrix]
-// sym: ?FUN_00096110@fn_00096110@@YAXPAUMatrix@1@PBU21@@Z
+// sym: ?FUN_00096110@fn_00096110@@YAXPAUMatrix@1@PBU21@@Z @6062fde1c940 @w5e9d12730efa
 namespace fn_00096110 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00096110 @ 0x00096110
@@ -1664,7 +1664,7 @@ void __cdecl FUN_00096110(Matrix* a, const Matrix* b) {
 namespace fn_f8b63219 {
 
 // 0x000962d0 FUN_000962d0 (87 B): equivalent/0x000962d0.cpp
-// sym: ?FUN_000962d0@fn_f8b63219@@YAXPAUVec3@1@PBU21@1M@Z
+// sym: ?FUN_000962d0@fn_f8b63219@@YAXPAUVec3@1@PBU21@1M@Z @045f557374d4 @wb2c3e7c90640
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000962d0 @ 0x000962d0
 void __cdecl FUN_000962d0(Vec3* out, const Vec3* start, const Vec3* end, float t)
@@ -1693,7 +1693,7 @@ hulk_freg FUN_000963c0(float a, float b, float c, float d, float e) {
 
 
 // 0x00096450 FUN_00096450 (65 B): equivalent/0x00096450.cpp
-// sym: _FUN_00096450
+// sym: _FUN_00096450 @6c74e81b32c4 @w45209d153210
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // FUN_00096450 @ 0x00096450
 extern "C" char* __cdecl FUN_00096450(const char* source)

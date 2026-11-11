@@ -4,7 +4,7 @@
 
 
 // 0x00056990 FUN_00056990 (176 B): equivalent/0x00056990.cpp [isolated: compile error C2664: 'fn_00056990::fight::ParamEnumConstList<T>::ParamEnumConstList(const char *,const char ** ,int,void (__thiscall CCharact]
-// sym: _FUN_00056990
+// sym: _FUN_00056990 @2bb517b3805e @wb1f7d1d8844b
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_00056990 @ 0x00056990
 #include "decls/data/engine/unknown.h"

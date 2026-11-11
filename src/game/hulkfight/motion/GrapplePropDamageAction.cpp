@@ -39,7 +39,7 @@ extern "C" Stats_182380 *__fastcall FUN_00059a30(Owner *ctx);
 } // namespace fn_f3cd68e9
 
 // 0x00182380 hulkfight::motion::GrapplePropDamageAction::vfunc_3 (148 B): equivalent/0x00182380.cpp
-// sym: ?vfunc_3@GrapplePropDamageAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@GrapplePropDamageAction@motion@hulkfight@@UAE_NHH@Z @35b73e79c9f5 @wa0156061d217
 // STATUS: equivalent (tools/equiv.py level 3: 20030 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::GrapplePropDamageAction::vfunc_3 @ 0x00182380
 bool hulkfight::motion::GrapplePropDamageAction::vfunc_3(hulk_intptr a, hulk_intptr b) {

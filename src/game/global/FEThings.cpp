@@ -444,7 +444,7 @@ void FEThings::vfunc_42(hulk_intptr __p0) { Item * p = (Item *)__p0;
 
 
 // 0x000de070 FEThings::vfunc_49 (75 B): equivalent/0x000de070.cpp
-// sym: ?vfunc_49@FEThings@@UAEXH@Z
+// sym: ?vfunc_49@FEThings@@UAEXH@Z @04f7df7c1d41 @w482d5042b9eb
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FEThings::vfunc_49 @ 0x000de070
 void FEThings::vfunc_49(hulk_intptr __p0) { void * value = (void *)__p0;
@@ -452,7 +452,7 @@ void FEThings::vfunc_49(hulk_intptr __p0) { void * value = (void *)__p0;
 
 
 // 0x000de0c0 FEThings::vfunc_48 (75 B): equivalent/0x000de0c0.cpp
-// sym: ?vfunc_48@FEThings@@UAEXH@Z
+// sym: ?vfunc_48@FEThings@@UAEXH@Z @3ef0d534256c @w44d7b3539f49
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FEThings::vfunc_48 @ 0x000de0c0
 void FEThings::vfunc_48(int value) { if (!(*(Destination * *)&this->f_2234)) return; if (!(*(Selector * *)&this->f_175c)) { (*(Destination * *)&this->f_2234)->vfunc_2((hulk_intptr)DAT_003f3f30, value); return; } int key = (*(Selector * *)&this->f_175c)->vfunc_8(); (*(Destination * *)&this->f_2234)->vfunc_2(key, value); }

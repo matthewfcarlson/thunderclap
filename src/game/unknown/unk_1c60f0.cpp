@@ -148,7 +148,7 @@ extern "C" int FUN_001c62c0(char* a, char* b) {
 
 
 // 0x001c62f0 FUN_001c62f0 (184 B): equivalent/0x001c62f0.cpp
-// sym: _FUN_001c62f0
+// sym: _FUN_001c62f0 @6bb2c820c845 @wdf84f469d52f
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 30/30)
 // FUN_001c62f0 @ 0x001c62f0
 extern "C" long __cdecl FUN_001c62f0(const char* text, char marker) {

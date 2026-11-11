@@ -71,7 +71,7 @@ struct World {
 
 
 // 0x001820d0 hulkfight::motion::PropSpawnAction::vfunc_3 (510 B): equivalent/0x001820d0.cpp
-// sym: ?vfunc_3@PropSpawnAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@PropSpawnAction@motion@hulkfight@@UAE_NHH@Z @d85c10244b48 @w7d5d2ddb4406
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 10/10)
 // hulkfight::motion::PropSpawnAction::vfunc_3 @ 0x001820d0
 bool hulkfight::motion::PropSpawnAction::vfunc_3(hulk_intptr a, hulk_intptr b) {

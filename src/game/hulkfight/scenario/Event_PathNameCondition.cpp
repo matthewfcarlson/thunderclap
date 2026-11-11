@@ -941,7 +941,7 @@ hulk_intptr owners::Obj_1ab0e0::FUN_001ab0e0(hulk_uintptr param) {
 
 
 // 0x001ab1b0 hulkfight::scenario::Event_CharacterTemplateCondition::vfunc_6 (189 B): equivalent/0x001ab1b0.cpp [wrapped: conflict: DAT_00494b44; hulkfight::scenario::Event_CharacterTemplateCondition]
-// sym: ?vfunc_6@Event_CharacterTemplateCondition@scenario@hulkfight@fn_001ab1b0@@UAE_NIPAXI@Z
+// sym: ?vfunc_6@Event_CharacterTemplateCondition@scenario@hulkfight@fn_001ab1b0@@UAE_NIPAXI@Z @4623ba2e75eb @wcf1213c9ac1e
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1022,7 +1022,7 @@ return false;
 
 
 // 0x001ab270 hulkfight::scenario::Event_CharacterTemplateVariationCondition::vfunc_6 (189 B): equivalent/0x001ab270.cpp [wrapped: conflict: FUN_00344e74; World; hulkfight::scenario::Event_CharacterTemplateVariationCondition]
-// sym: ?vfunc_6@Event_CharacterTemplateVariationCondition@scenario@hulkfight@fn_001ab270@@UAE_NPAX00@Z
+// sym: ?vfunc_6@Event_CharacterTemplateVariationCondition@scenario@hulkfight@fn_001ab270@@UAE_NPAX00@Z @79ed70475a8c @w40af16b65df3
 namespace fn_001ab270 {
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 24/24)
 // hulkfight::scenario::Event_CharacterTemplateVariationCondition::vfunc_6 @ 0x001ab270
@@ -1094,7 +1094,7 @@ bool Event_CharacterTemplateVariationCondition::vfunc_6(void*,void* arg,void*) {
 
 
 // 0x001ab330 hulkfight::scenario::Event_TriggerVolumeNameCondition::vfunc_6 (131 B): equivalent/0x001ab330.cpp
-// sym: ?vfunc_6@Event_TriggerVolumeNameCondition@scenario@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@Event_TriggerVolumeNameCondition@scenario@hulkfight@@UAE_NPAX00@Z @5c535df6f066 @w4dbd3b5bc23a
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 10/10)
 // hulkfight::scenario::Event_TriggerVolumeNameCondition::vfunc_6 @ 0x001ab330
 bool hulkfight::scenario::Event_TriggerVolumeNameCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_1ab330 * params = (fight::Params_1ab330 *)__p1; int c = (int)__p2;
@@ -1131,7 +1131,7 @@ bool hulkfight::scenario::EventCondition::vfunc_6(void* __p0, void* __p1, void* 
 
 
 // 0x001ab400 hulkfight::scenario::Event_PathNameCondition::vfunc_6 (278 B): equivalent/0x001ab400.cpp [wrapped: conflict: hulkfight::scenario::Event_PathNameCondition]
-// sym: ?vfunc_6@Event_PathNameCondition@scenario@hulkfight@fn_001ab400@@UAE_NPAX00@Z
+// sym: ?vfunc_6@Event_PathNameCondition@scenario@hulkfight@fn_001ab400@@UAE_NPAX00@Z @19a6e427c8b7 @w4c270516b437
 namespace fn_001ab400 {
 // STATUS: equivalent (tools/equiv.py level 3: 3033 inputs, branch coverage 18/18)
 // hulkfight::scenario::Event_PathNameCondition::vfunc_6 @ 0x001ab400
@@ -1179,7 +1179,7 @@ bool Event_PathNameCondition::vfunc_6(void*, void* input, void*) {
 
 
 // 0x001ab520 hulkfight::scenario::Event_WaypointCondition::vfunc_6 (181 B): equivalent/0x001ab520.cpp [wrapped: conflict: FUN_00344e74; hulkfight::scenario::Event_WaypointCondition]
-// sym: ?vfunc_6@Event_WaypointCondition@scenario@hulkfight@fn_001ab520@@UAE_NPAX00@Z
+// sym: ?vfunc_6@Event_WaypointCondition@scenario@hulkfight@fn_001ab520@@UAE_NPAX00@Z @9dc20b8cc2d3 @w8971c5e4e8d1
 namespace fn_001ab520 {
 // STATUS: equivalent (tools/equiv.py level 3: 3056 inputs, branch coverage 26/26)
 // hulkfight::scenario::Event_WaypointCondition::vfunc_6 @ 0x001ab520
@@ -1216,7 +1216,7 @@ bool Event_WaypointCondition::vfunc_6(void*, void* object, void*) {
 
 
 // 0x001ab5f0 hulkfight::scenario::Event_FirstTimeCondition::vfunc_6 (71 B): equivalent/0x001ab5f0.cpp [wrapped: conflict: DAT_00494b44; DAT_004c13d0; Params; hulkfight::scenario::Event_FirstTimeCondition]
-// sym: ?vfunc_6@Event_FirstTimeCondition@scenario@hulkfight@fn_001ab5f0@@QAE_NPAX00@Z
+// sym: ?vfunc_6@Event_FirstTimeCondition@scenario@hulkfight@fn_001ab5f0@@QAE_NPAX00@Z @35fd34425045 @w669060e55e12
 namespace fn_001ab5f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 8/8)
 // hulkfight::scenario::Event_FirstTimeCondition::vfunc_6 @ 0x001ab5f0

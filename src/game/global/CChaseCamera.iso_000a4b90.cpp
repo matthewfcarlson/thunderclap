@@ -4,7 +4,7 @@
 
 
 // 0x000a4b90 FUN_000a4b90 (2154 B): equivalent/0x000a4b90.cpp [isolated: code differs from its standalone build]
-// sym: ?Update@CChaseCamera_a4b90@fn_f18b1ecf@@QAEXMM@Z
+// sym: ?Update@CChaseCamera_a4b90@fn_f18b1ecf@@QAEXMM@Z @bb65f639a5ca @w1b23d4d42fd2
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 namespace fn_f18b1ecf {} using namespace fn_f18b1ecf;

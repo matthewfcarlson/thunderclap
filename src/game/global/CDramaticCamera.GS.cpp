@@ -248,7 +248,7 @@ void CDramaticCamera::vfunc_35(Event_a8520 *e, float dt, int a, int b)
 
 
 // 0x000a89c0 FUN_000a89c0 (1442 B): equivalent/0x000a89c0.cpp
-// sym: ?F@Picker@fn_fac52fcb@@QAEHPAUArg1@2@PAHPAMHMPAUMat4@2@PAUV3@2@@Z
+// sym: ?F@Picker@fn_fac52fcb@@QAEHPAUArg1@2@PAHPAMHMPAUMat4@2@PAUV3@2@@Z @988b9f8d4548 @w80a344672e9e
 // STATUS: equivalent (tools/equiv.py level 3: 952 inputs, branch coverage 66/82, incomplete)
 // FUN_000a89c0 @ 0x000a89c0
 int Picker::F(Arg1 *a1, int *ids, float *weights, int n, float bias, Mat4 *m, V3 *pt)

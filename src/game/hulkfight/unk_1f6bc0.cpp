@@ -171,7 +171,7 @@ void __cdecl FUN_001f6cb0() {
 
 
 // 0x001f6e60 FUN_001f6e60 (200 B): equivalent/0x001f6e60.cpp
-// sym: ?target@Object@fn_f90a56c8@@QAEHPAX@Z
+// sym: ?target@Object@fn_f90a56c8@@QAEHPAX@Z @67f733198930 @wba0377e7647d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001f6e60 @ 0x001f6e60
 int Object::target(void* arg) {
@@ -196,7 +196,7 @@ int Object::target(void* arg) {
 
 
 // 0x001f6f30 FUN_001f6f30 (131 B): equivalent/0x001f6f30.cpp
-// sym: ?FUN_001f6f30@Spawner_1f6f30@fn_f90a56c8@@QAEPAXPBDMH@Z
+// sym: ?FUN_001f6f30@Spawner_1f6f30@fn_f90a56c8@@QAEPAXPBDMH@Z @1b556dc0fbee @wf94c82649b7f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001f6f30 @ 0x001f6f30
 void *Spawner_1f6f30::FUN_001f6f30(const char *name, float scale, int arg)
@@ -253,7 +253,7 @@ extern "C" void __cdecl FUN_001f7120(void* first, void* second) {
 } // namespace fn_f90a56c8
 
 // 0x001f7150 FUN_001f7150 (166 B): equivalent/0x001f7150.cpp [wrapped: conflict: FUN_0027f250]
-// sym: ?FUN_001f7150@fn_001f7150@@YGPAXHUVec3_1f7150@1@MMM@Z
+// sym: ?FUN_001f7150@fn_001f7150@@YGPAXHUVec3_1f7150@1@MMM@Z @f2195dd75be9 @w0ca3ee9a650f
 namespace fn_001f7150 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001f7150 @ 0x001f7150
@@ -327,7 +327,7 @@ unsigned char Host_1f7280::target(int a, Vec3_1f7280 b) {
 } // namespace fn_f90a56c8
 
 // 0x001f7320 FUN_001f7320 (833 B): equivalent/0x001f7320.cpp [wrapped: conflict: FUN_0027f250]
-// sym: ?FUN_001f7320@Spawner_1f7320@fn_001f7320@@QAEXPAUScene_1f7320@2@M@Z
+// sym: ?FUN_001f7320@Spawner_1f7320@fn_001f7320@@QAEXPAUScene_1f7320@2@M@Z @b341e5b0b6f8 @w07e7bc7582f4
 namespace fn_001f7320 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/22)
 // FUN_001f7320 @ 0x001f7320

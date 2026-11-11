@@ -139,7 +139,7 @@ StrafeLateralHBAction_11e150::~StrafeLateralHBAction_11e150() {
 } // namespace fn_f2baa6cd
 
 // 0x0011e1a0 hulkfight::ai::StrafeLateralHBAction::vfunc_5 (754 B): equivalent/0x0011e1a0.cpp
-// sym: ?vfunc_5@StrafeLateralHBAction@ai@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@StrafeLateralHBAction@ai@hulkfight@@UAE_NHH@Z @60fee2fe47f0 @w12b7ec38a04f
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 27/30, incomplete)
 // hulkfight::ai::StrafeLateralHBAction::vfunc_5 @ 0x0011e1a0
 namespace hulkfight { namespace ai {

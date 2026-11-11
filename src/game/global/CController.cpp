@@ -470,7 +470,7 @@ int Obj_adc30::run() {
 
 
 // 0x000adc60 FUN_000adc60 (182 B): equivalent/0x000adc60.cpp
-// sym: ?FUN_000adc60@Owner_adc60@fn_fac5a26d@@QAEXXZ
+// sym: ?FUN_000adc60@Owner_adc60@fn_fac5a26d@@QAEXXZ @1fecee90ab77 @w6cfaf25a8e87
 // STATUS: equivalent (tools/equiv.py level 3: 438 inputs, branch coverage 23/26, incomplete)
 // FUN_000adc60 @ 0x000adc60
 void Owner_adc60::FUN_000adc60() {
@@ -526,7 +526,7 @@ void CController_add70::Clear() {
 } // namespace fn_fac5a26d
 
 // 0x000addd0 FUN_000addd0 (328 B): equivalent/0x000addd0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_000addd0
+// sym: _FUN_000addd0 @05d03cbe311e @wb2085e3d1c0c
 namespace fn_000addd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
 // FUN_000addd0 @ 0x000addd0
@@ -564,7 +564,7 @@ extern "C" void FUN_000addd0(void *dst, const void *src)
 
 
 // 0x000adf20 FUN_000adf20 (328 B): equivalent/0x000adf20.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_000adf20
+// sym: _FUN_000adf20 @13710a20ed35 @w08297676931b
 namespace fn_000adf20 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
 // FUN_000adf20 @ 0x000adf20
@@ -638,7 +638,7 @@ void CController_ae090::Alloc(int n) {
 
 
 // 0x000ae130 FUN_000ae130 (387 B): equivalent/0x000ae130.cpp
-// sym: ?FUN_000ae130@Accumulator_ae130@fn_fac5a26d@@QAEXXZ
+// sym: ?FUN_000ae130@Accumulator_ae130@fn_fac5a26d@@QAEXXZ @cc7edf0dc3ac @w61ab360d9a57
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 22/22)
 // FUN_000ae130 @ 0x000ae130
 void Accumulator_ae130::FUN_000ae130()
@@ -691,7 +691,7 @@ void Accumulator_ae130::FUN_000ae130()
 
 
 // 0x000ae2f0 FUN_000ae2f0 (443 B): equivalent/0x000ae2f0.cpp
-// sym: ?FUN_000ae2f0@CController_ae2f0@fn_fac5a26d@@QAEXPBD@Z
+// sym: ?FUN_000ae2f0@CController_ae2f0@fn_fac5a26d@@QAEXPBD@Z @9e6357ca27b7 @w326a8c8dea64
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 30/40, incomplete)
 // FUN_000ae2f0 @ 0x000ae2f0
 void CController_ae2f0::FUN_000ae2f0(const char *key)
@@ -749,7 +749,7 @@ void CController_ae2f0::FUN_000ae2f0(const char *key)
 
 
 // 0x000ae4b0 FUN_000ae4b0 (171 B): equivalent/0x000ae4b0.cpp
-// sym: ??0CController@fn_fac5a26d@@QAE@H@Z
+// sym: ??0CController@fn_fac5a26d@@QAE@H@Z @abedb48cad80 @we6bca8e893ee
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000ae4b0 @ 0x000ae4b0
 CController::CController(int arg) {

@@ -51,7 +51,7 @@ extern "C" void FUN_001d0430(unsigned int v);
 } // namespace fn_f21f790b
 
 // 0x001a14f0 hulkfight::scenario::LuaCondition::vfunc_6 (444 B): equivalent/0x001a14f0.cpp
-// sym: ?vfunc_6@LuaCondition@scenario@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@LuaCondition@scenario@hulkfight@@UAE_NPAX00@Z @2783edc1cff6 @w9c0cfb7d4c74
 // STATUS: equivalent (tools/equiv.py level 3: 14900 inputs, branch coverage 18/18)
 // hulkfight::scenario::LuaCondition::vfunc_6 @ 0x001a14f0
 bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; fight::Params_1a14f0 * params = (fight::Params_1a14f0 *)__p1; hulk_intptr c = (hulk_intptr)__p2;

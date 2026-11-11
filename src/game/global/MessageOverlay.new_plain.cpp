@@ -9,7 +9,7 @@
 
 
 // 0x000d6640 FUN_000d6640 (657 B): equivalent/0x000d6640.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0MessageOverlay@fn_000d6640@@QAE@XZ
+// sym: ??0MessageOverlay@fn_000d6640@@QAE@XZ @613e2d674c06 @wf230a5ada3db
 HULK_NATIVE_INLINE void* __cdecl operator new(hulk_uintptr, void* p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

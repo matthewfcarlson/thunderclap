@@ -113,7 +113,7 @@ hulk_intptr CMotionHitCondition::vfunc_0(int index) {
 
 
 // 0x0004a380 CMotionHitCondition::vfunc_7 (117 B): equivalent/0x0004a380.cpp
-// sym: ?vfunc_7@CMotionHitCondition@@UAE_NPAX@Z
+// sym: ?vfunc_7@CMotionHitCondition@@UAE_NPAX@Z @fa58acf39d78 @w0c08e07afe59
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CMotionHitCondition::vfunc_7 @ 0x0004a380
 bool CMotionHitCondition::vfunc_7(void* __p0) { FightHandle_4a380 * h = (FightHandle_4a380 *)__p0;

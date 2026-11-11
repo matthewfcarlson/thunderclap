@@ -4,7 +4,7 @@
 
 
 // 0x00106d30 Closure3<CPatrolPathManager,bool,const_char_*,int,math::Vector>::vfunc_2 (70 B): equivalent/0x00106d30.cpp [isolated: conflict: Arguments; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure3@VCPatrolPathManager@@_NPBDHVVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure3@VCPatrolPathManager@@_NPBDHVVector@math@@@@UAEXPAX00@Z @dae50ec2a7b3 @wfceb4ac08c55
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure3<CPatrolPathManager,bool,const_char_*,int,math::Vector>::vfunc_2 @ 0x00106d30
 #include "gen/global.h"

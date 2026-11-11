@@ -169,7 +169,7 @@ public:
 
 
 // 0x0001df20 FUN_0001df20 (1364 B): equivalent/0x0001df20.cpp
-// sym: ?FUN_0001df20@Ctrl@fn_faea5d7a@@QAEXPAUVec3@2@0@Z
+// sym: ?FUN_0001df20@Ctrl@fn_faea5d7a@@QAEXPAUVec3@2@0@Z @b7b4c8a7e494 @wbc2b83212d5d
 // STATUS: equivalent (tools/equiv.py level 3: 2874 inputs, branch coverage 75/78, incomplete)
 // FUN_0001df20 @ 0x0001df20
 void Ctrl::FUN_0001df20(Vec3 *a1, Vec3 *a2)
@@ -330,7 +330,7 @@ void Ctrl::FUN_0001df20(Vec3 *a1, Vec3 *a2)
 } // namespace fn_faea5d7a
 
 // 0x0001e480 CGrabAction::vfunc_6 (330 B): equivalent/0x0001e480.cpp [wrapped: conflict: CAction; CGrabAction; FUN_0008d690]
-// sym: ?vfunc_6@CGrabAction@fn_0001e480@@UAEDH@Z
+// sym: ?vfunc_6@CGrabAction@fn_0001e480@@UAEDH@Z @a4b166b9a773 @w031b6b70dcaa
 namespace fn_0001e480 {
 // STATUS: equivalent (tools/equiv.py level 3: 19934 inputs, branch coverage 8/8)
 // CGrabAction::vfunc_6 @ 0x0001e480
@@ -489,7 +489,7 @@ char CGrabAction::vfunc_6(int arg)
 
 
 // 0x0001e5d0 CGrabAction::vfunc_8 (591 B): equivalent/0x0001e5d0.cpp [wrapped: conflict: CAction; CGrabAction; FUN_000592a0; Skeleton]
-// sym: ?vfunc_8@CGrabAction@fn_0001e5d0@@UAEDH@Z
+// sym: ?vfunc_8@CGrabAction@fn_0001e5d0@@UAEDH@Z @e06e3615d1bc @w0d4fc22bc4bd
 namespace fn_0001e5d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // CGrabAction::vfunc_8 @ 0x0001e5d0

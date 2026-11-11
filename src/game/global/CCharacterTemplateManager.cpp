@@ -293,7 +293,7 @@ void C_45820::f() {
 } // namespace fn_f8b6a7cf
 
 // 0x00045840 FUN_00045840 (1172 B): equivalent/0x00045840.cpp [wrapped: conflict: CCharacterTemplate]
-// sym: ??0CCharacterTemplate@fn_00045840@@QAE@XZ
+// sym: ??0CCharacterTemplate@fn_00045840@@QAE@XZ @255fff46c4b7 @wfde00a3bbd7f
 namespace fn_00045840 {
 // STATUS: equivalent (tools/equiv.py level 3: 2775 inputs, branch coverage 4/4)
 // FUN_00045840 @ 0x00045840
@@ -630,7 +630,7 @@ CCharacterTemplate::CCharacterTemplate()
 
 
 // 0x00045ce0 FUN_00045ce0 (185 B): equivalent/0x00045ce0.cpp [wrapped: conflict: CCharacterTemplate; core::IRefCount]
-// sym: ??1CCharacterTemplate@fn_00045ce0@@QAE@XZ
+// sym: ??1CCharacterTemplate@fn_00045ce0@@QAE@XZ @4b56ed1a49d1 @w4142c6c3a4d9
 namespace fn_00045ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00045ce0 @ 0x00045ce0
@@ -657,7 +657,7 @@ CCharacterTemplate::~CCharacterTemplate() {
 namespace fn_f8b6a7cf {
 
 // 0x00045da0 FUN_00045da0 (393 B): equivalent/0x00045da0.cpp
-// sym: ?FUN_00045da0@Tracker_45da0@fn_f8b6a7cf@@QAEDPAVOwner_45da0@2@@Z
+// sym: ?FUN_00045da0@Tracker_45da0@fn_f8b6a7cf@@QAEDPAVOwner_45da0@2@@Z @5f577670e816 @w087f31aa0cee
 // STATUS: equivalent (tools/equiv.py level 3: 3035 inputs, branch coverage 24/24)
 // FUN_00045da0 @ 0x00045da0
 char Tracker_45da0::FUN_00045da0(Owner_45da0 *newOwner)
@@ -725,7 +725,7 @@ char Tracker_45da0::FUN_00045da0(Owner_45da0 *newOwner)
 
 
 // 0x00045f30 FUN_00045f30 (86 B): equivalent/0x00045f30.cpp
-// sym: ?FUN_00045f30@Target@fn_f8b6a7cf@@QAE_NPAUObj@2@@Z
+// sym: ?FUN_00045f30@Target@fn_f8b6a7cf@@QAE_NPAUObj@2@@Z @6f76e12a5293 @w3cc22d5f474c
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 11/12, incomplete)
 // FUN_00045f30 @ 0x00045f30
 bool Target::FUN_00045f30(Obj* incoming) {
@@ -743,7 +743,7 @@ bool Target::FUN_00045f30(Obj* incoming) {
 
 
 // 0x00045f90 FUN_00045f90 (154 B): equivalent/0x00045f90.cpp
-// sym: ?FUN_00045f90@Table_45f90@fn_f8b6a7cf@@QAEMPBD@Z
+// sym: ?FUN_00045f90@Table_45f90@fn_f8b6a7cf@@QAEMPBD@Z @9b37bf0a7bed @wdc6581ce53f6
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 10/10)
 // FUN_00045f90 @ 0x00045f90
 float Table_45f90::FUN_00045f90(const char *name)
@@ -763,7 +763,7 @@ float Table_45f90::FUN_00045f90(const char *name)
 
 
 // 0x00046030 FUN_00046030 (214 B): equivalent/0x00046030.cpp
-// sym: ?FUN_00046030@Object@fn_f8b6a7cf@@QAEXPBDM@Z
+// sym: ?FUN_00046030@Object@fn_f8b6a7cf@@QAEXPBDM@Z @1370a560207f @wc085cc258451
 // STATUS: equivalent (tools/equiv.py level 3: 48 inputs, branch coverage 12/12)
 // FUN_00046030 @ 0x00046030
 void Object::FUN_00046030(const char* text, float value) {
@@ -804,7 +804,7 @@ CCharacterTemplateManager_46110* CCharacterTemplateManager_46110::vfunc_5(signed
 
 
 // 0x00046140 FUN_00046140 (155 B): equivalent/0x00046140.cpp
-// sym: ?FUN_00046140@CCharacterTemplateManager_46140@fn_f8b6a7cf@@QAEXPAX@Z
+// sym: ?FUN_00046140@CCharacterTemplateManager_46140@fn_f8b6a7cf@@QAEXPAX@Z @e44f23267510 @wdde8609b76ae
 // STATUS: equivalent (tools/equiv.py level 3: 1862 inputs, branch coverage 12/12)
 // FUN_00046140 @ 0x00046140
 // FUN_00046140: destroy every entry whose key matches
@@ -844,7 +844,7 @@ bool Container_461e0::Add(Item_461e0* item) {
 
 
 // 0x00046230 FUN_00046230 (61 B): equivalent/0x00046230.cpp
-// sym: ?FUN_00046230@Container@fn_f8b6a7cf@@QAEEXZ
+// sym: ?FUN_00046230@Container@fn_f8b6a7cf@@QAEEXZ @2b9b0f1b8138 @wb3d3dcd500ad
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 7/8, incomplete)
 // FUN_00046230 @ 0x00046230
 unsigned char Container::FUN_00046230() {
@@ -1016,7 +1016,7 @@ template <> void Closure1<CCharacterTemplateManager, void, const char *>::vfunc_
 
 
 // 0x00047770 CCharacterTemplateManager::vfunc_0 (203 B): equivalent/0x00047770.cpp [wrapped: conflict: CCharacterTemplateManager; RDLHandler]
-// sym: ?vfunc_0@CCharacterTemplateManager@fn_00047770@@UAEXPAUContext@2@PAUNode@2@@Z
+// sym: ?vfunc_0@CCharacterTemplateManager@fn_00047770@@UAEXPAUContext@2@PAUNode@2@@Z @214edb6caef8 @wddf5082d2902
 namespace fn_00047770 {
 // STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 12/12)
 // CCharacterTemplateManager::vfunc_0 @ 0x00047770
@@ -1085,7 +1085,7 @@ void Registry_47840::FUN_00047840(const char* a1, Owner* a2, Fn_47840 a3) {
 } // namespace fn_f8b6a7cf
 
 // 0x00047890 FUN_00047890 (192 B): equivalent/0x00047890.cpp [wrapped: conflict: CCharacterTemplateManager; Closure1; Method1]
-// sym: ??0CCharacterTemplateManager@fn_00047890@@QAE@II@Z
+// sym: ??0CCharacterTemplateManager@fn_00047890@@QAE@II@Z @36cdb94ef1ad @wa2e5efd9b794
 inline void* __cdecl operator new(hulk_uintptr,void* p) { return p; }
 namespace fn_00047890 {
 // STATUS: equivalent (tools/equiv.py level 3: 22 inputs, branch coverage 4/4)

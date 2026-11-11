@@ -4,7 +4,7 @@
 
 
 // 0x0008dec0 FUN_0008dec0 (424 B): equivalent/0x0008dec0.cpp [isolated: conflict: CSPHulkPropLoader; DAT_004dd7e4; DAT_0052c2b0; DAT_00555444; on include/gen/ and not mergeable]
-// sym: ?FUN_0008dec0@Target_8dec0@owners@@QAEXXZ
+// sym: ?FUN_0008dec0@Target_8dec0@owners@@QAEXXZ @688b3e9386fe @w2ddb286dea1f
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_0008dec0 @ 0x0008dec0
 #include "decls/address.h"

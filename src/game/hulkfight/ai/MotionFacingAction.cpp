@@ -22,7 +22,7 @@ void __cdecl FUN_00224d70(float, Vector_115e20*);
 } // namespace fn_fa598c1c
 
 // 0x00115e20 hulkfight::ai::MotionFacingAction::vfunc_5 (173 B): equivalent/0x00115e20.cpp
-// sym: ?vfunc_5@MotionFacingAction@ai@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@MotionFacingAction@ai@hulkfight@@UAE_NHH@Z @b8f41ccfac1b @w5a4953a7f656
 // STATUS: equivalent (tools/equiv.py level 3: 19976 inputs, branch coverage 4/4)
 // hulkfight::ai::MotionFacingAction::vfunc_5 @ 0x00115e20
 bool hulkfight::ai::MotionFacingAction::vfunc_5(hulk_intptr phase, int unused) {

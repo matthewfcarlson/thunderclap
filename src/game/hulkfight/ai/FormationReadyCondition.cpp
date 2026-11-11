@@ -56,7 +56,7 @@ Registry_10e040 *__cdecl FUN_000678d0();
 } // namespace fn_f5a20677
 
 // 0x0010e040 hulkfight::ai::FormationReadyCondition::vfunc_6 (393 B): equivalent/0x0010e040.cpp
-// sym: ?vfunc_6@FormationReadyCondition@ai@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@FormationReadyCondition@ai@hulkfight@@UAE_NPAX00@Z @dabef985db88 @w413363cc2e0c
 // STATUS: equivalent (tools/equiv.py level 3: 20054 inputs, branch coverage 28/30, incomplete)
 // hulkfight::ai::FormationReadyCondition::vfunc_6 @ 0x0010e040
 bool hulkfight::ai::FormationReadyCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr unused1 = (hulk_intptr)__p0; Owner_10e040 * owner = (Owner_10e040 *)__p1; hulk_intptr unused3 = (hulk_intptr)__p2;

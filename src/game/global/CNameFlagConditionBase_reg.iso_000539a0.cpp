@@ -4,7 +4,7 @@
 
 
 // 0x000539a0 FUN_000539a0 (172 B): equivalent/0x000539a0.cpp [isolated: compile error C2664: 'fn_000539a0::fight::ParamEnumConstList<T>::ParamEnumConstList(const char *,const char ** ,int,void (__thiscall CSmartPr]
-// sym: _FUN_000539a0
+// sym: _FUN_000539a0 @c31316d521eb @wbb127b4041c4
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_000539a0 @ 0x000539a0
 #include "decls/data/game/global.h"

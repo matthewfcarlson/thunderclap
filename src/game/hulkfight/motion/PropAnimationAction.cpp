@@ -116,7 +116,7 @@ public:
 
 
 // 0x0018b4e0 hulkfight::motion::PropAnimationAction::vfunc_3 (452 B): equivalent/0x0018b4e0.cpp
-// sym: ?vfunc_3@PropAnimationAction@fn_f5669a8c@@UAE_NHH@Z
+// sym: ?vfunc_3@PropAnimationAction@fn_f5669a8c@@UAE_NHH@Z @4c0a3bba7667 @we1756976f878
 // STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 30/30)
 // hulkfight::motion::PropAnimationAction::vfunc_3 @ 0x0018b4e0
 bool PropAnimationAction::vfunc_3(int a, int b)

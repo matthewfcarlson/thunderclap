@@ -60,7 +60,7 @@ public:
 
 
 // 0x0001fab0 COrientAction::vfunc_7 (428 B): equivalent/0x0001fab0.cpp
-// sym: ?vfunc_7@COrientAction@fn_f1d726b8@@UAEDM@Z
+// sym: ?vfunc_7@COrientAction@fn_f1d726b8@@UAEDM@Z @c05bd4a62d54 @w1e3329668745
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 14/14)
 // COrientAction::vfunc_7 @ 0x0001fab0
 char COrientAction::vfunc_7(float dt)

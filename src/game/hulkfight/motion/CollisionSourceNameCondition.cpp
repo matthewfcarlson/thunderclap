@@ -61,7 +61,7 @@ bool hulkfight::motion::CollisionSourceTypeCondition::vfunc_6(void* __p0, void* 
 
 
 // 0x0014e6b0 hulkfight::motion::CollisionSourceNameCondition::vfunc_6 (170 B): equivalent/0x0014e6b0.cpp [wrapped: conflict: FUN_00344e74; hulkfight::motion::CollisionSourceNameCondition]
-// sym: ?vfunc_6@CollisionSourceNameCondition@motion@hulkfight@fn_0014e6b0@@UAE_NIPAUParams@4@I@Z
+// sym: ?vfunc_6@CollisionSourceNameCondition@motion@hulkfight@fn_0014e6b0@@UAE_NIPAUParams@4@I@Z @a7ae23e6c155 @wb64c4dba0eab
 namespace fn_0014e6b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 30/30)
 // hulkfight::motion::CollisionSourceNameCondition::vfunc_6 @ 0x0014e6b0

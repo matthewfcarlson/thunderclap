@@ -5,7 +5,7 @@
 
 
 // 0x000fd0f0 CControllerAgent::vfunc_4 (1968 B): equivalent/0x000fd0f0.cpp [isolated: macros; helper definitions (3 out-of-line function bodies); on include/gen/ and not mergeable]
-// sym: ?vfunc_4@CControllerAgent@@UAEXHHH@Z
+// sym: ?vfunc_4@CControllerAgent@@UAEXHHH@Z @1387ea6cd792 @w43f1b4bf0eba
 // STATUS: equivalent (tools/equiv.py level 3: 7018 inputs, branch coverage 32/32)
 // CControllerAgent::vfunc_4 @ 0x000fd0f0
 // CControllerAgent::vfunc_4 (ret 0xc, three stack args): controller facing/aim update. After the base

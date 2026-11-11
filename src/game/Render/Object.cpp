@@ -425,7 +425,7 @@ class Obj {
 
 
 // 0x001c49c0 FUN_001c49c0 (123 B): equivalent/0x001c49c0.cpp
-// sym: ?FUN_001c49c0@Reader_1c49c0@fn_f4431f34@@QAEPAV12@XZ
+// sym: ?FUN_001c49c0@Reader_1c49c0@fn_f4431f34@@QAEPAV12@XZ @62436bd00f45 @w519b552cd43b
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 6/6)
 // FUN_001c49c0 @ 0x001c49c0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -494,7 +494,7 @@ void owners::Target_1c4b20::FUN_001c4b20() {
 
 
 // 0x001c4b50 FUN_001c4b50 (480 B): equivalent/0x001c4b50.cpp [wrapped: conflict: FUN_0027b020]
-// sym: ?FUN_001c4b50@Locator@fn_001c4b50@@QAEXPAUOut_1c4b50@2@@Z
+// sym: ?FUN_001c4b50@Locator@fn_001c4b50@@QAEXPAUOut_1c4b50@2@@Z @0410547adce6 @wf4f66b38bd67
 namespace fn_001c4b50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 38/38; --wine 668 inputs)
 // FUN_001c4b50 @ 0x001c4b50
@@ -637,7 +637,7 @@ void Locator::FUN_001c4b50(Out_1c4b50 *out)
 namespace fn_f4431f34 {
 
 // 0x001c4d30 FUN_001c4d30 (43 B): equivalent/0x001c4d30.cpp
-// sym: ?FUN_001c4d30@Locator_1c4d30@fn_f4431f34@@QAEXPAUResult@2@@Z
+// sym: ?FUN_001c4d30@Locator_1c4d30@fn_f4431f34@@QAEXPAUResult@2@@Z @ba73dc1d3343 @w4db806125b5f
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // FUN_001c4d30 @ 0x001c4d30
 void Locator_1c4d30::FUN_001c4d30(Result* out) { Result temp; FUN_001c4b50(&temp); out->a=temp.a; out->b=temp.b; out->c=temp.c; }
@@ -716,7 +716,7 @@ void A_1c4ea0::Forward(int a0) {
 } // namespace fn_f4431f34
 
 // 0x001c4eb0 FUN_001c4eb0 (252 B): equivalent/0x001c4eb0.cpp [wrapped: conflict: Render::Object]
-// sym: ??0Object@Render@fn_001c4eb0@@QAE@PAXPAUResource_1c4eb0@2@@Z
+// sym: ??0Object@Render@fn_001c4eb0@@QAE@PAXPAUResource_1c4eb0@2@@Z @713095b83149 @wb79ab23574a4
 namespace fn_001c4eb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001c4eb0 @ 0x001c4eb0
@@ -794,7 +794,7 @@ Object_1c4fb0::~Object_1c4fb0() throw() {
 
 
 // 0x001c5010 FUN_001c5010 (53 B): equivalent/0x001c5010.cpp
-// sym: ?FUN_001c5010@Owner@fn_f4431f34@@QAEXPAVItem@2@@Z
+// sym: ?FUN_001c5010@Owner@fn_f4431f34@@QAEXPAVItem@2@@Z @e741a8fe166d @w15f82ec59f9b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001c5010 @ 0x001c5010
 void Owner::FUN_001c5010(Item *value) { if (value) value->FUN_00000000(); if (item) item->FUN_00000004(); item = value; if (observer) observer->FUN_00000028(value); }
@@ -840,7 +840,7 @@ void owners::Blend_1c5080::FUN_001c5080(float input, float duration)
 namespace fn_f4431f34 {
 
 // 0x001c5130 FUN_001c5130 (127 B): equivalent/0x001c5130.cpp
-// sym: ?FUN_001c5130@Object_1c5130@fn_f4431f34@@QAEXMM@Z
+// sym: ?FUN_001c5130@Object_1c5130@fn_f4431f34@@QAEXMM@Z @dbe2fc02addc @w2c50a6aad2d9
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_001c5130 @ 0x001c5130
 void Object_1c5130::FUN_001c5130(float target, float duration) {
@@ -930,7 +930,7 @@ void owners::Blender_1c52f0::FUN_001c52f0(float unused)
 
 
 // 0x001c5460 Render::Object::vfunc_3 (343 B): equivalent/0x001c5460.cpp [wrapped: conflict: Render::Object]
-// sym: ?vfunc_3@Object@Render@fn_001c5460@@UAEXPAVRenderer_1c5460@3@H@Z
+// sym: ?vfunc_3@Object@Render@fn_001c5460@@UAEXPAVRenderer_1c5460@3@H@Z @e46ed971f44d @w78986fabd616
 namespace fn_001c5460 {
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 30/30)
 // Render::Object::vfunc_3 @ 0x001c5460
@@ -1154,7 +1154,7 @@ Obj_1c5900* Manager_1c5900::Run(u32_1c5900 a, u32_1c5900 b) {
 
 
 // 0x001c5960 FUN_001c5960 (100 B): equivalent/0x001c5960.cpp
-// sym: ?FUN_001c5960@Mgr_1c5960@fn_f4431f34@@QAEPAVObject_1c5960@2@HH@Z
+// sym: ?FUN_001c5960@Mgr_1c5960@fn_f4431f34@@QAEPAVObject_1c5960@2@HH@Z @27096ed8726c @wc0545ededdc7
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 5/6, incomplete)
 // FUN_001c5960 @ 0x001c5960
 Object_1c5960 *Mgr_1c5960::FUN_001c5960(int a, int b)

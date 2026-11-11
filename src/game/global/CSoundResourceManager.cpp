@@ -194,7 +194,7 @@ void __stdcall FUN_001ea050(int x) {}
 
 
 // 0x001ea060 FUN_001ea060 (81 B): equivalent/0x001ea060.cpp
-// sym: ?FUN_001ea060@fn_f01d1853@@YGHPAUList@1@H@Z
+// sym: ?FUN_001ea060@fn_f01d1853@@YGHPAUList@1@H@Z @16f67e8c1343 @wa34ee8eb30ec
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001ea060 @ 0x001ea060
 int __stdcall FUN_001ea060(List *list, int value) {
@@ -212,7 +212,7 @@ int __stdcall FUN_001ea060(List *list, int value) {
 
 
 // 0x001ea190 FUN_001ea190 (416 B): equivalent/0x001ea190.cpp
-// sym: ?FUN_001ea190@Collector_1ea190@fn_f01d1853@@QAEHPAURequest@2@PAUList_1ea190@2@@Z
+// sym: ?FUN_001ea190@Collector_1ea190@fn_f01d1853@@QAEHPAURequest@2@PAUList_1ea190@2@@Z @0354779df5b1 @w62a9c43dfee4
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 22/24, incomplete)
 // FUN_001ea190 @ 0x001ea190
 int Collector_1ea190::FUN_001ea190(Request *req, List_1ea190 *list)
@@ -444,7 +444,7 @@ template <> void Closure1<CSoundResourceManager, void, int>::vfunc_2(void* __p0,
 
 
 // 0x001ea560 FUN_001ea560 (59 B): equivalent/0x001ea560.cpp [wrapped: compile error in a shared declaration (C2757)]
-// sym: ?FUN_001ea560@Obj@fn_001ea560@@QAEXHH@Z
+// sym: ?FUN_001ea560@Obj@fn_001ea560@@QAEXHH@Z @ea940f1fb0e4 @wdae5b849266a
 namespace fn_001ea560 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001ea560 @ 0x001ea560
@@ -453,7 +453,7 @@ struct Caster { virtual void f0(); virtual void f1(); virtual void f2(); virtual
 
 
 // 0x001ea5a0 FUN_001ea5a0 (132 B): equivalent/0x001ea5a0.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?Acquire@ClipUser@fn_001ea5a0@@QAEXUArg_1ea5a0@2@@Z
+// sym: ?Acquire@ClipUser@fn_001ea5a0@@QAEXUArg_1ea5a0@2@@Z @4a6de2db0fa6 @wd2fa1e53bebf
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_001ea5a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2981 inputs, branch coverage 8/8)
@@ -559,7 +559,7 @@ void Target::FUN_001ea6b0(Source* src, int unused) {
 } // namespace fn_f01d1853
 
 // 0x001ea700 FUN_001ea700 (179 B): equivalent/0x001ea700.cpp [wrapped: conflict: content::LoadInventory]
-// sym: ?FUN_001ea700@Request@fn_001ea700@@QAEXXZ
+// sym: ?FUN_001ea700@Request@fn_001ea700@@QAEXXZ @56d4de2073de @w8ac2c42cf5a6
 namespace fn_001ea700 {
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 13/14, incomplete)
 // FUN_001ea700 @ 0x001ea700
@@ -585,7 +585,7 @@ void Request::FUN_001ea700() {
 
 
 // 0x001ea8b0 FUN_001ea8b0 (603 B): equivalent/0x001ea8b0.cpp [wrapped: conflict: CSoundResourceManager; Closure1; Method1]
-// sym: ?FUN_001ea8b0@CSoundResourceManager@fn_001ea8b0@@QAEHH@Z
+// sym: ?FUN_001ea8b0@CSoundResourceManager@fn_001ea8b0@@QAEHH@Z @ad01fa1cb94d @w51f753705d8f
 namespace fn_001ea8b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1920 inputs, branch coverage 10/10)
 // FUN_001ea8b0 @ 0x001ea8b0

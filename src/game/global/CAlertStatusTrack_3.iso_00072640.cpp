@@ -4,7 +4,7 @@
 
 
 // 0x00072640 FUN_00072640 (95 B): equivalent/0x00072640.cpp [isolated: compile error C2664: 'fn_00072640::fight::ParamFloatConstRange<T>::ParamFloatConstRange(const char *,void (__thiscall CDeathTrack::* )(void))]
-// sym: _FUN_00072640
+// sym: _FUN_00072640 @eaa11d869c0d @wb25e1f0ed072
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 4/4)
 // FUN_00072640 @ 0x00072640
 #include "decls/data/game/global.h"

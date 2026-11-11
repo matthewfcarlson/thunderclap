@@ -89,7 +89,7 @@ unsigned int Object::FUN_000796e0(hulk_uintptr a, const char* name, const void* 
 } // namespace fn_fa24d555
 
 // 0x0007e680 FUN_0007e680 (189 B): equivalent/0x0007e680.cpp
-// sym: ?FUN_0007e680@VehicleManager_7e680@owners@@QAEXXZ
+// sym: ?FUN_0007e680@VehicleManager_7e680@owners@@QAEXXZ @c952c2f51013 @w2595d4f8a85f
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 10/10)
 // FUN_0007e680 @ 0x0007e680
 void owners::VehicleManager_7e680::FUN_0007e680() {
@@ -113,7 +113,7 @@ void owners::VehicleManager_7e680::FUN_0007e680() {
 namespace fn_fa24d555 {
 
 // 0x0007e740 FUN_0007e740 (681 B): equivalent/0x0007e740.cpp
-// sym: ?FUN_0007e740@Game_7e740@fn_fa24d555@@QAEXXZ
+// sym: ?FUN_0007e740@Game_7e740@fn_fa24d555@@QAEXXZ @df346b540f26 @wa8ffbb0d0da7
 // STATUS: equivalent (tools/equiv.py level 3: 20030 inputs, branch coverage 20/20)
 // FUN_0007e740 @ 0x0007e740
 void Game_7e740::FUN_0007e740()
@@ -180,7 +180,7 @@ void Game_7e740::FUN_0007e740()
 } // namespace fn_fa24d555
 
 // 0x00080820 FUN_00080820 (219 B): equivalent/0x00080820.cpp
-// sym: ?FUN_00080820@Actor_80820@owners@@QAEHXZ
+// sym: ?FUN_00080820@Actor_80820@owners@@QAEHXZ @f75b3c049d98 @w28a4360b00ae
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 4/4)
 // FUN_00080820 @ 0x00080820
 int owners::Actor_80820::FUN_00080820() {

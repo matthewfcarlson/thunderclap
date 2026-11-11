@@ -4,7 +4,7 @@
 
 
 // 0x001ac370 FUN_001ac370 (231 B): equivalent/0x001ac370.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ?target@fn_fe32daa8@@YAXXZ
+// sym: ?target@fn_fe32daa8@@YAXXZ @32c47c8ca9a6 @we2b87b9ff6df
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/scenario.h"

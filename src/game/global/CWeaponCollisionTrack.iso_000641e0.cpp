@@ -4,7 +4,7 @@
 
 
 // 0x000641e0 FUN_000641e0 (158 B): equivalent/0x000641e0.cpp [isolated: compile error C2039: 'FUN_00061e30' : is not a member of 'CSmartPropSetStateTrack']
-// sym: _FUN_000641e0
+// sym: _FUN_000641e0 @4c2eb33d5662 @w35bf662c0f77
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_000641e0 @ 0x000641e0
 #include "decls/data/game/global.h"

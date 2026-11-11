@@ -29,7 +29,7 @@ struct World { char pad[44]; Screen_b4850* screen; };
 namespace fn_f8e31d33 {
 
 // 0x000b4850 FUN_000b4850 (683 B): equivalent/0x000b4850.cpp
-// sym: _FUN_000b4850@28
+// sym: _FUN_000b4850@28 @929b64278ee0 @w312698054ff6
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 18/18)
 // FUN_000b4850 @ 0x000b4850
 extern "C" void __stdcall FUN_000b4850(const char* title,const char* format,const char* a,const char* b,const char* c,const char* d,const char* e) {

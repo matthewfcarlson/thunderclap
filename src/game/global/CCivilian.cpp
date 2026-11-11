@@ -188,7 +188,7 @@ CCivilian_81340::~CCivilian_81340() {
 
 
 // 0x00081420 FUN_00081420 (579 B): equivalent/0x00081420.cpp
-// sym: ?FUN_00081420@Fx_81420@fn_f2e01089@@QAEXPAUSource_81420@2@@Z
+// sym: ?FUN_00081420@Fx_81420@fn_f2e01089@@QAEXPAUSource_81420@2@@Z @67b9839c1102 @w2aedbc76422d
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 30/30)
 // FUN_00081420 @ 0x00081420
 void Fx_81420::FUN_00081420(Source_81420* src)

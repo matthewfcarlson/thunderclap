@@ -70,7 +70,7 @@ hulk_intptr hulkfight::ai::MotionTargetTrack::vfunc_0(int index) {
 
 
 // 0x00115bc0 FUN_00115bc0 (50 B): equivalent/0x00115bc0.cpp [wrapped: conflict: hulkfight::ai::MotionTargetTrack]
-// sym: ??0MotionTargetTrack@ai@hulkfight@fn_00115bc0@@QAE@XZ
+// sym: ??0MotionTargetTrack@ai@hulkfight@fn_00115bc0@@QAE@XZ @3b191187b3dc @w3dee34eecc2b
 namespace fn_00115bc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00115bc0 @ 0x00115bc0

@@ -1050,7 +1050,7 @@ PathTrack* PathTrack::vfunc_5(int flag) {
 
 
 // 0x0011cd70 FUN_0011cd70 (81 B): equivalent/0x0011cd70.cpp [wrapped: conflict: hulkfight::ai::StrafeRunAction]
-// sym: ??0StrafeRunAction@ai@hulkfight@fn_0011cd70@@QAE@PAXPAURefObject@123@@Z
+// sym: ??0StrafeRunAction@ai@hulkfight@fn_0011cd70@@QAE@PAXPAURefObject@123@@Z @b4f59cbfb603 @wab25e1bd325d
 namespace fn_0011cd70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0011cd70 @ 0x0011cd70
@@ -1109,7 +1109,7 @@ StrafeRunAction_11cdd0::~StrafeRunAction_11cdd0() {
 } // namespace fn_fbabf3f2
 
 // 0x0011ce20 hulkfight::ai::StrafeRunAction::vfunc_5 (1169 B): equivalent/0x0011ce20.cpp [wrapped: conflict: hulkfight::ai::StrafeRunAction]
-// sym: ?vfunc_5@StrafeRunAction@ai@hulkfight@fn_0011ce20@@UAE_NTSlot_11ce20@4@0@Z
+// sym: ?vfunc_5@StrafeRunAction@ai@hulkfight@fn_0011ce20@@UAE_NTSlot_11ce20@4@0@Z @1a197f42245b @w3525a6bec9e5
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1399,7 +1399,7 @@ bool StrafeRunAction::vfunc_5(Slot_11ce20 a0, Slot_11ce20 a1)
 
 
 // 0x0011d2c0 hulkfight::ai::PathFormationAction::vfunc_5 (1431 B): equivalent/0x0011d2c0.cpp [wrapped: conflict: World]
-// sym: ?F@PathFormationAction@fn_0011d2c0@@QAEDHM@Z
+// sym: ?F@PathFormationAction@fn_0011d2c0@@QAEDHM@Z @57c325c76383 @wce048a64534f
 namespace fn_0011d2c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3087 inputs, branch coverage 62/62)
 // hulkfight::ai::PathFormationAction::vfunc_5 @ 0x0011d2c0

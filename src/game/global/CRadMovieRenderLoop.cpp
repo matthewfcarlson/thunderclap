@@ -339,7 +339,7 @@ void CRadMovieRenderLoop::vfunc_1() {
 
 
 // 0x001b6fd0 FUN_001b6fd0 (416 B): equivalent/0x001b6fd0.cpp
-// sym: ?FUN_001b6fd0@CRadMovieRenderLoop@@QAEXH@Z
+// sym: ?FUN_001b6fd0@CRadMovieRenderLoop@@QAEXH@Z @2539ba83e8bd @w51ad486fe8d5
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_001b6fd0 @ 0x001b6fd0
 void CRadMovieRenderLoop::FUN_001b6fd0(int alpha) {
@@ -565,7 +565,7 @@ void Obj_1b7290::Add(float a, float b, float c, float d) {
 
 
 // 0x001b7310 FUN_001b7310 (79 B): equivalent/0x001b7310.cpp
-// sym: ?update@Object@fn_fbeebd58@@QAEXPBDIE@Z
+// sym: ?update@Object@fn_fbeebd58@@QAEXPBDIE@Z @47d51bc1d74e @w4f714e7335e3
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 6/6)
 // FUN_001b7310 @ 0x001b7310
 void Object::update(const char* source, unsigned int parameterValue, unsigned char flagValue) {
@@ -586,7 +586,7 @@ void Object::update(const char* source, unsigned int parameterValue, unsigned ch
 } // namespace fn_fbeebd58
 
 // 0x001b7360 FUN_001b7360 (79 B): equivalent/0x001b7360.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001b7360@Object@fn_001b7360@@QAEXPBDH@Z
+// sym: ?FUN_001b7360@Object@fn_001b7360@@QAEXPBDH@Z @784e58e84526 @w70817c7bb7a6
 namespace fn_001b7360 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001b7360 @ 0x001b7360
@@ -621,7 +621,7 @@ void Object::FUN_001b7360(const char *source, int number) {
 namespace fn_fbeebd58 {
 
 // 0x001b73c0 FUN_001b73c0 (224 B): equivalent/0x001b73c0.cpp
-// sym: ?FUN_001b73c0@fn_fbeebd58@@YGPBXPBD@Z
+// sym: ?FUN_001b73c0@fn_fbeebd58@@YGPBXPBD@Z @c668d9450eab @wdadc82a09b99
 // STATUS: equivalent (tools/equiv.py level 3: 20034 inputs, branch coverage 18/18)
 // FUN_001b73c0 @ 0x001b73c0
 const void* __stdcall FUN_001b73c0(const char* name) {
@@ -790,7 +790,7 @@ void Target_1b77e0::Run() {
 
 
 // 0x001b78a0 FUN_001b78a0 (42 B): equivalent/0x001b78a0.cpp
-// sym: ?FUN_001b78a0@Owner@fn_fbeebd58@@QAEXXZ
+// sym: ?FUN_001b78a0@Owner@fn_fbeebd58@@QAEXXZ @99f90a2b8e74 @w49359f4e2c90
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001b78a0 @ 0x001b78a0
 void Owner::FUN_001b78a0() {

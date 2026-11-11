@@ -5,7 +5,7 @@
 
 
 // 0x00147e50 hulkfight::motion::CivilianDetachAction::vfunc_3 (315 B): equivalent/0x00147e50.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?vfunc_3@CivilianDetachAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@CivilianDetachAction@motion@hulkfight@@UAE_NHH@Z @e233df2ddf31 @w1ba20c641174
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::CivilianDetachAction::vfunc_3 @ 0x00147e50
 // hulkfight::motion::CivilianDetachAction::vfunc_3 @ 0x00147e50

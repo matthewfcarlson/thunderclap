@@ -5,7 +5,7 @@
 
 
 // 0x0009c960 Closure6<CCameraManager,void,int,int,float,int,int,float>::vfunc_2 (63 B): equivalent/0x0009c960.cpp [isolated: conflict: Arguments; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure6@VCCameraManager@@XHHMHHM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure6@VCCameraManager@@XHHMHHM@@UAEXPAX00@Z @d87f9086673d @w00d10d905daa
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure6<CCameraManager,void,int,int,float,int,int,float>::vfunc_2 @ 0x0009c960
 #include "gen/global.h"

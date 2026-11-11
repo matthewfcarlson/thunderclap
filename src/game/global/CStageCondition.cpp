@@ -31,7 +31,7 @@ hulk_intptr CStageCondition::vfunc_0(int index) {
 
 
 // 0x00048350 CStageCondition::vfunc_7 (168 B): equivalent/0x00048350.cpp
-// sym: ?vfunc_7@CStageCondition@@UAE_NPAX@Z
+// sym: ?vfunc_7@CStageCondition@@UAE_NPAX@Z @ff4a49d8b26f @w95ce89aef737
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // CStageCondition::vfunc_7 @ 0x00048350
 bool CStageCondition::vfunc_7(void* __p0) { Argument_48350 * arg = (Argument_48350 *)__p0;

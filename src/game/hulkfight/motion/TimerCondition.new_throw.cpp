@@ -156,7 +156,7 @@ public:
 namespace fn_f597f6aa {
 
 // 0x0018df00 FUN_0018df00 (339 B): equivalent/0x0018df00.cpp
-// sym: ?FUN_0018df00@fn_f597f6aa@@YAXXZ
+// sym: ?FUN_0018df00@fn_f597f6aa@@YAXXZ @ae5f51cbdb8d @w37a1f6d2c672
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_0018df00 @ 0x0018df00
 void FUN_0018df00()
@@ -192,7 +192,7 @@ void FUN_0018df00()
 
 
 // 0x0018e6e0 FUN_0018e6e0 (372 B): equivalent/0x0018e6e0.cpp
-// sym: ?FUN_0018e6e0@fn_f597f6aa@@YAXXZ
+// sym: ?FUN_0018e6e0@fn_f597f6aa@@YAXXZ @6b1ff02959e0 @w733acf65c639
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 14/14)
 // FUN_0018e6e0 @ 0x0018e6e0
 void FUN_0018e6e0()

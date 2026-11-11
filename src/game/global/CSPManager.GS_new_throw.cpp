@@ -81,7 +81,7 @@ extern "C" int __cdecl sprintf(char *, const char *, ...);
 namespace fn_f80c1c30 {
 
 // 0x001e4c40 FUN_001e4c40 (516 B): equivalent/0x001e4c40.cpp
-// sym: ?FUN_001e4c40@CSPManager_1e4c40@fn_f80c1c30@@QAEPAUNode@2@PBDPAUVec3_1e4c40@2@HPAD1H@Z
+// sym: ?FUN_001e4c40@CSPManager_1e4c40@fn_f80c1c30@@QAEPAUNode@2@PBDPAUVec3_1e4c40@2@HPAD1H@Z @c163ec4badf1 @w83668d374ce8
 // STATUS: equivalent (tools/equiv.py level 3: 13486 inputs, branch coverage 32/32)
 // FUN_001e4c40 @ 0x001e4c40
 Node *CSPManager_1e4c40::FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, char *name, Vec3_1e4c40 *dir, int c)

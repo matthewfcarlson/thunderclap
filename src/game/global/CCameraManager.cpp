@@ -1932,7 +1932,7 @@ hulk_intptr __fastcall FUN_00099180(C_99180* p) {
 
 
 // 0x000991b0 FUN_000991b0 (350 B): equivalent/0x000991b0.cpp
-// sym: ?FUN_000991b0@Controller_991b0@fn_f5ef2b3f@@QAEXPAUOwner_991b0@2@PAVNode@2@1_N2@Z
+// sym: ?FUN_000991b0@Controller_991b0@fn_f5ef2b3f@@QAEXPAUOwner_991b0@2@PAVNode@2@1_N2@Z @97b449404b89 @w40bb9e09a88a
 // STATUS: equivalent (tools/equiv.py level 3: 20025 inputs, branch coverage 24/24)
 // FUN_000991b0 @ 0x000991b0
 void Controller_991b0::FUN_000991b0(Owner_991b0 *owner, Node *node, Node *tgt, bool arg4, bool arg5)
@@ -2013,7 +2013,7 @@ void Obj_99330::target() {
 
 
 // 0x00099340 FUN_00099340 (162 B): equivalent/0x00099340.cpp
-// sym: ?FUN_00099340@Panel_99340@fn_f5ef2b3f@@QAEXXZ
+// sym: ?FUN_00099340@Panel_99340@fn_f5ef2b3f@@QAEXXZ @b88fafaeb205 @w18bdc8705b5a
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 4/4)
 // FUN_00099340 @ 0x00099340
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -2050,7 +2050,7 @@ void Panel_993f0::FUN_000993f0(int a1, int a2, int a3, int a4, int a5, int a6) {
 
 
 // 0x00099470 FUN_00099470 (144 B): equivalent/0x00099470.cpp
-// sym: ?FUN_00099470@Handler_99470@fn_f5ef2b3f@@QAEXPAUCtx_99470@2@@Z
+// sym: ?FUN_00099470@Handler_99470@fn_f5ef2b3f@@QAEXPAUCtx_99470@2@@Z @c7b2ae71884b @w357bdd0d61ea
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 6/6)
 // FUN_00099470 @ 0x00099470
 void Handler_99470::FUN_00099470(Ctx_99470 *ctx)
@@ -2086,7 +2086,7 @@ void C_99500::f(int a, int b, int c, int d, int e, int g) {
 
 
 // 0x00099570 FUN_00099570 (78 B): equivalent/0x00099570.cpp
-// sym: ?FUN_00099570@Object@fn_f5ef2b3f@@QAEXHHHHHH@Z
+// sym: ?FUN_00099570@Object@fn_f5ef2b3f@@QAEXHHHHHH@Z @6ee4992b5ac9 @wa6c81f3c435a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00099570 @ 0x00099570
 void Object::FUN_00099570(int a,int b,int c,int d,int e,int f) { Triple t; t.a=c; t.b=d; t.c=e; FUN_00099500(a,b,t,f); }
@@ -2200,7 +2200,7 @@ void Obj::Set(int a, int b, int c, int d) {
 
 
 // 0x00099710 FUN_00099710 (23 B): equivalent/0x00099710.cpp [wrapped: conflict: DAT_004dd700]
-// sym: ?FUN_00099710@Object@fn_00099710@@QAEXXZ
+// sym: ?FUN_00099710@Object@fn_00099710@@QAEXXZ @4a66e1c29777 @w117242f95ced
 namespace fn_00099710 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00099710 @ 0x00099710
@@ -2346,7 +2346,7 @@ void Target::Set(int a, int b) {
 
 
 // 0x000998f0 FUN_000998f0 (108 B): equivalent/0x000998f0.cpp
-// sym: ?FUN_000998f0@Target_998f0@fn_f5ef2b3f@@QAEXHHHHHH@Z
+// sym: ?FUN_000998f0@Target_998f0@fn_f5ef2b3f@@QAEXHHHHHH@Z @a76bb52c40db @wb74c55d246d5
 // STATUS: equivalent (tools/equiv.py level 3: 2981 inputs, branch coverage 0/0)
 // FUN_000998f0 @ 0x000998f0
 void Target_998f0::FUN_000998f0(int a1, int a2, int a3, int a4, int a5, int a6)
@@ -2562,7 +2562,7 @@ void Obj::Func(int x) {
 } // namespace fn_f5ef2b3f
 
 // 0x00099bf0 FUN_00099bf0 (110 B): equivalent/0x00099bf0.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00099bf0@Holder_99bf0@fn_00099bf0@@QAEXPAUVec3i@2@@Z
+// sym: ?FUN_00099bf0@Holder_99bf0@fn_00099bf0@@QAEXPAUVec3i@2@@Z @e0bade4cf015 @w0c31528b4b5f
 namespace fn_00099bf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00099bf0 @ 0x00099bf0
@@ -2818,7 +2818,7 @@ int Owner_9a0e0::FUN_0009a0e0() {
 } // namespace fn_f5ef2b3f
 
 // 0x0009a1e0 FUN_0009a1e0 (56 B): equivalent/0x0009a1e0.cpp
-// sym: ?FUN_0009a1e0@Obj_9a1e0@owners@@QAEXI@Z
+// sym: ?FUN_0009a1e0@Obj_9a1e0@owners@@QAEXI@Z @cc21ff2bdfd8 @w9dcfeae79a12
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0009a1e0 @ 0x0009a1e0
 void owners::Obj_9a1e0::FUN_0009a1e0(hulk_uintptr arg) { if (flags & 2) { flags &= ~2u; FUN_000991b0(((unsigned)arg), value10, value14, 0, 0); value14 = 0; } }
@@ -2851,7 +2851,7 @@ void CCameraManager_9a220::Clear() {
 } // namespace fn_f5ef2b3f
 
 // 0x0009a290 FUN_0009a290 (357 B): equivalent/0x0009a290.cpp [wrapped: compile error in a shared declaration (C3861)]
-// sym: ?FUN_0009a290@CCameraManager_9a290@fn_0009a290@@QAEXPAUCtx_9a290@2@@Z
+// sym: ?FUN_0009a290@CCameraManager_9a290@fn_0009a290@@QAEXPAUCtx_9a290@2@@Z @ded99ec8cca0 @wb370fecac224
 namespace fn_0009a290 {
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 10/10)
 // FUN_0009a290 @ 0x0009a290
@@ -2989,7 +2989,7 @@ void CCameraManager_9a290::FUN_0009a290(Ctx_9a290* ctx)
 namespace fn_f5ef2b3f {
 
 // 0x0009a400 FUN_0009a400 (118 B): equivalent/0x0009a400.cpp
-// sym: ?FUN_0009a400@Widget_9a400@fn_f5ef2b3f@@QAEXPAUPlayer_9a400@2@@Z
+// sym: ?FUN_0009a400@Widget_9a400@fn_f5ef2b3f@@QAEXPAUPlayer_9a400@2@@Z @9beff04aed7b @wbf8fc452509d
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_0009a400 @ 0x0009a400
 void Widget_9a400::FUN_0009a400(Player_9a400* p) {
@@ -3008,7 +3008,7 @@ void Widget_9a400::FUN_0009a400(Player_9a400* p) {
 
 
 // 0x0009a480 FUN_0009a480 (119 B): equivalent/0x0009a480.cpp
-// sym: ?FUN_0009a480@Slider_9a480@fn_f5ef2b3f@@QAEXM@Z
+// sym: ?FUN_0009a480@Slider_9a480@fn_f5ef2b3f@@QAEXM@Z @a29fcea117b7 @w3683d73828c0
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 10/10)
 // FUN_0009a480 @ 0x0009a480
 void Slider_9a480::FUN_0009a480(float v) {
@@ -3026,7 +3026,7 @@ void Slider_9a480::FUN_0009a480(float v) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009a500 FUN_0009a500 (194 B): equivalent/0x0009a500.cpp [wrapped: conflict: World]
-// sym: ?target@Object@fn_0009a500@@QAEXMM@Z
+// sym: ?target@Object@fn_0009a500@@QAEXMM@Z @58c56c852cec @w41fd28c9a2ae
 namespace fn_0009a500 {
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 16/16)
 // FUN_0009a500 @ 0x0009a500
@@ -3080,7 +3080,7 @@ void Object::target(float a,float b) {
 
 
 // 0x0009a5d0 FUN_0009a5d0 (258 B): equivalent/0x0009a5d0.cpp [wrapped: conflict: DAT_004dd700; World]
-// sym: _FUN_0009a5d0@24
+// sym: _FUN_0009a5d0@24 @f2c2a3435561 @waf853ac354c9
 namespace fn_0009a5d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // FUN_0009a5d0 @ 0x0009a5d0
@@ -3142,7 +3142,7 @@ template <> void Method6<CCameraManager, void, float, float, float, float, float
 namespace fn_f5ef2b3f {
 
 // 0x0009a7a0 FUN_0009a7a0 (82 B): equivalent/0x0009a7a0.cpp
-// sym: ?FUN_0009a7a0@fn_f5ef2b3f@@YAXIPBIIP6GXIIIIII@Z@Z
+// sym: ?FUN_0009a7a0@fn_f5ef2b3f@@YAXIPBIIP6GXIIIIII@Z@Z @7714bd012fdc @w65626380b34f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0009a7a0 @ 0x0009a7a0
 void __cdecl FUN_0009a7a0(unsigned unused, const unsigned *values, unsigned unused2, Callback callback)
@@ -3173,7 +3173,7 @@ template <> Method4<CCameraManager, void, float, float,math::Vector, float>::~Me
 
 
 // 0x0009a890 Method4<CCameraManager,void,float,float,math::Vector,float>::vfunc_2 (73 B): equivalent/0x0009a890.cpp
-// sym: ?vfunc_2@?$Method4@VCCameraManager@@XMMVVector@math@@M@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method4@VCCameraManager@@XMMVVector@math@@M@@UAEXPAX00@Z @70637d1eda7a @wcd11ec81a8a3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method4<CCameraManager,void,float,float,math::Vector,float>::vfunc_2 @ 0x0009a890
 template <> void Method4<CCameraManager, void, float, float,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9a890 * manager = (CCameraManager_9a890 *)__p0; const Args * args = (const Args *)__p1; void * unused = (void *)__p2;
@@ -3344,7 +3344,7 @@ template <> Method3<CCameraManager, void, bool, bool, bool>::~Method3() {}
 
 
 // 0x0009ab70 Method3<CCameraManager,void,bool,bool,bool>::vfunc_2 (38 B): equivalent/0x0009ab70.cpp [wrapped: conflict: Method3]
-// sym: ?vfunc_2@Method3@fn_0009ab70@@QAEXPAUCCameraManager@2@PBEPAX@Z
+// sym: ?vfunc_2@Method3@fn_0009ab70@@QAEXPAUCCameraManager@2@PBEPAX@Z @bef8e04b316d @w1f81c08b2fb2
 namespace fn_0009ab70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CCameraManager,void,bool,bool,bool>::vfunc_2 @ 0x0009ab70
@@ -3492,7 +3492,7 @@ template <> Method4<CCameraManager, void, bool, bool, bool, bool>::~Method4() {}
 
 
 // 0x0009ad00 Method4<CCameraManager,void,bool,bool,bool,bool>::vfunc_2 (56 B): equivalent/0x0009ad00.cpp
-// sym: ?vfunc_2@?$Method4@VCCameraManager@@X_N_N_N_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method4@VCCameraManager@@X_N_N_N_N@@UAEXPAX00@Z @100ae2990848 @w7082a0cabf52
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method4<CCameraManager,void,bool,bool,bool,bool>::vfunc_2 @ 0x0009ad00
 template <> void Method4<CCameraManager, void, bool, bool, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9ad00 * manager = (CCameraManager_9ad00 *)__p0; const unsigned char * args = (const unsigned char *)__p1;
@@ -3539,7 +3539,7 @@ template <> void Method5<CCameraManager, void, bool, bool, bool, bool, float>::v
 
 
 // 0x0009ae00 FUN_0009ae00 (69 B): equivalent/0x0009ae00.cpp [wrapped: conflict: Callback]
-// sym: ?FUN_0009ae00@fn_0009ae00@@YAXIPBEIP6GXIIIII@Z@Z
+// sym: ?FUN_0009ae00@fn_0009ae00@@YAXIPBEIP6GXIIIII@Z@Z @0e11b1821873 @w41ad039a12b4
 namespace fn_0009ae00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0009ae00 @ 0x0009ae00
@@ -3676,7 +3676,7 @@ template <> void Method6<CCameraManager, void, int, int, float, int, int, float>
 
 
 // 0x0009b140 FUN_0009b140 (58 B): equivalent/0x0009b140.cpp [wrapped: conflict: Callback]
-// sym: ?FUN_0009b140@fn_0009b140@@YAXPAUReceiver@1@PAIIP821@AEXIIIIII@Z@Z
+// sym: ?FUN_0009b140@fn_0009b140@@YAXPAUReceiver@1@PAIIP821@AEXIIIIII@Z@Z @43a5f43fe16b @wcc373d8b34f3
 namespace fn_0009b140 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0009b140 @ 0x0009b140
@@ -3716,7 +3716,7 @@ template <> Method2<CCameraManager, void,math::Vector,math::Vector>::~Method2() 
 
 
 // 0x0009b270 Method2<CCameraManager,void,math::Vector,math::Vector>::vfunc_2 (61 B): equivalent/0x0009b270.cpp
-// sym: ?vfunc_2@?$Method2@VCCameraManager@@XVVector@math@@V23@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method2@VCCameraManager@@XVVector@math@@V23@@@UAEXPAX00@Z @622a1d49eaab @waabb9d84df46
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method2<CCameraManager,void,math::Vector,math::Vector>::vfunc_2 @ 0x0009b270
 template <> void Method2<CCameraManager, void,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9b270 * manager = (CCameraManager_9b270 *)__p0; const math::Vector_9b270 * args = (const math::Vector_9b270 *)__p1; void * unused = (void *)__p2;
@@ -3766,7 +3766,7 @@ template <> Method4<CCameraManager, void, int, float, float, float>::~Method4() 
 
 
 // 0x0009b3c0 Method4<CCameraManager,void,int,float,float,float>::vfunc_2 (46 B): equivalent/0x0009b3c0.cpp [wrapped: conflict: Args; CCameraManager; Function; Method4]
-// sym: ?vfunc_2@Method4@fn_0009b3c0@@UAEXPAUCCameraManager@2@PAUArgs@2@M@Z
+// sym: ?vfunc_2@Method4@fn_0009b3c0@@UAEXPAUCCameraManager@2@PAUArgs@2@M@Z @06f2e20faa8a @w36572cef6aad
 namespace fn_0009b3c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method4<CCameraManager,void,int,float,float,float>::vfunc_2 @ 0x0009b3c0
@@ -3849,7 +3849,7 @@ template <> void Method6<CCameraManager, bool, float, float, float, float, float
 namespace fn_f5ef2b3f {
 
 // 0x0009b560 FUN_0009b560 (104 B): equivalent/0x0009b560.cpp
-// sym: ?FUN_0009b560@fn_f5ef2b3f@@YAXPAVTarget_9b560@1@PAHPADI@Z
+// sym: ?FUN_0009b560@fn_f5ef2b3f@@YAXPAVTarget_9b560@1@PAHPADI@Z @cf865d44d403 @w21f45b6aee18
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0009b560 @ 0x0009b560
 void __cdecl FUN_0009b560(Target_9b560* obj, int* args, char* result, unsigned int fnAddr) {
@@ -3946,7 +3946,7 @@ template <> void Method5<CCameraManager, bool, float, float, float, float, bool>
 
 
 // 0x0009b830 FUN_0009b830 (92 B): equivalent/0x0009b830.cpp [wrapped: conflict: Callback]
-// sym: ?FUN_0009b830@fn_0009b830@@YAXPAUCallback@1@PAUData@1@PAEP821@AEEIIIII@Z@Z
+// sym: ?FUN_0009b830@fn_0009b830@@YAXPAUCallback@1@PAUData@1@PAEP821@AEEIIIII@Z@Z @b2bd4b285f56 @w00afa390ed2f
 namespace fn_0009b830 {
 // STATUS: equivalent (tools/equiv.py level 3: 2975 inputs, branch coverage 2/2)
 // FUN_0009b830 @ 0x0009b830
@@ -4095,7 +4095,7 @@ void Method0Base_9ba50::f2(void* a, void* b, float* out) {
 
 
 // 0x0009bb50 FUN_0009bb50 (270 B): equivalent/0x0009bb50.cpp [wrapped: conflict: FUN_001c3d90]
-// sym: ?FUN_0009bb50@CCameraManager_9bb50@fn_0009bb50@@QAEXHH@Z
+// sym: ?FUN_0009bb50@CCameraManager_9bb50@fn_0009bb50@@QAEXHH@Z @a6f3c3d93b04 @w8f217801953a
 namespace fn_0009bb50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 14/14)
 // FUN_0009bb50 @ 0x0009bb50
@@ -4205,7 +4205,7 @@ void CCameraManager_9bb50::FUN_0009bb50(hulk_intptr a, hulk_intptr b)
 namespace fn_f5ef2b3f {
 
 // 0x0009bc60 FUN_0009bc60 (276 B): equivalent/0x0009bc60.cpp
-// sym: ?FUN_0009bc60@Owner_9bc60@fn_f5ef2b3f@@QAEXI@Z
+// sym: ?FUN_0009bc60@Owner_9bc60@fn_f5ef2b3f@@QAEXI@Z @c24c1137904d @w3fe5b9c61ec3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // FUN_0009bc60 @ 0x0009bc60
 void Owner_9bc60::FUN_0009bc60(hulk_uintptr arg) {
@@ -4231,7 +4231,7 @@ void Owner_9bc60::FUN_0009bc60(hulk_uintptr arg) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009bd80 FUN_0009bd80 (457 B): equivalent/0x0009bd80.cpp [wrapped: compile error in a shared declaration (C3861)]
-// sym: ?FUN_0009bd80@Tracker_9bd80@fn_0009bd80@@QAEHPAUOwner_9bd80@2@PAUMatrix@2@UV3_9bd80@2@H@Z
+// sym: ?FUN_0009bd80@Tracker_9bd80@fn_0009bd80@@QAEHPAUOwner_9bd80@2@PAUMatrix@2@UV3_9bd80@2@H@Z @5b8f99407fe1 @w0798b7c32ca1
 namespace fn_0009bd80 {
 // STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 30/32, incomplete)
 // FUN_0009bd80 @ 0x0009bd80
@@ -4383,7 +4383,7 @@ int Tracker_9bd80::FUN_0009bd80(Owner_9bd80* owner, Matrix* m, V3_9bd80 pos, int
 namespace fn_f5ef2b3f {
 
 // 0x0009bf50 FUN_0009bf50 (258 B): equivalent/0x0009bf50.cpp
-// sym: ?run@Target_9bf50@fn_f5ef2b3f@@QAEXPAUArg_9bf50@2@PAX@Z
+// sym: ?run@Target_9bf50@fn_f5ef2b3f@@QAEXPAUArg_9bf50@2@PAX@Z @6a8391960d02 @w79748e616a71
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 20/20)
 // FUN_0009bf50 @ 0x0009bf50
 void Target_9bf50::run(Arg_9bf50* arg, void* input) {
@@ -4408,7 +4408,7 @@ void Target_9bf50::run(Arg_9bf50* arg, void* input) {
 
 
 // 0x0009c060 FUN_0009c060 (258 B): equivalent/0x0009c060.cpp
-// sym: ?target@Object@fn_f5ef2b3f@@QAEXPAUInput_9c060@2@IIIIIII@Z
+// sym: ?target@Object@fn_f5ef2b3f@@QAEXPAUInput_9c060@2@IIIIIII@Z @7776feb96227 @w694733f9c4ee
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 14/14)
 // FUN_0009c060 @ 0x0009c060
 void Object::target(Input_9c060* input, unsigned a2, unsigned a3, unsigned a4, unsigned a5, unsigned a6, unsigned a7, unsigned a8) {
@@ -4716,7 +4716,7 @@ template <> Closure4<CCameraManager, void, bool, bool, bool, float>::~Closure4()
 
 
 // 0x0009c640 Closure4<CCameraManager,void,bool,bool,bool,float>::vfunc_2 (53 B): equivalent/0x0009c640.cpp
-// sym: ?vfunc_2@?$Closure4@VCCameraManager@@X_N_N_NM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure4@VCCameraManager@@X_N_N_NM@@UAEXPAX00@Z @46089777eaf0 @w463f1612e205
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CCameraManager,void,bool,bool,bool,float>::vfunc_2 @ 0x0009c640
 template <> void Closure4<CCameraManager, void, bool, bool, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; Arguments * arguments = (Arguments *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
@@ -4735,7 +4735,7 @@ template <> Closure4<CCameraManager, void, bool, bool, bool, bool>::~Closure4() 
 
 
 // 0x0009c6d0 Closure4<CCameraManager,void,bool,bool,bool,bool>::vfunc_2 (55 B): equivalent/0x0009c6d0.cpp
-// sym: ?vfunc_2@?$Closure4@VCCameraManager@@X_N_N_N_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure4@VCCameraManager@@X_N_N_N_N@@UAEXPAX00@Z @6e17f8afb7e4 @w74d0a22f6088
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CCameraManager,void,bool,bool,bool,bool>::vfunc_2 @ 0x0009c6d0
 template <> void Closure4<CCameraManager, void, bool, bool, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; BoolArguments * args = (BoolArguments *)__p1; void * other = (void *)__p2;
@@ -4946,7 +4946,7 @@ template <> Closure2<CCameraManager, void,math::Vector,math::Vector>::~Closure2(
 
 
 // 0x0009cab0 Closure2<CCameraManager,void,math::Vector,math::Vector>::vfunc_2 (60 B): equivalent/0x0009cab0.cpp
-// sym: ?vfunc_2@?$Closure2@VCCameraManager@@XVVector@math@@V23@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure2@VCCameraManager@@XVVector@math@@V23@@@UAEXPAX00@Z @9a4886667fe5 @w0ec339f70452
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure2<CCameraManager,void,math::Vector,math::Vector>::vfunc_2 @ 0x0009cab0
 template <> void Closure2<CCameraManager, void,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused1 = (hulk_intptr)__p0; VectorPair * args = (VectorPair *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
@@ -5071,7 +5071,7 @@ template <> Closure0<CCameraManager,math::Vector>::~Closure0() {}
 
 
 // 0x0009cc60 Closure0<CCameraManager,math::Vector>::vfunc_2 (63 B): equivalent/0x0009cc60.cpp
-// sym: ?vfunc_2@?$Closure0@VCCameraManager@@VVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure0@VCCameraManager@@VVector@math@@@@UAEXPAX00@Z @5b5ca72bc2e3 @w23491895e659
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure0<CCameraManager,math::Vector>::vfunc_2 @ 0x0009cc60
 template <> void Closure0<CCameraManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused0 = (int)__p0; int unused1 = (int)__p1; math::Vector_9cc60 * result = (math::Vector_9cc60 *)__p2;
@@ -5298,7 +5298,7 @@ void Closure2::vfunc_2(void* unused, int* p, void* unused2) {
 
 
 // 0x0009d040 Closure4<CCameraManager,void,char_*,char_*,char_*,char_*>::vfunc_2 (39 B): equivalent/0x0009d040.cpp
-// sym: ?vfunc_2@?$Closure4@VCCameraManager@@XPADPADPADPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure4@VCCameraManager@@XPADPADPADPAD@@UAEXPAX00@Z @35da6a76506a @w988358e1f154
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CCameraManager,void,char_*,char_*,char_*,char_*>::vfunc_2 @ 0x0009d040
 template <> void Closure4<CCameraManager, void, char *, char *, char *, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { char ** args = (char **)__p1;
@@ -5321,7 +5321,7 @@ template <> void Closure0<CCameraManager, float>::vfunc_2(void* __p0, void* __p1
 
 
 // 0x0009d100 FUN_0009d100 (169 B): equivalent/0x0009d100.cpp [wrapped: conflict: World; content::LoadInventory::DynamicCaster; pure3d::Animation]
-// sym: ?FUN_0009d100@Target_9d100@fn_0009d100@@QAE_NPAUKey_9d100@2@MM@Z
+// sym: ?FUN_0009d100@Target_9d100@fn_0009d100@@QAE_NPAUKey_9d100@2@MM@Z @772f934facb2 @w7f0cebd753aa
 namespace fn_0009d100 {
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 8/8)
 // FUN_0009d100 @ 0x0009d100
@@ -5369,7 +5369,7 @@ bool Target_9d100::FUN_0009d100(Key_9d100* key, float scale, float offset) { Inv
 
 
 // 0x0009d1b0 FUN_0009d1b0 (449 B): equivalent/0x0009d1b0.cpp [wrapped: conflict: World; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_0009d1b0@CCameraManager_9d1b0@fn_0009d1b0@@QAEXPBD000@Z
+// sym: ?FUN_0009d1b0@CCameraManager_9d1b0@fn_0009d1b0@@QAEXPBD000@Z @63255e1190e8 @w35d4d7dad896
 namespace fn_0009d1b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 32/34, incomplete)
 // FUN_0009d1b0 @ 0x0009d1b0
@@ -5552,7 +5552,7 @@ void CCameraManager_9d1b0::FUN_0009d1b0(const char *n0, const char *n1, const ch
 namespace fn_f5ef2b3f {
 
 // 0x0009d380 FUN_0009d380 (83 B): equivalent/0x0009d380.cpp
-// sym: ?FUN_0009d380@Registry_9d380@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d380@2@P832@AEXMMMMMM@Z@Z
+// sym: ?FUN_0009d380@Registry_9d380@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d380@2@P832@AEXMMMMMM@Z@Z @db68856eea71 @w2b180603ac75
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009d380 @ 0x0009d380
 // FUN_0009d380 @ 0x0009d380  (generated by tools/equiv_gen/reg_helper.py)
@@ -5570,7 +5570,7 @@ void Registry_9d380::FUN_0009d380(const char* a1, CCameraManager_9d380* a2, Fn_9
 
 
 // 0x0009d3e0 FUN_0009d3e0 (83 B): equivalent/0x0009d3e0.cpp
-// sym: ?FUN_0009d3e0@Registry_9d3e0@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d3e0@2@P832@AEXMMVVector_9d3e0@math@@M@Z@Z
+// sym: ?FUN_0009d3e0@Registry_9d3e0@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d3e0@2@P832@AEXMMVVector_9d3e0@math@@M@Z@Z @95e96ab05643 @w418acea511a7
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009d3e0 @ 0x0009d3e0
 // FUN_0009d3e0 @ 0x0009d3e0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5588,7 +5588,7 @@ void Registry_9d3e0::FUN_0009d3e0(const char* a1, CCameraManager_9d3e0* a2, Fn_9
 
 
 // 0x0009d440 FUN_0009d440 (83 B): equivalent/0x0009d440.cpp
-// sym: ?FUN_0009d440@Registry_9d440@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d440@2@P832@AEXMM_N@Z@Z
+// sym: ?FUN_0009d440@Registry_9d440@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d440@2@P832@AEXMM_N@Z@Z @7462039db736 @we95c3ead0f6c
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009d440 @ 0x0009d440
 // FUN_0009d440 @ 0x0009d440  (generated by tools/equiv_gen/reg_helper.py)
@@ -5606,7 +5606,7 @@ void Registry_9d440::FUN_0009d440(const char* a1, CCameraManager_9d440* a2, Fn_9
 
 
 // 0x0009d4f0 FUN_0009d4f0 (83 B): equivalent/0x0009d4f0.cpp
-// sym: ?FUN_0009d4f0@Registry_9d4f0@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d4f0@2@P832@AEXMMMM@Z@Z
+// sym: ?FUN_0009d4f0@Registry_9d4f0@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d4f0@2@P832@AEXMMMM@Z@Z @76d410286931 @w4c39e94b29d2
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009d4f0 @ 0x0009d4f0
 // FUN_0009d4f0 @ 0x0009d4f0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5624,7 +5624,7 @@ void Registry_9d4f0::FUN_0009d4f0(const char* a1, CCameraManager_9d4f0* a2, Fn_9
 
 
 // 0x0009d550 FUN_0009d550 (83 B): equivalent/0x0009d550.cpp
-// sym: ?FUN_0009d550@Registry_9d550@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d550@2@P832@AEX_N22@Z@Z
+// sym: ?FUN_0009d550@Registry_9d550@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d550@2@P832@AEX_N22@Z@Z @dc0b3c654ca8 @wf4f70a7da81e
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009d550 @ 0x0009d550
 // FUN_0009d550 @ 0x0009d550  (generated by tools/equiv_gen/reg_helper.py)
@@ -5642,7 +5642,7 @@ void Registry_9d550::FUN_0009d550(const char* a1, CCameraManager_9d550* a2, Fn_9
 
 
 // 0x0009d5b0 FUN_0009d5b0 (83 B): equivalent/0x0009d5b0.cpp
-// sym: ?FUN_0009d5b0@Registry_9d5b0@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d5b0@2@P832@AEX_N22M@Z@Z
+// sym: ?FUN_0009d5b0@Registry_9d5b0@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d5b0@2@P832@AEX_N22M@Z@Z @23c5abcd2ac8 @w7754e589dca1
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009d5b0 @ 0x0009d5b0
 // FUN_0009d5b0 @ 0x0009d5b0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5660,7 +5660,7 @@ void Registry_9d5b0::FUN_0009d5b0(const char* a1, CCameraManager_9d5b0* a2, Fn_9
 
 
 // 0x0009d610 FUN_0009d610 (83 B): equivalent/0x0009d610.cpp
-// sym: ?FUN_0009d610@Registry_9d610@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d610@2@P832@AEX_N222@Z@Z
+// sym: ?FUN_0009d610@Registry_9d610@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d610@2@P832@AEX_N222@Z@Z @5edb96904948 @we8461959c2cb
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009d610 @ 0x0009d610
 // FUN_0009d610 @ 0x0009d610  (generated by tools/equiv_gen/reg_helper.py)
@@ -5678,7 +5678,7 @@ void Registry_9d610::FUN_0009d610(const char* a1, CCameraManager_9d610* a2, Fn_9
 
 
 // 0x0009d670 FUN_0009d670 (83 B): equivalent/0x0009d670.cpp
-// sym: ?FUN_0009d670@Registry_9d670@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d670@2@P832@AEX_N222M@Z@Z
+// sym: ?FUN_0009d670@Registry_9d670@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d670@2@P832@AEX_N222M@Z@Z @fae642764e9b @wf3385b9d2bff
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009d670 @ 0x0009d670
 // FUN_0009d670 @ 0x0009d670  (generated by tools/equiv_gen/reg_helper.py)
@@ -5696,7 +5696,7 @@ void Registry_9d670::FUN_0009d670(const char* a1, CCameraManager_9d670* a2, Fn_9
 
 
 // 0x0009d6d0 FUN_0009d6d0 (83 B): equivalent/0x0009d6d0.cpp
-// sym: ?FUN_0009d6d0@Registry_9d6d0@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d6d0@2@P832@AEX_N22222M@Z@Z
+// sym: ?FUN_0009d6d0@Registry_9d6d0@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d6d0@2@P832@AEX_N22222M@Z@Z @a6650582f1f8 @w94fd782bb394
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009d6d0 @ 0x0009d6d0
 // FUN_0009d6d0 @ 0x0009d6d0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5715,7 +5715,7 @@ void Registry_9d6d0::FUN_0009d6d0(const char* a1, CCameraManager_9d6d0* a2, Fn_9
 } // namespace fn_f5ef2b3f
 
 // 0x0009d730 FUN_0009d730 (109 B): equivalent/0x0009d730.cpp [wrapped: conflict: CCameraManager; Closure0; Method0]
-// sym: ?FUN_0009d730@Registry_9d730@fn_0009d730@@QAEXPBDPAVCCameraManager@2@P832@AEXXZ@Z
+// sym: ?FUN_0009d730@Registry_9d730@fn_0009d730@@QAEXPBDPAVCCameraManager@2@P832@AEXXZ@Z @e375bfbee81d @wc5e1437c1ed6
 namespace fn_0009d730 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0009d730 @ 0x0009d730
@@ -5800,7 +5800,7 @@ void Registry_9d730::FUN_0009d730(const char* name, CCameraManager* owner, void 
 
 
 // 0x0009d7a0 FUN_0009d7a0 (109 B): equivalent/0x0009d7a0.cpp [wrapped: conflict: CCameraManager; Closure0; Method0]
-// sym: ?FUN_0009d7a0@Registry_9d7a0@fn_0009d7a0@@QAEXPBDPAVCCameraManager@2@P832@AE_NXZ@Z
+// sym: ?FUN_0009d7a0@Registry_9d7a0@fn_0009d7a0@@QAEXPBDPAVCCameraManager@2@P832@AE_NXZ@Z @16cd7cbd33f9 @we8931bfb7388
 namespace fn_0009d7a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0009d7a0 @ 0x0009d7a0
@@ -5886,7 +5886,7 @@ void Registry_9d7a0::FUN_0009d7a0(const char* name, CCameraManager* owner, bool 
 namespace fn_f5ef2b3f {
 
 // 0x0009d810 FUN_0009d810 (83 B): equivalent/0x0009d810.cpp
-// sym: ?FUN_0009d810@Registry_9d810@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d810@2@P832@AEXHHMHHM@Z@Z
+// sym: ?FUN_0009d810@Registry_9d810@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d810@2@P832@AEXHHMHHM@Z@Z @ab13290d1a6f @w3829a9834734
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009d810 @ 0x0009d810
 // FUN_0009d810 @ 0x0009d810  (generated by tools/equiv_gen/reg_helper.py)
@@ -5904,7 +5904,7 @@ void Registry_9d810::FUN_0009d810(const char* a1, CCameraManager_9d810* a2, Fn_9
 
 
 // 0x0009d960 FUN_0009d960 (83 B): equivalent/0x0009d960.cpp
-// sym: ?FUN_0009d960@Registry_9d960@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d960@2@P832@AEXHMMM@Z@Z
+// sym: ?FUN_0009d960@Registry_9d960@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9d960@2@P832@AEXHMMM@Z@Z @f6366dc4fe67 @w3b5ab16801c8
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009d960 @ 0x0009d960
 // FUN_0009d960 @ 0x0009d960  (generated by tools/equiv_gen/reg_helper.py)
@@ -5923,7 +5923,7 @@ void Registry_9d960::FUN_0009d960(const char* a1, CCameraManager_9d960* a2, Fn_9
 } // namespace fn_f5ef2b3f
 
 // 0x0009d9c0 FUN_0009d9c0 (109 B): equivalent/0x0009d9c0.cpp [wrapped: conflict: CCameraManager; Closure0; DAT_0048e10c; Method0 (+1)]
-// sym: ?FUN_0009d9c0@Registry_9d9c0@fn_0009d9c0@@QAEXPBDPAVCCameraManager@2@P832@AE?AVVector@math@2@XZ@Z
+// sym: ?FUN_0009d9c0@Registry_9d9c0@fn_0009d9c0@@QAEXPBDPAVCCameraManager@2@P832@AE?AVVector@math@2@XZ@Z @25763b88597d @w42a3603c2496
 namespace fn_0009d9c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0009d9c0 @ 0x0009d9c0
@@ -6013,7 +6013,7 @@ void Registry_9d9c0::FUN_0009d9c0(const char* name, CCameraManager* owner, math:
 namespace fn_f5ef2b3f {
 
 // 0x0009da30 FUN_0009da30 (83 B): equivalent/0x0009da30.cpp
-// sym: ?FUN_0009da30@Registry_9da30@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9da30@2@P832@AE_NMMMMMM@Z@Z
+// sym: ?FUN_0009da30@Registry_9da30@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9da30@2@P832@AE_NMMMMMM@Z@Z @0b1ff93db0d3 @w72800e5961c4
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009da30 @ 0x0009da30
 // FUN_0009da30 @ 0x0009da30  (generated by tools/equiv_gen/reg_helper.py)
@@ -6032,7 +6032,7 @@ void Registry_9da30::FUN_0009da30(const char* a1, CCameraManager_9da30* a2, Fn_9
 } // namespace fn_f5ef2b3f
 
 // 0x0009dae0 FUN_0009dae0 (109 B): equivalent/0x0009dae0.cpp [wrapped: conflict: CCameraManager; Closure0; Method0]
-// sym: ?FUN_0009dae0@Registry_9dae0@fn_0009dae0@@QAEXPBDPAVCCameraManager@2@P832@AEPBDXZ@Z
+// sym: ?FUN_0009dae0@Registry_9dae0@fn_0009dae0@@QAEXPBDPAVCCameraManager@2@P832@AEPBDXZ@Z @5772afe18679 @w994b162f5ca6
 namespace fn_0009dae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0009dae0 @ 0x0009dae0
@@ -6118,7 +6118,7 @@ void Registry_9dae0::FUN_0009dae0(const char* name, CCameraManager* owner, const
 namespace fn_f5ef2b3f {
 
 // 0x0009dba0 FUN_0009dba0 (83 B): equivalent/0x0009dba0.cpp
-// sym: ?FUN_0009dba0@Registry_9dba0@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9dba0@2@P832@AE_NMMMM_N@Z@Z
+// sym: ?FUN_0009dba0@Registry_9dba0@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9dba0@2@P832@AE_NMMMM_N@Z@Z @b510c6910a90 @wf6f1a381ecc7
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009dba0 @ 0x0009dba0
 // FUN_0009dba0 @ 0x0009dba0  (generated by tools/equiv_gen/reg_helper.py)
@@ -6136,7 +6136,7 @@ void Registry_9dba0::FUN_0009dba0(const char* a1, CCameraManager_9dba0* a2, Fn_9
 
 
 // 0x0009dc50 FUN_0009dc50 (83 B): equivalent/0x0009dc50.cpp
-// sym: ?FUN_0009dc50@Registry_9dc50@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9dc50@2@P832@AEXPAD222@Z@Z
+// sym: ?FUN_0009dc50@Registry_9dc50@fn_f5ef2b3f@@QAEXPBDPAVCCameraManager_9dc50@2@P832@AEXPAD222@Z@Z @64f9d8068d1d @w80ebcfd02d8f
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_0009dc50 @ 0x0009dc50
 // FUN_0009dc50 @ 0x0009dc50  (generated by tools/equiv_gen/reg_helper.py)
@@ -6196,7 +6196,7 @@ void Owner_9dcb0::Make(int id, int a, int b) throw() {
 
 
 // 0x0009dd20 FUN_0009dd20 (6657 B): equivalent/0x0009dd20.cpp [wrapped: macros]
-// sym: ??0CCameraManager@fn_0009dd20@@QAE@XZ
+// sym: ??0CCameraManager@fn_0009dd20@@QAE@XZ @6b14d6b9d7a0 @w48a53ee61f86
 namespace fn_0009dd20 {
 // STATUS: equivalent (tools/equiv.py level 3: 252 inputs, branch coverage 126/126)
 // FUN_0009dd20 @ 0x0009dd20

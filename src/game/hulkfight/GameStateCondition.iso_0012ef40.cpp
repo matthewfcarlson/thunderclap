@@ -5,7 +5,7 @@
 
 
 // 0x0012ef40 FUN_0012ef40 (82 B): equivalent/0x0012ef40.cpp [isolated: conflict: FUN_0008d340; on include/gen/ and not mergeable]
-// sym: ?FUN_0012ef40@Object_12ef40@owners@@QAEIPBD@Z
+// sym: ?FUN_0012ef40@Object_12ef40@owners@@QAEIPBD@Z @6421589101a5 @w37557a8603b9
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012ef40 @ 0x0012ef40
 #include "gen/owners.h"

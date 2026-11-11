@@ -39,7 +39,7 @@ CAxisArcCondition* CAxisArcCondition::vfunc_5(signed char flags) {
 } // namespace fn_f9802d26
 
 // 0x0004b630 CAxisArcCondition::vfunc_10 (160 B): equivalent/0x0004b630.cpp [wrapped: conflict: CAxisArcCondition]
-// sym: ?vfunc_10@CAxisArcCondition@fn_0004b630@@UAE_NPAUAxisInput_4b630@2@PAH@Z
+// sym: ?vfunc_10@CAxisArcCondition@fn_0004b630@@UAE_NPAUAxisInput_4b630@2@PAH@Z @b3cbe3a5ff61 @w0baab903e2c6
 namespace fn_0004b630 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CAxisArcCondition::vfunc_10 @ 0x0004b630

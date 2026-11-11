@@ -129,7 +129,7 @@ public:
 
 
 // 0x00164930 hulkfight::motion::ClimbLocomotion4Action::vfunc_7 (1075 B): equivalent/0x00164930.cpp
-// sym: ?vfunc_7@ClimbLocomotion4Action@motion@hulkfight@fn_fac6d34f@@UAEXPAXTSlotF_164930@4@TSlotU_164930@4@22222PAIPAUId64_164930@4@333@Z
+// sym: ?vfunc_7@ClimbLocomotion4Action@motion@hulkfight@fn_fac6d34f@@UAEXPAXTSlotF_164930@4@TSlotU_164930@4@22222PAIPAUId64_164930@4@333@Z @5b002747c98f @w1fa4d60f98f6
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 41/42, incomplete)
 // hulkfight::motion::ClimbLocomotion4Action::vfunc_7 @ 0x00164930
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

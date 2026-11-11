@@ -160,7 +160,7 @@ public:
 
 
 // 0x000ecf10 FUN_000ecf10 (1092 B): equivalent/0x000ecf10.cpp
-// sym: ?FUN_000ecf10@TextBox_ecf10@fn_f89be21d@@QAEXM@Z
+// sym: ?FUN_000ecf10@TextBox_ecf10@fn_f89be21d@@QAEXM@Z @7088b6ecc13f @w6ecddf823ce9
 // STATUS: equivalent (tools/equiv.py level 3: 4234 inputs, branch coverage 48/52, incomplete)
 // FUN_000ecf10 @ 0x000ecf10
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340

@@ -36,7 +36,7 @@ struct PathAction {
 
 
 // 0x0011c9a0 hulkfight::ai::PathAction::vfunc_4 (213 B): equivalent/0x0011c9a0.cpp
-// sym: ?vfunc_4@PathAction@ai@hulkfight@fn_fb164a00@@UAEXXZ
+// sym: ?vfunc_4@PathAction@ai@hulkfight@fn_fb164a00@@UAEXXZ @4a6c889f395f @w72d8a3715eb5
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 9/10, incomplete)
 // hulkfight::ai::PathAction::vfunc_4 @ 0x0011c9a0
 namespace hulkfight { namespace ai {

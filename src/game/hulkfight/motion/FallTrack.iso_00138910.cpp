@@ -4,7 +4,7 @@
 
 
 // 0x00138910 FUN_00138910 (613 B): equivalent/0x00138910.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called; on include/gen/ and not mergeable]
-// sym: _FUN_00138910
+// sym: _FUN_00138910 @51894e627289 @wa1ce9eb28c69
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 24/24)
 // FUN_00138910 @ 0x00138910
 #include "decls/data/game/hulkfight/motion.h"

@@ -4,7 +4,7 @@
 
 
 // 0x00056830 FUN_00056830 (176 B): equivalent/0x00056830.cpp [isolated: compile error C2664: 'fn_00056830::fight::ParamEnumConstList<T>::ParamEnumConstList(const char *,const char ** ,int,void (__thiscall CSmartPr]
-// sym: _FUN_00056830
+// sym: _FUN_00056830 @ecf0d549de34 @w239bc027f3f9
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 6/6)
 // FUN_00056830 @ 0x00056830
 #include "decls/data/engine/unknown.h"

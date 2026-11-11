@@ -235,7 +235,7 @@ struct Manager {
 
 
 // 0x000c6a90 FUN_000c6a90 (138 B): equivalent/0x000c6a90.cpp
-// sym: ?BoxExtent@fn_fcfef481@@YAXPAUShape_c6a90@1@PAUSize@1@@Z
+// sym: ?BoxExtent@fn_fcfef481@@YAXPAUShape_c6a90@1@PAUSize@1@@Z @f7738c8519ea @wea93c15ec795
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000c6a90 @ 0x000c6a90
 void BoxExtent(Shape_c6a90* s, Size* out) {
@@ -257,7 +257,7 @@ hulk_intptr Obj::Fn(const char* name) {
 
 
 // 0x000c6b60 FUN_000c6b60 (89 B): equivalent/0x000c6b60.cpp
-// sym: _FUN_000c6b60
+// sym: _FUN_000c6b60 @36c38c02fce0 @w3d4bd4b6c7a5
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 2/2)
 // FUN_000c6b60 @ 0x000c6b60
 extern "C" void FUN_000c6b60(const char *name, const char *subName, Result *out)
@@ -277,7 +277,7 @@ extern "C" void FUN_000c6b60(const char *name, const char *subName, Result *out)
 
 
 // 0x000c6bc0 FUN_000c6bc0 (123 B): equivalent/0x000c6bc0.cpp
-// sym: _FUN_000c6bc0
+// sym: _FUN_000c6bc0 @1080b414f18a @w5488879caff0
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 2/2)
 // FUN_000c6bc0 @ 0x000c6bc0
 extern "C" void FUN_000c6bc0(const char *name, const char *sub, int value)
@@ -300,7 +300,7 @@ extern "C" void FUN_000c6bc0(const char *name, const char *sub, int value)
 
 
 // 0x000c6c40 FUN_000c6c40 (233 B): equivalent/0x000c6c40.cpp
-// sym: _FUN_000c6c40
+// sym: _FUN_000c6c40 @c68c6a4a0b74 @wf0c4aa08b18e
 // STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 8/8)
 // FUN_000c6c40 @ 0x000c6c40
 extern "C" void FUN_000c6c40(const char *name, const char *key, int value)
@@ -360,7 +360,7 @@ Obj::Obj() : tail(0) {}
 namespace fn_fcfef481 {
 
 // 0x000c6f20 FUN_000c6f20 (124 B): equivalent/0x000c6f20.cpp
-// sym: ?FUN_000c6f20@SlotTable_c6f20@fn_fcfef481@@QAEHHHHH@Z
+// sym: ?FUN_000c6f20@SlotTable_c6f20@fn_fcfef481@@QAEHHHHH@Z @a8fecade7cd3 @we0108de6c37a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000c6f20 @ 0x000c6f20
 // Claims the first free slot with the given kind and parameters and returns its index, or -1 when full.
@@ -398,7 +398,7 @@ void owners::C_c6fa0::FUN_000c6fa0(int index, int a, int b, int c) {
 namespace fn_fcfef481 {
 
 // 0x000c6fe0 FUN_000c6fe0 (215 B): equivalent/0x000c6fe0.cpp
-// sym: ?FUN_000c6fe0@Manager_c6fe0@fn_fcfef481@@QAEHHPBD@Z
+// sym: ?FUN_000c6fe0@Manager_c6fe0@fn_fcfef481@@QAEHHPBD@Z @74fc454ca7d6 @we1c71826ec79
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000c6fe0 @ 0x000c6fe0
 int Manager_c6fe0::FUN_000c6fe0(int id, const char* name) {
@@ -427,7 +427,7 @@ int Manager_c6fe0::FUN_000c6fe0(int id, const char* name) {
 
 
 // 0x000c70c0 FUN_000c70c0 (124 B): equivalent/0x000c70c0.cpp
-// sym: ?FUN_000c70c0@SlotTable_c70c0@fn_fcfef481@@QAEHH@Z
+// sym: ?FUN_000c70c0@SlotTable_c70c0@fn_fcfef481@@QAEHH@Z @820a9ce7f8ed @w373fe97909bc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000c70c0 @ 0x000c70c0
 // Claims the first free slot as kind 5 and returns its index, or -1 when full.
@@ -451,7 +451,7 @@ int SlotTable_c70c0::FUN_000c70c0(int value) {
 
 
 // 0x000c7140 FUN_000c7140 (92 B): equivalent/0x000c7140.cpp
-// sym: ?FUN_000c7140@Manager@fn_fcfef481@@QAEXH@Z
+// sym: ?FUN_000c7140@Manager@fn_fcfef481@@QAEXH@Z @f0c789bf313a @w5b9e312c5743
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000c7140 @ 0x000c7140
 void Manager::FUN_000c7140(int index) {
@@ -471,7 +471,7 @@ void Manager::FUN_000c7140(int index) {
 } // namespace fn_fcfef481
 
 // 0x000c71a0 FUN_000c71a0 (182 B): equivalent/0x000c71a0.cpp [wrapped: conflict: World]
-// sym: ?FUN_000c71a0@Owner_c71a0@fn_000c71a0@@QAE_NIPAUVector@2@@Z
+// sym: ?FUN_000c71a0@Owner_c71a0@fn_000c71a0@@QAE_NIPAUVector@2@@Z @9009ec4964d8 @w1427302ab678
 namespace fn_000c71a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_000c71a0 @ 0x000c71a0

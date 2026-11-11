@@ -199,7 +199,7 @@ class ControllerPollerBase_ddb40 {
 } // namespace fn_f09842b8
 
 // 0x000dd710 FUN_000dd710 (144 B): equivalent/0x000dd710.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0ControllerState@fn_000dd710@@QAE@HH@Z
+// sym: ??0ControllerState@fn_000dd710@@QAE@HH@Z @ceeac9ae3eee @w94610859fc0a
 namespace fn_000dd710 {
 // STATUS: equivalent (tools/equiv.py level 3: 2979 inputs, branch coverage 4/4)
 // FUN_000dd710 @ 0x000dd710
@@ -256,7 +256,7 @@ void ControllerState_dd7a0::Clear() {
 } // namespace fn_f09842b8
 
 // 0x000dd7e0 ControllerState::vfunc_1 (67 B): equivalent/0x000dd7e0.cpp
-// sym: ?vfunc_1@ControllerState@@UAEXXZ
+// sym: ?vfunc_1@ControllerState@@UAEXXZ @aabaee2172d5 @wd12aca9d9405
 // STATUS: equivalent (tools/equiv.py level 3: 19799 inputs, branch coverage 0/0)
 // ControllerState::vfunc_1 @ 0x000dd7e0
 void ControllerState::vfunc_1() {
@@ -390,7 +390,7 @@ extern "C" void __fastcall FUN_000dd970(CEffectStopTrack* self) {
 
 
 // 0x000dd980 ControllerPoller::vfunc_2 (267 B): equivalent/0x000dd980.cpp
-// sym: ?vfunc_2@ControllerPoller@@UAEXXZ
+// sym: ?vfunc_2@ControllerPoller@@UAEXXZ @620e7f7d0852 @w3d3504c3f590
 // STATUS: equivalent (tools/equiv.py level 3: 3019 inputs, branch coverage 11/12, incomplete)
 // ControllerPoller::vfunc_2 @ 0x000dd980
 void ControllerPoller::vfunc_2() {
@@ -436,7 +436,7 @@ int ControllerPoller::vfunc_5(int param) {
 
 
 // 0x000ddac0 ControllerPoller::vfunc_4 (125 B): equivalent/0x000ddac0.cpp [wrapped: conflict: ControllerPoller]
-// sym: ?vfunc_4@ControllerPoller@fn_000ddac0@@UAEDHH@Z
+// sym: ?vfunc_4@ControllerPoller@fn_000ddac0@@UAEDHH@Z @cbd151bdf96e @w233b9198d0da
 namespace fn_000ddac0 {
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 12/12)
 // ControllerPoller::vfunc_4 @ 0x000ddac0

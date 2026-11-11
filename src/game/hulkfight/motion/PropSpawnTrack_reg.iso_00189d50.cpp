@@ -4,7 +4,7 @@
 
 
 // 0x00189d50 FUN_00189d50 (231 B): equivalent/0x00189d50.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00189d50
+// sym: _FUN_00189d50 @96ca9fb3153c @w71dec0876d2b
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"

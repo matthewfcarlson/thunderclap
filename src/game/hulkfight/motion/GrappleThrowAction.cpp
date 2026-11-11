@@ -1951,7 +1951,7 @@ char Obj_1469c0::Set(const Vec3_1469c0* src) {
 
 
 // 0x00146a00 FUN_00146a00 (60 B): equivalent/0x00146a00.cpp
-// sym: ?FUN_00146a00@Angles@fn_f1739f6f@@QAEIPBM@Z
+// sym: ?FUN_00146a00@Angles@fn_f1739f6f@@QAEIPBM@Z @cba8749b4cd7 @wefe7b7b792f3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00146a00 @ 0x00146a00
 unsigned int Angles::FUN_00146a00(const float *input) {
@@ -2620,7 +2620,7 @@ hulk_intptr hulkfight::motion::GrappleThrowTrack::vfunc_0(int index) {
 
 
 // 0x00147430 FUN_00147430 (81 B): equivalent/0x00147430.cpp [wrapped: conflict: hulkfight::motion::GrappleThrowTrack]
-// sym: ??0GrappleThrowTrack@motion@hulkfight@fn_00147430@@QAE@XZ
+// sym: ??0GrappleThrowTrack@motion@hulkfight@fn_00147430@@QAE@XZ @1d7e20e2a007 @w253f15429f9c
 namespace fn_00147430 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00147430 @ 0x00147430
@@ -3033,7 +3033,7 @@ void CivilianAnimationTrack_1478d0::Run() {
 } // namespace fn_f1739f6f
 
 // 0x00147930 hulkfight::motion::GrappleAttachJointCondition::vfunc_6 (190 B): equivalent/0x00147930.cpp [wrapped: conflict: FUN_00344e74; hulkfight::motion::GrappleAttachJointCondition]
-// sym: ?vfunc_6@GrappleAttachJointCondition@motion@hulkfight@fn_00147930@@UAE_NPAXPAUInput_147930@4@0@Z
+// sym: ?vfunc_6@GrappleAttachJointCondition@motion@hulkfight@fn_00147930@@UAE_NPAXPAUInput_147930@4@0@Z @45fd26a1b5f4 @w0089db148ae1
 namespace fn_00147930 {
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 22/22)
 // hulkfight::motion::GrappleAttachJointCondition::vfunc_6 @ 0x00147930
@@ -3191,7 +3191,7 @@ bool hulkfight::motion::GrappleStruggleAction::vfunc_3(hulk_intptr , hulk_intptr
 namespace fn_f1739f6f {
 
 // 0x00147bb0 hulkfight::motion::GrappleStruggleAction::vfunc_5 (313 B): equivalent/0x00147bb0.cpp
-// sym: ?run@GrappleStruggleAction@fn_f1739f6f@@QAE_NHM@Z
+// sym: ?run@GrappleStruggleAction@fn_f1739f6f@@QAE_NHM@Z @9a6aeb9dc8bb @we1c61b96848f
 // STATUS: equivalent (tools/equiv.py level 3: 117 inputs, branch coverage 26/28, incomplete)
 // hulkfight::motion::GrappleStruggleAction::vfunc_5 @ 0x00147bb0
 bool GrappleStruggleAction::run(int mode, float dt)
@@ -3344,7 +3344,7 @@ void hulkfight::motion::GrappleThrowAction::vfunc_4() {
 
 
 // 0x00147db0 hulkfight::motion::CivilianAttachAction::vfunc_3 (158 B): equivalent/0x00147db0.cpp
-// sym: ?vfunc_3@CivilianAttachAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@CivilianAttachAction@motion@hulkfight@@UAE_NHH@Z @899c00c346a2 @w4a51a88eed98
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 8/8)
 // hulkfight::motion::CivilianAttachAction::vfunc_3 @ 0x00147db0
 // hulkfight::motion::CivilianAttachAction::vfunc_3 @ 0x00147db0
@@ -3373,7 +3373,7 @@ bool hulkfight::motion::CivilianAttachAction::vfunc_3(hulk_intptr a, hulk_intptr
 
 
 // 0x00147f90 hulkfight::motion::CivilianAnimationAction::vfunc_3 (156 B): equivalent/0x00147f90.cpp
-// sym: ?vfunc_3@CivilianAnimationAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@CivilianAnimationAction@motion@hulkfight@@UAE_NHH@Z @caeb8e1e362f @w1fbf296d5a7c
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 4/4)
 // hulkfight::motion::CivilianAnimationAction::vfunc_3 @ 0x00147f90
 // hulkfight::motion::CivilianAnimationAction::vfunc_3
@@ -3589,7 +3589,7 @@ CivilianAnimationTrack_148360* CivilianAnimationTrack_148360::f5(unsigned char f
 } // namespace fn_f1739f6f
 
 // 0x00148390 hulkfight::motion::GrappleOrientationCondition::vfunc_6 (347 B): equivalent/0x00148390.cpp [wrapped: conflict: CFightParams; fight::Params]
-// sym: ?vfunc_6@GrappleOrientationCondition@fn_00148390@@UAEDHPAVParams@fight@2@M@Z
+// sym: ?vfunc_6@GrappleOrientationCondition@fn_00148390@@UAEDHPAVParams@fight@2@M@Z @2e610a46edaf @w7612f705e0d1
 namespace fn_00148390 {
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 6/6)
 // hulkfight::motion::GrappleOrientationCondition::vfunc_6 @ 0x00148390
@@ -3725,7 +3725,7 @@ GrappleStruggleAction_148540::~GrappleStruggleAction_148540() throw() {
 
 
 // 0x00148580 FUN_00148580 (422 B): equivalent/0x00148580.cpp
-// sym: ?FUN_00148580@fn_f1739f6f@@YA_NPAXPAUEffect_148580@1@PAUParams@1@@Z
+// sym: ?FUN_00148580@fn_f1739f6f@@YA_NPAXPAUEffect_148580@1@PAUParams@1@@Z @011e4e542b03 @w15a3297c4eef
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 24/24)
 // FUN_00148580 @ 0x00148580
 // equiv-conv: FUN_00148580 ecx esi edi
@@ -3831,7 +3831,7 @@ void GrappleHitReactionAction_1488a0::f() {
 } // namespace fn_f1739f6f
 
 // 0x001488f0 hulkfight::motion::GrappleHitReactionAction::vfunc_3 (219 B): equivalent/0x001488f0.cpp [wrapped: conflict: hulkfight::motion::GrappleHitReactionAction]
-// sym: ?vfunc_3@GrappleHitReactionAction@motion@hulkfight@fn_001488f0@@UAE_NHH@Z
+// sym: ?vfunc_3@GrappleHitReactionAction@motion@hulkfight@fn_001488f0@@UAE_NHH@Z @c35edcec23ca @wdee1500dbfaf
 namespace fn_001488f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 6/6)
 // hulkfight::motion::GrappleHitReactionAction::vfunc_3 @ 0x001488f0
@@ -3922,7 +3922,7 @@ GrappleThrowAction_148ac0::~GrappleThrowAction_148ac0() throw() {
 } // namespace fn_f1739f6f
 
 // 0x00148b00 hulkfight::motion::GrappleThrowAction::vfunc_3 (944 B): equivalent/0x00148b00.cpp [wrapped: conflict: hulkfight::motion::GrappleThrowAction]
-// sym: ?vfunc_3@GrappleThrowAction@motion@hulkfight@fn_00148b00@@UAEDHH@Z
+// sym: ?vfunc_3@GrappleThrowAction@motion@hulkfight@fn_00148b00@@UAEDHH@Z @aa77f7452877 @wca5284c25332
 namespace fn_00148b00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3019 inputs, branch coverage 24/24)
 // hulkfight::motion::GrappleThrowAction::vfunc_3 @ 0x00148b00
@@ -5124,7 +5124,7 @@ template <> fight::ParamBool<hulkfight::motion::CivilianAnimationTrack>::~ParamB
 
 
 // 0x0014a3a0 FUN_0014a3a0 (213 B): equivalent/0x0014a3a0.cpp [wrapped: conflict: fight::ParamFloatConstRange; fight::ParamVector]
-// sym: ?FUN_0014a3a0@fn_0014a3a0@@YAXXZ
+// sym: ?FUN_0014a3a0@fn_0014a3a0@@YAXXZ @02f4372c34fc @w22dfc9edec6a
 namespace fn_0014a3a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)
 // FUN_0014a3a0 @ 0x0014a3a0
@@ -5508,7 +5508,7 @@ extern "C" void FUN_0014b990(Obj* obj, void* name) {
 } // namespace fn_f1739f6f
 
 // 0x0014bb60 FUN_0014bb60 (179 B): equivalent/0x0014bb60.cpp [wrapped: conflict: fight::ConditionFactoryCasterTemplate]
-// sym: _FUN_0014bb60
+// sym: _FUN_0014bb60 @398b27c4a929 @w59174f0463a2
 namespace fn_0014bb60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0014bb60 @ 0x0014bb60

@@ -4,7 +4,7 @@
 
 
 // 0x00112d30 FUN_00112d30 (256 B): equivalent/0x00112d30.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?target@fn_f24c5d96@@YAXXZ
+// sym: ?target@fn_f24c5d96@@YAXXZ @4b7241f4f6b9 @wd77b54c35474
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight/ai.h"
 namespace fn_f24c5d96 {} using namespace fn_f24c5d96;

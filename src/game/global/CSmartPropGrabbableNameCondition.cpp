@@ -141,7 +141,7 @@ void CSmartPropGrabbableNameCondition_498a0::Run() {
 
 
 // 0x000498c0 CSmartPropGrabbableNameCondition::vfunc_7 (193 B): equivalent/0x000498c0.cpp [wrapped: conflict: CSmartPropGrabbableNameCondition]
-// sym: ?vfunc_7@CSmartPropGrabbableNameCondition@fn_000498c0@@UAE_NPAUContext@2@@Z
+// sym: ?vfunc_7@CSmartPropGrabbableNameCondition@fn_000498c0@@UAE_NPAUContext@2@@Z @d72cf804513f @w45efc3ad51d9
 namespace fn_000498c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3052 inputs, branch coverage 28/28)
 // CSmartPropGrabbableNameCondition::vfunc_7 @ 0x000498c0

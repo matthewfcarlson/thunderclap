@@ -4,7 +4,7 @@
 
 
 // 0x00064520 FUN_00064520 (158 B): equivalent/0x00064520.cpp [isolated: compile error C2039: 'FUN_00061f30' : is not a member of 'CSmartPropThrowingTrack']
-// sym: _FUN_00064520
+// sym: _FUN_00064520 @4b5a3bf62140 @w86fa6f2deb97
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
 // FUN_00064520 @ 0x00064520
 #include "decls/data/game/global.h"

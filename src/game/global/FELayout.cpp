@@ -37,7 +37,7 @@ struct Handle_e1e90 {
 
 
 // 0x000e1dd0 FUN_000e1dd0 (112 B): equivalent/0x000e1dd0.cpp
-// sym: ?FUN_000e1dd0@Table_e1dd0@fn_ff3bead7@@QAEPAUEntry_e1dd0@2@PBD@Z
+// sym: ?FUN_000e1dd0@Table_e1dd0@fn_ff3bead7@@QAEPAUEntry_e1dd0@2@PBD@Z @e61db76b9a92 @w84dd0a5bf73f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000e1dd0 @ 0x000e1dd0
 Entry_e1dd0* Table_e1dd0::FUN_000e1dd0(const char* key)

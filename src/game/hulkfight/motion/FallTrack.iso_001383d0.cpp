@@ -4,7 +4,7 @@
 
 
 // 0x001383d0 FUN_001383d0 (766 B): equivalent/0x001383d0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called; on include/gen/ and not mergeable]
-// sym: ?FUN_001383d0@@YAXXZ
+// sym: ?FUN_001383d0@@YAXXZ @41029aa9ff23 @wfc1c327ed22f
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 30/30)
 // FUN_001383d0 @ 0x001383d0
 #include "decls/data/game/hulkfight/motion.h"

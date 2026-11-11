@@ -327,7 +327,7 @@ public:
 namespace fn_fa36bb23 {
 
 // 0x0013c460 FUN_0013c460 (158 B): equivalent/0x0013c460.cpp
-// sym: ?FUN_0013c460@fn_fa36bb23@@YAXXZ
+// sym: ?FUN_0013c460@fn_fa36bb23@@YAXXZ @c78259b1179e @weeec078a2fbb
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_0013c460 @ 0x0013c460
 void FUN_0013c460()
@@ -350,7 +350,7 @@ void FUN_0013c460()
 
 
 // 0x0013c650 FUN_0013c650 (729 B): equivalent/0x0013c650.cpp
-// sym: ?FUN_0013c650@fn_fa36bb23@@YAXXZ
+// sym: ?FUN_0013c650@fn_fa36bb23@@YAXXZ @a1a31b6d37f9 @w7774472863ee
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 28/28)
 // FUN_0013c650 @ 0x0013c650
 void FUN_0013c650()
@@ -417,7 +417,7 @@ void FUN_0013c650()
 
 
 // 0x0013c960 FUN_0013c960 (511 B): equivalent/0x0013c960.cpp
-// sym: ?FUN_0013c960@fn_fa36bb23@@YAXXZ
+// sym: ?FUN_0013c960@fn_fa36bb23@@YAXXZ @10221a80dfa7 @wd93e50fa43c5
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 20/20)
 // FUN_0013c960 @ 0x0013c960
 void FUN_0013c960()
@@ -468,7 +468,7 @@ void FUN_0013c960()
 
 
 // 0x0013cb90 FUN_0013cb90 (562 B): equivalent/0x0013cb90.cpp
-// sym: ?FUN_0013cb90@fn_fa36bb23@@YAXXZ
+// sym: ?FUN_0013cb90@fn_fa36bb23@@YAXXZ @ab2a9344d73d @w0284d71f34e7
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 22/22)
 // FUN_0013cb90 @ 0x0013cb90
 void FUN_0013cb90()
@@ -523,7 +523,7 @@ void FUN_0013cb90()
 
 
 // 0x0013ce00 FUN_0013ce00 (562 B): equivalent/0x0013ce00.cpp
-// sym: ?FUN_0013ce00@fn_fa36bb23@@YAXXZ
+// sym: ?FUN_0013ce00@fn_fa36bb23@@YAXXZ @986a276307f3 @w4ec1d71ccd32
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 22/22)
 // FUN_0013ce00 @ 0x0013ce00
 void FUN_0013ce00()
@@ -578,7 +578,7 @@ void FUN_0013ce00()
 
 
 // 0x0013d070 FUN_0013d070 (845 B): equivalent/0x0013d070.cpp
-// sym: ?FUN_0013d070@fn_fa36bb23@@YAXXZ
+// sym: ?FUN_0013d070@fn_fa36bb23@@YAXXZ @777671afcf75 @w2260005948db
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 32/32)
 // FUN_0013d070 @ 0x0013d070
 void FUN_0013d070()

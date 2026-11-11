@@ -169,7 +169,7 @@ bool owners::Thing_4c790::FUN_0004c790(float x) {
 
 
 // 0x0004c7c0 CSmartPropAngleCondition::vfunc_7 (378 B): equivalent/0x0004c7c0.cpp [wrapped: conflict: CSmartPropAngleCondition]
-// sym: ?vfunc_7@CSmartPropAngleCondition@fn_0004c7c0@@UAE_NPAX@Z
+// sym: ?vfunc_7@CSmartPropAngleCondition@fn_0004c7c0@@UAE_NPAX@Z @1c2034fb16bf @we6289f70d944
 namespace fn_0004c7c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 10/10)
 // CSmartPropAngleCondition::vfunc_7 @ 0x0004c7c0

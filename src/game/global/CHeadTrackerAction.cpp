@@ -58,7 +58,7 @@ bool CStageAction::vfunc_7(int ) {
 
 
 // 0x00017690 CHeadTrackerAction::vfunc_6 (471 B): equivalent/0x00017690.cpp [wrapped: conflict: CHeadTrackerAction]
-// sym: ?vfunc_6@CHeadTrackerAction@fn_00017690@@UAE_NH@Z
+// sym: ?vfunc_6@CHeadTrackerAction@fn_00017690@@UAE_NH@Z @69bf3bfff85a @w266c2899957f
 namespace fn_00017690 {
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 6/6)
 // CHeadTrackerAction::vfunc_6 @ 0x00017690

@@ -53,7 +53,7 @@ template<class T> struct ParamIntConstRange {
 
 
 // 0x00111b50 FUN_00111b50 (231 B): equivalent/0x00111b50.cpp
-// sym: ?target@fn_f43cc60b@@YAXXZ
+// sym: ?target@fn_f43cc60b@@YAXXZ @f439448ea430 @w7c2d7a853e63
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
 // FUN_00111b50 @ 0x00111b50
 void target() {

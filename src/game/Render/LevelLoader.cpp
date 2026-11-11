@@ -544,7 +544,7 @@ void __stdcall FUN_001c8000(Manager_1c8000* m) {
 
 
 // 0x001c8060 FUN_001c8060 (320 B): equivalent/0x001c8060.cpp
-// sym: ?FUN_001c8060@Registry_1c8060@fn_f9d12736@@QAEPAUEntry_1c8060@2@HPAUKey_1c8060@2@@Z
+// sym: ?FUN_001c8060@Registry_1c8060@fn_f9d12736@@QAEPAUEntry_1c8060@2@HPAUKey_1c8060@2@@Z @a77952fd16d0 @wf6c775967cd2
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 42/44, incomplete)
 // FUN_001c8060 @ 0x001c8060
 Entry_1c8060 *Registry_1c8060::FUN_001c8060(hulk_intptr query, Key_1c8060 *out)
@@ -601,7 +601,7 @@ Entry_1c8060 *Registry_1c8060::FUN_001c8060(hulk_intptr query, Key_1c8060 *out)
 
 
 // 0x001c81a0 FUN_001c81a0 (130 B): equivalent/0x001c81a0.cpp
-// sym: ?FUN_001c81a0@ItemTable_1c81a0@fn_f9d12736@@QAEPAUItem_1c81a0@2@PBUVec3_1c81a0@2@@Z
+// sym: ?FUN_001c81a0@ItemTable_1c81a0@fn_f9d12736@@QAEPAUItem_1c81a0@2@PBUVec3_1c81a0@2@@Z @c893d3e05ebf @w522edd1d7fda
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 11/12, incomplete)
 // FUN_001c81a0 @ 0x001c81a0
 // Returns the item nearest to pos (squared distance below 1e12), or null.
@@ -642,7 +642,7 @@ void Target_1c8250::FUN_001c8250()
 } // namespace fn_f9d12736
 
 // 0x001c82c0 FUN_001c82c0 (533 B): equivalent/0x001c82c0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_001c82c0@Renderer_1c82c0@fn_001c82c0@@QAEXPAUScene_1c82c0@2@PAUView@2@H@Z
+// sym: ?FUN_001c82c0@Renderer_1c82c0@fn_001c82c0@@QAEXPAUScene_1c82c0@2@PAUView@2@H@Z @6851a96601f2 @w336bcddbb6a4
 namespace fn_001c82c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20039 inputs, branch coverage 20/22, incomplete)
 // FUN_001c82c0 @ 0x001c82c0
@@ -900,7 +900,7 @@ void World_1c86e0::f() {
 
 
 // 0x001c8790 FUN_001c8790 (120 B): equivalent/0x001c8790.cpp
-// sym: ?FUN_001c8790@Holder_1c8790@fn_f9d12736@@QAE_NPBD@Z
+// sym: ?FUN_001c8790@Holder_1c8790@fn_f9d12736@@QAE_NPBD@Z @987febfd7fe6 @w2ed7cf8dc80a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001c8790 @ 0x001c8790
 bool Holder_1c8790::FUN_001c8790(const char* name) {
@@ -968,7 +968,7 @@ void owners::C_1c8860::FUN_001c8860(int value) {
 namespace fn_f9d12736 {
 
 // 0x001c88f0 FUN_001c88f0 (1635 B): equivalent/0x001c88f0.cpp
-// sym: ?FUN_001c88f0@Mgr_1c88f0@fn_f9d12736@@QAEXPAUCtx_1c88f0@2@@Z
+// sym: ?FUN_001c88f0@Mgr_1c88f0@fn_f9d12736@@QAEXPAUCtx_1c88f0@2@@Z @1f8ca49270c9 @w364e46ed2e8f
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 83/92, incomplete)
 // FUN_001c88f0 @ 0x001c88f0
 void Mgr_1c88f0::FUN_001c88f0(Ctx_1c88f0 *ctx)
@@ -1218,7 +1218,7 @@ LevelLoader_1c8fd0* LevelLoader_1c8fd0::f2(unsigned char flags) {
 } // namespace fn_f9d12736
 
 // 0x001c9030 FUN_001c9030 (258 B): equivalent/0x001c9030.cpp [wrapped: conflict: Render::Store; Render::World; pure3d::ShadowGenerator]
-// sym: ??0World@Render@fn_001c9030@@QAE@XZ
+// sym: ??0World@Render@fn_001c9030@@QAE@XZ @cec9d731f3cf @w8682c1072ede
 inline void* operator new(size_t, void* p) { return p; }
 namespace fn_001c9030 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 4/4)

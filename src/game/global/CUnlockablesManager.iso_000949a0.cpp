@@ -4,7 +4,7 @@
 
 
 // 0x000949a0 Closure3<CUnlockablesManager,void,int,int,bool>::vfunc_2 (30 B): equivalent/0x000949a0.cpp [isolated: conflict: Arguments; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure3@VCUnlockablesManager@@XHH_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure3@VCUnlockablesManager@@XHH_N@@UAEXPAX00@Z @bf9aeccd3fbc @w8cf46082fadf
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CUnlockablesManager,void,int,int,bool>::vfunc_2 @ 0x000949a0
 #include "gen/global.h"

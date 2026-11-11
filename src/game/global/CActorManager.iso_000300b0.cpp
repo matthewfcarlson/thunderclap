@@ -4,7 +4,7 @@
 
 
 // 0x000300b0 Closure3<CActorManager,void,int,int,int>::vfunc_2 (28 B): equivalent/0x000300b0.cpp [isolated: code differs from its standalone build; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure3@VCActorManager@@XHHH@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure3@VCActorManager@@XHHH@@UAEXPAX00@Z @737c210bc5da @w346cf641fccb
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CActorManager,void,int,int,int>::vfunc_2 @ 0x000300b0
 #include "gen/global.h"

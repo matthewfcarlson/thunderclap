@@ -208,7 +208,7 @@ void FUN_001acd80() {}
 
 
 // 0x001acdd0 FUN_001acdd0 (153 B): equivalent/0x001acdd0.cpp
-// sym: _FUN_001acdd0
+// sym: _FUN_001acdd0 @5b245077bc05 @w3041c479b7f6
 // STATUS: equivalent (tools/equiv.py level 3: 15856 inputs, branch coverage 0/0)
 // FUN_001acdd0 @ 0x001acdd0
 // FUN_001acdd0 @ 0x001acdd0
@@ -232,7 +232,7 @@ extern "C" Vec3_1acdd0 * __cdecl FUN_001acdd0(Vec3_1acdd0 *out, Mesh_1acdd0 *mes
 
 
 // 0x001acfa0 FUN_001acfa0 (112 B): equivalent/0x001acfa0.cpp
-// sym: ?FUN_001acfa0@V3_1acfa0@fn_f54565b1@@QAEPAU12@PBU12@0@Z
+// sym: ?FUN_001acfa0@V3_1acfa0@fn_f54565b1@@QAEPAU12@PBU12@0@Z @aebd2931239d @w3ce1bdf50203
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001acfa0 @ 0x001acfa0
 // 2D perpendicular line through p and q (x, y), normalised, with offset z.
@@ -256,7 +256,7 @@ V3_1acfa0* V3_1acfa0::FUN_001acfa0(const V3_1acfa0* p, const V3_1acfa0* q)
 
 
 // 0x001ad2b0 FUN_001ad2b0 (125 B): equivalent/0x001ad2b0.cpp
-// sym: ?FUN_001ad2b0@Sum3@fn_f54565b1@@QAEXPAPAUAccessor@2@@Z
+// sym: ?FUN_001ad2b0@Sum3@fn_f54565b1@@QAEXPAPAUAccessor@2@@Z @ea28aa0a984f @w60d710b9aacb
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001ad2b0 @ 0x001ad2b0
 void Sum3::FUN_001ad2b0(Accessor** acc)
@@ -382,7 +382,7 @@ u32_1ad6d0* __fastcall target(Obj_1ad6d0* self, void*, u32_1ad6d0* out) {
 
 
 // 0x001ad730 FUN_001ad730 (152 B): equivalent/0x001ad730.cpp
-// sym: ?FUN_001ad730@fn_f54565b1@@YA_NHPAPAUSkeleton@1@@Z
+// sym: ?FUN_001ad730@fn_f54565b1@@YA_NHPAPAUSkeleton@1@@Z @f33a6ea01e7d @wea73c0e505f5
 // STATUS: equivalent (tools/equiv.py level 3: 20011 inputs, branch coverage 8/8)
 // FUN_001ad730 @ 0x001ad730
 // True when the extent of the points along y is at most 0.7.
@@ -407,7 +407,7 @@ bool __cdecl FUN_001ad730(int a, Skeleton** skel)
 
 
 // 0x001ad7d0 FUN_001ad7d0 (237 B): equivalent/0x001ad7d0.cpp
-// sym: ?advance@Iterator_1ad7d0@fn_f54565b1@@QAEXPAUContext@2@@Z
+// sym: ?advance@Iterator_1ad7d0@fn_f54565b1@@QAEXPAUContext@2@@Z @70a2feac791b @wc16fd131ae36
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 28/28)
 // FUN_001ad7d0 @ 0x001ad7d0
 void Iterator_1ad7d0::advance(Context* ctx) {
@@ -437,7 +437,7 @@ void Iterator_1ad7d0::advance(Context* ctx) {
 } // namespace fn_f54565b1
 
 // 0x001adeb0 FUN_001adeb0 (393 B): equivalent/0x001adeb0.cpp [wrapped: conflict: Node]
-// sym: ?FUN_001adeb0@Finder_1adeb0@fn_001adeb0@@QAEHPAUVec3_1adeb0@2@HDH@Z
+// sym: ?FUN_001adeb0@Finder_1adeb0@fn_001adeb0@@QAEHPAUVec3_1adeb0@2@HDH@Z @6b0a2b286412 @w445837f79c65
 namespace fn_001adeb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 23/26, incomplete)
 // FUN_001adeb0 @ 0x001adeb0
@@ -539,7 +539,7 @@ int Finder_1adeb0::FUN_001adeb0(Vec3_1adeb0 *pos, int id, char recurse, int unus
 
 
 // 0x001ae040 FUN_001ae040 (271 B): equivalent/0x001ae040.cpp [wrapped: conflict: Node]
-// sym: ?FUN_001ae040@Search_1ae040@fn_001ae040@@QAEHPBUVec3_1ae040@2@HH@Z
+// sym: ?FUN_001ae040@Search_1ae040@fn_001ae040@@QAEHPBUVec3_1ae040@2@HH@Z @9d1a8974dbbd @wf850a0d4b08b
 namespace fn_001ae040 {
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 20/20)
 // FUN_001ae040 @ 0x001ae040
@@ -577,7 +577,7 @@ int Search_1ae040::FUN_001ae040(const Vec3_1ae040* pos, int id, int unused) {
 
 
 // 0x001ae150 FUN_001ae150 (160 B): equivalent/0x001ae150.cpp
-// sym: ?FUN_001ae150@Ring_1ae150@owners@@QAEXH@Z
+// sym: ?FUN_001ae150@Ring_1ae150@owners@@QAEXH@Z @63d9baeb48fa @w53903163ce31
 // STATUS: equivalent (tools/equiv.py level 3: 2397 inputs, branch coverage 20/20)
 // FUN_001ae150 @ 0x001ae150
 // FUN_001ae150 @ 0x001ae150: removes the first occurrence of a value from a ring buffer, rotating the older entries
@@ -613,7 +613,7 @@ void owners::Ring_1ae150::FUN_001ae150(hulk_intptr value)
 namespace fn_f54565b1 {
 
 // 0x001ae1f0 FUN_001ae1f0 (197 B): equivalent/0x001ae1f0.cpp
-// sym: ?FUN_001ae1f0@fn_f54565b1@@YG_NPBUVec3_1ae1f0@1@IPAU21@I@Z
+// sym: ?FUN_001ae1f0@fn_f54565b1@@YG_NPBUVec3_1ae1f0@1@IPAU21@I@Z @e20171cee1c5 @w7d416d173d6e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001ae1f0 @ 0x001ae1f0
 bool __stdcall FUN_001ae1f0(const Vec3_1ae1f0* position, unsigned int argument, Vec3_1ae1f0* output, unsigned int option) {
@@ -638,7 +638,7 @@ bool __stdcall FUN_001ae1f0(const Vec3_1ae1f0* position, unsigned int argument, 
 } // namespace fn_f54565b1
 
 // 0x001ae2c0 FUN_001ae2c0 (301 B): equivalent/0x001ae2c0.cpp [wrapped: conflict: World]
-// sym: ?FUN_001ae2c0@Recent@fn_001ae2c0@@QAE_NPAUVec3_1ae2c0@2@0HHHHHHHHHHH@Z
+// sym: ?FUN_001ae2c0@Recent@fn_001ae2c0@@QAE_NPAUVec3_1ae2c0@2@0HHHHHHHHHHH@Z @05dbb5385589 @w5d113fe3881b
 namespace fn_001ae2c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 12/12)
 // FUN_001ae2c0 @ 0x001ae2c0
@@ -754,7 +754,7 @@ bool Recent::FUN_001ae2c0(Vec3_1ae2c0 *out, Vec3_1ae2c0 *pos, int a3, int a4, in
 namespace fn_f54565b1 {
 
 // 0x001ae3f0 FUN_001ae3f0 (92 B): equivalent/0x001ae3f0.cpp
-// sym: _FUN_001ae3f0
+// sym: _FUN_001ae3f0 @0c7435200bac @w064fd91ab2c5
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001ae3f0 @ 0x001ae3f0
 extern "C" unsigned int __cdecl FUN_001ae3f0(Query* query, Range* range)
@@ -781,7 +781,7 @@ extern "C" unsigned int __cdecl FUN_001ae3f0(Query* query, Range* range)
 
 
 // 0x001ae450 FUN_001ae450 (1383 B): equivalent/0x001ae450.cpp
-// sym: ?FUN_001ae450@fn_f54565b1@@YGHTArg1@1@PAUVec3_1ae450@1@TArg3@1@H@Z
+// sym: ?FUN_001ae450@fn_f54565b1@@YGHTArg1@1@PAUVec3_1ae450@1@TArg3@1@H@Z @3ae6d93788fa @we0743dfe1f0d
 // STATUS: equivalent (tools/equiv.py level 3: 20039 inputs, branch coverage 63/80, incomplete)
 // FUN_001ae450 @ 0x001ae450
 int __stdcall FUN_001ae450(Arg1 a1, Vec3_1ae450 *out, Arg3 a3, int a4)
@@ -998,7 +998,7 @@ int Cmp(A_1aea70* q, A_1aea70* p) {
 
 
 // 0x001aeae0 FUN_001aeae0 (97 B): equivalent/0x001aeae0.cpp
-// sym: ?FUN_001aeae0@fn_f54565b1@@YAHPAUEntry@1@PAUGroup@1@@Z
+// sym: ?FUN_001aeae0@fn_f54565b1@@YAHPAUEntry@1@PAUGroup@1@@Z @943a5f17ad68 @wb1a16ea608ca
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001aeae0 @ 0x001aeae0
 int __cdecl FUN_001aeae0(Entry *left, Group *right)

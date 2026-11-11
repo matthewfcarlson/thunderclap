@@ -4,7 +4,7 @@
 
 
 // 0x000cfe20 Closure2<HUDOverlay,int,int,const_char_*>::vfunc_2 (36 B): equivalent/0x000cfe20.cpp [isolated: conflict: Arguments; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure2@VHUDOverlay@@HHPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure2@VHUDOverlay@@HHPBD@@UAEXPAX00@Z @5f2db1ebe681 @w450eaf8a6c9b
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<HUDOverlay,int,int,const_char_*>::vfunc_2 @ 0x000cfe20
 #include "gen/global.h"

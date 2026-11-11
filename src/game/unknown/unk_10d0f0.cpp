@@ -79,7 +79,7 @@ hulk_intptr hulkfight::ai::TokenSupressTrack::vfunc_0(int index) {
 namespace fn_fda30a1e {
 
 // 0x0010d140 FUN_0010d140 (51 B): equivalent/0x0010d140.cpp
-// sym: ?FUN_0010d140@TokenSupressTrack@fn_fda30a1e@@QAEPAU12@XZ
+// sym: ?FUN_0010d140@TokenSupressTrack@fn_fda30a1e@@QAEPAU12@XZ @f9f42e12846c @wa4639ede7127
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0010d140 @ 0x0010d140
 TokenSupressTrack *TokenSupressTrack::FUN_0010d140() { FUN_00236d40(); target = 0; flag1 = 0; flag2 = 0; vptr = DAT_0040dbb4; limit = -1.0f; active = 1; value = -1.0f; enabled = 1; return this; }

@@ -146,7 +146,7 @@ public:
 
 
 // 0x000c5180 FUN_000c5180 (1595 B): equivalent/0x000c5180.cpp
-// sym: ?FUN_000c5180@Menu_c5180@fn_f65ec8d6@@QAEXPAVSource_c5180@2@PAXMHPAVAux54@2@@Z
+// sym: ?FUN_000c5180@Menu_c5180@fn_f65ec8d6@@QAEXPAVSource_c5180@2@PAXMHPAVAux54@2@@Z @d012a59b714a @wed4f834c8f83
 // STATUS: equivalent (tools/equiv.py level 3: 3135 inputs, branch coverage 75/80, incomplete)
 // FUN_000c5180 @ 0x000c5180
 void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux54 *a4)

@@ -451,7 +451,7 @@ void CHypnoticCamera_aa0d0::f() {
 
 
 // 0x000aa130 FUN_000aa130 (372 B): equivalent/0x000aa130.cpp
-// sym: ?FUN_000aa130@Obj_aa130@fn_f9c37f09@@QAE_NHPAUMat_aa130@2@PAM@Z
+// sym: ?FUN_000aa130@Obj_aa130@fn_f9c37f09@@QAE_NHPAUMat_aa130@2@PAM@Z @523abf15b703 @wcf6ce9994e85
 // STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 2/2)
 // FUN_000aa130 @ 0x000aa130
 bool Obj_aa130::FUN_000aa130(int a, Mat_aa130* b, float* out)
@@ -494,7 +494,7 @@ bool Obj_aa130::FUN_000aa130(int a, Mat_aa130* b, float* out)
 } // namespace fn_f9c37f09
 
 // 0x000aa2b0 FUN_000aa2b0 (382 B): equivalent/0x000aa2b0.cpp [wrapped: conflict: World]
-// sym: ?FUN_000aa2b0@fn_000aa2b0@@YGMPAUVec3_aa2b0@1@0MMM@Z
+// sym: ?FUN_000aa2b0@fn_000aa2b0@@YGMPAUVec3_aa2b0@1@0MMM@Z @807d4a084713 @w2d69221e067d
 namespace fn_000aa2b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 16/16)
 // FUN_000aa2b0 @ 0x000aa2b0
@@ -592,7 +592,7 @@ CHypnoticCamera::~CHypnoticCamera() {}
 namespace fn_f9c37f09 {
 
 // 0x000aa450 FUN_000aa450 (552 B): equivalent/0x000aa450.cpp
-// sym: ?FUN_000aa450@Tracer_aa450@fn_f9c37f09@@QAEDHPAMPAHHPAUSource_aa450@2@HH@Z
+// sym: ?FUN_000aa450@Tracer_aa450@fn_f9c37f09@@QAEDHPAMPAHHPAUSource_aa450@2@HH@Z @f723d71d2145 @w5e320309cc54
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_000aa450 @ 0x000aa450
 char Tracer_aa450::FUN_000aa450(int a1, float *m, int *targets, int count, Source_aa450 *src, int a6, int a7)

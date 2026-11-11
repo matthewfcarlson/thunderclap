@@ -136,7 +136,7 @@ struct Vec_181ed0 {
 
 
 // 0x00181cc0 hulkfight::motion::PropGrabbableIsThrownCondition::vfunc_6 (98 B): equivalent/0x00181cc0.cpp
-// sym: ?vfunc_6@PropGrabbableIsThrownCondition_181cc0@fn_f945e56f@@UAEHHPAUInput@2@H@Z
+// sym: ?vfunc_6@PropGrabbableIsThrownCondition_181cc0@fn_f945e56f@@UAEHHPAUInput@2@H@Z @4647eaaeb55f @wf5aa7fad17b2
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 8/8)
 // hulkfight::motion::PropGrabbableIsThrownCondition::vfunc_6 @ 0x00181cc0
 int PropGrabbableIsThrownCondition_181cc0::vfunc_6(int, Input* input, int) {
@@ -152,7 +152,7 @@ int PropGrabbableIsThrownCondition_181cc0::vfunc_6(int, Input* input, int) {
 
 
 // 0x00181d30 FUN_00181d30 (415 B): equivalent/0x00181d30.cpp
-// sym: ?FUN_00181d30@Thing_181d30@fn_f945e56f@@QAEDXZ
+// sym: ?FUN_00181d30@Thing_181d30@fn_f945e56f@@QAEDXZ @b33be55b03f6 @w6907ca4b2fee
 // STATUS: equivalent (tools/equiv.py level 3: 3055 inputs, branch coverage 34/34)
 // FUN_00181d30 @ 0x00181d30
 char Thing_181d30::FUN_00181d30()

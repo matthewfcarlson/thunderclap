@@ -39,7 +39,7 @@ CButtonValueCondition* CButtonValueCondition::vfunc_5(signed char flags) {
 } // namespace fn_f662ff92
 
 // 0x0004b1e0 CButtonValueCondition::vfunc_9 (184 B): equivalent/0x0004b1e0.cpp [wrapped: conflict: CButtonValueCondition]
-// sym: ?vfunc_9@CButtonValueCondition@fn_0004b1e0@@UAE_NPAUInput_4b1e0@2@@Z
+// sym: ?vfunc_9@CButtonValueCondition@fn_0004b1e0@@UAE_NPAUInput_4b1e0@2@@Z @46c927b9ce7d @w1d979f55a355
 namespace fn_0004b1e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CButtonValueCondition::vfunc_9 @ 0x0004b1e0

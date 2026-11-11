@@ -267,7 +267,7 @@ public:
 
 
 // 0x000464c0 FUN_000464c0 (4782 B): equivalent/0x000464c0.cpp
-// sym: ?FUN_000464c0@CharDef@fn_ff1647fc@@QAE_NHPAVReader@2@@Z
+// sym: ?FUN_000464c0@CharDef@fn_ff1647fc@@QAE_NHPAVReader@2@@Z @c09031e17b89 @w4580e47f60c8
 // STATUS: equivalent (tools/equiv.py level 3: 586 inputs, branch coverage 118/118)
 // FUN_000464c0 @ 0x000464c0
 bool CharDef::FUN_000464c0(int unused, Reader* props) {

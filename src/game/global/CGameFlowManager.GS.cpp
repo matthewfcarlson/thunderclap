@@ -144,7 +144,7 @@ public:
 
 
 // 0x000894d0 FUN_000894d0 (240 B): equivalent/0x000894d0.cpp
-// sym: ?FUN_000894d0@Object@fn_f25fffae@@QAEXXZ
+// sym: ?FUN_000894d0@Object@fn_f25fffae@@QAEXXZ @1d08d63cdf00 @w63e6e80402c3
 // STATUS: equivalent (tools/equiv.py level 3: 1484 inputs, branch coverage 12/12)
 // FUN_000894d0 @ 0x000894d0
 void Object::FUN_000894d0() {
@@ -179,7 +179,7 @@ void Object::FUN_000894d0() {
 } // namespace fn_f25fffae
 
 // 0x00089f80 FUN_00089f80 (219 B): equivalent/0x00089f80.cpp [wrapped: conflict: FUN_000964a0]
-// sym: ?FUN_00089f80@Manager_89f80@fn_00089f80@@QAEXPBD@Z
+// sym: ?FUN_00089f80@Manager_89f80@fn_00089f80@@QAEXPBD@Z @057eb2d9a604 @we56ab6e82527
 namespace fn_00089f80 {
 // STATUS: equivalent (tools/equiv.py level 3: 19998 inputs, branch coverage 13/14, incomplete)
 // FUN_00089f80 @ 0x00089f80
@@ -254,7 +254,7 @@ void Manager_89f80::FUN_00089f80(const char* name) {
 namespace fn_f25fffae {
 
 // 0x0008b560 FUN_0008b560 (1385 B): equivalent/0x0008b560.cpp
-// sym: ?FUN_0008b560@SaveMgr@fn_f25fffae@@QAEHHHPAUSingleton_4dd6ec@@@Z
+// sym: ?FUN_0008b560@SaveMgr@fn_f25fffae@@QAEHHHPAUSingleton_4dd6ec@@@Z @83ee3924bd3f @w0ba239b85e98
 // STATUS: equivalent (tools/equiv.py level 3: 2237 inputs, branch coverage 50/52, incomplete)
 // FUN_0008b560 @ 0x0008b560
 // checked with equiv.py --time-budget 3600 (at the defaults most inputs hit the time budget)

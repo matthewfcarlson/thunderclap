@@ -64,7 +64,7 @@ void hulkfight::motion::GroundSlideAction::vfunc_4() {
 
 
 // 0x0014ef40 hulkfight::motion::HitPauseAction::vfunc_3 (133 B): equivalent/0x0014ef40.cpp
-// sym: ?vfunc_3@HitPauseAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@HitPauseAction@motion@hulkfight@@UAE_NHH@Z @bad14077bb22 @w6f0c129c8376
 // STATUS: equivalent (tools/equiv.py level 3: 343 inputs, branch coverage 14/14)
 // hulkfight::motion::HitPauseAction::vfunc_3 @ 0x0014ef40
 bool hulkfight::motion::HitPauseAction::vfunc_3(hulk_intptr a, hulk_intptr b) {

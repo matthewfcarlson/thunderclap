@@ -4,7 +4,7 @@
 
 
 // 0x000aa680 FUN_000aa680 (5389 B): equivalent/0x000aa680.cpp [isolated: macros; helper definitions (2 out-of-line function bodies); compile error C2039: 'FUN_001c3d90' : is not a member of 'operator``global namespace''']
-// sym: ?run@Obj@@QAEXXZ
+// sym: ?run@Obj@@QAEXXZ @bb04814b7d8b @w17d9c3ac6473
 // STATUS: equivalent (tools/equiv.py level 3: 20073 inputs, branch coverage 50/52, incomplete)
 // FUN_000aa680 @ 0x000aa680
 // FUN_000aa680 @ 0x000aa680

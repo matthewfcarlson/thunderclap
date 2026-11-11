@@ -50,7 +50,7 @@ hulk_intptr hulkfight::motion::HitPushbackTrack::vfunc_0(int index) {
 
 
 // 0x0014e3e0 FUN_0014e3e0 (63 B): equivalent/0x0014e3e0.cpp [wrapped: conflict: hulkfight::motion::HitPushbackTrack]
-// sym: ??0HitPushbackTrack@motion@hulkfight@fn_0014e3e0@@QAE@XZ
+// sym: ??0HitPushbackTrack@motion@hulkfight@fn_0014e3e0@@QAE@XZ @1bac68ce79de @we2525423729d
 namespace fn_0014e3e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0014e3e0 @ 0x0014e3e0

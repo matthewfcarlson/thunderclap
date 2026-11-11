@@ -131,7 +131,7 @@ public:
 
 
 // 0x001e47e0 FUN_001e47e0 (760 B): equivalent/0x001e47e0.cpp
-// sym: ?FUN_001e47e0@CSPManager_1e47e0@fn_f743a03c@@QAEPAUPart_1e47e0@2@PAUOwner_1e47e0@2@PAUAttach_1e47e0@2@@Z
+// sym: ?FUN_001e47e0@CSPManager_1e47e0@fn_f743a03c@@QAEPAUPart_1e47e0@2@PAUOwner_1e47e0@2@PAUAttach_1e47e0@2@@Z @672cb5c0e156 @wdcbeefeb8999
 // STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 22/22)
 // FUN_001e47e0 @ 0x001e47e0
 Part_1e47e0 *CSPManager_1e47e0::FUN_001e47e0(Owner_1e47e0 *owner, Attach_1e47e0 *a)
@@ -222,7 +222,7 @@ Part_1e47e0 *CSPManager_1e47e0::FUN_001e47e0(Owner_1e47e0 *owner, Attach_1e47e0 
 
 
 // 0x001e4ae0 FUN_001e4ae0 (352 B): equivalent/0x001e4ae0.cpp
-// sym: ?FUN_001e4ae0@CSPManager_1e4ae0@fn_f743a03c@@QAEHPBD00HHH@Z
+// sym: ?FUN_001e4ae0@CSPManager_1e4ae0@fn_f743a03c@@QAEHPBD00HHH@Z @e4c81284ebd5 @w8f9c2ae5c571
 // STATUS: equivalent (tools/equiv.py level 3: 16224 inputs, branch coverage 6/6)
 // FUN_001e4ae0 @ 0x001e4ae0
 int CSPManager_1e4ae0::FUN_001e4ae0(const char *key, const char *name, const char *prefix, int p3, int p4, int p5)

@@ -121,7 +121,7 @@ public:
 
 
 // 0x00164690 hulkfight::motion::GrappleLocomotionSteerAction::vfunc_3 (669 B): equivalent/0x00164690.cpp
-// sym: ?vfunc_3@GrappleLocomotionSteerAction@fn_fabfed4f@@UAE_NHH@Z
+// sym: ?vfunc_3@GrappleLocomotionSteerAction@fn_fabfed4f@@UAE_NHH@Z @446916c4a492 @w9656989292b2
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 38/38)
 // hulkfight::motion::GrappleLocomotionSteerAction::vfunc_3 @ 0x00164690
 bool GrappleLocomotionSteerAction::vfunc_3(int a, int b)

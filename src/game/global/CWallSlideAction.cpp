@@ -97,7 +97,7 @@ struct Frame_20de0 {
 
 
 // 0x00020de0 CWallSlideAction::vfunc_6 (649 B): equivalent/0x00020de0.cpp
-// sym: ?vfunc_6@CWallSlideAction@fn_f1852733@@UAE_NH@Z
+// sym: ?vfunc_6@CWallSlideAction@fn_f1852733@@UAE_NH@Z @3217c18618b4 @wa1bbcb48dab9
 // STATUS: equivalent (tools/equiv.py level 3: 12000 inputs, branch coverage 16/16)
 // CWallSlideAction::vfunc_6 @ 0x00020de0
 bool CWallSlideAction::vfunc_6(int arg)
@@ -174,7 +174,7 @@ bool CWallSlideAction::vfunc_6(int arg)
 } // namespace fn_f1852733
 
 // 0x00021070 CWallSlideAction::vfunc_7 (830 B): equivalent/0x00021070.cpp [wrapped: conflict: CWallSlideAction]
-// sym: ?vfunc_7@CWallSlideAction@fn_00021070@@UAEDM@Z
+// sym: ?vfunc_7@CWallSlideAction@fn_00021070@@UAEDM@Z @085f98956b78 @w46db6bab1cf1
 namespace fn_00021070 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // CWallSlideAction::vfunc_7 @ 0x00021070

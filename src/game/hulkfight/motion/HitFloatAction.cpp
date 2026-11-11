@@ -84,7 +84,7 @@ struct Two_14fd70 {
 
 
 // 0x0014f980 hulkfight::motion::HitFloatAction::vfunc_3 (335 B): equivalent/0x0014f980.cpp
-// sym: ?vfunc_3@HitFloatAction@fn_f10ad346@@UAE_NHH@Z
+// sym: ?vfunc_3@HitFloatAction@fn_f10ad346@@UAE_NHH@Z @66f154e153db @we9d075c6f1df
 // STATUS: equivalent (tools/equiv.py level 3: 19972 inputs, branch coverage 10/10)
 // hulkfight::motion::HitFloatAction::vfunc_3 @ 0x0014f980
 bool HitFloatAction::vfunc_3(int a, int b)
@@ -131,7 +131,7 @@ bool HitFloatAction::vfunc_3(int a, int b)
 } // namespace fn_f10ad346
 
 // 0x0014fad0 hulkfight::motion::HitFloatAction::vfunc_5 (668 B): equivalent/0x0014fad0.cpp [wrapped: conflict: HitFloatAction]
-// sym: ?vfunc_5@HitFloatAction@fn_0014fad0@@UAE_NTArg1_14fad0@2@M@Z
+// sym: ?vfunc_5@HitFloatAction@fn_0014fad0@@UAE_NTArg1_14fad0@2@M@Z @95e0656614f0 @w2031ce57b764
 namespace fn_0014fad0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 18/18; Wine build 3036 inputs, 18/18)
 // hulkfight::motion::HitFloatAction::vfunc_5 @ 0x0014fad0

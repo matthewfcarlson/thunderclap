@@ -190,7 +190,7 @@ bool MotionLocatorAction_1173f0::f() {
 
 
 // 0x00117480 hulkfight::ai::MotionLocatorAction::vfunc_5 (1108 B): equivalent/0x00117480.cpp
-// sym: ?v5@MotionLocatorAction@fn_fdfac53b@@UAEDTArg1_117480@2@H@Z
+// sym: ?v5@MotionLocatorAction@fn_fdfac53b@@UAEDTArg1_117480@2@H@Z @b0ff6c415211 @wad437a8dc280
 // STATUS: equivalent (tools/equiv.py level 3: 3085 inputs, branch coverage 54/61, incomplete)
 // hulkfight::ai::MotionLocatorAction::vfunc_5 @ 0x00117480
 char MotionLocatorAction::v5(Arg1_117480 a1, int a2)

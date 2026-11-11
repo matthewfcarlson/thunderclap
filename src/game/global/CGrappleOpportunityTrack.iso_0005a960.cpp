@@ -5,7 +5,7 @@
 
 
 // 0x0005a960 CGrappleLocoStrafe4Track::vfunc_12 (105 B): equivalent/0x0005a960.cpp [isolated: compile error C2440: 'static_cast' : cannot convert from 'fn_f63372f2::R_5aad0 *' to 'CGrappleLocoStrafe4Action *'; on include/gen/ and not mergeable]
-// sym: ?vfunc_12@CGrappleLocoStrafe4Track@@UAEHH@Z
+// sym: ?vfunc_12@CGrappleLocoStrafe4Track@@UAEHH@Z @1c92c47fa8e0 @w05d9d3c70115
 // STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 15/16, incomplete)
 // CGrappleLocoStrafe4Track::vfunc_12 @ 0x0005a960
 #include "gen/global.h"

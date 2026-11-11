@@ -31,7 +31,7 @@ struct MapThing { char pad[0x118]; int id; Entry_e39c0* vfunc_13(); };
 
 
 // 0x000e39c0 MapThing::vfunc_13 (204 B): equivalent/0x000e39c0.cpp
-// sym: ?vfunc_13@MapThing@fn_f9d36b1d@@QAEPAUEntry_e39c0@2@XZ
+// sym: ?vfunc_13@MapThing@fn_f9d36b1d@@QAEPAUEntry_e39c0@2@XZ @64432485ad28 @w3d0c2de8e038
 // STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 7/8, incomplete)
 // MapThing::vfunc_13 @ 0x000e39c0
 // MapThing::vfunc_13 @ 0x000e39c0

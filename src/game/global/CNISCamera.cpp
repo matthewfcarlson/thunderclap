@@ -101,7 +101,7 @@ void __cdecl thunk_00263f30(CNISCamera*);
 
 
 // 0x000ac2c0 FUN_000ac2c0 (248 B): equivalent/0x000ac2c0.cpp
-// sym: ??0CHypnoticCamera@fn_fe577214@@QAE@XZ
+// sym: ??0CHypnoticCamera@fn_fe577214@@QAE@XZ @ef92a6ab69b8 @wf7cb91c0b3d1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000ac2c0 @ 0x000ac2c0
 CHypnoticCamera::CHypnoticCamera() {
@@ -157,7 +157,7 @@ CNISCamera_ac4c0::~CNISCamera_ac4c0() {
 
 
 // 0x000ac4f0 CNISCamera::vfunc_27 (101 B): equivalent/0x000ac4f0.cpp
-// sym: ?FUN_000ac4f0@CNISCamera@fn_fe577214@@QAEPAUVec3_ac4f0@2@PAU32@@Z
+// sym: ?FUN_000ac4f0@CNISCamera@fn_fe577214@@QAEPAUVec3_ac4f0@2@PAU32@@Z @91de80d58169 @w726648f14723
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // CNISCamera::vfunc_27 @ 0x000ac4f0
 Vec3_ac4f0* CNISCamera::FUN_000ac4f0(Vec3_ac4f0* out) {
@@ -174,7 +174,7 @@ Vec3_ac4f0* CNISCamera::FUN_000ac4f0(Vec3_ac4f0* out) {
 
 
 // 0x000ac560 FUN_000ac560 (56 B): equivalent/0x000ac560.cpp
-// sym: ?FUN_000ac560@Owner@fn_fe577214@@QAEXPAURef@2@@Z
+// sym: ?FUN_000ac560@Owner@fn_fe577214@@QAEXPAURef@2@@Z @076ed5f61dd4 @w6a5771c3b80e
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 5/6, incomplete)
 // FUN_000ac560 @ 0x000ac560
 void Owner::FUN_000ac560(Ref* value) { if (ref) { ref->FUN_00000004(); ref = 0; } ref = value; if (value) value->FUN_00000000(); }

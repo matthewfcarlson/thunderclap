@@ -4,7 +4,7 @@
 
 
 // 0x00189f90 FUN_00189f90 (213 B): equivalent/0x00189f90.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?target@fn_fb83e8c8@@YAXXZ
+// sym: ?target@fn_fb83e8c8@@YAXXZ @82152ead97d7 @w47a99da963fd
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight/motion.h"
 namespace fn_fb83e8c8 {} using namespace fn_fb83e8c8;

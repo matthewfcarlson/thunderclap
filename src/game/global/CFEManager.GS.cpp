@@ -371,7 +371,7 @@ void owners::Loader_befc0::FUN_000befc0(const char* name, int param, bool pump)
 
 
 // 0x000bfa10 FUN_000bfa10 (455 B): equivalent/0x000bfa10.cpp [wrapped: conflict: FUN_000fc1b0]
-// sym: ?FUN_000bfa10@UnlockMenu@fn_000bfa10@@QAEXHH@Z
+// sym: ?FUN_000bfa10@UnlockMenu@fn_000bfa10@@QAEXHH@Z @203d8ff8a617 @wbfee5d32b7ae
 namespace fn_000bfa10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_000bfa10 @ 0x000bfa10
@@ -514,7 +514,7 @@ void Owner::FUN_000c0b30(int first, int second, int third) {
 
 
 // 0x000c0b80 FUN_000c0b80 (90 B): equivalent/0x000c0b80.cpp
-// sym: ?FUN_000c0b80@Manager@fn_f71c7272@@QAEXPBD00@Z
+// sym: ?FUN_000c0b80@Manager@fn_f71c7272@@QAEXPBD00@Z @624314ad8c4d @we95606312e5b
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_000c0b80 @ 0x000c0b80
 void Manager::FUN_000c0b80(const char *first, const char *second, const char *third)
@@ -729,7 +729,7 @@ void Registry_c0cc0::FUN_000c0cc0(const char *name, CFEManager *owner, Closure_c
 namespace fn_f71c7272 {
 
 // 0x000c1430 FUN_000c1430 (853 B): equivalent/0x000c1430.cpp
-// sym: ?FUN_000c1430@CFEManager@fn_f71c7272@@QAEXXZ
+// sym: ?FUN_000c1430@CFEManager@fn_f71c7272@@QAEXXZ @ef174ec69ea2 @wf8f1281b471e
 // STATUS: equivalent (tools/equiv.py level 3: 1176 inputs, branch coverage 26/26)
 // FUN_000c1430 @ 0x000c1430
 void CFEManager::FUN_000c1430()
@@ -821,7 +821,7 @@ void CFEManager::FUN_000c1430()
 } // namespace fn_f71c7272
 
 // 0x000c1790 FUN_000c1790 (811 B): equivalent/0x000c1790.cpp [wrapped: conflict: FUN_000964a0; FUN_000fc1b0; FUN_000fc260]
-// sym: ?FUN_000c1790@FrontEnd_c1790@fn_000c1790@@QAE_NPBD@Z
+// sym: ?FUN_000c1790@FrontEnd_c1790@fn_000c1790@@QAE_NPBD@Z @b57ebaed9f8b @w8f4c7a0a0779
 namespace fn_000c1790 {
 // STATUS: equivalent (tools/equiv.py level 3: 6070 inputs, branch coverage 43/46, incomplete)
 // FUN_000c1790 @ 0x000c1790
@@ -1034,7 +1034,7 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
 
 
 // 0x000c1b50 FUN_000c1b50 (887 B): equivalent/0x000c1b50.cpp [wrapped: conflict: Frame; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_000c1b50@GalleryScreen@fn_000c1b50@@QAEXHHH@Z
+// sym: ?FUN_000c1b50@GalleryScreen@fn_000c1b50@@QAEXHHH@Z @d4ba45ad2859 @w644c1f14ca94
 namespace fn_000c1b50 {
 // STATUS: equivalent (tools/equiv.py level 3: 1706 inputs, branch coverage 45/46, incomplete)
 // FUN_000c1b50 @ 0x000c1b50
@@ -1295,7 +1295,7 @@ void GalleryScreen::FUN_000c1b50(int kind, int first, int last)
 
 
 // 0x000c1f70 FUN_000c1f70 (573 B): equivalent/0x000c1f70.cpp [wrapped: conflict: FUN_000fc1b0; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_000c1f70@BlonskyScreen@fn_000c1f70@@QAEXH@Z
+// sym: ?FUN_000c1f70@BlonskyScreen@fn_000c1f70@@QAEXH@Z @c4200a4dc70c @w573db945596e
 namespace fn_000c1f70 {
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 18/18)
 // FUN_000c1f70 @ 0x000c1f70
@@ -1511,7 +1511,7 @@ void BlonskyScreen::FUN_000c1f70(int index)
 
 
 // 0x000c21b0 FUN_000c21b0 (2006 B): equivalent/0x000c21b0.cpp [wrapped: conflict: FUN_000964a0; FUN_000fb690; TextLabel; TextSelector]
-// sym: ?FUN_000c21b0@UnlockMenu@fn_000c21b0@@QAEXH@Z
+// sym: ?FUN_000c21b0@UnlockMenu@fn_000c21b0@@QAEXH@Z @4abeb9d90c6f @w0460a50e73ac
 namespace fn_000c21b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20092 inputs, branch coverage 135/136, incomplete)
 // FUN_000c21b0 @ 0x000c21b0
@@ -1918,7 +1918,7 @@ void UnlockMenu::FUN_000c21b0(volatile int id) {
 
 
 // 0x000c2990 FUN_000c2990 (510 B): equivalent/0x000c2990.cpp [wrapped: conflict: FUN_001d4c90]
-// sym: ?run@Target_c2990@fn_000c2990@@QAEXPAUOutput_c2990@2@@Z
+// sym: ?run@Target_c2990@fn_000c2990@@QAEXPAUOutput_c2990@2@@Z @9a15de49e39b @weaec597f9f38
 namespace fn_000c2990 {
 // STATUS: equivalent (tools/equiv.py level 3: 3073 inputs, branch coverage 26/26)
 // FUN_000c2990 @ 0x000c2990
@@ -1973,7 +1973,7 @@ void Target_c2990::run(Output_c2990* out) {
 
 
 // 0x000c2c20 FUN_000c2c20 (1462 B): equivalent/0x000c2c20.cpp [wrapped: conflict: DAT_0049dab8; FUN_000fc1b0; FUN_000fc260; World]
-// sym: ?F@MovesMenu@fn_000c2c20@@QAEXXZ
+// sym: ?F@MovesMenu@fn_000c2c20@@QAEXXZ @6a848bf091c0 @w53c127cc8cae
 namespace fn_000c2c20 {
 // STATUS: equivalent (tools/equiv.py level 3: 3124 inputs, branch coverage 66/66)
 // FUN_000c2c20 @ 0x000c2c20
@@ -2270,7 +2270,7 @@ void MovesMenu::F()
 
 
 // 0x000c31e0 FUN_000c31e0 (1814 B): equivalent/0x000c31e0.cpp [wrapped: macros]
-// sym: ?FUN_000c31e0@Env@fn_000c31e0@@QAEXPBD@Z
+// sym: ?FUN_000c31e0@Env@fn_000c31e0@@QAEXPBD@Z @18010c589c55 @w63ec5548467d
 namespace fn_000c31e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1585 inputs, branch coverage 147/148, incomplete)
 // FUN_000c31e0 @ 0x000c31e0
@@ -2681,7 +2681,7 @@ void Env::FUN_000c31e0(const char *name)
 
 
 // 0x000c3900 FUN_000c3900 (989 B): equivalent/0x000c3900.cpp [wrapped: macros]
-// sym: ?target@Game@fn_000c3900@@QAE_NPBDIIH0II@Z
+// sym: ?target@Game@fn_000c3900@@QAE_NPBDIIH0II@Z @10832da029fb @wbbe9a71ce634
 namespace fn_000c3900 {
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 62/62)
 // FUN_000c3900 @ 0x000c3900
@@ -2785,7 +2785,7 @@ if(((*(unsigned char*)&DAT_004dde2c) && (*(U*)&DAT_004dde28)<elapsed) || (mode==
 
 
 // 0x000c4020 FUN_000c4020 (511 B): equivalent/0x000c4020.cpp [wrapped: conflict: FUN_000fc1b0; FUN_000fc260; FUN_000fc3d0]
-// sym: ?FUN_000c4020@MissionMenu@fn_000c4020@@QAEXHH@Z
+// sym: ?FUN_000c4020@MissionMenu@fn_000c4020@@QAEXHH@Z @1b4533917c3a @wa4b76275f232
 namespace fn_000c4020 {
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 16/16)
 // FUN_000c4020 @ 0x000c4020
@@ -3023,7 +3023,7 @@ void MissionMenu::FUN_000c4020(int a, int b)
 namespace fn_f71c7272 {
 
 // 0x000c4220 FUN_000c4220 (348 B): equivalent/0x000c4220.cpp
-// sym: ?update@State_c4220@fn_f71c7272@@QAEXPAUPlayer_c4220@2@@Z
+// sym: ?update@State_c4220@fn_f71c7272@@QAEXPAUPlayer_c4220@2@@Z @e4adf6679b7d @wacbf346f47c1
 // STATUS: equivalent (tools/equiv.py level 3: 19408 inputs, branch coverage 19/19)
 // FUN_000c4220 @ 0x000c4220
 // FUN_000c4220 @ 0x000c4220

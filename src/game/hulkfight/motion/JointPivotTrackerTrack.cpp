@@ -50,7 +50,7 @@ hulk_intptr hulkfight::motion::JointPivotTrackerTrack::vfunc_0(int index) {
 
 
 // 0x001708a0 FUN_001708a0 (129 B): equivalent/0x001708a0.cpp [wrapped: conflict: hulkfight::motion::JointPivotTrackerTrack]
-// sym: ?FUN_001708a0@JointPivotTrackerTrack@motion@hulkfight@fn_001708a0@@QAEPAV1234@XZ
+// sym: ?FUN_001708a0@JointPivotTrackerTrack@motion@hulkfight@fn_001708a0@@QAEPAV1234@XZ @1647db850177 @w6368b6923a7e
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_001708a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)

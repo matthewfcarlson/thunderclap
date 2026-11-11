@@ -132,7 +132,7 @@ hulk_freg TextTable::vfunc_9() {
 
 
 // 0x000ed990 TextTable::vfunc_3 (453 B): equivalent/0x000ed990.cpp [wrapped: conflict: TextTable]
-// sym: ?vfunc_3@TextTable@fn_000ed990@@UAEXXZ
+// sym: ?vfunc_3@TextTable@fn_000ed990@@UAEXXZ @bbda469e5551 @wf89983587c38
 namespace fn_000ed990 {
 // STATUS: equivalent (tools/equiv.py level 3: 19737 inputs, branch coverage 22/22)
 // TextTable::vfunc_3 @ 0x000ed990
@@ -335,7 +335,7 @@ void TextTable::vfunc_3()
 
 
 // 0x000edb60 TextTable::vfunc_5 (1015 B): equivalent/0x000edb60.cpp [wrapped: conflict: Builder; TextTable]
-// sym: ?vfunc_5@TextTable@fn_000edb60@@UAEXXZ
+// sym: ?vfunc_5@TextTable@fn_000edb60@@UAEXXZ @f8c85e1ba565 @we9c306ac6e66
 namespace fn_000edb60 {
 // STATUS: equivalent (tools/equiv.py level 3: 515 inputs, branch coverage 32/32)
 // TextTable::vfunc_5 @ 0x000edb60

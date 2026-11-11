@@ -301,7 +301,7 @@ CSoundSequence_1e9180* CSoundSequence_1e9180::f2(unsigned char flag) {
 
 
 // 0x001e91c0 FUN_001e91c0 (1018 B): equivalent/0x001e91c0.cpp
-// sym: _FUN_001e91c0
+// sym: _FUN_001e91c0 @213cd0493c86 @wa39a811f1f89
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 2/2)
 // FUN_001e91c0 @ 0x001e91c0
 extern "C" void FUN_001e91c0(void)
@@ -348,7 +348,7 @@ extern "C" void FUN_001e91c0(void)
 
 
 // 0x001e9680 FUN_001e9680 (365 B): equivalent/0x001e9680.cpp
-// sym: ?FUN_001e9680@Manager_1e9680@fn_f9e85a4e@@QAEXXZ
+// sym: ?FUN_001e9680@Manager_1e9680@fn_f9e85a4e@@QAEXXZ @8ddb6d6c795a @wc46512c775a6
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 28/28)
 // FUN_001e9680 @ 0x001e9680
 void Manager_1e9680::FUN_001e9680()
@@ -455,7 +455,7 @@ CSoundSequence* Owner_1e97f0::Add() {
 namespace fn_f9e85a4e {
 
 // 0x001e9860 FUN_001e9860 (73 B): equivalent/0x001e9860.cpp
-// sym: ?FUN_001e9860@Owner@fn_f9e85a4e@@QAEPAUEntry@2@HH@Z
+// sym: ?FUN_001e9860@Owner@fn_f9e85a4e@@QAEPAUEntry@2@HH@Z @96cc88f3c3b1 @w696646f72a12
 // STATUS: equivalent (tools/equiv.py level 3: 1739 inputs, branch coverage 10/10)
 // FUN_001e9860 @ 0x001e9860
 Entry* Owner::FUN_001e9860(int first, int second) {
@@ -561,7 +561,7 @@ extern "C" bool FUN_001e9bc0(int a, int b) {
 
 
 // 0x001e9bf0 FUN_001e9bf0 (274 B): equivalent/0x001e9bf0.cpp
-// sym: ?FUN_001e9bf0@Owner_1e9bf0@fn_f9e85a4e@@QAE_NXZ
+// sym: ?FUN_001e9bf0@Owner_1e9bf0@fn_f9e85a4e@@QAE_NXZ @245004bd0425 @w89707edb7f5b
 // STATUS: equivalent (tools/equiv.py level 3: 744 inputs, branch coverage 24/24)
 // FUN_001e9bf0 @ 0x001e9bf0
 bool Owner_1e9bf0::FUN_001e9bf0() {

@@ -34,7 +34,7 @@ hulk_intptr CSmartPropAttachedCondition::vfunc_0(int index) {
 
 
 // 0x00049190 CSmartPropAttachedCondition::vfunc_7 (152 B): equivalent/0x00049190.cpp
-// sym: ?vfunc_7@CSmartPropAttachedCondition@@UAE_NPAX@Z
+// sym: ?vfunc_7@CSmartPropAttachedCondition@@UAE_NPAX@Z @e9334d4f5350 @w9cca87d417a0
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // CSmartPropAttachedCondition::vfunc_7 @ 0x00049190
 bool CSmartPropAttachedCondition::vfunc_7(void* __p0) { void * actor = (void *)__p0;

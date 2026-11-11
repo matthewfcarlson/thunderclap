@@ -20,7 +20,7 @@ struct C_1725c0 {
 } // namespace fn_ff32002a
 
 // 0x00172290 hulkfight::motion::MoveJointAction::vfunc_5 (804 B): equivalent/0x00172290.cpp [wrapped: conflict: hulkfight::motion::MoveJointAction]
-// sym: ?vfunc_5@MoveJointAction@motion@hulkfight@fn_00172290@@UAE_NHM@Z
+// sym: ?vfunc_5@MoveJointAction@motion@hulkfight@fn_00172290@@UAE_NHM@Z @58de845f6d03 @w3d3295b28233
 namespace fn_00172290 {
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 16/16)
 // hulkfight::motion::MoveJointAction::vfunc_5 @ 0x00172290

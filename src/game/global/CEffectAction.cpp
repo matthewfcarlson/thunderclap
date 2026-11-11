@@ -110,7 +110,7 @@ void CMotionTrailAction::vfunc_4() {
 
 
 // 0x00016680 CEffectAction::vfunc_6 (1510 B): equivalent/0x00016680.cpp [wrapped: conflict: CEffectAction]
-// sym: ?F@CEffectAction@fn_00016680@@QAEDH@Z
+// sym: ?F@CEffectAction@fn_00016680@@QAEDH@Z @e04f93f1e164 @w575f0f296c5f
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

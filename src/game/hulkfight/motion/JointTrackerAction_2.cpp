@@ -157,7 +157,7 @@ class JointTrackerAction {
 
 
 // 0x001734b0 hulkfight::motion::JointTrackerAction::vfunc_5 (1859 B): equivalent/0x001734b0.cpp
-// sym: ?v5@JointTrackerAction@fn_f61fbe57@@UAE_NHM@Z
+// sym: ?v5@JointTrackerAction@fn_f61fbe57@@UAE_NHM@Z @2e6dfe017194 @waa472b7e338f
 // STATUS: equivalent (tools/equiv.py level 3: 3104 inputs, branch coverage 65/68, incomplete)
 // hulkfight::motion::JointTrackerAction::vfunc_5 @ 0x001734b0
 bool JointTrackerAction::v5(int phase, float dt) {

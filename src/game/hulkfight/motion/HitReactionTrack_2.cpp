@@ -97,7 +97,7 @@ extern "C" void __cdecl FUN_0014efd0(void *, void *, void *);
 
 
 // 0x0014efd0 FUN_0014efd0 (310 B): equivalent/0x0014efd0.cpp
-// sym: _FUN_0014efd0
+// sym: _FUN_0014efd0 @d130aa5a7d49 @wf9d7647f7af9
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_0014efd0 @ 0x0014efd0
     // equiv-conv: FUN_000595f0 ecx stack stack stack stack
@@ -138,7 +138,7 @@ extern "C" void FUN_0014efd0(void *owner, void *cfg, void * st_)
 
 
 // 0x0014f110 hulkfight::motion::HitReactionTrack::vfunc_9 (244 B): equivalent/0x0014f110.cpp
-// sym: ?vfunc_9@HitReactionTrack@motion@hulkfight@fn_f0a316da@@UAEHPAX0PAUOwner_14f110@4@@Z
+// sym: ?vfunc_9@HitReactionTrack@motion@hulkfight@fn_f0a316da@@UAEHPAX0PAUOwner_14f110@4@@Z @e9abec1c1327 @wcf6994b0eba5
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 8/8)
 // hulkfight::motion::HitReactionTrack::vfunc_9 @ 0x0014f110
 // hulkfight::motion::HitReactionTrack::vfunc_9 @ 0x0014f110

@@ -177,7 +177,7 @@ int Host_22960::run(int x, int y) {
 
 
 // 0x00022990 CProceduralDurationAnimationAction::vfunc_6 (870 B): equivalent/0x00022990.cpp
-// sym: ?vfunc_6@CProceduralDurationAnimationAction@fn_fd1175fb@@UAE_NH@Z
+// sym: ?vfunc_6@CProceduralDurationAnimationAction@fn_fd1175fb@@UAE_NH@Z @53ed347ec0e0 @w598b5c61565e
 // STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 44/44; Wine build 682 inputs, 44/44)
 // CProceduralDurationAnimationAction::vfunc_6 @ 0x00022990
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

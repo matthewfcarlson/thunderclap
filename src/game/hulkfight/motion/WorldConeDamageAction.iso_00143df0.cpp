@@ -5,7 +5,7 @@
 
 
 // 0x00143df0 hulkfight::motion::WorldConeDamageAction::vfunc_5 (856 B): equivalent/0x00143df0.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?vfunc_5@WorldConeDamageAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@WorldConeDamageAction@motion@hulkfight@@UAE_NHH@Z @3efe77fb2194 @w5f36c42ce2d3
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 12/12)
 // hulkfight::motion::WorldConeDamageAction::vfunc_5 @ 0x00143df0
 #include "gen/hulkfight.h"

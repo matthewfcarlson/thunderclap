@@ -91,7 +91,7 @@ public:
 
 
 // 0x000c9bd0 FUN_000c9bd0 (1997 B): equivalent/0x000c9bd0.cpp
-// sym: ?FUN_000c9bd0@CHudMap@fn_f0cc89ae@@QAEXPAD@Z
+// sym: ?FUN_000c9bd0@CHudMap@fn_f0cc89ae@@QAEXPAD@Z @168493859de1 @w8e1f1ffb3005
 // STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 28/28)
 // FUN_000c9bd0 @ 0x000c9bd0
 void CHudMap::FUN_000c9bd0(char *name)

@@ -17,7 +17,7 @@ class Base_14f2e0 {
 } // namespace fn_f708d323
 
 // 0x0014f210 hulkfight::motion::HitReactionAction::vfunc_3 (199 B): equivalent/0x0014f210.cpp [wrapped: conflict: hulkfight::motion::HitReactionAction]
-// sym: ?vfunc_3@HitReactionAction@motion@hulkfight@fn_0014f210@@UAE_NII@Z
+// sym: ?vfunc_3@HitReactionAction@motion@hulkfight@fn_0014f210@@UAE_NII@Z @40eb783bc837 @wbb5d5d9e722b
 namespace fn_0014f210 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // hulkfight::motion::HitReactionAction::vfunc_3 @ 0x0014f210

@@ -97,7 +97,7 @@ MotionBoostAction_117100::~MotionBoostAction_117100() {
 } // namespace fn_fac5522d
 
 // 0x00117150 hulkfight::ai::MotionBoostAction::vfunc_5 (500 B): equivalent/0x00117150.cpp [wrapped: conflict: MotionBoostAction]
-// sym: ?FUN_00117150@MotionBoostAction@fn_00117150@@QAEDHH@Z
+// sym: ?FUN_00117150@MotionBoostAction@fn_00117150@@QAEDHH@Z @05d30c043639 @wd4358c94fd76
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

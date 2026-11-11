@@ -4,7 +4,7 @@
 
 
 // 0x00156030 FUN_00156030 (213 B): equivalent/0x00156030.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00156030
+// sym: _FUN_00156030 @13e3fa49ca6d @wfc0db556cf27
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight/motion.h"
 namespace fn_fc84ab54 {} using namespace fn_fc84ab54;

@@ -146,7 +146,7 @@ public:
 
 
 // 0x00164270 hulkfight::motion::LocomotionSteerAction::vfunc_3 (1042 B): equivalent/0x00164270.cpp
-// sym: ?vfunc_3@LocomotionSteerAction@motion@hulkfight@fn_f605e37d@@UAE_NHH@Z
+// sym: ?vfunc_3@LocomotionSteerAction@motion@hulkfight@fn_f605e37d@@UAE_NHH@Z @118919f2bb0a @w12f2ce2c3984
 // STATUS: equivalent (tools/equiv.py level 3: 513 inputs, branch coverage 56/56)
 // hulkfight::motion::LocomotionSteerAction::vfunc_3 @ 0x00164270
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

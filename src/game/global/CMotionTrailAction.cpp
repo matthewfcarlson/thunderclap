@@ -94,7 +94,7 @@ public:
 
 
 // 0x000235f0 CMotionTrailAction::vfunc_6 (322 B): equivalent/0x000235f0.cpp
-// sym: ?vfunc_6@CMotionTrailAction@fn_f8d1195f@@UAEDH@Z
+// sym: ?vfunc_6@CMotionTrailAction@fn_f8d1195f@@UAEDH@Z @4b1ba3b7e6d7 @wf6a8cc4be9b1
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 2/2)
 // CMotionTrailAction::vfunc_6 @ 0x000235f0
 char CMotionTrailAction::vfunc_6(int arg)

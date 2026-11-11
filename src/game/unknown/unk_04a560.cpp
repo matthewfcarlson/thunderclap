@@ -209,7 +209,7 @@ hulk_intptr CCharacterBoolCondition::vfunc_0(int index) {
 
 
 // 0x0004a7e0 CCharacterBoolCondition::vfunc_7 (54 B): equivalent/0x0004a7e0.cpp [wrapped: conflict: CCharacterBoolCondition]
-// sym: ?vfunc_7@CCharacterBoolCondition@fn_0004a7e0@@QAEEPAUContext@2@@Z
+// sym: ?vfunc_7@CCharacterBoolCondition@fn_0004a7e0@@QAEEPAUContext@2@@Z @3cb6914c6e70 @w1e5cc4d5146b
 namespace fn_0004a7e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // CCharacterBoolCondition::vfunc_7 @ 0x0004a7e0

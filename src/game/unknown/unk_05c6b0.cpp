@@ -246,7 +246,7 @@ class X_5d150 {
 
 
 // 0x0005c6b0 FUN_0005c6b0 (868 B): equivalent/0x0005c6b0.cpp
-// sym: _FUN_0005c6b0
+// sym: _FUN_0005c6b0 @8c9ae9661be1 @w58187241c629
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
 // FUN_0005c6b0 @ 0x0005c6b0
 extern "C" void FUN_0005c6b0()
@@ -325,7 +325,7 @@ extern "C" void FUN_0005c6b0()
 
 
 // 0x0005ca20 FUN_0005ca20 (766 B): equivalent/0x0005ca20.cpp
-// sym: _FUN_0005ca20
+// sym: _FUN_0005ca20 @f524d4da3623 @w895e39d36e35
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 30/30)
 // FUN_0005ca20 @ 0x0005ca20
 extern "C" void FUN_0005ca20()
@@ -396,7 +396,7 @@ extern "C" void FUN_0005ca20()
 
 
 // 0x0005cd20 FUN_0005cd20 (511 B): equivalent/0x0005cd20.cpp
-// sym: _FUN_0005cd20
+// sym: _FUN_0005cd20 @28668867e3d2 @wd9d64ba1b0a1
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 20/20)
 // FUN_0005cd20 @ 0x0005cd20
 extern "C" void FUN_0005cd20()
@@ -447,7 +447,7 @@ extern "C" void FUN_0005cd20()
 
 
 // 0x0005cf20 FUN_0005cf20 (511 B): equivalent/0x0005cf20.cpp
-// sym: _FUN_0005cf20
+// sym: _FUN_0005cf20 @b38df0393e62 @wd2b064cb7759
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 20/20)
 // FUN_0005cf20 @ 0x0005cf20
 extern "C" void FUN_0005cf20()

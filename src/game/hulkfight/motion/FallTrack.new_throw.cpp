@@ -4,7 +4,7 @@
 
 
 // 0x001395b0 fight::TrackFactoryTemplate<hulkfight::motion::FlyingBrakeTrack>::vfunc_5 (95 B): equivalent/0x001395b0.cpp [wrapped: compile error in a shared declaration (C2084)]
-// sym: ?vfunc_5@TrackFactoryTemplate@fn_001395b0@@UAEPAUFlyingBrakeTrack@2@XZ
+// sym: ?vfunc_5@TrackFactoryTemplate@fn_001395b0@@UAEPAUFlyingBrakeTrack@2@XZ @49d07ddde7a9 @w23972861d238
 inline void* operator new(size_t, void* p) throw() { return p; }
 namespace fn_001395b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)

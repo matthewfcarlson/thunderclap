@@ -4,7 +4,7 @@
 
 
 // 0x00075810 FUN_00075810 (817 B): equivalent/0x00075810.cpp [isolated: compile error C2664: 'fn_00075810::fight::ParamFloatConstRange<T>::ParamFloatConstRange(const char *,void (__thiscall CHeadTrackerTrack::* )(]
-// sym: _FUN_00075810
+// sym: _FUN_00075810 @532c7556ffd3 @w9cdf5aefeef4
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 32/32)
 // FUN_00075810 @ 0x00075810
 #include "decls/data/game/global.h"

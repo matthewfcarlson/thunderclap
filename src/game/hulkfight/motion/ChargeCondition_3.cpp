@@ -109,7 +109,7 @@ struct ConditionFactoryTemplate_16d330 {
 
 
 // 0x0016c600 FUN_0016c600 (307 B): equivalent/0x0016c600.cpp
-// sym: _FUN_0016c600
+// sym: _FUN_0016c600 @c85cbac477ad @wbbcc7cd746fa
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_0016c600 @ 0x0016c600
 extern "C" void FUN_0016c600()
@@ -145,7 +145,7 @@ extern "C" void FUN_0016c600()
 
 
 // 0x0016c830 FUN_0016c830 (358 B): equivalent/0x0016c830.cpp
-// sym: _FUN_0016c830
+// sym: _FUN_0016c830 @d865513f22a8 @w81afde01dcb8
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 14/14)
 // FUN_0016c830 @ 0x0016c830
 extern "C" void FUN_0016c830()
@@ -185,7 +185,7 @@ extern "C" void FUN_0016c830()
 
 
 // 0x0016cb50 FUN_0016cb50 (409 B): equivalent/0x0016cb50.cpp
-// sym: _FUN_0016cb50
+// sym: _FUN_0016cb50 @b7d3b16e90d7 @wbc471039f669
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 16/16)
 // FUN_0016cb50 @ 0x0016cb50
 extern "C" void FUN_0016cb50()

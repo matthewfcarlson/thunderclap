@@ -36,7 +36,7 @@ struct CSmartPropSpawnAction {
 
 
 // 0x0001f080 CSmartPropSpawnAction::vfunc_6 (231 B): equivalent/0x0001f080.cpp
-// sym: ?vfunc_6@CSmartPropSpawnAction@fn_f41a76ff@@UAE_NH@Z
+// sym: ?vfunc_6@CSmartPropSpawnAction@fn_f41a76ff@@UAE_NH@Z @0a63bdf88e63 @w86eb26595fdf
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 6/6)
 // CSmartPropSpawnAction::vfunc_6 @ 0x0001f080
 bool CSmartPropSpawnAction::vfunc_6(int) {

@@ -63,7 +63,7 @@ CAxisTimeCondition* CAxisTimeCondition::vfunc_5(signed char flags) {
 } // namespace fn_f022e3e8
 
 // 0x0004b310 CAxisTimeCondition::vfunc_9 (197 B): equivalent/0x0004b310.cpp [wrapped: conflict: CAxisTimeCondition]
-// sym: ?vfunc_9@CAxisTimeCondition@fn_0004b310@@UAE_NHPAUAxisInput_4b310@2@@Z
+// sym: ?vfunc_9@CAxisTimeCondition@fn_0004b310@@UAE_NHPAUAxisInput_4b310@2@@Z @d5ceca3c2941 @w83b705e90fdc
 namespace fn_0004b310 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CAxisTimeCondition::vfunc_9 @ 0x0004b310

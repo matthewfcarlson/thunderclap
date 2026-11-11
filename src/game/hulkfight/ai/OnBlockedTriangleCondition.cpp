@@ -98,7 +98,7 @@ public:
 
 
 // 0x0010d930 hulkfight::ai::FightingOtherNPCCondition::vfunc_6 (106 B): equivalent/0x0010d930.cpp
-// sym: ?vfunc_6@FightingOtherNPCCondition@ai@hulkfight@fn_fb44886a@@UAEDPAXPAVTarget_10d930@4@0@Z
+// sym: ?vfunc_6@FightingOtherNPCCondition@ai@hulkfight@fn_fb44886a@@UAEDPAXPAVTarget_10d930@4@0@Z @2ae62f6e879f @wf22bf9e480ea
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 14/14)
 // hulkfight::ai::FightingOtherNPCCondition::vfunc_6 @ 0x0010d930
 char hulkfight::ai::FightingOtherNPCCondition::vfunc_6(void* a1, Target_10d930* target, void* a3)
@@ -123,7 +123,7 @@ char hulkfight::ai::FightingOtherNPCCondition::vfunc_6(void* a1, Target_10d930* 
 
 
 // 0x0010d9c0 hulkfight::ai::OnBlockedTriangleCondition::vfunc_6 (417 B): equivalent/0x0010d9c0.cpp
-// sym: ?vfunc_6@OnBlockedTriangleCondition@fn_fb44886a@@UAEDHPAXH@Z
+// sym: ?vfunc_6@OnBlockedTriangleCondition@fn_fb44886a@@UAEDHPAXH@Z @6eefd52ba9f5 @w20cd0835429a
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 24/24)
 // hulkfight::ai::OnBlockedTriangleCondition::vfunc_6 @ 0x0010d9c0
 char OnBlockedTriangleCondition::vfunc_6(int a, void *obj, int c)

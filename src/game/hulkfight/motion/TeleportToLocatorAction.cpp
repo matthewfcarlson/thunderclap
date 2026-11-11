@@ -78,7 +78,7 @@ bool TeleportToLocatorAction::vfunc_3(int a, int b) {
 } // namespace fn_f87ef82d
 
 // 0x00171d90 hulkfight::motion::TeleportToLocatorAction::vfunc_5 (186 B): equivalent/0x00171d90.cpp [wrapped: conflict: hulkfight::motion::TeleportToLocatorAction]
-// sym: ?vfunc_5@TeleportToLocatorAction@motion@hulkfight@fn_00171d90@@UAE_NHH@Z
+// sym: ?vfunc_5@TeleportToLocatorAction@motion@hulkfight@fn_00171d90@@UAE_NHH@Z @47089e76d13b @wf9c1c0913b16
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

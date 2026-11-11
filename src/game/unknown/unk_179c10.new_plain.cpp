@@ -51,7 +51,7 @@ template<class T> struct ParamBool_17ae00 : BoolBase { virtual void slot0(); };
 
 
 // 0x0017a180 FUN_0017a180 (213 B): equivalent/0x0017a180.cpp [wrapped: conflict: fight::ParamFloatConstRange; fight::ParamVector]
-// sym: ?target@fn_0017a180@@YAXXZ
+// sym: ?target@fn_0017a180@@YAXXZ @542174784883 @wd05df3cb3d7a
 namespace fn_0017a180 {
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 8/8)
 // FUN_0017a180 @ 0x0017a180
@@ -85,7 +85,7 @@ void target() {
 
 
 // 0x0017a260 FUN_0017a260 (221 B): equivalent/0x0017a260.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamFloatConstRange]
-// sym: _FUN_0017a260
+// sym: _FUN_0017a260 @a69c02067a12 @we28c34ea076b
 namespace fn_0017a260 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_0017a260 @ 0x0017a260
@@ -121,7 +121,7 @@ extern "C" void __cdecl FUN_0017a260() {
 
 
 // 0x0017a340 FUN_0017a340 (213 B): equivalent/0x0017a340.cpp [wrapped: conflict: fight::ParamFloatConstRange]
-// sym: ?target@fn_0017a340@@YAXXZ
+// sym: ?target@fn_0017a340@@YAXXZ @f8e9649c96f8 @w548bbb4ca901
 namespace fn_0017a340 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_0017a340 @ 0x0017a340
@@ -164,7 +164,7 @@ void target() {
 namespace fn_f4a73887 {
 
 // 0x0017ab80 FUN_0017ab80 (256 B): equivalent/0x0017ab80.cpp
-// sym: _FUN_0017ab80
+// sym: _FUN_0017ab80 @b12487c806da @wfb68df30a36c
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 10/10)
 // FUN_0017ab80 @ 0x0017ab80
 extern "C" void __cdecl FUN_0017ab80() {
@@ -188,7 +188,7 @@ extern "C" void __cdecl FUN_0017ab80() {
 } // namespace fn_f4a73887
 
 // 0x0017ad20 FUN_0017ad20 (213 B): equivalent/0x0017ad20.cpp [wrapped: conflict: fight::ParamFloatConstRange; fight::ParamString; fight::ParamVector]
-// sym: _FUN_0017ad20
+// sym: _FUN_0017ad20 @678586370101 @w92180749c88b
 namespace fn_0017ad20 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_0017ad20 @ 0x0017ad20
@@ -222,7 +222,7 @@ extern "C" void FUN_0017ad20() {
 namespace fn_f4a73887 {
 
 // 0x0017ae00 FUN_0017ae00 (213 B): equivalent/0x0017ae00.cpp
-// sym: ?target@fn_f4a73887@@YAXXZ
+// sym: ?target@fn_f4a73887@@YAXXZ @a210dc1254c4 @w9cff9c7768ec
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_0017ae00 @ 0x0017ae00
 void __cdecl target() {

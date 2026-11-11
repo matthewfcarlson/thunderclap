@@ -428,7 +428,7 @@ int Obj::Find(hulk_intptr x) {
 } // namespace fn_f53af43c
 
 // 0x00089450 FUN_00089450 (89 B): equivalent/0x00089450.cpp [wrapped: conflict: Entry]
-// sym: ?FUN_00089450@Obj@fn_00089450@@QAEHXZ
+// sym: ?FUN_00089450@Obj@fn_00089450@@QAEHXZ @450cf2979a9b @wb0b3880a8abb
 namespace fn_00089450 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00089450 @ 0x00089450
@@ -446,7 +446,7 @@ void owners::C_895c0::FUN_000895c0(int x) {
 
 
 // 0x000895e0 FUN_000895e0 (511 B): equivalent/0x000895e0.cpp
-// sym: ?FUN_000895e0@LevelName_895e0@owners@@QAEXPBD@Z
+// sym: ?FUN_000895e0@LevelName_895e0@owners@@QAEXPBD@Z @e23a2e9aab25 @w9357d13655f7
 // STATUS: equivalent (tools/equiv.py level 3: 2056 inputs, branch coverage 18/20, incomplete)
 // FUN_000895e0 @ 0x000895e0
 void owners::LevelName_895e0::FUN_000895e0(const char* levelName) {
@@ -708,7 +708,7 @@ extern "C" void __fastcall FUN_00089ab0(Target_89ab0* self) {
 
 
 // 0x00089bf0 FUN_00089bf0 (306 B): equivalent/0x00089bf0.cpp
-// sym: ?FUN_00089bf0@State_89bf0@fn_f53af43c@@QAEPAU12@XZ
+// sym: ?FUN_00089bf0@State_89bf0@fn_f53af43c@@QAEPAU12@XZ @6de2aafd12cb @wc70d22c19f48
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00089bf0 @ 0x00089bf0
 State_89bf0* State_89bf0::FUN_00089bf0() {
@@ -738,7 +738,7 @@ State_89bf0* State_89bf0::FUN_00089bf0() {
 } // namespace fn_f53af43c
 
 // 0x00089d30 FUN_00089d30 (213 B): equivalent/0x00089d30.cpp [wrapped: conflict: FUN_00267760; World]
-// sym: ?FUN_00089d30@Target_89d30@fn_00089d30@@QAEXXZ
+// sym: ?FUN_00089d30@Target_89d30@fn_00089d30@@QAEXXZ @c5dc6fef404e @w9702627d1d86
 namespace fn_00089d30 {
 // STATUS: equivalent (tools/equiv.py level 3: 141 inputs, branch coverage 4/4)
 // FUN_00089d30 @ 0x00089d30
@@ -867,7 +867,7 @@ char* owners::Obj_8a060::FUN_0008a060(hulk_intptr arg) {
 namespace fn_f53af43c {
 
 // 0x0008a090 FUN_0008a090 (133 B): equivalent/0x0008a090.cpp
-// sym: ?Run@Holder_8a090@fn_f53af43c@@QAE_NPAX@Z
+// sym: ?Run@Holder_8a090@fn_f53af43c@@QAE_NPAX@Z @6888ce4eb9cc @wab706b500f1d
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 8/8)
 // FUN_0008a090 @ 0x0008a090
 // FUN_0008a090 @ 0x0008a090
@@ -892,7 +892,7 @@ bool Holder_8a090::Run(void *item)
 
 
 // 0x0008a120 FUN_0008a120 (398 B): equivalent/0x0008a120.cpp
-// sym: ?FUN_0008a120@LevelRegistry@fn_f53af43c@@QAEXXZ
+// sym: ?FUN_0008a120@LevelRegistry@fn_f53af43c@@QAEXXZ @ba83d6f176ac @wbb3b64fd78d9
 // STATUS: equivalent (tools/equiv.py level 3: 7048 inputs, branch coverage 34/38, incomplete)
 // FUN_0008a120 @ 0x0008a120
 // MSVC expands memcmp against a string literal inline (repe cmpsb)
@@ -1209,7 +1209,7 @@ template <> void Method0<CGameFlowManager, void>::vfunc_2(void* __p0, void* __p1
 
 
 // 0x0008a8f0 FUN_0008a8f0 (706 B): equivalent/0x0008a8f0.cpp [wrapped: conflict: DAT_004dd6ec; World]
-// sym: ?FUN_0008a8f0@Game_8a8f0@fn_0008a8f0@@QAE_NHPAUWorld@2@@Z
+// sym: ?FUN_0008a8f0@Game_8a8f0@fn_0008a8f0@@QAE_NHPAUWorld@2@@Z @24be3c4e05e7 @w84ac5842a2ff
 namespace fn_0008a8f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 26/28, incomplete)
 // FUN_0008a8f0 @ 0x0008a8f0
@@ -1375,7 +1375,7 @@ bool Game_8a8f0::FUN_0008a8f0(int idx, World *w)
 
 
 // 0x0008abc0 FUN_0008abc0 (459 B): equivalent/0x0008abc0.cpp [wrapped: conflict: FUN_0027b020]
-// sym: ?FUN_0008abc0@Profile_8abc0@fn_0008abc0@@QAEPBDXZ
+// sym: ?FUN_0008abc0@Profile_8abc0@fn_0008abc0@@QAEPBDXZ @a2ac89824836 @wcd95437da44f
 namespace fn_0008abc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 45/50, incomplete)
 // FUN_0008abc0 @ 0x0008abc0
@@ -1451,7 +1451,7 @@ const char* Profile_8abc0::FUN_0008abc0()
 namespace fn_f53af43c {
 
 // 0x0008ad90 FUN_0008ad90 (273 B): equivalent/0x0008ad90.cpp
-// sym: ?target@Obj_8ad90@fn_f53af43c@@QAEXPAH0@Z
+// sym: ?target@Obj_8ad90@fn_f53af43c@@QAEXPAH0@Z @26f16ea09c03 @w70e75d71a5c4
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 16/18, incomplete)
 // FUN_0008ad90 @ 0x0008ad90
 void Obj_8ad90::target(int* a,int* b) {
@@ -1648,7 +1648,7 @@ template <> Closure0<CGameFlowManager,math::Vector>::~Closure0() {}
 
 
 // 0x0008b1b0 Closure0<CGameFlowManager,math::Vector>::vfunc_2 (63 B): equivalent/0x0008b1b0.cpp
-// sym: ?vfunc_2@?$Closure0@VCGameFlowManager@@VVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure0@VCGameFlowManager@@VVector@math@@@@UAEXPAX00@Z @5b5ca72bc2e3 @wc42fa44f8b30
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure0<CGameFlowManager,math::Vector>::vfunc_2 @ 0x0008b1b0
 template <> void Closure0<CGameFlowManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused1 = (void *)__p0; void * unused2 = (void *)__p1; math::Vector_8b1b0 * output = (math::Vector_8b1b0 *)__p2;
@@ -1850,7 +1850,7 @@ bool Missions_8b4b0::FUN_0008b4b0(int index, Slot_8b4b0 out, char *name, int nam
 } // namespace fn_f53af43c
 
 // 0x0008baf0 FUN_0008baf0 (81 B): equivalent/0x0008baf0.cpp
-// sym: ?FUN_0008baf0@ThisWrap_0008baf0@owners@@QAEXPAH0@Z
+// sym: ?FUN_0008baf0@ThisWrap_0008baf0@owners@@QAEXPAH0@Z @e71a37f1ef5b @w4a541c9b355b
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_0008baf0 @ 0x0008baf0
 void owners::ThisWrap_0008baf0::FUN_0008baf0(int* column, int* mode) {
@@ -1865,7 +1865,7 @@ void owners::ThisWrap_0008baf0::FUN_0008baf0(int* column, int* mode) {
 
 
 // 0x0008bb50 FUN_0008bb50 (109 B): equivalent/0x0008bb50.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ?FUN_0008bb50@Registry_8bb50@fn_0008bb50@@QAEXPBDPAVCGameFlowManager@2@P832@AEHXZ@Z
+// sym: ?FUN_0008bb50@Registry_8bb50@fn_0008bb50@@QAEXPBDPAVCGameFlowManager@2@P832@AEHXZ@Z @27515ae330e1 @wc7b535ee8818
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_0008bb50 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
@@ -1950,7 +1950,7 @@ void Registry_8bb50::FUN_0008bb50(const char* name, CGameFlowManager* owner, int
 
 
 // 0x0008bbc0 FUN_0008bbc0 (109 B): equivalent/0x0008bbc0.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ?FUN_0008bbc0@Registry_8bbc0@fn_0008bbc0@@QAEXPBDPAVCGameFlowManager@2@P832@AEPBDXZ@Z
+// sym: ?FUN_0008bbc0@Registry_8bbc0@fn_0008bbc0@@QAEXPBDPAVCGameFlowManager@2@P832@AEPBDXZ@Z @29c6248d12d1 @w7929e27ed529
 namespace fn_0008bbc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0008bbc0 @ 0x0008bbc0
@@ -2034,7 +2034,7 @@ void Registry_8bbc0::FUN_0008bbc0(const char* name, CGameFlowManager* owner, con
 
 
 // 0x0008bc30 FUN_0008bc30 (109 B): equivalent/0x0008bc30.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ?FUN_0008bc30@Registry_8bc30@fn_0008bc30@@QAEXPBDPAVCGameFlowManager@2@P832@AE_NXZ@Z
+// sym: ?FUN_0008bc30@Registry_8bc30@fn_0008bc30@@QAEXPBDPAVCGameFlowManager@2@P832@AE_NXZ@Z @5928c22d1cc3 @w2a84f4fd20e0
 namespace fn_0008bc30 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0008bc30 @ 0x0008bc30
@@ -2118,7 +2118,7 @@ void Registry_8bc30::FUN_0008bc30(const char* name, CGameFlowManager* owner, boo
 
 
 // 0x0008bd40 FUN_0008bd40 (109 B): equivalent/0x0008bd40.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ?FUN_0008bd40@Registry_8bd40@fn_0008bd40@@QAEXPBDPAVCGameFlowManager@2@P832@AE?AVVector@math@2@XZ@Z
+// sym: ?FUN_0008bd40@Registry_8bd40@fn_0008bd40@@QAEXPBDPAVCGameFlowManager@2@P832@AE?AVVector@math@2@XZ@Z @bf065c8efdd0 @wf90d8716a60d
 namespace fn_0008bd40 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0008bd40 @ 0x0008bd40
@@ -2206,7 +2206,7 @@ void Registry_8bd40::FUN_0008bd40(const char* name, CGameFlowManager* owner, mat
 
 
 // 0x0008bdb0 FUN_0008bdb0 (109 B): equivalent/0x0008bdb0.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ?FUN_0008bdb0@Registry_8bdb0@fn_0008bdb0@@QAEXPBDPAVCGameFlowManager@2@P832@AEMXZ@Z
+// sym: ?FUN_0008bdb0@Registry_8bdb0@fn_0008bdb0@@QAEXPBDPAVCGameFlowManager@2@P832@AEMXZ@Z @329539e473cf @wa1bc1837eeed
 namespace fn_0008bdb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0008bdb0 @ 0x0008bdb0
@@ -2290,7 +2290,7 @@ void Registry_8bdb0::FUN_0008bdb0(const char* name, CGameFlowManager* owner, flo
 
 
 // 0x0008bf10 FUN_0008bf10 (109 B): equivalent/0x0008bf10.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ?FUN_0008bf10@Registry_8bf10@fn_0008bf10@@QAEXPBDPAVCGameFlowManager@2@P832@AEXXZ@Z
+// sym: ?FUN_0008bf10@Registry_8bf10@fn_0008bf10@@QAEXPBDPAVCGameFlowManager@2@P832@AEXXZ@Z @af1d94782be6 @w10bc01afc861
 namespace fn_0008bf10 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0008bf10 @ 0x0008bf10
@@ -2394,7 +2394,7 @@ void __fastcall target(CMemoryCardManager* self) {
 
 
 // 0x0008c470 FUN_0008c470 (245 B): equivalent/0x0008c470.cpp [wrapped: conflict: FUN_0008d690]
-// sym: ?FUN_0008c470@Owner_8c470@fn_0008c470@@QAEXI@Z
+// sym: ?FUN_0008c470@Owner_8c470@fn_0008c470@@QAEXI@Z @25207046a8b0 @w8b9e7bf715f7
 namespace fn_0008c470 {
 // STATUS: equivalent (tools/equiv.py level 3: 2974 inputs, branch coverage 2/2)
 // FUN_0008c470 @ 0x0008c470

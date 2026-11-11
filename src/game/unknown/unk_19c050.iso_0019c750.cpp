@@ -4,7 +4,7 @@
 
 
 // 0x0019c750 FUN_0019c750 (2518 B): equivalent/0x0019c750.cpp [isolated: using-directive; on include/gen/ and not mergeable]
-// sym: ?FUN_0019c750@@YAXXZ
+// sym: ?FUN_0019c750@@YAXXZ @c08ae614b1c3 @w40591ae8b465
 // STATUS: equivalent (tools/equiv.py level 3: 1295 inputs, branch coverage 94/94)
 // FUN_0019c750 @ 0x0019c750
 #include "decls/data/game/hulkfight/motion.h"

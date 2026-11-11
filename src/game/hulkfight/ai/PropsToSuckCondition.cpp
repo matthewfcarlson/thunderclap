@@ -93,7 +93,7 @@ public:
 
 
 // 0x0010ee40 hulkfight::ai::PropsToSuckCondition::vfunc_6 (633 B): equivalent/0x0010ee40.cpp
-// sym: ?vfunc_6@PropsToSuckCondition@ai@hulkfight@fn_fb60e9b1@@UAE_NPAXPAVTarget_10ee40@4@0@Z
+// sym: ?vfunc_6@PropsToSuckCondition@ai@hulkfight@fn_fb60e9b1@@UAE_NPAXPAVTarget_10ee40@4@0@Z @2dab46ecdbf1 @w296e8ba6d93f
 // STATUS: equivalent (tools/equiv.py level 3: 152 inputs, branch coverage 62/68, incomplete)
 // hulkfight::ai::PropsToSuckCondition::vfunc_6 @ 0x0010ee40
 bool hulkfight::ai::PropsToSuckCondition::vfunc_6(void *a1, Target_10ee40 *target, void *a3)

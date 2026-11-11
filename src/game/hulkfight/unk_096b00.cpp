@@ -247,7 +247,7 @@ extern "C" void __cdecl FUN_00096b00(void * self, int* out) {
 
 
 // 0x00096b50 FUN_00096b50 (389 B): equivalent/0x00096b50.cpp
-// sym: _FUN_00096b50
+// sym: _FUN_00096b50 @d6da75b37f66 @w47873f036b8b
 // STATUS: equivalent (tools/equiv.py level 3: 189 inputs, branch coverage 48/48)
 // FUN_00096b50 @ 0x00096b50
 extern "C" bool FUN_00096b50(void *ev, void * out_, int *result)
@@ -331,7 +331,7 @@ extern "C" void FUN_00096d50(hulk_uintptr p1, unsigned int p2, unsigned int p3, 
 
 
 // 0x00096e50 FUN_00096e50 (113 B): equivalent/0x00096e50.cpp
-// sym: _FUN_00096e50
+// sym: _FUN_00096e50 @acc7942c6b8a @we669f4b2d43f
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 6/6)
 // FUN_00096e50 @ 0x00096e50
 // Builds an Id64 from a name, or from a "0x..." literal.
@@ -378,7 +378,7 @@ extern "C" char* __cdecl FUN_00096f10(int x) {
 
 
 // 0x00096f40 FUN_00096f40 (418 B): equivalent/0x00096f40.cpp
-// sym: ?FUN_00096f40@fn_fe8da7f1@@YADUVec3_96f40@1@000@Z
+// sym: ?FUN_00096f40@fn_fe8da7f1@@YADUVec3_96f40@1@000@Z @fcd7d27b17cb @w17a8cd3bf160
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8; --wine 601 inputs)
 // FUN_00096f40 @ 0x00096f40
 char FUN_00096f40(Vec3_96f40 v1, Vec3_96f40 v2, Vec3_96f40 v3, Vec3_96f40 v4)
@@ -427,7 +427,7 @@ char FUN_00096f40(Vec3_96f40 v1, Vec3_96f40 v2, Vec3_96f40 v3, Vec3_96f40 v4)
 
 
 // 0x000970f0 FUN_000970f0 (406 B): equivalent/0x000970f0.cpp
-// sym: ?FUN_000970f0@fn_fe8da7f1@@YAMMM@Z
+// sym: ?FUN_000970f0@fn_fe8da7f1@@YAMMM@Z @33bc6ba966ef @w197fc30833d0
 // STATUS: equivalent (tools/equiv.py level 3: 20059 inputs, branch coverage 17/20, incomplete)
 // FUN_000970f0 @ 0x000970f0
 hulk_freg FUN_000970f0(float x, float z)
@@ -470,7 +470,7 @@ hulk_freg FUN_000970f0(float x, float z)
 
 
 // 0x00097290 FUN_00097290 (133 B): equivalent/0x00097290.cpp
-// sym: ?FUN_00097290@fn_fe8da7f1@@YAMMMMMMM@Z
+// sym: ?FUN_00097290@fn_fe8da7f1@@YAMMMMMMM@Z @bd4e8520271f @w91315c735f3e
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // FUN_00097290 @ 0x00097290
 hulk_freg FUN_00097290(float ax, float ay, float az, float bx, float by, float bz)
@@ -485,7 +485,7 @@ hulk_freg FUN_00097290(float ax, float ay, float az, float bx, float by, float b
 
 
 // 0x00097320 FUN_00097320 (294 B): equivalent/0x00097320.cpp
-// sym: ?FUN_00097320@fn_fe8da7f1@@YAMMM@Z
+// sym: ?FUN_00097320@fn_fe8da7f1@@YAMMM@Z @7ca76d4c5516 @wc87be18acf8f
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 14/14)
 // FUN_00097320 @ 0x00097320
 hulk_freg __cdecl FUN_00097320(float a, float b) {
@@ -515,7 +515,7 @@ hulk_freg __cdecl FUN_00097320(float a, float b) {
 
 
 // 0x00097540 FUN_00097540 (1255 B): equivalent/0x00097540.cpp
-// sym: _FUN_00097540
+// sym: _FUN_00097540 @9e3695a9184a @w980ced5de40b
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 30/30)
 // FUN_00097540 @ 0x00097540
 extern "C" char FUN_00097540(Level_97540 *a1, V3_97540 *a2, V3_97540 *a3, float a4, float a5, Ent_97540 *a6, V3_97540 *a7, V3_97540 *a8, char a9)
@@ -651,7 +651,7 @@ extern "C" char FUN_00097540(Level_97540 *a1, V3_97540 *a2, V3_97540 *a3, float 
 
 
 // 0x00097a30 FUN_00097a30 (1841 B): equivalent/0x00097a30.cpp
-// sym: ?FUN_00097a30@fn_fe8da7f1@@YAHMMMPAXMPAUV3_97a30@1@M1MMMH@Z
+// sym: ?FUN_00097a30@fn_fe8da7f1@@YAHMMMPAXMPAUV3_97a30@1@M1MMMH@Z @7586d8e1621b @w64c1226576be
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 54/54)
 // FUN_00097a30 @ 0x00097a30
 int __cdecl FUN_00097a30(float a0, float a1, float a2, void *a3, float a4, V3_97a30 *a5, float a6, V3_97a30 *a7,
@@ -826,7 +826,7 @@ int __cdecl FUN_00097a30(float a0, float a1, float a2, void *a3, float a4, V3_97
 
 
 // 0x00098190 FUN_00098190 (485 B): equivalent/0x00098190.cpp
-// sym: _FUN_00098190
+// sym: _FUN_00098190 @8fac03558d75 @wb0e69e85369d
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 12/12)
 // FUN_00098190 @ 0x00098190
 extern "C" int FUN_00098190(float a1, int a2, float a3, int a4, int a5, int a6, int a7, V3_98190 *io, int a9, int a10, int a11)

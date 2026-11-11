@@ -729,7 +729,7 @@ extern TypeDesc_123450 typeB_123450;
 } // namespace fn_fff5b4af
 
 // 0x0011fa30 hulkfight::ai::PathLocatorTestCondition::vfunc_6 (1183 B): equivalent/0x0011fa30.cpp [wrapped: conflict: CFightParams; fight::Params; hulkfight::ai::PathLocatorTestCondition]
-// sym: ?vfunc_6@PathLocatorTestCondition@ai@hulkfight@fn_0011fa30@@UAEDHTArgSlot_11fa30@4@H@Z
+// sym: ?vfunc_6@PathLocatorTestCondition@ai@hulkfight@fn_0011fa30@@UAEDHTArgSlot_11fa30@4@H@Z @ee9e1b0477fa @w808b6a71a454
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1818,7 +1818,7 @@ void* StrafeRunAction_121f90::vfunc_2(unsigned char flag) {
 } // namespace fn_fff5b4af
 
 // 0x00121ff0 hulkfight::ai::PathFormationAction::vfunc_3 (364 B): equivalent/0x00121ff0.cpp [wrapped: conflict: FUN_000592a0; World]
-// sym: ?vfunc_3@PathFormationAction@fn_00121ff0@@UAE_NHH@Z
+// sym: ?vfunc_3@PathFormationAction@fn_00121ff0@@UAE_NHH@Z @1dd1b47de81a @w28118b725e12
 namespace fn_00121ff0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 16/16)
 // hulkfight::ai::PathFormationAction::vfunc_3 @ 0x00121ff0
@@ -2099,7 +2099,7 @@ void* StrafeLateralHBAction_122310::vfunc_2(unsigned char flag) {
 } // namespace fn_fff5b4af
 
 // 0x00122370 hulkfight::ai::PathAction::vfunc_3 (313 B): equivalent/0x00122370.cpp [wrapped: conflict: World]
-// sym: ?run@PathAction@fn_00122370@@QAE_NHH@Z
+// sym: ?run@PathAction@fn_00122370@@QAE_NHH@Z @23c41b4e278e @w4861d45cf950
 namespace fn_00122370 {
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 12/12)
 // hulkfight::ai::PathAction::vfunc_3 @ 0x00122370
@@ -2269,7 +2269,7 @@ hulkfight::ai::RoutAction::~RoutAction() {}
 
 
 // 0x00122520 hulkfight::ai::RoutAction::vfunc_5 (1352 B): equivalent/0x00122520.cpp [wrapped: conflict: DAT_004dd700; FUN_000592a0; RoutAction]
-// sym: ?vfunc_5@RoutAction@fn_00122520@@UAE_NTArg1_122520@2@M@Z
+// sym: ?vfunc_5@RoutAction@fn_00122520@@UAE_NTArg1_122520@2@M@Z @3dc40fdf58fb @wafb84cf3a124
 namespace fn_00122520 {
 // STATUS: equivalent (tools/equiv.py level 3: 3098 inputs, branch coverage 50/51, incomplete)
 // hulkfight::ai::RoutAction::vfunc_5 @ 0x00122520
@@ -3154,7 +3154,7 @@ PathFormationAction_1231d0::~PathFormationAction_1231d0() throw() {
 } // namespace fn_fff5b4af
 
 // 0x00123260 FUN_00123260 (167 B): equivalent/0x00123260.cpp [wrapped: conflict: PathAction]
-// sym: ?FUN_00123260@PathAction@fn_00123260@@QAEPAU12@HPAURefObj_123260@2@@Z
+// sym: ?FUN_00123260@PathAction@fn_00123260@@QAEPAU12@HPAURefObj_123260@2@@Z @a8addbc320bb @w4da8e03b2d93
 namespace fn_00123260 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00123260 @ 0x00123260

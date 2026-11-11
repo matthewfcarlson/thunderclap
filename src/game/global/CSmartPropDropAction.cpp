@@ -47,7 +47,7 @@ void CSmartPropThrowingAction::vfunc_4() {
 
 
 // 0x00016480 CSmartPropDropAction::vfunc_6 (91 B): equivalent/0x00016480.cpp [wrapped: conflict: CSmartPropDropAction]
-// sym: ?vfunc_6@CSmartPropDropAction@fn_00016480@@QAEEH@Z
+// sym: ?vfunc_6@CSmartPropDropAction@fn_00016480@@QAEEH@Z @f8dea055f939 @w2883a19f087d
 namespace fn_00016480 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // CSmartPropDropAction::vfunc_6 @ 0x00016480

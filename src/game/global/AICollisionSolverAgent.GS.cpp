@@ -174,7 +174,7 @@ extern "C" float FUN_001b0470(Body_1b1710*, Body_1b1710*, V3_1b1710*);
 
 
 // 0x001b1710 FUN_001b1710 (1917 B): equivalent/0x001b1710.cpp
-// sym: ?FUN_001b1710@Handler_1b1710@fn_fede37ef@@QAEHPAUThing_1b1710@2@00PAUV3_1b1710@2@1M@Z
+// sym: ?FUN_001b1710@Handler_1b1710@fn_fede37ef@@QAEHPAUThing_1b1710@2@00PAUV3_1b1710@2@1M@Z @69fefa4bf85b @wc305b9ae1592
 // STATUS: equivalent (tools/equiv.py level 3: 3165 inputs, branch coverage 120/124, incomplete)
 // FUN_001b1710 @ 0x001b1710
 // equiv-conv: FUN_001b0470 eax ecx stack

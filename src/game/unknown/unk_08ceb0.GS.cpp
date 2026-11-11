@@ -83,7 +83,7 @@ extern bool __cdecl FUN_0008d880(const char*, const char*);
 
 
 // 0x0008d0a0 FUN_0008d0a0 (574 B): equivalent/0x0008d0a0.cpp
-// sym: ?FUN_0008d0a0@MemoryDisplay@fn_fb593698@@QAEX_N@Z
+// sym: ?FUN_0008d0a0@MemoryDisplay@fn_fb593698@@QAEX_N@Z @356f9bcf21e1 @w2c75123fe2ec
 // STATUS: equivalent (tools/equiv.py level 3: 859 inputs, branch coverage 10/10)
 // FUN_0008d0a0 @ 0x0008d0a0
 void MemoryDisplay::FUN_0008d0a0(bool dim) {
@@ -123,7 +123,7 @@ void MemoryDisplay::FUN_0008d0a0(bool dim) {
 
 
 // 0x0008d910 FUN_0008d910 (221 B): equivalent/0x0008d910.cpp
-// sym: _FUN_0008d910
+// sym: _FUN_0008d910 @4a1e345dd3e9 @w224d110bdb54
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 12/12)
 // FUN_0008d910 @ 0x0008d910
 extern "C" bool __cdecl FUN_0008d910(const char* name)

@@ -134,7 +134,7 @@ MotionFleeAction_117930::~MotionFleeAction_117930() {
 } // namespace fn_fa726a27
 
 // 0x00117980 hulkfight::ai::MotionFleeAction::vfunc_5 (300 B): equivalent/0x00117980.cpp
-// sym: ?vfunc_5@MotionFleeAction@ai@hulkfight@@QAE_NHH@Z
+// sym: ?vfunc_5@MotionFleeAction@ai@hulkfight@@QAE_NHH@Z @c42ec8b2ad34 @wad3323eee1b9
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 10/10)
 // hulkfight::ai::MotionFleeAction::vfunc_5 @ 0x00117980
 bool hulkfight::ai::MotionFleeAction::vfunc_5(int skip, int arg)

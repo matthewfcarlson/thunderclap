@@ -5,7 +5,7 @@
 
 
 // 0x0002eb10 Closure6<CActorManager,bool,const_char_*,const_char_*,const_char_*,const_char_*,bool,const_char_*>::vfunc_2 (87 B): equivalent/0x0002eb10.cpp [isolated: conflict: Arguments; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure6@VCActorManager@@_NPBDPBDPBDPBD_NPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure6@VCActorManager@@_NPBDPBDPBDPBD_NPBD@@UAEXPAX00@Z @1949978960cd @wc08e2f96d486
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure6<CActorManager,bool,const_char_*,const_char_*,const_char_*,const_char_*,bool,const_char_*>::vfunc_2 @ 0x0002eb10
 #include "gen/global.h"

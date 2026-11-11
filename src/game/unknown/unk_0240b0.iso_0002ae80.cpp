@@ -4,7 +4,7 @@
 
 
 // 0x0002ae80 FUN_0002ae80 (967 B): equivalent/0x0002ae80.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?target@Manager_2ae80@@QAEXHM@Z
+// sym: ?target@Manager_2ae80@@QAEXHM@Z @a70ba18ac681 @w8f4837df33b3
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 81/82, incomplete)
 // FUN_0002ae80 @ 0x0002ae80
 #include "decls/address.h"

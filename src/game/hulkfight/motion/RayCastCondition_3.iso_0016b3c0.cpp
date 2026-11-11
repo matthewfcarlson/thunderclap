@@ -4,7 +4,7 @@
 
 
 // 0x0016b3c0 FUN_0016b3c0 (192 B): equivalent/0x0016b3c0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?initialize@fn_f3c05a9a@@YAXXZ
+// sym: ?initialize@fn_f3c05a9a@@YAXXZ @336e85bdd226 @w2c2b55a4c7a5
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"

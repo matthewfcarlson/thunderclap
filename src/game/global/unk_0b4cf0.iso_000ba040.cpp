@@ -5,7 +5,7 @@
 
 
 // 0x000ba040 FUN_000ba040 (5502 B): equivalent/0x000ba040.cpp [isolated: macros; code differs from its standalone build]
-// sym: ?FUN_000ba040@CollectionScreen@fn_fc28e00b@@QAEXXZ
+// sym: ?FUN_000ba040@CollectionScreen@fn_fc28e00b@@QAEXXZ @e8ffb87c6f83 @wa294325d2859
 namespace fn_fc28e00b {} using namespace fn_fc28e00b;
 namespace fn_fc28e00b {
 // STATUS: equivalent (tools/equiv.py level 3: 161 inputs, branch coverage 225/250, incomplete)

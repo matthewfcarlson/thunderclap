@@ -4,7 +4,7 @@
 
 
 // 0x00056a40 FUN_00056a40 (176 B): equivalent/0x00056a40.cpp [isolated: compile error C2664: 'fn_00056a40::fight::ParamEnumConstList<T>::ParamEnumConstList(const char *,const char ** ,int,void (__thiscall CGrapple]
-// sym: _FUN_00056a40
+// sym: _FUN_00056a40 @a4c933aeb9f1 @w536522fe2a43
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 6/6)
 // FUN_00056a40 @ 0x00056a40
 #include "decls/data/engine/unknown.h"

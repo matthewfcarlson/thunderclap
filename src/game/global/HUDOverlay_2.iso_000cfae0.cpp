@@ -4,7 +4,7 @@
 
 
 // 0x000cfae0 Closure3<HUDOverlay,int,const_char_*,const_char_*,float>::vfunc_2 (46 B): equivalent/0x000cfae0.cpp [isolated: conflict: Arguments; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure3@VHUDOverlay@@HPBDPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure3@VHUDOverlay@@HPBDPBDM@@UAEXPAX00@Z @a42630cfa2e4 @w685e7d91b439
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure3<HUDOverlay,int,const_char_*,const_char_*,float>::vfunc_2 @ 0x000cfae0
 #include "gen/global.h"

@@ -258,7 +258,7 @@ public:
 
 
 // 0x001eab10 FUN_001eab10 (733 B): equivalent/0x001eab10.cpp
-// sym: ?FUN_001eab10@Player_1eab10@fn_f7674384@@QAEXPBD@Z
+// sym: ?FUN_001eab10@Player_1eab10@fn_f7674384@@QAEXPBD@Z @d2db7f64b4fb @w7ce27daf4d08
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 24/24)
 // FUN_001eab10 @ 0x001eab10
 void Player_1eab10::FUN_001eab10(const char *name)
@@ -363,7 +363,7 @@ void owners::Manager_1eb060::FUN_001eb060(const char *first, const char *second)
 namespace fn_f7674384 {
 
 // 0x001eb2d0 FUN_001eb2d0 (357 B): equivalent/0x001eb2d0.cpp
-// sym: ?FUN_001eb2d0@fn_f7674384@@YAXPBDPAUScriptLoader@1@@Z
+// sym: ?FUN_001eb2d0@fn_f7674384@@YAXPBDPAUScriptLoader@1@@Z @51ede656f4b3 @w357ea0491c47
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 11/12, incomplete)
 // FUN_001eb2d0 @ 0x001eb2d0
 // Builds "sound\scripts\<xxx><yyy>.lua" from two 3-character fields of name.
@@ -398,7 +398,7 @@ void FUN_001eb2d0(const char* name, ScriptLoader* loader)
 } // namespace fn_f7674384
 
 // 0x001ebea0 FUN_001ebea0 (162 B): equivalent/0x001ebea0.cpp
-// sym: ?FUN_001ebea0@Crusher_1ebea0@owners@@QAEXPBDH@Z
+// sym: ?FUN_001ebea0@Crusher_1ebea0@owners@@QAEXPBDH@Z @c77d4cf2a121 @w51afdf40c27f
 // STATUS: equivalent (tools/equiv.py level 3: 16329 inputs, branch coverage 6/6)
 // FUN_001ebea0 @ 0x001ebea0
 // equiv-map: ___security_cookie = 0x004d9968
@@ -436,7 +436,7 @@ void __stdcall FUN_001ebf50(const char *name, int unused) {
 
 
 // 0x001ec100 FUN_001ec100 (391 B): equivalent/0x001ec100.cpp
-// sym: ?FUN_001ec100@Handler_1ec100@fn_f7674384@@QAEXPAUEntity@2@PBD@Z
+// sym: ?FUN_001ec100@Handler_1ec100@fn_f7674384@@QAEXPAUEntity@2@PBD@Z @f1ef534ef8e4 @w197b2412d71d
 // STATUS: equivalent (tools/equiv.py level 3: 19662 inputs, branch coverage 20/20)
 // FUN_001ec100 @ 0x001ec100
 void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
@@ -475,7 +475,7 @@ void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
 
 
 // 0x001ec310 FUN_001ec310 (178 B): equivalent/0x001ec310.cpp
-// sym: ?FUN_001ec310@Target_1ec310@fn_f7674384@@QAEXI@Z
+// sym: ?FUN_001ec310@Target_1ec310@fn_f7674384@@QAEXI@Z @36fbe05246ba @wca5372b8c93f
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 8/8)
 // FUN_001ec310 @ 0x001ec310
 void Target_1ec310::FUN_001ec310(unsigned int) {
@@ -497,7 +497,7 @@ void Target_1ec310::FUN_001ec310(unsigned int) {
 
 
 // 0x001eca40 FUN_001eca40 (288 B): equivalent/0x001eca40.cpp
-// sym: ?FUN_001eca40@Controller_1eca40@fn_f7674384@@QAEXPAUObject@2@0PBD@Z
+// sym: ?FUN_001eca40@Controller_1eca40@fn_f7674384@@QAEXPAUObject@2@0PBD@Z @3a74fed892e5 @wec201d533323
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 16/16)
 // FUN_001eca40 @ 0x001eca40
 void Controller_1eca40::FUN_001eca40(Object* first, Object* second, const char* sound) {
@@ -521,7 +521,7 @@ void Controller_1eca40::FUN_001eca40(Object* first, Object* second, const char* 
 
 
 // 0x001ecb60 FUN_001ecb60 (286 B): equivalent/0x001ecb60.cpp
-// sym: ?FUN_001ecb60@Effects_1ecb60@fn_f7674384@@QAEXPAUSource_1ecb60@2@PAURecipient_1ecb60@2@PBD@Z
+// sym: ?FUN_001ecb60@Effects_1ecb60@fn_f7674384@@QAEXPAUSource_1ecb60@2@PAURecipient_1ecb60@2@PBD@Z @5c76fece0b68 @wda8bf319ce47
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 18/18)
 // FUN_001ecb60 @ 0x001ecb60
 void Effects_1ecb60::FUN_001ecb60(Source_1ecb60* source, Recipient_1ecb60* recipient, const char* name) {
@@ -544,7 +544,7 @@ void Effects_1ecb60::FUN_001ecb60(Source_1ecb60* source, Recipient_1ecb60* recip
 } // namespace fn_f7674384
 
 // 0x001ecd00 FUN_001ecd00 (155 B): equivalent/0x001ecd00.cpp
-// sym: ?FUN_001ecd00@Crusher_1ecd00@owners@@QAEXPBDH@Z
+// sym: ?FUN_001ecd00@Crusher_1ecd00@owners@@QAEXPBDH@Z @caf8284aa7bb @w18462f7d2f83
 // STATUS: equivalent (tools/equiv.py level 3: 16479 inputs, branch coverage 6/6)
 // FUN_001ecd00 @ 0x001ecd00
 // equiv-map: ___security_cookie = 0x004d9968
@@ -564,7 +564,7 @@ void owners::Crusher_1ecd00::FUN_001ecd00(const char *name, hulk_intptr a)
 namespace fn_f7674384 {
 
 // 0x001ed0b0 FUN_001ed0b0 (613 B): equivalent/0x001ed0b0.cpp
-// sym: ?FUN_001ed0b0@Footsteps@fn_f7674384@@QAEXPAUActor_1ed0b0@2@@Z
+// sym: ?FUN_001ed0b0@Footsteps@fn_f7674384@@QAEXPAUActor_1ed0b0@2@@Z @81b155f9b3c2 @w47dc0e7a085f
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 34/34)
 // FUN_001ed0b0 @ 0x001ed0b0
 void Footsteps::FUN_001ed0b0(Actor_1ed0b0 *a)

@@ -32,7 +32,7 @@ class Obj_20a00 {
 } // namespace fn_fd22d1f6
 
 // 0x000202f0 CHeadTrackerAction::vfunc_7 (1805 B): equivalent/0x000202f0.cpp [wrapped: conflict: CHeadTrackerAction]
-// sym: ?vfunc_7@CHeadTrackerAction@fn_000202f0@@UAEDM@Z
+// sym: ?vfunc_7@CHeadTrackerAction@fn_000202f0@@UAEDM@Z @8a9047bc94ff @wae8b62afaff3
 namespace fn_000202f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20058 inputs, branch coverage 64/64)
 // CHeadTrackerAction::vfunc_7 @ 0x000202f0

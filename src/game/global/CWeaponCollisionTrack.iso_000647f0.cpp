@@ -4,7 +4,7 @@
 
 
 // 0x000647f0 FUN_000647f0 (158 B): equivalent/0x000647f0.cpp [isolated: compile error C2039: 'FUN_00061fc0' : is not a member of 'CPropActorSetStateTrack']
-// sym: _FUN_000647f0
+// sym: _FUN_000647f0 @adf1bde99ed4 @w495a8b8b10fc
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_000647f0 @ 0x000647f0
 #include "decls/data/game/global.h"

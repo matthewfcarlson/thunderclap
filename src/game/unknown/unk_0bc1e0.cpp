@@ -264,7 +264,7 @@ void Main_bc4d0::Run() {
 
 
 // 0x000bc5c0 FUN_000bc5c0 (213 B): equivalent/0x000bc5c0.cpp
-// sym: ?FUN_000bc5c0@Object@fn_f87c96cc@@QAEXPBDHHH@Z
+// sym: ?FUN_000bc5c0@Object@fn_f87c96cc@@QAEXPBDHHH@Z @4101bee53eda @wec3979453d49
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_000bc5c0 @ 0x000bc5c0
 void Object::FUN_000bc5c0(const char* name, hulk_intptr id, int mode, int unused) {
@@ -311,7 +311,7 @@ void Obj_bc750::End() {
 
 
 // 0x000bc7c0 FUN_000bc7c0 (222 B): equivalent/0x000bc7c0.cpp
-// sym: _FUN_000bc7c0
+// sym: _FUN_000bc7c0 @5b18e88d0344 @w1416cf69464f
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/20, incomplete)
 // FUN_000bc7c0 @ 0x000bc7c0
 extern "C" void FUN_000bc7c0(char* dest) {
@@ -340,7 +340,7 @@ extern "C" void FUN_000bc7c0(char* dest) {
 } // namespace fn_f87c96cc
 
 // 0x000bcbf0 FUN_000bcbf0 (533 B): equivalent/0x000bcbf0.cpp [wrapped: conflict: FUN_000fc1b0; FUN_000fc260]
-// sym: ?FUN_000bcbf0@Owner_bcbf0@fn_000bcbf0@@QAEXXZ
+// sym: ?FUN_000bcbf0@Owner_bcbf0@fn_000bcbf0@@QAEXXZ @9c8b462883da @w15217b0875e1
 namespace fn_000bcbf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 11601 inputs, branch coverage 26/26)
 // FUN_000bcbf0 @ 0x000bcbf0
@@ -504,7 +504,7 @@ void Owner_bcbf0::FUN_000bcbf0()
 
 
 // 0x000bce10 FUN_000bce10 (296 B): equivalent/0x000bce10.cpp [wrapped: conflict: FUN_000fc1b0; FUN_000fc260]
-// sym: ?run@Target_bce10@fn_000bce10@@QAEXXZ
+// sym: ?run@Target_bce10@fn_000bce10@@QAEXXZ @0a59528ee817 @w3f9de3c175e2
 namespace fn_000bce10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 14/14)
 // FUN_000bce10 @ 0x000bce10
@@ -664,7 +664,7 @@ void Menu_bcf40::FUN_000bcf40(hulk_intptr who) {
 
 
 // 0x000bd1b0 FUN_000bd1b0 (2851 B): equivalent/0x000bd1b0.cpp [wrapped: conflict: FUN_000fc1b0; World]
-// sym: ?FUN_000bd1b0@Menu_bd1b0@fn_000bd1b0@@QAEXE@Z
+// sym: ?FUN_000bd1b0@Menu_bd1b0@fn_000bd1b0@@QAEXE@Z @29b434f17a63 @w8c18c6fe6563
 namespace fn_000bd1b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20098 inputs, branch coverage 78/80, incomplete)
 // FUN_000bd1b0 @ 0x000bd1b0
@@ -1263,7 +1263,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
 
 
 // 0x000bdd60 FUN_000bdd60 (430 B): equivalent/0x000bdd60.cpp [wrapped: conflict: FEObject; FUN_000fc260; Gfx; Overlay (+1)]
-// sym: ?FUN_000bdd60@Menu_bdd60@fn_000bdd60@@QAEXXZ
+// sym: ?FUN_000bdd60@Menu_bdd60@fn_000bdd60@@QAEXXZ @e4a25dbd87ec @w86e32f67c750
 namespace fn_000bdd60 {
 // STATUS: equivalent (tools/equiv.py level 3: 20038 inputs, branch coverage 25/25)
 // FUN_000bdd60 @ 0x000bdd60

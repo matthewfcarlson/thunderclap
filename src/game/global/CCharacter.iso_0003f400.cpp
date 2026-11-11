@@ -4,7 +4,7 @@
 
 
 // 0x0003f400 FUN_0003f400 (581 B): equivalent/0x0003f400.cpp [isolated: compile error C2679: binary '=' : no operator found which takes a right-hand operand of type 'fn_f35f7bdf::Matrix' (or there is no acceptable]
-// sym: ?FUN_0003f400@Controller_3f400@fn_f5d9ca4e@@QAE_NPAUVec3_3f400@2@@Z
+// sym: ?FUN_0003f400@Controller_3f400@fn_f5d9ca4e@@QAE_NPAUVec3_3f400@2@@Z @93be203cfb5b @w691aee7dec86
 #include "gen/owners.h"
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

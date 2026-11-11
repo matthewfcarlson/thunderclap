@@ -732,7 +732,7 @@ void CSubtitleOverlay::vfunc_2() {
 namespace fn_fed79ca6 {
 
 // 0x001be260 FUN_001be260 (355 B): equivalent/0x001be260.cpp
-// sym: ?FUN_001be260@Quad_1be260@fn_fed79ca6@@QAEXXZ
+// sym: ?FUN_001be260@Quad_1be260@fn_fed79ca6@@QAEXXZ @33ba7fe919d2 @web21514ecb22
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_001be260 @ 0x001be260
 void Quad_1be260::FUN_001be260()
@@ -799,7 +799,7 @@ void Outer_1be490::Reset() {
 } // namespace fn_fed79ca6
 
 // 0x001be4b0 FUN_001be4b0 (820 B): equivalent/0x001be4b0.cpp [wrapped: conflict: Gfx; Overlay]
-// sym: ?FUN_001be4b0@Overlay@fn_001be4b0@@QAEXH@Z
+// sym: ?FUN_001be4b0@Overlay@fn_001be4b0@@QAEXH@Z @a86a0cf25440 @w7ba0268b6800
 namespace fn_001be4b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3019 inputs, branch coverage 14/14)
 // FUN_001be4b0 @ 0x001be4b0
@@ -1104,7 +1104,7 @@ void Overlay::FUN_001be4b0(int index)
 
 
 // 0x001be7f0 FUN_001be7f0 (507 B): equivalent/0x001be7f0.cpp [wrapped: conflict: Canvas; Gfx; Overlay]
-// sym: ?FUN_001be7f0@Overlay@fn_001be7f0@@QAEXH@Z
+// sym: ?FUN_001be7f0@Overlay@fn_001be7f0@@QAEXH@Z @dd80bea84fda @w8edb879ee5a6
 namespace fn_001be7f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 4/4)
 // FUN_001be7f0 @ 0x001be7f0
@@ -1333,7 +1333,7 @@ void Overlay::FUN_001be7f0(int index)
 
 
 // 0x001be9f0 FUN_001be9f0 (140 B): equivalent/0x001be9f0.cpp [wrapped: conflict: FUN_002672f0; FUN_0027b020]
-// sym: ?FUN_001be9f0@BindingTable@fn_001be9f0@@QAEXPBD0M@Z
+// sym: ?FUN_001be9f0@BindingTable@fn_001be9f0@@QAEXPBD0M@Z @966d1d186fda @w033a0bbbfc7c
 namespace fn_001be9f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001be9f0 @ 0x001be9f0
@@ -1384,7 +1384,7 @@ void BindingTable::FUN_001be9f0(const char* name, const char* valueName, float a
 namespace fn_fed79ca6 {
 
 // 0x001bee10 FUN_001bee10 (332 B): equivalent/0x001bee10.cpp
-// sym: ?FUN_001bee10@Effect_1bee10@fn_fed79ca6@@QAEHXZ
+// sym: ?FUN_001bee10@Effect_1bee10@fn_fed79ca6@@QAEHXZ @0b3c77af49bc @w605c2c6cd930
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 9/10, incomplete)
 // FUN_001bee10 @ 0x001bee10
 int Effect_1bee10::FUN_001bee10()
@@ -1443,7 +1443,7 @@ CSubtitleOverlay_1bef80::~CSubtitleOverlay_1bef80() throw() {
 
 
 // 0x001befb0 CSubtitleOverlay::vfunc_4 (263 B): equivalent/0x001befb0.cpp
-// sym: ?vfunc_4@CSubtitleOverlay_1befb0@fn_fed79ca6@@UAEXXZ
+// sym: ?vfunc_4@CSubtitleOverlay_1befb0@fn_fed79ca6@@UAEXXZ @485424b1c9e3 @wd6e4bf83885b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // CSubtitleOverlay::vfunc_4 @ 0x001befb0
 void CSubtitleOverlay_1befb0::vfunc_4() {
@@ -1467,7 +1467,7 @@ void CSubtitleOverlay_1befb0::vfunc_4() {
 } // namespace fn_fed79ca6
 
 // 0x001bf0c0 FUN_001bf0c0 (624 B): equivalent/0x001bf0c0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_001bf0c0@Fader_1bf0c0@fn_001bf0c0@@QAEXM@Z
+// sym: ?FUN_001bf0c0@Fader_1bf0c0@fn_001bf0c0@@QAEXM@Z @89aabb2f27f9 @w03236053cada
 namespace fn_001bf0c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 30/30)
 // FUN_001bf0c0 @ 0x001bf0c0
@@ -1679,7 +1679,7 @@ template <> Method4<CSubtitleManager, void, int, float, const char *, float>::~M
 
 
 // 0x001bf550 Method4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_2 (46 B): equivalent/0x001bf550.cpp
-// sym: ?vfunc_2@?$Method4@VCSubtitleManager@@XHMPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method4@VCSubtitleManager@@XHMPBDM@@UAEXPAX00@Z @06f2e20faa8a @w46d3e918715f
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_2 @ 0x001bf550
 template <> void Method4<CSubtitleManager, void, int, float, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CSubtitleManager_1bf550 * manager = (CSubtitleManager_1bf550 *)__p0; SubtitleArgs * arguments = (SubtitleArgs *)__p1; void * unused = (void *)__p2;
@@ -1817,7 +1817,7 @@ template <> Method3<CSubtitleManager, void, const char *, const char *, float>::
 
 
 // 0x001bf840 Method3<CSubtitleManager,void,const_char_*,const_char_*,float>::vfunc_2 (29 B): equivalent/0x001bf840.cpp
-// sym: ?vfunc_2@?$Method3@VCSubtitleManager@@XPBDPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method3@VCSubtitleManager@@XPBDPBDM@@UAEXPAX00@Z @a7a6d240b96d @w7a58705a9035
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CSubtitleManager,void,const_char_*,const_char_*,float>::vfunc_2 @ 0x001bf840
 template <> void Method3<CSubtitleManager, void, const char *, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CSubtitleManager_1bf840 * manager = (CSubtitleManager_1bf840 *)__p0; Arguments * args = (Arguments *)__p1; void * unused = (void *)__p2;
@@ -1850,7 +1850,7 @@ void Obj_1bf860::Reset(char b) {
 
 
 // 0x001bf8b0 FUN_001bf8b0 (162 B): equivalent/0x001bf8b0.cpp
-// sym: ?FUN_001bf8b0@Handler_1bf8b0@fn_fed79ca6@@QAEXXZ
+// sym: ?FUN_001bf8b0@Handler_1bf8b0@fn_fed79ca6@@QAEXXZ @37c8d28873ec @wd1c1e50c339d
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 31/32, incomplete)
 // FUN_001bf8b0 @ 0x001bf8b0
 void Handler_1bf8b0::FUN_001bf8b0()
@@ -1887,7 +1887,7 @@ void Handler_1bf8b0::FUN_001bf8b0()
 
 
 // 0x001bf9b0 FUN_001bf9b0 (631 B): equivalent/0x001bf9b0.cpp
-// sym: ?FUN_001bf9b0@Track@fn_fed79ca6@@QAEXXZ
+// sym: ?FUN_001bf9b0@Track@fn_fed79ca6@@QAEXXZ @65f74749ad71 @w0404d650a7e5
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 53/58, incomplete)
 // FUN_001bf9b0 @ 0x001bf9b0
 void Track::FUN_001bf9b0()
@@ -2022,7 +2022,7 @@ CSubtitleOverlay_1bfc80* CSubtitleOverlay_1bfc80::f0(unsigned char fl) {
 } // namespace fn_fed79ca6
 
 // 0x001bfcc0 CSubtitleOverlay::vfunc_3 (167 B): equivalent/0x001bfcc0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_3@CSubtitleOverlay@fn_001bfcc0@@UAEXM@Z
+// sym: ?vfunc_3@CSubtitleOverlay@fn_001bfcc0@@UAEXM@Z @8574aeae8576 @we389c51e7a71
 namespace fn_001bfcc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // CSubtitleOverlay::vfunc_3 @ 0x001bfcc0
@@ -2343,7 +2343,7 @@ template <> Closure4<CSubtitleManager, void, int, float, const char *, float>::~
 
 
 // 0x001bff80 Closure4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_2 (45 B): equivalent/0x001bff80.cpp
-// sym: ?vfunc_2@?$Closure4@VCSubtitleManager@@XHMPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure4@VCSubtitleManager@@XHMPBDM@@UAEXPAX00@Z @35da6a76506a @w1cb96e5ab494
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_2 @ 0x001bff80
 template <> void Closure4<CSubtitleManager, void, int, float, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; Arguments * arguments = (Arguments *)__p1; hulk_intptr other = (hulk_intptr)__p2;
@@ -2515,7 +2515,7 @@ template <> void Closure1<CSubtitleManager, void, float>::vfunc_2(void* __p0, vo
 
 
 // 0x001c01b0 Closure3<CSubtitleManager,void,float,float,float>::vfunc_2 (34 B): equivalent/0x001c01b0.cpp
-// sym: ?vfunc_2@?$Closure3@VCSubtitleManager@@XMMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure3@VCSubtitleManager@@XMMM@@UAEXPAX00@Z @737c210bc5da @waa2711c8626c
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CSubtitleManager,void,float,float,float>::vfunc_2 @ 0x001c01b0
 template <> void Closure3<CSubtitleManager, void, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const float * values = (const float *)__p1; void * unused2 = (void *)__p2;
@@ -2525,7 +2525,7 @@ template <> void Closure3<CSubtitleManager, void, float, float, float>::vfunc_2(
 
 
 // 0x001c0230 Closure3<CSubtitleManager,void,const_char_*,const_char_*,float>::vfunc_2 (28 B): equivalent/0x001c0230.cpp
-// sym: ?vfunc_2@?$Closure3@VCSubtitleManager@@XPBDPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure3@VCSubtitleManager@@XPBDPBDM@@UAEXPAX00@Z @737c210bc5da @we909f5656d8a
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CSubtitleManager,void,const_char_*,const_char_*,float>::vfunc_2 @ 0x001c0230
 template <> void Closure3<CSubtitleManager, void, const char *, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const SubtitleArgs * args = (const SubtitleArgs *)__p1; void * unused2 = (void *)__p2;
@@ -2535,7 +2535,7 @@ template <> void Closure3<CSubtitleManager, void, const char *, const char *, fl
 
 
 // 0x001c0250 FUN_001c0250 (271 B): equivalent/0x001c0250.cpp [wrapped: conflict: sSubtitleManagerCallback]
-// sym: ?cleanup@Manager_1c0250@fn_001c0250@@QAEXXZ
+// sym: ?cleanup@Manager_1c0250@fn_001c0250@@QAEXXZ @ec0eef484f2f @wc5e8d7b862ba
 namespace fn_001c0250 {
 // STATUS: equivalent (tools/equiv.py level 3: 2181 inputs, branch coverage 22/22)
 // FUN_001c0250 @ 0x001c0250
@@ -2574,7 +2574,7 @@ void Manager_1c0250::cleanup() {
 namespace fn_fed79ca6 {
 
 // 0x001c0360 FUN_001c0360 (383 B): equivalent/0x001c0360.cpp
-// sym: ?FUN_001c0360@Shake_1c0360@fn_fed79ca6@@QAEXHH@Z
+// sym: ?FUN_001c0360@Shake_1c0360@fn_fed79ca6@@QAEXHH@Z @32b8ff1d3dc0 @w89caf8b7033f
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 18/18)
 // FUN_001c0360 @ 0x001c0360
 void Shake_1c0360::FUN_001c0360(int newMode, int newCount)
@@ -2634,7 +2634,7 @@ void Shake_1c0360::FUN_001c0360(int newMode, int newCount)
 
 
 // 0x001c04e0 FUN_001c04e0 (231 B): equivalent/0x001c04e0.cpp
-// sym: ?Update@Fader_1c04e0@fn_fed79ca6@@QAEXM@Z
+// sym: ?Update@Fader_1c04e0@fn_fed79ca6@@QAEXM@Z @b3c00ed792fd @w6778cb5d8182
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 22/24, incomplete)
 // FUN_001c04e0 @ 0x001c04e0
 void Fader_1c04e0::Update(float dt) {
@@ -2705,7 +2705,7 @@ void owners::Obj_1c05d0::FUN_001c05d0(float a, float b) {
 
 
 // 0x001c0650 FUN_001c0650 (157 B): equivalent/0x001c0650.cpp [wrapped: conflict: Track]
-// sym: ?FUN_001c0650@Shake_1c0650@fn_001c0650@@QAEXHHH@Z
+// sym: ?FUN_001c0650@Shake_1c0650@fn_001c0650@@QAEXHHH@Z @b38f2ae01263 @w441318cbe28a
 namespace fn_001c0650 {
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 10/10)
 // FUN_001c0650 @ 0x001c0650
@@ -2799,7 +2799,7 @@ void sSubtitleManagerCallback::vfunc_0(int a, int b) {
 namespace fn_fed79ca6 {
 
 // 0x001c0810 FUN_001c0810 (83 B): equivalent/0x001c0810.cpp
-// sym: ?FUN_001c0810@Registry_1c0810@fn_fed79ca6@@QAEXPBDPAVCSubtitleManager_1c0810@2@P832@AEXHM0M@Z@Z
+// sym: ?FUN_001c0810@Registry_1c0810@fn_fed79ca6@@QAEXPBDPAVCSubtitleManager_1c0810@2@P832@AEXHM0M@Z@Z @937e99a9bd59 @w543c43762e71
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001c0810 @ 0x001c0810
 // FUN_001c0810 @ 0x001c0810  (generated by tools/equiv_gen/reg_helper.py)
@@ -2818,7 +2818,7 @@ void Registry_1c0810::FUN_001c0810(const char* a1, CSubtitleManager_1c0810* a2, 
 } // namespace fn_fed79ca6
 
 // 0x001c08c0 FUN_001c08c0 (109 B): equivalent/0x001c08c0.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ?FUN_001c08c0@Registry_1c08c0@fn_001c08c0@@QAEXPBDPAVCSubtitleManager@2@P832@AE_NXZ@Z
+// sym: ?FUN_001c08c0@Registry_1c08c0@fn_001c08c0@@QAEXPBDPAVCSubtitleManager@2@P832@AE_NXZ@Z @23736c715d11 @w7a5c8bbfd4bb
 namespace fn_001c08c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001c08c0 @ 0x001c08c0
@@ -2904,7 +2904,7 @@ void Registry_1c08c0::FUN_001c08c0(const char* name, CSubtitleManager* owner, bo
 namespace fn_fed79ca6 {
 
 // 0x001c0980 FUN_001c0980 (83 B): equivalent/0x001c0980.cpp
-// sym: ?FUN_001c0980@Registry_1c0980@fn_fed79ca6@@QAEXPBDPAVCSubtitleManager_1c0980@2@P832@AEXMMM@Z@Z
+// sym: ?FUN_001c0980@Registry_1c0980@fn_fed79ca6@@QAEXPBDPAVCSubtitleManager_1c0980@2@P832@AEXMMM@Z@Z @b68fcedd5a74 @w0241c93b9d7a
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001c0980 @ 0x001c0980
 // FUN_001c0980 @ 0x001c0980  (generated by tools/equiv_gen/reg_helper.py)
@@ -2922,7 +2922,7 @@ void Registry_1c0980::FUN_001c0980(const char* a1, CSubtitleManager_1c0980* a2, 
 
 
 // 0x001c09e0 FUN_001c09e0 (83 B): equivalent/0x001c09e0.cpp
-// sym: ?FUN_001c09e0@Registry_1c09e0@fn_fed79ca6@@QAEXPBDPAVCSubtitleManager_1c09e0@2@P832@AEX00M@Z@Z
+// sym: ?FUN_001c09e0@Registry_1c09e0@fn_fed79ca6@@QAEXPBDPAVCSubtitleManager_1c09e0@2@P832@AEX00M@Z@Z @f38ea2728376 @w8e301e312103
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001c09e0 @ 0x001c09e0
 // FUN_001c09e0 @ 0x001c09e0  (generated by tools/equiv_gen/reg_helper.py)

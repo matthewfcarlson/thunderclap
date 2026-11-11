@@ -180,7 +180,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
 
 
 // 0x0001ecf0 CSmartPropUpdateAttachmentAction::vfunc_6 (99 B): equivalent/0x0001ecf0.cpp
-// sym: ?vfunc_6@CSmartPropUpdateAttachmentAction@fn_fe4a999c@@QAE_NH@Z
+// sym: ?vfunc_6@CSmartPropUpdateAttachmentAction@fn_fe4a999c@@QAE_NH@Z @27934cf5303e @wb6492105c7e5
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // CSmartPropUpdateAttachmentAction::vfunc_6 @ 0x0001ecf0
 bool CSmartPropUpdateAttachmentAction::vfunc_6(int) {
@@ -197,7 +197,7 @@ bool CSmartPropUpdateAttachmentAction::vfunc_6(int) {
 
 
 // 0x0001ed60 CSmartPropUpdateAttachmentAction::vfunc_4 (650 B): equivalent/0x0001ed60.cpp
-// sym: ?vfunc_4@CSmartPropUpdateAttachmentAction@fn_fe4a999c@@UAEXXZ
+// sym: ?vfunc_4@CSmartPropUpdateAttachmentAction@fn_fe4a999c@@UAEXXZ @e7ea9a0693f1 @wbca838fc29f0
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 24/24)
 // CSmartPropUpdateAttachmentAction::vfunc_4 @ 0x0001ed60
 void CSmartPropUpdateAttachmentAction::vfunc_4()

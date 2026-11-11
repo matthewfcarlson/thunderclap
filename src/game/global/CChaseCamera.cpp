@@ -843,7 +843,7 @@ extern "C" int FUN_0009fa70(int* a, int* b, int* c) {
 
 
 // 0x0009faa0 FUN_0009faa0 (117 B): equivalent/0x0009faa0.cpp
-// sym: ?FUN_0009faa0@fn_f69c308d@@YAMMMMM@Z
+// sym: ?FUN_0009faa0@fn_f69c308d@@YAMMMMM@Z @4c478b5f1506 @w9a87bf26124e
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 4/4; Wine build: input 71 differs only past the double exponent range (80-bit st0 overflow), HEAD failed at input 0)
 // FUN_0009faa0 @ 0x0009faa0
 hulk_freg __cdecl FUN_0009faa0(float from, float to, float a, float b)
@@ -864,7 +864,7 @@ hulk_freg __cdecl FUN_0009faa0(float from, float to, float a, float b)
 
 
 // 0x0009fb20 FUN_0009fb20 (176 B): equivalent/0x0009fb20.cpp
-// sym: ?FUN_0009fb20@fn_f69c308d@@YAMMMMMM@Z
+// sym: ?FUN_0009fb20@fn_f69c308d@@YAMMMMMM@Z @6fc3bd4bac6a @w2c171d510baf
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 6/6)
 // FUN_0009fb20 @ 0x0009fb20
 hulk_freg __cdecl FUN_0009fb20(float a, float b, float c, float dt, float tau) {
@@ -885,7 +885,7 @@ hulk_freg __cdecl FUN_0009fb20(float a, float b, float c, float dt, float tau) {
 
 
 // 0x0009fbd0 FUN_0009fbd0 (381 B): equivalent/0x0009fbd0.cpp
-// sym: ?FUN_0009fbd0@fn_f69c308d@@YAPAUVec3_9fbd0@1@PAU21@000MM@Z
+// sym: ?FUN_0009fbd0@fn_f69c308d@@YAPAUVec3_9fbd0@1@PAU21@000MM@Z @3c2309f93188 @w47957c490a00
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 9/10, incomplete)
 // FUN_0009fbd0 @ 0x0009fbd0
 Vec3_9fbd0* FUN_0009fbd0(Vec3_9fbd0* out, Vec3_9fbd0* a, Vec3_9fbd0* b, Vec3_9fbd0* c, float tau, float dt)
@@ -921,7 +921,7 @@ Vec3_9fbd0* FUN_0009fbd0(Vec3_9fbd0* out, Vec3_9fbd0* a, Vec3_9fbd0* b, Vec3_9fb
 
 
 // 0x0009fd50 FUN_0009fd50 (402 B): equivalent/0x0009fd50.cpp
-// sym: ?FUN_0009fd50@fn_f69c308d@@YAPAUV3_9fd50@1@PAU21@00M@Z
+// sym: ?FUN_0009fd50@fn_f69c308d@@YAPAUV3_9fd50@1@PAU21@00M@Z @3f52729c4db3 @wdae88b7f85a6
 // STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 7/8, incomplete)
 // FUN_0009fd50 @ 0x0009fd50
 V3_9fd50 *FUN_0009fd50(V3_9fd50 *out, V3_9fd50 *a, V3_9fd50 *b, float t)
@@ -975,7 +975,7 @@ V3_9fd50 *FUN_0009fd50(V3_9fd50 *out, V3_9fd50 *a, V3_9fd50 *b, float t)
 
 
 // 0x0009fef0 FUN_0009fef0 (206 B): equivalent/0x0009fef0.cpp
-// sym: ?FUN_0009fef0@fn_f69c308d@@YAPAUVec_9fef0@1@PAU21@PBU21@1M@Z
+// sym: ?FUN_0009fef0@fn_f69c308d@@YAPAUVec_9fef0@1@PAU21@PBU21@1M@Z @7256b1ff1261 @wa5184b4dcab9
 // STATUS: equivalent (tools/equiv.py level 3: 19772 inputs, branch coverage 0/0)
 // FUN_0009fef0 @ 0x0009fef0
 // FUN_0009fef0 @ 0x0009fef0
@@ -1040,7 +1040,7 @@ int __cdecl FUN_000a0010(float length, float spacing, int maxCount, float* out) 
 } // namespace fn_f69c308d
 
 // 0x000a00e0 FUN_000a00e0 (444 B): equivalent/0x000a00e0.cpp [wrapped: conflict: FUN_0009f760]
-// sym: ?FUN_000a00e0@fn_000a00e0@@YAMMMMMM@Z
+// sym: ?FUN_000a00e0@fn_000a00e0@@YAMMMMMM@Z @11abeeca2f0e @w827c384403cc
 namespace fn_000a00e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 18/18)
 // FUN_000a00e0 @ 0x000a00e0
@@ -1116,7 +1116,7 @@ hulk_freg FUN_000a02a0(float a) {
 
 
 // 0x000a0330 FUN_000a0330 (141 B): equivalent/0x000a0330.cpp
-// sym: ?FUN_000a0330@fn_f69c308d@@YAMM@Z
+// sym: ?FUN_000a0330@fn_f69c308d@@YAMM@Z @16990ec69ec7 @wc71e94a0eaad
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 12/12)
 // FUN_000a0330 @ 0x000a0330
 // Wrap an angle in degrees into [0, 360). NaN and values beyond +-3600 give 0.
@@ -1142,7 +1142,7 @@ hulk_freg FUN_000a0330(float degrees)
 
 
 // 0x000a03c0 FUN_000a03c0 (136 B): equivalent/0x000a03c0.cpp
-// sym: ?Clamp3@fn_f69c308d@@YAMMMM@Z
+// sym: ?Clamp3@fn_f69c308d@@YAMMMM@Z @65e49c49363d @w1371a037bb90
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 4/4)
 // FUN_000a03c0 @ 0x000a03c0
 hulk_freg Clamp3(float a, float b, float c) {
@@ -1175,7 +1175,7 @@ hulk_freg __cdecl Fn(float* p) {
 
 
 // 0x000a04c0 FUN_000a04c0 (231 B): equivalent/0x000a04c0.cpp
-// sym: ?FUN_000a04c0@fn_f69c308d@@YAXPAUVec_a04c0@1@PAM11@Z
+// sym: ?FUN_000a04c0@fn_f69c308d@@YAXPAUVec_a04c0@1@PAM11@Z @61cf7bd5dd05 @w83bea55dc013
 // STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 6/6)
 // FUN_000a04c0 @ 0x000a04c0
 void __cdecl FUN_000a04c0(Vec_a04c0* v, float* yaw, float* pitch, float* length) {
@@ -1202,7 +1202,7 @@ hulk_freg __cdecl Target(float p1, float p2, int p3, int p4, int p5) {
 } // namespace fn_f69c308d
 
 // 0x000a06d0 FUN_000a06d0 (475 B): equivalent/0x000a06d0.cpp
-// sym: ?FUN_000a06d0@Obj000a06d0_a06d0@owners@@QAEPAU12@PBU12@@Z
+// sym: ?FUN_000a06d0@Obj000a06d0_a06d0@owners@@QAEPAU12@PBU12@@Z @e7ab13963fd2 @wff719a589748
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000a06d0 @ 0x000a06d0
 owners::Obj000a06d0_a06d0* owners::Obj000a06d0_a06d0::FUN_000a06d0(const owners::Obj000a06d0_a06d0* src)
@@ -1270,7 +1270,7 @@ void CAgent::vfunc_7(int a) {
 namespace fn_f69c308d {
 
 // 0x000a0940 FUN_000a0940 (376 B): equivalent/0x000a0940.cpp
-// sym: ?FUN_000a0940@Mover_a0940@fn_f69c308d@@QAEXM@Z
+// sym: ?FUN_000a0940@Mover_a0940@fn_f69c308d@@QAEXM@Z @1bd4bd37a33c @w6ed0cf7553c2
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 10/10)
 // FUN_000a0940 @ 0x000a0940
 void Mover_a0940::FUN_000a0940(float dt)
@@ -1454,7 +1454,7 @@ CChaseCamera_a0d80::~CChaseCamera_a0d80() {
 
 
 // 0x000a0dc0 FUN_000a0dc0 (382 B): equivalent/0x000a0dc0.cpp
-// sym: ?FUN_000a0dc0@Body_a0dc0@fn_f69c308d@@QAEXMMM@Z
+// sym: ?FUN_000a0dc0@Body_a0dc0@fn_f69c308d@@QAEXMMM@Z @174c8b2d25ee @wc85db1d6017a
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 6/6)
 // FUN_000a0dc0 @ 0x000a0dc0
 void Body_a0dc0::FUN_000a0dc0(float a1, float a2, float a3)
@@ -1488,7 +1488,7 @@ void Body_a0dc0::FUN_000a0dc0(float a1, float a2, float a3)
 } // namespace fn_f69c308d
 
 // 0x000a0f40 CChaseCamera::vfunc_27 (93 B): equivalent/0x000a0f40.cpp [wrapped: conflict: CChaseCamera]
-// sym: ?vfunc_27@CChaseCamera@fn_000a0f40@@QAEXPAUVector3@2@@Z
+// sym: ?vfunc_27@CChaseCamera@fn_000a0f40@@QAEXPAUVector3@2@@Z @d26f23136b67 @we496b6a6919d
 namespace fn_000a0f40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // CChaseCamera::vfunc_27 @ 0x000a0f40
@@ -1512,7 +1512,7 @@ void CChaseCamera::vfunc_32(int a, int b) {
 namespace fn_f69c308d {
 
 // 0x000a0fe0 FUN_000a0fe0 (261 B): equivalent/0x000a0fe0.cpp
-// sym: ?update@CChaseCamera_a0fe0@fn_f69c308d@@QAEXM@Z
+// sym: ?update@CChaseCamera_a0fe0@fn_f69c308d@@QAEXM@Z @b645e2fe9403 @w670340d6050d
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 2/2)
 // FUN_000a0fe0 @ 0x000a0fe0
 void CChaseCamera_a0fe0::update(float v) {
@@ -1534,7 +1534,7 @@ void CChaseCamera_a0fe0::update(float v) {
 } // namespace fn_f69c308d
 
 // 0x000a10f0 CChaseCamera::vfunc_33 (1031 B): equivalent/0x000a10f0.cpp [wrapped: conflict: CChaseCamera]
-// sym: ?vfunc_33@CChaseCamera@fn_000a10f0@@UAEXHPAUOwner_a10f0@2@H@Z
+// sym: ?vfunc_33@CChaseCamera@fn_000a10f0@@UAEXHPAUOwner_a10f0@2@H@Z @934aa8800140 @w3f2f15de7ae1
 namespace fn_000a10f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3116 inputs, branch coverage 44/44)
 // CChaseCamera::vfunc_33 @ 0x000a10f0
@@ -1726,7 +1726,7 @@ void CChaseCamera::vfunc_33(int a1, Owner_a10f0 *who, int event)
 
 
 // 0x000a1520 CChaseCamera::vfunc_34 (565 B): equivalent/0x000a1520.cpp [wrapped: conflict: CChaseCamera]
-// sym: ?vfunc_34@CChaseCamera@fn_000a1520@@UAEXHHMMM@Z
+// sym: ?vfunc_34@CChaseCamera@fn_000a1520@@UAEXHHMMM@Z @e3ba9ec81a00 @w34315c5dba35
 namespace fn_000a1520 {
 // STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 22/22)
 // CChaseCamera::vfunc_34 @ 0x000a1520
@@ -1863,7 +1863,7 @@ void CChaseCamera::vfunc_34(int a1, int a2, float a3, float a4, float a5)
 namespace fn_f69c308d {
 
 // 0x000a1760 FUN_000a1760 (455 B): equivalent/0x000a1760.cpp
-// sym: ?Update@Mover_a1760@fn_f69c308d@@QAEXMM@Z
+// sym: ?Update@Mover_a1760@fn_f69c308d@@QAEXMM@Z @2aa1cda4c2c1 @wdd69fe09868e
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 2/2; Wine build 601 inputs, 2/2)
 // FUN_000a1760 @ 0x000a1760
 void Mover_a1760::Update(float a1, float a2) {
@@ -1903,7 +1903,7 @@ void Mover_a1760::Update(float a1, float a2) {
 
 
 // 0x000a1930 FUN_000a1930 (508 B): equivalent/0x000a1930.cpp
-// sym: ?FUN_000a1930@Mover_a1930@fn_f69c308d@@QAEXUV3_a1930@2@H@Z
+// sym: ?FUN_000a1930@Mover_a1930@fn_f69c308d@@QAEXUV3_a1930@2@H@Z @8a32cd771eb9 @wa6df9e9ceb54
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 8/8)
 // FUN_000a1930 @ 0x000a1930
 void Mover_a1930::FUN_000a1930(V3_a1930 pos, int newMode)
@@ -1964,7 +1964,7 @@ void Mover_a1930::FUN_000a1930(V3_a1930 pos, int newMode)
 
 
 // 0x000a1b30 FUN_000a1b30 (354 B): equivalent/0x000a1b30.cpp
-// sym: ?FUN_000a1b30@Smoother@fn_f69c308d@@QAEXPAUOwner_a1b30@2@M_N@Z
+// sym: ?FUN_000a1b30@Smoother@fn_f69c308d@@QAEXPAUOwner_a1b30@2@M_N@Z @0098808b04a9 @wb99888763580
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 23/24, incomplete)
 // FUN_000a1b30 @ 0x000a1b30
 void Smoother::FUN_000a1b30(Owner_a1b30 *owner, float dt, bool snap)
@@ -2004,7 +2004,7 @@ void Smoother::FUN_000a1b30(Owner_a1b30 *owner, float dt, bool snap)
 
 
 // 0x000a1ca0 FUN_000a1ca0 (1074 B): equivalent/0x000a1ca0.cpp
-// sym: ?FUN_000a1ca0@CChaseCamera_a1ca0@fn_f69c308d@@QAEXPAUOwner_a1ca0@2@M@Z
+// sym: ?FUN_000a1ca0@CChaseCamera_a1ca0@fn_f69c308d@@QAEXPAUOwner_a1ca0@2@M@Z @57a7bfe627eb @we67a6b9a321a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 38/38)
 // FUN_000a1ca0 @ 0x000a1ca0
 void CChaseCamera_a1ca0::FUN_000a1ca0(Owner_a1ca0 *owner, float dt)
@@ -2101,7 +2101,7 @@ void CChaseCamera_a1ca0::FUN_000a1ca0(Owner_a1ca0 *owner, float dt)
 } // namespace fn_f69c308d
 
 // 0x000a2100 FUN_000a2100 (612 B): equivalent/0x000a2100.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_000a2100@Axis_a2100@fn_000a2100@@QAEXPAUOwner_a2100@2@DMMM@Z
+// sym: ?FUN_000a2100@Axis_a2100@fn_000a2100@@QAEXPAUOwner_a2100@2@DMMM@Z @5b1059a3c948 @w6fffa9e71430
 namespace fn_000a2100 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 26/26)
 // FUN_000a2100 @ 0x000a2100
@@ -2250,7 +2250,7 @@ unsigned char owners::Obj_a2370::FUN_000a2370(float scale, float* out1, float* o
 
 
 // 0x000a2430 FUN_000a2430 (881 B): equivalent/0x000a2430.cpp [wrapped: conflict: CChaseCamera; World]
-// sym: ??0CChaseCamera@fn_000a2430@@QAE@XZ
+// sym: ??0CChaseCamera@fn_000a2430@@QAE@XZ @1f76a6302932 @w56672965a486
 namespace fn_000a2430 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_000a2430 @ 0x000a2430
@@ -2619,7 +2619,7 @@ CChaseCamera_a27b0* CChaseCamera_a27b0::f2(unsigned char flags) {
 } // namespace fn_f69c308d
 
 // 0x000a2800 FUN_000a2800 (1113 B): equivalent/0x000a2800.cpp [wrapped: conflict: FUN_000a02a0; FUN_000a0330; Target]
-// sym: ?FUN_000a2800@Target@fn_000a2800@@QAE_NMMMMMMMHPAM0@Z
+// sym: ?FUN_000a2800@Target@fn_000a2800@@QAE_NMMMMMMMHPAM0@Z @f6012fe30722 @w995ce258d361
 namespace fn_000a2800 {
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 38/40, incomplete)
 // FUN_000a2800 @ 0x000a2800
@@ -2785,7 +2785,7 @@ void CChaseCamera_a2c60::Set(float value, float time) {
 } // namespace fn_f69c308d
 
 // 0x000a2cc0 FUN_000a2cc0 (278 B): equivalent/0x000a2cc0.cpp [wrapped: conflict: FUN_000a02a0]
-// sym: ?update@CChaseCamera_a2cc0@fn_000a2cc0@@QAEXMMMMH@Z
+// sym: ?update@CChaseCamera_a2cc0@fn_000a2cc0@@QAEXMMMMH@Z @e71bf9b69f3c @we2db8b804e8c
 namespace fn_000a2cc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000a2cc0 @ 0x000a2cc0
@@ -2827,7 +2827,7 @@ void CChaseCamera_a2cc0::update(float a,float b,float c,float speedValue,int nex
 namespace fn_f69c308d {
 
 // 0x000a2de0 FUN_000a2de0 (116 B): equivalent/0x000a2de0.cpp
-// sym: ?FUN_000a2de0@Obj_a2de0@fn_f69c308d@@QAEXHHHH@Z
+// sym: ?FUN_000a2de0@Obj_a2de0@fn_f69c308d@@QAEXHHHH@Z @7d9aea6b5cdb @w7dd8b675419e
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // FUN_000a2de0 @ 0x000a2de0
 void Obj_a2de0::FUN_000a2de0(int a, int b, int c, int d)
@@ -2904,7 +2904,7 @@ void CChaseCamera_a2f90::FUN_000a2f90(float x, int unused, float z, int arg)
 } // namespace fn_f69c308d
 
 // 0x000a38c0 FUN_000a38c0 (2950 B): equivalent/0x000a38c0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?Update@CChaseCamera_a38c0@fn_000a38c0@@QAEXMM@Z
+// sym: ?Update@CChaseCamera_a38c0@fn_000a38c0@@QAEXMM@Z @4fe3c43dd133 @we76e486943ef
 namespace fn_000a38c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20097 inputs, branch coverage 96/100, incomplete)
 // FUN_000a38c0 @ 0x000a38c0
@@ -3250,7 +3250,7 @@ void CChaseCamera_a38c0::Update(float unused, float dt)
 
 
 // 0x000a4450 FUN_000a4450 (1846 B): equivalent/0x000a4450.cpp [wrapped: conflict: FUN_00018a20; FUN_000a00e0; FUN_000a02a0]
-// sym: ?FUN_000a4450@Ctl_a4450@fn_000a4450@@QAEXHM@Z
+// sym: ?FUN_000a4450@Ctl_a4450@fn_000a4450@@QAEXHM@Z @35f739e73c03 @w04a3d09e096c
 namespace fn_000a4450 {
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 48/50, incomplete)
 // FUN_000a4450 @ 0x000a4450
@@ -3465,7 +3465,7 @@ void Ctl_a4450::FUN_000a4450(int unused, float dt)
 namespace fn_f69c308d {
 
 // 0x000a5400 FUN_000a5400 (401 B): equivalent/0x000a5400.cpp
-// sym: ?FUN_000a5400@CChaseCamera_a5400@fn_f69c308d@@QAEXHH@Z
+// sym: ?FUN_000a5400@CChaseCamera_a5400@fn_f69c308d@@QAEXHH@Z @9924e725988c @we174c429bbc0
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_000a5400 @ 0x000a5400
 void CChaseCamera_a5400::FUN_000a5400(int arg, int flagWord)
@@ -3507,7 +3507,7 @@ void CChaseCamera_a5400::FUN_000a5400(int arg, int flagWord)
 } // namespace fn_f69c308d
 
 // 0x000a55a0 FUN_000a55a0 (1253 B): equivalent/0x000a55a0.cpp [wrapped: conflict: FUN_000186b0; FUN_000a02a0]
-// sym: ?FUN_000a55a0@CChaseCamera_a55a0@fn_000a55a0@@QAEXHTSlot_a55a0@2@@Z
+// sym: ?FUN_000a55a0@CChaseCamera_a55a0@fn_000a55a0@@QAEXHTSlot_a55a0@2@@Z @dcc919edb35a @wace44dc2fe32
 namespace fn_000a55a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20052 inputs, branch coverage 37/38, incomplete)
 // FUN_000a55a0 @ 0x000a55a0
@@ -3717,7 +3717,7 @@ void CChaseCamera_a55a0::FUN_000a55a0(int a1, Slot_a55a0 a2)
 namespace fn_f69c308d {
 
 // 0x000a5a90 FUN_000a5a90 (2083 B): equivalent/0x000a5a90.cpp
-// sym: ?FUN_000a5a90@Obj_a5a90@fn_f69c308d@@QAEDIIIIIDM@Z
+// sym: ?FUN_000a5a90@Obj_a5a90@fn_f69c308d@@QAEDIIIIIDM@Z @dfb1cec1c077 @w15fff9829921
 // STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 55/56, incomplete)
 // FUN_000a5a90 @ 0x000a5a90
 // 0xa5a90: character-controller step: slide the position v194 along the ground / walls with sweep tests.
@@ -3858,7 +3858,7 @@ char Obj_a5a90::FUN_000a5a90(unsigned a1, unsigned a2, unsigned a3, unsigned a4,
 
 
 // 0x000a62c0 FUN_000a62c0 (313 B): equivalent/0x000a62c0.cpp
-// sym: ?run@CChaseCamera_a62c0@fn_f69c308d@@QAEXHPAUHolder_a62c0@2@@Z
+// sym: ?run@CChaseCamera_a62c0@fn_f69c308d@@QAEXHPAUHolder_a62c0@2@@Z @2db10b673458 @w9b001dbaa01b
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 4/4)
 // FUN_000a62c0 @ 0x000a62c0
 void CChaseCamera_a62c0::run(hulk_intptr a, Holder_a62c0* b)
@@ -3884,7 +3884,7 @@ void CChaseCamera_a62c0::run(hulk_intptr a, Holder_a62c0* b)
 } // namespace fn_f69c308d
 
 // 0x000a6400 FUN_000a6400 (4283 B): equivalent/0x000a6400.cpp [wrapped: macros]
-// sym: ?FUN_000a6400@Camera@fn_000a6400@@QAEXMM@Z
+// sym: ?FUN_000a6400@Camera@fn_000a6400@@QAEXMM@Z @1acf359ce675 @w07380777f653
 namespace fn_000a6400 {
 // STATUS: equivalent (tools/equiv.py level 3: 3149 inputs, branch coverage 142/148, incomplete)
 // FUN_000a6400 @ 0x000a6400
@@ -4406,7 +4406,7 @@ void Camera::FUN_000a6400(float a1, float a2) {
 namespace fn_f69c308d {
 
 // 0x000a74c0 FUN_000a74c0 (267 B): equivalent/0x000a74c0.cpp
-// sym: ?target@CChaseCamera_a74c0@fn_f69c308d@@QAEXPAUContext@2@PBD@Z
+// sym: ?target@CChaseCamera_a74c0@fn_f69c308d@@QAEXPAUContext@2@PBD@Z @b18469b1d6e1 @wc09debe98c72
 // STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 18/18)
 // FUN_000a74c0 @ 0x000a74c0
 void CChaseCamera_a74c0::target(Context* context,const char* requested) {

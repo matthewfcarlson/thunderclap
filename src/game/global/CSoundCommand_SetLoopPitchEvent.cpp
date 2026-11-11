@@ -77,7 +77,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 } // namespace fn_f43ad3f1
 
 // 0x001f0420 CSoundCommand_SetLoopPitchEvent::vfunc_1 (183 B): equivalent/0x001f0420.cpp [wrapped: conflict: CSoundCommand_SetLoopPitchEvent]
-// sym: ?vfunc_1@CSoundCommand_SetLoopPitchEvent@fn_001f0420@@UAEIII@Z
+// sym: ?vfunc_1@CSoundCommand_SetLoopPitchEvent@fn_001f0420@@UAEIII@Z @430b9fced5aa @w198158c71e0a
 namespace fn_001f0420 {
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 14/14)
 // CSoundCommand_SetLoopPitchEvent::vfunc_1 @ 0x001f0420

@@ -119,7 +119,7 @@ public:
 
 
 // 0x00102590 CHand2HandAgent::vfunc_4 (1153 B): equivalent/0x00102590.cpp
-// sym: ?vfunc_4@CHand2HandAgent@fn_fe207bc4@@UAEXHMH@Z
+// sym: ?vfunc_4@CHand2HandAgent@fn_fe207bc4@@UAEXHMH@Z @5656bfb24ca0 @w2028ed332679
 // STATUS: equivalent (tools/equiv.py level 3: 9937 inputs, branch coverage 56/56)
 // CHand2HandAgent::vfunc_4 @ 0x00102590
 void CHand2HandAgent::vfunc_4(int a0, float dt, int a2)

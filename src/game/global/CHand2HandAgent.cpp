@@ -257,7 +257,7 @@ float CHand2HandAgent::vfunc_3(int a, int b) {
 } // namespace fn_f3aa029d
 
 // 0x000ff3b0 CHand2HandAgent::vfunc_11 (663 B): equivalent/0x000ff3b0.cpp [wrapped: on include/gen/, and its TU merges more functions without the headers]
-// sym: ?vfunc_11@CHand2HandAgent@fn_000ff3b0@@UAEDPAUPlayer_ff3b0@2@MM@Z
+// sym: ?vfunc_11@CHand2HandAgent@fn_000ff3b0@@UAEDPAUPlayer_ff3b0@2@MM@Z @0ea376520c14 @w5511ccf573e4
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -457,7 +457,7 @@ char CHand2HandAgent::vfunc_11(Player_ff3b0 *player, float a, float b)
 namespace fn_f3aa029d {
 
 // 0x000ff650 CHand2HandAgent::vfunc_12 (329 B): equivalent/0x000ff650.cpp
-// sym: ?vfunc_12@CHand2HandAgent@fn_f3aa029d@@UAEDPAUPlayer_ff650@2@@Z
+// sym: ?vfunc_12@CHand2HandAgent@fn_f3aa029d@@UAEDPAUPlayer_ff650@2@@Z @e0c30b3d3906 @w829df26e52f7
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // CHand2HandAgent::vfunc_12 @ 0x000ff650
 char CHand2HandAgent::vfunc_12(Player_ff650 *player)
@@ -496,7 +496,7 @@ char CHand2HandAgent::vfunc_12(Player_ff650 *player)
 } // namespace fn_f3aa029d
 
 // 0x000ff7a0 CHand2HandAgent::vfunc_13 (275 B): equivalent/0x000ff7a0.cpp [wrapped: conflict: FUN_000964d0]
-// sym: ?vfunc_13@CHand2HandAgent@fn_000ff7a0@@QAE_NPAURecipient_ff7a0@2@@Z
+// sym: ?vfunc_13@CHand2HandAgent@fn_000ff7a0@@QAE_NPAURecipient_ff7a0@2@@Z @75a091156597 @w049e99c33e07
 namespace fn_000ff7a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
 // CHand2HandAgent::vfunc_13 @ 0x000ff7a0
@@ -526,7 +526,7 @@ bool CHand2HandAgent::vfunc_13(Recipient_ff7a0* recipient) {
 
 
 // 0x000ff8c0 CHand2HandAgent::vfunc_17 (891 B): equivalent/0x000ff8c0.cpp [wrapped: conflict: CHand2HandAgent; FUN_000964d0]
-// sym: ?vfunc_17@CHand2HandAgent@fn_000ff8c0@@UAEDPAUTarget_ff8c0@2@M@Z
+// sym: ?vfunc_17@CHand2HandAgent@fn_000ff8c0@@UAEDPAUTarget_ff8c0@2@M@Z @5cd8ce86d0b8 @wfdb1dc210656
 namespace fn_000ff8c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 43/44, incomplete)
 // CHand2HandAgent::vfunc_17 @ 0x000ff8c0
@@ -735,7 +735,7 @@ char CHand2HandAgent::vfunc_17(Target_ff8c0 *target, float dt)
 namespace fn_f3aa029d {
 
 // 0x000ffc40 CHand2HandAgent::vfunc_16 (239 B): equivalent/0x000ffc40.cpp
-// sym: ?vfunc_16@CHand2HandAgent@fn_f3aa029d@@QAEXXZ
+// sym: ?vfunc_16@CHand2HandAgent@fn_f3aa029d@@QAEXXZ @960ad452454d @w4d3297a3260d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // CHand2HandAgent::vfunc_16 @ 0x000ffc40
 void CHand2HandAgent::vfunc_16() {
@@ -761,7 +761,7 @@ void CHand2HandAgent::vfunc_16() {
 } // namespace fn_f3aa029d
 
 // 0x000ffd30 CHand2HandAgent::vfunc_19 (172 B): equivalent/0x000ffd30.cpp [wrapped: on include/gen/, and its TU merges more functions without the headers]
-// sym: ?vfunc_19@CHand2HandAgent@fn_000ffd30@@QAEXXZ
+// sym: ?vfunc_19@CHand2HandAgent@fn_000ffd30@@QAEXXZ @0bfb908943de @w4a4bf95c57f2
 namespace fn_000ffd30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // CHand2HandAgent::vfunc_19 @ 0x000ffd30
@@ -801,7 +801,7 @@ void CHand2HandAgent::vfunc_19() {
 
 
 // 0x000ffde0 CHand2HandAgent::vfunc_7 (186 B): equivalent/0x000ffde0.cpp [wrapped: conflict: CHand2HandAgent]
-// sym: ?vfunc_7@CHand2HandAgent@fn_000ffde0@@UAEXE@Z
+// sym: ?vfunc_7@CHand2HandAgent@fn_000ffde0@@UAEXE@Z @706e516ee6d9 @w444859a26849
 namespace fn_000ffde0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // CHand2HandAgent::vfunc_7 @ 0x000ffde0
@@ -847,7 +847,7 @@ CHand2HandAgent* CHand2HandAgent::vfunc_2(unsigned char param) {
 } // namespace fn_f3aa029d
 
 // 0x000ffef0 CHand2HandAgent::vfunc_14 (1731 B): equivalent/0x000ffef0.cpp [wrapped: macros]
-// sym: ?vfunc_14@CHand2HandAgent@fn_000ffef0@@UAEXPAUEnv@2@H@Z
+// sym: ?vfunc_14@CHand2HandAgent@fn_000ffef0@@UAEXPAUEnv@2@H@Z @64f4e53a40c9 @wf59fc56b577e
 namespace fn_000ffef0 {
 // STATUS: equivalent (tools/equiv.py level 3: 927 inputs, branch coverage 122/122)
 // CHand2HandAgent::vfunc_14 @ 0x000ffef0
@@ -1138,7 +1138,7 @@ void CHand2HandAgent::vfunc_14(Env *env, int unused)
 
 
 // 0x001005c0 CHand2HandAgent::vfunc_20 (1391 B): equivalent/0x001005c0.cpp [wrapped: on include/gen/, and its TU merges more functions without the headers]
-// sym: ?vfunc_20@CHand2HandAgent@fn_001005c0@@UAEXPAUCtx1_1005c0@2@PAUOut_1005c0@2@TArg3_1005c0@2@@Z
+// sym: ?vfunc_20@CHand2HandAgent@fn_001005c0@@UAEXPAUCtx1_1005c0@2@PAUOut_1005c0@2@TArg3_1005c0@2@@Z @30d153ecdb1e @wf6ec8327d549
 namespace fn_001005c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19831 inputs, branch coverage 28/28)
 // CHand2HandAgent::vfunc_20 @ 0x001005c0
@@ -1432,7 +1432,7 @@ void CHand2HandAgent::vfunc_20(Ctx1_1005c0 *a1, Out_1005c0 *a2, Arg3_1005c0 a3)
 
 
 // 0x00100b30 CHand2HandAgent::vfunc_21 (1846 B): equivalent/0x00100b30.cpp [wrapped: on include/gen/, and its TU merges more functions without the headers]
-// sym: ?v21@CHand2HandAgent@fn_00100b30@@UAEXPAUArg1_100b30@2@PAUOut_100b30@2@M@Z
+// sym: ?v21@CHand2HandAgent@fn_00100b30@@UAEXPAUArg1_100b30@2@PAUOut_100b30@2@M@Z @69612841d7d6 @w3d35274ddc69
 namespace fn_00100b30 {
 // STATUS: equivalent (tools/equiv.py level 3: 19818 inputs, branch coverage 68/72, incomplete)
 // CHand2HandAgent::vfunc_21 @ 0x00100b30
@@ -1774,7 +1774,7 @@ void CHand2HandAgent::v21(Arg1_100b30 *a0, Out_100b30 *a1, float a2)
 
 
 // 0x00101270 CHand2HandAgent::vfunc_22 (1977 B): equivalent/0x00101270.cpp [wrapped: on include/gen/, and its TU merges more functions without the headers]
-// sym: ?v22@CHand2HandAgent@fn_00101270@@UAEXPAUArg1_101270@2@PAUOut_101270@2@M@Z
+// sym: ?v22@CHand2HandAgent@fn_00101270@@UAEXPAUArg1_101270@2@PAUOut_101270@2@M@Z @21b783e912e4 @wb790ad617d1b
 namespace fn_00101270 {
 // STATUS: equivalent (tools/equiv.py level 3: 19807 inputs, branch coverage 75/76, incomplete)
 // CHand2HandAgent::vfunc_22 @ 0x00101270
@@ -2076,7 +2076,7 @@ void CHand2HandAgent::v22(Arg1_101270* actor, Out_101270* out, float timeStep) {
 
 
 // 0x00101a30 CHand2HandAgent::vfunc_23 (1452 B): equivalent/0x00101a30.cpp [wrapped: on include/gen/, and its TU merges more functions without the headers]
-// sym: ?v23@CHand2HandAgent@fn_00101a30@@UAEXPAUArg1_101a30@2@PAUOut_101a30@2@H@Z
+// sym: ?v23@CHand2HandAgent@fn_00101a30@@UAEXPAUArg1_101a30@2@PAUOut_101a30@2@H@Z @24db106cb9bd @w84f25c2c1abf
 namespace fn_00101a30 {
 // STATUS: equivalent (tools/equiv.py level 3: 19780 inputs, branch coverage 44/44)
 // CHand2HandAgent::vfunc_23 @ 0x00101a30
@@ -2383,7 +2383,7 @@ void CHand2HandAgent::v23(Arg1_101a30 *a1, Out_101a30 *out, int a3)
 namespace fn_f3aa029d {
 
 // 0x00101fe0 CHand2HandAgent::vfunc_15 (1388 B): equivalent/0x00101fe0.cpp
-// sym: ?vfunc_15@CHand2HandAgent@fn_f3aa029d@@UAEDPAUWorld@@PAUCtx@2@@Z
+// sym: ?vfunc_15@CHand2HandAgent@fn_f3aa029d@@UAEDPAUWorld@@PAUCtx@2@@Z @30b10eb35822 @w0effa438134e
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 28/28)
 // CHand2HandAgent::vfunc_15 @ 0x00101fe0
 char CHand2HandAgent::vfunc_15(World *a1, Ctx *a2)

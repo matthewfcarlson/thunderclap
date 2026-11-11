@@ -4,7 +4,7 @@
 
 
 // 0x00086980 FUN_00086980 (132 B): equivalent/0x00086980.cpp [isolated: conflict: FUN_001d4c90; on include/gen/ and not mergeable]
-// sym: ?FUN_00086980@App@@QAEXH@Z
+// sym: ?FUN_00086980@App@@QAEXH@Z @65b3fcfddeaf @w7c53acef5b2c
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_00086980 @ 0x00086980
 #include "gen/global.h"

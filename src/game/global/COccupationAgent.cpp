@@ -329,7 +329,7 @@ hulk_intptr __fastcall FUN_001034d0(void* p) {
 } // namespace fn_f34ce6e5
 
 // 0x001034e0 FUN_001034e0 (247 B): equivalent/0x001034e0.cpp [wrapped: conflict: DAT_004dd700]
-// sym: ?FUN_001034e0@COccupationAgent_1034e0@fn_001034e0@@QAE_NXZ
+// sym: ?FUN_001034e0@COccupationAgent_1034e0@fn_001034e0@@QAE_NXZ @096e266f2150 @w45ebdec84610
 namespace fn_001034e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001034e0 @ 0x001034e0
@@ -378,14 +378,14 @@ void* __fastcall FUN_001035e0(Root_1035e0* p) {
 
 
 // 0x001035f0 FUN_001035f0 (74 B): equivalent/0x001035f0.cpp
-// sym: ?FUN_001035f0@Object@fn_f34ce6e5@@QAEXHEH@Z
+// sym: ?FUN_001035f0@Object@fn_f34ce6e5@@QAEXHEH@Z @0b17f5f51431 @w02a4b9efe68b
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 2/2)
 // FUN_001035f0 @ 0x001035f0
 void Object::FUN_001035f0(int v, unsigned char f, int o) { value=v; flag=f; other=o; Child *c=child; if(c) { c->flag=f; c->value=v; c->other=o; c->otherCopy=o; } }
 
 
 // 0x00103640 FUN_00103640 (328 B): equivalent/0x00103640.cpp
-// sym: ?FUN_00103640@Marker_103640@fn_f34ce6e5@@QAEXTNameSlot_103640@2@MMM@Z
+// sym: ?FUN_00103640@Marker_103640@fn_f34ce6e5@@QAEXTNameSlot_103640@2@MMM@Z @7937bc707f72 @w390def996463
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_00103640 @ 0x00103640
 void Marker_103640::FUN_00103640(NameSlot_103640 name, float x, float y, float z)
@@ -423,7 +423,7 @@ void Marker_103640::FUN_00103640(NameSlot_103640 name, float x, float y, float z
 } // namespace fn_f34ce6e5
 
 // 0x00103790 COccupationAgent::vfunc_7 (92 B): equivalent/0x00103790.cpp
-// sym: ?vfunc_7@COccupationAgent@@UAEXH@Z
+// sym: ?vfunc_7@COccupationAgent@@UAEXH@Z @6059e0f30d15 @w627a8c2d8a25
 // STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 4/4)
 // COccupationAgent::vfunc_7 @ 0x00103790
 void COccupationAgent::vfunc_7(int value) { if ((char)value) { AgentVtable *table = *(AgentVtable **)this; OccupationDisplay *d = (*(OccupationDisplay * *)&this->f_58); int result = d->f6(d->flag ? "Occ-L" : "Occ", d->flag ? 0xffffff00 : 0xffffffff); table->f8(this, 0, result); (*(OccupationOther * *)&this->f_5c)->f7(value); } (*(OccupationOther * *)&this->f_5c)->f7(value); }
@@ -485,7 +485,7 @@ COccupationAgent* COccupationAgent::vfunc_2(unsigned char param) {
 
 
 // 0x00103830 COccupationAgent::vfunc_3 (538 B): equivalent/0x00103830.cpp [wrapped: conflict: COccupationAgent; World]
-// sym: ?vfunc_3@COccupationAgent@fn_00103830@@UAEMPAUCtx_103830@2@H@Z
+// sym: ?vfunc_3@COccupationAgent@fn_00103830@@UAEMPAUCtx_103830@2@H@Z @844c86a281b3 @w81076078fd3d
 namespace fn_00103830 {
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 28/34, incomplete)
 // COccupationAgent::vfunc_3 @ 0x00103830
@@ -680,7 +680,7 @@ float COccupationAgent::vfunc_3(Ctx_103830 *ctx, int arg)
 namespace fn_f34ce6e5 {
 
 // 0x00103a50 FUN_00103a50 (263 B): equivalent/0x00103a50.cpp
-// sym: ?target@COccupationAgent_103a50@fn_f34ce6e5@@QAEXXZ
+// sym: ?target@COccupationAgent_103a50@fn_f34ce6e5@@QAEXXZ @33d703689a65 @wc887ce25b570
 // STATUS: equivalent (tools/equiv.py level 3: 16351 inputs, branch coverage 10/10)
 // FUN_00103a50 @ 0x00103a50
 void COccupationAgent_103a50::target() {
@@ -703,7 +703,7 @@ void COccupationAgent_103a50::target() {
 
 
 // 0x00103b60 FUN_00103b60 (199 B): equivalent/0x00103b60.cpp
-// sym: ?target@COccupationAgent_103b60@fn_f34ce6e5@@QAEHPAUContext@2@PBDE@Z
+// sym: ?target@COccupationAgent_103b60@fn_f34ce6e5@@QAEHPAUContext@2@PBDE@Z @a7bc7288a4b3 @w129b1f87c089
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00103b60 @ 0x00103b60
 int COccupationAgent_103b60::target(Context* context,const char* text,unsigned char mode) {

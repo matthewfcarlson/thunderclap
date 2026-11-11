@@ -4,7 +4,7 @@
 
 
 // 0x00074cf0 FUN_00074cf0 (158 B): equivalent/0x00074cf0.cpp [isolated: compile error C2664: 'fn_00074cf0::fight::ParamName<T>::ParamName(const char *,void (__thiscall CScrubberTrack::* )(void))' : cannot convert ]
-// sym: _FUN_00074cf0
+// sym: _FUN_00074cf0 @6549ff266ec9 @w6cab64159398
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_00074cf0 @ 0x00074cf0
 #include "decls/data/game/global.h"

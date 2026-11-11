@@ -19,7 +19,7 @@ extern "C" R_13e90* __fastcall FUN_00059a40(void*);
 } // namespace fn_f33b467c
 
 // 0x00013d70 CDropAction::vfunc_6 (274 B): equivalent/0x00013d70.cpp [wrapped: conflict: CDropAction]
-// sym: ?vfunc_6@CDropAction@fn_00013d70@@QAE_NH@Z
+// sym: ?vfunc_6@CDropAction@fn_00013d70@@QAE_NH@Z @ca0747b4a55f @w770dd90dd465
 namespace fn_00013d70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // CDropAction::vfunc_6 @ 0x00013d70

@@ -101,7 +101,7 @@ hulk_intptr hulkfight::motion::DriftToHulkTrack::vfunc_0(int index) {
 
 
 // 0x00170510 FUN_00170510 (46 B): equivalent/0x00170510.cpp [wrapped: conflict: hulkfight::motion::DriftToHulkTrack]
-// sym: ??0DriftToHulkTrack@motion@hulkfight@fn_00170510@@QAE@XZ
+// sym: ??0DriftToHulkTrack@motion@hulkfight@fn_00170510@@QAE@XZ @bdfa033ef8a8 @w7affcfb6b246
 namespace fn_00170510 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00170510 @ 0x00170510

@@ -117,7 +117,7 @@ hulk_freg CJointTrack::vfunc_7() {
 namespace fn_f51b6026 {
 
 // 0x00068d40 FUN_00068d40 (72 B): equivalent/0x00068d40.cpp
-// sym: ?FUN_00068d40@Angles@fn_f51b6026@@QAEXPAM@Z
+// sym: ?FUN_00068d40@Angles@fn_f51b6026@@QAEXPAM@Z @f02e11c46d5d @wa016881bf4fd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00068d40 @ 0x00068d40
 void Angles::FUN_00068d40(float *out) {

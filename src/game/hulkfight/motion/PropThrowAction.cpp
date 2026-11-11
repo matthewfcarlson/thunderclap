@@ -925,7 +925,7 @@ class ParamValueEnum_185500 : public ParamValue_185500 {
 } // namespace fn_fd95142d
 
 // 0x00183510 hulkfight::motion::PropStateByNameCondition::vfunc_6 (163 B): equivalent/0x00183510.cpp
-// sym: ?vfunc_6@PropStateByNameCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@PropStateByNameCondition@motion@hulkfight@@UAE_NPAX00@Z @79b417217c12 @w3b540a2b88c6
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 22/22)
 // hulkfight::motion::PropStateByNameCondition::vfunc_6 @ 0x00183510
 bool hulkfight::motion::PropStateByNameCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_183510 * params = (fight::Params_183510 *)__p1; int c = (int)__p2;
@@ -958,7 +958,7 @@ bool hulkfight::motion::PropStateByNameCondition::vfunc_6(void* __p0, void* __p1
 
 
 // 0x001835c0 hulkfight::motion::GrapplePropStateByNameCondition::vfunc_6 (167 B): equivalent/0x001835c0.cpp [wrapped: conflict: CFightParams; fight::Params; hulkfight::motion::GrapplePropStateByNameCondition]
-// sym: ?vfunc_6@GrapplePropStateByNameCondition@motion@hulkfight@fn_001835c0@@UAE_NHPAVParams@fight@4@H@Z
+// sym: ?vfunc_6@GrapplePropStateByNameCondition@motion@hulkfight@fn_001835c0@@UAE_NHPAVParams@fight@4@H@Z @da2da5d2ce88 @w6f00928608f8
 namespace fn_001835c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 22/22)
 // hulkfight::motion::GrapplePropStateByNameCondition::vfunc_6 @ 0x001835c0
@@ -1065,7 +1065,7 @@ bool hulkfight::motion::GrapplePropStateByNameCondition::vfunc_6(int a, fight::P
 
 
 // 0x00183670 hulkfight::motion::SmartPropGrabbableCondition::vfunc_6 (363 B): equivalent/0x00183670.cpp [wrapped: conflict: FUN_000592a0]
-// sym: ?vfunc_6@SmartPropGrabbableCondition@fn_00183670@@UAE_NHPAVParams_183670@fight@2@H@Z
+// sym: ?vfunc_6@SmartPropGrabbableCondition@fn_00183670@@UAE_NHPAVParams_183670@fight@2@H@Z @95f73904d7a4 @w72c5c53689ca
 namespace fn_00183670 {
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 38/40, incomplete)
 // hulkfight::motion::SmartPropGrabbableCondition::vfunc_6 @ 0x00183670
@@ -1215,7 +1215,7 @@ bool SmartPropGrabbableCondition::vfunc_6(int arg1, fight::Params_183670 *params
 namespace fn_fd95142d {
 
 // 0x001837e0 hulkfight::motion::PropMassCondition::vfunc_6 (336 B): equivalent/0x001837e0.cpp
-// sym: ?vfunc_6@PropMassCondition@fn_fd95142d@@UAE_NPAXPAVParams_1837e0@fight@@H@Z
+// sym: ?vfunc_6@PropMassCondition@fn_fd95142d@@UAE_NPAXPAVParams_1837e0@fight@@H@Z @fbea869bce8a @wf0b2ecaaebd2
 // STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 26/26)
 // hulkfight::motion::PropMassCondition::vfunc_6 @ 0x001837e0
 bool PropMassCondition::vfunc_6(void *unused, fight::Params_1837e0 *params, int unused2)
@@ -1881,7 +1881,7 @@ void AnimationAction::Destroy() {
 
 
 // 0x00184940 hulkfight::motion::BallAndChainShootAction::vfunc_3 (436 B): equivalent/0x00184940.cpp [wrapped: conflict: BallAndChainShootAction; World]
-// sym: ?vfunc_3@BallAndChainShootAction@fn_00184940@@UAE_NHH@Z
+// sym: ?vfunc_3@BallAndChainShootAction@fn_00184940@@UAE_NHH@Z @2e37713b4f54 @w1dfe9b0bc97e
 namespace fn_00184940 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 20/20)
 // hulkfight::motion::BallAndChainShootAction::vfunc_3 @ 0x00184940
@@ -2051,7 +2051,7 @@ bool BallAndChainShootAction::vfunc_3(int a, int b)
 
 
 // 0x00184b00 hulkfight::motion::BallAndChainShootAction::vfunc_5 (1007 B): equivalent/0x00184b00.cpp [wrapped: conflict: World; hulkfight::motion::BallAndChainShootAction]
-// sym: ?vfunc_5@BallAndChainShootAction@motion@hulkfight@fn_00184b00@@UAE_NHM@Z
+// sym: ?vfunc_5@BallAndChainShootAction@motion@hulkfight@fn_00184b00@@UAE_NHM@Z @cbc47d39dfcb @w2e68bd444be2
 namespace fn_00184b00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 32/32)
 // hulkfight::motion::BallAndChainShootAction::vfunc_5 @ 0x00184b00

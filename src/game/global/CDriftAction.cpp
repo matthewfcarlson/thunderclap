@@ -238,7 +238,7 @@ CAction_1fe30::~CAction_1fe30() {
 } // namespace fn_f47061e1
 
 // 0x0001fe60 CDriftAction::vfunc_7 (448 B): equivalent/0x0001fe60.cpp [wrapped: conflict: CDriftAction]
-// sym: ?vfunc_7@CDriftAction@fn_0001fe60@@UAE_NM@Z
+// sym: ?vfunc_7@CDriftAction@fn_0001fe60@@UAE_NM@Z @e0c844c4d74c @w534b0c885c4a
 namespace fn_0001fe60 {
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 7/8, incomplete)
 // CDriftAction::vfunc_7 @ 0x0001fe60

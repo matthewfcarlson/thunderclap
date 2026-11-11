@@ -4,7 +4,7 @@
 
 
 // 0x001dca00 FUN_001dca00 (60 B): equivalent/0x001dca00.cpp [isolated: compile error C2440: 'initializing' : cannot convert from 'fn_f75938cb::Object *' to 'fn_001dca00::Object *']
-// sym: ?FUN_001dca00@CSPManager_1dca00@fn_f0ab4543@@QAEHPAX@Z
+// sym: ?FUN_001dca00@CSPManager_1dca00@fn_f0ab4543@@QAEHPAX@Z @d0b329c65bc0 @w5cfc671b82d2
 namespace fn_f0ab4543 {} using namespace fn_f0ab4543;
 namespace fn_f0ab4543 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)

@@ -4,7 +4,7 @@
 
 
 // 0x0016b7c0 FUN_0016b7c0 (245 B): equivalent/0x0016b7c0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_0016b7c0
+// sym: _FUN_0016b7c0 @bb5cf2ae1965 @w2137ea0e9632
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/motion.h"

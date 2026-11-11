@@ -50,7 +50,7 @@ FEParticleSystem* FEParticleSystem::vfunc_0(unsigned char flags) {
 
 
 // 0x000f1290 FEDoPushDialog::vfunc_1 (189 B): equivalent/0x000f1290.cpp
-// sym: ?vfunc_1@FEDoPushDialog@fn_f2672b45@@UAEXXZ
+// sym: ?vfunc_1@FEDoPushDialog@fn_f2672b45@@UAEXXZ @1b08c6b07055 @wde46de731e51
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 6/6)
 // FEDoPushDialog::vfunc_1 @ 0x000f1290
 void FEDoPushDialog::vfunc_1() {

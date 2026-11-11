@@ -143,7 +143,7 @@ void DeleteThing_0008d330(Thing_1c6c40*);
 
 
 // 0x001c6660 FUN_001c6660 (153 B): equivalent/0x001c6660.cpp
-// sym: ?FUN_001c6660@Pool_1c6660@fn_fe13ae73@@QAE_NH@Z
+// sym: ?FUN_001c6660@Pool_1c6660@fn_fe13ae73@@QAE_NH@Z @49f6f887124a @wfb89f9157a8a
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 13/14, incomplete)
 // FUN_001c6660 @ 0x001c6660
 bool Pool_1c6660::FUN_001c6660(int a)
@@ -167,7 +167,7 @@ bool Pool_1c6660::FUN_001c6660(int a)
 
 
 // 0x001c6800 FUN_001c6800 (179 B): equivalent/0x001c6800.cpp
-// sym: ?render@Object@fn_fe13ae73@@QAEXPAURenderer_1c6800@2@PAUQueue_1c6800@2@HH@Z
+// sym: ?render@Object@fn_fe13ae73@@QAEXPAURenderer_1c6800@2@PAUQueue_1c6800@2@HH@Z @415e9e200ea9 @w8f0b7622b9d2
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 6/6)
 // FUN_001c6800 @ 0x001c6800
 void Object::render(Renderer_1c6800* renderer, Queue_1c6800* queue, int context, int argument) {
@@ -216,7 +216,7 @@ void Fader_1c68e0::Update(float dt)
 
 
 // 0x001c6950 FUN_001c6950 (327 B): equivalent/0x001c6950.cpp
-// sym: ?FUN_001c6950@fn_fe13ae73@@YGXPAUList_1c6950@1@@Z
+// sym: ?FUN_001c6950@fn_fe13ae73@@YGXPAUList_1c6950@1@@Z @4ce36f77a80e @wd221786935d9
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 28/28)
 // FUN_001c6950 @ 0x001c6950
 void __stdcall FUN_001c6950(List_1c6950* list) {

@@ -2190,7 +2190,7 @@ bool Obj_1a2020::Set(Vec3_1a2020* v) {
 
 
 // 0x001a2060 FUN_001a2060 (60 B): equivalent/0x001a2060.cpp
-// sym: ?FUN_001a2060@Obj@fn_fc5dbd2a@@QAEIPBUAngles@2@@Z
+// sym: ?FUN_001a2060@Obj@fn_fc5dbd2a@@QAEIPBUAngles@2@@Z @86f8d276a4f3 @wc54065c84755
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001a2060 @ 0x001a2060
 unsigned int Obj::FUN_001a2060(const Angles *angles) {
@@ -3172,7 +3172,7 @@ hulk_intptr hulkfight::scenario::EffectTrack::vfunc_0(int index) {
 
 
 // 0x001a3140 FUN_001a3140 (102 B): equivalent/0x001a3140.cpp [wrapped: conflict: hulkfight::scenario::EffectTrack]
-// sym: ??0EffectTrack@scenario@hulkfight@fn_001a3140@@QAE@XZ
+// sym: ??0EffectTrack@scenario@hulkfight@fn_001a3140@@QAE@XZ @877df6a30e7e @w6c4de4ba41a6
 namespace fn_001a3140 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001a3140 @ 0x001a3140
@@ -3309,7 +3309,7 @@ hulk_intptr hulkfight::scenario::NISAnimationTrack::vfunc_0(int index) {
 
 
 // 0x001a3240 FUN_001a3240 (655 B): equivalent/0x001a3240.cpp [wrapped: conflict: hulkfight::scenario::NISAnimationTrack]
-// sym: ??0NISAnimationTrack@scenario@hulkfight@fn_001a3240@@QAE@XZ
+// sym: ??0NISAnimationTrack@scenario@hulkfight@fn_001a3240@@QAE@XZ @249e660236ca @wc3e8d41b84ee
 namespace fn_001a3240 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001a3240 @ 0x001a3240
@@ -3528,21 +3528,21 @@ NISAnimationTrack_1a34f0::~NISAnimationTrack_1a34f0() throw() {
 namespace fn_fc5dbd2a {
 
 // 0x001a36f0 FUN_001a36f0 (82 B): equivalent/0x001a36f0.cpp
-// sym: ?FUN_001a36f0@Object@fn_fc5dbd2a@@QAEEPBD@Z
+// sym: ?FUN_001a36f0@Object@fn_fc5dbd2a@@QAEEPBD@Z @730fdd4c8c33 @w964984f6113e
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a36f0 @ 0x001a36f0
 unsigned char Object::FUN_001a36f0(const char *value) { FUN_0008d340(text); if (!value) { text = 0; return 1; } unsigned int length = 0; while (value[length]) ++length; char *copy = (char *)FUN_0008d6d0(length + 1); text = copy; do { *copy++ = *value; } while (*value++); return 1; }
 
 
 // 0x001a3750 FUN_001a3750 (82 B): equivalent/0x001a3750.cpp
-// sym: ?FUN_001a3750@Item@fn_fc5dbd2a@@QAEHPBD@Z
+// sym: ?FUN_001a3750@Item@fn_fc5dbd2a@@QAEHPBD@Z @55d4d8a923e2 @w9862036b34fa
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3750 @ 0x001a3750
 hulk_intptr Item::FUN_001a3750(const char* value) { int result = FUN_0008d340(text); if (!value) { text = 0; return (result & ~255) | 1; } unsigned int length = 0; while (value[length]) ++length; char* allocated = (char*)FUN_0008d6d0(length + 1); text = allocated; char* dest = allocated; do { char c = *value++; *dest++ = c; } while (dest[-1]); return ((hulk_intptr)allocated & ~255) | 1; }
 
 
 // 0x001a37b0 FUN_001a37b0 (82 B): equivalent/0x001a37b0.cpp
-// sym: ?FUN_001a37b0@Object@fn_fc5dbd2a@@QAEHPBD@Z
+// sym: ?FUN_001a37b0@Object@fn_fc5dbd2a@@QAEHPBD@Z @60a4f059bfa7 @w6d0f2950bc79
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a37b0 @ 0x001a37b0
 hulk_intptr Object::FUN_001a37b0(const char* text) { int result = FUN_0008d340(name); if (!text) { name = 0; return (result & ~255) | 1; } unsigned int size = 0; do { ++size; } while (text[size-1]); char* allocated = (char*)FUN_0008d6d0(size); name = allocated; char* dest = allocated; do { *dest++ = *text; } while (*text++); return ((hulk_intptr)allocated & ~255) | 1; }
@@ -3550,7 +3550,7 @@ hulk_intptr Object::FUN_001a37b0(const char* text) { int result = FUN_0008d340(n
 } // namespace fn_fc5dbd2a
 
 // 0x001a3810 FUN_001a3810 (82 B): equivalent/0x001a3810.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a3810@Object@fn_001a3810@@QAEEPBD@Z
+// sym: ?FUN_001a3810@Object@fn_001a3810@@QAEEPBD@Z @85c07aa1b87d @w7a6fce08f99c
 namespace fn_001a3810 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3810 @ 0x001a3810
@@ -3571,7 +3571,7 @@ unsigned char Object::FUN_001a3810(const char *source) {
 
 
 // 0x001a3870 FUN_001a3870 (82 B): equivalent/0x001a3870.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a3870@Object@fn_001a3870@@QAEEPBD@Z
+// sym: ?FUN_001a3870@Object@fn_001a3870@@QAEEPBD@Z @61c7d17f6111 @wc5fc0ae62399
 namespace fn_001a3870 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3870 @ 0x001a3870
@@ -3679,7 +3679,7 @@ bool Obj_1a3990::SetName(const char* s)
 } // namespace fn_fc5dbd2a
 
 // 0x001a3a00 FUN_001a3a00 (97 B): equivalent/0x001a3a00.cpp [wrapped: conflict: FUN_0008d340; Item]
-// sym: ?FUN_001a3a00@Item@fn_001a3a00@@QAEIPBD@Z
+// sym: ?FUN_001a3a00@Item@fn_001a3a00@@QAEIPBD@Z @f3c74008bc96 @w0b615932c400
 namespace fn_001a3a00 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3a00 @ 0x001a3a00
@@ -3726,7 +3726,7 @@ char Obj_1a3a70::Set(const char* s) {
 } // namespace fn_fc5dbd2a
 
 // 0x001a3ae0 FUN_001a3ae0 (97 B): equivalent/0x001a3ae0.cpp [wrapped: conflict: FUN_0008d340; Object]
-// sym: ?FUN_001a3ae0@Object@fn_001a3ae0@@QAEHPBD@Z
+// sym: ?FUN_001a3ae0@Object@fn_001a3ae0@@QAEHPBD@Z @7c5bad41b05a @w3f96d9b3db47
 namespace fn_001a3ae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3ae0 @ 0x001a3ae0
@@ -3787,7 +3787,7 @@ char Obj_1a3bc0::Set(const char* p) {
 
 
 // 0x001a3c30 FUN_001a3c30 (97 B): equivalent/0x001a3c30.cpp
-// sym: ?FUN_001a3c30@Holder@fn_fc5dbd2a@@QAEHPBD@Z
+// sym: ?FUN_001a3c30@Holder@fn_fc5dbd2a@@QAEHPBD@Z @e19beb52aaec @wbb0cb7ccfc6e
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3c30 @ 0x001a3c30
 hulk_intptr Holder::FUN_001a3c30(const char *source) {
@@ -3808,7 +3808,7 @@ hulk_intptr Holder::FUN_001a3c30(const char *source) {
 } // namespace fn_fc5dbd2a
 
 // 0x001a3ca0 FUN_001a3ca0 (97 B): equivalent/0x001a3ca0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a3ca0@Object@fn_001a3ca0@@QAEHPBD@Z
+// sym: ?FUN_001a3ca0@Object@fn_001a3ca0@@QAEHPBD@Z @6bd264dd14d8 @w04ed672be95e
 namespace fn_001a3ca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3ca0 @ 0x001a3ca0
@@ -3817,7 +3817,7 @@ struct Object { char pad[0xbc]; char* text; hulk_intptr FUN_001a3ca0(const char*
 
 
 // 0x001a3d10 FUN_001a3d10 (97 B): equivalent/0x001a3d10.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a3d10@Object@fn_001a3d10@@QAEHPBD@Z
+// sym: ?FUN_001a3d10@Object@fn_001a3d10@@QAEHPBD@Z @10ede74febbc @w2579a12a6f2d
 namespace fn_001a3d10 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3d10 @ 0x001a3d10
@@ -3848,7 +3848,7 @@ hulk_intptr Object::FUN_001a3d10(const char *text) {
 
 
 // 0x001a3d80 FUN_001a3d80 (97 B): equivalent/0x001a3d80.cpp [wrapped: conflict: FUN_0008d340; Object]
-// sym: ?FUN_001a3d80@Object@fn_001a3d80@@QAEEPBD@Z
+// sym: ?FUN_001a3d80@Object@fn_001a3d80@@QAEEPBD@Z @b22c8bd6058c @w2ee0837dcdbe
 namespace fn_001a3d80 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3d80 @ 0x001a3d80
@@ -3908,7 +3908,7 @@ char Obj_1a3e60::Set(char* s) {
 } // namespace fn_fc5dbd2a
 
 // 0x001a3ed0 FUN_001a3ed0 (97 B): equivalent/0x001a3ed0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a3ed0@Object@fn_001a3ed0@@QAEIPBD@Z
+// sym: ?FUN_001a3ed0@Object@fn_001a3ed0@@QAEIPBD@Z @0524740d241f @w5b684cecafd4
 namespace fn_001a3ed0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3ed0 @ 0x001a3ed0
@@ -3997,7 +3997,7 @@ bool Obj_1a4020::set(const char* s) {
 } // namespace fn_fc5dbd2a
 
 // 0x001a4090 FUN_001a4090 (97 B): equivalent/0x001a4090.cpp [wrapped: conflict: FUN_0008d340; Holder]
-// sym: ?FUN_001a4090@Holder@fn_001a4090@@QAEIPBD@Z
+// sym: ?FUN_001a4090@Holder@fn_001a4090@@QAEIPBD@Z @f9509b6bc8eb @wed5ff5b72cff
 namespace fn_001a4090 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4090 @ 0x001a4090
@@ -4019,7 +4019,7 @@ unsigned int Holder::FUN_001a4090(const char *source) {
 
 
 // 0x001a4100 FUN_001a4100 (97 B): equivalent/0x001a4100.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a4100@Object@fn_001a4100@@QAEIPBD@Z
+// sym: ?FUN_001a4100@Object@fn_001a4100@@QAEIPBD@Z @654f5a1fc25b @w4dc0106e81bf
 namespace fn_001a4100 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4100 @ 0x001a4100
@@ -4040,7 +4040,7 @@ unsigned int Object::FUN_001a4100(const char *source) {
 
 
 // 0x001a4170 FUN_001a4170 (97 B): equivalent/0x001a4170.cpp [wrapped: conflict: FUN_0008d340; Object]
-// sym: ?FUN_001a4170@Object@fn_001a4170@@QAEIPBD@Z
+// sym: ?FUN_001a4170@Object@fn_001a4170@@QAEIPBD@Z @c1d6ac7e0c99 @w99e879f020a9
 namespace fn_001a4170 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4170 @ 0x001a4170
@@ -4151,7 +4151,7 @@ bool Obj_001a4410::SetName(const char* s)
 } // namespace fn_fc5dbd2a
 
 // 0x001a4480 FUN_001a4480 (97 B): equivalent/0x001a4480.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a4480@Object@fn_001a4480@@QAEIPBD@Z
+// sym: ?FUN_001a4480@Object@fn_001a4480@@QAEIPBD@Z @cdeb237fe679 @we17533420416
 namespace fn_001a4480 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4480 @ 0x001a4480
@@ -4239,7 +4239,7 @@ unsigned char Obj_1a45d0::SetName(const char* s) {
 } // namespace fn_fc5dbd2a
 
 // 0x001a4640 FUN_001a4640 (97 B): equivalent/0x001a4640.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a4640@Object@fn_001a4640@@QAEIPBD@Z
+// sym: ?FUN_001a4640@Object@fn_001a4640@@QAEIPBD@Z @26dc2c456289 @w3b33cbe005c9
 namespace fn_001a4640 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4640 @ 0x001a4640
@@ -4303,7 +4303,7 @@ char Obj_1a46b0::Set(const char* p) {
 
 
 // 0x001a4720 FUN_001a4720 (97 B): equivalent/0x001a4720.cpp [wrapped: conflict: FUN_0008d340; Object]
-// sym: ?FUN_001a4720@Object@fn_001a4720@@QAEEPBD@Z
+// sym: ?FUN_001a4720@Object@fn_001a4720@@QAEEPBD@Z @9ff81637498b @w530225f658bc
 namespace fn_001a4720 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4720 @ 0x001a4720
@@ -4331,7 +4331,7 @@ unsigned char Object::FUN_001a4720(const char *value) {
 
 
 // 0x001a4790 FUN_001a4790 (97 B): equivalent/0x001a4790.cpp [wrapped: conflict: FUN_0008d340; Object]
-// sym: ?FUN_001a4790@Object@fn_001a4790@@QAEHPBD@Z
+// sym: ?FUN_001a4790@Object@fn_001a4790@@QAEHPBD@Z @2ba81f6bf06d @w9f34832d4ed4
 namespace fn_001a4790 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4790 @ 0x001a4790
@@ -4362,7 +4362,7 @@ int Object::FUN_001a4790(const char *source) {
 
 
 // 0x001a4800 FUN_001a4800 (97 B): equivalent/0x001a4800.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001a4800@Object@fn_001a4800@@QAEEPBD@Z
+// sym: ?FUN_001a4800@Object@fn_001a4800@@QAEEPBD@Z @128c33dc03f3 @wd4c00f543ddc
 namespace fn_001a4800 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4800 @ 0x001a4800
@@ -4383,7 +4383,7 @@ unsigned char Object::FUN_001a4800(const char *source) {
 
 
 // 0x001a4870 FUN_001a4870 (97 B): equivalent/0x001a4870.cpp [wrapped: conflict: Obj]
-// sym: ?FUN_001a4870@Obj@fn_001a4870@@QAEHPBD@Z
+// sym: ?FUN_001a4870@Obj@fn_001a4870@@QAEHPBD@Z @8dd70595b6cd @w11884c6c8fc6
 namespace fn_001a4870 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4870 @ 0x001a4870
@@ -4484,7 +4484,7 @@ bool hulkfight::scenario::NodeShouldRunImmediatelyCondition::vfunc_6(void* __p0,
 
 
 // 0x001a4a30 hulkfight::scenario::Event_PropNameCondition::vfunc_6 (117 B): equivalent/0x001a4a30.cpp [wrapped: conflict: CScenarioParams; fight::Params; hulkfight::scenario::Event_PropNameCondition]
-// sym: ?vfunc_6@Event_PropNameCondition@scenario@hulkfight@fn_001a4a30@@UAE_NHPAVParams@fight@4@H@Z
+// sym: ?vfunc_6@Event_PropNameCondition@scenario@hulkfight@fn_001a4a30@@UAE_NHPAVParams@fight@4@H@Z @ea5e8c064055 @w5a307ef17c05
 namespace fn_001a4a30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 15/16, incomplete)
 // hulkfight::scenario::Event_PropNameCondition::vfunc_6 @ 0x001a4a30
@@ -4557,7 +4557,7 @@ bool hulkfight::scenario::Event_PropStateDescCondition::vfunc_6(void* __p0, void
 
 
 // 0x001a4b10 hulkfight::scenario::Event_PropTypeCondition::vfunc_6 (117 B): equivalent/0x001a4b10.cpp [wrapped: conflict: CScenarioParams; fight::Params; hulkfight::scenario::Event_PropTypeCondition]
-// sym: ?vfunc_6@Event_PropTypeCondition@scenario@hulkfight@fn_001a4b10@@UAE_NHPAVParams@fight@4@H@Z
+// sym: ?vfunc_6@Event_PropTypeCondition@scenario@hulkfight@fn_001a4b10@@UAE_NHPAVParams@fight@4@H@Z @f0dce03fb346 @w0c7fdef454bd
 namespace fn_001a4b10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 15/16, incomplete)
 // hulkfight::scenario::Event_PropTypeCondition::vfunc_6 @ 0x001a4b10
@@ -4615,7 +4615,7 @@ bool hulkfight::scenario::Event_PropTypeCondition::vfunc_6(int a, fight::Params 
 namespace fn_fc5dbd2a {
 
 // 0x001a4bf0 hulkfight::scenario::Event_LocomotionStateNameCondition::vfunc_6 (95 B): equivalent/0x001a4bf0.cpp
-// sym: ?vfunc_6@Event_LocomotionStateNameCondition@fn_fc5dbd2a@@QAEIHPAXH@Z
+// sym: ?vfunc_6@Event_LocomotionStateNameCondition@fn_fc5dbd2a@@QAEIHPAXH@Z @79a8ccc02d8d @w006c0d7f0125
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 12/12)
 // hulkfight::scenario::Event_LocomotionStateNameCondition::vfunc_6 @ 0x001a4bf0
 unsigned int Event_LocomotionStateNameCondition::vfunc_6(int unused0, void* params, int unused2)
@@ -4631,7 +4631,7 @@ unsigned int Event_LocomotionStateNameCondition::vfunc_6(int unused0, void* para
 
 
 // 0x001a4cb0 FUN_001a4cb0 (309 B): equivalent/0x001a4cb0.cpp
-// sym: _FUN_001a4cb0
+// sym: _FUN_001a4cb0 @92b4308398ef @wc88de0f6e1c7
 // STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 28/28)
 // FUN_001a4cb0 @ 0x001a4cb0
 extern "C" const char *FUN_001a4cb0(void *t, unsigned int idx)
@@ -4646,7 +4646,7 @@ extern "C" const char *FUN_001a4cb0(void *t, unsigned int idx)
 
 
 // 0x001a4e40 FUN_001a4e40 (306 B): equivalent/0x001a4e40.cpp
-// sym: _FUN_001a4e40
+// sym: _FUN_001a4e40 @e9a7a65c93f6 @wa737f6e93655
 // STATUS: equivalent (tools/equiv.py level 3: 20054 inputs, branch coverage 28/28)
 // FUN_001a4e40 @ 0x001a4e40
 extern "C" const char *FUN_001a4e40(Table_1a4e40 *table, unsigned int index)
@@ -4663,7 +4663,7 @@ extern "C" const char *FUN_001a4e40(Table_1a4e40 *table, unsigned int index)
 
 
 // 0x001a4fd0 FUN_001a4fd0 (234 B): equivalent/0x001a4fd0.cpp
-// sym: ?FUN_001a4fd0@fn_fc5dbd2a@@YAEPBUState_1a4fd0@1@I@Z
+// sym: ?FUN_001a4fd0@fn_fc5dbd2a@@YAEPBUState_1a4fd0@1@I@Z @8ad7c872b473 @w9357ebec8701
 // STATUS: equivalent (tools/equiv.py level 3: 3044 inputs, branch coverage 22/22)
 // FUN_001a4fd0 @ 0x001a4fd0
 unsigned char __cdecl FUN_001a4fd0(const State_1a4fd0* state, unsigned int index)
@@ -4674,7 +4674,7 @@ unsigned char __cdecl FUN_001a4fd0(const State_1a4fd0* state, unsigned int index
 
 
 // 0x001a5110 FUN_001a5110 (234 B): equivalent/0x001a5110.cpp
-// sym: _FUN_001a5110
+// sym: _FUN_001a5110 @6b952ba84f76 @w5344386680df
 // STATUS: equivalent (tools/equiv.py level 3: 3044 inputs, branch coverage 22/22)
 // FUN_001a5110 @ 0x001a5110
 extern "C" unsigned char __cdecl FUN_001a5110(const State_1a5110* state, unsigned int index)
@@ -4711,7 +4711,7 @@ bool Loader_1a5290::FUN_001a5290()
 
 
 // 0x001a5340 FUN_001a5340 (262 B): equivalent/0x001a5340.cpp
-// sym: ?FUN_001a5340@Object@fn_fc5dbd2a@@QAEII@Z
+// sym: ?FUN_001a5340@Object@fn_fc5dbd2a@@QAEII@Z @32d90f1f79d1 @w70851b994609
 // STATUS: equivalent (tools/equiv.py level 3: 3042 inputs, branch coverage 22/22)
 // FUN_001a5340 @ 0x001a5340
 unsigned int Object::FUN_001a5340(unsigned int index) { if (index > 19) return 1; return data->entries[index].value; }
@@ -4797,7 +4797,7 @@ int Obj_1a57d0::Find(__int64 k) {
 } // namespace fn_fc5dbd2a
 
 // 0x001a5840 FUN_001a5840 (181 B): equivalent/0x001a5840.cpp
-// sym: ?FUN_001a5840@EffectAction@scenario@hulkfight@@QAEXPAXII0@Z
+// sym: ?FUN_001a5840@EffectAction@scenario@hulkfight@@QAEXPAXII0@Z @d138e13fe834 @w4bc543de6abd
 // STATUS: equivalent (tools/equiv.py level 3: 20011 inputs, branch coverage 8/8)
 // FUN_001a5840 @ 0x001a5840
 void hulkfight::scenario::EffectAction::FUN_001a5840(void* __p0, unsigned int a, unsigned int b, void* __p3) { Source_1a5840 * source = (Source_1a5840 *)__p0; Matrix_1a5840 * output = (Matrix_1a5840 *)__p3;
@@ -4819,7 +4819,7 @@ void hulkfight::scenario::EffectAction::FUN_001a5840(void* __p0, unsigned int a,
 
 
 // 0x001a5900 hulkfight::scenario::EffectAction::vfunc_5 (164 B): equivalent/0x001a5900.cpp [wrapped: conflict: hulkfight::scenario::EffectAction]
-// sym: ?vfunc_5@EffectAction@scenario@hulkfight@fn_001a5900@@UAE_NHH@Z
+// sym: ?vfunc_5@EffectAction@scenario@hulkfight@fn_001a5900@@UAE_NHH@Z @772e487a8f8d @wc05cfffd0c2e
 namespace fn_001a5900 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // hulkfight::scenario::EffectAction::vfunc_5 @ 0x001a5900
@@ -5087,7 +5087,7 @@ hulkfight::scenario::NISAnimationTrack::~NISAnimationTrack() {}
 
 
 // 0x001a5cc0 hulkfight::scenario::Event_PropStateNameCondition::vfunc_6 (141 B): equivalent/0x001a5cc0.cpp [wrapped: conflict: CScenarioParams; World; fight::Params; hulkfight::scenario::Event_PropStateNameCondition]
-// sym: ?vfunc_6@Event_PropStateNameCondition@scenario@hulkfight@fn_001a5cc0@@UAE_NHPAVParams@fight@4@H@Z
+// sym: ?vfunc_6@Event_PropStateNameCondition@scenario@hulkfight@fn_001a5cc0@@UAE_NHPAVParams@fight@4@H@Z @95502132de7e @wc557cf227981
 namespace fn_001a5cc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 12/12)
 // hulkfight::scenario::Event_PropStateNameCondition::vfunc_6 @ 0x001a5cc0
@@ -5222,7 +5222,7 @@ bool hulkfight::scenario::Event_PropStateNameCondition::vfunc_6(int a, fight::Pa
 
 
 // 0x001a5d50 FUN_001a5d50 (203 B): equivalent/0x001a5d50.cpp [wrapped: conflict: DAT_004dd700]
-// sym: ?FUN_001a5d50@Owner_1a5d50@fn_001a5d50@@QAEXXZ
+// sym: ?FUN_001a5d50@Owner_1a5d50@fn_001a5d50@@QAEXXZ @466cebcc2ad7 @w939f0995efe4
 namespace fn_001a5d50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_001a5d50 @ 0x001a5d50
@@ -5287,7 +5287,7 @@ void X_1a5e20::f() {
 } // namespace fn_fc5dbd2a
 
 // 0x001a5e50 FUN_001a5e50 (82 B): equivalent/0x001a5e50.cpp [wrapped: conflict: hulkfight::scenario::EffectAction]
-// sym: ??0EffectAction@scenario@hulkfight@fn_001a5e50@@QAE@IPAURefObject@3@@Z
+// sym: ??0EffectAction@scenario@hulkfight@fn_001a5e50@@QAE@IPAURefObject@3@@Z @642ad4fe9a4d @w9961948d3e64
 namespace fn_001a5e50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001a5e50 @ 0x001a5e50
@@ -5346,7 +5346,7 @@ EffectAction_1a5eb0::~EffectAction_1a5eb0() {
 } // namespace fn_fc5dbd2a
 
 // 0x001a5f00 hulkfight::scenario::EffectAction::vfunc_3 (1188 B): equivalent/0x001a5f00.cpp [wrapped: conflict: FUN_0027f250; World; hulkfight::scenario::EffectAction]
-// sym: ?vfunc_3@EffectAction@scenario@hulkfight@fn_001a5f00@@UAE_NHH@Z
+// sym: ?vfunc_3@EffectAction@scenario@hulkfight@fn_001a5f00@@UAE_NHH@Z @97c3a94a1802 @w0bb6d4647c65
 namespace fn_001a5f00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3045 inputs, branch coverage 40/41, incomplete)
 // hulkfight::scenario::EffectAction::vfunc_3 @ 0x001a5f00
@@ -6277,7 +6277,7 @@ template <> void content::LoadInventory::DynamicCaster<pure3d::Camera>::vfunc_0(
 
 
 // 0x001a6ff0 FUN_001a6ff0 (192 B): equivalent/0x001a6ff0.cpp [wrapped: conflict: fight::ParamEnumConstList]
-// sym: ?FUN_001a6ff0@fn_001a6ff0@@YAXXZ
+// sym: ?FUN_001a6ff0@fn_001a6ff0@@YAXXZ @aab37c4b29e9 @wb804426f98b8
 namespace fn_001a6ff0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
 // FUN_001a6ff0 @ 0x001a6ff0
@@ -6329,7 +6329,7 @@ void FUN_001a6ff0() {
 
 
 // 0x001a70b0 FUN_001a70b0 (192 B): equivalent/0x001a70b0.cpp [wrapped: conflict: Param; fight::ParamEnumConstList]
-// sym: ?FUN_001a70b0@fn_001a70b0@@YAXXZ
+// sym: ?FUN_001a70b0@fn_001a70b0@@YAXXZ @e164b01a259f @wbf2c36df299a
 namespace fn_001a70b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_001a70b0 @ 0x001a70b0
@@ -6420,7 +6420,7 @@ void target() {
 
 
 // 0x001a71e0 FUN_001a71e0 (6861 B): equivalent/0x001a71e0.cpp [wrapped: macros; using-directive]
-// sym: ?FUN_001a71e0@fn_001a71e0@@YAXXZ
+// sym: ?FUN_001a71e0@fn_001a71e0@@YAXXZ @09dd873885cb @wb85070180fab
 namespace fn_001a71e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 167 inputs, branch coverage 240/244, incomplete)
 // FUN_001a71e0 @ 0x001a71e0
@@ -6541,7 +6541,7 @@ void Obj_1a8cb0::Clear() {
 } // namespace fn_fc5dbd2a
 
 // 0x001a8d10 FUN_001a8d10 (152 B): equivalent/0x001a8d10.cpp [wrapped: conflict: NISAnimationAction; World]
-// sym: ?FUN_001a8d10@NISAnimationAction@fn_001a8d10@@QAEPAU12@HPAURefObj_1a8d10@2@@Z
+// sym: ?FUN_001a8d10@NISAnimationAction@fn_001a8d10@@QAEPAU12@HPAURefObj_1a8d10@2@@Z @5459bf92b313 @w92393a698bcd
 namespace fn_001a8d10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001a8d10 @ 0x001a8d10
@@ -7189,7 +7189,7 @@ hulkfight::scenario::NISAnimationAction::~NISAnimationAction() {}
 
 
 // 0x001aa150 FUN_001aa150 (327 B): equivalent/0x001aa150.cpp [wrapped: using-directive]
-// sym: ?FUN_001aa150@Controller_1aa150@fn_001aa150@@QAEXXZ
+// sym: ?FUN_001aa150@Controller_1aa150@fn_001aa150@@QAEXXZ @6542790abf19 @w4117c6ef06eb
 namespace fn_001aa150 {
 // STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 12/12)
 // FUN_001aa150 @ 0x001aa150
@@ -7394,7 +7394,7 @@ void Controller_1aa150::FUN_001aa150()
 
 
 // 0x001aa2a0 FUN_001aa2a0 (342 B): equivalent/0x001aa2a0.cpp [wrapped: conflict: DAT_004dd700]
-// sym: ?FUN_001aa2a0@CameraRig@fn_001aa2a0@@QAEXXZ
+// sym: ?FUN_001aa2a0@CameraRig@fn_001aa2a0@@QAEXXZ @fc86a1e61123 @w4183387694bd
 namespace fn_001aa2a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 14/14)
 // FUN_001aa2a0 @ 0x001aa2a0
@@ -7790,7 +7790,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 } // namespace fn_fc5dbd2a
 
 // 0x001aa8e0 hulkfight::scenario::NISAnimationAction::vfunc_3 (229 B): equivalent/0x001aa8e0.cpp [wrapped: conflict: DAT_004dd700; World; hulkfight::scenario::NISAnimationAction]
-// sym: ?vfunc_3@NISAnimationAction@scenario@hulkfight@fn_001aa8e0@@UAE_NHH@Z
+// sym: ?vfunc_3@NISAnimationAction@scenario@hulkfight@fn_001aa8e0@@UAE_NHH@Z @2274962e3c19 @wfe3f6b6b4a95
 namespace fn_001aa8e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // hulkfight::scenario::NISAnimationAction::vfunc_3 @ 0x001aa8e0

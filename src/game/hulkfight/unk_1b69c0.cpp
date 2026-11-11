@@ -125,14 +125,14 @@ bool Slots::Remove(Arg* p) {
 
 
 // 0x001b6a40 FUN_001b6a40 (70 B): equivalent/0x001b6a40.cpp
-// sym: ?FUN_001b6a40@Manager@fn_f56ff9f7@@QAEXXZ
+// sym: ?FUN_001b6a40@Manager@fn_f56ff9f7@@QAEXXZ @ba48329ac5aa @w3d7710a63c72
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 13/16, incomplete)
 // FUN_001b6a40 @ 0x001b6a40
 void Manager::FUN_001b6a40() { for (int i=0; i<32; ++i) { Item* item=entries[i]; if (item) { int index=item->index; if (index>=0 && index<32) { Item* other=entries[index]; if (other) { other->release(); entries[index]=0; } } } } }
 
 
 // 0x001b6a90 FUN_001b6a90 (106 B): equivalent/0x001b6a90.cpp
-// sym: ?FUN_001b6a90@ItemTable_1b6a90@fn_f56ff9f7@@QAEXHH@Z
+// sym: ?FUN_001b6a90@ItemTable_1b6a90@fn_f56ff9f7@@QAEXHH@Z @ba3b1e035ba7 @w4719717e344a
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 15/18, incomplete)
 // FUN_001b6a90 @ 0x001b6a90
 void ItemTable_1b6a90::FUN_001b6a90(hulk_intptr unused, hulk_intptr arg)
@@ -155,7 +155,7 @@ void ItemTable_1b6a90::FUN_001b6a90(hulk_intptr unused, hulk_intptr arg)
 } // namespace fn_f56ff9f7
 
 // 0x001b6b00 FUN_001b6b00 (498 B): equivalent/0x001b6b00.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_001b6b00@SlotTable_1b6b00@fn_001b6b00@@QAEHHPAUV3_1b6b00@2@@Z
+// sym: ?FUN_001b6b00@SlotTable_1b6b00@fn_001b6b00@@QAEHHPAUV3_1b6b00@2@@Z @b6eba24b42de @w493f1e370d85
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -383,7 +383,7 @@ void owners::C_1b6de0::FUN_001b6de0(hulk_intptr x) {
 
 
 // 0x001b6e00 FUN_001b6e00 (85 B): equivalent/0x001b6e00.cpp [wrapped: merged class would differ: Holder: field entries: Field(+0x0 Entry [3] entries) vs Field(+0x0 Entry [3] entries)]
-// sym: ?FUN_001b6e00@Holder@fn_001b6e00@@QAEXH@Z
+// sym: ?FUN_001b6e00@Holder@fn_001b6e00@@QAEXH@Z @e1e6512daeaf @w2708fc2302ae
 namespace fn_001b6e00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/10, incomplete)
 // FUN_001b6e00 @ 0x001b6e00

@@ -79,7 +79,7 @@ struct Frame_1f1b80 {
 
 
 // 0x001f1740 FUN_001f1740 (172 B): equivalent/0x001f1740.cpp
-// sym: ?FUN_001f1740@fn_fddead73@@YGXPBDPAXII@Z
+// sym: ?FUN_001f1740@fn_fddead73@@YGXPBDPAXII@Z @1df0a9ea5744 @w812ef91cdec9
 // STATUS: equivalent (tools/equiv.py level 3: 18759 inputs, branch coverage 11/12, incomplete)
 // FUN_001f1740 @ 0x001f1740
 void __stdcall FUN_001f1740(const char* name, void* value, unsigned a, unsigned b) {
@@ -98,7 +98,7 @@ void __stdcall FUN_001f1740(const char* name, void* value, unsigned a, unsigned 
 
 
 // 0x001f17f0 FUN_001f17f0 (186 B): equivalent/0x001f17f0.cpp
-// sym: ?FUN_001f17f0@fn_fddead73@@YGXPBDPAXIIII@Z
+// sym: ?FUN_001f17f0@fn_fddead73@@YGXPBDPAXIIII@Z @93b401b7eb56 @wd42ea0632b9c
 // STATUS: equivalent (tools/equiv.py level 3: 18759 inputs, branch coverage 11/12, incomplete)
 // FUN_001f17f0 @ 0x001f17f0
 void __stdcall FUN_001f17f0(const char* name, void* data, unsigned a, unsigned b, unsigned c, unsigned d) {
@@ -116,7 +116,7 @@ void __stdcall FUN_001f17f0(const char* name, void* data, unsigned a, unsigned b
 
 
 // 0x001f18b0 FUN_001f18b0 (181 B): equivalent/0x001f18b0.cpp
-// sym: ?FUN_001f18b0@fn_fddead73@@YGXPBDPAXIII@Z
+// sym: ?FUN_001f18b0@fn_fddead73@@YGXPBDPAXIII@Z @eb30eaa558b3 @wcd545f89b79b
 // STATUS: equivalent (tools/equiv.py level 3: 18759 inputs, branch coverage 11/12, incomplete)
 // FUN_001f18b0 @ 0x001f18b0
 void __stdcall FUN_001f18b0(const char* name, void* data, unsigned a, unsigned b, unsigned c) {

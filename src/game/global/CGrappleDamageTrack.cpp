@@ -63,7 +63,7 @@ void* CGrappleDamageTrack::vfunc_11(hulk_intptr param) {
 
 
 // 0x0005a510 CGrappleDamageTrack::vfunc_12 (123 B): equivalent/0x0005a510.cpp
-// sym: ?vfunc_12@CGrappleDamageTrack@@UAEHH@Z
+// sym: ?vfunc_12@CGrappleDamageTrack@@UAEHH@Z @8446f00ea096 @w0b44eb20ad45
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleDamageTrack::vfunc_12 @ 0x0005a510
 hulk_intptr CGrappleDamageTrack::vfunc_12(hulk_intptr __p0) { Target_5a510 * target = (Target_5a510 *)__p0;

@@ -389,7 +389,7 @@ int owners::Table_90050::FUN_00090050(char* s) {
 namespace fn_f6df19d8 {
 
 // 0x000900a0 FUN_000900a0 (109 B): equivalent/0x000900a0.cpp
-// sym: ?FUN_000900a0@Stats_900a0@fn_f6df19d8@@QAEXH@Z
+// sym: ?FUN_000900a0@Stats_900a0@fn_f6df19d8@@QAEXH@Z @2a3cdb6ad24e @w60062e88388b
 // STATUS: equivalent (tools/equiv.py level 3: 2676 inputs, branch coverage 10/10)
 // FUN_000900a0 @ 0x000900a0
 void Stats_900a0::FUN_000900a0(int amount)
@@ -471,7 +471,7 @@ void owners::C_901d0::FUN_000901d0(int index, u32_901d0 value) {
 namespace fn_f6df19d8 {
 
 // 0x00090200 FUN_00090200 (73 B): equivalent/0x00090200.cpp
-// sym: ?FUN_00090200@Owner@fn_f6df19d8@@QAEHPBDH@Z
+// sym: ?FUN_00090200@Owner@fn_f6df19d8@@QAEHPBDH@Z @b0823c803d5b @w3b561952a6c7
 // STATUS: equivalent (tools/equiv.py level 3: 2980 inputs, branch coverage 4/4)
 // FUN_00090200 @ 0x00090200
 int Owner::FUN_00090200(const char *name, int value)
@@ -497,7 +497,7 @@ void* __fastcall FUN_00090250(C_90250* self, void* edx, int index) {
 
 
 // 0x00090270 FUN_00090270 (149 B): equivalent/0x00090270.cpp
-// sym: ?FUN_00090270@Registry_90270@fn_f6df19d8@@QAEXPBD0H@Z
+// sym: ?FUN_00090270@Registry_90270@fn_f6df19d8@@QAEXPBD0H@Z @a0f0cd317d20 @w0d547cf003cd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 15/16, incomplete)
 // FUN_00090270 @ 0x00090270
 // Stores a new named entry in the first free slot (an empty name marks a free slot).
@@ -622,7 +622,7 @@ void Obj_905f0::target() {
 
 
 // 0x00090630 FUN_00090630 (178 B): equivalent/0x00090630.cpp
-// sym: ?FUN_00090630@Table_90630@fn_f6df19d8@@QAEXPBD0HHHH@Z
+// sym: ?FUN_00090630@Table_90630@fn_f6df19d8@@QAEXPBD0HHHH@Z @79e7cde6f638 @w801f56583a25
 // STATUS: equivalent (tools/equiv.py level 3: 2978 inputs, branch coverage 6/6)
 // FUN_00090630 @ 0x00090630
 void Table_90630::FUN_00090630(const char* name, const char* value, int third, int fourth, int fifth, int sixth) {
@@ -678,7 +678,7 @@ void owners::C_90720::FUN_00090720(const char* s, int n) {
 
 
 // 0x00090790 FUN_00090790 (161 B): equivalent/0x00090790.cpp
-// sym: ?FUN_00090790@Measure_90790@owners@@QAEXXZ
+// sym: ?FUN_00090790@Measure_90790@owners@@QAEXXZ @4f18bd686e64 @w439ca2d18a2b
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 12/12)
 // FUN_00090790 @ 0x00090790
 // FUN_00090790 @ 0x00090790: measures the player's distance or height from a start point and keeps the best value
@@ -888,7 +888,7 @@ template <> Method3<CStatsManager, void, char *, char *, int>::~Method3() {}
 
 
 // 0x00090cd0 Method3<CStatsManager,void,char_*,char_*,int>::vfunc_2 (29 B): equivalent/0x00090cd0.cpp
-// sym: ?vfunc_2@?$Method3@VCStatsManager@@XPADPADH@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method3@VCStatsManager@@XPADPADH@@UAEXPAX00@Z @a7a6d240b96d @w2ac42a573389
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CStatsManager,void,char_*,char_*,int>::vfunc_2 @ 0x00090cd0
 template <> void Method3<CStatsManager, void, char *, char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CStatsManager_90cd0 * manager = (CStatsManager_90cd0 *)__p0; Arguments * args = (Arguments *)__p1; void * unused = (void *)__p2;
@@ -1306,7 +1306,7 @@ template <> void Closure0<CStatsManager, bool>::vfunc_2(void* __p0, void* __p1, 
 
 
 // 0x00091250 Closure3<CStatsManager,void,char_*,char_*,int>::vfunc_2 (28 B): equivalent/0x00091250.cpp
-// sym: ?vfunc_2@?$Closure3@VCStatsManager@@XPADPADH@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure3@VCStatsManager@@XPADPADH@@UAEXPAX00@Z @737c210bc5da @wcba24441da01
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CStatsManager,void,char_*,char_*,int>::vfunc_2 @ 0x00091250
 template <> void Closure3<CStatsManager, void, char *, char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arguments * arguments = (Arguments *)__p1;
@@ -1382,7 +1382,7 @@ Closure1::Closure1(const char* s, Owner_91270* n, Fn_91270 m) : Method1(s, m), f
 
 
 // 0x000912e0 Closure1<CStatsManager,const_char_*,int>::vfunc_2 (30 B): equivalent/0x000912e0.cpp [wrapped: conflict: CStatsManager; Closure1]
-// sym: ?vfunc_2@Closure1@fn_000912e0@@UAEXPAXPAPBDPAH@Z
+// sym: ?vfunc_2@Closure1@fn_000912e0@@UAEXPAXPAPBDPAH@Z @d5fcbfd9f63b @we4f4b20fb77e
 namespace fn_000912e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure1<CStatsManager,const_char_*,int>::vfunc_2 @ 0x000912e0
@@ -1404,7 +1404,7 @@ void Closure1::vfunc_2(void *, const char **value, int *result) {
 namespace fn_f6df19d8 {
 
 // 0x00091300 FUN_00091300 (83 B): equivalent/0x00091300.cpp
-// sym: ?FUN_00091300@Registry_91300@fn_f6df19d8@@QAEXPBDPAVCStatsManager_91300@2@P832@AEX00HHHH@Z@Z
+// sym: ?FUN_00091300@Registry_91300@fn_f6df19d8@@QAEXPBDPAVCStatsManager_91300@2@P832@AEX00HHHH@Z@Z @4bc1e3274995 @w9c0726dc1580
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00091300 @ 0x00091300
 // FUN_00091300 @ 0x00091300  (generated by tools/equiv_gen/reg_helper.py)
@@ -1423,7 +1423,7 @@ void Registry_91300::FUN_00091300(const char* a1, CStatsManager_91300* a2, Fn_91
 } // namespace fn_f6df19d8
 
 // 0x00091450 FUN_00091450 (109 B): equivalent/0x00091450.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ?FUN_00091450@Registry_91450@fn_00091450@@QAEXPBDPAVCStatsManager@2@P832@AEHXZ@Z
+// sym: ?FUN_00091450@Registry_91450@fn_00091450@@QAEXPBDPAVCStatsManager@2@P832@AEHXZ@Z @3ff288ff63d7 @w803d9112fd6b
 namespace fn_00091450 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00091450 @ 0x00091450
@@ -1508,7 +1508,7 @@ void Registry_91450::FUN_00091450(const char* name, CStatsManager* owner, int (C
 
 
 // 0x00091510 FUN_00091510 (109 B): equivalent/0x00091510.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ?FUN_00091510@Registry_91510@fn_00091510@@QAEXPBDPAVCStatsManager@2@P832@AE_NXZ@Z
+// sym: ?FUN_00091510@Registry_91510@fn_00091510@@QAEXPBDPAVCStatsManager@2@P832@AE_NXZ@Z @c765d2c34845 @wc15f99b83b98
 namespace fn_00091510 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00091510 @ 0x00091510
@@ -1594,7 +1594,7 @@ void Registry_91510::FUN_00091510(const char* name, CStatsManager* owner, bool (
 namespace fn_f6df19d8 {
 
 // 0x00091580 FUN_00091580 (83 B): equivalent/0x00091580.cpp
-// sym: ?FUN_00091580@Registry_91580@fn_f6df19d8@@QAEXPBDPAVCStatsManager_91580@2@P832@AEXPAD2H@Z@Z
+// sym: ?FUN_00091580@Registry_91580@fn_f6df19d8@@QAEXPBDPAVCStatsManager_91580@2@P832@AEXPAD2H@Z@Z @e59dabc869ed @wc27374eea328
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00091580 @ 0x00091580
 // FUN_00091580 @ 0x00091580  (generated by tools/equiv_gen/reg_helper.py)

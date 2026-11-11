@@ -18,7 +18,7 @@ struct CSoundCommand_1ef610 { virtual void vfunc_0(); virtual void vfunc_1(int, 
 } // namespace fn_f906042a
 
 // 0x001ef610 CSoundCommand_PlaySFXEvent::vfunc_1 (71 B): equivalent/0x001ef610.cpp
-// sym: ?vfunc_1@CSoundCommand_PlaySFXEvent@@UAEXHH@Z
+// sym: ?vfunc_1@CSoundCommand_PlaySFXEvent@@UAEXHH@Z @cd812a30f715 @w0822ec4eca90
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // CSoundCommand_PlaySFXEvent::vfunc_1 @ 0x001ef610
 void CSoundCommand_PlaySFXEvent::vfunc_1(int argument, int unused) {

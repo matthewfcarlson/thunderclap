@@ -1318,7 +1318,7 @@ bool hulkfight::ai::ThreatCondition::vfunc_6(void* __p0, void* __p1, void* __p2)
 
 
 // 0x0012b7e0 hulkfight::ai::ShotFailCountCondition::vfunc_6 (224 B): equivalent/0x0012b7e0.cpp [wrapped: conflict: FUN_00344e74; hulkfight::ai::ShotFailCountCondition]
-// sym: ?vfunc_6@ShotFailCountCondition@ai@hulkfight@fn_0012b7e0@@UAE_NPAXPAUAgent_12b7e0@4@0@Z
+// sym: ?vfunc_6@ShotFailCountCondition@ai@hulkfight@fn_0012b7e0@@UAE_NPAXPAUAgent_12b7e0@4@0@Z @0aa705de28b0 @w862d3e4c8633
 namespace fn_0012b7e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // hulkfight::ai::ShotFailCountCondition::vfunc_6 @ 0x0012b7e0
@@ -1362,7 +1362,7 @@ bool hulkfight::ai::ThreatBallAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1
 
 
 // 0x0012b910 hulkfight::ai::ThreatBallAction::vfunc_5 (362 B): equivalent/0x0012b910.cpp
-// sym: ?vfunc_5@ThreatBallAction@ai@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@ThreatBallAction@ai@hulkfight@@UAE_NHH@Z @bf9fd3559550 @w8e34778d4d4c
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 17/18, incomplete)
 // hulkfight::ai::ThreatBallAction::vfunc_5 @ 0x0012b910
 bool hulkfight::ai::ThreatBallAction::vfunc_5(hulk_intptr msg, int unused) {
@@ -1419,7 +1419,7 @@ void hulkfight::ai::ThreatBallAction::vfunc_4() {
 
 
 // 0x0012bab0 hulkfight::ai::ThreatDodgeAction::vfunc_5 (271 B): equivalent/0x0012bab0.cpp
-// sym: ?vfunc_5@ThreatDodgeAction@ai@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@ThreatDodgeAction@ai@hulkfight@@UAE_NHH@Z @e4e3efad51d7 @w29353f2efe93
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 6/6)
 // hulkfight::ai::ThreatDodgeAction::vfunc_5 @ 0x0012bab0
 bool hulkfight::ai::ThreatDodgeAction::vfunc_5(hulk_intptr __p0, int __p1) { unsigned int state = (unsigned int)__p0; unsigned int unused = (unsigned int)__p1;
@@ -1540,7 +1540,7 @@ ThreatDodgeTrack* ThreatDodgeTrack::vfunc_5(unsigned char flags) {
 } // namespace fn_f9c2e0ac
 
 // 0x0012bd30 hulkfight::ai::ThreatAngleCondition::vfunc_6 (283 B): equivalent/0x0012bd30.cpp [wrapped: conflict: DAT_00494b44; DAT_00494b60; hulkfight::ai::ThreatAngleCondition]
-// sym: ?vfunc_6@ThreatAngleCondition@ai@hulkfight@fn_0012bd30@@UAE_NHPAUContext@4@H@Z
+// sym: ?vfunc_6@ThreatAngleCondition@ai@hulkfight@fn_0012bd30@@UAE_NHPAUContext@4@H@Z @b5ff1be4e72b @w6c4885615950
 namespace fn_0012bd30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // hulkfight::ai::ThreatAngleCondition::vfunc_6 @ 0x0012bd30
@@ -1577,7 +1577,7 @@ bool ThreatAngleCondition::vfunc_6(int unused1,Context* context,int unused2) {
 
 
 // 0x0012be50 hulkfight::ai::ThreatDistanceCondition::vfunc_6 (392 B): equivalent/0x0012be50.cpp [wrapped: conflict: DAT_00494b44; DAT_00494b60]
-// sym: ?vfunc_6@ThreatDistanceCondition@fn_0012be50@@UAEDHPAUOwner_12be50@2@H@Z
+// sym: ?vfunc_6@ThreatDistanceCondition@fn_0012be50@@UAEDHPAUOwner_12be50@2@H@Z @4b59a85ab528 @w2fde08bcb339
 namespace fn_0012be50 {
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 16/18, incomplete)
 // hulkfight::ai::ThreatDistanceCondition::vfunc_6 @ 0x0012be50
@@ -2476,7 +2476,7 @@ void FUN_0012cd80() {
 } // namespace fn_f9c2e0ac
 
 // 0x0012ce90 FUN_0012ce90 (274 B): equivalent/0x0012ce90.cpp [wrapped: conflict: fight::ParamBool; fight::ParamEnumConstList; fight::ParamFloatConstRange; fight::ParamName]
-// sym: ?initialize@fn_0012ce90@@YAXXZ
+// sym: ?initialize@fn_0012ce90@@YAXXZ @29bd5ba07162 @w68739595bb52
 namespace fn_0012ce90 {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 10/10)
 // FUN_0012ce90 @ 0x0012ce90

@@ -39,7 +39,7 @@ CAxisSpeedCondition* CAxisSpeedCondition::vfunc_5(signed char flags) {
 } // namespace fn_f98a4a34
 
 // 0x0004b420 CAxisSpeedCondition::vfunc_9 (173 B): equivalent/0x0004b420.cpp [wrapped: conflict: CAxisSpeedCondition]
-// sym: ?vfunc_9@CAxisSpeedCondition@fn_0004b420@@UAE_NPAXPAUAxisInput_4b420@2@@Z
+// sym: ?vfunc_9@CAxisSpeedCondition@fn_0004b420@@UAE_NPAXPAUAxisInput_4b420@2@@Z @0928de1d200d @wa37ad06799c0
 namespace fn_0004b420 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // CAxisSpeedCondition::vfunc_9 @ 0x0004b420

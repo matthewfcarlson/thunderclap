@@ -628,7 +628,7 @@ template <> fight::ParamBool<hulkfight::ai::SemaphoreWaitTrack>::~ParamBool() {}
 namespace fn_fee140f0 {
 
 // 0x00111c40 FUN_00111c40 (95 B): equivalent/0x00111c40.cpp
-// sym: _FUN_00111c40
+// sym: _FUN_00111c40 @8c95712c4ae4 @wb565d92c2ae9
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 4/4)
 // FUN_00111c40 @ 0x00111c40
 extern "C" void FUN_00111c40()
@@ -647,7 +647,7 @@ extern "C" void FUN_00111c40()
 
 
 // 0x00111ca0 FUN_00111ca0 (95 B): equivalent/0x00111ca0.cpp
-// sym: _FUN_00111ca0
+// sym: _FUN_00111ca0 @f120cb5eb71f @w1886b39e903e
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
 // FUN_00111ca0 @ 0x00111ca0
 extern "C" void FUN_00111ca0()
@@ -667,7 +667,7 @@ extern "C" void FUN_00111ca0()
 } // namespace fn_fee140f0
 
 // 0x00111df0 FUN_00111df0 (176 B): equivalent/0x00111df0.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamString; hulkfight::ai::HulkActionLargestCondition]
-// sym: _FUN_00111df0
+// sym: _FUN_00111df0 @62f7d15f9646 @w6cb88f2ce1c5
 namespace fn_00111df0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 6/6)
 // FUN_00111df0 @ 0x00111df0
@@ -749,7 +749,7 @@ extern "C" void FUN_00111df0()
 
 
 // 0x00111ea0 FUN_00111ea0 (176 B): equivalent/0x00111ea0.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamIntConstRange; hulkfight::ai::PropsToChuckCondition]
-// sym: _FUN_00111ea0
+// sym: _FUN_00111ea0 @68b83cd08490 @wd773e97c09a4
 namespace fn_00111ea0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
 // FUN_00111ea0 @ 0x00111ea0
@@ -831,7 +831,7 @@ extern "C" void FUN_00111ea0()
 
 
 // 0x00111f50 FUN_00111f50 (176 B): equivalent/0x00111f50.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamString; hulkfight::ai::HulkActionRecentCondition]
-// sym: _FUN_00111f50
+// sym: _FUN_00111f50 @dd64dcef0456 @wf69c5551d0a0
 namespace fn_00111f50 {
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_00111f50 @ 0x00111f50
@@ -914,7 +914,7 @@ extern "C" void FUN_00111f50()
 namespace fn_fee140f0 {
 
 // 0x00112000 FUN_00112000 (95 B): equivalent/0x00112000.cpp
-// sym: _FUN_00112000
+// sym: _FUN_00112000 @d009095dfc64 @wbce8b64b3b78
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 4/4)
 // FUN_00112000 @ 0x00112000
 extern "C" void FUN_00112000()
@@ -934,7 +934,7 @@ extern "C" void FUN_00112000()
 } // namespace fn_fee140f0
 
 // 0x00112150 FUN_00112150 (176 B): equivalent/0x00112150.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamString; hulkfight::ai::FormationReadyCondition]
-// sym: _FUN_00112150
+// sym: _FUN_00112150 @90d4e72c189e @w119e8a350c68
 namespace fn_00112150 {
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_00112150 @ 0x00112150
@@ -1017,7 +1017,7 @@ extern "C" void FUN_00112150()
 namespace fn_fee140f0 {
 
 // 0x00112200 FUN_00112200 (176 B): equivalent/0x00112200.cpp
-// sym: _FUN_00112200
+// sym: _FUN_00112200 @fd964f6dc84c @wdc63c4b0ad08
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
 // FUN_00112200 @ 0x00112200
 extern "C" void FUN_00112200()
@@ -1041,7 +1041,7 @@ extern "C" void FUN_00112200()
 } // namespace fn_fee140f0
 
 // 0x001124c0 FUN_001124c0 (176 B): equivalent/0x001124c0.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamIntConstRange; hulkfight::ai::RandomKeyWordWaitCondition]
-// sym: _FUN_001124c0
+// sym: _FUN_001124c0 @6274aa4302b7 @w9fd538eb68de
 namespace fn_001124c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_001124c0 @ 0x001124c0
@@ -1124,7 +1124,7 @@ extern "C" void FUN_001124c0()
 namespace fn_fee140f0 {
 
 // 0x00112570 FUN_00112570 (158 B): equivalent/0x00112570.cpp
-// sym: _FUN_00112570
+// sym: _FUN_00112570 @31d6dcd00a94 @wabe9b88601ec
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 6/6)
 // FUN_00112570 @ 0x00112570
 extern "C" void FUN_00112570()
@@ -1148,7 +1148,7 @@ extern "C" void FUN_00112570()
 } // namespace fn_fee140f0
 
 // 0x00112610 FUN_00112610 (113 B): equivalent/0x00112610.cpp [wrapped: conflict: fight::ParamEnumConstList; hulkfight::ai::FightingOtherNPCCondition]
-// sym: _FUN_00112610
+// sym: _FUN_00112610 @a8cbe724eda9 @w31859f5436b5
 namespace fn_00112610 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00112610 @ 0x00112610
@@ -1205,7 +1205,7 @@ extern "C" void FUN_00112610()
 namespace fn_fee140f0 {
 
 // 0x00112690 FUN_00112690 (307 B): equivalent/0x00112690.cpp
-// sym: _FUN_00112690
+// sym: _FUN_00112690 @c7f6f25683df @w15154a6d6fb5
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 12/12)
 // FUN_00112690 @ 0x00112690
 extern "C" void FUN_00112690()
@@ -1241,7 +1241,7 @@ extern "C" void FUN_00112690()
 
 
 // 0x001127d0 FUN_001127d0 (358 B): equivalent/0x001127d0.cpp
-// sym: _FUN_001127d0
+// sym: _FUN_001127d0 @5604d43867db @wb0bee0121ca3
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 14/14)
 // FUN_001127d0 @ 0x001127d0
 extern "C" void FUN_001127d0()
@@ -1281,7 +1281,7 @@ extern "C" void FUN_001127d0()
 
 
 // 0x00112940 FUN_00112940 (95 B): equivalent/0x00112940.cpp
-// sym: _FUN_00112940
+// sym: _FUN_00112940 @3fc710bba90d @w68eb935fc21c
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 4/4)
 // FUN_00112940 @ 0x00112940
 extern "C" void FUN_00112940()
@@ -1300,7 +1300,7 @@ extern "C" void FUN_00112940()
 
 
 // 0x00112ba0 FUN_00112ba0 (386 B): equivalent/0x00112ba0.cpp
-// sym: _FUN_00112ba0
+// sym: _FUN_00112ba0 @bb11189dd8c0 @wa95c0d1900c4
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 14/14)
 // FUN_00112ba0 @ 0x00112ba0
 extern "C" void FUN_00112ba0()
@@ -1340,7 +1340,7 @@ extern "C" void FUN_00112ba0()
 
 
 // 0x00112f10 FUN_00112f10 (358 B): equivalent/0x00112f10.cpp
-// sym: _FUN_00112f10
+// sym: _FUN_00112f10 @991cdd790143 @w457cc000a251
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 14/14)
 // FUN_00112f10 @ 0x00112f10
 extern "C" void FUN_00112f10()

@@ -356,7 +356,7 @@ bool hulkfight::PostEvent_StringAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
 namespace fn_facdac2a {
 
 // 0x0012da30 hulkfight::PostEvent_StringAction::vfunc_5 (142 B): equivalent/0x0012da30.cpp
-// sym: ?vfunc_5@PostEvent_StringAction@fn_facdac2a@@UAE_NHH@Z
+// sym: ?vfunc_5@PostEvent_StringAction@fn_facdac2a@@UAE_NHH@Z @10c9f1424451 @wbc849a787a60
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 16/16)
 // hulkfight::PostEvent_StringAction::vfunc_5 @ 0x0012da30
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30

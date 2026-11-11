@@ -5,7 +5,7 @@
 
 
 // 0x0005a790 CGrappleAutoTargetTrack::vfunc_12 (105 B): equivalent/0x0005a790.cpp [isolated: compile error C2440: 'static_cast' : cannot convert from 'fn_f63372f2::R_5aad0 *' to 'CAutoTargetAction *'; on include/gen/ and not mergeable]
-// sym: ?vfunc_12@CGrappleAutoTargetTrack@@UAEHH@Z
+// sym: ?vfunc_12@CGrappleAutoTargetTrack@@UAEHH@Z @d6dab8367edf @w1609c8670032
 // STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 15/16, incomplete)
 // CGrappleAutoTargetTrack::vfunc_12 @ 0x0005a790
 #include "gen/global.h"

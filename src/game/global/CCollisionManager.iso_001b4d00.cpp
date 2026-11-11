@@ -5,7 +5,7 @@
 
 
 // 0x001b4d00 FUN_001b4d00 (2198 B): equivalent/0x001b4d00.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_001b4d00@Combat@fn_fa3fc9b1@@QAEXPAUCtx1f4@2@H@Z
+// sym: ?FUN_001b4d00@Combat@fn_fa3fc9b1@@QAEXPAUCtx1f4@2@H@Z @e7434cc4d567 @w2ee600902a06
 #include "gen/owners.h"
 namespace fn_fa3fc9b1 {} using namespace fn_fa3fc9b1;
 namespace fn_fa3fc9b1 {

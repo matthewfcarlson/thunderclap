@@ -4,7 +4,7 @@
 
 
 // 0x00064a70 FUN_00064a70 (1809 B): equivalent/0x00064a70.cpp [isolated: conflict: ParamBoolBase; ParamFloatConstRangeBase; on include/gen/ and not mergeable]
-// sym: _FUN_00064a70
+// sym: _FUN_00064a70 @ab33285cbe69 @weff45fb3d3dd
 // STATUS: equivalent (tools/equiv.py level 3: 1734 inputs, branch coverage 68/68)
 // FUN_00064a70 @ 0x00064a70
 #include "decls/data/game/global.h"

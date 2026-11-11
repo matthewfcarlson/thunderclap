@@ -65,7 +65,7 @@ void* CGrappleKeyPoseTrack::vfunc_11(hulk_intptr param) {
 
 
 // 0x0005a6d0 CGrappleKeyPoseTrack::vfunc_12 (105 B): equivalent/0x0005a6d0.cpp
-// sym: ?vfunc_12@CGrappleKeyPoseTrack@@UAEHH@Z
+// sym: ?vfunc_12@CGrappleKeyPoseTrack@@UAEHH@Z @4b01d78679f8 @w1be6118a4810
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleKeyPoseTrack::vfunc_12 @ 0x0005a6d0
 hulk_intptr CGrappleKeyPoseTrack::vfunc_12(hulk_intptr __p0) { Owner_5a6d0 * owner = (Owner_5a6d0 *)__p0;

@@ -289,7 +289,7 @@ extern "C" int __cdecl FUN_00201780(hulk_intptr x) {
 
 
 // 0x002017d0 FUN_002017d0 (124 B): equivalent/0x002017d0.cpp
-// sym: _FUN_002017d0
+// sym: _FUN_002017d0 @df6b7d637271 @wcc9fc1be2617
 // STATUS: equivalent (tools/equiv.py level 3: 123 inputs, branch coverage 8/8)
 // FUN_002017d0 @ 0x002017d0
 // Looks a property name up in the global key table; outputs its two table values.
@@ -357,7 +357,7 @@ void Thing_201c00::f() {
 
 
 // 0x00201cd0 FUN_00201cd0 (199 B): equivalent/0x00201cd0.cpp
-// sym: ?grow@Array_201cd0@fn_f0f2b8a0@@QAEXH@Z
+// sym: ?grow@Array_201cd0@fn_f0f2b8a0@@QAEXH@Z @4f3d4176e6bc @wf566e366d725
 // STATUS: equivalent (tools/equiv.py level 3: 267 inputs, branch coverage 15/16, incomplete)
 // FUN_00201cd0 @ 0x00201cd0
 void Array_201cd0::grow(int n) {
@@ -388,7 +388,7 @@ void Thing_201de0::f() {
 
 
 // 0x00201e00 FUN_00201e00 (287 B): equivalent/0x00201e00.cpp
-// sym: ?FUN_00201e00@fn_f0f2b8a0@@YG_NPAUObject@1@PAXIPAUTriple_201e00@1@2PAPAUTriangle_201e00@1@PAPAU21@@Z
+// sym: ?FUN_00201e00@fn_f0f2b8a0@@YG_NPAUObject@1@PAXIPAUTriple_201e00@1@2PAPAUTriangle_201e00@1@PAPAU21@@Z @ee210b18bb1e @wf264358287c1
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 16/16)
 // FUN_00201e00 @ 0x00201e00
 bool __stdcall FUN_00201e00(Object* object, void* query, unsigned mask, Triple_201e00* point, Triple_201e00* normal, Triangle_201e00** triangleOut, Object** objectOut) {
@@ -417,7 +417,7 @@ bool __stdcall FUN_00201e00(Object* object, void* query, unsigned mask, Triple_2
 
 
 // 0x00201f20 FUN_00201f20 (378 B): equivalent/0x00201f20.cpp
-// sym: ?FUN_00201f20@fn_f0f2b8a0@@YG_NHHPAUVec3_201f20@1@0PAPAUEntry24@1@PAPAUOwner_201f20@1@@Z
+// sym: ?FUN_00201f20@fn_f0f2b8a0@@YG_NHHPAUVec3_201f20@1@0PAPAUEntry24@1@PAPAUOwner_201f20@1@@Z @f36b9db724df @wc812f2d31ab7
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 19/20, incomplete)
 // FUN_00201f20 @ 0x00201f20
 bool __stdcall FUN_00201f20(int id, int mask, Vec3_201f20* outPos, Vec3_201f20* outDir, Entry24** outEntry, Owner_201f20** outOwner)
@@ -461,7 +461,7 @@ bool __stdcall FUN_00201f20(int id, int mask, Vec3_201f20* outPos, Vec3_201f20* 
 
 
 // 0x002020a0 FUN_002020a0 (149 B): equivalent/0x002020a0.cpp
-// sym: ?FUN_002020a0@fn_f0f2b8a0@@YA_NPAUTarget_2020a0@1@@Z
+// sym: ?FUN_002020a0@fn_f0f2b8a0@@YA_NPAUTarget_2020a0@1@@Z @c0bd49bafe7b @wf8d8a95642e5
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 18/18)
 // FUN_002020a0 @ 0x002020a0
 bool FUN_002020a0(Target_2020a0 *t)
@@ -628,7 +628,7 @@ void CWorldCollisionManager::Init() {
 namespace fn_f0f2b8a0 {
 
 // 0x00202460 FUN_00202460 (160 B): equivalent/0x00202460.cpp
-// sym: ?FUN_00202460@Mover_202460@fn_f0f2b8a0@@QAEHPAUVec3_202460@2@0MHHHHH@Z
+// sym: ?FUN_00202460@Mover_202460@fn_f0f2b8a0@@QAEHPAUVec3_202460@2@0MHHHHH@Z @617e34215961 @w81ce1c06fc81
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // FUN_00202460 @ 0x00202460
 // FUN_00202460 @ 0x00202460
@@ -646,7 +646,7 @@ int Mover_202460::FUN_00202460(Vec3_202460 *from, Vec3_202460 *direction, float 
 
 
 // 0x00202500 FUN_00202500 (84 B): equivalent/0x00202500.cpp
-// sym: ?FUN_00202500@fn_f0f2b8a0@@YGXPAUTriple@1@U21@@Z
+// sym: ?FUN_00202500@fn_f0f2b8a0@@YGXPAUTriple@1@U21@@Z @b9172780b78a @w1b24dec025e0
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // FUN_00202500 @ 0x00202500
 void __stdcall FUN_00202500(Triple* output, Triple a)
@@ -659,7 +659,7 @@ void __stdcall FUN_00202500(Triple* output, Triple a)
 
 
 // 0x00202560 FUN_00202560 (602 B): equivalent/0x00202560.cpp
-// sym: _FUN_00202560
+// sym: _FUN_00202560 @e9c506b2a372 @w70c1c44ececb
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 20/20)
 // FUN_00202560 @ 0x00202560
 extern "C" char FUN_00202560(Vec3_202560 *start, float depth, int a3, Vec3_202560 *result, Vec3_202560 *normalOut,
@@ -741,7 +741,7 @@ extern "C" char FUN_00202560(Vec3_202560 *start, float depth, int a3, Vec3_20256
 } // namespace fn_f0f2b8a0
 
 // 0x002027c0 FUN_002027c0 (531 B): equivalent/0x002027c0.cpp [wrapped: conflict: DAT_004dd700; World]
-// sym: _FUN_002027c0
+// sym: _FUN_002027c0 @eff62df9daf8 @we4a5ff319a34
 namespace fn_002027c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19987 inputs, branch coverage 16/16)
 // FUN_002027c0 @ 0x002027c0
@@ -886,7 +886,7 @@ extern "C" bool FUN_002027c0(V3_2027c0 *from, V3_2027c0 *to, float radius, int a
 
 
 // 0x002029e0 FUN_002029e0 (581 B): equivalent/0x002029e0.cpp [wrapped: conflict: Node; World]
-// sym: _FUN_002029e0
+// sym: _FUN_002029e0 @2d52dc5c34e0 @wdb69bce83f94
 namespace fn_002029e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19948 inputs, branch coverage 21/22, incomplete)
 // FUN_002029e0 @ 0x002029e0
@@ -1109,7 +1109,7 @@ extern "C" bool FUN_002029e0(Vec3_2029e0* from, Vec3_2029e0* to, int tag, int mo
 
 
 // 0x00202c30 FUN_00202c30 (711 B): equivalent/0x00202c30.cpp [wrapped: conflict: World]
-// sym: ?FUN_00202c30@fn_00202c30@@YA_NPAUV3_202c30@1@0HH00PAPAUShape_202c30@1@PAU31@DPAUProbe_202c30@1@@Z
+// sym: ?FUN_00202c30@fn_00202c30@@YA_NPAUV3_202c30@1@0HH00PAPAUShape_202c30@1@PAU31@DPAUProbe_202c30@1@@Z @352b4967a135 @w626f7ff96436
 namespace fn_00202c30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 32/32)
 // FUN_00202c30 @ 0x00202c30
@@ -1633,7 +1633,7 @@ CWorldCollisionManager* CWorldCollisionManager::vfunc_0(unsigned char param) {
 
 
 // 0x00203190 FUN_00203190 (401 B): equivalent/0x00203190.cpp [wrapped: conflict: World]
-// sym: _FUN_00203190
+// sym: _FUN_00203190 @446da1463732 @we0776fc63418
 namespace fn_00203190 {
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 13/14, incomplete)
 // FUN_00203190 @ 0x00203190
@@ -1779,7 +1779,7 @@ extern "C" bool FUN_00203190(V3_203190 *a1, V3_203190 *a2, int a3, Target_203190
 namespace fn_f0f2b8a0 {
 
 // 0x00203380 FUN_00203380 (70 B): equivalent/0x00203380.cpp
-// sym: ?FUN_00203380@Registry_203380@fn_f0f2b8a0@@QAEXPBDPAVOwner@2@P832@AEXM@Z@Z
+// sym: ?FUN_00203380@Registry_203380@fn_f0f2b8a0@@QAEXPBDPAVOwner@2@P832@AEXM@Z@Z @8572c5bbfc36 @w56364f78246b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00203380 @ 0x00203380
 // FUN_00203380 @ 0x00203380  (generated by tools/equiv_gen/reg_helper.py)
@@ -1795,7 +1795,7 @@ void Registry_203380::FUN_00203380(const char* a1, Owner* a2, Fn_203380 a3) {
 } // namespace fn_f0f2b8a0
 
 // 0x002033d0 FUN_002033d0 (109 B): equivalent/0x002033d0.cpp [wrapped: conflict: CWorldCollisionManager; Closure0; Method0]
-// sym: ?FUN_002033d0@Registry_2033d0@fn_002033d0@@QAEXPBDPAVCWorldCollisionManager@2@P832@AEMXZ@Z
+// sym: ?FUN_002033d0@Registry_2033d0@fn_002033d0@@QAEXPBDPAVCWorldCollisionManager@2@P832@AEMXZ@Z @5079e4ff5466 @w81142ba60256
 namespace fn_002033d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_002033d0 @ 0x002033d0
@@ -1880,7 +1880,7 @@ void Registry_2033d0::FUN_002033d0(const char* name, CWorldCollisionManager* own
 
 
 // 0x00203490 FUN_00203490 (449 B): equivalent/0x00203490.cpp [wrapped: conflict: CWorldCollisionManager; Closure1; Method1]
-// sym: ?FUN_00203490@CWorldCollisionManager@fn_00203490@@QAEXXZ
+// sym: ?FUN_00203490@CWorldCollisionManager@fn_00203490@@QAEXXZ @6a2da78fa6f4 @wd85084ceb28a
 namespace fn_00203490 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_00203490 @ 0x00203490

@@ -5,7 +5,7 @@
 
 
 // 0x001d57d0 CSPHulkPropLoader::vfunc_5 (1142 B): equivalent/0x001d57d0.cpp [isolated: conflict: FUN_00263ea0; on include/gen/ and not mergeable]
-// sym: ?vfunc_5@CSPHulkPropLoader@@UAEXPAX00H@Z
+// sym: ?vfunc_5@CSPHulkPropLoader@@UAEXPAX00H@Z @0d0697bd7b05 @w8e55929c22b6
 // STATUS: equivalent (tools/equiv.py level 3: 194 inputs, branch coverage 67/84, incomplete)
 // CSPHulkPropLoader::vfunc_5 @ 0x001d57d0
 #include "gen/global.h"

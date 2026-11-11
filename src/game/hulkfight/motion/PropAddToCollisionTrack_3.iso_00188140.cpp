@@ -4,7 +4,7 @@
 
 
 // 0x00188140 FUN_00188140 (213 B): equivalent/0x00188140.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00188140
+// sym: _FUN_00188140 @975ddc5a8731 @wb0a95cfef18d
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight/motion.h"
 namespace fn_fdfa1e58 {} using namespace fn_fdfa1e58;

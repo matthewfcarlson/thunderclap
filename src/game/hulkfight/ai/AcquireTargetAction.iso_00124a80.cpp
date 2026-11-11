@@ -5,7 +5,7 @@
 
 
 // 0x00124a80 hulkfight::ai::AcquireTargetAction::vfunc_5 (550 B): equivalent/0x00124a80.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?vfunc_5@AcquireTargetAction@ai@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@AcquireTargetAction@ai@hulkfight@@UAE_NHH@Z @1d89bbbacfb3 @w35b333027279
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 16/16)
 // hulkfight::ai::AcquireTargetAction::vfunc_5 @ 0x00124a80
 #include "gen/hulkfight.h"

@@ -135,7 +135,7 @@ void __stdcall FUN_001e87c0(int amount) {
 
 
 // 0x001e8800 FUN_001e8800 (45 B): equivalent/0x001e8800.cpp
-// sym: _FUN_001e8800
+// sym: _FUN_001e8800 @1558f6d9b5dc @w059a1feee1a7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001e8800 @ 0x001e8800
 extern "C" int __cdecl FUN_001e8800(int unused, Data *data) {

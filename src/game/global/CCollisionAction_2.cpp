@@ -335,7 +335,7 @@ Sess* Lookup();
 } // namespace fn_f54c57d3
 
 // 0x00019380 FUN_00019380 (160 B): equivalent/0x00019380.cpp [wrapped: conflict: CAction; CCollisionAction]
-// sym: ??0CCollisionAction@fn_00019380@@QAE@PAURef_19380@1@PAUOwner_19380@1@0H@Z
+// sym: ??0CCollisionAction@fn_00019380@@QAE@PAURef_19380@1@PAUOwner_19380@1@0H@Z @d9d44db93f4f @wa99106f63c92
 namespace fn_00019380 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00019380 @ 0x00019380
@@ -435,7 +435,7 @@ CCollisionAction_19420::~CCollisionAction_19420() {
 
 
 // 0x00019470 FUN_00019470 (2227 B): equivalent/0x00019470.cpp
-// sym: ?FUN_00019470@Attack@fn_f54c57d3@@QAEXPAUFighter_19470@2@HPAUVec3_19470@2@1H@Z
+// sym: ?FUN_00019470@Attack@fn_f54c57d3@@QAEXPAUFighter_19470@2@HPAUVec3_19470@2@1H@Z @9561f5cfe551 @we43dc2f938be
 // STATUS: equivalent (tools/equiv.py level 3: 20078 inputs, branch coverage 99/100, incomplete)
 // FUN_00019470 @ 0x00019470
 // equiv-conv: FUN_00014210 eax ecx edx esi
@@ -650,7 +650,7 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
 
 
 // 0x00019d30 FUN_00019d30 (786 B): equivalent/0x00019d30.cpp
-// sym: ?FUN_00019d30@SpawnAction@fn_f54c57d3@@QAEXPAUTarget_19d30@2@PAUVec3_19d30@2@1@Z
+// sym: ?FUN_00019d30@SpawnAction@fn_f54c57d3@@QAEXPAUTarget_19d30@2@PAUVec3_19d30@2@1@Z @578e8915c0c4 @w2569bfd14357
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_00019d30 @ 0x00019d30
 // equiv-conv: FUN_00014210 eax ecx edx esi
@@ -728,7 +728,7 @@ void SpawnAction::FUN_00019d30(Target_19d30* t, Vec3_19d30* p1, Vec3_19d30* p2)
 } // namespace fn_f54c57d3
 
 // 0x0001a050 FUN_0001a050 (241 B): equivalent/0x0001a050.cpp [wrapped: conflict: World]
-// sym: ?FUN_0001a050@Target_1a050@fn_0001a050@@QAEXHH@Z
+// sym: ?FUN_0001a050@Target_1a050@fn_0001a050@@QAEXHH@Z @74acf0a0101e @wba52e802437a
 namespace fn_0001a050 {
 // STATUS: equivalent (tools/equiv.py level 3: 1441 inputs, branch coverage 22/22)
 // FUN_0001a050 @ 0x0001a050
@@ -802,7 +802,7 @@ void Target_1a050::FUN_0001a050(hulk_intptr arg,hulk_intptr secondary) {
 
 
 // 0x0001a150 CCollisionAction::vfunc_6 (465 B): equivalent/0x0001a150.cpp [wrapped: conflict: CAction; CCollisionAction; World]
-// sym: ?vfunc_6@CCollisionAction@fn_0001a150@@UAEDH@Z
+// sym: ?vfunc_6@CCollisionAction@fn_0001a150@@UAEDH@Z @94e284c0b74c @w7b16bee16821
 namespace fn_0001a150 {
 // STATUS: equivalent (tools/equiv.py level 3: 19828 inputs, branch coverage 15/16, incomplete)
 // CCollisionAction::vfunc_6 @ 0x0001a150
@@ -1024,7 +1024,7 @@ char CCollisionAction::vfunc_6(int arg)
 
 
 // 0x0001a330 CCollisionAction::vfunc_8 (850 B): equivalent/0x0001a330.cpp [wrapped: conflict: CCollisionAction; World]
-// sym: ?vfunc_8@CCollisionAction@fn_0001a330@@UAE_NM@Z
+// sym: ?vfunc_8@CCollisionAction@fn_0001a330@@UAE_NM@Z @26a36e6d7c19 @wbf39f603ad70
 namespace fn_0001a330 {
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 43/46, incomplete)
 // CCollisionAction::vfunc_8 @ 0x0001a330

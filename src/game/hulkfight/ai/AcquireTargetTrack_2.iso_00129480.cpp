@@ -4,7 +4,7 @@
 
 
 // 0x00129480 FUN_00129480 (213 B): equivalent/0x00129480.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?target@fn_f8843226@@YAXXZ
+// sym: ?target@fn_f8843226@@YAXXZ @c8a39e623143 @w9c7965a4f855
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight/ai.h"
 namespace fn_f8843226 {} using namespace fn_f8843226;

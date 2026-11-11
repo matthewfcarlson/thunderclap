@@ -62,7 +62,7 @@ void owners::Thing_e3ac0::FUN_000e3ac0(owners::Thing_e3ac0* other) {
 namespace fn_fd5f5c06 {
 
 // 0x000e3b70 FUN_000e3b70 (58 B): equivalent/0x000e3b70.cpp
-// sym: ?FUN_000e3b70@Object@fn_fd5f5c06@@QAEXPAUNode@2@@Z
+// sym: ?FUN_000e3b70@Object@fn_fd5f5c06@@QAEXPAUNode@2@@Z @e1f3a71d9e03 @w5a56563d1916
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000e3b70 @ 0x000e3b70
 void Object::FUN_000e3b70(Node* value) { node = value; if (value) { value->active = 1; node->enabled = 1; node->link = link; node->owner = owner; } }
@@ -88,7 +88,7 @@ bool TextWindow::vfunc_11(int , int ) {
 
 
 // 0x000e3be0 TextWindow::vfunc_12 (75 B): equivalent/0x000e3be0.cpp [wrapped: conflict: TextWindow]
-// sym: ?vfunc_12@TextWindow@fn_000e3be0@@QAEIII@Z
+// sym: ?vfunc_12@TextWindow@fn_000e3be0@@QAEIII@Z @31d14c29e705 @wce4ecd37f606
 namespace fn_000e3be0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // TextWindow::vfunc_12 @ 0x000e3be0

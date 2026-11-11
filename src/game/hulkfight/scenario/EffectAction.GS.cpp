@@ -92,7 +92,7 @@ struct Object {
 
 
 // 0x001a9f10 FUN_001a9f10 (569 B): equivalent/0x001a9f10.cpp
-// sym: ?FUN_001a9f10@Obj_1a9f10@fn_feb3d910@@QAE_NXZ
+// sym: ?FUN_001a9f10@Obj_1a9f10@fn_feb3d910@@QAE_NXZ @ca85cc926f16 @w6af0c42e9146
 // STATUS: equivalent (tools/equiv.py level 3: 616 inputs, branch coverage 22/22)
 // FUN_001a9f10 @ 0x001a9f10
 // FUN_001a9f10 @ 0x001a9f10
@@ -184,7 +184,7 @@ bool Obj_1a9f10::FUN_001a9f10()
 
 
 // 0x001aa7d0 FUN_001aa7d0 (268 B): equivalent/0x001aa7d0.cpp
-// sym: ?FUN_001aa7d0@Object@fn_feb3d910@@QAE_NXZ
+// sym: ?FUN_001aa7d0@Object@fn_feb3d910@@QAE_NXZ @2b62f5ac3395 @w311331f4519c
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 19/20, incomplete)
 // FUN_001aa7d0 @ 0x001aa7d0
 bool Object::FUN_001aa7d0() {

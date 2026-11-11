@@ -129,7 +129,7 @@ public:
 
 
 // 0x00163a90 hulkfight::motion::LocomotionStrafe4Action::vfunc_7 (1081 B): equivalent/0x00163a90.cpp
-// sym: ?vfunc_7@LocomotionStrafe4Action@motion@hulkfight@fn_ff103e17@@UAEXPAXTSlotF_163a90@4@TSlotU_163a90@4@22222PAIPAUId64_163a90@4@333@Z
+// sym: ?vfunc_7@LocomotionStrafe4Action@motion@hulkfight@fn_ff103e17@@UAEXPAXTSlotF_163a90@4@TSlotU_163a90@4@22222PAIPAUId64_163a90@4@333@Z @82ffd4e71987 @w407b10241917
 // STATUS: equivalent (tools/equiv.py level 3: 283 inputs, branch coverage 38/42, incomplete)
 // hulkfight::motion::LocomotionStrafe4Action::vfunc_7 @ 0x00163a90
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

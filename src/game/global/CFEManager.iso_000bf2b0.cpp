@@ -4,7 +4,7 @@
 
 
 // 0x000bf2b0 FUN_000bf2b0 (413 B): equivalent/0x000bf2b0.cpp [isolated: conflict: FUN_000fc3d0; on include/gen/ and not mergeable]
-// sym: ?FUN_000bf2b0@Menu_bf2b0@@QAEXH@Z
+// sym: ?FUN_000bf2b0@Menu_bf2b0@@QAEXH@Z @ea849595533a @wd40a318473d4
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 34/34)
 // FUN_000bf2b0 @ 0x000bf2b0
 #include "decls/address.h"

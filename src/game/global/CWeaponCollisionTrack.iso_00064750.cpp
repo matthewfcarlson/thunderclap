@@ -4,7 +4,7 @@
 
 
 // 0x00064750 FUN_00064750 (158 B): equivalent/0x00064750.cpp [isolated: compile error C2039: 'FUN_00061fb0' : is not a member of 'CSmartPropRemoveInstanceTrack']
-// sym: _FUN_00064750
+// sym: _FUN_00064750 @483adefc8f21 @w5b9917fe0d11
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_00064750 @ 0x00064750
 #include "decls/data/game/global.h"

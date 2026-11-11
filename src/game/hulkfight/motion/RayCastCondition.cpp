@@ -335,7 +335,7 @@ HealthCondition_167990* HealthCondition_167990::vfunc_5(signed char flags) {
 } // namespace fn_f88f56f3
 
 // 0x001679c0 hulkfight::motion::RayCastCondition::vfunc_6 (756 B): equivalent/0x001679c0.cpp [wrapped: conflict: DAT_00494b44; DAT_00494b60; hulkfight::motion::RayCastCondition]
-// sym: ?vfunc_6@RayCastCondition@motion@hulkfight@fn_001679c0@@UAEDHPAUObj1_1679c0@4@H@Z
+// sym: ?vfunc_6@RayCastCondition@motion@hulkfight@fn_001679c0@@UAEDHPAUObj1_1679c0@4@H@Z @78a83cc475cf @wd740b87561ac
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -543,7 +543,7 @@ char RayCastCondition::vfunc_6(int arg0, Obj1_1679c0* target, int arg2)
 
 
 // 0x00167cc0 hulkfight::motion::VelocityCondition::vfunc_6 (320 B): equivalent/0x00167cc0.cpp
-// sym: ?vfunc_6@VelocityCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@VelocityCondition@motion@hulkfight@@UAE_NPAX00@Z @a9eec2c2a607 @w0b03bf7e4d67
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::VelocityCondition::vfunc_6 @ 0x00167cc0
 bool hulkfight::motion::VelocityCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a1 = (int)__p0; fight::Params_167cc0 * params = (fight::Params_167cc0 *)__p1; int a3 = (int)__p2;
@@ -578,7 +578,7 @@ bool hulkfight::motion::VelocityCondition::vfunc_6(void* __p0, void* __p1, void*
 
 
 // 0x00167e20 hulkfight::motion::VelocityYCondition::vfunc_6 (232 B): equivalent/0x00167e20.cpp
-// sym: ?vfunc_6@VelocityYCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@VelocityYCondition@motion@hulkfight@@UAE_NPAX00@Z @837b343dd847 @w91a2830a3e8d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // hulkfight::motion::VelocityYCondition::vfunc_6 @ 0x00167e20
 bool hulkfight::motion::VelocityYCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Context_167e20 * context = (Context_167e20 *)__p1;
@@ -598,7 +598,7 @@ bool hulkfight::motion::VelocityYCondition::vfunc_6(void* __p0, void* __p1, void
 
 
 // 0x00167f20 hulkfight::motion::VelocityXZCondition::vfunc_6 (232 B): equivalent/0x00167f20.cpp
-// sym: ?vfunc_6@VelocityXZCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@VelocityXZCondition@motion@hulkfight@@UAE_NPAX00@Z @423910edd579 @wbfb023d6dae3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // hulkfight::motion::VelocityXZCondition::vfunc_6 @ 0x00167f20
 bool hulkfight::motion::VelocityXZCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Actor_167f20 * actor = (Actor_167f20 *)__p1;
@@ -618,7 +618,7 @@ bool hulkfight::motion::VelocityXZCondition::vfunc_6(void* __p0, void* __p1, voi
 
 
 // 0x00168020 hulkfight::motion::VelocityXZAngleCondition::vfunc_6 (254 B): equivalent/0x00168020.cpp [wrapped: conflict: DAT_00494b60; hulkfight::motion::VelocityXZAngleCondition]
-// sym: ?vfunc_6@VelocityXZAngleCondition@motion@hulkfight@fn_00168020@@UAE_NPAXPAUActor_168020@4@0@Z
+// sym: ?vfunc_6@VelocityXZAngleCondition@motion@hulkfight@fn_00168020@@UAE_NPAXPAUActor_168020@4@0@Z @dbab8e2f3cc7 @w464bdfcaca9b
 namespace fn_00168020 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::VelocityXZAngleCondition::vfunc_6 @ 0x00168020
@@ -652,7 +652,7 @@ bool VelocityXZAngleCondition::vfunc_6(void*,Actor_168020* actor,void*) {
 
 
 // 0x00168120 hulkfight::motion::VelocityAnimatedCondition::vfunc_6 (320 B): equivalent/0x00168120.cpp
-// sym: ?vfunc_6@VelocityAnimatedCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@VelocityAnimatedCondition@motion@hulkfight@@UAE_NPAX00@Z @f05da6ce5ccb @w6d1a5d9197a2
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::VelocityAnimatedCondition::vfunc_6 @ 0x00168120
 bool hulkfight::motion::VelocityAnimatedCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a1 = (int)__p0; fight::Params_168120 * params = (fight::Params_168120 *)__p1; int a3 = (int)__p2;

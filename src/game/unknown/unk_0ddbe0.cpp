@@ -156,7 +156,7 @@ extern "C" float FUN_000ddbe0() {
 } // namespace fn_f683177d
 
 // 0x000ddbf0 FUN_000ddbf0 (370 B): equivalent/0x000ddbf0.cpp [wrapped: conflict: DAT_004de948; FEThings; FEThingsBase]
-// sym: ??0FEThings@fn_000ddbf0@@QAE@PAVView_ddbf0@1@@Z
+// sym: ??0FEThings@fn_000ddbf0@@QAE@PAVView_ddbf0@1@@Z @aed528d0c9f4 @w9b266ca6bfaa
 namespace fn_000ddbf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 8/8)
 // FUN_000ddbf0 @ 0x000ddbf0

@@ -2072,7 +2072,7 @@ template <> fight::ParamBranch<hulkfight::motion::FireGroundShockwaveTrack>::~Pa
 namespace fn_f740ace1 {
 
 // 0x0019a7d0 FUN_0019a7d0 (95 B): equivalent/0x0019a7d0.cpp
-// sym: ?FUN_0019a7d0@fn_f740ace1@@YAXXZ
+// sym: ?FUN_0019a7d0@fn_f740ace1@@YAXXZ @329726558796 @w36316c2a142c
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
 // FUN_0019a7d0 @ 0x0019a7d0
 void FUN_0019a7d0()
@@ -2091,7 +2091,7 @@ void FUN_0019a7d0()
 
 
 // 0x0019a830 FUN_0019a830 (158 B): equivalent/0x0019a830.cpp
-// sym: ?FUN_0019a830@fn_f740ace1@@YAXXZ
+// sym: ?FUN_0019a830@fn_f740ace1@@YAXXZ @1fe0dbb236ac @w403ce37f914a
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_0019a830 @ 0x0019a830
 void FUN_0019a830()
@@ -2114,7 +2114,7 @@ void FUN_0019a830()
 
 
 // 0x0019a8d0 FUN_0019a8d0 (715 B): equivalent/0x0019a8d0.cpp
-// sym: ?FUN_0019a8d0@fn_f740ace1@@YAXXZ
+// sym: ?FUN_0019a8d0@fn_f740ace1@@YAXXZ @a8866d950226 @w42e3a475c57a
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 28/28)
 // FUN_0019a8d0 @ 0x0019a8d0
 void FUN_0019a8d0()
@@ -2223,7 +2223,7 @@ FireProjectileAction_19adf0* FireProjectileAction_19adf0::f2(unsigned char fl) {
 
 
 // 0x0019ae50 hulkfight::motion::FireProjectileAction::vfunc_5 (1265 B): equivalent/0x0019ae50.cpp
-// sym: ?vfunc_5@FireProjectileAction@fn_f740ace1@@UAE_NHTSlot_19ae50@2@@Z
+// sym: ?vfunc_5@FireProjectileAction@fn_f740ace1@@UAE_NHTSlot_19ae50@2@@Z @0593e2a13163 @w734298ae63c9
 // STATUS: equivalent (tools/equiv.py level 3: 19992 inputs, branch coverage 32/32)
 // hulkfight::motion::FireProjectileAction::vfunc_5 @ 0x0019ae50
 bool FireProjectileAction::vfunc_5(int a1, Slot_19ae50 a2)
@@ -2438,7 +2438,7 @@ FireMissileAction_19b410* FireMissileAction_19b410::vfunc_2(int flag) {
 } // namespace fn_f740ace1
 
 // 0x0019b460 FUN_0019b460 (157 B): equivalent/0x0019b460.cpp [wrapped: conflict: CProjectile; FUN_0027f250; World; hulkfight::motion::ProjectileMissile]
-// sym: ??1ProjectileMissile@motion@hulkfight@fn_0019b460@@UAE@XZ
+// sym: ??1ProjectileMissile@motion@hulkfight@fn_0019b460@@UAE@XZ @667ead3e9f14 @wb2f2fe593d89
 namespace fn_0019b460 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_0019b460 @ 0x0019b460
@@ -2561,7 +2561,7 @@ ProjectileMissile::~ProjectileMissile() throw()
 
 
 // 0x0019b500 FUN_0019b500 (206 B): equivalent/0x0019b500.cpp [wrapped: conflict: hulkfight::motion::BeamEffect; hulkfight::motion::FireBeamAction]
-// sym: ??0FireBeamAction@motion@hulkfight@fn_0019b500@@QAE@HPAURef_19b500@3@@Z
+// sym: ??0FireBeamAction@motion@hulkfight@fn_0019b500@@QAE@HPAURef_19b500@3@@Z @5cd1a1e0fb45 @we676446088a4
 void* __cdecl operator new(size_t);
 namespace fn_0019b500 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
@@ -2602,7 +2602,7 @@ hulkfight::motion::FireBeamAction::~FireBeamAction() {}
 namespace fn_f740ace1 {
 
 // 0x0019b5f0 hulkfight::motion::FireBeamAction::vfunc_5 (576 B): equivalent/0x0019b5f0.cpp
-// sym: ?vfunc_5@FireBeamAction@fn_f740ace1@@UAE_NHM@Z
+// sym: ?vfunc_5@FireBeamAction@fn_f740ace1@@UAE_NHM@Z @8028090db355 @wc52888d208f0
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 18/18)
 // hulkfight::motion::FireBeamAction::vfunc_5 @ 0x0019b5f0
 bool FireBeamAction::vfunc_5(int phase, float dt)

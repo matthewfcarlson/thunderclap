@@ -791,7 +791,7 @@ hulk_intptr CGrappleAttachTrack::vfunc_0(int index) {
 
 
 // 0x0005aa00 FUN_0005aa00 (102 B): equivalent/0x0005aa00.cpp [wrapped: conflict: CGrappleAttachTrack]
-// sym: ??0CGrappleAttachTrack@fn_0005aa00@@QAE@XZ
+// sym: ??0CGrappleAttachTrack@fn_0005aa00@@QAE@XZ @62e6e7b3972e @w863d70cbf9d4
 namespace fn_0005aa00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0005aa00 @ 0x0005aa00
@@ -1157,7 +1157,7 @@ void* CGrappleOpportunityTrack::vfunc_8(void* __p0, void* __p1) { void * p = (vo
 
 
 // 0x0005ae00 CGrappleOpportunityTrack::vfunc_10 (247 B): equivalent/0x0005ae00.cpp [wrapped: conflict: CGrappleOpportunityTrack; FUN_0008d690]
-// sym: ?vfunc_10@CGrappleOpportunityTrack@fn_0005ae00@@UAEIIIPAUOwner_5ae00@2@@Z
+// sym: ?vfunc_10@CGrappleOpportunityTrack@fn_0005ae00@@UAEIIIPAUOwner_5ae00@2@@Z @8bfb299ed83c @w1f285531c9cc
 namespace fn_0005ae00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 17/18, incomplete)
 // CGrappleOpportunityTrack::vfunc_10 @ 0x0005ae00
@@ -1294,7 +1294,7 @@ void* CGrappleSequenceTrack::vfunc_8(void* __p0, void* __p1) { void * p = (void 
 
 
 // 0x0005b000 CGrappleSequenceTrack::vfunc_10 (168 B): equivalent/0x0005b000.cpp [wrapped: conflict: CGrappleSequenceTrack]
-// sym: ?vfunc_10@CGrappleSequenceTrack@fn_0005b000@@UAEPAUObject@2@IIPAUInput_5b000@2@@Z
+// sym: ?vfunc_10@CGrappleSequenceTrack@fn_0005b000@@UAEPAUObject@2@IIPAUInput_5b000@2@@Z @cbcd45dcb23d @w25fba6a70843
 namespace fn_0005b000 {
 // STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 13/14, incomplete)
 // CGrappleSequenceTrack::vfunc_10 @ 0x0005b000
@@ -1439,7 +1439,7 @@ CGrabTrack::~CGrabTrack() {
 
 
 // 0x0005b1a0 CGrabTrack::vfunc_10 (134 B): equivalent/0x0005b1a0.cpp
-// sym: ?vfunc_10@CGrabTrack@@UAEHHHH@Z
+// sym: ?vfunc_10@CGrabTrack@@UAEHHHH@Z @014ee7513341 @web37f65bd86b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8; --wine 600 inputs)
 // CGrabTrack::vfunc_10 @ 0x0005b1a0
 hulk_intptr CGrabTrack::vfunc_10(hulk_intptr a1, hulk_intptr a2, hulk_intptr __p2) { fight::Params * params = (fight::Params *)__p2;
@@ -1485,7 +1485,7 @@ void* CGrappleInvincibleTrack::vfunc_11(hulk_intptr param) {
 
 
 // 0x0005b280 CGrappleInvincibleTrack::vfunc_12 (114 B): equivalent/0x0005b280.cpp
-// sym: ?vfunc_12@CGrappleInvincibleTrack@@UAEHH@Z
+// sym: ?vfunc_12@CGrappleInvincibleTrack@@UAEHH@Z @345a800937bb @we6e64d8e5169
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleInvincibleTrack::vfunc_12 @ 0x0005b280
 hulk_intptr CGrappleInvincibleTrack::vfunc_12(hulk_intptr __p0) { Link1_5b280 * owner = (Link1_5b280 *)__p0;
@@ -1536,7 +1536,7 @@ void* CGrappleUninterruptibleTrack::vfunc_11(hulk_intptr param) {
 
 
 // 0x0005b350 CGrappleUninterruptibleTrack::vfunc_12 (114 B): equivalent/0x0005b350.cpp
-// sym: ?vfunc_12@CGrappleUninterruptibleTrack@@UAEHH@Z
+// sym: ?vfunc_12@CGrappleUninterruptibleTrack@@UAEHH@Z @2f4610e4972e @w62a3ddc58af7
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleUninterruptibleTrack::vfunc_12 @ 0x0005b350
 hulk_intptr CGrappleUninterruptibleTrack::vfunc_12(hulk_intptr __p0) { Link1_5b350 * owner = (Link1_5b350 *)__p0;
@@ -1587,7 +1587,7 @@ void* CGrappleInvulnerableTrack::vfunc_11(hulk_intptr param) {
 
 
 // 0x0005b420 CGrappleInvulnerableTrack::vfunc_12 (114 B): equivalent/0x0005b420.cpp
-// sym: ?vfunc_12@CGrappleInvulnerableTrack@@UAEHH@Z
+// sym: ?vfunc_12@CGrappleInvulnerableTrack@@UAEHH@Z @8e68a8ba79d8 @w961fdb9db305
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleInvulnerableTrack::vfunc_12 @ 0x0005b420
 hulk_intptr CGrappleInvulnerableTrack::vfunc_12(hulk_intptr __p0) { Link1_5b420 * owner = (Link1_5b420 *)__p0;
@@ -1680,7 +1680,7 @@ void* CGrappleSmartPropDropTrack::vfunc_11(hulk_intptr param) {
 
 
 // 0x0005b6f0 FUN_0005b6f0 (125 B): equivalent/0x0005b6f0.cpp [wrapped: conflict: CGrappleLocoStrafe4Track]
-// sym: ?FUN_0005b6f0@CGrappleLocoStrafe4Track@fn_0005b6f0@@QAEPAV12@XZ
+// sym: ?FUN_0005b6f0@CGrappleLocoStrafe4Track@fn_0005b6f0@@QAEPAV12@XZ @1663bdacc4a5 @w1d64a6e42532
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_0005b6f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
@@ -2596,7 +2596,7 @@ template <> fight::ParamBranch<CGrabTrack>::~ParamBranch() {}
 
 
 // 0x0005c490 FUN_0005c490 (213 B): equivalent/0x0005c490.cpp [wrapped: conflict: fight::ParamBranch; fight::ParamConditionGroup; fight::ParamIntConstRange]
-// sym: _FUN_0005c490
+// sym: _FUN_0005c490 @0c9100c8edb9 @w0c9fbaef24d1
 namespace fn_0005c490 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_0005c490 @ 0x0005c490

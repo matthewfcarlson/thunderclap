@@ -30,7 +30,7 @@ char pad[8]; unsigned char expected; char pad2[3]; U32_14ed50 low; U32_14ed50 hi
 
 
 // 0x0014ed50 hulkfight::motion::CollisionThrownObjectCondition::vfunc_6 (172 B): equivalent/0x0014ed50.cpp
-// sym: ?vfunc_6@CollisionThrownObjectCondition@motion@hulkfight@fn_f0a5d923@@UAE_NKPAUParams@4@K@Z
+// sym: ?vfunc_6@CollisionThrownObjectCondition@motion@hulkfight@fn_f0a5d923@@UAE_NKPAUParams@4@K@Z @6add8800de5b @wfb378770b590
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 24/24)
 // hulkfight::motion::CollisionThrownObjectCondition::vfunc_6 @ 0x0014ed50
 namespace hulkfight { namespace motion {

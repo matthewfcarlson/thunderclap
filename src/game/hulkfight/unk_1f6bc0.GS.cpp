@@ -50,7 +50,7 @@ public:
 
 
 // 0x001f6cd0 FUN_001f6cd0 (392 B): equivalent/0x001f6cd0.cpp
-// sym: ?FUN_001f6cd0@Reaction_1f6cd0@fn_f77ae7b3@@QAEXPAUSource_1f6cd0@2@HPBUVec3_1f6cd0@2@11HHHPAPBDH@Z
+// sym: ?FUN_001f6cd0@Reaction_1f6cd0@fn_f77ae7b3@@QAEXPAUSource_1f6cd0@2@HPBUVec3_1f6cd0@2@11HHHPAPBDH@Z @5dca925bfba3 @w0e387c638af8
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 8/8)
 // FUN_001f6cd0 @ 0x001f6cd0
 void Reaction_1f6cd0::FUN_001f6cd0(Source_1f6cd0 *src, hulk_intptr a1, const Vec3_1f6cd0 *a2, const Vec3_1f6cd0 *a3, const Vec3_1f6cd0 *a4,

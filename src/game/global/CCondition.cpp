@@ -89,7 +89,7 @@ int __stdcall vfunc_7(Obj_4ae90* p) {
 
 
 // 0x0004af40 FUN_0004af40 (195 B): equivalent/0x0004af40.cpp
-// sym: ?FUN_0004af40@fn_f441c847@@YAMMMM@Z
+// sym: ?FUN_0004af40@fn_f441c847@@YAMMMM@Z @6c797ea45342 @w978850b95974
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 10/10)
 // FUN_0004af40 @ 0x0004af40
 hulk_freg __cdecl FUN_0004af40(float a, float b, float x) {

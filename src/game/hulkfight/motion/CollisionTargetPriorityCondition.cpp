@@ -19,7 +19,7 @@ struct Context_14e910 { virtual void slot0(); virtual void slot1(); virtual void
 } // namespace fn_f2efbb64
 
 // 0x0014e910 hulkfight::motion::CollisionTargetPriorityCondition::vfunc_6 (248 B): equivalent/0x0014e910.cpp
-// sym: ?vfunc_6@CollisionTargetPriorityCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@CollisionTargetPriorityCondition@motion@hulkfight@@UAE_NPAX00@Z @cfb8d2d6310f @w42cc6512a6f3
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 24/24)
 // hulkfight::motion::CollisionTargetPriorityCondition::vfunc_6 @ 0x0014e910
 bool hulkfight::motion::CollisionTargetPriorityCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Context_14e910 * context = (Context_14e910 *)__p1;

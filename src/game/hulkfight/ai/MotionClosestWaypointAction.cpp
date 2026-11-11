@@ -77,7 +77,7 @@ public:
 
 
 // 0x00117ab0 hulkfight::ai::MotionClosestWaypointAction::vfunc_3 (555 B): equivalent/0x00117ab0.cpp
-// sym: ?vfunc_3@MotionClosestWaypointAction@fn_feb4b85b@@UAE_NHH@Z
+// sym: ?vfunc_3@MotionClosestWaypointAction@fn_feb4b85b@@UAE_NHH@Z @f0a21cea7763 @w68404478d7fe
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 21/24, incomplete)
 // hulkfight::ai::MotionClosestWaypointAction::vfunc_3 @ 0x00117ab0
 bool MotionClosestWaypointAction::vfunc_3(int a, int b)

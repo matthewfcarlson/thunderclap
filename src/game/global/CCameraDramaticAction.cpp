@@ -25,7 +25,7 @@ class CAction_16ff0 {
 } // namespace fn_fd226368
 
 // 0x00016db0 CCameraDramaticAction::vfunc_6 (567 B): equivalent/0x00016db0.cpp [wrapped: conflict: CCameraDramaticAction]
-// sym: ?vfunc_6@CCameraDramaticAction@fn_00016db0@@QAEDH@Z
+// sym: ?vfunc_6@CCameraDramaticAction@fn_00016db0@@QAEDH@Z @0aafde97a3d2 @w0b5e2926962c
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

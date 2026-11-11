@@ -116,7 +116,7 @@ public:
 
 
 // 0x001e5f10 CSPManager::vfunc_1 (1143 B): equivalent/0x001e5f10.cpp
-// sym: ?vfunc_1@CSPManager@fn_f4e36ece@@UAE_NPAUElement_1e5f10@2@@Z
+// sym: ?vfunc_1@CSPManager@fn_f4e36ece@@UAE_NPAUElement_1e5f10@2@@Z @117402b211eb @w00605696fed8
 // STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 46/46)
 // CSPManager::vfunc_1 @ 0x001e5f10
 // CSPManager::vfunc_1 @ 0x001e5f10

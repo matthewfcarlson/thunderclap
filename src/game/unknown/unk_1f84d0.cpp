@@ -305,7 +305,7 @@ class CEncounter {
 } // namespace fn_f6c21956
 
 // 0x001f84d0 FUN_001f84d0 (94 B): equivalent/0x001f84d0.cpp
-// sym: ?FUN_001f84d0@Key_1f84d0@owners@@QAE_NPBU12@@Z
+// sym: ?FUN_001f84d0@Key_1f84d0@owners@@QAE_NPBU12@@Z @f08329bc16bd @w0fac39feb209
 // STATUS: equivalent (tools/equiv.py level 3: 3042 inputs, branch coverage 15/18, incomplete)
 // FUN_001f84d0 @ 0x001f84d0
 bool owners::Key_1f84d0::FUN_001f84d0(const owners::Key_1f84d0 *other) {
@@ -347,7 +347,7 @@ int Table_1f85f0::FUN_001f85f0(Name name)
 } // namespace fn_f6c21956
 
 // 0x001f8670 FUN_001f8670 (146 B): equivalent/0x001f8670.cpp [wrapped: merged class would differ: Key: size 1 vs 8]
-// sym: ?FUN_001f8670@Registry_1f8670@fn_001f8670@@QAEHUKey@2@@Z
+// sym: ?FUN_001f8670@Registry_1f8670@fn_001f8670@@QAEHUKey@2@@Z @4f9d5f2db4bb @w7e692cf26631
 namespace fn_001f8670 {
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 10/10)
 // FUN_001f8670 @ 0x001f8670
@@ -457,7 +457,7 @@ void owners::C_1f87d0::FUN_001f87d0(int x) {
 namespace fn_f6c21956 {
 
 // 0x001f87e0 FUN_001f87e0 (163 B): equivalent/0x001f87e0.cpp
-// sym: ?FUN_001f87e0@SlotTable_1f87e0@fn_f6c21956@@QAE_NPAURef_1f87e0@2@PAURequest@2@PAI@Z
+// sym: ?FUN_001f87e0@SlotTable_1f87e0@fn_f6c21956@@QAE_NPAURef_1f87e0@2@PAURequest@2@PAI@Z @d2f1343876af @w93bab90ff6e3
 // STATUS: equivalent (tools/equiv.py level 3: 2939 inputs, branch coverage 12/12)
 // FUN_001f87e0 @ 0x001f87e0
 bool SlotTable_1f87e0::FUN_001f87e0(Ref_1f87e0 *ref, Request *req, unsigned int *outIndex)
@@ -479,7 +479,7 @@ bool SlotTable_1f87e0::FUN_001f87e0(Ref_1f87e0 *ref, Request *req, unsigned int 
 
 
 // 0x001f8890 FUN_001f8890 (170 B): equivalent/0x001f8890.cpp
-// sym: ?target@Object@fn_f6c21956@@QAEMXZ
+// sym: ?target@Object@fn_f6c21956@@QAEMXZ @d8a4a073de73 @w7e68a299e1fc
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 20/20)
 // FUN_001f8890 @ 0x001f8890
 float Object::target() {
@@ -537,7 +537,7 @@ void Owner_1f8a80::Set(int value) {
 
 
 // 0x001f8aa0 FUN_001f8aa0 (146 B): equivalent/0x001f8aa0.cpp
-// sym: ?FUN_001f8aa0@Sensor_1f8aa0@fn_f6c21956@@QAE_NPAUSource_1f8aa0@2@PAVTarget_1f8aa0@2@@Z
+// sym: ?FUN_001f8aa0@Sensor_1f8aa0@fn_f6c21956@@QAE_NPAUSource_1f8aa0@2@PAVTarget_1f8aa0@2@@Z @32ea06f9b7db @w694b23e249e0
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 8/8)
 // FUN_001f8aa0 @ 0x001f8aa0
 // True when the target lies within `radius` of the source owner's position.
@@ -563,7 +563,7 @@ bool Sensor_1f8aa0::FUN_001f8aa0(Source_1f8aa0 *src, Target_1f8aa0 *target)
 
 
 // 0x001f8b40 FUN_001f8b40 (552 B): equivalent/0x001f8b40.cpp
-// sym: ?FUN_001f8b40@fn_f6c21956@@YGHHPAUObj_1f8b40@1@MMM@Z
+// sym: ?FUN_001f8b40@fn_f6c21956@@YGHHPAUObj_1f8b40@1@MMM@Z @8b91387b08d9 @w879aec9e2096
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 24/24)
 // FUN_001f8b40 @ 0x001f8b40
 hulk_intptr __stdcall FUN_001f8b40(int a1, Obj_1f8b40 *obj, float x, float y, float z)
@@ -638,7 +638,7 @@ void owners::Target_1f8f40::FUN_001f8f40(const char* arg) {
 
 
 // 0x001f8f70 FUN_001f8f70 (112 B): equivalent/0x001f8f70.cpp [wrapped: conflict: Key; World]
-// sym: ?FUN_001f8f70@Registry_1f8f70@fn_001f8f70@@QAEHPBD@Z
+// sym: ?FUN_001f8f70@Registry_1f8f70@fn_001f8f70@@QAEHPBD@Z @ee4aa9f451b8 @w432cd92fb3aa
 namespace fn_001f8f70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 4/4)
 // FUN_001f8f70 @ 0x001f8f70
@@ -767,7 +767,7 @@ int Registry::FUN_001f8fe0(Item* item)
 namespace fn_f6c21956 {
 
 // 0x001f9040 FUN_001f9040 (164 B): equivalent/0x001f9040.cpp
-// sym: ?FUN_001f9040@Area@fn_f6c21956@@QAE_NPAUSource_1f9040@2@PAVTarget_1f9040@2@@Z
+// sym: ?FUN_001f9040@Area@fn_f6c21956@@QAE_NPAUSource_1f9040@2@PAVTarget_1f9040@2@@Z @cb0e8f625016 @wf599b314374a
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 10/10)
 // FUN_001f9040 @ 0x001f9040
 bool Area::FUN_001f9040(Source_1f9040 *src, Target_1f9040 *target)
@@ -818,7 +818,7 @@ char owners::Obj_1f9130::FUN_001f9130(u32_1f9130 p1, u32_1f9130 p2, u32_1f9130 p
 
 
 // 0x001f91b0 FUN_001f91b0 (118 B): equivalent/0x001f91b0.cpp [wrapped: conflict: FUN_00267760; Name]
-// sym: ?FUN_001f91b0@Record_1f91b0@fn_001f91b0@@QAEPAV12@PBV12@@Z
+// sym: ?FUN_001f91b0@Record_1f91b0@fn_001f91b0@@QAEPAV12@PBV12@@Z @4510ae5176e5 @we85dc2d00ce6
 namespace fn_001f91b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f91b0 @ 0x001f91b0

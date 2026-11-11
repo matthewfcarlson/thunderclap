@@ -222,7 +222,7 @@ public:
 namespace fn_f0ac4b35 {
 
 // 0x000612e0 FUN_000612e0 (1378 B): equivalent/0x000612e0.cpp
-// sym: _FUN_000612e0
+// sym: _FUN_000612e0 @1df01b142511 @w15a45b3229af
 // STATUS: equivalent (tools/equiv.py level 3: 1961 inputs, branch coverage 54/54)
 // FUN_000612e0 @ 0x000612e0
 extern "C" void FUN_000612e0()
@@ -341,7 +341,7 @@ extern "C" void FUN_000612e0()
 
 
 // 0x00061850 FUN_00061850 (743 B): equivalent/0x00061850.cpp
-// sym: _FUN_00061850
+// sym: _FUN_00061850 @e1f25b9b5518 @w91371bbb8c6f
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 28/28)
 // FUN_00061850 @ 0x00061850
 extern "C" void FUN_00061850()

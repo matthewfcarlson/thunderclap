@@ -50,7 +50,7 @@ hulk_intptr hulkfight::motion::MoveJointTrack::vfunc_0(int index) {
 
 
 // 0x00170300 FUN_00170300 (128 B): equivalent/0x00170300.cpp [wrapped: conflict: hulkfight::motion::MoveJointTrack]
-// sym: ??0MoveJointTrack@motion@hulkfight@fn_00170300@@QAE@XZ
+// sym: ??0MoveJointTrack@motion@hulkfight@fn_00170300@@QAE@XZ @1bd867199375 @w1bcb0025cc76
 namespace fn_00170300 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00170300 @ 0x00170300

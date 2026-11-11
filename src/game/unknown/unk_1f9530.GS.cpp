@@ -91,7 +91,7 @@ public:
 } // namespace fn_f326376d
 
 // 0x001f9810 FUN_001f9810 (1814 B): equivalent/0x001f9810.cpp [wrapped: macros]
-// sym: ?FUN_001f9810@Self@fn_001f9810@@QAEXM@Z
+// sym: ?FUN_001f9810@Self@fn_001f9810@@QAEXM@Z @477bffe199f6 @w1e01495a9f6d
 namespace fn_001f9810 {
 // STATUS: equivalent (tools/equiv.py level 3: 3138 inputs, branch coverage 84/94, incomplete)
 // FUN_001f9810 @ 0x001f9810
@@ -518,7 +518,7 @@ void Self::FUN_001f9810(float dt)
 namespace fn_f326376d {
 
 // 0x001fa1c0 FUN_001fa1c0 (465 B): equivalent/0x001fa1c0.cpp
-// sym: ?FUN_001fa1c0@Panel_1fa1c0@fn_f326376d@@QAEXPAUTarget_1fa1c0@2@PAUItem_1fa1c0@2@@Z
+// sym: ?FUN_001fa1c0@Panel_1fa1c0@fn_f326376d@@QAEXPAUTarget_1fa1c0@2@PAUItem_1fa1c0@2@@Z @6f029fd01ff8 @wf8683acca230
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 28/28)
 // FUN_001fa1c0 @ 0x001fa1c0
 void Panel_1fa1c0::FUN_001fa1c0(Target_1fa1c0 *target, Item_1fa1c0 *item)
@@ -573,7 +573,7 @@ void Panel_1fa1c0::FUN_001fa1c0(Target_1fa1c0 *target, Item_1fa1c0 *item)
 } // namespace fn_f326376d
 
 // 0x001fa3a0 FUN_001fa3a0 (344 B): equivalent/0x001fa3a0.cpp [wrapped: conflict: World]
-// sym: ?FUN_001fa3a0@Mixer@fn_001fa3a0@@QAEXH@Z
+// sym: ?FUN_001fa3a0@Mixer@fn_001fa3a0@@QAEXH@Z @9517c75daccf @w7db6b74136b3
 namespace fn_001fa3a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 14/14)
 // FUN_001fa3a0 @ 0x001fa3a0

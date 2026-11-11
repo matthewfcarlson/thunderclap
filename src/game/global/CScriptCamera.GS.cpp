@@ -108,7 +108,7 @@ public:
 
 
 // 0x000acad0 CScriptCamera::vfunc_35 (576 B): equivalent/0x000acad0.cpp
-// sym: ?vfunc_35@CScriptCamera@fn_fb8b2f7e@@UAEXPAUCameraArgs@2@MHH@Z
+// sym: ?vfunc_35@CScriptCamera@fn_fb8b2f7e@@UAEXPAUCameraArgs@2@MHH@Z @ada854d6011d @wd883cd24883b
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 10/10)
 // CScriptCamera::vfunc_35 @ 0x000acad0
 void CScriptCamera::vfunc_35(CameraArgs* args, float dt, int flag, int extra)

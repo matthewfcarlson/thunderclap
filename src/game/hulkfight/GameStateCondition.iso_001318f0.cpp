@@ -4,7 +4,7 @@
 
 
 // 0x001318f0 FUN_001318f0 (256 B): equivalent/0x001318f0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?FUN_001318f0@fn_f62c01b9@@YAXXZ
+// sym: ?FUN_001318f0@fn_f62c01b9@@YAXXZ @5519cc33c5d9 @wbd927b49b6c9
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight.h"
 namespace fn_f62c01b9 {} using namespace fn_f62c01b9;

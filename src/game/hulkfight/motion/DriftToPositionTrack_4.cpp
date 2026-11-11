@@ -62,7 +62,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::DriftToPo
 
 
 // 0x0017e350 fight::TrackFactoryTemplate<hulkfight::motion::DriftToPositionTrack>::vfunc_5 (82 B): equivalent/0x0017e350.cpp
-// sym: ?vfunc_5@?$TrackFactoryTemplate@VDriftToPositionTrack@motion@hulkfight@@@fight@@UAEPAXXZ
+// sym: ?vfunc_5@?$TrackFactoryTemplate@VDriftToPositionTrack@motion@hulkfight@@@fight@@UAEPAXXZ @2015bdd55785 @w1ed29ddce8af
 // STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 2/2)
 // fight::TrackFactoryTemplate<hulkfight::motion::DriftToPositionTrack>::vfunc_5 @ 0x0017e350
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::DriftToPositionTrack>::vfunc_5() {

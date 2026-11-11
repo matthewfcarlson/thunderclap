@@ -272,7 +272,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x001e6390 FUN_001e6390 (2935 B): equivalent/0x001e6390.cpp
-// sym: ?FUN_001e6390@Mgr_1e6390@fn_fb8261dc@@QAEXXZ
+// sym: ?FUN_001e6390@Mgr_1e6390@fn_fb8261dc@@QAEXXZ @37e7ee768352 @w4ce5ead81e52
 // STATUS: equivalent (tools/equiv.py level 3: 426 inputs, branch coverage 178/180, incomplete)
 // FUN_001e6390 @ 0x001e6390
 void Mgr_1e6390::FUN_001e6390()
@@ -568,7 +568,7 @@ void Mgr_1e6390::FUN_001e6390()
 } // namespace fn_fb8261dc
 
 // 0x001e6f10 FUN_001e6f10 (895 B): equivalent/0x001e6f10.cpp
-// sym: ?FUN_001e6f10@World@@QAEXHM@Z
+// sym: ?FUN_001e6f10@World@@QAEXHM@Z @e5866f8b7cf7 @wf4cd6bb4adf3
 // STATUS: equivalent (tools/equiv.py level 3: 796 inputs, branch coverage 61/62, incomplete)
 // FUN_001e6f10 @ 0x001e6f10
 void World::FUN_001e6f10(int unused, float dt)
@@ -665,7 +665,7 @@ void World::FUN_001e6f10(int unused, float dt)
 
 
 // 0x001e7290 FUN_001e7290 (274 B): equivalent/0x001e7290.cpp [wrapped: conflict: DAT_004dd700]
-// sym: ?FUN_001e7290@World@fn_001e7290@@QAEXPAVProbe@2@_N@Z
+// sym: ?FUN_001e7290@World@fn_001e7290@@QAEXPAVProbe@2@_N@Z @d66cbe23d56d @w10d7f99cc83e
 namespace fn_001e7290 {
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 22/22)
 // FUN_001e7290 @ 0x001e7290
@@ -786,7 +786,7 @@ void World::FUN_001e7290(Probe *probe, bool mustBeReady)
 namespace fn_fb8261dc {
 
 // 0x001e73b0 FUN_001e73b0 (139 B): equivalent/0x001e73b0.cpp
-// sym: ?FUN_001e73b0@Pool_1e73b0@fn_fb8261dc@@QAEXH@Z
+// sym: ?FUN_001e73b0@Pool_1e73b0@fn_fb8261dc@@QAEXH@Z @ca4f4c9835e0 @w087ff502df09
 // STATUS: equivalent (tools/equiv.py level 3: 252 inputs, branch coverage 12/12)
 // FUN_001e73b0 @ 0x001e73b0
 // Walk the 0x800 slots and release the record of every slot that carries the given id.
@@ -831,7 +831,7 @@ char Obj::Find(int x) {
 } // namespace fn_fb8261dc
 
 // 0x001e7470 FUN_001e7470 (4113 B): equivalent/0x001e7470.cpp [wrapped: macros]
-// sym: ??0CSPManager@fn_001e7470@@QAE@XZ
+// sym: ??0CSPManager@fn_001e7470@@QAE@XZ @7ef1d125e61c @w937ac92b0e1a
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 void* operator new(hulk_uintptr) throw();
 namespace fn_001e7470 {

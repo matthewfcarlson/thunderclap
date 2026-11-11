@@ -166,7 +166,7 @@ extern void __fastcall Finish_000fc630(CPathGraphAgent_105ef0*);
 } // namespace fn_f58850d5
 
 // 0x001047b0 FUN_001047b0 (253 B): equivalent/0x001047b0.cpp [wrapped: conflict: CPathAgent]
-// sym: ??0CPathAgent@fn_001047b0@@QAE@PAUArg_1047b0@1@@Z
+// sym: ??0CPathAgent@fn_001047b0@@QAE@PAUArg_1047b0@1@@Z @c595ca124aed @w4b80d2a51f35
 namespace fn_001047b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001047b0 @ 0x001047b0
@@ -248,7 +248,7 @@ unsigned char __fastcall FUN_00104920(X_104920* self) {
 } // namespace fn_f58850d5
 
 // 0x00104930 CPathGraphAgent::vfunc_3 (62 B): equivalent/0x00104930.cpp
-// sym: ?vfunc_3@CPathGraphAgent@@UAEMHH@Z
+// sym: ?vfunc_3@CPathGraphAgent@@UAEMHH@Z @950bc347e5fe @w6dd980bb1f7a
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 6/6)
 // CPathGraphAgent::vfunc_3 @ 0x00104930
 hulk_freg CPathGraphAgent::vfunc_3(hulk_intptr , int ) {
@@ -300,7 +300,7 @@ void* Obj_104b20::func(unsigned char b) {
 } // namespace fn_f58850d5
 
 // 0x00104b50 CPathAgent::vfunc_9 (258 B): equivalent/0x00104b50.cpp [wrapped: conflict: CPathAgent]
-// sym: ?vfunc_9@CPathAgent@fn_00104b50@@UAEXXZ
+// sym: ?vfunc_9@CPathAgent@fn_00104b50@@UAEXXZ @35f6b8292619 @w2878c0b8d8c9
 namespace fn_00104b50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // CPathAgent::vfunc_9 @ 0x00104b50
@@ -333,7 +333,7 @@ void CPathAgent::vfunc_9() {
 namespace fn_f58850d5 {
 
 // 0x00104c60 FUN_00104c60 (136 B): equivalent/0x00104c60.cpp
-// sym: ?Reset@CPathAgent_104c60@fn_f58850d5@@QAEHHHPBUVec_104c60@2@HDHH@Z
+// sym: ?Reset@CPathAgent_104c60@fn_f58850d5@@QAEHHHPBUVec_104c60@2@HDHH@Z @924a366c8efc @w53346b5e8657
 // STATUS: equivalent (tools/equiv.py level 3: 19903 inputs, branch coverage 0/0)
 // FUN_00104c60 @ 0x00104c60
 int CPathAgent_104c60::Reset(int, int, const Vec_104c60* pos, int c, char d, int e, int) {
@@ -363,7 +363,7 @@ void CPathAgent::vfunc_7(int a) {
 
 
 // 0x00104d00 CPathGraphAgent::vfunc_4 (665 B): equivalent/0x00104d00.cpp
-// sym: ?vfunc_4@CPathGraphAgent@@UAEXHHH@Z
+// sym: ?vfunc_4@CPathGraphAgent@@UAEXHHH@Z @8bf6cb02586b @w16f3ba898e6c
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 21/22, incomplete)
 // CPathGraphAgent::vfunc_4 @ 0x00104d00
 void CPathGraphAgent::vfunc_4(int a, int b, int c) {
@@ -496,7 +496,7 @@ CPathAgent::~CPathAgent() throw() {
 
 
 // 0x001050d0 CPathAgent::vfunc_4 (3405 B): equivalent/0x001050d0.cpp [wrapped: conflict: CPathAgent]
-// sym: ?vfunc_4@CPathAgent@fn_001050d0@@UAEDPAUCtx_1050d0@2@MH@Z
+// sym: ?vfunc_4@CPathAgent@fn_001050d0@@UAEDPAUCtx_1050d0@2@MH@Z @0928d6d1f1a5 @wd439a0970747
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1030,7 +1030,7 @@ void __fastcall FUN(CPathGraphAgent_105ef0* self) {
 } // namespace fn_f58850d5
 
 // 0x00105f50 FUN_00105f50 (354 B): equivalent/0x00105f50.cpp [wrapped: conflict: CCharacterAgent; CPathGraphAgent; World]
-// sym: ??0CPathGraphAgent@fn_00105f50@@QAE@PAVOwner_105f50@1@@Z
+// sym: ??0CPathGraphAgent@fn_00105f50@@QAE@PAVOwner_105f50@1@@Z @04fffb803c0a @wf7d7c96efa37
 namespace fn_00105f50 {
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 14/14)
 // FUN_00105f50 @ 0x00105f50

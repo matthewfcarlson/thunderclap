@@ -4,7 +4,7 @@
 
 
 // 0x00052720 FUN_00052720 (176 B): equivalent/0x00052720.cpp [isolated: compile error C2664: 'fn_00052720::fight::ParamEnumConstList<T>::ParamEnumConstList(const char *,const char ** ,int,void (__thiscall CStageCo]
-// sym: _FUN_00052720
+// sym: _FUN_00052720 @6d55db51018a @wd4e8980215bd
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 6/6)
 // FUN_00052720 @ 0x00052720
 #include "decls/data/engine/unknown.h"

@@ -86,7 +86,7 @@ struct TrackFactoryTemplate {
 } // namespace fn_f4b6f30b
 
 // 0x00072740 FUN_00072740 (213 B): equivalent/0x00072740.cpp [wrapped: conflict: fight::ParamFloatConstRange]
-// sym: _FUN_00072740
+// sym: _FUN_00072740 @36db24398d7d @w7eabe050c35d
 namespace fn_00072740 {
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_00072740 @ 0x00072740
@@ -1064,7 +1064,7 @@ extern "C" bool __cdecl FUN_000749e0(Registry_749e0* registry) {
 namespace fn_f4b6f30b {
 
 // 0x00075b50 FUN_00075b50 (213 B): equivalent/0x00075b50.cpp
-// sym: _FUN_00075b50
+// sym: _FUN_00075b50 @992d180e08d8 @w01df0f225c10
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
 // FUN_00075b50 @ 0x00075b50
 extern "C" void __cdecl FUN_00075b50() {

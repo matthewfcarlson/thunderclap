@@ -55,7 +55,7 @@ class HulkActionCountCondition {
 
 
 // 0x0010ec90 hulkfight::ai::HulkActionCountCondition::vfunc_6 (398 B): equivalent/0x0010ec90.cpp
-// sym: ?FUN_0010ec90@HulkActionCountCondition@fn_f5cdd5db@@UAE_NHPAVParams_10ec90@fight@2@H@Z
+// sym: ?FUN_0010ec90@HulkActionCountCondition@fn_f5cdd5db@@UAE_NHPAVParams_10ec90@fight@2@H@Z @186c2af23919 @w0258e07bf45a
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 22/22)
 // hulkfight::ai::HulkActionCountCondition::vfunc_6 @ 0x0010ec90
 bool HulkActionCountCondition::FUN_0010ec90(int a1, fight::Params_10ec90 *params, int a3)

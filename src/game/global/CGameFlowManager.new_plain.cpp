@@ -8,7 +8,7 @@
 
 
 // 0x0008bf80 FUN_0008bf80 (1106 B): equivalent/0x0008bf80.cpp [wrapped: macros]
-// sym: ?FUN_0008bf80@CGameFlowManager@fn_0008bf80@@QAEXPAX0@Z
+// sym: ?FUN_0008bf80@CGameFlowManager@fn_0008bf80@@QAEXPAX0@Z @9b610c7522c2 @w20ada5ae1c99
 inline void* operator new(hulk_uintptr, void* p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

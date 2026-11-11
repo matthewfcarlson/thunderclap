@@ -182,7 +182,7 @@ FEObject_e9030::~FEObject_e9030() throw() {
 
 
 // 0x000e9090 FUN_000e9090 (107 B): equivalent/0x000e9090.cpp
-// sym: ?FUN_000e9090@Host_e9090@fn_faa2c089@@QAEXPAVRef_e9090@2@@Z
+// sym: ?FUN_000e9090@Host_e9090@fn_faa2c089@@QAEXPAVRef_e9090@2@@Z @6869adcad9fa @w6ac87299b8cf
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000e9090 @ 0x000e9090
 void Host_e9090::FUN_000e9090(Ref_e9090 *r)
@@ -226,7 +226,7 @@ void Owner_e9130::Set(NewItem* p) {
 
 
 // 0x000e9160 FEObject::vfunc_3 (213 B): equivalent/0x000e9160.cpp
-// sym: ?vfunc_3@FEObject@fn_faa2c089@@UAEHXZ
+// sym: ?vfunc_3@FEObject@fn_faa2c089@@UAEHXZ @a43bea5f3d88 @wd8aadeec3cbb
 // STATUS: equivalent (tools/equiv.py level 3: 13613 inputs, branch coverage 6/6)
 // FEObject::vfunc_3 @ 0x000e9160
 int FEObject::vfunc_3() {
@@ -248,7 +248,7 @@ int FEObject::vfunc_3() {
 
 
 // 0x000e9240 FUN_000e9240 (109 B): equivalent/0x000e9240.cpp
-// sym: ??0FEControl@fn_faa2c089@@QAE@H@Z
+// sym: ??0FEControl@fn_faa2c089@@QAE@H@Z @971a701e3786 @w48119c2d8486
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000e9240 @ 0x000e9240
 // equiv-map: ??0FEBase@@QAE@H@Z = 0x000e2860

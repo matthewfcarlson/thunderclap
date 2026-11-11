@@ -28,7 +28,7 @@ struct Table_92470 {
 
 
 // 0x00092390 FUN_00092390 (116 B): equivalent/0x00092390.cpp
-// sym: ?FUN_00092390@fn_fce1eea0@@YGXPAVSink_92390@1@PBDH@Z
+// sym: ?FUN_00092390@fn_fce1eea0@@YGXPAVSink_92390@1@PBDH@Z @09075951117f @w11d0802d0e6c
 // STATUS: equivalent (tools/equiv.py level 3: 7022 inputs, branch coverage 6/6)
 // FUN_00092390 @ 0x00092390
 void __stdcall FUN_00092390(Sink_92390 *sink, const char *src, int arg)
@@ -49,7 +49,7 @@ void __stdcall FUN_00092390(Sink_92390 *sink, const char *src, int arg)
 
 
 // 0x00092470 FUN_00092470 (207 B): equivalent/0x00092470.cpp
-// sym: ?FUN_00092470@Table_92470@fn_fce1eea0@@QAE_NHHPBD_KE@Z
+// sym: ?FUN_00092470@Table_92470@fn_fce1eea0@@QAE_NHHPBD_KE@Z @b60ce81e3c39 @w9316bde353e1
 // STATUS: equivalent (tools/equiv.py level 3: 4486 inputs, branch coverage 15/16, incomplete)
 // FUN_00092470 @ 0x00092470
 bool Table_92470::FUN_00092470(int first, int last, const char *format, unsigned __int64 key, unsigned char state) {

@@ -35,7 +35,7 @@ void __cdecl FUN_002347b0(int*,void*,int);
 
 
 // 0x001285a0 FUN_001285a0 (190 B): equivalent/0x001285a0.cpp
-// sym: ?target@fn_fac20c96@@YAXXZ
+// sym: ?target@fn_fac20c96@@YAXXZ @a80352ac0bec @wc93a9bf2571e
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_001285a0 @ 0x001285a0
 void target() {

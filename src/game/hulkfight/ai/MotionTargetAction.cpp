@@ -71,7 +71,7 @@ struct Frame_116ad0 {
 
 
 // 0x00116ad0 hulkfight::ai::MotionTargetAction::vfunc_5 (311 B): equivalent/0x00116ad0.cpp
-// sym: ?vfunc_5@MotionTargetAction@ai@hulkfight@fn_f4fb24d7@@UAE_NHH@Z
+// sym: ?vfunc_5@MotionTargetAction@ai@hulkfight@fn_f4fb24d7@@UAE_NHH@Z @87669bfc6334 @w4b0385ad7367
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 10/10)
 // hulkfight::ai::MotionTargetAction::vfunc_5 @ 0x00116ad0
 bool hulkfight::ai::MotionTargetAction::vfunc_5(int skip, int unused)

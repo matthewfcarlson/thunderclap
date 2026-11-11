@@ -50,7 +50,7 @@ void FEMemCardControl::vfunc_13(int) {
 
 
 // 0x000d8410 FUN_000d8410 (610 B): equivalent/0x000d8410.cpp [wrapped: conflict: FUN_000fc3d0]
-// sym: ?FUN_000d8410@FEMemCardControl_d8410@fn_000d8410@@QAEXXZ
+// sym: ?FUN_000d8410@FEMemCardControl_d8410@fn_000d8410@@QAEXXZ @aa0a9f9fbbf3 @w0de2456636c6
 namespace fn_000d8410 {
 // STATUS: equivalent (tools/equiv.py level 3: 3151 inputs, branch coverage 77/78, incomplete)
 // FUN_000d8410 @ 0x000d8410
@@ -224,7 +224,7 @@ void FEMemCardControl_d8410::FUN_000d8410()
 
 
 // 0x000d8990 FUN_000d8990 (246 B): equivalent/0x000d8990.cpp [wrapped: conflict: FUN_000fc3d0]
-// sym: ?FUN_000d8990@FEMemCardControl_d8990@fn_000d8990@@QAEXH@Z
+// sym: ?FUN_000d8990@FEMemCardControl_d8990@fn_000d8990@@QAEXH@Z @8d14744bf03f @w4e82a2d3e911
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -312,7 +312,7 @@ void FEMemCardControl_d8990::FUN_000d8990(int index) {
 
 
 // 0x000d8a90 FUN_000d8a90 (246 B): equivalent/0x000d8a90.cpp [wrapped: conflict: FUN_000fc3d0; Singleton_4dd6ec]
-// sym: ?run@FEMemCardControl_d8a90@fn_000d8a90@@QAEXH@Z
+// sym: ?run@FEMemCardControl_d8a90@fn_000d8a90@@QAEXH@Z @8da053c5e59d @wd724db421729
 namespace fn_000d8a90 {
 // STATUS: equivalent (tools/equiv.py level 3: 17099 inputs, branch coverage 4/4)
 // FUN_000d8a90 @ 0x000d8a90
@@ -380,7 +380,7 @@ value=0;
 
 
 // 0x000d8cb0 FUN_000d8cb0 (278 B): equivalent/0x000d8cb0.cpp [wrapped: conflict: FUN_000fc3d0; Singleton_4dd6ec]
-// sym: ?target@FEMemCardControl_d8cb0@fn_000d8cb0@@QAEXEH@Z
+// sym: ?target@FEMemCardControl_d8cb0@fn_000d8cb0@@QAEXEH@Z @f91114fe48ca @w01d5333379a6
 namespace fn_000d8cb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 6/6)
 // FUN_000d8cb0 @ 0x000d8cb0
@@ -451,7 +451,7 @@ void FEMemCardControl_d8cb0::target(unsigned char unused, int mode) {
 
 
 // 0x000d8dd0 FUN_000d8dd0 (234 B): equivalent/0x000d8dd0.cpp [wrapped: conflict: FUN_000fc3d0; Singleton_4dd6ec]
-// sym: ?run@FEMemCardControl_d8dd0@fn_000d8dd0@@QAEXH@Z
+// sym: ?run@FEMemCardControl_d8dd0@fn_000d8dd0@@QAEXH@Z @f1a4521b2932 @w9ff1da143b51
 namespace fn_000d8dd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 17337 inputs, branch coverage 4/4)
 // FUN_000d8dd0 @ 0x000d8dd0
@@ -518,7 +518,7 @@ void FEMemCardControl_d8dd0::run(int) {
 
 
 // 0x000d8ec0 FUN_000d8ec0 (216 B): equivalent/0x000d8ec0.cpp [wrapped: conflict: FUN_000fc3d0; Singleton_4dd6ec]
-// sym: ?FUN_000d8ec0@FEMemCardControl_d8ec0@fn_000d8ec0@@QAEXHH@Z
+// sym: ?FUN_000d8ec0@FEMemCardControl_d8ec0@fn_000d8ec0@@QAEXHH@Z @915463d4a2dc @w9ee5d40da4b2
 namespace fn_000d8ec0 {
 // STATUS: equivalent (tools/equiv.py level 3: 18277 inputs, branch coverage 4/4)
 // FUN_000d8ec0 @ 0x000d8ec0
@@ -587,7 +587,7 @@ void FEMemCardControl_d8ec0::FUN_000d8ec0(int, int) {
 
 
 // 0x000d8fa0 FUN_000d8fa0 (216 B): equivalent/0x000d8fa0.cpp [wrapped: conflict: FUN_000fc3d0; Singleton_4dd6ec]
-// sym: ?FUN_000d8fa0@FEMemCardControl_d8fa0@fn_000d8fa0@@QAEXHH@Z
+// sym: ?FUN_000d8fa0@FEMemCardControl_d8fa0@fn_000d8fa0@@QAEXHH@Z @62f7a5e9b1dd @we8fc14f499f5
 namespace fn_000d8fa0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_000d8fa0 @ 0x000d8fa0
@@ -654,7 +654,7 @@ void FEMemCardControl_d8fa0::FUN_000d8fa0(int,int) {
 
 
 // 0x000d9180 FUN_000d9180 (313 B): equivalent/0x000d9180.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?run@FEMemCardControl_d9180@fn_000d9180@@QAEXH@Z
+// sym: ?run@FEMemCardControl_d9180@fn_000d9180@@QAEXH@Z @c9d14282f161 @w8158987a383e
 namespace fn_000d9180 {
 // STATUS: equivalent (tools/equiv.py level 3: 17405 inputs, branch coverage 6/6)
 // FUN_000d9180 @ 0x000d9180
@@ -811,7 +811,7 @@ void FEMemCardControl_d9180::run(int idx)
 
 
 // 0x000d92c0 FUN_000d92c0 (359 B): equivalent/0x000d92c0.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?run@FEMemCardControl_d92c0@fn_000d92c0@@QAEXH@Z
+// sym: ?run@FEMemCardControl_d92c0@fn_000d92c0@@QAEXH@Z @c0295c6f7ebc @w92022d760ec5
 namespace fn_000d92c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 16675 inputs, branch coverage 10/10)
 // FUN_000d92c0 @ 0x000d92c0
@@ -973,7 +973,7 @@ void FEMemCardControl_d92c0::run(int idx)
 
 
 // 0x000d94e0 FUN_000d94e0 (187 B): equivalent/0x000d94e0.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?target@Target_d94e0@fn_000d94e0@@QAEXH@Z
+// sym: ?target@Target_d94e0@fn_000d94e0@@QAEXH@Z @5728a6875c54 @w45c3f5dd6f77
 namespace fn_000d94e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_000d94e0 @ 0x000d94e0
@@ -1040,7 +1040,7 @@ value=0;
 
 
 // 0x000d95a0 FUN_000d95a0 (214 B): equivalent/0x000d95a0.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?target@FEMemCardControl_d95a0@fn_000d95a0@@QAEXH@Z
+// sym: ?target@FEMemCardControl_d95a0@fn_000d95a0@@QAEXH@Z @2c2d132cd640 @we083ab717955
 namespace fn_000d95a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 18802 inputs, branch coverage 4/4)
 // FUN_000d95a0 @ 0x000d95a0
@@ -1184,7 +1184,7 @@ status=0;
 
 
 // 0x000d9790 FUN_000d9790 (244 B): equivalent/0x000d9790.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?target@FEMemCardControl_d9790@fn_000d9790@@QAEXH@Z
+// sym: ?target@FEMemCardControl_d9790@fn_000d9790@@QAEXH@Z @d57e12a378aa @wae72dcee6164
 namespace fn_000d9790 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_000d9790 @ 0x000d9790
@@ -1256,7 +1256,7 @@ void FEMemCardControl_d9790::target(int index) {
 
 
 // 0x000d9890 FUN_000d9890 (262 B): equivalent/0x000d9890.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?run@FEMemCardControl_d9890@fn_000d9890@@QAEXH@Z
+// sym: ?run@FEMemCardControl_d9890@fn_000d9890@@QAEXH@Z @ebc300607d80 @wd0454cc67b7e
 namespace fn_000d9890 {
 // STATUS: equivalent (tools/equiv.py level 3: 16480 inputs, branch coverage 4/4)
 // FUN_000d9890 @ 0x000d9890
@@ -1307,7 +1307,7 @@ void FEMemCardControl_d9890::run(int index) { char buffer[1024];  Manager_d9890*
 
 
 // 0x000d99a0 FUN_000d99a0 (214 B): equivalent/0x000d99a0.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?FUN_000d99a0@FEMemCardControl_d99a0@fn_000d99a0@@QAEXH@Z
+// sym: ?FUN_000d99a0@FEMemCardControl_d99a0@fn_000d99a0@@QAEXH@Z @993af11e0d92 @wfdb0432e1849
 namespace fn_000d99a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 18771 inputs, branch coverage 4/4)
 // FUN_000d99a0 @ 0x000d99a0
@@ -1375,7 +1375,7 @@ void FEMemCardControl_d99a0::FUN_000d99a0(int) {
 
 
 // 0x000d9a80 FUN_000d9a80 (214 B): equivalent/0x000d9a80.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?FUN_000d9a80@FEMemCardControl_d9a80@fn_000d9a80@@QAEXH@Z
+// sym: ?FUN_000d9a80@FEMemCardControl_d9a80@fn_000d9a80@@QAEXH@Z @b765c609e77e @w185cc27b6ec4
 namespace fn_000d9a80 {
 // STATUS: equivalent (tools/equiv.py level 3: 18875 inputs, branch coverage 4/4)
 // FUN_000d9a80 @ 0x000d9a80
@@ -1460,7 +1460,7 @@ void FEMemCardControl_d9a80::FUN_000d9a80(int) {
 
 
 // 0x000d9c40 FUN_000d9c40 (244 B): equivalent/0x000d9c40.cpp [wrapped: conflict: FUN_000fc020; FUN_000fc3d0; Singleton_4dd6ec]
-// sym: ?run@FEMemCardControl_d9c40@fn_000d9c40@@QAEXXZ
+// sym: ?run@FEMemCardControl_d9c40@fn_000d9c40@@QAEXXZ @11bf4a944091 @wb56b3c376a94
 namespace fn_000d9c40 {
 // STATUS: equivalent (tools/equiv.py level 3: 17117 inputs, branch coverage 4/4)
 // FUN_000d9c40 @ 0x000d9c40
@@ -1530,7 +1530,7 @@ void FEMemCardControl_d9c40::run() {
 
 
 // 0x000d9d40 FUN_000d9d40 (245 B): equivalent/0x000d9d40.cpp [wrapped: conflict: FUN_000fc3d0; Singleton_4dd6ec]
-// sym: ?FUN_000d9d40@FEMemCardControl_d9d40@fn_000d9d40@@QAEXXZ
+// sym: ?FUN_000d9d40@FEMemCardControl_d9d40@fn_000d9d40@@QAEXXZ @ca78860411fb @wf6658ca89184
 namespace fn_000d9d40 {
 // STATUS: equivalent (tools/equiv.py level 3: 17216 inputs, branch coverage 4/4)
 // FUN_000d9d40 @ 0x000d9d40
@@ -1596,7 +1596,7 @@ active=1; value=0;
 
 
 // 0x000d9e80 FUN_000d9e80 (244 B): equivalent/0x000d9e80.cpp [wrapped: conflict: FUN_000fc3d0; Singleton_4dd6ec]
-// sym: ?FUN_000d9e80@FEMemCardControl_d9e80@fn_000d9e80@@QAEXH@Z
+// sym: ?FUN_000d9e80@FEMemCardControl_d9e80@fn_000d9e80@@QAEXH@Z @f6177872a84b @wd520e3015bea
 namespace fn_000d9e80 {
 // STATUS: equivalent (tools/equiv.py level 3: 17625 inputs, branch coverage 4/4)
 // FUN_000d9e80 @ 0x000d9e80
@@ -1666,7 +1666,7 @@ void FEMemCardControl_d9e80::FUN_000d9e80(int index) {
 
 
 // 0x000d9f80 FUN_000d9f80 (244 B): equivalent/0x000d9f80.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?FUN_000d9f80@FEMemCardControl_d9f80@fn_000d9f80@@QAEXH@Z
+// sym: ?FUN_000d9f80@FEMemCardControl_d9f80@fn_000d9f80@@QAEXH@Z @7937b2291547 @w8d9747499c14
 namespace fn_000d9f80 {
 // STATUS: equivalent (tools/equiv.py level 3: 17706 inputs, branch coverage 4/4)
 // FUN_000d9f80 @ 0x000d9f80
@@ -1737,7 +1737,7 @@ void FEMemCardControl_d9f80::FUN_000d9f80(int index) {
 
 
 // 0x000da180 FUN_000da180 (169 B): equivalent/0x000da180.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?target@FEMemCardControl_da180@fn_000da180@@QAEXH@Z
+// sym: ?target@FEMemCardControl_da180@fn_000da180@@QAEXH@Z @548d3c2560d3 @w73378f18447e
 namespace fn_000da180 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_000da180 @ 0x000da180
@@ -1947,7 +1947,7 @@ void FEMemCardControl_da230::FUN_000da230(int idx)
 
 
 // 0x000da480 FUN_000da480 (233 B): equivalent/0x000da480.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?target@FEMemCardControl_da480@fn_000da480@@QAEXH@Z
+// sym: ?target@FEMemCardControl_da480@fn_000da480@@QAEXH@Z @0353ea6cfb8e @w3851e3766242
 namespace fn_000da480 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_000da480 @ 0x000da480
@@ -1995,7 +1995,7 @@ void FEMemCardControl_da480::target(int) { unsigned short buffer[512]; Menu_da48
 
 
 // 0x000da570 FUN_000da570 (233 B): equivalent/0x000da570.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?FUN_000da570@FEMemCardControl_da570@fn_000da570@@QAEXH@Z
+// sym: ?FUN_000da570@FEMemCardControl_da570@fn_000da570@@QAEXH@Z @b85e3b13b761 @w76db1f9455e8
 namespace fn_000da570 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_000da570 @ 0x000da570
@@ -2043,7 +2043,7 @@ void FEMemCardControl_da570::FUN_000da570(int) { unsigned short buffer[512]; Men
 
 
 // 0x000da660 FUN_000da660 (233 B): equivalent/0x000da660.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?target@FEMemCardControl_da660@fn_000da660@@QAEXH@Z
+// sym: ?target@FEMemCardControl_da660@fn_000da660@@QAEXH@Z @e1097bd2cc63 @w9ecc626723bb
 namespace fn_000da660 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_000da660 @ 0x000da660
@@ -2114,7 +2114,7 @@ void FEMemCardControl_da660::target(int) {
 
 
 // 0x000da830 FUN_000da830 (244 B): equivalent/0x000da830.cpp [wrapped: conflict: Singleton_4dd6ec]
-// sym: ?run@FEMemCardControl_da830@fn_000da830@@QAEXH@Z
+// sym: ?run@FEMemCardControl_da830@fn_000da830@@QAEXH@Z @0a2b23a77baa @wfff3ab553488
 namespace fn_000da830 {
 // STATUS: equivalent (tools/equiv.py level 3: 18320 inputs, branch coverage 4/4)
 // FUN_000da830 @ 0x000da830
@@ -2163,7 +2163,7 @@ void FEMemCardControl_da830::run(int index) { char buffer[1024]; Manager_da830* 
 
 
 // 0x000da930 FEMemCardControl::vfunc_4 (5290 B): equivalent/0x000da930.cpp [wrapped: conflict: DAT_004a0c88; FEMemCardControl; FUN_000fc3d0; Singleton_4dd6ec]
-// sym: ?vfunc_4@FEMemCardControl@fn_000da930@@UAEXXZ
+// sym: ?vfunc_4@FEMemCardControl@fn_000da930@@UAEXXZ @2054c1ac4712 @wd4d85e8745cd
 namespace fn_000da930 {
 // STATUS: equivalent (tools/equiv.py level 3: 3442 inputs, branch coverage 314/320, incomplete)
 // FEMemCardControl::vfunc_4 @ 0x000da930

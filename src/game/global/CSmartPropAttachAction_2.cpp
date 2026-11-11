@@ -122,7 +122,7 @@ struct Tidier {
 
 
 // 0x0001e870 FUN_0001e870 (441 B): equivalent/0x0001e870.cpp
-// sym: ?FUN_0001e870@Spawner_1e870@fn_fa260338@@QAE_NPAUSource_1e870@2@PBUV3_1e870@2@@Z
+// sym: ?FUN_0001e870@Spawner_1e870@fn_fa260338@@QAE_NPAUSource_1e870@2@PBUV3_1e870@2@@Z @f321e232d267 @w2d8089523df2
 // STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 20/20)
 // FUN_0001e870 @ 0x0001e870
 bool Spawner_1e870::FUN_0001e870(Source_1e870 *src, const V3_1e870 *pos)
@@ -210,7 +210,7 @@ void CSmartPropAttachAction::FUN_0001ea90() {
 
 
 // 0x0001ead0 CSmartPropAttachAction::vfunc_6 (376 B): equivalent/0x0001ead0.cpp [wrapped: conflict: CSmartPropAttachAction; FUN_000592a0]
-// sym: ?vfunc_6@CSmartPropAttachAction@fn_0001ead0@@UAE_NH@Z
+// sym: ?vfunc_6@CSmartPropAttachAction@fn_0001ead0@@UAE_NH@Z @617d7119fd34 @w24ef7fdb51fa
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

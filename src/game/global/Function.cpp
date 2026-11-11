@@ -66,7 +66,7 @@ bool Function::vfunc_1(int , int ) {
 
 
 // 0x001d04d0 FUN_001d04d0 (199 B): equivalent/0x001d04d0.cpp
-// sym: _FUN_001d04d0
+// sym: _FUN_001d04d0 @ba1f4238b338 @w083c92faab3f
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 18/18)
 // FUN_001d04d0 @ 0x001d04d0
 extern "C" char FUN_001d04d0(const TypeInfo_1d04d0 *t)

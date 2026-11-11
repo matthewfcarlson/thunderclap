@@ -50,7 +50,7 @@ hulk_intptr hulkfight::ai::MotionFacingTrack::vfunc_0(int index) {
 
 
 // 0x001159c0 FUN_001159c0 (50 B): equivalent/0x001159c0.cpp [wrapped: conflict: hulkfight::ai::MotionFacingTrack]
-// sym: ??0MotionFacingTrack@ai@hulkfight@fn_001159c0@@QAE@XZ
+// sym: ??0MotionFacingTrack@ai@hulkfight@fn_001159c0@@QAE@XZ @86ea192e0810 @wbe0829991366
 namespace fn_001159c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001159c0 @ 0x001159c0

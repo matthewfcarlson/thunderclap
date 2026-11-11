@@ -70,7 +70,7 @@ hulk_intptr hulkfight::motion::SurfTrack::vfunc_0(int index) {
 
 
 // 0x001709a0 FUN_001709a0 (98 B): equivalent/0x001709a0.cpp [wrapped: conflict: hulkfight::motion::SurfTrack]
-// sym: ??0SurfTrack@motion@hulkfight@fn_001709a0@@QAE@XZ
+// sym: ??0SurfTrack@motion@hulkfight@fn_001709a0@@QAE@XZ @03b2f56c899e @w170039b8e358
 namespace fn_001709a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001709a0 @ 0x001709a0

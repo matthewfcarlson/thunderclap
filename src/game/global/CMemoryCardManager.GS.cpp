@@ -211,7 +211,7 @@ public:
 
 
 // 0x0008c590 FUN_0008c590 (226 B): equivalent/0x0008c590.cpp
-// sym: ?target@Object@fn_f8087876@@QAEHHHPAURecord_8c590@2@@Z
+// sym: ?target@Object@fn_f8087876@@QAEHHHPAURecord_8c590@2@@Z @be01b510412d @w98565360c96e
 // STATUS: equivalent (tools/equiv.py level 3: 15895 inputs, branch coverage 8/8)
 // FUN_0008c590 @ 0x0008c590
 int Object::target(int index,int selected,Record_8c590* output) {
@@ -229,7 +229,7 @@ int Object::target(int index,int selected,Record_8c590* output) {
 
 
 // 0x0008c680 FUN_0008c680 (110 B): equivalent/0x0008c680.cpp
-// sym: ?FUN_0008c680@Owner_8c680@fn_f8087876@@QAEXH@Z
+// sym: ?FUN_0008c680@Owner_8c680@fn_f8087876@@QAEXH@Z @f1aeff35262b @w564d39e3a46a
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 0/0)
 // FUN_0008c680 @ 0x0008c680
 void Owner_8c680::FUN_0008c680(int index) {
@@ -244,7 +244,7 @@ XAPILIB::XLaunchNewImageA(0, &data);
 
 
 // 0x0008c920 FUN_0008c920 (261 B): equivalent/0x0008c920.cpp
-// sym: ?target@Manager_8c920@fn_f8087876@@QAEXXZ
+// sym: ?target@Manager_8c920@fn_f8087876@@QAEXXZ @38bcab4ec97c @wbeadf93aae30
 // STATUS: equivalent (tools/equiv.py level 3: 19964 inputs, branch coverage 15/16, incomplete)
 // FUN_0008c920 @ 0x0008c920
 void Manager_8c920::target() {
@@ -277,7 +277,7 @@ void Manager_8c920::target() {
 
 
 // 0x0008ca70 FUN_0008ca70 (356 B): equivalent/0x0008ca70.cpp
-// sym: ?FUN_0008ca70@Manager_8ca70@fn_f8087876@@QAEHHHHHH@Z
+// sym: ?FUN_0008ca70@Manager_8ca70@fn_f8087876@@QAEHHHHHH@Z @f7bfc029a89f @w2aa68fee9db2
 // STATUS: equivalent (tools/equiv.py level 3: 16099 inputs, branch coverage 21/22, incomplete)
 // FUN_0008ca70 @ 0x0008ca70
 int Manager_8ca70::FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg4)
@@ -335,7 +335,7 @@ int Manager_8ca70::FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg
 
 
 // 0x0008cbe0 FUN_0008cbe0 (405 B): equivalent/0x0008cbe0.cpp
-// sym: ?FUN_0008cbe0@Loader_8cbe0@fn_f8087876@@QAEPAXHHHHH@Z
+// sym: ?FUN_0008cbe0@Loader_8cbe0@fn_f8087876@@QAEPAXHHHHH@Z @f238fbf1c205 @wf529c69c6280
 // STATUS: equivalent (tools/equiv.py level 3: 10398 inputs, branch coverage 15/16, incomplete)
 // FUN_0008cbe0 @ 0x0008cbe0
 void *Loader_8cbe0::FUN_0008cbe0(int index, int a, int b, int c, int d)
@@ -387,7 +387,7 @@ void *Loader_8cbe0::FUN_0008cbe0(int index, int a, int b, int c, int d)
 } // namespace fn_f8087876
 
 // 0x0008cd80 FUN_0008cd80 (187 B): equivalent/0x0008cd80.cpp [wrapped: conflict: Object]
-// sym: ?FUN_0008cd80@Manager_8cd80@fn_0008cd80@@QAEHHH@Z
+// sym: ?FUN_0008cd80@Manager_8cd80@fn_0008cd80@@QAEHHH@Z @960d5dda238e @w6a6ae80c2ed3
 namespace fn_0008cd80 {
 // STATUS: equivalent (tools/equiv.py level 3: 18773 inputs, branch coverage 8/8)
 // FUN_0008cd80 @ 0x0008cd80

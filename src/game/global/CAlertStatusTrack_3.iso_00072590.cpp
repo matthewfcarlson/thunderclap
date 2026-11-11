@@ -4,7 +4,7 @@
 
 
 // 0x00072590 FUN_00072590 (170 B): equivalent/0x00072590.cpp [isolated: compile error C2664: 'fn_00072590::fight::ParamFloatConstRange<T>::ParamFloatConstRange(const char *,void (__thiscall CAlertStatusTrack::* )(]
-// sym: _FUN_00072590
+// sym: _FUN_00072590 @44375d533dcf @w915d2a90ad3f
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_00072590 @ 0x00072590
 #include "decls/data/game/global.h"

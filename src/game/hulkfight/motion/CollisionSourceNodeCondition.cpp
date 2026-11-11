@@ -78,7 +78,7 @@ bool hulkfight::motion::CollisionSourceIsMissileCondition::vfunc_6(int, void* p,
 
 
 // 0x0014e860 hulkfight::motion::CollisionSourceNodeCondition::vfunc_6 (170 B): equivalent/0x0014e860.cpp
-// sym: ?vfunc_6@CollisionSourceNodeCondition@motion@hulkfight@fn_f7bcb928@@UAE_NPAXPAUInput_14e860@4@0@Z
+// sym: ?vfunc_6@CollisionSourceNodeCondition@motion@hulkfight@fn_f7bcb928@@UAE_NPAXPAUInput_14e860@4@0@Z @5b7b666f4b08 @w849fddfdded7
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 26/26)
 // hulkfight::motion::CollisionSourceNodeCondition::vfunc_6 @ 0x0014e860
 namespace hulkfight { namespace motion {

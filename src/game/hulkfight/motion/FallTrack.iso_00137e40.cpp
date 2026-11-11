@@ -4,7 +4,7 @@
 
 
 // 0x00137e40 FUN_00137e40 (562 B): equivalent/0x00137e40.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called; on include/gen/ and not mergeable]
-// sym: ?FUN_00137e40@@YAXXZ
+// sym: ?FUN_00137e40@@YAXXZ @8c5ba2677210 @w40353df39d61
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 22/22)
 // FUN_00137e40 @ 0x00137e40
 #include "decls/data/game/hulkfight/motion.h"

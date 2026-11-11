@@ -89,7 +89,7 @@ public:
 
 
 // 0x0008dbb0 MyControllerCallback::vfunc_0 (591 B): equivalent/0x0008dbb0.cpp
-// sym: ?vfunc_0@MyControllerCallback@fn_fd4e848d@@UAEXPAVIController@2@@Z
+// sym: ?vfunc_0@MyControllerCallback@fn_fd4e848d@@UAEXPAVIController@2@@Z @7e830f2edaed @w470083347d40
 // STATUS: equivalent (tools/equiv.py level 3: 20032 inputs, branch coverage 48/48)
 // MyControllerCallback::vfunc_0 @ 0x0008dbb0
 void MyControllerCallback::vfunc_0(IController *c)

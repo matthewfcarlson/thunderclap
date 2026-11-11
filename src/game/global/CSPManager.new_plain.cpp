@@ -85,7 +85,7 @@ struct Inventory_1e3410 {
 
 
 // 0x001e3410 FUN_001e3410 (306 B): equivalent/0x001e3410.cpp
-// sym: ?FUN_001e3410@Inventory_1e3410@fn_f6cc61e0@@QAEHPAUKey_1e3410@2@@Z
+// sym: ?FUN_001e3410@Inventory_1e3410@fn_f6cc61e0@@QAEHPAUKey_1e3410@2@@Z @a41b52fb0c38 @w395f7177acd8
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 29/30, incomplete)
 // FUN_001e3410 @ 0x001e3410
 int Inventory_1e3410::FUN_001e3410(Key_1e3410 *key)

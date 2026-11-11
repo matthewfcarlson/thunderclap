@@ -184,7 +184,7 @@ void Holder_afea0::Set(int idx, float a, float b, float c) {
 
 
 // 0x000aff30 FUN_000aff30 (203 B): equivalent/0x000aff30.cpp
-// sym: ?update@Owner_aff30@fn_f7328a2c@@QAEXHMMHPBD@Z
+// sym: ?update@Owner_aff30@fn_f7328a2c@@QAEXHMMHPBD@Z @6563717f7e2f @w9a22233ef08a
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 20/20)
 // FUN_000aff30 @ 0x000aff30
 void Owner_aff30::update(int slot,float first,float second,int value,const char* name) {

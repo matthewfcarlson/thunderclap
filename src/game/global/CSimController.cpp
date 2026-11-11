@@ -165,7 +165,7 @@ void __fastcall target(Obj_b35d0* self) {
 
 
 // 0x000b35f0 FUN_000b35f0 (104 B): equivalent/0x000b35f0.cpp
-// sym: ?FUN_000b35f0@fn_f8cdf61b@@YGXPAUTable_b35f0@1@_N@Z
+// sym: ?FUN_000b35f0@fn_f8cdf61b@@YGXPAUTable_b35f0@1@_N@Z @7247537bc07e @w76359ca057b3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000b35f0 @ 0x000b35f0
 void __stdcall FUN_000b35f0(Table_b35f0* t, bool clearBig) {
@@ -203,7 +203,7 @@ CSimController* CSimController::vfunc_2(int flags) {
 
 
 // 0x000b36d0 FUN_000b36d0 (1074 B): equivalent/0x000b36d0.cpp
-// sym: ?FUN_000b36d0@Ctrl_b36d0@fn_f8cdf61b@@QAEXPAUInput_b36d0@2@UButtons_b36d0@2@USticks_b36d0@2@M@Z
+// sym: ?FUN_000b36d0@Ctrl_b36d0@fn_f8cdf61b@@QAEXPAUInput_b36d0@2@UButtons_b36d0@2@USticks_b36d0@2@M@Z @690842ccaa0a @w4c6d99e77a61
 // STATUS: equivalent (tools/equiv.py level 3: 3031 inputs, branch coverage 74/74)
 // FUN_000b36d0 @ 0x000b36d0
 void Ctrl_b36d0::FUN_000b36d0(Input_b36d0 *s, Buttons_b36d0 buttons, Sticks_b36d0 sticks, float dt)
@@ -431,7 +431,7 @@ CSimController::CSimController(Ref_b3b80* q) {
 namespace fn_f8cdf61b {
 
 // 0x000b3bc0 FUN_000b3bc0 (186 B): equivalent/0x000b3bc0.cpp
-// sym: ?FUN_000b3bc0@Object@fn_f8cdf61b@@QAEXI@Z
+// sym: ?FUN_000b3bc0@Object@fn_f8cdf61b@@QAEXI@Z @774d96273852 @weecb1cd0fc84
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 6/6)
 // FUN_000b3bc0 @ 0x000b3bc0
 void Object::FUN_000b3bc0(unsigned int arg) {

@@ -794,7 +794,7 @@ owners::Thing_d3ef0* thunk_FUN_000fc1b0();
 
 
 // 0x000cc7e0 FUN_000cc7e0 (4769 B): equivalent/0x000cc7e0.cpp
-// sym: ?FUN_000cc7e0@ProgressGauge@fn_f3fdf6d3@@QAEXXZ
+// sym: ?FUN_000cc7e0@ProgressGauge@fn_f3fdf6d3@@QAEXXZ @90b870bd457f @w6cea4adae229
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 56/56)
 // FUN_000cc7e0 @ 0x000cc7e0
 // FUN_000cc7e0: debug/HUD gauge drawer (builds quads through the vertex-handle API)
@@ -1004,7 +1004,7 @@ void ProgressGauge::FUN_000cc7e0()
 } // namespace fn_f3fdf6d3
 
 // 0x000cda90 FUN_000cda90 (1592 B): equivalent/0x000cda90.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_000cda90@Obj_cda90@fn_000cda90@@QAEXXZ
+// sym: ?FUN_000cda90@Obj_cda90@fn_000cda90@@QAEXXZ @4534d983a0f3 @wa8ebbed18463
 namespace fn_000cda90 {
 // STATUS: equivalent (tools/equiv.py level 3: 19593 inputs, branch coverage 39/40, incomplete)
 // FUN_000cda90 @ 0x000cda90
@@ -1413,7 +1413,7 @@ void Obj_cda90::FUN_000cda90()
 
 
 // 0x000ce0d0 FUN_000ce0d0 (431 B): equivalent/0x000ce0d0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?Update@Target_ce0d0@fn_000ce0d0@@QAEXM@Z
+// sym: ?Update@Target_ce0d0@fn_000ce0d0@@QAEXM@Z @9fa1e1c5257b @we98e1e5c43c8
 namespace fn_000ce0d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 27/32, incomplete)
 // FUN_000ce0d0 @ 0x000ce0d0
@@ -1500,7 +1500,7 @@ void Target_ce0d0::Update(float dt)
 
 
 // 0x000ce280 FUN_000ce280 (778 B): equivalent/0x000ce280.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_000ce280@Billboard_ce280@fn_000ce280@@QAEXXZ
+// sym: ?FUN_000ce280@Billboard_ce280@fn_000ce280@@QAEXXZ @1555ee40e07e @wad0ff6d3fbb1
 namespace fn_000ce280 {
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 14/14)
 // FUN_000ce280 @ 0x000ce280
@@ -1713,7 +1713,7 @@ void Thing_ce590::SetName(const char* s) {
 
 
 // 0x000ce5c0 FUN_000ce5c0 (314 B): equivalent/0x000ce5c0.cpp
-// sym: ?run@Obj_ce5c0@fn_f3fdf6d3@@QAEHHHHH@Z
+// sym: ?run@Obj_ce5c0@fn_f3fdf6d3@@QAEHHHHH@Z @3e1284b9f20e @w7d6324eba870
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 13/14, incomplete)
 // FUN_000ce5c0 @ 0x000ce5c0
 int Obj_ce5c0::run(int key, int lo_, int hi_, int arg4)
@@ -1774,7 +1774,7 @@ void Object::FUN_000ce700(unsigned int first, unsigned int value, unsigned int l
 
 
 // 0x000ce750 FUN_000ce750 (242 B): equivalent/0x000ce750.cpp
-// sym: ?FUN_000ce750@Object@fn_f3fdf6d3@@QAEXH@Z
+// sym: ?FUN_000ce750@Object@fn_f3fdf6d3@@QAEXH@Z @bb3fc3d5ab2e @w248e16db59e9
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 10/10)
 // FUN_000ce750 @ 0x000ce750
 void Object::FUN_000ce750(int v) {
@@ -1913,7 +1913,7 @@ template <> Method4<HUDOverlay, void, const char *, float, float,math::Vector>::
 
 
 // 0x000ceb30 Method4<HUDOverlay,void,const_char_*,float,float,math::Vector>::vfunc_2 (80 B): equivalent/0x000ceb30.cpp
-// sym: ?vfunc_2@?$Method4@VHUDOverlay@@XPBDMMVVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method4@VHUDOverlay@@XPBDMMVVector@math@@@@UAEXPAX00@Z @80c1e69fabd4 @wa9e830b47232
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method4<HUDOverlay,void,const_char_*,float,float,math::Vector>::vfunc_2 @ 0x000ceb30
 template <> void Method4<HUDOverlay, void, const char *, float, float,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_ceb30 * object = (HUDOverlay_ceb30 *)__p0; const unsigned int * args = (const unsigned int *)__p1; void * unused = (void *)__p2;
@@ -1996,7 +1996,7 @@ template <> Method3<HUDOverlay, int, const char *, const char *, float>::~Method
 
 
 // 0x000cec00 Method3<HUDOverlay,int,const_char_*,const_char_*,float>::vfunc_2 (43 B): equivalent/0x000cec00.cpp
-// sym: ?vfunc_2@?$Method3@VHUDOverlay@@HPBDPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method3@VHUDOverlay@@HPBDPBDM@@UAEXPAX00@Z @4f7964c43f8f @w871789d8cadc
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method3<HUDOverlay,int,const_char_*,const_char_*,float>::vfunc_2 @ 0x000cec00
 template <> void Method3<HUDOverlay, int, const char *, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cec00 * object = (HUDOverlay_cec00 *)__p0; unsigned int * arguments = (unsigned int *)__p1; int * result = (int *)__p2;
@@ -2068,7 +2068,7 @@ template <> Method2<HUDOverlay, void, int,math::Vector>::~Method2() {}
 
 
 // 0x000cee60 Method2<HUDOverlay,void,int,math::Vector>::vfunc_2 (48 B): equivalent/0x000cee60.cpp
-// sym: ?vfunc_2@?$Method2@VHUDOverlay@@XHVVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method2@VHUDOverlay@@XHVVector@math@@@@UAEXPAX00@Z @db11992ea1ff @w81b0a50beed9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method2<HUDOverlay,void,int,math::Vector>::vfunc_2 @ 0x000cee60
 template <> void Method2<HUDOverlay, void, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cee60 * owner = (HUDOverlay_cee60 *)__p0; const Arguments * args = (const Arguments *)__p1; int unused = (int)__p2;
@@ -2273,7 +2273,7 @@ template <> Method5<HUDOverlay, int, int, const char *,math::Vector,math::Vector
 
 
 // 0x000cf350 Method5<HUDOverlay,int,int,const_char_*,math::Vector,math::Vector,math::Vector>::vfunc_2 (166 B): equivalent/0x000cf350.cpp
-// sym: ?vfunc_2@?$Method5@VHUDOverlay@@HHPBDVVector@math@@V23@V23@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method5@VHUDOverlay@@HHPBDVVector@math@@V23@V23@@@UAEXPAX00@Z @7e2cce862d80 @wd72534a0dbce
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method5<HUDOverlay,int,int,const_char_*,math::Vector,math::Vector,math::Vector>::vfunc_2 @ 0x000cf350
 template <> void Method5<HUDOverlay, int, int, const char *,math::Vector,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cf350 * obj = (HUDOverlay_cf350 *)__p0; Args_cf350 * args = (Args_cf350 *)__p1; int * out = (int *)__p2;
@@ -2312,7 +2312,7 @@ template <> void content::LoadInventory::DynamicCaster<pure3d::Locator>::vfunc_0
 namespace fn_f3fdf6d3 {
 
 // 0x000cf4b0 FUN_000cf4b0 (644 B): equivalent/0x000cf4b0.cpp
-// sym: ?FUN_000cf4b0@Ctl_cf4b0@fn_f3fdf6d3@@QAEXM@Z
+// sym: ?FUN_000cf4b0@Ctl_cf4b0@fn_f3fdf6d3@@QAEXM@Z @cbb983266a71 @wfe6c034b5f33
 // STATUS: equivalent (tools/equiv.py level 3: 20035 inputs, branch coverage 36/36)
 // FUN_000cf4b0 @ 0x000cf4b0
 // FUN_000cf4b0 @ 0x000cf4b0
@@ -2825,7 +2825,7 @@ template <> Closure2<HUDOverlay, int, int,math::Vector>::~Closure2() {}
 
 
 // 0x000cfcb0 Closure2<HUDOverlay,int,int,math::Vector>::vfunc_2 (61 B): equivalent/0x000cfcb0.cpp [wrapped: conflict: Args; Closure2; HUDOverlay]
-// sym: ?vfunc_2@Closure2@fn_000cfcb0@@UAEXHPAUArgs@2@PAH@Z
+// sym: ?vfunc_2@Closure2@fn_000cfcb0@@UAEXHPAUArgs@2@PAH@Z @69c5af852677 @w0dfc1d6ccf29
 namespace fn_000cfcb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<HUDOverlay,int,int,math::Vector>::vfunc_2 @ 0x000cfcb0
@@ -2925,7 +2925,7 @@ template <> Closure2<HUDOverlay, void, int,math::Vector>::~Closure2() {}
 
 
 // 0x000cfd70 Closure2<HUDOverlay,void,int,math::Vector>::vfunc_2 (47 B): equivalent/0x000cfd70.cpp
-// sym: ?vfunc_2@?$Closure2@VHUDOverlay@@XHVVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure2@VHUDOverlay@@XHVVector@math@@@@UAEXPAX00@Z @24b1dd12cec5 @wc560a9a5bfca
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure2<HUDOverlay,void,int,math::Vector>::vfunc_2 @ 0x000cfd70
 template <> void Closure2<HUDOverlay, void, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { const void * args = (const void *)__p1;
@@ -3148,7 +3148,7 @@ void Closure2::vfunc_2(int x, int a2, int a3) {
 
 
 // 0x000d0040 Closure3<HUDOverlay,void,int,int,math::Vector>::vfunc_2 (56 B): equivalent/0x000d0040.cpp
-// sym: ?vfunc_2@?$Closure3@VHUDOverlay@@XHHVVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure3@VHUDOverlay@@XHHVVector@math@@@@UAEXPAX00@Z @8edf7df33cb8 @wcf864df72b4f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure3<HUDOverlay,void,int,int,math::Vector>::vfunc_2 @ 0x000d0040
 template <> void Closure3<HUDOverlay, void, int, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const int * args = (const int *)__p1; void * unused2 = (void *)__p2;
@@ -3317,7 +3317,7 @@ template <> void Closure1<HUDOverlay, void, bool>::vfunc_2(void* __p0, void* __p
 
 
 // 0x000d0240 HUDOverlay::vfunc_3 (935 B): equivalent/0x000d0240.cpp [wrapped: conflict: HUDOverlay; Overlay]
-// sym: ?vfunc_3@HUDOverlay@fn_000d0240@@UAEXM@Z
+// sym: ?vfunc_3@HUDOverlay@fn_000d0240@@UAEXM@Z @ea55fcda357c @wb42f3ab46563
 namespace fn_000d0240 {
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 30/30)
 // HUDOverlay::vfunc_3 @ 0x000d0240
@@ -3556,7 +3556,7 @@ void HUDOverlay::vfunc_3(float dt)
 
 
 // 0x000d05f0 HUDOverlay::vfunc_4 (2754 B): equivalent/0x000d05f0.cpp [wrapped: conflict: Gfx; HUDOverlay; World]
-// sym: ?vfunc_4@HUDOverlay@fn_000d05f0@@UAEXXZ
+// sym: ?vfunc_4@HUDOverlay@fn_000d05f0@@UAEXXZ @c425a2cebb0c @w6c5151344659
 namespace fn_000d05f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 171 inputs, branch coverage 76/76)
 // HUDOverlay::vfunc_4 @ 0x000d05f0
@@ -4043,7 +4043,7 @@ void HUDOverlay::vfunc_4()
 
 
 // 0x000d10c0 FUN_000d10c0 (109 B): equivalent/0x000d10c0.cpp [wrapped: conflict: Closure0; HUDOverlay; Method0]
-// sym: ?FUN_000d10c0@Registry_d10c0@fn_000d10c0@@QAEXPBDPAVHUDOverlay@2@P832@AEXXZ@Z
+// sym: ?FUN_000d10c0@Registry_d10c0@fn_000d10c0@@QAEXPBDPAVHUDOverlay@2@P832@AEXXZ@Z @d14d43ebce67 @w55bc884abc8a
 namespace fn_000d10c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000d10c0 @ 0x000d10c0
@@ -4129,7 +4129,7 @@ void Registry_d10c0::FUN_000d10c0(const char* name, HUDOverlay* owner, void (HUD
 namespace fn_f3fdf6d3 {
 
 // 0x000d1220 FUN_000d1220 (83 B): equivalent/0x000d1220.cpp
-// sym: ?FUN_000d1220@Registry_d1220@fn_f3fdf6d3@@QAEXPBDPAVHUDOverlay_d1220@2@P832@AEX0MMVVector_d1220@math@@@Z@Z
+// sym: ?FUN_000d1220@Registry_d1220@fn_f3fdf6d3@@QAEXPBDPAVHUDOverlay_d1220@2@P832@AEX0MMVVector_d1220@math@@@Z@Z @eaefa4165180 @w2d2ece7f4dee
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_000d1220 @ 0x000d1220
 // FUN_000d1220 @ 0x000d1220  (generated by tools/equiv_gen/reg_helper.py)
@@ -4147,7 +4147,7 @@ void Registry_d1220::FUN_000d1220(const char* a1, HUDOverlay_d1220* a2, Fn_d1220
 
 
 // 0x000d1280 FUN_000d1280 (83 B): equivalent/0x000d1280.cpp
-// sym: ?FUN_000d1280@Registry_d1280@fn_f3fdf6d3@@QAEXPBDPAVHUDOverlay_d1280@2@P832@AEH00M@Z@Z
+// sym: ?FUN_000d1280@Registry_d1280@fn_f3fdf6d3@@QAEXPBDPAVHUDOverlay_d1280@2@P832@AEH00M@Z@Z @501ae160e5c4 @w12140262ef53
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_000d1280 @ 0x000d1280
 // FUN_000d1280 @ 0x000d1280  (generated by tools/equiv_gen/reg_helper.py)
@@ -4166,7 +4166,7 @@ void Registry_d1280::FUN_000d1280(const char* a1, HUDOverlay_d1280* a2, Fn_d1280
 } // namespace fn_f3fdf6d3
 
 // 0x000d12e0 FUN_000d12e0 (109 B): equivalent/0x000d12e0.cpp [wrapped: conflict: Closure0; HUDOverlay; Method0]
-// sym: ?FUN_000d12e0@Registry_d12e0@fn_000d12e0@@QAEXPBDPAVHUDOverlay@2@P832@AEHXZ@Z
+// sym: ?FUN_000d12e0@Registry_d12e0@fn_000d12e0@@QAEXPBDPAVHUDOverlay@2@P832@AEHXZ@Z @b0d52a81f178 @w193961f72513
 namespace fn_000d12e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000d12e0 @ 0x000d12e0
@@ -4252,7 +4252,7 @@ void Registry_d12e0::FUN_000d12e0(const char* name, HUDOverlay* owner, int (HUDO
 namespace fn_f3fdf6d3 {
 
 // 0x000d1530 FUN_000d1530 (83 B): equivalent/0x000d1530.cpp
-// sym: ?FUN_000d1530@Registry_d1530@fn_f3fdf6d3@@QAEXPBDPAVHUDOverlay_d1530@2@P832@AEHHHVVector_d1530@math@@2@Z@Z
+// sym: ?FUN_000d1530@Registry_d1530@fn_f3fdf6d3@@QAEXPBDPAVHUDOverlay_d1530@2@P832@AEHHHVVector_d1530@math@@2@Z@Z @6def611a554a @w2adedb321a26
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_000d1530 @ 0x000d1530
 // FUN_000d1530 @ 0x000d1530  (generated by tools/equiv_gen/reg_helper.py)
@@ -4270,7 +4270,7 @@ void Registry_d1530::FUN_000d1530(const char* a1, HUDOverlay_d1530* a2, Fn_d1530
 
 
 // 0x000d1590 FUN_000d1590 (83 B): equivalent/0x000d1590.cpp
-// sym: ?FUN_000d1590@Registry_d1590@fn_f3fdf6d3@@QAEXPBDPAVHUDOverlay_d1590@2@P832@AEXHHVVector_d1590@math@@@Z@Z
+// sym: ?FUN_000d1590@Registry_d1590@fn_f3fdf6d3@@QAEXPBDPAVHUDOverlay_d1590@2@P832@AEXHHVVector_d1590@math@@@Z@Z @8324940f4bf6 @wf98953dbe1fe
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_000d1590 @ 0x000d1590
 // FUN_000d1590 @ 0x000d1590  (generated by tools/equiv_gen/reg_helper.py)
@@ -4288,7 +4288,7 @@ void Registry_d1590::FUN_000d1590(const char* a1, HUDOverlay_d1590* a2, Fn_d1590
 
 
 // 0x000d1640 FUN_000d1640 (83 B): equivalent/0x000d1640.cpp
-// sym: ?FUN_000d1640@Registry_d1640@fn_f3fdf6d3@@QAEXPBDPAVHUDOverlay_d1640@2@P832@AEHH0VVector_d1640@math@@22@Z@Z
+// sym: ?FUN_000d1640@Registry_d1640@fn_f3fdf6d3@@QAEXPBDPAVHUDOverlay_d1640@2@P832@AEHH0VVector_d1640@math@@22@Z@Z @381e4c8dfb53 @wcc6bb976d3d7
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_000d1640 @ 0x000d1640
 // FUN_000d1640 @ 0x000d1640  (generated by tools/equiv_gen/reg_helper.py)
@@ -4307,7 +4307,7 @@ void Registry_d1640::FUN_000d1640(const char* a1, HUDOverlay_d1640* a2, Fn_d1640
 } // namespace fn_f3fdf6d3
 
 // 0x000d2c30 FUN_000d2c30 (1330 B): equivalent/0x000d2c30.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_000d2c30@HealthBar@fn_000d2c30@@QAEXXZ
+// sym: ?FUN_000d2c30@HealthBar@fn_000d2c30@@QAEXXZ @03fff861fc42 @w9185900df052
 namespace fn_000d2c30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 62/62)
 // FUN_000d2c30 @ 0x000d2c30
@@ -4529,7 +4529,7 @@ void HealthBar::FUN_000d2c30()
 namespace fn_f3fdf6d3 {
 
 // 0x000d3d80 FUN_000d3d80 (341 B): equivalent/0x000d3d80.cpp
-// sym: _FUN_000d3d80
+// sym: _FUN_000d3d80 @59087fc545ad @w52946d4b2e5f
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 18/18)
 // FUN_000d3d80 @ 0x000d3d80
 extern "C" char __cdecl FUN_000d3d80(void *p1, void *p2, Owner_d3d80 *owner, Arg_d3d80 *arg, Typed *typed)
@@ -4578,7 +4578,7 @@ extern "C" int* FUN_000d3ee0() {
 } // namespace fn_f3fdf6d3
 
 // 0x000d3ef0 FUN_000d3ef0 (31 B): equivalent/0x000d3ef0.cpp
-// sym: ?FUN_000d3ef0@Thing_d3ef0@owners@@QAEXHH@Z
+// sym: ?FUN_000d3ef0@Thing_d3ef0@owners@@QAEXHH@Z @f95fca18c774 @w3947bbc3aaf5
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000d3ef0 @ 0x000d3ef0
 void owners::Thing_d3ef0::FUN_000d3ef0(hulk_intptr a, hulk_intptr b) {

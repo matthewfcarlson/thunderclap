@@ -41,7 +41,7 @@ void thunk_FUN_00271560(Stream**,const char*,int,int);
 
 
 // 0x0008e880 FUN_0008e880 (904 B): equivalent/0x0008e880.cpp
-// sym: ?FUN_0008e880@CPlatformManager@fn_fef24b47@@QAEXXZ
+// sym: ?FUN_0008e880@CPlatformManager@fn_fef24b47@@QAEXXZ @d8aa6e90fd78 @w2f1ec8dde6ed
 // STATUS: equivalent (tools/equiv.py level 3: 8874 inputs, branch coverage 39/42, incomplete)
 // FUN_0008e880 @ 0x0008e880
 void CPlatformManager::FUN_0008e880() {

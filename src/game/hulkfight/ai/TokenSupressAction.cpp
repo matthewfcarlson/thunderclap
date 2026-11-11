@@ -57,7 +57,7 @@ hulk_freg hulkfight::ai::TokenSupressTrack::vfunc_7() {
 
 
 // 0x0010de70 hulkfight::ai::TokenSupressAction::vfunc_3 (104 B): equivalent/0x0010de70.cpp
-// sym: ?vfunc_3@TokenSupressAction@ai@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@TokenSupressAction@ai@hulkfight@@UAE_NHH@Z @0cb232a9a3aa @w4eee00b7392c
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 4/4)
 // hulkfight::ai::TokenSupressAction::vfunc_3 @ 0x0010de70
 bool hulkfight::ai::TokenSupressAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
@@ -87,7 +87,7 @@ bool hulkfight::ai::TokenSupressAction::vfunc_5(hulk_intptr a, int b) {
 
 
 // 0x0010df20 hulkfight::ai::TokenSupressAction::vfunc_4 (100 B): equivalent/0x0010df20.cpp [wrapped: conflict: FUN_000678d0]
-// sym: ?vfunc_4@TokenSupressAction@fn_0010df20@@UAEXXZ
+// sym: ?vfunc_4@TokenSupressAction@fn_0010df20@@UAEXXZ @9c209c1c42a9 @w986963f05410
 namespace fn_0010df20 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // hulkfight::ai::TokenSupressAction::vfunc_4 @ 0x0010df20

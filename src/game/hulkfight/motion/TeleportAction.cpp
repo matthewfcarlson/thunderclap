@@ -63,7 +63,7 @@ class Obj_171ca0 {
 } // namespace fn_fc3c0be1
 
 // 0x00171a20 hulkfight::motion::PushOutAction::vfunc_3 (108 B): equivalent/0x00171a20.cpp
-// sym: ?vfunc_3@PushOutAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@PushOutAction@motion@hulkfight@@UAE_NHH@Z @826736806fd5 @w8b9c6f582851
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // hulkfight::motion::PushOutAction::vfunc_3 @ 0x00171a20
 bool hulkfight::motion::PushOutAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
@@ -88,7 +88,7 @@ bool hulkfight::motion::PushOutAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
 
 
 // 0x00171a90 hulkfight::motion::FootPivotAction::vfunc_3 (230 B): equivalent/0x00171a90.cpp [wrapped: conflict: hulkfight::motion::FootPivotAction]
-// sym: ?vfunc_3@FootPivotAction@motion@hulkfight@fn_00171a90@@UAE_NHH@Z
+// sym: ?vfunc_3@FootPivotAction@motion@hulkfight@fn_00171a90@@UAE_NHH@Z @84676becfba4 @wa3561c02491c
 namespace fn_00171a90 {
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 14/14)
 // hulkfight::motion::FootPivotAction::vfunc_3 @ 0x00171a90
@@ -152,7 +152,7 @@ void hulkfight::motion::DriftToPositionAction::vfunc_4() {
 
 
 // 0x00171c10 hulkfight::motion::DriftToHulkAction::vfunc_3 (78 B): equivalent/0x00171c10.cpp [wrapped: conflict: hulkfight::motion::DriftToHulkAction]
-// sym: ?vfunc_3@DriftToHulkAction@motion@hulkfight@fn_00171c10@@UAE_NHH@Z
+// sym: ?vfunc_3@DriftToHulkAction@motion@hulkfight@fn_00171c10@@UAE_NHH@Z @ee0c70edc03d @w368c8b285580
 namespace fn_00171c10 {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
 // hulkfight::motion::DriftToHulkAction::vfunc_3 @ 0x00171c10

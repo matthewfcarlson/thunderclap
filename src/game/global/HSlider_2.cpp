@@ -233,7 +233,7 @@ class HSlider : public FEControl_e9af0 {
 
 
 // 0x000e9800 HSlider::vfunc_7 (194 B): equivalent/0x000e9800.cpp
-// sym: ?vfunc_7@HSlider@fn_f686bfea@@QAEXPAUSource_e9800@2@@Z
+// sym: ?vfunc_7@HSlider@fn_f686bfea@@QAEXPAUSource_e9800@2@@Z @3204712238bb @wca40c0730d55
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // HSlider::vfunc_7 @ 0x000e9800
 void HSlider::vfunc_7(Source_e9800* source) {
@@ -250,7 +250,7 @@ void HSlider::vfunc_7(Source_e9800* source) {
 } // namespace fn_f686bfea
 
 // 0x000e98d0 HSlider::vfunc_3 (544 B): equivalent/0x000e98d0.cpp [wrapped: conflict: HSlider]
-// sym: ?vfunc_3@HSlider@fn_000e98d0@@UAEXXZ
+// sym: ?vfunc_3@HSlider@fn_000e98d0@@UAEXXZ @372bde696850 @wad82861310ff
 namespace fn_000e98d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 6/6)
 // HSlider::vfunc_3 @ 0x000e98d0
@@ -443,7 +443,7 @@ void HSlider::vfunc_3()
 namespace fn_f686bfea {
 
 // 0x000e9af0 HSlider::vfunc_5 (868 B): equivalent/0x000e9af0.cpp
-// sym: ?vfunc_5@HSlider@fn_f686bfea@@UAEXXZ
+// sym: ?vfunc_5@HSlider@fn_f686bfea@@UAEXXZ @fa4165cdd589 @wb20175a00b6d
 // STATUS: equivalent (tools/equiv.py level 3: 19732 inputs, branch coverage 34/34)
 // HSlider::vfunc_5 @ 0x000e9af0
 void HSlider::vfunc_5()

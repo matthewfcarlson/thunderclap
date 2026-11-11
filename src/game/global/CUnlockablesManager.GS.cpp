@@ -8,7 +8,7 @@
 
 
 // 0x00094fb0 FUN_00094fb0 (3785 B): equivalent/0x00094fb0.cpp [wrapped: macros]
-// sym: ??0CUnlockablesManager@fn_00094fb0@@QAE@XZ
+// sym: ??0CUnlockablesManager@fn_00094fb0@@QAE@XZ @c0dc3843661c @w8469cc9b7fed
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 void* operator new(hulk_uintptr) throw();
 namespace fn_00094fb0 {

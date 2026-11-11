@@ -4,7 +4,7 @@
 
 
 // 0x001b4620 FUN_001b4620 (174 B): equivalent/0x001b4620.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_001b4620@Owner_1b4620@fn_f2a9d4ea@@QAE_NUVec3_1b4620@2@III@Z
+// sym: ?FUN_001b4620@Owner_1b4620@fn_f2a9d4ea@@QAE_NUVec3_1b4620@2@III@Z @83deaa94227a @wb59000c91434
 #include "gen/owners.h"
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

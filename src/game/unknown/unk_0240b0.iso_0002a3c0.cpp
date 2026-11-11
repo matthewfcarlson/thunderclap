@@ -4,7 +4,7 @@
 
 
 // 0x0002a3c0 FUN_0002a3c0 (226 B): equivalent/0x0002a3c0.cpp [isolated: code differs from its standalone build]
-// sym: ?insert@List_2a3c0@fn_f5e4f10d@@QAEHPAUItem_2a3c0@2@@Z
+// sym: ?insert@List_2a3c0@fn_f5e4f10d@@QAEHPAUItem_2a3c0@2@@Z @83b77a4f40fc @w57798925a061
 #include "gen/owners.h"
 namespace fn_f5e4f10d {} using namespace fn_f5e4f10d;
 namespace fn_f5e4f10d {

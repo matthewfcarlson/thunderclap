@@ -4,7 +4,7 @@
 
 
 // 0x0005f150 FUN_0005f150 (2229 B): equivalent/0x0005f150.cpp [isolated: conflict: ParamBoolBase; ParamFloatConstRangeBase; on include/gen/ and not mergeable]
-// sym: _FUN_0005f150
+// sym: _FUN_0005f150 @bff235ed4c1e @wa0537c545126
 // STATUS: equivalent (tools/equiv.py level 3: 948 inputs, branch coverage 82/82)
 // FUN_0005f150 @ 0x0005f150
 #include "decls/data/game/global.h"

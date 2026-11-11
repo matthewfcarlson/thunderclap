@@ -121,7 +121,7 @@ struct Vec3_83e00 {
 
 
 // 0x00083320 FUN_00083320 (586 B): equivalent/0x00083320.cpp
-// sym: ?FUN_00083320@Mover_83320@fn_ff46a245@@QAEXPAUVec3_83320@2@0MDHD@Z
+// sym: ?FUN_00083320@Mover_83320@fn_ff46a245@@QAEXPAUVec3_83320@2@0MDHD@Z @ab343534601f @w65b0069f1f0c
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 30/33, incomplete)
 // FUN_00083320 @ 0x00083320
 // equiv-conv: FUN_00082d30 esi
@@ -209,7 +209,7 @@ void Mover_83320::FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale,
 } // namespace fn_ff46a245
 
 // 0x000835a0 FUN_000835a0 (1388 B): equivalent/0x000835a0.cpp [wrapped: conflict: DAT_004dd700; World]
-// sym: ?FUN_000835a0@Action@fn_000835a0@@QAEXM@Z
+// sym: ?FUN_000835a0@Action@fn_000835a0@@QAEXM@Z @e54f8479441b @w3f25e55098f7
 inline void operator delete(void*, void*) {}
 inline void* operator new(size_t, void* p) {
     return p;
@@ -584,7 +584,7 @@ void Vec::Cross(const Vec& a, const Vec& b) {
 
 
 // 0x00083c30 FUN_00083c30 (183 B): equivalent/0x00083c30.cpp
-// sym: ??0CVehicle@fn_ff46a245@@QAE@IIIIIIIIIIIII@Z
+// sym: ??0CVehicle@fn_ff46a245@@QAE@IIIIIIIIIIIII@Z @6fcd5fb2a068 @wcc6d041fb625
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00083c30 @ 0x00083c30
 CVehicle::CVehicle(Word_83c30 a1,Word_83c30 a2,Word_83c30 a3,Word_83c30 a4,Word_83c30 a5,Word_83c30 a6,Word_83c30 a7,Word_83c30 a8,Word_83c30 a9,Word_83c30 a10,Word_83c30 a11,Word_83c30 a12,Word_83c30 a13) {

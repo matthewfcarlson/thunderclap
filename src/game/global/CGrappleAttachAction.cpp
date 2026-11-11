@@ -102,7 +102,7 @@ void CGrappleLocoStrafe4Action::vfunc_4() {
 
 
 // 0x00015480 CGrappleAttachAction::vfunc_6 (827 B): equivalent/0x00015480.cpp [wrapped: conflict: CGrappleAttachAction]
-// sym: ?vfunc_6@CGrappleAttachAction@fn_00015480@@UAEDH@Z
+// sym: ?vfunc_6@CGrappleAttachAction@fn_00015480@@UAEDH@Z @b94f9174b7a4 @wb9fc77d0d6c8
 namespace fn_00015480 {
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 32/32)
 // CGrappleAttachAction::vfunc_6 @ 0x00015480

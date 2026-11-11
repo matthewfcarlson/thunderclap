@@ -229,7 +229,7 @@ struct C_c6a70 {
 
 
 // 0x000c5900 FUN_000c5900 (168 B): equivalent/0x000c5900.cpp
-// sym: ?FUN_000c5900@fn_f3173163@@YAXPAUObject@1@HM@Z
+// sym: ?FUN_000c5900@fn_f3173163@@YAXPAUObject@1@HM@Z @5e45f5d7bfb8 @w5e4e6ab55cc4
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000c5900 @ 0x000c5900
 void __cdecl FUN_000c5900(Object* object, int axis, float amount) {
@@ -249,7 +249,7 @@ void __cdecl FUN_000c5900(Object* object, int axis, float amount) {
 } // namespace fn_f3173163
 
 // 0x000c59b0 FUN_000c59b0 (174 B): equivalent/0x000c59b0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_000c59b0@fn_000c59b0@@YAXPAUObject@1@HM@Z
+// sym: ?FUN_000c59b0@fn_000c59b0@@YAXPAUObject@1@HM@Z @7131757bcaa3 @wfa0444c95d83
 namespace fn_000c59b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000c59b0 @ 0x000c59b0
@@ -318,7 +318,7 @@ void S_c5b40::f() {
 
 
 // 0x000c5b80 FUN_000c5b80 (183 B): equivalent/0x000c5b80.cpp
-// sym: ?FUN_000c5b80@Walker_c5b80@fn_f3173163@@QAEPAUNode@2@XZ
+// sym: ?FUN_000c5b80@Walker_c5b80@fn_f3173163@@QAEPAUNode@2@XZ @8413a0eb1c8f @wfb23ebb86471
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000c5b80 @ 0x000c5b80
 Node* Walker_c5b80::FUN_000c5b80() {
@@ -345,7 +345,7 @@ Node* Walker_c5b80::FUN_000c5b80() {
 
 
 // 0x000c5c40 FUN_000c5c40 (217 B): equivalent/0x000c5c40.cpp
-// sym: ?FUN_000c5c40@fn_f3173163@@YAXPAUObject@1@0@Z
+// sym: ?FUN_000c5c40@fn_f3173163@@YAXPAUObject@1@0@Z @ddb0f8862076 @w74d4e5624835
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000c5c40 @ 0x000c5c40
 void __cdecl FUN_000c5c40(Object* source,Object* destination) {
@@ -378,7 +378,7 @@ extern "C" bool FUN_000c5d60(Obj_c5d60* obj, int index) {
 
 
 // 0x000c5e60 FUN_000c5e60 (137 B): equivalent/0x000c5e60.cpp
-// sym: ?HasEntry@fn_f3173163@@YA_NPAUOwner_c5e60@1@HHHHHH@Z
+// sym: ?HasEntry@fn_f3173163@@YA_NPAUOwner_c5e60@1@HHHHHH@Z @feebe4ad4142 @w29b47a69863d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000c5e60 @ 0x000c5e60
 bool __cdecl HasEntry(Owner_c5e60* owner, int id, int key, int i0, int i1, int i2, int i3) {
@@ -419,7 +419,7 @@ void fun(Obj* o, int a, int b, int c, int d, int e, int f, int g, int h) {
 
 
 // 0x000c5fa0 FUN_000c5fa0 (135 B): equivalent/0x000c5fa0.cpp
-// sym: ?FUN_000c5fa0@fn_f3173163@@YAXPAUBuffer_c5fa0@1@UVec3_c5fa0@1@1I@Z
+// sym: ?FUN_000c5fa0@fn_f3173163@@YAXPAUBuffer_c5fa0@1@UVec3_c5fa0@1@1I@Z @4f3b9144d1c3 @w3f647a3aebfc
 // STATUS: equivalent (tools/equiv.py level 3: 2235 inputs, branch coverage 0/0)
 // FUN_000c5fa0 @ 0x000c5fa0
 // Emits two vertices (a line) with the same colour into the buffer.
@@ -438,7 +438,7 @@ void __cdecl FUN_000c5fa0(Buffer_c5fa0 *buffer, Vec3_c5fa0 from, Vec3_c5fa0 to, 
 
 
 // 0x000c60f0 FUN_000c60f0 (346 B): equivalent/0x000c60f0.cpp
-// sym: ?FUN_000c60f0@fn_f3173163@@YAHUVec3_c60f0@1@000IH@Z
+// sym: ?FUN_000c60f0@fn_f3173163@@YAHUVec3_c60f0@1@000IH@Z @f197b16f5739 @w1bf1bfe88f28
 // STATUS: equivalent (tools/equiv.py level 3: 16394 inputs, branch coverage 4/4)
 // FUN_000c60f0 @ 0x000c60f0
 // FUN_000c60f0 @ 0x000c60f0
@@ -461,7 +461,7 @@ int FUN_000c60f0(Vec3_c60f0 a, Vec3_c60f0 b, Vec3_c60f0 c, Vec3_c60f0 d, unsigne
 
 
 // 0x000c6250 FUN_000c6250 (213 B): equivalent/0x000c6250.cpp
-// sym: ?FUN_000c6250@fn_f3173163@@YAHMMMMMMII@Z
+// sym: ?FUN_000c6250@fn_f3173163@@YAHMMMMMMII@Z @d8d7ede75116 @w7edcbb7e414c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000c6250 @ 0x000c6250
 int __cdecl FUN_000c6250(float x1, float y1, float unused1, float x2, float y2, float unused2, unsigned int a7, unsigned int a8)
@@ -477,7 +477,7 @@ int __cdecl FUN_000c6250(float x1, float y1, float unused1, float x2, float y2, 
 } // namespace fn_f3173163
 
 // 0x000c6330 FUN_000c6330 (856 B): equivalent/0x000c6330.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_000c6330@fn_000c6330@@YAXUV3_c6330@1@0000000IH@Z
+// sym: ?FUN_000c6330@fn_000c6330@@YAXUV3_c6330@1@0000000IH@Z @9797c61338a1 @w77b49f1093d8
 namespace fn_000c6330 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000c6330 @ 0x000c6330
@@ -613,7 +613,7 @@ void FUN_000c6330(V3_c6330 c0, V3_c6330 c1, V3_c6330 c2, V3_c6330 c3, V3_c6330 c
 namespace fn_f3173163 {
 
 // 0x000c6840 FUN_000c6840 (445 B): equivalent/0x000c6840.cpp
-// sym: ?FUN_000c6840@fn_f3173163@@YAXUVec3_c6840@1@HH@Z
+// sym: ?FUN_000c6840@fn_f3173163@@YAXUVec3_c6840@1@HH@Z @beb150a03fef @w84adf49b1fa0
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000c6840 @ 0x000c6840
 void FUN_000c6840(Vec3_c6840 extent, int a, int b)

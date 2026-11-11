@@ -109,7 +109,7 @@ AirToGroundTargetAction_1368a0::~AirToGroundTargetAction_1368a0() {
 } // namespace fn_fc9ef4a6
 
 // 0x001368f0 hulkfight::motion::AirToGroundTargetAction::vfunc_5 (1123 B): equivalent/0x001368f0.cpp [wrapped: conflict: AirToGroundTargetAction]
-// sym: ?v5@AirToGroundTargetAction@fn_001368f0@@UAEDTArg1_1368f0@2@M@Z
+// sym: ?v5@AirToGroundTargetAction@fn_001368f0@@UAEDTArg1_1368f0@2@M@Z @36e5aa515f11 @wb15a85560429
 namespace fn_001368f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 43/44, incomplete)
 // hulkfight::motion::AirToGroundTargetAction::vfunc_5 @ 0x001368f0

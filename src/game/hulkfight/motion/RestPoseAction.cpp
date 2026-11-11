@@ -43,7 +43,7 @@ void hulkfight::motion::SurfAction::vfunc_4() {
 
 
 // 0x00172680 hulkfight::motion::RestPoseAction::vfunc_3 (216 B): equivalent/0x00172680.cpp [wrapped: conflict: hulkfight::motion::RestPoseAction]
-// sym: ?vfunc_3@RestPoseAction@motion@hulkfight@fn_00172680@@UAE_NPAX0@Z
+// sym: ?vfunc_3@RestPoseAction@motion@hulkfight@fn_00172680@@UAE_NPAX0@Z @1b3ddc99235c @w5ff74a7bc1d5
 namespace fn_00172680 {
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 16/16)
 // hulkfight::motion::RestPoseAction::vfunc_3 @ 0x00172680

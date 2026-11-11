@@ -79,7 +79,7 @@ struct Frame_201850 {
 
 
 // 0x00201850 FUN_00201850 (857 B): equivalent/0x00201850.cpp
-// sym: _FUN_00201850
+// sym: _FUN_00201850 @b0ec040f3404 @w1d3041f03500
 // STATUS: equivalent (tools/equiv.py level 3: 4343 inputs, branch coverage 22/22)
 // FUN_00201850 @ 0x00201850
 extern "C" void FUN_00201850(Loader_201850 *l, Ctx_201850 *ctx)

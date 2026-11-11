@@ -366,7 +366,7 @@ template <> void Closure0<CSimOverlayManager, int>::vfunc_2(void* __p0, void* __
 
 
 // 0x000d7550 FUN_000d7550 (109 B): equivalent/0x000d7550.cpp [wrapped: conflict: CSimOverlayManager; Closure0; Method0]
-// sym: ?FUN_000d7550@Registry_d7550@fn_000d7550@@QAEXPBDPAVCSimOverlayManager@2@P832@AEHXZ@Z
+// sym: ?FUN_000d7550@Registry_d7550@fn_000d7550@@QAEXPBDPAVCSimOverlayManager@2@P832@AEHXZ@Z @198efff9dffd @w1fb77e0b071b
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

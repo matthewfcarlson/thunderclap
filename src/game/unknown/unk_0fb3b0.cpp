@@ -97,7 +97,7 @@ typedef unsigned int uint_fb6e0;
 
 
 // 0x000fb3b0 FUN_000fb3b0 (109 B): equivalent/0x000fb3b0.cpp
-// sym: ?FUN_000fb3b0@Target_fb3b0@fn_f4646cfc@@QAEXPAUSrc_fb3b0@2@D@Z
+// sym: ?FUN_000fb3b0@Target_fb3b0@fn_f4646cfc@@QAEXPAUSrc_fb3b0@2@D@Z @ff2d0af10ebf @wa0434272b25b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000fb3b0 @ 0x000fb3b0
 void Target_fb3b0::FUN_000fb3b0(Src_fb3b0 *s, char fl)
@@ -145,7 +145,7 @@ owners::Thing_fb470* owners::Thing_fb470::FUN_000fb470(const char* s) {
 namespace fn_f4646cfc {
 
 // 0x000fb4b0 FUN_000fb4b0 (391 B): equivalent/0x000fb4b0.cpp
-// sym: ?FUN_000fb4b0@Fade_fb4b0@fn_f4646cfc@@QAE_NM@Z
+// sym: ?FUN_000fb4b0@Fade_fb4b0@fn_f4646cfc@@QAE_NM@Z @54514d1ed95b @w2ec69cc059f7
 // STATUS: equivalent (tools/equiv.py level 3: 19921 inputs, branch coverage 14/14)
 // FUN_000fb4b0 @ 0x000fb4b0
 bool Fade_fb4b0::FUN_000fb4b0(float dt)
@@ -196,14 +196,14 @@ bool Fade_fb4b0::FUN_000fb4b0(float dt)
 
 
 // 0x000fb640 FUN_000fb640 (74 B): equivalent/0x000fb640.cpp
-// sym: ?FUN_000fb640@Source@fn_f4646cfc@@QAEXPAUDest@2@II@Z
+// sym: ?FUN_000fb640@Source@fn_f4646cfc@@QAEXPAUDest@2@II@Z @39aa51c17c03 @w2f7c09ee5782
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000fb640 @ 0x000fb640
 void Source::FUN_000fb640(Dest *dest,hulk_uintptr x,unsigned int y) { dest->FUN_000fb3b0(x,y); dest->a=a; dest->b=b; dest->c=c; dest->d=d; dest->e=e; dest->f=f; dest->type=2; dest->FUN_000fb4b0(0); }
 
 
 // 0x000fb690 FUN_000fb690 (75 B): equivalent/0x000fb690.cpp
-// sym: _FUN_000fb690
+// sym: _FUN_000fb690 @d3843aa49192 @wca70d10a4ed1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000fb690 @ 0x000fb690
 extern "C" void __cdecl FUN_000fb690(unsigned short *destination, const unsigned short *source, int capacity)
@@ -251,7 +251,7 @@ extern "C" int FUN_000fb720(const short* p) {
 
 
 // 0x000fb740 FUN_000fb740 (77 B): equivalent/0x000fb740.cpp
-// sym: _FUN_000fb740
+// sym: _FUN_000fb740 @20d72077673f @w36865b4d0940
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000fb740 @ 0x000fb740
 extern "C" void __cdecl FUN_000fb740(short *dest, const char *src, hulk_intptr count)
@@ -270,7 +270,7 @@ extern "C" void __cdecl FUN_000fb740(short *dest, const char *src, hulk_intptr c
 
 
 // 0x000fb790 FUN_000fb790 (107 B): equivalent/0x000fb790.cpp
-// sym: _FUN_000fb790
+// sym: _FUN_000fb790 @bcaaae40a79c @w8a540c1ad4d1
 // STATUS: equivalent (tools/equiv.py level 3: 552 inputs, branch coverage 12/12)
 // FUN_000fb790 @ 0x000fb790
 extern "C" void FUN_000fb790(short *dst, const char *src, int n)
@@ -301,7 +301,7 @@ extern "C" void FUN_000fb790(short *dst, const char *src, int n)
 
 
 // 0x000fb800 FUN_000fb800 (39 B): equivalent/0x000fb800.cpp
-// sym: ?FUN_000fb800@fn_f4646cfc@@YI_NPBGG@Z
+// sym: ?FUN_000fb800@fn_f4646cfc@@YI_NPBGG@Z @6adb942ca9ac @w8f78f2a26e4e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000fb800 @ 0x000fb800
 // equiv-conv: FUN_000fb800 ecx edx

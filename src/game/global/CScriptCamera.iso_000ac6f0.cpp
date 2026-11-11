@@ -5,7 +5,7 @@
 
 
 // 0x000ac6f0 FUN_000ac6f0 (132 B): equivalent/0x000ac6f0.cpp [isolated: code differs from its standalone build]
-// sym: ?Evaluate@Curve_ac6f0@fn_ffe158fd@@QAEMMM@Z
+// sym: ?Evaluate@Curve_ac6f0@fn_ffe158fd@@QAEMMM@Z @f15afacbe95a @w5727c622ab68
 #include "gen/owners.h"
 namespace fn_ffe158fd {} using namespace fn_ffe158fd;
 namespace fn_ffe158fd {

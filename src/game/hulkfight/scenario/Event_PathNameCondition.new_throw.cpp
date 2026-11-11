@@ -99,7 +99,7 @@ public:
 namespace fn_fdc66084 {
 
 // 0x001abef0 FUN_001abef0 (95 B): equivalent/0x001abef0.cpp
-// sym: ?FUN_001abef0@fn_fdc66084@@YAXXZ
+// sym: ?FUN_001abef0@fn_fdc66084@@YAXXZ @40bc0b1307a6 @wb53baec426d9
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
 // FUN_001abef0 @ 0x001abef0
 void FUN_001abef0()
@@ -119,7 +119,7 @@ void FUN_001abef0()
 } // namespace fn_fdc66084
 
 // 0x001abf50 FUN_001abf50 (176 B): equivalent/0x001abf50.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamIntConstRange]
-// sym: ?FUN_001abf50@fn_001abf50@@YAXXZ
+// sym: ?FUN_001abf50@fn_001abf50@@YAXXZ @aeb1e97c1ef0 @wd08d68253d15
 namespace fn_001abf50 {
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
 // FUN_001abf50 @ 0x001abf50
@@ -202,7 +202,7 @@ void FUN_001abf50()
 namespace fn_fdc66084 {
 
 // 0x001ac250 FUN_001ac250 (95 B): equivalent/0x001ac250.cpp
-// sym: ?FUN_001ac250@fn_fdc66084@@YAXXZ
+// sym: ?FUN_001ac250@fn_fdc66084@@YAXXZ @2218499c49b3 @w75c90cd98023
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 4/4)
 // FUN_001ac250 @ 0x001ac250
 void FUN_001ac250()
@@ -221,7 +221,7 @@ void FUN_001ac250()
 
 
 // 0x001ac5b0 FUN_001ac5b0 (176 B): equivalent/0x001ac5b0.cpp
-// sym: ?FUN_001ac5b0@fn_fdc66084@@YAXXZ
+// sym: ?FUN_001ac5b0@fn_fdc66084@@YAXXZ @eaf83a706890 @w4e4090224b83
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_001ac5b0 @ 0x001ac5b0
 void FUN_001ac5b0()

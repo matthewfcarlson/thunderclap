@@ -5,7 +5,7 @@
 
 
 // 0x0015f6b0 hulkfight::motion::HeliLocomotionAction::vfunc_5 (4122 B): equivalent/0x0015f6b0.cpp [isolated: macros; compile error C2664: 'fn_0015f6b0::Vec3_15f6b0::FUN_0022d240' : cannot convert parameter 2 from 'fn_0015f6b0::Matrix *' to 'fn_f94adb62::Matr]
-// sym: ?vfunc_5@HeliLocomotionAction@motion@hulkfight@fn_f525899b@@UAE_NHM@Z
+// sym: ?vfunc_5@HeliLocomotionAction@motion@hulkfight@fn_f525899b@@UAE_NHM@Z @b5607bd60205 @we48673255a50
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight/motion.h"
 namespace fn_f525899b {} using namespace fn_f525899b;

@@ -35,7 +35,7 @@ struct World {
 
 
 // 0x001baab0 FUN_001baab0 (1531 B): equivalent/0x001baab0.cpp [wrapped: conflict: DAT_004dd700; DAT_0052c2a8]
-// sym: ?FUN_001baab0@Credits_1baab0@fn_001baab0@@QAEX_N@Z
+// sym: ?FUN_001baab0@Credits_1baab0@fn_001baab0@@QAEX_N@Z @3f2dbe2eb394 @wa83fe2097d39
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_001baab0 {
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 45/46, incomplete)
@@ -403,7 +403,7 @@ void Credits_1baab0::FUN_001baab0(bool flag)
 
 
 // 0x001bb0b0 FUN_001bb0b0 (1150 B): equivalent/0x001bb0b0.cpp [wrapped: conflict: DAT_004dd700; DAT_0052c2a8; thunk_FUN_000fc1b0]
-// sym: _FUN_001bb0b0
+// sym: _FUN_001bb0b0 @6f85bf21b3f2 @w085d4246fe29
 namespace fn_001bb0b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3138 inputs, branch coverage 44/44)
 // FUN_001bb0b0 @ 0x001bb0b0

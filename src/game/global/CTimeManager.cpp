@@ -908,7 +908,7 @@ void __fastcall target(Obj_865d0* self) {
 
 
 // 0x00086630 FUN_00086630 (349 B): equivalent/0x00086630.cpp
-// sym: ?FUN_00086630@Target_86630@fn_f5b26912@@QAEXXZ
+// sym: ?FUN_00086630@Target_86630@fn_f5b26912@@QAEXXZ @f1e8c5c26a8e @wf881096794fb
 // STATUS: equivalent (tools/equiv.py level 3: 19784 inputs, branch coverage 0/0)
 // FUN_00086630 @ 0x00086630
 void Target_86630::FUN_00086630() {
@@ -954,7 +954,7 @@ void Target_86630::FUN_00086630() {
 } // namespace fn_f5b26912
 
 // 0x00086790 FUN_00086790 (359 B): equivalent/0x00086790.cpp [wrapped: conflict: World]
-// sym: ?FUN_00086790@Object@fn_00086790@@QAEXXZ
+// sym: ?FUN_00086790@Object@fn_00086790@@QAEXXZ @5cd506111fd2 @w9d4a3fffc75c
 namespace fn_00086790 {
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 21/26, incomplete)
 // FUN_00086790 @ 0x00086790
@@ -1105,7 +1105,7 @@ void A_86a40::Run(int arg) {
 } // namespace fn_f5b26912
 
 // 0x00086ad0 FUN_00086ad0 (479 B): equivalent/0x00086ad0.cpp [wrapped: conflict: FUN_0008db80; FUN_0008e090; World]
-// sym: ?FUN_00086ad0@Game_86ad0@fn_00086ad0@@QAEXXZ
+// sym: ?FUN_00086ad0@Game_86ad0@fn_00086ad0@@QAEXXZ @5ca94bb2f9e5 @w80c3b5488e5e
 namespace fn_00086ad0 {
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 36/38, incomplete)
 // FUN_00086ad0 @ 0x00086ad0
@@ -1455,7 +1455,7 @@ Function2::Function2(const char* a, Fn_86e60 b) : Function_86e60(a, 2) {
 
 
 // 0x00086eb0 Function2<float,float,float>::vfunc_2 (62 B): equivalent/0x00086eb0.cpp
-// sym: ?vfunc_2@?$Function2@MMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Function2@MMM@@UAEXPAX00@Z @d52456eb04f4 @w3840516b40e0
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Function2<float,float,float>::vfunc_2 @ 0x00086eb0
 template <> void Function2<float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; const float * args = (const float *)__p1; float * result = (float *)__p2;
@@ -1573,7 +1573,7 @@ Function4_86fc0::Function4_86fc0(const char* a, Fn_86fc0 b) : FUN_001d0480(a, 4)
 } // namespace fn_f5b26912
 
 // 0x00087030 Function4<bool,math::Vector,math::Vector,math::Vector,math::Vector>::vfunc_2 (168 B): equivalent/0x00087030.cpp [wrapped: conflict: Function; Function4]
-// sym: ?vfunc_2@?$Function4@_NUVector@math@fn_00087030@@U123@U123@U123@@fn_00087030@@UAEXIPBUVector@math@2@PA_N@Z
+// sym: ?vfunc_2@?$Function4@_NUVector@math@fn_00087030@@U123@U123@U123@@fn_00087030@@UAEXIPBUVector@math@2@PA_N@Z @f1a990f3fa15 @w00eee243ceb7
 namespace fn_00087030 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Function4<bool,math::Vector,math::Vector,math::Vector,math::Vector>::vfunc_2 @ 0x00087030
@@ -1674,7 +1674,7 @@ template <> void Method0<CGame, void>::vfunc_2(void* __p0, void* __p1, void* __p
 
 
 // 0x000872a0 FUN_000872a0 (230 B): equivalent/0x000872a0.cpp [wrapped: conflict: World]
-// sym: ?FUN_000872a0@Tracker_872a0@fn_000872a0@@QAEXXZ
+// sym: ?FUN_000872a0@Tracker_872a0@fn_000872a0@@QAEXXZ @60f68d47b784 @w11d3dd579ac2
 namespace fn_000872a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19806 inputs, branch coverage 2/2)
 // FUN_000872a0 @ 0x000872a0
@@ -1827,7 +1827,7 @@ void owners::Thing_87940::FUN_00087940() {
 
 
 // 0x00087990 FUN_00087990 (41 B): equivalent/0x00087990.cpp [wrapped: conflict: thunk]
-// sym: ?target@fn_00087990@@YAXXZ
+// sym: ?target@fn_00087990@@YAXXZ @a7bec8500dc8 @w17976cdf05f9
 namespace fn_00087990 {
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 6/6)
 // FUN_00087990 @ 0x00087990
@@ -1857,7 +1857,7 @@ void target() {
 namespace fn_f5b26912 {
 
 // 0x00087a90 FUN_00087a90 (96 B): equivalent/0x00087a90.cpp
-// sym: ?FUN_00087a90@Registry_87a90@fn_f5b26912@@QAEXPBDP6AMXZ@Z
+// sym: ?FUN_00087a90@Registry_87a90@fn_f5b26912@@QAEXPBDP6AMXZ@Z @8a4391c56988 @w78a1e31c5a19
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00087a90 @ 0x00087a90
 void Registry_87a90::FUN_00087a90(const char* name, float (*fn)()) {
@@ -1872,7 +1872,7 @@ void Registry_87a90::FUN_00087a90(const char* name, float (*fn)()) {
 } // namespace fn_f5b26912
 
 // 0x00087b40 FUN_00087b40 (109 B): equivalent/0x00087b40.cpp [wrapped: conflict: Function1]
-// sym: ?FUN_00087b40@Registry_87b40@fn_00087b40@@QAEXPBDP6APBD0@Z@Z
+// sym: ?FUN_00087b40@Registry_87b40@fn_00087b40@@QAEXPBDP6APBD0@Z@Z @55b8be934468 @w6de191a5b759
 namespace fn_00087b40 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00087b40 @ 0x00087b40
@@ -1982,7 +1982,7 @@ template <> void Closure0<CGame, void>::vfunc_2(void* __p0, void* __p1, void* __
 
 
 // 0x00087d50 FUN_00087d50 (109 B): equivalent/0x00087d50.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ?FUN_00087d50@Registry_87d50@fn_00087d50@@QAEXPBDPAVCTimeManager@2@P832@AEMXZ@Z
+// sym: ?FUN_00087d50@Registry_87d50@fn_00087d50@@QAEXPBDPAVCTimeManager@2@P832@AEMXZ@Z @630c0cd1bed9 @waef388d77456
 namespace fn_00087d50 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00087d50 @ 0x00087d50
@@ -2065,7 +2065,7 @@ void Registry_87d50::FUN_00087d50(const char* name, CTimeManager* owner, float (
 
 
 // 0x00087dc0 FUN_00087dc0 (109 B): equivalent/0x00087dc0.cpp [wrapped: conflict: CGame; Closure0; Method0]
-// sym: ?FUN_00087dc0@Registry_87dc0@fn_00087dc0@@QAEXPBDPAVCGame@2@P832@AEXXZ@Z
+// sym: ?FUN_00087dc0@Registry_87dc0@fn_00087dc0@@QAEXPBDPAVCGame@2@P832@AEXXZ@Z @da593595568c @w00791763eebb
 namespace fn_00087dc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00087dc0 @ 0x00087dc0
@@ -2189,7 +2189,7 @@ Obj_87e30* __fastcall FUN_00087e30(Obj_87e30* p) {
 
 
 // 0x00087e80 FUN_00087e80 (407 B): equivalent/0x00087e80.cpp [wrapped: conflict: CGame; FUN_001d4c90; Function2]
-// sym: ??0CGame@fn_00087e80@@QAE@XZ
+// sym: ??0CGame@fn_00087e80@@QAE@XZ @5694862b6c13 @w084c4e49510e
 namespace fn_00087e80 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00087e80 @ 0x00087e80
@@ -2261,7 +2261,7 @@ void owners::Obj_88530::FUN_00088530() {
 
 
 // 0x00088600 FUN_00088600 (85 B): equivalent/0x00088600.cpp [wrapped: conflict: World]
-// sym: ??0World@fn_00088600@@QAE@XZ
+// sym: ??0World@fn_00088600@@QAE@XZ @11fc19f1e939 @w3577c59934e1
 namespace fn_00088600 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00088600 @ 0x00088600
@@ -2317,7 +2317,7 @@ World::World()
 namespace fn_f5b26912 {
 
 // 0x00088670 FUN_00088670 (713 B): equivalent/0x00088670.cpp
-// sym: ?FUN_00088670@Sim_88670@fn_f5b26912@@QAEXPAUCtx_88670@2@H@Z
+// sym: ?FUN_00088670@Sim_88670@fn_f5b26912@@QAEXPAUCtx_88670@2@H@Z @c6201aef935b @w59e4b2687fbb
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 34/34)
 // FUN_00088670 @ 0x00088670
 void Sim_88670::FUN_00088670(Ctx_88670 *arg0, hulk_intptr arg1)
@@ -2439,7 +2439,7 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, hulk_intptr arg1)
 } // namespace fn_f5b26912
 
 // 0x00088c30 FUN_00088c30 (467 B): equivalent/0x00088c30.cpp [wrapped: conflict: FUN_000678d0; FUN_00085e60; FUN_001d4c90; FUN_00267f00]
-// sym: ?update@Target_88c30@fn_00088c30@@QAEXPAHPAX@Z
+// sym: ?update@Target_88c30@fn_00088c30@@QAEXPAHPAX@Z @fa8286ed1104 @wb5a37b020fec
 namespace fn_00088c30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 12/12)
 // FUN_00088c30 @ 0x00088c30

@@ -40,7 +40,7 @@ CCollisionPushbackDirectionCondition* CCollisionPushbackDirectionCondition::vfun
 } // namespace fn_f6628d26
 
 // 0x0004bf70 CCollisionPushbackDirectionCondition::vfunc_7 (167 B): equivalent/0x0004bf70.cpp [wrapped: conflict: CCollisionPushbackDirectionCondition]
-// sym: ?vfunc_7@CCollisionPushbackDirectionCondition@fn_0004bf70@@UAE_NPAUOwner_4bf70@2@@Z
+// sym: ?vfunc_7@CCollisionPushbackDirectionCondition@fn_0004bf70@@UAE_NPAUOwner_4bf70@2@@Z @8132bac26a40 @w5bbdd33f6732
 namespace fn_0004bf70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // CCollisionPushbackDirectionCondition::vfunc_7 @ 0x0004bf70

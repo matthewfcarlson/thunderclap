@@ -4,7 +4,7 @@
 
 
 // 0x000540a0 FUN_000540a0 (190 B): equivalent/0x000540a0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?target@fn_f5fee164@@YAXXZ
+// sym: ?target@fn_f5fee164@@YAXXZ @b47b2ce67a23 @w8240b563afbe
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"

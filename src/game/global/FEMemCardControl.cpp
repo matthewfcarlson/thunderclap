@@ -443,7 +443,7 @@ class FEMemCardControl_d9e40 {
 } // namespace fn_f70d8f3f
 
 // 0x000d7af0 FUN_000d7af0 (108 B): equivalent/0x000d7af0.cpp [wrapped: conflict: FEBackground; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ??0FEBackground@fn_000d7af0@@QAE@HPBD@Z
+// sym: ??0FEBackground@fn_000d7af0@@QAE@HPBD@Z @9f5af12b49fd @w765acbe3f457
 inline void *operator new(size_t, void *p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -542,7 +542,7 @@ FEBackground::FEBackground(int arg, const char *name) : FUN_000e9240(arg)
 
 
 // 0x000d7be0 FUN_000d7be0 (69 B): equivalent/0x000d7be0.cpp
-// sym: ?FUN_000d7be0@Object_d7be0@owners@@QAEXIIIII@Z
+// sym: ?FUN_000d7be0@Object_d7be0@owners@@QAEXIIIII@Z @e7df448dc865 @w4d8e17a10550
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000d7be0 @ 0x000d7be0
 void owners::Object_d7be0::FUN_000d7be0(unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e) {
@@ -559,7 +559,7 @@ void owners::Object_d7be0::FUN_000d7be0(unsigned int a, unsigned int b, unsigned
 
 
 // 0x000d7c30 FUN_000d7c30 (76 B): equivalent/0x000d7c30.cpp
-// sym: ?FUN_000d7c30@Object_d7c30@owners@@QAEXIIIIII@Z
+// sym: ?FUN_000d7c30@Object_d7c30@owners@@QAEXIIIIII@Z @8210e84f8304 @w19bf81db9586
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000d7c30 @ 0x000d7c30
 void owners::Object_d7c30::FUN_000d7c30(unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e, unsigned int f)
@@ -620,7 +620,7 @@ Obj_d7d60* Obj_d7d60::Run() {
 } // namespace fn_f70d8f3f
 
 // 0x000d7db0 FUN_000d7db0 (109 B): equivalent/0x000d7db0.cpp [wrapped: conflict: FEControl; FEMemCardControl]
-// sym: ??1FEMemCardControl@fn_000d7db0@@UAE@XZ
+// sym: ??1FEMemCardControl@fn_000d7db0@@UAE@XZ @e93437c46f7b @w8ed1c24609a7
 namespace fn_000d7db0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000d7db0 @ 0x000d7db0
@@ -897,7 +897,7 @@ int FEMemCardControl_d8220::Run(int x) {
 } // namespace fn_f70d8f3f
 
 // 0x000d82d0 FUN_000d82d0 (288 B): equivalent/0x000d82d0.cpp [wrapped: conflict: FEMemCardControl]
-// sym: ??0FEMemCardControl@fn_000d82d0@@QAE@HH@Z
+// sym: ??0FEMemCardControl@fn_000d82d0@@QAE@HH@Z @7542305cceb0 @w5ea31d5aed4b
 namespace fn_000d82d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000d82d0 @ 0x000d82d0
@@ -935,7 +935,7 @@ FEMemCardControl::FEMemCardControl(int first,hulk_intptr second) : FUN_000e9240(
 
 
 // 0x000d8680 FEMemCardControl::vfunc_5 (610 B): equivalent/0x000d8680.cpp [wrapped: conflict: FEMemCardControl; FUN_000fc3d0]
-// sym: ?vfunc_5@FEMemCardControl@fn_000d8680@@UAEXXZ
+// sym: ?vfunc_5@FEMemCardControl@fn_000d8680@@UAEXXZ @da86a90bb16b @wf46154bc50e4
 namespace fn_000d8680 {
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 34/34)
 // FEMemCardControl::vfunc_5 @ 0x000d8680
@@ -1185,7 +1185,7 @@ void FEMemCardControl::vfunc_5()
 namespace fn_f70d8f3f {
 
 // 0x000d88f0 FUN_000d88f0 (150 B): equivalent/0x000d88f0.cpp
-// sym: ?FUN_000d88f0@FEMemCardControl_d88f0@fn_f70d8f3f@@QAEXHPAD0@Z
+// sym: ?FUN_000d88f0@FEMemCardControl_d88f0@fn_f70d8f3f@@QAEXHPAD0@Z @fe750c3ad562 @w0a7c09ee1dcb
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 8/8)
 // FUN_000d88f0 @ 0x000d88f0
 void FEMemCardControl_d88f0::FUN_000d88f0(int key, char *foundNone, char *foundOther)
@@ -1265,7 +1265,7 @@ void FEMemCardControl_d9e40::run(int unused) {
 } // namespace fn_f70d8f3f
 
 // 0x000dbe20 FEMemCardControl::vfunc_12 (994 B): equivalent/0x000dbe20.cpp [wrapped: conflict: FEMemCardControl]
-// sym: ?vfunc_12@FEMemCardControl@fn_000dbe20@@UAEDHH@Z
+// sym: ?vfunc_12@FEMemCardControl@fn_000dbe20@@UAEDHH@Z @d6911d159515 @w6e1ab15f3147
 namespace fn_000dbe20 {
 // STATUS: equivalent (tools/equiv.py level 3: 3105 inputs, branch coverage 59/66, incomplete)
 // FEMemCardControl::vfunc_12 @ 0x000dbe20

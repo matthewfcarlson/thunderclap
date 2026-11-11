@@ -98,7 +98,7 @@ public:
 
 
 // 0x00015e40 CSmartPropSpawnAction::vfunc_7 (612 B): equivalent/0x00015e40.cpp
-// sym: ?vfunc_7@CSmartPropSpawnAction@fn_fed099c6@@UAEDH@Z
+// sym: ?vfunc_7@CSmartPropSpawnAction@fn_fed099c6@@UAEDH@Z @f319ae44a057 @w2ac0fc147d42
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 14/14)
 // CSmartPropSpawnAction::vfunc_7 @ 0x00015e40
 char CSmartPropSpawnAction::vfunc_7(int arg)

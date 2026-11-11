@@ -23,7 +23,7 @@ struct Actor_14e550 {
 } // namespace fn_fa021504
 
 // 0x0014e550 hulkfight::motion::CollisionInterruptPriorityCondition::vfunc_6 (197 B): equivalent/0x0014e550.cpp
-// sym: ?vfunc_6@CollisionInterruptPriorityCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@CollisionInterruptPriorityCondition@motion@hulkfight@@UAE_NPAX00@Z @03a2d3626f55 @wd4eeed5f96fc
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 24/24)
 // hulkfight::motion::CollisionInterruptPriorityCondition::vfunc_6 @ 0x0014e550
 bool hulkfight::motion::CollisionInterruptPriorityCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Actor_14e550 * actor = (Actor_14e550 *)__p1;

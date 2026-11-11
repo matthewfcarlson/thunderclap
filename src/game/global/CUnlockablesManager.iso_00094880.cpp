@@ -4,7 +4,7 @@
 
 
 // 0x00094880 Closure6<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 (58 B): equivalent/0x00094880.cpp [isolated: conflict: Arguments; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure6@VCUnlockablesManager@@XPBDHPBDPBDPBDPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure6@VCUnlockablesManager@@XPBDHPBDPBDPBDPBD@@UAEXPAX00@Z @d87f9086673d @w2b842b0de07d
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure6<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 @ 0x00094880
 #include "gen/global.h"

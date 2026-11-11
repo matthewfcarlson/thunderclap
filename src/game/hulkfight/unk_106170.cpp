@@ -178,14 +178,14 @@ Key* Obj::find(const char* name) {
 
 
 // 0x00106290 FUN_00106290 (58 B): equivalent/0x00106290.cpp
-// sym: ?FUN_00106290@Search@fn_f6c21f8f@@QAEHHH@Z
+// sym: ?FUN_00106290@Search@fn_f6c21f8f@@QAEHHH@Z @be090daf4931 @w7463783b5eed
 // STATUS: equivalent (tools/equiv.py level 3: 1569 inputs, branch coverage 8/8)
 // FUN_00106290 @ 0x00106290
 int Search::FUN_00106290(int first, int second) { for (int i = 0; i < count; ++i) { Entry *entry = entries[i]; if (entry->first == first && entry->second == second) return i; } return -1; }
 
 
 // 0x001062d0 FUN_001062d0 (132 B): equivalent/0x001062d0.cpp
-// sym: ?Add@EntrySet@fn_f6c21f8f@@QAEHPAUEntry_1062d0@2@@Z
+// sym: ?Add@EntrySet@fn_f6c21f8f@@QAEHPAUEntry_1062d0@2@@Z @a5bca301bb0d @wfc3ae9d16e14
 // STATUS: equivalent (tools/equiv.py level 3: 681 inputs, branch coverage 11/12, incomplete)
 // FUN_001062d0 @ 0x001062d0
 int EntrySet::Add(Entry_1062d0 *item)
@@ -264,7 +264,7 @@ void physics_CollisionRay_106430::vfunc_5(hulk_intptr a, hulk_intptr b) {}
 
 
 // 0x00106440 FUN_00106440 (152 B): equivalent/0x00106440.cpp
-// sym: ?FUN_00106440@ThisWrap_00106440@fn_f6c21f8f@@QAE_NHHUVec3_106440@2@@Z
+// sym: ?FUN_00106440@ThisWrap_00106440@fn_f6c21f8f@@QAE_NHHUVec3_106440@2@@Z @66616886f429 @wf887daee633e
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 10/10)
 // FUN_00106440 @ 0x00106440
 bool ThisWrap_00106440::FUN_00106440(int id, int idx, Vec3_106440 pos) {

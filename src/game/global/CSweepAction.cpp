@@ -28,7 +28,7 @@ extern "C" R_15170* __fastcall FUN_00059a40(void*);
 } // namespace fn_f0a1bcad
 
 // 0x00014fe0 CSweepAction::vfunc_6 (167 B): equivalent/0x00014fe0.cpp
-// sym: ?vfunc_6@CSweepAction@@UAE_NH@Z
+// sym: ?vfunc_6@CSweepAction@@UAE_NH@Z @5a7b89ef0a7d @w374016a96fba
 // STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 4/4)
 // CSweepAction::vfunc_6 @ 0x00014fe0
 bool CSweepAction::vfunc_6(int __p0) {
@@ -47,7 +47,7 @@ bool CSweepAction::vfunc_6(int __p0) {
 
 
 // 0x00015090 CSweepAction::vfunc_7 (212 B): equivalent/0x00015090.cpp [wrapped: conflict: CSweepAction]
-// sym: ?vfunc_7@CSweepAction@fn_00015090@@UAE_NM@Z
+// sym: ?vfunc_7@CSweepAction@fn_00015090@@UAE_NM@Z @d8f0189623c2 @we762f68ebc27
 namespace fn_00015090 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // CSweepAction::vfunc_7 @ 0x00015090

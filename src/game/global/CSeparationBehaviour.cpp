@@ -105,7 +105,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_f3deebf2 {
 
 // 0x0010ac60 FUN_0010ac60 (301 B): equivalent/0x0010ac60.cpp
-// sym: ?FUN_0010ac60@fn_f3deebf2@@YAMPAUBody_10ac60@1@0MPAUVec3_10ac60@1@@Z
+// sym: ?FUN_0010ac60@fn_f3deebf2@@YAMPAUBody_10ac60@1@0MPAUVec3_10ac60@1@@Z @40ff7cdc0de0 @w6b1cafecd998
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 8/8)
 // FUN_0010ac60 @ 0x0010ac60
 hulk_freg FUN_0010ac60(Body_10ac60 *a, Body_10ac60 *b, float radius, Vec3_10ac60 *out)
@@ -185,7 +185,7 @@ bool CSeparationBehaviour::vfunc_3(hulk_intptr __p0, int ex, void* __p2, int p5,
 namespace fn_f3deebf2 {
 
 // 0x0010ae50 FUN_0010ae50 (877 B): equivalent/0x0010ae50.cpp
-// sym: ?FUN_0010ae50@fn_f3deebf2@@YAMPAUWorld@@PAX1PAUV3_10ae50@1@2_NPAPAUItem_10ae50@1@@Z
+// sym: ?FUN_0010ae50@fn_f3deebf2@@YAMPAUWorld@@PAX1PAUV3_10ae50@1@2_NPAPAUItem_10ae50@1@@Z @d28dabf94ae7 @w52746f704a77
 // STATUS: equivalent (tools/equiv.py level 3: 183 inputs, branch coverage 48/50, incomplete)
 // FUN_0010ae50 @ 0x0010ae50
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
@@ -275,7 +275,7 @@ float __cdecl FUN_0010ae50(World *w, void *a, void *b, V3_10ae50 *dir, V3_10ae50
 
 
 // 0x0010b1c0 FUN_0010b1c0 (209 B): equivalent/0x0010b1c0.cpp
-// sym: _FUN_0010b1c0
+// sym: _FUN_0010b1c0 @24ceada94323 @weaf0050d8d0d
 // STATUS: equivalent (tools/equiv.py level 3: 134 inputs, branch coverage 16/16)
 // FUN_0010b1c0 @ 0x0010b1c0
 extern "C" float __cdecl FUN_0010b1c0(Owner_10b1c0* owner, Item* subject, int flags, Vector* output)

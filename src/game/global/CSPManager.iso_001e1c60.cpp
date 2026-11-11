@@ -5,7 +5,7 @@
 
 
 // 0x001e1c60 Closure3<CSPManager,void,const_char_*,bool,float>::vfunc_2 (29 B): equivalent/0x001e1c60.cpp [isolated: conflict: Arguments; Callback; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure3@VCSPManager@@XPBD_NM@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure3@VCSPManager@@XPBD_NM@@UAEXPAX00@Z @ebae63f17a2a @w465f6f008f28
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CSPManager,void,const_char_*,bool,float>::vfunc_2 @ 0x001e1c60
 #include "gen/global.h"

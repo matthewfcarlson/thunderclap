@@ -40,7 +40,7 @@ CAxisDoubleTapCondition* CAxisDoubleTapCondition::vfunc_5(signed char flags) {
 } // namespace fn_f92008b6
 
 // 0x0004b720 CAxisDoubleTapCondition::vfunc_9 (277 B): equivalent/0x0004b720.cpp [wrapped: conflict: CAxisDoubleTapCondition]
-// sym: ?vfunc_9@CAxisDoubleTapCondition@fn_0004b720@@UAE_NHPAUAxisEvent@2@@Z
+// sym: ?vfunc_9@CAxisDoubleTapCondition@fn_0004b720@@UAE_NHPAUAxisEvent@2@@Z @8fabb6338cff @wec0867692ac0
 namespace fn_0004b720 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 21/22, incomplete)
 // CAxisDoubleTapCondition::vfunc_9 @ 0x0004b720

@@ -121,7 +121,7 @@ public:
 namespace fn_fc3775b1 {
 
 // 0x00072820 FUN_00072820 (511 B): equivalent/0x00072820.cpp
-// sym: _FUN_00072820
+// sym: _FUN_00072820 @ab489e1b485d @w2ddec1bdab23
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 20/20)
 // FUN_00072820 @ 0x00072820
 extern "C" void FUN_00072820()
@@ -172,7 +172,7 @@ extern "C" void FUN_00072820()
 
 
 // 0x00074ab0 FUN_00074ab0 (562 B): equivalent/0x00074ab0.cpp
-// sym: _FUN_00074ab0
+// sym: _FUN_00074ab0 @a1fedbf2b18b @we08f77e41b6d
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 22/22)
 // FUN_00074ab0 @ 0x00074ab0
 extern "C" void FUN_00074ab0()

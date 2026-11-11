@@ -132,7 +132,7 @@ char hulkfight::motion::PropAtRestCondition::vfunc_6(void* a, void* c, void* d) 
 
 
 // 0x00181880 hulkfight::motion::PropMissionCriticalCondition::vfunc_6 (124 B): equivalent/0x00181880.cpp
-// sym: ?vfunc_6@PropMissionCriticalCondition@motion@hulkfight@fn_fc016f38@@UAE_NHPAXH@Z
+// sym: ?vfunc_6@PropMissionCriticalCondition@motion@hulkfight@fn_fc016f38@@UAE_NHPAXH@Z @5ee3ff336aec @wae2606e80806
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // hulkfight::motion::PropMissionCriticalCondition::vfunc_6 @ 0x00181880
 bool hulkfight::motion::PropMissionCriticalCondition::vfunc_6(int a, void *obj, int c) {
@@ -161,7 +161,7 @@ bool hulkfight::motion::PropMissionCriticalCondition::vfunc_6(int a, void *obj, 
 } // namespace fn_fc016f38
 
 // 0x00181900 hulkfight::motion::PropStateByIndexCondition::vfunc_6 (205 B): equivalent/0x00181900.cpp [wrapped: conflict: DAT_00494b44; DAT_00494b60]
-// sym: ?vfunc_6@PropStateByIndexCondition@motion@hulkfight@fn_00181900@@UAE_NPAXPAUContext@4@0@Z
+// sym: ?vfunc_6@PropStateByIndexCondition@motion@hulkfight@fn_00181900@@UAE_NPAXPAUContext@4@0@Z @6cf0a84be11c @wece9fe88c441
 namespace fn_00181900 {
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 30/30)
 // hulkfight::motion::PropStateByIndexCondition::vfunc_6 @ 0x00181900

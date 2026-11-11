@@ -219,7 +219,7 @@ public:
 namespace fn_fabb071b {
 
 // 0x001a6f30 FUN_001a6f30 (95 B): equivalent/0x001a6f30.cpp
-// sym: ?FUN_001a6f30@fn_fabb071b@@YAXXZ
+// sym: ?FUN_001a6f30@fn_fabb071b@@YAXXZ @cb77700d4f91 @wb9188fa4a502
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
 // FUN_001a6f30 @ 0x001a6f30
 void FUN_001a6f30()
@@ -238,7 +238,7 @@ void FUN_001a6f30()
 
 
 // 0x001a6f90 FUN_001a6f90 (95 B): equivalent/0x001a6f90.cpp
-// sym: ?FUN_001a6f90@fn_fabb071b@@YAXXZ
+// sym: ?FUN_001a6f90@fn_fabb071b@@YAXXZ @35bf17a07407 @we5a44410c0e3
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 4/4)
 // FUN_001a6f90 @ 0x001a6f90
 void FUN_001a6f90()
@@ -257,7 +257,7 @@ void FUN_001a6f90()
 
 
 // 0x001a9500 FUN_001a9500 (95 B): equivalent/0x001a9500.cpp
-// sym: ?FUN_001a9500@fn_fabb071b@@YAXXZ
+// sym: ?FUN_001a9500@fn_fabb071b@@YAXXZ @69b785f2d628 @wc837dd2ac75a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001a9500 @ 0x001a9500
 void FUN_001a9500()
@@ -276,7 +276,7 @@ void FUN_001a9500()
 
 
 // 0x001a9650 FUN_001a9650 (95 B): equivalent/0x001a9650.cpp
-// sym: ?FUN_001a9650@fn_fabb071b@@YAXXZ
+// sym: ?FUN_001a9650@fn_fabb071b@@YAXXZ @94fd076b770a @w978e35b919dc
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 4/4)
 // FUN_001a9650 @ 0x001a9650
 void FUN_001a9650()
@@ -295,7 +295,7 @@ void FUN_001a9650()
 
 
 // 0x001a96e0 FUN_001a96e0 (95 B): equivalent/0x001a96e0.cpp
-// sym: ?FUN_001a96e0@fn_fabb071b@@YAXXZ
+// sym: ?FUN_001a96e0@fn_fabb071b@@YAXXZ @35e19015f912 @we243e457be4a
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 4/4)
 // FUN_001a96e0 @ 0x001a96e0
 void FUN_001a96e0()
@@ -314,7 +314,7 @@ void FUN_001a96e0()
 
 
 // 0x001a9770 FUN_001a9770 (95 B): equivalent/0x001a9770.cpp
-// sym: ?FUN_001a9770@fn_fabb071b@@YAXXZ
+// sym: ?FUN_001a9770@fn_fabb071b@@YAXXZ @7132b9f52571 @wcc0a476a0f78
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 4/4)
 // FUN_001a9770 @ 0x001a9770
 void FUN_001a9770()
@@ -333,7 +333,7 @@ void FUN_001a9770()
 
 
 // 0x001a9800 FUN_001a9800 (647 B): equivalent/0x001a9800.cpp
-// sym: ?FUN_001a9800@fn_fabb071b@@YAXXZ
+// sym: ?FUN_001a9800@fn_fabb071b@@YAXXZ @8f7042a57027 @w909108f129b9
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 24/24)
 // FUN_001a9800 @ 0x001a9800
 void FUN_001a9800()
@@ -393,7 +393,7 @@ void FUN_001a9800()
 } // namespace fn_fabb071b
 
 // 0x001a9b10 FUN_001a9b10 (1021 B): equivalent/0x001a9b10.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; pure3d::CompositeDrawable; pure3d::DrawableHierarchy; pure3d::Entity (+2)]
-// sym: ?FUN_001a9b10@AnimSetup@fn_001a9b10@@QAE_NPAUOut_1a9b10@2@PBD1_N2H2@Z
+// sym: ?FUN_001a9b10@AnimSetup@fn_001a9b10@@QAE_NPAUOut_1a9b10@2@PBD1_N2H2@Z @edf80f70a210 @wa3202028c957
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

@@ -156,7 +156,7 @@ hulk_freg __cdecl FUN_000df0b0(float x, int n) {
 
 
 // 0x000df110 CGlowDisplayEffect::vfunc_0 (1216 B): equivalent/0x000df110.cpp
-// sym: ?vfunc_0@CGlowDisplayEffect@fn_f244462a@@UAEXPAVTarget1@2@@Z
+// sym: ?vfunc_0@CGlowDisplayEffect@fn_f244462a@@UAEXPAVTarget1@2@@Z @7f767886aeba @waa1656235701
 // STATUS: equivalent (tools/equiv.py level 3: 10373 inputs, branch coverage 19/22, incomplete)
 // CGlowDisplayEffect::vfunc_0 @ 0x000df110
 void CGlowDisplayEffect::vfunc_0(Target1 *t)

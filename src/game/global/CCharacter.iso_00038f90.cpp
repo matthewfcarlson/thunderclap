@@ -4,7 +4,7 @@
 
 
 // 0x00038f90 FUN_00038f90 (322 B): equivalent/0x00038f90.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_00038f90@Probe_38f90@fn_f66750dc@@QAEHPAUVec3_38f90@2@M0@Z
+// sym: ?FUN_00038f90@Probe_38f90@fn_f66750dc@@QAEHPAUVec3_38f90@2@M0@Z @bbde048dea10 @w74fb74bb4d3a
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 namespace fn_f66750dc {} using namespace fn_f66750dc;

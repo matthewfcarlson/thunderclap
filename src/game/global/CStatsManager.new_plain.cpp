@@ -8,7 +8,7 @@
 
 
 // 0x00091630 FUN_00091630 (1174 B): equivalent/0x00091630.cpp [wrapped: macros]
-// sym: ?initialize@CStatsManager@fn_00091630@@QAEPAU12@XZ
+// sym: ?initialize@CStatsManager@fn_00091630@@QAEPAU12@XZ @3787b111377b @w3ee04d5b42e1
 inline void* operator new(hulk_uintptr, void* p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

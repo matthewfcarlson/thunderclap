@@ -5,7 +5,7 @@
 
 
 // 0x001841a0 hulkfight::motion::PropThrowAction::vfunc_4 (1455 B): equivalent/0x001841a0.cpp [isolated: conflict: FUN_00018960; on include/gen/ and not mergeable]
-// sym: ?vfunc_4@PropThrowAction@motion@hulkfight@@UAEXXZ
+// sym: ?vfunc_4@PropThrowAction@motion@hulkfight@@UAEXXZ @88acc92f1ed7 @w35dd3053c46c
 // STATUS: equivalent (tools/equiv.py level 3: 19963 inputs, branch coverage 41/42, incomplete)
 // hulkfight::motion::PropThrowAction::vfunc_4 @ 0x001841a0
 #include "gen/hulkfight.h"

@@ -5,7 +5,7 @@
 
 
 // 0x0013d7b0 hulkfight::motion::AnimationPhaseMatchedAction::vfunc_3 (390 B): equivalent/0x0013d7b0.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?vfunc_3@AnimationPhaseMatchedAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@AnimationPhaseMatchedAction@motion@hulkfight@@UAE_NHH@Z @f8b4dfa837be @w5554f4b3ee98
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 16/16)
 // hulkfight::motion::AnimationPhaseMatchedAction::vfunc_3 @ 0x0013d7b0
 #include "gen/hulkfight.h"

@@ -486,7 +486,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
 
 
 // 0x001966f0 hulkfight::motion::FireBeamAction::vfunc_3 (3651 B): equivalent/0x001966f0.cpp
-// sym: ?vfunc_3@FireBeamAction@fn_f743f879@@QAEDHH@Z
+// sym: ?vfunc_3@FireBeamAction@fn_f743f879@@QAEDHH@Z @c5343413e45e @w51d902f3560f
 // STATUS: equivalent (tools/equiv.py level 3: 19869 inputs, branch coverage 116/116)
 // hulkfight::motion::FireBeamAction::vfunc_3 @ 0x001966f0
 // equiv-map: ?thunk_FUN_0027d410@Obj64@@QAEXPAUKey@@@Z = 0x001d6630

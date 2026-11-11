@@ -4,7 +4,7 @@
 
 
 // 0x000b47b0 FUN_000b47b0 (160 B): equivalent/0x000b47b0.cpp [isolated: conflict: DAT_0049dba4; on include/gen/ and not mergeable]
-// sym: _FUN_000b47b0@8
+// sym: _FUN_000b47b0@8 @d22416125aa8 @w8d170650064b
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 4/4)
 // FUN_000b47b0 @ 0x000b47b0
 // FUN_000b47b0 @ 0x000b47b0: sets the title and text of the fullscreen message widgets, then raises the screen

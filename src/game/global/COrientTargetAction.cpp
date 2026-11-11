@@ -24,7 +24,7 @@ struct A_17540 {
 } // namespace fn_f2f0c168
 
 // 0x00017370 COrientAction::vfunc_6 (195 B): equivalent/0x00017370.cpp [wrapped: conflict: COrientAction]
-// sym: ?vfunc_6@COrientAction@fn_00017370@@UAE_NH@Z
+// sym: ?vfunc_6@COrientAction@fn_00017370@@UAE_NH@Z @a9281c1b58c8 @w5d69a179dad1
 namespace fn_00017370 {
 // STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 4/4)
 // COrientAction::vfunc_6 @ 0x00017370
@@ -55,7 +55,7 @@ void COrientAction::vfunc_4() {
 
 
 // 0x00017470 COrientTargetAction::vfunc_6 (204 B): equivalent/0x00017470.cpp [wrapped: conflict: COrientTargetAction]
-// sym: ?vfunc_6@COrientTargetAction@fn_00017470@@QAE_NH@Z
+// sym: ?vfunc_6@COrientTargetAction@fn_00017470@@QAE_NH@Z @0d6abb171391 @wf11b5fec4647
 namespace fn_00017470 {
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 4/4)
 // COrientTargetAction::vfunc_6 @ 0x00017470

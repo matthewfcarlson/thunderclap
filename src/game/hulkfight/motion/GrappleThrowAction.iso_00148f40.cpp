@@ -5,7 +5,7 @@
 
 
 // 0x00148f40 hulkfight::motion::CivilianThrowAction::vfunc_3 (849 B): equivalent/0x00148f40.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?vfunc_3@CivilianThrowAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@CivilianThrowAction@motion@hulkfight@@UAE_NHH@Z @454c5b3e34e4 @w0e6074cd9b08
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 18/18)
 // hulkfight::motion::CivilianThrowAction::vfunc_3 @ 0x00148f40
 // hulkfight::motion::CivilianThrowAction::vfunc_3 @ 0x00148f40

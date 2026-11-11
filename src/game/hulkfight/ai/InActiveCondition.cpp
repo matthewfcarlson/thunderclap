@@ -252,7 +252,7 @@ class InActiveCondition_10e920 : public Condition_10e920 {
 
 
 // 0x0010e3e0 hulkfight::ai::InActiveCondition::vfunc_6 (325 B): equivalent/0x0010e3e0.cpp
-// sym: ?vfunc_6@InActiveCondition@fn_fad6e2b1@@UAEDHPAVParams_10e3e0@fight@2@H@Z
+// sym: ?vfunc_6@InActiveCondition@fn_fad6e2b1@@UAEDHPAVParams_10e3e0@fight@2@H@Z @3b560927f625 @w28150fb5d16b
 // STATUS: equivalent (tools/equiv.py level 3: 3247 inputs, branch coverage 30/30; Wine build 697 inputs, 30/30)
 // hulkfight::ai::InActiveCondition::vfunc_6 @ 0x0010e3e0
 char InActiveCondition::vfunc_6(int a, fight::Params_10e3e0 *params, int c)
@@ -314,7 +314,7 @@ unsigned char KeywordWaitAction::vfunc_3(int unused1, int unused2) {
 
 
 // 0x0010e570 hulkfight::ai::KeywordWaitAction::vfunc_5 (127 B): equivalent/0x0010e570.cpp
-// sym: ?vfunc_5@KeywordWaitAction@ai@hulkfight@fn_fad6e2b1@@UAE_NHM@Z
+// sym: ?vfunc_5@KeywordWaitAction@ai@hulkfight@fn_fad6e2b1@@UAE_NHM@Z @e2f86a1c7965 @w6dbb98082ba8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // hulkfight::ai::KeywordWaitAction::vfunc_5 @ 0x0010e570
 // Advances the elapsed time; false while the wait is still running.

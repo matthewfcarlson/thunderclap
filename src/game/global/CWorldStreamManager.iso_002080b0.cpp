@@ -4,7 +4,7 @@
 
 
 // 0x002080b0 FUN_002080b0 (338 B): equivalent/0x002080b0.cpp [isolated: conflict: Gfx; World; on include/gen/ and not mergeable]
-// sym: ?FUN_002080b0@CWorldStreamManager_2080b0@@QAEXXZ
+// sym: ?FUN_002080b0@CWorldStreamManager_2080b0@@QAEXXZ @370b3c73c588 @we7ff03f78f26
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 18/18)
 // FUN_002080b0 @ 0x002080b0
 #include "decls/address.h"

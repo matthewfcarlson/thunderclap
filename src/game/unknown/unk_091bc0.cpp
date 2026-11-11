@@ -365,7 +365,7 @@ unsigned char owners::A_91fb0::FUN_00091fb0() {
 
 
 // 0x00091fe0 FUN_00091fe0 (81 B): equivalent/0x00091fe0.cpp
-// sym: ?FUN_00091fe0@Object_91fe0@owners@@QAEXPBD@Z
+// sym: ?FUN_00091fe0@Object_91fe0@owners@@QAEXPBD@Z @2f1b2e636ce4 @wac1183891061
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 8/8)
 // FUN_00091fe0 @ 0x00091fe0
 void owners::Object_91fe0::FUN_00091fe0(const char *value) { if (text) { FUN_0008d340(text); text = 0; } if (value) { const char *end = value; while (*end) ++end; char *dest = (char *)FUN_0008d6d0((unsigned int)(end - value + 1)); text = dest; do { *dest++ = *value; } while (*value++); } }

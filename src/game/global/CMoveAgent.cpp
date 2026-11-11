@@ -179,7 +179,7 @@ void Target_102b90::Set(Triple_102b90* p, int v, unsigned char f) {
 } // namespace fn_ff1bac5e
 
 // 0x00102bc0 CMoveAgent::vfunc_7 (44 B): equivalent/0x00102bc0.cpp [wrapped: conflict: CMoveAgent]
-// sym: ?vfunc_7@CMoveAgent@fn_00102bc0@@UAEXD@Z
+// sym: ?vfunc_7@CMoveAgent@fn_00102bc0@@UAEXD@Z @9a96cb5e81af @w8ed6a9099a2a
 namespace fn_00102bc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CMoveAgent::vfunc_7 @ 0x00102bc0
@@ -201,7 +201,7 @@ void CMoveAgent::vfunc_7(char enabled) {
 namespace fn_ff1bac5e {
 
 // 0x00102bf0 FUN_00102bf0 (155 B): equivalent/0x00102bf0.cpp
-// sym: _FUN_00102bf0
+// sym: _FUN_00102bf0 @2d7752734fc7 @w58e16140f490
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 2/2)
 // FUN_00102bf0 @ 0x00102bf0
 // FUN_00102bf0: out = (target - origin), clamped to a maximum length
@@ -228,7 +228,7 @@ extern "C" void __cdecl FUN_00102bf0(void *m, void *target, float speed, void * 
 } // namespace fn_ff1bac5e
 
 // 0x00102cd0 CMoveAgent::vfunc_4 (1421 B): equivalent/0x00102cd0.cpp [wrapped: conflict: CMoveAgent]
-// sym: ?F@CMoveAgent@fn_00102cd0@@QAEXPAVArg1_102cd0@2@HH@Z
+// sym: ?F@CMoveAgent@fn_00102cd0@@QAEXPAVArg1_102cd0@2@HH@Z @a449798b976b @w66d8553930d5
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 namespace fn_00102cd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19936 inputs, branch coverage 50/50)

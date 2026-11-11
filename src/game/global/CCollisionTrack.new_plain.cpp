@@ -90,7 +90,7 @@ public:
 
 
 // 0x0005d930 FUN_0005d930 (293 B): equivalent/0x0005d930.cpp
-// sym: ?FUN_0005d930@CCollisionTrack@fn_fe5613d0@@QAEPAV12@XZ
+// sym: ?FUN_0005d930@CCollisionTrack@fn_fe5613d0@@QAEPAV12@XZ @f5a879a72b77 @w20999062eba7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0005d930 @ 0x0005d930
 CCollisionTrack *CCollisionTrack::FUN_0005d930()

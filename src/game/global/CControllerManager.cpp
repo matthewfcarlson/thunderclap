@@ -137,7 +137,7 @@ void CControllerManager::FUN_000ae9d0(int index, char value) {
 namespace fn_f57ff923 {
 
 // 0x000ae9f0 FUN_000ae9f0 (123 B): equivalent/0x000ae9f0.cpp
-// sym: ?FUN_000ae9f0@fn_f57ff923@@YA_NXZ
+// sym: ?FUN_000ae9f0@fn_f57ff923@@YA_NXZ @cdcb765a3401 @wec6ed3a77e67
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 9/10, incomplete)
 // FUN_000ae9f0 @ 0x000ae9f0
 bool FUN_000ae9f0() {
@@ -314,7 +314,7 @@ template <> void Closure1<CControllerManager, void, bool>::vfunc_2(void* __p0, v
 
 
 // 0x000aee00 FUN_000aee00 (109 B): equivalent/0x000aee00.cpp [wrapped: conflict: CControllerManager; Closure0; Method0]
-// sym: ?FUN_000aee00@Registry_aee00@fn_000aee00@@QAEXPBDPAVCControllerManager@2@P832@AE_NXZ@Z
+// sym: ?FUN_000aee00@Registry_aee00@fn_000aee00@@QAEXPBDPAVCControllerManager@2@P832@AE_NXZ@Z @b9bcefdcdbd9 @wed97cb6dea9d
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_000aee00 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
@@ -400,7 +400,7 @@ void Registry_aee00::FUN_000aee00(const char* name, CControllerManager* owner, b
 
 
 // 0x000aef10 FUN_000aef10 (440 B): equivalent/0x000aef10.cpp [wrapped: conflict: CControllerManager; Closure0; Closure1; Closure2 (+4)]
-// sym: ??0CControllerManager@fn_000aef10@@QAE@XZ
+// sym: ??0CControllerManager@fn_000aef10@@QAE@XZ @0cb353bcc559 @w9a97fc6547c8
 namespace fn_000aef10 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_000aef10 @ 0x000aef10

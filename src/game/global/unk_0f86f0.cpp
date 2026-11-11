@@ -287,7 +287,7 @@ void Blender_f87f0::FUN_000f87f0(Entry_f87f0* e, hulk_intptr arg) {
 
 
 // 0x000f8840 FUN_000f8840 (82 B): equivalent/0x000f8840.cpp
-// sym: ?FUN_000f8840@Context@fn_fb8fef2d@@QAEMPAUChoice@2@@Z
+// sym: ?FUN_000f8840@Context@fn_fb8fef2d@@QAEMPAUChoice@2@@Z @7f06020caf84 @w303290c7113e
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 0/0)
 // FUN_000f8840 @ 0x000f8840
 hulk_freg Context::FUN_000f8840(Choice *choice) {
@@ -303,7 +303,7 @@ hulk_freg Context::FUN_000f8840(Choice *choice) {
 
 
 // 0x000f88a0 FUN_000f88a0 (146 B): equivalent/0x000f88a0.cpp
-// sym: ?FUN_000f88a0@Label_f88a0@fn_fb8fef2d@@QAEMPAURun_f88a0@2@@Z
+// sym: ?FUN_000f88a0@Label_f88a0@fn_fb8fef2d@@QAEMPAURun_f88a0@2@@Z @4856e3cf9a3b @w301f7f7848b8
 // STATUS: equivalent (tools/equiv.py level 3: 19991 inputs, branch coverage 8/8)
 // FUN_000f88a0 @ 0x000f88a0
 hulk_freg Label_f88a0::FUN_000f88a0(Run_f88a0 *run)
@@ -319,7 +319,7 @@ hulk_freg Label_f88a0::FUN_000f88a0(Run_f88a0 *run)
 
 
 // 0x000f8970 FUN_000f8970 (100 B): equivalent/0x000f8970.cpp
-// sym: ?FUN_000f8970@FontSet_f8970@fn_fb8fef2d@@QAEXPBD@Z
+// sym: ?FUN_000f8970@FontSet_f8970@fn_fb8fef2d@@QAEXPBD@Z @a9668320084d @w0afc861d95f8
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 2/2)
 // FUN_000f8970 @ 0x000f8970
 void FontSet_f8970::FUN_000f8970(const char *name)
@@ -338,7 +338,7 @@ void FontSet_f8970::FUN_000f8970(const char *name)
 
 
 // 0x000f89e0 FUN_000f89e0 (100 B): equivalent/0x000f89e0.cpp
-// sym: ?FUN_000f89e0@fn_fb8fef2d@@YIXPAVFontSet_f89e0@1@@Z
+// sym: ?FUN_000f89e0@fn_fb8fef2d@@YIXPAVFontSet_f89e0@1@@Z @96c825b00c62 @wc93b371dbc6a
 // STATUS: equivalent (tools/equiv.py level 3: 2167 inputs, branch coverage 4/4)
 // FUN_000f89e0 @ 0x000f89e0
 void __fastcall FUN_000f89e0(FontSet_f89e0 *set)
@@ -353,7 +353,7 @@ void __fastcall FUN_000f89e0(FontSet_f89e0 *set)
 
 
 // 0x000f8a90 FUN_000f8a90 (110 B): equivalent/0x000f8a90.cpp
-// sym: ??0NamedValueFloat@fn_fb8fef2d@@QAE@PAUOwner_f8a90@1@PBDHH@Z
+// sym: ??0NamedValueFloat@fn_fb8fef2d@@QAE@PAUOwner_f8a90@1@PBDHH@Z @f9676f9d2316 @wf5c90a3279a1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000f8a90 @ 0x000f8a90
 NamedValueFloat::NamedValueFloat(Owner_f8a90 *o, const char *n, int v, int id) : NamedValue(o, n)
@@ -367,7 +367,7 @@ NamedValueFloat::NamedValueFloat(Owner_f8a90 *o, const char *n, int v, int id) :
 
 
 // 0x000f8b00 FUN_000f8b00 (32 B): equivalent/0x000f8b00.cpp
-// sym: ?FUN_000f8b00@Object@fn_fb8fef2d@@QAEXH@Z
+// sym: ?FUN_000f8b00@Object@fn_fb8fef2d@@QAEXH@Z @83442623dcde @w9935f695867d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000f8b00 @ 0x000f8b00
 void Object::FUN_000f8b00(int v) { value=v; if(child) child->FUN_00000000(v); FUN_00000000(); }
@@ -375,7 +375,7 @@ void Object::FUN_000f8b00(int v) { value=v; if(child) child->FUN_00000000(v); FU
 } // namespace fn_fb8fef2d
 
 // 0x000f8b20 FUN_000f8b20 (108 B): equivalent/0x000f8b20.cpp [wrapped: conflict: NamedValue]
-// sym: ??0NamedValueInt@fn_000f8b20@@QAE@PAUOwner_f8b20@1@PBDH1@Z
+// sym: ??0NamedValueInt@fn_000f8b20@@QAE@PAUOwner_f8b20@1@PBDH1@Z @e39bec10d0c2 @w58107394197f
 namespace fn_000f8b20 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000f8b20 @ 0x000f8b20

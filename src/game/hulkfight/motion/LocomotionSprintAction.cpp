@@ -156,7 +156,7 @@ public:
 
 
 // 0x00163ed0 hulkfight::motion::LocomotionSprintAction::vfunc_3 (916 B): equivalent/0x00163ed0.cpp
-// sym: ?vfunc_3@LocomotionSprintAction@motion@hulkfight@fn_f3f630b8@@UAE_NHH@Z
+// sym: ?vfunc_3@LocomotionSprintAction@motion@hulkfight@fn_f3f630b8@@UAE_NHH@Z @3b6e277c07b7 @w929e606b759c
 // STATUS: equivalent (tools/equiv.py level 3: 445 inputs, branch coverage 42/42)
 // hulkfight::motion::LocomotionSprintAction::vfunc_3 @ 0x00163ed0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

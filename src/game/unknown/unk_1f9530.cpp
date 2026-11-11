@@ -251,7 +251,7 @@ extern void thunk_FUN_00267090(CCollisionAction*);
 } // namespace fn_f80593ac
 
 // 0x001f9530 FUN_001f9530 (131 B): equivalent/0x001f9530.cpp [wrapped: conflict: FUN_001f92f0]
-// sym: ?FUN_001f9530@Registry_1f9530@fn_001f9530@@QAEPAUHandle_1f9530@2@PAU32@PBUKeyInfo@2@@Z
+// sym: ?FUN_001f9530@Registry_1f9530@fn_001f9530@@QAEPAUHandle_1f9530@2@PAU32@PBUKeyInfo@2@@Z @8105f0d7d74d @wc8449c6cf9b7
 namespace fn_001f9530 {
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 4/4)
 // FUN_001f9530 @ 0x001f9530
@@ -412,7 +412,7 @@ bool Target(Obj_1f9f80* a, B_1f9f80* b) {
 } // namespace fn_f80593ac
 
 // 0x001f9fc0 FUN_001f9fc0 (107 B): equivalent/0x001f9fc0.cpp [wrapped: conflict: Node]
-// sym: ?FUN_001f9fc0@Mixer@fn_001f9fc0@@QAE_NUSlotKey_1f9fc0@2@@Z
+// sym: ?FUN_001f9fc0@Mixer@fn_001f9fc0@@QAE_NUSlotKey_1f9fc0@2@@Z @45d653316bb5 @w0065ac87e6d1
 namespace fn_001f9fc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 2/2)
 // FUN_001f9fc0 @ 0x001f9fc0
@@ -466,7 +466,7 @@ bool Mixer::FUN_001f9fc0(SlotKey_1f9fc0 key)
 
 
 // 0x001fa040 FUN_001fa040 (370 B): equivalent/0x001fa040.cpp [wrapped: conflict: FUN_00267760]
-// sym: ?FUN_001fa040@Table_1fa040@fn_001fa040@@QAEXXZ
+// sym: ?FUN_001fa040@Table_1fa040@fn_001fa040@@QAEXXZ @575f6506e3d8 @wc33ab9419293
 namespace fn_001fa040 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_001fa040 @ 0x001fa040
@@ -603,7 +603,7 @@ void Table_1fa040::FUN_001fa040()
 
 
 // 0x001fa500 FUN_001fa500 (262 B): equivalent/0x001fa500.cpp [wrapped: conflict: Node]
-// sym: ?target@Object@fn_001fa500@@QAEXH@Z
+// sym: ?target@Object@fn_001fa500@@QAEXH@Z @1c082434cd96 @w233a730132a7
 namespace fn_001fa500 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_001fa500 @ 0x001fa500
@@ -648,7 +648,7 @@ void C_1fa610::target() {
 } // namespace fn_f80593ac
 
 // 0x001fa630 FUN_001fa630 (354 B): equivalent/0x001fa630.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0CEncounterGenerator@fn_001fa630@@QAE@XZ
+// sym: ??0CEncounterGenerator@fn_001fa630@@QAE@XZ @80cda8543ebc @wadecdf4a9f33
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_001fa630 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
@@ -815,7 +815,7 @@ Obj_1fa7a0* Obj_1fa7a0::target(unsigned char flag) {
 } // namespace fn_f80593ac
 
 // 0x001fa7d0 FUN_001fa7d0 (216 B): equivalent/0x001fa7d0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001fa7d0@Object@fn_001fa7d0@@QAE_NHH@Z
+// sym: ?FUN_001fa7d0@Object@fn_001fa7d0@@QAE_NHH@Z @2fd4ca70aaff @w278c8e953658
 namespace fn_001fa7d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_001fa7d0 @ 0x001fa7d0
@@ -854,7 +854,7 @@ bool Object::FUN_001fa7d0(hulk_intptr input, int value) {
 namespace fn_f80593ac {
 
 // 0x001fa8b0 FUN_001fa8b0 (110 B): equivalent/0x001fa8b0.cpp
-// sym: ??1CEncounterGenerator@fn_f80593ac@@UAE@XZ
+// sym: ??1CEncounterGenerator@fn_f80593ac@@UAE@XZ @de66f7aa9549 @w4a436067630f
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
 // FUN_001fa8b0 @ 0x001fa8b0
 // equiv-map: ??1IRefCount@core@@UAE@XZ = 0x0027afd0

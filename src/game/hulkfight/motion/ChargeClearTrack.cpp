@@ -72,7 +72,7 @@ void TeleportToLocatorTrack_170dc0::run() {
 
 
 // 0x00170de0 FUN_00170de0 (82 B): equivalent/0x00170de0.cpp
-// sym: ?SetText_00170de0@TextHolder@fn_f18c5a89@@QAE_NPBD@Z
+// sym: ?SetText_00170de0@TextHolder@fn_f18c5a89@@QAE_NPBD@Z @479a89a7457f @wf4aa5da2059f
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // SetText_00170de0 @ 0x00170de0
 bool TextHolder::SetText_00170de0(const char *value)

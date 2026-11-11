@@ -40,7 +40,7 @@ struct Target_1b7f40 {
 
 
 // 0x001b7f40 FUN_001b7f40 (456 B): equivalent/0x001b7f40.cpp
-// sym: ?run@Target_1b7f40@fn_facea1d8@@QAEXPBDE@Z
+// sym: ?run@Target_1b7f40@fn_facea1d8@@QAEXPBDE@Z @b09f7d8413b8 @w027b828cec90
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 28/28)
 // FUN_001b7f40 @ 0x001b7f40
 void Target_1b7f40::run(const char* name, unsigned char useName) {

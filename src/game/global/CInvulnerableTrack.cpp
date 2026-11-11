@@ -106,7 +106,7 @@ hulk_freg CInvulnerableTrack::vfunc_7() {
 
 
 // 0x0006aa10 CInvulnerableTrack::vfunc_12 (52 B): equivalent/0x0006aa10.cpp [wrapped: conflict: CInvulnerableTrack]
-// sym: ?vfunc_12@CInvulnerableTrack@fn_0006aa10@@QAEPAUCInvulnerableAction_6aa10@2@PAX@Z
+// sym: ?vfunc_12@CInvulnerableTrack@fn_0006aa10@@QAEPAUCInvulnerableAction_6aa10@2@PAX@Z @d6b56f4b32ce @w70346cf95fe3
 namespace fn_0006aa10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CInvulnerableTrack::vfunc_12 @ 0x0006aa10

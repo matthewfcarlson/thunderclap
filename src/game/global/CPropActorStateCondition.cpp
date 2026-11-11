@@ -48,7 +48,7 @@ hulk_intptr CPropActorStateCondition::vfunc_0(int index) {
 
 
 // 0x00049bb0 CPropActorStateCondition::vfunc_7 (149 B): equivalent/0x00049bb0.cpp
-// sym: ?vfunc_7@CPropActorStateCondition@@UAE_NPAX@Z
+// sym: ?vfunc_7@CPropActorStateCondition@@UAE_NPAX@Z @74d22fad713e @w27ed686e94ca
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 22/22)
 // CPropActorStateCondition::vfunc_7 @ 0x00049bb0
 bool CPropActorStateCondition::vfunc_7(void* __p0) { Owner * owner = (Owner *)__p0;

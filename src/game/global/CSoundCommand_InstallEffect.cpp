@@ -56,7 +56,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x001f0a30 CSoundCommand_InstallEffect::vfunc_1 (33 B): equivalent/0x001f0a30.cpp
-// sym: ?vfunc_1@CSoundCommand_InstallEffect@fn_f12cce35@@UAEXHH@Z
+// sym: ?vfunc_1@CSoundCommand_InstallEffect@fn_f12cce35@@UAEXHH@Z @f05682e5b6fd @w7fbd6470f9d3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // CSoundCommand_InstallEffect::vfunc_1 @ 0x001f0a30
 void CSoundCommand_InstallEffect::vfunc_1(int, int) {

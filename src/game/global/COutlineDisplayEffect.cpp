@@ -57,7 +57,7 @@ public:
 
 
 // 0x000def60 COutlineDisplayEffect::vfunc_0 (326 B): equivalent/0x000def60.cpp
-// sym: ?vfunc_0@COutlineDisplayEffect@fn_fa4fa35c@@UAEXTSlot_def60@2@@Z
+// sym: ?vfunc_0@COutlineDisplayEffect@fn_fa4fa35c@@UAEXTSlot_def60@2@@Z @9e9667d5710f @w2400ba253b42
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // COutlineDisplayEffect::vfunc_0 @ 0x000def60
 void COutlineDisplayEffect::vfunc_0(Slot_def60 arg)

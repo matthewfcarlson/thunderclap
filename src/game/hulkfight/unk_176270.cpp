@@ -277,7 +277,7 @@ MoveJointAction_176370::~MoveJointAction_176370() throw() {
 } // namespace fn_fb68229a
 
 // 0x001763c0 hulkfight::motion::MoveJointAction::vfunc_3 (258 B): equivalent/0x001763c0.cpp
-// sym: ?vfunc_3@MoveJointAction@motion@hulkfight@@UAE_NII@Z
+// sym: ?vfunc_3@MoveJointAction@motion@hulkfight@@UAE_NII@Z @b3391a34b77a @wf3929c9bc2f2
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // hulkfight::motion::MoveJointAction::vfunc_3 @ 0x001763c0
 namespace hulkfight { namespace motion {

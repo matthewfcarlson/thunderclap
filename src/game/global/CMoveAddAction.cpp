@@ -29,7 +29,7 @@ struct CMoveAddAction {
 
 
 // 0x00014e90 CMoveAddAction::vfunc_7 (185 B): equivalent/0x00014e90.cpp
-// sym: ?vfunc_7@CMoveAddAction@fn_f335f10a@@QAE_NM@Z
+// sym: ?vfunc_7@CMoveAddAction@fn_f335f10a@@QAE_NM@Z @ef6cb52ad618 @w548b3189e824
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 2/2)
 // CMoveAddAction::vfunc_7 @ 0x00014e90
 bool CMoveAddAction::vfunc_7(float dt) {

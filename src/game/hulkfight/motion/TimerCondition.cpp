@@ -1060,7 +1060,7 @@ VarAssignTrack_18cf00::~VarAssignTrack_18cf00() throw() {
 } // namespace fn_f1f11990
 
 // 0x0018cf60 hulkfight::motion::VarCompareCondition::vfunc_6 (169 B): equivalent/0x0018cf60.cpp [wrapped: conflict: FUN_00344e74; hulkfight::motion::VarCompareCondition]
-// sym: ?vfunc_6@VarCompareCondition@motion@hulkfight@fn_0018cf60@@QAE_NPAXPAUParams@4@0@Z
+// sym: ?vfunc_6@VarCompareCondition@motion@hulkfight@fn_0018cf60@@QAE_NPAXPAUParams@4@0@Z @6d87c459d534 @w6ee2aea4bd98
 namespace fn_0018cf60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 22/22)
 // hulkfight::motion::VarCompareCondition::vfunc_6 @ 0x0018cf60
@@ -1099,7 +1099,7 @@ bool VarCompareCondition::vfunc_6(void*, Params* params, void*) {
 
 
 // 0x0018d030 hulkfight::motion::GrappleVarCompareCondition::vfunc_6 (133 B): equivalent/0x0018d030.cpp [wrapped: conflict: hulkfight::motion::GrappleVarCompareCondition]
-// sym: ?vfunc_6@GrappleVarCompareCondition@motion@hulkfight@fn_0018d030@@QAE_NHPAXH@Z
+// sym: ?vfunc_6@GrappleVarCompareCondition@motion@hulkfight@fn_0018d030@@QAE_NHPAXH@Z @ed93355330a9 @wa4c354ccb656
 namespace fn_0018d030 {
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 22/22)
 // hulkfight::motion::GrappleVarCompareCondition::vfunc_6 @ 0x0018d030
@@ -1150,7 +1150,7 @@ bool GrappleVarCompareCondition::vfunc_6(int a, void *owner, int c)
 
 
 // 0x0018d0d0 hulkfight::motion::VarAssignAction::vfunc_4 (199 B): equivalent/0x0018d0d0.cpp
-// sym: ?vfunc_4@VarAssignAction@motion@hulkfight@@UAEXXZ
+// sym: ?vfunc_4@VarAssignAction@motion@hulkfight@@UAEXXZ @b828ca984780 @w4dc57146c769
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 18/18)
 // hulkfight::motion::VarAssignAction::vfunc_4 @ 0x0018d0d0
 void hulkfight::motion::VarAssignAction::vfunc_4() {
@@ -1176,7 +1176,7 @@ void hulkfight::motion::VarAssignAction::vfunc_4() {
 
 
 // 0x0018d1c0 hulkfight::motion::VarAssignAction::vfunc_3 (147 B): equivalent/0x0018d1c0.cpp [wrapped: conflict: hulkfight::motion::VarAssignAction]
-// sym: ?vfunc_3@VarAssignAction@motion@hulkfight@fn_0018d1c0@@UAEDHH@Z
+// sym: ?vfunc_3@VarAssignAction@motion@hulkfight@fn_0018d1c0@@UAEDHH@Z @016c64d2e077 @w138868625866
 namespace fn_0018d1c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 18/18)
 // hulkfight::motion::VarAssignAction::vfunc_3 @ 0x0018d1c0
@@ -1387,7 +1387,7 @@ VarAssignAction_18d440::~VarAssignAction_18d440() {
 
 
 // 0x0018d480 hulkfight::motion::TimerCondition::vfunc_6 (371 B): equivalent/0x0018d480.cpp
-// sym: ?vfunc_6@TimerCondition@fn_f1f11990@@UAE_NHPAVParams_18d480@fight@@H@Z
+// sym: ?vfunc_6@TimerCondition@fn_f1f11990@@UAE_NHPAVParams_18d480@fight@@H@Z @f76495bc97e8 @w4f1ccf27a760
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 26/26)
 // hulkfight::motion::TimerCondition::vfunc_6 @ 0x0018d480
 bool TimerCondition::vfunc_6(int a, fight::Params_18d480* params, int c)
@@ -1948,7 +1948,7 @@ template <> fight::ParamBool<hulkfight::motion::VarAssignTrack>::~ParamBool() {}
 
 
 // 0x0018e060 FUN_0018e060 (213 B): equivalent/0x0018e060.cpp [wrapped: conflict: fight::ParamFloatConstRange; fight::ParamIntConstRange]
-// sym: ?FUN_0018e060@fn_0018e060@@YAXXZ
+// sym: ?FUN_0018e060@fn_0018e060@@YAXXZ @4ea37e894a48 @wa9384706866f
 inline void* __cdecl operator new(size_t,void* p) { return p; }
 namespace fn_0018e060 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)

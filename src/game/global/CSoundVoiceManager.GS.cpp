@@ -80,14 +80,14 @@ void Object::FUN_001f64c0(unsigned arg, char enabled) {
 
 
 // 0x001f6580 FUN_001f6580 (193 B): equivalent/0x001f6580.cpp
-// sym: ?target@State_1f6580@fn_f6ac3dc9@@QAEXXZ
+// sym: ?target@State_1f6580@fn_f6ac3dc9@@QAEXXZ @7c6a6a573db1 @w803054ca7cc3
 // STATUS: equivalent (tools/equiv.py level 3: 19650 inputs, branch coverage 14/14)
 // FUN_001f6580 @ 0x001f6580
 void State_1f6580::target() { char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */ ++nesting; if(nesting == 1) { FUN_001f4610(1,1,1); value=0; for(int i=0;i<count;++i) { void* h=items[i]->handle; if(h) FUN_00247890(h,value); } for(int j=0;j<100;++j) { FUN_001f4140(0); for(int i=0;i<count;++i) items[i]->FUN_001f5860(0.01666666753590107f); FUN_00240bb0(); } }  }
 
 
 // 0x001f6650 FUN_001f6650 (367 B): equivalent/0x001f6650.cpp
-// sym: ?FUN_001f6650@Mixer@fn_f6ac3dc9@@QAEXXZ
+// sym: ?FUN_001f6650@Mixer@fn_f6ac3dc9@@QAEXXZ @52e2c8bc9038 @w6689b86f9f46
 // STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 30/30)
 // FUN_001f6650 @ 0x001f6650
 void Mixer::FUN_001f6650()

@@ -5,7 +5,7 @@
 
 
 // 0x001985f0 hulkfight::motion::MissileThrowAction::vfunc_3 (774 B): equivalent/0x001985f0.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?vfunc_3@MissileThrowAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@MissileThrowAction@motion@hulkfight@@UAE_NHH@Z @a4db866afaf7 @w5ba99db50422
 // STATUS: equivalent (tools/equiv.py level 3: 3050 inputs, branch coverage 28/28)
 // hulkfight::motion::MissileThrowAction::vfunc_3 @ 0x001985f0
 #include "gen/hulkfight.h"

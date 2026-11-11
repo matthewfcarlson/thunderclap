@@ -5,7 +5,7 @@
 
 
 // 0x001b2c90 AICollisionSolverAgent::vfunc_7 (273 B): equivalent/0x001b2c90.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?vfunc_7@AICollisionSolverAgent@@UAEHPAXH@Z
+// sym: ?vfunc_7@AICollisionSolverAgent@@UAEHPAXH@Z @ac92ce7a7f06 @w5e1d4c11100e
 // STATUS: equivalent (tools/equiv.py level 3: 3060 inputs, branch coverage 26/26)
 // AICollisionSolverAgent::vfunc_7 @ 0x001b2c90
 #include "gen/global.h"

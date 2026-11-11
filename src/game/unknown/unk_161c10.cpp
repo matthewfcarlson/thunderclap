@@ -477,7 +477,7 @@ extern "C" void FUN_00161d50(Owner* owner, void* value) {
 
 
 // 0x00161d80 FUN_00161d80 (1276 B): equivalent/0x00161d80.cpp
-// sym: _FUN_00161d80
+// sym: _FUN_00161d80 @68530ae68429 @wef3428db2a01
 // STATUS: equivalent (tools/equiv.py level 3: 1541 inputs, branch coverage 50/50)
 // FUN_00161d80 @ 0x00161d80
 extern "C" void FUN_00161d80()
@@ -597,7 +597,7 @@ extern "C" void FUN_00162280(Obj* obj, void* p) {
 
 
 // 0x001622b0 FUN_001622b0 (1378 B): equivalent/0x001622b0.cpp
-// sym: _FUN_001622b0
+// sym: _FUN_001622b0 @2a8c6c13a2f9 @w53e5b1ceaae2
 // STATUS: equivalent (tools/equiv.py level 3: 1835 inputs, branch coverage 54/54)
 // FUN_001622b0 @ 0x001622b0
 extern "C" void FUN_001622b0()
@@ -724,7 +724,7 @@ extern "C" void FUN_00162820(Obj* o, void* p) {
 
 
 // 0x00162850 FUN_00162850 (1987 B): equivalent/0x00162850.cpp
-// sym: _FUN_00162850
+// sym: _FUN_00162850 @a882f7957c12 @w2bb2896898a4
 // STATUS: equivalent (tools/equiv.py level 3: 1031 inputs, branch coverage 76/76)
 // FUN_00162850 @ 0x00162850
 extern "C" void FUN_00162850()
@@ -908,7 +908,7 @@ extern "C" void __cdecl FUN_00163020(Track* t, const char* name) {
 namespace fn_f95ed483 {
 
 // 0x00163050 FUN_00163050 (868 B): equivalent/0x00163050.cpp
-// sym: _FUN_00163050
+// sym: _FUN_00163050 @2bc90ccf23a6 @wac5a40abe1c4
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
 // FUN_00163050 @ 0x00163050
 extern "C" void FUN_00163050()
@@ -996,7 +996,7 @@ extern "C" void FUN_001633c0(Obj* obj, void* value) {
 
 
 // 0x001633f0 FUN_001633f0 (868 B): equivalent/0x001633f0.cpp
-// sym: _FUN_001633f0
+// sym: _FUN_001633f0 @b94080f100b1 @w070ec1580014
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
 // FUN_001633f0 @ 0x001633f0
 extern "C" void FUN_001633f0()
@@ -1084,7 +1084,7 @@ extern "C" void FUN_00163760(Receiver* receiver, void* value) {
 
 
 // 0x00163790 FUN_00163790 (562 B): equivalent/0x00163790.cpp
-// sym: _FUN_00163790
+// sym: _FUN_00163790 @7a294fdece25 @w847b3a77abbb
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/22)
 // FUN_00163790 @ 0x00163790
 extern "C" void FUN_00163790()

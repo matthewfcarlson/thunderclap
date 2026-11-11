@@ -267,7 +267,7 @@ int __fastcall target(X_1c7520* x) {
 
 
 // 0x001c7550 FUN_001c7550 (143 B): equivalent/0x001c7550.cpp
-// sym: ?FUN_001c7550@Registry_1c7550@fn_f6c5dfc0@@QAEXPBUKey_1c7550@2@@Z
+// sym: ?FUN_001c7550@Registry_1c7550@fn_f6c5dfc0@@QAEXPBUKey_1c7550@2@@Z @58d4c1a93d29 @w764b04e9b5d4
 // STATUS: equivalent (tools/equiv.py level 3: 1900 inputs, branch coverage 14/14)
 // FUN_001c7550 @ 0x001c7550
 // Cancels a pending request for the key, then drops the first entry that resolves it.
@@ -298,7 +298,7 @@ void Registry_1c7550::FUN_001c7550(const Key_1c7550 *key) {
 
 
 // 0x001c75e0 FUN_001c75e0 (305 B): equivalent/0x001c75e0.cpp
-// sym: ?FUN_001c75e0@Cache_1c75e0@fn_f6c5dfc0@@QAEPAXPAUKey_1c75e0@2@@Z
+// sym: ?FUN_001c75e0@Cache_1c75e0@fn_f6c5dfc0@@QAEPAXPAUKey_1c75e0@2@@Z @ac20dfcc7ad5 @wcc6be0d2f12f
 // STATUS: equivalent (tools/equiv.py level 3: 2964 inputs, branch coverage 22/22)
 // FUN_001c75e0 @ 0x001c75e0
 void *Cache_1c75e0::FUN_001c75e0(Key_1c75e0 *key)
@@ -432,7 +432,7 @@ StoreBase* StoreBase::vfunc_0(unsigned char flag) {
 
 
 // 0x001c7870 FUN_001c7870 (112 B): equivalent/0x001c7870.cpp
-// sym: ?FUN_001c7870@StoreBase@Render@@QAEXHH@Z
+// sym: ?FUN_001c7870@StoreBase@Render@@QAEXHH@Z @fce4807c83f7 @w736e5423dfe0
 // STATUS: equivalent (tools/equiv.py level 3: 1510 inputs, branch coverage 10/10)
 // FUN_001c7870 @ 0x001c7870
 // Stores value in the first empty slot, or appends it (growing the pool when full).
@@ -476,7 +476,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 
 
 // 0x001c7a60 FUN_001c7a60 (425 B): equivalent/0x001c7a60.cpp
-// sym: ?Draw@Marker_1c7a60@fn_f6c5dfc0@@QAEXPAUTarget_1c7a60@2@MIII@Z
+// sym: ?Draw@Marker_1c7a60@fn_f6c5dfc0@@QAEXPAUTarget_1c7a60@2@MIII@Z @a332e199984d @w0a6fb0354c87
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001c7a60 @ 0x001c7a60
 void Marker_1c7a60::Draw(Target_1c7a60 *target, float radius, unsigned int gray, unsigned int alpha, unsigned int edgeByte)

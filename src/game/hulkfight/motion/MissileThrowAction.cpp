@@ -185,7 +185,7 @@ class MissileThrowAction_1985b0 : public Action_1985b0 {
 } // namespace fn_fbc25767
 
 // 0x00197610 FUN_00197610 (2356 B): equivalent/0x00197610.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_00197610@Proj_197610@fn_00197610@@QAEXM@Z
+// sym: ?FUN_00197610@Proj_197610@fn_00197610@@QAEXM@Z @30089d9472cc @wa2a8ab080915
 namespace fn_00197610 {
 // STATUS: equivalent (tools/equiv.py level 3: 19433 inputs, branch coverage 68/68)
 // FUN_00197610 @ 0x00197610
@@ -519,7 +519,7 @@ BeamEffect_197f90::~BeamEffect_197f90() throw() {
 
 
 // 0x00197ff0 FUN_00197ff0 (1220 B): equivalent/0x00197ff0.cpp
-// sym: ?FUN_00197ff0@Proj_197ff0@fn_fbc25767@@QAEXM@Z
+// sym: ?FUN_00197ff0@Proj_197ff0@fn_fbc25767@@QAEXM@Z @caac7dcd3e9a @w2b45cc25443c
 // STATUS: equivalent (tools/equiv.py level 3: 20043 inputs, branch coverage 46/46)
 // FUN_00197ff0 @ 0x00197ff0
 // equiv-conv: FUN_00195290 ecx eax edx edi stack stack stack stack stack stack stack
@@ -676,7 +676,7 @@ void Proj_197ff0::FUN_00197ff0(float dt)
 
 
 // 0x001984c0 FUN_001984c0 (89 B): equivalent/0x001984c0.cpp
-// sym: ??0AccuracyLatencyAction@fn_fbc25767@@QAE@PAUData@1@PAURef@1@@Z
+// sym: ??0AccuracyLatencyAction@fn_fbc25767@@QAE@PAUData@1@PAURef@1@@Z @2b7fd611f4ad @w6b932b61c9f2
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001984c0 @ 0x001984c0
 AccuracyLatencyAction::AccuracyLatencyAction(Data* d, Ref* r) { zero1=0; zero2=0; ref=0; data=d; if(r) r->FUN_00000000(); if(ref) ref->FUN_00000001(); ref=r; a=data->a; b=data->b; }

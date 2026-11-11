@@ -1002,7 +1002,7 @@ MotionClosestWaypointAction_117d60::~MotionClosestWaypointAction_117d60() throw(
 } // namespace fn_ffc509e9
 
 // 0x00117ed0 hulkfight::ai::LocatorDistanceCondition::vfunc_6 (352 B): equivalent/0x00117ed0.cpp [wrapped: conflict: CFightParams; fight::Params]
-// sym: ?FUN_00117ed0@LocatorDistanceCondition@fn_00117ed0@@QAE_NHPAVParams@fight@2@H@Z
+// sym: ?FUN_00117ed0@LocatorDistanceCondition@fn_00117ed0@@QAE_NHPAVParams@fight@2@H@Z @005afce905b3 @wb3e6233f9004
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1167,7 +1167,7 @@ bool LocatorDistanceCondition::FUN_00117ed0(int a1, fight::Params *params, int a
 
 
 // 0x00118050 hulkfight::ai::HasGroundPointExtendedCondition::vfunc_6 (486 B): equivalent/0x00118050.cpp [wrapped: conflict: World]
-// sym: ?vfunc_6@HasGroundPointExtendedCondition@fn_00118050@@UAEDHPAXH@Z
+// sym: ?vfunc_6@HasGroundPointExtendedCondition@fn_00118050@@UAEDHPAXH@Z @e1ccb3ea3f6e @wabd09e94bdde
 namespace fn_00118050 {
 // STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 18/18)
 // hulkfight::ai::HasGroundPointExtendedCondition::vfunc_6 @ 0x00118050
@@ -1990,7 +1990,7 @@ template <> fight::ParamBool<hulkfight::ai::MotionClosestWaypointTrack>::~ParamB
 
 
 // 0x00119300 FUN_00119300 (213 B): equivalent/0x00119300.cpp [wrapped: conflict: fight::ParamFloatConstRange]
-// sym: ?target@fn_00119300@@YAXXZ
+// sym: ?target@fn_00119300@@YAXXZ @1389c2824c64 @w7d99fd560328
 namespace fn_00119300 {
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 8/8)
 // FUN_00119300 @ 0x00119300
@@ -2250,7 +2250,7 @@ hulk_intptr hulkfight::ai::MotionClosestWaypointTrack::vfunc_10(hulk_intptr __p0
 
 
 // 0x0011a250 hulkfight::ai::MotionClosestWaypointAction::vfunc_5 (1375 B): equivalent/0x0011a250.cpp [wrapped: conflict: FUN_000592a0; MotionClosestWaypointAction]
-// sym: ?vfunc_5@MotionClosestWaypointAction@fn_0011a250@@UAE_NTArg1_11a250@2@M@Z
+// sym: ?vfunc_5@MotionClosestWaypointAction@fn_0011a250@@UAE_NTArg1_11a250@2@M@Z @b69383e3d6f4 @w9a0c37bc77e5
 namespace fn_0011a250 {
 // STATUS: equivalent (tools/equiv.py level 3: 3064 inputs, branch coverage 52/56, incomplete)
 // hulkfight::ai::MotionClosestWaypointAction::vfunc_5 @ 0x0011a250
@@ -2577,7 +2577,7 @@ extern "C" void FUN_0011aa10(Owner* owner, void* name) {
 } // namespace fn_ffc509e9
 
 // 0x0011ae60 FUN_0011ae60 (281 B): equivalent/0x0011ae60.cpp [wrapped: conflict: fight::TrackFactoryCasterTemplate]
-// sym: _FUN_0011ae60
+// sym: _FUN_0011ae60 @65cf0ea0459f @wb714cd8b2859
 namespace fn_0011ae60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0011ae60 @ 0x0011ae60

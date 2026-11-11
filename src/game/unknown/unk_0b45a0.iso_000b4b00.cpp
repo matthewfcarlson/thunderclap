@@ -4,7 +4,7 @@
 
 
 // 0x000b4b00 FUN_000b4b00 (93 B): equivalent/0x000b4b00.cpp [isolated: conflict: DAT_004dd700; on include/gen/ and not mergeable]
-// sym: ?FUN_000b4b00@Obj_b4b00@owners@@QAEXH@Z
+// sym: ?FUN_000b4b00@Obj_b4b00@owners@@QAEXH@Z @72b4c2b93b1f @w89bbb9f36058
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000b4b00 @ 0x000b4b00
 #include "gen/owners.h"

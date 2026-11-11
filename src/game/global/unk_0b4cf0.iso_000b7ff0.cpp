@@ -5,7 +5,7 @@
 
 
 // 0x000b7ff0 FUN_000b7ff0 (580 B): equivalent/0x000b7ff0.cpp [isolated: conflict: FEObject; TextSelector; TextWindow; on include/gen/ and not mergeable]
-// sym: ?FUN_000b7ff0@HintMenu_b7ff0@owners@@QAEXXZ
+// sym: ?FUN_000b7ff0@HintMenu_b7ff0@owners@@QAEXXZ @699b30fc4c67 @w90e61e81d800
 // STATUS: equivalent (tools/equiv.py level 3: 20036 inputs, branch coverage 68/68)
 // FUN_000b7ff0 @ 0x000b7ff0
 // cl-flags: /GS

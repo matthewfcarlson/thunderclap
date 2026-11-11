@@ -88,7 +88,7 @@ public:
 
 
 // 0x000985b0 CBlendCamera::vfunc_35 (982 B): equivalent/0x000985b0.cpp
-// sym: ?vfunc_35@CBlendCamera@fn_f237209c@@UAEXHMHH@Z
+// sym: ?vfunc_35@CBlendCamera@fn_f237209c@@UAEXHMHH@Z @e02b303da7af @wda348128bd2a
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 20/20)
 // CBlendCamera::vfunc_35 @ 0x000985b0
 void CBlendCamera::vfunc_35(int a1, float a2, int a3, int a4)

@@ -43,7 +43,7 @@ struct CSoundResourceManager_nv_1ea630 {
 
 
 // 0x001ea0c0 FUN_001ea0c0 (194 B): equivalent/0x001ea0c0.cpp
-// sym: ?FUN_001ea0c0@Owner_1ea0c0@fn_fc0e1b37@@QAEXPBD@Z
+// sym: ?FUN_001ea0c0@Owner_1ea0c0@fn_fc0e1b37@@QAEXPBD@Z @4c55ffa8787e @wb032e39a06d5
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 10/10)
 // FUN_001ea0c0 @ 0x001ea0c0
 void Owner_1ea0c0::FUN_001ea0c0(const char* text) {
@@ -70,7 +70,7 @@ void Owner_1ea0c0::FUN_001ea0c0(const char* text) {
 } // namespace fn_fc0e1b37
 
 // 0x001ea630 CSoundResourceManager::vfunc_3 (114 B): equivalent/0x001ea630.cpp
-// sym: ?vfunc_3@CSoundResourceManager@@UAEXHH@Z
+// sym: ?vfunc_3@CSoundResourceManager@@UAEXHH@Z @1c9585bb2d3f @wadd6c4385b76
 // STATUS: equivalent (tools/equiv.py level 3: 19928 inputs, branch coverage 2/2)
 // CSoundResourceManager::vfunc_3 @ 0x001ea630
 void CSoundResourceManager::vfunc_3(hulk_intptr __p0, int unused) { const char * name = (const char *)__p0;

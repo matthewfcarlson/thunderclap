@@ -583,7 +583,7 @@ class ParamValueInt_127250 : public ParamValue_127250 {
 } // namespace fn_f038364c
 
 // 0x00125820 hulkfight::ai::TargetDistanceYCondition::vfunc_6 (382 B): equivalent/0x00125820.cpp [wrapped: conflict: FUN_00018960]
-// sym: ?vfunc_6@TargetDistanceYCondition@fn_00125820@@UAEDHPAUOwner_125820@2@H@Z
+// sym: ?vfunc_6@TargetDistanceYCondition@fn_00125820@@UAEDHPAUOwner_125820@2@H@Z @7dfce62d3807 @wd5857d612e66
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -756,7 +756,7 @@ char TargetDistanceYCondition::vfunc_6(int unused1, Owner_125820 *owner, int unu
 
 
 // 0x001259c0 hulkfight::ai::TargetOrientationCondition::vfunc_6 (207 B): equivalent/0x001259c0.cpp [wrapped: conflict: DAT_00494b44; hulkfight::ai::TargetOrientationCondition]
-// sym: ?vfunc_6@TargetOrientationCondition@ai@hulkfight@fn_001259c0@@UAE_NHPAUInput_1259c0@4@H@Z
+// sym: ?vfunc_6@TargetOrientationCondition@ai@hulkfight@fn_001259c0@@UAE_NHPAUInput_1259c0@4@H@Z @9984c6d42f82 @w5397e38bdbdf
 namespace fn_001259c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 10/10)
 // hulkfight::ai::TargetOrientationCondition::vfunc_6 @ 0x001259c0
@@ -797,7 +797,7 @@ bool TargetOrientationCondition::vfunc_6(int, Input_1259c0* input, int) {
 
 
 // 0x00125a90 hulkfight::ai::TargetArcCondition::vfunc_6 (583 B): equivalent/0x00125a90.cpp [wrapped: conflict: CFightParams; World; fight::Params; hulkfight::ai::TargetArcCondition]
-// sym: ?vfunc_6@TargetArcCondition@ai@hulkfight@fn_00125a90@@UAE_NHPAVParams@fight@4@H@Z
+// sym: ?vfunc_6@TargetArcCondition@ai@hulkfight@fn_00125a90@@UAE_NHPAVParams@fight@4@H@Z @9143329ab022 @w7fe03cf59e89
 namespace fn_00125a90 {
 // STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 25/26, incomplete)
 // hulkfight::ai::TargetArcCondition::vfunc_6 @ 0x00125a90
@@ -1015,7 +1015,7 @@ bool TargetArcCondition::vfunc_6(int a1, fight::Params* params, int a3)
 
 
 // 0x00125ce0 hulkfight::ai::TargetVelocityCondition::vfunc_6 (321 B): equivalent/0x00125ce0.cpp [wrapped: conflict: CFightParams; FUN_00018960; fight::Params]
-// sym: ?vfunc_6@TargetVelocityCondition@fn_00125ce0@@UAEDHPAVParams@fight@2@H@Z
+// sym: ?vfunc_6@TargetVelocityCondition@fn_00125ce0@@UAEDHPAVParams@fight@2@H@Z @108725b40ab6 @w87fadbf3135f
 namespace fn_00125ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3206 inputs, branch coverage 18/18; Wine build 679 inputs, 18/18)
 // hulkfight::ai::TargetVelocityCondition::vfunc_6 @ 0x00125ce0
@@ -1092,7 +1092,7 @@ char TargetVelocityCondition::vfunc_6(int a, fight::Params *params, int c)
 
 
 // 0x00125e40 hulkfight::ai::TargetVelocityXZCondition::vfunc_6 (311 B): equivalent/0x00125e40.cpp [wrapped: conflict: FUN_00018960]
-// sym: ?vfunc_6@TargetVelocityXZCondition@fn_00125e40@@UAEDHPAUOwner_125e40@2@H@Z
+// sym: ?vfunc_6@TargetVelocityXZCondition@fn_00125e40@@UAEDHPAUOwner_125e40@2@H@Z @9750df666b8c @w02c6c5652ee1
 namespace fn_00125e40 {
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 18/18)
 // hulkfight::ai::TargetVelocityXZCondition::vfunc_6 @ 0x00125e40
@@ -1177,7 +1177,7 @@ char TargetVelocityXZCondition::vfunc_6(int unused1, Owner_125e40 *owner, int un
 
 
 // 0x00125f90 hulkfight::ai::TargetVelocityYCondition::vfunc_6 (242 B): equivalent/0x00125f90.cpp [wrapped: conflict: DAT_00494b44; DAT_00494b60; hulkfight::ai::TargetVelocityYCondition]
-// sym: ?vfunc_6@TargetVelocityYCondition@ai@hulkfight@fn_00125f90@@UAE_NPAXPAUActor_125f90@4@0@Z
+// sym: ?vfunc_6@TargetVelocityYCondition@ai@hulkfight@fn_00125f90@@UAE_NPAXPAUActor_125f90@4@0@Z @0bd1e7d1e332 @w9165901826a6
 namespace fn_00125f90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // hulkfight::ai::TargetVelocityYCondition::vfunc_6 @ 0x00125f90
@@ -1215,7 +1215,7 @@ bool TargetVelocityYCondition::vfunc_6(void*, Actor_125f90* actor, void*) {
 
 
 // 0x001260a0 hulkfight::ai::TargetDirectionCondition::vfunc_6 (437 B): equivalent/0x001260a0.cpp
-// sym: ?vfunc_6@TargetDirectionCondition@ai@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@TargetDirectionCondition@ai@hulkfight@@UAE_NPAX00@Z @3906fd4eac7e @w4ec30cf14a6f
 // STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 17/18, incomplete)
 // hulkfight::ai::TargetDirectionCondition::vfunc_6 @ 0x001260a0
 bool hulkfight::ai::TargetDirectionCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_1260a0 * params = (fight::Params_1260a0 *)__p1; int b = (int)__p2;
@@ -1259,7 +1259,7 @@ bool hulkfight::ai::TargetDirectionCondition::vfunc_6(void* __p0, void* __p1, vo
 
 
 // 0x00126270 hulkfight::ai::TargetDirectionXZCondition::vfunc_6 (441 B): equivalent/0x00126270.cpp
-// sym: ?vfunc_6@TargetDirectionXZCondition@ai@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@TargetDirectionXZCondition@ai@hulkfight@@UAE_NPAX00@Z @a38d4223da0e @w3a6e8a976b6d
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 17/18, incomplete)
 // hulkfight::ai::TargetDirectionXZCondition::vfunc_6 @ 0x00126270
 bool hulkfight::ai::TargetDirectionXZCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_126270 * params = (fight::Params_126270 *)__p1; int b = (int)__p2;
@@ -1304,7 +1304,7 @@ bool hulkfight::ai::TargetDirectionXZCondition::vfunc_6(void* __p0, void* __p1, 
 
 
 // 0x00126450 hulkfight::ai::TargetDirectionYCondition::vfunc_6 (341 B): equivalent/0x00126450.cpp
-// sym: ?vfunc_6@TargetDirectionYCondition@ai@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@TargetDirectionYCondition@ai@hulkfight@@UAE_NPAX00@Z @188499d5584d @wb758fc681490
 // STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 28/28)
 // hulkfight::ai::TargetDirectionYCondition::vfunc_6 @ 0x00126450
 bool hulkfight::ai::TargetDirectionYCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int unused1 = (int)__p0; Owner_126450 * owner = (Owner_126450 *)__p1; int unused3 = (int)__p2;
@@ -1351,7 +1351,7 @@ bool hulkfight::ai::TargetDirectionYCondition::vfunc_6(void* __p0, void* __p1, v
 
 
 // 0x001265c0 hulkfight::ai::TargetAngleYCondition::vfunc_6 (416 B): equivalent/0x001265c0.cpp
-// sym: ?vfunc_6@TargetAngleYCondition@ai@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@TargetAngleYCondition@ai@hulkfight@@UAE_NPAX00@Z @67ef098c0846 @w26f1a7d50a25
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 26/28, incomplete)
 // hulkfight::ai::TargetAngleYCondition::vfunc_6 @ 0x001265c0
 bool hulkfight::ai::TargetAngleYCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; void * obj = (void *)__p1; int c = (int)__p2;

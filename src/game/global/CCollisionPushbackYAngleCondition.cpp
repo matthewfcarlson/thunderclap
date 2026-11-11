@@ -40,7 +40,7 @@ CCollisionPushbackYAngleCondition* CCollisionPushbackYAngleCondition::vfunc_5(si
 } // namespace fn_fed636a2
 
 // 0x0004c430 CCollisionPushbackYAngleCondition::vfunc_7 (254 B): equivalent/0x0004c430.cpp [wrapped: conflict: CCollisionPushbackYAngleCondition]
-// sym: ?vfunc_7@CCollisionPushbackYAngleCondition@fn_0004c430@@UAE_NPAUContext@2@@Z
+// sym: ?vfunc_7@CCollisionPushbackYAngleCondition@fn_0004c430@@UAE_NPAUContext@2@@Z @885f6f48c46d @wf6f08fd77a05
 namespace fn_0004c430 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CCollisionPushbackYAngleCondition::vfunc_7 @ 0x0004c430

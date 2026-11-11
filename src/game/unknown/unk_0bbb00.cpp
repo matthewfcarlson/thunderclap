@@ -867,7 +867,7 @@ int Obj::Run(int n, int* v) {
 
 
 // 0x000bbfa0 FUN_000bbfa0 (41 B): equivalent/0x000bbfa0.cpp
-// sym: ?FUN_000bbfa0@Handler@fn_fc9dd2b5@@QAEHHPAUValues@2@@Z
+// sym: ?FUN_000bbfa0@Handler@fn_fc9dd2b5@@QAEHHPAUValues@2@@Z @2c4b11d71c66 @w8ecc73e2659c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000bbfa0 @ 0x000bbfa0
 int Handler::FUN_000bbfa0(int type, Values *values) {
@@ -1003,7 +1003,7 @@ int Wrapper::Run(int a, int b) {
 
 
 // 0x000bc0f0 FUN_000bc0f0 (15 B): equivalent/0x000bc0f0.cpp
-// sym: ?FUN_000bc0f0@Object@fn_fc9dd2b5@@QAEHHH@Z
+// sym: ?FUN_000bc0f0@Object@fn_fc9dd2b5@@QAEHHH@Z @303b4a0aede5 @wbe5d75b6af29
 // STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 0/0)
 // FUN_000bc0f0 @ 0x000bc0f0
 int Object::FUN_000bc0f0(int a, int b) {
@@ -1013,7 +1013,7 @@ int Object::FUN_000bc0f0(int a, int b) {
 
 
 // 0x000bc100 FUN_000bc100 (218 B): equivalent/0x000bc100.cpp
-// sym: ?FUN_000bc100@Loader_bc100@fn_fc9dd2b5@@QAEXXZ
+// sym: ?FUN_000bc100@Loader_bc100@fn_fc9dd2b5@@QAEXXZ @711c786abc5c @w5a9aa63f6a56
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_000bc100 @ 0x000bc100
 void Loader_bc100::FUN_000bc100()

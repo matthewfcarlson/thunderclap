@@ -1050,7 +1050,7 @@ struct Pair_1c4620 {
 } // namespace fn_ffffca36
 
 // 0x001c1460 Render::Canvas::HulkShaderCallback::vfunc_3 (286 B): equivalent/0x001c1460.cpp [wrapped: conflict: Render::Canvas::HulkShaderCallback]
-// sym: ?vfunc_3@HulkShaderCallback@Canvas@Render@fn_001c1460@@UAEPAUObject@4@PAU54@@Z
+// sym: ?vfunc_3@HulkShaderCallback@Canvas@Render@fn_001c1460@@UAEPAUObject@4@PAU54@@Z @ec4f3d00f728 @w7032402674db
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1233,7 +1233,7 @@ int owners::C_1c17c0::FUN_001c17c0(int x) {
 namespace fn_ffffca36 {
 
 // 0x001c17d0 FUN_001c17d0 (305 B): equivalent/0x001c17d0.cpp
-// sym: ?FUN_001c17d0@Probe_1c17d0@fn_ffffca36@@QAE_NPAURequest@2@@Z
+// sym: ?FUN_001c17d0@Probe_1c17d0@fn_ffffca36@@QAE_NPAURequest@2@@Z @ce44057b1d5c @w04c287477a12
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 11/12, incomplete)
 // FUN_001c17d0 @ 0x001c17d0
 bool Probe_1c17d0::FUN_001c17d0(Request *req)
@@ -1296,7 +1296,7 @@ hulk_intptr __fastcall FUN_001c19a0(void* p) {
 } // namespace fn_ffffca36
 
 // 0x001c1a40 FUN_001c1a40 (1101 B): equivalent/0x001c1a40.cpp [wrapped: conflict: Gfx; pure3d::GameDrawableInfo; pure3d::pddiExtFramebufferEffects; pure3d::pddiExtension]
-// sym: ?FUN_001c1a40@Hud_1c1a40@fn_001c1a40@@QAEPAV12@XZ
+// sym: ?FUN_001c1a40@Hud_1c1a40@fn_001c1a40@@QAEPAV12@XZ @4389c66ade7c @w0dd1f918b4c0
 inline void* operator new(size_t, void* p) throw() { return p; }
 namespace fn_001c1a40 {
 // STATUS: equivalent (tools/equiv.py level 3: 2975 inputs, branch coverage 24/24)
@@ -1682,7 +1682,7 @@ void C_1c1e90::Shutdown() {
 
 
 // 0x001c1f30 FUN_001c1f30 (420 B): equivalent/0x001c1f30.cpp
-// sym: ?FUN_001c1f30@CameraState@fn_ffffca36@@QAEXHMMHH@Z
+// sym: ?FUN_001c1f30@CameraState@fn_ffffca36@@QAEXHMMHH@Z @6f683b707681 @wdd8705ec58d2
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 2/2)
 // FUN_001c1f30 @ 0x001c1f30
 void CameraState::FUN_001c1f30(int a, float fov, float aspect, int d, int e)
@@ -1715,7 +1715,7 @@ void CameraState::FUN_001c1f30(int a, float fov, float aspect, int d, int e)
 
 
 // 0x001c20e0 FUN_001c20e0 (295 B): equivalent/0x001c20e0.cpp
-// sym: ?FUN_001c20e0@Target_1c20e0@fn_ffffca36@@QAEHPBUInput_1c20e0@2@@Z
+// sym: ?FUN_001c20e0@Target_1c20e0@fn_ffffca36@@QAEHPBUInput_1c20e0@2@@Z @9fd0a96c2b1f @w8e13ce649b91
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 8/8)
 // FUN_001c20e0 @ 0x001c20e0
 int Target_1c20e0::FUN_001c20e0(const Input_1c20e0* input) {
@@ -1734,7 +1734,7 @@ int Target_1c20e0::FUN_001c20e0(const Input_1c20e0* input) {
 } // namespace fn_ffffca36
 
 // 0x001c2210 FUN_001c2210 (211 B): equivalent/0x001c2210.cpp [wrapped: conflict: Gfx; Object]
-// sym: ?run@Object@fn_001c2210@@QAEHXZ
+// sym: ?run@Object@fn_001c2210@@QAEHXZ @9f68b3df41b0 @w8030fe27f295
 namespace fn_001c2210 {
 // STATUS: equivalent (tools/equiv.py level 3: 2977 inputs, branch coverage 6/6)
 // FUN_001c2210 @ 0x001c2210
@@ -1842,7 +1842,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_ffffca36 {
 
 // 0x001c23c0 FUN_001c23c0 (114 B): equivalent/0x001c23c0.cpp
-// sym: _FUN_001c23c0@8
+// sym: _FUN_001c23c0@8 @0e563aa58051 @w46a00d2147a6
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
 // FUN_001c23c0 @ 0x001c23c0
 extern "C" void *__stdcall FUN_001c23c0(void *canvas, bool create)
@@ -1866,7 +1866,7 @@ extern "C" void *__stdcall FUN_001c23c0(void *canvas, bool create)
 
 
 // 0x001c2440 FUN_001c2440 (139 B): equivalent/0x001c2440.cpp
-// sym: ?FUN_001c2440@fn_ffffca36@@YG_NPAVOwner_1c2440@1@M@Z
+// sym: ?FUN_001c2440@fn_ffffca36@@YG_NPAVOwner_1c2440@1@M@Z @5e3e4058db8c @w993a92cc6fd6
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 12/12)
 // FUN_001c2440 @ 0x001c2440
 // Update an entry's value; refresh the owner through its virtual slot unless the entry is still active.
@@ -1961,7 +1961,7 @@ X_1c2760::X_1c2760() {
 
 
 // 0x001c2770 FUN_001c2770 (76 B): equivalent/0x001c2770.cpp
-// sym: ?FUN_001c2770@Target@fn_ffffca36@@QAEXIPBUEntry@2@@Z
+// sym: ?FUN_001c2770@Target@fn_ffffca36@@QAEXIPBUEntry@2@@Z @39833de6bc6c @wfe1396dc41a4
 // STATUS: equivalent (tools/equiv.py level 3: 144 inputs, branch coverage 6/6)
 // FUN_001c2770 @ 0x001c2770
 void Target::FUN_001c2770(uint n, const Entry *source)
@@ -2032,7 +2032,7 @@ bool Container_1c2870::Find(hulk_intptr x) {
 
 
 // 0x001c2940 FUN_001c2940 (553 B): equivalent/0x001c2940.cpp
-// sym: _FUN_001c2940
+// sym: _FUN_001c2940 @d449a1494c18 @w69a32d519ffd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 19/20, incomplete)
 // FUN_001c2940 @ 0x001c2940
 // Intersection line of two planes: dir = a.n x b.n, point = a point on both planes with
@@ -2127,7 +2127,7 @@ void Obj_1c2c20::Add(const Entry_1c2c20* p) {
 
 
 // 0x001c2c90 FUN_001c2c90 (322 B): equivalent/0x001c2c90.cpp
-// sym: ?FUN_001c2c90@PointSet_1c2c90@fn_ffffca36@@QAEPAUVec3_1c2c90@2@PAU32@@Z
+// sym: ?FUN_001c2c90@PointSet_1c2c90@fn_ffffca36@@QAEPAUVec3_1c2c90@2@PAU32@@Z @a3c9d3a60772 @w0bae8e25d08e
 // STATUS: equivalent (tools/equiv.py level 3: 982 inputs, branch coverage 11/12; --wine 623 inputs)
 // FUN_001c2c90 @ 0x001c2c90
 Vec3_1c2c90 *PointSet_1c2c90::FUN_001c2c90(Vec3_1c2c90 *out)
@@ -2178,7 +2178,7 @@ Vec3_1c2c90 *PointSet_1c2c90::FUN_001c2c90(Vec3_1c2c90 *out)
 } // namespace fn_ffffca36
 
 // 0x001c2e10 FUN_001c2e10 (27 B): equivalent/0x001c2e10.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001c2e10@Object@fn_001c2e10@@QAEPAU12@PAUInput@2@@Z
+// sym: ?FUN_001c2e10@Object@fn_001c2e10@@QAEPAU12@PAUInput@2@@Z @e7a2f1495de2 @we3f6ce800688
 namespace fn_001c2e10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001c2e10 @ 0x001c2e10
@@ -2198,7 +2198,7 @@ Object* Object::FUN_001c2e10(Input* input) {
 namespace fn_ffffca36 {
 
 // 0x001c2e70 FUN_001c2e70 (446 B): equivalent/0x001c2e70.cpp
-// sym: ?FUN_001c2e70@Hull_1c2e70@fn_ffffca36@@QAE_NPBUPointList@2@@Z
+// sym: ?FUN_001c2e70@Hull_1c2e70@fn_ffffca36@@QAE_NPBUPointList@2@@Z @2299f5c9422a @w9fc36f3a57d5
 // STATUS: equivalent (tools/equiv.py level 3: 44 inputs, branch coverage 26/34, incomplete)
 // FUN_001c2e70 @ 0x001c2e70
 bool Hull_1c2e70::FUN_001c2e70(const PointList *pts)
@@ -2229,7 +2229,7 @@ bool Hull_1c2e70::FUN_001c2e70(const PointList *pts)
 
 
 // 0x001c3030 FUN_001c3030 (1064 B): equivalent/0x001c3030.cpp
-// sym: ?FUN_001c3030@Hull_1c3030@fn_ffffca36@@QAEPAUVec3_1c3030@2@PAU32@@Z
+// sym: ?FUN_001c3030@Hull_1c3030@fn_ffffca36@@QAEPAUVec3_1c3030@2@PAU32@@Z @8d920eac29bd @wb3e4f1f68cb4
 // STATUS: equivalent (tools/equiv.py level 3: 2726 inputs, branch coverage 47/50, incomplete)
 // FUN_001c3030 @ 0x001c3030
 // Clips every pairwise plane-intersection line against all planes, then returns the centroid of the surviving
@@ -2356,7 +2356,7 @@ Obj::Obj() {
 
 
 // 0x001c3520 FUN_001c3520 (172 B): equivalent/0x001c3520.cpp
-// sym: ?Run@Target_1c3520@fn_ffffca36@@QAEXXZ
+// sym: ?Run@Target_1c3520@fn_ffffca36@@QAEXXZ @203d769584a1 @w90aa87cb6c4b
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 6/6)
 // FUN_001c3520 @ 0x001c3520
 void Target_1c3520::Run() {
@@ -2471,7 +2471,7 @@ void owners::Thing_1c3770::FUN_001c3770(hulk_intptr x) {
 
 
 // 0x001c37a0 FUN_001c37a0 (68 B): equivalent/0x001c37a0.cpp [wrapped: conflict: Obj]
-// sym: ?FUN_001c37a0@Obj@fn_001c37a0@@QAEXIIIIID@Z
+// sym: ?FUN_001c37a0@Obj@fn_001c37a0@@QAEXIIIIID@Z @d201b3b04639 @wd7bf1fa102be
 namespace fn_001c37a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 2/2)
 // FUN_001c37a0 @ 0x001c37a0
@@ -2796,7 +2796,7 @@ void Target_1c3dc0::F() {
 } // namespace fn_ffffca36
 
 // 0x001c3e10 FUN_001c3e10 (439 B): equivalent/0x001c3e10.cpp [wrapped: conflict: DAT_004dd6ec; DAT_004dd700; World]
-// sym: ?FUN_001c3e10@DebugRender@fn_001c3e10@@QAEXXZ
+// sym: ?FUN_001c3e10@DebugRender@fn_001c3e10@@QAEXXZ @c2f3b5ce30e3 @w94fbefd405b2
 namespace fn_001c3e10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 28/28)
 // FUN_001c3e10 @ 0x001c3e10
@@ -3062,7 +3062,7 @@ hulk_intptr Obj_1c4160::target(unsigned char flag) {
 } // namespace fn_ffffca36
 
 // 0x001c4190 FUN_001c4190 (148 B): equivalent/0x001c4190.cpp [wrapped: conflict: World; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_001c4190@Loader_1c4190@fn_001c4190@@QAEXPAUKey_1c4190@2@@Z
+// sym: ?FUN_001c4190@Loader_1c4190@fn_001c4190@@QAEXPAUKey_1c4190@2@@Z @6b7ef8b416f3 @w6a207342e476
 namespace fn_001c4190 {
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_001c4190 @ 0x001c4190
@@ -3232,7 +3232,7 @@ void Engine_1c4230::cleanup() {
 } // namespace fn_ffffca36
 
 // 0x001c4390 FUN_001c4390 (180 B): equivalent/0x001c4390.cpp
-// sym: ?FUN_001c4390@State_1c4390@owners@@QAEXMEMEM@Z
+// sym: ?FUN_001c4390@State_1c4390@owners@@QAEXMEMEM@Z @92613c07395f @wc52c34970355
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001c4390 @ 0x001c4390
 void owners::State_1c4390::FUN_001c4390(float target, unsigned char secondEnabled, float secondDuration, unsigned char firstEnabled, float firstDuration) {
@@ -3263,7 +3263,7 @@ void owners::State_1c4390::FUN_001c4390(float target, unsigned char secondEnable
 
 
 // 0x001c4450 FUN_001c4450 (171 B): equivalent/0x001c4450.cpp
-// sym: ?FUN_001c4450@Transition_1c4450@owners@@QAEXEMEM@Z
+// sym: ?FUN_001c4450@Transition_1c4450@owners@@QAEXEMEM@Z @b33c4fe7382c @wf6bf9cadf490
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001c4450 @ 0x001c4450
 void owners::Transition_1c4450::FUN_001c4450(unsigned char first, float firstTime, unsigned char second, float secondTime) {
@@ -3321,7 +3321,7 @@ void owners::Slider_1c4580::FUN_001c4580(float dt)
 namespace fn_ffffca36 {
 
 // 0x001c4620 FUN_001c4620 (115 B): equivalent/0x001c4620.cpp
-// sym: ?FUN_001c4620@Pair_1c4620@fn_ffffca36@@QAEXH@Z
+// sym: ?FUN_001c4620@Pair_1c4620@fn_ffffca36@@QAEXH@Z @5c0471a234b1 @wb3b19f93abb7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001c4620 @ 0x001c4620
 void Pair_1c4620::FUN_001c4620(int arg)
@@ -3339,7 +3339,7 @@ void Pair_1c4620::FUN_001c4620(int arg)
 } // namespace fn_ffffca36
 
 // 0x001c46a0 FUN_001c46a0 (747 B): equivalent/0x001c46a0.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_001c46a0@Bar@fn_001c46a0@@QAEXXZ
+// sym: ?FUN_001c46a0@Bar@fn_001c46a0@@QAEXXZ @a53f15d510d2 @wc26f55ded0ce
 namespace fn_001c46a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19783 inputs, branch coverage 12/12)
 // FUN_001c46a0 @ 0x001c46a0

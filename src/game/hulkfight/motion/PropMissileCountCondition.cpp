@@ -71,7 +71,7 @@ Fighter_181ae0 *__fastcall FUN_00059a30(Owner_181ae0 *o);
 } // namespace fn_fc979cf7
 
 // 0x001819f0 hulkfight::motion::PropIsAttachedCondition::vfunc_6 (117 B): equivalent/0x001819f0.cpp
-// sym: ?vfunc_6@PropIsAttachedCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@PropIsAttachedCondition@motion@hulkfight@@UAE_NPAX00@Z @3ce56562e49d @w70a594a5fc82
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // hulkfight::motion::PropIsAttachedCondition::vfunc_6 @ 0x001819f0
 bool hulkfight::motion::PropIsAttachedCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_1819f0 * params = (fight::Params_1819f0 *)__p1; int c = (int)__p2;
@@ -92,7 +92,7 @@ bool hulkfight::motion::PropIsAttachedCondition::vfunc_6(void* __p0, void* __p1,
 
 
 // 0x00181a70 hulkfight::motion::CSMPropIsCharacterCondition::vfunc_6 (101 B): equivalent/0x00181a70.cpp
-// sym: ?vfunc_6@CSMPropIsCharacterCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@CSMPropIsCharacterCondition@motion@hulkfight@@UAE_NPAX00@Z @2ab66077f4bf @w3e4fce3bc8e0
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 8/8)
 // hulkfight::motion::CSMPropIsCharacterCondition::vfunc_6 @ 0x00181a70
 bool hulkfight::motion::CSMPropIsCharacterCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a1 = (int)__p0; Owner_181a70 * owner = (Owner_181a70 *)__p1; int a3 = (int)__p2;
@@ -107,7 +107,7 @@ bool hulkfight::motion::CSMPropIsCharacterCondition::vfunc_6(void* __p0, void* _
 
 
 // 0x00181ae0 hulkfight::motion::SmartPropIsCargoCondition::vfunc_6 (116 B): equivalent/0x00181ae0.cpp
-// sym: ?vfunc_6@SmartPropIsCargoCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@SmartPropIsCargoCondition@motion@hulkfight@@UAE_NPAX00@Z @972f1dca4704 @w8c9588dfccc4
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // hulkfight::motion::SmartPropIsCargoCondition::vfunc_6 @ 0x00181ae0
 bool hulkfight::motion::SmartPropIsCargoCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a1 = (int)__p0; void * subject = (void *)__p1; int a3 = (int)__p2;
@@ -133,7 +133,7 @@ bool hulkfight::motion::SmartPropIsCargoCondition::vfunc_6(void* __p0, void* __p
 
 
 // 0x00181b60 hulkfight::motion::PropCollidedWithWorldCondition::vfunc_6 (112 B): equivalent/0x00181b60.cpp [wrapped: conflict: FUN_000592a0; hulkfight::motion::PropCollidedWithWorldCondition]
-// sym: ?vfunc_6@PropCollidedWithWorldCondition@motion@hulkfight@fn_00181b60@@UAE_NHPAXH@Z
+// sym: ?vfunc_6@PropCollidedWithWorldCondition@motion@hulkfight@fn_00181b60@@UAE_NHPAXH@Z @1943b4d6d597 @wb69aa0146438
 namespace fn_00181b60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // hulkfight::motion::PropCollidedWithWorldCondition::vfunc_6 @ 0x00181b60
@@ -190,7 +190,7 @@ bool hulkfight::motion::PropCollidedWithWorldCondition::vfunc_6(int a1, void* su
 
 
 // 0x00181bd0 hulkfight::motion::PropMissileCountCondition::vfunc_6 (209 B): equivalent/0x00181bd0.cpp [wrapped: conflict: DAT_00494b44; hulkfight::motion::PropMissileCountCondition]
-// sym: ?vfunc_6@PropMissileCountCondition@motion@hulkfight@fn_00181bd0@@UAE_NPAXPAUContext@4@0@Z
+// sym: ?vfunc_6@PropMissileCountCondition@motion@hulkfight@fn_00181bd0@@UAE_NPAXPAUContext@4@0@Z @a2b1dc74eb65 @w0b49bc751ec9
 namespace fn_00181bd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 30/30)
 // hulkfight::motion::PropMissileCountCondition::vfunc_6 @ 0x00181bd0

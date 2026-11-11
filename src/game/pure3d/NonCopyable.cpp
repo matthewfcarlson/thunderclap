@@ -92,7 +92,7 @@ extern "C" void FUN_00044c60(int index, int a, int b, int c, int d, int e, int f
 } // namespace fn_fd48bef5
 
 // 0x00044cb0 FUN_00044cb0 (1581 B): equivalent/0x00044cb0.cpp [wrapped: conflict: DAT_004dd700]
-// sym: ?FUN_00044cb0@fn_00044cb0@@YAXPBD0M@Z
+// sym: ?FUN_00044cb0@fn_00044cb0@@YAXPBD0M@Z @784e101a4592 @wa79313162ef8
 namespace fn_00044cb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 12141 inputs, branch coverage 120/120)
 // FUN_00044cb0 @ 0x00044cb0
@@ -255,7 +255,7 @@ void FUN_00044cb0(const char *category, const char *key, float value)
 namespace fn_fd48bef5 {
 
 // 0x000452e0 FUN_000452e0 (912 B): equivalent/0x000452e0.cpp
-// sym: _FUN_000452e0
+// sym: _FUN_000452e0 @9d5eefae4e7f @w978c8a1367e2
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 66/66)
 // FUN_000452e0 @ 0x000452e0
 extern "C" hulk_intptr FUN_000452e0(const char *id, const char *name, int value)

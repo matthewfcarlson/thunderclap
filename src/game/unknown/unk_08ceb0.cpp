@@ -168,7 +168,7 @@ extern "C" HeapSet* FUN_0008ceb0() {
 
 
 // 0x0008ced0 FUN_0008ced0 (142 B): equivalent/0x0008ced0.cpp
-// sym: ?FUN_0008ced0@SlotTable_8ced0@fn_fe5d7f9e@@QAEXHPAH000PAPBD@Z
+// sym: ?FUN_0008ced0@SlotTable_8ced0@fn_fe5d7f9e@@QAEXHPAH000PAPBD@Z @d13a2eb5ff7c @we066369dba3a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_0008ced0 @ 0x0008ced0
 void SlotTable_8ced0::FUN_0008ced0(int index, int *outCount, int *outX, int *outA, int *outB, const char **outName) {
@@ -246,7 +246,7 @@ void __cdecl Set(Obj** slot, Obj* obj) {
 
 
 // 0x0008d3a0 FUN_0008d3a0 (100 B): equivalent/0x0008d3a0.cpp
-// sym: ?FUN_0008d3a0@Holder_8d3a0@fn_fe5d7f9e@@QAEXHH@Z
+// sym: ?FUN_0008d3a0@Holder_8d3a0@fn_fe5d7f9e@@QAEXHH@Z @5db0f541928e @wb1695ce7944a
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 4/4)
 // FUN_0008d3a0 @ 0x0008d3a0
 void Holder_8d3a0::FUN_0008d3a0(int idx, int arg)
@@ -262,7 +262,7 @@ void Holder_8d3a0::FUN_0008d3a0(int idx, int arg)
 
 
 // 0x0008d480 FUN_0008d480 (367 B): equivalent/0x0008d480.cpp
-// sym: ?FUN_0008d480@Obj_8d480@fn_fe5d7f9e@@QAEXXZ
+// sym: ?FUN_0008d480@Obj_8d480@fn_fe5d7f9e@@QAEXXZ @f9b44beac221 @w5f65a616dba4
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 8/8)
 // FUN_0008d480 @ 0x0008d480
 // FUN_0008d480 @ 0x0008d480

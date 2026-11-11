@@ -82,7 +82,7 @@ CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNa
 
 
 // 0x0004c980 CSmartPropDistanceCondition::vfunc_7 (471 B): equivalent/0x0004c980.cpp
-// sym: ?vfunc_7@CSmartPropDistanceCondition@fn_f082f618@@UAEDPAX@Z
+// sym: ?vfunc_7@CSmartPropDistanceCondition@fn_f082f618@@UAEDPAX@Z @298107a4ecf5 @w9182bf5fd867
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 24/24)
 // CSmartPropDistanceCondition::vfunc_7 @ 0x0004c980
 char CSmartPropDistanceCondition::vfunc_7(void* params)

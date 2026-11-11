@@ -4,7 +4,7 @@
 
 
 // 0x00053080 FUN_00053080 (227 B): equivalent/0x00053080.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00053080
+// sym: _FUN_00053080 @7a7adbaba6f1 @wa964b475b3a9
 #include "gen/owners.h"
 #include "decls/data/game/unknown.h"
 namespace fn_f156495c {} using namespace fn_f156495c;

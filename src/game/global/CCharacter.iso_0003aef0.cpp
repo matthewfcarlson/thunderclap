@@ -5,7 +5,7 @@
 
 
 // 0x0003aef0 FUN_0003aef0 (614 B): equivalent/0x0003aef0.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_0003aef0@CCharacter_3aef0@fn_ff4cc5c1@@QAEDH@Z
+// sym: ?FUN_0003aef0@CCharacter_3aef0@fn_ff4cc5c1@@QAEDH@Z @05613fc1cd9c @we6206d52f8b1
 #include "gen/owners.h"
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

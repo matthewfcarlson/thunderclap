@@ -5,7 +5,7 @@
 
 
 // 0x0010c9b0 FUN_0010c9b0 (82 B): equivalent/0x0010c9b0.cpp [isolated: conflict: FUN_0008d340; on include/gen/ and not mergeable]
-// sym: ?FUN_0010c9b0@Obj_10c9b0@owners@@QAEIPBD@Z
+// sym: ?FUN_0010c9b0@Obj_10c9b0@owners@@QAEIPBD@Z @6421589101a5 @w37557a8603b9
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0010c9b0 @ 0x0010c9b0
 #include "gen/owners.h"

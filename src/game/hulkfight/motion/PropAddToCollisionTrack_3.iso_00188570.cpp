@@ -4,7 +4,7 @@
 
 
 // 0x00188570 FUN_00188570 (213 B): equivalent/0x00188570.cpp [isolated: helper definitions (2 out-of-line function bodies); compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00188570
+// sym: _FUN_00188570 @1314f3bc6fb6 @w9ce241f8f0e7
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight/motion.h"
 namespace fn_f99e8f02 {} using namespace fn_f99e8f02;

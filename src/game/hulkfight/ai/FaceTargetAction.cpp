@@ -589,7 +589,7 @@ void owners::C_10b580::FUN_0010b580(const unsigned int* p) {
 namespace fn_f8ed28bc {
 
 // 0x0010b5b0 hulkfight::ai::FaceTargetAction::vfunc_5 (730 B): equivalent/0x0010b5b0.cpp
-// sym: ?vfunc_5@FaceTargetAction@fn_f8ed28bc@@UAE_NHH@Z
+// sym: ?vfunc_5@FaceTargetAction@fn_f8ed28bc@@UAE_NHH@Z @569bc49978a2 @waff01695bf42
 // STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 39/43, incomplete)
 // hulkfight::ai::FaceTargetAction::vfunc_5 @ 0x0010b5b0
 bool FaceTargetAction::vfunc_5(int a, int b)
@@ -676,7 +676,7 @@ bool FaceTargetAction::vfunc_5(int a, int b)
 } // namespace fn_f8ed28bc
 
 // 0x0010b890 hulkfight::ai::FaceMotionAction::vfunc_5 (78 B): equivalent/0x0010b890.cpp
-// sym: ?vfunc_5@FaceMotionAction@ai@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@FaceMotionAction@ai@hulkfight@@UAE_NHH@Z @47a7b1f1933a @wdc1faf6b1fcf
 // STATUS: equivalent (tools/equiv.py level 3: 19972 inputs, branch coverage 4/4)
 // hulkfight::ai::FaceMotionAction::vfunc_5 @ 0x0010b890
 bool hulkfight::ai::FaceMotionAction::vfunc_5(hulk_intptr mode, int unused) {

@@ -145,7 +145,7 @@ public:
 
 
 // 0x0001b080 FUN_0001b080 (156 B): equivalent/0x0001b080.cpp
-// sym: ?FUN_0001b080@CWeaponCollisionAction@fn_f260fe7b@@QAEPAU12@PAURefObj_1b080@2@PAUOwner_1b080@2@0@Z
+// sym: ?FUN_0001b080@CWeaponCollisionAction@fn_f260fe7b@@QAEPAU12@PAURefObj_1b080@2@PAUOwner_1b080@2@0@Z @0bff6ddb7485 @wd345f460fe0d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0001b080 @ 0x0001b080
 // FUN_0001b080: CWeaponCollisionAction constructor
@@ -202,7 +202,7 @@ CWeaponCollisionAction_1b120::~CWeaponCollisionAction_1b120() {
 
 
 // 0x0001b170 FUN_0001b170 (266 B): equivalent/0x0001b170.cpp
-// sym: ?FUN_0001b170@fn_f260fe7b@@YAXPAUNode@1@PAPAU21@PAMPAH@Z
+// sym: ?FUN_0001b170@fn_f260fe7b@@YAXPAUNode@1@PAPAU21@PAMPAH@Z @ded572b5e0dd @wa302aca4cadb
 // STATUS: equivalent (tools/equiv.py level 3: 242 inputs, branch coverage 20/20)
 // FUN_0001b170 @ 0x0001b170
 void __cdecl FUN_0001b170(Node *node, Node **best, float *maximum, int *index) {
@@ -220,7 +220,7 @@ void __cdecl FUN_0001b170(Node *node, Node **best, float *maximum, int *index) {
 
 
 // 0x0001b280 FUN_0001b280 (277 B): equivalent/0x0001b280.cpp
-// sym: ?FUN_0001b280@fn_f260fe7b@@YGXPAUObject@1@M@Z
+// sym: ?FUN_0001b280@fn_f260fe7b@@YGXPAUObject@1@M@Z @71c65d05bd5e @w4375e69159ed
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 22/22)
 // FUN_0001b280 @ 0x0001b280
 void __stdcall FUN_0001b280(Object* source, float factor) {
@@ -257,7 +257,7 @@ void Obj_1b4f0::F() {
 } // namespace fn_f260fe7b
 
 // 0x0001b510 FUN_0001b510 (3860 B): equivalent/0x0001b510.cpp [wrapped: macros]
-// sym: ?FUN_0001b510@SpawnAction@fn_0001b510@@QAEXPAUItem@2@PAUV3@2@1PAX@Z
+// sym: ?FUN_0001b510@SpawnAction@fn_0001b510@@QAEXPAUItem@2@PAUV3@2@1PAX@Z @f68404762151 @wbb109b82445a
 namespace fn_0001b510 {
 // STATUS: equivalent (tools/equiv.py level 3: 3297 inputs, branch coverage 180/187, incomplete)
 // FUN_0001b510 @ 0x0001b510
@@ -1020,7 +1020,7 @@ void SpawnAction::FUN_0001b510(Item *e, V3 *a8, V3 *a12, void *a16)
 namespace fn_f260fe7b {
 
 // 0x0001c430 FUN_0001c430 (819 B): equivalent/0x0001c430.cpp
-// sym: ?FUN_0001c430@CWeaponCollisionAction_1c430@fn_f260fe7b@@QAEXPAUSource_1c430@2@@Z
+// sym: ?FUN_0001c430@CWeaponCollisionAction_1c430@fn_f260fe7b@@QAEXPAUSource_1c430@2@@Z @fb416638c9ee @wa551e22cde80
 // STATUS: equivalent (tools/equiv.py level 3: 18597 inputs, branch coverage 32/32)
 // FUN_0001c430 @ 0x0001c430
 void CWeaponCollisionAction_1c430::FUN_0001c430(Source_1c430* src)
@@ -1091,7 +1091,7 @@ void CWeaponCollisionAction_1c430::FUN_0001c430(Source_1c430* src)
 } // namespace fn_f260fe7b
 
 // 0x0001c770 FUN_0001c770 (574 B): equivalent/0x0001c770.cpp [wrapped: conflict: Entity; FUN_000592a0; World]
-// sym: ?FUN_0001c770@CWeaponCollisionAction_1c770@fn_0001c770@@QAEXPAUSource_1c770@2@M@Z
+// sym: ?FUN_0001c770@CWeaponCollisionAction_1c770@fn_0001c770@@QAEXPAUSource_1c770@2@M@Z @38f73255a2cb @w126352cb6756
 namespace fn_0001c770 {
 // STATUS: equivalent (tools/equiv.py level 3: 18589 inputs, branch coverage 24/24)
 // FUN_0001c770 @ 0x0001c770
@@ -1242,7 +1242,7 @@ void CWeaponCollisionAction_1c770::FUN_0001c770(Source_1c770* src, float radius)
 
 
 // 0x0001c9b0 CWeaponCollisionAction::vfunc_8 (1263 B): equivalent/0x0001c9b0.cpp [wrapped: conflict: CWeaponCollisionAction]
-// sym: ?vfunc_8@CWeaponCollisionAction@fn_0001c9b0@@UAE_NH@Z
+// sym: ?vfunc_8@CWeaponCollisionAction@fn_0001c9b0@@UAE_NH@Z @617e77f8a73a @w7436412580c3
 namespace fn_0001c9b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20138 inputs, branch coverage 81/84, incomplete)
 // CWeaponCollisionAction::vfunc_8 @ 0x0001c9b0

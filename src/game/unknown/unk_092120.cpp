@@ -323,7 +323,7 @@ extern void* FindType(void*, int, void*, void*, int);
 } // namespace fn_f9a5903c
 
 // 0x00092120 FUN_00092120 (81 B): equivalent/0x00092120.cpp
-// sym: ?FUN_00092120@TextOwner_92120@owners@@QAEXPBD@Z
+// sym: ?FUN_00092120@TextOwner_92120@owners@@QAEXPBD@Z @68eac8d24764 @w9f10afd4d457
 // STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 8/8)
 // FUN_00092120 @ 0x00092120
 void owners::TextOwner_92120::FUN_00092120(const char *source) {
@@ -487,7 +487,7 @@ void Host_92410::Target() {
 
 
 // 0x00092540 FUN_00092540 (788 B): equivalent/0x00092540.cpp
-// sym: ?FUN_00092540@Registry_92540@fn_f9a5903c@@QAEXHUTriple_92540@2@@Z
+// sym: ?FUN_00092540@Registry_92540@fn_f9a5903c@@QAEXHUTriple_92540@2@@Z @1baaf4ee2618 @w7ed79a0dac93
 // STATUS: equivalent (tools/equiv.py level 3: 135 inputs, branch coverage 36/36)
 // FUN_00092540 @ 0x00092540
 void Registry_92540::FUN_00092540(int kind, Triple_92540 t)
@@ -645,7 +645,7 @@ void owners::C_92be0::FUN_00092be0() {
 namespace fn_f9a5903c {
 
 // 0x00092c40 FUN_00092c40 (52 B): equivalent/0x00092c40.cpp
-// sym: ?FUN_00092c40@Object@fn_f9a5903c@@QAEHHH@Z
+// sym: ?FUN_00092c40@Object@fn_f9a5903c@@QAEHHH@Z @e3ac89135454 @w600ce6133bfa
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00092c40 @ 0x00092c40
 int Object::FUN_00092c40(int first, int second) {
@@ -658,7 +658,7 @@ int Object::FUN_00092c40(int first, int second) {
 
 
 // 0x00092c80 FUN_00092c80 (311 B): equivalent/0x00092c80.cpp
-// sym: ?FUN_00092c80@SlotTable_92c80@fn_f9a5903c@@QAEXPBDH@Z
+// sym: ?FUN_00092c80@SlotTable_92c80@fn_f9a5903c@@QAEXPBDH@Z @0e5e9340c29a @w612c1f038c97
 // STATUS: equivalent (tools/equiv.py level 3: 114 inputs, branch coverage 40/42, incomplete)
 // FUN_00092c80 @ 0x00092c80
 void SlotTable_92c80::FUN_00092c80(const char *name, int value)
@@ -730,7 +730,7 @@ void Game::FUN_00092e20(int x, int y) {
 
 
 // 0x00092e50 FUN_00092e50 (153 B): equivalent/0x00092e50.cpp
-// sym: ?FUN_00092e50@UnlockableList_92e50@fn_f9a5903c@@QAEXPBDH0000@Z
+// sym: ?FUN_00092e50@UnlockableList_92e50@fn_f9a5903c@@QAEXPBDH0000@Z @bf0fc489fa5c @wcb3dd39b08e5
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_00092e50 @ 0x00092e50
 void UnlockableList_92e50::FUN_00092e50(const char *id, int idx, const char *title, const char *subtitle,
@@ -815,7 +815,7 @@ void Owner::Run(int index, void* x, void* y) {
 } // namespace fn_f9a5903c
 
 // 0x00093020 FUN_00093020 (227 B): equivalent/0x00093020.cpp [wrapped: conflict: DAT_0049dab8; DAT_0049dafc]
-// sym: ?FUN_00093020@Container_93020@fn_00093020@@QAEXHPAX0@Z
+// sym: ?FUN_00093020@Container_93020@fn_00093020@@QAEXHPAX0@Z @751ea7601ef5 @w8ed7fc6d84f4
 namespace fn_00093020 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // FUN_00093020 @ 0x00093020
@@ -861,7 +861,7 @@ extern "C" float* __fastcall FUN_00093110(Obj_93110* self, void*, int index) {
 
 
 // 0x00093150 FUN_00093150 (153 B): equivalent/0x00093150.cpp
-// sym: ?FUN_00093150@UnlockableList_93150@fn_f9a5903c@@QAEXPBDH0000H@Z
+// sym: ?FUN_00093150@UnlockableList_93150@fn_f9a5903c@@QAEXPBDH0000H@Z @1a3d56648b6d @w9dbfa6938a6f
 // STATUS: equivalent (tools/equiv.py level 3: 1169 inputs, branch coverage 12/12)
 // FUN_00093150 @ 0x00093150
 void UnlockableList_93150::FUN_00093150(const char *id, int idx, const char *title, const char *subtitle,

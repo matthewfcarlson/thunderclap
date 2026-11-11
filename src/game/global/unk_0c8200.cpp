@@ -133,7 +133,7 @@ struct Mapper_c9460 {
 } // namespace fn_ff187fa7
 
 // 0x000c8410 FUN_000c8410 (56 B): equivalent/0x000c8410.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_000c8410@Object@fn_000c8410@@QAEXHHHH@Z
+// sym: ?FUN_000c8410@Object@fn_000c8410@@QAEXHHHH@Z @ba2477ca5dab @w99e5a64f61ce
 namespace fn_000c8410 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
 // FUN_000c8410 @ 0x000c8410
@@ -142,7 +142,7 @@ struct Entry { int active; char pad[20]; int x; int y; int z; char tail[20]; }; 
 
 
 // 0x000c8450 FUN_000c8450 (56 B): equivalent/0x000c8450.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_000c8450@Manager@fn_000c8450@@QAEXHHHH@Z
+// sym: ?FUN_000c8450@Manager@fn_000c8450@@QAEXHHHH@Z @f52039f29bdc @w364a5a549eae
 namespace fn_000c8450 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
 // FUN_000c8450 @ 0x000c8450
@@ -151,7 +151,7 @@ struct Entry { int active; char pad[0x20]; int x; int y; int z; char tail[8]; };
 
 
 // 0x000c8490 FUN_000c8490 (69 B): equivalent/0x000c8490.cpp [wrapped: conflict: DAT_004dd700]
-// sym: ?FUN_000c8490@Owner@fn_000c8490@@QAEXH@Z
+// sym: ?FUN_000c8490@Owner@fn_000c8490@@QAEXH@Z @e31bad33eab9 @wb3c4b8c38fcd
 namespace fn_000c8490 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
 // FUN_000c8490 @ 0x000c8490
@@ -163,7 +163,7 @@ struct Entry { int active; char pad[0x2c]; int handle; char rest[4]; }; struct O
 
 
 // 0x000c84e0 FUN_000c84e0 (85 B): equivalent/0x000c84e0.cpp [wrapped: conflict: DAT_004dd700]
-// sym: ?FUN_000c84e0@Owner@fn_000c84e0@@QAEXH@Z
+// sym: ?FUN_000c84e0@Owner@fn_000c84e0@@QAEXH@Z @ab7e08ca77e4 @w473abc19b983
 namespace fn_000c84e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 9/12, incomplete)
 // FUN_000c84e0 @ 0x000c84e0
@@ -184,7 +184,7 @@ extern "C" int* FUN_000c8540() {
 
 
 // 0x000c8550 FUN_000c8550 (211 B): equivalent/0x000c8550.cpp
-// sym: ?FUN_000c8550@Object@fn_ff187fa7@@QAE_NIPAUVector@2@@Z
+// sym: ?FUN_000c8550@Object@fn_ff187fa7@@QAE_NIPAUVector@2@@Z @f60ace864c81 @w1908937b8d31
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000c8550 @ 0x000c8550
 bool Object::FUN_000c8550(unsigned index,Vector* out) {
@@ -198,7 +198,7 @@ bool Object::FUN_000c8550(unsigned index,Vector* out) {
 } // namespace fn_ff187fa7
 
 // 0x000c8630 FUN_000c8630 (207 B): equivalent/0x000c8630.cpp [wrapped: conflict: Object; World]
-// sym: ?FUN_000c8630@Object@fn_000c8630@@QAE_NHPAUVec_c8630@2@@Z
+// sym: ?FUN_000c8630@Object@fn_000c8630@@QAE_NHPAUVec_c8630@2@@Z @281b69771e68 @wa70b9352ef26
 namespace fn_000c8630 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_000c8630 @ 0x000c8630
@@ -317,7 +317,7 @@ CHudMap_c87a0::~CHudMap_c87a0() throw() {
 } // namespace fn_ff187fa7
 
 // 0x000c8850 FUN_000c8850 (1693 B): equivalent/0x000c8850.cpp [wrapped: macros]
-// sym: ?FUN_000c8850@Marker@fn_000c8850@@QAEXXZ
+// sym: ?FUN_000c8850@Marker@fn_000c8850@@QAEXXZ @9a7808a48a7e @w3ce4cf4d4e38
 namespace fn_000c8850 {
 // STATUS: equivalent (tools/equiv.py level 3: 2139 inputs, branch coverage 28/28)
 // FUN_000c8850 @ 0x000c8850
@@ -651,7 +651,7 @@ void Marker::FUN_000c8850()
 namespace fn_ff187fa7 {
 
 // 0x000c8ef0 FUN_000c8ef0 (91 B): equivalent/0x000c8ef0.cpp
-// sym: ?FUN_000c8ef0@Manager@fn_ff187fa7@@QAEXH@Z
+// sym: ?FUN_000c8ef0@Manager@fn_ff187fa7@@QAEXH@Z @1005a2c75661 @w6343b333c65b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 11/12, incomplete)
 // FUN_000c8ef0 @ 0x000c8ef0
 void Manager::FUN_000c8ef0(int index) { if (index < 0 || index >= 128) return; Slot *slot = &slots[index]; if (slot->id == -1 || !slot) return; for (int i = 0; i < 128; ++i) { if (slots[i].active == 1) { slots[i].active = 0; slot->active = 1; return; } } slot->active = 1; }
@@ -659,7 +659,7 @@ void Manager::FUN_000c8ef0(int index) { if (index < 0 || index >= 128) return; S
 } // namespace fn_ff187fa7
 
 // 0x000c8f50 FUN_000c8f50 (313 B): equivalent/0x000c8f50.cpp
-// sym: ?FUN_000c8f50@Obj_c8f50@owners@@QAEXM@Z
+// sym: ?FUN_000c8f50@Obj_c8f50@owners@@QAEXM@Z @e433242efd89 @w8403ffaa62df
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 17/18, incomplete)
 // FUN_000c8f50 @ 0x000c8f50
 void owners::Obj_c8f50::FUN_000c8f50(float target)
@@ -703,7 +703,7 @@ void owners::Obj_c8f50::FUN_000c8f50(float target)
 namespace fn_ff187fa7 {
 
 // 0x000c9090 FUN_000c9090 (58 B): equivalent/0x000c9090.cpp
-// sym: ?FUN_000c9090@Holder@fn_ff187fa7@@QAEXHHHH@Z
+// sym: ?FUN_000c9090@Holder@fn_ff187fa7@@QAEXHHHH@Z @a87e8f4e2dbc @wd85fe0ba6160
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
 // FUN_000c9090 @ 0x000c9090
 void Holder::FUN_000c9090(int index, int a, int b, int c) { if (index >= 0 && index < 128 && entries[index].id != -1) { entries[index].a = a; entries[index].b = b; entries[index].c = c; } }
@@ -719,7 +719,7 @@ void Thing_c90d0::Set(int index, unsigned char value) {
 
 
 // 0x000c9100 FUN_000c9100 (177 B): equivalent/0x000c9100.cpp
-// sym: ?FUN_000c9100@Manager_c9100@fn_ff187fa7@@QAEXH@Z
+// sym: ?FUN_000c9100@Manager_c9100@fn_ff187fa7@@QAEXH@Z @4bc708402675 @w789c4007eb14
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/10, incomplete)
 // FUN_000c9100 @ 0x000c9100
 void Manager_c9100::FUN_000c9100(int index) {
@@ -779,7 +779,7 @@ void Obj::Clear() {
 
 
 // 0x000c9210 FUN_000c9210 (210 B): equivalent/0x000c9210.cpp [wrapped: conflict: Object]
-// sym: ?FUN_000c9210@Object@fn_000c9210@@QAEHHHUVec_c9210@2@0@Z
+// sym: ?FUN_000c9210@Object@fn_000c9210@@QAEHHHUVec_c9210@2@0@Z @d2e6768eb8ad @wd9abc65ad4a8
 namespace fn_000c9210 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000c9210 @ 0x000c9210
@@ -807,7 +807,7 @@ int Object::FUN_000c9210(int index, int value, Vec_c9210 a, Vec_c9210 b) {
 
 
 // 0x000c92f0 FUN_000c92f0 (80 B): equivalent/0x000c92f0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_000c92f0@Object@fn_000c92f0@@QAEXHHHHH@Z
+// sym: ?FUN_000c92f0@Object@fn_000c92f0@@QAEXHHHHH@Z @092e7527c772 @wa205e95f0f07
 namespace fn_000c92f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
 // FUN_000c92f0 @ 0x000c92f0
@@ -816,7 +816,7 @@ struct Entry { int active; char gap[0x14]; int x, y, z; char rest[0x14]; }; stru
 
 
 // 0x000c9340 FUN_000c9340 (80 B): equivalent/0x000c9340.cpp [wrapped: conflict: Entry; Object]
-// sym: ?FUN_000c9340@Object@fn_000c9340@@QAEXHHHHH@Z
+// sym: ?FUN_000c9340@Object@fn_000c9340@@QAEXHHHHH@Z @f7759cf0b715 @w9393e9ac9835
 namespace fn_000c9340 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
 // FUN_000c9340 @ 0x000c9340
@@ -825,7 +825,7 @@ struct Entry { int active; char padding[0x20]; int x; int y; int z; char rest[0x
 
 
 // 0x000c9390 FUN_000c9390 (69 B): equivalent/0x000c9390.cpp [wrapped: conflict: DAT_004dd700; Manager]
-// sym: ?FUN_000c9390@Manager@fn_000c9390@@QAEXHH@Z
+// sym: ?FUN_000c9390@Manager@fn_000c9390@@QAEXHH@Z @a519597696c4 @wa111a14df2ee
 namespace fn_000c9390 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
 // FUN_000c9390 @ 0x000c9390
@@ -861,7 +861,7 @@ int Host_c93e0::FUN_000c93e0(int a1, int index, Triple_c93e0 t1, Triple_c93e0 t2
 
 
 // 0x000c9460 FUN_000c9460 (235 B): equivalent/0x000c9460.cpp
-// sym: ?FUN_000c9460@Mapper_c9460@fn_ff187fa7@@QAEPAUPoint_c9460@2@PAU32@MMM@Z
+// sym: ?FUN_000c9460@Mapper_c9460@fn_ff187fa7@@QAEPAUPoint_c9460@2@PAU32@MMM@Z @7a2820bc0884 @wc36a58dee279
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_000c9460 @ 0x000c9460
 Point_c9460* Mapper_c9460::FUN_000c9460(Point_c9460* output, float x, float unused, float y) {

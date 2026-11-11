@@ -4,7 +4,7 @@
 
 
 // 0x00168a70 hulkfight::motion::TargetCharacterTemplateCondition::vfunc_6 (192 B): equivalent/0x00168a70.cpp [isolated: conflict: DAT_00494b44; DAT_00494b60; on include/gen/ and not mergeable]
-// sym: ?vfunc_6@TargetCharacterTemplateCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@TargetCharacterTemplateCondition@motion@hulkfight@@UAE_NPAX00@Z @00eec437c5cc @w86cdf0146726
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 18/18)
 // hulkfight::motion::TargetCharacterTemplateCondition::vfunc_6 @ 0x00168a70
 #include "gen/hulkfight.h"

@@ -184,7 +184,7 @@ StrafeCircleAction_11d8b0::~StrafeCircleAction_11d8b0() {
 } // namespace fn_fdd31ee7
 
 // 0x0011d900 hulkfight::ai::StrafeCircleAction::vfunc_5 (1037 B): equivalent/0x0011d900.cpp
-// sym: ?vfunc_5@StrafeCircleAction@ai@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@StrafeCircleAction@ai@hulkfight@@UAE_NHH@Z @e1467571ed33 @w3416ae372b1e
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 51/52, incomplete)
 // hulkfight::ai::StrafeCircleAction::vfunc_5 @ 0x0011d900
 namespace hulkfight { namespace ai {

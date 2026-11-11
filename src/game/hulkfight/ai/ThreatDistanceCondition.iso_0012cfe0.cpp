@@ -4,7 +4,7 @@
 
 
 // 0x0012cfe0 FUN_0012cfe0 (256 B): equivalent/0x0012cfe0.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ?FUN_0012cfe0@fn_fb57e000@@YAXXZ
+// sym: ?FUN_0012cfe0@fn_fb57e000@@YAXXZ @c73fb216ec7e @wd76612775c1c
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight/ai.h"
 namespace fn_fb57e000 {} using namespace fn_fb57e000;

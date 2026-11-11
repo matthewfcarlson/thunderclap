@@ -147,7 +147,7 @@ bool hulkfight::motion::MotionStateAction::vfunc_5(hulk_intptr arg, int unused) 
 namespace fn_fafe1619 {
 
 // 0x001710d0 hulkfight::motion::JointTrackerAction::vfunc_3 (439 B): equivalent/0x001710d0.cpp
-// sym: ?vfunc_3@JointTrackerAction@fn_fafe1619@@UAE_NHH@Z
+// sym: ?vfunc_3@JointTrackerAction@fn_fafe1619@@UAE_NHH@Z @5e4e816dc21a @w24fb03002d72
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 6/6)
 // hulkfight::motion::JointTrackerAction::vfunc_3 @ 0x001710d0
 bool JointTrackerAction::vfunc_3(int a, int b)

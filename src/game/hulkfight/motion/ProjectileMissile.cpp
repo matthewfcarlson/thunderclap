@@ -43,7 +43,7 @@ hulkfight::motion::ProjectileMissile* hulkfight::motion::ProjectileMissile::vfun
 } // namespace fn_ff485bc0
 
 // 0x0019e910 hulkfight::motion::ProjectileMissile::vfunc_4 (9093 B): equivalent/0x0019e910.cpp [wrapped: using-directive]
-// sym: ?vfunc_4@ProjectileMissile@motion@hulkfight@fn_0019e910@@UAEXM@Z
+// sym: ?vfunc_4@ProjectileMissile@motion@hulkfight@fn_0019e910@@UAEXM@Z @e63c33b27ef1 @wbd093512846c
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

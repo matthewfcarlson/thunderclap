@@ -141,7 +141,7 @@ bool TextTable::vfunc_11(int , int ) {
 
 
 // 0x000e3e50 TextTable::vfunc_12 (88 B): equivalent/0x000e3e50.cpp [wrapped: conflict: TextTable]
-// sym: ?vfunc_12@TextTable@fn_000e3e50@@UAEIII@Z
+// sym: ?vfunc_12@TextTable@fn_000e3e50@@UAEIII@Z @d92160f1e2c3 @w97fc485cb689
 namespace fn_000e3e50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 8/8)
 // TextTable::vfunc_12 @ 0x000e3e50

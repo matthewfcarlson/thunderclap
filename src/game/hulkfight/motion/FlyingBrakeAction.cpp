@@ -402,7 +402,7 @@ hulk_intptr hulkfight::motion::FlyingBrakeTrack::vfunc_0(int index) {
 namespace fn_f414acda {
 
 // 0x00133ac0 FUN_00133ac0 (65 B): equivalent/0x00133ac0.cpp
-// sym: ??0FlyingBrakeTrack@fn_f414acda@@QAE@XZ
+// sym: ??0FlyingBrakeTrack@fn_f414acda@@QAE@XZ @a19510f0b68c @w338ee64df661
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00133ac0 @ 0x00133ac0
 FlyingBrakeTrack::FlyingBrakeTrack() {
@@ -618,7 +618,7 @@ hulk_intptr hulkfight::motion::FallTrack::vfunc_0(int index) {
 
 
 // 0x00133d70 FUN_00133d70 (81 B): equivalent/0x00133d70.cpp [wrapped: conflict: hulkfight::motion::FallTrack]
-// sym: ??0FallTrack@motion@hulkfight@fn_00133d70@@QAE@XZ
+// sym: ??0FallTrack@motion@hulkfight@fn_00133d70@@QAE@XZ @3c71db577839 @w76e064f63083
 namespace fn_00133d70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00133d70 @ 0x00133d70
@@ -705,7 +705,7 @@ hulk_intptr hulkfight::motion::FlyingAutoTargetTrack::vfunc_0(int index) {
 namespace fn_f414acda {
 
 // 0x00133e30 FUN_00133e30 (88 B): equivalent/0x00133e30.cpp
-// sym: ?FUN_00133e30@FlyingAutoTargetTrack@fn_f414acda@@QAEPAU12@XZ
+// sym: ?FUN_00133e30@FlyingAutoTargetTrack@fn_f414acda@@QAEPAU12@XZ @46b904d89519 @wc26d7421ec28
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00133e30 @ 0x00133e30
 FlyingAutoTargetTrack* FlyingAutoTargetTrack::FUN_00133e30() {
@@ -757,7 +757,7 @@ hulk_intptr hulkfight::motion::FlyingAttackTrack::vfunc_0(int index) {
 
 
 // 0x00133ef0 FUN_00133ef0 (76 B): equivalent/0x00133ef0.cpp [wrapped: conflict: hulkfight::motion::FlyingAttackTrack]
-// sym: ??0FlyingAttackTrack@motion@hulkfight@fn_00133ef0@@QAE@XZ
+// sym: ??0FlyingAttackTrack@motion@hulkfight@fn_00133ef0@@QAE@XZ @9aab3b396e3c @wff78e7b8cfcf
 namespace fn_00133ef0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00133ef0 @ 0x00133ef0
@@ -871,7 +871,7 @@ bool hulkfight::motion::HoverAction::vfunc_5(hulk_intptr param, int unused) {
 namespace fn_f414acda {
 
 // 0x00133fc0 hulkfight::motion::FallAction::vfunc_3 (409 B): equivalent/0x00133fc0.cpp
-// sym: ?vfunc_3@FallAction@fn_f414acda@@UAE_NHH@Z
+// sym: ?vfunc_3@FallAction@fn_f414acda@@UAE_NHH@Z @ef29cb808292 @w856729939bf4
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 10/10)
 // hulkfight::motion::FallAction::vfunc_3 @ 0x00133fc0
 bool FallAction::vfunc_3(int a, int b)
@@ -932,7 +932,7 @@ void hulkfight::motion::FallAction::vfunc_4() {
 
 
 // 0x00134190 hulkfight::motion::FlyingBrakeAction::vfunc_3 (406 B): equivalent/0x00134190.cpp [wrapped: conflict: JointDriver; Skeleton]
-// sym: ?vfunc_3@FlyingBrakeAction@fn_00134190@@UAE_NHH@Z
+// sym: ?vfunc_3@FlyingBrakeAction@fn_00134190@@UAE_NHH@Z @af10704c691b @w8104811d052d
 namespace fn_00134190 {
 // STATUS: equivalent (tools/equiv.py level 3: 19951 inputs, branch coverage 8/8)
 // hulkfight::motion::FlyingBrakeAction::vfunc_3 @ 0x00134190
@@ -1059,7 +1059,7 @@ bool FlyingBrakeAction::vfunc_3(int a, int b)
 
 
 // 0x00134330 hulkfight::motion::FlyingBrakeAction::vfunc_5 (618 B): equivalent/0x00134330.cpp [wrapped: conflict: hulkfight::motion::FlyingBrakeAction]
-// sym: ?vfunc_5@FlyingBrakeAction@motion@hulkfight@fn_00134330@@UAEDHM@Z
+// sym: ?vfunc_5@FlyingBrakeAction@motion@hulkfight@fn_00134330@@UAEDHM@Z @cd8df6caa73d @wbe5562b14f35
 namespace fn_00134330 {
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 18/18)
 // hulkfight::motion::FlyingBrakeAction::vfunc_5 @ 0x00134330
@@ -1220,7 +1220,7 @@ void hulkfight::motion::FlyingBrakeAction::vfunc_4() {
 
 
 // 0x001345d0 hulkfight::motion::FlyingDashAction::vfunc_5 (206 B): equivalent/0x001345d0.cpp [wrapped: conflict: hulkfight::motion::FlyingDashAction]
-// sym: ?vfunc_5@FlyingDashAction@motion@hulkfight@fn_001345d0@@UAE_NHM@Z
+// sym: ?vfunc_5@FlyingDashAction@motion@hulkfight@fn_001345d0@@UAE_NHM@Z @ed28e3ad28ad @w4374b31e28fd
 namespace fn_001345d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::FlyingDashAction::vfunc_5 @ 0x001345d0
@@ -1265,7 +1265,7 @@ void hulkfight::motion::FlyingDashAction::vfunc_4() {
 
 
 // 0x001346d0 hulkfight::motion::FlyingAutoTargetAction::vfunc_3 (181 B): equivalent/0x001346d0.cpp [wrapped: conflict: hulkfight::motion::FlyingAutoTargetAction]
-// sym: ?vfunc_3@FlyingAutoTargetAction@motion@hulkfight@fn_001346d0@@UAE_NHH@Z
+// sym: ?vfunc_3@FlyingAutoTargetAction@motion@hulkfight@fn_001346d0@@UAE_NHH@Z @3246783b7414 @wcd4070f6c153
 namespace fn_001346d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::FlyingAutoTargetAction::vfunc_3 @ 0x001346d0
@@ -1329,7 +1329,7 @@ void hulkfight::motion::FlyingAutoTargetAction::vfunc_4() {
 
 
 // 0x001347c0 hulkfight::motion::BounceAction::vfunc_3 (423 B): equivalent/0x001347c0.cpp [wrapped: conflict: World; hulkfight::motion::BounceAction]
-// sym: ?vfunc_3@BounceAction@motion@hulkfight@fn_001347c0@@UAEDHH@Z
+// sym: ?vfunc_3@BounceAction@motion@hulkfight@fn_001347c0@@UAEDHH@Z @efc882144442 @w1bdcda8dc482
 namespace fn_001347c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20011 inputs, branch coverage 10/10)
 // hulkfight::motion::BounceAction::vfunc_3 @ 0x001347c0
@@ -1519,7 +1519,7 @@ void hulkfight::motion::BounceAction::vfunc_4() {
 
 
 // 0x001349a0 hulkfight::motion::AirToGroundTargetAction::vfunc_3 (371 B): equivalent/0x001349a0.cpp [wrapped: conflict: JointDriver; Skeleton; World]
-// sym: ?vfunc_3@AirToGroundTargetAction@fn_001349a0@@UAE_NHH@Z
+// sym: ?vfunc_3@AirToGroundTargetAction@fn_001349a0@@UAE_NHH@Z @03318a111106 @wfcf7f806df9a
 namespace fn_001349a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 6/6)
 // hulkfight::motion::AirToGroundTargetAction::vfunc_3 @ 0x001349a0

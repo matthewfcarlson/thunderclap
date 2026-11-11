@@ -333,7 +333,7 @@ ClearProjectileDistanceTrack_1251c0* ClearProjectileDistanceTrack_1251c0::vfunc_
 
 
 // 0x001251f0 hulkfight::ai::TargetDistanceCondition::vfunc_6 (680 B): equivalent/0x001251f0.cpp
-// sym: ?vfunc_6@TargetDistanceCondition@fn_fd2212ac@@UAEDHPAUSource_1251f0@2@H@Z
+// sym: ?vfunc_6@TargetDistanceCondition@fn_fd2212ac@@UAEDHPAUSource_1251f0@2@H@Z @1533291ee71b @w5c3b075632c7
 // STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 42/42)
 // hulkfight::ai::TargetDistanceCondition::vfunc_6 @ 0x001251f0
 char TargetDistanceCondition::vfunc_6(int a, Source_1251f0 *source, int c)
@@ -410,7 +410,7 @@ char TargetDistanceCondition::vfunc_6(int a, Source_1251f0 *source, int c)
 } // namespace fn_fd2212ac
 
 // 0x001254b0 hulkfight::ai::ProjectileDistanceCondition::vfunc_6 (435 B): equivalent/0x001254b0.cpp [wrapped: conflict: FUN_00018960]
-// sym: ?vfunc_6@ProjectileDistanceCondition@fn_001254b0@@UAE_NHPAVParams@fight@2@H@Z
+// sym: ?vfunc_6@ProjectileDistanceCondition@fn_001254b0@@UAE_NHPAVParams@fight@2@H@Z @027c9894bf72 @w3bdd1ff3b76c
 namespace fn_001254b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3239 inputs, branch coverage 32/32; Wine build 740 inputs, 32/32)
 // hulkfight::ai::ProjectileDistanceCondition::vfunc_6 @ 0x001254b0
@@ -552,7 +552,7 @@ bool ProjectileDistanceCondition::vfunc_6(int a, fight::Params *params, int b)
 
 
 // 0x00125680 hulkfight::ai::TargetDistanceXZCondition::vfunc_6 (382 B): equivalent/0x00125680.cpp [wrapped: conflict: World]
-// sym: ?vfunc_6@TargetDistanceXZCondition@fn_00125680@@UAEDHPAUOwner_125680@2@H@Z
+// sym: ?vfunc_6@TargetDistanceXZCondition@fn_00125680@@UAEDHPAUOwner_125680@2@H@Z @6544b18ab1fe @w0656e51860a9
 namespace fn_00125680 {
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 26/28, incomplete)
 // hulkfight::ai::TargetDistanceXZCondition::vfunc_6 @ 0x00125680

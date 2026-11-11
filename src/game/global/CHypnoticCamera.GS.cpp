@@ -145,7 +145,7 @@ struct Frame_abb90 {
 
 
 // 0x000abb90 CHypnoticCamera::vfunc_35 (1765 B): equivalent/0x000abb90.cpp
-// sym: ?vfunc_35@CHypnoticCamera@fn_ff8a4c81@@UAEXPAUEv_abb90@2@MHH@Z
+// sym: ?vfunc_35@CHypnoticCamera@fn_ff8a4c81@@UAEXPAUEv_abb90@2@MHH@Z @f8d82b84b917 @we65d4b3d5ed4
 // STATUS: equivalent (tools/equiv.py level 3: 3039 inputs, branch coverage 66/66)
 // CHypnoticCamera::vfunc_35 @ 0x000abb90
 void CHypnoticCamera::vfunc_35(Ev_abb90 *e, float dt, int c, int d)

@@ -4,7 +4,7 @@
 
 
 // 0x00074d90 FUN_00074d90 (1174 B): equivalent/0x00074d90.cpp [isolated: compile error C2664: 'fn_00074d90::fight::ParamName<T>::ParamName(const char *,void (__thiscall CKeyPoseTrack::* )(void))' : cannot convert p]
-// sym: _FUN_00074d90
+// sym: _FUN_00074d90 @8da47116a59e @w27d73ed50514
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 46/46)
 // FUN_00074d90 @ 0x00074d90
 #include "decls/data/game/global.h"

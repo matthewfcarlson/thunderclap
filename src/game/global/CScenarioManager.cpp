@@ -640,7 +640,7 @@ void __fastcall target(void* p) {
 } // namespace fn_fdf9c5a9
 
 // 0x001cc620 FUN_001cc620 (536 B): equivalent/0x001cc620.cpp
-// sym: ?FUN_001cc620@CScenarioManager@@QAEXH@Z
+// sym: ?FUN_001cc620@CScenarioManager@@QAEXH@Z @b05f070edc4f @w69f26e9efe2a
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 40/40)
 // FUN_001cc620 @ 0x001cc620
 void CScenarioManager::FUN_001cc620(int next) {
@@ -835,7 +835,7 @@ void CScenarioManager::FUN_001cc9b0(int i, float v) {
 namespace fn_fdf9c5a9 {
 
 // 0x001cc9d0 FUN_001cc9d0 (170 B): equivalent/0x001cc9d0.cpp
-// sym: ?FUN_001cc9d0@CScenarioManager_1cc9d0@fn_fdf9c5a9@@QAEHMPBD@Z
+// sym: ?FUN_001cc9d0@CScenarioManager_1cc9d0@fn_fdf9c5a9@@QAEHMPBD@Z @a9b47858c903 @w8832aaff6254
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001cc9d0 @ 0x001cc9d0
 int CScenarioManager_1cc9d0::FUN_001cc9d0(float time, const char* text) {
@@ -1109,7 +1109,7 @@ void owners::Obj_1cd3d0::FUN_001cd3d0(hulk_intptr value) {
 namespace fn_fdf9c5a9 {
 
 // 0x001cd5b0 FUN_001cd5b0 (153 B): equivalent/0x001cd5b0.cpp
-// sym: ?FUN_001cd5b0@CScenarioManager_1cd5b0@fn_fdf9c5a9@@QAEXM@Z
+// sym: ?FUN_001cd5b0@CScenarioManager_1cd5b0@fn_fdf9c5a9@@QAEXM@Z @4febb218ad13 @wba03d5f6f5a2
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001cd5b0 @ 0x001cd5b0
 void CScenarioManager_1cd5b0::FUN_001cd5b0(float dt)
@@ -1952,7 +1952,7 @@ template <> Closure2<CScenarioManager, int, float, const char *>::~Closure2() {}
 
 
 // 0x001ce560 Closure2<CScenarioManager,int,float,const_char_*>::vfunc_2 (42 B): equivalent/0x001ce560.cpp
-// sym: ?vfunc_2@?$Closure2@VCScenarioManager@@HMPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure2@VCScenarioManager@@HMPBD@@UAEXPAX00@Z @5f2db1ebe681 @wd20935a1da78
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CScenarioManager,int,float,const_char_*>::vfunc_2 @ 0x001ce560
 template <> void Closure2<CScenarioManager, int, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; Arguments * args = (Arguments *)__p1; const char ** result = (const char **)__p2;
@@ -2420,7 +2420,7 @@ template <> void Closure2<CScenarioManager, void, int, int>::vfunc_2(void* __p0,
 namespace fn_fdf9c5a9 {
 
 // 0x001ced50 FUN_001ced50 (79 B): equivalent/0x001ced50.cpp
-// sym: ?FUN_001ced50@Owner@fn_fdf9c5a9@@QAEXHHH@Z
+// sym: ?FUN_001ced50@Owner@fn_fdf9c5a9@@QAEXHHH@Z @5ff6ebc4358d @w6e2521010d36
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001ced50 @ 0x001ced50
 void Owner::FUN_001ced50(int a, int b, int c) { unsigned int cookie = DAT_004d9968; Closure2_1ced50 local; local.FUN_001ce440(a,b,c); FUN_001d26d0(a,&local); local.FUN_001d04a0(); __security_check_cookie(cookie); }
@@ -2428,7 +2428,7 @@ void Owner::FUN_001ced50(int a, int b, int c) { unsigned int cookie = DAT_004d99
 } // namespace fn_fdf9c5a9
 
 // 0x001cf160 FUN_001cf160 (109 B): equivalent/0x001cf160.cpp [wrapped: conflict: CScenarioManager; Closure0; Method0]
-// sym: ?FUN_001cf160@Registry_1cf160@fn_001cf160@@QAEXPBDPAVCScenarioManager@2@P832@AEHXZ@Z
+// sym: ?FUN_001cf160@Registry_1cf160@fn_001cf160@@QAEXPBDPAVCScenarioManager@2@P832@AEHXZ@Z @830ac16c753e @we925279f24ad
 namespace fn_001cf160 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001cf160 @ 0x001cf160
@@ -2513,7 +2513,7 @@ void Registry_1cf160::FUN_001cf160(const char* name, CScenarioManager* owner, in
 
 
 // 0x001cf1d0 FUN_001cf1d0 (109 B): equivalent/0x001cf1d0.cpp [wrapped: conflict: CScenarioManager; Closure0; Method0]
-// sym: ?FUN_001cf1d0@Registry_1cf1d0@fn_001cf1d0@@QAEXPBDPAVCScenarioManager@2@P832@AEMXZ@Z
+// sym: ?FUN_001cf1d0@Registry_1cf1d0@fn_001cf1d0@@QAEXPBDPAVCScenarioManager@2@P832@AEMXZ@Z @6ea773c58bb8 @w6e64564d399b
 namespace fn_001cf1d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001cf1d0 @ 0x001cf1d0
@@ -2598,7 +2598,7 @@ void Registry_1cf1d0::FUN_001cf1d0(const char* name, CScenarioManager* owner, fl
 
 
 // 0x001cf2e0 FUN_001cf2e0 (109 B): equivalent/0x001cf2e0.cpp [wrapped: conflict: CScenarioManager; Closure0; Method0]
-// sym: ?FUN_001cf2e0@Registry_1cf2e0@fn_001cf2e0@@QAEXPBDPAVCScenarioManager@2@P832@AE_NXZ@Z
+// sym: ?FUN_001cf2e0@Registry_1cf2e0@fn_001cf2e0@@QAEXPBDPAVCScenarioManager@2@P832@AE_NXZ@Z @bd6e1f4a23f5 @w97494324307e
 namespace fn_001cf2e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001cf2e0 @ 0x001cf2e0
@@ -2683,7 +2683,7 @@ void Registry_1cf2e0::FUN_001cf2e0(const char* name, CScenarioManager* owner, bo
 
 
 // 0x001cf490 FUN_001cf490 (109 B): equivalent/0x001cf490.cpp [wrapped: conflict: CScenarioManager; Closure0; Method0]
-// sym: ?FUN_001cf490@Registry_1cf490@fn_001cf490@@QAEXPBDPAVCScenarioManager@2@P832@AEXXZ@Z
+// sym: ?FUN_001cf490@Registry_1cf490@fn_001cf490@@QAEXPBDPAVCScenarioManager@2@P832@AEXXZ@Z @fb299c66de49 @w097b4dfbf22f
 namespace fn_001cf490 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001cf490 @ 0x001cf490
@@ -2779,7 +2779,7 @@ void Registry_1cf500::FUN_001cf500(const char* a1, Owner* a2, Fn_1cf500 a3) {
 } // namespace fn_fdf9c5a9
 
 // 0x001cfb20 FUN_001cfb20 (2080 B): equivalent/0x001cfb20.cpp [wrapped: conflict: CScenarioManager; Closure1; FUN_001d4c90; Method1 (+1)]
-// sym: ?FUN_001cfb20@CScenarioManager@fn_001cfb20@@QAEXH@Z
+// sym: ?FUN_001cfb20@CScenarioManager@fn_001cfb20@@QAEXH@Z @338f5aa0fd1e @w6704f0fb56c7
 namespace fn_001cfb20 {
 // STATUS: equivalent (tools/equiv.py level 3: 581 inputs, branch coverage 44/44)
 // FUN_001cfb20 @ 0x001cfb20

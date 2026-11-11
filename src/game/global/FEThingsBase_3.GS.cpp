@@ -137,7 +137,7 @@ extern "C" void FUN_000fb740(short* dst, const char* src, hulk_intptr count);
 } // namespace fn_f1b16f90
 
 // 0x000f25f0 FUN_000f25f0 (139 B): equivalent/0x000f25f0.cpp [wrapped: conflict: FUN_0027b020]
-// sym: ??0FEBillboardAnimation@fn_000f25f0@@QAE@HPBD@Z
+// sym: ??0FEBillboardAnimation@fn_000f25f0@@QAE@HPBD@Z @cf96fc34271c @w8b7da9de135a
 namespace fn_000f25f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 17954 inputs, branch coverage 6/6)
 // FUN_000f25f0 @ 0x000f25f0
@@ -214,7 +214,7 @@ FEBillboardAnimation::FEBillboardAnimation(int a, const char *name) : FEAnimatio
 namespace fn_f1b16f90 {
 
 // 0x000f2a80 FUN_000f2a80 (132 B): equivalent/0x000f2a80.cpp
-// sym: ?LoadDrawables@Owner_f2a80@fn_f1b16f90@@QAEXPBD@Z
+// sym: ?LoadDrawables@Owner_f2a80@fn_f1b16f90@@QAEXPBD@Z @3be221d6766e @w8213e3f5440a
 // STATUS: equivalent (tools/equiv.py level 3: 4866 inputs, branch coverage 4/4)
 // FUN_000f2a80 @ 0x000f2a80
 void Owner_f2a80::LoadDrawables(const char *prefix)
@@ -234,7 +234,7 @@ void Owner_f2a80::LoadDrawables(const char *prefix)
 
 
 // 0x000f2b10 FUN_000f2b10 (132 B): equivalent/0x000f2b10.cpp
-// sym: ?LoadDrawables@Owner_f2b10@fn_f1b16f90@@QAEXPBD@Z
+// sym: ?LoadDrawables@Owner_f2b10@fn_f1b16f90@@QAEXPBD@Z @ceea9f6868cb @w124642dfee1b
 // STATUS: equivalent (tools/equiv.py level 3: 4957 inputs, branch coverage 4/4)
 // FUN_000f2b10 @ 0x000f2b10
 void Owner_f2b10::LoadDrawables(const char *prefix)
@@ -298,7 +298,7 @@ extern "C" void __cdecl FUN_000f6d70(const char *filename, const char *other)
 
 
 // 0x000f7a80 FUN_000f7a80 (600 B): equivalent/0x000f7a80.cpp
-// sym: ?FUN_000f7a80@StringTable_f7a80@fn_f1b16f90@@QAE_NPBD@Z
+// sym: ?FUN_000f7a80@StringTable_f7a80@fn_f1b16f90@@QAE_NPBD@Z @91e22f53f762 @wd772c1b7d4f7
 // STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 38/46, incomplete)
 // FUN_000f7a80 @ 0x000f7a80
 // checked with equiv.py --time-budget 3600 (at the defaults most inputs hit the time budget)
@@ -409,7 +409,7 @@ void owners::Printer_f7f60::FUN_000f7f60(int src, int a2, int a3, int a4, int a5
 namespace fn_f1b16f90 {
 
 // 0x000f8500 FUN_000f8500 (382 B): equivalent/0x000f8500.cpp
-// sym: ?FUN_000f8500@Entry_f8500@fn_f1b16f90@@QAEXPBDPAVManager_f8500@2@D@Z
+// sym: ?FUN_000f8500@Entry_f8500@fn_f1b16f90@@QAEXPBDPAVManager_f8500@2@D@Z @3c4fc29be76f @w6422d36a8b85
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 26/26)
 // FUN_000f8500 @ 0x000f8500
 void Entry_f8500::FUN_000f8500(const char* name, Manager_f8500* manager, char flag) {

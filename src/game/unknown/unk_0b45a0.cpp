@@ -170,7 +170,7 @@ void __cdecl FUN_000b46c0() {
 } // namespace fn_fb479c50
 
 // 0x000b4b60 FUN_000b4b60 (175 B): equivalent/0x000b4b60.cpp
-// sym: ?FUN_000b4b60@Registry_b4b60@owners@@QAEXPBD0@Z
+// sym: ?FUN_000b4b60@Registry_b4b60@owners@@QAEXPBD0@Z @93337d5511bc @wfad0a2273371
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 19/20, incomplete)
 // FUN_000b4b60 @ 0x000b4b60
 void owners::Registry_b4b60::FUN_000b4b60(const char* key, const char* value) {

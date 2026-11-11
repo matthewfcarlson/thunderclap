@@ -4,7 +4,7 @@
 
 
 // 0x00062010 FUN_00062010 (263 B): equivalent/0x00062010.cpp [wrapped: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?FUN_00062010@CWeaponCollisionTrack@fn_00062010@@QAEPAV12@XZ
+// sym: ?FUN_00062010@CWeaponCollisionTrack@fn_00062010@@QAEPAV12@XZ @90b968956acb @w0f537fedb373
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_00062010 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)

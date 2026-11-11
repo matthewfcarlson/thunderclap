@@ -359,7 +359,7 @@ extern "C" void __cdecl FreeFirst_0008d330(ControllerPoller_fc3e0*);
 
 
 // 0x000fb830 FUN_000fb830 (466 B): equivalent/0x000fb830.cpp
-// sym: _FUN_000fb830
+// sym: _FUN_000fb830 @79c6c3a89553 @wb7dc43304d78
 // STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 39/46, incomplete)
 // FUN_000fb830 @ 0x000fb830
 extern "C" int FUN_000fb830(unsigned short* out, int bufSize, const unsigned short* in, float maxWidth, Measurer_fb830* m) {
@@ -430,7 +430,7 @@ extern "C" int FUN_000fb830(unsigned short* out, int bufSize, const unsigned sho
 } // namespace fn_f5c759cd
 
 // 0x000fba10 FUN_000fba10 (492 B): equivalent/0x000fba10.cpp [wrapped: conflict: FUN_000fc1b0]
-// sym: _FUN_000fba10
+// sym: _FUN_000fba10 @ce4e33d33ce6 @wdc791a4c93de
 namespace fn_000fba10 {
 // STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 48/50, incomplete)
 // FUN_000fba10 @ 0x000fba10
@@ -573,7 +573,7 @@ extern "C" void FUN_000fc020(hulk_uintptr a, U_fc020 b, hulk_uintptr c, ...) {
 
 
 // 0x000fc060 FUN_000fc060 (121 B): equivalent/0x000fc060.cpp
-// sym: _FUN_000fc060
+// sym: _FUN_000fc060 @9a41a4804c2a @w61636d92011b
 // STATUS: equivalent (tools/equiv.py level 3: 19802 inputs, branch coverage 4/4)
 // FUN_000fc060 @ 0x000fc060
 // equiv-map: ??0Manager@@QAE@H@Z = 0x000ddbf0

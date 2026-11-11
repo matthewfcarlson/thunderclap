@@ -194,7 +194,7 @@ void Owner_1ccad0::update(float elapsed) {
 
 
 // 0x001cccc0 FUN_001cccc0 (400 B): equivalent/0x001cccc0.cpp
-// sym: ?FUN_001cccc0@ComboTracker@fn_f3574e0c@@QAEXXZ
+// sym: ?FUN_001cccc0@ComboTracker@fn_f3574e0c@@QAEXXZ @9f6dfffe81d7 @w7278335113ee
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 34/34)
 // FUN_001cccc0 @ 0x001cccc0
 void ComboTracker::FUN_001cccc0()
@@ -225,7 +225,7 @@ void ComboTracker::FUN_001cccc0()
 } // namespace fn_f3574e0c
 
 // 0x001cd220 FUN_001cd220 (417 B): equivalent/0x001cd220.cpp [wrapped: conflict: Singleton_4dd6ec; World]
-// sym: ?FUN_001cd220@Mission_1cd220@fn_001cd220@@QAEXD@Z
+// sym: ?FUN_001cd220@Mission_1cd220@fn_001cd220@@QAEXD@Z @f71ef481ab1a @waab6ccf581e5
 namespace fn_001cd220 {
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 18/18)
 // FUN_001cd220 @ 0x001cd220
@@ -1415,7 +1415,7 @@ void Actor::FUN_001cf0c0(int a, int b, int c)
 } // namespace fn_f3574e0c
 
 // 0x001cf690 FUN_001cf690 (1154 B): equivalent/0x001cf690.cpp [wrapped: conflict: FUN_001d4c90]
-// sym: ?FUN_001cf690@CScenarioManager@fn_001cf690@@QAEXXZ
+// sym: ?FUN_001cf690@CScenarioManager@fn_001cf690@@QAEXXZ @4fd73f524ff2 @w6cbb96b7d848
 inline void *operator new(hulk_uintptr, void *p) throw() { return p; }
 namespace fn_001cf690 {
 // STATUS: equivalent (tools/equiv.py level 3: 7663 inputs, branch coverage 2/2)

@@ -164,7 +164,7 @@ void FUN_001fb400() {}
 } // namespace fn_f9414999
 
 // 0x001fb4f0 CTriggerVolume::vfunc_12 (170 B): equivalent/0x001fb4f0.cpp [wrapped: conflict: CTriggerVolume]
-// sym: ?vfunc_12@CTriggerVolume@fn_001fb4f0@@UAEEPAUTriggerObject@2@@Z
+// sym: ?vfunc_12@CTriggerVolume@fn_001fb4f0@@UAEEPAUTriggerObject@2@@Z @8d3d7f9b4980 @wbdaab32330d6
 namespace fn_001fb4f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // CTriggerVolume::vfunc_12 @ 0x001fb4f0
@@ -208,7 +208,7 @@ unsigned char CTriggerVolume::vfunc_12(TriggerObject* object) {
 
 
 // 0x001fb850 CTriggerVolume::vfunc_9 (140 B): equivalent/0x001fb850.cpp [wrapped: conflict: CTriggerVolume]
-// sym: ?FUN_001fb850@CTriggerVolume@fn_001fb850@@QAEXHHD@Z
+// sym: ?FUN_001fb850@CTriggerVolume@fn_001fb850@@QAEXHHD@Z @035f1db0dd45 @w912da84df967
 namespace fn_001fb850 {
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 14/14)
 // CTriggerVolume::vfunc_9 @ 0x001fb850
@@ -268,7 +268,7 @@ void CTriggerVolume::FUN_001fb850(int a, int b, char flag)
 
 
 // 0x001fb8e0 CTriggerVolume::vfunc_10 (69 B): equivalent/0x001fb8e0.cpp [wrapped: conflict: CTriggerVolume]
-// sym: ?vfunc_10@CTriggerVolume@fn_001fb8e0@@QAE_NHH@Z
+// sym: ?vfunc_10@CTriggerVolume@fn_001fb8e0@@QAE_NHH@Z @b040e73af1e0 @w693ab721ec96
 namespace fn_001fb8e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2254 inputs, branch coverage 8/8)
 // CTriggerVolume::vfunc_10 @ 0x001fb8e0
@@ -363,7 +363,7 @@ void* __fastcall FUN_001fba60(Obj_1fba60* p) {
 } // namespace fn_f9414999
 
 // 0x001fba70 CLocator::vfunc_10 (75 B): equivalent/0x001fba70.cpp [wrapped: conflict: CLocator]
-// sym: ?vfunc_10@CLocator@fn_001fba70@@QAEXPAUVec3@2@@Z
+// sym: ?vfunc_10@CLocator@fn_001fba70@@QAEXPAUVec3@2@@Z @f3d648053cb2 @w6757f4823233
 namespace fn_001fba70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // CLocator::vfunc_10 @ 0x001fba70
@@ -373,7 +373,7 @@ struct Vec3 { float x,y,z; };  void __cdecl FUN_00224d70(void*, Vec3*); struct C
 
 
 // 0x001fbb30 FUN_001fbb30 (52 B): equivalent/0x001fbb30.cpp [wrapped: conflict: CTriggerVolume]
-// sym: ??0CTriggerVolume@fn_001fbb30@@QAE@XZ
+// sym: ??0CTriggerVolume@fn_001fbb30@@QAE@XZ @c3e76df143d1 @wc7758098e650
 namespace fn_001fbb30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001fbb30 @ 0x001fbb30
@@ -383,7 +383,7 @@ struct FUN_0027b070 { virtual void baseVirtual(); char pad[0xc8]; FUN_0027b070()
 namespace fn_f9414999 {
 
 // 0x001fbb80 FUN_001fbb80 (336 B): equivalent/0x001fbb80.cpp
-// sym: ?FUN_001fbb80@Bounds_1fbb80@fn_f9414999@@QAEXPAUV3_1fbb80@2@0M@Z
+// sym: ?FUN_001fbb80@Bounds_1fbb80@fn_f9414999@@QAEXPAUV3_1fbb80@2@0M@Z @ece5bf40d76b @wa16076545ba0
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 9/10, incomplete)
 // FUN_001fbb80 @ 0x001fbb80
 void Bounds_1fbb80::FUN_001fbb80(V3_1fbb80 *a, V3_1fbb80 *b, float rawAngle)
@@ -492,7 +492,7 @@ void Marker_1fbd00::FUN_001fbd00(Element_1fbd00 *elem)
 } // namespace fn_f9414999
 
 // 0x001fbec0 FUN_001fbec0 (91 B): equivalent/0x001fbec0.cpp [wrapped: conflict: Vec3]
-// sym: ?FUN_001fbec0@CTriggerVolume_1fbec0@fn_001fbec0@@QAEXPAUVec3@2@@Z
+// sym: ?FUN_001fbec0@CTriggerVolume_1fbec0@fn_001fbec0@@QAEXPAUVec3@2@@Z @bbd3d0f78c0b @w31b249779bbd
 namespace fn_001fbec0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 6/6)
 // FUN_001fbec0 @ 0x001fbec0
@@ -625,7 +625,7 @@ CTriggerVolume_1fc000* CTriggerVolume_1fc000::vfunc_5(signed char flags) {
 } // namespace fn_f9414999
 
 // 0x001fc030 CTriggerVolume::vfunc_8 (276 B): equivalent/0x001fc030.cpp [wrapped: conflict: CTriggerVolume]
-// sym: ?vfunc_8@CTriggerVolume@fn_001fc030@@QAE_NMMM@Z
+// sym: ?vfunc_8@CTriggerVolume@fn_001fc030@@QAE_NMMM@Z @e59069bd2c56 @wdb74a1c5322e
 namespace fn_001fc030 {
 // STATUS: equivalent (tools/equiv.py level 3: 15681 inputs, branch coverage 14/14)
 // CTriggerVolume::vfunc_8 @ 0x001fc030
@@ -656,7 +656,7 @@ bool CTriggerVolume::vfunc_8(float x,float y,float z) {
 namespace fn_f9414999 {
 
 // 0x001fc150 FUN_001fc150 (531 B): equivalent/0x001fc150.cpp
-// sym: ?FUN_001fc150@CTriggerVolume_1fc150@fn_f9414999@@QAEPAUVec3_1fc150@2@PAU32@PBU32@1@Z
+// sym: ?FUN_001fc150@CTriggerVolume_1fc150@fn_f9414999@@QAEPAUVec3_1fc150@2@PAU32@PBU32@1@Z @bada6787c736 @w299c989cbdd9
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 24/24)
 // FUN_001fc150 @ 0x001fc150
 Vec3_1fc150 *CTriggerVolume_1fc150::FUN_001fc150(Vec3_1fc150 *out, const Vec3_1fc150 *a, const Vec3_1fc150 *b)
@@ -778,7 +778,7 @@ int Obj_1fc480::Get() {
 } // namespace fn_f9414999
 
 // 0x001fc590 CLocator::vfunc_2 (98 B): equivalent/0x001fc590.cpp [wrapped: conflict: CLocator]
-// sym: ?vfunc_2@CLocator@fn_001fc590@@UAEPAU12@E@Z
+// sym: ?vfunc_2@CLocator@fn_001fc590@@UAEPAU12@E@Z @94dbf21f93f4 @wae12fc9d0890
 namespace fn_001fc590 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // CLocator::vfunc_2 @ 0x001fc590

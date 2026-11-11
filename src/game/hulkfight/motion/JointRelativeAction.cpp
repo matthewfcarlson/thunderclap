@@ -16,7 +16,7 @@ struct Two_1717f0 {
 } // namespace fn_fb2d01ed
 
 // 0x001714b0 hulkfight::motion::JointRelativeAction::vfunc_3 (517 B): equivalent/0x001714b0.cpp [wrapped: conflict: hulkfight::motion::JointRelativeAction]
-// sym: ?vfunc_3@JointRelativeAction@motion@hulkfight@fn_001714b0@@UAE_NHH@Z
+// sym: ?vfunc_3@JointRelativeAction@motion@hulkfight@fn_001714b0@@UAE_NHH@Z @b8a1b55be526 @we54a11985b63
 namespace fn_001714b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 14/14)
 // hulkfight::motion::JointRelativeAction::vfunc_3 @ 0x001714b0
@@ -200,7 +200,7 @@ bool JointRelativeAction::vfunc_3(int a, int b)
 
 
 // 0x001716c0 hulkfight::motion::JointRelativeAction::vfunc_5 (299 B): equivalent/0x001716c0.cpp [wrapped: conflict: hulkfight::motion::JointRelativeAction]
-// sym: ?vfunc_5@JointRelativeAction@motion@hulkfight@fn_001716c0@@UAE_NHM@Z
+// sym: ?vfunc_5@JointRelativeAction@motion@hulkfight@fn_001716c0@@UAE_NHM@Z @c601d76d1b16 @w66fd36173e34
 namespace fn_001716c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // hulkfight::motion::JointRelativeAction::vfunc_5 @ 0x001716c0

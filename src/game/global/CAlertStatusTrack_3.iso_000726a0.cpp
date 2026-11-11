@@ -4,7 +4,7 @@
 
 
 // 0x000726a0 FUN_000726a0 (158 B): equivalent/0x000726a0.cpp [isolated: compile error C2664: 'fn_000726a0::fight::ParamFloatConstRange<T>::ParamFloatConstRange(const char *,void (__thiscall CClearCollisionStun::* ]
-// sym: _FUN_000726a0
+// sym: _FUN_000726a0 @5106a02a53aa @w008c54418ff1
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_000726a0 @ 0x000726a0
 #include "decls/data/game/global.h"

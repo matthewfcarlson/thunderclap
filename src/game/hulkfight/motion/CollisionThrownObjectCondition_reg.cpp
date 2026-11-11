@@ -562,7 +562,7 @@ template <> fight::ParamName<hulkfight::motion::HitReactionTrack>::~ParamName() 
 namespace fn_f4e72ed8 {
 
 // 0x00157ee0 FUN_00157ee0 (158 B): equivalent/0x00157ee0.cpp
-// sym: _FUN_00157ee0
+// sym: _FUN_00157ee0 @7f3db43ff51b @wfa1d5c5ab6b4
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
 // FUN_00157ee0 @ 0x00157ee0
 extern "C" void FUN_00157ee0()
@@ -585,7 +585,7 @@ extern "C" void FUN_00157ee0()
 
 
 // 0x00158040 FUN_00158040 (176 B): equivalent/0x00158040.cpp
-// sym: _FUN_00158040
+// sym: _FUN_00158040 @0651be27d437 @wbf4df28ee310
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
 // FUN_00158040 @ 0x00158040
 extern "C" void FUN_00158040()
@@ -618,7 +618,7 @@ void FUN_001580f0(B_1580f0* b, void* a, void* x) {
 
 
 // 0x001581b0 FUN_001581b0 (176 B): equivalent/0x001581b0.cpp
-// sym: _FUN_001581b0
+// sym: _FUN_001581b0 @da36d9eb1e60 @w58ad79bbe09e
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_001581b0 @ 0x001581b0
 extern "C" void FUN_001581b0()
@@ -666,7 +666,7 @@ extern "C" void FUN_001582c0(Track* t, void* name) {
 
 
 // 0x001582f0 FUN_001582f0 (937 B): equivalent/0x001582f0.cpp
-// sym: _FUN_001582f0
+// sym: _FUN_001582f0 @67467da642a3 @wf542561044fd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 36/36)
 // FUN_001582f0 @ 0x001582f0
 extern "C" void FUN_001582f0()
@@ -766,7 +766,7 @@ extern "C" void FUN_001586d0(Owner* owner, void* name) {
 
 
 // 0x00158700 FUN_00158700 (784 B): equivalent/0x00158700.cpp
-// sym: _FUN_00158700
+// sym: _FUN_00158700 @5f47b849a605 @wac1c461f78f2
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 30/30)
 // FUN_00158700 @ 0x00158700
 extern "C" void FUN_00158700()

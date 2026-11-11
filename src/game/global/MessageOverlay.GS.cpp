@@ -121,7 +121,7 @@ class HudMgr {
 
 
 // 0x000d4b60 FUN_000d4b60 (1412 B): equivalent/0x000d4b60.cpp
-// sym: ?FUN_000d4b60@HudMgr@fn_f7094752@@QAEXPBDPBX11111@Z
+// sym: ?FUN_000d4b60@HudMgr@fn_f7094752@@QAEXPBDPBX11111@Z @683b862b3f67 @wd0ce93534978
 // STATUS: equivalent (tools/equiv.py level 3: 19957 inputs, branch coverage 62/62)
 // FUN_000d4b60 @ 0x000d4b60
 void HudMgr::FUN_000d4b60(const char* a1, const void* a2, const void* a3, const void* a4, const void* a5,

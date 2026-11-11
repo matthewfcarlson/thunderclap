@@ -5,7 +5,7 @@
 
 
 // 0x001a54a0 FUN_001a54a0 (303 B): equivalent/0x001a54a0.cpp [isolated: conflict: DAT_004dd700; on include/gen/ and not mergeable]
-// sym: ?FUN_001a54a0@Component_1a54a0@@QAEXPAUVec3_1a54a0@@PAM@Z
+// sym: ?FUN_001a54a0@Component_1a54a0@@QAEXPAUVec3_1a54a0@@PAM@Z @57bf1fa2ec07 @we173de0f7ba0
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 12/12)
 // FUN_001a54a0 @ 0x001a54a0
 #include "gen/global.h"

@@ -10,7 +10,7 @@ namespace fn_f9c1dcf2 {} using namespace fn_f9c1dcf2;
 
 
 // 0x001fb5a0 CTriggerVolume::vfunc_13 (253 B): equivalent/0x001fb5a0.cpp [wrapped: conflict: CTriggerVolume]
-// sym: ?vfunc_13@CTriggerVolume@fn_001fb5a0@@UAEXPAUInput_1fb5a0@2@@Z
+// sym: ?vfunc_13@CTriggerVolume@fn_001fb5a0@@UAEXPAUInput_1fb5a0@2@@Z @c09d7450bf96 @wffc7320954ce
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -77,7 +77,7 @@ void CTriggerVolume::vfunc_13(Input_1fb5a0* input) {
 
 
 // 0x001fb6a0 CTriggerVolume::vfunc_14 (253 B): equivalent/0x001fb6a0.cpp [wrapped: conflict: CTriggerVolume; FUN_001d4c90; World]
-// sym: ?vfunc_14@CTriggerVolume@fn_001fb6a0@@UAEXPAUInput_1fb6a0@2@@Z
+// sym: ?vfunc_14@CTriggerVolume@fn_001fb6a0@@UAEXPAUInput_1fb6a0@2@@Z @87a412e5df98 @w6f131a0d8b7c
 namespace fn_001fb6a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 10508 inputs, branch coverage 6/6)
 // CTriggerVolume::vfunc_14 @ 0x001fb6a0

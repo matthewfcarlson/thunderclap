@@ -4,7 +4,7 @@
 
 
 // 0x001b3620 FUN_001b3620 (80 B): equivalent/0x001b3620.cpp [isolated: code differs from its standalone build; on include/gen/ and not mergeable]
-// sym: ?FUN_001b3620@SampleTable_1b3620@owners@@QAEMM@Z
+// sym: ?FUN_001b3620@SampleTable_1b3620@owners@@QAEMM@Z @fa25348e3e51 @wd514e689dbd5
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 6/6)
 // FUN_001b3620 @ 0x001b3620
 // FUN_001b3620 @ 0x001b3620

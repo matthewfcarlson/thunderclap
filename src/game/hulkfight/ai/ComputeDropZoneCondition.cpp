@@ -246,7 +246,7 @@ void hulkfight::ai::MotionClosestWaypointAction::vfunc_4() {
 
 
 // 0x00115f40 hulkfight::ai::HasGroundPointCondition::vfunc_6 (103 B): equivalent/0x00115f40.cpp
-// sym: ?vfunc_6@HasGroundPointCondition@ai@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@HasGroundPointCondition@ai@hulkfight@@UAE_NPAX00@Z @8626c836c4fd @w36ba08242754
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 12/12)
 // hulkfight::ai::HasGroundPointCondition::vfunc_6 @ 0x00115f40
 bool hulkfight::ai::HasGroundPointCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_115f40 * params = (fight::Params_115f40 *)__p1; int c = (int)__p2;
@@ -269,7 +269,7 @@ bool hulkfight::ai::HasGroundPointCondition::vfunc_6(void* __p0, void* __p1, voi
 namespace fn_fb4fb98f {
 
 // 0x00115fb0 hulkfight::ai::ComputeDropZoneCondition::vfunc_6 (1556 B): equivalent/0x00115fb0.cpp
-// sym: ?vfunc_6@ComputeDropZoneCondition@fn_fb4fb98f@@UAE_NHPAUEntity@2@H@Z
+// sym: ?vfunc_6@ComputeDropZoneCondition@fn_fb4fb98f@@UAE_NHPAUEntity@2@H@Z @cd883323e8c0 @w583eafae34f3
 // STATUS: equivalent (tools/equiv.py level 3: 3073 inputs, branch coverage 90/104, incomplete)
 // hulkfight::ai::ComputeDropZoneCondition::vfunc_6 @ 0x00115fb0
 bool ComputeDropZoneCondition::vfunc_6(int a0, Entity *e, int a2)

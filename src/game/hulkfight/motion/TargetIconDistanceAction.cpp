@@ -68,7 +68,7 @@ void FUN_00172210() {}
 } // namespace fn_f8ae5d41
 
 // 0x00172220 hulkfight::motion::TargetIconDistanceAction::vfunc_5 (102 B): equivalent/0x00172220.cpp
-// sym: ?vfunc_5@TargetIconDistanceAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@TargetIconDistanceAction@motion@hulkfight@@UAE_NHH@Z @5aa283c2d94d @wc11b87e82229
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // hulkfight::motion::TargetIconDistanceAction::vfunc_5 @ 0x00172220
 bool hulkfight::motion::TargetIconDistanceAction::vfunc_5(hulk_intptr arg, int unused) {

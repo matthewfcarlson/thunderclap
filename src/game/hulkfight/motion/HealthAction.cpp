@@ -27,7 +27,7 @@ extern "C" Stats_14ff20 *__fastcall FUN_00059a30(Owner *ctx);
 } // namespace fn_fba48206
 
 // 0x0014ff20 hulkfight::motion::HealthAction::vfunc_3 (149 B): equivalent/0x0014ff20.cpp
-// sym: ?vfunc_3@HealthAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_3@HealthAction@motion@hulkfight@@UAE_NHH@Z @547a00eec289 @w931e8b585052
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 14/14)
 // hulkfight::motion::HealthAction::vfunc_3 @ 0x0014ff20
 bool hulkfight::motion::HealthAction::vfunc_3(hulk_intptr a, hulk_intptr b) {

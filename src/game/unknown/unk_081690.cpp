@@ -156,7 +156,7 @@ class CCow_832b0 : public Entity_832b0 {
 
 
 // 0x00081690 FUN_00081690 (797 B): equivalent/0x00081690.cpp
-// sym: ?FUN_00081690@Entity@fn_fbd4e3f0@@QAEXHPAUV3_81690@2@M_NH@Z
+// sym: ?FUN_00081690@Entity@fn_fbd4e3f0@@QAEXHPAUV3_81690@2@M_NH@Z @312c31029e17 @w6ab5b29780d2
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 40/40)
 // FUN_00081690 @ 0x00081690
 void Entity::FUN_00081690(int a0, V3_81690* dir, float step, bool lock, int a4)
@@ -270,7 +270,7 @@ void Entity::FUN_00081690(int a0, V3_81690* dir, float step, bool lock, int a4)
 } // namespace fn_fbd4e3f0
 
 // 0x000819f0 FUN_000819f0 (289 B): equivalent/0x000819f0.cpp [wrapped: conflict: World]
-// sym: ?FUN_000819f0@Object@fn_000819f0@@QAEXIIIMIII@Z
+// sym: ?FUN_000819f0@Object@fn_000819f0@@QAEXIIIMIII@Z @d320192098bb @wf6c39c5c3911
 namespace fn_000819f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_000819f0 @ 0x000819f0
@@ -347,7 +347,7 @@ if(d>0.0f) time=d;
 
 
 // 0x00081b20 FUN_00081b20 (4266 B): equivalent/0x00081b20.cpp [wrapped: conflict: Matrix; World]
-// sym: ?FUN_00081b20@CAnimState@fn_00081b20@@QAEXM@Z
+// sym: ?FUN_00081b20@CAnimState@fn_00081b20@@QAEXM@Z @71b044d429aa @w5c5e264eedce
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_00081b20 {
 // STATUS: equivalent (tools/equiv.py level 3: 19925 inputs, branch coverage 177/179, incomplete)
@@ -1170,7 +1170,7 @@ void owners::Target_82cd0::FUN_00082cd0(int) {
 namespace fn_fbd4e3f0 {
 
 // 0x00082d30 FUN_00082d30 (121 B): equivalent/0x00082d30.cpp
-// sym: _FUN_00082d30
+// sym: _FUN_00082d30 @391a85744a0e @w03631590c782
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00082d30 @ 0x00082d30
 // The matrix is passed in esi.
@@ -1193,7 +1193,7 @@ extern "C" void FUN_00082d30(Matrix* m) {
 } // namespace fn_fbd4e3f0
 
 // 0x00082db0 FUN_00082db0 (714 B): equivalent/0x00082db0.cpp [wrapped: conflict: World]
-// sym: ?FUN_00082db0@Fx_82db0@fn_00082db0@@QAEXMPAUXform_82db0@2@@Z
+// sym: ?FUN_00082db0@Fx_82db0@fn_00082db0@@QAEXMPAUXform_82db0@2@@Z @b9ab99a0524c @we8596127e98e
 namespace fn_00082db0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 14/14)
 // FUN_00082db0 @ 0x00082db0
@@ -1387,7 +1387,7 @@ void Fx_82db0::FUN_00082db0(float dt, Xform_82db0 *x)
 namespace fn_fbd4e3f0 {
 
 // 0x00083080 FUN_00083080 (309 B): equivalent/0x00083080.cpp
-// sym: ?FUN_00083080@Aligner@fn_fbd4e3f0@@QAE_NPAVXform_83080@2@PAUVec3_83080@2@M@Z
+// sym: ?FUN_00083080@Aligner@fn_fbd4e3f0@@QAE_NPAVXform_83080@2@PAUVec3_83080@2@M@Z @004c4cd90e79 @w08ecf76e9272
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 10/10)
 // FUN_00083080 @ 0x00083080
 bool Aligner::FUN_00083080(Xform_83080 *xf, Vec3_83080 *target, float angle)
@@ -1424,7 +1424,7 @@ bool Aligner::FUN_00083080(Xform_83080 *xf, Vec3_83080 *target, float angle)
 } // namespace fn_fbd4e3f0
 
 // 0x000831c0 FUN_000831c0 (230 B): equivalent/0x000831c0.cpp [wrapped: conflict: World]
-// sym: ??0CCow@fn_000831c0@@QAE@IIIII@Z
+// sym: ??0CCow@fn_000831c0@@QAE@IIIII@Z @46faa746d8ec @w2e259c2d3336
 namespace fn_000831c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 8/8)
 // FUN_000831c0 @ 0x000831c0

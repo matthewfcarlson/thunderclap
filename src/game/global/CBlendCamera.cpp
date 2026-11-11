@@ -164,7 +164,7 @@ void __fastcall FUN_000984e0(CGameCamera* p) {
 
 
 // 0x00098500 FUN_00098500 (171 B): equivalent/0x00098500.cpp
-// sym: ?target@fn_fb8d9fac@@YGXPAUObject@1@PAUOutput_98500@1@@Z
+// sym: ?target@fn_fb8d9fac@@YGXPAUObject@1@PAUOutput_98500@1@@Z @dc9be461c73a @wf4d9cb53b6e7
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 0/0)
 // FUN_00098500 @ 0x00098500
 void __stdcall target(Object* obj, Output_98500* out) {

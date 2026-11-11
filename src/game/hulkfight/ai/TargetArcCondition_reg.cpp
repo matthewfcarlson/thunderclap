@@ -152,7 +152,7 @@ template <> fight::ParamName<hulkfight::ai::TargetArcCondition>::~ParamName() {}
 namespace fn_f63a58e9 {
 
 // 0x00129ab0 FUN_00129ab0 (358 B): equivalent/0x00129ab0.cpp
-// sym: _FUN_00129ab0
+// sym: _FUN_00129ab0 @ec913ce85def @w760f01215ec4
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_00129ab0 @ 0x00129ab0
 extern "C" void FUN_00129ab0()

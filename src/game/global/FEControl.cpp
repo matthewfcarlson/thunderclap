@@ -148,7 +148,7 @@ FEControl_f1370* FEControl_f1370::vfunc_5(signed char flags) {
 
 
 // 0x000f13a0 FEControl::vfunc_17 (460 B): equivalent/0x000f13a0.cpp
-// sym: ?vfunc_17@FEControl@fn_f059af46@@UAEXMMMM@Z
+// sym: ?vfunc_17@FEControl@fn_f059af46@@UAEXMMMM@Z @fab30b9cff89 @w056ac9dfb502
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 10/10)
 // FEControl::vfunc_17 @ 0x000f13a0
 void FEControl::vfunc_17(float a1, float a2, float a3, float a4)

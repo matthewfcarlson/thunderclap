@@ -136,7 +136,7 @@ class MenuSelector {
 
 
 // 0x000ebb90 FUN_000ebb90 (260 B): equivalent/0x000ebb90.cpp
-// sym: ??0TextSelector@fn_f9e7f90b@@QAE@HPBD@Z
+// sym: ??0TextSelector@fn_f9e7f90b@@QAE@HPBD@Z @d76da6feb917 @wbbf2c5de717d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000ebb90 @ 0x000ebb90
 TextSelector::TextSelector(int arg,const char* name) : FUN_000e9240(arg) {
@@ -225,7 +225,7 @@ void Owner_ebdd0::Set(Thing_ebdd0* p) {
 
 
 // 0x000ebe00 FUN_000ebe00 (232 B): equivalent/0x000ebe00.cpp
-// sym: ?FUN_000ebe00@Object@fn_f9e7f90b@@QAEXPAU12@@Z
+// sym: ?FUN_000ebe00@Object@fn_f9e7f90b@@QAEXPAU12@@Z @1cbe6566f1c6 @w177c0f27924f
 // STATUS: equivalent (tools/equiv.py level 3: 749 inputs, branch coverage 4/4)
 // FUN_000ebe00 @ 0x000ebe00
 void Object::FUN_000ebe00(Object* src) {
@@ -264,7 +264,7 @@ MenuSelector* MenuSelector::Target(unsigned int a, unsigned int b) {
 } // namespace fn_f9e7f90b
 
 // 0x000ebf40 MenuSelector::vfunc_12 (781 B): equivalent/0x000ebf40.cpp [wrapped: conflict: MenuSelector]
-// sym: ?vfunc_12@MenuSelector@fn_000ebf40@@UAE_NHH@Z
+// sym: ?vfunc_12@MenuSelector@fn_000ebf40@@UAE_NHH@Z @f3b67e055b0b @w6f9e4b689098
 namespace fn_000ebf40 {
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 39/42, incomplete)
 // MenuSelector::vfunc_12 @ 0x000ebf40

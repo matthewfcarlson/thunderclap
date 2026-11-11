@@ -191,7 +191,7 @@ struct Frame_1bc0c0 {
 
 
 // 0x001bc0c0 FUN_001bc0c0 (687 B): equivalent/0x001bc0c0.cpp
-// sym: _FUN_001bc0c0
+// sym: _FUN_001bc0c0 @c28f957f9f96 @wf1abb2539ccd
 // STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 14/14)
 // FUN_001bc0c0 @ 0x001bc0c0
 extern "C" void FUN_001bc0c0(const char *name, int count, const char *dir)

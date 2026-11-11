@@ -176,7 +176,7 @@ hulk_intptr CGrappleSizeCondition::vfunc_0(int index) {
 
 
 // 0x00049de0 CGrappleSizeCondition::vfunc_7 (117 B): equivalent/0x00049de0.cpp
-// sym: ?vfunc_7@CGrappleSizeCondition@@UAE_NPAX@Z
+// sym: ?vfunc_7@CGrappleSizeCondition@@UAE_NPAX@Z @f4ef8a952fcb @wb63fc84cc37d
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 19/20, incomplete)
 // CGrappleSizeCondition::vfunc_7 @ 0x00049de0
 bool CGrappleSizeCondition::vfunc_7(void* __p0) { FightHandle_49de0 * h = (FightHandle_49de0 *)__p0;
@@ -279,7 +279,7 @@ void CCharacterTemplateCondition_49f50::Run() {
 
 
 // 0x00049f70 CCharacterTemplateCondition::vfunc_7 (92 B): equivalent/0x00049f70.cpp [wrapped: conflict: CCharacterTemplateCondition]
-// sym: ?vfunc_7@CCharacterTemplateCondition@fn_00049f70@@QAE_NPAUConditionContext@2@@Z
+// sym: ?vfunc_7@CCharacterTemplateCondition@fn_00049f70@@QAE_NPAUConditionContext@2@@Z @e5786d0ca3de @w4e20d2a41367
 namespace fn_00049f70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 14/14)
 // CCharacterTemplateCondition::vfunc_7 @ 0x00049f70
@@ -481,7 +481,7 @@ void CGrappleCharacterTemplateCondition_4a110::Run() {
 
 
 // 0x0004a160 CGrappleCharacterTemplateCondition::vfunc_7 (132 B): equivalent/0x0004a160.cpp [wrapped: conflict: CGrappleCharacterTemplateCondition]
-// sym: ?vfunc_7@CGrappleCharacterTemplateCondition@fn_0004a160@@QAE_NPAX@Z
+// sym: ?vfunc_7@CGrappleCharacterTemplateCondition@fn_0004a160@@QAE_NPAX@Z @9f597ce3c52f @wb048e12c44f2
 namespace fn_0004a160 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 23/24, incomplete)
 // CGrappleCharacterTemplateCondition::vfunc_7 @ 0x0004a160

@@ -51,7 +51,7 @@ bool PropAnimationAction::vfunc_5(int x, int y) {
 } // namespace fn_ffaac2d7
 
 // 0x00181f90 hulkfight::motion::PropAddToMissileCountAction::vfunc_5 (102 B): equivalent/0x00181f90.cpp
-// sym: ?vfunc_5@PropAddToMissileCountAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@PropAddToMissileCountAction@motion@hulkfight@@UAE_NHH@Z @133587608eb5 @w75b3a5b82238
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // hulkfight::motion::PropAddToMissileCountAction::vfunc_5 @ 0x00181f90
 bool hulkfight::motion::PropAddToMissileCountAction::vfunc_5(hulk_intptr arg, int unused) {

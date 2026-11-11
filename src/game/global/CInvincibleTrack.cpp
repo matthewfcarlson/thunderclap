@@ -110,7 +110,7 @@ hulk_freg CInvincibleTrack::vfunc_7() {
 
 
 // 0x0006a0e0 CInvincibleTrack::vfunc_12 (52 B): equivalent/0x0006a0e0.cpp
-// sym: ?vfunc_12@CInvincibleTrack@@UAEHH@Z
+// sym: ?vfunc_12@CInvincibleTrack@@UAEHH@Z @c8d490d559d3 @wb2df52196c5d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CInvincibleTrack::vfunc_12 @ 0x0006a0e0
 hulk_intptr CInvincibleTrack::vfunc_12(hulk_intptr arg) { Object_6a0e0* p = FUN_0008d690(0x24); if (p) return p->FUN_0001f4e0(arg, this->f_14); return 0; }

@@ -896,7 +896,7 @@ class ParamValueInt_152900 : public ParamValue_152900 {
 } // namespace fn_f20ed7e3
 
 // 0x001508d0 hulkfight::motion::InterruptAccumulatorCondition::vfunc_6 (286 B): equivalent/0x001508d0.cpp [wrapped: conflict: DAT_00494b44; hulkfight::motion::InterruptAccumulatorCondition]
-// sym: ?vfunc_6@InterruptAccumulatorCondition@motion@hulkfight@fn_001508d0@@UAE_NPAXPAUContext@4@0@Z
+// sym: ?vfunc_6@InterruptAccumulatorCondition@motion@hulkfight@fn_001508d0@@UAE_NPAXPAUContext@4@0@Z @d1dcab197433 @w452b50edce25
 namespace fn_001508d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 20/20)
 // hulkfight::motion::InterruptAccumulatorCondition::vfunc_6 @ 0x001508d0
@@ -933,7 +933,7 @@ bool InterruptAccumulatorCondition::vfunc_6(void*, Context* context, void*) {
 
 
 // 0x00150a10 hulkfight::motion::CollisionSourceForceMagnitudeCondition::vfunc_6 (259 B): equivalent/0x00150a10.cpp
-// sym: ?vfunc_6@CollisionSourceForceMagnitudeCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@CollisionSourceForceMagnitudeCondition@motion@hulkfight@@UAE_NPAX00@Z @0dd23e090ef0 @wbd99aab9196e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // hulkfight::motion::CollisionSourceForceMagnitudeCondition::vfunc_6 @ 0x00150a10
 bool hulkfight::motion::CollisionSourceForceMagnitudeCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Source_150a10 * source = (Source_150a10 *)__p1;
@@ -955,7 +955,7 @@ default: return false;
 
 
 // 0x00150b30 hulkfight::motion::HitPushbackVelocityCondition::vfunc_6 (231 B): equivalent/0x00150b30.cpp [wrapped: conflict: hulkfight::motion::HitPushbackVelocityCondition]
-// sym: ?vfunc_6@HitPushbackVelocityCondition@motion@hulkfight@fn_00150b30@@UAE_NPAXPAUActor_150b30@4@0@Z
+// sym: ?vfunc_6@HitPushbackVelocityCondition@motion@hulkfight@fn_00150b30@@UAE_NPAXPAUActor_150b30@4@0@Z @c31892b4e6ac @wef89c511e8a9
 namespace fn_00150b30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // hulkfight::motion::HitPushbackVelocityCondition::vfunc_6 @ 0x00150b30
@@ -999,7 +999,7 @@ default: return false;
 
 
 // 0x00150c30 hulkfight::motion::CollisionChargeCondition::vfunc_6 (305 B): equivalent/0x00150c30.cpp [wrapped: conflict: CFightParams; FUN_00018960; fight::Condition; fight::Params (+1)]
-// sym: ?vfunc_6@CollisionChargeCondition@motion@hulkfight@fn_00150c30@@UAEDHPAVParams@fight@4@H@Z
+// sym: ?vfunc_6@CollisionChargeCondition@motion@hulkfight@fn_00150c30@@UAEDHPAVParams@fight@4@H@Z @7aaed9d8d1e9 @w7b4aa6d20d21
 namespace fn_00150c30 {
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 21/22, incomplete)
 // hulkfight::motion::CollisionChargeCondition::vfunc_6 @ 0x00150c30
@@ -1099,7 +1099,7 @@ char CollisionChargeCondition::vfunc_6(int a1, fight::Params *params, int a3)
 
 
 // 0x00150d80 hulkfight::motion::CollisionDamageHealthCompareCondition::vfunc_6 (539 B): equivalent/0x00150d80.cpp
-// sym: ?vfunc_6@CollisionDamageHealthCompareCondition@motion@hulkfight@@UAE_NPAX00@Z
+// sym: ?vfunc_6@CollisionDamageHealthCompareCondition@motion@hulkfight@@UAE_NPAX00@Z @9e7e172b5c04 @we0298156a55c
 // STATUS: equivalent (tools/equiv.py level 3: 178 inputs, branch coverage 33/40, incomplete)
 // hulkfight::motion::CollisionDamageHealthCompareCondition::vfunc_6 @ 0x00150d80
 bool hulkfight::motion::CollisionDamageHealthCompareCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int arg0 = (int)__p0; fight::Params_150d80 * params = (fight::Params_150d80 *)__p1; int arg2 = (int)__p2;
@@ -1298,7 +1298,7 @@ GroundSlideAction_1511d0::~GroundSlideAction_1511d0() {
 
 
 // 0x00151220 hulkfight::motion::GroundSlideAction::vfunc_3 (429 B): equivalent/0x00151220.cpp
-// sym: ?vfunc_3@GroundSlideAction@fn_f20ed7e3@@UAE_NHH@Z
+// sym: ?vfunc_3@GroundSlideAction@fn_f20ed7e3@@UAE_NHH@Z @0b4673825485 @wd4e09704f6ca
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 20/20)
 // hulkfight::motion::GroundSlideAction::vfunc_3 @ 0x00151220
 bool GroundSlideAction::vfunc_3(int a, int b)
@@ -1345,7 +1345,7 @@ bool GroundSlideAction::vfunc_3(int a, int b)
 } // namespace fn_f20ed7e3
 
 // 0x001513d0 hulkfight::motion::GroundSlideAction::vfunc_5 (844 B): equivalent/0x001513d0.cpp [wrapped: conflict: GroundSlideAction]
-// sym: ?vfunc_5@GroundSlideAction@fn_001513d0@@UAE_NHM@Z
+// sym: ?vfunc_5@GroundSlideAction@fn_001513d0@@UAE_NHM@Z @331572cc8a6e @w047d10b4998f
 namespace fn_001513d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // hulkfight::motion::GroundSlideAction::vfunc_5 @ 0x001513d0
@@ -1786,7 +1786,7 @@ HitPushbackAction_151c20::~HitPushbackAction_151c20() {
 
 
 // 0x00151c70 hulkfight::motion::HitPushbackAction::vfunc_5 (366 B): equivalent/0x00151c70.cpp
-// sym: ?vfunc_5@HitPushbackAction@fn_f20ed7e3@@UAE_NHM@Z
+// sym: ?vfunc_5@HitPushbackAction@fn_f20ed7e3@@UAE_NHM@Z @f90e59130e03 @w4c873d8d7fe2
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 12/12)
 // hulkfight::motion::HitPushbackAction::vfunc_5 @ 0x00151c70
 bool HitPushbackAction::vfunc_5(int a, float dt) {
@@ -1932,7 +1932,7 @@ HitThrowAction_151f80::~HitThrowAction_151f80() {
 } // namespace fn_f20ed7e3
 
 // 0x00151fd0 hulkfight::motion::HitThrowAction::vfunc_3 (480 B): equivalent/0x00151fd0.cpp [wrapped: conflict: FUN_000592a0; JointDriver]
-// sym: ?vfunc_3@HitThrowAction@fn_00151fd0@@UAE_NHH@Z
+// sym: ?vfunc_3@HitThrowAction@fn_00151fd0@@UAE_NHH@Z @ff3c77f86572 @w79964feee926
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -2166,7 +2166,7 @@ void Target_1521b0::Run() {
 } // namespace fn_f20ed7e3
 
 // 0x00152210 hulkfight::motion::HitThrowAction::vfunc_5 (571 B): equivalent/0x00152210.cpp [wrapped: conflict: HitThrowAction; World]
-// sym: ?vfunc_5@HitThrowAction@fn_00152210@@QAE_NHM@Z
+// sym: ?vfunc_5@HitThrowAction@fn_00152210@@QAE_NHM@Z @dceeda686d75 @wa198d62fd568
 namespace fn_00152210 {
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 16/16)
 // hulkfight::motion::HitThrowAction::vfunc_5 @ 0x00152210
@@ -2422,7 +2422,7 @@ HitOrientToPushbackAction_1524d0::~HitOrientToPushbackAction_1524d0() {
 } // namespace fn_f20ed7e3
 
 // 0x00152520 hulkfight::motion::HitOrientToPushbackAction::vfunc_5 (264 B): equivalent/0x00152520.cpp [wrapped: conflict: hulkfight::motion::HitOrientToPushbackAction]
-// sym: ?vfunc_5@HitOrientToPushbackAction@motion@hulkfight@fn_00152520@@UAE_NHM@Z
+// sym: ?vfunc_5@HitOrientToPushbackAction@motion@hulkfight@fn_00152520@@UAE_NHM@Z @6fe0e2c2318e @w14dd605cecc8
 namespace fn_00152520 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // hulkfight::motion::HitOrientToPushbackAction::vfunc_5 @ 0x00152520

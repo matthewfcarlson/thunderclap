@@ -4,7 +4,7 @@
 
 
 // 0x00128db0 FUN_00128db0 (274 B): equivalent/0x00128db0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00128db0
+// sym: _FUN_00128db0 @65fa6bcd5ca9 @w67c83d12b4ab
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"

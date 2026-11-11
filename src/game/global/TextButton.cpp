@@ -183,7 +183,7 @@ void TextButton::f14(int) {
 } // namespace fn_fdd3d2cc
 
 // 0x000e9370 TextButton::vfunc_5 (1163 B): equivalent/0x000e9370.cpp [wrapped: conflict: TextButton; pure3d::TextureAnimationController]
-// sym: ?vfunc_5@TextButton@fn_000e9370@@UAEXXZ
+// sym: ?vfunc_5@TextButton@fn_000e9370@@UAEXXZ @b14a8eee6755 @wbf76a081ccc8
 namespace fn_000e9370 {
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 24/24)
 // TextButton::vfunc_5 @ 0x000e9370

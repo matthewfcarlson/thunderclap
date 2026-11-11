@@ -66,7 +66,7 @@ CDropShadowDisplayEffect::CDropShadowDisplayEffect() {
 } // namespace fn_f7992297
 
 // 0x000dee60 CDropShadowDisplayEffect::vfunc_0 (220 B): equivalent/0x000dee60.cpp [wrapped: conflict: CDropShadowDisplayEffect]
-// sym: ?vfunc_0@CDropShadowDisplayEffect@fn_000dee60@@UAEXPAUDrawable@2@@Z
+// sym: ?vfunc_0@CDropShadowDisplayEffect@fn_000dee60@@UAEXPAUDrawable@2@@Z @aff04d541161 @w605a2879e69b
 namespace fn_000dee60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CDropShadowDisplayEffect::vfunc_0 @ 0x000dee60

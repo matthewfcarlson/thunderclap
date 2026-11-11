@@ -225,7 +225,7 @@ extern "C" void FUN_00070e30() {
 namespace fn_fac1e04c {
 
 // 0x000711c0 FUN_000711c0 (256 B): equivalent/0x000711c0.cpp
-// sym: _FUN_000711c0
+// sym: _FUN_000711c0 @1221447abf14 @wc3c651834cab
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 10/10)
 // FUN_000711c0 @ 0x000711c0
 extern "C" void FUN_000711c0() {
@@ -248,7 +248,7 @@ extern "C" void FUN_000711c0() {
 } // namespace fn_fac1e04c
 
 // 0x00071700 FUN_00071700 (213 B): equivalent/0x00071700.cpp [wrapped: conflict: fight::ParamFloatConstRange]
-// sym: _FUN_00071700
+// sym: _FUN_00071700 @02950758343f @w93bbd69b5607
 namespace fn_00071700 {
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 8/8)
 // FUN_00071700 @ 0x00071700
@@ -291,7 +291,7 @@ extern "C" void __cdecl FUN_00071700() {
 namespace fn_fac1e04c {
 
 // 0x000717e0 FUN_000717e0 (213 B): equivalent/0x000717e0.cpp
-// sym: _FUN_000717e0
+// sym: _FUN_000717e0 @57f3a6c404c4 @w4683413f757c
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_000717e0 @ 0x000717e0
 extern "C" void __cdecl FUN_000717e0() {

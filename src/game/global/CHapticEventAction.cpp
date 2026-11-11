@@ -42,7 +42,7 @@ extern A_17980* hulk_at_004dd6ec;
 } // namespace fn_ff7d2848
 
 // 0x00017870 CHapticEventAction::vfunc_3 (270 B): equivalent/0x00017870.cpp
-// sym: ?vfunc_3@CHapticEventAction@@UAE_NHH@Z
+// sym: ?vfunc_3@CHapticEventAction@@UAE_NHH@Z @f62604fc5dd2 @wc938e073428b
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 6/6)
 // CHapticEventAction::vfunc_3 @ 0x00017870
 bool CHapticEventAction::vfunc_3(hulk_intptr , hulk_intptr ) {

@@ -170,7 +170,7 @@ public:
 
 
 // 0x001efb80 FUN_001efb80 (132 B): equivalent/0x001efb80.cpp
-// sym: ?Find@NodeTree@fn_f4b77e46@@QAEPAUNode@2@PAUKeyList_1efb80@2@@Z
+// sym: ?Find@NodeTree@fn_f4b77e46@@QAEPAUNode@2@PAUKeyList_1efb80@2@@Z @f4ecfee3bae7 @wc5570d962a92
 // STATUS: equivalent (tools/equiv.py level 3: 3094 inputs, branch coverage 23/26, incomplete)
 // FUN_001efb80 @ 0x001efb80
 Node *NodeTree::Find(KeyList_1efb80 *path)
@@ -198,7 +198,7 @@ Node *NodeTree::Find(KeyList_1efb80 *path)
 
 
 // 0x001efca0 FUN_001efca0 (81 B): equivalent/0x001efca0.cpp
-// sym: ?FUN_001efca0@fn_f4b77e46@@YGXH@Z
+// sym: ?FUN_001efca0@fn_f4b77e46@@YGXH@Z @114773d0f754 @w525b29fff056
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 4/4)
 // FUN_001efca0 @ 0x001efca0
 void __stdcall FUN_001efca0(int eventId) {
@@ -230,14 +230,14 @@ void __stdcall FUN_001efd00(int id) {
 
 
 // 0x001efd60 FUN_001efd60 (83 B): equivalent/0x001efd60.cpp
-// sym: ?FUN_001efd60@fn_f4b77e46@@YGXHHH@Z
+// sym: ?FUN_001efd60@fn_f4b77e46@@YGXHHH@Z @f35c7c3c72c6 @w6a8e15e47903
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001efd60 @ 0x001efd60
 void __stdcall FUN_001efd60(int a, int b, int c) { if (a != 0 && (*(Manager**)&DAT_004e3710) != 0) { Manager *manager = (*(Manager**)&DAT_004e3710); CSoundCommand_InstallMixer_1efd60 *p = (CSoundCommand_InstallMixer_1efd60*)FUN_0008d710(0x34,6); manager->FUN_001ef260(p ? p->FUN_001ef730(a,b,c) : 0); } }
 
 
 // 0x001efdc0 FUN_001efdc0 (88 B): equivalent/0x001efdc0.cpp
-// sym: ?FUN_001efdc0@fn_f4b77e46@@YGXHH@Z
+// sym: ?FUN_001efdc0@fn_f4b77e46@@YGXHH@Z @701e4b8e0bd2 @w9c7f31fbba40
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 4/4)
 // FUN_001efdc0 @ 0x001efdc0
 void __stdcall FUN_001efdc0(int value, int unused) {
@@ -258,7 +258,7 @@ void __stdcall FUN_001efdc0(int value, int unused) {
 
 
 // 0x001efe20 FUN_001efe20 (295 B): equivalent/0x001efe20.cpp
-// sym: ?FUN_001efe20@ThisWrap_001efe20@fn_f4b77e46@@QAE_NIIPBDI@Z
+// sym: ?FUN_001efe20@ThisWrap_001efe20@fn_f4b77e46@@QAE_NIIPBDI@Z @551a7701bce9 @wcd003e9b510f
 // STATUS: equivalent (tools/equiv.py level 3: 19413 inputs, branch coverage 7/8, incomplete)
 // FUN_001efe20 @ 0x001efe20
 bool ThisWrap_001efe20::FUN_001efe20(uint_1efe20 group,uint_1efe20 arg,const char* name,uint_1efe20 last) {
@@ -316,7 +316,7 @@ Obj_1eff50* Obj_1eff50::Dispose(unsigned char flag) {
 namespace fn_f4b77e46 {
 
 // 0x001effc0 FUN_001effc0 (197 B): equivalent/0x001effc0.cpp
-// sym: ?FUN_001effc0@Player_1effc0@fn_f4b77e46@@QAEXM@Z
+// sym: ?FUN_001effc0@Player_1effc0@fn_f4b77e46@@QAEXM@Z @d70c401bb976 @w2c059cdf74b2
 // STATUS: equivalent (tools/equiv.py level 3: 174 inputs, branch coverage 24/26, incomplete)
 // FUN_001effc0 @ 0x001effc0
 void Player_1effc0::FUN_001effc0(float delta) {

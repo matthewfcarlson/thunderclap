@@ -5,7 +5,7 @@
 
 
 // 0x0005b670 CGrappleSmartPropDropTrack::vfunc_12 (105 B): equivalent/0x0005b670.cpp [isolated: compile error C2440: 'static_cast' : cannot convert from 'fn_f63372f2::R_5aad0 *' to 'CSmartPropDropAction *'; on include/gen/ and not mergeable]
-// sym: ?vfunc_12@CGrappleSmartPropDropTrack@@UAEHH@Z
+// sym: ?vfunc_12@CGrappleSmartPropDropTrack@@UAEHH@Z @a6257b9b33b9 @w9d4d96e89657
 // STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 15/16, incomplete)
 // CGrappleSmartPropDropTrack::vfunc_12 @ 0x0005b670
 #include "gen/global.h"

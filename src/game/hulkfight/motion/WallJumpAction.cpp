@@ -1108,7 +1108,7 @@ hulk_intptr hulkfight::motion::WallRunTrack::vfunc_0(int index) {
 
 
 // 0x0013eec0 FUN_0013eec0 (131 B): equivalent/0x0013eec0.cpp [wrapped: conflict: hulkfight::motion::WallRunTrack]
-// sym: ?FUN_0013eec0@WallRunTrack@motion@hulkfight@fn_0013eec0@@QAEPAV1234@XZ
+// sym: ?FUN_0013eec0@WallRunTrack@motion@hulkfight@fn_0013eec0@@QAEPAV1234@XZ @8bbdedd4881c @w2424952ca33a
 namespace fn_0013eec0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0013eec0 @ 0x0013eec0
@@ -1348,7 +1348,7 @@ void WallRunAction::vfunc_4() {
 } // namespace fn_f8068520
 
 // 0x0013f1d0 hulkfight::motion::WallExitAction::vfunc_3 (1074 B): equivalent/0x0013f1d0.cpp [wrapped: conflict: hulkfight::motion::WallExitAction]
-// sym: ?vfunc_3@WallExitAction@motion@hulkfight@fn_0013f1d0@@UAE_NHH@Z
+// sym: ?vfunc_3@WallExitAction@motion@hulkfight@fn_0013f1d0@@UAE_NHH@Z @f68910895ba0 @w54684ffa0d53
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1726,7 +1726,7 @@ WallExitTrack_13f7c0* WallExitTrack_13f7c0::vfunc_5(signed char flags) {
 } // namespace fn_f8068520
 
 // 0x0013f7f0 hulkfight::motion::WallVelocityCondition::vfunc_6 (425 B): equivalent/0x0013f7f0.cpp [wrapped: conflict: CFightParams; fight::Params; hulkfight::motion::WallVelocityCondition]
-// sym: ?vfunc_6@WallVelocityCondition@motion@hulkfight@fn_0013f7f0@@UAEDHPAVParams@fight@4@H@Z
+// sym: ?vfunc_6@WallVelocityCondition@motion@hulkfight@fn_0013f7f0@@UAEDHPAVParams@fight@4@H@Z @48b79c8c0812 @w8b835b0bdfb3
 namespace fn_0013f7f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 17/18, incomplete)
 // hulkfight::motion::WallVelocityCondition::vfunc_6 @ 0x0013f7f0
@@ -1874,7 +1874,7 @@ WallRunAction_13fa30::~WallRunAction_13fa30() {
 } // namespace fn_f8068520
 
 // 0x0013fa80 hulkfight::motion::WallRunAction::vfunc_5 (1664 B): equivalent/0x0013fa80.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_5@WallRunAction@fn_0013fa80@@UAEDTArg1_13fa80@2@TArg2_13fa80@2@@Z
+// sym: ?vfunc_5@WallRunAction@fn_0013fa80@@UAEDTArg1_13fa80@2@TArg2_13fa80@2@@Z @2224bb6695c4 @w0a7f0467902b
 namespace fn_0013fa80 {
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 44/44; --wine 644 inputs)
 // hulkfight::motion::WallRunAction::vfunc_5 @ 0x0013fa80
@@ -2190,7 +2190,7 @@ WallExitAction_140170::~WallExitAction_140170() {
 } // namespace fn_f8068520
 
 // 0x001401c0 hulkfight::motion::WallExitAction::vfunc_5 (962 B): equivalent/0x001401c0.cpp [wrapped: conflict: WallExitAction]
-// sym: ?vfunc_5@WallExitAction@fn_001401c0@@UAE_NHM@Z
+// sym: ?vfunc_5@WallExitAction@fn_001401c0@@UAE_NHM@Z @064d05d0afa4 @w14cc767b0467
 namespace fn_001401c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 22/22)
 // hulkfight::motion::WallExitAction::vfunc_5 @ 0x001401c0
@@ -2423,7 +2423,7 @@ WallJumpAction_140600::~WallJumpAction_140600() {
 } // namespace fn_f8068520
 
 // 0x00140650 hulkfight::motion::WallJumpAction::vfunc_3 (2539 B): equivalent/0x00140650.cpp [wrapped: conflict: FUN_000592a0; World]
-// sym: ?vfunc_3@WallJumpAction@fn_00140650@@UAE_NHH@Z
+// sym: ?vfunc_3@WallJumpAction@fn_00140650@@UAE_NHH@Z @8237446b06a5 @wf552bddd93a6
 namespace fn_00140650 {
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 56/56)
 // hulkfight::motion::WallJumpAction::vfunc_3 @ 0x00140650
@@ -2836,7 +2836,7 @@ bool WallJumpAction::vfunc_3(int a, int b)
 
 
 // 0x00141040 hulkfight::motion::WallJumpAction::vfunc_5 (1276 B): equivalent/0x00141040.cpp [wrapped: conflict: WallJumpAction]
-// sym: ?vfunc_5@WallJumpAction@fn_00141040@@UAE_NTSlot_141040@2@0@Z
+// sym: ?vfunc_5@WallJumpAction@fn_00141040@@UAE_NTSlot_141040@2@0@Z @bbaef637bbdd @w53a0717c489a
 namespace fn_00141040 {
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 25/26, incomplete)
 // hulkfight::motion::WallJumpAction::vfunc_5 @ 0x00141040
@@ -3561,7 +3561,7 @@ extern "C" void FUN_00142910(Manager* mgr) {
 } // namespace fn_f8068520
 
 // 0x00142940 FUN_00142940 (67 B): equivalent/0x00142940.cpp [wrapped: conflict: World; content::LoadInventory::DynamicCaster]
-// sym: _FUN_00142940
+// sym: _FUN_00142940 @b66cccfdbc21 @w4c8f193d04b9
 namespace fn_00142940 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00142940 @ 0x00142940
@@ -3624,7 +3624,7 @@ extern "C" int FUN_00142940(void * pair) {
 
 
 // 0x00142990 hulkfight::motion::WallRunAction::vfunc_3 (1292 B): equivalent/0x00142990.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_3@WallRunAction@motion@hulkfight@fn_00142990@@UAEDHH@Z
+// sym: ?vfunc_3@WallRunAction@motion@hulkfight@fn_00142990@@UAEDHH@Z @1d4ae7a7a3c6 @weea68171fc05
 namespace fn_00142990 {
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 36/36)
 // hulkfight::motion::WallRunAction::vfunc_3 @ 0x00142990

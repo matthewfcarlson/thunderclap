@@ -1578,7 +1578,7 @@ bool owners::Obj_180280::FUN_00180280(float x) {
 
 
 // 0x001802c0 FUN_001802c0 (60 B): equivalent/0x001802c0.cpp
-// sym: ?FUN_001802c0@Angles_1802c0@owners@@QAEEPBM@Z
+// sym: ?FUN_001802c0@Angles_1802c0@owners@@QAEEPBM@Z @103b33451d70 @w51e4361259fd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001802c0 @ 0x001802c0
 unsigned char owners::Angles_1802c0::FUN_001802c0(const float *v) {

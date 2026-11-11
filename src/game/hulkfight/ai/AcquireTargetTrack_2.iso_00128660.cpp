@@ -4,7 +4,7 @@
 
 
 // 0x00128660 FUN_00128660 (274 B): equivalent/0x00128660.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ?target@fn_f09e6d2d@@YAXXZ
+// sym: ?target@fn_f09e6d2d@@YAXXZ @975d8199eadb @w51ebbee36639
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"

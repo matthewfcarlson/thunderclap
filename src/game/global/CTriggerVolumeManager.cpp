@@ -1032,7 +1032,7 @@ void FUN_001fc690() {}
 
 
 // 0x001fc6a0 FUN_001fc6a0 (228 B): equivalent/0x001fc6a0.cpp
-// sym: ?FUN_001fc6a0@Dispatcher_1fc6a0@fn_f3d6a774@@QAEXH@Z
+// sym: ?FUN_001fc6a0@Dispatcher_1fc6a0@fn_f3d6a774@@QAEXH@Z @cd163d5fb243 @wf5c71573033d
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 20/22, incomplete)
 // FUN_001fc6a0 @ 0x001fc6a0
 void Dispatcher_1fc6a0::FUN_001fc6a0(hulk_intptr arg)
@@ -1089,7 +1089,7 @@ Entry* CTriggerVolumeManager_1fc7f0::FUN_001fc7f0(unsigned value) {
 } // namespace fn_f3d6a774
 
 // 0x001fc850 FUN_001fc850 (56 B): equivalent/0x001fc850.cpp [wrapped: conflict: Entry]
-// sym: ?FUN_001fc850@Table@fn_001fc850@@QAEPAUEntry@2@HH@Z
+// sym: ?FUN_001fc850@Table@fn_001fc850@@QAEPAUEntry@2@HH@Z @80ecf4e0f7df @w6172117bd66d
 namespace fn_001fc850 {
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 8/8)
 // FUN_001fc850 @ 0x001fc850
@@ -1110,7 +1110,7 @@ void Owner_1fc890::run(void* a, void* b) {
 
 
 // 0x001fc8c0 FUN_001fc8c0 (185 B): equivalent/0x001fc8c0.cpp
-// sym: ?FUN_001fc8c0@CTriggerVolumeManager_1fc8c0@fn_f3d6a774@@QAEPAUEntry_1fc8c0@2@II@Z
+// sym: ?FUN_001fc8c0@CTriggerVolumeManager_1fc8c0@fn_f3d6a774@@QAEPAUEntry_1fc8c0@2@II@Z @2deb760b9542 @wb1ea42e3e8ef
 // STATUS: equivalent (tools/equiv.py level 3: 178 inputs, branch coverage 22/22)
 // FUN_001fc8c0 @ 0x001fc8c0
 Entry_1fc8c0 *CTriggerVolumeManager_1fc8c0::FUN_001fc8c0(unsigned int key1, unsigned int key2) {
@@ -1153,7 +1153,7 @@ bool CTriggerVolumeManager::FUN_001fc9d0(int x) {
 
 
 // 0x001fc9f0 FUN_001fc9f0 (65 B): equivalent/0x001fc9f0.cpp
-// sym: ?FUN_001fc9f0@CTriggerVolumeManager@@QAEXPAXH@Z
+// sym: ?FUN_001fc9f0@CTriggerVolumeManager@@QAEXPAXH@Z @d3fcc8226970 @wcf3638e04c92
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 2/2)
 // FUN_001fc9f0 @ 0x001fc9f0
 void CTriggerVolumeManager::FUN_001fc9f0(void* __p0, int id) { Result * out = (Result *)__p0;
@@ -1165,7 +1165,7 @@ void CTriggerVolumeManager::FUN_001fc9f0(void* __p0, int id) { Result * out = (R
 
 
 // 0x001fca40 FUN_001fca40 (65 B): equivalent/0x001fca40.cpp
-// sym: ?FUN_001fca40@CTriggerVolumeManager@@QAEXPAXI@Z
+// sym: ?FUN_001fca40@CTriggerVolumeManager@@QAEXPAXI@Z @8d92f3583eef @wcf9643a13b01
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 2/2)
 // FUN_001fca40 @ 0x001fca40
 void CTriggerVolumeManager::FUN_001fca40(void* __p0, unsigned int id) { Vec3 * output = (Vec3 *)__p0;
@@ -1331,7 +1331,7 @@ void CTriggerVolumeManager_1fccf0::FUN_001fccf0(unsigned int arg, unsigned char 
 
 
 // 0x001fcdb0 FUN_001fcdb0 (150 B): equivalent/0x001fcdb0.cpp
-// sym: ?FUN_001fcdb0@Spawner_1fcdb0@fn_f3d6a774@@QAEXHH@Z
+// sym: ?FUN_001fcdb0@Spawner_1fcdb0@fn_f3d6a774@@QAEXHH@Z @b863a5a0e26e @w7dbc1b7e109f
 // STATUS: equivalent (tools/equiv.py level 3: 344 inputs, branch coverage 13/14, incomplete)
 // FUN_001fcdb0 @ 0x001fcdb0
 void Spawner_1fcdb0::FUN_001fcdb0(int key, int arg)
@@ -1368,7 +1368,7 @@ unsigned char CTriggerVolumeManager_nv_1fce50::FUN_001fce50(Trip a, int id, unsi
 
 
 // 0x001fcea0 FUN_001fcea0 (146 B): equivalent/0x001fcea0.cpp
-// sym: ?add@Owner_1fcea0@fn_f3d6a774@@QAE_NPAVInput_1fcea0@2@@Z
+// sym: ?add@Owner_1fcea0@fn_f3d6a774@@QAE_NPAVInput_1fcea0@2@@Z @b6f941d46a42 @wea94feab86b7
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 2/2)
 // FUN_001fcea0 @ 0x001fcea0
 bool Owner_1fcea0::add(Input_1fcea0* p) {
@@ -1437,7 +1437,7 @@ int Obj::Find(unsigned x) {
 namespace fn_f3d6a774 {
 
 // 0x001fd070 FUN_001fd070 (189 B): equivalent/0x001fd070.cpp
-// sym: ?target@Owner_1fd070@fn_f3d6a774@@QAEXH@Z
+// sym: ?target@Owner_1fd070@fn_f3d6a774@@QAEXH@Z @73b743d69b10 @w41e296adcd28
 // STATUS: equivalent (tools/equiv.py level 3: 424 inputs, branch coverage 12/12)
 // FUN_001fd070 @ 0x001fd070
 void Owner_1fd070::target(int index) {
@@ -1498,7 +1498,7 @@ void owners::C_1fd180::FUN_001fd180(int value) {
 namespace fn_f3d6a774 {
 
 // 0x001fd220 FUN_001fd220 (313 B): equivalent/0x001fd220.cpp
-// sym: ?run@Obj_1fd220@fn_f3d6a774@@QAEXH@Z
+// sym: ?run@Obj_1fd220@fn_f3d6a774@@QAEXH@Z @8117e7f9c304 @w81dde8294d90
 // STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 15/16, incomplete)
 // FUN_001fd220 @ 0x001fd220
 void Obj_1fd220::run(int id)
@@ -1583,7 +1583,7 @@ extern "C" void __stdcall FUN_001fd4d0(int value) {
 
 
 // 0x001fd640 FUN_001fd640 (238 B): equivalent/0x001fd640.cpp
-// sym: ?FUN_001fd640@fn_f3d6a774@@YAXPAXPAUVec3_1fd640@1@11@Z
+// sym: ?FUN_001fd640@fn_f3d6a774@@YAXPAXPAUVec3_1fd640@1@11@Z @3bdb2035caa7 @w683e7f6174f1
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 2/2)
 // FUN_001fd640 @ 0x001fd640
 void __cdecl FUN_001fd640(void* context, Vec3_1fd640* start, Vec3_1fd640* end, Vec3_1fd640* output) {
@@ -1770,7 +1770,7 @@ int CTriggerVolumeManager::FUN_001fd980(int a) {
 namespace fn_f3d6a774 {
 
 // 0x001fdeb0 FUN_001fdeb0 (82 B): equivalent/0x001fdeb0.cpp
-// sym: ?FUN_001fdeb0@Game@fn_f3d6a774@@QAE_NH_N@Z
+// sym: ?FUN_001fdeb0@Game@fn_f3d6a774@@QAE_NH_N@Z @ff165ac74b78 @w0d58c7bfd47b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001fdeb0 @ 0x001fdeb0
 bool Game::FUN_001fdeb0(int id, bool flag) { int index = FUN_001fcff0(id); if (index == -1 || !entries[index].active) return false; entries[index].FUN_001fa500(flag ? 2 : 1); return true; }
@@ -1837,7 +1837,7 @@ bool Obj::Go(int id) {
 namespace fn_f3d6a774 {
 
 // 0x001fe000 FUN_001fe000 (123 B): equivalent/0x001fe000.cpp
-// sym: ?FUN_001fe000@Mixer@fn_f3d6a774@@QAEXPAUPool_1fe000@2@@Z
+// sym: ?FUN_001fe000@Mixer@fn_f3d6a774@@QAEXPAUPool_1fe000@2@@Z @1df5399d9886 @w5541a6751352
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 9/10, incomplete)
 // FUN_001fe000 @ 0x001fe000
 // 8-byte id with the game's copy routine.
@@ -1863,7 +1863,7 @@ void Mixer::FUN_001fe000(Pool_1fe000 *pool) {
 } // namespace fn_f3d6a774
 
 // 0x001fe080 FUN_001fe080 (500 B): equivalent/0x001fe080.cpp [wrapped: conflict: World]
-// sym: ?FUN_001fe080@ElemSet@fn_001fe080@@QAEPAVElem_1fe080@2@MMMHHMM@Z
+// sym: ?FUN_001fe080@ElemSet@fn_001fe080@@QAEPAVElem_1fe080@2@MMMHHMM@Z @45112fe8e4b8 @wf9f2bb93055d
 namespace fn_001fe080 {
 // STATUS: equivalent (tools/equiv.py level 3: 3059 inputs, branch coverage 34/34)
 // FUN_001fe080 @ 0x001fe080
@@ -2004,7 +2004,7 @@ Elem_1fe080 *ElemSet::FUN_001fe080(float x, float y, float z, int type, int mode
 
 
 // 0x001fe280 FUN_001fe280 (249 B): equivalent/0x001fe280.cpp [wrapped: conflict: World]
-// sym: ?FUN_001fe280@Target_1fe280@fn_001fe280@@QAEPBDH@Z
+// sym: ?FUN_001fe280@Target_1fe280@fn_001fe280@@QAEPBDH@Z @f40b4f9b5269 @w81e22615056c
 namespace fn_001fe280 {
 // STATUS: equivalent (tools/equiv.py level 3: 201 inputs, branch coverage 14/14)
 // FUN_001fe280 @ 0x001fe280
@@ -2080,7 +2080,7 @@ const char* Target_1fe280::FUN_001fe280(int arg) {
 
 
 // 0x001fe380 FUN_001fe380 (1292 B): equivalent/0x001fe380.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_001fe380@Finder@fn_001fe380@@QAEDPAUV3@2@0@Z
+// sym: ?FUN_001fe380@Finder@fn_001fe380@@QAEDPAUV3@2@0@Z @54b398f5f1cd @wb2feb1d0eb6a
 namespace fn_001fe380 {
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 39/46, incomplete)
 // FUN_001fe380 @ 0x001fe380
@@ -2247,7 +2247,7 @@ template <> Method1<CTriggerVolumeManager,math::Vector, const char *>::~Method1(
 
 
 // 0x001fe8f0 Method1<CTriggerVolumeManager,math::Vector,const_char_*>::vfunc_2 (69 B): equivalent/0x001fe8f0.cpp
-// sym: ?vfunc_2@?$Method1@VCTriggerVolumeManager@@VVector@math@@PBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method1@VCTriggerVolumeManager@@VVector@math@@PBD@@UAEXPAX00@Z @a8a827e1a186 @we320285f6b9d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method1<CTriggerVolumeManager,math::Vector,const_char_*>::vfunc_2 @ 0x001fe8f0
 template <> void Method1<CTriggerVolumeManager,math::Vector, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1fe8f0 * manager = (CTriggerVolumeManager_1fe8f0 *)__p0; const char ** text = (const char **)__p1; math::Vector_1fe8f0 * result = (math::Vector_1fe8f0 *)__p2;
@@ -2287,7 +2287,7 @@ template <> Method2<CTriggerVolumeManager, bool, const char *,math::Vector>::~Me
 
 
 // 0x001fea40 Method2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_2 (58 B): equivalent/0x001fea40.cpp
-// sym: ?vfunc_2@?$Method2@VCTriggerVolumeManager@@_NPBDVVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method2@VCTriggerVolumeManager@@_NPBDVVector@math@@@@UAEXPAX00@Z @5070c124e04e @w8cf067245f4c
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_2 @ 0x001fea40
 template <> void Method2<CTriggerVolumeManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1fea40 * manager = (CTriggerVolumeManager_1fea40 *)__p0; Parameters * params = (Parameters *)__p1; bool * result = (bool *)__p2;
@@ -2399,7 +2399,7 @@ template <> Method4<CTriggerVolumeManager, bool, const char *,math::Vector,math:
 
 
 // 0x001fed30 Method4<CTriggerVolumeManager,bool,const_char_*,math::Vector,math::Vector,float>::vfunc_2 (110 B): equivalent/0x001fed30.cpp
-// sym: ?vfunc_2@?$Method4@VCTriggerVolumeManager@@_NPBDVVector@math@@V23@M@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method4@VCTriggerVolumeManager@@_NPBDVVector@math@@V23@M@@UAEXPAX00@Z @0fd9e26ce8ae @w351da021458c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method4<CTriggerVolumeManager,bool,const_char_*,math::Vector,math::Vector,float>::vfunc_2 @ 0x001fed30
 template <> void Method4<CTriggerVolumeManager, bool, const char *,math::Vector,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1fed30 * obj = (CTriggerVolumeManager_1fed30 *)__p0; Args_1fed30 * args = (Args_1fed30 *)__p1; bool * out = (bool *)__p2;
@@ -2671,7 +2671,7 @@ template <> Method3<CTriggerVolumeManager, void, const char *, int, bool>::~Meth
 
 
 // 0x001ff340 Method3<CTriggerVolumeManager,void,const_char_*,int,bool>::vfunc_2 (31 B): equivalent/0x001ff340.cpp
-// sym: ?vfunc_2@?$Method3@VCTriggerVolumeManager@@XPBDH_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Method3@VCTriggerVolumeManager@@XPBDH_N@@UAEXPAX00@Z @086ee6cd29ba @wf4247e7733f6
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CTriggerVolumeManager,void,const_char_*,int,bool>::vfunc_2 @ 0x001ff340
 template <> void Method3<CTriggerVolumeManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1ff340 * manager = (CTriggerVolumeManager_1ff340 *)__p0; TriggerArguments * args = (TriggerArguments *)__p1; void * unused = (void *)__p2;
@@ -2714,7 +2714,7 @@ template <> void Method5<CTriggerVolumeManager, const char *, const ::math::Vect
 namespace fn_f3d6a774 {
 
 // 0x001ff420 FUN_001ff420 (90 B): equivalent/0x001ff420.cpp
-// sym: ?target@fn_f3d6a774@@YAXPAUReceiver@1@PBHPAHP821@AEHUTriple@1@HHHH@Z@Z
+// sym: ?target@fn_f3d6a774@@YAXPAUReceiver@1@PBHPAHP821@AEHUTriple@1@HHHH@Z@Z @e4eae9032a61 @w678b92123535
 // STATUS: equivalent (tools/equiv.py level 3: 2975 inputs, branch coverage 2/2)
 // FUN_001ff420 @ 0x001ff420
 void __cdecl target(Receiver* receiver, const int* values, int* result, int (Receiver::*callback)(Triple,int,int,int,int)) {
@@ -2762,7 +2762,7 @@ template <> void Method1<CTriggerVolumeManager, void, float>::vfunc_2(void* __p0
 
 
 // 0x001ff580 FUN_001ff580 (416 B): equivalent/0x001ff580.cpp [wrapped: conflict: CTriggerVolumeManager]
-// sym: ??0CTriggerVolumeManager@fn_001ff580@@QAE@XZ
+// sym: ??0CTriggerVolumeManager@fn_001ff580@@QAE@XZ @6c6402386526 @wda299ae5b1c8
 namespace fn_001ff580 {
 // STATUS: equivalent (tools/equiv.py level 3: 15 inputs, branch coverage 21/22, incomplete)
 // FUN_001ff580 @ 0x001ff580
@@ -2873,7 +2873,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x001ff770 CTriggerVolumeManager::vfunc_1 (479 B): equivalent/0x001ff770.cpp [wrapped: conflict: CTriggerVolumeManager; World]
-// sym: ?v1@CTriggerVolumeManager@fn_001ff770@@UAE_NPAUElem_1ff770@2@@Z
+// sym: ?v1@CTriggerVolumeManager@fn_001ff770@@UAE_NPAUElem_1ff770@2@@Z @699d7c4a370f @wbb7f438d4a2e
 namespace fn_001ff770 {
 // STATUS: equivalent (tools/equiv.py level 3: 20046 inputs, branch coverage 38/38)
 // CTriggerVolumeManager::vfunc_1 @ 0x001ff770
@@ -3079,7 +3079,7 @@ template <> Closure1<CTriggerVolumeManager,math::Vector, const char *>::~Closure
 
 
 // 0x001ffa10 Closure1<CTriggerVolumeManager,math::Vector,const_char_*>::vfunc_2 (70 B): equivalent/0x001ffa10.cpp
-// sym: ?vfunc_2@?$Closure1@VCTriggerVolumeManager@@VVector@math@@PBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure1@VCTriggerVolumeManager@@VVector@math@@PBD@@UAEXPAX00@Z @307fff147072 @wc421665ee9f8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure1<CTriggerVolumeManager,math::Vector,const_char_*>::vfunc_2 @ 0x001ffa10
 template <> void Closure1<CTriggerVolumeManager,math::Vector, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** input = (const char **)__p1; Vector_1ffa10 * result = (Vector_1ffa10 *)__p2;
@@ -3193,7 +3193,7 @@ template <> Closure2<CTriggerVolumeManager, bool, const char *,math::Vector>::~C
 
 
 // 0x001ffb80 Closure2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_2 (61 B): equivalent/0x001ffb80.cpp
-// sym: ?vfunc_2@?$Closure2@VCTriggerVolumeManager@@_NPBDVVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure2@VCTriggerVolumeManager@@_NPBDVVector@math@@@@UAEXPAX00@Z @eaabcb9b97d0 @w3e55d6888abb
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_2 @ 0x001ffb80
 template <> void Closure2<CTriggerVolumeManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { const Vector_1ffb80 * value = (const Vector_1ffb80 *)__p1; bool * result = (bool *)__p2;
@@ -3248,7 +3248,7 @@ template <> Closure2<CTriggerVolumeManager, bool, const char *, float>::~Closure
 
 
 // 0x001ffc40 Closure2<CTriggerVolumeManager,bool,const_char_*,float>::vfunc_2 (40 B): equivalent/0x001ffc40.cpp [wrapped: conflict: CTriggerVolumeManager; Closure2; Function; TriggerArguments]
-// sym: ?vfunc_2@Closure2@fn_001ffc40@@UAEXPAXPBUTriggerArguments@2@PA_N@Z
+// sym: ?vfunc_2@Closure2@fn_001ffc40@@UAEXPAXPBUTriggerArguments@2@PA_N@Z @e654de0dce29 @wba6b7cc7fabf
 namespace fn_001ffc40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CTriggerVolumeManager,bool,const_char_*,float>::vfunc_2 @ 0x001ffc40
@@ -3743,7 +3743,7 @@ template <> Closure2<CTriggerVolumeManager, bool, const char *, const char *>::~
 
 
 // 0x00200020 Closure2<CTriggerVolumeManager,bool,const_char_*,const_char_*>::vfunc_2 (37 B): equivalent/0x00200020.cpp
-// sym: ?vfunc_2@?$Closure2@VCTriggerVolumeManager@@_NPBDPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure2@VCTriggerVolumeManager@@_NPBDPBD@@UAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CTriggerVolumeManager,bool,const_char_*,const_char_*>::vfunc_2 @ 0x00200020
 template <> void Closure2<CTriggerVolumeManager, bool, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** arguments = (const char **)__p1; bool * result = (bool *)__p2;
@@ -3861,7 +3861,7 @@ template <> Closure2<CTriggerVolumeManager, bool, const char *, bool>::~Closure2
 
 
 // 0x00200210 Closure2<CTriggerVolumeManager,bool,const_char_*,bool>::vfunc_2 (46 B): equivalent/0x00200210.cpp
-// sym: ?vfunc_2@?$Closure2@VCTriggerVolumeManager@@_NPBD_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure2@VCTriggerVolumeManager@@_NPBD_N@@UAEXPAX00@Z @8eb15ebc569e @w69c2d2ef61d1
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CTriggerVolumeManager,bool,const_char_*,bool>::vfunc_2 @ 0x00200210
 template <> void Closure2<CTriggerVolumeManager, bool, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; Arguments * arguments = (Arguments *)__p1; bool * result = (bool *)__p2;
@@ -3897,7 +3897,7 @@ Closure1_2002d0::Closure1_2002d0(const char* a, void* b, ScriptMemberFn c) : Met
 } // namespace fn_f3d6a774
 
 // 0x00200340 Closure1<CTriggerVolumeManager,int,const_char_*>::vfunc_2 (30 B): equivalent/0x00200340.cpp
-// sym: ?vfunc_2@?$Closure1@VCTriggerVolumeManager@@HPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure1@VCTriggerVolumeManager@@HPBD@@UAEXPAX00@Z @d5fcbfd9f63b @we2b2731e125e
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure1<CTriggerVolumeManager,int,const_char_*>::vfunc_2 @ 0x00200340
 template <> void Closure1<CTriggerVolumeManager, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** value = (const char **)__p1; int * result = (int *)__p2;
@@ -3956,7 +3956,7 @@ Closure1::Closure1(const char* s, const char* t, const char* u) : Method1(s, u) 
 
 
 // 0x002004b0 Closure1<CTriggerVolumeManager,const_char_*,const_char_*>::vfunc_2 (30 B): equivalent/0x002004b0.cpp
-// sym: ?vfunc_2@?$Closure1@VCTriggerVolumeManager@@HPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@?$Closure1@VCTriggerVolumeManager@@HPBD@@UAEXPAX00@Z @d5fcbfd9f63b @we2b2731e125e
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure1<CTriggerVolumeManager,const_char_*,const_char_*>::vfunc_2 @ 0x002004b0
 template <> void Closure1<CTriggerVolumeManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** argument = (const char **)__p1; const char ** result = (const char **)__p2;
@@ -3967,7 +3967,7 @@ template <> void Closure1<CTriggerVolumeManager, const char *, const char *>::vf
 
 
 // 0x002004d0 FUN_002004d0 (76 B): equivalent/0x002004d0.cpp [wrapped: conflict: CTriggerVolumeManager; Closure1; Method1]
-// sym: ??0?$Closure1@UCTriggerVolumeManager@fn_002004d0@@XM@fn_002004d0@@QAE@PBDPAXP8ScriptBoundClass@@AEXXZ@Z
+// sym: ??0?$Closure1@UCTriggerVolumeManager@fn_002004d0@@XM@fn_002004d0@@QAE@PBDPAXP8ScriptBoundClass@@AEXXZ@Z @ad4fb406a6f2 @weef8ebde1591
 namespace fn_002004d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002004d0 @ 0x002004d0
@@ -4023,7 +4023,7 @@ template <> void Closure1<CTriggerVolumeManager, void, float>::vfunc_2(void* __p
 
 
 // 0x002006f0 FUN_002006f0 (109 B): equivalent/0x002006f0.cpp [wrapped: conflict: CTriggerVolumeManager; Closure0; Method0]
-// sym: ?FUN_002006f0@Registry_2006f0@fn_002006f0@@QAEXPBDPAVCTriggerVolumeManager@2@P832@AEHXZ@Z
+// sym: ?FUN_002006f0@Registry_2006f0@fn_002006f0@@QAEXPBDPAVCTriggerVolumeManager@2@P832@AEHXZ@Z @9f84f41e1354 @wca5e073d385b
 namespace fn_002006f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_002006f0 @ 0x002006f0
@@ -4109,7 +4109,7 @@ void Registry_2006f0::FUN_002006f0(const char* name, CTriggerVolumeManager* owne
 namespace fn_f3d6a774 {
 
 // 0x002007b0 FUN_002007b0 (83 B): equivalent/0x002007b0.cpp
-// sym: ?FUN_002007b0@Registry_2007b0@fn_f3d6a774@@QAEXPBDPAVCTriggerVolumeManager_2007b0@2@P832@AE_N0VVector_2007b0@math@@2M@Z@Z
+// sym: ?FUN_002007b0@Registry_2007b0@fn_f3d6a774@@QAEXPBDPAVCTriggerVolumeManager_2007b0@2@P832@AE_N0VVector_2007b0@math@@2M@Z@Z @06d2a372320f @w35113775f73a
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_002007b0 @ 0x002007b0
 // FUN_002007b0 @ 0x002007b0  (generated by tools/equiv_gen/reg_helper.py)
@@ -4127,7 +4127,7 @@ void Registry_2007b0::FUN_002007b0(const char* a1, CTriggerVolumeManager_2007b0*
 
 
 // 0x002008b0 FUN_002008b0 (70 B): equivalent/0x002008b0.cpp
-// sym: ?FUN_002008b0@Registry_2008b0@fn_f3d6a774@@QAEXPBDPAVOwner@2@P832@AE_N00@Z@Z
+// sym: ?FUN_002008b0@Registry_2008b0@fn_f3d6a774@@QAEXPBDPAVOwner@2@P832@AE_N00@Z@Z @e7bb1abdcf61 @wf6a47327b7f7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002008b0 @ 0x002008b0
 // FUN_002008b0 @ 0x002008b0  (generated by tools/equiv_gen/reg_helper.py)
@@ -4142,7 +4142,7 @@ void Registry_2008b0::FUN_002008b0(const char* a1, Owner* a2, Fn_2008b0 a3) {
 
 
 // 0x00200900 FUN_00200900 (70 B): equivalent/0x00200900.cpp
-// sym: ?FUN_00200900@Registry_200900@fn_f3d6a774@@QAEXPBDPAVOwner@2@P832@AEX0M@Z@Z
+// sym: ?FUN_00200900@Registry_200900@fn_f3d6a774@@QAEXPBDPAVOwner@2@P832@AEX0M@Z@Z @02a25f33fc68 @w8fe8845b0c31
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00200900 @ 0x00200900
 // FUN_00200900 @ 0x00200900  (generated by tools/equiv_gen/reg_helper.py)
@@ -4157,7 +4157,7 @@ void Registry_200900::FUN_00200900(const char* a1, Owner* a2, Fn_200900 a3) {
 
 
 // 0x00200950 FUN_00200950 (83 B): equivalent/0x00200950.cpp
-// sym: ?FUN_00200950@Registry_200950@fn_f3d6a774@@QAEXPBDPAVCTriggerVolumeManager_200950@2@P832@AE_NVVector_200950@math@@0_N@Z@Z
+// sym: ?FUN_00200950@Registry_200950@fn_f3d6a774@@QAEXPBDPAVCTriggerVolumeManager_200950@2@P832@AE_NVVector_200950@math@@0_N@Z@Z @66631cd14399 @wfe91faaff79c
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00200950 @ 0x00200950
 // FUN_00200950 @ 0x00200950  (generated by tools/equiv_gen/reg_helper.py)
@@ -4175,7 +4175,7 @@ void Registry_200950::FUN_00200950(const char* a1, CTriggerVolumeManager_200950*
 
 
 // 0x00200a00 FUN_00200a00 (83 B): equivalent/0x00200a00.cpp
-// sym: ?FUN_00200a00@Registry_200a00@fn_f3d6a774@@QAEXPBDPAVCTriggerVolumeManager_200a00@2@P832@AE_N0HH_N@Z@Z
+// sym: ?FUN_00200a00@Registry_200a00@fn_f3d6a774@@QAEXPBDPAVCTriggerVolumeManager_200a00@2@P832@AE_N0HH_N@Z@Z @60f9afb744cb @w6f55b88f594b
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00200a00 @ 0x00200a00
 // FUN_00200a00 @ 0x00200a00  (generated by tools/equiv_gen/reg_helper.py)
@@ -4193,7 +4193,7 @@ void Registry_200a00::FUN_00200a00(const char* a1, CTriggerVolumeManager_200a00*
 
 
 // 0x00200ab0 FUN_00200ab0 (83 B): equivalent/0x00200ab0.cpp
-// sym: ?FUN_00200ab0@Registry_200ab0@fn_f3d6a774@@QAEXPBDPAVCTriggerVolumeManager_200ab0@2@P832@AEX0H_N@Z@Z
+// sym: ?FUN_00200ab0@Registry_200ab0@fn_f3d6a774@@QAEXPBDPAVCTriggerVolumeManager_200ab0@2@P832@AEX0H_N@Z@Z @5ca03c897f24 @wd70ef31329ac
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00200ab0 @ 0x00200ab0
 // FUN_00200ab0 @ 0x00200ab0  (generated by tools/equiv_gen/reg_helper.py)
@@ -4211,7 +4211,7 @@ void Registry_200ab0::FUN_00200ab0(const char* a1, CTriggerVolumeManager_200ab0*
 
 
 // 0x00200b10 FUN_00200b10 (83 B): equivalent/0x00200b10.cpp
-// sym: ?FUN_00200b10@Registry_200b10@fn_f3d6a774@@QAEXPBDPAVCTriggerVolumeManager_200b10@2@P832@AEPBDVVector_200b10@math@@HHMM@Z@Z
+// sym: ?FUN_00200b10@Registry_200b10@fn_f3d6a774@@QAEXPBDPAVCTriggerVolumeManager_200b10@2@P832@AEPBDVVector_200b10@math@@HHMM@Z@Z @6ae189a32c6f @waea06d0ad40b
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00200b10 @ 0x00200b10
 // FUN_00200b10 @ 0x00200b10  (generated by tools/equiv_gen/reg_helper.py)
@@ -4230,7 +4230,7 @@ void Registry_200b10::FUN_00200b10(const char* a1, CTriggerVolumeManager_200b10*
 } // namespace fn_f3d6a774
 
 // 0x00200c10 FUN_00200c10 (2853 B): equivalent/0x00200c10.cpp [wrapped: macros]
-// sym: ?Register@CTriggerVolumeManager@fn_00200c10@@QAEXH@Z
+// sym: ?Register@CTriggerVolumeManager@fn_00200c10@@QAEXH@Z @ae414f0cd9ae @w3cba00abd57a
 void* operator new(hulk_uintptr) throw();
 namespace fn_00200c10 {
 // STATUS: equivalent (tools/equiv.py level 3: 485 inputs, branch coverage 66/66)

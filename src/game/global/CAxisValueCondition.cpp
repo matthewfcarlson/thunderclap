@@ -39,7 +39,7 @@ CAxisValueCondition* CAxisValueCondition::vfunc_5(signed char flags) {
 } // namespace fn_f271ea75
 
 // 0x0004b520 CAxisValueCondition::vfunc_9 (189 B): equivalent/0x0004b520.cpp [wrapped: conflict: CAxisValueCondition]
-// sym: ?vfunc_9@CAxisValueCondition@fn_0004b520@@UAE_NPAXPAUAxisState@2@@Z
+// sym: ?vfunc_9@CAxisValueCondition@fn_0004b520@@UAE_NPAXPAUAxisState@2@@Z @4a911dc69ebd @w687b5ca973ca
 namespace fn_0004b520 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CAxisValueCondition::vfunc_9 @ 0x0004b520

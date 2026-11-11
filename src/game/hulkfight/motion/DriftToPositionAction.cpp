@@ -113,7 +113,7 @@ DriftToPositionAction_175020::~DriftToPositionAction_175020() throw() {
 } // namespace fn_f735d51c
 
 // 0x00175060 hulkfight::motion::DriftToPositionAction::vfunc_3 (761 B): equivalent/0x00175060.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_3@DriftToPositionAction@motion@hulkfight@fn_00175060@@UAE_NHM@Z
+// sym: ?vfunc_3@DriftToPositionAction@motion@hulkfight@fn_00175060@@UAE_NHM@Z @40192628bb96 @w173791c6cde7
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -375,7 +375,7 @@ bool hulkfight::motion::DriftToPositionAction::vfunc_3(int a, float b)
 
 
 // 0x00175360 hulkfight::motion::DriftToPositionAction::vfunc_5 (629 B): equivalent/0x00175360.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_5@DriftToPositionAction@motion@hulkfight@fn_00175360@@UAE_NHM@Z
+// sym: ?vfunc_5@DriftToPositionAction@motion@hulkfight@fn_00175360@@UAE_NHM@Z @712b1afc4d37 @wa35a5478324b
 namespace fn_00175360 {
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 44/44)
 // hulkfight::motion::DriftToPositionAction::vfunc_5 @ 0x00175360

@@ -103,7 +103,7 @@ public:
 
 
 // 0x00134ee0 hulkfight::motion::FallAction::vfunc_5 (1237 B): equivalent/0x00134ee0.cpp
-// sym: ?vfunc_5@FallAction@motion@hulkfight@fn_ff2b8fee@@UAE_NTSlot_134ee0@4@0@Z
+// sym: ?vfunc_5@FallAction@motion@hulkfight@fn_ff2b8fee@@UAE_NTSlot_134ee0@4@0@Z @e65580cd4b9e @w99a4415c650a
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 36/36)
 // hulkfight::motion::FallAction::vfunc_5 @ 0x00134ee0
 bool hulkfight::motion::FallAction::vfunc_5(Slot_134ee0 a1, Slot_134ee0 a2)

@@ -84,7 +84,7 @@ void ControllerPollerBase::Clear() {
 
 
 // 0x000de190 FUN_000de190 (60 B): equivalent/0x000de190.cpp
-// sym: ?FUN_000de190@Obj@fn_f551cf1f@@QAEXXZ
+// sym: ?FUN_000de190@Obj@fn_f551cf1f@@QAEXXZ @3fe0eaa43520 @w23b03539e035
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000de190 @ 0x000de190
 void Obj::FUN_000de190() { state = 14; if (other) other->slot1(); for (int i=0;i<6;i++) fields[i]=0; extra=0; tail=0; slot2(); }
@@ -102,7 +102,7 @@ void owners::Obj_de1d0::FUN_000de1d0() {
 namespace fn_f551cf1f {
 
 // 0x000de1f0 FUN_000de1f0 (751 B): equivalent/0x000de1f0.cpp
-// sym: ?FUN_000de1f0@fn_f551cf1f@@YGX_N@Z
+// sym: ?FUN_000de1f0@fn_f551cf1f@@YGX_N@Z @d5493fb47ff1 @wb140da2a6a6d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 57/58, incomplete)
 // FUN_000de1f0 @ 0x000de1f0
 void __stdcall FUN_000de1f0(bool analog)
@@ -146,7 +146,7 @@ void __stdcall FUN_000de1f0(bool analog)
 } // namespace fn_f551cf1f
 
 // 0x000de4e0 ControllerPollerBase::vfunc_0 (70 B): equivalent/0x000de4e0.cpp [wrapped: conflict: ControllerPollerBase]
-// sym: ?vfunc_0@ControllerPollerBase@fn_000de4e0@@UAEXXZ
+// sym: ?vfunc_0@ControllerPollerBase@fn_000de4e0@@UAEXXZ @9d96dca6777f @w485df0b4bd4e
 namespace fn_000de4e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // ControllerPollerBase::vfunc_0 @ 0x000de4e0
@@ -176,7 +176,7 @@ extern "C" float __cdecl FUN_000de530(float x, float a, float b) {
 } // namespace fn_f551cf1f
 
 // 0x000de590 ControllerPollerBase::vfunc_1 (595 B): equivalent/0x000de590.cpp [wrapped: conflict: ControllerPollerBase]
-// sym: ?vfunc_1@ControllerPollerBase@fn_000de590@@UAEMIH@Z
+// sym: ?vfunc_1@ControllerPollerBase@fn_000de590@@UAEMIH@Z @bd9bee2f8c18 @w8a5901a8ecdd
 namespace fn_000de590 {
 // STATUS: equivalent (tools/equiv.py level 3: 20060 inputs, branch coverage 47/47)
 // ControllerPollerBase::vfunc_1 @ 0x000de590
@@ -298,7 +298,7 @@ hulk_freg ControllerPollerBase::vfunc_1(unsigned int cmd, int index)
 namespace fn_f551cf1f {
 
 // 0x000de800 FUN_000de800 (406 B): equivalent/0x000de800.cpp
-// sym: ?FUN_000de800@fn_f551cf1f@@YAMMM@Z
+// sym: ?FUN_000de800@fn_f551cf1f@@YAMMM@Z @33bc6ba966ef @w0c0aa5a6f552
 // STATUS: equivalent (tools/equiv.py level 3: 20059 inputs, branch coverage 17/20, incomplete)
 // FUN_000de800 @ 0x000de800
 hulk_freg FUN_000de800(float x, float z)

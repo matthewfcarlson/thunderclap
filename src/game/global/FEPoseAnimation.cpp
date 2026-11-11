@@ -67,7 +67,7 @@ class FEPoseAnimation_e89e0 {
 
 
 // 0x000e8600 FUN_000e8600 (69 B): equivalent/0x000e8600.cpp
-// sym: ?FUN_000e8600@Target@fn_f477ab1c@@QAEMHH@Z
+// sym: ?FUN_000e8600@Target@fn_f477ab1c@@QAEMHH@Z @ea85b3045feb @w5b262aed9caf
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_000e8600 @ 0x000e8600
 hulk_freg Target::FUN_000e8600(int parameter, int index) {
@@ -174,7 +174,7 @@ FEPoseAnimation_e8730::~FEPoseAnimation_e8730() throw() {
 
 
 // 0x000e8790 FEPoseAnimation::vfunc_2 (488 B): equivalent/0x000e8790.cpp [wrapped: conflict: FEPoseAnimation; Target]
-// sym: ?vfunc_2@FEPoseAnimation@fn_000e8790@@UAEXXZ
+// sym: ?vfunc_2@FEPoseAnimation@fn_000e8790@@UAEXXZ @190cd907599b @w44b46e78f592
 namespace fn_000e8790 {
 // STATUS: equivalent (tools/equiv.py level 3: 3044 inputs, branch coverage 38/38)
 // FEPoseAnimation::vfunc_2 @ 0x000e8790

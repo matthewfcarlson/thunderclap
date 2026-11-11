@@ -165,7 +165,7 @@ BounceAction_1364f0::~BounceAction_1364f0() {
 } // namespace fn_f4ad64e6
 
 // 0x00136540 hulkfight::motion::BounceAction::vfunc_5 (778 B): equivalent/0x00136540.cpp
-// sym: ?vfunc_5@BounceAction@motion@hulkfight@@UAE_NTSlot_136540@fn_f4ad64e6@@M@Z
+// sym: ?vfunc_5@BounceAction@motion@hulkfight@@UAE_NTSlot_136540@fn_f4ad64e6@@M@Z @aa7ef34f760b @wfd996c576eb4
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 16/16)
 // hulkfight::motion::BounceAction::vfunc_5 @ 0x00136540
 bool hulkfight::motion::BounceAction::vfunc_5(Slot_136540 a1, float dt)

@@ -95,7 +95,7 @@ FireMissileAction_196270::~FireMissileAction_196270() {
 } // namespace fn_f9476b2e
 
 // 0x001962b0 FUN_001962b0 (882 B): equivalent/0x001962b0.cpp [wrapped: conflict: CProjectile; hulkfight::motion::ProjectileMissile]
-// sym: ??0ProjectileMissile@motion@hulkfight@fn_001962b0@@QAE@PAUMissileCfg@3@H@Z
+// sym: ??0ProjectileMissile@motion@hulkfight@fn_001962b0@@QAE@PAUMissileCfg@3@H@Z @5d4705001ab3 @w3e0447f0b2e3
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -487,7 +487,7 @@ hulkfight::motion::FireBeamAction::~FireBeamAction() throw() {
 
 
 // 0x00197540 hulkfight::motion::FireBeamAction::vfunc_4 (196 B): equivalent/0x00197540.cpp [wrapped: conflict: World; hulkfight::motion::FireBeamAction]
-// sym: ?vfunc_4@FireBeamAction@motion@hulkfight@fn_00197540@@UAEXXZ
+// sym: ?vfunc_4@FireBeamAction@motion@hulkfight@fn_00197540@@UAEXXZ @94125230b9fd @wae591e789998
 namespace fn_00197540 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // hulkfight::motion::FireBeamAction::vfunc_4 @ 0x00197540

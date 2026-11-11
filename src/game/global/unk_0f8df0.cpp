@@ -169,7 +169,7 @@ NamedValueInt* Owner_f8e70::Create(int a, int b, int c) {
 
 
 // 0x000f9140 FUN_000f9140 (68 B): equivalent/0x000f9140.cpp
-// sym: ?FUN_000f9140@Table@fn_f696183f@@QAEHHH@Z
+// sym: ?FUN_000f9140@Table@fn_f696183f@@QAEHHH@Z @056ecf67ee28 @wc7a0b9094480
 // STATUS: equivalent (tools/equiv.py level 3: 2341 inputs, branch coverage 8/8)
 // FUN_000f9140 @ 0x000f9140
 int Table::FUN_000f9140(int key1, int key2) { for (int i = 0; i < count; ++i) { if (entries[i].key1 == key1 && entries[i].key2 == key2) return entries[i].value; } return -1; }
@@ -189,7 +189,7 @@ bool owners::Obj_f92b0::FUN_000f92b0(u32_f92b0 a, u32_f92b0 b, u8_f92b0* out) {
 namespace fn_f696183f {
 
 // 0x000f92f0 FUN_000f92f0 (114 B): equivalent/0x000f92f0.cpp
-// sym: ?FUN_000f92f0@Owner_f92f0@fn_f696183f@@QAEHHHD@Z
+// sym: ?FUN_000f92f0@Owner_f92f0@fn_f696183f@@QAEHHHD@Z @d893587bc3b1 @wf943413bcdc0
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 2/2)
 // FUN_000f92f0 @ 0x000f92f0
 int Owner_f92f0::FUN_000f92f0(int a, int b, char value)
@@ -223,7 +223,7 @@ bool Obj_f94f0::Get(int a, int b, unsigned int* out) {
 
 
 // 0x000f9530 FUN_000f9530 (110 B): equivalent/0x000f9530.cpp
-// sym: ?FUN_000f9530@Store@fn_f696183f@@QAEXHHM@Z
+// sym: ?FUN_000f9530@Store@fn_f696183f@@QAEXHHM@Z @09beec2292f6 @wa4e3c38d197a
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 2/2)
 // FUN_000f9530 @ 0x000f9530
 void Store::FUN_000f9530(int a, int b, float value)

@@ -189,7 +189,7 @@ void CRangedAgent::vfunc_6(int value) {
 
 
 // 0x00107030 CRangedAgent::vfunc_3 (158 B): equivalent/0x00107030.cpp
-// sym: ?vfunc_3@CRangedAgent@@UAEMHH@Z
+// sym: ?vfunc_3@CRangedAgent@@UAEMHH@Z @61d2c8b05165 @we4d42171cc68
 // STATUS: equivalent (tools/equiv.py level 3: 3039 inputs, branch coverage 13/13)
 // CRangedAgent::vfunc_3 @ 0x00107030
 // CRangedAgent::vfunc_3 @ 0x00107030
@@ -217,7 +217,7 @@ hulk_freg CRangedAgent::vfunc_3(hulk_intptr a, int b) {
 
 
 // 0x001070d0 CRangedAgent::vfunc_7 (44 B): equivalent/0x001070d0.cpp [wrapped: conflict: CRangedAgent]
-// sym: ?vfunc_7@CRangedAgent@fn_001070d0@@UAEXD@Z
+// sym: ?vfunc_7@CRangedAgent@fn_001070d0@@UAEXD@Z @033362a4541e @w4f546c9311f1
 namespace fn_001070d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CRangedAgent::vfunc_7 @ 0x001070d0
@@ -297,7 +297,7 @@ CRangedAgent* CRangedAgent::vfunc_2(unsigned char param) {
 namespace fn_f4a19da2 {
 
 // 0x00107140 FUN_00107140 (437 B): equivalent/0x00107140.cpp
-// sym: ?Init@CRangedAgent_107140@fn_f4a19da2@@QAEXXZ
+// sym: ?Init@CRangedAgent_107140@fn_f4a19da2@@QAEXXZ @3e35b7dd4a91 @w5325381d092e
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_00107140 @ 0x00107140
 void CRangedAgent_107140::Init()
@@ -337,7 +337,7 @@ void CRangedAgent_107140::Init()
 } // namespace fn_f4a19da2
 
 // 0x00107300 CRangedAgent::vfunc_9 (270 B): equivalent/0x00107300.cpp
-// sym: ?vfunc_9@CRangedAgent@@UAEXXZ
+// sym: ?vfunc_9@CRangedAgent@@UAEXXZ @2244a3a5df8d @w079c4f1eab78
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 0/0)
 // CRangedAgent::vfunc_9 @ 0x00107300
 void CRangedAgent::vfunc_9() {
@@ -359,7 +359,7 @@ void CRangedAgent::vfunc_9() {
 
 
 // 0x00107410 FUN_00107410 (725 B): equivalent/0x00107410.cpp [wrapped: conflict: FUN_000964d0]
-// sym: ?FUN_00107410@Self_107410@fn_00107410@@QAE_NHH@Z
+// sym: ?FUN_00107410@Self_107410@fn_00107410@@QAE_NHH@Z @4b94ca3981db @wb99ac779d766
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -551,7 +551,7 @@ bool Self_107410::FUN_00107410(int a, int b)
 
 
 // 0x001076f0 FUN_001076f0 (101 B): equivalent/0x001076f0.cpp [wrapped: conflict: CRangedAgent]
-// sym: ??0CRangedAgent@fn_001076f0@@QAE@H@Z
+// sym: ??0CRangedAgent@fn_001076f0@@QAE@H@Z @b7030d34b827 @w6532b0d32174
 namespace fn_001076f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001076f0 @ 0x001076f0
@@ -613,7 +613,7 @@ CRangedAgent::CRangedAgent(hulk_intptr arg) : CCharacterAgent_1076f0(arg)
 namespace fn_f4a19da2 {
 
 // 0x00107760 FUN_00107760 (1319 B): equivalent/0x00107760.cpp
-// sym: ?FUN_00107760@Brain_107760@fn_f4a19da2@@QAEDPAXPAUCtx_107760@2@PAUV3_107760@2@2@Z
+// sym: ?FUN_00107760@Brain_107760@fn_f4a19da2@@QAEDPAXPAUCtx_107760@2@PAUV3_107760@2@2@Z @82874273cd98 @wa0e934ed0efc
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 22/22)
 // FUN_00107760 @ 0x00107760
 char Brain_107760::FUN_00107760(void *a0, Ctx_107760 *a1, V3_107760 *outB, V3_107760 *outA)
@@ -780,7 +780,7 @@ char Brain_107760::FUN_00107760(void *a0, Ctx_107760 *a1, V3_107760 *outB, V3_10
 } // namespace fn_f4a19da2
 
 // 0x00107c90 CRangedAgent::vfunc_4 (7501 B): equivalent/0x00107c90.cpp [wrapped: macros]
-// sym: ?FUN_00107c90@Agent@fn_00107c90@@QAEXPAXMH@Z
+// sym: ?FUN_00107c90@Agent@fn_00107c90@@QAEXPAXMH@Z @12aa65b8f367 @wbf54ffed65a9
 namespace fn_00107c90 {
 // STATUS: equivalent (tools/equiv.py level 3: 20145 inputs, branch coverage 249/256, incomplete)
 // CRangedAgent::vfunc_4 @ 0x00107c90

@@ -44,7 +44,7 @@ bool hulkfight::motion::ShieldArcAction::vfunc_3(hulk_intptr __p0, hulk_intptr _
 
 
 // 0x001824f0 hulkfight::motion::BallAndChainSpinAction::vfunc_5 (251 B): equivalent/0x001824f0.cpp [wrapped: conflict: hulkfight::motion::BallAndChainSpinAction]
-// sym: ?vfunc_5@BallAndChainSpinAction@motion@hulkfight@fn_001824f0@@UAE_NHM@Z
+// sym: ?vfunc_5@BallAndChainSpinAction@motion@hulkfight@fn_001824f0@@UAE_NHM@Z @e928bbd41d29 @w5e8b7e88295d
 namespace fn_001824f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // hulkfight::motion::BallAndChainSpinAction::vfunc_5 @ 0x001824f0

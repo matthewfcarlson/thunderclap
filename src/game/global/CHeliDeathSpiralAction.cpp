@@ -19,7 +19,7 @@ extern "C" R_18540* __fastcall FUN_00059a40(void*);
 } // namespace fn_f0828742
 
 // 0x00017e00 CHeliDeathSpiralAction::vfunc_6 (875 B): equivalent/0x00017e00.cpp [wrapped: conflict: CHeliDeathSpiralAction]
-// sym: ?vfunc_6@CHeliDeathSpiralAction@fn_00017e00@@UAE_NH@Z
+// sym: ?vfunc_6@CHeliDeathSpiralAction@fn_00017e00@@UAE_NH@Z @a06e3e3871e9 @wb58f6e2082f0
 namespace fn_00017e00 {
 // STATUS: equivalent (tools/equiv.py level 3: 12000 inputs, branch coverage 24/24)
 // CHeliDeathSpiralAction::vfunc_6 @ 0x00017e00
@@ -215,7 +215,7 @@ bool CHeliDeathSpiralAction::vfunc_6(int arg)
 
 
 // 0x00018170 CHeliDeathSpiralAction::vfunc_7 (976 B): equivalent/0x00018170.cpp [wrapped: conflict: CHeliDeathSpiralAction]
-// sym: ?vfunc_7@CHeliDeathSpiralAction@fn_00018170@@UAE_NM@Z
+// sym: ?vfunc_7@CHeliDeathSpiralAction@fn_00018170@@UAE_NM@Z @6dc4a302b535 @w36f232c01568
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

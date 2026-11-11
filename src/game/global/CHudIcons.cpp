@@ -155,7 +155,7 @@ CHudIcons_c7280::~CHudIcons_c7280() {
 
 
 // 0x000c72e0 FUN_000c72e0 (716 B): equivalent/0x000c72e0.cpp
-// sym: ?FUN_000c72e0@Self_c72e0@fn_f198369f@@QAEXXZ
+// sym: ?FUN_000c72e0@Self_c72e0@fn_f198369f@@QAEXXZ @d1c725c35bab @wc0a1812768c5
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_000c72e0 @ 0x000c72e0
 void Self_c72e0::FUN_000c72e0()

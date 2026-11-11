@@ -4,7 +4,7 @@
 
 
 // 0x00027630 FUN_00027630 (60 B): equivalent/0x00027630.cpp [isolated: compile error C2039: 'FUN_000fdca0' : is not a member of 'fn_f6d645d0::Result']
-// sym: ?FUN_00027630@Owner@fn_fc9fc607@@QAEHH@Z
+// sym: ?FUN_00027630@Owner@fn_fc9fc607@@QAEHH@Z @d7ff09d8c2d5 @w269f831ca027
 namespace fn_fc9fc607 {} using namespace fn_fc9fc607;
 namespace fn_fc9fc607 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)

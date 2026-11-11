@@ -4,7 +4,7 @@
 
 
 // 0x00075230 FUN_00075230 (1502 B): equivalent/0x00075230.cpp [isolated: compile error C2664: 'fn_00075230::fight::ParamFloatConstRange<T>::ParamFloatConstRange(const char *,void (__thiscall CCameraDramaticTrack::*]
-// sym: _FUN_00075230
+// sym: _FUN_00075230 @5d78321bb622 @wc8a83eb3725a
 // STATUS: equivalent (tools/equiv.py level 3: 1835 inputs, branch coverage 56/56)
 // FUN_00075230 @ 0x00075230
 #include "decls/data/game/global.h"

@@ -149,7 +149,7 @@ bool ImageSelector::vfunc_11(int , int ) {
 
 
 // 0x000e40e0 ImageSelector::vfunc_12 (519 B): equivalent/0x000e40e0.cpp [wrapped: conflict: ImageSelector]
-// sym: ?vfunc_12@ImageSelector@fn_000e40e0@@UAE_NHH@Z
+// sym: ?vfunc_12@ImageSelector@fn_000e40e0@@UAE_NHH@Z @1a5dbd2c1e3a @w29caba2edf8a
 namespace fn_000e40e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2852 inputs, branch coverage 52/55, incomplete)
 // ImageSelector::vfunc_12 @ 0x000e40e0

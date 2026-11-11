@@ -4,7 +4,7 @@
 
 
 // 0x00072280 FUN_00072280 (213 B): equivalent/0x00072280.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00072280
+// sym: _FUN_00072280 @0e07afe074aa @w7267b93f11d6
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 namespace fn_f5596bf6 {} using namespace fn_f5596bf6;

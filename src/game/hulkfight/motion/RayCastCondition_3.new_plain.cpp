@@ -35,7 +35,7 @@ template<class T> struct ParamFloatConstRange_16ade0 : ParamBase_16ade0 { virtua
 namespace fn_f77c6d78 {
 
 // 0x0016ade0 FUN_0016ade0 (245 B): equivalent/0x0016ade0.cpp
-// sym: _FUN_0016ade0
+// sym: _FUN_0016ade0 @9e1a64efb283 @w23144155d50a
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_0016ade0 @ 0x0016ade0
 extern "C" void __cdecl FUN_0016ade0() {

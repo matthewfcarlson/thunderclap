@@ -4,7 +4,7 @@
 
 
 // 0x000b9830 FUN_000b9830 (251 B): equivalent/0x000b9830.cpp [isolated: conflict: FUN_000fc3d0; on include/gen/ and not mergeable]
-// sym: ?FUN_000b9830@Menu_b9830@@QAEXXZ
+// sym: ?FUN_000b9830@Menu_b9830@@QAEXXZ @3c9015bd3a4c @w00158238f47c
 // STATUS: equivalent (tools/equiv.py level 3: 129 inputs, branch coverage 20/20)
 // FUN_000b9830 @ 0x000b9830
 #include "gen/global.h"

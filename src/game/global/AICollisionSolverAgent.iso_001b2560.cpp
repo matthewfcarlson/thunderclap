@@ -5,7 +5,7 @@
 
 
 // 0x001b2560 AICollisionSolverAgent::vfunc_5 (1836 B): equivalent/0x001b2560.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?vfunc_5@AICollisionSolverAgent@@UAEHPAX0@Z
+// sym: ?vfunc_5@AICollisionSolverAgent@@UAEHPAX0@Z @3c0b00070a39 @w392b554e477e
 // STATUS: equivalent (tools/equiv.py level 3: 3191 inputs, branch coverage 113/118, incomplete)
 // AICollisionSolverAgent::vfunc_5 @ 0x001b2560
 #include "gen/global.h"

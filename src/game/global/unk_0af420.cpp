@@ -240,7 +240,7 @@ void Obj_af510::clear() {
 
 
 // 0x000af530 FUN_000af530 (197 B): equivalent/0x000af530.cpp
-// sym: ?target@Object@fn_f6541536@@QAEXIIM@Z
+// sym: ?target@Object@fn_f6541536@@QAEXIIM@Z @cbfa50c46e0e @w6b7f662364f5
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 14/14)
 // FUN_000af530 @ 0x000af530
 void Object::target(unsigned group,unsigned index,float value) {
@@ -400,7 +400,7 @@ void owners::Thing_afb80::FUN_000afb80(char x) {
 namespace fn_f6541536 {
 
 // 0x000afbf0 FUN_000afbf0 (137 B): equivalent/0x000afbf0.cpp
-// sym: ??0CHapticController@fn_f6541536@@QAE@PAVSource_afbf0@1@@Z
+// sym: ??0CHapticController@fn_f6541536@@QAE@PAVSource_afbf0@1@@Z @ba10eeefd3e5 @wa29a741767d6
 // STATUS: equivalent (tools/equiv.py level 3: 153 inputs, branch coverage 10/10)
 // FUN_000afbf0 @ 0x000afbf0
 CHapticController::CHapticController(Source_afbf0* s) {

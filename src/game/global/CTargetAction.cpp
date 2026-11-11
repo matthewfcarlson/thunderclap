@@ -56,7 +56,7 @@ void CWallSlideAction::vfunc_4() {
 
 
 // 0x00017d10 CTargetAction::vfunc_7 (238 B): equivalent/0x00017d10.cpp
-// sym: ?vfunc_7@CTargetAction@@UAE_NH@Z
+// sym: ?vfunc_7@CTargetAction@@UAE_NH@Z @efa3dde090ac @w507c22cd16bc
 // STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 36/36)
 // CTargetAction::vfunc_7 @ 0x00017d10
 bool CTargetAction::vfunc_7(int ) {

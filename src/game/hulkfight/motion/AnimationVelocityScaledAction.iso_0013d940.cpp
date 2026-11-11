@@ -5,7 +5,7 @@
 
 
 // 0x0013d940 hulkfight::motion::AnimationVelocityScaledAction::vfunc_3 (1306 B): equivalent/0x0013d940.cpp [isolated: helper definitions (2 out-of-line function bodies); compile error C2027: use of undefined type 'fn_fa36bb23::Node']
-// sym: ?vfunc_3@AnimationVelocityScaledAction@motion@hulkfight@fn_f2ea2d39@@UAEDHH@Z
+// sym: ?vfunc_3@AnimationVelocityScaledAction@motion@hulkfight@fn_f2ea2d39@@UAEDHH@Z @ef7be189dab2 @w2b45b99a543e
 #include "gen/owners.h"
 namespace fn_f2ea2d39 {} using namespace fn_f2ea2d39;
 namespace fn_f2ea2d39 {

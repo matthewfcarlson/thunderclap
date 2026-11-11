@@ -68,7 +68,7 @@ hulk_intptr CSmartPropStateCondition::vfunc_0(int index) {
 
 
 // 0x00049a60 CSmartPropStateCondition::vfunc_7 (189 B): equivalent/0x00049a60.cpp
-// sym: ?vfunc_7@CSmartPropStateCondition@@UAE_NPAX@Z
+// sym: ?vfunc_7@CSmartPropStateCondition@@UAE_NPAX@Z @d4a2bef710a9 @w3be70fabfa7c
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 28/28)
 // CSmartPropStateCondition::vfunc_7 @ 0x00049a60
 bool CSmartPropStateCondition::vfunc_7(void* __p0) { Context_49a60 * context = (Context_49a60 *)__p0;

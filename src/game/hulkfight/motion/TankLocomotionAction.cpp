@@ -1115,7 +1115,7 @@ hulk_intptr hulkfight::motion::TankLocomotionTrack::vfunc_0(int index) {
 
 
 // 0x0018f2a0 FUN_0018f2a0 (121 B): equivalent/0x0018f2a0.cpp [wrapped: conflict: hulkfight::motion::TankLocomotionTrack]
-// sym: ??0TankLocomotionTrack@motion@hulkfight@fn_0018f2a0@@QAE@XZ
+// sym: ??0TankLocomotionTrack@motion@hulkfight@fn_0018f2a0@@QAE@XZ @14e5e0236638 @w9c0d193a91d8
 namespace fn_0018f2a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0018f2a0 @ 0x0018f2a0
@@ -1193,7 +1193,7 @@ hulk_freg hulkfight::motion::TankLocomotionTrack::vfunc_7() {
 namespace fn_fc171dfe {
 
 // 0x0018f350 hulkfight::motion::TankLocomotionAction::vfunc_3 (320 B): equivalent/0x0018f350.cpp
-// sym: ?vfunc_3@TankLocomotionAction@fn_fc171dfe@@UAE_NHH@Z
+// sym: ?vfunc_3@TankLocomotionAction@fn_fc171dfe@@UAE_NHH@Z @fbbae38320a8 @w62e453d92b86
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // hulkfight::motion::TankLocomotionAction::vfunc_3 @ 0x0018f350
 bool TankLocomotionAction::vfunc_3(int a, int b)
@@ -1369,7 +1369,7 @@ TankLocomotionAction_18f680::~TankLocomotionAction_18f680() {
 } // namespace fn_fc171dfe
 
 // 0x0018f6d0 hulkfight::motion::TankLocomotionAction::vfunc_5 (4678 B): equivalent/0x0018f6d0.cpp [wrapped: conflict: hulkfight::motion::TankLocomotionAction]
-// sym: ?vfunc_5@TankLocomotionAction@motion@hulkfight@fn_0018f6d0@@UAE_NHM@Z
+// sym: ?vfunc_5@TankLocomotionAction@motion@hulkfight@fn_0018f6d0@@UAE_NHM@Z @24a5f55b9e1d @wd5415ee319c6
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -2030,7 +2030,7 @@ void hulkfight::motion::ImpulseVelocityAction::FUN_00190a00() {
 
 
 // 0x00190a40 hulkfight::motion::ImpulseVelocityAction::vfunc_5 (693 B): equivalent/0x00190a40.cpp
-// sym: ?vfunc_5@ImpulseVelocityAction@motion@hulkfight@@UAE_NHH@Z
+// sym: ?vfunc_5@ImpulseVelocityAction@motion@hulkfight@@UAE_NHH@Z @ecfaef1d9997 @wd368b208e1d8
 // STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 20/20)
 // hulkfight::motion::ImpulseVelocityAction::vfunc_5 @ 0x00190a40
 bool hulkfight::motion::ImpulseVelocityAction::vfunc_5(hulk_intptr a, int b) {

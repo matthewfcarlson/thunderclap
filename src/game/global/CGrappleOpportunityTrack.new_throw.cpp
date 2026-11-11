@@ -70,7 +70,7 @@ public:
 
 
 // 0x0005c280 FUN_0005c280 (158 B): equivalent/0x0005c280.cpp
-// sym: _FUN_0005c280
+// sym: _FUN_0005c280 @e86512d22b8b @w180f6dff1a50
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_0005c280 @ 0x0005c280
 extern "C" void FUN_0005c280()
@@ -93,7 +93,7 @@ extern "C" void FUN_0005c280()
 
 
 // 0x0005c320 FUN_0005c320 (358 B): equivalent/0x0005c320.cpp
-// sym: _FUN_0005c320
+// sym: _FUN_0005c320 @45e4457b49ee @w179b44ea0b10
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_0005c320 @ 0x0005c320
 extern "C" void FUN_0005c320()
