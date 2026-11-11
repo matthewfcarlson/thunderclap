@@ -245,6 +245,34 @@ build compiled; only the TUs whose text or headers differ are compiled, exactly 
 6. Fewer rounds: the escalation and first-fallback rechecks are 6-8 of a fresh build's 17-20 rounds (40 s each on studio).
 7. The git mirror on the hosts (above): completeness, not speed; after the above.
 
+## Stale generated inputs: the guard (guard1, 2026-11-10)
+
+A Wine build job links three things the laptop generates and ships untracked: the data TUs (`build/data/src`,
+`tools/data_gen.py --gen-only`), the audio/input library (`build/third_party/out/sdl-backends/win32/hulk_sdl.lib`,
+`tools/wine_sdl.py backends --target win32`) and the pddi/bgfx objects (`build/third_party/out/pddi-win32/obj`,
+`tools/wine_gfx.py pddi --target win32`). On 2026-11-10 two of them lagged their sources and the images broke without
+a source change: data TUs from 11-06 left the audio OmType .bss items unbound (init 332, job 71106), and a hulk_sdl.lib
+from before 23ae2f213 lacked `hulk_session_*` (stopped in main, 71282; the host had printed "stale (content hash) ... the
+existing library is linked" and carried on). Edits to `src/platform/sdl/pddi/*.cpp` likewise never reached an image
+unless someone rebuilt those objects.
+
+Each of the three now carries a stamp, the content hash of the sources it was generated from, written by its producer
+(`tools/input_guard.py`; details and the source lists in [compute.md "Wine builds"](compute.md#wine-builds)).
+`wine_build_job.py submit` compares the job's sources with each stamp: a stale input whose sources are clean in git is
+rebuilt in the checkout; one whose sources have uncommitted edits (another agent's work in progress) refuses the
+submit with the input, the changed files and the ways out (`--data-src DIR`, `--sdl-src DIR`, `--allow-stale`). The host
+repeats the check before building (exit 3), and wine_link's "stale (content hash)" is an error unless `--allow-stale`.
+`tools/input_guard.py status` shows the state without changing anything.
+
+What the first run found in the shared inputs: `build/data/src` (regenerated earlier that day) held 30 TUs of objects
+that no longer exist (data_gen never deleted them; it does now), `hulk_sdl.lib` had been rebuilt at 19:01 by hand but
+its stamp was still from 11-09 (wine_sdl did not write stamps; it does now), and the pddi objects were older by mtime
+than two sources whose content matched HEAD. The guarded submit rebuilt all three from the clean checkout in about
+6 s (warm objects; byte sizes unchanged). Job 71441 (studio, a `git archive HEAD` workspace, `--gfx`, play3 to 3000)
+then built with all three fresh on the host too (`summary.json` `inputs_guard`) and matched the recording at every
+checkpoint to frame 3300 (111 checkpoints, 0 differ). A submit with `--data-src` pointing at a private copy stamped
+from the 11-06 config/data.json was refused before anything was rebuilt or queued.
+
 ## Replay speed and optimised objects (opt1, 2026-11-09)
 
 **Where a proof's time goes.** Studio, `wine_build_job.py ... --gfx --replay play3 --frames 60000`, `summary.json` wall seconds:

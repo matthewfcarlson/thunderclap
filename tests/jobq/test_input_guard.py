@@ -251,6 +251,52 @@ class Host(Base):
         self.assertEqual(res["data"]["state"], "unstamped")       # (an input shipped before the guard: not judged)
 
 
+class WineLinkLibs(unittest.TestCase):
+    """wine_link.refresh_platform_libs on a host (cannot rebuild): a stale stamped library stops the link unless
+    HULK_WINE_ALLOW_STALE=1; an unstamped one stays a warning."""
+
+    def setUp(self):
+        import wine_link
+        self.wl = wine_link
+        self.root = os.path.realpath(tempfile.mkdtemp())
+        self.plat = os.path.join(self.root, "src/platform/sdl")
+        put(self.plat, "audio/a.cpp", "a")
+        self.out = os.path.join(self.root, "out")
+        put(self.out, "sdl-win32/SDL3.lib", "x")
+        self.lib = put(self.out, "sdl-backends/win32/hulk_sdl.lib", "lib")
+        self.saved = (wine_link.SDL_OUT, pl.PLAT, pl.can_build, os.environ.get("HULK_WINE_ALLOW_STALE"),
+                      os.environ.get("HULK_WINE_REFRESH_LIBS"), os.environ.get("HULK_WINE_SDL"))
+        wine_link.SDL_OUT, pl.PLAT, pl.can_build = self.out, self.plat, lambda root=None: False
+        for k in ("HULK_WINE_ALLOW_STALE", "HULK_WINE_REFRESH_LIBS", "HULK_WINE_SDL"):
+            os.environ.pop(k, None)
+
+    def tearDown(self):
+        self.wl.SDL_OUT, pl.PLAT, pl.can_build = self.saved[:3]
+        for k, v in zip(("HULK_WINE_ALLOW_STALE", "HULK_WINE_REFRESH_LIBS", "HULK_WINE_SDL"), self.saved[3:]):
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+        subprocess.run(["rm", "-rf", self.root])
+
+    def test_stale_is_an_error_unless_allowed(self):
+        pl.write_stamp(self.lib, "0" * 40)
+        with self.assertRaises(SystemExit) as cm:
+            self.wl.refresh_platform_libs()
+        self.assertIn("stale", str(cm.exception))
+        os.environ["HULK_WINE_ALLOW_STALE"] = "1"
+        self.wl.refresh_platform_libs()
+        self.assertIn("stale", self.wl.REFRESH["sdl-backends/win32/hulk_sdl.lib"])
+
+    def test_fresh_and_unstamped(self):
+        pl.write_stamp(self.lib, pl.source_hash(["audio", "input", "replay"], plat=self.plat))
+        self.wl.refresh_platform_libs()
+        self.assertEqual(self.wl.REFRESH["sdl-backends/win32/hulk_sdl.lib"], "fresh (content hash)")
+        os.unlink(self.lib + ".srchash")
+        self.wl.refresh_platform_libs()
+        self.assertIn("unknown", self.wl.REFRESH["sdl-backends/win32/hulk_sdl.lib"])
+
+
 class Scheme(unittest.TestCase):
     def test_library_stamp_matches_platform_libs(self):
         """A library's stamp is the hash wine_link (platform_libs.state) compares: both schemes must agree."""
