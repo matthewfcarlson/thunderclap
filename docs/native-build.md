@@ -2065,3 +2065,29 @@ d3dContext::vfunc_109 (0x00323ee0, the projection set-up) reading `f_154` (the d
 constructor 0x00324e00 lays its own fields after a local base of 0x150 bytes on 64-bit, gen's d3dContext puts them after
 gen's pddiBaseContext (0x190 on 64-bit); the same holds for the pddiBaseContext constructor 0x0031f410's local view
 (display at +0x10 on 64-bit, gen's `f_0c` at +0x18). The context layouts are next (one record per class).
+
+**Batch 2, the context records.** One layout per class, gen's, for the pddi objects on the d3dContext's path:
+
+| where | change | gate |
+|---|---|---|
+| include/gen/pure3d.h pddiObject | `int f_08` (0x0031bac0 writes both words: 0, then 1); the derived classes' own word at +8 removed (pddiBaseShader, pddiBaseContext, d3dDevice, d3dDisplay, d3dPrimBuffer, d3dTexture); evidence-rn.json follows | 32-bit layouts of all 381 classes of the header identical apart from the seven field-less bases growing 8 -> 12 (clang `-fdump-record-layouts` on i686-pc-windows-msvc, before/after); on 64-bit the derived fields move 4 or 8 bytes down to where the constructors write them |
+| gen pddiBaseContext | the five matrix stacks `void* f_20..f_30` (were inside `_pad_1c`) | as above |
+| gen d3dContext | `void* f_204` (the prim stream 0x00320d30 creates; was `int`) | as above |
+| 0x0031f410 pddiBaseContext ctor (equivalent) | writes gen's fields (display `f_0c`, `f_10`, `f_14..f_58` cleared, identity matrix `_pad_5c`, `f_bc`, `f_c0`, 12 words at +0xfc, `f_144`, `f_148`/+0x149); vftable by address (DAT_004327cc) | 3,009 inputs, `--wine` 609 |
+| 0x0031e610 vfunc_100 (equivalent) | the five matrix stacks into `f_20..f_30` (its view had a 32-byte pad, 8 bytes short on 64-bit); the stacks' vftables by address (DAT_004327b0, DAT_004327c0) | 2,986, `--wine` 619 |
+| 0x0031d300 vfunc_103 (match) | gen's fields instead of literal offsets 0xa4..0xf8 (on 64-bit they fell inside the identity matrix) | MATCH, relocs ok |
+| 0x00324e00 d3dContext ctor (match) | the base is `sizeof(pure3d::pddiBaseContext)` (`HULK_SIZE32` 0x14c), so the context's fields start at gen's `f_14c` on 64-bit too; `f204` a pointer | MATCH, relocs ok |
+| 0x00333520 d3dShader ctor (equivalent, isolated TU) | the owner is gen's d3dContext, its state cache read as `f_150` (a pointer; was a literal +0x150 into an `unsigned`); vftable by address (DAT_00433ffc); wrapped in `fn_00333520` (new pin) | 3,002, `--wine` 602 |
+| 0x00320d30 (equivalent) | the Renderer view lays its fields like gen's d3dContext (base `sizeof(pddiBaseContext)`, the display at `f_154`, the formats, the prim stream at `f_204`); the display's format word behind its vftable | 3,002, `--wine` 602 |
+| 0x00321860 d3dContext::vfunc_30 (match) | returns `(int)(hulk_intptr)f_204` (the slot's result is `int` in gen's signature: truncated on 64-bit, a follow-up) | MATCH, relocs ok |
+| 0x0031eab0 / 0x0031eb70 (matches) | the view/lighting state copies start with `void* vftable` (owners::Obj_31eb70 and its evidence entry) | MATCH, relocs ok |
+
+The 156 TUs that include gen/pure3d.h: 2,232 matches MATCH with relocations ok, 659 equivalents compile (tree_tu verify).
+
+Proof 71508 (studio, the batch) vs control 71466: image 141d7b7a (the 32-bit clang code of the re-proven equivalents
+changed), GATE ok (0 of 2,022 common frames differ), x87 keep list 266. Native on 71508's snapshot and map:
+**28,979 / 28,964 / 28,971** unbound; Android links. macOS: the d3dContext's construction and default states complete,
+0x00320d30 (the device format probe) runs, and the start-up stops in the d3dPrimStream constructor 0x0031bfa0
+(its owner view reads the display through a 32-bit offset). Many more local views of the d3dContext keep a literal
+`char pad[0x154]` before the display (d3dExtFramebufferEffects.cpp, d3dRefractVertexShader.cpp: about 15): each needs
+gen's offsets (a base of `sizeof(pure3d::pddiBaseContext)`) as it comes up.

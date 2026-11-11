@@ -141,7 +141,8 @@ namespace D3D8 {
 extern "C" int __stdcall D3D_CheckDeviceFormat(unsigned, unsigned, unsigned, unsigned, unsigned, unsigned);
 }
 extern "C" void* __cdecl FUN_0008d690(unsigned);
-struct DeviceInfo { char pad[0x42c]; unsigned format; };
+// (x64t2) the display (a d3dDisplay: its vftable, then 32-bit words) and the context in gen's d3dContext layout
+struct DeviceInfo { void* vftable; char pad[0x428]; unsigned format; };
 struct Renderer_320d30 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
  virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
@@ -153,7 +154,8 @@ struct Renderer_320d30 {
  virtual void v70(); virtual void v71(); virtual void v72(); virtual void v73(); virtual void v74(); virtual void v75(); virtual void v76(); virtual void v77(); virtual void v78(); virtual void v79();
  virtual void v80(); virtual void v81(); virtual void v82(); virtual void v83(); virtual void v84(); virtual void v85(); virtual void v86(); virtual void v87(); virtual void v88(); virtual void v89();
  virtual void v90(); virtual void v91(); virtual void v92(); virtual void v93(); virtual void v94(); virtual void v95(); virtual void v96(); virtual void v97(); virtual void v98(); virtual void v99();
- char pad[0x150]; DeviceInfo* device; char pad2[0x2c]; unsigned formats[30]; char pad3[8]; void* object;
+ char pad[sizeof(::pure3d::pddiBaseContext) - sizeof(void*)]; int f14c; void* f150; DeviceInfo* device; void* f158; char pad15c[4];
+ hulk_intptr f160; int f164[8]; unsigned formats[30]; char pad3[8]; void* object;
  int FUN_00320c60(); unsigned char FUN_00320d30();
 };
 struct d3dPrimStream_nv_320d30 {
@@ -1945,7 +1947,7 @@ int pure3d::d3dContext::vfunc_30(hulk_intptr a, int b, int c, int d, int e) {
     if (this->f_414)
         ((d3dContext_nv_321860*)this)->fix();
     ((Worker_321860*)this->f_204)->run(b, c, a, d, e);
-    return this->f_204;
+    return (int)(hulk_intptr)this->f_204;   // (the slot's int result: the prim stream pointer, truncated on 64-bit)
 }
 
 
@@ -5282,12 +5284,13 @@ class d3dExtFrameBufferTexture : public HeapObj {
 extern "C" void FUN_00328690(d3dContext*);
 struct LargeInt { unsigned int lo; int hi; };
 void __stdcall FUN_00354ce2(LargeInt*);
-// pddiBaseContext, named by its constructor's address (0x0031f410) so that the native link binds the base-constructor call.
+// pddiBaseContext, named by its constructor's address (0x0031f410) so that the native link binds the base-constructor call;
+// gen's pure3d::pddiBaseContext's size (0x14c; larger on 64-bit, where the context's own fields follow it: f_14c...)
 class FUN_0031f410 {
   public:
     FUN_0031f410(AssetSource* a, Allocator* b) throw();
     void* vftable;
-    char pad[0x14c - 4];
+    char pad[sizeof(::pure3d::pddiBaseContext) - sizeof(void*)];
 };
 class d3dContext : public FUN_0031f410 {
   public:
@@ -5306,7 +5309,7 @@ class d3dContext : public FUN_0031f410 {
     int f17c;
     float f180;
     char pad184[0x204 - 0x184];
-    int f204;
+    void* f204;   // the prim stream (0x00320d30)
     FUN_00329430* lightPool;
     Matrix lightMatrices[8];
     unsigned char lightDirty[8];
@@ -5329,6 +5332,7 @@ class d3dContext : public FUN_0031f410 {
     d3dContext(AssetSource* a, Allocator* b) throw();
 };
 d3dContext::d3dContext(AssetSource* a, Allocator* b) throw() : FUN_0031f410(a, b) {
+    HULK_SIZE32(FUN_0031f410, 0x14c);
     vftable = DAT_00433164;
     counter = 0;
     f168 = 0;

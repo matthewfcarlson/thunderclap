@@ -315,6 +315,7 @@ public:
     virtual void vfunc_2(); // slot 2
     virtual ~pddiObject(); // slot 3
     int f_04;
+    int f_08;  // (x64t2) 0x0031bac0 writes both words: f_04 = 0, f_08 = 1
 };
 
 // .?AVpddiDevice@pure3d@@  vftable 0x4324a8 (14)
@@ -3307,7 +3308,6 @@ public:
     virtual void vfunc_18(); // slot 18
     virtual void vfunc_19(); // slot 19
     virtual void vfunc_20(); // slot 20
-    int f_08;
     int f_0c;
 };
 
@@ -3593,12 +3593,16 @@ public:
     virtual void vfunc_108(int) = 0; // slot 108
     virtual void vfunc_109() = 0; // slot 109
     virtual void vfunc_110(int, char) = 0; // slot 110
-    char _pad_08[0x4];
     void* f_0c;
     void* f_10;
     int f_14;
     int f_18;
-    char _pad_1c[0x18];
+    char _pad_1c[0x4];
+    void* f_20;  // (x64t2) the five matrix stacks (0x0031e610 vfunc_100)
+    void* f_24;
+    void* f_28;
+    void* f_2c;
+    void* f_30;
     void* f_34;
     void* f_38;
     void* f_3c;
@@ -3680,7 +3684,7 @@ public:
     unsigned int f_17c;
     unsigned int f_180;
     char _pad_184[0x80];
-    int f_204;
+    void* f_204;  // (x64t2) the prim stream 0x00320d30 creates
     void* f_208;
     char _pad_20c[0x208];
     unsigned char f_414;
@@ -3706,7 +3710,6 @@ public:
     virtual void* vfunc_10(void*); // overrides pure3d::pddiDevice slot 10
     virtual void vfunc_11(int, int); // overrides pure3d::pddiDevice slot 11
     virtual void vfunc_12(int, int); // overrides pure3d::pddiDevice slot 12
-    int f_08;
     hulk_intptr f_0c;
 };
 
@@ -3747,7 +3750,6 @@ public:
     virtual void vfunc_15(int, int); // overrides pure3d::pddiDisplay slot 15
     virtual hulk_freg vfunc_16(); // overrides pure3d::pddiDisplay slot 16
     virtual void vfunc_17(); // slot 17
-    int f_08;
     int f_0c;
     int f_10;
     char _pad_14[0x420];
@@ -4187,7 +4189,6 @@ public:
     virtual void vfunc_13(int, int); // overrides pure3d::pddiPrimBuffer slot 13
     virtual void vfunc_14(int); // overrides pure3d::pddiPrimBuffer slot 14
     void FUN_00327050(); // non-virtual
-    char _pad_08[0x4];
     int f_0c;
     char _pad_10[0x8];
     int f_18;
@@ -4503,7 +4504,6 @@ public:
     virtual void vfunc_17(); // overrides pure3d::pddiTexture slot 17
     virtual void vfunc_18(unsigned int); // overrides pure3d::pddiTexture slot 18
     virtual unsigned int vfunc_19(); // overrides pure3d::pddiTexture slot 19
-    int f_08;
     char _pad_0c[0x14];
     int f_20;
     char _pad_24[0x8];

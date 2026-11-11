@@ -42052,7 +42052,7 @@
    "addr": "0x0031eb70",
    "aliases": 1,
    "members": [
-    "char pad[4];",
+    "void* vftable;",
     "char block[8][0x7c];",
     "unsigned int tail[2];",
     "void FUN_0031eb70(const Obj_31eb70*);"
@@ -42062,7 +42062,7 @@
      4,
      4
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ],

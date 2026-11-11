@@ -6650,10 +6650,10 @@
    "0x418": "int",
    "0x41c": "int",
    "0x448": "int",
-   "0x44c": "char"
+   "0x44c": "char",
+   "0x204": "void*"
   },
   "pure3d::d3dDisplay": {
-   "0x8": "int",
    "0xc": "int",
    "0x435": "char",
    "0x436": "char",
@@ -6815,7 +6815,6 @@
    "0x88": "int"
   },
   "pure3d::d3dTexture": {
-   "0x8": "int",
    "0x20": "int",
    "0x2c": "int",
    "0x30": "int",
@@ -6888,11 +6887,14 @@
    "0xc4": "float",
    "0xcc": "float",
    "0xd0": "float",
-   "0x144": "void*"
+   "0x144": "void*",
+   "0x20": "void*",
+   "0x24": "void*",
+   "0x28": "void*",
+   "0x2c": "void*",
+   "0x30": "void*"
   },
-  "pure3d::pddiBaseShader": {
-   "0x8": "int"
-  },
+  "pure3d::pddiBaseShader": {},
   "pure3d::pddiLightingState": {
    "0x3e4": "int"
   },
@@ -6982,6 +6984,9 @@
    "0x4": "void*",
    "0x8": "void*",
    "0xc": "void*"
+  },
+  "pure3d::pddiObject": {
+   "0x8": "int"
   }
  },
  "sigs": {

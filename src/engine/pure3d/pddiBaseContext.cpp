@@ -1120,27 +1120,28 @@ void pure3d::pddiBaseContext::vfunc_102(unsigned char flags) {
 
 // 0x0031d300 pure3d::pddiBaseContext::vfunc_103 (123 B): matches/0x0031d300.cpp
 // sym: ?vfunc_103@pddiBaseContext@pure3d@@UAEXXZ
+// (x64t2) gen's fields (were literal 32-bit offsets 0xa4..0xb8, 0xc4..0xf8, which land in the matrix on 64-bit)
 void pure3d::pddiBaseContext::vfunc_103() {
-    *(int*)((char*)this + 0xa4) = 0;
-    *(int*)((char*)this + 0xa8) = 0;
-    *(int*)((char*)this + 0xac) = 0;
-    *(int*)((char*)this + 0xb0) = 0;
-    *(int*)((char*)this + 0xb4) = 0;
-    *(int*)((char*)this + 0xb8) = 0;
-    *(int*)((char*)this + 0xc4) = 0;
-    *(int*)((char*)this + 0xc8) = 0;
-    *(int*)((char*)this + 0xcc) = 0;
-    *(int*)((char*)this + 0xd0) = 0;
-    *(int*)((char*)this + 0xd4) = 0;
-    *(int*)((char*)this + 0xd8) = 0;
-    *(int*)((char*)this + 0xdc) = 0;
-    *(int*)((char*)this + 0xe0) = 0;
-    *(int*)((char*)this + 0xe4) = 0;
-    *(int*)((char*)this + 0xe8) = 0;
-    *(int*)((char*)this + 0xec) = 0;
-    *(int*)((char*)this + 0xf0) = 0;
-    *(int*)((char*)this + 0xf4) = 0;
-    *(int*)((char*)this + 0xf8) = 0;
+    *(int*)&f_a4 = 0;
+    *(int*)_pad_a8 = 0;
+    *(int*)&f_ac = 0;
+    *(int*)_pad_b0 = 0;
+    *(int*)&f_b4 = 0;
+    *(int*)&f_b8 = 0;
+    *(int*)&f_c4 = 0;
+    *(int*)_pad_c8 = 0;
+    *(int*)&f_cc = 0;
+    *(int*)&f_d0 = 0;
+    ((int*)_pad_d4)[0] = 0;
+    ((int*)_pad_d4)[1] = 0;
+    ((int*)_pad_d4)[2] = 0;
+    ((int*)_pad_d4)[3] = 0;
+    ((int*)_pad_d4)[4] = 0;
+    ((int*)_pad_d4)[5] = 0;
+    ((int*)_pad_d4)[6] = 0;
+    ((int*)_pad_d4)[7] = 0;
+    ((int*)_pad_d4)[8] = 0;
+    ((int*)_pad_d4)[9] = 0;
 }
 
 
@@ -3113,23 +3114,30 @@ namespace fn_0031e610 {
 void* __cdecl FUN_0008d690(unsigned int);
 
 namespace math { struct Matrix { char data[64]; void FUN_0022b980(); }; }
+// (x64t2) the stacks' vftables stored by address (a local class's own vftable would be the 64-bit link's stub) and the
+// stacks kept in gen's pddiBaseContext (f_20..f_30)
+extern "C" char DAT_004327b0[];  // pure3d::pddiStack<math::Matrix>
+extern "C" char DAT_004327c0[];  // pure3d::pddiMatrixStack
 namespace pure3d {
-template<class T> struct pddiStack { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); int capacity; int top; T* data; };
-struct pddiMatrixStack : pddiStack<math::Matrix> { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); };
-struct pddiBaseContext { char pad[32]; pddiMatrixStack* stacks[5]; void vfunc_100(); };
+template<class T> struct pddiStack { void* vftable; int capacity; int top; T* data; };
+struct pddiMatrixStack : pddiStack<math::Matrix> { };
+struct pddiBaseContext { void vfunc_100(); };
 void pddiBaseContext::vfunc_100() {
+ ::pure3d::pddiBaseContext* g=(::pure3d::pddiBaseContext*)this;
  for(int s=0;s<5;++s) {
   void* memory=FUN_0008d690((int)sizeof(pddiStack<math::Matrix>));
   pddiMatrixStack* stack=0;
   if(memory) {
-   pddiStack<math::Matrix>* base=new(memory) pddiStack<math::Matrix>;
+   pddiStack<math::Matrix>* base=(pddiStack<math::Matrix>*)memory;
+   base->vftable=DAT_004327b0;
    math::Matrix* data=(math::Matrix*)FUN_0008d690(s==0?2048:128);
    base->data=data; base->top=0; base->capacity=s==0?32:2;
-   stack=new(memory) pddiMatrixStack;
+   stack=(pddiMatrixStack*)memory;
+   stack->vftable=DAT_004327c0;
    int i=0;
    do { stack->data[i].FUN_0022b980(); ++i; } while(i<stack->capacity);
   }
-  stacks[s]=stack;
+  (&g->f_20)[s]=stack;
  }
 }
 }
@@ -3503,7 +3511,8 @@ struct Four_31eab0 {
 };
 class C_31eab0 {
   public:
-    int v, a, b, c, d;
+    void* v;   // the vftable (a pddiViewState: the assignment copies the fields after it)
+    int a, b, c, d;
     Four_31eab0 e;
     Four_31eab0 f;
     C_31eab0& operator=(const C_31eab0&);
@@ -3993,32 +4002,32 @@ void pure3d::pddiBaseContext::vfunc_87(int __p0) { unsigned char flags = (unsign
 namespace fn_0031f410 {
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 2/2; --wine 609 inputs)
 // FUN_0031f410 @ 0x0031f410
-
+// (x64t2) the constructor writes gen's pure3d::pddiBaseContext (one layout for the context on 64-bit too): the display
+// f_0c, the device f_10, the stack pointers f_14..f_58 cleared, the identity matrix at +0x5c, f_bc / f_c0, the 12 words
+// at +0xfc, the helper f_144 and the flags f_148 / +0x149; the vftable stored by address (DAT_004327cc)
 struct Ref_31f410 { virtual void retain(); };
 struct Matrix { unsigned data[16]; };
-namespace pure3d { struct pddiBaseContext; }
-struct Helper_31f410 { Helper_31f410* FUN_00328250(pure3d::pddiBaseContext*); };
+struct Helper_31f410 { Helper_31f410* FUN_00328250(::pure3d::pddiBaseContext*); };
 extern Helper_31f410* __cdecl FUN_0008d690(unsigned);
-struct FUN_0031bac0 { FUN_0031bac0(); virtual void baseSlot(); };
+extern "C" char DAT_004327cc[];  // pure3d::pddiBaseContext
+struct FUN_0031bac0 { FUN_0031bac0(); };  // pure3d::pddiObject's constructor (0x0031bac0)
 namespace pure3d {
 struct pddiBaseContext : FUN_0031bac0 {
-virtual void vfunc_0();
-char pad4[8]; Ref_31f410* first; Ref_31f410* second;
-unsigned state[18]; Matrix matrix; char pad9c[32]; unsigned bc,c0;
-char padc4[56]; unsigned values[12]; char pad12c[24]; Helper_31f410* helper; unsigned char flag148,flag149;
 // the stack set-up (0x0031e610 vfunc_100, 0x0031f190 vfunc_101) and the reset (0x0031d300 vfunc_103), called directly;
 // named by address so that the native link binds them to their definitions
 void FUN_0031e610(); void FUN_0031f190(); void FUN_0031d300();
 pddiBaseContext(Ref_31f410*,Ref_31f410*);
 };
 pddiBaseContext::pddiBaseContext(Ref_31f410* a,Ref_31f410* b) {
-first=0;second=0;matrix=(*(Matrix*)&DAT_004c9f38);
-helper=0;flag148=0;flag149=0;
-first=a;a->retain();second=b;b->retain();
-for(int j=0;j<18;++j) state[j]=0;
+::pure3d::pddiBaseContext* g=(::pure3d::pddiBaseContext*)this;
+g->f_0c=0;*(void**)this=DAT_004327cc;g->f_10=0;*(Matrix*)g->_pad_5c=(*(Matrix*)&DAT_004c9f38);
+g->f_144=0;g->f_148=0;(&g->f_148)[1]=0;
+g->f_0c=a;a->retain();g->f_10=b;b->retain();
+unsigned* z=(unsigned*)&g->f_14;
+for(int j=0;j<(int)(((char*)&g->f_58+sizeof(g->f_58)-(char*)&g->f_14)/4);++j) z[j]=0;
 FUN_0031e610();FUN_0031f190();
-Helper_31f410* h=FUN_0008d690(4);helper=h?h->FUN_00328250(this):0;
-bc=0;c0=0;for(int k=0;k<12;++k) values[k]=0;
+Helper_31f410* h=FUN_0008d690(4);g->f_144=h?h->FUN_00328250(g):0;
+g->f_bc=0;g->f_c0=0;unsigned* v=(unsigned*)(g->_pad_d4+0x28);for(int k=0;k<12;++k) v[k]=0;
 FUN_0031d300();
 }
 }

@@ -16446,7 +16446,7 @@ struct GammaControl_31b390 {
 };
 // matches/0x0031eb70.cpp (stub Obj_31eb70), size 0x3ec
 struct Obj_31eb70 {
-    char pad[4]; // +0x00
+    void* vftable; // +0x00 (a pddiLightingState: the vftable first)
     char block[8][0x7c]; // +0x04
     unsigned int tail[2]; // +0x3e4
     void FUN_0031eb70(const Obj_31eb70*);
