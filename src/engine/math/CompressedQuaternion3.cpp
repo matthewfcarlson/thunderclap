@@ -14,7 +14,8 @@ namespace fn_f5ce7ee6 {
 extern char DAT_0042caa8[];
 void* __cdecl FUN_0008d6d0(unsigned size);
 void __stdcall FUN_00011520(void* base, unsigned size, int count, void* ctor);
-extern char FUN_00289ed0;
+// the element constructor (thiscall: the element first; returns it), passed to the vector helper as a function
+void* __fastcall FUN_00289ed0(void* element);
 struct Pool_28d150 {
 };
 class CompressedQuaternionChannel_28d150 {
@@ -87,7 +88,8 @@ class IntChannel {
     void vfunc_1();
 };
 extern char DAT_0042cac8[];
-extern char FUN_001db770;
+// the element constructor (thiscall: the element first; returns it), passed to the vector helper as a function
+void* __fastcall FUN_001db770(void* element);
 struct Pool_28d490 {
 };
 class CompressedQuaternionChannel_28d490 {
@@ -234,7 +236,7 @@ CompressedQuaternionChannel_28d150* CompressedQuaternionChannel_28d150::Construc
             data = 0;
             return this;
         }
-        FUN_00011520(mem, 8, n, &FUN_00289ed0);
+        FUN_00011520(mem, 8, n, (void*)&FUN_00289ed0);
         data = mem;
         return this;
     }
@@ -366,7 +368,7 @@ CompressedQuaternionChannel_28d490* CompressedQuaternionChannel_28d490::Construc
             data = 0;
             return this;
         }
-        FUN_00011520(mem, 6, n, &FUN_001db770);
+        FUN_00011520(mem, 6, n, (void*)&FUN_001db770);
         data = mem;
         return this;
     }
@@ -750,7 +752,8 @@ namespace fn_0028dae0 {
 // FUN_0028dae0 @ 0x0028dae0
 void *__cdecl FUN_0008d6d0(unsigned int size);
 void __stdcall FUN_00011520(void *base, unsigned int size, int count, void *ctor);
-extern char FUN_00289ef0;
+// the element constructor (thiscall: the element first; returns it), passed to the vector helper as a function
+void* __fastcall FUN_00289ef0(void* element);
 
 struct SharedPool {
 };
@@ -782,7 +785,7 @@ CompressedQuaternionChannel::CompressedQuaternionChannel(int a, hulk_intptr b) :
         int n = count;
         void *mem = FUN_0008d6d0(n * 3);
         if (mem != 0) {
-            FUN_00011520(mem, 3, n, &FUN_00289ef0);
+            FUN_00011520(mem, 3, n, (void*)&FUN_00289ef0);
             data = mem;
         } else {
             data = 0;

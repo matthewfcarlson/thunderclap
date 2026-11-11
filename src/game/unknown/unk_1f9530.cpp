@@ -284,8 +284,8 @@ public:
     virtual void *vfunc_3(unsigned int size);
 };
 
-extern char FUN_001f92b0;
-extern char FUN_001f92f0;
+// the node's key compare (0x001f92b0) and the lookup's match (0x001f92f0: extern "C", declared above), passed as functions
+unsigned int FUN_001f92b0(void* a, void* b);
 
 struct Handle_1f9530 {
     Node *node;
@@ -303,7 +303,7 @@ public:
 
 Handle_1f9530 *Registry_1f9530::FUN_001f9530(Handle_1f9530 *out, const KeyInfo *key)
 {
-    void *found = FUN_00230be0(&FUN_001f92f0, key);
+    void *found = FUN_00230be0((void*)&FUN_001f92f0, key);
     if (found == 0) {
         out->node = 0;
         out->owner = 0;
@@ -318,7 +318,7 @@ Handle_1f9530 *Registry_1f9530::FUN_001f9530(Handle_1f9530 *out, const KeyInfo *
         copy->flagB = key->flagB;
         copy->value = key->value;
     }
-    FUN_00230c30(node, &FUN_001f92b0, found);
+    FUN_00230c30(node, (void*)&FUN_001f92b0, found);
 
     out->node = node;
     out->owner = this;

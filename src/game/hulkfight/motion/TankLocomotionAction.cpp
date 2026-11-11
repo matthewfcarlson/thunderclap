@@ -1429,7 +1429,8 @@ struct Vec3_18f6d0 {
 struct Pt_18f6d0 {
     float x, y, z;
 };
-extern char FUN_00011090;
+// the element constructor (thiscall: the element first; returns it), passed to the vector helper as a function
+void* __fastcall FUN_00011090(void* element);
 void __stdcall FUN_00011520(void *p, unsigned int size, int count, void *ctor);
 
 struct Matrix {
@@ -1728,7 +1729,7 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
     inp[10] = c3.y;
     inp[11] = c3.z + hz;
     Pt_18f6d0 pts[4];
-    FUN_00011520(pts, 12, 4, &FUN_00011090);
+    FUN_00011520(pts, 12, 4, (void*)&FUN_00011090);
     for (int j = 0; j < 4; j++)
         m2e0.FUN_0022c2b0((Vec3_18f6d0 *)(inp + j * 3), (Vec3_18f6d0 *)&pts[j]);
 

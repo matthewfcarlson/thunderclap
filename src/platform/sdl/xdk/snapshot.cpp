@@ -408,7 +408,11 @@ static void snap_log(const char* fmt, ...) {
     char line[600];
     __builtin_va_list ap;
     __builtin_va_start(ap, fmt);
-    hulk_host__vsnprintf(line, sizeof(line), fmt, (char*)ap);
+#if defined(_WIN32)
+    hulk_host__vsnprintf(line, sizeof(line), fmt, (char*)ap);   // (msvcrt's x86 `char*` argument list)
+#else
+    __builtin_vsnprintf(line, sizeof(line), fmt, ap);   // host libc: a va_list is a struct on AArch64 Linux (Android)
+#endif
     __builtin_va_end(ap);
     line[sizeof(line) - 1] = 0;
     hulk_native_log(line);

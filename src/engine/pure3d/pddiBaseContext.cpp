@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/pure3d.h"
 #include "decls/data/engine/pure3d/scenegraph.h"
+#include "decls/data/records.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_fc049dac {
@@ -706,16 +707,14 @@ struct StateBase {
 };
 typedef unsigned int u32_31ed10;
 void* __cdecl FUN_0008d690(unsigned int);
-// the pddiStack<T> objects (0x0031ed40...0x0031f0a0 construct them): vftable, capacity, depth, items
-struct StackA { void* vftable; int capacity; unsigned int index; char* data; StackA* FUN_0031ed40(int); };
-struct StackB { void* vftable; int capacity; unsigned int index; char* data; StackB* FUN_0031ee00(int); };
-struct StackC { void* vftable; int capacity; unsigned int index; char* data; StackC* FUN_0031eef0(int); };
-struct StackD { void* vftable; int capacity; unsigned int index; char* data; StackD* FUN_0031efd0(int); };
-struct StackE { void* vftable; int capacity; unsigned int index; char* data; StackE* FUN_0031f0a0(int); };
 } // namespace fn_fc049dac
+// the five state records of the context's stacks (the states' vftable first): StateA_31f290 a pddiRenderState
+// (0x1c bytes on 32-bit), StateB_31f290 a pddiViewState (0x34), StateC a pddiLightingState (0x3ec), StateD a
+// pddiFogState (20), StateE a pddiStencilState (36); their constructors 0x0031ee00, 0x0031ed40, 0x0031eef0,
+// 0x0031efd0, 0x0031f0a0 build the same layouts
 namespace pure3d {
 struct StateA_31f290 {
-    int a0;
+    void* vftable;
     int a4;
     char c8;
     int ac;
@@ -729,19 +728,21 @@ struct StateA_31f290 {
 }
 namespace pure3d {
 struct StateB_31f290 {
-    char data[0x34];
+    void* vftable;
+    char data[0x30];
     void FUN_0031eab0(const StateB_31f290* prev);
 };
 }
 namespace pure3d {
 struct StateC {
-    char data[0x3ec];
+    void* vftable;
+    char data[0x3e8];
     void FUN_0031eb70(const StateC* prev);
 };
 }
 namespace pure3d {
 struct StateD {
-    int a0;
+    void* vftable;
     char c4;
     int a8;
     int ac;
@@ -750,7 +751,7 @@ struct StateD {
 }
 namespace pure3d {
 struct StateE {
-    int a0;
+    void* vftable;
     char c4;
     int a8;
     int ac;
@@ -772,6 +773,12 @@ struct StateStack_31f290 {
 }
 
 namespace fn_fc049dac {
+// the pddiStack<T> objects (0x0031ed40...0x0031f0a0 construct them): vftable, capacity, depth, items
+struct StackA { void* vftable; int capacity; unsigned int index; pure3d::StateB_31f290* data; StackA* FUN_0031ed40(int); };
+struct StackB { void* vftable; int capacity; unsigned int index; pure3d::StateA_31f290* data; StackB* FUN_0031ee00(int); };
+struct StackC { void* vftable; int capacity; unsigned int index; pure3d::StateC* data; StackC* FUN_0031eef0(int); };
+struct StackD { void* vftable; int capacity; unsigned int index; pure3d::StateD* data; StackD* FUN_0031efd0(int); };
+struct StackE { void* vftable; int capacity; unsigned int index; pure3d::StateE* data; StackE* FUN_0031f0a0(int); };
 
 // 0x0031c290 FUN_0031c290 (643 B): equivalent/0x0031c290.cpp
 // sym: _FUN_0031c290
@@ -1040,35 +1047,38 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 
 } // namespace fn_fc049dac
 
-// 0x0031cb60 pure3d::pddiBaseContext::vfunc_99 (1859 B): equivalent/0x0031cb60.cpp [wrapped: conflict: pure3d::pddiBaseContext]
-// sym: ?vfunc_99@pddiBaseContext@pure3d@fn_0031cb60@@UAEXXZ
-namespace fn_0031cb60 {
+// 0x0031cb60 pure3d::pddiBaseContext::vfunc_99 (1859 B): equivalent/0x0031cb60.cpp
+// sym: ?vfunc_99@pddiBaseContext@pure3d@@UAEXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // pure3d::pddiBaseContext::vfunc_99 @ 0x0031cb60
+// the default states, written through the context's current-state pointers (f_48 view, f_4c raster, f_50 lighting,
+// f_54 fog, f_58 stencil: 0x0031f190 sets them) and the display f_0c; each state starts with its vftable (the layouts
+// of the constructors 0x0031ed40, 0x0031ee00, 0x0031eef0, 0x0031efd0, 0x0031f0a0)
+namespace fn_0031cb60 {
 struct Display_31cb60 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual float v16(); };
 struct Vec4_31cb60 { float x,y,z,w; };
-struct View { int reserved; unsigned colour; float depth; int a,b; Vec4_31cb60 viewport; float nearPlane,farPlane,fov,aspect; };
-struct Raster { int reserved,mode; unsigned char enabled; char pad0[3]; int compare; unsigned char write; char pad1[3]; int other; unsigned char channels[4]; };
+struct View { void* vftable; unsigned colour; float depth; int a,b; Vec4_31cb60 viewport; float nearPlane,farPlane,fov,aspect; };
+struct Raster { void* vftable; int mode; unsigned char enabled; char pad0[3]; int compare; unsigned char write; char pad1[3]; int other; unsigned char channels[4]; };
 struct Light { Vec4_31cb60 colour,position,direction,extra; char untouched[20]; float range,falloff,a,b,c,d,e; int type,mask; unsigned char enabled; char pad[3]; };
-struct Lights_31cb60 { int reserved; Light light[8]; unsigned ambient; };
-struct Fog { int reserved; unsigned char enabled; char pad[3]; int colour; float start,end; };
-struct Stencil { int reserved; unsigned char enabled; char pad[3]; int compare,reference,readMask,writeMask,fail,zfail,pass; };
-namespace pure3d { struct pddiBaseContext {
+struct Lights_31cb60 { void* vftable; Light light[8]; unsigned ambient; };
+struct Fog { void* vftable; unsigned char enabled; char pad[3]; int colour; float start,end; };
+struct Stencil { void* vftable; unsigned char enabled; char pad[3]; int compare,reference,readMask,writeMask,fail,zfail,pass; };
+// the context's vftable as this function calls it (vfunc_102 with an int argument: -1 is pushed as 0xffffffff)
+struct Slots_31cb60 {
 virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(); virtual void vfunc_15(); virtual void vfunc_16(); virtual void vfunc_17(); virtual void vfunc_18(); virtual void vfunc_19(); virtual void vfunc_20(); virtual void vfunc_21(); virtual void vfunc_22(); virtual void vfunc_23(); virtual void vfunc_24(); virtual void vfunc_25(); virtual void vfunc_26(); virtual void vfunc_27(); virtual void vfunc_28(); virtual void vfunc_29(); virtual void vfunc_30(); virtual void vfunc_31(); virtual void vfunc_32(); virtual void vfunc_33(); virtual void vfunc_34(); virtual void vfunc_35(); virtual void vfunc_36(); virtual void vfunc_37(); virtual void vfunc_38(); virtual void vfunc_39(); virtual void vfunc_40(); virtual void vfunc_41(); virtual void vfunc_42(); virtual void vfunc_43(); virtual void vfunc_44(); virtual void vfunc_45(); virtual void vfunc_46(); virtual void vfunc_47(); virtual void vfunc_48(); virtual void vfunc_49(); virtual void vfunc_50(); virtual void vfunc_51(); virtual void vfunc_52(); virtual void vfunc_53(); virtual void vfunc_54(); virtual void vfunc_55(); virtual void vfunc_56(); virtual void vfunc_57(); virtual void vfunc_58(); virtual void vfunc_59(); virtual void vfunc_60(); virtual void vfunc_61(); virtual void vfunc_62(); virtual void vfunc_63(); virtual void vfunc_64(); virtual void vfunc_65(); virtual void vfunc_66(); virtual void vfunc_67(); virtual void vfunc_68(); virtual void vfunc_69(); virtual void vfunc_70(); virtual void vfunc_71(); virtual void vfunc_72(); virtual void vfunc_73(); virtual void vfunc_74(); virtual void vfunc_75(); virtual void vfunc_76(); virtual void vfunc_77(); virtual void vfunc_78(); virtual void vfunc_79(); virtual void vfunc_80(); virtual void vfunc_81(); virtual void vfunc_82(); virtual void vfunc_83(); virtual void vfunc_84(); virtual void vfunc_85(); virtual void vfunc_86(); virtual void vfunc_87(); virtual void vfunc_88(); virtual void vfunc_89(); virtual void vfunc_90(); virtual void vfunc_91(); virtual void vfunc_92(); virtual void vfunc_93(); virtual void vfunc_94(); virtual void vfunc_95(); virtual void vfunc_96(); virtual void vfunc_97(); virtual void vfunc_98(); virtual void vfunc_99(); virtual void vfunc_100(); virtual void vfunc_101(); virtual void vfunc_102(int);
-char padA[8]; Display_31cb60* display; char padB[56]; View* view; Raster* raster; Lights_31cb60* lights; Fog* fog; Stencil* stencil;
-}; }
-void pure3d::pddiBaseContext::vfunc_99() {
-view->colour=0xff000000; view->depth=1.0f; view->a=0; view->b=0;
-view->viewport.x=0; view->viewport.y=0; view->viewport.z=1; view->viewport.w=1;
-float aspect=display->v16(); view->aspect=aspect; view->nearPlane=1; view->farPlane=1000; view->fov=1.5707963705062866f;
-raster->enabled=1; raster->channels[0]=1; raster->channels[1]=1; raster->channels[2]=1; raster->channels[3]=1; raster->mode=1; raster->compare=3; raster->write=1; raster->other=0;
-lights->ambient=0xff101010;
-for(int i=0;i<8;++i) { Light& l=lights->light[i]; l.enabled=0; l.type=0; l.mask=-1; l.colour.x=0; l.colour.y=0; l.colour.z=1; l.colour.w=1; l.position.x=0; l.position.y=0; l.position.z=0; l.position.w=1; l.direction.x=0; l.direction.y=0; l.direction.z=1; l.direction.w=0; l.extra.x=0; l.extra.y=0; l.extra.z=0; l.extra.w=0; l.range=10000000.0f; l.falloff=1; l.a=0; l.b=0; l.c=0; l.d=0; l.e=0; }
-fog->enabled=0; fog->colour=-1; fog->start=0; fog->end=1000;
-stencil->enabled=0; stencil->compare=1; stencil->reference=0; stencil->readMask=-1; stencil->writeMask=-1; stencil->fail=0; stencil->zfail=0; stencil->pass=0;
-vfunc_102(-1);
-}
+};
 } // namespace fn_0031cb60
+void pure3d::pddiBaseContext::vfunc_99() {
+(*(fn_0031cb60::View**)&f_48)->colour=0xff000000; (*(fn_0031cb60::View**)&f_48)->depth=1.0f; (*(fn_0031cb60::View**)&f_48)->a=0; (*(fn_0031cb60::View**)&f_48)->b=0;
+(*(fn_0031cb60::View**)&f_48)->viewport.x=0; (*(fn_0031cb60::View**)&f_48)->viewport.y=0; (*(fn_0031cb60::View**)&f_48)->viewport.z=1; (*(fn_0031cb60::View**)&f_48)->viewport.w=1;
+float aspect=((fn_0031cb60::Display_31cb60*)f_0c)->v16(); (*(fn_0031cb60::View**)&f_48)->aspect=aspect; (*(fn_0031cb60::View**)&f_48)->nearPlane=1; (*(fn_0031cb60::View**)&f_48)->farPlane=1000; (*(fn_0031cb60::View**)&f_48)->fov=1.5707963705062866f;
+(*(fn_0031cb60::Raster**)&f_4c)->enabled=1; (*(fn_0031cb60::Raster**)&f_4c)->channels[0]=1; (*(fn_0031cb60::Raster**)&f_4c)->channels[1]=1; (*(fn_0031cb60::Raster**)&f_4c)->channels[2]=1; (*(fn_0031cb60::Raster**)&f_4c)->channels[3]=1; (*(fn_0031cb60::Raster**)&f_4c)->mode=1; (*(fn_0031cb60::Raster**)&f_4c)->compare=3; (*(fn_0031cb60::Raster**)&f_4c)->write=1; (*(fn_0031cb60::Raster**)&f_4c)->other=0;
+(*(fn_0031cb60::Lights_31cb60**)&f_50)->ambient=0xff101010;
+for(int i=0;i<8;++i) { fn_0031cb60::Light& l=(*(fn_0031cb60::Lights_31cb60**)&f_50)->light[i]; l.enabled=0; l.type=0; l.mask=-1; l.colour.x=0; l.colour.y=0; l.colour.z=1; l.colour.w=1; l.position.x=0; l.position.y=0; l.position.z=0; l.position.w=1; l.direction.x=0; l.direction.y=0; l.direction.z=1; l.direction.w=0; l.extra.x=0; l.extra.y=0; l.extra.z=0; l.extra.w=0; l.range=10000000.0f; l.falloff=1; l.a=0; l.b=0; l.c=0; l.d=0; l.e=0; }
+(*(fn_0031cb60::Fog**)&f_54)->enabled=0; (*(fn_0031cb60::Fog**)&f_54)->colour=-1; (*(fn_0031cb60::Fog**)&f_54)->start=0; (*(fn_0031cb60::Fog**)&f_54)->end=1000;
+(*(fn_0031cb60::Stencil**)&f_58)->enabled=0; (*(fn_0031cb60::Stencil**)&f_58)->compare=1; (*(fn_0031cb60::Stencil**)&f_58)->reference=0; (*(fn_0031cb60::Stencil**)&f_58)->readMask=-1; (*(fn_0031cb60::Stencil**)&f_58)->writeMask=-1; (*(fn_0031cb60::Stencil**)&f_58)->fail=0; (*(fn_0031cb60::Stencil**)&f_58)->zfail=0; (*(fn_0031cb60::Stencil**)&f_58)->pass=0;
+((fn_0031cb60::Slots_31cb60*)this)->vfunc_102(-1);
+}
 
 
 // 0x0031d2b0 pure3d::pddiBaseContext::vfunc_102 (78 B): matches/0x0031d2b0.cpp
@@ -3579,21 +3589,27 @@ namespace fn_0031ed40 {
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 6/6)
 // FUN_0031ed40 @ 0x0031ed40
 void* __cdecl FUN_0008d690(unsigned int size);
+// the vftables, stored by address (a local class's own vftable would be the 64-bit link's stub)
+extern "C" char DAT_00432998[];  // pure3d::pddiViewState
+extern "C" char DAT_004329cc[];  // pure3d::pddiStack<pure3d::pddiViewState>
 
 namespace pure3d {
 struct pddiViewState {
-    virtual void slot0();
+    void* vftable;
     char data[0x30];
+    pddiViewState() { vftable = DAT_00432998; }
 };
 template<class T> struct pddiStack {
-    virtual void slot0();
+    void* vftable;
     int capacity;
     int depth;
     T* items;
     pddiStack(int count);
 };
 template<> pddiStack<pddiViewState>::pddiStack(int count) {
-    pddiViewState* storage = (pddiViewState*)FUN_0008d690((unsigned int)count * 0x34);
+    HULK_SIZE32(pddiViewState, 0x34);
+    vftable = DAT_004329cc;
+    pddiViewState* storage = (pddiViewState*)FUN_0008d690((unsigned int)count * sizeof(pddiViewState));
     if (storage && (int)((unsigned int)count - 1) >= 0) {
         unsigned int remaining = (unsigned int)count;
         pddiViewState* current = storage;
@@ -3634,16 +3650,19 @@ pddiStack* pddiStack::vfunc_0(unsigned char flag) {
 // 0x0031ee00 FUN_0031ee00 (102 B): matches/0x0031ee00.cpp [wrapped: conflict: pure3d::pddiRenderState; pure3d::pddiStack]
 // sym: ??0?$pddiStack@VpddiRenderState@pure3d@fn_0031ee00@@@pure3d@fn_0031ee00@@QAE@H@Z
 namespace fn_0031ee00 {
+// the vftables, stored by address (a local class's own vftable would be the 64-bit link's stub)
+extern "C" char DAT_004329a0[];  // pure3d::pddiRenderState
+extern "C" char DAT_004329d4[];  // pure3d::pddiStack<pure3d::pddiRenderState>
 namespace pure3d {
 class pddiRenderState {
   public:
-    pddiRenderState() {}
-    virtual void f();
+    pddiRenderState() { vftable = DAT_004329a0; }
+    void* vftable;
     char p[0x18];
 };
 template <class T> class pddiStack {
   public:
-    virtual void g();
+    void* vftable;
     int n;
     int top;
     T* arr;
@@ -3651,7 +3670,9 @@ template <class T> class pddiStack {
 };
 void* FUN_0008d690(int sz);
 template <class T> pddiStack<T>::pddiStack(int cnt) {
-    T* a = (T*)FUN_0008d690(cnt * 0x1c);
+    HULK_SIZE32(T, 0x1c);
+    vftable = DAT_004329d4;
+    T* a = (T*)FUN_0008d690(cnt * (int)sizeof(T));
     T* b;
     if (a) {
         T* q = a;
@@ -3725,8 +3746,9 @@ public:
 };
 template<> pddiStack<pddiLightingState>::pddiStack(int count)
 {
+    HULK_SIZE32(pddiLightingState, 0x3ec);
     vftable = DAT_004329dc;
-    pddiLightingState* storage = (pddiLightingState*)FUN_0008d690((unsigned int)count * 0x3ec);
+    pddiLightingState* storage = (pddiLightingState*)FUN_0008d690((unsigned int)count * sizeof(pddiLightingState));
     if (storage && (int)((unsigned int)count - 1) >= 0) {
         unsigned int remaining = (unsigned int)count;
         pddiLightingState* current = storage;
@@ -3770,23 +3792,29 @@ namespace fn_0031efd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 6/6)
 // FUN_0031efd0 @ 0x0031efd0
 void* __cdecl FUN_0008d690(unsigned int size);
+// the vftables, stored by address (a local class's own vftable would be the 64-bit link's stub)
+extern "C" char DAT_004329b0[];  // pure3d::pddiFogState
+extern "C" char DAT_004329e4[];  // pure3d::pddiStack<pure3d::pddiFogState>
 
 namespace pure3d {
 class pddiFogState {
 public:
- virtual void FUN_0008d690();
+ void* vftable;
  char data[16];
+ pddiFogState() { vftable = DAT_004329b0; }
 };
 template<class T> class pddiStack {
 public:
- virtual void FUN_0008d690();
+ void* vftable;
  int capacity;
  int count;
  T* entries;
  pddiStack(int n);
 };
 template<> pddiStack<pddiFogState>::pddiStack(int n) {
- pddiFogState* memory = (pddiFogState*)::FUN_0008d690((unsigned int)n * 20u);
+ HULK_SIZE32(pddiFogState, 20);
+ vftable = DAT_004329e4;
+ pddiFogState* memory = (pddiFogState*)::FUN_0008d690((unsigned int)n * sizeof(pddiFogState));
  if (memory && (int)((unsigned int)n - 1u) >= 0) {
   unsigned int remaining = (unsigned int)n;
   pddiFogState* item = memory;
@@ -3830,15 +3858,19 @@ namespace fn_0031f0a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 6/6)
 // FUN_0031f0a0 @ 0x0031f0a0
 void* __cdecl FUN_0008d690(unsigned int bytes);
+// the vftables, stored by address (a local class's own vftable would be the 64-bit link's stub)
+extern "C" char DAT_004329b8[];  // pure3d::pddiStencilState
+extern "C" char DAT_004329ec[];  // pure3d::pddiStack<pure3d::pddiStencilState>
 namespace pure3d {
 class pddiStencilState {
 public:
- virtual void dummy();
+ void* vftable;
  char data[32];
+ pddiStencilState() { vftable = DAT_004329b8; }
 };
 template<class T> class pddiStack {
 public:
- virtual void dummy();
+ void* vftable;
  int count;
  int top;
  T* entries;
@@ -3846,7 +3878,9 @@ public:
 };
 }
 template<> pure3d::pddiStack<pure3d::pddiStencilState>::pddiStack(int n) {
- pddiStencilState* p = (pddiStencilState*)FUN_0008d690((unsigned int)n * 36);
+ HULK_SIZE32(pddiStencilState, 36);
+ vftable = DAT_004329ec;
+ pddiStencilState* p = (pddiStencilState*)FUN_0008d690((unsigned int)n * sizeof(pddiStencilState));
  if (p && (int)((unsigned int)n-1)>=0) {
   unsigned int i=0;
   do { p[i].pddiStencilState::pddiStencilState(); ++i; } while (i!=(unsigned int)n);
@@ -3884,11 +3918,13 @@ pddiStack* pddiStack::vfunc_0(unsigned char flag) {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // pure3d::pddiBaseContext::vfunc_101 @ 0x0031f190
 void pure3d::pddiBaseContext::vfunc_101() {
- StackA* aa = (StackA*)FUN_0008d690((int)sizeof(StackA)); if(aa) aa = aa->FUN_0031ed40(4); (*(StackA * *)&this->f_34) = aa; (*(char * *)&this->f_48) = aa->data + aa->index * 0x34;
- StackB* bb = (StackB*)FUN_0008d690((int)sizeof(StackB)); if(bb) bb = bb->FUN_0031ee00(4); (*(StackB * *)&this->f_38) = bb; (*(char * *)&this->f_4c) = bb->data + bb->index * 0x1c;
- StackC* cc = (StackC*)FUN_0008d690((int)sizeof(StackC)); if(cc) cc = cc->FUN_0031eef0(4); (*(StackC * *)&this->f_3c) = cc; (*(char * *)&this->f_50) = cc->data + cc->index * 0x3ec;
- StackD* dd = (StackD*)FUN_0008d690((int)sizeof(StackD)); if(dd) dd = dd->FUN_0031efd0(4); (*(StackD * *)&this->f_40) = dd; (*(char * *)&this->f_54) = dd->data + dd->index * 20;
- StackE* ee = (StackE*)FUN_0008d690((int)sizeof(StackE)); if(ee) ee = ee->FUN_0031f0a0(4); (*(StackE * *)&this->f_44) = ee; (*(char * *)&this->f_58) = ee->data + ee->index * 36;
+ HULK_SIZE32(StateB_31f290, 0x34); HULK_SIZE32(StateA_31f290, 0x1c); HULK_SIZE32(StateC, 0x3ec);
+ HULK_SIZE32(StateD, 20); HULK_SIZE32(StateE, 36);
+ StackA* aa = (StackA*)FUN_0008d690((int)sizeof(StackA)); if(aa) aa = aa->FUN_0031ed40(4); (*(StackA * *)&this->f_34) = aa; (*(StateB_31f290 * *)&this->f_48) = aa->data + aa->index;
+ StackB* bb = (StackB*)FUN_0008d690((int)sizeof(StackB)); if(bb) bb = bb->FUN_0031ee00(4); (*(StackB * *)&this->f_38) = bb; (*(StateA_31f290 * *)&this->f_4c) = bb->data + bb->index;
+ StackC* cc = (StackC*)FUN_0008d690((int)sizeof(StackC)); if(cc) cc = cc->FUN_0031eef0(4); (*(StackC * *)&this->f_3c) = cc; (*(StateC * *)&this->f_50) = cc->data + cc->index;
+ StackD* dd = (StackD*)FUN_0008d690((int)sizeof(StackD)); if(dd) dd = dd->FUN_0031efd0(4); (*(StackD * *)&this->f_40) = dd; (*(StateD * *)&this->f_54) = dd->data + dd->index;
+ StackE* ee = (StackE*)FUN_0008d690((int)sizeof(StackE)); if(ee) ee = ee->FUN_0031f0a0(4); (*(StackE * *)&this->f_44) = ee; (*(StateE * *)&this->f_58) = ee->data + ee->index;
 }
 
 

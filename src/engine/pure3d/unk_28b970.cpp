@@ -273,7 +273,8 @@ class Vector2DOFChannel_28beb0 : public VectorChannel_28beb0 {
 };
 extern char DAT_0042c9f0[];
 void __stdcall FUN_00011520(void* base, unsigned size, int count, void* ctor);
-extern char FUN_00011090;
+// the element constructor (thiscall: the element first; returns it), passed to the vector helper as a function
+void* __fastcall FUN_00011090(void* element);
 struct Pool_28bf20 {
 };
 class Vector3DOFChannel_28bf20 {
@@ -289,7 +290,8 @@ public:
     Vector3DOFChannel_28bf20* Construct(int a, hulk_intptr b);
 };
 extern char DAT_0042ca2c[];
-extern char FUN_00011450;
+// the element constructor (thiscall: the element first; returns it), passed to the vector helper as a function
+void* __fastcall FUN_00011450(void* element);
 struct Pool_28c0b0 {
 };
 class QuaternionChannel {
@@ -411,7 +413,8 @@ class BoolChannel_28c3e0 {
     void F();
 };
 extern char DAT_0042ca7c[];
-extern char FUN_000115b0;
+// the element constructor (thiscall: the element first; returns it), passed to the vector helper as a function
+void* __fastcall FUN_000115b0(void* element);
 struct Pool_28c470 {
 };
 class ColourChannel_28c470 {
@@ -824,7 +827,7 @@ Vector3DOFChannel_28bf20* Vector3DOFChannel_28bf20::Construct(int a, hulk_intptr
             data = 0;
             return this;
         }
-        FUN_00011520(mem, 12, n, &FUN_00011090);
+        FUN_00011520(mem, 12, n, (void*)&FUN_00011090);
         data = mem;
         return this;
     }
@@ -948,7 +951,7 @@ QuaternionChannel* QuaternionChannel::Construct(int a, hulk_intptr b)
             data = 0;
             return this;
         }
-        FUN_00011520(mem, 16, n, &FUN_00011450);
+        FUN_00011520(mem, 16, n, (void*)&FUN_00011450);
         data = mem;
         return this;
     }
@@ -1191,7 +1194,7 @@ ColourChannel_28c470* ColourChannel_28c470::Construct(int a, hulk_intptr b)
             data = 0;
             return this;
         }
-        FUN_00011520(mem, 4, n, &FUN_000115b0);
+        FUN_00011520(mem, 4, n, (void*)&FUN_000115b0);
         data = mem;
         return this;
     }

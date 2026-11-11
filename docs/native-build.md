@@ -2037,3 +2037,31 @@ vftable: the states are built by 0x0031ed40 / 0x0031ee00 / 0x0031efd0 / 0x0031f0
 (stubs in the 64-bit link) and indexed with 32-bit strides (`index * 0x34` etc. in 0x0031f190). Next: those four
 constructors store the game's vftables by address (as 0x0031eef0 does), the strides become `sizeof` of shared state
 records.
+
+## The pddi state stacks on records, and the function-as-data names (x64t2, 2026-11-10)
+
+x64t1's follow-up. Control 71466 (studio, HEAD 65d7307ee, `--gfx --replay play3 --frames 60000`, data TUs and
+hulk_sdl.lib copied privately from the fresh shared inputs): image 2e8232cd. Seeding a proof from a tree-mode control
+is not possible (the control has no tree-state.json), so the proofs are fresh builds on the same host.
+
+**Batch 1**
+
+| function | change | gate |
+|---|---|---|
+| 0x0031ed40 / 0x0031ee00 (match) / 0x0031efd0 / 0x0031f0a0, the pddiStack constructors of the view, render, fog and stencil states | the stack's and the state's vftables stored by address (DAT_004329cc / DAT_00432998, DAT_004329d4 / DAT_004329a0, DAT_004329e4 / DAT_004329b0, DAT_004329ec / DAT_004329b8; were the local classes' own, stubs in the 64-bit link); the allocation is `count * sizeof(state)` (`HULK_SIZE32` 0x34 / 0x1c / 20 / 36) | 32-bit code unchanged (compare listing identical to HEAD's); 0x0031ee00 MATCH, relocs ok; the equivalents re-run anyway: 2,795 inputs, `--wine` 601 |
+| 0x0031eef0 (lighting stack) | `count * sizeof(pddiLightingState)` (was 0x3ec) | unchanged code; 2,752 / `--wine` 590 |
+| 0x0031f190 vfunc_101 | StackA..E hold typed state pointers (the shared records StateB_31f290 view, StateA_31f290 render, StateC lighting, StateD fog, StateE stencil), the current-state pointers are `data + index` (were `index * 0x34`, `0x1c`, `0x3ec`, `20`, `36`); the records start with `void* vftable` | unchanged code; 3,000 / `--wine` 600 |
+| 0x0031cb60 vfunc_99 (default states) | merged onto gen's pddiBaseContext: writes through `f_48`..`f_58` and the display `f_0c` (its own class read them at 32-bit offsets after an 8-byte pad); the state views start with `void* vftable` (were `int reserved`); vfunc_102 is called through a slot view taking `int` (gen's takes `unsigned char`, which pushes 0xff for -1). New symbol pinned. | 2,922 inputs, `--wine` 599 |
+| the 12 `extern char FUN_x;` function-as-data names (TankLocomotionAction, ProjectileMissile, unk_1f9530, CompressedQuaternion3, unk_28b970) | function declarations: element constructors `void* __fastcall FUN_x(void* element)` (0x00011090, 0x00011450, 0x000115b0, 0x00289ed0, 0x00289ef0, 0x001db770), `extern "C"` 0x0027af00 (fastcall) and 0x0027af50 as defined, 0x001f92b0 (compare) and the TU's own `extern "C"` 0x001f92f0; the pointers are passed as `(void*)&FUN_x` | matches MATCH + relocs ok; the 9 equivalents that use them have unchanged code |
+| src/platform/sdl/xdk/snapshot.cpp `snap_log` | `__builtin_vsnprintf(..., ap)` on non-Windows hosts (the `(char*)ap` cast does not compile where `va_list` is a struct: AArch64 Linux); the Wine build keeps msvcrt's | Android shim compiles |
+
+Proofs: 71482 (the stack constructors + snapshot.cpp) and 71487 (the whole batch), studio: image 2e8232cd = the
+control's, `ckpt_gate.py 71466 71487` GATE ok (0 of 2,020 common frames differ).
+
+Native on 71487's snapshot and map: arm64 macOS / x86-64 Linux / arm64 Android unbound **28,990 / 28,975 / 28,982**
+(were 29,010 / 28,995 / 29,002). **Android links again** (lld rc 0, libmain.so; the shim compiles). macOS: the context's
+default states are applied (vfunc_99 -> vfunc_102 -> each state's vfunc_0, 47 imports) and the start-up stops in
+d3dContext::vfunc_109 (0x00323ee0, the projection set-up) reading `f_154` (the display) as 0x1900000004: the d3dContext
+constructor 0x00324e00 lays its own fields after a local base of 0x150 bytes on 64-bit, gen's d3dContext puts them after
+gen's pddiBaseContext (0x190 on 64-bit); the same holds for the pddiBaseContext constructor 0x0031f410's local view
+(display at +0x10 on 64-bit, gen's `f_0c` at +0x18). The context layouts are next (one record per class).

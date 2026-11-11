@@ -485,9 +485,11 @@ struct Cfg_19e910 {
 extern char DAT_0049dab8;
 extern char DAT_0049db1c;
 extern char DAT_0049dafc;
-extern char FUN_0027af00;
-extern char FUN_0027af50;
-extern char FUN_00011090;
+// the elements' constructors and destructor, passed to the vector helpers as functions (thiscall-like: the element
+// first): a name's constructor 0x0027af00 (fastcall), its destructor 0x0027af50 (empty), a point's constructor 0x00011090
+extern "C" void* __fastcall FUN_0027af00(void* name);
+extern "C" void FUN_0027af50();
+void* __fastcall FUN_00011090(void* element);
 
 int __cdecl FUN_00266da0(int tag) throw();
 Rng_19e910 *__cdecl FUN_000964d0() throw();
@@ -820,13 +822,13 @@ void ProjectileMissile::vfunc_4(float dt)
             unsigned int *key = fr.owner->FUN_001d68d0()->f8->key;
             unsigned int klo = key[0];
             unsigned int khi = key[1];
-            FUN_00011520(fr.u1a8.names, 8, 2, &FUN_0027af00);
+            FUN_00011520(fr.u1a8.names, 8, 2, (void*)&FUN_0027af00);
             fr.u1a8.names[0].FUN_0027af60(klo, khi);
             fr.u1a8.names[1].FUN_0027af60(klo, khi);
             Cfg_19e910 *c = cfg;
             c->FUN_00193660(&fr.v40);
             fr.u04.f = c->f114 * 0.5f;
-            FUN_00011520(fr.pts, 0xc, 2, &FUN_00011090);
+            FUN_00011520(fr.pts, 0xc, 2, (void*)&FUN_00011090);
             float y = fr.v40.y;
             float z = fr.v40.z;
             fr.pts[0].x = -fr.u04.f + fr.v40.x;
@@ -844,7 +846,7 @@ void ProjectileMissile::vfunc_4(float dt)
             fr.u0c.f = c->fb0;
             fa0 = trails->FUN_00283d60(fr.u0c.f, fr.u08.i, fr.owner->FUN_001d68d0(), fx, fr.u1a8.names, fr.pts, 2,
                                        fr.u1a8.names, *c->FUN_001936f0(&fr.buf), fr.u20.i, fr.u04.i, fr.u24.i);
-            FUN_00013420(fr.u1a8.names, 8, 2, &FUN_0027af50);
+            FUN_00013420(fr.u1a8.names, 8, 2, (void*)&FUN_0027af50);
         }
     }
     if (fr.owner == 0 || fr.owner->f114 != 0) {
