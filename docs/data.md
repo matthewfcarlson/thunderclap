@@ -491,7 +491,15 @@ differs from its standalone build; link check 6,477 references, **4,238 by name*
 
 `config/data.json` is generated, never edited: `tools/data_inventory.py` rewrites it from its inputs, and
 `tools/data_inventory.py --check` (also `tests/test_data_inventory.py`) exits 1, naming the items that differ, when the
-committed file is not exactly what they give. The inputs:
+committed file is not what they give in a field `tools/data_gen.py` reads: the item set, `size`, `pad`, `kind`,
+`name`, `type`, `object`, `layer`, `section`, `source_type` where it changes data_gen's scalar type (its fallback
+when `type` gives none), and `interior` on vftables and RTTI structures (tools/wine_link.py makes a label of each). The
+data TUs, include/decls/data/ and those labels follow from them. Differences in the informational
+fields (`source_names`, `source_type` otherwise, `owner_by`, `shared_objects`, `flags`, `xrefs`, `data_refs`,
+`interior`, `referenced`, `pointers`, `cls`/`slots`/`vfptr_offset`, the coverage line) are printed as warnings
+and exit 0: they move whenever a source adds a name or functions.csv moves an xref, and nothing generated depends on
+them (`interior` elsewhere and `xrefs` are hints for addr_literal and equiv; regenerate to refresh them).
+`--check --exact` fails on any difference (data2, 2026-11-12). The inputs:
 
 | input | what it decides | committed |
 |---|---|---|

@@ -82,9 +82,68 @@ class Helpers(unittest.TestCase):
                          ("build/rtti.json", "build/functions.csv", "isos/extracted/default.xbe")) and libclang(),
                      "needs the extracted XBE, build/functions.csv, build/rtti.json and libclang")
 class Reproducible(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.items, cls.cov = di.generate()
+
     def test_check(self):
         """tools/data_inventory.py --check: config/data.json is what the inputs give (no hand edits)."""
-        self.assertEqual(di.main(["--check"]), 0)
+        self.assertEqual(di.check(self.items, self.cov), 0)
+
+    def edited(self, edit):
+        """A copy of config/data.json with EDIT(row) applied to one row of each kind it accepts (returns True)."""
+        d = tempfile.mkdtemp()
+        p = os.path.join(d, "data.json")
+        with open(di.OUT) as f, open(p, "w") as g:
+            done = set()
+            for line in f:
+                if line.lstrip().startswith('{"addr":'):
+                    end = ",\n" if line.endswith(",\n") else "\n"
+                    row = json.loads(line.strip().rstrip(","))
+                    if row["kind"] not in done and edit(row):
+                        done.add(row["kind"])
+                        line = "  " + json.dumps(row, separators=(",", ":")) + end
+                g.write(line)
+        self.addCleanup(lambda: (os.unlink(p), os.rmdir(d)))
+        return p
+
+    def test_informational_fields_warn(self):
+        """A difference in a field data_gen doesn't read (source_names, owner_by, xrefs, interior, flags) is a
+        warning: exit 0; --exact fails on it."""
+        def edit(row):
+            if row["kind"] not in ("string", "float", "bss"):
+                return False
+            row["source_names"] = row.get("source_names", 0) + 1
+            row["owner_by"] = "guess"
+            row["xrefs"] = row.get("xrefs", []) + ["0x10000"]
+            row["interior"] = ["0x%x" % (int(row["addr"], 16) + 1)]
+            row["flags"] = ["out_of_order"]
+            return True
+        p = self.edited(edit)
+        self.assertEqual(di.check(self.items, self.cov, path=p), 0)
+        self.assertEqual(di.check(self.items, self.cov, path=p, exact=True), 1)
+
+    def test_checked_fields_fail(self):
+        """A difference in a field data_gen reads (size, kind, name, type, object, ...) fails."""
+        for field, value in (("kind", "unknown"), ("object", "global/CAction.cpp"), ("type", "int"),
+                             ("name", "DAT_renamed"), ("pad", 4)):
+            p = self.edited(lambda row: row["kind"] == "float" and row.get(field) != value and
+                            row.update({field: value}) is None)
+            self.assertEqual(di.check(self.items, self.cov, path=p), 1, field)
+        # a vftable's interior addresses are link labels (tools/wine_link.py)
+        p = self.edited(lambda row: row["kind"] == "vtable" and
+                        row.update({"interior": ["0x%x" % (int(row["addr"], 16) + 8)]}) is None)
+        self.assertEqual(di.check(self.items, self.cov, path=p), 1)
+
+    def test_source_type_counts_where_data_gen_reads_it(self):
+        """source_type is data_gen's fallback scalar type: a change that moves it fails, others warn."""
+        p = self.edited(lambda row: row["kind"] == "table" and not row.get("type") and not row.get("source_type") and
+                        row["size"] % 4 == 0 and
+                        row.update({"source_type": "int[]"}) is None)
+        self.assertEqual(di.check(self.items, self.cov, path=p), 1)
+        p = self.edited(lambda row: row["kind"] == "float" and row.get("type") == "float" and
+                        row.update({"source_type": "double"}) is None)
+        self.assertEqual(di.check(self.items, self.cov, path=p), 0)
 
     def test_check_catches_drift(self):
         """A changed input makes --check fail: a pin moved to another object."""

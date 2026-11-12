@@ -3,6 +3,8 @@
 
   build/venv/bin/python tools/data_inventory.py            # config/data.json + build/data/inventory-report.json
   build/venv/bin/python tools/data_inventory.py --check    # exit 1 unless config/data.json is what the inputs give
+                                                           # (the fields data_gen reads; the rest: warnings)
+  build/venv/bin/python tools/data_inventory.py --check --exact   # every field and the coverage line
   build/venv/bin/python tools/data_inventory.py --report   # also print the coverage table
 
 Inputs (config/data.json is a function of these; `--check` holds it to that, docs/data.md "Reproducing"):
@@ -1192,8 +1194,25 @@ def generate(fresh=False):
     return items, cov
 
 
-def check(items, cov, path=None, show=20):
-    """0 when PATH holds exactly what the inputs give, else 1 with a summary of the items that differ."""
+# the fields of config/data.json that tools/data_gen.py reads (the data TUs and include/decls/data/ follow from them):
+# --check fails when one of them differs. `source_type` counts only where it changes data_gen's scalar type (its
+# fallback when `type` gives none), and `interior` on vftables and RTTI structures (tools/wine_link.py labels those
+# addresses). The rest (source_names, source_type otherwise, owner_by, shared_objects, flags,
+# xrefs, data_refs, interior, referenced, pointers, cls/slots/vfptr_offset, the coverage line) is informational:
+# reported as warnings (--exact fails on them too).
+CHECKED_FIELDS = ("size", "pad", "kind", "name", "type", "object", "layer", "section")
+
+
+def _data_gen_scalar(row):
+    import data_gen  # noqa: E402  (imports this module; loaded only for --check)
+    it = dict(row)
+    it["size"] = it.get("size", 0)
+    return data_gen.scalar_type(it)
+
+
+def check(items, cov, path=None, show=20, exact=False):
+    """0 when PATH holds what the inputs give in every field data_gen reads (CHECKED_FIELDS), else 1 with a summary
+    of the items that differ; differences in the informational fields are printed as warnings (EXACT: they fail too)."""
     import tempfile
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as t:
         tmp = t.name
@@ -1209,25 +1228,53 @@ def check(items, cov, path=None, show=20):
     def rows(text):
         return {d["addr"]: d for d in (json.loads(l.strip().rstrip(",")) for l in text.splitlines()
                                        if l.lstrip().startswith('{"addr":'))}
+    def cov_line(text):
+        return next((l for l in text.splitlines() if l.lstrip().startswith('"coverage"')), None)
     a, b = rows(old), rows(new)
-    fields = collections.Counter()
-    diff = []
+    errs, warns = collections.Counter(), collections.Counter()
+    bad, info = [], []
     for k in sorted(set(a) | set(b)):
         if a.get(k) == b.get(k):
             continue
         if k not in a or k not in b:
-            fields["only in the %s" % ("regenerated" if k in b else "committed")] += 1
-        else:
-            for f in sorted(set(a[k]) | set(b[k])):
-                if a[k].get(f) != b[k].get(f):
-                    fields[f] += 1
-        diff.append(k)
+            errs["only in the %s" % ("regenerated" if k in b else "committed")] += 1
+            bad.append(k)
+            continue
+        hard = False
+        for f in sorted(set(a[k]) | set(b[k])):
+            if a[k].get(f) == b[k].get(f):
+                continue
+            if f in CHECKED_FIELDS or (f == "source_type" and _data_gen_scalar(a[k]) != _data_gen_scalar(b[k])) or \
+                    (f == "interior" and a[k]["kind"] in CODE_OWNED):
+                errs[f] += 1
+                hard = True
+            else:
+                warns[f] += 1
+        (bad if hard else info).append(k)
+    if cov_line(old) != cov_line(new):
+        warns["coverage line"] += 1
+    if exact:
+        errs.update(warns)
+        bad, info, warns = sorted(bad + info), [], collections.Counter()
+    def show_rows(keys):
+        for k in keys[:show]:
+            print("  %s\n    committed:   %s\n    regenerated: %s" % (k, json.dumps(a.get(k))[:300],
+                                                                    json.dumps(b.get(k))[:300]))
+    if warns:
+        print("warning: config/data.json differs from its inputs in informational fields only data_gen does not read "
+              "(%d item(s)); regenerate to refresh them:" % len(info))
+        for f, n in warns.most_common():
+            print("  %-28s %d" % (f, n))
+        show_rows(info if not errs else [])
+    if not errs:
+        print("config/data.json is reproducible from its inputs in the fields data_gen reads (%d lines)"
+              % new.count("\n"))
+        return 0
     print("config/data.json is NOT reproducible from its inputs: %s" % (
-        "%d item(s) differ" % len(diff) if diff else "the coverage line differs"))
-    for f, n in fields.most_common():
+        "%d item(s) differ" % len(bad) if bad else "the coverage line differs"))
+    for f, n in errs.most_common():
         print("  %-28s %d" % (f, n))
-    for k in diff[:show]:
-        print("  %s\n    committed:   %s\n    regenerated: %s" % (k, json.dumps(a.get(k))[:300], json.dumps(b.get(k))[:300]))
+    show_rows(bad)
     print("Regenerate with tools/data_inventory.py (then tools/data_gen.py; docs/data.md \"Reproducing\"), or fix the "
           "input that moved.")
     return 1
@@ -1238,7 +1285,10 @@ def main(argv=None):
     ap.add_argument("--report", action="store_true", help="print the coverage table")
     ap.add_argument("--fresh", action="store_true", help="re-disassemble (ignore build/data/code_xrefs.json)")
     ap.add_argument("--check", action="store_true",
-                    help="regenerate in memory and compare with config/data.json: exit 1 when they differ")
+                    help="regenerate in memory and compare with config/data.json: exit 1 when a field data_gen reads "
+                    "differs (the others are warnings)")
+    ap.add_argument("--exact", action="store_true", help="with --check: fail on any difference, informational "
+                    "fields and the coverage line included")
     ap.add_argument("--refresh-offsets", action="store_true",
                     help="re-read config/data-source-offsets.json from the merged tree's MSVC objects first")
     ap.add_argument("--compile", action="store_true", help="with --refresh-offsets: compile tree TUs without an "
@@ -1249,7 +1299,7 @@ def main(argv=None):
         print("source offsets: %d from %d objects -> %s" % (len(off), n, os.path.relpath(SRC_OFFSETS, ROOT)))
     items, cov = generate(a.fresh)
     if a.check:
-        return check(items, cov)
+        return check(items, cov, exact=a.exact)
     write_json(items, OUT, cov)
     os.makedirs(WORK, exist_ok=True)
     json.dump(cov, open(os.path.join(WORK, "inventory-report.json"), "w"), indent=1)
