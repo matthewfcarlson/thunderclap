@@ -314,8 +314,9 @@ void d3dRefractVertexShader_32ef10::F() {
 // 0x0032ef40 pure3d::d3dRefractVertexShader::vfunc_15 (6 B): matches/0x0032ef40.cpp
 // sym: _FUN_0032ef40
 // Same code shape as 0x0008ceb0 (propagated; names are from that function)
+// (dg1) the TEX table is entry 5 of records.h's DAT_004d8840 (one item: the SHIN table before it has no end entry)
 extern "C" int* FUN_0032ef40() {
-    return &(*(int*)&DAT_004d88b8);
+    return (int*)&DAT_004d8840[5];
 }
 
 

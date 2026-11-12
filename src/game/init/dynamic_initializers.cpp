@@ -446,35 +446,14 @@ class Obj_361820 {
   public:
 };
 extern "C" void __cdecl FUN_00364800();
-struct Entry_3618a0 {
-    void (*fn)();
-    int a;
-    int b;
-    int c;
-    int pad[2];
-};
 void FUN_00328580();
 void FUN_00328590();
 void FUN_003285a0();
 void FUN_003285b0();
-struct Slot_3619a0 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct Terminator {
-    int a, b, c;
-    int last;
-};
-struct HandlerTable_3619a0 {
-    Slot_3619a0 slot[4];
-    Terminator end;
-};
 void FUN_003337f0();
 void FUN_00333800();
 void FUN_00333820();
 void FUN_00333810();
-typedef void (*Handler_361a90)();
 void FUN_0032a4f0();
 void FUN_0032a510();
 void FUN_0032a530();
@@ -486,120 +465,18 @@ void FUN_003333f0();
 void FUN_00333400();
 void FUN_00333770();
 void FUN_003337d0();
-struct Entry_361a90 {
-    Handler_361a90 fn;
-    int a, b, c;
-    int pad[2];
-};
-struct Entry_361bf0 {
-    void (*fn)();
-    int a;
-    int b;
-    int c;
-    int pad[2];
-};
 void FUN_00333410();
 void FUN_00333780();
 void FUN_00333830();
 void FUN_0032ac50();
-typedef void (*Handler_361cf0)();
-struct Entry_361cf0 {
-    Handler_361cf0 fn;
-    int a;
-    int b;
-    int c;
-    char pad[8];
-};
-struct LastEntry {
-    int a, b, c, d;
-};
 void FUN_0032b940();
 void FUN_0032b960();
 void FUN_0032b980();
-struct Slot_361e50 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_361e50 {
-    Slot_361e50 slot[4];
-    Terminator end;
-};
 void FUN_0032bac0();
-typedef void (__cdecl *Handler_361f50)();
 void __cdecl FUN_0032c480();
-struct Slot_361f50 {
-    Handler_361f50 handler;
-    int a;
-    int b;
-    int c;
-    int unused[2];                  // not written here
-};
-struct Slot_362010 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_362010 {
-    Slot_362010 slot[8];
-    Terminator end;
-};
-struct Entry_362120 {
-    void (*fn)();
-    int a;
-    int b;
-    int c;
-    int pad[2];
-};
-struct Entry_3621a0 {
-    void (*fn)();
-    int a;
-    int b;
-    int c;
-    int pad[2];
-};
 void FUN_0032cb40();
 void FUN_0032cb70();
-struct StateA { void (*callback)(); unsigned int first; unsigned int second; unsigned int third; char pad[8]; };
-struct StateB { void (*callback)(); unsigned int first; unsigned int second; unsigned int third; char pad[8]; };
-struct StateC { unsigned int first; unsigned int second; unsigned int third; int fourth; };
-struct Slot_3622a0 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_3622a0 {
-    Slot_3622a0 slot[8];
-    Terminator end;
-};
-struct Slot_3623b0 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_3623b0 {
-    Slot_3623b0 slot[3];
-    Terminator end;
-};
-struct Slot_3624d0 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_3624d0 {
-    Slot_3624d0 slot[4];
-    Terminator end;
-};
 void FUN_0032d290();
-struct Slot_362570 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_362570 {
-    Slot_362570 slot[7];
-    Terminator end;
-};
 void FUN_0032d2b0();
 void FUN_0032d2c0();
 void FUN_0032d2d0();
@@ -607,216 +484,34 @@ void FUN_0032d2e0();
 void FUN_0032d2f0();
 void FUN_0032d300();
 void FUN_0032d310();
-typedef void (*Handler_3626c0)();
-struct Entry_3626c0 {
-    Handler_3626c0 fn;
-    int a;
-    int b;
-    int c;
-    char pad[8];
-};
 void FUN_0032d8d0();
 void FUN_0032da30();
 void FUN_0032dab0();
 void FUN_0032dad0();
 void FUN_0032daf0();
-struct Entry_362860 {
-    void (*fn)();
-    int a;
-    int b;
-    int c;
-    int pad[2];
-};
-struct Slot_362900 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_362900 {
-    Slot_362900 slot[4];
-    Terminator end;
-};
 void FUN_0032e090();
-struct Entry_3629a0 {
-    void (*fn)();
-    int a;
-    int b;
-    int c;
-    int pad[2];
-};
 void FUN_0032d9d0();
 void FUN_0032da00();
 void FUN_0032eb10();
-typedef void (__cdecl *Handler_362a20)();
 void __cdecl FUN_0032ef00();
-struct Slot_362a20 {
-    Handler_362a20 handler;
-    int a;
-    int b;
-    int c;
-    int unused[2];                  // not written here
-};
-struct Slot_362b30 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_362b30 {
-    Slot_362b30 slot[8];
-    Terminator end;
-};
-struct Entry_362c40 {
-    void (*fn)();
-    int a;
-    int b;
-    int c;
-    int pad[2];
-};
 void FUN_0032eee0();
 void FUN_0032eef0();
-typedef void (*Handler_362d80)();
 void FUN_0032fd10();
 void FUN_00330470();
-struct Entry_362d80 {
-    Handler_362d80 fn;
-    int a, b, c;
-    int pad[2];
-};
-struct Slot_362ec0 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_362ec0 {
-    Slot_362ec0 slot[4];
-    Terminator end;
-};
 void FUN_003304b0();
-typedef void (*Handler_362f60)();
-struct Entry_362f60 {
-    Handler_362f60 fn;
-    int a;
-    int b;
-    int c;
-    char pad[8];
-};
 void FUN_00330ca0();
 void FUN_00330cc0();
-struct Entry_363190 {
-    void (*fn)();
-    int a;
-    int b;
-    int c;
-    int pad[2];
-};
 void FUN_00330d30();
-typedef void (*Callback)();
 void FUN_00331b90();
 void FUN_00331bc0();
-struct StateEntry {
-    Callback callback;
-    int a;
-    int b;
-    int c;
-    int unused1;
-    int unused2;
-};
-struct StateBlock {
-    StateEntry entries[3];
-    int endValue;
-};
-typedef void (__cdecl *Handler_363290)();
 void __cdecl FUN_00331bf0();
-struct Slot_363290 {
-    Handler_363290 handler;
-    int a;
-    int b;
-    int c;
-    int unused[2];                  // not written here
-};
-struct Slot_363350 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_363350 {
-    Slot_363350 slot[8];
-    Terminator end;
-};
-struct Slot_363460 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_363460 {
-    Slot_363460 slot[3];
-    Terminator end;
-};
-struct Entry_363530 {
-    void (*fn)();
-    int a;
-    int b;
-    int c;
-    int pad[2];
-};
 void FUN_00332750();
 void FUN_003327b0();
 void FUN_00332780();
-struct Slot_3635b0 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_3635b0 {
-    Slot_3635b0 slot[9];
-    Terminator end;
-};
 void FUN_003327e0();
-struct Slot_3636e0 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_3636e0 {
-    Slot_3636e0 slot[3];
-    Terminator end;
-};
-struct Slot_363760 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_363760 {
-    Slot_363760 slot[4];
-    Terminator end;
-};
 void FUN_00332e60();
 void FUN_00332e90();
-struct Entry { void (*callback)(); int a,b,c; };
-struct Slot_363860 {
-    void (*fn)();
-    int a, b, c;
-    int unused[2];
-};
-struct HandlerTable_363860 {
-    Slot_363860 slot[9];
-    Terminator end;
-};
 void FUN_00332ba0();
-struct Entry_363990 {
-    void (*fn)();
-    int a;
-    int b;
-    int c;
-    int pad[2];
-};
-struct Entry_363a10 {
-    void (*fn)();
-    int a;
-    int b;
-    int c;
-    int pad[2];
-};
 struct Obj_363af0 {
 };
 struct Obj_363b00 {
@@ -7370,23 +7065,18 @@ namespace fn_00361850 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361850 @ 0x00361850
 extern "C" void FUN_003285c0();
-extern "C++" { extern void (*DAT_004d4d80)(); }
-extern "C" int DAT_004d4d84;
-extern "C" int DAT_004d4d88;
-extern "C" int DAT_004d4d8c;
-extern "C" int DAT_004d4d98;
-extern "C" int DAT_004d4d9c;
-extern "C" int DAT_004d4da0;
-extern "C" int DAT_004d4da4;
-void FUN_00361850() {
-    DAT_004d4d8c = 0;
-    DAT_004d4d80 = &FUN_003285c0;
-    DAT_004d4da4 = -1;
-    DAT_004d4d84 = 0;
-    DAT_004d4d88 = 0;
-    DAT_004d4d98 = 0;
-    DAT_004d4d9c = 0;
-    DAT_004d4da0 = 0;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d4d78 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00361850()
+{
+    DAT_004d4d78[0].vbindex = 0;
+    DAT_004d4d78[0].fn = FUN_003285c0;
+    DAT_004d4d78[1].vbindex = -1;
+    DAT_004d4d78[0].adjust = 0;
+    DAT_004d4d78[0].vbptr = 0;
+    DAT_004d4d78[1].fn = 0;
+    DAT_004d4d78[1].adjust = 0;
+    DAT_004d4d78[1].vbptr = 0;
 }
 } // namespace fn_00361850
 
@@ -7396,28 +7086,30 @@ namespace fn_f1ddef39 {
 // sym: ?FUN_003618a0@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003618a0 @ 0x003618a0
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d4d00 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003618a0()
 {
-    ((Entry_3618a0*)&DAT_004d4d08)[0].fn = FUN_00328580;
-    ((Entry_3618a0*)&DAT_004d4d08)[0].a = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[0].b = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[0].c = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[1].fn = FUN_00328590;
-    ((Entry_3618a0*)&DAT_004d4d08)[1].a = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[1].b = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[1].c = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[2].fn = FUN_003285a0;
-    ((Entry_3618a0*)&DAT_004d4d08)[2].a = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[2].b = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[2].c = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[3].fn = FUN_003285b0;
-    ((Entry_3618a0*)&DAT_004d4d08)[3].a = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[3].b = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[3].c = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[4].fn = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[4].a = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[4].b = 0;
-    ((Entry_3618a0*)&DAT_004d4d08)[4].c = -1;
+    DAT_004d4d00[0].fn = FUN_00328580;
+    DAT_004d4d00[1].fn = FUN_00328590;
+    DAT_004d4d00[2].fn = FUN_003285a0;
+    DAT_004d4d00[0].vbindex = 0;
+    DAT_004d4d00[1].vbindex = 0;
+    DAT_004d4d00[2].vbindex = 0;
+    DAT_004d4d00[3].vbindex = 0;
+    DAT_004d4d00[3].fn = FUN_003285b0;
+    DAT_004d4d00[4].vbindex = -1;
+    DAT_004d4d00[0].adjust = 0;
+    DAT_004d4d00[0].vbptr = 0;
+    DAT_004d4d00[1].adjust = 0;
+    DAT_004d4d00[1].vbptr = 0;
+    DAT_004d4d00[2].adjust = 0;
+    DAT_004d4d00[2].vbptr = 0;
+    DAT_004d4d00[3].adjust = 0;
+    DAT_004d4d00[3].vbptr = 0;
+    DAT_004d4d00[4].fn = 0;
+    DAT_004d4d00[4].adjust = 0;
+    DAT_004d4d00[4].vbptr = 0;
 }
 
 } // namespace fn_f1ddef39
@@ -7429,31 +7121,22 @@ namespace fn_00361940 {
 // FUN_00361940 @ 0x00361940
 void FUN_00328560();
 void FUN_003285d0();
-extern void (*DAT_004d4db0)();
-extern int DAT_004d4db4;
-extern int DAT_004d4db8;
-extern int DAT_004d4dbc;
-extern void (*DAT_004d4dc8)();
-extern int DAT_004d4dcc;
-extern int DAT_004d4dd0;
-extern int DAT_004d4dd4;
-extern int DAT_004d4de0;
-extern int DAT_004d4de4;
-extern int DAT_004d4de8;
-extern int DAT_004d4dec;
-void FUN_00361940() {
-    DAT_004d4db0 = &FUN_00328560;
-    DAT_004d4dbc = 0;
-    DAT_004d4dd4 = 0;
-    DAT_004d4dc8 = &FUN_003285d0;
-    DAT_004d4dec = -1;
-    DAT_004d4db4 = 0;
-    DAT_004d4db8 = 0;
-    DAT_004d4dcc = 0;
-    DAT_004d4dd0 = 0;
-    DAT_004d4de0 = 0;
-    DAT_004d4de4 = 0;
-    DAT_004d4de8 = 0;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d4da8 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00361940()
+{
+    DAT_004d4da8[0].fn = FUN_00328560;
+    DAT_004d4da8[0].vbindex = 0;
+    DAT_004d4da8[1].vbindex = 0;
+    DAT_004d4da8[1].fn = FUN_003285d0;
+    DAT_004d4da8[2].vbindex = -1;
+    DAT_004d4da8[0].adjust = 0;
+    DAT_004d4da8[0].vbptr = 0;
+    DAT_004d4da8[1].adjust = 0;
+    DAT_004d4da8[1].vbptr = 0;
+    DAT_004d4da8[2].fn = 0;
+    DAT_004d4da8[2].adjust = 0;
+    DAT_004d4da8[2].vbptr = 0;
 }
 } // namespace fn_00361940
 
@@ -7464,28 +7147,30 @@ namespace fn_f1ddef39 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003619a0 @ 0x003619a0
 // Static initialiser for a global table of 4 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7a30 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003619a0()
 {
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[0].fn = FUN_003337f0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[0].a = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[0].b = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[0].c = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[1].fn = FUN_00333800;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[1].a = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[1].b = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[1].c = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[2].fn = FUN_00333820;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[2].a = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[2].b = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[2].c = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[3].fn = FUN_00333810;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[3].a = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[3].b = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).slot[3].c = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).end.a = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).end.b = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).end.c = 0;
-    (*(HandlerTable_3619a0*)&DAT_004d7a38).end.last = -1;
+    DAT_004d7a30[0].fn = FUN_003337f0;
+    DAT_004d7a30[1].fn = FUN_00333800;
+    DAT_004d7a30[2].fn = FUN_00333820;
+    DAT_004d7a30[0].vbindex = 0;
+    DAT_004d7a30[1].vbindex = 0;
+    DAT_004d7a30[2].vbindex = 0;
+    DAT_004d7a30[3].vbindex = 0;
+    DAT_004d7a30[3].fn = FUN_00333810;
+    DAT_004d7a30[4].vbindex = -1;
+    DAT_004d7a30[0].adjust = 0;
+    DAT_004d7a30[0].vbptr = 0;
+    DAT_004d7a30[1].adjust = 0;
+    DAT_004d7a30[1].vbptr = 0;
+    DAT_004d7a30[2].adjust = 0;
+    DAT_004d7a30[2].vbptr = 0;
+    DAT_004d7a30[3].adjust = 0;
+    DAT_004d7a30[3].vbptr = 0;
+    DAT_004d7a30[4].fn = 0;
+    DAT_004d7a30[4].adjust = 0;
+    DAT_004d7a30[4].vbptr = 0;
 }
 
 } // namespace fn_f1ddef39
@@ -7496,19 +7181,18 @@ namespace fn_00361a40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361a40 @ 0x00361a40
 void FUN_0032a4c0();
-extern void (*DAT_004d7990)();
-extern int DAT_004d7994, DAT_004d7998, DAT_004d799c;
-extern int DAT_004d79a8, DAT_004d79ac, DAT_004d79b0, DAT_004d79b4;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7988 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361a40()
 {
-    DAT_004d799c = 0;
-    DAT_004d7990 = &FUN_0032a4c0;
-    DAT_004d79b4 = -1;
-    DAT_004d7994 = 0;
-    DAT_004d7998 = 0;
-    DAT_004d79a8 = 0;
-    DAT_004d79ac = 0;
-    DAT_004d79b0 = 0;
+    DAT_004d7988[0].vbindex = 0;
+    DAT_004d7988[0].fn = FUN_0032a4c0;
+    DAT_004d7988[1].vbindex = -1;
+    DAT_004d7988[0].adjust = 0;
+    DAT_004d7988[0].vbptr = 0;
+    DAT_004d7988[1].fn = 0;
+    DAT_004d7988[1].adjust = 0;
+    DAT_004d7988[1].vbptr = 0;
 }
 } // namespace fn_00361a40
 
@@ -7518,55 +7202,58 @@ namespace fn_f1ddef39 {
 // sym: ?FUN_00361a90@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361a90 @ 0x00361a90
-void FUN_00361a90() {
-    ((Entry_361a90*)&DAT_004d7ab0)[0].fn = FUN_003333c0;
-    ((Entry_361a90*)&DAT_004d7ab0)[0].a = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[0].b = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[0].c = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[1].fn = FUN_003333e0;
-    ((Entry_361a90*)&DAT_004d7ab0)[1].a = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[1].b = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[1].c = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[2].fn = FUN_003333f0;
-    ((Entry_361a90*)&DAT_004d7ab0)[2].a = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[2].b = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[2].c = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[3].fn = FUN_003337d0;
-    ((Entry_361a90*)&DAT_004d7ab0)[3].a = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[3].b = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[3].c = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[4].fn = FUN_00333770;
-    ((Entry_361a90*)&DAT_004d7ab0)[4].a = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[4].b = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[4].c = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[5].fn = FUN_003333a0;
-    ((Entry_361a90*)&DAT_004d7ab0)[5].a = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[5].b = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[5].c = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[6].fn = FUN_003333b0;
-    ((Entry_361a90*)&DAT_004d7ab0)[6].a = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[6].b = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[6].c = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[7].fn = FUN_00333400;
-    ((Entry_361a90*)&DAT_004d7ab0)[7].a = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[7].b = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[7].c = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[8].fn = FUN_0032a4f0;
-    ((Entry_361a90*)&DAT_004d7ab0)[8].a = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[8].b = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[8].c = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[9].fn = FUN_0032a510;
-    ((Entry_361a90*)&DAT_004d7ab0)[9].a = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[9].b = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[9].c = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[10].fn = FUN_0032a530;
-    ((Entry_361a90*)&DAT_004d7ab0)[10].a = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[10].b = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[10].c = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[11].fn = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[11].a = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[11].b = 0;
-    ((Entry_361a90*)&DAT_004d7ab0)[11].c = -1;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7aa8 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00361a90()
+{
+    DAT_004d7aa8[0].fn = FUN_003333c0;
+    DAT_004d7aa8[1].fn = FUN_003333e0;
+    DAT_004d7aa8[2].fn = FUN_003333f0;
+    DAT_004d7aa8[3].fn = FUN_003337d0;
+    DAT_004d7aa8[4].fn = FUN_00333770;
+    DAT_004d7aa8[5].fn = FUN_003333a0;
+    DAT_004d7aa8[6].fn = FUN_003333b0;
+    DAT_004d7aa8[7].fn = FUN_00333400;
+    DAT_004d7aa8[8].fn = FUN_0032a4f0;
+    DAT_004d7aa8[9].fn = FUN_0032a510;
+    DAT_004d7aa8[0].vbindex = 0;
+    DAT_004d7aa8[1].vbindex = 0;
+    DAT_004d7aa8[2].vbindex = 0;
+    DAT_004d7aa8[3].vbindex = 0;
+    DAT_004d7aa8[4].vbindex = 0;
+    DAT_004d7aa8[5].vbindex = 0;
+    DAT_004d7aa8[6].vbindex = 0;
+    DAT_004d7aa8[7].vbindex = 0;
+    DAT_004d7aa8[8].vbindex = 0;
+    DAT_004d7aa8[9].vbindex = 0;
+    DAT_004d7aa8[10].vbindex = 0;
+    DAT_004d7aa8[10].fn = FUN_0032a530;
+    DAT_004d7aa8[11].vbindex = -1;
+    DAT_004d7aa8[0].adjust = 0;
+    DAT_004d7aa8[0].vbptr = 0;
+    DAT_004d7aa8[1].adjust = 0;
+    DAT_004d7aa8[1].vbptr = 0;
+    DAT_004d7aa8[2].adjust = 0;
+    DAT_004d7aa8[2].vbptr = 0;
+    DAT_004d7aa8[3].adjust = 0;
+    DAT_004d7aa8[3].vbptr = 0;
+    DAT_004d7aa8[4].adjust = 0;
+    DAT_004d7aa8[4].vbptr = 0;
+    DAT_004d7aa8[5].adjust = 0;
+    DAT_004d7aa8[5].vbptr = 0;
+    DAT_004d7aa8[6].adjust = 0;
+    DAT_004d7aa8[6].vbptr = 0;
+    DAT_004d7aa8[7].adjust = 0;
+    DAT_004d7aa8[7].vbptr = 0;
+    DAT_004d7aa8[8].adjust = 0;
+    DAT_004d7aa8[8].vbptr = 0;
+    DAT_004d7aa8[9].adjust = 0;
+    DAT_004d7aa8[9].vbptr = 0;
+    DAT_004d7aa8[10].adjust = 0;
+    DAT_004d7aa8[10].vbptr = 0;
+    DAT_004d7aa8[11].fn = 0;
+    DAT_004d7aa8[11].adjust = 0;
+    DAT_004d7aa8[11].vbptr = 0;
 }
 
 
@@ -7574,28 +7261,30 @@ void FUN_00361a90() {
 // sym: ?FUN_00361bf0@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361bf0 @ 0x00361bf0
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d79b8 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361bf0()
 {
-    ((Entry_361bf0*)&DAT_004d79c0)[0].fn = FUN_00333410;
-    ((Entry_361bf0*)&DAT_004d79c0)[0].a = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[0].b = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[0].c = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[1].fn = FUN_00333780;
-    ((Entry_361bf0*)&DAT_004d79c0)[1].a = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[1].b = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[1].c = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[2].fn = FUN_00333830;
-    ((Entry_361bf0*)&DAT_004d79c0)[2].a = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[2].b = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[2].c = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[3].fn = FUN_0032ac50;
-    ((Entry_361bf0*)&DAT_004d79c0)[3].a = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[3].b = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[3].c = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[4].fn = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[4].a = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[4].b = 0;
-    ((Entry_361bf0*)&DAT_004d79c0)[4].c = -1;
+    DAT_004d79b8[0].fn = FUN_00333410;
+    DAT_004d79b8[1].fn = FUN_00333780;
+    DAT_004d79b8[2].fn = FUN_00333830;
+    DAT_004d79b8[0].vbindex = 0;
+    DAT_004d79b8[1].vbindex = 0;
+    DAT_004d79b8[2].vbindex = 0;
+    DAT_004d79b8[3].vbindex = 0;
+    DAT_004d79b8[3].fn = FUN_0032ac50;
+    DAT_004d79b8[4].vbindex = -1;
+    DAT_004d79b8[0].adjust = 0;
+    DAT_004d79b8[0].vbptr = 0;
+    DAT_004d79b8[1].adjust = 0;
+    DAT_004d79b8[1].vbptr = 0;
+    DAT_004d79b8[2].adjust = 0;
+    DAT_004d79b8[2].vbptr = 0;
+    DAT_004d79b8[3].adjust = 0;
+    DAT_004d79b8[3].vbptr = 0;
+    DAT_004d79b8[4].fn = 0;
+    DAT_004d79b8[4].adjust = 0;
+    DAT_004d79b8[4].vbptr = 0;
 }
 
 } // namespace fn_f1ddef39
@@ -7607,25 +7296,22 @@ namespace fn_00361c90 {
 // FUN_00361c90 @ 0x00361c90
 void FUN_0032b8e0();
 void FUN_0032b910();
-extern void (*DAT_004d7d68)();
-extern int DAT_004d7d6c, DAT_004d7d70, DAT_004d7d74;
-extern void (*DAT_004d7d80)();
-extern int DAT_004d7d84, DAT_004d7d88, DAT_004d7d8c;
-extern int DAT_004d7d98, DAT_004d7d9c, DAT_004d7da0, DAT_004d7da4;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7d60 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361c90()
 {
-    DAT_004d7d68 = &FUN_0032b8e0;
-    DAT_004d7d74 = 0;
-    DAT_004d7d8c = 0;
-    DAT_004d7d80 = &FUN_0032b910;
-    DAT_004d7da4 = -1;
-    DAT_004d7d6c = 0;
-    DAT_004d7d70 = 0;
-    DAT_004d7d84 = 0;
-    DAT_004d7d88 = 0;
-    DAT_004d7d98 = 0;
-    DAT_004d7d9c = 0;
-    DAT_004d7da0 = 0;
+    DAT_004d7d60[0].fn = FUN_0032b8e0;
+    DAT_004d7d60[0].vbindex = 0;
+    DAT_004d7d60[1].vbindex = 0;
+    DAT_004d7d60[1].fn = FUN_0032b910;
+    DAT_004d7d60[2].vbindex = -1;
+    DAT_004d7d60[0].adjust = 0;
+    DAT_004d7d60[0].vbptr = 0;
+    DAT_004d7d60[1].adjust = 0;
+    DAT_004d7d60[1].vbptr = 0;
+    DAT_004d7d60[2].fn = 0;
+    DAT_004d7d60[2].adjust = 0;
+    DAT_004d7d60[2].vbptr = 0;
 }
 } // namespace fn_00361c90
 
@@ -7635,56 +7321,58 @@ namespace fn_f1ddef39 {
 // sym: ?FUN_00361cf0@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361cf0 @ 0x00361cf0
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7c40 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361cf0()
 {
-    (*(Entry_361cf0*)&DAT_004d7c48).fn = FUN_003333c0;
-    (*(Entry_361cf0*)&DAT_004d7c60).fn = FUN_003333e0;
-    (*(Entry_361cf0*)&DAT_004d7c78).fn = FUN_003333f0;
-    (*(Entry_361cf0*)&DAT_004d7c90).fn = FUN_003337d0;
-    (*(Entry_361cf0*)&DAT_004d7ca8).fn = FUN_00333770;
-    (*(Entry_361cf0*)&DAT_004d7cc0).fn = FUN_003333a0;
-    (*(Entry_361cf0*)&DAT_004d7cd8).fn = FUN_003333b0;
-    (*(Entry_361cf0*)&DAT_004d7cf0).fn = FUN_00333400;
-    (*(Entry_361cf0*)&DAT_004d7d08).fn = FUN_0032b940;
-    (*(Entry_361cf0*)&DAT_004d7d20).fn = FUN_0032b960;
-    (*(Entry_361cf0*)&DAT_004d7d38).fn = FUN_0032b980;
-    (*(Entry_361cf0*)&DAT_004d7c48).a = 0;
-    (*(Entry_361cf0*)&DAT_004d7c48).b = 0;
-    (*(Entry_361cf0*)&DAT_004d7c48).c = 0;
-    (*(Entry_361cf0*)&DAT_004d7c60).a = 0;
-    (*(Entry_361cf0*)&DAT_004d7c60).b = 0;
-    (*(Entry_361cf0*)&DAT_004d7c60).c = 0;
-    (*(Entry_361cf0*)&DAT_004d7c78).a = 0;
-    (*(Entry_361cf0*)&DAT_004d7c78).b = 0;
-    (*(Entry_361cf0*)&DAT_004d7c78).c = 0;
-    (*(Entry_361cf0*)&DAT_004d7c90).a = 0;
-    (*(Entry_361cf0*)&DAT_004d7c90).b = 0;
-    (*(Entry_361cf0*)&DAT_004d7c90).c = 0;
-    (*(Entry_361cf0*)&DAT_004d7ca8).a = 0;
-    (*(Entry_361cf0*)&DAT_004d7ca8).b = 0;
-    (*(Entry_361cf0*)&DAT_004d7ca8).c = 0;
-    (*(Entry_361cf0*)&DAT_004d7cc0).a = 0;
-    (*(Entry_361cf0*)&DAT_004d7cc0).b = 0;
-    (*(Entry_361cf0*)&DAT_004d7cc0).c = 0;
-    (*(Entry_361cf0*)&DAT_004d7cd8).a = 0;
-    (*(Entry_361cf0*)&DAT_004d7cd8).b = 0;
-    (*(Entry_361cf0*)&DAT_004d7cd8).c = 0;
-    (*(Entry_361cf0*)&DAT_004d7cf0).a = 0;
-    (*(Entry_361cf0*)&DAT_004d7cf0).b = 0;
-    (*(Entry_361cf0*)&DAT_004d7cf0).c = 0;
-    (*(Entry_361cf0*)&DAT_004d7d08).a = 0;
-    (*(Entry_361cf0*)&DAT_004d7d08).b = 0;
-    (*(Entry_361cf0*)&DAT_004d7d08).c = 0;
-    (*(Entry_361cf0*)&DAT_004d7d20).a = 0;
-    (*(Entry_361cf0*)&DAT_004d7d20).b = 0;
-    (*(Entry_361cf0*)&DAT_004d7d20).c = 0;
-    (*(Entry_361cf0*)&DAT_004d7d38).a = 0;
-    (*(Entry_361cf0*)&DAT_004d7d38).b = 0;
-    (*(Entry_361cf0*)&DAT_004d7d38).c = 0;
-    (*(LastEntry*)&DAT_004d7d50).a = 0;
-    (*(LastEntry*)&DAT_004d7d50).b = 0;
-    (*(LastEntry*)&DAT_004d7d50).c = 0;
-    (*(LastEntry*)&DAT_004d7d50).d = -1;
+    DAT_004d7c40[0].fn = FUN_003333c0;
+    DAT_004d7c40[1].fn = FUN_003333e0;
+    DAT_004d7c40[2].fn = FUN_003333f0;
+    DAT_004d7c40[3].fn = FUN_003337d0;
+    DAT_004d7c40[4].fn = FUN_00333770;
+    DAT_004d7c40[5].fn = FUN_003333a0;
+    DAT_004d7c40[6].fn = FUN_003333b0;
+    DAT_004d7c40[7].fn = FUN_00333400;
+    DAT_004d7c40[8].fn = FUN_0032b940;
+    DAT_004d7c40[9].fn = FUN_0032b960;
+    DAT_004d7c40[0].vbindex = 0;
+    DAT_004d7c40[1].vbindex = 0;
+    DAT_004d7c40[2].vbindex = 0;
+    DAT_004d7c40[3].vbindex = 0;
+    DAT_004d7c40[4].vbindex = 0;
+    DAT_004d7c40[5].vbindex = 0;
+    DAT_004d7c40[6].vbindex = 0;
+    DAT_004d7c40[7].vbindex = 0;
+    DAT_004d7c40[8].vbindex = 0;
+    DAT_004d7c40[9].vbindex = 0;
+    DAT_004d7c40[10].vbindex = 0;
+    DAT_004d7c40[10].fn = FUN_0032b980;
+    DAT_004d7c40[11].vbindex = -1;
+    DAT_004d7c40[0].adjust = 0;
+    DAT_004d7c40[0].vbptr = 0;
+    DAT_004d7c40[1].adjust = 0;
+    DAT_004d7c40[1].vbptr = 0;
+    DAT_004d7c40[2].adjust = 0;
+    DAT_004d7c40[2].vbptr = 0;
+    DAT_004d7c40[3].adjust = 0;
+    DAT_004d7c40[3].vbptr = 0;
+    DAT_004d7c40[4].adjust = 0;
+    DAT_004d7c40[4].vbptr = 0;
+    DAT_004d7c40[5].adjust = 0;
+    DAT_004d7c40[5].vbptr = 0;
+    DAT_004d7c40[6].adjust = 0;
+    DAT_004d7c40[6].vbptr = 0;
+    DAT_004d7c40[7].adjust = 0;
+    DAT_004d7c40[7].vbptr = 0;
+    DAT_004d7c40[8].adjust = 0;
+    DAT_004d7c40[8].vbptr = 0;
+    DAT_004d7c40[9].adjust = 0;
+    DAT_004d7c40[9].vbptr = 0;
+    DAT_004d7c40[10].adjust = 0;
+    DAT_004d7c40[10].vbptr = 0;
+    DAT_004d7c40[11].fn = 0;
+    DAT_004d7c40[11].adjust = 0;
+    DAT_004d7c40[11].vbptr = 0;
 }
 
 
@@ -7693,28 +7381,30 @@ void FUN_00361cf0()
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361e50 @ 0x00361e50
 // Static initialiser for a global table of 4 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7da8 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361e50()
 {
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[0].fn = FUN_00333410;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[0].a = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[0].b = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[0].c = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[1].fn = FUN_00333780;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[1].a = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[1].b = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[1].c = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[2].fn = FUN_00333830;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[2].a = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[2].b = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[2].c = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[3].fn = FUN_0032bac0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[3].a = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[3].b = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).slot[3].c = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).end.a = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).end.b = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).end.c = 0;
-    (*(HandlerTable_361e50*)&DAT_004d7db0).end.last = -1;
+    DAT_004d7da8[0].fn = FUN_00333410;
+    DAT_004d7da8[1].fn = FUN_00333780;
+    DAT_004d7da8[2].fn = FUN_00333830;
+    DAT_004d7da8[0].vbindex = 0;
+    DAT_004d7da8[1].vbindex = 0;
+    DAT_004d7da8[2].vbindex = 0;
+    DAT_004d7da8[3].vbindex = 0;
+    DAT_004d7da8[3].fn = FUN_0032bac0;
+    DAT_004d7da8[4].vbindex = -1;
+    DAT_004d7da8[0].adjust = 0;
+    DAT_004d7da8[0].vbptr = 0;
+    DAT_004d7da8[1].adjust = 0;
+    DAT_004d7da8[1].vbptr = 0;
+    DAT_004d7da8[2].adjust = 0;
+    DAT_004d7da8[2].vbptr = 0;
+    DAT_004d7da8[3].adjust = 0;
+    DAT_004d7da8[3].vbptr = 0;
+    DAT_004d7da8[4].fn = 0;
+    DAT_004d7da8[4].adjust = 0;
+    DAT_004d7da8[4].vbptr = 0;
 }
 
 } // namespace fn_f1ddef39
@@ -7726,24 +7416,22 @@ namespace fn_00361ef0 {
 // FUN_00361ef0 @ 0x00361ef0
 void FUN_0032c420();
 void FUN_0032c450();
-extern void (*DAT_004d7f58)();
-extern int DAT_004d7f5c, DAT_004d7f60, DAT_004d7f64;
-extern void (*DAT_004d7f70)();
-extern int DAT_004d7f74, DAT_004d7f78, DAT_004d7f7c;
-extern int DAT_004d7f88, DAT_004d7f8c, DAT_004d7f90, DAT_004d7f94;
-void FUN_00361ef0() {
-    DAT_004d7f58 = FUN_0032c420;
-    DAT_004d7f64 = 0;
-    DAT_004d7f7c = 0;
-    DAT_004d7f70 = FUN_0032c450;
-    DAT_004d7f94 = -1;
-    DAT_004d7f5c = 0;
-    DAT_004d7f60 = 0;
-    DAT_004d7f74 = 0;
-    DAT_004d7f78 = 0;
-    DAT_004d7f88 = 0;
-    DAT_004d7f8c = 0;
-    DAT_004d7f90 = 0;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7f50 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00361ef0()
+{
+    DAT_004d7f50[0].fn = FUN_0032c420;
+    DAT_004d7f50[0].vbindex = 0;
+    DAT_004d7f50[1].vbindex = 0;
+    DAT_004d7f50[1].fn = FUN_0032c450;
+    DAT_004d7f50[2].vbindex = -1;
+    DAT_004d7f50[0].adjust = 0;
+    DAT_004d7f50[0].vbptr = 0;
+    DAT_004d7f50[1].adjust = 0;
+    DAT_004d7f50[1].vbptr = 0;
+    DAT_004d7f50[2].fn = 0;
+    DAT_004d7f50[2].adjust = 0;
+    DAT_004d7f50[2].vbptr = 0;
 }
 } // namespace fn_00361ef0
 
@@ -7754,22 +7442,34 @@ namespace fn_f1ddef39 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361f50 @ 0x00361f50
 // Static init of a six-entry handler table (shared callbacks; entry 4 gets its own).
-void FUN_00361f50() {
-    Slot_361f50 *t = ((Slot_361f50*)&DAT_004d7ec8);
-    t[0].handler = FUN_003337f0;
-    t[1].handler = FUN_00333800;
-    t[2].handler = FUN_00333820;
-    t[3].handler = FUN_00333810;
-    t[4].handler = FUN_0032c480;
-    for (int i = 0; i < 5; i++) {
-        t[i].a = 0;
-        t[i].b = 0;
-        t[i].c = 0;
-    }
-    t[5].handler = 0;
-    t[5].a = 0;
-    t[5].b = 0;
-    t[5].c = -1;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7ec0 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00361f50()
+{
+    DAT_004d7ec0[0].fn = FUN_003337f0;
+    DAT_004d7ec0[1].fn = FUN_00333800;
+    DAT_004d7ec0[2].fn = FUN_00333820;
+    DAT_004d7ec0[3].fn = FUN_00333810;
+    DAT_004d7ec0[0].vbindex = 0;
+    DAT_004d7ec0[1].vbindex = 0;
+    DAT_004d7ec0[2].vbindex = 0;
+    DAT_004d7ec0[3].vbindex = 0;
+    DAT_004d7ec0[4].vbindex = 0;
+    DAT_004d7ec0[4].fn = FUN_0032c480;
+    DAT_004d7ec0[5].vbindex = -1;
+    DAT_004d7ec0[0].adjust = 0;
+    DAT_004d7ec0[0].vbptr = 0;
+    DAT_004d7ec0[1].adjust = 0;
+    DAT_004d7ec0[1].vbptr = 0;
+    DAT_004d7ec0[2].adjust = 0;
+    DAT_004d7ec0[2].vbptr = 0;
+    DAT_004d7ec0[3].adjust = 0;
+    DAT_004d7ec0[3].vbptr = 0;
+    DAT_004d7ec0[4].adjust = 0;
+    DAT_004d7ec0[4].vbptr = 0;
+    DAT_004d7ec0[5].fn = 0;
+    DAT_004d7ec0[5].adjust = 0;
+    DAT_004d7ec0[5].vbptr = 0;
 }
 
 
@@ -7778,44 +7478,46 @@ void FUN_00361f50() {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362010 @ 0x00362010
 // Static initialiser for a global table of 8 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7f98 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362010()
 {
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[0].fn = FUN_003333c0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[0].a = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[0].b = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[0].c = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[1].fn = FUN_003333e0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[1].a = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[1].b = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[1].c = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[2].fn = FUN_003333f0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[2].a = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[2].b = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[2].c = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[3].fn = FUN_003337d0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[3].a = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[3].b = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[3].c = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[4].fn = FUN_00333770;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[4].a = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[4].b = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[4].c = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[5].fn = FUN_003333a0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[5].a = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[5].b = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[5].c = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[6].fn = FUN_003333b0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[6].a = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[6].b = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[6].c = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[7].fn = FUN_00333400;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[7].a = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[7].b = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).slot[7].c = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).end.a = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).end.b = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).end.c = 0;
-    (*(HandlerTable_362010*)&DAT_004d7fa0).end.last = -1;
+    DAT_004d7f98[0].fn = FUN_003333c0;
+    DAT_004d7f98[1].fn = FUN_003333e0;
+    DAT_004d7f98[2].fn = FUN_003333f0;
+    DAT_004d7f98[3].fn = FUN_003337d0;
+    DAT_004d7f98[4].fn = FUN_00333770;
+    DAT_004d7f98[5].fn = FUN_003333a0;
+    DAT_004d7f98[6].fn = FUN_003333b0;
+    DAT_004d7f98[0].vbindex = 0;
+    DAT_004d7f98[1].vbindex = 0;
+    DAT_004d7f98[2].vbindex = 0;
+    DAT_004d7f98[3].vbindex = 0;
+    DAT_004d7f98[4].vbindex = 0;
+    DAT_004d7f98[5].vbindex = 0;
+    DAT_004d7f98[6].vbindex = 0;
+    DAT_004d7f98[7].vbindex = 0;
+    DAT_004d7f98[7].fn = FUN_00333400;
+    DAT_004d7f98[8].vbindex = -1;
+    DAT_004d7f98[0].adjust = 0;
+    DAT_004d7f98[0].vbptr = 0;
+    DAT_004d7f98[1].adjust = 0;
+    DAT_004d7f98[1].vbptr = 0;
+    DAT_004d7f98[2].adjust = 0;
+    DAT_004d7f98[2].vbptr = 0;
+    DAT_004d7f98[3].adjust = 0;
+    DAT_004d7f98[3].vbptr = 0;
+    DAT_004d7f98[4].adjust = 0;
+    DAT_004d7f98[4].vbptr = 0;
+    DAT_004d7f98[5].adjust = 0;
+    DAT_004d7f98[5].vbptr = 0;
+    DAT_004d7f98[6].adjust = 0;
+    DAT_004d7f98[6].vbptr = 0;
+    DAT_004d7f98[7].adjust = 0;
+    DAT_004d7f98[7].vbptr = 0;
+    DAT_004d7f98[8].fn = 0;
+    DAT_004d7f98[8].adjust = 0;
+    DAT_004d7f98[8].vbptr = 0;
 }
 
 
@@ -7823,24 +7525,26 @@ void FUN_00362010()
 // sym: ?FUN_00362120@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362120 @ 0x00362120
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7e60 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362120()
 {
-    ((Entry_362120*)&DAT_004d7e68)[0].fn = FUN_00333410;
-    ((Entry_362120*)&DAT_004d7e68)[0].a = 0;
-    ((Entry_362120*)&DAT_004d7e68)[0].b = 0;
-    ((Entry_362120*)&DAT_004d7e68)[0].c = 0;
-    ((Entry_362120*)&DAT_004d7e68)[1].fn = FUN_00333780;
-    ((Entry_362120*)&DAT_004d7e68)[1].a = 0;
-    ((Entry_362120*)&DAT_004d7e68)[1].b = 0;
-    ((Entry_362120*)&DAT_004d7e68)[1].c = 0;
-    ((Entry_362120*)&DAT_004d7e68)[2].fn = FUN_00333830;
-    ((Entry_362120*)&DAT_004d7e68)[2].a = 0;
-    ((Entry_362120*)&DAT_004d7e68)[2].b = 0;
-    ((Entry_362120*)&DAT_004d7e68)[2].c = 0;
-    ((Entry_362120*)&DAT_004d7e68)[3].fn = 0;
-    ((Entry_362120*)&DAT_004d7e68)[3].a = 0;
-    ((Entry_362120*)&DAT_004d7e68)[3].b = 0;
-    ((Entry_362120*)&DAT_004d7e68)[3].c = -1;
+    DAT_004d7e60[0].fn = FUN_00333410;
+    DAT_004d7e60[1].fn = FUN_00333780;
+    DAT_004d7e60[0].vbindex = 0;
+    DAT_004d7e60[1].vbindex = 0;
+    DAT_004d7e60[2].vbindex = 0;
+    DAT_004d7e60[2].fn = FUN_00333830;
+    DAT_004d7e60[3].vbindex = -1;
+    DAT_004d7e60[0].adjust = 0;
+    DAT_004d7e60[0].vbptr = 0;
+    DAT_004d7e60[1].adjust = 0;
+    DAT_004d7e60[1].vbptr = 0;
+    DAT_004d7e60[2].adjust = 0;
+    DAT_004d7e60[2].vbptr = 0;
+    DAT_004d7e60[3].fn = 0;
+    DAT_004d7e60[3].adjust = 0;
+    DAT_004d7e60[3].vbptr = 0;
 }
 
 
@@ -7848,28 +7552,30 @@ void FUN_00362120()
 // sym: ?FUN_003621a0@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003621a0 @ 0x003621a0
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8190 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003621a0()
 {
-    ((Entry_3621a0*)&DAT_004d8198)[0].fn = FUN_003337f0;
-    ((Entry_3621a0*)&DAT_004d8198)[0].a = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[0].b = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[0].c = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[1].fn = FUN_00333800;
-    ((Entry_3621a0*)&DAT_004d8198)[1].a = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[1].b = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[1].c = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[2].fn = FUN_00333820;
-    ((Entry_3621a0*)&DAT_004d8198)[2].a = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[2].b = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[2].c = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[3].fn = FUN_00333810;
-    ((Entry_3621a0*)&DAT_004d8198)[3].a = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[3].b = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[3].c = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[4].fn = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[4].a = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[4].b = 0;
-    ((Entry_3621a0*)&DAT_004d8198)[4].c = -1;
+    DAT_004d8190[0].fn = FUN_003337f0;
+    DAT_004d8190[1].fn = FUN_00333800;
+    DAT_004d8190[2].fn = FUN_00333820;
+    DAT_004d8190[0].vbindex = 0;
+    DAT_004d8190[1].vbindex = 0;
+    DAT_004d8190[2].vbindex = 0;
+    DAT_004d8190[3].vbindex = 0;
+    DAT_004d8190[3].fn = FUN_00333810;
+    DAT_004d8190[4].vbindex = -1;
+    DAT_004d8190[0].adjust = 0;
+    DAT_004d8190[0].vbptr = 0;
+    DAT_004d8190[1].adjust = 0;
+    DAT_004d8190[1].vbptr = 0;
+    DAT_004d8190[2].adjust = 0;
+    DAT_004d8190[2].vbptr = 0;
+    DAT_004d8190[3].adjust = 0;
+    DAT_004d8190[3].vbptr = 0;
+    DAT_004d8190[4].fn = 0;
+    DAT_004d8190[4].adjust = 0;
+    DAT_004d8190[4].vbptr = 0;
 }
 
 
@@ -7877,19 +7583,22 @@ void FUN_003621a0()
 // sym: ?FUN_00362240@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362240 @ 0x00362240
-void FUN_00362240() {
-    (*(StateA*)&DAT_004d8150).callback = FUN_0032cb40;
-    (*(StateA*)&DAT_004d8150).first = 0;
-    (*(StateA*)&DAT_004d8150).second = 0;
-    (*(StateA*)&DAT_004d8150).third = 0;
-    (*(StateB*)&DAT_004d8168).callback = FUN_0032cb70;
-    (*(StateB*)&DAT_004d8168).first = 0;
-    (*(StateB*)&DAT_004d8168).second = 0;
-    (*(StateB*)&DAT_004d8168).third = 0;
-    (*(StateC*)&DAT_004d8180).first = 0;
-    (*(StateC*)&DAT_004d8180).second = 0;
-    (*(StateC*)&DAT_004d8180).third = 0;
-    (*(StateC*)&DAT_004d8180).fourth = -1;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8148 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00362240()
+{
+    DAT_004d8148[0].fn = FUN_0032cb40;
+    DAT_004d8148[0].vbindex = 0;
+    DAT_004d8148[1].vbindex = 0;
+    DAT_004d8148[1].fn = FUN_0032cb70;
+    DAT_004d8148[2].vbindex = -1;
+    DAT_004d8148[0].adjust = 0;
+    DAT_004d8148[0].vbptr = 0;
+    DAT_004d8148[1].adjust = 0;
+    DAT_004d8148[1].vbptr = 0;
+    DAT_004d8148[2].fn = 0;
+    DAT_004d8148[2].adjust = 0;
+    DAT_004d8148[2].vbptr = 0;
 }
 
 
@@ -7898,44 +7607,46 @@ void FUN_00362240() {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003622a0 @ 0x003622a0
 // Static initialiser for a global table of 8 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8208 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003622a0()
 {
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[0].fn = FUN_003333c0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[0].a = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[0].b = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[0].c = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[1].fn = FUN_003333e0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[1].a = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[1].b = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[1].c = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[2].fn = FUN_003333f0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[2].a = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[2].b = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[2].c = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[3].fn = FUN_003337d0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[3].a = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[3].b = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[3].c = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[4].fn = FUN_00333770;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[4].a = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[4].b = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[4].c = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[5].fn = FUN_003333a0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[5].a = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[5].b = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[5].c = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[6].fn = FUN_003333b0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[6].a = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[6].b = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[6].c = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[7].fn = FUN_00333400;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[7].a = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[7].b = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).slot[7].c = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).end.a = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).end.b = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).end.c = 0;
-    (*(HandlerTable_3622a0*)&DAT_004d8210).end.last = -1;
+    DAT_004d8208[0].fn = FUN_003333c0;
+    DAT_004d8208[1].fn = FUN_003333e0;
+    DAT_004d8208[2].fn = FUN_003333f0;
+    DAT_004d8208[3].fn = FUN_003337d0;
+    DAT_004d8208[4].fn = FUN_00333770;
+    DAT_004d8208[5].fn = FUN_003333a0;
+    DAT_004d8208[6].fn = FUN_003333b0;
+    DAT_004d8208[0].vbindex = 0;
+    DAT_004d8208[1].vbindex = 0;
+    DAT_004d8208[2].vbindex = 0;
+    DAT_004d8208[3].vbindex = 0;
+    DAT_004d8208[4].vbindex = 0;
+    DAT_004d8208[5].vbindex = 0;
+    DAT_004d8208[6].vbindex = 0;
+    DAT_004d8208[7].vbindex = 0;
+    DAT_004d8208[7].fn = FUN_00333400;
+    DAT_004d8208[8].vbindex = -1;
+    DAT_004d8208[0].adjust = 0;
+    DAT_004d8208[0].vbptr = 0;
+    DAT_004d8208[1].adjust = 0;
+    DAT_004d8208[1].vbptr = 0;
+    DAT_004d8208[2].adjust = 0;
+    DAT_004d8208[2].vbptr = 0;
+    DAT_004d8208[3].adjust = 0;
+    DAT_004d8208[3].vbptr = 0;
+    DAT_004d8208[4].adjust = 0;
+    DAT_004d8208[4].vbptr = 0;
+    DAT_004d8208[5].adjust = 0;
+    DAT_004d8208[5].vbptr = 0;
+    DAT_004d8208[6].adjust = 0;
+    DAT_004d8208[6].vbptr = 0;
+    DAT_004d8208[7].adjust = 0;
+    DAT_004d8208[7].vbptr = 0;
+    DAT_004d8208[8].fn = 0;
+    DAT_004d8208[8].adjust = 0;
+    DAT_004d8208[8].vbptr = 0;
 }
 
 
@@ -7944,24 +7655,26 @@ void FUN_003622a0()
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003623b0 @ 0x003623b0
 // Static initialiser for a global table of 3 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d80e8 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003623b0()
 {
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).slot[0].fn = FUN_00333410;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).slot[0].a = 0;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).slot[0].b = 0;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).slot[0].c = 0;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).slot[1].fn = FUN_00333780;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).slot[1].a = 0;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).slot[1].b = 0;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).slot[1].c = 0;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).slot[2].fn = FUN_00333830;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).slot[2].a = 0;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).slot[2].b = 0;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).slot[2].c = 0;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).end.a = 0;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).end.b = 0;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).end.c = 0;
-    (*(HandlerTable_3623b0*)&DAT_004d80f0).end.last = -1;
+    DAT_004d80e8[0].fn = FUN_00333410;
+    DAT_004d80e8[1].fn = FUN_00333780;
+    DAT_004d80e8[0].vbindex = 0;
+    DAT_004d80e8[1].vbindex = 0;
+    DAT_004d80e8[2].vbindex = 0;
+    DAT_004d80e8[2].fn = FUN_00333830;
+    DAT_004d80e8[3].vbindex = -1;
+    DAT_004d80e8[0].adjust = 0;
+    DAT_004d80e8[0].vbptr = 0;
+    DAT_004d80e8[1].adjust = 0;
+    DAT_004d80e8[1].vbptr = 0;
+    DAT_004d80e8[2].adjust = 0;
+    DAT_004d80e8[2].vbptr = 0;
+    DAT_004d80e8[3].fn = 0;
+    DAT_004d80e8[3].adjust = 0;
+    DAT_004d80e8[3].vbptr = 0;
 }
 
 } // namespace fn_f1ddef39
@@ -7972,23 +7685,18 @@ namespace fn_00362430 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362430 @ 0x00362430
 void FUN_0032cba0();
-extern void (*DAT_004d80c0)();
-extern int DAT_004d80c4;
-extern int DAT_004d80c8;
-extern int DAT_004d80cc;
-extern int DAT_004d80d8;
-extern int DAT_004d80dc;
-extern int DAT_004d80e0;
-extern int DAT_004d80e4;
-void FUN_00362430() {
-    DAT_004d80cc = 0;
-    DAT_004d80c0 = FUN_0032cba0;
-    DAT_004d80e4 = -1;
-    DAT_004d80c4 = 0;
-    DAT_004d80c8 = 0;
-    DAT_004d80d8 = 0;
-    DAT_004d80dc = 0;
-    DAT_004d80e0 = 0;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d80b8 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00362430()
+{
+    DAT_004d80b8[0].vbindex = 0;
+    DAT_004d80b8[0].fn = FUN_0032cba0;
+    DAT_004d80b8[1].vbindex = -1;
+    DAT_004d80b8[0].adjust = 0;
+    DAT_004d80b8[0].vbptr = 0;
+    DAT_004d80b8[1].fn = 0;
+    DAT_004d80b8[1].adjust = 0;
+    DAT_004d80b8[1].vbptr = 0;
 }
 } // namespace fn_00362430
 
@@ -7999,23 +7707,18 @@ namespace fn_00362480 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362480 @ 0x00362480
 void FUN_0032d260();
-extern void (*DAT_004d83a8)();
-extern int DAT_004d83ac;
-extern int DAT_004d83b0;
-extern int DAT_004d83b4;
-extern int DAT_004d83c0;
-extern int DAT_004d83c4;
-extern int DAT_004d83c8;
-extern int DAT_004d83cc;
-void FUN_00362480() {
-    DAT_004d83b4 = 0;
-    DAT_004d83a8 = FUN_0032d260;
-    DAT_004d83cc = -1;
-    DAT_004d83ac = 0;
-    DAT_004d83b0 = 0;
-    DAT_004d83c0 = 0;
-    DAT_004d83c4 = 0;
-    DAT_004d83c8 = 0;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d83a0 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00362480()
+{
+    DAT_004d83a0[0].vbindex = 0;
+    DAT_004d83a0[0].fn = FUN_0032d260;
+    DAT_004d83a0[1].vbindex = -1;
+    DAT_004d83a0[0].adjust = 0;
+    DAT_004d83a0[0].vbptr = 0;
+    DAT_004d83a0[1].fn = 0;
+    DAT_004d83a0[1].adjust = 0;
+    DAT_004d83a0[1].vbptr = 0;
 }
 } // namespace fn_00362480
 
@@ -8026,28 +7729,30 @@ namespace fn_f1ddef39 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003624d0 @ 0x003624d0
 // Static initialiser for a global table of 4 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8328 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003624d0()
 {
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[0].fn = FUN_0032d290;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[0].a = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[0].b = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[0].c = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[1].fn = FUN_00333770;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[1].a = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[1].b = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[1].c = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[2].fn = FUN_003333a0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[2].a = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[2].b = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[2].c = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[3].fn = FUN_003333b0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[3].a = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[3].b = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).slot[3].c = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).end.a = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).end.b = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).end.c = 0;
-    (*(HandlerTable_3624d0*)&DAT_004d8330).end.last = -1;
+    DAT_004d8328[0].fn = FUN_0032d290;
+    DAT_004d8328[1].fn = FUN_00333770;
+    DAT_004d8328[2].fn = FUN_003333a0;
+    DAT_004d8328[0].vbindex = 0;
+    DAT_004d8328[1].vbindex = 0;
+    DAT_004d8328[2].vbindex = 0;
+    DAT_004d8328[3].vbindex = 0;
+    DAT_004d8328[3].fn = FUN_003333b0;
+    DAT_004d8328[4].vbindex = -1;
+    DAT_004d8328[0].adjust = 0;
+    DAT_004d8328[0].vbptr = 0;
+    DAT_004d8328[1].adjust = 0;
+    DAT_004d8328[1].vbptr = 0;
+    DAT_004d8328[2].adjust = 0;
+    DAT_004d8328[2].vbptr = 0;
+    DAT_004d8328[3].adjust = 0;
+    DAT_004d8328[3].vbptr = 0;
+    DAT_004d8328[4].fn = 0;
+    DAT_004d8328[4].adjust = 0;
+    DAT_004d8328[4].vbptr = 0;
 }
 
 
@@ -8056,40 +7761,42 @@ void FUN_003624d0()
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362570 @ 0x00362570
 // Static initialiser for a global table of 7 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d83d0 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362570()
 {
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[0].fn = FUN_0032d2b0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[0].a = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[0].b = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[0].c = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[1].fn = FUN_0032d2c0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[1].a = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[1].b = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[1].c = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[2].fn = FUN_0032d2d0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[2].a = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[2].b = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[2].c = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[3].fn = FUN_0032d2e0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[3].a = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[3].b = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[3].c = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[4].fn = FUN_0032d2f0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[4].a = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[4].b = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[4].c = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[5].fn = FUN_0032d300;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[5].a = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[5].b = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[5].c = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[6].fn = FUN_0032d310;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[6].a = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[6].b = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).slot[6].c = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).end.a = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).end.b = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).end.c = 0;
-    (*(HandlerTable_362570*)&DAT_004d83d8).end.last = -1;
+    DAT_004d83d0[0].fn = FUN_0032d2b0;
+    DAT_004d83d0[1].fn = FUN_0032d2c0;
+    DAT_004d83d0[2].fn = FUN_0032d2d0;
+    DAT_004d83d0[3].fn = FUN_0032d2e0;
+    DAT_004d83d0[4].fn = FUN_0032d2f0;
+    DAT_004d83d0[5].fn = FUN_0032d300;
+    DAT_004d83d0[0].vbindex = 0;
+    DAT_004d83d0[1].vbindex = 0;
+    DAT_004d83d0[2].vbindex = 0;
+    DAT_004d83d0[3].vbindex = 0;
+    DAT_004d83d0[4].vbindex = 0;
+    DAT_004d83d0[5].vbindex = 0;
+    DAT_004d83d0[6].vbindex = 0;
+    DAT_004d83d0[6].fn = FUN_0032d310;
+    DAT_004d83d0[7].vbindex = -1;
+    DAT_004d83d0[0].adjust = 0;
+    DAT_004d83d0[0].vbptr = 0;
+    DAT_004d83d0[1].adjust = 0;
+    DAT_004d83d0[1].vbptr = 0;
+    DAT_004d83d0[2].adjust = 0;
+    DAT_004d83d0[2].vbptr = 0;
+    DAT_004d83d0[3].adjust = 0;
+    DAT_004d83d0[3].vbptr = 0;
+    DAT_004d83d0[4].adjust = 0;
+    DAT_004d83d0[4].vbptr = 0;
+    DAT_004d83d0[5].adjust = 0;
+    DAT_004d83d0[5].vbptr = 0;
+    DAT_004d83d0[6].adjust = 0;
+    DAT_004d83d0[6].vbptr = 0;
+    DAT_004d83d0[7].fn = 0;
+    DAT_004d83d0[7].adjust = 0;
+    DAT_004d83d0[7].vbptr = 0;
 }
 
 } // namespace fn_f1ddef39
@@ -8101,24 +7808,22 @@ namespace fn_00362660 {
 // FUN_00362660 @ 0x00362660
 void FUN_0032d9d0();
 void FUN_0032da00();
-extern void (*DAT_004d8698)();
-extern int DAT_004d869c, DAT_004d86a0, DAT_004d86a4;
-extern void (*DAT_004d86b0)();
-extern int DAT_004d86b4, DAT_004d86b8, DAT_004d86bc;
-extern int DAT_004d86c8, DAT_004d86cc, DAT_004d86d0, DAT_004d86d4;
-void FUN_00362660() {
-    DAT_004d8698 = FUN_0032d9d0;
-    DAT_004d86a4 = 0;
-    DAT_004d86bc = 0;
-    DAT_004d86b0 = FUN_0032da00;
-    DAT_004d86d4 = -1;
-    DAT_004d869c = 0;
-    DAT_004d86a0 = 0;
-    DAT_004d86b4 = 0;
-    DAT_004d86b8 = 0;
-    DAT_004d86c8 = 0;
-    DAT_004d86cc = 0;
-    DAT_004d86d0 = 0;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8690 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00362660()
+{
+    DAT_004d8690[0].fn = FUN_0032d9d0;
+    DAT_004d8690[0].vbindex = 0;
+    DAT_004d8690[1].vbindex = 0;
+    DAT_004d8690[1].fn = FUN_0032da00;
+    DAT_004d8690[2].vbindex = -1;
+    DAT_004d8690[0].adjust = 0;
+    DAT_004d8690[0].vbptr = 0;
+    DAT_004d8690[1].adjust = 0;
+    DAT_004d8690[1].vbptr = 0;
+    DAT_004d8690[2].fn = 0;
+    DAT_004d8690[2].adjust = 0;
+    DAT_004d8690[2].vbptr = 0;
 }
 } // namespace fn_00362660
 
@@ -8128,64 +7833,66 @@ namespace fn_f1ddef39 {
 // sym: ?FUN_003626c0@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003626c0 @ 0x003626c0
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d84c8 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003626c0()
 {
-    (*(Entry_3626c0*)&DAT_004d84d0).fn = FUN_003333c0;
-    (*(Entry_3626c0*)&DAT_004d84e8).fn = FUN_003333e0;
-    (*(Entry_3626c0*)&DAT_004d8500).fn = FUN_003333f0;
-    (*(Entry_3626c0*)&DAT_004d8518).fn = FUN_003337d0;
-    (*(Entry_3626c0*)&DAT_004d8530).fn = FUN_00333770;
-    (*(Entry_3626c0*)&DAT_004d8548).fn = FUN_003333a0;
-    (*(Entry_3626c0*)&DAT_004d8560).fn = FUN_003333b0;
-    (*(Entry_3626c0*)&DAT_004d8578).fn = FUN_00333400;
-    (*(Entry_3626c0*)&DAT_004d8590).fn = FUN_0032da30;
-    (*(Entry_3626c0*)&DAT_004d85a8).fn = FUN_0032d8d0;
-    (*(Entry_3626c0*)&DAT_004d85c0).fn = FUN_0032dab0;
-    (*(Entry_3626c0*)&DAT_004d85d8).fn = FUN_0032dad0;
-    (*(Entry_3626c0*)&DAT_004d85f0).fn = FUN_0032daf0;
-    (*(Entry_3626c0*)&DAT_004d84d0).a = 0;
-    (*(Entry_3626c0*)&DAT_004d84d0).b = 0;
-    (*(Entry_3626c0*)&DAT_004d84d0).c = 0;
-    (*(Entry_3626c0*)&DAT_004d84e8).a = 0;
-    (*(Entry_3626c0*)&DAT_004d84e8).b = 0;
-    (*(Entry_3626c0*)&DAT_004d84e8).c = 0;
-    (*(Entry_3626c0*)&DAT_004d8500).a = 0;
-    (*(Entry_3626c0*)&DAT_004d8500).b = 0;
-    (*(Entry_3626c0*)&DAT_004d8500).c = 0;
-    (*(Entry_3626c0*)&DAT_004d8518).a = 0;
-    (*(Entry_3626c0*)&DAT_004d8518).b = 0;
-    (*(Entry_3626c0*)&DAT_004d8518).c = 0;
-    (*(Entry_3626c0*)&DAT_004d8530).a = 0;
-    (*(Entry_3626c0*)&DAT_004d8530).b = 0;
-    (*(Entry_3626c0*)&DAT_004d8530).c = 0;
-    (*(Entry_3626c0*)&DAT_004d8548).a = 0;
-    (*(Entry_3626c0*)&DAT_004d8548).b = 0;
-    (*(Entry_3626c0*)&DAT_004d8548).c = 0;
-    (*(Entry_3626c0*)&DAT_004d8560).a = 0;
-    (*(Entry_3626c0*)&DAT_004d8560).b = 0;
-    (*(Entry_3626c0*)&DAT_004d8560).c = 0;
-    (*(Entry_3626c0*)&DAT_004d8578).a = 0;
-    (*(Entry_3626c0*)&DAT_004d8578).b = 0;
-    (*(Entry_3626c0*)&DAT_004d8578).c = 0;
-    (*(Entry_3626c0*)&DAT_004d8590).a = 0;
-    (*(Entry_3626c0*)&DAT_004d8590).b = 0;
-    (*(Entry_3626c0*)&DAT_004d8590).c = 0;
-    (*(Entry_3626c0*)&DAT_004d85a8).a = 0;
-    (*(Entry_3626c0*)&DAT_004d85a8).b = 0;
-    (*(Entry_3626c0*)&DAT_004d85a8).c = 0;
-    (*(Entry_3626c0*)&DAT_004d85c0).a = 0;
-    (*(Entry_3626c0*)&DAT_004d85c0).b = 0;
-    (*(Entry_3626c0*)&DAT_004d85c0).c = 0;
-    (*(Entry_3626c0*)&DAT_004d85d8).a = 0;
-    (*(Entry_3626c0*)&DAT_004d85d8).b = 0;
-    (*(Entry_3626c0*)&DAT_004d85d8).c = 0;
-    (*(Entry_3626c0*)&DAT_004d85f0).a = 0;
-    (*(Entry_3626c0*)&DAT_004d85f0).b = 0;
-    (*(Entry_3626c0*)&DAT_004d85f0).c = 0;
-    (*(LastEntry*)&DAT_004d8608).a = 0;
-    (*(LastEntry*)&DAT_004d8608).b = 0;
-    (*(LastEntry*)&DAT_004d8608).c = 0;
-    (*(LastEntry*)&DAT_004d8608).d = -1;
+    DAT_004d84c8[0].fn = FUN_003333c0;
+    DAT_004d84c8[1].fn = FUN_003333e0;
+    DAT_004d84c8[2].fn = FUN_003333f0;
+    DAT_004d84c8[3].fn = FUN_003337d0;
+    DAT_004d84c8[4].fn = FUN_00333770;
+    DAT_004d84c8[5].fn = FUN_003333a0;
+    DAT_004d84c8[6].fn = FUN_003333b0;
+    DAT_004d84c8[7].fn = FUN_00333400;
+    DAT_004d84c8[8].fn = FUN_0032da30;
+    DAT_004d84c8[9].fn = FUN_0032d8d0;
+    DAT_004d84c8[10].fn = FUN_0032dab0;
+    DAT_004d84c8[11].fn = FUN_0032dad0;
+    DAT_004d84c8[0].vbindex = 0;
+    DAT_004d84c8[1].vbindex = 0;
+    DAT_004d84c8[2].vbindex = 0;
+    DAT_004d84c8[3].vbindex = 0;
+    DAT_004d84c8[4].vbindex = 0;
+    DAT_004d84c8[5].vbindex = 0;
+    DAT_004d84c8[6].vbindex = 0;
+    DAT_004d84c8[7].vbindex = 0;
+    DAT_004d84c8[8].vbindex = 0;
+    DAT_004d84c8[9].vbindex = 0;
+    DAT_004d84c8[10].vbindex = 0;
+    DAT_004d84c8[11].vbindex = 0;
+    DAT_004d84c8[12].vbindex = 0;
+    DAT_004d84c8[12].fn = FUN_0032daf0;
+    DAT_004d84c8[13].vbindex = -1;
+    DAT_004d84c8[0].adjust = 0;
+    DAT_004d84c8[0].vbptr = 0;
+    DAT_004d84c8[1].adjust = 0;
+    DAT_004d84c8[1].vbptr = 0;
+    DAT_004d84c8[2].adjust = 0;
+    DAT_004d84c8[2].vbptr = 0;
+    DAT_004d84c8[3].adjust = 0;
+    DAT_004d84c8[3].vbptr = 0;
+    DAT_004d84c8[4].adjust = 0;
+    DAT_004d84c8[4].vbptr = 0;
+    DAT_004d84c8[5].adjust = 0;
+    DAT_004d84c8[5].vbptr = 0;
+    DAT_004d84c8[6].adjust = 0;
+    DAT_004d84c8[6].vbptr = 0;
+    DAT_004d84c8[7].adjust = 0;
+    DAT_004d84c8[7].vbptr = 0;
+    DAT_004d84c8[8].adjust = 0;
+    DAT_004d84c8[8].vbptr = 0;
+    DAT_004d84c8[9].adjust = 0;
+    DAT_004d84c8[9].vbptr = 0;
+    DAT_004d84c8[10].adjust = 0;
+    DAT_004d84c8[10].vbptr = 0;
+    DAT_004d84c8[11].adjust = 0;
+    DAT_004d84c8[11].vbptr = 0;
+    DAT_004d84c8[12].adjust = 0;
+    DAT_004d84c8[12].vbptr = 0;
+    DAT_004d84c8[13].fn = 0;
+    DAT_004d84c8[13].adjust = 0;
+    DAT_004d84c8[13].vbptr = 0;
 }
 
 
@@ -8193,28 +7900,30 @@ void FUN_003626c0()
 // sym: ?FUN_00362860@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362860 @ 0x00362860
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d86d8 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362860()
 {
-    ((Entry_362860*)&DAT_004d86e0)[0].fn = FUN_003337f0;
-    ((Entry_362860*)&DAT_004d86e0)[0].a = 0;
-    ((Entry_362860*)&DAT_004d86e0)[0].b = 0;
-    ((Entry_362860*)&DAT_004d86e0)[0].c = 0;
-    ((Entry_362860*)&DAT_004d86e0)[1].fn = FUN_00333800;
-    ((Entry_362860*)&DAT_004d86e0)[1].a = 0;
-    ((Entry_362860*)&DAT_004d86e0)[1].b = 0;
-    ((Entry_362860*)&DAT_004d86e0)[1].c = 0;
-    ((Entry_362860*)&DAT_004d86e0)[2].fn = FUN_00333820;
-    ((Entry_362860*)&DAT_004d86e0)[2].a = 0;
-    ((Entry_362860*)&DAT_004d86e0)[2].b = 0;
-    ((Entry_362860*)&DAT_004d86e0)[2].c = 0;
-    ((Entry_362860*)&DAT_004d86e0)[3].fn = FUN_00333810;
-    ((Entry_362860*)&DAT_004d86e0)[3].a = 0;
-    ((Entry_362860*)&DAT_004d86e0)[3].b = 0;
-    ((Entry_362860*)&DAT_004d86e0)[3].c = 0;
-    ((Entry_362860*)&DAT_004d86e0)[4].fn = 0;
-    ((Entry_362860*)&DAT_004d86e0)[4].a = 0;
-    ((Entry_362860*)&DAT_004d86e0)[4].b = 0;
-    ((Entry_362860*)&DAT_004d86e0)[4].c = -1;
+    DAT_004d86d8[0].fn = FUN_003337f0;
+    DAT_004d86d8[1].fn = FUN_00333800;
+    DAT_004d86d8[2].fn = FUN_00333820;
+    DAT_004d86d8[0].vbindex = 0;
+    DAT_004d86d8[1].vbindex = 0;
+    DAT_004d86d8[2].vbindex = 0;
+    DAT_004d86d8[3].vbindex = 0;
+    DAT_004d86d8[3].fn = FUN_00333810;
+    DAT_004d86d8[4].vbindex = -1;
+    DAT_004d86d8[0].adjust = 0;
+    DAT_004d86d8[0].vbptr = 0;
+    DAT_004d86d8[1].adjust = 0;
+    DAT_004d86d8[1].vbptr = 0;
+    DAT_004d86d8[2].adjust = 0;
+    DAT_004d86d8[2].vbptr = 0;
+    DAT_004d86d8[3].adjust = 0;
+    DAT_004d86d8[3].vbptr = 0;
+    DAT_004d86d8[4].fn = 0;
+    DAT_004d86d8[4].adjust = 0;
+    DAT_004d86d8[4].vbptr = 0;
 }
 
 
@@ -8223,28 +7932,30 @@ void FUN_00362860()
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362900 @ 0x00362900
 // Static initialiser for a global table of 4 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8618 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362900()
 {
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[0].fn = FUN_00333410;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[0].a = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[0].b = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[0].c = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[1].fn = FUN_00333780;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[1].a = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[1].b = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[1].c = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[2].fn = FUN_00333830;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[2].a = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[2].b = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[2].c = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[3].fn = FUN_0032e090;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[3].a = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[3].b = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).slot[3].c = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).end.a = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).end.b = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).end.c = 0;
-    (*(HandlerTable_362900*)&DAT_004d8620).end.last = -1;
+    DAT_004d8618[0].fn = FUN_00333410;
+    DAT_004d8618[1].fn = FUN_00333780;
+    DAT_004d8618[2].fn = FUN_00333830;
+    DAT_004d8618[0].vbindex = 0;
+    DAT_004d8618[1].vbindex = 0;
+    DAT_004d8618[2].vbindex = 0;
+    DAT_004d8618[3].vbindex = 0;
+    DAT_004d8618[3].fn = FUN_0032e090;
+    DAT_004d8618[4].vbindex = -1;
+    DAT_004d8618[0].adjust = 0;
+    DAT_004d8618[0].vbptr = 0;
+    DAT_004d8618[1].adjust = 0;
+    DAT_004d8618[1].vbptr = 0;
+    DAT_004d8618[2].adjust = 0;
+    DAT_004d8618[2].vbptr = 0;
+    DAT_004d8618[3].adjust = 0;
+    DAT_004d8618[3].vbptr = 0;
+    DAT_004d8618[4].fn = 0;
+    DAT_004d8618[4].adjust = 0;
+    DAT_004d8618[4].vbptr = 0;
 }
 
 
@@ -8252,24 +7963,26 @@ void FUN_00362900()
 // sym: ?FUN_003629a0@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003629a0 @ 0x003629a0
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8798 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003629a0()
 {
-    ((Entry_3629a0*)&DAT_004d87a0)[0].fn = FUN_0032d9d0;
-    ((Entry_3629a0*)&DAT_004d87a0)[0].a = 0;
-    ((Entry_3629a0*)&DAT_004d87a0)[0].b = 0;
-    ((Entry_3629a0*)&DAT_004d87a0)[0].c = 0;
-    ((Entry_3629a0*)&DAT_004d87a0)[1].fn = FUN_0032da00;
-    ((Entry_3629a0*)&DAT_004d87a0)[1].a = 0;
-    ((Entry_3629a0*)&DAT_004d87a0)[1].b = 0;
-    ((Entry_3629a0*)&DAT_004d87a0)[1].c = 0;
-    ((Entry_3629a0*)&DAT_004d87a0)[2].fn = FUN_0032eb10;
-    ((Entry_3629a0*)&DAT_004d87a0)[2].a = 0;
-    ((Entry_3629a0*)&DAT_004d87a0)[2].b = 0;
-    ((Entry_3629a0*)&DAT_004d87a0)[2].c = 0;
-    ((Entry_3629a0*)&DAT_004d87a0)[3].fn = 0;
-    ((Entry_3629a0*)&DAT_004d87a0)[3].a = 0;
-    ((Entry_3629a0*)&DAT_004d87a0)[3].b = 0;
-    ((Entry_3629a0*)&DAT_004d87a0)[3].c = -1;
+    DAT_004d8798[0].fn = FUN_0032d9d0;
+    DAT_004d8798[1].fn = FUN_0032da00;
+    DAT_004d8798[0].vbindex = 0;
+    DAT_004d8798[1].vbindex = 0;
+    DAT_004d8798[2].vbindex = 0;
+    DAT_004d8798[2].fn = FUN_0032eb10;
+    DAT_004d8798[3].vbindex = -1;
+    DAT_004d8798[0].adjust = 0;
+    DAT_004d8798[0].vbptr = 0;
+    DAT_004d8798[1].adjust = 0;
+    DAT_004d8798[1].vbptr = 0;
+    DAT_004d8798[2].adjust = 0;
+    DAT_004d8798[2].vbptr = 0;
+    DAT_004d8798[3].fn = 0;
+    DAT_004d8798[3].adjust = 0;
+    DAT_004d8798[3].vbptr = 0;
 }
 
 
@@ -8278,22 +7991,34 @@ void FUN_003629a0()
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362a20 @ 0x00362a20
 // Static init of a six-entry handler table (shared callbacks; entry 4 gets its own).
-void FUN_00362a20() {
-    Slot_362a20 *t = ((Slot_362a20*)&DAT_004d88f0);
-    t[0].handler = FUN_003337f0;
-    t[1].handler = FUN_00333800;
-    t[2].handler = FUN_00333820;
-    t[3].handler = FUN_00333810;
-    t[4].handler = FUN_0032ef00;
-    for (int i = 0; i < 5; i++) {
-        t[i].a = 0;
-        t[i].b = 0;
-        t[i].c = 0;
-    }
-    t[5].handler = 0;
-    t[5].a = 0;
-    t[5].b = 0;
-    t[5].c = -1;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d88e8 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00362a20()
+{
+    DAT_004d88e8[0].fn = FUN_003337f0;
+    DAT_004d88e8[1].fn = FUN_00333800;
+    DAT_004d88e8[2].fn = FUN_00333820;
+    DAT_004d88e8[3].fn = FUN_00333810;
+    DAT_004d88e8[0].vbindex = 0;
+    DAT_004d88e8[1].vbindex = 0;
+    DAT_004d88e8[2].vbindex = 0;
+    DAT_004d88e8[3].vbindex = 0;
+    DAT_004d88e8[4].vbindex = 0;
+    DAT_004d88e8[4].fn = FUN_0032ef00;
+    DAT_004d88e8[5].vbindex = -1;
+    DAT_004d88e8[0].adjust = 0;
+    DAT_004d88e8[0].vbptr = 0;
+    DAT_004d88e8[1].adjust = 0;
+    DAT_004d88e8[1].vbptr = 0;
+    DAT_004d88e8[2].adjust = 0;
+    DAT_004d88e8[2].vbptr = 0;
+    DAT_004d88e8[3].adjust = 0;
+    DAT_004d88e8[3].vbptr = 0;
+    DAT_004d88e8[4].adjust = 0;
+    DAT_004d88e8[4].vbptr = 0;
+    DAT_004d88e8[5].fn = 0;
+    DAT_004d88e8[5].adjust = 0;
+    DAT_004d88e8[5].vbptr = 0;
 }
 
 } // namespace fn_f1ddef39
@@ -8304,18 +8029,18 @@ namespace fn_00362ae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362ae0 @ 0x00362ae0
 void FUN_0032f210();
-extern void (*DAT_004d88c0)();
-extern int DAT_004d88c4, DAT_004d88c8, DAT_004d88cc;
-extern int DAT_004d88d8, DAT_004d88dc, DAT_004d88e0, DAT_004d88e4;
-void FUN_00362ae0() {
-    DAT_004d88cc = 0;
-    DAT_004d88c0 = FUN_0032f210;
-    DAT_004d88e4 = -1;
-    DAT_004d88c4 = 0;
-    DAT_004d88c8 = 0;
-    DAT_004d88d8 = 0;
-    DAT_004d88dc = 0;
-    DAT_004d88e0 = 0;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8840 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00362ae0()
+{
+    DAT_004d8840[5].vbindex = 0;
+    DAT_004d8840[5].fn = FUN_0032f210;
+    DAT_004d8840[6].vbindex = -1;
+    DAT_004d8840[5].adjust = 0;
+    DAT_004d8840[5].vbptr = 0;
+    DAT_004d8840[6].fn = 0;
+    DAT_004d8840[6].adjust = 0;
+    DAT_004d8840[6].vbptr = 0;
 }
 } // namespace fn_00362ae0
 
@@ -8326,44 +8051,46 @@ namespace fn_f1ddef39 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362b30 @ 0x00362b30
 // Static initialiser for a global table of 8 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8978 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362b30()
 {
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[0].fn = FUN_003333c0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[0].a = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[0].b = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[0].c = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[1].fn = FUN_003333e0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[1].a = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[1].b = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[1].c = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[2].fn = FUN_003333f0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[2].a = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[2].b = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[2].c = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[3].fn = FUN_003337d0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[3].a = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[3].b = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[3].c = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[4].fn = FUN_00333770;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[4].a = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[4].b = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[4].c = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[5].fn = FUN_003333a0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[5].a = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[5].b = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[5].c = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[6].fn = FUN_003333b0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[6].a = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[6].b = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[6].c = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[7].fn = FUN_00333400;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[7].a = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[7].b = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).slot[7].c = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).end.a = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).end.b = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).end.c = 0;
-    (*(HandlerTable_362b30*)&DAT_004d8980).end.last = -1;
+    DAT_004d8978[0].fn = FUN_003333c0;
+    DAT_004d8978[1].fn = FUN_003333e0;
+    DAT_004d8978[2].fn = FUN_003333f0;
+    DAT_004d8978[3].fn = FUN_003337d0;
+    DAT_004d8978[4].fn = FUN_00333770;
+    DAT_004d8978[5].fn = FUN_003333a0;
+    DAT_004d8978[6].fn = FUN_003333b0;
+    DAT_004d8978[0].vbindex = 0;
+    DAT_004d8978[1].vbindex = 0;
+    DAT_004d8978[2].vbindex = 0;
+    DAT_004d8978[3].vbindex = 0;
+    DAT_004d8978[4].vbindex = 0;
+    DAT_004d8978[5].vbindex = 0;
+    DAT_004d8978[6].vbindex = 0;
+    DAT_004d8978[7].vbindex = 0;
+    DAT_004d8978[7].fn = FUN_00333400;
+    DAT_004d8978[8].vbindex = -1;
+    DAT_004d8978[0].adjust = 0;
+    DAT_004d8978[0].vbptr = 0;
+    DAT_004d8978[1].adjust = 0;
+    DAT_004d8978[1].vbptr = 0;
+    DAT_004d8978[2].adjust = 0;
+    DAT_004d8978[2].vbptr = 0;
+    DAT_004d8978[3].adjust = 0;
+    DAT_004d8978[3].vbptr = 0;
+    DAT_004d8978[4].adjust = 0;
+    DAT_004d8978[4].vbptr = 0;
+    DAT_004d8978[5].adjust = 0;
+    DAT_004d8978[5].vbptr = 0;
+    DAT_004d8978[6].adjust = 0;
+    DAT_004d8978[6].vbptr = 0;
+    DAT_004d8978[7].adjust = 0;
+    DAT_004d8978[7].vbptr = 0;
+    DAT_004d8978[8].fn = 0;
+    DAT_004d8978[8].adjust = 0;
+    DAT_004d8978[8].vbptr = 0;
 }
 
 
@@ -8371,28 +8098,30 @@ void FUN_00362b30()
 // sym: ?FUN_00362c40@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362c40 @ 0x00362c40
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8840 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362c40()
 {
-    ((Entry_362c40*)&DAT_004d8848)[0].fn = FUN_00333410;
-    ((Entry_362c40*)&DAT_004d8848)[0].a = 0;
-    ((Entry_362c40*)&DAT_004d8848)[0].b = 0;
-    ((Entry_362c40*)&DAT_004d8848)[0].c = 0;
-    ((Entry_362c40*)&DAT_004d8848)[1].fn = FUN_00333780;
-    ((Entry_362c40*)&DAT_004d8848)[1].a = 0;
-    ((Entry_362c40*)&DAT_004d8848)[1].b = 0;
-    ((Entry_362c40*)&DAT_004d8848)[1].c = 0;
-    ((Entry_362c40*)&DAT_004d8848)[2].fn = FUN_00333830;
-    ((Entry_362c40*)&DAT_004d8848)[2].a = 0;
-    ((Entry_362c40*)&DAT_004d8848)[2].b = 0;
-    ((Entry_362c40*)&DAT_004d8848)[2].c = 0;
-    ((Entry_362c40*)&DAT_004d8848)[3].fn = FUN_0032eee0;
-    ((Entry_362c40*)&DAT_004d8848)[3].a = 0;
-    ((Entry_362c40*)&DAT_004d8848)[3].b = 0;
-    ((Entry_362c40*)&DAT_004d8848)[3].c = 0;
-    ((Entry_362c40*)&DAT_004d8848)[4].fn = FUN_0032eef0;
-    ((Entry_362c40*)&DAT_004d8848)[4].a = 0;
-    ((Entry_362c40*)&DAT_004d8848)[4].b = 0;
-    ((Entry_362c40*)&DAT_004d8848)[4].c = 0;
+    DAT_004d8840[0].fn = FUN_00333410;
+    DAT_004d8840[1].fn = FUN_00333780;
+    DAT_004d8840[2].fn = FUN_00333830;
+    DAT_004d8840[3].fn = FUN_0032eee0;
+    DAT_004d8840[0].vbindex = 0;
+    DAT_004d8840[1].vbindex = 0;
+    DAT_004d8840[2].vbindex = 0;
+    DAT_004d8840[3].vbindex = 0;
+    DAT_004d8840[4].vbindex = 0;
+    DAT_004d8840[0].adjust = 0;
+    DAT_004d8840[0].vbptr = 0;
+    DAT_004d8840[1].adjust = 0;
+    DAT_004d8840[1].vbptr = 0;
+    DAT_004d8840[2].adjust = 0;
+    DAT_004d8840[2].vbptr = 0;
+    DAT_004d8840[3].adjust = 0;
+    DAT_004d8840[3].vbptr = 0;
+    DAT_004d8840[4].fn = FUN_0032eef0;
+    DAT_004d8840[4].adjust = 0;
+    DAT_004d8840[4].vbptr = 0;
 }
 
 } // namespace fn_f1ddef39
@@ -8403,18 +8132,18 @@ namespace fn_00362ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362ce0 @ 0x00362ce0
 void FUN_0032ff60();
-extern void (*DAT_004d8b48)();
-extern int DAT_004d8b4c, DAT_004d8b50, DAT_004d8b54;
-extern int DAT_004d8b60, DAT_004d8b64, DAT_004d8b68, DAT_004d8b6c;
-void FUN_00362ce0() {
-    DAT_004d8b54 = 0;
-    DAT_004d8b48 = FUN_0032ff60;
-    DAT_004d8b6c = -1;
-    DAT_004d8b4c = 0;
-    DAT_004d8b50 = 0;
-    DAT_004d8b60 = 0;
-    DAT_004d8b64 = 0;
-    DAT_004d8b68 = 0;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8b40 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00362ce0()
+{
+    DAT_004d8b40[0].vbindex = 0;
+    DAT_004d8b40[0].fn = FUN_0032ff60;
+    DAT_004d8b40[1].vbindex = -1;
+    DAT_004d8b40[0].adjust = 0;
+    DAT_004d8b40[0].vbptr = 0;
+    DAT_004d8b40[1].fn = 0;
+    DAT_004d8b40[1].adjust = 0;
+    DAT_004d8b40[1].vbptr = 0;
 }
 } // namespace fn_00362ce0
 
@@ -8425,23 +8154,18 @@ namespace fn_00362d30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362d30 @ 0x00362d30
 void FUN_00333800();
-extern void (*DAT_004d8b18)();
-extern int DAT_004d8b1c;
-extern int DAT_004d8b20;
-extern int DAT_004d8b24;
-extern int DAT_004d8b30;
-extern int DAT_004d8b34;
-extern int DAT_004d8b38;
-extern int DAT_004d8b3c;
-void FUN_00362d30() {
-    DAT_004d8b24 = 0;
-    DAT_004d8b18 = FUN_00333800;
-    DAT_004d8b3c = -1;
-    DAT_004d8b1c = 0;
-    DAT_004d8b20 = 0;
-    DAT_004d8b30 = 0;
-    DAT_004d8b34 = 0;
-    DAT_004d8b38 = 0;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8b10 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00362d30()
+{
+    DAT_004d8b10[0].vbindex = 0;
+    DAT_004d8b10[0].fn = FUN_00333800;
+    DAT_004d8b10[1].vbindex = -1;
+    DAT_004d8b10[0].adjust = 0;
+    DAT_004d8b10[0].vbptr = 0;
+    DAT_004d8b10[1].fn = 0;
+    DAT_004d8b10[1].adjust = 0;
+    DAT_004d8b10[1].vbptr = 0;
 }
 } // namespace fn_00362d30
 
@@ -8451,51 +8175,54 @@ namespace fn_f1ddef39 {
 // sym: ?FUN_00362d80@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362d80 @ 0x00362d80
-void FUN_00362d80() {
-    ((Entry_362d80*)&DAT_004d8b78)[0].fn = FUN_003333c0;
-    ((Entry_362d80*)&DAT_004d8b78)[0].a = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[0].b = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[0].c = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[1].fn = FUN_003333e0;
-    ((Entry_362d80*)&DAT_004d8b78)[1].a = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[1].b = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[1].c = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[2].fn = FUN_003333f0;
-    ((Entry_362d80*)&DAT_004d8b78)[2].a = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[2].b = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[2].c = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[3].fn = FUN_003337d0;
-    ((Entry_362d80*)&DAT_004d8b78)[3].a = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[3].b = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[3].c = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[4].fn = FUN_00333770;
-    ((Entry_362d80*)&DAT_004d8b78)[4].a = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[4].b = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[4].c = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[5].fn = FUN_003333a0;
-    ((Entry_362d80*)&DAT_004d8b78)[5].a = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[5].b = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[5].c = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[6].fn = FUN_003333b0;
-    ((Entry_362d80*)&DAT_004d8b78)[6].a = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[6].b = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[6].c = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[7].fn = FUN_00333400;
-    ((Entry_362d80*)&DAT_004d8b78)[7].a = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[7].b = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[7].c = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[8].fn = FUN_0032fd10;
-    ((Entry_362d80*)&DAT_004d8b78)[8].a = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[8].b = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[8].c = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[9].fn = FUN_00330470;
-    ((Entry_362d80*)&DAT_004d8b78)[9].a = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[9].b = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[9].c = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[10].fn = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[10].a = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[10].b = 0;
-    ((Entry_362d80*)&DAT_004d8b78)[10].c = -1;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8b70 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00362d80()
+{
+    DAT_004d8b70[0].fn = FUN_003333c0;
+    DAT_004d8b70[1].fn = FUN_003333e0;
+    DAT_004d8b70[2].fn = FUN_003333f0;
+    DAT_004d8b70[3].fn = FUN_003337d0;
+    DAT_004d8b70[4].fn = FUN_00333770;
+    DAT_004d8b70[5].fn = FUN_003333a0;
+    DAT_004d8b70[6].fn = FUN_003333b0;
+    DAT_004d8b70[7].fn = FUN_00333400;
+    DAT_004d8b70[8].fn = FUN_0032fd10;
+    DAT_004d8b70[0].vbindex = 0;
+    DAT_004d8b70[1].vbindex = 0;
+    DAT_004d8b70[2].vbindex = 0;
+    DAT_004d8b70[3].vbindex = 0;
+    DAT_004d8b70[4].vbindex = 0;
+    DAT_004d8b70[5].vbindex = 0;
+    DAT_004d8b70[6].vbindex = 0;
+    DAT_004d8b70[7].vbindex = 0;
+    DAT_004d8b70[8].vbindex = 0;
+    DAT_004d8b70[9].vbindex = 0;
+    DAT_004d8b70[9].fn = FUN_00330470;
+    DAT_004d8b70[10].vbindex = -1;
+    DAT_004d8b70[0].adjust = 0;
+    DAT_004d8b70[0].vbptr = 0;
+    DAT_004d8b70[1].adjust = 0;
+    DAT_004d8b70[1].vbptr = 0;
+    DAT_004d8b70[2].adjust = 0;
+    DAT_004d8b70[2].vbptr = 0;
+    DAT_004d8b70[3].adjust = 0;
+    DAT_004d8b70[3].vbptr = 0;
+    DAT_004d8b70[4].adjust = 0;
+    DAT_004d8b70[4].vbptr = 0;
+    DAT_004d8b70[5].adjust = 0;
+    DAT_004d8b70[5].vbptr = 0;
+    DAT_004d8b70[6].adjust = 0;
+    DAT_004d8b70[6].vbptr = 0;
+    DAT_004d8b70[7].adjust = 0;
+    DAT_004d8b70[7].vbptr = 0;
+    DAT_004d8b70[8].adjust = 0;
+    DAT_004d8b70[8].vbptr = 0;
+    DAT_004d8b70[9].adjust = 0;
+    DAT_004d8b70[9].vbptr = 0;
+    DAT_004d8b70[10].fn = 0;
+    DAT_004d8b70[10].adjust = 0;
+    DAT_004d8b70[10].vbptr = 0;
 }
 
 
@@ -8504,28 +8231,30 @@ void FUN_00362d80() {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362ec0 @ 0x00362ec0
 // Static initialiser for a global table of 4 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8a98 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362ec0()
 {
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[0].fn = FUN_00333410;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[0].a = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[0].b = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[0].c = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[1].fn = FUN_00333780;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[1].a = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[1].b = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[1].c = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[2].fn = FUN_00333830;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[2].a = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[2].b = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[2].c = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[3].fn = FUN_003304b0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[3].a = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[3].b = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).slot[3].c = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).end.a = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).end.b = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).end.c = 0;
-    (*(HandlerTable_362ec0*)&DAT_004d8aa0).end.last = -1;
+    DAT_004d8a98[0].fn = FUN_00333410;
+    DAT_004d8a98[1].fn = FUN_00333780;
+    DAT_004d8a98[2].fn = FUN_00333830;
+    DAT_004d8a98[0].vbindex = 0;
+    DAT_004d8a98[1].vbindex = 0;
+    DAT_004d8a98[2].vbindex = 0;
+    DAT_004d8a98[3].vbindex = 0;
+    DAT_004d8a98[3].fn = FUN_003304b0;
+    DAT_004d8a98[4].vbindex = -1;
+    DAT_004d8a98[0].adjust = 0;
+    DAT_004d8a98[0].vbptr = 0;
+    DAT_004d8a98[1].adjust = 0;
+    DAT_004d8a98[1].vbptr = 0;
+    DAT_004d8a98[2].adjust = 0;
+    DAT_004d8a98[2].vbptr = 0;
+    DAT_004d8a98[3].adjust = 0;
+    DAT_004d8a98[3].vbptr = 0;
+    DAT_004d8a98[4].fn = 0;
+    DAT_004d8a98[4].adjust = 0;
+    DAT_004d8a98[4].vbptr = 0;
 }
 
 
@@ -8533,60 +8262,62 @@ void FUN_00362ec0()
 // sym: ?FUN_00362f60@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362f60 @ 0x00362f60
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8d68 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362f60()
 {
-    (*(Entry_362f60*)&DAT_004d8d70).fn = FUN_003333c0;
-    (*(Entry_362f60*)&DAT_004d8d88).fn = FUN_003333e0;
-    (*(Entry_362f60*)&DAT_004d8da0).fn = FUN_003333f0;
-    (*(Entry_362f60*)&DAT_004d8db8).fn = FUN_003337d0;
-    (*(Entry_362f60*)&DAT_004d8dd0).fn = FUN_00333770;
-    (*(Entry_362f60*)&DAT_004d8de8).fn = FUN_003333a0;
-    (*(Entry_362f60*)&DAT_004d8e00).fn = FUN_003333b0;
-    (*(Entry_362f60*)&DAT_004d8e18).fn = FUN_00333400;
-    (*(Entry_362f60*)&DAT_004d8e30).fn = FUN_003333a0;
-    (*(Entry_362f60*)&DAT_004d8e48).fn = FUN_003333b0;
-    (*(Entry_362f60*)&DAT_004d8e60).fn = FUN_00330ca0;
-    (*(Entry_362f60*)&DAT_004d8e78).fn = FUN_00330cc0;
-    (*(Entry_362f60*)&DAT_004d8d70).a = 0;
-    (*(Entry_362f60*)&DAT_004d8d70).b = 0;
-    (*(Entry_362f60*)&DAT_004d8d70).c = 0;
-    (*(Entry_362f60*)&DAT_004d8d88).a = 0;
-    (*(Entry_362f60*)&DAT_004d8d88).b = 0;
-    (*(Entry_362f60*)&DAT_004d8d88).c = 0;
-    (*(Entry_362f60*)&DAT_004d8da0).a = 0;
-    (*(Entry_362f60*)&DAT_004d8da0).b = 0;
-    (*(Entry_362f60*)&DAT_004d8da0).c = 0;
-    (*(Entry_362f60*)&DAT_004d8db8).a = 0;
-    (*(Entry_362f60*)&DAT_004d8db8).b = 0;
-    (*(Entry_362f60*)&DAT_004d8db8).c = 0;
-    (*(Entry_362f60*)&DAT_004d8dd0).a = 0;
-    (*(Entry_362f60*)&DAT_004d8dd0).b = 0;
-    (*(Entry_362f60*)&DAT_004d8dd0).c = 0;
-    (*(Entry_362f60*)&DAT_004d8de8).a = 0;
-    (*(Entry_362f60*)&DAT_004d8de8).b = 0;
-    (*(Entry_362f60*)&DAT_004d8de8).c = 0;
-    (*(Entry_362f60*)&DAT_004d8e00).a = 0;
-    (*(Entry_362f60*)&DAT_004d8e00).b = 0;
-    (*(Entry_362f60*)&DAT_004d8e00).c = 0;
-    (*(Entry_362f60*)&DAT_004d8e18).a = 0;
-    (*(Entry_362f60*)&DAT_004d8e18).b = 0;
-    (*(Entry_362f60*)&DAT_004d8e18).c = 0;
-    (*(Entry_362f60*)&DAT_004d8e30).a = 0;
-    (*(Entry_362f60*)&DAT_004d8e30).b = 0;
-    (*(Entry_362f60*)&DAT_004d8e30).c = 0;
-    (*(Entry_362f60*)&DAT_004d8e48).a = 0;
-    (*(Entry_362f60*)&DAT_004d8e48).b = 0;
-    (*(Entry_362f60*)&DAT_004d8e48).c = 0;
-    (*(Entry_362f60*)&DAT_004d8e60).a = 0;
-    (*(Entry_362f60*)&DAT_004d8e60).b = 0;
-    (*(Entry_362f60*)&DAT_004d8e60).c = 0;
-    (*(Entry_362f60*)&DAT_004d8e78).a = 0;
-    (*(Entry_362f60*)&DAT_004d8e78).b = 0;
-    (*(Entry_362f60*)&DAT_004d8e78).c = 0;
-    (*(LastEntry*)&DAT_004d8e90).a = 0;
-    (*(LastEntry*)&DAT_004d8e90).b = 0;
-    (*(LastEntry*)&DAT_004d8e90).c = 0;
-    (*(LastEntry*)&DAT_004d8e90).d = -1;
+    DAT_004d8d68[0].fn = FUN_003333c0;
+    DAT_004d8d68[1].fn = FUN_003333e0;
+    DAT_004d8d68[2].fn = FUN_003333f0;
+    DAT_004d8d68[3].fn = FUN_003337d0;
+    DAT_004d8d68[4].fn = FUN_00333770;
+    DAT_004d8d68[5].fn = FUN_003333a0;
+    DAT_004d8d68[6].fn = FUN_003333b0;
+    DAT_004d8d68[7].fn = FUN_00333400;
+    DAT_004d8d68[8].fn = FUN_003333a0;
+    DAT_004d8d68[9].fn = FUN_003333b0;
+    DAT_004d8d68[10].fn = FUN_00330ca0;
+    DAT_004d8d68[0].vbindex = 0;
+    DAT_004d8d68[1].vbindex = 0;
+    DAT_004d8d68[2].vbindex = 0;
+    DAT_004d8d68[3].vbindex = 0;
+    DAT_004d8d68[4].vbindex = 0;
+    DAT_004d8d68[5].vbindex = 0;
+    DAT_004d8d68[6].vbindex = 0;
+    DAT_004d8d68[7].vbindex = 0;
+    DAT_004d8d68[8].vbindex = 0;
+    DAT_004d8d68[9].vbindex = 0;
+    DAT_004d8d68[10].vbindex = 0;
+    DAT_004d8d68[11].vbindex = 0;
+    DAT_004d8d68[11].fn = FUN_00330cc0;
+    DAT_004d8d68[12].vbindex = -1;
+    DAT_004d8d68[0].adjust = 0;
+    DAT_004d8d68[0].vbptr = 0;
+    DAT_004d8d68[1].adjust = 0;
+    DAT_004d8d68[1].vbptr = 0;
+    DAT_004d8d68[2].adjust = 0;
+    DAT_004d8d68[2].vbptr = 0;
+    DAT_004d8d68[3].adjust = 0;
+    DAT_004d8d68[3].vbptr = 0;
+    DAT_004d8d68[4].adjust = 0;
+    DAT_004d8d68[4].vbptr = 0;
+    DAT_004d8d68[5].adjust = 0;
+    DAT_004d8d68[5].vbptr = 0;
+    DAT_004d8d68[6].adjust = 0;
+    DAT_004d8d68[6].vbptr = 0;
+    DAT_004d8d68[7].adjust = 0;
+    DAT_004d8d68[7].vbptr = 0;
+    DAT_004d8d68[8].adjust = 0;
+    DAT_004d8d68[8].vbptr = 0;
+    DAT_004d8d68[9].adjust = 0;
+    DAT_004d8d68[9].vbptr = 0;
+    DAT_004d8d68[10].adjust = 0;
+    DAT_004d8d68[10].vbptr = 0;
+    DAT_004d8d68[11].adjust = 0;
+    DAT_004d8d68[11].vbptr = 0;
+    DAT_004d8d68[12].fn = 0;
+    DAT_004d8d68[12].adjust = 0;
+    DAT_004d8d68[12].vbptr = 0;
 }
 
 } // namespace fn_f1ddef39
@@ -8597,25 +8328,19 @@ namespace fn_003630e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003630e0 @ 0x003630e0
 extern "C" void FUN_00330d00();
-extern "C++" { extern void (*DAT_004d8d40)(); }
-extern "C" int DAT_004d8d44;
-extern "C" int DAT_004d8d48;
-extern "C" int DAT_004d8d4c;
-extern "C" int DAT_004d8d58;
-extern "C" int DAT_004d8d5c;
-extern "C" int DAT_004d8d60;
-extern "C" int DAT_004d8d64;
 
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8d38 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003630e0()
 {
-    DAT_004d8d4c = 0;
-    DAT_004d8d40 = &FUN_00330d00;
-    DAT_004d8d64 = -1;
-    DAT_004d8d44 = 0;
-    DAT_004d8d48 = 0;
-    DAT_004d8d58 = 0;
-    DAT_004d8d5c = 0;
-    DAT_004d8d60 = 0;
+    DAT_004d8d38[0].vbindex = 0;
+    DAT_004d8d38[0].fn = FUN_00330d00;
+    DAT_004d8d38[1].vbindex = -1;
+    DAT_004d8d38[0].adjust = 0;
+    DAT_004d8d38[0].vbptr = 0;
+    DAT_004d8d38[1].fn = 0;
+    DAT_004d8d38[1].adjust = 0;
+    DAT_004d8d38[1].vbptr = 0;
 }
 } // namespace fn_003630e0
 
@@ -8627,31 +8352,22 @@ namespace fn_00363130 {
 // FUN_00363130 @ 0x00363130
 void FUN_00333800();
 void FUN_00330cb0();
-extern void (*DAT_004d8ea8)();
-extern int DAT_004d8eac;
-extern int DAT_004d8eb0;
-extern int DAT_004d8eb4;
-extern void (*DAT_004d8ec0)();
-extern int DAT_004d8ec4;
-extern int DAT_004d8ec8;
-extern int DAT_004d8ecc;
-extern int DAT_004d8ed8;
-extern int DAT_004d8edc;
-extern int DAT_004d8ee0;
-extern int DAT_004d8ee4;
-void FUN_00363130() {
- DAT_004d8ea8 = FUN_00333800;
- DAT_004d8eb4 = 0;
- DAT_004d8ecc = 0;
- DAT_004d8ec0 = FUN_00330cb0;
- DAT_004d8ee4 = -1;
- DAT_004d8eac = 0;
- DAT_004d8eb0 = 0;
- DAT_004d8ec4 = 0;
- DAT_004d8ec8 = 0;
- DAT_004d8ed8 = 0;
- DAT_004d8edc = 0;
- DAT_004d8ee0 = 0;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8ea0 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00363130()
+{
+    DAT_004d8ea0[0].fn = FUN_00333800;
+    DAT_004d8ea0[0].vbindex = 0;
+    DAT_004d8ea0[1].vbindex = 0;
+    DAT_004d8ea0[1].fn = FUN_00330cb0;
+    DAT_004d8ea0[2].vbindex = -1;
+    DAT_004d8ea0[0].adjust = 0;
+    DAT_004d8ea0[0].vbptr = 0;
+    DAT_004d8ea0[1].adjust = 0;
+    DAT_004d8ea0[1].vbptr = 0;
+    DAT_004d8ea0[2].fn = 0;
+    DAT_004d8ea0[2].adjust = 0;
+    DAT_004d8ea0[2].vbptr = 0;
 }
 } // namespace fn_00363130
 
@@ -8661,28 +8377,30 @@ namespace fn_f1ddef39 {
 // sym: ?FUN_00363190@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363190 @ 0x00363190
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8cc0 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363190()
 {
-    ((Entry_363190*)&DAT_004d8cc8)[0].fn = FUN_00333410;
-    ((Entry_363190*)&DAT_004d8cc8)[0].a = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[0].b = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[0].c = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[1].fn = FUN_00333780;
-    ((Entry_363190*)&DAT_004d8cc8)[1].a = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[1].b = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[1].c = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[2].fn = FUN_00333830;
-    ((Entry_363190*)&DAT_004d8cc8)[2].a = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[2].b = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[2].c = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[3].fn = FUN_00330d30;
-    ((Entry_363190*)&DAT_004d8cc8)[3].a = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[3].b = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[3].c = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[4].fn = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[4].a = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[4].b = 0;
-    ((Entry_363190*)&DAT_004d8cc8)[4].c = -1;
+    DAT_004d8cc0[0].fn = FUN_00333410;
+    DAT_004d8cc0[1].fn = FUN_00333780;
+    DAT_004d8cc0[2].fn = FUN_00333830;
+    DAT_004d8cc0[0].vbindex = 0;
+    DAT_004d8cc0[1].vbindex = 0;
+    DAT_004d8cc0[2].vbindex = 0;
+    DAT_004d8cc0[3].vbindex = 0;
+    DAT_004d8cc0[3].fn = FUN_00330d30;
+    DAT_004d8cc0[4].vbindex = -1;
+    DAT_004d8cc0[0].adjust = 0;
+    DAT_004d8cc0[0].vbptr = 0;
+    DAT_004d8cc0[1].adjust = 0;
+    DAT_004d8cc0[1].vbptr = 0;
+    DAT_004d8cc0[2].adjust = 0;
+    DAT_004d8cc0[2].vbptr = 0;
+    DAT_004d8cc0[3].adjust = 0;
+    DAT_004d8cc0[3].vbptr = 0;
+    DAT_004d8cc0[4].fn = 0;
+    DAT_004d8cc0[4].adjust = 0;
+    DAT_004d8cc0[4].vbptr = 0;
 }
 
 
@@ -8690,24 +8408,23 @@ void FUN_00363190()
 // sym: ?FUN_00363230@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363230 @ 0x00363230
-// (x64t4) the table's words by their own items, as the 32-bit code stores them (absolute addresses): the data TU
-// defines each word as a separate item, so a 64-bit StateBlock view (8-byte callbacks, 0x20-byte entries) wrote past
-// DAT_004d9060's items into whatever the native link put next (the allocator registry's root DAT_00527f40 in one
-// layout: the start-up's first free crashed). The second entry's callback is an `int` item (a data_gen follow-up:
-// the table as a typed record with pointer-sized callbacks); nothing in the tree reads it.
-void FUN_00363230() {
-    DAT_004d9060 = (void*)FUN_00331b90;
-    DAT_004d906c = 0;
-    DAT_004d9084 = 0;
-    DAT_004d9078 = (int)(hulk_intptr)FUN_00331bc0;
-    DAT_004d909c = -1;
-    DAT_004d9064 = 0;
-    DAT_004d9068 = 0;
-    DAT_004d907c = 0;
-    DAT_004d9080 = 0;
-    DAT_004d9090 = 0;
-    DAT_004d9094 = 0;
-    DAT_004d9098 = 0;
+// (x64t4 wrote the words by their own items: a 64-bit view had overrun DAT_004d9060's items in the native link.)
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d9058 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00363230()
+{
+    DAT_004d9058[0].fn = FUN_00331b90;
+    DAT_004d9058[0].vbindex = 0;
+    DAT_004d9058[1].vbindex = 0;
+    DAT_004d9058[1].fn = FUN_00331bc0;
+    DAT_004d9058[2].vbindex = -1;
+    DAT_004d9058[0].adjust = 0;
+    DAT_004d9058[0].vbptr = 0;
+    DAT_004d9058[1].adjust = 0;
+    DAT_004d9058[1].vbptr = 0;
+    DAT_004d9058[2].fn = 0;
+    DAT_004d9058[2].adjust = 0;
+    DAT_004d9058[2].vbptr = 0;
 }
 
 
@@ -8716,22 +8433,34 @@ void FUN_00363230() {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363290 @ 0x00363290
 // Static init of a six-entry handler table (shared callbacks; entry 4 gets its own).
-void FUN_00363290() {
-    Slot_363290 *t = ((Slot_363290*)&DAT_004d8fd0);
-    t[0].handler = FUN_003337f0;
-    t[1].handler = FUN_00333800;
-    t[2].handler = FUN_00333820;
-    t[3].handler = FUN_00333810;
-    t[4].handler = FUN_00331bf0;
-    for (int i = 0; i < 5; i++) {
-        t[i].a = 0;
-        t[i].b = 0;
-        t[i].c = 0;
-    }
-    t[5].handler = 0;
-    t[5].a = 0;
-    t[5].b = 0;
-    t[5].c = -1;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8fc8 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_00363290()
+{
+    DAT_004d8fc8[0].fn = FUN_003337f0;
+    DAT_004d8fc8[1].fn = FUN_00333800;
+    DAT_004d8fc8[2].fn = FUN_00333820;
+    DAT_004d8fc8[3].fn = FUN_00333810;
+    DAT_004d8fc8[0].vbindex = 0;
+    DAT_004d8fc8[1].vbindex = 0;
+    DAT_004d8fc8[2].vbindex = 0;
+    DAT_004d8fc8[3].vbindex = 0;
+    DAT_004d8fc8[4].vbindex = 0;
+    DAT_004d8fc8[4].fn = FUN_00331bf0;
+    DAT_004d8fc8[5].vbindex = -1;
+    DAT_004d8fc8[0].adjust = 0;
+    DAT_004d8fc8[0].vbptr = 0;
+    DAT_004d8fc8[1].adjust = 0;
+    DAT_004d8fc8[1].vbptr = 0;
+    DAT_004d8fc8[2].adjust = 0;
+    DAT_004d8fc8[2].vbptr = 0;
+    DAT_004d8fc8[3].adjust = 0;
+    DAT_004d8fc8[3].vbptr = 0;
+    DAT_004d8fc8[4].adjust = 0;
+    DAT_004d8fc8[4].vbptr = 0;
+    DAT_004d8fc8[5].fn = 0;
+    DAT_004d8fc8[5].adjust = 0;
+    DAT_004d8fc8[5].vbptr = 0;
 }
 
 
@@ -8740,44 +8469,46 @@ void FUN_00363290() {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363350 @ 0x00363350
 // Static initialiser for a global table of 8 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d90a0 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363350()
 {
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[0].fn = FUN_003333c0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[0].a = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[0].b = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[0].c = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[1].fn = FUN_003333e0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[1].a = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[1].b = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[1].c = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[2].fn = FUN_003333f0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[2].a = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[2].b = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[2].c = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[3].fn = FUN_003337d0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[3].a = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[3].b = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[3].c = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[4].fn = FUN_00333770;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[4].a = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[4].b = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[4].c = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[5].fn = FUN_003333a0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[5].a = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[5].b = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[5].c = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[6].fn = FUN_003333b0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[6].a = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[6].b = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[6].c = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[7].fn = FUN_00333400;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[7].a = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[7].b = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).slot[7].c = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).end.a = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).end.b = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).end.c = 0;
-    (*(HandlerTable_363350*)&DAT_004d90a8).end.last = -1;
+    DAT_004d90a0[0].fn = FUN_003333c0;
+    DAT_004d90a0[1].fn = FUN_003333e0;
+    DAT_004d90a0[2].fn = FUN_003333f0;
+    DAT_004d90a0[3].fn = FUN_003337d0;
+    DAT_004d90a0[4].fn = FUN_00333770;
+    DAT_004d90a0[5].fn = FUN_003333a0;
+    DAT_004d90a0[6].fn = FUN_003333b0;
+    DAT_004d90a0[0].vbindex = 0;
+    DAT_004d90a0[1].vbindex = 0;
+    DAT_004d90a0[2].vbindex = 0;
+    DAT_004d90a0[3].vbindex = 0;
+    DAT_004d90a0[4].vbindex = 0;
+    DAT_004d90a0[5].vbindex = 0;
+    DAT_004d90a0[6].vbindex = 0;
+    DAT_004d90a0[7].vbindex = 0;
+    DAT_004d90a0[7].fn = FUN_00333400;
+    DAT_004d90a0[8].vbindex = -1;
+    DAT_004d90a0[0].adjust = 0;
+    DAT_004d90a0[0].vbptr = 0;
+    DAT_004d90a0[1].adjust = 0;
+    DAT_004d90a0[1].vbptr = 0;
+    DAT_004d90a0[2].adjust = 0;
+    DAT_004d90a0[2].vbptr = 0;
+    DAT_004d90a0[3].adjust = 0;
+    DAT_004d90a0[3].vbptr = 0;
+    DAT_004d90a0[4].adjust = 0;
+    DAT_004d90a0[4].vbptr = 0;
+    DAT_004d90a0[5].adjust = 0;
+    DAT_004d90a0[5].vbptr = 0;
+    DAT_004d90a0[6].adjust = 0;
+    DAT_004d90a0[6].vbptr = 0;
+    DAT_004d90a0[7].adjust = 0;
+    DAT_004d90a0[7].vbptr = 0;
+    DAT_004d90a0[8].fn = 0;
+    DAT_004d90a0[8].adjust = 0;
+    DAT_004d90a0[8].vbptr = 0;
 }
 
 
@@ -8786,24 +8517,26 @@ void FUN_00363350()
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363460 @ 0x00363460
 // Static initialiser for a global table of 3 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8f68 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363460()
 {
-    (*(HandlerTable_363460*)&DAT_004d8f70).slot[0].fn = FUN_00333410;
-    (*(HandlerTable_363460*)&DAT_004d8f70).slot[0].a = 0;
-    (*(HandlerTable_363460*)&DAT_004d8f70).slot[0].b = 0;
-    (*(HandlerTable_363460*)&DAT_004d8f70).slot[0].c = 0;
-    (*(HandlerTable_363460*)&DAT_004d8f70).slot[1].fn = FUN_00333780;
-    (*(HandlerTable_363460*)&DAT_004d8f70).slot[1].a = 0;
-    (*(HandlerTable_363460*)&DAT_004d8f70).slot[1].b = 0;
-    (*(HandlerTable_363460*)&DAT_004d8f70).slot[1].c = 0;
-    (*(HandlerTable_363460*)&DAT_004d8f70).slot[2].fn = FUN_00333830;
-    (*(HandlerTable_363460*)&DAT_004d8f70).slot[2].a = 0;
-    (*(HandlerTable_363460*)&DAT_004d8f70).slot[2].b = 0;
-    (*(HandlerTable_363460*)&DAT_004d8f70).slot[2].c = 0;
-    (*(HandlerTable_363460*)&DAT_004d8f70).end.a = 0;
-    (*(HandlerTable_363460*)&DAT_004d8f70).end.b = 0;
-    (*(HandlerTable_363460*)&DAT_004d8f70).end.c = 0;
-    (*(HandlerTable_363460*)&DAT_004d8f70).end.last = -1;
+    DAT_004d8f68[0].fn = FUN_00333410;
+    DAT_004d8f68[1].fn = FUN_00333780;
+    DAT_004d8f68[0].vbindex = 0;
+    DAT_004d8f68[1].vbindex = 0;
+    DAT_004d8f68[2].vbindex = 0;
+    DAT_004d8f68[2].fn = FUN_00333830;
+    DAT_004d8f68[3].vbindex = -1;
+    DAT_004d8f68[0].adjust = 0;
+    DAT_004d8f68[0].vbptr = 0;
+    DAT_004d8f68[1].adjust = 0;
+    DAT_004d8f68[1].vbptr = 0;
+    DAT_004d8f68[2].adjust = 0;
+    DAT_004d8f68[2].vbptr = 0;
+    DAT_004d8f68[3].fn = 0;
+    DAT_004d8f68[3].adjust = 0;
+    DAT_004d8f68[3].vbptr = 0;
 }
 
 } // namespace fn_f1ddef39
@@ -8814,24 +8547,19 @@ namespace fn_003634e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003634e0 @ 0x003634e0
 void FUN_00331c00();
-extern void (*DAT_004d8f40)();
-extern int DAT_004d8f44;
-extern int DAT_004d8f48;
-extern int DAT_004d8f4c;
-extern int DAT_004d8f58;
-extern int DAT_004d8f5c;
-extern int DAT_004d8f60;
-extern int DAT_004d8f64;
 
-void FUN_003634e0() {
-    DAT_004d8f4c = 0;
-    DAT_004d8f40 = &FUN_00331c00;
-    DAT_004d8f64 = -1;
-    DAT_004d8f44 = 0;
-    DAT_004d8f48 = 0;
-    DAT_004d8f58 = 0;
-    DAT_004d8f5c = 0;
-    DAT_004d8f60 = 0;
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8f38 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
+void FUN_003634e0()
+{
+    DAT_004d8f38[0].vbindex = 0;
+    DAT_004d8f38[0].fn = FUN_00331c00;
+    DAT_004d8f38[1].vbindex = -1;
+    DAT_004d8f38[0].adjust = 0;
+    DAT_004d8f38[0].vbptr = 0;
+    DAT_004d8f38[1].fn = 0;
+    DAT_004d8f38[1].adjust = 0;
+    DAT_004d8f38[1].vbptr = 0;
 }
 } // namespace fn_003634e0
 
@@ -8841,24 +8569,26 @@ namespace fn_f1ddef39 {
 // sym: ?FUN_00363530@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363530 @ 0x00363530
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d9328 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363530()
 {
-    ((Entry_363530*)&DAT_004d9330)[0].fn = FUN_00332750;
-    ((Entry_363530*)&DAT_004d9330)[0].a = 0;
-    ((Entry_363530*)&DAT_004d9330)[0].b = 0;
-    ((Entry_363530*)&DAT_004d9330)[0].c = 0;
-    ((Entry_363530*)&DAT_004d9330)[1].fn = FUN_003327b0;
-    ((Entry_363530*)&DAT_004d9330)[1].a = 0;
-    ((Entry_363530*)&DAT_004d9330)[1].b = 0;
-    ((Entry_363530*)&DAT_004d9330)[1].c = 0;
-    ((Entry_363530*)&DAT_004d9330)[2].fn = FUN_00332780;
-    ((Entry_363530*)&DAT_004d9330)[2].a = 0;
-    ((Entry_363530*)&DAT_004d9330)[2].b = 0;
-    ((Entry_363530*)&DAT_004d9330)[2].c = 0;
-    ((Entry_363530*)&DAT_004d9330)[3].fn = 0;
-    ((Entry_363530*)&DAT_004d9330)[3].a = 0;
-    ((Entry_363530*)&DAT_004d9330)[3].b = 0;
-    ((Entry_363530*)&DAT_004d9330)[3].c = -1;
+    DAT_004d9328[0].fn = FUN_00332750;
+    DAT_004d9328[1].fn = FUN_003327b0;
+    DAT_004d9328[0].vbindex = 0;
+    DAT_004d9328[1].vbindex = 0;
+    DAT_004d9328[2].vbindex = 0;
+    DAT_004d9328[2].fn = FUN_00332780;
+    DAT_004d9328[3].vbindex = -1;
+    DAT_004d9328[0].adjust = 0;
+    DAT_004d9328[0].vbptr = 0;
+    DAT_004d9328[1].adjust = 0;
+    DAT_004d9328[1].vbptr = 0;
+    DAT_004d9328[2].adjust = 0;
+    DAT_004d9328[2].vbptr = 0;
+    DAT_004d9328[3].fn = 0;
+    DAT_004d9328[3].adjust = 0;
+    DAT_004d9328[3].vbptr = 0;
 }
 
 
@@ -8867,48 +8597,50 @@ void FUN_00363530()
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003635b0 @ 0x003635b0
 // Static initialiser for a global table of 9 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d9238 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003635b0()
 {
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[0].fn = FUN_003333c0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[0].a = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[0].b = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[0].c = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[1].fn = FUN_003333e0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[1].a = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[1].b = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[1].c = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[2].fn = FUN_003333f0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[2].a = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[2].b = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[2].c = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[3].fn = FUN_003337d0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[3].a = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[3].b = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[3].c = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[4].fn = FUN_00333770;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[4].a = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[4].b = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[4].c = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[5].fn = FUN_003333a0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[5].a = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[5].b = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[5].c = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[6].fn = FUN_003333b0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[6].a = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[6].b = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[6].c = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[7].fn = FUN_00333400;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[7].a = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[7].b = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[7].c = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[8].fn = FUN_003327e0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[8].a = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[8].b = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).slot[8].c = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).end.a = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).end.b = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).end.c = 0;
-    (*(HandlerTable_3635b0*)&DAT_004d9240).end.last = -1;
+    DAT_004d9238[0].fn = FUN_003333c0;
+    DAT_004d9238[1].fn = FUN_003333e0;
+    DAT_004d9238[2].fn = FUN_003333f0;
+    DAT_004d9238[3].fn = FUN_003337d0;
+    DAT_004d9238[4].fn = FUN_00333770;
+    DAT_004d9238[5].fn = FUN_003333a0;
+    DAT_004d9238[6].fn = FUN_003333b0;
+    DAT_004d9238[7].fn = FUN_00333400;
+    DAT_004d9238[0].vbindex = 0;
+    DAT_004d9238[1].vbindex = 0;
+    DAT_004d9238[2].vbindex = 0;
+    DAT_004d9238[3].vbindex = 0;
+    DAT_004d9238[4].vbindex = 0;
+    DAT_004d9238[5].vbindex = 0;
+    DAT_004d9238[6].vbindex = 0;
+    DAT_004d9238[7].vbindex = 0;
+    DAT_004d9238[8].vbindex = 0;
+    DAT_004d9238[8].fn = FUN_003327e0;
+    DAT_004d9238[9].vbindex = -1;
+    DAT_004d9238[0].adjust = 0;
+    DAT_004d9238[0].vbptr = 0;
+    DAT_004d9238[1].adjust = 0;
+    DAT_004d9238[1].vbptr = 0;
+    DAT_004d9238[2].adjust = 0;
+    DAT_004d9238[2].vbptr = 0;
+    DAT_004d9238[3].adjust = 0;
+    DAT_004d9238[3].vbptr = 0;
+    DAT_004d9238[4].adjust = 0;
+    DAT_004d9238[4].vbptr = 0;
+    DAT_004d9238[5].adjust = 0;
+    DAT_004d9238[5].vbptr = 0;
+    DAT_004d9238[6].adjust = 0;
+    DAT_004d9238[6].vbptr = 0;
+    DAT_004d9238[7].adjust = 0;
+    DAT_004d9238[7].vbptr = 0;
+    DAT_004d9238[8].adjust = 0;
+    DAT_004d9238[8].vbptr = 0;
+    DAT_004d9238[9].fn = 0;
+    DAT_004d9238[9].adjust = 0;
+    DAT_004d9238[9].vbptr = 0;
 }
 
 
@@ -8917,24 +8649,26 @@ void FUN_003635b0()
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003636e0 @ 0x003636e0
 // Static initialiser for a global table of 3 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d9388 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003636e0()
 {
-    (*(HandlerTable_3636e0*)&DAT_004d9390).slot[0].fn = FUN_00333410;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).slot[0].a = 0;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).slot[0].b = 0;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).slot[0].c = 0;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).slot[1].fn = FUN_00333780;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).slot[1].a = 0;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).slot[1].b = 0;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).slot[1].c = 0;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).slot[2].fn = FUN_00333830;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).slot[2].a = 0;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).slot[2].b = 0;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).slot[2].c = 0;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).end.a = 0;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).end.b = 0;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).end.c = 0;
-    (*(HandlerTable_3636e0*)&DAT_004d9390).end.last = -1;
+    DAT_004d9388[0].fn = FUN_00333410;
+    DAT_004d9388[1].fn = FUN_00333780;
+    DAT_004d9388[0].vbindex = 0;
+    DAT_004d9388[1].vbindex = 0;
+    DAT_004d9388[2].vbindex = 0;
+    DAT_004d9388[2].fn = FUN_00333830;
+    DAT_004d9388[3].vbindex = -1;
+    DAT_004d9388[0].adjust = 0;
+    DAT_004d9388[0].vbptr = 0;
+    DAT_004d9388[1].adjust = 0;
+    DAT_004d9388[1].vbptr = 0;
+    DAT_004d9388[2].adjust = 0;
+    DAT_004d9388[2].vbptr = 0;
+    DAT_004d9388[3].fn = 0;
+    DAT_004d9388[3].adjust = 0;
+    DAT_004d9388[3].vbptr = 0;
 }
 
 
@@ -8943,28 +8677,30 @@ void FUN_003636e0()
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363760 @ 0x00363760
 // Static initialiser for a global table of 4 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d91c0 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363760()
 {
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[0].fn = FUN_003337f0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[0].a = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[0].b = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[0].c = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[1].fn = FUN_00333800;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[1].a = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[1].b = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[1].c = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[2].fn = FUN_00333820;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[2].a = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[2].b = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[2].c = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[3].fn = FUN_00333810;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[3].a = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[3].b = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).slot[3].c = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).end.a = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).end.b = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).end.c = 0;
-    (*(HandlerTable_363760*)&DAT_004d91c8).end.last = -1;
+    DAT_004d91c0[0].fn = FUN_003337f0;
+    DAT_004d91c0[1].fn = FUN_00333800;
+    DAT_004d91c0[2].fn = FUN_00333820;
+    DAT_004d91c0[0].vbindex = 0;
+    DAT_004d91c0[1].vbindex = 0;
+    DAT_004d91c0[2].vbindex = 0;
+    DAT_004d91c0[3].vbindex = 0;
+    DAT_004d91c0[3].fn = FUN_00333810;
+    DAT_004d91c0[4].vbindex = -1;
+    DAT_004d91c0[0].adjust = 0;
+    DAT_004d91c0[0].vbptr = 0;
+    DAT_004d91c0[1].adjust = 0;
+    DAT_004d91c0[1].vbptr = 0;
+    DAT_004d91c0[2].adjust = 0;
+    DAT_004d91c0[2].vbptr = 0;
+    DAT_004d91c0[3].adjust = 0;
+    DAT_004d91c0[3].vbptr = 0;
+    DAT_004d91c0[4].fn = 0;
+    DAT_004d91c0[4].adjust = 0;
+    DAT_004d91c0[4].vbptr = 0;
 }
 
 
@@ -8972,20 +8708,22 @@ void FUN_00363760()
 // sym: ?FUN_00363800@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363800 @ 0x00363800
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d9658 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363800()
 {
-    (*(Entry*)&DAT_004d9660).callback = FUN_00332e60;
-    (*(Entry*)&DAT_004d9660).a = 0;
-    (*(Entry*)&DAT_004d9660).b = 0;
-    (*(Entry*)&DAT_004d9660).c = 0;
-    (*(Entry*)&DAT_004d9678).callback = FUN_00332e90;
-    (*(Entry*)&DAT_004d9678).a = 0;
-    (*(Entry*)&DAT_004d9678).b = 0;
-    (*(Entry*)&DAT_004d9678).c = 0;
-    (*(Entry*)&DAT_004d9690).callback = 0;
-    (*(Entry*)&DAT_004d9690).a = 0;
-    (*(Entry*)&DAT_004d9690).b = 0;
-    (*(Entry*)&DAT_004d9690).c = -1;
+    DAT_004d9658[0].fn = FUN_00332e60;
+    DAT_004d9658[0].vbindex = 0;
+    DAT_004d9658[1].vbindex = 0;
+    DAT_004d9658[1].fn = FUN_00332e90;
+    DAT_004d9658[2].vbindex = -1;
+    DAT_004d9658[0].adjust = 0;
+    DAT_004d9658[0].vbptr = 0;
+    DAT_004d9658[1].adjust = 0;
+    DAT_004d9658[1].vbptr = 0;
+    DAT_004d9658[2].fn = 0;
+    DAT_004d9658[2].adjust = 0;
+    DAT_004d9658[2].vbptr = 0;
 }
 
 
@@ -8994,48 +8732,50 @@ void FUN_00363800()
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363860 @ 0x00363860
 // Static initialiser for a global table of 9 handler slots followed by a terminator.
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d9568 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363860()
 {
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[0].fn = FUN_003333c0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[0].a = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[0].b = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[0].c = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[1].fn = FUN_003333e0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[1].a = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[1].b = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[1].c = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[2].fn = FUN_003333f0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[2].a = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[2].b = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[2].c = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[3].fn = FUN_003337d0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[3].a = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[3].b = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[3].c = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[4].fn = FUN_00333770;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[4].a = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[4].b = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[4].c = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[5].fn = FUN_003333a0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[5].a = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[5].b = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[5].c = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[6].fn = FUN_003333b0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[6].a = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[6].b = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[6].c = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[7].fn = FUN_00333400;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[7].a = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[7].b = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[7].c = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[8].fn = FUN_00332ba0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[8].a = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[8].b = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).slot[8].c = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).end.a = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).end.b = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).end.c = 0;
-    (*(HandlerTable_363860*)&DAT_004d9570).end.last = -1;
+    DAT_004d9568[0].fn = FUN_003333c0;
+    DAT_004d9568[1].fn = FUN_003333e0;
+    DAT_004d9568[2].fn = FUN_003333f0;
+    DAT_004d9568[3].fn = FUN_003337d0;
+    DAT_004d9568[4].fn = FUN_00333770;
+    DAT_004d9568[5].fn = FUN_003333a0;
+    DAT_004d9568[6].fn = FUN_003333b0;
+    DAT_004d9568[7].fn = FUN_00333400;
+    DAT_004d9568[0].vbindex = 0;
+    DAT_004d9568[1].vbindex = 0;
+    DAT_004d9568[2].vbindex = 0;
+    DAT_004d9568[3].vbindex = 0;
+    DAT_004d9568[4].vbindex = 0;
+    DAT_004d9568[5].vbindex = 0;
+    DAT_004d9568[6].vbindex = 0;
+    DAT_004d9568[7].vbindex = 0;
+    DAT_004d9568[8].vbindex = 0;
+    DAT_004d9568[8].fn = FUN_00332ba0;
+    DAT_004d9568[9].vbindex = -1;
+    DAT_004d9568[0].adjust = 0;
+    DAT_004d9568[0].vbptr = 0;
+    DAT_004d9568[1].adjust = 0;
+    DAT_004d9568[1].vbptr = 0;
+    DAT_004d9568[2].adjust = 0;
+    DAT_004d9568[2].vbptr = 0;
+    DAT_004d9568[3].adjust = 0;
+    DAT_004d9568[3].vbptr = 0;
+    DAT_004d9568[4].adjust = 0;
+    DAT_004d9568[4].vbptr = 0;
+    DAT_004d9568[5].adjust = 0;
+    DAT_004d9568[5].vbptr = 0;
+    DAT_004d9568[6].adjust = 0;
+    DAT_004d9568[6].vbptr = 0;
+    DAT_004d9568[7].adjust = 0;
+    DAT_004d9568[7].vbptr = 0;
+    DAT_004d9568[8].adjust = 0;
+    DAT_004d9568[8].vbptr = 0;
+    DAT_004d9568[9].fn = 0;
+    DAT_004d9568[9].adjust = 0;
+    DAT_004d9568[9].vbptr = 0;
 }
 
 
@@ -9043,24 +8783,26 @@ void FUN_00363860()
 // sym: ?FUN_00363990@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363990 @ 0x00363990
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d96a0 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363990()
 {
-    ((Entry_363990*)&DAT_004d96a8)[0].fn = FUN_00333410;
-    ((Entry_363990*)&DAT_004d96a8)[0].a = 0;
-    ((Entry_363990*)&DAT_004d96a8)[0].b = 0;
-    ((Entry_363990*)&DAT_004d96a8)[0].c = 0;
-    ((Entry_363990*)&DAT_004d96a8)[1].fn = FUN_00333780;
-    ((Entry_363990*)&DAT_004d96a8)[1].a = 0;
-    ((Entry_363990*)&DAT_004d96a8)[1].b = 0;
-    ((Entry_363990*)&DAT_004d96a8)[1].c = 0;
-    ((Entry_363990*)&DAT_004d96a8)[2].fn = FUN_00333830;
-    ((Entry_363990*)&DAT_004d96a8)[2].a = 0;
-    ((Entry_363990*)&DAT_004d96a8)[2].b = 0;
-    ((Entry_363990*)&DAT_004d96a8)[2].c = 0;
-    ((Entry_363990*)&DAT_004d96a8)[3].fn = 0;
-    ((Entry_363990*)&DAT_004d96a8)[3].a = 0;
-    ((Entry_363990*)&DAT_004d96a8)[3].b = 0;
-    ((Entry_363990*)&DAT_004d96a8)[3].c = -1;
+    DAT_004d96a0[0].fn = FUN_00333410;
+    DAT_004d96a0[1].fn = FUN_00333780;
+    DAT_004d96a0[0].vbindex = 0;
+    DAT_004d96a0[1].vbindex = 0;
+    DAT_004d96a0[2].vbindex = 0;
+    DAT_004d96a0[2].fn = FUN_00333830;
+    DAT_004d96a0[3].vbindex = -1;
+    DAT_004d96a0[0].adjust = 0;
+    DAT_004d96a0[0].vbptr = 0;
+    DAT_004d96a0[1].adjust = 0;
+    DAT_004d96a0[1].vbptr = 0;
+    DAT_004d96a0[2].adjust = 0;
+    DAT_004d96a0[2].vbptr = 0;
+    DAT_004d96a0[3].fn = 0;
+    DAT_004d96a0[3].adjust = 0;
+    DAT_004d96a0[3].vbptr = 0;
 }
 
 
@@ -9068,28 +8810,30 @@ void FUN_00363990()
 // sym: ?FUN_00363a10@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363a10 @ 0x00363a10
+// (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d94f0 by name (the data TU defines
+// the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363a10()
 {
-    ((Entry_363a10*)&DAT_004d94f8)[0].fn = FUN_003337f0;
-    ((Entry_363a10*)&DAT_004d94f8)[0].a = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[0].b = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[0].c = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[1].fn = FUN_00333800;
-    ((Entry_363a10*)&DAT_004d94f8)[1].a = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[1].b = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[1].c = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[2].fn = FUN_00333820;
-    ((Entry_363a10*)&DAT_004d94f8)[2].a = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[2].b = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[2].c = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[3].fn = FUN_00333810;
-    ((Entry_363a10*)&DAT_004d94f8)[3].a = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[3].b = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[3].c = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[4].fn = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[4].a = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[4].b = 0;
-    ((Entry_363a10*)&DAT_004d94f8)[4].c = -1;
+    DAT_004d94f0[0].fn = FUN_003337f0;
+    DAT_004d94f0[1].fn = FUN_00333800;
+    DAT_004d94f0[2].fn = FUN_00333820;
+    DAT_004d94f0[0].vbindex = 0;
+    DAT_004d94f0[1].vbindex = 0;
+    DAT_004d94f0[2].vbindex = 0;
+    DAT_004d94f0[3].vbindex = 0;
+    DAT_004d94f0[3].fn = FUN_00333810;
+    DAT_004d94f0[4].vbindex = -1;
+    DAT_004d94f0[0].adjust = 0;
+    DAT_004d94f0[0].vbptr = 0;
+    DAT_004d94f0[1].adjust = 0;
+    DAT_004d94f0[1].vbptr = 0;
+    DAT_004d94f0[2].adjust = 0;
+    DAT_004d94f0[2].vbptr = 0;
+    DAT_004d94f0[3].adjust = 0;
+    DAT_004d94f0[3].vbptr = 0;
+    DAT_004d94f0[4].fn = 0;
+    DAT_004d94f0[4].adjust = 0;
+    DAT_004d94f0[4].vbptr = 0;
 }
 
 } // namespace fn_f1ddef39

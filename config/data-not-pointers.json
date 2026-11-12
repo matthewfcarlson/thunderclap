@@ -4,6 +4,14 @@
   "0x00400520": {
    "offsets": ["0x40", "0x4c", "0xb8"],
    "why": "heap table (name, size, 0): three heap sizes equal function start addresses (0x64000 twice, 0x12f000); 0x0008d3a0 adds base + size and passes it as a size"
+  },
+  "0x004d52c8": {
+   "offsets": ["0x0"],
+   "why": "d3dSimpleShader's vertex shader microcode: the word 0x004d8000 is instruction bits, not a pointer into the shader parameter table 0x004d7f98 (dg1)"
+  },
+  "0x004d54c0": {
+   "offsets": ["0x0"],
+   "why": "d3dSimpleShader's vertex shader microcode: the word 0x004d8000 is instruction bits, not a pointer into the shader parameter table 0x004d7f98 (dg1)"
   }
  }
 }

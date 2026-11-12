@@ -1,9 +1,11 @@
 // Record types of data items that several sources index (hand-written, unlike the rest of include/decls/data/).
 // tools/data_gen.py defines each item declared here with this declaration (its data TU includes this header) and
 // leaves it out of the generated headers, so every source and the data TU see one type: pointer fields are 4 bytes
-// on the 32-bit builds (the XBE's layout, which data_gen's size check asserts) and 8 on 64-bit. Only .bss items
-// (no initializers). docs/data.md "Typed records". Declare no namespaces or other names here: gen_tree keeps every
-// top-level name of include/ global in the tree, so a new one (`namespace core`) changes how TUs are namespaced.
+// on the 32-bit builds (the XBE's layout, which data_gen's size check asserts) and 8 on 64-bit. Mostly .bss items
+// (no initializers); an initialized item's record uses simple field types only (data_gen writes its initializer
+// from the XBE's bytes: tools/data_gen.py record_fields). docs/data.md "Typed records". Declare no namespaces or
+// other names here: gen_tree keeps every top-level name of include/ global in the tree, so a new one
+// (`namespace core`) changes how TUs are namespaced.
 #ifndef HULK_DECLS_DATA_RECORDS_H
 #define HULK_DECLS_DATA_RECORDS_H
 
@@ -1659,6 +1661,78 @@ struct CoreCompletionRequest {
     void* callback;                         // +0x10 the callback object (a reference, slot 0)
     unsigned int context;                   // +0x14 passed back to the callback
 };
+
+// (dg1) pure3d shader parameter tables: one per parameter set of each d3d shader class (the class's table accessors
+// return them; pddiBaseShader's vfunc_5..8 (0x003279e0..0x00327b00) look a parameter's key up and call its setter on
+// the shader). An entry is the key (a FourCC, NUL-padded to 8 bytes; an empty key ends the table) and the setter, an
+// MSVC member-function pointer of the general form: the code address, the `this` adjustment, the vbptr offset and the
+// vbtable index (the end entry: no setter, -1). The keys are static data; each table's setters are written at start-up
+// by its dynamic initializer in src/game/init/dynamic_initializers.cpp. On 64-bit the setter is pointer-sized, so an
+// entry is 0x20 bytes (the 64-bit layout of an MSVC general member-function pointer behind the 8-byte key); the
+// initializers write the entries by name. data_gen defines each table as one item (config/data.json, `--merge-records`)
+// with its keys from the XBE.
+struct ShaderParamEntry {
+    char key[8];
+    void (*fn)();
+    int adjust;
+    int vbptr;
+    int vbindex;
+};
+
+extern "C" ShaderParamEntry DAT_004d4d00[5];  // d3dFBEffectsShader, initializer 0x003618a0
+extern "C" ShaderParamEntry DAT_004d4d78[2];  // d3dFBEffectsShader, initializer 0x00361850
+extern "C" ShaderParamEntry DAT_004d4da8[3];  // d3dFBEffectsShader, initializer 0x00361940
+extern "C" ShaderParamEntry DAT_004d7988[2];  // d3dSimpleShader, initializer 0x00361a40
+extern "C" ShaderParamEntry DAT_004d79b8[5];  // d3dSimpleShader, initializer 0x00361bf0
+extern "C" ShaderParamEntry DAT_004d7a30[5];  // d3dSimpleShader, initializer 0x003619a0
+extern "C" ShaderParamEntry DAT_004d7aa8[12];  // d3dSimpleShader, initializer 0x00361a90
+extern "C" ShaderParamEntry DAT_004d7c40[12];  // d3dLightMapShader, initializer 0x00361cf0
+extern "C" ShaderParamEntry DAT_004d7d60[3];  // d3dLightMapShader, initializer 0x00361c90
+extern "C" ShaderParamEntry DAT_004d7da8[5];  // d3dLightMapShader, initializer 0x00361e50
+extern "C" ShaderParamEntry DAT_004d7e60[4];  // d3dReflShader, initializer 0x00362120
+extern "C" ShaderParamEntry DAT_004d7ec0[6];  // d3dReflShader, initializer 0x00361f50
+extern "C" ShaderParamEntry DAT_004d7f50[3];  // d3dReflShader, initializer 0x00361ef0
+extern "C" ShaderParamEntry DAT_004d7f98[9];  // d3dReflShader, initializer 0x00362010
+extern "C" ShaderParamEntry DAT_004d80b8[2];  // d3dProjectedTextureShader, initializer 0x00362430
+extern "C" ShaderParamEntry DAT_004d80e8[4];  // d3dProjectedTextureShader, initializer 0x003623b0
+extern "C" ShaderParamEntry DAT_004d8148[3];  // d3dProjectedTextureShader, initializer 0x00362240
+extern "C" ShaderParamEntry DAT_004d8190[5];  // d3dProjectedTextureShader, initializer 0x003621a0
+extern "C" ShaderParamEntry DAT_004d8208[9];  // d3dProjectedTextureShader, initializer 0x003622a0
+extern "C" ShaderParamEntry DAT_004d8328[5];  // d3dPointSpriteShader, initializer 0x003624d0
+extern "C" ShaderParamEntry DAT_004d83a0[2];  // d3dPointSpriteShader, initializer 0x00362480
+extern "C" ShaderParamEntry DAT_004d83d0[8];  // d3dPointSpriteShader, initializer 0x00362570
+extern "C" ShaderParamEntry DAT_004d84c8[14];  // d3dLayeredShader, initializer 0x003626c0
+extern "C" ShaderParamEntry DAT_004d8618[5];  // d3dLayeredShader, initializer 0x00362900
+extern "C" ShaderParamEntry DAT_004d8690[3];  // d3dLayeredShader, initializer 0x00362660
+extern "C" ShaderParamEntry DAT_004d86d8[5];  // d3dLayeredShader, initializer 0x00362860
+extern "C" ShaderParamEntry DAT_004d8798[4];  // d3dLayeredLMapShader, initializer 0x003629a0
+// d3dRefractVertexShader's table 0x004d8840 (vfunc_17, initializer 0x00362c40) has no end entry: a key it lacks
+// is looked up on in the next table, 0x004d88b8 (vfunc_15, initializer 0x00362ae0), which ends both. One item
+// keeps them adjacent on every build; vfunc_15 returns its entry 5.
+extern "C" ShaderParamEntry DAT_004d8840[7];  // d3dRefractVertexShader, initializers 0x00362c40 and 0x00362ae0
+extern "C" ShaderParamEntry DAT_004d88e8[6];  // d3dRefractVertexShader, initializer 0x00362a20
+extern "C" ShaderParamEntry DAT_004d8978[9];  // d3dRefractVertexShader, initializer 0x00362b30
+extern "C" ShaderParamEntry DAT_004d8a98[5];  // d3dToon2VertexShader, initializer 0x00362ec0
+extern "C" ShaderParamEntry DAT_004d8b10[2];  // d3dToon2VertexShader, initializer 0x00362d30
+extern "C" ShaderParamEntry DAT_004d8b40[2];  // d3dToon2VertexShader, initializer 0x00362ce0
+extern "C" ShaderParamEntry DAT_004d8b70[11];  // d3dToon2VertexShader, initializer 0x00362d80
+extern "C" ShaderParamEntry DAT_004d8cc0[5];  // d3dToonVertexShader, initializer 0x00363190
+extern "C" ShaderParamEntry DAT_004d8d38[2];  // d3dToonVertexShader, initializer 0x003630e0
+extern "C" ShaderParamEntry DAT_004d8d68[13];  // d3dToonVertexShader, initializer 0x00362f60
+extern "C" ShaderParamEntry DAT_004d8ea0[3];  // d3dToonVertexShader, initializer 0x00363130
+extern "C" ShaderParamEntry DAT_004d8f38[2];  // d3dSpheremapVertexShader, initializer 0x003634e0
+extern "C" ShaderParamEntry DAT_004d8f68[4];  // d3dSpheremapVertexShader, initializer 0x00363460
+extern "C" ShaderParamEntry DAT_004d8fc8[6];  // d3dSpheremapVertexShader, initializer 0x00363290
+extern "C" ShaderParamEntry DAT_004d9058[3];  // d3dSpheremapVertexShader, initializer 0x00363230
+extern "C" ShaderParamEntry DAT_004d90a0[9];  // d3dSpheremapVertexShader, initializer 0x00363350
+extern "C" ShaderParamEntry DAT_004d91c0[5];  // d3dBuildingShader, initializer 0x00363760
+extern "C" ShaderParamEntry DAT_004d9238[10];  // d3dBuildingShader, initializer 0x003635b0
+extern "C" ShaderParamEntry DAT_004d9328[4];  // d3dBuildingShader, initializer 0x00363530
+extern "C" ShaderParamEntry DAT_004d9388[4];  // d3dBuildingShader, initializer 0x003636e0
+extern "C" ShaderParamEntry DAT_004d94f0[5];  // d3dBumpMapVertexShader, initializer 0x00363a10
+extern "C" ShaderParamEntry DAT_004d9568[10];  // d3dBumpMapVertexShader, initializer 0x00363860
+extern "C" ShaderParamEntry DAT_004d9658[3];  // d3dBumpMapVertexShader, initializer 0x00363800
+extern "C" ShaderParamEntry DAT_004d96a0[4];  // d3dBumpMapVertexShader, initializer 0x00363990
 
 // (dg1) The sound-bank path strings the start-up builds ("sound/rsd": 0x0035cea0, 0x0035cf90, 0x0035d7d0; their
 // atexit handlers 0x00363c60 / 0x00363c80 / 0x00363e40 free them): owners::String_23fc40's words (the text pointer,
