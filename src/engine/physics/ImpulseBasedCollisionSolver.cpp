@@ -40,7 +40,7 @@ class ImpulseBasedCollisionSolver_2f79f0 {
     void cleanup();
 };
 struct Y_2f7a40 {
-    void Fnm_003046f0(int);
+    void Fnm_003046f0(char);   // (x64t6) 0x003046f0 takes a char (was `int`: the address binding refused the signature)
 };
 struct X_2f7a40 {
     char pad[0x74];

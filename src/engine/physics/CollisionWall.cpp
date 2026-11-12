@@ -79,7 +79,7 @@ struct WallResult {
 };
 }
 namespace physics {
-struct WallOwner { char pad[0x18]; WallResult *result; };
+struct WallOwner { char pad[HULK_CO_OWNER]; WallResult *result; };   // (x64t6) the CollisionObject's owner (decls/physics_world.h)
 }
 namespace fn_fc25916f {
 struct WallResponse {  };

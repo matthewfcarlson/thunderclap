@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_fd95142d {
 #define TREE_TU_END }
 namespace fn_fd95142d {} using namespace fn_fd95142d;
+namespace fn_fd95142d { extern "C" char DAT_00419678[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -1458,7 +1459,7 @@ PropAddToCollisionAction_183c10::PropAddToCollisionAction_183c10(int target, Ref
 // 0x00183c60 FUN_00183c60 (50 B): matches/0x00183c60.cpp
 // sym: ??1PropAddToCollisionAction_183c60@fn_fd95142d@@QAE@XZ
 PropAddToCollisionAction_183c60::~PropAddToCollisionAction_183c60() throw() {
-    vptr = g_vA;
+    vptr = (void**)DAT_00419678;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

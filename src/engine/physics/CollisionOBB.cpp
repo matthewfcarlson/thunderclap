@@ -2,6 +2,7 @@
 // object 0x002fb600..0x002fbf20 (kind game, layer engine, confidence high), dominant class physics::CollisionOBB
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "gen/owners.h"
 #include "gen/physics.h"
 #define TREE_TU_BEGIN namespace fn_f34550b1 {
@@ -52,7 +53,7 @@ struct Prov_2fb7a0 {
     virtual Mat_2fb7a0* Get(int id);
 };
 struct Mid_2fb7a0 {
-    char pad[0x18];
+    char pad[HULK_CO_OWNER];   // (x64t6) the CollisionObject's owner (decls/physics_world.h)
     Prov_2fb7a0* prov;
     Mat_2fb7a0* Get(int id) { return prov->Get(id); }
 };

@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f1aba5fa {} using namespace fn_f1aba5fa;
+namespace fn_f1aba5fa { extern "C" char DAT_004245a4[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -165,7 +166,7 @@ CSoundCommand_PlayDialogueEvent::CSoundCommand_PlayDialogueEvent(const char* nam
 // sym: ?f2@NonCopyable@pure3d@fn_f1aba5fa@@UAEPAV123@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_004245a4;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -271,7 +272,7 @@ class NonCopyable : public CSoundCommand_1f07f0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_004245a4;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -310,7 +311,7 @@ class NonCopyable : public CSoundCommand_1f0860 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_004245a4;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -352,7 +353,7 @@ class NonCopyable : public CSoundCommand_1f08d0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_004245a4;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -415,7 +416,7 @@ class NonCopyable : public CSoundCommand_1f0940 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_004245a4;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -456,7 +457,7 @@ class NonCopyable : public CSoundCommand_1f09b0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_004245a4;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

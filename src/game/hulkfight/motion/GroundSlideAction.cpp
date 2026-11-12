@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f20ed7e3 {
 #define TREE_TU_END }
 namespace fn_f20ed7e3 {} using namespace fn_f20ed7e3;
+namespace fn_f20ed7e3 { extern "C" char DAT_00414580[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -1517,7 +1518,7 @@ HitPauseAction_151720::HitPauseAction_151720(int target, RefObj_151720* obj) {
 // 0x00151770 FUN_00151770 (50 B): matches/0x00151770.cpp
 // sym: ??1HitPauseAction_151770@fn_f20ed7e3@@QAE@XZ
 HitPauseAction_151770::~HitPauseAction_151770() throw() {
-    vptr = g_vA;
+    vptr = (void**)DAT_00414580;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

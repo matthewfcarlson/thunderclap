@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f3432927 {
 #define TREE_TU_END }
 namespace fn_f3432927 {} using namespace fn_f3432927;
+namespace fn_f3432927 { extern "C" char DAT_00433b14[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "platform/xbox/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -185,7 +186,7 @@ namespace fn_f3432927 {
 // sym: ??1d3dPointSpriteShader_32d0f0@fn_f3432927@@QAE@XZ
 d3dPointSpriteShader_32d0f0::~d3dPointSpriteShader_32d0f0() throw() {
     Ref_32d0f0* a = m80;
-    vptr = g_vA;
+    vptr = (void**)DAT_00433b14;
     if (a)
         a->Release();
     Fin();

@@ -5,6 +5,7 @@
 #define TREE_TU_BEGIN namespace fn_f96a4a22 {
 #define TREE_TU_END }
 namespace fn_f96a4a22 {} using namespace fn_f96a4a22;
+namespace fn_f96a4a22 { extern "C" char DAT_003f3de0[], DAT_003f3390[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -135,13 +136,13 @@ CTargetAction_227d0* CTargetAction_227d0::f2(unsigned char flags) {
 // 0x00022810 CHeliDeathSpiralAction::vfunc_2 (82 B): matches/0x00022810.cpp
 // sym: ?f2@CHeliDeathSpiralAction_22810@fn_f96a4a22@@QAEPAV12@E@Z
 CHeliDeathSpiralAction_22810* CHeliDeathSpiralAction_22810::f2(unsigned char flags) {
-    vptr = g_vA;
+    vptr = (void**)DAT_003f3de0;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
         m24 = 0;
     }
-    vptr = g_vB;
+    vptr = (void**)DAT_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();

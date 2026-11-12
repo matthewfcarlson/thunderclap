@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_ffdab178 {} using namespace fn_ffdab178;
+namespace fn_ffdab178 { extern "C" char DAT_0040bfa0[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -170,7 +171,7 @@ FEDoAnimation::FEDoAnimation(FEContainer* c, const char* name)
 // sym: ?f2@NonCopyable@pure3d@fn_ffdab178@@UAEPAV123@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0040bfa0;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -228,7 +229,7 @@ class NonCopyable : public FEDoAction_e8b60 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0040bfa0;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -257,7 +258,7 @@ class NonCopyable : public FEDoAction_e8b80 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0040bfa0;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

@@ -5,6 +5,7 @@
 #define TREE_TU_BEGIN namespace fn_ffe756aa {
 #define TREE_TU_END }
 namespace fn_ffe756aa {} using namespace fn_ffe756aa;
+namespace fn_ffe756aa { extern "C" char DAT_003f3390[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -137,7 +138,7 @@ CEffectAction_221e0* CEffectAction_221e0::f2(unsigned char flags) {
         m24->Release();
         m24 = 0;
     }
-    vptr = g_base_vftable;
+    vptr = (void**)DAT_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();

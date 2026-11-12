@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_fda83b0b {
 #define TREE_TU_END }
 namespace fn_fda83b0b {} using namespace fn_fda83b0b;
+namespace fn_fda83b0b { extern "C" char DAT_003f98d0[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -137,7 +138,7 @@ namespace fn_fda83b0b {
 CAIHintTrack_6af70::~CAIHintTrack_6af70() throw() {
     vptr = hulk_at_003fc184;
     sub.Fin_0027af50();
-    vptr = g_vt2;
+    vptr = (void**)DAT_003f98d0;
 }
 
 } // namespace fn_fda83b0b

@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_fbe9f2e3 {
 #define TREE_TU_END }
 namespace fn_fbe9f2e3 {} using namespace fn_fbe9f2e3;
+namespace fn_fbe9f2e3 { extern "C" char DAT_00429420[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/om.h"
 
 // ---- declarations shared by the functions below
@@ -34,7 +35,7 @@ void om::MetaTypeAttribBase::vfunc_3(hulk_intptr a) {
 // sym: ?f2@NonCopyable_24d3d0@pure3d@@UAEPAV12@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_24d3d0* pure3d::NonCopyable_24d3d0::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_00429420;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

@@ -11,6 +11,7 @@
 #define TREE_TU_BEGIN namespace fn_fb6e447b {
 #define TREE_TU_END }
 namespace fn_fb6e447b {} using namespace fn_fb6e447b;
+namespace fn_fb6e447b { extern "C" char DAT_003faab4[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -865,7 +866,7 @@ class CEffectStopTrack : public CTrack {
 void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CEffectStopTrack* CEffectStopTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
+    *(void***)this = (void**)DAT_003faab4;
     Destroy_00068c70();
     if (flags & 1) {
         SweepTrack_DeleteThis_0008d330(this);

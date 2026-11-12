@@ -14,6 +14,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fff84c72 {} using namespace fn_fff84c72;
+namespace fn_fff84c72 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -3249,7 +3250,7 @@ BillboardObjectLoader_2bc430* BillboardObjectLoader_2bc430::f2(unsigned char fla
         m14->Release();
         m14 = 0;
     }
-    vptr = g_base_vftable;
+    vptr = (void**)DAT_003f6098;
     if (flags & 1)
         operator delete(this);
     return this;

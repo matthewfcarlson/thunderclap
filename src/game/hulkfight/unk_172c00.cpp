@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_ff4cbdc8 {
 #define TREE_TU_END }
 namespace fn_ff4cbdc8 {} using namespace fn_ff4cbdc8;
+namespace fn_ff4cbdc8 { extern "C" char DAT_004178f8[], DAT_00417dd4[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight.h"
 
 // ---- declarations shared by the functions below
@@ -616,7 +617,7 @@ namespace fn_ff4cbdc8 {
 // 0x00172e00 hulkfight::motion::RestPoseTrack::vfunc_5 (46 B): matches/0x00172e00.cpp
 // sym: ?f5@RestPoseTrack_172e00@fn_ff4cbdc8@@QAEPAV12@E@Z
 RestPoseTrack_172e00* RestPoseTrack_172e00::f5(unsigned char flags) {
-    vptr = g_vA;
+    vptr = (void**)DAT_004178f8;
     sub.Fin_0027af50();
     Fin_00236d60();
     if (flags & 1)
@@ -1024,7 +1025,7 @@ MotionStateAction_173380::MotionStateAction_173380(int target, RefObj_173380* ob
 // 0x001733d0 FUN_001733d0 (50 B): matches/0x001733d0.cpp
 // sym: ??1MotionStateAction_1733d0@fn_ff4cbdc8@@QAE@XZ
 MotionStateAction_1733d0::~MotionStateAction_1733d0() throw() {
-    vptr = g_vA;
+    vptr = (void**)DAT_00417dd4;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fad6e2b1 {} using namespace fn_fad6e2b1;
+namespace fn_fad6e2b1 { extern "C" char DAT_0040da04[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/ai.h"
 
 // ---- declarations shared by the functions below
@@ -394,7 +395,7 @@ AIHistoryNameCondition* AIHistoryNameCondition::vfunc_5(int flag) {
 // sym: ?f5@HulkActionLargestCondition_10e7c0@fn_fad6e2b1@@QAEPAV12@E@Z
 HulkActionLargestCondition_10e7c0* HulkActionLargestCondition_10e7c0::f5(unsigned char flags) {
     void* a = m10;
-    vptr = g_vA;
+    vptr = (void**)DAT_0040da04;
     operator delete[](a);
     Fin_002345b0();
     if (flags & 1)

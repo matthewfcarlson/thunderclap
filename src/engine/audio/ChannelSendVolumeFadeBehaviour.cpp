@@ -11,6 +11,7 @@
 #define TREE_TU_BEGIN namespace fn_f983a9d8 {
 #define TREE_TU_END }
 namespace fn_f983a9d8 {} using namespace fn_f983a9d8;
+namespace fn_f983a9d8 { extern "C" char DAT_0042991c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/audio.h"
 
 // ---- declarations shared by the functions below
@@ -262,7 +263,7 @@ bool FUN_0024ebe0(Writer_24ebe0 *w, const unsigned char *bytes)
 // sym: ?f2@NonCopyable_24ece0@pure3d@@UAEPAV12@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_24ece0* pure3d::NonCopyable_24ece0::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0042991c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

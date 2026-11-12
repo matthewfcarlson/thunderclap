@@ -11,6 +11,7 @@
 #define TREE_TU_BEGIN namespace fn_f712cb17 {
 #define TREE_TU_END }
 namespace fn_f712cb17 {} using namespace fn_f712cb17;
+namespace fn_f712cb17 { extern "C" char DAT_0040fd34[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/ai.h"
 
 // ---- declarations shared by the functions below
@@ -972,7 +973,7 @@ TargetDirectionYCondition_124dd0* TargetDirectionYCondition_124dd0::vfunc_5(sign
 // 0x00124e00 hulkfight::ai::TargetArcCondition::vfunc_5 (46 B): matches/0x00124e00.cpp
 // sym: ?f5@TargetArcCondition_124e00@fn_f712cb17@@QAEPAV12@E@Z
 TargetArcCondition_124e00* TargetArcCondition_124e00::f5(unsigned char flags) {
-    vptr = g_vA;
+    vptr = (void**)DAT_0040fd34;
     sub.Fin_0027af50();
     Fin_002345b0();
     if (flags & 1)

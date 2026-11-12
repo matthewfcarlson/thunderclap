@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_fa90982c {
 #define TREE_TU_END }
 namespace fn_fa90982c {} using namespace fn_fa90982c;
+namespace fn_fa90982c { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -754,7 +755,7 @@ class NonCopyable : public SimpleChunkHandler_1fb190 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

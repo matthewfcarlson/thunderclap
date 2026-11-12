@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f54027db {
 #define TREE_TU_END }
 namespace fn_f54027db {} using namespace fn_f54027db;
+namespace fn_f54027db { extern "C" char DAT_0040d12c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 // (ren2) __RTtypeid's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTtypeid(void*);
@@ -817,7 +818,7 @@ class NonCopyable : public IRefCount {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0040d12c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1411,7 +1412,7 @@ CGolem_fed00::CGolem_fed00() throw() {
     m8 = 0;
     m4c = -1;
     m50 = -1;
-    sub.vptr = g_vt2;
+    sub.vptr = (void**)DAT_0040d12c;
     sub.Init_000fde80();
     me8 = 0;
     me9 = 1;

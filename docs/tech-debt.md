@@ -58,7 +58,3 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
     d3dReflShader (0x8c; gen 0x88), 0x00327f20 d3dProjectedTextureShader (0xc8; gen 0x88), 0x00327f50
     d3dPointSpriteShader (0xa4; gen 0xa0), 0x00328070 d3dSpheremapVertexShader (0x98; gen 0x8c). Complete gen's
     classes (their constructors' words) and allocate `sizeof` as the other factories do.
-  - `HULK_X2_VOLUME(n)` in include/decls/physics_world.h, used by physics::CollisionVolume's clone 0x00306c60
-    (src/engine/physics/CollisionVolume.cpp): the AABB (0x44), cylinder (0x8c), OBB (0xbc) and sphere (0x48) volumes,
-    which have no record yet (the wall is allocated as `HulkCollisionWall`). Records per subclass from their
-    constructors (0x00312900, 0x00306b40, 0x00306ba0, 0x00306c00) replace it.

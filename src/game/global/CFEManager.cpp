@@ -13,6 +13,7 @@
 #define TREE_TU_BEGIN namespace fn_f53c52ab {
 #define TREE_TU_END }
 namespace fn_f53c52ab {} using namespace fn_f53c52ab;
+namespace fn_f53c52ab { extern "C" char DAT_00409070[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -560,7 +561,7 @@ struct H0_c43a0 {
     void* vptr;
     void* self;
     void* fn;
-    H0_c43a0(void* s, void* f) : vptr(v0), self(s), fn(f) {}
+    H0_c43a0(void* s, void* f) : vptr((void**)DAT_00409070), self(s), fn(f) {}   // (x64t6) the game vftable (was the placeholder v0)
 };
 struct H1 {
     void* vptr;

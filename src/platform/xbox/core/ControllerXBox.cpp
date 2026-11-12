@@ -13,6 +13,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fc99ffef {} using namespace fn_fc99ffef;
+namespace fn_fc99ffef { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "platform/xbox/core.h"
 
 // ---- declarations shared by the functions below
@@ -636,7 +637,7 @@ namespace fn_fc99ffef {
 // sym: ?f2@NonCopyable_268500@pure3d@fn_fc99ffef@@UAEPAV123@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_268500* pure3d::NonCopyable_268500::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -975,7 +976,7 @@ namespace fn_fc99ffef {
 // sym: ?f2@NonCopyable_268ba0@pure3d@fn_fc99ffef@@UAEPAV123@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_268ba0* pure3d::NonCopyable_268ba0::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1043,7 +1044,7 @@ namespace fn_fc99ffef {
 // sym: ?f2@NonCopyable_268c70@pure3d@fn_fc99ffef@@UAEPAV123@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_268c70* pure3d::NonCopyable_268c70::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1213,7 +1214,7 @@ namespace fn_fc99ffef {
 // sym: ?f2@NonCopyable_268f80@pure3d@fn_fc99ffef@@UAEPAV123@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_268f80* pure3d::NonCopyable_268f80::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

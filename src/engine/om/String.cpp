@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f6df0856 {} using namespace fn_f6df0856;
+namespace fn_f6df0856 { extern "C" char DAT_0042aadc[], DAT_0042aac8[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/om.h"
 
 // ---- declarations shared by the functions below
@@ -223,9 +224,9 @@ U_260de0 __cdecl target() {
 // 0x00260e60 om::DynAttrT<om::String>::vfunc_0 (70 B): matches/0x00260e60.cpp
 // sym: ?Dtor@DynAttrT_260e60@fn_f6df0856@@QAEPAU12@E@Z
 DynAttrT_260e60* DynAttrT_260e60::Dtor(unsigned char flag) throw() {
-    vf = vA;
+    vf = (void**)DAT_0042aadc;
     ((owners::Str_240060 *)&part)->FUN_00240060();
-    vf = vB;
+    vf = (void**)DAT_0042aac8;
     if (flag & 1) {
         TypeT_260e60 l;
         FUN_00247550(l.Init_00260c70(), this);

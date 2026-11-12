@@ -13,6 +13,7 @@
 #define TREE_TU_BEGIN namespace fn_f1739f6f {
 #define TREE_TU_END }
 namespace fn_f1739f6f {} using namespace fn_f1739f6f;
+namespace fn_f1739f6f { extern "C" char DAT_00413768[], DAT_00413798[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -3577,7 +3578,7 @@ GrappleExecuteTrack* GrappleExecuteTrack::vfunc_5(u8_148320 param) {
 // 0x00148360 hulkfight::motion::CivilianAnimationTrack::vfunc_5 (46 B): matches/0x00148360.cpp
 // sym: ?f5@CivilianAnimationTrack_148360@fn_f1739f6f@@QAEPAV12@E@Z
 CivilianAnimationTrack_148360* CivilianAnimationTrack_148360::f5(unsigned char flags) {
-    vptr = g_vA;
+    vptr = (void**)DAT_00413768;
     sub.Fin_0027af50();
     Fin_00236d60();
     if (flags & 1)
@@ -3711,7 +3712,7 @@ GrappleStruggleAction_1484f0::GrappleStruggleAction_1484f0(int a, Ref_1484f0* r)
 // 0x00148540 FUN_00148540 (50 B): matches/0x00148540.cpp
 // sym: ??1GrappleStruggleAction_148540@fn_f1739f6f@@QAE@XZ
 GrappleStruggleAction_148540::~GrappleStruggleAction_148540() throw() {
-    vptr = g_vA;
+    vptr = (void**)DAT_00413798;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

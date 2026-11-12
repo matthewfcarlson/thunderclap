@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f57e27cb {
 #define TREE_TU_END }
 namespace fn_f57e27cb {} using namespace fn_f57e27cb;
+namespace fn_f57e27cb { extern "C" char DAT_0043276c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 // (x64t3) a local view's pad up to gen d3dContext's field F (byte K of the 32-bit context), less the view's own leading
 // bytes B (its vftable pointer, or nothing): the views' fields sit at gen's offsets on 64-bit too (they were 32-bit pads)
 #if defined(HULK_PTR64)
@@ -1037,7 +1038,7 @@ class NonCopyable : public pddiExtension_3201b0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1066,7 +1067,7 @@ class NonCopyable : public pddiExtension_3201e0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1095,7 +1096,7 @@ class NonCopyable : public pddiExtension_320210 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1124,7 +1125,7 @@ class NonCopyable : public pddiExtension_320240 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1396,7 +1397,7 @@ class NonCopyable : public pddiExtension_320b70 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -3298,7 +3299,7 @@ class NonCopyable : public pddiExtension_321fc0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -3349,7 +3350,7 @@ class NonCopyable : public pddiExtAntialiasControl_322040 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -3424,7 +3425,7 @@ class NonCopyable : public pddiExtReadPixels_3221a0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -3496,7 +3497,7 @@ class NonCopyable : public pddiExtHardwareSkinning_322280 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -3529,7 +3530,7 @@ u32_3222f0 d3dExtVisibilityTest_3222f0::vfunc_4(u32_3222f0 arg) {
 // sym: ?f2@NonCopyable_322320@pure3d@@UAEPAV12@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_322320* pure3d::NonCopyable_322320::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -3678,7 +3679,7 @@ class NonCopyable : public pddiExtVertexProgram_322490 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -4927,7 +4928,7 @@ class NonCopyable : public pddiExtGammaControl_3245b0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

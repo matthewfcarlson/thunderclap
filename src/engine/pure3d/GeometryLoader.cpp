@@ -144,16 +144,27 @@ class Ref_2c29b0 {
     virtual void AddRef();
     virtual void Release();
 };
-class PrimGroupLoader_2c29b0 : public Ref_2c29b0 {
+// (x64t6) the two loaders by their constructors' addresses (pure3d::PrimGroupLoader 0x002df7f0, OldPrimGroupLoader
+// 0x002df850, src/engine/pure3d/PrimGroupStreamed.cpp: the local names had no definition natively) and with those
+// classes' words (a base of the vftable and a word, then the loader's own), so `new` takes their native size
+class Base_2c29b0 : public Ref_2c29b0 {
   public:
-    PrimGroupLoader_2c29b0() throw();
-    char pad[0x2c - 4];
+    int base_word;
 };
-class OldPrimGroupLoader_2c29b0 : public Ref_2c29b0 {
+class FUN_002df7f0 : public Base_2c29b0 {
   public:
-    OldPrimGroupLoader_2c29b0() throw();
-    char pad[0x24 - 4];
+    FUN_002df7f0() throw();
+    int a, b;
+    char c, d;
+    short e;
+    int f0, f1, f2, f3, f4, f5;
 };
+class FUN_002df850 : public Base_2c29b0 {
+  public:
+    FUN_002df850() throw();
+    int a, b, c, d, e, f, g;
+};
+typedef char hulk_size32_2c29b0[(sizeof(void*) != 4 || (sizeof(FUN_002df7f0) == 0x2c && sizeof(FUN_002df850) == 0x24)) ? 1 : -1];
 struct RP_2c29b0 {
     Ref_2c29b0* p;
     void Set(Ref_2c29b0* r) {
@@ -419,8 +430,8 @@ GeometryLoader_2c29b0::GeometryLoader_2c29b0() {
     m1c.p = 0;
     m20.p = 0;
     pd.Set();
-    m1c.Set(new PrimGroupLoader_2c29b0);
-    m20.Set(new OldPrimGroupLoader_2c29b0);
+    m1c.Set(new FUN_002df7f0);
+    m20.Set(new FUN_002df850);
 }
 
 

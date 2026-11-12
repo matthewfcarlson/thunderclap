@@ -12,6 +12,7 @@
 #define TREE_TU_BEGIN namespace fn_f94adb62 {
 #define TREE_TU_END }
 namespace fn_f94adb62 {} using namespace fn_f94adb62;
+namespace fn_f94adb62 { extern "C" char DAT_00415c50[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -3280,7 +3281,7 @@ LocomotingAction_1606d0::LocomotingAction_1606d0(Ref_1606d0* arg) : Action_1606d
 // 0x00160710 FUN_00160710 (36 B): matches/0x00160710.cpp
 // sym: ??1LocomotingAction_160710@fn_f94adb62@@QAE@XZ
 LocomotingAction_160710::~LocomotingAction_160710() throw() {
-    vptr = g_vA;
+    vptr = (void**)DAT_00415c50;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

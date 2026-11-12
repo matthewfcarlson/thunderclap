@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f31e307f {} using namespace fn_f31e307f;
+namespace fn_f31e307f { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -46,7 +47,7 @@ Pose_2849c0* Pose_2849c0::f2(unsigned char flags) {
         m8 = 0;
     }
     operator delete[](m28);
-    vptr = g_base_vftable;
+    vptr = (void**)DAT_003f6098;
     if (flags & 1)
         operator delete(this);
     return this;

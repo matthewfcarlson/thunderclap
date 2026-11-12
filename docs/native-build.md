@@ -2749,3 +2749,108 @@ new names) now runs the physics world's construction through the collision solve
 (0x002f7ee0 -> 0x002efa90 -> CollisionObject::vfunc_5) and stops in the volume's update (0x00306490 ->
 owners::Mat_22c2b0::FUN_0022c2b0): its second argument is the volume's matrix passed through an `int`
 (`(float*)(hulk_uintptr)(int)GetKind()`), cut to 32 bits natively.
+
+## Placeholder vftables, the shader setters and the collision volumes on records (x64t6, 2026-11-12)
+
+x64t5's follow-up (its image stopped in the volume update 0x00306490). Control 72260 (studio, HEAD a8e79827c, data TUs
+generated privately), native iteration on x64t5's proof snapshot (72247) and map with the working tree's files.
+
+**The volume's position through an `int`.** 0x00306490 (match) passed the volume's position (slot 4, which the
+subclasses return as a pointer: Box_306650 / Shape_306790 `GetPos`) to 0x0022c2b0 through
+`(float *)(hulk_uintptr)(int)GetKind()`: natively cut to 32 bits. Slot 4 is declared `float* GetPos()` and passed as
+it is (MATCH, relocations ok).
+
+**Placeholder vftables, tree-wide.** common.h's shared stand-ins `vA`, `g_vA`, `vB`, `g_vB`, `g_base_vftable`,
+`refcount_vftable`, `CTrack_vftable`, `g_s`, `g_vt2`, `v0`, `vD`, `vIRef` are declared in each TU's namespace and
+defined nowhere: the Wine link binds each store by its relocation position, the native link leaves a zero stub, so an
+object whose constructor or destructor stored one has a null vftable (the SimState crash x64t5 fixed for three sites).
+Every store of one (`x = NAME;`) in src/ was located (build/x64t6/scripts/phscan.py), its block's `verify_relocs` map
+gives the game address the relocation reaches, and the store now names that address: `(void**)DAT_<addr>` (the
+placeholder's own type), the name declared `extern "C" char DAT_<addr>[]` inside the TU's namespace (the scope the
+headers' TREE_TU_BEGIN declarations use: MSVC 7.1 calls one extern "C" name declared in two namespaces ambiguous).
+
+| what | sites | gate |
+|---|---|---|
+| 240 stores in 142 TUs (`refcount_vftable` 143, `CTrack_vftable` 37, `g_vA` 18, `g_base_vftable` 13, `g_s` 7, `vIRef` 5, `g_vB` / `vB` / `g_vt2` 4 each, `v0` / `vD` 3 each, `vA` 1), all in matches; CFEManager's script closure (`H0_c43a0`, 0x000c43a0: `vptr(v0)` in a constructor) by hand (DAT_00409070) | 75 distinct game vftables | every block MATCH with relocations ok (`tree_tu.py check --relocs` on all 144 TUs) |
+
+Five hits of the scan were locals of the same names (no relocation; left alone). Native unbound fell by 190 with this
+alone (19,016 -> 18,826 in the iteration).
+
+**The shader tables' setters.** pddiBaseShader's parameter dispatch (vfunc_6, 0x00327a40) called the setters the
+dynamic initializers store in the shader tables (src/game/init/dynamic_initializers.cpp, dg1's ShaderParamEntry
+tables), and natively each was a stub: the initializers declared all 81 setters `void FUN_x()`, the definitions are
+member functions (`Obj::Set(int)`, `(void*)`, `(float)`, `(Ref*)`, `(const Vec3*)`, one `char Fn(int*)`), and the
+address binding refuses a reference whose IR signature differs. Each is now declared with its definition's
+signature, the member's `this` first (`void FUN_003333f0(void* self, int)`; class pointers as `void*`), and the
+stores cast to the entry's `void (*)()`. The initializer blocks' code hashes are unchanged (the relocations name
+the same addresses). Native unbound -85.
+
+Not done (follow-up): several setters' own parameter types are guesses that disagree with the dispatcher's
+(`Set(void* p) { flag = p != 0; }` in an int table: natively the callee tests 64 bits of a 32-bit argument), and the
+float tables' setters receive their value through vfunc_5..8's integer argument (a float in an integer register
+natively). The four dispatchers need their parameter kinds (texture, int, float, colour / vector) from the tables they
+read, and the setters the same types.
+
+pddiBaseShader vfunc_6 (0x00327a40, match) stepped through its table by a literal 24 (the 32-bit entry): now
+`sizeof` the entry; vfunc_5..8's entry views are checked at compile time against records.h's ShaderParamEntry (same
+size, the `this` adjustment at the same offset, on every build). dg1's open item (vfunc_5..8 reading the tables through
+32-bit views) is otherwise moot: each view's member-function pointer already has ShaderParamEntry's native layout.
+
+**physics::CollisionVolume and its subclasses on records** (include/decls/physics_world.h):
+- `HULK_COLLISION_VOLUME_WORDS`: the base's words after the vftable; the word at 4 (pure3d::NonCopyable's, gen's
+  `hulk_intptr f_04`) is pointer-sized, so natively every view puts the id at 0x10, the owner at 0x18, the children
+  at 0x20, c19 at 0x29 and the base ends at 0x48 (`HULK_CV(k)`: the native offset of the 32-bit offset k, for views
+  that pad). Before, the record's views put the id at 0x0c and gen's at 0x10.
+- Records for the subclasses CollisionVolume's clone 0x00306c60 allocates: `HulkCollisionAABB` (0x44 on 32-bit),
+  `HulkCollisionCylinder` (0x8c), `HulkCollisionOBB` (0xbc), `HulkCollisionSphere` (0x48), sizes checked on the
+  32-bit build; the clone allocates `sizeof` (the interim `HULK_X2_VOLUME` is gone, and its docs/tech-debt.md entry).
+- gen/physics.h: physics::CollisionVolume declares the base's words to its end (`f_14` the children pointer, was a
+  pad; `f_1c`..`f_34` moved up from the subclasses, which natively started their own fields at the base's size and
+  so 4 bytes late: CollisionWall's `f_38` was at 0x44, the record's at 0x48). Every subclass field keeps its 32-bit
+  offset (clang `-fdump-record-layouts`, i686-pc-windows-msvc, build/x64t6/lay/cv-*: no field moved; the abstract
+  base's own size grows from 0x1c to 0x38, which nothing takes).
+- src/engine/physics/CollisionVolume.cpp: every helper view (0x00306450 / 0x00306560 / 0x003069d0 the children,
+  0x00306490 NonCopyable's word, 0x00306510 the owner and the children count (pointer difference, was bytes >> 2),
+  0x00306600 the id, 0x00306650 / 0x00306790 the extents, 0x003068a0 c19, 0x00306930 the owner and its item vector
+  (allocated as three pointers and a word), 0x00306ac0 the children, the sphere constructor 0x00306c00's words) on
+  the record's offsets; the cylinder and OBB constructors (0x00306b40, 0x00306ba0) store their vftables by address
+  (DAT_004313cc / DAT_004317dc: the local classes' own were stubs natively) with pointer-sized base words. Matches
+  MATCH with relocations ok; the two constructors re-proved (equiv.py 3,000 inputs and `--wine` 3,000 locally,
+  `--x64` 3,000 through the queue: equivalent), hashes recorded.
+- The volumes' vfunc_13 (CollisionWall 0x0030e870, CollisionOBB 0x002fb7a0, CollisionCylinder 0x002f2fc0) read the
+  CollisionObject's owner through `char pad[0x18]`: now `HULK_CO_OWNER` (the record's f18: 0x20 natively); the
+  cylinder's view on HULK_CV (its id an `int`: it was a `void*`, 8 bytes over the id and the next word).
+
+**Names the address binding refused** (each a declaration whose signature differed from the definition):
+
+| where | change | gate |
+|---|---|---|
+| 0x0027b040 (pure3d::Entity, match) | the name to hash passed as `const char*` to 0x002672f0 (was a 32-bit integer) | MATCH, relocations ok |
+| 0x00265240 (LoadStream, match) | the same for 0x00267340 | MATCH, relocations ok |
+| 0x002f7a40 (ImpulseBasedCollisionSolver, match) | 0x003046f0 declared with its `char` argument (was `int`) | MATCH, relocations ok |
+| 0x002c29b0 GeometryLoader constructor (match) | the two loaders it creates named by their constructors' addresses (`FUN_002df7f0` PrimGroupLoader, `FUN_002df850` OldPrimGroupLoader; the local class names had no definition) and declared with those classes' words (a base of the vftable and a word, then their own): natively `new` was 8 bytes short for the old loader | MATCH, relocations ok; 32-bit sizes checked (0x2c / 0x24) |
+
+**The binding rule for `??0FUN_x` (task from the coordinator).** native_unbound.plan_link already binds a constructor
+or destructor of a class named by address (`??0FUN_x`, `??1FUN_x`: name_address's "class named fun") like a `FUN_`
+name: verified against the Wine binding map (where the Wine link bound that name), then the IR signatures. On p5's
+image 249 such references bind; the 5 left are signature mismatches the user's rule keeps unbound (a declared `int`
+where the definition takes a pointer: 0x000fc760, 0x0022a980, 0x00234590, 0x0028b420, 0x002ef7f0, fixable in source).
+x64t5's misses (`??0FUN_0027b070`, `??0FUN_003060a0`) came from private iteration maps older than the sources that
+introduced the names: the proof's map binds them. Constructors of classes named by the suffix convention
+(`??0PrimGroupLoader_2c29b0`) stay unbound on purpose (the suffix names the function the class was recovered from, not
+the constructor); the sources name such a base by its constructor's address instead (as 0x002c29b0 now does). No
+tooling change: native_mac.ADDR_NAME (the CRT and XDK tables) does not see `??0FUN_x`, which is right for those tables
+(a constructor named by the address of a CRT row would not be that row).
+
+Gates: every edited TU `tree_tu.py check --relocs` (matches MATCH with relocations ok; equivalents' code hashes
+unchanged but for the two re-proved constructors; the 40 blocks whose hashes are pending compared with HEAD's by
+`tree_tu.py hash --compute`: identical); gen/physics.h and the records: 32-bit layouts identical (`-fdump-record-layouts`,
+build/x64t6/lay). Proof 72264 (studio, HEAD a8e79827c + the batch, seed:72260) vs control 72260 (HEAD a8e79827c,
+fresh): GATE ok (0 of 2,032 common frames differ). Native on 72264's snapshot and map (every TU compiles): arm64
+macOS / x86-64 Linux / arm64 Android unbound **18,736 / 18,716 / 18,727** (before: 19,016 / 18,996 / 19,007).
+
+**Android counts again.** build/elf1/ndk-fe (NDK clang 21, recreated) works: the queue job's android-arm64 compile
+builds all 2,675 tree TUs and 1,097 data TUs with it (x64t5's p5 sources: 19,007, Linux + 11 as in earlier batches).
+In the queue jobs both ELF links stop at the host glue (`host glue failed`: the job ships no sysroot, so errno.h /
+string.h are missing): the unbound counts come from the link plan before lld, as before; an Android image needs the
+NDK sysroot on the host.

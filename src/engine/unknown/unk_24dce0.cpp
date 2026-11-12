@@ -11,6 +11,7 @@
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fb3c10a1 {} using namespace fn_fb3c10a1;
+namespace fn_fb3c10a1 { extern "C" char DAT_00429420[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -385,7 +386,7 @@ extern "C" void FUN_0024df00() {
 // sym: ?f2@NonCopyable_24e440@pure3d@@UAEPAV12@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_24e440* pure3d::NonCopyable_24e440::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_00429420;
     if ((param & 1) != 0)
         FUN_0024e460(this);
     return this;
@@ -420,7 +421,7 @@ extern "C" void FUN_0024e460(u32_24e460 value) {
 // sym: ?f2@NonCopyable_24e4a0@pure3d@@UAEPAV12@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_24e4a0* pure3d::NonCopyable_24e4a0::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_00429420;
     if ((param & 1) != 0)
         FUN_0024e4c0(this);
     return this;

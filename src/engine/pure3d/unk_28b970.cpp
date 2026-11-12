@@ -587,7 +587,7 @@ void IntChannel_28ba20::F() {
         Drop_0008d340(p2);
     p2 = 0;
     Reset();
-    vptr = g_s;
+    vptr = (void**)DAT_0042c930;
     Reset();
     vptr = hulk_at_0042c920;
 }
@@ -682,7 +682,7 @@ void Float2Channel_28bc20::F() {
         Drop_0008d340(p2);
     p2 = 0;
     Reset();
-    vptr = g_s;
+    vptr = (void**)DAT_0042c930;
     Reset();
     vptr = g_c_28bc20;
 }
@@ -1054,7 +1054,7 @@ namespace fn_f8c9e634 {
 void StringChannel_28c240::F() {
     vptr = g_f2;
     Clear_0028b760();
-    vptr = g_s;
+    vptr = (void**)DAT_0042c930;
     Reset();
     vptr = g_c_28c240;
 }
@@ -1118,7 +1118,7 @@ namespace fn_f8c9e634 {
 void EntityChannel_28c310::F() {
     vptr = g_f2;
     Clear_0028b7d0();
-    vptr = g_s;
+    vptr = (void**)DAT_0042c930;
     Reset();
     vptr = g_c_28c310;
 }
@@ -1171,7 +1171,7 @@ void BoolChannel_28c3e0::F() {
         Drop_0008d340(p2);
     p2 = 0;
     Reset();
-    vptr = g_s;
+    vptr = (void**)DAT_0042c930;
     Reset();
     vptr = g_c_28c3e0;
 }
@@ -1211,7 +1211,7 @@ void ColourChannel_28c4f0::F() {
         Drop_0008d340(p2);
     p2 = 0;
     Reset();
-    vptr = g_s;
+    vptr = (void**)DAT_0042c930;
     Reset();
     vptr = g_c_28c4f0;
 }

@@ -7,6 +7,7 @@
 #define TREE_TU_BEGIN namespace fn_f7afe597 {
 #define TREE_TU_END }
 namespace fn_f7afe597 {} using namespace fn_f7afe597;
+namespace fn_f7afe597 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -973,7 +974,7 @@ class NonCopyable : public LoadObject_23b240 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1010,7 +1011,7 @@ class NonCopyable : public StringReader_23b2a0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

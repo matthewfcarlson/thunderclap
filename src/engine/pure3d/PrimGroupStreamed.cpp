@@ -12,6 +12,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f1455a33 {} using namespace fn_f1455a33;
+namespace fn_f1455a33 { extern "C" char DAT_0042fc04[], DAT_0042fb54[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -2164,13 +2165,13 @@ namespace fn_f1455a33 {
 // 0x002e1530 pure3d::PrimGroupStreamed::vfunc_2 (82 B): matches/0x002e1530.cpp
 // sym: ?vfunc_2@PrimGroupStreamed_2e1530@fn_f1455a33@@QAEPAV12@E@Z
 PrimGroupStreamed_2e1530* PrimGroupStreamed_2e1530::vfunc_2(unsigned char f) throw() {
-    vptr = vD;
+    vptr = (void**)DAT_0042fc04;
     _ReadWriteBarrier();
     if (r5c) {
         r5c->release();
         r5c = 0;
     }
-    vptr = vB;
+    vptr = (void**)DAT_0042fb54;
     _ReadWriteBarrier();
     if (r40) {
         r40->release();

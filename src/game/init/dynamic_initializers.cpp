@@ -446,72 +446,72 @@ class Obj_361820 {
   public:
 };
 extern "C" void __cdecl FUN_00364800();
-void FUN_00328580();
-void FUN_00328590();
-void FUN_003285a0();
-void FUN_003285b0();
-void FUN_003337f0();
-void FUN_00333800();
-void FUN_00333820();
-void FUN_00333810();
-void FUN_0032a4f0();
-void FUN_0032a510();
-void FUN_0032a530();
-void FUN_003333a0();
-void FUN_003333b0();
-void FUN_003333c0();
-void FUN_003333e0();
-void FUN_003333f0();
-void FUN_00333400();
-void FUN_00333770();
-void FUN_003337d0();
-void FUN_00333410();
-void FUN_00333780();
-void FUN_00333830();
-void FUN_0032ac50();
-void FUN_0032b940();
-void FUN_0032b960();
-void FUN_0032b980();
-void FUN_0032bac0();
-void __cdecl FUN_0032c480();
-void FUN_0032cb40();
-void FUN_0032cb70();
-void FUN_0032d290();
-void FUN_0032d2b0();
-void FUN_0032d2c0();
-void FUN_0032d2d0();
-void FUN_0032d2e0();
-void FUN_0032d2f0();
-void FUN_0032d300();
-void FUN_0032d310();
-void FUN_0032d8d0();
-void FUN_0032da30();
-void FUN_0032dab0();
-void FUN_0032dad0();
-void FUN_0032daf0();
-void FUN_0032e090();
-void FUN_0032d9d0();
-void FUN_0032da00();
-void FUN_0032eb10();
-void __cdecl FUN_0032ef00();
-void FUN_0032eee0();
-void FUN_0032eef0();
-void FUN_0032fd10();
-void FUN_00330470();
-void FUN_003304b0();
-void FUN_00330ca0();
-void FUN_00330cc0();
-void FUN_00330d30();
-void FUN_00331b90();
-void FUN_00331bc0();
-void __cdecl FUN_00331bf0();
-void FUN_00332750();
-void FUN_003327b0();
-void FUN_00332780();
-void FUN_003327e0();
-void FUN_00332e60();
-void FUN_00332e90();
-void FUN_00332ba0();
+void FUN_00328580(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00328590(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_003285a0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_003285b0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_003337f0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00333800(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00333820(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00333810(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032a4f0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032a510(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032a530(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+char FUN_003333a0(void* self, int*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_003333b0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_003333c0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_003333e0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_003333f0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00333400(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00333770(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_003337d0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00333410(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00333780(void* self, float);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00333830(void* self, float);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032ac50(void* self, float);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032b940(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032b960(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032b980(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032bac0(void* self, float);   // (x64t6) the definition's signature (a member function: `this` first)
+void __cdecl FUN_0032c480(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032cb40(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032cb70(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032d290(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032d2b0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032d2c0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032d2d0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032d2e0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032d2f0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032d300(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032d310(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032d8d0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032da30(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032dab0(void* self, int*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032dad0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032daf0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032e090(void* self, float);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032d9d0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032da00(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032eb10(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void __cdecl FUN_0032ef00(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032eee0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032eef0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032fd10(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00330470(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_003304b0(void* self, float);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00330ca0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00330cc0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00330d30(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00331b90(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00331bc0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void __cdecl FUN_00331bf0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00332750(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_003327b0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00332780(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_003327e0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00332e60(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00332e90(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00332ba0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
 struct Obj_363af0 {
 };
 struct Obj_363b00 {
@@ -7064,13 +7064,13 @@ void RegisterCleanup() {
 namespace fn_00361850 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361850 @ 0x00361850
-extern "C" void FUN_003285c0();
+extern "C" void FUN_003285c0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d4d78 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361850()
 {
     DAT_004d4d78[0].vbindex = 0;
-    DAT_004d4d78[0].fn = FUN_003285c0;
+    DAT_004d4d78[0].fn = (void (*)())FUN_003285c0;
     DAT_004d4d78[1].vbindex = -1;
     DAT_004d4d78[0].adjust = 0;
     DAT_004d4d78[0].vbptr = 0;
@@ -7090,14 +7090,14 @@ namespace fn_f1ddef39 {
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003618a0()
 {
-    DAT_004d4d00[0].fn = FUN_00328580;
-    DAT_004d4d00[1].fn = FUN_00328590;
-    DAT_004d4d00[2].fn = FUN_003285a0;
+    DAT_004d4d00[0].fn = (void (*)())FUN_00328580;
+    DAT_004d4d00[1].fn = (void (*)())FUN_00328590;
+    DAT_004d4d00[2].fn = (void (*)())FUN_003285a0;
     DAT_004d4d00[0].vbindex = 0;
     DAT_004d4d00[1].vbindex = 0;
     DAT_004d4d00[2].vbindex = 0;
     DAT_004d4d00[3].vbindex = 0;
-    DAT_004d4d00[3].fn = FUN_003285b0;
+    DAT_004d4d00[3].fn = (void (*)())FUN_003285b0;
     DAT_004d4d00[4].vbindex = -1;
     DAT_004d4d00[0].adjust = 0;
     DAT_004d4d00[0].vbptr = 0;
@@ -7119,16 +7119,16 @@ void FUN_003618a0()
 namespace fn_00361940 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361940 @ 0x00361940
-void FUN_00328560();
-void FUN_003285d0();
+void FUN_00328560(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_003285d0(void* self, unsigned int);   // (x64t6) the definition's signature (a member function: `this` first)
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d4da8 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361940()
 {
-    DAT_004d4da8[0].fn = FUN_00328560;
+    DAT_004d4da8[0].fn = (void (*)())FUN_00328560;
     DAT_004d4da8[0].vbindex = 0;
     DAT_004d4da8[1].vbindex = 0;
-    DAT_004d4da8[1].fn = FUN_003285d0;
+    DAT_004d4da8[1].fn = (void (*)())FUN_003285d0;
     DAT_004d4da8[2].vbindex = -1;
     DAT_004d4da8[0].adjust = 0;
     DAT_004d4da8[0].vbptr = 0;
@@ -7151,14 +7151,14 @@ namespace fn_f1ddef39 {
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003619a0()
 {
-    DAT_004d7a30[0].fn = FUN_003337f0;
-    DAT_004d7a30[1].fn = FUN_00333800;
-    DAT_004d7a30[2].fn = FUN_00333820;
+    DAT_004d7a30[0].fn = (void (*)())FUN_003337f0;
+    DAT_004d7a30[1].fn = (void (*)())FUN_00333800;
+    DAT_004d7a30[2].fn = (void (*)())FUN_00333820;
     DAT_004d7a30[0].vbindex = 0;
     DAT_004d7a30[1].vbindex = 0;
     DAT_004d7a30[2].vbindex = 0;
     DAT_004d7a30[3].vbindex = 0;
-    DAT_004d7a30[3].fn = FUN_00333810;
+    DAT_004d7a30[3].fn = (void (*)())FUN_00333810;
     DAT_004d7a30[4].vbindex = -1;
     DAT_004d7a30[0].adjust = 0;
     DAT_004d7a30[0].vbptr = 0;
@@ -7180,13 +7180,13 @@ void FUN_003619a0()
 namespace fn_00361a40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361a40 @ 0x00361a40
-void FUN_0032a4c0();
+void FUN_0032a4c0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7988 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361a40()
 {
     DAT_004d7988[0].vbindex = 0;
-    DAT_004d7988[0].fn = FUN_0032a4c0;
+    DAT_004d7988[0].fn = (void (*)())FUN_0032a4c0;
     DAT_004d7988[1].vbindex = -1;
     DAT_004d7988[0].adjust = 0;
     DAT_004d7988[0].vbptr = 0;
@@ -7206,16 +7206,16 @@ namespace fn_f1ddef39 {
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361a90()
 {
-    DAT_004d7aa8[0].fn = FUN_003333c0;
-    DAT_004d7aa8[1].fn = FUN_003333e0;
-    DAT_004d7aa8[2].fn = FUN_003333f0;
-    DAT_004d7aa8[3].fn = FUN_003337d0;
-    DAT_004d7aa8[4].fn = FUN_00333770;
-    DAT_004d7aa8[5].fn = FUN_003333a0;
-    DAT_004d7aa8[6].fn = FUN_003333b0;
-    DAT_004d7aa8[7].fn = FUN_00333400;
-    DAT_004d7aa8[8].fn = FUN_0032a4f0;
-    DAT_004d7aa8[9].fn = FUN_0032a510;
+    DAT_004d7aa8[0].fn = (void (*)())FUN_003333c0;
+    DAT_004d7aa8[1].fn = (void (*)())FUN_003333e0;
+    DAT_004d7aa8[2].fn = (void (*)())FUN_003333f0;
+    DAT_004d7aa8[3].fn = (void (*)())FUN_003337d0;
+    DAT_004d7aa8[4].fn = (void (*)())FUN_00333770;
+    DAT_004d7aa8[5].fn = (void (*)())FUN_003333a0;
+    DAT_004d7aa8[6].fn = (void (*)())FUN_003333b0;
+    DAT_004d7aa8[7].fn = (void (*)())FUN_00333400;
+    DAT_004d7aa8[8].fn = (void (*)())FUN_0032a4f0;
+    DAT_004d7aa8[9].fn = (void (*)())FUN_0032a510;
     DAT_004d7aa8[0].vbindex = 0;
     DAT_004d7aa8[1].vbindex = 0;
     DAT_004d7aa8[2].vbindex = 0;
@@ -7227,7 +7227,7 @@ void FUN_00361a90()
     DAT_004d7aa8[8].vbindex = 0;
     DAT_004d7aa8[9].vbindex = 0;
     DAT_004d7aa8[10].vbindex = 0;
-    DAT_004d7aa8[10].fn = FUN_0032a530;
+    DAT_004d7aa8[10].fn = (void (*)())FUN_0032a530;
     DAT_004d7aa8[11].vbindex = -1;
     DAT_004d7aa8[0].adjust = 0;
     DAT_004d7aa8[0].vbptr = 0;
@@ -7265,14 +7265,14 @@ void FUN_00361a90()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361bf0()
 {
-    DAT_004d79b8[0].fn = FUN_00333410;
-    DAT_004d79b8[1].fn = FUN_00333780;
-    DAT_004d79b8[2].fn = FUN_00333830;
+    DAT_004d79b8[0].fn = (void (*)())FUN_00333410;
+    DAT_004d79b8[1].fn = (void (*)())FUN_00333780;
+    DAT_004d79b8[2].fn = (void (*)())FUN_00333830;
     DAT_004d79b8[0].vbindex = 0;
     DAT_004d79b8[1].vbindex = 0;
     DAT_004d79b8[2].vbindex = 0;
     DAT_004d79b8[3].vbindex = 0;
-    DAT_004d79b8[3].fn = FUN_0032ac50;
+    DAT_004d79b8[3].fn = (void (*)())FUN_0032ac50;
     DAT_004d79b8[4].vbindex = -1;
     DAT_004d79b8[0].adjust = 0;
     DAT_004d79b8[0].vbptr = 0;
@@ -7294,16 +7294,16 @@ void FUN_00361bf0()
 namespace fn_00361c90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361c90 @ 0x00361c90
-void FUN_0032b8e0();
-void FUN_0032b910();
+void FUN_0032b8e0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032b910(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7d60 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361c90()
 {
-    DAT_004d7d60[0].fn = FUN_0032b8e0;
+    DAT_004d7d60[0].fn = (void (*)())FUN_0032b8e0;
     DAT_004d7d60[0].vbindex = 0;
     DAT_004d7d60[1].vbindex = 0;
-    DAT_004d7d60[1].fn = FUN_0032b910;
+    DAT_004d7d60[1].fn = (void (*)())FUN_0032b910;
     DAT_004d7d60[2].vbindex = -1;
     DAT_004d7d60[0].adjust = 0;
     DAT_004d7d60[0].vbptr = 0;
@@ -7325,16 +7325,16 @@ namespace fn_f1ddef39 {
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361cf0()
 {
-    DAT_004d7c40[0].fn = FUN_003333c0;
-    DAT_004d7c40[1].fn = FUN_003333e0;
-    DAT_004d7c40[2].fn = FUN_003333f0;
-    DAT_004d7c40[3].fn = FUN_003337d0;
-    DAT_004d7c40[4].fn = FUN_00333770;
-    DAT_004d7c40[5].fn = FUN_003333a0;
-    DAT_004d7c40[6].fn = FUN_003333b0;
-    DAT_004d7c40[7].fn = FUN_00333400;
-    DAT_004d7c40[8].fn = FUN_0032b940;
-    DAT_004d7c40[9].fn = FUN_0032b960;
+    DAT_004d7c40[0].fn = (void (*)())FUN_003333c0;
+    DAT_004d7c40[1].fn = (void (*)())FUN_003333e0;
+    DAT_004d7c40[2].fn = (void (*)())FUN_003333f0;
+    DAT_004d7c40[3].fn = (void (*)())FUN_003337d0;
+    DAT_004d7c40[4].fn = (void (*)())FUN_00333770;
+    DAT_004d7c40[5].fn = (void (*)())FUN_003333a0;
+    DAT_004d7c40[6].fn = (void (*)())FUN_003333b0;
+    DAT_004d7c40[7].fn = (void (*)())FUN_00333400;
+    DAT_004d7c40[8].fn = (void (*)())FUN_0032b940;
+    DAT_004d7c40[9].fn = (void (*)())FUN_0032b960;
     DAT_004d7c40[0].vbindex = 0;
     DAT_004d7c40[1].vbindex = 0;
     DAT_004d7c40[2].vbindex = 0;
@@ -7346,7 +7346,7 @@ void FUN_00361cf0()
     DAT_004d7c40[8].vbindex = 0;
     DAT_004d7c40[9].vbindex = 0;
     DAT_004d7c40[10].vbindex = 0;
-    DAT_004d7c40[10].fn = FUN_0032b980;
+    DAT_004d7c40[10].fn = (void (*)())FUN_0032b980;
     DAT_004d7c40[11].vbindex = -1;
     DAT_004d7c40[0].adjust = 0;
     DAT_004d7c40[0].vbptr = 0;
@@ -7385,14 +7385,14 @@ void FUN_00361cf0()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361e50()
 {
-    DAT_004d7da8[0].fn = FUN_00333410;
-    DAT_004d7da8[1].fn = FUN_00333780;
-    DAT_004d7da8[2].fn = FUN_00333830;
+    DAT_004d7da8[0].fn = (void (*)())FUN_00333410;
+    DAT_004d7da8[1].fn = (void (*)())FUN_00333780;
+    DAT_004d7da8[2].fn = (void (*)())FUN_00333830;
     DAT_004d7da8[0].vbindex = 0;
     DAT_004d7da8[1].vbindex = 0;
     DAT_004d7da8[2].vbindex = 0;
     DAT_004d7da8[3].vbindex = 0;
-    DAT_004d7da8[3].fn = FUN_0032bac0;
+    DAT_004d7da8[3].fn = (void (*)())FUN_0032bac0;
     DAT_004d7da8[4].vbindex = -1;
     DAT_004d7da8[0].adjust = 0;
     DAT_004d7da8[0].vbptr = 0;
@@ -7414,16 +7414,16 @@ void FUN_00361e50()
 namespace fn_00361ef0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361ef0 @ 0x00361ef0
-void FUN_0032c420();
-void FUN_0032c450();
+void FUN_0032c420(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032c450(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7f50 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361ef0()
 {
-    DAT_004d7f50[0].fn = FUN_0032c420;
+    DAT_004d7f50[0].fn = (void (*)())FUN_0032c420;
     DAT_004d7f50[0].vbindex = 0;
     DAT_004d7f50[1].vbindex = 0;
-    DAT_004d7f50[1].fn = FUN_0032c450;
+    DAT_004d7f50[1].fn = (void (*)())FUN_0032c450;
     DAT_004d7f50[2].vbindex = -1;
     DAT_004d7f50[0].adjust = 0;
     DAT_004d7f50[0].vbptr = 0;
@@ -7446,16 +7446,16 @@ namespace fn_f1ddef39 {
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00361f50()
 {
-    DAT_004d7ec0[0].fn = FUN_003337f0;
-    DAT_004d7ec0[1].fn = FUN_00333800;
-    DAT_004d7ec0[2].fn = FUN_00333820;
-    DAT_004d7ec0[3].fn = FUN_00333810;
+    DAT_004d7ec0[0].fn = (void (*)())FUN_003337f0;
+    DAT_004d7ec0[1].fn = (void (*)())FUN_00333800;
+    DAT_004d7ec0[2].fn = (void (*)())FUN_00333820;
+    DAT_004d7ec0[3].fn = (void (*)())FUN_00333810;
     DAT_004d7ec0[0].vbindex = 0;
     DAT_004d7ec0[1].vbindex = 0;
     DAT_004d7ec0[2].vbindex = 0;
     DAT_004d7ec0[3].vbindex = 0;
     DAT_004d7ec0[4].vbindex = 0;
-    DAT_004d7ec0[4].fn = FUN_0032c480;
+    DAT_004d7ec0[4].fn = (void (*)())FUN_0032c480;
     DAT_004d7ec0[5].vbindex = -1;
     DAT_004d7ec0[0].adjust = 0;
     DAT_004d7ec0[0].vbptr = 0;
@@ -7482,13 +7482,13 @@ void FUN_00361f50()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362010()
 {
-    DAT_004d7f98[0].fn = FUN_003333c0;
-    DAT_004d7f98[1].fn = FUN_003333e0;
-    DAT_004d7f98[2].fn = FUN_003333f0;
-    DAT_004d7f98[3].fn = FUN_003337d0;
-    DAT_004d7f98[4].fn = FUN_00333770;
-    DAT_004d7f98[5].fn = FUN_003333a0;
-    DAT_004d7f98[6].fn = FUN_003333b0;
+    DAT_004d7f98[0].fn = (void (*)())FUN_003333c0;
+    DAT_004d7f98[1].fn = (void (*)())FUN_003333e0;
+    DAT_004d7f98[2].fn = (void (*)())FUN_003333f0;
+    DAT_004d7f98[3].fn = (void (*)())FUN_003337d0;
+    DAT_004d7f98[4].fn = (void (*)())FUN_00333770;
+    DAT_004d7f98[5].fn = (void (*)())FUN_003333a0;
+    DAT_004d7f98[6].fn = (void (*)())FUN_003333b0;
     DAT_004d7f98[0].vbindex = 0;
     DAT_004d7f98[1].vbindex = 0;
     DAT_004d7f98[2].vbindex = 0;
@@ -7497,7 +7497,7 @@ void FUN_00362010()
     DAT_004d7f98[5].vbindex = 0;
     DAT_004d7f98[6].vbindex = 0;
     DAT_004d7f98[7].vbindex = 0;
-    DAT_004d7f98[7].fn = FUN_00333400;
+    DAT_004d7f98[7].fn = (void (*)())FUN_00333400;
     DAT_004d7f98[8].vbindex = -1;
     DAT_004d7f98[0].adjust = 0;
     DAT_004d7f98[0].vbptr = 0;
@@ -7529,12 +7529,12 @@ void FUN_00362010()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362120()
 {
-    DAT_004d7e60[0].fn = FUN_00333410;
-    DAT_004d7e60[1].fn = FUN_00333780;
+    DAT_004d7e60[0].fn = (void (*)())FUN_00333410;
+    DAT_004d7e60[1].fn = (void (*)())FUN_00333780;
     DAT_004d7e60[0].vbindex = 0;
     DAT_004d7e60[1].vbindex = 0;
     DAT_004d7e60[2].vbindex = 0;
-    DAT_004d7e60[2].fn = FUN_00333830;
+    DAT_004d7e60[2].fn = (void (*)())FUN_00333830;
     DAT_004d7e60[3].vbindex = -1;
     DAT_004d7e60[0].adjust = 0;
     DAT_004d7e60[0].vbptr = 0;
@@ -7556,14 +7556,14 @@ void FUN_00362120()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003621a0()
 {
-    DAT_004d8190[0].fn = FUN_003337f0;
-    DAT_004d8190[1].fn = FUN_00333800;
-    DAT_004d8190[2].fn = FUN_00333820;
+    DAT_004d8190[0].fn = (void (*)())FUN_003337f0;
+    DAT_004d8190[1].fn = (void (*)())FUN_00333800;
+    DAT_004d8190[2].fn = (void (*)())FUN_00333820;
     DAT_004d8190[0].vbindex = 0;
     DAT_004d8190[1].vbindex = 0;
     DAT_004d8190[2].vbindex = 0;
     DAT_004d8190[3].vbindex = 0;
-    DAT_004d8190[3].fn = FUN_00333810;
+    DAT_004d8190[3].fn = (void (*)())FUN_00333810;
     DAT_004d8190[4].vbindex = -1;
     DAT_004d8190[0].adjust = 0;
     DAT_004d8190[0].vbptr = 0;
@@ -7587,10 +7587,10 @@ void FUN_003621a0()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362240()
 {
-    DAT_004d8148[0].fn = FUN_0032cb40;
+    DAT_004d8148[0].fn = (void (*)())FUN_0032cb40;
     DAT_004d8148[0].vbindex = 0;
     DAT_004d8148[1].vbindex = 0;
-    DAT_004d8148[1].fn = FUN_0032cb70;
+    DAT_004d8148[1].fn = (void (*)())FUN_0032cb70;
     DAT_004d8148[2].vbindex = -1;
     DAT_004d8148[0].adjust = 0;
     DAT_004d8148[0].vbptr = 0;
@@ -7611,13 +7611,13 @@ void FUN_00362240()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003622a0()
 {
-    DAT_004d8208[0].fn = FUN_003333c0;
-    DAT_004d8208[1].fn = FUN_003333e0;
-    DAT_004d8208[2].fn = FUN_003333f0;
-    DAT_004d8208[3].fn = FUN_003337d0;
-    DAT_004d8208[4].fn = FUN_00333770;
-    DAT_004d8208[5].fn = FUN_003333a0;
-    DAT_004d8208[6].fn = FUN_003333b0;
+    DAT_004d8208[0].fn = (void (*)())FUN_003333c0;
+    DAT_004d8208[1].fn = (void (*)())FUN_003333e0;
+    DAT_004d8208[2].fn = (void (*)())FUN_003333f0;
+    DAT_004d8208[3].fn = (void (*)())FUN_003337d0;
+    DAT_004d8208[4].fn = (void (*)())FUN_00333770;
+    DAT_004d8208[5].fn = (void (*)())FUN_003333a0;
+    DAT_004d8208[6].fn = (void (*)())FUN_003333b0;
     DAT_004d8208[0].vbindex = 0;
     DAT_004d8208[1].vbindex = 0;
     DAT_004d8208[2].vbindex = 0;
@@ -7626,7 +7626,7 @@ void FUN_003622a0()
     DAT_004d8208[5].vbindex = 0;
     DAT_004d8208[6].vbindex = 0;
     DAT_004d8208[7].vbindex = 0;
-    DAT_004d8208[7].fn = FUN_00333400;
+    DAT_004d8208[7].fn = (void (*)())FUN_00333400;
     DAT_004d8208[8].vbindex = -1;
     DAT_004d8208[0].adjust = 0;
     DAT_004d8208[0].vbptr = 0;
@@ -7659,12 +7659,12 @@ void FUN_003622a0()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003623b0()
 {
-    DAT_004d80e8[0].fn = FUN_00333410;
-    DAT_004d80e8[1].fn = FUN_00333780;
+    DAT_004d80e8[0].fn = (void (*)())FUN_00333410;
+    DAT_004d80e8[1].fn = (void (*)())FUN_00333780;
     DAT_004d80e8[0].vbindex = 0;
     DAT_004d80e8[1].vbindex = 0;
     DAT_004d80e8[2].vbindex = 0;
-    DAT_004d80e8[2].fn = FUN_00333830;
+    DAT_004d80e8[2].fn = (void (*)())FUN_00333830;
     DAT_004d80e8[3].vbindex = -1;
     DAT_004d80e8[0].adjust = 0;
     DAT_004d80e8[0].vbptr = 0;
@@ -7684,13 +7684,13 @@ void FUN_003623b0()
 namespace fn_00362430 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362430 @ 0x00362430
-void FUN_0032cba0();
+void FUN_0032cba0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d80b8 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362430()
 {
     DAT_004d80b8[0].vbindex = 0;
-    DAT_004d80b8[0].fn = FUN_0032cba0;
+    DAT_004d80b8[0].fn = (void (*)())FUN_0032cba0;
     DAT_004d80b8[1].vbindex = -1;
     DAT_004d80b8[0].adjust = 0;
     DAT_004d80b8[0].vbptr = 0;
@@ -7706,13 +7706,13 @@ void FUN_00362430()
 namespace fn_00362480 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362480 @ 0x00362480
-void FUN_0032d260();
+void FUN_0032d260(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d83a0 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362480()
 {
     DAT_004d83a0[0].vbindex = 0;
-    DAT_004d83a0[0].fn = FUN_0032d260;
+    DAT_004d83a0[0].fn = (void (*)())FUN_0032d260;
     DAT_004d83a0[1].vbindex = -1;
     DAT_004d83a0[0].adjust = 0;
     DAT_004d83a0[0].vbptr = 0;
@@ -7733,14 +7733,14 @@ namespace fn_f1ddef39 {
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003624d0()
 {
-    DAT_004d8328[0].fn = FUN_0032d290;
-    DAT_004d8328[1].fn = FUN_00333770;
-    DAT_004d8328[2].fn = FUN_003333a0;
+    DAT_004d8328[0].fn = (void (*)())FUN_0032d290;
+    DAT_004d8328[1].fn = (void (*)())FUN_00333770;
+    DAT_004d8328[2].fn = (void (*)())FUN_003333a0;
     DAT_004d8328[0].vbindex = 0;
     DAT_004d8328[1].vbindex = 0;
     DAT_004d8328[2].vbindex = 0;
     DAT_004d8328[3].vbindex = 0;
-    DAT_004d8328[3].fn = FUN_003333b0;
+    DAT_004d8328[3].fn = (void (*)())FUN_003333b0;
     DAT_004d8328[4].vbindex = -1;
     DAT_004d8328[0].adjust = 0;
     DAT_004d8328[0].vbptr = 0;
@@ -7765,12 +7765,12 @@ void FUN_003624d0()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362570()
 {
-    DAT_004d83d0[0].fn = FUN_0032d2b0;
-    DAT_004d83d0[1].fn = FUN_0032d2c0;
-    DAT_004d83d0[2].fn = FUN_0032d2d0;
-    DAT_004d83d0[3].fn = FUN_0032d2e0;
-    DAT_004d83d0[4].fn = FUN_0032d2f0;
-    DAT_004d83d0[5].fn = FUN_0032d300;
+    DAT_004d83d0[0].fn = (void (*)())FUN_0032d2b0;
+    DAT_004d83d0[1].fn = (void (*)())FUN_0032d2c0;
+    DAT_004d83d0[2].fn = (void (*)())FUN_0032d2d0;
+    DAT_004d83d0[3].fn = (void (*)())FUN_0032d2e0;
+    DAT_004d83d0[4].fn = (void (*)())FUN_0032d2f0;
+    DAT_004d83d0[5].fn = (void (*)())FUN_0032d300;
     DAT_004d83d0[0].vbindex = 0;
     DAT_004d83d0[1].vbindex = 0;
     DAT_004d83d0[2].vbindex = 0;
@@ -7778,7 +7778,7 @@ void FUN_00362570()
     DAT_004d83d0[4].vbindex = 0;
     DAT_004d83d0[5].vbindex = 0;
     DAT_004d83d0[6].vbindex = 0;
-    DAT_004d83d0[6].fn = FUN_0032d310;
+    DAT_004d83d0[6].fn = (void (*)())FUN_0032d310;
     DAT_004d83d0[7].vbindex = -1;
     DAT_004d83d0[0].adjust = 0;
     DAT_004d83d0[0].vbptr = 0;
@@ -7806,16 +7806,16 @@ void FUN_00362570()
 namespace fn_00362660 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362660 @ 0x00362660
-void FUN_0032d9d0();
-void FUN_0032da00();
+void FUN_0032d9d0(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_0032da00(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8690 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362660()
 {
-    DAT_004d8690[0].fn = FUN_0032d9d0;
+    DAT_004d8690[0].fn = (void (*)())FUN_0032d9d0;
     DAT_004d8690[0].vbindex = 0;
     DAT_004d8690[1].vbindex = 0;
-    DAT_004d8690[1].fn = FUN_0032da00;
+    DAT_004d8690[1].fn = (void (*)())FUN_0032da00;
     DAT_004d8690[2].vbindex = -1;
     DAT_004d8690[0].adjust = 0;
     DAT_004d8690[0].vbptr = 0;
@@ -7837,18 +7837,18 @@ namespace fn_f1ddef39 {
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003626c0()
 {
-    DAT_004d84c8[0].fn = FUN_003333c0;
-    DAT_004d84c8[1].fn = FUN_003333e0;
-    DAT_004d84c8[2].fn = FUN_003333f0;
-    DAT_004d84c8[3].fn = FUN_003337d0;
-    DAT_004d84c8[4].fn = FUN_00333770;
-    DAT_004d84c8[5].fn = FUN_003333a0;
-    DAT_004d84c8[6].fn = FUN_003333b0;
-    DAT_004d84c8[7].fn = FUN_00333400;
-    DAT_004d84c8[8].fn = FUN_0032da30;
-    DAT_004d84c8[9].fn = FUN_0032d8d0;
-    DAT_004d84c8[10].fn = FUN_0032dab0;
-    DAT_004d84c8[11].fn = FUN_0032dad0;
+    DAT_004d84c8[0].fn = (void (*)())FUN_003333c0;
+    DAT_004d84c8[1].fn = (void (*)())FUN_003333e0;
+    DAT_004d84c8[2].fn = (void (*)())FUN_003333f0;
+    DAT_004d84c8[3].fn = (void (*)())FUN_003337d0;
+    DAT_004d84c8[4].fn = (void (*)())FUN_00333770;
+    DAT_004d84c8[5].fn = (void (*)())FUN_003333a0;
+    DAT_004d84c8[6].fn = (void (*)())FUN_003333b0;
+    DAT_004d84c8[7].fn = (void (*)())FUN_00333400;
+    DAT_004d84c8[8].fn = (void (*)())FUN_0032da30;
+    DAT_004d84c8[9].fn = (void (*)())FUN_0032d8d0;
+    DAT_004d84c8[10].fn = (void (*)())FUN_0032dab0;
+    DAT_004d84c8[11].fn = (void (*)())FUN_0032dad0;
     DAT_004d84c8[0].vbindex = 0;
     DAT_004d84c8[1].vbindex = 0;
     DAT_004d84c8[2].vbindex = 0;
@@ -7862,7 +7862,7 @@ void FUN_003626c0()
     DAT_004d84c8[10].vbindex = 0;
     DAT_004d84c8[11].vbindex = 0;
     DAT_004d84c8[12].vbindex = 0;
-    DAT_004d84c8[12].fn = FUN_0032daf0;
+    DAT_004d84c8[12].fn = (void (*)())FUN_0032daf0;
     DAT_004d84c8[13].vbindex = -1;
     DAT_004d84c8[0].adjust = 0;
     DAT_004d84c8[0].vbptr = 0;
@@ -7904,14 +7904,14 @@ void FUN_003626c0()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362860()
 {
-    DAT_004d86d8[0].fn = FUN_003337f0;
-    DAT_004d86d8[1].fn = FUN_00333800;
-    DAT_004d86d8[2].fn = FUN_00333820;
+    DAT_004d86d8[0].fn = (void (*)())FUN_003337f0;
+    DAT_004d86d8[1].fn = (void (*)())FUN_00333800;
+    DAT_004d86d8[2].fn = (void (*)())FUN_00333820;
     DAT_004d86d8[0].vbindex = 0;
     DAT_004d86d8[1].vbindex = 0;
     DAT_004d86d8[2].vbindex = 0;
     DAT_004d86d8[3].vbindex = 0;
-    DAT_004d86d8[3].fn = FUN_00333810;
+    DAT_004d86d8[3].fn = (void (*)())FUN_00333810;
     DAT_004d86d8[4].vbindex = -1;
     DAT_004d86d8[0].adjust = 0;
     DAT_004d86d8[0].vbptr = 0;
@@ -7936,14 +7936,14 @@ void FUN_00362860()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362900()
 {
-    DAT_004d8618[0].fn = FUN_00333410;
-    DAT_004d8618[1].fn = FUN_00333780;
-    DAT_004d8618[2].fn = FUN_00333830;
+    DAT_004d8618[0].fn = (void (*)())FUN_00333410;
+    DAT_004d8618[1].fn = (void (*)())FUN_00333780;
+    DAT_004d8618[2].fn = (void (*)())FUN_00333830;
     DAT_004d8618[0].vbindex = 0;
     DAT_004d8618[1].vbindex = 0;
     DAT_004d8618[2].vbindex = 0;
     DAT_004d8618[3].vbindex = 0;
-    DAT_004d8618[3].fn = FUN_0032e090;
+    DAT_004d8618[3].fn = (void (*)())FUN_0032e090;
     DAT_004d8618[4].vbindex = -1;
     DAT_004d8618[0].adjust = 0;
     DAT_004d8618[0].vbptr = 0;
@@ -7967,12 +7967,12 @@ void FUN_00362900()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003629a0()
 {
-    DAT_004d8798[0].fn = FUN_0032d9d0;
-    DAT_004d8798[1].fn = FUN_0032da00;
+    DAT_004d8798[0].fn = (void (*)())FUN_0032d9d0;
+    DAT_004d8798[1].fn = (void (*)())FUN_0032da00;
     DAT_004d8798[0].vbindex = 0;
     DAT_004d8798[1].vbindex = 0;
     DAT_004d8798[2].vbindex = 0;
-    DAT_004d8798[2].fn = FUN_0032eb10;
+    DAT_004d8798[2].fn = (void (*)())FUN_0032eb10;
     DAT_004d8798[3].vbindex = -1;
     DAT_004d8798[0].adjust = 0;
     DAT_004d8798[0].vbptr = 0;
@@ -7995,16 +7995,16 @@ void FUN_003629a0()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362a20()
 {
-    DAT_004d88e8[0].fn = FUN_003337f0;
-    DAT_004d88e8[1].fn = FUN_00333800;
-    DAT_004d88e8[2].fn = FUN_00333820;
-    DAT_004d88e8[3].fn = FUN_00333810;
+    DAT_004d88e8[0].fn = (void (*)())FUN_003337f0;
+    DAT_004d88e8[1].fn = (void (*)())FUN_00333800;
+    DAT_004d88e8[2].fn = (void (*)())FUN_00333820;
+    DAT_004d88e8[3].fn = (void (*)())FUN_00333810;
     DAT_004d88e8[0].vbindex = 0;
     DAT_004d88e8[1].vbindex = 0;
     DAT_004d88e8[2].vbindex = 0;
     DAT_004d88e8[3].vbindex = 0;
     DAT_004d88e8[4].vbindex = 0;
-    DAT_004d88e8[4].fn = FUN_0032ef00;
+    DAT_004d88e8[4].fn = (void (*)())FUN_0032ef00;
     DAT_004d88e8[5].vbindex = -1;
     DAT_004d88e8[0].adjust = 0;
     DAT_004d88e8[0].vbptr = 0;
@@ -8028,13 +8028,13 @@ void FUN_00362a20()
 namespace fn_00362ae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362ae0 @ 0x00362ae0
-void FUN_0032f210();
+void FUN_0032f210(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8840 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362ae0()
 {
     DAT_004d8840[5].vbindex = 0;
-    DAT_004d8840[5].fn = FUN_0032f210;
+    DAT_004d8840[5].fn = (void (*)())FUN_0032f210;
     DAT_004d8840[6].vbindex = -1;
     DAT_004d8840[5].adjust = 0;
     DAT_004d8840[5].vbptr = 0;
@@ -8055,13 +8055,13 @@ namespace fn_f1ddef39 {
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362b30()
 {
-    DAT_004d8978[0].fn = FUN_003333c0;
-    DAT_004d8978[1].fn = FUN_003333e0;
-    DAT_004d8978[2].fn = FUN_003333f0;
-    DAT_004d8978[3].fn = FUN_003337d0;
-    DAT_004d8978[4].fn = FUN_00333770;
-    DAT_004d8978[5].fn = FUN_003333a0;
-    DAT_004d8978[6].fn = FUN_003333b0;
+    DAT_004d8978[0].fn = (void (*)())FUN_003333c0;
+    DAT_004d8978[1].fn = (void (*)())FUN_003333e0;
+    DAT_004d8978[2].fn = (void (*)())FUN_003333f0;
+    DAT_004d8978[3].fn = (void (*)())FUN_003337d0;
+    DAT_004d8978[4].fn = (void (*)())FUN_00333770;
+    DAT_004d8978[5].fn = (void (*)())FUN_003333a0;
+    DAT_004d8978[6].fn = (void (*)())FUN_003333b0;
     DAT_004d8978[0].vbindex = 0;
     DAT_004d8978[1].vbindex = 0;
     DAT_004d8978[2].vbindex = 0;
@@ -8070,7 +8070,7 @@ void FUN_00362b30()
     DAT_004d8978[5].vbindex = 0;
     DAT_004d8978[6].vbindex = 0;
     DAT_004d8978[7].vbindex = 0;
-    DAT_004d8978[7].fn = FUN_00333400;
+    DAT_004d8978[7].fn = (void (*)())FUN_00333400;
     DAT_004d8978[8].vbindex = -1;
     DAT_004d8978[0].adjust = 0;
     DAT_004d8978[0].vbptr = 0;
@@ -8102,10 +8102,10 @@ void FUN_00362b30()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362c40()
 {
-    DAT_004d8840[0].fn = FUN_00333410;
-    DAT_004d8840[1].fn = FUN_00333780;
-    DAT_004d8840[2].fn = FUN_00333830;
-    DAT_004d8840[3].fn = FUN_0032eee0;
+    DAT_004d8840[0].fn = (void (*)())FUN_00333410;
+    DAT_004d8840[1].fn = (void (*)())FUN_00333780;
+    DAT_004d8840[2].fn = (void (*)())FUN_00333830;
+    DAT_004d8840[3].fn = (void (*)())FUN_0032eee0;
     DAT_004d8840[0].vbindex = 0;
     DAT_004d8840[1].vbindex = 0;
     DAT_004d8840[2].vbindex = 0;
@@ -8119,7 +8119,7 @@ void FUN_00362c40()
     DAT_004d8840[2].vbptr = 0;
     DAT_004d8840[3].adjust = 0;
     DAT_004d8840[3].vbptr = 0;
-    DAT_004d8840[4].fn = FUN_0032eef0;
+    DAT_004d8840[4].fn = (void (*)())FUN_0032eef0;
     DAT_004d8840[4].adjust = 0;
     DAT_004d8840[4].vbptr = 0;
 }
@@ -8131,13 +8131,13 @@ void FUN_00362c40()
 namespace fn_00362ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362ce0 @ 0x00362ce0
-void FUN_0032ff60();
+void FUN_0032ff60(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8b40 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362ce0()
 {
     DAT_004d8b40[0].vbindex = 0;
-    DAT_004d8b40[0].fn = FUN_0032ff60;
+    DAT_004d8b40[0].fn = (void (*)())FUN_0032ff60;
     DAT_004d8b40[1].vbindex = -1;
     DAT_004d8b40[0].adjust = 0;
     DAT_004d8b40[0].vbptr = 0;
@@ -8153,13 +8153,13 @@ void FUN_00362ce0()
 namespace fn_00362d30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362d30 @ 0x00362d30
-void FUN_00333800();
+void FUN_00333800(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8b10 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362d30()
 {
     DAT_004d8b10[0].vbindex = 0;
-    DAT_004d8b10[0].fn = FUN_00333800;
+    DAT_004d8b10[0].fn = (void (*)())FUN_00333800;
     DAT_004d8b10[1].vbindex = -1;
     DAT_004d8b10[0].adjust = 0;
     DAT_004d8b10[0].vbptr = 0;
@@ -8179,15 +8179,15 @@ namespace fn_f1ddef39 {
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362d80()
 {
-    DAT_004d8b70[0].fn = FUN_003333c0;
-    DAT_004d8b70[1].fn = FUN_003333e0;
-    DAT_004d8b70[2].fn = FUN_003333f0;
-    DAT_004d8b70[3].fn = FUN_003337d0;
-    DAT_004d8b70[4].fn = FUN_00333770;
-    DAT_004d8b70[5].fn = FUN_003333a0;
-    DAT_004d8b70[6].fn = FUN_003333b0;
-    DAT_004d8b70[7].fn = FUN_00333400;
-    DAT_004d8b70[8].fn = FUN_0032fd10;
+    DAT_004d8b70[0].fn = (void (*)())FUN_003333c0;
+    DAT_004d8b70[1].fn = (void (*)())FUN_003333e0;
+    DAT_004d8b70[2].fn = (void (*)())FUN_003333f0;
+    DAT_004d8b70[3].fn = (void (*)())FUN_003337d0;
+    DAT_004d8b70[4].fn = (void (*)())FUN_00333770;
+    DAT_004d8b70[5].fn = (void (*)())FUN_003333a0;
+    DAT_004d8b70[6].fn = (void (*)())FUN_003333b0;
+    DAT_004d8b70[7].fn = (void (*)())FUN_00333400;
+    DAT_004d8b70[8].fn = (void (*)())FUN_0032fd10;
     DAT_004d8b70[0].vbindex = 0;
     DAT_004d8b70[1].vbindex = 0;
     DAT_004d8b70[2].vbindex = 0;
@@ -8198,7 +8198,7 @@ void FUN_00362d80()
     DAT_004d8b70[7].vbindex = 0;
     DAT_004d8b70[8].vbindex = 0;
     DAT_004d8b70[9].vbindex = 0;
-    DAT_004d8b70[9].fn = FUN_00330470;
+    DAT_004d8b70[9].fn = (void (*)())FUN_00330470;
     DAT_004d8b70[10].vbindex = -1;
     DAT_004d8b70[0].adjust = 0;
     DAT_004d8b70[0].vbptr = 0;
@@ -8235,14 +8235,14 @@ void FUN_00362d80()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362ec0()
 {
-    DAT_004d8a98[0].fn = FUN_00333410;
-    DAT_004d8a98[1].fn = FUN_00333780;
-    DAT_004d8a98[2].fn = FUN_00333830;
+    DAT_004d8a98[0].fn = (void (*)())FUN_00333410;
+    DAT_004d8a98[1].fn = (void (*)())FUN_00333780;
+    DAT_004d8a98[2].fn = (void (*)())FUN_00333830;
     DAT_004d8a98[0].vbindex = 0;
     DAT_004d8a98[1].vbindex = 0;
     DAT_004d8a98[2].vbindex = 0;
     DAT_004d8a98[3].vbindex = 0;
-    DAT_004d8a98[3].fn = FUN_003304b0;
+    DAT_004d8a98[3].fn = (void (*)())FUN_003304b0;
     DAT_004d8a98[4].vbindex = -1;
     DAT_004d8a98[0].adjust = 0;
     DAT_004d8a98[0].vbptr = 0;
@@ -8266,17 +8266,17 @@ void FUN_00362ec0()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00362f60()
 {
-    DAT_004d8d68[0].fn = FUN_003333c0;
-    DAT_004d8d68[1].fn = FUN_003333e0;
-    DAT_004d8d68[2].fn = FUN_003333f0;
-    DAT_004d8d68[3].fn = FUN_003337d0;
-    DAT_004d8d68[4].fn = FUN_00333770;
-    DAT_004d8d68[5].fn = FUN_003333a0;
-    DAT_004d8d68[6].fn = FUN_003333b0;
-    DAT_004d8d68[7].fn = FUN_00333400;
-    DAT_004d8d68[8].fn = FUN_003333a0;
-    DAT_004d8d68[9].fn = FUN_003333b0;
-    DAT_004d8d68[10].fn = FUN_00330ca0;
+    DAT_004d8d68[0].fn = (void (*)())FUN_003333c0;
+    DAT_004d8d68[1].fn = (void (*)())FUN_003333e0;
+    DAT_004d8d68[2].fn = (void (*)())FUN_003333f0;
+    DAT_004d8d68[3].fn = (void (*)())FUN_003337d0;
+    DAT_004d8d68[4].fn = (void (*)())FUN_00333770;
+    DAT_004d8d68[5].fn = (void (*)())FUN_003333a0;
+    DAT_004d8d68[6].fn = (void (*)())FUN_003333b0;
+    DAT_004d8d68[7].fn = (void (*)())FUN_00333400;
+    DAT_004d8d68[8].fn = (void (*)())FUN_003333a0;
+    DAT_004d8d68[9].fn = (void (*)())FUN_003333b0;
+    DAT_004d8d68[10].fn = (void (*)())FUN_00330ca0;
     DAT_004d8d68[0].vbindex = 0;
     DAT_004d8d68[1].vbindex = 0;
     DAT_004d8d68[2].vbindex = 0;
@@ -8289,7 +8289,7 @@ void FUN_00362f60()
     DAT_004d8d68[9].vbindex = 0;
     DAT_004d8d68[10].vbindex = 0;
     DAT_004d8d68[11].vbindex = 0;
-    DAT_004d8d68[11].fn = FUN_00330cc0;
+    DAT_004d8d68[11].fn = (void (*)())FUN_00330cc0;
     DAT_004d8d68[12].vbindex = -1;
     DAT_004d8d68[0].adjust = 0;
     DAT_004d8d68[0].vbptr = 0;
@@ -8327,14 +8327,14 @@ void FUN_00362f60()
 namespace fn_003630e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003630e0 @ 0x003630e0
-extern "C" void FUN_00330d00();
+extern "C" void FUN_00330d00(void* self, void*);   // (x64t6) the definition's signature (a member function: `this` first)
 
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8d38 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003630e0()
 {
     DAT_004d8d38[0].vbindex = 0;
-    DAT_004d8d38[0].fn = FUN_00330d00;
+    DAT_004d8d38[0].fn = (void (*)())FUN_00330d00;
     DAT_004d8d38[1].vbindex = -1;
     DAT_004d8d38[0].adjust = 0;
     DAT_004d8d38[0].vbptr = 0;
@@ -8350,16 +8350,16 @@ void FUN_003630e0()
 namespace fn_00363130 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363130 @ 0x00363130
-void FUN_00333800();
-void FUN_00330cb0();
+void FUN_00333800(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
+void FUN_00330cb0(void* self, int);   // (x64t6) the definition's signature (a member function: `this` first)
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8ea0 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363130()
 {
-    DAT_004d8ea0[0].fn = FUN_00333800;
+    DAT_004d8ea0[0].fn = (void (*)())FUN_00333800;
     DAT_004d8ea0[0].vbindex = 0;
     DAT_004d8ea0[1].vbindex = 0;
-    DAT_004d8ea0[1].fn = FUN_00330cb0;
+    DAT_004d8ea0[1].fn = (void (*)())FUN_00330cb0;
     DAT_004d8ea0[2].vbindex = -1;
     DAT_004d8ea0[0].adjust = 0;
     DAT_004d8ea0[0].vbptr = 0;
@@ -8381,14 +8381,14 @@ namespace fn_f1ddef39 {
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363190()
 {
-    DAT_004d8cc0[0].fn = FUN_00333410;
-    DAT_004d8cc0[1].fn = FUN_00333780;
-    DAT_004d8cc0[2].fn = FUN_00333830;
+    DAT_004d8cc0[0].fn = (void (*)())FUN_00333410;
+    DAT_004d8cc0[1].fn = (void (*)())FUN_00333780;
+    DAT_004d8cc0[2].fn = (void (*)())FUN_00333830;
     DAT_004d8cc0[0].vbindex = 0;
     DAT_004d8cc0[1].vbindex = 0;
     DAT_004d8cc0[2].vbindex = 0;
     DAT_004d8cc0[3].vbindex = 0;
-    DAT_004d8cc0[3].fn = FUN_00330d30;
+    DAT_004d8cc0[3].fn = (void (*)())FUN_00330d30;
     DAT_004d8cc0[4].vbindex = -1;
     DAT_004d8cc0[0].adjust = 0;
     DAT_004d8cc0[0].vbptr = 0;
@@ -8413,10 +8413,10 @@ void FUN_00363190()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363230()
 {
-    DAT_004d9058[0].fn = FUN_00331b90;
+    DAT_004d9058[0].fn = (void (*)())FUN_00331b90;
     DAT_004d9058[0].vbindex = 0;
     DAT_004d9058[1].vbindex = 0;
-    DAT_004d9058[1].fn = FUN_00331bc0;
+    DAT_004d9058[1].fn = (void (*)())FUN_00331bc0;
     DAT_004d9058[2].vbindex = -1;
     DAT_004d9058[0].adjust = 0;
     DAT_004d9058[0].vbptr = 0;
@@ -8437,16 +8437,16 @@ void FUN_00363230()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363290()
 {
-    DAT_004d8fc8[0].fn = FUN_003337f0;
-    DAT_004d8fc8[1].fn = FUN_00333800;
-    DAT_004d8fc8[2].fn = FUN_00333820;
-    DAT_004d8fc8[3].fn = FUN_00333810;
+    DAT_004d8fc8[0].fn = (void (*)())FUN_003337f0;
+    DAT_004d8fc8[1].fn = (void (*)())FUN_00333800;
+    DAT_004d8fc8[2].fn = (void (*)())FUN_00333820;
+    DAT_004d8fc8[3].fn = (void (*)())FUN_00333810;
     DAT_004d8fc8[0].vbindex = 0;
     DAT_004d8fc8[1].vbindex = 0;
     DAT_004d8fc8[2].vbindex = 0;
     DAT_004d8fc8[3].vbindex = 0;
     DAT_004d8fc8[4].vbindex = 0;
-    DAT_004d8fc8[4].fn = FUN_00331bf0;
+    DAT_004d8fc8[4].fn = (void (*)())FUN_00331bf0;
     DAT_004d8fc8[5].vbindex = -1;
     DAT_004d8fc8[0].adjust = 0;
     DAT_004d8fc8[0].vbptr = 0;
@@ -8473,13 +8473,13 @@ void FUN_00363290()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363350()
 {
-    DAT_004d90a0[0].fn = FUN_003333c0;
-    DAT_004d90a0[1].fn = FUN_003333e0;
-    DAT_004d90a0[2].fn = FUN_003333f0;
-    DAT_004d90a0[3].fn = FUN_003337d0;
-    DAT_004d90a0[4].fn = FUN_00333770;
-    DAT_004d90a0[5].fn = FUN_003333a0;
-    DAT_004d90a0[6].fn = FUN_003333b0;
+    DAT_004d90a0[0].fn = (void (*)())FUN_003333c0;
+    DAT_004d90a0[1].fn = (void (*)())FUN_003333e0;
+    DAT_004d90a0[2].fn = (void (*)())FUN_003333f0;
+    DAT_004d90a0[3].fn = (void (*)())FUN_003337d0;
+    DAT_004d90a0[4].fn = (void (*)())FUN_00333770;
+    DAT_004d90a0[5].fn = (void (*)())FUN_003333a0;
+    DAT_004d90a0[6].fn = (void (*)())FUN_003333b0;
     DAT_004d90a0[0].vbindex = 0;
     DAT_004d90a0[1].vbindex = 0;
     DAT_004d90a0[2].vbindex = 0;
@@ -8488,7 +8488,7 @@ void FUN_00363350()
     DAT_004d90a0[5].vbindex = 0;
     DAT_004d90a0[6].vbindex = 0;
     DAT_004d90a0[7].vbindex = 0;
-    DAT_004d90a0[7].fn = FUN_00333400;
+    DAT_004d90a0[7].fn = (void (*)())FUN_00333400;
     DAT_004d90a0[8].vbindex = -1;
     DAT_004d90a0[0].adjust = 0;
     DAT_004d90a0[0].vbptr = 0;
@@ -8521,12 +8521,12 @@ void FUN_00363350()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363460()
 {
-    DAT_004d8f68[0].fn = FUN_00333410;
-    DAT_004d8f68[1].fn = FUN_00333780;
+    DAT_004d8f68[0].fn = (void (*)())FUN_00333410;
+    DAT_004d8f68[1].fn = (void (*)())FUN_00333780;
     DAT_004d8f68[0].vbindex = 0;
     DAT_004d8f68[1].vbindex = 0;
     DAT_004d8f68[2].vbindex = 0;
-    DAT_004d8f68[2].fn = FUN_00333830;
+    DAT_004d8f68[2].fn = (void (*)())FUN_00333830;
     DAT_004d8f68[3].vbindex = -1;
     DAT_004d8f68[0].adjust = 0;
     DAT_004d8f68[0].vbptr = 0;
@@ -8546,14 +8546,14 @@ void FUN_00363460()
 namespace fn_003634e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003634e0 @ 0x003634e0
-void FUN_00331c00();
+void FUN_00331c00(void* self, const void*);   // (x64t6) the definition's signature (a member function: `this` first)
 
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8f38 by name (the data TU defines
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003634e0()
 {
     DAT_004d8f38[0].vbindex = 0;
-    DAT_004d8f38[0].fn = FUN_00331c00;
+    DAT_004d8f38[0].fn = (void (*)())FUN_00331c00;
     DAT_004d8f38[1].vbindex = -1;
     DAT_004d8f38[0].adjust = 0;
     DAT_004d8f38[0].vbptr = 0;
@@ -8573,12 +8573,12 @@ namespace fn_f1ddef39 {
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363530()
 {
-    DAT_004d9328[0].fn = FUN_00332750;
-    DAT_004d9328[1].fn = FUN_003327b0;
+    DAT_004d9328[0].fn = (void (*)())FUN_00332750;
+    DAT_004d9328[1].fn = (void (*)())FUN_003327b0;
     DAT_004d9328[0].vbindex = 0;
     DAT_004d9328[1].vbindex = 0;
     DAT_004d9328[2].vbindex = 0;
-    DAT_004d9328[2].fn = FUN_00332780;
+    DAT_004d9328[2].fn = (void (*)())FUN_00332780;
     DAT_004d9328[3].vbindex = -1;
     DAT_004d9328[0].adjust = 0;
     DAT_004d9328[0].vbptr = 0;
@@ -8601,14 +8601,14 @@ void FUN_00363530()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003635b0()
 {
-    DAT_004d9238[0].fn = FUN_003333c0;
-    DAT_004d9238[1].fn = FUN_003333e0;
-    DAT_004d9238[2].fn = FUN_003333f0;
-    DAT_004d9238[3].fn = FUN_003337d0;
-    DAT_004d9238[4].fn = FUN_00333770;
-    DAT_004d9238[5].fn = FUN_003333a0;
-    DAT_004d9238[6].fn = FUN_003333b0;
-    DAT_004d9238[7].fn = FUN_00333400;
+    DAT_004d9238[0].fn = (void (*)())FUN_003333c0;
+    DAT_004d9238[1].fn = (void (*)())FUN_003333e0;
+    DAT_004d9238[2].fn = (void (*)())FUN_003333f0;
+    DAT_004d9238[3].fn = (void (*)())FUN_003337d0;
+    DAT_004d9238[4].fn = (void (*)())FUN_00333770;
+    DAT_004d9238[5].fn = (void (*)())FUN_003333a0;
+    DAT_004d9238[6].fn = (void (*)())FUN_003333b0;
+    DAT_004d9238[7].fn = (void (*)())FUN_00333400;
     DAT_004d9238[0].vbindex = 0;
     DAT_004d9238[1].vbindex = 0;
     DAT_004d9238[2].vbindex = 0;
@@ -8618,7 +8618,7 @@ void FUN_003635b0()
     DAT_004d9238[6].vbindex = 0;
     DAT_004d9238[7].vbindex = 0;
     DAT_004d9238[8].vbindex = 0;
-    DAT_004d9238[8].fn = FUN_003327e0;
+    DAT_004d9238[8].fn = (void (*)())FUN_003327e0;
     DAT_004d9238[9].vbindex = -1;
     DAT_004d9238[0].adjust = 0;
     DAT_004d9238[0].vbptr = 0;
@@ -8653,12 +8653,12 @@ void FUN_003635b0()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_003636e0()
 {
-    DAT_004d9388[0].fn = FUN_00333410;
-    DAT_004d9388[1].fn = FUN_00333780;
+    DAT_004d9388[0].fn = (void (*)())FUN_00333410;
+    DAT_004d9388[1].fn = (void (*)())FUN_00333780;
     DAT_004d9388[0].vbindex = 0;
     DAT_004d9388[1].vbindex = 0;
     DAT_004d9388[2].vbindex = 0;
-    DAT_004d9388[2].fn = FUN_00333830;
+    DAT_004d9388[2].fn = (void (*)())FUN_00333830;
     DAT_004d9388[3].vbindex = -1;
     DAT_004d9388[0].adjust = 0;
     DAT_004d9388[0].vbptr = 0;
@@ -8681,14 +8681,14 @@ void FUN_003636e0()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363760()
 {
-    DAT_004d91c0[0].fn = FUN_003337f0;
-    DAT_004d91c0[1].fn = FUN_00333800;
-    DAT_004d91c0[2].fn = FUN_00333820;
+    DAT_004d91c0[0].fn = (void (*)())FUN_003337f0;
+    DAT_004d91c0[1].fn = (void (*)())FUN_00333800;
+    DAT_004d91c0[2].fn = (void (*)())FUN_00333820;
     DAT_004d91c0[0].vbindex = 0;
     DAT_004d91c0[1].vbindex = 0;
     DAT_004d91c0[2].vbindex = 0;
     DAT_004d91c0[3].vbindex = 0;
-    DAT_004d91c0[3].fn = FUN_00333810;
+    DAT_004d91c0[3].fn = (void (*)())FUN_00333810;
     DAT_004d91c0[4].vbindex = -1;
     DAT_004d91c0[0].adjust = 0;
     DAT_004d91c0[0].vbptr = 0;
@@ -8712,10 +8712,10 @@ void FUN_00363760()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363800()
 {
-    DAT_004d9658[0].fn = FUN_00332e60;
+    DAT_004d9658[0].fn = (void (*)())FUN_00332e60;
     DAT_004d9658[0].vbindex = 0;
     DAT_004d9658[1].vbindex = 0;
-    DAT_004d9658[1].fn = FUN_00332e90;
+    DAT_004d9658[1].fn = (void (*)())FUN_00332e90;
     DAT_004d9658[2].vbindex = -1;
     DAT_004d9658[0].adjust = 0;
     DAT_004d9658[0].vbptr = 0;
@@ -8736,14 +8736,14 @@ void FUN_00363800()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363860()
 {
-    DAT_004d9568[0].fn = FUN_003333c0;
-    DAT_004d9568[1].fn = FUN_003333e0;
-    DAT_004d9568[2].fn = FUN_003333f0;
-    DAT_004d9568[3].fn = FUN_003337d0;
-    DAT_004d9568[4].fn = FUN_00333770;
-    DAT_004d9568[5].fn = FUN_003333a0;
-    DAT_004d9568[6].fn = FUN_003333b0;
-    DAT_004d9568[7].fn = FUN_00333400;
+    DAT_004d9568[0].fn = (void (*)())FUN_003333c0;
+    DAT_004d9568[1].fn = (void (*)())FUN_003333e0;
+    DAT_004d9568[2].fn = (void (*)())FUN_003333f0;
+    DAT_004d9568[3].fn = (void (*)())FUN_003337d0;
+    DAT_004d9568[4].fn = (void (*)())FUN_00333770;
+    DAT_004d9568[5].fn = (void (*)())FUN_003333a0;
+    DAT_004d9568[6].fn = (void (*)())FUN_003333b0;
+    DAT_004d9568[7].fn = (void (*)())FUN_00333400;
     DAT_004d9568[0].vbindex = 0;
     DAT_004d9568[1].vbindex = 0;
     DAT_004d9568[2].vbindex = 0;
@@ -8753,7 +8753,7 @@ void FUN_00363860()
     DAT_004d9568[6].vbindex = 0;
     DAT_004d9568[7].vbindex = 0;
     DAT_004d9568[8].vbindex = 0;
-    DAT_004d9568[8].fn = FUN_00332ba0;
+    DAT_004d9568[8].fn = (void (*)())FUN_00332ba0;
     DAT_004d9568[9].vbindex = -1;
     DAT_004d9568[0].adjust = 0;
     DAT_004d9568[0].vbptr = 0;
@@ -8787,12 +8787,12 @@ void FUN_00363860()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363990()
 {
-    DAT_004d96a0[0].fn = FUN_00333410;
-    DAT_004d96a0[1].fn = FUN_00333780;
+    DAT_004d96a0[0].fn = (void (*)())FUN_00333410;
+    DAT_004d96a0[1].fn = (void (*)())FUN_00333780;
     DAT_004d96a0[0].vbindex = 0;
     DAT_004d96a0[1].vbindex = 0;
     DAT_004d96a0[2].vbindex = 0;
-    DAT_004d96a0[2].fn = FUN_00333830;
+    DAT_004d96a0[2].fn = (void (*)())FUN_00333830;
     DAT_004d96a0[3].vbindex = -1;
     DAT_004d96a0[0].adjust = 0;
     DAT_004d96a0[0].vbptr = 0;
@@ -8814,14 +8814,14 @@ void FUN_00363990()
 // the table as one item: pointer-sized setters on 64-bit), in the original's store order.
 void FUN_00363a10()
 {
-    DAT_004d94f0[0].fn = FUN_003337f0;
-    DAT_004d94f0[1].fn = FUN_00333800;
-    DAT_004d94f0[2].fn = FUN_00333820;
+    DAT_004d94f0[0].fn = (void (*)())FUN_003337f0;
+    DAT_004d94f0[1].fn = (void (*)())FUN_00333800;
+    DAT_004d94f0[2].fn = (void (*)())FUN_00333820;
     DAT_004d94f0[0].vbindex = 0;
     DAT_004d94f0[1].vbindex = 0;
     DAT_004d94f0[2].vbindex = 0;
     DAT_004d94f0[3].vbindex = 0;
-    DAT_004d94f0[3].fn = FUN_00333810;
+    DAT_004d94f0[3].fn = (void (*)())FUN_00333810;
     DAT_004d94f0[4].vbindex = -1;
     DAT_004d94f0[0].adjust = 0;
     DAT_004d94f0[0].vbptr = 0;

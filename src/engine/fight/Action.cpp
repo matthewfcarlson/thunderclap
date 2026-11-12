@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_f7416411 {
 #define TREE_TU_END }
 namespace fn_f7416411 {} using namespace fn_f7416411;
+namespace fn_f7416411 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -796,7 +797,7 @@ Action_232700* Action_232700::Dtor(unsigned char flag) throw() {
         p8 = 0;
     }
     DAT_004e5af0 = DAT_004e5af0 - 1;
-    vf = vIRef;
+    vf = (void**)DAT_003f6098;
     if (flag & 1)
         FUN_0008d330(this);
     return this;

@@ -12,6 +12,7 @@
 #define TREE_TU_BEGIN namespace fn_f3c8e3e3 {
 #define TREE_TU_END }
 namespace fn_f3c8e3e3 {} using namespace fn_f3c8e3e3;
+namespace fn_f3c8e3e3 { extern "C" char DAT_00413034[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -2356,7 +2357,7 @@ WorldDamageAction_1448e0::WorldDamageAction_1448e0(int target, RefObj_1448e0* ob
 // 0x00144930 FUN_00144930 (50 B): matches/0x00144930.cpp
 // sym: ??1WorldDamageAction_144930@fn_f3c8e3e3@@QAE@XZ
 WorldDamageAction_144930::~WorldDamageAction_144930() throw() {
-    vptr = g_vA;
+    vptr = (void**)DAT_00413034;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

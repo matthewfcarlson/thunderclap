@@ -13,6 +13,7 @@
 #define TREE_TU_BEGIN namespace fn_f27eef39 {
 #define TREE_TU_END }
 namespace fn_f27eef39 {} using namespace fn_f27eef39;
+namespace fn_f27eef39 { extern "C" char DAT_0040a47c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -1998,7 +1999,7 @@ void MessageOverlay::vfunc_2() {
 // sym: ?f2@NonCopyable_d6900@pure3d@@UAEPAV12@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_d6900* pure3d::NonCopyable_d6900::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0040a47c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

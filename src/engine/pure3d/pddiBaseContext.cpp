@@ -13,6 +13,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fc049dac {} using namespace fn_fc049dac;
+namespace fn_fc049dac { extern "C" char DAT_0043276c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 // (x64t2) the context's current states (f_48 view, f_4c render, f_50 lighting, f_54 fog, f_58 stencil) from any view of
 // the context, in gen's layout; and byte K (a 32-bit offset) of a state record: its vftable pointer first, then 32-bit
@@ -923,7 +924,7 @@ class NonCopyable : public IRefCount {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -3464,7 +3465,7 @@ class NonCopyable : public pddiExtension_31ea80 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -3553,7 +3554,7 @@ class NonCopyable : public pddiExtMemRegistration_31ed20 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f5eace43 {} using namespace fn_f5eace43;
+namespace fn_f5eace43 { extern "C" char DAT_0043276c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -62,7 +63,7 @@ void* Target_320080::FUN_00320080() {
 // sym: ?f2@NonCopyable@pure3d@fn_f5eace43@@UAEPAV123@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043276c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

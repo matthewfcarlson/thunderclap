@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fbec554b {} using namespace fn_fbec554b;
+namespace fn_fbec554b { extern "C" char DAT_0043359c[], DAT_00433568[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -49,6 +50,10 @@ struct Entry_327a40 {
     int p1;
     int p2;
 };
+// (x64t6) the view is the shader parameter table's entry (decls/data/records.h ShaderParamEntry): the same size
+// and the `this` adjustment at the same offset on every build (natively 0x20 bytes, the setter pointer-sized)
+typedef char hulk_entry_size_Entry_327a40[(sizeof(Entry_327a40) == sizeof(ShaderParamEntry)) ? 1 : -1];
+typedef char hulk_entry_adjust_Entry_327a40[((hulk_uintptr)&((Entry_327a40*)0)->off == (hulk_uintptr)&((ShaderParamEntry*)0)->adjust) ? 1 : -1];
 class pddiBaseShader_327a40 : public pddiShader_327a40 {
   public:
     virtual void f3();
@@ -83,6 +88,10 @@ struct Node {
     int context;
     char pad10[8];
 };
+// (x64t6) the view is the shader parameter table's entry (decls/data/records.h ShaderParamEntry): the same size
+// and the `this` adjustment at the same offset on every build (natively 0x20 bytes, the setter pointer-sized)
+typedef char hulk_entry_size_Node[(sizeof(Node) == sizeof(ShaderParamEntry)) ? 1 : -1];
+typedef char hulk_entry_adjust_Node[((hulk_uintptr)&((Node*)0)->context == (hulk_uintptr)&((ShaderParamEntry*)0)->adjust) ? 1 : -1];
 class pddiBaseShader_327aa0 {
   public:
     virtual void f0();
@@ -459,6 +468,7 @@ struct ParameterEntry_3279e0 {
     void (Receiver_3279e0::*setter)(unsigned int);
     unsigned int extra[2];
 };
+typedef char hulk_entry_size_ParameterEntry_3279e0[(sizeof(ParameterEntry_3279e0) == sizeof(ShaderParamEntry)) ? 1 : -1];   // (x64t6) ShaderParamEntry's size on every build
 namespace pure3d {
 struct pddiBaseShader {
     virtual void vfunc_0();
@@ -520,7 +530,7 @@ bool pddiBaseShader_327a40::f6(int key, int arg) {
                 ++(*(int*)&DAT_005555b8);
                 return true;
             }
-            e = (Entry_327a40*)((char*)e + 24);
+            e = (Entry_327a40*)((char*)e + sizeof(Entry_327a40));   // (x64t6) was 24: the 32-bit entry's size
         } while (e->key);
     }
     return false;
@@ -570,6 +580,7 @@ struct ParameterEntry_327b00 {
     int receiverOffset;
     unsigned unused[2];
 };
+typedef char hulk_entry_size_ParameterEntry_327b00[(sizeof(ParameterEntry_327b00) == sizeof(ShaderParamEntry)) ? 1 : -1];   // (x64t6) ShaderParamEntry's size on every build
 namespace pure3d {
 struct pddiBaseShader {
     virtual void vfunc_0();
@@ -786,11 +797,11 @@ namespace pure3d { class pddiBaseShader {
     void Fini() throw();
 }; }
 pure3d::pddiBaseShader* pure3d::pddiBaseShader::vfunc_3(unsigned char f) throw() {
-    vptr = vD;
+    vptr = (void**)DAT_0043359c;
     _ReadWriteBarrier();
     if ((*(pure3d::pddiBaseShader**)&DAT_005555bc) == this)
         (*(pure3d::pddiBaseShader**)&DAT_005555bc) = 0;
-    vptr = vB;
+    vptr = (void**)DAT_00433568;
     Fini();
     if (f & 1)
         thunk_FUN_00267090(this);

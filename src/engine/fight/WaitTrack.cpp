@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f3d35335 {
 #define TREE_TU_END }
 namespace fn_f3d35335 {} using namespace fn_f3d35335;
+namespace fn_f3d35335 { extern "C" char DAT_00428d24[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -300,7 +301,7 @@ WaitAction_23e080* WaitAction_23e080::Build(int a, Obj_23e080* p) {
 // 0x0023e0d0 FUN_0023e0d0 (36 B): matches/0x0023e0d0.cpp
 // sym: ??1WaitAction_23e0d0@fn_f3d35335@@QAE@XZ
 WaitAction_23e0d0::~WaitAction_23e0d0() throw() {
-    vptr = g_vA;
+    vptr = (void**)DAT_00428d24;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

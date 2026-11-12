@@ -12,6 +12,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f77c5fbc {} using namespace fn_f77c5fbc;
+namespace fn_f77c5fbc { extern "C" char DAT_0043148c[], DAT_0043142c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -708,13 +709,13 @@ namespace fn_f77c5fbc {
 // 0x002f3cd0 FUN_002f3cd0 (42 B): matches/0x002f3cd0.cpp
 // sym: ?dtor@CollisionMesh_2f3cd0@fn_f77c5fbc@@QAEXXZ
 void CollisionMesh_2f3cd0::dtor() throw() {
-    vptr = vD;
+    vptr = (void**)DAT_0043148c;
     _ReadWriteBarrier();
     if (ref) {
         ref->release();
         ref = 0;
     }
-    vptr = vB;
+    vptr = (void**)DAT_0043142c;
     Fini_00306ac0();
 }
 

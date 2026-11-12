@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_fde8cdef {
 #define TREE_TU_END }
 namespace fn_fde8cdef {} using namespace fn_fde8cdef;
+namespace fn_fde8cdef { extern "C" char DAT_003f359c[], DAT_003f3390[], DAT_003f3754[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -321,13 +322,13 @@ CStunAnimationAction_21960* CStunAnimationAction_21960::f2(unsigned char flags) 
 // 0x000219c0 CKeyPoseAction::vfunc_2 (82 B): matches/0x000219c0.cpp
 // sym: ?f2@CKeyPoseAction_219c0@fn_fde8cdef@@QAEPAV12@E@Z
 CKeyPoseAction_219c0* CKeyPoseAction_219c0::f2(unsigned char flags) {
-    vptr = g_vA;
+    vptr = (void**)DAT_003f359c;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
         m24 = 0;
     }
-    vptr = g_vB;
+    vptr = (void**)DAT_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -381,7 +382,7 @@ CMoveAction_21aa0* CMoveAction_21aa0::f2(unsigned char flags) {
         m24->Release();
         m24 = 0;
     }
-    vptr = g_base_vftable;
+    vptr = (void**)DAT_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -435,7 +436,7 @@ CSweepAction_21b80* CSweepAction_21b80::f2(unsigned char flags) {
         m24->Release();
         m24 = 0;
     }
-    vptr = g_base_vftable;
+    vptr = (void**)DAT_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -508,13 +509,13 @@ CComboTimerAction_21c80* CComboTimerAction_21c80::f2(unsigned char flags) {
 // 0x00021cc0 CGrappleLocoStrafe4Action::vfunc_2 (82 B): matches/0x00021cc0.cpp
 // sym: ?f2@CGrappleLocoStrafe4Action_21cc0@fn_fde8cdef@@QAEPAV12@E@Z
 CGrappleLocoStrafe4Action_21cc0* CGrappleLocoStrafe4Action_21cc0::f2(unsigned char flags) {
-    vptr = g_vA;
+    vptr = (void**)DAT_003f3754;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
         m24 = 0;
     }
-    vptr = g_vB;
+    vptr = (void**)DAT_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -615,7 +616,7 @@ CSmartPropUpdateAttachmentAction_21e60* CSmartPropUpdateAttachmentAction_21e60::
         m24->Release();
         m24 = 0;
     }
-    vptr = g_base_vftable;
+    vptr = (void**)DAT_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();

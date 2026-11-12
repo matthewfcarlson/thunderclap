@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f105060a {} using namespace fn_f105060a;
+namespace fn_f105060a { extern "C" char DAT_0042b914[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/core.h"
 
 // ---- declarations shared by the functions below
@@ -148,7 +149,7 @@ DriveFindNextRequest_275ad0* DriveFindNextRequest_275ad0::f0(unsigned char flags
     m8->cnt--;
     m8->sub.v1();
     m8->v1();
-    vptr = g_base_vftable;
+    vptr = (void**)DAT_0042b914;
     if (flags & 1) {
         FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(Pool_275ad0**)&DAT_0052a1e4)->Free(this);

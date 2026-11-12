@@ -252,9 +252,18 @@ public:
     int f_08;
     int f_0c;
     hulk_intptr f_10;
-    char _pad_14[0x4];
+    void* f_14; // (x64t6) the children range (decls/physics_world.h HULK_COLLISION_VOLUME_WORDS; was a pad)
     char f_18;
     unsigned char f_19;
+    // (x64t6) the base's words to its end (0x38 bytes on 32-bit, 0x48 natively), moved here from the subclasses:
+    // natively a subclass's own fields start at the base's size, so every subclass declared them 4 bytes late
+    int f_1c;
+    int f_20;
+    int f_24;
+    int f_28;
+    int f_2c;
+    int f_30;
+    float f_34;
 };
 
 // .?AVCollisionAABB@physics@@  vftable 0x432274 (15)
@@ -268,10 +277,6 @@ public:
     virtual void vfunc_8(); // overrides physics::CollisionVolume slot 8
     virtual void vfunc_11(void*); // overrides physics::CollisionVolume slot 11
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
-    char _pad_1c[0x4];
-    void* f_20;
-    char _pad_24[0x10];
-    float f_34;
 };
 
 // .?AVCollisionAnalyser@physics@@  vftable 0x431fe0 (5)
@@ -323,13 +328,6 @@ public:
     virtual void vfunc_11(void*); // overrides physics::CollisionVolume slot 11
     virtual void vfunc_13(); // overrides physics::CollisionVolume slot 13
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
-    int f_1c;
-    int f_20;
-    int f_24;
-    int f_28;
-    int f_2c;
-    int f_30;
-    float f_34;
     char _pad_38[0xc];
     float f_44;
     char _pad_48[0x8];
@@ -386,7 +384,7 @@ public:
     virtual void vfunc_17(int, int); // overrides physics::WorldCollisionVolume slot 17
     virtual void vfunc_18(int, void*, void*, void*); // overrides physics::WorldCollisionVolume slot 18
     void FUN_002f3e40(void*, void*); // non-virtual
-    char _pad_1c[0x28];
+    char _pad_38[0xc];
     hulk_intptr f_44;
     char _pad_48[0x84];
     char f_cc;
@@ -413,13 +411,6 @@ public:
     virtual void vfunc_13(); // overrides physics::CollisionVolume slot 13
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
     virtual void vfunc_15(); // slot 15
-    int f_1c;
-    int f_20;
-    int f_24;
-    int f_28;
-    int f_2c;
-    int f_30;
-    float f_34;
     int f_38;
     char _pad_3c[0x18];
     char f_54;
@@ -501,7 +492,7 @@ public:
     virtual void* vfunc_16(); // slot 16
     virtual hulk_freg vfunc_17(); // slot 17
     virtual void vfunc_18(unsigned int); // slot 18
-    char _pad_1c[0x64];
+    char _pad_38[0x48];
     float f_80;
 };
 
@@ -532,13 +523,6 @@ public:
     virtual void vfunc_7(float); // overrides physics::CollisionVolume slot 7
     virtual void vfunc_11(void*); // overrides physics::CollisionVolume slot 11
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
-    int f_1c;
-    int f_20;
-    int f_24;
-    int f_28;
-    int f_2c;
-    int f_30;
-    int f_34;
     float f_38;
     char _pad_3c[0x38];
     void* f_74;
@@ -557,8 +541,6 @@ public:
     virtual void vfunc_13(); // overrides physics::CollisionVolume slot 13
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
     virtual void vfunc_15(void*); // slot 15
-    char _pad_1c[0x18];
-    int f_34;
     int f_38;
     int f_3c;
     int f_40;

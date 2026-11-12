@@ -13,6 +13,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fae3921a {} using namespace fn_fae3921a;
+namespace fn_fae3921a { extern "C" char DAT_0043117c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -164,7 +165,7 @@ class NonCopyable : public IRefCount {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043117c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -310,7 +311,7 @@ class NonCopyable : public SimCGSValue_2ecfe0 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043117c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -339,7 +340,7 @@ class NonCopyable : public SimCGSValue_2ed000 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0043117c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

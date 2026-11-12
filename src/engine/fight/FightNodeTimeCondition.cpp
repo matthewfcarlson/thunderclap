@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_fac1015e {
 #define TREE_TU_END }
 namespace fn_fac1015e {} using namespace fn_fac1015e;
+namespace fn_fac1015e { extern "C" char DAT_00427ccc[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -431,7 +432,7 @@ void __fastcall FUN_00235c40(CEffectStopTrack* self) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 FightNodeBaseCondition_235c50* FightNodeBaseCondition_235c50::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
+    *(void***)this = (void**)DAT_00427ccc;
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -504,7 +505,7 @@ namespace fn_fac1015e {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 FightNodeTimeCondition_235d00* FightNodeTimeCondition_235d00::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
+    *(void***)this = (void**)DAT_00427ccc;
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

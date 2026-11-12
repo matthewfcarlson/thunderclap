@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_fd8937bc {
 #define TREE_TU_END }
 namespace fn_fd8937bc {} using namespace fn_fd8937bc;
+namespace fn_fd8937bc { extern "C" char DAT_0040ce3c[], DAT_0040cea4[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/DollyScript.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -937,7 +938,7 @@ void* CTokenStatement::vfunc_0(unsigned int flags) {
 // sym: ?f2@NonCopyable_0fa3d0@pure3d@@UAEPAV12@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_0fa3d0* pure3d::NonCopyable_0fa3d0::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0040ce3c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -977,7 +978,7 @@ CScriptToken* CTokenSectionStart::f2() {
 // sym: ?f2@NonCopyable_0fa430@pure3d@@UAEPAV12@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_0fa430* pure3d::NonCopyable_0fa430::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0040ce3c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1019,7 +1020,7 @@ CScriptToken* CTokenSectionEnd::vfunc_2() {
 // sym: ?f2@NonCopyable_0fa490@pure3d@@UAEPAV12@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_0fa490* pure3d::NonCopyable_0fa490::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0040ce3c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1322,7 +1323,7 @@ CRawScript* CRawScript::vfunc_2(unsigned char param) {
 // sym: ?f2@NonCopyable_0fa920@pure3d@@UAEPAV12@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_0fa920* pure3d::NonCopyable_0fa920::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0040cea4;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1377,7 +1378,7 @@ CTokenString* CTokenString::f2() {
 // sym: ?f2@NonCopyable_0fa9a0@pure3d@@UAEPAV12@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_0fa9a0* pure3d::NonCopyable_0fa9a0::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0040ce3c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

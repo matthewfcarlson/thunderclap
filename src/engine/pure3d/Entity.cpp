@@ -31,7 +31,7 @@ unsigned __int64 FUN_002672f0(void* a, int b, int c);
 namespace fn_f83389b9 {
 typedef unsigned int U32_27b040;
 typedef unsigned __int64 U64_27b040;
-U64_27b040 __cdecl MakeThing_002672f0(U32_27b040, U32_27b040, U32_27b040);
+U64_27b040 __cdecl MakeThing_002672f0(const char*, U32_27b040, U32_27b040);   // (x64t6) the name hashed (0x002672f0's `text`; was an integer: cut to 32 bits natively)
 extern "C" char DAT_0042c180[];
 class Entity {
   public:
@@ -90,8 +90,8 @@ extern "C" unsigned __int64 FUN_0027b020(void* a) {
 // sym: ?FUN_0027b040@Target_27b040@owners@@QAE_KI@Z
 U64_27b040 owners::Target_27b040::FUN_0027b040(hulk_uintptr value) {
     U64_27b040 result;
-    if (((U32_27b040)value))
-        result = MakeThing_002672f0(((U32_27b040)value), 0, 0);
+    if (value)
+        result = MakeThing_002672f0((const char*)value, 0, 0);
     else
         result = 0;
     a = (U32_27b040)result;

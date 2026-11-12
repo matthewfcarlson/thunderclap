@@ -58,10 +58,10 @@ class Cls_306490 {
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual int GetKind();
+    virtual float* GetPos();  // (x64t6) slot 4: the volume's position (Box_306650 / Shape_306790's slot 4; was `int`)
     virtual void v5();
     virtual int GetId();
-    int pad1;
+    hulk_intptr pad1;   // (x64t6) NonCopyable's word: pointer-sized (decls/physics_world.h HULK_COLLISION_VOLUME_WORDS)
     int m8;
     int mC;
     Own_306490* mOwn;
@@ -75,7 +75,7 @@ class Cls_306490 {
 struct Vec {
     Node** first;
     Node** last;
-    hulk_uintptr size() const { return ((char*)last - (char*)first) >> 2; }
+    hulk_uintptr size() const { return (hulk_uintptr)(last - first); }   // (x64t6) was the byte difference >> 2
     Node* operator[](unsigned i) const { return first[i]; }
 };
 class Node {
@@ -94,7 +94,7 @@ class Node {
     virtual void v11();
     virtual void v12();
     virtual void action();
-    char pad[12];
+    char pad[HULK_CV(0x10) - sizeof(void*)];   // (x64t6) the volume's words up to the owner (decls/physics_world.h)
     void* flag;
     Vec* children;
     void run();
@@ -124,7 +124,7 @@ public:
     virtual void v2();
     virtual void v3();
     virtual Vec3_306650 *GetPos();
-    char pad4[0x24];
+    char pad4[HULK_CV(0x28) - sizeof(void*)];   // (x64t6) the volume's words up to m28 (decls/physics_world.h)
     float ex;
     float ey;
     float ez;
@@ -137,7 +137,7 @@ struct Vec_306790 { float x,y,z; };
 struct Shape_306790 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
  virtual Vec_306790* position(); virtual void slot5(); virtual int type();
- char padding[0x24];
+ char padding[HULK_CV(0x28) - sizeof(void*)];   // (x64t6) the volume's words up to m28
  float extentX,extentY,extentZ;
 };
 extern "C" bool __cdecl FUN_00306650(void *, void *, float);
@@ -158,7 +158,7 @@ struct ItemVec_306930 {
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 class Owner_306930 {
 public:
-    char pad0[0x10];
+    char pad0[HULK_CV(0x10)];   // (x64t6) the volume's words up to the owner (decls/physics_world.h)
     void *context;      // 0x10
     ItemVec_306930 *items;     // 0x14
     void FUN_00306930(Item_306930 *item);
@@ -187,7 +187,7 @@ struct Vec_306ac0 {
 class CollisionVolume_306ac0 {
   public:
     void* vptr;
-    char pad[0x14 - 4];
+    char pad[HULK_CV(0x14) - sizeof(void*)];   // (x64t6) the volume's words up to the children (decls/physics_world.h)
     Vec_306ac0* v;
     ~CollisionVolume_306ac0() throw();
 };
@@ -196,11 +196,11 @@ class CollisionSphere {
   public:
     CollisionSphere();
     hulk_intptr vptr;
-    int a;
-    int b;
+    hulk_intptr a;   // (x64t6) the volume's words (decls/physics_world.h): NonCopyable's word, the owner and the
+    int b;           // children pointer-sized
     int c;
-    int d;
-    int e;
+    hulk_intptr d;
+    hulk_intptr e;
     char flag1;
     char flag2;
     char pad[2];
@@ -248,7 +248,7 @@ struct S_306e70 {
 namespace fn_00306450 {
 // STATUS: equivalent (tools/equiv.py level 3: 2985 inputs, branch coverage 6/6)
 // physics::CollisionVolume::vfunc_9 @ 0x00306450
-namespace physics { struct CollisionVolume; struct ChildList { CollisionVolume **begin; CollisionVolume **end; }; struct CollisionVolume { char pad[0x10]; ChildList *children; virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(); }; void CollisionVolume::vfunc_9() { if (children) { for (unsigned i = 0; i < (unsigned)(children->end - children->begin); ++i) children->begin[i]->vfunc_9(); } } }
+namespace physics { struct CollisionVolume; struct ChildList { CollisionVolume **begin; CollisionVolume **end; }; struct CollisionVolume { char pad[HULK_CV(0x14) - sizeof(void*)]; /* (x64t6) up to the children (decls/physics_world.h) */ ChildList *children; virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(); }; void CollisionVolume::vfunc_9() { if (children) { for (unsigned i = 0; i < (unsigned)(children->end - children->begin); ++i) children->begin[i]->vfunc_9(); } } }
 } // namespace fn_00306450
 
 namespace fn_fecd5d4c {
@@ -261,7 +261,7 @@ void Cls_306490::Run() {
         if (GetId() != 1 && !mOwn->mFlag) {
             int id = m8;
             Res2* r = mOwn->mMgr->Get(id);
-            ((owners::Mat_22c2b0 *)r)->FUN_0022c2b0((float *)mBuf, (float *)(hulk_uintptr)(int)(GetKind()));
+            ((owners::Mat_22c2b0 *)r)->FUN_0022c2b0((float *)mBuf, GetPos());
         }
     } else {
         mDone = 1;
@@ -304,7 +304,7 @@ struct CollisionVolume {
     virtual void vfunc_5();
     virtual void vfunc_6();
     virtual void vfunc_7(void *value);
-    char pad[0x10];
+    char pad[HULK_CV(0x14) - sizeof(void*)];   // (x64t6) the volume's words up to the children (decls/physics_world.h)
     ChildList *children;
     void FUN_00306560(void *value);
 };
@@ -344,9 +344,9 @@ struct List {
 };
 class Node {
   public:
-    char pad[8];
+    char pad[HULK_CV(8)];   // (x64t6) the volume's words (decls/physics_world.h): the id, then up to the children
     int value;
-    char pad2[8];
+    char pad2[HULK_CV(0x14) - HULK_CV(0xc)];
     List* children;
     void Set(int v);
 };
@@ -452,7 +452,7 @@ struct CollisionVolume {
     virtual void vfunc_10();
     virtual void vfunc_11();
     virtual void vfunc_12(CollisionVolume*, void*);
-    char pad[0x15];
+    char pad[HULK_CV(0x19) - sizeof(void*)];   // (x64t6) the volume's words up to c19 (decls/physics_world.h)
     unsigned char dirty;
 };
 }
@@ -484,7 +484,7 @@ namespace fn_fecd5d4c {
 void Owner_306930::FUN_00306930(Item_306930 *item)
 {
     if (items == 0) {
-        ItemVec_306930 *v = (ItemVec_306930 *)FUN_0008d690(0x10);
+        ItemVec_306930 *v = (ItemVec_306930 *)FUN_0008d690(sizeof(ItemVec_306930) + 4);   // (x64t6) 0x10: three pointers and a word
         if (v) {
             v->begin = 0;
             v->end = 0;
@@ -520,7 +520,7 @@ struct Children_3069d0 { Node** begin; Node** end; };
 struct Node {
  virtual void slot0();
  virtual void slot1();
- char pad[16];
+ char pad[HULK_CV(0x14) - sizeof(void*)];   // (x64t6) the volume's words up to the children (decls/physics_world.h)
  Children_3069d0* children;
  bool FUN_003069d0(Node* target);
 };
@@ -589,8 +589,9 @@ CollisionVolume_306ac0::~CollisionVolume_306ac0() throw() {
 } // namespace fn_fecd5d4c
 
 // 0x00306b40 FUN_00306b40 (81 B): equivalent/0x00306b40.cpp [wrapped: conflict: physics::CollisionCylinder]
-// sym: ??0CollisionCylinder@physics@fn_00306b40@@QAE@XZ @7959617f9626 @wd9367356aeb5
+// sym: ??0CollisionCylinder@physics@fn_00306b40@@QAE@XZ @b3d5cc5274a1 @wd68932b1e035
 namespace fn_00306b40 {
+extern "C" char DAT_004313cc[];   // (x64t6) physics::CollisionCylinder's vftable
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00306b40 @ 0x00306b40
 namespace physics {
@@ -598,14 +599,16 @@ struct Triple {
     char data[0x2c];
     void FUN_00306e70();
 };
+// (x64t6) the vftable stored by address (DAT_004313cc; the class's own was a stub natively) and the volume's words
+// pointer-sized where decls/physics_world.h's are (NonCopyable's word, the owner, the children)
 class CollisionCylinder {
 public:
-    virtual void virtual_0_00018b30();
-    unsigned int value04;
+    void* vftable;
+    hulk_uintptr value04;
     int value08;
     int value0c;
-    unsigned int value10;
-    unsigned int value14;
+    hulk_uintptr value10;
+    hulk_uintptr value14;
     unsigned char enabled;
     unsigned char flag;
     char padding1a[2];
@@ -635,6 +638,7 @@ CollisionCylinder::CollisionCylinder() {
     value2c = 0;
     value30 = 0;
     scale = 1.0f;
+    vftable = (void*)DAT_004313cc;
     first.FUN_00306e70();
     second.FUN_00306e70();
 }
@@ -643,20 +647,23 @@ CollisionCylinder::CollisionCylinder() {
 
 
 // 0x00306ba0 FUN_00306ba0 (81 B): equivalent/0x00306ba0.cpp [wrapped: conflict: physics::CollisionOBB]
-// sym: ??0CollisionOBB@physics@fn_00306ba0@@QAE@XZ @1265ab1818d2 @wa4010e3f4b9d
+// sym: ??0CollisionOBB@physics@fn_00306ba0@@QAE@XZ @d648a0421ffd @wdf3f372793c1
 namespace fn_00306ba0 {
+extern "C" char DAT_004317dc[];   // (x64t6) physics::CollisionOBB's vftable
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00306ba0 @ 0x00306ba0
 namespace physics {
 struct Block { void FUN_0030eaa0(); char data[0x40]; };
+// (x64t6) the vftable stored by address (DAT_004317dc; the class's own was a stub natively) and the volume's words
+// pointer-sized where decls/physics_world.h's are (NonCopyable's word, the owner, the children)
 class CollisionOBB {
 public:
-    virtual void virtualMethod_00018b30();
-    int field4;
+    void* vftable;
+    hulk_intptr field4;
     int field8;
     int fieldC;
-    int field10;
-    int field14;
+    hulk_intptr field10;
+    hulk_intptr field14;
     unsigned char field18;
     unsigned char field19;
     char pad1A[2];
@@ -682,6 +689,7 @@ CollisionOBB::CollisionOBB() {
     field2C = 0;
     field30 = 0;
     field34 = 1.0f;
+    vftable = (void*)DAT_004317dc;
     block3C.FUN_0030eaa0();
     block7C.FUN_0030eaa0();
 }
@@ -730,19 +738,19 @@ void* Object::clone() {
  void* memory;
  switch (type()) {
  case 1:
-  memory = FUN_0008d690(HULK_X2_VOLUME(0x44));   // (x64t5) no record yet: twice natively
+  memory = FUN_0008d690(sizeof(HulkCollisionAABB));   // (x64t6) its record (decls/physics_world.h): 0x44 on 32-bit
   if (memory) result = ((CollisionAABB_306c60*)memory)->FUN_00312900();
   break;
  case 2:
-  memory = FUN_0008d690(HULK_X2_VOLUME(0x8c));
+  memory = FUN_0008d690(sizeof(HulkCollisionCylinder));   // (x64t6) its record (decls/physics_world.h): 0x8c on 32-bit
   if (memory) result = ((CollisionCylinder_306c60*)memory)->FUN_00306b40();
   break;
  case 5:
-  memory = FUN_0008d690(HULK_X2_VOLUME(0xbc));
+  memory = FUN_0008d690(sizeof(HulkCollisionOBB));   // (x64t6) its record (decls/physics_world.h): 0xbc on 32-bit
   if (memory) result = ((CollisionOBB_306c60*)memory)->FUN_00306ba0();
   break;
  case 7:
-  memory = FUN_0008d690(HULK_X2_VOLUME(0x48));
+  memory = FUN_0008d690(sizeof(HulkCollisionSphere));   // (x64t6) its record (decls/physics_world.h): 0x48 on 32-bit
   if (memory) result = ((CollisionSphere_306c60*)memory)->FUN_00306c00();
   break;
  case 8:

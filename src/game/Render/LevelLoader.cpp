@@ -14,6 +14,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CCollisionAction
 namespace fn_f9d12736 {} using namespace fn_f9d12736;
+namespace fn_f9d12736 { extern "C" char DAT_00421a84[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/Render.h"
 
 // ---- declarations shared by the functions below
@@ -892,7 +893,7 @@ void World_1c86e0::f() {
         *p = 0;
     } while (--n);
     Store* s = &h.st;
-    s->vptr = g_s;
+    s->vptr = (void**)DAT_00421a84;
     ((Render::StoreBase *)s)->FUN_001c7720();
     s->Fin2_001c7500();
     hp->Fin_0027af50();

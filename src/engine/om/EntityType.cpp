@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f7032cca {
 #define TREE_TU_END }
 namespace fn_f7032cca {} using namespace fn_f7032cca;
+namespace fn_f7032cca { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/om.h"
 
 // ---- declarations shared by the functions below
@@ -2046,7 +2047,7 @@ void Entity_244f70::Dtor() throw() {
     vf = hulk_at_00429158;
     FUN_00244b20(g, this);
     DAT_004e5f0c = DAT_004e5f0c - 1;
-    vf = vIRef;
+    vf = (void**)DAT_003f6098;
 }
 
 

@@ -14,6 +14,7 @@
 #define TREE_TU_BEGIN namespace fn_f49dcb8d {
 #define TREE_TU_END }
 namespace fn_f49dcb8d {} using namespace fn_f49dcb8d;
+namespace fn_f49dcb8d { extern "C" char DAT_00425b20[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -2531,7 +2532,7 @@ class CMemoryPool_206c10 : public CTrack {
 void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CMemoryPool_206c10* CMemoryPool_206c10::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
+    *(void***)this = (void**)DAT_00425b20;
     Destroy_00204ea0();
     if (flags & 1) {
         SweepTrack_DeleteThis_0008d330(this);

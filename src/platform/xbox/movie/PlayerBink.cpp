@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f1126c37 {} using namespace fn_f1126c37;
+namespace fn_f1126c37 { extern "C" char DAT_003f6098[], DAT_0043406c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "platform/xbox/movie.h"
 
 // ---- declarations shared by the functions below
@@ -433,7 +434,7 @@ Item_333bf0* Holder_333bf0::Set(Item_333bf0* item) {
 // sym: ?f2@NonCopyable_333c30@pure3d@fn_f1126c37@@UAEPAV123@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable_333c30* pure3d::NonCopyable_333c30::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -656,7 +657,7 @@ extern "C" void FUN_00333ef0() {
 // 0x00333f10 FUN_00333f10 (96 B): matches/0x00333f10.cpp
 // sym: ??0PlayerBink_333f10@fn_f1126c37@@QAE@XZ
 PlayerBink_333f10::PlayerBink_333f10() throw() {
-    *(void* volatile*)&p0 = v0;
+    *(void* volatile*)&p0 = (void**)DAT_0043406c;
     *(void* volatile*)&p1 = v1_333f10;
     id = DAT_004cdbb0;
     FUN_002705f0();

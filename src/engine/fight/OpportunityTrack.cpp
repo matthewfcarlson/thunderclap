@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f6c81acf {
 #define TREE_TU_END }
 namespace fn_f6c81acf {} using namespace fn_f6c81acf;
+namespace fn_f6c81acf { extern "C" char DAT_00427ff0[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -614,7 +615,7 @@ namespace fn_f6c81acf {
 // 0x00237330 FUN_00237330 (33 B): matches/0x00237330.cpp
 // sym: ??1OpportunityTrack_237330@fn_f6c81acf@@QAE@XZ
 OpportunityTrack_237330::~OpportunityTrack_237330() throw() {
-    vptr = g_vA;
+    vptr = (void**)DAT_00427ff0;
     a.Fin_00236fd0();
     b.Fin_00234150();
     Fin_00236d60();

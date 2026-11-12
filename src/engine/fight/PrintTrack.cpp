@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_fbe81dc2 {
 #define TREE_TU_END }
 namespace fn_fbe81dc2 {} using namespace fn_fbe81dc2;
+namespace fn_fbe81dc2 { extern "C" char DAT_00428330[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -550,7 +551,7 @@ PrintAction_238d20* PrintAction_238d20::Build(int a, Obj_238d20* p) {
 // 0x00238d70 FUN_00238d70 (36 B): matches/0x00238d70.cpp
 // sym: ??1PrintAction_238d70@fn_fbe81dc2@@QAE@XZ
 PrintAction_238d70::~PrintAction_238d70() throw() {
-    vptr = g_vA;
+    vptr = (void**)DAT_00428330;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

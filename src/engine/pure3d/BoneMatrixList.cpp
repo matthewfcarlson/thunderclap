@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fa9c7cf4 {} using namespace fn_fa9c7cf4;
+namespace fn_fa9c7cf4 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -195,7 +196,7 @@ BoneMatrixList_2e18e0* BoneMatrixList_2e18e0::f2(unsigned char flags) {
     _ReadWriteBarrier();
     if (m8)
         operator delete[](m8);
-    vptr = g_base_vftable;
+    vptr = (void**)DAT_003f6098;
     if (flags & 1)
         operator delete(this);
     return this;

@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f484c341 {} using namespace fn_f484c341;
+namespace fn_f484c341 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/core.h"
 
 // ---- declarations shared by the functions below
@@ -719,7 +720,7 @@ void Drive_272840::Dtor() throw() {
     unsigned t = p8;
     (*(unsigned*)&DAT_004cdbb0) = t;
     v4 = vBase;
-    v0 = vIRef;
+    v0 = (void**)DAT_003f6098;
 }
 
 

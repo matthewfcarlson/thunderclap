@@ -13,6 +13,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f07ae39e {} using namespace fn_f07ae39e;
+namespace fn_f07ae39e { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -945,7 +946,7 @@ class NonCopyable : public NonCopyable_2aa620 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1093,7 +1094,7 @@ class NonCopyable : public ParticleGeneratorHandler_2aae60 {
 } // namespace pure3d
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_003f6098;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -1567,7 +1568,7 @@ OldParticleSystemLoader_2ab830* OldParticleSystemLoader_2ab830::f2(unsigned char
         m18->f1();
         m18 = 0;
     }
-    vptr = g_base_vftable;
+    vptr = (void**)DAT_003f6098;
     if (flags & 1)
         operator delete(this);
     return this;

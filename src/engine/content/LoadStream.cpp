@@ -340,7 +340,7 @@ class Owner {
   public:
     void Run(Obj* o, hulk_intptr n);
 };
-extern "C" unsigned __int64 __cdecl Calc_00267340(int n, int a, int b);
+extern "C" unsigned __int64 __cdecl Calc_00267340(const char* text, int a, int b);   // (x64t6) the name hashed (0x00267340's `text`; was an `int`)
 struct Item_265280 {
     virtual void unused();
     virtual void release();
@@ -1154,7 +1154,7 @@ namespace fn_fa1126e6 {
 // 0x00265240 FUN_00265240 (57 B): matches/0x00265240.cpp
 // sym: ?Run@Owner@fn_fa1126e6@@QAEXPAVObj@2@H@Z
 void Owner::Run(Obj* o, hulk_intptr n) {
-    unsigned __int64 v = Calc_00267340(n, 0, 0);
+    unsigned __int64 v = Calc_00267340((const char*)n, 0, 0);
     Worker* w = worker;
     o->Fn();
     w->Do_00231590((unsigned)v, (unsigned)(v >> 32), o);

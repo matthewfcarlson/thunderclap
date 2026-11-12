@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f59a9783 {} using namespace fn_f59a9783;
+namespace fn_f59a9783 { extern "C" char DAT_0042b85c[], DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/core.h"
 
 // ---- declarations shared by the functions below
@@ -491,7 +492,7 @@ XboxDrive* MakeXboxDrive() {
 // sym: ?f2@NonCopyable@pure3d@fn_f59a9783@@UAEPAV123@E@Z
 // Same code shape as 0x00045800 (propagated; names are from that function)
 pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
-    *(void**)this = refcount_vftable;
+    *(void**)this = (void**)DAT_0042b85c;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
@@ -566,7 +567,7 @@ Drive_272d90* Drive_272d90::Dtor(unsigned char flag) throw() {
     unsigned t = p8;
     (*(unsigned*)&DAT_004cdbb0) = t;
     v4 = vBase;
-    v0 = vIRef;
+    v0 = (void**)DAT_003f6098;
     if (flag & 1)
         FUN_00266f00((*(unsigned*)&DAT_004cdbb0), this);
     return this;

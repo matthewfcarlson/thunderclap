@@ -11,6 +11,7 @@
 #define TREE_TU_BEGIN namespace fn_f6720d1b {
 #define TREE_TU_END }
 namespace fn_f6720d1b {} using namespace fn_f6720d1b;
+namespace fn_f6720d1b { extern "C" char DAT_00423f20[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/audio.h"
 // (ren2) fclose's own name (CRT, C linkage)
 extern "C" __declspec(nothrow) int __cdecl fclose(void*);
@@ -1099,7 +1100,7 @@ ContentStream_246a90::~ContentStream_246a90() throw() {
     Ref_246a90* r = m;
     vptr = g_vt_246a90;
     r->Release();
-    vptr = g_vt2;
+    vptr = (void**)DAT_00423f20;
 }
 
 

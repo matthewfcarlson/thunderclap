@@ -2,6 +2,7 @@
 // object 0x002f2e70..0x002f32b0 (kind game, layer engine, confidence high), dominant class physics::CollisionCylinder
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 #include "gen/physics.h"
@@ -185,15 +186,16 @@ namespace physics {
 struct CallbackResult { void FUN_0022c3b0(void*, void*); };
 struct Callback {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3();
- virtual CallbackResult* vfunc_4(void*);
+ virtual CallbackResult* vfunc_4(hulk_intptr);   // (x64t6) the id (was void*: natively 8 bytes over the id and the next word)
 };
-struct Owner { char pad[0x18]; Callback* callback; };
+struct Owner { char pad[HULK_CO_OWNER]; Callback* callback; };   // (x64t6) the CollisionObject's owner (decls/physics_world.h)
 struct CollisionCylinder {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3();
  virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7();
  virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11();
  virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14();
- char pad04[4]; void* field08; char pad0c[4]; Owner* owner; char pad14[5]; unsigned char dirty; char pad1a[0x2a]; char position[0x2c]; char pad70[4];
+ // (x64t6) the volume's words by decls/physics_world.h (HULK_CV): the id an int, the owner at 0x10, c19 at 0x19
+ char pad04[HULK_CV(8) - sizeof(void*)]; int field08; char pad0c[HULK_CV(0x10) - HULK_CV(0xc)]; Owner* owner; char pad14[HULK_CV(0x19) - HULK_CV(0x14)]; unsigned char dirty; char pad1a[HULK_CV(0x44) - HULK_CV(0x1a)]; char position[0x2c]; char pad70[4];
 };
 void CollisionCylinder::vfunc_13() {
  dirty = 1;

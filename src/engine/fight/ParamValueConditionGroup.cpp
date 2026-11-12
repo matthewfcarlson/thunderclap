@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fb539295 {} using namespace fn_fb539295;
+namespace fn_fb539295 { extern "C" char DAT_00427c88[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -62,7 +63,7 @@ class ParamValueConditionGroup_235270 {
 ParamValueConditionGroup_235220::ParamValueConditionGroup_235220(hulk_intptr a) throw() {
     vptr = hulk_at_004279fc;
     sub.Init_0027b0e0(a);
-    vptr = g_vt2;
+    vptr = (void**)DAT_00427c88;
 }
 
 

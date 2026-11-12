@@ -12,6 +12,7 @@
 #define TREE_TU_BEGIN namespace fn_fa3ff49b {
 #define TREE_TU_END }
 namespace fn_fa3ff49b {} using namespace fn_fa3ff49b;
+namespace fn_fa3ff49b { extern "C" char DAT_003fb104[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -3623,7 +3624,7 @@ class CSmartPropDropTrack : public CTrack {
 void __cdecl SweepTrack_DeleteThis_0008d330(void* p); // thunk_FUN_00267090
 
 CSmartPropDropTrack* CSmartPropDropTrack::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
+    *(void***)this = (void**)DAT_003fb104;
     Destroy_00068c70();
     if (flags & 1) {
         SweepTrack_DeleteThis_0008d330(this);
