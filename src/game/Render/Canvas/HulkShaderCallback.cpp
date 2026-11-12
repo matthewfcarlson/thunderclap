@@ -2756,17 +2756,18 @@ class Obj {
     Obj* Init_001c34c0() throw();
     char pad[0x7c];
 };
-Obj* gObj;
+// (dg1) the singleton's pointer is the game's item DAT_004e231c (records.h: pointer-sized), not a local stand-in that
+// only the Wine link bound to it by address (the replay hooks read the item)
 extern "C" Obj* FUN_001c3d90() {
-    if (!gObj) {
+    if (!(*(Obj**)&DAT_004e231c)) {
         Obj* p = (Obj*)operator new(sizeof(Obj));
         if (p) {
-            gObj = p->Init_001c34c0();
-            return gObj;
+            (*(Obj**)&DAT_004e231c) = p->Init_001c34c0();
+            return (*(Obj**)&DAT_004e231c);
         }
-        gObj = 0;
+        (*(Obj**)&DAT_004e231c) = 0;
     }
-    return gObj;
+    return (*(Obj**)&DAT_004e231c);
 }
 } // namespace fn_001c3d90
 

@@ -517,10 +517,11 @@ int* C_b0850::Get(int x, int y, int z) {
 // 0x000b08a0 FUN_000b08a0 (49 B): matches/0x000b08a0.cpp
 // sym: _FUN_000b08a0
 // data: gBases = DAT_004ddb14, gCounts = DAT_004ddb10
+// (dg1) the lists by records.h's ControllerNameList (was 32-bit word offsets)
 extern "C" {
 void* FUN_000b08a0(int index, int item) {
-    if (index >= 0 && index < 11 && item >= 0 && item < ((int*)&DAT_004ddb10)[index * 2])
-        return (char*)((int*)((char*)&DAT_004ddb10 + 4))[index * 2] + item * 32;
+    if (index >= 0 && index < 11 && item >= 0 && item < DAT_004ddb10[index].count)
+        return DAT_004ddb10[index].data + item * 32;
     return (void*)((hulk_intptr)((char*)&DAT_003f335c));
 }
 }

@@ -2063,7 +2063,7 @@ extern "C" const unsigned int DAT_004519f0[1];  // zero_004519f0
 extern "C" const unsigned int DAT_00451a3c[1];  // zero_00451a3c
 extern "C" const unsigned int DAT_00451a80[1];  // zero_00451a80
 extern "C" float DAT_0049f218[4];  // fltTbl_0049f218
-extern "C" unsigned char DAT_004dda48[8];
+// DAT_004dda48: typed by decls/data/records.h (included above)
 
 // unknown/unk_0b45a0.cpp
 extern "C" const char DAT_0040771c[24];  // s_enemy_render_selecto_0040771c
@@ -2595,7 +2595,7 @@ extern "C" unsigned int DAT_004e11d8;
 extern "C" unsigned int DAT_004e11dc;
 extern "C" unsigned char DAT_004e11e0[4];
 extern "C" int DAT_004e11e4;
-extern "C" unsigned char DAT_004e11e8[4];
+// DAT_004e11e8: typed by decls/data/records.h (included above)
 extern "C" unsigned char DAT_004e11ec[4];
 extern "C" unsigned char DAT_004e11f0[4];
 extern "C" int DAT_004e11f4;

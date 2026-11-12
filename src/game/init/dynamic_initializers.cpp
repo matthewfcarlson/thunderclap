@@ -2374,14 +2374,14 @@ extern "C++" __declspec(nothrow) void __cdecl FUN_00363d10();
 struct Pair {
     int a, b;
 };
-volatile Pair g[11];
+// (dg1) the lists by records.h's ControllerNameList (the game's item, not a local stand-in; 16-byte entries on 64-bit)
 void init() {
-    volatile Pair* p = g;
+    volatile ControllerNameList* p = DAT_004ddb10;
     int n = 11;
     int z = 0;
     do {
-        p->a = z;
-        p->b = z;
+        p->count = z;
+        p->data = (char*)(hulk_intptr)z;
         ++p;
     } while (--n);
     atexit(FUN_00363d10);
@@ -2394,10 +2394,10 @@ namespace fn_f1ddef39 {
 // sym: ?FUN_0035d2d0@fn_f1ddef39@@YAXXZ
 // data: items = DAT_004ddb68 (two rows of six 8-byte objects built by 0x000b06e0)
 void __cdecl FUN_0035d2d0() {
-    Obj_b06e0* p = (Obj_b06e0*)DAT_004ddb68;
+    ControllerNameList* p = DAT_004ddb68;     // (dg1) the records (16 bytes on 64-bit)
     int n = 2;
     do {
-        FUN_00011520(p, 8, 6, FUN_000b06e0);
+        FUN_00011520(p, sizeof(ControllerNameList), 6, FUN_000b06e0);
         p += 6;
     } while (--n);
     atexit(FUN_00363dc0);
@@ -2417,13 +2417,13 @@ extern "C" void __cdecl FUN_00363d50();
 struct Pair {
     int a, b;
 };
-Pair values[13];
+// (dg1) the lists by records.h's ControllerNameList (the game's item, not a local stand-in; 16-byte entries on 64-bit)
 void init() {
-    Pair* p = values;
+    ControllerNameList* p = DAT_004dda48;
     int n = 13;
     do {
-        p->a = 0;
-        p->b = 0;
+        p->count = 0;
+        p->data = 0;
         ++p;
     } while (--n);
     atexit(FUN_00363d50);
@@ -2436,10 +2436,10 @@ namespace fn_f1ddef39 {
 // sym: ?FUN_0035d340@fn_f1ddef39@@YAXXZ
 // data: items = DAT_004ddab0 (two rows of six 8-byte objects built by 0x000b06e0); cleanup = 0x00363d90 (an atexit handler: its invented name stays, see docs/native-build.md "Start-up stops 67 to 216")
 void FUN_0035d340() {
-    Obj_b06e0* p = (Obj_b06e0*)DAT_004ddab0;
+    ControllerNameList* p = DAT_004ddab0;     // (dg1) the records (16 bytes on 64-bit)
     int n = 2;
     do {
-        FUN_00011520(p, 8, 6, FUN_000b06e0);
+        FUN_00011520(p, sizeof(ControllerNameList), 6, FUN_000b06e0);
         p += 6;
     } while (--n);
     atexit(cleanup);
@@ -9400,15 +9400,16 @@ extern "C" void FUN_00363d00() {
 
 // 0x00363d10 FUN_00363d10 (54 B): matches/0x00363d10.cpp
 // sym: _FUN_00363d10
+// (dg1) records.h's ControllerNameList array, not `hulk_at_004ddb10` (an address name only the Wine link bound)
 extern "C" void FUN_00363d10() {
-    Item* it = hulk_at_004ddb10 + 11;
+    ControllerNameList* it = DAT_004ddb10 + 11;
     int n = 11;
     do {
         --it;
-        if (it->p) {
-            release(it->p);
-            it->a = 0;
-            it->p = 0;
+        if (it->data) {
+            release(it->data);
+            it->count = 0;
+            it->data = 0;
         }
     } while (--n);
 }
@@ -9423,16 +9424,17 @@ extern "C++" __declspec(nothrow) void __cdecl freeItem_0008d330(void*);
 struct Pair {
     int a, b;
 };
+// (dg1) the 0x004dda48 lists by records.h's ControllerNameList (was a pair view over the data words)
 void FUN_00363d50() {
-    Pair* p = ((Pair*)((char*)&DAT_004ddab0 + 4));
+    ControllerNameList* p = DAT_004dda48 + 13;
     int n = 13;
     do {
         --p;
-        hulk_intptr v = p[0].a;
+        char* v = p->data;
         if (v) {
-            freeItem_0008d330((void*)v);
-            p[-1].b = 0;
-            p[0].a = 0;
+            freeItem_0008d330(v);
+            p->count = 0;
+            p->data = 0;
         }
     } while (--n);
 }
@@ -9442,12 +9444,13 @@ namespace fn_f1ddef39 {
 
 // 0x00363d90 FUN_00363d90 (40 B): matches/0x00363d90.cpp
 // sym: ?FUN_00363d90@fn_f1ddef39@@YAXXZ
+// (dg1) the 0x004ddab0 lists by records.h's ControllerNameList (rows of six; was byte offsets)
 void FUN_00363d90() {
-    char* p = (char*)((hulk_intptr)((char*)&DAT_004ddb10));
+    ControllerNameList* p = DAT_004ddab0 + 12;
     int i = 2;
     do {
-        p -= 0x30;
-        FUN_00013420(p, 8, 6, (void*)((hulk_intptr)(void (__cdecl*)())&FUN_000b0ff0));
+        p -= 6;
+        FUN_00013420(p, sizeof(ControllerNameList), 6, (void*)((hulk_intptr)(void (__cdecl*)())&FUN_000b0ff0));
         --i;
     } while (i);
 }
@@ -9460,11 +9463,12 @@ namespace fn_00363dc0 {
 
 extern "C" void __cdecl FUN_000b0ff0();
 extern void __stdcall FUN_00013420(void*, int, int, void*);
+// (dg1) the 0x004ddb68 lists by records.h's ControllerNameList (rows of six; was byte offsets from the next item)
 void target() {
-    char* p = (char*)((hulk_intptr)DAT_004ddbc8);
+    ControllerNameList* p = DAT_004ddb68 + 12;
     int i = 2;
     do {
-        FUN_00013420(p, ((p -= 0x30), 8), 6, (void*)((hulk_intptr)(void (__cdecl*)())&FUN_000b0ff0));
+        FUN_00013420(p, ((p -= 6), (int)sizeof(ControllerNameList)), 6, (void*)((hulk_intptr)(void (__cdecl*)())&FUN_000b0ff0));
     } while (--i);
 }
 } // namespace fn_00363dc0

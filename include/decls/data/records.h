@@ -1675,4 +1675,24 @@ extern "C" StringRecord_23fc40 DAT_004dd260[1];
 extern "C" StringRecord_23fc40 DAT_004dd6f4[1];
 extern "C" StringRecord_23fc40 DAT_004de608[1];
 
+// (dg1) The controller's name lists (0x000b10d0 fills them: a count and a block of `count` 32-byte names that
+// 0x000b1020 allocates): four arrays, 0x004dda48 [13], 0x004ddab0 [2][2][3], 0x004ddb10 [11] and 0x004ddb68 [2][2][3].
+// The start-up zeroes or constructs them (0x0035d310, 0x0035d340, 0x0035d2a0, 0x0035d2d0) and its atexit handlers
+// free them (0x00363d50, 0x00363d90, 0x00363d10, 0x00363dc0). 8 bytes on the 32-bit builds, 16 on 64-bit.
+struct ControllerNameList {
+    int count;
+    char* data;
+};
+
+extern "C" ControllerNameList DAT_004dda48[13];
+extern "C" ControllerNameList DAT_004ddab0[12];
+extern "C" ControllerNameList DAT_004ddb10[11];
+extern "C" ControllerNameList DAT_004ddb68[12];
+
+// (dg1) Words that hold pointers at run time: the logic view singleton HulkShaderCallback's 0x001c3d90 creates (the
+// replay hooks read it), and RayCastCondition_3's registered parameter list (0x0016afa0 adds to it, 0x00165b10 frees
+// it with its count, DAT_004e11ec).
+extern "C" void* DAT_004e231c;
+extern "C" void* DAT_004e11e8;
+
 #endif

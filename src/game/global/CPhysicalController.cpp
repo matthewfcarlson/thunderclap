@@ -206,62 +206,62 @@ extern char* __cdecl FUN_00267830(char*, const char*, unsigned);
         g.FUN_000b1020(1);                                                                                   \
     FUN_00267830(g.data, s, 32)
 void __cdecl FUN_000b10d0() {
-    SET((*(Names*)&DAT_004ddb10), "A");
-    SET((*(Names*)&DAT_004ddb18), "B");
-    SET((*(Names*)&DAT_004ddb20), "X");
-    SET((*(Names*)&DAT_004ddb28), "Y");
-    SET((*(Names*)&DAT_004ddb30), "Start");
-    SET((*(Names*)&DAT_004ddb38), "Back");
-    SET((*(Names*)&DAT_004ddb40), "Back");
-    SET((*(Names*)&DAT_004ddb48), "LeftTrigger");
-    SET((*(Names*)&DAT_004ddb50), "RightTrigger");
-    SET((*(Names*)&DAT_004ddb58), "Black");
-    SET((*(Names*)&DAT_004ddb60), "White");
-    SET((*(Names*)&DAT_004ddb68), "LeftStickX");
-    SET((*(Names*)&DAT_004ddb70), "DPadRight");
-    SET((*(Names*)&DAT_004ddb78), "DPadLeft");
-    SET((*(Names*)&DAT_004ddb80), "LeftStickY");
-    SET((*(Names*)&DAT_004ddb88), "DPadUp");
-    SET((*(Names*)&DAT_004ddb90), "DPadDown");
-    SET((*(Names*)&DAT_004ddb98), "RightStickX");
-    SET((*(Names*)&DAT_004ddba0), "");
-    SET((*(Names*)&DAT_004ddba8), "");
-    SET((*(Names*)&DAT_004ddbb0), "RightStickY");
-    SET((*(Names*)&DAT_004ddbb8), "");
-    SET((*(Names*)&DAT_004ddbc0), "");
-    SET((*(Names*)&DAT_004dda48), "X");
-    SET((*(Names*)&DAT_004dda50), "Y");
-    SET((*(Names*)&DAT_004dda58), "B");
-    SET((*(Names*)&DAT_004dda60), "A");
-    (*(Names*)&DAT_004dda68).FUN_000b1020(2);
-    SET((*(Names*)&DAT_004dda68), "Black");
-    if ((*(Names*)&DAT_004dda68).count <= 0)
-        (*(Names*)&DAT_004dda68).FUN_000b1020(1);
-    FUN_00267830((*(Names*)&DAT_004dda68).data + 32, "White", 32);
-    SET((*(Names*)&DAT_004dda70), "RightTrigger");
-    SET((*(Names*)&DAT_004dda78), "LeftTrigger");
-    SET((*(Names*)&DAT_004dda80), "Start");
-    SET((*(Names*)&DAT_004dda88), "Back");
-    SET((*(Names*)&DAT_004dda90), "LeftThumb");
-    SET((*(Names*)&DAT_004dda98), "RightThumb");
-    SET((*(Names*)&DAT_004ddaa0), "LeftJoystick");
-    SET((*(Names*)&DAT_004ddaa8), "RightJoystick");
-    SET((*(Names*)&DAT_004ddab0), "LeftStickX");
+    SET((*(Names*)&DAT_004ddb10[0]), "A");
+    SET((*(Names*)&DAT_004ddb10[1]), "B");
+    SET((*(Names*)&DAT_004ddb10[2]), "X");
+    SET((*(Names*)&DAT_004ddb10[3]), "Y");
+    SET((*(Names*)&DAT_004ddb10[4]), "Start");
+    SET((*(Names*)&DAT_004ddb10[5]), "Back");
+    SET((*(Names*)&DAT_004ddb10[6]), "Back");
+    SET((*(Names*)&DAT_004ddb10[7]), "LeftTrigger");
+    SET((*(Names*)&DAT_004ddb10[8]), "RightTrigger");
+    SET((*(Names*)&DAT_004ddb10[9]), "Black");
+    SET((*(Names*)&DAT_004ddb10[10]), "White");
+    SET((*(Names*)&DAT_004ddb68[0]), "LeftStickX");
+    SET((*(Names*)&DAT_004ddb68[1]), "DPadRight");
+    SET((*(Names*)&DAT_004ddb68[2]), "DPadLeft");
+    SET((*(Names*)&DAT_004ddb68[3]), "LeftStickY");
+    SET((*(Names*)&DAT_004ddb68[4]), "DPadUp");
+    SET((*(Names*)&DAT_004ddb68[5]), "DPadDown");
+    SET((*(Names*)&DAT_004ddb68[6]), "RightStickX");
+    SET((*(Names*)&DAT_004ddb68[7]), "");
+    SET((*(Names*)&DAT_004ddb68[8]), "");
+    SET((*(Names*)&DAT_004ddb68[9]), "RightStickY");
+    SET((*(Names*)&DAT_004ddb68[10]), "");
+    SET((*(Names*)&DAT_004ddb68[11]), "");
+    SET((*(Names*)&DAT_004dda48[0]), "X");
+    SET((*(Names*)&DAT_004dda48[1]), "Y");
+    SET((*(Names*)&DAT_004dda48[2]), "B");
+    SET((*(Names*)&DAT_004dda48[3]), "A");
+    (*(Names*)&DAT_004dda48[4]).FUN_000b1020(2);
+    SET((*(Names*)&DAT_004dda48[4]), "Black");
+    if ((*(Names*)&DAT_004dda48[4]).count <= 0)
+        (*(Names*)&DAT_004dda48[4]).FUN_000b1020(1);
+    FUN_00267830((*(Names*)&DAT_004dda48[4]).data + 32, "White", 32);
+    SET((*(Names*)&DAT_004dda48[5]), "RightTrigger");
+    SET((*(Names*)&DAT_004dda48[6]), "LeftTrigger");
+    SET((*(Names*)&DAT_004dda48[7]), "Start");
+    SET((*(Names*)&DAT_004dda48[8]), "Back");
+    SET((*(Names*)&DAT_004dda48[9]), "LeftThumb");
+    SET((*(Names*)&DAT_004dda48[10]), "RightThumb");
+    SET((*(Names*)&DAT_004dda48[11]), "LeftJoystick");
+    SET((*(Names*)&DAT_004dda48[12]), "RightJoystick");
+    SET((*(Names*)&DAT_004ddab0[0]), "LeftStickX");
     if (!DAT_0049caae) {
-        SET((*(Names*)&DAT_004ddab8), "DPadRight");
-        SET((*(Names*)&DAT_004ddac0), "DPadLeft");
+        SET((*(Names*)&DAT_004ddab0[1]), "DPadRight");
+        SET((*(Names*)&DAT_004ddab0[2]), "DPadLeft");
     }
-    SET((*(Names*)&DAT_004ddac8), "LeftStickY");
+    SET((*(Names*)&DAT_004ddab0[3]), "LeftStickY");
     if (!DAT_0049caae) {
-        SET((*(Names*)&DAT_004ddad0), "DPadUp");
-        SET((*(Names*)&DAT_004ddad8), "DPadDown");
+        SET((*(Names*)&DAT_004ddab0[4]), "DPadUp");
+        SET((*(Names*)&DAT_004ddab0[5]), "DPadDown");
     }
-    SET((*(Names*)&DAT_004ddae0), "RightStickX");
-    SET((*(Names*)&DAT_004ddae8), "");
-    SET((*(Names*)&DAT_004ddaf0), "");
-    SET((*(Names*)&DAT_004ddaf8), "RightStickY");
-    SET((*(Names*)&DAT_004ddb00), "");
-    SET((*(Names*)&DAT_004ddb08), "");
+    SET((*(Names*)&DAT_004ddab0[6]), "RightStickX");
+    SET((*(Names*)&DAT_004ddab0[7]), "");
+    SET((*(Names*)&DAT_004ddab0[8]), "");
+    SET((*(Names*)&DAT_004ddab0[9]), "RightStickY");
+    SET((*(Names*)&DAT_004ddab0[10]), "");
+    SET((*(Names*)&DAT_004ddab0[11]), "");
 }
 } // namespace fn_000b10d0
 #undef SET

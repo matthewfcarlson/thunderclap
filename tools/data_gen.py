@@ -5,6 +5,7 @@
   build/venv/bin/python tools/data_gen.py --gen-only      # just write the TUs and the include/decls/data/ headers
   build/venv/bin/python tools/data_gen.py --only global/CAction.cpp   # one object
   build/venv/bin/python tools/data_gen.py --jobs 4        # compiler processes (default 4; the box is shared)
+  build/venv/bin/python tools/data_gen.py --merge-records  # config/data.json: one item per initialized typed record
 
 Output:
   build/data/src/<layer>/<dir>/<File>.data.cpp   one data TU per owning object (contains the game's bytes: untracked)
@@ -148,8 +149,71 @@ def typed_items():
         text = open(TYPED_H, encoding="latin1").read()
     except OSError:
         return out
-    for m in re.finditer(r'^extern\s+"C"\s+(\w+)\s+(DAT_[0-9a-f]{8})\s*(\[\d+\])?\s*;', text, re.M):
-        out[m.group(2)] = "%s %s%s" % (m.group(1), m.group(2), m.group(3) or "")
+    # (dg1) also a plain pointer item (`extern "C" void* DAT_004e11e8;`): a word that holds a pointer at run time
+    for m in re.finditer(r'^extern\s+"C"\s+(\w+(?:\s*\*)?)\s*(DAT_[0-9a-f]{8})\s*(\[\d+\])?\s*;', text, re.M):
+        out[m.group(2)] = "%s %s%s" % (re.sub(r"\s+", "", m.group(1)), m.group(2), m.group(3) or "")
+    return out
+
+
+# (dg1) initialized (.data / .rdata) typed records. records.h's record for such an item spells its fields with the
+# simple types below, so data_gen can lay the record out (the 32-bit offsets: natural alignment, 4-byte pointers) and
+# write the item's initializer from the XBE's bytes. One item spans the whole record array: `--merge-records` makes
+# config/data.json's item at that address cover it (the inventory had split it where code names its words).
+FIELD_TYPES = {"char": ("int", 1, "char"), "signed char": ("int", 1, "char"), "unsigned char": ("int", 1, "unsigned"),
+               "short": ("int", 2, "short"), "unsigned short": ("int", 2, "unsigned"), "int": ("int", 4, "int"),
+               "unsigned int": ("int", 4, "unsigned"), "unsigned": ("int", 4, "unsigned"), "float": ("float", 4, "float")}
+
+
+def record_fields(name, text=None):
+    """[(offset, field, spelling, kind, size, count)] of records.h's `struct name` on the 32-bit builds, in
+    TUWriter.rec_init's form, and its 32-bit size; None if a field is not one of the simple types (FIELD_TYPES,
+    `void (*f)()` code pointers, `T*` data pointers)."""
+    if text is None:
+        try:
+            text = open(TYPED_H, encoding="latin1").read()
+        except OSError:
+            return None
+    m = re.search(r"^struct\s+%s\s*\{(.*?)^\};" % re.escape(name), text, re.M | re.S)
+    if not m:
+        return None
+    fields, off, align = [], 0, 1
+    for line in m.group(1).splitlines():
+        line = re.sub(r"//.*", "", line).strip()
+        if not line:
+            continue
+        f = re.fullmatch(r"void\s*\(\s*\*\s*(\w+)\s*\)\s*\(\s*(?:void)?\s*\)\s*;", line)
+        if f:
+            kind, size, spell, fname, count = "code", 4, "code", f.group(1), 1
+        else:
+            f = re.fullmatch(r"((?:const\s+)?[\w ]+?)\s*(\*?)\s*(\w+)\s*(?:\[(\d+)\])?\s*;", line)
+            if not f:
+                return None
+            t, star, fname, count = f.group(1).strip(), f.group(2), f.group(3), int(f.group(4) or 1)
+            if star:
+                kind, size, spell = "pointer", 4, "pointer"
+            elif t in FIELD_TYPES:
+                kind, size, spell = FIELD_TYPES[t]
+            else:
+                return None
+        off = (off + size - 1) // size * size
+        fields.append((off, fname, spell, kind, size, count))
+        off += size * count
+        align = max(align, size)
+    return fields, (off + align - 1) // align * align
+
+
+def typed_data_records():
+    """{item name: (record type, count, 32-bit record size, fields)} of records.h's items with an array count whose
+    record data_gen can lay out (record_fields): the candidates for initialized typed records."""
+    try:
+        text = open(TYPED_H, encoding="latin1").read()
+    except OSError:
+        return {}
+    out = {}
+    for m in re.finditer(r'^extern\s+"C"\s+(\w+)\s+(DAT_[0-9a-f]{8})\s*\[(\d+)\]\s*;', text, re.M):
+        r = record_fields(m.group(1), text)
+        if r is not None:
+            out[m.group(2)] = (m.group(1), int(m.group(3)), r[1], r[0])
     return out
 
 
@@ -341,12 +405,39 @@ class TUWriter:
     def item(self, it):
         if it["cname"] in self.typed:
             if it["section"] != ".bss":
-                return None, None, "typed item not in .bss"
+                return self.typed_data_item(it)
             return self.typed[it["cname"]], None, "typed record"
         r = self.record_item(it)
         if r is not None:
             return r
         return self.item_plain(it)
+
+    def typed_data_item(self, it):
+        """(dg1) An initialized item records.h types (typed_data_records): its declaration and the initializer of
+        each record from the XBE's bytes (pointer fields as pointers, as record_item writes them)."""
+        rec = typed_data_records().get(it["cname"])
+        if rec is None:
+            return None, None, "typed item not in .bss"
+        rname, count, size32, fields = rec
+        if count * size32 != it["size"]:
+            return None, None, "typed record size %d != item %d (tools/data_gen.py --merge-records)" % (
+                count * size32, it["size"])
+        b = self.m.raw(it)
+        ptr_at = {}
+        for i in range(0, it["size"] - 3, 4):
+            w = struct.unpack_from("<I", b, i)[0]
+            if w and it["addr"] + i in self.ptr_words and self.m.target(w) is not None:
+                ptr_at[i] = w
+        snap = (set(self.ext_data), set(self.ext_func))
+        elems = []
+        for k in range(count):
+            x = self.rec_init(fields, b, k * size32, ptr_at)
+            if x is None:
+                self.ext_data, self.ext_func = snap
+                return None, None, "typed record: a pointer field holds a non-pointer"
+            elems.append(x)
+        return (("const " if it["section"] == ".rdata" else "") + self.typed[it["cname"]],
+                "{ %s }" % ", ".join(elems), "typed record")
 
     def item_plain(self, it):
         m = self.m
@@ -674,7 +765,10 @@ class TUWriter:
             if form == "typed record":
                 # include/decls/data/records.h's declaration (the sources' record type); its 32-bit size is the XBE's
                 self.typed_used.append(it["cname"])
-                body.append('extern "C" { %s; }  %s (include/decls/data/records.h)' % (decl, tag))
+                if init is not None:
+                    body.append('extern "C" %s = %s;  %s (include/decls/data/records.h)' % (decl, init, tag))
+                else:
+                    body.append('extern "C" { %s; }  %s (include/decls/data/records.h)' % (decl, tag))
                 self.rec_checks.append("typedef char hulk_size_%s[sizeof(%s) == %d ? 1 : -1];" % (
                     it["cname"], it["cname"], it["size"]))
                 continue
@@ -688,7 +782,9 @@ class TUWriter:
             else:
                 body.append('extern "C" %s = %s;  %s' % (decl, init, tag))
         lines += DATA_PRELUDE
-        if self.typed_used:
+        # (dg1) an item of another TU that records.h types is declared there (a pointer into a typed record)
+        typed_ext = {n for n in self.ext_data if n in self.typed}
+        if self.typed_used or typed_ext:
             lines += ['#include "%s"' % TYPED_INCLUDE, ""]
         if self.rec_structs or self.rec_checks:
             # record types: natural alignment on every target (the sources' own record layouts)
@@ -701,7 +797,7 @@ class TUWriter:
             lines.append("")
         for name in sorted(self.ext_func):
             lines.append('extern "C" void %s();' % name)
-        for name in sorted(self.ext_data):
+        for name in sorted(self.ext_data - typed_ext):
             lines.append('extern "C" const char %s[];' % name)
         for name, decl in self.decls:
             if name in self.ext_data:
@@ -995,13 +1091,112 @@ def resolve(model, c, tsym, add, by_sec):
     return it["addr"] + add & 0xffffffff
 
 
+INVENTORY = os.path.join(ROOT, "config/data.json")
+
+
+def merge_records(path=INVENTORY, dry=False):
+    """(dg1) Make config/data.json's item at each initialized typed record's address (typed_data_records) span the
+    whole record array: the items inside the span are folded into it (their addresses become its `interior`, their
+    xrefs its own), and an item that starts before the span and runs into it is cut at its start. One line per item,
+    as tools/data_inventory.py writes it; the other lines are left as they are. Returns [(name, items folded)]."""
+    recs = typed_data_records()
+    lines = open(path).read().split("\n")
+    rows = {}                               # line index -> item (items lines only)
+    for i, ln in enumerate(lines):
+        s = ln.strip()
+        if s.startswith('{"addr":'):
+            rows[i] = json.loads(s.rstrip(","))
+    order = sorted(rows, key=lambda i: int(rows[i]["addr"], 16))
+    done, drop = [], set()
+    for name, (rname, count, size32, _) in sorted(recs.items()):
+        a = int(name[4:], 16)
+        span = count * size32
+        head = next((i for i in order if int(rows[i]["addr"], 16) == a), None)
+        if head is not None and span in (rows[head]["size"], rows[head]["size"] + rows[head].get("pad", 0)):
+            continue
+        # an item that runs into the span from before it: cut at the span's start (its bytes there are the record's)
+        prev = [i for i in order if int(rows[i]["addr"], 16) < a]
+        cut = None
+        if prev:
+            p = rows[prev[-1]]
+            pa = int(p["addr"], 16)
+            if pa + p["size"] + p.get("pad", 0) > a:
+                cut = prev[-1]
+        inside = [i for i in order if a < int(rows[i]["addr"], 16) < a + span]
+        group = ([head] if head is not None else []) + inside
+        if not group and cut is None:
+            raise SystemExit("merge-records: no item at %#x" % a)
+        ends = [int(rows[i]["addr"], 16) + rows[i]["size"] + rows[i].get("pad", 0) for i in group]
+        if cut is not None:
+            ends.append(int(rows[cut]["addr"], 16) + rows[cut]["size"] + rows[cut].get("pad", 0))
+        if max(ends) != a + span:
+            raise SystemExit("merge-records: %s: the items at %#x.. end at %#x, not %#x" % (name, a, max(ends), a + span))
+        first = rows[group[0]] if group else rows[cut]
+        for i in group + ([cut] if cut is not None else []):
+            o = rows[i]
+            bss = o["kind"] in ("bss", "unknown_bss")
+            if o["object"] != first["object"] and not bss or o["kind"] in di.CODE_OWNED or \
+                    bss != (first["kind"] in ("bss", "unknown_bss")):
+                raise SystemExit("merge-records: %s: %s is %s of %s" % (name, o["addr"], o["kind"], o["object"]))
+        merged = {"addr": "0x%08x" % a, "size": span}
+        last = rows[group[-1]] if group else rows[cut]
+        if last.get("pad"):
+            merged["size"] = span - last["pad"]
+            merged["pad"] = last["pad"]
+        merged.update(kind="bss" if first["kind"] in ("bss", "unknown_bss") else "table", name="tbl_%08x" % a, type="%s[%d]" % (rname, count), object=first["object"])
+        for k in ("layer", "owner_by"):
+            if k in first:
+                merged[k] = first[k]
+        interior = sorted({int(x, 16) for i in group for x in rows[i].get("interior", [])
+                           if a < int(x, 16) < a + span} | {int(rows[i]["addr"], 16) for i in inside})
+        if interior:
+            merged["interior"] = ["0x%x" % x for x in interior]
+        flags = sorted({f for i in group for f in rows[i].get("flags", [])})
+        if flags:
+            merged["flags"] = flags
+        xrefs = sorted({x for i in group for x in rows[i].get("xrefs", [])}, key=lambda x: int(x, 16))
+        if xrefs:
+            merged["xrefs"] = xrefs
+        line = "  " + json.dumps(merged, separators=(",", ":")) + ","
+        if cut is not None:
+            p = rows[cut]
+            pa = int(p["addr"], 16)
+            p["size"] = a - pa
+            p.pop("pad", None)
+            m = re.fullmatch(r"(\w+)\[\d+\]", p.get("type") or "")
+            if m and p["size"] % 4 == 0:
+                p["type"] = "%s[%d]" % (m.group(1), p["size"] // 4)
+            p["interior"] = [x for x in p.get("interior", []) if int(x, 16) < a]
+            if not p["interior"]:
+                p.pop("interior")
+            lines[cut] = "  " + json.dumps(p, separators=(",", ":")) + ","
+        if head is not None:
+            lines[head] = line
+            drop |= set(inside)
+        else:
+            lines[cut] += "\n" + line
+            drop |= set(inside)
+        done.append((name, len(inside)))
+    if done and not dry:
+        out = [ln for i, ln in enumerate(lines) if i not in drop]
+        with open(path, "w") as f:
+            f.write("\n".join(out))
+    return done
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--jobs", type=int, default=4)
     ap.add_argument("--only", help="one object (config/splits.json file name)")
     ap.add_argument("--gen-only", action="store_true")
     ap.add_argument("--no-decls", action="store_true", help="don't write include/decls/data/")
+    ap.add_argument("--merge-records", action="store_true",
+                    help="make config/data.json's items of records.h's initialized typed records span their arrays")
     a = ap.parse_args(argv)
+    if a.merge_records:
+        for name, n in merge_records():
+            print("%s: %d items folded in" % (name, n))
+        return 0
     import input_guard      # (guard1) the stamp of the sources the TUs come from: Wine build jobs check it
     tok = None if a.only else input_guard.source_stamp("data")
     model = Model()

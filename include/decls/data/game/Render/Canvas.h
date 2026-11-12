@@ -17,6 +17,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 #endif
 
+#include "decls/data/records.h"
 
 // Render/Canvas/HulkShaderCallback.cpp
 extern "C" const float DAT_004216ec[2];  // fltTbl_004216ec
@@ -41,7 +42,7 @@ extern "C" float DAT_004c5114;  // flt_004c5114
 extern "C" float DAT_004c5148[16];  // fltTbl_004c5148
 extern "C" void* DAT_004e2314;
 extern "C" void* DAT_004e2318[1];
-extern "C" unsigned char DAT_004e231c[4];
+// DAT_004e231c: typed by decls/data/records.h (included above)
 extern "C" char DAT_004e2320;
 extern "C" unsigned char DAT_004e2321[15];
 

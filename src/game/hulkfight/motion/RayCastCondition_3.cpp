@@ -147,8 +147,8 @@ class HealthCondition_16ad70;
 namespace fn_f45cd32f {
 extern "C" void __cdecl FUN_001653d0();
 extern "C" char DAT_00416a88[];
-extern "C" int gCount_16afa0 = 0;
-extern "C" void* gSlot_16afa0 = 0;
+// (dg1) the registered list and its count are the game's items DAT_004e11e8 (records.h: pointer-sized) and DAT_004e11ec,
+// not local definitions that only the Wine link bound to them by address
 void* FUN_0008d690(unsigned int size);
 struct Init_16afa0 {
 };
@@ -886,8 +886,8 @@ namespace fn_f45cd32f {
 // data: gName_16afa0 = DAT_0041722c
 extern "C" void FUN_0016afa0() {
     void* local;
-    if (gCount_16afa0 != 0) {
-        ++gCount_16afa0;
+    if ((*(int*)DAT_004e11ec) != 0) {
+        ++(*(int*)DAT_004e11ec);
         return;
     }
     Param* p = (Param*)FUN_0008d690(0x18);
@@ -898,8 +898,8 @@ extern "C" void FUN_0016afa0() {
         local = p;
     } else
         local = 0;
-    FUN_002347b0((void**)&gSlot_16afa0, &local, 1);
-    ++gCount_16afa0;
+    FUN_002347b0(&DAT_004e11e8, &local, 1);
+    ++(*(int*)DAT_004e11ec);
 }
 
 

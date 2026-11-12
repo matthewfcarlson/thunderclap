@@ -45,7 +45,6 @@ struct DataLayout_004de660;  // packed layout (bytes and pointers), defined in t
 struct DataLayout_004de668;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004e226c;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004e2788;  // packed layout (bytes and pointers), defined in the data TU
-struct DataRec_004dda68;  // packed layout (bytes and pointers), defined in the data TU
 struct DataRec_004de800;  // packed layout (bytes and pointers), defined in the data TU
 #include "decls/data/records.h"
 
@@ -4153,53 +4152,9 @@ extern "C" const float DAT_00406094[6];  // fltTbl_00406094
 extern "C" const unsigned int DAT_00451b14[1];  // zero_00451b14
 extern "C" const unsigned int DAT_00451b60[1];  // zero_00451b60
 extern "C" float DAT_0049f2ac[4];  // fltTbl_0049f2ac
-extern "C" unsigned char DAT_004dda50[8];
-extern "C" unsigned char DAT_004dda58[8];
-extern "C" unsigned char DAT_004dda60[8];
-extern "C" DataRec_004dda68 DAT_004dda68[1];
-extern "C" unsigned char DAT_004dda70[8];
-extern "C" unsigned char DAT_004dda78[8];
-extern "C" unsigned char DAT_004dda80[8];
-extern "C" unsigned char DAT_004dda88[8];
-extern "C" unsigned char DAT_004dda90[8];
-extern "C" unsigned char DAT_004dda98[8];
-extern "C" unsigned char DAT_004ddaa0[8];
-extern "C" unsigned char DAT_004ddaa8[8];
-extern "C" unsigned char DAT_004ddab0[8];
-extern "C" unsigned char DAT_004ddab8[8];
-extern "C" unsigned char DAT_004ddac0[8];
-extern "C" unsigned char DAT_004ddac8[8];
-extern "C" unsigned char DAT_004ddad0[8];
-extern "C" unsigned char DAT_004ddad8[8];
-extern "C" unsigned char DAT_004ddae0[8];
-extern "C" unsigned char DAT_004ddae8[8];
-extern "C" unsigned char DAT_004ddaf0[8];
-extern "C" unsigned char DAT_004ddaf8[8];
-extern "C" unsigned char DAT_004ddb00[8];
-extern "C" unsigned char DAT_004ddb08[8];
-extern "C" unsigned char DAT_004ddb10[8];
-extern "C" unsigned char DAT_004ddb18[8];
-extern "C" unsigned char DAT_004ddb20[8];
-extern "C" unsigned char DAT_004ddb28[8];
-extern "C" unsigned char DAT_004ddb30[8];
-extern "C" unsigned char DAT_004ddb38[8];
-extern "C" unsigned char DAT_004ddb40[8];
-extern "C" unsigned char DAT_004ddb48[8];
-extern "C" unsigned char DAT_004ddb50[8];
-extern "C" unsigned char DAT_004ddb58[8];
-extern "C" unsigned char DAT_004ddb60[8];
-extern "C" unsigned char DAT_004ddb68[8];
-extern "C" unsigned char DAT_004ddb70[8];
-extern "C" unsigned char DAT_004ddb78[8];
-extern "C" unsigned char DAT_004ddb80[8];
-extern "C" unsigned char DAT_004ddb88[8];
-extern "C" unsigned char DAT_004ddb90[8];
-extern "C" unsigned char DAT_004ddb98[8];
-extern "C" unsigned char DAT_004ddba0[8];
-extern "C" unsigned char DAT_004ddba8[8];
-extern "C" unsigned char DAT_004ddbb0[8];
-extern "C" unsigned char DAT_004ddbb8[8];
-extern "C" unsigned char DAT_004ddbc0[8];
+// DAT_004ddab0: typed by decls/data/records.h (included above)
+// DAT_004ddb10: typed by decls/data/records.h (included above)
+// DAT_004ddb68: typed by decls/data/records.h (included above)
 
 // global/CProjectile.cpp
 extern "C" const float DAT_0041daf4[8];  // fltTbl_0041daf4
