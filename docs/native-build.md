@@ -2879,3 +2879,11 @@ geometry loaders' bases (`RenderObjectLoader_2df7f0`, `RenderObjectLoader_2df850
 `ImageConverter_2c25b0`: base constructors declared, never defined). Next batch: these constructors store the
 game's vftables by address (the address their relocations reach) and name their bases by their constructors'
 addresses, as batch 1 did for the placeholders.
+
+## Correction to dg1's section: `data_gen.py --merge-records` is gone (data2, 2026-11-12)
+
+dg1's section above says `data_gen.py --merge-records` makes config/data.json's item at a records.h array span the
+whole array by editing config/data.json's lines. drift1 (a510dd4c7) removed that option: config/data.json is
+generated again, and `tools/data_inventory.py` places every records.h declaration as one item of its 32-bit size
+(libclang) itself. To type a record now: declare it in include/decls/data/records.h, run `tools/data_inventory.py`
+(then `--check`), then `tools/data_gen.py` (docs/data.md "Reproducing", "How to change data items").
