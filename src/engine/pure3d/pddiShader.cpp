@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f8e4d6d5 {} using namespace fn_f8e4d6d5;
+namespace fn_f8e4d6d5 { extern "C" char DAT_00433568[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -30,7 +31,7 @@ class pddiShader_3278e0 : public pddiObject_3278e0 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 pddiShader_3278e0* pddiShader_3278e0::vfunc_5(signed char flags) {
-    *(void***)this = pddiObject_3278e0_vftable;
+    *(void***)this = ((void**)DAT_00433568);
     Destroy();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

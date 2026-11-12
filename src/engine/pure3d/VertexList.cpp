@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f7aa76dc {} using namespace fn_f7aa76dc;
+namespace fn_f7aa76dc { extern "C" char DAT_003f6098[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -1857,7 +1858,7 @@ atexit:;
         ++q;
         --n;
     } while (n);
-    vptr = &ref_vftable_2d0800;
+    vptr = ((int*)DAT_003f6098);
 }
 
 } // namespace fn_f7aa76dc

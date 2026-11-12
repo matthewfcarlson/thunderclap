@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_fb6e77e3 {
 #define TREE_TU_END }
 namespace fn_fb6e77e3 {} using namespace fn_fb6e77e3;
+namespace fn_fb6e77e3 { extern "C" char DAT_003f3408[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fb6e77e3 { extern "C" char DAT_003f3438[], DAT_003f3390[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 
@@ -85,7 +86,7 @@ class CProceduralDurationAnimationAction_218c0 : public CAction_218c0 {
 // 0x00021780 CJumpAction::vfunc_2 (82 B): matches/0x00021780.cpp
 // sym: ?f2@CJumpAction_21780@fn_fb6e77e3@@QAEPAV12@E@Z
 CJumpAction_21780* CJumpAction_21780::f2(unsigned char flags) {
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_003f3408);
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -137,7 +138,7 @@ namespace fn_fb6e77e3 {
 // 0x00021860 COpportunityBallAction::vfunc_2 (57 B): matches/0x00021860.cpp
 // sym: ?f2@COpportunityBallAction_21860@fn_fb6e77e3@@QAEPAV12@E@Z
 COpportunityBallAction_21860* COpportunityBallAction_21860::f2(unsigned char flags) {
-    vptr = g_vftable_21860;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -168,7 +169,7 @@ CProceduralDurationAnimationAction_218c0* CProceduralDurationAnimationAction_218
         m1->Release();
         m1 = 0;
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m2) {
         m2->Release();

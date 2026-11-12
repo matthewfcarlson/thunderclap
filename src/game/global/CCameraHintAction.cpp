@@ -154,7 +154,7 @@ CEffectAction_221e0* CEffectAction_221e0::f2(unsigned char flags) {
 // 0x00022240 CEffectStopAction::vfunc_2 (57 B): matches/0x00022240.cpp
 // sym: ?f2@CEffectStopAction_22240@fn_ffe756aa@@QAEPAV12@E@Z
 CEffectStopAction_22240* CEffectStopAction_22240::f2(unsigned char flags) {
-    vptr = g_vftable_22240;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -170,7 +170,7 @@ CEffectStopAction_22240* CEffectStopAction_22240::f2(unsigned char flags) {
 // 0x00022280 CCameraShakeAction::vfunc_2 (57 B): matches/0x00022280.cpp
 // sym: ?f2@CCameraShakeAction_22280@fn_ffe756aa@@QAEPAV12@E@Z
 CCameraShakeAction_22280* CCameraShakeAction_22280::f2(unsigned char flags) {
-    vptr = g_vftable_22280;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -186,7 +186,7 @@ CCameraShakeAction_22280* CCameraShakeAction_22280::f2(unsigned char flags) {
 // 0x000222c0 CCameraDramaticAction::vfunc_2 (57 B): matches/0x000222c0.cpp
 // sym: ?f2@CCameraDramaticAction_222c0@fn_ffe756aa@@QAEPAV12@E@Z
 CCameraDramaticAction_222c0* CCameraDramaticAction_222c0::f2(unsigned char flags) {
-    vptr = g_vftable_222c0;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -202,7 +202,7 @@ CCameraDramaticAction_222c0* CCameraDramaticAction_222c0::f2(unsigned char flags
 // 0x00022300 CCameraHintAction::vfunc_2 (57 B): matches/0x00022300.cpp
 // sym: ?f2@CCameraHintAction_22300@fn_ffe756aa@@QAEPAV12@E@Z
 CCameraHintAction_22300* CCameraHintAction_22300::f2(unsigned char flags) {
-    vptr = g_vftable_22300;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

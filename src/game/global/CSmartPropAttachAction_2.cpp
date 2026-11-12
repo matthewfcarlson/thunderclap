@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_fa260338 {
 #define TREE_TU_END }
 namespace fn_fa260338 {} using namespace fn_fa260338;
+namespace fn_fa260338 { extern "C" char DAT_003f381c[], DAT_003f3390[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -193,13 +194,13 @@ CSmartPropAttachAction_1ea30::CSmartPropAttachAction_1ea30(int value, Arg_1ea30*
 // sym: ?FUN_0001ea90@CSmartPropAttachAction@@QAEXXZ
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
 void CSmartPropAttachAction::FUN_0001ea90() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)((char*)DAT_003f381c);
     RefObj_1ea90* b = (*(RefObj_1ea90 *volatile *)&this->f_24);
     if (b) {
         b->Release();
         (*(RefObj_1ea90 *volatile *)&this->f_24) = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_1ea90* a = (*(RefObj_1ea90 *volatile *)&this->f_1c);
     if (a) {
         a->Release();

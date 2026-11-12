@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_fa90982c {
 #define TREE_TU_END }
 namespace fn_fa90982c {} using namespace fn_fa90982c;
+namespace fn_fa90982c { extern "C" char DAT_00424fd8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fa90982c { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 
@@ -552,7 +553,7 @@ class MyBufferStream : public Stream_1fae60 {
     virtual void* vfunc_0(unsigned int flags);
 };
 void* MyBufferStream::vfunc_0(unsigned int flags) {
-    *(void**)this = g_vftable;
+    *(void**)this = ((void**)DAT_00424fd8);
     if (flags & 1)
         operator delete(this);
     return this;

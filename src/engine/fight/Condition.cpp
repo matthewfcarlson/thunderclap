@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fc77ac82 {} using namespace fn_fc77ac82;
+namespace fn_fc77ac82 { extern "C" char DAT_00427990[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -112,7 +113,7 @@ ConditionFactory::ConditionFactory() {}
 // sym: ?FUN_002343d0@fn_fc77ac82@@YIXPAVCEffectStopTrack@1@@Z
 // Same code shape as 0x00060920 (propagated; names are from that function)
 void __fastcall FUN_002343d0(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_00427990);
     FUN_0027afd0(self);
 }
 

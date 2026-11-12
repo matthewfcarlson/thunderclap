@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f59455c9 {
 #define TREE_TU_END }
 namespace fn_f59455c9 {} using namespace fn_f59455c9;
+namespace fn_f59455c9 { extern "C" char DAT_003fd2dc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -78,7 +79,7 @@ template <> void* fight::TrackFactoryTemplate<CPushBackAnimationTrack>::vfunc_5(
     CHitAnimationTrack_6fdf0* p = (CHitAnimationTrack_6fdf0*)FUN_0008d690(0x50);
     if (p) {
         p->init_0005dcb0();
-        p->vf = (unsigned int*)&hit_vftable;
+        p->vf = (unsigned int*)((int*)DAT_003fd2dc);
         return (void*)(p);
     }
     return (void*)(0);

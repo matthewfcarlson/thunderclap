@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_faa2c089 {} using namespace fn_faa2c089;
+namespace fn_faa2c089 { extern "C" char DAT_0040c42c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -270,7 +271,7 @@ FEControl::FEControl(int arg) throw() : FEObject_e9240(arg)
 // sym: ?FUN_000e92b0@fn_faa2c089@@YIXPAVCEffectStopTrack@1@@Z
 // Same code shape as 0x00060920 (propagated; names are from that function)
 void __fastcall FUN_000e92b0(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_0040c42c);
     FUN_000e9030(self);
 }
 

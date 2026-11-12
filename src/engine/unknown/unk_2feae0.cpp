@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fb493392 {} using namespace fn_fb493392;
+namespace fn_fb493392 { extern "C" char DAT_00431ac0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -1742,7 +1743,7 @@ CollisionDetector::CollisionDetector() : FUN_00313500() {
 // sym: ?FUN_003012c0@fn_fb493392@@YIXPAVCEffectStopTrack@1@@Z
 // Same code shape as 0x00060920 (propagated; names are from that function)
 void __fastcall FUN_003012c0(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_00431ac0);
     FUN_00313530(self);
 }
 

@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f163d5a2 {} using namespace fn_f163d5a2;
+namespace fn_f163d5a2 { extern "C" char DAT_00431bec[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -163,7 +164,7 @@ namespace fn_f163d5a2 {
 // sym: ?FUN_00306fb0@fn_f163d5a2@@YIXPAVCEffectStopTrack@1@@Z
 // Same code shape as 0x00060920 (propagated; names are from that function)
 void __fastcall FUN_00306fb0(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_00431bec);
     FUN_00306ac0(self);
 }
 

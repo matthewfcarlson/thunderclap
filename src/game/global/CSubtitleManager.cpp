@@ -13,6 +13,7 @@
 #define TREE_TU_BEGIN namespace fn_fed79ca6 {
 #define TREE_TU_END }
 namespace fn_fed79ca6 {} using namespace fn_fed79ca6;
+namespace fn_fed79ca6 { extern "C" char DAT_0040a47c[], DAT_0042147c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -1438,7 +1439,7 @@ CSubtitleOverlay_1bef80::~CSubtitleOverlay_1bef80() throw() {
         m18->Release();
         m18 = 0;
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_0040a47c);
 }
 
 
@@ -2034,13 +2035,13 @@ namespace fn_fed79ca6 {
 // 0x001bfc80 CSubtitleOverlay::vfunc_0 (56 B): matches/0x001bfc80.cpp
 // sym: ?f0@CSubtitleOverlay_1bfc80@fn_fed79ca6@@QAEPAV12@E@Z
 CSubtitleOverlay_1bfc80* CSubtitleOverlay_1bfc80::f0(unsigned char fl) {
-    vptr = g_vftable_1bfc80;
+    vptr = ((void**)DAT_0042147c);
     _ReadWriteBarrier();
     if (m18) {
         m18->Release();
         m18 = 0;
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_0040a47c);
     if (fl & 1)
         Free_0008d330(this);
     return this;

@@ -26,7 +26,7 @@ class Arg_af110 {
 class CGameController_af110 {
   public:
     void* vptr;
-    CGameController_af110* m4;
+    int m4;   // (x64t7) pure3d::NonCopyable's reference count (was a pointer)
     Arg_af110* m8;
     int arr[0x29];
     CGameController_af110* ctor(Arg_af110* a);

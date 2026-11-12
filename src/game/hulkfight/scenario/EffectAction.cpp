@@ -15,6 +15,7 @@
 #define TREE_TU_BEGIN namespace fn_fc5dbd2a {
 #define TREE_TU_END }
 namespace fn_fc5dbd2a {} using namespace fn_fc5dbd2a;
+namespace fn_fc5dbd2a { extern "C" char DAT_0041c4f0[], DAT_0041c590[], DAT_0041c5d0[], DAT_0041c668[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/scenario.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -4952,7 +4953,7 @@ NodeIsNotRunningCondition_1a5aa0* NodeIsNotRunningCondition_1a5aa0::vfunc_5(sign
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 Event_StringCondition_1a5ad0* Event_StringCondition_1a5ad0::vfunc_5(unsigned char param) {
     Event_StringCondition_1a5ad0* p = this;
-    *(char**)p = &threat_vftable_1a5ad0;
+    *(char**)p = ((char*)DAT_0041c4f0);
     ((Obj_1a5ad0*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_1a5ad0*)p)->f2_002345b0();
     if (param & 1)
@@ -5026,7 +5027,7 @@ Event_PropStateDescCondition_1a5b90* Event_PropStateDescCondition_1a5b90::vfunc_
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 Event_PropTypeCondition_1a5bc0* Event_PropTypeCondition_1a5bc0::vfunc_5(unsigned char param) {
     Event_PropTypeCondition_1a5bc0* p = this;
-    *(char**)p = &threat_vftable_1a5bc0;
+    *(char**)p = ((char*)DAT_0041c590);
     ((Obj_1a5bc0*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_1a5bc0*)p)->f2_002345b0();
     if (param & 1)
@@ -5040,7 +5041,7 @@ Event_PropTypeCondition_1a5bc0* Event_PropTypeCondition_1a5bc0::vfunc_5(unsigned
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 Event_PropStateNameCondition_1a5bf0* Event_PropStateNameCondition_1a5bf0::vfunc_5(unsigned char param) {
     Event_PropStateNameCondition_1a5bf0* p = this;
-    *(char**)p = &threat_vftable_1a5bf0;
+    *(char**)p = ((char*)DAT_0041c5b0);
     ((Obj_1a5bf0*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_1a5bf0*)p)->f2_002345b0();
     if (param & 1)
@@ -5054,7 +5055,7 @@ Event_PropStateNameCondition_1a5bf0* Event_PropStateNameCondition_1a5bf0::vfunc_
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 Event_PropNameCondition_1a5c20* Event_PropNameCondition_1a5c20::vfunc_5(unsigned char param) {
     Event_PropNameCondition_1a5c20* p = this;
-    *(char**)p = &threat_vftable_1a5c20;
+    *(char**)p = ((char*)DAT_0041c5d0);
     ((Obj_1a5c20*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_1a5c20*)p)->f2_002345b0();
     if (param & 1)
@@ -6845,7 +6846,7 @@ namespace fn_fc5dbd2a {
 // 0x001a8f80 hulkfight::scenario::EffectAction::vfunc_2 (90 B): matches/0x001a8f80.cpp
 // sym: ?f2@EffectAction@fn_fc5dbd2a@@QAEPAV12@H@Z
 EffectAction* EffectAction::f2(int flags) {
-    *(void* volatile*)this = &g_vftable_1a8f80;
+    *(void* volatile*)this = ((void**)DAT_0041c668);
     _ReadWriteBarrier();
     if (m28) {
         m28->f1();

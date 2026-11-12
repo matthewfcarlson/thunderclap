@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f6d01fd6 {} using namespace fn_f6d01fd6;
+namespace fn_f6d01fd6 { extern "C" char DAT_0042d8f8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f6d01fd6 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -332,7 +333,7 @@ namespace fn_f6d01fd6 {
 // sym: ??0RenderObjectLoader@fn_f6d01fd6@@QAE@XZ
 RenderObjectLoader::RenderObjectLoader() {
     mValue = 0;
-    this->pad = (hulk_intptr)&vftable_2a3e80;
+    this->pad = (hulk_intptr)((int*)DAT_0042d8f8);
 }
 
 
@@ -340,7 +341,7 @@ RenderObjectLoader::RenderObjectLoader() {
 // sym: ?FUN_002a3e90@fn_f6d01fd6@@YIXPAX@Z
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 void __fastcall FUN_002a3e90(void* self) {
-    *(void**)self = &IRefCount_vftable_2a3e90;
+    *(void**)self = ((void**)DAT_003f6098);
 }
 
 

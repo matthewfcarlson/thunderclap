@@ -11,6 +11,7 @@
 #define TREE_TU_BEGIN namespace fn_f8068520 {
 #define TREE_TU_END }
 namespace fn_f8068520 {} using namespace fn_f8068520;
+namespace fn_f8068520 { extern "C" char DAT_00412b60[], DAT_00412b80[], DAT_00412b9c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -1853,7 +1854,7 @@ WallRunAction::WallRunAction(int a, Ref_13f9c0* p) {
 // 0x0013fa30 FUN_0013fa30 (74 B): matches/0x0013fa30.cpp
 // sym: ??1WallRunAction_13fa30@fn_f8068520@@QAE@XZ
 WallRunAction_13fa30::~WallRunAction_13fa30() {
-    vptr = g_vftable_13fa30;
+    vptr = ((void**)DAT_00412b60);
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -3434,7 +3435,7 @@ namespace fn_f8068520 {
 // 0x00142220 hulkfight::motion::WallRunAction::vfunc_2 (95 B): matches/0x00142220.cpp
 // sym: ?f2@WallRunAction_142220@fn_f8068520@@QAEPAV12@E@Z
 WallRunAction_142220* WallRunAction_142220::f2(unsigned char flags) {
-    vptr = g_vftable_142220;
+    vptr = ((void**)DAT_00412b60);
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -3476,7 +3477,7 @@ namespace fn_f8068520 {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* WallExitAction_1422d0::vfunc_2(unsigned char flag) {
     volatile WallExitAction_1422d0* self = this;
-    self->mVptr = &g_vftable_1422d0;
+    self->mVptr = ((int*)DAT_00412b80);
     RefObj_1422d0* t3 = self->m3;
     if (t3) {
         t3->Release();
@@ -3518,7 +3519,7 @@ namespace fn_f8068520 {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* WallJumpAction_142380::vfunc_2(unsigned char flag) {
     volatile WallJumpAction_142380* self = this;
-    self->mVptr = &g_vftable_142380;
+    self->mVptr = ((int*)DAT_00412b9c);
     RefObj_142380* t3 = self->m3;
     if (t3) {
         t3->Release();

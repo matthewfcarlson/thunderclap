@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_fd616d75 {
 #define TREE_TU_END }
 namespace fn_fd616d75 {} using namespace fn_fd616d75;
+namespace fn_fd616d75 { extern "C" char DAT_004143c0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -54,7 +55,7 @@ namespace fn_fd616d75 {
 // 0x0014e110 FUN_0014e110 (32 B): matches/0x0014e110.cpp
 // sym: ??0ClearFightParamsHitRecordTrack_14e110@fn_fd616d75@@QAE@XZ
 ClearFightParamsHitRecordTrack_14e110::ClearFightParamsHitRecordTrack_14e110() {
-    vptr = g_vftable;
+    vptr = ((void**)DAT_004143c0);
     _ReadWriteBarrier();
     mB = 0;
     mA = 1;

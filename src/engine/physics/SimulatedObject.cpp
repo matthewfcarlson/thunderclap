@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fa862d6d {} using namespace fn_fa862d6d;
+namespace fn_fa862d6d { extern "C" char DAT_00431a04[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -333,7 +334,7 @@ struct SimulatedObject {
 };
 void thunk_00263f30(SimulatedObject*);
 SimulatedObject* SimulatedObject::vfunc_2(unsigned int flag) {
-    *(void**)this = &vftable_2fe730;
+    *(void**)this = ((void**)DAT_00431a04);
     if (member)
         member->b();
     helper_0027afd0();

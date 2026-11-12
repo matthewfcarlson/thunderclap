@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f7aacfaa {
 #define TREE_TU_END }
 namespace fn_f7aacfaa {} using namespace fn_f7aacfaa;
+namespace fn_f7aacfaa { extern "C" char DAT_00428eb0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -607,7 +608,7 @@ namespace fn_f7aacfaa {
 // 0x0023ef70 fight::SpawnAction::vfunc_2 (73 B): matches/0x0023ef70.cpp
 // sym: ?f2@SpawnAction_23ef70@fn_f7aacfaa@@QAEPAV12@E@Z
 SpawnAction_23ef70* SpawnAction_23ef70::f2(unsigned char flags) {
-    vptr = g_vftable_23ef70;
+    vptr = ((void**)DAT_00428eb0);
     _ReadWriteBarrier();
     if (m24) {
         m24->f1();

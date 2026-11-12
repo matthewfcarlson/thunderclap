@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f27320e9 {
 #define TREE_TU_END }
 namespace fn_f27320e9 {} using namespace fn_f27320e9;
+namespace fn_f27320e9 { extern "C" char DAT_00428f70[], DAT_00428fa0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -333,7 +334,7 @@ u8_23f1d0 BreakPointAction::vfunc_3(u32_23f1d0 a, u32_23f1d0 b) {
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 BreakPointTrack_23f1f0* BreakPointTrack_23f1f0::vfunc_5(unsigned char param) {
     BreakPointTrack_23f1f0* p = this;
-    *(char**)p = &threat_vftable_23f1f0;
+    *(char**)p = ((char*)DAT_00428f70);
     ((BreakPointTrack_nv_23f1f0*)(((fight::BreakPointTrack*)((char*)p + 0x10))))->f1_00236fd0();
     ((BreakPointTrack_nv_23f1f0*)(((fight::BreakPointTrack*)p)))->f2_00236d60();
     if (param & 1)
@@ -362,7 +363,7 @@ BreakPointAction_23f220* BreakPointAction_23f220::Build(int a, Obj_23f220* p) {
 // 0x0023f270 FUN_0023f270 (36 B): matches/0x0023f270.cpp
 // sym: ??1BreakPointAction_23f270@fn_f27320e9@@QAE@XZ
 BreakPointAction_23f270::~BreakPointAction_23f270() {
-    vptr = g_vftable_23f270;
+    vptr = ((void**)DAT_00428fa0);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -443,7 +444,7 @@ namespace fn_f27320e9 {
 // 0x0023f4a0 fight::BreakPointAction::vfunc_2 (57 B): matches/0x0023f4a0.cpp
 // sym: ?f2@BreakPointAction_23f4a0@fn_f27320e9@@QAEPAV12@E@Z
 BreakPointAction_23f4a0* BreakPointAction_23f4a0::f2(unsigned char flags) {
-    vptr = g_vftable_23f4a0;
+    vptr = ((void**)DAT_00428fa0);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -490,7 +491,7 @@ template <> void* fight::TrackFactoryTemplate<fight::BreakPointTrack>::vfunc_5()
     Obj_23f570* p = (Obj_23f570*)alloc(0x14);
     if (p) {
         ((Base_23f570*)p)->init_00236d40();
-        p->vf = (hulk_intptr)&breakpoint_vftable;
+        p->vf = (hulk_intptr)((int*)DAT_00428f70);
         p->c = 0;
         ((Sub_23f570*)((char*)p + 0x10))->init2_00236e00();
         p->b = 1;

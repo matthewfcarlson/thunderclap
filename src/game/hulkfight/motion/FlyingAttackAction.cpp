@@ -184,7 +184,7 @@ FlyingAttackAction* FlyingAttackAction::Run(void* a, Ref_135470* r) {
 // 0x001354d0 FUN_001354d0 (74 B): matches/0x001354d0.cpp
 // sym: ??1FlyingAttackAction_1354d0@fn_f9de9b68@@QAE@XZ
 FlyingAttackAction_1354d0::~FlyingAttackAction_1354d0() {
-    vptr = g_vftable_00411dc4;
+    vptr = ((void**)DAT_00411dc4);
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();

@@ -7,6 +7,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f787d2f4 {} using namespace fn_f787d2f4;
+namespace fn_f787d2f4 { extern "C" char DAT_0042b914[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/core.h"
 
 // ---- declarations shared by the functions below
@@ -75,7 +76,7 @@ Request_274b40::Request_274b40() {
 // sym: ?vfunc_0@Request@core@fn_f787d2f4@@QAEPAU123@E@Z
 // data: g_lock_274b60 = DAT_0052a1c8, g_manager_274b60 = DAT_0052a1e4
 core::Request* core::Request::vfunc_0(unsigned char param) {
-    vt = request_vftable;
+    vt = ((void**)DAT_0042b914);
     if (param & 1) {
         FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(Manager_274b60**)&DAT_0052a1e4)->e(this);

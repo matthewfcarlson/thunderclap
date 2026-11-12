@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_f952d83d {
 #define TREE_TU_END }
 namespace fn_f952d83d {} using namespace fn_f952d83d;
+namespace fn_f952d83d { extern "C" char DAT_0041932c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -77,7 +78,7 @@ namespace fn_f952d83d {
 PropActorThinkingTrack::PropActorThinkingTrack() : Track_180ca0() {
     mC = 0;
     m10 = 0;
-    vptr = g_vftable;
+    vptr = ((void**)DAT_0041932c);
 }
 
 } // namespace fn_f952d83d

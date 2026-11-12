@@ -9646,9 +9646,6 @@
   "pure3d::ExpressionAnimationController": {
    "0x40": "pointer pun (pointer 2)"
   },
-  "pure3d::NonCopyable": {
-   "0x4": "pointer pun (pointer 1)"
-  },
   "pure3d::ParticleEmitter": {
    "0x80": "pointer pun (pointer 3)",
    "0x84": "pointer pun (pointer 9)",

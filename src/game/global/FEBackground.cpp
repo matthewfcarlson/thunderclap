@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_fb027fad {
 #define TREE_TU_END }
 namespace fn_fb027fad {} using namespace fn_fb027fad;
+namespace fn_fb027fad { extern "C" char DAT_0040b494[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -300,7 +301,7 @@ void FUN_000d7aa0() {}
 // 0x000d7ab0 FEBackground::vfunc_2 (63 B): matches/0x000d7ab0.cpp
 // sym: ?f2@FEBackground_d7ab0@fn_fb027fad@@QAEPAV12@E@Z
 FEBackground_d7ab0* FEBackground_d7ab0::f2(unsigned char flags) {
-    vptr = g_vftable_d7ab0;
+    vptr = ((void**)DAT_0040b494);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

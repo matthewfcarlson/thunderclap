@@ -1124,11 +1124,11 @@ void Queue_265190::FUN_00265190(Releasable_265190* obj) {
 } // namespace fn_fa1126e6
 
 // 0x00265210 FUN_00265210 (35 B): matches/0x00265210.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?run@C_265210@fn_00265210@@QAEXPAVA_265210@2@PAX@Z
+// sym: ?run@C_265210@fn_00265210@@QAEXPAVA_265210@2@I@Z
 namespace fn_00265210 {
 class D {
   public:
-    void Fng_00231590(void*, int, void*);
+    void Fng_00231590(unsigned int, unsigned int, void*);   // (x64t7) the key first (0x00231590's own signature; was a pointer)
 };
 class A_265210 {
   public:
@@ -1139,10 +1139,10 @@ class C_265210 {
     D* m;
 
   public:
-    void run(A_265210* a, void* b);
+    void run(A_265210* a, unsigned int b);   // (x64t7) b: the chunk id the handler is registered under (was a pointer)
 };
 void A_265210::f() {}
-void C_265210::run(A_265210* a, void* b) {
+void C_265210::run(A_265210* a, unsigned int b) {
     D* mm = m;
     a->f();
     mm->Fng_00231590(b, 0, a);

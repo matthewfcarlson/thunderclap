@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_f327212d {
 #define TREE_TU_END }
 namespace fn_f327212d {} using namespace fn_f327212d;
+namespace fn_f327212d { extern "C" char DAT_003f3390[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -149,7 +150,7 @@ CJumpAttackAction_22340* CJumpAttackAction_22340::f2(unsigned char flags) {
         m1->Release();
         m1 = 0;
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m2) {
         m2->Release();
@@ -211,7 +212,7 @@ COrientTargetAction_22400* COrientTargetAction_22400::f2(unsigned char flags) {
 // 0x00022460 CDriftAction::vfunc_2 (57 B): matches/0x00022460.cpp
 // sym: ?f2@CDriftAction_22460@fn_f327212d@@QAEPAV12@E@Z
 CDriftAction_22460* CDriftAction_22460::f2(unsigned char flags) {
-    vptr = g_vftable_22460;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -243,7 +244,7 @@ CUninterruptibleAction* CUninterruptibleAction::f2(unsigned char flags) {
 // 0x000224e0 CInvulnerableAction::vfunc_2 (57 B): matches/0x000224e0.cpp
 // sym: ?f2@CInvulnerableAction_224e0@fn_f327212d@@QAEPAV12@E@Z
 CInvulnerableAction_224e0* CInvulnerableAction_224e0::f2(unsigned char flags) {
-    vptr = g_vftable_224e0;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -259,7 +260,7 @@ CInvulnerableAction_224e0* CInvulnerableAction_224e0::f2(unsigned char flags) {
 // 0x00022520 CRageModeAction::vfunc_2 (57 B): matches/0x00022520.cpp
 // sym: ?f2@CRageModeAction_22520@fn_f327212d@@QAEPAV12@E@Z
 CRageModeAction_22520* CRageModeAction_22520::f2(unsigned char flags) {
-    vptr = g_vftable_22520;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

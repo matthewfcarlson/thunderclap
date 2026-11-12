@@ -1210,7 +1210,7 @@ LevelLoader_1c8fd0* LevelLoader_1c8fd0::f2(unsigned char flags) {
         m->Release();
         m = 0;
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_003f6098);
     if (flags & 1)
         operator delete(this);
     return this;

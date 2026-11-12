@@ -70,12 +70,14 @@ class DefaultChannelHandler_28e9b0 : public ChannelHandler_28e9b0 {
   public:
     virtual void f0();
 };
+HULK_REFCOUNT_PACK   // (x64t7) pure3d::NonCopyable's stand-in: 12 bytes natively (compat/ptr.h)
 class NonCopyable_28e9b0 {
   public:
     NonCopyable_28e9b0() { a = 0; }
     virtual void f0();
     int a;
 };
+HULK_REFCOUNT_PACK_END
 class ChannelLoader : public NonCopyable_28e9b0 {
   public:
     ChannelLoader();

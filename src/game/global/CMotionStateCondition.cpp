@@ -24,7 +24,7 @@ class CMotionStateCondition_4a220 {
     int field10;
 };
 struct CMotionStateCondition_nv_4a220 {
-    void FUN_00234590(int);
+    void* FUN_00234590(void*);   // (x64t7) fight::Condition's constructor: takes a pointer (was `int`), returns `this`
 };
 
 } // namespace fn_f653a3bf

@@ -7,6 +7,7 @@
 #define TREE_TU_BEGIN namespace fn_f196c51b {
 #define TREE_TU_END }
 namespace fn_f196c51b {} using namespace fn_f196c51b;
+namespace fn_f196c51b { extern "C" char DAT_0040c0ec[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -1976,7 +1977,7 @@ FEScreenBase_ef400::~FEScreenBase_ef400() throw() {
             d[i]->Release();
             d[i] = 0;
         }
-    hvptr = g_vftable2;
+    hvptr = ((void**)DAT_0040c0ec);
     _ReadWriteBarrier();
     for (int i = 0; i < 32; i++)
         if (e[i]) {
@@ -2467,7 +2468,7 @@ FEThingsBase_ef920::~FEThingsBase_ef920() throw() {
         (*(Ref_ef920**)&DAT_004de954)->Release();
         (*(Ref_ef920**)&DAT_004de954) = 0;
     }
-    hvptr = g_vftable2;
+    hvptr = ((void**)DAT_0040c0ec);
     for (int j = 0; j < 32; j++)
         if (ii[j]) {
             ii[j]->D(1);

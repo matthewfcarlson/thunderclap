@@ -953,7 +953,7 @@ CCharacterGolem_fe540::~CCharacterGolem_fe540() throw() {
     }
     m118.Destroy_0027af50();
     mf8 = 0;
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_0040d164);
 }
 
 } // namespace fn_f54027db

@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f9ad35a3 {} using namespace fn_f9ad35a3;
+namespace fn_f9ad35a3 { extern "C" char DAT_004286dc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -46,7 +47,7 @@ Chunk* __fastcall Build(Chunk* self) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 Chunk_23b7e0* Chunk_23b7e0::vfunc_5(signed char flags) {
-    *(void***)this = Bank_23b7e0_vftable;
+    *(void***)this = ((void**)DAT_004286dc);
     Destroy_0023c660();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

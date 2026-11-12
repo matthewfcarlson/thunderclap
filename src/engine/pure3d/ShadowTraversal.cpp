@@ -12,6 +12,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f2e163a0 {} using namespace fn_f2e163a0;
+namespace fn_f2e163a0 { extern "C" char DAT_003f6098[], DAT_0042d714[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -295,7 +296,7 @@ ShadowTraversal_2a17c0::~ShadowTraversal_2a17c0() {
     if (m3c)
         operator delete(m3c);
     sub.Fini_002a3120();
-    m18 = g_vftable2;
+    m18 = ((void**)DAT_003f6098);
     Fin_002c6aa0();
 }
 
@@ -303,7 +304,7 @@ ShadowTraversal_2a17c0::~ShadowTraversal_2a17c0() {
 // 0x002a1810 pure3d::ShadowTraversal::vfunc_2 (88 B): matches/0x002a1810.cpp
 // sym: ?f2@ShadowTraversal_2a1810@fn_f2e163a0@@QAEPAV12@E@Z
 ShadowTraversal_2a1810* ShadowTraversal_2a1810::f2(unsigned char flags) {
-    vptr = g_vftable_2a1810;
+    vptr = ((void**)DAT_0042d714);
     _ReadWriteBarrier();
     if (m2c) {
         m2c->Release();

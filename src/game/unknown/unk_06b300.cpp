@@ -7,6 +7,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fad3cf42 {} using namespace fn_fad3cf42;
+namespace fn_fad3cf42 { extern "C" char DAT_003fb9c4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fad3cf42 { extern "C" char DAT_003f98d0[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/unknown.h"
 
@@ -265,7 +266,7 @@ CJointTrack::CJointTrack()
 // Same code shape as 0x0004c720 (propagated; names are from that function)
 CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNameCondition* p, void*,
                                                                     unsigned char flags) {
-    p->vptr = &smart_vftable;
+    p->vptr = ((int*)DAT_003fb9c4);
     FUN_0027af50((char*)p + 0x18);
     p->vptr = &hulk_at_003f98d0;
     FUN_00236d60(p);
@@ -746,7 +747,7 @@ CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNa
                                                                     unsigned char flags) {
     p->vptr = &hulk_at_003fc0d0;
     FUN_0027af50((char*)p + 0x18);
-    p->vptr = &condition_vftable_6bb60;
+    p->vptr = ((int*)DAT_003f98d0);
     FUN_00236d60(p);
     if (flags & 1)
         thunk_FUN_00267090(p);
@@ -804,7 +805,7 @@ CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNa
                                                                     unsigned char flags) {
     p->vptr = &hulk_at_003fc184;
     FUN_0027af50((char*)p + 0x18);
-    p->vptr = &condition_vftable_6bc00;
+    p->vptr = ((int*)DAT_003f98d0);
     FUN_00236d60(p);
     if (flags & 1)
         thunk_FUN_00267090(p);

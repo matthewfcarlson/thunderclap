@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_f41b62c0 {
 #define TREE_TU_END }
 namespace fn_f41b62c0 {} using namespace fn_f41b62c0;
+namespace fn_f41b62c0 { extern "C" char DAT_00414450[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -54,7 +55,7 @@ namespace fn_f41b62c0 {
 // 0x0014e2b0 FUN_0014e2b0 (32 B): matches/0x0014e2b0.cpp
 // sym: ??0HitDamageTrack@fn_f41b62c0@@QAE@XZ
 HitDamageTrack::HitDamageTrack() {
-    vptr = g_vftable;
+    vptr = ((void**)DAT_00414450);
     mFieldC = 0;
     mField10 = 1.0f;
 }

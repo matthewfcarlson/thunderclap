@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_f47061e1 {
 #define TREE_TU_END }
 namespace fn_f47061e1 {} using namespace fn_f47061e1;
+namespace fn_f47061e1 { extern "C" char DAT_003f3390[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -226,7 +227,7 @@ namespace fn_f47061e1 {
 // 0x0001fe30 FUN_0001fe30 (36 B): matches/0x0001fe30.cpp
 // sym: ??1CAction_1fe30@fn_f47061e1@@QAE@XZ
 CAction_1fe30::~CAction_1fe30() {
-    vptr = g_vftable_1fe30;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();

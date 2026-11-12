@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_f63f1981 {
 #define TREE_TU_END }
 namespace fn_f63f1981 {} using namespace fn_f63f1981;
+namespace fn_f63f1981 { extern "C" char DAT_003f3390[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -78,13 +79,13 @@ CDropAction::CDropAction(int v, Ref_190a0* r) : CAction() {
 // sym: ?Shutdown@CDropAction_19100@fn_f63f1981@@QAEXXZ
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
 void CDropAction_19100::Shutdown() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3438);
     RefObj_19100* b = mB;
     if (b) {
         b->Release();
         mB = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_19100* a = mA;
     if (a) {
         a->Release();

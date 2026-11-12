@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f5607ee0 {} using namespace fn_f5607ee0;
+namespace fn_f5607ee0 { extern "C" char DAT_0042ddb4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -671,7 +672,7 @@ namespace fn_f5607ee0 {
 // 0x002a9300 pure3d::LightAnimationController::vfunc_2 (63 B): matches/0x002a9300.cpp
 // sym: ?f2@LightAnimationController_2a9300@fn_f5607ee0@@QAEPAV12@E@Z
 LightAnimationController_2a9300* LightAnimationController_2a9300::f2(unsigned char flags) {
-    vptr = g_vftable_2a9300;
+    vptr = ((void**)DAT_0042ddb4);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

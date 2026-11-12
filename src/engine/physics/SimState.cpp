@@ -128,7 +128,7 @@ struct Sub_2ef7f0 {
 class SimState_2ef7f0 {
   public:
     void* vptr;
-    hulk_intptr m4;   // (x64t6) decls/physics_world.h HulkSimState: NonCopyable's word and the two pointers pointer-sized
+    int m4;   // (x64t6, x64t7) decls/physics_world.h HulkSimState: NonCopyable's reference count; the two pointers pointer-sized
     int m8, mc;
     Sub_2ef7f0 sub;
     int m50, m54, m58, m5c, m60, m64;
@@ -258,7 +258,7 @@ class SimState {
     virtual void _m_vf12();
     virtual void _m_vf13();
     virtual void _m_vf14();
-    hulk_intptr _m_4;   // (x64t6) NonCopyable's word, pointer-sized (decls/physics_world.h HulkSimState)
+    int _m_4;   // (x64t7) NonCopyable's reference count (decls/physics_world.h HulkSimState)
     char _m_pad_8[8];
     Mat_2ef900 current;
     Vec3_2ef900 delta;

@@ -243,7 +243,7 @@ class CButtonValueCondition {
     int x7;
 };
 struct ThisCall_00234590 {
-    void FUN_00234590(int);
+    void* FUN_00234590(void*);   // (x64t7) fight::Condition's constructor: takes a pointer (was `int`), returns `this`
 };
 CButtonValueCondition* __fastcall FUN_00048790(CButtonValueCondition* self) {
     ((ThisCall_00234590*)(self))->FUN_00234590(0);
@@ -551,7 +551,7 @@ class CNameFlagConditionBase {
     CNameFlagConditionBase();
 };
 struct ThisCall_00234590 {
-    void FUN_00234590(int);
+    void* FUN_00234590(void*);   // (x64t7) fight::Condition's constructor: takes a pointer (was `int`), returns `this`
 };
 CNameFlagConditionBase::CNameFlagConditionBase() {
     ((ThisCall_00234590*)(this))->FUN_00234590(0);

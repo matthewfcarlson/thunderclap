@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_ff737d4f {} using namespace fn_ff737d4f;
+namespace fn_ff737d4f { extern "C" char DAT_0042d78c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -382,7 +383,7 @@ OpaqueTraversal_2a2de0::~OpaqueTraversal_2a2de0() {
 // 0x002a2e20 pure3d::OpaqueTraversal::vfunc_2 (70 B): matches/0x002a2e20.cpp
 // sym: ?f2@OpaqueTraversal_2a2e20@fn_ff737d4f@@QAEPAV12@E@Z
 OpaqueTraversal_2a2e20* OpaqueTraversal_2a2e20::f2(unsigned char flags) {
-    vptr = g_vftable_2a2e20;
+    vptr = ((void**)DAT_0042d78c);
     _ReadWriteBarrier();
     if (m2c)
         operator delete[](m2c);

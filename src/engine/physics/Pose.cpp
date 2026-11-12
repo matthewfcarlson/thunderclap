@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f346547a {} using namespace fn_f346547a;
+namespace fn_f346547a { extern "C" char DAT_00432148[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -1260,7 +1261,7 @@ void __fastcall FUN_00310070(A_310070* self) {
 // sym: ?ctor@PoseEngine_310080@fn_f346547a@@QAEPAV12@PAVRes_310080@2@HH@Z
 PoseEngine_310080* PoseEngine_310080::ctor(Res_310080* a0, int a1, int a2) {
     m4 = 0;
-    vptr = g_vftable_310080;
+    vptr = ((void**)DAT_00432148);
     m10 = a1;
     m14 = a2;
     physics::Pose* h = (physics::Pose*)operator new(0x10);

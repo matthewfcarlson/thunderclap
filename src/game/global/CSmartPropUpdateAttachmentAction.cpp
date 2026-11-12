@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fe4a999c {} using namespace fn_fe4a999c;
+namespace fn_fe4a999c { extern "C" char DAT_003f3844[], DAT_003f3390[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -163,13 +164,13 @@ CSmartPropUpdateAttachmentAction_1ec50::CSmartPropUpdateAttachmentAction_1ec50(i
 // 0x0001ecb0 FUN_0001ecb0 (61 B): matches/0x0001ecb0.cpp
 // sym: ?Shutdown@CSmartPropUpdateAttachmentAction@fn_fe4a999c@@QAEXXZ
 void CSmartPropUpdateAttachmentAction::Shutdown() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3844);
     RefObj_1ecb0* b = mB;
     if (b) {
         b->Release();
         mB = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_1ecb0* a = mA;
     if (a) {
         a->Release();

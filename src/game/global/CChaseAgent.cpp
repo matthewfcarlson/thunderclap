@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f0405f54 {
 #define TREE_TU_END }
 namespace fn_f0405f54 {} using namespace fn_f0405f54;
+namespace fn_f0405f54 { extern "C" char DAT_0040d034[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -233,7 +234,7 @@ namespace fn_f0405f54 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CChaseAgent_fcb40* CChaseAgent_fcb40::vfunc_5(signed char flags) {
-    *(void***)this = CCharacterAgent_fcb40_vftable;
+    *(void***)this = ((void**)DAT_0040d034);
     Destroy_000fc630();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

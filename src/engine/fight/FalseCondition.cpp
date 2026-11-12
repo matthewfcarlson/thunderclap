@@ -7,6 +7,7 @@
 #define TREE_TU_BEGIN namespace fn_f1fd5fb3 {
 #define TREE_TU_END }
 namespace fn_f1fd5fb3 {} using namespace fn_f1fd5fb3;
+namespace fn_f1fd5fb3 { extern "C" char DAT_00428ad0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -199,7 +200,7 @@ template <> void* fight::ConditionFactoryTemplate<fight::FalseCondition>::vfunc_
     CIsGrappledCondition_23d3a0* p = (CIsGrappledCondition_23d3a0*)operator new(0x0c);
     if (p) {
         p->init_00234590(0);
-        *(void**)p = &condition_vftable_23d3a0;
+        *(void**)p = ((void**)DAT_00428ad0);
         return (void*)(p);
     }
     return (void*)(0);

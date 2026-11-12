@@ -7,6 +7,7 @@
 #define TREE_TU_BEGIN namespace fn_f92753c8 {
 #define TREE_TU_END }
 namespace fn_f92753c8 {} using namespace fn_f92753c8;
+namespace fn_f92753c8 { extern "C" char DAT_004274d8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/choreo2.h"
 
 // ---- declarations shared by the functions below
@@ -84,7 +85,7 @@ namespace fn_f92753c8 {
 // sym: ?f2@Driver_22a950@fn_f92753c8@@QAEPAV12@E@Z
 // data: g_count_22a950 = DAT_004e5abc
 Driver_22a950* Driver_22a950::f2(unsigned char flags) {
-    vptr = g_vftable_22a950;
+    vptr = ((void**)DAT_004274d8);
     _ReadWriteBarrier();
     (*(int*)&DAT_004e5abc)--;
     Fin_0027afd0();

@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_fe1a35b1 {
 #define TREE_TU_END }
 namespace fn_fe1a35b1 {} using namespace fn_fe1a35b1;
+namespace fn_fe1a35b1 { extern "C" char DAT_003f3d30[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -252,7 +253,7 @@ CDeathAction::CDeathAction(Arg_20b50* a) {
 // 0x00020b90 FUN_00020b90 (36 B): matches/0x00020b90.cpp
 // sym: ??1CAction_20b90@fn_fe1a35b1@@QAE@XZ
 CAction_20b90::~CAction_20b90() {
-    vptr = g_vftable_20b90;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -310,7 +311,7 @@ namespace fn_fe1a35b1 {
 // 0x00020c10 FUN_00020c10 (36 B): matches/0x00020c10.cpp
 // sym: ??1CAction_20c10@fn_fe1a35b1@@QAE@XZ
 CAction_20c10::~CAction_20c10() {
-    vptr = g_vftable_20c10;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -368,13 +369,13 @@ namespace fn_fe1a35b1 {
 // sym: ?Shutdown@CSmartPropUpdateAttachmentAction@fn_fe1a35b1@@QAEXXZ
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
 void CSmartPropUpdateAttachmentAction::Shutdown() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3d30);
     RefObj_20c90* b = mB;
     if (b) {
         b->Release();
         mB = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_20c90* a = mA;
     if (a) {
         a->Release();
@@ -428,7 +429,7 @@ namespace fn_fe1a35b1 {
 // 0x00020d20 FUN_00020d20 (36 B): matches/0x00020d20.cpp
 // sym: ??1CAction_20d20@fn_fe1a35b1@@QAE@XZ
 CAction_20d20::~CAction_20d20() {
-    vptr = g_vftable_20d20;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -512,7 +513,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         b->Release();
         mB = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_20da0* a = mA;
     if (a) {
         a->Release();

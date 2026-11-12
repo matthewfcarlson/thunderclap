@@ -5,6 +5,7 @@
 #define TREE_TU_BEGIN namespace fn_f464926c {
 #define TREE_TU_END }
 namespace fn_f464926c {} using namespace fn_f464926c;
+namespace fn_f464926c { extern "C" char DAT_003f3390[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -62,7 +63,7 @@ CInvincibleAction_220e0* CInvincibleAction_220e0::f2(unsigned char flags) {
 // 0x00022120 CIntangibleAction::vfunc_2 (57 B): matches/0x00022120.cpp
 // sym: ?f2@CIntangibleAction_22120@fn_f464926c@@QAEPAV12@E@Z
 CIntangibleAction_22120* CIntangibleAction_22120::f2(unsigned char flags) {
-    vptr = g_vftable_22120;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

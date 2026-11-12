@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f43aa70d {} using namespace fn_f43aa70d;
+namespace fn_f43aa70d { extern "C" char DAT_0042d6c8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -97,7 +98,7 @@ namespace fn_f43aa70d {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 AmbientLight_2a12a0* AmbientLight_2a12a0::vfunc_5(signed char flags) {
-    *(void***)this = Light_2a12a0_vftable;
+    *(void***)this = ((void**)DAT_0042d6c8);
     Destroy_002a0720();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

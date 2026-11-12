@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fbc2d490 {} using namespace fn_fbc2d490;
+namespace fn_fbc2d490 { extern "C" char DAT_0042d82c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -154,7 +155,7 @@ DrawableHierarchy_2a35f0::~DrawableHierarchy_2a35f0() {
 // 0x002a3620 pure3d::DrawableHierarchy::vfunc_2 (57 B): matches/0x002a3620.cpp
 // sym: ?f2@DrawableHierarchy_2a3620@fn_fbc2d490@@QAEPAV12@E@Z
 DrawableHierarchy_2a3620* DrawableHierarchy_2a3620::f2(unsigned char flags) {
-    vptr = g_vftable_2a3620;
+    vptr = ((void**)DAT_0042d82c);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

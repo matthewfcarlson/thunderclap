@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f19d3f35 {
 #define TREE_TU_END }
 namespace fn_f19d3f35 {} using namespace fn_f19d3f35;
+namespace fn_f19d3f35 { extern "C" char DAT_00405894[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -438,7 +439,7 @@ class CEffectStopTrack {
 };
 void __fastcall FUN_002926c0(CEffectStopTrack*);
 extern "C" void __fastcall FUN_000a9620(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_00405894);
     FUN_002926c0(self);
 }
 } // namespace fn_000a9620

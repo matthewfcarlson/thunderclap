@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f63372f2 {
 #define TREE_TU_END }
 namespace fn_f63372f2 {} using namespace fn_f63372f2;
+namespace fn_f63372f2 { extern "C" char DAT_003f99f8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -1870,7 +1871,7 @@ class CGrappleOpportunityTrack : public Track_5b840 {
     CGrappleOpportunityTrack* vfunc_5(unsigned char flags);
 };
 CGrappleOpportunityTrack* CGrappleOpportunityTrack::vfunc_5(unsigned char flags) {
-    vptr = g_vftable_5b840;
+    vptr = ((void**)DAT_003f99f8);
     a28.Fini_00236fd0();
     a18.Fini_00234150();
     Fin_00236d60();

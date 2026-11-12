@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_ff756602 {} using namespace fn_ff756602;
+namespace fn_ff756602 { extern "C" char DAT_003f6d50[], DAT_003f719c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -90,7 +91,7 @@ CSmartPropAttachedCondition* CSmartPropAttachedCondition::vfunc_5(signed char fl
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CSmartPropWeaponizableTypeCondition* CSmartPropWeaponizableTypeCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4c690_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -105,7 +106,7 @@ CSmartPropWeaponizableTypeCondition* CSmartPropWeaponizableTypeCondition::vfunc_
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CSmartPropWeaponTypeCondition* CSmartPropWeaponTypeCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4c6c0_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -120,7 +121,7 @@ CSmartPropWeaponTypeCondition* CSmartPropWeaponTypeCondition::vfunc_5(signed cha
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CSmartPropTypeCondition* CSmartPropTypeCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4c6f0_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -133,9 +134,9 @@ CSmartPropTypeCondition* CSmartPropTypeCondition::vfunc_5(signed char flags) {
 // sym: ?CSmartPropNameCondition_vfunc_5@fn_ff756602@@YIPAUCSmartPropNameCondition@1@PAU21@PAXE@Z
 CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNameCondition* p, void*,
                                                                     unsigned char flags) {
-    p->vptr = &smart_vftable;
+    p->vptr = ((int*)DAT_003f719c);
     FUN_0027af50((char*)p + 0x18);
-    p->vptr = &condition_vftable_4c720;
+    p->vptr = ((int*)DAT_003f6d50);
     FUN_002345b0(p);
     if (flags & 1)
         thunk_FUN_00267090(p);
@@ -149,7 +150,7 @@ CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNa
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CSmartPropAngleCondition* CSmartPropAngleCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4c760_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

@@ -13,6 +13,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f35954a7 {} using namespace fn_f35954a7;
+namespace fn_f35954a7 { extern "C" char DAT_0042e5b4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f35954a7 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -1714,7 +1715,7 @@ ShadowMeshVertices* ShadowMeshVertices::vfunc_2(byte_2b50c0 param) {
     *(void**)this = &hulk_at_0042e554;
     thunk_val_0008d340(*(unsigned int*)((char*)this + 0x10));
     thunk_val_0008d340(*(unsigned int*)((char*)this + 0x14));
-    *(void**)this = &ref_vftable_2b50c0;
+    *(void**)this = ((void**)DAT_003f6098);
     if (param & 1)
         thunk_0008d330(this);
     return this;
@@ -1784,7 +1785,7 @@ ShadowMeshVertices* ShadowMeshVertices::vfunc_2(byte_2b5200 param) {
     *(void**)this = &hulk_at_0042e564;
     thunk_val_0008d340(*(unsigned int*)((char*)this + 0x10));
     thunk_val_0008d340(*(unsigned int*)((char*)this + 0x14));
-    *(void**)this = &ref_vftable_2b5200;
+    *(void**)this = ((void**)DAT_003f6098);
     if (param & 1)
         thunk_0008d330(this);
     return this;
@@ -2264,7 +2265,7 @@ ShadowSkinImpl_2b56e0::~ShadowSkinImpl_2b56e0() {
         m48 = 0;
     }
     operator delete(m74);
-    *(void* volatile*)&vptr = g_vftable2;
+    *(void* volatile*)&vptr = ((void**)DAT_0042e5b4);
     Ref_2b56e0* t = *(Ref_2b56e0* volatile*)&m40;
     if (t) {
         t->Release();
@@ -2711,7 +2712,7 @@ namespace fn_f35954a7 {
 // 0x002b6fb0 pure3d::ShadowMeshBufferImpl::vfunc_2 (57 B): matches/0x002b6fb0.cpp
 // sym: ?f2@ShadowMeshBufferImpl_2b6fb0@fn_f35954a7@@QAEPAV12@E@Z
 ShadowMeshBufferImpl_2b6fb0* ShadowMeshBufferImpl_2b6fb0::f2(unsigned char flags) {
-    vptr = g_vftable_2b6fb0;
+    vptr = ((void**)DAT_0042e584);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

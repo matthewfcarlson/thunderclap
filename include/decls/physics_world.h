@@ -22,14 +22,15 @@
 // owner (the CollisionObject that 0x003065b0 attaches, a pointer) and the children range are pointer-sized; the last
 // word is a float that CollisionWall's constructor 0x0030e700 overwrites with another constant. Shared by the
 // constructor's, 0x003065b0's and CollisionWall's views (each had its own 32-bit pad or `int`).
-// (x64t6) The word at 4 is pure3d::NonCopyable's (gen: `hulk_intptr f_04`), pointer-sized natively, so every view
-// (gen's physics::CollisionVolume, the subclasses' and the helpers' own) puts the id (m8) at 0x10 and the owner at
-// 0x18: natively the words sit at HULK_CV(k) for the 32-bit offset k (0x48 bytes in all). A polymorphic view (an
-// implicit vftable) pads up to word k with `char pad[HULK_CV(k) - sizeof(void*)]`.
+// (x64t6, x64t7) The word at 4 is pure3d::NonCopyable's reference count (an int), and natively the count is followed
+// directly by the id (gen's NonCopyable packs to 12 bytes: compat/ptr.h HULK_REFCOUNT_PACK); the owner and the children
+// are pointers, so natively the words sit at HULK_CV(k) for the 32-bit offset k (0x48 bytes in all), in gen's
+// physics::CollisionVolume too. A polymorphic view (an implicit vftable) pads up to word k with
+// `char pad[HULK_CV(k) - sizeof(void*)]`.
 #define HULK_CV(k) ((int)(sizeof(void*) == 4 ? (k) : (k) >= 0x18 ? (k) + 0x10 : (k) >= 0x14 ? (k) + 0xc : \
-                                                     (k) >= 0x8 ? (k) + 8 : (k) * 2))
+                                                     (k) >= 0x10 ? (k) + 8 : (k) >= 4 ? (k) + 4 : (k)))
 #define HULK_COLLISION_VOLUME_WORDS \
-    hulk_intptr m4; /* pure3d::NonCopyable's word */ \
+    int m4; /* pure3d::NonCopyable's reference count */ \
     int m8, mc; /* the id (0x00306600 sets it on the children too), a word */ \
     void* owner; /* 0x10: the CollisionObject (0x003065b0) */ \
     void* children; /* 0x14: the children range (begin, end) */ \
@@ -108,15 +109,15 @@ struct HulkCollisionObject {
 #define HULK_CO_OWNER ((int)(hulk_uintptr)&((HulkCollisionObject*)0)->f18)
 #define HULK_CO_AT(m) ((int)(hulk_uintptr)&((HulkCollisionObject*)0)->m)   // a CollisionObject word's offset
 
-// (x64t6) physics::SimState as its constructor 0x002ef7f0 writes it (0x88 bytes on the 32-bit builds): the word at
-// 4 is pure3d::NonCopyable's (pointer-sized, as gen's f_04), the simulated object (0x70) and the CollisionObject
-// (0x74) are pointers; natively the words sit at HULK_SS(k) for the 32-bit offset k (0x98 bytes in all), which is
-// gen's physics::SimState too.
-#define HULK_SS(k) ((int)(sizeof(void*) == 4 ? (k) : (k) < 8 ? (k) * 2 : (k) < 0x74 ? (k) + 8 : (k) < 0x78 ? (k) + 0xc : \
-                                                     (k) + 0x10))
+// (x64t6, x64t7) physics::SimState as its constructor 0x002ef7f0 writes it (0x88 bytes on the 32-bit builds): the
+// word at 4 is pure3d::NonCopyable's reference count (an int, followed natively by the state's words: gen's
+// NonCopyable packs to 12 bytes), the simulated object (0x70) and the CollisionObject (0x74) are pointers; natively
+// the words sit at HULK_SS(k) for the 32-bit offset k (0x98 bytes in all), which is gen's physics::SimState too.
+#define HULK_SS(k) ((int)(sizeof(void*) == 4 ? (k) : (k) < 4 ? (k) : (k) < 0x70 ? (k) + 4 : (k) < 0x74 ? (k) + 8 : \
+                                                     (k) < 0x78 ? (k) + 0xc : (k) + 0x10))
 struct HulkSimState {
     void* vftable;
-    hulk_intptr m4;
+    int m4;            // pure3d::NonCopyable's reference count
     int m8, mc;
     float current[16]; // 0x10
     float delta[3];    // 0x50

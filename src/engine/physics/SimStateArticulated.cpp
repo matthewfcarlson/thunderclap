@@ -795,7 +795,7 @@ void Object::FUN_002fdbd0(Vec_2fdbd0* input, Vec_2fdbd0* output) {
 
 
 // 0x002fdc90 FUN_002fdc90 (198 B): equivalent/0x002fdc90.cpp [wrapped: conflict: physics::SimStateArticulated]
-// sym: ??0SimStateArticulated@physics@fn_002fdc90@@QAE@PAUSource_2fdc90@2@PAX@Z @232329e7de9b @w9e204fb0ba81
+// sym: ??0SimStateArticulated@physics@fn_002fdc90@@QAE@PAUSource_2fdc90@2@H@Z @909bec620553 @we880da19999b
 namespace fn_002fdc90 {
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 6/6)
 // FUN_002fdc90 @ 0x002fdc90
@@ -804,7 +804,7 @@ struct Transform_2fdc90 { void FUN_0022b980(); char data[64]; };
 struct Entry_2fdc90 { int a,b,c,d,e,f,g; unsigned char enabled; char pad[3]; Transform_2fdc90 transform; int last; };
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int bytes);
 struct FUN_002ef7f0 {
- FUN_002ef7f0(void* arg);
+ FUN_002ef7f0(int mode);   // (x64t7) SimState's constructor (0x002ef7f0) takes the mode word at 0x6c, an int (was a pointer)
  virtual void slot0();
  char base[128];
 };
@@ -818,10 +818,10 @@ struct SimStateArticulated : FUN_002ef7f0 {
  int field90;
  unsigned char field94;
  void FUN_002fd8a0(Source_2fdc90* source);
- SimStateArticulated(Source_2fdc90* source, void* arg);
+ SimStateArticulated(Source_2fdc90* source, int mode);
 };
 }
-physics::SimStateArticulated::SimStateArticulated(Source_2fdc90* source, void* arg) : FUN_002ef7f0(arg) {
+physics::SimStateArticulated::SimStateArticulated(Source_2fdc90* source, int mode) : FUN_002ef7f0(mode) {
  field88=0; field90=0; field94=0; enabled=1;
  int count=source->FUN_0030f450();
  int* allocation=(int*)FUN_0008d6d0((unsigned int)count*100+4);

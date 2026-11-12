@@ -400,7 +400,7 @@ namespace fn_ff70be84 {
 // sym: ?FUN_00284ac0@fn_ff70be84@@YIXPAVCEffectStopTrack@1@@Z
 // Same code shape as 0x00060920 (propagated; names are from that function)
 void __fastcall FUN_00284ac0(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_0042c5bc);
     FUN_0027afd0(self);
 }
 
@@ -1321,7 +1321,7 @@ namespace fn_ff70be84 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 FrameController_285720* FrameController_285720::vfunc_5(signed char flags) {
-    *(void***)this = Entity_285720_vftable;
+    *(void***)this = ((void**)DAT_0042c5bc);
     Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -1336,7 +1336,7 @@ FrameController_285720* FrameController_285720::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 AnimationFrameController_285750* AnimationFrameController_285750::vfunc_5(signed char flags) {
-    *(void***)this = FrameController_285750_vftable;
+    *(void***)this = ((void**)DAT_0042c5bc);
     Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

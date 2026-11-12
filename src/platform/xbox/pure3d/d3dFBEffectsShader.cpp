@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_fb517155 {
 #define TREE_TU_END }
 namespace fn_fb517155 {} using namespace fn_fb517155;
+namespace fn_fb517155 { extern "C" char DAT_004336d4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "platform/xbox/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -461,7 +462,7 @@ namespace fn_fb517155 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 d3dFBEffectsShader_328770* d3dFBEffectsShader_328770::vfunc_5(signed char flags) {
-    *(void***)this = d3dShader_328770_vftable;
+    *(void***)this = ((void**)DAT_004336d4);
     Destroy();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

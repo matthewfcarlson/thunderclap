@@ -13,6 +13,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f07ae39e {} using namespace fn_f07ae39e;
+namespace fn_f07ae39e { extern "C" char DAT_0042e0a8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f07ae39e { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -1558,7 +1559,7 @@ OldParticleSystemLoader_2ab7c0::OldParticleSystemLoader_2ab7c0() {
 // 0x002ab830 pure3d::OldParticleSystemLoader::vfunc_2 (75 B): matches/0x002ab830.cpp
 // sym: ?f2@OldParticleSystemLoader_2ab830@fn_f07ae39e@@QAEPAV12@E@Z
 OldParticleSystemLoader_2ab830* OldParticleSystemLoader_2ab830::f2(unsigned char flags) {
-    vptr = g_vftable_2ab830;
+    vptr = ((void**)DAT_0042e0a8);
     _ReadWriteBarrier();
     if (m14) {
         m14->f1();

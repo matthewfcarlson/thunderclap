@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fa9c7cf4 {} using namespace fn_fa9c7cf4;
+namespace fn_fa9c7cf4 { extern "C" char DAT_0042fcd4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fa9c7cf4 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -192,7 +193,7 @@ namespace fn_fa9c7cf4 {
 // 0x002e18e0 pure3d::BoneMatrixList::vfunc_2 (53 B): matches/0x002e18e0.cpp
 // sym: ?f2@BoneMatrixList_2e18e0@fn_fa9c7cf4@@QAEPAV12@E@Z
 BoneMatrixList_2e18e0* BoneMatrixList_2e18e0::f2(unsigned char flags) {
-    vptr = g_vftable_0042fcd4;
+    vptr = ((void**)DAT_0042fcd4);
     _ReadWriteBarrier();
     if (m8)
         operator delete[](m8);

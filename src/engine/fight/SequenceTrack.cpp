@@ -290,7 +290,7 @@ class SequenceTrack {
 };
 void __cdecl thunk_FUN_00267090(SequenceTrack*);
 SequenceTrack* SequenceTrack::V5(int x) {
-    *(char**)this = SequenceTrack_vftable;
+    *(char**)this = ((char*)DAT_00428100);
     a1.Init_00236fd0();
     b.Init_00234150();
     Finish_00236d60();

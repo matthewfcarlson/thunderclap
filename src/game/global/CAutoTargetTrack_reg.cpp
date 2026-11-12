@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_fa2767a4 {
 #define TREE_TU_END }
 namespace fn_fa2767a4 {} using namespace fn_fa2767a4;
+namespace fn_fa2767a4 { extern "C" char DAT_003fc644[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -86,7 +87,7 @@ namespace fn_fa2767a4 {
 // 0x0006c600 FUN_0006c600 (32 B): matches/0x0006c600.cpp
 // sym: ??0ParamBool_6c600@fn_fa2767a4@@QAE@HH@Z
 ParamBool_6c600::ParamBool_6c600(int a, int b) : ParamValueBool_6c600(a) {
-    *(void**)this = g_vftable;
+    *(void**)this = ((void**)DAT_003fc644);
     m10 = b;
 }
 

@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_ff9773df {} using namespace fn_ff9773df;
+namespace fn_ff9773df { extern "C" char DAT_0042eccc[], DAT_003f6098[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -438,7 +439,7 @@ GeometryLoader_2c29b0::GeometryLoader_2c29b0() {
 // 0x002c2a70 FUN_002c2a70 (55 B): matches/0x002c2a70.cpp
 // sym: ??1GeometryLoader_2c2a70@fn_ff9773df@@QAE@XZ
 GeometryLoader_2c2a70::~GeometryLoader_2c2a70() throw() {
-    vptr = g_vftable_2c2a70;
+    vptr = ((void**)DAT_0042eccc);
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -448,7 +449,7 @@ GeometryLoader_2c2a70::~GeometryLoader_2c2a70() throw() {
         m20->Release();
         m20 = 0;
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_003f6098);
 }
 
 } // namespace fn_ff9773df

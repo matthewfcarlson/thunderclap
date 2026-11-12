@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f215d331 {} using namespace fn_f215d331;
+namespace fn_f215d331 { extern "C" char DAT_00429114[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -1073,7 +1074,7 @@ EntityType::EntityType(const U64_243310* a, const U64_243310* b, int c, int d, i
 // sym: ?FUN_00243350@fn_f215d331@@YIXPAVCEffectStopTrack@1@@Z
 // Same code shape as 0x00060920 (propagated; names are from that function)
 void __fastcall FUN_00243350(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_00429114);
     FUN_002580e0(self);
 }
 

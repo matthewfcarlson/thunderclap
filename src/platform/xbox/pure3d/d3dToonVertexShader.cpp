@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f44f442a {
 #define TREE_TU_END }
 namespace fn_f44f442a {} using namespace fn_f44f442a;
+namespace fn_f44f442a { extern "C" char DAT_00433dcc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "platform/xbox/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -385,7 +386,7 @@ d3dToonVertexShader_330d40* d3dToonVertexShader_330d40::Run(u32_330d40 arg) {
 // sym: ?vfunc_3@d3dToonVertexShader_330d90@fn_f44f442a@@UAEPAV12@E@Z
 d3dToonVertexShader_330d90* d3dToonVertexShader_330d90::vfunc_3(unsigned char p) {
     Ref_330d90* r = m98;
-    *(void**)this = &toon_vftable;
+    *(void**)this = ((char*)DAT_00433dcc);
     if (r)
         r->f1();
     r = m94;

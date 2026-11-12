@@ -128,7 +128,7 @@ namespace fn_fe58ce06 {
 // sym: ?FUN_0030eb50@fn_fe58ce06@@YIXPAVCEffectStopTrack@1@@Z
 // Same code shape as 0x00060920 (propagated; names are from that function)
 void __fastcall FUN_0030eb50(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_0043209c);
     FUN_0027afd0(self);
 }
 

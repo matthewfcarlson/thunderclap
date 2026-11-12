@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_f6040229 {
 #define TREE_TU_END }
 namespace fn_f6040229 {} using namespace fn_f6040229;
+namespace fn_f6040229 { extern "C" char DAT_003f34f0[], DAT_003f3390[], DAT_003f359c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -223,13 +224,13 @@ namespace fn_f6040229 {
 // sym: ?Shutdown@CSmartPropUpdateAttachmentAction@fn_f6040229@@QAEXXZ
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
 void CSmartPropUpdateAttachmentAction::Shutdown() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)((char*)DAT_003f34f0);
     RefObj_1cf90* b = mB;
     if (b) {
         b->Release();
         mB = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_1cf90* a = mA;
     if (a) {
         a->Release();
@@ -347,7 +348,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         b->Release();
         mB = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_1d0c0* a = mA;
     if (a) {
         a->Release();
@@ -405,13 +406,13 @@ class CSmartPropUpdateAttachmentAction {
 };
 
 void CSmartPropUpdateAttachmentAction::Shutdown() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)((char*)DAT_003f359c);
     RefObj_1d150* b = mB;
     if (b) {
         b->Release();
         mB = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_1d150* a = mA;
     if (a) {
         a->Release();
@@ -469,7 +470,7 @@ namespace fn_f6040229 {
 // 0x0001d1e0 FUN_0001d1e0 (36 B): matches/0x0001d1e0.cpp
 // sym: ??1CAction_1d1e0@fn_f6040229@@QAE@XZ
 CAction_1d1e0::~CAction_1d1e0() {
-    vptr = g_vftable_1d1e0;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -527,7 +528,7 @@ namespace fn_f6040229 {
 // 0x0001d260 FUN_0001d260 (36 B): matches/0x0001d260.cpp
 // sym: ??1CAction_1d260@fn_f6040229@@QAE@XZ
 CAction_1d260::~CAction_1d260() {
-    vptr = g_vftable_1d260;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -609,7 +610,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         b->Release();
         mB = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_1d2e0* a = mA;
     if (a) {
         a->Release();
@@ -667,7 +668,7 @@ namespace fn_f6040229 {
 // 0x0001d370 FUN_0001d370 (36 B): matches/0x0001d370.cpp
 // sym: ??1CAction_1d370@fn_f6040229@@QAE@XZ
 CAction_1d370::~CAction_1d370() {
-    vptr = g_vftable_1d370;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -725,7 +726,7 @@ namespace fn_f6040229 {
 // 0x0001d3f0 FUN_0001d3f0 (36 B): matches/0x0001d3f0.cpp
 // sym: ??1CAction_1d3f0@fn_f6040229@@QAE@XZ
 CAction_1d3f0::~CAction_1d3f0() {
-    vptr = g_vftable_1d3f0;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -786,7 +787,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         b->Release();
         mB = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_1d480* a = mA;
     if (a) {
         a->Release();

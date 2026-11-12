@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_f81bc752 {
 #define TREE_TU_END }
 namespace fn_f81bc752 {} using namespace fn_f81bc752;
+namespace fn_f81bc752 { extern "C" char DAT_003f3390[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -234,7 +235,7 @@ namespace fn_f81bc752 {
 // 0x000200f0 FUN_000200f0 (36 B): matches/0x000200f0.cpp
 // sym: ??1CAction_200f0@fn_f81bc752@@QAE@XZ
 CAction_200f0::~CAction_200f0() {
-    vptr = g_vftable_200f0;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -288,7 +289,7 @@ namespace fn_f81bc752 {
 // 0x00020170 FUN_00020170 (36 B): matches/0x00020170.cpp
 // sym: ??1CAction_20170@fn_f81bc752@@QAE@XZ
 CAction_20170::~CAction_20170() {
-    vptr = g_vftable_20170;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -342,7 +343,7 @@ namespace fn_f81bc752 {
 // 0x000201f0 FUN_000201f0 (36 B): matches/0x000201f0.cpp
 // sym: ??1CAction_201f0@fn_f81bc752@@QAE@XZ
 CAction_201f0::~CAction_201f0() {
-    vptr = g_vftable_201f0;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

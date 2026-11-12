@@ -195,7 +195,7 @@ extern void* __cdecl alloc_00263ea0(hulk_uintptr);
 // Same code shape as 0x002960e0 (propagated; names are from that function)
 ShaderAnimationController_2a83e0::ShaderAnimationController_2a83e0() {
     FUN_00284cd0((void*)(this));
-    vptr = &scenegraph_vftable;
+    vptr = ((void**)DAT_0042dd24);
     field40 = 0;
 }
 
@@ -311,7 +311,7 @@ void CMotionTrail::vfunc_8(Obj_2a8650* p) {
 // 0x002a8680 pure3d::ShaderAnimationController::vfunc_2 (57 B): matches/0x002a8680.cpp
 // sym: ?f2@ShaderAnimationController_2a8680@fn_f8dbb66d@@QAEPAV12@E@Z
 ShaderAnimationController_2a8680* ShaderAnimationController_2a8680::f2(unsigned char flags) {
-    vptr = g_vftable_2a8680;
+    vptr = ((void**)DAT_0042dd24);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

@@ -13,6 +13,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fc049dac {} using namespace fn_fc049dac;
+namespace fn_fc049dac { extern "C" char DAT_004327b0[], DAT_004329cc[], DAT_004329d4[], DAT_004329dc[], DAT_004329e4[], DAT_004329ec[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fc049dac { extern "C" char DAT_0043276c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 // (x64t2) the context's current states (f_48 view, f_4c render, f_50 lighting, f_54 fog, f_58 stencil) from any view of
@@ -893,7 +894,7 @@ extern "C" unsigned int* __cdecl FUN_0031c680(unsigned int* output, unsigned int
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 pddiRenderContext_31c780* pddiRenderContext_31c780::vfunc_5(signed char flags) {
-    *(void***)this = pddiObject_31c780_vftable;
+    *(void***)this = ((void**)DAT_004325f4);
     Destroy();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -2982,7 +2983,7 @@ void pddiStack_31e330::f() {
 // 0x0031e440 pure3d::pddiStack<math::Matrix>::vfunc_0 (44 B): matches/0x0031e440.cpp
 // sym: ?vfunc_0@pddiStack@fn_fc049dac@@UAEPAU12@E@Z
 pddiStack* pddiStack::vfunc_0(unsigned char flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&stack_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004327b0);
     thunk_FUN_00267090(field_c);
     if (flag & 1)
         thunk_FUN_00267090(this);
@@ -3617,7 +3618,7 @@ struct pddiStack {
 extern int stack_vftable;
 extern void __cdecl thunk_FUN_00267090(void*);
 pddiStack* pddiStack::vfunc_0(unsigned char flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&stack_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004329cc);
     thunk_FUN_00267090(field_c);
     if (flag & 1)
         thunk_FUN_00267090(this);
@@ -3683,7 +3684,7 @@ struct pddiStack {
 extern int stack_vftable;
 extern void __cdecl thunk_FUN_00267090(void*);
 pddiStack* pddiStack::vfunc_0(unsigned char flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&stack_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004329d4);
     thunk_FUN_00267090(field_c);
     if (flag & 1)
         thunk_FUN_00267090(this);
@@ -3756,7 +3757,7 @@ struct pddiStack {
 extern int stack_vftable;
 extern void __cdecl thunk_FUN_00267090(void*);
 pddiStack* pddiStack::vfunc_0(unsigned char flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&stack_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004329dc);
     thunk_FUN_00267090(field_c);
     if (flag & 1)
         thunk_FUN_00267090(this);
@@ -3822,7 +3823,7 @@ struct pddiStack {
 extern int stack_vftable;
 extern void __cdecl thunk_FUN_00267090(void*);
 pddiStack* pddiStack::vfunc_0(unsigned char flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&stack_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004329e4);
     thunk_FUN_00267090(field_c);
     if (flag & 1)
         thunk_FUN_00267090(this);
@@ -3883,7 +3884,7 @@ struct pddiStack {
 extern int stack_vftable;
 extern void __cdecl thunk_FUN_00267090(void*);
 pddiStack* pddiStack::vfunc_0(unsigned char flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&stack_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004329ec);
     thunk_FUN_00267090(field_c);
     if (flag & 1)
         thunk_FUN_00267090(this);

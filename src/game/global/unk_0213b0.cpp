@@ -7,6 +7,7 @@
 #define TREE_TU_BEGIN namespace fn_f338c480 {
 #define TREE_TU_END }
 namespace fn_f338c480 {} using namespace fn_f338c480;
+namespace fn_f338c480 { extern "C" char DAT_003f3de0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -189,13 +190,13 @@ CHeliDeathSpiralAction::CHeliDeathSpiralAction(int v, Ref* r) : CAction() {
 // sym: ?FUN_00021490@CHeliDeathSpiralAction@@QAEXXZ
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
 void CHeliDeathSpiralAction::FUN_00021490() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3de0);
     RefObj_21490* b = (*(RefObj_21490 *volatile *)&this->f_24);
     if (b) {
         b->Release();
         (*(RefObj_21490 *volatile *)&this->f_24) = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_21490* a = (*(RefObj_21490 *volatile *)&this->f_1c);
     if (a) {
         a->Release();
@@ -252,7 +253,7 @@ namespace fn_f338c480 {
 // 0x00021520 FUN_00021520 (36 B): matches/0x00021520.cpp
 // sym: ??1CAction_21520@fn_f338c480@@QAE@XZ
 CAction_21520::~CAction_21520() {
-    vptr = g_vftable_21520;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -310,7 +311,7 @@ namespace fn_f338c480 {
 // 0x000215a0 FUN_000215a0 (36 B): matches/0x000215a0.cpp
 // sym: ??1CAction_215a0@fn_f338c480@@QAE@XZ
 CAction_215a0::~CAction_215a0() {
-    vptr = g_vftable_215a0;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -360,7 +361,7 @@ namespace fn_f338c480 {
 // 0x00021610 FUN_00021610 (36 B): matches/0x00021610.cpp
 // sym: ??1CAction_21610@fn_f338c480@@QAE@XZ
 CAction_21610::~CAction_21610() {
-    vptr = g_vftable_21610;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

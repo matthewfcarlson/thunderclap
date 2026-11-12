@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fad29cbd {} using namespace fn_fad29cbd;
+namespace fn_fad29cbd { extern "C" char DAT_004323e4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -39,7 +40,7 @@ namespace fn_fad29cbd {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 pddiDisplay_31ac90* pddiDisplay_31ac90::vfunc_5(signed char flags) {
-    *(void***)this = pddiObject_31ac90_vftable;
+    *(void***)this = ((void**)DAT_004323e4);
     Destroy();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

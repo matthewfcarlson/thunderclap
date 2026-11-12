@@ -14,35 +14,29 @@ namespace fn_f0efd7bc {} using namespace fn_f0efd7bc;
 // ---- declarations shared by the functions below
 void* operator new(size_t n) HULK_NEW_THROW;
 namespace fn_f0efd7bc {
-class A_2c25b0 {
-  public:
-    A_2c25b0() throw();
-    char p[0xa4];
+// (x64t7) the image registry and the image converter, named by their constructors' addresses (0x002af2d0,
+// 0x002de230; were local classes whose constructors were declared only), each allocated natively at HULK_X2 of its
+// 32-bit size (compat/ptr.h); the loader's words with its vftable stored by address (the local class's own was a
+// stub natively)
+struct FUN_002af2d0 {
+    FUN_002af2d0() throw();
+    char p[HULK_X2(0xa4)];
 };
-class ImageConverter_2c25b0 {
-  public:
-    ImageConverter_2c25b0() throw();
-    char p[4];
+struct FUN_002de230 {
+    FUN_002de230() throw();
+    char p[HULK_X2(4)];
 };
-class SimpleChunkHandler_2c25b0 {
-  public:
-    SimpleChunkHandler_2c25b0() {
-        m4 = 0;
-        m8 = 0x19000;
-        mc = 0;
-        m10 = 0;
-    }
-    virtual void f0();
-    int m4, m8, mc, m10;
-};
-class TextureLoader : public SimpleChunkHandler_2c25b0 {
+extern int hulk_at_0042ec44;
+class TextureLoader {
   public:
     TextureLoader();
-    virtual void f0();
-    A_2c25b0* m14;
-    ImageConverter_2c25b0* m18;
+    void* vftable;
+    int m4;   // content::LoadObject's reference count
+    int m8, mc, m10;
+    FUN_002af2d0* m14;
+    FUN_002de230* m18;
 };
-extern int hulk_at_0042ec44, hulk_at_003f6098;
+extern int hulk_at_003f6098;
 extern void Free_00263f30(void*);
 extern void Free2_0008d330(void*);
 class Obj_2c2620 {
@@ -75,8 +69,13 @@ struct This_FUN_002c2370 {
 // 0x002c25b0 FUN_002c25b0 (105 B): matches/0x002c25b0.cpp
 // sym: ??0TextureLoader@fn_f0efd7bc@@QAE@XZ
 TextureLoader::TextureLoader() {
-    m14 = new A_2c25b0;
-    m18 = new ImageConverter_2c25b0;
+    m4 = 0;
+    m8 = 0x19000;
+    mc = 0;
+    m10 = 0;
+    vftable = &hulk_at_0042ec44;
+    m14 = new FUN_002af2d0;
+    m18 = new FUN_002de230;
 }
 
 

@@ -13,6 +13,7 @@
 #define TREE_TU_BEGIN namespace fn_f1739f6f {
 #define TREE_TU_END }
 namespace fn_f1739f6f {} using namespace fn_f1739f6f;
+namespace fn_f1739f6f { extern "C" char DAT_00413708[], DAT_004137d0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f1739f6f { extern "C" char DAT_00413768[], DAT_00413798[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
@@ -2814,7 +2815,7 @@ namespace fn_f1739f6f {
 // 0x00147650 FUN_00147650 (25 B): matches/0x00147650.cpp
 // sym: ??0CivilianAttachTrack_147650@fn_f1739f6f@@QAE@XZ
 CivilianAttachTrack_147650::CivilianAttachTrack_147650() : Track_147650() {
-    vptr = g_vftable;
+    vptr = ((void**)DAT_004136d8);
     mc = 0;
 }
 
@@ -3404,7 +3405,7 @@ namespace fn_f1739f6f {
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 GrappleAttachJointCondition_148110* GrappleAttachJointCondition_148110::vfunc_5(unsigned char param) {
     GrappleAttachJointCondition_148110* p = this;
-    *(char**)p = &threat_vftable_148110;
+    *(char**)p = ((char*)DAT_00413578);
     ((Obj_148110*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_148110*)p)->f2_002345b0();
     if (param & 1)
@@ -3551,7 +3552,7 @@ CivilianAttachTrack_1482c0* CivilianAttachTrack_1482c0::vfunc_5(signed char flag
 // 0x001482f0 hulkfight::motion::GrappleHitReactionTrack::vfunc_5 (46 B): matches/0x001482f0.cpp
 // sym: ?f2@GrappleHitReactionTrack_1482f0@fn_f1739f6f@@QAEPAV12@E@Z
 GrappleHitReactionTrack_1482f0* GrappleHitReactionTrack_1482f0::f2(unsigned char flags) {
-    vptr = g_vftable_1482f0;
+    vptr = ((void**)DAT_00413708);
 
     m.~Mem_1482f0();
     Fin_00236d60();
@@ -5294,7 +5295,7 @@ namespace fn_f1739f6f {
 // 0x0014adb0 hulkfight::motion::GrappleThrowAction::vfunc_2 (79 B): matches/0x0014adb0.cpp
 // sym: ?f2@GrappleThrowAction_14adb0@fn_f1739f6f@@QAEPAV12@E@Z
 GrappleThrowAction_14adb0* GrappleThrowAction_14adb0::f2(unsigned char flags) {
-    vptr = g_vftable_14adb0;
+    vptr = ((void**)DAT_004137d0);
     _ReadWriteBarrier();
     if (m20) {
         m20->f1();

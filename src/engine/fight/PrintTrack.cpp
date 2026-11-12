@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_fbe81dc2 {
 #define TREE_TU_END }
 namespace fn_fbe81dc2 {} using namespace fn_fbe81dc2;
+namespace fn_fbe81dc2 { extern "C" char DAT_004282dc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fbe81dc2 { extern "C" char DAT_00428330[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
 
@@ -48,12 +49,14 @@ class CCondition_2389f0 {
   public:
     virtual int vfunc_0(int);
 };
+HULK_REFCOUNT_PACK   // (x64t7) pure3d::NonCopyable's stand-in: 12 bytes natively (compat/ptr.h)
 class Track_238a00 {
   public:
     Track_238a00();
     virtual void Fn();
     char pad[4];
 };
+HULK_REFCOUNT_PACK_END
 class PrintTrack : public Track_238a00 {
   public:
     PrintTrack();
@@ -477,7 +480,7 @@ namespace fn_fbe81dc2 {
 // sym: ?v5@PrintCondition_238ca0@fn_fbe81dc2@@UAEPAXE@Z
 // Same code shape as 0x0012fc90 (propagated; names are from that function)
 void* PrintCondition_238ca0::v5(unsigned char flag) {
-    *(char**)this = &g_vftable_target;
+    *(char**)this = ((char*)DAT_004282dc);
     thunk_FUN_00267090(m_p1);
     thunk_FUN_00267090b_0008d340(m_p2);
     ((BaseCls_238ca0*)this)->Dtor_002345b0();
@@ -690,7 +693,7 @@ namespace fn_fbe81dc2 {
 // 0x00239150 fight::PrintAction::vfunc_2 (57 B): matches/0x00239150.cpp
 // sym: ?f2@PrintAction_239150@fn_fbe81dc2@@QAEPAV12@E@Z
 PrintAction_239150* PrintAction_239150::f2(unsigned char flags) {
-    vptr = g_vftable_239150;
+    vptr = ((void**)DAT_00428330);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

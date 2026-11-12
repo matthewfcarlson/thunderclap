@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_fde8cdef {
 #define TREE_TU_END }
 namespace fn_fde8cdef {} using namespace fn_fde8cdef;
+namespace fn_fde8cdef { extern "C" char DAT_003f3574[], DAT_003f381c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fde8cdef { extern "C" char DAT_003f359c[], DAT_003f3390[], DAT_003f3754[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/unknown.h"
 
@@ -300,13 +301,13 @@ class CSmartPropUpdateAttachmentAction_21e60 : public CAction_21e60 {
 // 0x00021960 CStunAnimationAction::vfunc_2 (82 B): matches/0x00021960.cpp
 // sym: ?f2@CStunAnimationAction_21960@fn_fde8cdef@@QAEPAV12@E@Z
 CStunAnimationAction_21960* CStunAnimationAction_21960::f2(unsigned char flags) {
-    vptr = g_vftable_003f3574;
+    vptr = ((void**)DAT_003f3574);
     _ReadWriteBarrier();
     if (m1) {
         m1->Release();
         m1 = 0;
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m2) {
         m2->Release();
@@ -360,7 +361,7 @@ CSoundAction_21a20* CSoundAction_21a20::f2(unsigned char flags) {
 // 0x00021a60 CComboMessageAction::vfunc_2 (57 B): matches/0x00021a60.cpp
 // sym: ?f2@CComboMessageAction_21a60@fn_fde8cdef@@QAEPAV12@E@Z
 CComboMessageAction_21a60* CComboMessageAction_21a60::f2(unsigned char flags) {
-    vptr = g_vftable_21a60;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -398,7 +399,7 @@ CMoveAction_21aa0* CMoveAction_21aa0::f2(unsigned char flags) {
 // 0x00021b00 CMoveAddAction::vfunc_2 (57 B): matches/0x00021b00.cpp
 // sym: ?f2@CMoveAddAction_21b00@fn_fde8cdef@@QAEPAV12@E@Z
 CMoveAddAction_21b00* CMoveAddAction_21b00::f2(unsigned char flags) {
-    vptr = g_vftable_21b00;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -414,7 +415,7 @@ CMoveAddAction_21b00* CMoveAddAction_21b00::f2(unsigned char flags) {
 // 0x00021b40 CMoveAddYAction::vfunc_2 (57 B): matches/0x00021b40.cpp
 // sym: ?f2@CMoveAddYAction_21b40@fn_fde8cdef@@QAEPAV12@E@Z
 CMoveAddYAction_21b40* CMoveAddYAction_21b40::f2(unsigned char flags) {
-    vptr = g_vftable_21b40;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -461,7 +462,7 @@ namespace fn_fde8cdef {
 // 0x00021c00 CDamageAction::vfunc_2 (57 B): matches/0x00021c00.cpp
 // sym: ?f2@CDamageAction_21c00@fn_fde8cdef@@QAEPAV12@E@Z
 CDamageAction_21c00* CDamageAction_21c00::f2(unsigned char flags) {
-    vptr = g_vftable_21c00;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -477,7 +478,7 @@ CDamageAction_21c00* CDamageAction_21c00::f2(unsigned char flags) {
 // 0x00021c40 CDrainHealthAction::vfunc_2 (57 B): matches/0x00021c40.cpp
 // sym: ?f2@CDrainHealthAction_21c40@fn_fde8cdef@@QAEPAV12@E@Z
 CDrainHealthAction_21c40* CDrainHealthAction_21c40::f2(unsigned char flags) {
-    vptr = g_vftable_21c40;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -493,7 +494,7 @@ CDrainHealthAction_21c40* CDrainHealthAction_21c40::f2(unsigned char flags) {
 // 0x00021c80 CComboTimerAction::vfunc_2 (57 B): matches/0x00021c80.cpp
 // sym: ?f2@CComboTimerAction_21c80@fn_fde8cdef@@QAEPAV12@E@Z
 CComboTimerAction_21c80* CComboTimerAction_21c80::f2(unsigned char flags) {
-    vptr = g_vftable_21c80;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -531,7 +532,7 @@ CGrappleLocoStrafe4Action_21cc0* CGrappleLocoStrafe4Action_21cc0::f2(unsigned ch
 // 0x00021d20 CGrappleAttachAction::vfunc_2 (57 B): matches/0x00021d20.cpp
 // sym: ?f2@CGrappleAttachAction_21d20@fn_fde8cdef@@QAEPAV12@E@Z
 CGrappleAttachAction_21d20* CGrappleAttachAction_21d20::f2(unsigned char flags) {
-    vptr = g_vftable_21d20;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -547,7 +548,7 @@ CGrappleAttachAction_21d20* CGrappleAttachAction_21d20::f2(unsigned char flags) 
 // 0x00021d60 CGrappleSwapAction::vfunc_2 (57 B): matches/0x00021d60.cpp
 // sym: ?f2@CGrappleSwapAction_21d60@fn_fde8cdef@@QAEPAV12@E@Z
 CGrappleSwapAction_21d60* CGrappleSwapAction_21d60::f2(unsigned char flags) {
-    vptr = g_vftable_21d60;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -563,7 +564,7 @@ CGrappleSwapAction_21d60* CGrappleSwapAction_21d60::f2(unsigned char flags) {
 // 0x00021da0 CGrappleDetachAction::vfunc_2 (57 B): matches/0x00021da0.cpp
 // sym: ?f2@CGrappleDetachAction_21da0@fn_fde8cdef@@QAEPAV12@E@Z
 CGrappleDetachAction_21da0* CGrappleDetachAction_21da0::f2(unsigned char flags) {
-    vptr = g_vftable_21da0;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -588,13 +589,13 @@ namespace fn_fde8cdef {
 // 0x00021e00 CSmartPropAttachAction::vfunc_2 (82 B): matches/0x00021e00.cpp
 // sym: ?f2@CSmartPropAttachAction_21e00@fn_fde8cdef@@QAEPAV12@E@Z
 CSmartPropAttachAction_21e00* CSmartPropAttachAction_21e00::f2(unsigned char flags) {
-    vptr = g_vftable_003f381c;
+    vptr = ((void**)DAT_003f381c);
     _ReadWriteBarrier();
     if (m1) {
         m1->Release();
         m1 = 0;
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m2) {
         m2->Release();

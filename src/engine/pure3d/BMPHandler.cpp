@@ -66,7 +66,7 @@ struct Header_2af8c0 {
 } // namespace fn_f24f7502
 
 // 0x002af2d0 FUN_002af2d0 (529 B): equivalent/0x002af2d0.cpp [wrapped: conflict: pure3d::BMPHandler; pure3d::DXTNHandler; pure3d::ImageHandler; pure3d::PNGHandler (+2)]
-// sym: ?FUN_002af2d0@ImageRegistry_2af2d0@fn_002af2d0@@QAEPAV12@XZ @36aed03f4066 @w0b397d9dd580
+// sym: ?FUN_002af2d0@ImageRegistry_2af2d0@fn_002af2d0@@QAEPAV12@XZ @dbd17883139e @w23e1aa9e5b6e
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002af2d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
@@ -92,61 +92,37 @@ struct ImageConverter {
     ImageConverter *FUN_002de230();
 };
 
+// (x64t7) The five image handlers as the words their inline constructors write, with the game's vftables stored by
+// address (the local classes' own virtuals were declared only, so natively their slots were stubs: the registry's
+// AddRef call below reached one). ImageHandler's vftable first, the handler's after the manager's two calls, as the
+// original stores them; the AddRef goes through the stored vftable (ImageHandlerRef's slot 0). Natively each handler
+// is allocated at its own size (was the 32-bit 0x18: 8 bytes short).
+extern "C" char DAT_0042e1b4[];   // pure3d::ImageHandler's vftable
+extern "C" char DAT_0042cd74[];   // pure3d::PNGHandler's
+extern "C" char DAT_0042cdbc[];   // pure3d::BMPHandler's
+extern "C" char DAT_0042e1fc[];   // pure3d::TargaHandler's
+extern "C" char DAT_0042e244[];   // pure3d::RawImageHandler's
+extern "C" char DAT_0042e28c[];   // pure3d::DXTNHandler's
 namespace pure3d {
 
-class ImageHandler {
+class ImageHandlerRef {
 public:
-    __forceinline ImageHandler() : f04(0), f08(0), f0c(0) {
+    virtual void slot0();
+};
+
+struct ImageHandler {
+    __forceinline ImageHandler(char* vtable) : f04(0), f08(0), f0c(0) {
+        vftable = (void*)DAT_0042e1b4;
         f10 = (*(Manager_2af2d0**)&DAT_0052c2a4)->getB();
         f14 = (*(Manager_2af2d0**)&DAT_0052c2a4)->getA();
+        vftable = (void*)vtable;
     }
-    virtual void slot0();
-    virtual void slot1_000382a0();
-    virtual void slot2();
-    virtual void slot3_002aea70(void*, void*);
-    virtual void slot4();
-    virtual void slot5();
-    virtual void slot6();
-    virtual char slot7_002ae8a0(void*);
-    virtual void slot8();
-    virtual void slot9();
-    virtual void slot10();
-    virtual void slot11_00291bf0(int);
-    virtual void slot12_00291c00();
-    virtual void slot13_00291c10(char);
-    virtual void slot14_00291c20();
-    virtual void slot15();
-    int f04;
+    void* vftable;
+    int f04;   // content::LoadObject's reference count
     int f08;
     char f0c;
     int f10;
     int f14;
-};
-
-class PNGHandler : public ImageHandler {
-public:
-    __forceinline PNGHandler() {}
-    virtual void slot0();
-};
-class BMPHandler : public ImageHandler {
-public:
-    __forceinline BMPHandler() {}
-    virtual void slot0();
-};
-class TargaHandler : public ImageHandler {
-public:
-    __forceinline TargaHandler() {}
-    virtual void slot0();
-};
-class RawImageHandler : public ImageHandler {
-public:
-    __forceinline RawImageHandler() {}
-    virtual void slot0();
-};
-class DXTNHandler : public ImageHandler {
-public:
-    __forceinline DXTNHandler() {}
-    virtual void slot0();
 };
 
 }
@@ -188,42 +164,42 @@ ImageRegistry_2af2d0 *ImageRegistry_2af2d0::FUN_002af2d0()
     converter = conv;
 
     pure3d::ImageHandler *h = 0;
-    mem = FUN_00263ea0(0x18);
+    mem = FUN_00263ea0(sizeof(pure3d::ImageHandler));
     if (mem)
-        h = new (mem) pure3d::PNGHandler;
-    h->slot0();
+        h = new (mem) pure3d::ImageHandler(DAT_0042cd74);
+    ((pure3d::ImageHandlerRef*)h)->slot0();
     handlers[count] = h;
     count = count + 1;
 
     h = 0;
-    mem = FUN_00263ea0(0x18);
+    mem = FUN_00263ea0(sizeof(pure3d::ImageHandler));
     if (mem)
-        h = new (mem) pure3d::BMPHandler;
-    h->slot0();
+        h = new (mem) pure3d::ImageHandler(DAT_0042cdbc);
+    ((pure3d::ImageHandlerRef*)h)->slot0();
     handlers[count] = h;
     count = count + 1;
 
     h = 0;
-    mem = FUN_00263ea0(0x18);
+    mem = FUN_00263ea0(sizeof(pure3d::ImageHandler));
     if (mem)
-        h = new (mem) pure3d::TargaHandler;
-    h->slot0();
+        h = new (mem) pure3d::ImageHandler(DAT_0042e1fc);
+    ((pure3d::ImageHandlerRef*)h)->slot0();
     handlers[count] = h;
     count = count + 1;
 
     h = 0;
-    mem = FUN_00263ea0(0x18);
+    mem = FUN_00263ea0(sizeof(pure3d::ImageHandler));
     if (mem)
-        h = new (mem) pure3d::RawImageHandler;
-    h->slot0();
+        h = new (mem) pure3d::ImageHandler(DAT_0042e244);
+    ((pure3d::ImageHandlerRef*)h)->slot0();
     handlers[count] = h;
     count = count + 1;
 
     h = 0;
-    mem = FUN_00263ea0(0x18);
+    mem = FUN_00263ea0(sizeof(pure3d::ImageHandler));
     if (mem)
-        h = new (mem) pure3d::DXTNHandler;
-    h->slot0();
+        h = new (mem) pure3d::ImageHandler(DAT_0042e28c);
+    ((pure3d::ImageHandlerRef*)h)->slot0();
     handlers[count] = h;
     count = count + 1;
     return this;

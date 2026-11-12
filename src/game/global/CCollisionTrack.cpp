@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_fd61af26 {
 #define TREE_TU_END }
 namespace fn_fd61af26 {} using namespace fn_fd61af26;
+namespace fn_fd61af26 { extern "C" char DAT_003fa284[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -1358,7 +1359,7 @@ struct G_5e160 {
 extern void __cdecl thunk_FUN_00267090(CProceduralDurationAnimationTrack*);
 extern int vftable_5e160;
 CProceduralDurationAnimationTrack* CProceduralDurationAnimationTrack::vfunc_5(int param) {
-    *(hulk_intptr*)this = (hulk_intptr)&vftable_5e160;
+    *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_003fa284);
     ((H*)((char*)this + 0x38))->Fnf_0027af50();
     ((H*)((char*)this + 0x18))->Fnf_0027af50();
     ((G_5e160*)this)->Fng_00068c70();

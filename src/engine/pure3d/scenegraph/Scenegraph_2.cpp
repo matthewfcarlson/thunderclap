@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f9b7dd8c {
 #define TREE_TU_END }
 namespace fn_f9b7dd8c {} using namespace fn_f9b7dd8c;
+namespace fn_f9b7dd8c { extern "C" char DAT_0042d414[], DAT_0042d2dc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "common.h"
 
 // ---- declarations shared by the functions below
@@ -1348,7 +1349,7 @@ hulk_intptr __fastcall FUN_002960d0(hulk_intptr object) {
 // 0x002960e0 FUN_002960e0 (25 B): matches/0x002960e0.cpp
 // sym: ??0Scenegraph@fn_f9b7dd8c@@QAE@XZ
 Scenegraph::Scenegraph() : Ctor_002a3480() {
-    vptr = &scenegraph_vftable;
+    vptr = ((void**)DAT_0042d2dc);
     field40 = 0;
 }
 
@@ -1969,7 +1970,7 @@ namespace fn_f9b7dd8c {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 LeafNode_296b20* LeafNode_296b20::vfunc_5(signed char flags) {
-    *(void***)this = Node_296b20_vftable;
+    *(void***)this = ((void**)DAT_0042d1ec);
     Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -2009,7 +2010,7 @@ void Owner_296b80::Set(Item_296b80* p) {
 // 0x00296bb0 FUN_00296bb0 (36 B): matches/0x00296bb0.cpp
 // sym: ??1Obj_296bb0@fn_f9b7dd8c@@QAE@XZ
 Obj_296bb0::~Obj_296bb0() {
-    vptr = g_vftable_0042d2dc;
+    vptr = ((void**)DAT_0042d2dc);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -2661,7 +2662,7 @@ class VisibilityNode {
 };
 VisibilityNode* VisibilityNode::Init(int x) {
     FUN_002972e0(x);
-    *(void**)this = &VisibilityNode_vftable;
+    *(void**)this = ((void**)DAT_0042d414);
     enabled = 1;
     value = 0;
     return this;

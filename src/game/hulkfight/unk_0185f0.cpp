@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_f7aff818 {
 #define TREE_TU_END }
 namespace fn_f7aff818 {} using namespace fn_f7aff818;
+namespace fn_f7aff818 { extern "C" char DAT_003f3390[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight.h"
 
 // ---- declarations shared by the functions below
@@ -495,7 +496,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         b->Release();
         mB = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_18be0* a = mA;
     if (a) {
         a->Release();
@@ -553,7 +554,7 @@ namespace fn_f7aff818 {
 // 0x00018c70 FUN_00018c70 (36 B): matches/0x00018c70.cpp
 // sym: ??1CAction_18c70@fn_f7aff818@@QAE@XZ
 CAction_18c70::~CAction_18c70() {
-    vptr = g_vftable_18c70;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -633,7 +634,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         b->Release();
         mB = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_18d00* a = mA;
     if (a) {
         a->Release();

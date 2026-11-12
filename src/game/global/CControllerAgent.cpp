@@ -140,7 +140,7 @@ public:
 } // namespace fn_f8104e0e
 
 // 0x000fcd30 FUN_000fcd30 (169 B): equivalent/0x000fcd30.cpp [wrapped: conflict: CControllerAgent]
-// sym: ??0CControllerAgent@fn_000fcd30@@QAE@H@Z @19854f190322 @w883daac0687a
+// sym: ??0CControllerAgent@fn_000fcd30@@QAE@PAX@Z @3761dac039ef @wb881c90ef8ef
 namespace fn_000fcd30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000fcd30 @ 0x000fcd30
@@ -150,7 +150,7 @@ struct FUN_000fc760 {
  char pad04[0x58];
  int field5c, field60;
  float field64;
- FUN_000fc760(int arg);
+ FUN_000fc760(void* arg);   // (x64t7) CCharacterAgent's constructor (0x000fc760) takes its owner, a pointer (was `int`)
 };
 struct CControllerAgent : FUN_000fc760 {
  virtual void slot0();
@@ -166,9 +166,9 @@ struct CControllerAgent : FUN_000fc760 {
  unsigned char fielda0, fielda1;
  char pada2[0x32];
  int fieldd4;
- CControllerAgent(hulk_intptr arg);
+ CControllerAgent(void* arg);
 };
-CControllerAgent::CControllerAgent(hulk_intptr arg) : FUN_000fc760(arg) {
+CControllerAgent::CControllerAgent(void* arg) : FUN_000fc760(arg) {
  for(int i=0;i<6;++i) values[i]=-1.0f;
  unsigned char initialized=(*(unsigned char*)&DAT_004e0a90);
  field6c=0; field74=0; field84=0; fielda0=0; fielda1=0; fieldd4=0;

@@ -1032,12 +1032,12 @@ void target(V* begin, V* end, V* out, V a) {
 } // namespace fn_fb966b0a
 
 // 0x00229760 FUN_00229760 (212 B): equivalent/0x00229760.cpp [wrapped: conflict: choreo2::LocomotionSteerDriver]
-// sym: ??0LocomotionSteerDriver@choreo2@fn_00229760@@QAE@IIIPBM0@Z @091d50b2cb40 @w1674cb8d9521
+// sym: ??0LocomotionSteerDriver@choreo2@fn_00229760@@QAE@PAXIIPBM1@Z @974dfc34d75d @w19bcc41f54ab
 namespace fn_00229760 {
 // STATUS: equivalent (tools/equiv.py level 3: 351 inputs, branch coverage 8/8)
 // FUN_00229760 @ 0x00229760
 struct FUN_0022a980 {
-    FUN_0022a980(unsigned int context);
+    FUN_0022a980(void* context);   // (x64t7) 0x0022a980 takes the source object (a pointer; was `unsigned int`)
     virtual void slot0();
     char padding[0x24];
 };
@@ -1055,9 +1055,9 @@ struct LocomotionSteerDriver : FUN_0022a980 {
     unsigned int g,h,i;
     virtual void slot0();
     void FUN_00228ac0(unsigned int index, const float* row, float weight);
-    LocomotionSteerDriver(unsigned int context, unsigned int width_, unsigned int count_, const float* rows, const float* weights);
+    LocomotionSteerDriver(void* context, unsigned int width_, unsigned int count_, const float* rows, const float* weights);
 };
-LocomotionSteerDriver::LocomotionSteerDriver(unsigned int context, unsigned int width_, unsigned int count_, const float* rows, const float* weights)
+LocomotionSteerDriver::LocomotionSteerDriver(void* context, unsigned int width_, unsigned int count_, const float* rows, const float* weights)
 : FUN_0022a980(context) {
     width=width_; count=count_; state=0;
     enabled=1; active=1;

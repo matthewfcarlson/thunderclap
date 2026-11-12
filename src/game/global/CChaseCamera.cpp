@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f69c308d {
 #define TREE_TU_END }
 namespace fn_f69c308d {} using namespace fn_f69c308d;
+namespace fn_f69c308d { extern "C" char DAT_00405604[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -2603,7 +2604,7 @@ namespace fn_f69c308d {
 // 0x000a27b0 CChaseCamera::vfunc_2 (70 B): matches/0x000a27b0.cpp
 // sym: ?f2@CChaseCamera_a27b0@fn_f69c308d@@QAEPAV12@E@Z
 CChaseCamera_a27b0* CChaseCamera_a27b0::f2(unsigned char flags) {
-    vptr = g_vftable_a27b0;
+    vptr = ((void**)DAT_00405604);
     _ReadWriteBarrier();
     if (m350) {
         m350->Release();

@@ -562,7 +562,7 @@ int ShaderMatrixBroadcast::vfunc_3(int param) {
 // 0x0028f100 FUN_0028f100 (36 B): matches/0x0028f100.cpp
 // sym: ??1Shader_28f100@fn_f4b93973@@QAE@XZ
 Shader_28f100::~Shader_28f100() {
-    vptr = g_vftable_0042cb44;
+    vptr = ((void**)DAT_0042cb44);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

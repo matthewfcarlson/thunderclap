@@ -1769,4 +1769,18 @@ extern "C" ControllerNameList DAT_004ddb68[12];
 extern "C" void* DAT_004e231c;
 extern "C" void* DAT_004e11e8;
 
+
+// (x64t7) The Bink callbacks' arena (0x00337d20 constructs it over the 0x8000-byte buffer 0x0055dfc0 in the static
+// initializer 0x00363ad0, 0x00337d60 allocates from it, the atexit handler 0x00364820 resets it): its vftable, the
+// buffer, the buffer's size and the position. 16 bytes on the 32-bit builds, 32 on 64-bit (as a 16-byte item the
+// constructor's size word overran the next item natively, Pure3D's owner pointer 0x0052c2c4).
+struct BufferArena {
+    void* vftable;
+    char* base;
+    int size;
+    char* cur;
+};
+
+extern "C" BufferArena DAT_00565fc0;
+
 #endif

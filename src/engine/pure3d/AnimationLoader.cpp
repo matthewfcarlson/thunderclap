@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f25f8e16 {} using namespace fn_f25f8e16;
+namespace fn_f25f8e16 { extern "C" char DAT_0042c8d0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -895,7 +896,7 @@ namespace fn_f25f8e16 {
 // 0x002893b0 FUN_002893b0 (154 B): matches/0x002893b0.cpp
 // sym: ??1Animation_2893b0@fn_f25f8e16@@QAE@XZ
 Animation_2893b0::~Animation_2893b0() {
-    vptr = g_vftable_2893b0;
+    vptr = ((void**)DAT_0042c8d0);
     if (owner == 0) {
         for (int i = 0; i < count; ++i) {
             Item_2893b0* p = items[i];
@@ -921,7 +922,7 @@ Animation_2893b0::~Animation_2893b0() {
 // 0x002894d0 FUN_002894d0 (36 B): matches/0x002894d0.cpp
 // sym: ??1AnimationLoader_2894d0@fn_f25f8e16@@QAE@XZ
 AnimationLoader_2894d0::~AnimationLoader_2894d0() {
-    vptr = g_vftable_0042c8e8;
+    vptr = ((void**)DAT_0042c8e8);
     _ReadWriteBarrier();
     if (m14) {
         m14->Release();

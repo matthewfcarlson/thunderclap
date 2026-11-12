@@ -200,7 +200,7 @@ extern "C" void FUN_00292f60(void *a, void *b, float *p)
 // 0x002930d0 FUN_002930d0 (42 B): matches/0x002930d0.cpp
 // sym: ??1CameraAnimationController_2930d0@fn_fa983489@@QAE@XZ
 CameraAnimationController_2930d0::~CameraAnimationController_2930d0() {
-    vptr = g_vftable_0042cf7c;
+    vptr = ((void**)DAT_0042cf7c);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f9af4c99 {
 #define TREE_TU_END }
 namespace fn_f9af4c99 {} using namespace fn_f9af4c99;
+namespace fn_f9af4c99 { extern "C" char DAT_00418014[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -208,7 +209,7 @@ RestPoseAction::RestPoseAction(int x, Thing_176f50* p) {
 // 0x00176fa0 FUN_00176fa0 (69 B): matches/0x00176fa0.cpp
 // sym: ??1RestPoseAction_176fa0@fn_f9af4c99@@QAE@XZ
 RestPoseAction_176fa0::~RestPoseAction_176fa0() {
-    vptr = g_vftable_176fa0;
+    vptr = ((void**)DAT_00418014);
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

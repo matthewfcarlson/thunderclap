@@ -12,6 +12,7 @@
 #define TREE_TU_BEGIN namespace fn_f94adb62 {
 #define TREE_TU_END }
 namespace fn_f94adb62 {} using namespace fn_f94adb62;
+namespace fn_f94adb62 { extern "C" char DAT_00415b28[], DAT_00415bd0[], DAT_00415b50[], DAT_00415b78[], DAT_00415b98[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f94adb62 { extern "C" char DAT_00415c50[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
@@ -1630,7 +1631,7 @@ namespace fn_f94adb62 {
 // 0x0015d4b0 FUN_0015d4b0 (55 B): matches/0x0015d4b0.cpp
 // sym: ??1LocomotionStrafeAction_15d4b0@fn_f94adb62@@QAE@XZ
 LocomotionStrafeAction_15d4b0::~LocomotionStrafeAction_15d4b0() throw() {
-    vptr = g_vftable_15d4b0;
+    vptr = ((void**)DAT_00415b28);
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -2259,7 +2260,7 @@ LocomotionStrafe4Action_15e160::~LocomotionStrafe4Action_15e160() throw() {
     _ReadWriteBarrier();
     if (m44)
         m44 = 0;
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_00415b28);
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -3216,7 +3217,7 @@ ClimbLocomotion4Action_15f5d0::~ClimbLocomotion4Action_15f5d0() throw() {
     _ReadWriteBarrier();
     if (m48)
         m48 = 0;
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_00415bd0);
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -4061,11 +4062,11 @@ namespace fn_f94adb62 {
 // 0x001614a0 hulkfight::motion::LocomotionStrafe4Action::vfunc_2 (96 B): matches/0x001614a0.cpp
 // sym: ?f2@LocomotionStrafe4Action_1614a0@fn_f94adb62@@QAEPAV12@E@Z
 LocomotionStrafe4Action_1614a0* LocomotionStrafe4Action_1614a0::f2(unsigned char fl) {
-    vptr = g_vftable_1614a0;
+    vptr = ((void**)DAT_00415b50);
     _ReadWriteBarrier();
     if (m44)
         m44 = 0;
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_00415b28);
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -4099,7 +4100,7 @@ namespace fn_f94adb62 {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* LocomotionSprintAction_161530::vfunc_2(unsigned char flag) {
     volatile LocomotionSprintAction_161530* self = this;
-    self->mVptr = &g_vftable_161530;
+    self->mVptr = ((int*)DAT_00415b78);
     RefObj_161530* t3 = self->m3;
     if (t3) {
         t3->Release();
@@ -4126,7 +4127,7 @@ void* LocomotionSprintAction_161530::vfunc_2(unsigned char flag) {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* LocomotionSteerAction_1615c0::vfunc_2(unsigned char flag) {
     volatile LocomotionSteerAction_1615c0* self = this;
-    self->mVptr = &g_vftable_1615c0;
+    self->mVptr = ((int*)DAT_00415b98);
     RefObj_1615c0* t3 = self->m3;
     if (t3) {
         t3->Release();
@@ -4168,7 +4169,7 @@ namespace fn_f94adb62 {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* GrappleLocomotionSteerAction_161660::vfunc_2(unsigned char flag) {
     volatile GrappleLocomotionSteerAction_161660* self = this;
-    self->mVptr = &g_vftable_161660;
+    self->mVptr = ((int*)DAT_00415bb4);
     RefObj_161660* t3 = self->m3;
     if (t3) {
         t3->Release();

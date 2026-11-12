@@ -2887,3 +2887,103 @@ whole array by editing config/data.json's lines. drift1 (a510dd4c7) removed that
 generated again, and `tools/data_inventory.py` places every records.h declaration as one item of its 32-bit size
 (libclang) itself. To type a record now: declare it in include/decls/data/records.h, run `tools/data_inventory.py`
 (then `--check`), then `tools/data_gen.py` (docs/data.md "Reproducing", "How to change data items").
+
+## NonCopyable's reference count, the content handlers and loaders, placeholder vftables (x64t7, 2026-11-12)
+
+x64t6's follow-up (its image stopped at the content handlers' local vftables, `?slot0@P3DFileHandler@content@fn_f19264ac`).
+
+**pure3d::NonCopyable's word at 4 is an int reference count.** The game's code: NonCopyable's vftable 0x003f6308
+holds AddRef 0x00018b30 (`inc dword [ecx+4]; ret`), Release 0x00018b40 (`mov eax,[ecx+4]; dec eax; cmp eax,1;
+mov [ecx+4],eax; jge`, else the deleting destructor through slot 2 with 1) and the destructor 0x00045800; the
+descendants' constructors store 0 there (SimState 0x002ef7f0 `mov [esi+4],eax` with eax 0; the base constructor
+pure3d::RenderObjectLoader 0x002a3e80 `mov dword [eax+4],0`). Nothing stores a pointer there: the one "pointer pun"
+behind gen's `hulk_intptr f_04` (include/gen/evidence-rn.json, x64-4's ptr_fields scan) was CSPListener's constructor
+0x001db1c0, where NonCopyable is the *second* base (at 4) and the store is its vftable pointer (0x003f6308), not the
+count. content::LoadObject (0x00038290 / 0x000382a0) is the same pattern for the loaders' family (687 classes).
+
+What that means natively: the native front end lays classes out with the MS ABI (aarch64/x86_64-pc-windows-msvc),
+which never reuses a base's tail padding, so a `{vftable; int count}` base is 16 bytes and every descendant's first
+word sits at 0x10 whether f_04 is an int or a pointer, while the hand-written flat views (`void* vftable; int refs;
+int next;`: 871 of the descendants' this-views, build/x64t7/ncscan2.json) put it at 0x0c. Making f_04 an int alone
+moves nothing. The rule applied tree-wide is the original's layout: **the count is an int and a descendant's own
+words follow it directly**, so pure3d::NonCopyable (and the sources' local stand-ins for it) pack to 4 natively
+(`HULK_REFCOUNT_PACK` / `_END`, include/compat/ptr.h: `__pragma(pack(push, 4))` on 64-bit, nothing on 32-bit),
+12 bytes with the vftable pointer still at 0. Pointers after it keep their 8-byte alignment (an int at 8 then a
+pointer at 0x10, as the flat views have it).
+
+| where | change | gate |
+|---|---|---|
+| include/gen/pure3d.h | NonCopyable: `int f_04` (was hulk_intptr), packed natively; evidence-rn.json drops the false pointer pun | 32-bit layouts identical |
+| include/decls/physics_world.h | `HULK_COLLISION_VOLUME_WORDS` / `HulkSimState`: `int m4`; `HULK_CV(k)` / `HULK_SS(k)` with the words from 8 at k+4 (owner, children, the two SimState pointers where they were) | sizes checked (0x48 / 0x98 natively as before) |
+| src/engine/physics CollisionVolume.cpp (5 views, incl. the cylinder / OBB constructors), SimState.cpp (2 views) | the count an int again | matches MATCH, relocations ok; equivalents' code hashes unchanged |
+| CGameController_af110, CAvoidBehaviour_109ba0, CollisionSolverAgent (ImpulseBasedCollisionSolver.cpp) | the word at 4 an int (was a pointer type) | MATCH / hash unchanged |
+| 8 local NonCopyable stand-ins `{vftable; 4-byte word}` that descendants derive from (PrintTrack's Track_238a00, DefaultChannelHandler's NonCopyable_28e9b0, ParticlePlaneGenerator's NonCopyable_2d2570, CFightParamsCollision's Parent, GameStateCondition's Track_12ed70, WorldConeDamageAction's Track_143a20, PrimGroupStreamed's two RenderObjectLoader bases) | packed natively | 32-bit layouts identical; MATCH / hashes |
+
+Checks: clang `-fdump-record-layouts` (i686-pc-windows-msvc) of every edited TU against HEAD's: every record's offsets
+and sizes identical (scripts/lay32.sh), but for the four TUs whose local classes this batch rewrites as explicit
+records (below), which MATCH / were re-proved. Left as found: CSPListener 0x001db1c0 stores both vftable pointers
+through a 32-bit `volatile unsigned*` (natively truncated; NonCopyable is its second base, at 4); the LoadObject family
+(`content::LoadObject` has the same `{vftable; int count}` shape; gen keeps it unpacked, so its descendants' gen
+views and flat views still differ by 4 natively, the decision below).
+
+**The content handlers and loaders** (the stop x64t6 left). The registry's set-up 0x00291dc0 (equivalent) built
+P3DFileHandler / PNGHandler / BMPHandler / IgnoreLoader as local polymorphic classes whose virtuals were declared
+only: natively the vftables MSVC emits for them pointed at stubs. They are now the words their inline constructors
+write with the game's vftable stored by address (DAT_0042ce00, DAT_0042cd74, DAT_0042cdbc, DAT_0042ce14), allocated
+natively at `sizeof` (P3DFileHandler: 0xc bytes on 32-bit, 16 natively: 4 short before) or, for the objects another
+TU's constructor lays out (the two image handlers and the 25 chunk loaders), at `HULK_X2` (twice the 32-bit size
+natively; include/compat/ptr.h, logged in docs/tech-debt.md). The same in:
+
+| where | change | gate |
+|---|---|---|
+| 0x002af2d0 (BMPHandler.cpp, the image registry, equivalent) | the five image handlers (PNG, BMP, Targa, raw, DXTN) as records with ImageHandler's vftable then the handler's stored by address; AddRef through the stored vftable; allocated at `sizeof` (0x18 on 32-bit, 0x20 natively: 8 short before) | re-proved |
+| 0x002c25b0 TextureLoader (match) | the image registry and the image converter named by their constructors' addresses (`FUN_002af2d0`, `FUN_002de230`; were local classes whose constructors were declared only), HULK_X2 sizes; the loader's vftable stored by address | MATCH, relocations ok |
+| 0x002df7f0 / 0x002df850 PrimGroupLoader / OldPrimGroupLoader (PrimGroupStreamed.cpp, match) | the base named by its constructor's address (`FUN_002a3e80`, pure3d::RenderObjectLoader) and the loaders' vftables stored by address (DAT_0042fb84 / DAT_0042fb94) | MATCH, relocations ok |
+| 0x002c0c40 ImageLoader (match) | the allocator by its address (FUN_0008d690; was a placeholder `alloc`), the image registry at HULK_X2 | MATCH, relocations ok |
+| 0x00265210 (LoadStream.cpp, the registry's add, match) | its second parameter is the chunk id (`unsigned int`, 0x00231590's key; was `void*`) | MATCH, relocations ok, re-pinned |
+
+**The `??0FUN` signature mismatches** (declarations that the address binding refused): each fixed on the side the
+game's code proves wrong.
+
+| address | evidence | change | gate |
+|---|---|---|---|
+| 0x000fc760 CCharacterAgent(AgentOwner*) | the owner pointer | CControllerAgent.cpp's base declaration and its constructor 0x000fcd30 take `void*` (were int / hulk_intptr) | 0x000fcd30 re-proved |
+| 0x0022a980 LocomotionDriver::Init | passes its argument to 0x002223f0, which stores it at +0x10 and calls through it (`mov ecx,[esp+8]; mov [esi+0x10],ecx; call [eax]`) | the definition takes `void*` (was `int`), and LocomotionSteerDriver 0x00229760's base declaration and constructor | 0x0022a980 MATCH, relocations ok, re-pinned; 0x00229760 re-proved |
+| 0x00234590 fight::Condition(void*) | stores it at +8 | the five declarations take `void*` and return `this` (unk_11b800, unk_048440, unk_048680 (2), CMotionStateCondition) | matches MATCH; 0x0011c220 re-proved |
+| 0x0028b420 SimpleChannel(int, Owner*) | the parent channel | IntChannel's base declaration and its constructor 0x0028b9c0 take `void*` (callers pass the parent) | MATCH, relocations ok, re-pinned |
+| 0x002ef7f0 SimState(int) | the word at 0x6c, compared with 1 (`f_6c != 1`); every caller passes 0 or a mode | SimStateArticulated 0x002fdc90's base declaration and constructor take `int` (were `void*`) | re-proved |
+
+**Placeholder vftables, the rest.** The native link's 312 "unbound: vftable" names were per-TU placeholders
+(`g_vftable2`, `vftableA`, `CEffectStopTrack_vftable`, `loc_vftable`, ...) declared and defined nowhere: natively
+each store wrote the address of a zero stub. All 319 uses (in 150 TUs, all matches) now name the game address their
+block's relocation reaches (verify_relocs), typed as the use was (`((T*)DAT_x)`), the names declared in the TU's
+namespace (build/x64t7/scripts/vtscan.py, vtfix.py, vtdecl.py). Every block of the 150 TUs MATCHes with
+relocations ok and the equivalents' code hashes are unchanged (`tree_tu.py verify --relocs`). PathFormationAction.cpp's
+one site is left (another agent's uncommitted edits in that TU).
+
+**A static object 16 bytes short natively.** With the handlers fixed, the start-up crashed in 0x00292560 (Pure3D's
+owner was null): 0x00292410 creates it only while DAT_0052c2c4 is 0, and the static initializer 0x00363ad0 had
+already written 0x8000 there: it builds the Bink callbacks' arena (0x00337d20: the vftable, the 0x8000-byte buffer
+0x0055dfc0, its size, the position) in the .bss item 0x00565fc0, a 16-byte `unsigned char[16]` natively, and the size
+word landed in the next item. records.h types it (`BufferArena DAT_00565fc0`, 16 bytes on 32-bit, 32 natively);
+data_gen then defines the item with that type (decls/data/engine/movie.h regenerated: the item is records.h's).
+config/data.json is regenerated with it (`tools/data_inventory.py` on the batch's sources: only the records count
+changes; `--check` passes) and the data TUs for the control / proof were generated privately from it.
+
+**A records.h declaration moves two MSVC functions.** Adding any `extern` declaration to records.h (tried: the
+record's item, an `int` of the same name, an `int` of another name, at the top or the end) swaps two independent
+stack loads in MSVC 7.1's code for 0x001a9b10 (EffectAction.new_throw.cpp) and 0x000b86b0 (unk_0b4cf0.GS.cpp),
+both TUs that include records.h through decls/data/game/global.h: register order only, no semantic change. Both
+re-proved on MSVC (3,000 inputs, promotable) and their MSVC hashes recorded; their clang (`--wine`) objects are
+unchanged, so their `@w` hashes stand. (0x001a9b10's `--wine` run fails today on that unchanged object, input 1: an
+uninitialised local passed to 0x001a54a0; a pre-existing finding, not this batch's.)
+
+`--x64` on the re-proved blocks: 0x000fcd30 and 0x0011c220 equivalent; 0x00291dc0 differs where intended (the
+allocation sizes: 12 vs 16); 0x002af2d0 unsupported (no input completes on the 32-bit side); 0x002fdc90 (a pointer
+kept in the entries' `int` words) and 0x00229760 (a call argument) differ in code this batch didn't touch.
+
+Gates: every edited TU `tree_tu.py verify --relocs` (matches MATCH with relocations ok; equivalents' hashes unchanged
+but for the eight re-proved blocks above); 32-bit record layouts of the edited TUs identical to HEAD's (clang
+i686-pc-windows-msvc `-fdump-record-layouts`; the four TUs whose local classes became explicit records MATCH or were
+re-proved). Proof 72320 (studio, 6edc110c2 + the batch, data TUs generated privately with the batch's records.h,
+seed:72318) vs control 72318 (6edc110c2, fresh, private data TUs): **GATE ok** (0 of 2,005 common frames differ).

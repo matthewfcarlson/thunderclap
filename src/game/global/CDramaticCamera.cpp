@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f6c39404 {} using namespace fn_f6c39404;
+namespace fn_f6c39404 { extern "C" char DAT_00405754[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -374,7 +375,7 @@ class CDramaticCamera {
 extern "C++" __declspec(nothrow) void __cdecl DeleteObj_00263f30(void* p);
 
 void* CDramaticCamera::vfunc_2(unsigned char flag) {
-    mVftable = (IRelease*)&CDramaticCamera_vftable;
+    mVftable = (IRelease*)((int*)DAT_00405754);
     IRelease* pa = a;
     if (pa != 0) {
         pa->Release();

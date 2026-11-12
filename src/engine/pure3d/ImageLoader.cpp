@@ -48,7 +48,7 @@ class Sub_2c0c40 {
   public:
     void* Init_002af2d0();
 };
-extern "C" void* alloc(hulk_intptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (x64t7) the allocator (was the placeholder `alloc`, unbound natively)
 
 
 // 0x002c0be0 FUN_002c0be0 (42 B): matches/0x002c0be0.cpp
@@ -89,7 +89,7 @@ void* __fastcall FUN_002c0c40(ImageLoader* p) {
     p->d = 0;
     p->v = (void*)((hulk_intptr)DAT_0042eb0c);
     p->f = 0x20;
-    Sub_2c0c40* s = (Sub_2c0c40*)alloc(0xa4);
+    Sub_2c0c40* s = (Sub_2c0c40*)FUN_0008d690(HULK_X2(0xa4));   // (x64t7) the image registry (0x002af2d0), natively at HULK_X2
     hulk_intptr r;
     if (s)
         r = (hulk_intptr)s->Init_002af2d0();

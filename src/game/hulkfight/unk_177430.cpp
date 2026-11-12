@@ -5,6 +5,7 @@
 #define TREE_TU_BEGIN namespace fn_f92fa536 {
 #define TREE_TU_END }
 namespace fn_f92fa536 {} using namespace fn_f92fa536;
+namespace fn_f92fa536 { extern "C" char DAT_00418068[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight.h"
 
 // ---- declarations shared by the functions below
@@ -211,7 +212,7 @@ MomentumXZAddAction_1774c0::MomentumXZAddAction_1774c0(int x, Ref_1774c0* p) {
 // 0x00177510 FUN_00177510 (50 B): matches/0x00177510.cpp
 // sym: ??1MomentumXZAddAction_177510@fn_f92fa536@@QAE@XZ
 MomentumXZAddAction_177510::~MomentumXZAddAction_177510() {
-    vptr = g_vftable_177510;
+    vptr = ((void**)DAT_00418068);
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

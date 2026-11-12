@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_ff0c407b {} using namespace fn_ff0c407b;
+namespace fn_ff0c407b { extern "C" char DAT_0042c920[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -50,7 +51,7 @@ SimpleChannel_28df60* SimpleChannel_28df60::f0(unsigned char flags) {
         }
     }
     m14 = 0;
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_0042c920);
     if (flags & 1)
         operator delete(this);
     return this;

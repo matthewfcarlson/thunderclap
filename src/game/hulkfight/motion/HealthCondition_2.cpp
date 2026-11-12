@@ -7,6 +7,7 @@
 #define TREE_TU_BEGIN namespace fn_fa61cb85 {
 #define TREE_TU_END }
 namespace fn_fa61cb85 {} using namespace fn_fa61cb85;
+namespace fn_fa61cb85 { extern "C" char DAT_004169f8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -74,7 +75,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::HealthCondi
     void* result;
     if (p) {
         p->Init_00234590(0);
-        *(int**)p = &AIHistoryNameCondition_vftable;
+        *(int**)p = ((int*)DAT_004169f8);
         p->z = 0;
         p->w = 0;
         p->q = 0;

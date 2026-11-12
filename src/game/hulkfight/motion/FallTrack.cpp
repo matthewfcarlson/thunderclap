@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f0de5d41 {
 #define TREE_TU_END }
 namespace fn_f0de5d41 {} using namespace fn_f0de5d41;
+namespace fn_f0de5d41 { extern "C" char DAT_00411dc4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -1600,7 +1601,7 @@ namespace fn_f0de5d41 {
 // 0x00138e00 hulkfight::motion::FlyingAttackAction::vfunc_2 (95 B): matches/0x00138e00.cpp
 // sym: ?f2@FlyingAttackAction_138e00@fn_f0de5d41@@QAEPAV12@E@Z
 FlyingAttackAction_138e00* FlyingAttackAction_138e00::f2(unsigned char flags) {
-    vptr = g_vftable_00411dc4;
+    vptr = ((void**)DAT_00411dc4);
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();

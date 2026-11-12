@@ -20,7 +20,7 @@ extern void* hulk_at_0040d770[];
 class CAvoidBehaviour_109ba0 {
   public:
     void* vptr;
-    void* m4;
+    int m4;   // (x64t7) pure3d::NonCopyable's reference count (was a pointer)
     void* m8;
     char mc;
     char p[3];

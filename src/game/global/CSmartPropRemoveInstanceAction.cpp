@@ -5,6 +5,7 @@
 #define TREE_TU_BEGIN namespace fn_f513c711 {
 #define TREE_TU_END }
 namespace fn_f513c711 {} using namespace fn_f513c711;
+namespace fn_f513c711 { extern "C" char DAT_003f3390[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -77,7 +78,7 @@ CSmartPropDropAction* CSmartPropDropAction::vfunc_2(int flag) {
 // 0x00022060 CSmartPropEventAction::vfunc_2 (57 B): matches/0x00022060.cpp
 // sym: ?f2@CSmartPropEventAction_22060@fn_f513c711@@QAEPAV12@E@Z
 CSmartPropEventAction_22060* CSmartPropEventAction_22060::f2(unsigned char flags) {
-    vptr = g_vftable_22060;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -93,7 +94,7 @@ CSmartPropEventAction_22060* CSmartPropEventAction_22060::f2(unsigned char flags
 // 0x000220a0 CSmartPropRemoveInstanceAction::vfunc_2 (57 B): matches/0x000220a0.cpp
 // sym: ?f2@CSmartPropRemoveInstanceAction_220a0@fn_f513c711@@QAEPAV12@E@Z
 CSmartPropRemoveInstanceAction_220a0* CSmartPropRemoveInstanceAction_220a0::f2(unsigned char flags) {
-    vptr = g_vftable_220a0;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

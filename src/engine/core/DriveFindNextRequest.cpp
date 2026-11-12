@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f105060a {} using namespace fn_f105060a;
+namespace fn_f105060a { extern "C" char DAT_0042b9bc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f105060a { extern "C" char DAT_0042b914[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/core.h"
 
@@ -144,7 +145,7 @@ DriveFindNextRequest_275aa0::DriveFindNextRequest_275aa0(hulk_intptr x, int y) :
 // data: g_lock_275ad0 = DAT_0052a1c8, g_pool_275ad0 = DAT_0052a1e4
 DriveFindNextRequest_275ad0* DriveFindNextRequest_275ad0::f0(unsigned char flags) {
     Big_275ad0* p = m8;
-    vptr = g_vftable_275ad0;
+    vptr = ((void**)DAT_0042b9bc);
     p->sub.v0();
     m8->cnt--;
     m8->sub.v1();

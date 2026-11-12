@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fb5aa021 {} using namespace fn_fb5aa021;
+namespace fn_fb5aa021 { extern "C" char DAT_0042b914[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/core.h"
 
 // ---- declarations shared by the functions below
@@ -55,7 +56,7 @@ CompletionCallbackRequest::CompletionCallbackRequest(int arg) {
 // Same code shape as 0x00274b60 (propagated; names are from that function)
 // data: g_lock_274c60 = DAT_0052a1c8, g_manager_274c60 = DAT_0052a1e4
 core::CompletionCallbackRequest* core::CompletionCallbackRequest::vfunc_0(unsigned char param) {
-    vt = request_vftable;
+    vt = ((void**)DAT_0042b914);
     if (param & 1) {
         FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(Manager_274c60**)&DAT_0052a1e4)->e(this);

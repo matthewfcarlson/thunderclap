@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_ff23caa7 {} using namespace fn_ff23caa7;
+namespace fn_ff23caa7 { extern "C" char DAT_003f6d50[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -89,7 +90,7 @@ CSmartPropStateCondition* CSmartPropStateCondition::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CPropActorStateCondition* CPropActorStateCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4ce10_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -104,7 +105,7 @@ CPropActorStateCondition* CPropActorStateCondition::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CIsInvincibleCondition* CIsInvincibleCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4ce40_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -119,7 +120,7 @@ CIsInvincibleCondition* CIsInvincibleCondition::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CIsGrappledCondition* CIsGrappledCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4ce70_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -134,7 +135,7 @@ CIsGrappledCondition* CIsGrappledCondition::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CGrappleSizeCondition* CGrappleSizeCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4cea0_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -149,7 +150,7 @@ CGrappleSizeCondition* CGrappleSizeCondition::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CLuaNumberCondition* CLuaNumberCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4ced0_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

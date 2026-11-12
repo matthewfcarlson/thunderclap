@@ -274,7 +274,7 @@ public:
 // sym: ??1d3dProjectedTextureShader_32ca50@fn_f81ca26d@@QAE@XZ
 d3dProjectedTextureShader_32ca50::~d3dProjectedTextureShader_32ca50() {
     Ref_32ca50* a = m80;
-    vptr = g_vftable_32ca50;
+    vptr = ((void**)DAT_00433a8c);
     if (a)
         a->Release();
     if (m84)

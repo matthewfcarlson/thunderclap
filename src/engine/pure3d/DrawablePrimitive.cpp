@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fdccf8a8 {} using namespace fn_fdccf8a8;
+namespace fn_fdccf8a8 { extern "C" char DAT_0042d978[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -67,7 +68,7 @@ DrawablePrimitive::DrawablePrimitive() : Entity_2a5060() {
 // sym: @FUN_002a50a0@4
 // Same code shape as 0x00060920 (propagated; names are from that function)
 extern "C" void __fastcall FUN_002a50a0(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_0042d978);
     FUN_0027afd0(self);
 }
 
@@ -86,7 +87,7 @@ unsigned int __fastcall FUN_002a50b0(Obj_2a50b0* self) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 DrawablePrimitive_2a5120* DrawablePrimitive_2a5120::vfunc_5(signed char flags) {
-    *(void***)this = Entity_2a5120_vftable;
+    *(void***)this = ((void**)DAT_0042d978);
     Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

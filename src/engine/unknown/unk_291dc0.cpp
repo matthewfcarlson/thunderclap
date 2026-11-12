@@ -14,6 +14,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f19264ac {} using namespace fn_f19264ac;
+namespace fn_f19264ac { extern "C" char DAT_0042cedc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -22,91 +23,44 @@ extern "C" void* __cdecl FUN_00263ea0(unsigned int size);
 } // namespace fn_f19264ac
 inline void* operator new(size_t, void* p) throw() { return p; }
 namespace fn_f19264ac {
-class __declspec(novtable) SimpleChunkHandler_291dc0 {
-  public:
-    virtual void slot0();
-    int f04;
+// (x64t7) The handlers this file's 0x00291dc0 builds inline, as the words their inline constructors write and the
+// game's vftables stored by address (the local classes' own virtuals were declared only, so natively every slot was
+// a stub: the registry run 0x00265240 called P3DFileHandler's slot 0 into one). Natively each is allocated at its
+// own size (`sizeof`), the image handlers and the loaders their constructors build at HULK_X2 (compat/ptr.h).
+extern "C" char DAT_0042ce00[];   // content::P3DFileHandler's vftable
+extern "C" char DAT_0042cd74[];   // pure3d::PNGHandler's
+extern "C" char DAT_0042cdbc[];   // pure3d::BMPHandler's
+extern "C" char DAT_0042ce14[];   // pure3d::IgnoreLoader's
+struct SimpleChunkHandler_291dc0 {
+    void* vftable;
+    int f04;   // content::LoadObject's reference count
     int id;
     int f0c;
     int f10;
 };
-class __declspec(novtable) FileLoader_291dc0 {
-  public:
-    virtual void slot0();
-    int f04;
+namespace content {
+struct P3DFileHandler {
+    void* vftable;
+    int f04;   // content::LoadObject's reference count
     int f08;
+    P3DFileHandler() { f04 = 0; vftable = (void*)DAT_0042ce00; f08 = 0; }
 };
-class __declspec(novtable) ImageHandler_291dc0 {
-  public:
-    virtual void slot0();
+}
+// pure3d::ImageHandler's words (0x002af0c0 constructs them; 0x18 bytes on the 32-bit builds)
+struct ImageHandler_291dc0 {
+    void* vftable;
     char pad[0x14];
     void FUN_002af0c0();
-    ImageHandler_291dc0() { FUN_002af0c0(); }
 };
-namespace content {
-class P3DFileHandler : public FileLoader_291dc0 {
-  public:
-    P3DFileHandler() { f04 = 0; f08 = 0; }
-    virtual void slot0();
-    virtual void slot1();
-    virtual void slot2();
-    virtual void slot3();
-};
-}
 namespace pure3d {
-class PNGHandler : public ImageHandler_291dc0 {
-  public:
-    PNGHandler() {}
-    virtual void slot0();
-    virtual void slot1();
-    virtual void slot2();
-    virtual void slot3();
-    virtual void slot4();
-    virtual void slot5();
-    virtual void slot6();
-    virtual void slot7();
-    virtual void slot8();
-    virtual void slot9();
-    virtual void slot10();
-    virtual void slot11();
-    virtual void slot12();
-    virtual void slot13();
-    virtual void slot14();
-    virtual void slot15();
+struct PNGHandler : ImageHandler_291dc0 {
+    PNGHandler() { FUN_002af0c0(); vftable = (void*)DAT_0042cd74; }
 };
-}
-namespace pure3d {
-class BMPHandler : public ImageHandler_291dc0 {
-  public:
-    BMPHandler() {}
-    virtual void slot0();
-    virtual void slot1();
-    virtual void slot2();
-    virtual void slot3();
-    virtual void slot4();
-    virtual void slot5();
-    virtual void slot6();
-    virtual void slot7();
-    virtual void slot8();
-    virtual void slot9();
-    virtual void slot10();
-    virtual void slot11();
-    virtual void slot12();
-    virtual void slot13();
-    virtual void slot14();
-    virtual void slot15();
+struct BMPHandler : ImageHandler_291dc0 {
+    BMPHandler() { FUN_002af0c0(); vftable = (void*)DAT_0042cdbc; }
 };
-}
-namespace pure3d {
-class IgnoreLoader : public SimpleChunkHandler_291dc0 {
-  public:
-    IgnoreLoader() { f04 = 0; id = 0; f0c = 0; f10 = 0; }
-    virtual void slot0();
-    virtual void slot1();
-    virtual void slot2();
-    virtual void slot3();
-    virtual void slot4();
-    virtual void slot5();
+struct IgnoreLoader : SimpleChunkHandler_291dc0 {
+    IgnoreLoader() { f04 = 0; id = 0; f0c = 0; f10 = 0; vftable = (void*)DAT_0042ce14; }
 };
 }
 struct Raw_291dc0 {
@@ -226,105 +180,105 @@ void __fastcall FUN_0027afd0(CEffectStopTrack*);
 
 
 // 0x00291dc0 FUN_00291dc0 (1377 B): equivalent/0x00291dc0.cpp
-// sym: _FUN_00291dc0 @1c9f314b019c @wf6b932832fc9
+// sym: _FUN_00291dc0 @b9b8691bd7f3 @w0f67797644d1
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 62/62)
 // FUN_00291dc0 @ 0x00291dc0
 extern "C" void FUN_00291dc0(){
-    void* mem = FUN_00263ea0(0xc);
+    void* mem = FUN_00263ea0(sizeof(content::P3DFileHandler));
     content::P3DFileHandler* p3d = 0;
     if (mem) p3d = new (mem) content::P3DFileHandler();
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265240(p3d, "p3d");
-    mem = FUN_00263ea0(0x18);
+    mem = FUN_00263ea0(HULK_X2(0x18));
     pure3d::PNGHandler* png = 0;
     if (mem) png = new (mem) pure3d::PNGHandler();
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265240(png, "png");
-    mem = FUN_00263ea0(0x18);
+    mem = FUN_00263ea0(HULK_X2(0x18));
     pure3d::BMPHandler* bmp = 0;
     if (mem) bmp = new (mem) pure3d::BMPHandler();
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265240(bmp, "bmp");
     SimpleChunkHandler_291dc0* l;
-    mem = FUN_00263ea0(0x2c);
+    mem = FUN_00263ea0(HULK_X2(0x2c));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002c29b0() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x10000);
-    mem = FUN_00263ea0(0x1c);
+    mem = FUN_00263ea0(HULK_X2(0x1c));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002c25b0() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x19000);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_0028f280() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x11000);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002c1b30() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x2200);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002c1480() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x13000);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002c1930() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x14000);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002c14c0() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x2380);
-    mem = FUN_00263ea0(0x1c);
+    mem = FUN_00263ea0(HULK_X2(0x1c));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002c0c40() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x19001);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002955c0() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x22000);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002bfa30() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x22002);
-    mem = FUN_00263ea0(0x24);
+    mem = FUN_00263ea0(HULK_X2(0x24));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002beca0() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x19005);
-    mem = FUN_00263ea0(0x18);
+    mem = FUN_00263ea0(HULK_X2(0x18));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002bc3d0() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x17006);
-    mem = FUN_00263ea0(0x18);
+    mem = FUN_00263ea0(HULK_X2(0x18));
     l = mem ? ((Raw_291dc0*)mem)->FUN_0027b980() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x23000);
-    mem = FUN_00263ea0(0x2c);
+    mem = FUN_00263ea0(HULK_X2(0x2c));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002b7d30() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x10001);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_00299410() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x123000);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002b6150() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x1001a);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002b6870() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x10019);
-    mem = FUN_00263ea0(0x18);
+    mem = FUN_00263ea0(HULK_X2(0x18));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002b68c0() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x10023);
-    mem = FUN_00263ea0(0x24);
+    mem = FUN_00263ea0(HULK_X2(0x24));
     l = mem ? ((Raw_291dc0*)mem)->FUN_00289e00() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x121000);
-    mem = FUN_00263ea0(0x28);
+    mem = FUN_00263ea0(HULK_X2(0x28));
     l = mem ? ((Raw_291dc0*)mem)->FUN_00286520() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x121201);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002b23a0() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x121202);
-    mem = FUN_00263ea0(0x3c);
+    mem = FUN_00263ea0(HULK_X2(0x3c));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002acc60() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x1580c);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_00297150() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x120100);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002aff60() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x21001);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002b0f40() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x21002);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_002aff20() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x21000);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(HULK_X2(0x14));
     l = mem ? ((Raw_291dc0*)mem)->FUN_00290740() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x802000a);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(sizeof(pure3d::IgnoreLoader));
     pure3d::IgnoreLoader* ign = 0;
     if (mem) ign = new (mem) pure3d::IgnoreLoader();
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(ign, 0x7000);
@@ -466,7 +420,7 @@ void T_292670::run(H* arg) {
 // sym: @FUN_002926c0@4
 // Same code shape as 0x00060920 (propagated; names are from that function)
 extern "C" void __fastcall FUN_002926c0(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_0042cedc);
     FUN_0027afd0(self);
 }
 

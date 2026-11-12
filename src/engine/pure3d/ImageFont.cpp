@@ -840,7 +840,7 @@ class ImageFont : public Entity_2bfa70 {
     ImageFont* f2(unsigned char);
 };
 ImageFont* ImageFont::f2(unsigned char flags) {
-    vptr = ImageFont_vftable;
+    vptr = ((char*)DAT_0042e9bc);
     _ReadWriteBarrier();
     if (m28) {
         m28->f1();

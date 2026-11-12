@@ -13,14 +13,14 @@ namespace fn_f877d14e {} using namespace fn_f877d14e;
 // ---- declarations shared by the functions below
 namespace fn_f877d14e {
 struct PartitionDriver_22a980 {
-    void Init_002223f0(int);
+    void Init_002223f0(void*);   // (x64t7) the source object (0x002223f0 stores it as a pointer; was `int`)
 };
 struct LocomotionDriver : PartitionDriver_22a980 {
     hulk_intptr vptr;
     char pad[0x1b];
     int a;
     int b;
-    LocomotionDriver* Init(int);
+    LocomotionDriver* Init(void*);
 };
 extern int hulk_at_00427534;
 struct LocomotionDriver_nv_22a9c0 {
@@ -32,9 +32,9 @@ struct Driver_22a9c0 {
 
 
 // 0x0022a980 FUN_0022a980 (59 B): matches/0x0022a980.cpp
-// sym: ?Init@LocomotionDriver@fn_f877d14e@@QAEPAU12@H@Z
+// sym: ?Init@LocomotionDriver@fn_f877d14e@@QAEPAU12@PAX@Z
 // data: gCount_22a980 = DAT_004e5ac4, gHigh_22a980 = DAT_004e5ac8
-LocomotionDriver* LocomotionDriver::Init(int x) {
+LocomotionDriver* LocomotionDriver::Init(void* x) {
     PartitionDriver_22a980::Init_002223f0(x);
     a = 0;
     b = 0;

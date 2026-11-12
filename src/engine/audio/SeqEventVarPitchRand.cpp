@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_f3b07bfc {
 #define TREE_TU_END }
 namespace fn_f3b07bfc {} using namespace fn_f3b07bfc;
+namespace fn_f3b07bfc { extern "C" char DAT_0042a150[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/audio.h"
 
 // ---- declarations shared by the functions below
@@ -269,7 +270,7 @@ void* audio::SeqEventVarPitchRandType::vfunc_3() {
     SeqEventVarPitchRand_253530* p = (SeqEventVarPitchRand_253530*)Alloc(((int*)&DAT_004e70e8));
     if (p) {
         p->init_0025fd00();
-        p->vf = &rand_vftable;
+        p->vf = ((int*)DAT_0042a150);
         p->a = 0.8f;
         p->b = 1.2f;
         return (void*)(p);

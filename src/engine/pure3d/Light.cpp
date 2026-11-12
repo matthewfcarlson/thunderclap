@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fc62e156 {} using namespace fn_fc62e156;
+namespace fn_fc62e156 { extern "C" char DAT_0042d668[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -120,7 +121,7 @@ class Light_2a0ad0 : public Entity_2a0ad0 {
 // sym: @FUN_002a0720@4
 // Same code shape as 0x00060920 (propagated; names are from that function)
 extern "C" void __fastcall FUN_002a0720(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_0042d668);
     FUN_0027afd0(self);
 }
 

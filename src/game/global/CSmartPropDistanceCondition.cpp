@@ -7,6 +7,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f082f618 {} using namespace fn_f082f618;
+namespace fn_f082f618 { extern "C" char DAT_003f71e4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -71,7 +72,7 @@ public:
 // Same code shape as 0x0004c720 (propagated; names are from that function)
 CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNameCondition* p, void*,
                                                                     unsigned char flags) {
-    p->vptr = &smart_vftable;
+    p->vptr = ((int*)DAT_003f71e4);
     FUN_0027af50((char*)p + 0x18);
     p->vptr = &hulk_at_003f6d50;
     FUN_002345b0(p);

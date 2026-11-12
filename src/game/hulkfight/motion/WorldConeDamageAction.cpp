@@ -12,6 +12,7 @@
 #define TREE_TU_BEGIN namespace fn_f3c8e3e3 {
 #define TREE_TU_END }
 namespace fn_f3c8e3e3 {} using namespace fn_f3c8e3e3;
+namespace fn_f3c8e3e3 { extern "C" char DAT_00412f14[], DAT_00412f74[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f3c8e3e3 { extern "C" char DAT_00413034[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
@@ -154,12 +155,14 @@ class CCondition_143a10 {
   public:
     virtual int vfunc_0(int);
 };
+HULK_REFCOUNT_PACK   // (x64t7) pure3d::NonCopyable's stand-in: 12 bytes natively (compat/ptr.h)
 class Track_143a20 {
   public:
     Track_143a20();
     virtual hulk_intptr Fnf_00143a10(int);
     char pad[4];
 };
+HULK_REFCOUNT_PACK_END
 class MotionBlurTrack : public Track_143a20 {
   public:
     MotionBlurTrack();
@@ -2252,7 +2255,7 @@ namespace fn_f3c8e3e3 {
 // sym: ?vfunc_5@HitEffectTrack_1447b0@fn_f3c8e3e3@@QAEPAV12@E@Z
 // Same code shape as 0x0013a8e0 (propagated; names are from that function)
 HitEffectTrack_1447b0* HitEffectTrack_1447b0::vfunc_5(byte_1447b0 param) {
-    vf = (hulk_intptr)&vftable_1447b0;
+    vf = (hulk_intptr)((int*)DAT_00412f14);
     b.Fnf_0027af50();
     a.Fnf_0027af50();
     ((Base_1447b0*)this)->Fng_00236d60();
@@ -2282,7 +2285,7 @@ SlowMotionTrack_1447f0* SlowMotionTrack_1447f0::vfunc_5(signed char flags) {
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 WorldDamageTrack_144820* WorldDamageTrack_144820::vfunc_5(unsigned char param) {
     WorldDamageTrack_144820* p = this;
-    *(char**)p = &threat_vftable_144820;
+    *(char**)p = ((char*)DAT_00412f74);
     ((Obj_144820*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_144820*)p)->f2_00236d60();
     if (param & 1)

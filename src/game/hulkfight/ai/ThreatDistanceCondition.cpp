@@ -13,6 +13,7 @@
 #define TREE_TU_BEGIN namespace fn_f9c2e0ac {
 #define TREE_TU_END }
 namespace fn_f9c2e0ac {} using namespace fn_f9c2e0ac;
+namespace fn_f9c2e0ac { extern "C" char DAT_00410c54[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/ai.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -1459,7 +1460,7 @@ ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
 // 0x0012bc30 hulkfight::ai::ThreatDistanceCondition::vfunc_5 (46 B): matches/0x0012bc30.cpp
 // sym: ?Del@ThreatDistanceCondition_12bc30@fn_f9c2e0ac@@QAEPAXE@Z
 void* ThreatDistanceCondition_12bc30::Del(unsigned char flags) {
-    vptr = g_vftable_12bc30;
+    vptr = ((void**)DAT_00410bf4);
     s.Init_0027af50();
     Fin_002345b0();
     if (flags & 1)
@@ -1514,7 +1515,7 @@ struct ThreatBallTrack {
 extern void* threat_vftable_12bcc0;
 void destroy_0008d330(ThreatBallTrack*);
 ThreatBallTrack* ThreatBallTrack::vfunc_5(unsigned int flags) {
-    vptr = &threat_vftable_12bcc0;
+    vptr = ((void**)DAT_00410c54);
     h30.run_0027af50();
     h18.run_0027af50();
     other_00236d60();

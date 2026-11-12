@@ -7,6 +7,7 @@
 #define TREE_TU_BEGIN namespace fn_f5a78e74 {
 #define TREE_TU_END }
 namespace fn_f5a78e74 {} using namespace fn_f5a78e74;
+namespace fn_f5a78e74 { extern "C" char DAT_00427f54[], DAT_00427f70[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -173,7 +174,7 @@ namespace fn_f5a78e74 {
 // sym: ?FUN_00236ab0@fn_f5a78e74@@YIXPAVCEffectStopTrack@@@Z
 // Same code shape as 0x00060920 (propagated; names are from that function)
 void __fastcall FUN_00236ab0(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_00427f54);
     FUN_0027afd0(self);
 }
 
@@ -283,7 +284,7 @@ bool Track::vfunc_3(unsigned __int64 id, int extra, ParamArg_236c50 arg)
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 TrackFactory_236d10* TrackFactory_236d10::vfunc_5(signed char flags) {
-    *(void***)this = Entity_236d10_vftable;
+    *(void***)this = ((void**)DAT_00427f54);
     Destroy();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -341,7 +342,7 @@ class Track : public Param {
 void __cdecl thunk_FUN_00267090(Track*);
 Track* Track::v5(int flag) {
     Param* p = mThing;
-    *(void**)this = (void*)&Track_vftable;
+    *(void**)this = (void*)((int*)DAT_00427f70);
     if (p)
         p->f(1);
     mThing = 0;

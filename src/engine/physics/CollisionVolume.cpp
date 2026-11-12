@@ -61,7 +61,7 @@ class Cls_306490 {
     virtual float* GetPos();  // (x64t6) slot 4: the volume's position (Box_306650 / Shape_306790's slot 4; was `int`)
     virtual void v5();
     virtual int GetId();
-    hulk_intptr pad1;   // (x64t6) NonCopyable's word: pointer-sized (decls/physics_world.h HULK_COLLISION_VOLUME_WORDS)
+    int pad1;   // (x64t7) NonCopyable's reference count (decls/physics_world.h HULK_COLLISION_VOLUME_WORDS)
     int m8;
     int mC;
     Own_306490* mOwn;
@@ -196,8 +196,8 @@ class CollisionSphere {
   public:
     CollisionSphere();
     hulk_intptr vptr;
-    hulk_intptr a;   // (x64t6) the volume's words (decls/physics_world.h): NonCopyable's word, the owner and the
-    int b;           // children pointer-sized
+    int a;           // (x64t6, x64t7) the volume's words (decls/physics_world.h): NonCopyable's reference count, the
+    int b;           // owner and the children pointer-sized
     int c;
     hulk_intptr d;
     hulk_intptr e;
@@ -600,11 +600,11 @@ struct Triple {
     void FUN_00306e70();
 };
 // (x64t6) the vftable stored by address (DAT_004313cc; the class's own was a stub natively) and the volume's words
-// pointer-sized where decls/physics_world.h's are (NonCopyable's word, the owner, the children)
+// pointer-sized where decls/physics_world.h's are (the owner, the children; x64t7: NonCopyable's count is an int)
 class CollisionCylinder {
 public:
     void* vftable;
-    hulk_uintptr value04;
+    unsigned int value04;
     int value08;
     int value0c;
     hulk_uintptr value10;
@@ -655,11 +655,11 @@ extern "C" char DAT_004317dc[];   // (x64t6) physics::CollisionOBB's vftable
 namespace physics {
 struct Block { void FUN_0030eaa0(); char data[0x40]; };
 // (x64t6) the vftable stored by address (DAT_004317dc; the class's own was a stub natively) and the volume's words
-// pointer-sized where decls/physics_world.h's are (NonCopyable's word, the owner, the children)
+// pointer-sized where decls/physics_world.h's are (the owner, the children; x64t7: NonCopyable's count is an int)
 class CollisionOBB {
 public:
     void* vftable;
-    hulk_intptr field4;
+    int field4;
     int field8;
     int fieldC;
     hulk_intptr field10;

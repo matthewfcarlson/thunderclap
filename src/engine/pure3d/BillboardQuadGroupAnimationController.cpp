@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fbb1b687 {} using namespace fn_fbb1b687;
+namespace fn_fbb1b687 { extern "C" char DAT_0042dedc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -144,7 +145,7 @@ extern int hulk_at_0048f610, hulk_at_004cfaa4;
 // Same code shape as 0x002960e0 (propagated; names are from that function)
 BillboardQuadGroupAnimationController_2a9760::BillboardQuadGroupAnimationController_2a9760() {
     FUN_00284cd0((void*)(this));
-    vptr = &scenegraph_vftable;
+    vptr = ((void**)DAT_0042dedc);
     field40 = 0;
 }
 
@@ -285,7 +286,7 @@ namespace fn_fbb1b687 {
 // 0x002a9b80 pure3d::BillboardQuadGroupAnimationController::vfunc_2 (57 B): matches/0x002a9b80.cpp
 // sym: ?f2@BillboardQuadGroupAnimationController_2a9b80@fn_fbb1b687@@QAEPAV12@E@Z
 BillboardQuadGroupAnimationController_2a9b80* BillboardQuadGroupAnimationController_2a9b80::f2(unsigned char flags) {
-    vptr = g_vftable_2a9b80;
+    vptr = ((void**)DAT_0042dedc);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

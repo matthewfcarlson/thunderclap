@@ -584,7 +584,7 @@ Created_2c2370* Loader_2c2370::FUN_002c2370(Reader* rd)
 // 0x002c2570 pure3d::Texture::vfunc_2 (57 B): matches/0x002c2570.cpp
 // sym: ?f2@Texture_2c2570@fn_f9a208e6@@QAEPAV12@E@Z
 Texture_2c2570* Texture_2c2570::f2(unsigned char flags) {
-    vptr = g_vftable_2c2570;
+    vptr = ((void**)DAT_0042ec20);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

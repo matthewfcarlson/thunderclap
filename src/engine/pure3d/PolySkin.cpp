@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f0d4c6f4 {} using namespace fn_f0d4c6f4;
+namespace fn_f0d4c6f4 { extern "C" char DAT_0042e6e4[], DAT_003f6098[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -390,7 +391,7 @@ PolySkinLoader_2b7d30::PolySkinLoader_2b7d30() {
 // 0x002b7df0 FUN_002b7df0 (55 B): matches/0x002b7df0.cpp
 // sym: ??1PolySkinLoader_2b7df0@fn_f0d4c6f4@@QAE@XZ
 PolySkinLoader_2b7df0::~PolySkinLoader_2b7df0() throw() {
-    vptr = g_vftable_0042e6e4;
+    vptr = ((void**)DAT_0042e6e4);
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -400,7 +401,7 @@ PolySkinLoader_2b7df0::~PolySkinLoader_2b7df0() throw() {
         m20->Release();
         m20 = 0;
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_003f6098);
 }
 
 } // namespace fn_f0d4c6f4

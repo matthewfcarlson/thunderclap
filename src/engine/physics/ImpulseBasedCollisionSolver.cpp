@@ -237,7 +237,7 @@ class CollisionSolverAgent {
     virtual void i();
     virtual void j();
     virtual void k();
-    void* pad;
+    int pad;   // (x64t7) pure3d::NonCopyable's reference count (was a pointer)
     void* mObject;
 };
 typedef unsigned int u32_2f7d40;

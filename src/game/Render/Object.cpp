@@ -13,6 +13,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CCollisionAction
 namespace fn_f4431f34 {} using namespace fn_f4431f34;
+namespace fn_f4431f34 { extern "C" char DAT_003f6098[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/Render.h"
 
 // ---- declarations shared by the functions below
@@ -789,7 +790,7 @@ Object_1c4fb0::~Object_1c4fb0() throw() {
         m10 = 0;
     }
     FUN_0027af50(&sub);
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_003f6098);
 }
 
 

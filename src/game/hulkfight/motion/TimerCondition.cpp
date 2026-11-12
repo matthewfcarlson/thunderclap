@@ -11,6 +11,7 @@
 #define TREE_TU_BEGIN namespace fn_f1f11990 {
 #define TREE_TU_END }
 namespace fn_f1f11990 {} using namespace fn_f1f11990;
+namespace fn_f1f11990 { extern "C" char DAT_0041aa68[], DAT_0041aa88[], DAT_0041aad8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -1302,7 +1303,7 @@ TimerCondition_18d300* TimerCondition_18d300::vfunc_5(signed char flags) {
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 GrappleVarCompareCondition_18d330* GrappleVarCompareCondition_18d330::vfunc_5(unsigned char param) {
     GrappleVarCompareCondition_18d330* p = this;
-    *(char**)p = &threat_vftable_18d330;
+    *(char**)p = ((char*)DAT_0041aa68);
     ((TimerCondition_nv_18d330*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)((char*)p + 0x10))))))->f1_0027af50();
     ((TimerCondition_nv_18d330*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)p)))))->f2_002345b0();
     if (param & 1)
@@ -1316,7 +1317,7 @@ GrappleVarCompareCondition_18d330* GrappleVarCompareCondition_18d330::vfunc_5(un
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 VarCompareCondition_18d360* VarCompareCondition_18d360::vfunc_5(unsigned char param) {
     VarCompareCondition_18d360* p = this;
-    *(char**)p = &threat_vftable_18d360;
+    *(char**)p = ((char*)DAT_0041aa88);
     ((TimerCondition_nv_18d360*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)((char*)p + 0x10))))))->f1_0027af50();
     ((TimerCondition_nv_18d360*)(((hulkfight::motion::TimerCondition*)(((hulkfight::motion::TimerCondition*)p)))))->f2_002345b0();
     if (param & 1)
@@ -1345,7 +1346,7 @@ TimerSetTrack_18d390* TimerSetTrack_18d390::vfunc_5(signed char flags) {
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 VarAssignTrack_18d3c0* VarAssignTrack_18d3c0::vfunc_5(unsigned char param) {
     VarAssignTrack_18d3c0* p = this;
-    *(char**)p = &threat_vftable_18d3c0;
+    *(char**)p = ((char*)DAT_0041aad8);
     ((Obj_18d3c0*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_18d3c0*)p)->f2_00236d60();
     if (param & 1)

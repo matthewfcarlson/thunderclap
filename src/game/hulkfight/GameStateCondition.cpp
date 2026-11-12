@@ -12,6 +12,7 @@
 #define TREE_TU_BEGIN namespace fn_f587a2cf {
 #define TREE_TU_END }
 namespace fn_f587a2cf {} using namespace fn_f587a2cf;
+namespace fn_f587a2cf { extern "C" char DAT_00411224[], DAT_00411514[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -254,12 +255,14 @@ class CCondition_12ed60 {
   public:
     virtual int vfunc_0(int);
 };
+HULK_REFCOUNT_PACK   // (x64t7) pure3d::NonCopyable's stand-in: 12 bytes natively (compat/ptr.h)
 class Track_12ed70 {
   public:
     Track_12ed70();
     virtual hulk_intptr fn_0012ed60(int);
     char pad[4];
 };
+HULK_REFCOUNT_PACK_END
 class DebugPrintTrack : public Track_12ed70 {
   public:
     DebugPrintTrack();
@@ -3356,7 +3359,7 @@ class MissionProgressCondition {
 };
 
 MissionProgressCondition* MissionProgressCondition::vfunc_5(unsigned char flag) {
-    *(void**)this = &g_vftable_12fbe0;
+    *(void**)this = ((int*)DAT_00411224);
     thunk_FUN_00267090(m0c);
     thunk_FUN_00267090(m14);
     baseDtor_002345b0();
@@ -3430,7 +3433,7 @@ class DebugPrintCondition {
 };
 
 void* DebugPrintCondition::v5(unsigned char flag) {
-    *(char**)this = &g_vftable_target;
+    *(char**)this = ((char*)DAT_00411284);
     thunk_FUN_00267090(m_p1);
     thunk_FUN_00267090b_0008d340(m_p2);
     ((GameStateCondition_12fc90*)this)->Dtor_002345b0();
@@ -3447,7 +3450,7 @@ namespace fn_f587a2cf {
 // sym: ?vfunc_5@LocationCondition@fn_f587a2cf@@QAEPAV12@H@Z
 LocationCondition* LocationCondition::vfunc_5(int b) {
     void* p1 = m1;
-    *(const void**)this = &loc_vftable;
+    *(const void**)this = ((const void**)&DAT_004112a4);
     FUN_0008d340(p1);
     FUN_0008d340(m2);
     Cleanup_002345b0();
@@ -3853,7 +3856,7 @@ PostEvent_StringAction* PostEvent_StringAction::Build(int a, Obj_130270* p) {
 // 0x001302c0 FUN_001302c0 (36 B): matches/0x001302c0.cpp
 // sym: ??1DebugPrintAction_1302c0@fn_f587a2cf@@QAE@XZ
 DebugPrintAction_1302c0::~DebugPrintAction_1302c0() {
-    vptr = g_vftable_1302c0;
+    vptr = ((void**)DAT_00411514);
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -5283,7 +5286,7 @@ namespace fn_f587a2cf {
 // 0x001321d0 hulkfight::DebugPrintAction::vfunc_2 (57 B): matches/0x001321d0.cpp
 // sym: ?f2@DebugPrintAction_1321d0@fn_f587a2cf@@QAEPAV12@E@Z
 DebugPrintAction_1321d0* DebugPrintAction_1321d0::f2(unsigned char flags) {
-    vptr = g_vftable_1321d0;
+    vptr = ((void**)DAT_00411514);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

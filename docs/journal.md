@@ -565,3 +565,16 @@ declares six such words itself (C++ linkage). It still compiles and the Wine lin
 they become interior names (unbound) until it is rewritten. The inventory's code operands skip base+displacement
 (`byte [eax + 0x426830]`), so luaO_log2's table had no reference. The type votes feed back through config/data.json:
 always regenerate from the committed file. Details in docs/data.md "Reproducing".
+
+## pure3d::NonCopyable's word at 4 is the reference count; MS-ABI base padding (x64t7, 2026-11-12)
+
+NonCopyable's AddRef 0x00018b30 is `inc dword [ecx+4]` and Release 0x00018b40 decrements it and deletes below 1;
+constructors store 0 there. gen's `hulk_intptr f_04` came from one false "pointer pun": CSPListener 0x001db1c0, where
+NonCopyable is the second base (at 4) and the store is that base's vftable pointer. Natively the type alone doesn't
+move anything: the MS ABI (the native front end's) never reuses a base's tail padding, so `{vftable; int}` is 16
+bytes and a descendant's first word sits at 0x10, against 0x0c in the hand-written flat views. The tree now packs
+NonCopyable (and local stand-ins) to 4 natively (HULK_REFCOUNT_PACK) so descendants follow the count as in the
+original. content::LoadObject (687 classes) has the same shape and is still unpacked.
+
+MSVC 7.1 codegen of 0x001a9b10 and 0x000b86b0 changes (two loads swap) when any extern declaration is added to
+include/decls/data/records.h: every records.h addition re-proves them on MSVC.

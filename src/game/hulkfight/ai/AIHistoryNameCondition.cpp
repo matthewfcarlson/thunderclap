@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f49cf0cf {
 #define TREE_TU_END }
 namespace fn_f49cf0cf {} using namespace fn_f49cf0cf;
+namespace fn_f49cf0cf { extern "C" char DAT_0040dd6c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/ai.h"
 
 // ---- declarations shared by the functions below
@@ -787,7 +788,7 @@ TokenSupressAction::TokenSupressAction(int a, RefObj_10f780* b) {
 // 0x0010f7e0 FUN_0010f7e0 (50 B): matches/0x0010f7e0.cpp
 // sym: ??1TokenSupressAction_10f7e0@fn_f49cf0cf@@QAE@XZ
 TokenSupressAction_10f7e0::~TokenSupressAction_10f7e0() {
-    vptr = g_vftable_10f7e0;
+    vptr = ((void**)DAT_0040dd6c);
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

@@ -43,13 +43,13 @@ struct FUN_0028b420 {
     int count;
     int unused14;
     void* values;
-    FUN_0028b420(int first, int second);
+    FUN_0028b420(int first, void* second);   // (x64t7) second: the parent channel (0x0028b420 keeps it as a pointer; was `int`)
 };
 }
 namespace pure3d {
 struct IntChannel : public FUN_0028b420 {
     virtual void unusedVirtual();
-    IntChannel(int first, hulk_intptr second);
+    IntChannel(int first, void* second);
 };
 }
 extern void* g_f2[];
@@ -567,9 +567,9 @@ void SimpleChannel::FUN_0028b970() {
 
 
 // 0x0028b9c0 FUN_0028b9c0 (87 B): matches/0x0028b9c0.cpp
-// sym: ??0IntChannel@pure3d@fn_f8c9e634@@QAE@HH@Z
+// sym: ??0IntChannel@pure3d@fn_f8c9e634@@QAE@HPAX@Z
 namespace pure3d {
-IntChannel::IntChannel(int first, hulk_intptr second) : FUN_0028b420(first, second) {
+IntChannel::IntChannel(int first, void* second) : FUN_0028b420(first, second) {
     values = 0;
     if (allocator == 0)
         values = FUN_0008d6d0(count * 4);

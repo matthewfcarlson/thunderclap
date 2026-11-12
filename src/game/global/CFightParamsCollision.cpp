@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f8b0a0f7 {
 #define TREE_TU_END }
 namespace fn_f8b0a0f7 {} using namespace fn_f8b0a0f7;
+namespace fn_f8b0a0f7 { extern "C" char DAT_003f9844[], DAT_003f985c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -540,7 +541,7 @@ CFightParams* CFightParams::Init(int v) {
     value = v;
     x = 0;
     y = 0;
-    *(hulk_intptr*)this = (hulk_intptr)&fightvftable;
+    *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_003f9844);
     return this;
 }
 } // namespace fn_00059260
@@ -893,12 +894,14 @@ CFightParams* CFightParams::vfunc_2(unsigned char flag) {
 // 0x000598e0 FUN_000598e0 (69 B): matches/0x000598e0.cpp [wrapped: conflict: CFightParamsCollision]
 // sym: ??0CFightParamsCollision@fn_000598e0@@QAE@HH@Z
 namespace fn_000598e0 {
+HULK_REFCOUNT_PACK   // (x64t7) pure3d::NonCopyable's stand-in: 12 bytes natively (compat/ptr.h)
 class Parent {
   public:
     Parent();
     virtual void f();
     char pad[4];
 };
+HULK_REFCOUNT_PACK_END
 class CFightParams_598e0 : public Parent {
   public:
     int value;
@@ -972,9 +975,9 @@ class CFightParamsCollision {
 };
 
 CFightParamsCollision* CFightParamsCollision::vfunc_2(unsigned char flag) {
-    this->m_vptr.n = (hulk_uintptr)&CFightParamsCollision_vftable[0];
+    this->m_vptr.n = (hulk_uintptr)((char*)DAT_003f985c);
     this->m_sub.destroy_00059300();
-    this->m_vptr.v = (hulk_uintptr)&CFightParams_vftable[0];
+    this->m_vptr.v = (hulk_uintptr)((char*)DAT_003f9844);
     RefObj_59930* p10 = this->m_p10;
     if (p10 != 0) {
         p10->vfunc_1();

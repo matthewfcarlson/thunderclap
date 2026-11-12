@@ -421,7 +421,7 @@ FightNodeTimeCondition::FightNodeTimeCondition() : FightNodeBaseCondition_235c10
 // sym: ?FUN_00235c40@fn_fac1015e@@YIXPAVCEffectStopTrack@@@Z
 // Same code shape as 0x00060920 (propagated; names are from that function)
 void __fastcall FUN_00235c40(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_00427ccc);
     FUN_002345b0(self);
 }
 

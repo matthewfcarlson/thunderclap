@@ -11,6 +11,7 @@
 #define TREE_TU_BEGIN namespace fn_fc171dfe {
 #define TREE_TU_END }
 namespace fn_fc171dfe {} using namespace fn_fc171dfe;
+namespace fn_fc171dfe { extern "C" char DAT_0041aed8[], DAT_0041af68[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -1287,7 +1288,7 @@ namespace fn_fc171dfe {
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 ImpulseVelocityTrack_18f580* ImpulseVelocityTrack_18f580::vfunc_5(unsigned char param) {
     ImpulseVelocityTrack_18f580* p = this;
-    *(char**)p = &threat_vftable_18f580;
+    *(char**)p = ((char*)DAT_0041aed8);
     ((Obj_18f580*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_18f580*)p)->f2_00236d60();
     if (param & 1)
@@ -2343,7 +2344,7 @@ namespace fn_fc171dfe {
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
 void* TankLocomotionAction_1916c0::vfunc_2(unsigned char flag) {
     volatile TankLocomotionAction_1916c0* self = this;
-    self->mVptr = &g_vftable_1916c0;
+    self->mVptr = ((int*)DAT_0041af68);
     RefObj_1916c0* t3 = self->m3;
     if (t3) {
         t3->Release();

@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f4fa62f8 {} using namespace fn_f4fa62f8;
+namespace fn_f4fa62f8 { extern "C" char DAT_003f6d50[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -149,7 +150,7 @@ CMotionStateCondition* CMotionStateCondition::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CMotionHitCondition* CMotionHitCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4d0d0_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -164,7 +165,7 @@ CMotionHitCondition* CMotionHitCondition::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CClimbableCondition* CClimbableCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4d100_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

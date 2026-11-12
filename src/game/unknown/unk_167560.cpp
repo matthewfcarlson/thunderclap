@@ -6,6 +6,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fb3274a2 {} using namespace fn_fb3274a2;
+namespace fn_fb3274a2 { extern "C" char DAT_00416878[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -305,7 +306,7 @@ hulkfight::motion::GrappleHealthCondition* hulkfight::motion::GrappleHealthCondi
 // sym: ?vfunc_5@TargetCharacterTemplateCondition@motion@hulkfight@fn_fb3274a2@@QAEPAXE@Z
 // Same code shape as 0x0011cbc0 (propagated; names are from that function)
 void* hulkfight::motion::TargetCharacterTemplateCondition::vfunc_5(unsigned char flag) {
-    *(const VFT**)this = &PathLocatorTestCondition_vftable;
+    *(const VFT**)this = ((const VFT*)DAT_00416878);
     ai_free(m_p);
     Cleanup_002345b0();
     if (flag & 1) {

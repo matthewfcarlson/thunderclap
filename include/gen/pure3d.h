@@ -482,13 +482,19 @@ public:
 };
 
 // .?AVNonCopyable@pure3d@@  vftable 0x3f6308 (3)
+// (x64t7) f_04 is the reference count (AddRef 0x00018b30 `inc dword [ecx+4]`, Release 0x00018b40 decrements it and
+// deletes at < 1): an int. HULK_REFCOUNT_PACK (compat/ptr.h): natively the class is 12 bytes (the 8-byte vftable
+// pointer and the count), so a descendant's own words follow the count as in the original and as the hand-written
+// flat views have them (the MS ABI would otherwise round the base to 16)
+HULK_REFCOUNT_PACK
 class NonCopyable : public ::core::IRefCount {
 public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~NonCopyable(); // overrides core::IRefCount slot 2
-    hulk_intptr f_04;
+    int f_04;
 };
+HULK_REFCOUNT_PACK_END
 
 // .?AVAnimationMemoryBlock@pure3d@@  vftable 0x42c8b4 (3)
 class AnimationMemoryBlock : public ::pure3d::NonCopyable {

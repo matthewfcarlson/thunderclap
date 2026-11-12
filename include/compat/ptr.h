@@ -59,4 +59,22 @@ typedef double hulk_freg;
 #define HULK_PURE64
 #endif
 
+// HULK_REFCOUNT_PACK / HULK_REFCOUNT_PACK_END (x64t7): around a class that is only a vftable and a 4-byte reference
+// count at 4 (pure3d::NonCopyable, and the sources' local stand-ins for it): natively the class packs to 4, so it is
+// 12 bytes and a derived class's words follow the count directly, as in the original and as the hand-written flat
+// views (`void* vftable; int refs; int next;`) lay them out. Without it the MS ABI rounds the base to 16 and every
+// derived class's first word moves 4 bytes away from the flat views'. Nothing on the 32-bit builds.
+#if defined(HULK_PTR64)
+#define HULK_REFCOUNT_PACK __pragma(pack(push, 4))
+#define HULK_REFCOUNT_PACK_END __pragma(pack(pop))
+#else
+#define HULK_REFCOUNT_PACK
+#define HULK_REFCOUNT_PACK_END
+#endif
+
+// HULK_X2(n) (x64t7): the size to allocate natively for an object of 32-bit size n whose native layout is another
+// TU's view (a constructor called by address): n on the 32-bit builds, 2n natively (room for every word turning into
+// a pointer). An interim upper bound, logged in docs/tech-debt.md: the exact size is the constructor's record's.
+#define HULK_X2(n) ((n) * (int)(sizeof(void*) / 4))
+
 #endif

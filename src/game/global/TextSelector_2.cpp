@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f12e8a1b {} using namespace fn_f12e8a1b;
+namespace fn_f12e8a1b { extern "C" char DAT_0040c208[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -194,7 +195,7 @@ HSlider_e9ff0::~HSlider_e9ff0() throw() {
     for (int i = 0; i < 10; i++)
         if (b[i])
             b[i]->Release();
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_0040c208);
     _ReadWriteBarrier();
     if (m50) {
         m50->Release();

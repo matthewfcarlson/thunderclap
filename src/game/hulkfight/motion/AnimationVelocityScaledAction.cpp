@@ -12,6 +12,7 @@
 #define TREE_TU_BEGIN namespace fn_f30d2d27 {
 #define TREE_TU_END }
 namespace fn_f30d2d27 {} using namespace fn_f30d2d27;
+namespace fn_f30d2d27 { extern "C" char DAT_00412410[], DAT_00412450[], DAT_00412480[], DAT_004124b0[], DAT_004124e0[], DAT_004126cc[], DAT_00412540[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -2163,7 +2164,7 @@ void Set(Obj_13a790** p, Obj_13a790* v) {
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 FrameReachedCondition_13a840* FrameReachedCondition_13a840::vfunc_5(unsigned char param) {
     FrameReachedCondition_13a840* p = this;
-    *(char**)p = &threat_vftable_13a840;
+    *(char**)p = ((char*)DAT_00412410);
     ((Obj_13a840*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_13a840*)p)->f2_002345b0();
     if (param & 1)
@@ -2177,7 +2178,7 @@ FrameReachedCondition_13a840* FrameReachedCondition_13a840::vfunc_5(unsigned cha
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 FrameCondition_13a870* FrameCondition_13a870::vfunc_5(unsigned char param) {
     FrameCondition_13a870* p = this;
-    *(char**)p = &threat_vftable_13a870;
+    *(char**)p = ((char*)DAT_00412430);
     ((Obj_13a870*)((char*)p + 0x10))->f1_0027af50();
     ((Obj_13a870*)p)->f2_002345b0();
     if (param & 1)
@@ -2190,7 +2191,7 @@ FrameCondition_13a870* FrameCondition_13a870::vfunc_5(unsigned char param) {
 // sym: ?vfunc_5@AnimationTrack_13a8a0@fn_f30d2d27@@UAEPAU12@H@Z
 // Same code shape as 0x0005e160 (propagated; names are from that function)
 AnimationTrack_13a8a0* AnimationTrack_13a8a0::vfunc_5(int param) {
-    *(hulk_intptr*)this = (hulk_intptr)&vftable_13a8a0;
+    *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_00412450);
     ((H*)((char*)this + 0x38))->Fnf_0027af50();
     ((H*)((char*)this + 0x18))->Fnf_0027af50();
     ((G_13a8a0*)this)->Fng_00236d60();
@@ -2225,7 +2226,7 @@ class AnimationChargeTrack {
     AnimationChargeTrack* vfunc_5(byte_13a8e0 param);
 };
 AnimationChargeTrack* AnimationChargeTrack::vfunc_5(byte_13a8e0 param) {
-    vf = (hulk_intptr)&vftable_13a8e0;
+    vf = (hulk_intptr)((int*)DAT_00412480);
     b.Fnf_0027af50();
     a.Fnf_0027af50();
     ((Base_13a8e0*)this)->Fng_00236d60();
@@ -2241,7 +2242,7 @@ namespace fn_f30d2d27 {
 // sym: ?vfunc_5@AnimationLinkedTrack_13a920@fn_f30d2d27@@QAEPAU12@I@Z
 // Same code shape as 0x0012bcc0 (propagated; names are from that function)
 AnimationLinkedTrack_13a920* AnimationLinkedTrack_13a920::vfunc_5(unsigned int flags) {
-    vptr = &threat_vftable_13a920;
+    vptr = ((void**)DAT_004124b0);
     h30.run_0027af50();
     h18.run_0027af50();
     other_00236d60();
@@ -2255,7 +2256,7 @@ AnimationLinkedTrack_13a920* AnimationLinkedTrack_13a920::vfunc_5(unsigned int f
 // sym: ?vfunc_5@AnimationPhaseMatchedTrack_13a960@fn_f30d2d27@@QAEPAU12@I@Z
 // Same code shape as 0x0012bcc0 (propagated; names are from that function)
 AnimationPhaseMatchedTrack_13a960* AnimationPhaseMatchedTrack_13a960::vfunc_5(unsigned int flags) {
-    vptr = &threat_vftable_13a960;
+    vptr = ((void**)DAT_004124e0);
     h30.run_0027af50();
     h18.run_0027af50();
     other_00236d60();
@@ -3155,7 +3156,7 @@ namespace fn_f30d2d27 {
 // 0x0013b630 FUN_0013b630 (32 B): matches/0x0013b630.cpp
 // sym: ??0ParamIntConstRange_13b630@fn_f30d2d27@@QAE@HH@Z
 ParamIntConstRange_13b630::ParamIntConstRange_13b630(int a, int b) : ParamValueInt_13b630(a) {
-    vptr = g_vftable;
+    vptr = ((void**)DAT_004126cc);
     m10 = b;
 }
 
@@ -5536,7 +5537,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleAnimatio
     CHitAnimationTrack_13e7a0* p = (CHitAnimationTrack_13e7a0*)alloc_0008d690(0x50);
     if (p) {
         p->init_0013a130();
-        p->vf = (unsigned int*)&hit_vftable;
+        p->vf = (unsigned int*)((int*)DAT_00412540);
         return (void*)(p);
     }
     return (void*)(0);

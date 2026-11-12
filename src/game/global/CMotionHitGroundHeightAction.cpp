@@ -5,6 +5,7 @@
 #define TREE_TU_BEGIN namespace fn_f2bde127 {
 #define TREE_TU_END }
 namespace fn_f2bde127 {} using namespace fn_f2bde127;
+namespace fn_f2bde127 { extern "C" char DAT_003f3390[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -86,7 +87,7 @@ CSnapToWallAction_226d0* CSnapToWallAction_226d0::f2(unsigned char flags) {
         m1->Release();
         m1 = 0;
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m2) {
         m2->Release();
@@ -102,7 +103,7 @@ CSnapToWallAction_226d0* CSnapToWallAction_226d0::f2(unsigned char flags) {
 // 0x00022730 CMotionHitGroundHeightAction::vfunc_2 (57 B): matches/0x00022730.cpp
 // sym: ?f2@CMotionHitGroundHeightAction_22730@fn_f2bde127@@QAEPAV12@E@Z
 CMotionHitGroundHeightAction_22730* CMotionHitGroundHeightAction_22730::f2(unsigned char flags) {
-    vptr = g_vftable_22730;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

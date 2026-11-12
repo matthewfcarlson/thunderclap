@@ -648,7 +648,7 @@ namespace fn_f6c81acf {
 // 0x00237430 fight::OpportunityTrack::vfunc_5 (54 B): matches/0x00237430.cpp
 // sym: ?vfunc_5@OpportunityTrack_237430@fn_f6c81acf@@QAEPAV12@E@Z
 OpportunityTrack_237430* OpportunityTrack_237430::vfunc_5(unsigned char flags) {
-    vptr = g_vftable_00427ff0;
+    vptr = ((void**)DAT_00427ff0);
     a28.Fini_00236fd0();
     a18.Fini_00234150();
     Fin_00236d60();

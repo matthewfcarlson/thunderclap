@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_fc227ff7 {
 #define TREE_TU_END }
 namespace fn_fc227ff7 {} using namespace fn_fc227ff7;
+namespace fn_fc227ff7 { extern "C" char DAT_003fd230[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -76,7 +77,7 @@ template <> void* fight::TrackFactoryTemplate<CHitAnimationTrack>::vfunc_5() {
     CHitAnimationTrack_6fb80* p = (CHitAnimationTrack_6fb80*)FUN_0008d690(0x50);
     if (p) {
         p->init_0005dcb0();
-        p->vf = (unsigned int*)&hit_vftable;
+        p->vf = (unsigned int*)((int*)DAT_003fd230);
         return (void*)(p);
     }
     return (void*)(0);

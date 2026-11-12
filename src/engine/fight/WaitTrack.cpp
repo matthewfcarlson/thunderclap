@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f3d35335 {
 #define TREE_TU_END }
 namespace fn_f3d35335 {} using namespace fn_f3d35335;
+namespace fn_f3d35335 { extern "C" char DAT_00428cf4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f3d35335 { extern "C" char DAT_00428d24[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
 
@@ -272,7 +273,7 @@ namespace fn_f3d35335 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 WaitTrack_23e050* WaitTrack_23e050::vfunc_5(signed char flags) {
-    *(void***)this = Track_23e050_vftable;
+    *(void***)this = ((void**)DAT_00428cf4);
     Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -490,7 +491,7 @@ namespace fn_f3d35335 {
 // 0x0023e390 fight::WaitAction::vfunc_2 (57 B): matches/0x0023e390.cpp
 // sym: ?f2@WaitAction_23e390@fn_f3d35335@@QAEPAV12@E@Z
 WaitAction_23e390* WaitAction_23e390::f2(unsigned char flags) {
-    vptr = g_vftable_23e390;
+    vptr = ((void**)DAT_00428d24);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

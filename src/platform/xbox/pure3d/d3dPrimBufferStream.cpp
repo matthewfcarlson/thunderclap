@@ -471,7 +471,7 @@ class pddiPrimBuffer {
 };
 pddiPrimBuffer::pddiPrimBuffer() {
     Init();
-    *(hulk_intptr*)this = (hulk_intptr)&vftable_327030;
+    *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_00433424);
 }
 } // namespace fn_00327030
 

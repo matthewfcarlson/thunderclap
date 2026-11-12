@@ -134,7 +134,7 @@ extern void* __cdecl Alloc_00263ea0(hulk_uintptr);
 // Same code shape as 0x002960e0 (propagated; names are from that function)
 TextureAnimationController_2a9410::TextureAnimationController_2a9410() {
     FUN_00284cd0((void*)(this));
-    vptr = &scenegraph_vftable;
+    vptr = ((void**)DAT_0042de4c);
     field40 = 0;
 }
 
@@ -208,7 +208,7 @@ void CMotionTrail::vfunc_8(Obj_2a9540* p) {
 // 0x002a9570 pure3d::TextureAnimationController::vfunc_2 (57 B): matches/0x002a9570.cpp
 // sym: ?f2@TextureAnimationController_2a9570@fn_f097dcce@@QAEPAV12@E@Z
 TextureAnimationController_2a9570* TextureAnimationController_2a9570::f2(unsigned char flags) {
-    vptr = g_vftable_2a9570;
+    vptr = ((void**)DAT_0042de4c);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

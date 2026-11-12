@@ -171,15 +171,20 @@ struct C_2df7d0 {
     X_2df7d0* member;
     void target();
 };
-class RenderObjectLoader_2df7f0 {
-  public:
-    virtual void Fnf_00018b30();
-    char pad[4];
-    RenderObjectLoader_2df7f0();
+// (x64t7) pure3d::RenderObjectLoader, named by its constructor's address (0x002a3e80: the vftable and
+// pure3d::NonCopyable's reference count; was a local class whose constructor was declared only, a stub natively)
+// and the two loaders on it with their game vftables stored by address (the local classes' own were stubs natively)
+extern "C" char DAT_0042fb84[];   // pure3d::PrimGroupLoader's vftable
+extern "C" char DAT_0042fb94[];   // pure3d::OldPrimGroupLoader's
+HULK_REFCOUNT_PACK
+struct FUN_002a3e80 {
+    void* vftable;
+    int refs;
+    FUN_002a3e80();
 };
-class PrimGroupLoader : public RenderObjectLoader_2df7f0 {
+HULK_REFCOUNT_PACK_END
+class PrimGroupLoader : public FUN_002a3e80 {
   public:
-    virtual void Fng_00018b40();
     int a, b;
     char c, d;
     short e;
@@ -200,16 +205,9 @@ class AnimationFrameController {
     char pad[0x18 - 4];
     int field;
 };
-class RenderObjectLoader_2df850 {
-  public:
-    RenderObjectLoader_2df850();
-    virtual void Fn();
-    int unused;
-};
-class OldPrimGroupLoader : public RenderObjectLoader_2df850 {
+class OldPrimGroupLoader : public FUN_002a3e80 {
   public:
     OldPrimGroupLoader();
-    virtual void Fn();
     int a;
     int b;
     int c;
@@ -1064,8 +1062,10 @@ namespace fn_f1455a33 {
 
 // 0x002df7f0 FUN_002df7f0 (58 B): matches/0x002df7f0.cpp
 // sym: ??0PrimGroupLoader@fn_f1455a33@@QAE@XZ
-PrimGroupLoader::PrimGroupLoader()
-    : RenderObjectLoader_2df7f0(), a(0), b(0), c(0), e(0), f0(0), f3(0), f4(0), f5(0), d(1), f1(-1), f2(-1) {}
+PrimGroupLoader::PrimGroupLoader() : FUN_002a3e80() {
+    vftable = (void*)DAT_0042fb84;
+    a = 0; b = 0; c = 0; d = 1; e = 0; f0 = 0; f1 = -1; f2 = -1; f3 = 0; f4 = 0; f5 = 0;
+}
 
 
 // 0x002df840 FUN_002df840 (10 B): matches/0x002df840.cpp
@@ -1078,7 +1078,10 @@ void AnimationFrameController::vfunc_8(int x) {
 
 // 0x002df850 FUN_002df850 (44 B): matches/0x002df850.cpp
 // sym: ??0OldPrimGroupLoader@fn_f1455a33@@QAE@XZ
-OldPrimGroupLoader::OldPrimGroupLoader() : a(0), b(0), c(-1), d(-1), e(0), f(0), g(0) {}
+OldPrimGroupLoader::OldPrimGroupLoader() {
+    vftable = (void*)DAT_0042fb94;
+    a = 0; b = 0; c = -1; d = -1; e = 0; f = 0; g = 0;
+}
 
 } // namespace fn_f1455a33
 
@@ -2073,7 +2076,7 @@ void Morph::FUN_002e11e0(DeltaList* list, float weight)
 // 0x002e13b0 FUN_002e13b0 (36 B): matches/0x002e13b0.cpp
 // sym: ??1PrimGroupLoader_2e13b0@fn_f1455a33@@QAE@XZ
 PrimGroupLoader_2e13b0::~PrimGroupLoader_2e13b0() {
-    vptr = g_vftable_0042fb84;
+    vptr = ((void**)DAT_0042fb84);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -2118,7 +2121,7 @@ extern "C" int* FUN_002e1440(int* dst, int count, const int* src) {
 // 0x002e1470 pure3d::PrimGroup::vfunc_2 (57 B): matches/0x002e1470.cpp
 // sym: ?f2@PrimGroup_2e1470@fn_f1455a33@@QAEPAV12@E@Z
 PrimGroup_2e1470* PrimGroup_2e1470::f2(unsigned char flags) {
-    vptr = g_vftable_2e1470;
+    vptr = ((void**)DAT_0042fb54);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

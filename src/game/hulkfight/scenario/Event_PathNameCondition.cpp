@@ -1300,7 +1300,7 @@ Event_WaypointCondition_1ab6d0* Event_WaypointCondition_1ab6d0::vfunc_5(signed c
 // 0x001ab700 hulkfight::scenario::Event_CharacterTemplateCondition::vfunc_5 (46 B): matches/0x001ab700.cpp
 // sym: ?f2@Event_CharacterTemplateCondition_1ab700@fn_fc09f66d@@QAEPAV12@E@Z
 Event_CharacterTemplateCondition_1ab700* Event_CharacterTemplateCondition_1ab700::f2(unsigned char flags) {
-    vptr = g_vftable_1ab700;
+    vptr = ((void**)DAT_0041d44c);
     m18.Fini_0027af50();
     Fin_002345b0();
     if (flags & 1)
@@ -1324,7 +1324,7 @@ Event_CharacterTemplateVariationCondition::Event_CharacterTemplateVariationCondi
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 Event_PathNameCondition_1ab760* Event_PathNameCondition_1ab760::vfunc_5(unsigned char param) {
     Event_PathNameCondition_1ab760* p = this;
-    *(char**)p = &threat_vftable_1ab760;
+    *(char**)p = ((char*)DAT_0041d48c);
     ((Event_PathNameCondition_nv_1ab760*)(((hulkfight::scenario::Event_PathNameCondition*)((char*)p + 0x10))))->f1_0027af50();
     ((Event_PathNameCondition_nv_1ab760*)(((hulkfight::scenario::Event_PathNameCondition*)p)))->f2_002345b0();
     if (param & 1)

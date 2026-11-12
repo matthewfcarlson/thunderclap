@@ -11,6 +11,7 @@
 #define TREE_TU_BEGIN namespace fn_facdac2a {
 #define TREE_TU_END }
 namespace fn_facdac2a {} using namespace fn_facdac2a;
+namespace fn_facdac2a { extern "C" char DAT_004110e0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight.h"
 
 // ---- declarations shared by the functions below
@@ -394,7 +395,7 @@ void FUN_0012dac0() {}
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
 PostEvent_StringTrack_12db20* PostEvent_StringTrack_12db20::vfunc_5(unsigned char param) {
     PostEvent_StringTrack_12db20* p = this;
-    *(char**)p = &threat_vftable_12db20;
+    *(char**)p = ((char*)DAT_004110e0);
     ((PostEvent_StringTrack_nv_12db20*)(((hulkfight::PostEvent_StringTrack*)((char*)p + 0x10))))->f1_0027af50();
     ((PostEvent_StringTrack_nv_12db20*)(((hulkfight::PostEvent_StringTrack*)p)))->f2_00236d60();
     if (param & 1)
@@ -422,7 +423,7 @@ struct PostEvent_StringAction {
 };
 PostEvent_StringAction* PostEvent_StringAction::Build(int a, Obj_12db50* p) {
     Init_00232660();
-    vf = &PostEvent_StringAction_vftable;
+    vf = ((int*)DAT_00411110);
     object = 0;
     arg = a;
     if (p)

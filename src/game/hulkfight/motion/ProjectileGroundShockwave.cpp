@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_f3bcd8a9 {
 #define TREE_TU_END }
 namespace fn_f3bcd8a9 {} using namespace fn_f3bcd8a9;
+namespace fn_f3bcd8a9 { extern "C" char DAT_0041b4e0[], DAT_0041b4fc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -124,7 +125,7 @@ FireGroundShockwaveAction_198900::FireGroundShockwaveAction_198900(int target, R
 // 0x00198950 FUN_00198950 (50 B): matches/0x00198950.cpp
 // sym: ??1FireGroundShockwaveAction_198950@fn_f3bcd8a9@@QAE@XZ
 FireGroundShockwaveAction_198950::~FireGroundShockwaveAction_198950() {
-    vptr = g_vftable_198950;
+    vptr = ((void**)DAT_0041b4e0);
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -168,7 +169,7 @@ namespace fn_f3bcd8a9 {
 // 0x00198ab0 FUN_00198ab0 (124 B): matches/0x00198ab0.cpp
 // sym: ??1ProjectileGroundShockwave_198ab0@fn_f3bcd8a9@@QAE@XZ
 ProjectileGroundShockwave_198ab0::~ProjectileGroundShockwave_198ab0() throw() {
-    vptr = g_vftable_198ab0;
+    vptr = ((void**)DAT_0041b4fc);
     _ReadWriteBarrier();
     Ref_198ab0** p = m3c;
     int n = 32;

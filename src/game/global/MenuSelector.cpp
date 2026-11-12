@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f9e7f90b {} using namespace fn_f9e7f90b;
+namespace fn_f9e7f90b { extern "C" char DAT_0040c208[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -180,7 +181,7 @@ TextSelector_ebca0::~TextSelector_ebca0() throw() {
             q->Fin_000f7960();
         }
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_0040c208);
     _ReadWriteBarrier();
     if (m50) {
         m50->Release();

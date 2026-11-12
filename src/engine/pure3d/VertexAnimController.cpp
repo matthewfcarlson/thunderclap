@@ -122,7 +122,7 @@ extern Type hulk_at_0049fc80;
 // Same code shape as 0x002960e0 (propagated; names are from that function)
 VertexAnimController_2a6cb0::VertexAnimController_2a6cb0() {
     FUN_00284cd0((void*)(this));
-    vptr = &scenegraph_vftable;
+    vptr = ((void**)DAT_0042da6c);
     field40 = 0;
 }
 
@@ -219,7 +219,7 @@ void C_2a6ed0::set(A_2a6ed0* p) {
 // 0x002a6f00 pure3d::VertexAnimController::vfunc_2 (57 B): matches/0x002a6f00.cpp
 // sym: ?f2@VertexAnimController_2a6f00@fn_f729aa84@@QAEPAV12@E@Z
 VertexAnimController_2a6f00* VertexAnimController_2a6f00::f2(unsigned char flags) {
-    vptr = g_vftable_2a6f00;
+    vptr = ((void**)DAT_0042da6c);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

@@ -9,6 +9,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f0d621c3 {} using namespace fn_f0d621c3;
+namespace fn_f0d621c3 { extern "C" char DAT_004288b4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -137,7 +138,7 @@ Bank_23c640* Bank_23c640::construct(void* arg) {
 // sym: ?FUN_0023c660@fn_f0d621c3@@YIXPAVCEffectStopTrack@1@@Z
 // Same code shape as 0x00060920 (propagated; names are from that function)
 void __fastcall FUN_0023c660(CEffectStopTrack* self) {
-    *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
+    *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_004288b4);
     FUN_00233970(self);
 }
 

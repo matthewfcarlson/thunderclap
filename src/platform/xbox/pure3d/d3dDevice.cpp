@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_f2bbfa1e {
 #define TREE_TU_END }
 namespace fn_f2bbfa1e {} using namespace fn_f2bbfa1e;
+namespace fn_f2bbfa1e { extern "C" char DAT_004324a8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f2bbfa1e { extern "C" char DAT_0043253c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "platform/xbox/pure3d.h"
 
@@ -188,7 +189,7 @@ void __stdcall OutputDebugStringA(const char*);
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 pddiDevice_31b760* pddiDevice_31b760::vfunc_5(signed char flags) {
-    *(void***)this = pddiObject_31b760_vftable;
+    *(void***)this = ((void**)DAT_004324a8);
     Destroy();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -200,7 +201,7 @@ pddiDevice_31b760* pddiDevice_31b760::vfunc_5(signed char flags) {
 // 0x0031b790 FUN_0031b790 (18 B): matches/0x0031b790.cpp
 // sym: ??0pddiDevice_31b790@fn_f2bbfa1e@@QAE@XZ
 pddiDevice_31b790::pddiDevice_31b790() {
-    *(hulk_intptr*)this = (hulk_intptr)&device_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)((int*)DAT_004324a8);
 }
 
 
@@ -400,7 +401,7 @@ pddiObject::pddiObject() : a(0), b(1) {}
 // sym: @FUN_0031bae0@4
 // Same code shape as 0x001b6820 (propagated; names are from that function)
 extern "C" void __fastcall FUN_0031bae0(void* self) {
-    *(void**)self = &IRefCount_vftable_31bae0;
+    *(void**)self = ((void**)DAT_0043253c);
 }
 
 } // namespace fn_f2bbfa1e

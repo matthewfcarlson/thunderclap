@@ -217,7 +217,7 @@ extern void __cdecl FreeObj_00263f30(void*);
 Expression* Expression::f2(int x) {
     Expression* p = this;
     void* q = p->a;
-    *(const int**)p = &Expression_vftable;
+    *(const int**)p = ((const int*)DAT_0042e30c);
     operator delete[](q);
     q = p->b;
     operator delete[](q);

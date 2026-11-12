@@ -2,6 +2,7 @@
 // object 0x0012dfe0..0x00132e00 (kind game, layer game, confidence high), dominant class hulkfight::GameStateCondition
 // (tree_prelude.h: not needed)
 #include "compat/ptr.h"
+extern "C" char DAT_00411224[];   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 
 
 // 0x00132740 fight::ConditionFactoryTemplate<hulkfight::MissionProgressCondition>::vfunc_5 (61 B): matches/0x00132740.cpp [isolated: conflict: Alloc; on include/gen/ and not mergeable]
@@ -21,7 +22,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::MissionProgressCond
     void* result;
     if (p) {
         ((GameStateCondition_nv_132740*)(p))->Init_00234590(0);
-        *(int**)p = &AIHistoryNameCondition_vftable;
+        *(int**)p = ((int*)DAT_00411224);
         (*(int *)&p->f_0c) = 0;
         p->compare = 0;
         (*(int *)&p->f_14) = 0;

@@ -897,13 +897,13 @@ hulk_intptr hulkfight::ai::PathLocatorTestCondition::vfunc_0(int index) {
 
 
 // 0x0011c220 FUN_0011c220 (74 B): equivalent/0x0011c220.cpp [wrapped: conflict: hulkfight::ai::PathLocatorTestCondition]
-// sym: ??0PathLocatorTestCondition@ai@hulkfight@fn_0011c220@@QAE@XZ @e77b4db8ca85 @w3e67890a98b3
+// sym: ??0PathLocatorTestCondition@ai@hulkfight@fn_0011c220@@QAE@XZ @e07be9ba7729 @wb9068c9dca11
 namespace fn_0011c220 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0011c220 @ 0x0011c220
 namespace hulkfight { namespace ai {
 struct FUN_00234590 {
-    FUN_00234590(int);
+    FUN_00234590(void*);   // (x64t7) fight::Condition's constructor (0x00234590): a pointer (was `int`)
     virtual hulk_intptr virtualMethod_0011c210(int);
     char padding[8];
 };

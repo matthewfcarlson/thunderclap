@@ -14,6 +14,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fff84c72 {} using namespace fn_fff84c72;
+namespace fn_fff84c72 { extern "C" char DAT_0042e724[], DAT_0042e7d4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fff84c72 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -1710,7 +1711,7 @@ namespace fn_fff84c72 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 BillboardCutOffQuad_2b9cb0* BillboardCutOffQuad_2b9cb0::vfunc_5(signed char flags) {
-    *(void***)this = BillboardQuad_2b9cb0_vftable;
+    *(void***)this = ((void**)DAT_0042e724);
     Destroy_0027afd0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -2573,7 +2574,7 @@ OldBillboardObjectLoader_2bb5c0::~OldBillboardObjectLoader_2bb5c0() {
         m->Release();
         m = 0;
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_003f6098);
 }
 
 
@@ -3244,7 +3245,7 @@ namespace fn_fff84c72 {
 // 0x002bc430 pure3d::BillboardObjectLoader::vfunc_2 (56 B): matches/0x002bc430.cpp
 // sym: ?f2@BillboardObjectLoader_2bc430@fn_fff84c72@@QAEPAV12@E@Z
 BillboardObjectLoader_2bc430* BillboardObjectLoader_2bc430::f2(unsigned char flags) {
-    vptr = g_vftable_2bc430;
+    vptr = ((void**)DAT_0042e7d4);
     _ReadWriteBarrier();
     if (m14) {
         m14->Release();

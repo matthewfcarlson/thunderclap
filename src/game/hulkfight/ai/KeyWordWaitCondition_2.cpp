@@ -7,6 +7,7 @@
 #define TREE_TU_BEGIN namespace fn_fbde9503 {
 #define TREE_TU_END }
 namespace fn_fbde9503 {} using namespace fn_fbde9503;
+namespace fn_fbde9503 { extern "C" char DAT_0040da84[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/ai.h"
 
 // ---- declarations shared by the functions below
@@ -74,7 +75,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::KeyWordWaitCond
     void* result;
     if (p) {
         p->Init_00234590(0);
-        *(int**)p = &AIHistoryNameCondition_vftable;
+        *(int**)p = ((int*)DAT_0040da84);
         p->z = 0;
         p->w = 0;
         p->q = 0;

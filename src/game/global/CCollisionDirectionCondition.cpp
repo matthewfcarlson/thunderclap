@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f777b6f1 {} using namespace fn_f777b6f1;
+namespace fn_f777b6f1 { extern "C" char DAT_003f6d50[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -62,7 +63,7 @@ CCharacterSizeCondition* CCharacterSizeCondition::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CCollisionHitLocationCondition* CCollisionHitLocationCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4be30_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
@@ -77,7 +78,7 @@ CCollisionHitLocationCondition* CCollisionHitLocationCondition::vfunc_5(signed c
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 CCollisionDirectionCondition* CCollisionDirectionCondition::vfunc_5(signed char flags) {
-    *(void***)this = CCondition_4be60_vftable;
+    *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_f1243cbb {
 #define TREE_TU_END }
 namespace fn_f1243cbb {} using namespace fn_f1243cbb;
+namespace fn_f1243cbb { extern "C" char DAT_003f3390[], DAT_003f3754[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -256,7 +257,7 @@ namespace fn_f1243cbb {
 // 0x0001dc10 FUN_0001dc10 (36 B): matches/0x0001dc10.cpp
 // sym: ??1CAction_1dc10@fn_f1243cbb@@QAE@XZ
 CAction_1dc10::~CAction_1dc10() {
-    vptr = g_vftable_1dc10;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -277,13 +278,13 @@ CGrappleLocoStrafe4Action::CGrappleLocoStrafe4Action(hulk_intptr v, Ref* r) : CA
 // sym: ?Shutdown@CGrappleLocoStrafe4Action_1dc90@fn_f1243cbb@@QAEXXZ
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
 void CGrappleLocoStrafe4Action_1dc90::Shutdown() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3754);
     RefObj_1dc90* b = mB;
     if (b) {
         b->Release();
         mB = 0;
     }
-    *(void* volatile*)this = (void*)vftableA;
+    *(void* volatile*)this = (void*)((char*)DAT_003f3390);
     RefObj_1dc90* a = mA;
     if (a) {
         a->Release();
@@ -341,7 +342,7 @@ namespace fn_f1243cbb {
 // 0x0001dd20 FUN_0001dd20 (36 B): matches/0x0001dd20.cpp
 // sym: ??1CAction_1dd20@fn_f1243cbb@@QAE@XZ
 CAction_1dd20::~CAction_1dd20() {
-    vptr = g_vftable_1dd20;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -399,7 +400,7 @@ namespace fn_f1243cbb {
 // 0x0001dda0 FUN_0001dda0 (36 B): matches/0x0001dda0.cpp
 // sym: ??1CAction_1dda0@fn_f1243cbb@@QAE@XZ
 CAction_1dda0::~CAction_1dda0() {
-    vptr = g_vftable_1dda0;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -457,7 +458,7 @@ namespace fn_f1243cbb {
 // 0x0001de20 FUN_0001de20 (36 B): matches/0x0001de20.cpp
 // sym: ??1CAction_1de20@fn_f1243cbb@@QAE@XZ
 CAction_1de20::~CAction_1de20() {
-    vptr = g_vftable_1de20;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();

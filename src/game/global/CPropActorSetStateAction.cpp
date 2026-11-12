@@ -5,6 +5,7 @@
 #define TREE_TU_BEGIN namespace fn_f96a4a22 {
 #define TREE_TU_END }
 namespace fn_f96a4a22 {} using namespace fn_f96a4a22;
+namespace fn_f96a4a22 { extern "C" char DAT_003f3d80[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f96a4a22 { extern "C" char DAT_003f3de0[], DAT_003f3390[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 
@@ -98,13 +99,13 @@ class CPropActorSetStateAction_228b0 : public CAction_228b0 {
 // 0x00022770 CWallSlideAction::vfunc_2 (82 B): matches/0x00022770.cpp
 // sym: ?f2@CWallSlideAction_22770@fn_f96a4a22@@QAEPAV12@E@Z
 CWallSlideAction_22770* CWallSlideAction_22770::f2(unsigned char flags) {
-    vptr = g_vftable_003f3d80;
+    vptr = ((void**)DAT_003f3d80);
     _ReadWriteBarrier();
     if (m1) {
         m1->Release();
         m1 = 0;
     }
-    vptr = g_vftable2;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m2) {
         m2->Release();
@@ -158,7 +159,7 @@ CHeliDeathSpiralAction_22810* CHeliDeathSpiralAction_22810::f2(unsigned char fla
 // 0x00022870 CExplosionAction::vfunc_2 (57 B): matches/0x00022870.cpp
 // sym: ?f2@CExplosionAction_22870@fn_f96a4a22@@QAEPAV12@E@Z
 CExplosionAction_22870* CExplosionAction_22870::f2(unsigned char flags) {
-    vptr = g_vftable_22870;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -174,7 +175,7 @@ CExplosionAction_22870* CExplosionAction_22870::f2(unsigned char flags) {
 // 0x000228b0 CPropActorSetStateAction::vfunc_2 (57 B): matches/0x000228b0.cpp
 // sym: ?f2@CPropActorSetStateAction_228b0@fn_f96a4a22@@QAEPAV12@E@Z
 CPropActorSetStateAction_228b0* CPropActorSetStateAction_228b0::f2(unsigned char flags) {
-    vptr = g_vftable_228b0;
+    vptr = ((void**)DAT_003f3390);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

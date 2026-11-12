@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_ffbea55e {
 #define TREE_TU_END }
 namespace fn_ffbea55e {} using namespace fn_ffbea55e;
+namespace fn_ffbea55e { extern "C" char DAT_00417928[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -74,7 +75,7 @@ namespace fn_ffbea55e {
 // 0x0016ff30 FUN_0016ff30 (32 B): matches/0x0016ff30.cpp
 // sym: ??0SnapToGroundTrack@fn_ffbea55e@@QAE@XZ
 SnapToGroundTrack::SnapToGroundTrack() : Track_16ff30() {
-    *(void* volatile*)&vptr = (void*)((char*)g_vftable);
+    *(void* volatile*)&vptr = (void*)((char*)((void**)DAT_00417928));
     mC = 0;
     m8 = 1;
 }

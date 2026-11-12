@@ -6,6 +6,7 @@
 #define TREE_TU_BEGIN namespace fn_fea6dcf4 {
 #define TREE_TU_END }
 namespace fn_fea6dcf4 {} using namespace fn_fea6dcf4;
+namespace fn_fea6dcf4 { extern "C" char DAT_00411d68[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight.h"
 
 // ---- declarations shared by the functions below
@@ -303,7 +304,7 @@ HoverAction* HoverAction::Init(int a, Ref_134db0* r) {
 // 0x00134e00 FUN_00134e00 (36 B): matches/0x00134e00.cpp
 // sym: ??1HoverAction_134e00@fn_fea6dcf4@@QAE@XZ
 HoverAction_134e00::~HoverAction_134e00() {
-    vptr = g_vftable_134e00;
+    vptr = ((void**)DAT_00411d68);
     _ReadWriteBarrier();
     if (m) {
         m->Release();

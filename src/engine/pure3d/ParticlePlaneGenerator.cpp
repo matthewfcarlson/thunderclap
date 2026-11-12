@@ -12,6 +12,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fd7a7bd7 {} using namespace fn_fd7a7bd7;
+namespace fn_fd7a7bd7 { extern "C" char DAT_0042f0d8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fd7a7bd7 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -93,12 +94,14 @@ class Chunk {
   public:
     int Find_00288960(int a, int b);
 };
+HULK_REFCOUNT_PACK   // (x64t7) pure3d::NonCopyable's stand-in: 12 bytes natively (compat/ptr.h)
 class NonCopyable_2d2570 {
   public:
     NonCopyable_2d2570() : mA(0) {}
     virtual void f0();
     int mA;
 };
+HULK_REFCOUNT_PACK_END
 class GeneratorBlendState_2d2570 : public NonCopyable_2d2570 {
   public:
     GeneratorBlendState_2d2570(Chunk* c);
@@ -1226,7 +1229,7 @@ namespace fn_fd7a7bd7 {
 // 0x002d38a0 FUN_002d38a0 (102 B): matches/0x002d38a0.cpp
 // sym: ??1ParticlePointGenerator_2d38a0@fn_fd7a7bd7@@QAE@XZ
 ParticlePointGenerator_2d38a0::~ParticlePointGenerator_2d38a0() {
-    vptr = g_vftable_0042f0d8;
+    vptr = ((void**)DAT_0042f0d8);
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -1482,7 +1485,7 @@ ParticleSphereGenerator_2d3c90::~ParticleSphereGenerator_2d3c90() {
     }
     if (arr)
         operator delete(arr);
-    vptr = g_vftable_base;
+    vptr = ((void**)DAT_0042f074);
     Fin_0027afd0();
 }
 
