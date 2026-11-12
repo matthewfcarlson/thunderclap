@@ -2559,3 +2559,50 @@ one address where the game slots agree); the new local-vftable names B4 brings (
 define, ClosureN<struct X> vs class X); header-declared CRT callers (game/unknown.h); x64t3/x64t4's start-up TUs and
 the replay-pin TUs, which every batch here left alone.
 
+
+## Shader parameter tables and local data stand-ins as typed records (dg1, 2026-11-11)
+
+x64t4's follow-up (the rest of 0x00363230's family) and the coordinator's list of local data stand-ins (x64t5: the
+init 374 crash). Control 72079 (HEAD 1bd733bb7, studio, `--gfx --replay play3 --frames 60000`, private copy of the
+data TUs); every proof seeded from it.
+
+**data_gen (tools/data_gen.py).** records.h items may now be initialized (.data) records: a record of simple field
+types (`char[N]`, ints, `void (*f)()`, `T*`; `record_fields` lays it out with 4-byte pointers) gets its initializer
+from the XBE's bytes, pointer fields as pointers; or a plain pointer item (`extern "C" void* DAT_x;`).
+`data_gen.py --merge-records` makes config/data.json's item at a records.h array span the whole array (the items
+inside are folded in as `interior`; an item running into the span from before is cut), one line per item as the
+inventory writes them (config/data.json is no longer reproducible from data_inventory.py: its inputs moved since F,
+so the merge edits the lines). A data TU that points into a typed item takes its declaration from records.h.
+
+| commit | change | 32-bit gate |
+|---|---|---|
+| 9bb57c413 (B1) | 0x00360ef0 builds audio::SeqEventClipType in DAT_004e75b8 (records.h SeqEventTypeHead), not a 1-byte local `g_360ef0` | MATCH, relocs ok; proof 72080 GATE ok (0 of 2,013), image identical (2fc587ca) |
+| 7c0e6e2ec (B2) | the "sound/rsd" strings of 0x0035cea0 / 0x0035cf90 / 0x0035d7d0 in DAT_004dd260 / 4dd6f4 / 4de608 (records.h StringRecord_23fc40, 12 / 16 bytes; the 16-byte items are 12 + 4 pad), 0x0035de60 / 0x0035e7a0's hashes by item, 0x0035f380's mixer type in DAT_004e5db0 | MATCH, relocs ok |
+| fb877fc02 (B3) | the controller's four name lists (records.h ControllerNameList: count + name block; 0x004dda48 [13], 0x004ddab0 [12], 0x004ddb10 [11], 0x004ddb68 [12], one item each): 0x000b10d0, 0x000b08a0, the start-up's 0x0035d2a0 / 0x0035d310 (were local `g` / `values`), 0x0035d2d0 / 0x0035d340 (vector constructors by `sizeof`), the atexit handlers 0x00363d10 (was `hulk_at_004ddb10`) / 0x00363d50 / 0x00363d90 / 0x00363dc0; DAT_004e231c (HulkShaderCallback 0x001c3d90's singleton, was a local `gObj`) and DAT_004e11e8 (RayCastCondition_3 0x0016afa0's list, was `gSlot`; its count DAT_004e11ec) pointer-sized | MATCH, relocs ok |
+| d658a3bb7 (B4) | the pure3d shader parameter tables (records.h ShaderParamEntry: an 8-byte FourCC key and an MSVC general member-function pointer, 0x18 / 0x20 bytes): 51 items (370 inventory items folded in); the refract shader's 0x004d8840 has no end entry and runs on into 0x004d88b8, so both are one item of 7 (vfunc_15 0x0032ef40 returns entry 5, MATCH). The 52 initializers write each word by name in the original's order (65 view types and 96 C++-linkage local item declarations gone). data-not-pointers: d3dSimpleShader microcode words 0x004d8000 | equivalents re-proved (B5) |
+| d481c09df (B5) | the 52 hashes (equiv.py 3,000 inputs promotable + `--wine` 600, `hash --proven`); 0x000b86b0 and 0x00027930 re-proved and re-recorded (below); 0x000658d0 compares against DAT_003f342c / DAT_003fb864, not local `gFive` / `gNegFive` (MATCH) | |
+| 9063a0525 | dynamic_initializers.cpp's last four unhashed blocks (0x0035c0b0, 0x0035c350, 0x0035c3c0, 0x0035d090) re-proved, filled by `hash --compute` + `--init`; the TU is off config/code-hash-pending.txt (56 equivalents ok/ok, 594 matches) | |
+
+**MSVC code that moves with the data headers.** B2's and B3's proofs stopped at the build: an equivalent's MSVC code
+hash changed with no edit to its source (B2: 0x001a9b10; B3 and B4: 0x000b86b0, 0x00027930: two loads in swapped
+order). Neither names a changed item; the TUs include the regenerated game/global.h / game/unknown.h (which now include
+records.h). MSVC 7.1's scheduling follows the TU's declarations, so a data header edit can change unrelated
+equivalents: the build gate catches it, the fix is a re-proof (B5). Matches were not affected.
+
+**Gate.** Proof 72218 (d481c09df, data TUs regenerated) vs control 72079: GATE ok (0 of 2,025 common frames differ;
+image ac90f410). data_gen: all 18,503 items verified.
+
+**Native** (no `--allow-compile-failures`; committed native tools): arm64 macOS / x86-64 Linux / arm64 Android unbound
+**19,025 / 19,005 / 19,016** (control 19,027 / 19,007 / 19,018). macOS start-up: the control crashes in static initializer 374 (0x00360ef0, as x64t4 and x64t5 saw); with the batches all 457
+static initializers run and main starts; it stops in the physics world at CollisionObject's constructor
+(0x00304ed0's base `Entity_304ed0`, unbound: x64t5's area).
+
+**Left / decisions.**
+- `tools/native_local_data.py BINDINGS` lists a Wine map's `local_data` stand-ins (`--strict`: exit 1). After these
+  batches: x64t5's iso TUs (0x0035de40's `sound`, 0x0035e600's `gSound`, 0x0035fb20's `globalThing`, 0x00360870's
+  `gThing`), d3dVertexProgram's DAT_00433774, and CHeadTrackerTrack's `kRadiansToDegrees` (a constant: by the item
+  MSVC loads the operands the other way round; harmless natively). Not wired into the native links (native_bind /
+  native_elf carry others' uncommitted edits); a link-report group would make it permanent.
+- The tables' readers (pddiBaseShader vfunc_5..8, 0x003279e0..0x00327b00, matches) still walk them with their own
+  32-bit entry views (`(char*)e + 24`, a 4-byte member pointer): natively they misread the 0x20-byte entries. Making
+  them read ShaderParamEntry means calling a member-function pointer from its words; a decision for the pddi side.
