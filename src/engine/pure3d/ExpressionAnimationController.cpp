@@ -113,7 +113,7 @@ class ExpressionAnimationController_2aa000 {
   public:
     void BaseDtor_00285800();
 };
-extern void* __cdecl alloc_00263ea0(hulk_uintptr);
+extern void* __cdecl alloc_00263ea0(unsigned int);
 } // namespace fn_ff685ee7
 inline void* operator new(size_t, void* where) {
     return where;

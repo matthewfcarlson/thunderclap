@@ -25,7 +25,7 @@ class TrackFactoryTemplate_56c60 {
 };
 extern "C" void FUN_00053080();
 extern "C" char DAT_003f6f34[];
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CAxisDirectionCondition_56ca0 {
     hulk_intptr vt;
     void Init_00234590(int);

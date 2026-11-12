@@ -1499,7 +1499,7 @@ void* ProceduralVertexAnimController_2a6b90::scalar_dtor(unsigned char flags) {
 namespace fn_002a6c00 {
 extern "C" char DAT_0042d9dc[];
 typedef unsigned int u32_2a6c00;
-extern void* __cdecl alloc_00263ea0(hulk_uintptr);
+extern void* __cdecl alloc_00263ea0(unsigned int);
 class ProceduralVertexAnimController {
   public:
     virtual void a0();

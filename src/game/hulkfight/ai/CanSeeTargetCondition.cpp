@@ -32,7 +32,7 @@ class CanSeeTargetCondition_12ae30 {
     u8 b;
     void Init_00234590(int);
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_00410b2c;
 struct ConditionFactoryTemplate_12ae60 {
     void* m_vptr;

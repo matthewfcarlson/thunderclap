@@ -1526,7 +1526,7 @@ struct ConditionFactoryTemplate_132990 {
     void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 extern int DAT_004112a4;
 struct GameStateCondition_132a00 {
     virtual void f0();
@@ -1798,7 +1798,7 @@ void MissionProgressCondition::Init() {
 namespace fn_0012e2c0 {
 /* size_t: tree_prelude.h */
 extern "C" void FUN_0008d340(void*);
-extern "C++" __declspec(nothrow) void* FUN_0008d6d0(size_t);
+extern "C++" __declspec(nothrow) void* FUN_0008d6d0(unsigned int);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" size_t strlen(const char*);
@@ -2290,7 +2290,7 @@ unsigned int Object::FUN_0012e9e0(const char* text) {
 // sym: ?Set@Obj@fn_0012ea40@@QAEEPBD@Z
 namespace fn_0012ea40 {
 extern "C" void __cdecl FUN_0008d340(void*);
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d6d0(unsigned int);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int __cdecl strlen(const char*);
@@ -2528,7 +2528,7 @@ void DebugPrintTrack::Cleanup() {
 // sym: ?Set@Obj@fn_0012edf0@@QAE_NPBD@Z
 namespace fn_0012edf0 {
 extern "C++" __declspec(nothrow) void __cdecl Free_0008d340(void*);
-extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d6d0(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d6d0(unsigned int);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" char* __cdecl strcpy(char*, const char*);
@@ -2719,7 +2719,7 @@ void CRawScript::run() {
 // sym: ?Set@Obj@fn_0012f030@@QAEEPBD@Z
 namespace fn_0012f030 {
 extern "C" void __cdecl FUN_0008d340(void*);
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d6d0(unsigned int);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int __cdecl strlen(const char*);

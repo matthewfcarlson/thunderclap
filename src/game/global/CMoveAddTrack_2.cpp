@@ -35,7 +35,7 @@ struct CMoveAddTrack_771a0 {
     unsigned int x18;
     void Init_00236d40();
 };
-extern "C" void* FUN_0008d690(hulk_uintptr);
+extern "C" void* FUN_0008d690(unsigned int);
 extern int hulk_at_003fea4c;
 struct TrackFactoryTemplate {
     void* m_vptr;

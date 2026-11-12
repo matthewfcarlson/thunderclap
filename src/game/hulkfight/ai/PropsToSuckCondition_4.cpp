@@ -31,7 +31,7 @@ struct PropsToSuckCondition {
     unsigned char m_b;
     int m_i;
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_0040db04;
 extern int hulk_at_0040e914;
 struct ConditionFactoryTemplate_1145f0 {

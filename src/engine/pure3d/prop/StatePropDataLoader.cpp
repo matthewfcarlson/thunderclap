@@ -86,7 +86,7 @@ class StatePropDataLoader {
     int c;
     int d;
 };
-extern void* Alloc_0008d6d0(hulk_uintptr);
+extern void* Alloc_0008d6d0(unsigned int);
 extern "C" int * __cdecl FUN_002904d0(int *, int, const int *);
 struct Obj_2907f0 {
     int a;

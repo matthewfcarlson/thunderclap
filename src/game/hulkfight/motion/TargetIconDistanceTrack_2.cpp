@@ -23,7 +23,7 @@ class TrackFactoryTemplate_17e810 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_0017a860();
-extern "C" void* FUN_0008d690(hulk_uintptr);
+extern "C" void* FUN_0008d690(unsigned int);
 class Base_17e850 {
   public:
     Base_17e850();

@@ -421,7 +421,7 @@ namespace fn_00238ae0 {
 // SetText_00238ae0 @ 0x00238ae0
 /* size_t: tree_prelude.h */
 extern "C" void __cdecl FUN_0008d340(void *);
-extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(size_t);
+extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(unsigned int);
 struct Object {
     char pad[0x14];
     char *text;

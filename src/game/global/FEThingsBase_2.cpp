@@ -2713,7 +2713,7 @@ int FEThingsBase::vfunc_58(void* __p0) { void * p = (void *)__p0;
 // sym: ?vfunc_60@FEThingsBase@fn_000efee0@@UAEPAUMapThing@2@PAX@Z
 namespace fn_000efee0 {
 extern "C" char DAT_0040c5c4[];
-extern void* alloc_0008d690(hulk_uintptr);
+extern void* alloc_0008d690(unsigned int);
 struct MapThing {
     hulk_uintptr vf;
     char pad[0x114];

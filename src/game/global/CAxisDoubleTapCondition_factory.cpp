@@ -24,7 +24,7 @@ class TrackFactoryTemplate_56d10 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00052f20();
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_003f6f08;
 struct CAxisDoubleTapCondition_56d50 {
     hulk_intptr vt;

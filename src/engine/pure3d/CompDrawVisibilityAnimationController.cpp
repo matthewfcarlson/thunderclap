@@ -32,7 +32,7 @@ struct SceneGraphVisibilityAnimationController_nv_2a7c30 {
     void init_00285780(pure3d::SceneGraphVisibilityAnimationController*);
     void setup_00284ad0(int);
 };
-extern void* __cdecl alloc_00263ea0(hulk_uintptr);
+extern void* __cdecl alloc_00263ea0(unsigned int);
 extern int hulk_at_0042dc24;
 struct Helper_2a7d10 {
     void Decode_0028ac90(void* a, u8* out);
@@ -72,7 +72,7 @@ struct X_2a7fd0 {
     u32_2a7fd0 b;
     void f();
 };
-extern void* Alloc_0008d6d0(hulk_uintptr);
+extern void* Alloc_0008d6d0(unsigned int);
 extern "C" int * __cdecl FUN_002a7f30(int *, int, const int *);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 extern "C" char * __cdecl FUN_002a7f60(char *, int, const char *);

@@ -563,7 +563,7 @@ inline void* operator new(size_t, void* p) {
     return p;
 }
 namespace fn_000592c0 {
-extern void* Alloc_0008d690(hulk_uintptr);
+extern void* Alloc_0008d690(unsigned int);
 
 class Params_592c0 {
   public:

@@ -27,7 +27,7 @@ typedef unsigned int u32_75d20;
 struct CAutoTargetTrack_75d20 {
     hulk_uintptr initialize_00069c50();
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_003fe55c;
 struct TrackFactoryTemplate {
     void* m_vptr;

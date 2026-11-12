@@ -201,7 +201,7 @@ class SpriteObject : public DrawableContainer_2bdee0 {
 };
 extern "C" char DAT_0042e914[];
 typedef unsigned int u32_2bdf50;
-void* __cdecl alloc_00263ea0(hulk_uintptr);
+void* __cdecl alloc_00263ea0(unsigned int);
 } // namespace fn_f43dee86
 namespace pure3d {
 class Builder_2bdf50 {
@@ -1728,7 +1728,7 @@ Sprite::Sprite(Desc_2beb20 *d, Shader_2beb20 *r, int s, int a4, int a5, int a6)
 
 
 // 0x002beca0 FUN_002beca0 (138 B): equivalent/0x002beca0.cpp [wrapped: conflict: pure3d::SpriteLoader]
-// sym: ??0SpriteLoader@pure3d@fn_002beca0@@QAE@XZ @b31cced559b3 @wf139f347a367
+// sym: ??0SpriteLoader@pure3d@fn_002beca0@@QAE@XZ @802e70e179de @we398b04921f0
 namespace fn_002beca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002beca0 @ 0x002beca0
@@ -1738,10 +1738,13 @@ void* __cdecl thunk_FUN_0008d690(unsigned size);
 struct ImageConverter_2beca0 { ImageConverter_2beca0* FUN_002de230(); };
 class ImageLoader_2beca0 { public: virtual void v0(); ImageLoader_2beca0* FUN_002c0c40(); };
 struct Table_2beca0 { Table_2beca0* FUN_002af2d0(); };
+extern "C" char DAT_0042e974[];   // (x64t7) pure3d::SpriteLoader's vftable (the local class's own was a stub natively)
 namespace pure3d {
+// (x64t7) the loader's words with its vftable stored by address; the image converter (0x002de230), the image loader
+// (0x002c0c40) and the image registry (0x002af2d0) allocated at HULK_X2 of their 32-bit sizes (compat/ptr.h)
 class SpriteLoader {
 public:
-    virtual void v0_00038290();
+    void* vftable;
     int f4, f8, fc, f10;
     ImageConverter_2beca0* lookup;
     ImageLoader_2beca0* child;
@@ -1750,19 +1753,20 @@ public:
     SpriteLoader();
 };
 SpriteLoader::SpriteLoader() {
+    vftable = (void*)DAT_0042e974;
     f4 = 0;
     f8 = 0x19005;
     fc = 0;
     f10 = 0;
     f20 = 0;
     f21 = 0;
-    void* m = FUN_0008d690(4);
+    void* m = FUN_0008d690(HULK_X2(4));
     lookup = m ? ((ImageConverter_2beca0*)m)->FUN_002de230() : 0;
-    void* c = thunk_FUN_0008d690(0x1c);
+    void* c = thunk_FUN_0008d690(HULK_X2(0x1c));
     ImageLoader_2beca0* ch = c ? ((ImageLoader_2beca0*)c)->FUN_002c0c40() : 0;
     child = ch;
     ch->v0();
-    void* t = FUN_0008d690(0xa4);
+    void* t = FUN_0008d690(HULK_X2(0xa4));
     table = t ? ((Table_2beca0*)t)->FUN_002af2d0() : 0;
 }
 }

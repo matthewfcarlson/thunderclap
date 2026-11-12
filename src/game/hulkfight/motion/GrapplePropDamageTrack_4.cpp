@@ -23,7 +23,7 @@ class TrackFactoryTemplate_18bf70 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00188040();
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class CCameraShakeTrack_18bfb0 {
   public:
     virtual void f0();

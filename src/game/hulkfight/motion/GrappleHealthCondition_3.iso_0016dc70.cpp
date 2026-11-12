@@ -31,7 +31,7 @@ GrappleHealthCondition_16dc70::GrappleHealthCondition_16dc70() {
     m20 = 0;
 }
 
-void* Alloc_0008d690(hulk_uintptr);
+void* Alloc_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::GrappleHealthCondition>::vfunc_5() {
     GrappleHealthCondition_16dc70* p = (GrappleHealthCondition_16dc70*)Alloc_0008d690(0x18);

@@ -199,7 +199,7 @@ extern "C" void __cdecl FUN_002de6c0(unsigned short *, void *, void *);
 extern "C" void __cdecl FUN_002de790(unsigned char *, void *, const unsigned *);
 extern "C" void __cdecl FUN_002de8b0(unsigned int *, void *, void *);
 typedef unsigned int u32_2dea00;
-void* alloc_00263ea0(hulk_uintptr);
+void* alloc_00263ea0(unsigned int);
 class Image32_2dea00 {
   public:
     void* run_002bffc0();

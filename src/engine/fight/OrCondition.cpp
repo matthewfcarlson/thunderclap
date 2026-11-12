@@ -222,7 +222,7 @@ class BaseAllocated {
 class Elem_23d0a0 {
   public:
 };
-extern "C++" __declspec(nothrow) void* __cdecl alloc_00263ea0(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* __cdecl alloc_00263ea0(unsigned int);
 class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
   public:
     virtual void V0();

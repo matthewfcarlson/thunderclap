@@ -338,25 +338,26 @@ class Obj {
 } // namespace fn_f25f8e16
 void* operator new(size_t);
 namespace fn_f25f8e16 {
-class ChannelLoader_289e00 {
+// (x64t7) pure3d::ChannelLoader named by its constructor's address (0x0028e9b0; the local name had no definition
+// natively) with its words (the vftable, NonCopyable's reference count, a count, 16 handler pointers), so `new` takes
+// its native size; and the loader's words with its vftable stored by address (the local class's own was a stub)
+class FUN_0028e9b0 {
   public:
-    ChannelLoader_289e00() throw();
-    virtual void Init();
-    char pad[0x48];
+    FUN_0028e9b0() throw();
+    virtual void Init();   // slot 0 (AddRef)
+    int refs;
+    int count;
+    void* handlers[16];
 };
-class SimpleChunkHandler_289e00 {
-  public:
-    virtual void Other();
-    int a;
-    void* b;
-    int c, d;
-    SimpleChunkHandler_289e00() : a(0), b((void*)0x121000), c(0), d(0) {}
-};
-class AnimationLoader_289e00 : public SimpleChunkHandler_289e00 {
+typedef char hulk_size32_289e00[(sizeof(void*) != 4 || sizeof(FUN_0028e9b0) == 0x4c) ? 1 : -1];
+class AnimationLoader_289e00 {
   public:
     AnimationLoader_289e00();
-    virtual void Dummy_000382a0();
-    ChannelLoader_289e00* anim;
+    void* vftable;
+    int a;   // content::LoadObject's reference count
+    int b;   // the chunk id (was a `void*`)
+    int c, d;
+    FUN_0028e9b0* anim;
     int e, f, g;
 };
 extern "C" char DAT_0042c8e8[];
@@ -1348,8 +1349,13 @@ hulk_freg Obj::Run(int a, int b, int c, float value, int d, int e, unsigned char
 
 // 0x00289e00 FUN_00289e00 (95 B): matches/0x00289e00.cpp
 // sym: ??0AnimationLoader_289e00@fn_f25f8e16@@QAE@XZ
-AnimationLoader_289e00::AnimationLoader_289e00() : anim(0), e(0), f(-1), g(0) {
-    anim = new ChannelLoader_289e00;
+AnimationLoader_289e00::AnimationLoader_289e00() : a(0), b(0x121000), c(0), d(0) {
+    vftable = (void*)DAT_0042c8e8;
+    anim = 0;
+    e = 0;
+    f = -1;
+    g = 0;
+    anim = new FUN_0028e9b0;
     anim->Init();
 }
 

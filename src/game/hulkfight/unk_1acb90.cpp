@@ -179,7 +179,7 @@ struct Out_1aecb0 {
     Obj_1aecb0* o;
     void* t;
 };
-extern void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern void* __cdecl FUN_0008d6d0(unsigned int);
 void FUN_001aeae0();
 void FUN_001aea70();
 class T_1aecb0 {

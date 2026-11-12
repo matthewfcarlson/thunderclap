@@ -597,7 +597,7 @@ void IntChannel_28ba20::F() {
 // 0x0028bab0 FUN_0028bab0 (87 B): matches/0x0028bab0.cpp [wrapped: conflict: FUN_0008d6d0]
 // sym: ??0Float1Channel_28bab0@fn_0028bab0@@QAE@HH@Z
 namespace fn_0028bab0 {
-void* __cdecl FUN_0008d6d0(hulk_uintptr) throw();
+void* __cdecl FUN_0008d6d0(unsigned int) throw();
 class Mem_28bab0 {
   public:
 };
@@ -1133,7 +1133,7 @@ namespace fn_0028c370 {
 extern "C" void* memset(void*, int, unsigned);
 #endif
 
-void* FUN_0008d6d0(hulk_uintptr n);
+void* FUN_0008d6d0(unsigned int n);
 struct Allocator_28c370 { void* Alloc2_002888c0(unsigned n, int f); };
 class SimpleChannel_28c370 {
   public:

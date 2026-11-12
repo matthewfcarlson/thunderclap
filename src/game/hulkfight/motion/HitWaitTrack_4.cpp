@@ -31,7 +31,7 @@ class HitWaitTrack_159d70 {
     int b;
     HitWaitTrack_159d70();
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_00414300;
 extern int hulk_at_00415768;
 

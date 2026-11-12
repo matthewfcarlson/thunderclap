@@ -688,7 +688,7 @@ typedef unsigned int u32_139860;
 struct Init_139860 {
     hulk_uintptr run_00133d70();
 };
-extern void* alloc_0008d690(hulk_uintptr);
+extern void* alloc_0008d690(unsigned int);
 typedef unsigned int u32_1398f0;
 struct CAutoTargetTrack_1398f0 {
     hulk_uintptr initialize_00133e30();

@@ -618,7 +618,7 @@ class Obj {
 };
 extern "C" unsigned __int64 __cdecl Make(int);
 extern int hulk_at_0042d51c;
-extern void* Alloc_0008d6d0(hulk_uintptr) throw();
+extern void* Alloc_0008d6d0(unsigned int) throw();
 struct Buf_299cd0 {
     char* b;
     char* e;

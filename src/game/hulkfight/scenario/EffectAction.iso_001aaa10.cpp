@@ -9,7 +9,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0041c4f0[];
-extern void* __cdecl Alloc_0008d690(hulk_uintptr);
+extern void* __cdecl Alloc_0008d690(unsigned int);
 struct Event_StringCondition_1aaa10 {
     int x[6];
     void Initialize_00234590(int);

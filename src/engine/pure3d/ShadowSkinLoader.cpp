@@ -311,7 +311,7 @@ struct ThisCall_002a5060 {
 };
 extern void __fastcall Init_002a5060(void*);
 typedef unsigned int u32_2b4d90;
-void* alloc_00263ea0(hulk_uintptr);
+void* alloc_00263ea0(unsigned int);
 struct ShadowMeshBufferImpl_nv_2b4d90 {
     void initialize_002a5060();
 };
@@ -1672,7 +1672,7 @@ void C_2b5050::f() {
 // 0x002b5070 FUN_002b5070 (76 B): matches/0x002b5070.cpp [wrapped: conflict: alloc]
 // sym: ??0ShadowMeshVertices@fn_002b5070@@QAE@HH@Z
 namespace fn_002b5070 {
-extern "C++" __declspec(nothrow) void* alloc_0008d6d0(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* alloc_0008d6d0(unsigned int);
 class ShadowMeshVertices {
   public:
     virtual ~ShadowMeshVertices();
@@ -1727,7 +1727,7 @@ ShadowMeshVertices* ShadowMeshVertices::vfunc_2(byte_2b50c0 param) {
 // 0x002b5100 FUN_002b5100 (176 B): matches/0x002b5100.cpp [wrapped: conflict: alloc]
 // sym: ??0ShadowMeshVertices_2b5100@fn_002b5100@@QAE@ABU01@@Z
 namespace fn_002b5100 {
-void* __cdecl alloc_0008d6d0(hulk_uintptr) throw();
+void* __cdecl alloc_0008d6d0(unsigned int) throw();
 struct V3_2b5100 {
     unsigned a, b, c;
     void Set(const V3_2b5100& s) {
@@ -2551,17 +2551,19 @@ class ShadowMeshBufferLoader {
     int c;
     int d;
     int e;
-    int f;
+    void* f;   // (x64t7) the PrimGroupLoader it creates (was an `int`)
 };
-extern "C++" __declspec(nothrow) int __cdecl alloc_mem_0008d690(int);
-int __fastcall init_obj_002df7f0(int);
+// (x64t7) the allocator and PrimGroupLoader's constructor (0x002df7f0) with their signatures (pointers; were `int`);
+// the loader allocated at HULK_X2 of its 32-bit size (compat/ptr.h)
+extern "C++" __declspec(nothrow) void* __cdecl alloc_mem_0008d690(unsigned int);
+void* __fastcall init_obj_002df7f0(void*);
 ShadowMeshBufferLoader* __fastcall target(ShadowMeshBufferLoader* self) {
     self->b = 0;
     self->c = 0x10023;
     self->d = 0;
     self->e = 0;
     self->a = ((hulk_intptr)DAT_0042e654);
-    int p = alloc_mem_0008d690(0x2c);
+    void* p = alloc_mem_0008d690(HULK_X2(0x2c));
     self->f = p ? init_obj_002df7f0(p) : 0;
     return self;
 }

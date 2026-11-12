@@ -112,7 +112,7 @@ struct Q_28d510 {
     unsigned int a, b, c, d;
 };
 typedef void(__fastcall* Callback_28d750)(void*);
-extern void* Alloc_0008d6d0(hulk_uintptr);
+extern void* Alloc_0008d6d0(unsigned int);
 extern void __stdcall VecNew_00011520(void*, int, int, Callback_28d750);
 class Mem_28d750 {
   public:

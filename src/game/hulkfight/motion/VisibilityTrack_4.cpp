@@ -24,7 +24,7 @@ class TrackFactoryTemplate_17ed30 {
 };
 extern "C" void FUN_0017aee0();
 extern "C" char DAT_00417d48[];
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Track_17ed70 {
     virtual void a();
     virtual void b();

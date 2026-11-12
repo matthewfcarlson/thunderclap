@@ -42,7 +42,7 @@ class CSmartPropDistanceCondition_59070 {
     int h;
     void setup_00234590(int);
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_003f97d4;
 struct ConditionFactoryTemplate_590d0 {
     void* m_vptr;

@@ -816,7 +816,7 @@ class Obj_1a4020 {
     bool set(const char* s);
 };
 extern "C" void freeBuf_0008d340(void*);
-extern "C" void* allocBuf_0008d6d0(hulk_uintptr);
+extern "C" void* allocBuf_0008d6d0(unsigned int);
 class X_1a41e0 {
     char pad[0x11c];
     char* str;
@@ -3606,7 +3606,7 @@ extern "C" char* __cdecl strcpy(char*, const char*);
 #endif
 
 void __cdecl FUN_0008d340(void*);
-void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(unsigned int);
 class Obj {
     char pad[0x70];
     char* text;
@@ -3631,7 +3631,7 @@ char Obj::set(const char* s) {
 // sym: ?Set@Obj@fn_001a3930@@QAEDPBD@Z
 namespace fn_001a3930 {
 extern "C++" __declspec(nothrow) void release_0008d340(void*);
-extern "C++" __declspec(nothrow) void* alloc_0008d6d0(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* alloc_0008d6d0(unsigned int);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int strlen(const char*);
@@ -3950,7 +3950,7 @@ unsigned char Obj_1a3f40::Set(const char* s) {
 // sym: ?Set@Obj_1a3fb0@fn_001a3fb0@@QAEDPAD@Z
 namespace fn_001a3fb0 {
 void __cdecl FUN_0008d340(void*);
-void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(unsigned int);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int __cdecl strlen(const char*);
@@ -4282,7 +4282,7 @@ extern "C" char* __cdecl strcpy(char*, const char*);
 #endif
 
 void __cdecl FUN_0008d340(void*);
-void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(unsigned int);
 class Obj_1a46b0 {
     char pad[0x170];
     char* s;

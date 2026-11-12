@@ -566,7 +566,7 @@ class Effect_144cd0 {
   public:
     int init_00144c10(hulk_intptr, hulkfight::motion::HitEffectTrack*, hulk_intptr);
 };
-extern void* alloc_0008d690(hulk_uintptr);
+extern void* alloc_0008d690(unsigned int);
 extern const char type1_144cd0[];
 extern const char type2_144cd0[];
 class CStageCondition_144d60;
@@ -947,7 +947,7 @@ struct SlowMotionTrack {
     char flag;
     void Init_00236d40();
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_0041349c;
 class TrackFactoryTemplate_1465b0 {
   public:

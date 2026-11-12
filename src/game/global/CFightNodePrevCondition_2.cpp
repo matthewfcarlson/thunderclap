@@ -25,7 +25,7 @@ class TrackFactoryTemplate_57d30 {
 };
 extern "C" void FUN_00054660();
 extern "C" char DAT_003f74e0[];
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Obj_57d70 {
     void Init_00234590(int);
 };

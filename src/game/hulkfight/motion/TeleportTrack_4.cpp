@@ -37,7 +37,7 @@ struct TeleportTrack_17e700 {
     int z3;
     float last;
 };
-extern "C" void* FUN_0008d690(hulk_uintptr);
+extern "C" void* FUN_0008d690(unsigned int);
 extern int hulk_at_00418edc;
 
 } // namespace fn_f6c39359

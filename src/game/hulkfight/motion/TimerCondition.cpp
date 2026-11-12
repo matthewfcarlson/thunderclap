@@ -2210,7 +2210,7 @@ extern "C" void FUN_0018e8d0(Factory* p) {
 // 0x0018e960 fight::ConditionFactoryTemplate<hulkfight::motion::TimerCondition>::vfunc_5 (59 B): matches/0x0018e960.cpp [wrapped: conflict: Alloc; TimerCondition]
 // sym: ?factory_vfunc5@fn_0018e960@@YAPAUTimerCondition@1@XZ
 namespace fn_0018e960 {
-extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d690(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d690(unsigned int);
 extern void* timerVtable;
 struct TimerCondition {
     void* vptr;

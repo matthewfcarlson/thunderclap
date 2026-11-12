@@ -1616,7 +1616,7 @@ class TrackFactoryTemplate_14bc20 {
     TrackImpl mTrack;
 };
 extern "C" char DAT_00413598[];
-extern void* __cdecl alloc_0008d690(hulk_uintptr);
+extern void* __cdecl alloc_0008d690(unsigned int);
 class GrappleAttachedCondition_14bc60 {
   public:
     GrappleAttachedCondition_14bc60(int);

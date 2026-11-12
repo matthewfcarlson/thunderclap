@@ -24,7 +24,7 @@ class TrackFactoryTemplate_113f40 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00111d00();
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Condition_113f80 {
   public:
     virtual void a();

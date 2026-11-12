@@ -24,7 +24,7 @@ class TrackFactoryTemplate_159bb0 {
 };
 extern "C" void FUN_00155cd0();
 extern "C" char DAT_00414240[];
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct HitThrowTrack_159bf0 {
     hulk_intptr vt;
     char p04[8];

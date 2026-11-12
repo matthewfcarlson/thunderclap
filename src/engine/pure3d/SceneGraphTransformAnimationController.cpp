@@ -350,7 +350,7 @@ class SceneGraphTransformAnimationController {
     void copy_00285d70(SceneGraphTransformAnimationController*);
     void initialize_00284ad0(int);
 };
-extern "C++" __declspec(nothrow) void* alloc_00263ea0(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* alloc_00263ea0(unsigned int);
 
 SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::vfunc_4() {
     SceneGraphTransformAnimationController* p = (SceneGraphTransformAnimationController*)alloc_00263ea0(0x118);

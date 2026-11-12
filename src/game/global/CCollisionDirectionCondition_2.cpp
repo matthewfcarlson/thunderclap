@@ -26,7 +26,7 @@ class TrackFactoryTemplate_57710 {
 extern "C" void FUN_000533a0();
 extern "C" char DAT_003f6fc8[];
 typedef unsigned int u32_57750;
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CCollisionDirectionCondition_57750 {
     hulk_uintptr vptr;
     u32_57750 pad4, pad8, fieldC, field10;

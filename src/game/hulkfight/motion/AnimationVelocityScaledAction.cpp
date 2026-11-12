@@ -1112,7 +1112,7 @@ class TrackFactoryTemplate_13e330 {
     TrackImpl mTrack;
 };
 typedef unsigned int u32_13e370;
-extern void* __cdecl alloc_0008d690(hulk_uintptr);
+extern void* __cdecl alloc_0008d690(unsigned int);
 struct Init_13e370 {
     void Fnf_00234590(int);
 };

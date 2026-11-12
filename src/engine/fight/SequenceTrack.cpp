@@ -562,7 +562,7 @@ void target() {
 // sym: ?vfunc_10@SequenceTrack@fn_00238020@@QAEIIII@Z
 namespace fn_00238020 {
 typedef unsigned int u32_238020;
-extern void* Alloc_0008d690(hulk_uintptr);
+extern void* Alloc_0008d690(unsigned int);
 class Builder {
   public:
     u32_238020 Run_00237c90(u32_238020, hulk_uintptr, u32_238020, u32_238020, void*, u32_238020, u32_238020);

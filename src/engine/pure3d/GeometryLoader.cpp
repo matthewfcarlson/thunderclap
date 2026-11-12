@@ -148,10 +148,12 @@ class Ref_2c29b0 {
 // (x64t6) the two loaders by their constructors' addresses (pure3d::PrimGroupLoader 0x002df7f0, OldPrimGroupLoader
 // 0x002df850, src/engine/pure3d/PrimGroupStreamed.cpp: the local names had no definition natively) and with those
 // classes' words (a base of the vftable and a word, then the loader's own), so `new` takes their native size
+HULK_REFCOUNT_PACK   // (x64t7) pure3d::NonCopyable's reference count: 12 bytes natively (compat/ptr.h)
 class Base_2c29b0 : public Ref_2c29b0 {
   public:
     int base_word;
 };
+HULK_REFCOUNT_PACK_END
 class FUN_002df7f0 : public Base_2c29b0 {
   public:
     FUN_002df7f0() throw();

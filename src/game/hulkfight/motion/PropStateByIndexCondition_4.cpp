@@ -34,7 +34,7 @@ class PropStateByIndexCondition_18ba50 {
     int f;
     void Init_00234590(int);
 };
-extern "C" void* FUN_0008d690(hulk_uintptr);
+extern "C" void* FUN_0008d690(unsigned int);
 extern int hulk_at_0041a710;
 struct ConditionFactoryTemplate_18ba90 {
     void* m_vptr;

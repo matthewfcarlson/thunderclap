@@ -131,7 +131,7 @@ public:
     Handler_2d0e20** handlers;     // 0xc
     void FUN_002d0e20(int selector, int arg);
 };
-extern "C" void* FUN_0008d6d0(hulk_uintptr);
+extern "C" void* FUN_0008d6d0(unsigned int);
 extern "C" int * __cdecl FUN_002d0cc0(int *, int, const int *);
 
 

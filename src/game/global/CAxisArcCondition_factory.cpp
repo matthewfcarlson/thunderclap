@@ -25,7 +25,7 @@ class TrackFactoryTemplate_56ba0 {
 };
 extern "C" void FUN_00052db0();
 extern "C" char DAT_003f6ed8[];
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class CAxisArcCondition_56be0 {
   public:
     virtual void f0();

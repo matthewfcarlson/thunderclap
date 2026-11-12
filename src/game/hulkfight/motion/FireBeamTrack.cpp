@@ -15,7 +15,7 @@ extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 // ---- declarations shared by the functions below
 namespace fn_f5715835 {
 typedef unsigned int u32_1a0ca0;
-extern void* __cdecl Alloc_0008d690(hulk_uintptr);
+extern void* __cdecl Alloc_0008d690(unsigned int);
 struct NewThing {
     int Init_0019b500(hulkfight::motion::FireBeamTrack*, void*);
 };

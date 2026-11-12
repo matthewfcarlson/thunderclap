@@ -86,7 +86,7 @@ struct X_2f9b30 {
     u32_2f9b30 b;
     void f();
 };
-extern void* Alloc_0008d6d0(hulk_uintptr);
+extern void* Alloc_0008d6d0(unsigned int);
 extern "C" unsigned int * __cdecl FUN_002f98c0(unsigned int *, unsigned int, unsigned int *);
 struct Buffer { char pad[4]; unsigned short *end; unsigned short *limit; void FUN_002f9bc0(unsigned short *position, hulk_uintptr count, unsigned short *source); };
 struct Range {

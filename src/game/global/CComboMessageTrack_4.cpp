@@ -25,7 +25,7 @@ class TrackFactoryTemplate_76040 {
 };
 extern "C" void FUN_00070e30();
 typedef unsigned int u32_76080;
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_003fbbac;
 class CComboMessageTrack_76080 {
   public:

@@ -31,7 +31,7 @@ class Condition_1147b0 {
     int m;
     void Init_00234590(int);
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_0040e968;
 struct ConditionFactoryTemplate_1147e0 {
     void* m_vptr;

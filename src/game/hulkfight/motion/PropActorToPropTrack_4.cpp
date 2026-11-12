@@ -50,7 +50,7 @@ namespace fn_0018bda0 {
 extern "C" char DAT_004192cc[];
 typedef unsigned int u32_18bda0;
 typedef unsigned char u8;
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class PropTrack {
   public:
     hulk_uintptr v;

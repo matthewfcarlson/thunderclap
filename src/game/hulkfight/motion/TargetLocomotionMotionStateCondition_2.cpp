@@ -24,7 +24,7 @@ class TrackFactoryTemplate_16dad0 {
 };
 extern "C" void FUN_0016b650();
 extern char hulk_at_00416818[];
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class TargetCondition {
   public:
     virtual void A();

@@ -408,7 +408,7 @@ extern "C" void __cdecl FUN_0011bd90();
 extern "C" void __cdecl FUN_0011bdb0();
 extern "C" void __cdecl FUN_0011bdd0();
 extern "C" char DAT_0040f848[];
-void* __cdecl alloc_0008d690(hulk_uintptr);
+void* __cdecl alloc_0008d690(unsigned int);
 struct Param {
     hulk_intptr vft;
     int pad[3];

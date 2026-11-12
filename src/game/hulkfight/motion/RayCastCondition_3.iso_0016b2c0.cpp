@@ -13,7 +13,7 @@ namespace fn_ffeca5cb {
 // FUN_0016b2c0 @ 0x0016b2c0
 
 /* size_t: tree_prelude.h */
-void* __cdecl FUN_0008d690(size_t);
+void* __cdecl FUN_0008d690(unsigned int);
 
 } // namespace fn_ffeca5cb
 inline void* __cdecl operator new(size_t, void* p) { return p; }

@@ -27,7 +27,7 @@ extern "C" void FUN_001879c0();
 struct PropAtRestCondition_nv_18b900 {
     void Init_00234590(int);
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_004191cc;
 extern int hulk_at_0041a6d8;
 struct ConditionFactoryTemplate_18b930 {

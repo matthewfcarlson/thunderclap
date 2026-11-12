@@ -97,16 +97,30 @@ class Ref_2b7d30 {
     virtual void AddRef();
     virtual void Release();
 };
-class PrimGroupLoader_2b7d30 : public Ref_2b7d30 {
+// (x64t7) the two loaders by their constructors' addresses (pure3d::PrimGroupLoader 0x002df7f0, OldPrimGroupLoader
+// 0x002df850, src/engine/pure3d/PrimGroupStreamed.cpp: the local names had no definition natively) with those
+// classes' words (pure3d::NonCopyable's reference count, 12 bytes natively, then the loader's own), so `new` takes
+// their native size (as GeometryLoader 0x002c29b0 does)
+HULK_REFCOUNT_PACK
+class Base_2b7d30 : public Ref_2b7d30 {
   public:
-    PrimGroupLoader_2b7d30() throw();
-    char pad[0x2c - 4];
+    int refs;
 };
-class OldPrimGroupLoader_2b7d30 : public Ref_2b7d30 {
+HULK_REFCOUNT_PACK_END
+class FUN_002df7f0 : public Base_2b7d30 {
   public:
-    OldPrimGroupLoader_2b7d30() throw();
-    char pad[0x24 - 4];
+    FUN_002df7f0() throw();
+    int a, b;
+    char c, d;
+    short e;
+    int f0, f1, f2, f3, f4, f5;
 };
+class FUN_002df850 : public Base_2b7d30 {
+  public:
+    FUN_002df850() throw();
+    int a, b, c, d, e, f, g;
+};
+typedef char hulk_size32_2b7d30[(sizeof(void*) != 4 || (sizeof(FUN_002df7f0) == 0x2c && sizeof(FUN_002df850) == 0x24)) ? 1 : -1];
 struct RP_2b7d30 {
     Ref_2b7d30* p;
     void Set(Ref_2b7d30* r) {
@@ -383,8 +397,8 @@ PolySkinLoader_2b7d30::PolySkinLoader_2b7d30() {
     m1c.p = 0;
     m20.p = 0;
     pd.Set();
-    m1c.Set(new PrimGroupLoader_2b7d30);
-    m20.Set(new OldPrimGroupLoader_2b7d30);
+    m1c.Set(new FUN_002df7f0);
+    m20.Set(new FUN_002df850);
 }
 
 

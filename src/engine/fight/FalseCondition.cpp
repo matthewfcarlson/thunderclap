@@ -69,7 +69,7 @@ class Obj_23d360 {
     char pad[8];
     Sub_23d360 sub;
 };
-extern void* __cdecl alloc_00263ea0(hulk_uintptr);
+extern void* __cdecl alloc_00263ea0(unsigned int);
 class FactoryBase {
   public:
     virtual void V0();

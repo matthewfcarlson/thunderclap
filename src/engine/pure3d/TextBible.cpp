@@ -58,7 +58,7 @@ struct Entity_2c3930 {
 struct ILanguageChangeCallback_2c3930 {
     virtual void f() HULK_PURE64;
 };
-extern "C" void* FUN_0008d6d0(hulk_uintptr);
+extern "C" void* FUN_0008d6d0(unsigned int);
 struct TextBible : Entity_2c3930, ILanguageChangeCallback_2c3930 {
     virtual void g();
     int* mBegin;

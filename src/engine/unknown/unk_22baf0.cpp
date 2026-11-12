@@ -196,7 +196,7 @@ class C_22ec20 {
     void f();
 };
 extern void __cdecl ReleaseThing_0008d330(void*);
-extern void* __cdecl Alloc_0008d690(hulk_uintptr);
+extern void* __cdecl Alloc_0008d690(unsigned int);
 extern void __stdcall Init_00011520(void*, unsigned int, unsigned int, void(__cdecl*)());
 extern void __cdecl ElemCtor_000a9e50();
 class Obj_22eda0 {

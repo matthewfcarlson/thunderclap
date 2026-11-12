@@ -84,7 +84,7 @@ public:
     void FUN_001658a0();
     void FUN_001658c0();
 };
-extern void* __cdecl Alloc_0008d690(hulk_uintptr);
+extern void* __cdecl Alloc_0008d690(unsigned int);
 class Condition_16d2f0 {
   public:
     virtual void a();

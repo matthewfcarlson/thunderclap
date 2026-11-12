@@ -95,7 +95,7 @@ extern "C" void* memset(void*, int, unsigned);
 #endif
 namespace fn_ff1b4d41 {
 extern "C" int FUN_00266da0(int);
-extern "C" void* FUN_0008d690(hulk_uintptr);
+extern "C" void* FUN_0008d690(unsigned int);
 class CStaticAllocator {
   public:
     virtual void* f0_0008ff70(char);

@@ -26,7 +26,7 @@ class TrackFactoryTemplate_585c0 {
 extern "C" void FUN_00053d80();
 extern "C" char DAT_003f7274[];
 typedef unsigned int U_58600;
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CPropActorStateCondition_58600 {
     virtual void v0();
     U_58600 x[4];

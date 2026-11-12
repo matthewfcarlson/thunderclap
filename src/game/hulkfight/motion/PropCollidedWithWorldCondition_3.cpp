@@ -25,7 +25,7 @@ class TrackFactoryTemplate_18bb70 {
 extern "C" void FUN_00187ca0();
 extern "C" char DAT_0041926c[];
 typedef unsigned int u32_18bbb0;
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Condition_18bbb0 {
   public:
     virtual void a();

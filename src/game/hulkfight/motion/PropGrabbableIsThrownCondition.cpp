@@ -34,7 +34,7 @@ class PropGrabbableIsThrownCondition_18b860 : public Condition_18b860 {
     char pad[12];
     char flag;
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_0041a6bc;
 struct ConditionFactoryTemplate_18b890 {
     void* m_vptr;

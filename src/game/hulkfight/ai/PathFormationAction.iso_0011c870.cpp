@@ -9,7 +9,7 @@
 #include "gen/owners.h"
 /* size_t: tree_prelude.h */
 extern "C" void __cdecl FUN_0008d340(void*);
-extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" size_t __cdecl strlen(const char*);

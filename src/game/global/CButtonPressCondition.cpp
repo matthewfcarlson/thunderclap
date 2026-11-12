@@ -31,7 +31,7 @@ struct ConditionFactoryTemplate_572d0 {
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" char DAT_003f9230[];
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class CButtonPressCondition_57300 {
   public:
     CButtonPressCondition_57300();

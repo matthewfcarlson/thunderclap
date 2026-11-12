@@ -28,7 +28,7 @@ class DriftTrack {
   public:
     volatile int a[8];
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class InitObj_17e420 {
   public:
     void Init_00236d40();

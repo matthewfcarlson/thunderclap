@@ -31,7 +31,7 @@ class DefendingCondition {
     unsigned char flag;
     void Init_00234590(int);
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_0040e7fc;
 struct ConditionFactoryTemplate_113f10 {
     void* m_vptr;

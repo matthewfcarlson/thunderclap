@@ -23,7 +23,7 @@ class TrackFactoryTemplate_132e00 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00131c90();
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern char hulk_at_004113a4[];
 class TrackFactory_132e40 {
   public:

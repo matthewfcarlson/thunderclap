@@ -46,7 +46,7 @@ class VelocityAnimatedYCondition_16da60 {
 };
 } }
 namespace fn_f808ce35 {
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_0041762c;
 struct ConditionFactoryTemplate_16daa0 {
     void* m_vptr;

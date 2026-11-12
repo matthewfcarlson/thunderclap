@@ -19,7 +19,7 @@ struct V {
 struct Triple {
     unsigned int a, b, c;
 };
-extern void* FUN_0008d6d0(hulk_uintptr);
+extern void* FUN_0008d6d0(unsigned int);
 struct IntVec2 {
     int *first;
     int *last;

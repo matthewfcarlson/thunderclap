@@ -16,7 +16,7 @@ extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fb8fef2d {
-extern "C" void* FUN_0008d6d0(hulk_uintptr n);
+extern "C" void* FUN_0008d6d0(unsigned int n);
 struct Data_f87c0 {
     char pad[0x0c];
     int* values;

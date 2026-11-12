@@ -520,7 +520,7 @@ struct CWorldStreamManager_2061c0 {
     void FUN_002061c0(const char *, int, bool);
 };
 extern "C" char DAT_00425c28[];
-extern void* __cdecl Alloc_00263ea0(hulk_uintptr);
+extern void* __cdecl Alloc_00263ea0(unsigned int);
 struct Loader_2062d0 {
     hulk_uintptr vptr;
     int a;

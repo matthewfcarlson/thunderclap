@@ -444,7 +444,7 @@ class ConditionFactoryCaster_1abdb0 {
 extern char DAT_004c3430;
 extern "C" void __cdecl FUN_001aacf0();
 extern "C" char DAT_0041d4ac[];
-extern void* Alloc_0008d690(hulk_uintptr);
+extern void* Alloc_0008d690(unsigned int);
 struct Obj_1abe80 {
     hulk_intptr v;
     char pad4[12];

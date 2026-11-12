@@ -13,50 +13,55 @@ namespace fn_f0db0e61 {} using namespace fn_f0db0e61;
 
 // ---- declarations shared by the functions below
 namespace fn_f0db0e61 {
-extern "C" void* __cdecl FUN_0008d690(size_t);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 } // namespace fn_f0db0e61
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f0db0e61 {
+// (x64t7) The loaders as the words their constructors write, with the game's vftables stored by address (the local
+// classes' own virtuals were declared only, so natively their slots were stubs: the AddRef below reached one).
+// pure3d::RenderObjectLoader's constructor 0x002a3e80 (the vftable and NonCopyable's reference count) then the
+// group loader's vftable; AddRef / Release through the stored vftables (Ref_2bc3d0's slots 0 / 1).
+extern "C" char DAT_0042e7b4[];   // pure3d::BillboardQuadGroupLoader's vftable
+extern "C" char DAT_0042e7d4[];   // pure3d::BillboardObjectLoader's
 namespace pure3d {
-struct BillboardQuadGroupBase {
+struct Ref_2bc3d0 {
     virtual void AddRef();
     virtual void Release();
-    void FUN_002a3e80();
 };
-}
-namespace pure3d {
-struct BillboardQuadGroupLoader : BillboardQuadGroupBase {
-    virtual void AddRef();
-    virtual void Release();
+HULK_REFCOUNT_PACK
+struct BillboardQuadGroupLoader {
+    void* vftable;
+    int refs;   // pure3d::NonCopyable's reference count
+    void* FUN_002a3e80();   // RenderObjectLoader's constructor (returns `this`)
 };
+HULK_REFCOUNT_PACK_END
 }
 namespace pure3d {
 struct BillboardObjectLoader {
-    virtual void AddRef_00038290();
-    virtual void Release_000382a0();
-    int a;
+    void* vftable;
+    int a;   // content::LoadObject's reference count
     int id;
     int b;
     int c;
-    BillboardQuadGroupBase* group;
+    BillboardQuadGroupLoader* group;
     BillboardObjectLoader();
 };
 }
 
-
 // 0x002bc3d0 FUN_002bc3d0 (96 B): equivalent/0x002bc3d0.cpp
-// sym: ??0BillboardObjectLoader@pure3d@fn_f0db0e61@@QAE@XZ @a468846bf1dd @wde1579e7bd78
+// sym: ??0BillboardObjectLoader@pure3d@fn_f0db0e61@@QAE@XZ @4d06de344411 @wf232dcfcc149
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
 // FUN_002bc3d0 @ 0x002bc3d0
 namespace pure3d {
 BillboardObjectLoader::BillboardObjectLoader() : a(0), id(0x17006), b(0), c(0), group(0) {
-    BillboardQuadGroupLoader* quad = (BillboardQuadGroupLoader*)FUN_0008d690(8);
+    vftable = (void*)DAT_0042e7d4;
+    BillboardQuadGroupLoader* quad = (BillboardQuadGroupLoader*)FUN_0008d690(sizeof(BillboardQuadGroupLoader));
     if (quad) {
         quad->FUN_002a3e80();
-        new (quad) BillboardQuadGroupLoader;
-        quad->AddRef();
+        quad->vftable = (void*)DAT_0042e7b4;
+        ((Ref_2bc3d0*)quad)->AddRef();
     }
-    if (group) group->Release();
+    if (group) ((Ref_2bc3d0*)group)->Release();
     group = quad;
 }
 }

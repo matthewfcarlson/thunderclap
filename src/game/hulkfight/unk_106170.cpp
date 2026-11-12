@@ -108,7 +108,7 @@ struct ThisWrap_00106440 {
     Path_106440* FUN_00106230(int id);
     bool FUN_00106440(int id, int idx, Vec3_106440 pos);
 };
-extern "C" void* FUN_0008d6d0(hulk_uintptr);
+extern "C" void* FUN_0008d6d0(unsigned int);
 extern int hulk_at_0040d564;
 class CPatrolPath : public Entity_0027b070 {
   public:

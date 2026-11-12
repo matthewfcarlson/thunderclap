@@ -24,7 +24,7 @@ class TrackFactoryTemplate_15a180 {
 };
 extern "C" void FUN_00156520();
 extern "C" char DAT_00414420[];
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Track {
   public:
     virtual void v0();

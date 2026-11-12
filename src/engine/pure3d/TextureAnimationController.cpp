@@ -126,7 +126,7 @@ extern "C" char DAT_0042de4c[];
 struct TextureAnimationController_nv_2a95f0 {
     void Init_00285780(pure3d::TextureAnimationController*);
 };
-extern void* __cdecl Alloc_00263ea0(hulk_uintptr);
+extern void* __cdecl Alloc_00263ea0(unsigned int);
 
 
 // 0x002a9410 FUN_002a9410 (25 B): matches/0x002a9410.cpp

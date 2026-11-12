@@ -38,7 +38,7 @@ struct AcquireTargetCondition_12aae0 {
     u8 c;
     void Initialize_00234590(int);
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_00410aa0;
 struct ConditionFactoryTemplate_12ab20 {
     void* m_vptr;

@@ -28,7 +28,7 @@ struct PropTrack_18c260 {
     void Init_00236d40();
     unsigned char pad[0x18];
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_0041a860;
 
 } // namespace fn_f7c68681

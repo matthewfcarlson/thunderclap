@@ -2310,7 +2310,7 @@ SimpleFrameController* SimpleFrameController::vfunc_2(unsigned char flag) {
 
 
 // 0x00286520 FUN_00286520 (121 B): equivalent/0x00286520.cpp [wrapped: conflict: pure3d::DefaultFrameControllerHandler; pure3d::FrameControllerLoader]
-// sym: ??0FrameControllerLoader@pure3d@fn_00286520@@QAE@XZ @12577e54f7a9 @w3572427d7646
+// sym: ??0FrameControllerLoader@pure3d@fn_00286520@@QAE@XZ @6fa413015a85 @w0181aaea1538
 inline void* operator new(size_t, void* p) throw() { return p; }
 namespace fn_00286520 {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
@@ -2318,35 +2318,43 @@ namespace fn_00286520 {
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 
+// (x64t7) The loader and its handler as the words their constructors write, with the game's vftables stored by
+// address (the local classes' own virtuals were declared only, so natively their slots were stubs); AddRef / Release
+// through the stored vftables (Ref_286520's slots 0 / 1). The handler is pure3d::NonCopyable's words only (12 bytes
+// natively: compat/ptr.h HULK_REFCOUNT_PACK).
+extern "C" char DAT_0042c7b0[];   // pure3d::FrameControllerLoader's vftable
+extern "C" char DAT_0042c798[];   // pure3d::DefaultFrameControllerHandler's
+
 namespace pure3d {
 
-class Handler_286520 {
+class Ref_286520 {
 public:
-    virtual void AddRef();
-    virtual void Release();
-    int f4;
-};
-
-class DefaultFrameControllerHandler : public Handler_286520 {
-public:
-    DefaultFrameControllerHandler() { f4 = 0; }
     virtual void AddRef();
     virtual void Release();
 };
+
+HULK_REFCOUNT_PACK
+struct DefaultFrameControllerHandler {
+    DefaultFrameControllerHandler() { f4 = 0; vftable = (void*)DAT_0042c798; }
+    void* vftable;
+    int f4;   // NonCopyable's reference count
+};
+HULK_REFCOUNT_PACK_END
 
 class FrameControllerLoader {
 public:
     FrameControllerLoader();
-    virtual void l0_00038290();
-    int f4;
+    void* vftable;
+    int f4;   // content::LoadObject's reference count
     int id;
     int fc;
     int f10;
     unsigned int handlerCount;
-    Handler_286520* handlers[4];
+    DefaultFrameControllerHandler* handlers[4];
 };
 
 FrameControllerLoader::FrameControllerLoader() {
+    vftable = (void*)DAT_0042c7b0;
     f4 = 0;
     id = 0x121201;
     fc = 0;
@@ -2361,9 +2369,9 @@ FrameControllerLoader::FrameControllerLoader() {
         DefaultFrameControllerHandler* h = new (mem) DefaultFrameControllerHandler();
         unsigned int n = handlerCount;
         if (n < 4) {
-            h->AddRef();
+            ((Ref_286520*)h)->AddRef();
             if (handlers[n])
-                handlers[n]->Release();
+                ((Ref_286520*)handlers[n])->Release();
             handlers[n] = h;
             handlerCount++;
         }

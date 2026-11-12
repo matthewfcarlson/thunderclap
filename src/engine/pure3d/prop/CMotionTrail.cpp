@@ -2877,7 +2877,7 @@ class CMotionTrail : public DrawablePrimitive_282790 {
     void* r;
     CMotionTrail();
 };
-extern void* __cdecl Alloc_0008d6d0(hulk_uintptr);
+extern void* __cdecl Alloc_0008d6d0(unsigned int);
 void CMotionTrail::V() {}
 CMotionTrail::CMotionTrail() {
     a = 0;

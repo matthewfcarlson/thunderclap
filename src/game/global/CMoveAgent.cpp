@@ -88,7 +88,7 @@ class CAvoidBehaviour_102ac0 {
 struct CCharacterAgent_000fc760 {
     CCharacterAgent_000fc760(void*);
 };
-extern "C" void* FUN_0008d690(hulk_uintptr);
+extern "C" void* FUN_0008d690(unsigned int);
 class CMoveAgent : public CCharacterAgent_000fc760 {
   public:
     char pad[0x68];

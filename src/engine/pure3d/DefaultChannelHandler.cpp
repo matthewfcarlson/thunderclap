@@ -59,29 +59,30 @@ extern "C" void* memmove(void*, const void*, unsigned);
 extern "C" void* memset(void*, int, unsigned);
 #endif
 namespace fn_fc71db16 {
-void* Alloc_0008d690(hulk_uintptr n);
-class ChannelHandler_28e9b0 {
+void* Alloc_0008d690(unsigned int n);
+// (x64t7) The channel loader and its default handler as the words their constructors write, with the game's
+// vftables stored by address (the local classes' own virtuals were declared only, so natively their slots were stubs);
+// the handler's AddRef through its stored vftable (Ref_28e9b0's slot 0). Both are pure3d::NonCopyable's words first
+// (12 bytes natively: compat/ptr.h HULK_REFCOUNT_PACK); the table is cleared and moved by its element size.
+extern "C" char DAT_0042c95c[];   // pure3d::ChannelLoader's vftable
+extern "C" char DAT_0042ca8c[];   // pure3d::DefaultChannelHandler's
+class Ref_28e9b0 {
   public:
-    ChannelHandler_28e9b0() { a = 0; }
     virtual void f0();
-    int a;
 };
-class DefaultChannelHandler_28e9b0 : public ChannelHandler_28e9b0 {
-  public:
-    virtual void f0();
+HULK_REFCOUNT_PACK
+struct DefaultChannelHandler_28e9b0 {
+    void* vftable;
+    int a;   // NonCopyable's reference count
 };
-HULK_REFCOUNT_PACK   // (x64t7) pure3d::NonCopyable's stand-in: 12 bytes natively (compat/ptr.h)
-class NonCopyable_28e9b0 {
-  public:
-    NonCopyable_28e9b0() { a = 0; }
-    virtual void f0();
-    int a;
+struct NonCopyable_28e9b0 {
+    void* vftable;
+    int a;   // NonCopyable's reference count
 };
 HULK_REFCOUNT_PACK_END
 class ChannelLoader : public NonCopyable_28e9b0 {
   public:
     ChannelLoader();
-    virtual void f0();
     int count;
     DefaultChannelHandler_28e9b0* tbl[16];
 };
@@ -280,13 +281,17 @@ Prim_28e160 *__stdcall FUN_0028e160(Reader *R, int unused, Parent_28e160 *parent
 // 0x0028e9b0 FUN_0028e9b0 (105 B): matches/0x0028e9b0.cpp
 // sym: ??0ChannelLoader@fn_fc71db16@@QAE@XZ
 ChannelLoader::ChannelLoader() {
+    a = 0;
+    vftable = (void*)DAT_0042c95c;
     count = 0;
-    memset(tbl, 0, 64);
-    DefaultChannelHandler_28e9b0* h = new (Alloc_0008d690(8)) DefaultChannelHandler_28e9b0;
+    memset(tbl, 0, sizeof(tbl));
+    DefaultChannelHandler_28e9b0* h = (DefaultChannelHandler_28e9b0*)Alloc_0008d690(sizeof(DefaultChannelHandler_28e9b0));
     if (h) {
-        memmove(&tbl[1], &tbl[0], count << 2);
+        h->a = 0;
+        h->vftable = (void*)DAT_0042ca8c;
+        memmove(&tbl[1], &tbl[0], count * sizeof(tbl[0]));
         tbl[0] = h;
-        h->f0();
+        ((Ref_28e9b0*)h)->f0();
         count++;
     }
 }

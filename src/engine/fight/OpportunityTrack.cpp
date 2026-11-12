@@ -340,7 +340,7 @@ typedef unsigned int u32_237b20;
 struct Grapple_237b20 {
     hulk_uintptr ctor_002372c0();
 };
-extern void* __cdecl Alloc_0008d690(hulk_uintptr);
+extern void* __cdecl Alloc_0008d690(unsigned int);
 extern int hulk_at_004280c8;
 
 

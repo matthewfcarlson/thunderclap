@@ -42,7 +42,7 @@ class CollisionSourceNodeCondition {
     char p14[8];
     void Init_00234590(int);
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_00415688;
 struct ConditionFactoryTemplate_159810 {
     void* m_vptr;

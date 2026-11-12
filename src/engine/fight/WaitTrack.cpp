@@ -117,7 +117,7 @@ class Action_23e330 {
     virtual void v0();
     void Init_00232660();
 };
-extern void* Alloc_0008d690(hulk_uintptr);
+extern void* Alloc_0008d690(unsigned int);
 extern void* g_vftable_23e390[];
 class Ref_23e390 {
   public:

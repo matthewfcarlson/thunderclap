@@ -75,7 +75,7 @@ class RestPoseDriver_22a800 : public PartitionDriver_22a800 {
   public:
     RestPoseDriver_22a800* vfunc_5(signed char flags);
 };
-void* __cdecl alloc_00263ea0(hulk_uintptr);
+void* __cdecl alloc_00263ea0(unsigned int);
 extern int vt_22a8a0;
 struct RestPoseDriver_nv_22a8a0 {
     void InitA_00222590(choreo2::RestPoseDriver*);

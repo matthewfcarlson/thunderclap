@@ -56,7 +56,7 @@ extern void __cdecl thunk_0008d340(int);
 struct Reader { char pad[0x10]; char *begin; int length; char *cursor; bool FUN_000f99d0(char *output); };
 void thunk_FUN_00267090(hulk_intptr);
 extern "C" void __cdecl free__0008d340(void* p);
-extern "C" void* __cdecl alloc__0008d6d0(hulk_intptr n);
+extern "C" void* __cdecl alloc__0008d6d0(unsigned int n);
 } // namespace fn_fd8937bc
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int strlen(const char*);
@@ -1334,7 +1334,7 @@ pure3d::NonCopyable_0fa920* pure3d::NonCopyable_0fa920::f2(unsigned char param) 
 // sym: ?f2@CTokenString@fn_000fa940@@UAEPAV12@XZ
 namespace fn_000fa940 {
 typedef unsigned int uint;
-void* Alloc_0008d690(hulk_uintptr);
+void* Alloc_0008d690(unsigned int);
 uint CopyString_000f6610(uint);
 extern char baseVftable[];
 extern char stringVftable[];

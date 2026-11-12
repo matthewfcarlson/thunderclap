@@ -656,7 +656,7 @@ struct HasGroundPointCondition_11afc0 {
     unsigned char x;
     unsigned char y;
 };
-void* __cdecl alloc_0008d690(hulk_uintptr);
+void* __cdecl alloc_0008d690(unsigned int);
 extern int hulk_at_0040f2d8;
 struct ConditionFactoryTemplate_11aff0 {
     void* m_vptr;

@@ -24,7 +24,7 @@ class VertexOffsetExpressionMixerLoader {
     int m10;
     VertexOffsetExpressionMixerLoader();
 };
-extern void* Alloc_0008d6d0(hulk_uintptr);
+extern void* Alloc_0008d6d0(unsigned int);
 void* __cdecl FUN_0008d6d0(unsigned size);
 extern "C" void __cdecl FUN_002b0e40(void* data, unsigned count, int value);
 struct Pair { unsigned a; unsigned b; };
@@ -312,7 +312,7 @@ namespace fn_002b1330 {
 struct E_2b1330 {
     char b[16];
 };
-extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d6d0(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d6d0(unsigned int);
 extern "C++" __declspec(nothrow) void __cdecl Init_002b12d0(void*, unsigned int, void*);
 class Buffer_2b1330 {
   public:

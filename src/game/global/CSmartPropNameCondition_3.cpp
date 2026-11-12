@@ -24,7 +24,7 @@ class TrackFactoryTemplate_591b0 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00056620();
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Base_591f0 {
   public:
     Base_591f0(int);

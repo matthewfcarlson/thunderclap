@@ -9,7 +9,7 @@
 // Same code shape as 0x00075e70 (propagated; names are from that function)
 #include "gen/fight.h"
 
-extern void* __cdecl Alloc_0008d690(hulk_uintptr);
+extern void* __cdecl Alloc_0008d690(unsigned int);
 extern int hulk_at_00411314;
 class CCameraShakeTrack_132c10 {
   public:

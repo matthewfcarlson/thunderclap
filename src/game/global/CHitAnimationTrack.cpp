@@ -36,7 +36,7 @@ struct CHitAnimationTrack_6fb80 {
     unsigned int* vf;
     void init_0005dcb0();
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 } // namespace fn_fc227ff7
 

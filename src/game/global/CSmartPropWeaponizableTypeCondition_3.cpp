@@ -37,7 +37,7 @@ class CSmartPropWeaponizableTypeCondition_58ab0 {
     unsigned int c;
     unsigned int d;
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_003f96ac;
 struct ConditionFactoryTemplate_58af0 {
     void* m_vptr;

@@ -74,7 +74,7 @@ class Owner_2a0fc0 {
     Item_2a0fc0** items;
     void Set(int index, Item_2a0fc0* value);
 };
-extern "C" void* FUN_0008d6d0(hulk_uintptr);
+extern "C" void* FUN_0008d6d0(unsigned int);
 extern "C" int * __cdecl FUN_002a1010(int *, int, const int *);
 class Root {
   public:

@@ -714,7 +714,7 @@ class OldBillboardObjectLoader : public SimpleChunkHandler_2bc4d0 {
     SimpleChunkHandler_2bc4d0* volatile mRef;
 };
 extern void __cdecl thunk_00263f30(OldBillboardObjectLoader*);
-extern "C" void* FUN_0008d6d0(hulk_uintptr);
+extern "C" void* FUN_0008d6d0(unsigned int);
 extern "C" int * __cdecl FUN_002bb600(int *, int, const int *);
 extern void* hulk_at_0042e80c[];
 class Ref_2bc5d0 {

@@ -330,7 +330,7 @@ struct LuaTrack_1a1e40 {
     int q;
     void initialize_00236d40();
 };
-extern void* alloc_0008d690(hulk_uintptr);
+extern void* alloc_0008d690(unsigned int);
 extern int hulk_at_0041c448;
 
 

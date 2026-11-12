@@ -62,5 +62,8 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
     (called by address) lays out: src/engine/unknown/unk_291dc0.cpp 0x00291dc0, the content registry's set-up (the
     PNG / BMP handlers, 0x18, and the 25 chunk loaders 0x002c29b0 ... 0x00290740, 0x14 to 0x3c);
     src/engine/pure3d/TextureLoader.cpp 0x002c25b0 (the image registry 0x002af2d0, 0xa4; the image converter
-    0x002de230, 4) and src/engine/pure3d/ImageLoader.cpp 0x002c0c40 (the image registry). Replace with each loader's
-    record (its constructor's words) shared by the allocating source.
+    0x002de230, 4) and src/engine/pure3d/ImageLoader.cpp 0x002c0c40 (the image registry); batch 2: SpriteLoader
+    0x002beca0 (the converter, the image loader 0x002c0c40, the image registry), ParticleSystemLoader 0x002acc60 (the
+    allocator template 0x002ac4a0, 0x24; the emitter loader 0x002ab6a0, 0x30) and ShadowSkinLoader.cpp 0x002b68c0
+    (PrimGroupLoader, 0x2c). Replace with each loader's record (its constructor's words) shared by the allocating
+    source.

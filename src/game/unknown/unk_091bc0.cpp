@@ -20,7 +20,7 @@ struct Tail_91be0 {
     void Fnf_0027af50();
 };
 void __cdecl freebuf_0008d340(void*);
-void* __cdecl allocbuf_0008d6d0(hulk_uintptr);
+void* __cdecl allocbuf_0008d6d0(unsigned int);
 } // namespace fn_f9898967
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned __cdecl strlen(const char*);

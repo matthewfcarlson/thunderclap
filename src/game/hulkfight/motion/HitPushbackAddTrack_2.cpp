@@ -32,7 +32,7 @@ struct HitPushbackAddTrack_15a110 {
     float mOne;
     void Init_00236d40();
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_004157f4;
 
 } // namespace fn_f921c9e0

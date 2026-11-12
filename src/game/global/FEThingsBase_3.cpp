@@ -192,7 +192,7 @@ class FEDialog_f1d30 : public FEContainer_f1d30 {
     FEDialog_f1d30* f(unsigned char fl);
 };
 extern "C" char DAT_0040c61c[];
-extern void* __cdecl alloc_0008d690(hulk_uintptr);
+extern void* __cdecl alloc_0008d690(unsigned int);
 class TextLabel_f1e00 {
   public:
     virtual void f0();
@@ -283,7 +283,7 @@ extern "C" void* __cdecl FUN_0008d690(uint);
 struct FEPoseAnimationInvisible_nv_f2740 {
     int make_000f24d0(void*, void*);
 };
-extern void* Alloc_0008d690(hulk_uintptr);
+extern void* Alloc_0008d690(unsigned int);
 class Factory_f27a0 {
   public:
     int Create_000f2460(int, int);
@@ -1425,7 +1425,7 @@ FEMenuBase* FEMenuBase::vfunc_0(unsigned char p) {
 // sym: ?f52@FEThingsBase@fn_000f1db0@@UAEPAUTextButton@2@H@Z
 namespace fn_000f1db0 {
 extern "C" void _ReadWriteBarrier();
-extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d690(hulk_uintptr) throw();
+extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d690(unsigned int) throw();
 struct ButtonBase {
     ButtonBase(int) throw();
     virtual void g();

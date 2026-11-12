@@ -48,7 +48,7 @@ class RestPoseTrack_17eeb0 {
     int q;
     void Init_00236d40();
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_00419010;
 
 } // namespace fn_fdd67982

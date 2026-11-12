@@ -24,7 +24,7 @@ class TrackFactoryTemplate_12a270 {
 };
 extern "C" void FUN_001284f0();
 extern "C" char DAT_0040fd14[];
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class TargetDirectionYCondition_12a2b0 {
   public:
     hulk_intptr v0;

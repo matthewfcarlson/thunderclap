@@ -23,7 +23,7 @@ class TrackFactoryTemplate_16d610 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_0016b160();
-extern "C" void* FUN_0008d690(hulk_uintptr);
+extern "C" void* FUN_0008d690(unsigned int);
 extern int hulk_at_004166f8;
 class VelocityCondition_16d650 {
   public:

@@ -24,7 +24,7 @@ class TrackFactoryTemplate_18c7e0 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_0018a100();
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct PropAnimationTrack_nv_18c820 {
     void* init_00180db0();
 };

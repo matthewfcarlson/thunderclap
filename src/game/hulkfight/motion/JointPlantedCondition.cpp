@@ -38,7 +38,7 @@ struct Obj_164fb0 {
     int x;
     unsigned char flag;
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_004164e8;
 struct ConditionFactoryTemplate_164ff0 {
     void* m_vptr;

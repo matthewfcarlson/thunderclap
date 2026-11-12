@@ -17,7 +17,7 @@ namespace fn_fa9c7cf4 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game 
 
 // ---- declarations shared by the functions below
 namespace fn_fa9c7cf4 {
-extern void* Alloc_0008d6d0(hulk_uintptr);
+extern void* Alloc_0008d6d0(unsigned int);
 extern "C" void FUN_002e1440(void*, unsigned int, void*);
 struct Mat_2e1750 {
     char d[64];

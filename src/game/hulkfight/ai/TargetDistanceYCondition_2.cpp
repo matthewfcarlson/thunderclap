@@ -25,7 +25,7 @@ class TrackFactoryTemplate_12a5e0 {
 extern "C" void FUN_001288e0();
 extern "C" char DAT_0040fdd4[];
 typedef unsigned int u32_12a620;
-extern "C" void* FUN_0008d690(hulk_uintptr);
+extern "C" void* FUN_0008d690(unsigned int);
 class InitBase_12a620 {
   public:
     void Init_00234590(int);

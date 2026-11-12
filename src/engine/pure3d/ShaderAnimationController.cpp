@@ -187,7 +187,7 @@ class ShaderAnimationController_2a8700 : public SimpleFrameController_2a8700 {
     virtual SimpleFrameController_2a8700* own4();
     void setup_00285780(ShaderAnimationController_2a8700*);
 };
-extern void* __cdecl alloc_00263ea0(hulk_uintptr);
+extern void* __cdecl alloc_00263ea0(unsigned int);
 
 
 // 0x002a83e0 FUN_002a83e0 (25 B): matches/0x002a83e0.cpp

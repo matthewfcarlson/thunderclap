@@ -54,7 +54,7 @@ class CommentTrack_23d950 {
     virtual bool hulk_slot_F_00234270(void*); void FnF_00236d60();
 };
 extern "C" void __cdecl release(void*);
-extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 class Obj {
   public:
     char _m_pad_0[0xc];
@@ -146,7 +146,7 @@ class TrackFactoryTemplate_23ddf0 {
     TrackImpl mTrack;
 };
 extern "C" char DAT_00428bf8[];
-extern void* __cdecl alloc_0008d690(hulk_uintptr);
+extern void* __cdecl alloc_0008d690(unsigned int);
 class CommentCondition_23de30 {
   public:
     hulk_intptr vtable;

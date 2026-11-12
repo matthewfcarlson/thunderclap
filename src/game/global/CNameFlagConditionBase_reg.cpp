@@ -1014,7 +1014,7 @@ extern "C" void __cdecl FUN_00047f80();
 extern "C" void __cdecl FUN_00047f90();
 extern "C" char DAT_003f7d48[];
 extern "C" char DAT_003f7d70[];
-extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d690(hulk_uintptr);
+extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d690(unsigned int);
 struct ParamEnumConstList {
     int pad[5];
     int field14;

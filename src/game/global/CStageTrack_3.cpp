@@ -25,7 +25,7 @@ class TrackFactoryTemplate_775e0 {
 };
 extern "C" void FUN_000724f0();
 extern "C" char DAT_003fc094[];
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class CStageTrack_77620 {
   public:
     void Init_00236d40();

@@ -28,7 +28,7 @@ typedef unsigned int u32_6f850;
 struct Grapple_6f850 {
     hulk_uintptr ctor_0005ad00();
 };
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_003fd144;
 struct TrackFactoryTemplate {
     void* m_vptr;

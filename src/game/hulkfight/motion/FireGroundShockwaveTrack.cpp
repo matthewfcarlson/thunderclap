@@ -23,7 +23,7 @@ class TrackFactoryTemplate_1a1200 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_0019de50();
-extern "C" void* FUN_0008d690(hulk_uintptr);
+extern "C" void* FUN_0008d690(unsigned int);
 class Obj_1a1240 {
   public:
     void* Init_001945b0();

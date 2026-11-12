@@ -24,7 +24,7 @@ class TrackFactoryTemplate_114c70 {
 };
 extern "C" void FUN_00112d30();
 extern "C" char DAT_0040dca4[];
-extern "C" void* FUN_0008d690(hulk_uintptr);
+extern "C" void* FUN_0008d690(unsigned int);
 class Sub_114cb0 {
   public:
     void Init_0027af00();

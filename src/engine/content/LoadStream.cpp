@@ -495,7 +495,7 @@ struct Iter_2659a0 {
   Node* FUN_00231180(int, int);
 };
 struct W_2659a0 {
-  char pad[0x10]; Pool_2659a0* pool;
+  char pad[0xc]; void* first; Pool_2659a0* pool;   // (x64t7) the registry's words: the first table (0xc) a pointer, so the second at 0x18 natively
   void FUN_002659a0(int);
 };
 class Thing_265ad0 {
@@ -1135,7 +1135,10 @@ class A_265210 {
     virtual void f();
 };
 class C_265210 {
-    char pad[0x10];
+    // (x64t7) the registry's words (its constructor 0x002656b0's view, `Object`): the first table at 0xc is a
+    // pointer, so natively the second (m, 0x10) is at 0x18 (was a 0x10-byte pad: natively it read the first table)
+    char pad[0xc];
+    void* first;
     D* m;
 
   public:

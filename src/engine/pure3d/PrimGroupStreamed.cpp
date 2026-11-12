@@ -526,7 +526,7 @@ class Ref_2e0710 {
 struct PrimGroupSkinnedPC_nv_2e0710 {
     void init_002e0020(pure3d::PrimGroupSkinnedPC*);
 };
-extern void* alloc_00263ea0(hulk_uintptr);
+extern void* alloc_00263ea0(unsigned int);
 extern int hulk_at_0042fca4;
 extern int vt2_2e09e0;
 class Ref_2e09e0 {

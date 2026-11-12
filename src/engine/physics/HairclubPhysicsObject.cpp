@@ -154,7 +154,7 @@ public:
     int partCount;
 };
 typedef unsigned int u32_3094a0;
-extern void* alloc_00263ea0(hulk_uintptr);
+extern void* alloc_00263ea0(unsigned int);
 struct Obj_3094a0 {
     void init_002f5480();
 };

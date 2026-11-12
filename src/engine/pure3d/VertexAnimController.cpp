@@ -56,7 +56,7 @@ class VertexAnimController_2a6e50 : public SimpleFrameController_2a6e50 {
     ~VertexAnimController_2a6e50();
 };
 extern "C" char DAT_0042da6c[];
-void* __cdecl alloc_00263ea0(hulk_uintptr);
+void* __cdecl alloc_00263ea0(unsigned int);
 class Base_2a6e80 {
   public:
     void init_00285780(pure3d::VertexAnimController*);

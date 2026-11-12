@@ -2987,3 +2987,43 @@ but for the eight re-proved blocks above); 32-bit record layouts of the edited T
 i686-pc-windows-msvc `-fdump-record-layouts`; the four TUs whose local classes became explicit records MATCH or were
 re-proved). Proof 72320 (studio, 6edc110c2 + the batch, data TUs generated privately with the batch's records.h,
 seed:72318) vs control 72318 (6edc110c2, fresh, private data TUs): **GATE ok** (0 of 2,005 common frames differ).
+
+**Batch 2: the chunk loaders the registry creates.** On batch 1's image the start-up ran through the registry's
+handlers into the chunk loaders 0x00291dc0 creates; each stop was a local class whose vftable or base constructor
+had no native definition, fixed the batch-1 way (the game's vftable stored by address, a base named by its
+constructor's address, allocations at `sizeof` or HULK_X2):
+
+| where | change | gate |
+|---|---|---|
+| 0x002bc3d0 BillboardObjectLoader (BillboardQuad.new_plain.cpp, equivalent) | the loader's vftable (DAT_0042e7d4) and its group loader's (RenderObjectLoader's constructor 0x002a3e80, then DAT_0042e7b4) stored by address; the group loader allocated at `sizeof` (12 bytes natively; was 8) | re-proved |
+| 0x002b7d30 PolySkinLoader (PolySkin.cpp, match) | its two PrimGroup loaders named by their constructors' addresses (`FUN_002df7f0`, `FUN_002df850`; were suffix-named local classes with no definition) with the loaders' words, as GeometryLoader 0x002c29b0 has them | MATCH, relocations ok |
+| 0x002c29b0 GeometryLoader (match) | the loaders' base (`{vftable; count}`) packed natively (HULK_REFCOUNT_PACK) | MATCH, relocations ok |
+| 0x00289e00 AnimationLoader (match) | the channel loader named by its constructor's address (`FUN_0028e9b0`) with its words (0x4c bytes on 32-bit, 0x90 natively); the loader's vftable stored by address; its chunk id an `int` (was `void*`) | MATCH, relocations ok |
+| 0x002beca0 SpriteLoader (equivalent) | the vftable by address (DAT_0042e974); the image converter, image loader and image registry at HULK_X2 | re-proved |
+| 0x00286520 FrameControllerLoader (DefaultFrameControllerHandler.cpp, equivalent) | the loader's and its default handler's vftables by address (DAT_0042c7b0 / DAT_0042c798); the handler packed (NonCopyable's words) | re-proved |
+| 0x002acc60 ParticleSystemLoader (equivalent) | the loader's and the default emitter handler's vftables by address (DAT_0042e08c / DAT_0042e074, the handler built by RenderObjectLoader's constructor); the allocator and emitter loader at HULK_X2; the handler list moved by its element size (was `count * 4`) | re-proved |
+| 0x002b68c0 ShadowMeshBufferLoader (ShadowSkinLoader.cpp, match) | the allocator and PrimGroupLoader's constructor declared with pointers (were `int`: the address binding refused them; the loader pointer was kept in an `int`); the loader at HULK_X2 | MATCH, relocations ok |
+| 0x0028e9b0 ChannelLoader (DefaultChannelHandler.cpp, match) | the loader's and its default handler's vftables by address (DAT_0042c95c / DAT_0042ca8c), both NonCopyable's words (packed); the table cleared and moved by its element size (were 64 bytes / `count << 2`) | MATCH, relocations ok |
+| 0x00265210 / 0x002659a0 (LoadStream.cpp, the content registry's add and lookup) | the registry's words as its constructor 0x002656b0 lays them out: the first table at 0xc is a pointer, so the second is at 0x18 natively (the views padded 0x10 bytes and read the first table) | MATCH, relocations ok / hash unchanged |
+
+**The allocators' size parameter.** 166 declarations in 148 TUs of the allocators by address (0x0008d690, 0x0008d6d0,
+the thunk 0x00263ea0: `Alloc_0008d690`, `alloc_00263ea0`, `FUN_0008d6d0`, ...) took `hulk_uintptr` / `size_t`, 8 bytes
+natively, where the definitions take `unsigned int`: the address binding refused every C++-named one (79 unbound
+names on macOS; the C-named ones linked by name and passed a 64-bit register). Each now takes `unsigned int` (the same
+type, and so the same mangled name and code, on the 32-bit builds). All 153 TUs of the batch: every block MATCHes
+with relocations ok and the equivalents' hashes hold but for the four re-proved constructors (`tree_tu.py verify
+--relocs`). config/data.json and the data TUs: unchanged by this batch (`data_inventory.py`, `data_gen.py --gen-only`).
+
+Gates: the batch's 153 TUs `tree_tu.py verify --relocs` (as above). Proof 72321 (studio, 6d0429829 + the batch, seed
+and control 72320: batch 1's proof, the same private data TUs) **GATE ok** (0 of 2,005 common frames differ). Native on
+72321's snapshot and binding map (every TU compiles): arm64 macOS / x86-64 Linux / arm64 Android unbound **18,254 /
+18,234 / 18,245** (x64t6: 18,736 / 18,716 / 18,727); both ELF links now complete (lld rc 0).
+
+**Where macOS stops now.** The registry's chunk loaders run until ParticleSystemLoader's allocator template
+0x002ac4a0 (src/engine/pure3d/ParticleSystemLoader.cpp, equivalent): its base pure3d::ParticleAllocator is a local
+class whose constructor (0x002d3d90) is declared only, its vftable the local class's (stub slots), and its free list
+(`IndexVec`, resized by 0x002ab880) holds particle pointers in `unsigned int` words: natively they are truncated
+(and 0x002ab880 / 0x002aba80's element sizes are the 32-bit ones). Next: the allocator as a record (base by its
+constructor's address, vftable by address, the free list a pointer vector) shared with 0x002ab880 / 0x002aba80.
+Also open: the content registry (DAT_00527c58, 111 views tree-wide) has no shared record; the two views fixed here
+follow its constructor 0x002656b0.

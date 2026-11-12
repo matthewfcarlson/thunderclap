@@ -24,7 +24,7 @@ class TrackFactoryTemplate_17f180 {
 };
 extern "C" void FUN_0017d8d0();
 typedef unsigned int u32_17f1c0;
-extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct InitObj_17f1c0 {
     hulk_uintptr Init_001708a0();
 };
