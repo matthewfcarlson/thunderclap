@@ -6746,10 +6746,11 @@ class SeqEventClipType_360ef0 {
   public:
     void FUN_00255f70();
 };
-SeqEventClipType_360ef0 g_360ef0;
 extern "C++" __declspec(nothrow) void FUN_00364610();
+// (dg1) constructs the game's SeqEventClipType, DAT_004e75b8 (records.h's SeqEventTypeHead), not a 1-byte local
+// stand-in: the Wine link bound the stand-in to the item by address, natively it was a separate object (overrun).
 void Init() {
-    g_360ef0.FUN_00255f70();
+    (*(SeqEventClipType_360ef0*)DAT_004e75b8).FUN_00255f70();
     atexit(FUN_00364610);
 }
 } // namespace fn_00360ef0
