@@ -1660,4 +1660,19 @@ struct CoreCompletionRequest {
     unsigned int context;                   // +0x14 passed back to the callback
 };
 
+// (dg1) The sound-bank path strings the start-up builds ("sound/rsd": 0x0035cea0, 0x0035cf90, 0x0035d7d0; their
+// atexit handlers 0x00363c60 / 0x00363c80 / 0x00363e40 free them): owners::String_23fc40's words (the text pointer,
+// the capacity, the length), 12 bytes on the 32-bit builds and 16 on 64-bit. 0x004dd260 and 0x004de608 are followed
+// by 4 bytes nothing references (config/data.json: pad).
+struct StringRecord_23fc40 {
+    char* data;
+    unsigned short capacity;
+    char pad06[2];
+    unsigned short extra;
+};
+
+extern "C" StringRecord_23fc40 DAT_004dd260[1];
+extern "C" StringRecord_23fc40 DAT_004dd6f4[1];
+extern "C" StringRecord_23fc40 DAT_004de608[1];
+
 #endif

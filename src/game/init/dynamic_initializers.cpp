@@ -2048,11 +2048,10 @@ extern "C" int __cdecl atexit(void (*f)());
 
 extern "C" void __cdecl FUN_0023fc40(const char*, int);
 
-struct G {
-} g;
-
+// (dg1) the game's item by name, not a local stand-in (the Wine link bound the stand-in by address; natively it
+// was a separate object of the stand-in's size)
 void __cdecl FUN_0035cea0() {
-    ((owners::String_23fc40 *)&g)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
+    ((owners::String_23fc40 *)DAT_004dd260)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
     atexit((void (*)())FUN_00363c60);
 }
 } // namespace fn_0035cea0
@@ -2105,12 +2104,10 @@ void __cdecl FUN_0035cf70(void) {
 // sym: ?Reg@fn_0035cf90@@YAXXZ
 namespace fn_0035cf90 {
 extern "C++" __declspec(nothrow) void __cdecl FUN_00363c80();
-class G {
-  public:
-};
-G g_obj;
+// (dg1) the game's item by name, not a local stand-in (the Wine link bound the stand-in by address; natively it
+// was a separate object of the stand-in's size)
 void __cdecl Reg() {
-    ((owners::String_23fc40 *)&g_obj)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
+    ((owners::String_23fc40 *)DAT_004dd6f4)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
     atexit(FUN_00363c80);
 }
 } // namespace fn_0035cf90
@@ -2864,12 +2861,11 @@ namespace fn_0035d7d0 {
 extern "C" int __cdecl _atexit(void (*)());
 #endif
 
-struct Sound {
-};
-Sound gSound;
 void FUN_00363e40() {}
+// (dg1) the game's item by name, not a local stand-in (the Wine link bound the stand-in by address; natively it
+// was a separate object of the stand-in's size)
 void Init() {
-    ((owners::String_23fc40 *)&gSound)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
+    ((owners::String_23fc40 *)DAT_004de608)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
     _atexit(FUN_00363e40);
 }
 } // namespace fn_0035d7d0
@@ -3412,13 +3408,12 @@ namespace fn_0035de60 {
 
 extern "C++" __declspec(nothrow) unsigned long long __cdecl FUN_0027b020(hulk_uintptr seed);
 
-unsigned int g_hash_low;
-unsigned int g_hash_high;
-
+// (dg1) the game's item by name, not a local stand-in (the Wine link bound the stand-in by address; natively it
+// was a separate object of the stand-in's size)
 void FUN_0035de60() {
     unsigned long long h = FUN_0027b020(((hulk_intptr)((char*)&DAT_00400488)));
-    g_hash_low = (unsigned int)h;
-    g_hash_high = (unsigned int)(h >> 32);
+    *(unsigned int*)DAT_004de998 = (unsigned int)h;
+    *(unsigned int*)DAT_004de99c = (unsigned int)(h >> 32);
 }
 } // namespace fn_0035de60
 
@@ -4345,15 +4340,12 @@ struct Pair_35e7a0 {
     int lo, hi;
 };
 extern "C++" __declspec(nothrow) Pair_35e7a0 __cdecl FUN_0027b020(const char*);
-struct Obj_35e7a0 {
-    int a;
-    int b;
-};
-Obj_35e7a0 g_b004e22e8;
+// (dg1) the game's item by name, not a local stand-in (the Wine link bound the stand-in by address; natively it
+// was a separate object of the stand-in's size)
 void FUN_0035e7a0() {
     Pair_35e7a0 r = FUN_0027b020("golfBall_golfBall");
-    g_b004e22e8.a = r.lo;
-    g_b004e22e8.b = r.hi;
+    *(int*)DAT_004e22e8 = r.lo;
+    *(int*)DAT_004e22ec = r.hi;
 }
 } // namespace fn_0035e7a0
 
@@ -5146,12 +5138,13 @@ class Manager_35f380 {
   public:
     void FUN_002584d0(__int64*, __int64*, int, int);
 };
-Manager_35f380 gManager_35f380;
+// (dg1) the game's item by name, not a local stand-in (the Wine link bound the stand-in by address; natively it
+// was a separate object of the stand-in's size)
 void target() {
     HULK_SIZE32(AudioMixer, 0x30);
     __int64 a = FUN_002672f0(((char*)&DAT_004290e4), 0, 0);
     __int64 b = FUN_002672f0(((char*)&DAT_004290d8), 0, 0);
-    gManager_35f380.FUN_002584d0(&b, &a, (int)sizeof(AudioMixer), (int)__alignof(AudioMixer));
+    (*(Manager_35f380*)DAT_004e5db0).FUN_002584d0(&b, &a, (int)sizeof(AudioMixer), (int)__alignof(AudioMixer));
     atexit(FUN_00364160);
 }
 } // namespace fn_0035f380

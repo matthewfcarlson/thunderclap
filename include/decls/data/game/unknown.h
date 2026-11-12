@@ -1272,7 +1272,7 @@ extern "C" unsigned char DAT_004dd220[16];
 extern "C" unsigned char DAT_004dd230[16];
 extern "C" unsigned char DAT_004dd240[16];
 extern "C" unsigned char DAT_004dd250[16];
-extern "C" unsigned char DAT_004dd260[16];
+// DAT_004dd260: typed by decls/data/records.h (included above)
 
 // unknown/unk_083e60.cpp
 extern "C" const float DAT_003ff988;  // flt_003ff988

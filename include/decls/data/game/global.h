@@ -47,6 +47,7 @@ struct DataLayout_004e226c;  // packed layout (bytes and pointers), defined in t
 struct DataLayout_004e2788;  // packed layout (bytes and pointers), defined in the data TU
 struct DataRec_004dda68;  // packed layout (bytes and pointers), defined in the data TU
 struct DataRec_004de800;  // packed layout (bytes and pointers), defined in the data TU
+#include "decls/data/records.h"
 
 // global/AICollisionSolverAgent.cpp
 extern "C" const float DAT_0041d7f0;  // flt_0041d7f0
@@ -6178,7 +6179,7 @@ extern "C" float DAT_0049c298[4];  // fltTbl_0049c298
 extern "C" unsigned char DAT_0049caa0;
 extern "C" void* DAT_004dd6e8[1];
 extern "C" unsigned char DAT_004dd6f0[4];
-extern "C" unsigned char DAT_004dd6f4[12];
+// DAT_004dd6f4: typed by decls/data/records.h (included above)
 extern "C" unsigned char DAT_004dd704[12];
 extern "C" float DAT_004dd914;
 extern "C" float DAT_004dd918;
@@ -7486,7 +7487,7 @@ extern "C" unsigned char DAT_004de300[512];
 extern "C" unsigned char DAT_004de500[256];
 extern "C" float DAT_004de600;
 extern "C" float DAT_004de604;
-extern "C" unsigned char DAT_004de608[16];
+// DAT_004de608: typed by decls/data/records.h (included above)
 extern "C" unsigned char DAT_004de618[4];
 extern "C" unsigned char DAT_004de61c[4];
 extern "C" unsigned char DAT_004de620[4];
