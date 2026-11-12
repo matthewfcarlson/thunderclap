@@ -361,16 +361,17 @@ namespace fn_f19264ac {
 
 // 0x00292410 FUN_00292410 (54 B): matches/0x00292410.cpp
 // sym: ?FUN_00292410@fn_f19264ac@@YAPAHXZ
-// The platform's start-up counter (DAT_0052c2c4 / DAT_0052c2b0 point at one heap word), created once.
+// Pure3D's owner (DAT_0052c2c4 / DAT_0052c2b0 point at it), created once: one pointer, the Pure3D object that
+// 0x00292560 creates and stores (x64t5: was allocated as a 4-byte counter, which the pointer store overran natively)
 int* FUN_00292410() {
     if ((*(int**)&DAT_0052c2c4) == 0) {
-        int* p = (int*)FUN_0008d690(4);
+        Owner_292560* p = (Owner_292560*)FUN_0008d690(sizeof(Owner_292560));
         if (p != 0)
-            *p = 0;
+            p->object = 0;
         else
             p = 0;
-        (*(int**)&DAT_0052c2c4) = p;
-        (*(int**)&DAT_0052c2b0) = p;
+        (*(Owner_292560**)&DAT_0052c2c4) = p;
+        (*(Owner_292560**)&DAT_0052c2b0) = p;
         FUN_0027b8f0();
     }
     return (*(int**)&DAT_0052c2c4);

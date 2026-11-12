@@ -2606,3 +2606,89 @@ static initializers run and main starts; it stops in the physics world at Collis
 - The tables' readers (pddiBaseShader vfunc_5..8, 0x003279e0..0x00327b00, matches) still walk them with their own
   32-bit entry views (`(char*)e + 24`, a 4-byte member pointer): natively they misread the 0x20-byte entries. Making
   them read ShaderParamEntry means calling a member-function pointer from its words; a decision for the pddi side.
+
+## Source-defined globals, the canary allocator and eight 64-bit heap overruns (x64t5, 2026-11-11)
+
+x64t4's follow-up (the batch-3 macOS image crashed in static initializer 374, 0x00360ef0).
+
+**The init-374 crash: a source-defined global.** 0x00360ef0 constructed audio::SeqEventClipType into a local
+stand-in, `SeqEventClipType_360ef0 g_360ef0;` (an empty class: 1 byte), where the original constructs the game's
+.bss object 0x004e75b8 (which the destructor 0x00364610 and SeqActionClip name as DAT_004e75b8). The Wine link
+points such definitions at the game's item (tools/wine_link.py `local_data_bindings`, the binding map's `local_data`:
+21 symbols); the native link has no such binding, so natively the type was built in a 1-byte object and its tree
+node, name and pool ran over the .bss after it (the "garbage node" of the SeqEventType tree: an image-layout
+accident, not one of batch 3's changes). With 0x00360ef0 naming the item, all 457 initializers run. The 21
+`local_data` symbols are fixed in source by name (dg1 committed the 13 in src/game/init/dynamic_initializers.cpp and
+HulkShaderCallback's / RayCastCondition_3's, which need pointer-sized data items; this batch has the rest):
+
+| where | change | gate |
+|---|---|---|
+| 0x0035fb20 (iso TU, match) | the 64-bit build constructs ListenerEffectWin32's type in the game's item DAT_004e65b8 (records.h OmEntityType) and destroys it there; the 32-bit definition is unchanged (the `$E1` MSVC emits for it is the match) | MATCH, relocations ok |
+| 0x00360870 (iso TU, match) | the same for SeqEventVarPosDist's type, DAT_004e7038 | MATCH, relocations ok |
+| 0x003290a0 (match) | the vftable pointer stored is the game's address 0x00433774 itself (`hulk_at_00433770 + 4`); it was a local one-word array holding that address, which natively made the pointer point at the array | MATCH, relocations ok |
+
+Left as they are: the two sound-path strings of the iso TUs 0x0035de40 / 0x0035e600 (`sound`, `gSound`: only the
+exit-time destructors in dynamic_initializers.cpp name their items, and the 12-byte item 0x004e2184 is too small for
+the string's 64-bit record until data_gen types it); `gFive` / `gNegFive` / `kRadiansToDegrees` (constants: a copy
+holds the same value).
+
+**The heap overruns the canary allocator found next** (the allocator below, run on the image past the initializers; each
+row is one find, in the order the start-up reached them):
+
+| where | change | gate |
+|---|---|---|
+| include/decls/load_inventory.h (new) | `HulkLoadInventory`, content::LoadInventory's words as 0x00266480 writes them (the pool a pointer): 0x14 bytes on 32-bit, 0x20 natively | 32-bit size unchanged |
+| 0x0008e880 CPlatformManager set-up (two), 0x000c1f70 / 0x000c4220 (CFEManager), 0x001ea8b0 (CSoundResourceManager), 0x000c9bd0 (Overlay), 0x00265cd0 (P3DFileHandler): equivalents | each LoadInventory allocated as `HULK_LOADINVENTORY_SIZE` (was 20 / 0x14: natively 0xc short; the first find, a 20-byte block overrun by 8 in 0x0008e880) | same code (hashes ok) |
+| include/gen/pure3d.h d3dDisplay | the D3D device (`f_10`) and the capture texture (`f_498`) are pointers (were `int`): natively the words after the device sit 0xc further on and the object is 0x4b0 bytes | 32-bit layout identical (clang `-fdump-record-layouts`, i686-pc-windows-msvc, before/after) |
+| include/gen/owners.h A_31b180, C_31b360, GammaControl_31b390 | d3dDisplay's words up to the device (vftable, three words, the device pointer) instead of a pad from 0 | 32-bit offsets identical (A_31b180's size 0x435 -> 0x438: tail padding) |
+| src/platform/xbox/pure3d/d3dDisplay.cpp: the views of 0x0031ada0, 0x0031b230, 0x0031b5c0, 0x0031acf0, 0x0031b1e0, 0x0031ae70, the constructor 0x0031b520; d3dDevice.cpp 0x0031b830 (the allocation); d3dExtFramebufferEffects.cpp's DeviceInfo | the same words in every view (their pads spanned the device pointer, so each view put the later words somewhere else natively: 0x0031ae70 stored the texture 8 bytes past the 0x4a0-byte block 0x0031b830 allocated, the canary allocator's second find); the raw-offset reads of vfunc_6 / 8 / 10 / 11 / 12 through gen's words | matches MATCH with relocations ok; equivalents same code |
+| 0x00324e00 d3dContext constructor (match) | the simple shader (0x0032a9f0) allocated as gen's pure3d::d3dSimpleShader (whose words its constructor writes): 0x94 bytes on 32-bit, 0x10 short natively (the third find) | MATCH, relocations ok |
+| 0x00292410 (match) | Pure3D's owner (DAT_0052c2c4 / DAT_0052c2b0) allocated as its record, one pointer (0x00292560 stores the Pure3D object in it): it was a 4-byte "counter", which the pointer store overran natively (the fourth find) | MATCH, relocations ok |
+| 0x0028f800 tContext constructor (match) | its helper (0x00293bd0 keeps the render context: one pointer) allocated by its record's size (was 4: the fifth find) | MATCH, relocations ok |
+| 0x002a3130 (match) | the tContext's simple shader (0x0028edb0 constructs it) allocated by its record (the constructor's words after the service pointer: a flag, a word, and the block's last word): 0x20 on 32-bit, 8 short natively (the sixth find) | MATCH, relocations ok |
+| src/engine/pure3d/pddiBaseShader.cpp: the shader factories 0x00327e60, 0x00327ec0, 0x00327f80, 0x00327fb0, 0x00327fe0, 0x00328010, 0x00328040, 0x003280a0, 0x003280d0, 0x00328100 (matches) | each shader allocated as gen's class (error, light map, layered, layered light map, refract, toon2, toon, building, bump map, frame-buffer effects), whose 32-bit size is the XBE's literal | MATCH, relocations ok |
+| the same: 0x00327ef0, 0x00327f20, 0x00327f50, 0x00328070 (matches) | twice the XBE's size on 64-bit (`HULK_X2_SHADER`): gen's class is smaller than the allocation (refl, projected texture, point sprite, spheremap); logged in docs/tech-debt.md | MATCH, relocations ok |
+| 0x0029f3d0 LightsChooser's cache manager (equivalent) | each light cache (0x0029e6c0, pure3d::LightsChooserCache) allocated by a record of the words its constructor writes plus the block's last word: 0x48 on 32-bit, 0x10 short natively (the seventh find) | same code (MSVC and clang code hashes identical to HEAD's; the block's hash is pending) |
+| 0x0008dec0 (equivalent) | the AI collision solver agent (0x001b2e50; its base 0x002f8800 writes the vftable and two words) allocated by a record of those words: 12 on 32-bit, 4 short natively (the eighth find) | same code (hash ok) |
+
+**The canary allocator (debug native builds only).**
+
+A debug switch for native runs that finds 64-bit heap overruns where they happen (a constructor writing past a block
+sized for the 32-bit layout) instead of where the damage shows (malloc's free list, a later object). x64t4 used it
+as a private snapshot patch; it now lives in the host glue:
+
+- **Compile it in**: link with `HULK_NATIVE_DEBUG_CANARY=1` in the environment (`tools/native_mac.py link`,
+  `tools/native_elf.py link`): the host glue (src/platform/sdl/host/crt_posix.cpp) is compiled with
+  `-DHULK_NATIVE_CANARY=1` (tools/native_bind.py `host_debug_flags`). Without it (every release image, every proof)
+  the code is not compiled; the Wine build does not link this glue at all.
+- **Turn it on**: run the image with `HULK_CANARY=1` (256 blocks checked) or `HULK_CANARY=N` (N blocks, at most 4096).
+  Unset, the debug image allocates as the release image does.
+- **What it does**: the game's malloc (0x003479aa, the tree's `malloc`), free (0x003479bc) and realloc (0x00347d7a)
+  are glue rows of src/platform/sdl/crt/native_crt_table.h (free and realloc were `libc` rows; they now go through
+  `hulk_ncrt_free` / `hulk_ncrt_realloc`, plain forwarders in a release image). Each block gets 16 canary bytes past
+  its end; the last N live blocks are checked on every malloc, realloc and free, and a block's own canary when it is
+  freed. A broken canary prints the block (size, allocation number, the bytes past its end), where it was allocated
+  and where the damage was found (frame-pointer chains, symbolized with dladdr), then traps (`__builtin_trap`: run
+  under lldb for the registers).
+- **Limits**: it covers heap blocks only (not static data: see the source-defined globals below); a block the host
+  frees without the glue stays in the ring, so a report naming a block that was already freed is a false one;
+  calloc (0x00347aa0) blocks are not tracked.
+
+Gates: every edited TU checked with `tree_tu.py check --relocs`: the matches MATCH with relocations ok, the
+equivalents' MSVC and clang code hashes unchanged (0x0029f3d0's block, whose hash is pending, compared against HEAD's
+with `tree_tu.py hash --compute`: identical); gen header edits: 32-bit layouts identical (clang
+`-fdump-record-layouts`, i686-pc-windows-msvc, before/after; build/x64t5/lay). Proof 72233 (studio, HEAD 9063a0525 +
+the batch, seed:72226) vs control 72226 (HEAD 9063a0525, fresh): GATE ok (0 of 2,001 common frames differ).
+Native on 72233's snapshot and map, without `--allow-compile-failures` (every TU compiles): arm64 macOS / x86-64 Linux
+unbound **19,024 / 19,004** (dg1's p5 on the same sources without the batch: 19,025 / 19,005); arm64 Android not counted
+(the queue job's NDK front end, build/elf1/ndk-fe, is gone from this checkout). macOS with the canary allocator gets
+past these finds into the physics set-up, where the next one is the environment's block (0x002ed020: the next
+batch, with CollisionObject's base constructor, 0x00304ed0's `Entity_304ed0`, unbound).
+
+**Follow-ups.**
+- 747 allocations in the tree pass a literal size; each whose object holds a pointer is short natively. The canary
+  allocator finds them one at a time as the start-up reaches them; records with `sizeof` (or gen's class where its
+  32-bit size is the XBE's) are the fix.
+- Shader classes gen has incomplete (refl, projected texture, point sprite, spheremap): interim `HULK_X2_SHADER`.
+- The iso TUs' sound strings (0x0035de40 / 0x0035e600) still construct their own copies natively (data_gen to type
+  the 12-byte item 0x004e2184 as a string record first).

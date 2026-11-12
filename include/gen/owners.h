@@ -16429,13 +16429,17 @@ struct Thing_31a380 {
 };
 // matches/0x0031b180.cpp (stub A_31b180), size 0x435
 struct A_31b180 {
-    char pad[0x434]; // +0x00
+    // (x64t5) pure3d::d3dDisplay's words up to its device pointer (gen/pure3d.h), so that the 64-bit offsets follow it
+    void* vftable; int w04, w08, w0c; void* device; // +0x00
+    char pad[0x434 - 0x14]; // +0x14
     unsigned char value; // +0x434
     unsigned char FUN_0031b180();
 };
 // matches/0x0031b360.cpp (stub C_31b360), size 0x490
 struct C_31b360 {
-    char pad[0x484]; // +0x00
+    // (x64t5) pure3d::d3dDisplay's words up to its device pointer (gen/pure3d.h), so that the 64-bit offsets follow it
+    void* vftable; int w04, w08, w0c; void* device; // +0x00
+    char pad[0x484 - 0x14]; // +0x14
     int a; // +0x484
     int b; // +0x488
     int c; // +0x48c
@@ -16443,7 +16447,9 @@ struct C_31b360 {
 };
 // equivalent/0x0031b390.cpp (stub GammaControl), size 0x490
 struct GammaControl_31b390 {
-    char pad0[0x12c]; // +0x00
+    // (x64t5) pure3d::d3dDisplay's words up to its device pointer (gen/pure3d.h), so that the 64-bit offsets follow it
+    void* vftable; int w04, w08, w0c; void* device; // +0x00
+    char pad0[0x12c - 0x14]; // +0x14
     unsigned char srcRed[256]; // +0x12c
     unsigned char srcGreen[256]; // +0x22c
     unsigned char srcBlue[256]; // +0x32c

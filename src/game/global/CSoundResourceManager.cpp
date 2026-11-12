@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001e9e70..0x001eab10 (kind game, layer game, confidence high), dominant class CSoundResourceManager
 #include "tree_prelude.h"
+#include "decls/load_inventory.h"   // (x64t5) HULK_LOADINVENTORY_SIZE
 #include "compat/ptr.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
@@ -729,7 +730,7 @@ int CSoundResourceManager::FUN_001ea8b0(int arg)
     FUN_00240760(cfg.FUN_0023fc40("english", 0));
     cfg.FUN_00240060();
 
-    void *raw = FUN_00263ed0(0x14, 6);
+    void *raw = FUN_00263ed0(HULK_LOADINVENTORY_SIZE, 6);
     LoadInventory_1ea8b0 *s = 0;
     if (raw != 0)
         s = ((LoadInventory_1ea8b0 *)raw)->FUN_00266480(0x400);

@@ -558,6 +558,13 @@ def macos_shim_objects(d, aliases, min_os=None, sdl=True):
     return objs, lflags, errs, ("SDL3 backends + replay layer (HULK_NATIVE_SDL)" if cfg else "stand-ins (no SDL3)")
 
 
+def host_debug_flags():
+    """Debug-only defines for the host glue: HULK_NATIVE_DEBUG_CANARY=1 in the link's environment compiles in the canary
+    allocator (src/platform/sdl/host/crt_posix.cpp; the image then checks blocks when run with HULK_CANARY set). Never
+    set for a release image; the Wine build does not link this glue."""
+    return ["-DHULK_NATIVE_CANARY=1"] if os.environ.get("HULK_NATIVE_DEBUG_CANARY") == "1" else []
+
+
 def macos_host_objects(d, srcs=None, min_os=None):
     """The host glue's objects for arm64 macOS (as native_elf.build_host for ELF). Returns (objects, errors)."""
     os.makedirs(d, exist_ok=True)
@@ -566,7 +573,7 @@ def macos_host_objects(d, srcs=None, min_os=None):
         o = os.path.join(d, os.path.basename(src) + ".o")
         r = subprocess.run(["xcrun", "clang++", "-arch", "arm64", "-std=c++17", "-O1", "-g", "-fno-omit-frame-pointer",
                             "-Wall", "-mmacosx-version-min=" + (min_os or nmac.MACOS_MIN),
-                            "-I" + os.path.join(ROOT, "src/platform/sdl"), "-c", os.path.join(ROOT, src), "-o", o],
+                            "-I" + os.path.join(ROOT, "src/platform/sdl")] + host_debug_flags() + ["-c", os.path.join(ROOT, src), "-o", o],
                            capture_output=True, text=True)
         if r.returncode:
             errs[src] = r.stderr[-2000:]

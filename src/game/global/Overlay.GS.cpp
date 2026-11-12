@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000c9720..0x000ca850 (kind game, layer game, confidence high), dominant class Overlay
 #include "tree_prelude.h"
+#include "decls/load_inventory.h"   // (x64t5) HULK_LOADINVENTORY_SIZE
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -212,7 +213,7 @@ void CHudMap::FUN_000c9bd0(char *name)
         }
     }
     FUN_000964a0(f.path, 0x100, "frontend/art/hud_maps/%s.p3d", name);
-    LoadInventory_c9bd0 *inv = (LoadInventory_c9bd0 *)FUN_00263ed0(0x14, 1);
+    LoadInventory_c9bd0 *inv = (LoadInventory_c9bd0 *)FUN_00263ed0(HULK_LOADINVENTORY_SIZE, 1);
     if (inv != 0)
         inv = inv->FUN_00266480(0x400);
     else

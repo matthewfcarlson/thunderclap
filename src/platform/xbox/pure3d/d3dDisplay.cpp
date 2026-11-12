@@ -92,7 +92,10 @@ class PddiObject {
 };
 class d3dDisplay : public pddiDisplay {
   public:
-    char pad[0x43c - sizeof(pddiDisplay)];
+    // (x64t5) the words up to the device pointer (gen/pure3d.h d3dDisplay), then the 32-bit pad lengths
+    int w04, w08, w0c;
+    void* device;
+    char pad[0x43c - 0x14];
     int a, b, c;
     char gap[0x478 - 0x448];
     int y, x, z;
@@ -120,7 +123,11 @@ void __stdcall D3DSurface_LockRect(int, D3DLOCKED_RECT*, int, int);
 extern int __stdcall FUN_00382400(int, int, int, int);
 class d3dDisplay_31b230 {
 public:
-    char pad[0x478];
+    // (x64t5) the vftable and the words up to the device pointer (gen/pure3d.h d3dDisplay), then the 32-bit pad length
+    void* vftable;
+    int w04, w08, w0c;
+    void* device;
+    char pad[0x478 - 0x14];
     int height;
     int width;
     int Capture(unsigned char* dest, int unused, const RECT* r, int which);
@@ -164,9 +171,9 @@ class d3dDisplay_31b5c0 {
     virtual void f16();
     virtual void f17();
     int pad0[3];
-    int x10;
+    void* x10;    // (x64t5) the device and the capture texture are pointers (gen/pure3d.h d3dDisplay)
     char pad[0x484];
-    int x498;
+    void* x498;
 };
 void __stdcall D3DDevice_Release();
 void __stdcall D3DResource_Release(int);
@@ -209,19 +216,19 @@ extern void __stdcall D3DResource_Release(u32_31acf0);
 struct d3dDisplay_31acf0 {
     hulk_uintptr vptr;
     char pad[0x0c];
-    u32_31acf0 device;
+    hulk_uintptr device;     // (x64t5) the device and the capture texture: pointer-sized (gen/pure3d.h d3dDisplay)
     char pad2[0x484];
-    u32_31acf0 resource;
+    hulk_uintptr resource;
     void Finish();
 };
 void __fastcall FUN_0031acf0(d3dDisplay_31acf0* self) {
-    u32_31acf0 d = self->device;
+    hulk_uintptr d = self->device;
     self->vptr = ((hulk_intptr)DAT_0043242c);
     if (d)
         D3DDevice_Release();
-    u32_31acf0 r = self->resource;
+    hulk_uintptr r = self->resource;
     if (r)
-        D3DResource_Release(r);
+        D3DResource_Release((u32_31acf0)r);
     self->vptr = ((hulk_intptr)DAT_004323e4);
     self->Finish();
 }
@@ -232,7 +239,7 @@ void __fastcall FUN_0031acf0(d3dDisplay_31acf0* self) {
 // sym: ?vfunc_6@d3dDisplay@pure3d@@UAEIXZ
  // namespace pure3d
 unsigned int pure3d::d3dDisplay::vfunc_6() {
-    return *(unsigned int*)((char*)this + 0x478);
+    return (unsigned int)this->f_478;   // (x64t5) gen's word (was a 32-bit offset)
 }
 
 
@@ -247,7 +254,7 @@ unsigned int pure3d::d3dDisplay::vfunc_7() {
 // 0x0031ad50 pure3d::d3dDisplay::vfunc_8 (7 B): matches/0x0031ad50.cpp
 // sym: ?vfunc_8@d3dDisplay@pure3d@@UAEHXZ
 int pure3d::d3dDisplay::vfunc_8() {
-    return *(int*)((char*)this + 0x480);
+    return this->f_480;   // (x64t5) gen's word (was a 32-bit offset)
 }
 
 namespace fn_f5e589ad {
@@ -265,7 +272,7 @@ unsigned int GetZero() {
 // sym: ?vfunc_11@d3dDisplay@pure3d@@UAEIXZ
  // namespace pure3d
 unsigned int pure3d::d3dDisplay::vfunc_11() {
-    return *(unsigned int*)((char*)this + 0x470);
+    return (unsigned int)this->f_470;   // (x64t5) gen's word (was a 32-bit offset)
 }
 
 
@@ -273,14 +280,14 @@ unsigned int pure3d::d3dDisplay::vfunc_11() {
 // sym: ?vfunc_12@d3dDisplay@pure3d@@UAEIXZ
  // namespace pure3d
 unsigned int pure3d::d3dDisplay::vfunc_12() {
-    return *(unsigned int*)((char*)this + 0x474);
+    return (unsigned int)this->f_474;   // (x64t5) gen's word (was a 32-bit offset)
 }
 
 
 // 0x0031ad90 pure3d::d3dDisplay::vfunc_10 (7 B): matches/0x0031ad90.cpp
 // sym: ?vfunc_10@d3dDisplay@pure3d@@UAEEXZ
 unsigned char pure3d::d3dDisplay::vfunc_10() {
-    return (*(char (*)[1080])&this->f_04)[0x433];
+    return this->f_437;   // (x64t5) gen's byte (was a 32-bit offset from f_04)
 }
 
 namespace fn_f5e589ad {
@@ -426,7 +433,7 @@ class d3dDisplay : public pddiObject {
     virtual void vfunc_15();
     virtual void vfunc_16();
     virtual void vfunc_17();
-    char pad4[0x10 - 4];
+    int w04, w08, w0c;   // (x64t5) words, not a pad: the device pointer after them sits where gen/pure3d.h's does
     void* device;
     PresentParams pp;
     char pad58[0x12c - 0x14 - sizeof(PresentParams)];
@@ -578,8 +585,12 @@ void pure3d::d3dDisplay::vfunc_14() {
 namespace fn_0031b1e0 {
 typedef unsigned int U_31b1e0;
 struct Obj_31b1e0 {
-    char pad[0x498];
-    U_31b1e0 texture;
+    // (x64t5) the vftable and the words up to the device pointer (gen/pure3d.h d3dDisplay); the texture pointer-sized
+    void* vftable;
+    int w04, w08, w0c;
+    void* device;
+    char pad[0x498 - 0x14];
+    hulk_uintptr texture;
 };
 extern U_31b1e0 __stdcall D3DDevice_GetRenderTarget2();
 extern U_31b1e0 __stdcall D3DTexture_GetSurfaceLevel2(U_31b1e0, U_31b1e0);
@@ -588,7 +599,7 @@ extern U_31b1e0 __stdcall D3DResource_Release(U_31b1e0);
 void __fastcall target(Obj_31b1e0* self, void*) {
     if (self->texture) {
         U_31b1e0 a = D3DDevice_GetRenderTarget2();
-        U_31b1e0 b = D3DTexture_GetSurfaceLevel2(self->texture, 0);
+        U_31b1e0 b = D3DTexture_GetSurfaceLevel2((U_31b1e0)self->texture, 0);
         D3DDevice_CopyRects(a, 0, 0, b, 0);
         D3DResource_Release(a);
         D3DResource_Release(b);
@@ -722,7 +733,7 @@ class d3dDisplay : public FUN_0031bac0 {
   public:
     d3dDisplay(int arg) throw();
     int field_c;
-    int field_10;
+    void* field_10;   // (x64t5) the device and the capture texture (field498) are pointers (gen/pure3d.h d3dDisplay)
     char pad14[0x58 - 0x14];
     char caps[0x434 - 0x58];
     unsigned char b434, b435, b436, b437;
@@ -731,7 +742,7 @@ class d3dDisplay : public FUN_0031bac0 {
     int field470, field474, field478, field47c, field480;
     float scaleX, scaleY, scaleZ;
     char pad490[8];
-    int field498;
+    void* field498;
 };
 d3dDisplay::d3dDisplay(int arg) throw() {
     HULK_SIZE32(d3dDisplay, 0x49c);
@@ -767,7 +778,7 @@ d3dDisplay_31b5c0* d3dDisplay_31b5c0::f3(unsigned char flag) {
     if (x10)
         D3DDevice_Release();
     if (x498)
-        D3DResource_Release(x498);
+        D3DResource_Release((int)(hulk_intptr)x498);
     *(hulk_intptr*)this = (hulk_intptr)&vtP;
     ((d3dDisplay_nv_31b5c0*)(((pure3d::d3dDisplay*)this)))->Run();
     if (flag & 1)

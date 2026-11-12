@@ -121,7 +121,7 @@ class Toolchain:
 
     def host_flags(self):
         f = ["--target=" + self.triple, "-std=c++17", "-O1", "-g", "-fPIC", "-fno-omit-frame-pointer", "-Wall"]
-        return f + (["--sysroot=" + self.sysroot] if self.sysroot else [])
+        return f + (["--sysroot=" + self.sysroot] if self.sysroot else []) + nb.host_debug_flags()
 
     def system_libs(self):
         """(shared, static) C libraries the image links: their symbols resolve the game's C library names (the static

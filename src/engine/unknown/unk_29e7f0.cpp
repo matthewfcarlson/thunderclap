@@ -683,7 +683,25 @@ struct Pool_29f3d0 {
  void FUN_00231550(int,int,int);
 };
 struct Helper_29f3d0 { void* table; char pad[4]; int m8, mc, m10, m14; void FUN_00231160(Pool_29f3d0*); };
-struct Light { virtual void slot0(); Light* FUN_0029e6c0(void*); };
+// (x64t5) pure3d::LightsChooserCache's words as its constructor 0x0029e6c0 writes them (unk_29c660.cpp: Entity's
+// vftable and three words, then its own; the entry array a pointer) and the block's last word: 0x48 bytes on 32-bit,
+// the size the XBE allocates (the 0x48-byte block was 0x10 short natively: the canary allocator's find)
+struct Light {
+    virtual void slot0();
+    union {   // pure3d::Entity's three words after the vftable (padded to pointer alignment, as its base class is)
+        char words[12];
+        void* align;
+    } entity;
+    int count;
+    unsigned int f14, f18;
+    int f1c;
+    float f20;
+    void* entries;
+    unsigned int f28, f2c, f30, color;
+    unsigned char flag;
+    unsigned int f3c, f40, f44;
+    Light* FUN_0029e6c0(void*);
+};
 struct Entry_29f3d0 { char data[12]; Light* light; unsigned int a,b,c; };
 struct EntryArray { int count; Entry_29f3d0 entries[1]; };
 namespace pure3d { struct LightsChooser { struct CacheManager {
@@ -718,7 +736,7 @@ pure3d::LightsChooser::CacheManager::CacheManager(void* context,int n) {
  entries=result;
  pointers=(Entry_29f3d0 **)FUN_0008d6d0(count * sizeof(Entry_29f3d0 *));
  for(int i=0;i<count;++i) {
-  Light* light=(Light*)FUN_00263ea0(0x48);
+  Light* light=(Light*)FUN_00263ea0((unsigned)sizeof(Light));
   if(light) light=light->FUN_0029e6c0(context);
   entries[i].light=light;
   entries[i].light->slot0();

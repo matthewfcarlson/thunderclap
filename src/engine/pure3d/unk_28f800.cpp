@@ -112,7 +112,8 @@ class Device_28f800 {
 struct Source_28f800 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(Device_28f800*); };
 struct Sink_28f800 { virtual void slot0(); };
 struct Mat_28f800 { char data[0x40]; void FUN_0022b980(); };
-struct Helper_28f800 { Helper_28f800* FUN_00293bd0(Device_28f800*); };
+// (x64t5) 0x00293bd0 keeps the context: one pointer (the 4-byte block was 4 short natively)
+struct Helper_28f800 { Device_28f800* context; Helper_28f800* FUN_00293bd0(Device_28f800*); };
 // (x64t3) Pure3D's context: the record is owners::X_28f9a0 (gen/owners.h), one layout for its views here (they had
 // their own 32-bit pads: on 64-bit the pddi objects were read from the wrong words)
 class Widget_28f800 : public owners::X_28f9a0 {
@@ -282,7 +283,7 @@ Widget_28f800* Widget_28f800::FUN_0028f800(Source_28f800* src, Sink_28f800* snk,
     ((Device_28f800*)context)->slot58(1);
     ((Mat_28f800*)world)->FUN_0022b980();
     ((Mat_28f800*)view)->FUN_0022b980();
-    void* mem = FUN_0008d690(4);
+    void* mem = FUN_0008d690(sizeof(Helper_28f800));
     helper = mem ? ((Helper_28f800*)mem)->FUN_00293bd0((Device_28f800*)context) : 0;
     d = 0;
     a = 0xff000000;

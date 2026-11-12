@@ -37,7 +37,7 @@ struct d3dDisplay_31b830 {
     void* vftable;
     int field4, field8;
     int d3d;        // +0x0c the D3D object (0x0031ba00 keeps it at d3dDevice +0x10)
-    int field_10;
+    void* field_10; // (x64t5) the device and the capture texture (field498) are pointers (gen/pure3d.h d3dDisplay)
     char pad14[0x58 - 0x14];
     char caps[0x434 - 0x58];
     unsigned char b434, b435, b436, b437;
@@ -46,7 +46,7 @@ struct d3dDisplay_31b830 {
     int field470, field474, field478, field47c, field480;
     float scaleX, scaleY, scaleZ;
     char pad490[8];
-    int field498;
+    void* field498;
     d3dDisplay_31b830* FUN_0031b520(int d3d);
 };
 struct Result_31b860 {

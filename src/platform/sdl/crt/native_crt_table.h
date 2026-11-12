@@ -58,7 +58,7 @@
     N(0x0034625f, glue, hulk_ncrt_fclose, "_fclose fclose") \
     N(0x003463c7, glue, hulk_ncrt_fwrite, "fwrite") \
     N(0x0034650b, glue, hulk_ncrt_fread, "fread") \
-    N(0x00347d7a, libc, realloc, "") \
+    N(0x00347d7a, glue, hulk_ncrt_realloc, "") \
     N(0x003465b3, glue, hulk_ncrt_fopen, "fopen") \
     N(0x003465c6, glue, hulk_ncrt_strtok, "strtok") \
     N(0x00346890, libc, strrchr, "_strrchr strrchr") \
@@ -76,7 +76,7 @@
     N(0x0034774c, glue, hulk_ncrt_rand, "_rand rand") \
     N(0x00347792, glue, hulk_ncrt_fprintf, "_fwprintf fprintf") \
     N(0x003479aa, glue, hulk_ncrt_malloc, "") \
-    N(0x003479bc, libc, free, "free") \
+    N(0x003479bc, glue, hulk_ncrt_free, "free") \
     N(0x003481ba, libc, ceil, "ceil __ceil_default") \
     N(0x00347a14, libc, bsearch, "_bsearch bsearch") \
     N(0x00347aa0, libc, calloc, "calloc") \
@@ -143,8 +143,8 @@
     N(0, libc, floor, "floor") \
     N(0, libc, ldexp, "ldexp") \
     N(0, libc, frexp, "frexp") \
-    N(0, libc, realloc, "realloc") \
-    N(0, libc, free, "free") \
+    N(0, glue, hulk_ncrt_realloc, "realloc") \
+    N(0, glue, hulk_ncrt_free, "free") \
     N(0, libc, calloc, "calloc") \
     N(0, libc, sqrtf, "sqrtf") \
     N(0, libc, fabsf, "fabsf") \

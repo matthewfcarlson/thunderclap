@@ -149,7 +149,8 @@ extern "C" int __stdcall D3D_CheckDeviceFormat(unsigned, unsigned, unsigned, uns
 }
 extern "C" void* __cdecl FUN_0008d690(unsigned);
 // (x64t2) the display (a d3dDisplay: its vftable, then 32-bit words) and the context in gen's d3dContext layout
-struct DeviceInfo { void* vftable; char pad[0x428]; unsigned format; };
+// (x64t5) the display's words up to its device pointer (gen/pure3d.h d3dDisplay), then the 32-bit pad length
+struct DeviceInfo { void* vftable; int w04, w08, w0c; void* device; char pad[0x42c - 0x14]; unsigned format; };
 struct Renderer_320d30 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
  virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
@@ -5250,7 +5251,9 @@ class FUN_0032a9f0 : public HeapObj {
   public:
     FUN_0032a9f0(d3dContext* ctx) throw();
     virtual void f0();
-    char pad[0x94 - 4];
+    // (x64t5) gen's pure3d::d3dSimpleShader, whose words the constructor writes (0x94 bytes on 32-bit; the 0x94-byte
+    // block was 0x10 short natively: the canary allocator's third find)
+    char pad[sizeof(::pure3d::d3dSimpleShader) - sizeof(void*)];
 };
 // The extensions constructed inline store the game's vftables by address (a local class's own vftable would be the
 // 64-bit link's stub).

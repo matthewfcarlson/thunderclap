@@ -364,14 +364,14 @@ extern "C" unsigned int FUN_00329060(char* s) {
 // sym: @FUN_003290a0@4
 namespace fn_003290a0 {
 extern "C++" { extern char hulk_at_00433770[]; }
-extern void* DAT_00433774[];
+// (x64t5) the vftable pointer is the game's address 0x00433774 itself (the vftable at 0x00433770, one slot in): was a
+// local one-word array holding that address, which the Wine link bound to the game's word by address (vptr then
+// 0x00433774) but which natively made vptr point at the local array
 struct Obj_3290a0 {
     void* vptr;
-    Obj_3290a0() { vptr = DAT_00433774; }
 };
-extern void* DAT_00433774[] = {(void*)((hulk_intptr)(hulk_at_00433770 + 0x4))};
 extern "C" void* __fastcall FUN_003290a0(Obj_3290a0* self) {
-    self->vptr = DAT_00433774;
+    self->vptr = hulk_at_00433770 + 0x4;
     return self;
 }
 } // namespace fn_003290a0

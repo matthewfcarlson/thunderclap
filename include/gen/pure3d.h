@@ -3762,7 +3762,7 @@ public:
     virtual hulk_freg vfunc_16(); // overrides pure3d::pddiDisplay slot 16
     virtual void vfunc_17(); // slot 17
     int f_0c;
-    int f_10;
+    void* f_10; // (x64t5) the D3D device: a pointer (the words after it sit 0xc further on natively)
     char _pad_14[0x420];
     char f_434;
     char f_435;
@@ -3782,7 +3782,7 @@ public:
     float f_488;
     float f_48c;
     char _pad_490[0x8];
-    int f_498;
+    void* f_498; // (x64t5) the capture texture (0x0031ae70 creates it), a pointer
 };
 
 // .?AVd3dErrorShader@pure3d@@  vftable 0x4338f4 (25)

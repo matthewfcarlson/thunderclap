@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00265bf0..0x00265ff0 (kind game, layer engine, confidence medium), dominant class content::P3DFileHandler
 #include "tree_prelude.h"
+#include "decls/load_inventory.h"   // (x64t5) HULK_LOADINVENTORY_SIZE
 #include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
@@ -225,7 +226,7 @@ void P3DFileHandler::vfunc_3(Ctx_265cd0* ctx, Cache_265cd0* cache)
     if (listener != 0)
         listener->v0(ctx, res->FUN_00263fb0());
     int old = FUN_00266da0(1);
-    void* mem2 = FUN_00263ed0(0x14, 1);
+    void* mem2 = FUN_00263ed0(HULK_LOADINVENTORY_SIZE, 1);
     LoadInventory_265cd0* stream = 0;
     if (mem2 != 0)
         stream = ((LoadInventory_265cd0*)mem2)->FUN_00266480(0x400);

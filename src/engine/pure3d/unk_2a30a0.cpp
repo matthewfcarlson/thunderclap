@@ -59,6 +59,12 @@ struct Shader_2a3130 {
     virtual void init();
     char pad[12];
     Inner_2a3130* inner;
+    // (x64t5) the words after the service pointer as the constructor 0x0028edb0 writes them (a flag, a word) and the
+    // block's last word: the object is allocated by this record's size (0x20 on 32-bit; the 0x20-byte block was 8
+    // short natively)
+    unsigned char flag;
+    unsigned int value;
+    int f1c;
     Shader_2a3130* FUN_0028edb0();   // (x64t3) the shader's constructor, by address (was `build`, unbound)
 };
 void* FUN_00263ea0(unsigned int);   // (x64t3) the allocator's jmp thunk 0x00263ea0 (was `alloc`, unbound)
@@ -287,7 +293,7 @@ Target_2a30a0::Target_2a30a0() {
 // sym: _FUN_002a3130
 extern "C" void FUN_002a3130() {
     if ((*(Shader_2a3130**)&DAT_00554bb4) == 0) {
-        Shader_2a3130* p = (Shader_2a3130*)FUN_00263ea0(0x20);
+        Shader_2a3130* p = (Shader_2a3130*)FUN_00263ea0(sizeof(Shader_2a3130));
         if (p)
             (*(Shader_2a3130**)&DAT_00554bb4) = p->FUN_0028edb0();
         else

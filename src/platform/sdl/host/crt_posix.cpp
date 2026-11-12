@@ -3,6 +3,9 @@
 // ABI), C linkage throughout. Not linked into an image yet. The behaviours below are the documented ones of the
 // Microsoft C runtime the game was built against, reimplemented; no Microsoft code.
 #if !defined(_WIN32)
+#if defined(HULK_NATIVE_CANARY) && !defined(_GNU_SOURCE)
+#define _GNU_SOURCE 1   // dladdr (the debug canary allocator)
+#endif
 #include <ctype.h>
 #include <errno.h>
 #include <limits.h>
@@ -54,8 +57,160 @@ void hulk_crt_run_atexit(void) {
 }
 
 // The game's malloc (0x003479aa and the tree's `malloc`): zero-filled, as the Xbox's fresh heap pages are
-// (docs/wine-build.md native11)
+// (docs/wine-build.md native11). free (0x003479bc) and realloc (0x00347d7a) are the host's, through the glue below so
+// that the debug canary allocator sees them.
+#if !defined(HULK_NATIVE_CANARY)
 void* hulk_ncrt_malloc(size_t size) { return calloc(1, size ? size : 1); }
+void hulk_ncrt_free(void* p) { free(p); }
+void* hulk_ncrt_realloc(void* p, size_t size) { return realloc(p, size); }
+#else
+// The debug canary allocator (docs/native-build.md "The canary allocator"; compiled in only when the native link runs
+// with HULK_NATIVE_DEBUG_CANARY=1, active only when the image runs with HULK_CANARY set). Each game block gets 16
+// canary bytes after it; the last HULK_CANARY live blocks (default 256, at most 4096) are checked on every malloc,
+// realloc and free, and a block's own canary when it is freed. A broken canary prints the block (size, allocation
+// number, where it was allocated, the bytes past its end) and where it was found, then traps: a 64-bit overrun of a
+// block sized for the 32-bit layout shows at the next allocation instead of as damage much later. Blocks the host
+// frees without the glue stay in the ring (a false report then names a freed block).
+#include <dlfcn.h>
+#include <unwind.h>
+
+enum { CANARY_BYTES = 16, CANARY_MAX = 4096, CANARY_DEPTH = 8 };
+static const unsigned char CANARY = 0xab;
+struct CanaryBlock {
+    unsigned char* p;
+    size_t size;
+    unsigned long seq;
+    void* ra[CANARY_DEPTH];
+};
+static CanaryBlock g_canary[CANARY_MAX];
+static unsigned g_canary_slots;   // 0: off (HULK_CANARY unset)
+static unsigned long g_canary_seq;
+static int g_canary_init;
+
+static unsigned canary_slots(void) {
+    if (!g_canary_init) {
+        g_canary_init = 1;
+        const char* e = getenv("HULK_CANARY");
+        if (e && *e && *e != '0') {
+            long n = strtol(e, 0, 0);
+            g_canary_slots = n > 1 ? (n > CANARY_MAX ? CANARY_MAX : (unsigned)n) : 256;
+            fprintf(stderr, "canary: on, %u blocks checked\n", g_canary_slots);
+        }
+    }
+    return g_canary_slots;
+}
+
+// the callers by the unwind tables (the game's objects need not keep frame pointers), from the glue's frame on
+struct CanaryUnwind {
+    void** ra;
+    int n, skip;
+};
+static _Unwind_Reason_Code canary_frame(struct _Unwind_Context* c, void* arg) {
+    CanaryUnwind* u = (CanaryUnwind*)arg;
+    if (u->skip > 0) {
+        --u->skip;
+        return _URC_NO_REASON;
+    }
+    u->ra[u->n++] = (void*)_Unwind_GetIP(c);
+    return u->n < CANARY_DEPTH ? _URC_NO_REASON : _URC_END_OF_STACK;
+}
+
+static void __attribute__((noinline)) canary_frames(void** ra) {
+    CanaryUnwind u = {ra, 0, 1};
+    for (int k = 0; k < CANARY_DEPTH; ++k)
+        ra[k] = 0;
+    _Unwind_Backtrace(canary_frame, &u);
+}
+
+static void canary_where(void* a) {
+    Dl_info di;
+    if (a && dladdr(a, &di) && di.dli_sname)
+        fprintf(stderr, "    %p %s+0x%lx\n", a, di.dli_sname, (unsigned long)((char*)a - (char*)di.dli_saddr));
+    else
+        fprintf(stderr, "    %p\n", a);
+}
+
+static void canary_fail(const CanaryBlock* b, const char* when) {
+    fprintf(stderr, "canary: block %p (%lu bytes, allocation %lu) overrun, found at %s (allocation %lu); bytes past "
+            "its end:", (void*)b->p, (unsigned long)b->size, b->seq, when, g_canary_seq);
+    for (int k = 0; k < CANARY_BYTES; ++k)
+        fprintf(stderr, " %02x", b->p[b->size + k]);
+    fprintf(stderr, "\n  allocated at:\n");
+    for (int k = 0; k < CANARY_DEPTH; ++k)
+        canary_where(b->ra[k]);
+    void* ra[CANARY_DEPTH];
+    canary_frames(ra);
+    fprintf(stderr, "  found at:\n");
+    for (int k = 0; k < CANARY_DEPTH; ++k)
+        canary_where(ra[k]);
+    fflush(stderr);
+    __builtin_trap();
+}
+
+static int canary_ok(const CanaryBlock* b) {
+    for (int k = 0; k < CANARY_BYTES; ++k)
+        if (b->p[b->size + k] != CANARY)
+            return 0;
+    return 1;
+}
+
+static void canary_check_all(const char* when) {
+    for (unsigned i = 0; i < g_canary_slots; ++i)
+        if (g_canary[i].p && !canary_ok(&g_canary[i]))
+            canary_fail(&g_canary[i], when);
+}
+
+static void canary_forget(void* p, const char* when) {
+    for (unsigned i = 0; i < g_canary_slots; ++i)
+        if (g_canary[i].p == p) {
+            if (!canary_ok(&g_canary[i]))
+                canary_fail(&g_canary[i], when);
+            g_canary[i].p = 0;
+        }
+}
+
+static void* canary_track(unsigned char* p, size_t size) {
+    if (!p)
+        return p;
+    memset(p + size, CANARY, CANARY_BYTES);
+    CanaryBlock* b = &g_canary[g_canary_seq % g_canary_slots];
+    b->p = p;
+    b->size = size;
+    b->seq = ++g_canary_seq;
+    canary_frames(b->ra);
+    return p;
+}
+
+void* hulk_ncrt_malloc(size_t size) {
+    if (!size)
+        size = 1;
+    if (!canary_slots())
+        return calloc(1, size);
+    canary_check_all("malloc");
+    return canary_track((unsigned char*)calloc(1, size + CANARY_BYTES), size);
+}
+
+void hulk_ncrt_free(void* p) {
+    if (p && canary_slots()) {
+        canary_forget(p, "free");
+        canary_check_all("free");
+    }
+    free(p);
+}
+
+void* hulk_ncrt_realloc(void* p, size_t size) {
+    if (!canary_slots())
+        return realloc(p, size);
+    canary_check_all("realloc");
+    if (p)
+        canary_forget(p, "realloc");
+    if (!size) {
+        free(p);
+        return 0;
+    }
+    return canary_track((unsigned char*)realloc(p, size + CANARY_BYTES), size);
+}
+#endif
 
 // ---------------------------------------------------------------------------------------------------------------
 // stdio: the game names the Xbox CRT's stdin / stdout / stderr by address (the `_iob` array at 0x004d99f0, three

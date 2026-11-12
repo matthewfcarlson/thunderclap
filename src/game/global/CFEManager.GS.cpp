@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000be230..0x000c4ec0 (kind game, layer game, confidence high), dominant class CFEManager
 #include "tree_prelude.h"
+#include "decls/load_inventory.h"   // (x64t5) HULK_LOADINVENTORY_SIZE
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
@@ -1483,7 +1484,7 @@ void BlonskyScreen::FUN_000c1f70(int index)
 
             const char* name = file->FUN_00091d50();
             FUN_000964a0(frame.path, 0x100, "art/blonsky_file_images/%s.p3d", name);
-            LoadInventory_c1f70* loader = (LoadInventory_c1f70*)FUN_00263ea0(0x14);
+            LoadInventory_c1f70* loader = (LoadInventory_c1f70*)FUN_00263ea0(HULK_LOADINVENTORY_SIZE);
             if (loader)
                 loader = loader->FUN_00266480(0x400);
             loader->init();
@@ -2744,7 +2745,7 @@ if(!start) {
  struct Frame { content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> caster; char path[256]; char image[256]; } frame;
  if(mode==0) FUN_000964a0(frame.path,256,"art/%s.p3d",name);
  else if(mode==1) FUN_000964a0(frame.path,256,"%s/%s.p3d",folder,name);
- Loader* l=(Loader*)FUN_00263ea0(20); if(l) l=l->FUN_00266480(1024);
+ Loader* l=(Loader*)FUN_00263ea0(HULK_LOADINVENTORY_SIZE); if(l) l=l->FUN_00266480(1024);
  l->init(); FUN_000bc3c0(frame.path,l,11);
  FUN_000964a0(frame.image,256,"%s.png",name);
  unsigned __int64 key=FUN_0027b020(frame.image);

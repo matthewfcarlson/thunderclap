@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0008de70..0x0008ed50 (kind game, layer game, confidence high), dominant class MyDriveErrorCallback
 #include "tree_prelude.h"
+#include "decls/load_inventory.h"   // (x64t5) HULK_LOADINVENTORY_SIZE
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -48,8 +49,8 @@ void CPlatformManager::FUN_0008e880() {
 // Plain locals (not one Frame struct): MSVC /GS then gives the original's 0x92c frame; a struct came out 16 bytes larger.
 Stream* f_file;Stream* f_s;int f_n;CPlatformManager* f_owner;char* f_tokens[64];char f_config[16];char f_text[2048];
 f_owner=this;
-Ref_8e880* r=0; Ref_8e880* mem=(Ref_8e880*)FUN_00263ea0(20); if(mem) { r=mem->FUN_00266480(128); if(r)r->add(); } if((*(Ref_8e880**)&DAT_004dd9c8))(*(Ref_8e880**)&DAT_004dd9c8)->release(); (*(Ref_8e880**)&DAT_004dd9c8)=r;
-r=0; mem=(Ref_8e880*)FUN_00263ea0(20); if(mem) {r=mem->FUN_00266480(1024);if(r)r->add();}if((*(Ref_8e880**)&DAT_004dd9cc))(*(Ref_8e880**)&DAT_004dd9cc)->release();(*(Ref_8e880**)&DAT_004dd9cc)=r;
+Ref_8e880* r=0; Ref_8e880* mem=(Ref_8e880*)FUN_00263ea0(HULK_LOADINVENTORY_SIZE); if(mem) { r=mem->FUN_00266480(128); if(r)r->add(); } if((*(Ref_8e880**)&DAT_004dd9c8))(*(Ref_8e880**)&DAT_004dd9c8)->release(); (*(Ref_8e880**)&DAT_004dd9c8)=r;
+r=0; mem=(Ref_8e880*)FUN_00263ea0(HULK_LOADINVENTORY_SIZE); if(mem) {r=mem->FUN_00266480(1024);if(r)r->add();}if((*(Ref_8e880**)&DAT_004dd9cc))(*(Ref_8e880**)&DAT_004dd9cc)->release();(*(Ref_8e880**)&DAT_004dd9cc)=r;
 typedef Closure1<CPlatformManager,void,const char*> Closure_t; HULK_SIZE32(Closure_t, 0x24); HULK_SIZE32(ScriptClosureView, 0x24);
 Registry_8e880* reg=FUN_001d4c90(); if(reg) { Command_8e880* c=(Command_8e880*)FUN_0008d690((int)sizeof(ScriptClosureView));void* cmd=0;if(c)cmd=c->FUN_0008e6b0("debug_SetChanel",this,&CPlatformManager::FUN_0008da80);reg->FUN_001d3b70("debug_SetChanel",cmd);
 for(int j=0;j<2;++j){const char* name=j?"debug_DisableChannel":"debug_EnableChannel";void* p=FUN_0008d690((int)sizeof(Closure_t));if(p){((Command_8e880*)p)->FUN_001d0480(name,1);Method1<CPlatformManager,void,const char*>* m=new(p) Method1<CPlatformManager,void,const char*>;m->method=j?&CPlatformManager::FUN_0008dad0:&CPlatformManager::FUN_0008dac0;m->retType=FUN_001d04d0(((int*)&DAT_0048e100));m->argTypes[0]=FUN_001d04d0(((int*)&DAT_0048e0f0));Closure1<CPlatformManager,void,const char*>* cl=new(p) Closure1<CPlatformManager,void,const char*>;cl->owner=this;}reg->FUN_001d3b70(name,p);}}

@@ -38,3 +38,23 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
   likely undefined behaviour or a wrong declaration in our sources that the native release builds (optimised) will hit
   too. Clean-up: find each cause on the Wine build (frame-by-frame compare against -O0), fix the source (MSVC MATCH /
   equivalence kept), and take the TU off the exclude list once its -O1 replay gates ok.
+- **"Twice the 32-bit size on 64-bit" allocations (interim, x64t4/x64t5; the user's OK 2026-11-11).** Where an object's
+  64-bit layout has no record yet, its allocation (or its offset inside a parent) is the XBE's 32-bit size doubled on
+  the 64-bit builds: an upper bound for any class of 4-byte words, so the native constructor cannot run past the
+  block. The 32-bit builds keep the XBE's sizes (the code is unchanged). Each use is to be replaced by one record per
+  class whose `sizeof` the allocation takes (as reg5 did for the om types, `HULK_SIZE32` checking the 32-bit size):
+  - `HULK_X2_88020(n)` in src/game/global/CTimeManager.GS.cpp, CGame's set-up 0x00088020: the 18 managers it
+    allocates: CPlatformManager 0x0008d850 (24), 0x0023f670 (8), 0x000aef10 (36), 0x000af310 (8), 0x000b0500 (12),
+    0x00091630 (0x10d0), 0x0010b2c0 (1), 0x00094fb0 (0x1790), 0x00089bf0 (0xad0), 0x001eb220 (28), 0x000d6970 (48),
+    0x001c0cd0 (96), 0x000c0e40 (0x1d38), 0x001bb990 (100), 0x00208210 (0xb00), 0x00087e30 (80), 0x00088600 (160),
+    0x001b84f0 (0x138).
+  - `HULK_PW(k)` in include/decls/physics_world.h, the physics world 0x002ef0b0: the parts' offsets (body pool at 0,
+    flag 0x6c, collision detector 0x70, solver 0xb0, contact buffer 0x1b0) and the allocation (0x1c4), each doubled;
+    used by unk_2ed240.cpp, ExportInfoLoader (0x002f4df0), SimLength, unk_2e6780, CollisionMesh (and its iso TU),
+    unk_302fa0 and unk_2fa6b0. Replace with a record per part (CollisionDetector, ImpulseBasedCollisionSolver, the
+    body pool, the contact buffer) and one for the world.
+  - `HULK_X2_SHADER(n)` (and the same doubling written out) in src/engine/pure3d/pddiBaseShader.cpp, the shader
+    factories whose gen class is smaller than the XBE's allocation (gen's record is incomplete): 0x00327ef0
+    d3dReflShader (0x8c; gen 0x88), 0x00327f20 d3dProjectedTextureShader (0xc8; gen 0x88), 0x00327f50
+    d3dPointSpriteShader (0xa4; gen 0xa0), 0x00328070 d3dSpheremapVertexShader (0x98; gen 0x8c). Complete gen's
+    classes (their constructors' words) and allocate `sizeof` as the other factories do.
