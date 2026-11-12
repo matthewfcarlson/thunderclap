@@ -12,4 +12,3 @@ src/engine/pure3d/pddiBaseContext.cpp
 src/engine/unknown/unk_29e7f0.cpp
 src/engine/unknown/unk_2ed240.cpp
 src/engine/unknown/unk_302fa0.cpp
-src/game/init/dynamic_initializers.cpp

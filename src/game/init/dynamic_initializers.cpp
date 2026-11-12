@@ -1030,7 +1030,7 @@ struct Obj_364820 {
 // 0x0035c0a6 __unwindfunclet_0035c0a6 (10 B): not yet verified
 
 // 0x0035c0b0 FUN_0035c0b0 (10 B): equivalent/0x0035c0b0.cpp
-// sym: ?FUN_0035c0b0@fn_f1ddef39@@YAXPAD@Z
+// sym: ?FUN_0035c0b0@fn_f1ddef39@@YAXPAD@Z @ea71c203747c @wc8fc188532f2
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0035c0b0 @ 0x0035c0b0
 // equiv-conv: FUN_0035c0b0 ebp
@@ -1110,7 +1110,7 @@ void __cdecl FUN_0035c0b0(char *callerFrame) {
 } // namespace fn_f1ddef39
 
 // 0x0035c350 FUN_0035c350 (10 B): equivalent/0x0035c350.cpp [wrapped: conflict: FUN_003abdde]
-// sym: ?FUN_0035c350@fn_0035c350@@YAHPAUContext@1@@Z
+// sym: ?FUN_0035c350@fn_0035c350@@YAHPAUContext@1@@Z @0888f7e71c91 @we810e03f66c6
 namespace fn_0035c350 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0035c350 @ 0x0035c350
@@ -1135,7 +1135,7 @@ int FUN_0035c350(Context* context) {
 namespace fn_f1ddef39 {
 
 // 0x0035c3c0 FUN_0035c3c0 (8 B): equivalent/0x0035c3c0.cpp
-// sym: ?FUN_0035c3c0@fn_f1ddef39@@YAXXZ
+// sym: ?FUN_0035c3c0@fn_f1ddef39@@YAXXZ @41f6238161a5 @wa9494d6d9323
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0035c3c0 @ 0x0035c3c0
 void __cdecl FUN_0035c3c0() { Obj* object = 0; object->FUN_003b17b0(); }
@@ -1889,7 +1889,7 @@ void initSound() {
 namespace fn_f1ddef39 {
 
 // 0x0035d090 FUN_0035d090 (109 B): equivalent/0x0035d090.cpp
-// sym: ?FUN_0035d090@fn_f1ddef39@@YAXXZ
+// sym: ?FUN_0035d090@fn_f1ddef39@@YAXXZ @6ac71135b35b @w41a9ee5d793b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0035d090 @ 0x0035d090
 void FUN_0035d090()
