@@ -106,5 +106,31 @@ struct HulkCollisionObject {
 // (x64t6) the owner's offset (0x18 on the 32-bit builds, 0x20 natively), for the views that read only the owner
 // through a pad (the volumes' vfunc_13: `char pad[HULK_CO_OWNER]; Owner* owner;`)
 #define HULK_CO_OWNER ((int)(hulk_uintptr)&((HulkCollisionObject*)0)->f18)
+#define HULK_CO_AT(m) ((int)(hulk_uintptr)&((HulkCollisionObject*)0)->m)   // a CollisionObject word's offset
+
+// (x64t6) physics::SimState as its constructor 0x002ef7f0 writes it (0x88 bytes on the 32-bit builds): the word at
+// 4 is pure3d::NonCopyable's (pointer-sized, as gen's f_04), the simulated object (0x70) and the CollisionObject
+// (0x74) are pointers; natively the words sit at HULK_SS(k) for the 32-bit offset k (0x98 bytes in all), which is
+// gen's physics::SimState too.
+#define HULK_SS(k) ((int)(sizeof(void*) == 4 ? (k) : (k) < 8 ? (k) * 2 : (k) < 0x74 ? (k) + 8 : (k) < 0x78 ? (k) + 0xc : \
+                                                     (k) + 0x10))
+struct HulkSimState {
+    void* vftable;
+    hulk_intptr m4;
+    int m8, mc;
+    float current[16]; // 0x10
+    float delta[3];    // 0x50
+    int m5c, m60, m64;
+    union { float f68; int mode; };
+    int m6c;
+    void* m70;         // 0x70 the simulated object
+    void* m74;         // 0x74 the CollisionObject
+    unsigned char changed;
+    int m7c;
+    float radius;      // 0x80
+    unsigned char locked;
+};
+typedef char hulk_size32_ss_[(sizeof(void*) != 4 || sizeof(HulkSimState) == 0x88) ? 1 : -1];
+typedef char hulk_size64_ss_[(sizeof(void*) != 8 || sizeof(HulkSimState) == HULK_SS(0x88)) ? 1 : -1];
 
 #endif

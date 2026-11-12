@@ -2854,3 +2854,28 @@ builds all 2,675 tree TUs and 1,097 data TUs with it (x64t5's p5 sources: 19,007
 In the queue jobs both ELF links stop at the host glue (`host glue failed`: the job ships no sysroot, so errno.h /
 string.h are missing): the unbound counts come from the link plan before lld, as before; an Android image needs the
 NDK sysroot on the host.
+
+**Batch 2: physics::SimState as one record.** On batch 1's image the start-up ran past the volumes into the solver's
+wall (0x002f7a40 -> 0x003046f0, `this` = 4): the SimState's CollisionObject pointer read through a 32-bit pad.
+SimState's views disagreed natively in the same two ways as the volume's: pure3d::NonCopyable's word at 4 is
+pointer-sized in gen (`f_04`) and a plain `int` in the constructor's view, and the simulated object / CollisionObject
+words at 0x70 / 0x74 were `int`s in the constructor and pointers elsewhere.
+
+| where | change | gate |
+|---|---|---|
+| include/decls/physics_world.h | `HulkSimState` (the constructor 0x002ef7f0's words: NonCopyable's word and the two pointers pointer-sized; 0x88 bytes on 32-bit, 0x98 natively, both checked), `HULK_SS(k)` (the native offset of 32-bit offset k: gen's physics::SimState agrees), `HULK_CO_AT(m)` (a CollisionObject word's offset) | 32-bit sizes checked |
+| src/engine/physics/SimState.cpp: the constructor 0x002ef7f0, vfunc_2 0x002ef850 (the CollisionObject's owner cleared as a pointer at `HULK_CO_OWNER`, was an `int` at 0x18), vfunc_6 0x002ef900's view (NonCopyable's word), 0x002ef420 / 0x002ef440 / 0x002ef4a0 / 0x002ef5b0's views (the state's words at HULK_SS, the CollisionObject's at HULK_CO_AT, the volume's at HULK_CV) | on the record's offsets; the constructor's class checked against HulkSimState's size on every build | matches MATCH, relocations ok; equivalents' code hashes unchanged |
+| 0x002f7a40 (solver, match), CollisionSphere 0x002efca0's state (equivalent: `sizeof(HulkSimState)`, was 136), 0x003046f0 (CollisionObject, match: the shape, the active flag and the two flags after it on the record, was a flat 32-bit view) | the same offsets | MATCH, relocations ok / hash unchanged |
+
+Gates: the five TUs `tree_tu.py check --relocs` (matches MATCH with relocations ok, equivalents' code hashes
+unchanged). Proof 72268 (studio, f006b2886's sources + the batch, seed:72264) vs control 72264: GATE ok (0 of 2,029
+common frames differ). Native unbound unchanged (18,736 / 18,716 / 18,727: a layout batch).
+
+**Where macOS stops now** (72268's snapshot and binding map). The physics world is built and the start-up reaches the content loaders: the registry
+run 0x00265240 (src/engine/content/LoadStream.cpp) calls slot 0 of the file handlers P3DFileHandler / PNGHandler /
+BMPHandler, which their source (fn_f19264ac, 0x00291dc0) constructs with local classes whose virtuals are declared
+only: natively each slot is a stub (the "unbound: vftable" class, 463 names on macOS). The same in the texture and
+geometry loaders' bases (`RenderObjectLoader_2df7f0`, `RenderObjectLoader_2df850`, `A_2c25b0`,
+`ImageConverter_2c25b0`: base constructors declared, never defined). Next batch: these constructors store the
+game's vftables by address (the address their relocations reach) and name their bases by their constructors'
+addresses, as batch 1 did for the placeholders.

@@ -40,14 +40,15 @@ class Inner_3046f0 {
     void Stop_00306380();
     void Start_00306300();
 };
+// (x64t6) the CollisionObject on its record (decls/physics_world.h): the shape (f20), the active flag (b50) and the
+// two flags after it (b68 / b69); was a flat 32-bit view (natively the shape is at 0x30)
 class Obj_3046f0 {
   public:
-    char p[0x20];
-    Inner_3046f0* inner;
-    char q[0x2c];
-    char active;
-    char r[0x17];
-    char a, b;
+    void* vftable;
+    HULK_ENTITY_WORDS
+    char name[8];
+    HULK_COLLISION_OBJECT_WORDS
+    Inner_3046f0* inner() const { return (Inner_3046f0*)f20; }
     void Set(char x);
 };
 extern "C" void* __cdecl AllocFunc_0008d6d0(int size);
@@ -386,15 +387,15 @@ Obj_304640::Obj_304640() : m0(0), m4(0), m8(0), m9(0), mc(0), m10(0) {}
 // 0x003046f0 FUN_003046f0 (75 B): matches/0x003046f0.cpp
 // sym: ?Set@Obj_3046f0@fn_f3c9f944@@QAEXD@Z
 void Obj_3046f0::Set(char x) {
-    if (active && !x) {
-        active = x;
-        inner->Stop_00306380();
-    } else if (!active && x) {
-        inner->f10();
-        active = x;
-        inner->Start_00306300();
-        a = 0;
-        b = 0;
+    if (b50 && !x) {
+        b50 = x;
+        inner()->Stop_00306380();
+    } else if (!b50 && x) {
+        inner()->f10();
+        b50 = x;
+        inner()->Start_00306300();
+        b68 = 0;
+        b69 = 0;
     }
 }
 

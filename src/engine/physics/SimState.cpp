@@ -30,16 +30,18 @@ class Old_2ef3f0 {
   public:
     void cleanup_00263e90();
 };
+// (x64t6) the state's CollisionObject (HULK_SS(0x74)), its shape (HULK_CO_AT(f20)) and the shape's f34 (HULK_CV(0x34)):
+// decls/physics_world.h's offsets (were 32-bit pads)
 struct Inner_2ef420 {
-    char pad[0x34];
+    char pad[HULK_CV(0x34)];
     float value;
 };
 struct Holder_2ef420 {
-    char pad[0x20];
+    char pad[HULK_CO_AT(f20)];
     Inner_2ef420* inner;
 };
 struct Obj_2ef420 {
-    char pad[0x74];
+    char pad[HULK_SS(0x74)];
     Holder_2ef420* holder;
 };
 struct Helper_2ef440 {
@@ -54,7 +56,7 @@ class PhysicsObject : public SimulatedObject {
     void Finish_002fe6a0(int);
 };
 struct Obj_2ef440 {
-    char pad70[0x70];
+    char pad70[HULK_SS(0x70)];   // (x64t6) decls/physics_world.h's SimState offsets
     SimulatedObject* m70;
     Helper_2ef440* m74;
     void Target(int);
@@ -65,14 +67,14 @@ struct Obj18_2ef4a0 {
     u32_2ef4a0 val;
 };
 struct Obj1c {
-    char pad[0x1c];
+    char pad[HULK_CO_AT(f1c)];   // (x64t6) the CollisionObject's flags (decls/physics_world.h)
     u32_2ef4a0 val;
 };
 extern int hulk_at_004c60bc;
 extern int hulk_at_004c60e4;
 class C_2ef4a0 {
   public:
-    char pad[0x70];
+    char pad[HULK_SS(0x70)];   // (x64t6) decls/physics_world.h's SimState offsets
     void* source;
     Obj1c* cached;
 };
@@ -91,13 +93,13 @@ struct Position_2ef5b0 {
     virtual void slot2();
     virtual void slot3();
     virtual Vec_2ef5b0* slot4();
-    char pad[0x15];
+    char pad[HULK_CV(0x19) - sizeof(void*)];   // (x64t6) the volume's c19 (decls/physics_world.h)
     unsigned char dirty;
 };
-struct Node_2ef5b0 {
-    char pad0[0x20];
+struct Node_2ef5b0 {   // (x64t6) the CollisionObject's shape (f20) and b68 at the record's offsets
+    char pad0[HULK_CO_AT(f20)];
     Position_2ef5b0* position;
-    char pad1[0x44];
+    char pad1[HULK_CO_AT(b68) - HULK_CO_AT(f20) - sizeof(void*)];
     unsigned char dirty;
 };
 } // namespace fn_f89b78b9
@@ -126,16 +128,20 @@ struct Sub_2ef7f0 {
 class SimState_2ef7f0 {
   public:
     void* vptr;
-    int m4, m8, mc;
+    hulk_intptr m4;   // (x64t6) decls/physics_world.h HulkSimState: NonCopyable's word and the two pointers pointer-sized
+    int m8, mc;
     Sub_2ef7f0 sub;
     int m50, m54, m58, m5c, m60, m64;
     float f68;
-    int m6c, m70, m74;
+    int m6c;
+    void* m70;
+    void* m74;
     char c78;
     int m7c, m80;
     char c84, c85;
     SimState_2ef7f0(int a) throw();
 };
+typedef char hulk_size_2ef7f0[(sizeof(SimState_2ef7f0) == sizeof(HulkSimState)) ? 1 : -1];   // (x64t6) the record's size on every build
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_00431214[];
 void freeit_0008d330(void*);
@@ -252,7 +258,8 @@ class SimState {
     virtual void _m_vf12();
     virtual void _m_vf13();
     virtual void _m_vf14();
-    char _m_pad_4[0xc];
+    hulk_intptr _m_4;   // (x64t6) NonCopyable's word, pointer-sized (decls/physics_world.h HulkSimState)
+    char _m_pad_8[8];
     Mat_2ef900 current;
     Vec3_2ef900 delta;
     char _m_pad_5c[0xc];
@@ -543,7 +550,7 @@ SimState* SimState::f2(unsigned char flag) {
     Obj_2ef850* a = m74;
     if (a) {
         *(void**)this = (void*)((hulk_intptr)DAT_00431214);
-        *(int*)((char*)a + 0x18) = 0;
+        *(void**)((char*)a + HULK_CO_OWNER) = 0;   // (x64t6) the CollisionObject's owner (was an int at 0x18)
         m74->b();
     } else {
         *(void**)this = (void*)((hulk_intptr)DAT_00431214);

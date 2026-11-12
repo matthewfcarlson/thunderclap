@@ -390,7 +390,7 @@ Result_2efca0* __cdecl target(BaseInput* input, const char* name) {
  n->field6c=0; n->flag50=0;
  ((owners::Target_27b040 *)&(n->text))->FUN_0027b040((hulk_uintptr)(name ? name : "Not baptized yet"));
  ((owners::C_304740 *)n)->FUN_00304740((hulk_intptr)(FUN_002f2750(FUN_0027b020(""))));
- Result_2efca0* r=(Result_2efca0*)FUN_0008d690(136);
+ Result_2efca0* r=(Result_2efca0*)FUN_0008d690(sizeof(HulkSimState));   // (x64t6) the SimState record (136 on 32-bit)
  if(r) r=r->FUN_002ef7f0(0);
  if(!r) return 0;
  bool replaced=false;
