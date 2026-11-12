@@ -93,7 +93,6 @@ extern "C" float DAT_004c6f48;  // flt_004c6f48
 extern "C" float DAT_004c6f50[4];  // fltTbl_004c6f50
 extern "C" int DAT_004e275c;
 extern "C" unsigned char DAT_004e2760[8];
-extern "C" unsigned char DAT_004e2768[4];
-extern "C" unsigned char DAT_004e276c[4];
+extern "C" unsigned char DAT_004e2768[8];
 
 #endif

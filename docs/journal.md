@@ -551,3 +551,17 @@ getters handed a later call's word or callees reading more than we pass (`build/
 A `--wine` sweep at 60 inputs over all of `equivalent/` and the float-using `matches/` (7,466 sources): 6,934 equivalent,
 532 not, 154 of them already on nf3's list; 218 of the new ones are one checker artefact (clang emits no scalar deleting
 destructor for a source that defines only the destructor). Categories in `build/cl12/wine-sweep-summary.md`, for nf4.
+
+## data2: the source offsets refreshed, drift1's 15 review items decided (2026-11-12)
+
+config/data-source-offsets.json now comes from the merged tree (446 offsets). Most of what it changes is right: 8-byte
+.bss pairs that code reads as one 64-bit value become one item. But an offset records how *our* source spells an
+address, so some merges are artefacts of the source: a loop's end pointer (`DAT_00528388 + 16` swallowed a separate
+global), one struct overlaid on separate noise tables (`DAT_0056b7c0 + 14392`), neighbouring arrays written as offsets
+of the first. Those are pinned in config/data-items.json with their reasons. A word that gets folded into its
+neighbour loses its header declaration, so the 9 TUs that named one now spell it `(*(T*)((char*)&DAT_x + 4))`. That
+changed the code hash of 8 equivalents. All 8 were re-proved (MSVC at 3,000 inputs, `--wine`); `--x64` passes for 6, fails for 0x00043ae0 exactly as at HEAD, and cannot run 0x00088020 (the main loop: no 32-bit input completes). The matches still match. PathAction's 0x0011e4a0
+declares six such words itself (C++ linkage). It still compiles and the Wine link retargets the names, but natively
+they become interior names (unbound) until it is rewritten. The inventory's code operands skip base+displacement
+(`byte [eax + 0x426830]`), so luaO_log2's table had no reference. The type votes feed back through config/data.json:
+always regenerate from the committed file. Details in docs/data.md "Reproducing".

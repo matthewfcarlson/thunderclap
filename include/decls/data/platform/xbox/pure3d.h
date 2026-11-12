@@ -156,8 +156,7 @@ extern "C" int DAT_004d3a8c[7];  // tbl_004d3a8c
 // pure3d/d3dFBEffectsShader.cpp
 extern "C" const float DAT_00433738[14];  // fltTbl_00433738
 extern "C" const unsigned int DAT_0048b618[1];  // zero_0048b618
-extern "C" unsigned char DAT_004d4120[35];  // tbl_004d4120
-extern "C" char DAT_004d4143[2445];  // tbl_004d4143
+extern "C" char DAT_004d4120[2480];  // tbl_004d4120
 extern "C" int DAT_004d4ad0[128];  // tbl_004d4ad0
 extern "C" float DAT_004d4cd0;  // flt_004d4cd0
 extern "C" float DAT_004d4cd4;  // flt_004d4cd4

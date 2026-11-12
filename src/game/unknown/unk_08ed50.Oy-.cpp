@@ -47,7 +47,7 @@ class FUN_00087e80 {
 // 0x0008ee30 FUN_0008ee30 (194 B): matches/0x0008ee30.cpp
 // sym: ?FUN_0008ee30@fn_f7b5f211@@YAHXZ
 int FUN_0008ee30() {
-    (*(int*)&DAT_004dd834) += 0x15b;
+    (*(int*)((char*)&DAT_004dd830 + 4)) += 0x15b;
     FUN_0008ed60();
     (*(int*)&DAT_004dd830) = 0x2ad2b093;
     FUN_0008d660();

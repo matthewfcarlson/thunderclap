@@ -509,8 +509,7 @@ extern "C" const unsigned int DAT_0046e320[1];  // zero_0046e320
 extern "C" __int64 DAT_004e13c0;
 extern "C" __int64 DAT_004e13c8;
 extern "C" __int64 DAT_004e13d0;
-extern "C" unsigned char DAT_004e13d8[4];
-extern "C" unsigned char DAT_004e13dc[4];
+extern "C" unsigned char DAT_004e13d8[8];
 extern "C" __int64 DAT_004e13e0;
 extern "C" unsigned char DAT_004e13e8[12];
 extern "C" unsigned int DAT_004e13f4;
@@ -1005,8 +1004,7 @@ extern "C" unsigned char DAT_004e1014[4];
 extern "C" int DAT_004e1018;
 extern "C" unsigned char DAT_004e101c[4];
 extern "C" unsigned char DAT_004e1020[8];
-extern "C" unsigned char DAT_004e1150[4];
-extern "C" unsigned char DAT_004e1154[4];
+extern "C" unsigned char DAT_004e1150[8];
 
 // hulkfight/motion/GroundSlideAction.cpp
 extern "C" const float DAT_00413f58;  // flt_00413f58
@@ -1089,8 +1087,7 @@ extern "C" float DAT_004e11bc;
 extern "C" unsigned char DAT_004e11c0[8];
 extern "C" unsigned char DAT_004e11c8[8];
 extern "C" unsigned char DAT_004e11d0[8];
-extern "C" unsigned char DAT_004e12c8[4];
-extern "C" unsigned char DAT_004e12cc[4];
+extern "C" unsigned char DAT_004e12c8[8];
 
 // hulkfight/motion/HeliLocomotionTrack.cpp
 extern "C" const unsigned int DAT_004686f8[1];  // zero_004686f8
@@ -2289,8 +2286,7 @@ extern "C" int DAT_004e153c;
 extern "C" unsigned char DAT_004e1540[4];
 extern "C" int DAT_004e1544;
 extern "C" unsigned char DAT_004e159c[12];
-extern "C" unsigned char DAT_004e15a8[4];
-extern "C" unsigned char DAT_004e15ac[4];
+extern "C" unsigned char DAT_004e15a8[8];
 
 // hulkfight/motion/TargetBreakTrack.cpp
 extern "C" unsigned char DAT_004e1350[4];
@@ -2560,8 +2556,7 @@ extern "C" int DAT_004e0f54;
 extern "C" unsigned char DAT_004e0f58[4];
 extern "C" int DAT_004e0f5c;
 extern "C" unsigned char DAT_004e0f60[16];
-extern "C" unsigned char DAT_004e0f70[4];
-extern "C" unsigned char DAT_004e0f74[4];
+extern "C" unsigned char DAT_004e0f70[8];
 extern "C" float DAT_004e0f78;
 extern "C" unsigned int DAT_004e0f7c;
 

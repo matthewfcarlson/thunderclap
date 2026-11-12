@@ -17,7 +17,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 #endif
 
-struct DataLayout_004cc25c;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_004cc254;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004cd1e4;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004e6200;  // packed layout (bytes and pointers), defined in the data TU
 #include "decls/data/records.h"
@@ -129,7 +129,7 @@ extern "C" const unsigned int DAT_00480f2c[1];  // zero_00480f2c
 extern "C" const unsigned int DAT_00480f7c[1];  // zero_00480f7c
 extern "C" char DAT_004e6320[4];
 extern "C" char DAT_004e6328[4];
-extern "C" char DAT_004e6330[4];
+extern "C" char DAT_004e6330[8];
 extern "C" char DAT_004e6338[4];
 // DAT_004e6360: typed by decls/data/records.h (included above)
 
@@ -540,10 +540,8 @@ extern "C" const unsigned int DAT_004808fc[1];  // zero_004808fc
 extern "C" const void* DAT_004cc1fc;  // PTR_004cc1fc
 extern "C" hulk_vftable_ptr DAT_004cc200;  // PTR_004cc200
 extern "C" hulk_code_ptr DAT_004cc204[2];  // ptrTbl_004cc204
-extern "C" unsigned char DAT_004e5f88[4];
-extern "C" unsigned char DAT_004e5f8c[4];
-extern "C" unsigned char DAT_004e5f90[4];
-extern "C" unsigned char DAT_004e5f94[4];
+extern "C" unsigned char DAT_004e5f88[8];
+extern "C" unsigned char DAT_004e5f90[8];
 
 // audio/unk_24c1c0.cpp
 extern "C" const char DAT_00429314[5];  // s_AT3_00429314
@@ -558,9 +556,8 @@ extern "C" const char DAT_0042934c[7];  // s_Name_0042934c
 extern "C" const float DAT_00429354;  // flt_00429354
 extern "C" char DAT_004cc248[1];  // s_empty_004cc248
 extern "C" const char* DAT_004cc24c[2];  // ptrTbl_004cc24c
-extern "C" int DAT_004cc254;
-extern "C" int DAT_004cc258;
-extern "C" DataLayout_004cc25c DAT_004cc25c;  // struct_004cc25c
+extern "C" DataLayout_004cc254 DAT_004cc254;  // struct_004cc254
+extern "C" unsigned int DAT_004cc2cc[3];  // zero_004cc2cc
 extern "C" unsigned char DAT_004e61f0[16];
 extern "C" DataLayout_004e6200 DAT_004e6200[1];
 // DAT_004e6208: typed by decls/data/records.h (included above)
@@ -583,7 +580,6 @@ extern "C" float DAT_004e62d0;
 extern "C" unsigned char DAT_004e62d4[4];
 extern "C" unsigned char DAT_004e6324[4];
 extern "C" unsigned char DAT_004e632c[4];
-extern "C" unsigned char DAT_004e6334[4];
 extern "C" unsigned char DAT_004e633c[4];
 
 // audio/unk_261a80.cpp

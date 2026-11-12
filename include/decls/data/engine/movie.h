@@ -25,9 +25,6 @@ extern "C" const char DAT_004277f0[15];  // s_fightReference_004277f0
 extern "C" const char DAT_00427800[11];  // s_fightChunk_00427800
 extern "C" const char DAT_0042780c[11];  // s_fightStore_0042780c
 extern "C" const char DAT_00427818[10];  // s_fightBank_00427818
-extern "C" const char DAT_00427824[13];  // s_fightContext_00427824
-extern "C" const unsigned int DAT_00427834[1];  // unk_00427834
-extern "C" const float DAT_00427838[7];  // fltTbl_00427838
 extern "C" const char DAT_00434304[19];  // s_MayaCreateFunction_00434304
 extern "C" hulk_code_ptr const DAT_00434318;  // PTR_00434318
 extern "C" const char DAT_0043431c[4];  // s_deg_0043431c

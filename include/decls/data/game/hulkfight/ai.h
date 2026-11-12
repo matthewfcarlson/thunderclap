@@ -229,9 +229,7 @@ extern "C" const unsigned int DAT_004564bc[1];  // zero_004564bc
 extern "C" const unsigned int DAT_0045650c[1];  // zero_0045650c
 extern "C" const unsigned int DAT_0045655c[1];  // zero_0045655c
 extern "C" const unsigned int DAT_004565a8[1];  // zero_004565a8
-extern "C" const char* DAT_004a1f60;  // PTR_004a1f60
-extern "C" const char* DAT_004a1f64;  // PTR_004a1f64
-extern "C" const char* DAT_004a1f68;  // PTR_004a1f68
+extern "C" const char* DAT_004a1f60[3];  // ptrTbl_004a1f60
 extern "C" float DAT_004a1f6c[4];  // fltTbl_004a1f6c
 extern "C" unsigned int DAT_004a202c[1];  // zero_004a202c
 extern "C" unsigned int DAT_004a207c[1];  // zero_004a207c
@@ -247,8 +245,7 @@ extern "C" unsigned char DAT_004e0ad0[4];
 extern "C" int DAT_004e0ad4;
 extern "C" unsigned char DAT_004e0ad8[4];
 extern "C" int DAT_004e0adc;
-extern "C" unsigned char DAT_004e0ba8[4];
-extern "C" unsigned char DAT_004e0bac[4];
+extern "C" unsigned char DAT_004e0ba8[8];
 
 // hulkfight/ai/FightingOtherNPCCondition_2.cpp
 extern "C" const unsigned int DAT_00458214[1];  // zero_00458214
@@ -474,20 +471,14 @@ extern "C" const char DAT_0040f66c[15];  // s_locator_failed_0040f66c
 extern "C" const char DAT_0040f67c[17];  // s_intersect_failed_0040f67c
 extern "C" const char DAT_0040f690[16];  // s_waypoint_failed_0040f690
 extern "C" unsigned char DAT_004e0ce8[8];
-extern "C" int DAT_004e0cf0;
-extern "C" int DAT_004e0cf4;
-extern "C" int DAT_004e0cf8;
-extern "C" int DAT_004e0cfc;
+extern "C" unsigned char DAT_004e0cf0[8];
+extern "C" unsigned char DAT_004e0cf8[8];
 extern "C" unsigned char DAT_004e0d00[8];
-extern "C" int DAT_004e0d08;
-extern "C" int DAT_004e0d0c;
-extern "C" int DAT_004e0d10;
-extern "C" int DAT_004e0d14;
-extern "C" int DAT_004e0d18;
-extern "C" int DAT_004e0d1c;
+extern "C" unsigned char DAT_004e0d08[8];
+extern "C" unsigned char DAT_004e0d10[8];
+extern "C" unsigned char DAT_004e0d18[8];
 extern "C" unsigned char DAT_004e0d20[8];
-extern "C" int DAT_004e0d28;
-extern "C" int DAT_004e0d2c;
+extern "C" unsigned char DAT_004e0d28[8];
 extern "C" unsigned char DAT_004e0d30[16];
 extern "C" unsigned char DAT_004e0d40[8];
 

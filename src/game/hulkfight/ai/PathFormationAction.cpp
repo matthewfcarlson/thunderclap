@@ -1399,7 +1399,7 @@ bool StrafeRunAction::vfunc_5(Slot_11ce20 a0, Slot_11ce20 a1)
 
 
 // 0x0011d2c0 hulkfight::ai::PathFormationAction::vfunc_5 (1431 B): equivalent/0x0011d2c0.cpp [wrapped: conflict: World]
-// sym: ?F@PathFormationAction@fn_0011d2c0@@QAEDHM@Z @57c325c76383 @wce048a64534f
+// sym: ?F@PathFormationAction@fn_0011d2c0@@QAEDHM@Z @a84797e9e69e @wdcb0707d657a
 namespace fn_0011d2c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3087 inputs, branch coverage 62/62)
 // hulkfight::ai::PathFormationAction::vfunc_5 @ 0x0011d2c0
@@ -1584,7 +1584,7 @@ char PathFormationAction::F(int a, float dt)
 
     bool skipTo2d4 = false;
     if (bC8) {
-        if (!(idLo == DAT_004e0d18 && idHi == DAT_004e0d1c)) {
+        if (!(idLo == (*(int*)&DAT_004e0d18) && idHi == (*(int*)((char*)&DAT_004e0d18 + 4)))) {
             if (fCC > 5.0f) {
                 bC8 = 0;
                 fCC = 0;
@@ -1632,10 +1632,10 @@ char PathFormationAction::F(int a, float dt)
         Y.z = v64.z - v20.z;
         float L = Y.FUN_0022d110();
         int lo = idLo;
-        int d28 = DAT_004e0d28;
+        int d28 = (*(int*)&DAT_004e0d28);
         int hi = idHi;
         bool toW;
-        if ((lo == d28 && hi == DAT_004e0d2c) || (lo == DAT_004e0d18 && hi == DAT_004e0d1c)) {
+        if ((lo == d28 && hi == (*(int*)((char*)&DAT_004e0d28 + 4))) || (lo == (*(int*)&DAT_004e0d18) && hi == (*(int*)((char*)&DAT_004e0d18 + 4)))) {
             toW = false;
         } else if (FUN_00018960(L, 0.0f, 1.0e-5f)) {
             toW = true;
@@ -1650,7 +1650,7 @@ char PathFormationAction::F(int a, float dt)
             B = W.y;
         } else {
             U.x = Y.x; U.y = Y.y; U.z = Y.z;
-            if (lo == d28 && hi == DAT_004e0d2c) {
+            if (lo == d28 && hi == (*(int*)((char*)&DAT_004e0d28 + 4))) {
                 U.x = Y.x * -1.0f;
                 U.y = Y.y * -1.0f;
                 U.z = Y.z * -1.0f;
@@ -1669,7 +1669,7 @@ char PathFormationAction::F(int a, float dt)
             U.x = Y.x;
             U.y = 0;
             U.z = Y.z;
-            if (idLo == DAT_004e0d28 && idHi == DAT_004e0d2c) {
+            if (idLo == (*(int*)&DAT_004e0d28) && idHi == (*(int*)((char*)&DAT_004e0d28 + 4))) {
                 *(unsigned int *)&U.y = 0x80000000;
                 U.x = Y.x * -1.0f;
                 U.z = Y.z * -1.0f;

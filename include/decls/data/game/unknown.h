@@ -878,10 +878,8 @@ extern "C" unsigned char DAT_004dc040[4];
 extern "C" unsigned char DAT_004dc044[4];
 extern "C" unsigned char DAT_004dc048[4];
 extern "C" unsigned char DAT_004dc04c[4];
-extern "C" unsigned char DAT_004dc050[4];
-extern "C" unsigned char DAT_004dc054[4];
-extern "C" unsigned char DAT_004dc058[4];
-extern "C" unsigned char DAT_004dc05c[4];
+extern "C" unsigned char DAT_004dc050[8];
+extern "C" unsigned char DAT_004dc058[8];
 extern "C" unsigned char DAT_004dc070[4];
 extern "C" unsigned char DAT_004dc074[4];
 extern "C" unsigned char DAT_004dc0d8[8];
@@ -907,8 +905,7 @@ extern "C" unsigned char DAT_004dc168[256];
 extern "C" unsigned char DAT_004dc268[32];
 extern "C" unsigned char DAT_004dc288[8];
 extern "C" unsigned char DAT_004dc294[12];
-extern "C" unsigned char DAT_004dc2a0[4];
-extern "C" unsigned char DAT_004dc2a4[4];
+extern "C" unsigned char DAT_004dc2a0[8];
 
 // unknown/unk_048440.cpp
 extern "C" const unsigned int DAT_0043fadc[1];  // zero_0043fadc
@@ -990,8 +987,7 @@ extern "C" unsigned char DAT_004dc570[4];
 extern "C" int DAT_004dc574;
 extern "C" unsigned char DAT_004dc578[4];
 extern "C" int DAT_004dc57c;
-extern "C" unsigned char DAT_004dc588[4];
-extern "C" unsigned char DAT_004dc58c[4];
+extern "C" unsigned char DAT_004dc588[8];
 
 // unknown/unk_05c6b0.cpp
 extern "C" const char DAT_003f9d6c[17];  // s_rootBlendOutTime_003f9d6c
@@ -1399,8 +1395,7 @@ extern "C" unsigned char DAT_0049caad;
 extern "C" unsigned char DAT_0049caae;
 extern "C" float DAT_0049cab0;  // flt_0049cab0
 extern "C" int DAT_0049cab4;
-extern "C" unsigned int DAT_004dd830;
-extern "C" unsigned char DAT_004dd834[4];
+extern "C" unsigned char DAT_004dd830[8];
 extern "C" char DAT_004dd838;
 extern "C" char DAT_004dd83a;
 extern "C" char DAT_004dd83b;

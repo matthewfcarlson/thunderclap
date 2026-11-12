@@ -82,9 +82,9 @@ int __cdecl FUN_0024c200(const char *name)
 
 // 0x0024c2b0 FUN_0024c2b0 (15 B): matches/0x0024c2b0.cpp
 // sym: _FUN_0024c2b0
-// data: gTable_24c2b0 = DAT_004cc25c
+// data: gTable_24c2b0 = DAT_004cc254 + 8 (the codec table's third field)
 extern "C" u8_24c2b0 __cdecl FUN_0024c2b0(int i) {
-    return ((u8_24c2b0*)&DAT_004cc25c)[i * 24];
+    return ((u8_24c2b0*)((char*)&DAT_004cc254 + 8))[i * 24];
 }
 
 
@@ -104,11 +104,11 @@ extern "C" unsigned int FUN_0024c2d0(unsigned int* p) {
 
 // 0x0024c2f0 FUN_0024c2f0 (32 B): matches/0x0024c2f0.cpp
 // sym: _FUN_0024c2f0
-// data: gTable_24c2f0 = DAT_004cc258
+// data: gTable_24c2f0 = DAT_004cc254 + 4 (the codec table's second field)
 extern "C" int FUN_0024c2f0(unsigned int* p) {
     unsigned int v = *p;
     int index = (int)(v << 28) >> 28;
-    return (int)((v >> 4) & 31) * *(int*)((char*)((int*)&DAT_004cc258) + index * 24);
+    return (int)((v >> 4) & 31) * *(int*)((char*)((int*)((char*)&DAT_004cc254 + 4)) + index * 24);
 }
 
 
@@ -130,16 +130,16 @@ extern "C" unsigned* FUN_0024c330(unsigned* p, unsigned a, unsigned b, unsigned 
 
 // 0x0024c3b0 FUN_0024c3b0 (37 B): matches/0x0024c3b0.cpp
 // sym: _FUN_0024c3b0
-// data: gData_24c3b0 = DAT_004cc258
+// data: gData_24c3b0 = DAT_004cc254 + 4 (the codec table's second field)
 extern "C" int FUN_0024c3b0(unsigned int* format, int count) {
-    return ((*format >> 4) & 0x1f) * ((int*)&DAT_004cc258)[((int)(*format << 28) >> 28) * 6] * count;
+    return ((*format >> 4) & 0x1f) * ((int*)((char*)&DAT_004cc254 + 4))[((int)(*format << 28) >> 28) * 6] * count;
 }
 
 
 // 0x0024c3e0 FUN_0024c3e0 (44 B): matches/0x0024c3e0.cpp
 // sym: _FUN_0024c3e0
 extern "C" hulk_uintptr __cdecl FUN_0024c3e0(uint_24c3e0* format, uint_24c3e0 bytes) {
-    return bytes / (((*format >> 4) & 0x1f) * ((int*)&DAT_004cc258)[((int)(*format << 0x1c) >> 0x1c) * 6]);
+    return bytes / (((*format >> 4) & 0x1f) * ((int*)((char*)&DAT_004cc254 + 4))[((int)(*format << 0x1c) >> 0x1c) * 6]);
 }
 
 
@@ -151,7 +151,7 @@ extern "C" int FUN_0024c480(unsigned int* format, unsigned int bytes) {
     unsigned int m = (x >> 4);
     m &= 31;
     unsigned int d = *(unsigned int*)(((unsigned char*)&DAT_004cc254) + index * 24);
-    unsigned int s = m * *(unsigned int*)(((unsigned char*)&DAT_004cc258) + index * 24);
+    unsigned int s = m * *(unsigned int*)(((unsigned char*)((char*)&DAT_004cc254 + 4)) + index * 24);
     unsigned int q = bytes / d;
     unsigned int r = bytes % d;
     return (r * s) / d + q * s;
@@ -199,7 +199,7 @@ unsigned int __cdecl FUN_0024c590(unsigned int* p, unsigned int x) {
     unsigned int r = ((x % 1000) * v) / 1000 + (x / 1000) * v;
     int i = (int)(u << 28) >> 28;
     unsigned int d = ((unsigned int*)&DAT_004cc254)[i * 6];
-    unsigned int n = (u >> 4 & 31) * ((unsigned int*)&DAT_004cc258)[i * 6];
+    unsigned int n = (u >> 4 & 31) * ((unsigned int*)((char*)&DAT_004cc254 + 4))[i * 6];
     return ((r % d) * n) / d + (r / d) * n;
 }
 

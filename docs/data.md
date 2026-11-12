@@ -549,5 +549,25 @@ include/decls/data/ byte-identical, the data TUs differ in 7 comment lines.
 
 **Refreshing the offsets** (`--refresh-offsets`; `--compile` compiles tree TUs without a cached object, MSVC: run it
 as a queue job). From the tree at 8205c9508 it reads 446 offsets (259 the same, 8 changed, 179 new, 118 gone): about
-250 items would change span, mostly two words used as one (`DAT_x + 4`). Not applied: a data change with its own
-proof.
+250 items would change span, mostly two words used as one (`DAT_x + 4`).
+
+**Applied (data2, 2026-11-12).** config/data-source-offsets.json is the tree's (446 offsets from 2,675 objects, queue
+job 72277). With it 99 items change span and 107 are folded into their neighbours: mostly 8-byte `.bss` pairs that
+code reads as one 64-bit value (the name hashes the dynamic initializers write, `(u64)hi << 32 | lo` keys, the
+performance-counter frequency DAT_00528380), small index-pair and pointer tables, a vector. An offset is how *our*
+source spells an address, not only how the original laid it out, so four were reviewed and pinned in
+config/data-items.json instead: a loop's end pointer (`DAT_00528388 + 16`), a source overlaying separate statics with
+one struct (`DAT_0056b7c0 + 14392`), neighbouring arrays spelled as offsets of the first (`DAT_004e3768 + 48`), and the
+audio codec table at 0x004cc254 (one 120-byte struct; neither carve had it). A source that named a folded word now
+spells it `(*(T*)((char*)&DAT_x + 4))` (9 TUs: 13 matches blocks still MATCH, 8 equivalents re-proved). drift1's 15
+`review` entries were decided in the same change: 7 removed (the evidence accepted: CDramaticCamera's and Branch.cpp's
+strings, `int[4]` / `unsigned int` from the sources, the 2-byte string 0x004ca248 points at, now `const char*`), 3
+kept with their reasons (an IMA ADPCM index table, a luaL_reg list, a header-static float run), 4 corrected (Lua's
+log_2 byte table in lobject.cpp, the opcode table's kind, a string's owner, libpng's 8-byte signature) and 0x004d4143
+replaced by one 2,480-byte stroke-font table at 0x004d4120. config/data-items.json: 64 entries (52 + 8 + the 4 pins
+above), and `reviewed` keeps the reasoning of the ones removed.
+
+**Limits seen on the way.** The code operands miss a base register plus displacement (`movzx eax, byte [eax +
+0x426830]`, luaO_log2's table): such an item has no code reference unless a source names it. And the type votes read
+the previous config/data.json: regenerate from the committed file, not from an intermediate run, or a folded item's
+neighbour loses the type only that run dropped.

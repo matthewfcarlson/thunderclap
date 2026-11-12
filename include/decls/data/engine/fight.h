@@ -38,6 +38,10 @@ extern "C" const unsigned int DAT_0047f7c0[1];  // zero_0047f7c0
 extern "C" float DAT_004cb264[4];  // fltTbl_004cb264
 
 // fight/Branch.cpp
+extern "C" const char DAT_00427770[10];  // s_debugOnly_00427770
+extern "C" const char DAT_00427824[13];  // s_fightContext_00427824
+extern "C" const char DAT_00427834[2];  // s_empty_00427834
+extern "C" const float DAT_00427838[7];  // fltTbl_00427838
 extern "C" const char DAT_00427854[33];  // s_fight_Reader_ERROR_s_00427854
 extern "C" const float DAT_00427878[7];  // fltTbl_00427878
 extern "C" const char DAT_004278c0[13];  // s_08x_08x_s_s_004278c0
@@ -46,7 +50,7 @@ extern "C" const char DAT_004278dc[18];  // s_Unexpected_token_004278dc
 extern "C" const char DAT_004278f0[44];  // s_Failed_to_insert_bra_004278f0
 extern "C" const float DAT_0042791c[14];  // fltTbl_0042791c
 extern "C" const unsigned int DAT_0047df14[1];  // zero_0047df14
-extern "C" const void* DAT_004ca248;  // PTR_004ca248
+extern "C" const char* DAT_004ca248;  // PTR_004ca248
 extern "C" const char* DAT_004ca24c;  // PTR_004ca24c
 extern "C" const char* DAT_004ca250;  // PTR_004ca250
 extern "C" const char* DAT_004ca278;  // PTR_004ca278
@@ -66,8 +70,7 @@ extern "C" unsigned char DAT_004e5b38[4];
 extern "C" unsigned char DAT_004e5b3c[4];
 extern "C" unsigned char DAT_004e5b40[4];
 extern "C" unsigned char DAT_004e5b44[4];
-extern "C" unsigned char DAT_004e5b48[4];
-extern "C" unsigned char DAT_004e5b4c[4];
+extern "C" unsigned char DAT_004e5b48[8];
 extern "C" unsigned char DAT_004e5b50[4];
 extern "C" unsigned char DAT_004e5b54[4];
 extern "C" unsigned char DAT_004e5b58[4];
@@ -81,8 +84,7 @@ extern "C" unsigned char DAT_004e5b78[4];
 extern "C" unsigned char DAT_004e5b7c[4];
 extern "C" unsigned char DAT_004e5b80[4];
 extern "C" unsigned char DAT_004e5b84[4];
-extern "C" unsigned char DAT_004e5b88[4];
-extern "C" unsigned char DAT_004e5b8c[4];
+extern "C" unsigned char DAT_004e5b88[8];
 extern "C" unsigned char DAT_004e5b90[4];
 extern "C" unsigned char DAT_004e5b94[4];
 extern "C" unsigned char DAT_004e5ba8[8];
@@ -508,7 +510,6 @@ extern "C" const unsigned int DAT_00427750[1];  // unk_00427750
 extern "C" const char DAT_00427759[3];  // s_lB_00427759
 extern "C" const unsigned int DAT_0042775c[1];  // unk_0042775c
 extern "C" const unsigned int DAT_00427764[3];  // unk_00427764
-extern "C" const char DAT_00427770[10];  // s_debugOnly_00427770
 extern "C" const char DAT_0042777c[10];  // s_reference_0042777c
 extern "C" DataLayout_004e5af8 DAT_004e5af8[1];
 

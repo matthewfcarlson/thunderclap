@@ -481,7 +481,7 @@ Object_267ed0* Object_267ed0::vfunc_0(unsigned char param) {
 extern "C" int __cdecl FUN_00267f00(void) {
     DWORD local[2];
     XAPILIB::QueryPerformanceCounter(local);
-    return FUN_00267e20(local[0], local[1], 1000000, 0, (*(DWORD*)&DAT_00528380), (*(DWORD*)&DAT_00528384));
+    return FUN_00267e20(local[0], local[1], 1000000, 0, (*(DWORD*)&DAT_00528380), (*(DWORD*)((char*)&DAT_00528380 + 4)));
 }
 
 } // namespace fn_fc34aa1a
@@ -499,7 +499,7 @@ unsigned __int64 __cdecl FUN_00267e20(DWORD, DWORD, DWORD, DWORD, DWORD, DWORD);
 extern "C" unsigned __int64 __cdecl FUN_00267f40(void) {
     DWORD local[2];
     XAPILIB::QueryPerformanceCounter(local);
-    return FUN_00267e20(local[0], local[1], 1000000, 0, (*(DWORD*)&DAT_00528380), (*(DWORD*)&DAT_00528384));
+    return FUN_00267e20(local[0], local[1], 1000000, 0, (*(DWORD*)&DAT_00528380), (*(DWORD*)((char*)&DAT_00528380 + 4)));
 }
 } // namespace fn_00267f40
 
@@ -518,7 +518,7 @@ extern "C++" __declspec(nothrow) int __cdecl FUN_00267e20(DWORD, DWORD, DWORD, D
 extern "C" int FUN_00267f80() {
     LARGE_INTEGER n;
     QueryPerformanceCounter(&n);
-    return FUN_00267e20(n.low, n.high, 1000, 0, (*(DWORD*)&DAT_00528380), (*(DWORD*)&DAT_00528384));
+    return FUN_00267e20(n.low, n.high, 1000, 0, (*(DWORD*)&DAT_00528380), (*(DWORD*)((char*)&DAT_00528380 + 4)));
 }
 } // namespace fn_00267f80
 
@@ -565,13 +565,13 @@ C_268010::~C_268010() {}
 
 
 // 0x00268020 core::TimerList::vfunc_5 (70 B): equivalent/0x00268020.cpp
-// sym: ?vfunc_5@TimerList@core@@UAEXXZ @af8830d36394 @w35f89150bf2f
+// sym: ?vfunc_5@TimerList@core@@UAEXXZ @d9be2ba353fa @w14d8d8a1f992
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // core::TimerList::vfunc_5 @ 0x00268020
 void core::TimerList::vfunc_5() {
  __int64 counter;
  XAPILIB::QueryPerformanceCounter(&counter);
- unsigned int result = FUN_00267e20((unsigned int)counter, (unsigned int)(counter >> 32), 1000, 0, (*(unsigned int*)&DAT_00528380), (*(unsigned int*)&DAT_00528384));
+ unsigned int result = FUN_00267e20((unsigned int)counter, (unsigned int)(counter >> 32), 1000, 0, (*(unsigned int*)&DAT_00528380), (*(unsigned int*)((char*)&DAT_00528380 + 4)));
  this->vfunc_4((int)result);
 }
 

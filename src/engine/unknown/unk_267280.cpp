@@ -339,14 +339,14 @@ extern "C" void __cdecl FUN_00267880(char *destination, const char *source, int 
 
 // 0x00267a50 FUN_00267a50 (51 B): matches/0x00267a50.cpp
 // sym: _FUN_00267a50
-// data: count = DAT_00528378, first = DAT_00528380, second = DAT_00528384
+// data: count = DAT_00528378, first = DAT_00528380, second = DAT_00528380 + 4 (one 64-bit value)
 extern "C" void FUN_00267a50() {
     (*(int*)&DAT_00528378)++;
     if ((*(int*)&DAT_00528378) == 1) {
         int local[2];
         FUN_00354ce2(local);
         (*(int*)&DAT_00528380) = local[0];
-        (*(int*)&DAT_00528384) = local[1];
+        (*(int*)((char*)&DAT_00528380 + 4)) = local[1];
     }
 }
 

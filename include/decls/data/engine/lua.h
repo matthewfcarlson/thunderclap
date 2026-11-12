@@ -26,7 +26,6 @@ extern "C" const char DAT_004265fc[9];  // s_no_value_004265fc
 extern "C" const char DAT_00426608[2];  // s_empty_00426608
 extern "C" const DataRec_00426824 DAT_00426824[1];  // struct_00426824
 extern "C" const unsigned int DAT_0042682c[1];  // zero_0042682c
-extern "C" const unsigned int DAT_00426830[64];  // unk_00426830
 extern "C" const char* const DAT_00426948[11];  // ptrTbl_00426948
 extern "C" const char DAT_00426974[6];  // s_upval_00426974
 extern "C" const char DAT_0042697c[6];  // s_proto_0042697c
@@ -137,7 +136,7 @@ extern "C" const char DAT_004352ac[52];  // s_The_file_doesn_t_con_004352ac
 extern "C" const char DAT_004271b8[27];  // s_control_structure_to_004271b8
 extern "C" const char DAT_004271d4[35];  // s_function_or_expressi_004271d4
 extern "C" const char DAT_004271f8[19];  // s_code_size_overflow_004271f8
-extern "C" const unsigned int DAT_0042720c[6];  // unk_0042720c
+extern "C" const unsigned int DAT_0042720c[6];  // tbl_0042720c
 extern "C" const float DAT_00427224[14];  // fltTbl_00427224
 extern "C" const float DAT_00427298[7];  // fltTbl_00427298
 
@@ -279,6 +278,7 @@ extern "C" const char DAT_00434af0[5];  // s_math_00434af0
 extern "C" const char DAT_00426bc8[39];  // s_memory_allocation_er_00426bc8
 
 // lua/lobject.cpp
+extern "C" const unsigned char DAT_00426830[256];  // tbl_00426830
 extern "C" const char DAT_00426930[2];  // s_empty_00426930
 extern "C" const short DAT_00426934;
 extern "C" const char DAT_00426936[1];  // s_empty_00426936

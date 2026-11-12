@@ -818,8 +818,7 @@ extern "C" const unsigned int DAT_0042f8a4[1];  // unk_0042f8a4
 extern "C" const float DAT_0042f8a8[21];  // fltTbl_0042f8a8
 extern "C" char DAT_004d1020[6];  // s_1_0_3_004d1020
 extern "C" unsigned char DAT_004d1026[6];  // zero_004d1026
-extern "C" float DAT_004d102c;  // flt_004d102c
-extern "C" unsigned int DAT_004d1030[1];  // unk_004d1030
+extern "C" unsigned char DAT_004d102c[8];  // tbl_004d102c
 extern "C" char DAT_004d1034[5];  // s_IHDR_004d1034
 extern "C" char DAT_004d103c[5];  // s_IDAT_004d103c
 extern "C" char DAT_004d1044[5];  // s_IEND_004d1044

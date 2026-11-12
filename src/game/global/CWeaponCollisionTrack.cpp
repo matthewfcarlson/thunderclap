@@ -6194,7 +6194,7 @@ void Owner_66b60::FUN_00066b60(Result_66b60 *out, const Key_66b60 *key)
 
 
 // 0x00066c20 FUN_00066c20 (303 B): equivalent/0x00066c20.cpp [wrapped: conflict: World]
-// sym: ?FUN_00066c20@Owner_66c20@fn_00066c20@@QAEXH@Z @3d14cb1f257d @wf6027f946513
+// sym: ?FUN_00066c20@Owner_66c20@fn_00066c20@@QAEXH@Z @6e88ab3cedb5 @w074b131b6de3
 namespace fn_00066c20 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00066c20 @ 0x00066c20
@@ -6265,11 +6265,11 @@ void Owner_66c20::FUN_00066c20(hulk_intptr unused)
     field_00 = DAT_004dd700->field_2c;
     field_04 = DAT_004dd700->field_58;
 
-    key.a = DAT_004dced0; key.b = DAT_004dced4; key.c = 0;
+    key.a = (*(int*)&DAT_004dced0); key.b = (*(int*)((char*)&DAT_004dced0 + 4)); key.c = 0;
     table.FUN_00066b60(&out, &key);
     key.a = DAT_004dcef8; key.b = DAT_004dcefc; key.c = 0;
     table.FUN_00066b60(&out, &key);
-    key.a = DAT_004dced8; key.b = DAT_004dcedc; key.c = 0;
+    key.a = (*(int*)&DAT_004dced8); key.b = (*(int*)((char*)&DAT_004dced8 + 4)); key.c = 0;
     table.FUN_00066b60(&out, &key);
     key.a = DAT_004dcec8; key.b = DAT_004dcecc; key.c = 0;
     table.FUN_00066b60(&out, &key);

@@ -105,8 +105,7 @@ extern "C" unsigned int DAT_004e1800;
 extern "C" unsigned char DAT_004e1804[4];
 extern "C" float DAT_004e1808;
 extern "C" float DAT_004e180c;
-extern "C" unsigned char DAT_004e1810[4];
-extern "C" unsigned char DAT_004e1814[4];
+extern "C" unsigned char DAT_004e1810[8];
 extern "C" unsigned char DAT_004e1818[16];
 extern "C" unsigned char DAT_004e1828[8];
 
@@ -1382,19 +1381,16 @@ extern "C" unsigned int DAT_0048f5e0[3];  // tbl_0048f5e0
 extern "C" float DAT_0048f690;  // flt_0048f690
 extern "C" float DAT_0048f694;  // flt_0048f694
 extern "C" unsigned char DAT_004dc060[8];
-extern "C" unsigned int DAT_004dc080;
-extern "C" unsigned int DAT_004dc084;
+extern "C" unsigned char DAT_004dc080[8];
 extern "C" unsigned char DAT_004dc088[4];
 extern "C" unsigned char DAT_004dc08c[4];
 extern "C" unsigned char DAT_004dc090[8];
 extern "C" unsigned char DAT_004dc098[8];
 extern "C" unsigned char DAT_004dc0a0[4];
 extern "C" unsigned char DAT_004dc0a4[4];
-extern "C" unsigned char DAT_004dc0b0[4];
-extern "C" unsigned char DAT_004dc0b4[4];
+extern "C" unsigned char DAT_004dc0b0[8];
 extern "C" unsigned char DAT_004dc0c0[8];
-extern "C" unsigned char DAT_004dc0d0[4];
-extern "C" unsigned char DAT_004dc0d4[4];
+extern "C" unsigned char DAT_004dc0d0[8];
 extern "C" unsigned char DAT_004dc2bc[4];
 extern "C" unsigned char DAT_004dc2c0[8];
 extern "C" unsigned char DAT_004dc2c8[8];
@@ -1636,8 +1632,7 @@ extern "C" unsigned char DAT_004dc348[8];
 extern "C" unsigned char DAT_004dc350[8];
 extern "C" unsigned char DAT_004dc358[8];
 extern "C" unsigned char DAT_004dc360[144];
-extern "C" unsigned char DAT_004dc3f0[4];
-extern "C" unsigned char DAT_004dc3f4[4];
+extern "C" unsigned char DAT_004dc3f0[8];
 
 // global/CCharacterTemplateVariationCondition_2.cpp
 extern "C" const unsigned int DAT_00445310[1];  // zero_00445310
@@ -1696,8 +1691,6 @@ extern "C" const float DAT_0040570c;  // flt_0040570c
 extern "C" const float DAT_00405710;  // flt_00405710
 extern "C" const float DAT_00405714;  // flt_00405714
 extern "C" const float DAT_0040571c[9];  // fltTbl_0040571c
-extern "C" const char DAT_00405740[12];  // s_DramaticCam_00405740
-extern "C" const unsigned int DAT_0040574c[1];  // zero_0040574c
 extern "C" const unsigned int DAT_004513d0[1];  // zero_004513d0
 extern "C" const char* DAT_0049ec40;  // PTR_0049ec40
 extern "C" int DAT_0049ec44;
@@ -1761,8 +1754,7 @@ extern "C" int DAT_0049eccc;
 extern "C" float DAT_0049ecd0;  // flt_0049ecd0
 extern "C" int DAT_0049ecd4;
 extern "C" unsigned char DAT_004dd9e0[8];
-extern "C" unsigned char DAT_004dd9e8[4];
-extern "C" unsigned char DAT_004dd9ec[4];
+extern "C" unsigned char DAT_004dd9e8[8];
 
 // global/CCivilian.cpp
 extern "C" const char DAT_003ff5a0[10];  // s_punch_sml_003ff5a0
@@ -1902,8 +1894,7 @@ extern "C" int DAT_004c3a00;
 extern "C" int DAT_004c3a04;
 extern "C" int DAT_004c3a08;
 extern "C" int DAT_004c3a0c;
-extern "C" int DAT_004c3a10;
-extern "C" int DAT_004c3a14;
+extern "C" int DAT_004c3a10[2];  // tbl_004c3a10
 extern "C" int DAT_004c3a18[2];  // tbl_004c3a18
 extern "C" int DAT_004c3a20[2];  // tbl_004c3a20
 extern "C" unsigned int DAT_004c3a28[1];  // unk_004c3a28
@@ -1917,10 +1908,8 @@ extern "C" unsigned char DAT_004e2184[12];
 extern "C" unsigned char DAT_004e2190[4];
 extern "C" char DAT_004e2194[4];
 extern "C" unsigned char DAT_004e21a0[64];
-extern "C" unsigned char DAT_004e21e0[4];
-extern "C" unsigned char DAT_004e21e4[4];
-extern "C" unsigned char DAT_004e21e8[4];
-extern "C" unsigned char DAT_004e21ec[4];
+extern "C" unsigned char DAT_004e21e0[12];
+extern "C" unsigned int DAT_004e21ec;
 
 // global/CCollisionPushbackDirectionCondition_2.cpp
 extern "C" const unsigned int DAT_0043ff24[1];  // zero_0043ff24
@@ -2127,6 +2116,8 @@ extern "C" unsigned int DAT_004dcf7c;
 extern "C" const unsigned int DAT_0044ce34[1];  // zero_0044ce34
 
 // global/CDramaticCamera.cpp
+extern "C" const char DAT_00405740[12];  // s_DramaticCam_00405740
+extern "C" const unsigned int DAT_0040574c[1];  // zero_0040574c
 extern "C" const float DAT_004057ec;  // flt_004057ec
 extern "C" const char DAT_004057f0[20];  // s_Combat_Attributes_004057f0
 extern "C" const char DAT_00405804[22];  // s_ChaseCam_Attributes_00405804
@@ -2633,14 +2624,11 @@ extern "C" unsigned char DAT_004dde2c[4];
 extern "C" void* DAT_004dde30[1];
 extern "C" void* DAT_004dde34[1];
 extern "C" unsigned char DAT_004dde38[16];
-extern "C" unsigned char DAT_004dde48[4];
-extern "C" unsigned char DAT_004dde4c[4];
+extern "C" unsigned char DAT_004dde48[8];
 extern "C" unsigned char DAT_004dde50[4];
 extern "C" unsigned char DAT_004dde54[4];
-extern "C" unsigned char DAT_004dde58[4];
-extern "C" unsigned char DAT_004dde5c[4];
-extern "C" unsigned char DAT_004dde60[4];
-extern "C" unsigned char DAT_004dde64[4];
+extern "C" unsigned char DAT_004dde58[8];
+extern "C" unsigned char DAT_004dde60[8];
 
 // global/CFESoundManager.cpp
 extern "C" const char DAT_00409efc;  // tbl_00409efc
@@ -3351,8 +3339,7 @@ extern "C" unsigned char DAT_004dd750[4];
 extern "C" unsigned char DAT_004dd754[4];
 extern "C" unsigned char DAT_004dd758[4];
 extern "C" unsigned char DAT_004dd75c[4];
-extern "C" unsigned char DAT_004dd760[4];
-extern "C" unsigned char DAT_004dd764[4];
+extern "C" unsigned char DAT_004dd760[8];
 extern "C" unsigned char DAT_004dd768[16];
 
 // global/CGlowDisplayEffect.cpp
@@ -4163,8 +4150,7 @@ extern "C" const float DAT_0041db18[9];  // fltTbl_0041db18
 extern "C" unsigned char DAT_004e21f0[4];
 extern "C" unsigned char DAT_004e21f4[4];
 extern "C" unsigned char DAT_004e21f8[16];
-extern "C" unsigned char DAT_004e2208[4];
-extern "C" unsigned char DAT_004e220c[4];
+extern "C" unsigned char DAT_004e2208[8];
 extern "C" char DAT_004e2210[28];
 
 // global/CPropActorSetStateTrack.cpp
@@ -4737,14 +4723,11 @@ extern "C" char DAT_004e2264;
 extern "C" unsigned char DAT_004e2265[3];
 extern "C" void* DAT_004e2268[1];
 extern "C" DataLayout_004e226c DAT_004e226c[1];
-extern "C" unsigned char DAT_004e2280[4];
-extern "C" unsigned char DAT_004e2284[4];
+extern "C" unsigned char DAT_004e2280[8];
 extern "C" unsigned char DAT_004e2288[4];
 extern "C" unsigned char DAT_004e228c[4];
-extern "C" unsigned char DAT_004e2290[4];
-extern "C" unsigned char DAT_004e2294[4];
-extern "C" unsigned char DAT_004e2298[4];
-extern "C" unsigned char DAT_004e229c[4];
+extern "C" unsigned char DAT_004e2290[8];
+extern "C" unsigned char DAT_004e2298[8];
 
 // global/CSPHulkPropInstance.cpp
 extern "C" const char DAT_00422db0[34];  // s_mlrsMissileLarge_mlr_00422db0
@@ -4879,8 +4862,7 @@ extern "C" unsigned int DAT_004e2424;
 extern "C" unsigned char DAT_004e2428[8];
 extern "C" unsigned char DAT_004e2430[8];
 extern "C" unsigned char DAT_004e2438[8];
-extern "C" unsigned char DAT_004e2440[4];
-extern "C" unsigned char DAT_004e2444[4];
+extern "C" unsigned char DAT_004e2440[8];
 extern "C" unsigned char DAT_004e2448[8];
 extern "C" unsigned char DAT_004e2450[8];
 extern "C" unsigned char DAT_004e2458[8];
@@ -6179,7 +6161,7 @@ extern "C" const char DAT_00425240[13];  // s_locator_type_00425240
 extern "C" const char DAT_00425250[6];  // s_total_00425250
 extern "C" const float DAT_00425258;  // flt_00425258
 extern "C" const float DAT_0042525c;  // flt_0042525c
-extern "C" const unsigned int DAT_00425260[4];  // tbl_00425260
+extern "C" const int DAT_00425260[4];  // tbl_00425260
 extern "C" const char DAT_004253c4[7];  // s_Volume_004253c4
 extern "C" const char DAT_004253cc[5];  // s_Type_004253cc
 extern "C" const char DAT_004253d4[11];  // s_IsStreamed_004253d4
@@ -6521,12 +6503,9 @@ extern "C" char DAT_004dc988[1336];
 extern "C" unsigned char DAT_004dcec0[8];
 extern "C" int DAT_004dcec8;
 extern "C" int DAT_004dcecc;
-extern "C" int DAT_004dced0;
-extern "C" int DAT_004dced4;
-extern "C" int DAT_004dced8;
-extern "C" int DAT_004dcedc;
-extern "C" unsigned char DAT_004dcee0[4];
-extern "C" unsigned char DAT_004dcee4[4];
+extern "C" unsigned char DAT_004dced0[8];
+extern "C" unsigned char DAT_004dced8[8];
+extern "C" unsigned char DAT_004dcee0[8];
 extern "C" int DAT_004dcee8;
 extern "C" int DAT_004dceec;
 extern "C" int DAT_004dcef0;
@@ -6681,10 +6660,8 @@ extern "C" const unsigned int DAT_0040bd1c[1];  // zero_0040bd1c
 extern "C" const unsigned int DAT_00453b1c[1];  // zero_00453b1c
 extern "C" const unsigned int DAT_00453b7c[1];  // zero_00453b7c
 extern "C" const unsigned int DAT_00453ba8[1];  // zero_00453ba8
-extern "C" int DAT_004a0d6c;
-extern "C" int DAT_004a0d70;
-extern "C" int DAT_004a0d74;
-extern "C" int DAT_004a0d78[5];  // tbl_004a0d78
+extern "C" int DAT_004a0d6c[2];  // tbl_004a0d6c
+extern "C" int DAT_004a0d74[6];  // tbl_004a0d74
 extern "C" DataRec_004de800 DAT_004de800[24];
 extern "C" unsigned char DAT_004de8c0[8];
 
@@ -6877,60 +6854,46 @@ extern "C" unsigned char DAT_004de698[8];
 extern "C" unsigned char DAT_004de6a0[8];
 extern "C" unsigned char DAT_004de6a8[4];
 extern "C" unsigned char DAT_004de6ac[4];
-extern "C" unsigned char DAT_004de6b0[4];
-extern "C" unsigned char DAT_004de6b4[4];
-extern "C" unsigned char DAT_004de6b8[4];
-extern "C" unsigned char DAT_004de6bc[4];
+extern "C" unsigned char DAT_004de6b0[8];
+extern "C" unsigned char DAT_004de6b8[8];
 extern "C" unsigned char DAT_004de6c0[8];
 extern "C" unsigned char DAT_004de6c8[8];
 extern "C" unsigned char DAT_004de6d0[4];
 extern "C" unsigned char DAT_004de6d4[4];
 extern "C" unsigned char DAT_004de6d8[8];
 extern "C" unsigned char DAT_004de6e0[8];
-extern "C" unsigned char DAT_004de6e8[4];
-extern "C" unsigned char DAT_004de6ec[4];
+extern "C" unsigned char DAT_004de6e8[8];
 extern "C" unsigned char DAT_004de6f0[4];
 extern "C" unsigned char DAT_004de6f4[4];
-extern "C" unsigned char DAT_004de6f8[4];
-extern "C" unsigned char DAT_004de6fc[4];
+extern "C" unsigned char DAT_004de6f8[8];
 extern "C" unsigned char DAT_004de700[8];
 extern "C" unsigned char DAT_004de708[8];
-extern "C" unsigned char DAT_004de710[4];
-extern "C" unsigned char DAT_004de714[4];
-extern "C" unsigned char DAT_004de718[4];
-extern "C" unsigned char DAT_004de71c[4];
+extern "C" unsigned char DAT_004de710[8];
+extern "C" unsigned char DAT_004de718[8];
 extern "C" unsigned char DAT_004de720[4];
 extern "C" unsigned char DAT_004de724[4];
 extern "C" unsigned char DAT_004de728[4];
 extern "C" unsigned char DAT_004de72c[4];
-extern "C" unsigned char DAT_004de730[4];
-extern "C" unsigned char DAT_004de734[4];
+extern "C" unsigned char DAT_004de730[8];
 extern "C" unsigned char DAT_004de738[16];
 extern "C" unsigned char DAT_004de748[4];
 extern "C" unsigned char DAT_004de74c[4];
-extern "C" unsigned char DAT_004de750[4];
-extern "C" unsigned char DAT_004de754[4];
+extern "C" unsigned char DAT_004de750[8];
 extern "C" unsigned char DAT_004de758[4];
 extern "C" unsigned char DAT_004de75c[4];
-extern "C" unsigned char DAT_004de760[4];
-extern "C" unsigned char DAT_004de764[4];
-extern "C" unsigned char DAT_004de7e8[4];
-extern "C" unsigned char DAT_004de7ec[4];
-extern "C" unsigned char DAT_004de7f0[4];
-extern "C" unsigned char DAT_004de7f4[4];
+extern "C" unsigned char DAT_004de760[8];
+extern "C" unsigned char DAT_004de7e8[8];
+extern "C" unsigned char DAT_004de7f0[8];
 extern "C" unsigned char DAT_004de7f8[4];
 extern "C" unsigned char DAT_004de7fc[4];
 extern "C" unsigned char DAT_004de8c8[4];
 extern "C" unsigned char DAT_004de8cc[4];
 extern "C" unsigned char DAT_004de958[16];
-extern "C" unsigned char DAT_004de968[4];
-extern "C" unsigned char DAT_004de96c[4];
-extern "C" unsigned char DAT_004de970[4];
-extern "C" unsigned char DAT_004de974[4];
+extern "C" unsigned char DAT_004de968[8];
+extern "C" unsigned char DAT_004de970[8];
 extern "C" unsigned char DAT_004de978[4];
 extern "C" unsigned char DAT_004de97c[4];
-extern "C" unsigned char DAT_004de980[4];
-extern "C" unsigned char DAT_004de984[4];
+extern "C" unsigned char DAT_004de980[8];
 
 // global/FEThingsBase.cpp
 extern "C" const char DAT_0040c318[22];  // s_story_mission_succes_0040c318
@@ -6989,20 +6952,15 @@ extern "C" int DAT_004a1734;
 extern "C" float DAT_004a1738[4];  // fltTbl_004a1738
 extern "C" unsigned char DAT_004de9b0[5712];
 extern "C" unsigned char DAT_004e0000[2480];
-extern "C" unsigned char DAT_004e09b0[4];
-extern "C" unsigned char DAT_004e09b4[4];
-extern "C" unsigned char DAT_004e09b8[4];
-extern "C" unsigned char DAT_004e09bc[4];
-extern "C" unsigned char DAT_004e09c0[4];
-extern "C" unsigned char DAT_004e09c4[4];
+extern "C" unsigned char DAT_004e09b0[8];
+extern "C" unsigned char DAT_004e09b8[8];
+extern "C" unsigned char DAT_004e09c0[8];
 extern "C" unsigned char DAT_004e09c8[4];
 extern "C" unsigned char DAT_004e09cc[4];
 extern "C" unsigned char DAT_004e09d0[4];
 extern "C" unsigned char DAT_004e09d4[4];
-extern "C" unsigned char DAT_004e09d8[4];
-extern "C" unsigned char DAT_004e09dc[4];
-extern "C" unsigned char DAT_004e09e0[4];
-extern "C" unsigned char DAT_004e09e4[4];
+extern "C" unsigned char DAT_004e09d8[8];
+extern "C" unsigned char DAT_004e09e0[8];
 extern "C" unsigned char DAT_004e09e8[4];
 extern "C" unsigned char DAT_004e09ec[12];
 
@@ -7224,8 +7182,7 @@ extern "C" DataLayout_004a0658 DAT_004a0658;  // struct_004a0658
 extern "C" const char* DAT_004a06a0;  // PTR_004a06a0
 extern "C" const char* DAT_004a06a4;  // PTR_004a06a4
 extern "C" unsigned char DAT_004dde79[23];
-extern "C" unsigned char DAT_004dde90[4];
-extern "C" unsigned char DAT_004dde94[4];
+extern "C" unsigned char DAT_004dde90[8];
 extern "C" float DAT_004dde98;
 extern "C" float DAT_004dde9c;
 extern "C" float DAT_004ddea0;
@@ -7263,23 +7220,17 @@ extern "C" unsigned char DAT_004ddf2c[4];
 extern "C" unsigned char DAT_004ddf30[8];
 extern "C" unsigned char DAT_004ddf38[4];
 extern "C" unsigned char DAT_004ddf3c[4];
-extern "C" unsigned char DAT_004ddf40[4];
-extern "C" unsigned char DAT_004ddf44[4];
+extern "C" unsigned char DAT_004ddf40[8];
 extern "C" unsigned char DAT_004ddf48[4];
 extern "C" unsigned char DAT_004ddf4c[4];
 extern "C" unsigned char DAT_004ddf50[8];
 extern "C" unsigned char DAT_004ddf58[8];
-extern "C" unsigned char DAT_004ddf60[4];
-extern "C" unsigned char DAT_004ddf64[4];
+extern "C" unsigned char DAT_004ddf60[8];
 extern "C" unsigned char DAT_004ddf68[16];
-extern "C" unsigned char DAT_004ddf78[4];
-extern "C" unsigned char DAT_004ddf7c[4];
-extern "C" unsigned char DAT_004ddf80[4];
-extern "C" unsigned char DAT_004ddf84[4];
-extern "C" unsigned char DAT_004ddf88[4];
-extern "C" unsigned char DAT_004ddf8c[4];
-extern "C" unsigned char DAT_004ddf90[4];
-extern "C" unsigned char DAT_004ddf94[4];
+extern "C" unsigned char DAT_004ddf78[8];
+extern "C" unsigned char DAT_004ddf80[8];
+extern "C" unsigned char DAT_004ddf88[8];
+extern "C" unsigned char DAT_004ddf90[8];
 
 // global/ImageSelector_2.cpp
 extern "C" const int DAT_0040b0a0;  // tbl_0040b0a0
@@ -7326,14 +7277,11 @@ extern "C" const char DAT_0040c604[19];  // s_SELECT_Destination_0040c604
 extern "C" const unsigned int DAT_0040c644[1];  // zero_0040c644
 extern "C" float DAT_004de988;
 extern "C" float DAT_004de98c;
-extern "C" unsigned char DAT_004de990[4];
-extern "C" unsigned char DAT_004de994[4];
+extern "C" unsigned char DAT_004de990[8];
 extern "C" unsigned char DAT_004de998[4];
 extern "C" unsigned char DAT_004de99c[4];
-extern "C" unsigned char DAT_004de9a0[4];
-extern "C" unsigned char DAT_004de9a4[4];
-extern "C" unsigned char DAT_004de9a8[4];
-extern "C" unsigned char DAT_004de9ac[4];
+extern "C" unsigned char DAT_004de9a0[8];
+extern "C" unsigned char DAT_004de9a8[8];
 
 // global/MenuSelector.cpp
 extern "C" const char DAT_0040c4d8[5];  // s_wrap_0040c4d8
@@ -7414,12 +7362,10 @@ extern "C" unsigned int DAT_004a0a74[3];  // tbl_004a0a74
 extern "C" unsigned int DAT_004a0a80[3];  // tbl_004a0a80
 extern "C" int DAT_004ddf98;
 extern "C" unsigned char DAT_004ddf9c[12];
-extern "C" unsigned char DAT_004ddfa8[4];
-extern "C" unsigned char DAT_004ddfac[4];
+extern "C" unsigned char DAT_004ddfa8[8];
 extern "C" unsigned char DAT_004ddfb0[4];
 extern "C" unsigned char DAT_004ddfb4[4];
-extern "C" unsigned char DAT_004ddfb8[4];
-extern "C" unsigned char DAT_004ddfbc[4];
+extern "C" unsigned char DAT_004ddfb8[8];
 extern "C" unsigned int DAT_004ddfc0;
 extern "C" float DAT_004ddfc4;
 extern "C" int DAT_004ddfc8;
@@ -7443,14 +7389,10 @@ extern "C" unsigned char DAT_004de500[256];
 extern "C" float DAT_004de600;
 extern "C" float DAT_004de604;
 // DAT_004de608: typed by decls/data/records.h (included above)
-extern "C" unsigned char DAT_004de618[4];
-extern "C" unsigned char DAT_004de61c[4];
-extern "C" unsigned char DAT_004de620[4];
-extern "C" unsigned char DAT_004de624[4];
-extern "C" unsigned char DAT_004de628[4];
-extern "C" unsigned char DAT_004de62c[4];
-extern "C" unsigned char DAT_004de630[4];
-extern "C" unsigned char DAT_004de634[20];
+extern "C" unsigned char DAT_004de618[8];
+extern "C" unsigned char DAT_004de620[8];
+extern "C" unsigned char DAT_004de628[8];
+extern "C" unsigned char DAT_004de630[24];
 
 // global/MyDriveErrorCallback.cpp
 extern "C" const char DAT_00400780[52];  // s_TBS_DISC_KEEP_YOUR_G_00400780
@@ -7497,8 +7439,7 @@ extern "C" unsigned int DAT_0049ca4c[21];  // zero_0049ca4c
 extern "C" void* DAT_004dd7e0;
 extern "C" unsigned char DAT_004dd7e4[52];
 extern "C" unsigned char DAT_004dd818[16];
-extern "C" unsigned char DAT_004dd828[4];
-extern "C" unsigned char DAT_004dd82c[4];
+extern "C" unsigned char DAT_004dd828[8];
 extern "C" char DAT_004dd839;
 extern "C" void* DAT_004dd9c8[1];
 extern "C" void* DAT_004dd9cc[1];
@@ -8155,10 +8096,8 @@ extern "C" unsigned char DAT_0049f3e7[1];  // unk_0049f3e7
 extern "C" float DAT_0049f3e8[3];  // fltTbl_0049f3e8
 extern "C" unsigned char DAT_004ddbd4[13];
 extern "C" unsigned char DAT_004ddbe4[12];
-extern "C" unsigned char DAT_004ddbf0[4];
-extern "C" unsigned char DAT_004ddbf4[4];
-extern "C" unsigned char DAT_004ddbf8[4];
-extern "C" unsigned char DAT_004ddbfc[4];
+extern "C" unsigned char DAT_004ddbf0[8];
+extern "C" unsigned char DAT_004ddbf8[8];
 extern "C" unsigned char DAT_004ddc00[4];
 extern "C" unsigned char DAT_004ddc04[4];
 
@@ -8214,12 +8153,9 @@ extern "C" const unsigned int DAT_0040cf14[27];  // tbl_0040cf14
 extern "C" void* DAT_004e0a60[1];
 extern "C" void* DAT_004e0a64[1];
 extern "C" unsigned char DAT_004e0a68[8];
-extern "C" unsigned char DAT_004e0a70[4];
-extern "C" unsigned char DAT_004e0a74[4];
-extern "C" unsigned char DAT_004e0a78[4];
-extern "C" unsigned char DAT_004e0a7c[4];
-extern "C" unsigned char DAT_004e0a80[4];
-extern "C" unsigned char DAT_004e0a84[4];
+extern "C" unsigned char DAT_004e0a70[8];
+extern "C" unsigned char DAT_004e0a78[8];
+extern "C" unsigned char DAT_004e0a80[8];
 extern "C" unsigned char DAT_004e0a88[4];
 extern "C" unsigned char DAT_004e0a8c[4];
 

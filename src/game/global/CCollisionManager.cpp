@@ -1285,7 +1285,7 @@ void __fastcall target(Obj_1b3fc0* self) {
 
 
 // 0x001b4060 FUN_001b4060 (212 B): equivalent/0x001b4060.cpp
-// sym: ?FUN_001b4060@Owner_1b4060@fn_f5af65ff@@QAE_NPAUInput_1b4060@2@@Z @533a0f017ffe @w601afcd67094
+// sym: ?FUN_001b4060@Owner_1b4060@fn_f5af65ff@@QAE_NPAUInput_1b4060@2@@Z @79b1103476a6 @w920c821555dd
 // STATUS: equivalent (tools/equiv.py level 3: 2772 inputs, branch coverage 8/8)
 // FUN_001b4060 @ 0x001b4060
 bool Owner_1b4060::FUN_001b4060(Input_1b4060* input) {
@@ -1295,7 +1295,7 @@ bool Owner_1b4060::FUN_001b4060(Input_1b4060* input) {
     primary->firstLow = (*(uint*)&DAT_004c39f0);
     primary->firstHigh = (*(uint*)((char*)&DAT_004c39f0 + 4));
     primary->secondLow = (*(uint*)&DAT_004c39f0) | (*(uint*)&DAT_004c3a18) | (*(uint*)&DAT_004c39e8) | (*(uint*)&DAT_004c3a10) | (*(uint*)&DAT_004c3a20);
-    primary->secondHigh = (*(uint*)((char*)&DAT_004c39f0 + 4)) | (*(uint*)((char*)&DAT_004c3a18 + 4)) | (*(uint*)((char*)&DAT_004c39e8 + 4)) | (*(uint*)&DAT_004c3a14) | (*(uint*)((char*)&DAT_004c3a20 + 4));
+    primary->secondHigh = (*(uint*)((char*)&DAT_004c39f0 + 4)) | (*(uint*)((char*)&DAT_004c3a18 + 4)) | (*(uint*)((char*)&DAT_004c39e8 + 4)) | (*(uint*)((char*)&DAT_004c3a10 + 4)) | (*(uint*)((char*)&DAT_004c3a20 + 4));
     State_1b4060* secondary = 0;
     if (input->secondary) {
         secondary = input->secondary->state;
@@ -1478,7 +1478,7 @@ int owners::C_1b4420::FUN_001b4420(int key) {
 namespace fn_f5af65ff {
 
 // 0x001b4450 FUN_001b4450 (226 B): equivalent/0x001b4450.cpp
-// sym: ?target@Controller_1b4450@fn_f5af65ff@@QAE_NPAUSubject_1b4450@2@_N@Z @e1a726af07b2 @w3668fa7f4268
+// sym: ?target@Controller_1b4450@fn_f5af65ff@@QAE_NPAUSubject_1b4450@2@_N@Z @389dcea9d9a5 @wceb9ebc04026
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
 // FUN_001b4450 @ 0x001b4450
 bool Controller_1b4450::target(Subject_1b4450* subject, bool force) {
@@ -1490,7 +1490,7 @@ bool Controller_1b4450::target(Subject_1b4450* subject, bool force) {
  p->firstLow = (*(uint*)&DAT_004c39e8);
  p->firstHigh = (*(uint*)((char*)&DAT_004c39e8 + 4));
  p->combinedLow = (*(uint*)&DAT_004c3a20) | (*(uint*)&DAT_004c3a10) | (*(uint*)&DAT_004c39f8) | (*(uint*)&DAT_004c39e8) | (*(uint*)&DAT_004c3a08) | (*(uint*)&DAT_004c3a18) | (*(uint*)&DAT_004c39f0);
- p->combinedHigh = (*(uint*)((char*)&DAT_004c3a20 + 4)) | (*(uint*)&DAT_004c3a14) | (*(uint*)((char*)&DAT_004c39f8 + 4)) | (*(uint*)((char*)&DAT_004c39e8 + 4)) | (*(uint*)&DAT_004c3a0c) | (*(uint*)((char*)&DAT_004c3a18 + 4)) | (*(uint*)((char*)&DAT_004c39f0 + 4));
+ p->combinedHigh = (*(uint*)((char*)&DAT_004c3a20 + 4)) | (*(uint*)((char*)&DAT_004c3a10 + 4)) | (*(uint*)((char*)&DAT_004c39f8 + 4)) | (*(uint*)((char*)&DAT_004c39e8 + 4)) | (*(uint*)&DAT_004c3a0c) | (*(uint*)((char*)&DAT_004c3a18 + 4)) | (*(uint*)((char*)&DAT_004c39f0 + 4));
  Payload_1b4450* finalPayload = record->payload;
  record->kind = 5;
  ((owners::Obj_2ee6b0 *)sink)->FUN_002ee6b0((hulk_intptr)(Payload_1b4450 *)finalPayload);

@@ -7411,7 +7411,7 @@ EF("char_SetNPCParameter", 0003efb0, 000452e0)
 namespace fn_f35f7bdf {
 
 // 0x000437a0 FUN_000437a0 (824 B): equivalent/0x000437a0.cpp
-// sym: ?FUN_000437a0@Unit_437a0@fn_f35f7bdf@@QAEDMPAUParams_437a0@2@PAUVec3_437a0@2@PAUActor_437a0@2@D@Z @a14cd856b52e @w8fb8500b3296
+// sym: ?FUN_000437a0@Unit_437a0@fn_f35f7bdf@@QAEDMPAUParams_437a0@2@PAUVec3_437a0@2@PAUActor_437a0@2@D@Z @11cd0c660135 @w77276ca682d0
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 64/65, incomplete)
 // FUN_000437a0 @ 0x000437a0
 char Unit_437a0::FUN_000437a0(float dt, Params_437a0* p, Vec3_437a0* where, Actor_437a0* actor, char flag5)
@@ -7445,7 +7445,7 @@ char Unit_437a0::FUN_000437a0(float dt, Params_437a0* p, Vec3_437a0* where, Acto
     if (b1d28 && !p->b90)
         dt = 0.0f;
     if (f11c != 0) {
-        if (f11c->FUN_000443c0() == ((unsigned __int64)DAT_004dc084 << 32 | DAT_004dc080) && p->b90)
+        if (f11c->FUN_000443c0() == ((unsigned __int64)(*(unsigned int*)((char*)&DAT_004dc080 + 4)) << 32 | (*(unsigned int*)&DAT_004dc080)) && p->b90)
             dt = 0.0f;
     }
     char ok;
@@ -7516,7 +7516,7 @@ char Unit_437a0::FUN_000437a0(float dt, Params_437a0* p, Vec3_437a0* where, Acto
 } // namespace fn_f35f7bdf
 
 // 0x00043ae0 FUN_00043ae0 (1089 B): equivalent/0x00043ae0.cpp [wrapped: conflict: Request]
-// sym: ?FUN_00043ae0@Obj_43ae0@fn_00043ae0@@QAEXPAVRefObj_43ae0@2@PAUV3_43ae0@2@MHMHHD0@Z @42805edbf4a9 @w54d530f8ccc0
+// sym: ?FUN_00043ae0@Obj_43ae0@fn_00043ae0@@QAEXPAVRefObj_43ae0@2@PAUV3_43ae0@2@MHMHHD0@Z @f163d0102b3a @wf9007624b681
 namespace fn_00043ae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 46/48, incomplete)
 // FUN_00043ae0 @ 0x00043ae0
@@ -7716,7 +7716,7 @@ void Obj_43ae0::FUN_00043ae0(RefObj_43ae0 *a1, V3_43ae0 *p, float dt, int a4, fl
         }
 
         unsigned __int64 key = f11c->FUN_000443c0();
-        if ((unsigned int)key == DAT_004dc080 && (unsigned int)(key >> 32) == DAT_004dc084 && f.x.b90 != 0)
+        if ((unsigned int)key == (*(unsigned int*)&DAT_004dc080) && (unsigned int)(key >> 32) == (*(unsigned int*)((char*)&DAT_004dc080 + 4)) && f.x.b90 != 0)
             a5 = 0.0f;
         FUN_000437a0(a5, &f.x, 0, 0, 0);
     }
