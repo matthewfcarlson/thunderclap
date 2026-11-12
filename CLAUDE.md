@@ -42,6 +42,7 @@ python tools/tree_tu.py materialize --out build/tree   # local Wine-build input 
 python tools/native_mac.py compile|link          # arm64 macOS; tools/native_elf.py --target linux-x64|android-arm64 for ELF
 python tools/native_unbound.py classify --dir build/native-mac   # the native link's unbound names by class
 python tools/progress.py --readme                # regenerate the README status table and docs/progress-map.svg (from the tree)
+python tools/data_inventory.py --check           # config/data.json must be what its inputs give (docs/data.md "Reproducing")
 python tests/equiv/regress.py                    # checker regression cases (run after any change to equiv.py)
 ```
 

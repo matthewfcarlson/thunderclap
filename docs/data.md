@@ -6,6 +6,7 @@ run (they move a little as farm lanes add sources, see [Reproducing](#reproducin
 
 ```sh
 build/venv/bin/python tools/data_inventory.py     # config/data.json + build/data/inventory-report.json  (~5 s)
+build/venv/bin/python tools/data_inventory.py --check   # exit 1 unless config/data.json is what its inputs give
 build/venv/bin/python tools/data_gen.py           # data TUs, include/decls/data/, compile + byte-check  (~25 s warm)
 build/venv/bin/python tools/data_gen.py --only global/CAction.cpp      # one object
 build/venv/bin/python tools/build_tree.py --rounds 16 --data           # the tree build plus the data TUs and a link check
@@ -15,6 +16,8 @@ build/venv/bin/python tools/migrate_data.py --apply --equivalent       # sources
 | Output | What | Tracked |
 |---|---|---|
 | `config/data.json` | the inventory: one line per item (address, size, kind, name, type, owner, xrefs) | yes (no game bytes, no string text) |
+| `config/data-items.json` | item decisions reviewed by hand that the evidence alone doesn't give (spans, kinds, owners; each with its `why`): an input of the inventory | yes |
+| `config/data-source-offsets.json` | the offsets verified code uses past an address name (`DAT_x + k`): an input of the inventory (`--refresh-offsets`) | yes |
 | `include/decls/data/<layer>/<dir>.h` | `extern "C"` declarations of every emitted item (`DAT_<addr>`, inventory name as a comment), per layer directory; sources include them | yes (names, types, sizes only) |
 | `build/data/src/<layer>/<dir>/<File>.data.cpp` | one data TU per owning object, with the game's bytes | **no** (game data) |
 | `build/data/report.json` | per-item verification results and per-kind totals | no |
@@ -35,7 +38,8 @@ two `$$X*IMAGE` sections are listed as one opaque `library_section` item each.
    slots). `type_info`'s own vftable (`0x439de8`, no locator) is placed by hand.
 2. **Start points:** every absolute operand of every function in `build/functions.csv` that lands in the range
    (capstone over all of `.text` and the library sections, ~8 s, cached), every `DAT_xxxxxxxx` name the
-   `matches/` and `equivalent/` sources use, and every aligned data word whose value is an address in the range.
+   sources use (the merged tree's function blocks; before the flip `matches/` and `equivalent/`), and every aligned
+   data word whose value is an address in the range.
    Filters, because a value in the range isn't always an address: immediates used by `cmp`/`and`/`add`/... are
    constants, an unaligned immediate is an address only if a string starts there, a BSS "address" whose bytes are
    ASCII (`0x504c41` = "ALP") with no memory operand is a FourCC (2 sources even named such constants `DAT_`), and a
@@ -48,9 +52,10 @@ two `$$X*IMAGE` sections are listed as one opaque `library_section` item each.
    `0x4c5cf8`, `0x4ca248` (native start-up initializer 260 crashed hashing it), `0x4ca254`). All 8 now have
    source evidence; `0x4ca248` points at a 4-byte item the inventory carved as `unknown`, so it is declared
    `const void*` (its users read it through `(*(const char**)&DAT_x)`).
-3. **Extents.** A string swallows starts inside it (pointers to a suffix, `"xRET" + 1`); a source offset past an
-   address name (`DAT_x + 8` in verified code, read from the relocation addends of the last tree build's objects)
-   makes one item of the range. An item ends at the next start, or earlier where the evidence says so: the FPU
+3. **Extents.** Typed records (`include/decls/data/records.h`) and the spans of `config/data-items.json` are placed
+   first, like the RTTI structures: one item each, whatever references fall inside. A string swallows starts inside
+   it (pointers to a suffix, `"xRET" + 1`); a source offset past an address name (`DAT_x + 8` in verified code,
+   `config/data-source-offsets.json`, the relocation addends of the tree's objects) makes one item of the range. An item ends at the next start, or earlier where the evidence says so: the FPU
    access width (`fld dword` -> float, `qword` -> double, `fild` -> integer), the access width of non-indexed
    loads, or the type sources declare (`extern float DAT_x;`, `char DAT_x[16]`).
 4. **Classification** of each referenced item: string / wide string (printable text, NUL-terminated), float /
@@ -438,7 +443,10 @@ differs from its standalone build; link check 6,477 references, **4,238 by name*
   integer, is listed by `tools/data_ptrs.py lint`.
 - **Typed records** (reg1, 2026-11-05). A `.bss` item that several sources index as one record takes its type from
   `include/decls/data/records.h`, hand-written: the record (pointer fields as pointers) and `extern "C" T
-  DAT_<addr>[N];`. `data_gen.py` reads those declarations: the item's data TU includes the header and defines the
+  DAT_<addr>[N];`. The inventory makes each declaration one item of its 32-bit size (libclang,
+  `i686-pc-windows-msvc`; drift1: dg1's `data_gen.py --merge-records`, which edited config/data.json's lines, is
+  gone). Initialized (`.data`) records whose fields are simple types get their initializer from the XBE's bytes
+  (dg1: `ShaderParamEntry`, `ControllerNameList`, `StringRecord_23fc40`). `data_gen.py` reads those declarations: the item's data TU includes the header and defines the
   item with it (form `typed record`, the 32-bit size asserted against the item), and the generated headers leave it
   out (a comment points at records.h); a generated header that leaves items out includes records.h itself (reg4), so
   a source naming them needs no include of its own. First user: the memory allocator registry
@@ -481,7 +489,57 @@ differs from its standalone build; link check 6,477 references, **4,238 by name*
 
 ## Reproducing
 
-The inventory reads the matches/ + equivalent/ sources (their `DAT_` names and types) and the source offsets of the
-last *complete* tree build (`build/data/source_offsets.json`; re-read only when nearly every TU of the current
-`build/tree/manifest.json` has its object, because `build_tree.py` regenerates the tree as it runs). New farm
-sources therefore shift a few items between runs; the per-kind totals move by a handful.
+`config/data.json` is generated, never edited: `tools/data_inventory.py` rewrites it from its inputs, and
+`tools/data_inventory.py --check` (also `tests/test_data_inventory.py`) exits 1, naming the items that differ, when the
+committed file is not exactly what they give. The inputs:
+
+| input | what it decides | committed |
+|---|---|---|
+| the XBE, `build/functions.csv`, `build/rtti.json` | the bytes, code references (`build/data/code_xrefs.json` caches them per function list), RTTI structures | no (local, from the player's XBE) |
+| `config/splits.json` | owners (objects by address, link order) | yes |
+| the merged tree (`src/game`, `src/engine`, `src/platform/xbox`) | start points and type votes: per function block the `DAT_` names it uses and the types the TU's shared part and the block declare; a hoisted declaration no block uses counts on its own | yes |
+| `config/data.json` itself | the type a source on `include/decls/data/` votes (it no longer declares the name), and the type of an item no source names any more (kept while the span is the same) | yes |
+| `include/decls/data/records.h` | typed records: one item per declaration | yes |
+| `config/data-items.json` | item decisions reviewed by hand (below) | yes |
+| `config/data-pointers.json` | pointer words whose bytes read as text | yes |
+| `config/data-source-offsets.json` | offsets past an address name (extents) | yes |
+
+The inventory reads config/data.json for those type votes, so the check holds it to a fixed point: regenerating
+gives the same file.
+
+**How to change data items.** A record type: declare it in records.h and regenerate (the items inside fold into it,
+an item that runs into it is cut). A pointer word the text rule drops: config/data-pointers.json. Anything else (an
+item's span, kind, type, name or owner): an entry in `config/data-items.json` with its `why` (`size` + `kind` place a
+span before carving, `pad` folds the bytes after it as padding; `kind`, `type` (null: none), `name`, `object` override
+the carved item at that address). Then `tools/data_inventory.py`, `tools/data_gen.py` (the data TUs and
+include/decls/data/), and the gates of a data change (data_gen verifies every item; the Wine image or a proof).
+
+**What drifted, and the fix (drift1, 2026-11-11).** The inventory was last run as a whole on 2026-10-16. The 14
+commits that changed config/data.json since (reg1-reg4, dec1, boot1, the Lua VM, bink1, F's Lua split and renames,
+dg1 B2-B4) edited its lines by hand or by script, and its inputs moved under it:
+
+- *hand edits* that no input recorded: the typed records' spans (reg1, reg3, reg4, dg1), reg4's split words, F's
+  owners for the Lua objects' items, the luaL_reg tables' kinds (8310fb004);
+- *the sources*: matches/ grew after 10-16, then froze at F, and the code now lives in the merged tree (2,467 items'
+  `source_names` and 534 `source_type`s were 10-16's);
+- *config/data-pointers.json* (dec1, 697da9944) added pointer words without a re-run: the strings they point at would
+  change owner and extent;
+- *the source offsets* were `build/data/source_offsets.json`, a local cache of 10-16's tree build (385 offsets); a
+  re-read after the data wiring would have found almost none (the regex missed `_DAT_x`, the `extern "C"` symbols);
+- *build/functions.csv* (2026-10-17 size fixes) moved some xrefs and owners;
+- *a type spelling bug*: `unsigned char` became `unsigned int char`; and `source_type` was written even when it
+  equals `type` (kept: it is cheap and nothing reads the difference).
+
+Now: the tree is the source input, records.h spans are placed by the inventory, the other hand edits are entries of
+`config/data-items.json` (67: 52 that record the commits' decisions, each naming its commit, and 15 marked `review`:
+F's carve kept where the evidence since then says otherwise, mostly dec1's pointer targets; removing one changes the
+data TUs, so it goes with a Wine proof), and the 10-16 offsets are `config/data-source-offsets.json`. Regenerating
+gave the same items, spans, kinds, names, owners and pads as the committed file; 2,574 items' other fields moved
+(`source_names` 2,467, `source_type` 534, `owner_by` 73, `flags` 70, `xrefs` 40, `data_refs` 33, `shared_objects` 31,
+`interior` 30 (none on a vftable or RTTI item), `referenced` 23, `type` 8, `pointers` 1). data_gen's output from it:
+include/decls/data/ byte-identical, the data TUs differ in 7 comment lines.
+
+**Refreshing the offsets** (`--refresh-offsets`; `--compile` compiles tree TUs without a cached object, MSVC: run it
+as a queue job). From the tree at 8205c9508 it reads 446 offsets (259 the same, 8 changed, 179 new, 118 gone): about
+250 items would change span, mostly two words used as one (`DAT_x + 4`). Not applied: a data change with its own
+proof.

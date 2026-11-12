@@ -2,11 +2,17 @@
 """Data inventory: carve the XBE's .rdata / .data / .bss into items (docs/data.md).
 
   build/venv/bin/python tools/data_inventory.py            # config/data.json + build/data/inventory-report.json
+  build/venv/bin/python tools/data_inventory.py --check    # exit 1 unless config/data.json is what the inputs give
   build/venv/bin/python tools/data_inventory.py --report   # also print the coverage table
 
-Inputs: the XBE, build/functions.csv, config/splits.json, build/rtti.json, the matches/ + equivalent/ sources
-(address names they declare and the types they give them) and the current tree objects
-(build/tree-cache/obj, via build/tree/manifest.json: the offsets sources use past an address name).
+Inputs (config/data.json is a function of these; `--check` holds it to that, docs/data.md "Reproducing"):
+  the player's XBE, build/functions.csv, build/rtti.json (local, from the XBE), config/splits.json;
+  the merged tree's sources (src/game, src/engine, src/platform/xbox; per function block: the DAT_ names they use and
+  the types they declare; a source on include/decls/data/ votes the type config/data.json recorded);
+  include/decls/data/records.h (typed records: one item per declaration, its 32-bit size from libclang);
+  config/data-items.json (item decisions reviewed by hand), config/data-pointers.json (pointer words whose bytes read
+  as text), config/data-source-offsets.json (the offsets verified code uses past an address name; `--refresh-offsets`
+  re-reads them from the tree's MSVC objects).
 
 Every byte of .rdata/.data/.bss becomes part of exactly one item. config/data.json holds addresses, sizes,
 kinds, names, types, owners and xrefs only: never the bytes or string text of the game's data (string items
@@ -111,8 +117,9 @@ DECL_RE = re.compile(r'extern\s+(?:"C"\s+)?((?:const\s+)?[A-Za-z_][\w:]*(?:\s+[A
 NAME_RE = re.compile(r"\bDAT_([0-9a-fA-F]{8})\b")
 
 
-def previous_types(path=None):
-    """addr -> the type the last inventory recorded for an item (`source_type`, else `type`)."""
+def previous_items(path=None):
+    """addr -> (size, type, source type) of the last inventory's typed items (config/data.json, the record of what
+    the sources declared; the source type is `source_type`, else `type`)."""
     out = {}
     try:
         for line in open(path or OUT):
@@ -120,95 +127,161 @@ def previous_types(path=None):
             if not m or '"type"' not in line:
                 continue
             it = json.loads(line.strip().rstrip(","))
-            t = it.get("source_type") or it.get("type")
-            if t:
-                out[int(m.group(1), 16)] = t
+            out[int(m.group(1), 16)] = (it["size"], it.get("type"), it.get("source_type") or it.get("type"))
     except OSError:
         pass
     return out
 
 
+def previous_types(path=None):
+    """addr -> the type the last inventory recorded for an item (`source_type`, else `type`)."""
+    return {a: t[2] for a, t in previous_items(path).items() if t[2]}
+
+
+TREE_DIRS = ("src/game", "src/engine", "src/platform/xbox")
+BLOCK_MARK = re.compile(r"^// 0x[0-9a-f]{8} .+ \(\d+ B\): (?:matches|equivalent|not yet verified)", re.M)
+
+
+def source_units():
+    """[(unit name, names used, declarations text)] of the sources the inventory reads names and types from: every
+    function block of the merged tree's TUs (TREE_DIRS; since the merge-once flip, docs/merge-once.md) as the
+    function's own source: the DAT_ names of the block's text, and for their declarations the TU's shared part (before
+    its first block) plus the block. A name the shared part declares that no block uses (a declaration a function's
+    source carried, now hoisted) is a unit of its own. (Before the flip: the per-function sources in matches/ +
+    equivalent/, frozen at F.)"""
+    out = []
+    for d in TREE_DIRS:
+        for dp, dns, fns in os.walk(os.path.join(ROOT, d)):
+            dns.sort()
+            for fn in sorted(fns):
+                if not fn.endswith(".cpp"):
+                    continue
+                path = os.path.join(dp, fn)
+                with open(path, encoding="latin1") as f:
+                    text = f.read()
+                if "DAT_" not in text:
+                    continue
+                rel = os.path.relpath(path, ROOT)
+                marks = [m.start() for m in BLOCK_MARK.finditer(text)]
+                if not marks:
+                    out.append((rel, names_in(text), text))
+                    continue
+                shared = text[:marks[0]]
+                seen = set()
+                for j, at in enumerate(marks):
+                    body = text[at:marks[j + 1] if j + 1 < len(marks) else len(text)]
+                    used = names_in(body)
+                    seen |= used
+                    out.append(("%s@%d" % (rel, j), used, shared + body))
+                rest = names_in(shared) - seen
+                if rest:
+                    out.append(("%s@shared" % rel, rest, shared))
+    return out
+
+
+def names_in(text):
+    return {a.lower() for a in NAME_RE.findall(text)}
+
+
 def source_names():
-    """addr -> {"sources": n, "types": Counter} from DAT_ names declared/used in matches/ and equivalent/.
+    """addr -> {"sources": n, "types": Counter} from DAT_ names the sources (source_units) use and declare.
 
     A source on include/decls/data/ (tools/migrate_data.py) no longer declares the names it uses; its vote is
     the type the last inventory recorded for the item (config/data.json is the record of what the sources
     declared), so a re-run after the migration carves and types the same items."""
     out = collections.defaultdict(lambda: {"sources": 0, "types": collections.Counter()})
     prev = None
-    for d in ("matches", "equivalent"):
-        p = os.path.join(ROOT, d)
-        for fn in os.listdir(p):
-            if not fn.endswith(".cpp"):
-                continue
-            text = open(os.path.join(p, fn), encoding="latin1").read()
-            if "DAT_" not in text:
-                continue
-            used = set(NAME_RE.findall(text))
-            for a in used:
-                out[int(a, 16)]["sources"] += 1
-            if '#include "decls/data/' in text:
-                if prev is None:
-                    prev = previous_types()
-                declared = {m.group(2).lower() for m in DECL_RE.finditer(text)}
-                for a in used - declared:
-                    t = prev.get(int(a, 16))
-                    if t:
-                        out[int(a, 16)]["types"][t] += 1
-            for m in DECL_RE.finditer(text):
-                t = re.sub(r"\s+", " ", m.group(1)).strip()
-                t = t.replace("unsigned int", "unsigned").replace("unsigned", "unsigned int")
-                if m.group(3):
-                    t += "[%s]" % m.group(4)
-                out[int(m.group(2), 16)]["types"][t] += 1
+    for _, used, decl_text in source_units():
+        if not used:
+            continue
+        for a in used:
+            out[int(a, 16)]["sources"] += 1
+        decls = [m for m in DECL_RE.finditer(decl_text) if m.group(2).lower() in used]
+        if '#include "decls/data/' in decl_text:
+            if prev is None:
+                prev = previous_types()
+            declared = {m.group(2).lower() for m in decls}
+            for a in used - declared:
+                t = prev.get(int(a, 16))
+                if t:
+                    out[int(a, 16)]["types"][t] += 1
+        for m in decls:
+            out[int(m.group(2), 16)]["types"][decl_type(m)] += 1
     return out
 
 
-SRC_OFF_CACHE = os.path.join(WORK, "source_offsets.json")
+def decl_type(m):
+    """The type a DECL_RE match declares, spelled as the inventory records it (`unsigned` is `unsigned int`)."""
+    t = re.sub(r"\s+", " ", m.group(1)).strip()
+    t = re.sub(r"\bunsigned(?!\s+(?:int|char|short|long|__int64)\b)", "unsigned int", t)
+    if m.group(3):
+        t += "[%s]" % m.group(4)
+    return t
 
 
-def cached_source_offsets(use_tree=True):
-    """source_offsets() of the last complete tree build. The tree is regenerated by build_tree.py, and its objects
-    exist only once a build has compiled them, so offsets are re-read only when (nearly) every TU of the current
-    manifest has its object; otherwise the cached result of the last complete read is used."""
-    objs, total = tree_objects(with_total=True) if use_tree else ([], 0)
-    if total and len(objs) >= 0.98 * total:
-        off = source_offsets(objs)
-        os.makedirs(WORK, exist_ok=True)
-        json.dump({"objects": len(objs), "offsets": {"%x" % a: k for a, k in off.items()}}, open(SRC_OFF_CACHE, "w"))
-        return off, len(objs), "tree"
-    if os.path.exists(SRC_OFF_CACHE):
-        c = json.load(open(SRC_OFF_CACHE))
-        return {int(a, 16): k for a, k in c["offsets"].items()}, c["objects"], "cache"
-    return source_offsets(objs), len(objs), "partial tree"
+SRC_OFFSETS = os.path.join(ROOT, "config/data-source-offsets.json")
+# a data symbol in an object: `_DAT_x` (extern "C", the shared data headers), `?DAT_x@@...` (C++ linkage)
+SYM_RE = re.compile(r"(?<![0-9A-Za-z])_?DAT_([0-9a-fA-F]{8})(?![0-9A-Za-z])")
 
 
-def tree_objects(with_total=False):
-    """Object paths of the current tree's TUs (build/tree/manifest.json), as build_tree.compile_tu caches them."""
+def load_source_offsets(path=None):
+    """addr -> the largest offset past DAT_<addr> that verified code uses: config/data-source-offsets.json, a
+    committed input (`--refresh-offsets` re-reads it from the merged tree's MSVC objects)."""
     try:
-        import build_tree
-        import compare
-    except Exception:  # noqa: BLE001
-        return ([], 0) if with_total else []
-    man = os.path.join(ROOT, "build/tree/manifest.json")
-    if not os.path.exists(man):
-        return ([], 0) if with_total else []
+        with open(path or SRC_OFFSETS) as f:
+            d = json.load(f)
+    except OSError:
+        return {}, 0
+    return {int(a, 16): k for a, k in d["offsets"].items()}, d.get("objects", 0)
+
+
+def tree_objects():
+    """(object paths, TU count) of the merged tree's TUs (TREE_DIRS) that build_tree's object cache holds (compiled
+    by `tools/tree_tu.py check` / `verify`, by content)."""
+    import tree_tu
+    import build_tree
+    tus = []
+    for d in TREE_DIRS:
+        for dp, dns, fns in os.walk(os.path.join(ROOT, d)):
+            tus += [os.path.join(dp, f) for f in fns if f.endswith(".cpp")]
     out = []
-    recs = json.load(open(man))["tus"]
-    for rec in recs:
-        src = os.path.join(build_tree.TREE, rec["path"])
-        if not os.path.exists(src):
-            continue
-        text = open(src, "rb").read()
-        h = build_tree.tu_key(src, text, compare.DEFAULT_FLAGS + compare.file_flags(src))
-        obj = os.path.join(build_tree.OBJ_CACHE, h + ".obj")
+    for p in sorted(tus):
+        obj = os.path.join(build_tree.OBJ_CACHE, tree_tu.object_key(p) + ".obj")
         if os.path.exists(obj):
             out.append(obj)
-    return (out, len(recs)) if with_total else out
+    return out, len(tus)
+
+
+def refresh_source_offsets(path=None, compile_missing=False, jobs=4):
+    """Re-read config/data-source-offsets.json from the merged tree's objects (every TU must have its object:
+    `compile_missing` compiles the others, MSVC through wibo: a queue job, docs/compute.md)."""
+    objs, total = tree_objects()
+    if compile_missing and len(objs) < total:
+        import tree_tu
+        from concurrent.futures import ThreadPoolExecutor
+        tus = []
+        for d in TREE_DIRS:
+            for dp, dns, fns in os.walk(os.path.join(ROOT, d)):
+                tus += [os.path.join(dp, f) for f in fns if f.endswith(".cpp")]
+        with ThreadPoolExecutor(jobs) as ex:
+            list(ex.map(tree_tu.compile_tu, sorted(tus)))
+        objs, total = tree_objects()
+    if len(objs) < total:
+        raise SystemExit("--refresh-offsets: %d of %d tree TUs have no object (compile them: --compile, as a queue "
+                         "job)" % (total - len(objs), total))
+    off = source_offsets(objs)
+    with open(path or SRC_OFFSETS, "w") as f:
+        f.write('{"_doc": "Offsets past an address name that the merged tree\'s MSVC objects use (DAT_x + k, the '
+                'relocation addends; tools/data_inventory.py --refresh-offsets): an input of the inventory\'s extents. '
+                'Addresses and offsets only.",\n "objects": %d,\n "offsets": {\n' % len(objs))
+        ks = sorted(off)
+        f.write(",\n".join('  "0x%08x": %d' % (a, off[a]) for a in ks))
+        f.write("\n }\n}\n")
+    return off, len(objs)
 
 
 def source_offsets(objs):
-    """addr -> largest offset past DAT_<addr> that compiled verified code uses (DIR32 addends in the tree)."""
+    """addr -> largest offset past DAT_<addr> that compiled verified code uses (DIR32 addends in the objects)."""
     from compare import Coff
     out = {}
     for path in objs:
@@ -220,13 +293,74 @@ def source_offsets(objs):
                 sym = c.by_index.get(si)
                 if not sym:
                     continue
-                m = NAME_RE.search(sym[0])
+                m = SYM_RE.search(sym[0])
                 if not m or len(raw) < va + 4:
                     continue
                 add, = struct.unpack_from("<i", raw, va)
                 a = int(m.group(1), 16)
                 if 0 < add < 0x10000:
                     out[a] = max(out.get(a, 0), add)
+    return out
+
+
+ITEMS_PINNED = os.path.join(ROOT, "config/data-items.json")
+PIN_KEYS = ("size", "pad", "kind", "type", "name", "object")
+
+
+def load_pins(path=None):
+    """{addr: {size, kind, type, name, object}} of config/data-items.json: item decisions reviewed by hand (each with
+    its `why`) that the evidence alone doesn't give. With `size` the item is placed as one span before carving (a
+    `kind` is then required); without it the fields override the carved item that starts there."""
+    try:
+        with open(path or ITEMS_PINNED) as f:
+            items = json.load(f).get("items", {})
+    except OSError:
+        return {}
+    out = {}
+    for a, e in items.items():
+        p = {k: e[k] for k in PIN_KEYS if k in e}
+        if "size" in p and "kind" not in p:
+            raise SystemExit("config/data-items.json: %s has a size but no kind" % a)
+        out[int(a, 16)] = p
+    return out
+
+
+RECORDS_H = os.path.join(ROOT, "include/decls/data/records.h")
+
+
+def record_items(path=None):
+    """{addr: (declared type, 32-bit size)} of the items include/decls/data/records.h declares
+    (`extern "C" T DAT_<addr>[N];`, docs/data.md "Typed records"): each is one inventory item spanning the
+    declaration's 32-bit size, whatever the carve would make of its bytes. Sizes come from libclang
+    (i686-pc-windows-msvc, the MSVC layout; the data TUs assert them with MSVC)."""
+    import clang.cindex as ci
+    if not ci.Config.loaded:
+        try:
+            import clang_probe
+            lib = os.environ.get("HULK_LIBCLANG") or os.path.join(os.path.dirname(clang_probe.LLVM), "lib",
+                                                                 "libclang.dylib" if sys.platform == "darwin"
+                                                                 else "libclang.so")
+            if os.path.exists(lib):
+                ci.Config.set_library_file(lib)
+        except Exception:  # noqa: BLE001
+            pass
+    path = path or RECORDS_H
+    tu = ci.Index.create().parse(path, args=["-x", "c++", "--target=i686-pc-windows-msvc", "-fms-extensions",
+                                             "-fms-compatibility", "-std=c++14", "-I" + os.path.join(ROOT, "include")])
+    errs = [str(d) for d in tu.diagnostics if d.severity >= 3]
+    if errs:
+        raise SystemExit("records.h does not parse: %s" % "; ".join(errs[:3]))
+    out = {}
+    for c in tu.cursor.walk_preorder():
+        if c.kind != ci.CursorKind.VAR_DECL or not c.location.file or \
+                os.path.abspath(c.location.file.name) != os.path.abspath(path):
+            continue
+        m = re.fullmatch(r"DAT_([0-9a-f]{8})", c.spelling)
+        if m:
+            size = c.type.get_size()
+            if size <= 0:
+                raise SystemExit("records.h: %s has no complete type" % c.spelling)
+            out[int(m.group(1), 16)] = (c.type.spelling, size)
     return out
 
 
@@ -428,6 +562,26 @@ class Inventory:
             it = put(vt - 4, 4 + 4 * n, "vtable", name=name, type="vftable", cls=c["name"], slots=n,
                      vfptr_offset=v["offset"])
         self.vtables = {vt for vt, _, _ in vts}
+        # typed records (include/decls/data/records.h): one item each, its declaration's span
+        self.records = record_items()
+        for a, (t, size) in sorted(self.records.items()):
+            if not self.lo <= a < self.hi:
+                continue
+            put(a, size, "bss" if a >= self.bss_lo else "table", record=t)
+        # item spans reviewed by hand (config/data-items.json)
+        self.pins = load_pins()
+        for a, p in sorted(self.pins.items()):
+            if "size" in p:
+                if a in seen:
+                    raise SystemExit("config/data-items.json: %#x is also a fixed structure or a record" % a)
+                put(a, p["size"], p["kind"], **{k: p[k] for k in ("type", "name") if k in p})
+        for a, p in sorted(self.pins.items()):
+            if "pad" in p:
+                # alignment padding after the item (written as its `pad`), e.g. a 12-byte record in a 16-byte slot
+                end = a + (p["size"] if "size" in p else self.records[a][1] if a in self.records else 0)
+                if end == a:
+                    raise SystemExit("config/data-items.json: %#x has a pad but no span (size or record)" % a)
+                put(end, p["pad"], "padding", section=self.sec_name(end))
 
     # -- 2. start points
     def collect_starts(self, xrefs, src, src_off):
@@ -758,7 +912,28 @@ class Inventory:
             inter = self.interior.get(a)
             if inter:
                 it["interior"] = sorted(set(inter))
+        # a type the sources gave once stays while nothing contradicts it: an item no source names any more keeps the
+        # type the last inventory recorded for the same span (its declaration in include/decls/data/ stays put)
+        prev = previous_items()
+        for it in items:
+            p = prev.get(it["addr"])
+            if p and p[1] and not it.get("type") and p[0] == it["size"] and it["kind"] not in CODE_OWNED:
+                it["type"] = p[1]
         self.assign_owners(items, code_ptrs)
+        by_addr = {it["addr"]: it for it in items}
+        for a, p in sorted(self.pins.items()):
+            it = by_addr.get(a)
+            if it is None:
+                raise SystemExit("config/data-items.json: no item starts at %#x" % a)
+            for k in ("kind", "type", "name"):
+                if k in p:
+                    it[k] = p[k]            # ("type": null: the item has no type)
+            if "object" in p and p["object"] != it.get("object"):
+                o = next((o for o in self.objs if o["file"] == p["object"]), None)
+                if o is None:
+                    raise SystemExit("config/data-items.json: %#x: no object %s" % (a, p["object"]))
+                it["object"], it["layer"] = o["file"], o.get("layer", "game")
+                it["opaque"] = it["layer"] == "library"
         for it in items:
             it.setdefault("name", self.name_of(it))
         self.final = items
@@ -989,16 +1164,12 @@ def load_inventory(path=OUT, objects=None):
     return d
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--report", action="store_true")
-    ap.add_argument("--fresh", action="store_true", help="re-disassemble (ignore build/data/code_xrefs.json)")
-    ap.add_argument("--no-tree", action="store_true", help="don't read source offsets from the tree objects")
-    a = ap.parse_args(argv)
+def generate(fresh=False):
+    """(items, coverage) of the inventory from its inputs (module docstring)."""
     inv = Inventory()
-    xr = code_xrefs(inv.xbe, inv.funcs, inv.lo, inv.hi, a.fresh)
+    xr = code_xrefs(inv.xbe, inv.funcs, inv.lo, inv.hi, fresh)
     src = source_names()
-    src_off, n_objs, off_from = cached_source_offsets(not a.no_tree)
+    src_off, n_objs = load_source_offsets()
     inv.place_fixed()
     starts = inv.collect_starts(xr, src, src_off)
     inv.set_source_types(src)
@@ -1014,14 +1185,76 @@ def main(argv=None):
         it.setdefault("section", inv.sec_name(it["addr"]))
     items += opaque_sections(inv.xbe)
     cov = coverage(items)
-    cov["tree_objects_read"] = n_objs
-    cov["source_offsets_from"] = off_from
     cov["source_offsets"] = len(src_off)
+    cov["source_offsets_objects"] = n_objs
+    cov["records"] = len(inv.records)
+    cov["pinned_items"] = len(inv.pins)
+    return items, cov
+
+
+def check(items, cov, path=None, show=20):
+    """0 when PATH holds exactly what the inputs give, else 1 with a summary of the items that differ."""
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as t:
+        tmp = t.name
+    try:
+        write_json(items, tmp, cov)
+        with open(tmp) as f, open(path or OUT) as g:
+            new, old = f.read(), g.read()
+    finally:
+        os.unlink(tmp)
+    if new == old:
+        print("config/data.json is reproducible from its inputs (%d lines)" % new.count("\n"))
+        return 0
+    def rows(text):
+        return {d["addr"]: d for d in (json.loads(l.strip().rstrip(",")) for l in text.splitlines()
+                                       if l.lstrip().startswith('{"addr":'))}
+    a, b = rows(old), rows(new)
+    fields = collections.Counter()
+    diff = []
+    for k in sorted(set(a) | set(b)):
+        if a.get(k) == b.get(k):
+            continue
+        if k not in a or k not in b:
+            fields["only in the %s" % ("regenerated" if k in b else "committed")] += 1
+        else:
+            for f in sorted(set(a[k]) | set(b[k])):
+                if a[k].get(f) != b[k].get(f):
+                    fields[f] += 1
+        diff.append(k)
+    print("config/data.json is NOT reproducible from its inputs: %s" % (
+        "%d item(s) differ" % len(diff) if diff else "the coverage line differs"))
+    for f, n in fields.most_common():
+        print("  %-28s %d" % (f, n))
+    for k in diff[:show]:
+        print("  %s\n    committed:   %s\n    regenerated: %s" % (k, json.dumps(a.get(k))[:300], json.dumps(b.get(k))[:300]))
+    print("Regenerate with tools/data_inventory.py (then tools/data_gen.py; docs/data.md \"Reproducing\"), or fix the "
+          "input that moved.")
+    return 1
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--report", action="store_true", help="print the coverage table")
+    ap.add_argument("--fresh", action="store_true", help="re-disassemble (ignore build/data/code_xrefs.json)")
+    ap.add_argument("--check", action="store_true",
+                    help="regenerate in memory and compare with config/data.json: exit 1 when they differ")
+    ap.add_argument("--refresh-offsets", action="store_true",
+                    help="re-read config/data-source-offsets.json from the merged tree's MSVC objects first")
+    ap.add_argument("--compile", action="store_true", help="with --refresh-offsets: compile tree TUs without an "
+                    "object (MSVC: run it as a queue job)")
+    a = ap.parse_args(argv)
+    if a.refresh_offsets:
+        off, n = refresh_source_offsets(compile_missing=a.compile)
+        print("source offsets: %d from %d objects -> %s" % (len(off), n, os.path.relpath(SRC_OFFSETS, ROOT)))
+    items, cov = generate(a.fresh)
+    if a.check:
+        return check(items, cov)
     write_json(items, OUT, cov)
     os.makedirs(WORK, exist_ok=True)
     json.dump(cov, open(os.path.join(WORK, "inventory-report.json"), "w"), indent=1)
     print("items: %d -> %s" % (len(items), os.path.relpath(OUT, ROOT)))
-    if a.report or True:
+    if a.report:
         print(json.dumps(cov, indent=1))
     return 0
 
