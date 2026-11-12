@@ -1021,8 +1021,6 @@ namespace fn_fa3ff49b {
 struct Obj_65870 {
     char Check_0022d2b0(int, unsigned int);
 };
-extern "C" float gFive = 5.0f;
-extern "C" float gNegFive = -5.0f;
 struct Obj_65a90 {
     char p[0x1a0];
     unsigned char value;
@@ -5290,9 +5288,9 @@ extern "C" int __cdecl FUN_00065870(Obj_65870* object, int value) {
 extern "C" int FUN_000658d0(float* a, float* b, float* c, float* out) {
     float v = (a[1] * c[0] - a[0] * c[1]) + (b[0] * c[1] - b[1] * c[0]) + (b[1] * a[0] - b[0] * a[1]);  // the listing's order (MSVC 7.1 reassociates; clang does not)
     *out = v;
-    if (v > gFive)
+    if (v > DAT_003f342c)    // (dg1) the game's constants 5 / -5, not local copies
         return -1;
-    if (v < gNegFive)
+    if (v < DAT_003fb864)
         return 1;
     return 0;
 }

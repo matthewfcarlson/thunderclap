@@ -1017,7 +1017,7 @@ void HintMenu_b7cd0::FUN_000b7cd0()
 
 
 // 0x000b86b0 FUN_000b86b0 (418 B): equivalent/0x000b86b0.cpp [wrapped: conflict: FUN_000fc260]
-// sym: ?FUN_000b86b0@CheatMenu_b86b0@fn_000b86b0@@QAEXXZ @26f9d94393bc @wbdddd09d2189
+// sym: ?FUN_000b86b0@CheatMenu_b86b0@fn_000b86b0@@QAEXXZ @3f66bc1bbed5 @wbdddd09d2189
 namespace fn_000b86b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 370 inputs, branch coverage 22/22)
 // FUN_000b86b0 @ 0x000b86b0
