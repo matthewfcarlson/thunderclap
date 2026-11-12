@@ -26,11 +26,21 @@ class Mgr_306490 {
     virtual void m3();
     virtual Res2* Get(int id);
 };
+// (x64t5) the volume's owner, a CollisionObject: decls/physics_world.h's words (the owner SimState is mMgr, b6b mFlag)
 class Own_306490 {
   public:
-    char pad[0x18];
+    hulk_intptr vptr;
+    HULK_ENTITY_WORDS
+    char name[8];
     Mgr_306490* mMgr;
-    char pad2[0x6b - 0x1c];
+    int f1c;
+    void* f20;
+    int f24;
+    struct { int f28, f2c; void* f30; char b34, b35; };
+    struct { int f38; void* f3c; struct { int f40, f44; unsigned char* f48; char b4c, b4d; }; };
+    char b50, b51;
+    int f54, f58, f5c, f60, f64;
+    char b68, b69, b6a;
     char mFlag;
 };
 class Sub_306490 {

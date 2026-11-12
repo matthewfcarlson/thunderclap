@@ -41,4 +41,38 @@ struct HulkCollisionWall : HulkCollisionVolume {
     int a, b, c;
 };
 
+
+// physics::CollisionObject (x64t5; 0x00304ed0 / 0x00304f50 construct it, 0x00305400 clones it, 0x00304ff0 destroys
+// it): pure3d::Entity's words, a name (8 bytes), then the words below, 0x80 bytes on the 32-bit builds. Natively the
+// owner, the shape, the link array, the state's group array and its byte array are pointers and Entity's words end at 0x18
+// (Entity's own size), so every view declares: its vftable, Entity's words as HULK_ENTITY_WORDS (or a base class
+// named FUN_0027b070), its name (8 bytes), then HULK_COLLISION_OBJECT_WORDS. The anonymous structs are the link array
+// (0x00304930 grows it, 0x00304da0 copies it: count, capacity, elements of 20 bytes, two flags) and the state
+// (0x00305210 copies it, 0x00304e80 frees it: a count, groups of 16 bytes, a byte array with its own count, capacity
+// and flags), laid out natively as the helpers' own views of them.
+#define HULK_ENTITY_WORDS \
+    union { \
+        char entity[0xc]; /* pure3d::Entity's three words after the vftable */ \
+        void* entity_align_; /* natively padded to pointer alignment, as Entity's own size is */ \
+    };
+#define HULK_COLLISION_OBJECT_WORDS \
+    void* f18; /* the owner (the SimState that 0x002efa90 attaches it to) */ \
+    int f1c; /* flags */ \
+    void* f20; /* the shape (a CollisionVolume) */ \
+    int f24; \
+    struct { int f28, f2c; void* f30; char b34, b35; }; /* the links */ \
+    struct { int f38; void* f3c; struct { int f40, f44; unsigned char* f48; char b4c, b4d; }; }; /* the state */ \
+    char b50, b51; \
+    int f54, f58, f5c, f60, f64; \
+    char b68, b69, b6a, b6b; \
+    int f6c; \
+    char b70, b71, b72; \
+    int f74, f78, f7c;
+struct HulkCollisionObject {
+    void* vftable;
+    HULK_ENTITY_WORDS
+    char name[8];
+    HULK_COLLISION_OBJECT_WORDS
+};
+
 #endif

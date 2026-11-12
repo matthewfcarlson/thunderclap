@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002fdf40..0x002fe270 (kind game, layer engine, confidence medium), dominant class physics::WorldCollisionObject
 #include "tree_prelude.h"
+#include "decls/physics_world.h"   // (x64t5) HulkCollisionObject
 #include "compat/ptr.h"
 #include "gen/owners.h"
 #include "gen/physics.h"
@@ -188,7 +189,7 @@ void *Builder::FUN_002fdf40(int id, int nameLo, int nameHi)
                     node->children->end = node->children->begin;
                 node->vfunc_1();
             }
-            void *mem = FUN_00263ea0(0x80);
+            void *mem = FUN_00263ea0(sizeof(HulkCollisionObject));   // (x64t5) the CollisionObject record (decls/physics_world.h; 0x80 on 32-bit)
             shape = 0;
             if (mem != 0)
                 shape = ((CollisionObject_2fdf40 *)mem)->FUN_00304f50(copy);

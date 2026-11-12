@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00304640..0x00306450 (kind game, layer engine, confidence high), dominant class physics::CollisionObject
 #include "tree_prelude.h"
+extern "C" char DAT_00431b74[];   // (x64t5) a game vftable, stored by address
 #include "compat/ptr.h"
 #include "decls/physics_world.h"
 #include "gen/owners.h"
@@ -103,13 +104,17 @@ struct Entry_304b40 {
 };
 class CollisionObject_304b40 {
   public:
-    char pad0[0x20];
+    // (x64t5) decls/physics_world.h's CollisionObject words: the shape (current), the link array (count, entries), b68 (flag)
+    hulk_intptr vptr;
+    HULK_ENTITY_WORDS
+    char name[8];
+    void* f18; int f1c;
     Ref_304b40* current;
-    char pad24[4];
-    int count;
-    char pad2c[4];
-    Entry_304b40* entries;
-    char pad34[0x34];
+    int f24;
+    struct { int count, f2c; Entry_304b40* entries; char b34, b35; };
+    struct { int f38; void* f3c; struct { int f40, f44; unsigned char* f48; char b4c, b4d; }; };
+    char b50, b51;
+    int f54, f58, f5c, f60, f64;
     unsigned char flag;
     void Set(Ref_304b40*);
 };
@@ -152,25 +157,13 @@ struct Name_304f50 {
     char data[8];
     void FUN_0027af00();
 };
+// (x64t5) decls/physics_world.h's CollisionObject words: Entity's words, the name, then the shape, link and state pointers
+// where every view of the object has them natively
 struct CollisionObject {
     hulk_intptr vptr;
-    char pad04[0xc];
+    HULK_ENTITY_WORDS
     Name_304f50 name;
-    int f18, f1c, f20, f24, f28, f2c, f30;
-    char b34, b35;
-    char pad36[2];
-    int f38, f3c, f40, f44, f48;
-    char b4c, b4d;
-    char pad4e[2];
-    char b50, b51;
-    char pad52[2];
-    int f54, f58, f5c, f60, f64;
-    char b68, b69, b6a, b6b;
-    int f6c;
-    char b70, b71, b72;
-    char pad73;
-    int f74;
-    int f78;
+    HULK_COLLISION_OBJECT_WORDS
     void FUN_0027b070();
     void FUN_00304b40(void* shape);  // (x64t4) a pointer (was `int`: an ABI mismatch natively, unbound)
     CollisionObject *FUN_00304f50(hulk_intptr arg);
@@ -194,17 +187,23 @@ class Inner_305030 {
 void __fastcall FUN_00306230(Inner_305030* p);
 class Obj_305030 {
   public:
-    char pad[0x20];
+    // (x64t5) decls/physics_world.h's CollisionObject words: the shape (p), f24, the link count (x28), b68 / b69
+    hulk_intptr vptr;
+    HULK_ENTITY_WORDS
+    char name[8];
+    void* f18; int f1c;
     Inner_305030* p;
     int x24;
-    int x28;
-    char pad2c[0x3c];
+    struct { int x28, f2c; void* f30; char b34, b35; };
+    struct { int f38; void* f3c; struct { int f40, f44; unsigned char* f48; char b4c, b4d; }; };
+    char b50, b51;
+    int f54, f58, f5c, f60, f64;
     unsigned char b68;
     unsigned char b69;
     void run();
 };
 typedef unsigned int u32_305170;
-struct Mgr_305170 { void FUN_00304bd0(u32_305170, u32_305170, u32_305170); };
+struct Mgr_305170 { void FUN_00304bd0(void*, u32_305170, u32_305170); };   // (x64t5) the shape's root node, a pointer
 struct Ent_305190 {
     int a;
     int b;
@@ -224,11 +223,20 @@ struct Sub_305190 {
 };
 class T_305190 {
   public:
-    char pad[0x20];
+    // (x64t5) decls/physics_world.h's CollisionObject words: the shape (mSub), the link array (mVec), b71 (mFlag)
+    hulk_intptr vptr;
+    HULK_ENTITY_WORDS
+    char name[8];
+    void* f18; int f1c;
     Sub_305190* mSub;
     int pad2;
-    Vec_305190 mVec;
-    char pad3[0x71 - 0x34];
+    struct { Vec_305190 mVec; char b34, b35; };
+    struct { int f38; void* f3c; struct { int f40, f44; unsigned char* f48; char b4c, b4d; }; };
+    char b50, b51;
+    int f54, f58, f5c, f60, f64;
+    char b68, b69, b6a, b6b;
+    int f6c;
+    char b70;
     char mFlag;
     void Add(int a, int b, int c, unsigned char d);
 };
@@ -649,18 +657,7 @@ namespace physics {
 class CollisionObject : public FUN_0027b070 {
 public:
     Name_304ed0 name;              // 0x10
-    int f18, f1c, f20, f24, f28, f2c, f30;
-    char b34, b35;
-    char pad36[2];
-    int f38, f3c, f40, f44, f48;
-    char b4c, b4d;
-    char pad4e[2];
-    char b50, b51;
-    char pad52[2];
-    int f54, f58, f5c, f60, f64;
-    char b68, b69, b6a, b6b;
-    int f6c;
-    char b70, b71, b72;
+    HULK_COLLISION_OBJECT_WORDS    // (x64t5) decls/physics_world.h's CollisionObject words: the shape, link and state pointers
     CollisionObject() throw();
 };
 }
@@ -762,15 +759,13 @@ class Ref_304ff0 {
     virtual void f0();
     virtual void f1();
 };
+// (x64t5) decls/physics_world.h's CollisionObject words: the shape (f20), the link array (f30), the state (f38)
 class CollisionObject {
   public:
     hulk_ulongptr vptr;
-    char pad4[0x1c];
-    Ref_304ff0* mRef;
-    char pad24[0xc];
-    void* mPtr;
-    char pad34[4];
-    char sub[0x10];
+    HULK_ENTITY_WORDS
+    char name[8];
+    HULK_COLLISION_OBJECT_WORDS
     void destroy();
 };
 class H38_304ff0 {
@@ -787,14 +782,14 @@ class CollisionObject_304ff0 {
 };
 extern void thunk_0008d340(void*);
 void CollisionObject::destroy() {
-    Ref_304ff0* r = mRef;
+    Ref_304ff0* r = (Ref_304ff0*)f20;
     vptr = ((hulk_intptr)DAT_00431b08);
     if (r)
         r->f1();
-    ((H38_304ff0*)sub)->run_00304e80();
-    if (mPtr)
-        thunk_0008d340((char*)mPtr - 4);
-    ((H10_304ff0*)((char*)this + 0x10))->run_0027af50();
+    ((H38_304ff0*)&f38)->run_00304e80();
+    if (f30)
+        thunk_0008d340((char*)f30 - 4);
+    ((H10_304ff0*)name)->run_0027af50();
     ((CollisionObject_304ff0*)this)->run_0027afd0();
 }
 } // namespace fn_00304ff0
@@ -829,7 +824,9 @@ struct Owner_305070 { void FUN_003062a0(); };
 namespace physics {
 struct CollisionObject {
 virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void* vfunc_7(Context*);
-char pad[0x1c]; Owner_305070* owner; char pad2[0x14]; int count; Group_305070* groups; int result; Manager_305070* manager; unsigned char* states;
+// (x64t5) decls/physics_world.h's CollisionObject words: the shape (owner), the state's count, groups, result word and byte array
+HULK_ENTITY_WORDS char name[8]; void* f18; int f1c; Owner_305070* owner; int f24; struct { int f28, f2c; void* f30; char b34, b35; };
+int count; Group_305070* groups; int result; int f44; unsigned char* states;
 void FUN_00304c40(Owner_305070*, int*);
 };
 void* CollisionObject::vfunc_7(Context* context) {
@@ -888,12 +885,12 @@ Container_305210* Container_305210::FUN_00305210(const Container_305210* source)
  count = source->count;
  if (count > 0) {
   int n=count;
-  unsigned int* allocation=(unsigned int*)FUN_0008d6d0((unsigned int)n*16+4);
+  unsigned int* allocation=(unsigned int*)FUN_0008d6d0((unsigned int)(n*(int)sizeof(Item_305210))+4);   // (x64t5) the group's size (16 on 32-bit; its pair array a pointer)
   Item_305210* array=0;
   if (allocation) {
    *allocation=n;
    array=(Item_305210*)(allocation+1);
-   FUN_00011520(array,16,n,FUN_00304b00);
+   FUN_00011520(array,(int)sizeof(Item_305210),n,FUN_00304b00);
   }
   items=array;
   for (int i=0;i<count;++i) {
@@ -949,24 +946,23 @@ namespace physics { class CollisionObject {
     virtual void f5();
     virtual void f6();
     virtual void f7();
-    char pad10[0x1c];
-    int field20;
-    char pad24[12];
-    hulk_intptr field30;
-    char pad34[4];
+    // (x64t5) decls/physics_world.h's CollisionObject words: the shape (f20), the link array (f30), the state (f38)
+    HULK_ENTITY_WORDS
+    char name[8];
+    HULK_COLLISION_OBJECT_WORDS
 }; }
 void __cdecl freeA_0008d340(void*);
 void __cdecl freeB_00263f30(void*);
 physics::CollisionObject* physics::CollisionObject::vfunc_2(unsigned char p) {
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00431b08;
-    if (field20) {
-        Ref_305320* r = *(Ref_305320**)&field20;
+    if (f20) {
+        Ref_305320* r = (Ref_305320*)f20;
         r->f1();
     }
-    ((H38_305320*)((char*)this + 0x38))->run38_00304e80();
-    if (field30)
-        freeA_0008d340((char*)field30 - 4);
-    ((H10_305320*)((char*)this + 0x10))->run10_0027af50();
+    ((H38_305320*)&f38)->run38_00304e80();
+    if (f30)
+        freeA_0008d340((char*)f30 - 4);
+    ((H10_305320*)name)->run10_0027af50();
     ((CollisionObject_305320*)this)->run0_0027afd0();
     if (p & 1)
         freeB_00263f30(this);
@@ -976,7 +972,7 @@ physics::CollisionObject* physics::CollisionObject::vfunc_2(unsigned char p) {
 
 
 // 0x00305400 physics::CollisionObject::vfunc_5 (278 B): equivalent/0x00305400.cpp [wrapped: conflict: physics::CollisionObject]
-// sym: ?vfunc_5@CollisionObject@physics@fn_00305400@@UAEPAU123@H@Z @0d2a14fc0e68 @w4a3873195a5d
+// sym: ?vfunc_5@CollisionObject@physics@fn_00305400@@UAEPAU123@PAX@Z @0d2a14fc0e68 @w4a3873195a5d
 namespace fn_00305400 {
 // STATUS: equivalent (tools/equiv.py level 3: 462 inputs, branch coverage 6/6)
 // physics::CollisionObject::vfunc_5 @ 0x00305400
@@ -984,16 +980,21 @@ void* __cdecl FUN_00263ea0(unsigned int);
 struct Copy8 { char data[8]; void FUN_0027af70(const Copy8*); };
 struct Link_305400 { int first, second; unsigned char a,b; char pad[2]; int resolvedFirst,resolvedSecond; };
 struct Links_305400 { int count; int capacity; Link_305400* items; int other; void FUN_00304da0(const Links_305400*); };
-struct State_305400 { char data[24]; void FUN_00305210(const State_305400*); };
+struct State_305400 { int count; void* groups; struct { int count, capacity; unsigned char* data; char b4c, b4d; } bytes; void FUN_00305210(const State_305400*); };  // (x64t5) the state's words (0x00305210's view)
 struct Shape_305400 { Shape_305400* FUN_00306c60(); int FUN_00306190(int,unsigned int); };
 namespace physics {
 struct CollisionObject {
- virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual CollisionObject* vfunc_5(int); virtual void vfunc_6(); virtual void vfunc_7();
- int unknown4; Copy8 name; Copy8 otherName; int owner; int flags; Shape_305400* shape; int value24; Links_305400 links; State_305400 state; unsigned char flag50,flag51; char pad52[2]; int value54,value58,value5c,value60,value64; char pad68[2]; unsigned char flag6a,flag6b; int value6c; unsigned char flag70,flag71,flag72; char tail[13];
+ virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual CollisionObject* vfunc_5(void*); virtual void vfunc_6(); virtual void vfunc_7();
+ // (x64t5) decls/physics_world.h's CollisionObject words: Entity's words (natively padded as Entity's size), the shape, link and state pointers
+ int unknown4; Copy8 name;
+#if defined(HULK_PTR64)
+ int entity_pad_;   // natively Entity's words end at 0x18 (Entity's own size)
+#endif
+ Copy8 otherName; void* owner; int flags; Shape_305400* shape; int value24; Links_305400 links; State_305400 state; unsigned char flag50,flag51; char pad52[2]; int value54,value58,value5c,value60,value64; char pad68[2]; unsigned char flag6a,flag6b; int value6c; unsigned char flag70,flag71,flag72; char tail[13];
  CollisionObject* FUN_00304ed0(); void FUN_00304b40(Shape_305400*);
 };
-CollisionObject* CollisionObject::vfunc_5(int newOwner) {
- void* memory=FUN_00263ea0(128);
+CollisionObject* CollisionObject::vfunc_5(void* newOwner) {   // (x64t5) the owner, a SimState pointer (was `int`)
+ void* memory=FUN_00263ea0(sizeof(HulkCollisionObject));   // (x64t5) 0x80 on 32-bit
  CollisionObject* result=memory ? static_cast<CollisionObject*>(memory)->FUN_00304ed0() : 0;
  result->name.FUN_0027af70(&name);
  result->shape=0;
@@ -1319,7 +1320,7 @@ extern "C" bool __cdecl FUN_00306060(u32_306060 a, u32_306060 b, u32_306060 c) {
 // sym: ??0CollisionVolume_3060a0@fn_f3c9f944@@QAE@XZ
 CollisionVolume_3060a0::CollisionVolume_3060a0() throw() {
     m4 = 0;
-    vftable = vA;
+    vftable = (void*)DAT_00431b74;   // (x64t5) physics::CollisionVolume's vftable by address (common.h's `vA` is a zero stub natively)
     _ReadWriteBarrier();
     owner = 0;
     children = 0;

@@ -236,20 +236,24 @@ struct Sub38_308410 {
 struct Target_308410 {
     void FUN_00306300();
 };
+// (x64t5) decls/physics_world.h's CollisionObject words: the vftable and Entity's words (natively ending at 0x18, as
+// Entity's own size), the names, then the shape, link and state pointers where every view of the object has them
 class CollisionObject_308410 {
 public:
-    char pad0[8];
+    hulk_intptr vptr;
+    int refs;
     NameField_308410 name;
     char pad9[7];
+#if defined(HULK_PTR64)
+    int entity_pad_;
+#endif
     NameField_308410 name2;
-    char pad11[0x20 - 0x11];
+    char pad11[7];
+    void* f18; int f1c;
     Target_308410 *f20;
     int f24;
-    char pad28[0x38 - 0x28];
-    Sub38_308410 sub;
-    char pad39[0x3c - 0x39];
-    HashList *lists;
-    char pad40[0x50 - 0x40];
+    struct { int f28, f2c; void* f30; char b34, b35; };
+    struct { Sub38_308410 sub; char pad39[3]; HashList *lists; struct { int f40, f44; unsigned char* f48; char b4c, b4d; }; };
     char b50;
     char pad51[3];
     int f54;
@@ -264,9 +268,9 @@ public:
 
     CollisionObject_308410 *FUN_00304ed0();
     void FUN_00305190(int v1, int v2, bool b1, bool b2);
-    void FUN_00304b40(int x);
+    void FUN_00304b40(void* x);   // (x64t5) the shape, a pointer (was `int`)
 };
-int __cdecl FUN_003080a0(Reader_308410 *r);
+void* __cdecl FUN_003080a0(Reader_308410 *r);   // (x64t5) returns the shape (a Node*; was `int`)
 int __cdecl FUN_002f2750(unsigned int lo, unsigned int hi);
 struct Frame_308410 {
     char pad10[3];

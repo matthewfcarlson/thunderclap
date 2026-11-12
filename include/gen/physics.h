@@ -442,9 +442,10 @@ public:
     virtual void vfunc_5(int); // slot 5
     virtual void vfunc_6(int, int); // slot 6
     virtual void vfunc_7(int); // slot 7
-    char _pad_10[0xc];
+    char _pad_10[0x8];
+    void* f_18; // (x64t5) the owner (a SimState), a pointer (decls/physics_world.h HULK_COLLISION_OBJECT_WORDS)
     int f_1c;
-    int f_20;
+    void* f_20; // (x64t5) the shape (a CollisionVolume), a pointer (decls/physics_world.h HULK_COLLISION_OBJECT_WORDS)
     int f_24;
     int f_28;
     int f_2c;

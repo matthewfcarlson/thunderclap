@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0030d760..0x0030e630 (kind game, layer engine, confidence high), dominant class physics::CollisionAnalyser
 #include "tree_prelude.h"
+extern "C" char DAT_00431fe0[];   // (x64t5) a game vftable, stored by address
 #include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
@@ -162,7 +163,7 @@ struct Buf_30e480 {
 };
 struct Base_30e480 {
     void* vptr;
-    Base_30e480() throw() { vptr = vA; }
+    Base_30e480() throw() { vptr = (void*)DAT_00431fe0; }   // (x64t5) the vftable by address (common.h's `vA` is a zero stub natively)
 };
 class CollisionAnalyser_30e480 : public Base_30e480 {
   public:

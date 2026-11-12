@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002efca0..0x002f27c0 (kind game, layer engine, confidence high), dominant class physics::CollisionSphere
 #include "tree_prelude.h"
+#include "decls/physics_world.h"   // (x64t5) HulkCollisionObject
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/physics.h"
@@ -384,7 +385,7 @@ struct Table {
 // FUN_002efca0 @ 0x002efca0
 Result_2efca0* __cdecl target(BaseInput* input, const char* name) {
  input->FUN_00306380();
- CollisionObject_2efca0* n = (CollisionObject_2efca0*)FUN_00263ea0(128);
+ CollisionObject_2efca0* n = (CollisionObject_2efca0*)FUN_00263ea0(sizeof(HulkCollisionObject));   // (x64t5) the CollisionObject record (decls/physics_world.h; 0x80 on 32-bit)
  if(n) n=n->FUN_00304f50(input);
  n->field6c=0; n->flag50=0;
  ((owners::Target_27b040 *)&(n->text))->FUN_0027b040((hulk_uintptr)(name ? name : "Not baptized yet"));

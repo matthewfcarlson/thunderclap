@@ -898,7 +898,7 @@ ImpulseBasedCollisionSolver_2f7ee0::ImpulseBasedCollisionSolver_2f7ee0() throw()
     mec = (*(Cfg_2f7ee0**)&DAT_00554c10)->a;
     CollisionWall_2f7ee0* p = (CollisionWall_2f7ee0*)FUN_0008d690((int)sizeof(CollisionWall_2f7ee0));
     CollisionWall_2f7ee0* q = p ? p->Ctor_0030e700() : 0;
-    CollisionObject_2f7ee0* r = (CollisionObject_2f7ee0*)thunk_FUN_0008d690(0x80);
+    CollisionObject_2f7ee0* r = (CollisionObject_2f7ee0*)thunk_FUN_0008d690(sizeof(HulkCollisionObject));   // (x64t5) the CollisionObject record (decls/physics_world.h; 0x80 on 32-bit)
     CollisionObject_2f7ee0* t = r ? r->Ctor_00304f50(q) : 0;
     Ref_2f7ee0* x = FUN_002efa90(t, 0, 0);
     mfc = x;

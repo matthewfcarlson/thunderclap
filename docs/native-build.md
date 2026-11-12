@@ -2714,3 +2714,38 @@ destructor 0x00304ff0, vfunc_2 / 5 / 6 / 7, Set 0x00304b40, the link and state c
 0x00304e80, and the views in CollisionSphere, WorldCollisionObject, CollisionObjectLoader, ImpulseBasedCollisionSolver,
 PhysicsInstance, StateProp and CWorldStreamManager) needs one record (Entity's words, two names, owner, flags, the
 shape pointer, the link array, the state with its group / state pointers, the flags and words after them).
+
+**Batch 3: physics::CollisionObject as one record, and the physics vftables stored by address.**
+include/decls/physics_world.h now has CollisionObject's words: `HULK_ENTITY_WORDS` (pure3d::Entity's three words after
+the vftable, a union with a pointer so that natively they end at 0x18, Entity's own size), an 8-byte name, then
+`HULK_COLLISION_OBJECT_WORDS`: the owner (a SimState pointer: 0x002efa90 stores it), flags, the shape (a
+CollisionVolume pointer), a word, the link array as an anonymous struct (count, capacity, the 20-byte entries, two
+flags: the layout 0x00304930 / 0x00304da0 use), the state (a count, the 16-byte groups, then a byte array with its count,
+capacity and flags: 0x00305210 / 0x00304e80's layout) and the flags and words after them; `HulkCollisionObject` is
+the whole record (0x80 bytes on 32-bit). Each view keeps its member names (anonymous structs and the macro give them
+the record's offsets on both builds).
+
+| where | change | gate |
+|---|---|---|
+| src/engine/physics/CollisionObject.cpp: 0x00304ed0, 0x00304f50, 0x00304ff0, 0x00305070, 0x00305320, 0x00305400, 0x00304b40, 0x00305030, 0x00305190 | the views on the record (they disagreed natively: the constructor put the name at 0x18, vfunc_5's flat view read the shape at 0x28 where the constructor's had nothing; the destructors' raw `this + 0x10 / 0x38` offsets by member) | matches MATCH, relocations ok; equivalents' code hashes ok |
+| 0x00305400 CollisionObject::vfunc_5 (equivalent) | its owner argument and member a pointer (was `int`: natively cut to 32 bits); the clone allocated as `sizeof(HulkCollisionObject)`; Entity's words padded natively (`HULK_PTR64`; the record's union made clang's 32-bit code differ here) | code hashes unchanged; new pin |
+| 0x00305210 (equivalent) | the groups allocated by `sizeof` (16 on 32-bit; each holds a pointer) | code hashes unchanged |
+| 0x00305170 (match), include/gen/physics.h CollisionObject | gen's owner (`f_18`) and shape (`f_20`) pointers; the node walk's argument a pointer | MATCH, relocations ok; 32-bit layout identical apart from the new field in the pad (`-fdump-record-layouts`) |
+| CollisionSphere, WorldCollisionObject, ImpulseBasedCollisionSolver (matches / equivalents) | each CollisionObject allocated as `sizeof(HulkCollisionObject)` (0x80 was short natively) | MATCH / hashes ok |
+| CollisionObjectLoader 0x00308410 (equivalent) | its view on the record; the shape it attaches (0x003080a0's result, 0x00304b40's argument) a pointer (was `int`) | code hashes unchanged |
+| SimState 0x002efa90 (equivalent), CollisionVolume 0x00306490 (match) | their CollisionObject views (owner, shape, flags) on the record | hashes ok / MATCH |
+| 0x002ef7f0 SimState constructor, 0x003060a0 CollisionVolume constructor, CollisionAnalyser's base (matches) | the vftable stored by address (`DAT_00431214`, `DAT_00431b74`, `DAT_00431fe0`): common.h's shared placeholder `vA` is a 64-byte zero stub natively, so the SimState's slot 14 was a null call (the crash the user saw in nat-j5: `pc=0`, lr FUN_002efa90+0x138) | MATCH, relocations ok |
+
+Not done: other TUs' `vA` / `g_vA` placeholder vftable stores (about 20 sites in src/game/hulkfight, src/engine/fight,
+d3dPointSpriteShader, ...) are the same zero stub natively; a tree-wide rename to the address names would fix them all.
+gen's physics::CollisionObject past `f_24` is still flat (its link / state words do not have the record's native
+offsets; nothing reads them through gen).
+
+Gates: the ten TUs' matches MATCH with relocations ok, equivalents' MSVC and clang code hashes unchanged (0x00305400 re-pinned);
+gen/physics.h: 32-bit layout identical but for the named field (build/x64t5/lay/co-*). Proof 72247 (studio, HEAD 8205c9508 +
+the batch, seed:72243) vs 72243: GATE ok (0 of 2,021 common frames differ). Native (every TU compiles): arm64 macOS /
+x86-64 Linux unbound **19,016 / 18,996** (before: 19,022 / 19,002). macOS (canary on, a private map with the batch's two
+new names) now runs the physics world's construction through the collision solver's clone of its wall
+(0x002f7ee0 -> 0x002efa90 -> CollisionObject::vfunc_5) and stops in the volume's update (0x00306490 ->
+owners::Mat_22c2b0::FUN_0022c2b0): its second argument is the volume's matrix passed through an `int`
+(`(float*)(hulk_uintptr)(int)GetKind()`), cut to 32 bits natively.

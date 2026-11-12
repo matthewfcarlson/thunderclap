@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002ef300..0x002efb70 (kind game, layer engine, confidence high), dominant class physics::SimState
 #include "tree_prelude.h"
+#include "decls/physics_world.h"   // (x64t5) the CollisionObject words
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -280,7 +281,11 @@ struct Parent_2efa90 {
 };
 struct Source_2efa90 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual Source_2efa90* v5(SimState_2efa90*);
- char pad[20]; SimState_2efa90* owner; char pad2[4]; Service_2efa90* service; char pad3[68]; unsigned char flag1; unsigned char flag2;
+ // (x64t5) a CollisionObject: decls/physics_world.h's words (Entity's, the name, the owner and shape pointers)
+ HULK_ENTITY_WORDS char name[8]; SimState_2efa90* owner; int f1c; Service_2efa90* service; int f24;
+ struct { int f28, f2c; void* f30; char b34, b35; };
+ struct { int f38; void* f3c; struct { int f40, f44; unsigned char* f48; char b4c, b4d; }; };
+ char b50, b51; int f54, f58, f5c, f60, f64; unsigned char flag1; unsigned char flag2;
 };
 struct SimState_2efa90 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(Parent_2efa90*); virtual void v14(Source_2efa90*);
@@ -509,7 +514,7 @@ void __cdecl FUN_002ef760(Pose *from, Pose *to, float scale, float dt, Motion_2e
 SimState_2ef7f0::SimState_2ef7f0(int a) throw() {
     int t = *(volatile int*)&a;
     m4 = 0;
-    vptr = vA;
+    vptr = (void*)DAT_00431214;   // (x64t5) physics::SimState's vftable by address (common.h's `vA` is a zero stub natively)
     m8 = 0;
     mc = 0;
     m50 = 0;
