@@ -622,7 +622,7 @@ void Owner::FUN_00304e80() {
 } // namespace fn_f3c9f944
 
 // 0x00304ed0 FUN_00304ed0 (127 B): equivalent/0x00304ed0.cpp [wrapped: conflict: physics::CollisionObject]
-// sym: ??0CollisionObject@physics@fn_00304ed0@@QAE@XZ @a05fccbf6716 @w7ed939089159
+// sym: ??0CollisionObject@physics@fn_00304ed0@@QAE@XZ @25eedda23765 @w804538179ac2
 namespace fn_00304ed0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00304ed0 @ 0x00304ed0
@@ -634,15 +634,19 @@ struct Name_304ed0 {
     void FUN_0027af00();
 };
 
-class Entity_304ed0 {
+// (x64t5) pure3d::Entity named by its constructor's address (0x0027b070) so that the native link binds the base call
+// (was Entity_304ed0, unbound), and CollisionObject's vftable stored by address (a local class's own vftable would be
+// the 64-bit link's stub)
+class FUN_0027b070 {
 public:
-    Entity_304ed0() throw();
-    virtual void vfunc_0();
+    FUN_0027b070() throw();
+    void* vftable;
     int f04, f08, f0c;
 };
+extern "C" char DAT_00431b08[];  // physics::CollisionObject
 
 namespace physics {
-class CollisionObject : public Entity_304ed0 {
+class CollisionObject : public FUN_0027b070 {
 public:
     Name_304ed0 name;              // 0x10
     int f18, f1c, f20, f24, f28, f2c, f30;
@@ -658,12 +662,12 @@ public:
     int f6c;
     char b70, b71, b72;
     CollisionObject() throw();
-    virtual void vfunc_0();
 };
 }
 
 physics::CollisionObject::CollisionObject() throw()
 {
+    vftable = (void*)DAT_00431b08;
     name.FUN_0027af00();
     f18 = 0;
     f1c = 0;

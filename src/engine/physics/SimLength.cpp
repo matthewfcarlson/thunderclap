@@ -353,7 +353,9 @@ namespace fn_fae3921a {
 extern "C" void __cdecl FUN_002ed020() {
     physics::Environment* p = (*(physics::Environment**)&DAT_00554c10);
     if (p == 0) {
-        p = (physics::Environment*)FUN_00263ea0(0x38);
+        // (x64t5) the environment as its constructor 0x002ecf60 writes it (0x34 bytes on 32-bit: Entity's words, nine
+        // floats), plus the block's last word (the XBE allocates 0x38): the 0x38-byte block was 8 short natively
+        p = (physics::Environment*)FUN_00263ea0((unsigned int)sizeof(fn_002ecf60::physics::Environment) + 4);
         if (p != 0)
             p = ((Environment_nv_2ed020*)(((physics::Environment*)(p))))->Init_002ecf60();
         else

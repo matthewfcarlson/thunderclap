@@ -31,6 +31,10 @@ struct HulkCollisionVolume {
     union { float f34; int i34; };
 };
 // physics::CollisionWall (0x0030e700): the base and eleven words (0x60 bytes on the 32-bit builds)
+// (x64t5) CollisionVolume's subclasses that have no record yet (AABB, cylinder, OBB, sphere) are allocated as twice the
+// XBE's size on 64-bit (interim, docs/tech-debt.md; the 32-bit size unchanged): HULK_X2_VOLUME(n)
+#define HULK_X2_VOLUME(n) ((n) * (int)(sizeof(void*) / 4))
+
 struct HulkCollisionWall : HulkCollisionVolume {
     float x, y, z, w;
     float x2, y2, z2;

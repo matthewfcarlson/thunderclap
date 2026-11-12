@@ -2692,3 +2692,25 @@ batch, with CollisionObject's base constructor, 0x00304ed0's `Entity_304ed0`, un
 - Shader classes gen has incomplete (refl, projected texture, point sprite, spheremap): interim `HULK_X2_SHADER`.
 - The iso TUs' sound strings (0x0035de40 / 0x0035e600) still construct their own copies natively (data_gen to type
   the 12-byte item 0x004e2184 as a string record first).
+
+**Batch 2: the physics environment, CollisionObject's base and the volumes' clone.** On batch 1's image the canary
+allocator's next find was the physics environment; after it the start-up stopped where dg1's run did, at
+CollisionObject's base constructor:
+
+| where | change | gate |
+|---|---|---|
+| 0x002ed020 (match) | the physics environment allocated as its constructor's (0x002ecf60) class plus the block's last word: 0x38 on 32-bit; natively Entity's words end at 0x18, so the 0x38-byte block was 8 short (the ninth find) | MATCH, relocations ok |
+| 0x00304ed0 CollisionObject constructor (equivalent) | pure3d::Entity named by its constructor's address (`FUN_0027b070`; was `Entity_304ed0`, unbound natively) and CollisionObject's vftable stored by address (DAT_00431b08) | re-proved: equiv.py 3,000 inputs and `--wine` 600 (the vftable relocation now names the address); hash recorded |
+| 0x00306c60 CollisionVolume clone (equivalent) | the wall allocated as `HulkCollisionWall` (0x60 was 4 short natively); the AABB, cylinder, OBB and sphere as `HULK_X2_VOLUME(n)` (twice the XBE's size on 64-bit, interim until their records exist; docs/tech-debt.md) | same code (hash unchanged) |
+
+Gates: the four TUs' matches MATCH with relocations ok, equivalents' code hashes ok. Proof 72243 (studio, HEAD 37edd2997
++ the batch, seed:72233) vs 72233 (the sources of 37edd2997): GATE ok (0 of 2,001 common frames differ). Native:
+arm64 macOS / x86-64 Linux unbound **19,022 / 19,002** (before: 19,024 / 19,004).
+
+**Where macOS stops now.** CollisionObject::vfunc_5 (0x00305400, the physics world's set-up clones a CollisionObject)
+reads the shape through its own view of the object, a flat 32-bit layout, while the constructor's view puts Entity's
+words in a 0x18-byte base natively: every view of CollisionObject (the constructors 0x00304ed0 / 0x00304f50, the
+destructor 0x00304ff0, vfunc_2 / 5 / 6 / 7, Set 0x00304b40, the link and state copies 0x00304da0 / 0x00305210 /
+0x00304e80, and the views in CollisionSphere, WorldCollisionObject, CollisionObjectLoader, ImpulseBasedCollisionSolver,
+PhysicsInstance, StateProp and CWorldStreamManager) needs one record (Entity's words, two names, owner, flags, the
+shape pointer, the link array, the state with its group / state pointers, the flags and words after them).

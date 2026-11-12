@@ -720,23 +720,23 @@ void* Object::clone() {
  void* memory;
  switch (type()) {
  case 1:
-  memory = FUN_0008d690(0x44);
+  memory = FUN_0008d690(HULK_X2_VOLUME(0x44));   // (x64t5) no record yet: twice natively
   if (memory) result = ((CollisionAABB_306c60*)memory)->FUN_00312900();
   break;
  case 2:
-  memory = FUN_0008d690(0x8c);
+  memory = FUN_0008d690(HULK_X2_VOLUME(0x8c));
   if (memory) result = ((CollisionCylinder_306c60*)memory)->FUN_00306b40();
   break;
  case 5:
-  memory = FUN_0008d690(0xbc);
+  memory = FUN_0008d690(HULK_X2_VOLUME(0xbc));
   if (memory) result = ((CollisionOBB_306c60*)memory)->FUN_00306ba0();
   break;
  case 7:
-  memory = FUN_0008d690(0x48);
+  memory = FUN_0008d690(HULK_X2_VOLUME(0x48));
   if (memory) result = ((CollisionSphere_306c60*)memory)->FUN_00306c00();
   break;
  case 8:
-  memory = FUN_0008d690(0x60);
+  memory = FUN_0008d690(sizeof(HulkCollisionWall));   // (x64t5) the wall's record (0x60 on 32-bit; 4 short natively)
   if (memory) result = ((CollisionWall_306c60*)memory)->FUN_0030e700();
   break;
  }
