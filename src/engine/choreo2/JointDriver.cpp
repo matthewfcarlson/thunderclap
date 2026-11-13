@@ -27,7 +27,7 @@ class JointDriver {
     char pad[12];
     int mValue;
     int mState;
-    char pad2[4];
+    Part_2248a0 part;                       // +0x18 (0x00222050 constructs it: floats)
     JointDriver* Init();
 };
 class Obj_2249a0 {
@@ -60,7 +60,7 @@ JointDriver* JointDriver::Init() {
     this->vptr = (int*)((hulk_intptr)DAT_004272f0);
     mValue = 0;
     mState = 3;
-    ((Part_2248a0*)((char*)this + 0x18))->Init_00222050();
+    this->part.Init_00222050();
     ++(*(int*)&DAT_004e5aac);
     if ((*(int*)&DAT_004e5aac) <= (*(int*)&DAT_004e5ab0)) {
     } else
@@ -78,7 +78,11 @@ namespace fn_002248f0 {
 extern "C" char DAT_004272f0[];
 class JointDriver {
   public:
-    char pad[0x18];
+    hulk_intptr vptr;
+    int entity[3];                          // pure3d::Entity's words (packed natively: 0x14 with the vftable)
+    int value;                              // +0x10
+    int state;                              // +0x14
+    char part[4];                           // +0x18 (0x00222050 constructs it: floats)
     void Init_00222050();
     JointDriver(int arg);
 };
@@ -86,9 +90,9 @@ extern "C" void __fastcall FUN_0022a8e0(void*);
 JointDriver::JointDriver(int arg) {
     FUN_0022a8e0((void*)(this));
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004272f0);
-    *(int*)((char*)this + 0x10) = arg;
-    *(int*)((char*)this + 0x14) = 3;
-    ((JointDriver*)((char*)this + 0x18))->Init_00222050();
+    this->value = arg;
+    this->state = 3;
+    ((JointDriver*)this->part)->Init_00222050();
     int a = (*(int*)&DAT_004e5aac);
     int b = (*(int*)&DAT_004e5ab0);
     a++;

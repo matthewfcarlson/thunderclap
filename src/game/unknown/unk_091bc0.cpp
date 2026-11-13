@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00091bc0..0x00092120 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#include "decls/unlockables.h"
 #include "compat/ptr.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f9898967 {
@@ -43,16 +44,7 @@ class CUnlockableBlonskyFile {
   public:
     CUnlockableBlonskyFile();
     char* vf;
-    char _m_pad_4[0x4];
-    unsigned char enabled;
-    char _m_pad_9[0x7];
-    Part_91c80 a;
-    Part_91c80 b;
-    char _m_pad_30[0x38];
-    unsigned char f68;
-    char _m_pad_69[0x3f];
-    unsigned char fa8;
-    char _m_pad_a9[0x3];
+    HulkUnlockableBlonskyFileWords w;       // decls/unlockables.h
     void Destroy();
 };
 class Helper_91cc0 {
@@ -67,27 +59,22 @@ typedef unsigned int u32_91da0;
 struct Sub_91da0 {
     char pad[8];
 };
-class CUnlockable {
+class CUnlockable : public HulkUnlockableWords {   // decls/unlockables.h
   public:
     virtual void* m_vf0_000933a0(int);
     CUnlockable();
-    char _m_pad_4[0x4];
-    union { u8 f8; u8 member8; };
-    char _m_pad_9[0x7];
-    Sub_91da0 sub;
-    union { u32_91da0 f18; void* m18; int member18; };
-    char _m_pad_1c[0x4];
-    u8 f20;
-    char _m_pad_21[0x3];
-    u32_91da0 f24;
-    u8 f28;
-    char _m_pad_29[0x3];
     void Destroy();
 };
 extern "C" void __fastcall FUN_0027af00(Sub_91da0*);
 extern char hulk_at_0040449c[];
 extern char hulk_at_004044ac[];
-struct CUnlockableCheat : CUnlockable {};
+struct CUnlockableCheat : CUnlockable {     // HulkUnlockableCheatWords past CUnlockable's words
+    int word1c;
+    u8 f20;
+    char _m_pad_21[0x3];
+    u32_91da0 f24;
+    char code[8];
+};
 extern int vtBase_91de0;
 extern int vtCheat_91de0;
 struct Sub_91de0 {
@@ -96,14 +83,7 @@ struct Sub_91de0 {
 };
 struct CUnlockableCheat_91de0 {
     int* vptr;
-    char p4[4];
-    unsigned char flag;
-    char p9[7];
-    Sub_91de0 sub;
-    int field18;
-    char p1c[4];
-    unsigned char field20;
-    char p21[7];
+    HulkUnlockableCheatWords w;             // decls/unlockables.h
     CUnlockableCheat_91de0* ctor(const char* arg);
 };
 extern "C" void FUN_00267760(void*, int, const char*, ...);
@@ -114,9 +94,7 @@ struct Sub_91ea0 {
 class CUnlockableMove {
   public:
     hulk_intptr vf;
-    char _m_pad_4[0x14];
-    void* ptr;
-    char _m_pad_1c[0x2d];
+    HulkUnlockableMoveWords w;              // decls/unlockables.h
     CUnlockableMove* Ctor();
     void dtor();
 };
@@ -145,9 +123,9 @@ class C_92090 {
 // 0x00091bc0 FUN_00091bc0 (32 B): matches/0x00091bc0.cpp
 // sym: ??0CUnlockable@fn_f9898967@@QAE@XZ
 CUnlockable::CUnlockable() {
-    member8 = 1;
-    ((Sub_91bc0*)((char*)this + 0x10))->Init_0027af00();
-    member18 = 0;
+    enabled = 1;
+    ((Sub_91bc0*)&this->id)->Init_0027af00();
+    data = 0;
 }
 
 
@@ -155,11 +133,11 @@ CUnlockable::CUnlockable() {
 // sym: ?Destroy@CUnlockable@fn_f9898967@@QAEXXZ
 void CUnlockable::Destroy() {
     *(void**)this = (void*)((hulk_intptr)DAT_0040449c);
-    if (m18) {
-        thunk_FUN_00267090(m18);
-        m18 = 0;
+    if (data) {
+        thunk_FUN_00267090(data);
+        data = 0;
     }
-    ((Tail_91be0*)((char*)this + 0x10))->Fnf_0027af50();
+    ((Tail_91be0*)&this->id)->Fnf_0027af50();
 }
 
 
@@ -181,14 +159,14 @@ void X::Set(const char* s) {
 // sym: ??0CUnlockableBlonskyFile@fn_f9898967@@QAE@XZ
 CUnlockableBlonskyFile::CUnlockableBlonskyFile() {
     vf = (char*)((hulk_intptr)DAT_0040449c);
-    enabled = 1;
-    a.Init_0027af00();
-    *(int*)((char*)this + 0x18) = 0;
+    w.enabled = 1;
+    ((Part_91c80*)&w.id)->Init_0027af00();
+    w.data = 0;
     vf = (char*)((hulk_intptr)DAT_004044a4);
-    b.Init_0027af00();
-    fa8 = 0;
-    f68 = 0;
-    *(unsigned char*)((char*)this + 0x28) = 0;
+    ((Part_91c80*)&w.id20)->Init_0027af00();
+    w.flagA8 = 0;
+    w.text68[0] = 0;
+    w.text28[0] = 0;
 }
 
 
@@ -196,14 +174,14 @@ CUnlockableBlonskyFile::CUnlockableBlonskyFile() {
 // sym: ?Destroy@CUnlockableBlonskyFile@fn_f9898967@@QAEXXZ
 void CUnlockableBlonskyFile::Destroy() {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004044a4);
-    ((Helper_91cc0*)((char*)this + 0x20))->Run_0027af50();
+    ((Helper_91cc0*)&w.id20)->Run_0027af50();
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0040449c);
-    int p = *(int*)((char*)this + 0x18);
+    hulk_intptr p = (hulk_intptr)w.data;
     if (p) {
         thunk_FUN_00267090(p);
-        *(int*)((char*)this + 0x18) = 0;
+        w.data = 0;
     }
-    ((Helper_91cc0*)((char*)this + 0x10))->Run_0027af50();
+    ((Helper_91cc0*)&w.id)->Run_0027af50();
 }
 
 
@@ -235,11 +213,11 @@ namespace fn_f9898967 {
 // sym: ?FUN_00091da0@fn_f9898967@@YIPAUCUnlockableCheat@1@PAU21@@Z
 CUnlockableCheat* __fastcall FUN_00091da0(CUnlockableCheat* self) {
     *(void**)self = hulk_at_0040449c;
-    self->f8 = 1;
-    FUN_0027af00(&self->sub);
-    self->f18 = 0;
+    self->enabled = 1;
+    FUN_0027af00((Sub_91da0*)&self->id);
+    self->data = 0;
     self->f20 = 0;
-    self->f28 = 0;
+    self->code[0] = 0;
     *(void**)self = hulk_at_004044ac;
     self->f24 = 0xffffffff;
     return self;
@@ -250,12 +228,12 @@ CUnlockableCheat* __fastcall FUN_00091da0(CUnlockableCheat* self) {
 // sym: ?ctor@CUnlockableCheat_91de0@fn_f9898967@@QAEPAU12@PBD@Z
 CUnlockableCheat_91de0* CUnlockableCheat_91de0::ctor(const char* arg) {
     vptr = (int*)&vtBase_91de0;
-    flag = 1;
-    sub.Init_0027af00();
-    field18 = 0;
-    field20 = 0;
+    w.enabled = 1;
+    ((Sub_91de0*)&w.id)->Init_0027af00();
+    w.data = 0;
+    w.flag20 = 0;
     vptr = (int*)&vtCheat_91de0;
-    FUN_00267760((char*)this + 0x28, 8, "%s", arg);
+    FUN_00267760(w.code, 8, "%s", arg);
     return this;
 }
 
@@ -268,8 +246,8 @@ extern "C" char DAT_0040449c[];
 // Same code shape as 0x00091be0 (propagated; names are from that function)
 class CUnlockable {
   public:
-    int pad[6];
-    void* m18;
+    void* vftable;
+    HulkUnlockableWords w;                  // decls/unlockables.h
     void Destroy();
 };
 extern void __cdecl thunk_FUN_00267090(void*);
@@ -278,11 +256,11 @@ struct Tail_91e30 {
 };
 void CUnlockable::Destroy() {
     *(void**)this = (void*)((hulk_intptr)DAT_0040449c);
-    if (m18) {
-        thunk_FUN_00267090(m18);
-        m18 = 0;
+    if (w.data) {
+        thunk_FUN_00267090(w.data);
+        w.data = 0;
     }
-    ((Tail_91e30*)((char*)this + 0x10))->Fnf_0027af50();
+    ((Tail_91e30*)&w.id)->Fnf_0027af50();
 }
 } // namespace fn_00091e30
 
@@ -292,19 +270,19 @@ namespace fn_f9898967 {
 // sym: ?Ctor@CUnlockableMove@fn_f9898967@@QAEPAV12@XZ
 CUnlockableMove* CUnlockableMove::Ctor() {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0040449c);
-    *((char*)this + 8) = 1;
-    ((Sub_91ea0*)((char*)this + 0x10))->Init_0027af00();
-    *(int*)((char*)&this->ptr) = 0;
+    w.enabled = 1;
+    ((Sub_91ea0*)&w.id)->Init_0027af00();
+    w.data = 0;
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004044b4);
-    *((char*)this + 0x20) = 0;
-    *(int*)((char*)this + 0x24) = 0;
-    *(int*)((char*)this + 0x28) = -1;
-    *((char*)this + 0x2c) = 0;
-    *((char*)this + 0x2d) = 0;
-    *(int*)((char*)this + 0x30) = 0;
-    ((Sub_91ea0*)((char*)this + 0x38))->Init_0027af00();
-    ((Sub_91ea0*)((char*)this + 0x40))->Init_0027af00();
-    *((char*)this + 0x48) = 0;
+    w.flag20 = 0;
+    w.value24 = 0;
+    w.value28 = -1;
+    w.flag2c = 0;
+    w.flag2d = 0;
+    w.value30 = 0;
+    ((Sub_91ea0*)&w.id38)->Init_0027af00();
+    ((Sub_91ea0*)&w.id40)->Init_0027af00();
+    w.flag48 = 0;
     return this;
 }
 
@@ -313,14 +291,14 @@ CUnlockableMove* CUnlockableMove::Ctor() {
 // sym: ?dtor@CUnlockableMove@fn_f9898967@@QAEXXZ
 void CUnlockableMove::dtor() {
     vf = ((hulk_intptr)DAT_004044b4);
-    ((Obj_91ef0*)((char*)this + 0x40))->dtor_0027af50();
-    ((Obj_91ef0*)((char*)this + 0x38))->dtor_0027af50();
+    ((Obj_91ef0*)&w.id40)->dtor_0027af50();
+    ((Obj_91ef0*)&w.id38)->dtor_0027af50();
     vf = ((hulk_intptr)DAT_0040449c);
-    if (ptr) {
-        rel_0008d340(ptr);
-        ptr = 0;
+    if (w.data) {
+        rel_0008d340(w.data);
+        w.data = 0;
     }
-    ((Obj_91ef0*)((char*)this + 0x10))->dtor_0027af50();
+    ((Obj_91ef0*)&w.id)->dtor_0027af50();
 }
 
 } // namespace fn_f9898967
@@ -446,8 +424,8 @@ extern "C" char DAT_0040449c[];
 // Same code shape as 0x00091be0 (propagated; names are from that function)
 class CUnlockable {
   public:
-    int pad[6];
-    void* m18;
+    void* vftable;
+    HulkUnlockableWords w;                  // decls/unlockables.h
     void Destroy();
 };
 extern void __cdecl thunk_FUN_00267090(void*);
@@ -456,11 +434,11 @@ struct Tail_920f0 {
 };
 void CUnlockable::Destroy() {
     *(void**)this = (void*)((hulk_intptr)DAT_0040449c);
-    if (m18) {
-        thunk_FUN_00267090(m18);
-        m18 = 0;
+    if (w.data) {
+        thunk_FUN_00267090(w.data);
+        w.data = 0;
     }
-    ((Tail_920f0*)((char*)this + 0x10))->Fnf_0027af50();
+    ((Tail_920f0*)&w.id)->Fnf_0027af50();
 }
 } // namespace fn_000920f0
 

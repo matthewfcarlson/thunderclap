@@ -190,7 +190,7 @@ FEDoSound* FEDoSound::Init(hulk_uintptr id, const char* soundName) {
 // 0x000e19b0 FEDoSound::vfunc_1 (21 B): matches/0x000e19b0.cpp
 // sym: ?vfunc_1@FEDoSound@@UAEXXZ
 void FEDoSound::vfunc_1() {
-    (*(Inner_e19b0 * *)&this->f_10)->ptr->f49((char*)this + 0x34);
+    (*(Inner_e19b0 * *)&this->f_10)->ptr->f49(this->f_34);
 }
 
 

@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000933a0..0x000933e0 (kind game, layer game, confidence medium), dominant class CUnlockable
 #include "tree_prelude.h"
+#include "decls/unlockables.h"
 #define TREE_TU_BEGIN namespace fn_f35c3e3c {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -15,22 +16,20 @@ class Inner_933a0 {
   public:
     void Reset_0027af50();
 };
-class CUnlockable {
+class CUnlockable : public HulkUnlockableWords {    // decls/unlockables.h
   public:
     virtual ~CUnlockable();
-    char pad[0x14];
-    void* mPtr18;
 };
 
 
 // 0x000933a0 CUnlockable::vfunc_0 (62 B): matches/0x000933a0.cpp
 // sym: ??_GCUnlockable@fn_f35c3e3c@@UAEPAXI@Z
 CUnlockable::~CUnlockable() {
-    if (mPtr18) {
-        FreeMem(mPtr18);
-        mPtr18 = 0;
+    if (data) {
+        FreeMem(data);
+        data = 0;
     }
-    ((Inner_933a0*)((char*)this + 0x10))->Reset_0027af50();
+    ((Inner_933a0*)&this->id)->Reset_0027af50();
 }
 
 } // namespace fn_f35c3e3c

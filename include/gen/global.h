@@ -7540,7 +7540,7 @@ public:
     int f_08;
     int f_0c;
     void* f_10;
-    char f_14;
+    char f_14[0x20]; // typ1: the action's name (0x000e1700 compares 32 bytes; the class is 0x34 bytes)
 };
 
 // .?AVFEDoAnimation@@  vftable 0x40c410 (6)
@@ -7551,7 +7551,6 @@ public:
     virtual void vfunc_2(); // overrides FEDoAction slot 2
     virtual void vfunc_3(); // overrides FEDoAction slot 3
     virtual void vfunc_5(); // slot 5
-    char _pad_18[0x1c];
     void* f_34;
     int f_38;
     float f_3c;
@@ -7574,7 +7573,6 @@ class FEDoBackScreen : public ::FEDoAction {
 public:
     virtual ~FEDoBackScreen(); // overrides FEDoAction slot 0
     virtual void vfunc_1(); // overrides FEDoAction slot 1
-    char _pad_18[0x1c];
     unsigned char f_34;
     unsigned char f_35;
 };
@@ -7584,7 +7582,6 @@ class FEDoFunction : public ::FEDoAction {
 public:
     virtual ~FEDoFunction(); // overrides FEDoAction slot 0
     virtual void vfunc_1(); // overrides FEDoAction slot 1
-    char _pad_18[0x1c];
     void* f_34;
     int f_38;
     int f_3c;
@@ -7595,6 +7592,7 @@ class FEDoMenu : public ::FEDoAction {
 public:
     virtual ~FEDoMenu(); // overrides FEDoAction slot 0
     virtual void vfunc_1(); // overrides FEDoAction slot 1
+    char f_34[0x20]; // typ1: the menu's name (vfunc_1 0x000e1b70 passes it)
 };
 
 // .?AVFEDoParticleSystem@@  vftable 0x40bff8 (6)
@@ -7604,7 +7602,6 @@ public:
     virtual void vfunc_1(); // overrides FEDoAction slot 1
     virtual void vfunc_2(); // overrides FEDoAction slot 2
     virtual void vfunc_5(); // slot 5
-    char _pad_18[0x1c];
     void* f_34;
     int f_38;
     int f_3c;
@@ -7624,7 +7621,7 @@ class FEDoPushDialog : public ::FEDoAction {
 public:
     virtual ~FEDoPushDialog(); // overrides FEDoAction slot 0
     virtual void vfunc_1(); // overrides FEDoAction slot 1
-    char _pad_18[0x19c];
+    char _pad_34[0x180];
     int f_1b4;
 };
 
@@ -7633,6 +7630,7 @@ class FEDoScreen : public ::FEDoAction {
 public:
     virtual ~FEDoScreen(); // overrides FEDoAction slot 0
     virtual void vfunc_1(); // overrides FEDoAction slot 1
+    char f_34[0x20]; // typ1: the screen's name (0x000e1c90 prints it, vfunc_1 0x000e1cd0 passes it)
 };
 
 // .?AVFEDoSound@@  vftable 0x40c02c (5)
@@ -7640,6 +7638,7 @@ class FEDoSound : public ::FEDoAction {
 public:
     virtual ~FEDoSound(); // overrides FEDoAction slot 0
     virtual void vfunc_1(); // overrides FEDoAction slot 1
+    char f_34[0x20]; // typ1: the sound's name (0x000e1970 prints it, vfunc_1 0x000e19b0 passes it)
 };
 
 // .?AVFEDoWait@@  vftable 0x40c014 (5)
@@ -7648,7 +7647,6 @@ public:
     virtual ~FEDoWait(); // overrides FEDoAction slot 0
     virtual void vfunc_1(); // overrides FEDoAction slot 1
     virtual void vfunc_2(); // overrides FEDoAction slot 2
-    char _pad_18[0x1c];
     float f_34;
     int f_38;
     void* f_3c;

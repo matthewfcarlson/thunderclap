@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000934d0..0x00093570 (kind game, layer game, confidence medium), dominant class CUnlockableJumpMarker
 #include "tree_prelude.h"
+#include "decls/unlockables.h"
 #define TREE_TU_BEGIN namespace fn_f6003de1 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -15,11 +16,9 @@ class Inner_93530 {
   public:
     void Reset_0027af50();
 };
-class CUnlockableJumpMarker_93530 {
+class CUnlockableJumpMarker_93530 : public HulkUnlockableWords {    // decls/unlockables.h
   public:
     virtual ~CUnlockableJumpMarker_93530();
-    char pad[0x14];
-    void* mPtr18;
 };
 
 } // namespace fn_f6003de1
@@ -72,11 +71,11 @@ namespace fn_f6003de1 {
 // sym: ??_GCUnlockableJumpMarker_93530@fn_f6003de1@@UAEPAXI@Z
 // Same code shape as 0x000933a0 (propagated; names are from that function)
 CUnlockableJumpMarker_93530::~CUnlockableJumpMarker_93530() {
-    if (mPtr18) {
-        FreeMem(mPtr18);
-        mPtr18 = 0;
+    if (data) {
+        FreeMem(data);
+        data = 0;
     }
-    ((Inner_93530*)((char*)this + 0x10))->Reset_0027af50();
+    ((Inner_93530*)&this->id)->Reset_0027af50();
 }
 
 } // namespace fn_f6003de1

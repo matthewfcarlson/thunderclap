@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00092120..0x000933a0 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#include "decls/unlockables.h"
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -28,25 +29,16 @@ struct S_92190 {
 class CUnlockableMovie_92190 {
   public:
     void* vptr;
-    char pad[4];
-    unsigned char m8;
-    char pad2[7];
-    S_92190 s10;
-    int m18;
-    char pad3[4];
-    unsigned char m20;
-    int m24;
-    unsigned char m28;
-    char pad4[7];
-    unsigned char m30;
+    HulkUnlockableCheatWords w;             // decls/unlockables.h
+    unsigned char m30;                      // +0x30 CUnlockableMovie's byte
     CUnlockableMovie_92190* ctor();
 };
 class CUnlockable {
   public:
-    char _m_pad_0[0x18];
-    void* m18;
-    char _m_pad_1c[0x4];
-    int value;
+    void* vftable;
+    HulkUnlockableWords w;                  // decls/unlockables.h
+    int word1c;
+    int value;                              // +0x20 (CUnlockableGallery's / CUnlockableJumpMarker's word)
     void Destroy();
 };
 extern void __cdecl thunk_FUN_00267090(void*);
@@ -61,21 +53,7 @@ class Sub_92230 {
 class CUnlockableGallery {
   public:
     hulk_ulongptr v;
-    char pad4[4];
-    unsigned char flag;
-    char pad9[7];
-    char at10[8];
-    unsigned long m18;
-    char pad1c[4];
-    unsigned long m20;
-    char pad24[0x80];
-    char atA4[4];
-    char atA8[8];
-    unsigned char mB0;
-    char padB1[0x13];
-    unsigned char mC4;
-    char padC5[0x3f];
-    unsigned char m104;
+    HulkUnlockableGalleryWords w;           // decls/unlockables.h
 };
 class C_92310 {
     char pad[0x20];
@@ -347,13 +325,13 @@ namespace fn_f9a5903c {
 // sym: ?ctor@CUnlockableMovie_92190@fn_f9a5903c@@QAEPAV12@XZ
 CUnlockableMovie_92190* CUnlockableMovie_92190::ctor() {
     vptr = hulk_at_0040449c;
-    m8 = 1;
-    s10.Init_0027af00();
-    m18 = 0;
-    m20 = 0;
-    m28 = 0;
+    w.enabled = 1;
+    ((S_92190*)&w.id)->Init_0027af00();
+    w.data = 0;
+    w.flag20 = 0;
+    w.code[0] = 0;
     m30 = 0;
-    m24 = -1;
+    w.value24 = -1;
     vptr = hulk_at_004044c4;
     return this;
 }
@@ -363,11 +341,11 @@ CUnlockableMovie_92190* CUnlockableMovie_92190::ctor() {
 // sym: ?Destroy@CUnlockable@fn_f9a5903c@@QAEXXZ
 void CUnlockable::Destroy() {
     *(void**)this = (void*)((hulk_intptr)DAT_0040449c);
-    if (m18) {
-        thunk_FUN_00267090(m18);
-        m18 = 0;
+    if (w.data) {
+        thunk_FUN_00267090(w.data);
+        w.data = 0;
     }
-    ((Tail_921d0*)((char*)this + 0x10))->Fnf_0027af50();
+    ((Tail_921d0*)&w.id)->Fnf_0027af50();
 }
 
 
@@ -375,15 +353,15 @@ void CUnlockable::Destroy() {
 // sym: ?FUN_00092230@fn_f9a5903c@@YIPAVCUnlockableGallery@1@PAV21@@Z
 CUnlockableGallery* __fastcall FUN_00092230(CUnlockableGallery* p) {
     p->v = ((hulk_intptr)DAT_0040449c);
-    p->flag = 1;
-    ((Sub_92230*)((char*)&p->at10))->Init_0027af00();
-    p->m18 = 0;
+    p->w.enabled = 1;
+    ((Sub_92230*)&p->w.id)->Init_0027af00();
+    p->w.data = 0;
     p->v = ((hulk_intptr)DAT_004044cc);
-    p->m20 = 0;
-    ((Sub_92230*)((char*)&p->atA8))->Init_0027af00();
-    p->mB0 = 0;
-    *((unsigned char*)p + 0x24) = 0;
-    *((unsigned char*)p + 0x64) = 0;
+    p->w.value20 = 0;
+    ((Sub_92230*)&p->w.idA8)->Init_0027af00();
+    p->w.textB0[0] = 0;
+    p->w.text24[0] = 0;
+    p->w.text64[0] = 0;
     return p;
 }
 
@@ -402,20 +380,18 @@ class Sub_92270 {
 class CUnlockableGallery {
   public:
     void destroy();
-    char pad[0x10];
-    Sub_92270 sub10;
-    char pad2[0x7];
-    void* m18;
+    void* vftable;
+    HulkUnlockableGalleryWords w;           // decls/unlockables.h
 };
 void CUnlockableGallery::destroy() {
     *(void**)this = (void*)((hulk_intptr)DAT_004044cc);
-    ((Sub_92270*)((char*)this + 0xa8))->Fin_0027af50();
+    ((Sub_92270*)&w.idA8)->Fin_0027af50();
     *(void**)this = (void*)((hulk_intptr)DAT_0040449c);
-    if (m18) {
-        ReleaseThing_0008d340(m18);
-        m18 = 0;
+    if (w.data) {
+        ReleaseThing_0008d340(w.data);
+        w.data = 0;
     }
-    sub10.Fin_0027af50();
+    ((Sub_92270*)&w.id)->Fin_0027af50();
 }
 } // namespace fn_00092270
 

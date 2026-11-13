@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00093570..0x000935b0 (kind game, layer game, confidence medium), dominant class CUnlockableMovie
 #include "tree_prelude.h"
+#include "decls/unlockables.h"
 #define TREE_TU_BEGIN namespace fn_f0e6ff5d {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -15,11 +16,9 @@ class Inner_93570 {
   public:
     void Reset_0027af50();
 };
-class CUnlockableMovie_93570 {
+class CUnlockableMovie_93570 : public HulkUnlockableWords {    // decls/unlockables.h
   public:
     virtual ~CUnlockableMovie_93570();
-    char pad[0x14];
-    void* mPtr18;
 };
 
 
@@ -27,11 +26,11 @@ class CUnlockableMovie_93570 {
 // sym: ??_GCUnlockableMovie_93570@fn_f0e6ff5d@@UAEPAXI@Z
 // Same code shape as 0x000933a0 (propagated; names are from that function)
 CUnlockableMovie_93570::~CUnlockableMovie_93570() {
-    if (mPtr18) {
-        FreeMem(mPtr18);
-        mPtr18 = 0;
+    if (data) {
+        FreeMem(data);
+        data = 0;
     }
-    ((Inner_93570*)((char*)this + 0x10))->Reset_0027af50();
+    ((Inner_93570*)&this->id)->Reset_0027af50();
 }
 
 } // namespace fn_f0e6ff5d

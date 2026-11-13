@@ -165,7 +165,7 @@ FEDoMenu::FEDoMenu(hulk_intptr x, const char* s) {
 // 0x000e1b70 FEDoMenu::vfunc_1 (18 B): matches/0x000e1b70.cpp
 // sym: ?vfunc_1@FEDoMenu@@UAEXXZ
 void FEDoMenu::vfunc_1() {
-    (*(Holder_e1b70 * *)&this->f_10)->p->f29((char*)this + 0x34);
+    (*(Holder_e1b70 * *)&this->f_10)->p->f29(this->f_34);
 }
 
 
@@ -255,12 +255,14 @@ void FEDoBackMenu::vfunc_1() {
 // sym: ??0FEDoScreen@fn_000e1c90@@QAE@HPBD@Z
 namespace fn_000e1c90 {
 extern "C" char DAT_0040c0bc[];
-class FEDoScreen {
+class FEDoScreen {                          // gen FEDoAction's words, then the screen's name
   public:
-    int pad0[2];
-    int a, b, c;
-    char e;
-    char pad[31];
+    hulk_intptr vptr;
+    int id04;
+    int a, b;
+    hulk_intptr c;                          // +0x10 FEDoAction's f_10 (a pointer)
+    char name[0x20];                        // +0x14
+    char screen[0x20];                      // +0x34
     FEDoScreen(hulk_intptr, const char*);
 };
 extern void Format_000dfcc0(char*, int, const char*, ...);
@@ -268,9 +270,9 @@ FEDoScreen::FEDoScreen(hulk_intptr x, const char* s) {
     a = -1;
     b = -1;
     c = x;
-    e = 0;
+    name[0] = 0;
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0040c0bc);
-    Format_000dfcc0((char*)this + 0x34, 0x20, "%s", s);
+    Format_000dfcc0(screen, 0x20, "%s", s);
 }
 } // namespace fn_000e1c90
 
@@ -278,7 +280,7 @@ FEDoScreen::FEDoScreen(hulk_intptr x, const char* s) {
 // 0x000e1cd0 FEDoScreen::vfunc_1 (18 B): matches/0x000e1cd0.cpp
 // sym: ?vfunc_1@FEDoScreen@@UAEXXZ
 void FEDoScreen::vfunc_1() {
-    (*(Q_e1cd0 * *)&this->f_10)->r->go((char*)this + 0x34);
+    (*(Q_e1cd0 * *)&this->f_10)->r->go(this->f_34);
 }
 
 
@@ -290,16 +292,22 @@ class FEDoBackScreen {
   public:
     virtual void f();
     FEDoBackScreen(hulk_intptr, unsigned char, unsigned char);
-    char pad[0x38];
+    int id04;                               // gen FEDoAction's words
+    int value08;
+    int value0c;
+    hulk_intptr target10;
+    char name[0x20];
+    unsigned char b34;                      // +0x34
+    unsigned char c35;                      // +0x35
 };
 FEDoBackScreen::FEDoBackScreen(hulk_intptr a, unsigned char b, unsigned char c) {
-    *(int*)((char*)this + 8) = -1;
-    *(int*)((char*)this + 12) = -1;
-    *(int*)((char*)this + 16) = a;
-    *((char*)this + 20) = 0;
-    *(hulk_intptr*)((char*)this + 0) = ((hulk_intptr)DAT_0040c0d4);
-    *((char*)this + 0x34) = b;
-    *((char*)this + 0x35) = c;
+    value08 = -1;
+    value0c = -1;
+    target10 = a;
+    name[0] = 0;
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0040c0d4);
+    b34 = b;
+    c35 = c;
 }
 } // namespace fn_000e1cf0
 
