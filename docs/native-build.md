@@ -3238,3 +3238,150 @@ Wine proof control 74176 / proof 74391 GATE ok. The other 1,528 byte-offset site
   64-bit one `_atexit`; a checker gap, the initializers' 64-bit code is otherwise equivalent where it runs.
 - x64t8's start-up path (physics loaders, CPlatformManager 0x0008e880, C_265210::run) was left to x64t8: the
   differs there are in differs.txt (src/engine/physics/, src/engine/content/).
+
+## The local-data gate, header-less TUs' HULK_PTR64, this-less definitions, common.h's shared stubs, address-only setters (unb4, 2026-11-13)
+
+docs/native-unbound-plan.md's classes after x64t7, classified on x64t7's proof 72321 (snapshot and binding map of the
+tree at 96cba7a7c; build/unb4/s2/classify2.py, ren2's): arm64 macOS **18,254** unbound (x86-64 Linux 18,234, arm64
+Android 18,245).
+
+| class (macOS, before) | names |
+|---|---|
+| address name, IR signature differs: types / widths (pointer / int 2,195, float / int 595, byte widths ~1,240, ...) | 5,169 |
+| invented: virtual member of a stub class (no Wine binding: override chains, slot aliases) | 4,428 |
+| address name, IR signature differs: argument count | 4,292 |
+| - of which the declaration is `void f()` and the name only taken by address (setters, callbacks) | ~2,170 |
+| - of which the caller passes `this` and the definition takes nothing | 1,172 |
+| invented: constructor / destructor of a stub class | 1,155 |
+| invented: member of a stub class (common.h's InitHelper::init 342, ...) | 915 |
+| invented: free / C function (the `jmp` thunks to free: thunk_delete, SweepTrack_DeleteThis 536; CRT 52) | 865 |
+| invented: data (variables, vftables, RTTI) | 666 |
+| address name, data larger than the item | 432 |
+| the rest (non-unique 64-bit definitions 166, data inside items 69, unverified 56, ...) | 332 |
+| **total** | **18,254** |
+
+ren1's rewriter run again on this classification (build/unb4/s2/rename2.py, 772 of 1,042 TUs before it was stopped)
+renamed 25 names: the B2 renames are done. What it skips is the rest: names declared in a header (944, mostly
+common.h's), new names already declared (241), operators.
+
+**1. The local-data gate (dg1's open item) and its first finding.** tools/native_local_data.py `gate()` runs in
+native_mac.py / native_elf.py `link`: a `local_data` stand-in of the Wine binding map that the native objects still
+define under its 32-bit name refuses the link (exit 2; `--allow-local-data` links anyway), unless it is `const` (a
+copy holds the same value) or one of `KNOWN` (open items with their reason: 0x0035de40's `sound` and 0x0035e600's
+`gSound`, whose 16- / 12-byte items are too small for the string's 64-bit record until the data inventory types
+them). The link report lists both kinds. Test: tests/native_host/native_local_data_test.py.
+
+Its first run refused x64t5's two fixed stand-ins, `globalThing` (0x0035fb20) and `gThing` (0x00360870): their TUs
+include no tree header, so `HULK_PTR64` (compat/ptr.h) was undefined there and the native build compiled the 32-bit
+branch. x64t5's 64-bit branch was dead (and did not compile: the items undeclared, placement new without `<new>`).
+compat/native.h, force-included by every clang build, now includes compat/ptr.h. The branches declare their item
+(`extern "C" char DAT_004e65b8[]`) and call the constructor's body on it. A scan of the 343 TUs that test HULK_PTR64
+found no other TU whose native preprocessor output changes when ptr.h comes first
+(build/unb4/scripts/ptr64scan.py).
+
+**2. Definitions that ignore `this` (B6, "argument count", 1,172 names).** A `matches` definition with no parameters
+whose callers call it as a member (IR `void(ptr)` against `void()`) takes the `this` it ignores as an unnamed
+`void*`. 0x0027af50, an empty `ret` that 409 callers reach with their `this`, is one of them. cdecl, so MSVC emits
+the same code. The definition's mangled name and FPO record (`.debug$F`, the parameter bytes) change, and the sym pin
+follows. Only definitions that no address-bound reference calls without `this`, and only cdecl ones: 401 definitions
+in 149 TUs (build/unb4/scripts/thisfix.py). Left: 3 TUs where a member pointer names the function, 6 definitions their
+own TU calls without `this`, and the definitions with parameters (`i8(ptr)` called as `i1(ptr, ptr)`: about 140
+names), which need their callers' types.
+
+**3. common.h's shared stubs (944 header-declared names ren1 skipped).** common.h has three stub names that stand for
+several game functions. Each is renamed per TU to the address its calls reach, declared in the TU's namespace
+(build/unb4/scripts/hdrfix.py, 496 TUs):
+- `((InitHelper*)mem)->init()` becomes `((FactoryCtor*)mem)->init_002343b0()`, fight::ConditionFactory's constructor
+  (in ConditionFactoryCasterTemplate::vfunc_1), or `init_00236a90()`, fight::TrackFactory's (in
+  TrackFactoryCasterTemplate::vfunc_1). The iso TUs' own InitHelper takes the members.
+- `thunk_delete` and `SweepTrack_DeleteThis` become `<name>_00263f30`, `_0008d330` or `_00267090`: the `jmp` thunk to
+  free (or free itself) that the Wine binding map has the TU's symbol reach.
+- BillboardQuad.cpp is left: its calls reach two thunks.
+
+The first version added the declarations to common.h. Its proof build failed the tree's MSVC verification: two
+equivalents of src/engine/physics/unk_2e6780.cpp (0x002e9c60, 0x002ea3c0) compiled to other code. MSVC 7.1's
+scheduling moves when common.h declares more names, as x64t7 saw for records.h. Bisected: the thunk declarations
+move 0x002e9c60, and all of them together move 0x002ea3c0. TU-local declarations keep every TU outside the batch
+byte-identical.
+
+**4. Address-only setters (B5, about 2,170 names).** A setter or callback that a TU declares `void f()` and only takes
+by address (parameter tables, enum callbacks), whose definition takes arguments. One example is
+`char owners::Obj_47ab0::FUN_00047ab0(int)` stored through `&CButtonValueCondition_528d0::FUN_00047ab0`. The fix:
+- the declaration takes the definition's IR signature in C types (`char FUN_00047ab0(int);`);
+- a free declaration of a member definition takes the `this` as `void*`;
+- each address-of is cast back to the type the source used, `(void (C::*)())&C::f` or `(void (*)())f`.
+
+That is the same constant on MSVC (sh2's member-function-pointer rule: complete single-inheritance classes) and the
+definition's signature at the native link: 1,624 names in 86 TUs (build/unb4/scripts/b5fix.py). Left:
+- 54 TUs whose equivalent blocks' code hashes key the callee by its old name (a re-proof each, `build/unb4/b5-bad.txt`);
+- 931 names whose definition takes no `this` (`void(ptr)` against `i8(i32)`: static or free definitions called
+  through a member declaration);
+- 147 names the TU also calls.
+
+**The 32-bit gate (every edited TU, queue jobs; build/unb4/scripts/objcmp.py, ren2's, extended).**
+- The TU's MSVC object before and after must have identical sections. Exception: `.debug$F`, FPO frame data, which
+  records a function's parameter bytes.
+- Relocations must pair as renames. One stub name may split into one name per address.
+- A definition may change its mangled name, at the same value and section.
+- Every block keeps its tree_tu check status: matches MATCH with relocations ok, and equivalents' MSVC and clang code
+  hashes are unchanged.
+- All edited TUs compile natively.
+
+**Commits, proofs, counts.** Two controls were used. The first, 73969 (studio, f22370845, fresh, private data TUs,
+image 41a12913), serves commits 1 to 3; each of their proofs is the control's tree plus the commits so far. Commits 2
+and 3 were rebased onto x64eq's batch 2 (44cb331c3, which touched 20 of their TUs): git merge-file, then the MSVC gate
+rerun on the merged TUs. The second control, 75396 (8c472ddc9, image a9a30ec0), serves commits 4 to 6. Native counts
+come from each proof's snapshot and binding map (compile on the queue, link locally).
+
+| commit | TUs / names | proof (image) | native unbound macOS / Linux / Android |
+|---|---|---|---|
+| (before: x64t7's 72321) | | | 18,254 / 18,234 / 18,245 |
+| 1/6 27767b5aa local-data gate, native.h, two iso TUs | 2 + tools | 74381, GATE ok (41a12913, the control's) | 18,254 / 18,234 / - (no name moves) |
+| 2/6 46ef94512 this-less definitions, src/engine + global | 90 / 128 defs | 74596, GATE ok (89654b11) | |
+| 3/6 85397d74e the same, hulkfight + rest | 59 / 273 defs | 74799, GATE ok (870dd861) | 17,355 / 17,335 / - |
+| 4/6 d9cbcb9af common.h's stubs, src/engine + global + rest | 241 | 75897, GATE ok (983be53f) | 16,934 / 16,914 / - |
+| 5/6 bb2707bfa the same, src/game/hulkfight | 255 | 76098, GATE ok (00ea770a) | |
+| 6/6 e40efb2ef address-only setters | 86 / 1,624 | 76145, GATE ok (00ea770a: names and casts only) | **14,880 / 14,860 / 14,871** |
+
+All ok against their control (0 of 2,008 to 2,019 common frames differ). A proof's image differs from its control's
+only where a definition's or relocation target's name changed, which moves code in the link.
+
+**After (macOS, 14,880; the same classifier).**
+
+| class | before | after |
+|---|---|---|
+| address name, IR differs: argument count, `void`-declared (this-less definitions, address-only setters) | 3,373 | 866 |
+| address name, IR differs: argument count, called | 919 | 888 |
+| address name, IR differs: types / widths | 5,169 | 5,174 |
+| invented: free / C function (common.h's thunk names) | 865 | 379 |
+| invented: member of a stub class (InitHelper::init) | 915 | 563 |
+| invented: virtual member of a stub class | 4,428 | 4,426 |
+| invented: constructor / destructor of a stub class | 1,155 | 1,154 |
+| invented: data | 666 | 666 |
+| address name, data larger than the item | 432 | 432 |
+| address name, other | 332 | 332 |
+
+**Next classes, and what they need.**
+- Types and widths at called names (5,174). They concentrate on a few callees:
+  - fight::Condition's base 0x00234590 (`BaseInit(int)`, 151 names): the callers pass the owner as an `int`;
+  - Track.cpp's factory lookup 0x00236ac0 (119 names): the definition takes the name string as `int` and returns
+    `int`, while the callers pass and expect pointers;
+  - 0x002672f0's `int` callers (90 names);
+  - `Check_0022d2b0` (85 names), 0x002669f0's `bool` / `unsigned` (64 names), 0x0008d340 (58 names).
+
+  Each is one definition or one family of declarations, retyped and re-proven (unb2's method), at about 50 to 150
+  names apiece.
+- Virtual members of stub classes (4,426). These are override chains: a stub base's `virtual void v0()` overridden in
+  each derived stub, slots the Wine map never names. They need the stubs derived from include/gen's classes, or the base
+  and every override named by one slot address where the game slots agree (ren2's open item).
+- Constructors and destructors of stub classes (1,154). They are mostly Track (220), fight::Action (198), Function
+  (179), Condition (53) and pure3d::Entity: a local class whose constructor is declared only. The rule that binds them
+  needs the class named `FUN_<ctor>`. Renaming a stub class changes the RTTI names in MSVC objects, so a decision is
+  needed; with the real classes from include/gen as bases instead, these resolve with the virtuals.
+- The rest of the `void`-declared names (866): definitions with no `this` called through a member declaration
+  (static or free definitions), and the 54 TUs whose equivalents' hashes key a setter's old name (a re-proof each).
+
+Totals: **18,254 / 18,234 / 18,245 -> 14,880 / 14,860 / 14,871** (-3,374 / -3,374 / -3,374). Every TU compiles
+natively (the compile gate), and no local data stand-in is refused (the new gate; the two KNOWN ones are allowed).
+Scripts: build/unb4/scripts (thisfix.py, hdrfix.py, b5fix.py, objcmp.py, ptr64scan.py, cat.py, gatesub*.sh,
+commitg.sh); the classifications cls-base.json / cls-q6.json.

@@ -633,3 +633,19 @@ queue time at low priority): 23,240 equivalent, 2,393 differ, 1,665 unsupported,
   let a `ret 8` callee's escape window (16 words behind an argument whose address it takes) speak for the caller's
   own arguments. With that fixed the run reached a real difference behind it: the original rounds a span to float.
 - Pointer arithmetic that wraps at 2^32 shows up wherever the fuzzer picks a huge count; `wild64` now names it.
+
+## unb4: header-less TUs and HULK_PTR64; common.h moves MSVC code (2026-11-13)
+
+`HULK_PTR64` is defined only by compat/ptr.h. A TU that includes no tree header (many `.iso_` TUs: "tree_prelude.h:
+not needed") never saw it, so its `#if defined(HULK_PTR64)` branches compiled the 32-bit way on the native targets,
+silently. x64t5's game-item constructions for 0x0035fb20 / 0x00360870 were dead (and would not have compiled). The new
+native-link gate on local data stand-ins (tools/native_local_data.py) found it: the stand-ins were still defined under
+their 32-bit names. compat/native.h, force-included by every clang build, now includes ptr.h. A scan of the 343 TUs
+that test the macro found only those two.
+
+MSVC 7.1's code for some functions depends on how many names a shared header declares, not only on what they use.
+Adding five free-function declarations to include/common.h changed the code of two equivalents in
+src/engine/physics/unk_2e6780.cpp (0x002e9c60, 0x002ea3c0, zlib / libpng), which use none of them. Adding two members
+to an existing struct there changed nothing. x64t7 saw the same for records.h (0x001a9b10, 0x000b86b0). A change to a
+header every TU includes needs the whole tree's verification (a Wine proof build's materialize stage does it), not
+only the edited TUs'. Declarations a batch needs in a few TUs are safer TU-local.
