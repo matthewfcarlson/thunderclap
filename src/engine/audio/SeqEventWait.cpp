@@ -39,7 +39,8 @@ namespace audio {
 class SeqEventNestTrack_250110 : public ::audio::SeqEvent {
   public:
     virtual int vfunc_0(void*);
-    char pad[4];
+    AudioSeqEventLink link;                 // records.h AudioSeqEventWait past the vftable
+    OmString expression;
 };
 }
 namespace fn_f0ad381b {
@@ -201,7 +202,7 @@ SeqEventWait_2500e0::SeqEventWait_2500e0() {
 // Same code shape as 0x0024e590 (propagated; names are from that function)
 int audio::SeqEventNestTrack_250110::vfunc_0(void* param) {
     if ((unsigned char)::audio::SeqEvent::vfunc_0(param)) {
-        if (FUN_0025bce0(param, (char*)this + 8))
+        if (FUN_0025bce0(param, &this->expression))
             return 1;
     }
     return 0;

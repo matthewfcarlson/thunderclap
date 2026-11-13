@@ -330,10 +330,7 @@ extern "C" void __cdecl FUN_00240c60(void*);
 struct At {
     char pad[0x1c];
 };
-struct Obj_25d300 {
-    char pad[0x10];
-    void* p;
-    char pad2[8];
+struct Obj_25d300 : AudioHalBuffer {         // records.h AudioHalBuffer
 };
 void __cdecl f247550_00247550(void*, void*);
 extern "C" int FUN_0024afe0(int);
@@ -1447,7 +1444,7 @@ extern "C" int* FUN_0025c040() {
 // 0x0025c080 audio::OmHalStream::vfunc_10 (11 B): matches/0x0025c080.cpp
 // sym: ?vfunc_10@OmHalStream@audio@@UAEXXZ
 void audio::OmHalStream::vfunc_10() {
-    helper_0023fb00((char*)this + 0x1bc);
+    helper_0023fb00((char*)&this->f_1bc);
 }
 
 namespace fn_fd6abdd0 {
@@ -1471,7 +1468,7 @@ int audio::OmHalStream::vfunc_1() {
 // sym: ?vfunc_2@OmHalStream@audio@@UAEPAXXZ
  // namespace audio
 void* audio::OmHalStream::vfunc_2() {
-    return (void*)((audio::OmHalStream*)((char*)this + 0xc));
+    return (void*)((audio::OmHalStream*)((char*)&this->f_0c));
 }
 
 namespace fn_fd6abdd0 {
@@ -1565,7 +1562,7 @@ bool audio::OmHalStream::vfunc_8(void* __p0) { unsigned int * out = (unsigned in
 
     *out = this->f_1b4;
     int v = this->f_1b4;
-    *(int*)((char*)this + 8) -= v;
+    *(int*)((char*)&this->f_08) -= v;
     this->f_1b4 = 0;
     return true;
 }
@@ -1969,9 +1966,7 @@ unsigned char __stdcall FUN_0025ce40(FileState **state)
 namespace fn_0025ce80 {
 
 namespace audio {
-struct OmHalStream {
-    void** vf;
-    char pad[0x1b8];
+struct OmHalStream : AudioOmHalStream {     // records.h AudioOmHalStream
     void vfunc_12();
 };
 } // namespace audio
@@ -1983,7 +1978,7 @@ extern void __cdecl FUN_00247550(void*, audio::OmHalStream*);
 void audio::OmHalStream::vfunc_12() {
     if (this) {
         *(void**)this = &hulk_at_0042a850;
-        ((Sub_25ce80*)((char*)this + 0x1bc))->call_00240060();
+        ((Sub_25ce80*)&this->name)->call_00240060();
         FUN_00247550((void*)((hulk_intptr)DAT_004e7808), this);
     }
 }
@@ -2137,9 +2132,9 @@ Obj_25d2d0* Obj_25d2d0::target(int flags) {
 // sym: _FUN_0025d300
 extern "C" void __cdecl FUN_0025d300(Obj_25d300* p) {
     FUN_00257f00((*(char**)&DAT_004e5ce0) + 0x14, p);
-    if (p->p)
-        FUN_00240c60(p->p);
-    ((owners::Str_240060 *)(((At*)((char*)p + 0x1c))))->FUN_00240060();
+    if (p->data)
+        FUN_00240c60(p->data);
+    ((owners::Str_240060 *)(((At*)&p->name)))->FUN_00240060();
     f247550_00247550(DAT_004e7898, p);
 }
 

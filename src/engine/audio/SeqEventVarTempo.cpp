@@ -171,8 +171,8 @@ SeqEventVarTempo::SeqEventVarTempo() : SeqEvent(), a(4), b(4), tempo(120.0f) {
 // sym: ?vfunc_0@SeqEventVarTempo@audio@@UAEHPAX@Z
 int audio::SeqEventVarTempo::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    if (((SeqEventB*)this)->SeqEventB::vfunc_0(p) && ((TempoCheck*)((char*)this + 8))->check_00261a80(p) &&
-        FUN_0025ac10(p, (char*)this + 0x10))
+    if (((SeqEventB*)this)->SeqEventB::vfunc_0(p) && ((TempoCheck*)((char*)&this->f_08))->check_00261a80(p) &&
+        FUN_0025ac10(p, (char*)&this->f_10))
         return 1;
     return 0;
 }

@@ -39,7 +39,8 @@ namespace audio {
 class SeqEventNestTrack_2509f0 : public ::audio::SeqEvent {
   public:
     virtual int vfunc_0(void*);
-    char pad[4];
+    AudioSeqEventLink link;                 // records.h AudioSeqEventExpression past the vftable
+    OmString expression;
 };
 }
 namespace fn_fbd591a0 {
@@ -118,7 +119,8 @@ class SeqEvent {
     virtual void v5();
 };
 class SeqEventExpression_250c10 : public SeqEvent {
-    char pad[8];
+    AudioSeqEventLink link;                 // records.h AudioSeqEventExpression past the vftable
+    OmString expression;
 
   public:
     int vfunc_1(Stm_250c10**);
@@ -190,7 +192,7 @@ SeqEventExpression::SeqEventExpression() {
 // Same code shape as 0x0024e590 (propagated; names are from that function)
 int audio::SeqEventNestTrack_2509f0::vfunc_0(void* param) {
     if ((unsigned char)::audio::SeqEvent::vfunc_0(param)) {
-        if (FUN_0025bce0(param, (char*)this + 8))
+        if (FUN_0025bce0(param, &this->expression))
             return 1;
     }
     return 0;
@@ -318,11 +320,12 @@ class SeqEventExpression {
     virtual SeqEventExpression* v4(int);
     virtual void v5();
     void Fn_0025fd10();
-    char pad[8];
+    AudioSeqEventLink link;                 // records.h AudioSeqEventExpression past the vftable
+    OmString expression;
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
 SeqEventExpression* SeqEventExpression::v4(int x) {
-    ((Helper_250be0*)((char*)this + 8))->Fn_00240060();
+    ((Helper_250be0*)&this->expression)->Fn_00240060();
     this->Fn_0025fd10();
     if (x & 1)
         FUN_00247550(((char*)&DAT_004e6b18), this);
@@ -339,7 +342,7 @@ int SeqEventExpression_250c10::vfunc_1(Stm_250c10** p) {
     if (SeqEvent::v1(p)) {
         if (Match_00246f50(*p, DAT_004298f4)) {
             (*p)->depth++;
-            if (FUN_0024e600(p, DAT_00429b00, (char*)this + 8)) {
+            if (FUN_0024e600(p, DAT_00429b00, &this->expression)) {
                 (*p)->depth--;
                 Stm_250c10* s = *p;
                 if (Match_00246f50(s, DAT_004298dc))

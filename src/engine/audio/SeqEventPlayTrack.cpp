@@ -85,9 +85,14 @@ class SeqEventPlayTrackType : public FUN_002605e0 {
     SeqEventPlayTrackType();
     virtual void v0();
 };
-class SeqEvent_2515e0 {
+class SeqEvent_2515e0 {                     // records.h AudioSeqEventPlayTrack past the vftable
   public:
-    char pad[0x14];
+    AudioSeqEventLink link;
+    unsigned int fadeTimeMs;
+    unsigned int delayTimeMs;
+    unsigned char targetResume;
+    unsigned char pad11[3];
+    OmString seqTrackName;
 };
 class SeqEventPlayTrack_2515e0 : public SeqEvent_2515e0 {
   public:
@@ -238,7 +243,7 @@ namespace fn_f9a4f3e3 {
 // sym: ?vfunc_4@SeqEventPlayTrack_2515e0@fn_f9a4f3e3@@UAEPAV12@E@Z
 // Same code shape as 0x0024fee0 (propagated; names are from that function)
 SeqEventPlayTrack_2515e0* SeqEventPlayTrack_2515e0::vfunc_4(unsigned char flag) {
-    ((A_2515e0*)((char*)this + 0x14))->Fnf_00240060();
+    ((A_2515e0*)&this->seqTrackName)->Fnf_00240060();
     ((SeqEventPlayTrack_nv_2515e0*)(((audio::SeqEventPlayTrack*)this)))->Fnf_0025fd10();
     if (flag & 1)
         f47550_00247550(((char*)((char*)&DAT_004e6c78)), this);

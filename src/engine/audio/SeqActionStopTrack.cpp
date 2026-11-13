@@ -46,9 +46,12 @@ extern "C" char __cdecl FUN_0025bce0(void*, void*);
 extern "C" char __cdecl FUN_0025aa80(void*, void*);
 class SeqEventStopTrack_250e00 : public audio::SeqEvent {
   public:
-    char m8[4];
-    char mC[4];
-    char m10[12];
+    AudioSeqEventLink link;                 // records.h AudioSeqEventStopTrack past the vftable
+    unsigned int fadeTimeMs;
+    unsigned int delayTimeMs;
+    OmString seqTrackName;
+    unsigned char stopOtherTracks;
+    unsigned char pad1d[3];
     virtual int vfunc_0(int*);
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -181,10 +184,10 @@ SeqEventStopTrack::SeqEventStopTrack() : SeqEvent_250dc0() {
 // sym: ?vfunc_0@SeqEventStopTrack_250e00@fn_fe889925@@UAEHPAH@Z
 int SeqEventStopTrack_250e00::vfunc_0(int* p) {
     if (((char)(audio::SeqEvent::vfunc_0(p)))) {
-        if (FUN_0025abd0(p, (char*)&this->mC)) {
-            if (FUN_0025abd0(p, (char*)&this->m10)) {
-                if (FUN_0025bce0(p, (char*)this + 16)) {
-                    if (FUN_0025aa80(p, (char*)this + 28))
+        if (FUN_0025abd0(p, &this->fadeTimeMs)) {
+            if (FUN_0025abd0(p, &this->delayTimeMs)) {
+                if (FUN_0025bce0(p, &this->seqTrackName)) {
+                    if (FUN_0025aa80(p, &this->stopOtherTracks))
                         return 1;
                 }
             }

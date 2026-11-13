@@ -99,7 +99,7 @@ extern "C" int* FUN_0024fc50() {
 // sym: ?vfunc_0@SeqEventCondition@audio@@UAEHPAX@Z
 int audio::SeqEventCondition::vfunc_0(void* __p0) { void * arg = (void *)__p0;
 
-    if (((SeqEventCondition_nv_24fc60*)this)->Base0_0025fd20(arg) && ((SeqEventCondition_nv_24fc60*)this)->Base1_002607c0(arg) && FUN_0025bce0(arg, (char*)this + 0x14))
+    if (((SeqEventCondition_nv_24fc60*)this)->Base0_0025fd20(arg) && ((SeqEventCondition_nv_24fc60*)this)->Base1_002607c0(arg) && FUN_0025bce0(arg, (char*)&this->f_14))
         return 1;
     return 0;
 }
@@ -158,7 +158,7 @@ int audio::SeqEventCondition::vfunc_1(void* __p0) { int * p = (int *)__p0;
 
     if (((SeqEvent_24fd90*)this)->vfunc_1_0025fd40(p) && Parse((const char*)*(hulk_intptr*)p, "\n[\n")) {
         ++*(int*)((char*)*(hulk_intptr*)p + 0x24);
-        if (((SeqEventContainer_24fd90*)this)->vfunc_1_00260840(p) && Expr_0024e600(p, "mExpression", (char*)this + 0x14)) {
+        if (((SeqEventContainer_24fd90*)this)->vfunc_1_00260840(p) && Expr_0024e600(p, "mExpression", (char*)&this->f_14)) {
             --*(int*)((char*)*(hulk_intptr*)p + 0x24);
             p = (int*)*(hulk_intptr*)p;
             if (Parse((const char*)p, "]\n"))

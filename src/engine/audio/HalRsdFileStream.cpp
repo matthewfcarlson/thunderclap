@@ -272,7 +272,7 @@ void* audio::HalRsdFileStream::vfunc_9(int index) {
 // sym: ?vfunc_10@HalRsdFileStream@audio@@UAEXXZ
 // Same code shape as 0x002226e0 (propagated; names are from that function)
 void audio::HalRsdFileStream::vfunc_10() {
-    ((Inner_262fc0*)((char*)this + 0x10))->call_0023fb00();
+    ((Inner_262fc0*)((char*)&this->f_10))->call_0023fb00();
 }
 
 
@@ -451,7 +451,7 @@ audio::HalRsdFileStream *__cdecl FUN_002631f0(const char *name, const char *path
 void audio::HalRsdFileStream::vfunc_0() {
     if ((*(void * *)&this->f_20) == 0) {
         int saved = this->f_1c;
-        audio::StreamHelper* helper = (audio::StreamHelper*)((char*)this + 4);
+        audio::StreamHelper* helper = (audio::StreamHelper*)((char*)&this->f_04);
         void* result = FUN_0023fb00(helper);
         thunk_FUN_002710d0(&(*(void * *)&this->f_20), result, 0, 0, saved, 0, 1, 1);
     }
@@ -479,8 +479,8 @@ void audio::HalRsdFileStream::vfunc_12() {
         (*(Obj_263420 * *)&this->f_20)->f1();
     if ((*(void * *)&this->f_24))
         FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e7b50))), (*(void * *)&this->f_24));
-    ((audio::Aux_263420*)((char*)this + 0x10))->Fnf_00240060();
-    ((audio::Aux_263420*)((char*)this + 4))->Fnf_00240060();
+    ((audio::Aux_263420*)((char*)&this->f_10))->Fnf_00240060();
+    ((audio::Aux_263420*)((char*)&this->f_04))->Fnf_00240060();
     FUN_00247550((void*)((hulk_intptr)((char*)&DAT_004e7b98)), this);
 }
 

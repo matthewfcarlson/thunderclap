@@ -30,6 +30,8 @@ extern "C" int FUN_0025ac10(int, void*);
 class SeqEventVarVolume_2527d0 : public audio::SeqEvent {
   public:
     virtual int vfunc_0(int);
+    AudioSeqEventLink link;                 // records.h AudioSeqEventVarVolume past the vftable
+    float volume;
 };
 class SeqAction_252840 {
   public:
@@ -119,7 +121,8 @@ class SeqEvent {
     virtual void v5();
 };
 class SeqEventVarVolume_252990 : public SeqEvent {
-    char pad[8];
+    AudioSeqEventLink link;                 // records.h AudioSeqEventVarVolume past the vftable
+    float volume;
 
   public:
     int vfunc_1(Stm_252990**);
@@ -155,7 +158,7 @@ SeqEventVarVolume* SeqEventVarVolume::Build() {
 // sym: ?vfunc_0@SeqEventVarVolume_2527d0@fn_fa65be09@@UAEHH@Z
 int SeqEventVarVolume_2527d0::vfunc_0(int value) {
     audio::SeqEvent::vfunc_0((void *)(value));
-    return FUN_0025ac10(value, (char*)this + 8);
+    return FUN_0025ac10(value, &this->volume);
 }
 
 
@@ -266,7 +269,7 @@ int SeqEventVarVolume_252990::vfunc_1(Stm_252990** p) {
     if (SeqEvent::v1(p)) {
         if (Match_00246f50(*p, DAT_004298f4)) {
             (*p)->depth++;
-            if (FUN_00252470(p, DAT_00429ff0, (char*)this + 8)) {
+            if (FUN_00252470(p, DAT_00429ff0, &this->volume)) {
                 (*p)->depth--;
                 Stm_252990* s = *p;
                 if (Match_00246f50(s, DAT_004298dc))

@@ -48,9 +48,8 @@ extern "C" char DAT_0042a600[];
 struct Sub_256c80 {
     void Init_002607a0();
 };
-class SeqTrack {
+class SeqTrack : public AudioSeqTrack {       // records.h AudioSeqTrack
   public:
-    char pad[0x1c];
     SeqTrack* Build(unsigned char);
 };
 int __cdecl GetTrack_00262030();
@@ -506,7 +505,7 @@ namespace fn_f06eb07d {
 // sym: ?Build@SeqTrack@fn_f06eb07d@@QAEPAV12@E@Z
 SeqTrack* SeqTrack::Build(unsigned char flags) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042a600);
-    ((Sub_256c80*)((char*)this + 0x1c))->Init_002607a0();
+    ((Sub_256c80*)&this->events)->Init_002607a0();
     if (flags & 1)
         Cleanup_00247550(GetTrack_00262030(), this);
     return this;

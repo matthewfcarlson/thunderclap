@@ -127,7 +127,8 @@ class SeqEvent {
     virtual void v5();
 };
 class SeqEventVarPosDist_253210 : public SeqEvent {
-    char pad[8];
+    AudioSeqEventLink link;                 // records.h AudioSeqEventVarPosDist past the vftable
+    float distance[2];
 
   public:
     int vfunc_1(Stm_253210**);
@@ -316,7 +317,7 @@ int SeqEventVarPosDist_253210::vfunc_1(Stm_253210** p) {
     if (SeqEvent::v1(p)) {
         if (Match_00246f50(*p, DAT_004298f4)) {
             (*p)->depth++;
-            if (ReadTrack_002530b0(p, DAT_0042a108, (char*)this + 8)) {
+            if (ReadTrack_002530b0(p, DAT_0042a108, this->distance)) {
                 (*p)->depth--;
                 Stm_253210* s = *p;
                 if (Match_00246f50(s, DAT_004298dc))

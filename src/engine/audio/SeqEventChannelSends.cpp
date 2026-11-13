@@ -352,14 +352,16 @@ class SeqEvent {
 class SeqEventChannelSends : public SeqEvent {
   public:
     virtual int vfunc_0(void*);
-    char pad[0x104];
+    AudioSeqEventLink link;                 // records.h AudioSeqEventChannelSends past the vftable
+    unsigned int sends[64];
+    int layerName;
 };
 extern "C" bool __cdecl FUN_0024f010(void*, void*);
 extern "C" bool __cdecl FUN_0025c7c0(void*, void*);
 int SeqEventChannelSends::vfunc_0(void* p) {
     if (SeqEvent::baseCheck_0025fd20(p))
-        if (FUN_0024f010(p, (char*)this + 0x108))
-            if (FUN_0025c7c0(p, (char*)this + 8))
+        if (FUN_0024f010(p, &this->layerName))
+            if (FUN_0025c7c0(p, this->sends))
                 return 1;
     return 0;
 }

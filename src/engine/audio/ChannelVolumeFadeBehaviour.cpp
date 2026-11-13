@@ -501,7 +501,7 @@ unsigned char audio::SeqEventChannelVolumes::vfunc_1(void **stream) {
 int audio::SeqEventChannelVolumes::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
     if (((SeqEventCheck*)this)->CheckBase_0025fd20(p)) {
-        if (FUN_0025abd0(p, (char*)this + 0x18)) {
+        if (FUN_0025abd0(p, (char*)&this->f_18)) {
             if (FUN_0024f010(p, (char*)&this->f_1c)) {
                 if (Read3_00252030(p, (char*)&this->f_08)) {
                     return 1;

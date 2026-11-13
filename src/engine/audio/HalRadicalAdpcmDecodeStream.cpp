@@ -391,7 +391,7 @@ int audio::HalRadicalAdpcmDecodeStream::vfunc_1() {
 // sym: ?vfunc_2@HalRadicalAdpcmDecodeStream@audio@@UAEPAXXZ
 // Same code shape as 0x000e45c0 (propagated; names are from that function)
 void* audio::HalRadicalAdpcmDecodeStream::vfunc_2() {
-    return (void*)((audio::HalRadicalAdpcmDecodeStream*)((char*)this + 8));
+    return (void*)((audio::HalRadicalAdpcmDecodeStream*)((char*)&this->f_08));
 }
 
 

@@ -32,7 +32,8 @@ namespace audio {
 class SeqEventNestTrack_2537a0 : public ::audio::SeqEvent {
   public:
     virtual int vfunc_0(void*);
-    char pad[4];
+    AudioSeqEventLink link;                 // records.h AudioSeqEventVarPitch past the vftable
+    float pitch;
 };
 }
 namespace fn_fd3c3557 {
@@ -134,7 +135,8 @@ class SeqEvent {
     virtual void v5();
 };
 class SeqEventVarPitch_253980 : public SeqEvent {
-    char pad[8];
+    AudioSeqEventLink link;                 // records.h AudioSeqEventVarPitch past the vftable
+    float pitch;
 
   public:
     int vfunc_1(Stm_253980**);
@@ -193,7 +195,7 @@ SeqEventVarPitch::SeqEventVarPitch() {
 // Same code shape as 0x0024e590 (propagated; names are from that function)
 int audio::SeqEventNestTrack_2537a0::vfunc_0(void* param) {
     if ((unsigned char)::audio::SeqEvent::vfunc_0(param)) {
-        if (FUN_0025ac10(param, (char*)this + 8))
+        if (FUN_0025ac10(param, &this->pitch))
             return 1;
     }
     return 0;
@@ -326,7 +328,7 @@ int SeqEventVarPitch_253980::vfunc_1(Stm_253980** p) {
     if (SeqEvent::v1(p)) {
         if (Match_00246f50(*p, DAT_004298f4)) {
             (*p)->depth++;
-            if (FUN_00252470(p, DAT_0042a238, (char*)this + 8)) {
+            if (FUN_00252470(p, DAT_0042a238, &this->pitch)) {
                 (*p)->depth--;
                 Stm_253980* s = *p;
                 if (Match_00246f50(s, DAT_004298dc))

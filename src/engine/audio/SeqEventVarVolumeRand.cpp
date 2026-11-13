@@ -30,9 +30,9 @@ struct SeqEventVarVolumeRand_nv_252380 {
 extern "C" bool FUN_0025ac10(void*, void*);
 class SeqEventVarVolumeRand_2523a0 : public audio::SeqEvent {
   public:
-    char pad[8];
-    int x;
-    int y;
+    AudioSeqEventLink link;                 // records.h AudioSeqEventVarVolumeRand past the vftable
+    float minVolume;
+    float maxVolume;
     int vfunc_0(void* p);
 };
 class SeqAction_252440 {
@@ -221,8 +221,8 @@ SeqEventVarVolumeRand_252380* __fastcall FUN_00252380(SeqEventVarVolumeRand_2523
 int SeqEventVarVolumeRand_2523a0::vfunc_0(void* p) {
     char r = (char)audio::SeqEvent::vfunc_0(p);
     if (r) {
-        if (FUN_0025ac10(p, (char*)this + 8)) {
-            if (FUN_0025ac10(p, (char*)&this->x))
+        if (FUN_0025ac10(p, &this->minVolume)) {
+            if (FUN_0025ac10(p, &this->maxVolume))
                 return 1;
         }
     }

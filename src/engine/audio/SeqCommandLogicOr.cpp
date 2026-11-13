@@ -142,7 +142,7 @@ extern "C" int* FUN_00254e70() {
 // sym: ?vfunc_0@SeqEventLogicOr@audio@@UAEHPAX@Z
 int audio::SeqEventLogicOr::vfunc_0(void* __p0) { void * arg = (void *)__p0;
 
-    if (((SeqEvent_254e80*)this)->vfunc_0_0025fd20(arg) && FUN_0025ac10(arg, (char*)this + 0x14) &&
+    if (((SeqEvent_254e80*)this)->vfunc_0_0025fd20(arg) && FUN_0025ac10(arg, (char*)&this->f_14) &&
         ((SeqEventContainer_254e80*)this)->vfunc_0_002607c0(arg))
         return 1;
     return 0;

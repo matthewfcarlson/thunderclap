@@ -27,9 +27,9 @@ class SeqEventVarPitchRand {
 extern "C" bool FUN_0025ac10(void*, void*);
 class SeqEventVarPitchRand_2533c0 : public audio::SeqEvent {
   public:
-    char pad[8];
-    int x;
-    int y;
+    AudioSeqEventLink link;                 // records.h AudioSeqEventVarPitchRand past the vftable
+    float minPitch;
+    float maxPitch;
     int vfunc_0(void* p);
 };
 class SeqAction_253460 {
@@ -125,8 +125,8 @@ SeqEventVarPitchRand::SeqEventVarPitchRand() {
 int SeqEventVarPitchRand_2533c0::vfunc_0(void* p) {
     char r = (char)audio::SeqEvent::vfunc_0(p);
     if (r) {
-        if (FUN_0025ac10(p, (char*)this + 8)) {
-            if (FUN_0025ac10(p, (char*)&this->x))
+        if (FUN_0025ac10(p, &this->minPitch)) {
+            if (FUN_0025ac10(p, &this->maxPitch))
                 return 1;
         }
     }

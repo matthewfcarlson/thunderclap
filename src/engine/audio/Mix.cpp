@@ -2,6 +2,7 @@
 // object 0x00259d30..0x0025aa50 (kind game, layer engine, confidence high), dominant class audio::Mix
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 #include "gen/audio.h"
 #define TREE_TU_BEGIN namespace fn_fac3e8a6 {
 #define TREE_TU_END }
@@ -796,7 +797,16 @@ class Mix {
     virtual void f6();
     virtual void f7();
     virtual void f8();
-    char pad[0x38 - 4];
+    OmTreeNode node;                        // records.h AudioMix (OmEntity's words, then the mix's) past the vftable
+    unsigned int reserved14;
+    OmKey key;
+    unsigned short flags20;
+    unsigned short refs;
+    unsigned int reserved24;
+    AudioList mixerMixes;
+    int value30;
+    int value34;
+    AudioTree busses;
     void setup_00244f70();
 };
 extern "C++" __declspec(nothrow) void __cdecl FUN_0025a220(void *);
@@ -805,8 +815,8 @@ int f660_00241660();
 int f550_00247550(int, Mix*);
 Mix* Mix::f2(unsigned char x) {
     *(void**)this = &hulk_at_0042a6e4;
-    FUN_0025a220((char*)this + 0x38);
-    FUN_00257df0((char*)this + 0x28);
+    FUN_0025a220(&this->busses);
+    FUN_00257df0(&this->mixerMixes);
     setup_00244f70();
     if (x & 1) {
         f550_00247550(f660_00241660(), this);

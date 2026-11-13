@@ -26,9 +26,9 @@ class SeqEventSilence {
 bool FUN_0025abd0(void*, void*);
 class SeqEventSilence_254670 : public audio::SeqEvent {
   public:
-    char pad[8];
-    int x;
-    int y;
+    AudioSeqEventLink link;                 // records.h AudioSeqEventSilence past the vftable
+    unsigned int minTimeMs;
+    unsigned int maxTimeMs;
     int vfunc_0(void* p);
 };
 class SeqAction_2546d0 {
@@ -118,8 +118,8 @@ SeqEventSilence* __fastcall FUN_00254650(SeqEventSilence* self) {
 int SeqEventSilence_254670::vfunc_0(void* p) {
     char r = (char)audio::SeqEvent::vfunc_0(p);
     if (r) {
-        if (FUN_0025abd0(p, (char*)this + 8)) {
-            if (FUN_0025abd0(p, (char*)&this->x))
+        if (FUN_0025abd0(p, &this->minTimeMs)) {
+            if (FUN_0025abd0(p, &this->maxTimeMs))
                 return 1;
         }
     }

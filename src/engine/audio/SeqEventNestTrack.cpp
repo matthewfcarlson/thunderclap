@@ -60,7 +60,8 @@ namespace audio {
 class SeqEventNestTrack_24e590 : public ::audio::SeqEvent {
   public:
     virtual int vfunc_0(void*);
-    char pad[4];
+    AudioSeqEventLink link;                 // records.h AudioSeqEventNestTrack past the vftable
+    OmString trackName;
 };
 }
 namespace fn_f724be52 {
@@ -187,7 +188,7 @@ int audio::SeqEvent::vfunc_5() {
 // sym: ?vfunc_0@SeqEventNestTrack_24e590@audio@@UAEHPAX@Z
 int audio::SeqEventNestTrack_24e590::vfunc_0(void* param) {
     if ((unsigned char)::audio::SeqEvent::vfunc_0(param)) {
-        if (FUN_0025bce0(param, (char*)this + 8))
+        if (FUN_0025bce0(param, &this->trackName))
             return 1;
     }
     return 0;

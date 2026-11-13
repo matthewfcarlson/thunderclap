@@ -183,9 +183,9 @@ public:
     virtual void vfunc_12(); // overrides audio::HalStream slot 12
     virtual ~HalRadicalAdpcmDecodeStream(); // slot 13
     void* f_04;
-    char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    unsigned int f_08; // typ1: records.h AudioHalRadicalAdpcmDecodeStream
+    void* f_0c;
+    void* f_10;
     int f_14;
     int f_18;
     int f_1c;
@@ -207,7 +207,8 @@ public:
     virtual void vfunc_10(); // overrides audio::HalStream slot 10
     virtual void vfunc_11(); // overrides audio::HalStream slot 11
     virtual void vfunc_12(); // overrides audio::HalStream slot 12
-    char _pad_04[0x18];
+    struct { char* data; unsigned short capacity, pad, length; } f_04; // typ1: records.h AudioHalRsdFileStream
+    struct { char* data; unsigned short capacity, pad, length; } f_10;
     int f_1c;
     void* f_20;
     void* f_24;
@@ -340,8 +341,12 @@ public:
     virtual void vfunc_11(); // overrides audio::HalStream slot 11
     virtual void vfunc_12(); // overrides audio::HalStream slot 12
     void* f_04;
-    char _pad_08[0x1ac];
+    unsigned int f_08; // typ1: records.h AudioOmHalStream
+    unsigned int f_0c;
+    unsigned int f_10[0x69];
     unsigned int f_1b4;
+    void (*f_1b8)();
+    struct { char* data; unsigned short capacity, pad, length; } f_1bc;
 };
 
 // .?AVSeqAction@audio@@  vftable 0x4298fc (7)
@@ -744,12 +749,12 @@ public:
     virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventChannelVolumes(); // overrides audio::SeqEvent slot 4
-    char _pad_04[0x4];
+    void* f_04; // the event list's link (typ1: records.h AudioSeqEventChannelVolumes)
     int f_08;
     int f_0c;
     int f_10;
     int f_14;
-    char _pad_18[0x4];
+    unsigned int f_18;
     int f_1c;
 };
 
@@ -788,8 +793,10 @@ public:
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
     virtual ~SeqEventContainer(); // overrides audio::SeqEvent slot 4
     virtual int vfunc_5(); // overrides audio::SeqEvent slot 5
-    char _pad_04[0x4];
+    void* f_04; // the event list's link (typ1: records.h AudioSeqEventContainer)
     int f_08;
+    void* f_0c;
+    void* f_10;
 };
 
 // .?AVSeqEventCondition@audio@@  vftable 0x429b38 (6)
@@ -800,8 +807,7 @@ public:
     virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventCondition(); // overrides audio::SeqEvent slot 4
-    int f_0c;
-    int f_10;
+    struct { char* data; unsigned short capacity, pad, length; } f_14; // typ1: records.h AudioSeqEventCondition
 };
 
 // .?AVSeqEventConditionType@audio@@  vftable 0x429ad4 (4)
@@ -866,8 +872,7 @@ public:
     virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventLogicOr(); // overrides audio::SeqEvent slot 4
-    int f_0c;
-    int f_10;
+    float f_14; // typ1: records.h AudioSeqEventLogicOr
 };
 
 // .?AVSeqEventLogicOrType@audio@@  vftable 0x42a424 (4)
@@ -997,6 +1002,8 @@ public:
     virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventStream(); // overrides audio::SeqEvent slot 4
+    void* f_04; // the event list's link (typ1: records.h AudioSeqEventStream; the file's words 4-aligned here)
+    struct { unsigned int lo, hi; unsigned char flags; unsigned char pad09[3]; unsigned int idBits; unsigned int range[2]; } f_08;
 };
 
 // .?AVSeqEventStreamType@audio@@  vftable 0x42a284 (4)
@@ -1078,8 +1085,10 @@ public:
     virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventVarTempo(); // overrides audio::SeqEvent slot 4
-    char _pad_04[0x8];
-    int f_0c;
+    void* f_04; // the event list's link (typ1: decls/data/records.h AudioSeqEventVarTempo)
+    unsigned int f_08;
+    unsigned int f_0c;
+    float f_10;
 };
 
 // .?AVSeqEventVarTempoType@audio@@  vftable 0x42a04c (5)

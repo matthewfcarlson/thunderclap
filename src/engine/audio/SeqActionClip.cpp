@@ -21,16 +21,25 @@ class SeqEvent {
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    char pad[4];
+    AudioSeqEventLink link;                 // records.h AudioSeqEvent past the vftable
 };
 extern "C" bool __cdecl FUN_0025aa80(void*, void*);
-class Sub_255d30 {
-  public:
+class Sub_255d30 {                          // records.h AudioSeqStreamFile's words (4-aligned here: MSVC would
+  public:                                   // put an 8-aligned member's class's first field at +8 after a vfptr)
+    OmKey key;
+    unsigned char flags;
+    unsigned char pad09[3];
+    unsigned int idBits;
+    unsigned int range[2];
     bool run_0025cda0(void*);
 };
 class SeqEventClip : public SeqEvent {
   public:
     virtual int vfunc_0(void*);
+    unsigned char isLooping;                // records.h AudioSeqEventClip
+
+    unsigned char pad09[7];
+    Sub_255d30 rsdFile;
 };
 class SeqAction_255dc0 {
   public:
@@ -248,8 +257,8 @@ extern "C" int* FUN_00255d20() {
 // sym: ?vfunc_0@SeqEventClip@fn_f91a83dc@@UAEHPAX@Z
 int SeqEventClip::vfunc_0(void* param) {
     if ((char)SeqEvent::vfunc_0(param)) {
-        if (FUN_0025aa80(param, (char*)this + 8)) {
-            if (((Sub_255d30*)((char*)this + 0x10))->run_0025cda0(param)) {
+        if (FUN_0025aa80(param, &this->isLooping)) {
+            if (this->rsdFile.run_0025cda0(param)) {
                 return 1;
             }
         }

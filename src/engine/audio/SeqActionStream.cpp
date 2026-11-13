@@ -208,7 +208,8 @@ extern void __cdecl FUN_00247550(void*, SeqEventStream*);
 extern bool Match_00246f50(Stm_254190*, const char*, ...);
 extern bool ReadTrack_00254000(Stm_254190**, const char*, void*);
 class SeqEventStream_254190 : public SeqEvent {
-    char pad[8];
+    AudioSeqEventLink link;                 // records.h AudioSeqEventStream past the vftable
+    AudioSeqStreamFile file;
 
   public:
     int vfunc_1(Stm_254190**);
@@ -321,7 +322,7 @@ extern "C" int* FUN_00253c60() {
 int audio::SeqEventStream::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
     if (((SeqEvent_253c70*)this)->vfunc_0_0025fd20(p)) {
-        if (((PosHelper*)((char*)this + 8))->test(p))
+        if (((PosHelper*)((char*)&this->f_08))->test(p))
             return 1;
     }
     return 0;
@@ -557,7 +558,7 @@ int SeqEventStream_254190::vfunc_1(Stm_254190** p) {
     if (SeqEvent::v1(p)) {
         if (Match_00246f50(*p, DAT_004298f4)) {
             (*p)->depth++;
-            if (ReadTrack_00254000(p, DAT_0042a2cc, (char*)this + 8)) {
+            if (ReadTrack_00254000(p, DAT_0042a2cc, &this->file)) {
                 (*p)->depth--;
                 Stm_254190* s = *p;
                 if (Match_00246f50(s, DAT_0042a2c8))

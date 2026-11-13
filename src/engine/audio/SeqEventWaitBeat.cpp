@@ -299,10 +299,13 @@ class SeqEventWaitBeat : public SeqEvent {
     virtual void f3();
     virtual SeqEventWaitBeat* f4(int);
     void FUN_0025fd10();
+    AudioSeqEventLink link;                 // records.h AudioSeqEventWaitBeat past the vftable
+    AudioBeatSet beatSet;
+    int layerName;
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
 SeqEventWaitBeat* SeqEventWaitBeat::f4(int x) {
-    H* h = (H*)((char*)this + 8);
+    H* h = (H*)&this->beatSet;
     h->FUN_00262020();
     FUN_0025fd10();
     if (x & 1)
