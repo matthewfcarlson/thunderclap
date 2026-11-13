@@ -947,7 +947,7 @@ the platform layer.
 3. **The `layout` hooks** (pad poll, no-fmv, the drive's post and pump), and the 64-bit layouts they need; per-function
    rebinding for 0x87e30 / 0x86630; 0x2692c0's definition; 0x4e5acc named by address (0x253680, and the replay pin
    0x964d0, whose owner has to change it).
-4. **SDL3 and FFmpeg for Linux and Android**, then the same shim configuration and the hooks applied there.
+4. **SDL3 and FFmpeg for Linux and Android**, then the same shim configuration and the hooks applied there. (Android: done, section 16; Linux: SDL3 done, flt1.)
 5. **Float agreement** with the Wine build's x87 checkpoints, measured once the game loop runs (14.3 item 6).
 6. **Imports.h's three misnamed rows** (`NAME_RULE_EXCEPT`): the game's 0x0037df10 / 0x003821c0 / 0x003eba7c have no
    stand-in in either build.
@@ -955,3 +955,149 @@ the platform layer.
 Tests (all pass): `xdk_bind_test.py` (3 targets + controls + `--map`), `crt_bind_test.py` (3 targets), `shim_test.py`
 (3 targets), `replay_native_test.py`, `va_tree_test.sh` (mac, x64), `rtti_test.sh`, `entry_test.sh` (with the survey
 mode), `native_unbound_test.py` 4 / 4.
+
+## 16. Running the image: SDL3, FFmpeg and the APK (and1, 2026-11-12)
+
+**The arm64 Android build runs.** It runs in the emulator in two forms, and both stop where the macOS image stops:
+
+- `libmain.so` as a plain process under adb ("headless");
+- the same game code packaged as a debug APK and started by SDL3's `SDLActivity`.
+
+The shim configuration is the macOS image's (section 15.2): the SDL3 backends, the replay layer and the hook plan
+applied. SDL3 is linked statically into `libmain.so`. FFmpeg's shared libraries are loaded with it. Nothing from the
+disc goes into the APK or into any tracked file.
+
+Input: the clang-probe snapshot and binding map of x64t7's proof 72321 (studio lineage x64t7-p3, HEAD 96cba7a7c).
+The objects were compiled on the queue (mac1, jobs 72408 for Android and 72409 for Linux): 2,675 / 2,675 tree TUs and
+1,097 / 1,097 data TUs. The link ran locally.
+
+| | arm64 macOS (x64t7, same snapshot) | arm64 Android, headless | arm64 Android, APK |
+|---|---|---|---|
+| link | ld64 rc 0 | lld rc 0, 17,044 code / 1,475 data stubs | (same objects) |
+| shim | SDL3 + replay layer, 26 objects | SDL3 (headless config) + replay layer + FFmpeg, 27 objects | SDL3 (app config) + FFmpeg |
+| initializers | 457 run, 9 skipped | 457 / 9 | 457 / 9 |
+| stop (normal) | `missing ??0ParticleAllocator@pure3d@fn_002ac4a0@@QEAA@XZ` in main, 56 imports | the same | the same |
+| stop (survey, `continue`) | 4 missing names, then SIGSEGV in `?run@C_265210@fn_00265210` | the same 4 names, the same crash | the same |
+
+Every Android line of the trace equals the macOS line, except for:
+
+- addresses;
+- the order of the first calls from the second thread (`WaitForSingleObject` / `CreateFiber` / `Sleep`);
+- the poll counts (`GetCurrentThreadId`, the critical sections, `Sleep`).
+
+These differ by thread timing. **No Android-specific failure is left in the start-up.** The next stop is the game's
+64-bit code: ParticleSystemLoader's allocator, 0x002ac4a0 (native-build.md, x64t7's "Where macOS stops now"), and it
+belongs to x64t8.
+
+### 16.1 What was built
+
+- **SDL3 for Android** (`tools/native_android_sdl.py`): a static `libSDL3.a` for `aarch64-linux-android29`, built by
+  the NDK's CMake toolchain from the SDL release `tools/wine_sdl.py` fetched. It has two configurations:
+  - `--config headless` (`build/third_party/out/sdl-android-arm64`) for the plain process. It drops the drivers that
+    call SDLActivity through JNI: joystick, haptic, sensor, HIDAPI, power, camera, GPU and render.
+    - Video stays in. SDL's Android core (`SDL_android.c`) calls the Android video driver's functions, so a build
+      without video does not link (16 undefined `Android_*` names).
+  - `--config app` (`...-arm64-app`) for the APK. It adds video, joystick, haptic, sensor, HIDAPI and GLES, with the
+    activity providing the Java VM.
+- **FFmpeg for Android** (`tools/wine_ffmpeg.py build --target android-arm64`): the same minimal configuration as on
+  the host (Bink video and audio decoders, the Bink demuxer; LGPL 2.1+), cross-compiled by the NDK.
+  - Configure's `android` target gives the shared libraries plain sonames (`libavformat.so`, no version suffix). An
+    APK's `lib/arm64-v8a/` needs that.
+  - The libraries are linked with 16 KB page alignment.
+  - Output: `build/third_party/out/ffmpeg-android-arm64/install`.
+- **The link** (`tools/native_elf.py`):
+  - On Android, `elf_sdl()` now returns SDL3: `HULK_ANDROID_SDL` names the prefix, default the headless one, and
+    `HULK_NATIVE_ANDROID_SDL=0` gives the stand-ins as before. It also returns FFmpeg from `HULK_ANDROID_FFMPEG`, else
+    `host/movie_none.c`.
+  - The shared link passes the SDL / FFmpeg flags: `-landroid -lOpenSLES -lEGL -lGLESv2`, and `-lavformat -lavcodec
+    -lavutil` (NEEDED, so they are loaded with the library).
+- **The APK** (`tools/android_apk.py`, no Gradle; `--setup` installs `platforms;android-35` and `build-tools;35.0.0`
+  through the SDK's sdkmanager, once):
+  - javac compiles SDL3's Java glue (from the fetched SDL sources) and `src/platform/sdl/android/`'s `HulkActivity`;
+    d8 turns them into dex.
+  - aapt2 links `src/platform/sdl/android/AndroidManifest.xml`: package `org.thunderclap.hulkud`, minSdk 29,
+    targetSdk 35, debuggable, landscape.
+  - The image and FFmpeg's libraries go under `lib/arm64-v8a/`.
+  - The APK is zipaligned (`-P 16`) and signed with a local debug key (`build/android/user/debug.keystore`).
+  - The result is a 13 MB APK holding the 47 MB `libmain.so`.
+- **HulkActivity**:
+  - It loads only `main`, which carries SDL3.
+  - Before SDL starts, it sets the environment the native side reads on every target:
+    - `HULK_DATA_DIR`: `files/data` if it holds `default.xbe`, else the external files dir's `data`;
+    - `HULK_SAVE_DIR`, `HULK_TDATA_DIR`, `HULK_UDATA_DIR`: under `files/`;
+    - `HULK_TRACE_FILE`: `files/trace.txt`.
+  - Any `HULK_*` / `SDL_*` string extra of the intent overrides these, so a scripted run passes settings with
+    `am start --es`.
+
+### 16.2 Android-specific findings (fixed)
+
+- **A plain process must not mark SDL's main ready.** `tests/android/libmain_loader.c` now calls `SDL_SetMainReady`
+  when the image exports it, as SDLActivity's `nativeRunMain` does. Without it SDL refuses every subsystem
+  ("Application didn't initialize properly").
+  - Once main is ready, `SDL_InitSubSystem` asks for the app's identifier. Without a Java VM it then crashes in
+    `SDL_GetAndroidPackageName` (null JNI env).
+  - The run script therefore sets `SDL_APP_ID` / `SDL_APP_NAME`, which SDL reads before it asks Java. With them, the
+    headless image initialises SDL's audio (dummy driver) and its gamepad layer ("not built with joystick support":
+    no pads; the recording supplies the input).
+- **Files adb's shell writes into an app's external dir are unreadable to the app.** They belong to `shell` with mode
+  0660 in group `ext_data_rw`, so the game's first `CreateFileA` failed. The scripted install copies the disc into the
+  app's internal storage with `run-as` instead. A player's own copy, made through the device's file manager or a
+  future in-app installer, is owned by the app and works from the external dir.
+- **Crash and missing reports in MS spelling.** `entry_posix.cpp`'s `sym_of` turns the ELF link's `#` back into `@`
+  in `dladdr` names, so the Android (and Linux) traces compare with macOS's line for line. The game's names are
+  unchanged.
+
+### 16.3 Run procedure
+
+The queue compiles the objects. The link and the packaging are local: they need the full NDK sysroot, SDL3, FFmpeg
+and the SDK. A queue job ships only the thinned NDK clang (`build/elf1/ndk-fe`), so a link there fails with "host
+glue failed". The link's inventory step takes about 25 minutes on the laptop.
+
+```sh
+PY=build/venv/bin/python; . build/android/env.sh             # JAVA_HOME, ANDROID_*, adb / emulator on PATH
+# once: the third-party builds and the SDK packages
+$PY tools/native_android_sdl.py; $PY tools/native_android_sdl.py --config app
+$PY tools/wine_ffmpeg.py build --target android-arm64
+$PY tools/android_apk.py --setup
+# the objects: a Wine build's clang-probe snapshot + binding map of the tree (e.g. a proof lineage's build/clang-probe/snap
+# and build/native/bindings.json), compiled on the queue with build/elf1/ndk-fe shipped as job/ndk
+# (build/x64t7/scripts/elfjob.sh), unpacked into $NE (cache/ + report.json)
+export HULK_ANDROID_FFMPEG=$PWD/build/third_party/out/ffmpeg-android-arm64/install
+HULK_ANDROID_SDL=$PWD/build/third_party/out/sdl-android-arm64-app HULK_NATIVE_CRT_TABLE=src/platform/sdl/crt/native_crt_table.h \
+  HULK_CLANG_PROBE_DIR=<dir with snap/> HULK_NATIVE_ELF_DIR=$NE \
+  $PY tools/native_elf.py link --target android-arm64 --ld --bindings <bindings.json>      # $NE/link/libmain.so
+$PY tools/android_apk.py $NE/link/libmain.so --out build/<me>/hulk.apk
+# the emulator (headless; stop with `adb emu kill`)
+emulator -avd a0 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect &
+adb wait-for-device; until [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = 1 ]; do sleep 2; done
+sh tests/android/apk_run.sh build/<me>/hulk.apk build/<me>/apk-run [continue]    # installs; copies the disc once
+sh tests/android/libmain_run.sh <headless libmain.so> build/<me>/run [continue]  # the plain-process form
+```
+
+- `apk_run.sh` installs the APK. On the first run it copies `isos/extracted` (the player's own files, `DATA=`) to the
+  device and into the app's `files/data`. It then starts the activity with SDL's dummy audio, waits for the process
+  to end, and pulls `trace.txt` and the logcat.
+- `libmain_run.sh` wants an image linked against the headless SDL3 (`HULK_ANDROID_SDL` unset). It pushes the image,
+  the loader and FFmpeg's libraries to `/data/local/tmp`, with the disc at `DEVDATA` (default
+  `/data/local/tmp/hulk-data`). `REC=<.hrp>` replays a recording with checkpoints, for when the start-up reaches the
+  game loop.
+- Both print the stop: a missing name (exit 3), a crash (exit 4), or the end of main.
+- The pushed disc stays on the local emulator's userdata. `adb shell rm -rf /data/local/tmp/hulk-data` and
+  `adb uninstall org.thunderclap.hulkud` remove it.
+
+Not covered yet:
+- **Movies:** FFmpeg is linked and loads, but the start-up stops before the first movie.
+- **Graphics:** the image draws nothing, as on macOS (no bgfx in the native images yet). The APK shows a black
+  surface.
+- **Lifecycle** (pause and resume) and **real devices**.
+
+### 16.4 x86-64 Linux
+
+The same snapshot links for x86-64 Linux (`hulk-linux`, lld rc 0) with the headless SDL3 of `tools/native_linux_sdl.py`
+and `host/movie_none.c`. It is not run: this machine has no x86-64 Linux, VM or container runtime. There is no Docker,
+Lima, UTM or qemu-system-x86_64, and the Android SDK's qemu is aarch64 only. Free ways to run it, for the user to
+choose:
+- a SteamOS / Linux box registered as a `linux-x64` queue host (`tools/jobq_host_setup_linux.sh`,
+  `tools/native_linux_replay.sh`; native-float64.md "The x86-64 Linux replay");
+- an arm64 Linux VM on this Mac with Rosetta for Linux (Virtualization.framework, through Lima or UTM), which runs
+  x86-64 ELF binaries.

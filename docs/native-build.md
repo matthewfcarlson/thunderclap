@@ -3137,3 +3137,35 @@ ExportInfoLoader's vftable stored by address, as x64t7 / this batch did for the 
 Gates: as above; native start-up as described. Proof 73908 (studio, 717b73606 + the batch, private data TUs, seed:73903)
 vs control 73903 (717b73606, fresh): **GATE ok** (0 of 2,004 common frames differ). An earlier proof (73552 on
 96cba7a7c) stopped at the tree build's check on 0x001a9b10 (above), which this batch then re-proved.
+
+## The arm64 Android image runs: SDL3, FFmpeg, the APK (and1, 2026-11-12)
+
+The arm64 Android build now runs in the emulator, both as a plain process (`libmain.so` dlopened under adb) and as a
+debug APK started by SDL3's activity. The shim configuration is macOS's: SDL3 backends, replay layer, hook plan
+applied, and FFmpeg's shared libraries loaded with the image. The runs used x64t7's proof 72321 snapshot (HEAD
+96cba7a7c), compiled on the queue (72408 / 72409, 2,675 / 2,675 tree TUs) and linked locally (lld rc 0 for Android
+and for Linux).
+
+On the same snapshot, both Android forms stop where macOS does:
+- `missing ??0ParticleAllocator@pure3d@fn_002ac4a0@@QEAA@XZ` in main;
+- 457 initializers run, 56 imports called;
+- the survey mode gives the same four missing names, then the same crash in 0x00265210's `run`.
+
+The traces equal macOS's line for line, except for the second thread's timing. No Android-specific failure is left.
+The next stop is x64t8's (ParticleSystemLoader's allocator).
+
+New:
+- `tools/native_android_sdl.py` (static SDL3, headless and app configurations);
+- `tools/wine_ffmpeg.py build --target android-arm64`;
+- `tools/android_apk.py` (javac / d8 / aapt2 / zipalign / apksigner; no Gradle);
+- `src/platform/sdl/android/` (HulkActivity, manifest);
+- `tests/android/libmain_run.sh` and `apk_run.sh`.
+
+Changed:
+- `native_elf.elf_sdl` links SDL3 and FFmpeg on Android;
+- `entry_posix.cpp` reports ELF names in MS spelling;
+- `libmain_loader.c` marks SDL's main ready.
+
+Run procedure, findings and Linux status: [native-android.md](native-android.md) section 16. The x86-64 Linux image
+links with SDL3 but is not run: there is no x86-64 Linux host, VM or container here. Native code only; not a Wine
+build input, so no proof pair.

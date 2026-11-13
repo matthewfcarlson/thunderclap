@@ -5,6 +5,7 @@ of upstream FFmpeg, our movie decoder and Bink-shaped player on it, and their te
   build/venv/bin/python tools/wine_ffmpeg.py fetch              # download the pinned tarball, check sha256, unpack
   build/venv/bin/python tools/wine_ffmpeg.py build              # shared libraries for the host (macOS arm64)
   build/venv/bin/python tools/wine_ffmpeg.py build --target win32   # DLLs for i686 Windows (Wine)
+  build/venv/bin/python tools/wine_ffmpeg.py build --target android-arm64   # shared libraries for the APK (NDK)
   build/venv/bin/python tools/wine_ffmpeg.py refs               # the independent decode (ffmpeg CLI) of the test movies
   build/venv/bin/python tools/wine_ffmpeg.py test               # host test: tests/native_movies
   build/venv/bin/python tools/wine_ffmpeg.py wine-test          # the same through the xdk stand-ins, i686 under Wine
@@ -151,6 +152,43 @@ def build_host():
               open(os.path.join(HOST_DIR, "build.json"), "w"), indent=1)
     write_license_notice()
     log("host: FFmpeg %s in %d s (%s)" % (FF_TAG, time.time() - t0, lic[0].strip() if lic else "?"))
+
+
+# android-arm64: the same configuration cross-compiled by the NDK's clang (docs/native-android.md "Running the image"):
+# shared libraries whose sonames are the plain lib*.so names (configure's android target), as the APK's lib/arm64-v8a/
+# needs them; tools/native_elf.py links them with HULK_ANDROID_FFMPEG=<this prefix>, tools/android_apk.py packs them
+ANDROID_DIR = os.path.join(OUT, "ffmpeg-android-arm64")
+
+
+def build_android():
+    fetch()
+    ndk = os.environ.get("HULK_NDK") or os.path.join(ROOT, "build/android/ndk")
+    nb = next((os.path.join(ndk, "toolchains/llvm/prebuilt", h, "bin") for h in ("darwin-x86_64", "linux-x86_64")
+               if os.path.isdir(os.path.join(ndk, "toolchains/llvm/prebuilt", h))), None)
+    if not nb:
+        raise SystemExit("no NDK at %s (HULK_NDK)" % ndk)
+    od = os.path.join(ANDROID_DIR, "obj")
+    prefix = os.path.join(ANDROID_DIR, "install")
+    os.makedirs(od, exist_ok=True)
+    logf = os.path.join(ANDROID_DIR, "build.log")
+    t0 = time.time()
+    cfg = [os.path.join(FF_SRC, "configure"), "--prefix=" + prefix, "--enable-cross-compile", "--target-os=android",
+           "--arch=aarch64", "--cpu=armv8-a", "--cc=" + os.path.join(nb, "aarch64-linux-android29-clang"),
+           "--cxx=" + os.path.join(nb, "aarch64-linux-android29-clang++"), "--nm=" + os.path.join(nb, "llvm-nm"),
+           "--ar=" + os.path.join(nb, "llvm-ar"), "--ranlib=" + os.path.join(nb, "llvm-ranlib"),
+           "--strip=" + os.path.join(nb, "llvm-strip"), "--host-cc=/usr/bin/clang", "--enable-shared",
+           "--disable-static", "--enable-pic", "--extra-ldflags=-Wl,-z,max-page-size=16384"] + FF_CONFIGURE
+    with open(logf, "w") as f:
+        for cmd in (cfg, ["make", "-j", str(JOBS)], ["make", "install"]):
+            f.write("$ " + " ".join(cmd) + "\n")
+            f.flush()
+            r = subprocess.run(cmd, cwd=od, stdout=f, stderr=subprocess.STDOUT)
+            if r.returncode:
+                raise SystemExit("android FFmpeg build failed at %s (log %s)" % (cmd[0], os.path.relpath(logf, ROOT)))
+    lic = [l for l in open(logf) if l.startswith("License:")]
+    json.dump({"target": "android-arm64", "tag": FF_TAG, "configure": " ".join(cfg),
+               "license": lic[0].strip() if lic else "?"}, open(os.path.join(ANDROID_DIR, "build.json"), "w"), indent=1)
+    log("android-arm64: FFmpeg %s in %d s (%s)" % (FF_TAG, time.time() - t0, lic[0].strip() if lic else "?"))
 
 
 # ---------------------------------------------------------------------------------------------
@@ -722,7 +760,7 @@ def main(argv):
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("fetch")
     b = sub.add_parser("build")
-    b.add_argument("--target", choices=("host", "win32", "wasm", "all"), default="host")
+    b.add_argument("--target", choices=("host", "win32", "wasm", "android-arm64", "all"), default="host")
     r = sub.add_parser("refs")
     r.add_argument("--frames", type=int, default=60)
     t = sub.add_parser("test")
@@ -743,6 +781,8 @@ def main(argv):
             build_win32()
         if a.target == "wasm":
             build_wasm()
+        if a.target == "android-arm64":
+            build_android()
     elif a.cmd == "refs":
         refs(a.frames)
     elif a.cmd == "test":

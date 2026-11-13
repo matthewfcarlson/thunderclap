@@ -98,6 +98,13 @@ static const char* sym_of(uintptr_t pc, char* buf, size_t n) {
     Dl_info di;
     if (pc && dladdr((void*)pc, &di) && di.dli_sname) {
         snprintf(buf, n, "%s+0x%lx", di.dli_sname, (unsigned long)(pc - (uintptr_t)di.dli_saddr));
+#if defined(__ELF__)
+        // the ELF links spell MS names' `@` as `#` (tools/native_elf.py escape_at; MS mangling never uses `#`): the
+        // report gives them in MS spelling, as on macOS, so the targets' traces compare line for line
+        for (char* c = buf; *c; c++)
+            if (*c == '#')
+                *c = '@';
+#endif
         return buf;
     }
     return "?";

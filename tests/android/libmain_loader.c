@@ -18,5 +18,10 @@ int main(int argc, char** argv) {
         fprintf(stderr, "dlsym SDL_main: %s\n", dlerror());
         return 91;
     }
+    // as SDL3's activity does before SDL_main (nativeRunMain): SDL's subsystems refuse to start until main is marked
+    // ready (an image linked with SDL3; one without it has no such export)
+    void (*ready)(void) = (void (*)(void))dlsym(h, "SDL_SetMainReady");
+    if (ready)
+        ready();
     return entry(argc > 1 ? argc - 1 : 1, argc > 1 ? argv + 1 : argv);
 }

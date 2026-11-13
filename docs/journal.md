@@ -602,3 +602,17 @@ config/data.json, so the old spelling voted for itself (26 items, plus 49 spelle
 and from config/data.json. data_gen then sees primitive types it didn't before: 33 eight-byte .bss keys become
 `unsigned __int64` (were `unsigned char[8]`). The header change moves MSVC 7.1's scheduling of 0x001a9b10 (two loads
 swap, as x64t7 saw for records.h additions): re-proved on MSVC; its clang code is unchanged.
+
+## and1 (2026-11-12): the Android image runs to macOS's stop
+
+`libmain.so` with static SDL3 (NDK) and FFmpeg (NDK, plain sonames) runs in the emulator, both under adb and as a
+debug APK through SDLActivity (`tools/android_apk.py`). It stops where macOS stops: ParticleAllocator, 0x002ac4a0.
+
+Three Android-only findings:
+- SDL's Android core needs its video driver linked, even headless.
+- A plain process that marks SDL's main ready crashes in `SDL_GetAndroidPackageName` (no JavaVM) unless `SDL_APP_ID`
+  is set.
+- Files adb's shell writes into `Android/data/<pkg>` are unreadable to the app. The scripted install copies the disc
+  into the app's internal storage with `run-as`.
+
+Details: docs/native-android.md section 16.

@@ -442,6 +442,7 @@ def build_host(tc, d):
 
 
 LINUX_SDL = os.path.join(ROOT, "build/third_party/out/sdl-linux-x64")   # tools/native_linux_sdl.py makes it
+ANDROID_SDL = os.path.join(ROOT, "build/third_party/out/sdl-android-arm64")   # tools/native_android_sdl.py makes it
 MOVIE_NONE = "src/platform/sdl/host/movie_none.c"
 
 
@@ -449,7 +450,25 @@ def elf_sdl(tc):
     """(compile flags, link flags, FFmpeg or None) for SDL3 on the target, or None. x86-64 Linux: the headless static
     SDL3 tools/native_linux_sdl.py builds against the sysroot (HULK_NATIVE_LINUX_SDL=0 turns it off). FFmpeg: the
     prefix in HULK_LINUX_FFMPEG (include/, lib/ with libavformat, libavcodec, libavutil; e.g. the box's /usr after
-    `apt install libavformat-dev`), else the movie layer is movies' interface without FFmpeg (host/movie_none.c)."""
+    `apt install libavformat-dev`), else the movie layer is movies' interface without FFmpeg (host/movie_none.c).
+    arm64 Android: the static SDL3 tools/native_android_sdl.py builds with the NDK (HULK_ANDROID_SDL names the prefix;
+    default its headless configuration, sdl-android-arm64; HULK_NATIVE_ANDROID_SDL=0 turns it off); FFmpeg from
+    HULK_ANDROID_FFMPEG (a prefix of NDK-built shared libraries, which the APK carries under lib/arm64-v8a/), else
+    host/movie_none.c."""
+    if tc.target == "android-arm64":
+        if os.environ.get("HULK_NATIVE_ANDROID_SDL", "1") == "0":
+            return None
+        pre = os.environ.get("HULK_ANDROID_SDL") or ANDROID_SDL
+        lib = os.path.join(pre, "lib", "libSDL3.a")
+        if not os.path.exists(lib):
+            return None
+        cflags = ["-DHULK_NATIVE_SDL=1", "-I" + os.path.join(pre, "include")]
+        lflags = [lib, "-lm", "-landroid", "-lOpenSLES", "-lEGL", "-lGLESv2"]   # (the app configuration draws through GLES)
+        ff = os.environ.get("HULK_ANDROID_FFMPEG")
+        if ff:
+            cflags.append("-I" + os.path.join(ff, "include"))
+            lflags += ["-L" + os.path.join(ff, "lib"), "-lavformat", "-lavcodec", "-lavutil"]
+        return cflags, lflags, ff
     if tc.target != "linux-x64" or os.environ.get("HULK_NATIVE_LINUX_SDL", "1") == "0":
         return None
     lib = os.path.join(LINUX_SDL, "lib", "libSDL3.a")
@@ -611,7 +630,7 @@ def lld(tc, d, objs, unbound, extra_asm):
     cmd = tc.cxx + ["--target=" + tc.triple, "-fPIC", "-Wl,--error-limit=0", "-Wl,--build-id=none", "-o", image,
                     "@" + rsp] + tc.link_flags
     if tgt["shared"]:
-        cmd += ["-shared", "-Wl,-Bsymbolic", "-Wl,-z,defs", "-Wl,-soname,libmain.so", "-ldl", "-llog"]
+        cmd += ["-shared", "-Wl,-Bsymbolic", "-Wl,-z,defs", "-Wl,-soname,libmain.so"] + shim_lflags + ["-ldl", "-llog"]
     else:
         cmd += ["-pie", "-Wl,--export-dynamic"] + shim_lflags + ["-lpthread", "-ldl"]
     r = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
