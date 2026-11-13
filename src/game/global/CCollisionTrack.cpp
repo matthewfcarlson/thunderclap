@@ -1148,18 +1148,14 @@ class CTrack_5dff0 {
     CTrack_5dff0();
 };
 
-class CClearHitRecordsTrack : public CTrack_5dff0 {
+class CClearHitRecordsTrack : public ::CClearHitRecordsTrack {
   public:
     CClearHitRecordsTrack();
-    virtual void f();
-    int m4;
-    int m8;
-    int mC;
 };
 
 CClearHitRecordsTrack::CClearHitRecordsTrack() {
-    mC = 0;
-    m8 = 1;
+    f_0c = 0;
+    f_08 = 1;
 }
 } // namespace fn_0005dff0
 

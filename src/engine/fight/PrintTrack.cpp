@@ -60,11 +60,9 @@ class Track_238a00 {
     char pad[4];
 };
 HULK_REFCOUNT_PACK_END
-class PrintTrack : public Track_238a00 {
+class PrintTrack : public ::fight::PrintTrack {
   public:
     PrintTrack();
-    int a, b, c, d;
-    virtual void Fn();
 };
 typedef unsigned int u32_238a50;
 extern u32_238a50 hulk_at_004282fc;
@@ -375,8 +373,11 @@ namespace fn_fbe81dc2 {
 
 // 0x00238a00 FUN_00238a00 (36 B): matches/0x00238a00.cpp
 // sym: ??0PrintTrack@fn_fbe81dc2@@QAE@XZ
-PrintTrack::PrintTrack() : Track_238a00(), b(0), c(0), d(0) {
-    a = 1;
+PrintTrack::PrintTrack() {
+    timeBegin = 0;
+    f_10 = 0;
+    f_14 = 0;
+    f_08 = 1;
 }
 
 } // namespace fn_fbe81dc2

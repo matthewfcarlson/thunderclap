@@ -45,20 +45,14 @@ class CTrack_6aa80 {
     virtual bool f1_00234270(void*);
     CTrack_6aa80();
 };
-class CRageModeTrack : public CTrack_6aa80 {
+class CRageModeTrack : public ::CRageModeTrack {
   public:
-    virtual bool g0_002342b0(int);
-    virtual bool g1_00236c50(hulk_intptr, int, hulk_intptr);
     CRageModeTrack();
-    char pad[4];
-    int mFlag;
-    int mC;
-    int mD;
 };
 CRageModeTrack::CRageModeTrack() {
-    mFlag = 1;
-    mC = 0;
-    mD = 0;
+    f_08 = 1;
+    f_0c = 0;
+    f_10 = 0;
 }
 } // namespace fn_0006aa80
 

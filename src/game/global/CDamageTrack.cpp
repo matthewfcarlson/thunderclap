@@ -52,20 +52,16 @@ class CTrack_69dd0 {
     int m4;
 };
 
-class CDamageTrack : public CTrack_69dd0 {
+class CDamageTrack : public ::CDamageTrack {
   public:
     CDamageTrack();
-    int m8;
-    int m_c;
-    int m_10;
-    int m_14;
 };
 
 CDamageTrack::CDamageTrack() {
-    m_c = 0;
-    m_10 = 0;
-    m_14 = 0;
-    m8 = 1;
+    timeBegin = 0;
+    damage = 0;
+    damageMax = 0;
+    f_08 = 1;
 }
 } // namespace fn_00069dd0
 

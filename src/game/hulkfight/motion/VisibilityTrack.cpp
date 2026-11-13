@@ -24,13 +24,9 @@ class Track_170f00 {
     virtual void f();
     char pad[4];
 };
-class VisibilityTrack : public Track_170f00 {
+class VisibilityTrack : public ::hulkfight::motion::VisibilityTrack {
   public:
     VisibilityTrack();
-    virtual void f();
-    int value;
-    int other;
-    char flag;
 };
 
 
@@ -55,10 +51,10 @@ namespace fn_f7c1487f {
 
 // 0x00170f00 FUN_00170f00 (36 B): matches/0x00170f00.cpp
 // sym: ??0VisibilityTrack@fn_f7c1487f@@QAE@XZ
-VisibilityTrack::VisibilityTrack() : Track_170f00() {
-    flag = 1;
-    value = 1;
-    other = 0;
+VisibilityTrack::VisibilityTrack() {
+    f_10 = 1;
+    f_08 = 1;
+    f_0c = 0;
 }
 
 } // namespace fn_f7c1487f

@@ -23,13 +23,9 @@ class Track_180d20 {
     Track_180d20();
     virtual hulk_intptr Fnf_00180d10(int);
 };
-class PropDropTrack : public Track_180d20 {
+class PropDropTrack : public ::hulkfight::motion::PropDropTrack {
   public:
     PropDropTrack();
-    char pad[4];
-    int a;
-    int b;
-    int c;
 };
 
 
@@ -54,10 +50,10 @@ namespace fn_f39f3913 {
 
 // 0x00180d20 FUN_00180d20 (39 B): matches/0x00180d20.cpp
 // sym: ??0PropDropTrack@fn_f39f3913@@QAE@XZ
-PropDropTrack::PropDropTrack() : Track_180d20() {
-    b = 0;
-    c = -1;
-    a = 1;
+PropDropTrack::PropDropTrack() {
+    f_0c = 0;
+    f_10 = -1;
+    f_08 = 1;
 }
 
 } // namespace fn_f39f3913

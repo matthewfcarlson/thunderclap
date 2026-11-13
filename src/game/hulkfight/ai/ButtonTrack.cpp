@@ -33,16 +33,9 @@ class Track_10d3a0 {
     virtual void f();
     char pad[8];
 };
-class ButtonTrack : public Track_10d3a0 {
+class ButtonTrack : public ::hulkfight::ai::ButtonTrack {
   public:
     ButtonTrack();
-    virtual void f();
-    int a;
-    float v;
-    int b;
-    int c;
-    int d;
-    int e;
 };
 struct Param_10d3e0 {
   public:
@@ -90,12 +83,12 @@ namespace fn_f5040848 {
 // 0x0010d3a0 FUN_0010d3a0 (42 B): matches/0x0010d3a0.cpp
 // sym: ??0ButtonTrack@fn_f5040848@@QAE@XZ
 ButtonTrack::ButtonTrack() {
-    a = 0;
-    b = 0;
-    c = 0;
-    d = 0;
-    e = 0;
-    v = -1.0f;
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_10 = -1.0f;
 }
 
 } // namespace fn_f5040848

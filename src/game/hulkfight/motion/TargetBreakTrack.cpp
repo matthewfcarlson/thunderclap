@@ -23,13 +23,9 @@ class Track_1706c0 {
     Track_1706c0();
     virtual void v();
 };
-class TargetBreakTrack : public Track_1706c0 {
+class TargetBreakTrack : public ::hulkfight::motion::TargetBreakTrack {
   public:
     TargetBreakTrack();
-    virtual void v();
-    char pad[4];
-    int a;
-    int b;
 };
 
 
@@ -54,9 +50,9 @@ namespace fn_f947dfa3 {
 
 // 0x001706c0 FUN_001706c0 (32 B): matches/0x001706c0.cpp
 // sym: ??0TargetBreakTrack@fn_f947dfa3@@QAE@XZ
-TargetBreakTrack::TargetBreakTrack() : Track_1706c0() {
-    b = 0;
-    a = 1;
+TargetBreakTrack::TargetBreakTrack() {
+    f_0c = 0;
+    f_08 = 1;
 }
 
 } // namespace fn_f947dfa3

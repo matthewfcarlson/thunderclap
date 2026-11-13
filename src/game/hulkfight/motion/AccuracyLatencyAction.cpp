@@ -136,15 +136,9 @@ class Track_193fa0 {
     Track_193fa0();
     virtual hulk_intptr Fnf_00193f90(int);
 };
-class AccuracyLatencyTrack : public Track_193fa0 {
+class AccuracyLatencyTrack : public ::hulkfight::motion::AccuracyLatencyTrack {
   public:
     AccuracyLatencyTrack();
-    char pad[4];
-    int a;
-    int b;
-    float c;
-    int d;
-    float e;
 };
 struct Param_193fe0 {
   public:
@@ -793,8 +787,12 @@ namespace fn_fc8c1e47 {
 
 // 0x00193fa0 FUN_00193fa0 (47 B): matches/0x00193fa0.cpp
 // sym: ??0AccuracyLatencyTrack@fn_fc8c1e47@@QAE@XZ
-AccuracyLatencyTrack::AccuracyLatencyTrack() : b(0), c(-1.0f), d(0), e(1.0f) {
-    a = 1;
+AccuracyLatencyTrack::AccuracyLatencyTrack() {
+    timeBegin = 0;
+    timeEnd = -1.0f;
+    decay = 0;
+    decayScaler = 1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_fc8c1e47

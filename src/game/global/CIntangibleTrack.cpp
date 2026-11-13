@@ -64,20 +64,15 @@ class CTrack_6a150 {
     CTrack_6a150();
 };
 
-class CIntangibleTrack : public CTrack_6a150 {
+class CIntangibleTrack : public ::CIntangibleTrack {
   public:
-    virtual void f0();
-    char pad4[4];
-    int m8;
-    float mC;
-    float m10;
     CIntangibleTrack();
 };
 
 CIntangibleTrack::CIntangibleTrack() {
-    mC = 0.0f;
-    m10 = -1.0f;
-    m8 = 1;
+    f_0c = 0.0f;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 } // namespace fn_0006a150
 

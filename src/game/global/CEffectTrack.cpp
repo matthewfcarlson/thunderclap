@@ -96,14 +96,9 @@ class CTrack_608d0 {
     virtual bool FnB_00234270(void*);
     int m4;
 };
-class CEffectStopTrack_608d0 : public CTrack_608d0 {
+class CEffectStopTrack_608d0 : public ::CEffectStopTrack {
   public:
     CEffectStopTrack_608d0();
-    virtual bool FnC_002342b0(int);
-    int m8;
-    int mC;
-    int m10;
-    int m14;
 };
 class R_60940 {
   public:
@@ -638,11 +633,11 @@ namespace fn_fb6e447b {
 
 // 0x000608d0 FUN_000608d0 (40 B): matches/0x000608d0.cpp
 // sym: ??0CEffectStopTrack_608d0@fn_fb6e447b@@QAE@XZ
-CEffectStopTrack_608d0::CEffectStopTrack_608d0() : CTrack_608d0() {
-    mC = 0;
-    m10 = 0;
-    m14 = -1;
-    m8 = 1;
+CEffectStopTrack_608d0::CEffectStopTrack_608d0() {
+    timeBegin = 0;
+    slot = 0;
+    slotMax = -1;
+    f_08 = 1;
 }
 
 } // namespace fn_fb6e447b

@@ -29,10 +29,9 @@ class Track_14dc00 {
     int a2;
     int a3;
 };
-class HitThrowTrack : public Track_14dc00 {
+class HitThrowTrack : public ::hulkfight::motion::HitThrowTrack {
   public:
     HitThrowTrack();
-    virtual void a();
 };
 struct Param_14dc50 {
   public:
@@ -69,11 +68,11 @@ namespace fn_f8d81090 {
 
 // 0x0014dc00 FUN_0014dc00 (57 B): matches/0x0014dc00.cpp
 // sym: ??0HitThrowTrack@fn_f8d81090@@QAE@XZ
-HitThrowTrack::HitThrowTrack() : Track_14dc00() {
-    a0 = 0;
-    a1 = 0;
-    a2 = 0;
-    a3 = 0;
+HitThrowTrack::HitThrowTrack() {
+    f_0c = 0;
+    f_18 = 0;
+    f_24 = 0;
+    f_28 = 0;
     *(float*)((char*)this + 0x10) = -1.0f;
     *((char*)this + 0x14) = 1;
     *(float*)((char*)this + 0x1c) = 30.0f;

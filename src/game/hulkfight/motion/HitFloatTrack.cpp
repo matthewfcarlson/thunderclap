@@ -23,17 +23,9 @@ class Track_14e070 {
     virtual hulk_intptr Fnf_0014e060(int);
     char pad[8];
 };
-class HitFloatTrack : public Track_14e070 {
+class HitFloatTrack : public ::hulkfight::motion::HitFloatTrack {
   public:
     HitFloatTrack();
-    int a;
-    float d;
-    char b;
-    char gap2[3];
-    int c;
-    int e;
-    int f;
-    int g;
 };
 struct Param_14e0c0 {
   public:
@@ -70,14 +62,14 @@ namespace fn_f48e9e83 {
 
 // 0x0014e070 FUN_0014e070 (49 B): matches/0x0014e070.cpp
 // sym: ??0HitFloatTrack@fn_f48e9e83@@QAE@XZ
-HitFloatTrack::HitFloatTrack() : Track_14e070() {
-    a = 0;
-    b = 0;
-    c = 0;
-    f = 0;
-    g = 0;
-    d = -1.0f;
-    e = -5;
+HitFloatTrack::HitFloatTrack() {
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_20 = 0;
+    f_24 = 0;
+    f_10 = -1.0f;
+    f_1c = -5;
 }
 
 } // namespace fn_f48e9e83

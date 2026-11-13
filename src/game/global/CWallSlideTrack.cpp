@@ -63,26 +63,20 @@ class CTrack_6b170 {
     virtual void vf();
     char pad[8];
 };
-class CWallSlideTrack : public CTrack_6b170 {
+class CWallSlideTrack : public ::CWallSlideTrack {
   public:
     CWallSlideTrack();
-    int a;
-    float b, c;
-    int d;
-    float e, ff;
-    int g, h, i;
-    virtual void vf();
 };
-CWallSlideTrack::CWallSlideTrack() : CTrack_6b170() {
-    a = 0;
-    b = -1.0f;
-    c = 20.0f;
-    d = 0;
-    e = 20.0f;
-    ff = 1.0f;
-    g = 0;
-    h = 0;
-    i = 0;
+CWallSlideTrack::CWallSlideTrack() {
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_14 = 20.0f;
+    f_18 = 0;
+    f_1c = 20.0f;
+    f_20 = 1.0f;
+    f_24 = 0;
+    f_28 = 0;
+    f_2c = 0;
 }
 } // namespace fn_0006b170
 

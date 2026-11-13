@@ -52,23 +52,16 @@ class CTrack_697c0 {
     CTrack_697c0();
 };
 
-class CComboMessageTrack : public CTrack_697c0 {
+class CComboMessageTrack : public ::CComboMessageTrack {
   public:
-    virtual bool Fn0_00234270(void*);
-    int m4;
-    int m8;
-    int mC;
-    char m10;
-    char pad[0x3F];
-    int m50;
     CComboMessageTrack();
 };
 
 CComboMessageTrack::CComboMessageTrack() {
-    mC = 0;
-    m50 = 0;
-    m10 = 0;
-    m8 = 1;
+    f_0c = 0;
+    f_50 = 0;
+    f_10 = 0;
+    f_08 = 1;
 }
 } // namespace fn_000697c0
 

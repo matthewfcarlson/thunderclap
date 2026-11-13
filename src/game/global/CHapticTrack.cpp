@@ -116,31 +116,18 @@ class CTrack_5d230 {
     virtual hulk_intptr Fn_0005d190(int);
 };
 
-class CHapticTrack : public CTrack_5d230 {
+class CHapticTrack : public ::CHapticTrack {
   public:
     CHapticTrack();
-    virtual bool Fn0_00234270(void*);
-    virtual bool Fn1_002342b0(int);
-    virtual bool Fn2_00236c50(hulk_intptr, int, hulk_intptr);
-    virtual bool Fn3_00234350(int, int);
-
-  private:
-    char pad[4];
-    int m0x8;
-    int m0xc;
-    float m0x10;
-    int m0x14;
-    int m0x18;
-    char m0x1c;
 };
 
 CHapticTrack::CHapticTrack() {
-    m0xc = 0;
-    m0x14 = 0;
-    m0x18 = 0;
-    m0x1c = 0;
-    m0x10 = -1.0f;
-    m0x8 = 1;
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_1c = 0;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 } // namespace fn_0005d230
 

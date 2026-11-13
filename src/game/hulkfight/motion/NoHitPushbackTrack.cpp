@@ -22,14 +22,9 @@ class Track_14e480 {
     Track_14e480();
     virtual void f();
 };
-class NoHitPushbackTrack : public Track_14e480 {
+class NoHitPushbackTrack : public ::hulkfight::motion::NoHitPushbackTrack {
   public:
     NoHitPushbackTrack();
-    char pad[4];
-    int a;
-    int b;
-    float c;
-    virtual void f();
 };
 struct Param_14e4c0 {
   public:
@@ -67,9 +62,9 @@ namespace fn_f85c9a68 {
 // 0x0014e480 FUN_0014e480 (39 B): matches/0x0014e480.cpp
 // sym: ??0NoHitPushbackTrack@fn_f85c9a68@@QAE@XZ
 NoHitPushbackTrack::NoHitPushbackTrack() {
-    b = 0;
-    c = -1.0f;
-    a = 1;
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_f85c9a68

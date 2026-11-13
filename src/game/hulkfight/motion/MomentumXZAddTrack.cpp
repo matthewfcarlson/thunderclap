@@ -23,13 +23,9 @@ class Track_170630 {
     virtual void f();
     char pad[4];
 };
-class MomentumXZAddTrack : public Track_170630 {
+class MomentumXZAddTrack : public ::hulkfight::motion::MomentumXZAddTrack {
   public:
     MomentumXZAddTrack();
-    virtual void f();
-    int flag;
-    int zero;
-    float x, y;
 };
 struct Param_170670 {
   public:
@@ -66,11 +62,11 @@ namespace fn_f2cad3c1 {
 
 // 0x00170630 FUN_00170630 (43 B): matches/0x00170630.cpp
 // sym: ??0MomentumXZAddTrack@fn_f2cad3c1@@QAE@XZ
-MomentumXZAddTrack::MomentumXZAddTrack() : Track_170630() {
-    x = -1.0f;
-    y = -1.0f;
-    zero = 0;
-    flag = 1;
+MomentumXZAddTrack::MomentumXZAddTrack() {
+    timeEnd = -1.0f;
+    finalVelocity = -1.0f;
+    timeBegin = 0;
+    f_08 = 1;
 }
 
 } // namespace fn_f2cad3c1

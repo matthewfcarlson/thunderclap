@@ -22,13 +22,9 @@ class Track_170ce0 {
     Track_170ce0();
     virtual hulk_intptr Fnf_00170cd0(int);
 };
-class IntentionClearTrack : public Track_170ce0 {
+class IntentionClearTrack : public ::hulkfight::motion::IntentionClearTrack {
   public:
     IntentionClearTrack();
-    char pad[4];
-    volatile int a;
-    int b;
-    float c;
 };
 struct Param_170d20 {
   public:
@@ -65,10 +61,10 @@ namespace fn_f138d560 {
 
 // 0x00170ce0 FUN_00170ce0 (39 B): matches/0x00170ce0.cpp
 // sym: ??0IntentionClearTrack@fn_f138d560@@QAE@XZ
-IntentionClearTrack::IntentionClearTrack() : Track_170ce0() {
-    b = 0;
-    c = -1.0f;
-    a = 1;
+IntentionClearTrack::IntentionClearTrack() {
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_f138d560

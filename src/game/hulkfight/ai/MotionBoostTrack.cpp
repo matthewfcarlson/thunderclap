@@ -23,15 +23,9 @@ class Track_115a60 {
     virtual void f();
     char pad[8];
 };
-class MotionBoostTrack : public Track_115a60 {
+class MotionBoostTrack : public ::hulkfight::ai::MotionBoostTrack {
   public:
     MotionBoostTrack();
-    virtual void f();
-    int a;
-    float b;
-    int c, d, e, f0;
-    float g;
-    int h;
 };
 struct Param_115ab0 {
   public:
@@ -68,9 +62,15 @@ namespace fn_fc9fa3b6 {
 
 // 0x00115a60 FUN_00115a60 (52 B): matches/0x00115a60.cpp
 // sym: ??0MotionBoostTrack@fn_fc9fa3b6@@QAE@XZ
-MotionBoostTrack::MotionBoostTrack() : a(0), c(0), d(0), e(0), f0(0), h(0) {
-    b = -1.0f;
-    g = 1.0f;
+MotionBoostTrack::MotionBoostTrack() {
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_28 = 0;
+    f_10 = -1.0f;
+    f_24 = 1.0f;
 }
 
 } // namespace fn_fc9fa3b6

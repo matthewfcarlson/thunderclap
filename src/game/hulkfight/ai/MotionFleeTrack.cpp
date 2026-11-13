@@ -21,12 +21,9 @@ class Track_1158b0 {
     virtual void f();
     int a, b;
 };
-class MotionFleeTrack : public Track_1158b0 {
+class MotionFleeTrack : public ::hulkfight::ai::MotionFleeTrack {
   public:
     MotionFleeTrack();
-    int x;
-    float y, z;
-    virtual void f();
 };
 struct Param_1158f0 {
   public:
@@ -55,7 +52,10 @@ namespace fn_fa5c6731 {
 
 // 0x001158b0 FUN_001158b0 (39 B): matches/0x001158b0.cpp
 // sym: ??0MotionFleeTrack@fn_fa5c6731@@QAE@XZ
-MotionFleeTrack::MotionFleeTrack() : Track_1158b0(), x(0), y(-1.0f), z(1.0f) {}
+MotionFleeTrack::MotionFleeTrack() {
+    timeBegin = 0;
+    timeEnd = -1.0f;
+    speed = 1.0f;}
 
 } // namespace fn_fa5c6731
 

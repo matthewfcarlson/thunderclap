@@ -216,12 +216,8 @@ class CTrack_629a0 {
     virtual hulk_intptr baseMethod_00062990(int);
     char pad[4];
 };
-class CSmartPropThrowingTrack_629a0 : public CTrack_629a0 {
+class CSmartPropThrowingTrack_629a0 : public ::CSmartPropThrowingTrack {
   public:
-    virtual bool method1_00234270(void*);
-    int m8;
-    int mC;
-    float m10;
     CSmartPropThrowingTrack_629a0();
 };
 extern int* hulk_at_004dc658;
@@ -2696,14 +2692,13 @@ class CTrack_62740 {
     int a, b;
     CTrack_62740();
 };
-class CSmartPropSetStateTrack : public CTrack_62740 {
+class CSmartPropSetStateTrack : public ::CSmartPropSetStateTrack {
   public:
-    virtual void f();
     CSmartPropSetStateTrack();
 };
 CSmartPropSetStateTrack::CSmartPropSetStateTrack() {
-    a = 0;
-    b = 0;
+    f_0c = 0;
+    f_10 = 0;
 }
 } // namespace fn_00062740
 
@@ -2767,18 +2762,13 @@ class CTrack_62800 {
     int b1;
 };
 
-class CSmartPropDetachTrack : public CTrack_62800 {
+class CSmartPropDetachTrack : public ::CSmartPropDetachTrack {
   public:
-    virtual bool TrackFn0_002342b0(int);
-    virtual bool TrackFn1_00236c50(hulk_intptr, int, hulk_intptr);
     CSmartPropDetachTrack();
-
-  private:
-    int mZero;
 };
 
 CSmartPropDetachTrack::CSmartPropDetachTrack() {
-    mZero = 0;
+    f_0c = 0;
 }
 } // namespace fn_00062800
 
@@ -2897,9 +2887,9 @@ namespace fn_fa3ff49b {
 // 0x000629a0 FUN_000629a0 (39 B): matches/0x000629a0.cpp
 // sym: ??0CSmartPropThrowingTrack_629a0@fn_fa3ff49b@@QAE@XZ
 CSmartPropThrowingTrack_629a0::CSmartPropThrowingTrack_629a0() {
-    mC = 0;
-    m10 = -1.0f;
-    m8 = 1;
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_fa3ff49b
@@ -3057,17 +3047,16 @@ class CTrack_62b50 {
     virtual hulk_intptr BaseFn_00062b40(int);
 };
 
-class CSmartPropEventTrack : public CTrack_62b50 {
+class CSmartPropEventTrack : public ::CSmartPropEventTrack {
   public:
     CSmartPropEventTrack();
-    virtual bool Fn_00234270(void*);
-    char pad0[8];
-    int m_c;
-    int m_10;
     int m_14;
 };
 
-CSmartPropEventTrack::CSmartPropEventTrack() : m_c(0), m_10(0), m_14(0) {}
+CSmartPropEventTrack::CSmartPropEventTrack() {
+    event = 0;
+    timeBegin = 0;
+    m_14 = 0;}
 } // namespace fn_00062b50
 
 
@@ -3230,20 +3219,15 @@ class CTrack_62cd0 {
     virtual void A();
 };
 
-class CPropActorSetStateTrack : public CTrack_62cd0 {
+class CPropActorSetStateTrack : public ::CPropActorSetStateTrack {
   public:
     CPropActorSetStateTrack();
-    virtual void A();
-    char pad[4];
-    int m8;
-    int mC;
-    int m10;
 };
 
-CPropActorSetStateTrack::CPropActorSetStateTrack() : CTrack_62cd0() {
-    mC = 0;
-    m10 = 0;
-    m8 = 1;
+CPropActorSetStateTrack::CPropActorSetStateTrack() {
+    f_0c = 0;
+    f_10 = 0;
+    f_08 = 1;
 }
 } // namespace fn_00062cd0
 

@@ -38,14 +38,9 @@ class Track_170e70 {
     virtual void f();
     char pad[4];
 };
-class ChargeClearTrack : public Track_170e70 {
+class ChargeClearTrack : public ::hulkfight::motion::ChargeClearTrack {
   public:
     ChargeClearTrack();
-    int a;
-    int zero;
-    float b;
-    char c;
-    virtual void f();
 };
 struct Param_170eb0 {
   public:
@@ -114,11 +109,11 @@ namespace fn_f18c5a89 {
 
 // 0x00170e70 FUN_00170e70 (43 B): matches/0x00170e70.cpp
 // sym: ??0ChargeClearTrack@fn_f18c5a89@@QAE@XZ
-ChargeClearTrack::ChargeClearTrack() : Track_170e70() {
-    c = 1;
-    a = 1;
-    zero = 0;
-    b = -1.0f;
+ChargeClearTrack::ChargeClearTrack() {
+    clearOnBegin = 1;
+    f_08 = 1;
+    timeBegin = 0;
+    timeEnd = -1.0f;
 }
 
 } // namespace fn_f18c5a89

@@ -116,14 +116,9 @@ class Track_11c5b0 {
     virtual void f();
     char pad[8];
 };
-class StrafeLateralHBTrack : public Track_11c5b0 {
+class StrafeLateralHBTrack : public ::hulkfight::ai::StrafeLateralHBTrack {
   public:
     StrafeLateralHBTrack();
-    virtual void f();
-    int a;
-    float b;
-    int c, d, e, g;
-    float h;
 };
 struct Param_11c600 {
   public:
@@ -148,14 +143,9 @@ class Track_11c650 {
     virtual void vf();
     char pad[8];
 };
-class StrafeCircleHBTrack : public Track_11c650 {
+class StrafeCircleHBTrack : public ::hulkfight::ai::StrafeCircleHBTrack {
   public:
     StrafeCircleHBTrack();
-    int a;
-    float b;
-    int c, d, e, h;
-    float g;
-    virtual void vf();
 };
 struct Param_11c6a0 {
   public:
@@ -180,18 +170,9 @@ class Track_11c6f0 {
     virtual void f();
     char data[8];
 };
-class StrafeCircleTrack : public Track_11c6f0 {
+class StrafeCircleTrack : public ::hulkfight::ai::StrafeCircleTrack {
   public:
     StrafeCircleTrack();
-    virtual void f();
-    int a;
-    float b;
-    int c, d, e, f1;
-    float g, h;
-    char i;
-    char pad2[3];
-    float j;
-    char k;
 };
 struct Param_11c750 {
   public:
@@ -569,24 +550,23 @@ class TrackBase {
     virtual void f();
     char pad[8];
 };
-class StrafeRunTrack : public TrackBase {
+class StrafeRunTrack : public ::hulkfight::ai::StrafeRunTrack {
   public:
     StrafeRunTrack();
-    virtual void f();
-    int a;
-    float b;
-    int c, d, e, f1;
-    float g, h;
-    char i, j;
-    char pad2[2];
-    int k;
-    float l;
 };
-StrafeRunTrack::StrafeRunTrack() : a(0), c(0), d(0), e(0), f1(0), i(0), j(0), k(0) {
-    b = -1.0f;
-    g = 40.0f;
-    h = 1.5f;
-    l = 1.0f;
+StrafeRunTrack::StrafeRunTrack() {
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_2c = 0;
+    f_2d = 0;
+    f_30 = 0;
+    f_10 = -1.0f;
+    f_24 = 40.0f;
+    f_28 = 1.5f;
+    f_34 = 1.0f;
 }
 } // namespace ai
 } // namespace hulkfight
@@ -632,9 +612,14 @@ namespace fn_fbabf3f2 {
 
 // 0x0011c5b0 FUN_0011c5b0 (49 B): matches/0x0011c5b0.cpp
 // sym: ??0StrafeLateralHBTrack@fn_fbabf3f2@@QAE@XZ
-StrafeLateralHBTrack::StrafeLateralHBTrack() : Track_11c5b0(), a(0), c(0), d(0), e(0), g(0) {
-    b = -1.0f;
-    h = 1.0f;
+StrafeLateralHBTrack::StrafeLateralHBTrack() {
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_10 = -1.0f;
+    f_24 = 1.0f;
 }
 
 } // namespace fn_fbabf3f2
@@ -678,7 +663,14 @@ namespace fn_fbabf3f2 {
 
 // 0x0011c650 FUN_0011c650 (49 B): matches/0x0011c650.cpp
 // sym: ??0StrafeCircleHBTrack@fn_fbabf3f2@@QAE@XZ
-StrafeCircleHBTrack::StrafeCircleHBTrack() : Track_11c650(), a(0), b(-1.0f), c(0), d(0), e(0), h(0), g(1.0f) {}
+StrafeCircleHBTrack::StrafeCircleHBTrack() {
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_14 = 0;
+    f_18 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_24 = 1.0f;}
 
 } // namespace fn_fbabf3f2
 
@@ -721,8 +713,18 @@ namespace fn_fbabf3f2 {
 
 // 0x0011c6f0 FUN_0011c6f0 (69 B): matches/0x0011c6f0.cpp
 // sym: ??0StrafeCircleTrack@fn_fbabf3f2@@QAE@XZ
-StrafeCircleTrack::StrafeCircleTrack()
-    : Track_11c6f0(), a(0), b(-1.0f), c(0), d(0), e(0), f1(0), g(40.0f), h(1.5f), i(0), j(1.0f), k(0) {}
+StrafeCircleTrack::StrafeCircleTrack() {
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_14 = 0;
+    f_18 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_24 = 40.0f;
+    f_28 = 1.5f;
+    f_2c = 0;
+    f_30 = 1.0f;
+    f_34 = 0;}
 
 } // namespace fn_fbabf3f2
 

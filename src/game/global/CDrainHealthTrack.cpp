@@ -74,36 +74,16 @@ class CTrack_69ea0 {
     int m4;
 };
 
-class CDrainHealthTrack : public CTrack_69ea0 {
+class CDrainHealthTrack : public ::CDrainHealthTrack {
   public:
-    virtual int f0_00068cb0(int, int, int);
-    virtual int f1_00068ca0(int);
-    virtual hulk_intptr f2_00069f10(hulk_intptr);
-    virtual void f3_00069ed0(void*);
-    virtual void f4();
-    virtual hulk_intptr f5_00069f90(int);
-    virtual bool f6_00234270(void*);
-    virtual bool f7_002342b0(int);
-    virtual bool f8_00236c50(hulk_intptr, int, hulk_intptr);
-    virtual bool f9_00234350(int, int);
-    virtual void* fA_0006b8a0(char);
-    virtual void fB_00069fe0();
-    virtual void fC_00069ff0();
-    virtual int fD_00068c80(int, int);
-    virtual int fE_00236bb0(hulk_intptr, hulk_intptr, hulk_intptr);
-    virtual int fF_00068cb0(int, int, int);
-    int m8;
-    int mC;
-    float m10;
-    int m14;
     CDrainHealthTrack();
 };
 
 CDrainHealthTrack::CDrainHealthTrack() {
-    mC = 0;
-    m14 = 0;
-    m10 = 1.0f;
-    m8 = 1;
+    f_0c = 0;
+    f_14 = 0;
+    f_10 = 1.0f;
+    f_08 = 1;
 }
 } // namespace fn_00069ea0
 

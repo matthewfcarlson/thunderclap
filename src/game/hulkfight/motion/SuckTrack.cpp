@@ -40,14 +40,9 @@ class Track_1701d0 {
     virtual void f();
     char pad[4];
 };
-class SuckTrack : public Track_1701d0 {
+class SuckTrack : public ::hulkfight::motion::SuckTrack {
   public:
     SuckTrack();
-    virtual void f();
-    int a;
-    int b;
-    float c;
-    int d, e, f1, g;
 };
 struct Param_170220 {
   public:
@@ -116,9 +111,14 @@ namespace fn_fefa0dcd {
 
 // 0x001701d0 FUN_001701d0 (49 B): matches/0x001701d0.cpp
 // sym: ??0SuckTrack@fn_fefa0dcd@@QAE@XZ
-SuckTrack::SuckTrack() : b(0), d(0), e(0), f1(0), g(0) {
-    c = -1.0f;
-    a = 1;
+SuckTrack::SuckTrack() {
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_fefa0dcd

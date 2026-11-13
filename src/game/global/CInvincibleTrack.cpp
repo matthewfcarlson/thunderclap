@@ -61,24 +61,16 @@ class CTrack_6a070 {
     int m_base;
 };
 
-class CInvincibleTrack : public CTrack_6a070 {
+class CInvincibleTrack : public ::CInvincibleTrack {
   public:
     CInvincibleTrack();
-    virtual bool Fn0_00234270(void*);
-    virtual bool Fn1_002342b0(int);
-    virtual bool Fn2_00236c50(hulk_intptr, int, hulk_intptr);
-    virtual bool Fn3_00234350(int, int);
-    int m_n;
-    int m_a;
-    float m_f;
-    int m_b;
 };
 
-CInvincibleTrack::CInvincibleTrack() : CTrack_6a070() {
-    m_a = 0;
-    m_b = 0;
-    m_f = -1.0f;
-    m_n = 1;
+CInvincibleTrack::CInvincibleTrack() {
+    f_0c = 0;
+    f_14 = 0;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 } // namespace fn_0006a070
 

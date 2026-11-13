@@ -90,51 +90,30 @@ class CTrack_68fc0 {
     int mBase1;
 };
 
-class CJumpTrack : public CTrack_68fc0 {
+class CJumpTrack : public ::CJumpTrack {
   public:
-    virtual bool F2_002342b0(int);
-    virtual bool F3_00236c50(hulk_intptr, int, hulk_intptr);
     CJumpTrack();
-    int m0c;
-    float m10;
-    int m14;
-    int m18;
-    int m1c;
-    int m20;
-    int m24;
-    int m28;
-    float m2c;
-    int m30;
-    int m34;
-    int m38;
-    int m3c;
-    int m40;
-    char pad44[4];
-    int m48;
-    int m4c;
-    char m50;
-    char m51;
 };
 
 CJumpTrack::CJumpTrack() {
-    m0c = 0;
-    m14 = 0;
-    m18 = 0;
-    m1c = 0;
-    m20 = 0;
-    m24 = 0;
-    m28 = 0;
-    m30 = 0;
-    m34 = 0;
-    m38 = 0;
-    m3c = 0;
-    m40 = 0;
-    m48 = 0;
-    m4c = 0;
-    m51 = 0;
-    m10 = -1.0f;
-    m2c = 7.0f;
-    m50 = 1;
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_24 = 0;
+    f_28 = 0;
+    f_30 = 0;
+    f_34 = 0;
+    f_38 = 0;
+    f_3c = 0;
+    f_40 = 0;
+    f_48 = 0;
+    f_4c = 0;
+    f_51 = 0;
+    f_10 = -1.0f;
+    f_2c = 7.0f;
+    f_50 = 1;
 }
 } // namespace fn_00068fc0
 

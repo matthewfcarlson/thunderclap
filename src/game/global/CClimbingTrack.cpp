@@ -58,24 +58,15 @@ class CTrack_68f00 {
     CTrack_68f00();
 };
 
-class CClimbingTrack : public CTrack_68f00 {
+class CClimbingTrack : public ::CClimbingTrack {
   public:
-    virtual bool v0_002342b0(int);
-    virtual bool v1_00236c50(hulk_intptr, int, hulk_intptr);
-    virtual bool v2_00234350(int, int);
-    virtual void* v3_0006b4e0(char);
-    virtual void v4_00068f30();
     CClimbingTrack();
-    char pad[4]; // offset 4
-    int m8;      // offset 8
-    int m_c;     // offset 0xc
-    float m10;   // offset 0x10
 };
 
 CClimbingTrack::CClimbingTrack() {
-    m_c = 0;
-    m10 = -1.0f;
-    m8 = 1;
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 } // namespace fn_00068f00
 

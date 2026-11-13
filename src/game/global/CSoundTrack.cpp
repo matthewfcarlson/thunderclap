@@ -65,23 +65,16 @@ class CTrack_696c0 {
     int m4;
 };
 
-class CSoundTrack : public CTrack_696c0 {
+class CSoundTrack : public ::CSoundTrack {
   public:
     CSoundTrack();
-    virtual void v0();
-    virtual bool v1_00234270(void*);
-    int m8;
-    int mC;
-    char m10;
-    char pad[0x3f];
-    char m50;
 };
 
 CSoundTrack::CSoundTrack() {
-    mC = 0;
-    m10 = 0;
-    m50 = 0;
-    m8 = 1;
+    f_0c = 0;
+    f_10 = 0;
+    f_50 = 0;
+    f_08 = 1;
 }
 } // namespace fn_000696c0
 

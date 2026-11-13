@@ -49,20 +49,15 @@ class Track_181420 {
 };
 namespace hulkfight {
 namespace motion {
-class PropAddToCollisionTrack : public Track_181420 {
+class PropAddToCollisionTrack : public ::hulkfight::motion::PropAddToCollisionTrack {
   public:
-    int a;
-    int b;
-    int c;
-    char d;
     PropAddToCollisionTrack();
-    virtual void f();
 };
-PropAddToCollisionTrack::PropAddToCollisionTrack() : Track_181420() {
-    b = 0;
-    c = 0;
-    d = 1;
-    a = 1;
+PropAddToCollisionTrack::PropAddToCollisionTrack() {
+    f_0c = 0;
+    f_10 = 0;
+    f_14 = 1;
+    f_08 = 1;
 }
 } // namespace motion
 } // namespace hulkfight

@@ -96,16 +96,9 @@ class Track_133b70 {
     virtual void f();
     char pad[4];
 };
-class BounceTrack : public Track_133b70 {
+class BounceTrack : public ::hulkfight::motion::BounceTrack {
   public:
     BounceTrack();
-    virtual void f();
-    int a;
-    int c;
-    float b;
-    int d, z;
-    float e, g, h;
-    int i, j, k;
 };
 struct Param_133bd0 {
   public:
@@ -146,14 +139,9 @@ class Track_133ce0 {
     Track_133ce0();
     virtual hulk_intptr Fnf_00133cd0(int);
 };
-class HoverTrack : public Track_133ce0 {
+class HoverTrack : public ::hulkfight::motion::HoverTrack {
   public:
     HoverTrack();
-    char pad[4];
-    int a;
-    int b;
-    float c;
-    int d;
 };
 struct Param_133d20 {
   public:
@@ -461,13 +449,18 @@ namespace fn_f414acda {
 
 // 0x00133b70 FUN_00133b70 (77 B): matches/0x00133b70.cpp
 // sym: ??0BounceTrack@fn_f414acda@@QAE@XZ
-BounceTrack::BounceTrack() : c(0), d(0), z(0), j(0), k(0) {
-    b = -1.0f;
-    e = 7.0f;
-    g = 10.0f;
-    h = 1.57079637f;
-    i = -5;
-    a = 1;
+BounceTrack::BounceTrack() {
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_2c = 0;
+    f_30 = 0;
+    f_10 = -1.0f;
+    f_1c = 7.0f;
+    f_20 = 10.0f;
+    f_24 = 1.57079637f;
+    f_28 = -5;
+    f_08 = 1;
 }
 
 } // namespace fn_f414acda
@@ -520,16 +513,23 @@ class Base {
     int x;
     int flag;
 };
-class AirToGroundTargetTrack : public Base {
+class AirToGroundTargetTrack : public ::hulkfight::motion::AirToGroundTargetTrack {
   public:
     AirToGroundTargetTrack();
-    int a;
-    float b, c, d, e, f, g;
-    int h, i, j, k;
 };
-AirToGroundTargetTrack::AirToGroundTargetTrack()
-    : a(0), b(-1.0f), c(0), d(50.0f), e(100.0f), f(100.0f), g(3.1415927f / 2.0f), h(0), i(-5), j(0), k(0) {
-    flag = 1;
+AirToGroundTargetTrack::AirToGroundTargetTrack() {
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_14 = 0;
+    f_18 = 50.0f;
+    f_1c = 100.0f;
+    f_20 = 100.0f;
+    f_24 = 3.1415927f / 2.0f;
+    f_28 = 0;
+    f_2c = -5;
+    f_30 = 0;
+    f_34 = 0;
+    f_08 = 1;
 }
 } // namespace motion
 } // namespace hulkfight
@@ -576,10 +576,10 @@ namespace fn_f414acda {
 // 0x00133ce0 FUN_00133ce0 (40 B): matches/0x00133ce0.cpp
 // sym: ??0HoverTrack@fn_f414acda@@QAE@XZ
 HoverTrack::HoverTrack() {
-    b = 0;
-    d = 0;
-    c = -1.0f;
-    a = 1;
+    f_0c = 0;
+    f_14 = 0;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_f414acda

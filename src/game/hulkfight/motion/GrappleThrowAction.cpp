@@ -134,14 +134,9 @@ class Track_1474f0 {
     virtual void f();
     char pad[4];
 };
-class GrappleStruggleTrack : public Track_1474f0 {
+class GrappleStruggleTrack : public ::hulkfight::motion::GrappleStruggleTrack {
   public:
     GrappleStruggleTrack();
-    virtual void f();
-    int a;
-    int b;
-    float c;
-    int d, e, g, h;
 };
 struct Param_147540 {
   public:
@@ -2711,14 +2706,14 @@ namespace fn_f1739f6f {
 
 // 0x001474f0 FUN_001474f0 (49 B): matches/0x001474f0.cpp
 // sym: ??0GrappleStruggleTrack@fn_f1739f6f@@QAE@XZ
-GrappleStruggleTrack::GrappleStruggleTrack() : Track_1474f0() {
-    b = 0;
-    d = 0;
-    e = 0;
-    g = 0;
-    h = 0;
-    c = -1.0f;
-    a = 1;
+GrappleStruggleTrack::GrappleStruggleTrack() {
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_f1739f6f

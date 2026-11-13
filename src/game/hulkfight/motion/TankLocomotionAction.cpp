@@ -126,12 +126,9 @@ class Track_18f220 {
     Track_18f220();
     virtual hulk_intptr Fnf_0018f210(int);
 };
-class SimulationTrack : public Track_18f220 {
+class SimulationTrack : public ::hulkfight::motion::SimulationTrack {
   public:
     SimulationTrack();
-    char pad[8];
-    int x;
-    float y;
 };
 struct Param_18f250 {
   public:
@@ -1078,8 +1075,8 @@ namespace fn_fc171dfe {
 // 0x0018f220 FUN_0018f220 (32 B): matches/0x0018f220.cpp
 // sym: ??0SimulationTrack@fn_fc171dfe@@QAE@XZ
 SimulationTrack::SimulationTrack() {
-    x = 0;
-    y = -1.0f;
+    f_0c = 0;
+    f_10 = -1.0f;
 }
 
 } // namespace fn_fc171dfe

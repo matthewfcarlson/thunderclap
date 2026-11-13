@@ -31,12 +31,9 @@ class Track_181120 {
     int y;
     int z;
 };
-class PropSetStateByIndexTrack : public Track_181120 {
+class PropSetStateByIndexTrack : public ::hulkfight::motion::PropSetStateByIndexTrack {
   public:
     PropSetStateByIndexTrack();
-    virtual void f();
-    int w;
-    int v;
 };
 
 } // namespace fn_f579a2c4
@@ -74,10 +71,10 @@ namespace fn_f579a2c4 {
 // 0x00181120 FUN_00181120 (40 B): matches/0x00181120.cpp
 // sym: ??0PropSetStateByIndexTrack@fn_f579a2c4@@QAE@XZ
 PropSetStateByIndexTrack::PropSetStateByIndexTrack() {
-    z = 0;
-    v = 0;
-    w = -1;
-    y = 1;
+    timeBegin = 0;
+    state = 0;
+    attachmentIndex = -1;
+    f_08 = 1;
 }
 
 } // namespace fn_f579a2c4

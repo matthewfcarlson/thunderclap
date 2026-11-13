@@ -60,22 +60,16 @@ class CTrack_6a8c0 {
     virtual hulk_intptr BaseFn_0006a8b0(int);
 };
 
-class CUninterruptibleTrack : public CTrack_6a8c0 {
+class CUninterruptibleTrack : public ::CUninterruptibleTrack {
   public:
     CUninterruptibleTrack();
-    virtual bool Fn_00234270(void*);
-    char pad4[4];
-    int m8;
-    int m_c;
-    float m_10;
-    int m_14;
 };
 
 CUninterruptibleTrack::CUninterruptibleTrack() {
-    m_c = 0;
-    m_14 = 0;
-    m_10 = -1.0f;
-    m8 = 1;
+    timeBegin = 0;
+    extensionTime = 0;
+    timeEnd = -1.0f;
+    f_08 = 1;
 }
 } // namespace fn_0006a8c0
 

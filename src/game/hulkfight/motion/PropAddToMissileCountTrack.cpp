@@ -24,14 +24,9 @@ class Track {
     virtual void Fn();
     int pad;
 };
-class PropAddToMissileCountTrack : public Track {
+class PropAddToMissileCountTrack : public ::hulkfight::motion::PropAddToMissileCountTrack {
   public:
     PropAddToMissileCountTrack();
-    virtual void Fn();
-    int count;
-    int a;
-    int b;
-    int c;
 };
 
 
@@ -57,10 +52,10 @@ namespace fn_f79bd28d {
 // 0x001814b0 FUN_001814b0 (36 B): matches/0x001814b0.cpp
 // sym: ??0PropAddToMissileCountTrack@fn_f79bd28d@@QAE@XZ
 PropAddToMissileCountTrack::PropAddToMissileCountTrack() {
-    a = 0;
-    b = 0;
-    c = 0;
-    count = 1;
+    timeBegin = 0;
+    attachmentIndex = 0;
+    missiles = 0;
+    f_08 = 1;
 }
 
 } // namespace fn_f79bd28d

@@ -22,13 +22,9 @@ class Track_14db70 {
     virtual void f();
     int x;
 };
-class InterruptAccumulatorSetTrack : public Track_14db70 {
+class InterruptAccumulatorSetTrack : public ::hulkfight::motion::InterruptAccumulatorSetTrack {
   public:
     InterruptAccumulatorSetTrack();
-    virtual void f();
-    int a;
-    int b;
-    int c;
 };
 
 } // namespace fn_f0ef64f3
@@ -46,9 +42,9 @@ namespace fn_f0ef64f3 {
 // 0x0014db70 FUN_0014db70 (33 B): matches/0x0014db70.cpp
 // sym: ??0InterruptAccumulatorSetTrack@fn_f0ef64f3@@QAE@XZ
 InterruptAccumulatorSetTrack::InterruptAccumulatorSetTrack() {
-    b = 0;
-    c = 0;
-    a = 1;
+    f_0c = 0;
+    f_10 = 0;
+    f_08 = 1;
 }
 
 } // namespace fn_f0ef64f3

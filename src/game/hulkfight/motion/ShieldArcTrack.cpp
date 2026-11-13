@@ -23,13 +23,9 @@ class Track_181390 {
     virtual hulk_intptr Fnf_00181380(int);
     Track_181390();
 };
-class ShieldArcTrack : public Track_181390 {
+class ShieldArcTrack : public ::hulkfight::motion::ShieldArcTrack {
   public:
     ShieldArcTrack();
-    char pad[4];
-    int a;
-    int b;
-    int c;
 };
 
 
@@ -54,10 +50,10 @@ namespace fn_f6222780 {
 
 // 0x00181390 FUN_00181390 (39 B): matches/0x00181390.cpp
 // sym: ??0ShieldArcTrack@fn_f6222780@@QAE@XZ
-ShieldArcTrack::ShieldArcTrack() : Track_181390() {
-    b = 0;
-    c = 0x3fc90fdb;
-    a = 1;
+ShieldArcTrack::ShieldArcTrack() {
+    f_0c = 0;
+    f_10 = 0x3fc90fdb;
+    f_08 = 1;
 }
 
 } // namespace fn_f6222780

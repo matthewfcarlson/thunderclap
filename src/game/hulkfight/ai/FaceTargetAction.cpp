@@ -32,13 +32,9 @@ class Track_10b440 {
     Track_10b440();
     virtual hulk_intptr Fnf_0010b430(int);
 };
-class FaceTargetTrack : public Track_10b440 {
+class FaceTargetTrack : public ::hulkfight::ai::FaceTargetTrack {
   public:
     FaceTargetTrack();
-    char pad[4];
-    int flag;
-    int value;
-    float angle;
 };
 struct Param_10b480 {
   public:
@@ -62,13 +58,9 @@ class Track_10b4d0 {
     Track_10b4d0();
     virtual hulk_intptr Fnf_0010b4c0(int);
 };
-class FaceMotionTrack : public Track_10b4d0 {
+class FaceMotionTrack : public ::hulkfight::ai::FaceMotionTrack {
   public:
     FaceMotionTrack();
-    char pad[4];
-    int a;
-    int b;
-    float c;
 };
 struct Param_10b510 {
   public:
@@ -501,10 +493,10 @@ namespace fn_f8ed28bc {
 
 // 0x0010b440 FUN_0010b440 (39 B): matches/0x0010b440.cpp
 // sym: ??0FaceTargetTrack@fn_f8ed28bc@@QAE@XZ
-FaceTargetTrack::FaceTargetTrack() : Track_10b440() {
-    value = 0;
-    angle = -1.0f;
-    flag = 1;
+FaceTargetTrack::FaceTargetTrack() {
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_f8ed28bc
@@ -548,10 +540,10 @@ namespace fn_f8ed28bc {
 
 // 0x0010b4d0 FUN_0010b4d0 (39 B): matches/0x0010b4d0.cpp
 // sym: ??0FaceMotionTrack@fn_f8ed28bc@@QAE@XZ
-FaceMotionTrack::FaceMotionTrack() : Track_10b4d0() {
-    b = 0;
-    c = -1.0f;
-    a = 1;
+FaceMotionTrack::FaceMotionTrack() {
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_f8ed28bc

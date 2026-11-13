@@ -292,13 +292,9 @@ class Track_12efd0 {
     virtual void f();
     char pad[4];
 };
-class StatTrack : public Track_12efd0 {
+class StatTrack : public ::hulkfight::StatTrack {
   public:
     StatTrack();
-    virtual void f();
-    char pad2[4];
-    int a;
-    int b;
 };
 extern int* hulk_at_004e0eac;
 class CCondition_12f0b0 {
@@ -311,9 +307,8 @@ class Track_12f0c0 {
     virtual hulk_intptr Fnf_0012f0b0(int);
     char pad[8];
 };
-class XPTrack : public Track_12f0c0 {
+class XPTrack : public ::hulkfight::XPTrack {
   public:
-    int m12, m16;
     XPTrack();
 };
 class Action_12f910 {
@@ -2673,9 +2668,9 @@ namespace fn_f587a2cf {
 
 // 0x0012efd0 FUN_0012efd0 (26 B): matches/0x0012efd0.cpp
 // sym: ??0StatTrack@fn_f587a2cf@@QAE@XZ
-StatTrack::StatTrack() : Track_12efd0() {
-    a = 0;
-    b = 0;
+StatTrack::StatTrack() {
+    f_0c = 0;
+    f_10 = 0;
 }
 
 } // namespace fn_f587a2cf
@@ -2777,8 +2772,8 @@ namespace fn_f587a2cf {
 // 0x0012f0c0 FUN_0012f0c0 (26 B): matches/0x0012f0c0.cpp
 // sym: ??0XPTrack@fn_f587a2cf@@QAE@XZ
 XPTrack::XPTrack() {
-    m12 = 0;
-    m16 = 0;
+    f_0c = 0;
+    f_10 = 0;
 }
 
 } // namespace fn_f587a2cf

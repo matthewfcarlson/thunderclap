@@ -39,16 +39,15 @@ class BaseTrack {
     virtual void f();
     char pad[8];
 };
-class PropActorToPropTrack : public BaseTrack {
+class PropActorToPropTrack : public ::hulkfight::motion::PropActorToPropTrack {
   public:
     PropActorToPropTrack();
-    virtual void f();
-    int value;
-    int state;
-    char flag1;
-    char flag2;
 };
-PropActorToPropTrack::PropActorToPropTrack() : value(0), state(-1), flag1(0), flag2(0) {}
+PropActorToPropTrack::PropActorToPropTrack() {
+    timeBegin = 0;
+    attachmentIndex = -1;
+    simulate = 0;
+    atEnd = 0;}
 } // namespace motion
 } // namespace hulkfight
 } // namespace fn_00180b70

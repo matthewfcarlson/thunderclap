@@ -120,12 +120,8 @@ class TrackFactory_236d10 : public Entity_236d10 {
   public:
     TrackFactory_236d10* vfunc_5(signed char flags);
 };
-class Track_236d40 {
-  public:
-    virtual void f() HULK_PURE64;
-    int a;
-    int b;
-    Track_236d40();
+struct Track_words : ::fight::Track {
+    int f_08;   // (unb5) +8: zeroed by fight::Track's constructor, declared by the derived classes (include/gen)
 };
 class Ref_236d60 {
   public:
@@ -293,13 +289,19 @@ TrackFactory_236d10* TrackFactory_236d10::vfunc_5(signed char flags) {
 }
 
 
+} // namespace fn_f5a78e74
+
 // 0x00236d40 FUN_00236d40 (17 B): matches/0x00236d40.cpp
-// sym: ??0Track_236d40@fn_f5a78e74@@QAE@XZ
+// sym: ??0Track@fight@@QAE@XZ
 // Same code shape as 0x0008c7f0 (propagated; names are from that function)
-Track_236d40::Track_236d40() {
-    a = 0;
-    b = 0;
+// (unb5) fight::Track's own constructor (include/gen), which the derived classes' constructors call: the vftable
+// pointer, f_04 and the word every track has at +8 (Track_words: the derived classes in include/gen declare it)
+fight::Track::Track() {
+    f_04 = 0;
+    ((Track_words*)this)->f_08 = 0;
 }
+
+namespace fn_f5a78e74 {
 
 
 // 0x00236d60 FUN_00236d60 (38 B): matches/0x00236d60.cpp

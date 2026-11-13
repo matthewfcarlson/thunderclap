@@ -23,14 +23,9 @@ class Track_1705a0 {
     Track_1705a0();
     char pad[4];
 };
-class MotionStateTrack : public Track_1705a0 {
+class MotionStateTrack : public ::hulkfight::motion::MotionStateTrack {
   public:
-    virtual void f();
     MotionStateTrack();
-    int a;
-    int b;
-    float c;
-    int d;
 };
 struct Param_1705e0 {
   public:
@@ -68,10 +63,10 @@ namespace fn_f46464ee {
 // 0x001705a0 FUN_001705a0 (40 B): matches/0x001705a0.cpp
 // sym: ??0MotionStateTrack@fn_f46464ee@@QAE@XZ
 MotionStateTrack::MotionStateTrack() {
-    b = 0;
-    d = 0;
-    c = -1.0f;
-    a = 1;
+    timeBegin = 0;
+    motionState = 0;
+    timeEnd = -1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_f46464ee

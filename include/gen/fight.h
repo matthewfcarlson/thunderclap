@@ -688,6 +688,7 @@ public:
 // .?AVTrack@fight@@  vftable 0x427f70 (11)
 class Track : public ::fight::Param {
 public:
+    Track(); // (unb5) out of line: 0x00236d40, which the derived classes' constructors call
     virtual void vfunc_3(int, int, int, int); // overrides fight::Param slot 3
     virtual ~Track(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6() = 0; // slot 6

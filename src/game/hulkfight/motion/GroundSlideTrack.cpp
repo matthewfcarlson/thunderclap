@@ -22,22 +22,9 @@ class Track_14e330 {
     Track_14e330();
     virtual void func();
 };
-class GroundSlideTrack : public Track_14e330 {
+class GroundSlideTrack : public ::hulkfight::motion::GroundSlideTrack {
   public:
     GroundSlideTrack();
-    virtual void func();
-    char pad4[8];
-    int a;
-    float b;
-    int c;
-    float d;
-    float e;
-    int f;
-    float g;
-    float h;
-    int i;
-    int j;
-    int k;
 };
 struct Param_14e390 {
   public:
@@ -74,13 +61,18 @@ namespace fn_f126326a {
 
 // 0x0014e330 FUN_0014e330 (77 B): matches/0x0014e330.cpp
 // sym: ??0GroundSlideTrack@fn_f126326a@@QAE@XZ
-GroundSlideTrack::GroundSlideTrack() : a(0), c(0), f(0), j(0), k(0) {
-    b = -1.0f;
-    d = 0.5f;
-    e = 20.0f;
-    g = 10.0f;
-    h = 100.0f;
-    i = -5;
+GroundSlideTrack::GroundSlideTrack() {
+    f_0c = 0;
+    f_14 = 0;
+    f_20 = 0;
+    f_30 = 0;
+    f_34 = 0;
+    f_10 = -1.0f;
+    f_18 = 0.5f;
+    f_1c = 20.0f;
+    f_24 = 10.0f;
+    f_28 = 100.0f;
+    f_2c = -5;
 }
 
 } // namespace fn_f126326a

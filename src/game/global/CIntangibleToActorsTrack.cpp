@@ -58,23 +58,15 @@ class CTrack_6a210 {
     CTrack_6a210();
 };
 
-class CIntangibleToActorsTrack : public CTrack_6a210 {
+class CIntangibleToActorsTrack : public ::CIntangibleToActorsTrack {
   public:
-    virtual bool Fn0_002342b0(int);
-    virtual bool Fn1_00236c50(hulk_intptr, int, hulk_intptr);
     CIntangibleToActorsTrack();
-
-  private:
-    char pad0[4];
-    int mCount;
-    float mFloat0;
-    float mFloat1;
 };
 
 CIntangibleToActorsTrack::CIntangibleToActorsTrack() {
-    mFloat0 = 0.0f;
-    mFloat1 = -1.0f;
-    mCount = 1;
+    f_0c = 0.0f;
+    f_10 = -1.0f;
+    f_08 = 1;
 }
 } // namespace fn_0006a210
 

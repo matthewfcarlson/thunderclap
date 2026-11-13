@@ -95,13 +95,9 @@ class Track_124440 {
     virtual hulk_intptr Fnf_00124430(int);
     char pad[4];
 };
-class ClearProjectileDistanceTrack : public Track_124440 {
+class ClearProjectileDistanceTrack : public ::hulkfight::ai::ClearProjectileDistanceTrack {
   public:
     ClearProjectileDistanceTrack();
-    int a;
-    int b;
-    float d;
-    char flag;
 };
 struct Param_124480 {
   public:
@@ -587,10 +583,10 @@ namespace fn_f712cb17 {
 // 0x00124440 FUN_00124440 (40 B): matches/0x00124440.cpp
 // sym: ??0ClearProjectileDistanceTrack@fn_f712cb17@@QAE@XZ
 ClearProjectileDistanceTrack::ClearProjectileDistanceTrack() {
-    b = 0;
-    flag = 0;
-    d = -1.0f;
-    a = 1;
+    timeBegin = 0;
+    clearEveryFrame = 0;
+    timeEnd = -1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_f712cb17

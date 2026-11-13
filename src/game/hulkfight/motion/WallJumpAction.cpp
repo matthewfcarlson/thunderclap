@@ -120,21 +120,9 @@ class Track_13f0a0 {
     virtual void vf();
     char pad[8];
 };
-class WallExitTrack : public Track_13f0a0 {
+class WallExitTrack : public ::hulkfight::motion::WallExitTrack {
   public:
     WallExitTrack();
-    virtual void vf();
-    int a;
-    float b;
-    int c;
-    int d;
-    float e;
-    int f;
-    float g;
-    float h;
-    int i;
-    int j;
-    int k;
 };
 struct Param_13f100 {
   public:
@@ -1321,8 +1309,18 @@ namespace fn_f8068520 {
 
 // 0x0013f0a0 FUN_0013f0a0 (73 B): matches/0x0013f0a0.cpp
 // sym: ??0WallExitTrack@fn_f8068520@@QAE@XZ
-WallExitTrack::WallExitTrack()
-    : a(0), b(-1.0f), c(0), d(0), e(20.0f), f(0), g(0.785398185f), h(0.52359879f), i(-5), j(0), k(0) {}
+WallExitTrack::WallExitTrack() {
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_14 = 0;
+    f_18 = 0;
+    f_1c = 20.0f;
+    f_20 = 0;
+    f_24 = 0.785398185f;
+    f_28 = 0.52359879f;
+    f_2c = -5;
+    f_30 = 0;
+    f_34 = 0;}
 
 } // namespace fn_f8068520
 

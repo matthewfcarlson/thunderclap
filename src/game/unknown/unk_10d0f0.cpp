@@ -41,12 +41,9 @@ class Track_10d1d0 {
     Track_10d1d0() throw();
     virtual void F0();
 };
-class AIHistoryCountTrack : public Track_10d1d0 {
+class AIHistoryCountTrack : public ::hulkfight::ai::AIHistoryCountTrack {
   public:
     AIHistoryCountTrack() throw();
-    virtual void F0();
-    char pad[8];
-    int mField;
 };
 
 
@@ -117,8 +114,8 @@ namespace fn_fda30a1e {
 
 // 0x0010d1d0 FUN_0010d1d0 (25 B): matches/0x0010d1d0.cpp
 // sym: ??0AIHistoryCountTrack@fn_fda30a1e@@QAE@XZ
-AIHistoryCountTrack::AIHistoryCountTrack() throw() : Track_10d1d0() {
-    mField = 0;
+AIHistoryCountTrack::AIHistoryCountTrack() throw() {
+    f_0c = 0;
 }
 
 } // namespace fn_fda30a1e

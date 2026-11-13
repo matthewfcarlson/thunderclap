@@ -23,16 +23,9 @@ class Track_115d00 {
     virtual void vf();
     char pad[8];
 };
-class MotionClosestWaypointTrack : public Track_115d00 {
+class MotionClosestWaypointTrack : public ::hulkfight::ai::MotionClosestWaypointTrack {
   public:
     MotionClosestWaypointTrack();
-    int a;
-    float b, c;
-    int d, e, f0, g;
-    char h, i;
-    char pad2[2];
-    float j, k;
-    virtual void vf();
 };
 struct Param_115d60 {
   public:
@@ -69,8 +62,18 @@ namespace fn_fe7c4625 {
 
 // 0x00115d00 FUN_00115d00 (69 B): matches/0x00115d00.cpp
 // sym: ??0MotionClosestWaypointTrack@fn_fe7c4625@@QAE@XZ
-MotionClosestWaypointTrack::MotionClosestWaypointTrack()
-    : Track_115d00(), a(0), b(-1.0f), c(1.0f), d(0), e(0), f0(0), g(0), h(0), i(0), j(0.2f), k(3.0f) {}
+MotionClosestWaypointTrack::MotionClosestWaypointTrack() {
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_14 = 1.0f;
+    f_18 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_24 = 0;
+    f_28 = 0;
+    f_29 = 0;
+    f_2c = 0.2f;
+    f_30 = 3.0f;}
 
 } // namespace fn_fe7c4625
 

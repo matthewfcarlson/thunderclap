@@ -29,10 +29,9 @@ class Track_14dfe0 {
     int e;
     int g;
 };
-class HitOrientToPushbackTrack : public Track_14dfe0 {
+class HitOrientToPushbackTrack : public ::hulkfight::motion::HitOrientToPushbackTrack {
   public:
     HitOrientToPushbackTrack();
-    virtual void f();
 };
 struct Param_14e020 {
   public:
@@ -70,12 +69,12 @@ namespace fn_fdf4ce5e {
 // 0x0014dfe0 FUN_0014dfe0 (46 B): matches/0x0014dfe0.cpp
 // sym: ??0HitOrientToPushbackTrack@fn_fdf4ce5e@@QAE@XZ
 HitOrientToPushbackTrack::HitOrientToPushbackTrack() {
-    a = 0;
-    c = 0;
-    e = 0;
-    g = 0;
-    b = -1.0f;
-    d = -5;
+    f_0c = 0;
+    f_14 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_10 = -1.0f;
+    f_18 = -5;
 }
 
 } // namespace fn_fdf4ce5e

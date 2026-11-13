@@ -45,20 +45,15 @@ class CTrack_6ad90 {
     virtual hulk_intptr FnB_0006ad80(int);
 };
 
-class CAlertStatusTrack : public CTrack_6ad90 {
+class CAlertStatusTrack : public ::CAlertStatusTrack {
   public:
     CAlertStatusTrack();
-    virtual bool Dummy_00234270(void*);
-    int pad4;
-    int mCount;
-    int mX;
-    int mY;
 };
 
 CAlertStatusTrack::CAlertStatusTrack() {
-    mX = 0;
-    mY = 0;
-    mCount = 1;
+    f_0c = 0;
+    f_10 = 0;
+    f_08 = 1;
 }
 } // namespace fn_0006ad90
 

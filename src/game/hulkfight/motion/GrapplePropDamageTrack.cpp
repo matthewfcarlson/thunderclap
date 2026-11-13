@@ -34,11 +34,9 @@ class Track_180e70 {
     virtual void f();
     char pad[4];
 };
-class GrapplePropDamageTrack : public Track_180e70 {
+class GrapplePropDamageTrack : public ::hulkfight::motion::GrapplePropDamageTrack {
   public:
     GrapplePropDamageTrack();
-    int flag, a, b, c, d;
-    virtual void f();
 };
 
 
@@ -73,8 +71,12 @@ namespace fn_f8ded1c2 {
 
 // 0x00180e70 FUN_00180e70 (39 B): matches/0x00180e70.cpp
 // sym: ??0GrapplePropDamageTrack@fn_f8ded1c2@@QAE@XZ
-GrapplePropDamageTrack::GrapplePropDamageTrack() : Track_180e70(), a(0), b(0), c(0), d(0) {
-    flag = 1;
+GrapplePropDamageTrack::GrapplePropDamageTrack() {
+    timeBegin = 0;
+    attachmentIndex = 0;
+    damage = 0;
+    damageMax = 0;
+    f_08 = 1;
 }
 
 } // namespace fn_f8ded1c2

@@ -46,28 +46,19 @@ class CTrack_69b60 {
     virtual void f0();
 };
 
-class CSweepTrack : public CTrack_69b60 {
+class CSweepTrack : public ::CSweepTrack {
   public:
     CSweepTrack();
-    virtual void f0();
-    char pad0[4];
-    int m8;
-    int m_c;
-    float m_10;
-    int m_14;
-    int m_18;
-    int m_1c;
-    int m_20;
 };
 
 CSweepTrack::CSweepTrack() {
-    m_c = 0;
-    m_14 = 0;
-    m_1c = 0;
-    m_20 = 0;
-    m_10 = 1.0f;
-    m_18 = -1;
-    m8 = 1;
+    f_0c = 0;
+    f_14 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_10 = 1.0f;
+    f_18 = -1;
+    f_08 = 1;
 }
 } // namespace fn_00069b60
 

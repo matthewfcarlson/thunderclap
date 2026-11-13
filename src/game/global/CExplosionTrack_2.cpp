@@ -252,21 +252,22 @@ class CTrack_78080 {
     virtual void vf();
     char pad[4];
 };
-class CHeliDeathSpiralTrack : public CTrack_78080 {
+class CHeliDeathSpiralTrack : public ::CHeliDeathSpiralTrack {
   public:
     CHeliDeathSpiralTrack();
-    virtual void vf();
-    char p0[4];
-    int a;
-    float b, c;
-    int d;
-    float e;
-    int f, g, h;
-    int i, j;
-    int k;
 };
-CHeliDeathSpiralTrack::CHeliDeathSpiralTrack()
-    : a(0), b(-1.0f), c(0.5f), d(0), e(-0.017453292f), f(0), g(0), h(0), i(-5), j(0), k(0) {}
+CHeliDeathSpiralTrack::CHeliDeathSpiralTrack() {
+    f_0c = 0;
+    f_10 = -1.0f;
+    f_14 = 0.5f;
+    f_18 = 0;
+    f_1c = -0.017453292f;
+    f_20 = 0;
+    f_24 = 0;
+    f_28 = 0;
+    f_2c = -5;
+    f_30 = 0;
+    f_34 = 0;}
 } // namespace fn_00078080
 
 

@@ -47,20 +47,16 @@ class CTrack_699a0 {
     char pad[4];
     int a;
 };
-class CMoveAddTrack : public CTrack_699a0 {
+class CMoveAddTrack : public ::CMoveAddTrack {
   public:
     CMoveAddTrack();
-    virtual void f();
-    int z;
-    float x, y;
-    int w;
 };
-CMoveAddTrack::CMoveAddTrack() : CTrack_699a0() {
-    z = 0;
-    x = 1.0f;
-    y = 1.0f;
-    w = 0;
-    a = 1;
+CMoveAddTrack::CMoveAddTrack() {
+    f_0c = 0;
+    f_10 = 1.0f;
+    f_14 = 1.0f;
+    f_18 = 0;
+    f_08 = 1;
 }
 } // namespace fn_000699a0
 

@@ -41,13 +41,9 @@ class Track_181700 {
     virtual void f();
     int pad;
 };
-class PropDestroyTrack : public Track_181700 {
+class PropDestroyTrack : public ::hulkfight::motion::PropDestroyTrack {
   public:
     PropDestroyTrack();
-    virtual void f();
-    int a;
-    int b;
-    int c;
 };
 
 
@@ -98,8 +94,10 @@ namespace fn_f1f16d33 {
 
 // 0x00181700 FUN_00181700 (33 B): matches/0x00181700.cpp
 // sym: ??0PropDestroyTrack@fn_f1f16d33@@QAE@XZ
-PropDestroyTrack::PropDestroyTrack() : Track_181700(), b(0), c(0) {
-    a = 1;
+PropDestroyTrack::PropDestroyTrack() {
+    f_0c = 0;
+    f_10 = 0;
+    f_08 = 1;
 }
 
 } // namespace fn_f1f16d33

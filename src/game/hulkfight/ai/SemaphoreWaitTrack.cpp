@@ -33,14 +33,9 @@ class Track_10d4d0 {
     virtual void f();
     char pad[4];
 };
-class TokenTrack : public Track_10d4d0 {
+class TokenTrack : public ::hulkfight::ai::TokenTrack {
   public:
     TokenTrack();
-    virtual void f();
-    int a;
-    int b;
-    float c;
-    char d;
 };
 extern int* hulk_at_004e0ba0;
 class CCondition_10d540 {
@@ -116,9 +111,11 @@ namespace fn_f8109a4a {
 
 // 0x0010d4d0 FUN_0010d4d0 (40 B): matches/0x0010d4d0.cpp
 // sym: ??0TokenTrack@fn_f8109a4a@@QAE@XZ
-TokenTrack::TokenTrack() : b(0), d(0) {
-    c = -1.0f;
-    a = 1;
+TokenTrack::TokenTrack() {
+    timeBegin = 0;
+    floatDelayOnEnd = 0;
+    timeEnd = -1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_f8109a4a

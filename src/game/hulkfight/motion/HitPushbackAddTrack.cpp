@@ -24,12 +24,9 @@ class Track_14e190 {
     virtual hulk_intptr Fnf_0014e180(int);
     char pad[4];
 };
-class HitPushbackAddTrack : public Track_14e190 {
+class HitPushbackAddTrack : public ::hulkfight::motion::HitPushbackAddTrack {
   public:
     HitPushbackAddTrack();
-    int a;
-    int b;
-    float c;
 };
 
 
@@ -54,10 +51,10 @@ namespace fn_f940e47d {
 
 // 0x0014e190 FUN_0014e190 (39 B): matches/0x0014e190.cpp
 // sym: ??0HitPushbackAddTrack@fn_f940e47d@@QAE@XZ
-HitPushbackAddTrack::HitPushbackAddTrack() : Track_14e190() {
-    b = 0;
-    c = 1.0f;
-    a = 1;
+HitPushbackAddTrack::HitPushbackAddTrack() {
+    f_0c = 0;
+    f_10 = 1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_f940e47d

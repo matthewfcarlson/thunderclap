@@ -23,15 +23,9 @@ class Track_115c60 {
     virtual void vf();
     char pad[8];
 };
-class MotionChaseTrack : public Track_115c60 {
+class MotionChaseTrack : public ::hulkfight::ai::MotionChaseTrack {
   public:
     MotionChaseTrack();
-    virtual void vf();
-    int a;
-    float b;
-    int c, d, e, f;
-    float h;
-    int i;
 };
 struct Param_115cb0 {
   public:
@@ -68,15 +62,15 @@ namespace fn_fe369724 {
 
 // 0x00115c60 FUN_00115c60 (52 B): matches/0x00115c60.cpp
 // sym: ??0MotionChaseTrack@fn_fe369724@@QAE@XZ
-MotionChaseTrack::MotionChaseTrack() : Track_115c60() {
-    a = 0;
-    c = 0;
-    d = 0;
-    e = 0;
-    f = 0;
-    i = 0;
-    b = -1.0f;
-    h = 1.0f;
+MotionChaseTrack::MotionChaseTrack() {
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_1c = 0;
+    f_20 = 0;
+    f_28 = 0;
+    f_10 = -1.0f;
+    f_24 = 1.0f;
 }
 
 } // namespace fn_fe369724

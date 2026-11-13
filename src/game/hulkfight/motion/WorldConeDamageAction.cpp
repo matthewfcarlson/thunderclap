@@ -168,13 +168,9 @@ class Track_143a20 {
     char pad[4];
 };
 HULK_REFCOUNT_PACK_END
-class MotionBlurTrack : public Track_143a20 {
+class MotionBlurTrack : public ::hulkfight::motion::MotionBlurTrack {
   public:
     MotionBlurTrack();
-    char p[4];
-    int a;
-    float x, y, z;
-    int b, c;
 };
 extern int* hulk_at_004e0fa8;
 class CCondition_143ab0 {
@@ -187,12 +183,9 @@ class Track_143ac0 {
     virtual hulk_intptr Fnf_00143ab0(int);
     char pad[4];
 };
-class MotionTrailStopTrack : public Track_143ac0 {
+class MotionTrailStopTrack : public ::hulkfight::motion::MotionTrailStopTrack {
   public:
     MotionTrailStopTrack();
-    int a;
-    int b;
-    int c;
 };
 struct V3_143b20 {
     float x, y, z;
@@ -1760,8 +1753,14 @@ namespace fn_f3c8e3e3 {
 
 // 0x00143a20 FUN_00143a20 (57 B): matches/0x00143a20.cpp
 // sym: ??0MotionBlurTrack@fn_f3c8e3e3@@QAE@XZ
-MotionBlurTrack::MotionBlurTrack() : a(0), x(0.1f), y(0.9f), z(1.0f), b(0), c(0) {
-    *(int*)((char*)&this->p) = 1;
+MotionBlurTrack::MotionBlurTrack() {
+    f_0c = 0;
+    f_10 = 0.1f;
+    f_14 = 0.9f;
+    f_18 = 1.0f;
+    f_1c = 0;
+    f_20 = 0;
+    *(int*)((char*)&this->_pad_08) = 1;
 }
 
 } // namespace fn_f3c8e3e3
@@ -1805,10 +1804,10 @@ namespace fn_f3c8e3e3 {
 
 // 0x00143ac0 FUN_00143ac0 (33 B): matches/0x00143ac0.cpp
 // sym: ??0MotionTrailStopTrack@fn_f3c8e3e3@@QAE@XZ
-MotionTrailStopTrack::MotionTrailStopTrack() : Track_143ac0() {
-    b = 0;
-    c = 0;
-    a = 1;
+MotionTrailStopTrack::MotionTrailStopTrack() {
+    f_0c = 0;
+    f_10 = 0;
+    f_08 = 1;
 }
 
 } // namespace fn_f3c8e3e3

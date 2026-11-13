@@ -33,17 +33,9 @@ class Track_16fde0 {
     virtual void f();
     int m;
 };
-class ChargeTrack : public Track_16fde0 {
+class ChargeTrack : public ::hulkfight::motion::ChargeTrack {
   public:
     ChargeTrack();
-    virtual void f();
-    int count;
-    int a;
-    float b;
-    int c;
-    char d;
-    char pad1[3];
-    float e;
 };
 struct Param_16fe30 {
   public:
@@ -90,13 +82,13 @@ namespace fn_f70986fd {
 
 // 0x0016fde0 FUN_0016fde0 (50 B): matches/0x0016fde0.cpp
 // sym: ??0ChargeTrack@fn_f70986fd@@QAE@XZ
-ChargeTrack::ChargeTrack() : Track_16fde0() {
-    a = 0;
-    c = 0;
-    d = 0;
-    b = -1.0f;
-    e = 1.0f;
-    count = 1;
+ChargeTrack::ChargeTrack() {
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_10 = -1.0f;
+    f_1c = 1.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_f70986fd

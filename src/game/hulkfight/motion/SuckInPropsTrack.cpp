@@ -23,16 +23,9 @@ class Track_170ba0 {
     virtual void f();
     int baseField;
 };
-class SuckInPropsTrack : public Track_170ba0 {
+class SuckInPropsTrack : public ::hulkfight::motion::SuckInPropsTrack {
   public:
     SuckInPropsTrack();
-    virtual void f();
-    int flag;
-    int a;
-    float b;
-    int c;
-    int d;
-    float e;
 };
 struct Param_170bf0 {
   public:
@@ -70,12 +63,12 @@ namespace fn_fb2fdc2a {
 // 0x00170ba0 FUN_00170ba0 (50 B): matches/0x00170ba0.cpp
 // sym: ??0SuckInPropsTrack@fn_fb2fdc2a@@QAE@XZ
 SuckInPropsTrack::SuckInPropsTrack() {
-    a = 0;
-    c = 0;
-    d = 0;
-    b = -1.0f;
-    e = 20.0f;
-    flag = 1;
+    f_0c = 0;
+    f_14 = 0;
+    f_18 = 0;
+    f_10 = -1.0f;
+    f_1c = 20.0f;
+    f_08 = 1;
 }
 
 } // namespace fn_fb2fdc2a
