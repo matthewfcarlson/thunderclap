@@ -9,6 +9,9 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f42720ef {} using namespace fn_f42720ef;
+namespace fn_f42720ef {
+void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -58,7 +61,7 @@ VectorCamera_293ba0* VectorCamera_293ba0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042d014;
     Destroy_002926c0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }

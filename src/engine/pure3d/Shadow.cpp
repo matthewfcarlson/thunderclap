@@ -9,6 +9,9 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f524fe64 {} using namespace fn_f524fe64;
+namespace fn_f524fe64 {
+void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -33,7 +36,7 @@ Shadow_2dee20* Shadow_2dee20::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042f994;
     Destroy_002a4ff0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }

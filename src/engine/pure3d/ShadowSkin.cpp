@@ -9,6 +9,9 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fb97e5a1 {} using namespace fn_fb97e5a1;
+namespace fn_fb97e5a1 {
+void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_fb97e5a1 { extern "C" char DAT_0042f994[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -161,7 +164,7 @@ ShadowMesh_2def20* ShadowMesh_2def20::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042f994;
     Destroy_002a4ff0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }
@@ -231,7 +234,7 @@ ShadowSkin_2df020* ShadowSkin_2df020::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_0042f994);
     Destroy_002a4ff0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }
@@ -328,7 +331,7 @@ ShadowMeshBuffer_2df140* ShadowMeshBuffer_2df140::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_0042f994);
     Destroy_002a4ff0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }

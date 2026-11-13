@@ -7,6 +7,10 @@
 #define TREE_TU_BEGIN namespace fn_ff714e11 {
 #define TREE_TU_END }
 namespace fn_ff714e11 {} using namespace fn_ff714e11;
+namespace fn_ff714e11 {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -52,7 +56,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CMotionHitGroundHeightTrack>
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_76fe0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_76fe0* t = new (mem) TrackFactoryTemplate_76fe0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00072740();
@@ -88,7 +92,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor_0006b070();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

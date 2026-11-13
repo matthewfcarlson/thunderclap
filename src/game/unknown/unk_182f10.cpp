@@ -7,6 +7,9 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f6fed9ea {} using namespace fn_f6fed9ea;
+namespace fn_f6fed9ea {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "game/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -460,7 +463,7 @@ hulkfight::motion::PropMissionCriticalCondition* hulkfight::motion::PropMissionC
     *(void***)this = hulk_at_0041912c;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -475,7 +478,7 @@ hulkfight::motion::SmartPropGrabbableCondition* hulkfight::motion::SmartPropGrab
     *(void***)this = hulk_at_0041914c;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -502,7 +505,7 @@ hulkfight::motion::PropGrabbableIsThrownCondition* hulkfight::motion::PropGrabba
     *(void***)this = hulk_at_0041918c;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -529,7 +532,7 @@ hulkfight::motion::PropAtRestCondition* hulkfight::motion::PropAtRestCondition::
     *(void***)this = hulk_at_004191cc;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -544,7 +547,7 @@ hulkfight::motion::PropIsAttachedCondition* hulkfight::motion::PropIsAttachedCon
     *(void***)this = hulk_at_004191ec;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -572,7 +575,7 @@ hulkfight::motion::PropStateByIndexCondition* hulkfight::motion::PropStateByInde
     *(void***)this = hulk_at_0041922c;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -587,7 +590,7 @@ hulkfight::motion::PropMissileCountCondition* hulkfight::motion::PropMissileCoun
     *(void***)this = hulk_at_0041924c;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -602,7 +605,7 @@ hulkfight::motion::PropCollidedWithWorldCondition* hulkfight::motion::PropCollid
     *(void***)this = hulk_at_0041926c;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -617,7 +620,7 @@ hulkfight::motion::SmartPropIsCargoCondition* hulkfight::motion::SmartPropIsCarg
     *(void***)this = hulk_at_0041928c;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -632,7 +635,7 @@ hulkfight::motion::CSMPropIsCharacterCondition* hulkfight::motion::CSMPropIsChar
     *(void***)this = hulk_at_004192ac;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -647,7 +650,7 @@ hulkfight::motion::PropActorToPropTrack* hulkfight::motion::PropActorToPropTrack
     *(void***)this = hulk_at_004192cc;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -674,7 +677,7 @@ hulkfight::motion::PropActorThinkingTrack* hulkfight::motion::PropActorThinkingT
     *(void***)this = hulk_at_0041932c;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -689,7 +692,7 @@ hulkfight::motion::PropDropTrack* hulkfight::motion::PropDropTrack::vfunc_5(sign
     *(void***)this = hulk_at_0041935c;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -716,7 +719,7 @@ hulkfight::motion::GrapplePropDamageTrack* hulkfight::motion::GrapplePropDamageT
     *(void***)this = hulk_at_004193bc;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -758,7 +761,7 @@ hulkfight::motion::PropSetStateByIndexTrack* hulkfight::motion::PropSetStateByIn
     *(void***)this = hulk_at_0041944c;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -786,7 +789,7 @@ hulkfight::motion::BallAndChainSpinTrack* hulkfight::motion::BallAndChainSpinTra
     *(void***)this = hulk_at_004194ac;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -801,7 +804,7 @@ hulkfight::motion::ShieldArcTrack* hulkfight::motion::ShieldArcTrack::vfunc_5(si
     *(void***)this = hulk_at_004194dc;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -816,7 +819,7 @@ hulkfight::motion::PropAddToCollisionTrack* hulkfight::motion::PropAddToCollisio
     *(void***)this = hulk_at_0041950c;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -831,7 +834,7 @@ hulkfight::motion::PropAddToMissileCountTrack* hulkfight::motion::PropAddToMissi
     *(void***)this = hulk_at_0041953c;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -846,7 +849,7 @@ hulkfight::motion::PropDamageTrack* hulkfight::motion::PropDamageTrack::vfunc_5(
     *(void***)this = hulk_at_0041956c;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -876,7 +879,7 @@ hulkfight::motion::PropDestroyTrack* hulkfight::motion::PropDestroyTrack::vfunc_
     *(void***)this = hulk_at_004195cc;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

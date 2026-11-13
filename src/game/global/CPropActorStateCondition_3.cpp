@@ -7,6 +7,10 @@
 #define TREE_TU_BEGIN namespace fn_f1eed91f {
 #define TREE_TU_END }
 namespace fn_f1eed91f {} using namespace fn_f1eed91f;
+namespace fn_f1eed91f {
+struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -49,7 +53,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CPropActorStateCondition
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_585c0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_585c0* t = new (mem) TrackFactoryTemplate_585c0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00053d80();
@@ -83,7 +87,7 @@ void* ConditionFactoryTemplate_58640::scalar_dtor(unsigned char flags) {
     base1_dtor_00049b40();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

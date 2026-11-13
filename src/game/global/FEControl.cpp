@@ -8,6 +8,9 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f059af46 {} using namespace fn_f059af46;
+namespace fn_f059af46 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -141,7 +144,7 @@ FEControl_f1370* FEControl_f1370::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040c42c;
     Destroy_000e9030();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

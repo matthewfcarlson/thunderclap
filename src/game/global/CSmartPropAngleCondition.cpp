@@ -11,6 +11,9 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_ff756602 {} using namespace fn_ff756602;
+namespace fn_ff756602 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_ff756602 { extern "C" char DAT_003f6d50[], DAT_003f719c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
@@ -79,7 +82,7 @@ CSmartPropAttachedCondition* CSmartPropAttachedCondition::vfunc_5(signed char fl
     *(void***)this = hulk_at_003f6d50;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -94,7 +97,7 @@ CSmartPropWeaponizableTypeCondition* CSmartPropWeaponizableTypeCondition::vfunc_
     *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -109,7 +112,7 @@ CSmartPropWeaponTypeCondition* CSmartPropWeaponTypeCondition::vfunc_5(signed cha
     *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -124,7 +127,7 @@ CSmartPropTypeCondition* CSmartPropTypeCondition::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -153,7 +156,7 @@ CSmartPropAngleCondition* CSmartPropAngleCondition::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

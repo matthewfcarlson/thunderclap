@@ -7,6 +7,9 @@
 #define TREE_TU_BEGIN namespace fn_fed05365 {
 #define TREE_TU_END }
 namespace fn_fed05365 {} using namespace fn_fed05365;
+namespace fn_fed05365 {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+}
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -55,7 +58,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CDamageTrack>::vfunc_1(void*
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_761b0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_761b0* t = new (mem) TrackFactoryTemplate_761b0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00071700();

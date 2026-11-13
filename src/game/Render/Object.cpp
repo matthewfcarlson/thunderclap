@@ -13,6 +13,9 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CCollisionAction
 namespace fn_f4431f34 {} using namespace fn_f4431f34;
+namespace fn_f4431f34 {
+void thunk_delete_0008d330(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 namespace fn_f4431f34 { extern "C" char DAT_003f6098[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/Render.h"
 
@@ -1107,7 +1110,7 @@ void* Store_1c57c0::scalar_dtor(unsigned char flags) {
     ((Render::StoreBase *)this)->FUN_001c7720();
     base2_dtor_001c7500();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_0008d330(this);
     return this;
 }
 
@@ -1120,7 +1123,7 @@ void* Store_1c57f0::scalar_dtor(unsigned char flags) {
     ((Render::StoreBase *)this)->FUN_001c7720();
     base2_dtor_001c7500();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_0008d330(this);
     return this;
 }
 

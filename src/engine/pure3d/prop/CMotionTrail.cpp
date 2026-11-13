@@ -12,6 +12,9 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CCollisionAction
 namespace fn_f4890d4c {} using namespace fn_f4890d4c;
+namespace fn_f4890d4c {
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "engine/pure3d/prop.h"
 
 // ---- declarations shared by the functions below
@@ -3891,7 +3894,7 @@ void* EffectQueue_283dc0::scalar_dtor(unsigned char flags) {
     ((owners::Owner_280160 *)this)->FUN_00280160();
     base2_dtor_0027afd0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

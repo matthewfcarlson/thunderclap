@@ -8,6 +8,9 @@
 #define TREE_TU_BEGIN namespace fn_f42ec421 {
 #define TREE_TU_END }
 namespace fn_f42ec421 {} using namespace fn_f42ec421;
+namespace fn_f42ec421 {
+void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -371,7 +374,7 @@ CScriptCamera_acd10* CScriptCamera_acd10::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00405c04;
     Destroy_000a9620();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }

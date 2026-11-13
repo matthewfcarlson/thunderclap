@@ -7,6 +7,11 @@
 #define TREE_TU_BEGIN namespace fn_fd060a0f {
 #define TREE_TU_END }
 namespace fn_fd060a0f {} using namespace fn_fd060a0f;
+namespace fn_fd060a0f {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -61,7 +66,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CGrappleInvulnerableTrack>::
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_76930));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_76930* t = new (mem) TrackFactoryTemplate_76930();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00072360();
@@ -80,7 +85,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor_0006a970();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -108,7 +113,7 @@ CGrappleInvulnerableTrack* CGrappleInvulnerableTrack::vfunc_5(signed char flags)
     *(void***)this = hulk_at_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

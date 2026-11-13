@@ -7,6 +7,10 @@
 #define TREE_TU_BEGIN namespace fn_fbba5966 {
 #define TREE_TU_END }
 namespace fn_fbba5966 {} using namespace fn_fbba5966;
+namespace fn_fbba5966 {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -50,7 +54,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CUninterruptibleTrack>::vfun
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_77800));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_77800* t = new (mem) TrackFactoryTemplate_77800();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00072280();
@@ -86,7 +90,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor_0006a890();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

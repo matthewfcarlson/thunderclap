@@ -8,6 +8,9 @@
 #define TREE_TU_BEGIN namespace fn_f19d3f35 {
 #define TREE_TU_END }
 namespace fn_f19d3f35 {} using namespace fn_f19d3f35;
+namespace fn_f19d3f35 {
+void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_f19d3f35 { extern "C" char DAT_00405894[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
@@ -455,7 +458,7 @@ CGameCamera_a97b0* CGameCamera_a97b0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00405894;
     Destroy_002926c0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }

@@ -10,6 +10,9 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fc62e156 {} using namespace fn_fc62e156;
+namespace fn_fc62e156 {
+void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_fc62e156 { extern "C" char DAT_0042d668[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -311,7 +314,7 @@ Light_2a0ad0* Light_2a0ad0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042d668;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }

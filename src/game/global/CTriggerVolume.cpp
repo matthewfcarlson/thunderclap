@@ -8,6 +8,9 @@
 #define TREE_TU_BEGIN namespace fn_f9414999 {
 #define TREE_TU_END }
 namespace fn_f9414999 {} using namespace fn_f9414999;
+namespace fn_f9414999 {
+void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_f9414999 { extern "C" char DAT_00425120[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
@@ -618,7 +621,7 @@ CTriggerVolume_1fc000* CTriggerVolume_1fc000::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004250dc;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }
@@ -714,7 +717,7 @@ CLocator_1fc390* CLocator_1fc390::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00425120;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }

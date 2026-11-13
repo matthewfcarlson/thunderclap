@@ -8,6 +8,10 @@
 #define TREE_TU_BEGIN namespace fn_f7c5defd {
 #define TREE_TU_END }
 namespace fn_f7c5defd {} using namespace fn_f7c5defd;
+namespace fn_f7c5defd {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -50,7 +54,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CGrappleMotionTrailTrack>::v
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_6f750));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_6f750* t = new (mem) TrackFactoryTemplate_6f750();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_000612e0();
@@ -69,7 +73,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor_00060500();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

@@ -8,6 +8,9 @@
 #define TREE_TU_BEGIN namespace fn_f7aacfaa {
 #define TREE_TU_END }
 namespace fn_f7aacfaa {} using namespace fn_f7aacfaa;
+namespace fn_f7aacfaa {
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 namespace fn_f7aacfaa { extern "C" char DAT_00428eb0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
 
@@ -639,7 +642,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

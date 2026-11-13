@@ -13,6 +13,9 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fa65e9c0 {} using namespace fn_fa65e9c0;
+namespace fn_fa65e9c0 {
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "engine/pure3d.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -1488,7 +1491,7 @@ void* ProceduralVertexAnimController_2a6b90::scalar_dtor(unsigned char flags) {
     base1_dtor_002a68b0();
     base2_dtor_00285800();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

@@ -9,6 +9,9 @@
 #define TREE_TU_BEGIN namespace fn_f2bbfa1e {
 #define TREE_TU_END }
 namespace fn_f2bbfa1e {} using namespace fn_f2bbfa1e;
+namespace fn_f2bbfa1e {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_f2bbfa1e { extern "C" char DAT_004324a8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f2bbfa1e { extern "C" char DAT_0043253c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "platform/xbox/pure3d.h"
@@ -192,7 +195,7 @@ pddiDevice_31b760* pddiDevice_31b760::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_004324a8);
     Destroy();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

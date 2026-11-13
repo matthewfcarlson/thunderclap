@@ -10,6 +10,9 @@
 #define TREE_TU_BEGIN namespace fn_fb517155 {
 #define TREE_TU_END }
 namespace fn_fb517155 {} using namespace fn_fb517155;
+namespace fn_fb517155 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_fb517155 { extern "C" char DAT_004336d4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "platform/xbox/pure3d.h"
 
@@ -465,7 +468,7 @@ d3dFBEffectsShader_328770* d3dFBEffectsShader_328770::vfunc_5(signed char flags)
     *(void***)this = ((void**)DAT_004336d4);
     Destroy();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

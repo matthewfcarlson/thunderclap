@@ -8,6 +8,9 @@
 #define TREE_TU_BEGIN namespace fn_fe4accdf {
 #define TREE_TU_END }
 namespace fn_fe4accdf {} using namespace fn_fe4accdf;
+namespace fn_fe4accdf {
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -482,7 +485,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

@@ -9,6 +9,10 @@
 #define TREE_TU_BEGIN namespace fn_fd383094 {
 #define TREE_TU_END }
 namespace fn_fd383094 {} using namespace fn_fd383094;
+namespace fn_fd383094 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -173,7 +177,7 @@ DebugCondition_23d510* DebugCondition_23d510::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00428b64;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -268,7 +272,7 @@ void* ConditionFactoryTemplate_23d7c0::scalar_dtor(unsigned char flags) {
     base1_dtor_0023d470();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

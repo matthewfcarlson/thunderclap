@@ -7,6 +7,9 @@
 #define TREE_TU_BEGIN namespace fn_f1f0ad99 {
 #define TREE_TU_END }
 namespace fn_f1f0ad99 {} using namespace fn_f1f0ad99;
+namespace fn_f1f0ad99 {
+void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -142,7 +145,7 @@ Bank_23c870* Bank_23c870::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004288b4;
     ((fight::Branch *)(Branch_23c870 *)this)->FUN_00233970();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }

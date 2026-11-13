@@ -8,6 +8,9 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f777b6f1 {} using namespace fn_f777b6f1;
+namespace fn_f777b6f1 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_f777b6f1 { extern "C" char DAT_003f6d50[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 
@@ -51,7 +54,7 @@ CCharacterSizeCondition* CCharacterSizeCondition::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003f6d50;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -66,7 +69,7 @@ CCollisionHitLocationCondition* CCollisionHitLocationCondition::vfunc_5(signed c
     *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -81,7 +84,7 @@ CCollisionDirectionCondition* CCollisionDirectionCondition::vfunc_5(signed char 
     *(void***)this = ((void**)DAT_003f6d50);
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

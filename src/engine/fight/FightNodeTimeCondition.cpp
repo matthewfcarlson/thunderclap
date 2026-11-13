@@ -9,6 +9,9 @@
 #define TREE_TU_BEGIN namespace fn_fac1015e {
 #define TREE_TU_END }
 namespace fn_fac1015e {} using namespace fn_fac1015e;
+namespace fn_fac1015e {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_fac1015e { extern "C" char DAT_00427ccc[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
 
@@ -435,7 +438,7 @@ FightNodeBaseCondition_235c50* FightNodeBaseCondition_235c50::vfunc_5(signed cha
     *(void***)this = (void**)DAT_00427ccc;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -508,7 +511,7 @@ FightNodeTimeCondition_235d00* FightNodeTimeCondition_235d00::vfunc_5(signed cha
     *(void***)this = (void**)DAT_00427ccc;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

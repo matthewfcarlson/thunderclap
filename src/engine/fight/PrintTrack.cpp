@@ -10,6 +10,9 @@
 #define TREE_TU_BEGIN namespace fn_fbe81dc2 {
 #define TREE_TU_END }
 namespace fn_fbe81dc2 {} using namespace fn_fbe81dc2;
+namespace fn_fbe81dc2 {
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 namespace fn_fbe81dc2 { extern "C" char DAT_004282dc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fbe81dc2 { extern "C" char DAT_00428330[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
@@ -731,7 +734,7 @@ void* ConditionFactoryTemplate_2392b0::scalar_dtor(unsigned char flags) {
     base1_dtor_00238880();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -753,7 +756,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

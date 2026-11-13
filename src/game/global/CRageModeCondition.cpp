@@ -7,6 +7,10 @@
 #define TREE_TU_BEGIN namespace fn_ff2800b1 {
 #define TREE_TU_END }
 namespace fn_ff2800b1 {} using namespace fn_ff2800b1;
+namespace fn_ff2800b1 {
+struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -47,7 +51,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CRageModeCondition>::vfu
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_58670));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_58670* t = new (mem) TrackFactoryTemplate_58670();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00054300();
@@ -80,7 +84,7 @@ void* ConditionFactoryTemplate_586e0::scalar_dtor(unsigned char flags) {
     base1_dtor_0004a5a0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

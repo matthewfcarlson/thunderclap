@@ -6,6 +6,9 @@
 #define TREE_TU_BEGIN namespace fn_f9459e3d {
 #define TREE_TU_END }
 namespace fn_f9459e3d {} using namespace fn_f9459e3d;
+namespace fn_f9459e3d {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "game/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -282,7 +285,7 @@ hulkfight::ai::PropsToSuckCondition* hulkfight::ai::PropsToSuckCondition::vfunc_
     *(void***)this = hulk_at_0040db04;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -297,7 +300,7 @@ hulkfight::ai::RandomKeyWordWaitCondition* hulkfight::ai::RandomKeyWordWaitCondi
     *(void***)this = hulk_at_0040db24;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -312,7 +315,7 @@ hulkfight::ai::TokenCondition* hulkfight::ai::TokenCondition::vfunc_5(signed cha
     *(void***)this = hulk_at_0040db44;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -327,7 +330,7 @@ hulkfight::ai::FightingOtherNPCCondition* hulkfight::ai::FightingOtherNPCConditi
     *(void***)this = hulk_at_0040db64;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -356,7 +359,7 @@ hulkfight::ai::TokenSupressTrack* hulkfight::ai::TokenSupressTrack::vfunc_5(sign
     *(void***)this = hulk_at_0040dbb4;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -371,7 +374,7 @@ hulkfight::ai::AIHistoryCountTrack* hulkfight::ai::AIHistoryCountTrack::vfunc_5(
     *(void***)this = hulk_at_0040dbe4;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -412,7 +415,7 @@ hulkfight::ai::ButtonTrack* hulkfight::ai::ButtonTrack::vfunc_5(signed char flag
     *(void***)this = hulk_at_0040dc74;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -441,7 +444,7 @@ hulkfight::ai::TokenTrack* hulkfight::ai::TokenTrack::vfunc_5(signed char flags)
     *(void***)this = hulk_at_0040dcd4;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

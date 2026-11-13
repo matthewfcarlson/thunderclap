@@ -7,6 +7,9 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CCollisionAction
 namespace fn_f54b098e {} using namespace fn_f54b098e;
+namespace fn_f54b098e {
+void thunk_delete_0008d330(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/Render.h"
 
 // ---- declarations shared by the functions below
@@ -66,7 +69,7 @@ void* Store_1c7dc0::scalar_dtor(unsigned char flags) {
     ((Render::StoreBase *)this)->FUN_001c7720();
     base2_dtor_001c7500();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_0008d330(this);
     return this;
 }
 

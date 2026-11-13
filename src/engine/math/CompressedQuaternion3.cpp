@@ -7,6 +7,9 @@
 #define TREE_TU_BEGIN namespace fn_f5ce7ee6 {
 #define TREE_TU_END }
 namespace fn_f5ce7ee6 {} using namespace fn_f5ce7ee6;
+namespace fn_f5ce7ee6 {
+void thunk_delete_0008d330(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "common.h"
 
 // ---- declarations shared by the functions below
@@ -992,7 +995,7 @@ void* CompressedQuaternionChannel_28de70::scalar_dtor(unsigned char flags) {
     base1_dtor_0028d440();
     base2_dtor_0028c040();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_0008d330(this);
     return this;
 }
 
@@ -1005,7 +1008,7 @@ void* CompressedQuaternionChannel_28dea0::scalar_dtor(unsigned char flags) {
     base1_dtor_0028d700();
     base2_dtor_0028c040();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_0008d330(this);
     return this;
 }
 
@@ -1018,7 +1021,7 @@ void* CompressedQuaternionChannel_28ded0::scalar_dtor(unsigned char flags) {
     base1_dtor_0028da90();
     base2_dtor_0028c040();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_0008d330(this);
     return this;
 }
 
@@ -1031,7 +1034,7 @@ void* CompressedQuaternionChannel_28df00::scalar_dtor(unsigned char flags) {
     base1_dtor_0028de20();
     base2_dtor_0028c040();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_0008d330(this);
     return this;
 }
 

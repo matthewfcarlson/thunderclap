@@ -11,6 +11,11 @@
 #define TREE_TU_BEGIN namespace fn_fc1ade79 {
 #define TREE_TU_END }
 namespace fn_fc1ade79 {} using namespace fn_fc1ade79;
+namespace fn_fc1ade79 {
+struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -295,7 +300,7 @@ MaybeCondition_2383f0* MaybeCondition_2383f0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004281f0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -310,7 +315,7 @@ RandomCondition_238420* RandomCondition_238420::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00428210;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -419,7 +424,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::MaybeCondition>::
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_238710));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_238710* t = new (mem) TrackFactoryTemplate_238710();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -452,7 +457,7 @@ void* ConditionFactoryTemplate_238780::scalar_dtor(unsigned char flags) {
     base1_dtor_002381e0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -465,7 +470,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::RandomCondition>:
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_2387b0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_2387b0* t = new (mem) TrackFactoryTemplate_2387b0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -499,7 +504,7 @@ void* ConditionFactoryTemplate_238820::scalar_dtor(unsigned char flags) {
     base1_dtor_00238240();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

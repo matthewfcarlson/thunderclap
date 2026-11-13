@@ -13,6 +13,9 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_faaafd8b {} using namespace fn_faaafd8b;
+namespace fn_faaafd8b {
+void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -374,7 +377,7 @@ SpotLight_2c4220* SpotLight_2c4220::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042ef00;
     Destroy_002a0720();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }

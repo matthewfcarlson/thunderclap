@@ -11,6 +11,9 @@
 #define TREE_TU_BEGIN namespace fn_f5892d97 {
 #define TREE_TU_END }
 namespace fn_f5892d97 {} using namespace fn_f5892d97;
+namespace fn_f5892d97 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -1155,7 +1158,7 @@ MenuSelector_f1b70* MenuSelector_f1b70::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040c554;
     Destroy_000ebca0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1170,7 +1173,7 @@ MapThing_f1ba0* MapThing_f1ba0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040c5c4;
     Destroy_000e9030();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

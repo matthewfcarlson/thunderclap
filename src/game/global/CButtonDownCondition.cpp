@@ -7,6 +7,11 @@
 #define TREE_TU_BEGIN namespace fn_f35c6cc2 {
 #define TREE_TU_END }
 namespace fn_f35c6cc2 {} using namespace fn_f35c6cc2;
+namespace fn_f35c6cc2 {
+struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -61,7 +66,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CButtonDownCondition>::v
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_571c0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_571c0* t = new (mem) TrackFactoryTemplate_571c0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_000528d0();
@@ -80,7 +85,7 @@ void* ConditionFactoryTemplate_57200::scalar_dtor(unsigned char flags) {
     base1_dtor_000484f0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -108,7 +113,7 @@ CButtonDownCondition* CButtonDownCondition::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003f6d50;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

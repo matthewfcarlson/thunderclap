@@ -7,6 +7,9 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fad3cf42 {} using namespace fn_fad3cf42;
+namespace fn_fad3cf42 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_fad3cf42 { extern "C" char DAT_003fb9c4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fad3cf42 { extern "C" char DAT_003f98d0[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/unknown.h"
@@ -285,7 +288,7 @@ CScrubberTrack* CScrubberTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -300,7 +303,7 @@ CClimbingTrack* CClimbingTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -315,7 +318,7 @@ CJumpTrack* CJumpTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -344,7 +347,7 @@ CDropTrack* CDropTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -373,7 +376,7 @@ CSoundTrack* CSoundTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -388,7 +391,7 @@ CComboMessageTrack* CComboMessageTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -403,7 +406,7 @@ CMoveTrack* CMoveTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -418,7 +421,7 @@ CMoveAddTrack* CMoveAddTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -441,7 +444,7 @@ CMoveAddYTrack* CMoveAddYTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -463,7 +466,7 @@ CSweepTrack* CSweepTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -478,7 +481,7 @@ CAutoTargetTrack* CAutoTargetTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -493,7 +496,7 @@ CDamageTrack* CDamageTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -508,7 +511,7 @@ CDrainHealthTrack* CDrainHealthTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -523,7 +526,7 @@ CComboTimerTrack* CComboTimerTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -538,7 +541,7 @@ CInvincibleTrack* CInvincibleTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -553,7 +556,7 @@ CIntangibleTrack* CIntangibleTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -568,7 +571,7 @@ CIntangibleToActorsTrack* CIntangibleToActorsTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -583,7 +586,7 @@ CCameraShakeTrack* CCameraShakeTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -618,7 +621,7 @@ CCameraHintTrack* CCameraHintTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -633,7 +636,7 @@ CJumpAttackTrack* CJumpAttackTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -648,7 +651,7 @@ COrientTrack* COrientTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -663,7 +666,7 @@ CDriftTrack* CDriftTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -678,7 +681,7 @@ CUninterruptibleTrack* CUninterruptibleTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -693,7 +696,7 @@ CInvulnerableTrack* CInvulnerableTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -708,7 +711,7 @@ CRageModeTrack* CRageModeTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -723,7 +726,7 @@ CStageTrack* CStageTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -766,7 +769,7 @@ CAlertStatusTrack* CAlertStatusTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -781,7 +784,7 @@ CDeathTrack* CDeathTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -824,7 +827,7 @@ CClearCollisionStun* CClearCollisionStun::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -839,7 +842,7 @@ CMotionHitGroundHeightTrack* CMotionHitGroundHeightTrack::vfunc_5(signed char fl
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -854,7 +857,7 @@ CWallSlideTrack* CWallSlideTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -869,7 +872,7 @@ CTargetTrack* CTargetTrack::vfunc_5(signed char flags) {
     *(void***)this = (void**)DAT_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

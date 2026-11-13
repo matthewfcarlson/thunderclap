@@ -10,6 +10,10 @@
 #define TREE_TU_BEGIN namespace fn_f6c81acf {
 #define TREE_TU_END }
 namespace fn_f6c81acf {} using namespace fn_f6c81acf;
+namespace fn_f6c81acf {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 namespace fn_f6c81acf { extern "C" char DAT_00427ff0[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
 
@@ -927,7 +931,7 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::OpportunityTrack>::vf
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_237ae0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_237ae0* t = new (mem) TrackFactoryTemplate_237ae0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00237870();
@@ -957,7 +961,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

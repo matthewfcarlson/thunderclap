@@ -9,6 +9,10 @@
 #define TREE_TU_BEGIN namespace fn_fd5a1171 {
 #define TREE_TU_END }
 namespace fn_fd5a1171 {} using namespace fn_fd5a1171;
+namespace fn_fd5a1171 {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -663,7 +667,7 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::ExecuteTrack>::vfunc_
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_239c80));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_239c80* t = new (mem) TrackFactoryTemplate_239c80();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00239a90();
@@ -690,7 +694,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

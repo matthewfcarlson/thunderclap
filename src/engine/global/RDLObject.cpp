@@ -6,6 +6,9 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_ffb1fb44 {} using namespace fn_ffb1fb44;
+namespace fn_ffb1fb44 {
+void __cdecl SweepTrack_DeleteThis_00263f30(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "common.h"
 
 // ---- declarations shared by the functions below
@@ -30,7 +33,7 @@ RDLObject_27ab50* RDLObject_27ab50::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042c0f8;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_00263f30(this);
     }
     return this;
 }
