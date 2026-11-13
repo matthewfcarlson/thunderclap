@@ -890,6 +890,11 @@ CASES = {
     "0x0033d400_wine_fillrel": ("equivalent", None, 0, {"native": True, "seeds": [5]}),
     "0x0033d400_wine_fillrel_off": ("fail", None, 0, {"src": "0x0033d400_wine_fillrel", "native": True, "seeds": [5],
                                                       "equiv_off": "fillrel"}),
+    # (x64t9) ExportInfoLoader::vfunc_5: MSVC 7.1 inlines memcmp (`repe cmpsb`), clang's object calls it; the call runs as
+    # an intrinsic (memcmp). Off, it is a callee the original never calls (the old failure paired it with 0x002669f0)
+    "0x002f4eb0_wine_memcmp": ("equivalent", None, 0, {"native": True, "n_inputs": 40}),
+    "0x002f4eb0_wine_memcmp_off": ("fail", "missing call", 0, {"src": "0x002f4eb0_wine_memcmp", "native": True,
+                                                              "n_inputs": 40, "equiv_off": "memcmp"}),
     # read_numeral: `b->buffer[b->n++] = c` and `*z->p++` that clang orders store-first, against a buffer overlapping its
     # header (a source fix, not a checker rule: the order the original has)
     "0x0021b230_wine_order": ("equivalent", None, 0, {"native": True, "seeds": [8, 24, 54]}),

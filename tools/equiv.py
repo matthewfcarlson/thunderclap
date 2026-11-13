@@ -3443,8 +3443,8 @@ X87_NAN = struct.unpack("<d", bytes.fromhex("000000000000f8ff"))[0]     # the x8
 # MSVC's `vector constructor iterator` & co: our compile emits its own copy (a COMDAT), the original calls the
 # XBE's one out of line (FUN_00011520), so they pair like any callee instead of running in place
 VECTOR_ITERATORS = ("??_H@", "??_I@", "??_L@", "??_M@")
-INTRINSIC_NAMES = {"_memcpy", "_memmove", "_memset", "_strlen", "_strcmp", "_stricmp", "__stricmp", "_strncmp",
-                   "__strnicmp", "_strcpy", "_strcat", "__ReadWriteBarrier"} | {"_" + k for k in MATH1} | \
+INTRINSIC_NAMES = {"_memcpy", "_memmove", "_memset", "_memcmp", "_strlen", "_strcmp", "_stricmp", "__stricmp",
+                   "_strncmp", "__strnicmp", "_strcpy", "_strcat", "__ReadWriteBarrier"} | {"_" + k for k in MATH1} | \
     {"_" + k for k in MATH2}
 
 
@@ -4245,6 +4245,12 @@ class Run:
             eax = w[0]
         elif n == "strlen":
             eax = len(self._cstr(w[0]))
+        elif n == "memcmp" and "memcmp" not in EQUIV_OFF:
+            # (x64t9, memcmp) MSVC 7.1 inlines memcmp (`repe cmpsb`, the sign by `sbb`): the original never calls it,
+            # clang's object calls the CRT routine. Compared as the C library does, n bytes, the sign of the first
+            # difference as unsigned bytes (0x002f4eb0's unit names)
+            a_, b_ = self._mem(w[0], w[2]) if w[2] else b"", self._mem(w[1], w[2]) if w[2] else b""
+            eax = 0 if a_ == b_ else (M32 if a_ < b_ else 1)
         elif n in ("strcmp", "stricmp", "_stricmp", "strcmpi", "strncmp", "strnicmp", "_strnicmp"):
             a_, b_ = self._cstr(w[0]), self._cstr(w[1])
             if n in ("strncmp", "strnicmp", "_strnicmp"):
