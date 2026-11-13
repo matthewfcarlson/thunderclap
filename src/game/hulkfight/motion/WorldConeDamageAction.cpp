@@ -1760,7 +1760,7 @@ MotionBlurTrack::MotionBlurTrack() {
     f_18 = 1.0f;
     f_1c = 0;
     f_20 = 0;
-    *(int*)((char*)&this->_pad_08) = 1;
+    f_08 = 1;
 }
 
 } // namespace fn_f3c8e3e3

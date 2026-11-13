@@ -517,7 +517,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
 };
 
@@ -541,7 +540,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     char _pad_10[0x8];
     int f_18;
@@ -607,7 +605,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     void* f_10;
     void* f_14;
@@ -634,7 +631,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     char _pad_10[0x8];
     char f_18;
@@ -673,7 +669,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
 };
 
@@ -697,7 +692,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
 };
 
@@ -709,7 +703,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     int f_10;
 };
@@ -745,7 +738,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     int f_10;
 };
@@ -770,7 +762,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     int f_0c;
 };
 
@@ -805,7 +796,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float timeBegin;
     float timeEnd;
     char onlySetAtEnd;
@@ -841,7 +831,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -872,7 +861,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -911,7 +899,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     float timeEnd;
     char clearEveryFrame;
@@ -959,7 +946,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
 };
@@ -982,7 +968,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
 };
@@ -1093,7 +1078,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     float timeEnd;
     char _pad_14[0xc];
@@ -1142,7 +1126,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     float timeEnd;
     char _pad_14[0xc];
@@ -1192,7 +1175,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -1221,7 +1203,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -1256,7 +1237,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -1289,7 +1269,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -1317,7 +1296,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     float timeEnd;
     float speed;
@@ -1341,7 +1319,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -1373,7 +1350,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
 };
@@ -1395,7 +1371,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -1516,7 +1491,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -1561,7 +1535,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -1662,7 +1635,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     void* f_14;
@@ -1697,7 +1669,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -1724,7 +1695,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -1769,7 +1739,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -1787,7 +1756,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -1819,7 +1787,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -1850,7 +1817,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -1911,7 +1877,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
 };
 
@@ -2095,7 +2060,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     void FUN_0012b640(); // non-virtual
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -2148,7 +2112,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -2199,7 +2162,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     char f_14;
@@ -2217,7 +2179,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     float timeEnd;
     char floatDelayOnEnd;
@@ -2246,7 +2207,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     float timeEnd;
     int decay;
@@ -2274,7 +2234,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     float f_14;
@@ -2323,7 +2282,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     void FUN_0013a280(); // non-virtual
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -2357,7 +2315,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     void FUN_0013a360(); // non-virtual
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -2392,7 +2349,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     void FUN_0013a440(); // non-virtual
-    int f_08;
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -2413,7 +2369,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -2450,7 +2405,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -2497,7 +2451,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     void FUN_001810c0(); // non-virtual
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -2550,7 +2503,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     void FUN_00181280(); // non-virtual
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -2601,7 +2553,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -2652,7 +2603,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -2718,7 +2668,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     float timeEnd;
     char clearOnBegin;
@@ -2744,7 +2693,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -2771,7 +2719,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -2800,7 +2747,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
 };
 
@@ -2830,7 +2776,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     int f_10;
     int f_14;
@@ -2866,7 +2811,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     int f_10;
     int f_14;
@@ -2900,7 +2844,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
 };
 
@@ -2939,7 +2882,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     float f_14;
@@ -3164,7 +3106,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
 };
@@ -3191,7 +3132,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -3229,7 +3169,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     char f_14;
@@ -3265,7 +3204,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -3319,7 +3257,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -3411,7 +3348,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     float f_14;
@@ -3466,7 +3402,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     char _pad_10[0x18];
     int f_28;
@@ -3559,7 +3494,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -3624,7 +3558,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -3662,7 +3595,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     float f_14;
@@ -3697,7 +3629,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -3729,7 +3660,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -3759,7 +3689,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -3838,7 +3767,6 @@ public:
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     void FUN_00147800(); // non-virtual
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -3883,7 +3811,6 @@ public:
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
     virtual int vfunc_9(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 9
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
     int f_14;
@@ -3912,7 +3839,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     float timeEnd;
     int groundFixup;
@@ -3939,7 +3865,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0x2c];
@@ -3977,7 +3902,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     int attachmentIndex;
     int damage;
@@ -4028,7 +3952,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -4060,7 +3983,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     void* f_10;
     void* f_14;
@@ -4108,7 +4030,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -4163,7 +4084,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     int f_10;
     char f_14;
@@ -4197,7 +4117,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     void FUN_0015bde0(); // non-virtual
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
 };
@@ -4220,7 +4139,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
 };
@@ -4245,7 +4163,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     void FUN_00143790(); // non-virtual
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -4275,7 +4192,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char f_14;
@@ -4306,7 +4222,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -4333,7 +4248,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     int pauseTime;
     int blendOutTime;
@@ -4374,7 +4288,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
 };
@@ -4397,7 +4310,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -4463,7 +4375,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_9(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 9
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     int f_10;
     int f_14;
@@ -4492,7 +4403,6 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_9(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 9
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
     int f_14;
@@ -4533,7 +4443,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0x4];
@@ -4561,7 +4470,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     int f_10;
 };
@@ -4584,7 +4492,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -4609,7 +4516,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     char _pad_10[0x2c];
     char f_3c;
@@ -4656,7 +4562,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
 };
@@ -4703,7 +4608,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
 };
@@ -4727,7 +4631,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float timeBegin;
     float timeEnd;
 };
@@ -4752,7 +4655,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -4807,7 +4709,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -4850,7 +4751,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -4903,7 +4803,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
 };
@@ -4939,7 +4838,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -4972,7 +4870,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
 };
@@ -5000,7 +4897,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -5051,7 +4947,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     float f_14;
@@ -5082,7 +4977,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float timeBegin;
     float timeEnd;
     float arc;
@@ -5106,7 +5000,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
     int f_14;
@@ -5147,7 +5040,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     float timeEnd;
     float finalVelocity;
@@ -5173,7 +5065,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -5200,7 +5091,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     float timeEnd;
     int motionState;
@@ -5224,7 +5114,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
 };
@@ -5260,7 +5149,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -5302,7 +5190,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
 };
@@ -5441,7 +5328,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     char f_10;
 };
@@ -5465,7 +5351,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float timeBegin;
     int attachmentIndex;
     char simulate;
@@ -5490,7 +5375,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
     char f_14;
@@ -5514,7 +5398,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     int attachmentIndex;
     int missiles;
@@ -5541,7 +5424,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -5590,7 +5472,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float timeBegin;
     int attachmentIndex;
     int damage;
@@ -5614,7 +5495,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
 };
@@ -5637,7 +5517,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
 };
@@ -5740,7 +5619,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
     int attachmentIndex;
     int state;
@@ -5764,7 +5642,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
 };
@@ -5787,7 +5664,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
     char _pad_14[0xc];
@@ -5850,7 +5726,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -5899,7 +5774,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -5987,7 +5861,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     char _pad_14[0xc];
@@ -6014,7 +5887,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
 };
@@ -6048,7 +5920,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
 };
@@ -6073,7 +5944,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     float f_14;
@@ -6133,7 +6003,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
 };
 
@@ -6167,7 +6036,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -6183,7 +6051,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -6219,7 +6086,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -6262,7 +6128,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     float f_14;
@@ -6292,7 +6157,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -6338,7 +6202,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
 };
 
@@ -6381,7 +6244,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     void* f_14;
@@ -6452,7 +6314,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float timeBegin;
 };
 
@@ -6478,7 +6339,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     int f_10;
 };
@@ -6491,7 +6351,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     char _pad_10[0x8];
     float f_18;
@@ -6540,7 +6399,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float timeBegin;
     int timer;
     int value;
@@ -6576,7 +6434,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     char _pad_10[0x8];
     int f_18;
@@ -6702,7 +6559,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     char f_10;
 };
@@ -6736,7 +6592,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     int f_14;
@@ -6781,7 +6636,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     int f_14;
@@ -6833,7 +6687,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float f_0c;
     float f_10;
     float f_14;
@@ -6881,7 +6734,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     int f_10;
     int f_14;
@@ -6921,7 +6773,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     char _pad_10[0x8];
     int f_18;
@@ -6960,7 +6811,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     char _pad_14[0x14];
@@ -7159,7 +7009,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    char _pad_08[0x4];
     float timeBegin;
     float timeEnd;
     int f_14;
@@ -7191,7 +7040,6 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
-    int f_08;
     float f_0c;
     float f_10;
     float f_14;
