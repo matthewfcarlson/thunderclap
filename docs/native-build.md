@@ -3169,3 +3169,72 @@ Changed:
 Run procedure, findings and Linux status: [native-android.md](native-android.md) section 16. The x86-64 Linux image
 links with SDL3 but is not run: there is no x86-64 Linux host, VM or container here. Native code only; not a Wine
 build input, so no proof pair.
+
+## The tree-wide 64-bit equivalence sweep (x64eq, 2026-11-13)
+
+`equiv.py --x64` (the x86-64 object of a block against its own 32-bit clang object, [equivalence.md](equivalence.md)
+"64-bit check") over every block of the tree, so the 64-bit differences show up at once instead of one start-up
+crash at a time. No earlier sweep covered the tree since the merge-once flip (eq64's pilot, ptr1's 4,406 sources
+and unb3's batches ran on matches/ and equivalent/ before 11-10); hash2's 127 physics/pddi blocks (build/hash2/x64.jsonl,
+96cba7a7c) are part of this sweep.
+
+**Method.** 27,438 blocks (22,339 matches, 5,099 equivalent) at 96cba7a7c (a `git archive` snapshot of src/; the
+hosts check that commit out, nothing dirty shipped), 200 inputs and a 60 s budget each, as 2-slot queue jobs of 12
+blocks at prio -1 (build/x64eq/scripts/sweep.py over tools/jobq_equiv.run_items). Every block that was not equivalent
+was re-run with the final checker (8787beb06's equiv64.py); batch 2's 202 blocks count with their state after the batch.
+Raw results: build/x64eq/ (sweep*.jsonl, rerun.jsonl, final.jsonl; differs.txt is the list of remaining differs).
+
+**Counts.**
+
+| class | blocks | matches | equivalent | what it is |
+|---|---|---|---|---|
+| equivalent | 23,240 | 19,325 (86.5%) | 3,915 (76.8%) | |
+| unsupported: no 32-bit input completes | 1,609 | 1,286 | 323 | the checker's limit: fuzzed objects' null vftable slots (618 crash), reads past stub classes (813 oob), loops a stub keeps going (80) |
+| unsupported: other | 56 | 37 | 19 | `tool` (constructs the checker doesn't model) |
+| inconclusive (< 8 inputs complete) | 132 | 40 | 92 | |
+| differs: layout | 788 | 648 | 140 | real: an access at the 32-bit layout's place; 337 carry `(char*)P + N` byte offsets, 39 allocation sizes |
+| differs: untyped | 441 | 326 | 115 | mostly checker gaps (raw memory, pads, fuzzed indexes into `int[16]` views); 92 with byte offsets |
+| differs: int | 351 | 210 | 141 | 119 pass a `sizeof`/`__alignof` (type registrations, allocators: different by design); the rest mixed |
+| differs: crash64 | 216 | 152 | 64 | 192 "a pointer read from 32-bit data": `void*` parameters read by byte offsets, pointers kept in `int`s; some fuzzed sizes (`input + blocks * bytes` wrapping on i386) |
+| differs: intwidth | 173 | 50 | 123 | equal modulo 2^32: mostly fuzzed counts (an artifact), sometimes real |
+| differs: ptrtrunc | 162 | 107 | 55 | real: a pointer kept in 32 bits |
+| differs: float | 94 | 44 | 50 | mostly a float read from another field (layout); in the samples read, not x87-vs-SSE rounding |
+| differs: wild64 | 75 | 57 | 18 | pointer arithmetic wrapping at 2^32 on i386 only (fuzzed indexes; unsigned negative steps would be real) |
+| differs: tool | 44 | 34 | 10 | 31 dynamic initializers' `_atexit` (the two objects name it differently: a checker gap) |
+| differs: call | 37 | 12 | 25 | a different callee sequence (follows from an earlier layout read) |
+| differs: hang64 | 12 | 5 | 7 | |
+| no result | 8 | 6 | 2 | the checker ran past its own 60 s budget (twice, 18+ minutes per block; a checker bug to find), cancelled: (0x000c6d30, 0x000c6d90, 0x000c6df0, 0x000f6cb0, 0x000f6d10, 0x000f6d70, 0x0026f330, 0x0033caa0) |
+
+2,393 blocks differ (1,909 matches, 484 equivalent blocks); build/x64eq/differs.txt lists them with class, sub-tag
+and first difference.
+
+**Checker fixes** (equivalence.md "x64eq's checker changes"; regress cases for each): adjustor thunks paired (15
+were "not found"); i386 `_chkstk` (6); a deleting destructor the 64-bit object defines itself (a native-only explicit
+instantiation; ~10% of the pilot were compile errors); sized operator delete; `rawint` (0x002fdc90 was a false
+ptrtrunc); `wild64` reported apart. In equiv.py, `argpop`: 0x001a9b10's `--wine` failure was an uninitialised
+out-parameter whose original frame slot held a dead temporary; with it fixed the run reached a real one, the span
+the original rounds to float (fixed, re-proved: 717b73606).
+
+**Batch 2 (44cb331c3): byte offsets of the 32-bit layout.** The largest family of real failures is `(char*)P + N`
+with N a 32-bit offset (337 of the 788 layout failures still carry one). Where N is the start of a named field of P's record,
+the site is now `(char*)&P->field` (build/x64eq/scripts/offfix.py, libclang + equiv64.Types): 297 sites in 202
+blocks, all matches still MATCH, equivalents' code unchanged; --x64 9 -> 138 equivalent of 202, none newly failing;
+Wine proof control 74176 / proof 74391 GATE ok. The other 1,528 byte-offset sites tree-wide fall in a pad (`_pad_xx`,
+`char pad[n]`) or past the end of a stub class: they need the real records (which field, which type), not a rewrite.
+
+**Not done / for the next batches.**
+- The byte-offset sites in pads and past stub ends (above): per class, the real record in include/gen or the stub.
+- `int` with a `sizeof` argument (type registrations `FUN_002605e0(.., sizeof(T), __alignof(T))`, allocator sizes):
+  differ by design (the native size); listed, not counted as bugs.
+- `crash64` "not an address (a pointer read from 32-bit data?)": mostly `void*` parameters reached by byte offsets
+  (`*(char**)((char*)data + 0x3c)`): the parameter's real type.
+- unsupported (no 32-bit input completes: null vftable slots of fuzzed objects, loops kept going by stubs): the
+  checker's limit; the Wine replay covers those.
+- lstrlib job 73976 (0x0033c6e0..0x0033d1c0, 12 blocks) ran past 30 minutes and was cancelled: re-run singly.
+- Pre-existing `--wine` failures hash2 listed, not 64-bit and not fixed here: 0x002e84e0 (png_handle_PLTE: call #4
+  differs on an input with a null png_ptr), 0x002e9c60, 0x002ea010, 0x002ee9a0; 0x002f4eb0 is on x64t8's start-up
+  path (ExportInfoLoader) and left to it.
+- `_atexit` (31 dynamic initializers, `fail:tool`): the 32-bit object calls `atexit` (`_atexit` decorated) and the
+  64-bit one `_atexit`; a checker gap, the initializers' 64-bit code is otherwise equivalent where it runs.
+- x64t8's start-up path (physics loaders, CPlatformManager 0x0008e880, C_265210::run) was left to x64t8: the
+  differs there are in differs.txt (src/engine/physics/, src/engine/content/).

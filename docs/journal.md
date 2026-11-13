@@ -616,3 +616,20 @@ Three Android-only findings:
   into the app's internal storage with `run-as`.
 
 Details: docs/native-android.md section 16.
+
+## x64eq (2026-11-13): the whole tree through --x64
+
+Every block's x86-64 object against its own 32-bit clang object, once (27,438 blocks, 200 inputs each, ~3 hours of
+queue time at low priority): 23,240 equivalent, 2,393 differ, 1,665 unsupported, 132 inconclusive
+(docs/native-build.md "The tree-wide 64-bit equivalence sweep").
+
+- The commonest real 64-bit bug is a byte offset of the 32-bit layout, `(char*)P + N`. Where N is a named field's
+  start the rewrite is mechanical and byte-identical on MSVC (`(char*)&P->field`): 297 sites, 129 blocks newly
+  equivalent. Five times as many sites point into pads or past the end of stub classes; those need records.
+- Several "differs" were the checker: a deleting destructor the native build instantiates was defined twice; an int
+  whose untouched bytes happened to look like a 32-bit heap address read as a truncated pointer; adjustor thunks were
+  never paired; `_chkstk` had no signature.
+- 0x001a9b10's `--wine` failure was a stale frame slot: the callee only writes the out-parameter, but callee_reads
+  let a `ret 8` callee's escape window (16 words behind an argument whose address it takes) speak for the caller's
+  own arguments. With that fixed the run reached a real difference behind it: the original rounds a span to float.
+- Pointer arithmetic that wraps at 2^32 shows up wherever the fuzzer picks a huge count; `wild64` now names it.
