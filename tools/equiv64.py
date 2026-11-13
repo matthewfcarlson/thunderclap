@@ -2172,6 +2172,9 @@ class Side:
     def value_bytes(self, t, loc, sp):
         """The bytes of an argument of type T at LOC (a record passed by reference on x64 is read through it)."""
         n = t.get_canonical().get_size()
+        if n < 0:
+            # (x64eq) libclang has no size for it (an incomplete or dependent type passed by value)
+            raise Unsupported("argument of a type without a size (%s)" % getattr(t, "spelling", t))
         if self.bits == 64 and is_record(t) and (n not in (1, 2, 4, 8) or not trivial_copy(rdecl(t))):
             p = int.from_bytes(self.read_loc(loc, 8, sp), "little")
             return self.read(p, n)
@@ -2467,8 +2470,8 @@ class Side:
         return self._ret(sp, retaddr, pop, rv, sig)
 
     def hint(self, v, pt):
-        if pt is None:
-            return
+        if pt is None or isinstance(pt[0], FakeType) or isinstance(pt[1], FakeType):
+            return      # (x64eq) a synthesized signature's builtin type types nothing
         o, off = self.heap.find(self.bits, v)
         if o is not None and off == 0 and retypable(o):
             try:
