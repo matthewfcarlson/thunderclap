@@ -3410,3 +3410,72 @@ frame pointers, so every Linux crash and missing report stopped at frame 0; arm6
 the guest goes through qemu-user's gdb stub (`vm_run.sh gdb`): Rosetta's debug server crashes there.
 Not a Wine build input (native flags, one matched block), so no proof pair. VM: `~/.lima/hulk-linux` (1.6 GB) plus
 Lima's image cache (1.6 GB); `vm_run.sh delete` and `limactl prune` remove them.
+
+## The 64-bit equivalence gate (gate1, 2026-11-13)
+
+x64eq's sweep ([above](#the-tree-wide-64-bit-equivalence-sweep-x64eq-2026-11-13)) made `equiv.py --x64` a work list;
+gate1 makes it a regression gate (equivalence.md "64-bit gate"): `tools/x64_gate.py check --changed-since REF` (or
+`tree_tu.py verify . --changed-since origin/main --x64`) runs `--x64` (200 inputs, 60 s) on the blocks whose 32-bit
+clang or x86-64 code changed and fails when one is newly **layout**, **ptrtrunc** or **crash64**. The other classes are
+reported, never failing (wild64 listed apart as `triage`). config/x64-baseline.json holds the known ones (address ->
+class only): x64eq's 1,166 at 96cba7a7c (788 layout, 162 ptrtrunc, 204 crash64/ptr32, 12 crash64), brought to HEAD
+below. It shrinks with `--update-baseline` (a block now `equivalent`, or gone); entries are added only by `accept ADDR
+--why TEXT`.
+
+**Change detection.** Per block a code key over code_hash's hash of its function in both clang objects (i686 and
+x86-64, the text equiv64 compiles), REF's side from a `git archive` snapshot; candidate TUs are those whose text
+changed (every TU on a header change). 27,427 of 27,438 blocks get a key; the 11 without one (seven dynamic-initializer
+blocks, MSVC `$L` funclets and `_$E` initializers that clang's object doesn't have; four XboxDrive / CementLibrary /
+XboxSaveDrive blocks whose 64-bit names the pairing doesn't find) run whenever their TU is a candidate. Precision on
+real commits: data3's header commit f22370845 keyed all 2,675 TUs on both sides and found no keyed block changed
+(only the unkeyed ran); unb4 1/6 (a header) likewise.
+
+**Validation: the gate over every commit since 96cba7a7c** (`check --changed-since C^ --head C --jobq`, the current
+checker shipped onto each commit; a block's last verdict is its state):
+
+| commit | TUs keyed | blocks changed / run | verdicts |
+|---|---|---|---|
+| 14e8903d2 (hash2) | 12 | 1 / 1 | ok 1 |
+| 717b73606 (x64eq) | 1 | 1 / 0 | ok 1 |
+| f22370845 (data3) | 2,675 | 12 / 12 | other 11, ok 1 |
+| d6321f64d (x64t8 batch 1) | 2,675 | 229 / 229 | **FAIL** (ok 165, other 36, known 18, improved 8, new 2) |
+| 27767b5aa (unb4 1/6) | 2,675 | 11 / 11 | other 11 |
+| 44cb331c3 (x64eq batch 2) | 124 | 240 / 240 | ok 164, other 42, known 32, known-unclear 1, triage 1 |
+| 46ef94512 (unb4 2/6) | 90 | 156 / 156 | ok 148, other 6, known 2 |
+| 85397d74e (unb4 3/6) | 59 | 290 / 279 | ok 287, other 3 |
+| 8c472ddc9 (and1) | 0 | 0 / 0 | - |
+| d9cbcb9af (unb4 4/6) | 241 | 585 / 585 | ok 353, other 232 |
+| bb2707bfa (unb4 5/6) | 255 | 683 / 683 | ok 566, other 117 |
+| e40efb2ef (unb4 6/6) | 86 | 13 / 13 | ok 13 |
+| 1911275b6 (unb5 1) | 54 | 65 / 65 | ok 65 |
+| 1fe761b48 (unb5 2) | 2,675 | 99 / 99 | ok 83, other 14, triage 2 |
+| 8025b0aae (linux1) | 1 | 2 / 2 | ok 1, other 1 |
+| ea6ce3693 (typ1 1) | 2,675 | 64 / 64 | improved 35, ok 14, other 14, known-unclear 1 |
+
+(`tus` 2,675: a header changed, every TU keyed; the 12-15 blocks run there are mostly the unkeyed ones.) What it would
+have said: one failing commit, x64t8's d6321f64d, with two new `layout` blocks:
+
+- 0x002656b0 (content registry constructor, LoadStream.cpp): `bufferEnd` is the 256-byte buffer's +256 on i386, +128
+  in 32-bit units on x86-64. The two `FUN_0008d6d0` allocations (the request ring of `HulkLoadEntry`, 16 bytes
+  natively, and the 256-byte `char` buffer) look typed alike by the checker (an allocator's result typed by a cast at
+  another call site), which would make this a checker false positive; not settled. Accepted into the baseline with
+  that note, to be looked at with the 64-bit work list.
+- 0x0023a550 (ScriptReader, a header-only change for it): `this` of a call read as a wild pointer on x86-64; later
+  commits changed its code again and it is equivalent at HEAD, so it is not in the baseline.
+
+39 baseline blocks became equivalent and were dropped: four through x64t8's d6321f64d (0x001db1c0 CSPListener,
+0x00231770 the hash table remove, 0x002965a0, 0x00308410) and 35 through typ1's ea6ce3693 (the audio records); none
+vanished. Of the 1,166, 91 had their code changed by these commits: 39 equivalent, 47 still in a gating class, 5 now another
+class (float 2, wild64, untyped, int), kept. (The table's verdicts are the gate's at the time; d6321f64d's
+"improved 8" counted float/wild64 too, before `improved` was narrowed to `equivalent`.) Baseline at HEAD: 1,128 blocks (752 layout, 161 ptrtrunc, 203 crash64/ptr32, 12 crash64; 1 accepted).
+
+**Cost.** Keys: ~0.2 s per TU per target; the whole tree (a header commit) took ~12 minutes for both sides from cold
+on the laptop at load ~100 with 2 processes, ~6 minutes with one side cached, seconds when cached. Runs: 200-700
+changed blocks finished in 3-30 minutes of wall time on the queue (unb4 5/6's 683 blocks in ~4 minutes on an idle
+queue); x64eq's full sweep (27,438 blocks) took ~2-3 hours. Results and keys are cached (build/tree-cache/x64gate/).
+
+**Checker follow-ups from rev1's review** (fc8cd5f8f): `argbound` (a `ret N` callee that addresses a slot past its
+N argument bytes is unknown to callee_reads, which argpop's rule assumes), the `0x001a9b10_outparam_wrong_uninit`
+regress case, and the rawint heap-span / sized-delete assumptions guarded or stated. regress.py --jobq: every case
+ok across reruns; the failures seen were host-dependent (0x000ffef0_compare_chain on mac2, 0x002cb2b0_loop_exit_order's
+coverage on a loaded host).

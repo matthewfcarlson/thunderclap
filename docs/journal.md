@@ -662,3 +662,18 @@ only the edited TUs'. Declarations a batch needs in a few TUs are safer TU-local
 - x86-64 specific: the Windows x64 front end omits frame pointers (the arm64 one keeps them), so the native reports
   had no backtrace; native_elf now asks for them on linux-x64. Rosetta's `ROSETTA_DEBUGSERVER_PORT` segfaults in the
   guest; qemu-user's gdb stub works.
+
+## 2026-11-13 gate1: 64-bit equivalence as a regression gate
+
+- `tools/x64_gate.py` (hooked as `tree_tu.py verify ... --x64`): `equiv.py --x64` on the blocks whose code changed,
+  failing on a block newly in layout / ptrtrunc / crash64; config/x64-baseline.json (address -> class) holds the known
+  ones and only shrinks unless `accept --why`. Change detection by a per-block key over both clang objects' code hashes
+  is precise: a header commit that keys all 2,675 TUs finds only the blocks whose code moved (0 for data3's, 64 for
+  typ1's audio records, 229 for x64t8's loader records).
+- Replayed over the 16 commits since x64eq's sweep: one would have failed, x64t8's d6321f64d (0x002656b0's
+  `bufferEnd`, possibly the checker typing two allocations of one allocator alike; 0x0023a550, equivalent again later).
+  typ1's ea6ce3693 made 35 baseline blocks equivalent; 1,166 -> 1,128.
+- A baseline block that changes to another failure class is usually the same bug seen first elsewhere (a crash through
+  a garbage pointer becomes a garbage `float` return or `wild64`): only `equivalent` takes a block out.
+- rev1's argpop follow-ups: `argbound` (a `ret N` callee addressing past its arguments is unknown), a `_wrong` case for
+  0x001a9b10, rawint's heap spans enforced.

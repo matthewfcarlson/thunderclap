@@ -10,6 +10,7 @@ build/venv/bin/python tools/equiv.py SRC 0xADDR --map map.json  # bind our symbo
 build/venv/bin/python tools/equiv.py SRC 0xADDR -- /Oy-         # extra cl flags
 build/venv/bin/python tools/equiv.py SRC 0xADDR --wine          # the clang object the Wine build runs (--native is the old name)
 build/venv/bin/python tools/equiv.py SRC 0xADDR --x64           # the x86-64 object against the 32-bit clang object (64-bit check below)
+build/venv/bin/python tools/x64_gate.py check --changed-since REF   # the 64-bit regression gate over changed blocks ("64-bit gate")
 ```
 
 Library: `equiv.verify(src, addr, symbol=None, flags=(), n_inputs=64, mapping=None, use_names=True, ...)`
@@ -1842,6 +1843,15 @@ And one in equiv.py's level 3 (`argpop`): a known callee that ends `ret N` takes
 Program.callee_reads no longer lets its analysis of higher argument indices (16 words escaped behind an argument whose
 address it takes) speak for the caller's own words. Write-only out-parameters are then seen as such through such
 callees (rdcap), and an uninitialised local passed to one is not compared: 0x001a9b10's `--wine` failure.
+The rule assumes such a callee never addresses a stack slot past its N bytes of arguments (its caller's locals, return
+address or own arguments): `argbound` (gate1, from rev1's review) enforces it, a `ret N` function whose own code
+addresses `[esp/ebp + k]` at or past argument N/4 is unknown to callee_reads (`EQUIV_OFF=argbound` lifts it). rev1's scan
+of the XBE found no real case (three `_chkstk` frames whose locals the scan keys wrongly, unknown either way). The
+regress pair: `0x001a9b10_outparam_stale` (equivalent) and `0x001a9b10_outparam_wrong_uninit` (a never-written second
+local read in place of the out-parameter: fails with argpop; without it a false positive on the stale slot masked it).
+equiv64's `rawint` and truncated-pointer tests rely on the 64-bit heap's low 32 bits (0x1234xxxx) never being a
+32-bit heap address (0x23450000-0x43450000): Heap._region refuses to grow either heap past its span; the sized/unsized
+`operator delete` pairing relies on the platform's sized delete only forwarding to the unsized one.
 
 **What a promotion gate needs.** (1) `pip install clang` in the checker hosts' venvs (or keep `batch`/`job_files`);
 (2) a policy: `equivalent` required except for an allow-list of `unsupported`/`untyped` sources reviewed by hand, and
@@ -1858,6 +1868,73 @@ whose vftable codegen never laid out get unknown slots. Virtual bases, `long dou
 fixed parameters, member-function pointers in records (compared as raw words) are not modelled. Unicorn's x86-64
 SSE is exact; transcendental CRT functions are stubs (same value both sides), so they never differ here (the
 Wine/replay checks cover them).
+
+
+## 64-bit gate (`tools/x64_gate.py`, gate1)
+
+```sh
+build/venv/bin/python tools/tree_tu.py verify . --changed-since origin/main --x64   # verify, then the gate
+build/venv/bin/python tools/x64_gate.py check [--changed-since REF] [--local | --jobq] [--out OUT.jsonl] [--json]
+build/venv/bin/python tools/x64_gate.py check --changed-since C^ --head C          # what the gate says about commit C
+build/venv/bin/python tools/x64_gate.py check --changed-since REF --update-baseline # ratchet: drop improved blocks
+build/venv/bin/python tools/x64_gate.py accept 0xADDR --why TEXT [--class layout]  # admit a new difference, reason kept
+python -m unittest tests/test_x64_gate.py
+```
+
+`--x64` as a regression gate: a change may not make a block newly differ in one of the three classes that are real
+64-bit bugs, **layout**, **ptrtrunc** and **crash64** (`crash64/ptr32` when the 64-bit fault is through a pointer
+read from 32-bit data). Every other class (int, intwidth, untyped, float, call, wild64, hang64, tool, inconclusive,
+unsupported) is reported and never fails: x64eq's sweep found those to be mostly the fuzzer's or the checker's limits.
+
+**Baseline.** config/x64-baseline.json lists the blocks known to differ in a gating class: address -> class, nothing
+else (no game bytes). It started from x64eq's sweep (docs/native-build.md "The tree-wide 64-bit equivalence sweep",
+96cba7a7c, 1,166 blocks: 788 layout, 162 ptrtrunc, 204 crash64/ptr32, 12 crash64) and was brought to ea6ce3693 (1,128
+blocks) by replaying the gate over every commit since (docs/native-build.md "The 64-bit equivalence gate"). It only
+shrinks by itself: `--update-baseline` removes a block whose fresh result is `equivalent`, and a block that no longer
+exists; a failure of another class keeps the entry (often the same bug seen first elsewhere: a crash through a garbage
+pointer that now returns garbage, `float` or `wild64`), as does an `unsupported` / `inconclusive` / unfinished result
+(it says nothing). An entry is added only by `accept ADDR --why TEXT`, which records the reason (and the date) under
+`"why"`; the class is the gate's last result for the block's current code unless `--class` names it.
+
+**Which blocks run.** Per block a *code key*: sha over the code hash (tools/code_hash.py, the `@`/`@w` hash's rules)
+of its function in the 32-bit clang object and in the x86-64 object, both compiled the way equiv64 compiles them
+(the tree's native spelling, the same front end; a canonical `#line` so `__FILE__` strings don't hold the checkout's
+path). The other blocks of the TU are keyed by address, so editing a callee block doesn't change its caller's key.
+The x86-64 name of a block comes from its pinned symbol: its clang 32-bit name, then the x64 spelling (calling
+conventions and `__ptr64` taken out), else the one function with its qualified name in both objects, else libclang's
+declaration pairing (equiv64's own); a block with no pair (MSVC `$L` funclets, `_$E` initializers) has no key and runs
+whenever its TU is a candidate. Candidate TUs are those whose text differs between REF and the working tree (or
+`--head C`), every TU when a header under src/ or include/ changed; REF's side is keyed from a `git archive`
+snapshot. Only blocks whose key differs, that are new, or that have no key are run. A header edit that only moves a
+field on x86-64 changes the 64-bit key, so it is seen even when the MSVC object and the `@`/`@w` hashes stay put.
+
+**Runs.** `equiv.py --x64` at the sweep's settings (200 inputs, 60 s budget), through the queue (jobq_equiv, 4 blocks
+per job, libclang's binding shipped; the working tree's dirty files ship as usual, or with `--head C` the hosts check
+out C and get only the current tools) when more than 4 blocks need a run, here otherwise (`--local`/`--jobq` force
+one). Results are cached in build/tree-cache/x64gate/res/ by the code key, the checker's source (equiv64.py, equiv.py,
+equiv_batch.py) and the settings; keys in build/tree-cache/x64gate/keys/ by the TU's text, its include closure and the
+toolchain. Unchanged code is never run twice, and an unchanged TU is never compiled twice.
+
+**Verdicts.** `new` (a gating class, not in the baseline: **fails**), `unchecked` (no result: the job gave up;
+**fails**: the gate can't vouch for it), `known` (in the baseline), `improved` (in the baseline, now equivalent:
+`--update-baseline` drops it), `known-unclear` (in the baseline, now another class, unsupported or inconclusive: kept), `ok`, `other` (a
+non-gating class, reported), `triage` (a `wild64` failure: listed apart for a look, never failing; mostly fuzzed indexes
+wrapping at 2^32 on i386, but an unsigned negative step `p += (unsigned)-k` is a real bug of that shape). Key errors (a
+TU the gate couldn't key) fail too.
+
+**Cost.** Keys: one i686 and one x86-64 clang compile per candidate TU per side (~0.2 s per TU each on a quiet machine).
+A header edit makes every one of the ~2,700 TUs a candidate: the validation keyed the whole tree on both sides in ~12
+minutes from cold (the laptop at load ~100, 2 processes), ~6 minutes with one side cached, seconds once both are. Runs:
+about a minute of queue slot per changed block; 200-700 changed blocks (x64t8's records, unb4's batches) took 3-30
+minutes of wall time on the queue, while x64eq's full sweep of 27,438 blocks took ~2-3 hours, the bound for an edit that
+changes code everywhere (common.h, a record every class derives from). Because the budget is CPU seconds, a loaded host
+completes fewer inputs: a difference found only at a late seed can come and go between runs.
+
+**Limits.** The key covers the function's code on both targets, not the types the fuzzer lays out its inputs from: a
+declaration change that alters a stub's or callee's type without changing any code (a callee's return type that
+both targets return in the same register) isn't seen. The candidate list follows text changes under src/ and
+include/ only (a change to tools/gen_tree.py's native spelling or to clang flags changes every key through the
+base key, so everything is re-keyed). Like `--x64` itself: fuzzing, not proof.
 
 ## Limits
 

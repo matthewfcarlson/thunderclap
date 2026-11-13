@@ -11,7 +11,7 @@ per-function source and check that function inside the TU's object:
   build/venv/bin/python tools/equiv.py TU.cpp 0xADDR [--wine | --x64] --json   # the TU's object, the block's directives
   build/venv/bin/python tools/tree_tu.py blocks TU.cpp             # the functions of a TU: address, kind, mode, symbol
   build/venv/bin/python tools/tree_tu.py check TU.cpp [--relocs] [--equiv N] [--json]   # every function of one TU
-  build/venv/bin/python tools/tree_tu.py verify ROOT [--changed-since REF | --tus FILE] [--jobs N] [--out OUT.jsonl]
+  build/venv/bin/python tools/tree_tu.py verify ROOT [--changed-since REF | --tus FILE] [--jobs N] [--out OUT.jsonl] [--x64]
   build/venv/bin/python tools/tree_tu.py pin ROOT [--report report.json]   # write `// sym:` lines (see below)
   build/venv/bin/python tools/tree_tu.py hash TU.cpp --proven MSVC.json WINE.json   # record re-proven code hashes
 
@@ -1138,6 +1138,8 @@ def main(argv=None):
                    "against its standalone build (build_tree's check)")
     p.add_argument("--out", metavar="OUT.jsonl")
     p.add_argument("--no-wine-code", action="store_true", help="skip the clang code hashes (no clang here)")
+    p.add_argument("--x64", action="store_true", help="then the 64-bit gate (tools/x64_gate.py) over the blocks whose "
+                   "code changed since --changed-since (default HEAD): a block newly in layout/ptrtrunc/crash64 fails")
     p = sub.add_parser("pin")
     p.add_argument("root")
     p.add_argument("--records", metavar="JSONL", help="records of `verify --out` (default: check every TU)")
@@ -1245,8 +1247,19 @@ def main(argv=None):
             paths = tree_tus(root)
         s = verify(paths, jobs=a.jobs, relocs=a.relocs, out=a.out, vs_standalone=a.vs_standalone,
                    wine=not a.no_wine_code, ref=a.changed_since)
+        x64_failed = False
+        if a.x64:
+            # (gate1) the 64-bit gate over the same TUs: only blocks whose 32-bit clang or x86-64 code changed run
+            import x64_gate
+            if root != ROOT:
+                raise SystemExit("verify --x64: the gate checks the committed tree (ROOT), not %s" % root)
+            g = x64_gate.gate(a.changed_since or "HEAD", tus=None if a.changed_since and not a.tus else
+                              [os.path.relpath(p_, ROOT) for p_ in paths], jobs=a.jobs)
+            print(x64_gate.render(g), file=sys.stderr)
+            s["x64_gate"] = dict(g["summary"], failed=g["failed"])
+            x64_failed = g["failed"]
         print(json.dumps(s, indent=1))
-        return 1 if failing(s["counts"]) or s["n_errors"] else 0
+        return 1 if failing(s["counts"]) or s["n_errors"] or x64_failed else 0
     if a.cmd == "pin":
         root = os.path.abspath(a.root)
         syms = collections.defaultdict(dict)
