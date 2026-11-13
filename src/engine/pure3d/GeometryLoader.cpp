@@ -2,6 +2,7 @@
 // object 0x002c26d0..0x002c31b0 (kind game, layer engine, confidence high), dominant class pure3d::GeometryLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/engine/content.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_ff9773df {
@@ -204,6 +205,10 @@ class GeometryLoader_2c29b0 {
     Pad_2c29b0 pd;
     GeometryLoader_2c29b0();
 };
+// (x64t8) this view is the words of decls/loaders.h's HulkGeometryLoader (the record 0x00291dc0 allocates): sizes checked on every build
+typedef char hulk_rec_2c29b0[sizeof(GeometryLoader_2c29b0) == sizeof(HulkGeometryLoader) ? 1 : -1];
+// (x64t8) this view is the words of decls/loaders.h's HulkPrimGroupLoader (its PrimGroupLoader): sizes checked on every build
+typedef char hulk_rec_2df7f0[sizeof(FUN_002df7f0) == sizeof(HulkPrimGroupLoader) ? 1 : -1];
 extern void* g_vftable_2c2a70[];
 class Ref_2c2a70 {
   public:

@@ -2,6 +2,7 @@
 // object 0x002bf100..0x002bfad0 (kind game, layer engine, confidence high), dominant class pure3d::ImageFont
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/engine/content.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_fae89b52 {
@@ -147,13 +148,8 @@ class ImageFont_2bf9f0 : public Entity_2bf9f0 {
     ~ImageFont_2bf9f0() throw();
 };
 extern "C" char DAT_0042ea08[];
-class ImageFontLoader {
+class ImageFontLoader : public HulkChunkHandler {
   public:
-    hulk_intptr vf;
-    int a;
-    int b;
-    int c;
-    int d;
     ImageFontLoader();
 };
 
@@ -776,11 +772,11 @@ ImageFont_2bf9f0::~ImageFont_2bf9f0() throw() {
 // 0x002bfa30 FUN_002bfa30 (27 B): matches/0x002bfa30.cpp
 // sym: ??0ImageFontLoader@fn_fae89b52@@QAE@XZ
 ImageFontLoader::ImageFontLoader() {
-    a = 0;
-    b = 0x22002;
-    c = 0;
-    d = 0;
-    vf = ((hulk_intptr)DAT_0042ea08);
+    refs = 0;
+    id = 0x22002;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042ea08;
 }
 
 } // namespace fn_fae89b52

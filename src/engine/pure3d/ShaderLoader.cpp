@@ -2,6 +2,7 @@
 // object 0x0028f280..0x0028f800 (kind game, layer engine, confidence medium), dominant class pure3d::ShaderLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/engine/pure3d/prop.h"
 #define TREE_TU_BEGIN namespace fn_f495b664 {
 #define TREE_TU_END }
@@ -17,13 +18,9 @@ namespace fn_f495b664 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game 
 // ---- declarations shared by the functions below
 namespace fn_f495b664 {
 extern int hulk_at_0042cc04;
-class ShaderLoader {
+extern "C" char DAT_0042cc04[];   // (x64t8) the loader's vftable
+class ShaderLoader : public HulkChunkHandler {
   public:
-    hulk_intptr vptr;
-    int a;
-    int b;
-    int c;
-    int d;
     ShaderLoader();
 };
 class SimpleChunkHandler_28f2a0 {
@@ -159,11 +156,11 @@ public:
 // 0x0028f280 FUN_0028f280 (27 B): matches/0x0028f280.cpp
 // sym: ??0ShaderLoader@fn_f495b664@@QAE@XZ
 ShaderLoader::ShaderLoader() {
-    a = 0;
-    b = 0x11000;
-    c = 0;
-    d = 0;
-    vptr = (hulk_intptr)&hulk_at_0042cc04;
+    refs = 0;
+    id = 0x11000;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042cc04;
 }
 
 

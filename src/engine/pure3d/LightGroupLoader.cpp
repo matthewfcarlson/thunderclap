@@ -2,6 +2,7 @@
 // object 0x002c14c0..0x002c16f0 (kind game, layer engine, confidence medium), dominant class pure3d::LightGroupLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/address.h"
 #define TREE_TU_BEGIN namespace fn_fbf43e6a {
 #define TREE_TU_END }
@@ -17,13 +18,9 @@ namespace fn_fbf43e6a { extern "C" char DAT_003f6098[]; }   // (x64t6) the game 
 // ---- declarations shared by the functions below
 namespace fn_fbf43e6a {
 extern int hulk_at_0042eb60;
-class LightGroupLoader {
+extern "C" char DAT_0042eb60[];   // (x64t8) the loader's vftable
+class LightGroupLoader : public HulkChunkHandler {
   public:
-    hulk_intptr vf;
-    int a;
-    int b;
-    int c;
-    int d;
     LightGroupLoader();
 };
 class SimpleChunkHandler_2c14e0 {
@@ -117,11 +114,11 @@ public:
 // 0x002c14c0 FUN_002c14c0 (27 B): matches/0x002c14c0.cpp
 // sym: ??0LightGroupLoader@fn_fbf43e6a@@QAE@XZ
 LightGroupLoader::LightGroupLoader() {
-    a = 0;
-    b = 0x2380;
-    c = 0;
-    d = 0;
-    vf = (hulk_intptr)&hulk_at_0042eb60;
+    refs = 0;
+    id = 0x2380;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042eb60;
 }
 
 

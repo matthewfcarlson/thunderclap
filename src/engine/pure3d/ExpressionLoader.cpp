@@ -2,6 +2,7 @@
 // object 0x002afb30..0x002aff60 (kind game, layer engine, confidence high), dominant class pure3d::ExpressionLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_fb28d753 {
@@ -107,13 +108,8 @@ struct SubItem { bool FUN_0027af90(int key); };
 struct Item { char pad[8]; SubItem sub; };
 struct Collection { char pad[0x10]; Item **begin; Item **end; int FUN_002afe80(hulk_intptr key); };
 extern "C" char DAT_0042e324[];
-class ExpressionLoader {
+class ExpressionLoader : public HulkChunkHandler {
   public:
-    int a;
-    int b;
-    int c;
-    int d;
-    int e;
     ExpressionLoader();
 };
 
@@ -249,12 +245,11 @@ int Collection::FUN_002afe80(hulk_intptr key) {
 // 0x002aff20 FUN_002aff20 (27 B): matches/0x002aff20.cpp
 // sym: ??0ExpressionLoader@fn_fb28d753@@QAE@XZ
 ExpressionLoader::ExpressionLoader() {
-    volatile int* p = &a;
-    p[1] = 0;
-    p[2] = 0x21000;
-    p[3] = 0;
-    p[4] = 0;
-    p[0] = ((hulk_intptr)DAT_0042e324);
+    refs = 0;
+    id = 0x21000;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042e324;   // (x64t8) a pointer (was stored through an int view, cut natively)
 }
 
 } // namespace fn_fb28d753

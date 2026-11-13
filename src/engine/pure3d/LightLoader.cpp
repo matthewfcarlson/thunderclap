@@ -2,6 +2,7 @@
 // object 0x002c0cf0..0x002c14c0 (kind game, layer engine, confidence medium), dominant class pure3d::LightLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
@@ -83,13 +84,8 @@ union Flag_2c0cf0 {
     unsigned int w;
 };
 extern "C" char DAT_0042eb44[];
-class LightLoader {
+class LightLoader : public HulkChunkHandler {
   public:
-    hulk_intptr v;
-    int a;
-    int b;
-    int c;
-    int d;
     LightLoader();
 };
 
@@ -317,11 +313,11 @@ namespace fn_f6242079 {
 // 0x002c1480 FUN_002c1480 (27 B): matches/0x002c1480.cpp
 // sym: ??0LightLoader@fn_f6242079@@QAE@XZ
 LightLoader::LightLoader() {
-    a = 0;
-    b = 0x13000;
-    c = 0;
-    d = 0;
-    v = ((hulk_intptr)DAT_0042eb44);
+    refs = 0;
+    id = 0x13000;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042eb44;
 }
 
 } // namespace fn_f6242079

@@ -2,6 +2,7 @@
 // object 0x00284a10..0x002878b0 (kind game, layer engine, confidence high), dominant class pure3d::DefaultFrameControllerHandler
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/engine/pure3d.h"
 #include "decls/data/game/global.h"
 #include "gen/content.h"
@@ -2341,23 +2342,17 @@ struct DefaultFrameControllerHandler {
 };
 HULK_REFCOUNT_PACK_END
 
-class FrameControllerLoader {
+// (x64t8) the loader's record (decls/loaders.h HulkFrameControllerLoader), shared with 0x00291dc0's allocation
+class FrameControllerLoader : public HulkFrameControllerLoader {
 public:
     FrameControllerLoader();
-    void* vftable;
-    int f4;   // content::LoadObject's reference count
-    int id;
-    int fc;
-    int f10;
-    unsigned int handlerCount;
-    DefaultFrameControllerHandler* handlers[4];
 };
 
 FrameControllerLoader::FrameControllerLoader() {
     vftable = (void*)DAT_0042c7b0;
-    f4 = 0;
+    refs = 0;
     id = 0x121201;
-    fc = 0;
+    f0c = 0;
     f10 = 0;
     handlerCount = 0;
     handlers[0] = 0;

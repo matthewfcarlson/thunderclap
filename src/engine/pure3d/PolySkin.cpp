@@ -2,6 +2,7 @@
 // object 0x002b78a0..0x002b8040 (kind game, layer engine, confidence high), dominant class pure3d::PolySkin
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f0d4c6f4 {
@@ -157,6 +158,10 @@ class PolySkinLoader_2b7d30 {
     Pad_2b7d30 pd;
     PolySkinLoader_2b7d30();
 };
+// (x64t8) this view is the words of decls/loaders.h's HulkGeometryLoader (the record 0x00291dc0 allocates): sizes checked on every build
+typedef char hulk_rec_2b7d30[sizeof(PolySkinLoader_2b7d30) == sizeof(HulkGeometryLoader) ? 1 : -1];
+// (x64t8) this view is the words of decls/loaders.h's HulkPrimGroupLoader (its PrimGroupLoader): sizes checked on every build
+typedef char hulk_rec_2df7f0[sizeof(FUN_002df7f0) == sizeof(HulkPrimGroupLoader) ? 1 : -1];
 extern void* g_vftable_0042e6e4[];
 class Ref_2b7df0 {
   public:

@@ -2,6 +2,7 @@
 // object 0x0027b570..0x0027ca80 (kind game, layer engine, confidence high), dominant class pure3d::SkeletonLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d.h"
 #include "decls/data/engine/unknown.h"
@@ -67,14 +68,8 @@ struct Table_27b710 {
     Entry_27b710* Find(unsigned int a, unsigned int b);
 };
 extern "C" char DAT_0042c1cc[];
-class SkeletonLoader {
+class SkeletonLoader : public HulkSkeletonLoader {
   public:
-    void* vf;
-    int a;
-    int b;
-    int c;
-    int d;
-    unsigned char e;
     SkeletonLoader();
 };
 class Item_27ba70 {
@@ -342,12 +337,12 @@ namespace fn_f8d8f61c {
 // 0x0027b980 FUN_0027b980 (31 B): matches/0x0027b980.cpp
 // sym: ??0SkeletonLoader@fn_f8d8f61c@@QAE@XZ
 SkeletonLoader::SkeletonLoader() {
-    a = 0;
-    b = 0x23000;
-    c = 0;
-    d = 0;
-    vf = (void*)((hulk_intptr)DAT_0042c1cc);
-    e = 1;
+    refs = 0;
+    id = 0x23000;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042c1cc;
+    f14 = 1;
 }
 
 } // namespace fn_f8d8f61c

@@ -646,12 +646,15 @@ struct Name_304ed0 {
 // (x64t5) pure3d::Entity named by its constructor's address (0x0027b070) so that the native link binds the base call
 // (was Entity_304ed0, unbound), and CollisionObject's vftable stored by address (a local class's own vftable would be
 // the 64-bit link's stub)
+// (x64t8) packed natively as gen's pure3d::Entity is (content::LoadObject's count and the name follow the vftable)
+HULK_REFCOUNT_PACK
 class FUN_0027b070 {
 public:
     FUN_0027b070() throw();
     void* vftable;
     int f04, f08, f0c;
 };
+HULK_REFCOUNT_PACK_END
 extern "C" char DAT_00431b08[];  // physics::CollisionObject
 
 namespace physics {
@@ -986,11 +989,8 @@ struct Shape_305400 { Shape_305400* FUN_00306c60(); int FUN_00306190(int,unsigne
 namespace physics {
 struct CollisionObject {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual CollisionObject* vfunc_5(void*); virtual void vfunc_6(); virtual void vfunc_7();
- // (x64t5) decls/physics_world.h's CollisionObject words: Entity's words (natively padded as Entity's size), the shape, link and state pointers
+ // (x64t5, x64t8) decls/physics_world.h's CollisionObject words: Entity's words (followed directly by the second name), the shape, link and state pointers
  int unknown4; Copy8 name;
-#if defined(HULK_PTR64)
- int entity_pad_;   // natively Entity's words end at 0x18 (Entity's own size)
-#endif
  Copy8 otherName; void* owner; int flags; Shape_305400* shape; int value24; Links_305400 links; State_305400 state; unsigned char flag50,flag51; char pad52[2]; int value54,value58,value5c,value60,value64; char pad68[2]; unsigned char flag6a,flag6b; int value6c; unsigned char flag70,flag71,flag72; char tail[13];
  CollisionObject* FUN_00304ed0(); void FUN_00304b40(Shape_305400*);
 };

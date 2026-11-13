@@ -7,6 +7,7 @@
 #include "decls/data/engine/pure3d.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "decls/loaders.h"
 #define TREE_TU_BEGIN namespace fn_f07ae39e {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -529,7 +530,7 @@ class OldParticleSystemLoader_2ab830 {
 void operator delete(void*);
 namespace fn_f07ae39e {
 extern void* Alloc_0008d6d0(unsigned int);
-struct Buffer { char* begin; char* end; unsigned char FUN_002aba80(unsigned int count, int extra); };
+struct Buffer { char* begin; char* end; unsigned char FUN_002aba80(unsigned int count, const void* fill); };
 void* __cdecl FUN_0008d6d0(unsigned int size);
 extern "C" void * __cdecl FUN_002ab640(void *, unsigned int, const void *);
 extern char DAT_004ce974[];
@@ -732,13 +733,9 @@ struct Frame_2abfb0 {
 };
 extern "C" char DAT_0042e0c4[];
 extern "C" void thunk_FUN_00267090(void*);
-class ParticleAllocatorTemplate {
+// (x64t8) the allocator's record (decls/loaders.h): the free list at 0xc, the pool at 0x18 (were 32-bit pads)
+class ParticleAllocatorTemplate : public ::FUN_002ac4a0 {
   public:
-    virtual ~ParticleAllocatorTemplate() {}
-    char _pad1[8];
-    void* mCallback1;
-    char _pad2[8];
-    void* mCallback2;
     void FUN_002ac570();
     void FUN_002d3d80();
 };
@@ -1332,16 +1329,17 @@ OldParticleSystemLoader_2ab4b0::~OldParticleSystemLoader_2ab4b0() throw() {
 
 
 // 0x002ab530 FUN_002ab530 (40 B): matches/0x002ab530.cpp
-// sym: ?copyWords@fn_f07ae39e@@YAPAHPAHHPBH@Z
-int* copyWords(int* dst, int count, const int* src) {
+// sym: ?copyWords@fn_f07ae39e@@YAPAPAXPAPAXHPBQAX@Z
+// (x64t8) 0x002ab880's fill: count pointer-sized words (the particle lists hold pointers), each set from *src
+void** copyWords(void** dst, int count, void* const* src) {
     if (count) {
         int n = count;
-        int* p = dst;
-        const int* s = src;
+        void** p = dst;
+        void* const* s = src;
         do {
             if (p)
                 *p = *s;
-            p = (int*)((char*)p + 4);
+            p = (void**)((char*)p + sizeof(void*));
         } while (--n);
         return p;
     }
@@ -1463,7 +1461,7 @@ pure3d::ParticleGeneratorLoader::~ParticleGeneratorLoader() {}
 
 
 // 0x002ab6a0 FUN_002ab6a0 (216 B): equivalent/0x002ab6a0.cpp [wrapped: conflict: memmove; pure3d::DefaultParticleGeneratorHandler; pure3d::ParticleEmitterLoader; pure3d::ParticleGeneratorLoader]
-// sym: ?init@ParticleEmitterLoader@pure3d@fn_002ab6a0@@QAEPAU123@XZ @160e54774864 @wf37d415a0792
+// sym: ?init@ParticleEmitterLoader@pure3d@fn_002ab6a0@@QAEPAU123@XZ @9774066b36b6 @w187b4504c5dc
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_002ab6a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 195 inputs, branch coverage 10/10)
@@ -1475,48 +1473,44 @@ void* __cdecl memmove(void*, const void*, unsigned int);
 #endif
 
 
+// (x64t8) The emitter loader, its generator loader and the default generator handler as their records
+// (decls/loaders.h: HulkParticleEmitterLoader, HulkHandlerList, HulkRenderObjectLoader) with the game's vftables stored
+// by address (the local classes' own were stubs natively: `new (this)` stored one); the handler lists hold pointers
+// and move by their element size (were `unsigned int` words and `count * 4`). AddRef / Release through the stored
+// vftables (Ref_2ab6a0's slots 0 / 1).
+extern "C" char DAT_0042e064[];   // pure3d::ParticleEmitterLoader's vftable
+extern "C" char DAT_0042dffc[];   // pure3d::ParticleGeneratorLoader's
+extern "C" char DAT_0042e04c[];   // pure3d::DefaultParticleGeneratorHandler's
+struct Ref_2ab6a0 {
+ virtual void AddRef();
+ virtual void Release();
+};
 namespace pure3d {
-struct DefaultParticleGeneratorHandler {
- virtual void slot0_00018b30();
- unsigned int value;
-};
-struct ParticleGeneratorLoader {
- virtual void slot0_00018b30();
- virtual void slot1_00018b40();
- unsigned int value;
- unsigned int count;
- DefaultParticleGeneratorHandler* handlers[8];
-};
-struct ParticleEmitterLoader {
- virtual void slot0_00018b30();
- unsigned int baseValue;
- unsigned int value;
- unsigned int values[8];
- ParticleGeneratorLoader* loader;
+struct ParticleEmitterLoader : HulkParticleEmitterLoader {
  void FUN_002a3e80();
  ParticleEmitterLoader* init();
 };
 ParticleEmitterLoader* ParticleEmitterLoader::init() {
  FUN_002a3e80();
- new (this) ParticleEmitterLoader;
- value=0; loader=0;
- for(int i=0;i<8;++i) values[i]=0;
- ParticleGeneratorLoader* p=(ParticleGeneratorLoader*)FUN_0008d690((int)sizeof(ParticleGeneratorLoader));
+ vftable=(void*)DAT_0042e064;
+ count=0; generators=0;
+ for(int i=0;i<8;++i) handlers[i]=0;
+ HulkHandlerList* p=(HulkHandlerList*)FUN_0008d690((int)sizeof(HulkHandlerList));
  if(p) {
-  new (p) ParticleGeneratorLoader;
-  p->value=0; p->count=0;
+  p->refs=0; p->vftable=(void*)DAT_0042dffc;
+  p->count=0;
   for(int j=0;j<8;++j) p->handlers[j]=0;
  }
- if(p) p->slot0_00018b30();
- if(loader) loader->slot1_00018b40();
- loader=p;
- DefaultParticleGeneratorHandler* h=(DefaultParticleGeneratorHandler*)FUN_0008d690((int)sizeof(DefaultParticleGeneratorHandler));
- if(h) { new(h) DefaultParticleGeneratorHandler; h->value=0; }
- p=loader;
+ if(p) ((Ref_2ab6a0*)p)->AddRef();
+ if(generators) ((Ref_2ab6a0*)generators)->Release();
+ generators=p;
+ HulkRenderObjectLoader* h=(HulkRenderObjectLoader*)FUN_0008d690((int)sizeof(HulkRenderObjectLoader));
+ if(h) { h->refs=0; h->vftable=(void*)DAT_0042e04c; }
+ p=generators;
  if(h) {
-  memmove(p->handlers+1,p->handlers,p->count*4);
+  memmove(p->handlers+1,p->handlers,p->count*sizeof(p->handlers[0]));
   p->handlers[0]=h;
-  h->slot0_00018b30();
+  ((Ref_2ab6a0*)h)->AddRef();
   ++p->count;
  }
  return this;
@@ -1580,15 +1574,17 @@ OldParticleSystemLoader_2ab830* OldParticleSystemLoader_2ab830::f2(unsigned char
 // 0x002ab880 FUN_002ab880 (95 B): matches/0x002ab880.cpp
 // sym: ?FUN_002ab880@Buffer_2ab880@owners@@QAE_NIPAX@Z
 // Same code shape as 0x00290790 (propagated; names are from that function)
+// (x64t8) a list of particle pointers (decls/loaders.h HulkParticleList: the allocator's free list, the emitter's live
+// particles): count pointer-sized words, filled by this file's 0x002ab530 (were `count * 4` and the ambiguous `Init`)
 bool owners::Buffer_2ab880::FUN_002ab880(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc_0008d6d0(count * 4);
+        void** p = (void**)Alloc_0008d6d0(count * sizeof(void*));
         begin = p;
         if (p != 0) {
             end = p + count;
-            Init(p, count, arg);
+            fn_f07ae39e::copyWords(p, count, (void* const*)arg);
             return true;
         }
     }
@@ -1684,17 +1680,18 @@ bool owners::Buffer_2aba00::FUN_002aba00(unsigned int count, void* arg) {
 namespace fn_f07ae39e {
 
 // 0x002aba80 FUN_002aba80 (93 B): equivalent/0x002aba80.cpp
-// sym: ?FUN_002aba80@Buffer@fn_f07ae39e@@QAEEIH@Z @91fb665a4e56 @w79e4002785b8
+// sym: ?FUN_002aba80@Buffer@fn_f07ae39e@@QAEEIPBX@Z @91fb665a4e56 @w79e4002785b8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002aba80 @ 0x002aba80
-unsigned char Buffer::FUN_002aba80(unsigned int count, int extra) {
+// (x64t8) the fill is the prototype particle's address (a pointer; was an `int`, cut natively)
+unsigned char Buffer::FUN_002aba80(unsigned int count, const void* fill) {
     if (begin) return 0;
     if (count) {
         char* memory = (char*)FUN_0008d6d0(count * 64);
         begin = memory;
         if (memory) {
             end = memory + count * 64;
-            FUN_002ab640(memory, count, (const void *)(hulk_uintptr)(int)extra);
+            FUN_002ab640(memory, count, fill);
             return 1;
         }
     }
@@ -2080,68 +2077,29 @@ Generator_2ac180* __stdcall FUN_002ac180(Reader* r, void* arg, int kind)
 } // namespace fn_002ac180
 
 
-// 0x002ac4a0 FUN_002ac4a0 (149 B): equivalent/0x002ac4a0.cpp [wrapped: conflict: pure3d::ParticleAllocator; pure3d::ParticleAllocatorTemplate]
-// sym: ??0?$ParticleAllocatorTemplate@USpriteParticle@pure3d@fn_002ac4a0@@@pure3d@fn_002ac4a0@@QAE@I@Z @ecb11b160541 @w466897c79c15
-namespace fn_002ac4a0 {
+// 0x002ac4a0 FUN_002ac4a0 (149 B): equivalent/0x002ac4a0.cpp
+// sym: ??0FUN_002ac4a0@@QAE@I@Z @67c28154dd2d @w9f507ccb2fd0
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 4/4)
 // FUN_002ac4a0 @ 0x002ac4a0
-// equiv-map: ??0ParticleAllocator@pure3d@@QAE@XZ = 0x002d3d90
-
-namespace pure3d {
-
-struct SpriteParticle {
-    char data[0x40];
-};
-
-class ParticleAllocator {
-public:
-    ParticleAllocator();
-    virtual void v0();
-    char pad04[4];
-};
-
-struct IndexVec {
-    unsigned int *begin;
-    unsigned int *end;
-    bool FUN_002ab880(unsigned int n, const unsigned int *def);
-};
-
-template <class T>
-struct ParticleVec {
-    T *begin;
-    T *end;
-    bool FUN_002aba80(unsigned int n, const T *def);
-};
-
-template <class T>
-class ParticleAllocatorTemplate : public ParticleAllocator {
-public:
-    unsigned int count;     // 8
-    IndexVec free;          // 0xc
-    char pad14[4];
-    ParticleVec<T> pool;    // 0x18
-    ParticleAllocatorTemplate(unsigned int bytes);
-    virtual void v0();
-};
-
-template <>
-ParticleAllocatorTemplate<SpriteParticle>::ParticleAllocatorTemplate(unsigned int bytes)
+// (x64t8) The allocator as its record (decls/loaders.h FUN_002ac4a0): the base pure3d::ParticleAllocator named by its
+// constructor's address (0x002d3d90; was a local class whose constructor was declared only), the template's vftable
+// stored by address (DAT_0042e0c4), the free list of particle pointers (were `unsigned int` words, cut natively) and
+// the pool.
+FUN_002ac4a0::FUN_002ac4a0(unsigned int bytes)
 {
+    vftable = (void*)DAT_0042e0c4;
     free.begin = 0;
     free.end = 0;
     pool.begin = 0;
     pool.end = 0;
     count = bytes >> 6;
-    bytes = 0;
-    free.FUN_002ab880(count, &bytes);
+    HulkSpriteParticle* none = 0;   // the free list's fill (a pointer-sized zero)
+    free.FUN_002ab880(count, &none);
     char proto[0x4c];   // callee takes a pointer 0xc bytes into this scratch
-    pool.FUN_002aba80(count, (const SpriteParticle *)(proto + 0xc));
+    pool.FUN_002aba80(count, proto + 0xc);
     for (unsigned int i = 0; i < count; i++)
-        free.begin[i] = (hulk_uintptr)(pool.begin + (count - i - 1));
+        free.begin[i] = pool.begin + (count - i - 1);
 }
-
-}
-} // namespace fn_002ac4a0
 
 // 0x002ac540 pure3d::ParticleAllocatorTemplate<pure3d::SpriteParticle>::vfunc_3 (5 B): not yet verified
 
@@ -2161,10 +2119,10 @@ namespace fn_f07ae39e {
 void ParticleAllocatorTemplate::FUN_002ac570() {
     *(void**)this = (void*)((hulk_intptr)DAT_0042e0c4);
     _ReadWriteBarrier();
-    if (mCallback2)
-        thunk_FUN_00267090(mCallback2);
-    if (mCallback1)
-        thunk_FUN_00267090(mCallback1);
+    if (pool.begin)
+        thunk_FUN_00267090(pool.begin);
+    if (free.begin)
+        thunk_FUN_00267090(free.begin);
     FUN_002d3d80();
 }
 
@@ -2191,7 +2149,7 @@ int pure3d::DefaultParticleGeneratorHandler::vfunc_4(hulk_intptr __p0, int arg) 
 
 
 // 0x002acc60 FUN_002acc60 (261 B): equivalent/0x002acc60.cpp [wrapped: conflict: memmove; pure3d::DefaultParticleEmitterHandler; pure3d::ParticleSystemLoader]
-// sym: ??0ParticleSystemLoader@pure3d@fn_002acc60@@QAE@XZ @7f986058681e @wb37151aead81
+// sym: ??0ParticleSystemLoader@pure3d@fn_002acc60@@QAE@XZ @6b03311c6878 @wc2f77d943add
 namespace fn_002acc60 {
 // STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 16/16)
 // FUN_002acc60 @ 0x002acc60
@@ -2204,40 +2162,41 @@ void* __cdecl memmove(void*, const void*, unsigned int);
 
 
 struct Ref_2acc60 { virtual void Add(); virtual void Release(); };
-struct ParticleAllocatorTemplate_2acc60 : Ref_2acc60 { ParticleAllocatorTemplate_2acc60* FUN_002ac4a0(int); };
-struct ParticleEmitterLoader_2acc60 : Ref_2acc60 { int reserved; int count; Ref_2acc60* items[9]; ParticleEmitterLoader_2acc60* FUN_002ab6a0(); };
+struct ParticleEmitterLoader_2acc60 : HulkParticleEmitterLoader { ParticleEmitterLoader_2acc60* FUN_002ab6a0(); };
 // (x64t7) The loader and its default emitter handler as the words their constructors write, with the game's
 // vftables stored by address (the local classes' own were stubs natively): the handler is pure3d::RenderObjectLoader's
 // words (its constructor 0x002a3e80: the vftable and NonCopyable's reference count, 12 bytes natively) with the
 // handler's vftable after it; AddRef / Release through the stored vftables. The allocator and the emitter loader
-// (other TUs' constructors) at HULK_X2 of their 32-bit sizes; the handler list moves by its element size.
+// (other TUs' constructors) at their records' sizes (x64t8: decls/loaders.h, the loader, the allocator template and
+// the emitter loader); the handler list moves by its element size.
 extern "C" char DAT_0042e08c[];   // pure3d::ParticleSystemLoader's vftable
 extern "C" char DAT_0042e074[];   // pure3d::DefaultParticleEmitterHandler's
-HULK_REFCOUNT_PACK
-struct FUN_002a3e80 { void* vftable; int refs; FUN_002a3e80(); };
-HULK_REFCOUNT_PACK_END
+struct FUN_002a3e80 : HulkRenderObjectLoader { FUN_002a3e80(); };
 namespace pure3d {
-struct ParticleSystemLoader { void* vftable; int a,id,b,c,flag; Ref_2acc60* refs[8]; ParticleEmitterLoader_2acc60* list; ParticleSystemLoader(); };
+// (x64t8) the loader's record (decls/loaders.h HulkParticleSystemLoader), shared with 0x00291dc0's allocation
+struct ParticleSystemLoader : HulkParticleSystemLoader { ParticleSystemLoader(); };
 }
-pure3d::ParticleSystemLoader::ParticleSystemLoader() : a(0),id(0x1580c),b(0),c(0),flag(1),list(0) {
+pure3d::ParticleSystemLoader::ParticleSystemLoader() {
+ refs=0; id=0x1580c; f0c=0; f10=0; flag=1; emitters=0;
  vftable=(void*)DAT_0042e08c;
- for(int i=0;i<8;++i) refs[i]=0;
- ParticleAllocatorTemplate_2acc60* p=(ParticleAllocatorTemplate_2acc60*)FUN_0008d690(HULK_X2(0x24));
- if(p) p=p->FUN_002ac4a0(DAT_004cfb20);
+ for(int i=0;i<8;++i) loaders[i]=0;
+ void* pm=FUN_0008d690(sizeof(::FUN_002ac4a0));
+ Ref_2acc60* p=0;
+ if(pm) p=(Ref_2acc60*)new(pm) ::FUN_002ac4a0(DAT_004cfb20);
  if(p) p->Add();
- if(refs[0]) refs[0]->Release();
- refs[0]=p;
- ParticleEmitterLoader_2acc60* q=(ParticleEmitterLoader_2acc60*)FUN_0008d690(HULK_X2(0x30));
+ if(loaders[0]) ((Ref_2acc60*)loaders[0])->Release();
+ loaders[0]=p;
+ ParticleEmitterLoader_2acc60* q=(ParticleEmitterLoader_2acc60*)FUN_0008d690(sizeof(HulkParticleEmitterLoader));
  if(q) q=q->FUN_002ab6a0();
- if(q) q->Add();
- if(list) list->Release();
- list=q;
+ if(q) ((Ref_2acc60*)q)->Add();
+ if(emitters) ((Ref_2acc60*)emitters)->Release();
+ emitters=q;
  void* storage=FUN_0008d690(sizeof(FUN_002a3e80));
  FUN_002a3e80* hb=0;
  if(storage){ hb=new(storage) FUN_002a3e80; hb->vftable=(void*)DAT_0042e074; }
  Ref_2acc60* h=(Ref_2acc60*)hb;
- ParticleEmitterLoader_2acc60* l=list;
- if(h) { memmove(&l->items[1],&l->items[0],l->count*sizeof(l->items[0])); l->items[0]=h; h->Add(); ++l->count; }
+ HulkParticleEmitterLoader* l=emitters;
+ if(h) { memmove(&l->handlers[1],&l->handlers[0],l->count*sizeof(l->handlers[0])); l->handlers[0]=h; h->Add(); ++l->count; }
 }
 } // namespace fn_002acc60
 

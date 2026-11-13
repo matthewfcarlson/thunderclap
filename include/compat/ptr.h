@@ -72,9 +72,4 @@ typedef double hulk_freg;
 #define HULK_REFCOUNT_PACK_END
 #endif
 
-// HULK_X2(n) (x64t7): the size to allocate natively for an object of 32-bit size n whose native layout is another
-// TU's view (a constructor called by address): n on the 32-bit builds, 2n natively (room for every word turning into
-// a pointer). An interim upper bound, logged in docs/tech-debt.md: the exact size is the constructor's record's.
-#define HULK_X2(n) ((n) * (int)(sizeof(void*) / 4))
-
 #endif

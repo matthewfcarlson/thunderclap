@@ -3052,3 +3052,88 @@ headers of include/decls/data/ regenerated (docs/data.md "Reproducing", data3). 
 0x004dd8e4 / 0x0052a228 `unsigned char` scalars; the TblEntry, Lookup_d3f10 and ModeEntry tables are one item each
 (their sources index them through casts, `((T*)&DAT_x)[i]`); 0x0043529c, 0x004352ac and 0x004399a0..0x00439de8 are
 Bink's now and no longer emitted (no source names them).
+
+## The loaders' records, content::LoadObject packed, the particle allocator (x64t8, 2026-11-12)
+
+x64t7's follow-up (macOS stopped in ParticleSystemLoader's allocator template 0x002ac4a0) and the user's decisions of
+2026-11-12: pack content::LoadObject as pure3d::NonCopyable is, and replace the "twice the 32-bit size" stopgaps with
+records.
+
+**content::LoadObject packs natively** (include/gen/content.h, `HULK_REFCOUNT_PACK`): its word at 4 is the reference
+count (AddRef 0x00038290 / Release 0x000382a0), so natively it is 12 bytes and a descendant's words follow the count,
+as in the original and in the flat views. clang `-fdump-record-layouts-complete` over gen/all.h: the i686 layouts are
+identical (the only difference in the whole dump is a member type renamed, below); natively 214 of 4,219 gen records
+change, 171 in their own members or size, all of them LoadObject's descendants (pure3d::Entity is now 0x14 bytes
+natively, its descendants' first words at 0x14). The records that followed the unpacked layout move with it:
+`HULK_ENTITY_WORDS` (include/decls/physics_world.h) is Entity's three words as `int entity[3]` (was a union padded to
+pointer alignment, so natively CollisionObject's name sat at 0x18), CollisionObject.cpp's `FUN_0027b070` base packs, and
+the two `HULK_PTR64` pads after Entity's words (CollisionObject::vfunc_5 0x00305400, CollisionObjectLoader 0x00308410)
+are gone. The owner and the shape stay at 0x20 / 0x30 natively; only the second name moves (0x18 -> 0x14), now where
+gen's packed Entity and every flat `{vftable; int; int; int}` view of Entity (the environment's, the om views) put it.
+
+**The records** (new header include/decls/loaders.h): each is the words its constructor writes, shared by that
+constructor's source and the sources that allocate it (`sizeof`); `HULK_LOADER_SIZE32(T, n)` asserts the XBE's size on
+the 32-bit builds. A record whose constructor another source calls by address is named by the address
+(`FUN_002d3d90`, `FUN_002ac4a0`, `FUN_002af2d0`, `FUN_002de230`, `FUN_00231160`).
+
+| record | constructor (source) | users |
+|---|---|---|
+| `HulkChunkHandler` (content::SimpleChunkHandler's words, 0x14) | the 16 simple loaders: 0x0028f280 ShaderLoader, 0x002c1b30, 0x002c1480, 0x002c1930, 0x002c14c0, 0x002955c0, 0x002bfa30, 0x00299410, 0x002b6150, 0x002b6870, 0x002b23a0, 0x00297150, 0x002aff60, 0x002b0f40, 0x002aff20 ExpressionLoader (its vftable was stored through an `int` view, cut natively), 0x00290740 | each constructor's class derives from it (matches MATCH); 0x00291dc0 |
+| `HulkSkeletonLoader`, `HulkBillboardObjectLoader`, `HulkShadowMeshBufferLoader`, `HulkFrameControllerLoader`, `HulkParticleSystemLoader`, `HulkImageLoader`, `HulkTextureLoader`, `HulkSpriteLoader` | 0x0027b980, 0x002bc3d0, 0x002b68c0, 0x00286520, 0x002acc60, 0x002c0c40, 0x002c25b0, 0x002beca0 | the constructors' classes derive from them; 0x00291dc0, 0x002beca0 |
+| `HulkGeometryLoader`, `HulkAnimationLoader`, `HulkPrimGroupLoader` | 0x002c29b0 / 0x002b7d30, 0x00289e00, 0x002df7f0 | the constructors' views keep their member types (smart pointers with methods) and check `sizeof(view) == sizeof(record)` on every build; 0x00291dc0, 0x002b68c0 |
+| `HulkImageHandler`, `FUN_002af2d0` (`HulkImageRegistry`), `FUN_002de230` (`HulkImageConverter`) | 0x002af0c0 (its vftable was stored through a 32-bit view whose next word, the count, overlapped it natively), 0x002af2d0, 0x002de230 (its vftable stored by address: the local class's own was a stub natively) | 0x00291dc0's PNG / BMP handlers, 0x002af2d0's five handlers, TextureLoader, ImageLoader, SpriteLoader |
+| `FUN_002ac4a0` (pure3d::ParticleAllocatorTemplate<SpriteParticle>, 0x24), its base `FUN_002d3d90` (ParticleAllocator: IRefCount's words, packed), `HulkParticleList`, `HulkParticlePool` | 0x002ac4a0 | 0x002acc60 (allocation), the destructor 0x002ac570 (free list / pool were 32-bit pads) |
+| `HulkHandlerList`, `HulkParticleEmitterLoader`, `HulkRenderObjectLoader` | 0x002ab6a0 (the emitter loader, its generator loader, the default generator handler) | 0x002acc60 |
+| `HulkContentRegistry` (DAT_00527c58, 0x38), `HulkLoadEntry` | 0x002656b0 (src/engine/content/LoadStream.cpp) | 0x00265b70 (allocation), 0x00265810's request ring (was a 0x13-byte pad: natively 8 bytes off the constructor's), gen owners' Obj_265310 / Thing_265340 (the tables are pointers) |
+| `FUN_00231160` (a hash-table probe, 0x18) | 0x00231160 / 0x00231180 (src/engine/fight/unk_2310a0.cpp) | 0x00265310 / 0x00265340 (were `Fnf_` / `First_` names, unbound, on 0x18-byte locals), 0x002659a0 / 0x00265a20's probe locals (0x18 / 0x14-byte pads, short natively) |
+
+**The particle allocator** (task of x64t7's hand-back). 0x002ac4a0 is now the record's constructor: the base by its
+constructor's address (0x002d3d90; the local class's constructor was declared only), the template's vftable stored by
+address (DAT_0042e0c4), the free list a list of particle pointers (were `unsigned int` words) filled with a
+pointer-sized zero. Its resizer 0x002ab880 (shared, by COMDAT folding, with the emitter's live-particle list that
+0x002ac610 sizes: SpriteParticleEmitter::vfunc_15 0x002d5cb0 hands those pointers back to the allocator's free list)
+allocates `count * sizeof(void*)` and calls this file's copier 0x002ab530 by name (it called `Init`, one name the five
+resizers 0x002ab880...0x002aba00 bound to five addresses: unbound natively); the copier copies pointer-sized words.
+The pool's resizer 0x002aba80 takes its fill as a pointer (was an `int`). gen owners' Buffer_2ab880 holds `void**`.
+
+**The other stopgaps.** `HULK_X2` is gone from include/compat/ptr.h (no uses left). `HULK_X2_SHADER`
+(pddiBaseShader.cpp): gen's d3dReflShader, d3dProjectedTextureShader, d3dPointSpriteShader and d3dSpheremapVertexShader
+are completed with the words their constructors 0x0032c490 / 0x0032cbc0 / 0x0032d320 / 0x00331c30 write past gen's
+end (0x88 / 0x88 / 0xa0 / 0x8c -> the XBE's 0x8c / 0xc8 / 0xa4 / 0x98), so the four factories allocate `sizeof` as the
+others do; 0x0032cbc0 initializes gen's `f_88` matrix (was `this + 0x88`). Both entries leave docs/tech-debt.md.
+Left: `HULK_X2_88020` (CGame's 18 managers: 18 constructors' records, not started) and `HULK_PW` (the physics world:
+its TUs are being re-hashed by another agent this session).
+
+**The hash table's remove** 0x00231770 (src/engine/fight/unk_2310a0.cpp, match; gen owners' Obj_231770): the table's
+slots are pointers (0x002310a0 allocates them by `sizeof(void*)`), but the view compared them as 32-bit words and
+wrote the deleted-slot sentinel as `this + 0x20` (natively the sentinel is at 0x28): the count it returned was wrong
+natively, so 0x002659a0 released the StatePropDataLoader once too often (the native crash at pc 0x19001, a freed
+loader's chunk id). Now the slots are `void**` and the sentinel a member.
+
+**CSPListener 0x001db1c0**: its words as the original lays them out (its first base's vftable, pure3d::NonCopyable's
+vftable and count, packed, then the parameter), stored as pointers (were a 32-bit `volatile unsigned*` view); the
+adjustor thunk 0x001db1f0 and 0x001db200 step over the first vftable pointer by `sizeof(void*)`.
+
+| gate | result |
+|---|---|
+| `tree_tu.py verify --relocs` over the 55 edited / affected TUs (every TU including decls/physics_world.h, the four d3d shader TUs) | every match MATCHes with relocations ok; equivalents' code hashes unchanged but for three |
+| re-proved (equiv.py 3,000 inputs + `--wine`, hashes recorded with `tree_tu.py hash --proven`) | 0x002ab6a0, 0x002ac4a0, 0x002acc60; MSVC only: 0x001a9b10 (EffectAction.new_throw.cpp: gen/pure3d.h's four completed shader classes swap two of its stack loads in MSVC 7.1's code, the sensitivity x64t7 saw with records.h; its clang object is unchanged, so its `@w` hash stands; data3's f22370845 recorded the same MSVC hash for its own decls change meanwhile); `--x64`: 0x002ac4a0 equivalent; 0x002ab6a0 / 0x002acc60 unsupported (no input completes on the 32-bit side) |
+| i686 record layouts (clang `-fdump-record-layouts`, every edited TU against HEAD, flattened per record) | identical offsets and sizes but for the views that became the full record (Manager_265810, ParticleAllocatorTemplate, the gen owners stubs: pads split into words) and the completed shader |
+| gen/all.h i686 layouts | identical (Buffer_2ab880's members renamed `int*` -> `void**`) |
+
+Not done: PathAction 0x0011e4a0's interior names (task 4): the rewrite is ready (build/x64t8/pathaction.diff) but its
+`--wine` run fails at input 474 (`call #12 to 0x001fc8c0: this is 0x400309ac, expected 0x2d`), and so does HEAD's
+unchanged source (job x64t8 head-w): a pre-existing `--wine` failure, so its clang hash cannot be re-recorded.
+
+**Where macOS stops now** (a private binding map with the batch's new address names): the registry's set-up 0x00291dc0,
+its chunk loaders, the particle allocator and CGame's platform manager run through 0x0008dec0 (the registry's lookups,
+the StatePropDataLoader's release) to physics' ExportInfoLoader registration 0x002f5130 (src/engine/physics/
+PhysicsObject.cpp, equivalent): a local `__declspec(novtable)` SimpleChunkHandler whose virtual slot 0 has no native
+definition (`?slot0@ExportInfoLoader@physics@fn_002f5130`); in continue mode next `thunk_FUN_00271530` (CPlatformManager
+0x0008e880) is unbound and a word read as a pointer crashes (addr 0x3000000000). PhysicsObject.cpp carries another
+agent's uncommitted edits this session, so it is left for the next batch (the fix: HulkChunkHandler's words with
+ExportInfoLoader's vftable stored by address, as x64t7 / this batch did for the other loaders).
+
+Gates: as above; native start-up as described. Proof 73908 (studio, 717b73606 + the batch, private data TUs, seed:73903)
+vs control 73903 (717b73606, fresh): **GATE ok** (0 of 2,004 common frames differ). An earlier proof (73552 on
+96cba7a7c) stopped at the tree build's check on 0x001a9b10 (above), which this batch then re-proved.

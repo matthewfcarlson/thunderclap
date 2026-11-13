@@ -14341,8 +14341,11 @@ struct Obj_231770 {
     unsigned char pad0[3]; // +0x0d
     unsigned int limit; // +0x10
     unsigned int pad14; // +0x14
-    unsigned int* keys; // +0x18
-    unsigned int* data; // +0x1c (+0x20)
+    // (x64t8) the hash table's slots (pointers: 0x002310a0 allocates them by sizeof(void*)), its key pairs and the
+    // deleted-slot sentinel (0x00231590 / 0x00231180 compare the slot with its address)
+    void** keys; // +0x18
+    unsigned int* data; // +0x1c
+    char sentinel[4]; // +0x20
     void Resize();
     int FUN_00231770(hulk_uintptr key);
 };
@@ -14862,14 +14865,19 @@ struct Q_264d20 {
 };
 // matches/0x00265310.cpp (stub Obj_265310), size 0x14
 struct Obj_265310 {
-    char pad[0x10]; // +0x00
-    int value; // +0x10
+    // (x64t8) the content registry's words (0x002656b0): the tables at 0xc / 0x10 are pointers
+    char pad0[4]; // +0x00
+    int pad4, pad8; // +0x04
+    void* first; // +0x0c
+    void* value; // +0x10 the second table
     hulk_intptr FUN_00265310(hulk_intptr);
 };
 // matches/0x00265340.cpp (stub Thing_265340), size 0x10
 struct Thing_265340 {
-    char pad[12]; // +0x00
-    unsigned int field; // +0x0c
+    // (x64t8) the content registry's words (0x002656b0): the first table at 0xc is a pointer
+    char pad0[4]; // +0x00
+    int pad4, pad8; // +0x04
+    void* field; // +0x0c the first table
     hulk_intptr FUN_00265340(char*);
 };
 // matches/0x00266090.cpp (stub A_266090), size 0x10 (0x18)
@@ -15615,8 +15623,9 @@ struct Buffer_2a8060 {
 };
 // matches/0x002ab880.cpp (stub Buffer_2ab880), size 0x8 (0x10)
 struct Buffer_2ab880 {
-    int* begin; // +0x00
-    int* end; // +0x04 (+0x08)
+    // (x64t8) a list of particle pointers (decls/loaders.h HulkParticleList)
+    void** begin; // +0x00
+    void** end; // +0x04 (+0x08)
     bool FUN_002ab880(unsigned int count, void* arg);
 };
 // matches/0x002ab8e0.cpp (stub Buffer_2ab8e0), size 0x8 (0x10)

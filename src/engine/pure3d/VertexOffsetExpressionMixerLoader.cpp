@@ -2,6 +2,7 @@
 // object 0x002b0f40..0x002b1870 (kind game, layer engine, confidence high), dominant class pure3d::VertexOffsetExpressionMixerLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f8d4917d {
@@ -15,13 +16,9 @@ namespace fn_f8d4917d {} using namespace fn_f8d4917d;
 // ---- declarations shared by the functions below
 namespace fn_f8d4917d {
 extern int hulk_at_0042e39c;
-class VertexOffsetExpressionMixerLoader {
+extern "C" char DAT_0042e39c[];   // (x64t8) the loader's vftable
+class VertexOffsetExpressionMixerLoader : public HulkChunkHandler {
   public:
-    hulk_intptr m0;
-    int m4;
-    int m8;
-    int mC;
-    int m10;
     VertexOffsetExpressionMixerLoader();
 };
 extern void* Alloc_0008d6d0(unsigned int);
@@ -134,11 +131,11 @@ namespace fn_f8d4917d {
 // 0x002b0f40 FUN_002b0f40 (27 B): matches/0x002b0f40.cpp
 // sym: ??0VertexOffsetExpressionMixerLoader@fn_f8d4917d@@QAE@XZ
 VertexOffsetExpressionMixerLoader::VertexOffsetExpressionMixerLoader() {
-    m4 = 0;
-    m8 = 0x21002;
-    mC = 0;
-    m10 = 0;
-    m0 = (hulk_intptr)&hulk_at_0042e39c;
+    refs = 0;
+    id = 0x21002;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042e39c;
 }
 
 } // namespace fn_f8d4917d

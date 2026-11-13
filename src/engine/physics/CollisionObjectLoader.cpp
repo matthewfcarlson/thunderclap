@@ -237,17 +237,14 @@ struct Sub38_308410 {
 struct Target_308410 {
     void FUN_00306300();
 };
-// (x64t5) decls/physics_world.h's CollisionObject words: the vftable and Entity's words (natively ending at 0x18, as
-// Entity's own size), the names, then the shape, link and state pointers where every view of the object has them
+// (x64t5, x64t8) decls/physics_world.h's CollisionObject words: the vftable and Entity's words (followed directly by
+// the second name natively too), the names, then the shape, link and state pointers where every view of the object has them
 class CollisionObject_308410 {
 public:
     hulk_intptr vptr;
     int refs;
     NameField_308410 name;
     char pad9[7];
-#if defined(HULK_PTR64)
-    int entity_pad_;
-#endif
     NameField_308410 name2;
     char pad11[7];
     void* f18; int f1c;

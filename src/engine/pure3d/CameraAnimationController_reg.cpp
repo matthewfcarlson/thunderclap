@@ -2,6 +2,7 @@
 // object 0x002b2110..0x002b23c0 (kind game, layer engine, confidence low)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "gen/content.h"
 #define TREE_TU_BEGIN namespace fn_f4e2b286 {
 #define TREE_TU_END }
@@ -28,13 +29,8 @@ typedef unsigned int u32_2b2320;
 typedef unsigned int u32_2b2350;
 typedef unsigned int u32_2b2380;
 extern "C" char DAT_0042e49c[];
-class MultiControllerLoader {
+class MultiControllerLoader : public HulkChunkHandler {
   public:
-    hulk_intptr a;
-    int b;
-    int c;
-    int d;
-    int e;
     MultiControllerLoader();
 };
 
@@ -170,11 +166,11 @@ namespace fn_f4e2b286 {
 // 0x002b23a0 FUN_002b23a0 (27 B): matches/0x002b23a0.cpp
 // sym: ??0MultiControllerLoader@fn_f4e2b286@@QAE@XZ
 MultiControllerLoader::MultiControllerLoader() {
-    b = 0;
-    c = 0x121202;
-    d = 0;
-    e = 0;
-    a = ((hulk_intptr)DAT_0042e49c);
+    refs = 0;
+    id = 0x121202;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042e49c;
 }
 
 } // namespace fn_f4e2b286

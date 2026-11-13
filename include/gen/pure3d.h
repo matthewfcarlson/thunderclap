@@ -4172,6 +4172,7 @@ public:
     int f_94;
     int f_98;
     int f_9c;
+    float f_a0; // (x64t8) 0x0032d320 writes 20.0f (the XBE allocates 0xa4: 0x00327f50)
 };
 
 // .?AVpddiPrimBuffer@pure3d@@  vftable 0x433424 (15)
@@ -4342,6 +4343,7 @@ public:
     char _pad_7d[0x3];
     void* f_80;
     void* f_84;
+    char f_88[0x40]; // (x64t8) the matrix 0x0032cbc0 initializes (0x0022b980; the XBE allocates 0xc8: 0x00327f20)
 };
 
 // .?AVd3dReflShader@pure3d@@  vftable 0x433a04 (25)
@@ -4372,6 +4374,7 @@ public:
     char _pad_7d[0x3];
     void* f_80;
     void* f_84;
+    int f_88; // (x64t8) 0x0032c490 writes 0x80808080 (the XBE allocates 0x8c: 0x00327ef0)
 };
 
 // .?AVd3dRefractVertexShader@pure3d@@  vftable 0x433cac (25)
@@ -4478,6 +4481,9 @@ public:
     void* f_80;
     void* f_84;
     int f_88;
+    int f_8c; // (x64t8) 0x00331c30 clears 0x8c / 0x90 / 0x94 (the XBE allocates 0x98: 0x00328070)
+    int f_90;
+    int f_94;
 };
 
 // .?AVpddiTexture@pure3d@@  vftable 0x433354 (21)

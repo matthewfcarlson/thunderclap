@@ -2,6 +2,7 @@
 // object 0x002c1970..0x002c1c00 (kind game, layer engine, confidence medium), dominant class pure3d::CameraLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f4e0afb8 {
@@ -68,13 +69,8 @@ struct Frame_2c1970 {
     char name[0x100];        // 0x44
 };
 extern "C" char DAT_0042ebe8[];
-class CameraLoader {
+class CameraLoader : public HulkChunkHandler {
   public:
-    void* vf;
-    int a;
-    int b;
-    int c;
-    int d;
     CameraLoader();
 };
 
@@ -123,11 +119,11 @@ namespace fn_f4e0afb8 {
 // 0x002c1b30 FUN_002c1b30 (27 B): matches/0x002c1b30.cpp
 // sym: ??0CameraLoader@fn_f4e0afb8@@QAE@XZ
 CameraLoader::CameraLoader() {
-    a = 0;
-    b = 0x2200;
-    c = 0;
-    d = 0;
-    vf = (void*)((hulk_intptr)DAT_0042ebe8);
+    refs = 0;
+    id = 0x2200;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042ebe8;
 }
 
 } // namespace fn_f4e0afb8

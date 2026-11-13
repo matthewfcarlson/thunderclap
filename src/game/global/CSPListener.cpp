@@ -3268,21 +3268,28 @@ namespace fn_001db1c0 {
 extern "C" char DAT_003f6308[];
 extern "C" char DAT_00423114[];
 extern "C" char DAT_00423124[];
+// (x64t8) the words as the original lays them out: CSPListener's vftable (its first base), pure3d::NonCopyable (the
+// second base: its vftable and its reference count, packed natively as gen's NonCopyable is) and the parameter. The
+// vftable pointers are pointers (were stored through a 32-bit `volatile unsigned*` view, cut natively).
+HULK_REFCOUNT_PACK
+struct NonCopyable_1db1c0 {
+    void* volatile vptr;
+    volatile int refs;
+};
+HULK_REFCOUNT_PACK_END
 class CSPListener {
   public:
-    void* vptr;
-    void* vptr4;
-    int zero;
-    void* param;
+    void* volatile vptr;
+    NonCopyable_1db1c0 nc;
+    void* volatile param;
     CSPListener(void*);
 };
 CSPListener::CSPListener(void* p) {
-    volatile unsigned* q = (volatile unsigned*)this;
-    q[1] = ((hulk_intptr)DAT_003f6308);
-    q[2] = 0;
-    q[0] = ((hulk_intptr)DAT_00423124);
-    q[1] = ((hulk_intptr)DAT_00423114);
-    q[3] = (hulk_uintptr)p;
+    nc.vptr = (void*)DAT_003f6308;
+    nc.refs = 0;
+    vptr = (void*)DAT_00423124;
+    nc.vptr = (void*)DAT_00423114;
+    param = p;
 }
 } // namespace fn_001db1c0
 
@@ -3297,7 +3304,7 @@ struct CSPListener {
     void vfunc_2_adj4(int a);
 };
 void CSPListener::vfunc_2_adj4(int a) {
-    ((CSPListener*)((char*)this - 4))->FUN_001db200(a);
+    ((CSPListener*)((char*)this - sizeof(void*)))->FUN_001db200(a);   // (x64t8) the second base follows the first's vftable pointer
 }
 } // namespace fn_001db1f0
 
@@ -3309,7 +3316,7 @@ CSPListener_1db200* CSPListener_1db200::f(unsigned char flags) {
     CSPListener_1db200* self = this;
     volatile void** p;
     if (self)
-        p = (volatile void**)((char*)self + 4);
+        p = (volatile void**)((char*)self + sizeof(void*));   // (x64t8) the second base (NonCopyable), after the first vftable pointer
     else
         p = 0;
     *p = (void*)((hulk_intptr)DAT_003f6098);

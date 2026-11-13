@@ -272,8 +272,6 @@ class pddiBaseShader_327e00 : public FUN_0031bac0 {
 } // namespace fn_fbec554b
 void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace fn_fbec554b {
-// (x64t5) twice the XBE's size on 64-bit until each shader is one record (docs/tech-debt.md); the 32-bit size unchanged
-#define HULK_X2_SHADER(n) ((n) * (int)(sizeof(void*) / 4))
 class d3dErrorShader_327e60 {
   public:
     d3dErrorShader_327e60(int) throw();
@@ -294,9 +292,8 @@ class d3dLightMapShader_327ec0 {
 class d3dReflShader_327ef0 {
   public:
     d3dReflShader_327ef0(int) throw();
-    // (x64t5) twice the XBE's 0x8c bytes on 64-bit (HULK_X2_SHADER, interim: gen's pure3d::d3dReflShader is 0x88 on 32-bit, so its
-// sizeof is not this object's; docs/tech-debt.md)
-    char pad[HULK_X2_SHADER(0x8c)];
+    // (x64t5, x64t8) gen's pure3d::d3dReflShader (0x8c bytes on 32-bit, as the XBE allocates): the object its constructor writes
+    char pad[sizeof(::pure3d::d3dReflShader)];
 };
 } // namespace fn_fbec554b
 void* operator new(size_t) HULK_NEW_THROW;
@@ -849,9 +846,8 @@ d3dReflShader_327ef0* __cdecl FUN_00327ef0(int x) {
 // 0x00327f20 FUN_00327f20 (33 B): matches/0x00327f20.cpp
 // sym: ?FUN_00327f20@fn_fbec554b@@YAPAVObj@1@H@Z
 Obj* FUN_00327f20(int x) {
-    // (x64t5) twice the XBE's 0xc8 bytes on 64-bit (HULK_X2_SHADER, interim: gen's pure3d::d3dProjectedTextureShader is 0x88 on 32-bit, so its
-// sizeof is not this object's; docs/tech-debt.md)
-    Obj* p = (Obj*)FUN_0008d690(HULK_X2_SHADER(0xc8));
+    // (x64t5, x64t8) gen's pure3d::d3dProjectedTextureShader (0xc8 bytes on 32-bit, as the XBE allocates)
+    Obj* p = (Obj*)FUN_0008d690((int)sizeof(pure3d::d3dProjectedTextureShader));
     if (p)
         return ((Obj *)((pure3d::d3dProjectedTextureShader *)p)->FUN_0032cbc0((void *)(hulk_uintptr)(int)x));
     return 0;
@@ -867,9 +863,8 @@ namespace fn_00327f50 {
 class d3dPointSpriteShader_327f50 {
   public:
     d3dPointSpriteShader_327f50(int) throw();
-    // (x64t5) twice the XBE's 0xa4 bytes on 64-bit (interim, docs/tech-debt.md: gen's pure3d::d3dPointSpriteShader is
-    // 0xa0 on 32-bit, so its sizeof is not this object's)
-    char pad[0xa4 * (int)(sizeof(void*) / 4)];
+    // (x64t5, x64t8) gen's pure3d::d3dPointSpriteShader (0xa4 bytes on 32-bit, as the XBE allocates)
+    char pad[sizeof(::pure3d::d3dPointSpriteShader)];
 };
 d3dPointSpriteShader_327f50* __cdecl FUN_00327f50(int n) {
     return new d3dPointSpriteShader_327f50(n);
@@ -941,9 +936,8 @@ namespace fn_00328070 {
 extern "C++" __declspec(nothrow) void* __cdecl Alloc(hulk_intptr size);
 
 struct d3dSpheremapVertexShader_328070 {
-    // (x64t5) twice the XBE's 0x98 bytes on 64-bit (interim, docs/tech-debt.md: gen's pure3d::d3dSpheremapVertexShader
-    // is 0x8c on 32-bit, so its sizeof is not this object's)
-    char data[0x98 * (int)(sizeof(void*) / 4)];
+    // (x64t5, x64t8) gen's pure3d::d3dSpheremapVertexShader (0x98 bytes on 32-bit, as the XBE allocates)
+    char data[sizeof(::pure3d::d3dSpheremapVertexShader)];
     d3dSpheremapVertexShader_328070* Create(int arg);
 };
 

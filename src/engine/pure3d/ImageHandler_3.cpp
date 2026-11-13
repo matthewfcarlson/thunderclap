@@ -2,6 +2,7 @@
 // object 0x002ae8a0..0x002af160 (kind game, layer engine, confidence high), dominant class pure3d::ImageHandler
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_fee005c0 {
@@ -263,14 +264,10 @@ struct Manager_2af0c0 {
     virtual u32_2af0c0 getA();
     virtual u32_2af0c0 getB();
 };
-class ImageHandler {
+// (x64t8) the handler's record (decls/loaders.h HulkImageHandler; the vftable was stored through a 32-bit view that
+// natively overlapped the count)
+class ImageHandler : public HulkImageHandler {
   public:
-    int a;
-    int b;
-    int c;
-    unsigned char flag;
-    int d;
-    int e;
     ImageHandler();
 };
 class FileLoader_2af100 {
@@ -722,12 +719,12 @@ namespace fn_fee005c0 {
 // sym: ??0ImageHandler@fn_fee005c0@@QAE@XZ
 // data: gManager_2af0c0 = DAT_0052c2a4
 ImageHandler::ImageHandler() {
-    b = 0;
-    *(volatile hulk_uintptr*)this = ((hulk_intptr)DAT_0042e1b4);
-    c = 0;
-    flag = 0;
-    d = (*(Manager_2af0c0**)&DAT_0052c2a4)->getB();
-    e = (*(Manager_2af0c0**)&DAT_0052c2a4)->getA();
+    refs = 0;
+    *(void* volatile*)&vftable = (void*)DAT_0042e1b4;
+    f08 = 0;
+    f0c = 0;
+    f10 = (*(Manager_2af0c0**)&DAT_0052c2a4)->getB();
+    f14 = (*(Manager_2af0c0**)&DAT_0052c2a4)->getA();
 }
 
 

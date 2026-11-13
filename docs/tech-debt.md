@@ -53,17 +53,3 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
     used by unk_2ed240.cpp, ExportInfoLoader (0x002f4df0), SimLength, unk_2e6780, CollisionMesh (and its iso TU),
     unk_302fa0 and unk_2fa6b0. Replace with a record per part (CollisionDetector, ImpulseBasedCollisionSolver, the
     body pool, the contact buffer) and one for the world.
-  - `HULK_X2_SHADER(n)` (and the same doubling written out) in src/engine/pure3d/pddiBaseShader.cpp, the shader
-    factories whose gen class is smaller than the XBE's allocation (gen's record is incomplete): 0x00327ef0
-    d3dReflShader (0x8c; gen 0x88), 0x00327f20 d3dProjectedTextureShader (0xc8; gen 0x88), 0x00327f50
-    d3dPointSpriteShader (0xa4; gen 0xa0), 0x00328070 d3dSpheremapVertexShader (0x98; gen 0x8c). Complete gen's
-    classes (their constructors' words) and allocate `sizeof` as the other factories do.
-  - `HULK_X2(n)` (x64t7, include/compat/ptr.h), where a source allocates an object that a constructor of another TU
-    (called by address) lays out: src/engine/unknown/unk_291dc0.cpp 0x00291dc0, the content registry's set-up (the
-    PNG / BMP handlers, 0x18, and the 25 chunk loaders 0x002c29b0 ... 0x00290740, 0x14 to 0x3c);
-    src/engine/pure3d/TextureLoader.cpp 0x002c25b0 (the image registry 0x002af2d0, 0xa4; the image converter
-    0x002de230, 4) and src/engine/pure3d/ImageLoader.cpp 0x002c0c40 (the image registry); batch 2: SpriteLoader
-    0x002beca0 (the converter, the image loader 0x002c0c40, the image registry), ParticleSystemLoader 0x002acc60 (the
-    allocator template 0x002ac4a0, 0x24; the emitter loader 0x002ab6a0, 0x30) and ShadowSkinLoader.cpp 0x002b68c0
-    (PrimGroupLoader, 0x2c). Replace with each loader's record (its constructor's words) shared by the allocating
-    source.

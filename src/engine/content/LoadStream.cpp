@@ -2,6 +2,7 @@
 // object 0x00263f30..0x00265bf0 (kind game, layer engine, confidence medium), dominant class content::LoadStream
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/records.h"
@@ -456,20 +457,17 @@ extern void* __cdecl FUN_0008d690(unsigned);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned);
 extern void __cdecl FUN_00265520();
 extern "C" void __cdecl FUN_0026dd70(void*, void (__cdecl*)(), void*, unsigned, unsigned);
-struct Object {
- unsigned char a,b,c,pad;
- unsigned interval, unused;
- Block_2656b0 *first,*second;
- char *storage,*begin,*current,*end;
- unsigned reserved;
- char *buffer,*bufferBegin,*bufferCurrent,*bufferEnd;
+// (x64t8) the registry's record (decls/loaders.h HulkContentRegistry)
+struct Object : HulkContentRegistry {
  Object* FUN_002656b0(Config_2656b0* config);
 };
 struct Request { char pad[0x100]; void* context; char pad104[8]; unsigned char flags; };
 struct LoadRequest_265810 { virtual void slot0(); LoadRequest_265810* FUN_00266890(Request*);  void FUN_00266950(int); void FUN_00266850(void*); int FUN_00266710(); };
 extern "C" void* __cdecl FUN_00263ed0(unsigned int,int);
 struct Entry_265810 { LoadRequest_265810* task; unsigned int value; };
-struct Manager_265810 { unsigned char flags; char pad[0x13]; Entry_265810* head; Entry_265810* tail; Entry_265810* begin; Entry_265810* end; void FUN_002655b0(); void FUN_00265810(Request*,LoadRequest_265810**); };
+// (x64t8) the registry's record (decls/loaders.h HulkContentRegistry: the flags at 0, the request ring; was a 0x13-byte
+// pad, so natively the ring sat 8 bytes before the constructor's)
+struct Manager_265810 : HulkContentRegistry { void FUN_002655b0(); void FUN_00265810(Request*,LoadRequest_265810**); };
 } // namespace fn_fa1126e6
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" char* strncpy(char*, const char*, unsigned);
@@ -490,7 +488,7 @@ class C_265920 {
 struct Node { virtual void slot0(); virtual void slot1(); };
 struct Pool_2659a0 {  };
 struct Iter_2659a0 {
-  char pad[0x18];
+  char pad[sizeof(FUN_00231160)];   // (x64t8) the probe's words (decls/loaders.h; 0x18 was short natively)
   void FUN_00231160(Pool_2659a0*);
   Node* FUN_00231180(int, int);
 };
@@ -509,13 +507,8 @@ class Thing_265ad0 {
 struct Params {
     int a, b, c, d;
 };
-struct Obj_265b70 {
-    unsigned char a, b, c, pad;
-    unsigned interval, unused;
-    void *first, *second;
-    char *storage, *begin, *current, *end;
-    unsigned reserved;
-    char *buffer, *bufferBegin, *bufferCurrent, *bufferEnd;
+// (x64t8) the registry's record (decls/loaders.h HulkContentRegistry), allocated at its size
+struct Obj_265b70 : HulkContentRegistry {
     unsigned tail;                 // +0x38 (not set by the constructor)
     Obj_265b70* FUN_002656b0(Params* p);
 };
@@ -1194,9 +1187,8 @@ void Queue_265280::clear() {
 // 0x00265310 FUN_00265310 (38 B): matches/0x00265310.cpp
 // sym: ?FUN_00265310@Obj_265310@owners@@QAEHH@Z
 hulk_intptr owners::Obj_265310::FUN_00265310(hulk_intptr param) {
-    Temp_265310 t;
-    t.Fnf_00231160(value);
-    return t.Fng_00231180(((int)param), 0);
+    FUN_00231160 t((hulk_intptr)value);   // (x64t8) the probe by its constructor's address (decls/loaders.h; was 0x18 bytes, short natively, and unbound)
+    return (hulk_intptr)t.FUN_00231180((unsigned int)param, 0);
 }
 
 
@@ -1206,9 +1198,8 @@ hulk_intptr owners::Thing_265340::FUN_00265340(char* text) {
     if (*text == '.')
         ++text;
     unsigned long long value = Parse_00267340(text, 0, 0);
-    Pair_265340 local;
-    local.First_00231160(field);
-    return local.Second_00231180((u32_265340)value, (u32_265340)(value >> 32));
+    FUN_00231160 local((hulk_intptr)field);   // (x64t8) as 0x00265310's
+    return (hulk_intptr)local.FUN_00231180((u32_265340)value, (u32_265340)(value >> 32));
 }
 
 namespace fn_fa1126e6 {
@@ -1374,7 +1365,7 @@ extern "C" void __cdecl FUN_002656a0(void) {
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 10/10)
 // FUN_002656b0 @ 0x002656b0
 Object* Object::FUN_002656b0(Config_2656b0* config) {
- a=0; b=0; c=0; interval=5000; unused=0; first=0; second=0; storage=0; begin=0; buffer=0; bufferBegin=0;
+ a=0; b=0; c=0; interval=5000; unused=0; first=0; second=0; head=0; tail=0; buffer=0; bufferBegin=0;
  Block_2656b0* p=(Block_2656b0*)FUN_0008d690((unsigned)sizeof(Block_2656b0));
  if(p) { unsigned n=config->first; p->FUN_00231550(n,200,n); }
  first=p;
@@ -1382,8 +1373,9 @@ Object* Object::FUN_002656b0(Config_2656b0* config) {
  if(p) { unsigned n=config->second; p->FUN_00231550(n,200,n); }
  second=p;
  unsigned n=config->count;
- if(n) { unsigned bytes=n*8; char* data=(char*)FUN_0008d6d0(bytes); storage=data; if(data) { begin=data; current=data; end=data+bytes; } else begin=0; }
- else { storage=0; begin=0; }
+ // (x64t8) the request ring's entries by their size (8 bytes on the 32-bit builds; each holds a pointer)
+ if(n) { unsigned bytes=n*(unsigned)sizeof(HulkLoadEntry); HulkLoadEntry* data=(HulkLoadEntry*)FUN_0008d6d0(bytes); head=data; if(data) { tail=data; begin=data; end=(HulkLoadEntry*)((char*)data+bytes); } else tail=0; }
+ else { head=0; tail=0; }
  char* data=(char*)FUN_0008d6d0(256); buffer=data;
  if(data) { bufferBegin=data; bufferCurrent=data; bufferEnd=data+256; } else bufferBegin=0;
  (*(CoreFiber**)&DAT_00527c4c)=FUN_0026dbf0();
@@ -1398,7 +1390,7 @@ Object* Object::FUN_002656b0(Config_2656b0* config) {
 // STATUS: equivalent (tools/equiv.py level 3: 170 inputs, branch coverage 20/20)
 // FUN_00265810 @ 0x00265810
 void Manager_265810::FUN_00265810(Request* request,LoadRequest_265810** output) {
- request->flags |= flags;
+ request->flags |= a;   // (x64t8) the registry's first flag
  LoadRequest_265810* memory = (LoadRequest_265810*)FUN_00263ed0(0x130,1);
  LoadRequest_265810* task = memory ? memory->FUN_00266890(request) : 0;
  task->slot0(); task->slot0();
@@ -1474,7 +1466,7 @@ public:
 
 struct Probe_265a20 {
     Table_265a20 *table;           // 0x00
-    char pad04[0x14];
+    char pad04[sizeof(FUN_00231160) - sizeof(void*)];   // (x64t8) the probe's words (decls/loaders.h; was 0x14, short natively)
     void FUN_00231160(Table_265a20 *t);
     Object *FUN_00231180(unsigned int first, unsigned int second);
 };

@@ -2,6 +2,7 @@
 // object 0x002b37a0..0x002b78a0 (kind game, layer engine, confidence high), dominant class pure3d::ShadowSkinLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d.h"
 #include "decls/data/game/global.h"
@@ -543,20 +544,13 @@ class Owner_2b57a0 {
     void Set(Item_2b57a0* p);
 };
 extern "C" char DAT_0042e614[];
-class ShadowMeshLoader {
+class ShadowMeshLoader : public HulkChunkHandler {
   public:
-    hulk_intptr vptr;
-    int a, b, c, d;
     ShadowMeshLoader();
 };
 extern "C" char DAT_0042e634[];
-class ShadowSkinLoader {
+class ShadowSkinLoader : public HulkChunkHandler {
   public:
-    hulk_intptr v;
-    int a;
-    int b;
-    int c;
-    int d;
     ShadowSkinLoader();
 };
 extern void* hulk_at_0042e584[];
@@ -2507,22 +2501,22 @@ namespace fn_f35954a7 {
 // 0x002b6150 FUN_002b6150 (27 B): matches/0x002b6150.cpp
 // sym: ??0ShadowMeshLoader@fn_f35954a7@@QAE@XZ
 ShadowMeshLoader::ShadowMeshLoader() {
-    a = 0;
-    b = 0x1001a;
-    c = 0;
-    d = 0;
-    vptr = ((hulk_intptr)DAT_0042e614);
+    refs = 0;
+    id = 0x1001a;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042e614;
 }
 
 
 // 0x002b6870 FUN_002b6870 (27 B): matches/0x002b6870.cpp
 // sym: ??0ShadowSkinLoader@fn_f35954a7@@QAE@XZ
 ShadowSkinLoader::ShadowSkinLoader() {
-    a = 0;
-    b = 0x10019;
-    c = 0;
-    d = 0;
-    v = ((hulk_intptr)DAT_0042e634);
+    refs = 0;
+    id = 0x10019;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042e634;
 }
 
 
@@ -2544,27 +2538,21 @@ ShadowMeshBufferImpl_2b6890::~ShadowMeshBufferImpl_2b6890() {
 // sym: ?target@fn_002b68c0@@YIPAVShadowMeshBufferLoader@1@PAV21@@Z
 namespace fn_002b68c0 {
 extern "C" char DAT_0042e654[];
-class ShadowMeshBufferLoader {
-  public:
-    hulk_intptr a;
-    int b;
-    int c;
-    int d;
-    int e;
-    void* f;   // (x64t7) the PrimGroupLoader it creates (was an `int`)
+// (x64t8) the loader's record (decls/loaders.h HulkShadowMeshBufferLoader), shared with 0x00291dc0's allocation
+class ShadowMeshBufferLoader : public HulkShadowMeshBufferLoader {
 };
 // (x64t7) the allocator and PrimGroupLoader's constructor (0x002df7f0) with their signatures (pointers; were `int`);
-// the loader allocated at HULK_X2 of its 32-bit size (compat/ptr.h)
+// (x64t8) the PrimGroupLoader allocated at its record's size (decls/loaders.h HulkPrimGroupLoader)
 extern "C++" __declspec(nothrow) void* __cdecl alloc_mem_0008d690(unsigned int);
 void* __fastcall init_obj_002df7f0(void*);
 ShadowMeshBufferLoader* __fastcall target(ShadowMeshBufferLoader* self) {
-    self->b = 0;
-    self->c = 0x10023;
-    self->d = 0;
-    self->e = 0;
-    self->a = ((hulk_intptr)DAT_0042e654);
-    void* p = alloc_mem_0008d690(HULK_X2(0x2c));
-    self->f = p ? init_obj_002df7f0(p) : 0;
+    self->refs = 0;
+    self->id = 0x10023;
+    self->f0c = 0;
+    self->f10 = 0;
+    self->vftable = (void*)DAT_0042e654;
+    void* p = alloc_mem_0008d690(sizeof(HulkPrimGroupLoader));
+    self->primGroups = p ? init_obj_002df7f0(p) : 0;
     return self;
 }
 } // namespace fn_002b68c0

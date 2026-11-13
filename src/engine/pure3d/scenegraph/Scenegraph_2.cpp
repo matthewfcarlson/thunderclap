@@ -2,6 +2,7 @@
 // object 0x00295c40..0x002980b0 (kind game, layer engine, confidence high), dominant class pure3d::scenegraph::Scenegraph
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/engine/pure3d/scenegraph.h"
@@ -716,13 +717,8 @@ class Helper_297080 {
 };
 extern void* __cdecl alloc_00263ea0(int);
 extern "C" char DAT_0042d348[];
-class Obj_297150 {
+class Obj_297150 : public HulkChunkHandler {
   public:
-    hulk_intptr v;
-    int a;
-    int b;
-    int c;
-    int d;
     Obj_297150();
 };
 } // namespace fn_f9b7dd8c
@@ -2346,11 +2342,11 @@ namespace fn_f9b7dd8c {
 // 0x00297150 FUN_00297150 (27 B): matches/0x00297150.cpp
 // sym: ??0Obj_297150@fn_f9b7dd8c@@QAE@XZ
 Obj_297150::Obj_297150() {
-    a = 0;
-    b = 0x120100;
-    c = 0;
-    d = 0;
-    v = ((hulk_intptr)DAT_0042d348);
+    refs = 0;
+    id = 0x120100;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042d348;
 }
 
 } // namespace fn_f9b7dd8c

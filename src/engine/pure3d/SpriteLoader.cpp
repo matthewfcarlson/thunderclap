@@ -2,6 +2,7 @@
 // object 0x002bd430..0x002bf100 (kind game, layer engine, confidence high), dominant class pure3d::SpriteLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d.h"
 #include "gen/owners.h"
@@ -1740,34 +1741,29 @@ class ImageLoader_2beca0 { public: virtual void v0(); ImageLoader_2beca0* FUN_00
 struct Table_2beca0 { Table_2beca0* FUN_002af2d0(); };
 extern "C" char DAT_0042e974[];   // (x64t7) pure3d::SpriteLoader's vftable (the local class's own was a stub natively)
 namespace pure3d {
-// (x64t7) the loader's words with its vftable stored by address; the image converter (0x002de230), the image loader
-// (0x002c0c40) and the image registry (0x002af2d0) allocated at HULK_X2 of their 32-bit sizes (compat/ptr.h)
-class SpriteLoader {
+// (x64t7, x64t8) the loader's record (decls/loaders.h HulkSpriteLoader) with its vftable stored by address; the image
+// converter (0x002de230), the image loader (0x002c0c40) and the image registry (0x002af2d0) allocated at their
+// records' sizes
+class SpriteLoader : public HulkSpriteLoader {
 public:
-    void* vftable;
-    int f4, f8, fc, f10;
-    ImageConverter_2beca0* lookup;
-    ImageLoader_2beca0* child;
-    Table_2beca0* table;
-    char f20, f21;
     SpriteLoader();
 };
 SpriteLoader::SpriteLoader() {
     vftable = (void*)DAT_0042e974;
-    f4 = 0;
-    f8 = 0x19005;
-    fc = 0;
+    refs = 0;
+    id = 0x19005;
+    f0c = 0;
     f10 = 0;
     f20 = 0;
     f21 = 0;
-    void* m = FUN_0008d690(HULK_X2(4));
-    lookup = m ? ((ImageConverter_2beca0*)m)->FUN_002de230() : 0;
-    void* c = thunk_FUN_0008d690(HULK_X2(0x1c));
+    void* m = FUN_0008d690(sizeof(FUN_002de230));
+    converter = m ? (FUN_002de230*)((ImageConverter_2beca0*)m)->FUN_002de230() : 0;
+    void* c = thunk_FUN_0008d690(sizeof(HulkImageLoader));
     ImageLoader_2beca0* ch = c ? ((ImageLoader_2beca0*)c)->FUN_002c0c40() : 0;
-    child = ch;
+    images = (HulkImageLoader*)ch;
     ch->v0();
-    void* t = FUN_0008d690(HULK_X2(0xa4));
-    table = t ? ((Table_2beca0*)t)->FUN_002af2d0() : 0;
+    void* t = FUN_0008d690(sizeof(FUN_002af2d0));
+    registry = t ? (FUN_002af2d0*)((Table_2beca0*)t)->FUN_002af2d0() : 0;
 }
 }
 } // namespace fn_002beca0

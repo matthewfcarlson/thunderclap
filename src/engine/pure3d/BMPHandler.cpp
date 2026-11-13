@@ -1,6 +1,8 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002af2d0..0x002afb30 (kind game, layer engine, confidence high), dominant class pure3d::BMPHandler
 #include "tree_prelude.h"
+#include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
@@ -110,39 +112,25 @@ public:
     virtual void slot0();
 };
 
-struct ImageHandler {
-    __forceinline ImageHandler(char* vtable) : f04(0), f08(0), f0c(0) {
+// (x64t8) decls/loaders.h's HulkImageHandler (the words 0x002af0c0 writes), shared with 0x00291dc0's handlers
+struct ImageHandler : HulkImageHandler {
+    __forceinline ImageHandler(char* vtable) {
+        refs = 0;
+        f08 = 0;
+        f0c = 0;
         vftable = (void*)DAT_0042e1b4;
         f10 = (*(Manager_2af2d0**)&DAT_0052c2a4)->getB();
         f14 = (*(Manager_2af2d0**)&DAT_0052c2a4)->getA();
         vftable = (void*)vtable;
     }
-    void* vftable;
-    int f04;   // content::LoadObject's reference count
-    int f08;
-    char f0c;
-    int f10;
-    int f14;
 };
 
 }
 
-class ImageRegistry_2af2d0 {
+// (x64t8) decls/loaders.h's HulkImageRegistry, shared with the sources that allocate it (TextureLoader, ImageLoader,
+// SpriteLoader)
+class ImageRegistry_2af2d0 : public HulkImageRegistry {
 public:
-    int count;
-    pure3d::ImageHandler *handlers[0x20];
-    ImageConverter *converter;
-    char flag88;
-    char flag89;
-    char flag8a;
-    char pad8b;
-    int f8c;
-    int pad90;
-    int f94;
-    int f98;
-    int f9c;
-    int fa0;
-
     ImageRegistry_2af2d0 *FUN_002af2d0();
 };
 
@@ -157,11 +145,11 @@ ImageRegistry_2af2d0 *ImageRegistry_2af2d0::FUN_002af2d0()
     f98 = 0;
     f9c = 0;
     fa0 = 0;
-    void *mem = FUN_0008d690(4);
+    void *mem = FUN_0008d690(sizeof(FUN_002de230));
     ImageConverter *conv = 0;
     if (mem)
         conv = ((ImageConverter *)mem)->FUN_002de230();
-    converter = conv;
+    converter = (FUN_002de230 *)conv;
 
     pure3d::ImageHandler *h = 0;
     mem = FUN_00263ea0(sizeof(pure3d::ImageHandler));

@@ -2,6 +2,7 @@
 // object 0x00288820..0x00289ed0 (kind game, layer engine, confidence high), dominant class pure3d::AnimationLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f25f8e16 {
@@ -360,6 +361,8 @@ class AnimationLoader_289e00 {
     FUN_0028e9b0* anim;
     int e, f, g;
 };
+// (x64t8) this view is the words of decls/loaders.h's HulkAnimationLoader (the record 0x00291dc0 allocates): sizes checked on every build
+typedef char hulk_rec_289e00[sizeof(AnimationLoader_289e00) == sizeof(HulkAnimationLoader) ? 1 : -1];
 extern "C" char DAT_0042c8e8[];
 typedef unsigned char byte_289e60;
 struct Ref_289e60 {

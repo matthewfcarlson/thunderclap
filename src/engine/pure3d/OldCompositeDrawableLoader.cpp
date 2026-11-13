@@ -2,6 +2,7 @@
 // object 0x002980b0..0x0029b100 (kind game, layer engine, confidence high), dominant class pure3d::OldCompositeDrawableLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 #include "gen/content.h"
@@ -507,13 +508,8 @@ struct Skeleton_2992c0 {
     Mat_2992c0 *matrices;
 };
 extern "C" char DAT_0042d4d4[];
-class CompositeDrawableLoader {
+class CompositeDrawableLoader : public HulkChunkHandler {
   public:
-    hulk_intptr a;
-    int b;
-    int c;
-    int d;
-    int e;
     CompositeDrawableLoader();
 };
 extern void* hulk_at_0042d50c[];
@@ -1254,11 +1250,11 @@ namespace fn_f40ca5f7 {
 // 0x00299410 FUN_00299410 (27 B): matches/0x00299410.cpp
 // sym: ??0CompositeDrawableLoader@fn_f40ca5f7@@QAE@XZ
 CompositeDrawableLoader::CompositeDrawableLoader() {
-    b = 0;
-    c = 0x123000;
-    d = 0;
-    e = 0;
-    a = ((hulk_intptr)DAT_0042d4d4);
+    refs = 0;
+    id = 0x123000;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042d4d4;
 }
 
 } // namespace fn_f40ca5f7

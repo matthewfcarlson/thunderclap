@@ -2,6 +2,7 @@
 // object 0x002c25b0..0x002c26d0 (kind game, layer engine, confidence medium), dominant class pure3d::TextureLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f0efd7bc {
 #define TREE_TU_END }
@@ -14,27 +15,13 @@ namespace fn_f0efd7bc {} using namespace fn_f0efd7bc;
 // ---- declarations shared by the functions below
 void* operator new(size_t n) HULK_NEW_THROW;
 namespace fn_f0efd7bc {
-// (x64t7) the image registry and the image converter, named by their constructors' addresses (0x002af2d0,
-// 0x002de230; were local classes whose constructors were declared only), each allocated natively at HULK_X2 of its
-// 32-bit size (compat/ptr.h); the loader's words with its vftable stored by address (the local class's own was a
-// stub natively)
-struct FUN_002af2d0 {
-    FUN_002af2d0() throw();
-    char p[HULK_X2(0xa4)];
-};
-struct FUN_002de230 {
-    FUN_002de230() throw();
-    char p[HULK_X2(4)];
-};
+// (x64t7, x64t8) the loader's record (decls/loaders.h HulkTextureLoader) with its vftable stored by address (the
+// local class's own was a stub natively); the image registry and the image converter are their records, named by
+// their constructors' addresses (0x002af2d0, 0x002de230) and allocated at their sizes
 extern int hulk_at_0042ec44;
-class TextureLoader {
+class TextureLoader : public HulkTextureLoader {
   public:
     TextureLoader();
-    void* vftable;
-    int m4;   // content::LoadObject's reference count
-    int m8, mc, m10;
-    FUN_002af2d0* m14;
-    FUN_002de230* m18;
 };
 extern int hulk_at_003f6098;
 extern void Free_00263f30(void*);
@@ -69,13 +56,13 @@ struct This_FUN_002c2370 {
 // 0x002c25b0 FUN_002c25b0 (105 B): matches/0x002c25b0.cpp
 // sym: ??0TextureLoader@fn_f0efd7bc@@QAE@XZ
 TextureLoader::TextureLoader() {
-    m4 = 0;
-    m8 = 0x19000;
-    mc = 0;
-    m10 = 0;
+    refs = 0;
+    id = 0x19000;
+    f0c = 0;
+    f10 = 0;
     vftable = &hulk_at_0042ec44;
-    m14 = new FUN_002af2d0;
-    m18 = new FUN_002de230;
+    registry = new FUN_002af2d0;
+    converter = new FUN_002de230;
 }
 
 

@@ -74,17 +74,15 @@ typedef char hulk_size32_cv_[(sizeof(void*) != 4 || (sizeof(HulkCollisionVolume)
 
 // physics::CollisionObject (x64t5; 0x00304ed0 / 0x00304f50 construct it, 0x00305400 clones it, 0x00304ff0 destroys
 // it): pure3d::Entity's words, a name (8 bytes), then the words below, 0x80 bytes on the 32-bit builds. Natively the
-// owner, the shape, the link array, the state's group array and its byte array are pointers and Entity's words end at 0x18
-// (Entity's own size), so every view declares: its vftable, Entity's words as HULK_ENTITY_WORDS (or a base class
+// owner, the shape, the link array, the state's group array and its byte array are pointers; Entity's words (the
+// reference count, then the 8-byte name) follow the vftable directly and end at 0x14 (x64t8: content::LoadObject packs
+// natively as pure3d::NonCopyable does, so gen's pure3d::Entity is 0x14 bytes), so every view declares: its vftable, Entity's words as HULK_ENTITY_WORDS (or a base class
 // named FUN_0027b070), its name (8 bytes), then HULK_COLLISION_OBJECT_WORDS. The anonymous structs are the link array
 // (0x00304930 grows it, 0x00304da0 copies it: count, capacity, elements of 20 bytes, two flags) and the state
 // (0x00305210 copies it, 0x00304e80 frees it: a count, groups of 16 bytes, a byte array with its own count, capacity
 // and flags), laid out natively as the helpers' own views of them.
 #define HULK_ENTITY_WORDS \
-    union { \
-        char entity[0xc]; /* pure3d::Entity's three words after the vftable */ \
-        void* entity_align_; /* natively padded to pointer alignment, as Entity's own size is */ \
-    };
+    int entity[3]; /* pure3d::Entity's three words after the vftable (LoadObject's count, the name) */
 #define HULK_COLLISION_OBJECT_WORDS \
     void* f18; /* the owner (the SimState that 0x002efa90 attaches it to) */ \
     int f1c; /* flags */ \

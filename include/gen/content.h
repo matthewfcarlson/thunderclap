@@ -83,6 +83,10 @@ class Scenegraph;
 
 namespace content {
 // .?AVLoadObject@content@@  vftable 0x4219b4 (3)
+// (x64t8) f_04 is the reference count (AddRef 0x00038290 / Release 0x000382a0, as pure3d::NonCopyable's): an int.
+// HULK_REFCOUNT_PACK (compat/ptr.h): natively the class is 12 bytes (the 8-byte vftable pointer and the count), so a
+// descendant's own words follow the count as in the original and as the hand-written flat views have them
+HULK_REFCOUNT_PACK
 class LoadObject : public ::core::IRefCount {
 public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
@@ -90,6 +94,7 @@ public:
     virtual ~LoadObject(); // overrides core::IRefCount slot 2
     int f_04;
 };
+HULK_REFCOUNT_PACK_END
 
 // .?AVFileLoader@content@@  vftable 0x4245e0 (4)
 class FileLoader : public ::content::LoadObject {

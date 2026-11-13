@@ -2,6 +2,7 @@
 // object 0x002de230..0x002dee20 (kind game, layer engine, confidence high), dominant class pure3d::ImageConverter
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f9c3d788 {
@@ -15,10 +16,12 @@ namespace fn_f9c3d788 { extern "C" char DAT_0042f900[]; }   // (x64t6) the game 
 
 // ---- declarations shared by the functions below
 namespace fn_f9c3d788 {
-class ImageConverter_2de230 {
+// (x64t8) the converter's record (decls/loaders.h): its vftable stored by address (the local class's own was a stub
+// natively)
+extern "C" char DAT_0042f900[];   // pure3d::ImageConverter's vftable
+class ImageConverter_2de230 : public HulkImageConverter {
   public:
     ImageConverter_2de230();
-    virtual ~ImageConverter_2de230();
 };
 extern void* hulk_at_0042f900;
 extern char DAT_004d098c[];
@@ -267,7 +270,7 @@ struct Surface_2ded30 {
 // 0x002de230 FUN_002de230 (9 B): matches/0x002de230.cpp
 // sym: ??0ImageConverter_2de230@fn_f9c3d788@@QAE@XZ
 // Same code shape as 0x000b3de0 (propagated; names are from that function)
-ImageConverter_2de230::ImageConverter_2de230() {}
+ImageConverter_2de230::ImageConverter_2de230() { vftable = (void*)DAT_0042f900; }
 
 
 // 0x002de240 FUN_002de240 (7 B): matches/0x002de240.cpp

@@ -395,7 +395,7 @@ pure3d::d3dProjectedTextureShader* pure3d::d3dProjectedTextureShader::FUN_0032cb
     *(void**)this = (void*)((hulk_intptr)DAT_00433a8c);
     (*(int *)&this->f_80) = 0;
     (*(int *)&this->f_84) = 0;
-    ((d3dProjectedTextureShader_nv_32cbc0*)(((pure3d::d3dProjectedTextureShader*)((char*)this + 0x88))))->InitMember();
+    ((d3dProjectedTextureShader_nv_32cbc0*)(void*)this->f_88)->InitMember();   // (x64t8) the matrix (gen's f_88; was `this + 0x88`)
     return (d3dProjectedTextureShader*)(this);
 }
 

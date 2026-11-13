@@ -2,6 +2,7 @@
 // object 0x0028fe80..0x00291bc0 (kind game, layer engine, confidence high), dominant class pure3d::prop::StatePropDataLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "gen/content.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
@@ -77,14 +78,9 @@ void __cdecl ReleaseHandle_0008d340(u32_290500);
 typedef unsigned int u32_290590;
 typedef unsigned int u32_2905c0;
 extern "C" char DAT_0042cca0[];
-class StatePropDataLoader {
+class StatePropDataLoader : public HulkChunkHandler {
   public:
     StatePropDataLoader();
-    hulk_intptr vptr;
-    int a;
-    int b;
-    int c;
-    int d;
 };
 extern void* Alloc_0008d6d0(unsigned int);
 extern "C" int * __cdecl FUN_002904d0(int *, int, const int *);
@@ -628,11 +624,11 @@ namespace fn_f5d7895e {
 // 0x00290740 FUN_00290740 (27 B): matches/0x00290740.cpp
 // sym: ??0StatePropDataLoader@fn_f5d7895e@@QAE@XZ
 StatePropDataLoader::StatePropDataLoader() {
-    a = 0;
-    b = 0x802000a;
-    c = 0;
-    d = 0;
-    vptr = ((hulk_intptr)DAT_0042cca0);
+    refs = 0;
+    id = 0x802000a;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042cca0;
 }
 
 } // namespace fn_f5d7895e

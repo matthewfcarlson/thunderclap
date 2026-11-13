@@ -2,6 +2,7 @@
 // object 0x002aff60..0x002b0f40 (kind game, layer engine, confidence high), dominant class pure3d::ExpressionGroupLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/engine/content.h"
 #include "gen/content.h"
 #include "gen/owners.h"
@@ -18,13 +19,8 @@ namespace fn_fd745641 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game 
 // ---- declarations shared by the functions below
 namespace fn_fd745641 {
 extern "C" char DAT_0042e340[];
-class ExpressionGroupLoader {
+class ExpressionGroupLoader : public HulkChunkHandler {
   public:
-    hulk_intptr vf;
-    int a;
-    int b;
-    int c;
-    int d;
     ExpressionGroupLoader();
 };
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
@@ -201,11 +197,11 @@ typedef unsigned int u32_2b0f20;
 // 0x002aff60 FUN_002aff60 (27 B): matches/0x002aff60.cpp
 // sym: ??0ExpressionGroupLoader@fn_fd745641@@QAE@XZ
 ExpressionGroupLoader::ExpressionGroupLoader() {
-    a = 0;
-    b = 0x21001;
-    c = 0;
-    d = 0;
-    vf = ((hulk_intptr)DAT_0042e340);
+    refs = 0;
+    id = 0x21001;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042e340;
 }
 
 } // namespace fn_fd745641

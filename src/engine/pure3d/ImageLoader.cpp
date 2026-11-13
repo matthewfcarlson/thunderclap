@@ -2,6 +2,7 @@
 // object 0x002c0be0..0x002c0cf0 (kind game, layer engine, confidence medium), dominant class pure3d::ImageLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f2c92ace {
 #define TREE_TU_END }
@@ -18,15 +19,9 @@ typedef unsigned int u32_2c0be0;
 struct Obj_2c0be0 {
     void ReleaseThing_002ae910();
 };
-class ImageLoader {
+// (x64t8) the loader's record (decls/loaders.h HulkImageLoader), shared with the sources that allocate it
+class ImageLoader : public HulkImageLoader {
   public:
-    union { void* v; hulk_uintptr vptr; };
-    int a;
-    int b;
-    int c;
-    int d;
-    union { hulk_intptr e; Obj_2c0be0* mPtr; };
-    int f;
     void Destroy();
 };
 void __cdecl DropThing_0008d330(Obj_2c0be0*);
@@ -54,13 +49,13 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (x64t7) the allocator 
 // 0x002c0be0 FUN_002c0be0 (42 B): matches/0x002c0be0.cpp
 // sym: ?Destroy@ImageLoader@fn_f2c92ace@@QAEXXZ
 void ImageLoader::Destroy() {
-    Obj_2c0be0* p = mPtr;
-    vptr = ((hulk_intptr)DAT_0042eb0c);
+    Obj_2c0be0* p = (Obj_2c0be0*)registry;
+    vftable = (void*)DAT_0042eb0c;
     if (p) {
         p->ReleaseThing_002ae910();
         DropThing_0008d330(p);
     }
-    vptr = ((hulk_intptr)DAT_003f6098);
+    vftable = (void*)DAT_003f6098;
 }
 
 } // namespace fn_f2c92ace
@@ -83,19 +78,19 @@ namespace fn_f2c92ace {
 // 0x002c0c40 FUN_002c0c40 (84 B): matches/0x002c0c40.cpp
 // sym: ?FUN_002c0c40@fn_f2c92ace@@YIPAXPAVImageLoader@1@@Z
 void* __fastcall FUN_002c0c40(ImageLoader* p) {
-    p->a = 0;
-    p->b = 0x19001;
-    p->c = 0;
-    p->d = 0;
-    p->v = (void*)((hulk_intptr)DAT_0042eb0c);
-    p->f = 0x20;
-    Sub_2c0c40* s = (Sub_2c0c40*)FUN_0008d690(HULK_X2(0xa4));   // (x64t7) the image registry (0x002af2d0), natively at HULK_X2
-    hulk_intptr r;
+    p->refs = 0;
+    p->id = 0x19001;
+    p->f0c = 0;
+    p->f10 = 0;
+    p->vftable = (void*)DAT_0042eb0c;
+    p->f18 = 0x20;
+    Sub_2c0c40* s = (Sub_2c0c40*)FUN_0008d690(sizeof(FUN_002af2d0));   // (x64t8) the image registry (0x002af2d0) at its record's size
+    FUN_002af2d0* r;
     if (s)
-        r = (hulk_intptr)s->Init_002af2d0();
+        r = (FUN_002af2d0*)s->Init_002af2d0();
     else
         r = 0;
-    p->e = r;
+    p->registry = r;
     return p;
 }
 

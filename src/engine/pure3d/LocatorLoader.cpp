@@ -2,6 +2,7 @@
 // object 0x002c16f0..0x002c1970 (kind game, layer engine, confidence high), dominant class pure3d::LocatorLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f29c4ef1 {
@@ -99,13 +100,8 @@ class Locator_2c1900 : public Entity_2c1900 {
     Locator_2c1900* vfunc_5(signed char flags);
 };
 extern "C" char DAT_0042ebb0[];
-class LocatorLoader {
+class LocatorLoader : public HulkChunkHandler {
   public:
-    hulk_intptr vptr;
-    int a;
-    int b;
-    int c;
-    int d;
     LocatorLoader();
 };
 
@@ -176,11 +172,11 @@ Locator_2c1900* Locator_2c1900::vfunc_5(signed char flags) {
 // 0x002c1930 FUN_002c1930 (27 B): matches/0x002c1930.cpp
 // sym: ??0LocatorLoader@fn_f29c4ef1@@QAE@XZ
 LocatorLoader::LocatorLoader() {
-    a = 0;
-    b = 0x14000;
-    c = 0;
-    d = 0;
-    vptr = ((hulk_intptr)DAT_0042ebb0);
+    refs = 0;
+    id = 0x14000;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042ebb0;
 }
 
 } // namespace fn_f29c4ef1

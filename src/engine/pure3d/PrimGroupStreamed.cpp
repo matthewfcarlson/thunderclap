@@ -2,6 +2,7 @@
 // object 0x002df4d0..0x002e1610 (kind game, layer engine, confidence high), dominant class pure3d::PrimGroupStreamed
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -191,6 +192,8 @@ class PrimGroupLoader : public FUN_002a3e80 {
     int f0, f1, f2, f3, f4, f5;
     PrimGroupLoader();
 };
+// (x64t8) this view is the words of decls/loaders.h's HulkPrimGroupLoader (the record its creators allocate): sizes checked on every build
+typedef char hulk_rec_2df7f0[sizeof(PrimGroupLoader) == sizeof(HulkPrimGroupLoader) ? 1 : -1];
 class AnimationFrameController {
   public:
     virtual void f0();

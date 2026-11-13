@@ -1,6 +1,8 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002b87d0..0x002bd430 (kind game, layer engine, confidence high), dominant class pure3d::BillboardQuad
 #include "tree_prelude.h"
+#include "compat/ptr.h"
+#include "decls/loaders.h"
 #define TREE_TU_BEGIN namespace fn_f0db0e61 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -37,13 +39,8 @@ struct BillboardQuadGroupLoader {
 HULK_REFCOUNT_PACK_END
 }
 namespace pure3d {
-struct BillboardObjectLoader {
-    void* vftable;
-    int a;   // content::LoadObject's reference count
-    int id;
-    int b;
-    int c;
-    BillboardQuadGroupLoader* group;
+// (x64t8) the loader's record (decls/loaders.h HulkBillboardObjectLoader), shared with 0x00291dc0's allocation
+struct BillboardObjectLoader : HulkBillboardObjectLoader {
     BillboardObjectLoader();
 };
 }
@@ -53,7 +50,12 @@ struct BillboardObjectLoader {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
 // FUN_002bc3d0 @ 0x002bc3d0
 namespace pure3d {
-BillboardObjectLoader::BillboardObjectLoader() : a(0), id(0x17006), b(0), c(0), group(0) {
+BillboardObjectLoader::BillboardObjectLoader() {
+    refs = 0;
+    id = 0x17006;
+    f0c = 0;
+    f10 = 0;
+    group = 0;
     vftable = (void*)DAT_0042e7d4;
     BillboardQuadGroupLoader* quad = (BillboardQuadGroupLoader*)FUN_0008d690(sizeof(BillboardQuadGroupLoader));
     if (quad) {
@@ -61,7 +63,7 @@ BillboardObjectLoader::BillboardObjectLoader() : a(0), id(0x17006), b(0), c(0), 
         quad->vftable = (void*)DAT_0042e7b4;
         ((Ref_2bc3d0*)quad)->AddRef();
     }
-    if (group) ((Ref_2bc3d0*)group)->Release();
+    if (group) ((Ref_2bc3d0*)group)->Release();   // (the record's group is a void*)
     group = quad;
 }
 }

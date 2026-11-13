@@ -2,6 +2,7 @@
 // object 0x00294b00..0x00295c40 (kind game, layer engine, confidence high), dominant class pure3d::TextureFontLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/loaders.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/engine/pure3d.h"
 #include "decls/data/engine/pure3d/prop.h"
@@ -110,13 +111,8 @@ class Other_295250 {
     int Fng_00294ed0(int);
 };
 extern "C" char DAT_0042d1b0[];
-class TextureFontLoader {
+class TextureFontLoader : public HulkChunkHandler {
   public:
-    hulk_intptr a;
-    int m4;
-    int m8;
-    int mc;
-    int m10;
     TextureFontLoader();
 };
 
@@ -836,11 +832,11 @@ namespace fn_f54d8eff {
 // 0x002955c0 FUN_002955c0 (27 B): matches/0x002955c0.cpp
 // sym: ??0TextureFontLoader@fn_f54d8eff@@QAE@XZ
 TextureFontLoader::TextureFontLoader() {
-    m4 = 0;
-    m8 = 0x22000;
-    mc = 0;
-    m10 = 0;
-    this->a = ((hulk_intptr)DAT_0042d1b0);
+    refs = 0;
+    id = 0x22000;
+    f0c = 0;
+    f10 = 0;
+    vftable = (void*)DAT_0042d1b0;
 }
 
 } // namespace fn_f54d8eff
