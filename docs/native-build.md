@@ -4115,3 +4115,72 @@ base constructors `??0CCondition_49480`, ... and placeholder virtuals), 5 new: t
 CCondition, HulkActionLargestCondition, PropMissileCountCondition, CSmartPropAngleCondition and
 CSmartPropCSMableCondition, which the tree defines under stub names; the derived stubs' vftables now name them (renaming
 those blocks binds them, as for Track's shared slots).
+
+## InstanceDrive's record, start-up past the drive layer, the physics world typed, typ1's parked change (x64t10, 2026-11-13)
+
+x64t9's follow-up and the user's D7 / D13 (2026-11-13). Control 78653 (1c5f08c59) and 79241 (832b9a28a), studio,
+private data TUs; native iteration on 78653's clang-probe snapshot and binding map with the working tree's files.
+
+**1. typ1's parked gen/core.h change (acc91c115).** Applied as a patch (DriveRequest's queue link a pointer; the
+word at +0xc of three requests named). At this HEAD it leaves 0x001a9b10's MSVC hash as recorded (edf80f70a210;
+re-run anyway: 3,000 inputs promotable, --wine equivalent), so no hash moved. Proof 79242 seeded from 79241: GATE ok.
+Proofs and an unchanged control rerun at the older base 1c5f08c59 all hung at frame 0 on studio (79145, 79236,
+79239): infrastructure, not the change. Batch 2 then corrected those +0xc words: they are the requests' names
+(0x00275880 / 0x00275930 copy 16 characters, ended at 0x1c; DriveFindFirstRequest's 0x104-byte search path), so
+`char f_0c[...]`, and DriveCreateDirectoryRequest is 0x20 bytes (0x00276860 allocates 32; gen-sizes 16 -> 32).
+
+**2. InstanceDrive on a record (fe26020e9)** (include/decls/instance_drive.h `HulkInstanceDrive`, 0x24 bytes / 0x38 natively):
+the IDrive and IMutable vftables, refs, the drive (`source`), the priority, the requests in flight (`pending`), the
+status (FUN_00272880's word), the find handle and the find flag; gen's core::InstanceDrive declares the same words
+(its +0x18 was a `void*`, the status is an int).
+- 0x00275600 (DriveRequest's constructor) and every drive request's destructor (19 blocks in 18 TUs: the `+ 0x14`
+  decrements, the views with a 0x10 / 0xc pad before the count) take the record: the lock through
+  `&drive->mutableVftable`, the count as `pending`. The two callers that passed the drive as an `int`
+  (0x00275880, 0x00275c80) take `HulkInstanceDrive*`.
+- 0x00277110 (the constructor, CementLibrary.cpp): its local polymorphic view emitted its own vftables natively,
+  whose IMutable slot was a stub (`?m@InstanceDrive@...` missing right after the record fix). It now stores the
+  game's vftables by address (DAT_0042bddc, DAT_0042bdd0) after the IMutable member's own store; MATCH.
+- Member objects as locks: MSVC 7.1 calls `p->sub.A()` through the vftable, clang calls the member's declared class
+  directly (an undefined stub natively). The drive request TUs' lock calls (build/x64t10/scripts/devirt.py) and InstanceDrive's F0 /
+  vfunc_23 / DriveOpenRequest's vfunc_1 now hold the word as `void*` and call `((T*)&p->sub)->A()`.
+- InstanceDrive's own views: vfunc_21 (0x00276cc0) read the count at +0x1c natively (the drive pointer's upper
+  half), so vfunc_22's wait never ended (the hang after the record fix); vfunc_18, vfunc_23 (the status an int,
+  0x00272880 returns int), FindClose's 0x00274940 / 0x002748a0 (find flag, handle, status by name).
+- IDrive's slots 24, 26, 27, 28, 31, 32 take the drive thread's methods' types (callback pointer, signal pointer,
+  `unsigned char` result / argument, the find pair `bool (unsigned*, unsigned*)`): the thunks 0x00276d60.. forwarded
+  them as `int`, which the native link refuses to bind (gen probe ok; MATCH).
+- Every block MATCH with relocations ok or code ok/ok (no equivalent block's code changed).
+- **Where start-up stops now**: past the drive open, the drive thread wait and the drive thunks, in CPlatformManager
+  0x0008e880's controller set-up: 0x00269640 is called with (callback, 0, 0) under a C++ name whose signature the
+  definition (`extern "C"`, two `u32`) does not have, so it is unbound; behind it the definition stores the
+  controller system pointer through a 4-byte `char[4]` item (DAT_00528398) and the constructor 0x00269030 takes the
+  callback as an `int` over a 32-bit view (records.h CoreControllerSystemXBox exists). That needs the item typed
+  (records.h), 0x00269030 on the record (an equivalent block: re-proof) and the callers' declarations.
+
+**3. The physics world typed** (records.h `HulkPhysicsWorld* DAT_00554c14[1]`, forward-declared; data_inventory
+--check reproducible, only the record count moves; the CTargetAction data TU verified). 0x002ef0b0 allocates
+`(HulkPhysicsWorld*)` and builds its parts by member (MATCH). `--x64` of the 26 blocks that read the global:
+layout -> equivalent 0x002eccd0, 0x002ece90, 0x002ef0b0, 0x002ef150, 0x002f4df0; layout -> int (non-gating:
+a pointer-derived argument or a wild 32-bit `this`) 0x002f36c0, 0x002fa7c0, 0x002fa8c0, 0x002faa30; 0x00304530
+layout -> intwidth; the rest unchanged (0x00201f20, 0x0027e4c0 layout for other reasons).
+
+**4. The contact buffer** (0x00304300): `DAT_004d2f80 * sizeof(HulkContact)` and the allocation typed
+`(HulkContact*)`: MSVC and clang 32-bit code unchanged (code ok/ok), `--x64` equivalent (with only the size changed
+it was `layout`: the checker saw `begin + bytes` untyped). Its readers (0x00304370's 68-byte sort, 0x00304500's
+`/ 0x44`) still stride 32-bit contacts natively (docs/tech-debt.md).
+
+**5.** gen owners `State_1eb220::owner` is a `void*` (CGame; managers.h HulkSoundRealTimeManager).
+
+**6. 0x002f4eb0** (sub-agent x64t10-eq, ec01c3faa): equiv.py's `strterm` plants a literal and sets the index
+its terminator store uses; `smasharg` classifies an indexed store into the incoming argument words as a smash (the
+input becomes inconclusive only when the sides differ). 0x002f4eb0 30/30 on MSVC and --wine, --x64 equivalent;
+regress 477 / 478 (the known flaky 0x001fe380_tiny_counts).
+
+| gate | result |
+|---|---|
+| whole tree, batch 2 shipped (79243-79250) | 27,438 blocks: 22,339 MATCH relocs ok, 5,099 code ok |
+| x64 gate (--head a temporary commit) | ok; 4 improved (0x002746c0, 0x00274770, 0x00274840, 0x002ef0b0); 34 drive blocks `unsupported:no32` (the 32-bit run calls through the untyped vftable word: the checker's limit) |
+| Wine proof, task 1 | control 79241, proof 79242: GATE ok |
+| Wine proof, batch 2 (fe26020e9) | control 79242, proof 79267 seeded from it (private data TUs with the records.h change): GATE ok, 0 of 2,002 frames differ; re-checked on dtor1's 7c8b9c9bb: whole tree and the declaration-count TUs ok |
+
+Native unbound (macOS / Linux / Android): control 78653 **14,511 / 14,491 / 14,502**; proof 79267 **14,446 / 14,426 / 14,437** (65 fewer on each; each side's own snapshot and binding map).

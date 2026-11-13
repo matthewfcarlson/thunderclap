@@ -791,3 +791,16 @@ blocks fight::Action's whole family: the records come first there.
   (mostly the fight parameter templates' `template <> ParamX<T>::~ParamX() {}`; the game's are implicit). Per-TU
   `// cl-flags: /GX-` is used where a TU's blocks all match with it; the tree-wide default needs those destructors
   migrated first.
+
+## x64t10 (2026-11-13): InstanceDrive's record, member-object locks, the drive wait
+
+- clang calls a virtual of a member object (`p->sub.A()`, `guard.enter()`) directly, MSVC 7.1 through the vftable:
+  natively the call reaches the view class's undefined stub. Hold such a lock as its vftable word (`void* sub`) and
+  call `((T*)&p->sub)->A()`; the MSVC bytes do not change.
+- A local polymorphic view that constructs a game object (0x00277110) emits its own vftables natively: store the
+  game's by address after the members' own stores (the code still MATCHes).
+- InstanceDrive::vfunc_21 read the request count through a 12-byte pad: natively the drive pointer's upper half, so
+  vfunc_22's wait never ended (a hang with no crash: lldb on our binary with a breakpoint on the sleep's Nth hit gave
+  the caller).
+- Wine proofs at an older base (1c5f08c59) hung at frame 0 on studio after del1's commits whether changed or not
+  (79145, 79236, the unchanged control 79239): rebase the control on the current HEAD.
