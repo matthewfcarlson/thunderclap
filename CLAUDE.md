@@ -39,6 +39,7 @@ python tools/equiv.py src/.../TU.cpp 0xADDR --json   # differential execution; (
 python tools/equiv.py TU.cpp 0xADDR --wine      # the clang object the Wine build runs; tools/x87_order.py checks float order
 python tools/equiv.py TU.cpp 0xADDR --x64 --json   # 64-bit object vs the 32-bit clang object (batches: tools/equiv64.py batch LIST OUT)
 python tools/tree_tu.py check src/.../TU.cpp --relocs   # every function of a TU; `verify . --changed-since origin/main --relocs`
+python tools/tree_tu.py verify . --tus LIST [--head-only]   # + header probe if include/gen changed, data overreach; as a queue job, ship your edits or say --head-only
 python tools/tree_tu.py pin .                    # after an edit that changes a function's symbol
 python tools/tree_tu.py hash TU.cpp --proven MSVC.json WINE.json   # record a re-proven equivalent block's code hashes
 python tools/tree_tu.py materialize --out build/tree   # local Wine-build input (replaces build_tree.py --rounds 16)
@@ -73,6 +74,10 @@ write a hash by hand). A 64-bit fix changes the source, never the
   `verify ... --x64` (or `x64_gate.py check`) before committing source or header changes; only changed blocks run (queue
   past 4). Drop fixed blocks with `--update-baseline`; add one only by `x64_gate.py accept ADDR --why TEXT`. Other
   classes (int, untyped, wild64, ...) are reported, not failing.
+- **Verify jobs ship what they check.** `jobq.py` refuses a `tree_tu.py verify|check` / `x64_gate.py check` job whose
+  TUs, reachable headers or read config files have unshipped local edits; ship them (`--dirty`; `--files config/data.json`,
+  which `--dirty` skips at >8 MB) or pass `--head-only` to check the commit on purpose. `verify` also runs
+  `gen_headers.py --probe` when include/gen/ changed and fails on data overreach (docs/merge-once.md "Checks beyond the blocks").
 - **Stale inputs**: the data TUs (`build/data/src`), `hulk_sdl.lib`, `hulk_movies.lib` and the pddi-win32 objects are local,
   generated inputs; `submit` and the host refuse stale ones (`tools/input_guard.py status` shows what submit would decide).
   A control and its proof take the same inputs (`--data-src` / `--sdl-src` for private copies); `--allow-stale` is not a fix.
