@@ -110,7 +110,7 @@ void FUN_002710d0(void*, int, int, int, int, int, int, int);
 extern "C++" __declspec(nothrow) int __cdecl FUN_00270f10(const char *, void *);
 extern "C" void * __cdecl FUN_00276680(unsigned int);
 struct InstanceDrive_nv_271410 {
-    core::InstanceDrive * FUN_00277110(void *, void *);
+    core::InstanceDrive * FUN_00277110(void *, int);   // (x64t9) the drive source and the priority
 };
 struct Obj_271530 {
     virtual void f0();
@@ -632,13 +632,13 @@ extern "C" void FUN_00271230(Obj_271230* p, int a, int b, int c, int d, int e, i
 
 
 // 0x00271410 FUN_00271410 (281 B): equivalent/0x00271410.cpp
-// sym: ?FUN_00271410@fn_f44852ae@@YAXPAPAVInstanceDrive@core@@PBDPAXH@Z @d46f18d0ffa5 @w4b7f42f9bd11
+// sym: ?FUN_00271410@fn_f44852ae@@YAXPAPAVInstanceDrive@core@@PBDHH@Z @d46f18d0ffa5 @w4b7f42f9bd11
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 16/16)
 // FUN_00271410 @ 0x00271410
 // the drive registry (records.h CoreDriveRegistryEntry): the entry's drive
 // (x64t9) The original passes four words (0x00271530 pushes its own four); the fourth is unused. One declaration with
 // the definition's types, so the native link binds 0x00271530's call (it called a 4-int overload: unbound natively).
-void __cdecl FUN_00271410(core::InstanceDrive **result, const char *name, void *argument, int)
+void __cdecl FUN_00271410(core::InstanceDrive **result, const char *name, int priority, int)
 {
     char buffer[20];
     strncpy(buffer, name, 16);
@@ -662,7 +662,7 @@ void __cdecl FUN_00271410(core::InstanceDrive **result, const char *name, void *
     if (entry) {
         core::InstanceDrive *object = (core::InstanceDrive *)FUN_00276680(0x24);
         if (object)
-            object = ((InstanceDrive_nv_271410*)(((core::InstanceDrive*)(object))))->FUN_00277110(*entry, argument);
+            object = ((InstanceDrive_nv_271410*)(((core::InstanceDrive*)(object))))->FUN_00277110(*entry, priority);
         *result = object;
     } else {
         *result = 0;
@@ -675,7 +675,7 @@ void __cdecl FUN_00271410(core::InstanceDrive **result, const char *name, void *
 // sym: _FUN_00271530
 // (x64t9) the name is a string (the callers pass "U:" / the config path), as FUN_00271410 takes it
 extern "C" void __cdecl FUN_00271530(A_271530* a, const char* b, int c, int d) {
-    FUN_00271410((core::InstanceDrive**)a, b, (void*)(hulk_intptr)c, d);
+    FUN_00271410((core::InstanceDrive**)a, b, c, d);
     if (a->p)
         a->p->f22();
 }

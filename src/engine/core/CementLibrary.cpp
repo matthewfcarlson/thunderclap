@@ -260,7 +260,7 @@ struct State_277c40 : CoreFileView {
 } // namespace fn_f6ff0ab7
 
 // 0x00277110 FUN_00277110 (114 B): matches/0x00277110.cpp [wrapped: conflict: core::IMutable; core::InstanceDrive]
-// sym: ??0InstanceDrive@core@fn_00277110@@QAE@PAUSource_277110@2@PAUContext@2@@Z
+// sym: ??0InstanceDrive@core@fn_00277110@@QAE@PAUSource_277110@2@H@Z
 namespace fn_00277110 {
 namespace core {
 struct IMutable {
@@ -268,13 +268,14 @@ struct IMutable {
 };
 struct InstanceDrive;
 } // namespace core
+// (x64t9) the drive's queue: 0x00272b60 takes the request, its priority and the to-the-front flag (0x00272fc0) and
+// returns the semaphore release's result; the second constructor argument is that priority (0x00271530's callers
+// pass 1), not a pointer
 struct Source_277110 {
     virtual void first();
-    void FUN_00272b60(void*, void*, int);
+    int FUN_00272b60(void*, int, int);
 };
-struct Context {
-    void FUN_002705f0();
-};
+extern "C" int* __cdecl FUN_002705f0();   // (a free function returning a global's address: it ignores ecx)
 struct DriveOpenRequest_277110 {
     void* FUN_002756c0(core::InstanceDrive*);
 };
@@ -286,25 +287,25 @@ struct Primary_277110 {
 struct InstanceDrive : Primary_277110, IMutable {
     int refs;
     Source_277110* source;
-    Context* context;
+    int priority;
     int state;
     char pad[8];
     char flag;
     virtual void p();
     virtual void m();
-    InstanceDrive(Source_277110*, Context*);
+    InstanceDrive(Source_277110*, int);
 };
-InstanceDrive::InstanceDrive(Source_277110* s, Context* c) {
+InstanceDrive::InstanceDrive(Source_277110* s, int c) {
     refs = 1;
     source = s;
-    context = c;
+    priority = c;
     state = 0;
     flag = 0;
-    c->FUN_002705f0();
+    FUN_002705f0();
     source->first();
     DriveOpenRequest_277110* h = (DriveOpenRequest_277110*)FUN_00273560(12);
     void* result = h ? h->FUN_002756c0(this) : 0;
-    source->FUN_00272b60(result, context, 0);
+    source->FUN_00272b60(result, priority, 0);
 }
 } // namespace core
 } // namespace fn_00277110

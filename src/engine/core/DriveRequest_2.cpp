@@ -22,7 +22,7 @@ class Obj_275600 {
   public:
     virtual void A();
 };
-extern void FUN_002705f0();
+extern "C" int* __cdecl FUN_002705f0();   // (x64t9) returns a global's address (0x002705f0: `mov eax, imm; ret`)
 struct DriveRequest_275600 {
     void* vf;
     int p4;
@@ -56,13 +56,14 @@ struct DriveRequest {
 };
 }
 extern "C" char DAT_0042bb60[];
+// (x64t9) built on the InstanceDrive it opens (0x00277110 passes `this`): the base constructor 0x00275600 takes it
+// and returns `this`, as the constructor it is
 class DriveOpenRequest {
   public:
     hulk_intptr vptr;
-    void Init_00275600(int);
-    DriveOpenRequest(hulk_intptr);
+    void* Init_00275600(Obj_275600*);
+    DriveOpenRequest(Obj_275600*);
 };
-extern void __stdcall Finish_002705f0();
 
 
 // 0x00275600 FUN_00275600 (80 B): matches/0x00275600.cpp
@@ -101,11 +102,11 @@ core::DriveRequest* core::DriveRequest::vfunc_0(byte_275650 flag) {
 
 
 // 0x002756c0 FUN_002756c0 (30 B): matches/0x002756c0.cpp
-// sym: ??0DriveOpenRequest@fn_f57d136c@@QAE@H@Z
-DriveOpenRequest::DriveOpenRequest(hulk_intptr a) {
+// sym: ??0DriveOpenRequest@fn_f57d136c@@QAE@PAVObj_275600@1@@Z
+DriveOpenRequest::DriveOpenRequest(Obj_275600* a) {
     Init_00275600(a);
     vptr = ((hulk_intptr)DAT_0042bb60);
-    Finish_002705f0();
+    FUN_002705f0();
 }
 
 } // namespace fn_f57d136c

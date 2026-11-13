@@ -3798,3 +3798,76 @@ What each (b) did natively before: FUN_0024c1c0 / 0024c200 walked six 24-byte fo
 noise initializer wrote 14 KB through a struct overlaid on a 1 KB item and the noise functions indexed a 4-byte
 permutation item; FUN_001f5c20 cleared and counted 48 bytes past a 28-byte item; FUN_000464c0 walked three
 "pointers" whose item was a 4-byte string (the words' bytes read as text); FUN_002722b0 read a word from a 2-byte item.
+
+## The last size stopgaps on records, start-up past the physics loaders and the drive open, PathAction's evaluation order (x64t9, 2026-11-13)
+
+x64t8's follow-up. Three parts went to sub-agents (x64t9-pw, x64t9-mgr, x64t9-spe) whose edits were gated and proven
+together with this agent's.
+
+**The stopgaps are gone** (user rule 11-12; docs/tech-debt.md keeps only the views that still lie at 32-bit offsets).
+- `HULK_X2_88020` -> include/decls/managers.h: one record per manager CGame's set-up 0x00088020 allocates (18), the words
+  each constructor writes, pointer words as pointers (evidence per record in the header: the constructors' stores, the
+  set-up calls 0x00088020 makes on each, the managers' other views, gen classes). Each constructor's view checks
+  `HULK_MGR_SAME(view, record)` on every build; `HULK_MGR_SIZE32` pins the XBE's sizes. CUnlockablesManager's clear is
+  `sizeof(items)` (natively it cleared half of its 0x2fe pointers).
+- `HULK_PW` -> include/decls/physics_world.h: `HulkBodyPool` (0x6c), `HulkCollisionDetector` (0x40), `HulkCollisionSolver`
+  (0x100, with `HulkSolverState`, `HulkContact`, `HulkSymMatrix`), `HulkContactBuffer` (0x10; the world's word at 0x1c0 is
+  its own: 0x00300c90's detector follows the buffer at +0x10) and `HulkPhysicsWorld` (0x1c4; natively 0x298). Views take
+  `HULK_WORLD_AT` / `HULK_SOLVER_AT` or derive from the records; 0x002ef0b0 allocates `sizeof(HulkPhysicsWorld)`.
+  0x002f8d70's contact (11 `unsigned` words) and 0x00304350's clear (`int` begin / end) kept pointers whole only now.
+- SpriteParticleEmitter (x64t8's open item): include/decls/particle_emitter.h, `HulkSpriteParticleEmitter` (0x1e0,
+  natively 0x240) and `HulkEmitterState` (0x114 at 0xa8), `HULK_SPE(k)` / `HULK_EST(k)`; every view in the emitter, renderer,
+  updater and particle-loader TUs at the record's native offsets; gen's class completed to 0x1e0 (gen-sizes 460 -> 480).
+  Two native heap overruns went with it: 0x002ab8e0 sized the blend-state list `count * 4` for 8-byte pointers, and
+  0x002ac610's live-list fill read 8 bytes from a 4-byte local.
+
+**Start-up** (macOS, each iteration a snapshot of the tree plus the batch, compiled on the queue, linked locally):
+- 0x002f5130 (physics' loader registration): ExportInfoLoader as `HulkChunkHandler`'s words with the game's vftable stored
+  by address (its local `novtable` class had no native slot 0); the five loaders allocated at the record's size (were
+  0x14: 4 bytes short natively).
+- 0x00271530 / 0x00271410 (CPlatformManager 0x0008e880's `thunk_FUN_00271530`): one declaration of 0x00271410 with the four
+  words the original passes, the name a `const char*`, the third word the drive's priority (an `int`: the callers pass 1).
+- 0x00277110 (InstanceDrive's constructor) and 0x002756c0 (DriveOpenRequest's): the constructor's second argument is that
+  priority (was a `Context*` whose `FUN_002705f0` member was really the free 0x002705f0, which returns a global's
+  address); 0x00272b60 is called as it is defined (request, priority, flag; returns int); DriveOpenRequest takes the
+  InstanceDrive it opens and calls the base constructor 0x00275600 as the constructor it is (returns `this`).
+- **Where it stops now**: 0x00275600 (DriveRequest's constructor) +0x58, reading the InstanceDrive through 32-bit byte
+  offsets (`(char*)p8 + 4` for the IMutable base, `+ 0x14` for the pending count). InstanceDrive needs a record (its
+  words as 0x00277110 writes them: two vftables, the count, the source, the priority, the state, a flag) shared by
+  CementLibrary.cpp and DriveRequest_2.cpp (and the other Drive*Request TUs that call 0x00275600 with an `int`).
+
+**PathAction 0x0011e4a0** (user: investigate first). x64t8's rewrite (six ids' high words named as interior to their
+8-byte items) failed `--wine` at input 474, and so did HEAD's source: `call #12 to 0x001fc8c0: this is 0x400309ac,
+expected 0x2d`. Root cause: a source bug, not the checker. `e0->FUN_001fc8c0(FUN_0027b020(pt))`: MSVC 7.1 evaluates the
+argument first and loads `this->e0` after the call (`call FUN_0027b020; mov ecx, [esi+0xe0]`); clang follows C++17
+sequencing and loads `e0` before the call. The checker treats the opaque callee as able to change `e0` (the directed
+input does), so the two passed different `this`. x64eq's `argpop` (717b73606) is not involved. The four sites compute the
+id first. Re-proved: MSVC 3,337, `--wine` 3,256 promotable, `--x64` equivalent (before: equivalent).
+
+**ExportInfoLoader::vfunc_5 0x002f4eb0** (`--wine` failure): a checker gap. MSVC 7.1 inlines `memcmp` (`repe cmpsb`); clang
+calls it, and `_memcmp` was no intrinsic, so the call paired by position with Reader::FUN_002669f0 (`free_decl_of_thiscall`).
+equiv.py now runs it semantically (ca7333dac). Its branch coverage stays 22/30 on both sides: the unit-name compares need
+the stub-filled name to hold the literal and the length byte to put the terminator after it, two fills directed inputs
+do not combine. Not promotable; its hash is unchanged.
+
+**0x002656b0's gate entry** (the lead's question): a checker issue. equiv64 typed every allocation of one callee by the
+body's first cast of it, so the registry's 256-byte `char*` buffer was read as the request ring's `HulkLoadEntry` array.
+Each call site now keeps its own cast (a703544e0, `sitecasts`); the baseline entry is gone (what is left is `fail:int`, a
+fuzzed count's wrap).
+
+| gate | result |
+|---|---|
+| tree_tu check --relocs, every edited TU and the new headers' includers (sub-agents: gen/pure3d.h's 1,727 includers on the queue with the edits shipped) | every match MATCH relocs ok; equivalents code ok/ok or re-proven (`hash --proven`): 0x002f5130, 0x0011e4a0, 0x00271410, 0x002d4200; 0x00088020 re-run, hash unchanged |
+| x64 gate, batch 1 (39 TUs, 110 changed blocks) / batch 2 (3 TUs, 5) | ok / ok; 4 improved dropped from the baseline (0x002ac610, 0x002d4610, 0x002d63f0, 0x002ef050) |
+| `--x64` before / after (touched blocks) | 0x002f5130 fail (registry `this` wildptr) / fail (the allocation `sizeof`, by design); 0x0011e4a0 equivalent / equivalent; 0x00271410 crash64/ptr32 / the same (the drive registry's 32-bit entries); 0x00277110, 0x002756c0, 0x00271530 equivalent / equivalent; sub-agents' lists in their hand-backs (no block newly in a gating class) |
+| Wine proof, batch 1 (4eacc053c) | control 77249 (1fe761b48), proof 77252 seed:77249: GATE ok, 0 of 2,017 frames differ |
+| Wine proof, batch 2 | control 78224 (a703544e0), proof 78352 seed:78224: GATE ok, 0 of 2,010 frames differ |
+
+Native unbound (each side's own snapshot and binding map, compiled and linked on the queue): control 77249
+**14,613 / 14,593 / 14,604** (macOS / Linux / Android) -> proof 77252 **14,602 / 14,582 / 14,593**.
+
+Follow-ups: InstanceDrive's record (above); the views listed in docs/tech-debt.md; the contact array (0x00304300,
+`DAT_004d2f80 * 0x44` for a 0x58-byte native contact); typing `DAT_00554c14` as `HulkPhysicsWorld*` would let `--x64` map
+the eleven physics `layout` blocks that reach the world through it; gen's `owners::State_1eb220` still holds CGame as
+`unsigned int` (unused now); 0x002d5cb0 (vfunc_15) fails `--x64` since gen's `f_84` (the allocator) is a raw
+`hulk_uintptr` to the checker.
