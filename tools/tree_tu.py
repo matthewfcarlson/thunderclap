@@ -12,6 +12,7 @@ per-function source and check that function inside the TU's object:
   build/venv/bin/python tools/tree_tu.py blocks TU.cpp             # the functions of a TU: address, kind, mode, symbol
   build/venv/bin/python tools/tree_tu.py check TU.cpp [--relocs] [--equiv N] [--json]   # every function of one TU
   build/venv/bin/python tools/tree_tu.py verify ROOT [--changed-since REF | --tus FILE] [--jobs N] [--out OUT.jsonl] [--x64]
+  build/venv/bin/python tools/tree_tu.py inputs ROOT [--changed-since REF | --tus FILE]   # verify's `inputs`, locally
   build/venv/bin/python tools/tree_tu.py pin ROOT [--report report.json]   # write `// sym:` lines (see below)
   build/venv/bin/python tools/tree_tu.py hash TU.cpp --proven MSVC.json WINE.json   # record re-proven code hashes
 
@@ -735,6 +736,36 @@ def failing(counts):
                and not k.endswith((" match", " compiled", ": same")))
 
 
+def inputs_digest(paths):
+    """What a verify of PATHS read, by content and independent of where the tree lies (checkout, build/tree, a queue
+    job's workspace): `tus`, sha1 over each TU's path relative to its tree root and its text; `headers`, sha1 over every
+    .h a compile can reach by /I (the tree's include/, then the repo's include/: one path relative to include/ each,
+    the first directory's copy winning, as the compile's search order). A queue job runs on `git archive HEAD` plus its
+    overlay files, so a pass there covers uncommitted edits only when they were shipped (`--files`/`--dirty`):
+    `tree_tu.py inputs` gives the same two values for the local files, without compiling (hash3: 28 verify jobs passed
+    a header change that their workspaces never held)."""
+    th = hashlib.sha1(b"tus1\0")
+    roots = set()
+    for p in sorted(paths, key=lambda p_: os.path.relpath(p_, find_root(p_) or ROOT)):
+        r = find_root(p) or ROOT
+        roots.add(r)
+        th.update(os.path.relpath(p, r).replace(os.sep, "/").encode() + b"\0")
+        with open(p, "rb") as f:
+            th.update(hashlib.sha1(f.read()).digest())
+    files = {}
+    for inc in [os.path.join(r, "include") for r in sorted(roots)] + [os.path.join(ROOT, "include")]:
+        for dp, dns, fns in os.walk(inc):
+            for fn in fns:
+                if fn.endswith(".h"):
+                    q = os.path.join(dp, fn)
+                    files.setdefault(os.path.relpath(q, inc).replace(os.sep, "/"), q)
+    hh = hashlib.sha1(b"headers1\0")
+    for rel in sorted(files):
+        with open(files[rel], "rb") as f:
+            hh.update(rel.encode() + b"\0" + hashlib.sha1(f.read()).digest())
+    return {"tus": th.hexdigest()[:16], "headers": hh.hexdigest()[:16]}
+
+
 def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True, ref=None):
     """Check every block of PATHS (cached); returns the summary. OUT: one JSON record per function. WINE: the clang
     code hashes too. REF (a git ref): a block that had a code hash there and has none now is a failure."""
@@ -769,7 +800,7 @@ def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True
     if f:
         f.close()
     return {"tus": len(paths), "cache_hits": hits, "counts": dict(sorted(counts.items())), "errors": errors[:20],
-            "n_errors": len(errors)}
+            "n_errors": len(errors), "inputs": inputs_digest(paths)}
 
 
 # ------------------------------------------------------------------------------------------------------- materialize
@@ -1140,6 +1171,11 @@ def main(argv=None):
     p.add_argument("--no-wine-code", action="store_true", help="skip the clang code hashes (no clang here)")
     p.add_argument("--x64", action="store_true", help="then the 64-bit gate (tools/x64_gate.py) over the blocks whose "
                    "code changed since --changed-since (default HEAD): a block newly in layout/ptrtrunc/crash64 fails")
+    p = sub.add_parser("inputs", help="verify's `inputs` digests of the local files (no compile): compare with a "
+                       "queue job's verify summary to see that it checked these files")
+    p.add_argument("root")
+    p.add_argument("--changed-since", metavar="REF")
+    p.add_argument("--tus", metavar="FILE", help="TU paths, one per line")
     p = sub.add_parser("pin")
     p.add_argument("root")
     p.add_argument("--records", metavar="JSONL", help="records of `verify --out` (default: check every TU)")
@@ -1236,7 +1272,7 @@ def main(argv=None):
                                                             code, "PIN MISSING " if r.get("pin_missing") else "",
                                                             r.get("how") or "", r.get("symbol") or ""))
         return 1 if bad else 0
-    if a.cmd == "verify":
+    if a.cmd in ("verify", "inputs"):
         root = os.path.abspath(a.root)
         if a.tus:
             paths = [os.path.abspath(os.path.join(root, l.strip())) if not os.path.isabs(l.strip()) else l.strip()
@@ -1245,6 +1281,9 @@ def main(argv=None):
             paths = changed_tus(root, a.changed_since)
         else:
             paths = tree_tus(root)
+        if a.cmd == "inputs":
+            print(json.dumps({"tus": len(paths), "inputs": inputs_digest(paths)}, indent=1))
+            return 0
         s = verify(paths, jobs=a.jobs, relocs=a.relocs, out=a.out, vs_standalone=a.vs_standalone,
                    wine=not a.no_wine_code, ref=a.changed_since)
         x64_failed = False

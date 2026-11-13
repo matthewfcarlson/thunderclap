@@ -176,6 +176,19 @@ in later by a one-off `hash --init` from such records: dynamic_initializers.cpp 
 2026-11-12; 122 of their 127 blocks re-proved at 3,000 + --wine 600, the other five's code unchanged since 6a71f9a03).
 The list and `--init` were then removed: every equivalent block has its hashes, and `unhashed` is a failure everywhere.
 
+**Header edits that change MSVC code (hash3, 2026-11-13).** A hash is a pure function of the TU's preprocessed text:
+the same files give the same object on every host, layout (checkout, build/tree, a job workspace) and path, so
+`verify` and the Wine build's `materialize` (one function, `verify()`) agree on the same files. But MSVC 7.1's output
+for a few functions depends on the *number* of symbols declared before them in the TU, not on what they are: three
+`extern int` lines anywhere before 0x001a9b10 swap two independent spill reloads at a join (`mov ebp, [esp+1c]` /
+`mov esi, [esp+30]`); names, name lengths, macros, comments, paths, the environment and declarations after the function
+change nothing. So any header that adds or removes a declaration (records.h, gen/*.h, decls/*.h) can flip such a block
+between two codegen variants, and its `@hash` reports `changed` until re-proved (an MSVC run; its clang code doesn't
+move, so `@w` stands). A sweep of every TU (N = 1..32 dummy declarations, build/hash3) lists the blocks that do this;
+no `matches` block flipped. `verify` prints `inputs` (content digests of the TUs and of every header the compiles can
+reach); `tree_tu.py inputs ROOT [--tus FILE]` gives the same locally, so a queue job's pass can be tied to the files
+it checked: a job is `git archive HEAD` plus its overlay, and a verify job without `--files`/`--dirty` checks HEAD.
+
 ### Wrapped and isolated functions
 
 They stay as they are in the committed tree (wrapped: the original source verbatim in `namespace fn_<addr> { }`;

@@ -70,6 +70,8 @@ Macs), so the jobs share its compilers, venv and caches. Consequences:
 
 - Committed `tools/` and `include/` are what runs. For uncommitted files pass `--files` (or `--dirty`: every modified or
   untracked file under `tools include tests config src`; `jobq_equiv.py` and `regress.py --jobq` do this by default).
+  A `tree_tu.py verify` job without them checks HEAD, and passes whatever your edit does (hash3: 28 such jobs
+  "passed" a header change they never saw). Compare the summary's `inputs` with `tree_tu.py inputs . --tus LIST` locally.
 - `matches/` and `equivalent/` on the Macs are whatever was last synced there, not your working tree.
 - `src/` ships in the base tree (bink2, 2026-11-09). Before that it was a symlink to the host's checkout, which is a
   one-time `git archive` snapshot from the host's onboarding: mac2 and mac1 (onboarded before `jobq_host_setup.sh`
