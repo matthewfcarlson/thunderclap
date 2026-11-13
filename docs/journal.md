@@ -727,3 +727,11 @@ blocks fight::Action's whole family: the records come first there.
   0x004cc254) is a native bug, not a spelling choice: the scan reports every such pin's users.
 - Words whose bytes read as text hide pointer tables (0x0048f6d0 was a 4-byte "string"); its neighbours 0x0048f6a4
   (last word), 0x0048f6b4 (`int[6]`), 0x0048f6cc and 0x0048f6e0 hold string addresses as integers too (left: data_ptrs).
+
+## 2026-11-13 x64t9: evaluation order in `p->f(g(x))`, memcmp, per-site casts
+- MSVC 7.1 evaluates a member call's arguments before loading the object expression; clang (C++17) loads the object
+  first. `e0->FUN_001fc8c0(FUN_0027b020(pt))` (PathAction 0x0011e4a0) therefore read `this->e0` on the other side of an
+  opaque call: the --wine failure at input 474. Where the object is a member load and an argument is a call, write the
+  argument into a local first (the original's order).
+- equiv.py: `memcmp` runs as an intrinsic (MSVC inlines it; clang calls it). equiv64: one allocator cast to two types in
+  one body types each allocation by its own call site (0x002656b0's false layout entry).
