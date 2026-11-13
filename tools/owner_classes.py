@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Owner classes: include/gen/owners.h classes for the non-polymorphic classes RTTI never names (x64-10, name
+"""RETIRED (gen1, 2026-11-13): include/gen/ is hand-maintained source, so this tool, which fed the header
+generator's inputs (include/gen/evidence*.json) or rewrote matches/ onto the generated headers, refuses to run.
+Edit the headers and the blocks in src/ by hand (docs/headers.md). Kept for reference; its module-level
+helpers still import.
+
+Owner classes: include/gen/owners.h classes for the non-polymorphic classes RTTI never names (x64-10, name
 unification batch 5; docs/consolidation-plan.md section 11).
 
 A member call on a source's own stub (`t->Set(name)` on `Target_27b040`) reaches its definition, a member of the
@@ -437,6 +442,8 @@ def cmd_plan(a):
 
 
 def main(argv=None):
+    sys.exit("tools/owner_classes.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+             "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("plan")

@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Rewrite the sources' references to include/gen/ fields renamed by include/gen/evidence-names.json (clean1).
+"""RETIRED (gen1, 2026-11-13): include/gen/ is hand-maintained source, so this tool, which fed the header
+generator's inputs (include/gen/evidence*.json) or rewrote matches/ onto the generated headers, refuses to run.
+Edit the headers and the blocks in src/ by hand (docs/headers.md). Kept for reference; its module-level
+helpers still import.
+
+Rewrite the sources' references to include/gen/ fields renamed by include/gen/evidence-names.json (clean1).
 
 tools/gen_headers.py names a field from include/gen/evidence-names.json instead of f_<offset>. Every source that
 uses the field must then say the new name. A token `f_10` means a different field in each class, so this resolves
@@ -133,6 +138,8 @@ def apply_edits(text, edits):
 
 
 def main():
+    sys.exit("tools/rename_fields.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+             "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("files", nargs="*")
     ap.add_argument("--names", default=os.path.join(ROOT, "include/gen/evidence-names.json"))

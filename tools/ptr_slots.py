@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Pointer-sized parameters and returns of include/gen/ virtual slots (x64-5; docs/native-mac.md section 3).
+"""RETIRED (gen1, 2026-11-13): include/gen/ is hand-maintained source, so this tool, which fed the header
+generator's inputs (include/gen/evidence*.json) or rewrote matches/ onto the generated headers, refuses to run.
+Edit the headers and the blocks in src/ by hand (docs/headers.md). Kept for reference; its module-level
+helpers still import.
+
+Pointer-sized parameters and returns of include/gen/ virtual slots (x64-5; docs/native-mac.md section 3).
 
   build/venv/bin/python tools/ptr1.py fix @files --out FIX.json            # (no --write) the per-source demands
   build/venv/bin/python tools/ptr_slots.py plan FIX.json --out PLAN.json   # slots, new signatures, sources to edit
@@ -324,6 +329,8 @@ def check(a):
 
 
 def main():
+    sys.exit("tools/ptr_slots.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+             "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("plan")

@@ -1,10 +1,14 @@
-"""Tests for tools/gen_headers.py. Name helpers need nothing; the regeneration check needs
-build/rtti.json, build/functions.csv and the XBE, and skips without them."""
-import filecmp, os, sys, tempfile, unittest
+"""Tests for tools/gen_headers.py, the layout checker of include/gen/ (hand-maintained source since gen1).
+Name helpers and the constructor scan need nothing; the model needs build/rtti.json, build/functions.csv and the
+XBE; the probe also needs MSVC 7.1 under wibo. Each skips without its inputs."""
+import os, sys, tempfile, unittest
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "tools"))
 import gen_headers as gh
 
 ROOT = gh.ROOT
+HAVE_MODEL = all(os.path.exists(os.path.join(ROOT, p)) for p in
+                 ("build/rtti.json", "build/functions.csv", "isos/extracted/default.xbe"))
+HAVE_CL = os.path.exists(gh.WIBO) and os.path.exists(os.path.join(gh.MSVC, "Bin/cl.exe"))
 
 
 class Names(unittest.TestCase):
@@ -29,33 +33,82 @@ class Names(unittest.TestCase):
         self.assertEqual(gh.mangled_num("3", 0), (4, 1))
         self.assertEqual(gh.mangled_num("LM@", 0), (0xBC, 3))
 
-    def test_fields(self):
-        self.assertEqual(gh.decl_field("int", "f_04"), "int f_04")
-        self.assertEqual(gh.decl_field("char[0x10]", "f_08"), "char f_08[0x10]")
-        self.assertEqual(gh.decl_field(("T1 (T0::*%s)()", 4), "f_1c"), "T1 (T0::*f_1c)()")
-        self.assertEqual(gh.type_size("short[3]"), 6)
+
+class DeclaredCtors(unittest.TestCase):
+    TEXT = """namespace fight {
+class Track;
+} // namespace fight
+namespace fight {
+// .?AVTrack@fight@@
+HULK_REFCOUNT_PACK
+class Track : public ::fight::Param {
+public:
+    Track(); // (unb5) out of line
+    virtual ~Track() throw(); // overrides fight::Param slot 5
+    void* f_08;
+};
+template <class T0>
+class TrackFactoryTemplate : public ::fight::TrackFactory {
+public:
+    TrackFactoryTemplate(int a);
+};
+} // namespace fight
+namespace hulkfight { namespace ai {
+class Plan {
+public:
+    explicit Plan(int a = 0, void* b);
+    int Plan_count;
+};
+}} // namespace hulkfight::ai
+class Outer::Inner : public ::Base {
+public:
+    Inner(const char*);
+};
+class Free {
+public:
+    Free() {}
+};
+"""
+
+    def test_scan(self):
+        self.assertEqual(gh.declared_ctors(self.TEXT), {
+            "fight::Track": [[]],
+            "hulkfight::ai::Plan": [["int a", "void* b"]],
+            "Outer::Inner": [["const char*"]],
+        })
 
 
-@unittest.skipUnless(all(os.path.exists(os.path.join(ROOT, p)) for p in
-                         ("build/rtti.json", "build/functions.csv", "isos/extracted/default.xbe")),
-                     "needs build/rtti.json, build/functions.csv and the XBE")
-class Regenerate(unittest.TestCase):
-    def test_committed_headers_are_current(self):
-        ev = gh.json.load(open(gh.EVIDENCE_PATH)) if os.path.exists(gh.EVIDENCE_PATH) else {}
-        g = gh.Gen(ev)
-        with tempfile.TemporaryDirectory() as d:
-            headers = g.generate(d, None)
-            self.assertIn("pure3d", headers)
-            self.assertEqual(len(g.index), len(g.classes))
-            names = sorted(f for f in os.listdir(d) if f.endswith(".h"))
-            self.assertEqual(names, sorted(f for f in os.listdir(gh.OUT_DIR) if f.endswith(".h")))
-            _, mismatch, errors = filecmp.cmpfiles(d, gh.OUT_DIR, names, shallow=False)
-            self.assertEqual(mismatch + errors, [], "include/gen is stale: rerun tools/gen_headers.py")
-        # NonCopyable: AddRef/Release overrides, destructor in slot 2, proven refcount at +4
-        e = g.index["pure3d::NonCopyable"]
-        self.assertEqual(e["size"], 8)
-        self.assertEqual([s[:2] for s in e["slots"]["0"]], [["core::IRefCount", 0], ["core::IRefCount", 1], ["core::IRefCount", 2]])
-        self.assertIn(("core::IRefCount", 2), g.dtor)
+@unittest.skipUnless(HAVE_MODEL, "needs build/rtti.json, build/functions.csv and the XBE")
+class ModelFacts(unittest.TestCase):
+    def test_noncopyable(self):
+        m = gh.Model()
+        idx = m.index()
+        self.assertEqual(len(idx), len(m.classes))
+        e = idx["pure3d::NonCopyable"]
+        self.assertEqual(e["header"], "pure3d.h")
+        self.assertEqual(e["cpp"], "::pure3d::NonCopyable")
+        # AddRef/Release overrides, the destructor in slot 2 (declared by every class: its own implementer)
+        self.assertEqual([s[:2] for s in e["slots"]["0"]],
+                         [["core::IRefCount", 0], ["core::IRefCount", 1], ["core::IRefCount", 2]])
+        self.assertEqual(e["slots"]["0"][2][2], "pure3d::NonCopyable")
+        self.assertIn(("core::IRefCount", 2), m.dtor)
+
+
+@unittest.skipUnless(HAVE_MODEL and HAVE_CL, "needs the model inputs and MSVC 7.1 under wibo")
+class Probe(unittest.TestCase):
+    def test_headers_check(self):
+        """Every header compiles; every class's vftables, slots, base descriptors and recorded size hold."""
+        total, problems, _, _ = gh.probe()
+        self.assertEqual(problems, [])
+        self.assertEqual(total["headers"], total["headers_ok"])
+        self.assertEqual(total["classes"], total["classes_ok"])
+        self.assertGreater(total["sizes_ok"], 4000)
+
+    def test_size_change_is_reported(self):
+        """A recorded size the headers no longer have is a problem (the ratchet for 32-bit layouts)."""
+        sizes = dict(gh.load_sizes(), **{"pure3d::NonCopyable": 12})
+        total, problems, _, _ = gh.probe(["pure3d"], sizes=sizes)
+        self.assertTrue(any(p.startswith("pure3d::NonCopyable: sizeof 8, recorded 12") for p in problems), problems)
 
 
 if __name__ == "__main__":

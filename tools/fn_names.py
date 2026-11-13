@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Function names from evidence (clean2): writes include/gen/evidence-fnames.json, which tools/name_unify.py rename
+"""RETIRED (gen1, 2026-11-13): include/gen/ is hand-maintained source, so this tool, which fed the header
+generator's inputs (include/gen/evidence*.json) or rewrote matches/ onto the generated headers, refuses to run.
+Edit the headers and the blocks in src/ by hand (docs/headers.md). Kept for reference; its module-level
+helpers still import.
+
+Function names from evidence (clean2): writes include/gen/evidence-fnames.json, which tools/name_unify.py rename
 applies (the definition and every `FUN_<addr>` reference take the name).
 
 Every name follows the suffix convention (tools/addr_names.py, docs/consolidation-plan.md section 13): a meaningful
@@ -103,6 +108,8 @@ def cmd_params(a):
 
 
 def main(argv=None):
+    sys.exit("tools/fn_names.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+             "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("params")

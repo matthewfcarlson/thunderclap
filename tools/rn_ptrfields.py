@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""include/gen/ fields that hold pointers in a 4-byte integer (docs/native-mac.md: `*(T**)&this->f_20`).
+"""RETIRED (gen1, 2026-11-13): include/gen/ is hand-maintained source, so this tool, which fed the header
+generator's inputs (include/gen/evidence*.json) or rewrote matches/ onto the generated headers, refuses to run.
+Edit the headers and the blocks in src/ by hand (docs/headers.md). Kept for reference; its module-level
+helpers still import.
+
+include/gen/ fields that hold pointers in a 4-byte integer (docs/native-mac.md: `*(T**)&this->f_20`).
 
   build/venv/bin/python tools/ptr_fields.py scan --out F.jsonl && build/venv/bin/python tools/ptr_fields.py summary F.jsonl
                                                        # (x64-3's scan; its summary is build/x64-3/ptr-fields.json)
@@ -25,6 +30,8 @@ EVIDENCE = os.path.join(ROOT, "include/gen/evidence-rn.json")
 
 
 def main(argv=None):
+    sys.exit("tools/rn_ptrfields.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+             "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("summary", help="tools/ptr_fields.py summary output (JSON list)")
     ap.add_argument("--apply", action="store_true")

@@ -13,7 +13,7 @@ pointer width) of `&field`, where field is an integer of 4 bytes. Per field it r
 candidate for `hulk_intptr` / `hulk_uintptr` (int / unsigned on the 32-bit builds: MSVC 7.1's code is unchanged)
 when its non-pointer uses are integers of the same size.
 
-include/gen/ is generated (tools/gen_headers.py): field types belong in the generator's inputs, not in hand edits.
+include/gen/ is hand-maintained source (since gen1, 2026-11-13): a field's type is changed in the header itself.
 """
 import argparse
 import collections

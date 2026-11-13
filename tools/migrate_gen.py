@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Rewrite matches/ (and equivalent/) sources onto shared headers so the source tree (tools/gen_tree.py) can merge
+"""RETIRED (gen1, 2026-11-13): include/gen/ is hand-maintained source, so this tool, which fed the header
+generator's inputs (include/gen/evidence*.json) or rewrote matches/ onto the generated headers, refuses to run.
+Edit the headers and the blocks in src/ by hand (docs/headers.md). Kept for reference; its module-level
+helpers still import.
+
+Rewrite matches/ (and equivalent/) sources onto shared headers so the source tree (tools/gen_tree.py) can merge
 them: include/gen/ (the RTTI class headers, tools/gen_headers.py) and include/decls/ (pinned prototypes of
 address names). Re-runnable, logged, and every rewrite is verified before it is kept (docs/source-tree.md).
 
@@ -545,6 +550,8 @@ def rn_apply(rel, addr, text, items, hdb, taken, work):
 
 
 def main(argv=None):
+    sys.exit("tools/migrate_gen.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+             "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--apply", action="store_true", help="rewrite the sources that still verify")
     ap.add_argument("--only", nargs="*", help="limit to these source paths")

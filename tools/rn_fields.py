@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Header fields from the stubs (consolidation batch b7, docs/consolidation-plan.md): put the field offsets every
+"""RETIRED (gen1, 2026-11-13): include/gen/ is hand-maintained source, so this tool, which fed the header
+generator's inputs (include/gen/evidence*.json) or rewrote matches/ onto the generated headers, refuses to run.
+Edit the headers and the blocks in src/ by hand (docs/headers.md). Kept for reference; its module-level
+helpers still import.
+
+Header fields from the stubs (consolidation batch b7, docs/consolidation-plan.md): put the field offsets every
 stub of a class agrees on into include/gen/, inside the class's own `_pad_` gaps only.
 
   build/venv/bin/python tools/rn_fields.py                 # plan: what would be added (build/rn1/fields-plan.json)
@@ -259,6 +264,8 @@ def check(before, after, may_grow=()):
 
 
 def main(argv=None):
+    sys.exit("tools/rn_fields.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+             "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--apply", action="store_true")
     ap.add_argument("--check", action="store_true")

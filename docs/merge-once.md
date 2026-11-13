@@ -194,6 +194,14 @@ top-level preprocessor lines are wrapped today, so their text is untouched); inc
 they are and are reached the same way. The difference is where the next edit goes: into the TU, checked by
 `tree_tu.py check` (MSVC, 32-bit) and `equiv.py TU ADDR --x64` (the 64-bit pair).
 
+**include/gen after gen1 (2026-11-13).** The same flip for the class headers: include/gen/ is hand-maintained source
+(user decision 2026-11-13). The generator's output was checked against the committed headers first (nothing in its
+inputs was missing; every difference was a later hand edit), the "GENERATED ... DO NOT EDIT" banners became a note
+that the files are source, the generator's inputs (`include/gen/evidence*.json`) were deleted, and
+`tools/gen_headers.py` kept only the layout probe (`--probe`, with `config/gen-sizes.json` as the size ratchet). The
+tools that wrote the evidence or rewrote matches/ onto the generated headers refuse to run. Nothing in the build or
+proof pipeline regenerates include/gen/. See [headers.md](headers.md).
+
 ### Generated data stays out of git
 
 The tree has no data contents: gen_tree already turns a merged source's variable definitions into `extern`

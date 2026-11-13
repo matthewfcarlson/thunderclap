@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Batch b6 (docs/consolidation-plan.md): include/gen/ slot signatures from the sources that define the slots.
+"""RETIRED (gen1, 2026-11-13): include/gen/ is hand-maintained source, so this tool, which fed the header
+generator's inputs (include/gen/evidence*.json) or rewrote matches/ onto the generated headers, refuses to run.
+Edit the headers and the blocks in src/ by hand (docs/headers.md). Kept for reference; its module-level
+helpers still import.
+
+Batch b6 (docs/consolidation-plan.md): include/gen/ slot signatures from the sources that define the slots.
 
   build/venv/bin/python tools/rn_sigs.py                # plan: build/rn1/sigs-plan.json, printed
   build/venv/bin/python tools/rn_sigs.py --apply        # + include/gen/evidence-rn.json "sigs"; then regenerate
@@ -166,6 +171,8 @@ def defined_on_gen(g, props):
 
 
 def main(argv=None):
+    sys.exit("tools/rn_sigs.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+             "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--apply", action="store_true", help="write the signatures to include/gen/evidence-rn.json")
     ap.add_argument("--drop", nargs="*", default=[], help="slots (Owner::vfunc_N) to leave out")

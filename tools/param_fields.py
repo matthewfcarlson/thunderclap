@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Field names for include/gen/ classes from the fight parameter registrations (clean1).
+"""RETIRED (gen1, 2026-11-13): include/gen/ is hand-maintained source, so this tool, which fed the header
+generator's inputs (include/gen/evidence*.json) or rewrote matches/ onto the generated headers, refuses to run.
+Edit the headers and the blocks in src/ by hand (docs/headers.md). Kept for reference; its module-level
+helpers still import.
+
+Field names for include/gen/ classes from the fight parameter registrations (clean1).
 
 The fight system describes each Track/Condition/Action parameter once, in a registration function:
 
@@ -119,6 +124,8 @@ def hierarchy_names(g, c):
 
 
 def main():
+    sys.exit("tools/param_fields.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+             "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=os.path.join(ROOT, "include/gen/evidence-names.json"))
     ap.add_argument("--report", action="store_true", help="print the refusals")

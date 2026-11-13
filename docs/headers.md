@@ -1,19 +1,34 @@
-# Generated class headers (`include/gen/`)
+# Class headers (`include/gen/`)
 
-`tools/gen_headers.py` turns the recovered RTTI (`build/rtti.json`) into shared C++ headers, one
-definition per class. Matched functions can include them in place of per-file stub classes
-(roadmap stage 2). The headers are generated: change the tool or its inputs, never the headers.
+`include/gen/` holds one definition per polymorphic class of the game: 4,244 RTTI classes in 17 namespace headers,
+plus `owners.h` (classes RTTI never names). **The headers are source, edited by hand** (since gen1, 2026-11-13), like
+`src/` since the merge-once flip ([merge-once.md](merge-once.md)). `tools/gen_headers.py` generated them from the
+recovered RTTI until then; it is now only the **layout checker** (the probe below), and the files that fed the generator
+(`include/gen/evidence*.json`) are gone. The path stays `include/gen/` so that no `#include` changes.
 
 ```sh
-build/venv/bin/python tools/gen_headers.py            # regenerate include/gen/ (≈2 s)
-build/venv/bin/python tools/gen_headers.py --report   # plus every renamed slot, vote split, etc.
-build/venv/bin/python tools/gen_headers.py --probe    # compile + layout-check every header (≈25 s)
-build/venv/bin/python tools/gen_headers.py --mine     # re-mine matches/ -> include/gen/evidence.json (≈20 min, cached)
-build/venv/bin/python tools/gen_headers.py --swap-test 200   # recompile 200 matches on the headers
-build/venv/bin/python -m unittest tests.test_gen_headers     # also checks include/gen is current
+build/venv/bin/python tools/gen_headers.py --probe            # compile every header, check every class (~10 s)
+build/venv/bin/python tools/gen_headers.py --probe pure3d     # one header's classes
+build/venv/bin/python tools/gen_headers.py --probe --update-sizes   # record sizes after an intended layout change
+build/venv/bin/python -m unittest tests.test_gen_headers      # name helpers, the model, the probe
 ```
 
-## What's in a header
+## Editing a header
+
+- Edit the class where it is. A layout change is a shared change: the TUs that include the header must still verify
+  (`tree_tu.py verify . --relocs`, plus the code hashes and `--x64` gate for equivalents), and a Wine proof pair is
+  needed when compiled code changes (CLAUDE.md "Builds and proofs").
+- Run `--probe`. It must pass; when an edit is meant to change a class's 32-bit `sizeof` (a field the code proves past
+  the old end, a pad given its real type), record it with `--update-sizes` and commit `config/gen-sizes.json` with the
+  header, so the diff shows the size change.
+- Conventions the generator followed, which hand edits keep: slot N introduced by class X is `vfunc_N` until a real name
+  is known; every class in a destructor slot family declares its own (pure where its vftable has `_purecall`); fields
+  only where code proves the offset (`f_<offset>` until named, `_pad_<offset>` gaps); `hulk_intptr` / `hulk_uintptr`
+  for 4-byte words that hold pointers; a comment naming the evidence (address, agent) on anything hand-added.
+- New owner classes (non-polymorphic classes RTTI doesn't name) go into `owners.h` by hand; tools/owner_classes.py, which
+  planned them, is retired.
+
+## What's in a header (as generated; hand edits since keep the shape)
 
 - **One header per top-level namespace** (`core.h`, `pure3d.h`, `fight.h`, …), `global.h` for the
   global namespace, `all.h` for everything and `_prelude.h` for one macro. 17 headers in all, covering
@@ -41,32 +56,30 @@ build/venv/bin/python -m unittest tests.test_gen_headers     # also checks inclu
 
 ## Verification: the layout probe
 
-`--probe` compiles each header on its own with `cl` 13.10 `/c /O2 /GR /GX`. It then compiles a TU
-that constructs every class (abstract ones through a derived probe class) with `/Od`, so every
-vftable and RTTI descriptor lands in the object, and parses the COFF:
+`--probe` builds a model of the game's classes from `build/rtti.json` and the XBE (bases, vftables, the class that
+implements each slot, destructor slots; nothing from the headers), compiles each header on its own with `cl` 13.10
+`/c /O2 /GR /GX`, then one TU per header that includes `gen/all.h` and constructs every RTTI class placed in that
+header (abstract ones through a derived probe class; constructors a class declares out of line, like
+`fight::Track()`, are defined in the probe TU) with `/Od`, so every vftable and RTTI descriptor lands in the object,
+and parses the COFF:
 
-| Check | Result |
+| Check | Result (gen1, 2026-11-13, HEAD 9bbef387f) |
 |---|---|
-| headers compiling cleanly | 17/17 |
+| headers compiling cleanly (the 17 namespace headers and owners.h) | 18/18 |
 | classes with vftable + base descriptors emitted | 4,238/4,238 (the other 6 have no vftable and are forward-declared: `math::Vector`, `audio::Mixer`, 4 CRT exception types) |
 | vftables with the RTTI slot count | 4,266/4,266 |
 | slots whose function is the one RTTI says (the class that last overrode it, or `_purecall`) | 27,439/27,439 |
 | `??_R1` base class descriptors (mdisp/pdisp/vdisp) identical to the XBE's | 4,238/4,238 |
-| `sizeof` equal to the generator's layout (concrete classes) | 4,039/4,039 |
+| `sizeof` equal to `config/gen-sizes.json` (concrete classes) | 4,039/4,039 |
 
-## Hand matches on the headers
+The first four checks compare with RTTI and the XBE. RTTI carries no sizes, so the size check is a ratchet instead:
+`config/gen-sizes.json` holds the 32-bit `sizeof` of every concrete class as the headers had it when last recorded
+(first from the committed headers at the flip). Until the flip the probe compared with the generator's own layout;
+hand edits since then (typ1's records, x64t5-x64t8's allocation sizes) had grown 15 classes past it, and the flip's
+recording takes the headers as they are. Multiple-inheritance base sizes are covered by the base descriptors (a base of
+the wrong size moves the next base's offset).
 
-`experiments/first-matches/*_gen.cpp` are the original experiments rewritten on `#include <gen/…>`.
-They define `X::vfunc_N` against the generated declarations and use `f_XX` fields, and all 5
-functions still MATCH:
-
-| File | Function | Result |
-|---|---|---|
-| `refcount_gen.cpp` | `pure3d::NonCopyable::vfunc_1` (Release; `delete this` goes through the generated virtual dtor) | MATCH |
-| `action_gen.cpp` | `CAction::vfunc_5` (calls slots 7/8) | MATCH |
-| `action_gen.cpp` | `CHitAnimationAction::vfunc_9` (`f_1c` from the header, a local stub for the object it points at) | MATCH |
-| `method_gen.cpp` | `Method0<CActorManager,int>::vfunc_2` (explicit specialization of the generated template's member) | MATCH |
-| `method_gen.cpp` | `Method1<CActorManager,void,const char*>::vfunc_2` | MATCH |
+The probe checks the 32-bit MSVC layouts only; the 64-bit layouts are the native builds' and `equiv.py --x64`'s.
 
 ## Multiple and virtual inheritance
 
@@ -121,69 +134,6 @@ An empty enum has `int` as its underlying type, as MSVC gives the opaque one.
 forward declarations carry `HULK_SINGLE_INHERITANCE` (`__single_inheritance` under MSVC/clang,
 empty elsewhere). Without it, 104 `Method*`/`Closure*` sizes come out wrong.
 
-## Field and signature evidence from `matches/` (first pass)
-
-`--mine` parses every match whose target is a `Class::vfunc_N` (10,519 files) with clang (MS ABI,
-i686), finds the matched definition, and records:
-
-- its **signature** (primitive types kept, pointers/references as `void*`), which applies to the
-  slot and to every override;
-- every **`this->field`** it touches, at the offset clang's MS-ABI record layout gives for the stub.
-  The bytes matched, so the offset (and the access width) is proven for the slot's owner class.
-
-Results: 9,909 signatures and 3,635 files with `this`-relative field accesses (373 files had no
-recognizable member definition, and clang couldn't parse 15). After voting, **1,012 of the 1,535
-slot families** have a mined or curated signature. **1,795 proven fields in 781 classes** are emitted
-(the probe still passes with all of them). The evidence lives in `include/gen/evidence.json`, so
-regeneration doesn't need clang; the raw per-file cache is `build/gen_mine_cache.json`.
-
-Evidence is kept only where it's consistent with the binary: a signature must have the parameter
-count the slot's `ret N` proves, and fields that overlap or are misaligned are dropped. The
-remaining disagreements are votes, and the majority wins. `--report` lists every split: these are
-stub-type guesses that differ between matches (`int` vs `void*` vs `unsigned int`, `bool` vs
-`unsigned char`), not layout conflicts. A field that falls inside a base class's proven extent is
-left to the base. Types are only as good as the stubs: a 4-byte field's offset is proven, but whether it's
-`int` or a pointer isn't.
-
-## Swap-in measurement
-
-`--swap-test N` takes N random `vfunc_N` matches and rewrites each one mechanically onto
-`#include <gen/all.h>`, then runs `compare.py`. The rewrite:
-
-- replaces the stub for the owner class with `typedef <real class> __Self`;
-- redefines the target as `__Self::<header slot name>(<header parameter types>)`, casting
-  parameters back to the stub's types in a prologue;
-- maps stub fields to `f_XX` by clang's layout offset, with a cast when the stub type differs;
-- maps calls to stub virtuals to the header's slot names by stub vtable index;
-- routes stub non-virtual helpers through a local `__Self_nv` declaration struct;
-- renames other stubs whose names collide with generated classes.
-
-Two samples of 200 (seeds 1 and 2):
-
-| Outcome | seed 1 | seed 2 | total |
-|---|---|---|---|
-| **MATCH** | 108 | 112 | **220** |
-| DIFF (compiles, bytes differ) | 0 | 0 | **0** |
-| compile error | 6 | 4 | 10 |
-| target is a destructor slot (not attempted) | 66 | 64 | 130 |
-| stub has multiple bases | 7 | 7 | 14 |
-| ambiguous: several definitions, can't tell which matched | 9 | 6 | 15 |
-| field the match uses isn't in the header | 3 | 4 | 7 |
-| other rewrite limits (slot returns `void` in the header, float/int parameter clash, nested stub base, calls a destructor slot by name) | 1 | 3 | 4 |
-
-Excluding destructor slots, **220 of 270 (81%)** matches survive the swap. Every rewrite that
-compiled still matched: the generated layouts never changed codegen. The failure modes:
-
-- **Destructor slots (a third of the sample):** the matches are hand-written scalar deleting
-  destructors, which a header can't absorb (see gaps).
-- **Signature disagreements** (C2664/C2440): a match calls a slot with arguments or a return type
-  that differ from the voted signature (`int` vs pointer, a `void` return the header didn't learn).
-  These need real parameter types, which means human naming.
-- **Qualified non-virtual calls to a base's implementation** (`Base::vfunc_62()`, C2352) and stubs
-  with several bases: the mechanical rewrite doesn't handle these.
-- **Fields not in the header:** the access is in a base's range, lost a type vote, or (for
-  `Method2+` before they were curated) was a member-function pointer the miner doesn't type.
-
 ## Not expressible yet / known gaps
 
 - **Destructor-slot matches** (a third of vfunc matches) are hand-written scalar deleting
@@ -199,26 +149,26 @@ compiled still matched: the generated layouts never changed codegen. The failure
   Return types default to `void` for slots no match has defined.
 - **Non-virtual member functions**: RTTI doesn't list them. The ones a source *defines* as its own
   function are declared in their class from that source (`R FUN_<addr>(P...); // non-virtual`,
-  `include/gen/evidence-rn.json` "members", `tools/rn_members.py`, batch b9; types: scalars kept,
+  first by `tools/rn_members.py`, batch b9, now by hand; types: scalars kept,
   a pointer to the class itself as `X*`, other pointers `void*`). Callers keep declaring the members
   they call on a local helper struct (`((X_nv_<addr>*)this)->f()`), which compiles to the same code.
-- **Constructors** (none applied yet): the generator can declare the ones a source defines out of line
-  (`X(P...); // constructor`, evidence-rn.json "ctors", plus a default constructor) and a base's default
-  constructor that the game calls out of line ("base_ctors"). Bodies that make calls get an EH frame on the headers
+- **Constructors**: a class declares the ones a source defines out of line (`X(P...);`, e.g. unb5's
+  `fight::Track()` for 0x00236d40, which the derived classes' constructors call; the probe defines them in its own
+  TU so the vftable is emitted there). Bodies that make calls get an EH frame on the headers
   (because of the base's virtual destructor) that the game lacks. Call-free ones byte-match, but defining them makes
   the header vftables appear in the tree with unbound slot symbols (docs/consolidation-plan.md section 9, round 3).
 - **Pointers in integer fields**: a 4-byte field that sources read as a pointer
-  (`*(T**)&p->f_20`, `tools/ptr_fields.py`) is `hulk_intptr` / `hulk_uintptr` (`tools/rn_ptrfields.py`,
-  evidence-rn.json "ptr_fields"): `int` / `unsigned int` on the 32-bit builds, pointer-sized on the
-  64-bit ones. The `_pad_` arrays after such a field still assume 32-bit offsets.
-- **Field names**: a field is `f_<offset>` unless `include/gen/evidence-names.json` names it, with its
-  evidence (clean1). `tools/param_fields.py` names the fields of the fight Track/Condition classes from their
+  (`*(T**)&p->f_20`, `tools/ptr_fields.py`) is `hulk_intptr` / `hulk_uintptr`: `int` / `unsigned int` on the
+  32-bit builds, pointer-sized on the 64-bit ones. Where the 64-bit work needs real pointers the field is a pointer
+  (x64t2-x64t8). `_pad_` arrays after such a field still assume 32-bit offsets.
+- **Field names**: a field is `f_<offset>` until a name is proven (clean1 named 218 from evidence; new names are
+  edits of the header and its users). The retired `tools/param_fields.py` named the fields of the fight Track/Condition classes from their
   parameter registrations: the string literal passed to a `fight::ParamValue*` constructor and the setter
   registered with it, whose one store through `this` gives the offset (CClimbableCondition +0x10 `arc`).
-  `tools/rename_fields.py` rewrites the sources' references (libclang-resolved, so `f_10` of another class is
+  The retired `tools/rename_fields.py` rewrote the sources' references (libclang-resolved, so `f_10` of another class is
   never touched). See docs/consolidation-plan.md section 12.
-- **Function names** (clean2): `include/gen/evidence-fnames.json` names functions by address, with evidence
-  (`tools/fn_names.py`); `tools/name_unify.py rename` applies them to the definition and every `FUN_<addr>`
+- **Function names** (clean2): the retired `tools/fn_names.py` named functions by address, with evidence
+  (`evidence-fnames.json`, removed at gen1); `tools/name_unify.py rename --names FILE` applies such a list to the definition and every `FUN_<addr>`
   reference. Each name keeps its address as a suffix (`SetArc_000480a0`, tools/addr_names.py), which every tool
   that reads an address from a name understands. Members of include/gen/ headers (owners.h) are not renamed yet.
   See docs/consolidation-plan.md section 13.
@@ -227,13 +177,55 @@ compiled still matched: the generated layouts never changed codegen. The failure
   or `typeid`) have no home yet.
 - **rtti.py over-counts** a vftable that is directly followed by a code-looking pointer.
   `om::DynBehaviour` had 3 slots where every derived class has 2. The generator truncates a base
-  vftable that is longer than all of its derived classes'. The bogus third "slot" `0xa5d0a` is
+  vftable that is longer than all of its derived classes' (and so does the probe's model). The bogus third "slot" `0xa5d0a` is
   also a bogus function in `functions.csv` (`om::DynBehaviour::vfunc_2`, 1,449 bytes).
 - Two destructor-shaped slots in one primary chain: `pure3d::pddiRenderContext` 87/88,
   `pddiBaseContext` 102 and `movie::BinkCallback` 1. Only the first one in the chain becomes the
   destructor; the others stay `vfunc_N`.
 - **64-bit:** the headers are 32-bit layouts (`char _pad` sizes assume 4-byte pointers). A port
   build needs real member types before the pads can go.
+
+## History: the generator (until 2026-11-13)
+
+`tools/gen_headers.py` emitted the headers from RTTI: bases in RTTI order, virtual methods in vftable order (`vfunc_N`,
+destructors where most slot bodies have the scalar deleting destructor's shape, parameter counts from `ret N`), template
+families once, and fields from evidence: signatures and `this->field` offsets mined from `matches/` with clang
+(`--mine`, `include/gen/evidence.json`: 9,909 signatures, 1,795 fields), the consolidation batches' sources
+(`evidence-rn.json`: fields, signatures, non-virtual members, constructors, pointer-sized fields), field names from the
+fight parameter registrations (`evidence-names.json`, tools/param_fields.py), owner classes (`evidence-owners.json`,
+tools/owner_classes.py) and function names (`evidence-fnames.json`, tools/fn_names.py, applied by `name_unify.py
+rename`). From x64t2 on, agents edited the headers by hand where the generator had no input for what they needed
+(records' pointer fields, allocation sizes, base-class words moved up), so the committed headers and the generator's
+output drifted apart.
+
+**The loss check (gen1).** Regenerating from HEAD 9bbef387f's inputs in a private export and diffing with the committed
+headers gave 219 differing lines in 7 headers (audio, content, fight, global, owners, physics, pure3d). Every one is a
+hand edit the generator lacked (typ1, x64t2-x64t8, unb5): typed records where the generator has pads or `int`, fields
+moved into a base, `HULK_REFCOUNT_PACK`, `fight::Track()`, comments. Nothing in the inputs was missing from the headers:
+every field the generator emits is in the committed headers at the same offset, in the same class or (where a hand
+edit moved the words up) its base, with the generator's type or one a hand edit chose on evidence (e.g. x64t6 keeps
+`physics::CollisionVolume`'s +0x20 an `int` where a stub vote had said `void*`). Its 19 dropped evidence items (signatures whose arity contradicts `ret N`) were
+rightly never emitted. The function names of `evidence-fnames.json` are applied in `src/` except seven that were left
+out on purpose (consolidation-plan.md section 13); they are listed in native-build.md "gen1".
+
+Retired with the generator: `--mine`, `--swap-test` and the regeneration; tools/migrate_gen.py, rn_members.py,
+rn_sigs.py, rn_ptrfields.py, rn_fields.py, ptr_slots.py, param_fields.py, rename_fields.py, fn_names.py and
+owner_classes.py (they wrote the evidence files or rewrote matches/ onto the generated headers; they now refuse to run).
+The clang helpers rn_transform.py used moved into it. Git history keeps the generator (`git show 9bbef387f:tools/gen_headers.py`).
+
+## Hand matches on the headers
+
+`experiments/first-matches/*_gen.cpp` are the original experiments rewritten on `#include <gen/…>`.
+They define `X::vfunc_N` against the generated declarations and use `f_XX` fields, and all 5
+functions still MATCH:
+
+| File | Function | Result |
+|---|---|---|
+| `refcount_gen.cpp` | `pure3d::NonCopyable::vfunc_1` (Release; `delete this` goes through the generated virtual dtor) | MATCH |
+| `action_gen.cpp` | `CAction::vfunc_5` (calls slots 7/8) | MATCH |
+| `action_gen.cpp` | `CHitAnimationAction::vfunc_9` (`f_1c` from the header, a local stub for the object it points at) | MATCH |
+| `method_gen.cpp` | `Method0<CActorManager,int>::vfunc_2` (explicit specialization of the generated template's member) | MATCH |
+| `method_gen.cpp` | `Method1<CActorManager,void,const char*>::vfunc_2` | MATCH |
 
 ## Sources on the headers (2026-10-16)
 

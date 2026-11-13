@@ -29,18 +29,96 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import cxx_items  # noqa: E402
-import gen_headers as gh  # noqa: E402
+from gen_headers import split_top  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-SwapFail = gh.SwapFail
 EQUIV_LINE = re.compile(r"//\s*equiv-[\w-]+:?(.*)")
 FLOATS = {"float", "double", "long double"}
 
 
+# (gen1, 2026-11-13) clang helpers that lived in tools/gen_headers.py until it became a checker only
+CLANG = ["clang", "-target", "i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibility", "-w"]
+
+
+class SwapFail(Exception):
+    """`slot`: for a signature refusal, (slot key, the stub's function type, its parameter types) (tools/rn_sigs.py)."""
+    def __init__(self, msg, slot=None):
+        super().__init__(msg)
+        self.slot = slot
+
+
+def _rng(n):
+    r = n.get("range", {})
+    b, e = r.get("begin", {}), r.get("end", {})
+    if "offset" not in b or "offset" not in e:
+        raise SwapFail("macro in source range")
+    return b["offset"], e["offset"] + e.get("tokLen", 0)
+
+
+def _unwrap(n):
+    while n.get("kind") in ("ImplicitCastExpr", "ParenExpr") and n.get("inner"):
+        n = n["inner"][0]
+    return n
+
+
+def _clean_qt(qt):
+    return re.sub(r"\s*__attribute__\(\(\w+\)\)", "", qt).strip()
+
+
+def _ptr_to(qt):
+    """Spelling of 'pointer to qt' (arrays, function and member-function pointers included)."""
+    qt = _clean_qt(qt)
+    m = re.match(r"(.+?) ?\[(\d+)\]$", qt)
+    if m:
+        return "%s (*)[%s]" % (m.group(1), m.group(2))
+    m = re.match(r"(.*\()([\w:]*\*)(\).*)$", qt)
+    if m:
+        return m.group(1) + m.group(2) + "*" + m.group(3)
+    return qt + " *"
+
+
+def _clang_layouts(path, includes=False):
+    """{record name: {(record, field): absolute offset}} from -fdump-record-layouts (includes: see clang_ast)."""
+    extra = ["-I", os.path.join(ROOT, "include")] if includes else []
+    r = subprocess.run(CLANG + extra + ["-c", "-o", os.devnull, "-Xclang", "-fdump-record-layouts", path],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        return None
+    out, cur, stack = {}, None, []
+    for line in r.stdout.splitlines():
+        if line.startswith("*** Dumping"):
+            cur, stack = None, []
+            continue
+        m = re.match(r"\s*(\d+) \| (\s*)(.*)$", line)
+        if not m:
+            continue
+        off, depth, text = int(m.group(1)), len(m.group(2)) // 2, m.group(3)
+        if cur is None:
+            nm = split_top(re.sub(r"^(class|struct|union) ", "", text), "::")[-1]
+            cur = out.setdefault(nm, {})
+            stack = [(0, nm)]
+            continue
+        while stack and stack[-1][0] >= depth:
+            stack.pop()
+        enclosing = stack[-1][1] if stack else None
+        bm = re.match(r"(?:class|struct|union) (.+?) \((?:primary |virtual )?base\)$", text)
+        if bm:
+            stack.append((depth, split_top(bm.group(1), "::")[-1]))
+            continue
+        if text.startswith("("):
+            continue  # vftable pointer etc.
+        fm = re.match(r"(.*?)\s*(\w+)$", text)
+        if fm and enclosing is not None:
+            cur.setdefault((enclosing, fm.group(2)), (off, fm.group(1)))
+            # an embedded record's own fields follow at depth+1: give them a scope of their own
+            stack.append((depth, "<member %s>" % fm.group(2)))
+    return out
+
+
 def clang_ast(path):
-    """gen_headers.clang_ast with include/ on the include path (sources may include gen/ and decls/ headers)."""
+    """clang's JSON AST with include/ on the include path (sources may include gen/ and decls/ headers)."""
     import subprocess
-    r = subprocess.run(gh.CLANG + ["-I", os.path.join(ROOT, "include"), "-fsyntax-only", "-Xclang", "-ast-dump=json",
+    r = subprocess.run(CLANG + ["-I", os.path.join(ROOT, "include"), "-fsyntax-only", "-Xclang", "-ast-dump=json",
                                    path], capture_output=True, text=True)
     if r.returncode != 0:
         return None
@@ -48,12 +126,7 @@ def clang_ast(path):
 
 
 def clang_layouts(path):
-    old = list(gh.CLANG)
-    try:
-        gh.CLANG[:] = old + ["-I", os.path.join(ROOT, "include")]
-        return gh.clang_layouts(path)
-    finally:
-        gh.CLANG[:] = old
+    return _clang_layouts(path, includes=True)
 
 
 def equiv_text(text):
@@ -268,7 +341,7 @@ def unclash_transform(text, addr, stub, real, new=None):
 
 # ---------------------------------------------------------------------------------------------
 def _norm(t):
-    t = gh._clean_qt(t)
+    t = _clean_qt(t)
     t = re.sub(r"\b(struct|class|union|enum)\s+", "", t)
     t = re.sub(r"\s+", " ", t).replace(" *", "*").replace("* ", "*").strip()
     # (hulk_intptr / hulk_uintptr: include/compat/ptr.h, int / unsigned int on the 32-bit builds; header fields typed
@@ -283,7 +356,7 @@ def _is_float(t):
 
 def _fn_ret(qt):
     """'int (int, float) __attribute__((thiscall))' -> 'int'"""
-    qt = gh._clean_qt(qt)
+    qt = _clean_qt(qt)
     depth = 0
     for i, ch in enumerate(qt):
         if ch == "(":
@@ -294,7 +367,7 @@ def _fn_ret(qt):
 
 
 def _fn_params(n):
-    return [gh._clean_qt(c["type"]["qualType"]) for c in n.get("inner", []) if c.get("kind") == "ParmVarDecl"]
+    return [_clean_qt(c["type"]["qualType"]) for c in n.get("inner", []) if c.get("kind") == "ParmVarDecl"]
 
 
 def _from_include(n):
@@ -366,7 +439,7 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=(), base_ok=F
         for b in r.get("bases") or []:
             if b.get("isVirtual"):
                 raise SwapFail("stub has a virtual base")
-            bn = re.sub(r"^(class|struct) ", "", gh._clean_qt(b["type"]["qualType"])).split("::")[-1]
+            bn = re.sub(r"^(class|struct) ", "", _clean_qt(b["type"]["qualType"])).split("::")[-1]
             if bn not in recs:
                 raise SwapFail("stub base %s is not a class the source defines" % bn)
             out.append(recs[bn])
@@ -406,7 +479,7 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=(), base_ok=F
     hslots = h["slots"]
     hfields = {o: (t, n) for o, t, n in h["fields"] if not n.startswith("_pad_")}
     layout = None
-    sb, se = gh._rng(S)
+    sb, se = _rng(S)
     edits = []          # (pos, order, end, text)
     nv_used = set()
 
@@ -422,7 +495,7 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=(), base_ok=F
     def visit(n, parent, depth):
         k = n.get("kind")
         try:
-            b0, e0 = gh._rng(n)
+            b0, e0 = _rng(n)
         except SwapFail:
             b0 = e0 = None
         inside = b0 is not None and sb <= b0 < se
@@ -457,7 +530,7 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=(), base_ok=F
             if rid not in fields and rid not in methods:
                 return
             base = n.get("inner", [{}])[0]
-            ub = gh._unwrap(base)
+            ub = _unwrap(base)
             via_this = ub.get("kind") == "CXXThisExpr"
             if via_this and not base_ok:
                 raise SwapFail("implicit member access outside the stub")
@@ -473,14 +546,12 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=(), base_ok=F
                 if off not in hfields:
                     raise SwapFail("field +0x%x not in the header" % off)
                 ht, hn = hfields[off]
-                if gh.type_size(ht.replace(" ", "")) not in (None, 0) and False:
-                    pass
                 if _norm(fqt) == _norm(ht):
                     edits.append((name_pos, (2, 0), e0, hn))
                 else:
                     if _is_float(fqt) != _is_float(ht):
                         raise SwapFail("field +0x%x: stub %s vs header %s" % (off, fqt, ht))
-                    edits.append((b0, (1, depth), b0, "(*(%s)&" % gh._ptr_to(fqt)))
+                    edits.append((b0, (1, depth), b0, "(*(%s)&" % _ptr_to(fqt)))
                     edits.append((name_pos, (2, 0), e0, hn))
                     edits.append((e0, (0, -depth), e0, ")"))
                 return
@@ -505,7 +576,7 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=(), base_ok=F
                         continue
                     if _is_float(sp) or _is_float(hp):
                         raise SwapFail("slot %d: stub %s vs header %s" % (i, sp, hp))
-                    ab, ae = gh._rng(a)
+                    ab, ae = _rng(a)
                     edits.append((ab, (1, depth + 2), ab, "(%s)(" % hp))
                     edits.append((ae, (0, -(depth + 2)), ae, ")"))
                 sret, hret = _fn_ret(m["type"]["qualType"]), hi[1]
@@ -514,7 +585,7 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=(), base_ok=F
                         raise SwapFail("slot %d returns void in the header" % i)
                     if _is_float(sret) != _is_float(hret):
                         raise SwapFail("slot %d returns %s, stub %s" % (i, hret, sret))
-                    pb, pe = gh._rng(parent)
+                    pb, pe = _rng(parent)
                     edits.append((pb, (1, depth - 1), pb, "((%s)(" % sret))
                     edits.append((pe, (0, -(depth - 1)), pe, "))"))
                 edits.append((name_pos, (2, 0), e0, hi[2]))
@@ -526,7 +597,7 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=(), base_ok=F
             if via_this:
                 raise SwapFail("calls a non-virtual stub member through this")
             nv_used.add(rid)
-            bb, be = gh._rng(base)
+            bb, be = _rng(base)
             if n.get("isArrow"):
                 edits.append((bb, (1, depth), bb, "((__NV*)("))
                 edits.append((be, (0, -depth), be, "))"))
@@ -543,14 +614,14 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=(), base_ok=F
     nvname = "%s_nv_%x" % (short(real), addr)
     nv_decls = []
     for rid in sorted(nv_used):
-        mb, me = gh._rng(methods[rid])
+        mb, me = _rng(methods[rid])
         nv_decls.append("    " + raw[mb:me].strip().rstrip(";") + ";")
     semi = raw.find(";", se)
     if semi < 0 or raw[se:semi].strip():
         raise SwapFail("no ';' after the stub")
     cuts = [(sb, semi + 1, ("struct %s {\n%s\n};" % (nvname, "\n".join(nv_decls))) if nv_decls else "")]
     for fw in fwds:
-        b, e = gh._rng(fw)
+        b, e = _rng(fw)
         j = raw.find(";", e)
         if j >= 0 and re.fullmatch(r"\s*(struct|class|union)\s+%s\s*" % re.escape(sshort), raw[b:j]):
             cuts.append((b, j + 1, ""))

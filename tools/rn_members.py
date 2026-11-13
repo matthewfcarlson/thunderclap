@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Batch b9 (docs/consolidation-plan.md): include/gen/ non-virtual member declarations from the sources that define
+"""RETIRED (gen1, 2026-11-13): include/gen/ is hand-maintained source, so this tool, which fed the header
+generator's inputs (include/gen/evidence*.json) or rewrote matches/ onto the generated headers, refuses to run.
+Edit the headers and the blocks in src/ by hand (docs/headers.md). Kept for reference; its module-level
+helpers still import.
+
+Batch b9 (docs/consolidation-plan.md): include/gen/ non-virtual member declarations from the sources that define
 them, so those sources can move onto the header class (migrate_gen.py rule gen-nv).
 
   build/venv/bin/python tools/rn_members.py --map build/rn1/rename-map.json      # plan: build/rn1/members-plan.json
@@ -102,6 +107,8 @@ def gen_mentions(names):
 
 
 def main(argv=None):
+    sys.exit("tools/rn_members.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+             "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--map", default=os.path.join(ROOT, "build/rn1/rename-map.json"))
     ap.add_argument("--exclude", nargs="*", default=[], help="files listing source paths to leave out")
