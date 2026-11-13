@@ -153,7 +153,7 @@ void __fastcall FUN_001f6c50(Obj_1f6c50* self, void*, int unused) {
 // 0x001f6c90 FUN_001f6c90 (24 B): matches/0x001f6c90.cpp
 // sym: _FUN_001f6c90
 // Same code shape as 0x001bc510 (propagated; names are from that function)
-extern "C" void FUN_001f6c90(void) {
+extern "C" void FUN_001f6c90(void* /*this, unused: callers pass it (unb4)*/) {
     Obj_1f6c90* p = GetObj_0027f250();
     p->DoThing_00283340();
     p = GetObj_0027f250();
@@ -162,8 +162,8 @@ extern "C" void FUN_001f6c90(void) {
 
 
 // 0x001f6cb0 FUN_001f6cb0 (17 B): matches/0x001f6cb0.cpp
-// sym: ?FUN_001f6cb0@fn_f90a56c8@@YAXXZ
-void __cdecl FUN_001f6cb0() {
+// sym: ?FUN_001f6cb0@fn_f90a56c8@@YAXPAX@Z
+void __cdecl FUN_001f6cb0(void* /*this, unused: callers pass it (unb4)*/) {
     hulk_intptr value = FUN_0027f250();
     if (value != 0)
         ((C_1f6cb0*)value)->FUN_00283340();

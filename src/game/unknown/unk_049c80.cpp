@@ -158,9 +158,9 @@ bool CIsGrappledCondition::vfunc_7(void* __p0) { Helper_49d40 * p = (Helper_49d4
 namespace fn_f342e0ab {
 
 // 0x00049d70 FUN_00049d70 (19 B): matches/0x00049d70.cpp
-// sym: ?FUN_00049d70@fn_f342e0ab@@YAXXZ
+// sym: ?FUN_00049d70@fn_f342e0ab@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049d70() {
+void FUN_00049d70(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc4f8), ((char*)&DAT_004dc4fc));
 }
 
@@ -204,9 +204,9 @@ bool CGrappleSizeCondition::vfunc_7(void* __p0) { FightHandle_49de0 * h = (Fight
 namespace fn_f342e0ab {
 
 // 0x00049e60 FUN_00049e60 (19 B): matches/0x00049e60.cpp
-// sym: ?FUN_00049e60@fn_f342e0ab@@YAXXZ
+// sym: ?FUN_00049e60@fn_f342e0ab@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049e60() {
+void FUN_00049e60(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc500), ((char*)&DAT_004dc504));
 }
 
@@ -231,9 +231,9 @@ char Obj_49ed0::Format(const char* s) {
 
 
 // 0x00049ef0 FUN_00049ef0 (19 B): matches/0x00049ef0.cpp
-// sym: ?FUN_00049ef0@fn_f342e0ab@@YAXXZ
+// sym: ?FUN_00049ef0@fn_f342e0ab@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049ef0() {
+void FUN_00049ef0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc508), ((char*)&DAT_004dc50c));
 }
 
@@ -308,9 +308,9 @@ bool CCharacterTemplateCondition::vfunc_7(ConditionContext* context) {
 namespace fn_f342e0ab {
 
 // 0x00049fd0 FUN_00049fd0 (19 B): matches/0x00049fd0.cpp
-// sym: ?FUN_00049fd0@fn_f342e0ab@@YAXXZ
+// sym: ?FUN_00049fd0@fn_f342e0ab@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049fd0() {
+void FUN_00049fd0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc510), ((char*)&DAT_004dc514));
 }
 
@@ -433,9 +433,9 @@ bool CCharacterTemplateVariationCondition::vfunc_7(Arg_4a050* arg) {
 namespace fn_f342e0ab {
 
 // 0x0004a0b0 FUN_0004a0b0 (19 B): matches/0x0004a0b0.cpp
-// sym: ?FUN_0004a0b0@fn_f342e0ab@@YAXXZ
+// sym: ?FUN_0004a0b0@fn_f342e0ab@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0004a0b0() {
+void FUN_0004a0b0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc518), ((char*)&DAT_004dc51c));
 }
 
@@ -549,9 +549,9 @@ bool CGrappleCharacterTemplateCondition::vfunc_7(void *owner)
 namespace fn_f342e0ab {
 
 // 0x0004a1f0 FUN_0004a1f0 (19 B): matches/0x0004a1f0.cpp
-// sym: ?FUN_0004a1f0@fn_f342e0ab@@YAXXZ
+// sym: ?FUN_0004a1f0@fn_f342e0ab@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0004a1f0() {
+void FUN_0004a1f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc520), ((char*)&DAT_004dc524));
 }
 

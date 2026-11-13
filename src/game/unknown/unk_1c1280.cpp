@@ -264,9 +264,9 @@ void Obj_1c1370::Target(char flag) {
 
 
 // 0x001c13c0 FUN_001c13c0 (1 B): matches/0x001c13c0.cpp
-// sym: ?FUN_001c13c0@fn_f0dc78b5@@YAXXZ
+// sym: ?FUN_001c13c0@fn_f0dc78b5@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_001c13c0() {}
+void FUN_001c13c0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x001c13d0 FUN_001c13d0 (44 B): matches/0x001c13d0.cpp
@@ -280,14 +280,14 @@ void Thing_1c13d0::Run() {
 
 
 // 0x001c1400 FUN_001c1400 (1 B): matches/0x001c1400.cpp
-// sym: ?FUN_001c1400@fn_f0dc78b5@@YAXXZ
+// sym: ?FUN_001c1400@fn_f0dc78b5@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_001c1400() {}
+void FUN_001c1400(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x001c1410 FUN_001c1410 (1 B): matches/0x001c1410.cpp
-// sym: ?FUN_001c1410@fn_f0dc78b5@@YAXXZ
+// sym: ?FUN_001c1410@fn_f0dc78b5@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_001c1410() {}
+void FUN_001c1410(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_f0dc78b5

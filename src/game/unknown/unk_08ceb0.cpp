@@ -386,7 +386,7 @@ extern "C" void __stdcall FUN_0008dad0(int x) {}
 
 // 0x0008db00 FUN_0008db00 (20 B): matches/0x0008db00.cpp
 // sym: _FUN_0008db00
-extern "C" void __cdecl FUN_0008db00() {
+extern "C" void __cdecl FUN_0008db00(void* /*this, unused: callers pass it (unb4)*/) {
     FnA_002696a0();
     FnB_002656a0();
     FnC_0026ed70();

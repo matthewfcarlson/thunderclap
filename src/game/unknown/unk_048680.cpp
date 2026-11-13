@@ -137,9 +137,9 @@ class CCondition_490d0 {
 
 
 // 0x00048680 FUN_00048680 (19 B): matches/0x00048680.cpp
-// sym: ?FUN_00048680@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048680@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048680() {
+void FUN_00048680(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc410), ((char*)&DAT_004dc414));
 }
 
@@ -190,9 +190,9 @@ void __fastcall FUN_000486e0(Obj_486e0* p) {
 
 
 // 0x000486f0 FUN_000486f0 (19 B): matches/0x000486f0.cpp
-// sym: ?FUN_000486f0@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_000486f0@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_000486f0() {
+void FUN_000486f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc418), ((char*)&DAT_004dc41c));
 }
 
@@ -209,9 +209,9 @@ hulk_intptr CAxisSpeedCondition::vfunc_0(int index) {
 namespace fn_f92e4dc5 {
 
 // 0x00048760 FUN_00048760 (19 B): matches/0x00048760.cpp
-// sym: ?FUN_00048760@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048760@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048760() {
+void FUN_00048760(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc420), ((char*)&DAT_004dc424));
 }
 
@@ -313,9 +313,9 @@ bool CAxisUpCondition::vfunc_10(void* __p0, hulk_intptr __p1) { int * p = (int *
 namespace fn_f92e4dc5 {
 
 // 0x00048890 FUN_00048890 (19 B): matches/0x00048890.cpp
-// sym: ?FUN_00048890@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048890@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048890() {
+void FUN_00048890(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc428), ((char*)&DAT_004dc42c));
 }
 
@@ -332,9 +332,9 @@ hulk_intptr CAxisArcCondition::vfunc_0(int index) {
 namespace fn_f92e4dc5 {
 
 // 0x00048910 FUN_00048910 (19 B): matches/0x00048910.cpp
-// sym: ?FUN_00048910@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048910@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048910() {
+void FUN_00048910(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc430), ((char*)&DAT_004dc434));
 }
 
@@ -351,9 +351,9 @@ hulk_intptr CAxisDoubleTapCondition::vfunc_0(int index) {
 namespace fn_f92e4dc5 {
 
 // 0x00048990 FUN_00048990 (19 B): matches/0x00048990.cpp
-// sym: ?FUN_00048990@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048990@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048990() {
+void FUN_00048990(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc438), ((char*)&DAT_004dc43c));
 }
 
@@ -370,9 +370,9 @@ hulk_intptr CAxisDirectionCondition::vfunc_0(int index) {
 namespace fn_f92e4dc5 {
 
 // 0x00048a00 FUN_00048a00 (19 B): matches/0x00048a00.cpp
-// sym: ?FUN_00048a00@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048a00@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048a00() {
+void FUN_00048a00(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc440), ((char*)&DAT_004dc444));
 }
 
@@ -389,9 +389,9 @@ hulk_intptr CGroundDistanceCondition::vfunc_0(int index) {
 namespace fn_f92e4dc5 {
 
 // 0x00048a70 FUN_00048a70 (19 B): matches/0x00048a70.cpp
-// sym: ?FUN_00048a70@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048a70@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048a70() {
+void FUN_00048a70(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc448), ((char*)&DAT_004dc44c));
 }
 
@@ -438,9 +438,9 @@ unsigned int CCharacterSizeCondition::vfunc_7(Input* arg) {
 namespace fn_f92e4dc5 {
 
 // 0x00048b40 FUN_00048b40 (19 B): matches/0x00048b40.cpp
-// sym: ?FUN_00048b40@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048b40@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048b40() {
+void FUN_00048b40(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc450), ((char*)&DAT_004dc454));
 }
 
@@ -479,9 +479,9 @@ bool CCollisionHitLocationCondition::vfunc_7(void* __p0) { Ctx_48bb0 * ctx = (Ct
 namespace fn_f92e4dc5 {
 
 // 0x00048c50 FUN_00048c50 (19 B): matches/0x00048c50.cpp
-// sym: ?FUN_00048c50@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048c50@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048c50() {
+void FUN_00048c50(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc458), ((char*)&DAT_004dc45c));
 }
 
@@ -498,9 +498,9 @@ hulk_intptr CCollisionDirectionCondition::vfunc_0(int index) {
 namespace fn_f92e4dc5 {
 
 // 0x00048cc0 FUN_00048cc0 (19 B): matches/0x00048cc0.cpp
-// sym: ?FUN_00048cc0@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048cc0@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048cc0() {
+void FUN_00048cc0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc460), ((char*)&DAT_004dc464));
 }
 
@@ -517,9 +517,9 @@ hulk_intptr CCollisionPushbackDirectionCondition::vfunc_0(int index) {
 namespace fn_f92e4dc5 {
 
 // 0x00048d30 FUN_00048d30 (19 B): matches/0x00048d30.cpp
-// sym: ?FUN_00048d30@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048d30@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048d30() {
+void FUN_00048d30(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc468), ((char*)&DAT_004dc46c));
 }
 
@@ -638,9 +638,9 @@ unsigned int CCollisionFlagCondition::vfunc_7(CollisionContext* context) {
 namespace fn_f92e4dc5 {
 
 // 0x00048e60 FUN_00048e60 (19 B): matches/0x00048e60.cpp
-// sym: ?FUN_00048e60@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048e60@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048e60() {
+void FUN_00048e60(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc470), ((char*)&DAT_004dc474));
 }
 
@@ -668,9 +668,9 @@ bool CCollisionInterruptCondition::vfunc_7(void* __p0) { Input_48ec0 * param = (
 namespace fn_f92e4dc5 {
 
 // 0x00048ef0 FUN_00048ef0 (19 B): matches/0x00048ef0.cpp
-// sym: ?FUN_00048ef0@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048ef0@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048ef0() {
+void FUN_00048ef0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc478), ((char*)&DAT_004dc47c));
 }
 
@@ -687,9 +687,9 @@ hulk_intptr CCollisionHeightCondition::vfunc_0(int index) {
 namespace fn_f92e4dc5 {
 
 // 0x00048f60 FUN_00048f60 (19 B): matches/0x00048f60.cpp
-// sym: ?FUN_00048f60@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048f60@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048f60() {
+void FUN_00048f60(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc480), ((char*)&DAT_004dc484));
 }
 
@@ -706,9 +706,9 @@ hulk_intptr CCollisionPushbackVelocityCondition::vfunc_0(int index) {
 namespace fn_f92e4dc5 {
 
 // 0x00048fd0 FUN_00048fd0 (19 B): matches/0x00048fd0.cpp
-// sym: ?FUN_00048fd0@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00048fd0@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048fd0() {
+void FUN_00048fd0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc488), ((char*)&DAT_004dc48c));
 }
 
@@ -725,9 +725,9 @@ hulk_intptr CCollisionPushbackYCondition::vfunc_0(int index) {
 namespace fn_f92e4dc5 {
 
 // 0x00049040 FUN_00049040 (19 B): matches/0x00049040.cpp
-// sym: ?FUN_00049040@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00049040@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049040() {
+void FUN_00049040(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc490), ((char*)&DAT_004dc494));
 }
 
@@ -744,9 +744,9 @@ hulk_intptr CCollisionPushbackYAngleCondition::vfunc_0(int index) {
 namespace fn_f92e4dc5 {
 
 // 0x000490b0 FUN_000490b0 (19 B): matches/0x000490b0.cpp
-// sym: ?FUN_000490b0@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_000490b0@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_000490b0() {
+void FUN_000490b0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc498), ((char*)&DAT_004dc49c));
 }
 
@@ -763,9 +763,9 @@ hulk_intptr CCollisionStunTimeCondition::vfunc_0(int index) {
 namespace fn_f92e4dc5 {
 
 // 0x00049120 FUN_00049120 (19 B): matches/0x00049120.cpp
-// sym: ?FUN_00049120@fn_f92e4dc5@@YAXXZ
+// sym: ?FUN_00049120@fn_f92e4dc5@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049120() {
+void FUN_00049120(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc4a0), ((char*)&DAT_004dc4a4));
 }
 

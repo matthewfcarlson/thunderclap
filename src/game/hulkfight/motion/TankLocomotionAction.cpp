@@ -994,9 +994,9 @@ bool owners::X_18f120::FUN_0018f120(int v) {
 namespace fn_fc171dfe {
 
 // 0x0018f130 FUN_0018f130 (19 B): matches/0x0018f130.cpp
-// sym: ?FUN_0018f130@fn_fc171dfe@@YAXXZ
+// sym: ?FUN_0018f130@fn_fc171dfe@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0018f130() {
+void FUN_0018f130(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1530), ((char*)&DAT_004e1534));
 }
 
@@ -1098,9 +1098,9 @@ hulk_freg hulkfight::motion::SimulationTrack::vfunc_7() {
 namespace fn_fc171dfe {
 
 // 0x0018f270 FUN_0018f270 (19 B): matches/0x0018f270.cpp
-// sym: ?FUN_0018f270@fn_fc171dfe@@YAXXZ
+// sym: ?FUN_0018f270@fn_fc171dfe@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0018f270() {
+void FUN_0018f270(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1540), ((char*)&DAT_004e1544));
 }
 

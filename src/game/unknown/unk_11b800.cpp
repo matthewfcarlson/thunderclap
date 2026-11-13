@@ -879,9 +879,9 @@ bool owners::X_11c1e0::FUN_0011c1e0(int v) {
 namespace fn_f18cc536 {
 
 // 0x0011c1f0 FUN_0011c1f0 (19 B): matches/0x0011c1f0.cpp
-// sym: ?FUN_0011c1f0@fn_f18cc536@@YAXXZ
+// sym: ?FUN_0011c1f0@fn_f18cc536@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0011c1f0() {
+void FUN_0011c1f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ca8), ((char*)&DAT_004e0cac));
 }
 
@@ -959,9 +959,9 @@ int owners::Object_11c290::FUN_0011c290(const char *source) {
 namespace fn_f18cc536 {
 
 // 0x0011c2f0 FUN_0011c2f0 (19 B): matches/0x0011c2f0.cpp
-// sym: ?FUN_0011c2f0@fn_f18cc536@@YAXXZ
+// sym: ?FUN_0011c2f0@fn_f18cc536@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0011c2f0() {
+void FUN_0011c2f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0cb0), ((char*)&DAT_004e0cb4));
 }
 

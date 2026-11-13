@@ -544,9 +544,9 @@ unsigned char owners::Obj_5d160::FUN_0005d160(unsigned char v) {
 namespace fn_f35d11f7 {
 
 // 0x0005d170 FUN_0005d170 (19 B): matches/0x0005d170.cpp
-// sym: ?FUN_0005d170@fn_f35d11f7@@YAXXZ
+// sym: ?FUN_0005d170@fn_f35d11f7@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005d170() {
+void FUN_0005d170(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc5c8), ((char*)&DAT_004dc5cc));
 }
 

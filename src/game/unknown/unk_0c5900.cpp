@@ -277,7 +277,7 @@ namespace fn_f3173163 {
 // 0x000c5a60 FUN_000c5a60 (1 B): matches/0x000c5a60.cpp
 // sym: _FUN_000c5a60
 // Same code shape as 0x00025410 (propagated; names are from that function)
-extern "C" void FUN_000c5a60() {}
+extern "C" void FUN_000c5a60(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x000c5a90 FUN_000c5a90 (78 B): matches/0x000c5a90.cpp

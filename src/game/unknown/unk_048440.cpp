@@ -49,9 +49,9 @@ void CControllerCondition::vfunc_7() {
 namespace fn_f7d9f22f {
 
 // 0x00048450 FUN_00048450 (19 B): matches/0x00048450.cpp
-// sym: ?FUN_00048450@fn_f7d9f22f@@YAXXZ
+// sym: ?FUN_00048450@fn_f7d9f22f@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00048450() {
+void FUN_00048450(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc400), ((char*)&DAT_004dc404));
 }
 
@@ -122,9 +122,9 @@ void CButtonCondition::f9(void* arg) {
 namespace fn_f7d9f22f {
 
 // 0x000484f0 FUN_000484f0 (19 B): matches/0x000484f0.cpp
-// sym: ?FUN_000484f0@fn_f7d9f22f@@YAXXZ
+// sym: ?FUN_000484f0@fn_f7d9f22f@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_000484f0() {
+void FUN_000484f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc408), ((char*)&DAT_004dc40c));
 }
 

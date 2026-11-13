@@ -1006,9 +1006,9 @@ bool O_1659f0::SetConstant_001659f0(void* p) {
 
 
 // 0x00165a30 FUN_00165a30 (19 B): matches/0x00165a30.cpp
-// sym: ?FUN_00165a30@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165a30@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165a30() {
+void FUN_00165a30(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e11d8), ((char*)&DAT_004e11dc));
 }
 
@@ -1025,9 +1025,9 @@ hulk_intptr hulkfight::motion::ChargeCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x00165aa0 FUN_00165aa0 (19 B): matches/0x00165aa0.cpp
-// sym: ?FUN_00165aa0@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165aa0@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165aa0() {
+void FUN_00165aa0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e11e0), ((char*)&DAT_004e11e4));
 }
 
@@ -1044,9 +1044,9 @@ hulk_intptr hulkfight::motion::TargetMotionStateCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x00165b10 FUN_00165b10 (19 B): matches/0x00165b10.cpp
-// sym: ?FUN_00165b10@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165b10@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165b10() {
+void FUN_00165b10(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e11e8), ((char*)&DAT_004e11ec));
 }
 
@@ -1063,9 +1063,9 @@ hulk_intptr hulkfight::motion::IntentionButtonDownAnyCondition::vfunc_0(int inde
 namespace fn_f5579237 {
 
 // 0x00165b70 FUN_00165b70 (19 B): matches/0x00165b70.cpp
-// sym: ?FUN_00165b70@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165b70@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165b70() {
+void FUN_00165b70(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e11f0), ((char*)&DAT_004e11f4));
 }
 
@@ -1082,9 +1082,9 @@ hulk_intptr hulkfight::motion::VelocityCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x00165be0 FUN_00165be0 (19 B): matches/0x00165be0.cpp
-// sym: ?FUN_00165be0@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165be0@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165be0() {
+void FUN_00165be0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e11f8), ((char*)&DAT_004e11fc));
 }
 
@@ -1101,9 +1101,9 @@ hulk_intptr hulkfight::motion::VelocityYCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x00165c50 FUN_00165c50 (19 B): matches/0x00165c50.cpp
-// sym: ?FUN_00165c50@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165c50@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165c50() {
+void FUN_00165c50(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1200), ((char*)&DAT_004e1204));
 }
 
@@ -1120,9 +1120,9 @@ hulk_intptr hulkfight::motion::VelocityAnimatedXZCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x00165cc0 FUN_00165cc0 (19 B): matches/0x00165cc0.cpp
-// sym: ?FUN_00165cc0@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165cc0@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165cc0() {
+void FUN_00165cc0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1208), ((char*)&DAT_004e120c));
 }
 
@@ -1148,9 +1148,9 @@ RayCastTargetCondition_165d30::~RayCastTargetCondition_165d30() {
 
 
 // 0x00165d50 FUN_00165d50 (19 B): matches/0x00165d50.cpp
-// sym: ?FUN_00165d50@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165d50@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165d50() {
+void FUN_00165d50(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1210), ((char*)&DAT_004e1214));
 }
 
@@ -1167,9 +1167,9 @@ hulk_intptr hulkfight::motion::TurningVelocityCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x00165dc0 FUN_00165dc0 (19 B): matches/0x00165dc0.cpp
-// sym: ?FUN_00165dc0@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165dc0@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165dc0() {
+void FUN_00165dc0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1218), ((char*)&DAT_004e121c));
 }
 
@@ -1186,9 +1186,9 @@ hulk_intptr hulkfight::motion::IntentionInputCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x00165e30 FUN_00165e30 (19 B): matches/0x00165e30.cpp
-// sym: ?FUN_00165e30@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165e30@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165e30() {
+void FUN_00165e30(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1220), ((char*)&DAT_004e1224));
 }
 
@@ -1205,9 +1205,9 @@ hulk_intptr hulkfight::motion::LocomotionMotionStateCondition::vfunc_0(int index
 namespace fn_f5579237 {
 
 // 0x00165ea0 FUN_00165ea0 (19 B): matches/0x00165ea0.cpp
-// sym: ?FUN_00165ea0@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165ea0@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165ea0() {
+void FUN_00165ea0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1228), ((char*)&DAT_004e122c));
 }
 
@@ -1224,9 +1224,9 @@ hulk_intptr hulkfight::motion::GrappleReactionTypeCondition::vfunc_0(int index) 
 namespace fn_f5579237 {
 
 // 0x00165f10 FUN_00165f10 (19 B): matches/0x00165f10.cpp
-// sym: ?FUN_00165f10@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165f10@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165f10() {
+void FUN_00165f10(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1230), ((char*)&DAT_004e1234));
 }
 
@@ -1252,9 +1252,9 @@ RayCastConeCondition_165f80::~RayCastConeCondition_165f80() {
 
 
 // 0x00165fa0 FUN_00165fa0 (19 B): matches/0x00165fa0.cpp
-// sym: ?FUN_00165fa0@fn_f5579237@@YAXXZ
+// sym: ?FUN_00165fa0@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00165fa0() {
+void FUN_00165fa0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1238), ((char*)&DAT_004e123c));
 }
 
@@ -1271,9 +1271,9 @@ hulk_intptr hulkfight::motion::TargetingCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x00166000 FUN_00166000 (19 B): matches/0x00166000.cpp
-// sym: ?FUN_00166000@fn_f5579237@@YAXXZ
+// sym: ?FUN_00166000@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00166000() {
+void FUN_00166000(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1240), ((char*)&DAT_004e1244));
 }
 
@@ -1290,9 +1290,9 @@ hulk_intptr hulkfight::motion::VelocityAnimatedYCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x00166070 FUN_00166070 (19 B): matches/0x00166070.cpp
-// sym: ?FUN_00166070@fn_f5579237@@YAXXZ
+// sym: ?FUN_00166070@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00166070() {
+void FUN_00166070(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1248), ((char*)&DAT_004e124c));
 }
 
@@ -1309,9 +1309,9 @@ hulk_intptr hulkfight::motion::TargetLocomotionMotionStateCondition::vfunc_0(int
 namespace fn_f5579237 {
 
 // 0x001660e0 FUN_001660e0 (19 B): matches/0x001660e0.cpp
-// sym: ?FUN_001660e0@fn_f5579237@@YAXXZ
+// sym: ?FUN_001660e0@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001660e0() {
+void FUN_001660e0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1250), ((char*)&DAT_004e1254));
 }
 
@@ -1328,9 +1328,9 @@ hulk_intptr hulkfight::motion::TargetHealthPercentCondition::vfunc_0(int index) 
 namespace fn_f5579237 {
 
 // 0x00166150 FUN_00166150 (19 B): matches/0x00166150.cpp
-// sym: ?FUN_00166150@fn_f5579237@@YAXXZ
+// sym: ?FUN_00166150@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00166150() {
+void FUN_00166150(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1258), ((char*)&DAT_004e125c));
 }
 
@@ -1347,9 +1347,9 @@ hulk_intptr hulkfight::motion::GrappleHealthCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x001661c0 FUN_001661c0 (19 B): matches/0x001661c0.cpp
-// sym: ?FUN_001661c0@fn_f5579237@@YAXXZ
+// sym: ?FUN_001661c0@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001661c0() {
+void FUN_001661c0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1260), ((char*)&DAT_004e1264));
 }
 
@@ -1393,9 +1393,9 @@ bool owners::Thing_166230::FUN_00166230(const char *source) {
 namespace fn_f5579237 {
 
 // 0x00166290 FUN_00166290 (19 B): matches/0x00166290.cpp
-// sym: ?FUN_00166290@fn_f5579237@@YAXXZ
+// sym: ?FUN_00166290@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00166290() {
+void FUN_00166290(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1268), ((char*)&DAT_004e126c));
 }
 
@@ -1412,9 +1412,9 @@ hulk_intptr hulkfight::motion::CharacterPropStatusCondition::vfunc_0(int index) 
 namespace fn_f5579237 {
 
 // 0x00166300 FUN_00166300 (19 B): matches/0x00166300.cpp
-// sym: ?FUN_00166300@fn_f5579237@@YAXXZ
+// sym: ?FUN_00166300@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00166300() {
+void FUN_00166300(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1270), ((char*)&DAT_004e1274));
 }
 
@@ -1431,9 +1431,9 @@ hulk_intptr hulkfight::motion::VelocityXZAngleCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x00166370 FUN_00166370 (19 B): matches/0x00166370.cpp
-// sym: ?FUN_00166370@fn_f5579237@@YAXXZ
+// sym: ?FUN_00166370@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00166370() {
+void FUN_00166370(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1278), ((char*)&DAT_004e127c));
 }
 
@@ -1478,9 +1478,9 @@ RayCastCondition_1663f0::~RayCastCondition_1663f0() {
 
 
 // 0x00166410 FUN_00166410 (19 B): matches/0x00166410.cpp
-// sym: ?FUN_00166410@fn_f5579237@@YAXXZ
+// sym: ?FUN_00166410@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00166410() {
+void FUN_00166410(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1280), ((char*)&DAT_004e1284));
 }
 
@@ -1497,9 +1497,9 @@ hulk_intptr hulkfight::motion::InLoadedRoomCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x00166470 FUN_00166470 (19 B): matches/0x00166470.cpp
-// sym: ?FUN_00166470@fn_f5579237@@YAXXZ
+// sym: ?FUN_00166470@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00166470() {
+void FUN_00166470(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1288), ((char*)&DAT_004e128c));
 }
 
@@ -1516,9 +1516,9 @@ hulk_intptr hulkfight::motion::VelocityXZCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x001664e0 FUN_001664e0 (19 B): matches/0x001664e0.cpp
-// sym: ?FUN_001664e0@fn_f5579237@@YAXXZ
+// sym: ?FUN_001664e0@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001664e0() {
+void FUN_001664e0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1290), ((char*)&DAT_004e1294));
 }
 
@@ -1535,9 +1535,9 @@ hulk_intptr hulkfight::motion::VelocityAnimatedXZAngleCondition::vfunc_0(int ind
 namespace fn_f5579237 {
 
 // 0x00166550 FUN_00166550 (19 B): matches/0x00166550.cpp
-// sym: ?FUN_00166550@fn_f5579237@@YAXXZ
+// sym: ?FUN_00166550@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00166550() {
+void FUN_00166550(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1298), ((char*)&DAT_004e129c));
 }
 
@@ -1554,9 +1554,9 @@ hulk_intptr hulkfight::motion::RageModeStateCondition::vfunc_0(int index) {
 namespace fn_f5579237 {
 
 // 0x001665c0 FUN_001665c0 (19 B): matches/0x001665c0.cpp
-// sym: ?FUN_001665c0@fn_f5579237@@YAXXZ
+// sym: ?FUN_001665c0@fn_f5579237@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001665c0() {
+void FUN_001665c0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e12a0), ((char*)&DAT_004e12a4));
 }
 

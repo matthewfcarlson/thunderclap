@@ -122,9 +122,9 @@ int CGrappleAlertStatusCondition::vfunc_8(hulk_intptr p) {
 namespace fn_f901265b {
 
 // 0x0004a5a0 FUN_0004a5a0 (19 B): matches/0x0004a5a0.cpp
-// sym: ?FUN_0004a5a0@fn_f901265b@@YAXXZ
+// sym: ?FUN_0004a5a0@fn_f901265b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0004a5a0() {
+void FUN_0004a5a0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc540), ((char*)&DAT_004dc544));
 }
 
@@ -154,9 +154,9 @@ bool CRageModeCondition::vfunc_7(void* __p0) { void * arg = (void *)__p0;
 namespace fn_f901265b {
 
 // 0x0004a630 FUN_0004a630 (19 B): matches/0x0004a630.cpp
-// sym: ?FUN_0004a630@fn_f901265b@@YAXXZ
+// sym: ?FUN_0004a630@fn_f901265b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0004a630() {
+void FUN_0004a630(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc548), ((char*)&DAT_004dc54c));
 }
 
@@ -173,9 +173,9 @@ hulk_intptr CGrappleTimerCondition::vfunc_0(int index) {
 namespace fn_f901265b {
 
 // 0x0004a6a0 FUN_0004a6a0 (19 B): matches/0x0004a6a0.cpp
-// sym: ?FUN_0004a6a0@fn_f901265b@@YAXXZ
+// sym: ?FUN_0004a6a0@fn_f901265b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0004a6a0() {
+void FUN_0004a6a0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc550), ((char*)&DAT_004dc554));
 }
 
@@ -239,9 +239,9 @@ unsigned char CCharacterBoolCondition::vfunc_7(Context* context) {
 namespace fn_f901265b {
 
 // 0x0004a820 FUN_0004a820 (19 B): matches/0x0004a820.cpp
-// sym: ?FUN_0004a820@fn_f901265b@@YAXXZ
+// sym: ?FUN_0004a820@fn_f901265b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0004a820() {
+void FUN_0004a820(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc568), ((char*)&DAT_004dc56c));
 }
 
@@ -291,9 +291,9 @@ bool CFightNodePrevCondition::vfunc_7(void* __p0) { void * arg = (void *)__p0;
 namespace fn_f901265b {
 
 // 0x0004a900 FUN_0004a900 (19 B): matches/0x0004a900.cpp
-// sym: ?FUN_0004a900@fn_f901265b@@YAXXZ
+// sym: ?FUN_0004a900@fn_f901265b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0004a900() {
+void FUN_0004a900(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc570), ((char*)&DAT_004dc574));
 }
 
@@ -310,9 +310,9 @@ hulk_intptr CIntentionSpeedCondition::vfunc_0(int index) {
 namespace fn_f901265b {
 
 // 0x0004a970 FUN_0004a970 (19 B): matches/0x0004a970.cpp
-// sym: ?FUN_0004a970@fn_f901265b@@YAXXZ
+// sym: ?FUN_0004a970@fn_f901265b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0004a970() {
+void FUN_0004a970(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc578), ((char*)&DAT_004dc57c));
 }
 

@@ -1066,9 +1066,9 @@ void* owners::X_12b3a0::FUN_0012b3a0() {
 namespace fn_f9c2e0ac {
 
 // 0x0012b3b0 FUN_0012b3b0 (19 B): matches/0x0012b3b0.cpp
-// sym: ?FUN_0012b3b0@fn_f9c2e0ac@@YAXXZ
+// sym: ?FUN_0012b3b0@fn_f9c2e0ac@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012b3b0() {
+void FUN_0012b3b0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e14), ((char*)&DAT_004e0e18));
 }
 
@@ -1094,9 +1094,9 @@ void hulkfight::ai::ThreatCondition::FUN_0012b410() {
 namespace fn_f9c2e0ac {
 
 // 0x0012b430 FUN_0012b430 (19 B): matches/0x0012b430.cpp
-// sym: ?FUN_0012b430@fn_f9c2e0ac@@YAXXZ
+// sym: ?FUN_0012b430@fn_f9c2e0ac@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012b430() {
+void FUN_0012b430(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e1c), ((char*)&DAT_004e0e20));
 }
 
@@ -1123,9 +1123,9 @@ void ThreatDistanceCondition_12b490::Run() {
 
 
 // 0x0012b4b0 FUN_0012b4b0 (19 B): matches/0x0012b4b0.cpp
-// sym: ?FUN_0012b4b0@fn_f9c2e0ac@@YAXXZ
+// sym: ?FUN_0012b4b0@fn_f9c2e0ac@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012b4b0() {
+void FUN_0012b4b0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e24), ((char*)&DAT_004e0e28));
 }
 
@@ -1152,9 +1152,9 @@ void ThreatAngleCondition_12b510::Run() {
 
 
 // 0x0012b530 FUN_0012b530 (19 B): matches/0x0012b530.cpp
-// sym: ?FUN_0012b530@fn_f9c2e0ac@@YAXXZ
+// sym: ?FUN_0012b530@fn_f9c2e0ac@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012b530() {
+void FUN_0012b530(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e2c), ((char*)&DAT_004e0e30));
 }
 
@@ -1171,9 +1171,9 @@ hulk_intptr hulkfight::ai::ShotFailCountCondition::vfunc_0(int index) {
 namespace fn_f9c2e0ac {
 
 // 0x0012b5a0 FUN_0012b5a0 (19 B): matches/0x0012b5a0.cpp
-// sym: ?FUN_0012b5a0@fn_f9c2e0ac@@YAXXZ
+// sym: ?FUN_0012b5a0@fn_f9c2e0ac@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012b5a0() {
+void FUN_0012b5a0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e34), ((char*)&DAT_004e0e38));
 }
 
@@ -1252,9 +1252,9 @@ void hulkfight::ai::ThreatBallTrack::FUN_0012b640() {
 namespace fn_f9c2e0ac {
 
 // 0x0012b670 FUN_0012b670 (19 B): matches/0x0012b670.cpp
-// sym: ?FUN_0012b670@fn_f9c2e0ac@@YAXXZ
+// sym: ?FUN_0012b670@fn_f9c2e0ac@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012b670() {
+void FUN_0012b670(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e3c), ((char*)&DAT_004e0e40));
 }
 

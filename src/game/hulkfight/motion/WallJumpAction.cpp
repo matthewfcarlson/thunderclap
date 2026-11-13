@@ -1073,9 +1073,9 @@ char owners::Obj_13ee10::FUN_0013ee10(int v) {
 namespace fn_f8068520 {
 
 // 0x0013ee20 FUN_0013ee20 (19 B): matches/0x0013ee20.cpp
-// sym: ?FUN_0013ee20@fn_f8068520@@YAXXZ
+// sym: ?FUN_0013ee20@fn_f8068520@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0013ee20() {
+void FUN_0013ee20(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f40), ((char*)&DAT_004e0f44));
 }
 
@@ -1092,9 +1092,9 @@ hulk_intptr hulkfight::motion::WallVelocityCondition::vfunc_0(int index) {
 namespace fn_f8068520 {
 
 // 0x0013ee90 FUN_0013ee90 (19 B): matches/0x0013ee90.cpp
-// sym: ?FUN_0013ee90@fn_f8068520@@YAXXZ
+// sym: ?FUN_0013ee90@fn_f8068520@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0013ee90() {
+void FUN_0013ee90(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f48), ((char*)&DAT_004e0f4c));
 }
 
@@ -1296,9 +1296,9 @@ hulk_freg hulkfight::motion::WallJumpTrack::vfunc_7() {
 namespace fn_f8068520 {
 
 // 0x0013f070 FUN_0013f070 (19 B): matches/0x0013f070.cpp
-// sym: ?FUN_0013f070@fn_f8068520@@YAXXZ
+// sym: ?FUN_0013f070@fn_f8068520@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0013f070() {
+void FUN_0013f070(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f58), ((char*)&DAT_004e0f5c));
 }
 

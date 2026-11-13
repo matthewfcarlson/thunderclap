@@ -52,9 +52,9 @@ struct Track_10d470 {
 
 
 // 0x0010d400 FUN_0010d400 (19 B): matches/0x0010d400.cpp
-// sym: ?FUN_0010d400@fn_fd391c0c@@YAXXZ
+// sym: ?FUN_0010d400@fn_fd391c0c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010d400() {
+void FUN_0010d400(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b90), ((char*)&DAT_004e0b94));
 }
 

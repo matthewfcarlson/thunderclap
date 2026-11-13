@@ -52,9 +52,9 @@ MotionLocatorTrack::~MotionLocatorTrack() {
 
 
 // 0x00115b90 FUN_00115b90 (19 B): matches/0x00115b90.cpp
-// sym: ?FUN_00115b90@fn_f6fbeb49@@YAXXZ
+// sym: ?FUN_00115b90@fn_f6fbeb49@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00115b90() {
+void FUN_00115b90(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0c6c), ((char*)&DAT_004e0c70));
 }
 

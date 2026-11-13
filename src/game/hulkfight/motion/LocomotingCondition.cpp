@@ -536,9 +536,9 @@ hulk_intptr hulkfight::motion::LocomotingCondition::vfunc_0(int index) {
 namespace fn_f7eb5c06 {
 
 // 0x0015b7c0 FUN_0015b7c0 (19 B): matches/0x0015b7c0.cpp
-// sym: ?FUN_0015b7c0@fn_f7eb5c06@@YAXXZ
+// sym: ?FUN_0015b7c0@fn_f7eb5c06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0015b7c0() {
+void FUN_0015b7c0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1160), ((char*)&DAT_004e1164));
 }
 
@@ -564,9 +564,9 @@ JointPlantedCondition_15b820::~JointPlantedCondition_15b820() {
 
 
 // 0x0015b840 FUN_0015b840 (19 B): matches/0x0015b840.cpp
-// sym: ?FUN_0015b840@fn_f7eb5c06@@YAXXZ
+// sym: ?FUN_0015b840@fn_f7eb5c06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0015b840() {
+void FUN_0015b840(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1168), ((char*)&DAT_004e116c));
 }
 

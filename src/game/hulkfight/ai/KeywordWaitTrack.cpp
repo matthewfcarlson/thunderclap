@@ -75,9 +75,9 @@ void HulkActionTrack_10d2a0::Run() {
 
 
 // 0x0010d2c0 FUN_0010d2c0 (19 B): matches/0x0010d2c0.cpp
-// sym: ?FUN_0010d2c0@fn_f14b3cf2@@YAXXZ
+// sym: ?FUN_0010d2c0@fn_f14b3cf2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010d2c0() {
+void FUN_0010d2c0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b80), ((char*)&DAT_004e0b84));
 }
 

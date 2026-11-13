@@ -155,9 +155,9 @@ bool Obj::SetOffset_00077ef0(const Vec3* p) {
 
 
 // 0x00077f10 FUN_00077f10 (19 B): matches/0x00077f10.cpp
-// sym: ?FUN_00077f10@fn_f42fdcee@@YAXXZ
+// sym: ?FUN_00077f10@fn_f42fdcee@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00077f10() {
+void FUN_00077f10(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dd030), ((char*)&DAT_004dd034));
 }
 

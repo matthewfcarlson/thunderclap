@@ -48,9 +48,9 @@ struct Track_115cb0 {
 
 
 // 0x00115c30 FUN_00115c30 (19 B): matches/0x00115c30.cpp
-// sym: ?FUN_00115c30@fn_fe369724@@YAXXZ
+// sym: ?FUN_00115c30@fn_fe369724@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00115c30() {
+void FUN_00115c30(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0c74), ((char*)&DAT_004e0c78));
 }
 

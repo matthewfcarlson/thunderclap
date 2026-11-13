@@ -1306,8 +1306,8 @@ int CCondition::vfunc_6(int x, int y, int z) {
 
 
 // 0x000482e0 FUN_000482e0 (19 B): matches/0x000482e0.cpp
-// sym: ?FUN_000482e0@fn_f64b1530@@YAXXZ
-void FUN_000482e0() {
+// sym: ?FUN_000482e0@fn_f64b1530@@YAXPAX@Z
+void FUN_000482e0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc3f8), ((char*)&DAT_004dc3fc));
 }
 

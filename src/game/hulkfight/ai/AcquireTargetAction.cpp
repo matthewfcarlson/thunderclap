@@ -347,9 +347,9 @@ hulk_intptr hulkfight::ai::AcquireTargetCondition::vfunc_0(int index) {
 namespace fn_f712cb17 {
 
 // 0x001240e0 FUN_001240e0 (19 B): matches/0x001240e0.cpp
-// sym: ?FUN_001240e0@fn_f712cb17@@YAXXZ
+// sym: ?FUN_001240e0@fn_f712cb17@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001240e0() {
+void FUN_001240e0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0dd4), ((char*)&DAT_004e0dd8));
 }
 
@@ -366,9 +366,9 @@ hulk_intptr hulkfight::ai::TargetVelocityXZCondition::vfunc_0(int index) {
 namespace fn_f712cb17 {
 
 // 0x00124150 FUN_00124150 (19 B): matches/0x00124150.cpp
-// sym: ?FUN_00124150@fn_f712cb17@@YAXXZ
+// sym: ?FUN_00124150@fn_f712cb17@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00124150() {
+void FUN_00124150(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ddc), ((char*)&DAT_004e0de0));
 }
 
@@ -385,9 +385,9 @@ hulk_intptr hulkfight::ai::TargetDirectionXZCondition::vfunc_0(int index) {
 namespace fn_f712cb17 {
 
 // 0x001241c0 FUN_001241c0 (19 B): matches/0x001241c0.cpp
-// sym: ?FUN_001241c0@fn_f712cb17@@YAXXZ
+// sym: ?FUN_001241c0@fn_f712cb17@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001241c0() {
+void FUN_001241c0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0de4), ((char*)&DAT_004e0de8));
 }
 
@@ -404,9 +404,9 @@ hulk_intptr hulkfight::ai::TargetFirstShotCondition::vfunc_0(int index) {
 namespace fn_f712cb17 {
 
 // 0x00124220 FUN_00124220 (19 B): matches/0x00124220.cpp
-// sym: ?FUN_00124220@fn_f712cb17@@YAXXZ
+// sym: ?FUN_00124220@fn_f712cb17@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00124220() {
+void FUN_00124220(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0dec), ((char*)&DAT_004e0df0));
 }
 
@@ -423,9 +423,9 @@ hulk_intptr hulkfight::ai::TargetInvincibleCondition::vfunc_0(int index) {
 namespace fn_f712cb17 {
 
 // 0x00124280 FUN_00124280 (19 B): matches/0x00124280.cpp
-// sym: ?FUN_00124280@fn_f712cb17@@YAXXZ
+// sym: ?FUN_00124280@fn_f712cb17@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00124280() {
+void FUN_00124280(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0df4), ((char*)&DAT_004e0df8));
 }
 
@@ -442,9 +442,9 @@ hulk_intptr hulkfight::ai::CanSeeTargetCondition::vfunc_0(int index) {
 namespace fn_f712cb17 {
 
 // 0x001242e0 FUN_001242e0 (19 B): matches/0x001242e0.cpp
-// sym: ?FUN_001242e0@fn_f712cb17@@YAXXZ
+// sym: ?FUN_001242e0@fn_f712cb17@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001242e0() {
+void FUN_001242e0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0dfc), ((char*)&DAT_004e0e00));
 }
 
@@ -489,9 +489,9 @@ hulk_freg hulkfight::ai::TargetClearTrack::vfunc_7() {
 namespace fn_f712cb17 {
 
 // 0x00124370 FUN_00124370 (19 B): matches/0x00124370.cpp
-// sym: ?FUN_00124370@fn_f712cb17@@YAXXZ
+// sym: ?FUN_00124370@fn_f712cb17@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00124370() {
+void FUN_00124370(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e04), ((char*)&DAT_004e0e08));
 }
 
@@ -563,9 +563,9 @@ hulk_freg hulkfight::ai::AcquireTargetTrack::vfunc_7() {
 namespace fn_f712cb17 {
 
 // 0x00124410 FUN_00124410 (19 B): matches/0x00124410.cpp
-// sym: ?FUN_00124410@fn_f712cb17@@YAXXZ
+// sym: ?FUN_00124410@fn_f712cb17@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00124410() {
+void FUN_00124410(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e0c), ((char*)&DAT_004e0e10));
 }
 

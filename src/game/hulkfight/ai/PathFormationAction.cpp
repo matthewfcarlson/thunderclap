@@ -444,9 +444,9 @@ hulk_freg hulkfight::ai::RoutTrack::vfunc_7() {
 namespace fn_fbabf3f2 {
 
 // 0x0011c3b0 FUN_0011c3b0 (19 B): matches/0x0011c3b0.cpp
-// sym: ?FUN_0011c3b0@fn_fbabf3f2@@YAXXZ
+// sym: ?FUN_0011c3b0@fn_fbabf3f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0011c3b0() {
+void FUN_0011c3b0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0cb8), ((char*)&DAT_004e0cbc));
 }
 
@@ -538,9 +538,9 @@ char owners::Obj_11c470::FUN_0011c470(const char* s) {
 namespace fn_fbabf3f2 {
 
 // 0x0011c4d0 FUN_0011c4d0 (19 B): matches/0x0011c4d0.cpp
-// sym: ?FUN_0011c4d0@fn_fbabf3f2@@YAXXZ
+// sym: ?FUN_0011c4d0@fn_fbabf3f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0011c4d0() {
+void FUN_0011c4d0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0cc0), ((char*)&DAT_004e0cc4));
 }
 
@@ -609,9 +609,9 @@ hulk_freg hulkfight::ai::StrafeRunTrack::vfunc_7() {
 namespace fn_fbabf3f2 {
 
 // 0x0011c580 FUN_0011c580 (19 B): matches/0x0011c580.cpp
-// sym: ?FUN_0011c580@fn_fbabf3f2@@YAXXZ
+// sym: ?FUN_0011c580@fn_fbabf3f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0011c580() {
+void FUN_0011c580(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0cc8), ((char*)&DAT_004e0ccc));
 }
 
@@ -655,9 +655,9 @@ hulk_freg hulkfight::ai::StrafeLateralHBTrack::vfunc_7() {
 namespace fn_fbabf3f2 {
 
 // 0x0011c620 FUN_0011c620 (19 B): matches/0x0011c620.cpp
-// sym: ?FUN_0011c620@fn_fbabf3f2@@YAXXZ
+// sym: ?FUN_0011c620@fn_fbabf3f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0011c620() {
+void FUN_0011c620(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0cd0), ((char*)&DAT_004e0cd4));
 }
 
@@ -698,9 +698,9 @@ hulk_freg hulkfight::ai::StrafeCircleHBTrack::vfunc_7() {
 namespace fn_fbabf3f2 {
 
 // 0x0011c6c0 FUN_0011c6c0 (19 B): matches/0x0011c6c0.cpp
-// sym: ?FUN_0011c6c0@fn_fbabf3f2@@YAXXZ
+// sym: ?FUN_0011c6c0@fn_fbabf3f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0011c6c0() {
+void FUN_0011c6c0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0cd8), ((char*)&DAT_004e0cdc));
 }
 
@@ -742,9 +742,9 @@ hulk_freg hulkfight::ai::StrafeCircleTrack::vfunc_7() {
 namespace fn_fbabf3f2 {
 
 // 0x0011c770 FUN_0011c770 (19 B): matches/0x0011c770.cpp
-// sym: ?FUN_0011c770@fn_fbabf3f2@@YAXXZ
+// sym: ?FUN_0011c770@fn_fbabf3f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0011c770() {
+void FUN_0011c770(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ce0), ((char*)&DAT_004e0ce4));
 }
 

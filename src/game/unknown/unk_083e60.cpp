@@ -1169,7 +1169,7 @@ namespace fn_fb2690e0 {
 
 // 0x00085cd0 FUN_00085cd0 (6 B): matches/0x00085cd0.cpp
 // sym: _FUN_00085cd0
-extern "C" int FUN_00085cd0(void) {
+extern "C" int FUN_00085cd0(void* /*this, unused: callers pass it (unb4)*/) {
     return DAT_004dd6e4;
 }
 

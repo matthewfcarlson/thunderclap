@@ -1435,9 +1435,9 @@ char owners::C_14d240::FUN_0014d240(int a) {
 namespace fn_f2fc69c6 {
 
 // 0x0014d250 FUN_0014d250 (19 B): matches/0x0014d250.cpp
-// sym: ?FUN_0014d250@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d250@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d250() {
+void FUN_0014d250(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1028), ((char*)&DAT_004e102c));
 }
 
@@ -1454,9 +1454,9 @@ hulk_intptr hulkfight::motion::InterruptAccumulatorCondition::vfunc_0(int index)
 namespace fn_f2fc69c6 {
 
 // 0x0014d2c0 FUN_0014d2c0 (19 B): matches/0x0014d2c0.cpp
-// sym: ?FUN_0014d2c0@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d2c0@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d2c0() {
+void FUN_0014d2c0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1030), ((char*)&DAT_004e1034));
 }
 
@@ -1473,9 +1473,9 @@ hulk_intptr hulkfight::motion::CollisionSourceForceMagnitudeCondition::vfunc_0(i
 namespace fn_f2fc69c6 {
 
 // 0x0014d330 FUN_0014d330 (19 B): matches/0x0014d330.cpp
-// sym: ?FUN_0014d330@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d330@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d330() {
+void FUN_0014d330(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1038), ((char*)&DAT_004e103c));
 }
 
@@ -1492,9 +1492,9 @@ hulk_intptr hulkfight::motion::CollisionThrowCondition::vfunc_0(int index) {
 namespace fn_f2fc69c6 {
 
 // 0x0014d390 FUN_0014d390 (19 B): matches/0x0014d390.cpp
-// sym: ?FUN_0014d390@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d390@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d390() {
+void FUN_0014d390(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1040), ((char*)&DAT_004e1044));
 }
 
@@ -1511,9 +1511,9 @@ hulk_intptr hulkfight::motion::CollisionSourceSizeCondition::vfunc_0(int index) 
 namespace fn_f2fc69c6 {
 
 // 0x0014d400 FUN_0014d400 (19 B): matches/0x0014d400.cpp
-// sym: ?FUN_0014d400@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d400@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d400() {
+void FUN_0014d400(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1048), ((char*)&DAT_004e104c));
 }
 
@@ -1530,9 +1530,9 @@ hulk_intptr hulkfight::motion::CollisionSourceTypeCondition::vfunc_0(int index) 
 namespace fn_f2fc69c6 {
 
 // 0x0014d470 FUN_0014d470 (19 B): matches/0x0014d470.cpp
-// sym: ?FUN_0014d470@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d470@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d470() {
+void FUN_0014d470(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1050), ((char*)&DAT_004e1054));
 }
 
@@ -1549,9 +1549,9 @@ hulk_intptr hulkfight::motion::CollisionTargetPriorityCondition::vfunc_0(int ind
 namespace fn_f2fc69c6 {
 
 // 0x0014d4e0 FUN_0014d4e0 (19 B): matches/0x0014d4e0.cpp
-// sym: ?FUN_0014d4e0@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d4e0@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d4e0() {
+void FUN_0014d4e0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1058), ((char*)&DAT_004e105c));
 }
 
@@ -1568,9 +1568,9 @@ hulk_intptr hulkfight::motion::CollisionDevastatorCondition::vfunc_0(int index) 
 namespace fn_f2fc69c6 {
 
 // 0x0014d540 FUN_0014d540 (19 B): matches/0x0014d540.cpp
-// sym: ?FUN_0014d540@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d540@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d540() {
+void FUN_0014d540(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1060), ((char*)&DAT_004e1064));
 }
 
@@ -1587,9 +1587,9 @@ hulk_intptr hulkfight::motion::HitPushbackCondition::vfunc_0(int index) {
 namespace fn_f2fc69c6 {
 
 // 0x0014d5a0 FUN_0014d5a0 (19 B): matches/0x0014d5a0.cpp
-// sym: ?FUN_0014d5a0@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d5a0@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d5a0() {
+void FUN_0014d5a0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1068), ((char*)&DAT_004e106c));
 }
 
@@ -1606,9 +1606,9 @@ hulk_intptr hulkfight::motion::CollisionTargetIsTargetCondition::vfunc_0(int ind
 namespace fn_f2fc69c6 {
 
 // 0x0014d600 FUN_0014d600 (19 B): matches/0x0014d600.cpp
-// sym: ?FUN_0014d600@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d600@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d600() {
+void FUN_0014d600(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1070), ((char*)&DAT_004e1074));
 }
 
@@ -1625,9 +1625,9 @@ hulk_intptr hulkfight::motion::CollisionTargetSizeCondition::vfunc_0(int index) 
 namespace fn_f2fc69c6 {
 
 // 0x0014d670 FUN_0014d670 (19 B): matches/0x0014d670.cpp
-// sym: ?FUN_0014d670@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d670@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d670() {
+void FUN_0014d670(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1078), ((char*)&DAT_004e107c));
 }
 
@@ -1644,9 +1644,9 @@ hulk_intptr hulkfight::motion::CollisionSourceIsMissileCondition::vfunc_0(int in
 namespace fn_f2fc69c6 {
 
 // 0x0014d6d0 FUN_0014d6d0 (19 B): matches/0x0014d6d0.cpp
-// sym: ?FUN_0014d6d0@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d6d0@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d6d0() {
+void FUN_0014d6d0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1080), ((char*)&DAT_004e1084));
 }
 
@@ -1663,9 +1663,9 @@ hulk_intptr hulkfight::motion::HitPushbackVelocityCondition::vfunc_0(int index) 
 namespace fn_f2fc69c6 {
 
 // 0x0014d740 FUN_0014d740 (19 B): matches/0x0014d740.cpp
-// sym: ?FUN_0014d740@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d740@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d740() {
+void FUN_0014d740(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1088), ((char*)&DAT_004e108c));
 }
 
@@ -1691,9 +1691,9 @@ CollisionThrownObjectCondition_14d790::~CollisionThrownObjectCondition_14d790() 
 
 
 // 0x0014d7b0 FUN_0014d7b0 (19 B): matches/0x0014d7b0.cpp
-// sym: ?FUN_0014d7b0@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d7b0@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d7b0() {
+void FUN_0014d7b0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1090), ((char*)&DAT_004e1094));
 }
 
@@ -1710,9 +1710,9 @@ hulk_intptr hulkfight::motion::CollisionExplosionCondition::vfunc_0(int index) {
 namespace fn_f2fc69c6 {
 
 // 0x0014d810 FUN_0014d810 (19 B): matches/0x0014d810.cpp
-// sym: ?FUN_0014d810@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d810@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d810() {
+void FUN_0014d810(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1098), ((char*)&DAT_004e109c));
 }
 
@@ -1737,9 +1737,9 @@ CollisionSourceNodeCondition_14d870::~CollisionSourceNodeCondition_14d870() thro
 
 
 // 0x0014d890 FUN_0014d890 (19 B): matches/0x0014d890.cpp
-// sym: ?FUN_0014d890@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d890@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d890() {
+void FUN_0014d890(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e10a0), ((char*)&DAT_004e10a4));
 }
 
@@ -1756,9 +1756,9 @@ hulk_intptr hulkfight::motion::CollisionChargeCondition::vfunc_0(int index) {
 namespace fn_f2fc69c6 {
 
 // 0x0014d900 FUN_0014d900 (19 B): matches/0x0014d900.cpp
-// sym: ?FUN_0014d900@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d900@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d900() {
+void FUN_0014d900(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e10a8), ((char*)&DAT_004e10ac));
 }
 
@@ -1784,9 +1784,9 @@ CollisionTargetNameCondition_14d960::~CollisionTargetNameCondition_14d960() {
 
 
 // 0x0014d980 FUN_0014d980 (19 B): matches/0x0014d980.cpp
-// sym: ?FUN_0014d980@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d980@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d980() {
+void FUN_0014d980(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e10b0), ((char*)&DAT_004e10b4));
 }
 
@@ -1803,9 +1803,9 @@ hulk_intptr hulkfight::motion::CollisionDamageHealthCompareCondition::vfunc_0(in
 namespace fn_f2fc69c6 {
 
 // 0x0014d9f0 FUN_0014d9f0 (19 B): matches/0x0014d9f0.cpp
-// sym: ?FUN_0014d9f0@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014d9f0@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014d9f0() {
+void FUN_0014d9f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e10b8), ((char*)&DAT_004e10bc));
 }
 
@@ -1822,9 +1822,9 @@ hulk_intptr hulkfight::motion::CollisionTargetTypeCondition::vfunc_0(int index) 
 namespace fn_f2fc69c6 {
 
 // 0x0014da60 FUN_0014da60 (19 B): matches/0x0014da60.cpp
-// sym: ?FUN_0014da60@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014da60@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014da60() {
+void FUN_0014da60(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e10c0), ((char*)&DAT_004e10c4));
 }
 
@@ -1841,9 +1841,9 @@ hulk_intptr hulkfight::motion::CollisionInterruptPriorityCondition::vfunc_0(int 
 namespace fn_f2fc69c6 {
 
 // 0x0014dac0 FUN_0014dac0 (19 B): matches/0x0014dac0.cpp
-// sym: ?FUN_0014dac0@fn_f2fc69c6@@YAXXZ
+// sym: ?FUN_0014dac0@fn_f2fc69c6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0014dac0() {
+void FUN_0014dac0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e10c8), ((char*)&DAT_004e10cc));
 }
 

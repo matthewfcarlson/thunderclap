@@ -428,9 +428,9 @@ hulk_intptr hulkfight::motion::PropGrabbableIsMissileCondition::vfunc_0(int inde
 namespace fn_fc8c1e47 {
 
 // 0x00193c00 FUN_00193c00 (19 B): matches/0x00193c00.cpp
-// sym: ?FUN_00193c00@fn_fc8c1e47@@YAXXZ
+// sym: ?FUN_00193c00@fn_fc8c1e47@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00193c00() {
+void FUN_00193c00(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1550), ((char*)&DAT_004e1554));
 }
 
@@ -447,9 +447,9 @@ hulk_intptr hulkfight::motion::PropIsMissileCondition::vfunc_0(int index) {
 namespace fn_fc8c1e47 {
 
 // 0x00193c60 FUN_00193c60 (19 B): matches/0x00193c60.cpp
-// sym: ?FUN_00193c60@fn_fc8c1e47@@YAXXZ
+// sym: ?FUN_00193c60@fn_fc8c1e47@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00193c60() {
+void FUN_00193c60(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1558), ((char*)&DAT_004e155c));
 }
 
@@ -715,9 +715,9 @@ hulk_freg hulkfight::motion::MissileThrowTrack::vfunc_7() {
 namespace fn_fc8c1e47 {
 
 // 0x00193ec0 FUN_00193ec0 (19 B): matches/0x00193ec0.cpp
-// sym: ?FUN_00193ec0@fn_fc8c1e47@@YAXXZ
+// sym: ?FUN_00193ec0@fn_fc8c1e47@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00193ec0() {
+void FUN_00193ec0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1568), ((char*)&DAT_004e156c));
 }
 
@@ -770,9 +770,9 @@ void MissilePunchTrack_193f50::Run() {
 
 
 // 0x00193f70 FUN_00193f70 (19 B): matches/0x00193f70.cpp
-// sym: ?FUN_00193f70@fn_fc8c1e47@@YAXXZ
+// sym: ?FUN_00193f70@fn_fc8c1e47@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00193f70() {
+void FUN_00193f70(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1570), ((char*)&DAT_004e1574));
 }
 
@@ -815,9 +815,9 @@ hulk_freg hulkfight::motion::AccuracyLatencyTrack::vfunc_7() {
 namespace fn_fc8c1e47 {
 
 // 0x00194000 FUN_00194000 (19 B): matches/0x00194000.cpp
-// sym: ?FUN_00194000@fn_fc8c1e47@@YAXXZ
+// sym: ?FUN_00194000@fn_fc8c1e47@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00194000() {
+void FUN_00194000(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1578), ((char*)&DAT_004e157c));
 }
 

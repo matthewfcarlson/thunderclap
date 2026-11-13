@@ -60,9 +60,9 @@ void SemaphoreClearTrack::Run() {
 
 
 // 0x0010d110 FUN_0010d110 (19 B): matches/0x0010d110.cpp
-// sym: ?FUN_0010d110@fn_fda30a1e@@YAXXZ
+// sym: ?FUN_0010d110@fn_fda30a1e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010d110() {
+void FUN_0010d110(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b68), ((char*)&DAT_004e0b6c));
 }
 
@@ -97,9 +97,9 @@ hulk_freg hulkfight::ai::TokenSupressTrack::vfunc_6() {
 namespace fn_fda30a1e {
 
 // 0x0010d1a0 FUN_0010d1a0 (19 B): matches/0x0010d1a0.cpp
-// sym: ?FUN_0010d1a0@fn_fda30a1e@@YAXXZ
+// sym: ?FUN_0010d1a0@fn_fda30a1e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010d1a0() {
+void FUN_0010d1a0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b70), ((char*)&DAT_004e0b74));
 }
 
@@ -133,9 +133,9 @@ hulk_freg hulkfight::ai::AIHistoryCountTrack::vfunc_6() {
 namespace fn_fda30a1e {
 
 // 0x0010d210 FUN_0010d210 (19 B): matches/0x0010d210.cpp
-// sym: ?FUN_0010d210@fn_fda30a1e@@YAXXZ
+// sym: ?FUN_0010d210@fn_fda30a1e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010d210() {
+void FUN_0010d210(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b78), ((char*)&DAT_004e0b7c));
 }
 

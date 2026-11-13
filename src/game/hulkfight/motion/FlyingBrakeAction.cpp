@@ -337,9 +337,9 @@ class GrappleHoverTrack_134c30 : public Track_134c30 {
 
 
 // 0x00133a00 FUN_00133a00 (19 B): matches/0x00133a00.cpp
-// sym: ?FUN_00133a00@fn_f414acda@@YAXXZ
+// sym: ?FUN_00133a00@fn_f414acda@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00133a00() {
+void FUN_00133a00(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ec8), ((char*)&DAT_004e0ecc));
 }
 
@@ -383,9 +383,9 @@ hulk_freg hulkfight::motion::GrappleHoverTrack::vfunc_7() {
 namespace fn_f414acda {
 
 // 0x00133a90 FUN_00133a90 (19 B): matches/0x00133a90.cpp
-// sym: ?FUN_00133a90@fn_f414acda@@YAXXZ
+// sym: ?FUN_00133a90@fn_f414acda@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00133a90() {
+void FUN_00133a90(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ed0), ((char*)&DAT_004e0ed4));
 }
 
@@ -438,9 +438,9 @@ hulk_freg hulkfight::motion::FlyingBrakeTrack::vfunc_7() {
 namespace fn_f414acda {
 
 // 0x00133b40 FUN_00133b40 (19 B): matches/0x00133b40.cpp
-// sym: ?FUN_00133b40@fn_f414acda@@YAXXZ
+// sym: ?FUN_00133b40@fn_f414acda@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00133b40() {
+void FUN_00133b40(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ed8), ((char*)&DAT_004e0edc));
 }
 
@@ -488,9 +488,9 @@ hulk_freg hulkfight::motion::BounceTrack::vfunc_7() {
 namespace fn_f414acda {
 
 // 0x00133bf0 FUN_00133bf0 (19 B): matches/0x00133bf0.cpp
-// sym: ?FUN_00133bf0@fn_f414acda@@YAXXZ
+// sym: ?FUN_00133bf0@fn_f414acda@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00133bf0() {
+void FUN_00133bf0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ee0), ((char*)&DAT_004e0ee4));
 }
 
@@ -552,9 +552,9 @@ hulk_freg hulkfight::motion::AirToGroundTargetTrack::vfunc_7() {
 namespace fn_f414acda {
 
 // 0x00133cb0 FUN_00133cb0 (19 B): matches/0x00133cb0.cpp
-// sym: ?FUN_00133cb0@fn_f414acda@@YAXXZ
+// sym: ?FUN_00133cb0@fn_f414acda@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00133cb0() {
+void FUN_00133cb0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ee8), ((char*)&DAT_004e0eec));
 }
 
@@ -600,9 +600,9 @@ hulk_freg hulkfight::motion::HoverTrack::vfunc_7() {
 namespace fn_f414acda {
 
 // 0x00133d40 FUN_00133d40 (19 B): matches/0x00133d40.cpp
-// sym: ?FUN_00133d40@fn_f414acda@@YAXXZ
+// sym: ?FUN_00133d40@fn_f414acda@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00133d40() {
+void FUN_00133d40(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ef0), ((char*)&DAT_004e0ef4));
 }
 
@@ -686,9 +686,9 @@ hulk_freg hulkfight::motion::FallTrack::vfunc_7() {
 namespace fn_f414acda {
 
 // 0x00133e00 FUN_00133e00 (19 B): matches/0x00133e00.cpp
-// sym: ?FUN_00133e00@fn_f414acda@@YAXXZ
+// sym: ?FUN_00133e00@fn_f414acda@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00133e00() {
+void FUN_00133e00(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ef8), ((char*)&DAT_004e0efc));
 }
 

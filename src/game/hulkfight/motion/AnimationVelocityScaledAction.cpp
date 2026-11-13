@@ -1711,9 +1711,9 @@ char owners::Obj_139ff0::FUN_00139ff0(int value) {
 namespace fn_f30d2d27 {
 
 // 0x0013a000 FUN_0013a000 (19 B): matches/0x0013a000.cpp
-// sym: ?FUN_0013a000@fn_f30d2d27@@YAXXZ
+// sym: ?FUN_0013a000@fn_f30d2d27@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0013a000() {
+void FUN_0013a000(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f08), ((char*)&DAT_004e0f0c));
 }
 
@@ -1739,9 +1739,9 @@ void FrameReachedCondition_13a060::f() {
 
 
 // 0x0013a080 FUN_0013a080 (19 B): matches/0x0013a080.cpp
-// sym: ?FUN_0013a080@fn_f30d2d27@@YAXXZ
+// sym: ?FUN_0013a080@fn_f30d2d27@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0013a080() {
+void FUN_0013a080(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f10), ((char*)&DAT_004e0f14));
 }
 
@@ -1766,9 +1766,9 @@ FrameCondition_13a0e0::~FrameCondition_13a0e0() throw() {
 
 
 // 0x0013a100 FUN_0013a100 (19 B): matches/0x0013a100.cpp
-// sym: ?FUN_0013a100@fn_f30d2d27@@YAXXZ
+// sym: ?FUN_0013a100@fn_f30d2d27@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0013a100() {
+void FUN_0013a100(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f18), ((char*)&DAT_004e0f1c));
 }
 
@@ -1821,9 +1821,9 @@ AnimationTrack_13a1b0::~AnimationTrack_13a1b0() {
 
 
 // 0x0013a1e0 FUN_0013a1e0 (19 B): matches/0x0013a1e0.cpp
-// sym: ?FUN_0013a1e0@fn_f30d2d27@@YAXXZ
+// sym: ?FUN_0013a1e0@fn_f30d2d27@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0013a1e0() {
+void FUN_0013a1e0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f20), ((char*)&DAT_004e0f24));
 }
 
@@ -1875,9 +1875,9 @@ void hulkfight::motion::AnimationChargeTrack::FUN_0013a280() {
 namespace fn_f30d2d27 {
 
 // 0x0013a2b0 FUN_0013a2b0 (19 B): matches/0x0013a2b0.cpp
-// sym: ?FUN_0013a2b0@fn_f30d2d27@@YAXXZ
+// sym: ?FUN_0013a2b0@fn_f30d2d27@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0013a2b0() {
+void FUN_0013a2b0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f28), ((char*)&DAT_004e0f2c));
 }
 
@@ -1930,9 +1930,9 @@ void hulkfight::motion::AnimationLinkedTrack::FUN_0013a360() {
 namespace fn_f30d2d27 {
 
 // 0x0013a390 FUN_0013a390 (19 B): matches/0x0013a390.cpp
-// sym: ?FUN_0013a390@fn_f30d2d27@@YAXXZ
+// sym: ?FUN_0013a390@fn_f30d2d27@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0013a390() {
+void FUN_0013a390(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f30), ((char*)&DAT_004e0f34));
 }
 
@@ -1987,9 +1987,9 @@ void hulkfight::motion::AnimationPhaseMatchedTrack::FUN_0013a440() {
 namespace fn_f30d2d27 {
 
 // 0x0013a470 FUN_0013a470 (19 B): matches/0x0013a470.cpp
-// sym: ?FUN_0013a470@fn_f30d2d27@@YAXXZ
+// sym: ?FUN_0013a470@fn_f30d2d27@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0013a470() {
+void FUN_0013a470(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f38), ((char*)&DAT_004e0f3c));
 }
 

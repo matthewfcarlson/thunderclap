@@ -1767,9 +1767,9 @@ bool owners::Obj_1805a0::FUN_001805a0(int v) {
 namespace fn_f4259b06 {
 
 // 0x001805b0 FUN_001805b0 (19 B): matches/0x001805b0.cpp
-// sym: ?FUN_001805b0@fn_f4259b06@@YAXXZ
+// sym: ?FUN_001805b0@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001805b0() {
+void FUN_001805b0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1400), ((char*)&DAT_004e1404));
 }
 
@@ -1786,9 +1786,9 @@ hulk_intptr hulkfight::motion::PropMissionCriticalCondition::vfunc_0(int index) 
 namespace fn_f4259b06 {
 
 // 0x00180610 FUN_00180610 (19 B): matches/0x00180610.cpp
-// sym: ?FUN_00180610@fn_f4259b06@@YAXXZ
+// sym: ?FUN_00180610@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00180610() {
+void FUN_00180610(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1408), ((char*)&DAT_004e140c));
 }
 
@@ -1805,9 +1805,9 @@ hulk_intptr hulkfight::motion::SmartPropGrabbableCondition::vfunc_0(int index) {
 namespace fn_f4259b06 {
 
 // 0x00180690 FUN_00180690 (19 B): matches/0x00180690.cpp
-// sym: ?FUN_00180690@fn_f4259b06@@YAXXZ
+// sym: ?FUN_00180690@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00180690() {
+void FUN_00180690(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1410), ((char*)&DAT_004e1414));
 }
 
@@ -1834,9 +1834,9 @@ void GrapplePropStateByNameCondition_1806f0::Run() {
 
 
 // 0x00180710 FUN_00180710 (19 B): matches/0x00180710.cpp
-// sym: ?FUN_00180710@fn_f4259b06@@YAXXZ
+// sym: ?FUN_00180710@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00180710() {
+void FUN_00180710(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1418), ((char*)&DAT_004e141c));
 }
 
@@ -1853,9 +1853,9 @@ hulk_intptr hulkfight::motion::PropGrabbableIsThrownCondition::vfunc_0(int index
 namespace fn_f4259b06 {
 
 // 0x00180770 FUN_00180770 (19 B): matches/0x00180770.cpp
-// sym: ?FUN_00180770@fn_f4259b06@@YAXXZ
+// sym: ?FUN_00180770@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00180770() {
+void FUN_00180770(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1420), ((char*)&DAT_004e1424));
 }
 
@@ -1882,9 +1882,9 @@ void PropMassCondition_1807e0::Run() {
 
 
 // 0x00180800 FUN_00180800 (19 B): matches/0x00180800.cpp
-// sym: ?FUN_00180800@fn_f4259b06@@YAXXZ
+// sym: ?FUN_00180800@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00180800() {
+void FUN_00180800(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1428), ((char*)&DAT_004e142c));
 }
 
@@ -1901,9 +1901,9 @@ hulk_intptr hulkfight::motion::PropAtRestCondition::vfunc_0(int index) {
 namespace fn_f4259b06 {
 
 // 0x00180860 FUN_00180860 (19 B): matches/0x00180860.cpp
-// sym: ?FUN_00180860@fn_f4259b06@@YAXXZ
+// sym: ?FUN_00180860@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00180860() {
+void FUN_00180860(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1430), ((char*)&DAT_004e1434));
 }
 
@@ -1920,9 +1920,9 @@ hulk_intptr hulkfight::motion::PropIsAttachedCondition::vfunc_0(int index) {
 namespace fn_f4259b06 {
 
 // 0x001808c0 FUN_001808c0 (19 B): matches/0x001808c0.cpp
-// sym: ?FUN_001808c0@fn_f4259b06@@YAXXZ
+// sym: ?FUN_001808c0@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001808c0() {
+void FUN_001808c0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1438), ((char*)&DAT_004e143c));
 }
 
@@ -1949,9 +1949,9 @@ void PropStateByNameCondition_180920::Run() {
 
 
 // 0x00180940 FUN_00180940 (19 B): matches/0x00180940.cpp
-// sym: ?FUN_00180940@fn_f4259b06@@YAXXZ
+// sym: ?FUN_00180940@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00180940() {
+void FUN_00180940(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1440), ((char*)&DAT_004e1444));
 }
 
@@ -1968,9 +1968,9 @@ hulk_intptr hulkfight::motion::PropStateByIndexCondition::vfunc_0(int index) {
 namespace fn_f4259b06 {
 
 // 0x001809b0 FUN_001809b0 (19 B): matches/0x001809b0.cpp
-// sym: ?FUN_001809b0@fn_f4259b06@@YAXXZ
+// sym: ?FUN_001809b0@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001809b0() {
+void FUN_001809b0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1448), ((char*)&DAT_004e144c));
 }
 
@@ -2010,9 +2010,9 @@ hulkfight::motion::PropMissileCountCondition::PropMissileCountCondition() : Cond
 namespace fn_f4259b06 {
 
 // 0x00180a20 FUN_00180a20 (19 B): matches/0x00180a20.cpp
-// sym: ?FUN_00180a20@fn_f4259b06@@YAXXZ
+// sym: ?FUN_00180a20@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00180a20() {
+void FUN_00180a20(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1450), ((char*)&DAT_004e1454));
 }
 
@@ -2029,9 +2029,9 @@ hulk_intptr hulkfight::motion::PropCollidedWithWorldCondition::vfunc_0(int index
 namespace fn_f4259b06 {
 
 // 0x00180a80 FUN_00180a80 (19 B): matches/0x00180a80.cpp
-// sym: ?FUN_00180a80@fn_f4259b06@@YAXXZ
+// sym: ?FUN_00180a80@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00180a80() {
+void FUN_00180a80(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1458), ((char*)&DAT_004e145c));
 }
 
@@ -2048,9 +2048,9 @@ hulk_intptr hulkfight::motion::SmartPropIsCargoCondition::vfunc_0(int index) {
 namespace fn_f4259b06 {
 
 // 0x00180ae0 FUN_00180ae0 (19 B): matches/0x00180ae0.cpp
-// sym: ?FUN_00180ae0@fn_f4259b06@@YAXXZ
+// sym: ?FUN_00180ae0@fn_f4259b06@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00180ae0() {
+void FUN_00180ae0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1460), ((char*)&DAT_004e1464));
 }
 

@@ -2318,14 +2318,14 @@ int Group_24b00::FUN_00024b00(const Name_24b00* key) {
 } // namespace fn_f6d645d0
 
 // 0x00024b80 FUN_00024b80 (16 B): matches/0x00024b80.cpp [wrapped: conflict: FUN_000678d0]
-// sym: ?FUN_00024b80@fn_00024b80@@YAXXZ
+// sym: ?FUN_00024b80@fn_00024b80@@YAXPAX@Z
 namespace fn_00024b80 {
 struct Obj_24b80 {
     char pad[0x354];
     int field;
 };
 Obj_24b80* __cdecl FUN_000678d0();
-void __cdecl FUN_00024b80() {
+void __cdecl FUN_00024b80(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_000678d0()->field = 0;
 }
 } // namespace fn_00024b80
@@ -2600,7 +2600,7 @@ void* Container::FUN_00024e90(int index, void* value) {
 } // namespace fn_f6d645d0
 
 // 0x00024f10 FUN_00024f10 (15 B): matches/0x00024f10.cpp [wrapped: compile error in a shared declaration (C2143)]
-// sym: ?FUN_00024f10@fn_00024f10@@YAXXZ
+// sym: ?FUN_00024f10@fn_00024f10@@YAXPAX@Z
 namespace fn_00024f10 {
 extern "C" void _ReadWriteBarrier();
 void* __stdcall Get_000678d0();
@@ -2608,7 +2608,7 @@ class Obj {
   public:
     void Run_00065b80(int);
 };
-void FUN_00024f10() {
+void FUN_00024f10(void* /*this, unused: callers pass it (unb4)*/) {
     ((Obj*)Get_000678d0())->Run_00065b80(1);
     _ReadWriteBarrier();
 }
@@ -2631,10 +2631,10 @@ void __stdcall FUN_00024f20(int x) {
 
 
 // 0x00024f40 FUN_00024f40 (12 B): matches/0x00024f40.cpp [wrapped: conflict: FUN_000678d0]
-// sym: ?FUN_00024f40@fn_00024f40@@YAMXZ
+// sym: ?FUN_00024f40@fn_00024f40@@YAMPAX@Z
 namespace fn_00024f40 {
 extern void* __stdcall FUN_000678d0();
-float __cdecl FUN_00024f40() {
+float __cdecl FUN_00024f40(void* /*this, unused: callers pass it (unb4)*/) {
     return *(float*)((char*)FUN_000678d0() + 0x368);
 }
 } // namespace fn_00024f40
@@ -2642,8 +2642,8 @@ float __cdecl FUN_00024f40() {
 namespace fn_f6d645d0 {
 
 // 0x00024f50 FUN_00024f50 (12 B): matches/0x00024f50.cpp
-// sym: ?FUN_00024f50@fn_f6d645d0@@YAXXZ
-void FUN_00024f50() {
+// sym: ?FUN_00024f50@fn_f6d645d0@@YAXPAX@Z
+void FUN_00024f50(void* /*this, unused: callers pass it (unb4)*/) {
     C_24f50* r = (C_24f50*)FUN_000678d0();
     ((owners::C_65ab0 *)r)->FUN_00065ab0();
 }
@@ -2821,8 +2821,8 @@ void owners::Target_253c0::FUN_000253c0(int arg) {
 namespace fn_f6d645d0 {
 
 // 0x00025410 FUN_00025410 (1 B): matches/0x00025410.cpp
-// sym: ?FUN_00025410@fn_f6d645d0@@YAXXZ
-void FUN_00025410() {}
+// sym: ?FUN_00025410@fn_f6d645d0@@YAXPAX@Z
+void FUN_00025410(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x00025420 FUN_00025420 (73 B): matches/0x00025420.cpp
@@ -8997,9 +8997,9 @@ void Obj_2c100::Set(unsigned char v) {
 
 
 // 0x0002c110 FUN_0002c110 (1 B): matches/0x0002c110.cpp
-// sym: ?FUN_0002c110@fn_f6d645d0@@YAXXZ
+// sym: ?FUN_0002c110@fn_f6d645d0@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_0002c110() {}
+void FUN_0002c110(void* /*this, unused: callers pass it (unb4)*/) {}
 
 // 0x0002c230 thunk_FUN_001d04a0 (5 B): not yet verified
 // 0x0002c400 thunk_FUN_001d04a0 (5 B): not yet verified

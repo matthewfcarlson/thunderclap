@@ -243,9 +243,9 @@ hulk_intptr hulkfight::motion::ShoreNearCondition::vfunc_0(int index) {
 namespace fn_fa2e0d0f {
 
 // 0x00166620 FUN_00166620 (19 B): matches/0x00166620.cpp
-// sym: ?FUN_00166620@fn_fa2e0d0f@@YAXXZ
+// sym: ?FUN_00166620@fn_fa2e0d0f@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00166620() {
+void FUN_00166620(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e12a8), ((char*)&DAT_004e12ac));
 }
 
@@ -262,9 +262,9 @@ hulk_intptr hulkfight::motion::HealthPercentCondition::vfunc_0(int index) {
 namespace fn_fa2e0d0f {
 
 // 0x00166690 FUN_00166690 (19 B): matches/0x00166690.cpp
-// sym: ?FUN_00166690@fn_fa2e0d0f@@YAXXZ
+// sym: ?FUN_00166690@fn_fa2e0d0f@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00166690() {
+void FUN_00166690(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e12b0), ((char*)&DAT_004e12b4));
 }
 
@@ -281,9 +281,9 @@ hulk_intptr hulkfight::motion::ThinkingCondition::vfunc_0(int index) {
 namespace fn_fa2e0d0f {
 
 // 0x001666f0 FUN_001666f0 (19 B): matches/0x001666f0.cpp
-// sym: ?FUN_001666f0@fn_fa2e0d0f@@YAXXZ
+// sym: ?FUN_001666f0@fn_fa2e0d0f@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001666f0() {
+void FUN_001666f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e12b8), ((char*)&DAT_004e12bc));
 }
 
@@ -300,9 +300,9 @@ hulk_intptr hulkfight::motion::VelocityAnimatedCondition::vfunc_0(int index) {
 namespace fn_fa2e0d0f {
 
 // 0x00166760 FUN_00166760 (19 B): matches/0x00166760.cpp
-// sym: ?FUN_00166760@fn_fa2e0d0f@@YAXXZ
+// sym: ?FUN_00166760@fn_fa2e0d0f@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00166760() {
+void FUN_00166760(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e12c0), ((char*)&DAT_004e12c4));
 }
 

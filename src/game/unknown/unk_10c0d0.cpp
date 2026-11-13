@@ -934,9 +934,9 @@ char owners::O_10c700::FUN_0010c700(int v) {
 namespace fn_f15aa14c {
 
 // 0x0010c710 FUN_0010c710 (19 B): matches/0x0010c710.cpp
-// sym: ?FUN_0010c710@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010c710@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010c710() {
+void FUN_0010c710(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ae0), ((char*)&DAT_004e0ae4));
 }
 
@@ -953,9 +953,9 @@ hulk_intptr hulkfight::ai::OnBlockedTriangleCondition::vfunc_0(int index) {
 namespace fn_f15aa14c {
 
 // 0x0010c780 FUN_0010c780 (19 B): matches/0x0010c780.cpp
-// sym: ?FUN_0010c780@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010c780@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010c780() {
+void FUN_0010c780(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ae8), ((char*)&DAT_004e0aec));
 }
 
@@ -980,9 +980,9 @@ AIFightNodeCondition_10c7d0::~AIFightNodeCondition_10c7d0() {
 
 
 // 0x0010c7f0 FUN_0010c7f0 (19 B): matches/0x0010c7f0.cpp
-// sym: ?FUN_0010c7f0@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010c7f0@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010c7f0() {
+void FUN_0010c7f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0af0), ((char*)&DAT_004e0af4));
 }
 
@@ -999,9 +999,9 @@ hulk_intptr hulkfight::ai::DefendingCondition::vfunc_0(int index) {
 namespace fn_f15aa14c {
 
 // 0x0010c850 FUN_0010c850 (19 B): matches/0x0010c850.cpp
-// sym: ?FUN_0010c850@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010c850@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010c850() {
+void FUN_0010c850(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0af8), ((char*)&DAT_004e0afc));
 }
 
@@ -1045,9 +1045,9 @@ hulk_intptr Owner::SetText_0010c8d0(const char *source) {
 
 
 // 0x0010c930 FUN_0010c930 (19 B): matches/0x0010c930.cpp
-// sym: ?FUN_0010c930@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010c930@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010c930() {
+void FUN_0010c930(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b00), ((char*)&DAT_004e0b04));
 }
 
@@ -1086,9 +1086,9 @@ void CRawScript::run() {
 namespace fn_f15aa14c {
 
 // 0x0010ca10 FUN_0010ca10 (19 B): matches/0x0010ca10.cpp
-// sym: ?FUN_0010ca10@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010ca10@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010ca10() {
+void FUN_0010ca10(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b08), ((char*)&DAT_004e0b0c));
 }
 
@@ -1105,9 +1105,9 @@ hulk_intptr hulkfight::ai::PropsToChuckCondition::vfunc_0(int index) {
 namespace fn_f15aa14c {
 
 // 0x0010ca80 FUN_0010ca80 (19 B): matches/0x0010ca80.cpp
-// sym: ?FUN_0010ca80@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010ca80@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010ca80() {
+void FUN_0010ca80(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b10), ((char*)&DAT_004e0b14));
 }
 
@@ -1160,9 +1160,9 @@ char owners::Obj_10cb00::FUN_0010cb00(const char* p) {
 namespace fn_f15aa14c {
 
 // 0x0010cb60 FUN_0010cb60 (19 B): matches/0x0010cb60.cpp
-// sym: ?FUN_0010cb60@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010cb60@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010cb60() {
+void FUN_0010cb60(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b18), ((char*)&DAT_004e0b1c));
 }
 
@@ -1179,9 +1179,9 @@ hulk_intptr hulkfight::ai::LeashedCondition::vfunc_0(int index) {
 namespace fn_f15aa14c {
 
 // 0x0010cbc0 FUN_0010cbc0 (19 B): matches/0x0010cbc0.cpp
-// sym: ?FUN_0010cbc0@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010cbc0@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010cbc0() {
+void FUN_0010cbc0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b20), ((char*)&DAT_004e0b24));
 }
 
@@ -1234,9 +1234,9 @@ char Obj::SetText_0010cc40(const char* s) {
 
 
 // 0x0010cca0 FUN_0010cca0 (19 B): matches/0x0010cca0.cpp
-// sym: ?FUN_0010cca0@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010cca0@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010cca0() {
+void FUN_0010cca0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b28), ((char*)&DAT_004e0b2c));
 }
 
@@ -1275,9 +1275,9 @@ void CRawScript::run() {
 namespace fn_f15aa14c {
 
 // 0x0010cd80 FUN_0010cd80 (19 B): matches/0x0010cd80.cpp
-// sym: ?FUN_0010cd80@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010cd80@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010cd80() {
+void FUN_0010cd80(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b30), ((char*)&DAT_004e0b34));
 }
 
@@ -1294,9 +1294,9 @@ hulk_intptr hulkfight::ai::InActiveCondition::vfunc_0(int index) {
 namespace fn_f15aa14c {
 
 // 0x0010cde0 FUN_0010cde0 (19 B): matches/0x0010cde0.cpp
-// sym: ?FUN_0010cde0@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010cde0@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010cde0() {
+void FUN_0010cde0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b38), ((char*)&DAT_004e0b3c));
 }
 
@@ -1349,9 +1349,9 @@ char Obj::SetText_0010ce60(const char* s) {
 
 
 // 0x0010cec0 FUN_0010cec0 (19 B): matches/0x0010cec0.cpp
-// sym: ?FUN_0010cec0@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010cec0@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010cec0() {
+void FUN_0010cec0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b40), ((char*)&DAT_004e0b44));
 }
 
@@ -1368,9 +1368,9 @@ hulk_intptr hulkfight::ai::PropsToSuckCondition::vfunc_0(int index) {
 namespace fn_f15aa14c {
 
 // 0x0010cf30 FUN_0010cf30 (19 B): matches/0x0010cf30.cpp
-// sym: ?FUN_0010cf30@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010cf30@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010cf30() {
+void FUN_0010cf30(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b48), ((char*)&DAT_004e0b4c));
 }
 
@@ -1387,9 +1387,9 @@ hulk_intptr hulkfight::ai::RandomKeyWordWaitCondition::vfunc_0(int index) {
 namespace fn_f15aa14c {
 
 // 0x0010cfa0 FUN_0010cfa0 (19 B): matches/0x0010cfa0.cpp
-// sym: ?FUN_0010cfa0@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010cfa0@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010cfa0() {
+void FUN_0010cfa0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b50), ((char*)&DAT_004e0b54));
 }
 
@@ -1406,9 +1406,9 @@ hulk_intptr hulkfight::ai::TokenCondition::vfunc_0(int index) {
 namespace fn_f15aa14c {
 
 // 0x0010d000 FUN_0010d000 (19 B): matches/0x0010d000.cpp
-// sym: ?FUN_0010d000@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010d000@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010d000() {
+void FUN_0010d000(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b58), ((char*)&DAT_004e0b5c));
 }
 
@@ -1425,9 +1425,9 @@ hulk_intptr hulkfight::ai::FightingOtherNPCCondition::vfunc_0(int index) {
 namespace fn_f15aa14c {
 
 // 0x0010d060 FUN_0010d060 (19 B): matches/0x0010d060.cpp
-// sym: ?FUN_0010d060@fn_f15aa14c@@YAXXZ
+// sym: ?FUN_0010d060@fn_f15aa14c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010d060() {
+void FUN_0010d060(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b60), ((char*)&DAT_004e0b64));
 }
 

@@ -761,9 +761,9 @@ int* owners::A_1aadb0::FUN_001aadb0() {
 namespace fn_fc09f66d {
 
 // 0x001aadc0 FUN_001aadc0 (19 B): matches/0x001aadc0.cpp
-// sym: ?FUN_001aadc0@fn_fc09f66d@@YAXXZ
+// sym: ?FUN_001aadc0@fn_fc09f66d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001aadc0() {
+void FUN_001aadc0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1780), ((char*)&DAT_004e1784));
 }
 
@@ -789,9 +789,9 @@ void Event_TriggerVolumeNameCondition::Fn() {
 
 
 // 0x001aae30 FUN_001aae30 (19 B): matches/0x001aae30.cpp
-// sym: ?FUN_001aae30@fn_fc09f66d@@YAXXZ
+// sym: ?FUN_001aae30@fn_fc09f66d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001aae30() {
+void FUN_001aae30(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1788), ((char*)&DAT_004e178c));
 }
 
@@ -808,9 +808,9 @@ hulk_intptr hulkfight::scenario::EventCondition::vfunc_0(int index) {
 namespace fn_fc09f66d {
 
 // 0x001aae90 FUN_001aae90 (19 B): matches/0x001aae90.cpp
-// sym: ?FUN_001aae90@fn_fc09f66d@@YAXXZ
+// sym: ?FUN_001aae90@fn_fc09f66d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001aae90() {
+void FUN_001aae90(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1790), ((char*)&DAT_004e1794));
 }
 
@@ -827,9 +827,9 @@ hulk_intptr hulkfight::scenario::Event_FirstTimeCondition::vfunc_0(int index) {
 namespace fn_fc09f66d {
 
 // 0x001aaef0 FUN_001aaef0 (19 B): matches/0x001aaef0.cpp
-// sym: ?FUN_001aaef0@fn_fc09f66d@@YAXXZ
+// sym: ?FUN_001aaef0@fn_fc09f66d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001aaef0() {
+void FUN_001aaef0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1798), ((char*)&DAT_004e179c));
 }
 
@@ -846,9 +846,9 @@ hulk_intptr hulkfight::scenario::Event_WaypointCondition::vfunc_0(int index) {
 namespace fn_fc09f66d {
 
 // 0x001aaf60 FUN_001aaf60 (19 B): matches/0x001aaf60.cpp
-// sym: ?FUN_001aaf60@fn_fc09f66d@@YAXXZ
+// sym: ?FUN_001aaf60@fn_fc09f66d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001aaf60() {
+void FUN_001aaf60(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e17a0), ((char*)&DAT_004e17a4));
 }
 
@@ -875,9 +875,9 @@ void Event_CharacterTemplateCondition_1aafc0::Run() {
 
 
 // 0x001aafe0 FUN_001aafe0 (19 B): matches/0x001aafe0.cpp
-// sym: ?FUN_001aafe0@fn_fc09f66d@@YAXXZ
+// sym: ?FUN_001aafe0@fn_fc09f66d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001aafe0() {
+void FUN_001aafe0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e17a8), ((char*)&DAT_004e17ac));
 }
 
@@ -904,9 +904,9 @@ void Event_CharacterTemplateVariationCondition_1ab040::Run() {
 
 
 // 0x001ab060 FUN_001ab060 (19 B): matches/0x001ab060.cpp
-// sym: ?FUN_001ab060@fn_fc09f66d@@YAXXZ
+// sym: ?FUN_001ab060@fn_fc09f66d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001ab060() {
+void FUN_001ab060(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e17b0), ((char*)&DAT_004e17b4));
 }
 

@@ -236,15 +236,15 @@ bool Container_1063b0::Clear() {
 
 
 // 0x001063e0 FUN_001063e0 (1 B): matches/0x001063e0.cpp
-// sym: ?FUN_001063e0@fn_f6c21f8f@@YAXXZ
+// sym: ?FUN_001063e0@fn_f6c21f8f@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_001063e0() {}
+void FUN_001063e0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x001063f0 FUN_001063f0 (1 B): matches/0x001063f0.cpp
-// sym: ?FUN_001063f0@fn_f6c21f8f@@YAXXZ
+// sym: ?FUN_001063f0@fn_f6c21f8f@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_001063f0() {}
+void FUN_001063f0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x00106400 FUN_00106400 (40 B): matches/0x00106400.cpp

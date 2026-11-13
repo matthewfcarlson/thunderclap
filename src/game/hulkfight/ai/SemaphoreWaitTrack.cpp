@@ -96,9 +96,9 @@ void AIHistorySetTrack_10d480::Run() {
 
 
 // 0x0010d4a0 FUN_0010d4a0 (19 B): matches/0x0010d4a0.cpp
-// sym: ?FUN_0010d4a0@fn_f8109a4a@@YAXXZ
+// sym: ?FUN_0010d4a0@fn_f8109a4a@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010d4a0() {
+void FUN_0010d4a0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b98), ((char*)&DAT_004e0b9c));
 }
 
@@ -134,9 +134,9 @@ hulk_freg hulkfight::ai::TokenTrack::vfunc_6() {
 namespace fn_f8109a4a {
 
 // 0x0010d520 FUN_0010d520 (19 B): matches/0x0010d520.cpp
-// sym: ?FUN_0010d520@fn_f8109a4a@@YAXXZ
+// sym: ?FUN_0010d520@fn_f8109a4a@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010d520() {
+void FUN_0010d520(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0ba0), ((char*)&DAT_004e0ba4));
 }
 

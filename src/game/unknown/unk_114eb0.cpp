@@ -700,9 +700,9 @@ bool owners::Obj_115690::FUN_00115690(int x) {
 namespace fn_f7a1ef3e {
 
 // 0x001156a0 FUN_001156a0 (19 B): matches/0x001156a0.cpp
-// sym: ?FUN_001156a0@fn_f7a1ef3e@@YAXXZ
+// sym: ?FUN_001156a0@fn_f7a1ef3e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001156a0() {
+void FUN_001156a0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0c24), ((char*)&DAT_004e0c28));
 }
 
@@ -719,9 +719,9 @@ hulk_intptr hulkfight::ai::HasGroundPointCondition::vfunc_0(int index) {
 namespace fn_f7a1ef3e {
 
 // 0x00115700 FUN_00115700 (19 B): matches/0x00115700.cpp
-// sym: ?FUN_00115700@fn_f7a1ef3e@@YAXXZ
+// sym: ?FUN_00115700@fn_f7a1ef3e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00115700() {
+void FUN_00115700(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0c2c), ((char*)&DAT_004e0c30));
 }
 
@@ -738,9 +738,9 @@ hulk_intptr hulkfight::ai::LocatorDistanceCondition::vfunc_0(int index) {
 namespace fn_f7a1ef3e {
 
 // 0x00115770 FUN_00115770 (19 B): matches/0x00115770.cpp
-// sym: ?FUN_00115770@fn_f7a1ef3e@@YAXXZ
+// sym: ?FUN_00115770@fn_f7a1ef3e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00115770() {
+void FUN_00115770(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0c34), ((char*)&DAT_004e0c38));
 }
 
@@ -757,9 +757,9 @@ hulk_intptr hulkfight::ai::ComputeDropZoneCondition::vfunc_0(int index) {
 namespace fn_f7a1ef3e {
 
 // 0x001157f0 FUN_001157f0 (19 B): matches/0x001157f0.cpp
-// sym: ?FUN_001157f0@fn_f7a1ef3e@@YAXXZ
+// sym: ?FUN_001157f0@fn_f7a1ef3e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001157f0() {
+void FUN_001157f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0c3c), ((char*)&DAT_004e0c40));
 }
 
@@ -776,9 +776,9 @@ hulk_intptr hulkfight::ai::HasGroundPointExtendedCondition::vfunc_0(int index) {
 namespace fn_f7a1ef3e {
 
 // 0x00115880 FUN_00115880 (19 B): matches/0x00115880.cpp
-// sym: ?FUN_00115880@fn_f7a1ef3e@@YAXXZ
+// sym: ?FUN_00115880@fn_f7a1ef3e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00115880() {
+void FUN_00115880(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0c44), ((char*)&DAT_004e0c48));
 }
 

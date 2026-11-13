@@ -351,9 +351,9 @@ char X_1a12a0::SetTimeEnd_001a12a0(int v) {
 
 
 // 0x001a12d0 FUN_001a12d0 (19 B): matches/0x001a12d0.cpp
-// sym: ?FUN_001a12d0@fn_fd836fc7@@YAXXZ
+// sym: ?FUN_001a12d0@fn_fd836fc7@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001a12d0() {
+void FUN_001a12d0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e16f4), ((char*)&DAT_004e16f8));
 }
 

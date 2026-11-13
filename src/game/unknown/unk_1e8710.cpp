@@ -98,8 +98,8 @@ bool owners::Obj_1e8710::FUN_001e8710() {
 namespace fn_f9c09d09 {
 
 // 0x001e8730 FUN_001e8730 (73 B): matches/0x001e8730.cpp
-// sym: ?calc@fn_f9c09d09@@YANXZ
-double calc() {
+// sym: ?calc@fn_f9c09d09@@YANPAX@Z
+double calc(void* /*this, unused: callers pass it (unb4)*/) {
     Info info;
     FUN_00240ca0(&info);
     return (float)info.a * (float)info.b - DAT_004e36a4 - DAT_004e36a0 - DAT_004e369c;

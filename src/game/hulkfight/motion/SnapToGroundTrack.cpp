@@ -54,9 +54,9 @@ void RestPoseTrack_16fee0::Run() {
 
 
 // 0x0016ff00 FUN_0016ff00 (19 B): matches/0x0016ff00.cpp
-// sym: ?FUN_0016ff00@fn_ffbea55e@@YAXXZ
+// sym: ?FUN_0016ff00@fn_ffbea55e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0016ff00() {
+void FUN_0016ff00(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1300), ((char*)&DAT_004e1304));
 }
 

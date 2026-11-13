@@ -1273,9 +1273,9 @@ char owners::Obj_15b750::FUN_0015b750(int a) {
 namespace fn_f68d580d {
 
 // 0x0015b760 FUN_0015b760 (19 B): matches/0x0015b760.cpp
-// sym: ?FUN_0015b760@fn_f68d580d@@YAXXZ
+// sym: ?FUN_0015b760@fn_f68d580d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0015b760() {
+void FUN_0015b760(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1158), ((char*)&DAT_004e115c));
 }
 

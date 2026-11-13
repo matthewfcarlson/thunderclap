@@ -137,8 +137,8 @@ void Thing_b4670::Clear() {
 
 
 // 0x000b46c0 FUN_000b46c0 (235 B): matches/0x000b46c0.cpp
-// sym: ?FUN_000b46c0@fn_fb479c50@@YAXXZ
-void __cdecl FUN_000b46c0() {
+// sym: ?FUN_000b46c0@fn_fb479c50@@YAXPAX@Z
+void __cdecl FUN_000b46c0(void* /*this, unused: callers pass it (unb4)*/) {
     const char* names[] = {"comic_book_selector_1",
                            "comic_book_selector_2",
                            "comic_book_selector_3",

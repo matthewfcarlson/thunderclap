@@ -202,9 +202,9 @@ unsigned char owners::Box_1acb90::FUN_001acb90(const float* p) {
 namespace fn_f54565b1 {
 
 // 0x001acd80 FUN_001acd80 (1 B): matches/0x001acd80.cpp
-// sym: ?FUN_001acd80@fn_f54565b1@@YAXXZ
+// sym: ?FUN_001acd80@fn_f54565b1@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_001acd80() {}
+void FUN_001acd80(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x001acdd0 FUN_001acdd0 (153 B): equivalent/0x001acdd0.cpp

@@ -1405,9 +1405,9 @@ bool owners::Obj_1436e0::FUN_001436e0(int v) {
 namespace fn_f3c8e3e3 {
 
 // 0x001436f0 FUN_001436f0 (19 B): matches/0x001436f0.cpp
-// sym: ?FUN_001436f0@fn_f3c8e3e3@@YAXXZ
+// sym: ?FUN_001436f0@fn_f3c8e3e3@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001436f0() {
+void FUN_001436f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f80), ((char*)&DAT_004e0f84));
 }
 
@@ -1555,9 +1555,9 @@ hulk_freg hulkfight::motion::SlowMotionTrack::vfunc_7() {
 namespace fn_f3c8e3e3 {
 
 // 0x00143860 FUN_00143860 (19 B): matches/0x00143860.cpp
-// sym: ?FUN_00143860@fn_f3c8e3e3@@YAXXZ
+// sym: ?FUN_00143860@fn_f3c8e3e3@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00143860() {
+void FUN_00143860(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f90), ((char*)&DAT_004e0f94));
 }
 
@@ -1635,9 +1635,9 @@ void WorldDamageTrack::Fn() {
 
 
 // 0x00143920 FUN_00143920 (19 B): matches/0x00143920.cpp
-// sym: ?FUN_00143920@fn_f3c8e3e3@@YAXXZ
+// sym: ?FUN_00143920@fn_f3c8e3e3@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00143920() {
+void FUN_00143920(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0f98), ((char*)&DAT_004e0f9c));
 }
 
@@ -1735,9 +1735,9 @@ hulk_freg hulkfight::motion::WorldConeDamageTrack::vfunc_7() {
 namespace fn_f3c8e3e3 {
 
 // 0x001439f0 FUN_001439f0 (19 B): matches/0x001439f0.cpp
-// sym: ?FUN_001439f0@fn_f3c8e3e3@@YAXXZ
+// sym: ?FUN_001439f0@fn_f3c8e3e3@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001439f0() {
+void FUN_001439f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0fa0), ((char*)&DAT_004e0fa4));
 }
 
@@ -1780,9 +1780,9 @@ hulk_freg hulkfight::motion::MotionBlurTrack::vfunc_7() {
 namespace fn_f3c8e3e3 {
 
 // 0x00143a90 FUN_00143a90 (19 B): matches/0x00143a90.cpp
-// sym: ?FUN_00143a90@fn_f3c8e3e3@@YAXXZ
+// sym: ?FUN_00143a90@fn_f3c8e3e3@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00143a90() {
+void FUN_00143a90(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0fa8), ((char*)&DAT_004e0fac));
 }
 

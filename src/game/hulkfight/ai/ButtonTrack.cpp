@@ -69,9 +69,9 @@ void KeywordWaitTrack_10d350::Run() {
 
 
 // 0x0010d370 FUN_0010d370 (19 B): matches/0x0010d370.cpp
-// sym: ?FUN_0010d370@fn_f5040848@@YAXXZ
+// sym: ?FUN_0010d370@fn_f5040848@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0010d370() {
+void FUN_0010d370(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0b88), ((char*)&DAT_004e0b8c));
 }
 

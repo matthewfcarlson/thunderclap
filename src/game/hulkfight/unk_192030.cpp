@@ -2063,9 +2063,9 @@ Inner_193b90* Obj_193b90::GetBody() {
 
 
 // 0x00193ba0 FUN_00193ba0 (19 B): matches/0x00193ba0.cpp
-// sym: ?FUN_00193ba0@fn_fa51549e@@YAXXZ
+// sym: ?FUN_00193ba0@fn_fa51549e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00193ba0() {
+void FUN_00193ba0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1548), ((char*)&DAT_004e154c));
 }
 

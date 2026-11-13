@@ -1852,9 +1852,9 @@ unsigned char Object::FUN_0012e320(const char* source) {
 
 
 // 0x0012e380 FUN_0012e380 (19 B): matches/0x0012e380.cpp
-// sym: ?FUN_0012e380@fn_f587a2cf@@YAXXZ
+// sym: ?FUN_0012e380@fn_f587a2cf@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012e380() {
+void FUN_0012e380(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e54), ((char*)&DAT_004e0e58));
 }
 
@@ -1871,9 +1871,9 @@ hulk_intptr hulkfight::UnlockableCondition::vfunc_0(int index) {
 namespace fn_f587a2cf {
 
 // 0x0012e3e0 FUN_0012e3e0 (19 B): matches/0x0012e3e0.cpp
-// sym: ?FUN_0012e3e0@fn_f587a2cf@@YAXXZ
+// sym: ?FUN_0012e3e0@fn_f587a2cf@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012e3e0() {
+void FUN_0012e3e0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e5c), ((char*)&DAT_004e0e60));
 }
 
@@ -1942,9 +1942,9 @@ bool Obj::Set(const char* s) {
 
 
 // 0x0012e530 FUN_0012e530 (19 B): matches/0x0012e530.cpp
-// sym: ?FUN_0012e530@fn_f587a2cf@@YAXXZ
+// sym: ?FUN_0012e530@fn_f587a2cf@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012e530() {
+void FUN_0012e530(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e64), ((char*)&DAT_004e0e68));
 }
 
@@ -1997,9 +1997,9 @@ bool owners::C_12e620::FUN_0012e620(const char* value) { FUN_0008d340(text); if 
 namespace fn_f587a2cf {
 
 // 0x0012e680 FUN_0012e680 (19 B): matches/0x0012e680.cpp
-// sym: ?FUN_0012e680@fn_f587a2cf@@YAXXZ
+// sym: ?FUN_0012e680@fn_f587a2cf@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012e680() {
+void FUN_0012e680(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e6c), ((char*)&DAT_004e0e70));
 }
 
@@ -2074,9 +2074,9 @@ hulk_intptr Object::SetTimeOfDay_0012e770(const char* source) {
 namespace fn_f587a2cf {
 
 // 0x0012e7d0 FUN_0012e7d0 (19 B): matches/0x0012e7d0.cpp
-// sym: ?FUN_0012e7d0@fn_f587a2cf@@YAXXZ
+// sym: ?FUN_0012e7d0@fn_f587a2cf@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012e7d0() {
+void FUN_0012e7d0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e74), ((char*)&DAT_004e0e78));
 }
 
@@ -2093,9 +2093,9 @@ hulk_intptr hulkfight::ChapterMissionCondition::vfunc_0(int index) {
 namespace fn_f587a2cf {
 
 // 0x0012e840 FUN_0012e840 (19 B): matches/0x0012e840.cpp
-// sym: ?FUN_0012e840@fn_f587a2cf@@YAXXZ
+// sym: ?FUN_0012e840@fn_f587a2cf@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012e840() {
+void FUN_0012e840(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e7c), ((char*)&DAT_004e0e80));
 }
 
@@ -2191,9 +2191,9 @@ char X::Set(const char* s) {
 namespace fn_f587a2cf {
 
 // 0x0012e930 FUN_0012e930 (19 B): matches/0x0012e930.cpp
-// sym: ?FUN_0012e930@fn_f587a2cf@@YAXXZ
+// sym: ?FUN_0012e930@fn_f587a2cf@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012e930() {
+void FUN_0012e930(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e84), ((char*)&DAT_004e0e88));
 }
 
@@ -2332,9 +2332,9 @@ extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d340(void*); extern "C++"
 namespace fn_f587a2cf {
 
 // 0x0012eb00 FUN_0012eb00 (19 B): matches/0x0012eb00.cpp
-// sym: ?FUN_0012eb00@fn_f587a2cf@@YAXXZ
+// sym: ?FUN_0012eb00@fn_f587a2cf@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012eb00() {
+void FUN_0012eb00(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e8c), ((char*)&DAT_004e0e90));
 }
 
@@ -2458,9 +2458,9 @@ unsigned char owners::Thing_12ece0::FUN_0012ece0(const char* value) {
 namespace fn_f587a2cf {
 
 // 0x0012ed40 FUN_0012ed40 (19 B): matches/0x0012ed40.cpp
-// sym: ?FUN_0012ed40@fn_f587a2cf@@YAXXZ
+// sym: ?FUN_0012ed40@fn_f587a2cf@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0012ed40() {
+void FUN_0012ed40(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e0e94), ((char*)&DAT_004e0e98));
 }
 

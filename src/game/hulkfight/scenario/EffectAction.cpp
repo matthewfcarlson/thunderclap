@@ -2945,9 +2945,9 @@ bool T_1a2d40::Set(int x) {
 
 
 // 0x001a2d50 FUN_001a2d50 (19 B): matches/0x001a2d50.cpp
-// sym: ?FUN_001a2d50@fn_fc5dbd2a@@YAXXZ
+// sym: ?FUN_001a2d50@fn_fc5dbd2a@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001a2d50() {
+void FUN_001a2d50(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1708), ((char*)&DAT_004e170c));
 }
 
@@ -2964,9 +2964,9 @@ hulk_intptr hulkfight::scenario::NodeIsNotRunningCondition::vfunc_0(int index) {
 namespace fn_fc5dbd2a {
 
 // 0x001a2db0 FUN_001a2db0 (19 B): matches/0x001a2db0.cpp
-// sym: ?FUN_001a2db0@fn_fc5dbd2a@@YAXXZ
+// sym: ?FUN_001a2db0@fn_fc5dbd2a@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001a2db0() {
+void FUN_001a2db0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1710), ((char*)&DAT_004e1714));
 }
 
@@ -2991,9 +2991,9 @@ Event_StringCondition_1a2e00::~Event_StringCondition_1a2e00() throw() {
 
 
 // 0x001a2e20 FUN_001a2e20 (19 B): matches/0x001a2e20.cpp
-// sym: ?FUN_001a2e20@fn_fc5dbd2a@@YAXXZ
+// sym: ?FUN_001a2e20@fn_fc5dbd2a@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001a2e20() {
+void FUN_001a2e20(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1718), ((char*)&DAT_004e171c));
 }
 
@@ -3010,9 +3010,9 @@ hulk_intptr hulkfight::scenario::NodeShouldRunImmediatelyCondition::vfunc_0(int 
 namespace fn_fc5dbd2a {
 
 // 0x001a2e80 FUN_001a2e80 (19 B): matches/0x001a2e80.cpp
-// sym: ?FUN_001a2e80@fn_fc5dbd2a@@YAXXZ
+// sym: ?FUN_001a2e80@fn_fc5dbd2a@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001a2e80() {
+void FUN_001a2e80(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1720), ((char*)&DAT_004e1724));
 }
 
@@ -3029,9 +3029,9 @@ hulk_intptr hulkfight::scenario::Event_LocomotionStateNamePreviousCondition::vfu
 namespace fn_fc5dbd2a {
 
 // 0x001a2ef0 FUN_001a2ef0 (19 B): matches/0x001a2ef0.cpp
-// sym: ?FUN_001a2ef0@fn_fc5dbd2a@@YAXXZ
+// sym: ?FUN_001a2ef0@fn_fc5dbd2a@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001a2ef0() {
+void FUN_001a2ef0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1728), ((char*)&DAT_004e172c));
 }
 
@@ -3048,9 +3048,9 @@ hulk_intptr hulkfight::scenario::Event_LocomotionStateNameCondition::vfunc_0(int
 namespace fn_fc5dbd2a {
 
 // 0x001a2f60 FUN_001a2f60 (19 B): matches/0x001a2f60.cpp
-// sym: ?FUN_001a2f60@fn_fc5dbd2a@@YAXXZ
+// sym: ?FUN_001a2f60@fn_fc5dbd2a@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001a2f60() {
+void FUN_001a2f60(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1730), ((char*)&DAT_004e1734));
 }
 
@@ -3067,9 +3067,9 @@ hulk_intptr hulkfight::scenario::Event_PropStateDescCondition::vfunc_0(int index
 namespace fn_fc5dbd2a {
 
 // 0x001a2fc0 FUN_001a2fc0 (19 B): matches/0x001a2fc0.cpp
-// sym: ?FUN_001a2fc0@fn_fc5dbd2a@@YAXXZ
+// sym: ?FUN_001a2fc0@fn_fc5dbd2a@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001a2fc0() {
+void FUN_001a2fc0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1738), ((char*)&DAT_004e173c));
 }
 
@@ -3100,9 +3100,9 @@ Event_PropTypeCondition_1a3010::~Event_PropTypeCondition_1a3010() {
 
 
 // 0x001a3030 FUN_001a3030 (19 B): matches/0x001a3030.cpp
-// sym: ?FUN_001a3030@fn_fc5dbd2a@@YAXXZ
+// sym: ?FUN_001a3030@fn_fc5dbd2a@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001a3030() {
+void FUN_001a3030(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1740), ((char*)&DAT_004e1744));
 }
 
@@ -3128,9 +3128,9 @@ void Event_PropStateNameCondition_1a3080::f() {
 
 
 // 0x001a30a0 FUN_001a30a0 (19 B): matches/0x001a30a0.cpp
-// sym: ?FUN_001a30a0@fn_fc5dbd2a@@YAXXZ
+// sym: ?FUN_001a30a0@fn_fc5dbd2a@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001a30a0() {
+void FUN_001a30a0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1748), ((char*)&DAT_004e174c));
 }
 
@@ -3155,9 +3155,9 @@ Event_PropNameCondition_1a30f0::~Event_PropNameCondition_1a30f0() throw() {
 
 
 // 0x001a3110 FUN_001a3110 (19 B): matches/0x001a3110.cpp
-// sym: ?FUN_001a3110@fn_fc5dbd2a@@YAXXZ
+// sym: ?FUN_001a3110@fn_fc5dbd2a@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_001a3110() {
+void FUN_001a3110(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e1750), ((char*)&DAT_004e1754));
 }
 

@@ -1980,9 +1980,9 @@ void Target::FUN_001c2770(uint n, const Entry *source)
 
 
 // 0x001c27c0 FUN_001c27c0 (1 B): matches/0x001c27c0.cpp
-// sym: ?FUN_001c27c0@fn_ffffca36@@YAXXZ
+// sym: ?FUN_001c27c0@fn_ffffca36@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_001c27c0() {}
+void FUN_001c27c0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_ffffca36
 
