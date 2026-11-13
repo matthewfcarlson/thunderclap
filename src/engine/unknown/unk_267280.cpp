@@ -22,7 +22,7 @@ typedef unsigned int U;
 typedef unsigned __int64 Q;
 typedef unsigned __int64 U64_267340;
 typedef unsigned int U32_267340;
-extern "C" char FUN_002674f0(const char*, const char*);
+extern "C" bool FUN_002674f0(const char*, const char*);   // (unb5) bool: sete al / xor al, al (its callers declare bool)
 } // namespace fn_fccd9b35
 extern "C" int __cdecl __vsnprintf(char*, unsigned int, const char*, char*);
 namespace fn_fccd9b35 {
@@ -178,13 +178,13 @@ extern "C" void FUN_00267400(void) {
 
 // 0x002674f0 FUN_002674f0 (121 B): matches/0x002674f0.cpp
 // sym: _FUN_002674f0
-extern "C" char FUN_002674f0(const char* pattern, const char* text) {
+extern "C" bool FUN_002674f0(const char* pattern, const char* text) {
     const signed char* s = (const signed char*)pattern;
     const signed char* p = (const signed char*)text;
     int c = *s, a = *p;
     for (;;) {
         if (!a)
-            return (char)(c == 0);
+            return c ? false : true;   // (unb5) the end of the text matches the end of the pattern only
         if (c && a != '*' && a != '?' && c != a)
             return 0;
         if (!c && a != '*')
