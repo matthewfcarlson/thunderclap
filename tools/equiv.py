@@ -773,6 +773,12 @@ class Program:
                 locs |= set(v[1]) if v[0] == "#p" else {v[0]}
             return ("#p", frozenset(locs)) if locs else None
 
+        # (gate1, rev1's review of argpop) a caller's argpop rule (below) lets a `ret N` callee's analysis speak only
+        # for its N bytes of stack arguments: that holds only while the callee never addresses a slot past them (its
+        # caller's locals, return address or own arguments: keys <= -4-N; argument j is key -4-4j). Such a callee is
+        # unknown. (rev1's scan found none in the XBE whose access is real: the three hits are `_chkstk` frames whose
+        # locals this scan keys wrongly, unknown either way.)
+        pop_n = self.callee_pop(target) if "argbound" not in EQUIV_OFF else None
         init_slots = frozenset((-4 - 4 * j, (j, 0)) for j in range(32))
         init = (frozenset({"ecx": ("ecx", 0), "edx": ("edx", 0), "eax": ("eax", 0)}.items()), 0, None, init_slots)
         states = {}
@@ -888,6 +894,9 @@ class Program:
                         base = d if mb == "esp" else fb
                         if base is None:
                             fail[0] = True
+                            break
+                        if pop_n and base - disp <= -4 - pop_n:
+                            fail[0] = True      # (argbound) a slot past our N bytes of arguments: see pop_n
                             break
                         if mi is None and m != "lea":
                             mem_slot = (base - disp, bool(op.access & capstone.CS_AC_WRITE) or m in X87_STORES,

@@ -60,6 +60,11 @@ GDT32, TIB32 = 0x5EFE0000, 0x5EFD0000   # i386: fs:[0] is the SEH chain (clang's
 FSLOT = SENTINEL + 0x100            # float result of a 32-bit stub (loaded by its thunk)
 HEAP32 = 0x23450000                 # (an odd base: round integers like 0x20000000 are not addresses)
 HEAP64 = 0x712340000             # (its low 32 bits, 0x12340000+, mark a truncated pointer)
+HEAP32_SPAN = 0x20000000            # (ADDR_RANGES32) the 32-bit heap: HEAP32 .. 0x43450000
+# (rev1) `rawint` (compare) and the truncated-pointer test rely on a 64-bit heap address's low 32 bits (0x1234xxxx)
+# never being a 32-bit heap address: the 64-bit heap may grow by at most this much (Heap._region enforces both bounds)
+HEAP64_SPAN = HEAP32 - (HEAP64 & 0xFFFFFFFF)
+assert (HEAP64 & 0xFFFFFFFF) + HEAP64_SPAN <= HEAP32 and HEAP32 + HEAP32_SPAN <= 0x50000000
 NULL_HI = 0x10000                   # 0..0xFFFF reads as zero on both sides
 KMAX = 16                           # elements per typed object (p[i] for small i stays typed)
 RAW_SIZE = 0x1000
@@ -882,6 +887,9 @@ class Heap:
     def _region(self, bits, size):
         a = self.next[bits]
         self.next[bits] = a + ((size + PAGE - 1) & ~(PAGE - 1)) + PAGE     # one unmapped guard page after each
+        if self.next[bits] - (HEAP32 if bits == 32 else HEAP64) > (HEAP32_SPAN if bits == 32 else HEAP64_SPAN):
+            # (rev1) past it, a truncated 64-bit pointer could read as a 32-bit heap address (rawint, ptrtrunc)
+            raise Unsupported("the %d-bit heap outgrew its span (rawint's disjoint low 32 bits)" % bits)
         return a
 
     def get(self, ident, kind, lay, count=None, glob=False, alloc=None):
@@ -1195,7 +1203,10 @@ ALLOCATOR_AT = {"FUN_0021add0": 3}
 IMPLICIT_SIGS = {"??3@YAXPAX@Z": ("??3@YAXPEAX@Z", lambda: _sig_delete()),
                  "??_V@YAXPAX@Z": ("??_V@YAXPEAX@Z", lambda: _sig_delete())}
 # (x64eq) sized operator delete (`operator delete(void*, size_t)`, which clang's own deleting destructors call) is the same
-# callee as the unsized one: the pointer is compared, the size (the class's size on each target) is not an argument here
+# callee as the unsized one: the pointer is compared, the size (the class's size on each target) is not an argument here.
+# (rev1) This relies on the 64-bit platform's sized operator delete only forwarding to the unsized one (the 32-bit
+# Wine build's, src/platform/sdl/crt/crt_glue.cpp, does; libc++'s default one forwards too): a platform one that used the
+# size (a size-class allocator) would need the size compared after all.
 SIZED_DELETE = {"??3@YAXPAXI@Z": "??3@YAXPAX@Z", "??_V@YAXPAXI@Z": "??_V@YAXPAX@Z",
                 "??3@YAXPEAX_K@Z": "??3@YAXPEAX@Z", "??_V@YAXPEAX_K@Z": "??_V@YAXPEAX@Z"}
 

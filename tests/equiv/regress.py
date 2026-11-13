@@ -515,6 +515,10 @@ CASES = {
     # still holds a dead temporary: the callee only writes through it, which callee_reads sees once a known `ret 8`
     # callee's analysis no longer speaks for the caller's words past its two arguments
     "0x001a9b10_outparam_stale": ("equivalent", None, 0, {"native": True, "n_inputs": 200}),
+    # (rev1) the same function with the bug the rule must still see: a second, never-written local read in place of the
+    # out-parameter (fails with argpop; without argpop a false positive on the stale slot masks it)
+    "0x001a9b10_outparam_wrong_uninit": ("fail", "0x5a5a5a5a", 0,
+                                         {"native": True, "n_inputs": 200}),
     "0x0009f760_native_exp": ("equivalent", None, 0, {"native": True, "n_inputs": 300}),
     "0x0009f760_native_exp_wrong": ("fail", "returned 1.0", 0, {"native": True, "n_inputs": 300}),
     "0x0009f760_native_exp_python": ("fail", "returned 1.01", 0, {"native": True, "n_inputs": 300, "equiv_off": "x87math"}),
