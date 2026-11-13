@@ -326,7 +326,11 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     run records (buffer, literal, memory epoch) and a directed input re-runs it with the literal written
     over the buffer: once with its terminator (an exact match) and once without (a longer string starting
     with it). A heap or global buffer is planted in the epoch it was read in; a stack buffer only when a
-    stub filled it (the literal becomes that stub's fill). Each (site, literal) is queued from two inputs;
+    stub filled it (the literal becomes that stub's fill). (x64t10, `strterm`) When the code then stored
+    the terminator through an index loaded from an input (`read(&len, 1); read(name, len); name[len] = 0`)
+    over a word of the literal's extent, that word is still planted through its fill and the same directed
+    input sets the index's source so the terminator lands right after the literal (two fills in one input).
+    Each (site, literal) is queued from two inputs;
     the next bytes of the same pair of strings aren't queued again. Planted runs queue the compares they
     reach in turn (a chain of keywords, a tag then a name prefix). These run first in each round, while
     some edge is missing, and count in `inputs_directed` (and `inputs_planted`). Only inputs change; both

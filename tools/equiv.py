@@ -3840,6 +3840,7 @@ class Run:
         self.copy_src = {}          # stack byte -> (heap/global byte it was copied from, epoch, stack byte)
         self._str_seen = {}         # (site, literal address) -> recorded; site -> (esi, edi, ecx) of the last rep cmps
         self._str_walks = []        # (literal lo, hi, buffer - literal) of each compare recorded
+        self.term_kill = {}         # (x64t10, strterm) stack word -> its stub fill a `buf[n] = 0` store replaced, and n's source
         self.jcc_count = Counter()  # jcc -> times executed (hot loops of a run that timed out)
         self.varargs = set()        # callees our source declares with `...`
         self.local_entries = set()  # functions of our own object entered so far (their prologues are known)
@@ -4041,6 +4042,14 @@ class Run:
                 hit = range(addr & ~3, addr + size, 4)
                 if any(x == ENTRY_ESP or (x in self.save_slots and x >= self.reg("esp")) for x in hit):
                     self.smashed = ci.addr
+            if self.smashed is None and ci is not None and ci.mem is not None and ci.mem[2] and \
+                    ci.mem[1] in ("esp", "ebp") and not ci.mnemonic.startswith(("rep", "stos", "movs")) and \
+                    ENTRY_ESP + 4 <= addr < ENTRY_ESP + 0x104 and "smasharg" not in EQUIV_OFF and \
+                    (self.reg(ci.mem[1]) + _sx(ci.mem[4])) & M32 < ENTRY_ESP:
+                # (x64t10, smasharg) the same overrun past the return address: an indexed store whose base is a local of
+                # the frame (`tag[n] = 0`, tag at esp+0x34, n a fuzzed byte) landing in the incoming argument words.
+                # Clang's frame puts its saved ebp where the original's argument word is, so the two differ there
+                self.smashed = ci.addr
             if ci is not None and ci.kind == "call" and self.helper_ret is None:
                 self.save_slots.update(range(addr & ~3, addr + size, 4))   # a return address: never data
             elif self.helper_ret is not None:
@@ -4068,6 +4077,8 @@ class Run:
                         ci.mnemonic.startswith(("rep", "stos", "movs")) or
                         (ci.mem is not None and (ci.mem[2] or ci.mem[1] not in ("esp", "ebp")))):
                     self.array_written.update(range(addr, addr + size))     # indexed/pointer/string store
+                if "strterm" not in EQUIV_OFF:
+                    self._note_term(ci, addr, size, value)
                 for x in range(addr & ~3, addr + size, 4):
                     self.fill_src.pop(x, None)
                 for x in range(addr, addr + size):
@@ -5321,6 +5332,21 @@ class Run:
             out["eq"] = self.eq_links[out["src"]]
         return out
 
+    def _note_term(self, ci, addr, size, value):
+        """(x64t10, strterm) A string's terminator stored over a stub-filled stack word through a loaded index
+        (`n = len byte; read(buf, n); buf[n] = 0`, the index a byte the same stub filled): the word's fill and the
+        index's source are kept, so a directed input that plants a literal in the buffer can also have the index put
+        the terminator right after it (two fills in one input, the same on both sides). Any other store forgets it."""
+        for x in range(addr & ~3, addr + size, 4):
+            fs_ = self.fill_src.get(x)
+            if fs_ is not None and size == 1 and not value & 0xff and ci is not None and ci.mem is not None and \
+                    ci.mem[2] and ci.mem[1] in ("esp", "ebp") and not ci.mnemonic.startswith(("rep", "stos", "movs")):
+                ix_ = self._reg_info(ci.mem[2])
+                if ix_["src"] is not None and not ix_["xf"] and isinstance(ix_["val"], int):
+                    self.term_kill[x] = (fs_, addr, ix_["src"], ix_["val"], ci.mem[3] or 1)
+                    continue
+            self.term_kill.pop(x, None)
+
     def _note_str(self, site, lit, buf, n=None, psrc=None):
         """Record a compare of the buffer at `buf` with a literal in read-only data at `lit` (n bytes, or
         up to its NUL). A directed input re-runs the input with the literal written over the buffer, in the
@@ -5337,7 +5363,7 @@ class Run:
             pass            # (a null-page pointer the code loaded: `_plants` points its source at a buffer)
         elif STACK_LO <= buf < STACK_HI:
             fills = {w: self.fill_src[w] for w in range(buf & ~3, buf + 256, 4) if w in self.fill_src}
-            if (buf & ~3) not in fills:
+            if (buf & ~3) not in fills and (buf & ~3) not in self.term_kill:
                 return
         elif _reserved(buf) or (OURS <= buf < OURS + OURS_SIZE):
             return
@@ -5353,10 +5379,21 @@ class Run:
                 return
         if any(lo <= lit < hi and d == buf - lit for lo, hi, d in self._str_walks):
             return          # the same two strings, further along (an inline loop's next byte pair)
+        term = None
+        if self.term_kill and STACK_LO <= buf < STACK_HI and "strterm" not in EQUIV_OFF:
+            # (x64t10, strterm) words of the literal's extent whose fill the terminator store replaced: planted
+            # through their fill, with the store's index moved to put the terminator right after the literal
+            for w in range(buf & ~3, buf + len(data), 4):
+                tk_ = self.term_kill.get(w)
+                if w not in fills and tk_ is not None:
+                    fills[w] = tk_[0]
+                    term = term or tk_[1:]
+            if (buf & ~3) not in fills:
+                return
         self._str_walks.append((lit, lit + len(data), buf - lit))
         self._str_seen[(site, lit)] = True
         self.str_obs.append({"site": site, "lit": data, "buf": buf, "epoch": self.epoch, "fills": fills,
-                             "psrc": psrc})
+                             "psrc": psrc, "term": term})
 
     def _null_psrc(self, reg, v):
         """Where a null-page pointer in `reg` was loaded from (a plain word, no arithmetic), else None."""
@@ -11168,7 +11205,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     qi = min(range(min(len(str_queue), 256)), key=lambda i_: (str_popped[skey(str_queue[i_])], i_))
                     str_popped[skey(str_queue[qi])] += 1
                 seed0, sob, ov0, sp0 = str_queue.pop(qi)
-                if sob.get("psrc") is not None:
+                if sob.get("psrc") is not None or sob.get("term") is not None:
                     sob = dict(sob, nstack=len(make_input(seed0, sig, globals_, min_words=own_words)["stack"]))
                 for overlay, patch in _plants(sob, ov0, sp0):
                     key = (sob["site"], seed0, tuple(sorted(map(repr, overlay.items()))),
@@ -11666,6 +11703,15 @@ def _plants(sob, overlay0, patch0):
                 pt[("fill",) + tuple(fills[w]) + (lo - w, hi - lo)] = int.from_bytes(v[lo - buf:hi - buf], "little")
             if not ok:
                 continue
+            tm_ = sob.get("term")
+            if tm_ is not None and v.endswith(b"\0"):
+                # (x64t10, strterm) the index of the `buf[n] = 0` store that replaced a planted word: n put at the
+                # literal's own terminator (store address + scale * (new n - n) = buf + len - 1)
+                st_, src_, n_, sc_ = tm_
+                d_ = buf + len(v) - 1 - st_
+                if d_ % sc_ or not 0 <= n_ + d_ // sc_ < (1 << (8 * min(src_[1], 4))) or \
+                        not _int_plant_into(src_, n_ + d_ // sc_, ov, pt, sob.get("nstack", 16)):
+                    continue
         else:
             a, rest = buf, v
             while rest:

@@ -895,6 +895,16 @@ CASES = {
     "0x002f4eb0_wine_memcmp": ("equivalent", None, 0, {"native": True, "n_inputs": 40}),
     "0x002f4eb0_wine_memcmp_off": ("fail", "missing call", 0, {"src": "0x002f4eb0_wine_memcmp", "native": True,
                                                               "n_inputs": 40, "equiv_off": "memcmp"}),
+    # (x64t10, strterm) its unit-name compares: the name a stub filled holds the literal only once the length byte the same
+    # stub filled puts `name[n] = 0` right after it (that store replaced the planted word's fill). One directed input plants
+    # both; without it (EQUIV_OFF=strterm) coverage stays 22/30 on both sides
+    "0x002f4eb0_strterm": ("equivalent", None, 1.0, {"src": "0x002f4eb0_wine_memcmp"}),
+    "0x002f4eb0_wine_strterm": ("equivalent", None, 1.0, {"src": "0x002f4eb0_wine_memcmp", "native": True}),
+    # (x64t10, smasharg) input 907: `tag[n] = 0` with n = 0xf6 overruns the original's frame past its return address into an
+    # argument word, and clang's into its saved ebp: undefined behaviour in the original, inconclusive (round 8's smash)
+    "0x002f4eb0_wine_smasharg": ("equivalent", None, 0, {"src": "0x002f4eb0_wine_memcmp", "native": True, "seeds": list(range(8)) + [907]}),
+    "0x002f4eb0_wine_smasharg_off": ("fail", "ebp not preserved", 0, {"src": "0x002f4eb0_wine_memcmp", "native": True,
+                                                                      "seeds": list(range(8)) + [907], "equiv_off": "smasharg"}),
     # read_numeral: `b->buffer[b->n++] = c` and `*z->p++` that clang orders store-first, against a buffer overlapping its
     # header (a source fix, not a checker rule: the order the original has)
     "0x0021b230_wine_order": ("equivalent", None, 0, {"native": True, "seeds": [8, 24, 54]}),

@@ -758,3 +758,13 @@ blocks fight::Action's whole family: the records come first there.
 - The auto-mode permission classifier refused an agent's `gen_headers.py --probe` in the shared checkout because the
   agent had read the tool's pre-gen1 docstring (it regenerated include/gen/). The probe only ever wrote to a temp
   dir; now that dir is under build/tmp/ and the docstring says so.
+
+## 2026-11-13 x64t10-eq: two fills in one directed input (strterm), overruns past the return address (smasharg)
+- `n = len byte; read(name, n); name[n] = 0`: the terminator store replaced the stub fill of a word of the name, so
+  equiv.py's string plant (the literal as the stub's fill) no longer saw a filled buffer and never queued the compare
+  (0x002f4eb0's unit names: 22/30). `strterm` keeps the replaced word's fill and the store index's source, and the
+  plant sets both: the literal and the length that puts the terminator right after it. 0x002f4eb0: 30/30.
+- With the compares reached, `--wine` at 3,000 inputs met input 907: `tag[n] = 0` with n = 0xf6 writes past the
+  original's return address into an argument word, and into clang's saved ebp. `smasharg` extends round 8's smash rule
+  (an indexed store from a frame local landing in the incoming arguments is an overrun: inconclusive when the sides
+  differ).
