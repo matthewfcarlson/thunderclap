@@ -1572,7 +1572,7 @@ bool audio::OmHalStream::vfunc_8(void* __p0) { unsigned int * out = (unsigned in
 // sym: ?vfunc_9@OmHalStream@audio@@UAEPAXH@Z
  // namespace audio
 void* audio::OmHalStream::vfunc_9(int index) {
-    return (void*)((char*)this + index * 16 + 0xb4);
+    return (void*)((char*)&this->f_10[0x29] + index * 16);   // the header's 16-byte entries at +0xa4
 }
 
 namespace fn_fd6abdd0 {
