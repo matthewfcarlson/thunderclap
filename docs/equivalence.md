@@ -1,7 +1,8 @@
 # Equivalence verifier (`tools/equiv.py`)
 
 Proves that a function we wrote behaves like the original, without byte-identical codegen. It is the level
-1–3 verifier of [task 09](tasks/09-equivalent-decomp.md).
+1–3 verifier of [task 09](tasks/09-equivalent-decomp.md). How to write a function that passes it (and a byte match):
+[msvc71-pitfalls.md](msvc71-pitfalls.md).
 
 ```sh
 build/venv/bin/python tools/equiv.py SRC 0xADDR                 # human-readable report

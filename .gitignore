@@ -4,3 +4,7 @@ __pycache__/
 .DS_Store
 .ulk-permute/
 /work
+
+# farm/ was archived (2026-11-13, docs/msvc71-pitfalls.md); what is left there locally (endpoints.json with tokens,
+# .env.local, private tier files, node_modules) must never be committed
+farm/

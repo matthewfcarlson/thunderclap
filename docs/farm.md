@@ -1,5 +1,10 @@
 # Matching farm
 
+**Archived (user decision D2, 2026-11-13).** farm/'s tracked files were removed; the last commit that has them is
+`ac307cc62`. Its MSVC 7.1 recipes (farm/src/prompt.ts) are in [msvc71-pitfalls.md](msvc71-pitfalls.md). The rest of this page
+describes the farm as it ran. Its local state (build/farm/) stays where it is; nothing in the build or proof pipeline
+reads the farm's databases.
+
 Cheap models do bulk matching in parallel. Claude's effort goes to tooling and the hard cases.
 
 ```
