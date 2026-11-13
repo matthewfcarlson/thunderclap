@@ -768,3 +768,13 @@ blocks fight::Action's whole family: the records come first there.
   original's return address into an argument word, and into clang's saved ebp. `smasharg` extends round 8's smash rule
   (an indexed store from a frame local landing in the incoming arguments is an overrun: inconclusive when the sides
   differ).
+
+## 2026-11-13 del1: matches/ and equivalent/ removed (merge-once (d)), farm/ archived
+- The Wine build's binding map read the per-function sources for every equivalent function (equiv.py level 2 on
+  `equivalent/0xADDR.cpp` with the tree object) and for native9's same-symbol check: deleting them unretargeted would
+  have unbound the equivalents' callees (the first control, run with the new SRC_DIRS, hung at frame 0). Retargeted to
+  the unit text (TU shared part + block) in equiv.py's standalone mode: 5,099 / 5,099 maps identical. equiv.py's tree
+  mode is not a substitute there: it drops `how: name` bindings of the TU's neighbours by design (39 of 508 differed).
+- `wine_build_job.py submit` ships the checkout's tools/wine_build_run.py: a control of an older commit needs that
+  commit's build tools at submit.
+- docs/merge-once.md "Step (d)", docs/msvc71-pitfalls.md.

@@ -4015,3 +4015,15 @@ config/data.json and the scanner are part of the verify cache's key. A test comp
 | whole tree on db0318f58, committed tools (job 79045) | the same, 2,674 TUs, 0 errors, 0 overreach (16 info), x64 gate ok; `inputs_vs_local` names the 14 unshipped local edits (`--head-only`) |
 | tests (studio, job 78938, HEAD + the tools) | 67 OK: test_tree_tu_checks (new, 18), _inputs, _hash, test_x64_gate (+4 in-job), test_gen_headers (+2: work dir, --keep), test_data_overreach |
 | refusal in the shared checkout (db0318f58, no `--head-only`) | refused: 14 unshipped files (others' include/gen, decls, data.json, DriveRequest TUs) |
+
+## merge-once (d): matches/ and equivalent/ removed, farm/ archived (del1, 2026-11-13)
+
+User decisions D1 and D2. f98940cf5 retargets every reader of the per-function sources to the tree
+(tools/tree_index.py; reader table in [merge-once.md](merge-once.md) "Step (d)") and moves the ten gen1-retired
+tools to tools/legacy/; ac307cc62 deletes matches/ and equivalent/ (f98940cf5 is the last commit with them);
+the next commit archives farm/ (recipes in [msvc71-pitfalls.md](msvc71-pitfalls.md); ac307cc62 is the last
+commit with farm/). For the native builds nothing changes: they already compiled the tree. The Wine build's binding
+map now checks each equivalent function on its unit text (TU shared part + block) in equiv.py's standalone mode:
+5,099 / 5,099 maps identical to the per-function sources'; control 79153 / proof 79235 (studio): image
+byte-identical, GATE ok. Note for later controls: `wine_build_job.py submit` ships the checkout's
+wine_build_run.py, so a control of a commit before (d) has to be submitted with that commit's build tools.
