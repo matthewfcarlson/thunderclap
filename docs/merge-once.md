@@ -191,6 +191,37 @@ move, so `@w` stands). Six blocks do this (a sweep inserting N dummy declaration
 reach); `tree_tu.py inputs ROOT [--tus FILE]` gives the same locally, so a queue job's pass can be tied to the files
 it checked: a job is `git archive HEAD` plus its overlay, and a verify job without `--files`/`--dirty` checks HEAD.
 
+### Checks beyond the blocks (tool2, 2026-11-13)
+
+`check` and `verify` run three more checks (user decisions D9, D10, D12 of 2026-11-13); each fails the run like a
+block does:
+
+- **The header probe (D9).** When a header under include/gen/ changed, `verify` runs `gen_headers.py --probe`
+  (in process, ~7-11 s; [headers.md](headers.md) "The probe in verify") and fails when it fails (summary `gen_probe`).
+  Changed means: since `--changed-since REF` (working tree and untracked files), else uncommitted (vs HEAD); in a
+  queue job, shipped. `check TU` runs it when such a header is one the TU can `#include`. `--gen-probe` forces it.
+- **Unshipped local edits (D10).** A queue job is `git archive COMMIT` plus its overlay files (docs/compute.md
+  "Workspaces"), so a verify job passes whatever the checkout holds unless the edits travel with it (hash3).
+  `tools/jobq.py` refuses a job running `tree_tu.py verify|check` or `x64_gate.py check` (also inside `sh -c`) when a
+  TU it lists, a file those TUs can `#include` (`reach` below), or a config file the check reads (config/data.json;
+  config/x64-baseline.json for `--x64`; config/gen-sizes.json when the probe will run) is modified or untracked in the
+  checkout and not shipped, unless that command has `--head-only` (check the commit, plus what is shipped, on purpose).
+  The refusal names the files and what to pass. The job gets `.jobq/local-inputs.json` (the local `inputs` digests,
+  the shipped paths, the commit) and prints `inputs_vs_local`: its own digests against the checkout's at submit, per
+  digest `same` true/false. `inputs` now has three digests: `tus`, `headers` (every header under include/) and
+  `reach` (only the files the TUs can `#include`: tools/include_keys.closure; what the guard compares).
+- **Data overreach (D12).** tools/data_overreach.py's scan over the MSVC object `check_tu` already compiled: a hit of a
+  reported class (`over`, `pad`, `addr`, `before`, `indexed`) is a record's `overreach` list and a failure
+  (`overreach <kind>` in verify's counts, so `materialize` fails on it too); the informational classes (`end`,
+  `negidx`) are `overreach_info` / `info: overreach <kind>`, never failing. config/data.json and data_overreach.py are
+  part of the verify cache's key. Baseline on HEAD 1c5f08c59 (whole tree, job 78937): 0 reported, 16
+  informational (13 `end`, 3 `negidx`), as scan1's last run (78132).
+
+Inside a queue job (no git in its workspace) `verify --changed-since REF` and the x64 gate take only the job's base
+commit as REF (submit checks that REF names it): the changed TUs are the shipped ones, the gate's REF side is the
+workspace with the shipped files put back to the commit's copies (`.jobq/ref/`), and its equivalence runs stay in the
+job. Before tool2 `--changed-since` in a job found no TUs (git failed silently) and passed.
+
 ### Wrapped and isolated functions
 
 They stay as they are in the committed tree (wrapped: the original source verbatim in `namespace fn_<addr> { }`;

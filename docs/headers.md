@@ -18,7 +18,7 @@ build/venv/bin/python -m unittest tests.test_gen_headers      # name helpers, th
 - Edit the class where it is. A layout change is a shared change: the TUs that include the header must still verify
   (`tree_tu.py verify . --relocs`, plus the code hashes and `--x64` gate for equivalents), and a Wine proof pair is
   needed when compiled code changes (CLAUDE.md "Builds and proofs").
-- Run `--probe`. It must pass; when an edit is meant to change a class's 32-bit `sizeof` (a field the code proves past
+- Run `--probe` (or `tree_tu.py verify`, which runs it when include/gen/ changed). It must pass; when an edit is meant to change a class's 32-bit `sizeof` (a field the code proves past
   the old end, a pad given its real type), record it with `--update-sizes` and commit `config/gen-sizes.json` with the
   header, so the diff shows the size change.
 - Conventions the generator followed, which hand edits keep: slot N introduced by class X is `vfunc_N` until a real name
@@ -80,6 +80,21 @@ recording takes the headers as they are. Multiple-inheritance base sizes are cov
 the wrong size moves the next base's offset).
 
 The probe checks the 32-bit MSVC layouts only; the 64-bit layouts are the native builds' and `equiv.py --x64`'s.
+
+### The probe in verify (tool2, 2026-11-13)
+
+`tools/tree_tu.py verify` runs the probe whenever a header under include/gen/ changed (since `--changed-since REF`,
+else uncommitted; in a queue job, shipped) and fails when it does (summary `gen_probe`: counts, the problems' first
+lines, seconds); `check TU` runs it when the TU can `#include` such a header; `--gen-probe` forces it. In a queue job
+it needs nothing extra: include/gen/ and config/gen-sizes.json are in the base tree (ship your edits of both; the
+submit guard refuses a job whose probe would read an unshipped gen-sizes.json), build/rtti.json, functions.csv, the
+XBE and wibo come through the workspace's `build/` and `isos/` links.
+
+**The probe writes nothing into the checkout.** Its probe TUs and objects go to a fresh directory under build/tmp/
+(removed afterwards; `--keep DIR` must be under build/ or outside the checkout); only `--update-sizes` writes a tracked
+file. An agent's `--probe` run in the shared checkout was once refused by the auto-mode permission check as a
+destructive action: that agent had read the tool when it still regenerated include/gen/ (deleting the headers it did
+not write). Running it through `tree_tu.py verify` / `check`, or after reading the current tool, avoids that.
 
 ## Multiple and virtual inheritance
 

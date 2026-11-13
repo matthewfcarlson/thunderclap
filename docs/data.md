@@ -635,5 +635,9 @@ voice count arrays 0x004e3768 (80 bytes; data2's 28-byte span), Perlin's four no
 2056, 6168 and 4112 bytes; data2's 1,024-byte span and a carve that made the permutation table 4 bytes), and the
 three joint-name pointers 0x0048f6d0 (a 4-byte "string" and an unknown; config/data-pointers.json). After them the
 scan reports nothing (job 78132); the informational ones are loop bounds and negative index constants.
+Since tool2 (2026-11-13) the check also runs inside `tools/tree_tu.py check` and `verify` on the objects they compile
+(docs/merge-once.md "Checks beyond the blocks"): a reported class fails its block (`overreach <kind>`), the
+informational classes are listed (`info: overreach <kind>`). An item resized in config/data.json re-checks every TU
+(the inventory is part of the verify cache's key).
 data_gen: an initialized typed record's pointer field is now cast to the field's records.h type (was `void*`, which
 only `void*` fields accept).

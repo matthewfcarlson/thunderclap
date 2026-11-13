@@ -20,6 +20,13 @@ Checks (docs/headers.md "The layout probe"):
     is meant).
 
 Inputs: build/rtti.json, build/functions.csv, isos/extracted/default.xbe, the MSVC 7.1 compiler under wibo.
+
+Writes: nothing in the checkout. `--probe` reads include/gen/ and config/gen-sizes.json and compiles its probe TUs in a
+fresh directory under build/tmp/ (removed afterwards; `--keep DIR` keeps it, DIR must be under build/ or outside the
+checkout). Only `--update-sizes` writes a tracked file (config/gen-sizes.json). (tool2: an agent's `--probe` in the
+shared checkout was refused by the auto-mode permission check as a destructive action: until gen1 this tool
+regenerated include/gen/ and deleted the headers it did not write, which is what the agent had read about it.)
+`tools/tree_tu.py verify` runs the probe itself when a file under include/gen/ changed (docs/headers.md).
 """
 import argparse
 import collections
@@ -503,8 +510,8 @@ def declared_ctors(text):
 # ---------------------------------------------------------------------------------------------
 # Probe: compile each header with cl 13.10 and check layouts against RTTI
 
-def run_cl(src_dir, src, flags, obj):
-    env = dict(os.environ, INCLUDE=os.path.join(MSVC, "Include") + ";" + os.path.join(ROOT, "include"))
+def run_cl(src_dir, src, flags, obj, include=None):
+    env = dict(os.environ, INCLUDE=os.path.join(MSVC, "Include") + ";" + (include or os.path.join(ROOT, "include")))
     cmd = [WIBO, os.path.join(MSVC, "Bin/cl.exe"), "/nologo"] + flags + ["/Fo" + obj, src]
     r = subprocess.run(cmd, env=env, capture_output=True, text=True, cwd=src_dir)
     return r.returncode == 0 and os.path.exists(obj), (r.stdout + r.stderr)
@@ -529,23 +536,44 @@ def load_sizes(path=SIZES_PATH):
     return json.load(open(path))["sizes"] if os.path.exists(path) else {}
 
 
-def probe(headers=None, keep=None, sizes="load"):
+TMP_DIR = os.path.join(ROOT, "build/tmp")
+
+
+def check_keep(keep):
+    """--keep must not put probe files into the tracked tree: under build/ or outside the checkout only."""
+    k = os.path.abspath(keep)
+    inside = os.path.commonpath([k, ROOT]) == ROOT
+    if inside and os.path.commonpath([k, os.path.join(ROOT, "build")]) != os.path.join(ROOT, "build"):
+        raise SystemExit("--keep %s: the probe writes nothing into the checkout; use a directory under build/" % keep)
+    return k
+
+
+def probe(headers=None, keep=None, sizes="load", include=None):
     """Compile each header alone, then one layout TU per header that constructs every RTTI class placed there
     (abstract ones through a derived probe class) and check the object. sizes: {class: sizeof} to compare with
-    (default "load": config/gen-sizes.json; None: record only). Returns (counts, problems, work dir if kept, {class: sizeof seen})."""
+    (default "load": config/gen-sizes.json; None: record only). INCLUDE: the include/ directory whose gen/ is probed
+    (default the checkout's). The work files go to a fresh directory under build/tmp/ (KEEP: that directory instead,
+    kept). Returns (counts, problems, work dir if kept, {class: sizeof seen})."""
     sys.path.insert(0, os.path.dirname(__file__))
     from compare import Coff
+    inc = os.path.abspath(include or os.path.dirname(OUT_DIR))
+    gen_dir = os.path.join(inc, "gen")
     index = Model().index()
     sizes = load_sizes() if sizes == "load" else sizes
     ctors = {}
-    for f in os.listdir(OUT_DIR):
+    for f in os.listdir(gen_dir):
         if f.endswith(".h"):
-            for k, v in declared_ctors(open(os.path.join(OUT_DIR, f)).read()).items():
+            for k, v in declared_ctors(open(os.path.join(gen_dir, f)).read()).items():
                 ctors.setdefault(k, v)
-    allh = sorted(f[:-2] for f in os.listdir(OUT_DIR) if f.endswith(".h") and f not in ("all.h", "_prelude.h"))
+    allh = sorted(f[:-2] for f in os.listdir(gen_dir) if f.endswith(".h") and f not in ("all.h", "_prelude.h"))
     headers = headers or allh
-    tmp = None if keep else tempfile.TemporaryDirectory(prefix="genprobe")
-    work = keep or tmp.name
+    if keep:
+        work = check_keep(keep)
+        tmp = None
+    else:
+        os.makedirs(TMP_DIR, exist_ok=True)
+        tmp = tempfile.TemporaryDirectory(prefix="genprobe-", dir=TMP_DIR)
+        work = tmp.name
     os.makedirs(work, exist_ok=True)
     total = collections.Counter()
     problems = []
@@ -555,7 +583,7 @@ def probe(headers=None, keep=None, sizes="load"):
         src = "hdr_%s.cpp" % h
         with open(os.path.join(work, src), "w") as f:
             f.write('#include <gen/%s.h>\n' % h)
-        ok, out = run_cl(work, src, ["/c", "/O2", "/GR", "/GX"], os.path.join(work, "hdr_%s.obj" % h))
+        ok, out = run_cl(work, src, ["/c", "/O2", "/GR", "/GX"], os.path.join(work, "hdr_%s.obj" % h), inc)
         total["headers"] += 1
         total["headers_ok"] += ok
         if not ok:
@@ -579,7 +607,7 @@ def probe(headers=None, keep=None, sizes="load"):
         with open(os.path.join(work, src), "w") as f:
             f.write("\n".join(lines) + "\n")
         obj = os.path.join(work, "lay_%s.obj" % h)
-        ok, out = run_cl(work, src, ["/c", "/Od", "/GR", "/GX"], obj)
+        ok, out = run_cl(work, src, ["/c", "/Od", "/GR", "/GX"], obj, inc)
         if not ok:
             problems.append("%s.h: layout probe does not compile:\n%s" % (h, "\n".join(out.splitlines()[:15])))
             continue
@@ -587,6 +615,8 @@ def probe(headers=None, keep=None, sizes="load"):
         for k, v in res[0].items():
             total[k] += v
         problems += res[1]
+    if tmp:
+        tmp.cleanup()
     return total, problems, (work if keep else None), seen
 
 

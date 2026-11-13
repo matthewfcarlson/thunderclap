@@ -366,7 +366,22 @@ def _git(*args, **kw):
     return subprocess.run(["git"] + list(args), cwd=ROOT, capture_output=True, text=True, **kw)
 
 
+def _job():
+    """Inside a queue job (no git in its workspace): the submit's record (tree_tu.JOB_META), else None. The job's base
+    commit is the only REF the gate can take there: its tree is the workspace with the shipped files put back to the
+    commit's copies (tree_tu.JOB_REF), and the changed TUs are the shipped ones (tool2)."""
+    import tree_tu
+    m = tree_tu.job_meta()
+    return m if m is not None and not tree_tu.have_git() else None
+
+
 def rev(ref):
+    m = _job()
+    if m is not None:
+        if ref not in m.get("refs", []):
+            raise SystemExit("x64_gate: in a queue job only the base commit (%s) is known, not %s"
+                             % (m.get("commit", "?")[:10], ref))
+        return m["commit"]
     r = _git("rev-parse", "--verify", ref + "^{commit}")
     if r.returncode:
         raise SystemExit("x64_gate: no commit %s" % ref)
@@ -379,6 +394,27 @@ TREE_DIRS = ("src/game", "src/engine", "src/platform/xbox")
 def snapshot(commit, d):
     """The tree of COMMIT (include/ and the tree TUs) extracted into D; returns D."""
     os.makedirs(d, exist_ok=True)
+    m = _job()
+    if m is not None:       # (the workspace, its shipped files back at the commit's copies)
+        import tree_tu
+        if commit != m["commit"]:
+            raise SystemExit("x64_gate: in a queue job only the base commit is known")
+        for top in ["include"] + list(TREE_DIRS):
+            if not os.path.isdir(os.path.join(ROOT, top)):
+                continue
+            os.makedirs(os.path.dirname(os.path.join(d, top)), exist_ok=True)
+            if subprocess.run(["cp", "-Rc", os.path.join(ROOT, top), os.path.join(d, top)], capture_output=True).returncode:
+                shutil.rmtree(os.path.join(d, top), ignore_errors=True)
+                shutil.copytree(os.path.join(ROOT, top), os.path.join(d, top))
+        for rel in m.get("shipped", []):
+            if not rel.startswith(("include/",) + tuple(t + "/" for t in TREE_DIRS)):
+                continue
+            dst, src = os.path.join(d, rel), os.path.join(ROOT, tree_tu.JOB_REF, rel)
+            if os.path.exists(src):
+                shutil.copyfile(src, dst)
+            elif os.path.exists(dst):
+                os.unlink(dst)          # (new in the shipped files)
+        return d
     p1 = subprocess.Popen(["git", "archive", "--format=tar", commit, "include"] + list(TREE_DIRS), cwd=ROOT,
                           stdout=subprocess.PIPE)
     p2 = subprocess.run(["tar", "-x", "-C", d], stdin=p1.stdout, capture_output=True)
@@ -394,6 +430,12 @@ def candidate_tus(ref, head=None, tus=None):
     import tree_tu
     if tus is not None:
         return sorted(tus)
+    m = _job()
+    if m is not None:
+        files = [f for f in m.get("shipped", []) if f.startswith(("src/", "include/"))]
+        if any(f.endswith((".h", ".hpp", ".inl")) for f in files):
+            return sorted(os.path.relpath(p, ROOT) for p in tree_tu.tree_tus(ROOT))
+        return sorted(f for f in files if f.endswith(".cpp") and f.startswith(tuple(d + "/" for d in TREE_DIRS)))
     r = _git("diff", "--name-only", ref, *([head] if head else []), "--", "src", "include")
     files = r.stdout.split()
     if not head:        # (the working tree: untracked TUs too)
@@ -498,6 +540,8 @@ def run_blocks(items, mode="auto", jobs=2, name="x64gate", commit=None, workdir=
     out = os.path.join(d, "runs.jsonl")
     if mode == "auto":
         mode = "local" if len(items) <= LOCAL_MAX else "jobq"
+    if os.environ.get("JOBQ_JOB"):      # (inside a queue job: never submit from a host)
+        mode = "local"
     try:
         if mode == "local":
             lst = os.path.join(d, "list.txt")
@@ -657,6 +701,8 @@ def main(argv=None):
     p.add_argument("--baseline", default=BASELINE)
     p.add_argument("--out", metavar="OUT.jsonl", help="one record per checked block")
     p.add_argument("--json", action="store_true")
+    p.add_argument("--head-only", action="store_true", help="as a queue job: gate the commit (plus what is shipped) on "
+                   "purpose, though the checkout has unshipped edits the TUs read (tree_tu.submit_guard)")
     p = sub.add_parser("accept", help="add a block to the baseline, with the reason")
     p.add_argument("addr")
     p.add_argument("--why", required=True)
@@ -703,6 +749,12 @@ def main(argv=None):
     tus = [l.strip() for l in open(a.tus) if l.strip()] if a.tus else None
     res = gate(a.changed_since, a.head, tus, a.mode or "auto", a.jobs, a.name, quiet=a.json, baseline_path=a.baseline,
                prio=a.prio)
+    import tree_tu
+    if tree_tu.job_meta() is not None:      # (D10: what the job checked against the checkout's files at submit)
+        cand = candidate_tus(rev(a.changed_since), rev(a.head) if a.head else None, tus)
+        paths = [os.path.join(ROOT, r) for r in cand if os.path.exists(os.path.join(ROOT, r))]
+        res["summary"]["inputs_vs_local"] = tree_tu.inputs_vs_local(
+            "check", (argv if argv is not None else sys.argv[1:])[1:], tree_tu.inputs_digest(paths) if paths else {}, tool="x64_gate")
     if a.out:
         with open(a.out, "w") as f:
             for r in res["rows"]:

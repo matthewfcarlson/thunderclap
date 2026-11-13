@@ -26,6 +26,10 @@ Classes of a hit (`kind`):
 
 Without TUs: every tree TU whose MSVC object build_tree's cache holds (`--compile` compiles the others: MSVC through
 wibo, a queue job, docs/compute.md). Exit 1 when a hit of a reported class is found.
+
+The same check runs inside `tools/tree_tu.py check` and `verify` (tool2, D12), on the objects they compile: a hit of a
+reported class fails its block (`overreach` in the record, `overreach <kind>` in verify's counts), the informational
+classes are listed (`info: overreach <kind>`).
 """
 import argparse
 import bisect
@@ -44,6 +48,7 @@ SYM_RE = re.compile(r"(?<![0-9A-Za-z])_?DAT_([0-9a-fA-F]{8})(?![0-9A-Za-z])")
 BLOCK_RE = re.compile(r"^// (0x[0-9a-f]{8}) (\S+) \((\d+) B\): (\w+)", re.M)
 PIN_RE = re.compile(r"^// sym: (\S+)", re.M)
 REPORTED = ("over", "pad", "addr", "before", "indexed")
+INFO = ("end", "negidx")       # (printed, never fail; tree_tu.py check / verify list them as `info: overreach`)
 IMAGE_LO, IMAGE_HI = 0x00010000, 0x01000000
 
 
@@ -306,7 +311,7 @@ def main(argv=None):
     s.add_argument("--all", action="store_true", help="also the informational classes (end, negidx)")
     s.add_argument("--json", help="write {hits, missing} here")
     a = ap.parse_args(argv)
-    kinds = REPORTED + (("end", "negidx") if a.all else ())
+    kinds = REPORTED + (INFO if a.all else ())
     hits, missing = scan(tree_tus(a.tus), a.compile, a.jobs, kinds)
     if a.json:
         with open(a.json, "w") as f:

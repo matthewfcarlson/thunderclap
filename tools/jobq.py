@@ -19,6 +19,7 @@ import fcntl
 import hashlib
 import io
 import json
+import re
 import os
 import shlex
 import shutil
@@ -96,6 +97,9 @@ def jget(job, k, default=None):
 
 
 # ---------------------------------------------------------------------------------------------------- safety
+
+INPUT_GUARD = re.compile(r"(tree_tu\.py\s+(verify|check)|x64_gate\.py\s+check)\b")
+
 
 def guard(argv, needs="any"):
     """Reason to refuse a command, or None. xemu only ever runs with -snapshot, never on this machine, and never
@@ -243,6 +247,13 @@ def make_job(name, cmd, needs="any", files=None, outs=None, limit=1800, slots=1,
     why = guard(cmd, needs)
     if why:
         raise SystemExit("refused: " + why)
+    if INPUT_GUARD.search(" ".join(cmd)):
+        # (tool2, D10) a tree_tu.py verify / check or x64_gate.py check job must ship the local edits it reads, or
+        # say --head-only; the job gets the local digests to print against its own (tree_tu.submit_guard)
+        import tree_tu
+        extra = tree_tu.submit_guard(cmd, files or {}, commit or head_commit())
+        if extra:
+            files = dict(files or {}, **extra)
     return dict(name=name, cmd=json.dumps(cmd), needs=needs, files=json.dumps(files or {}),
                 outs=json.dumps(outs or []), limit_s=int(limit), slots=max(1, int(slots)),
                 max_attempts=max(1, int(attempts)), prio=int(prio), base_commit=commit,

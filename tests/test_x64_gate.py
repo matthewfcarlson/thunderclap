@@ -259,5 +259,61 @@ class Keys(unittest.TestCase):
         self.assertIsNone(g.pair64("?other@@YAXXZ", f64, bc, p64, p32))
 
 
+class InJob(unittest.TestCase):
+    """Inside a queue job (no git in the workspace, tool2): the base commit is the only REF, its tree is the workspace
+    with the shipped files back at the commit's copies (tree_tu.JOB_REF), the changed TUs are the shipped ones, and the
+    gate never submits from the host."""
+
+    def setUp(self):
+        import tree_tu
+        self.tt = tree_tu
+        self.tmp = tempfile.mkdtemp(prefix="x64gate-job-")      # (not inside a git checkout)
+        self.ws = os.path.join(self.tmp, "ws")
+        w = lambda rel, text: (os.makedirs(os.path.dirname(os.path.join(self.ws, rel)), exist_ok=True),
+                               open(os.path.join(self.ws, rel), "w").write(text))
+        w("include/tree_prelude.h", "\n")
+        w("include/gen/core.h", "struct Core { int a, b; };\n")          # shipped (edited)
+        w("include/gen/new.h", "\n")                                      # shipped (new)
+        w("src/game/a.cpp", "// 0x00011000 f (4 B): matches\nint f() { return 1; }\n")
+        w("src/game/b.cpp", "// 0x00011010 g (4 B): matches\nint g() { return 2; }\n")
+        w(tree_tu.JOB_REF + "/include/gen/core.h", "struct Core { int a; };\n")
+        w(tree_tu.JOB_META, json.dumps({"commit": "c0ffee", "refs": ["HEAD", "c0ffee"], "checks": [],
+                                        "shipped": ["include/gen/core.h", "include/gen/new.h", "tools/x.py"]}))
+        self.p = [mock.patch.object(g, "ROOT", self.ws), mock.patch.object(tree_tu, "ROOT", self.ws),
+                  mock.patch.dict(os.environ, {"JOBQ_JOB": "1"})]
+        for p in self.p:
+            p.start()
+        tree_tu._META.clear()
+
+    def tearDown(self):
+        for p in self.p:
+            p.stop()
+        self.tt._META.clear()
+        shutil.rmtree(self.tmp)
+
+    def test_rev(self):
+        self.assertEqual(g.rev("HEAD"), "c0ffee")
+        with self.assertRaises(SystemExit):
+            g.rev("HEAD~1")
+
+    def test_candidates(self):
+        self.assertEqual(g.candidate_tus("c0ffee"), ["src/game/a.cpp", "src/game/b.cpp"])     # a header shipped
+        self.assertEqual(g.candidate_tus("c0ffee", tus=["src/game/b.cpp"]), ["src/game/b.cpp"])
+
+    def test_snapshot(self):
+        d = g.snapshot("c0ffee", os.path.join(self.tmp, "ref"))
+        self.assertEqual(open(os.path.join(d, "include/gen/core.h")).read(), "struct Core { int a; };\n")
+        self.assertFalse(os.path.exists(os.path.join(d, "include/gen/new.h")))
+        self.assertTrue(os.path.exists(os.path.join(d, "src/game/a.cpp")))
+        self.assertEqual(open(os.path.join(self.ws, "include/gen/core.h")).read(), "struct Core { int a, b; };\n")
+
+    def test_runs_stay_local(self):
+        os.makedirs(os.path.join(self.tmp, "w"))
+        with mock.patch.object(g.subprocess, "run") as run:
+            g.run_blocks([("0x%08x" % (0x11000 + i), "a.cpp") for i in range(9)], mode="jobq",
+                         workdir=os.path.join(self.tmp, "w"))
+        self.assertIn("--no-jobq", run.call_args[0][0])
+
+
 if __name__ == "__main__":
     unittest.main()

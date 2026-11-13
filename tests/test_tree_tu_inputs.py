@@ -62,6 +62,18 @@ class Inputs(unittest.TestCase):
         self.assertNotEqual(da["tus"], tree_tu.inputs_digest([b])["tus"])
         self.assertNotEqual(da["tus"], tree_tu.inputs_digest([c])["tus"])
 
+    def test_reach_only_what_the_tus_include(self):
+        """`reach` (tool2): the files the TUs can #include; an edit elsewhere under include/ changes only `headers`."""
+        tu = '// 0x00001000 FUN_00001000 (4 B): matches\n#include "game/x.h"\nint f() { return 1; }\n'
+        a = self.tree("a", {"game/x.h": "struct X { int a; };\n", "game/y.h": "\n"}, tu=tu)
+        b = self.tree("b", {"game/x.h": "struct X { int a; };\n", "game/y.h": "// edited\n"}, tu=tu)
+        c = self.tree("c", {"game/x.h": "struct X { int b; };\n", "game/y.h": "\n"}, tu=tu)
+        da, db, dc = (tree_tu.inputs_digest([p]) for p in (a, b, c))
+        self.assertEqual(da["reach"], db["reach"])
+        self.assertNotEqual(da["headers"], db["headers"])
+        self.assertNotEqual(da["reach"], dc["reach"])
+        self.assertEqual(sorted(tree_tu.reach_files([a])), ["include/game/x.h"])
+
     def test_order_of_paths_does_not_matter(self):
         a = self.tree("a")
         b = os.path.join(self.tmp, "a", "src/game/b.cpp")

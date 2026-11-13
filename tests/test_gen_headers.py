@@ -2,6 +2,7 @@
 Name helpers and the constructor scan need nothing; the model needs build/rtti.json, build/functions.csv and the
 XBE; the probe also needs MSVC 7.1 under wibo. Each skips without its inputs."""
 import os, sys, tempfile, unittest
+from unittest import mock
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "tools"))
 import gen_headers as gh
 
@@ -109,6 +110,33 @@ class Probe(unittest.TestCase):
         sizes = dict(gh.load_sizes(), **{"pure3d::NonCopyable": 12})
         total, problems, _, _ = gh.probe(["pure3d"], sizes=sizes)
         self.assertTrue(any(p.startswith("pure3d::NonCopyable: sizeof 8, recorded 12") for p in problems), problems)
+
+    def test_work_files_only_under_build_tmp(self):
+        """The probe writes nothing into the checkout (tool2): its TUs and objects go to a fresh directory under
+        build/tmp/, removed afterwards; the headers it reads are not touched."""
+        seen = []
+        orig = gh.run_cl
+        before = {f: os.path.getmtime(os.path.join(gh.OUT_DIR, f)) for f in os.listdir(gh.OUT_DIR)}
+        tmp = tempfile.mkdtemp(prefix="genprobe-test-", dir=os.path.join(ROOT, "build"))
+        try:
+            with mock.patch.object(gh, "TMP_DIR", tmp), \
+                    mock.patch.object(gh, "run_cl", side_effect=lambda d, *a: (seen.append(d), orig(d, *a))[1]):
+                total, problems, work, _ = gh.probe(["fight"])
+            self.assertEqual(problems, [])
+            self.assertIsNone(work)
+            self.assertTrue(seen and all(os.path.dirname(d) == tmp for d in seen), seen)
+            self.assertEqual(os.listdir(tmp), [])
+        finally:
+            os.rmdir(tmp)
+        self.assertEqual(before, {f: os.path.getmtime(os.path.join(gh.OUT_DIR, f)) for f in os.listdir(gh.OUT_DIR)})
+
+
+class Keep(unittest.TestCase):
+    def test_keep_outside_build_refused(self):
+        with self.assertRaises(SystemExit):
+            gh.check_keep(os.path.join(ROOT, "include", "probe-work"))
+        self.assertEqual(gh.check_keep(os.path.join(ROOT, "build", "x")), os.path.join(ROOT, "build", "x"))
+        self.assertEqual(gh.check_keep("/tmp/genprobe-x"), "/tmp/genprobe-x")
 
 
 if __name__ == "__main__":

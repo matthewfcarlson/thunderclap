@@ -34,6 +34,12 @@ recompute them (`--no-wine-code` skips the clang one) and fail a block whose cod
 none (`unhashed`); `hash --proven` records new
 values only from equiv.py runs of the code as it is now (3,000 inputs promotable, --wine at 600).
 
+Checks beyond the blocks (tool2, docs/merge-once.md "Checks beyond the blocks"): verify runs gen_headers.py --probe
+when an include/gen/ header changed (check: one its TU can include; `--gen-probe` forces it) and fails when it fails;
+every check scans the MSVC object for data overreach (tools/data_overreach.py: the reported classes fail their block);
+tools/jobq.py refuses a verify / check / x64_gate job whose TUs or reachable headers have unshipped local edits unless
+the command says `--head-only` (submit_guard), and such a job prints its `inputs` against the checkout's.
+
 A block's directives (`// equiv-map:`, `// equiv-conv:`, `// equiv-dead:`) are the lines between its block line and
 the next block (HULK_GEN_TREE_NOTES=1 makes gen_tree keep a merged source's notes there).
 
@@ -411,6 +417,8 @@ def check_tu(path, relocs=False, rec=None, obj=None, vs_standalone=False):
         _shared(v, obj, pairs)
         if "codehash" not in OFF:
             code_hashes(v.coff(obj), rec, pairs, path)
+        if "overreach" not in OFF:
+            overreach(obj, out, pairs)
         if relocs:
             import verify_relocs
             coff = v.coff(obj)
@@ -651,6 +659,10 @@ def _code_key():
     import gen_tree
     with open(gen_tree.FUNCS_CSV, "rb") as f:
         h.update(hashlib.sha1(f.read()).hexdigest().encode())
+    import data_overreach       # (D12: the overreach records, from the item inventory)
+    for p in (data_overreach.__file__, data_overreach.DATA_JSON):
+        with open(p, "rb") as f:
+            h.update(hashlib.sha1(f.read()).hexdigest().encode())
     return h.hexdigest()
 
 
@@ -698,8 +710,17 @@ def tree_tus(root):
 def changed_tus(root, ref):
     """Tree TUs whose text changed since git REF, and every TU when a header under the tree's include/ (or the repo's
     include/) changed: the object keys cover headers anyway, this only narrows the list a CI run walks."""
-    r = subprocess.run(["git", "diff", "--name-only", ref, "--", root], capture_output=True, text=True, cwd=ROOT)
-    files = [os.path.join(ROOT, l) for l in r.stdout.split()]
+    m = job_meta()
+    if m is not None and not have_git():
+        if ref not in m.get("refs", []):
+            raise SystemExit("verify --changed-since %s in a queue job: only the job's base commit (%s) is known here"
+                             % (ref, m.get("commit", "?")[:10]))
+        files = [os.path.join(ROOT, f) for f in m.get("shipped", []) if f.startswith(("src/", "include/"))]
+    else:
+        r = subprocess.run(["git", "diff", "--name-only", ref, "--", root], capture_output=True, text=True, cwd=ROOT)
+        if r.returncode:        # (a queue job has no git: it found nothing, and so passed, before tool2)
+            raise SystemExit("verify --changed-since %s: git diff failed: %s" % (ref, r.stderr.strip()[:300]))
+        files = [os.path.join(ROOT, l) for l in r.stdout.split()]
     if any(f.endswith(".h") for f in files):
         return tree_tus(root)
     return [f for f in files if f.endswith(".cpp") and is_tree_tu(f)]
@@ -732,7 +753,8 @@ def count_codes(counts, r):
 
 def failing(counts):
     """verify's failure count of a summary's counts (also materialize's)."""
-    return sum(n for k, n in counts.items() if k.split(" ")[0] in ("matches", "equivalent", "pinned", "ambiguous")
+    return sum(n for k, n in counts.items() if k.split(" ")[0] in ("matches", "equivalent", "pinned", "ambiguous",
+                                                                    "overreach")
                and not k.endswith((" match", " compiled", ": same")))
 
 
@@ -763,7 +785,330 @@ def inputs_digest(paths):
     for rel in sorted(files):
         with open(files[rel], "rb") as f:
             hh.update(rel.encode() + b"\0" + hashlib.sha1(f.read()).digest())
-    return {"tus": th.hexdigest()[:16], "headers": hh.hexdigest()[:16]}
+    rh = hashlib.sha1(b"reach1\0")
+    rf = reach_files(paths)
+    if rf is None:          # (a computed #include: every header)
+        rh.update(b"all\0" + hh.digest())
+    else:
+        for rel in sorted(rf):
+            with open(rf[rel], "rb") as f:
+                rh.update(rel.encode() + b"\0" + hashlib.sha1(f.read()).digest())
+    return {"tus": th.hexdigest()[:16], "headers": hh.hexdigest()[:16], "reach": rh.hexdigest()[:16]}
+
+
+def _tree_rel(p):
+    """P relative to its tree root (else to ROOT), '/'-separated: the key a file has wherever the tree lies."""
+    r = find_root(p) or ROOT
+    rel = os.path.relpath(p, r)
+    if rel.startswith(".."):
+        rel = os.path.relpath(p, ROOT)
+    return rel.replace(os.sep, "/")
+
+
+def reach_files(paths):
+    """{path relative to the tree root: abs path} of every file the compiles of PATHS can read through #include
+    (tools/include_keys.closure over the tree's include/, then the repo's, and the includers' directories:
+    conservative, every #include line and every candidate), or None when a TU has a computed #include. inputs_digest's
+    `reach`, and what submit_guard compares."""
+    import include_keys
+    out = {}
+    for p in paths:
+        ap = os.path.abspath(p)
+        r = find_root(ap) or ROOT
+        c = include_keys.closure(ap, [os.path.join(r, "include"), os.path.join(ROOT, "include")])
+        if c is None:
+            return None
+        for f in c:
+            out.setdefault(_tree_rel(f), f)
+    return out
+
+
+# ------------------------------------------------------------------------------------------------------- queue jobs
+# (tool2, D10) A queue job runs on `git archive COMMIT` plus the files it ships (docs/compute.md "Workspaces"), so a
+# verify job passes whatever the checkout holds unless the edits travel with it (hash3). tools/jobq.py's make_job calls
+# submit_guard for every job whose command runs `tree_tu.py verify|check` or `x64_gate.py check`: it refuses the job
+# when a listed TU, a file those TUs can #include, or a config file the check reads has an uncommitted edit (or is
+# untracked) in the checkout and is not shipped, unless the command says `--head-only` (check the commit, plus what is
+# shipped, on purpose). It ships JOB_META: the local `inputs` digests, the shipped paths, the commit and the refs that
+# name it, and the commit's copy of every shipped tree file (JOB_REF, for the x64 gate's REF side: there is no git in
+# a job's workspace). Inside the job, verify prints its own `inputs` against the local ones (`inputs_vs_local`) and
+# runs the header probe when the shipped files touch include/gen/.
+JOB_META = ".jobq/local-inputs.json"
+JOB_REF = ".jobq/ref"
+GEN_PREFIX = "include/gen/"
+CONFIG_READ = {"verify": ["config/data.json"], "check": ["config/data.json"], "x64": ["config/x64-baseline.json"],
+               "gen": ["config/gen-sizes.json"]}
+_META = []
+
+
+def job_meta():
+    """The submit's record (JOB_META) inside a queue job, else None."""
+    if not os.environ.get("JOBQ_JOB"):
+        return None
+    if not _META:
+        p = os.path.join(ROOT, JOB_META)
+        try:
+            with open(p) as f:
+                _META.append(json.load(f))
+        except (OSError, ValueError):
+            _META.append(None)
+    return _META[0]
+
+
+def have_git():
+    return subprocess.run(["git", "rev-parse", "--git-dir"], cwd=ROOT, capture_output=True).returncode == 0
+
+
+def _git_out(*args):
+    r = subprocess.run(["git"] + list(args), cwd=ROOT, capture_output=True, text=True)
+    if r.returncode:
+        raise SystemExit("git %s: %s" % (" ".join(args), r.stderr.strip()[:300]))
+    return r.stdout
+
+
+def guarded_commands(cmd):
+    """[(tool, subcommand, args)] of the `tree_tu.py verify|check` and `x64_gate.py check` runs in a job's argv, also
+    inside an `sh -c` string (its words up to the next `;`, `&&`, `|`, `>`)."""
+    import shlex
+    out = []
+
+    def walk(argv):
+        for i, w in enumerate(argv):
+            nxt = argv[i + 1] if i + 1 < len(argv) else None
+            if w.endswith("tree_tu.py") and nxt in ("verify", "check"):
+                tool = "tree_tu"
+            elif w.endswith("x64_gate.py") and nxt == "check":
+                tool = "x64_gate"
+            else:
+                continue
+            args = []
+            for x in argv[i + 2:]:
+                if x and all(c in ";&|<>()" for c in x):
+                    break
+                args.append(x)
+            out.append((tool, nxt, args))
+
+    walk(list(cmd))
+    for i, w in enumerate(cmd[:-1]):
+        if os.path.basename(w) in ("sh", "bash", "zsh") and cmd[i + 1] == "-c" and i + 2 < len(cmd):
+            lx = shlex.shlex(cmd[i + 2], posix=True, punctuation_chars=True)
+            lx.whitespace_split = True
+            try:
+                walk(list(lx))
+            except ValueError:
+                pass
+    return out
+
+
+def _parse_guarded(tool, sub, args):
+    """The options of a guarded command that decide what it reads."""
+    ap = argparse.ArgumentParser(add_help=False)
+    if tool == "tree_tu" and sub == "verify":
+        ap.add_argument("root", nargs="?", default=".")
+        ap.add_argument("--x64", action="store_true")
+        ap.add_argument("--gen-probe", action="store_true")
+    elif tool == "tree_tu":
+        ap.add_argument("tu", nargs="?")
+        ap.add_argument("--gen-probe", action="store_true")
+    else:
+        ap.add_argument("--head")
+    if not (tool == "tree_tu" and sub == "check"):
+        ap.add_argument("--changed-since")
+        ap.add_argument("--tus")
+    ap.add_argument("--head-only", action="store_true")
+    a, _ = ap.parse_known_args(args)
+    return a
+
+
+def _local_sha(rel):
+    try:
+        with open(os.path.join(ROOT, rel), "rb") as f:
+            return hashlib.sha1(f.read()).hexdigest()
+    except OSError:
+        return None
+
+
+def _stored(files, rel):
+    """The text of a shipped file (jobq's content store), or None."""
+    if rel not in files:
+        return None
+    import jobq
+    with open(os.path.join(jobq.STORE, files[rel][0]), "rb") as f:
+        return f.read().decode(errors="replace")
+
+
+def submit_guard(cmd, files, commit):
+    """D10, for jobq.make_job: None for a command that runs no guarded check; else the overlay files to add (JOB_META,
+    JOB_REF copies), or SystemExit naming the unshipped local edits. FILES: the overlay ({workspace path: [sha1, mode]}),
+    COMMIT: the job's base commit."""
+    runs = guarded_commands(cmd)
+    if not runs:
+        return None
+    import jobq
+    changed = set(_git_out("diff", "--name-only", commit, "--", "include", "src", "config").split())
+    untracked = set(_git_out("ls-files", "--others", "--exclude-standard", "--", "include", "src", "config").split())
+    unshipped = {rel: ("untracked" if rel in untracked else "deleted" if _local_sha(rel) is None else "modified")
+                 for rel in changed | untracked if rel not in files}
+    shipped = sorted(files)
+    gen_shipped = any(f.startswith(GEN_PREFIX) for f in shipped)
+    refs = {"HEAD": commit} if _git_out("rev-parse", "HEAD").strip() == commit else {}
+    refs[commit] = commit
+    checks, refused, x64 = [], [], False
+    for tool, sub, args in runs:
+        a = _parse_guarded(tool, sub, args)
+        name = "%s.py %s" % (tool, sub)
+        if a.changed_since and not getattr(a, "tus", None):
+            r = subprocess.run(["git", "rev-parse", "--verify", a.changed_since + "^{commit}"], cwd=ROOT,
+                               capture_output=True, text=True)
+            if r.returncode or r.stdout.strip() != commit:
+                raise SystemExit("refused: %s --changed-since %s in a queue job: the job has no git, so it can only "
+                                 "take the changes it ships against its own base commit (%s); pass --tus FILE, or "
+                                 "--changed-since HEAD with the edits shipped" % (name, a.changed_since, commit[:10]))
+            refs[a.changed_since] = commit
+        # the TUs the command reads, as the checkout has them
+        if tool == "tree_tu" and sub == "check":
+            tus = [a.tu] if a.tu else []
+        elif a.tus:
+            text = _stored(files, a.tus)
+            if text is None:
+                lp = os.path.join(ROOT, a.tus)
+                if not os.path.exists(lp):
+                    raise SystemExit("refused: %s --tus %s: neither shipped nor in the checkout" % (name, a.tus))
+                text = open(lp).read()
+            tus = [l.strip() for l in text.splitlines() if l.strip()]
+        elif tool == "tree_tu" and not a.changed_since:
+            tus = [os.path.relpath(p, ROOT) for p in tree_tus(ROOT)]
+        else:       # (changed since the base: what is shipped or edited, every TU when a header is)
+            ed = set(shipped) | set(unshipped)
+            tus = [os.path.relpath(p, ROOT) for p in tree_tus(ROOT)] if any(f.endswith(".h") for f in ed) else \
+                sorted(f for f in ed if f.endswith(".cpp") and f.startswith("src/"))
+        tus = [os.path.relpath(os.path.join(ROOT, t), ROOT).replace(os.sep, "/") for t in tus]
+        local = [os.path.join(ROOT, t) for t in tus if os.path.exists(os.path.join(ROOT, t))]
+        reach = reach_files(local)
+        reads = set(tus) | (set(reach) if reach is not None else
+                            {f for f in changed | untracked if f.startswith("include/")})
+        is_x64 = tool == "x64_gate" or getattr(a, "x64", False)
+        x64 |= is_x64
+        reads |= set(CONFIG_READ["verify"] if tool == "tree_tu" else [])
+        reads |= set(CONFIG_READ["x64"] if is_x64 else [])
+        if gen_shipped or getattr(a, "gen_probe", False) or any(f.startswith(GEN_PREFIX) for f in unshipped):
+            reads |= {f for f in unshipped if f.startswith(GEN_PREFIX)} | set(CONFIG_READ["gen"])
+        bad = sorted(f for f in reads if f in unshipped)
+        if bad and not a.head_only:
+            refused.append((name, bad))
+        checks.append({"tool": tool, "sub": sub, "args": args, "head_only": a.head_only, "tus": len(tus),
+                       "local": inputs_digest(local) if local else None, "unshipped": bad[:50], "n_unshipped": len(bad)})
+    if refused:
+        name, bad = refused[0]
+        more = sum(len(b) for _, b in refused)
+        big = [f for _, b in refused for f in b if os.path.isfile(os.path.join(ROOT, f))
+               and os.path.getsize(os.path.join(ROOT, f)) > 8 << 20]
+        raise SystemExit(
+            "refused: this %s job runs on `git archive %s` plus the files it ships, but %d uncommitted file(s) it reads "
+            "are not shipped: %s%s.\nShip them (jobq.py submit --dirty, or --files PATH ...), or add --head-only to the "
+            "%s command to check the commit (plus what is shipped) on purpose (docs/compute.md \"Workspaces\").%s" % (
+                name, commit[:10], more, ", ".join("%s (%s)" % (f, unshipped[f]) for f in bad[:8]),
+                " and %d more" % (more - 8) if more > 8 else "", name,
+                "\n--dirty skips files over 8 MB: ship %s with --files." % " ".join(sorted(set(big))) if big else ""))
+    extra = {}
+    for rel in shipped:     # (the commit's copy of each shipped tree file: the REF side of an x64 gate in the job)
+        if rel.startswith(("include/", "src/")) and rel not in untracked:
+            r = subprocess.run(["git", "cat-file", "-e", "%s:%s" % (commit, rel)], cwd=ROOT, capture_output=True)
+            if r.returncode == 0:
+                data = subprocess.run(["git", "show", "%s:%s" % (commit, rel)], cwd=ROOT, capture_output=True).stdout
+                extra["%s/%s" % (JOB_REF, rel)] = [_store_bytes(data), 0o644]
+    meta = {"v": 1, "commit": commit, "refs": sorted(refs), "shipped": shipped, "checks": checks}
+    extra[JOB_META] = [_store_bytes(json.dumps(meta, indent=1).encode()), 0o644]
+    if x64:
+        import equiv64
+        extra.update(equiv64.job_files())
+    return extra
+
+
+def _store_bytes(data):
+    import jobq
+    import tempfile
+    os.makedirs(jobq.STORE, exist_ok=True)
+    with tempfile.NamedTemporaryFile(dir=jobq.STORE, delete=False) as f:
+        f.write(data)
+    try:
+        return jobq.store_file(f.name)
+    finally:
+        os.unlink(f.name)
+
+
+def inputs_vs_local(sub, args, inputs, tool="tree_tu"):
+    """Inside a queue job: the submit's local digests of this command (JOB_META) against INPUTS, the job's own."""
+    m = job_meta()
+    if not m:
+        return None
+    c = next((c for c in m.get("checks", []) if c["tool"] == tool and c["sub"] == sub and c["args"] == args), None)
+    if c is None or not c.get("local"):
+        return {"local": None, "note": "no local digests recorded for this command"}
+    same = {k: c["local"].get(k) == inputs.get(k) for k in ("tus", "reach", "headers")}
+    return {"local": c["local"], "shipped": inputs, "same": same, "head_only": c["head_only"],
+            "unshipped": c["unshipped"], "n_unshipped": c["n_unshipped"],
+            "note": "the job checked the checkout's files" if same["tus"] and same["reach"] else
+            ("--head-only: the commit's copy of %d local edit(s)" % c["n_unshipped"] if c["head_only"] else
+             "shipped files differ from the checkout's (a private workspace?)")}
+
+
+# ------------------------------------------------------------------------------------------------------- header probe
+def gen_changes(root, ref=None, paths=None):
+    """D9: the files under include/gen/ that changed: in a queue job those it ships (JOB_META), else since git REF (the
+    working tree, untracked too) or, without REF, the uncommitted ones. PATHS: only those some of these TUs can
+    #include (check)."""
+    m = job_meta()
+    if m is not None:
+        ch = [f for f in m.get("shipped", []) if f.startswith(GEN_PREFIX)]
+    elif not have_git():
+        ch = []
+    else:
+        d = os.path.relpath(os.path.join(root, "include", "gen"), ROOT)
+        ch = _git_out("diff", "--name-only", ref or "HEAD", "--", d).split() + \
+            _git_out("ls-files", "--others", "--exclude-standard", "--", d).split()
+        ch = [f for f in ch if f.endswith(".h")]
+    if paths is not None and ch:
+        rf = reach_files(paths)
+        if rf is not None:
+            ch = [f for f in ch if f in rf]
+    return sorted(set(ch))
+
+
+def gen_probe(root):
+    """tools/gen_headers.py --probe over ROOT's include/gen/ (in process; work files under build/tmp/): {ok, counts,
+    problems (first lines), seconds}."""
+    import time
+    import gen_headers
+    t = time.time()
+    try:
+        total, problems, _, _ = gen_headers.probe(include=os.path.join(root, "include"))
+    except Exception as e:      # noqa: BLE001 - missing inputs (build/rtti.json, the XBE, wibo) fail the check
+        return {"ok": False, "error": repr(e)[:300], "seconds": round(time.time() - t, 1)}
+    ok = not problems and total["headers"] == total["headers_ok"]
+    return {"ok": ok, "counts": dict(total), "n_problems": len(problems),
+            "problems": [p.splitlines()[0] for p in problems[:20]], "seconds": round(time.time() - t, 1)}
+
+
+# ------------------------------------------------------------------------------------------------------- overreach
+# (tool2, D12) tools/data_overreach.py over the object check_tu already has: a reported class (over, pad, addr, before,
+# indexed) fails the block it lies in (`overreach`), the informational ones (end, negidx) are listed (`overreach_info`).
+_ITEMS = []
+
+
+def overreach(obj, out, pairs):
+    import data_overreach as dor
+    if not _ITEMS:
+        _ITEMS.append(dor.Items.load())
+    syms = {r["symbol"]: r for b, r in pairs if r.get("symbol")}
+    blocks = {s: (r["addr"], r["name"], r["kind"]) for s, r in syms.items()}
+    for h in dor.object_hits(obj, _ITEMS[0], blocks, dor.REPORTED + dor.INFO):
+        r = syms.get(h["symbol"]) or (out[0] if out else None)
+        if r is None:
+            continue
+        k = {x: h[x] for x in ("kind", "item", "item_addr", "item_size", "offset", "width", "target_item", "insn",
+                               "symbol")}
+        r.setdefault("overreach" if h["kind"] in dor.REPORTED else "overreach_info", []).append(k)
 
 
 def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True, ref=None):
@@ -791,6 +1136,10 @@ def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True
                     counts["ambiguous symbol"] += 1
                 if r.get("pin_missing"):
                     counts["pinned symbol missing"] += 1
+                for h in r.get("overreach", []):
+                    counts["overreach %s" % h["kind"]] += 1
+                for h in r.get("overreach_info", []):
+                    counts["info: overreach %s" % h["kind"]] += 1
                 if "vs_standalone" in r:
                     counts["equivalent vs standalone: %s" % r["vs_standalone"]] += 1
                 if "standalone" in r:
@@ -1158,6 +1507,10 @@ def main(argv=None):
     p.add_argument("--wine", action="store_true", help="with --equiv: the Wine build's clang object")
     p.add_argument("--x64", action="store_true", help="with --equiv: the 64-bit check")
     p.add_argument("--no-wine-code", action="store_true", help="skip the clang code hashes (no clang here)")
+    p.add_argument("--gen-probe", action="store_true", help="run gen_headers.py --probe (default: when an uncommitted "
+                   "include/gen/ header this TU can #include changed)")
+    p.add_argument("--head-only", action="store_true", help="as a queue job: check the commit, though the checkout "
+                   "has unshipped edits the TU reads (submit_guard)")
     p.add_argument("--json", action="store_true")
     p = sub.add_parser("verify")
     p.add_argument("root", help="the tree root (build/tree, or the checkout once the tree is committed)")
@@ -1169,6 +1522,10 @@ def main(argv=None):
                    "against its standalone build (build_tree's check)")
     p.add_argument("--out", metavar="OUT.jsonl")
     p.add_argument("--no-wine-code", action="store_true", help="skip the clang code hashes (no clang here)")
+    p.add_argument("--gen-probe", action="store_true", help="run gen_headers.py --probe even when no include/gen/ "
+                   "header changed (by default it runs when one did: since --changed-since, uncommitted, or shipped)")
+    p.add_argument("--head-only", action="store_true", help="as a queue job: verify the commit (plus what is shipped) "
+                   "on purpose, though the checkout has unshipped edits the TUs read (jobq.py refuses the job otherwise)")
     p.add_argument("--x64", action="store_true", help="then the 64-bit gate (tools/x64_gate.py) over the blocks whose "
                    "code changed since --changed-since (default HEAD): a block newly in layout/ptrtrunc/crash64 fails")
     p = sub.add_parser("inputs", help="verify's `inputs` digests of the local files (no compile): compare with a "
@@ -1241,6 +1598,7 @@ def main(argv=None):
                                                          b["name"], ("  sym " + b["sym"]) if b["sym"] else ""))
         return 0
     if a.cmd == "check":
+        gch = gen_changes(find_root(a.tu) or ROOT, paths=[a.tu])
         recs = check_tu(a.tu, relocs=a.relocs)
         if not a.no_wine_code:
             with_wine(a.tu, recs)
@@ -1258,7 +1616,8 @@ def main(argv=None):
         bad = 0
         for r in recs:
             ok = r["status"] in ("match", "compiled") and r.get("relocs", "ok") == "ok" and r.get("equiv", "equivalent") \
-                == "equivalent" and not r.get("code_changed") and "unhashed" not in (r.get("code"), r.get("wine_code"))
+                == "equivalent" and not r.get("code_changed") and "unhashed" not in (r.get("code"), r.get("wine_code")) \
+                and not r.get("overreach")
             bad += not ok
             if a.json:
                 print(json.dumps(r))
@@ -1271,6 +1630,17 @@ def main(argv=None):
                                                             ("equiv " + str(r["equiv"]) + " ") if "equiv" in r else "",
                                                             code, "PIN MISSING " if r.get("pin_missing") else "",
                                                             r.get("how") or "", r.get("symbol") or ""))
+                for k in ("overreach", "overreach_info"):
+                    for h in r.get(k, []):
+                        print("    %s %s: %s+%d w%d (item %d B) -> %s  %s" % (
+                            "OVERREACH" if k == "overreach" else "info", h["kind"], h["item"], h["offset"], h["width"],
+                            h["item_size"], h["target_item"], h["insn"]))
+        if gch or a.gen_probe:
+            g = gen_probe(find_root(a.tu) or ROOT)
+            g["why"] = ("changed: " + ", ".join(gch)) if gch else "--gen-probe"
+            bad += not g["ok"]
+            print(json.dumps({"gen_probe": g}) if a.json else "gen_probe %s (%s): %s" % (
+                "ok" if g["ok"] else "FAIL", g["why"], g.get("error") or "; ".join(g["problems"][:5]) or g["counts"]))
         return 1 if bad else 0
     if a.cmd in ("verify", "inputs"):
         root = os.path.abspath(a.root)
@@ -1286,6 +1656,24 @@ def main(argv=None):
             return 0
         s = verify(paths, jobs=a.jobs, relocs=a.relocs, out=a.out, vs_standalone=a.vs_standalone,
                    wine=not a.no_wine_code, ref=a.changed_since)
+        # (D10) in a queue job: the files checked against the checkout's at submit
+        vl = inputs_vs_local("verify", (argv if argv is not None else sys.argv[1:])[1:], s["inputs"])
+        if vl is not None:
+            s["inputs_vs_local"] = vl
+            print("inputs: job %s, checkout %s: %s" % (s["inputs"], vl.get("local"), vl["note"]), file=sys.stderr)
+        # (D9) the header probe when include/gen/ changed
+        gch = gen_changes(root, a.changed_since)
+        gen_failed = False
+        if gch or a.gen_probe:
+            g = gen_probe(root)
+            g["why"] = ("changed: " + ", ".join(gch[:10]) + (" ..." if len(gch) > 10 else "")) if gch else "--gen-probe"
+            s["gen_probe"] = g
+            gen_failed = not g["ok"]
+            print("gen_probe %s (%s, %.0f s)%s" % ("ok" if g["ok"] else "FAIL", g["why"], g["seconds"],
+                                                   "" if g["ok"] else ": " + (g.get("error") or "; ".join(g["problems"][:5]))),
+                  file=sys.stderr)
+        else:
+            s["gen_probe"] = {"ran": False, "why": "no include/gen/ header changed"}
         x64_failed = False
         if a.x64:
             # (gate1) the 64-bit gate over the same TUs: only blocks whose 32-bit clang or x86-64 code changed run
@@ -1298,7 +1686,7 @@ def main(argv=None):
             s["x64_gate"] = dict(g["summary"], failed=g["failed"])
             x64_failed = g["failed"]
         print(json.dumps(s, indent=1))
-        return 1 if failing(s["counts"]) or s["n_errors"] or x64_failed else 0
+        return 1 if failing(s["counts"]) or s["n_errors"] or x64_failed or gen_failed else 0
     if a.cmd == "pin":
         root = os.path.abspath(a.root)
         syms = collections.defaultdict(dict)

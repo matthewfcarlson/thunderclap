@@ -17,6 +17,13 @@ def insn(hexbytes):
     return code, next(do._md().disasm(code, 0))
 
 
+class Classes(unittest.TestCase):
+    def test_reported_and_info(self):
+        """tree_tu.py check / verify fail on REPORTED and only list INFO (tool2, D12)."""
+        self.assertEqual(do.REPORTED, ("over", "pad", "addr", "before", "indexed"))
+        self.assertEqual(do.INFO, ("end", "negidx"))
+
+
 class Classify(unittest.TestCase):
     def test_inside(self):
         self.assertIsNone(do.classify(ITEMS, 0x42b50c, 0, 2))

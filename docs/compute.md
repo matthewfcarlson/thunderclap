@@ -72,6 +72,16 @@ Macs), so the jobs share its compilers, venv and caches. Consequences:
   untracked file under `tools include tests config src`; `jobq_equiv.py` and `regress.py --jobq` do this by default).
   A `tree_tu.py verify` job without them checks HEAD, and passes whatever your edit does (hash3: 28 such jobs
   "passed" a header change they never saw). Compare the summary's `inputs` with `tree_tu.py inputs . --tus LIST` locally.
+- **The submit guard (tool2, 2026-11-13).** `submit` (any submitter: `make_job`) refuses a job that runs
+  `tree_tu.py verify|check` or `x64_gate.py check` (directly or in an `sh -c` string) when a TU it lists, a file those
+  TUs can `#include`, or a config file the check reads (config/data.json; x64-baseline.json for the gate;
+  gen-sizes.json when the header probe runs) has an uncommitted edit or is untracked in the checkout and is not
+  shipped. Ship the files (`--dirty`, or `--files PATH ...`; `--dirty` skips files over 8 MB, such as
+  config/data.json: name it with `--files`), or add `--head-only` to the tree_tu.py / x64_gate.py command to check
+  the commit (plus what you ship) on purpose. The job gets `.jobq/local-inputs.json` and its summary carries
+  `inputs_vs_local` (the job's `inputs` digests against the checkout's at submit). A job has no git: `--changed-since`
+  must name the job's base commit (HEAD), and the changed TUs are the shipped ones; `verify --x64` works in a job
+  (`--needs clang`), its gate runs stay in the job. Wrapper scripts (`sh job/run.sh`) are not looked into.
 - `matches/` and `equivalent/` on the Macs are whatever was last synced there, not your working tree.
 - `src/` ships in the base tree (bink2, 2026-11-09). Before that it was a symlink to the host's checkout, which is a
   one-time `git archive` snapshot from the host's onboarding: mac2 and mac1 (onboarded before `jobq_host_setup.sh`
