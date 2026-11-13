@@ -3961,3 +3961,57 @@ same rename as Track's vfunc_3), and three fn_f0cbe20f names from another agent'
 - Track leftovers: t-bad's 17 TUs, the shared slot renames (Param::vfunc_2 / vfunc_4 can take their gen names
   in Param.cpp like ~Param; Track::vfunc_3 at 0x00236c50 and Param::vfunc_3 have other signatures and need
   re-proofs).
+
+## The header probe, the submit guard and data overreach in verify (tool2, 2026-11-13)
+
+User decisions D9, D10, D12 of 2026-11-13 (gen1's and hash3's proposals, scan1's scan as a gate). Tools, tests and
+docs only (db0318f58); docs/merge-once.md "Checks beyond the blocks" has the reference, docs/compute.md "Workspaces"
+the queue side.
+
+**D9: the probe in verify.** `tree_tu.py verify` runs `gen_headers.py --probe` in process when a header under
+include/gen/ changed (since `--changed-since`, else uncommitted; in a queue job, shipped) and fails when it fails;
+`check TU` runs it when the TU can `#include` such a header; `--gen-probe` forces it. 7 s on mac2, 11 s on the laptop.
+- Why unb6's run in the checkout was refused: the auto-mode permission classifier blocked `gen_headers.py --probe`
+  as a destructive action. The agent had read the tool at 17:34, when it still regenerated include/gen/ (its emit
+  step deleted every header it did not write); gen1's flip to a checker landed at 18:02 and the run came at 18:03.
+  The probe itself wrote only to `$TMPDIR`. Its work files now go to a fresh directory under build/tmp/, removed
+  afterwards (`--keep` refused inside the checkout outside build/). The docstring says what it writes. Running the
+  probe through verify / check also avoids the tool's old name.
+- In a job the probe needs nothing shipped beyond the edits: include/gen/ and config/gen-sizes.json are in the base
+  tree; rtti.json, functions.csv, the XBE and wibo come through the workspace's links. Job 78819 (mac2) ran it on a
+  shipped include/gen/fight.h: ok, 6.5 s.
+- The probe now fails `check` / `verify` in the shared checkout while another agent's include/gen edit has an
+  unrecorded size change (today: core::DriveCreateDirectoryRequest 12 -> 16, uncommitted). That is the check
+  working: the edit's author records it with `--probe --update-sizes`.
+
+**D10: the submit guard.** `jobq.make_job` (every submitter) passes a job whose command runs
+`tree_tu.py verify|check` or `x64_gate.py check` (also inside `sh -c`) to `tree_tu.submit_guard`. The guard refuses
+the job when one of these has an uncommitted edit or is untracked in the checkout and is not shipped:
+- a listed TU (`--tus`, the whole tree, or `check`'s TU);
+- a file those TUs can `#include` (include_keys.closure: 86 files for the whole tree);
+- a config file the check reads: data.json; x64-baseline.json for the gate; gen-sizes.json when the probe will run.
+
+The command can say `--head-only` to check the commit on purpose. The refusal names the files and says what to pass.
+`--dirty` skips files over 8 MB, and config/data.json (8.75 MB) is one of them: the refusal says to name it with
+`--files`. The check takes 3 s at submit for the whole tree. The job gets `.jobq/local-inputs.json` and prints
+`inputs_vs_local`. `inputs` has a third digest, `reach` (the reachable files only); `headers` still covers every
+header, so it differs whenever any header in the checkout is dirty, reachable or not.
+- No git in a job: `verify --changed-since REF` found no TUs and passed. It now takes only the base commit, with the
+  shipped TUs as the changed ones, and fails if git fails. The x64 gate also runs in a job: the REF side is the
+  workspace with the shipped files back at the commit's copies (`.jobq/ref/`), and its equiv runs stay in the job.
+  Before this, `verify --x64` could not run as a queue job.
+- Not covered: wrapper scripts (`sh job/chkrun.sh`) and x64_gate's own equiv jobs. The equiv jobs ship the dirty
+  set, or the `--head` commit's files.
+
+**D12: overreach in check / verify.** `check_tu` scans the MSVC object it already has (data_overreach.object_hits). A
+reported class (`over`, `pad`, `addr`, `before`, `indexed`) fails the block it lies in, or the TU's first record for a
+hit outside any block. The informational classes (`end`, `negidx`) are listed only. `materialize` counts them too.
+config/data.json and the scanner are part of the verify cache's key. A test compiles the FUN_00277190 shape
+(`DAT_0042b50c[2]`) with MSVC and gets `over`.
+
+| check | result |
+| --- | --- |
+| whole tree, HEAD 1c5f08c59 + these tools (job 78937, mac2, `--relocs --x64 --gen-probe --head-only`) | 2,674 TUs: 22,339 MATCH, 5,099 equivalent hashes ok/ok, 0 errors; overreach 0 reported, 16 info (13 end, 3 negidx; scan1's 78132 had the same); probe ok (18/18, 4,238 classes, 4,039 sizes); x64 gate ok (27,438 keyed, the 11 usual unkeyed blocks unsupported:tool) |
+| whole tree on db0318f58, committed tools (job 79045) | the same, 2,674 TUs, 0 errors, 0 overreach (16 info), x64 gate ok; `inputs_vs_local` names the 14 unshipped local edits (`--head-only`) |
+| tests (studio, job 78938, HEAD + the tools) | 67 OK: test_tree_tu_checks (new, 18), _inputs, _hash, test_x64_gate (+4 in-job), test_gen_headers (+2: work dir, --keep), test_data_overreach |
+| refusal in the shared checkout (db0318f58, no `--head-only`) | refused: 14 unshipped files (others' include/gen, decls, data.json, DriveRequest TUs) |

@@ -748,3 +748,13 @@ blocks fight::Action's whole family: the records come first there.
   keeps those blocks as stubs.
 - fight::Track's +8 word in the base, packed natively (HULK_REFCOUNT_PACK); Condition's +8 is its owner pointer
   (constructor argument). Dropping ParamValue's undeclared destructors changes 970 blocks' MSVC code: not done.
+
+## 2026-11-13 tool2: verify checks the header probe, unshipped edits and data overreach
+
+- A queue job's workspace has no git. Before this, `verify --changed-since REF` there found no TUs and passed. The x64
+  gate could not run in a job at all. Both now take the job's base commit as the only REF.
+- `jobq.py submit --dirty` skips files over 8 MB, and config/data.json (8.75 MB) is one of them: a dirty inventory
+  never travelled with `--dirty`. The submit guard names it.
+- The auto-mode permission classifier refused an agent's `gen_headers.py --probe` in the shared checkout because the
+  agent had read the tool's pre-gen1 docstring (it regenerated include/gen/). The probe only ever wrote to a temp
+  dir; now that dir is under build/tmp/ and the docstring says so.
