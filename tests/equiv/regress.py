@@ -328,7 +328,10 @@ CASES = {
     # je`: steered through the compares that decided it, one after the other; `cl = (len > 1)` likewise; F == 0.0f
     # on a stub float stored and reloaded; and `lea edi, [esi+0x1f58]` ... calls, branches ... `test edi, edi; je`
     # is dead without the source's equiv-dead line (27/43 -> 40/42)
-    "0x0010b5b0_flag_via": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    # (chk1: 9 of those edges are reached only by directed inputs built on seed 97, whose fuzzed pointer stores into the
+    # original's .text on both sides, `code_write`; since maskedges such inputs add no coverage, 31/43. The case tests the
+    # steering, so it keeps the old count with maskedges off)
+    "0x0010b5b0_flag_via": ("equivalent", None, 0.9, {"n_inputs": 3000, "equiv_off": "maskedges"}),
     # a Lua binding's signature loop: `movsx eax, sig[i]; add eax, -0x56; cmp eax, 0x20; ja; movzx edx, byte
     # [eax + map]; jmp [edx*4 + tab]`, each char read after a call (a new memory epoch); strings of one char per
     # case are planted for every epoch, round robin with the result loop's (28/51 -> 48/51); a wrong Lua type
@@ -905,6 +908,14 @@ CASES = {
     "0x002f4eb0_wine_smasharg": ("equivalent", None, 0, {"src": "0x002f4eb0_wine_memcmp", "native": True, "seeds": list(range(8)) + [907]}),
     "0x002f4eb0_wine_smasharg_off": ("fail", "ebp not preserved", 0, {"src": "0x002f4eb0_wine_memcmp", "native": True,
                                                                       "seeds": list(range(8)) + [907], "equiv_off": "smasharg"}),
+    # (chk1, smashexpl) rev2's mutants: a different call sequence on the overrun inputs only (M1: before `tag[n] = 0`, M2:
+    # after it). The overrun explains a register restored from an overwritten slot, ours going wild, or a value ours read
+    # back from a local its own overrun replaced; never a different call. Both passed --wine at 3,000 before (79378/79379)
+    "0x002f4eb0_wine_smash_m1": ("fail", "call #3 went to 0x002ecb90", 0, {"native": True, "seeds": list(range(8)) + [907]}),
+    "0x002f4eb0_wine_smash_m2": ("fail", "call #3 went to 0x002ecb90", 0, {"native": True, "seeds": list(range(8)) + [907]}),
+    # (chk1, boolexpl) M3: Kilometers gives 2, not 3; the one input that reaches it (0+str) also reads a non-bool byte as a
+    # bool. Ours runs again with the byte read as a bool and still differs: not explained (passed at 3,000 before, 79385)
+    "0x002f4eb0_wine_boolub_m3": ("fail", "argument 1 is 0x00000002, expected 0x00000003", 0, {"native": True, "seeds": [0]}),
     # read_numeral: `b->buffer[b->n++] = c` and `*z->p++` that clang orders store-first, against a buffer overlapping its
     # header (a source fix, not a checker rule: the order the original has)
     "0x0021b230_wine_order": ("equivalent", None, 0, {"native": True, "seeds": [8, 24, 54]}),

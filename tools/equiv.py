@@ -3820,6 +3820,9 @@ class Run:
         self.prev_jcc = None
         self.fault = None
         self.bool_ub = False        # (round 18) a `testb $1` over a byte that is neither 0 nor 1
+        self.bool_fix = 0           # (chk1, boolexpl) a counterfactual run of ours: such a byte read as a bool (1: true, 2: raw)
+        self.bool_fix_at = None     # ... (address of the next instruction, what to set there, the byte's value)
+        self.ub_at = {}             # (chk1) UB kind -> calls the run had made when it was first seen (time order)
         self.code_write = None      # first store into code (ours or the original's .text): self-modifying
         self.copy_ub = None         # (wine1, intrub) an inlined strcpy/strcat call whose strings overlap
         self.ro_write = None        # (wine1, rowrite) first store into the original's .rdata (a string literal)
@@ -3899,6 +3902,8 @@ class Run:
         self.cookies = set()        # values read from the /GS cookie global
         self.cdecl_site = False     # (round 8) the current call is proven cdecl by the caller's cleanup
         self.smashed = None         # (round 8) where a store overran into the return address or a saved register
+        self.smash_kind = None      # (chk1, smashexpl) what it hit: "ret" (the return address), "save" (a live saved slot),
+                                    # "arg" (an incoming argument word, smasharg)
         self.xl_last = {}           # (round 20, xlocal) stack word -> (kind of the last store, 'idx' or 'plain', insn)
         self.xl_pending = {}        # ... words both kinds of store wrote: word -> kind of the latest store
         self.xlocal = None          # ... the instruction that read such a word back with the other kind of access
@@ -4042,6 +4047,8 @@ class Run:
                 hit = range(addr & ~3, addr + size, 4)
                 if any(x == ENTRY_ESP or (x in self.save_slots and x >= self.reg("esp")) for x in hit):
                     self.smashed = ci.addr
+                    self.smash_kind = "ret" if any(x == ENTRY_ESP for x in hit) else "save"
+                    self.ub_at.setdefault("smash", len(self.calls))
             if self.smashed is None and ci is not None and ci.mem is not None and ci.mem[2] and \
                     ci.mem[1] in ("esp", "ebp") and not ci.mnemonic.startswith(("rep", "stos", "movs")) and \
                     ENTRY_ESP + 4 <= addr < ENTRY_ESP + 0x104 and "smasharg" not in EQUIV_OFF and \
@@ -4050,6 +4057,8 @@ class Run:
                 # the frame (`tag[n] = 0`, tag at esp+0x34, n a fuzzed byte) landing in the incoming argument words.
                 # Clang's frame puts its saved ebp where the original's argument word is, so the two differ there
                 self.smashed = ci.addr
+                self.smash_kind = "arg"
+                self.ub_at.setdefault("smash", len(self.calls))
             if ci is not None and ci.kind == "call" and self.helper_ret is None:
                 self.save_slots.update(range(addr & ~3, addr + size, 4))   # a return address: never data
             elif self.helper_ret is not None:
@@ -4103,6 +4112,7 @@ class Run:
             # (wine1, rowrite) a store through a fuzzed pointer into read-only data (an argument the input points at a
             # string literal the function references, `out` of luaO_chunkid): no real input writes a literal
             self.ro_write = addr
+            self.ub_at.setdefault("ro_write", len(self.calls))
         if self.cur_insn is not None and self.cur_insn.is_fpu_store and size in (4, 8):
             self.cur_fpu[addr] = size
 
@@ -4277,6 +4287,7 @@ class Run:
                 # original inlines it as `repne scasb; rep movs` over the length it measured first, a byte loop goes
                 # on through what it writes): the input proves nothing about either side (see run_input)
                 self.copy_ub = insn.addr
+                self.ub_at.setdefault("copy_overlap", len(self.calls))
             s_ = self._cstr(w[1]) + b"\0"
             dst = w[0] + (len(self._cstr(w[0])) if n == "strcat" else 0)
             self._mem(dst, len(s_), s_)
@@ -5253,6 +5264,29 @@ class Run:
                         for x in range(w, w + 4):
                             self.fill_watch[x] = (k, j, o)
                     put(w, j, o, v)
+
+    def _bool_fix_apply(self):
+        """(chk1, boolexpl) After clang's `test/and X, 1` of a byte that is neither 0 nor 1 (the instruction just ran):
+        make the result what a bool holding that value gives when read as a bool, true: the flags of a nonzero result,
+        and a destination of 1 (bool_fix 1, the value normalised) or the byte itself (2, passed on as it is)."""
+        _, dst_, bv_ = self.bool_fix_at
+        self.bool_fix_at = None
+        val_ = 1 if self.bool_fix == 1 else bv_
+        try:
+            if dst_ is not None and dst_[0] == "mem":
+                self._mem(dst_[1], 1, bytes([val_]))
+            elif dst_ is not None and dst_[0] == "r8":
+                r32_ = {"al": "eax", "bl": "ebx", "cl": "ecx", "dl": "edx"}[dst_[1]]
+                self.uc.reg_write(_uc_regs()[r32_], (self.reg(r32_) & ~0xFF) | val_)
+            elif dst_ is not None and dst_[0] == "r32":
+                self.uc.reg_write(_uc_regs()[dst_[1]], val_)
+            fl_ = self.uc.reg_read(self.u.UC_X86_REG_EFLAGS)
+            fl_ &= ~((1 << 6) | (1 << 7) | (1 << 2) | 1 | (1 << 11))     # ZF, SF, PF, CF, OF: a nonzero result
+            if dst_ is not None and bin(val_ & 0xFF).count("1") % 2 == 0:
+                fl_ |= 1 << 2
+            self.uc.reg_write(self.u.UC_X86_REG_EFLAGS, fl_)
+        except Exception:   # noqa: BLE001
+            pass
 
     def _reg_info(self, v):
         """{val, src, xf, raw, reg} of a register operand (for directed inputs)."""
@@ -6346,6 +6380,8 @@ class Run:
 
     def _on_code(self, uc, addr, size, _):
         self.nsteps += 1
+        if self.bool_fix_at is not None and addr == self.bool_fix_at[0]:
+            self._bool_fix_apply()
         if TRACE_OURS and self.view.is_ours:
             print("trace ours %x" % addr, file=sys.stderr)
         if TRACE_OURS and addr in (0x346e5a,):
@@ -6398,10 +6434,15 @@ class Run:
                 try:
                     if insn.op_str.startswith("byte ptr") and insn.mem is not None:
                         bv_ = self._mem(self._ea(insn.mem), 1)[0]
+                        dst_ = ("mem", self._ea(insn.mem)) if insn.mnemonic == "and" else None
                     else:
-                        bv_ = self.reg({"al": "eax", "bl": "ebx", "cl": "ecx", "dl": "edx"}[insn.op_str.split(",")[0]]) & 0xFF
+                        r8_ = insn.op_str.split(",")[0]
+                        bv_ = self.reg({"al": "eax", "bl": "ebx", "cl": "ecx", "dl": "edx"}[r8_]) & 0xFF
+                        dst_ = ("r8", r8_) if insn.mnemonic == "and" else None
                     if bv_ > 1:
                         self.bool_ub = True
+                        if self.bool_fix:
+                            self.bool_fix_at = (addr + insn.size, dst_, bv_)
                 except Exception:   # noqa: BLE001
                     pass
             if NATIVE_MODE and self.view.native and self.view.is_ours and insn is not None and \
@@ -6411,8 +6452,11 @@ class Run:
                 nx_ = self.view.decode(addr + insn.size)
                 if nx_ is not None and nx_.mnemonic == "and" and nx_.ops[:1] == [insn.ops[0]] and nx_.imms == [1]:
                     try:
-                        if self.reg({"al": "eax", "bl": "ebx", "cl": "ecx", "dl": "edx"}[insn.ops[1][1]]) & 0xFE:
+                        bv_ = self.reg({"al": "eax", "bl": "ebx", "cl": "ecx", "dl": "edx"}[insn.ops[1][1]]) & 0xFF
+                        if bv_ & 0xFE:
                             self.bool_ub = True
+                            if self.bool_fix:
+                                self.bool_fix_at = (addr + insn.size + nx_.size, ("r32", insn.ops[0][1]), bv_)
                     except Exception:   # noqa: BLE001
                         pass
             # Unicorn sometimes restarts an instruction (the code hook fires again for the same address)
@@ -6457,6 +6501,7 @@ class Run:
                     ea_ = None
                 if ea_ is not None and not STACK_LO <= ea_ < STACK_HI:
                     self.frame_escape = addr
+                    self.ub_at.setdefault("frame_escape", len(self.calls))
             if insn is not None and insn.mem is not None and insn.mem[1] in ("esp", "ebp") and \
                     not insn.mem[2] and "uninitmask" not in EQUIV_OFF and \
                     insn.mnemonic not in ("lea", "nop", "ret", "call") and not insn.mnemonic.startswith(("rep", "movs", "stos")) \
@@ -6500,6 +6545,7 @@ class Run:
                         pk_ = self.xl_pending.get(w_)
                         if pk_ is not None and pk_ != rk_:
                             self.xlocal = addr
+                            self.ub_at.setdefault("xlocal", len(self.calls))
                             break
             if self.coverage is not None and insn is not None:
                 rd, wr = self.view.eax_rw(addr)
@@ -6575,6 +6621,7 @@ class Run:
                         v_ = _x87_value(self.uc.reg_read(self.u.UC_X86_REG_FP0 + top_))
                         if not (abs(v_) < 9.223372036854775808e18):      # (NaN and inf too)
                             self.x87_range = True
+                            self.ub_at.setdefault("x87_range", len(self.calls))
                 except Exception:   # noqa: BLE001
                     pass
             if insn.mnemonic.startswith("rep") and self.reg("ecx") > 0x100000:
@@ -10423,8 +10470,42 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         inp_o = _conv_input(inp, own_layout, target_conv) if target_conv else inp
         return inp, inp_o, mach
 
-    def run_input(seed, overlay=None, stack_patch=None, label=None, _vk=False, _ar=False):
+    edge_frames = []
+    edges_any = set()
+
+    def run_input(seed, overlay=None, stack_patch=None, label=None, _vk=False, _ar=False, _bf=None):
         """Run one input on both sides; returns the set of new original edges (None if inconclusive)."""
+        fr_ = []
+        edge_frames.append(fr_)
+        try:
+            out_ = _run_input(seed, overlay, stack_patch, label, _vk, _ar, _bf)
+        finally:
+            edge_frames.pop()
+        if out_ is None and fr_ and "maskedges" not in EQUIV_OFF:
+            # (chk1, maskedges) an input set aside as inconclusive (a difference masked as undefined behaviour, ours not
+            # compared, ...) proves nothing about the edges its original run took: they don't count for coverage
+            nw_, all_ = fr_[0]
+            edges.difference_update(nw_)
+            for e_ in all_:
+                hits[e_] -= 1
+            res["edges_withdrawn"] = res.get("edges_withdrawn", 0) + len(nw_)
+        return out_
+
+    def _unexplained(kind):
+        res.setdefault("unexplained", Counter())[kind] += 1
+
+    def _after(diffs, ncalls):
+        """(chk1) Every difference could come after an event the run met once it had made `ncalls` calls: none names
+        an earlier call (those calls were made before the event and can't be its consequence)."""
+        if ncalls is None:
+            return False
+        for d_ in diffs:
+            for m_ in re.finditer(r"call #(\d+)", d_):
+                if int(m_.group(1)) - 1 < ncalls:
+                    return False
+        return True
+
+    def _run_input(seed, overlay, stack_patch, label, _vk, _ar, _bf):
         inp, inp_o, mach = build(seed, overlay, stack_patch)
         # (round 8, overlap) strncat(d, d + 12, n): overlapping copies are undefined behaviour, and the
         # original's word-at-a-time reads and a byte loop see each other's writes differently
@@ -10447,7 +10528,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             ov_ = dict(overlay or {})
             for a_, (v_, ep_) in orun.vp_havoc.items():
                 ov_[(("after", ep_), a_)] = v_.to_bytes(4, "little")
-            return run_input(seed, ov_, stack_patch, label, _vk=True, _ar=_ar)
+            return run_input(seed, ov_, stack_patch, label, _vk=True, _ar=_ar, _bf=_bf)
         # only a run that returned proves anything about the edges it took (a fault both sides share, e.g.
         # a stub that can't model the call, leaves the code after it unverified)
         conclusive = o["status"] == "ret"
@@ -10456,6 +10537,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             edges.update(orun.edges)
             for e in orun.edges:
                 hits[e] += 1
+            if edge_frames and not edge_frames[-1]:
+                edge_frames[-1].append((set(new), set(orun.edges)))
+            edges_any.update(orun.edges)
         if o["status"] == "ret":
             for pc_, src_, disp_ in orun.deref_obs:
                 # (round 13, objptr) twice per access, from different inputs (chains of plants included)
@@ -10657,8 +10741,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             ub = "stack_smash"   # (round 8, smash) the original overran a buffer into its return address or saved registers
             if o["status"] in ("fault:wild_jump", "fault:wild_call"):
                 # (it went wild because of the overrun: not a sign of a call modelled wrong, the 10% wild bar)
+                # (chk1, smashexpl: an overrun into the argument words, smasharg, can't send the original's own control
+                # flow anywhere: one that goes wild counts under the wild bar)
                 res["inputs_inconclusive"] += 1
-                res["statuses"][ub] += 1
+                res["statuses"]["wild" if orun.smash_kind == "arg" and "smashexpl" not in EQUIV_OFF else ub] += 1
                 return None
         if orun.xlocal is not None and o["status"] == "ret":
             # (round 20, xlocal) the original read back a frame word of another local through an array index (or the reverse)
@@ -10684,6 +10770,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         rrun.caller_cleans = caller_cleans
         rrun.slot_arity = slot_arity
         rrun.wild_check = True
+        rrun.bool_fix = _bf[0] if _bf is not None else 0
         r = rrun.run(rview.entry)
         if orun.code_write is not None or rrun.code_write is not None:
             # a store through a fuzzed pointer that lands on code (ours at OURS, or the original's .text)
@@ -10740,7 +10827,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 if to_["status"] == "ret" and to_["esp"] == o["esp"] and \
                         all(to_["saved"][reg_] == o["saved"][reg_] for reg_ in CALLEE_SAVED):
                     res["vsplit_reruns"] = res.get("vsplit_reruns", 0) + 1
-                    return run_input(seed, overlay, sp_, label, _vk=_vk, _ar=True)
+                    return run_input(seed, overlay, sp_, label, _vk=_vk, _ar=True, _bf=_bf)
+        if _bf is not None:
+            # (chk1, boolexpl) the counterfactual run of ours asked for below: hand its differences back, count nothing
+            _bf[1]["diffs"] = diffs
+            return None
         if diffs and os.environ.get("EQUIV_DUMP"):
             # debugging: the calls of both runs (target, args) and the return values of the failing input
             print("DUMP input %s diffs %s" % (label or seed, diffs[:2]), file=sys.stderr)
@@ -10753,28 +10844,59 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["inputs_inconclusive"] += 1         # (round 19) the only differences are NaN signs, see _nan_sign_only
             res["statuses"]["nan_sign"] += 1
             return None
+        # (chk1, ubafter) the masks below set aside an input whose difference undefined behaviour met during the run can
+        # explain: never a difference in a call the run made before it met it (those calls can't be its consequence)
+        after_ = "ubafter" in EQUIV_OFF
+        diffs_note = []
         if diffs and NATIVE_MODE and rrun.copy_ub is not None and "intrub" not in EQUIV_OFF:
-            res["inputs_inconclusive"] += 1         # (wine1, intrub) overlapping strcpy/strcat strings, see _intrinsic
-            res["statuses"]["copy_overlap"] += 1
-            return None
+            if after_ or _after(diffs, rrun.ub_at.get("copy_overlap")):
+                res["inputs_inconclusive"] += 1         # (wine1, intrub) overlapping strcpy/strcat strings, see _intrinsic
+                res["statuses"]["copy_overlap"] += 1
+                return None
+            _unexplained("copy_overlap")
         if diffs and NATIVE_MODE and orun.ro_write is not None and "rowrite" not in EQUIV_OFF:
-            res["inputs_inconclusive"] += 1         # (wine1, rowrite) the original stored into a literal, see _on_write
-            res["statuses"]["ro_write"] += 1
-            return None
+            if after_ or _after(diffs, orun.ub_at.get("ro_write")):
+                res["inputs_inconclusive"] += 1         # (wine1, rowrite) the original stored into a literal, see _on_write
+                res["statuses"]["ro_write"] += 1
+                return None
+            _unexplained("ro_write")
         if diffs and NATIVE_MODE and orun.frame_escape is not None and "fescape" not in EQUIV_OFF:
-            res["inputs_inconclusive"] += 1         # (wine1, fescape) a frame index beyond the stack, see _on_code
-            res["statuses"]["frame_escape"] += 1
-            return None
+            if after_ or _after(diffs, orun.ub_at.get("frame_escape")):
+                res["inputs_inconclusive"] += 1         # (wine1, fescape) a frame index beyond the stack, see _on_code
+                res["statuses"]["frame_escape"] += 1
+                return None
+            _unexplained("frame_escape")
         if diffs and r.get("bool_ub") and "boolub" not in EQUIV_OFF:
-            res["inputs_inconclusive"] += 1         # (round 18) native bool read of a non-bool byte: undefined, see _on_code
-            res["statuses"]["bool_ub"] += 1
-            return None
+            # (round 18) native bool read of a non-bool byte: undefined, see _on_code. (chk1, boolexpl) Only when the
+            # byte explains the difference: ours runs again with every such byte read as the bool it stands for (true:
+            # the flags of a nonzero test; a value passed on normalised to 1, or as the byte itself, the original's
+            # two ways), and one of those runs agrees with the original
+            expl_ = "boolexpl" in EQUIV_OFF
+            cf_ = None
+            for m_ in ((1, 2) if not expl_ else ()):
+                box_ = {}
+                run_input(seed, overlay, stack_patch, label, _vk=_vk, _ar=_ar, _bf=(m_, box_))
+                if box_.get("diffs") == []:
+                    expl_ = True
+                    break
+                if box_.get("diffs") and (cf_ is None or len(box_["diffs"]) < len(cf_)):
+                    cf_ = box_["diffs"]
+            if expl_:
+                res["inputs_inconclusive"] += 1
+                res["statuses"]["bool_ub"] += 1
+                return None
+            _unexplained("bool_ub")
+            if cf_:
+                # (the report adds what still differs with the bytes read as bools: the difference they don't explain)
+                diffs_note = ["with each non-bool byte read as a bool: " + d_ for d_ in cf_[:3]]
         if diffs and orun.x87_range and "x87range" not in EQUIV_OFF:
             # (round 21, x87range) the original's trig instruction got an operand it does not handle (C2 set, no result
             # pushed): its x87 stack is shifted from there on, which no real input does. Inconclusive, never equal
-            res["inputs_inconclusive"] += 1
-            res["statuses"]["x87_range"] += 1
-            return None
+            if after_ or _after(diffs, orun.ub_at.get("x87_range")):
+                res["inputs_inconclusive"] += 1
+                res["statuses"]["x87_range"] += 1
+                return None
+            _unexplained("x87_range")
         if diffs and orun.uninit_read is not None and "uninitmask" not in EQUIV_OFF and \
                 all(_uninit_diff(d_, orun.uninit_vals) for d_ in diffs):
             # (round 20, uninitmask) the original read a word of its frame nothing had written (a reserved slot holding the
@@ -10783,6 +10905,30 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["inputs_inconclusive"] += 1
             res["statuses"]["uninit_read"] += 1
             return None
+        if ub == "stack_smash" and diffs and "smashexpl" not in EQUIV_OFF:
+            # (chk1, smashexpl) the overrun explains a difference only through what it overwrote: a callee-saved register
+            # restored from a slot it hit (the original's saved slot, or ours, whose overrun hit its own frame), or ours
+            # going wild through its own overwritten return address; and never a difference before the overrun. An
+            # overrun into the argument words (smasharg) can't touch the original's own registers: there the
+            # differences must come from ours overrunning its frame too (clang's saved ebp at the original's argument)
+            # (ours overran its frame too and read back a local of its own the overrun replaced, round 20's xlocal on our
+            # side: a difference after that read is that local's value, the frame layout's)
+            ok_ = _after(diffs, orun.ub_at.get("smash"))
+            for d_ in diffs:
+                if d_.endswith(")") and " not preserved the same way (" in d_:
+                    ok_ = ok_ and (rrun.smashed is not None or orun.smash_kind == "save")
+                elif d_ in ("original ret but ours fault:wild_jump", "original ret but ours fault:wild_call"):
+                    ok_ = ok_ and rrun.smashed is not None
+                else:
+                    ok_ = ok_ and rrun.smashed is not None and _after([d_], rrun.ub_at.get("xlocal"))
+            if not ok_:
+                _unexplained(ub)
+                ub = None
+        if ub == "overlap_ub" and diffs and "overlapexpl" not in EQUIV_OFF and \
+                not all(d_.startswith(("write to ", "missing write to ", "unexpected write to ")) for d_ in diffs):
+            # (chk1) overlapping strings change what a copy routine writes, not its calls or what it returns
+            _unexplained(ub)
+            ub = None
         if ub and diffs:
             # (round 8) an input that is undefined behaviour in the original (above) and shows a difference
             # is inconclusive: no real input does that. One that agrees counts as before.
@@ -10811,7 +10957,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         if diffs:
             res["inputs_failed"] += 1
             if len(res["mismatches"]) < max(5, MAX_FAIL if MAX_FAIL > 3 else 0):
-                res["mismatches"].append({"input": label or seed, "diffs": diffs, "original_status": o["status"],
+                res["mismatches"].append({"input": label or seed, "diffs": diffs + diffs_note, "original_status": o["status"],
                                           "calls": len(o["calls"])})
         return new
 
@@ -11435,6 +11581,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             directed_phase()
     res["coverage"] = coverage_of(oview, edges)
     res["statuses"] = dict(res["statuses"])
+    if res.get("unexplained"):
+        res["unexplained"] = dict(res["unexplained"])     # (chk1) masks refused: the input was compared (and failed)
+    if edges_any - edges:
+        # (chk1, maskedges) the coverage inconclusive inputs alone would have added (diagnostic only)
+        res["coverage_with_inconclusive"] = coverage_of(oview, edges | edges_any)["edges_covered"]
     if res["inputs_run"] == 0:
         res["unsupported"] = "no input ran to completion in the original (%s)" % res["statuses"]
     else:

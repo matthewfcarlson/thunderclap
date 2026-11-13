@@ -496,7 +496,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     the original's word count is reused for C-named callees, `...` calls and indirect cdecl calls; a library routine the
     original calls as `__CI<name>` with st(0) arguments (`__CIasin`) is the same call as clang's `asin(double)`
     (`natci`, the stack doubles become the x87 arguments); `testb $1` over a byte that is neither 0 nor 1 makes an input
-    that differs inconclusive (`boolub`: a bool field of fuzzed memory is undefined natively).
+    that differs inconclusive (`boolub`: a bool field of fuzzed memory is undefined natively; since chk1 only when the byte
+    explains the difference, `boolexpl`).
   - **`_strcmp` was bound to the XBE's `_wcscmp`** (0x346e5a): the CRT probes (`abc`/`abd` shaped strings) cannot tell a
     wide compare. A fourth probe (equal one-byte strings with different bytes behind the NUL) fixes it
     (`crtprobe`); the table is cached in `build/equiv/crt2.json` (`_strcmp` 0x3473c6, `_strcpy` 0x346f3e now found).
@@ -539,7 +540,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     `char found`) widens to the bytes up to the next address-taken local, a stored byte, a save slot (and a directed
     input's word overrides apply). 0x0026f7b0 (the "W:" directed string).
   - `boolub` (extended): `movzx esi, bl; and esi, 1`, clang's bool normalisation on a pass-on, makes a differing input
-    inconclusive when the byte is not 0/1 (fuzzed memory is no bool). Not a change in what is compared, 0x0002e910.
+    inconclusive when the byte is not 0/1 (fuzzed memory is no bool). Not a change in what is compared, 0x0002e910. (chk1:
+    the counterfactual run that keeps the byte as it is agrees there, so it stays inconclusive.)
   - `natnarrow`: (a) the original's dword load of a stack slot it wrote only partly (`mov [esp+16], dl; mov edx,
     [esp+16]; push edx`) is a byte/word argument (upper bytes stale, the callee reads the low byte); (b) a callee our
     source declares with `bool`/`char`/`short` parameters is compared on those bits (trust: the declaration). 0x001e14b0.
@@ -696,8 +698,10 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     inconclusive). 0x00265390 (a worker queue loop, 3,756 calls recorded before it blocks) and 0x0026dc20 (calls
     `fn(arg)` and does not return) are `agreed_partial`. A capture of such a function holds the gate for minutes
     and everything called meanwhile is skipped, so give it its own session. 9 cases in `replay_regress.py`.
-  - Tried and **not adopted**: `smashargs` (an indexed frame store past the argument words counted as an overrun): no clean
-    case, and 0x002f4eb0's native failure is a reused stack slot plus `bool_ub`, not this. Decided **no change** (real
+  - Tried here and not adopted then: `smashargs` (an indexed frame store past the return address counted as an overrun):
+    no clean case at the time. x64t10 adopted it as `smasharg` (ec01c3faa, 0x002f4eb0's input 907); rev2 found that it set
+    aside any difference on such an input, and chk1 restricted it (and round 8's smash, and `bool_ub`) to the differences
+    the undefined behaviour explains (see "Inputs that are undefined behaviour" under Level 3 design). Decided **no change** (real
     differences): a reused stack slot / an uninitialised local read by ours (0x001f7320, 0x002f4eb0's `unitsName`).
   - **Verification.** `regress.py` through the queue with the round-21 checker: 297/299, then 299 after one case fix; the
     31 round-21 cases plus the fixed case pass again with the promoted `tools/equiv.py` (32/32). The case fix:
@@ -1179,15 +1183,45 @@ An input on which either side stores into code (our object at `0x60000000`, or t
 through a fuzzed pointer) is inconclusive: the store rewrites one side's instructions only (`statuses`
 counts them as `code_write`).
 
-Inputs that are undefined behaviour in the original are inconclusive too when they show a difference (one
-that agrees counts as usual), when the input proves the undefined behaviour:
+Inputs that are undefined behaviour in the original are inconclusive too when they show a difference that the
+undefined behaviour explains (one that agrees counts as usual; one whose difference it does not explain is compared
+and fails, and `level3.unexplained` counts it by kind), when the input proves the undefined behaviour:
 - the original overruns a buffer into its return address or a live saved-register slot with an array-style
-  store (indexed, through a pointer, or a string instruction: `buf[len] = 0` with a fuzzed `len`)
-  (`stack_smash`; one that then goes wild is set aside as `stack_smash`, not `wild`). Plain `mov [esp+k]` stores don't count (an argument word rewritten for the next call
-  can look like a register save);
+  store (indexed, through a pointer, or a string instruction: `buf[len] = 0` with a fuzzed `len`), or (x64t10,
+  `smasharg`) an indexed store from a local of its frame lands past the return address in the incoming argument
+  words (`tag[n] = 0` with n a fuzzed byte) (`stack_smash`). Plain `mov [esp+k]` stores don't count (an argument word
+  rewritten for the next call can look like a register save). An overrun of the return address or a saved slot that
+  then goes wild is set aside as `stack_smash`, not `wild`; an argument-word overrun can't move the original's control
+  flow, so one that goes wild counts as `wild` (the 10% bar below). (chk1, `smashexpl`) The overrun explains only:
+  a callee-saved register "not preserved" (the original's own saved slot was hit, or ours overran its frame too);
+  ours going wild where the original returns, when ours overran too; and, when ours overran too, a difference after
+  ours read back a local of its own frame that its array overrun had replaced (round 20's `xlocal`, on our side: the
+  value is the frame layout's). Never a difference in a call made before the overrun. Anything else fails: before
+  chk1 any difference was set aside, and rev2's mutants of 0x002f4eb0 that call something else on the overrun
+  inputs only (`0x002f4eb0_wine_smash_m1`, `_m2`) passed `--wine` at 3,000 inputs;
 - a CRT copy routine under test (`strncat`, `strcat`, `strncpy`, `strcpy` and the wide versions; not
   `memcpy`, which is `memmove` in this XBE) gets a source that overlaps the destination over the bytes it
-  certainly touches (`overlap_ub`).
+  certainly touches (`overlap_ub`); (chk1, `overlapexpl`) only differences in what it writes are explained, not
+  its calls or its return value.
+
+The other masks follow the same rule (chk1):
+- `bool_ub` (`--wine`: clang's `testb $1` / `and r8, 1` / `movzx; and 1` over a byte that is neither 0 nor 1, a bool
+  holding no bool): undefined in our source, not in the original, so a difference is set aside only when that byte
+  explains it (`boolexpl`). Ours runs the input again with each such byte read as the bool it stands for, true: the
+  flags of a nonzero test, and a value the instruction passes on either normalised to 1 or kept as the byte (the
+  original's two ways of passing a char it tests whole); if one of those runs agrees with the original the input is
+  inconclusive, else it fails. Before, any difference on such an input was set aside: rev2's mutant M3 of 0x002f4eb0
+  (Kilometers gives 2, not 3) passed `--wine` at 3,000 because the one input that reached it also read a fuzzed byte
+  as a bool (`0x002f4eb0_wine_boolub_m3`);
+- `x87_range`, `ro_write`, `frame_escape` (the original's) and `copy_overlap` (ours, `intrub`): the state after the
+  event is the undefined behaviour's, so a difference counts as explained unless it names a call made before the
+  event (`ubafter`: each run records how many calls it had made when it first met each kind);
+- `uninit_read` already required every difference to be the uninitialised word; `both_fault` requires the differences
+  to be the two fault kinds only; `nan_sign` is no difference but NaN signs. `frame_overrun` (`xlocal`), `code_write`,
+  and ours running out of steps or pages after the original's huge `rep` are inputs never compared (no difference is
+  masked), and since chk1 none of them, nor any other inconclusive input, counts for coverage (below).
+
+`EQUIV_OFF=smashexpl`, `overlapexpl`, `boolexpl`, `ubafter` and `maskedges` each restore the pre-chk1 rule.
 
 **Wild control flow** (`statuses`: `wild`). A run stops (`fault:wild_jump`) where control leaves the
 function's own code: a return through a return address that a fuzzed pointer or an overflowed stack buffer
@@ -1237,7 +1271,10 @@ and everything only a dead side reaches; a side a rule calls dead that a run tak
 and is listed in `coverage.dead_taken`, a checker bug to report), 0/1 for every `setcc` (also one that
 stores to memory, `sete byte ptr [esp+0x1c]`), and every
 jump-table case index of the original (round 15: every index the bounds check lets through, not every distinct target) (a table is read up to its first non-code word, and ends where the
-next table of the function starts, so two back-to-back switches keep their own cases). It comes only from inputs that ran to completion (not from faults).
+next table of the function starts, so two back-to-back switches keep their own cases). It comes only from inputs that ran to completion (not from faults)
+and (chk1, `maskedges`) were compared to a verdict: an input set aside as inconclusive after the original returned (a
+masked difference, ours not compared) takes back the edges it added. `level3.edges_withdrawn` counts them, and
+`level3.coverage_with_inconclusive` is the covered count those inputs would have given (diagnostic only).
 Directed inputs can also patch a word a stub filled through an out-parameter, when the original compares
 it. `level3.coverage.complete` is false when some edge never ran, and the
 uncovered edges are listed.
