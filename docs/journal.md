@@ -701,3 +701,4 @@ blocks fight::Action's whole family: the records come first there.
   it another MSVC hash than `tree_tu verify` does over the same files. Open (docs/native-build.md, typ1).
 - 654 blocks: 60 became equivalent (layout 57 -> 6); 1,529 byte-offset sites in 389 classes remain catalogued in
   build/typ1/cls.jsonl.
+- **gen1 (2026-11-13): include/gen/ is hand-maintained source.** The loss check (regenerating from 9bbef387f's inputs) found nothing in the generator's inputs missing from the committed headers; all 219 differing lines were later hand edits. Evidence files deleted, `gen_headers.py --probe` kept as the checker with a size ratchet (config/gen-sizes.json). Details: docs/native-build.md "gen1", docs/headers.md.

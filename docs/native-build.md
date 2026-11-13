@@ -3683,3 +3683,69 @@ follows its headers (x64t8).
 - Blocks the sweep calls equivalent can still read past a 1-byte stub (`E_250fe0`, `Item_337040`): the checker cannot
   see a read beyond a stub's end. Equivalent blocks with byte offsets (0x00092e50, 0x00250fe0 ...) need a re-proof
   when edited, so they were left.
+
+## include/gen/ becomes hand-maintained source (gen1, 2026-11-13)
+
+User decision 2026-11-13: no more generated headers. include/gen/ is source, edited by hand like src/ since
+merge-once; `tools/gen_headers.py` keeps only the layout probe. Commit 800a615f7; [headers.md](headers.md) has the
+model, merge-once.md a note.
+
+**Loss check.** HEAD 9bbef387f exported with `git archive` into build/gen1/, the generator run there on the committed
+inputs (build/rtti.json, functions.csv, the XBE, include/gen/evidence*.json, CURATED_*), the result diffed with the
+committed headers: 219 lines in 7 headers differ (audio 23/14, content 5/0, fight 1/0, global 5/7, owners 42/25,
+physics 15/32, pure3d 32/18; committed/generated). Each one is a hand edit the generator lacked:
+
+| header | the committed side (hand edit) | the generator's side |
+|---|---|---|
+| audio.h | typ1's record views: HalRadicalAdpcmDecodeStream / RsdFileStream / OmHalStream words, SeqEvent* list links, string records, SeqEventContainer's f_0c / f_10 moved up from Condition / LogicOr | pads and `int` |
+| content.h, pure3d.h | x64t7 / x64t8 `HULK_REFCOUNT_PACK` on LoadObject / NonCopyable; x64t2-x64t8 pointer fields, d3d shader classes completed to the XBE's allocation sizes, `vfunc_8(float)` / `vfunc_10(int)` (x64t4), comments | pads, `int`, `void*` parameters |
+| fight.h | unb5's `Track();` (0x00236d40, out of line) | no constructor |
+| global.h | typ1's FE action names (`char f_14[0x20]`, `f_34[0x20]`) | `char f_14`, pads |
+| owners.h | x64t3 / x64t5 / x64t8 records (Obj_28fad0 derived from X_28f9a0, d3dDisplay's leading words, the hash table's slots) | flat pads, `int*` |
+| physics.h | x64t5 / x64t6: CollisionVolume's words 0x1c-0x34 moved into the base, CollisionObject's owner / shape pointers | the same words in each subclass |
+
+Nothing in the generator's inputs was missing from the committed headers, so nothing was ported. The generator's 19
+dropped evidence items (signature arity contradicting `ret N`) stay dropped. Function names are not header content, but
+seven of evidence-fnames.json's 278 were never applied (by decision, consolidation-plan.md section 13); recorded here
+since the file is gone: 0x00047b00 `SetAxis_00047b00`, 0x00047b10 `SetCompareTime_00047b10`, 0x00047b20
+`SetTime_00047b20` (definitions in owners.h), 0x0012e4d0 `SetGameState_0012e4d0`, 0x0012edf0 `SetText_0012edf0` (a
+rename changes which sources merge), 0x0023cb40 `SetPS2_0023cb40`, 0x0023cb70 `SetWin32_0023cb70` (fight::PlatformCondition's
+"pS2" / "win32" setters, registered by 0x0023cce0).
+
+**The flip.**
+- Banners: "GENERATED ... DO NOT EDIT" -> "source, edited by hand ... `--probe` checks the layouts" (same line counts).
+- Deleted: include/gen/evidence.json, evidence-fnames.json, evidence-names.json, evidence-owners.json, evidence-rn.json
+  (101k lines; no check reads them; `git show 9bbef387f:include/gen/<file>` restores one).
+- `tools/gen_headers.py --probe`: its model now comes from RTTI and the XBE only (bases, vftables, slot implementers,
+  destructor slots), not from the generator's layout. The size check compares with config/gen-sizes.json, a ratchet of
+  the 4,039 concrete classes' 32-bit sizeof recorded from 9bbef387f's headers (`--probe --update-sizes` records an
+  intended change); out-of-line constructors are read from the headers. It exits 1 on any problem (it used to pass when
+  only layouts failed). The old probe failed on the committed headers (15 sizes against the generator's layout,
+  fight::Track's vftable not emitted); the new one passes: 18/18 headers, 4,238/4,238 classes, 4,266 vftables,
+  27,439/27,439 slots, 4,238 base descriptors, 4,039 sizes. ~10 s locally.
+- tests/test_gen_headers.py: "include/gen is current" dropped; the constructor scan, the model and two probe tests
+  (the headers check; a size change is reported) added.
+- Retired (they exit with a message): migrate_gen, rn_members, rn_sigs, rn_ptrfields, rn_fields, ptr_slots,
+  param_fields, rename_fields, fn_names, owner_classes. rn_transform's clang helpers (CLANG, SwapFail, the AST range
+  helpers, the record-layout dump) moved into it from gen_headers.py, so name_unify / rn_plan still import.
+- Nothing in the build or proof pipeline regenerated include/gen/ (no build, materialize, Wine or native tool called
+  the generator); now nothing can.
+
+**Gates.** Comments only, same line counts, so no compiled code changes:
+
+| check | result |
+|---|---|
+| `tree_tu.py verify . --relocs`, the whole tree on 9bbef387f + the new headers (job 78138, mac2) | 22,339 matches MATCH, 5,099 equivalents' code hashes ok (msvc, wine), 0 errors |
+| x64 gate (`x64_gate.py check --changed-since 800a615f7~1 --head 800a615f7 --jobq`) | x64 gate: ok. 27,438 blocks keyed in 2,675 TUs on both sides, no keyed block changed; the 11 unkeyed ones (four XboxDrive / CementLibrary / XboxSaveDrive blocks, seven dynamic initializers) ran: unsupported:tool, as on every header commit |
+| `gen_headers.py --probe` on 800a615f7's headers | all ok (above) |
+
+No Wine proof: no object changes.
+
+**The ratchet in use.** Minutes after the flip, unb6's 81e985467 (fight::Track declares f_08) recorded its one 32-bit
+size change with it (`CScrubberTrack` 8 -> 12). The shared checkout's uncommitted headers also show
+`pure3d::SpriteParticleEmitter` 460 -> 480 (another agent's work in progress): to be recorded with `--update-sizes` by
+whoever commits it, if meant.
+
+**Proposal: the probe in a regular check.** `tree_tu.py verify` could run `gen_headers.py --probe` when a file under
+include/gen/ changed since `--changed-since` (or always in the whole-tree verify; 10 s on a host with wibo), failing
+like a block. Not wired in yet.
