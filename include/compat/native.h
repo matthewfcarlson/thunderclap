@@ -20,4 +20,8 @@ namespace std { class type_info; }
 
 #include "compat/crt.h"
 
+// HULK_PTR64 and the pointer-sized types (unb4): a TU that includes no tree header (the iso TUs) used to take its
+// `#if defined(HULK_PTR64)` branches the 32-bit way natively, silently. Force-included here, they are right everywhere.
+#include "compat/ptr.h"
+
 #endif

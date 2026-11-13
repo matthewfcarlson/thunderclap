@@ -16,11 +16,12 @@ class Thing {
 #if !defined(HULK_PTR64)
 Thing gThing;
 #else
+extern "C" char DAT_004e7038[];   // (unb4) the item (records.h types it; this TU includes no header)
 // (x64t5) the object is the game's om type DAT_004e7038 (records.h), which SeqEventVarPosDist's allocation and type calls name.
 // The Wine link binds this definition to the item by address (wine_link local_data_bindings); the native link has
 // no such binding, so the 64-bit build constructs the item itself (the 32-bit code is the definition above)
 struct Item_004e7038 {
-    Item_004e7038() { new ((void*)DAT_004e7038) Thing; }
+    Item_004e7038() { ((Thing*)(void*)DAT_004e7038)->FUN_00253120(); }   // (unb4) the constructor's body (no placement new without a header)
     ~Item_004e7038() { ((Thing*)(void*)DAT_004e7038)->~Thing(); }
 } gThing;
 #endif

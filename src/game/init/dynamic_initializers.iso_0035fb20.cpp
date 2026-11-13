@@ -16,11 +16,12 @@ class Thing {
 #if !defined(HULK_PTR64)
 Thing globalThing;
 #else
+extern "C" char DAT_004e65b8[];   // (unb4) the item (records.h types it; this TU includes no header)
 // (x64t5) the object is the game's om type DAT_004e65b8 (records.h), which ListenerEffectWin32's allocation and type calls name.
 // The Wine link binds this definition to the item by address (wine_link local_data_bindings); the native link has
 // no such binding, so the 64-bit build constructs the item itself (the 32-bit code is the definition above)
 struct Item_004e65b8 {
-    Item_004e65b8() { new ((void*)DAT_004e65b8) Thing; }
+    Item_004e65b8() { ((Thing*)(void*)DAT_004e65b8)->FUN_0024dae0(); }   // (unb4) the constructor's body (no placement new without a header)
     ~Item_004e65b8() { ((Thing*)(void*)DAT_004e65b8)->~Thing(); }
 } globalThing;
 #endif

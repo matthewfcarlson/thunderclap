@@ -647,8 +647,9 @@ def cmd_link(a):
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         rc = nmac.cmd_link(argparse.Namespace(name_table=False, bindings=a.bindings, ld=a.ld, no_addr=a.no_addr,
-                                              allow_compile_failures=a.allow_compile_failures))
-    if rc == 2:     # (ren1) compile_gate: a TU failed to compile (the message is on stderr)
+                                              allow_compile_failures=a.allow_compile_failures,
+                                              allow_local_data=a.allow_local_data))
+    if rc == 2:     # (ren1) compile_gate: a TU failed to compile; (unb4) or a local data stand-in (stderr)
         return 2
     lk = json.load(open(os.path.join(out, "link-report.json")))
     crt = sum(n for g, n in lk["groups"].items() if g.startswith("native CRT table"))
@@ -680,6 +681,8 @@ def main(argv=None):
     lk.add_argument("--no-addr", action="store_true", help="no bindings by the address in the name (native_unbound.py)")
     lk.add_argument("--allow-compile-failures", action="store_true",
                     help="link although tree / data TUs failed to compile (native_mac.compile_gate)")
+    lk.add_argument("--allow-local-data", action="store_true",
+                    help="link although the objects define local data stand-ins (native_local_data.gate)")
     lk.add_argument("--bindings", default=os.path.join(ROOT, "build/native/bindings.json"),
                     help="the Wine build's binding map of the same tree (verifies the address bindings)")
     rt = sub.add_parser("retarget")

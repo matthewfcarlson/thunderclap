@@ -752,6 +752,18 @@ def cmd_link(a):
         defined |= d
         for s in u:
             refs[s] += 1
+    # (unb4) local data stand-ins: a source's own global where the original uses the game's item, which only the Wine
+    # link binds to the item (native_local_data.py); natively it is a separate variable, so the link refuses one
+    import native_local_data as nld
+    ldg = nld.gate(a.bindings, defined)
+    if ldg["refused"]:
+        print("native link: %d local data stand-in(s) the native objects define (the game's item is never written; "
+              "name the item in source, tools/native_local_data.py):" % len(ldg["refused"]), file=sys.stderr)
+        for r in ldg["refused"]:
+            print("  %s -> %s (%s B, %s)" % (r["symbol"], r["item"], r["size"], r["object"]), file=sys.stderr)
+        if not getattr(a, "allow_local_data", False):
+            print("native link refused (or --allow-local-data)", file=sys.stderr)
+            return 2
     # what the link's own assembly defines (the game's type descriptors) is not undefined
     rtti, n_td, td_names = type_descriptors(defined)
     defined |= td_names | set(RTTI_RUNTIME_NAMES)
@@ -827,7 +839,10 @@ def cmd_link(a):
     lk = {"objects": len(objs), "defined": len(defined), "undefined": len(undef),
           "references": sum(refs[s] for s in undef), "aliases": len(aliases),
           "duplicate definitions (strong, by nm)": sum(1 for s, n in dup.items() if n > 1),
-          "groups": dict(groups.most_common())}
+          "groups": dict(groups.most_common()),
+          "local data stand-ins (native_local_data.gate)": {"refused": [r["symbol"] for r in ldg["refused"]],
+                                                            "allowed": {r["symbol"]: r["why"] for r in ldg["allowed"]},
+                                                            "not defined natively": ldg["not defined natively"]}}
     dem_al = cp.undname(sorted(s for s in aliases if s.startswith("?")))
     lk["pointer variables bound to data items"], lk["pointer variables bound to narrow items (examples)"] = \
         data_pointer_mismatch(aliases, dem_al)
@@ -1076,6 +1091,8 @@ def main(argv=None):
     lk.add_argument("--no-addr", action="store_true", help="no bindings by the address in the name (native_unbound.py)")
     lk.add_argument("--allow-compile-failures", action="store_true",
                     help="link although tree / data TUs failed to compile (their definitions missing; compile_gate)")
+    lk.add_argument("--allow-local-data", action="store_true",
+                    help="link although the objects define local data stand-ins (native_local_data.gate)")
     lk.add_argument("--name-table", action="store_true",
                     help="also bind through the Wine build's binding map (x64-3's inventory; rejected as a link step, "
                          "for comparison only)")
