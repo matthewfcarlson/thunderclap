@@ -2,7 +2,7 @@
 
 **Goal: a native port.** Source we can build for the supported targets, SteamOS (x86-64 Linux), arm64 macOS and arm64 Android handhelds (`docs/native-android.md`), with quality-of-life improvements. Byte-matching is a tool for proving correctness cheaply, not the destination. A SHA-1-identical `default.xbe` is optional and off the critical path.
 
-Concrete task briefs are in [`docs/tasks/`](tasks/README.md) (mostly historical now). **Since the merge-once flip (2026-11-10, F = `e68debc9d`, [merge-once.md](merge-once.md))** the merged tree under `src/{game,engine,platform/xbox}` is the source of truth; `matches/` and `equivalent/` are frozen. Where the steps below say "goes to `matches/`", read "a `matches` block in its TU".
+Concrete task briefs are in [`docs/tasks/`](tasks/README.md) (mostly historical now). **Since the merge-once flip (2026-11-10, F = `e68debc9d`, [merge-once.md](merge-once.md))** the merged tree under `src/{game,engine,platform/xbox}` is the source of truth; `matches/` and `equivalent/` were frozen at F and removed on 2026-11-13 (merge-once step (d)). Where the steps below say "goes to `matches/`", read "a `matches` block in its TU".
 
 ## Why a source port, not a static recompiler
 
@@ -37,9 +37,9 @@ Every game function gets compilable C++ at one of three levels:
 
 | Level | Meaning | How it's proven | Where it goes |
 |---|---|---|---|
-| **matched** | byte-identical codegen, references verified | `compare.py` + `verify_relocs.py` | `matches/` |
-| **equivalent** | different bytes, same behaviour | differential execution against the original (see [task 09](tasks/09-equivalent-decomp.md)) | `equivalent/` |
-| **draft** | compiles against shared headers, not yet proven | — | `equivalent/` with `// STATUS: draft` (none left: every function is proven) |
+| **matched** | byte-identical codegen, references verified | `compare.py` + `verify_relocs.py` | a `: matches` block in its TU (until the flip, `matches/`) |
+| **equivalent** | different bytes, same behaviour | differential execution against the original (see [task 09](tasks/09-equivalent-decomp.md)) | an `: equivalent` block (until the flip, `equivalent/`) |
+| **draft** | compiles against shared headers, not yet proven | — | (none left: every function is proven; drafts were `equivalent/` files with `// STATUS: draft`) |
 
 - Small functions: keep matching. It's cheap (under a cent each) and the proof is free.
 - Large functions: stop paying for byte-matches. The farm writes equivalent code and checks behaviour instead ([task 09](tasks/09-equivalent-decomp.md)). A later pass can still upgrade them to matched.

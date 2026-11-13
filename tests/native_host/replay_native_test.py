@@ -4,7 +4,8 @@ plan_hooks, src/platform/sdl/host/native_hooks.h) on arm64 macOS (docs/native-an
 
   build/venv/bin/python tests/native_host/replay_native_test.py [--out DIR]
 
-The real GameClock::Update (matches/0x00086450.cpp) goes through the tree's pipeline (the MS-ABI front end for
+The real GameClock::Update (matches/0x00086450.cpp as merge-once froze it: `git show e68debc9d:...`, since step (d)
+removed matches/) goes through the tree's pipeline (the MS-ABI front end for
 aarch64-pc-windows-msvc, native_mac.retarget, the backend), with a stand-in game world (tests/native_host/
 replay_native_world.cpp: the debug menu Update asks, the game's data items, a game loop calling Update). The link step
 is the image's: native_bind binds the CRT table and applies native_hooks.h's rows for 0x00086450 (the entry hook
@@ -96,7 +97,11 @@ def main():
     os.makedirs(out, exist_ok=True)
     if not os.path.exists(os.path.join(SDL, "lib/libSDL3.a")):
         sys.exit("no host SDL3 (tools/wine_sdl.py builds build/third_party/out/sdl-host)")
-    objs = [game_obj(os.path.join(ROOT, "matches/0x00086450.cpp"), out, "clock"),
+    clock = os.path.join(out, "0x00086450.cpp")      # (the frozen per-function source, F = e68debc9d)
+    with open(clock, "wb") as f:
+        f.write(subprocess.run(["git", "show", "e68debc9d:matches/0x00086450.cpp"], cwd=ROOT, capture_output=True,
+                               check=True).stdout)
+    objs = [game_obj(clock, out, "clock"),
             game_obj(os.path.join(ROOT, "tests/native_host/replay_native_world.cpp"), out, "world")]
     syms = nmac.nm_macho(objs)
     defined = set().union(*(d for d, _u in syms.values()))

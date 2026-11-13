@@ -27,8 +27,9 @@ import re
 import sys
 import tempfile
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
+sys.path.insert(0, os.path.join(ROOT, "tools", "legacy"))
 TOKEN = re.compile(r'//[^\n]*|/\*.*?\*/|"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'|[A-Za-z_][A-Za-z0-9_]*|.', re.S)
 
 
@@ -138,7 +139,7 @@ def apply_edits(text, edits):
 
 
 def main():
-    sys.exit("tools/rename_fields.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+    sys.exit("tools/legacy/rename_fields.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
              "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("files", nargs="*")

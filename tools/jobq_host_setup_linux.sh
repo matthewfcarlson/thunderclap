@@ -317,7 +317,7 @@ elif doit; then
   else say llvm "download FAILED ($LLVM_REL)"; FAIL=1; fi
 else say llvm "MISSING or not $LLVM_VER in ~/llvm (clang++, ld.lld, lld-link, llvm-nm, llvm-undname, lib/libclang.so)"; FAIL=1; fi
 
-# --- tracked sources: what jobs symlink from the host's checkout (matches/ equivalent/ src/ ...)
+# --- tracked sources: what jobs symlink from the host's checkout (src/ docs/ ...)
 if [ "$(realpath "$ROOT")" = "$(realpath -m "$HOST_DIR")" ]; then say sources "this checkout ($(git rev-parse --short HEAD 2>/dev/null || echo '?'))"
 else
   HEADC=$(git rev-parse --short HEAD 2>/dev/null || true)
@@ -326,7 +326,7 @@ else
   if [ -n "$HOSTC" ] && ! doit; then say sources "from $HOSTC (HEAD $HEADC)"
   elif doit; then
     mkdir -p "$HOST_DIR" &&
-      git archive HEAD matches equivalent include src tools config tests | tar -x -C "$HOST_DIR" &&
+      git archive HEAD include src tools config tests | tar -x -C "$HOST_DIR" &&
       echo "$HEADC" > "$HOST_DIR/.jq-setup-commit" && say sources "HEAD $HEADC into $HOST_DIR"
   else say sources "none in $HOST_DIR (--install copies git archive HEAD)"; FAIL=1; fi
 fi
@@ -395,12 +395,13 @@ done
 if [ -z "$DATA" ]; then say data ok
 else say data "missing:$DATA"; need_user "copy the game data: $0 --data SRC (SRC: a checkout root holding isos/extracted and build/functions.csv, rtti.json; local path or USER@HOST:PATH)"; fi
 
-# --- smoke test: one byte match (wibo + MSVC + venv) in the host's checkout
+# --- smoke test: one byte match (wibo + MSVC + venv) in the host's checkout (a tree TU and its first `matches` block)
 if [ -z "$DATA" ] && venv_ok && [ -x "$WIBO" ]; then
-  M=$(cd "$HOST_DIR" && ls matches/*.cpp 2>/dev/null | head -1 || true)
-  if [ -z "$M" ]; then say compare "skipped (no matches/ in $HOST_DIR)"
-  elif (cd "$HOST_DIR" && build/venv/bin/python tools/compare.py "$M" "$(basename "$M" .cpp)" 2>&1 | grep -q MATCH); then
-    say compare "ok ($(basename "$M" .cpp) MATCH)"
+  M=$(cd "$HOST_DIR" && grep -rlE '^// 0x[0-9a-f]{8} .*\): matches' src/game 2>/dev/null | head -1 || true)
+  A=$( [ -z "$M" ] || grep -m1 -oE '^// 0x[0-9a-f]{8} .*\): matches' "$HOST_DIR/$M" | cut -c4-13)
+  if [ -z "$M" ]; then say compare "skipped (no tree TU in $HOST_DIR)"
+  elif (cd "$HOST_DIR" && build/venv/bin/python tools/compare.py "$M" "$A" 2>&1 | grep -q MATCH); then
+    say compare "ok ($M $A MATCH)"
   else say compare "FAILED ($M)"; FAIL=1; fi
 fi
 

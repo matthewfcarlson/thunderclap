@@ -35,8 +35,9 @@ import os
 import re
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
+sys.path.insert(0, os.path.join(ROOT, "tools", "legacy"))
 import addr_names  # noqa: E402
 
 # fight::ParamValue* constructors that take the parameter's name (include/gen/fight.h, docs/consolidation-plan.md s.10)
@@ -124,7 +125,7 @@ def hierarchy_names(g, c):
 
 
 def main():
-    sys.exit("tools/param_fields.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+    sys.exit("tools/legacy/param_fields.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
              "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=os.path.join(ROOT, "include/gen/evidence-names.json"))

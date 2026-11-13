@@ -9977,17 +9977,15 @@ def resolve_conventions(prog, lines, ours, resolved, addr, fsym):
 def _definition_conv(a, names):
     """(round 24, convdef) How the verified source of the function at `a` defines it: 'thiscall' (a member, `T::name(`),
     'fastcall' (a free `__fastcall`), 'free' (any other free function) or None (no source, or the definition is not found
-    under any of `names`). Read from the text of equivalent/0xADDR.cpp or matches/0xADDR.cpp: the Wine build compiles that
-    definition with that convention whatever register note a caller carries."""
-    for d in ("equivalent", "matches"):
-        path = os.path.join(ROOT, d, "0x%08x.cpp" % a)
-        if os.path.exists(path):
-            break
-    else:
-        return None
+    under any of `names`). Read from the function's block in the tree (tools/tree_index.py; before merge-once (d) from
+    equivalent/0xADDR.cpp or matches/0xADDR.cpp): the Wine build compiles that definition with that convention whatever
+    register note a caller carries."""
     try:
-        text = open(path, errors="replace").read()
-    except OSError:
+        import tree_index
+        text = tree_index.block_text(a)
+    except (OSError, ImportError):
+        return None
+    if text is None:
         return None
     text = re.sub(r"//[^\n]*", "", text)
     for nm in names:

@@ -36,14 +36,15 @@ ran to completion or branch coverage is under 25%; byte-identical code is exempt
 could not run any input to completion), `compile_error` or `no_function`. `level` is the highest level
 passed.
 
-`equivalent` says no difference was seen with *some* coverage. Promotion to `equivalent/` needs more, and
+`equivalent` says no difference was seen with *some* coverage. Promotion to an `equivalent` block (before the
+merge-once flip, a file in `equivalent/`; that directory was removed at merge-once step (d), 2026-11-13) needs more, and
 `promotable` says whether this run meets that bar: `equivalent`, no level-2 conflicts, at least 75% branch
 coverage, at least 50 completed inputs (run with `--inputs 3000`), and at most 10% of the completed count set
 aside as wild (below). When an `equivalent` run falls short, `promotable_note` says why and the text report
 prints it (`not promotable (thin evidence): branch coverage 21/46 is under 75%`). `status` keeps its meaning,
 so tools that parse it are unaffected.
 
-**Promotion is gated on both modes** (round 23). A source goes into `equivalent/` (or replaces one there) only when it is
+**Promotion is gated on both modes** (round 23). A source becomes an `equivalent` block (or replaces one) only when it is
 `promotable` in MSVC mode at 3,000 inputs *and* `equivalent` with `--wine` at 600 inputs (at least 50 completed):
 MSVC mode alone passed sources whose call declarations or float order the Wine build gets wrong. `tools/wine_gate.py`
 judges; every installer applies it (`build/agent-tools/promote-remote.sh` through `tools/promote_dispatch.py`,
@@ -883,7 +884,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     differences. Cases `0x000a0940_native_retarg`, `_off`, `_wrong`.
   - `convdef`: a callee our source declares as a free cdecl/stdcall function with a register note (`// equiv-conv:
     FUN_0008ef00 ecx`) whose own verified source defines it as a member (`T::name(`) or `__fastcall`
-    (`_definition_conv`, read from equivalent/ or matches/0xADDR.cpp) is a level-2 issue `conv_note_vs_definition`:
+    (`_definition_conv`, read from the callee's tree block, tools/tree_index.py; before merge-once (d) from
+    equivalent/ or matches/0xADDR.cpp) is a level-2 issue `conv_note_vs_definition`:
     the note describes the original's call, but the Wine build compiles both sides from their declarations, so the call
     pushes the word the definition reads from ecx (wine_conv_check check 9). The two sources it flagged, 0x000e07c0
     (-> Stream::FUN_0008ef00) and 0x00334c70 (-> Owner_334b00::FUN_00334b00), now call the member under clang and keep

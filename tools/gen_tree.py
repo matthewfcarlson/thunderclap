@@ -1739,7 +1739,7 @@ OWNERS_INCLUDE = re.compile(r'^[ \t]*#\s*include\s*[<"]gen/owners\.h[>"][ \t]*\r
 def gen_isolates(b):
     """True if a wrapped source on include/gen/ goes to its own TU: its definition (`void ns::X::f()`) can't go
     inside a fn_<addr> namespace. (x64-10) A source whose only include/gen/ header is owners.h (namespace `owners`,
-    tools/owner_classes.py) and whose definition is not a member of an include/gen/ name only calls through
+    tools/legacy/owner_classes.py) and whose definition is not a member of an include/gen/ name only calls through
     `owners::X`: it stays wrapped, the header included at the top of the TU (it declares nothing but the namespace
     `owners`, so the TU's other names are unaffected). Off-switch HULK_GEN_TREE_OFF=ownwrap."""
     if not any(h.startswith("gen/") for h in b.gen_includes):

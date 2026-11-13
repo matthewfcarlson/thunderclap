@@ -78,11 +78,12 @@ import sys
 import tempfile
 from concurrent.futures import ThreadPoolExecutor
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # tools/ (this is tools/legacy/)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import cxx_items  # noqa: E402
 import gen_headers as gh  # noqa: E402
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 LOG = os.path.join(ROOT, "build/migrate-gen.log")
 ORIG = os.path.join(ROOT, "build/gen-orig")
 CHANGED = os.path.join(ROOT, "build/gen-migrated.txt")
@@ -550,7 +551,7 @@ def rn_apply(rel, addr, text, items, hdb, taken, work):
 
 
 def main(argv=None):
-    sys.exit("tools/migrate_gen.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+    sys.exit("tools/legacy/migrate_gen.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
              "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--apply", action="store_true", help="rewrite the sources that still verify")

@@ -22,8 +22,9 @@ class LibName(unittest.TestCase):
         self.assertIn(["libname_address_mismatch", "___ceil_default"], [list(i) for i in r["issues"]])
 
     def test_right_library_names_pass(self):
+        import tree_index
         for a in (0x0033b7d0, 0x0033b7a0):
-            r = self.v.check(os.path.join(ROOT, "matches/0x%08x.cpp" % a), a)
+            r = self.v.check(tree_index.find(a)[0], a)        # (its tree TU: merge-once (d))
             self.assertEqual(r["status"], "ok", r)
 
     def test_plain_names(self):

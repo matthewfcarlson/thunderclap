@@ -140,12 +140,12 @@ elif doit; then
     rsync -a --delete -e "ssh -o BatchMode=yes" "$WHISKY/Wine" "$WHISKY/WhiskyWineVersion.plist" "$DEST:wine-whisky/" && say wine "copied (~/wine-whisky, 850 MB)"
 else say wine MISSING; FAIL=1; fi
 
-# --- tracked sources (what jobs symlink from the host's checkout: matches/ equivalent/ ...; src/ ships in every job's base tree since bink2)
+# --- tracked sources (what jobs symlink from the host's checkout: docs/ farm/ ...; src/ ships in every job's base tree since bink2)
 HEADC=$(git rev-parse --short HEAD)
 HOSTC=$(r "cat ~/$HOME_DIR/.jq-setup-commit 2>/dev/null")
 if [ -n "$HOSTC" ] && [ "$CHECK" = 1 ]; then say sources "from $HOSTC (HEAD $HEADC)"
 elif doit; then
-  git archive HEAD matches equivalent include src tools config tests | r "mkdir -p ~/$HOME_DIR && tar -x -C ~/$HOME_DIR && echo $HEADC > ~/$HOME_DIR/.jq-setup-commit" &&
+  git archive HEAD include src tools config tests | r "mkdir -p ~/$HOME_DIR && tar -x -C ~/$HOME_DIR && echo $HEADC > ~/$HOME_DIR/.jq-setup-commit" &&
     say sources "HEAD $HEADC"
 else say sources "none (setup not run)"; fi
 
@@ -162,8 +162,10 @@ else
 fi
 
 # --- smoke test: one byte match (wibo + MSVC + Rosetta + venv), clang, Wine
+# (a tree TU and its first `matches` block: tools/compare.py takes a TU and an address)
 if [ -z "$DATA" ] && venv_ok 2>/dev/null; then
-  M=$(git ls-files matches | head -1); A=$(basename "$M" .cpp)
+  M=$(git grep -l -E '^// 0x[0-9a-f]{8} .*\): matches' -- src/game | head -1)
+  A=$(grep -m1 -oE '^// 0x[0-9a-f]{8} .*\): matches' "$M" | cut -c4-13)
   if ! r "test -f ~/$HOME_DIR/$M"; then say compare "skipped (the host's sources are not HEAD's)"
   elif r "cd ~/$HOME_DIR && build/venv/bin/python tools/compare.py $M $A 2>&1 | grep -q MATCH"; then say compare "ok ($A MATCH)"
   else say compare "FAILED ($M)"; FAIL=1; fi

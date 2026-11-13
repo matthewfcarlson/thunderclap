@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Full native builds as jobs of the shared queue (tools/jobq.py): MSVC tree build, clang probe, native link, then
+"""Full native builds as jobs of the shared queue (tools/jobq.py): MSVC tree verification, clang probe, native link, then
 optionally a headless replay, on mac2/mac1 instead of this laptop (docs/compute.md "Wine builds").
 
   # submit (prints the job id). Sources: HEAD + this checkout's dirty files, or --workspace DIR (only the files that
@@ -19,10 +19,10 @@ host the only candidate for --affinity-wait seconds (default 900), then the pref
 to it. The replay stage runs on 1 slot: wine_build_run.py tells the queue (RUNDIR/.jq-slots) and drops the lineage lock.
 
 Where things live (tools/wine_build_run.py is the host side):
-  * the job's base tree is `git archive HEAD` of matches equivalent include src tools config (jobq caches it per host,
+  * the job's base tree is `git archive HEAD` of include src tools config (jobq caches it per host,
     keyed by the content hash of those trees); the overlay is what differs from HEAD (--workspace) or is dirty (checkout);
     files missing from the workspace are deleted on the host. The host copies the run's sources by content hash into its
-    lineage workspace ~/hulk-jobs/nb/ws/LINEAGE, so build_tree --resume, the clang probe snapshot and wine_link
+    lineage workspace ~/hulk-jobs/nb/ws/LINEAGE, so the tree's object and check caches, the clang probe snapshot and wine_link
     --reuse-map keep working between jobs of one lineage (default lineage NAME-WORKSPACEDIR);
   * local-only inputs (build/functions.csv, rtti.json, xbsymbols.txt, port/platform_calls.json, the data TUs
     build/data/src, the prebuilt third-party libraries under build/third_party/out) are rsynced to
@@ -405,7 +405,7 @@ def cmd_submit(a):
     if a.sdl_src:
         os.environ["HULK_NB_SDL_SRC"] = a.sdl_src
     ws = os.path.abspath(a.workspace or ROOT)
-    for d in ("tools", "matches", "include"):
+    for d in ("tools", "src", "include"):
         if not os.path.isdir(os.path.join(ws, d)):
             sys.exit("%s is not a workspace (no %s/)" % (ws, d))
     stages = a.stages.split(",") if a.stages else ["build", "probe", "link"] + (["replay"] if a.replay else [])
@@ -661,7 +661,8 @@ def main():
                    help="build with generated inputs (data TUs, hulk_sdl.lib, pddi objects) that do not fit the job's sources "
                    "(tools/input_guard.py; default: rebuild them when their sources are clean, else refuse)")
     s.add_argument("--state", default="auto", type=state_arg, metavar="auto|fresh|resume|seed:JOB",
-                   help="build_tree --resume policy; seed:JOB starts from control JOB's final state (docs/compute.md)")
+                   help="the lineage's state policy (the committed tree has no fallback state, so mostly the map's); "
+                        "seed:JOB pins a proof to control JOB's host and toolchain (docs/compute.md)")
     s.add_argument("--map", choices=["auto", "full", "reuse"], default="auto", help="wine_link --reuse-map policy")
     s.add_argument("--replay", help="play3 or a .hrp path: headless replay of the built image on the host")
     s.add_argument("--frames", type=int, help="stop the replay once a checkpoint at this frame is written")
@@ -671,7 +672,7 @@ def main():
     s.add_argument("--fetch", nargs="*", choices=["image"], help="also bring the image and DLLs back")
     s.add_argument("--slots", type=int, help="cores for the build stages (default 8 on a remote, 2 local); the replay gives all but one back")
     s.add_argument("--slots-low", type=int, default=2, metavar="N",
-                   help="the reservation once build_tree's compile runs warm (generate/verify are single-threaded; 0: keep --slots)")
+                   help="(unused since merge-once (d): it lowered the reservation during build_tree's rounds)")
     s.add_argument("--limit", type=int, default=7200, help="wall-clock seconds per attempt")
     s.add_argument("--attempts", type=int, default=2)
     s.add_argument("--prio", type=int, default=0)

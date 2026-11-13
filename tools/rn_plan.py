@@ -163,7 +163,7 @@ NV_STRUCT = re.compile(r"_nv_[0-9a-f]+$")
 
 
 def make_batches(out_dir, rmap_path, fit_path):
-    """Batch files for tools/migrate_gen.py --family rn, from the rename map and the layout fit."""
+    """Batch files for tools/legacy/migrate_gen.py --family rn, from the rename map and the layout fit."""
     import rn_transform
     rmap = json.load(open(rmap_path))["entries"]
     fit = {(e["source"], e["stub"]): e for e in json.load(open(fit_path))["entries"]}

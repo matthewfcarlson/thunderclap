@@ -16,7 +16,7 @@ build/venv/bin/python tools/build_tree.py --equiv 300   # also run equiv.py on 3
 build/venv/bin/python tools/build_tree.py --only src/game/global/CAction.cpp  # one TU, current tree
 build/venv/bin/python tools/seam_inventory.py    # docs/seams.md: what game/engine call in platform/xbox (~30 s)
 build/venv/bin/python tools/reconcile_stubs.py [--apply]   # clone names in matches/ + equivalent/ (re-verify what it changes)
-build/venv/bin/python tools/migrate_gen.py [--family gen|pin|ns] [--equivalent] [--apply]   # sources onto include/gen/, include/decls/
+build/venv/bin/python tools/legacy/migrate_gen.py [--family gen|pin|ns] [--equivalent] [--apply]   # sources onto include/gen/, include/decls/
 build/venv/bin/python tools/data_inventory.py && build/venv/bin/python tools/data_gen.py   # data inventory + data TUs (docs/data.md)
 build/venv/bin/python tools/migrate_data.py [--equivalent] [--apply]   # sources onto include/decls/data/ (docs/data.md)
 ```
@@ -326,7 +326,7 @@ generated headers ([headers.md](headers.md)). Next steps 1-4 of the previous pla
   `fight::ParamBool<CFoo>::vfunc_6`; it used to key it `<CFoo>::vfunc_6`), and `build_tree.mangle_prefixes` finds
   explicit specializations by `?vfunc_6@?$ParamBool@` / `??_G?$Closure1@` / `??1?$...`.
 
-**Sources (`tools/migrate_gen.py`).** Token-level, logged (`build/migrate-gen.log`), list in
+**Sources (`tools/legacy/migrate_gen.py`).** Token-level, logged (`build/migrate-gen.log`), list in
 `build/gen-migrated.txt`, originals in `build/gen-orig/`, every rewrite verified before it is kept (matches/:
 `compare.py` MATCH; equivalent/: `equiv.py --inputs 3000` EQUIVALENT, the unchanged source run under the same
 checker when it isn't). Rules and counts (9,159 sources: 8,308 matches/, 851 equivalent/):
@@ -453,7 +453,7 @@ destructor), using the header's slot names and `f_XX` fields and casting where y
 `#include "decls/address.h"` instead of declaring them, and name the object's type `World` / `Gfx` /
 `Singleton_4dd6ec` in your stub. For other `DAT_` data, `#include "decls/data/<layer>/<dir>.h"` (see
 [data.md](data.md#rules-for-new-sources)). Don't add other `#include`s or a `using namespace`. If the header lacks a
-field or the slot's signature disagrees, keep the stub (tools/migrate_gen.py can move it later).
+field or the slot's signature disagrees, keep the stub (tools/legacy/migrate_gen.py can move it later).
 
 **Rule for new sources** (in addition to the placeholder rule above): a clone keeps its donor's code but takes
 the target's own name: `FUN_<own address>` for free functions, the target's class from functions.csv for

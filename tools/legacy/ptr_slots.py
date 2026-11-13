@@ -33,8 +33,9 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # tools/ (this is tools/legacy/)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 EVIDENCE = os.path.join(ROOT, "include/gen/evidence-rn.json")
 WIDE = {"int": "hulk_intptr", "unsigned int": "hulk_uintptr", "unsigned": "hulk_uintptr",
         "hulk_intptr": "hulk_intptr", "hulk_uintptr": "hulk_uintptr"}
@@ -329,7 +330,7 @@ def check(a):
 
 
 def main():
-    sys.exit("tools/ptr_slots.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+    sys.exit("tools/legacy/ptr_slots.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
              "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)

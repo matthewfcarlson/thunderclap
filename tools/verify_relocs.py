@@ -559,6 +559,17 @@ def _job(path):
         return {"addr": os.path.basename(path)[:-4], "status": "error", "detail": repr(e)[:200]}
 
 
+def per_function_files(root, dirs=("matches", "equivalent")):
+    """The per-function sources under ROOT/matches and ROOT/equivalent, for the whole-set sweeps below. Merge-once (d)
+    removed those directories from the checkout: the sweeps run on an export of a commit that has them (--src-root
+    where offered), and the merged tree is checked with `tools/tree_tu.py verify . --relocs`."""
+    if not all(os.path.isdir(os.path.join(root, d)) for d in dirs):
+        sys.exit("%s has no %s: the per-function sources went with merge-once (d) (docs/merge-once.md); check the tree "
+                 "with tools/tree_tu.py verify . --relocs, or sweep an export of a commit that has them" % (
+                     root, " / ".join(d + "/" for d in dirs)))
+    return sorted(os.path.join(root, d, f) for d in dirs for f in os.listdir(os.path.join(root, d)) if f.endswith(".cpp"))
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("file", nargs="?")
@@ -582,8 +593,7 @@ def main():
     a = p.parse_args()
     if a.names:
         sr = os.path.abspath(a.src_root or ROOT)
-        files = sorted(os.path.join(sr, d, f) for d in ("matches", "equivalent")
-                       for f in os.listdir(os.path.join(sr, d)) if f.endswith(".cpp"))
+        files = per_function_files(sr)
         k, n = map(int, a.shard.split("/"))
         files = files[k::n]
         counts = Counter()
@@ -598,8 +608,7 @@ def main():
         return
     if a.addrlits:
         sr = os.path.abspath(a.src_root or ROOT)
-        files = sorted(os.path.join(sr, d, f) for d in ("matches", "equivalent")
-                       for f in os.listdir(os.path.join(sr, d)) if f.endswith(".cpp"))
+        files = per_function_files(sr)
         k, n = map(int, a.shard.split("/"))
         files = files[k::n]
         out, counts = {}, Counter()
@@ -615,8 +624,7 @@ def main():
         print("results:", dict(counts))
         return
     if a.literals:
-        files = sorted(os.path.join(ROOT, d, f) for d in ("matches", "equivalent")
-                       for f in os.listdir(os.path.join(ROOT, d)) if f.endswith(".cpp"))
+        files = per_function_files(ROOT)
         out, counts = {}, Counter()
         with Pool(a.jobs) as pool:
             for path, how, recs in pool.imap_unordered(literal_job, files, chunksize=8):
@@ -628,8 +636,7 @@ def main():
         print("results:", dict(counts))
         return
     if a.initializers:
-        files = sorted(os.path.join(ROOT, d, f) for d in ("matches", "equivalent")
-                       for f in os.listdir(os.path.join(ROOT, d)) if f.endswith(".cpp"))
+        files = per_function_files(ROOT)
         out, counts = {}, Counter()
         with Pool(a.jobs) as pool:
             for i, (path, how, recs) in enumerate(pool.imap_unordered(init_job, files, chunksize=8)):
@@ -646,7 +653,7 @@ def main():
         r = check(a.file, int(a.addr, 16)) if a.addr else _job(a.file)
         print(json.dumps(r) if a.json else json.dumps(r, indent=1))
         return
-    files = sorted(os.path.join(ROOT, "matches", f) for f in os.listdir(os.path.join(ROOT, "matches")))
+    files = per_function_files(ROOT, ("matches",))
     if a.only:
         want = {l.strip() for l in open(a.only) if l.strip()}
         files = [f for f in files if os.path.basename(f)[:-4] in want]

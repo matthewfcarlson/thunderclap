@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """How the sources use the game's data items, for pointer-sized data (docs/native-mac.md section 10, docs/data.md).
 
-  build/venv/bin/python tools/data_ptrs.py scan [FILE...] --out ACC.jsonl     # every access to a DAT_<addr> item
+  build/venv/bin/python tools/data_ptrs.py scan [FILE...] --out ACC.jsonl     # every access to a DAT_<addr> item (default: the tree TUs)
   build/venv/bin/python tools/data_ptrs.py evidence ACC.jsonl                 # -> config/data-ptrs.json
   build/venv/bin/python tools/data_ptrs.py lint ACC.jsonl [--json OUT]        # code that will break on 64-bit
 
@@ -285,7 +285,12 @@ def scan_file(path):
 
 def cmd_scan(a):
     files = []
-    for f in a.files or ["matches", "equivalent"]:
+    if not a.files:
+        # (merge-once (d)) the tree TUs; config/data-ptrs.json's evidence (its `sources`) came from the per-function
+        # sources matches/ and equivalent/, which went with (d)
+        import tree_index
+        a.files = tree_index.tus(ROOT)
+    for f in a.files:
         if f.startswith("@"):
             files += [x.strip() for x in open(f[1:]) if x.strip()]
         elif os.path.isdir(f):

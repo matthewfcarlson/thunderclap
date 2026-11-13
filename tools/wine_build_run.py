@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
-"""Host side of tools/wine_build_job.py: a full native build (MSVC tree build, clang probe, native link) and an optional
+"""Host side of tools/wine_build_job.py: a full native build (MSVC tree verification, clang probe, native link) and an optional
 replay, as one queue job on any host (python 3.9 compatible, stdlib only). It runs inside the job's run directory (jobq: a
 clone of the base tree, `git archive HEAD` of SRC_DIRS, plus the submitter's overlay) with the spec in nbrun/spec.json.
 
 The run directory is thrown away when the job ends. What survives is a per-host lineage workspace,
 ~/hulk-jobs/nb/ws/LINEAGE, so a one-file change does not rebuild everything:
   * sources (SRC_DIRS) are synced into it by content hash (.nb/manifest.json): nothing depends on mtimes;
-  * build/tree (build_tree's state and merged tree), build/clang-probe/snap and build/native (binding map, link) stay;
+  * build/tree (the committed tree as `tree_tu.py materialize` lays it out, with its check records), build/clang-probe/snap
+    and build/native (binding map, link) stay;
   * the content-keyed object caches are per host and shared by all lineages (NB/cache; the checkout's own build/ on
     the laptop);
   * the toolchain is stamped (.nb/toolchain.json: clang, lld-link, wibo, cl.exe, python); a different stamp drops
-    all derived state, and decide() says when the build_tree state and the binding map may be reused.
+    all derived state, and decide() says when the binding map may be reused.
 Local-only inputs (the extracted disc, build/functions.csv, rtti.json, the data TUs, the prebuilt third-party
 libraries) are put on each host by `wine_build_job.py sync` (NB/inputs-STAMP, immutable, named by content hash) and linked in.
 
@@ -20,12 +21,14 @@ list names callees by address through it; the link then reuses it.
 
 Outputs (fetched by the queue): nb-out/{summary.json,*.log,link-report.json,unbound.txt,image.sha256,ckpt.txt,
 trace.txt,result.json,x87_keep.txt,tree-state.json,sources.json.gz} and, when the spec asks for it, the image and its DLLs
-in nb-out/image/. tree-state.json (build_tree's final fallback state) and sources.json.gz (the run's sources by content
-hash) are what a proof seeded from this build (`--state seed:JOB`, seed_decision()) starts from and checks against.
+in nb-out/image/. tree-state.json (materialize's state, empty: the committed tree has no fallbacks) and sources.json.gz
+(the run's sources by content hash) are what a proof seeded from this build (`--state seed:JOB`, tree_seed_decision())
+takes.
 Before the replay (one Wine process) the job writes 1 to RUNDIR/.jq-slots so the queue gives its other slots back, and
-releases the lineage lock (the replay runs on a copy of the image in the run directory). (build2) Earlier, build_tree
-lowers the reservation to spec `slots_low` (default 2; 0 keeps it) once a round's compile ran warm (--slots-file):
-the rest of a build is mostly single-threaded; its compiles and the later stages then use the host's idle cores.
+releases the lineage lock (the replay runs on a copy of the image in the run directory).
+The source is the committed tree (src/{game,engine,platform/xbox}, src/link-order.txt). Since merge-once (d)
+(2026-11-13) there is no other: build_tree's fallback rounds over matches/ and equivalent/ (`HULK_TREE_SOURCE=0`) went
+with those directories; a build of a commit before the flip needs a checkout of that commit's tools.
 Exit status: 0 all requested stages done, 3 inputs stale/missing, 4 a build stage failed, 5 the replay failed.
 """
 import atexit
@@ -38,7 +41,8 @@ import subprocess
 import sys
 import time
 
-SRC_DIRS = ["matches", "equivalent", "include", "src", "tools", "config"]
+SRC_DIRS = ["include", "src", "tools", "config"]
+TREE_TU_DIRS = ("src/game/", "src/engine/", "src/platform/xbox/")
 INPUT_FILES = ["build/functions.csv", "build/rtti.json", "build/xbsymbols.txt", "build/port/platform_calls.json"]
 TP = "build/third_party/out/"
 INPUT_DIRS = ["build/data/src", TP + "pddi-win32/obj", TP + "win32/lib", TP + "sdl-backends/win32", TP + "sdl-win32",
@@ -260,13 +264,13 @@ def is_tree_input(rel, watched, rec):
 
 
 def decide(spec, built, mapped, new, lin):
-    """(resume the build_tree state?, reuse the binding map?, reasons).
+    """(resume?, reuse the binding map?, reasons).
 
-    The state (build_tree --resume) keeps the fallbacks (wrapped/isolated functions) an earlier build found; a resumed
-    build is verified like a fresh one but can keep a fallback a fresh build would not need, so it is only taken when,
-    since the last good build, only function sources (matches/ equivalent/) and files the tree build does not read
-    (src/, the tools outside build_tree's imports) changed. The binding map (wine_link --reuse-map) is only reused
-    when, since it was made, sources were modified but none added or removed, and nothing under include/ config/ or in
+    `resume`: since the last good build only tree TUs and files the tree verification does not read (the tools outside
+    build_tree's imports, which compile and check the TUs) changed; otherwise (a header, config/, a checker tool) the
+    map is made again. (Before merge-once (d) this also decided build_tree --resume over matches/ and equivalent/; the
+    committed tree has no fallback state.) The binding map (wine_link --reuse-map) is only reused
+    when, since it was made, tree TUs were modified but none added or removed, and nothing under include/ config/ or in
     wine_link's imports changed; `auto` then returns reuse = "key": the tree is built first and map_key_reuse() decides
     by the map key (wine_link.map_key: the symbol names each function's bindings depend on), so a source that changes a
     mangled name (a return type, `extern "C"`) is mapped again."""
@@ -277,13 +281,13 @@ def decide(spec, built, mapped, new, lin):
     def classify(old, watched, rec=None):
         ch = diff_manifests(old, new)
         n = {k: len(v) for k, v in ch.items()}
-        shape = [r for r in ch["added"] + ch["removed"] if r.startswith(("matches/", "equivalent/"))]
+        shape = [r for r in ch["added"] + ch["removed"] if r.startswith(TREE_TU_DIRS)]
         core = [r for k in ("added", "modified", "removed") for r in ch[k] if is_tree_input(r, watched, rec)]
         return n, shape, core
     st, mp, why = spec.get("state", "auto"), spec.get("map", "auto"), {}
     have_tree = built is not None and os.path.exists(os.path.join(lin, "build/tree/state.json"))
     if st == "seed":
-        resume = False      # (the lineage's own state is not used; main() decides the seed with seed_decision())
+        resume = False      # (the lineage's own state is not used; main() decides the seed with tree_seed_decision())
         why["state"] = "seed requested"
     elif st == "fresh" or not have_tree:
         resume = False
@@ -301,55 +305,16 @@ def decide(spec, built, mapped, new, lin):
     if mp == "full" or not have_map or not resume:
         reuse = False
         why["map"] = ("full map requested" if mp == "full" else "no earlier map in this lineage" if not have_map
-                      else "full map: the build_tree state started fresh or seeded")
+                      else "full map: the tree's inputs changed, or the build started fresh or seeded")
     elif mp == "reuse":
         reuse = True
         why["map"] = "reuse requested"
     else:
         n, shape, core = classify(mapped, map_files)
         reuse = "key" if not core and not shape else False
-        why["map"] = ("map key decides: %s since the map, no function source added or removed" % n) if reuse else \
-            "full map: %d function sources added/removed, %d map inputs changed (%s)" % (len(shape), len(core), ", ".join(core[:3]))
+        why["map"] = ("map key decides: %s since the map, no tree TU added or removed" % n) if reuse else \
+            "full map: %d tree TUs added/removed, %d map inputs changed (%s)" % (len(shape), len(core), ", ".join(core[:3]))
     return resume, reuse, why
-
-
-def seed_decision(spec, run, new, lin, tc):
-    """--state seed:JOB (a proof seeded from its control's final build_tree state): (seed state path or None, changed
-    function addresses, reason). The seed is taken only when the control's sources (its nb-out/sources.json.gz)
-    differ from this run's in function sources alone (matches/ equivalent/ 0xADDR.cpp, added, modified or removed) and
-    files the tree build does not read (src/, tools outside build_tree's imports), on the same toolchain; anything
-    under include/ or config/, a tree-build tool, or a non-function file in matches/ equivalent/ means a fresh build.
-    build_tree drops the seed's fallbacks in the changed functions' objects (build_tree.seed_state)."""
-    import gzip
-    import re
-    sd = spec.get("seed") or {}
-    stp, srcp = os.path.join(run, "nbrun/seed-state.json"), os.path.join(run, "nbrun/seed-sources.json.gz")
-    if not (os.path.exists(stp) and os.path.exists(srcp)):
-        return None, [], "fresh: the seed's state or source list did not travel"
-    if sd.get("toolchain") != tc:
-        return None, [], "fresh: control %s was built with another toolchain" % sd.get("job")
-    with gzip.open(srcp, "rt") as f:
-        old = json.load(f)
-    ch = diff_manifests(old, new)
-    # (build3) the control's recorded inputs (nb-out/tree-inputs.json, if it travelled) name the tools its build
-    # loaded; a control built before that was recorded falls back to the static import closure
-    rec = jload(os.path.join(run, "nbrun/seed-inputs.json"))
-    tree_files = tree_input_files(rec, os.path.join(lin, "tools"))
-    fn = re.compile(r"^(?:matches|equivalent)/0x([0-9a-f]{8})\.cpp$")
-    core, addrs = [], set()
-    for k in ("added", "modified", "removed"):
-        for r in ch[k]:
-            m = fn.match(r)
-            if m:
-                addrs.add(m.group(1))
-            elif r.startswith(("matches/", "equivalent/")) or is_tree_input(r, tree_files, rec):
-                core.append(r)
-    if core:
-        return None, [], "fresh: %d inputs of the tree build differ from control %s's (%s; %s)" % (
-            len(core), sd.get("job"), ", ".join(sorted(core)[:3]),
-            "recorded inputs" if rec and rec.get("tools") else "static import closure")
-    return stp, sorted(addrs), "seed: control %s's state, %d function sources differ (%s)" % (
-        sd.get("job"), len(addrs), {k: len(v) for k, v in ch.items()})
 
 
 def tree_seed_decision(spec, run, tc):
@@ -603,23 +568,27 @@ def main():
     jobs = str(spec.get("jobs", 4))
     resume, reuse, why = decide(spec, jload(os.path.join(lin, ".nb/built.json")), jload(os.path.join(lin, ".nb/mapped.json")),
                                 manifest, lin)
-    seed, seed_changed = None, []
-    # (merge-once flip, build6) the committed tree (src/{game,engine,platform/xbox}, src/link-order.txt) is the default
-    # source; HULK_TREE_SOURCE=0, or a checkout from before the flip (no src/link-order.txt), runs build_tree's rounds
-    # over matches/ and equivalent/
-    tree_source = env.get("HULK_TREE_SOURCE", "1") != "0" and os.path.exists(os.path.join(lin, "src", "link-order.txt"))
+    seed = None
+    # (merge-once flip, build6) the committed tree (src/{game,engine,platform/xbox}, src/link-order.txt) is the source.
+    # (merge-once (d)) It is the only one: build_tree's rounds over matches/ and equivalent/ (HULK_TREE_SOURCE=0, or a
+    # checkout from before the flip) went with those directories
+    tree_source = os.path.exists(os.path.join(lin, "src", "link-order.txt"))
     if spec.get("state") == "seed" and tree_source:
         # (x64t3) a tree-source build keeps no fallback state (materialize's state.json is empty), so the seed carries
         # nothing that a source change could invalidate: it is taken when the control's state travelled and the
         # toolchain is the same (the host was checked at submit)
-        seed, seed_changed, why["state"] = tree_seed_decision(spec, run, tc)
-    elif spec.get("state") == "seed":
-        seed, seed_changed, why["state"] = seed_decision(spec, run, manifest, lin, tc)
+        seed, _changed, why["state"] = tree_seed_decision(spec, run, tc)
     summ["decision"] = {"resume_state": resume, "reuse_map": reuse, "seed": (spec.get("seed") or {}).get("job") if seed else None,
                         "why": why}
     log("decision: %s" % json.dumps(summ["decision"]))
     ok = True
-    if "build" in stages and tree_source:
+    if "build" in stages and (env.get("HULK_TREE_SOURCE", "1") == "0" or not tree_source):
+        log("build: refused: %s; the build_tree path over matches/ and equivalent/ was retired with them (merge-once (d), "
+            "docs/merge-once.md)" % ("HULK_TREE_SOURCE=0" if tree_source else "no src/link-order.txt (a checkout from "
+                                     "before the merge-once flip)"))
+        summ["stages"]["build"] = 4
+        ok = False
+    elif "build" in stages:
         # (merge-once, docs/merge-once.md) the committed tree is the source: no build_tree rounds, one verification pass
         # over its TUs (tools/tree_tu.py materialize: compiles what the object cache lacks) into build/tree
         argv = [py, "tools/tree_tu.py", "materialize", "--out", os.path.join(lin, "build/tree"), "--jobs", jobs]
@@ -631,24 +600,6 @@ def main():
             jsave(os.path.join(lin, ".nb/built.json"), manifest)
             # (x64t3) the tree build's state too (materialize's: no fallbacks), so a tree-mode control can seed a proof
             # (`--state seed:CONTROL`: same host and toolchain checked at submit; materialize has nothing to drop)
-            save_tree_state(lin, out)
-        else:
-            ok = False
-    elif "build" in stages:
-        if not resume:
-            shutil.rmtree(os.path.join(lin, "build/tree"), ignore_errors=True)
-        argv = [py, "tools/build_tree.py", "--jobs", jobs, "--rounds", "16", "--regression-rounds", "4"] + (["--resume"] if resume else [])
-        low = int(spec.get("slots_low", 2))
-        if 0 < low < int(jobs):
-            argv += ["--slots-file", slots_file(run), "--slots-low", str(low)]
-        if seed:
-            with open(os.path.join(run, "nbrun/seed-changed.txt"), "w") as f:
-                f.write("".join("0x%s\n" % x for x in seed_changed))
-            argv += ["--seed", seed, "--seed-changed", os.path.join(run, "nbrun/seed-changed.txt")]
-        rc, wall = stage("build", argv, env, lin, out)
-        summ["wall"]["build"], summ["stages"]["build"] = wall, rc
-        if rc == 0 and os.path.exists(os.path.join(lin, "build/tree/report.json")):
-            jsave(os.path.join(lin, ".nb/built.json"), manifest)
             save_tree_state(lin, out)
         else:
             ok = False

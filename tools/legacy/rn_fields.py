@@ -34,6 +34,7 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # tools/ (this is tools/legacy/)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import rn_layout  # noqa: E402
 
@@ -264,7 +265,7 @@ def check(before, after, may_grow=()):
 
 
 def main(argv=None):
-    sys.exit("tools/rn_fields.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+    sys.exit("tools/legacy/rn_fields.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
              "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--apply", action="store_true")

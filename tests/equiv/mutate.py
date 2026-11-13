@@ -299,8 +299,14 @@ def mutants(src, rng):
 def job(args):
     addr, ops_seed = args
     equiv = __import__(os.environ.get("EQUIV_MODULE", "equiv"))
-    src_path = os.path.join(ROOT, "matches", "0x%08x.cpp" % addr)
-    src = open(src_path).read()
+    # (merge-once (d)) the function's source is its TU's shared part and its block (tools/tree_index.source_text),
+    # checked and mutated as a source of its own, as matches/0xADDR.cpp was
+    import tree_index
+    src = tree_index.source_text(addr)
+    os.makedirs(OUT_DIR, exist_ok=True)
+    src_path = os.path.join(OUT_DIR, "0x%08x_source.cpp" % addr)
+    with open(src_path, "w") as f:
+        f.write(src)
     results = []
     truth = equiv.verify(src_path, addr, max_level=2)
     if truth["status"] in ("compile_error", "no_function"):
@@ -308,6 +314,13 @@ def job(args):
     mapping = {n: int(v["addr"], 16) for n, v in truth["level2"]["mapping"].items() if v["addr"]}
     rng = random.Random(ops_seed)
     cands = mutants(src, rng)
+    # (only mutants of the function's block: the TU's shared part holds the other functions' declarations too)
+    at = src.find("// (block) ")
+    if at > 0:
+        def first_diff(m):
+            n = min(len(m), len(src))
+            return next((i for i in range(n) if m[i] != src[i]), n)
+        cands = {op: [m for m in ms if first_diff(m) >= at] for op, ms in cands.items()}
     os.makedirs(OUT_DIR, exist_ok=True)
     for op in ("swap", "const", "dropcall", "field", "flipcmp", "commute"):
         pool = list(dict.fromkeys(cands.get(op, [])))

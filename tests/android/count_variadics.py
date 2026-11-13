@@ -8,7 +8,9 @@ their call sites by name), OUT_DIR/va_start_idiom.txt (functions that take the a
 parameter: the x86 `va_start` spelling `(char*)&fmt + 4` / `&c + 1` / `&c`, and some harmless uses of a parameter
 slot as scratch, to be classified by hand) and OUT_DIR/tls.txt.
 
-Source-level scan (matches/ and equivalent/ are one function per file). Names are the sources' own: a callee declared
+Source-level scan, one text per function: since merge-once (d) a function's tree block with its TU's shared part
+(tools/tree_index.source_text; a TU's hoisted declarations are seen once per block of that TU), before it
+matches/0xADDR.cpp and equivalent/0xADDR.cpp. Names are the sources' own: a callee declared
 under a local alias (`f3`, `Fn`) is counted under that alias, so per-function call counts use the FUN_<addr> name.
 """
 import collections
@@ -27,11 +29,11 @@ TLS = re.compile(r"\bthread_local\b|__declspec\s*\(\s*thread\s*\)|\b__thread\b|\
 
 
 def sources():
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import tree_index
     files = {}
-    for d in ("matches", "equivalent"):
-        for f in sorted(os.listdir(os.path.join(ROOT, d))):
-            if f.endswith(".cpp"):
-                files["%s/%s" % (d, f)] = COMMENT.sub(" ", open(os.path.join(ROOT, d, f), errors="replace").read())
+    for a, tu, kind in tree_index.blocks(root=ROOT):
+        files["%s/0x%08x" % (kind, a)] = COMMENT.sub(" ", tree_index.source_text(a, tu))
     return files
 
 
@@ -99,7 +101,7 @@ def main():
             callers = sum(1 for r2, t in files.items() if r2 != rel and re.search(r"\bFUN_%s\b" % a, t))
             f.write("%s %s%s callers_by_addr=%d | %s\n" % (rel, fn, " (...)" if variadic else "", callers, use))
     tls = []
-    for d in ("matches", "equivalent", "include", "src"):
+    for d in ("include", "src"):
         for dp, _, fs in os.walk(os.path.join(ROOT, d)):
             for fn in fs:
                 if fn.endswith((".cpp", ".h", ".c", ".hpp", ".s", ".S", ".inc")):

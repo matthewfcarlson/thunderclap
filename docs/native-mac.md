@@ -282,7 +282,7 @@ with virtual bases).
 ## 8. Pointer-sized virtual slots (x64-5 batch 1, 2026-10-25)
 
 ptr1 (wine-build.md item 9) left the pointers that travel through `int` parameters and returns of virtual methods:
-every override of a slot shares the signature, so no single source can widen it. `tools/ptr_slots.py` widens the slot
+every override of a slot shares the signature, so no single source can widen it. `tools/legacy/ptr_slots.py` widens the slot
 as a whole: from ptr1's per-source demands (`ptr1.py fix` without `--write`) it finds the include/gen/ slot
 (gen_headers' slot keys), writes the widened signature to include/gen/evidence-rn.json "sigs" (`hulk_intptr` /
 `hulk_uintptr` at the positions some override uses as a pointer, the return when some override returns one), and
@@ -293,9 +293,9 @@ mangled names unchanged.
 
 ```sh
 build/venv/bin/python tools/ptr1.py fix @files --out FIX.json                  # demands (no --write)
-build/venv/bin/python tools/ptr_slots.py plan FIX.json --out PLAN.json
-build/venv/bin/python tools/ptr_slots.py apply PLAN.json --write --list CHANGED.txt && build/venv/bin/python tools/gen_headers.py
-build/venv/bin/python tools/ptr_slots.py check @SOURCES --out CHECK.json       # before and after; compare errors
+build/venv/bin/python tools/legacy/ptr_slots.py plan FIX.json --out PLAN.json
+build/venv/bin/python tools/legacy/ptr_slots.py apply PLAN.json --write --list CHANGED.txt && build/venv/bin/python tools/gen_headers.py
+build/venv/bin/python tools/legacy/ptr_slots.py check @SOURCES --out CHECK.json       # before and after; compare errors
 ```
 
 Batch 1: 113 demanded slots, 109 widened (4 refused: the header's slot returns `void` / `void*`), 1,686 sources

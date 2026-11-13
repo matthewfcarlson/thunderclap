@@ -12,7 +12,7 @@ callee that already popped N bytes (fx15 found `D3DDevice_SetRenderState_FillMod
 tables of the native build (src/platform/sdl/xdk/imports.h: the 167 XDK/XAPI/Bink imports; library.h: the library
 code the tree calls by address) say each import's convention and argument bytes. Four checks:
 
-  1. sources:  every declaration of an import in matches/ and equivalent/ (by its table name or FUN_<addr>), parsed
+  1. sources:  every declaration of an import in the tree TUs (by its table name or FUN_<addr>), parsed
                for calling convention (default __cdecl; a declaration inside a class body is a thiscall member) and
                argument bytes (double / __int64 by value 8, everything else 4), against the table.
   2. bindings: every symbol build/native/bindings.json binds to an import's address, by the convention in its
@@ -54,8 +54,104 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 TABLES = [os.path.join(ROOT, "src/platform/sdl/xdk", f) for f in ("imports.h", "library.h")]
 XBE = os.path.join(ROOT, "isos/extracted/default.xbe")
 BINDINGS = os.path.join(ROOT, "build/native/bindings.json")
+SOURCE_KINDS = ("matches", "equivalent")
 CONV_WORDS = {"__cdecl": "CDECL", "__stdcall": "STDCALL", "__fastcall": "FASTCALL", "__thiscall": "THISCALL"}
 PROTO_RX = re.compile(r"^\s*[\w ]+?\s+HULK_(STDCALL|CDECL|FASTCALL)\s+hulk_(?:xdk|lib)_(\w+)\(([^)]*)\);", re.M)
+
+
+# ----------------------------------------------------------------------------------------------- the verified sources
+# (merge-once (d), 2026-11-13) The per-function sources (matches/0xADDR.cpp, equivalent/0xADDR.cpp) are gone: every
+# function is a block of a tree TU (tools/tree_index.py). A "root" is a block kind ('matches', 'equivalent') of the tree
+# at ROOT, or any other path: a directory of per-function files `0xADDR.cpp` (the old layout, e.g. an export of a
+# commit before (d)). A function
+# source is a label: `<TU path>@0xADDR` for a block (its text: the block, which holds its definition and its
+# `// equiv-*` notes; its declarations: the whole TU, where gen_tree hoisted them), else the file's path.
+_LABELS = {}        # label -> (TU path, address)
+
+
+def _tree_index():
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import tree_index
+    return tree_index
+
+
+def block_label(tu, a):
+    lab = "%s@0x%08x" % (os.path.relpath(tu, ROOT), a)
+    _LABELS[lab] = (tu, a)
+    return lab
+
+
+def function_sources(roots=SOURCE_KINDS):
+    """[(label, address)] of the verified functions under ROOTS (see above)."""
+    out = []
+    for root in roots:
+        if root in SOURCE_KINDS:
+            out += [(block_label(tu, a), a) for a, tu, _k in _tree_index().blocks((root,), ROOT)]
+            continue
+        rd = root if os.path.isabs(root) else os.path.join(ROOT, root)
+        for fn in sorted(os.listdir(rd)):
+            m = re.fullmatch(r"0x([0-9a-fA-F]{8})\.cpp", fn)
+            if m:
+                out.append((os.path.relpath(os.path.join(rd, fn), ROOT), int(m.group(1), 16)))
+    return out
+
+
+def source_units(roots=SOURCE_KINDS):
+    """The files declarations are read from: the tree TUs holding blocks of ROOTS' kinds, or a directory's files."""
+    out = []
+    for root in roots:
+        if root in SOURCE_KINDS:
+            out += sorted({tu for _a, tu, _k in _tree_index().blocks((root,), ROOT)} - set(out))
+            continue
+        rd = root if os.path.isabs(root) else os.path.join(ROOT, root)
+        out += [os.path.join(rd, fn) for fn in sorted(os.listdir(rd)) if fn.endswith(".cpp")]
+    return out
+
+
+def label_for(a):
+    """The label of the tree block at address A (None if the tree has none)."""
+    hit = _tree_index().find(a, ROOT)
+    return block_label(hit[0], a) if hit else None
+
+
+def _lab(path):
+    rel = os.path.relpath(path, ROOT) if os.path.isabs(path) else path
+    return _LABELS.get(rel)
+
+
+def read_source(path):
+    """The text of a function source (a block label: the block) or of a file."""
+    hit = _lab(path)
+    if hit:
+        t = _tree_index().block_text(hit[1], hit[0])
+        if t is None:
+            raise OSError("no block for %s" % path)
+        return t
+    return open(path if os.path.isabs(path) else os.path.join(ROOT, path), errors="replace").read()
+
+
+def read_decls(path):
+    """The text a function source's declarations are read from (a block label: its TU; a file: the file)."""
+    hit = _lab(path)
+    if hit:
+        return _tree_index().tu_text(hit[0])
+    return open(path if os.path.isabs(path) else os.path.join(ROOT, path), errors="replace").read()
+
+
+def read_unit(path):
+    """A block's TU shared part (hoisted declarations, structures) and the block; a file's text."""
+    hit = _lab(path)
+    if hit:
+        t = _tree_index().unit_text(hit[1], hit[0])
+        if t is None:
+            raise OSError("no block for %s" % path)
+        return t
+    return read_source(path)
+
+
+def _check_label(c):
+    """The function source of a tree report check: its block in the tree at ROOT (else the check's own `src`)."""
+    return label_for(int(c["addr"], 16)) or c.get("src")
 
 
 def parse_imports(paths=TABLES):
@@ -138,7 +234,7 @@ def in_class_body(src, pos):
 def source_decls(path, idents):
     """Declarations (not calls) of the identifiers in a file: [dict(ident, conv, nbytes, nargs, line, text, member)].
     A declaration is `<type tokens> [conv] IDENT(params)` followed by `;`, `{`, `throw` or `const`."""
-    src = strip_comments(open(path, errors="replace").read())
+    src = strip_comments(read_decls(path))
     res = []
     for m in re.finditer(r"\b(%s)\s*\(" % "|".join(re.escape(i) for i in idents), src):
         ident = m.group(1)
@@ -174,34 +270,29 @@ def source_decls(path, idents):
     return res
 
 
-def check_sources(imps, roots=("matches", "equivalent")):
+def check_sources(imps, roots=SOURCE_KINDS):
     """Check 1: (declarations found, [disagreements])."""
     idents = {}
     for n, d in imps.items():
         idents[n] = n
         idents["FUN_%08x" % d["addr"]] = n
     bad, seen = [], 0
-    for root in roots:
-        rd = root if os.path.isabs(root) else os.path.join(ROOT, root)
-        for fn in sorted(os.listdir(rd)):
-            if not fn.endswith(".cpp"):
-                continue
-            p = os.path.join(rd, fn)
-            txt = open(p, errors="replace").read()
-            if not any(i in txt for i in idents):
-                continue
-            for d in source_decls(p, idents):
-                seen += 1
-                imp = imps[idents[d["ident"]]]
-                why = []
-                if d["member"]:
-                    why.append("declared as a member (thiscall: this in ecx), table %s/%d" % (imp["conv"], imp["nbytes"]))
-                elif d["conv"] != imp["conv"]:
-                    why.append("convention %s, table %s" % (d["conv"], imp["conv"]))
-                if not d["member"] and d["nbytes"] is not None and d["nbytes"] != imp["nbytes"]:
-                    why.append("%d argument bytes, table %d" % (d["nbytes"], imp["nbytes"]))
-                if why:
-                    bad.append(dict(file=os.path.relpath(p, ROOT), import_=idents[d["ident"]], **d, why="; ".join(why)))
+    for p in source_units(roots):
+        txt = open(p, errors="replace").read()
+        if not any(i in txt for i in idents):
+            continue
+        for d in source_decls(p, idents):
+            seen += 1
+            imp = imps[idents[d["ident"]]]
+            why = []
+            if d["member"]:
+                why.append("declared as a member (thiscall: this in ecx), table %s/%d" % (imp["conv"], imp["nbytes"]))
+            elif d["conv"] != imp["conv"]:
+                why.append("convention %s, table %s" % (d["conv"], imp["conv"]))
+            if not d["member"] and d["nbytes"] is not None and d["nbytes"] != imp["nbytes"]:
+                why.append("%d argument bytes, table %d" % (d["nbytes"], imp["nbytes"]))
+            if why:
+                bad.append(dict(file=os.path.relpath(p, ROOT), import_=idents[d["ident"]], **d, why="; ".join(why)))
     return seen, bad
 
 
@@ -340,7 +431,7 @@ def tail_jump_functions(imps):
     return out
 
 
-def check_tails(imps, roots=("matches", "equivalent")):
+def check_tails(imps, roots=SOURCE_KINDS):
     """Check 4: ([disagreements], candidates)."""
     bad = []
     cands = tail_jump_functions(imps)
@@ -349,9 +440,15 @@ def check_tails(imps, roots=("matches", "equivalent")):
         if pops == 0:
             continue
         for root in roots:
-            src = os.path.join(ROOT, root, "0x%08x.cpp" % fa)
-            if not os.path.exists(src):
-                continue
+            if root in SOURCE_KINDS:
+                hit = _tree_index().find(fa, ROOT)
+                if not hit or hit[1] != root:
+                    continue
+                src = hit[0]            # (compare.py takes the tree TU and the address)
+            else:
+                src = os.path.join(ROOT, root, "0x%08x.cpp" % fa)
+                if not os.path.exists(src):
+                    continue
             r = subprocess.run([sys.executable, os.path.join(ROOT, "tools/compare.py"), src, "0x%08x" % fa],
                                capture_output=True, text=True, cwd=ROOT)
             m = re.match(r"(?:MATCH|DIFF)\s+(\S+)", (r.stdout.split("\n") or [""])[0])
@@ -385,7 +482,7 @@ def _struct_by_value_words(rel, a, l, l0):
     if regs != regs0 or len(l) >= len(l0) or l[:len(regs)] != l0[:len(regs)]:
         return False
     try:
-        txt = open(os.path.join(ROOT, rel), errors="replace").read()
+        txt = read_unit(rel)
     except OSError:
         return False
     m = re.search(r"//[ \t]*equiv-conv:[ \t]*\S*FUN_%08x[^\n]*\n[^\n(]*\(([^)]*)\)" % a, txt)
@@ -403,7 +500,7 @@ def _struct_by_value_words(rel, a, l, l0):
     return extra and len(l) + extra == len(l0)
 
 
-def check_register_orders(roots=("matches", "equivalent")):
+def check_register_orders(roots=SOURCE_KINDS):
     """Check 5: functions with a register calling convention (`// equiv-conv: FUN_0026be70 eax stack`: the
     parameters in declaration order and where the original passes each). equiv.py maps every declaration to the
     original's registers, so a caller may list the parameters in any order; natively they are all __cdecl and the
@@ -411,51 +508,42 @@ def check_register_orders(roots=("matches", "equivalent")):
     Returns (functions with a definition note, [disagreements])."""
     notes = collections.defaultdict(list)       # addr -> [(file, locs)]
     own = {}
-    for root in roots:
-        rd = os.path.join(ROOT, root)
-        for fn in sorted(os.listdir(rd)):
-            m = re.fullmatch(r"0x([0-9a-fA-F]{8})\.cpp", fn)
-            if not m:
+    sources = function_sources(roots)
+    for lab, me in sources:
+        txt = read_source(lab)
+        if "equiv-conv" not in txt:
+            continue
+        for name, locs in CONV_NOTE.findall(txt):
+            am = re.search(r"(?:FUN|thunk_FUN)_(00[0-9a-fA-F]{6})", name)
+            if not am and not re.fullmatch(r"(?:\w+::)*(?:target|run|vfunc_\d+|\w+_[0-9a-fA-F]{5,6})", name):
                 continue
-            txt = open(os.path.join(rd, fn), errors="replace").read()
-            if "equiv-conv" not in txt:
-                continue
-            for name, locs in CONV_NOTE.findall(txt):
-                am = re.search(r"(?:FUN|thunk_FUN)_(00[0-9a-fA-F]{6})", name)
-                if not am and not re.fullmatch(r"(?:\w+::)*(?:target|run|vfunc_\d+|\w+_[0-9a-fA-F]{5,6})", name):
-                    continue
-                # a note naming no address (`target`, `run`: the source's own function) is the file's own
-                a = int(am.group(1), 16) if am else int(m.group(1), 16)
-                locs = tuple(locs.split())
-                if a == int(m.group(1), 16):
-                    own[a] = ("%s/%s" % (root, fn), locs)
-                else:
-                    notes[a].append(("%s/%s" % (root, fn), locs))
+            # a note naming no address (`target`, `run`: the source's own function) is the file's own
+            a = int(am.group(1), 16) if am else me
+            locs = tuple(locs.split())
+            if a == me:
+                own[a] = (lab, locs)
+            else:
+                notes[a].append((lab, locs))
     bad = []
     # callers without a note: a source that calls FUN_<addr> of a register-convention function and doesn't say how
     # (equivalent/0x00219cc0 called 0x00219be0 `(owner)` where the original passes esi, edi and a stack word)
     noted = {(f, a) for a, lst in notes.items() for f, _l in lst}
-    for root in roots:
-        rd = os.path.join(ROOT, root)
-        for fn in sorted(os.listdir(rd)):
-            m = re.fullmatch(r"0x([0-9a-fA-F]{8})\.cpp", fn)
-            if not m:
+    for lab, me in sources:
+        txt = None
+        for a, (f0, l0) in own.items():
+            if a == me or (lab, a) in noted:
                 continue
-            txt = None
-            for a, (f0, l0) in own.items():
-                if a == int(m.group(1), 16) or ("%s/%s" % (root, fn), a) in noted:
-                    continue
-                if txt is None:
-                    txt = strip_comments(open(os.path.join(rd, fn), errors="replace").read())
-                if re.search(r"\b(?:thunk_)?FUN_%08x\s*\(" % a, txt) and all(l == "stack" for l in l0) is False:
-                    # a __fastcall definition (note `ecx [edx] stack...`) that the caller declares __fastcall too:
-                    # natively the same registers (equivalent/0x00271b70 -> 0x002719a0)
-                    if l0[:2] in (("ecx",), ("ecx", "edx")) or (l0[:2] == ("ecx", "edx") and all(x == "stack" for x in l0[2:])):
-                        if _declared_fastcall(os.path.join(ROOT, f0), a) and _declared_fastcall(os.path.join(rd, fn), a):
-                            continue
-                    bad.append(dict(addr="0x%08x" % a, file="%s/%s" % (root, fn), conv="(no note)", definition=f0,
-                                    definition_conv=" ".join(l0),
-                                    why="calls a register-convention function without an equiv-conv note"))
+            if txt is None:
+                txt = strip_comments(read_source(lab))
+            if re.search(r"\b(?:thunk_)?FUN_%08x\s*\(" % a, txt) and all(l == "stack" for l in l0) is False:
+                # a __fastcall definition (note `ecx [edx] stack...`) that the caller declares __fastcall too:
+                # natively the same registers (equivalent/0x00271b70 -> 0x002719a0)
+                if l0[:2] in (("ecx",), ("ecx", "edx")) or (l0[:2] == ("ecx", "edx") and all(x == "stack" for x in l0[2:])):
+                    if _declared_fastcall(f0, a) and _declared_fastcall(lab, a):
+                        continue
+                bad.append(dict(addr="0x%08x" % a, file=lab, conv="(no note)", definition=f0,
+                                definition_conv=" ".join(l0),
+                                why="calls a register-convention function without an equiv-conv note"))
     _OWN_NOTES.clear()
     _OWN_NOTES.update({a: l0 for a, (f0, l0) in own.items()})
     for a, (f0, l0) in sorted(own.items()):
@@ -471,41 +559,35 @@ def check_register_orders(roots=("matches", "equivalent")):
 TREE_REPORT = os.path.join(ROOT, "build/tree/report.json")
 
 
-def check_note_conventions(roots=("matches", "equivalent"), tree_report=TREE_REPORT):
+def check_note_conventions(roots=SOURCE_KINDS, tree_report=TREE_REPORT):
     """Check 9: callers' equiv-conv notes for definitions without a note of their own, against the definition's
     convention (tree report symbol). Returns (notes checked, [findings])."""
     rep = json.load(open(tree_report))
     defs = {}
     for c in rep["checks"]:
         if c.get("symbol") and c["status"] in ("match", "compiled"):
-            defs[int(c["addr"], 16)] = (c["symbol"], c["src"])
+            defs[int(c["addr"], 16)] = (c["symbol"], _check_label(c))
     own, notes, pos_in_class, member_decl = set(), [], {}, {}
-    for root in roots:
-        rd = os.path.join(ROOT, root)
-        for fn in sorted(os.listdir(rd)):
-            m = re.fullmatch(r"0x([0-9a-fA-F]{8})\.cpp", fn)
-            if not m:
+    for lab, me in function_sources(roots):
+        txt = read_source(lab)
+        if "equiv-conv" not in txt:
+            continue
+        for mm in re.finditer(r"//[ \t]*equiv-conv:[ \t]*(\S+)[ \t]+([^\n]*)\n([^\n]*)", txt):
+            am = re.search(r"(?:FUN|thunk_FUN)_(00[0-9a-fA-F]{6})", mm.group(1))
+            if not am and not re.fullmatch(r"(?:\w+::)*(?:target|run)", mm.group(1)):
                 continue
-            txt = open(os.path.join(rd, fn), errors="replace").read()
-            if "equiv-conv" not in txt:
-                continue
-            me = int(m.group(1), 16)
-            for mm in re.finditer(r"//[ \t]*equiv-conv:[ \t]*(\S+)[ \t]+([^\n]*)\n([^\n]*)", txt):
-                am = re.search(r"(?:FUN|thunk_FUN)_(00[0-9a-fA-F]{6})", mm.group(1))
-                if not am and not re.fullmatch(r"(?:\w+::)*(?:target|run)", mm.group(1)):
-                    continue
-                a = int(am.group(1), 16) if am else me
-                if a == me:
-                    own.add(a)
-                else:
-                    notes.append((a, "%s/%s" % (root, fn), mm.group(2).split(), mm.group(3).strip()))
-                    pos_in_class[("%s/%s" % (root, fn), a)] = in_class_body(strip_comments(txt[:mm.end()]) + " ", len(strip_comments(txt[:mm.end()])))
-                    # a note before a struct whose body declares the function as a member (the note names the
-                    # member, not a free declaration on the next line): the call is a member call
-                    if ("%s/%s" % (root, fn), a) not in member_decl:
-                        member_decl[("%s/%s" % (root, fn), a)] = any(
-                            d["member"] and not re.search(r"\b(?:extern|static|__cdecl|__stdcall|__fastcall)\b", d["text"])
-                            for d in source_decls(os.path.join(rd, fn), ["FUN_%08x" % a]))
+            a = int(am.group(1), 16) if am else me
+            if a == me:
+                own.add(a)
+            else:
+                notes.append((a, lab, mm.group(2).split(), mm.group(3).strip()))
+                pos_in_class[(lab, a)] = in_class_body(strip_comments(txt[:mm.end()]) + " ", len(strip_comments(txt[:mm.end()])))
+                # a note before a struct whose body declares the function as a member (the note names the
+                # member, not a free declaration on the next line): the call is a member call
+                if (lab, a) not in member_decl:
+                    member_decl[(lab, a)] = any(
+                        d["member"] and not re.search(r"\b(?:extern|static|__cdecl|__stdcall|__fastcall)\b", d["text"])
+                        for d in source_decls(lab, ["FUN_%08x" % a]))
     bad, n = [], 0
     for a, f, locs, nxt in notes:
         if a in own or a not in defs:
@@ -562,7 +644,7 @@ def return_kind(demangled):
 def c_return_kind(path, name):
     """The return kind of a C-linkage definition `<type> [conv] name(...) {` in its source; None if not found."""
     try:
-        src = strip_comments(open(path, errors="replace").read())
+        src = strip_comments(read_source(path))
     except OSError:
         return None
     m = re.search(r"(?:^|[;{}\n])\s*(?:extern\s+\"C\"\s+)?((?:[\w:]+[\s*&]+)+?)(?:__cdecl\s+|__stdcall\s+|__fastcall\s+)?"
@@ -637,7 +719,7 @@ def caller_uses(md, xbe, va, limit=16):
     return uses
 
 
-def check_returns(roots=("matches", "equivalent"), tree_report=TREE_REPORT, callers_of=None):
+def check_returns(roots=SOURCE_KINDS, tree_report=TREE_REPORT, callers_of=None):
     """Check 6: results the original's callers use that a verified definition doesn't return (fx: matches/0x0008d690,
     the game's operator new, was `void` and its callers read eax), and calls to the x87-argument library helpers
     (`_ftol`, `_CIacos`, ...) under a plain name, whose argument the source doesn't pass (equivalent/0x00011000: a
@@ -678,9 +760,9 @@ def check_returns(roots=("matches", "equivalent"), tree_report=TREE_REPORT, call
         if s.startswith("?"):
             k = return_kind(dem.get(s, ""))
         else:
-            k = c_return_kind(os.path.join(ROOT, c["src"]), re.sub(r"^[_@]|@\d+$", "", s))
+            k = c_return_kind(_check_label(c), re.sub(r"^[_@]|@\d+$", "", s))
         if k:
-            kind[a] = (k, c["src"], s)
+            kind[a] = (k, _check_label(c), s)
     # call sites in the original's game code
     funcs = sorted((int(r["address"], 16), int(r["size"])) for r in csv.DictReader(open(os.path.join(ROOT, "build/functions.csv"))))
     thunk = {}
@@ -762,24 +844,20 @@ def check_returns(roots=("matches", "equivalent"), tree_report=TREE_REPORT, call
     names = {}
     for a, nm in X87_ARG_ADDRS.items():
         names["FUN_%08x" % a] = nm
-    for root in roots:
-        rd = os.path.join(ROOT, root)
-        for fn in sorted(os.listdir(rd)):
-            if not fn.endswith(".cpp"):
-                continue
-            txt = strip_comments(open(os.path.join(rd, fn), errors="replace").read())
-            for nm in names:
-                calls = 0
-                for m in re.finditer(r"\b%s\s*\(" % nm, txt):
-                    k = max(txt.rfind(";", 0, m.start()), txt.rfind("{", 0, m.start()), txt.rfind("}", 0, m.start()))
-                    prefix = txt[k + 1:m.start()]
-                    if re.search(r"\b(extern|int|void|float|double|unsigned|char|long|short|__cdecl)\b", prefix) and \
-                            not re.search(r"=|\breturn\b|\(", prefix):
-                        continue        # a declaration
-                    calls += 1
-                if calls:
-                    helpers.append(dict(file="%s/%s" % (root, fn), name=nm, helper=names[nm],
-                                        why="calls %s (%s: argument on the x87 stack) by a plain name" % (nm, names[nm])))
+    for lab, _a in function_sources(roots):
+        txt = strip_comments(read_source(lab))
+        for nm in names:
+            calls = 0
+            for m in re.finditer(r"\b%s\s*\(" % nm, txt):
+                k = max(txt.rfind(";", 0, m.start()), txt.rfind("{", 0, m.start()), txt.rfind("}", 0, m.start()))
+                prefix = txt[k + 1:m.start()]
+                if re.search(r"\b(extern|int|void|float|double|unsigned|char|long|short|__cdecl)\b", prefix) and \
+                        not re.search(r"=|\breturn\b|\(", prefix):
+                    continue        # a declaration
+                calls += 1
+            if calls:
+                helpers.append(dict(file=lab, name=nm, helper=names[nm],
+                                    why="calls %s (%s: argument on the x87 stack) by a plain name" % (nm, names[nm])))
     return len(kind), bad, helpers
 
 
@@ -1239,9 +1317,9 @@ def check_virtual_returns(tree_report=TREE_REPORT, rtti=os.path.join(ROOT, "buil
     for c in checks:
         s = c["symbol"]
         k = return_kind(dem.get(s, "")) if s.startswith("?") else c_return_kind(
-            os.path.join(ROOT, c["src"]), re.sub(r"^[_@]|@\d+$", "", s))
+            _check_label(c), re.sub(r"^[_@]|@\d+$", "", s))
         if k:
-            kind[int(c["addr"], 16)] = (k, c["src"], s)
+            kind[int(c["addr"], 16)] = (k, _check_label(c), s)
     classes = json.load(open(rtti))["classes"]
     by_td = {c["td"]: c for c in classes}
     vt0 = {}
@@ -1279,29 +1357,23 @@ def check_virtual_returns(tree_report=TREE_REPORT, rtti=os.path.join(ROOT, "buil
     return len(groups), bad
 
 
-def check_bound_register_callers(roots=("matches", "equivalent"), path=BINDINGS):
+def check_bound_register_callers(roots=SOURCE_KINDS, path=BINDINGS):
     """Check 12 (native12): callers that reach a register-convention definition (its own `// equiv-conv: FUN_x <locs>`
     note with a register) under another name: the binding map binds `Init`, `step`, `f33d9e0` to FUN_x by position, so
     check 5 (callers naming FUN_x) never saw them, and natively the definition read a register nobody set
     (0x00215010's stack_init: play3's first Lua thread). A caller whose own source (the symbol's `fn_<address>`
     namespace) carries a note for FUN_x is taken as fixed. Returns (register-convention definitions, [findings])."""
     own, noted = {}, set()
-    for root in roots:
-        rd = os.path.join(ROOT, root)
-        for fn in sorted(os.listdir(rd)):
-            m = re.fullmatch(r"0x([0-9a-fA-F]{8})\.cpp", fn)
-            if not m:
-                continue
-            txt = open(os.path.join(rd, fn), errors="replace").read()
-            if "equiv-conv" not in txt:
-                continue
-            a = int(m.group(1), 16)
-            for mm in re.finditer(r"//[ \t]*equiv-conv:[ \t]*\S*?FUN_(00[0-9a-fA-F]{6})[ \t]+([^\n]*)", txt):
-                locs = mm.group(2).split()
-                if int(mm.group(1), 16) == a and any(l in ("eax", "ebx", "ecx", "edx", "esi", "edi") for l in locs):
-                    own[a] = (locs, "%s/%s" % (root, fn))
-            for mm in re.finditer(r"//[ \t]*equiv-conv:[ \t]*\S*?FUN_(00[0-9a-fA-F]{6})[^\n]*\n[^\n(]*?(\w+)[ \t]*\(", txt):
-                noted.add((int(mm.group(1), 16), mm.group(2)))
+    for lab, a in function_sources(roots):
+        txt = read_source(lab)
+        if "equiv-conv" not in txt:
+            continue
+        for mm in re.finditer(r"//[ \t]*equiv-conv:[ \t]*\S*?FUN_(00[0-9a-fA-F]{6})[ \t]+([^\n]*)", txt):
+            locs = mm.group(2).split()
+            if int(mm.group(1), 16) == a and any(l in ("eax", "ebx", "ecx", "edx", "esi", "edi") for l in locs):
+                own[a] = (locs, lab)
+        for mm in re.finditer(r"//[ \t]*equiv-conv:[ \t]*\S*?FUN_(00[0-9a-fA-F]{6})[^\n]*\n[^\n(]*?(\w+)[ \t]*\(", txt):
+            noted.add((int(mm.group(1), 16), mm.group(2)))
     if not os.path.exists(path):
         return len(own), []
     bj = json.load(open(path))
@@ -1327,7 +1399,7 @@ def check_bound_register_callers(roots=("matches", "equivalent"), path=BINDINGS)
     return len(own), bad
 
 
-def run(sources=True, bindings=True, xbe=True, tails=False, roots=("matches", "equivalent"), bindings_path=BINDINGS,
+def run(sources=True, bindings=True, xbe=True, tails=False, roots=SOURCE_KINDS, bindings_path=BINDINGS,
         returns=False, tree_report=TREE_REPORT, pops=False):
     """All checks; a JSON-able summary (counts and findings)."""
     imps = parse_imports()
@@ -1367,7 +1439,8 @@ def run(sources=True, bindings=True, xbe=True, tails=False, roots=("matches", "e
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--roots", nargs="+", default=["matches", "equivalent"])
+    ap.add_argument("--roots", nargs="+", default=list(SOURCE_KINDS),
+                    help="block kinds of the tree, or directories of per-function 0xADDR.cpp files (the old layout)")
     ap.add_argument("--no-xbe", action="store_true", help="skip the check against the callees' `ret N`")
     ap.add_argument("--tails", action="store_true", help="also compile functions that tail-jump to an import")
     ap.add_argument("--returns", action="store_true", help="check 6: results the original's callers use that a "

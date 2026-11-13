@@ -22,15 +22,16 @@ import json
 import os
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # tools/ (this is tools/legacy/)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gen_headers as gh  # noqa: E402
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 EVIDENCE = os.path.join(ROOT, "include/gen/evidence-rn.json")
 
 
 def main(argv=None):
-    sys.exit("tools/rn_ptrfields.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+    sys.exit("tools/legacy/rn_ptrfields.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
              "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("summary", help="tools/ptr_fields.py summary output (JSON list)")

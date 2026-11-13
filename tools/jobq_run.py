@@ -26,7 +26,8 @@ import time
 JOBS = os.path.expanduser("~/hulk-jobs")
 WS = os.path.join(JOBS, "ws")
 RUN = os.path.join(JOBS, "run")
-LINKS = ["build", "isos", "matches", "equivalent", "src", "config", "farm", "docs", "tools", "include", "tests"]
+# (merge-once (d), 2026-11-13: no matches/ or equivalent/; a host's checkout may still have them, a job must not see them)
+LINKS = ["build", "isos", "src", "config", "farm", "docs", "tools", "include", "tests"]
 WHISKY = os.path.expanduser("~/Library/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine/bin/wine64")
 FORBIDDEN = ("drive-backup", "blockdev-backup", "blockdev-create", "drive-mirror", "Application Support/xemu")
 

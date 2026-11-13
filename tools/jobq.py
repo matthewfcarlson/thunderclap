@@ -11,7 +11,7 @@
 
 A job runs on a host with the needed capability in a fresh clone of "git archive HEAD tools include tests config src"
 plus the job's overlay files (uncommitted sources; --dirty overlays every modified/untracked file of those
-directories). build/, isos/, matches/, equivalent/ ... are symlinks to the host's own checkout. The command's
+directories). build/, isos/, farm/, docs/ ... are symlinks to the host's own checkout. The command's
 output, the --out paths and the exit code come back to build/jobs/out/ID/. State and hosts: build/jobs/.
 """
 import argparse

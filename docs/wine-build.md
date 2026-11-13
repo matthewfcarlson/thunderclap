@@ -7,15 +7,17 @@ prioritized fix list.
 
 **Source of the build (since the merge-once flip, 2026-11-10).** The merged tree is committed
 (`src/{game,engine,platform/xbox}`, the tree headers under `include/`, `src/link-order.txt`; [merge-once.md](merge-once.md))
-and is the Wine build's default source: `wine_build_run.py` runs `tools/tree_tu.py materialize` (copy into build/tree,
+and is the Wine build's source: `wine_build_run.py` runs `tools/tree_tu.py materialize` (copy into build/tree,
 check every function from the caches, compile with MSVC only the TUs whose object key is new) instead of build_tree's
-rounds. `HULK_TREE_SOURCE=0` restores the build_tree path over matches/ and equivalent/ (the regeneration path while
-those stay). The later stages (`clang_probe.py --snapshot`, `wine_link.py`) read build/tree either way. For a local run:
+rounds. Since merge-once (d) (2026-11-13) it is the only source: the build_tree path over matches/ and equivalent/
+(`HULK_TREE_SOURCE=0`) went with those directories. The later stages (`clang_probe.py --snapshot`, `wine_link.py`) read
+build/tree; wine_link's binding map checks each equivalent function on its tree block with the TU's shared part
+(`tools/tree_index.py` source_text) where it read the per-function source before (merge-once.md, "Step (d)"). For a local run:
 `build/venv/bin/python tools/tree_tu.py materialize --out build/tree` replaces `tools/build_tree.py --rounds 16`. The probe numbers (Measured 2026-10-17) describe the tree as it was then; the build has moved on, see the status paragraphs below.
 
 ```sh
 build/venv/bin/python tools/clang_probe.py              # snapshot (if missing), compile msvc/gnu/gnu64, classify, link probe
-build/venv/bin/python tools/clang_probe.py --snapshot   # refresh the snapshot after a complete tools/build_tree.py run
+build/venv/bin/python tools/clang_probe.py --snapshot   # refresh the snapshot after a complete tools/tree_tu.py materialize
 build/venv/bin/python tools/clang_probe.py --only src/game/global/CAction.cpp   # one TU's diagnostics, every configuration
 build/venv/bin/python tools/wine_link.py              # binding map (fix 5a), link inventory, lld-link attempt
 build/venv/bin/python tools/wine_link.py --reuse-map  # inventory + link with build/native/bindings.json as it is

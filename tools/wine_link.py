@@ -3,25 +3,25 @@
 
   build/venv/bin/python tools/wine_link.py              # binding map from the verification build + link inventory
   build/venv/bin/python tools/wine_link.py --no-link    # binding map and inventory only (no lld-link run)
-  build/venv/bin/python tools/wine_link.py --jobs 3     # processes for the equivalent/ bindings (default 3)
+  build/venv/bin/python tools/wine_link.py --jobs 3     # processes for the equivalent blocks' bindings (default 3)
   build/venv/bin/python tools/wine_link.py --reuse-map --gfx   # the image with the pddi/bgfx graphics backend
 
 Why: every verified function is checked with its relocations masked (compare.py) or bound by address
 (equiv.py), so a call made under a caller's stub name (`Base_135f40::Fin`), from inside a wrapped source's
 namespace (`fn_00213600::FUN_00219430`) or with another signature is proven to be a call to one XBE address,
 but no linker knows which. This tool recovers that address for every relocation of the verification build
-(build/tree/, tools/build_tree.py) and names the tree's definition at that address, so lld-link can bind the
+(build/tree/: `tools/tree_tu.py materialize` of the committed tree) and names the tree's definition at that address, so lld-link can bind the
 reference with `/alternatename:<referenced>=<defined>`. On 32-bit MS ABI the alias is exact: both names are the
 same machine-level call that the byte match or the behaviour check proved.
 
-Inputs: build/tree/report.json (+ manifest.json) of a complete tools/build_tree.py run (its objects come
-from build/tree-cache/obj/ by content), the XBE, and for the link inventory tools/clang_probe.py's `msvc`
+Inputs: build/tree/report.json (+ manifest.json) of a complete `tools/tree_tu.py materialize` run (its objects
+come from build/tree-cache/obj/ by content, build_tree's compile), the XBE, and for the link inventory tools/clang_probe.py's `msvc`
 objects (snapshot of the tree; run tools/clang_probe.py --snapshot after the tree build first).
 
 Per relocation of a verified function, the address:
-  * matches/: the original bytes at the same offset (the function is byte-identical with relocations masked),
+  * a `matches` block: the original bytes at the same offset (the function is byte-identical with relocations masked),
     REL32 -> call target, DIR32 -> absolute address (tools/verify_relocs.py's rule);
-  * equivalent/: the address tools/equiv.py binds (level 2, `mapping`: explicit equiv-map lines, content,
+  * an `equivalent` block: the address tools/equiv.py binds in its tree TU (level 2, `mapping`: explicit equiv-map lines, content,
     names, then alignment with the original). Cached in build/native/cache/.
 Then each address is named: a verified function's symbol in the tree's objects, or a data TU symbol
 (`_DAT_<addr>`, tools/data_gen.py). A referenced symbol bound to one address whose definition has another
@@ -181,44 +181,71 @@ def local_data_bindings(obj, symbol, addr):
 _CHECKER = {}
 
 
-def _checker_key(src):
-    """sha1 of equiv.py and tools/tree_tu.py (the checker's version) and of SRC's `equiv-*` directive lines."""
+def _tree_tu(tu):
+    """The path of the verification tree's TU TU (a check's `tu`, relative to the tree root)."""
+    return os.path.join(TREE, tu)
+
+
+def _block_text(c):
+    """The text of check C's block in the verification tree ("" if there is none). Since merge-once (d) a function's
+    own text is its block (tools/tree_index.py): the per-function sources (C's `src`, matches/ / equivalent/) are gone."""
+    import tree_index
+    try:
+        return tree_index.block_text(c["addr"], _tree_tu(c["tu"])) or ""
+    except (OSError, KeyError, TypeError):
+        return ""
+
+
+def _unit_text(tu, addr):
+    """The function's own text as its per-function source held it before merge-once (d): the TU's shared part (its
+    hoisted declarations, with their `// equiv-conv` notes) and the block, with the block line neutralised
+    (tools/tree_index.source_text), None if the tree has no such block. The binding map checks it as a source of its
+    own, with the tree TU's object (equiv.py's standalone mode; its tree mode reads names differently, see
+    equiv.name_address)."""
+    import tree_index
+    return tree_index.source_text(addr, _tree_tu(tu))
+
+
+def _checker_key(unit):
+    """sha1 of equiv.py, tools/tree_tu.py and tools/tree_index.py (the checker's version) and of the function's unit
+    text (_unit_text: its declarations and `equiv-*` directive lines, which change the map without changing the
+    object)."""
     if "code" not in _CHECKER:
         h = hashlib.sha1()
-        for f in ("equiv.py", "tree_tu.py"):
+        for f in ("equiv.py", "tree_tu.py", "tree_index.py"):
             with open(os.path.join(ROOT, "tools", f), "rb") as fh:
                 h.update(hashlib.sha1(fh.read()).digest())
         _CHECKER["code"] = h.hexdigest()
-    if src not in _CHECKER:
-        h = hashlib.sha1(_CHECKER["code"].encode())
-        try:
-            with open(os.path.join(ROOT, src), errors="replace") as fh:
-                for l in fh:
-                    if "equiv-" in l and re.match(r"^\s*//\s*equiv-", l):
-                        h.update(l.strip().encode() + b"\0")
-        except OSError:
-            h.update(b"missing")
-        _CHECKER[src] = h.hexdigest()
-    return _CHECKER[src]
+    return hashlib.sha1(_CHECKER["code"].encode() + hashlib.sha1(unit.encode()).digest()).hexdigest()
 
 
 def _equiv_job(args):
-    obj, symbol, src, addr = args
+    obj, symbol, tu, addr = args
     raw = open(obj, "rb").read()
+    unit = _unit_text(tu, addr)
+    if unit is None:
+        return {"status": "error: no block", "map": {}, "unresolved": []}
     # (the COFF header's time stamp, bytes 4-8, left out: the same object built on another machine hits the cache)
     # (v2: the map also keeps the vftables the object defines itself, `??_7Stub@fn_...@@6B@`: where the
     # function stores a stub's vftable, equiv.py binds it to the game's, which fix 3a needs for the stub's slots)
     # (v3, build6: the checker's version, equiv.py and the tree-TU helper it reads blocks through, and the source's
     # equiv-* directive lines, which change the map without changing the object: a changed checker recomputes)
-    key = hashlib.sha1(raw[:4] + raw[8:] + symbol.encode() + src.encode() + _checker_key(src).encode() + b"v3").hexdigest()[:24]
+    # (v4, merge-once (d): the per-function source is gone; the function's own text is its TU's shared part and its
+    # block (_unit_text), checked as a source of its own with the tree object as before; keyed by that text)
+    key = hashlib.sha1(raw[:4] + raw[8:] + symbol.encode() + tu.encode() + b"\0%08x" % addr +
+                       _checker_key(unit).encode() + b"v4").hexdigest()[:24]
     p = os.path.join(CACHE, "equiv", key + ".json")
     if os.path.exists(p):
         return json.load(open(p))
     import equiv
+    import tempfile
     undefined = {s[0] for s in compare.Coff(obj).symbols if s[2] == 0 and s[4] == 2}
+    fd, src = tempfile.mkstemp(prefix="unit-%08x-" % addr, suffix=".cpp")
+    with os.fdopen(fd, "w") as f:
+        f.write(unit)
     for attempt in range(3):
         try:
-            rep = equiv.verify(os.path.join(ROOT, src), addr, symbol=symbol, obj_path=obj, max_level=2)
+            rep = equiv.verify(src, addr, symbol=symbol, obj_path=obj, max_level=2)
             m = rep.get("level2", {}).get("mapping", {})
             res = {"status": rep.get("status"),
                    "map": {n: [v["addr"], v["how"]] for n, v in m.items()
@@ -228,6 +255,7 @@ def _equiv_job(args):
         except Exception as e:  # noqa: BLE001 - one function's failure must not stop the map
             res = {"status": "error: %s" % type(e).__name__, "map": {}, "unresolved": []}
             time.sleep(0.5)     # (jobq2: a transient error, e.g. another worker writing build/equiv/crt2.json, is retried)
+    os.unlink(src)
     if res["status"].startswith("error:"):
         return res              # ... and a persistent one is not cached: the map must not depend on which run hit it
     os.makedirs(os.path.dirname(p), exist_ok=True)
@@ -259,20 +287,17 @@ def undname(names):
 _FN_NS = re.compile(r"(?<![A-Za-z0-9_])fn_[0-9a-fA-F]{8}::")
 
 
-def tree_explicit(res, obj, src):
+def tree_explicit(res, obj, lines):
     """native10: a source's `// equiv-map:` lines name the standalone symbol (`??0DrawableBase@pure3d@@QAE@XZ`); in a
     merged tree object the name carries the TU's namespace (`??0DrawableBase@pure3d@fn_f0ae8a57@@QAE@XZ`). equiv.py
     translates the plain names (`_tree_names`) but not constructors, destructors and operators (its `_qualified`
     skips `??` names), so those fell back to instruction pairing and could bind to a neighbouring callee (0x0029a190:
     DrawableBase's constructor bound to the allocator 0x00263ea0, operator new called with `this` as the size: the
     native stop 'game heap exhausted'). Here every equiv-map line the map does not already have under its own name
-    is matched to the object's undefined symbol whose demangled name is the same without `fn_<addr>::`."""
-    try:
-        lines = [(m.group(1), int(m.group(2), 16)) for m in
-                 (re.match(r"\s*//\s*equiv-map:\s*(\S+)\s*=\s*(0x[0-9a-fA-F]+)", l)
-                  for l in open(os.path.join(ROOT, src), errors="replace")) if m]
-    except OSError:
-        return res
+    is matched to the object's undefined symbol whose demangled name is the same without `fn_<addr>::`. LINES: the
+    function's unit text (_unit_text: its directive lines)."""
+    lines = [(m.group(1), int(m.group(2), 16)) for m in
+             (re.match(r"\s*//\s*equiv-map:\s*(\S+)\s*=\s*(0x[0-9a-fA-F]+)", l) for l in lines or ()) if m]
     if not lines:
         return res
     syms = compare.Coff(obj).symbols
@@ -350,9 +375,8 @@ def build_map(jobs):
             continue
         words = {w for w in re.findall(r"[A-Za-z_]\w*", dem[sym]) if w not in keywords and not re.fullmatch(r"fn_[0-9a-f]{8}", w)}
         for c in cs:
-            try:
-                txt = open(os.path.join(ROOT, c["src"]), errors="replace").read()
-            except OSError:
+            txt = _block_text(c)        # (merge-once (d): the block, which names what its source named)
+            if not txt:
                 continue
             if not all(re.search(r"\b%s\b" % re.escape(w), txt) for w in words):
                 skip.add(c["addr"])
@@ -378,17 +402,17 @@ def build_map(jobs):
                 users[s] += 1
             stats["matches bound by position"] += 1
         elif c["kind"] == "equivalent" and c["status"] == "compiled":
-            todo.append((obj, c["symbol"], c["src"], a))
+            todo.append((obj, c["symbol"], c["tu"], a))
             todo_tu.append(c["tu"])
     with ProcessPoolExecutor(jobs) as ex:
         for i, (res, tu, job) in enumerate(zip(ex.map(_equiv_job, todo, chunksize=8), todo_tu, todo), 1):
             stats["equivalent: equiv.py level 2 %s" % ("ok" if res["status"] in ("draft", "pass") else res["status"])] += 1
-            res = tree_explicit(dict(res, map=dict(res["map"])), job[0], job[2])
+            res = tree_explicit(dict(res, map=dict(res["map"])), job[0], (_unit_text(job[2], job[3]) or "").splitlines())
             for s, t, old in res.get("tree_explicit", []):
                 stats["equivalent: equiv-map lines bound in the tree's namespace (native10)"] += 1
                 if old:
                     stats["equivalent: ... of them replacing another address (%s)" % old[1]] += 1
-                tree_explicit.changed.append([job[2], s, t, old])
+                tree_explicit.changed.append(["%s 0x%08x" % (job[2], job[3]), s, t, old])
             for s, (t, how) in res["map"].items():
                 refs[s][int(t, 16)]["equiv:" + how] += 1
                 per_tu[s][tu].add(int(t, 16))
@@ -414,7 +438,7 @@ def build_map(jobs):
 # the source's `// equiv-map:` lines (equivalent/), and per TU the object's undefined externals. A function body edit
 # that keeps every name keeps the key. An equivalent's callees are bound by behaviour (equiv.py level 2) and only
 # their names are keyed: an edit that sends a call with an unchanged name to another address needs `--map full`.
-MAPKEY_VERSION = 1
+MAPKEY_VERSION = 2      # (2: merge-once (d), the texts are the blocks', not the per-function sources')
 
 
 def _obj_fingerprint(obj):
@@ -451,11 +475,8 @@ def map_key():
     def h(x):
         return hashlib.sha1(json.dumps(x, sort_keys=True).encode()).hexdigest()[:16]
 
-    def text(src):
-        try:
-            return open(os.path.join(ROOT, src), errors="replace").read()
-        except (OSError, TypeError):
-            return ""
+    def text(c):
+        return _block_text(c)
     parts = {}
     for c in checks:
         fp = fps.get(c["tu"])
@@ -464,11 +485,11 @@ def map_key():
         item = [[c.get(k) for k in ("kind", "status", "symbol", "tu", "src")], None if f is None else
                 [f["pos"], f["names"]] if match else f["names"]]
         if c["kind"] == "equivalent":       # tree_explicit
-            item.append(re.findall(r"^\s*//\s*equiv-map:.*$", text(c["src"]), re.M))
+            item.append(re.findall(r"^\s*//\s*equiv-map:.*$", text(c), re.M))
         if match and groups[(c["tu"], c.get("symbol"))] > 1:    # build_map's same-symbol check reads the source's words
-            item.append(h(text(c["src"])))
+            item.append(h(text(c)))
         if f and any(n.startswith("??_7") for n in f["names"]):  # the vftable's declaring source
-            t = text(c["src"])
+            t = text(c)
             item.append(sorted(n for n in f["names"] if n.startswith("??_7") and re.match(r"\?\?_7(\w+)@", n) and
                                re.search(r"\b(?:class|struct)\s+%s\b" % re.escape(re.match(r"\?\?_7(\w+)@", n).group(1)), t)))
         parts["%s %s %s" % (c["addr"], c["kind"], c.get("src"))] = h(item)
@@ -2083,15 +2104,14 @@ def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None, startup_asm=
 
 def conv_check_key(wcc):
     """(build3) sha1 of everything wine_conv_check.run() reads for the report wine_link asks for: its own code (and
-    compare.py's), the stand-in tables, every source under matches/ and equivalent/, the binding map, the XBE and
+    compare.py's and tools/tree_index.py), the stand-in tables, every tree TU (src/game, src/engine, src/platform/xbox;
+    before merge-once (d): every source under matches/ and equivalent/), the binding map, the XBE and
     build/functions.csv. The report took 138 s on mac1 (60-70 s on studio) in both the map and the link stage of every
     job; with the same inputs it is the same report."""
-    h = hashlib.sha1(b"conv_check1\0")
-    files = [wcc.__file__, compare.__file__] + [t for t in wcc.TABLES if os.path.exists(t)]
-    for root in ("matches", "equivalent"):
-        for dp, dns, fns in sorted(os.walk(os.path.join(ROOT, root))):
-            dns.sort()
-            files += [os.path.join(dp, fn) for fn in sorted(fns)]
+    import tree_index
+    h = hashlib.sha1(b"conv_check2\0")
+    files = [wcc.__file__, compare.__file__, tree_index.__file__] + [t for t in wcc.TABLES if os.path.exists(t)]
+    files += tree_index.tus(ROOT)
     files += [os.path.join(OUT, "bindings.json"), wcc.XBE, os.path.join(ROOT, "build/functions.csv")]
     for f in files:
         h.update(os.path.relpath(f, ROOT).encode() + b"\0")

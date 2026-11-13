@@ -16,8 +16,8 @@ build/venv/bin/python tools/rn_plan.py --batches      # build/rn1/batches/b1..b3
 build/venv/bin/python tools/rn_plan.py --refine build/rn1/batches/b1-unclash-matches.json --state S \
     --bindings build/native/bindings.json --refine-out build/rn1/batches/c1-unclash-matches-refined.json
                                                       # generator in the loop: drop what costs merges or links (~5 min)
-build/venv/bin/python tools/migrate_gen.py --family rn --batch build/rn1/batches/c1-unclash-matches-refined.json --apply
-build/venv/bin/python tools/migrate_gen.py --family rn --batch build/rn1/batches/c3-equivalent-refined.json --apply --equivalent
+build/venv/bin/python tools/legacy/migrate_gen.py --family rn --batch build/rn1/batches/c1-unclash-matches-refined.json --apply
+build/venv/bin/python tools/legacy/migrate_gen.py --family rn --batch build/rn1/batches/c3-equivalent-refined.json --apply --equivalent
 build/venv/bin/python tools/rn_plan.py --metrics BEFORE_ROOT AFTER_ROOT list.txt   # pads / stub virtuals / casts
 ```
 
@@ -133,7 +133,7 @@ would make one invented name of the TU namespace stand for two addresses (`exter
 sources for two vftables: the Wine link can bind neither), and (3) a source whose function would share its
 definition's name with another merged function of the TU (overloads `Target(PhysicsJoint_30cbb0*)` /
 `Target(PhysicsJoint_30cd60*)`: build_tree.py and wine_link.py find functions by mangled-name prefix and would take
-one for the other). Then `tools/migrate_gen.py --family rn` rewrites and verifies (compare.py MATCH / equiv.py
+one for the other). Then `tools/legacy/migrate_gen.py --family rn` rewrites and verifies (compare.py MATCH / equiv.py
 --inputs 3000 EQUIVALENT) and keeps what verifies, `tools/build_tree.py` proves the tree and the strict Wine link
 proves the image. Ordered by risk (a rename < onto the header < header changes) and size.
 
@@ -318,7 +318,7 @@ invented names. Per bridge of [wine-build.md](wine-build.md#bridges-to-remove):
   keys some bindings by mangled name. Every rename of an equivalent/ source has to be re-checked, as here.
 
 Files: `tools/rn_map.py`, `tools/rn_layout.py`, `tools/rn_plan.py`, `tools/rn_transform.py` (new),
-`tools/migrate_gen.py` (`--family rn`, `--batch`; the existing families unchanged, same output on the same
+`tools/legacy/migrate_gen.py` (`--family rn`, `--batch`; the existing families unchanged, same output on the same
 inputs). Outputs: `build/rn1/` (rename map, header DB, layout fit, header additions, plan, batches and refined
 batches `c1-unclash-matches-refined.json`, `c2-genref-matches-refined.json`, `c3-equivalent-refined.json`, the dry
 runs' source lists `c1-sources.txt` (1,475) / `c2-sources.txt` (168) / `c3-equivalents.txt` (130) and their patch
@@ -364,7 +364,7 @@ stub slots), rn1's b1 first-try finding again. Dropping the 114 and every b5 sou
 in (42) gave a tree with the b3 tree's exact unbound set. The gen family has no `--refine --bindings` step yet;
 it needs one (rn_plan's refine works on rn batches only).
 
-**b7, first part** (`tools/rn_fields.py`): see the table row above. The base-region offsets (4,465) are the bulk:
+**b7, first part** (`tools/legacy/rn_fields.py`): see the table row above. The base-region offsets (4,465) are the bulk:
 a derived class's stubs agree on a field that belongs to a base; putting it into the base is layout-neutral the
 same way (inside the base's pad) but every class derived from that base sees it, so it needs agreement over all
 derived classes' stubs; next.
@@ -373,7 +373,7 @@ derived classes' stubs; next.
 
 On HEAD b76e68ad1, proven against a same-host HEAD control (mac2, `tools/wine_build_job.py --gfx`, play3 to frame 1000).
 
-- **b9** (`tools/rn_members.py`, migrate_gen rule `gen-nv`): a source whose own function (`FUN_<addr>`) is the only
+- **b9** (`tools/legacy/rn_members.py`, migrate_gen rule `gen-nv`): a source whose own function (`FUN_<addr>`) is the only
   out-of-line member of a private stub that the rename map names as a plain include/gen/ class X: X gets
   `R FUN_<addr>(P...); // non-virtual` (include/gen/evidence-rn.json "members"; the source's signature in header
   types: scalars kept, `X*` for a pointer to the stub itself, `void*` for other pointers and references) and the
@@ -392,7 +392,7 @@ On HEAD b76e68ad1, proven against a same-host HEAD control (mac2, `tools/wine_bu
   (`rn_transform.pin_data_transform`): unpinned, the first tree build left `fight::a` / `fight::b` / `gB` bound to two
   addresses (unbound +3) and broke 7 on-gen sources that use `a` / `b` in the same TU namespaces. 270 verified ->
   refine 217.
-- **Pointer fields** (`tools/rn_ptrfields.py`, evidence-rn.json "ptr_fields"): the 61 include/gen/ fields (55 units)
+- **Pointer fields** (`tools/legacy/rn_ptrfields.py`, evidence-rn.json "ptr_fields"): the 61 include/gen/ fields (55 units)
   that x64-3's `tools/ptr_fields.py` found read as pointers through `*(T**)&p->f_XX` are `hulk_intptr` /
   `hulk_uintptr`: the same types on the 32-bit builds, pointer-sized on the 64-bit ones.
 - **b10**: the game's scalar deleting destructors contain the destructor chain inline although the same classes have
@@ -414,13 +414,13 @@ control's. build_tree.py re-checks wrapped -> isolated escalations, not first fa
 
 **Round 2 (x64-4).** build_tree.py now re-checks first fallbacks too (above): HEAD d3c76cfa8 merges 0x2e5410, 0x2e9c60
 and 0x30f490 again (3 better, 0 worse; same final state and image on 8 and 4 slots). Then 118 agreeing header fields
-(`tools/rn_fields.py`; b9 gains only 3 candidates from them, 508 own-stub members still wait on fields), 7 more b9
+(`tools/legacy/rn_fields.py`; b9 gains only 3 candidates from them, 508 own-stub members still wait on fields), 7 more b9
 members, 10 gen-family rewrites the fields allow and 1 own-stub pointer field (`hulk_intptr`): 18 sources, 8 better,
 0 worse against the fixed HEAD build, strict link and play3 checkpoints identical.
 
 **Round 3 (x64-4): constructors.** About 900 own-stub `FUN_` sources define a constructor out of line. Their header
 form is `X::X(P...) { body }` against a declaration in the header class (`include/gen/evidence-rn.json` "ctors",
-`tools/rn_members.py --ctors`, migrate_gen rule `gen-ctor`), with the direct base's default constructor declared
+`tools/legacy/rn_members.py --ctors`, migrate_gen rule `gen-ctor`), with the direct base's default constructor declared
 out of line (evidence "base_ctors": the source's stub base declares it without a body, so the game calls it). A
 class that gets declared constructors also gets a declared default constructor, so classes derived from it keep
 their implicit ones; the layout probe defines the declared constructors in its own TU (else the vftables are not
@@ -476,7 +476,7 @@ sources are left alone. The replay-pin functions (docs/wine-replay.md) are left 
 | native arm64 link, unbound | 50,407 | 49,429 |
 
 What it does not reach: of 16,108 member -> member aliases, 15,849 have a definition on a TU stub. The rename map
-names an RTTI class for 517 of those definitions (1,995 aliases; tools/rn_members.py plans only 50 of them
+names an RTTI class for 517 of those definitions (1,995 aliases; tools/legacy/rn_members.py plans only 50 of them
 automatically now). The other 4,989 definitions (13,673 aliases) belong to non-polymorphic classes RTTI never names
 (`Target_27b040`, the 8-byte hash holder 584 callers use): no include/gen/ class exists for them. 2,732 of those
 owner stubs have only builtin fields (7,423 aliases), 450 more only builtin fields but members taking other stubs
@@ -497,7 +497,7 @@ Design:
   views of one real class is later work. The namespace keeps the generated names out of the sources' top-level names
   (a caller's own stub `Target_27b040` does not collide with `owners::Target_27b040`, so `member-apply` renames
   nothing, and gen_tree sees one new top-level name, `owners`).
-- **Generated, not written.** `tools/owner_classes.py plan` reads a Wine build's link outputs (the same input as
+- **Generated, not written.** `tools/legacy/owner_classes.py plan` reads a Wine build's link outputs (the same input as
   `name_unify.py member`) and writes `include/gen/evidence-owners.json`; `tools/gen_headers.py` emits owners.h from it
   (`emit_owners`; all.h includes it). Each class holds its stub's members in source order (layout preserved), typedef
   names said as the builtin types they name, the defined member named `FUN_<addr>` (b9's convention), the stub's other
@@ -574,13 +574,13 @@ Naming and cleanup of matches/ and equivalent/, in batches that keep every byte 
   sample-spacing helper 0x000a0010. No placeholder of those kinds is left in either tree.
 - **include/gen/ fields** (batch 2): `include/gen/evidence-names.json` names a unit's field with its evidence;
   `tools/gen_headers.py` emits that name instead of `f_<offset>` (`field_name`). The first evidence tool is
-  `tools/param_fields.py`: a fight parameter registration passes a string literal to a `fight::ParamValue*`
+  `tools/legacy/param_fields.py`: a fight parameter registration passes a string literal to a `fight::ParamValue*`
   constructor and registers a setter; the setter (disassembled from the XBE) stores its argument once through `ecx`
   (or returns `&this->x`, `lea eax,[ecx+X]; ret`), which gives the offset, and gen_headers' model gives the unit
   that declares a field there (the class or a non-virtual base). Refused: setters with no or several stores, classes
   RTTI doesn't name, offsets no unit declares (25: the field isn't in the header yet), a store size other than the
   field's, two names for a field, one name for two fields, a name another member of the hierarchy has.
-  `tools/rename_fields.py` then rewrites the references: each candidate source (on include/gen/, naming a renamed
+  `tools/legacy/rename_fields.py` then rewrites the references: each candidate source (on include/gen/, naming a renamed
   unit's class or a class derived from one, and spelling an old name) is parsed by libclang as tools/equiv64.py
   prepares it, against the headers before the rename; a member reference whose field is a renamed include/gen/
   field is rewritten in place (`this->f_0c` -> `this->compare`; an implicit reference becomes `this->name` when
@@ -654,7 +654,7 @@ names say):
   binds each name to the original's call there: what the rule catches); verify_relocs `0x001d47c0_suffix_name` (ok)
   and `..._wrong` (`Init_001d4320` for the original's 0x001d43b0: bad, name_address_mismatch; ok before).
 
-**Applying names.** `tools/fn_names.py` writes `include/gen/evidence-fnames.json` ({address: name, kind, evidence});
+**Applying names.** `tools/legacy/fn_names.py` writes `include/gen/evidence-fnames.json` ({address: name, kind, evidence});
 `tools/name_unify.py rename --names ... --bindings B.json` applies it: the definition's own name (from the binding map's
 `definitions`: `Obj_480a0::Set` or `FUN_000480a0`) and every `FUN_<addr>` token in matches/ and equivalent/ (code,
 comments, `// equiv-*` lines) take the name. All users or none: refused when a user is excluded, outside matches/ and

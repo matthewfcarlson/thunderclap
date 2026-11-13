@@ -2,7 +2,8 @@
 
 Status: stages 1 and 2 done (build4). Stage 3: the user approved (a)-(c) on 2026-11-10 and build6 carried them out (see
 [The flip](#the-flip-build6-2026-11-10)): freeze point F = e68debc9d, the tree committed under src/ and include/, the
-Wine build's default source. (d), removing matches/ and equivalent/, is not approved. Plan approved 2026-11-09 (build4). Background: [source-tree.md](source-tree.md) (how the
+Wine build's default source. (d), removing matches/ and equivalent/, was approved on 2026-11-13 (user decision D1) and
+done by del1 the same day ([Step (d)](#step-d-matches-and-equivalent-removed-del1-2026-11-13)). Plan approved 2026-11-09 (build4). Background: [source-tree.md](source-tree.md) (how the
 tree is generated and verified today), [consolidation-plan.md](consolidation-plan.md) (why functions are wrapped),
 [wine-build.md](wine-build.md) "Build speed (build3)" (where a proof's time goes).
 
@@ -514,7 +515,7 @@ symbols as tree_tu (c59cc5632) and because comments (notes, pins, the header lin
   packet.py, the x64 tools, conv_check's key), and a pre-commit check refusing new files in matches/ / equivalent/.
   The briefs announce the freeze.
 
-### What (d) involves (not done)
+### What (d) involves (the plan; done 2026-11-13, see [Step (d)](#step-d-matches-and-equivalent-removed-del1-2026-11-13))
 
 (d) removes matches/ and equivalent/ after a grace period, with the user's separate OK. What it involves:
 
@@ -534,3 +535,68 @@ symbols as tree_tu (c59cc5632) and because comments (notes, pins, the header lin
 5. One commit deletes matches/ (22,339 files) and equivalent/ (5,099). `git show e68debc9d:matches/0x....cpp` restores
    any one, and reverting that commit restores all of them.
 6. Rewrite CLAUDE.md, docs/agents and the README status (progress.py) for "edit the block in its TU".
+
+## Step (d): matches/ and equivalent/ removed (del1, 2026-11-13)
+
+User decision D1 (2026-11-13): delete the frozen per-function sources and move the ten tools gen1 retired into
+tools/legacy/. Two commits: the readers first (tools, tests, docs), then the deletion of matches/ (22,339 files) and
+equivalent/ (5,099 files). Neither directory changed after F, so `git show e68debc9d:matches/0x....cpp` restores any one
+(as does the last commit that has them, named below); reverting the deletion commit restores all.
+
+**Readers, and what became of each.** Every tool, test, config and doc that named matches/, equivalent/,
+`HULK_TREE_SOURCE=0` or build_tree's generation path was looked at.
+
+| reader | was | now |
+|---|---|---|
+| tools/wine_link.py, binding map of the equivalent functions (`_equiv_job`) | `equiv.py` level 2 on `equivalent/0xADDR.cpp` with the tree object | the same check on the function's unit text: the TU's shared part and its block, block line neutralised (`tools/tree_index.py` source_text) written to a temporary file, so equiv.py stays in its standalone mode (its tree mode reads names differently on purpose, equiv.name_address). Cache key v4: the unit text instead of the file's directive lines |
+| wine_link `tree_explicit` (native10's equiv-map lines) | the source file's lines | the unit text's lines |
+| wine_link build_map's same-symbol check (native9) | the source file names every word of the shared symbol | the block's text (the skip set is the same: 1,249 of the 1,698 checks in shared-symbol groups, both ways) |
+| wine_link map key | source texts | block texts; MAPKEY_VERSION 2 (one full map after the change) |
+| wine_link conv_check key | every file under matches/ equivalent/ | every tree TU |
+| tools/wine_conv_check.py (report only) | per-function files | a root is a block kind of the tree: notes and definitions from each block, declarations from its TU (gen_tree hoisted them), check 4 compiles the TU at the address; a directory path still reads per-function files |
+| tools/equiv.py `_definition_conv` (convdef) | equivalent/ or matches/0xADDR.cpp | the callee's block. Over all 27,438 functions the answer is the same but for 5 blocks edited after F (0x0005d130, 0x00234210, 0x0028f980, 0x002ac4a0, 0x0031b7d0), where the block is the code that compiles |
+| tools/wine_build_run.py, wine_build_job.py | SRC_DIRS with matches equivalent; `HULK_TREE_SOURCE=0` / no link-order.txt ran build_tree's rounds; `seed_decision()` | SRC_DIRS = include src tools config; the build stage refuses the old path; `seed_decision()` removed (a tree-source proof seeds through `tree_seed_decision()`); decide() counts added/removed tree TUs where it counted function sources |
+| tools/jobq_run.py LINKS, jobq.py | jobs got symlinks to the host checkout's matches/ equivalent/ | not linked: a job sees no per-function sources even where a host's checkout still has them |
+| tools/jobq_host_setup.sh, jobq_host_setup_linux.sh | archived matches equivalent; smoke test compared matches/<first>.cpp | archive without them; smoke test compares the first `matches` block of a tree TU |
+| tools/similar.py (packet.py --similar) | matches/*.cpp | the `matches` blocks (index build/farm/simindex2.pkl) |
+| tools/layout64.py, config/layout64.json | `"source": "matches/..."`, the file included | `"block": "0x..."`: the record's definition cut from its TU (the whole TU need not compile for every target); --check ok on i686, x64, arm64 as before |
+| tools/tech_debt.py, docs/tech-debt.md | scanned matches/ equivalent/ | scans the blocks; the same 5 functions and flags |
+| tools/data_ptrs.py scan | default matches equivalent | default the tree TUs (config/data-ptrs.json's `sources` stay the per-function evidence it was made from) |
+| tools/verify_relocs.py whole-set sweeps (--all, --initializers, --literals, --addrlits, --names) | listed matches/ equivalent/ | exit with a message without them (`--src-root` an export of a commit that has them); the tree: `tree_tu.py verify . --relocs` |
+| tools/tree_tu.py `--vs-standalone`, `_shared`, cached_check | used standalone sources where they exist | unchanged: they test for the files, which no longer exist (every block is pinned, so `_shared` has nothing to resolve) |
+| ten gen1-retired tools (migrate_gen, rn_members, rn_sigs, rn_ptrfields, rn_fields, ptr_slots, param_fields, rename_fields, fn_names, owner_classes) | tools/ | `git mv` to tools/legacy/; paths fixed so they import and print their refusal; references in tools/ and docs/ follow |
+| tests/jobq/test_native_build.py, test_map_key.py | matches/ names in fakes; seed_decision tests | tree TU names; a fake tree TU for the map key; the seed tests went with seed_decision |
+| tests/test_verify_relocs.py, tests/equiv/test_equiv.py, selftest.py, mutate.py | matches/0xADDR.cpp | the tree TU (tree mode), or the unit text as a source of its own (mutate: only mutants inside the block) |
+| tests/android/count_variadics.py | matches/ equivalent/ | one unit text per block |
+| tests/native_host/replay_native_test.py, va_tree_test.sh | compiled per-function files as fixtures | the same files from F (`git show e68debc9d:...`) |
+| tests/gen_tree_identity.py | this checkout's matches/ | refuses without `--src-root` of an export that has them |
+| build_tree.py, gen_tree.py | the generator | stay: tree_tu, wine_link, x64_gate, data_inventory, clang_probe and others use their compile, key and check code; the generation path needs an export of a commit with the sources |
+| per-function campaign tools that only read or rewrite matches/ equivalent/ (agent_round, clone_matches, clone_equivalent, decl_lint --all, fix_literals, fix_relocs, fix_function_list, format_matches, format_equivalents, lint_floats, lua_inventory, migrate_data, narrow_scan, patch_xbe, permute --install, reach, reconcile_stubs, rename_placeholders, rn_map, seam_inventory, wine_calls, wine_fix, equiv_replay / equiv_replay_fn / equiv_confidence / trace_capture (the trace replay of equivalent/ sources), capture_mac1.sh, the workbench) | read matches/ equivalent/ | retired by this note, not moved: they find no sources (most stop at a missing directory); several are imported by live tools (migrate_data by data_gen and data_inventory, reconcile_stubs by stub_layout, format_matches by permute), so moving them is a separate clean-up. The trace replay would read blocks through tools/tree_index.py if it is wanted again |
+| docs | | README, roadmap, compute, wine-build, equivalence, data, headers and this page say the directories are gone; the rest are logs of their time |
+
+Comments in tools and TUs that cite a function as `matches/0x....cpp` (the block lines themselves say
+`: matches/0xADDR.cpp`) are left: they name the function and its history. tree_tu's BLOCK pattern accepts the kind
+alone, so a block line can drop the path when it is next edited.
+
+**The binding map, checked function by function.** Before the deletion, every equivalent function's level-2 map was
+computed both ways on the committed tree (the per-function source, and the unit text as above) through the queue
+(mac1, jobs 79038, 79041, 79046-79051): **5,099 / 5,099 the same** map, status, unresolved names and native10 lines.
+A first attempt in equiv.py's tree mode differed in 39 of 508 (it drops `how: name` bindings of the TU's neighbours,
+by design), which is why the map uses the standalone mode on the unit text.
+
+
+**Proof.** Control 79153 (studio; ec01c3faa with matches/ and equivalent/, built by that commit's own wine_build_run,
+private data TUs) and proof 79235 (studio, `--state seed:79153`; the same commit with the readers above and without
+the two directories): the **image is byte-identical** (hulk-strict.exe 1264ae52), `ckpt_gate.py 79153 79235`: **GATE
+ok**, 2,003 common frames to 60060, PRNG 0 differ. Link stats equal (1,249 shared-symbol checks not bound; 4,783 / 316
+equiv level 2 ok / fail; 37 unbound). Only the report-only conv_check moved: 404 import declarations counted per TU
+instead of 475 per function (hoisted declarations counted once), and check 5 lists one more caller
+(0x000e07c0 from 0x000e0850 in src/game/global/FEAnimation.cpp: its by-value struct exception now reads the block's
+unit text). A first control (79058) was invalid: `submit` ships the checkout's own tools/wine_build_run.py, which
+already lacked matches/ in SRC_DIRS, so HEAD's wine_link found no per-function sources and the image hung at frame 0.
+A control of a commit before (d) must be submitted with that commit's wine_build_job.py / wine_build_run.py.
+
+**Other checks.** `tests/equiv/regress.py --jobq`: 478 / 478 (jobs 79154-79233, after the `_definition_conv` change).
+Unit tests (`unittest discover` over tests/, tests/equiv, tests/jobq): pass, apart from test_jobq's RoundTrip cases,
+which drive the live queue and fail the same way on HEAD without this change. `tools/progress.py --readme`: no change.
+`tools/layout64.py --check`: all ok. Whole-tree verify after the deletion: below.

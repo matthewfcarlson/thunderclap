@@ -35,11 +35,12 @@ import re
 import sys
 from concurrent.futures import ThreadPoolExecutor
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # tools/ (this is tools/legacy/)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gen_headers as gh  # noqa: E402
 import migrate_gen as mg  # noqa: E402
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 EVIDENCE = os.path.join(ROOT, "include/gen/evidence-rn.json")
 INTS = {"int", "unsigned int", "long", "unsigned long", "DWORD", "UINT", "unsigned", "signed int", "size_t"}
 
@@ -171,7 +172,7 @@ def defined_on_gen(g, props):
 
 
 def main(argv=None):
-    sys.exit("tools/rn_sigs.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+    sys.exit("tools/legacy/rn_sigs.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
              "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--apply", action="store_true", help="write the signatures to include/gen/evidence-rn.json")

@@ -55,7 +55,7 @@ name that keeps its name (equiv.py round 27 resolves C-linkage functions by C na
 
 `member` / `member-apply` (batch 4, x64-9, members through include/gen/): per definition that is a non-virtual
 member of an include/gen/ class (`fight::ParamValueBool::FUN_00234860`; --moved lists definitions the batch puts
-there by hand or through tools/rn_members.py, `0xADDR ns::X::FUN_x`, R being the tree with those headers), the
+there by hand or through tools/legacy/rn_members.py, `0xADDR ns::X::FUN_x`, R being the tree with those headers), the
 member -> member aliases of the audit and the sources whose stub declares the caller's member. A caller's
 `p->Init(name)` on its own stub becomes `((fight::ParamValueBool *)p)->FUN_00234860(name)` with include/gen/<ns>.h
 included (member_transform): arguments are cast to the caller's declared type first, then to the header's; the
@@ -1199,7 +1199,7 @@ def cmd_free_apply(a):
 # (`p->Init(x)` on a source's own stub, bound to `fight::ParamValueBool::FUN_00234860`) names the definition's own
 # symbol once the call goes through the header class: `((fight::ParamValueBool *)p)->FUN_00234860(x)`, the source
 # including include/gen/<ns>.h. Only definitions that are already non-virtual members of an include/gen/ class
-# (b9, tools/rn_members.py; or hand-placed) qualify: the definition symbol is then global and its signature is the
+# (b9, tools/legacy/rn_members.py; or hand-placed) qualify: the definition symbol is then global and its signature is the
 # header's. The caller keeps its own types at the call: arguments are cast to the caller's declared type first (a
 # derived -> base adjustment still happens) and then to the header's, the result back to the caller's return type.
 # The object is cast to the class that declares the stub member first when other classes of the source derive
@@ -1420,7 +1420,7 @@ def member_ret_cast(rc, rk, qk):
     if rk[0] == "void":
         raise rn_transform.SwapFail("the caller uses a void return")
     if rk[0] == "int" and qk and qk.startswith("hulk_") and rc[0] == "ptr":
-        return "(%s)" % rc[1]         # (an owner class's pointer-sized integer return, tools/owner_classes.py)
+        return "(%s)" % rc[1]         # (an owner class's pointer-sized integer return, tools/legacy/owner_classes.py)
     if rk[0] == "ptr":
         if rc[0] == "int" and rc[1] == 4 and not rc[3]:
             return "(%s)(hulk_uintptr)" % rc[2]
@@ -2017,7 +2017,7 @@ def main(argv=None):
     ma.add_argument("--root", default=ROOT)
     ma.add_argument("--exclude", nargs="*")
     rn = sub.add_parser("rename")
-    rn.add_argument("--names", required=True, help="include/gen/evidence-fnames.json (tools/fn_names.py)")
+    rn.add_argument("--names", required=True, help="include/gen/evidence-fnames.json (tools/legacy/fn_names.py)")
     rn.add_argument("--bindings", required=True, help="bindings.json of a Wine build of the same sources (definitions)")
     rn.add_argument("--out", required=True)
     rn.add_argument("--root", default=ROOT)

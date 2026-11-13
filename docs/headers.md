@@ -25,7 +25,7 @@ build/venv/bin/python -m unittest tests.test_gen_headers      # name helpers, th
   is known; every class in a destructor slot family declares its own (pure where its vftable has `_purecall`); fields
   only where code proves the offset (`f_<offset>` until named, `_pad_<offset>` gaps); `hulk_intptr` / `hulk_uintptr`
   for 4-byte words that hold pointers; a comment naming the evidence (address, agent) on anything hand-added.
-- New owner classes (non-polymorphic classes RTTI doesn't name) go into `owners.h` by hand; tools/owner_classes.py, which
+- New owner classes (non-polymorphic classes RTTI doesn't name) go into `owners.h` by hand; tools/legacy/owner_classes.py, which
   planned them, is retired.
 
 ## What's in a header (as generated; hand edits since keep the shape)
@@ -164,7 +164,7 @@ empty elsewhere). Without it, 104 `Method*`/`Closure*` sizes come out wrong.
   Return types default to `void` for slots no match has defined.
 - **Non-virtual member functions**: RTTI doesn't list them. The ones a source *defines* as its own
   function are declared in their class from that source (`R FUN_<addr>(P...); // non-virtual`,
-  first by `tools/rn_members.py`, batch b9, now by hand; types: scalars kept,
+  first by `tools/legacy/rn_members.py`, batch b9, now by hand; types: scalars kept,
   a pointer to the class itself as `X*`, other pointers `void*`). Callers keep declaring the members
   they call on a local helper struct (`((X_nv_<addr>*)this)->f()`), which compiles to the same code.
 - **Constructors**: a class declares the ones a source defines out of line (`X(P...);`, e.g. unb5's
@@ -177,12 +177,12 @@ empty elsewhere). Without it, 104 `Method*`/`Closure*` sizes come out wrong.
   32-bit builds, pointer-sized on the 64-bit ones. Where the 64-bit work needs real pointers the field is a pointer
   (x64t2-x64t8). `_pad_` arrays after such a field still assume 32-bit offsets.
 - **Field names**: a field is `f_<offset>` until a name is proven (clean1 named 218 from evidence; new names are
-  edits of the header and its users). The retired `tools/param_fields.py` named the fields of the fight Track/Condition classes from their
+  edits of the header and its users). The retired `tools/legacy/param_fields.py` named the fields of the fight Track/Condition classes from their
   parameter registrations: the string literal passed to a `fight::ParamValue*` constructor and the setter
   registered with it, whose one store through `this` gives the offset (CClimbableCondition +0x10 `arc`).
-  The retired `tools/rename_fields.py` rewrote the sources' references (libclang-resolved, so `f_10` of another class is
+  The retired `tools/legacy/rename_fields.py` rewrote the sources' references (libclang-resolved, so `f_10` of another class is
   never touched). See docs/consolidation-plan.md section 12.
-- **Function names** (clean2): the retired `tools/fn_names.py` named functions by address, with evidence
+- **Function names** (clean2): the retired `tools/legacy/fn_names.py` named functions by address, with evidence
   (`evidence-fnames.json`, removed at gen1); `tools/name_unify.py rename --names FILE` applies such a list to the definition and every `FUN_<addr>`
   reference. Each name keeps its address as a suffix (`SetArc_000480a0`, tools/addr_names.py), which every tool
   that reads an address from a name understands. Members of include/gen/ headers (owners.h) are not renamed yet.
@@ -207,8 +207,8 @@ destructors where most slot bodies have the scalar deleting destructor's shape, 
 families once, and fields from evidence: signatures and `this->field` offsets mined from `matches/` with clang
 (`--mine`, `include/gen/evidence.json`: 9,909 signatures, 1,795 fields), the consolidation batches' sources
 (`evidence-rn.json`: fields, signatures, non-virtual members, constructors, pointer-sized fields), field names from the
-fight parameter registrations (`evidence-names.json`, tools/param_fields.py), owner classes (`evidence-owners.json`,
-tools/owner_classes.py) and function names (`evidence-fnames.json`, tools/fn_names.py, applied by `name_unify.py
+fight parameter registrations (`evidence-names.json`, tools/legacy/param_fields.py), owner classes (`evidence-owners.json`,
+tools/legacy/owner_classes.py) and function names (`evidence-fnames.json`, tools/legacy/fn_names.py, applied by `name_unify.py
 rename`). From x64t2 on, agents edited the headers by hand where the generator had no input for what they needed
 (records' pointer fields, allocation sizes, base-class words moved up), so the committed headers and the generator's
 output drifted apart.
@@ -223,7 +223,7 @@ edit moved the words up) its base, with the generator's type or one a hand edit 
 rightly never emitted. The function names of `evidence-fnames.json` are applied in `src/` except seven that were left
 out on purpose (consolidation-plan.md section 13); they are listed in native-build.md "gen1".
 
-Retired with the generator: `--mine`, `--swap-test` and the regeneration; tools/migrate_gen.py, rn_members.py,
+Retired with the generator: `--mine`, `--swap-test` and the regeneration; tools/legacy/migrate_gen.py, rn_members.py,
 rn_sigs.py, rn_ptrfields.py, rn_fields.py, ptr_slots.py, param_fields.py, rename_fields.py, fn_names.py and
 owner_classes.py (they wrote the evidence files or rewrote matches/ onto the generated headers; they now refuse to run).
 The clang helpers rn_transform.py used moved into it. Git history keeps the generator (`git show 9bbef387f:tools/gen_headers.py`).
@@ -244,7 +244,7 @@ functions still MATCH:
 
 ## Sources on the headers (2026-10-16)
 
-`tools/migrate_gen.py` rewrites `matches/` and `equivalent/` sources onto these headers (rules and numbers in
+`tools/legacy/migrate_gen.py` rewrites `matches/` and `equivalent/` sources onto these headers (rules and numbers in
 [source-tree.md](source-tree.md#includegen-migration-2026-10-16)): about 8,100 sources now `#include "gen/<ns>.h"`
 and define the real member, e.g. `template <> bool fight::ParamFloatConstRange<CFoo>::vfunc_6(int a, int b)` or
 `CCollisionAction::~CCollisionAction() {}` (MSVC generates the matched scalar deleting destructor from it). The

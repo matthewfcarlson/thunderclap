@@ -2,14 +2,14 @@
 
 Heavy work does not run on the laptop. `tools/jobq.py` is a shared queue with a scheduler daemon that spreads jobs over
 mac2 and mac1 by free capacity (the laptop takes only `wine-gfx` jobs: its `caps` in `hosts.json` are `["wine-gfx"]`) (it reads each host's load and sizes the slots from it). Everything that
-takes more than a minute or a few cores goes through it: `equiv.py` beyond a quick single check, `build_tree`, regress
-suites, scans and sweeps. At most 2 local processes for interactive debugging.
+takes more than a minute or a few cores goes through it: `equiv.py` beyond a quick single check, whole-tree
+`tree_tu.py verify`, regress suites, scans and sweeps. At most 2 local processes for interactive debugging.
 
 ## Submit, wait, look
 
 ```sh
 J=build/venv/bin/python; Q=tools/jobq.py
-id=$($J $Q submit --name MYNAME --needs equiv --limit 1800 --out build/tree.log -- python tools/build_tree.py --rounds 16)
+id=$($J $Q submit --name MYNAME --needs msvc --slots 8 --limit 5400 --out v.jsonl -- build/venv/bin/python tools/tree_tu.py verify . --relocs --jobs 8 --out v.jsonl)
 $J $Q wait $id                 # exit 0 done, 1 failed or gave up, 2 timeout (--timeout S)
 $J $Q result $id               # exit code, host, attempts, paths of the log and outputs under build/jobs/out/ID/
 $J $Q status [--name MYNAME] [--all]    # per submitter counts, running jobs, host slots and load
@@ -65,8 +65,9 @@ A host added to `hosts.json` joins the running daemon within 30 s (no restart); 
 
 A job runs in a fresh clone (APFS clonefile) of a per-host cached base tree, `git archive HEAD tools include tests config src`
 (keyed by the content hash of those trees, kept under `~/hulk-jobs/ws`, newest 4 kept), plus the job's overlay files.
-`build/ isos/ matches/ equivalent/ farm/ docs/` are symlinks to the host's own checkout (`~/hulk-permute` on the
-Macs), so the jobs share its compilers, venv and caches. Consequences:
+`build/ isos/ farm/ docs/` are symlinks to the host's own checkout (`~/hulk-permute` on the
+Macs), so the jobs share its compilers, venv and caches. (Until merge-once (d), 2026-11-13, `matches/ equivalent/` were
+too; the runner no longer links them, so a job sees no per-function sources even where a host's checkout still has them.) Consequences:
 
 - Committed `tools/` and `include/` are what runs. For uncommitted files pass `--files` (or `--dirty`: every modified or
   untracked file under `tools include tests config src`; `jobq_equiv.py` and `regress.py --jobq` do this by default).
@@ -82,7 +83,6 @@ Macs), so the jobs share its compilers, venv and caches. Consequences:
   `inputs_vs_local` (the job's `inputs` digests against the checkout's at submit). A job has no git: `--changed-since`
   must name the job's base commit (HEAD), and the changed TUs are the shipped ones; `verify --x64` works in a job
   (`--needs clang`), its gate runs stay in the job. Wrapper scripts (`sh job/run.sh`) are not looked into.
-- `matches/` and `equivalent/` on the Macs are whatever was last synced there, not your working tree.
 - `src/` ships in the base tree (bink2, 2026-11-09). Before that it was a symlink to the host's checkout, which is a
   one-time `git archive` snapshot from the host's onboarding: mac2 and mac1 (onboarded before `jobq_host_setup.sh`
   existed) had no `src/` at all and studio's was three days stale, so a native compile job (`native_elf.py` /
@@ -147,9 +147,11 @@ $J tools/wine_replay_job.py compare ID1 ID2 ...           # common checkpoint fr
 optionally a headless replay on the host. **Since the merge-once flip (build6, 2026-11-10) the build stage reads the
 committed tree** (`src/{game,engine,platform/xbox}`, `src/link-order.txt`; [merge-once.md](merge-once.md)):
 `tools/tree_tu.py materialize` copies it into build/tree and verifies every function from the object and verification
-caches, with no build_tree fallback rounds. `--env HULK_TREE_SOURCE=0` (or a commit from before the flip, which has no
-`src/link-order.txt`) runs build_tree's rounds over matches/ and equivalent/ as before; `--state` then applies as
-described below. The queue picks the host when the job starts (any remote with the caps
+caches, with no build_tree fallback rounds. Since merge-once (d) (2026-11-13) that is the only source: the build_tree
+path over matches/ and equivalent/ (`--env HULK_TREE_SOURCE=0`, or a commit from before the flip) went with those
+directories, and the build stage refuses it; the `--state` text below about build_tree's state and seeding describes
+that retired path (a tree-source build keeps no fallback state; `--state seed:CONTROL` pins the proof to the
+control's host and toolchain). The queue picks the host when the job starts (any remote with the caps
 and room; see "Placement" below); `--host H` pins it, `--host local` only on purpose; graphics and screenshot runs stay on
 the laptop (`wine-gfx`).
 
@@ -162,7 +164,8 @@ $J $N compare ID1 ID2   # image hashes (PE time stamp zeroed) and replay checkpo
 $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspaces and sizes
 ```
 
-- **Sources.** The job's base tree is `git archive HEAD` of `matches equivalent include src tools config` (cached per host by
+- **Sources.** The job's base tree is `git archive HEAD` of `include src tools config` (before merge-once (d) also
+  `matches equivalent`; cached per host by
   content hash). The overlay is what differs from HEAD: the checkout's dirty files, or with `--workspace DIR` the files of that
   private workspace that differ (files it lacks are deleted). `--live PATH...` takes paths (`tools`, `src/platform`) from the
   checkout instead: a private workspace's copy of the build tools can be older than HEAD's.
@@ -242,7 +245,8 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   replay in main (71282). Regenerate them, or build a private copy from a clean `git archive` and pass `--data-src DIR`
   / `--sdl-src DIR` (with uncommitted platform edits in the checkout, a rebuild there would carry them in). A control
   and a proof meant to be compared byte for byte take the same inputs.
-- **Seeding a proof from its control (build1, opt-in).** `--state seed:CONTROL` starts the proof's build_tree from the
+- **Seeding a proof from its control (build1, opt-in; the build_tree part retired with merge-once (d): `seed_decision()`
+  is gone, a tree-source proof takes the control's empty state through `tree_seed_decision()`).** `--state seed:CONTROL` starts the proof's build_tree from the
   control job's final fallback state (`nb-out/tree-state.json`) instead of empty, so it skips the ~18 rounds that rediscover
   the same fallbacks. Measured on mac1 (batch: f9e1c9f1a's 125 renamed sources; control 64299 fresh, proof fresh 64300,
   proof seeded 64969, `--gfx`, play3 to 60000): the seeded proof's `tree-state.json` equals the fresh proof's, the image

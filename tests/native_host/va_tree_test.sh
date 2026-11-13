@@ -11,7 +11,10 @@
 # 0x0021f800 declares 0x00216320 under its own C++ name (the tree's link aliases the two by address); the test
 # compiles a copy whose declaration (and call) spell the definition's name and parameter types, with the same variadic
 # shape (two pointer-sized named parameters), so the call binds without a link-time alias.
+# The sources are the per-function files as merge-once froze them (F = e68debc9d; matches/ and equivalent/ were removed
+# at step (d), docs/merge-once.md): `git show F:matches/0x....cpp`, written to OUT/src/.
 set -u
+F=e68debc9d
 mode=${1:-mac}
 out=${2:-build/va1/test-$mode}
 mkdir -p "$out"
@@ -37,9 +40,14 @@ FLAGS="-fms-extensions -fms-compatibility -fms-compatibility-version=13.10 -std=
  -fno-strict-aliasing -fwrapv -fno-delete-null-pointer-checks -Xclang -fno-wchar -fno-operator-names
  -Wno-c++11-narrowing -Wno-address-of-temporary -fcheck-new -ffp-eval-method=double -ffp-contract=off -w"
 objs=""
+mkdir -p "$out/src"
 for s in $SRCS; do
     n=$(basename $s)
     src=$s.cpp
+    case $s in
+        matches/*|equivalent/*) git show "$F:$s.cpp" > "$out/src/$n.cpp" || { echo "no $s.cpp at $F"; exit 1; }
+                                src=$out/src/$n.cpp ;;
+    esac
     if [ $n = 0x0021f800 ]; then
         sed -e 's/^void __cdecl FUN_00216320(const char\*, const char\*, \.\.\.);/const char* __cdecl FUN_00216320(hulk_uintptr, hulk_uintptr, ...);/' \
             -e 's/FUN_00216320(context->name, "%s: %s",/FUN_00216320((hulk_uintptr)context->name, (hulk_uintptr)"%s: %s",/' \

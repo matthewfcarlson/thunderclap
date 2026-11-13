@@ -40,13 +40,14 @@ import subprocess
 import sys
 import tempfile
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # tools/ (this is tools/legacy/)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import cxx_items  # noqa: E402
 import name_audit  # noqa: E402
 import name_unify as nu  # noqa: E402
 import rn_transform  # noqa: E402
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 NS = "owners"
 # replay-pinned functions (docs/wine-replay.md): never moved
 PINS = {0x86450, 0x964D0, 0x113E0, 0x86630, 0x269170}
@@ -442,7 +443,7 @@ def cmd_plan(a):
 
 
 def main(argv=None):
-    sys.exit("tools/owner_classes.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
+    sys.exit("tools/legacy/owner_classes.py is retired (gen1, 2026-11-13): include/gen/ is hand-maintained source "
              "(docs/headers.md)")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)

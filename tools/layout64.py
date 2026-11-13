@@ -14,8 +14,9 @@ are 32-bit offsets written as bytes: on 64-bit they keep their byte count while 
 class with a pad and a pointer before it is wrong on 64-bit even where clang reports no error.
 
 config/layout64.json lists the records whose layout is a file format or otherwise must not move (read whole from
-disk, written to a save, shared with a tool): each entry {"name", "include" (header under include/) or "source"
-(the matches/ or equivalent/ source that defines it), "size" (the 32-bit size), "offsets" (field: offset), "why"}. `--check` compiles `static_assert(sizeof(X) == size)` and the offset of every field of each
+disk, written to a save, shared with a tool): each entry {"name", "include" (header under include/) or "block"
+(the address of a block of the tree TU that defines it, whose definition is checked on its own; before merge-once (d)
+"source", the matches/ or equivalent/ file), "size" (the 32-bit size), "offsets" (field: offset), "why"}. `--check` compiles `static_assert(sizeof(X) == size)` and the offset of every field of each
 listed record on every target; the asserts are the gate a 64-bit build has to pass (they fail today for records
 with pointers, which is the point: such a record needs a disk-side struct of fixed-width fields).
 
@@ -148,6 +149,31 @@ def load_config():
     return json.load(open(CONFIG))["records"]
 
 
+def unit_file(e, d):
+    """The file a record's definition is included from: for an entry's tree block (`block`, merge-once (d)) the
+    record's own definition cut from that block's TU (`struct NAME {...};`; a file-format record is fixed-width fields,
+    so it stands alone: the whole TU need not compile for every target), else a per-function `source` (a checkout from
+    before (d))."""
+    if e.get("block"):
+        import tree_index
+        hit = tree_index.find(int(e["block"], 16), ROOT)
+        text = tree_index.tu_text(hit[0]) if hit else ""
+        m = re.search(r"\b(?:struct|class)\s+%s\s*(?::[^{;]*)?\{" % re.escape(e["name"]), text)
+        body = ""
+        if m:
+            depth, i = 0, m.end() - 1
+            for i in range(m.end() - 1, len(text)):
+                depth += {"{": 1, "}": -1}.get(text[i], 0)
+                if depth == 0:
+                    break
+            body = text[m.start():i + 1] + ";\n"
+        p = os.path.join(d, "record_%s.h" % re.sub(r"\W", "_", e["name"]))
+        with open(p, "w") as f:
+            f.write("// %s, from %s (block %s)\n%s" % (e["name"], hit[0] if hit else "?", e["block"], body))
+        return p
+    return os.path.join(ROOT, e["source"])
+
+
 def check(cfg):
     """Compile the file-format asserts for every target: {target: {record: ok/failed}}."""
     d = os.path.join(OUT, "layout-probe")
@@ -158,7 +184,7 @@ def check(cfg):
         for e in cfg:
             src = os.path.join(d, "assert_%s_%s.cpp" % (tgt, re.sub(r"\W", "_", e["name"])))
             with open(src, "w") as f:
-                f.write('#include "%s"\n' % (e["include"] if e.get("include") else os.path.join(ROOT, e["source"])))
+                f.write('#include "%s"\n' % (e["include"] if e.get("include") else unit_file(e, d)))
                 f.write("static_assert(sizeof(::%s) == %d, \"%s: 32-bit file layout\");\n" % (
                     e["name"], e["size"], e["name"]))
                 for fld, off in e.get("offsets", {}).items():
@@ -183,7 +209,7 @@ def main(argv=None):
         print(json.dumps(r, indent=1))
         return 0 if all(v == "ok" for t in r.values() for v in t.values()) else 1
     gen_names = [q for q, _ in rn_layout.gen_class_names()]
-    # (records a source defines, `"source": "matches/0x....cpp"`, are checked by --check only)
+    # (records a TU defines, `"block": "0x...."`, are checked by --check only)
     hdr = [e for e in cfg if e.get("include")]
     names = gen_names + [e["name"] for e in hdr if e["name"] not in gen_names]
     includes = ["gen/all.h"] + sorted({e["include"] for e in hdr if e["include"] != "gen/all.h"})

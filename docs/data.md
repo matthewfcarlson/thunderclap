@@ -9,8 +9,8 @@ build/venv/bin/python tools/data_inventory.py     # config/data.json + build/dat
 build/venv/bin/python tools/data_inventory.py --check   # exit 1 unless config/data.json is what its inputs give
 build/venv/bin/python tools/data_gen.py           # data TUs, include/decls/data/, compile + byte-check  (~25 s warm)
 build/venv/bin/python tools/data_gen.py --only global/CAction.cpp      # one object
-build/venv/bin/python tools/build_tree.py --rounds 16 --data           # the tree build plus the data TUs and a link check
-build/venv/bin/python tools/migrate_data.py --apply --equivalent       # sources onto include/decls/data/ (verified, logged)
+# retired with matches/ and equivalent/ (merge-once (d), 2026-11-13): `build_tree.py --rounds 16 --data` (the tree build
+# from the per-function sources, plus the data TUs and a link check) and `migrate_data.py` (rewrote those sources)
 ```
 
 | Output | What | Tracked |

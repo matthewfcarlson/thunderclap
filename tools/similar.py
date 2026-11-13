@@ -17,11 +17,23 @@ from collections import Counter, defaultdict
 import capstone
 
 sys.path.insert(0, os.path.dirname(__file__))
-from xbe import Xbe
+from xbe import Xbe  # noqa: E402
+import tree_index  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-MATCHES = os.path.join(ROOT, "matches")
-CACHE = os.path.join(ROOT, "build", "farm", "simindex.pkl")
+CACHE = os.path.join(ROOT, "build", "farm", "simindex2.pkl")
+PROPAGATED = "// Same code shape"
+
+
+def _matched():
+    """{"0xADDR": its block's code lines} of the tree's `matches` blocks (merge-once (d): matches/ is gone; the block
+    header, `// sym:` and TU namespace lines dropped, so the text reads as the old per-function source)."""
+    out = {}
+    for a, tu, _k in tree_index.blocks(("matches",)):
+        ls = tree_index.block_lines(a, tu) or []
+        out["0x%08x" % a] = "\n".join(l for l in ls[1:] if not l.startswith("// sym:") and not
+                                      tree_index.tree_tu.NS_OPEN.match(l) and not tree_index.tree_tu.NS_CLOSE.match(l)) + "\n"
+    return out
 
 _md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 _md.syntax = capstone.CS_OPT_SYNTAX_INTEL
@@ -55,28 +67,28 @@ class Index:
         self.grams = {}
         self.postings = defaultdict(list)
         self.direct = set()
-        for name in os.listdir(MATCHES):
-            a = name[:-4]
+        srcs = _matched()
+        for a, text in srcs.items():
             if a not in self.sizes:
                 continue
-            path = os.path.join(MATCHES, name)
-            with open(path) as f:
-                propagated = f.readline().startswith("// Same code shape")
-            if not propagated:
+            if not text.startswith(PROPAGATED):
                 self.direct.add(a)
             g = grams(tokens(xbe, int(a, 16), self.sizes[a]))
             self.grams[a] = g
             for t in g:
                 self.postings[t].append(a)
-        self.n_matches = len(os.listdir(MATCHES))
+        self.n_matches = len(srcs)
 
     @classmethod
     def load(cls):
-        n = len(os.listdir(MATCHES))
+        n = len(tree_index.blocks(("matches",)))
         if os.path.exists(CACHE):
-            with open(CACHE, "rb") as f:
-                idx = pickle.load(f)
-            if idx.n_matches == n:
+            try:
+                with open(CACHE, "rb") as f:
+                    idx = pickle.load(f)
+            except (AttributeError, EOFError, pickle.UnpicklingError):
+                idx = None          # (an index pickled under another module name: rebuilt)
+            if idx is not None and idx.n_matches == n:
                 idx.xbe = Xbe(os.path.join(ROOT, "isos/extracted/default.xbe"))
                 return idx
         idx = cls()
@@ -85,6 +97,11 @@ class Index:
             pickle.dump(idx, f)
         idx.xbe = xbe
         return idx
+
+    def text(self, a):
+        if getattr(self, "_texts", None) is None:
+            self._texts = _matched()
+        return self._texts[a]
 
     def similar(self, addr, k=3, min_score=0.5):
         g = grams(tokens(self.xbe, int(addr, 16), self.sizes[addr]))
@@ -107,8 +124,8 @@ class Index:
         for _, a, j in scored:
             if j < min_score:
                 break
-            src = open(os.path.join(MATCHES, a + ".cpp")).read()
-            body = src.split("\n", 1)[1] if src.startswith("// Same code shape") else src
+            src = self.text(a)
+            body = src.split("\n", 1)[1] if src.startswith(PROPAGATED) else src
             if body in seen_src:  # several addresses can share one TU
                 continue
             seen_src.add(body)
@@ -121,7 +138,8 @@ class Index:
 def main():
     addr = "0x%08x" % int(sys.argv[1], 16)
     k = int(sys.argv[2]) if len(sys.argv) > 2 else 3
-    for a, j, size, body in Index.load().similar(addr, k):
+    import similar      # (the module's own Index, so the pickled index loads from packet.py too)
+    for a, j, size, body in similar.Index.load().similar(addr, k):
         print("== %s  similarity %.2f  (%d bytes)\n%s" % (a, j, size, body[:1500]))
 
 

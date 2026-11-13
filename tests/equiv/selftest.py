@@ -3,7 +3,7 @@
 
   build/venv/bin/python tests/equiv/selftest.py [--n 300] [--jobs 2] [--flags /O1] [--only 0x...,0x...]
 
-Picks a size-stratified sample of matches/ (fixed seed), runs equiv.verify on each and writes
+Picks a size-stratified sample of the tree's `matches` blocks (fixed seed), runs equiv.verify on each and writes
 build/equiv/selftest[-<flags>].jsonl plus a summary. With --flags the same sources are compiled with
 different options (e.g. /Oy- or /O1): different bytes, same behaviour, so they must pass too.
 Skips when the game files are absent.
@@ -20,17 +20,16 @@ from multiprocessing import Pool
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 
-# matches/ has ~9.5k functions under 32 B but only ~150 over 128 B, so larger sizes get a bigger share.
+# the `matches` blocks: ~9.5k functions under 32 B but only ~150 over 128 B, so larger sizes get a bigger share.
 BUCKETS = [(0, 32, 0.2), (32, 64, 0.2), (64, 128, 0.233), (128, 1 << 20, 0.367)]
 
 
 def sample(n, seed=9):
     equiv = __import__(os.environ.get("EQUIV_MODULE", "equiv"))
     prog = equiv.Program.get()
-    files = sorted(f for f in os.listdir(os.path.join(ROOT, "matches")) if f.endswith(".cpp"))
+    import tree_index
     by = {b: [] for b in BUCKETS}
-    for f in files:
-        a = int(f[:-4], 16)
+    for a, _tu, _k in tree_index.blocks(("matches",)):      # (merge-once (d): the tree's blocks, not matches/)
         if a not in prog.funcs:
             continue
         sz = prog.funcs[a][0]
@@ -47,7 +46,8 @@ def sample(n, seed=9):
 def job(args):
     addr, flags = args
     equiv = __import__(os.environ.get("EQUIV_MODULE", "equiv"))
-    src = os.path.join(ROOT, "matches", "0x%08x.cpp" % addr)
+    import tree_index
+    src = tree_index.find(addr)[0]          # (its tree TU, checked in tree mode)
     t = time.time()
     try:
         if flags:

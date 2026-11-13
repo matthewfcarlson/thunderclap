@@ -234,15 +234,24 @@ class RegWrites(unittest.TestCase):
         self.assertIn("edx", prog.reg_writes(0x1b170))                        # self-recursive and writes edx
 
 
+def _tu(addr):
+    """The tree TU holding ADDR's block (merge-once (d): no per-function sources)."""
+    import tree_index
+    return tree_index.find(addr)[0]
+
+
 @unittest.skipUnless(HAVE_GAME, "needs isos/extracted and the MSVC toolchain")
 class EndToEnd(unittest.TestCase):
     def test_match_is_equivalent(self):
-        r = equiv.verify(os.path.join(ROOT, "matches/0x000110d0.cpp"), 0x110D0, n_inputs=16, max_inputs=16)
+        r = equiv.verify(_tu(0x110D0), 0x110D0, n_inputs=16, max_inputs=16)
         self.assertEqual(r["status"], "equivalent", r)
         self.assertEqual(r["level"], 3)
 
     def test_wrong_operand_fails(self):
-        src = open(os.path.join(ROOT, "matches/0x000110f0.cpp")).read().replace("z -= other->z", "z += other->z")
+        import tree_index
+        src = tree_index.source_text(0x110F0)
+        self.assertIn("z -= other->z", src)
+        src = src.replace("z -= other->z", "z += other->z")
         with tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build")) as d:
             p = os.path.join(d, "m.cpp")
             open(p, "w").write(src)
@@ -256,14 +265,14 @@ class EndToEnd(unittest.TestCase):
         equiv.ONLY_SEEDS.clear()
         equiv.ONLY_SEEDS.add(300)
         try:
-            r = equiv.verify(os.path.join(ROOT, "matches/0x000110d0.cpp"), 0x110D0, n_inputs=16, max_inputs=16)
+            r = equiv.verify(_tu(0x110D0), 0x110D0, n_inputs=16, max_inputs=16)
         finally:
             equiv.ONLY_SEEDS.clear()
             equiv.ONLY_SEEDS.update(old)
         self.assertGreaterEqual(r["level3"]["inputs_run"], 1, r)
 
     def test_other_flags_still_equivalent(self):
-        r = equiv.verify(os.path.join(ROOT, "matches/0x000110d0.cpp"), 0x110D0, flags=["/Oy-"], n_inputs=16,
+        r = equiv.verify(_tu(0x110D0), 0x110D0, flags=["/Oy-"], n_inputs=16,
                          max_inputs=16)
         self.assertEqual(r["status"], "equivalent", r)
 

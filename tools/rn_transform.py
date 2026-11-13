@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Source rewrites of the consolidation plan (docs/consolidation-plan.md), used by `tools/migrate_gen.py --family rn`.
+"""Source rewrites of the consolidation plan (docs/consolidation-plan.md), used by `tools/legacy/migrate_gen.py --family rn`.
 
   unclash   a source's private stub that carries an include/gen/ class's name but is another class (rename map,
             tools/rn_map.py) takes the real class's name with the source's placeholder suffix:
@@ -41,7 +41,7 @@ CLANG = ["clang", "-target", "i686-pc-windows-msvc", "-fms-extensions", "-fms-co
 
 
 class SwapFail(Exception):
-    """`slot`: for a signature refusal, (slot key, the stub's function type, its parameter types) (tools/rn_sigs.py)."""
+    """`slot`: for a signature refusal, (slot key, the stub's function type, its parameter types) (tools/legacy/rn_sigs.py)."""
     def __init__(self, msg, slot=None):
         super().__init__(msg)
         self.slot = slot
@@ -345,7 +345,7 @@ def _norm(t):
     t = re.sub(r"\b(struct|class|union|enum)\s+", "", t)
     t = re.sub(r"\s+", " ", t).replace(" *", "*").replace("* ", "*").strip()
     # (hulk_intptr / hulk_uintptr: include/compat/ptr.h, int / unsigned int on the 32-bit builds; header fields typed
-    # by tools/rn_ptrfields.py)
+    # by tools/legacy/rn_ptrfields.py)
     return {"unsigned": "unsigned int", "signed": "int", "long": "int", "unsigned long": "unsigned int",
             "hulk_intptr": "int", "hulk_uintptr": "unsigned int"}.get(t, t)
 

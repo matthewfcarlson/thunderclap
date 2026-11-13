@@ -23,15 +23,19 @@ def put(root, rel, text):
     return p
 
 
+# a tree TU of two blocks (the key reads a function's text from its block: tools/tree_index.py)
+TU = "// 0x00000001 f (4 B): matches\nint f() { return h(); }\n// 0x00000002 g (4 B): equivalent\n%sint g();\n"
+
+
 class MapKey(unittest.TestCase):
     """map_key over a fake tree: names decide, an equivalent's code positions don't."""
 
     def setUp(self):
         import wine_link
         self.wl = wine_link
-        self.saved = (wine_link.tree_checks, wine_link.tree_objects, wine_link._obj_fingerprint, wine_link.ROOT)
+        self.saved = (wine_link.tree_checks, wine_link.tree_objects, wine_link._obj_fingerprint, wine_link.TREE)
         self.root = tempfile.mkdtemp()
-        put(self.root, "equivalent/0x2.cpp", "int g();\n")
+        put(self.root, "a.cpp", TU % "")
         self.checks = [{"addr": "0x00000001", "kind": "matches", "status": "match", "symbol": "?f@@YAHXZ", "tu": "a.cpp",
                         "src": "matches/0x1.cpp"},
                        {"addr": "0x00000002", "kind": "equivalent", "status": "compiled", "symbol": "?g@@YAHXZ",
@@ -42,10 +46,10 @@ class MapKey(unittest.TestCase):
         wine_link.tree_checks = lambda: self.checks
         wine_link.tree_objects = lambda tus: {t: "obj" for t in tus}
         wine_link._obj_fingerprint = lambda obj: self.fp
-        wine_link.ROOT = self.root
+        wine_link.TREE = self.root
 
     def tearDown(self):
-        (self.wl.tree_checks, self.wl.tree_objects, self.wl._obj_fingerprint, self.wl.ROOT) = self.saved
+        (self.wl.tree_checks, self.wl.tree_objects, self.wl._obj_fingerprint, self.wl.TREE) = self.saved
 
     def key(self):
         return json.loads(json.dumps(self.wl.map_key()))["key"]
@@ -78,7 +82,7 @@ class MapKey(unittest.TestCase):
 
     def test_equiv_map_lines_count(self):
         k = self.key()
-        put(self.root, "equivalent/0x2.cpp", "// equiv-map: ?h@@YADXZ = 0x00001234\nint g();\n")
+        put(self.root, "a.cpp", TU % "// equiv-map: ?h@@YADXZ = 0x00001234\n")      # (in the block, merge-once (d))
         self.assertNotEqual(k, self.key())
 
 

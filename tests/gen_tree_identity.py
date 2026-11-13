@@ -5,8 +5,8 @@ reference generator (a git revision's tools/) writes, for several fallback state
   build/venv/bin/python tests/gen_tree_identity.py --ref REV --state fresh --state mid:STATE.json --state STATE.json
   build/venv/bin/python tests/gen_tree_identity.py --ref REV --new-tools DIR ...   # a private copy of tools/ instead
 
-Both generators run on the same sources (this checkout's matches/ equivalent/ include/ config/ src/, or
---src-root), each in its own scratch root (--work, default build/gen-identity/) whose build/tree they write. Each
+Both generators run on the same sources (--src-root: matches/ equivalent/ include/ config/ src/ of a checkout from
+before merge-once (d), e.g. `git archive e68debc9d` unpacked: this checkout has no per-function sources any more), each in its own scratch root (--work, default build/gen-identity/) whose build/tree they write. Each
 side generates every state in turn in ONE process, as tools/build_tree.py does across its rounds, so a cache that
 goes stale between generate() calls shows up as a difference in a later state (a state may be given twice, e.g.
 `fresh` first and last: the second tree replaces a bigger one, so files of the earlier tree must go). A state is `fresh` (no fallbacks),
@@ -145,6 +145,9 @@ def main():
         seen[name] = seen.get(name, 0) + 1
         states.append((name if seen[name] == 1 else "%s#%d" % (name, seen[name]), st))
     src_root = os.path.abspath(a.src_root)
+    if not os.path.isdir(os.path.join(src_root, "matches")):
+        sys.exit("%s has no matches/: gen_tree generates from the per-function sources, which merge-once (d) removed; "
+                 "pass --src-root an export of a commit that has them (docs/merge-once.md)" % src_root)
     ref_rev = subprocess.run(["git", "rev-parse", a.ref], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     if not ref_rev:
         sys.exit("unknown revision %s" % a.ref)

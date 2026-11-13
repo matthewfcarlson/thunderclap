@@ -2,7 +2,7 @@
 """Move matches/ and equivalent/ sources from their own `extern ... DAT_xxxxxxxx` declarations onto the shared data
 declarations in include/decls/data/ (tools/data_gen.py), so the source tree has one declaration and one definition
 per global (docs/data.md, "Wiring"). Re-runnable, logged, and every rewrite is verified before it is kept, like
-tools/migrate_gen.py.
+tools/legacy/migrate_gen.py.
 
   build/venv/bin/python tools/migrate_data.py                         # plan + verify matches/ in a scratch dir
   build/venv/bin/python tools/migrate_data.py --apply                 # ... and rewrite what still verifies
