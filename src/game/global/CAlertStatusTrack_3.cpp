@@ -43,9 +43,9 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 } // namespace fn_f4b6f30b
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f4b6f30b {
-void __cdecl SetTimeBegin_00068b40();
-void __cdecl SetTimeEnd_00068b50();
-void __cdecl GetHint_00068b60();
+bool SetTimeBegin_00068b40(void*, int); /* (unb5) as defined; address taken only */
+bool SetTimeEnd_00068b50(void*, int); /* (unb5) as defined; address taken only */
+void* GetHint_00068b60(void*); /* (unb5) as defined; address taken only */
 struct ParamBase_75b50 {
  virtual void slot0();
  char reserved[12];
@@ -90,16 +90,16 @@ struct TrackFactoryTemplate {
 } // namespace fn_f4b6f30b
 
 // 0x00072740 FUN_00072740 (213 B): equivalent/0x00072740.cpp [wrapped: conflict: fight::ParamFloatConstRange]
-// sym: _FUN_00072740 @36db24398d7d @w7eabe050c35d
+// sym: _FUN_00072740 @ffbc7270478e @w2313c9cd17c4
 namespace fn_00072740 {
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_00072740 @ 0x00072740
 
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern void __cdecl SetTimeBegin_00068b90();
-extern void __cdecl SetTimeEnd_00068ba0();
-extern void __cdecl SetHeight_00068bb0();
+extern bool SetTimeBegin_00068b90(void*, int); /* (unb5) as defined; address taken only */
+extern bool SetTimeEnd_00068ba0(void*, int); /* (unb5) as defined; address taken only */
+extern bool SetHeight_00068bb0(void*, int); /* (unb5) as defined; address taken only */
 class CMotionHitGroundHeightTrack;
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -116,11 +116,11 @@ extern "C" void FUN_00072740() {
  if (!DAT_004dd01c) {
  Param* params[3];
  Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
- if (p) { p->FUN_00234960("timeBegin"); new(p) Param; p->callback=SetTimeBegin_00068b90; } params[0]=p;
+ if (p) { p->FUN_00234960("timeBegin"); new(p) Param; p->callback=(void (*)())SetTimeBegin_00068b90; } params[0]=p;
  p = (Param*)FUN_0008d690((int)sizeof(Param));
- if (p) { p->FUN_00234960("timeEnd"); new(p) Param; p->callback=SetTimeEnd_00068ba0; } params[1]=p;
+ if (p) { p->FUN_00234960("timeEnd"); new(p) Param; p->callback=(void (*)())SetTimeEnd_00068ba0; } params[1]=p;
  p = (Param*)FUN_0008d690((int)sizeof(Param));
- if (p) { p->FUN_00234960("height"); new(p) Param; p->callback=SetHeight_00068bb0; } params[2]=p;
+ if (p) { p->FUN_00234960("height"); new(p) Param; p->callback=(void (*)())SetHeight_00068bb0; } params[2]=p;
  FUN_002347b0(&DAT_004dd018, params, 3);
  }
  ++DAT_004dd01c;
@@ -1086,7 +1086,7 @@ extern "C" bool __cdecl FUN_000749e0(Registry_749e0* registry) {
 namespace fn_f4b6f30b {
 
 // 0x00075b50 FUN_00075b50 (213 B): equivalent/0x00075b50.cpp
-// sym: _FUN_00075b50 @992d180e08d8 @w01df0f225c10
+// sym: _FUN_00075b50 @4864e2dc4984 @w7c46dc9191df
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
 // FUN_00075b50 @ 0x00075b50
 extern "C" void __cdecl FUN_00075b50() {
@@ -1096,21 +1096,21 @@ extern "C" void __cdecl FUN_00075b50() {
   if(p) {
    ((fight::ParamValueFloat *)(ParamBase_75b50 *)p)->FUN_00234960("timeBegin");
    new(p) fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>;
-   p->callback = SetTimeBegin_00068b40;
+   p->callback = (void (*)())SetTimeBegin_00068b40;
   }
   params[0]=p;
   p=(ParamBase_75b50*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>));
   if(p) {
    ((fight::ParamValueFloat *)(ParamBase_75b50 *)p)->FUN_00234960("timeEnd");
    new(p) fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>;
-   p->callback=SetTimeEnd_00068b50;
+   p->callback=(void (*)())SetTimeEnd_00068b50;
   }
   params[1]=p;
   p=(ParamBase_75b50*)FUN_0008d690((int)sizeof(fight::ParamName_75b50<CAIHintTrack_75b50>));
   if(p) {
    ((fight::ParamValueName *)(ParamBase_75b50 *)p)->FUN_00234a90("hint");
    new(p) fight::ParamName_75b50<CAIHintTrack_75b50>;
-   p->callback=GetHint_00068b60;
+   p->callback=(void (*)())GetHint_00068b60;
   }
   params[2]=p;
   FUN_002347b0(&DAT_004dd008,params,3);

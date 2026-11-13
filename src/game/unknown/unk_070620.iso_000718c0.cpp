@@ -4,7 +4,7 @@
 
 
 // 0x000718c0 FUN_000718c0 (213 B): equivalent/0x000718c0.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: _FUN_000718c0 @d11aa195000b @w256188b3cd4d
+// sym: _FUN_000718c0 @7f1d4e141d2f @w570613e74197
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 namespace fn_fe016cb5 {} using namespace fn_fe016cb5;
@@ -19,9 +19,9 @@ inline void* operator new(size_t, void* p) { return p; }
 namespace fn_fe016cb5 {
 
 class CComboTimerTrack;
-void __cdecl SetTimeBegin_00068550();
-void __cdecl SetTimeEnd_00068560();
-void __cdecl SetComboTimer_00068570();
+char SetTimeBegin_00068550(void*, int); /* (unb5) as defined; address taken only */
+char SetTimeEnd_00068560(void*, int); /* (unb5) as defined; address taken only */
+bool SetComboTimer_00068570(void*, int); /* (unb5) as defined; address taken only */
 struct ParamBase_718c0 {
  virtual void slot0();
  char data[12];
@@ -43,21 +43,21 @@ extern "C" void __cdecl FUN_000718c0() {
   if (p) {
    p->FUN_00234960("timeBegin");
    new (p) fight::ParamFloatConstRange<CComboTimerTrack>;
-   p->callback = SetTimeBegin_00068550;
+   p->callback = (void (*)())SetTimeBegin_00068550;
   }
   params[0] = p;
   p = (ParamBase_718c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CComboTimerTrack>));
   if (p) {
    p->FUN_00234960("timeEnd");
    new (p) fight::ParamFloatConstRange<CComboTimerTrack>;
-   p->callback = SetTimeEnd_00068560;
+   p->callback = (void (*)())SetTimeEnd_00068560;
   }
   params[1] = p;
   p = (ParamBase_718c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CComboTimerTrack>));
   if (p) {
    p->FUN_00234960("comboTimer");
    new (p) fight::ParamFloatConstRange<CComboTimerTrack>;
-   p->callback = SetComboTimer_00068570;
+   p->callback = (void (*)())SetComboTimer_00068570;
   }
   params[2] = p;
   FUN_002347b0(&DAT_004dcf80, params, 3);

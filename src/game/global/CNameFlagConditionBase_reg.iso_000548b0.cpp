@@ -4,7 +4,7 @@
 
 
 // 0x000548b0 FUN_000548b0 (213 B): equivalent/0x000548b0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_000548b0 @3e97b2f25d29 @w0de0e23a3ddd
+// sym: _FUN_000548b0 @668da2678a56 @w5088ced1818d
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 namespace fn_f16e4822 {} using namespace fn_f16e4822;
@@ -19,9 +19,9 @@ inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f16e4822 {
 
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl SetAngle_00048200();
-void __cdecl SetArc_00048220();
-void __cdecl SetMinVelocity_00048240();
+char SetAngle_00048200(void*, float); /* (unb5) as defined; address taken only */
+char SetArc_00048220(void*, float); /* (unb5) as defined; address taken only */
+char SetMinVelocity_00048240(void*, int); /* (unb5) as defined; address taken only */
 class CMotionClimbAngleCondition;
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -38,11 +38,11 @@ extern "C" void __cdecl FUN_000548b0() {
  if (DAT_004dc584 == 0) {
   Param* params[3];
   Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
-  if(p) {p->FUN_00234960("angle"); new(p) Param; p->callback = SetAngle_00048200;} params[0]=p;
+  if(p) {p->FUN_00234960("angle"); new(p) Param; p->callback = (void (*)())SetAngle_00048200;} params[0]=p;
   p = (Param*)FUN_0008d690((int)sizeof(Param));
-  if(p) {p->FUN_00234960("arc"); new(p) Param; p->callback = SetArc_00048220;} params[1]=p;
+  if(p) {p->FUN_00234960("arc"); new(p) Param; p->callback = (void (*)())SetArc_00048220;} params[1]=p;
   p = (Param*)FUN_0008d690((int)sizeof(Param));
-  if(p) {p->FUN_00234960("minVelocity"); new(p) Param; p->callback = SetMinVelocity_00048240;} params[2]=p;
+  if(p) {p->FUN_00234960("minVelocity"); new(p) Param; p->callback = (void (*)())SetMinVelocity_00048240;} params[2]=p;
   FUN_002347b0(&DAT_004dc580, params, 3);
  }
  ++DAT_004dc584;

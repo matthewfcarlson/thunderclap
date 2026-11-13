@@ -16,9 +16,9 @@ namespace fn_f3f3201f { extern "C" char DAT_003feefc[]; }   // (x64t6) the game 
 // ---- declarations shared by the functions below
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f3f3201f {
-void __cdecl SetTimeBegin_00077ed0();
-void __cdecl SetExplosion_00077ee0();
-void __cdecl SetOffset_00077ef0();
+bool SetTimeBegin_00077ed0(void*, int); /* (unb5) as defined; address taken only */
+char SetExplosion_00077ee0(void*, int); /* (unb5) as defined; address taken only */
+bool SetOffset_00077ef0(void*, void*); /* (unb5) as defined; address taken only */
 extern "C" void __cdecl FUN_002347b0(void*, void**, int);
 class CExplosionTrack;
 namespace fight {
@@ -64,20 +64,20 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x00078610 FUN_00078610 (227 B): equivalent/0x00078610.cpp
-// sym: _FUN_00078610 @624d547724bc @w01088127ca48
+// sym: _FUN_00078610 @0eb57d2d0cc1 @wcccc195e738f
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_00078610 @ 0x00078610
 extern "C" void FUN_00078610() {
  if (DAT_004dd03c == 0) {
  void* items[3];
  fight::ParamFloatConstRange<CExplosionTrack>* a = (fight::ParamFloatConstRange<CExplosionTrack>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CExplosionTrack>));
- if(a) { a->FUN_00234960("timeBegin"); new(a) fight::ParamFloatConstRange<CExplosionTrack>; a->callback=SetTimeBegin_00077ed0; }
+ if(a) { a->FUN_00234960("timeBegin"); new(a) fight::ParamFloatConstRange<CExplosionTrack>; a->callback=(void (*)())SetTimeBegin_00077ed0; }
  items[0]=a;
  fight::ParamEnumConstList<CExplosionTrack>* b=(fight::ParamEnumConstList<CExplosionTrack>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CExplosionTrack>));
- if(b) { b->FUN_00234cc0("explosion"); new(b) fight::ParamEnumConstList<CExplosionTrack>; b->list=((char*)&DAT_0049b6b4); b->count=13; b->callback=SetExplosion_00077ee0; }
+ if(b) { b->FUN_00234cc0("explosion"); new(b) fight::ParamEnumConstList<CExplosionTrack>; b->list=((char*)&DAT_0049b6b4); b->count=13; b->callback=(void (*)())SetExplosion_00077ee0; }
  items[1]=b;
  fight::ParamVector<CExplosionTrack>* c=(fight::ParamVector<CExplosionTrack>*)FUN_0008d690((int)sizeof(fight::ParamVector<CExplosionTrack>));
- if(c) { c->FUN_00234e50("offset"); new(c) fight::ParamVector<CExplosionTrack>; c->callback=SetOffset_00077ef0; }
+ if(c) { c->FUN_00234e50("offset"); new(c) fight::ParamVector<CExplosionTrack>; c->callback=(void (*)())SetOffset_00077ef0; }
  items[2]=c;
  FUN_002347b0(((char*)&DAT_004dd038),items,3);
  }

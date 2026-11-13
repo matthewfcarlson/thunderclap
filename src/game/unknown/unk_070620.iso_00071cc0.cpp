@@ -4,7 +4,7 @@
 
 
 // 0x00071cc0 FUN_00071cc0 (227 B): equivalent/0x00071cc0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00071cc0 @ecafb5a9b3d8 @w0723080e7583
+// sym: _FUN_00071cc0 @57de72ac595b @w8d299db6bbad
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -19,9 +19,9 @@ void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f6b538f9 {
 
-void __cdecl SetTimeBegin_00068770();
-void __cdecl SetTimeEnd_00068780();
-void __cdecl SetHint_00068790();
+bool SetTimeBegin_00068770(void*, int); /* (unb5) as defined; address taken only */
+char SetTimeEnd_00068780(void*, int); /* (unb5) as defined; address taken only */
+char SetHint_00068790(void*, int); /* (unb5) as defined; address taken only */
 class CCameraHintTrack;
 namespace fight {
 template<class T> struct ParamFloatConstRange { virtual void slot0(); char data[12]; void (__cdecl *callback)(); char tail[4]; void FUN_00234960(const char*); };
@@ -34,13 +34,13 @@ extern "C" void FUN_00071cc0() {
   typedef fight::ParamFloatConstRange<CCameraHintTrack> FloatParam;
   typedef fight::ParamEnumConstList<CCameraHintTrack> EnumParam;
   FloatParam* a = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
-  if (a) { a->FUN_00234960("timeBegin"); new (a) FloatParam; a->callback=SetTimeBegin_00068770; }
+  if (a) { a->FUN_00234960("timeBegin"); new (a) FloatParam; a->callback=(void (*)())SetTimeBegin_00068770; }
   entries[0]=a;
   FloatParam* b = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
-  if (b) { b->FUN_00234960("timeEnd"); new (b) FloatParam; b->callback=SetTimeEnd_00068780; }
+  if (b) { b->FUN_00234960("timeEnd"); new (b) FloatParam; b->callback=(void (*)())SetTimeEnd_00068780; }
   entries[1]=b;
   EnumParam* c = (EnumParam*)FUN_0008d690((int)sizeof(EnumParam));
-  if (c) { c->FUN_00234cc0("hint"); new (c) EnumParam; c->list=((unsigned int*)&DAT_00496fb4); c->count=9; c->callback=SetHint_00068790; }
+  if (c) { c->FUN_00234cc0("hint"); new (c) EnumParam; c->list=((unsigned int*)&DAT_00496fb4); c->count=9; c->callback=(void (*)())SetHint_00068790; }
   entries[2]=c;
   FUN_002347b0(&DAT_004dcfb0, entries,3);
  }

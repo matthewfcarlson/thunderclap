@@ -2050,15 +2050,15 @@ template class fight::ParamBool<hulkfight::ai::MotionClosestWaypointTrack>; // (
 
 
 // 0x00119300 FUN_00119300 (213 B): equivalent/0x00119300.cpp [wrapped: conflict: fight::ParamFloatConstRange]
-// sym: ?target@fn_00119300@@YAXXZ @1389c2824c64 @w7d99fd560328
+// sym: ?target@fn_00119300@@YAXXZ @1329705d510e @w1870eeab7b3f
 namespace fn_00119300 {
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 8/8)
 // FUN_00119300 @ 0x00119300
 
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl SetTimeBegin_001150d0();
-void __cdecl SetTimeEnd_001150e0();
-void __cdecl SetSpeed_00115100();
+char SetTimeBegin_001150d0(void*, int); /* (unb5) as defined; address taken only */
+bool SetTimeEnd_001150e0(void*, int); /* (unb5) as defined; address taken only */
+bool SetSpeed_00115100(void*, int); /* (unb5) as defined; address taken only */
 
 namespace hulkfight { namespace ai { class MotionFleeTrack; } }
 namespace fight {
@@ -2076,13 +2076,13 @@ void __cdecl target() {
  if (DAT_004e0c48 == 0) {
   Param* entries[3];
   Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
-  if(p) { p->FUN_00234960("timeBegin"); p = new(p) Param; p->callback = SetTimeBegin_001150d0; }
+  if(p) { p->FUN_00234960("timeBegin"); p = new(p) Param; p->callback = (void (*)())SetTimeBegin_001150d0; }
   entries[0]=p;
   p = (Param*)FUN_0008d690((int)sizeof(Param));
-  if(p) { p->FUN_00234960("timeEnd"); p = new(p) Param; p->callback = SetTimeEnd_001150e0; }
+  if(p) { p->FUN_00234960("timeEnd"); p = new(p) Param; p->callback = (void (*)())SetTimeEnd_001150e0; }
   entries[1]=p;
   p = (Param*)FUN_0008d690((int)sizeof(Param));
-  if(p) { p->FUN_00234960("speed"); p = new(p) Param; p->callback = SetSpeed_00115100; }
+  if(p) { p->FUN_00234960("speed"); p = new(p) Param; p->callback = (void (*)())SetSpeed_00115100; }
   entries[2]=p;
   FUN_002347b0(&DAT_004e0c44,entries,3);
  }

@@ -4,7 +4,7 @@
 
 
 // 0x0016bf00 FUN_0016bf00 (245 B): equivalent/0x0016bf00.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_0016bf00 @d9002692a900 @wafb89bc2c24b
+// sym: _FUN_0016bf00 @d618a9b6804c @w60b19443e76a
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/motion.h"
@@ -18,9 +18,9 @@ namespace fn_f059b6a8 {
 inline void* operator new(size_t,void* p) { return p; }
 namespace fn_f059b6a8 {
 
-void SetCompare_001659d0();
-void SetHealth_001659e0();
-void SetConstant_001659f0();
+char SetCompare_001659d0(void*, int); /* (unb5) as defined; address taken only */
+bool SetHealth_001659e0(void*, int); /* (unb5) as defined; address taken only */
+bool SetConstant_001659f0(void*, void*); /* (unb5) as defined; address taken only */
 void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_002347b0(void*,void*,int);
 namespace hulkfight { namespace motion { class HealthCondition; } }
@@ -54,14 +54,14 @@ extern "C" void FUN_0016bf00() {
  e->count=count;
  new (e) E;
  e->choices=((char*)&DAT_0042773c);
- e->callback=SetCompare_001659d0;
+ e->callback=(void (*)())SetCompare_001659d0;
  }
  params[0]=e;
  F* f=(F*)FUN_0008d690((int)sizeof(F));
  if(f) {
  f->FUN_00234960("health");
  new(f) F;
- f->callback=SetHealth_001659e0;
+ f->callback=(void (*)())SetHealth_001659e0;
  }
  params[1]=f;
  e=(E*)FUN_0008d690((int)sizeof(E));
@@ -70,7 +70,7 @@ extern "C" void FUN_0016bf00() {
  new(e) E;
  e->choices=DAT_004b4d88;
  e->count=4;
- e->callback=SetConstant_001659f0;
+ e->callback=(void (*)())SetConstant_001659f0;
  }
  params[2]=e;
  FUN_002347b0(&DAT_004e12c0,params,3);

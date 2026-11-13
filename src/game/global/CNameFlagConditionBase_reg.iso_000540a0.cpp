@@ -4,7 +4,7 @@
 
 
 // 0x000540a0 FUN_000540a0 (190 B): equivalent/0x000540a0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?target@fn_f5fee164@@YAXXZ @b47b2ce67a23 @w8240b563afbe
+// sym: ?target@fn_f5fee164@@YAXXZ @26c19177f43f @w8f4d07d60397
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
@@ -19,8 +19,8 @@ namespace fn_f5fee164 {
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f5fee164 {
 
-void SetCompare_00048060();
-void SetMotionHit_00048070();
+bool SetCompare_00048060(void*, int); /* (unb5) as defined; address taken only */
+bool SetMotionHit_00048070(void*, int); /* (unb5) as defined; address taken only */
 void* __cdecl FUN_0008d690(unsigned int);
 namespace fight {
 template<class T> struct ParamEnumConstList {
@@ -46,7 +46,7 @@ void __cdecl target() {
    new (p) Entry_540a0;
    p->count=n;
    p->values=((char*)&DAT_00427758);
-   p->callback=SetCompare_00048060;
+   p->callback=(void (*)())SetCompare_00048060;
   }
   entries[0]=p;
   p=(Entry_540a0*)FUN_0008d690((int)sizeof(Entry_540a0));
@@ -55,7 +55,7 @@ void __cdecl target() {
    new (p) Entry_540a0;
    p->values=((char*)&DAT_0048f9c0);
    p->count=5;
-   p->callback=SetMotionHit_00048070;
+   p->callback=(void (*)())SetMotionHit_00048070;
   }
   entries[1]=p;
   FUN_002347b0(&DAT_004dc528,entries,2);

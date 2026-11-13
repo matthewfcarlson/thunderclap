@@ -4,7 +4,7 @@
 
 
 // 0x00131b90 FUN_00131b90 (256 B): equivalent/0x00131b90.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?target@fn_fa9ee2e9@@YAXXZ @5adce8e1d165 @wd4c63b2000c0
+// sym: ?target@fn_fa9ee2e9@@YAXXZ @696bc5163d49 @wf925607f09eb
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight.h"
 namespace fn_fa9ee2e9 {} using namespace fn_fa9ee2e9;
@@ -18,10 +18,10 @@ void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_fa9ee2e9 {
 
-void __cdecl SetTimeBegin_0012e180();
-void __cdecl SetTimeEnd_0012e190();
-void __cdecl FUN_0012edf0();
-void __cdecl SetChannel_0012ee50();
+bool SetTimeBegin_0012e180(void*, int); /* (unb5) as defined; address taken only */
+char SetTimeEnd_0012e190(void*, int); /* (unb5) as defined; address taken only */
+bool FUN_0012edf0(void*, void*); /* (unb5) as defined; address taken only */
+int SetChannel_0012ee50(void*, void*); /* (unb5) as defined; address taken only */
 namespace hulkfight { class DebugPrintTrack; }
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -46,13 +46,13 @@ void __cdecl target() {
  typedef fight::ParamFloatConstRange<hulkfight::DebugPrintTrack> Float;
  typedef fight::ParamString<hulkfight::DebugPrintTrack> String;
  Float* a=(Float*)FUN_0008d690((int)sizeof(Float));
- if(a) { a->FUN_00234960("timeBegin"); new(a) Float; a->callback=SetTimeBegin_0012e180; } entries[0]=a;
+ if(a) { a->FUN_00234960("timeBegin"); new(a) Float; a->callback=(void (*)())SetTimeBegin_0012e180; } entries[0]=a;
  Float* b=(Float*)FUN_0008d690((int)sizeof(Float));
- if(b) { b->FUN_00234960("timeEnd"); new(b) Float; b->callback=SetTimeEnd_0012e190; } entries[1]=b;
+ if(b) { b->FUN_00234960("timeEnd"); new(b) Float; b->callback=(void (*)())SetTimeEnd_0012e190; } entries[1]=b;
  String* c=(String*)FUN_0008d690((int)sizeof(String));
- if(c) { c->FUN_002349e0("text"); new(c) String; c->callback=FUN_0012edf0; } entries[2]=c;
+ if(c) { c->FUN_002349e0("text"); new(c) String; c->callback=(void (*)())FUN_0012edf0; } entries[2]=c;
  String* d=(String*)FUN_0008d690((int)sizeof(String));
- if(d) { d->FUN_002349e0("channel"); new(d) String; d->callback=SetChannel_0012ee50; } entries[3]=d;
+ if(d) { d->FUN_002349e0("channel"); new(d) String; d->callback=(void (*)())SetChannel_0012ee50; } entries[3]=d;
  FUN_002347b0(&DAT_004e0e94, entries, 4);
  }
  ++DAT_004e0e98;

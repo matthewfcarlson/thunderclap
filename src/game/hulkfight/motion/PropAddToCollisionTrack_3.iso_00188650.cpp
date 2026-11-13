@@ -4,7 +4,7 @@
 
 
 // 0x00188650 FUN_00188650 (213 B): equivalent/0x00188650.cpp [isolated: helper definitions (2 out-of-line function bodies); compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?target@fn_fec23778@@YAXXZ @792b05f589f4 @w58e0831512f8
+// sym: ?target@fn_fec23778@@YAXXZ @bfda71011ded @w2b2ab0bedfc6
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight/motion.h"
 namespace fn_fec23778 {} using namespace fn_fec23778;
@@ -18,7 +18,7 @@ void* __cdecl FUN_0008d690(unsigned int);
 HULK_NATIVE_INLINE void* operator new(size_t, void* p) { return p; }
 namespace fn_fec23778 {
 
-void SetTimeBegin_001803e0(); void SetAttachmentIndex_00180400(); void SetDamage_00180420();
+char SetTimeBegin_001803e0(void*, int); /* (unb5) as defined; address taken only */ bool SetAttachmentIndex_00180400(void*, int); /* (unb5) as defined; address taken only */ char SetDamage_00180420(void*, int); /* (unb5) as defined; address taken only */
 namespace hulkfight { namespace motion { class PropDamageTrack; } }
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -38,11 +38,11 @@ void target() {
  typedef fight::ParamFloatConstRange<hulkfight::motion::PropDamageTrack> F;
  typedef fight::ParamIntConstRange<hulkfight::motion::PropDamageTrack> I;
  F* a=(F*)FUN_0008d690((int)sizeof(F));
- if(a) { a->FUN_00234960("timeBegin"); new(a) F; a->callback=SetTimeBegin_001803e0; } params[0]=a;
+ if(a) { a->FUN_00234960("timeBegin"); new(a) F; a->callback=(void (*)())SetTimeBegin_001803e0; } params[0]=a;
  I* b=(I*)FUN_0008d690((int)sizeof(I));
- if(b) { b->FUN_002348e0("attachmentIndex"); new(b) I; b->callback=SetAttachmentIndex_00180400; } params[1]=b;
+ if(b) { b->FUN_002348e0("attachmentIndex"); new(b) I; b->callback=(void (*)())SetAttachmentIndex_00180400; } params[1]=b;
  F* c=(F*)FUN_0008d690((int)sizeof(F));
- if(c) { c->FUN_00234960("damage"); new(c) F; c->callback=SetDamage_00180420; } params[2]=c;
+ if(c) { c->FUN_00234960("damage"); new(c) F; c->callback=(void (*)())SetDamage_00180420; } params[2]=c;
  FUN_002347b0(&DAT_004e14d8,params,3);
  }
  ++DAT_004e14dc;

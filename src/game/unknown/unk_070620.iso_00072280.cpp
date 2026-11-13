@@ -4,7 +4,7 @@
 
 
 // 0x00072280 FUN_00072280 (213 B): equivalent/0x00072280.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00072280 @0e07afe074aa @w7267b93f11d6
+// sym: _FUN_00072280 @5795bba089e2 @w81a324634a30
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 namespace fn_f5596bf6 {} using namespace fn_f5596bf6;
@@ -18,9 +18,9 @@ inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f5596bf6 {
 
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl SetTimeBegin_00068930();
-void __cdecl SetTimeEnd_00068940();
-void __cdecl SetExtensionTime_00068950();
+char SetTimeBegin_00068930(void*, int); /* (unb5) as defined; address taken only */
+bool SetTimeEnd_00068940(void*, int); /* (unb5) as defined; address taken only */
+bool SetExtensionTime_00068950(void*, int); /* (unb5) as defined; address taken only */
 class CUninterruptibleTrack;
 namespace fight {
  template<class T> struct ParamFloatConstRange {
@@ -38,13 +38,13 @@ extern "C" void FUN_00072280() {
  Param* params[3];
  Param* p;
  p = (Param*)FUN_0008d690((int)sizeof(Param));
- if(p) { p->FUN_00234960("timeBegin"); new (p) Param; p->callback=SetTimeBegin_00068930; }
+ if(p) { p->FUN_00234960("timeBegin"); new (p) Param; p->callback=(void (*)())SetTimeBegin_00068930; }
  params[0]=p;
  p = (Param*)FUN_0008d690((int)sizeof(Param));
- if(p) { p->FUN_00234960("timeEnd"); new (p) Param; p->callback=SetTimeEnd_00068940; }
+ if(p) { p->FUN_00234960("timeEnd"); new (p) Param; p->callback=(void (*)())SetTimeEnd_00068940; }
  params[1]=p;
  p = (Param*)FUN_0008d690((int)sizeof(Param));
- if(p) { p->FUN_00234960("extensionTime"); new (p) Param; p->callback=SetExtensionTime_00068950; }
+ if(p) { p->FUN_00234960("extensionTime"); new (p) Param; p->callback=(void (*)())SetExtensionTime_00068950; }
  params[2]=p;
  FUN_002347b0(&DAT_004dcfd0,params,3);
  }

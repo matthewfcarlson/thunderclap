@@ -4,7 +4,7 @@
 
 
 // 0x0016b7c0 FUN_0016b7c0 (245 B): equivalent/0x0016b7c0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_0016b7c0 @bb5cf2ae1965 @w2137ea0e9632
+// sym: _FUN_0016b7c0 @98464c95970c @w78de89db7d83
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/motion.h"
@@ -21,7 +21,7 @@ inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f75131d9 {
 
 extern void* __cdecl FUN_0008d690(unsigned int);
-void SetCompare_00165710(); void SetHealth_00165720(); void SetConstant_00165730();
+bool SetCompare_00165710(void*, int); /* (unb5) as defined; address taken only */ char SetHealth_00165720(void*, int); /* (unb5) as defined; address taken only */ char SetConstant_00165730(void*, int); /* (unb5) as defined; address taken only */
 struct ParamBase_16b7c0 { virtual void slot0(); char padding[12]; void FUN_00234cc0(const char*); void FUN_00234960(const char*); };
 namespace hulkfight { namespace motion { class GrappleHealthCondition; } }
 namespace fight {
@@ -37,19 +37,19 @@ extern "C" void __cdecl FUN_0016b7c0() {
    unsigned int count = (*(unsigned int*)&DAT_00427754);
    ((ParamBase_16b7c0*)mem)->FUN_00234cc0("compare");
    fight::ParamEnumConstList<hulkfight::motion::GrappleHealthCondition>* p = new(mem) fight::ParamEnumConstList<hulkfight::motion::GrappleHealthCondition>;
-   p->count=count; p->values=((char*)&DAT_0042773c); p->callback=SetCompare_00165710; params[0]=p;
+   p->count=count; p->values=((char*)&DAT_0042773c); p->callback=(void (*)())SetCompare_00165710; params[0]=p;
   } else params[0]=0;
   mem=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::motion::GrappleHealthCondition>));
   if(mem) {
    ((ParamBase_16b7c0*)mem)->FUN_00234960("health");
    fight::ParamFloatConstRange<hulkfight::motion::GrappleHealthCondition>* p = new(mem) fight::ParamFloatConstRange<hulkfight::motion::GrappleHealthCondition>;
-   p->callback=SetHealth_00165720; params[1]=p;
+   p->callback=(void (*)())SetHealth_00165720; params[1]=p;
   } else params[1]=0;
   mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::motion::GrappleHealthCondition>));
   if(mem) {
    ((ParamBase_16b7c0*)mem)->FUN_00234cc0("constant");
    fight::ParamEnumConstList<hulkfight::motion::GrappleHealthCondition>* p = new(mem) fight::ParamEnumConstList<hulkfight::motion::GrappleHealthCondition>;
-   p->values=DAT_004b4d88; p->count=4; p->callback=SetConstant_00165730; params[2]=p;
+   p->values=DAT_004b4d88; p->count=4; p->callback=(void (*)())SetConstant_00165730; params[2]=p;
   } else params[2]=0;
   FUN_002347b0(&DAT_004e1258,params,3);
  }

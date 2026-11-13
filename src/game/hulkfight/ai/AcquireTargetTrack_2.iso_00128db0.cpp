@@ -4,7 +4,7 @@
 
 
 // 0x00128db0 FUN_00128db0 (274 B): equivalent/0x00128db0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00128db0 @65fa6bcd5ca9 @w67c83d12b4ab
+// sym: _FUN_00128db0 @61fdb8856067 @w141c84d02b1e
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
@@ -19,7 +19,7 @@ inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_fee99970 {
 
 void* __cdecl FUN_0008d690(unsigned int);
-void SetCompare_00123830(); void SetDistance_00123840(); void SetUseHulk_00123860(); void SetUseGroundPoint_00123880();
+char SetCompare_00123830(void*, int); /* (unb5) as defined; address taken only */ bool SetDistance_00123840(void*, int); /* (unb5) as defined; address taken only */ char SetUseHulk_00123860(void*, char); /* (unb5) as defined; address taken only */ char SetUseGroundPoint_00123880(void*, char); /* (unb5) as defined; address taken only */
   
 namespace hulkfight { namespace ai { class TargetDistanceXZCondition; } }
 namespace fight {
@@ -32,16 +32,16 @@ extern "C" void FUN_00128db0() {
  if (DAT_004e0dc8 == 0) {
   void* params[4]; typedef hulkfight::ai::TargetDistanceXZCondition T;
   fight::ParamEnumConstList<T>* a = (fight::ParamEnumConstList<T>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<T>));
-  if(a) { int count = (*(int*)&DAT_00427754); a->FUN_00234cc0("compare"); a->count = count; new (a) fight::ParamEnumConstList<T>; a->choices = "lwB"; a->callback = SetCompare_00123830; }
+  if(a) { int count = (*(int*)&DAT_00427754); a->FUN_00234cc0("compare"); a->count = count; new (a) fight::ParamEnumConstList<T>; a->choices = "lwB"; a->callback = (void (*)())SetCompare_00123830; }
   params[0] = a;
   fight::ParamFloatConstRange<T>* b = (fight::ParamFloatConstRange<T>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<T>));
-  if(b) { b->FUN_00234960("distance"); new (b) fight::ParamFloatConstRange<T>; b->callback = SetDistance_00123840; }
+  if(b) { b->FUN_00234960("distance"); new (b) fight::ParamFloatConstRange<T>; b->callback = (void (*)())SetDistance_00123840; }
   params[1] = b;
   fight::ParamBool<T>* c = (fight::ParamBool<T>*)FUN_0008d690((int)sizeof(fight::ParamBool<T>));
-  if(c) { c->FUN_00234860("useHulk"); new (c) fight::ParamBool<T>; c->callback = SetUseHulk_00123860; }
+  if(c) { c->FUN_00234860("useHulk"); new (c) fight::ParamBool<T>; c->callback = (void (*)())SetUseHulk_00123860; }
   params[2] = c;
   fight::ParamBool<T>* d = (fight::ParamBool<T>*)FUN_0008d690((int)sizeof(fight::ParamBool<T>));
-  if(d) { d->FUN_00234860("useGroundPoint"); new (d) fight::ParamBool<T>; d->callback = SetUseGroundPoint_00123880; }
+  if(d) { d->FUN_00234860("useGroundPoint"); new (d) fight::ParamBool<T>; d->callback = (void (*)())SetUseGroundPoint_00123880; }
   params[3] = d; FUN_002347b0(&DAT_004e0dc4, params, 4);
  }
  ++DAT_004e0dc8;

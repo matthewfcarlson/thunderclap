@@ -4,7 +4,7 @@
 
 
 // 0x00128660 FUN_00128660 (274 B): equivalent/0x00128660.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ?target@fn_f09e6d2d@@YAXXZ @975d8199eadb @w51ebbee36639
+// sym: ?target@fn_f09e6d2d@@YAXXZ @4f86cdaa566c @wbfa60444f387
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
@@ -14,10 +14,10 @@ namespace fn_f09e6d2d {
 // FUN_00128660 @ 0x00128660
 
 extern void* __cdecl FUN_0008d690(unsigned);
-extern void SetCompare_00123620();
-extern void SetDistance_00123630();
-extern void SetUseHulk_00123650();
-extern void SetUseGroundPoint_00123670();
+extern bool SetCompare_00123620(void*, int); /* (unb5) as defined; address taken only */
+extern bool SetDistance_00123630(void*, int); /* (unb5) as defined; address taken only */
+extern bool SetUseHulk_00123650(void*, char); /* (unb5) as defined; address taken only */
+extern char SetUseGroundPoint_00123670(void*, char); /* (unb5) as defined; address taken only */
 
 } // namespace fn_f09e6d2d
 inline void* operator new(size_t, void* p) { return p; }
@@ -63,28 +63,28 @@ void target() {
  e->count=n;
  new(e) Enum;
  e->values="lwB";
- e->callback=SetCompare_00123620;
+ e->callback=(void (*)())SetCompare_00123620;
  }
  entries[0]=e;
  Float* f=(Float*)FUN_0008d690((int)sizeof(Float));
  if(f) {
  f->FUN_00234960("distance");
  new(f) Float;
- f->callback=SetDistance_00123630;
+ f->callback=(void (*)())SetDistance_00123630;
  }
  entries[1]=f;
  Bool* b=(Bool*)FUN_0008d690((int)sizeof(Bool));
  if(b) {
  b->FUN_00234860("useHulk");
  new(b) Bool;
- b->callback=SetUseHulk_00123650;
+ b->callback=(void (*)())SetUseHulk_00123650;
  }
  entries[2]=b;
  b=(Bool*)FUN_0008d690((int)sizeof(Bool));
  if(b) {
  b->FUN_00234860("useGroundPoint");
  new(b) Bool;
- b->callback=SetUseGroundPoint_00123670;
+ b->callback=(void (*)())SetUseGroundPoint_00123670;
  }
  entries[3]=b;
  FUN_002347b0(&DAT_004e0d7c, entries, 4);

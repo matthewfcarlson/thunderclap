@@ -39,14 +39,14 @@ template<class T> struct ParamEnumConstList {
  void FUN_00234cc0(const char*);
 };
 }
-void __cdecl SetAttachmentIndex_0017f5a0();
-void __cdecl SetCompare_0017f5c0();
-void __cdecl SetState_0017f5e0();
+bool SetAttachmentIndex_0017f5a0(void*, int); /* (unb5) as defined; address taken only */
+char SetCompare_0017f5c0(void*, int); /* (unb5) as defined; address taken only */
+char SetState_0017f5e0(void*, int); /* (unb5) as defined; address taken only */
 extern "C" void __cdecl FUN_002347b0(void*,void**,int);
 
 
 // 0x00187ac0 FUN_00187ac0 (231 B): equivalent/0x00187ac0.cpp
-// sym: _FUN_00187ac0 @07a2cf3565a2 @w122f4aee11cf
+// sym: _FUN_00187ac0 @9114b49abf6a @w6065f57f1314
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 8/8)
 // FUN_00187ac0 @ 0x00187ac0
 extern "C" void __cdecl FUN_00187ac0() {
@@ -55,13 +55,13 @@ extern "C" void __cdecl FUN_00187ac0() {
   typedef fight::ParamIntConstRange<hulkfight::motion::PropStateByIndexCondition> IntParam;
   typedef fight::ParamEnumConstList<hulkfight::motion::PropStateByIndexCondition> EnumParam;
   IntParam* a=(IntParam*)FUN_0008d690((int)sizeof(IntParam));
-  if(a) { a->FUN_002348e0("attachmentIndex"); new(a) IntParam; a->callback=SetAttachmentIndex_0017f5a0; }
+  if(a) { a->FUN_002348e0("attachmentIndex"); new(a) IntParam; a->callback=(void (*)())SetAttachmentIndex_0017f5a0; }
   items[0]=a;
   EnumParam* b=(EnumParam*)FUN_0008d690((int)sizeof(EnumParam));
-  if(b) { int count=(*(int*)&DAT_00427754); b->FUN_00234cc0("compare"); new(b) EnumParam; b->count=count; b->list=((char*)&DAT_0042773c); b->callback=SetCompare_0017f5c0; }
+  if(b) { int count=(*(int*)&DAT_00427754); b->FUN_00234cc0("compare"); new(b) EnumParam; b->count=count; b->list=((char*)&DAT_0042773c); b->callback=(void (*)())SetCompare_0017f5c0; }
   items[1]=b;
   IntParam* c=(IntParam*)FUN_0008d690((int)sizeof(IntParam));
-  if(c) { c->FUN_002348e0("state"); new(c) IntParam; c->callback=SetState_0017f5e0; }
+  if(c) { c->FUN_002348e0("state"); new(c) IntParam; c->callback=(void (*)())SetState_0017f5e0; }
   items[2]=c;
   FUN_002347b0(&DAT_004e1440,items,3);
  }

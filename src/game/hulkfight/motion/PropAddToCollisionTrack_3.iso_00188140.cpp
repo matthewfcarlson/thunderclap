@@ -4,7 +4,7 @@
 
 
 // 0x00188140 FUN_00188140 (213 B): equivalent/0x00188140.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00188140 @975ddc5a8731 @wb0a95cfef18d
+// sym: _FUN_00188140 @a9022df1494b @w9fdce870fec5
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight/motion.h"
 namespace fn_fdfa1e58 {} using namespace fn_fdfa1e58;
@@ -18,9 +18,9 @@ inline void* operator new(size_t, void* p) { return p; }
 namespace fn_fdfa1e58 {
 
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl SetTimeBegin_0017fe40();
-void __cdecl SetAttachmentIndex_0017fe60();
-void __cdecl SetState_0017fe80();
+bool SetTimeBegin_0017fe40(void*, int); /* (unb5) as defined; address taken only */
+char SetAttachmentIndex_0017fe60(void*, int); /* (unb5) as defined; address taken only */
+bool SetState_0017fe80(void*, int); /* (unb5) as defined; address taken only */
 namespace hulkfight { namespace motion { class PropSetStateByIndexTrack; } }
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -45,13 +45,13 @@ extern "C" void FUN_00188140() {
  typedef fight::ParamFloatConstRange<hulkfight::motion::PropSetStateByIndexTrack> FloatParam;
  typedef fight::ParamIntConstRange<hulkfight::motion::PropSetStateByIndexTrack> IntParam;
  FloatParam* a = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
- if(a) { a->FUN_00234960("timeBegin"); new (a) FloatParam; a->callback=SetTimeBegin_0017fe40; }
+ if(a) { a->FUN_00234960("timeBegin"); new (a) FloatParam; a->callback=(void (*)())SetTimeBegin_0017fe40; }
  params[0]=a;
  IntParam* b=(IntParam*)FUN_0008d690((int)sizeof(IntParam));
- if(b) { b->FUN_002348e0("attachmentIndex"); new (b) IntParam; b->callback=SetAttachmentIndex_0017fe60; }
+ if(b) { b->FUN_002348e0("attachmentIndex"); new (b) IntParam; b->callback=(void (*)())SetAttachmentIndex_0017fe60; }
  params[1]=b;
  IntParam* c=(IntParam*)FUN_0008d690((int)sizeof(IntParam));
- if(c) { c->FUN_002348e0("state"); new (c) IntParam; c->callback=SetState_0017fe80; }
+ if(c) { c->FUN_002348e0("state"); new (c) IntParam; c->callback=(void (*)())SetState_0017fe80; }
  params[2]=c;
  FUN_002347b0(&DAT_004e14a8,params,3);
  }

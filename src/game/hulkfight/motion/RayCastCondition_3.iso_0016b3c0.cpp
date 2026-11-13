@@ -4,7 +4,7 @@
 
 
 // 0x0016b3c0 FUN_0016b3c0 (192 B): equivalent/0x0016b3c0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?initialize@fn_f3c05a9a@@YAXXZ @336e85bdd226 @w2c2b55a4c7a5
+// sym: ?initialize@fn_f3c05a9a@@YAXXZ @eb5c858029a3 @w1a81a89f8535
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
@@ -20,8 +20,8 @@ namespace fn_f3c05a9a {
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f3c05a9a {
 
-extern void SetCompare_00165580();
-extern void SetLocomotionMotionState_00165590();
+extern bool SetCompare_00165580(void*, int); /* (unb5) as defined; address taken only */
+extern bool SetLocomotionMotionState_00165590(void*, void*); /* (unb5) as defined; address taken only */
 extern void* __cdecl FUN_0008d690(unsigned int);
 namespace hulkfight { namespace motion { class LocomotionMotionStateCondition; } }
 namespace fight {
@@ -47,7 +47,7 @@ void initialize() {
    new(a) List_16b3c0;
    a->values = ((int*)&DAT_00427758);
    a->count = count;
-   a->callback = SetCompare_00165580;
+   a->callback = (void (*)())SetCompare_00165580;
   }
   lists[0] = a;
   List_16b3c0* b = (List_16b3c0*)FUN_0008d690((int)sizeof(List_16b3c0));
@@ -57,7 +57,7 @@ void initialize() {
    new(b) List_16b3c0;
    b->values = ((int*)&DAT_0048f590);
    b->count = count;
-   b->callback = SetLocomotionMotionState_00165590;
+   b->callback = (void (*)())SetLocomotionMotionState_00165590;
   }
   lists[1] = b;
   FUN_002347b0(&DAT_004e1220, lists, 2);

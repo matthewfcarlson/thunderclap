@@ -4,7 +4,7 @@
 
 
 // 0x0023e7a0 FUN_0023e7a0 (213 B): equivalent/0x0023e7a0.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ?FUN_0023e7a0@fn_f12a8762@@YAXXZ @5c2efc69234c @w4c4e7099ec7e
+// sym: ?FUN_0023e7a0@fn_f12a8762@@YAXXZ @2b8f8568c833 @w6374d2a1551c
 #include "gen/owners.h"
 #include "decls/data/engine/fight.h"
 namespace fn_f12a8762 {} using namespace fn_f12a8762;
@@ -13,9 +13,9 @@ namespace fn_f12a8762 {
 // FUN_0023e7a0 @ 0x0023e7a0
 
 typedef void (*Callback_23e7a0)();
-void SetTimeBegin_0023e4d0();
-void SetTimeEnd_0023e4e0();
-void GetConditionGroup_0023e4f0();
+bool SetTimeBegin_0023e4d0(void*, int); /* (unb5) as defined; address taken only */
+bool SetTimeEnd_0023e4e0(void*, int); /* (unb5) as defined; address taken only */
+void* GetConditionGroup_0023e4f0(void*); /* (unb5) as defined; address taken only */
 void* __cdecl FUN_0008d690(unsigned);
 
 } // namespace fn_f12a8762
@@ -46,21 +46,21 @@ void __cdecl FUN_0023e7a0() {
   if(a) {
    a->FUN_00234960("timeBegin");
    fight::ParamFloatConstRange<fight::StopTrack>* p = new(a) fight::ParamFloatConstRange<fight::StopTrack>;
-   p->callback = SetTimeBegin_0023e4d0;
+   p->callback = (void (*)())SetTimeBegin_0023e4d0;
   }
   items[0]=a;
   ParamBase_23e7a0* b = (ParamBase_23e7a0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<fight::StopTrack>));
   if(b) {
    b->FUN_00234960("timeEnd");
    fight::ParamFloatConstRange<fight::StopTrack>* p = new(b) fight::ParamFloatConstRange<fight::StopTrack>;
-   p->callback = SetTimeEnd_0023e4e0;
+   p->callback = (void (*)())SetTimeEnd_0023e4e0;
   }
   items[1]=b;
   ParamBase_23e7a0* c = (ParamBase_23e7a0*)FUN_0008d690((int)sizeof(fight::ParamConditionGroup<fight::StopTrack>));
   if(c) {
    c->FUN_00235220("conditionGroup");
    fight::ParamConditionGroup<fight::StopTrack>* p = new(c) fight::ParamConditionGroup<fight::StopTrack>;
-   p->callback = GetConditionGroup_0023e4f0;
+   p->callback = (void (*)())GetConditionGroup_0023e4f0;
   }
   items[2]=c;
   FUN_002347b0(&DAT_004e5c74,items,3);

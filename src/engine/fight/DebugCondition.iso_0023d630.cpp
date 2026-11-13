@@ -4,7 +4,7 @@
 
 
 // 0x0023d630 FUN_0023d630 (190 B): equivalent/0x0023d630.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ?FUN_0023d630@fn_f32810ac@@YAXXZ @e1b24c0c3b70 @w259e0b364999
+// sym: ?FUN_0023d630@fn_f32810ac@@YAXXZ @19767d479418 @w14a18ded3e26
 #include "gen/owners.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/engine/unknown.h"
@@ -19,8 +19,8 @@ namespace fn_f32810ac {
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f32810ac {
 
-extern void SetCompare_0023d450();
-extern void SetMode_0023d460();
+extern bool SetCompare_0023d450(void*, int); /* (unb5) as defined; address taken only */
+extern bool SetMode_0023d460(void*, int); /* (unb5) as defined; address taken only */
 extern void* __cdecl FUN_0008d690(unsigned int);
 struct Base_23d630 { char pad[16]; void FUN_00234cc0(const char*); };
 namespace fight {
@@ -45,7 +45,7 @@ void FUN_0023d630() {
    ((fight::ParamEnumConstList<fight::DebugCondition>*)p)->count=n;
    items[0] = new(p) fight::ParamEnumConstList<fight::DebugCondition>;
    items[0]->entries=((int*)&DAT_00427758);
-   items[0]->callback=SetCompare_0023d450;
+   items[0]->callback=(void (*)())SetCompare_0023d450;
   } else items[0]=0;
   p=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<fight::DebugCondition>));
   if(p) {
@@ -53,7 +53,7 @@ void FUN_0023d630() {
    items[1]=new(p) fight::ParamEnumConstList<fight::DebugCondition>;
    items[1]->entries=((int*)&DAT_00428b30);
    items[1]->count=3;
-   items[1]->callback=SetMode_0023d460;
+   items[1]->callback=(void (*)())SetMode_0023d460;
   } else items[1]=0;
   FUN_002347b0(&DAT_004e5c54,items,2);
  }

@@ -4,7 +4,7 @@
 
 
 // 0x00071bc0 FUN_00071bc0 (256 B): equivalent/0x00071bc0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: ?target@fn_f54903fc@@YAXXZ @cfd2a27351c2 @w957461fded6c
+// sym: ?target@fn_f54903fc@@YAXXZ @0e5cc6025f83 @w0d9e9abfdeb7
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 namespace fn_f54903fc {} using namespace fn_f54903fc;
@@ -18,10 +18,10 @@ inline void* __cdecl operator new(size_t,void* p) { return p; }
 namespace fn_f54903fc {
 
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl SetTimeBegin_000685f0();
-void __cdecl SetTimeEnd_00068600();
-void __cdecl SetAmplitude_00068610();
-void __cdecl SetFrequency_00068620();
+char SetTimeBegin_000685f0(void*, int); /* (unb5) as defined; address taken only */
+bool SetTimeEnd_00068600(void*, int); /* (unb5) as defined; address taken only */
+bool SetAmplitude_00068610(void*, int); /* (unb5) as defined; address taken only */
+char SetFrequency_00068620(void*, int); /* (unb5) as defined; address taken only */
 class CCameraShakeTrack;
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -39,13 +39,13 @@ void target() {
  Param* params[4];
  Param* p;
  p=(Param*)FUN_0008d690((int)sizeof(Param));
- if(p) { p->FUN_00234960("timeBegin"); new(p) Param; p->callback=SetTimeBegin_000685f0; } params[0]=p;
+ if(p) { p->FUN_00234960("timeBegin"); new(p) Param; p->callback=(void (*)())SetTimeBegin_000685f0; } params[0]=p;
  p=(Param*)FUN_0008d690((int)sizeof(Param));
- if(p) { p->FUN_00234960("timeEnd"); new(p) Param; p->callback=SetTimeEnd_00068600; } params[1]=p;
+ if(p) { p->FUN_00234960("timeEnd"); new(p) Param; p->callback=(void (*)())SetTimeEnd_00068600; } params[1]=p;
  p=(Param*)FUN_0008d690((int)sizeof(Param));
- if(p) { p->FUN_00234960("amplitude"); new(p) Param; p->callback=SetAmplitude_00068610; } params[2]=p;
+ if(p) { p->FUN_00234960("amplitude"); new(p) Param; p->callback=(void (*)())SetAmplitude_00068610; } params[2]=p;
  p=(Param*)FUN_0008d690((int)sizeof(Param));
- if(p) { p->FUN_00234960("frequency"); new(p) Param; p->callback=SetFrequency_00068620; } params[3]=p;
+ if(p) { p->FUN_00234960("frequency"); new(p) Param; p->callback=(void (*)())SetFrequency_00068620; } params[3]=p;
  FUN_002347b0(&DAT_004dcfa0,params,4);
  }
  ++DAT_004dcfa4;

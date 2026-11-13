@@ -5,7 +5,7 @@
 
 
 // 0x00112060 FUN_00112060 (231 B): equivalent/0x00112060.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00112060 @ac3d546b8b6f @wbaa3f16da3e6
+// sym: _FUN_00112060 @da0a2e9d06cf @w8049971bb57f
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
@@ -21,9 +21,9 @@ void* __cdecl FUN_0008d690(uint);
 inline void* operator new(hulk_uintptr, void* p) { return p; }
 namespace fn_f875f18f {
 
-void SetCompare_0010c200();
-void SetValue_0010c230();
-void SetText_0010cc40();
+bool SetCompare_0010c200(void*, int); /* (unb5) as defined; address taken only */
+char SetValue_0010c230(void*, int); /* (unb5) as defined; address taken only */
+char SetText_0010cc40(void*, void*); /* (unb5) as defined; address taken only */
 void __cdecl FUN_002347b0(void*, void**, int);
 namespace hulkfight { namespace ai { class KeyWordWaitCondition; } }
 namespace fight {
@@ -64,21 +64,21 @@ extern "C" void FUN_00112060() {
    e->count=count;
    new(e) E;
    e->list=((char*)&DAT_0042773c);
-   e->callback=SetCompare_0010c200;
+   e->callback=(void (*)())SetCompare_0010c200;
   }
   items[0]=e;
   S* s=(S*)FUN_0008d690((int)sizeof(S));
   if(s) {
    s->FUN_002349e0("text");
    new(s) S;
-   s->callback=SetText_0010cc40;
+   s->callback=(void (*)())SetText_0010cc40;
   }
   items[1]=s;
   F* f=(F*)FUN_0008d690((int)sizeof(F));
   if(f) {
    f->FUN_00234960("value");
    new(f) F;
-   f->callback=SetValue_0010c230;
+   f->callback=(void (*)())SetValue_0010c230;
   }
   items[2]=f;
   FUN_002347b0(((uint*)&DAT_004e0b20),items,3);

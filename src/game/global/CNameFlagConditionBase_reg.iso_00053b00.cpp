@@ -4,7 +4,7 @@
 
 
 // 0x00053b00 FUN_00053b00 (190 B): equivalent/0x00053b00.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00053b00 @6d77e7c675c1 @w0bf78ea50b12
+// sym: _FUN_00053b00 @f6ed2524fce7 @w3969a1a3125d
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
@@ -19,8 +19,8 @@ namespace fn_fb14ba15 {
 inline void* operator new(size_t, void* p) { return p; }
 namespace fn_fb14ba15 {
 
-void SetCompare_00047e70();
-void SetType_00047e80();
+char SetCompare_00047e70(void*, int); /* (unb5) as defined; address taken only */
+bool SetType_00047e80(void*, int); /* (unb5) as defined; address taken only */
 void* __cdecl FUN_0008d690(unsigned int);
 class CSmartPropTypeCondition;
 namespace fight {
@@ -46,7 +46,7 @@ extern "C" void FUN_00053b00() {
    items[0]->count = n;
    new (items[0]) Param;
    items[0]->values = ((int*)&DAT_00427758);
-   items[0]->callback = SetCompare_00047e70;
+   items[0]->callback = (void (*)())SetCompare_00047e70;
   }
   items[1] = (Param*)FUN_0008d690((int)sizeof(Param));
   if (items[1]) {
@@ -54,7 +54,7 @@ extern "C" void FUN_00053b00() {
    new (items[1]) Param;
    items[1]->values = ((int*)&DAT_003f6b40);
    items[1]->count = 23;
-   items[1]->callback = SetType_00047e80;
+   items[1]->callback = (void (*)())SetType_00047e80;
   }
   FUN_002347b0(&DAT_004dc4b8, items, 2);
  }

@@ -49,8 +49,8 @@ extern "C" void __cdecl FUN_002347b0(int*, void**, int);
 namespace fn_00155270 {
 
 
-extern void SetCompare_0014c4d0();
-extern void SetSize_0014c4e0();
+extern char SetCompare_0014c4d0(void*, int); /* (unb5) as defined; address taken only */
+extern bool SetSize_0014c4e0(void*, int); /* (unb5) as defined; address taken only */
 extern void* __cdecl FUN_0008d690(unsigned int);
 namespace hulkfight {
 namespace motion {
@@ -84,7 +84,7 @@ extern "C" void FUN_00155270() {
             Param* p = new (mem) Param;
             p->entries = ((char*)&DAT_00427758);
             p->count = count;
-            p->callback = SetCompare_0014c4d0;
+            p->callback = (void (*)())SetCompare_0014c4d0;
             params[0] = p;
         } else
             params[0] = 0;
@@ -96,7 +96,7 @@ extern "C" void FUN_00155270() {
             Param* p = new (mem) Param;
             p->entries = ((char*)&DAT_0048f6b4);
             p->count = count;
-            p->callback = SetSize_0014c4e0;
+            p->callback = (void (*)())SetSize_0014c4e0;
             params[1] = p;
         } else
             params[1] = 0;
@@ -108,14 +108,14 @@ extern "C" void FUN_00155270() {
 
 
 // 0x00155330 FUN_00155330 (190 B): equivalent/0x00155330.cpp [wrapped: conflict: Param; fight::ParamEnumConstList]
-// sym: _FUN_00155330 @d3b16e9e0c8f @wab1c64862edc
+// sym: _FUN_00155330 @5d3315fca4e8 @wa14481fb9e8a
 namespace fn_00155330 {
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_00155330 @ 0x00155330
 
 
-extern void SetCompare_0014c4f0();
-extern void SetType_0014c500();
+extern bool SetCompare_0014c4f0(void*, int); /* (unb5) as defined; address taken only */
+extern char SetType_0014c500(void*, int); /* (unb5) as defined; address taken only */
 extern void* __cdecl FUN_0008d690(unsigned int);
 struct Base_155330 { void FUN_00234cc0(const char*); };
 namespace hulkfight { namespace motion { class CollisionSourceTypeCondition; } }
@@ -141,7 +141,7 @@ extern "C" void FUN_00155330() {
    Param* p = new (storage) Param;
    p->count = count;
    p->values = ((char*)&DAT_00427758);
-   p->callback = &SetCompare_0014c4f0;
+   p->callback = (void (*)())&SetCompare_0014c4f0;
    params[0] = p;
   } else params[0] = 0;
   storage = FUN_0008d690((int)sizeof(Param));
@@ -150,7 +150,7 @@ extern "C" void FUN_00155330() {
    Param* p = new (storage) Param;
    p->values = ((char*)&DAT_004af9f0);
    p->count = 2;
-   p->callback = &SetType_0014c500;
+   p->callback = (void (*)())&SetType_0014c500;
    params[1] = p;
   } else params[1] = 0;
   FUN_002347b0(&DAT_004e1048, params, 2);
@@ -166,8 +166,8 @@ namespace fn_001555c0 {
 
 typedef unsigned int uint;
 void* __cdecl FUN_0008d690(uint);
-void SetCompare_0014c580();
-void SetSize_0014c590();
+bool SetCompare_0014c580(void*, int); /* (unb5) as defined; address taken only */
+bool SetSize_0014c590(void*, int); /* (unb5) as defined; address taken only */
 
 namespace hulkfight {
 namespace motion {
@@ -198,7 +198,7 @@ extern "C" void __cdecl FUN_001555c0() {
             p = new (memory) List_1555c0;
             p->values = ((uint*)&DAT_00427758);
             p->count = count;
-            p->callback = SetCompare_0014c580;
+            p->callback = (void (*)())SetCompare_0014c580;
             lists[0] = p;
         } else
             lists[0] = 0;
@@ -210,7 +210,7 @@ extern "C" void __cdecl FUN_001555c0() {
             p = new (memory) List_1555c0;
             p->values = ((uint*)&DAT_0048f6b4);
             p->count = count;
-            p->callback = SetSize_0014c590;
+            p->callback = (void (*)())SetSize_0014c590;
             lists[1] = p;
         } else
             lists[1] = 0;
@@ -222,14 +222,14 @@ extern "C" void __cdecl FUN_001555c0() {
 
 
 // 0x001557f0 FUN_001557f0 (231 B): equivalent/0x001557f0.cpp [wrapped: conflict: fight::ParamBool; fight::ParamBranch; fight::ParamEnumConstList]
-// sym: ?target@fn_001557f0@@YAXXZ @04be5aafdb45 @w7c0d541b4eaf
+// sym: ?target@fn_001557f0@@YAXXZ @00eb3f7bbf3c @w1a4587ac7767
 namespace fn_001557f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_001557f0 @ 0x001557f0
 
 
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl SetCompare_0014c610(); void __cdecl GetBranch_0014c620(); void __cdecl SetCheckAncestors_0014c630();
+char SetCompare_0014c610(void*, int); /* (unb5) as defined; address taken only */ void* GetBranch_0014c620(void*); /* (unb5) as defined; address taken only */ char SetCheckAncestors_0014c630(void*, char); /* (unb5) as defined; address taken only */
 namespace hulkfight { namespace motion { class CollisionSourceNodeCondition; } }
 namespace fight {
 template<class T> struct ParamEnumConstList { virtual void slot0(); char pad[12]; unsigned int* values; unsigned int count; void (__cdecl *callback)(); unsigned int extra; void FUN_00234cc0(const char*); };
@@ -241,11 +241,11 @@ void target() {
  if (!(*(unsigned int*)&DAT_004e109c)) {
  void* params[3]; typedef hulkfight::motion::CollisionSourceNodeCondition Node;
  fight::ParamEnumConstList<Node>* a=(fight::ParamEnumConstList<Node>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<Node>));
- if(a) { unsigned int count=(*(unsigned int*)&DAT_00427760); a->FUN_00234cc0("compare"); a->count=count; new(a) fight::ParamEnumConstList<Node>; a->values=((unsigned int*)&DAT_00427758); a->callback=SetCompare_0014c610; } params[0]=a;
+ if(a) { unsigned int count=(*(unsigned int*)&DAT_00427760); a->FUN_00234cc0("compare"); a->count=count; new(a) fight::ParamEnumConstList<Node>; a->values=((unsigned int*)&DAT_00427758); a->callback=(void (*)())SetCompare_0014c610; } params[0]=a;
  fight::ParamBranch<Node>* b=(fight::ParamBranch<Node>*)FUN_0008d690((int)sizeof(fight::ParamBranch<Node>));
- if(b) { b->FUN_00235170("branch"); new(b) fight::ParamBranch<Node>; b->callback=GetBranch_0014c620; } params[1]=b;
+ if(b) { b->FUN_00235170("branch"); new(b) fight::ParamBranch<Node>; b->callback=(void (*)())GetBranch_0014c620; } params[1]=b;
  fight::ParamBool<Node>* c=(fight::ParamBool<Node>*)FUN_0008d690((int)sizeof(fight::ParamBool<Node>));
- if(c) { c->FUN_00234860("checkAncestors"); new(c) fight::ParamBool<Node>; c->callback=SetCheckAncestors_0014c630; } params[2]=c;
+ if(c) { c->FUN_00234860("checkAncestors"); new(c) fight::ParamBool<Node>; c->callback=(void (*)())SetCheckAncestors_0014c630; } params[2]=c;
  FUN_002347b0(((unsigned int*)&DAT_004e1098),params,3);
  } ++(*(unsigned int*)&DAT_004e109c);
 }

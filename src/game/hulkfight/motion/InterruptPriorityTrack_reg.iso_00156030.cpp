@@ -4,7 +4,7 @@
 
 
 // 0x00156030 FUN_00156030 (213 B): equivalent/0x00156030.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00156030 @13e3fa49ca6d @wfc0db556cf27
+// sym: _FUN_00156030 @bf7ca99b63f6 @w37b5d44e242e
 #include "gen/owners.h"
 #include "decls/data/game/hulkfight/motion.h"
 namespace fn_fc84ab54 {} using namespace fn_fc84ab54;
@@ -13,9 +13,9 @@ namespace fn_fc84ab54 {
 // FUN_00156030 @ 0x00156030
 
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl SetTimeBegin_0014cce0();
-void __cdecl SetTimeEnd_0014ccf0();
-void __cdecl SetInterruptPriority_0014cd10();
+char SetTimeBegin_0014cce0(void*, int); /* (unb5) as defined; address taken only */
+char SetTimeEnd_0014ccf0(void*, int); /* (unb5) as defined; address taken only */
+bool SetInterruptPriority_0014cd10(void*, int); /* (unb5) as defined; address taken only */
 void __cdecl FUN_002347b0(void*, void*, int);
 
 } // namespace fn_fc84ab54
@@ -45,13 +45,13 @@ extern "C" void __cdecl FUN_00156030() {
   typedef fight::ParamFloatConstRange<hulkfight::motion::InterruptPriorityTrack> FloatParam;
   typedef fight::ParamIntConstRange<hulkfight::motion::InterruptPriorityTrack> IntParam;
   FloatParam* a = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
-  if(a) { a->FUN_00234960("timeBegin"); new(a) FloatParam; a->callback = SetTimeBegin_0014cce0; }
+  if(a) { a->FUN_00234960("timeBegin"); new(a) FloatParam; a->callback = (void (*)())SetTimeBegin_0014cce0; }
   params[0]=a;
   FloatParam* b = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
-  if(b) { b->FUN_00234960("timeEnd"); new(b) FloatParam; b->callback = SetTimeEnd_0014ccf0; }
+  if(b) { b->FUN_00234960("timeEnd"); new(b) FloatParam; b->callback = (void (*)())SetTimeEnd_0014ccf0; }
   params[1]=b;
   IntParam* c = (IntParam*)FUN_0008d690((int)sizeof(IntParam));
-  if(c) { c->FUN_002348e0("interruptPriority"); new(c) IntParam; c->callback = SetInterruptPriority_0014cd10; }
+  if(c) { c->FUN_002348e0("interruptPriority"); new(c) IntParam; c->callback = (void (*)())SetInterruptPriority_0014cd10; }
   params[2]=c;
   FUN_002347b0(&DAT_004e1100,params,3);
  }

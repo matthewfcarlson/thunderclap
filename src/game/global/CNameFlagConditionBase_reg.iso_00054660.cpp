@@ -4,7 +4,7 @@
 
 
 // 0x00054660 FUN_00054660 (231 B): equivalent/0x00054660.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00054660 @bd275717ed52 @wd0019b14456b
+// sym: _FUN_00054660 @fe5d344ddd0f @wd6ed4354e066
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
@@ -19,7 +19,7 @@ void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_fdd675a5 {
 
-void SetCompare_00048190(); void GetFightNode_000481a0(); void SetLastFrame_000481b0();
+bool SetCompare_00048190(void*, int); /* (unb5) as defined; address taken only */ void* GetFightNode_000481a0(void*); /* (unb5) as defined; address taken only */ char SetLastFrame_000481b0(void*, char); /* (unb5) as defined; address taken only */
 class CFightNodePrevCondition;
 namespace fight {
 template<class T> struct ParamEnumConstList {
@@ -47,21 +47,21 @@ extern "C" void FUN_00054660() {
  int count=(*(int*)&DAT_00427760);
  ((fight::ParamEnumConstList<CFightNodePrevCondition>*)p)->FUN_00234cc0("compare");
  fight::ParamEnumConstList<CFightNodePrevCondition>* obj=new(p) fight::ParamEnumConstList<CFightNodePrevCondition>;
- obj->count=count; obj->values=((int*)&DAT_00427758); obj->callback=SetCompare_00048190;
+ obj->count=count; obj->values=((int*)&DAT_00427758); obj->callback=(void (*)())SetCompare_00048190;
  }
  list[0]=p;
  p=FUN_0008d690((int)sizeof(fight::ParamBranch<CFightNodePrevCondition>));
  if(p) {
  ((fight::ParamBranch<CFightNodePrevCondition>*)p)->FUN_00235170("fightNode");
  fight::ParamBranch<CFightNodePrevCondition>* obj=new(p) fight::ParamBranch<CFightNodePrevCondition>;
- obj->callback=GetFightNode_000481a0;
+ obj->callback=(void (*)())GetFightNode_000481a0;
  }
  list[1]=p;
  p=FUN_0008d690((int)sizeof(fight::ParamBool<CFightNodePrevCondition>));
  if(p) {
  ((fight::ParamBool<CFightNodePrevCondition>*)p)->FUN_00234860("lastFrame");
  fight::ParamBool<CFightNodePrevCondition>* obj=new(p) fight::ParamBool<CFightNodePrevCondition>;
- obj->callback=SetLastFrame_000481b0;
+ obj->callback=(void (*)())SetLastFrame_000481b0;
  }
  list[2]=p;
  FUN_002347b0(&DAT_004dc568,list,3);

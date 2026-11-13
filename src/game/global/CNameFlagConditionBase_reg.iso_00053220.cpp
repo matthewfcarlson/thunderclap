@@ -4,7 +4,7 @@
 
 
 // 0x00053220 FUN_00053220 (192 B): equivalent/0x00053220.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00053220 @327e8ff23756 @w8412efc5397a
+// sym: _FUN_00053220 @527fd60c3e86 @wa07b517d7b8f
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
@@ -14,8 +14,8 @@ namespace fn_feab985f {
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_00053220 @ 0x00053220
 
-void __cdecl SetCompare_00047c60();
-void __cdecl SetSize_00047c70();
+char SetCompare_00047c60(void*, int); /* (unb5) as defined; address taken only */
+bool SetSize_00047c70(void*, int); /* (unb5) as defined; address taken only */
 void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_002347b0(void*,void*,int);
 
@@ -49,7 +49,7 @@ extern "C" void __cdecl FUN_00053220() {
    list[0]=new(mem) fight::ParamEnumConstList<CCharacterSizeCondition>;
    list[0]->values=((char*)&DAT_00427758);
    list[0]->count=count;
-   list[0]->callback=SetCompare_00047c60;
+   list[0]->callback=(void (*)())SetCompare_00047c60;
   } else list[0]=0;
   mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CCharacterSizeCondition>));
   if(mem) {
@@ -59,7 +59,7 @@ extern "C" void __cdecl FUN_00053220() {
    list[1]=new(mem) fight::ParamEnumConstList<CCharacterSizeCondition>;
    list[1]->values=((char*)&DAT_0048f6b4);
    list[1]->count=count;
-   list[1]->callback=SetSize_00047c70;
+   list[1]->callback=(void (*)())SetSize_00047c70;
   } else list[1]=0;
   FUN_002347b0(&DAT_004dc448,list,2);
  }

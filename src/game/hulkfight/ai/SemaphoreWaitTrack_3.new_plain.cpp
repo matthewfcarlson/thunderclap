@@ -14,9 +14,9 @@ namespace fn_f43cc60b {} using namespace fn_f43cc60b;
 inline void* operator new(size_t, void* p) { return p; }
 namespace fn_f43cc60b {
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl SetCompare_0010c0d0();
-void __cdecl SetTarget_0010c0f0();
-void __cdecl SetSmartPropIndex_0010c110();
+char SetCompare_0010c0d0(void*, int); /* (unb5) as defined; address taken only */
+char SetTarget_0010c0f0(void*, char); /* (unb5) as defined; address taken only */
+bool SetSmartPropIndex_0010c110(void*, int); /* (unb5) as defined; address taken only */
 void __cdecl FUN_002347b0(void*, void*, int);
 namespace hulkfight { namespace ai {
 class OnBlockedTriangleCondition;
@@ -53,7 +53,7 @@ template<class T> struct ParamIntConstRange {
 
 
 // 0x00111b50 FUN_00111b50 (231 B): equivalent/0x00111b50.cpp
-// sym: ?target@fn_f43cc60b@@YAXXZ @f439448ea430 @w7c2d7a853e63
+// sym: ?target@fn_f43cc60b@@YAXXZ @2e0622e0e64e @wae3eb804eb8a
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
 // FUN_00111b50 @ 0x00111b50
 void target() {
@@ -63,13 +63,13 @@ void target() {
  typedef fight::ParamBool<hulkfight::ai::OnBlockedTriangleCondition> B;
  typedef fight::ParamIntConstRange<hulkfight::ai::OnBlockedTriangleCondition> I;
  E* e=(E*)FUN_0008d690((int)sizeof(E));
- if(e) { int count=(*(int*)&DAT_00427754); e->FUN_00234cc0("compare"); new (e) E; e->count=count; e->names=((char*)&DAT_0042773c); e->callback=SetCompare_0010c0d0; }
+ if(e) { int count=(*(int*)&DAT_00427754); e->FUN_00234cc0("compare"); new (e) E; e->count=count; e->names=((char*)&DAT_0042773c); e->callback=(void (*)())SetCompare_0010c0d0; }
  params[0]=e;
  B* b=(B*)FUN_0008d690((int)sizeof(B));
- if(b) { b->FUN_00234860("target"); new (b) B; b->callback=SetTarget_0010c0f0; }
+ if(b) { b->FUN_00234860("target"); new (b) B; b->callback=(void (*)())SetTarget_0010c0f0; }
  params[1]=b;
  I* i=(I*)FUN_0008d690((int)sizeof(I));
- if(i) { i->FUN_002348e0("smartPropIndex"); new (i) I; i->callback=SetSmartPropIndex_0010c110; }
+ if(i) { i->FUN_002348e0("smartPropIndex"); new (i) I; i->callback=(void (*)())SetSmartPropIndex_0010c110; }
  params[2]=i;
  FUN_002347b0(&DAT_004e0ae0,params,3);
  }

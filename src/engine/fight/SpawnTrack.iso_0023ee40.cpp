@@ -4,7 +4,7 @@
 
 
 // 0x0023ee40 FUN_0023ee40 (256 B): equivalent/0x0023ee40.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
-// sym: ?FUN_0023ee40@fn_f8468b6e@@YAXXZ @de2b32ccb419 @wb51f7b85524b
+// sym: ?FUN_0023ee40@fn_f8468b6e@@YAXXZ @0dbdbf20ebc0 @w53579aead6a4
 #include "gen/owners.h"
 #include "decls/data/engine/fight.h"
 namespace fn_f8468b6e {} using namespace fn_f8468b6e;
@@ -13,10 +13,10 @@ namespace fn_f8468b6e {
 // FUN_0023ee40 @ 0x0023ee40
 
 typedef void (__cdecl *Callback_23ee40)();
-void __cdecl SetTimeBegin_0023ea20();
-void __cdecl SetTimeEnd_0023ea30();
-void __cdecl GetBranch_0023ea40();
-void __cdecl GetConditionGroup_0023ea50();
+bool SetTimeBegin_0023ea20(void*, int); /* (unb5) as defined; address taken only */
+char SetTimeEnd_0023ea30(void*, int); /* (unb5) as defined; address taken only */
+void* GetBranch_0023ea40(void*); /* (unb5) as defined; address taken only */
+void* GetConditionGroup_0023ea50(void*); /* (unb5) as defined; address taken only */
 void* __cdecl FUN_0008d690(unsigned);
 
 } // namespace fn_f8468b6e
@@ -56,7 +56,7 @@ void __cdecl FUN_0023ee40() {
  fight::ParamFloatConstRange<fight::SpawnTrack>* q = (fight::ParamFloatConstRange<fight::SpawnTrack>*)p;
  q->FUN_00234960("timeBegin");
  q = new(p) fight::ParamFloatConstRange<fight::SpawnTrack>;
- q->callback = SetTimeBegin_0023ea20;
+ q->callback = (void (*)())SetTimeBegin_0023ea20;
  }
  params[0]=p;
  p=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<fight::SpawnTrack>));
@@ -64,7 +64,7 @@ void __cdecl FUN_0023ee40() {
  fight::ParamFloatConstRange<fight::SpawnTrack>* q = (fight::ParamFloatConstRange<fight::SpawnTrack>*)p;
  q->FUN_00234960("timeEnd");
  q = new(p) fight::ParamFloatConstRange<fight::SpawnTrack>;
- q->callback = SetTimeEnd_0023ea30;
+ q->callback = (void (*)())SetTimeEnd_0023ea30;
  }
  params[1]=p;
  p=FUN_0008d690((int)sizeof(fight::ParamBranch<fight::SpawnTrack>));
@@ -72,7 +72,7 @@ void __cdecl FUN_0023ee40() {
  fight::ParamBranch<fight::SpawnTrack>* q = (fight::ParamBranch<fight::SpawnTrack>*)p;
  q->FUN_00235170("branch");
  q = new(p) fight::ParamBranch<fight::SpawnTrack>;
- q->callback = GetBranch_0023ea40;
+ q->callback = (void (*)())GetBranch_0023ea40;
  }
  params[2]=p;
  p=FUN_0008d690((int)sizeof(fight::ParamConditionGroup<fight::SpawnTrack>));
@@ -80,7 +80,7 @@ void __cdecl FUN_0023ee40() {
  fight::ParamConditionGroup<fight::SpawnTrack>* q = (fight::ParamConditionGroup<fight::SpawnTrack>*)p;
  q->FUN_00235220("conditionGroup");
  q = new(p) fight::ParamConditionGroup<fight::SpawnTrack>;
- q->callback = GetConditionGroup_0023ea50;
+ q->callback = (void (*)())GetConditionGroup_0023ea50;
  }
  params[3]=p;
  FUN_002347b0(&DAT_004e5c80,params,4);

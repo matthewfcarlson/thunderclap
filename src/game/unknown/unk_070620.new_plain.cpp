@@ -12,10 +12,10 @@ namespace fn_fac1e04c {} using namespace fn_fac1e04c;
 // ---- declarations shared by the functions below
 inline void* operator new(size_t, void* p) { return p; }
 namespace fn_fac1e04c {
-void __cdecl SetTimeBegin_00068310();
-void __cdecl SetTimeEnd_00068320();
-void __cdecl SetDistance_00068330();
-void __cdecl SetDirection_0006b7b0();
+char SetTimeBegin_00068310(void*, int); /* (unb5) as defined; address taken only */
+bool SetTimeEnd_00068320(void*, int); /* (unb5) as defined; address taken only */
+char SetDistance_00068330(void*, int); /* (unb5) as defined; address taken only */
+char SetDirection_0006b7b0(void*, float); /* (unb5) as defined; address taken only */
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct ParamBase_711c0 {
  virtual void placeholder();
@@ -30,9 +30,9 @@ template<class T> struct ParamFloatConstRange_711c0 : ParamBase_711c0 { virtual 
 }
 namespace fn_fac1e04c {
 void __cdecl FUN_002347b0(int*,ParamBase_711c0**,int);
-void __cdecl FUN_00068520();
-void __cdecl FUN_00068530();
-void __cdecl FUN_00068540();
+char FUN_00068520(void*, int); /* (unb5) as defined; address taken only */
+char FUN_00068530(void*, int); /* (unb5) as defined; address taken only */
+bool FUN_00068540(void*, void*); /* (unb5) as defined; address taken only */
 class CDrainHealthTrack_717e0;
 struct ParamBase_717e0 {
     virtual void slot0();
@@ -56,9 +56,9 @@ void __cdecl FUN_002347b0(void*, void*, int);
 namespace fn_00070d50 {
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_00068250();
-void __cdecl FUN_00069730();
-void __cdecl FUN_00069750();
+char FUN_00068250(void*, int); /* (unb5) as defined; address taken only */
+bool FUN_00069730(void*, int); /* (unb5) as defined; address taken only */
+char FUN_00069750(void*, char); /* (unb5) as defined; address taken only */
 void __cdecl FUN_002347b0(void*, void**, int);
 
 class CSoundTrack;
@@ -100,21 +100,21 @@ extern "C" void FUN_00070d50() {
         void* mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CSoundTrack>));
         if (mem) {
             fight::ParamFloatConstRange<CSoundTrack>* p = new (mem) fight::ParamFloatConstRange<CSoundTrack>;
-            p->callback = FUN_00068250;
+            p->callback = (void (*)())FUN_00068250;
             params[0] = p;
         } else
             params[0] = 0;
         mem = FUN_0008d690((int)sizeof(fight::ParamString<CSoundTrack>));
         if (mem) {
             fight::ParamString<CSoundTrack>* p = new (mem) fight::ParamString<CSoundTrack>;
-            p->callback = FUN_00069730;
+            p->callback = (void (*)())FUN_00069730;
             params[1] = p;
         } else
             params[1] = 0;
         mem = FUN_0008d690((int)sizeof(fight::ParamBool<CSoundTrack>));
         if (mem) {
             fight::ParamBool<CSoundTrack>* p = new (mem) fight::ParamBool<CSoundTrack>;
-            p->callback = FUN_00069750;
+            p->callback = (void (*)())FUN_00069750;
             params[2] = p;
         } else
             params[2] = 0;
@@ -131,9 +131,9 @@ namespace fn_00070e30 {
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
-void FUN_00068260();
-void FUN_00069830();
-void FUN_00068270();
+char FUN_00068260(void*, int); /* (unb5) as defined; address taken only */
+bool FUN_00069830(void*, void*); /* (unb5) as defined; address taken only */
+bool FUN_00068270(void*, int); /* (unb5) as defined; address taken only */
 struct FUN_00234960 {
     FUN_00234960(const char* = "timeBegin");
     virtual void slot0();
@@ -195,14 +195,14 @@ extern "C" void FUN_00070e30() {
         if (p) {
             fight::ParamFloatConstRange<CComboMessageTrack>* b =
                 new (p) fight::ParamFloatConstRange<CComboMessageTrack>;
-            b->callback = FUN_00068260;
+            b->callback = (void (*)())FUN_00068260;
             entries[0] = b;
         } else
             entries[0] = 0;
         p = FUN_0008d690((int)sizeof(fight::ParamString<CComboMessageTrack>));
         if (p) {
             fight::ParamString<CComboMessageTrack>* b = new (p) fight::ParamString<CComboMessageTrack>;
-            b->callback = FUN_00069830;
+            b->callback = (void (*)())FUN_00069830;
             entries[1] = b;
         } else
             entries[1] = 0;
@@ -212,7 +212,7 @@ extern "C" void FUN_00070e30() {
                 new (p) fight::ParamEnumConstList<CComboMessageTrack>;
             b->list = ((int*)&DAT_00496f8c);
             b->count = 4;
-            b->callback = FUN_00068270;
+            b->callback = (void (*)())FUN_00068270;
             entries[2] = b;
         } else
             entries[2] = 0;
@@ -225,7 +225,7 @@ extern "C" void FUN_00070e30() {
 namespace fn_fac1e04c {
 
 // 0x000711c0 FUN_000711c0 (256 B): equivalent/0x000711c0.cpp
-// sym: _FUN_000711c0 @1221447abf14 @wc3c651834cab
+// sym: _FUN_000711c0 @25d21e9bbce1 @w5f58166d89d9
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 10/10)
 // FUN_000711c0 @ 0x000711c0
 extern "C" void FUN_000711c0() {
@@ -233,13 +233,13 @@ extern "C" void FUN_000711c0() {
  ParamBase_711c0* items[4];
  ParamBase_711c0* p;
  p = (ParamBase_711c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>));
- if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("timeBegin"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=SetTimeBegin_00068310; } items[0]=p;
+ if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("timeBegin"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=(void (*)())SetTimeBegin_00068310; } items[0]=p;
  p = (ParamBase_711c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>));
- if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("timeEnd"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=SetTimeEnd_00068320; } items[1]=p;
+ if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("timeEnd"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=(void (*)())SetTimeEnd_00068320; } items[1]=p;
  p = (ParamBase_711c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>));
- if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("distance"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=SetDistance_00068330; } items[2]=p;
+ if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("distance"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=(void (*)())SetDistance_00068330; } items[2]=p;
  p = (ParamBase_711c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>));
- if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("direction"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=SetDirection_0006b7b0; } items[3]=p;
+ if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("direction"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=(void (*)())SetDirection_0006b7b0; } items[3]=p;
  FUN_002347b0(&DAT_004dcf58,items,4);
  }
  ++DAT_004dcf5c;
@@ -248,16 +248,16 @@ extern "C" void FUN_000711c0() {
 } // namespace fn_fac1e04c
 
 // 0x00071700 FUN_00071700 (213 B): equivalent/0x00071700.cpp [wrapped: conflict: fight::ParamFloatConstRange]
-// sym: _FUN_00071700 @02950758343f @w93bbd69b5607
+// sym: _FUN_00071700 @7739f9fa1e90 @we77dc827ea4b
 namespace fn_00071700 {
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 8/8)
 // FUN_00071700 @ 0x00071700
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
-void __cdecl SetTimeBegin_000684f0();
-void __cdecl SetDamage_00068500();
-void __cdecl SetDamageMax_00068510();
+char SetTimeBegin_000684f0(void*, int); /* (unb5) as defined; address taken only */
+char SetDamage_00068500(void*, int); /* (unb5) as defined; address taken only */
+char SetDamageMax_00068510(void*, int); /* (unb5) as defined; address taken only */
 class CDamageTrack;
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -274,13 +274,13 @@ extern "C" void __cdecl FUN_00071700() {
   typedef fight::ParamFloatConstRange<CDamageTrack> Param;
   Param* params[3];
   Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
-  if (p) { p->FUN_00234960("timeBegin"); new(p) Param; p->getter = SetTimeBegin_000684f0; }
+  if (p) { p->FUN_00234960("timeBegin"); new(p) Param; p->getter = (void (*)())SetTimeBegin_000684f0; }
   params[0] = p;
   p = (Param*)FUN_0008d690((int)sizeof(Param));
-  if (p) { p->FUN_00234960("damage"); new(p) Param; p->getter = SetDamage_00068500; }
+  if (p) { p->FUN_00234960("damage"); new(p) Param; p->getter = (void (*)())SetDamage_00068500; }
   params[1] = p;
   p = (Param*)FUN_0008d690((int)sizeof(Param));
-  if (p) { p->FUN_00234960("damageMax"); new(p) Param; p->getter = SetDamageMax_00068510; }
+  if (p) { p->FUN_00234960("damageMax"); new(p) Param; p->getter = (void (*)())SetDamageMax_00068510; }
   params[2] = p;
   FUN_002347b0(&DAT_004dcf70, params, 3);
  }
@@ -298,7 +298,7 @@ extern "C" void __cdecl FUN_000717e0() {
     if (!DAT_004dcf7c) {
         fight::ParamFloatConstRange_717e0<CDrainHealthTrack_717e0>* params[3];
         const char* names[3] = {"timeBegin", "timeEnd", "damage"};
-        void (__cdecl *callbacks[3])() = {FUN_00068520,FUN_00068530,FUN_00068540};
+        void (__cdecl *callbacks[3])() = {(void (*)())FUN_00068520,(void (*)())FUN_00068530,(void (*)())FUN_00068540};
         for (int i=0;i<3;++i) {
             void* memory=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_717e0<CDrainHealthTrack_717e0>));
             if (memory) {

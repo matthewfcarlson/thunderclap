@@ -4,7 +4,7 @@
 
 
 // 0x00189d50 FUN_00189d50 (231 B): equivalent/0x00189d50.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
-// sym: _FUN_00189d50 @96ca9fb3153c @w71dec0876d2b
+// sym: _FUN_00189d50 @829ae7e2c83f @we8c830bdbd29
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
@@ -20,7 +20,7 @@ inline void* operator new(size_t, void* p) { return p; }
 namespace fn_f4028fad {
 
 void* __cdecl FUN_0008d690(unsigned int);
-void SetAttachmentIndex_0017f550(); void SetCompare_0017f570(); void GetState_0017f580();
+bool SetAttachmentIndex_0017f550(void*, void*); /* (unb5) as defined; address taken only */ char SetCompare_0017f570(void*, int); /* (unb5) as defined; address taken only */ void* GetState_0017f580(void*); /* (unb5) as defined; address taken only */
 namespace hulkfight { namespace motion { class PropStateByNameCondition; } }
 struct IntBase_189d50 { char data[24]; void FUN_002348e0(const char*); };
 struct EnumBase_189d50 { char data[32]; void FUN_00234cc0(const char*); };
@@ -35,13 +35,13 @@ extern "C" void FUN_00189d50() {
  if (!(*(int*)&DAT_004e143c)) {
  void* p[3];
  void* a=FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::motion::PropStateByNameCondition>));
- if(a) { ((IntBase_189d50*)a)->FUN_002348e0("attachmentIndex"); fight::ParamIntConstRange<hulkfight::motion::PropStateByNameCondition>* obj=new(a) fight::ParamIntConstRange<hulkfight::motion::PropStateByNameCondition>; obj->callback=SetAttachmentIndex_0017f550; }
+ if(a) { ((IntBase_189d50*)a)->FUN_002348e0("attachmentIndex"); fight::ParamIntConstRange<hulkfight::motion::PropStateByNameCondition>* obj=new(a) fight::ParamIntConstRange<hulkfight::motion::PropStateByNameCondition>; obj->callback=(void (*)())SetAttachmentIndex_0017f550; }
  p[0]=a;
  void* b=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::motion::PropStateByNameCondition>));
- if(b) { int n=(*(int*)&DAT_00427760); ((EnumBase_189d50*)b)->FUN_00234cc0("compare"); fight::ParamEnumConstList<hulkfight::motion::PropStateByNameCondition>* obj=new(b) fight::ParamEnumConstList<hulkfight::motion::PropStateByNameCondition>; obj->count=n; obj->list=((int*)&DAT_00427758); obj->callback=SetCompare_0017f570; }
+ if(b) { int n=(*(int*)&DAT_00427760); ((EnumBase_189d50*)b)->FUN_00234cc0("compare"); fight::ParamEnumConstList<hulkfight::motion::PropStateByNameCondition>* obj=new(b) fight::ParamEnumConstList<hulkfight::motion::PropStateByNameCondition>; obj->count=n; obj->list=((int*)&DAT_00427758); obj->callback=(void (*)())SetCompare_0017f570; }
  p[1]=b;
  void* c=FUN_0008d690((int)sizeof(fight::ParamName<hulkfight::motion::PropStateByNameCondition>));
- if(c) { ((NameBase_189d50*)c)->FUN_00234a90("state"); fight::ParamName<hulkfight::motion::PropStateByNameCondition>* obj=new(c) fight::ParamName<hulkfight::motion::PropStateByNameCondition>; obj->callback=GetState_0017f580; }
+ if(c) { ((NameBase_189d50*)c)->FUN_00234a90("state"); fight::ParamName<hulkfight::motion::PropStateByNameCondition>* obj=new(c) fight::ParamName<hulkfight::motion::PropStateByNameCondition>; obj->callback=(void (*)())GetState_0017f580; }
  p[2]=c;
  FUN_002347b0(((int*)&DAT_004e1438),p,3);
  }
