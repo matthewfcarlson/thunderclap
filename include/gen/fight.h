@@ -771,10 +771,12 @@ public:
 // .?AVCondition@fight@@  vftable 0x4279ac (7)
 class Condition : public ::fight::Param {
 public:
+    Condition(void* owner = 0); // (unb6) out of line: 0x00234590, which the derived classes' constructors call with the owner (default 0: the classes stay default-constructible for the probe)
     virtual void vfunc_3(int, int, int, int); // overrides fight::Param slot 3
-    virtual ~Condition(); // overrides fight::Param slot 5
+    virtual ~Condition() throw(); // overrides fight::Param slot 5 (unb6: defined at 0x002345b0, Condition.cpp)
     virtual bool vfunc_6(void*, void*, void*) = 0; // slot 6
     void* f_04;
+    void* f_08; // (unb6) the constructor's argument; the derived classes declared the word before
 };
 
 // .?AVCommentCondition@fight@@  vftable 0x428bf8 (7)
@@ -782,7 +784,6 @@ class CommentCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x4];
     void* f_0c;
 };
 
@@ -1281,7 +1282,6 @@ class DebugCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x4];
     int compare;
     int mode;
 };
@@ -1336,7 +1336,6 @@ class FightNodeCondition : public ::fight::FightNodeBaseCondition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x4];
     int f_0c;
 };
 
@@ -1346,7 +1345,6 @@ public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     FightNodeParentCondition* FUN_00235b00(); // non-virtual
-    char _pad_08[0x4];
     int compare;
     char _pad_10[0xc];
     char recurse;
@@ -1357,7 +1355,6 @@ class FightNodeTimeCondition : public ::fight::FightNodeBaseCondition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x4];
     int f_0c;
 };
 
@@ -1389,7 +1386,6 @@ class MaybeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x4];
     float f_0c;
 };
 
@@ -2826,7 +2822,6 @@ class PlatformCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x4];
     char pS2;
     char xBox;
     char gameCube;
@@ -2848,7 +2843,6 @@ class PrintCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x4];
     void* f_0c;
     void* f_10;
 };
@@ -2890,7 +2884,6 @@ class RandomCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x4];
     float f_0c;
 };
 

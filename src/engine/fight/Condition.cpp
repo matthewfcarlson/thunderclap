@@ -2,6 +2,7 @@
 // object 0x002343b0..0x00234780 (kind game, layer engine, confidence high), dominant class fight::Condition
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "gen/fight.h"
 #include "decls/data/engine/fight.h"
 #define TREE_TU_BEGIN namespace fn_fc77ac82 {
 #define TREE_TU_END }
@@ -98,13 +99,6 @@ class ConditionFactory_234560 : public Entity_234560 {
   public:
     ConditionFactory_234560* vfunc_5(signed char flags);
 };
-class Condition {
-  public:
-    virtual void f() HULK_PURE64;
-    int b;
-    void* c;
-    Condition(void*);
-};
 
 
 // 0x002343b0 FUN_002343b0 (18 B): matches/0x002343b0.cpp
@@ -191,18 +185,21 @@ ConditionFactory_234560* ConditionFactory_234560::vfunc_5(signed char flags) {
 }
 
 
-// 0x00234590 FUN_00234590 (25 B): matches/0x00234590.cpp
-// sym: ??0Condition@fn_fc77ac82@@QAE@PAX@Z
-Condition::Condition(void* p) {
-    b = 0;
-    c = p;
-}
-
 } // namespace fn_fc77ac82
 
-// 0x002345b0 FUN_002345b0 (38 B): matches/0x002345b0.cpp [wrapped: conflict: Condition]
-// sym: ??1Condition@fn_002345b0@@UAE@XZ
-namespace fn_002345b0 {
+// 0x00234590 FUN_00234590 (25 B): matches/0x00234590.cpp
+// sym: ??0Condition@fight@@QAE@PAX@Z
+// (unb6) fight::Condition's own constructor (include/gen), which the derived classes' constructors call with the owner
+::fight::Condition::Condition(void* p) {
+    f_04 = 0;
+    f_08 = p;
+}
+
+// 0x002345b0 FUN_002345b0 (38 B): matches/0x002345b0.cpp
+// sym: ??1Condition@fight@@UAE@XZ
+// (unb6) fight::Condition's destructor (include/gen), which the derived classes' destructors call: f_04 is released
+// through its slot 5, then fight::Param's destructor (0x00234210) runs
+namespace fn_fc77ac82 {
 class Ref_2345b0 {
   public:
     virtual void a();
@@ -212,23 +209,12 @@ class Ref_2345b0 {
     virtual void e();
     virtual void Release(int);
 };
-class Param_2345b0 {
-  public:
-    virtual void p() HULK_PURE64;
-};
-extern "C" void __fastcall FUN_00234210(void* self);
-class Condition : public Param_2345b0 {
-  public:
-    virtual ~Condition();
-    Ref_2345b0* mRef;
-};
-Condition::~Condition() {
-    if (mRef)
-        mRef->Release(1);
-    mRef = 0;
-    FUN_00234210(this);
+} // namespace fn_fc77ac82
+::fight::Condition::~Condition() throw() {
+    if (f_04)
+        ((fn_fc77ac82::Ref_2345b0*)f_04)->Release(1);
+    f_04 = 0;
 }
-} // namespace fn_002345b0
 
 
 // 0x002345e0 fight::Condition::vfunc_5 (59 B): matches/0x002345e0.cpp [wrapped: conflict: fight::Condition]
