@@ -3749,3 +3749,31 @@ whoever commits it, if meant.
 **Proposal: the probe in a regular check.** `tree_tu.py verify` could run `gen_headers.py --probe` when a file under
 include/gen/ changed since `--changed-since` (or always in the whole-tree verify; 10 s on a host with wibo), failing
 like a block. Not wired in yet.
+
+## hash3 (2026-11-13): the 0x001a9b10 hash disagreement
+
+**Root cause.** typ1's whole-tree "pass" of its gen/core.h change (27,438 blocks) and the Wine build's `code_changed`
+on 0x001a9b10 (proofs 77916, 77945) were checks of different files. The verify jobs (76770-76773, 77213-77216,
+77237-77242, 77938-77953) overlaid only `job/tus.txt`; a queue job is `git archive HEAD` plus its overlay, so they
+checked HEAD (the parked DriveRequest sources use `&this->f_0c`, which HEAD's gen/core.h lacks: they could not have
+compiled against the change). Materialize and verify are one function (`verify()`, one `compile_tu`, one cache); the
+same files give the same object in both layouts, on every host and path.
+
+**MSVC 7.1.** 0x001a9b10's two loads (`mov ebp, [esp+1c]` / `mov esi, [esp+30]` before a jmp) swap with the number of
+symbols declared before the function in the TU, nothing else (tested: name and length, macros, comments, paths, env,
+declarations after it). Six equivalent blocks behave so (sweep of every TU, build/hash3/sweep): 0x001a9b10
+(EffectAction.new_throw.cpp), 0x000b86b0 (unk_0b4cf0.GS.cpp), 0x000ba040 (unk_0b4cf0.iso_000ba040.cpp), 0x00027930
+(unk_0240b0.iso_00027930.cpp), 0x002e9c60 and 0x002ea3c0 (unk_2e6780.cpp); no matches block. Any header that adds or
+removes declarations reaching them re-proves them on MSVC (one 3,000-input run; their clang code doesn't move).
+
+| | result |
+|---|---|
+| whole tree at 9bbef387f with the new tree_tu.py, `verify --relocs` (78079-78086) | 2,674 TUs, 27,438 blocks: all MATCH with relocations ok, all hashes ok |
+| the same with typ1's parked gen/core.h + 3 DriveRequest TUs shipped (78111-78118) | one failure: 0x001a9b10 msvc code changed (76aee2ab8faa), `@w` unchanged |
+
+**Fix (1b4e76aef).** `verify` prints `inputs` {tus, headers}: content digests of the TUs and every reachable header,
+independent of the tree's location; `tree_tu.py inputs ROOT --tus LIST` prints them locally. A job's pass now names
+the files it checked. tests/test_tree_tu_inputs.py.
+
+**typ1's parked change** is consistent under both checks: it needs 0x001a9b10 re-proved on MSVC at 76aee2ab8faa
+(`equiv.py` 3,000 inputs, `hash --proven`), nothing else; then its Wine proof.

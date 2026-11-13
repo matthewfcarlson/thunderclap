@@ -184,8 +184,10 @@ for a few functions depends on the *number* of symbols declared before them in t
 `mov esi, [esp+30]`); names, name lengths, macros, comments, paths, the environment and declarations after the function
 change nothing. So any header that adds or removes a declaration (records.h, gen/*.h, decls/*.h) can flip such a block
 between two codegen variants, and its `@hash` reports `changed` until re-proved (an MSVC run; its clang code doesn't
-move, so `@w` stands). A sweep of every TU (N = 1..32 dummy declarations, build/hash3) lists the blocks that do this;
-no `matches` block flipped. `verify` prints `inputs` (content digests of the TUs and of every header the compiles can
+move, so `@w` stands). Six blocks do this (a sweep inserting N dummy declarations at the top of every TU: N = 1, 2, 3,
+5, 8, 13, 21 over all 2,675 TUs, N = 1..32 over the 1,157 with equivalent blocks): 0x001a9b10, 0x000b86b0, 0x000ba040,
+0x00027930, 0x002e9c60, 0x002ea3c0 (spill reloads, stack slots, registers or a commutative operand order swapped); no
+`matches` block moved. `verify` prints `inputs` (content digests of the TUs and of every header the compiles can
 reach); `tree_tu.py inputs ROOT [--tus FILE]` gives the same locally, so a queue job's pass can be tied to the files
 it checked: a job is `git archive HEAD` plus its overlay, and a verify job without `--files`/`--dirty` checks HEAD.
 

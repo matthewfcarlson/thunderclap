@@ -702,3 +702,18 @@ blocks fight::Action's whole family: the records come first there.
 - 654 blocks: 60 became equivalent (layout 57 -> 6); 1,529 byte-offset sites in 389 classes remain catalogued in
   build/typ1/cls.jsonl.
 - **gen1 (2026-11-13): include/gen/ is hand-maintained source.** The loss check (regenerating from 9bbef387f's inputs) found nothing in the generator's inputs missing from the committed headers; all 219 differing lines were later hand edits. Evidence files deleted, `gen_headers.py --probe` kept as the checker with a size ratchet (config/gen-sizes.json). Details: docs/native-build.md "gen1", docs/headers.md.
+
+## 2026-11-13 hash3: the 0x001a9b10 "hash disagreement" (verify vs materialize)
+
+- Not two checkers disagreeing. typ1's 28 `tree_tu.py verify` queue jobs (76770-77953) shipped only `job/tus.txt`, so
+  they checked `git archive HEAD`, not the parked gen/core.h change; the Wine build's materialize had the files and was
+  right. Reproduced uncached: the parked core.h gives 76aee2ab8faa in both the checkout layout and materialize's
+  build/tree layout; a whole-tree verify with the parked files shipped (78111-78118) fails on exactly that block.
+- MSVC 7.1's code for a few functions follows the number of symbols declared before them in the TU: three `extern int`
+  lines before 0x001a9b10 swap two spill reloads (N = 3 and 19..48 flip, 4..18 don't). Names, name lengths, macros,
+  comments, paths, the environment and declarations after the function change nothing: deterministic per text, so the
+  code hashes and caches are sound. Its hash has alternated edf80f70a210 <-> 76aee2ab8faa four times (d6b934876,
+  6d0429829, 717b73606, f22370845), each re-proved.
+- Sweep (N dummy declarations at the top of every TU): six equivalent blocks move, 0x001a9b10, 0x000b86b0, 0x000ba040,
+  0x00027930, 0x002e9c60, 0x002ea3c0; no matches block.
+- `verify` now prints `inputs` digests (TU texts, reachable headers); `tree_tu.py inputs` gives them locally.
