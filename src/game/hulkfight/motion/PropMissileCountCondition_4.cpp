@@ -7,6 +7,10 @@
 #define TREE_TU_BEGIN namespace fn_fdbc4aa5 {
 #define TREE_TU_END }
 namespace fn_fdbc4aa5 {} using namespace fn_fdbc4aa5;
+namespace fn_fdbc4aa5 {
+struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 namespace fn_fdbc4aa5 { extern "C" char DAT_0041924c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 
@@ -57,7 +61,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropM
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_18bac0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_18bac0* t = new (mem) TrackFactoryTemplate_18bac0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00187bb0();
@@ -95,7 +99,7 @@ void* ConditionFactoryTemplate_18bb40::scalar_dtor(unsigned char flags) {
     base1_dtor_001809b0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

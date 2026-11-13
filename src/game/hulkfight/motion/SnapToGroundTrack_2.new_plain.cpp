@@ -6,6 +6,9 @@
 #define TREE_TU_BEGIN namespace fn_f31995d4 {
 #define TREE_TU_END }
 namespace fn_f31995d4 {} using namespace fn_f31995d4;
+namespace fn_f31995d4 {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+}
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -39,7 +42,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::ChargeTra
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_17e030));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_17e030* t = new (mem) TrackFactoryTemplate_17e030();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -56,7 +59,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::SnapToGro
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_17e0f0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_17e0f0* t = new (mem) TrackFactoryTemplate_17e0f0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();

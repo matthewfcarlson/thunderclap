@@ -15,6 +15,7 @@ inline void* __cdecl operator new(size_t, void* where) {
 
 struct InitHelper {
     void init();
+    void init_002343b0();   // (unb4) the constructor the call reaches (verify_relocs)
 };
 
 struct TrackImpl {
@@ -38,7 +39,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::DebugPrintCon
 
     void* mem = operator new(sizeof(ConditionFactoryTemplate_132910));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((InitHelper*)mem)->init_002343b0();
         ConditionFactoryTemplate_132910* t = new (mem) ConditionFactoryTemplate_132910();
         t->mTrack.setup_0027b040(arg);
         postInit();

@@ -9,6 +9,9 @@
 #define TREE_TU_BEGIN namespace fn_fa2e0d0f {
 #define TREE_TU_END }
 namespace fn_fa2e0d0f {} using namespace fn_fa2e0d0f;
+namespace fn_fa2e0d0f {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -1190,7 +1193,7 @@ ChargeCondition_167410* ChargeCondition_167410::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00416658;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1205,7 +1208,7 @@ TargetMotionStateCondition_167440* TargetMotionStateCondition_167440::vfunc_5(si
     *(void***)this = hulk_at_00416678;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1220,7 +1223,7 @@ IntentionButtonDownAnyCondition_167470* IntentionButtonDownAnyCondition_167470::
     *(void***)this = hulk_at_00416698;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1235,7 +1238,7 @@ VelocityCondition_1674a0* VelocityCondition_1674a0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004166b8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1250,7 +1253,7 @@ VelocityYCondition_1674d0* VelocityYCondition_1674d0::vfunc_5(signed char flags)
     *(void***)this = hulk_at_004166d8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1265,7 +1268,7 @@ VelocityAnimatedXZCondition_167500* VelocityAnimatedXZCondition_167500::vfunc_5(
     *(void***)this = hulk_at_004166f8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

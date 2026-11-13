@@ -12,6 +12,9 @@
 #define TREE_TU_BEGIN namespace fn_f94adb62 {
 #define TREE_TU_END }
 namespace fn_f94adb62 {} using namespace fn_f94adb62;
+namespace fn_f94adb62 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_f94adb62 { extern "C" char DAT_00415b28[], DAT_00415bd0[], DAT_00415b50[], DAT_00415b78[], DAT_00415b98[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f94adb62 { extern "C" char DAT_00415c50[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
@@ -1251,7 +1254,7 @@ PhaseCondition_15cd40* PhaseCondition_15cd40::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00415990;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1266,7 +1269,7 @@ LocomotingTrack_15cd70* LocomotingTrack_15cd70::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004159b0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

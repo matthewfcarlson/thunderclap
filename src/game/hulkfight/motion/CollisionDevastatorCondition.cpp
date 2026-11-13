@@ -7,6 +7,10 @@
 #define TREE_TU_BEGIN namespace fn_f0fe9045 {
 #define TREE_TU_END }
 namespace fn_f0fe9045 {} using namespace fn_f0fe9045;
+namespace fn_f0fe9045 {
+struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -49,7 +53,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Colli
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_159310));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_159310* t = new (mem) TrackFactoryTemplate_159310();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_001554a0();
@@ -82,7 +86,7 @@ void* ConditionFactoryTemplate_159380::scalar_dtor(unsigned char flags) {
     base1_dtor_0014d4e0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

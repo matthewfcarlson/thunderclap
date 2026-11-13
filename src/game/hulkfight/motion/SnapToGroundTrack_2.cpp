@@ -9,6 +9,9 @@
 #define TREE_TU_BEGIN namespace fn_f05a6271 {
 #define TREE_TU_END }
 namespace fn_f05a6271 {} using namespace fn_f05a6271;
+namespace fn_f05a6271 {
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -2153,7 +2156,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

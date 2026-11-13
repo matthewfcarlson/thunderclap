@@ -10,6 +10,10 @@
 #define TREE_TU_BEGIN namespace fn_fd836fc7 {
 #define TREE_TU_END }
 namespace fn_fd836fc7 {} using namespace fn_fd836fc7;
+namespace fn_fd836fc7 {
+struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/hulkfight/scenario.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -921,7 +925,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Lua
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1a1d50));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1a1d50* t = new (mem) TrackFactoryTemplate_1a1d50();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -947,7 +951,7 @@ void* ConditionFactoryTemplate_1a1dd0::scalar_dtor(unsigned char flags) {
     base1_dtor_001a12d0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -960,7 +964,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::scenario::LuaTrac
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1a1e00));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1a1e00* t = new (mem) TrackFactoryTemplate_1a1e00();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -996,7 +1000,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

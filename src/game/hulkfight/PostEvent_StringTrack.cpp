@@ -11,6 +11,10 @@
 #define TREE_TU_BEGIN namespace fn_facdac2a {
 #define TREE_TU_END }
 namespace fn_facdac2a {} using namespace fn_facdac2a;
+namespace fn_facdac2a {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 namespace fn_facdac2a { extern "C" char DAT_004110e0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight.h"
 
@@ -679,7 +683,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::PostEvent_StringT
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_12df30));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_12df30* t = new (mem) TrackFactoryTemplate_12df30();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_0012de30();
@@ -715,7 +719,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

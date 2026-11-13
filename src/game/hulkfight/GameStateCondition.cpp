@@ -12,6 +12,10 @@
 #define TREE_TU_BEGIN namespace fn_f587a2cf {
 #define TREE_TU_END }
 namespace fn_f587a2cf {} using namespace fn_f587a2cf;
+namespace fn_f587a2cf {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 namespace fn_f587a2cf { extern "C" char DAT_00411224[], DAT_00411514[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
@@ -3381,7 +3385,7 @@ UnlockableCondition_12fc20* UnlockableCondition_12fc20::vfunc_5(signed char flag
     *(void***)this = hulk_at_00411244;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -3470,7 +3474,7 @@ ChapterMissionCondition_12fd10* ChapterMissionCondition_12fd10::vfunc_5(signed c
     *(void***)this = hulk_at_004112c4;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -3633,7 +3637,7 @@ XPTrack_12fee0* XPTrack_12fee0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00411404;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -5449,7 +5453,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -5479,7 +5483,7 @@ void* ConditionFactoryTemplate_132830::scalar_dtor(unsigned char flags) {
     base1_dtor_0012e380();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -5492,7 +5496,7 @@ void* ConditionFactoryTemplate_1328e0::scalar_dtor(unsigned char flags) {
     base1_dtor_0012e3e0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -5522,7 +5526,7 @@ void* ConditionFactoryTemplate_132990::scalar_dtor(unsigned char flags) {
     base1_dtor_0012e530();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -5552,7 +5556,7 @@ void* ConditionFactoryTemplate_132a40::scalar_dtor(unsigned char flags) {
     base1_dtor_0012e680();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -5582,7 +5586,7 @@ void* ConditionFactoryTemplate_132af0::scalar_dtor(unsigned char flags) {
     base1_dtor_0012e7d0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

@@ -11,6 +11,11 @@
 #define TREE_TU_BEGIN namespace fn_f8ed28bc {
 #define TREE_TU_END }
 namespace fn_f8ed28bc {} using namespace fn_f8ed28bc;
+namespace fn_f8ed28bc {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/hulkfight/ai.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -718,7 +723,7 @@ FaceTargetTrack_10b920* FaceTargetTrack_10b920::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040d824;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -733,7 +738,7 @@ FaceMotionTrack_10b950* FaceMotionTrack_10b950::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040d854;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -996,7 +1001,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::FaceTargetTra
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_10bf70));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_10bf70* t = new (mem) TrackFactoryTemplate_10bf70();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -1031,7 +1036,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor_0010b410();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -1044,7 +1049,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::FaceMotionTra
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_10c020));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_10c020* t = new (mem) TrackFactoryTemplate_10c020();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();

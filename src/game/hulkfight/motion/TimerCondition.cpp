@@ -11,6 +11,10 @@
 #define TREE_TU_BEGIN namespace fn_f1f11990 {
 #define TREE_TU_END }
 namespace fn_f1f11990 {} using namespace fn_f1f11990;
+namespace fn_f1f11990 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 namespace fn_f1f11990 { extern "C" char DAT_0041aa68[], DAT_0041aa88[], DAT_0041aad8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
@@ -1292,7 +1296,7 @@ TimerCondition_18d300* TimerCondition_18d300::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0041aa48;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1335,7 +1339,7 @@ TimerSetTrack_18d390* TimerSetTrack_18d390::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0041aaa8;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -2249,7 +2253,7 @@ void* ConditionFactoryTemplate_18e9a0::scalar_dtor(unsigned char flags) {
     base1_dtor_0018cc70();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -2281,7 +2285,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -2336,7 +2340,7 @@ void* ConditionFactoryTemplate_18eb10::scalar_dtor(unsigned char flags) {
     base1_dtor_0018cce0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -2367,7 +2371,7 @@ void* ConditionFactoryTemplate_18ebc0::scalar_dtor(unsigned char flags) {
     base1_dtor_0018cd60();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

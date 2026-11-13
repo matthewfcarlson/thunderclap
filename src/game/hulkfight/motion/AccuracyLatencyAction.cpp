@@ -10,6 +10,9 @@
 #define TREE_TU_BEGIN namespace fn_fc8c1e47 {
 #define TREE_TU_END }
 namespace fn_fc8c1e47 {} using namespace fn_fc8c1e47;
+namespace fn_fc8c1e47 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -1812,7 +1815,7 @@ PropGrabbableIsMissileCondition_194ee0* PropGrabbableIsMissileCondition_194ee0::
     *(void***)this = hulk_at_0041b248;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1827,7 +1830,7 @@ PropIsMissileCondition_194f10* PropIsMissileCondition_194f10::vfunc_5(signed cha
     *(void***)this = hulk_at_0041b268;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1858,7 +1861,7 @@ MissileThrowTrack_194fa0* MissileThrowTrack_194fa0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0041b2b8;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1912,7 +1915,7 @@ AccuracyLatencyTrack_195000* AccuracyLatencyTrack_195000::vfunc_5(signed char fl
     *(void***)this = hulk_at_0041b318;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

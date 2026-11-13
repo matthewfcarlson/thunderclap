@@ -10,6 +10,9 @@
 #define TREE_TU_BEGIN namespace fn_fbabf3f2 {
 #define TREE_TU_END }
 namespace fn_fbabf3f2 {} using namespace fn_fbabf3f2;
+namespace fn_fbabf3f2 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "game/hulkfight/ai.h"
 
 // ---- declarations shared by the functions below
@@ -929,7 +932,7 @@ RoutTrack_11cc00* RoutTrack_11cc00::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040f470;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -956,7 +959,7 @@ StrafeRunTrack_11cc70* StrafeRunTrack_11cc70::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040f4d0;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -971,7 +974,7 @@ StrafeLateralHBTrack_11cca0* StrafeLateralHBTrack_11cca0::vfunc_5(signed char fl
     *(void***)this = hulk_at_0040f500;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -986,7 +989,7 @@ StrafeCircleHBTrack_11ccd0* StrafeCircleHBTrack_11ccd0::vfunc_5(signed char flag
     *(void***)this = hulk_at_0040f530;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1001,7 +1004,7 @@ StrafeCircleTrack_11cd00* StrafeCircleTrack_11cd00::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040f560;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

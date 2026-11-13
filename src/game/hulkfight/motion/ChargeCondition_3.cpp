@@ -7,6 +7,9 @@
 #define TREE_TU_BEGIN namespace fn_f3263be4 {
 #define TREE_TU_END }
 namespace fn_f3263be4 {} using namespace fn_f3263be4;
+namespace fn_f3263be4 {
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 namespace fn_f3263be4 { extern "C" char DAT_00416658[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 
@@ -391,7 +394,7 @@ void* ConditionFactoryTemplate_16d330::scalar_dtor(unsigned char flags) {
     base1_dtor_00165a30();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

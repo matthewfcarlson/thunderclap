@@ -12,6 +12,11 @@
 #define TREE_TU_BEGIN namespace fn_f3c8e3e3 {
 #define TREE_TU_END }
 namespace fn_f3c8e3e3 {} using namespace fn_f3c8e3e3;
+namespace fn_f3c8e3e3 {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 namespace fn_f3c8e3e3 { extern "C" char DAT_00412f14[], DAT_00412f74[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f3c8e3e3 { extern "C" char DAT_00413034[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
@@ -2274,7 +2279,7 @@ SlowMotionTrack_1447f0* SlowMotionTrack_1447f0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00412f44;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -2303,7 +2308,7 @@ WorldConeDamageTrack_144850* WorldConeDamageTrack_144850::vfunc_5(signed char fl
     *(void***)this = hulk_at_00412fa4;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -2318,7 +2323,7 @@ MotionBlurTrack_144880* MotionBlurTrack_144880::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00412fd4;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -2333,7 +2338,7 @@ MotionTrailStopTrack_1448b0* MotionTrailStopTrack_1448b0::vfunc_5(signed char fl
     *(void***)this = hulk_at_00413004;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -3264,7 +3269,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::SlowMotio
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1464e0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1464e0* t = new (mem) TrackFactoryTemplate_1464e0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -3303,7 +3308,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -3316,7 +3321,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::WorldCone
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1465b0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1465b0* t = new (mem) TrackFactoryTemplate_1465b0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -3370,7 +3375,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::MotionBlu
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_146640));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_146640* t = new (mem) TrackFactoryTemplate_146640();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -3452,7 +3457,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::MotionTra
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_146710));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_146710* t = new (mem) TrackFactoryTemplate_146710();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -3511,7 +3516,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitEffect
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1467c0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1467c0* t = new (mem) TrackFactoryTemplate_1467c0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -3565,7 +3570,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::WorldDama
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_146850));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_146850* t = new (mem) TrackFactoryTemplate_146850();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();

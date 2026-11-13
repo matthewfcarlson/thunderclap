@@ -7,6 +7,9 @@
 #define TREE_TU_BEGIN namespace fn_f88f56f3 {
 #define TREE_TU_END }
 namespace fn_f88f56f3 {} using namespace fn_f88f56f3;
+namespace fn_f88f56f3 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -178,7 +181,7 @@ VelocityXZAngleCondition_1677b0* VelocityXZAngleCondition_1677b0::vfunc_5(signed
     *(void***)this = hulk_at_004168b8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -207,7 +210,7 @@ InLoadedRoomCondition_167810* InLoadedRoomCondition_167810::vfunc_5(signed char 
     *(void***)this = hulk_at_004168f8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -222,7 +225,7 @@ VelocityXZCondition_167840* VelocityXZCondition_167840::vfunc_5(signed char flag
     *(void***)this = hulk_at_00416918;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -237,7 +240,7 @@ VelocityAnimatedXZAngleCondition_167870* VelocityAnimatedXZAngleCondition_167870
     *(void***)this = hulk_at_00416938;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -252,7 +255,7 @@ RageModeStateCondition_1678a0* RageModeStateCondition_1678a0::vfunc_5(signed cha
     *(void***)this = hulk_at_00416958;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -267,7 +270,7 @@ ShoreNearCondition_1678d0* ShoreNearCondition_1678d0::vfunc_5(signed char flags)
     *(void***)this = hulk_at_00416978;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -282,7 +285,7 @@ HealthPercentCondition_167900* HealthPercentCondition_167900::vfunc_5(signed cha
     *(void***)this = hulk_at_00416998;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -297,7 +300,7 @@ ThinkingCondition_167930* ThinkingCondition_167930::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004169b8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -312,7 +315,7 @@ VelocityAnimatedCondition_167960* VelocityAnimatedCondition_167960::vfunc_5(sign
     *(void***)this = hulk_at_004169d8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -327,7 +330,7 @@ HealthCondition_167990* HealthCondition_167990::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004169f8;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

@@ -7,6 +7,10 @@
 #define TREE_TU_BEGIN namespace fn_fcf8ca27 {
 #define TREE_TU_END }
 namespace fn_fcf8ca27 {} using namespace fn_fcf8ca27;
+namespace fn_fcf8ca27 {
+struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/hulkfight/ai.h"
 
 // ---- declarations shared by the functions below
@@ -46,7 +50,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::TokenCond
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1146d0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1146d0* t = new (mem) TrackFactoryTemplate_1146d0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00112570();
@@ -80,7 +84,7 @@ void* ConditionFactoryTemplate_114740::scalar_dtor(unsigned char flags) {
     base1_dtor_0010cfa0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

@@ -9,6 +9,9 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fad6e2b1 {} using namespace fn_fad6e2b1;
+namespace fn_fad6e2b1 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_fad6e2b1 { extern "C" char DAT_0040da04[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/ai.h"
 
@@ -345,7 +348,7 @@ OnBlockedTriangleCondition_10e6f0* OnBlockedTriangleCondition_10e6f0::vfunc_5(si
     *(void***)this = hulk_at_0040d984;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -372,7 +375,7 @@ DefendingCondition_10e750* DefendingCondition_10e750::vfunc_5(signed char flags)
     *(void***)this = hulk_at_0040d9c4;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -413,7 +416,7 @@ PropsToChuckCondition_10e800* PropsToChuckCondition_10e800::vfunc_5(signed char 
     *(void***)this = hulk_at_0040da24;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -441,7 +444,7 @@ LeashedCondition_10e870* LeashedCondition_10e870::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040da64;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -481,7 +484,7 @@ InActiveCondition_10e920* InActiveCondition_10e920::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0040dac4;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

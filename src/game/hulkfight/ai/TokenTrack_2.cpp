@@ -6,6 +6,9 @@
 #define TREE_TU_BEGIN namespace fn_fe1f4182 {
 #define TREE_TU_END }
 namespace fn_fe1f4182 {} using namespace fn_fe1f4182;
+namespace fn_fe1f4182 {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+}
 #include "game/hulkfight/ai.h"
 
 // ---- declarations shared by the functions below
@@ -66,7 +69,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::TokenTrack>::
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_114d30));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_114d30* t = new (mem) TrackFactoryTemplate_114d30();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00112e30();

@@ -13,6 +13,10 @@
 #define TREE_TU_BEGIN namespace fn_f9c2e0ac {
 #define TREE_TU_END }
 namespace fn_f9c2e0ac {} using namespace fn_f9c2e0ac;
+namespace fn_f9c2e0ac {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 namespace fn_f9c2e0ac { extern "C" char DAT_00410c54[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/ai.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
@@ -1490,7 +1494,7 @@ ShotFailCountCondition_12bc90* ShotFailCountCondition_12bc90::vfunc_5(signed cha
     *(void***)this = hulk_at_00410c34;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -2656,7 +2660,7 @@ void* ConditionFactoryTemplate_12d570::scalar_dtor(unsigned char flags) {
     base1_dtor_0012b530();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -2669,7 +2673,7 @@ void* ConditionFactoryTemplate_12d620::scalar_dtor(unsigned char flags) {
     base1_dtor_0012b3b0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -2701,7 +2705,7 @@ void* ConditionFactoryTemplate_12d6e0::scalar_dtor(unsigned char flags) {
     base1_dtor_0012b430();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -2731,7 +2735,7 @@ void* ConditionFactoryTemplate_12d7a0::scalar_dtor(unsigned char flags) {
     base1_dtor_0012b4b0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -2757,7 +2761,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor_0012b5a0();
     base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

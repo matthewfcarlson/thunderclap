@@ -8,6 +8,10 @@
 #define TREE_TU_BEGIN namespace fn_f5715835 {
 #define TREE_TU_END }
 namespace fn_f5715835 {} using namespace fn_f5715835;
+namespace fn_f5715835 {
+struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/hulkfight/motion.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -216,7 +220,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropG
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1a0cf0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1a0cf0* t = new (mem) TrackFactoryTemplate_1a0cf0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -250,7 +254,7 @@ void* ConditionFactoryTemplate_1a0d60::scalar_dtor(unsigned char flags) {
     base1_dtor_00193ba0();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -263,7 +267,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropI
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1a0d90));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_1a0d90* t = new (mem) TrackFactoryTemplate_1a0d90();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -297,7 +301,7 @@ void* ConditionFactoryTemplate_1a0e10::scalar_dtor(unsigned char flags) {
     base1_dtor_00193c00();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -310,7 +314,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::MissileTh
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1a0e40));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1a0e40* t = new (mem) TrackFactoryTemplate_1a0e40();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -340,7 +344,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 
@@ -353,7 +357,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::MissilePu
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1a0ed0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1a0ed0* t = new (mem) TrackFactoryTemplate_1a0ed0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -414,7 +418,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::AccuracyL
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1a0f90));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1a0f90* t = new (mem) TrackFactoryTemplate_1a0f90();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -476,7 +480,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::FireProje
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1a1050));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1a1050* t = new (mem) TrackFactoryTemplate_1a1050();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
@@ -531,7 +535,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::FireBeamT
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_1a10e0));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_1a10e0* t = new (mem) TrackFactoryTemplate_1a10e0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();

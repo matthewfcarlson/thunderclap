@@ -7,6 +7,10 @@
 #define TREE_TU_BEGIN namespace fn_fa61cb85 {
 #define TREE_TU_END }
 namespace fn_fa61cb85 {} using namespace fn_fa61cb85;
+namespace fn_fa61cb85 {
+struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 namespace fn_fa61cb85 { extern "C" char DAT_004169f8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
 
@@ -57,7 +61,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Healt
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_16e430));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_16e430* t = new (mem) TrackFactoryTemplate_16e430();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_0016bf00();
@@ -95,7 +99,7 @@ void* ConditionFactoryTemplate_16e4b0::scalar_dtor(unsigned char flags) {
     base1_dtor_00166760();
     base2_dtor_002343d0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

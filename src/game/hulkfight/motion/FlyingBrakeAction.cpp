@@ -11,6 +11,9 @@
 #define TREE_TU_BEGIN namespace fn_f414acda {
 #define TREE_TU_END }
 namespace fn_f414acda {} using namespace fn_f414acda;
+namespace fn_f414acda {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -1686,7 +1689,7 @@ FlyingDashTrack_134c00* FlyingDashTrack_134c00::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00411bb8;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -1701,7 +1704,7 @@ GrappleHoverTrack_134c30* GrappleHoverTrack_134c30::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00411be8;
     Destroy_00236d60();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

@@ -11,6 +11,9 @@
 #define TREE_TU_BEGIN namespace fn_fb4fb98f {
 #define TREE_TU_END }
 namespace fn_fb4fb98f {} using namespace fn_fb4fb98f;
+namespace fn_fb4fb98f {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 #include "game/hulkfight/ai.h"
 
 // ---- declarations shared by the functions below
@@ -447,7 +450,7 @@ HasGroundPointCondition_1166d0* HasGroundPointCondition_1166d0::vfunc_5(signed c
     *(void***)this = hulk_at_0040eaa0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -462,7 +465,7 @@ LocatorDistanceCondition_116700* LocatorDistanceCondition_116700::vfunc_5(signed
     *(void***)this = hulk_at_0040eac0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -477,7 +480,7 @@ ComputeDropZoneCondition_116730* ComputeDropZoneCondition_116730::vfunc_5(signed
     *(void***)this = hulk_at_0040eae0;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }

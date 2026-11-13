@@ -7,6 +7,10 @@
 #define TREE_TU_BEGIN namespace fn_f18335cb {
 #define TREE_TU_END }
 namespace fn_f18335cb {} using namespace fn_f18335cb;
+namespace fn_f18335cb {
+struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -51,7 +55,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropDamag
 
     void* mem = operator new(sizeof(TrackFactoryTemplate_18c390));
     if (mem) {
-        ((InitHelper*)mem)->init();
+        ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_18c390* t = new (mem) TrackFactoryTemplate_18c390();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00188650();
@@ -87,7 +91,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
     base1_dtor();
     base2_dtor();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 

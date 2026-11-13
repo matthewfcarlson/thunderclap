@@ -11,6 +11,9 @@
 #define TREE_TU_BEGIN namespace fn_f712cb17 {
 #define TREE_TU_END }
 namespace fn_f712cb17 {} using namespace fn_f712cb17;
+namespace fn_f712cb17 {
+void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
+}
 namespace fn_f712cb17 { extern "C" char DAT_0040fd34[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/ai.h"
 
@@ -964,7 +967,7 @@ TargetDirectionYCondition_124dd0* TargetDirectionYCondition_124dd0::vfunc_5(sign
     *(void***)this = hulk_at_0040fd14;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
@@ -991,7 +994,7 @@ TargetTypeCondition_124e30* TargetTypeCondition_124e30::vfunc_5(signed char flag
     *(void***)this = hulk_at_0040fd54;
     Destroy_002345b0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        SweepTrack_DeleteThis_0008d330(this);
     }
     return this;
 }
