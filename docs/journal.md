@@ -735,3 +735,16 @@ blocks fight::Action's whole family: the records come first there.
   argument into a local first (the original's order).
 - equiv.py: `memcmp` runs as an intrinsic (MSVC inlines it; clang calls it). equiv64: one allocator cast to two types in
   one body types each allocation by its own call site (0x002656b0's false layout entry).
+
+## unb6 (2026-11-13): implicit destructors, Track's and Condition's +8 words
+
+- include/gen declared `virtual ~C();` for 461 fight classes whose destructor no source defines; the game inlines
+  them into the scalar deleting destructors, so the declarations made 78+ unbindable `~C` names natively. Dropped:
+  the destructors are implicit (8e982dfec). fight::Track / Condition / Param's destructors are defined at
+  0x00236d60 / 0x002345b0 / 0x00234210 under their gen names (`throw()` on Track's and Condition's: the game has no
+  unwind there).
+- MSVC 7.1 drops the derived vftable store in a `??_G` built from `~C() {}` (empty, inline, implicit or
+  out-of-line) when the base destructor is called right after; the game's 36-byte Track `??_G`s keep it. The tree
+  keeps those blocks as stubs.
+- fight::Track's +8 word in the base, packed natively (HULK_REFCOUNT_PACK); Condition's +8 is its owner pointer
+  (constructor argument). Dropping ParamValue's undeclared destructors changes 970 blocks' MSVC code: not done.

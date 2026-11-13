@@ -3871,3 +3871,93 @@ Follow-ups: InstanceDrive's record (above); the views listed in docs/tech-debt.m
 the eleven physics `layout` blocks that reach the world through it; gen's `owners::State_1eb220` still holds CGame as
 `unsigned int` (unused now); 0x002d5cb0 (vfunc_15) fails `--x64` since gen's `f_84` (the allocator) is a raw
 `hulk_uintptr` to the checker.
+
+## Track's +8 word, the implicit destructors, Condition's owner word (unb6, 2026-11-13)
+
+The user's decisions of 11-13 for unb5's leftovers: Track's derived classes' new `~C` names, the +8 word in
+`fight::Track`, and the gen work for the Action / Condition / Function stubs. include/gen is hand-maintained since
+gen1 (800a615f7): every edit below is a direct header edit (no generator inputs), checked with
+`gen_headers.py --probe` (run in a private export of HEAD + the edit; the run in the shared checkout was refused).
+
+**1. fight::Track's +8 word (81e985467).** `fight::Track()` (0x00236d40) zeroes +8; 228 classes below Track
+(directly or through CTrack) declared it themselves. Track now declares `int f_08` inside HULK_REFCOUNT_PACK /
+_END: natively it is 20 bytes, so a derived class's words follow f_08 exactly where they were when each class
+declared it. Track.cpp's `Track_words` view is gone.
+- 32-bit (clang -fdump-record-layouts on all 249 Track classes): every field at its offset; sizeof changes only for
+  the field-less fight::Track, CTrack and CScrubberTrack (8 -> 12; config/gen-sizes.json).
+- Native: no field moves except CGrappleInvulnerableTrack::f_14 (32 -> 28: now right after CInvulnerableTrack's
+  f_10, as on 32-bit); 132 classes lose 4 bytes of tail padding.
+- One source used the old pad (WorldConeDamageAction.cpp, MotionBlurTrack's constructor): `f_08 = 1`.
+
+**2. The `~C` names: implicit destructors (8e982dfec).** unb5's 78 new names were destructors include/gen
+declared (`virtual ~C();`) for classes whose destructor no source defines. The game has no `??1C` for them: it
+inlines the destructor into each `??_G`.
+- Tried first: the tree's stub `??_G` blocks (`C::vfunc_5(flags)` on TU-local classes, 76 of the 78) rewritten as
+  `::C::~C() {}` on the gen class (build/unb6/scripts/gdtor.py, relocal.py for the TUs' colliding local classes),
+  with a clang-only function constructing C so clang emits `??_G` beside the vftable. MSVC 7.1 then drops the
+  derived vftable store that the game's 36-byte `??_G` blocks have (`mov [esi], vft; call ~Track`), for an
+  out-of-line, inline, implicit or non-empty destructor alike (build/unb6/exp/g1.cpp, g2.cpp), so none matched.
+  How the game's compiler kept that store is open; the stub blocks stay.
+- Done instead: the 461 classes below fight::Param whose destructor the tree does not define (no `// sym: ??1C`
+  or `??_GC` pin) lose the declaration; their destructor is the implicit one (scripts/dropdtor.py). The 16 the
+  tree defines keep it (GrappleAnimationTrack, CTrack, CFightNodeCondition, ...). Natively clang inlines `~C` and
+  emits `??_G` with each vftable it emits, so the names are gone rather than bound. The game vftables' `??_G`
+  slots keep the tree's verified stub blocks.
+- `fight::Track::~Track() throw()` is defined at 0x00236d60 (Track.cpp; was the local Track_236d60). `throw()`:
+  without it MSVC wraps the body in an EH frame for the implicit base call; the game's code has none.
+- Caveat: a class whose real destructor destroys members (HulkActionTrack's object at +0x18, ...) gets a gen
+  implicit destructor that does not. Only clang-emitted local `??_G` (stub vftables) use it; the game's own slots
+  run the verified blocks. Typing those members in gen fixes it class by class.
+
+**3. fight::Condition's owner word, constructor and destructor (d2591fc45).** Condition's constructor
+(0x00234590) stores 0 at +4 and its argument at +8; its destructor (0x002345b0) releases +4.
+- gen: `Condition(void* owner = 0)` (the default keeps every class default-constructible: the header probe
+  constructs them), `~Condition() throw()`, `void* f_08`. 194 derived classes drop their +8 pad. Natively the
+  derived classes' words after +8 move 4 bytes (the pointer's own size).
+- Condition.cpp: 0x00234590 is `fight::Condition::Condition(void*)`, 0x002345b0 `fight::Condition::~Condition()`.
+- 32-bit sizes: 15 field-less Condition classes 8 -> 12 (--probe --update-sizes).
+- 0x001a9b10 (the declaration-count block) changed its MSVC hash with an intermediate version of these headers
+  (re-proven: equiv.py 3,000 inputs promotable, --wine 600 equivalent); with the committed headers it keeps
+  HEAD's hash, so the commit carries no hash change.
+
+**4. fight::Param::~Param at 0x00234210 (af4ab7a92).** Param.cpp's `FUN_00234210` (only that TU named it) is
+`fight::Param::~Param() {}`; Track's and Condition's destructors call it by that name. MATCH, relocations ok.
+
+**Gates.** Every batch: whole tree on the queue with the edited files shipped (2,675 TUs, 27,438 blocks, 0
+failures; the overlays were in effect: the first run caught WorldConeDamageAction's pad, the dropped `??_G`
+experiment showed its diffs), the x64 gate with `--head` a temporary commit of the change (ok each time), a Wine
+proof seeded from the previous one on studio with private data TUs.
+
+| commit | content | control / proof | gate | image |
+|---|---|---|---|---|
+| 81e985467 unb6 1 | Track's f_08, packed | 77961 / 77986 | GATE ok | 237278c4 (= control) |
+| 8e982dfec unb6 2 | implicit destructors, ~Track | 77986 / 78194 | GATE ok | a9870b01 |
+| d2591fc45 unb6 3 | Condition's f_08, constructor, destructor | 78194 / 78344 | GATE ok | 18b5b5cb |
+| af4ab7a92 unb6 4 | ~Param | 78645 / 78649 (fresh control: scan1 changed the data inputs) | GATE ok | 1264ae52 |
+
+**Native unbound names** (compile + link of each proof's clang-probe snapshot with its own binding map;
+macOS / Linux / Android):
+
+| state | macOS | Linux | Android |
+|---|---|---|---|
+| control 77961 (ffb68ff69) | 14,612 | 14,592 | 14,603 |
+| unb6 1, proof 77986 | 14,612 | 14,592 | 14,603 |
+| unb6 2, proof 78194 | 14,526 | 14,506 | 14,517 |
+| unb6 3, proof 78344 | 14,515 | 14,495 | 14,506 |
+| unb6 4, proof 78649 (HEAD also has x64t9's and scan1's commits) | 14,511 | 14,491 | 14,502 |
+
+Control -> unb6 3 on macOS: 102 names gone (88 destructors: the 78 Track `~C` and Condition / CTrack ones, 14
+others), 5 new: `fight::Param::~Param` (gone in unb6 4), `fight::Condition::vfunc_3` (Condition's shared slot, the
+same rename as Track's vfunc_3), and three fn_f0cbe20f names from another agent's batch.
+
+**Not done (decision 3), and what it needs.**
+- Condition stubs (31 with one bound vftable): build/unb6/scripts/stubderive2.py passes the base constructor's
+  argument on (`X() : C(0)`), with owner constructors on the gen classes (scripts/condctor.py). 11 TUs rewrote;
+  9 of them stopped matching: MSVC no longer inlines X's constructor into the factory (it emits C's and X's
+  constructors out of line and tail-calls X's), with `throw()` on both or not. Not committed.
+- Action (198) and Function (179): not started; unb5's census and blockers stand (typed fields first).
+- ParamValue's 12 destructor names: dropping their declarations as in 2 (with `virtual ~ParamValue() {}` inline, as
+  ParamValue introduces the slot) changes 970 blocks' MSVC code (vftable comdats / order). Reverted.
+- Track leftovers: t-bad's 17 TUs, the shared slot renames (Param::vfunc_2 / vfunc_4 can take their gen names
+  in Param.cpp like ~Param; Track::vfunc_3 at 0x00236c50 and Param::vfunc_3 have other signatures and need
+  re-proofs).
