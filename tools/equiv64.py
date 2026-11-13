@@ -1293,6 +1293,32 @@ class Checker:
             self.tree_externalize()
         self.resolve_all()
 
+    def call_site_index(self, bits, st, retaddr):
+        """(x64t9, sitecasts) The index of the call returning to RETADDR among the function under test's direct calls of
+        stub ST, in address order (None if it is not one of them, or the sites are not one per source call)."""
+        cache = self.__dict__.setdefault("_sites", {})
+        key = (bits, st.key)
+        if key not in cache:
+            img = self.img[bits]
+            name = st.names.get(bits)
+            rng = img.func_range(self.sym32 if bits == 32 else self.sym64)
+            rets = []
+            if name and rng:
+                for i, s in enumerate(img.obj.sections):
+                    sn = i + 1
+                    if sn not in img.secaddr:
+                        continue
+                    for va, si, typ in s["relocs"]:
+                        a = img.secaddr[sn] + va
+                        if rng[0] <= a < rng[1] and si in img.obj.syms and img.obj.syms[si][0] == name:
+                            rets.append(a + 4)
+            l = len(self.site_casts.get(st.key, ()))
+            cache[key] = sorted(rets) if len(rets) == l else None
+        rets = cache[key]
+        if rets is None or retaddr not in rets:
+            return None
+        return rets.index(retaddr)
+
     def reachable(self, bits, v):
         """Is address V of our image in a symbol the function under test can reach through relocations? Always outside
         a tree TU. (merge-once) A tree TU's object holds hundreds of functions, so an integer (a float's bits, a fuzzed
@@ -1475,11 +1501,25 @@ class Checker:
                 if k in a64:
                     self.param_casts[k] = (a32[k], a64[k])
         self.ret_casts = {}
+        self.site_casts = {}
         if "retcasts" not in OFF:
             r32, r64 = return_casts(c32.get_definition() or c32), return_casts(c64.get_definition() or c64)
             for k in r32:
                 if k in r64:
                     self.ret_casts[k] = (r32[k].get_pointee(), r64[k].get_pointee())
+            # (x64t9, sitecasts) a callee whose call sites cast its result differently: each site's own type
+            self.site_casts = {}
+            if "sitecasts" not in OFF:
+                s32 = return_casts(c32.get_definition() or c32, True)
+                s64 = return_casts(c64.get_definition() or c64, True)
+                for k, l32 in s32.items():
+                    l64 = s64.get(k)
+                    if l64 is None or len(l64) != len(l32) or len(l32) < 2:
+                        continue
+                    kinds = {None if t is None else t.get_canonical().spelling for t in l32}
+                    if len(kinds) > 1:
+                        self.site_casts[k] = [None if a is None or b is None else (a.get_pointee(), b.get_pointee())
+                                              for a, b in zip(l32, l64)]
         self.range32 = self.img[32].func_range(name32)
 
     def _pick_by_original(self):
@@ -1807,12 +1847,16 @@ def param_casts(fn):
     return out
 
 
-def return_casts(fn):
+def return_casts(fn, want_sites=False):
     """{callee declaration key: T*} for the calls in FN's body whose `void*` result the body casts straight to a
     pointer to a record or to a pointer (`(CClosure *)FUN_00219520(L, n)`, `(Ref **)FUN_0008d6d0(bytes)`): the stub's
-    object is generated as a T (an allocation is typed as an array of T). The first such cast of a callee wins."""
+    object is generated as a T (an allocation is typed as an array of T). The first such cast of a callee wins.
+    With SITES, {key: [T* or None per call of that callee, in source order]} instead: (x64t9, sitecasts) one callee
+    whose results the body casts to different types, or also uses uncast (`(HulkLoadEntry*)FUN_0008d6d0(n * 16)`
+    and `(char*)FUN_0008d6d0(256)` in 0x002656b0), types each allocation by its own call site."""
     K = ci().CursorKind
     out = {}
+    sites = {}
 
     def strip(c):
         while c.kind in (K.PAREN_EXPR, K.UNEXPOSED_EXPR):
@@ -1835,11 +1879,22 @@ def return_casts(fn):
                     rt = inner.type.get_canonical()
                     if rt.kind.name == "POINTER" and rt.get_pointee().get_canonical().kind.name == "VOID":
                         out.setdefault("decl:" + loc_key(inner.referenced), t)
+                        sites[(inner.location.line, inner.location.column)] = t
+        if c.kind == K.CALL_EXPR and c.referenced is not None:
+            rt = c.type.get_canonical()
+            if rt.kind.name == "POINTER" and rt.get_pointee().get_canonical().kind.name == "VOID":
+                calls.append(((c.location.line, c.location.column), "decl:" + loc_key(c.referenced)))
         for ch in c.get_children():
             walk(ch, depth + 1)
+    calls = []
     for ch in fn.get_children():
         if ch.kind == K.COMPOUND_STMT:
             walk(ch)
+    if want_sites:
+        per = {}
+        for loc, key in sorted(calls):
+            per.setdefault(key, []).append(sites.get(loc))
+        return per
     return out
 
 
@@ -2768,9 +2823,16 @@ class Side:
             o = self.heap.get(ident, "alloc", RAW, alloc=(size, size))
             # (ptr1) the source casts the allocator's result: an array of that type (a later vftable or a larger
             # type it is passed as still wins)
-            if st.key in self.chk.ret_casts and o.hint is None:
+            cast = self.chk.ret_casts.get(st.key)
+            if st.key in self.chk.site_casts:
+                # (x64t9, sitecasts) the cast of this call site, found by the call's place among the function's calls
+                # of the callee (each side's code, in address order; clang emits them in source order)
+                i = self.chk.call_site_index(b, st, retaddr)
+                sc = self.chk.site_casts[st.key]
+                cast = sc[i] if i is not None and i < len(sc) else None
+            if cast is not None and o.hint is None:
                 try:
-                    lay = self.chk.types.layout(*self.chk.ret_casts[st.key])
+                    lay = self.chk.types.layout(*cast)
                     if not lay.raw:
                         o.hint = lay
                 except Unsupported:

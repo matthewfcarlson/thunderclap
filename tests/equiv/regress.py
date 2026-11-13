@@ -1005,6 +1005,11 @@ X64_CASES = {
     # (x64eq, rawint) an int leaf with the same bits on both sides (a byte field's untouched neighbours in a fresh
     # allocation) is the same integer, even where its 32-bit value lands in a heap object (was a false ptrtrunc)
     "0x002fdc90_x64_rawint": ("equivalent", None, None, 50),
+    # (x64t9, sitecasts) one allocator cast to two types in one body (the request ring's HulkLoadEntry*, the 256-byte
+    # char* buffer): each allocation takes its own call site's cast (EQ64_OFF=sitecasts: the buffer's end read as a
+    # HulkLoadEntry array, a false layout difference, +256 against +128). What is left is `int`: a fuzzed count whose
+    # `n * sizeof(HulkLoadEntry)` wraps differently on the two targets (not a gating class)
+    "0x002656b0_x64_sitecasts": ("fail", "int", None, 50),
     # (x64eq) an adjustor thunk (`?f@C@@W3AEXXZ`) is paired with the 64-bit thunk of the same method (`W7EAA`), typed by
     # the method's declaration (was "function under test not found in the 64-bit object")
     "0x00268010_x64_thunk": ("equivalent", None, None, 50),

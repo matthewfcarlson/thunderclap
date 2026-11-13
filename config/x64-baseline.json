@@ -3,10 +3,9 @@
   "gating": ["layout", "ptrtrunc", "crash64"],
   "settings": {"inputs": 200, "time_budget": 60},
   "source": "x64eq's tree-wide sweep at 96cba7a7c (the 44cb331c3 batch-2 blocks re-run after it), brought to ea6ce3693 by gate1's replay of the gate over every commit since",
-  "counts": {"crash64": 10, "crash64/ptr32": 203, "layout": 734, "ptrtrunc": 160},
-  "total": 1107,
+  "counts": {"crash64": 10, "crash64/ptr32": 203, "layout": 733, "ptrtrunc": 160},
+  "total": 1106,
   "why": {
-    "0x002656b0": "new layout difference at d6321f64d (x64t8's HulkContentRegistry), present at HEAD when the gate was introduced (gate1 validation): bufferEnd +256 vs +128; possibly the checker typing the 256-byte FUN_0008d6d0 buffer like the HulkLoadEntry ring allocated by the same allocator (unsettled) (2026-11-13)"
   },
   "blocks": {
     "0x000145b0": "layout",
@@ -834,7 +833,6 @@
     "0x002629a0": "crash64/ptr32",
     "0x00263ed0": "ptrtrunc",
     "0x00264590": "layout",
-    "0x002656b0": "layout",
     "0x00266da0": "layout",
     "0x00267110": "crash64/ptr32",
     "0x00268390": "crash64/ptr32",
