@@ -440,6 +440,7 @@ extern "C" const char DAT_004310f8[33];  // s_empty_distance_tree_004310f8
 extern "C" const char DAT_0043111c[25];  // s_incomplete_distance_0043111c
 extern "C" const char DAT_00431138[29];  // s_oversubscribed_dista_00431138
 extern "C" const float DAT_00431158[8];  // fltTbl_00431158
+extern "C" unsigned int DAT_004d10bc[7];  // tbl_004d10bc
 extern "C" int DAT_004d10d8[7];  // tbl_004d10d8
 extern "C" int DAT_004d10f4[7];  // tbl_004d10f4
 extern "C" int DAT_004d1110[7];  // tbl_004d1110

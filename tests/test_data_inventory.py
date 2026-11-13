@@ -26,6 +26,56 @@ class Helpers(unittest.TestCase):
         self.assertEqual(t('extern "C" float DAT_003f32d8;'), "float")
         self.assertEqual(t('extern const char DAT_003ffd00[];'), "const char[]")
 
+    def test_canon_type(self):
+        """The inventory's one spelling of a type; `unsigned int char` (an old bug that the type votes from
+        config/data.json carried on) is `unsigned char`."""
+        for t, want in (("unsigned int char", "unsigned char"), ("const unsigned int char[]", "const unsigned char[]"),
+                        ("unsigned int short *", "unsigned short *"), ("unsigned int __int64", "unsigned __int64"),
+                        ("unsigned int long long", "unsigned long long"), ("unsigned", "unsigned int"),
+                        ("unsigned  char[4]", "unsigned char[4]"), ("unsigned int", "unsigned int"),
+                        ("unsigned char *", "unsigned char *"), (None, None)):
+            self.assertEqual(di.canon_type(t), want, t)
+            if t:
+                self.assertEqual(di.canon_type(di.canon_type(t)), want, t)
+
+    def test_previous_types_canonical(self):
+        """A type config/data.json still spells the old way votes in its canonical spelling."""
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "data.json")
+            with open(p, "w") as f:
+                f.write('{"items":[\n  {"addr":"0x004dd8e4","size":1,"kind":"bss","type":"unsigned int char"},\n'
+                        '  {"addr":"0x0049c0d8","size":1,"kind":"scalar","type":"unsigned char",'
+                        '"source_type":"unsigned int char"}\n]}\n')
+            self.assertEqual(di.previous_items(p), {0x4dd8e4: (1, "unsigned char", "unsigned char"),
+                                                    0x49c0d8: (1, "unsigned char", "unsigned char")})
+
+    def test_operand_ref(self):
+        """Absolute addresses in operands: immediates, and memory displacements with or without a base or index
+        register (`[eax + 0x426830]`: indexed, with a base); not a segment-relative one (fs:[0])."""
+        import capstone
+        md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+        md.detail = True
+        def refs(code):
+            return [di.operand_ref(op) for op in next(md.disasm(bytes.fromhex(code), 0x1000)).operands]
+        self.assertEqual(refs("0fb68030684200"), [None, (0x426830, True, True, True)])   # movzx eax, [eax+d]
+        self.assertEqual(refs("a130684200"), [None, (0x426830, True, False, False)])           # mov eax, [d]
+        self.assertEqual(refs("8b048d30684200"), [None, (0x426830, True, True, False)])        # mov eax, [ecx*4+d]
+        self.assertEqual(refs("6830684200"), [(0x426830, False, False, False)])                # push d
+        self.assertEqual(refs("64a100000000"), [None, None])                                   # mov eax, fs:[0]
+
+    def test_field_refs(self):
+        """A base-register displacement less than FIELD_GAP after another of the same function is a field of the
+        same element, not a start; the head, and a displacement another function uses alone, stay starts."""
+        class Inv:
+            FIELD_GAP = di.Inventory.FIELD_GAP
+        xr = [(0x372bd0, 0x372be0 + i, 0x4399a0 + i, "movzx", 1, True, True, True) for i in range(8)]
+        xr += [(0x3725d0, 0x3725f0, 0x4399a1, "movzx", 1, True, True, True),
+               (0x2e7fb0, 0x2e8017, 0x4d10bc, "mov", 4, True, True, True),
+               (0x2e7fb0, 0x2e801d, 0x4d10d8, "mov", 4, True, True, True),    # 28 bytes on: a table of its own
+               (0x2e7fb0, 0x2e8020, 0x4d10dc, "mov", 4, True, False, False)]  # absolute: never a field
+        got = di.Inventory.field_refs(Inv(), xr)
+        self.assertEqual(got, {(0x372bd0, 0x4399a0 + i) for i in range(1, 8)})
+
     def test_pins(self):
         with tempfile.TemporaryDirectory() as d:
             p = os.path.join(d, "items.json")
@@ -144,6 +194,19 @@ class Reproducible(unittest.TestCase):
         p = self.edited(lambda row: row["kind"] == "float" and row.get("type") == "float" and
                         row.update({"source_type": "double"}) is None)
         self.assertEqual(di.check(self.items, self.cov, path=p), 0)
+
+    def test_base_register_operands(self):
+        """`movzx eax, byte [eax + 0x426830]` (luaO_log2) references Lua's log_2 table; the D3D library's
+        PGRAPH register writes through the MMIO base (`[esi + 0x400750]`) reference nothing."""
+        by = {it["addr"]: it for it in self.items}
+        self.assertIn(0x215f70, [int(x, 16) if isinstance(x, str) else x for x in by[0x426830]["xrefs"]])
+        for a in (0x400750, 0x400754, 0x400100):      # NV2A_PGRAPH registers, inside game strings and tables
+            self.assertNotIn(a, by)
+
+    def test_no_misspelled_types(self):
+        for it in self.items:
+            for f in ("type", "source_type"):
+                self.assertNotRegex(it.get(f) or "", r"\bunsigned int (char|short|long|__int64)\b", hex(it["addr"]))
 
     def test_check_catches_drift(self):
         """A changed input makes --check fail: a pin moved to another object."""

@@ -303,6 +303,8 @@ extern "C" int DAT_004e154c;
 // hulkfight/unk_1acb90.cpp
 extern "C" const float DAT_0041d7dc;  // flt_0041d7dc
 extern "C" const float DAT_0041d7e0[4];  // fltTbl_0041d7e0
+extern "C" const unsigned int DAT_0041d7f8[1];  // tbl_0041d7f8
+extern "C" const float DAT_0041d808[3];  // fltTbl_0041d808
 extern "C" float DAT_004c36c8;  // flt_004c36c8
 extern "C" float DAT_004c36e8[4];  // fltTbl_004c36e8
 extern "C" unsigned char DAT_004e17c0[64];

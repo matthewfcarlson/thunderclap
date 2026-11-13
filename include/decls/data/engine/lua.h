@@ -129,8 +129,6 @@ extern "C" const char DAT_00435268[22];  // s_Lua_function_expecte_00435268
 extern "C" const char DAT_00435280[3];  // s_G_00435280
 extern "C" const char DAT_00435284[9];  // s_newproxy_00435284
 extern "C" const char DAT_00435290[9];  // s_VERSION_00435290
-extern "C" const char DAT_0043529c[15];  // s_Out_of_memory_0043529c
-extern "C" const char DAT_004352ac[52];  // s_The_file_doesn_t_con_004352ac
 
 // lua/lcode.cpp
 extern "C" const char DAT_004271b8[27];  // s_control_structure_to_004271b8

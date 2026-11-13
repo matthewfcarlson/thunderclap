@@ -139,8 +139,6 @@ extern "C" const char DAT_00435268[22];  // s_Lua_function_expecte_00435268
 extern "C" const char DAT_00435280[3];  // s_G_00435280
 extern "C" const char DAT_00435284[9];  // s_newproxy_00435284
 extern "C" const char DAT_00435290[9];  // s_VERSION_00435290
-extern "C" const char DAT_0043529c[15];  // s_Out_of_memory_0043529c
-extern "C" const char DAT_004352ac[52];  // s_The_file_doesn_t_con_004352ac
 
 // lua/lcode.cpp
 extern "C" const char DAT_004271b8[27];  // s_control_structure_to_004271b8
@@ -440,7 +438,7 @@ extern "C" const float DAT_004275d8;  // flt_004275d8
 extern "C" const float DAT_004275dc[11];  // fltTbl_004275dc
 extern "C" const float DAT_00427608;  // flt_00427608
 extern "C" const float DAT_0042760c[5];  // tbl_0042760c
-extern "C" const float DAT_00427620[5];  // tbl_00427620
+extern "C" const float DAT_00427620[5];  // fltTbl_00427620
 extern "C" const float DAT_00427634[2];  // fltTbl_00427634
 extern "C" const float DAT_0042763c;  // flt_0042763c
 extern "C" const float DAT_00427640[17];  // fltTbl_00427640
@@ -682,10 +680,6 @@ extern "C" float DAT_004d34ec;  // flt_004d34ec
 extern "C" float DAT_004d34f0;  // flt_004d34f0
 extern "C" float DAT_004d34f4[4];  // fltTbl_004d34f4
 extern "C" unsigned int DAT_004d3504[1];  // zero_004d3504
-extern "C" unsigned int DAT_004d3508[3];  // tbl_004d3508
-extern "C" unsigned int DAT_004d3514[20];  // unk_004d3514
-extern "C" unsigned int DAT_004d3564[1];  // zero_004d3564
-extern "C" float DAT_004d3568[4];  // fltTbl_004d3568
 
 // unknown/unk_357740.cpp
 extern "C" const float DAT_0043c024;  // flt_0043c024

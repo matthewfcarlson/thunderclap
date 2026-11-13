@@ -81,16 +81,39 @@ def load_objects():
     return objs
 
 
+XREF_VERSION = 2   # 2: memory operands with a base register, and the base flag (data3, 2026-11-12)
+
+
+# NV2A's PGRAPH registers sit 0x400000-0x401fff past the GPU's MMIO base (0xfd000000): the D3D library's
+# `mov [esi + 0x400750], eax` writes a register through a base register holding that base, not data at 0x400750
+NV2A_PGRAPH = (0x400000, 0x402000)
+
+
+def operand_ref(op):
+    """(value, is memory operand, indexed, has a base register) of a capstone x86 operand that can name an absolute
+    address, else None: an immediate, or a memory operand's displacement. With a base or index register the
+    displacement is still the address of the data (`movzx eax, byte [eax + 0x426830]`, luaO_log2's table;
+    `[ecx*4 + table]`): such an access is indexed (the register selects an element or a field, so the access width
+    says nothing of the item's extent)."""
+    from capstone import x86
+    if op.type == x86.X86_OP_IMM:
+        return op.imm & 0xffffffff, False, False, False
+    if op.type == x86.X86_OP_MEM and op.mem.segment in (0, x86.X86_REG_DS):
+        return op.mem.disp & 0xffffffff, True, op.mem.index != 0 or op.mem.base != 0, op.mem.base != 0
+    return None
+
+
 def code_xrefs(xbe, funcs, lo, hi, fresh=False):
-    """[(func, insn, target, mnemonic, access size, is memory operand, indexed)] for every absolute operand of
-    every function that lands in [lo, hi). Cached in build/data/code_xrefs.json (keyed by the function list)."""
-    key = "%d:%d" % (len(funcs), sum(funcs) & 0xffffffff)
+    """[(func, insn, target, mnemonic, access size, is memory operand, indexed, has a base register)] for every
+    absolute operand of
+    every function that lands in [lo, hi) (operand_ref). Cached in build/data/code_xrefs.json (keyed by the function
+    list and XREF_VERSION)."""
+    key = "v%d:%d:%d" % (XREF_VERSION, len(funcs), sum(funcs) & 0xffffffff)
     if not fresh and os.path.exists(XREF_CACHE):
         c = json.load(open(XREF_CACHE))
         if c.get("key") == key:
             return c["refs"]
     import capstone
-    from capstone import x86
     md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
     md.detail = True
     refs = []
@@ -101,14 +124,12 @@ def code_xrefs(xbe, funcs, lo, hi, fresh=False):
             continue
         for i in md.disasm(xbe.data[o:o + size], a):
             for op in i.operands:
-                if op.type == x86.X86_OP_IMM:
-                    v, mem, idx = op.imm & 0xffffffff, False, False
-                elif op.type == x86.X86_OP_MEM and op.mem.base == 0:
-                    v, mem, idx = op.mem.disp & 0xffffffff, True, op.mem.index != 0
-                else:
+                r = operand_ref(op)
+                if r is None:
                     continue
+                v, mem, idx, base = r
                 if lo <= v < hi:
-                    refs.append((a, i.address, v, i.mnemonic, op.size, mem, idx))
+                    refs.append((a, i.address, v, i.mnemonic, op.size, mem, idx, base))
     os.makedirs(WORK, exist_ok=True)
     json.dump({"key": key, "refs": refs}, open(XREF_CACHE, "w"))
     return refs
@@ -129,7 +150,8 @@ def previous_items(path=None):
             if not m or '"type"' not in line:
                 continue
             it = json.loads(line.strip().rstrip(","))
-            out[int(m.group(1), 16)] = (it["size"], it.get("type"), it.get("source_type") or it.get("type"))
+            out[int(m.group(1), 16)] = (it["size"], canon_type(it.get("type")),
+                                        canon_type(it.get("source_type") or it.get("type")))
     except OSError:
         pass
     return out
@@ -212,10 +234,20 @@ def source_names():
     return out
 
 
+def canon_type(t):
+    """A type spelled as the inventory records it: single spaces, a bare `unsigned` is `unsigned int`, and never
+    `unsigned int char` (an old spelling bug, fixed in decl_type on 2026-11-11 but carried on by the type votes that
+    read config/data.json: canonicalising them here ends it, data3)."""
+    if not t:
+        return t
+    t = re.sub(r"\s+", " ", t).strip()
+    t = re.sub(r"\bunsigned int (?=(?:char|short|long|__int64)\b)", "unsigned ", t)
+    return re.sub(r"\bunsigned(?!\s+(?:int|char|short|long|__int64)\b)", "unsigned int", t)
+
+
 def decl_type(m):
-    """The type a DECL_RE match declares, spelled as the inventory records it (`unsigned` is `unsigned int`)."""
-    t = re.sub(r"\s+", " ", m.group(1)).strip()
-    t = re.sub(r"\bunsigned(?!\s+(?:int|char|short|long|__int64)\b)", "unsigned int", t)
+    """The type a DECL_RE match declares, spelled as the inventory records it (canon_type)."""
+    t = canon_type(m.group(1))
     if m.group(3):
         t += "[%s]" % m.group(4)
     return t
@@ -589,14 +621,22 @@ class Inventory:
     def collect_starts(self, xrefs, src, src_off):
         starts = collections.defaultdict(set)    # addr -> reasons
         self.code_refs = collections.defaultdict(list)
+        lib = {i for i, o in enumerate(self.objs) if o.get("kind") == "library"}
+        n = len(xrefs)
+        # a GPU register through the MMIO base (NV2A_PGRAPH), not data
+        xrefs = [r for r in xrefs if not (r[7] and NV2A_PGRAPH[0] <= r[2] < NV2A_PGRAPH[1] and
+                                          self.obj_index(r[0]) in lib)]
+        self.dropped_mmio = n - len(xrefs)
         mem_targets = {r[2] for r in xrefs if r[5]}
+        self.fields = self.field_refs(xrefs)
         self.dropped_imm = 0
-        for f, ia, v, mn, sz, mem, idx in xrefs:
+        for f, ia, v, mn, sz, mem, idx, base in xrefs:
             if not mem and v not in mem_targets and not self.address_like_imm(v, mn):
                 self.dropped_imm += 1   # an immediate in the data range that is a constant (FourCC, hash, mask)
                 continue
-            starts[v].add("code")
-            self.code_refs[v].append((f, mn, sz, mem, idx))
+            self.code_refs[v].append((f, mn, sz, mem, idx, base))
+            if (f, v) not in self.fields:
+                starts[v].add("code")
         self.false_source_names = []
         for a in src:
             if self.lo <= a < self.hi:
@@ -621,6 +661,27 @@ class Inventory:
                     starts[v].add("data")
         self.src_off = src_off
         return starts
+
+    FIELD_GAP = 16
+
+    def field_refs(self, xrefs):
+        """{(func, address)} of base-register displacements that are a field of an element another displacement of the
+        same function starts: within FIELD_GAP bytes after the previous one (`[eax + 0x4399a0]` .. `[eax + 0x4399a7]`,
+        the 8 bytes of one element of an 8-byte-stride table; `[ecx + 0x4d3508]`, `[ecx + 0x4d350c]`, `[ecx + 0x4d3511]`,
+        a 12-byte ModeEntry's fields). Such a reference is not a start of its own: it counts for the item that holds
+        it (xrefs, owner, interior). An address with other evidence (an absolute or an immediate operand, a source
+        name, a data pointer, the head of another function's run) still starts an item."""
+        by_func = collections.defaultdict(set)
+        for f, ia, v, mn, sz, mem, idx, base in xrefs:
+            if base:
+                by_func[f].add(v)
+        out = set()
+        for f, vs in by_func.items():
+            vs = sorted(vs)
+            for p, v in zip(vs, vs[1:]):
+                if v - p < self.FIELD_GAP:
+                    out.add((f, v))
+        return out
 
     # -- 3. carve
     def carve(self, starts):
@@ -719,6 +780,13 @@ class Inventory:
         fpu = [r for r in refs if r[1] in FPU and r[3]]
         acc = collections.Counter(r[2] for r in refs if r[3])
         indexed = any(r[4] for r in refs)
+        tsz = type_size(self.src_types[s]) if self.src_types.get(s) else None
+        if indexed and tsz and not any(r[4] and not r[5] for r in refs):
+            # indexed only through a base register: the register may select a field or an element, the size a source
+            # declares (`float DAT_x[5]`) is the better extent
+            indexed, fpu_ext = False, tsz
+        else:
+            fpu_ext = None
         # strings
         n = string_at(self.img, o, oe)
         if n is not None and n <= 3 and s % 4 == 0 and s in self.data_ptrs:
@@ -742,6 +810,12 @@ class Inventory:
             elem = {4: "int" if ints else "float", 8: "__int64" if ints else "double", 2: "short",
                     10: "long double"}.get(sz, "float")
             kind = "double" if elem == "double" else "float" if elem == "float" else "scalar"
+            if fpu_ext and fpu_ext > sz and fpu_ext <= size:
+                n = fpu_ext // sz
+                self.add(s, n * sz, "float_table" if kind in ("float", "double") else "table", section=sec,
+                         type="%s[%d]" % (elem, n))
+                self.rest(s + n * sz, e)
+                return
             if size > sz and indexed and not self.zero(s + sz, e):
                 n = size // sz
                 self.add(s, n * sz, "float_table" if kind in ("float", "double") else "table", section=sec,
@@ -787,6 +861,8 @@ class Inventory:
                 return
         sz = max(acc) if acc else 0
         t = {1: "unsigned char", 2: "short", 4: "int", 8: "__int64"}.get(sz)
+        if refs and all(r[5] for r in refs) and self.src_types.get(s):
+            t = None    # only base-register accesses (a field's width, not the element's): the sources' type stands
         if sz and sz == size:
             self.add(s, size, "scalar", section=sec, type=t)
         else:
@@ -900,6 +976,10 @@ class Inventory:
             if t is not None:
                 for r in rs:
                     code_by_item[t["addr"]].add(r[0])
+        for f, v in getattr(self, "fields", ()):
+            t = item_at(v)
+            if t is not None and v != t["addr"]:
+                self.interior[t["addr"]].append(v)
         for it in items:
             a = it["addr"]
             it["xrefs"] = sorted(code_by_item.get(a, ()))
@@ -976,12 +1056,17 @@ class Inventory:
                         i = self.obj_index(v)
                         if i is not None and i != self.init_obj:
                             it["_c"][i] += 0.5
+        # an owner config/data-items.json pins is what the items only it references follow (its strings); the pinned
+        # item itself takes the pin after the link-order pass (finish), so it is not an anchor of that pass
+        fi = {o["file"]: i for i, o in enumerate(self.objs)}
+        via = {a: collections.Counter({fi[p["object"]]: 1}) for a, p in self.pins.items()
+               if "object" in p and a in by_addr and p["object"] in fi}
         # data-only referenced items take their referencing items' candidates (2 rounds: strings in tables)
         for _ in range(2):
             for it in items:
                 if not it["_c"] and it["data_refs"]:
                     for r in it["data_refs"]:
-                        for i, n in by_addr[r]["_c"].items():
+                        for i, n in via.get(r, by_addr[r]["_c"]).items():
                             it["_c"][i] += 0.25 * n
                     if it["_c"]:
                         it["_via_data"] = True

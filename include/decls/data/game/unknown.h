@@ -18,7 +18,6 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 
 struct DataLayout_00400520;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004061e8;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0048e128;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0048f9fc;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0049ceb0;  // packed layout (bytes and pointers), defined in the data TU
@@ -803,6 +802,7 @@ extern "C" unsigned int DAT_004bd8bc[1];  // zero_004bd8bc
 extern "C" unsigned int DAT_004bd984[1];  // zero_004bd984
 extern "C" unsigned int DAT_004bdb1c[1];  // zero_004bdb1c
 extern "C" unsigned int DAT_004bdca4[1];  // zero_004bdca4
+extern "C" unsigned int DAT_004bdcfc[1];  // zero_004bdcfc
 extern "C" unsigned int DAT_004bde14[1];  // zero_004bde14
 extern "C" unsigned int DAT_004bdec4[1];  // zero_004bdec4
 extern "C" unsigned int DAT_004be024[1];  // zero_004be024
@@ -1409,7 +1409,7 @@ extern "C" unsigned char DAT_004dd888[8];
 extern "C" unsigned char DAT_004dd890[64];
 extern "C" unsigned char DAT_004dd8d0[4];
 extern "C" char DAT_004dd8d4[16];
-extern "C" unsigned char DAT_004dd8e4[1];
+extern "C" unsigned char DAT_004dd8e4;
 extern "C" char DAT_004dd8e5;
 extern "C" char DAT_004dd8e6;
 extern "C" char DAT_004dd8e7;
@@ -2096,139 +2096,6 @@ extern "C" const char DAT_00407b08[10];  // s_metalanim_00407b08
 extern "C" const char* DAT_0049f3ac;  // PTR_0049f3ac
 
 // unknown/unk_0bc1e0.cpp
-extern "C" const DataLayout_004061e8 DAT_004061e8;  // struct_004061e8
-extern "C" const unsigned int DAT_004061f0[1];  // unk_004061f0
-extern "C" const char* const DAT_004061f4;  // PTR_004061f4
-extern "C" const unsigned int DAT_004061f8[1];  // unk_004061f8
-extern "C" const char* const DAT_004061fc[4];  // ptrTbl_004061fc
-extern "C" const unsigned int DAT_0040620c[1];  // unk_0040620c
-extern "C" const char* const DAT_00406210[2];  // ptrTbl_00406210
-extern "C" const unsigned int DAT_00406218[3];  // unk_00406218
-extern "C" const char* const DAT_00406224;  // PTR_00406224
-extern "C" const unsigned int DAT_00406228[4];  // unk_00406228
-extern "C" const char* const DAT_00406238[2];  // ptrTbl_00406238
-extern "C" const unsigned int DAT_00406240[3];  // unk_00406240
-extern "C" const char* const DAT_0040624c[6];  // ptrTbl_0040624c
-extern "C" const unsigned int DAT_00406264[4];  // unk_00406264
-extern "C" const char* const DAT_00406274;  // PTR_00406274
-extern "C" const unsigned int DAT_00406278[2];  // unk_00406278
-extern "C" const char* const DAT_00406280;  // PTR_00406280
-extern "C" const unsigned int DAT_00406284[1];  // unk_00406284
-extern "C" const char* const DAT_00406288[2];  // ptrTbl_00406288
-extern "C" const unsigned int DAT_00406290[3];  // unk_00406290
-extern "C" const char* const DAT_0040629c[3];  // ptrTbl_0040629c
-extern "C" const unsigned int DAT_004062a8[2];  // unk_004062a8
-extern "C" const char* const DAT_004062b0[2];  // ptrTbl_004062b0
-extern "C" const unsigned int DAT_004062b8[3];  // unk_004062b8
-extern "C" const char* const DAT_004062c4;  // PTR_004062c4
-extern "C" const unsigned int DAT_004062c8[4];  // unk_004062c8
-extern "C" const char* const DAT_004062d8;  // PTR_004062d8
-extern "C" const unsigned int DAT_004062dc[1];  // unk_004062dc
-extern "C" const char* const DAT_004062e0;  // PTR_004062e0
-extern "C" const unsigned int DAT_004062e4[2];  // unk_004062e4
-extern "C" const char* const DAT_004062ec[4];  // ptrTbl_004062ec
-extern "C" const unsigned int DAT_004062fc[1];  // unk_004062fc
-extern "C" const char* const DAT_00406300[2];  // ptrTbl_00406300
-extern "C" const unsigned int DAT_00406308[3];  // unk_00406308
-extern "C" const char* const DAT_00406314;  // PTR_00406314
-extern "C" const unsigned int DAT_00406318[4];  // unk_00406318
-extern "C" const char* const DAT_00406328[2];  // ptrTbl_00406328
-extern "C" const unsigned int DAT_00406330[3];  // unk_00406330
-extern "C" const char* const DAT_0040633c[3];  // ptrTbl_0040633c
-extern "C" const unsigned int DAT_00406348[2];  // unk_00406348
-extern "C" const char* const DAT_00406350[3];  // ptrTbl_00406350
-extern "C" const unsigned int DAT_0040635c[2];  // unk_0040635c
-extern "C" const char* const DAT_00406364[2];  // ptrTbl_00406364
-extern "C" const unsigned int DAT_0040636c[3];  // unk_0040636c
-extern "C" const char* const DAT_00406378;  // PTR_00406378
-extern "C" const unsigned int DAT_0040637c[1];  // unk_0040637c
-extern "C" const char* const DAT_00406380[6];  // ptrTbl_00406380
-extern "C" const unsigned int DAT_00406398[2];  // unk_00406398
-extern "C" const char* const DAT_004063a0;  // PTR_004063a0
-extern "C" const unsigned int DAT_004063a4[4];  // unk_004063a4
-extern "C" const char* const DAT_004063b4;  // PTR_004063b4
-extern "C" const unsigned int DAT_004063b8[4];  // unk_004063b8
-extern "C" const char* const DAT_004063c8[2];  // ptrTbl_004063c8
-extern "C" const unsigned int DAT_004063d0[3];  // unk_004063d0
-extern "C" const char* const DAT_004063dc[2];  // ptrTbl_004063dc
-extern "C" const unsigned int DAT_004063e4[3];  // unk_004063e4
-extern "C" const void* const DAT_004063f0[2];  // ptrTbl_004063f0
-extern "C" const unsigned int DAT_004063f8[3];  // unk_004063f8
-extern "C" const char* const DAT_00406404[3];  // ptrTbl_00406404
-extern "C" const unsigned int DAT_00406410[2];  // unk_00406410
-extern "C" const char* const DAT_00406418;  // PTR_00406418
-extern "C" const unsigned int DAT_0040641c[4];  // unk_0040641c
-extern "C" const char* const DAT_0040642c;  // PTR_0040642c
-extern "C" const unsigned int DAT_00406430[4];  // unk_00406430
-extern "C" const char* const DAT_00406440[2];  // ptrTbl_00406440
-extern "C" const unsigned int DAT_00406448[3];  // unk_00406448
-extern "C" const char* const DAT_00406454[3];  // ptrTbl_00406454
-extern "C" const unsigned int DAT_00406460[2];  // unk_00406460
-extern "C" const char* const DAT_00406468[2];  // ptrTbl_00406468
-extern "C" const unsigned int DAT_00406470[4];  // unk_00406470
-extern "C" const char* const DAT_00406480;  // PTR_00406480
-extern "C" const unsigned int DAT_00406484[4];  // unk_00406484
-extern "C" const char* const DAT_00406494;  // PTR_00406494
-extern "C" const unsigned int DAT_00406498[4];  // unk_00406498
-extern "C" const char* const DAT_004064a8;  // PTR_004064a8
-extern "C" const unsigned int DAT_004064ac[4];  // unk_004064ac
-extern "C" const char* const DAT_004064bc;  // PTR_004064bc
-extern "C" const unsigned int DAT_004064c0[4];  // unk_004064c0
-extern "C" const char* const DAT_004064d0;  // PTR_004064d0
-extern "C" const unsigned int DAT_004064d4[4];  // unk_004064d4
-extern "C" const char* const DAT_004064e4;  // PTR_004064e4
-extern "C" const unsigned int DAT_004064e8[4];  // unk_004064e8
-extern "C" const char* const DAT_004064f8;  // PTR_004064f8
-extern "C" const unsigned int DAT_004064fc[10];  // unk_004064fc
-extern "C" const char* const DAT_00406524[3];  // ptrTbl_00406524
-extern "C" const unsigned int DAT_00406530[2];  // unk_00406530
-extern "C" const char* const DAT_00406538;  // PTR_00406538
-extern "C" const unsigned int DAT_0040653c[3];  // unk_0040653c
-extern "C" const char* const DAT_00406548;  // PTR_00406548
-extern "C" const unsigned int DAT_0040654c[8];  // unk_0040654c
-extern "C" const char* const DAT_0040656c;  // PTR_0040656c
-extern "C" const unsigned int DAT_00406570[4];  // unk_00406570
-extern "C" const char* const DAT_00406580[2];  // ptrTbl_00406580
-extern "C" const unsigned int DAT_00406588[3];  // unk_00406588
-extern "C" const char* const DAT_00406594[2];  // ptrTbl_00406594
-extern "C" const unsigned int DAT_0040659c[3];  // unk_0040659c
-extern "C" const char* const DAT_004065a8;  // PTR_004065a8
-extern "C" const unsigned int DAT_004065ac[4];  // unk_004065ac
-extern "C" const char* const DAT_004065bc[2];  // ptrTbl_004065bc
-extern "C" const unsigned int DAT_004065c4[3];  // unk_004065c4
-extern "C" const char* const DAT_004065d0[2];  // ptrTbl_004065d0
-extern "C" const unsigned int DAT_004065d8[3];  // unk_004065d8
-extern "C" const char* const DAT_004065e4[3];  // ptrTbl_004065e4
-extern "C" const unsigned int DAT_004065f0[2];  // unk_004065f0
-extern "C" const char* const DAT_004065f8[2];  // ptrTbl_004065f8
-extern "C" const unsigned int DAT_00406600[3];  // unk_00406600
-extern "C" const char* const DAT_0040660c[2];  // ptrTbl_0040660c
-extern "C" const unsigned int DAT_00406614[3];  // unk_00406614
-extern "C" const char* const DAT_00406620[2];  // ptrTbl_00406620
-extern "C" const unsigned int DAT_00406628[3];  // unk_00406628
-extern "C" const char* const DAT_00406634;  // PTR_00406634
-extern "C" const unsigned int DAT_00406638[4];  // unk_00406638
-extern "C" const char* const DAT_00406648;  // PTR_00406648
-extern "C" const unsigned int DAT_0040664c[1];  // unk_0040664c
-extern "C" const char* const DAT_00406650[5];  // ptrTbl_00406650
-extern "C" const unsigned int DAT_00406664[3];  // unk_00406664
-extern "C" const char* const DAT_00406670;  // PTR_00406670
-extern "C" const unsigned int DAT_00406674[4];  // unk_00406674
-extern "C" const char* const DAT_00406684[2];  // ptrTbl_00406684
-extern "C" const unsigned int DAT_0040668c[3];  // unk_0040668c
-extern "C" const char* const DAT_00406698;  // PTR_00406698
-extern "C" const unsigned int DAT_0040669c[4];  // unk_0040669c
-extern "C" const char* const DAT_004066ac;  // PTR_004066ac
-extern "C" const unsigned int DAT_004066b0[4];  // unk_004066b0
-extern "C" const char* const DAT_004066c0;  // PTR_004066c0
-extern "C" const unsigned int DAT_004066c4[4];  // unk_004066c4
-extern "C" const char* const DAT_004066d4[2];  // ptrTbl_004066d4
-extern "C" const unsigned int DAT_004066dc[3];  // unk_004066dc
-extern "C" const char* const DAT_004066e8[2];  // ptrTbl_004066e8
-extern "C" const unsigned int DAT_004066f0[4];  // unk_004066f0
-extern "C" const char* const DAT_00406700;  // PTR_00406700
-extern "C" const unsigned int DAT_00406704[8];  // unk_00406704
-extern "C" const unsigned int DAT_00406724[5];  // zero_00406724
 extern "C" const char DAT_00408df8[20];  // s_fullscreen_question_00408df8
 extern "C" const char DAT_00408e0c[28];  // s_fullscreen_question_00408e0c
 extern "C" const char DAT_00408e28[28];  // s_fullscreen_question_00408e28

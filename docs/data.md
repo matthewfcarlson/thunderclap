@@ -37,7 +37,8 @@ two `$$X*IMAGE` sections are listed as one opaque `library_section` item each.
    COMDAT; the `??_7` symbol is 4 bytes in). A vftable never runs into the next structure (rtti.py can over-count
    slots). `type_info`'s own vftable (`0x439de8`, no locator) is placed by hand.
 2. **Start points:** every absolute operand of every function in `build/functions.csv` that lands in the range
-   (capstone over all of `.text` and the library sections, ~8 s, cached), every `DAT_xxxxxxxx` name the
+   (capstone over all of `.text` and the library sections, ~8 s, cached): immediates and memory displacements, also
+   with a base or index register (`movzx eax, byte [eax + 0x426830]`; data3, below), every `DAT_xxxxxxxx` name the
    sources use (the merged tree's function blocks; before the flip `matches/` and `equivalent/`), and every aligned
    data word whose value is an address in the range.
    Filters, because a value in the range isn't always an address: immediates used by `cmp`/`and`/`add`/... are
@@ -567,7 +568,44 @@ log_2 byte table in lobject.cpp, the opcode table's kind, a string's owner, libp
 replaced by one 2,480-byte stroke-font table at 0x004d4120. config/data-items.json: 64 entries (52 + 8 + the 4 pins
 above), and `reviewed` keeps the reasoning of the ones removed.
 
-**Limits seen on the way.** The code operands miss a base register plus displacement (`movzx eax, byte [eax +
-0x426830]`, luaO_log2's table): such an item has no code reference unless a source names it. And the type votes read
-the previous config/data.json: regenerate from the committed file, not from an intermediate run, or a folded item's
-neighbour loses the type only that run dropped.
+**Limits seen on the way.** The code operands missed a base register plus displacement (`movzx eax, byte [eax +
+0x426830]`, luaO_log2's table): such an item had no code reference unless a source named it (fixed by data3, below).
+And the type votes read the previous config/data.json: regenerate from the committed file, not from an intermediate
+run, or a folded item's neighbour loses the type only that run dropped.
+
+**Base-register operands and the type spelling (data3, 2026-11-12).** `operand_ref` now takes a memory operand's
+displacement whatever its registers (only a segment override is skipped); a base register makes the access indexed,
+like an index register (the register picks an element or a field, so the access width says nothing of the item's
+extent). Three rules keep the new references from carving on their own evidence what they cannot know:
+
+- *GPU registers.* The D3D library writes NV2A's PGRAPH registers through a register holding the MMIO base
+  (`mov [esi + 0x400750], eax`, 0xfd400750): base-register displacements into `NV2A_PGRAPH` (0x400000-0x401fff) from
+  a library object are dropped (110 operands, all D3D's; game code's `[eax + 0x400524]` into the heap table stays).
+- *Fields.* A base-register displacement less than `FIELD_GAP` (16) bytes after another of the same function is a
+  field of the element the first starts (`[eax + 0x4399a0]` .. `[eax + 0x4399a7]`, one 8-byte element; ModeEntry's
+  `+0`, `+4`, `+8`, `+9`): it counts for the item that holds it (xrefs, owner, `interior`), it does not start one.
+- *Source types.* Where only base-register accesses index an item, the extent the sources declare (`float DAT_x[5]`)
+  wins over "indexed, up to the next start", and an item read only through base registers keeps the sources' type
+  (a field's width is not the element's: `Entry_32a260[]` stays, not `unsigned char[128]`).
+
+An item pinned to another object in config/data-items.json now takes the items only it references along (its
+strings follow the pinned owner, not the carve's), without becoming an anchor of the link-order pass.
+The result: 390 new operands, 280 after the PGRAPH filter, on 116 addresses (60 of them fields); 17 port items gain their first code
+reference and 16 more references, 27 library items gain one. Port items that change in a field data_gen reads:
+3 spans (`TblEntry[]` 0x004061e8 8 -> 1,360 B, 68 entries to 0x00406738; HUDOverlay's `Lookup_d3f10[]` 0x004a0560
+8 -> 248 B; d3dDisplay's `ModeEntry[]` 0x004d3508 12 -> 112 B; the unreferenced carve inside each is folded in),
+0x00427620 `float[5]` table -> float_table, 16 owners moved by the new references (0x0041d7f8 to hulkfight/unk_1acb90.cpp,
+0x004a0d38's string to FETextInput.cpp, 0x004d3508 and its RTTI neighbour to d3dDisplay.cpp, 0x004d4e50 and the
+4 tables after it to d3dSimpleShader.cpp, 0x004d10bc to physics/unk_2e6780.cpp, 0x004dc360 to CCharacter.cpp, a zero word to its other neighbour),
+and 3 regions now Bink's (library, so no longer emitted): its error strings 0x0043529c / 0x004352ac (lua/lbaselib.cpp
+by guess) and the byte tables 0x004399a0..0x00439de8 (pure3d/Image32.cpp by guess). One decision was pinned:
+0x004061e8 stays with global/unk_0b4cf0.cpp (data-items.json's `why`: it sits in unk_0b4cf0's mission-table run and
+shares its strings; unk_0bc1e0 reads it as an extern); the rest is the evidence, recorded under `reviewed`.
+
+The misspelled `unsigned int char` was fixed in decl_type on 2026-11-11, but the type votes read config/data.json, so
+the 26 items (and 49 more spelled `unsigned int __int64`, `unsigned int short`, `unsigned int long long`) carried it
+on. `canon_type` is now the one spelling, applied to every type the sources declare and every type read back from
+config/data.json, so the old spelling cannot come back from either side; tests check both and that config/data.json
+holds none. data_gen reads the corrected types: the 33 eight-byte `.bss` keys are `unsigned __int64` (were
+`unsigned char[8]`), 0x004de9b0 `unsigned short[2856]`, 0x004dd8e4 and 0x0052a228 `unsigned char` scalars; every
+source reaches them through `*(T*)&DAT_x`.

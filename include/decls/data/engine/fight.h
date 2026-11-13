@@ -128,7 +128,7 @@ extern "C" const char* DAT_004ca280;  // PTR_004ca280
 extern "C" const char* DAT_004ca284;  // PTR_004ca284
 extern "C" const char* DAT_004ca288;  // PTR_004ca288
 extern "C" const char* DAT_004ca28c;  // PTR_004ca28c
-extern "C" unsigned char DAT_004e5b18[8];
+extern "C" unsigned __int64 DAT_004e5b18;
 
 // fight/CommentTrack.cpp
 extern "C" const float DAT_00428cd4[2];  // fltTbl_00428cd4

@@ -38,8 +38,8 @@ extern "C" float DAT_004a19b0[12];  // fltTbl_004a19b0
 extern "C" void* DAT_004e09f8[1];
 extern "C" unsigned char DAT_004e09fc[4];
 extern "C" __int64 DAT_004e0a00;
-extern "C" unsigned char DAT_004e0a08[8];
-extern "C" unsigned char DAT_004e0a10[8];
+extern "C" unsigned __int64 DAT_004e0a08;
+extern "C" unsigned __int64 DAT_004e0a10;
 extern "C" __int64 DAT_004e0a18;
 extern "C" unsigned char DAT_004e0a20[8];
 extern "C" unsigned char DAT_004e0a28[8];

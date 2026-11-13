@@ -94,6 +94,7 @@ extern "C" const float DAT_00432480;  // flt_00432480
 extern "C" const float DAT_00432484;  // flt_00432484
 extern "C" const float DAT_00432488[7];  // fltTbl_00432488
 extern "C" const unsigned int DAT_0048a7a0[1];  // zero_0048a7a0
+extern "C" unsigned int DAT_004d3508[28];  // tbl_004d3508
 extern "C" char DAT_004d35dc[17];  // s_XBox_Console_004d35dc
 extern "C" float DAT_004d35f0[4];  // fltTbl_004d35f0
 extern "C" unsigned char DAT_0055549c[4];
@@ -288,6 +289,11 @@ extern "C" const float DAT_0043384c[7];  // fltTbl_0043384c
 extern "C" const float DAT_004338d0[7];  // fltTbl_004338d0
 extern "C" const unsigned int DAT_004338ec[1];  // zero_004338ec
 extern "C" const unsigned int DAT_0048b6c0[1];  // zero_0048b6c0
+extern "C" unsigned int DAT_004d4e50[32];  // tbl_004d4e50
+extern "C" int DAT_004d4ed0[11];  // tbl_004d4ed0
+extern "C" int DAT_004d4efc[2];  // tbl_004d4efc
+extern "C" int DAT_004d4f04[8];  // tbl_004d4f04
+extern "C" int DAT_004d4f24[7];  // tbl_004d4f24
 extern "C" char DAT_004d4f40[4];  // s_x_D_004d4f40
 extern "C" unsigned int DAT_004d4f44[1];  // zero_004d4f44
 extern "C" const void* DAT_004d4f48;  // PTR_004d4f48
@@ -1806,10 +1812,5 @@ extern "C" float DAT_004d8cb0[4];  // fltTbl_004d8cb0
 // pure3d/d3dVertexProgram.cpp
 extern "C" const unsigned int DAT_0048b66c[1];  // zero_0048b66c
 extern "C" int DAT_004d4e10[16];  // tbl_004d4e10
-extern "C" unsigned int DAT_004d4e50[32];  // tbl_004d4e50
-extern "C" int DAT_004d4ed0[11];  // tbl_004d4ed0
-extern "C" int DAT_004d4efc[2];  // tbl_004d4efc
-extern "C" int DAT_004d4f04[8];  // tbl_004d4f04
-extern "C" int DAT_004d4f24[7];  // tbl_004d4f24
 
 #endif

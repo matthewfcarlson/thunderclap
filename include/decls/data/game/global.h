@@ -18,6 +18,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 
 struct DataLayout_003ffde0;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_004061e8;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00406740;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00406a54;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00409fd8;  // packed layout (bytes and pointers), defined in the data TU
@@ -51,9 +52,7 @@ struct DataRec_004de800;  // packed layout (bytes and pointers), defined in the 
 // global/AICollisionSolverAgent.cpp
 extern "C" const float DAT_0041d7f0;  // flt_0041d7f0
 extern "C" const float DAT_0041d7f4;  // flt_0041d7f4
-extern "C" const unsigned int DAT_0041d7f8[1];  // tbl_0041d7f8
 extern "C" const float DAT_0041d804;  // flt_0041d804
-extern "C" const float DAT_0041d808[3];  // fltTbl_0041d808
 extern "C" const float DAT_0041d814;  // flt_0041d814
 extern "C" const float DAT_0041d818[4];  // fltTbl_0041d818
 extern "C" const float DAT_0041d828;  // flt_0041d828
@@ -107,7 +106,7 @@ extern "C" float DAT_004e1808;
 extern "C" float DAT_004e180c;
 extern "C" unsigned char DAT_004e1810[8];
 extern "C" unsigned char DAT_004e1818[16];
-extern "C" unsigned char DAT_004e1828[8];
+extern "C" unsigned __int64 DAT_004e1828;
 
 // global/CAIHintAction.cpp
 extern "C" const float DAT_003f335c;  // tbl_003f335c
@@ -992,8 +991,8 @@ extern "C" int DAT_004dd040;
 extern "C" int DAT_004dd044;
 extern "C" float DAT_004dd048;
 extern "C" float DAT_004dd04c;
-extern "C" unsigned char DAT_004dd050[8];
-extern "C" unsigned char DAT_004dd058[8];
+extern "C" unsigned __int64 DAT_004dd050;
+extern "C" unsigned __int64 DAT_004dd058;
 extern "C" unsigned char DAT_004dd060[8];
 extern "C" unsigned char DAT_004dd068[8];
 extern "C" unsigned int DAT_004dd070;
@@ -1380,16 +1379,16 @@ extern "C" unsigned int DAT_0048f5d4[3];  // tbl_0048f5d4
 extern "C" unsigned int DAT_0048f5e0[3];  // tbl_0048f5e0
 extern "C" float DAT_0048f690;  // flt_0048f690
 extern "C" float DAT_0048f694;  // flt_0048f694
-extern "C" unsigned char DAT_004dc060[8];
+extern "C" unsigned __int64 DAT_004dc060;
 extern "C" unsigned char DAT_004dc080[8];
 extern "C" unsigned char DAT_004dc088[4];
 extern "C" unsigned char DAT_004dc08c[4];
-extern "C" unsigned char DAT_004dc090[8];
-extern "C" unsigned char DAT_004dc098[8];
+extern "C" unsigned __int64 DAT_004dc090;
+extern "C" unsigned __int64 DAT_004dc098;
 extern "C" unsigned char DAT_004dc0a0[4];
 extern "C" unsigned char DAT_004dc0a4[4];
 extern "C" unsigned char DAT_004dc0b0[8];
-extern "C" unsigned char DAT_004dc0c0[8];
+extern "C" unsigned __int64 DAT_004dc0c0;
 extern "C" unsigned char DAT_004dc0d0[8];
 extern "C" unsigned char DAT_004dc2bc[4];
 extern "C" unsigned char DAT_004dc2c0[8];
@@ -1413,6 +1412,7 @@ extern "C" unsigned char DAT_004dc31c[4];
 extern "C" unsigned char DAT_004dc320[4];
 extern "C" unsigned char DAT_004dc324[4];
 extern "C" unsigned char DAT_004dc328[8];
+extern "C" unsigned char DAT_004dc360[144];
 extern "C" unsigned int DAT_004e2198;
 extern "C" int DAT_004e219c;
 extern "C" int DAT_00554c18;
@@ -1631,7 +1631,6 @@ extern "C" unsigned char DAT_004dc340[8];
 extern "C" unsigned char DAT_004dc348[8];
 extern "C" unsigned char DAT_004dc350[8];
 extern "C" unsigned char DAT_004dc358[8];
-extern "C" unsigned char DAT_004dc360[144];
 extern "C" unsigned char DAT_004dc3f0[8];
 
 // global/CCharacterTemplateVariationCondition_2.cpp
@@ -1735,7 +1734,7 @@ extern "C" float DAT_0049ed2c;  // flt_0049ed2c
 extern "C" float DAT_0049ed30;  // flt_0049ed30
 extern "C" float DAT_0049ed34;  // flt_0049ed34
 extern "C" float DAT_0049ed38;  // flt_0049ed38
-extern "C" unsigned char DAT_004dd9f0[8];
+extern "C" unsigned __int64 DAT_004dd9f0;
 extern "C" unsigned char DAT_004dd9f8[8];
 extern "C" unsigned char DAT_004dda00[4];
 extern "C" unsigned char DAT_004dda04[4];
@@ -4764,7 +4763,7 @@ extern "C" unsigned char DAT_004e25dc[4];
 extern "C" unsigned int DAT_004e25e0;
 extern "C" unsigned char DAT_004e25e4[4];
 extern "C" unsigned char DAT_004e25e8[8];
-extern "C" unsigned char DAT_004e25f0[8];
+extern "C" unsigned __int64 DAT_004e25f0;
 extern "C" unsigned char DAT_004e25f8[20];
 extern "C" unsigned char DAT_004e260c[4];
 extern "C" unsigned char DAT_004e2610[4];
@@ -4941,12 +4940,12 @@ extern "C" const unsigned int DAT_004791d8[1];  // zero_004791d8
 extern "C" const unsigned int DAT_00479224[1];  // zero_00479224
 extern "C" const unsigned int DAT_0047926c[1];  // zero_0047926c
 extern "C" unsigned int DAT_004c6160[3];  // tbl_004c6160
-extern "C" unsigned char DAT_004dc078[8];
+extern "C" unsigned __int64 DAT_004dc078;
 extern "C" unsigned char DAT_004e2518[8];
 extern "C" unsigned char DAT_004e2520[8];
 extern "C" unsigned char DAT_004e2528[8];
 extern "C" unsigned char DAT_004e2530[24];
-extern "C" unsigned char DAT_004e2548[8];
+extern "C" unsigned __int64 DAT_004e2548;
 extern "C" unsigned char DAT_004e2550[8];
 extern "C" unsigned char DAT_004e2558[8];
 extern "C" unsigned char DAT_004e25a0[8];
@@ -5720,7 +5719,7 @@ extern "C" unsigned char DAT_004e36dc[4];
 extern "C" unsigned char DAT_004e36e0[4];
 extern "C" unsigned char DAT_004e36e4[12];
 extern "C" unsigned char DAT_004e36f0[16];
-extern "C" unsigned char DAT_004e3700[8];
+extern "C" unsigned __int64 DAT_004e3700;
 extern "C" unsigned char DAT_004e3708[4];
 
 // global/CSoundResourceManager.cpp
@@ -6545,10 +6544,10 @@ extern "C" int DAT_004c8fb8;
 extern "C" float DAT_004c8fbc[4];  // fltTbl_004c8fbc
 extern "C" unsigned int DAT_004c8fcc[1];  // zero_004c8fcc
 extern "C" unsigned int DAT_004c90dc[1];  // zero_004c90dc
-extern "C" unsigned char DAT_004e5928[8];
-extern "C" unsigned char DAT_004e5930[8];
-extern "C" unsigned char DAT_004e5938[8];
-extern "C" unsigned char DAT_004e5940[8];
+extern "C" unsigned __int64 DAT_004e5928;
+extern "C" unsigned __int64 DAT_004e5930;
+extern "C" unsigned __int64 DAT_004e5938;
+extern "C" unsigned __int64 DAT_004e5940;
 extern "C" unsigned char DAT_004e5948[264];
 
 // global/CWorldStreamManager.cpp
@@ -6822,10 +6821,6 @@ extern "C" int DAT_004a0d08;
 extern "C" int DAT_004a0d0c;
 extern "C" int DAT_004a0d10;
 extern "C" int DAT_004a0d14;
-extern "C" char DAT_004a0d38[37];  // s_ABCDEFGHIJKLMNOPQRST_004a0d38
-extern "C" unsigned char DAT_004a0d5d[1];  // unk_004a0d5d
-extern "C" unsigned char DAT_004a0d5f[1];  // unk_004a0d5f
-extern "C" float DAT_004a0d60[3];  // fltTbl_004a0d60
 extern "C" void* DAT_004de648[1];
 extern "C" int DAT_004de64c;
 extern "C" unsigned char DAT_004de650[8];
@@ -6845,29 +6840,33 @@ extern "C" const char DAT_0040bc20[23];  // s_TextInputEntryLocato_0040bc20
 extern "C" const char DAT_0040bc38[24];  // s_TextInputCursorLocat_0040bc38
 extern "C" const char DAT_0040bc50[16];  // s_ClearAfterEntry_0040bc50
 extern "C" const float DAT_0040bc60[7];  // fltTbl_0040bc60
-extern "C" unsigned char DAT_004de670[8];
-extern "C" unsigned char DAT_004de678[8];
-extern "C" unsigned char DAT_004de680[8];
-extern "C" unsigned char DAT_004de688[8];
-extern "C" unsigned char DAT_004de690[8];
-extern "C" unsigned char DAT_004de698[8];
-extern "C" unsigned char DAT_004de6a0[8];
+extern "C" char DAT_004a0d38[37];  // s_ABCDEFGHIJKLMNOPQRST_004a0d38
+extern "C" unsigned char DAT_004a0d5d[1];  // unk_004a0d5d
+extern "C" unsigned char DAT_004a0d5f[1];  // unk_004a0d5f
+extern "C" float DAT_004a0d60[3];  // fltTbl_004a0d60
+extern "C" unsigned __int64 DAT_004de670;
+extern "C" unsigned __int64 DAT_004de678;
+extern "C" unsigned __int64 DAT_004de680;
+extern "C" unsigned __int64 DAT_004de688;
+extern "C" unsigned __int64 DAT_004de690;
+extern "C" unsigned __int64 DAT_004de698;
+extern "C" unsigned __int64 DAT_004de6a0;
 extern "C" unsigned char DAT_004de6a8[4];
 extern "C" unsigned char DAT_004de6ac[4];
 extern "C" unsigned char DAT_004de6b0[8];
 extern "C" unsigned char DAT_004de6b8[8];
-extern "C" unsigned char DAT_004de6c0[8];
-extern "C" unsigned char DAT_004de6c8[8];
+extern "C" unsigned __int64 DAT_004de6c0;
+extern "C" unsigned __int64 DAT_004de6c8;
 extern "C" unsigned char DAT_004de6d0[4];
 extern "C" unsigned char DAT_004de6d4[4];
-extern "C" unsigned char DAT_004de6d8[8];
-extern "C" unsigned char DAT_004de6e0[8];
+extern "C" unsigned __int64 DAT_004de6d8;
+extern "C" unsigned __int64 DAT_004de6e0;
 extern "C" unsigned char DAT_004de6e8[8];
 extern "C" unsigned char DAT_004de6f0[4];
 extern "C" unsigned char DAT_004de6f4[4];
 extern "C" unsigned char DAT_004de6f8[8];
-extern "C" unsigned char DAT_004de700[8];
-extern "C" unsigned char DAT_004de708[8];
+extern "C" unsigned __int64 DAT_004de700;
+extern "C" unsigned __int64 DAT_004de708;
 extern "C" unsigned char DAT_004de710[8];
 extern "C" unsigned char DAT_004de718[8];
 extern "C" unsigned char DAT_004de720[4];
@@ -6950,7 +6949,7 @@ extern "C" unsigned int DAT_004a1574[1];  // zero_004a1574
 extern "C" float DAT_004a1724[4];  // fltTbl_004a1724
 extern "C" int DAT_004a1734;
 extern "C" float DAT_004a1738[4];  // fltTbl_004a1738
-extern "C" unsigned char DAT_004de9b0[5712];
+extern "C" unsigned short DAT_004de9b0[2856];
 extern "C" unsigned char DAT_004e0000[2480];
 extern "C" unsigned char DAT_004e09b0[8];
 extern "C" unsigned char DAT_004e09b8[8];
@@ -7168,16 +7167,7 @@ extern "C" int DAT_0049fd28;
 extern "C" float DAT_0049fd2c[5];  // fltTbl_0049fd2c
 extern "C" unsigned int DAT_004a04ac[1];  // zero_004a04ac
 extern "C" float DAT_004a0550[4];  // fltTbl_004a0550
-extern "C" unsigned int DAT_004a0560[2];  // tbl_004a0560
-extern "C" unsigned int DAT_004a0568[10];  // unk_004a0568
-extern "C" unsigned int DAT_004a0590[1];  // zero_004a0590
-extern "C" unsigned int DAT_004a0594[9];  // unk_004a0594
-extern "C" unsigned int DAT_004a05b8[1];  // zero_004a05b8
-extern "C" unsigned int DAT_004a05bc[7];  // unk_004a05bc
-extern "C" unsigned int DAT_004a05d8[1];  // zero_004a05d8
-extern "C" unsigned int DAT_004a05dc[3];  // unk_004a05dc
-extern "C" unsigned int DAT_004a05e8[1];  // zero_004a05e8
-extern "C" unsigned int DAT_004a05ec[27];  // unk_004a05ec
+extern "C" unsigned int DAT_004a0560[62];  // tbl_004a0560
 extern "C" DataLayout_004a0658 DAT_004a0658;  // struct_004a0658
 extern "C" const char* DAT_004a06a0;  // PTR_004a06a0
 extern "C" const char* DAT_004a06a4;  // PTR_004a06a4
@@ -7700,6 +7690,7 @@ extern "C" const unsigned int DAT_00406158[12];  // unk_00406158
 extern "C" const char* const DAT_00406188[20];  // ptrTbl_00406188
 extern "C" const unsigned int DAT_004061d8[2];  // unk_004061d8
 extern "C" const unsigned int DAT_004061e0[2];  // zero_004061e0
+extern "C" const DataLayout_004061e8 DAT_004061e8;  // struct_004061e8
 extern "C" const char* const DAT_00406738;  // PTR_00406738
 extern "C" const char* const DAT_0040673c;  // PTR_0040673c
 extern "C" const DataLayout_00406740 DAT_00406740;  // struct_00406740

@@ -3041,3 +3041,14 @@ way) and 0x002f4eb0 (ExportInfoLoader::vfunc_5: a vtable call reaches 0x002669f0
 branch coverage 22/30, not promotable). `--x64` at 3,000 over the 127: 81 equivalent, 33 fail, 12 unsupported (no
 32-bit input completes), 1 inconclusive; the failures are 64-bit layout / truncation issues for the x64 lanes (list in
 the hash2 hand-back).
+
+## data3: base-register operands in the data inventory, the type spelling (2026-11-12)
+
+tools/data_inventory.py reads memory operands with a base register (`[eax + 0x426830]`), drops the D3D library's
+PGRAPH register writes, takes nearby displacements of one function as fields, and keeps the sources' types where only
+base-register accesses index an item; `canon_type` ends the `unsigned int char` spelling. config/data.json and 12
+headers of include/decls/data/ regenerated (docs/data.md "Reproducing", data3). For the native builds: 33 eight-byte
+.bss keys are declared `unsigned __int64` (8-aligned; every address is a multiple of 8), 0x004de9b0 `unsigned short[2856]`,
+0x004dd8e4 / 0x0052a228 `unsigned char` scalars; the TblEntry, Lookup_d3f10 and ModeEntry tables are one item each
+(their sources index them through casts, `((T*)&DAT_x)[i]`); 0x0043529c, 0x004352ac and 0x004399a0..0x00439de8 are
+Bink's now and no longer emitted (no source names them).

@@ -83,7 +83,7 @@ extern "C" const char* DAT_004ce270;  // PTR_004ce270
 extern "C" float DAT_004ce2d8[4];  // fltTbl_004ce2d8
 extern "C" float DAT_004ce300[4];  // fltTbl_004ce300
 extern "C" char DAT_004ce340[7];  // s_Pure3D_004ce340
-extern "C" unsigned char DAT_0052a228[1];
+extern "C" unsigned char DAT_0052a228;
 extern "C" unsigned char DAT_0052a229[7];
 extern "C" unsigned char DAT_0052a230[8224];
 extern "C" unsigned char DAT_0052c250[28];

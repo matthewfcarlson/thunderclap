@@ -578,3 +578,27 @@ original. content::LoadObject (687 classes) has the same shape and is still unpa
 
 MSVC 7.1 codegen of 0x001a9b10 and 0x000b86b0 changes (two loads swap) when any extern declaration is added to
 include/decls/data/records.h: every records.h addition re-proves them on MSVC.
+
+## data3: the inventory reads base-register operands; one spelling of a type (2026-11-12)
+
+`movzx eax, byte [eax + 0x426830]` is how MSVC indexes a byte table, and the inventory used to skip every memory
+operand with a base register, so such tables had no code reference unless a source named them. Taking them adds 390
+operands, but three kinds of them must not carve on their own. The D3D library writes NV2A's PGRAPH registers through
+a register holding the MMIO base (`mov [esi + 0x400750], eax` is 0xfd400750): 110 operands that land on game strings
+in .rdata's first 8 KB; they are dropped (library code, 0x400000-0x401fff only). A base register often selects a
+field, not an element: `[eax + 0x4399a0]` .. `[eax + 0x4399a7]` are the 8 bytes of one element of a Bink table, and
+taken as starts they cut it into 8 one-byte items; a displacement under 16 bytes after another of the same function
+is now a field (it counts for the item, it doesn't start one). And the access width through a base register is a
+field's width, so it no longer replaces a type or size the sources declare (`Entry_32a260[]` stays, not
+`unsigned char[128]`). What remains is good evidence: three struct tables get their real extent (TblEntry 68 x 20 B,
+Lookup_d3f10 31 x 8 B, ModeEntry 112 B), 16 items get the owner whose code reads them, and two regions that guesses
+gave to lua/lbaselib.cpp and pure3d/Image32.cpp are Bink's (its error strings, its byte tables). The TblEntry table is
+read only by unk_0bc1e0 but sits in unk_0b4cf0's mission-table run and shares its strings: pinned to unk_0b4cf0, and
+a pinned owner now takes the items only it references along.
+
+The `unsigned int char` spelling was fixed in decl_type a day earlier but lived on: the type votes read
+config/data.json, so the old spelling voted for itself (26 items, plus 49 spelled `unsigned int __int64`,
+`unsigned int short`, `unsigned int long long`). One function now spells every type, on the way in from the sources
+and from config/data.json. data_gen then sees primitive types it didn't before: 33 eight-byte .bss keys become
+`unsigned __int64` (were `unsigned char[8]`). The header change moves MSVC 7.1's scheduling of 0x001a9b10 (two loads
+swap, as x64t7 saw for records.h additions): re-proved on MSVC; its clang code is unchanged.

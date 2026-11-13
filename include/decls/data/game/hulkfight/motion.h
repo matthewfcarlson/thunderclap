@@ -625,7 +625,7 @@ extern "C" const float DAT_0041c2d8[7];  // fltTbl_0041c2d8
 extern "C" const unsigned int DAT_004749bc[1];  // zero_004749bc
 
 // hulkfight/motion/FireMissileAction.cpp
-extern "C" unsigned char DAT_004e16e8[8];
+extern "C" unsigned __int64 DAT_004e16e8;
 extern "C" unsigned int DAT_004e16f0;
 
 // hulkfight/motion/FireProjectileAction.cpp
@@ -1478,9 +1478,6 @@ extern "C" int DAT_004e147c;
 // hulkfight/motion/PropActorThinkingTrack_4.cpp
 extern "C" const unsigned int DAT_00471bf0[1];  // zero_00471bf0
 
-// hulkfight/motion/PropActorToPropTrack_3.cpp
-extern "C" unsigned int DAT_004bdcfc[1];  // zero_004bdcfc
-
 // hulkfight/motion/PropActorToPropTrack_4.cpp
 extern "C" const unsigned int DAT_00471b9c[1];  // zero_00471b9c
 
@@ -1786,6 +1783,7 @@ extern "C" unsigned int DAT_004bd8bc[1];  // zero_004bd8bc
 extern "C" unsigned int DAT_004bd984[1];  // zero_004bd984
 extern "C" unsigned int DAT_004bdb1c[1];  // zero_004bdb1c
 extern "C" unsigned int DAT_004bdca4[1];  // zero_004bdca4
+extern "C" unsigned int DAT_004bdcfc[1];  // zero_004bdcfc
 extern "C" unsigned int DAT_004bde14[1];  // zero_004bde14
 extern "C" unsigned int DAT_004bdec4[1];  // zero_004bdec4
 extern "C" unsigned int DAT_004be024[1];  // zero_004be024
