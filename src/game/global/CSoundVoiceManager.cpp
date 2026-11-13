@@ -2487,10 +2487,12 @@ void Object::update() {
 
 
 // 0x001f5c20 FUN_001f5c20 (1571 B): equivalent/0x001f5c20.cpp [wrapped: conflict: FUN_00249b40]
-// sym: ?FUN_001f5c20@Mgr_1f5c20@fn_001f5c20@@QAEXH@Z @735de2d92e6f @w2076f8252653
+// sym: ?FUN_001f5c20@Mgr_1f5c20@fn_001f5c20@@QAEXH@Z @cfbc1be37dfc @w7d59ba68d618
 namespace fn_001f5c20 {
 // STATUS: equivalent (tools/equiv.py level 3: 18776 inputs, branch coverage 99/102, incomplete)
 // FUN_001f5c20 @ 0x001f5c20
+// data: DAT_004e3768 (int[20]): three per-type count arrays indexed by type 1..6, at [0], [6] and [12] (one item:
+// spelled DAT_004e3768 + 24 and DAT_004e3798, they ran past their 28-byte item natively; scan1)
 // Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
 // "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
 // --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
@@ -2648,28 +2650,28 @@ void Mgr_1f5c20::FUN_001f5c20(int arg)
     Frame_1f5c20 f;
     int started = 0;
     DAT_004e3768[1] = 0;
-    DAT_004e3798[1] = 0;
-    ((int*)((char*)&DAT_004e3768 + 24))[1] = 0;
+    DAT_004e3768[13] = 0;
+    DAT_004e3768[7] = 0;
     DAT_004e3768[2] = 0;
-    DAT_004e3798[2] = 0;
-    ((int*)((char*)&DAT_004e3768 + 24))[2] = 0;
+    DAT_004e3768[14] = 0;
+    DAT_004e3768[8] = 0;
     DAT_004e3768[3] = 0;
-    DAT_004e3798[3] = 0;
-    ((int*)((char*)&DAT_004e3768 + 24))[3] = 0;
+    DAT_004e3768[15] = 0;
+    DAT_004e3768[9] = 0;
     DAT_004e3768[4] = 0;
-    DAT_004e3798[4] = 0;
-    ((int*)((char*)&DAT_004e3768 + 24))[4] = 0;
+    DAT_004e3768[16] = 0;
+    DAT_004e3768[10] = 0;
     DAT_004e3768[5] = 0;
-    DAT_004e3798[5] = 0;
-    ((int*)((char*)&DAT_004e3768 + 24))[5] = 0;
+    DAT_004e3768[17] = 0;
+    DAT_004e3768[11] = 0;
     DAT_004e3768[6] = 0;
-    DAT_004e3798[6] = 0;
-    ((int*)((char*)&DAT_004e3768 + 24))[6] = 0;
+    DAT_004e3768[18] = 0;
+    DAT_004e3768[12] = 0;
     qsort(voices, count324, 4, FUN_001f2e80);
 
     for (int k = 0; k < count324; k++) {
         Voice_1f5c20 **p = &voices[k];
-        DAT_004e3798[(*p)->type]++;
+        DAT_004e3768[12 + (*p)->type]++;
         for (int i = 0; i < 4; i++) {
             Voice_1f5c20 *v = *p;
             Binding_1f5c20 *b = v->bind[i];
@@ -2704,7 +2706,7 @@ void Mgr_1f5c20::FUN_001f5c20(int arg)
                     continue;
                 if (FUN_00249b40(r->ref))
                     continue;
-                ((int*)((char*)&DAT_004e3768 + 24))[(*p)->type]++;
+                DAT_004e3768[6 + (*p)->type]++;
                 continue;
             }
             if (cur->ref && !FUN_00249b40(cur->ref)) {

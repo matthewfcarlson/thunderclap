@@ -190,7 +190,7 @@ def record_fields(name, text=None):
                 return None
             t, star, fname, count = f.group(1).strip(), f.group(2), f.group(3), int(f.group(4) or 1)
             if star:
-                kind, size, spell = "pointer", 4, "pointer"
+                kind, size, spell = "pointer", 4, "ptr:%s*" % t    # (scan1) records.h's field type: the initializer's cast
             elif t in FIELD_TYPES:
                 kind, size, spell = FIELD_TYPES[t]
             else:
@@ -623,7 +623,8 @@ class TUWriter:
                 elif kind in ("code", "pointer"):
                     w = struct.unpack_from("<I", b, o)[0]
                     if o in ptr_at:
-                        x = self.ptr_expr(ptr_at[o], "hulk_code_ptr" if kind == "code" else "void*")
+                        x = self.ptr_expr(ptr_at[o], "hulk_code_ptr" if kind == "code" else
+                                           spell[4:] if spell.startswith("ptr:") else "void*")
                     elif w == 0:
                         x = "0"
                     else:

@@ -12,11 +12,15 @@ item that config/data.json starts at x (its `size`; the `pad` after it is not em
 Classes of a hit (`kind`):
   over      a load / store of `width` bytes at x + k ends past the item (the FUN_00277190 shape)
   pad       ... ends inside the item's alignment padding (zero in the XBE, not emitted natively)
-  addr      an address x + k (lea, push imm, a pointer initializer) past one-past-the-end of the item
-  end       an address exactly one past the end (a loop's end pointer: informational, `--all`)
-  indexed   a register-indexed access whose constant part already starts past the end (`--all`: often a base
-            displacement of a negative index; read the source)
-  before    an offset below the item's start (k < 0)
+  addr      an address x + k (lea, push imm, cmp, a pointer initializer) farther past the end than `end` allows
+  end       an address one past the end, or past it by less than min(32, size) (a loop's end pointer: MSVC compares
+            or starts a reverse walk at one past the end plus the offset of the field the loop reads; informational,
+            `--all`). Farther than that (CCharacterTemplateManager's `DAT_0048f6d0 + 3` over a 4-byte item) is `addr`.
+  indexed   a register-indexed access whose constant part already starts past the end (HalRadicalAdpcm's step table
+            read as `((int*)&DAT_0042ac18 + 16)[i]`, the next item)
+  before    a constant offset below the item's start (k < 0)
+  negidx    a register-indexed access with a constant part below the start (`--all`: the displacement of an index
+            known to be >= k, `token2string[token - 257]`; a pointer walk, `[esi - 4]`)
 
     python tools/data_overreach.py scan [--compile] [--jobs N] [--json OUT] [--all] [TU.cpp ...]
 
@@ -39,7 +43,7 @@ TREE_DIRS = ("src/game", "src/engine", "src/platform/xbox")
 SYM_RE = re.compile(r"(?<![0-9A-Za-z])_?DAT_([0-9a-fA-F]{8})(?![0-9A-Za-z])")
 BLOCK_RE = re.compile(r"^// (0x[0-9a-f]{8}) (\S+) \((\d+) B\): (\w+)", re.M)
 PIN_RE = re.compile(r"^// sym: (\S+)", re.M)
-REPORTED = ("over", "pad", "addr", "before")
+REPORTED = ("over", "pad", "addr", "before", "indexed")
 IMAGE_LO, IMAGE_HI = 0x00010000, 0x01000000
 
 
@@ -80,16 +84,16 @@ def classify(items, sym_addr, addend, width, indexed=False):
     off = sym_addr - base["addr"] + addend   # DAT_x may name an address inside a folded item
     size = base["size"]
     target = base["addr"] + off
-    if off < 0:
-        kind = "before"
-    elif indexed:
-        if off < size:
+    if indexed:
+        if 0 <= off < size:
             return None
-        kind = "indexed"
+        kind = "indexed" if off >= size else "negidx"
+    elif off < 0:
+        kind = "before"
     elif width == 0:
         if off < size:
             return None
-        kind = "end" if off == size else "addr"
+        kind = "end" if off < size + min(32, size) else "addr"
     else:
         if off + width <= size:
             return None
@@ -299,10 +303,10 @@ def main(argv=None):
     s.add_argument("tus", nargs="*")
     s.add_argument("--compile", action="store_true", help="compile TUs without a cached object (MSVC: a queue job)")
     s.add_argument("--jobs", type=int, default=4)
-    s.add_argument("--all", action="store_true", help="also the informational classes (end, indexed)")
+    s.add_argument("--all", action="store_true", help="also the informational classes (end, negidx)")
     s.add_argument("--json", help="write {hits, missing} here")
     a = ap.parse_args(argv)
-    kinds = REPORTED + (("end", "indexed") if a.all else ())
+    kinds = REPORTED + (("end", "negidx") if a.all else ())
     hits, missing = scan(tree_tus(a.tus), a.compile, a.jobs, kinds)
     if a.json:
         with open(a.json, "w") as f:

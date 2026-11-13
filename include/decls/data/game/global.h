@@ -1461,7 +1461,8 @@ extern "C" const char DAT_003f5f74[14];  // s_Middle_Base_L_003f5f74
 extern "C" const char DAT_003f6008[15];  // s_Character_Root_003f6008
 extern "C" const char DAT_003f6018[13];  // s_Balance_Root_003f6018
 extern "C" const char DAT_003f6034[5];  // s_High_003f6034
-extern "C" const unsigned int DAT_003f603c[2];  // unk_003f603c
+extern "C" const char DAT_003f603c[4];  // s_Mid_003f603c
+extern "C" const char DAT_003f6040[4];  // s_Low_003f6040
 extern "C" const char DAT_003f6044[5];  // s_Tank_003f6044
 extern "C" const char DAT_003f604c[11];  // s_Helicopter_003f604c
 extern "C" const char DAT_003f6058[5];  // s_Epic_003f6058
@@ -1611,8 +1612,7 @@ extern "C" const unsigned int DAT_0043f990[1];  // zero_0043f990
 extern "C" const unsigned int DAT_0043f9e0[1];  // zero_0043f9e0
 extern "C" DataLayout_0048f6a4 DAT_0048f6a4;  // struct_0048f6a4
 extern "C" int DAT_0048f6b4[6];  // tbl_0048f6b4
-extern "C" char DAT_0048f6d0[4];  // s_empty_0048f6d0
-extern "C" unsigned int DAT_0048f6d4[2];  // unk_0048f6d4
+extern "C" const char* DAT_0048f6d0[3];  // ptrTbl_0048f6d0
 extern "C" unsigned int DAT_0048f6dc[1];  // zero_0048f6dc
 extern "C" unsigned int DAT_0048f6e0[1];  // unk_0048f6e0
 extern "C" const char* DAT_0048f6e4[14];  // ptrTbl_0048f6e4
@@ -5866,13 +5866,7 @@ extern "C" hulk_vftable_ptr DAT_004c7e3c;  // PTR_004c7e3c
 extern "C" unsigned int DAT_004c806c[1];  // zero_004c806c
 extern "C" void* DAT_004e3760[1];
 extern "C" int DAT_004e3764;
-extern "C" int DAT_004e3768[7];
-extern "C" unsigned char DAT_004e3784[4];
-extern "C" unsigned char DAT_004e3788[4];
-extern "C" unsigned char DAT_004e378c[4];
-extern "C" unsigned char DAT_004e3790[4];
-extern "C" unsigned char DAT_004e3794[4];
-extern "C" int DAT_004e3798[8];
+extern "C" int DAT_004e3768[20];
 extern "C" unsigned char DAT_004e37b8[8448];
 extern "C" unsigned char DAT_004e58b8[8];
 extern "C" unsigned char DAT_004e58c0[8];

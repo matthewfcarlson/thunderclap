@@ -197,7 +197,7 @@ hulk_freg __stdcall FUN_00356fa0(float *p)
 } // namespace fn_f10b45e7
 
 // 0x003572b0 FUN_003572b0 (1044 B): equivalent/0x003572b0.cpp [wrapped: helper definitions (4 out-of-line function bodies)]
-// sym: ?FUN_003572b0@NoiseInit@fn_003572b0@@QAEXXZ @1fae2520027b @w2570f42d46c0
+// sym: ?FUN_003572b0@NoiseInit@fn_003572b0@@QAEXXZ @d5b339e59537 @w0f069b651f5a
 namespace fn_003572b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19873 inputs, branch coverage 21/22, incomplete)
 // FUN_003572b0 @ 0x003572b0
@@ -208,13 +208,10 @@ extern "C" double __cdecl sqrt(double);
 #endif
 
 
-// Gradient noise tables (Perlin's classic init): permutation p, 1-D gradients g1, 2-D gradients g2, 3-D gradients g3.
-struct NoiseTables {
-    float g1[0x202];
-    int p[0x202];
-    float g3[0x202][3];
-    float g2[0x202][2];
-};
+// Gradient noise tables (Perlin's classic init): permutation p, 1-D gradients g1, 2-D gradients g2, 3-D gradients g3:
+// four static arrays of 0x202 entries (one data item each; scan1: one struct overlaid on the first ran past it natively).
+typedef float NoiseG3[0x202][3];
+typedef float NoiseG2[0x202][2];
 
 struct RandState {
     unsigned int s0;
@@ -255,40 +252,43 @@ void NoiseInit::FUN_003572b0()
 {
     if (start == 0)
         return;
-    NoiseTables &t = (*(NoiseTables*)&DAT_0056b7c0);
+    float *g1 = DAT_0056b7c0;
+    int *p = DAT_0056bfc8;
+    NoiseG3 &g3 = *(NoiseG3*)DAT_0056c7d0;
+    NoiseG2 &g2 = *(NoiseG2*)DAT_0056dfe8;
     int i = 0;
     do {
-        t.p[i] = i;
-        t.g1[i] = (float)(Next() % 512 - 256) * 0.00390625f;
-        t.g2[i][0] = (float)(Next() % 512 - 256) * 0.00390625f;
-        t.g2[i][1] = (float)(Next() % 512 - 256) * 0.00390625f;
-        normalize2(t.g2[i]);
-        t.g3[i][0] = (float)(Next() % 512 - 256) * 0.00390625f;
-        t.g3[i][1] = (float)(Next() % 512 - 256) * 0.00390625f;
-        t.g3[i][2] = (float)(Next() % 512 - 256) * 0.00390625f;
-        normalize3(t.g3[i]);
+        p[i] = i;
+        g1[i] = (float)(Next() % 512 - 256) * 0.00390625f;
+        g2[i][0] = (float)(Next() % 512 - 256) * 0.00390625f;
+        g2[i][1] = (float)(Next() % 512 - 256) * 0.00390625f;
+        normalize2(g2[i]);
+        g3[i][0] = (float)(Next() % 512 - 256) * 0.00390625f;
+        g3[i][1] = (float)(Next() % 512 - 256) * 0.00390625f;
+        g3[i][2] = (float)(Next() % 512 - 256) * 0.00390625f;
+        normalize3(g3[i]);
         i++;
     } while (i < 0x100);
 
     while (--i) {
-        int k = t.p[i];
+        int k = p[i];
         int j = Next() % 256;
-        t.p[i] = t.p[j];
-        t.p[j] = k;
+        p[i] = p[j];
+        p[j] = k;
     }
 
     // forward word copies (the original's rep movsd): the last two words read entries this copy just wrote
     // (0x100 and 0x101), which a memcpy of overlapping ranges does not promise
     for (i = 0; i < 0x102; i++)
-        t.g1[0x100 + i] = t.g1[i];
+        g1[0x100 + i] = g1[i];
     for (i = 0; i < 0x102; i++)
-        t.p[0x100 + i] = t.p[i];
+        p[0x100 + i] = p[i];
     for (i = 0; i < 0x102; i++) {
-        t.g2[0x100 + i][0] = t.g2[i][0];
-        t.g2[0x100 + i][1] = t.g2[i][1];
-        t.g3[0x100 + i][0] = t.g3[i][0];
-        t.g3[0x100 + i][1] = t.g3[i][1];
-        t.g3[0x100 + i][2] = t.g3[i][2];
+        g2[0x100 + i][0] = g2[i][0];
+        g2[0x100 + i][1] = g2[i][1];
+        g3[0x100 + i][0] = g3[i][0];
+        g3[0x100 + i][1] = g3[i][1];
+        g3[0x100 + i][2] = g3[i][2];
     }
     start = 0;
 }

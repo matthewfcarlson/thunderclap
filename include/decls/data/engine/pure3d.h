@@ -949,17 +949,10 @@ extern "C" const float DAT_0042fd28[7];  // fltTbl_0042fd28
 extern "C" const float DAT_0043c018;  // flt_0043c018
 extern "C" const float DAT_0043c01c;  // flt_0043c01c
 extern "C" const float DAT_0043c020;  // flt_0043c020
-extern "C" unsigned char DAT_0056b7c0[1024];
-extern "C" unsigned char DAT_0056bbc0[1032];
-extern "C" int DAT_0056bfc8[1];
-extern "C" unsigned char DAT_0056bfcc[1020];
-extern "C" unsigned char DAT_0056c3c8[1032];
-extern "C" unsigned char DAT_0056c7d0[3072];
-extern "C" unsigned char DAT_0056d3d0[3096];
-extern "C" unsigned char DAT_0056dfe8[4];
-extern "C" unsigned char DAT_0056dfec[2044];
-extern "C" unsigned char DAT_0056e7e8[320];
-extern "C" unsigned char DAT_0056e928[1744];
+extern "C" float DAT_0056b7c0[514];
+extern "C" int DAT_0056bfc8[514];
+extern "C" float DAT_0056c7d0[1542];
+extern "C" float DAT_0056dfe8[1028];
 extern "C" unsigned char DAT_0056eff8[4];
 extern "C" unsigned char DAT_0056effc[4];
 

@@ -4,7 +4,7 @@
 
 
 // 0x00027930 FUN_00027930 (285 B): equivalent/0x00027930.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_00027930@Owner_27930@fn_fd796d7b@@QAE_NPADPBD@Z @9b27a0a67727 @wcdebf24fd5a0
+// sym: ?FUN_00027930@Owner_27930@fn_fd796d7b@@QAE_NPADPBD@Z @5c84bbdfa9a3 @wcdebf24fd5a0
 #include "gen/owners.h"
 #include "decls/data/game/unknown.h"
 namespace fn_fd796d7b {} using namespace fn_fd796d7b;

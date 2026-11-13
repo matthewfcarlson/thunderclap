@@ -528,7 +528,7 @@ short FUN_002721c0(char ch)
 
 // 0x00272240 FUN_00272240 (112 B): matches/0x00272240.cpp
 // sym: _FUN_00272240
-// data: g_code = DAT_004cdcaa
+// data: g_code = DAT_004cdca8[1] (the second of the two shorts 0x002722b0 reads as one word; scan1)
 extern "C" bool __cdecl FUN_00272240(byte_272240* p, uint_272240* count, uint_272240* value) {
     byte_272240 b = *p;
     uint_272240 v;
@@ -541,7 +541,7 @@ extern "C" bool __cdecl FUN_00272240(byte_272240* p, uint_272240* count, uint_27
         n = 1;
     } else if (((b >= 0x81 && b <= 0x9f) || (b >= 0xe0 && b <= 0xfc)) && p[1] >= 0x40 && p[1] <= 0xfc &&
                p[1] != 0x7f) {
-        v = (*(unsigned short*)&DAT_004cdcaa);
+        v = DAT_004cdca8[1];
         n = 2;
     } else
         return false;

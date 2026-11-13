@@ -13,23 +13,10 @@ namespace fn_f52e920b {} using namespace fn_f52e920b;
 
 // ---- declarations shared by the functions below
 namespace fn_f52e920b {
-struct Entry {
-  public:
-    union { int a; int value; };
-    union { int b; const char *name; };
-    int *key;
-    int d;
-    char _m_pad_10[0x8];
-};
 typedef unsigned char u8_24c2b0;
 typedef unsigned int u32_24c310;
 typedef int i32_24c310;
 typedef unsigned int uint_24c3e0;
-struct FmtEntry {
-    unsigned int scaleA;
-    unsigned int scaleB;
-    unsigned int pad[4];
-};
 extern "C" unsigned int __cdecl FUN_0024c590(unsigned int* p, unsigned int x);
 struct Obj_24c910 {
     char pad[0x3c];
@@ -61,7 +48,7 @@ struct B_24cb70 {
 // sym: _FUN_0024c1c0 @5f76c8943744 @w8966a7b50904
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0024c1c0 @ 0x0024c1c0
-extern "C" int __cdecl FUN_0024c1c0(const int *key) { for (int i = 0; i < 6; ++i) { if (*key == *((Entry*)&DAT_004cc248)[i].key) return ((Entry*)&DAT_004cc248)[i].value; } return 7; }
+extern "C" int __cdecl FUN_0024c1c0(const int *key) { for (int i = 0; i < 6; ++i) { if (*key == *(const int*)DAT_004cc248[i].fourcc) return DAT_004cc248[i].id; } return 7; }
 
 
 // 0x0024c200 FUN_0024c200 (97 B): equivalent/0x0024c200.cpp
@@ -72,9 +59,9 @@ int __cdecl FUN_0024c200(const char *name)
 {
     for (unsigned i = 0; i < 6; ++i) {
         const char *a = name;
-        const char *b = ((Entry*)&DAT_004cc248)[i].name;
+        const char *b = DAT_004cc248[i].name;
         while (*a && *a == *b) { ++a; ++b; }
-        if (*a == *b) return ((Entry*)&DAT_004cc248)[i].value;
+        if (*a == *b) return DAT_004cc248[i].id;
     }
     return 7;
 }
@@ -82,9 +69,9 @@ int __cdecl FUN_0024c200(const char *name)
 
 // 0x0024c2b0 FUN_0024c2b0 (15 B): matches/0x0024c2b0.cpp
 // sym: _FUN_0024c2b0
-// data: gTable_24c2b0 = DAT_004cc254 + 8 (the codec table's third field)
+// data: DAT_004cc248 (records.h AudioFormatEntry[6]): the format's `c`, read as a byte
 extern "C" u8_24c2b0 __cdecl FUN_0024c2b0(int i) {
-    return ((u8_24c2b0*)((char*)&DAT_004cc254 + 8))[i * 24];
+    return *(u8_24c2b0*)&DAT_004cc248[i].c;
 }
 
 
@@ -104,18 +91,18 @@ extern "C" unsigned int FUN_0024c2d0(unsigned int* p) {
 
 // 0x0024c2f0 FUN_0024c2f0 (32 B): matches/0x0024c2f0.cpp
 // sym: _FUN_0024c2f0
-// data: gTable_24c2f0 = DAT_004cc254 + 4 (the codec table's second field)
+// data: DAT_004cc248 (records.h AudioFormatEntry[6]): the format's `b`
 extern "C" int FUN_0024c2f0(unsigned int* p) {
     unsigned int v = *p;
     int index = (int)(v << 28) >> 28;
-    return (int)((v >> 4) & 31) * *(int*)((char*)((int*)((char*)&DAT_004cc254 + 4)) + index * 24);
+    return (int)((v >> 4) & 31) * (int)DAT_004cc248[index].b;
 }
 
 
 // 0x0024c310 FUN_0024c310 (23 B): matches/0x0024c310.cpp
 // sym: _FUN_0024c310
 extern "C" u32_24c310 __cdecl FUN_0024c310(i32_24c310* format) {
-    return ((u32_24c310*)&DAT_004cc254)[((*format << 28) >> 28) * 6];
+    return DAT_004cc248[(*format << 28) >> 28].a;
 }
 
 
@@ -130,16 +117,16 @@ extern "C" unsigned* FUN_0024c330(unsigned* p, unsigned a, unsigned b, unsigned 
 
 // 0x0024c3b0 FUN_0024c3b0 (37 B): matches/0x0024c3b0.cpp
 // sym: _FUN_0024c3b0
-// data: gData_24c3b0 = DAT_004cc254 + 4 (the codec table's second field)
+// data: DAT_004cc248 (records.h AudioFormatEntry[6]): the format's `b`
 extern "C" int FUN_0024c3b0(unsigned int* format, int count) {
-    return ((*format >> 4) & 0x1f) * ((int*)((char*)&DAT_004cc254 + 4))[((int)(*format << 28) >> 28) * 6] * count;
+    return ((*format >> 4) & 0x1f) * (int)DAT_004cc248[(int)(*format << 28) >> 28].b * count;
 }
 
 
 // 0x0024c3e0 FUN_0024c3e0 (44 B): matches/0x0024c3e0.cpp
 // sym: _FUN_0024c3e0
 extern "C" hulk_uintptr __cdecl FUN_0024c3e0(uint_24c3e0* format, uint_24c3e0 bytes) {
-    return bytes / (((*format >> 4) & 0x1f) * ((int*)((char*)&DAT_004cc254 + 4))[((int)(*format << 0x1c) >> 0x1c) * 6]);
+    return bytes / (((*format >> 4) & 0x1f) * (int)DAT_004cc248[(int)(*format << 0x1c) >> 0x1c].b);
 }
 
 
@@ -150,8 +137,8 @@ extern "C" int FUN_0024c480(unsigned int* format, unsigned int bytes) {
     int index = (int)(x << 28) >> 28;
     unsigned int m = (x >> 4);
     m &= 31;
-    unsigned int d = *(unsigned int*)(((unsigned char*)&DAT_004cc254) + index * 24);
-    unsigned int s = m * *(unsigned int*)(((unsigned char*)((char*)&DAT_004cc254 + 4)) + index * 24);
+    unsigned int d = DAT_004cc248[index].a;
+    unsigned int s = m * DAT_004cc248[index].b;
     unsigned int q = bytes / d;
     unsigned int r = bytes % d;
     return (r * s) / d + q * s;
@@ -163,27 +150,27 @@ extern "C" int FUN_0024c480(unsigned int* format, unsigned int bytes) {
 extern "C" unsigned __cdecl FUN_0024c4d0(unsigned* p, unsigned n) {
     unsigned x = *p;
     int i = (int)(x << 28) >> 28;
-    unsigned d = ((x >> 4) & 31) * ((Entry*)&DAT_004cc254)[i].b;
+    unsigned d = ((x >> 4) & 31) * (int)DAT_004cc248[i].b;
     unsigned q = n / d;
     unsigned r = n % d;
-    unsigned v = ((Entry*)&DAT_004cc254)[i].a;
+    unsigned v = (int)DAT_004cc248[i].a;
     unsigned z = q * v;
     return z + r * v / d;
 }
 
 
 // 0x0024c520 FUN_0024c520 (109 B): equivalent/0x0024c520.cpp
-// sym: ?FUN_0024c520@fn_f52e920b@@YAIPAII@Z @d0daff9ea334 @w213b37c98b1c
+// sym: ?FUN_0024c520@fn_f52e920b@@YAIPAII@Z @60937ef45405 @wf7d4dec2ed8e
 // STATUS: equivalent (tools/equiv.py level 3: 965 inputs, branch coverage 0/0)
 // FUN_0024c520 @ 0x0024c520
 unsigned int FUN_0024c520(unsigned int *packed, unsigned int value)
 {
     unsigned int w = *packed;
-    const FmtEntry &e = ((FmtEntry*)&DAT_004cc254)[(int)(w << 28) >> 28];
-    unsigned int unit = ((w >> 4) & 0x1f) * e.scaleB;
+    const AudioFormatEntry &e = DAT_004cc248[(int)(w << 28) >> 28];
+    unsigned int unit = ((w >> 4) & 0x1f) * e.b;
     unsigned int q = value / unit;
     unsigned int r = value % unit;
-    unsigned int scaled = (r * e.scaleA) / unit + q * e.scaleA;
+    unsigned int scaled = (r * e.a) / unit + q * e.a;
     unsigned int divisor = (w >> 9) & 0x1ffff;
     unsigned int whole = scaled / divisor;
     unsigned int rem = scaled % divisor;
@@ -198,8 +185,8 @@ unsigned int __cdecl FUN_0024c590(unsigned int* p, unsigned int x) {
     unsigned int v = (u >> 9) & 0x1ffff;
     unsigned int r = ((x % 1000) * v) / 1000 + (x / 1000) * v;
     int i = (int)(u << 28) >> 28;
-    unsigned int d = ((unsigned int*)&DAT_004cc254)[i * 6];
-    unsigned int n = (u >> 4 & 31) * ((unsigned int*)((char*)&DAT_004cc254 + 4))[i * 6];
+    unsigned int d = DAT_004cc248[i].a;
+    unsigned int n = (u >> 4 & 31) * DAT_004cc248[i].b;
     return ((r % d) * n) / d + (r / d) * n;
 }
 

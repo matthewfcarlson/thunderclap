@@ -169,8 +169,7 @@ extern "C" unsigned int DAT_004adce4[1];  // zero_004adce4
 extern "C" short DAT_004cdc28[26];  // tbl_004cdc28
 extern "C" short DAT_004cdc5c[10];  // tbl_004cdc5c
 extern "C" short DAT_004cdc70[28];  // tbl_004cdc70
-extern "C" unsigned char DAT_004cdca8[2];  // tbl_004cdca8
-extern "C" short DAT_004cdcaa;
+extern "C" unsigned short DAT_004cdca8[2];  // tbl_004cdca8
 extern "C" unsigned int DAT_004cdcac[1];  // zero_004cdcac
 extern "C" unsigned int DAT_004cdcb0[17];  // unk_004cdcb0
 extern "C" unsigned char DAT_004cdcf4;

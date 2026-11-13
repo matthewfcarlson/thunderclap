@@ -609,3 +609,31 @@ config/data.json, so the old spelling cannot come back from either side; tests c
 holds none. data_gen reads the corrected types: the 33 eight-byte `.bss` keys are `unsigned __int64` (were
 `unsigned char[8]`), 0x004de9b0 `unsigned short[2856]`, 0x004dd8e4 and 0x0052a228 `unsigned char` scalars; every
 source reaches them through `*(T*)&DAT_x`.
+
+**Accesses past an item (scan1, 2026-11-13).** The inventory turns a source offset into one item of the range (`DAT_x
++ k`, above), but it never checked that an access *ends* inside its item, and an item boundary the evidence or a pin
+put inside a structure stays invisible on the 32-bit builds, where the items are adjacent at the XBE's distances.
+Natively each item is placed on its own, so such an access reads or writes another object: linux1's FUN_00277190
+read the terminator of the 2-byte "D:" as `DAT_0042b50c + 2` and took another start-up path on Linux (8025b0aae).
+`tools/data_overreach.py scan [--compile] [--all]` checks the tree's MSVC objects: every DIR32 relocation that names
+a data item carries the constant offset as its addend, the instruction holding it gives the access width (an
+address only formed by lea / an immediate is width 0; MSVC's inline `rep movs` / `stos` block copies count their
+extent), and `[x + k, x + k + width)` must lie inside the item config/data.json starts at x (`size`; the `pad` after
+it is not emitted). Reported: `over` (ends past the item), `pad` (ends in its padding), `addr` (an address formed
+farther past the end than a loop bound), `before`, `indexed` (a register-indexed access whose constant part starts
+past the end); informational (`--all`): `end` (one past the end, plus less than min(32, size): MSVC's loop bounds at
+a field of one past the end) and `negidx` (an index's negative constant, `token2string[token - 257]`).
+tests/test_data_overreach.py; a whole-tree run is one queue job (`--compile --jobs 8`, ~40 s on mac2 with its
+object cache).
+
+First run (HEAD ffb68ff69, job 77960; classes as the tool now has them): 25 reported, 15 informational, in 8 places.
+All reported ones were real: one read of the next item (the IMA step table read as `DAT_0042ac18 + 64 + 4i`,
+fixed in source, 9bbef387f) and five mis-sized items (fixed by data-items pins / a record, with the sources that
+spelled the old boundaries): the audio formats (records.h `AudioFormatEntry DAT_004cc248[6]`; carved as a 1-byte
+string, a pointer pair and data2's 120-byte struct at field `a` of entry 0), the 2-short word 0x004cdca8, the three
+voice count arrays 0x004e3768 (80 bytes; data2's 28-byte span), Perlin's four noise tables from 0x0056b7c0 (2056,
+2056, 6168 and 4112 bytes; data2's 1,024-byte span and a carve that made the permutation table 4 bytes), and the
+three joint-name pointers 0x0048f6d0 (a 4-byte "string" and an unknown; config/data-pointers.json). After them the
+scan reports nothing (job 78132); the informational ones are loop bounds and negative index constants.
+data_gen: an initialized typed record's pointer field is now cast to the field's records.h type (was `void*`, which
+only `void*` fields accept).

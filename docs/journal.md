@@ -717,3 +717,13 @@ blocks fight::Action's whole family: the records come first there.
 - Sweep (N dummy declarations at the top of every TU): six equivalent blocks move, 0x001a9b10, 0x000b86b0, 0x000ba040,
   0x00027930, 0x002e9c60, 0x002ea3c0; no matches block.
 - `verify` now prints `inputs` digests (TU texts, reachable headers); `tree_tu.py inputs` gives them locally.
+
+## 2026-11-13 scan1: accesses past the end of a data item
+
+- `tools/data_overreach.py` reads constant offsets from the MSVC objects' relocation addends and widths from the
+  instructions; an access must end inside its config/data.json item. First run: 25 reported, all real (1 read of the
+  next item, 5 mis-sized items), 15 benign (loop bounds at a field of one past the end, negative index constants).
+- A data2 pin that keeps an item small while the source overlays a bigger structure on it (0x0056b7c0, 0x004e3768,
+  0x004cc254) is a native bug, not a spelling choice: the scan reports every such pin's users.
+- Words whose bytes read as text hide pointer tables (0x0048f6d0 was a 4-byte "string"); its neighbours 0x0048f6a4
+  (last word), 0x0048f6b4 (`int[6]`), 0x0048f6cc and 0x0048f6e0 hold string addresses as integers too (left: data_ptrs).

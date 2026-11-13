@@ -3777,3 +3777,24 @@ the files it checked. tests/test_tree_tu_inputs.py.
 
 **typ1's parked change** is consistent under both checks: it needs 0x001a9b10 re-proved on MSVC at 76aee2ab8faa
 (`equiv.py` 3,000 inputs, `hash --proven`), nothing else; then its Wine proof.
+
+## Accesses past the end of a data item (scan1, 2026-11-13)
+
+linux1's FUN_00277190 read the byte after the 2-byte "D:" item as `DAT_0042b50c + 2`: right on the 32-bit builds
+(the items sit at the XBE's distances), a stray byte natively. `tools/data_overreach.py` finds that class in the
+compiler's output: per DIR32 relocation of a tree TU's MSVC object that names a data item, the addend is the constant
+offset and the instruction the access width; the access must end inside the item config/data.json gives
+(docs/data.md "Accesses past an item"). tests/test_data_overreach.py.
+
+| | |
+| --- | --- |
+| first run (HEAD ffb68ff69, job 77960, 2,675 TUs) | 25 reported, 15 informational |
+| (a) a read of another item | 1: FUN_00262930 read the IMA step table 0x0042ac58 as `DAT_0042ac18 + 64 + 4i` (9bbef387f, match) |
+| (b) a mis-sized item | 5 items, 24 hits: the audio formats 0x004cc248 (records.h `AudioFormatEntry[6]`), the word 0x004cdca8, the voice count arrays 0x004e3768, Perlin's noise tables 0x0056b7c0.., the joint-name pointers 0x0048f6d0 |
+| (c) benign | 15: loop bounds at a field of one past the end (dynamic initializers, d3dPrimBuffer, the drive registry, controller ports, SeqEvent types), negative index constants (Lua's `token2string[token - 257]`, `DAT_0042720c[op - 6]`, a `[esi - 4]` walk) |
+| after the fixes (job 78132) | 0 reported, 16 informational |
+
+What each (b) did natively before: FUN_0024c1c0 / 0024c200 walked six 24-byte format entries from a 1-byte item; the
+noise initializer wrote 14 KB through a struct overlaid on a 1 KB item and the noise functions indexed a 4-byte
+permutation item; FUN_001f5c20 cleared and counted 48 bytes past a 28-byte item; FUN_000464c0 walked three
+"pointers" whose item was a 4-byte string (the words' bytes read as text); FUN_002722b0 read a word from a 2-byte item.

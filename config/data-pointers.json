@@ -122,6 +122,14 @@
     "0x0"
    ],
    "why": "luaL_reg names (name / function pairs, 8 bytes each) point at the strings 0x00434924 (bytes read as text); 0x0033b560 (luaopen_table) passes the table to luaL_openlib 0x003390d0, which reads each name"
+  },
+  "0x0048f6d0": {
+   "offsets": [
+    "0x0",
+    "0x4",
+    "0x8"
+   ],
+   "why": "scan1 (2026-11-13): the three collision-actor joint names 0x000464c0 walks (strings at 0x003f6040, 0x003f603c, 0x003f6034; bytes 40 60 3f 00, 3c 60 3f 00, 34 60 3f 00); config/data-items.json pins the 12-byte table"
   }
  }
 }

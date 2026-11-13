@@ -1783,4 +1783,20 @@ struct BufferArena {
 
 extern "C" BufferArena DAT_00565fc0;
 
+
+// (scan1) The audio sample formats (audio/unk_24c1c0.cpp): six entries, found by FourCC (0x0024c1c0) or name
+// (0x0024c200); a format word's low 4 bits index it (0x0024c2b0..0x0024c590 read `a`, `b`, `c`). 144 bytes on the
+// 32-bit builds. Carved as a 1-byte string, a pointer pair and a 120-byte struct at 0x004cc254 (`a` of entry 0), the
+// 6-entry loops ran past the 1-byte item natively (tools/data_overreach.py).
+struct AudioFormatEntry {
+    int id;
+    const char* name;
+    const char* fourcc;
+    unsigned int a;
+    unsigned int b;
+    unsigned int c;
+};
+
+extern "C" AudioFormatEntry DAT_004cc248[6];
+
 #endif

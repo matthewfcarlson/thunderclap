@@ -36,7 +36,10 @@ class Classify(unittest.TestCase):
 
     def test_addresses(self):
         self.assertEqual(do.classify(ITEMS, 0x42b510, 16, 0)["kind"], "end")
-        self.assertEqual(do.classify(ITEMS, 0x42b510, 20, 0)["kind"], "addr")
+        self.assertEqual(do.classify(ITEMS, 0x42b510, 20, 0)["kind"], "end")     # one past the end plus a field offset
+        self.assertEqual(do.classify(ITEMS, 0x42b510, 32, 0)["kind"], "addr")    # past it by min(32, size) or more
+        self.assertEqual(do.classify(ITEMS, 0x42b50e, 3, 0)["kind"], "addr")     # a 1-byte item: 3 past
+        self.assertEqual(do.classify(ITEMS, 0x42b510, -24, 4, indexed=True)["kind"], "negidx")    # x[i - 6]
         self.assertEqual(do.classify(ITEMS, 0x42b510, -4, 4)["kind"], "before")
         self.assertIsNone(do.classify(ITEMS, 0x42b510, 8, 4, indexed=True))
         self.assertEqual(do.classify(ITEMS, 0x42b510, 16, 4, indexed=True)["kind"], "indexed")
@@ -59,6 +62,7 @@ class Widths(unittest.TestCase):
             ("680cb54200", 1, (0, False)),              # push offset
             ("0fb6840a0cb54200", 4, (1, True)),         # movzx eax, byte ptr [edx + ecx + ...]
             ("8d040d0cb54200", 3, (0, True)),           # lea eax, [ecx + ...]
+            ("3d0cb54200", 1, (0, False)),              # cmp eax, offset (a loop bound)
         ]:
             code, i = insn(hexb)
             self.assertEqual(do.access(i, field), want, hexb)
