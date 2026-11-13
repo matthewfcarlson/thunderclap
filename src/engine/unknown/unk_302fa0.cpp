@@ -83,9 +83,10 @@ struct Elem_304260 {
 };
 void __cdecl FUN_003032d0(Elem_304260 *first, int hole, int len, Elem_304260 value);
 extern "C" void* __cdecl FUN_0008d6d0(int);
+// (x64t9-pw) the contact buffer's begin and end (decls/physics_world.h HulkContactBuffer), pointer-sized
 struct Target_304350 {
-    int a;
-    int b;
+    hulk_intptr a;
+    hulk_intptr b;
 };
 extern "C++" __declspec(nothrow) void __cdecl FUN_00304370(void *, void *, int);
 struct Thing_304500 {
@@ -117,7 +118,7 @@ struct Renderer_304530 {
     void FUN_00314be0(unsigned int, unsigned int, Object*, unsigned int, unsigned int, unsigned int);
 };
 struct Global_304530 {
-    char pad[HULK_PW_DETECTOR];  // (x64t4) decls/physics_world.h
+    char pad[HULK_WORLD_AT(detector)];  // (x64t4, x64t9-pw) decls/physics_world.h
     Renderer_304530 renderer;
 };
 struct Queue_304530 {
@@ -393,7 +394,7 @@ namespace fn_f0220b18 {
 // 0x00304350 FUN_00304350 (17 B): matches/0x00304350.cpp
 // sym: @FUN_00304350@4
 extern "C" void __fastcall FUN_00304350(Target_304350* self) {
-    int v = self->a;
+    hulk_intptr v = self->a;
     self->b = v;
     if (v)
         thunk_FUN_00267090(v);

@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "decls/data/records.h"
 #include "decls/data/script.h"
+#include "decls/managers.h"
 
 
 // 0x00094fb0 FUN_00094fb0 (3785 B): equivalent/0x00094fb0.cpp [wrapped: macros]
@@ -226,6 +227,7 @@ public:
     const char* FUN_00093260(int);
     void FUN_00093db0(int, bool);
 };
+HULK_MGR_SAME(CUnlockablesManager, HulkUnlockablesManager);   // (x64t9-mgr) include/decls/managers.h
 class Registry { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_00094d20(const char*, CUnlockablesManager*, void (CUnlockablesManager::*)(const char*, int, const char*, const char*, const char*, const char*));
@@ -263,7 +265,7 @@ G1("um_GetUnlockableCheatCode", 00093110, String, Int)
 O("um_SetupUnlockableGallery", 00094ef0, 00093150)
 O("um_SetupUnlockableMovie", 00094f50, 000931f0)
 G1("um_GetJumpMarkerLocatorName", 00093260, String, Int)
-        memset(this, 0, 0x2fe * 4);
+        memset(this, 0, sizeof(items));   // (x64t9-mgr) 0x2fe pointers (0xbf8 bytes in the XBE)
         for (i = 0; i < 32; i++) {
             slots[i].b = 0;
             slots[i].a = 0;

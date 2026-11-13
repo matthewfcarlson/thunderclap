@@ -16,7 +16,7 @@ namespace fn_f1098e70 {} using namespace fn_f1098e70;
 // ---- declarations shared by the functions below
 namespace fn_f1098e70 {
 struct Sub_2f4df0 { void FUN_002f7a40(); void FUN_002f7a80(void*); };
-struct G_2f4df0 { char pad[HULK_PW_SOLVER]; Sub_2f4df0 sub; };  // (x64t4) decls/physics_world.h
+struct G_2f4df0 { char pad[HULK_WORLD_AT(solver)]; Sub_2f4df0 sub; };  // (x64t4, x64t9-pw) decls/physics_world.h
 struct Agent_2f4df0 { Agent_2f4df0* FUN_002f8800(); };
 extern "C" void __cdecl FUN_002ecb90(int);
 extern "C" void __cdecl FUN_002f2e20();

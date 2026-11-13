@@ -13,6 +13,7 @@
 #define TREE_TU_END }
 namespace fn_ff8e53b8 {} using namespace fn_ff8e53b8;
 #include "game/global.h"
+#include "decls/managers.h"
 
 // ---- declarations shared by the functions below
 struct Gfx {
@@ -1034,18 +1035,18 @@ class CFMVManager {
     int field_04;
     char field_08;
     char field_09;
-    int field_0c;
-    int field_10;
+    void* field_0c;             // (x64t9-mgr) the movie object; 0x118 its state, 0x11c ... 0x12c the managers
+    int field_10;               // 0x001b7260 stores and the rumble buffer (0x001b7290)
     char field_14;
     char pad_15[0x114 - 0x15];
     char field_114;
     char pad_115[3];
-    int field_118;
-    int field_11c;
-    int pad_120;
-    int field_124;
+    void* field_118;
+    void* field_11c;
+    void* pad_120;
+    void* field_124;
     int field_128;
-    int field_12c;
+    void* field_12c;
     char field_130;
     char field_131;
     char pad_132[2];
@@ -1056,6 +1057,7 @@ class CFMVManager {
     void FUN_001b7290(float, float, float, float);
     bool FUN_001b6f00();
 };
+HULK_MGR_SAME(CFMVManager, HulkFMVManager);   // include/decls/managers.h
 
 extern "C" Registry_1b84f0* FUN_001d4c90();
 extern "C" void* FUN_0008d690(unsigned size);

@@ -10,6 +10,7 @@
 #define TREE_LOCAL_pure3d
 namespace fn_fb9e703c {} using namespace fn_fb9e703c;
 #include "game/global.h"
+#include "decls/managers.h"
 
 // ---- declarations shared by the functions below
 namespace fn_fb9e703c {
@@ -124,13 +125,15 @@ namespace fn_fb9e703c {
 struct CGameController_af310 {
     Controller_af310* Build_000af110(int);
 };
+// (x64t9-mgr) include/decls/managers.h's HulkGameControllerManager (8 bytes in the XBE: the vftable and the
+// controller; the unused flag at 8 that made this view 12 bytes is gone)
 class CGameControllerManager_af310 {
   public:
     void* vptr;
     Controller_af310* controller;
-    unsigned char flag;
     CGameControllerManager_af310* ctor(Arg_af310* a);
 };
+HULK_MGR_SAME(CGameControllerManager_af310, HulkGameControllerManager);
 
 
 // 0x000af110 FUN_000af110 (47 B): matches/0x000af110.cpp

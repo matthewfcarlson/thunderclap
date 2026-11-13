@@ -448,7 +448,7 @@ struct Reset_2f36c0 {
     void FUN_003037e0();
 };
 struct Context {
-    char pad[HULK_PW_BUFFER];  // (x64t4) decls/physics_world.h
+    char pad[HULK_WORLD_AT(buffer)];  // (x64t4, x64t9-pw) decls/physics_world.h
     Reset_2f36c0 reset;
 };
 namespace physics {

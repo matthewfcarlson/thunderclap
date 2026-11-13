@@ -16,6 +16,7 @@
 namespace fn_f49dcb8d {} using namespace fn_f49dcb8d;
 namespace fn_f49dcb8d { extern "C" char DAT_00425b20[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
+#include "decls/managers.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -3567,11 +3568,12 @@ class CWorldStreamManager {
         char flagA;
         char pad6[0x26 - 6];
         short word26;
-        char pad28[4];
-        int f2c;
-        int f30;
+        short count28;
+        char pad2a[2];
+        void* f2c;                  // (x64t9-mgr) the heap, the resource (0x002047c0), the size, the inventory
+        void* f30;
         int f34;
-        int f38;
+        void* f38;
     };
 
     void FUN_002036c0(int);
@@ -3598,28 +3600,33 @@ class CWorldStreamManager {
     int FUN_002036f0();
 
     char pad04[0x44 - 4];
-    int f44;
+    void* f44;
     CMemoryPool pools[20];
     CMemoryPool poolA;
     CMemoryPool poolB;
-    int f570, f574, f578, f57c, f580;
+    void *f570, *f574, *f578, *f57c, *f580;
     char pad584[4];
-    int f588, f58c, f590, f594, f598, f59c;
+    void *f588, *f58c, *f590;
+    int f594, f598, f59c;
     char pad5a0[4];
     int buf5a4[256];
     int f9a4, f9a8;
     char pad9ac[0xa4c - 0x9ac];
     int fa4c;
     char padA50[0xaa0 - 0xa50];
-    int faa0;
+    void* faa0;
     char name[0x20];
     char nameTerm;
     char padAC5[0xae4 - 0xac5];
-    int fae4, fae8, faec;
+    void *fae4, *fae8, *faec;
     char faf0, faf1, faf2, faf3, faf4, faf5;
     char padAF6[2];
     int faf8, fafc;
 };
+// (x64t9-mgr) include/decls/managers.h's HulkWorldStreamManager / HulkWorldMemoryPool: the pointer words as the
+// manager's methods use them (0x002047c0, 0x00204720, 0x00207960, 0x002062d0, 0x00204de0, 0x002067d0, 0x00206320)
+HULK_MGR_SAME(CWorldStreamManager::CMemoryPool, HulkWorldMemoryPool);
+HULK_MGR_SAME(CWorldStreamManager, HulkWorldStreamManager);
 
 struct Registry_208210 {
     void FUN_001d3b70(const char* name, void* closure);

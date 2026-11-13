@@ -13,6 +13,7 @@
 #define TREE_TU_END }
 namespace fn_f53af43c {} using namespace fn_f53af43c;
 #include "game/global.h"
+#include "decls/managers.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f53af43c {
@@ -147,9 +148,10 @@ struct State_89bf0 {
  Entry_89bf0 entries[100];
  int mode;
  unsigned char flag0, flag1, flag2, flag3;
- int counters[4];
+ void* counters[4];   // (x64t9-mgr) pointers 0x0008bf80 stores (include/decls/managers.h's HulkGameFlowManager)
  State_89bf0* FUN_00089bf0();
 };
+HULK_MGR_SAME(State_89bf0, HulkGameFlowManager);
 struct Sub_89e10;
 struct Root_89e10 {
     char pad[0x54];

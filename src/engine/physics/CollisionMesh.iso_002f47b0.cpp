@@ -100,7 +100,7 @@ struct Sys_2f47b0 {
 };
 
 struct Root_2f47b0 {
-    char pad0[HULK_PW_BUFFER];  // (x64t4) decls/physics_world.h
+    char pad0[HULK_WORLD_AT(buffer)];  // (x64t4, x64t9-pw) decls/physics_world.h
     Sys_2f47b0 sys;
 };
 

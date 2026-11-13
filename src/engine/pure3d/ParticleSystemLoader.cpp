@@ -8,6 +8,7 @@
 #include "gen/owners.h"
 #include "gen/pure3d.h"
 #include "decls/loaders.h"
+#include "decls/particle_emitter.h"
 #define TREE_TU_BEGIN namespace fn_f07ae39e {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -1349,18 +1350,19 @@ void** copyWords(void** dst, int count, void* const* src) {
 } // namespace fn_f07ae39e
 
 // 0x002ab560 FUN_002ab560 (40 B): matches/0x002ab560.cpp [wrapped: same definition as 0x002ab530 in this TU]
-// sym: ?copyWords@fn_002ab560@@YAPAHPAHHPBH@Z
+// sym: ?copyWords@fn_002ab560@@YAPAPAXPAPAXHPBQAX@Z
 namespace fn_002ab560 {
 // Same code shape as 0x002ab530 (propagated; names are from that function)
-int* copyWords(int* dst, int count, const int* src) {
+// (x64t9-spe) 0x002ab8e0's fill: the emitter's list of blend states holds pointers, so pointer-sized words (as 0x002ab530)
+void** copyWords(void** dst, int count, void* const* src) {
     if (count) {
         int n = count;
-        int* p = dst;
-        const int* s = src;
+        void** p = dst;
+        void* const* s = src;
         do {
             if (p)
                 *p = *s;
-            p = (int*)((char*)p + 4);
+            p = (void**)((char*)p + sizeof(void*));
         } while (--n);
         return p;
     }
@@ -1597,15 +1599,17 @@ bool owners::Buffer_2ab880::FUN_002ab880(unsigned int count, void* arg) {
 // 0x002ab8e0 FUN_002ab8e0 (95 B): matches/0x002ab8e0.cpp
 // sym: ?FUN_002ab8e0@Buffer_2ab8e0@owners@@QAE_NIPAX@Z
 // Same code shape as 0x00290790 (propagated; names are from that function)
+// (x64t9-spe) the emitter's list of blend states (decls/particle_emitter.h, 0x1d4): count pointer-sized words, filled by
+// 0x002ab560 (were `count * 4` and the ambiguous `Init`); gen's Buffer_2ab8e0 still types the words `int*`
 bool owners::Buffer_2ab8e0::FUN_002ab8e0(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc_0008d6d0(count * 4);
-        begin = p;
+        void** p = (void**)Alloc_0008d6d0(count * sizeof(void*));
+        begin = (int*)p;
         if (p != 0) {
-            end = p + count;
-            Init(p, count, arg);
+            end = (int*)(p + count);
+            ::fn_002ab560::copyWords(p, count, (void* const*)arg);
             return true;
         }
     }
@@ -2355,15 +2359,15 @@ public:
     virtual void v8(void *shader);
     char pad04[4];
     NameHolder_2acd70 name;
-    char pad10[0x88 - 0x10];
+    char pad10[HULK_SPE(0x88) - HULK_SPE(0x10)];   // (x64t9-spe) the emitter's words (decls/particle_emitter.h)
     Ref_2acd70 *f88;
     Ref_2acd70 *f8c;
     Ref_2acd70 *f90;
     int f94;
-    char pad98[0xa5 - 0x98];
+    char pad98[HULK_SPE(0xa5) - HULK_SPE(0x98)];
     char ba5;
     char ba6;
-    char pada7[0x130 - 0xa7];
+    char pada7[HULK_SPE(0x130) - HULK_SPE(0xa7)];
     void *f130;
     void *f134;
     char pad138[4];
@@ -2380,8 +2384,8 @@ public:
     Sink_2acd70 *f1bc;
     Ref_2acd70 *f1c0;
     Ref_2acd70 *f1c4;
-    int *f1c8;
-    int *f1cc;
+    void **f1c8;   // the live particles
+    void **f1cc;
     char pad1d0[4];
     IntVec_2acd70 vec1d4;
     Obj_2acd70 *FUN_002d63a0();
@@ -2481,7 +2485,7 @@ Obj_2acd70 *Loader_2acd70::FUN_002acd70(Reader *R, Inv_2acd70 *a1)
             R->stream->FUN_002647e0(&f.x10, 1, 4, 1);
             R->stream->FUN_002647e0(&f.x18, 1, 4, 1);
 
-            void *mem = thunk_FUN_0008d690(0x1e0);
+            void *mem = thunk_FUN_0008d690(sizeof(HulkSpriteParticleEmitter));   // (x64t9-spe) decls/particle_emitter.h
             if (mem != 0)
                 obj = ((Obj_2acd70 *)mem)->FUN_002d63a0();
             else
@@ -2502,10 +2506,10 @@ Obj_2acd70 *Loader_2acd70::FUN_002acd70(Reader *R, Inv_2acd70 *a1)
             if (obj->f1c8 == 0) {
                 unsigned int cnt = f.x20;
                 if (cnt != 0) {
-                    int *arr = (int *)FUN_0008d6d0(cnt * 4);
+                    void **arr = (void **)FUN_0008d6d0(cnt * sizeof(void *));
                     obj->f1c8 = arr;
                     if (arr != 0) {
-                        obj->f1cc = (int *)((char *)arr + cnt * 4);
+                        obj->f1cc = (void **)((char *)arr + cnt * sizeof(void *));
                         unsigned int c = f.x20;
                         do {
                             if (arr != 0)

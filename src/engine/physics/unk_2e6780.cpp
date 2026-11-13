@@ -541,11 +541,11 @@ struct PA {
     Sub2_2eccd0 s;
 };
 struct PB {
-    // (x64t4) the physics world (DAT_00554c14): a word of its collision detector and its solver at the parts'
+    // (x64t4, x64t9-pw) the physics world (DAT_00554c14): its collision detector's tolerance and its solver at their
     // offsets (decls/physics_world.h)
-    char pad0[HULK_PW_AT(0x70, 0x80)];
+    char pad0[HULK_WORLD_AT(detector.tolerance)];
     float f80;
-    char pad1[HULK_PW_SOLVER - HULK_PW_AT(0x70, 0x80) - 4];
+    char pad1[HULK_WORLD_AT(solver) - HULK_WORLD_AT(detector.tolerance) - 4];
     Sub2_2eccd0 s;
 };
 

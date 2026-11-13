@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/records.h"
 #include "decls/data/script.h"
+#include "decls/managers.h"
 
 
 // 0x000c0e40 FUN_000c0e40 (1514 B): equivalent/0x000c0e40.cpp [wrapped: macros]
@@ -49,8 +50,11 @@ extern char DAT_0048e100[],DAT_0048e0f0[],DAT_0048e134[],DAT_0049cad8[];
 extern "C" void* __cdecl FUN_0008d690(unsigned);
 
 struct Item { unsigned words[2]; void FUN_0027af00(); }; struct Record { Item items[4]; unsigned tail[2]; };
-struct CFEManager { virtual void* slot_000c1f50(char); unsigned f4; unsigned char f8; char p9[7]; unsigned f10,f14,f18,f1c,f20,f24; unsigned char f28; char p29[3]; unsigned f2c,f30,f34,f38,f3c,f40,f44,f48,f4c,f50,f54,f58,f5c,f60,f64,f68; unsigned arrayA[128],arrayB[128]; unsigned f46c; Record records[128]; unsigned char f1870; char p1871[3]; unsigned f1874; unsigned char f1878; char p1879[3]; unsigned f187c,f1880; char p1884[0x180]; unsigned char f1a04,f1a05,f1a06; char p1a07[0x1c1]; unsigned char f1bc8,f1bc9; char p1bca[2]; unsigned char f1bcc; char p1bcd[0x3f]; unsigned char f1c0c; char p1c0d[0x3f]; unsigned char f1c4c; char p1c4d[0x3f]; unsigned char f1c8c; char p1c8d[0x1f]; unsigned char f1cac; char p1cad[0x3f]; int f1cec,f1cf0; unsigned f1cf4,f1cf8,f1cfc; unsigned char f1d00; char p1d01[3]; unsigned f1d04,f1d08,f1d0c,f1d10,f1d14,f1d18,f1d1c; float f1d20; unsigned f1d24,f1d28,f1d2c,f1d30,f1d34; CFEManager();
+struct CFEManager { virtual void* slot_000c1f50(char); unsigned f4; unsigned char f8; char p9[7]; unsigned f10,f14,f18; void *f1c,*f20,*f24; unsigned char f28; char p29[3]; unsigned f2c,f30; void* f34; unsigned f38,f3c; void *f40,*f44,*f48,*f4c,*f50; unsigned f54; void *f58,*f5c,*f60,*f64,*f68; char *arrayA[128],*arrayB[128]; unsigned f46c; Record records[128]; unsigned char f1870; char p1871[3]; unsigned f1874; unsigned char f1878; char p1879[3]; unsigned f187c,f1880; char p1884[0x180]; unsigned char f1a04,f1a05,f1a06; char p1a07[0x1c1]; unsigned char f1bc8,f1bc9; char p1bca[2]; unsigned char f1bcc; char p1bcd[0x3f]; unsigned char f1c0c; char p1c0d[0x3f]; unsigned char f1c4c; char p1c4d[0x3f]; unsigned char f1c8c; char p1c8d[0x1f]; unsigned char f1cac; char p1cad[0x3f]; int f1cec,f1cf0; unsigned f1cf4,f1cf8,f1cfc; unsigned char f1d00; char p1d01[3]; unsigned f1d04,f1d08,f1d0c,f1d10,f1d14,f1d18,f1d1c; float f1d20; unsigned f1d24,f1d28,f1d2c,f1d30,f1d34; CFEManager();
  CB(000b43e0) CB(000b47b0) CB(000b4850) CB(000b4b60) CB(000b4e30) CB(000b5490) CB(000b54d0) CB(000b5530) CB(000b5590) CB(000b5670) CB(000b5710) CB(000b5790) CB(000b57d0) CB(000b5810) CB(000b89c0) CB(000bb5c0) CB(000bc1e0) CB(000bc230) CB(000bc750) CB(000bf450) };
+// (x64t9-mgr) include/decls/managers.h's HulkFEManager: the objects and managers 0x000c4ef0 stores and the two
+// string lists are pointers
+HULK_MGR_SAME(CFEManager, HulkFEManager);
 // The bound member functions (CB) are CFEManager's; a Binding is a Method1 / Closure1 on Function's fields
 // (include/decls/data/script.h): the member-function pointer, then the object.
 typedef void (CFEManager::*Callback)();
@@ -67,7 +71,7 @@ extern "C" Registry* FUN_001d4c90();
 CFEManager::CFEManager() {
 int i; for(i=0;i<128;++i) { records[i].items[0].FUN_0027af00(); records[i].items[1].FUN_0027af00(); records[i].items[2].FUN_0027af00(); records[i].items[3].FUN_0027af00(); }
 f1cec=f1cf0=-1; f1d04=f1d08=f1d0c=255;
-f10=f14=f18=f1c=0; f8=0; f24=f60=f68=f30=f34=f38=f3c=f48=f54=0; f28=0; f2c=f58=f4c=f5c=f1880=0; f1a06=f1bc8=f1a04=f1a05=f1c8c=f1cac=0; f1cf4=f1cfc=0; f1d00=0; f1d10=f1d14=f1d18=128; f1d1c=0; f1d20=1.0f; f1d24=f1d28=f1d2c=f1d30=f1d34=0;
+f1c=0; f18=0; f14=0; f10=0; f8=0; f54=0; f48=0; f3c=0; f38=0; f34=0; f30=0; f68=0; f60=0; f24=0; f28=0; f1880=0; f5c=0; f4c=0; f58=0; f2c=0; f1a06=f1bc8=f1a04=f1a05=f1c8c=f1cac=0; f1cf4=f1cfc=0; f1d00=0; f1d10=f1d14=f1d18=128; f1d1c=0; f1d20=1.0f; f1d24=f1d28=f1d2c=f1d30=f1d34=0;
 for(i=0;i<128;++i) arrayA[i]=0; for(i=0;i<128;++i) arrayB[i]=0; for(i=0;i<128;++i) { for(int j=0;j<4;++j) records[i].items[j].words[0]=records[i].items[j].words[1]=0; records[i].tail[0]=records[i].tail[1]=0; }
 HULK_SIZE32(Binding, 0x24);
 Registry* r=FUN_001d4c90(); if(!r) return; Binding* b;

@@ -9,14 +9,17 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f9c4408d {} using namespace fn_f9c4408d;
 #include "common.h"
+#include "decls/managers.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f9c4408d {
+// (x64t9-mgr) include/decls/managers.h's Hulk_23f670: the build string 0x0023f690 stores, a word
 class A_23f670 {
   public:
-    int a;
+    const char* a;
     int b;
 };
+HULK_MGR_SAME(A_23f670, Hulk_23f670);
 class Target_23f6b0 {
   public:
     int pad;

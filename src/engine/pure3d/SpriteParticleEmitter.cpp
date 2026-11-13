@@ -2,6 +2,7 @@
 // object 0x002d3dc0..0x002d6720 (kind game, layer engine, confidence high), dominant class pure3d::SpriteParticleEmitter
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/particle_emitter.h"
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/pure3d.h"
 #include "decls/data/game/global.h"
@@ -27,18 +28,21 @@ class SpriteParticleUpdater {
     virtual void f4();
     virtual void f5();
 };
+HULK_REFCOUNT_PACK   // (x64t9-spe) DrawablePrimitive's words end at HULK_SPE(0x40) natively (decls/particle_emitter.h)
 struct DrawablePrimitive_2d3de0 {
     DrawablePrimitive_2d3de0();
     virtual void f();
-    char p[0x3c];
+    char p[HULK_SPE(0x40) - sizeof(void*)];
 };
+HULK_REFCOUNT_PACK_END
 struct Sub_2d3de0 {
     void Init_0022b980();
     char q[0x40];
 };
 struct ParticleEmitter_2d3de0 : DrawablePrimitive_2d3de0 {
     Sub_2d3de0 s;
-    int a[9];
+    void* p[5];   // (x64t9-spe) 0x80..0x90 the five ref-counted objects (0x002d4b50 releases them)
+    int a[4];
     char b0, b1, b2;
     ParticleEmitter_2d3de0();
     virtual void f();
@@ -101,7 +105,7 @@ class ParticleEmitter {
     virtual void f30();
     virtual void f31();
     virtual void f32();
-    char pad[0x84];
+    char pad[HULK_SPE(0x88) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
     struct Other {
         virtual void a();
         virtual void b();
@@ -181,7 +185,7 @@ class DrawablePrimitive_2d4b50 {
 };
 class ParticleEmitter_2d4b50 : public DrawablePrimitive_2d4b50 {
   public:
-    char pad[0x7c];
+    char pad[HULK_SPE(0x80) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
     Ref_2d4b50* m80;
     Ref_2d4b50* m84;
     Ref_2d4b50* m88;
@@ -230,15 +234,15 @@ struct Extra_2d4e80 {
     Extra_2d4e80 *FUN_0022b980();
 };
 extern "C" void *FUN_0008d690(unsigned int size);
-struct Config_2d4e80 {
+struct Config_2d4e80 {   // (x64t9-spe) the emitter's state (decls/particle_emitter.h HulkEmitterState)
     RefObj_2d4e80 *ref;
     char pad04[4];
     char blockA[0x40];
     char blockB[0x40];
-    int f88;
-    int f8c;
+    void* f88;
+    void* f8c;
     char f90;
-    int f94;
+    void* f94;
     Extra_2d4e80 *extra;
     int f9c;
     int fa0;
@@ -258,11 +262,11 @@ class Thing_2d5090 {
     virtual void f0();
     virtual void f1();
 };
-class Obj_2d5090 {
+class Obj_2d5090 {   // (x64t9-spe) the emitter's state (decls/particle_emitter.h HulkEmitterState)
   public:
     Thing_2d5090* p;
-    char pad[0x94];
-    int x;
+    char pad[HULK_EST(0x98) - sizeof(void*)];
+    void* x;   // the 0x40-byte matrix (freed)
 };
 struct Curve;
 struct Key_2d50c0 {
@@ -294,10 +298,10 @@ struct Matrix {
     void FUN_0022b980();
     void FUN_0022ca90(const void *a, const void *b);
 };
-struct State_2d4200 {
- unsigned int field0; char pad4[4]; Matrix first; Matrix second;
- float f88,f8c; unsigned char enabled; char pad91[3];
- float f94,f98,f9c,fa0,fa4,fa8,fac,fb0;
+struct State_2d4200 {   // (x64t9-spe) the emitter's state (decls/particle_emitter.h HulkEmitterState)
+ void* field0; char pad4[4]; Matrix first; Matrix second;
+ void* f88; void* f8c; unsigned char enabled; char pad91[3];
+ void* f94; void* f98; float f9c,fa0,fa4,fa8,fac,fb0;
  unsigned char flagb4; char padb5[3];
  float fb8,fbc,fc0,fc4,fc8,fcc,fd0,fd4,fd8,fdc,fe0,fe4,fe8,fec,ff0,ff4,ff8,ffc,f100,f104,f108;
  int index; unsigned char flag110,flag111;
@@ -306,9 +310,9 @@ struct State_2d4200 {
 struct MatrixHolder {
     Matrix *FUN_0028faa0();
 };
-class Blend_2d50c0 {
+class Blend_2d50c0 {   // (x64t9-spe) the emitter's state (decls/particle_emitter.h HulkEmitterState)
 public:
-    char pad0[8];
+    char pad0[HULK_EST(8)];
     Matrix mat;             // 0x08
     char f48[0x30];         // 0x48
     char f78[0x10];         // 0x78
@@ -316,7 +320,7 @@ public:
     Sink8c *sink8c;         // 0x8c
     char f90[4];            // 0x90
     Sink94 *sink94;         // 0x94
-    char pad98[0xac - 0x98];
+    char pad98[HULK_EST(0xac) - HULK_EST(0x98)];
     float fac, fb0;         // 0xac, 0xb0
     char padb4[4];
     float fb8, fbc, fc0, fc4, fc8, fcc, fd0, fd4, fd8;
@@ -387,14 +391,14 @@ class Emitter_2d53d0 {
 public:
     void FUN_002d53d0(Stream* s, Desc_2d53d0* d, Matrix* parent);
 
-    char pad0[0x8];
+    char pad0[HULK_EST(8)];   // (x64t9-spe) the emitter's state (decls/particle_emitter.h HulkEmitterState)
     Matrix local;  // 0x8
     Matrix orient;  // 0x48
     PositionReader* positionReader;  // 0x88
     RotationReader* rotationReader;  // 0x8c
     int f90;  // 0x90
     Extra_2d53d0* extra;  // 0x94
-    char pad98[0x14];
+    char pad98[HULK_EST(0xac) - HULK_EST(0x98)];
     float fac;  // 0xac
     float fb0;  // 0xb0
     char padb4[0x4];
@@ -442,8 +446,8 @@ struct Particle_2d5a70 {
     short s3c;
     unsigned char b3e;
 };
-struct ParticlePool {
-    char pad0[8];
+struct ParticlePool {   // (x64t9-spe) the particle allocator (decls/loaders.h FUN_002ac4a0): its count and free list
+    char pad0[sizeof(FUN_002d3d90)];
     unsigned int size;
     Particle_2d5a70** data;
 };
@@ -454,11 +458,11 @@ struct Palette_2d5a70 {
 class SpriteParticleEmitter {
   public:
     virtual V* vfunc_22(V* out);
-    char _m_pad_4[0x80];
+    char _m_pad_4[HULK_SPE(0x84) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
     ParticlePool* pool;
-    char _m_pad_88[0x68];
+    char _m_pad_88[HULK_SPE(0xf0) - HULK_SPE(0x88)];
     char x[64];
-    char _m_pad_130[0x1c];
+    char _m_pad_130[HULK_SPE(0x14c) - HULK_SPE(0xf0) - 64];
     int count;
     char _m_pad_150[0x10];
     float f160;
@@ -483,7 +487,7 @@ class SpriteParticleEmitter {
     signed char c1b9;
     char _m_pad_1ba[0x2];
     Palette_2d5a70* palette;
-    char _m_pad_1c0[0x8];
+    char _m_pad_1c0[HULK_SPE(0x1c8) - HULK_SPE(0x1c0)];
     Particle_2d5a70** begin;
     Particle_2d5a70** end;
     bool vfunc_14(Vec3_2d5a70* dir, Vec3_2d5a70* pos, int arg2);
@@ -495,10 +499,10 @@ struct Rng_2d5a70 {
 };
 unsigned int* FUN_002e6780(unsigned int* out, int a, unsigned int b);
 unsigned int* FUN_002e6840(unsigned int* out, unsigned int v, unsigned int b);
-struct Buffer_2d5cb0 {
-    int a[2];
-    int used;
-    int* data;
+struct Buffer_2d5cb0 {   // (x64t9-spe) the particle allocator (decls/loaders.h FUN_002ac4a0): its count and free list
+    char a[sizeof(FUN_002d3d90)];
+    unsigned int used;
+    void** data;
 };
 class Obj_2d5e00 {
   public:
@@ -513,20 +517,20 @@ class Obj_2d5e70 {
     virtual void b();
 };
 struct Inner_2d5ec0 {
-    void FnA_002d53d0(int, int, void*);
-    void FnB_002d50c0(int, int, int, int, void*);
+    void FnA_002d53d0(int, void*, void*);
+    void FnB_002d50c0(int, void*, void*, int, void*);
 };
-struct SpriteParticleEmitter_2d5ec0 {
-    char pad0[0x40];
-    char field40[0x58];
+struct SpriteParticleEmitter_2d5ec0 {   // (x64t9-spe) decls/particle_emitter.h
+    char pad0[HULK_SPE(0x40)];
+    char field40[HULK_SPE(0x98) - HULK_SPE(0x40)];
     int index;
     int value9c;
     char padA0[4];
     unsigned char flag;
-    char padA5[3];
+    char padA5[HULK_SPE(0xa8) - HULK_SPE(0xa5)];
     Inner_2d5ec0 inner;
-    char padB0[0x128];
-    int* items;
+    char padB0[HULK_SPE(0x1d4) - HULK_SPE(0xa8) - 4];
+    void** items;   // the blend states
     void target(int arg);
 };
 } // namespace fn_f0cbe20f
@@ -542,24 +546,24 @@ struct Backend_2d5f20 {
     virtual void update(int);
     virtual int consume(int, void*, int, int, SpriteParticleEmitter_2d5f20*);
 };
-struct SpriteParticleEmitter_2d5f20 {
-    char pad0[0x88];
+struct SpriteParticleEmitter_2d5f20 {   // (x64t9-spe) decls/particle_emitter.h
+    char pad0[HULK_SPE(0x88)];
     Backend_2d5f20* backend;
-    char pad1[0xb0 - 0x8c];
-    char data[0x14c - 0xb0];
+    char pad1[HULK_SPE(0xb0) - HULK_SPE(0x8c)];
+    char data[HULK_SPE(0x14c) - HULK_SPE(0xb0)];
     int used;
     float credit;
-    char pad2[0x1c8 - 0x154];
-    int* begin;
-    int* end;
+    char pad2[HULK_SPE(0x1c8) - HULK_SPE(0x154)];
+    void** begin;
+    void** end;
     void target(int a, int b, int c);
 };
 struct Item_2d5fe0 { char pad[0x2c]; volatile float current; volatile float limit; };
-struct Pool_2d5fe0 { char pad[8]; volatile unsigned count; Item_2d5fe0* volatile* volatile items; };
+struct Pool_2d5fe0 { char pad[sizeof(FUN_002d3d90)]; volatile unsigned count; Item_2d5fe0* volatile* volatile items; };
 struct Updater_2d5fe0 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void update(float, pure3d::SpriteParticleEmitter*); virtual void special(float, pure3d::SpriteParticleEmitter*); };
 struct Sub_2d63a0 {
     void Init_002d4200();
-    char pad[0x114];
+    char pad[sizeof(HulkEmitterState)];   // (x64t9-spe) decls/particle_emitter.h
 };
 struct ParticleEmitter_2d63a0 {
     ParticleEmitter_2d63a0();
@@ -568,9 +572,9 @@ struct ParticleEmitter_2d63a0 {
 struct SpriteParticleEmitter_2d63a0 : ParticleEmitter_2d63a0 {
     SpriteParticleEmitter_2d63a0();
     virtual void V1();
-    char pad[0xa8 - 4];
+    char pad[HULK_SPE(0xa8) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
     Sub_2d63a0 sub;
-    int f1bc, f1c0, f1c4, f1c8, f1cc, f1d0, f1d4, f1d8;
+    void* f1bc; void* f1c0; void* f1c4; void* f1c8; void* f1cc; int f1d0; void* f1d4; void* f1d8;
 };
 class Obj_2d66b0 {
   public:
@@ -590,15 +594,15 @@ unsigned int SpriteParticleUpdater::vfunc_3() {
 // 0x002d3de0 FUN_002d3de0 (101 B): matches/0x002d3de0.cpp
 // sym: ??0ParticleEmitter_2d3de0@fn_f0cbe20f@@QAE@XZ
 ParticleEmitter_2d3de0::ParticleEmitter_2d3de0() {
+    p[0] = 0;
+    p[1] = 0;
+    p[2] = 0;
+    p[3] = 0;
+    p[4] = 0;
     a[0] = 0;
     a[1] = 0;
     a[2] = 0;
     a[3] = 0;
-    a[4] = 0;
-    a[5] = 0;
-    a[6] = 0;
-    a[7] = 0;
-    a[8] = 0;
     b0 = 0;
     b1 = 1;
     b2 = 0;
@@ -659,7 +663,7 @@ struct Block {
 };
 namespace pure3d {
 class ParticleEmitter {
-    char pad[0x40];
+    char pad[HULK_SPE(0x40)];   // (x64t9-spe) decls/particle_emitter.h
     Block b;
 
   public:
@@ -757,15 +761,15 @@ EmitterBlendState_2d4040::EmitterBlendState_2d4040(Src_2d4040* s) throw() {
 
 
 // 0x002d4200 FUN_002d4200 (261 B): equivalent/0x002d4200.cpp
-// sym: ?FUN_002d4200@State_2d4200@fn_f0cbe20f@@QAEPAU12@XZ @48e137c2bf06 @w3f481ec5888b
+// sym: ?FUN_002d4200@State_2d4200@fn_f0cbe20f@@QAEPAU12@XZ @0d192875ef58 @wd721db1dba4b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d4200 @ 0x002d4200
 State_2d4200* State_2d4200::FUN_002d4200() {
- fb0=fc0=fc4=fcc=fd0=fd4=fd8=fec=ff0=ff8=f100=f108=1.0f;
- field0=0; f88=0.0f; f8c=0.0f; enabled=1;
- f94=f98=f9c=fa0=fa4=fa8=0.0f;
+ fb0=1.0f; fc0=1.0f; fc4=1.0f; fcc=1.0f; fd0=1.0f; fd4=1.0f; fd8=1.0f; fec=1.0f; ff0=1.0f; ff8=1.0f; f100=1.0f; f108=1.0f;
+ field0=0; f88=0; f8c=0; enabled=1;
+ f94=0; f98=0; f9c=0.0f; fa0=0.0f; fa4=0.0f; fa8=0.0f;
  fac=10.0f; flagb4=0; fb8=30.0f;
- fbc=fc8=fdc=fe0=fe4=fe8=ff4=ffc=f104=0.0f;
+ fbc=0.0f; fc8=0.0f; fdc=0.0f; fe0=0.0f; fe4=0.0f; fe8=0.0f; ff4=0.0f; ffc=0.0f; f104=0.0f;
  index=-1; flag110=0; flag111=0;
  first.FUN_0022b980(); second.FUN_0022b980();
  return this;
@@ -931,14 +935,14 @@ struct SpriteParticleEmitter {
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
-    char pad04[0x7c];
+    char pad04[HULK_SPE(0x80) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
     StateHook* hook;
-    char pad84[0xc];
+    char pad84[HULK_SPE(0x90) - HULK_SPE(0x84)];
     ParticleDrawer* drawer;
-    char pad94[0x11];
+    char pad94[HULK_SPE(0xa5) - HULK_SPE(0x94)];
     unsigned char modeEnabled;
     unsigned char flag;
-    char padA7[0x91];
+    char padA7[HULK_SPE(0x138) - HULK_SPE(0xa7)];
     unsigned char active;
 };
 void SpriteParticleEmitter::vfunc_6() {
@@ -1011,9 +1015,9 @@ public:
     virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
     virtual void v16(); virtual void v17();
     virtual float vfunc_18(int which);
-    char pad04[0x88 - 0x4 - 0x0];
+    char pad04[HULK_SPE(0x88) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
     Source_2d4530 *source;
-    char pad8c[0x158 - 0x8c];
+    char pad8c[HULK_SPE(0x158) - HULK_SPE(0x8c)];
     float f158;
     char pad15c[0x168 - 0x15c];
     float f168;
@@ -1079,7 +1083,7 @@ unsigned char pure3d::SpriteParticleEmitter::vfunc_9() {
 // sym: ?vfunc_21@SpriteParticleEmitter@pure3d@@UAEEXZ
  // namespace pure3d
 unsigned char pure3d::SpriteParticleEmitter::vfunc_21() {
-    return (*(char (*)[308])&this->f_04)[0x134];
+    return this->f_138;
 }
 
 namespace fn_f0cbe20f {
@@ -1087,7 +1091,7 @@ namespace fn_f0cbe20f {
 // 0x002d4610 pure3d::SpriteParticleEmitter::vfunc_22 (50 B): matches/0x002d4610.cpp
 // sym: ?vfunc_22@SpriteParticleEmitter@fn_f0cbe20f@@UAEPAUV@2@PAU32@@Z
 V* SpriteParticleEmitter::vfunc_22(V* out) {
-    V tmp((char*)this + 0x40, x);
+    V tmp((char*)this + HULK_SPE(0x40), x);
     *out = tmp;
     return out;
 }
@@ -1150,13 +1154,15 @@ struct RefObj_2d4a20 {
     virtual RefObj_2d4a20 *clone();
 };
 
+HULK_REFCOUNT_PACK   // (x64t9-spe) DrawablePrimitive's words end at HULK_SPE(0x40) natively (decls/particle_emitter.h)
 class __declspec(novtable) DrawablePrimitive_2d4a20 {
   public:
     virtual void f0();
-    char pad_04[0x3c];
+    char pad_04[HULK_SPE(0x40) - sizeof(void*)];
     void FUN_002a5150(const DrawablePrimitive_2d4a20 &src);
     DrawablePrimitive_2d4a20(const DrawablePrimitive_2d4a20 &src) { FUN_002a5150(src); }
 };
+HULK_REFCOUNT_PACK_END
 
 class ParticleEmitter : public DrawablePrimitive_2d4a20 {
   public:
@@ -1196,7 +1202,7 @@ class ParticleEmitter : public DrawablePrimitive_2d4a20 {
     virtual void f32_002d3fe0();
 
     unsigned matrix[16];
-    int field_80;
+    void* field_80;
     RefObj_2d4a20 *ref_84;
     RefObj_2d4a20 *ref_88;
     RefObj_2d4a20 *ref_8c;
@@ -1338,9 +1344,9 @@ public:
     virtual void s17();
     virtual void s18();
     virtual void vfunc_19(float t);
-    char pad04[0x88 - 0x04];
+    char pad04[HULK_SPE(0x88) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
     Child_2d4bd0* child;
-    char pad8c[0x94 - 0x8c];
+    char pad8c[HULK_SPE(0x94) - HULK_SPE(0x8c)];
     unsigned int frameCount;
     int frame;
     float frac;
@@ -1933,8 +1939,8 @@ void pure3d::SpriteParticleEmitter::vfunc_15() {
     unsigned int i = 0;
     Buffer_2d5cb0* b = *(Buffer_2d5cb0**)((char*)&this->f_84);
     while (i < this->f_14c) {
-        int* p = (*(int * *)&this->f_1c8) + i;
-        int v = *p;
+        void** p = (*(void** *)&this->f_1c8) + i;
+        void* v = *p;
         if (v) {
             b->data[b->used++] = v;
             *p = 0;
@@ -1951,7 +1957,7 @@ namespace fn_002d5d10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 20/20)
 // pure3d::SpriteParticleEmitter::vfunc_17 @ 0x002d5d10
 struct Delegate_2d5d10 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(unsigned int, float); };
-namespace pure3d { struct SpriteParticleEmitter { char pad0[0x88]; Delegate_2d5d10* delegate; char pad1[0xcc]; float f158; char p15c[12]; float f168; char p16c[8]; float f174; char p178[8]; float f180; char p184[16]; float f194; char p198[8]; float f1a0; char p1a4[4]; float f1a8; char p1ac[4]; float f1b0; void vfunc_17(unsigned int, float); }; }
+namespace pure3d { struct SpriteParticleEmitter { char pad0[HULK_SPE(0x88)]; Delegate_2d5d10* delegate; char pad1[HULK_SPE(0x158) - HULK_SPE(0x8c)]; float f158; char p15c[12]; float f168; char p16c[8]; float f174; char p178[8]; float f180; char p184[16]; float f194; char p198[8]; float f1a0; char p1a4[4]; float f1a8; char p1ac[4]; float f1b0; void vfunc_17(unsigned int, float); }; }
 void pure3d::SpriteParticleEmitter::vfunc_17(unsigned int id, float value) { switch(id) { case 0: f158=value; break; case 7: f168=value<0.0f?0.0f:value; break; case 8: f174=value; break; case 9: f180=value; break; case 10: f194=value; break; case 11: f1a0=value; break; case 12: f1a8=value; break; case 13: f1b0=value; break; default: if(delegate) delegate->v7(id,value); break; } }
 } // namespace fn_002d5d10
 
@@ -1995,10 +2001,10 @@ namespace fn_f0cbe20f {
 // sym: ?target@SpriteParticleEmitter_2d5ec0@fn_f0cbe20f@@QAEXH@Z
 void SpriteParticleEmitter_2d5ec0::target(int arg) {
     if (!flag)
-        inner.FnA_002d53d0(arg, items[index], (char*)this + 0x40);
+        inner.FnA_002d53d0(arg, items[index], (char*)this + HULK_SPE(0x40));
     else {
-        int* q = items + index;
-        inner.FnB_002d50c0(arg, q[0], q[1], value9c, (char*)this + 0x40);
+        void** q = items + index;
+        inner.FnB_002d50c0(arg, q[0], q[1], value9c, (char*)this + HULK_SPE(0x40));
     }
 }
 
@@ -2009,7 +2015,7 @@ void SpriteParticleEmitter_2d5f20::target(int a, int b, int c) {
     if (!backend)
         return;
     backend->update(a);
-    int available = ((int)((hulk_ulongptr)end - (hulk_ulongptr)begin) >> 2) - used;
+    int available = (int)(end - begin) - used;
     if ((float)available < credit)
         credit = (float)available;
     if (credit >= 1.0f) {
@@ -2093,16 +2099,16 @@ public:
 class __declspec(novtable) ParticleEmitter_2d63f0 {
 public:
     virtual void b0_00038290();
-    char pad04[0x94 - 4];
+    char pad04[HULK_SPE(0x94) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
     unsigned int count;      // 0x94
-    char pad98[0xa8 - 0x98];
+    char pad98[HULK_SPE(0xa8) - HULK_SPE(0x98)];
     void FUN_002d4a20(const ParticleEmitter_2d63f0 *other);
     ParticleEmitter_2d63f0(const ParticleEmitter_2d63f0 &other) { FUN_002d4a20(&other); }
 };
 
 class EmitterState {
 public:
-    char data[0x1bc - 0xa8];
+    char data[sizeof(HulkEmitterState)];
     void FUN_002d4e80(const EmitterState *other);
     EmitterState(const EmitterState &other) { FUN_002d4e80(&other); }
 };
@@ -2114,8 +2120,8 @@ public:
     RefCounted_2d63f0 *ref1bc;
     RefCounted_2d63f0 *ref1c0;
     RefCounted_2d63f0 *ref1c4;
-    int *vec1c8;
-    int *vec1cc;
+    void **vec1c8;   // the live particles
+    void **vec1cc;
     char pad1d0[4];
     RefCounted_2d63f0 **vec1d4;
     RefCounted_2d63f0 **vec1d8;
@@ -2141,10 +2147,10 @@ SpriteParticleEmitter::SpriteParticleEmitter(const SpriteParticleEmitter &other)
 
     hulk_uintptr n = other.vec1cc - other.vec1c8;
     if (n != 0) {
-        int *p = (int *)FUN_0008d6d0(n * 4);
+        void **p = (void **)FUN_0008d6d0(n * sizeof(void *));
         vec1c8 = p;
         if (p) {
-            vec1cc = (int *)((char *)p + n * 4);
+            vec1cc = (void **)((char *)p + n * sizeof(void *));
         } else {
             vec1c8 = 0;
             vec1cc = 0;
@@ -2159,7 +2165,7 @@ SpriteParticleEmitter::SpriteParticleEmitter(const SpriteParticleEmitter &other)
         RefCounted_2d63f0 **p = (RefCounted_2d63f0 **)FUN_0008d6d0(m * sizeof(RefCounted_2d63f0 *));
         vec1d4 = p;
         if (p) {
-            vec1d8 = (RefCounted_2d63f0 **)((char *)p + m * 4);
+            vec1d8 = (RefCounted_2d63f0 **)((char *)p + m * sizeof(RefCounted_2d63f0 *));
         } else {
             vec1d4 = 0;
             vec1d8 = 0;
@@ -2187,8 +2193,8 @@ struct Resource_2d6590 {
     virtual void slot0();
     virtual void release();
 };
-struct Pool_2d6590 {
-    char pad[8];
+struct Pool_2d6590 {   // (x64t9-spe) the particle allocator (decls/loaders.h FUN_002ac4a0)
+    char pad[sizeof(FUN_002d3d90)];
     unsigned count;
     void** items;
 };
@@ -2197,22 +2203,22 @@ void __cdecl FUN_0008d330(void*);
 namespace pure3d {
 struct SpriteParticleEmitter {
     virtual void slot0_00038290();
-    char pad04[0x80];
+    char pad04[HULK_SPE(0x84) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
     Pool_2d6590* pool;
-    char pad88[0xc];
+    char pad88[HULK_SPE(0x94) - HULK_SPE(0x88)];
     unsigned resourceCount;
-    char pad98[0x10];
+    char pad98[HULK_SPE(0xa8) - HULK_SPE(0x98)];
     Resource_2d6590* resourceA8;
-    char padAC[0x94];
+    char padAC[HULK_SPE(0x140) - HULK_SPE(0xac)];
     void* buffer;
-    char pad144[8];
+    char pad144[HULK_SPE(0x14c) - HULK_SPE(0x144)];
     unsigned itemCount;
-    char pad150[0x6c];
+    char pad150[HULK_SPE(0x1bc) - HULK_SPE(0x150)];
     Resource_2d6590* resource1BC;
     Resource_2d6590* resource1C0;
     Resource_2d6590* resource1C4;
     void** items;
-    char pad1CC[8];
+    char pad1CC[HULK_SPE(0x1d4) - HULK_SPE(0x1cc)];
     Resource_2d6590** resources;
     void FUN_002d4b50();
     ~SpriteParticleEmitter();
@@ -2264,7 +2270,7 @@ SpriteParticleEmitter::~SpriteParticleEmitter() {
 // 0x002d66b0 pure3d::SpriteParticleEmitter::vfunc_4 (34 B): matches/0x002d66b0.cpp
 // sym: ?vfunc_4@SpriteParticleEmitter@pure3d@@UAEPAXXZ
 void* pure3d::SpriteParticleEmitter::vfunc_4() {
-    Obj_2d66b0* p = alloc(0x1e0);
+    Obj_2d66b0* p = alloc(sizeof(HulkSpriteParticleEmitter));   // (x64t9-spe) decls/particle_emitter.h
     if (p)
         return (void*)(p->run_002d63f0(this));
     return (void*)(0);

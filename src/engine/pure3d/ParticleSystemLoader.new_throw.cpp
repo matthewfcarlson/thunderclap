@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
+#include "decls/particle_emitter.h"
 #define TREE_TU_BEGIN namespace fn_fc263da4 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -49,7 +50,7 @@ struct LoadedRes : RefObj_2ac610 {
     char pad20[8];
     int count;
     LoadedRes *FUN_00288a10(int i);
-    int FUN_00288960(unsigned int a, unsigned int b);
+    void *FUN_00288960(unsigned int a, unsigned int b);   // (x64t9-spe) the channel found (a pointer)
 };
 namespace pure3d {
 class AnimationLoader : public content::ObjectLoader {
@@ -128,19 +129,19 @@ public:
     float v20[3];
     float v2c[3];
     unsigned int f38;
-    char pad3c[0x4c];
+    char pad3c[HULK_SPE(0x88) - HULK_SPE(0x3c)];   // (x64t9-spe) the emitter's words (decls/particle_emitter.h)
     RefObj_2ac610 *f88;
     RefObj_2ac610 *f8c;
     Small_2ac610 *f90;
     int f94;
-    char pad98[0xd];
+    char pad98[HULK_SPE(0xa5) - HULK_SPE(0x98)];
     unsigned char fa5;
     unsigned char fa6;
-    char pada7[0x130 - 0xa7];
-    int f130;
-    int f134;
+    char pada7[HULK_SPE(0x130) - HULK_SPE(0xa7)];
+    void *f130;
+    void *f134;
     char pad138[4];
-    int f13c;
+    void *f13c;
     Matrix *f140;
     unsigned int f144;
     unsigned int f148;
@@ -184,7 +185,10 @@ struct Frame_2ac610 {
     char pad1c[3];
     unsigned char flagC;
     unsigned int s20;
-    unsigned int s24;
+    union {
+        unsigned int s24;
+        void *p24;   // (x64t9-spe) the live list's fill: a null particle pointer (0x002ab880 copies pointer-sized words)
+    };
     unsigned int s28;
     unsigned int s2c;
     unsigned int s30;
@@ -234,7 +238,7 @@ void Loader::FUN_002ac610(int a1, Stream *stream, Ctx_2ac610 *ctx, Extra *a4)
     stream->reader->FUN_002647e0(&f.s18.u, 1, 4, 1);
     stream->reader->FUN_002647e0(&f.s14.u, 1, 4, 1);
 
-    void *mem = thunk_FUN_0008d690(0x1e0);
+    void *mem = thunk_FUN_0008d690(sizeof(HulkSpriteParticleEmitter));   // (x64t9-spe) decls/particle_emitter.h
     Obj_2ac610 *obj = 0;
     if (mem != 0)
         obj = ((Obj_2ac610 *)mem)->FUN_002d63a0();
@@ -251,8 +255,8 @@ void Loader::FUN_002ac610(int a1, Stream *stream, Ctx_2ac610 *ctx, Extra *a4)
     obj->f184 = f.s40[0];
     obj->fa5 = flagA;
     obj->f148 = f.s14.u;
-    f.s24 = 0;
-    obj->f1c8.FUN_002ab880(f.s20, &f.s24);
+    f.p24 = 0;
+    obj->f1c8.FUN_002ab880(f.s20, (const unsigned int *)&f.p24);
     if (f.s18.f > 0.0f || f.s14.f > 0.0f) {
         void *m = FUN_0008d690(0x40);
         obj->f140 = (Matrix *)m;

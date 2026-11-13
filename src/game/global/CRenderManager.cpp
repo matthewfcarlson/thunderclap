@@ -14,6 +14,7 @@
 #define TREE_TU_END }
 namespace fn_ff10b020 {} using namespace fn_ff10b020;
 #include "game/global.h"
+#include "decls/managers.h"
 
 // ---- declarations shared by the functions below
 namespace fn_ff10b020 {
@@ -3075,7 +3076,8 @@ class CRenderManager {
     void FUN_001b9260(math::Vector*);
     void FUN_001b9290(int);
 
-    int f4, f8, fc;
+    void* f4;                   // the view 0x001b8690 creates
+    int f8, fc;
     float f10, f14;
     char f18;
     char pad19[3];
@@ -3087,6 +3089,7 @@ class CRenderManager {
     float f50;
     int f54, f58, f5c, f60;
 };
+HULK_MGR_SAME(CRenderManager, HulkRenderManager);   // (x64t9-mgr) include/decls/managers.h
 
 template <>
 class __declspec(novtable) Method4<CRenderManager, unsigned int, const char*, float, float, float> : public MethodBase_1bb990 {

@@ -177,14 +177,15 @@ struct Sub_2edb20 {
 };
 class Mgr_2edb20 {
   public:
-    // (x64t4) the contact buffer at the physics world's part offset (decls/physics_world.h)
+    // (x64t4, x64t9-pw) the physics world: the body pool's indices and the contact buffer at their offsets
+    // (decls/physics_world.h)
     union {
         struct {
-            char pad00[0x3c];
+            char pad00[HULK_WORLD_AT(pool.indices)];
             Entry_2edb20** begin;
             Entry_2edb20** end;
         };
-        char pool_[HULK_PW_BUFFER];
+        char pool_[HULK_WORLD_AT(buffer)];
     };
     Sub_2edb20 sub;
     unsigned char FUN_002edb20(int a, int b, int c);
@@ -222,13 +223,14 @@ struct Vec_2edb90 {
     Item_2edb90*& operator[](unsigned i) { return b[i]; }
 };
 struct T_2edb90 {
-    // (x64t4) the contact buffer at the physics world's part offset (decls/physics_world.h)
+    // (x64t4, x64t9-pw) the physics world: the body pool's indices and the contact buffer at their offsets
+    // (decls/physics_world.h)
     union {
         struct {
-            char pad[0x3c];
+            char pad[HULK_WORLD_AT(pool.indices)];
             Vec_2edb90 v;
         };
-        char pool_[HULK_PW_BUFFER];
+        char pool_[HULK_WORLD_AT(buffer)];
     };
     Sub_2edb90 sub;
     bool Run(int a, int b);
@@ -566,35 +568,27 @@ class Inner_2eedd0 {
     void First_002eea80();
     void Second_002f8020(void*, void*, int);
 };
-class Obj_2eedd0 {
+class Obj_2eedd0 : public HulkPhysicsWorld {   // (x64t9-pw) the physics world (decls/physics_world.h)
   public:
-    char pad[HULK_PW_SOLVER];
     void Run(void*);
 };
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
-struct RawVec {
-    char *first;
-    char *last;
-    char *end;
-};
-class Pool_2eee10 {
+// (x64t9-pw) the body pool's words (decls/physics_world.h HulkBodyPool)
+class Pool_2eee10 : public HulkBodyPool {
 public:
-    RawVec ids;              // 0x00: DAT_004d293c * 4 bytes
-    unsigned int *used;      // 0x0c unused
-    unsigned int *bits;      // 0x10: bit set of DAT_004d293c bits
-    int *slots;              // 0x14
-    int slotCount[3];        // 0x18
-    char *links;             // 0x24
-    int linkCount;           // 0x28
-    RawVec records;          // 0x2c: DAT_004d2944 * 0x44 bytes
-    char pad38[4];
-    RawVec indices;          // 0x3c: DAT_004d2940 * 4 bytes
-    char pad48[4];
-    RawVec edges;            // 0x4c: DAT_004d2948 * 20 bytes
-    char pad58[4];
-    RawVec flags;            // 0x5c: DAT_004d293c * 4 bytes
     Pool_2eee10 *FUN_002eee10();
 };
+// (x64t9-pw) gen's views of the pool (0x002eefc0 frees it) and of the world's flag (0x002ee6b0) agree with the records
+#define HULK_AT_(T, m) ((int)(hulk_uintptr)&((T*)0)->m)
+typedef char hulk_pool_views_[(sizeof(owners::Obj_2eefc0) == sizeof(HulkBodyPool) &&
+    HULK_AT_(owners::Obj_2eefc0, p10) == HULK_AT_(HulkBodyPool, bits) &&
+    HULK_AT_(owners::Obj_2eefc0, p24) == HULK_AT_(HulkBodyPool, links) &&
+    HULK_AT_(owners::Obj_2eefc0, p2c) == HULK_AT_(HulkBodyPool, records) &&
+    HULK_AT_(owners::Obj_2eefc0, p3c) == HULK_AT_(HulkBodyPool, indices) &&
+    HULK_AT_(owners::Obj_2eefc0, p4c) == HULK_AT_(HulkBodyPool, edges) &&
+    HULK_AT_(owners::Obj_2eefc0, p5c) == HULK_AT_(HulkBodyPool, flags) &&
+    HULK_AT_(owners::Obj_2ee6b0, flag) == HULK_WORLD_AT(flag)) ? 1 : -1];
+#undef HULK_AT_
 } // namespace fn_f671dae7
 void __cdecl operator delete[](void*);
 namespace fn_f671dae7 {
@@ -607,8 +601,7 @@ struct ImpulseBasedCollisionSolver_2ef050 {
 struct S3_2ef050 {
     void Fnf_00304300();
 };
-struct C_2ef050 {
-    char pad[HULK_PW_DETECTOR];
+struct C_2ef050 : HulkPhysicsWorld {   // (x64t9-pw) the physics world (decls/physics_world.h): its parts at their offsets
     void Fnf_002eee10();
     C_2ef050* target();
 };
@@ -622,12 +615,12 @@ struct CollisionDetector_2ef080 {
     void three_003012c0();
 };
 struct Obj_2ef080 {
-    // (x64t4) the physics world's parts at their offsets (decls/physics_world.h)
-    char p70[HULK_PW_DETECTOR];
+    // (x64t4, x64t9-pw) the physics world's parts at their offsets (decls/physics_world.h)
+    char p70[HULK_WORLD_AT(detector)];
     CollisionDetector_2ef080 c;
-    char p_after_c[HULK_PW_SOLVER - HULK_PW_DETECTOR - 1];
+    char p_after_c[HULK_WORLD_AT(solver) - HULK_WORLD_AT(detector) - 1];
     ImpulseBasedCollisionSolver_2ef080 b;
-    char p_after_b[HULK_PW_BUFFER - HULK_PW_SOLVER - 1];
+    char p_after_b[HULK_WORLD_AT(buffer) - HULK_WORLD_AT(solver) - 1];
     A_2ef080 a;
     void target();
 };
@@ -657,12 +650,12 @@ struct D {
     void f3_00304350();
 };
 struct C_2ef110 {
-    // (x64t4) the physics world's parts at their offsets (decls/physics_world.h)
-    char p0[HULK_PW_DETECTOR];
+    // (x64t4, x64t9-pw) the physics world's parts at their offsets (decls/physics_world.h)
+    char p0[HULK_WORLD_AT(detector)];
     CollisionDetector_2ef110 a;
-    char p1[HULK_PW_SOLVER - HULK_PW_DETECTOR - 1];
+    char p1[HULK_WORLD_AT(solver) - HULK_WORLD_AT(detector) - 1];
     ImpulseBasedCollisionSolver_2ef110 b;
-    char p2[HULK_PW_BUFFER - HULK_PW_SOLVER - 1];
+    char p2[HULK_WORLD_AT(buffer) - HULK_WORLD_AT(solver) - 1];
     D c;
     C_2ef110* target(unsigned char flag);
 };
@@ -670,23 +663,16 @@ void destroy_0008d330(C_2ef110*);
 class CollisionDetector_2ef150 {
   public:
     void Fnf_003012c0();
-    char pad[HULK_PW_SOLVER - HULK_PW_DETECTOR];
 };
 class ImpulseBasedCollisionSolver_2ef150 {
   public:
     void Fnf_002f79f0();
-    char pad[HULK_PW_BUFFER - HULK_PW_SOLVER];
 };
 class C {
   public:
     void Fnf_00304350();
 };
-class Obj {
-  public:
-    char p0[HULK_PW_DETECTOR];  // (x64t4) the physics world's parts at their offsets (decls/physics_world.h)
-    CollisionDetector_2ef150 a;
-    ImpulseBasedCollisionSolver_2ef150 b;
-    C c;
+class Obj : public HulkPhysicsWorld {   // (x64t4, x64t9-pw) the physics world (decls/physics_world.h)
 };
 extern "C" void __cdecl freeObj_0008d330(void*);
 struct Vec_2ef200 {
@@ -928,7 +914,7 @@ void SweepAndPrune::FUN_002ed3d0(unsigned int index)
 // 0x002ed6e0 FUN_002ed6e0 (25 B): matches/0x002ed6e0.cpp
 // sym: ?FUN_002ed6e0@Obj_2ed6e0@owners@@QAEXI@Z
 void owners::Obj_2ed6e0::FUN_002ed6e0(u32_2ed6e0 arg) {
-    ((Sub_2ed6e0*)((char*)this + HULK_PW_SOLVER))->Call_002f8020((char*)this + 0x2c, arg, 0);
+    ((Sub_2ed6e0*)((char*)this + HULK_WORLD_AT(solver)))->Call_002f8020((char*)this + HULK_WORLD_AT(pool.records), arg, 0);
 }
 
 namespace fn_f671dae7 {
@@ -1484,7 +1470,7 @@ void State_2eecc0::reset() {
 // sym: ?Run@Obj_2eedd0@fn_f671dae7@@QAEXPAX@Z
 void Obj_2eedd0::Run(void* arg) {
     ((Inner_2eedd0*)this)->First_002eea80();
-    ((Inner_2eedd0*)((char*)this + HULK_PW_SOLVER))->Second_002f8020((char*)this + 0x2c, arg, 0);
+    ((Inner_2eedd0*)((char*)this + HULK_WORLD_AT(solver)))->Second_002f8020((char*)this + HULK_WORLD_AT(pool.records), arg, 0);
 }
 
 // 0x002eee00 thunk_FUN_002eecc0 (5 B): not yet verified
@@ -1639,10 +1625,10 @@ namespace fn_f671dae7 {
 // sym: ?target@C_2ef050@fn_f671dae7@@QAEPAU12@XZ
 C_2ef050* C_2ef050::target() {
     Fnf_002eee10();
-    ((CollisionDetector_2ef050*)(pad + HULK_PW_DETECTOR))->Fnf_00301290();
-    ((ImpulseBasedCollisionSolver_2ef050*)(pad + HULK_PW_SOLVER))->Fnf_002f7ee0();
-    ((S3_2ef050*)(pad + HULK_PW_BUFFER))->Fnf_00304300();
-    pad[HULK_PW_FLAG] = 0;
+    ((CollisionDetector_2ef050*)&detector)->Fnf_00301290();
+    ((ImpulseBasedCollisionSolver_2ef050*)&solver)->Fnf_002f7ee0();
+    ((S3_2ef050*)&buffer)->Fnf_00304300();
+    flag = 0;
     return this;
 }
 
@@ -1662,15 +1648,15 @@ void Obj_2ef080::target() {
 // data: gObject_2ef0b0 = DAT_00554c14
 extern "C" void FUN_002ef0b0() {
     if ((*(void**)&DAT_00554c14) == 0) {
-        // (x64t4) the allocator by address (FUN_0008d690; was `Alloc`, unbound) and the world's parts at their
-        // offsets (decls/physics_world.h)
-        void* p = FUN_0008d690(HULK_PW_SIZE);
+        // (x64t4) the allocator by address (FUN_0008d690; was `Alloc`, unbound); (x64t9-pw) the world's record and
+        // its parts at their offsets (decls/physics_world.h)
+        void* p = FUN_0008d690(sizeof(HulkPhysicsWorld));
         if (p != 0) {
             ((Obj_2ef0b0*)p)->Init_002eee10();
-            ((CollisionDetector_2ef0b0*)((char*)p + HULK_PW_DETECTOR))->Init_00301290();
-            ((ImpulseBasedCollisionSolver_2ef0b0*)((char*)p + HULK_PW_SOLVER))->Init_002f7ee0();
-            ((Obj1B0*)((char*)p + HULK_PW_BUFFER))->Init_00304300();
-            *((char*)p + HULK_PW_FLAG) = 0;
+            ((CollisionDetector_2ef0b0*)((char*)p + HULK_WORLD_AT(detector)))->Init_00301290();
+            ((ImpulseBasedCollisionSolver_2ef0b0*)((char*)p + HULK_WORLD_AT(solver)))->Init_002f7ee0();
+            ((Obj1B0*)((char*)p + HULK_WORLD_AT(buffer)))->Init_00304300();
+            *((char*)p + HULK_WORLD_AT(flag)) = 0;
             (*(void**)&DAT_00554c14) = p;
         } else
             (*(void**)&DAT_00554c14) = 0;
@@ -1696,9 +1682,9 @@ C_2ef110* C_2ef110::target(unsigned char flag) {
 void destroyObj() {
     Obj* p = (*(Obj**)&DAT_00554c14);
     if (p) {
-        p->c.Fnf_00304350();
-        p->b.Fnf_002f79f0();
-        p->a.Fnf_003012c0();
+        ((C*)&p->buffer)->Fnf_00304350();
+        ((ImpulseBasedCollisionSolver_2ef150*)&p->solver)->Fnf_002f79f0();
+        ((CollisionDetector_2ef150*)&p->detector)->Fnf_003012c0();
         ((owners::Obj_2eefc0 *)p)->FUN_002eefc0();
         freeObj_0008d330(p);
     }

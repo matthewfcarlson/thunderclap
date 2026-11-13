@@ -1,22 +1,121 @@
-// Physics records (x64t4). The physics world: the object DAT_00554c14 points at, which 0x002ef0b0 (and its constructor 0x002ef050)
-// allocates and builds from four parts: the body pool (0x002eee10, at 0), a flag (0x6c), the collision detector
-// (0x00301290, at 0x70), the impulse-based collision solver (0x002f7ee0, at 0xb0) and the contact buffer (0x00304300,
-// at 0x1b0); 0x1c4 bytes in all. Each part is built and read through its own TU's view, so the parts' 64-bit sizes
-// are those views' and nothing gives one record for the whole. On 64-bit every part's base and the allocation are
-// the 32-bit offset doubled, room for any part whose words all turn into pointers (pool 0x6c -> 0xd8, detector
-// 0x40 -> 0x80, solver 0x100 -> 0x200, buffer 0x14 -> 0x28); the 32-bit offsets are unchanged. A field inside a part
-// keeps its offset from the part's base: HULK_PW_AT(part, k) for the world's 32-bit offset k inside PART.
+// Physics records (x64t4). The physics world (x64t9-pw): the object DAT_00554c14 points at, which 0x002ef0b0 allocates
+// (sizeof(HulkPhysicsWorld): 0x1c4 bytes on the 32-bit builds) and its constructor 0x002ef050 builds from its parts:
+// the body pool (0x002eee10, at 0), a flag (0x6c), the collision detector (0x00301290, at 0x70), the impulse-based
+// collision solver (0x002f7ee0, at 0xb0), the contact buffer (0x00304300, at 0x1b0) and a last word (0x1c0). Each
+// part is the words its constructor writes, pointers as pointers; a view that pads up to a part or to one of its words
+// takes the offset from the record: HULK_WORLD_AT(member), e.g. `char pad[HULK_WORLD_AT(solver)]` or
+// HULK_WORLD_AT(detector.tolerance); HULK_SOLVER_AT(member) inside the solver.
 #ifndef HULK_DECLS_PHYSICS_WORLD_H
 #define HULK_DECLS_PHYSICS_WORLD_H
 #include "compat/ptr.h"
 
-#define HULK_PW(k) ((k) * (int)(sizeof(void*) / 4))
-#define HULK_PW_FLAG HULK_PW(0x6c)       // unsigned char
-#define HULK_PW_DETECTOR HULK_PW(0x70)   // physics::CollisionDetector
-#define HULK_PW_SOLVER HULK_PW(0xb0)     // physics::ImpulseBasedCollisionSolver
-#define HULK_PW_BUFFER HULK_PW(0x1b0)    // the contact buffer (owners::Buffer_304300 and its words)
-#define HULK_PW_SIZE HULK_PW(0x1c4)
-#define HULK_PW_AT(part, k) (HULK_PW(part) + (k) - (part))
+// The body pool's vectors (0x002eee10 allocates them, 0x002eefc0 frees them): begin, end, capacity and a fourth word
+// that neither touches (16 bytes on the 32-bit builds).
+struct HulkPoolVec {
+    char* first;
+    char* last;
+    char* end;
+    int tail;
+};
+// The body pool (0x002eee10; 0x6c bytes on the 32-bit builds): the vectors of ids (DAT_004d293c * 4 bytes), records
+// (DAT_004d2944 * 0x44), indices (DAT_004d2940 * 4), edges (DAT_004d2948 * 20) and flags (DAT_004d293c * 4); a bit
+// set (its count, then the words: allocated by 0x002eee10, freed by 0x002eefc0's `delete`); the slots and the links
+// (allocated, then freed by `delete[]`) with their counts.
+struct HulkBodyPool {
+    HulkPoolVec ids;         // 0x00
+    unsigned int* bits;      // 0x10
+    int* slots;              // 0x14
+    int slotCount[3];        // 0x18
+    char* links;             // 0x24
+    int linkCount;           // 0x28
+    HulkPoolVec records;     // 0x2c
+    HulkPoolVec indices;     // 0x3c
+    HulkPoolVec edges;       // 0x4c
+    HulkPoolVec flags;       // 0x5c
+};
+// The collision detector (physics::CollisionDetector, 0x00301290 on physics::SubCollisionDetector's 0x00313500; 0x40
+// bytes on the 32-bit builds): the word at 8 is the contact vector (ContactManager's view in unk_3137f0.cpp: begin,
+// end, capacity), the word at 0x10 the tolerance (the environment's float at 0x30, DAT_00554c10), 0x38 the flags (3).
+struct HulkCollisionDetector {
+    void* vftable;
+    int m4;
+    void* contacts;          // 0x08
+    int mc;
+    union { float tolerance; int toleranceBits; };   // 0x10
+    char pad14[0x20];
+    char b34, b35;
+    int flags;               // 0x38
+    int m3c;
+};
+// A contact (0x44 bytes on the 32-bit builds): 0x002f8d70 initializes one, the contact buffer's elements are these
+// (0x00304300 allocates DAT_004d2f80 * 0x44 bytes on the 32-bit builds), 0x002f8020 reads them (Rec_2f8020: the
+// object and the two holders are pointers).
+struct HulkContact {
+    int f0;
+    void* object;            // 0x04
+    void* first;             // 0x08
+    void* second;            // 0x0c
+    int f10, f14;
+    float f18, f1c, f20;
+    int f24;
+    int flags;               // 0x28
+    int f2c, f30, f34, f38, f3c, f40;
+};
+// The solver's state (0x88 bytes on the 32-bit builds, at 0xc of the solver): the current contact, then 0x002f8020's
+// floats and its bodies and their records (pointers).
+struct HulkSolverState {
+    HulkContact current;
+    char pad44[0x24];
+    float f68, f6c, f70, k;  // the solver's 0x74 .. 0x80
+    void* body1;             // the solver's 0x84
+    void* body2;
+    void* q1;
+    void* q2;                // the solver's 0x90
+};
+// A symmetric 3x3 matrix (0x002fca90 / 0x002fcaa0: a vftable and six floats, 0x1c bytes on the 32-bit builds)
+struct HulkSymMatrix {
+    void* vftable;
+    float m[6];
+};
+// physics::ImpulseBasedCollisionSolver (0x002f7ee0; 0x100 bytes on the 32-bit builds): the core and the contact list
+// (0x002f8020; the destructor 0x002f7fc0 releases the core), the state, three matrices, the environment's two words
+// (0x30 and 0x28), flags, the iteration count (3) and the world collision object's state (0x002efa90, a pointer).
+struct HulkCollisionSolver {
+    void* vftable;
+    void* core;              // 0x04
+    void* list;              // 0x08
+    HulkSolverState state;   // 0x0c
+    HulkSymMatrix s1, s2, s3;   // 0x94, 0xb0, 0xcc
+    int me8, mec;
+    char f0, f1, f2, f3;
+    char cf4;
+    int iterations;          // 0xf8
+    void* zone;              // 0xfc
+};
+// The contact buffer (owners::Buffer_304300, 0x00304300; 0x10 bytes on the 32-bit builds): begin, end, capacity of
+// the contacts and a word its constructor does not write (the pool's vectors' shape; 0x00300c90's object has the
+// collision detector right after its buffer, at 0x10).
+struct HulkContactBuffer {
+    char* begin;
+    char* end;
+    char* capacity;
+    int tail;
+};
+struct HulkPhysicsWorld {
+    HulkBodyPool pool;                   // 0x000
+    unsigned char flag;                  // 0x06c
+    HulkCollisionDetector detector;      // 0x070
+    HulkCollisionSolver solver;          // 0x0b0
+    HulkContactBuffer buffer;            // 0x1b0
+    int m1c0;                            // 0x1c0 (nothing in the constructor writes it)
+};
+#define HULK_WORLD_AT(m) ((int)(hulk_uintptr)&((HulkPhysicsWorld*)0)->m)   // a physics world word's offset
+#define HULK_SOLVER_AT(m) ((int)(hulk_uintptr)&((HulkCollisionSolver*)0)->m)   // a solver word's offset
+typedef char hulk_size32_pw_[(sizeof(void*) != 4 || (sizeof(HulkBodyPool) == 0x6c && sizeof(HulkCollisionDetector) == 0x40 &&
+    sizeof(HulkContact) == 0x44 && sizeof(HulkSolverState) == 0x88 && sizeof(HulkSymMatrix) == 0x1c &&
+    sizeof(HulkCollisionSolver) == 0x100 && sizeof(HulkContactBuffer) == 0x10 && sizeof(HulkPhysicsWorld) == 0x1c4 &&
+    HULK_WORLD_AT(flag) == 0x6c && HULK_WORLD_AT(detector) == 0x70 && HULK_WORLD_AT(solver) == 0xb0 &&
+    HULK_WORLD_AT(buffer) == 0x1b0 && HULK_WORLD_AT(solver.zone) == 0x1ac)) ? 1 : -1];
 
 // physics::CollisionVolume's words as its constructor 0x003060a0 writes them (0x38 bytes on the 32-bit builds): the
 // owner (the CollisionObject that 0x003065b0 attaches, a pointer) and the children range are pointer-sized; the last

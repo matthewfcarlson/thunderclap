@@ -2,6 +2,7 @@
 // object 0x002d6720..0x002d6bb0 (kind game, layer engine, confidence high), dominant class pure3d::SpriteParticleRenderer
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/particle_emitter.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 #include "gen/pure3d.h"
@@ -297,9 +298,9 @@ public:
     virtual void v11();
     virtual void v12();
     virtual unsigned int v13();
-    char pad04[0x1bc - 4];
+    char pad04[HULK_SPE(0x1bc) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
     Atlas *atlas;
-    char pad1c0[0x1c8 - 0x1c0];
+    char pad1c0[HULK_SPE(0x1c8) - HULK_SPE(0x1c0)];
     Particle_2d6790 **particles;
 };
 

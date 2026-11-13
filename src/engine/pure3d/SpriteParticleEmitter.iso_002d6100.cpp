@@ -8,6 +8,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // pure3d::SpriteParticleEmitter::vfunc_12 @ 0x002d6100
 #include "gen/pure3d.h"
+#include "decls/particle_emitter.h"
 struct Mat4_2d6100 {
     float m[16];
     void FUN_0022b980();
@@ -25,9 +26,9 @@ struct Quat_2d6100 {
 class SpriteParticleEmitter {
 public:
     virtual void v0();
-    char pad04[0xb0 - 4];
+    char pad04[HULK_SPE(0xb0) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
     Mat4_2d6100 xform;              // 0xb0
-    char padf0[0x140 - 0xf0];
+    char padf0[HULK_SPE(0x140) - HULK_SPE(0xf0)];
     Mat4_2d6100 *outMatrix;         // 0x140
     float scale;             // 0x144
     float blend;             // 0x148

@@ -14,6 +14,7 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f74613ff {} using namespace fn_f74613ff;
 #include "game/global.h"
+#include "decls/managers.h"
 
 // ---- declarations shared by the functions below
 inline void* __cdecl operator new(hulk_uintptr, void* p) { return p; }
@@ -48,7 +49,9 @@ struct Shader_1c0cd0 { virtual void start(); char pad[12]; Stream* stream; Shade
 struct Event_1c0cd0 { float begin,end; unsigned data[2]; };
 struct Entry_1c0cd0 { unsigned data[4]; float time; unsigned tail; };
 struct sSubtitleManagerCallback { virtual void invoke_001c06f0(int, int); CSubtitleManager* owner; };
-struct CSubtitleManager { float time; unsigned count; Event_1c0cd0* events; unsigned char enabled,flag; char pad[2]; unsigned a,b,c,mode,d; unsigned char ready; char pad2[3]; void** buffers; CSubtitleOverlay_1c0cd0* table; sSubtitleManagerCallback* callback; CSubtitleOverlay_1c0cd0* resource1; CSubtitleOverlay_1c0cd0* resource2; Entry_1c0cd0* entries; unsigned e,f,g,h,i; unsigned char j,k; char pad3[2]; Shader_1c0cd0* loader; CSubtitleManager* FUN_001c0cd0(); };
+// (x64t9-mgr) include/decls/managers.h's HulkSubtitleManager: h is CGame (0x001c0a40 stores it), then the last word
+struct CSubtitleManager { float time; unsigned count; Event_1c0cd0* events; unsigned char enabled,flag; char pad[2]; unsigned a,b,c,mode,d; unsigned char ready; char pad2[3]; void** buffers; CSubtitleOverlay_1c0cd0* table; sSubtitleManagerCallback* callback; CSubtitleOverlay_1c0cd0* resource1; CSubtitleOverlay_1c0cd0* resource2; Entry_1c0cd0* entries; unsigned e,f,g; void* h; unsigned i; unsigned char j,k; char pad3[2]; Shader_1c0cd0* loader; unsigned last; CSubtitleManager* FUN_001c0cd0(); };
+HULK_MGR_SAME(CSubtitleManager, HulkSubtitleManager);
 
 
 // 0x001c0cd0 FUN_001c0cd0 (1241 B): equivalent/0x001c0cd0.cpp
@@ -57,7 +60,7 @@ struct CSubtitleManager { float time; unsigned count; Event_1c0cd0* events; unsi
 // FUN_001c0cd0 @ 0x001c0cd0
 CSubtitleManager* CSubtitleManager::FUN_001c0cd0() {
 HULK_SIZE32(Binding_1c0cd0, 0x24);
-time=-1.0f; count=0; events=0; enabled=0; flag=0; a=b=c=0; mode=1; d=0; ready=0; buffers=0; table=0; callback=0; resource1=resource2=0; entries=0; e=f=g=h=i=0; j=k=0; loader=0;
+time=-1.0f; count=0; events=0; enabled=0; flag=0; a=b=c=0; mode=1; d=0; ready=0; buffers=0; table=0; callback=0; resource1=resource2=0; entries=0; i=0; h=0; e=f=g=0; j=k=0; loader=0;
 int old=FUN_00266da0(14); Registry_1c0cd0* reg=FUN_001d4c90(); Binding_1c0cd0* p=(Binding_1c0cd0*)FUN_0008d690((int)sizeof(Binding_1c0cd0)); if(p) p=p->FUN_001bfd70("stm_InitEvents",this,(void (*)())FUN_001c0360); reg->FUN_001d3b70("stm_InitEvents",p);
 p=(Binding_1c0cd0*)FUN_0008d690((int)sizeof(Binding_1c0cd0)); if(p) {p->FUN_001d0480("stm_Clear",1); new(p) Method1<CSubtitleManager,void,bool>; p->method=(void (*)())FUN_001bf860; p->retType=FUN_001d04d0(((int*)&DAT_0048e100)); p->argTypes[0]=FUN_001d04d0(((int*)&DAT_0048e0e4)); new(p) Closure1<CSubtitleManager,void,bool>; p->owner=this;} reg->FUN_001d3b70("stm_Clear",p);
 p=(Binding_1c0cd0*)FUN_0008d690((int)sizeof(Binding_1c0cd0)); if(p) {p->FUN_001d0480("stm_SetMode",1); new(p) Method1<CSubtitleManager,void,int>; p->method=(void (*)())FUN_001bdfb0; p->retType=FUN_001d04d0(((int*)&DAT_0048e100)); p->argTypes[0]=FUN_001d04d0(((int*)&DAT_0048e134)); new(p) Closure1<CSubtitleManager,void,int>; p->owner=this;} reg->FUN_001d3b70("stm_SetMode",p);

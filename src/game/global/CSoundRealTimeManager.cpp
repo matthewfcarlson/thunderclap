@@ -14,6 +14,7 @@
 #define TREE_TU_END }
 namespace fn_f014178b {} using namespace fn_f014178b;
 #include "game/global.h"
+#include "decls/managers.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f014178b {
@@ -966,12 +967,17 @@ extern "C" int FUN_001eb210(void) {
 } // namespace fn_f014178b
 
 // 0x001eb220 FUN_001eb220 (96 B): equivalent/0x001eb220.cpp
-// sym: ?FUN_001eb220@State_1eb220@owners@@QAEPAU12@IIE@Z @a1883fd6f91e @w0bf0014e3273
+// sym: ?FUN_001eb220@SoundRealTimeManager_1eb220@@QAEPAU1@IIE@Z @a1883fd6f91e @w0bf0014e3273
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001eb220 @ 0x001eb220
-owners::State_1eb220* owners::State_1eb220::FUN_001eb220(hulk_uintptr ownerValue, hulk_uintptr unused, unsigned char modeValue) {
+// (x64t9-mgr) CSoundRealTimeManager's words are include/decls/managers.h's HulkSoundRealTimeManager (0x00088020
+// allocates it): the owner is CGame, a pointer (gen owners' State_1eb220 held it as a 32-bit word)
+struct SoundRealTimeManager_1eb220 : HulkSoundRealTimeManager {
+    SoundRealTimeManager_1eb220* FUN_001eb220(hulk_uintptr ownerValue, hulk_uintptr unused, unsigned char modeValue);
+};
+SoundRealTimeManager_1eb220* SoundRealTimeManager_1eb220::FUN_001eb220(hulk_uintptr ownerValue, hulk_uintptr unused, unsigned char modeValue) {
     mode = modeValue;
-    (*(owners::State_1eb220**)&DAT_004e36d8) = this;
+    (*(SoundRealTimeManager_1eb220**)&DAT_004e36d8) = this;
     active = 0;
     first = 100.0f;
     third = 100.0f;
@@ -982,7 +988,7 @@ owners::State_1eb220* owners::State_1eb220::FUN_001eb220(hulk_uintptr ownerValue
     if (allocated)
         result = allocated->FUN_001f1270();
     resource = result;
-    owner = ((unsigned int)ownerValue);
+    owner = (void*)ownerValue;
     return this;
 }
 

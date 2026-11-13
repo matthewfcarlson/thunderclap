@@ -59,7 +59,7 @@ struct SystemA {
     Listener_2ece90 listener;
 };
 struct SystemB {
-    char pad00[HULK_PW_SOLVER];  // (x64t4) decls/physics_world.h
+    char pad00[HULK_WORLD_AT(solver)];  // (x64t4, x64t9-pw) decls/physics_world.h
     Listener_2ece90 listener;
 };
 extern void* hulk_at_004311b0;

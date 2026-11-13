@@ -15,6 +15,7 @@
 namespace fn_f27eef39 {} using namespace fn_f27eef39;
 namespace fn_f27eef39 { extern "C" char DAT_0040a47c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
+#include "decls/managers.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -2019,13 +2020,16 @@ struct Device_d6970 {
  virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
  virtual float v16();
 };
+// (x64t9-mgr) include/decls/managers.h's HulkOverlayManager: the view, the state, eight items, the camera
 struct COverlayManager {
  virtual void* slot0_000d6e70(char);
- unsigned int field4, field8;
- unsigned int entries[8];
- unsigned int field2c;
+ void* field4;
+ unsigned int field8;
+ void* entries[8];
+ void* field2c;
  COverlayManager();
 };
+HULK_MGR_SAME(COverlayManager, HulkOverlayManager);
 COverlayManager::COverlayManager() {
  field4=0; field8=0;
  for (int i=0;i<8;++i) entries[i]=0;

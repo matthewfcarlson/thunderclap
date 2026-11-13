@@ -12,6 +12,7 @@
 #define TREE_TU_END }
 namespace fn_f57ff923 {} using namespace fn_f57ff923;
 #include "game/global.h"
+#include "decls/managers.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f57ff923 {
@@ -527,6 +528,7 @@ public:
     void FUN_000ae9d0(int, bool);
     void FUN_000ae9a0(bool);
 };
+HULK_MGR_SAME(CControllerManager, HulkControllerManager);   // (x64t9-mgr) include/decls/managers.h
 
 CControllerManager::CControllerManager() {
     field8 = 1;

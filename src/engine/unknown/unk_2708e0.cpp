@@ -140,7 +140,6 @@ struct Obj_271530 {
 struct A_271530 {
     Obj_271530* p;
 };
-extern void __cdecl FUN_00271410(A_271530*, int, int, int);
 struct Item_271560 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual signed char v6(); };
 extern void __cdecl FUN_002697c0(void*,void*,void*,void*,void*);
 extern void __cdecl FUN_00277b70(void*,Item_271560*,int,int,int);
@@ -633,11 +632,13 @@ extern "C" void FUN_00271230(Obj_271230* p, int a, int b, int c, int d, int e, i
 
 
 // 0x00271410 FUN_00271410 (281 B): equivalent/0x00271410.cpp
-// sym: ?FUN_00271410@fn_f44852ae@@YAXPAPAVInstanceDrive@core@@PBDPAX@Z @d46f18d0ffa5 @w8654529a0c77
+// sym: ?FUN_00271410@fn_f44852ae@@YAXPAPAVInstanceDrive@core@@PBDPAXH@Z @d46f18d0ffa5 @w4b7f42f9bd11
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 16/16)
 // FUN_00271410 @ 0x00271410
 // the drive registry (records.h CoreDriveRegistryEntry): the entry's drive
-void __cdecl FUN_00271410(core::InstanceDrive **result, const char *name, void *argument)
+// (x64t9) The original passes four words (0x00271530 pushes its own four); the fourth is unused. One declaration with
+// the definition's types, so the native link binds 0x00271530's call (it called a 4-int overload: unbound natively).
+void __cdecl FUN_00271410(core::InstanceDrive **result, const char *name, void *argument, int)
 {
     char buffer[20];
     strncpy(buffer, name, 16);
@@ -672,8 +673,9 @@ void __cdecl FUN_00271410(core::InstanceDrive **result, const char *name, void *
 
 // 0x00271530 FUN_00271530 (42 B): matches/0x00271530.cpp
 // sym: _FUN_00271530
-extern "C" void __cdecl FUN_00271530(A_271530* a, int b, int c, int d) {
-    FUN_00271410(a, b, c, d);
+// (x64t9) the name is a string (the callers pass "U:" / the config path), as FUN_00271410 takes it
+extern "C" void __cdecl FUN_00271530(A_271530* a, const char* b, int c, int d) {
+    FUN_00271410((core::InstanceDrive**)a, b, (void*)(hulk_intptr)c, d);
     if (a->p)
         a->p->f22();
 }

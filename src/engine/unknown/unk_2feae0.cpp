@@ -5,6 +5,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
+#include "decls/physics_world.h"
 #define TREE_TU_BEGIN namespace fn_fb493392 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -414,9 +415,13 @@ struct Owner_301290 {
 extern int hulk_at_00431ac0;
 // (x64t4) the base physics::SubCollisionDetector by address (its constructor 0x00313500, unk_312d50.cpp) with the
 // words it writes: was an empty local class (unbound natively) under a 0x40-byte pad
+// (x64t9-pw) the collision detector's words (decls/physics_world.h HulkCollisionDetector): the word at 8 is the
+// contact vector, a pointer
 struct FUN_00313500 {
     void* vftable;
-    int a, b, c, d;
+    int a;
+    void* b;
+    int c, d;
     char pad[0x20];
     char x, y;
     int z;
@@ -427,6 +432,13 @@ class CollisionDetector : public FUN_00313500 {
     int f3c;
     CollisionDetector();
 };
+#define HULK_AT_(T, m) ((int)(hulk_uintptr)&((T*)0)->m)
+typedef char hulk_detector_view_[(sizeof(CollisionDetector) == sizeof(HulkCollisionDetector) &&
+    HULK_AT_(CollisionDetector, b) == HULK_AT_(HulkCollisionDetector, contacts) &&
+    HULK_AT_(CollisionDetector, d) == HULK_AT_(HulkCollisionDetector, tolerance) &&
+    HULK_AT_(CollisionDetector, z) == HULK_AT_(HulkCollisionDetector, flags) &&
+    HULK_AT_(CollisionDetector, f3c) == HULK_AT_(HulkCollisionDetector, m3c)) ? 1 : -1];
+#undef HULK_AT_
 void __fastcall FUN_00313530(CEffectStopTrack*);
 struct Vec3_301310 { float x,y,z; };
 struct Shape_301310 {
@@ -1504,9 +1516,11 @@ namespace fn_00300c90 {
 // FUN_00300c90 @ 0x00300c90
 
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
-struct A_300c90 { char data[16];  };
-struct CollisionDetector_300c90 { char data[64]; void FUN_00301290(); };
-struct ImpulseBasedCollisionSolver_300c90 { char data[256]; void FUN_002f7ee0(); };
+// (x64t9-pw) the contact buffer, the collision detector and the solver as the physics world has them
+// (decls/physics_world.h; were 16-, 64- and 256-byte pads)
+struct A_300c90 : HulkContactBuffer {  };
+struct CollisionDetector_300c90 : HulkCollisionDetector { void FUN_00301290(); };
+struct ImpulseBasedCollisionSolver_300c90 : HulkCollisionSolver { void FUN_002f7ee0(); };
 struct D { char data[0x2030]; void FUN_00312d50(); };
 struct Entry_300c90 { char pad[0x50]; unsigned char active; char rest[0x1b]; void FUN_00300a00(); };
 struct Object {

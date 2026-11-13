@@ -15946,39 +15946,45 @@ struct Buffer_2ede00 {
     void* end; // +0x08 (+0x10)
     void FUN_002ede00(int n);
 };
-// matches/0x002ee6b0.cpp (stub Obj_2ee6b0), size 0x6d
-struct Obj_2ee6b0 {
-    char pad[0x6c]; // +0x00
-    unsigned char flag; // +0x6c
-    void callee(int);
-    void FUN_002ee6b0(hulk_intptr);
-};
-// matches/0x002eefc0.cpp (stub Obj_2eefc0), size 0x64 (0xb8)
+// matches/0x002eefc0.cpp (stub Obj_2eefc0), size 0x6c; (x64t9-pw) the physics world's body pool (0x002eee10): its
+// words as decls/physics_world.h's HulkBodyPool has them (vectors of begin, end, capacity and a 4-byte word; the counts
+// are ints), so that the 64-bit offsets are the record's (unk_2ed240.cpp checks them)
 struct Obj_2eefc0 {
     void Base();
     void FUN_002eefc0();
     void* p0; // +0x00
-    void* p4; // +0x04 (+0x08)
-    char pad8[8]; // +0x08 (+0x10)
-    void* p10; // +0x10 (+0x18)
-    void* p14; // +0x14 (+0x20)
-    char pad18[0x0c]; // +0x18 (+0x28)
-    void* p24; // +0x24 (+0x38)
-    void* p28; // +0x28 (+0x40)
-    void* p2c; // +0x2c (+0x48)
-    void* p30; // +0x30 (+0x50)
-    void* p34; // +0x34 (+0x58)
-    void* p38; // +0x38 (+0x60)
-    void* p3c; // +0x3c (+0x68)
-    void* p40; // +0x40 (+0x70)
-    void* p44; // +0x44 (+0x78)
-    void* p48; // +0x48 (+0x80)
-    void* p4c; // +0x4c (+0x88)
-    void* p50; // +0x50 (+0x90)
-    void* p54; // +0x54 (+0x98)
-    void* p58; // +0x58 (+0xa0)
-    void* p5c; // +0x5c (+0xa8)
-    void* p60; // +0x60 (+0xb0)
+    void* p4; // +0x04
+    void* p8; // +0x08
+    int pc; // +0x0c
+    void* p10; // +0x10
+    void* p14; // +0x14
+    char pad18[0x0c]; // +0x18
+    void* p24; // +0x24
+    int p28; // +0x28
+    void* p2c; // +0x2c
+    void* p30; // +0x30
+    void* p34; // +0x34
+    int p38; // +0x38
+    void* p3c; // +0x3c
+    void* p40; // +0x40
+    void* p44; // +0x44
+    int p48; // +0x48
+    void* p4c; // +0x4c
+    void* p50; // +0x50
+    void* p54; // +0x54
+    int p58; // +0x58
+    void* p5c; // +0x5c
+    void* p60; // +0x60
+    void* p64; // +0x64
+    int p68; // +0x68
+};
+// matches/0x002ee6b0.cpp (stub Obj_2ee6b0), size 0x6d
+// (x64t9-pw) the physics world (DAT_00554c14): its body pool, then the flag (decls/physics_world.h HulkPhysicsWorld)
+struct Obj_2ee6b0 {
+    Obj_2eefc0 pool; // +0x00
+    unsigned char flag; // +0x6c
+    void callee(int);
+    void FUN_002ee6b0(hulk_intptr);
 };
 // matches/0x002f2700.cpp (stub Obj), size 0x1c
 struct Obj_2f2700 {

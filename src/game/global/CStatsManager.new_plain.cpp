@@ -5,6 +5,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/records.h"
 #include "decls/data/script.h"
+#include "decls/managers.h"
 
 
 // 0x00091630 FUN_00091630 (1174 B): equivalent/0x00091630.cpp [wrapped: macros]
@@ -49,6 +50,7 @@ struct Small { unsigned int data[2]; void FUN_0027af00(); };
 struct Entry { Small first,second; unsigned int rest[12]; };
 struct CStatsManager { union { Entry entries[50]; unsigned int words[800]; }; unsigned int count; unsigned int untouched; unsigned int xp; unsigned int tail[272]; unsigned int secrets; CStatsManager* initialize();
  void FUN_00090630(void*, void*, int, int, int, int); /* (unb4) as defined; address taken only */ void FUN_00090720(void*, int); /* (unb4) as defined; address taken only */ void FUN_000906f0(); void FUN_00090df0(); void FUN_000900a0(); void FUN_00090110(); void FUN_00090130(); void FUN_0008ffb0(); void FUN_000901a0(); int FUN_00090200(void*, int); /* (unb4) as defined; address taken only */ void FUN_0008ffc0(); void FUN_00090270(void*, void*, int); /* (unb4) as defined; address taken only */ void FUN_00090310(); void FUN_000903a0(); void FUN_00090430(); void FUN_00090440(); };
+HULK_MGR_SAME(CStatsManager, HulkStatsManager);   // (x64t9-mgr) include/decls/managers.h
 // The bound member functions are CStatsManager's; a Binding is a Method<N> / Closure<N> on Function's fields
 // (include/decls/data/script.h): the member-function pointer, then (Closure) the object.
 typedef void (CStatsManager::*Callback)();

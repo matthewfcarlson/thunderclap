@@ -2782,11 +2782,18 @@ public:
     char f_a6;
     char _pad_a7[0x1];
     void* f_a8;
-    char _pad_ac[0x8c];
+    // (x64t9-spe) the words 0x002ac610 / 0x002d63a0 write, pointers as pointers (decls/particle_emitter.h has the record)
+    int f_ac;
+    float f_b0[16];
+    float f_f0[16];
+    void* f_130;
+    void* f_134;
     char f_138;
-    char _pad_139[0x7];
+    char _pad_139[0x3];
+    void* f_13c;
     void* f_140;
-    char _pad_144[0x8];
+    float f_144;
+    float f_148;
     unsigned int f_14c;
     float f_150;
     float f_154;
@@ -2816,8 +2823,16 @@ public:
     int f_1b4;
     char f_1b8;
     char f_1b9;
-    char _pad_1ba[0xe];
+    char _pad_1ba[0x2];
+    void* f_1bc;
+    void* f_1c0;
+    void* f_1c4;
     void* f_1c8;
+    void* f_1cc;
+    int f_1d0;
+    void* f_1d4;
+    void* f_1d8;
+    int f_1dc;
 };
 
 // .?AVEmitterBlendState@SpriteParticleEmitter@pure3d@@  vftable 0x42f26c (3)

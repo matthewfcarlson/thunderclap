@@ -2,6 +2,7 @@
 // object 0x002d1090..0x002d2070 (kind game, layer engine, confidence high), dominant class pure3d::SpriteParticleUpdater
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/particle_emitter.h"   // (x64t9-spe) the emitter views place their words at HULK_SPE(k)
 #include "decls/data/engine/pure3d.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -40,7 +41,7 @@ struct Obj {
     union { float a; float value; };
     char _m_pad_18[0x4];
     union { float b; float scale; };
-    char _m_pad_20[0x19c];
+    char _m_pad_20[HULK_SPE(0x1bc) - 0x20];
     Sub* sub;
 };
 struct Out {
@@ -101,7 +102,7 @@ struct Limits_2d1490 {
     float interval;
 };
 struct Owner_2d1490 {
-    char pad00[0x1bc];
+    char pad00[HULK_SPE(0x1bc)];
     Limits_2d1490 *limits;
 };
 struct Entry_2d1490 {
@@ -122,7 +123,7 @@ struct Limits_2d1540 {
     float interval;
 };
 struct Owner_2d1540 {
-    char pad00[0x1bc];
+    char pad00[HULK_SPE(0x1bc)];
     Limits_2d1540 *limits;
 };
 struct Entry_2d1540 {
@@ -139,7 +140,7 @@ struct S {
     float f;
 };
 struct A {
-    char pad[0x1bc];
+    char pad[HULK_SPE(0x1bc)];
     S* s;
 };
 struct B {
@@ -154,7 +155,7 @@ struct Data {
     float scale;
 };
 struct Owner {
-    char pad[0x1bc];
+    char pad[HULK_SPE(0x1bc)];
     Data* data;
 };
 struct Item {
@@ -168,7 +169,7 @@ struct Inner_2d1650 {
     int index;
 };
 struct Outer {
-    char pad[0x1bc];
+    char pad[HULK_SPE(0x1bc)];
     Inner_2d1650* inner;
 };
 struct Indices {
@@ -176,7 +177,7 @@ struct Indices {
     unsigned int* values;
 };
 struct Source {
-    char pad[0x1bc];
+    char pad[HULK_SPE(0x1bc)];
     Indices* indices;
 };
 struct Destination {
@@ -190,7 +191,7 @@ struct Color { char pad[12]; unsigned int value; char pad2[8]; unsigned char alp
 struct Palette { char pad[40]; signed char *entries; };
 unsigned int * __cdecl FUN_002e6840(Color **color, unsigned int value, unsigned int alpha);
 struct Lookup { char pad0[0x24]; unsigned *values; signed char *highBytes; };
-struct Root { char pad0[0x1bc]; Lookup *lookup; };
+struct Root { char pad0[HULK_SPE(0x1bc)]; Lookup *lookup; };
 struct Result { char pad0[0xc]; unsigned value; char pad1[8]; unsigned char secondFlag; char pad2[0x25]; unsigned char firstFlag; };
 unsigned * __cdecl FUN_002e6780(Root **root, unsigned packed, unsigned flag);
 unsigned * __cdecl FUN_002e6840(Root **root, unsigned value, unsigned flag);
@@ -201,7 +202,7 @@ struct Curves_2d17b0 {
     float *tableB;      // 0x20
 };
 struct Owner_2d17b0 {
-    char pad0[0x1a4];
+    char pad0[HULK_SPE(0x1a4)];
     float gain;         // 0x1a4
     char pad1a8[4];
     float weight;       // 0x1ac
@@ -229,7 +230,7 @@ struct Obj_2d1850 {
     short s;
 };
 struct Ctx_2d1850 {
-    char a[0x1a4];
+    char a[HULK_SPE(0x1a4)];
     float scale;
     char b[4];
     float gravity;
@@ -238,9 +239,9 @@ struct Curves_2d18b0 { char pad[0x14]; float* speed; char pad2[8]; float* gravit
 struct Origin_2d18b0 { char pad[0x30]; float x,y,z; };
 struct Context {
   public:
-    char _m_pad_0[0x140];
+    char _m_pad_0[HULK_SPE(0x140)];
     Origin_2d18b0* origin;
-    char _m_pad_144[0x60];
+    char _m_pad_144[HULK_SPE(0x1a4) - HULK_SPE(0x144)];
     float gravityScale;
     char _m_pad_1a8[0x4];
     float speedScale;
@@ -251,8 +252,8 @@ struct Particle_2d18b0 { float x,y,z; char pad[0x14]; float vx,vy,vz; char pad2[
 struct Vec_2d1970 { float x, y, z; };
 struct Src_2d1970 { char pad[0x30]; Vec_2d1970 v30; };
 struct Owner_2d1970 {
- char pad0[0x140]; Src_2d1970* src;
- char pad1[0x1a4 - 0x144]; float k1a4;
+ char pad0[HULK_SPE(0x140)]; Src_2d1970* src;
+ char pad1[HULK_SPE(0x1a4) - HULK_SPE(0x144)]; float k1a4;
  char pad2[4]; float k1ac;
 };
 struct Particle_2d1970 {
@@ -264,7 +265,7 @@ struct Particle_2d1970 {
 };
 struct Particle_2d1a00 { float x,y,z; char pad0[0x14]; float vx,vy,vz; char pad1[0xc]; float drift; short factor;  };
 struct Curves_2d1a00 { char pad0[0x14]; float* speed; char pad1[8]; float* drift; };
-struct Emitter_2d1a00 { char pad0[0xe0]; float x,y,z; char pad1[0x54]; void* transform; char pad2[0x60]; float driftScale; char pad3[4]; float speedScale; char pad4[0xc]; Curves_2d1a00* curves; };
+struct Emitter_2d1a00 { char pad0[HULK_SPE(0xe0)]; float x,y,z; char pad1[HULK_SPE(0x140) - HULK_SPE(0xec)]; void* transform; char pad2[HULK_SPE(0x1a4) - HULK_SPE(0x144)]; float driftScale; char pad3[4]; float speedScale; char pad4[0xc]; Curves_2d1a00* curves; };
 struct Particle_2d1b00 {
  float x,y,z;
  char pad0[0x20-12];
@@ -274,18 +275,18 @@ struct Particle_2d1b00 {
  short factor;
 };
 struct Emitter_2d1b00 {
- char pad0[0xe0];
+ char pad0[HULK_SPE(0xe0)];
  float x,y,z;
- char pad1[0x140-0xec];
+ char pad1[HULK_SPE(0x140) - HULK_SPE(0xec)];
  void* transform;
- char pad2[0x1a4-0x144];
+ char pad2[HULK_SPE(0x1a4) - HULK_SPE(0x144)];
  float accelerationScale;
  char pad3[4];
  float speed;
 };
 struct Curves_2d1bc0 { char pad[0x14]; float *speed; char pad18[8]; float *acceleration; };
 struct Particle_2d1bc0 { float x,y,z; char pad0c[0x14]; float vx,vy,vz; char pad2c[0xc]; float acceleration; short weight;  };
-struct Emitter_2d1bc0 { char pad0[0xe0]; float x,y,z; char padEC[0x54]; void *transform; char pad144[0x60]; float accelerationScale; char pad1a8[4]; float speedScale; char pad1b0[0xc]; Curves_2d1bc0 *curves; };
+struct Emitter_2d1bc0 { char pad0[HULK_SPE(0xe0)]; float x,y,z; char padEC[HULK_SPE(0x140) - HULK_SPE(0xec)]; void *transform; char pad144[HULK_SPE(0x1a4) - HULK_SPE(0x144)]; float accelerationScale; char pad1a8[4]; float speedScale; char pad1b0[0xc]; Curves_2d1bc0 *curves; };
 struct Particle_2d1cc0 {
  float x,y,z;
  char pad0[0x14];
@@ -295,11 +296,11 @@ struct Particle_2d1cc0 {
  short factor;
 };
 struct Emitter_2d1cc0 {
- char pad0[0xe0];
+ char pad0[HULK_SPE(0xe0)];
  float x,y,z;
- char pad1[0x54];
+ char pad1[HULK_SPE(0x140) - HULK_SPE(0xec)];
  void* transform;
- char pad2[0x60];
+ char pad2[HULK_SPE(0x1a4) - HULK_SPE(0x144)];
  float accelerationScale;
  char pad3[4];
  float speed;
@@ -337,9 +338,9 @@ public:
     virtual void v11();
     virtual void v12();
     virtual unsigned int GetCount();
-    char pad[0x1bc - 4];
+    char pad[HULK_SPE(0x1bc) - sizeof(void*)];
     Curve_2d1db0 *curve;
-    char pad1c0[8];
+    char pad1c0[HULK_SPE(0x1c8) - HULK_SPE(0x1c0)];
     Particle_2d1db0 **particles;
 };
 struct SpriteParticleUpdater {
@@ -891,7 +892,7 @@ namespace fn_002d1f10 {
 // pure3d::SpriteParticleUpdater::vfunc_5 @ 0x002d1f10
 namespace pure3d {
 struct Particle_2d1f10 { float position[3]; char pad[32]; float age; };
-struct ParticleSystem { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual unsigned s13(); char pad[0x1c4]; Particle_2d1f10** particles; };
+struct ParticleSystem { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual unsigned s13(); char pad[HULK_SPE(0x1c8) - sizeof(void*)]; Particle_2d1f10** particles; };
 typedef void (__cdecl *Update_2d1f10)(float, ParticleSystem*, Particle_2d1f10*);
 typedef void (__cdecl *Finish_2d1f10)(float, ParticleSystem*, Particle_2d1f10*, float*);
 struct SpriteParticleUpdater {

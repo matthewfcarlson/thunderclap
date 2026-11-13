@@ -3942,7 +3942,7 @@
 "pure3d::Sprite": 164,
 "pure3d::SpriteLoader": 36,
 "pure3d::SpriteObject": 80,
-"pure3d::SpriteParticleEmitter": 460,
+"pure3d::SpriteParticleEmitter": 480,
 "pure3d::SpriteParticleEmitter::EmitterBlendState": 8,
 "pure3d::SpriteParticleEmitter::OverLifeAttributes": 8,
 "pure3d::SpriteParticleRenderer": 8,

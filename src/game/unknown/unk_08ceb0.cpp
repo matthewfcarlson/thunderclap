@@ -11,6 +11,7 @@
 #define TREE_LOCAL_pure3d
 namespace fn_fe5d7f9e {} using namespace fn_fe5d7f9e;
 #include "game/unknown.h"
+#include "decls/managers.h"
 
 // ---- declarations shared by the functions below
 namespace fn_fe5d7f9e {
@@ -109,16 +110,19 @@ extern "C" void __cdecl FUN_0026da80(int);
 struct Storage {
     void FUN_0008d480();
 };
+// (x64t9-mgr) the words of include/decls/managers.h's HulkPlatformManager: the archive, the window and the context
+// are pointers
 class CPlatformManager {
   public:
     virtual void* v0_0008de70(char);
-    int a;
-    int b;
-    int c;
+    void* a;
+    void* b;
+    void* c;
     int d;
     int e;
     CPlatformManager();
 };
+HULK_MGR_SAME(CPlatformManager, HulkPlatformManager);
 } // namespace fn_fe5d7f9e
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int strlen(const char*);

@@ -28,14 +28,15 @@ extern int hulk_at_004316e8;
 class ImpulseBasedCollisionSolver_2f79f0 {
   public:
     virtual void v();
+    // (x64t9-pw) the core, the matrices and the zone at the solver record's offsets (decls/physics_world.h)
     Ref_2f79f0* a;
-    char gap[0x94 - 8];
+    char gap[HULK_SOLVER_AT(s1) - HULK_SOLVER_AT(list)];
     SymMatrix_2f79f0 e94;
-    char gap2[0xb0 - 0x95];
+    char gap2[HULK_SOLVER_AT(s2) - HULK_SOLVER_AT(s1) - 1];
     SymMatrix_2f79f0 eb0;
-    char gap3[0xcc - 0xb1];
+    char gap3[HULK_SOLVER_AT(s3) - HULK_SOLVER_AT(s2) - 1];
     SymMatrix_2f79f0 ecc;
-    char gap4[0xfc - 0xcd];
+    char gap4[HULK_SOLVER_AT(zone) - HULK_SOLVER_AT(s3) - 1];
     Ref_2f79f0* b;
     void cleanup();
 };
@@ -48,7 +49,7 @@ struct X_2f7a40 {
 };
 class C_2f7a40 {
   public:
-    char pad[0xfc];
+    char pad[HULK_SOLVER_AT(zone)];   // (x64t9-pw) the solver's zone (decls/physics_world.h)
     X_2f7a40* field;
     void target();
 };
@@ -315,7 +316,7 @@ class Ref_2f7fc0 {
 class Chunk {
   public:
     void init_002fcaa0();
-    char pad[0x1c];
+    char pad[sizeof(HulkSymMatrix)];   // (x64t9-pw) decls/physics_world.h
 };
 class ImpulseBasedCollisionSolver_2f7fc0 {
   public:
@@ -324,12 +325,13 @@ class ImpulseBasedCollisionSolver_2f7fc0 {
     virtual bool vfunc_2_002f7bd0(void*, int, int, int, int, int);
     virtual void vfunc_3_002f7c30(void*, int, int, int);
     virtual void vfunc_4_002f8730();
+    // (x64t9-pw) the core, the matrices and the zone at the solver record's offsets (decls/physics_world.h)
     Ref_2f7fc0* r4;
-    char pad1[0x8c];
+    char pad1[HULK_SOLVER_AT(s1) - HULK_SOLVER_AT(list)];
     Chunk c94;
     Chunk cb0;
     Chunk ccc;
-    char pad2[0x14];
+    char pad2[HULK_SOLVER_AT(zone) - HULK_SOLVER_AT(me8)];
     Ref_2f7fc0* rfc;
 };
 void thunk_FUN_00267090(ImpulseBasedCollisionSolver_2f7fc0*);
@@ -418,15 +420,23 @@ public:
     Body_2f8020 *o88;              // 0x88
     Q_2f8020 *q1;                  // 0x8c
     Q_2f8020 *q2;                  // 0x90
-    char pad94[0xf0 - 0x94];
+    char pad94[HULK_SOLVER_AT(f0) - HULK_SOLVER_AT(s1)];   // (x64t9-pw) the matrices, then 0xe8 / 0xec (decls/physics_world.h)
     char f0;                // 0xf0
     char f1;                // 0xf1
-    char padf2[6];
+    char padf2[HULK_SOLVER_AT(iterations) - HULK_SOLVER_AT(f2)];
     int iters;              // 0xf8
     Zone_2f8020 *zone;             // 0xfc
     void FUN_002f7b00();
     void FUN_002f8020(List_2f8020 *l, int unused, int a3);
 };
+// (x64t9-pw) 0x002f8020's view is the solver record's (decls/physics_world.h)
+#define HULK_AT_(T, m) ((int)(hulk_uintptr)&((T*)0)->m)
+typedef char hulk_solver_2f8020_[(sizeof(Solver_2f8020) == sizeof(HulkCollisionSolver) &&
+    sizeof(Rec_2f8020) == sizeof(HulkContact) && HULK_AT_(Rec_2f8020, flags) == HULK_AT_(HulkContact, flags) &&
+    HULK_AT_(Solver_2f8020, r) == HULK_SOLVER_AT(state) && HULK_AT_(Solver_2f8020, k) == HULK_SOLVER_AT(state.k) &&
+    HULK_AT_(Solver_2f8020, o84) == HULK_SOLVER_AT(state.body1) && HULK_AT_(Solver_2f8020, f0) == HULK_SOLVER_AT(f0) &&
+    HULK_AT_(Solver_2f8020, iters) == HULK_SOLVER_AT(iterations) && HULK_AT_(Solver_2f8020, zone) == HULK_SOLVER_AT(zone)) ? 1 : -1];
+#undef HULK_AT_
 struct V3_2f8300 {
     float x, y, z;
 };
@@ -587,8 +597,8 @@ public:
     int FUN_002f8300();
     void FUN_002f7b70(Collider_2f8a00* a, Collider_2f8a00* b, V3_2f8a00* p, V3_2f8a00* q, int ia, int ib);
 };
-struct Thing_2f8d70 {
-    unsigned int a[11];
+// (x64t9-pw) a contact (decls/physics_world.h HulkContact; was 11 words, which put the pointers at 4-byte offsets)
+struct Thing_2f8d70 : HulkContact {
 };
 
 
@@ -835,12 +845,11 @@ bool physics::CollisionSolverAgent::vfunc_11(void* __p0) {
 namespace fn_002f7ee0 {
 
 extern void* DAT_004316e8[];
-struct SubA_2f7ee0 {
-    char pad[0x88];
+// (x64t9-pw) the solver's state and matrices (decls/physics_world.h)
+struct SubA_2f7ee0 : HulkSolverState {
     void Init_002f8d70() throw();
 };
-struct SymMatrix_2f7ee0 {
-    char pad[0x1c];
+struct SymMatrix_2f7ee0 : HulkSymMatrix {
     void Init_002fca90() throw();
 };
 // (x64t4) the environment (DAT_00554c10, 0x002ecf60): pure3d::Entity's words, then its floats (the length and
@@ -874,7 +883,8 @@ extern "C" Ref_2f7ee0* __cdecl FUN_002efa90(CollisionObject_2f7ee0*, int, int) t
 class ImpulseBasedCollisionSolver_2f7ee0 {
   public:
     void* vptr;
-    int m4, m8;
+    void* m4;   // (x64t9-pw) the core and the contact list, pointers (decls/physics_world.h HulkCollisionSolver)
+    void* m8;
     SubA_2f7ee0 sa;
     SymMatrix_2f7ee0 s1, s2, s3;
     int me8, mec;
@@ -884,6 +894,16 @@ class ImpulseBasedCollisionSolver_2f7ee0 {
     Ref_2f7ee0* mfc;
     ImpulseBasedCollisionSolver_2f7ee0() throw();
 };
+// (x64t9-pw) the constructor's view is the solver record's (decls/physics_world.h)
+#define HULK_AT_(T, m) ((int)(hulk_uintptr)&((T*)0)->m)
+typedef char hulk_solver_view_[(sizeof(ImpulseBasedCollisionSolver_2f7ee0) == sizeof(HulkCollisionSolver) &&
+    HULK_AT_(ImpulseBasedCollisionSolver_2f7ee0, sa) == HULK_SOLVER_AT(state) &&
+    HULK_AT_(ImpulseBasedCollisionSolver_2f7ee0, s1) == HULK_SOLVER_AT(s1) &&
+    HULK_AT_(ImpulseBasedCollisionSolver_2f7ee0, me8) == HULK_SOLVER_AT(me8) &&
+    HULK_AT_(ImpulseBasedCollisionSolver_2f7ee0, cf4) == HULK_SOLVER_AT(cf4) &&
+    HULK_AT_(ImpulseBasedCollisionSolver_2f7ee0, mf8) == HULK_SOLVER_AT(iterations) &&
+    HULK_AT_(ImpulseBasedCollisionSolver_2f7ee0, mfc) == HULK_SOLVER_AT(zone)) ? 1 : -1];
+#undef HULK_AT_
 ImpulseBasedCollisionSolver_2f7ee0::ImpulseBasedCollisionSolver_2f7ee0() throw() {
     vptr = DAT_004316e8;
     m4 = 0;
@@ -1385,13 +1405,13 @@ namespace fn_f524d977 {
 // 0x002f8d70 FUN_002f8d70 (28 B): matches/0x002f8d70.cpp
 // sym: ?FUN_002f8d70@fn_f524d977@@YIPAUThing_2f8d70@1@PAU21@@Z
 Thing_2f8d70* __fastcall FUN_002f8d70(Thing_2f8d70* p) {
-    p->a[0] = 0;
-    p->a[1] = 0;
-    p->a[2] = 0;
-    p->a[3] = 0;
-    p->a[4] = 0xffffffff;
-    p->a[5] = 0xffffffff;
-    p->a[10] = 0;
+    p->f0 = 0;
+    p->object = 0;
+    p->first = 0;
+    p->second = 0;
+    p->f10 = -1;
+    p->f14 = -1;
+    p->flags = 0;
     return p;
 }
 

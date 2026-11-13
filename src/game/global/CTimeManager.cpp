@@ -14,6 +14,7 @@
 namespace fn_f5b26912 {} using namespace fn_f5b26912;
 namespace fn_f5b26912 { extern "C" char DAT_003ffab4[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
+#include "decls/managers.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f5b26912 {
@@ -2163,8 +2164,10 @@ struct Obj_87e30 {
     u32_87e30 pad[6];
     u32_87e30 limit;
     u32_87e30 other;
+    u32_87e30 tail[4];          // (x64t9-mgr) to the XBE's 80 bytes (include/decls/managers.h's HulkTimeManager)
     float FUN_000860c0();
 };
+HULK_MGR_SAME(Obj_87e30, HulkTimeManager);
 struct Handler_87e30 {
     void FUN_00087d50(const char*, Obj_87e30*, float (Obj_87e30::*)());
 };
@@ -2294,14 +2297,19 @@ unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
+// (x64t9-mgr) include/decls/managers.h's HulkWorld: the 21 managers 0x00088670 stores, its object at 0x58, the name
+// (0x00088e10), a flag and the ready flag
 class World {
 public:
     virtual void vfn0();
     World();
-    int f[21];
-    char pad[0x9d - 0x58];
+    void* f[21];
+    void* f58;
+    char name[0x40];
+    char f9c;
     char flag;
 };
+HULK_MGR_SAME(World, HulkWorld);
 
 World::World()
 {

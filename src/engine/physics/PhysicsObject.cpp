@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "decls/loaders.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
@@ -349,7 +350,7 @@ public:
 } // namespace fn_ff237b18
 
 // 0x002f5130 FUN_002f5130 (254 B): equivalent/0x002f5130.cpp [wrapped: conflict: physics::ExportInfoLoader]
-// sym: _FUN_002f5130 @ddf64b3781d6 @w8659200e81f6
+// sym: _FUN_002f5130 @8e51b6d6da51 @wedaf772c53cc
 inline void* operator new(size_t, void* p) throw() { return p; }
 namespace fn_002f5130 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
@@ -357,27 +358,15 @@ namespace fn_002f5130 {
 
 extern "C" void* __cdecl FUN_00263ea0(unsigned int size);
 
-
-class __declspec(novtable) SimpleChunkHandler_2f5130 {
-  public:
-    virtual void slot0();
-    int f04;
-    int id;
-    int f0c;
-    int f10;
-    SimpleChunkHandler_2f5130(int i) { f04 = 0; id = i; f0c = 0; f10 = 0; }
-};
-
+// (x64t9) The five loaders as content::SimpleChunkHandler's words (decls/loaders.h HulkChunkHandler, 0x14 bytes on the
+// 32-bit builds), allocated at the record's size. ExportInfoLoader's inline constructor stores the game's vftable by
+// address: the local class's own virtuals were declared only (a `novtable` stand-in), so natively its slots had no
+// definition. The other four are built by their constructors, called by address.
+extern "C" char DAT_00431594[];   // physics::ExportInfoLoader's vftable
+typedef HulkChunkHandler SimpleChunkHandler_2f5130;
 namespace physics {
-class ExportInfoLoader : public SimpleChunkHandler_2f5130 {
-  public:
-    ExportInfoLoader() : SimpleChunkHandler_2f5130(0x7030) {}
-    virtual void slot0();
-    virtual void slot1_000382a0();
-    virtual void* slot2_002f5110(char);
-    virtual void slot3_00265ff0(int, int, int, int, int);
-    virtual void slot4_0008db50();
-    virtual void slot5_002f4eb0(void*, void*, void*, hulk_intptr);
+struct ExportInfoLoader : SimpleChunkHandler_2f5130 {
+    ExportInfoLoader() { refs = 0; id = 0x7030; f0c = 0; f10 = 0; vftable = (void*)DAT_00431594; }
 };
 }
 
@@ -391,20 +380,20 @@ struct Raw_2f5130 {
 struct Registry_2f5130 { void FUN_00265210(SimpleChunkHandler_2f5130*, int); };
 
 extern "C" void FUN_002f5130(){
-    void* mem = FUN_00263ea0(0x14);
+    void* mem = FUN_00263ea0(sizeof(HulkChunkHandler));
     SimpleChunkHandler_2f5130* l = 0;
     if (mem) l = new (mem) physics::ExportInfoLoader();
     (*(Registry_2f5130**)&DAT_00527c58)->FUN_00265210(l, 0x7030);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(sizeof(HulkChunkHandler));
     l = mem ? ((Raw_2f5130*)mem)->FUN_00308020() : 0;
     (*(Registry_2f5130**)&DAT_00527c58)->FUN_00265210(l, 0x7010000);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(sizeof(HulkChunkHandler));
     l = mem ? ((Raw_2f5130*)mem)->FUN_00308060() : 0;
     (*(Registry_2f5130**)&DAT_00527c58)->FUN_00265210(l, 0x7010025);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(sizeof(HulkChunkHandler));
     l = mem ? ((Raw_2f5130*)mem)->FUN_002f7060() : 0;
     (*(Registry_2f5130**)&DAT_00527c58)->FUN_00265210(l, 0x7011000);
-    mem = FUN_00263ea0(0x14);
+    mem = FUN_00263ea0(sizeof(HulkChunkHandler));
     l = mem ? ((Raw_2f5130*)mem)->FUN_002f2c70() : 0;
     (*(Registry_2f5130**)&DAT_00527c58)->FUN_00265210(l, 0x7011010);
 }

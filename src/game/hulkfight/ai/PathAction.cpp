@@ -208,25 +208,21 @@ namespace fn_fb5d7c9c {
 extern int DAT_004e0cec;
 } // namespace fn_fb5d7c9c
 extern int DAT_004e0cf0;
-extern int DAT_004e0cf4;
 extern int DAT_004e0cf8;
-extern int DAT_004e0cfc;
 extern int DAT_004e0d00;
 namespace fn_fb5d7c9c {
 extern int DAT_004e0d04;
 } // namespace fn_fb5d7c9c
 extern int DAT_004e0d08;
-extern int DAT_004e0d0c;
 extern int DAT_004e0d10;
-extern int DAT_004e0d14;
 extern int DAT_004e0d18;
-extern int DAT_004e0d1c;
 extern int DAT_004e0d20;
 namespace fn_fb5d7c9c {
 extern int DAT_004e0d24;
 } // namespace fn_fb5d7c9c
 extern int DAT_004e0d28;
-extern int DAT_004e0d2c;
+// (x64t8) the ids' high words are interior to the 8-byte items (data2: 0x4e0cf4, cfc, d0c, d14, d1c, d2c), named
+// as `(*(int*)((char*)&DAT_x + 4))` (docs/data.md "data-interior")
 namespace fn_fb5d7c9c {
 void FUN_00363f00();
 } // namespace fn_fb5d7c9c
@@ -283,7 +279,7 @@ public:
 
 
 // 0x0011e4a0 hulkfight::ai::PathAction::vfunc_5 (5509 B): equivalent/0x0011e4a0.cpp
-// sym: ?vfunc_5@PathAction@ai@hulkfight@fn_fb5d7c9c@@UAEDHM@Z @f570a7a4d5aa @waf6c33876088
+// sym: ?vfunc_5@PathAction@ai@hulkfight@fn_fb5d7c9c@@UAEDHM@Z @53d3d9de7251 @wdfe5aae9077b
 // STATUS: equivalent (tools/equiv.py level 3: 3337 inputs, branch coverage 240/259, incomplete)
 // hulkfight::ai::PathAction::vfunc_5 @ 0x0011e4a0
 namespace hulkfight { namespace ai {
@@ -404,7 +400,7 @@ char PathAction::vfunc_5(int a, float dt)
     p94 = th;
 
     if (d8 != 0) {
-        if (!(idLo == DAT_004e0d18 && idHi == DAT_004e0d1c)) {
+        if (!(idLo == DAT_004e0d18 && idHi == (*(int*)((char*)&DAT_004e0d18 + 4)))) {
             if (fdc > 5.0f) {
                 d8 = 0;
                 fdc = 0.0f;
@@ -425,7 +421,7 @@ char PathAction::vfunc_5(int a, float dt)
     }
 
     char al = d8;
-    if (al == 0 && idLo == DAT_004e0d08 && idHi == DAT_004e0d0c) {
+    if (al == 0 && idLo == DAT_004e0d08 && idHi == (*(int*)((char*)&DAT_004e0d08 + 4))) {
         owner->f10->FUN_00059a50(&f.V54);
         owner->b2149 = 1;
         Reg18 *r18 = f.u4c.hub->f18;
@@ -477,13 +473,15 @@ char PathAction::vfunc_5(int a, float dt)
         int lo = idLo;
         int hi = idHi;
         bool ok = true;
-        if (lo == DAT_004e0cf8 && hi == DAT_004e0cfc) {
+        if (lo == DAT_004e0cf8 && hi == (*(int*)((char*)&DAT_004e0cf8 + 4))) {
             v2c = f.V10;
         } else if (lo == DAT_004e0ce8 && hi == DAT_004e0cec) {
             Locator *loc = 0;
             const char *pt = e0->FUN_001ff950(v20, 2, 0, -3.40282347e+38f, 3.40282347e+38f);
-            if (pt != 0)
-                loc = e0->FUN_001fc8c0(FUN_0027b020(pt));
+            if (pt != 0) {
+                unsigned __int64 id = FUN_0027b020(pt);   // (x64t9) the id first, then `e0` (the original's order)
+                loc = e0->FUN_001fc8c0(id);
+            }
             if (loc != 0) {
                 V3_11e4a0 *q = loc->v8(&f.V54);
                 v2c = *q;
@@ -498,7 +496,8 @@ char PathAction::vfunc_5(int a, float dt)
                     if (r != 0) {
                         const char *p2 = r->FUN_001ff950(v20, i, 0, -4.0f, 4.0f);
                         if (p2 != 0) {
-                            Locator *l2 = DAT_004dd700->f28->FUN_001fc8c0(FUN_0027b020(p2));
+                            unsigned __int64 id = FUN_0027b020(p2);   // (x64t9) the id first, then DAT_004dd700's f28
+                            Locator *l2 = DAT_004dd700->f28->FUN_001fc8c0(id);
                             if (l2 != 0) {
                                 V3_11e4a0 *q = l2->v8(&f.Va8);
                                 float qx = q->x;
@@ -528,8 +527,10 @@ char PathAction::vfunc_5(int a, float dt)
         } else if (lo == DAT_004e0d00 && hi == DAT_004e0d04) {
             const char *pt = e0->FUN_001ff950(v20, 2, 2, -3.40282347e+38f, 3.40282347e+38f);
             Locator *loc = 0;
-            if (pt != 0)
-                loc = e0->FUN_001fc8c0(FUN_0027b020(pt));
+            if (pt != 0) {
+                unsigned __int64 id = FUN_0027b020(pt);   // (x64t9) the id first, then `e0` (the original's order)
+                loc = e0->FUN_001fc8c0(id);
+            }
             if (loc == 0) {
                 DAT_004e0d38.FUN_0027b040("intersect_failed");
                 owner->FUN_00036e70(&DAT_004e0d38, 1);
@@ -541,15 +542,17 @@ char PathAction::vfunc_5(int a, float dt)
         } else if (lo == DAT_004e0d20 && hi == DAT_004e0d24) {
             const char *pt = e0->FUN_001ff950(f.V10, 2, 0, -3.40282347e+38f, 3.40282347e+38f);
             Locator *loc = 0;
-            if (pt != 0)
-                loc = e0->FUN_001fc8c0(FUN_0027b020(pt));
+            if (pt != 0) {
+                unsigned __int64 id = FUN_0027b020(pt);   // (x64t9) the id first, then `e0` (the original's order)
+                loc = e0->FUN_001fc8c0(id);
+            }
             if (loc == 0) {
                 ok = false;
             } else {
                 V3_11e4a0 *q = loc->v8(&f.Va8);
                 v2c = *q;
             }
-        } else if (lo == DAT_004e0cf0 && hi == DAT_004e0cf4) {
+        } else if (lo == DAT_004e0cf0 && hi == (*(int*)((char*)&DAT_004e0cf0 + 4))) {
             Locator *loc;
             Cfg_11e4a0 *c = p8c;
             if (c->b3d != 0)
@@ -566,7 +569,7 @@ char PathAction::vfunc_5(int a, float dt)
                 V3_11e4a0 *q = loc->v8(&f.Va8);
                 v2c = *q;
             }
-        } else if (lo == DAT_004e0d10 && hi == DAT_004e0d14) {
+        } else if (lo == DAT_004e0d10 && hi == (*(int*)((char*)&DAT_004e0d10 + 4))) {
             if (owner->f10->FUN_00059a30()->f140 != 1)
                 return 1;
             owner->f10->FUN_00059a50(&f.V54);
@@ -577,7 +580,7 @@ char PathAction::vfunc_5(int a, float dt)
                 owner->FUN_00036e70(&DAT_004e0d38, 1);
                 ok = false;
             }
-        } else if (lo == DAT_004e0d18 && hi == DAT_004e0d1c) {
+        } else if (lo == DAT_004e0d18 && hi == (*(int*)((char*)&DAT_004e0d18 + 4))) {
             if (owner->f10->FUN_00059a30()->f140 != 1)
                 return 1;
             owner->f10->FUN_00059a50(&f.V54);
@@ -588,7 +591,7 @@ char PathAction::vfunc_5(int a, float dt)
                 owner->FUN_00036e70(&DAT_004e0d38, 1);
                 ok = false;
             }
-        } else if (lo == DAT_004e0d28 && hi == DAT_004e0d2c) {
+        } else if (lo == DAT_004e0d28 && hi == (*(int*)((char*)&DAT_004e0d28 + 4))) {
             if (owner->f10->FUN_00059a30()->f140 != 1)
                 return 1;
             owner->f10->FUN_00059a50(&f.V54);
@@ -599,7 +602,7 @@ char PathAction::vfunc_5(int a, float dt)
                 owner->FUN_00036e70(&DAT_004e0d38, 1);
                 ok = false;
             }
-        } else if (lo == DAT_004e0d08 && hi == DAT_004e0d0c) {
+        } else if (lo == DAT_004e0d08 && hi == (*(int*)((char*)&DAT_004e0d08 + 4))) {
         } else {
             v2c = f.V10;
         }
@@ -760,7 +763,7 @@ char PathAction::vfunc_5(int a, float dt)
                 f.A30.y = f.V10.y;
                 f.A30.z = f.V10.z;
                 f.A = 1.0f;
-                if (idLo == DAT_004e0d28 && idHi == DAT_004e0d2c) {
+                if (idLo == DAT_004e0d28 && idHi == (*(int*)((char*)&DAT_004e0d28 + 4))) {
                     f.A30.x = f.V10.x * -1.0f;
                     f.A30.y = f.V10.y * -1.0f;
                     f.A30.z = f.V10.z * -1.0f;
@@ -787,7 +790,7 @@ char PathAction::vfunc_5(int a, float dt)
                     f.A = 1.0f;
                     f.A30.y = 0.0f;
                     f.A30.z = f.V10.z;
-                    if (idLo == DAT_004e0d28 && idHi == DAT_004e0d2c) {
+                    if (idLo == DAT_004e0d28 && idHi == (*(int*)((char*)&DAT_004e0d28 + 4))) {
                         *(unsigned int *)&f.A30.y = 0x80000000;
                         f.A30.x = (f.V10.x - v20.x) * -1.0f;
                         f.A30.z = f.V10.z * -1.0f;

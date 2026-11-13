@@ -14,6 +14,7 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f3cf613f {} using namespace fn_f3cf613f;
 #include "game/unknown.h"
+#include "decls/managers.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f3cf613f {
@@ -362,6 +363,7 @@ class CHapticControllerManager {
     void FUN_000afe80();
     void FUN_000afe10(bool);
 };
+HULK_MGR_SAME(CHapticControllerManager, HulkHapticControllerManager);   // (x64t9-mgr) include/decls/managers.h
 
 CHapticControllerManager::CHapticControllerManager(Source_b0500* source) {
     field_04 = 0;

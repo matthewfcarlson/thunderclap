@@ -17,6 +17,7 @@ void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to f
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/hulkfight/ai.h"
+#include "decls/managers.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -414,6 +415,7 @@ class This_10b2c0 {
     List_10b2c0* GetList_00232780();
     This_10b2c0* Build();
 };
+HULK_MGR_SAME(This_10b2c0, Hulk_10b2c0);   // (x64t9-mgr) include/decls/managers.h
 
 
 

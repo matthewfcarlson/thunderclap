@@ -98,7 +98,9 @@ class SubCollisionDetector {
     virtual void f2();
     virtual void f3();
     virtual void f4();
-    int a, b, c, d;
+    int a;
+    void* b;   // (x64t9-pw) the contact vector, a pointer (decls/physics_world.h HulkCollisionDetector)
+    int c, d;
     char pad[0x20];
     char x, y;
     int z;
