@@ -1,4 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 15/15)
-// FUN_00337f80 @ 0x00337f80
-#include "gen/owners.h"
- unsigned int owners::Value_337f80::FUN_00337f80() { switch (type) { case 0: return 1; case 1: case 2: case 3: return 4; case 4: { const char *p = *text; unsigned int size = 1; while (*p++) ++size; return size; } case 5: case 7: return 8; case 6: case 8: return 12; default: return 0; } }

@@ -1,3 +1,0 @@
-extern "C" unsigned int FUN_0024c2d0(unsigned int* p) {
-    return (*p >> 4) & 0x1f;
-}

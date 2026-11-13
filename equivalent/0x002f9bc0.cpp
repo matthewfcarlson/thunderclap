@@ -1,4 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 13/14, incomplete)
-// FUN_002f9bc0 @ 0x002f9bc0
-#include "compat/ptr.h"
-struct Buffer { char pad[4]; unsigned short *end; unsigned short *limit; void FUN_002f9bc0(unsigned short *position, hulk_uintptr count, unsigned short *source); }; void Buffer::FUN_002f9bc0(unsigned short *position, hulk_uintptr count, unsigned short *source) { unsigned short *oldEnd=end; unsigned short *newEnd=oldEnd+count; if ((hulk_ulongptr)newEnd <= (hulk_ulongptr)limit) { end=newEnd; while (oldEnd != position) { --oldEnd; --newEnd; if (newEnd) *newEnd=*oldEnd; } while (count--) { if (position) *position=*source; ++position; } } }

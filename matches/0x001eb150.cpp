@@ -1,1 +1,0 @@
-void __stdcall Target(int x) {}

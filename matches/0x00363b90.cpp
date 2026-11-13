@@ -1,9 +1,0 @@
-// Same code shape as 0x00363af0 (propagated; names are from that function)
-#include "decls/data/game/global.h"
-
-struct Obj_363b90 {
-    void f();
-};
-extern "C" void FUN_00363b90() {
-    (*(Obj_363b90*)&DAT_004dc310).f();
-}

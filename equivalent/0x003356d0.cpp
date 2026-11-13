@@ -1,4 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
-// FUN_003356d0 @ 0x003356d0
-#include "gen/owners.h"
-struct Entry { char pad[8]; int type; }; struct Info { char pad[0x44]; int count;  }; struct Triple { int x,y,z; }; struct Object { char pad[4]; Info* info; Triple** values; bool FUN_003356d0(int index, int* x, int* y, int* z); }; bool Object::FUN_003356d0(int index, int* x, int* y, int* z) { if (index < 0 || index >= info->count) return false; if (((Entry *)((owners::Thing_337090 *)info)->FUN_00337090(index))->type != 6) return false; Triple* p = values[index]; *x = p->x; *y = p->y; *z = p->z; return true; }

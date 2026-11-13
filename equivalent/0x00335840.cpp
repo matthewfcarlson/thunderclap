@@ -1,4 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 10/10)
-// FUN_00335840 @ 0x00335840
-#include "gen/owners.h"
-struct Entry { char pad[8]; int kind; }; struct Database { char pad[0x44]; int count;  }; struct Object { char pad0[4]; Database* database; const char** names; bool FUN_00335840(int index, char* output); }; bool Object::FUN_00335840(int index, char* output) { if (index < 0 || index >= database->count || ((Entry *)((owners::Thing_337090 *)database)->FUN_00337090(index))->kind != 10) return false; const char* name = names[index]; if (name) { do { *output++ = *name; } while (*name++); } else *output = 0; return true; }

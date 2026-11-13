@@ -1,4 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
-// FUN_0027be00 @ 0x0027be00
-#include "gen/owners.h"
- void* __cdecl FUN_0008d6d0(unsigned int size); void __cdecl FUN_0027bc30(void* data, unsigned int count, int value); bool owners::Buffer_27be00::FUN_0027be00(hulk_uintptr count, hulk_intptr value) { if (begin) return false; if (((unsigned int)count)) { void* data = FUN_0008d6d0(((unsigned int)count) * 40); begin = data; if (data) { end = (char*)data + ((unsigned int)count) * 40; FUN_0027bc30(data, ((unsigned int)count), ((int)value)); return true; } } begin = 0; end = 0; return false; }

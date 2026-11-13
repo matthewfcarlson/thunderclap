@@ -1,6 +1,0 @@
-class FEControllerSystem {
-  public:
-    FEControllerSystem();
-    virtual ~FEControllerSystem();
-};
-FEControllerSystem::FEControllerSystem() {}

@@ -1,1 +1,0 @@
-extern "C" void FUN_002a5260() {}

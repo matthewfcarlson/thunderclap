@@ -1,4 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 8/8)
-// FUN_0025a220 @ 0x0025a220
-struct Node { Node *next; }; struct List { Node *first; Node sentinel; }; extern "C" void __cdecl FUN_0025a160(void *, void *); void * __cdecl FUN_00241670(); void __cdecl FUN_00247550(void *, void *); extern "C" void __cdecl FUN_0025a220(void * list_) {
-    List * list = (List *)list_; while (list->first != &list->sentinel) { Node *node = list->first; while (node->next != &list->sentinel) node = node->next; Node *item = (Node *)((char *)node - 4); if (!item) break; FUN_0025a160((List *)list,(Node *)item); FUN_00247550(FUN_00241670(), item); } }

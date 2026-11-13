@@ -1,7 +1,0 @@
-#include "decls/data/game/global.h"
-// data: gValue_1d0430 = DAT_004e23c4
-
-typedef unsigned int u32_1d0430;
-extern "C" void FUN_001d0430(u32_1d0430 value) {
-    (*(u32_1d0430*)&DAT_004e23c4) = value;
-}

@@ -1,3 +1,0 @@
-extern "C" unsigned int FUN_00036c80(void) {
-    return 0x20;
-}

@@ -540,8 +540,9 @@ symbols as tree_tu (c59cc5632) and because comments (notes, pins, the header lin
 
 User decision D1 (2026-11-13): delete the frozen per-function sources and move the ten tools gen1 retired into
 tools/legacy/. Two commits: the readers first (tools, tests, docs), then the deletion of matches/ (22,339 files) and
-equivalent/ (5,099 files). Neither directory changed after F, so `git show e68debc9d:matches/0x....cpp` restores any one
-(as does the last commit that has them, named below); reverting the deletion commit restores all.
+equivalent/ (5,099 files). **The last commit that has them is f98940cf5** (the first of the two). Neither directory changed
+after F, so `git show e68debc9d:matches/0x....cpp` or `git show f98940cf5:matches/0x....cpp` restores any one; reverting the
+deletion commit restores all.
 
 **Readers, and what became of each.** Every tool, test, config and doc that named matches/, equivalent/,
 `HULK_TREE_SOURCE=0` or build_tree's generation path was looked at.
@@ -599,4 +600,7 @@ A control of a commit before (d) must be submitted with that commit's wine_build
 **Other checks.** `tests/equiv/regress.py --jobq`: 478 / 478 (jobs 79154-79233, after the `_definition_conv` change).
 Unit tests (`unittest discover` over tests/, tests/equiv, tests/jobq): pass, apart from test_jobq's RoundTrip cases,
 which drive the live queue and fail the same way on HEAD without this change. `tools/progress.py --readme`: no change.
-`tools/layout64.py --check`: all ok. Whole-tree verify after the deletion: below.
+`tools/layout64.py --check`: all ok. Whole-tree `tree_tu.py verify . --relocs --head-only` on f98940cf5 in a job with no
+matches/ or equivalent/ (job 79237, mac2, the symlinks removed first; 0 cache hits): 22,339 matches MATCH with
+relocations ok, 5,099 equivalent blocks compiled with their code hashes ok (MSVC and wine), 0 errors (the 16
+`info: overreach` lines are tool2's informational data-overreach notes).

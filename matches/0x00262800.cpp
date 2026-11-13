@@ -1,3 +1,0 @@
-extern "C" unsigned long long FUN_00262800() {
-    return 0;
-}

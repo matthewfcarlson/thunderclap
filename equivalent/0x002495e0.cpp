@@ -1,8 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
-// FUN_002495e0 @ 0x002495e0
-#include "compat/ptr.h"
-struct Object { char pad[24]; char data; };
-int __cdecl FUN_00248bf0(void *, void *);
-hulk_intptr __cdecl FUN_002495e0(Object *object, void *other) {
-    return FUN_00248bf0(&object->data, other);
-}

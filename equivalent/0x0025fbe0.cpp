@@ -1,4 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 7/8, incomplete)
-// FUN_0025fbe0 @ 0x0025fbe0
-struct Link { Link* next; }; struct Node { virtual void destroy(int); Link link; }; struct List { Link* first; Link end; }; extern "C" void __cdecl FUN_0025f6e0(void *, void *); extern "C" void __cdecl FUN_0025fbe0(void * list_) {
-    List * list = (List *)list_; Link* end = &list->end; while (list->first != end) { Link* link = list->first; while (link->next != end) link = link->next; Node* node = (Node*)((char*)link - 4); if (!node) break; FUN_0025f6e0((List *)list, (Node *)node); node->destroy(1); } }

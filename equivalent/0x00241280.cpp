@@ -1,5 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
-// FUN_00241280 @ 0x00241280
-#include "decls/data/platform/xbox/unknown.h"
-
-struct Listener_241280 { char pad34[0x34]; void *sound; unsigned int environment[12]; unsigned int values[12]; char pad98[8]; float second; float third; unsigned char flag; };   extern unsigned int DAT_003d5e68[12]; namespace DSOUND { int __stdcall IDirectSound_SetI3DL2Listener(void *, unsigned int *, int); } extern "C" void __cdecl FUN_00241280(const unsigned int *settings, float second, float third) { if (!settings) settings = DAT_004e5cb0; for (int i = 0; i < 12; ++i) (*(Listener_241280**)&DAT_004e5ce0)->values[i] = settings[i]; for (int j = 0; j < 12; ++j) (*(Listener_241280**)&DAT_004e5ce0)->environment[j] = DAT_003d5e68[j]; DSOUND::IDirectSound_SetI3DL2Listener((*(Listener_241280**)&DAT_004e5ce0)->sound, (*(Listener_241280**)&DAT_004e5ce0)->environment, 1); (*(Listener_241280**)&DAT_004e5ce0)->flag = 0; (*(Listener_241280**)&DAT_004e5ce0)->third = third; (*(Listener_241280**)&DAT_004e5ce0)->second = second; }
