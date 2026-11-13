@@ -649,3 +649,16 @@ src/engine/physics/unk_2e6780.cpp (0x002e9c60, 0x002ea3c0, zlib / libpng), which
 to an existing struct there changed nothing. x64t7 saw the same for records.h (0x001a9b10, 0x000b86b0). A change to a
 header every TU includes needs the whole tree's verification (a Wine proof build's materialize stage does it), not
 only the edited TUs'. Declarations a batch needs in a few TUs are safer TU-local.
+
+## 2026-11-13 linux1: the x86-64 Linux image runs (Rosetta VM); a 2-byte item read as 3
+
+- `hulk-linux` runs in a Lima / vz arm64 Debian 12 VM through Rosetta for Linux (docs/native-linux.md,
+  tests/linux/vm_run.sh). After one fix it stops where Android and macOS stop (same snapshot).
+- The fix: FUN_00277190 read `"D:"`'s terminator as `DAT_0042b50c + 2`, a cross-item read. The XBE's byte there is
+  the next item (`s_empty_0042b50e`), but native links place items independently: Linux's link put `'X'` there and
+  the drive check took another path. Cross-item reads written as `ITEM + k` past an item's inventory size are latent
+  on every native target (verify_relocs passes them: the address is right); a scan for reads past an item's
+  inventory size would find any others.
+- x86-64 specific: the Windows x64 front end omits frame pointers (the arm64 one keeps them), so the native reports
+  had no backtrace; native_elf now asks for them on linux-x64. Rosetta's `ROSETTA_DEBUGSERVER_PORT` segfaults in the
+  guest; qemu-user's gdb stub works.

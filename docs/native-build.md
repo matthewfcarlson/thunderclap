@@ -3385,3 +3385,28 @@ Totals: **18,254 / 18,234 / 18,245 -> 14,880 / 14,860 / 14,871** (-3,374 / -3,37
 natively (the compile gate), and no local data stand-in is refused (the new gate; the two KNOWN ones are allowed).
 Scripts: build/unb4/scripts (thisfix.py, hdrfix.py, b5fix.py, objcmp.py, ptr64scan.py, cat.py, gatesub*.sh,
 commitg.sh); the classifications cls-base.json / cls-q6.json.
+
+## The x86-64 Linux image runs in a local VM (linux1, 2026-11-13)
+
+`hulk-linux` (linux-x64, the SteamOS target) now runs on this Mac: Lima (Homebrew, vz backend) with an arm64 Debian 12
+guest that runs x86-64 processes through Rosetta for Linux, Debian's amd64 multiarch glibc / libstdc++, headless,
+two read-only mounts (the image, the player's extracted disc) and no port forwarding. `tests/linux/vm_run.sh`
+(setup / start / stop / delete / run / host-tests / gdb); procedure, the distro choice and the details in
+[native-linux.md](native-linux.md).
+
+On and1's snapshot (x64t7's proof 72321; queue compiles 72409 and 77425, local links):
+- the host layer's tests (tests/linux/host_link.sh's executables), linked but never run before: all pass in the VM;
+- the image's start-up: 457 initializers, then a Linux-only stop, `missing ?FUN_002674f0` from FUN_002771b0 (the
+  drive-name check given `"D:X"`). Root cause: FUN_00277190 (src/engine/core/CementLibrary.cpp, match) read the
+  default drive name's terminator as `DAT_0042b50c + 2`, past a 2-byte item; the XBE's byte there is the next item,
+  `s_empty_0042b50e`, which the original's relocation names. Natively the byte after the item depends on the link
+  (0 on Android / macOS, `'X'` here). The source reads `DAT_0042b50e` now (MATCH, relocations ok);
+- with that fix the trace equals Android's (and so macOS's) line for line but for the thread timing, the FP control
+  line (`mxcsr` / `fpcr`) and `low-4gb reserved 4095 MB`: the stop is `missing ??0ParticleAllocator` (x64t8 fixed it
+  on main since), survey mode the same four names and the same crash in `?run@C_265210`.
+
+`tools/native_elf.py`: the linux-x64 front end gets `-fno-omit-frame-pointer` (the x86-64 Windows front end omits
+frame pointers, so every Linux crash and missing report stopped at frame 0; arm64 already kept them). Debugging in
+the guest goes through qemu-user's gdb stub (`vm_run.sh gdb`): Rosetta's debug server crashes there.
+Not a Wine build input (native flags, one matched block), so no proof pair. VM: `~/.lima/hulk-linux` (1.6 GB) plus
+Lima's image cache (1.6 GB); `vm_run.sh delete` and `limactl prune` remove them.

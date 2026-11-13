@@ -1094,10 +1094,6 @@ Not covered yet:
 ### 16.4 x86-64 Linux
 
 The same snapshot links for x86-64 Linux (`hulk-linux`, lld rc 0) with the headless SDL3 of `tools/native_linux_sdl.py`
-and `host/movie_none.c`. It is not run: this machine has no x86-64 Linux, VM or container runtime. There is no Docker,
-Lima, UTM or qemu-system-x86_64, and the Android SDK's qemu is aarch64 only. Free ways to run it, for the user to
-choose:
-- a SteamOS / Linux box registered as a `linux-x64` queue host (`tools/jobq_host_setup_linux.sh`,
-  `tools/native_linux_replay.sh`; native-float64.md "The x86-64 Linux replay");
-- an arm64 Linux VM on this Mac with Rosetta for Linux (Virtualization.framework, through Lima or UTM), which runs
-  x86-64 ELF binaries.
+and `host/movie_none.c`. It runs since 2026-11-13 in a local arm64 Debian VM through Rosetta for Linux (Lima;
+`tests/linux/vm_run.sh`), and after one fix (a 2-byte data item read as 3, latent on every native target) it stops
+where this section's runs stop: [native-linux.md](native-linux.md).

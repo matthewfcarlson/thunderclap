@@ -311,11 +311,12 @@ namespace fn_f6ff0ab7 {
 
 // 0x00277190 FUN_00277190 (24 B): matches/0x00277190.cpp
 // sym: _FUN_00277190
-// data: gDrive = DAT_0042b50c
+// data: gDrive = DAT_0042b50c ("D:", two bytes), its terminator the next item, s_empty_0042b50e (the original reads it
+// by that item's address: as DAT_0042b50c + 2 the native builds read whatever their linker put after the 2-byte item)
 extern "C" void FUN_00277190(char* p) {
     unsigned short v = *(volatile unsigned short*)((volatile char*)&DAT_0042b50c);
     *(unsigned short*)p = v;
-    p[2] = ((volatile char*)&DAT_0042b50c)[2];
+    p[2] = *(volatile const char*)DAT_0042b50e;
 }
 
 

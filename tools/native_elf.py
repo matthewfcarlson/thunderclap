@@ -221,6 +221,11 @@ def esc(sym):
 # ---------------------------------------------------------------------------------------------- compiling
 def flags(target):
     front = ["--target=" + TARGETS[target]["front"]] + [f for f in nmac.FRONT if not f.startswith("--target=")]
+    if target == "linux-x64":
+        # the x86-64 Windows front end leaves frame pointers out (Win64 unwinds by tables), and so does the ELF
+        # backend with its IR: the crash and missing-name reports (entry_posix.cpp walks rbp) then stop at frame 0.
+        # The arm64 front ends keep them ("frame-pointer"="reserved"/"non-leaf"), so only x86-64 asks
+        front.append("-fno-omit-frame-pointer")
     back = ["--target=" + TARGETS[target]["triple"], "-O0", "-c", "-Wno-override-module", "-fPIC"]
     return front, back
 
