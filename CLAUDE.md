@@ -14,7 +14,10 @@ for the plan. Run everything from the repo root with `build/venv/bin/python`.
   `tools/equiv.py` (`docs/equivalence.md`). Tree headers: `include/common.h`, `include/tree_prelude.h`,
   `include/{game,engine,platform/xbox}/`; `src/link-order.txt` is the link order. MSVC `$L` labels are pinned as `$L#k@owner`.
 - `matches/`, `equivalent/`: the per-function sources, frozen at F: read-only, still verified; removal awaits the user's OK.
-- `include/gen/` (classes generated from RTTI), `include/decls/` (addresses, data decls), `include/compat/`.
+- `include/gen/`: the RTTI class headers, hand-maintained source since gen1 (2026-11-13; no longer generated). Edit
+  them like `src/`; `tools/gen_headers.py --probe` checks every class's vftables, slots, base descriptors and sizeof
+  (`config/gen-sizes.json`; `--update-sizes` records an intended 32-bit size change; `docs/headers.md`).
+  `include/decls/` (addresses, data decls), `include/compat/`.
 - `src/platform/sdl/`: the SDL3 platform layer (shims for XDK/CRT, audio, input, files, movies, pddi/bgfx
   graphics backend).
 - `tools/`: all scripts. `tools/equiv_gen/` generators for near-identical function families; `tools/ghidra_scripts/`.
@@ -42,6 +45,7 @@ python tools/tree_tu.py materialize --out build/tree   # local Wine-build input 
 python tools/native_mac.py compile|link          # arm64 macOS; tools/native_elf.py --target linux-x64|android-arm64 for ELF
 python tools/native_unbound.py classify --dir build/native-mac   # the native link's unbound names by class
 python tools/progress.py --readme                # regenerate the README status table and docs/progress-map.svg (from the tree)
+python tools/gen_headers.py --probe              # include/gen layouts against RTTI and the XBE (after a header edit)
 python tools/data_inventory.py --check           # config/data.json must be what its inputs give (docs/data.md "Reproducing")
 python tests/equiv/regress.py                    # checker regression cases (run after any change to equiv.py)
 python tools/x64_gate.py check --changed-since origin/main   # 64-bit gate: --x64 on changed blocks; new layout/ptrtrunc/crash64 fails
