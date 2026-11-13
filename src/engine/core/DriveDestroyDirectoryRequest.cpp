@@ -128,7 +128,7 @@ unsigned DriveDestroyDirectoryRequest::vfunc_1() {
 // Same code shape as 0x0025c0b0 (propagated; names are from that function)
  // namespace audio
 void* core::DriveDestroyDirectoryRequest::vfunc_5() {
-    return (void*)((core::DriveDestroyDirectoryRequest*)((char*)this + 0xc));
+    return (void*)((core::DriveDestroyDirectoryRequest*)((char*)&this->f_0c));
 }
 
 

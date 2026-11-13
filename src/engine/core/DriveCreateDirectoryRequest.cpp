@@ -107,7 +107,7 @@ void core::DriveRequest::FUN_00274630() {
 // sym: ?vfunc_1@DriveCreateDirectoryRequest@core@@UAEHXZ
 int core::DriveCreateDirectoryRequest::vfunc_1() {
     Service_274670* svc = (*(Data_274670 * *)&this->f_08)->service;
-    int value = svc->a15((int*)((char*)this + 12));
+    int value = svc->a15((int*)((char*)&this->f_0c));
     int result = ((Helper_274670*)svc)->Run_00272880();
     (*(Data_274670 * *)&this->f_08)->manager.Reset();
     (*(Data_274670 * *)&this->f_08)->stored = result;
@@ -121,7 +121,7 @@ int core::DriveCreateDirectoryRequest::vfunc_1() {
 // Same code shape as 0x0025c0b0 (propagated; names are from that function)
  // namespace audio
 void* core::DriveCreateDirectoryRequest::vfunc_5() {
-    return (void*)((core::DriveCreateDirectoryRequest*)((char*)this + 0xc));
+    return (void*)((core::DriveCreateDirectoryRequest*)((char*)&this->f_0c));
 }
 
 

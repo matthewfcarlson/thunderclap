@@ -559,7 +559,7 @@ public:
     void FUN_00274900(); // non-virtual
     void FUN_002749a0(); // non-virtual
     void FUN_00274a50(); // non-virtual
-    int f_04;
+    void* f_04; // typ1: the queue link (decls/data/records.h CoreRequest)
     void* f_08;
 };
 
@@ -594,6 +594,7 @@ public:
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual void* vfunc_5(); // overrides core::Request slot 5
     virtual int vfunc_6(); // overrides core::Request slot 6
+    int f_0c; // typ1: the request's result (vfunc_5 returns its address, vfunc_1 0x00274670 fills it)
 };
 
 // .?AVDriveDestroyDirectoryRequest@core@@  vftable 0x42bbe0 (7)
@@ -603,7 +604,8 @@ public:
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual void* vfunc_5(); // overrides core::Request slot 5
     virtual int vfunc_6(); // overrides core::Request slot 6
-    char _pad_0c[0x10];
+    int f_0c; // typ1: the request's result (vfunc_5 returns its address)
+    char _pad_10[0xc];
     char f_1c;
 };
 
@@ -633,7 +635,8 @@ public:
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual void* vfunc_5(); // overrides core::Request slot 5
     virtual int vfunc_6(); // overrides core::Request slot 6
-    char _pad_0c[0x104];
+    int f_0c; // typ1: the request's result (vfunc_5 returns its address)
+    char _pad_10[0x100];
     int f_110;
 };
 
