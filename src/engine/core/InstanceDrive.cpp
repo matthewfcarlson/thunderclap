@@ -906,7 +906,7 @@ class InstanceDrive : public IDrive_276cc0, public IDrive {
     int value;
 };
 bool InstanceDrive::vfunc_21() {
-    IDrive* p = (IDrive*)((char*)this + 4);
+    IDrive* p = (IDrive*)((char*)this + sizeof(IDrive_276cc0));  // the second base (a cast tests for null)
     p->a();
     int x = value;
     bool r = (x == 0);
@@ -1238,7 +1238,7 @@ extern "C" void FUN_00277050() {
 // data: g_obj_2770a0 = DAT_0052a224
 InstanceDrive* InstanceDrive::vfunc_2(unsigned char flag) {
     *(void**)this = &hulk_at_0042bddc;
-    *(void**)((char*)this + 4) = &hulk_at_0042bdd0;
+    *(void**)&this->sub = &hulk_at_0042bdd0;
     drive->v1();
     *(void**)this = &hulk_at_003f6098;
     if (flag & 1) {

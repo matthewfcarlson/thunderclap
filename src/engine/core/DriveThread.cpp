@@ -62,14 +62,19 @@ class Param {
     virtual void p3();
     virtual void p4();
 };
-class Helper_272f90 {
+class Helper_272f90 {                       // records.h CoreDriveThread's IMutable part (+0x0c)
   public:
+    const void* vftableMutable;
+    int refs;
+    void* lock;
     void Fnf_0026f160();
 };
 class DriveThread_272f90 : public IRefCount_272f90, public Param {
   public:
     virtual void vfunc_5();
     virtual void vfunc_6();
+    int heap;                               // records.h CoreDriveThread +0x08
+    Helper_272f90 mutable_;                 // +0x0c
 };
 class DriveThreadMutable_272fa0 {
   public:
@@ -99,9 +104,16 @@ class List_273050 {
 };
 class Owner_273050 {
   public:
-    char pad0[0x0c];
-    List_273050 list;
-    char pad10[0x5c];
+    const void* vftable;                    // records.h CoreDriveThread
+    const void* vftableObject;
+    int heap;
+    List_273050 list;                       // +0x0c vftableMutable
+    int refs;
+    void* lock;
+    CoreThread worker;
+    unsigned char stopped;
+    char pad65[3];
+    hulk_uintptr ready;                     // +0x68
     Item_273050* slots[3];
     Item_273050* tails[4];
     void Run(int, int);
@@ -235,7 +247,7 @@ void DriveThread_272f70::vfunc_0() {
 // sym: ?vfunc_6@DriveThread_272f90@fn_f30ddaac@@UAEXXZ
 // Same code shape as 0x0023c920 (propagated; names are from that function)
 void DriveThread_272f90::vfunc_6() {
-    ((Helper_272f90*)((char*)this + 0xc))->Fnf_0026f160();
+    ((Helper_272f90*)&this->mutable_)->Fnf_0026f160();
 }
 
 
@@ -317,7 +329,7 @@ void Owner_273050::Run(int arg, int index) {
             Item_273050* x = *p;
             *p = x->next;
             x->Release(1);
-            Clean_0026d890((char*)this + 0x68);
+            Clean_0026d890(&this->ready);
         } else {
             prev = *p;
             p = &prev->next;

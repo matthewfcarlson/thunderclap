@@ -15,6 +15,8 @@ namespace fn_f6ff0ab7 {} using namespace fn_f6ff0ab7;
 #include "engine/core.h"
 
 // ---- declarations shared by the functions below
+// (typ1) a base subobject's offset as a constant (a static_cast of `this` tests it for null first)
+#define HULK_BASE_OFFSET(D, B) ((hulk_intptr)static_cast<B*>((D*)0x1000) - 0x1000)
 namespace fn_f6ff0ab7 {
 bool __cdecl FUN_002674f0(const char*, const char*);
 int __cdecl FUN_0026fcf0(void **result, const char *path, int heap, char *details);
@@ -705,7 +707,7 @@ void core::CementLibrary::vfunc_0() {
         virtual void second();
         int count;
     };
-    Sub* p = (Sub*)((char*)this + 0x10);
+    Sub* p = (Sub*)((char*)this + HULK_BASE_OFFSET(core::CementLibrary, core::SafeRefCount));
     p->first();
     ++p->count;
     p->second();
@@ -716,7 +718,7 @@ void core::CementLibrary::vfunc_0() {
 // sym: ?vfunc_1@CementLibrary@core@@UAEXXZ
 // Same code shape as 0x002226e0 (propagated; names are from that function)
 void core::CementLibrary::vfunc_1() {
-    ((Inner_2777b0*)((char*)this + 0x10))->call_0026f160();
+    ((Inner_2777b0*)((char*)this + HULK_BASE_OFFSET(core::CementLibrary, core::SafeRefCount)))->call_0026f160();
 }
 
 
