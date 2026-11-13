@@ -129,16 +129,6 @@ class Ref_236d60 {
     virtual void e();
     virtual void Release(int);
 };
-class Param_236d60 {
-  public:
-    virtual void p() HULK_PURE64;
-};
-extern "C" void __fastcall FUN_00234210(void* self);
-class Track_236d60 : public Param_236d60 {
-  public:
-    virtual ~Track_236d60();
-    Ref_236d60* mRef;
-};
 
 } // namespace fn_f5a78e74
 
@@ -298,20 +288,18 @@ fight::Track::Track() {
     f_08 = 0;
 }
 
-namespace fn_f5a78e74 {
 
 
 // 0x00236d60 FUN_00236d60 (38 B): matches/0x00236d60.cpp
-// sym: ??1Track_236d60@fn_f5a78e74@@UAE@XZ
+// sym: ??1Track@fight@@UAE@XZ
 // Same code shape as 0x002345b0 (propagated; names are from that function)
-Track_236d60::~Track_236d60() {
-    if (mRef)
-        mRef->Release(1);
-    mRef = 0;
-    FUN_00234210(this);
+// (unb6) fight::Track's destructor (include/gen): the derived classes' destructors call it; f_04 is released through its
+// slot 5 (the scalar deleting destructor), then fight::Param's destructor (0x00234210) runs
+fight::Track::~Track() throw() {
+    if (f_04)
+        ((Ref_236d60*)f_04)->Release(1);
+    f_04 = 0;
 }
-
-} // namespace fn_f5a78e74
 
 // 0x00236d90 fight::Track::vfunc_5 (59 B): matches/0x00236d90.cpp [wrapped: conflict: Track]
 // sym: ?v5@Track@fn_00236d90@@UAEPAV12@H@Z

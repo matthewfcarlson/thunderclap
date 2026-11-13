@@ -479,7 +479,6 @@ namespace hulkfight {
 class ChapterMissionCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ChapterMissionCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -502,7 +501,6 @@ public:
 class DebugPrintCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~DebugPrintCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     void* f_0c;
@@ -513,7 +511,6 @@ public:
 class DebugPrintTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~DebugPrintTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -536,7 +533,6 @@ public:
 class DialogueTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~DialogueTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -551,7 +547,6 @@ public:
 class GameStateCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GameStateCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     void* f_0c;
@@ -564,7 +559,6 @@ public:
 class LocationCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~LocationCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int environmentCompare;
@@ -577,7 +571,6 @@ public:
 class MissionProgressCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MissionProgressCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     void* f_0c;
@@ -601,7 +594,6 @@ public:
 class NISSoundTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~NISSoundTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -627,7 +619,6 @@ public:
 class PostEvent_StringTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PostEvent_StringTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -665,7 +656,6 @@ public:
 class StatBeginTrialTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~StatBeginTrialTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -688,7 +678,6 @@ public:
 class StatEndTrialTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~StatEndTrialTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -699,7 +688,6 @@ public:
 class StatTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~StatTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -711,7 +699,6 @@ public:
 class UnlockableCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~UnlockableCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int unlockable;
@@ -734,7 +721,6 @@ public:
 class XPTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~XPTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -748,7 +734,6 @@ namespace hulkfight { namespace ai {
 class AIFightNodeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AIFightNodeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     void* f_0c;
@@ -758,7 +743,6 @@ public:
 class AIHistoryCountTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AIHistoryCountTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -769,7 +753,6 @@ public:
 class AIHistoryNameCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AIHistoryNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -792,7 +775,6 @@ public:
 class AIHistorySetTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AIHistorySetTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -815,7 +797,6 @@ public:
 class AcquireTargetCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AcquireTargetCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -827,7 +808,6 @@ public:
 class AcquireTargetTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AcquireTargetTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -857,7 +837,6 @@ public:
 class ButtonTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ButtonTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -873,7 +852,6 @@ public:
 class CanSeeTargetCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CanSeeTargetCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -895,7 +873,6 @@ public:
 class ClearProjectileDistanceTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ClearProjectileDistanceTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -908,7 +885,6 @@ public:
 class ComputeDropZoneCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ComputeDropZoneCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     float f_0c;
@@ -924,7 +900,6 @@ public:
 class DefendingCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~DefendingCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
 
@@ -942,7 +917,6 @@ public:
 class FaceMotionTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FaceMotionTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -964,7 +938,6 @@ public:
 class FaceTargetTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FaceTargetTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -976,7 +949,6 @@ public:
 class FightingOtherNPCCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FightingOtherNPCCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -986,7 +958,6 @@ public:
 class FormationReadyCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FormationReadyCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -997,7 +968,6 @@ public:
 class HasGroundPointCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HasGroundPointCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -1008,7 +978,6 @@ public:
 class HasGroundPointExtendedCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HasGroundPointExtendedCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x5];
     char f_0d;
@@ -1025,7 +994,6 @@ public:
 class HasTargetCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HasTargetCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     bool f_0c;
@@ -1046,7 +1014,6 @@ public:
 class HulkActionCountCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HulkActionCountCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -1058,7 +1025,6 @@ public:
 class HulkActionLargestCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HulkActionLargestCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
 
@@ -1066,7 +1032,6 @@ public:
 class HulkActionRecentCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HulkActionRecentCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
 
@@ -1074,7 +1039,6 @@ public:
 class HulkActionTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HulkActionTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1088,7 +1052,6 @@ public:
 class InActiveCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~InActiveCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x8];
     char f_10;
@@ -1098,7 +1061,6 @@ public:
 class KeyWordWaitCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~KeyWordWaitCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -1122,7 +1084,6 @@ public:
 class KeywordWaitTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~KeywordWaitTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1136,7 +1097,6 @@ public:
 class LeashedCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~LeashedCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     unsigned char f_0c;
@@ -1146,7 +1106,6 @@ public:
 class LocatorDistanceCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~LocatorDistanceCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -1171,7 +1130,6 @@ public:
 class MotionBoostTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MotionBoostTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1199,7 +1157,6 @@ public:
 class MotionChaseTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MotionChaseTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1233,7 +1190,6 @@ public:
 class MotionClosestWaypointTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MotionClosestWaypointTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1265,7 +1221,6 @@ public:
 class MotionFacingTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MotionFacingTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1292,7 +1247,6 @@ public:
 class MotionFleeTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MotionFleeTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1315,7 +1269,6 @@ public:
 class MotionLocatorTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MotionLocatorTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1346,7 +1299,6 @@ public:
 class MotionStopTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MotionStopTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1367,7 +1319,6 @@ public:
 class MotionTargetTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MotionTargetTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1384,7 +1335,6 @@ public:
 class OnBlockedTriangleCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~OnBlockedTriangleCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -1487,7 +1437,6 @@ public:
 class PathFormationTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PathFormationTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1508,7 +1457,6 @@ public:
 class PathLocatorTestCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PathLocatorTestCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     void* f_0c;
@@ -1531,7 +1479,6 @@ public:
 class PathTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PathTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1564,7 +1511,6 @@ public:
 class ProjectileDistanceCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ProjectileDistanceCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -1577,7 +1523,6 @@ public:
 class PropsToChuckCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropsToChuckCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -1588,7 +1533,6 @@ public:
 class PropsToSuckCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropsToSuckCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -1602,7 +1546,6 @@ public:
 class RandomKeyWordWaitCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~RandomKeyWordWaitCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -1631,7 +1574,6 @@ public:
 class RoutTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~RoutTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1665,7 +1607,6 @@ public:
 class SemaphoreClearTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~SemaphoreClearTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1691,7 +1632,6 @@ public:
 class SemaphoreWaitTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~SemaphoreWaitTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1708,7 +1648,6 @@ public:
 class ShotFailCountCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ShotFailCountCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -1735,7 +1674,6 @@ public:
 class StrafeCircleHBTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~StrafeCircleHBTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1752,7 +1690,6 @@ public:
 class StrafeCircleTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~StrafeCircleTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1783,7 +1720,6 @@ public:
 class StrafeLateralHBTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~StrafeLateralHBTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1813,7 +1749,6 @@ public:
 class StrafeRunTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~StrafeRunTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1836,7 +1771,6 @@ public:
 class TargetAngleYCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetAngleYCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -1847,7 +1781,6 @@ public:
 class TargetArcCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetArcCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     float f_0c;
@@ -1873,7 +1806,6 @@ public:
 class TargetClearTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetClearTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -1884,7 +1816,6 @@ public:
 class TargetDirectionCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetDirectionCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -1895,7 +1826,6 @@ public:
 class TargetDirectionXZCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetDirectionXZCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -1906,7 +1836,6 @@ public:
 class TargetDirectionYCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetDirectionYCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -1917,7 +1846,6 @@ public:
 class TargetDistanceCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetDistanceCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -1930,7 +1858,6 @@ public:
 class TargetDistanceXZCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetDistanceXZCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -1943,7 +1870,6 @@ public:
 class TargetDistanceYCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetDistanceYCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -1957,7 +1883,6 @@ public:
 class TargetFirstShotCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetFirstShotCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
 
@@ -1965,7 +1890,6 @@ public:
 class TargetInvincibleCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetInvincibleCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -1975,7 +1899,6 @@ public:
 class TargetOrientationCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetOrientationCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     float f_0c;
@@ -1986,7 +1909,6 @@ public:
 class TargetTypeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetTypeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -1997,7 +1919,6 @@ public:
 class TargetVelocityCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetVelocityCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -2008,7 +1929,6 @@ public:
 class TargetVelocityXZCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetVelocityXZCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_08;
     int f_0c;
@@ -2018,7 +1938,6 @@ public:
 class TargetVelocityYCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetVelocityYCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -2029,7 +1948,6 @@ public:
 class ThreatAngleCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ThreatAngleCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     float angle;
@@ -2055,7 +1973,6 @@ public:
 class ThreatBallTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ThreatBallTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2073,7 +1990,6 @@ public:
 class ThreatCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ThreatCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     void FUN_0012b410(); // non-virtual
     char _pad_08[0x4];
@@ -2088,7 +2004,6 @@ public:
 class ThreatDistanceCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ThreatDistanceCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x18];
     char f_20;
@@ -2108,7 +2023,6 @@ public:
 class ThreatDodgeTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ThreatDodgeTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2134,7 +2048,6 @@ public:
 class TokenCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TokenCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -2158,7 +2071,6 @@ public:
 class TokenSupressTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TokenSupressTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2175,7 +2087,6 @@ public:
 class TokenTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TokenTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2203,7 +2114,6 @@ public:
 class AccuracyLatencyTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AccuracyLatencyTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2230,7 +2140,6 @@ public:
 class AirToGroundTargetTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AirToGroundTargetTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2277,7 +2186,6 @@ public:
 class AnimationChargeTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AnimationChargeTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2310,7 +2218,6 @@ public:
 class AnimationLinkedTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AnimationLinkedTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2344,7 +2251,6 @@ public:
 class AnimationPhaseMatchedTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AnimationPhaseMatchedTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2365,7 +2271,6 @@ public:
 class AnimationTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AnimationTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2401,7 +2306,6 @@ public:
 class AnimationVelocityScaledTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~AnimationVelocityScaledTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2446,7 +2350,6 @@ public:
 class BallAndChainReturnTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~BallAndChainReturnTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2498,7 +2401,6 @@ public:
 class BallAndChainShootTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~BallAndChainShootTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2549,7 +2451,6 @@ public:
 class BallAndChainSpinTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~BallAndChainSpinTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2599,7 +2500,6 @@ public:
 class BounceTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~BounceTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2619,7 +2519,6 @@ public:
 class CSMPropIsCharacterCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CSMPropIsCharacterCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -2629,7 +2528,6 @@ public:
 class CharacterPropStatusCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CharacterPropStatusCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -2664,7 +2562,6 @@ public:
 class ChargeClearTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ChargeClearTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2677,7 +2574,6 @@ public:
 class ChargeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ChargeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -2689,7 +2585,6 @@ public:
 class ChargeTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ChargeTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2715,7 +2610,6 @@ public:
 class CivilianAnimationTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CivilianAnimationTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2743,7 +2637,6 @@ public:
 class CivilianAttachTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CivilianAttachTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2754,7 +2647,6 @@ public:
 class CivilianAttachedCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CivilianAttachedCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
 
@@ -2772,7 +2664,6 @@ public:
 class CivilianDetachTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CivilianDetachTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2789,7 +2680,6 @@ public:
 class CivilianTargetCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CivilianTargetCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
 
@@ -2807,7 +2697,6 @@ public:
 class CivilianThrowTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CivilianThrowTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2840,7 +2729,6 @@ public:
 class ClearFightParamsHitRecordTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ClearFightParamsHitRecordTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -2895,7 +2783,6 @@ public:
 class CollisionChargeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionChargeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -2907,7 +2794,6 @@ public:
 class CollisionDamageHealthCompareCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionDamageHealthCompareCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -2920,7 +2806,6 @@ public:
 class CollisionDevastatorCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionDevastatorCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -2930,7 +2815,6 @@ public:
 class CollisionExplosionCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionExplosionCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     unsigned char f_0c;
@@ -2940,7 +2824,6 @@ public:
 class CollisionInterruptPriorityCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionInterruptPriorityCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -2950,7 +2833,6 @@ public:
 class CollisionSourceForceMagnitudeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionSourceForceMagnitudeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -2961,7 +2843,6 @@ public:
 class CollisionSourceIsMissileCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionSourceIsMissileCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     unsigned char f_0c;
@@ -2971,7 +2852,6 @@ public:
 class CollisionSourceNameCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionSourceNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -2983,7 +2863,6 @@ public:
 class CollisionSourceNodeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionSourceNodeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -2995,7 +2874,6 @@ public:
 class CollisionSourceSizeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionSourceSizeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -3006,7 +2884,6 @@ public:
 class CollisionSourceTypeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionSourceTypeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -3017,7 +2894,6 @@ public:
 class CollisionTargetIsTargetCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionTargetIsTargetCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -3027,7 +2903,6 @@ public:
 class CollisionTargetNameCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionTargetNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -3039,7 +2914,6 @@ public:
 class CollisionTargetPriorityCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionTargetPriorityCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -3050,7 +2924,6 @@ public:
 class CollisionTargetSizeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionTargetSizeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_08;
     int compare;
@@ -3061,7 +2934,6 @@ public:
 class CollisionTargetTypeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionTargetTypeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -3072,7 +2944,6 @@ public:
 class CollisionThrowCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionThrowCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -3082,7 +2953,6 @@ public:
 class CollisionThrownObjectCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CollisionThrownObjectCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -3102,7 +2972,6 @@ public:
 class CriticalMassDrainTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~CriticalMassDrainTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3128,7 +2997,6 @@ public:
 class DriftToHulkTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~DriftToHulkTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3165,7 +3033,6 @@ public:
 class DriftToPositionTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~DriftToPositionTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3200,7 +3067,6 @@ public:
 class FallTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FallTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3253,7 +3119,6 @@ public:
 class FireBeamTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FireBeamTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3344,7 +3209,6 @@ public:
 class FireGroundShockwaveTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FireGroundShockwaveTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3490,7 +3354,6 @@ public:
 class FireProjectileTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FireProjectileTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3554,7 +3417,6 @@ public:
 class FlyingAttackTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FlyingAttackTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3591,7 +3453,6 @@ public:
 class FlyingAutoTargetTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FlyingAutoTargetTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3625,7 +3486,6 @@ public:
 class FlyingBrakeTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FlyingBrakeTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3656,7 +3516,6 @@ public:
 class FlyingDashTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FlyingDashTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3685,7 +3544,6 @@ public:
 class FootPivotTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FootPivotTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3708,7 +3566,6 @@ public:
 class FrameCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FrameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0xc];
     int f_14;
@@ -3720,7 +3577,6 @@ public:
 class FrameReachedCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~FrameReachedCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0xc];
     int f_14;
@@ -3739,7 +3595,6 @@ public:
 class GrappleAttachJointCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrappleAttachJointCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -3751,7 +3606,6 @@ public:
 class GrappleAttachedCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrappleAttachedCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     unsigned char f_0c;
@@ -3761,7 +3615,6 @@ public:
 class GrappleExecuteTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrappleExecuteTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
@@ -3777,7 +3630,6 @@ public:
 class GrappleHealthCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrappleHealthCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -3805,7 +3657,6 @@ public:
 class GrappleHitReactionTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrappleHitReactionTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
@@ -3834,7 +3685,6 @@ public:
 class GrappleHoverTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrappleHoverTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
@@ -3860,7 +3710,6 @@ public:
 class GrappleLocomotionSteerTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrappleLocomotionSteerTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
@@ -3877,7 +3726,6 @@ public:
 class GrappleOrientationCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrappleOrientationCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     float f_0c;
@@ -3898,7 +3746,6 @@ public:
 class GrapplePropDamageTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrapplePropDamageTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3912,7 +3759,6 @@ public:
 class GrapplePropStateByNameCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrapplePropStateByNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int attachmentIndex;
@@ -3925,7 +3771,6 @@ public:
 class GrappleReactionTypeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrappleReactionTypeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -3948,7 +3793,6 @@ public:
 class GrappleStruggleTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrappleStruggleTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -3978,7 +3822,6 @@ public:
 class GrappleThrowTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrappleThrowTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
@@ -4002,7 +3845,6 @@ public:
 class GrappleVarCompareCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GrappleVarCompareCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x10];
     int f_18;
@@ -4026,7 +3868,6 @@ public:
 class GroundSlideTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~GroundSlideTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4057,7 +3898,6 @@ public:
 class HealthCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HealthCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     void* compare;
@@ -4069,7 +3909,6 @@ public:
 class HealthPercentCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HealthPercentCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -4080,7 +3919,6 @@ public:
 class HealthTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HealthTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4112,7 +3950,6 @@ public:
 class HeliLocomotionTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HeliLocomotionTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4135,7 +3972,6 @@ public:
 class HitDamageTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitDamageTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4158,7 +3994,6 @@ public:
 class HitEffectTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitEffectTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4188,7 +4023,6 @@ public:
 class HitFloatTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitFloatTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4218,7 +4052,6 @@ public:
 class HitOrientToPushbackTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitOrientToPushbackTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4244,7 +4077,6 @@ public:
 class HitPauseTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitPauseTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4284,7 +4116,6 @@ public:
 class HitPushbackAddTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitPushbackAddTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4296,7 +4127,6 @@ public:
 class HitPushbackCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitPushbackCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     unsigned char f_0c;
@@ -4306,7 +4136,6 @@ public:
 class HitPushbackTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitPushbackTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4327,7 +4156,6 @@ public:
 class HitPushbackVelocityCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitPushbackVelocityCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_08;
     int f_0c;
@@ -4370,7 +4198,6 @@ public:
 class HitReactionFloatTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitReactionFloatTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_9(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 9
@@ -4398,7 +4225,6 @@ public:
 class HitReactionTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitReactionTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_9(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 9
@@ -4439,7 +4265,6 @@ public:
 class HitThrowTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitThrowTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4466,7 +4291,6 @@ public:
 class HitWaitTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HitWaitTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4488,7 +4312,6 @@ public:
 class HoverTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~HoverTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4512,7 +4335,6 @@ public:
 class ImpulseVelocityTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ImpulseVelocityTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4527,7 +4349,6 @@ public:
 class InLoadedRoomCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~InLoadedRoomCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -4537,7 +4358,6 @@ public:
 class IntentionButtonDownAnyCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~IntentionButtonDownAnyCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -4558,7 +4378,6 @@ public:
 class IntentionClearTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~IntentionClearTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4570,7 +4389,6 @@ public:
 class IntentionInputCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~IntentionInputCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -4583,7 +4401,6 @@ public:
 class InterruptAccumulatorCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~InterruptAccumulatorCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -4604,7 +4421,6 @@ public:
 class InterruptAccumulatorSetTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~InterruptAccumulatorSetTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4627,7 +4443,6 @@ public:
 class InterruptPriorityTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~InterruptPriorityTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4651,7 +4466,6 @@ public:
 class JointPivotTrackerTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~JointPivotTrackerTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4681,7 +4495,6 @@ public:
 class JointPlantedCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~JointPlantedCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0xc];
     int f_14;
@@ -4705,7 +4518,6 @@ public:
 class JointRelativeTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~JointRelativeTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4747,7 +4559,6 @@ public:
 class JointTrackerTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~JointTrackerTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4789,7 +4600,6 @@ public:
 class LocomotingCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~LocomotingCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -4799,7 +4609,6 @@ public:
 class LocomotingTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~LocomotingTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4811,7 +4620,6 @@ public:
 class LocomotionMotionStateCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~LocomotionMotionStateCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -4834,7 +4642,6 @@ public:
 class LocomotionSprintTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~LocomotionSprintTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4866,7 +4673,6 @@ public:
 class LocomotionStateTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~LocomotionStateTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4893,7 +4699,6 @@ public:
 class LocomotionSteerTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~LocomotionSteerTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4973,7 +4778,6 @@ public:
 class MissilePunchTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MissilePunchTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -4996,7 +4800,6 @@ public:
 class MissileThrowTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MissileThrowTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5036,7 +4839,6 @@ public:
 class MomentumXZAddTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MomentumXZAddTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5061,7 +4863,6 @@ public:
 class MotionBlurTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MotionBlurTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5087,7 +4888,6 @@ public:
 class MotionStateTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MotionStateTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5110,7 +4910,6 @@ public:
 class MotionTrailStopTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MotionTrailStopTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5145,7 +4944,6 @@ public:
 class MoveJointTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~MoveJointTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5186,7 +4984,6 @@ public:
 class NoHitPushbackTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~NoHitPushbackTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5198,7 +4995,6 @@ public:
 class PhaseCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PhaseCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_08;
     float f_0c;
@@ -5324,7 +5120,6 @@ public:
 class PropActorThinkingTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropActorThinkingTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5347,7 +5142,6 @@ public:
 class PropActorToPropTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropActorToPropTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5371,7 +5165,6 @@ public:
 class PropAddToCollisionTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropAddToCollisionTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5394,7 +5187,6 @@ public:
 class PropAddToMissileCountTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropAddToMissileCountTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5420,7 +5212,6 @@ public:
 class PropAnimationTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropAnimationTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5438,7 +5229,6 @@ public:
 class PropAtRestCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropAtRestCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -5448,7 +5238,6 @@ public:
 class PropCollidedWithWorldCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropCollidedWithWorldCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -5468,7 +5257,6 @@ public:
 class PropDamageTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropDamageTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5491,7 +5279,6 @@ public:
 class PropDestroyTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropDestroyTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5513,7 +5300,6 @@ public:
 class PropDropTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropDropTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5525,7 +5311,6 @@ public:
 class PropGrabbableIsMissileCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropGrabbableIsMissileCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -5535,7 +5320,6 @@ public:
 class PropGrabbableIsThrownCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropGrabbableIsThrownCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -5545,7 +5329,6 @@ public:
 class PropIsAttachedCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropIsAttachedCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -5556,7 +5339,6 @@ public:
 class PropIsMissileCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropIsMissileCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -5567,7 +5349,6 @@ public:
 class PropMassCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropMassCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -5582,7 +5363,6 @@ public:
 class PropMissileCountCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropMissileCountCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -5594,7 +5374,6 @@ public:
 class PropMissionCriticalCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropMissionCriticalCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -5615,7 +5394,6 @@ public:
 class PropSetStateByIndexTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropSetStateByIndexTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5638,7 +5416,6 @@ public:
 class PropSetStateByNameTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropSetStateByNameTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5660,7 +5437,6 @@ public:
 class PropSpawnTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropSpawnTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5685,7 +5461,6 @@ public:
 class PropStateByIndexCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropStateByIndexCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int attachmentIndex;
@@ -5697,7 +5472,6 @@ public:
 class PropStateByNameCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropStateByNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int attachmentIndex;
@@ -5722,7 +5496,6 @@ public:
 class PropThrowTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PropThrowTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5770,7 +5543,6 @@ public:
 class PushOutTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~PushOutTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5792,7 +5564,6 @@ public:
 class RageModeStateCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~RageModeStateCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -5803,7 +5574,6 @@ public:
 class RayCastCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~RayCastCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0xc];
     int f_14;
@@ -5820,7 +5590,6 @@ public:
 class RayCastConeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~RayCastConeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x1c];
     float f_24;
@@ -5833,7 +5602,6 @@ public:
 class RayCastTargetCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~RayCastTargetCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0xc];
     int f_14;
@@ -5857,7 +5625,6 @@ public:
 class RestPoseTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~RestPoseTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5883,7 +5650,6 @@ public:
 class ShieldArcTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ShieldArcTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5895,7 +5661,6 @@ public:
 class ShoreNearCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ShoreNearCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -5916,7 +5681,6 @@ public:
 class SimulationTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~SimulationTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5940,7 +5704,6 @@ public:
 class SlowMotionTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~SlowMotionTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -5956,7 +5719,6 @@ public:
 class SmartPropGrabbableCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~SmartPropGrabbableCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -5979,7 +5741,6 @@ public:
 class SmartPropIsCargoCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~SmartPropIsCargoCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -5999,7 +5760,6 @@ public:
 class SnapToGroundTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~SnapToGroundTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6032,7 +5792,6 @@ public:
 class SuckInPropsTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~SuckInPropsTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6047,7 +5806,6 @@ public:
 class SuckTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~SuckTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6082,7 +5840,6 @@ public:
 class SurfTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~SurfTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6124,7 +5881,6 @@ public:
 class SyncToLocatorTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~SyncToLocatorTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6153,7 +5909,6 @@ public:
 class TankLocomotionTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TankLocomotionTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6198,7 +5953,6 @@ public:
 class TargetBreakTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetBreakTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6209,7 +5963,6 @@ public:
 class TargetCharacterTemplateCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetCharacterTemplateCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     void* f_0c;
@@ -6219,7 +5972,6 @@ public:
 class TargetHealthPercentCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetHealthPercentCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6240,7 +5992,6 @@ public:
 class TargetIconDistanceTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetIconDistanceTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6255,7 +6006,6 @@ public:
 class TargetLocomotionMotionStateCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetLocomotionMotionStateCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -6266,7 +6016,6 @@ public:
 class TargetMotionStateCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetMotionStateCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -6277,7 +6026,6 @@ public:
 class TargetingCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TargetingCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     unsigned char f_0c;
@@ -6310,7 +6058,6 @@ public:
 class TeleportRelativeTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TeleportRelativeTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6335,7 +6082,6 @@ public:
 class TeleportToLocatorTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TeleportToLocatorTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6347,7 +6093,6 @@ public:
 class TeleportTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TeleportTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6360,7 +6105,6 @@ public:
 class ThinkingCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~ThinkingCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     unsigned char f_0c;
@@ -6370,7 +6114,6 @@ public:
 class TimerCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TimerCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6395,7 +6138,6 @@ public:
 class TimerSetTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TimerSetTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6408,7 +6150,6 @@ public:
 class TurningVelocityCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~TurningVelocityCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6430,7 +6171,6 @@ public:
 class VarAssignTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~VarAssignTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6446,7 +6186,6 @@ public:
 class VarCompareCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~VarCompareCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x10];
     int compare;
@@ -6457,7 +6196,6 @@ public:
 class VelocityAnimatedCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~VelocityAnimatedCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6468,7 +6206,6 @@ public:
 class VelocityAnimatedXZAngleCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~VelocityAnimatedXZAngleCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     float f_0c;
@@ -6479,7 +6216,6 @@ public:
 class VelocityAnimatedXZCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~VelocityAnimatedXZCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6490,7 +6226,6 @@ public:
 class VelocityAnimatedYCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~VelocityAnimatedYCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6501,7 +6236,6 @@ public:
 class VelocityCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~VelocityCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6512,7 +6246,6 @@ public:
 class VelocityXZAngleCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~VelocityXZAngleCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     float f_0c;
@@ -6523,7 +6256,6 @@ public:
 class VelocityXZCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~VelocityXZCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6534,7 +6266,6 @@ public:
 class VelocityYCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~VelocityYCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6555,7 +6286,6 @@ public:
 class VisibilityTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~VisibilityTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6588,7 +6318,6 @@ public:
 class WallExitTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~WallExitTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6632,7 +6361,6 @@ public:
 class WallJumpTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~WallJumpTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6683,7 +6411,6 @@ public:
 class WallRunTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~WallRunTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6709,7 +6436,6 @@ public:
 class WallVelocityCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~WallVelocityCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6730,7 +6456,6 @@ public:
 class WorldConeDamageTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~WorldConeDamageTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6769,7 +6494,6 @@ public:
 class WorldDamageTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~WorldDamageTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6807,7 +6531,6 @@ public:
 class EffectTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~EffectTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -6831,7 +6554,6 @@ public:
 class EventCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~EventCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6841,7 +6563,6 @@ public:
 class Event_CharacterTemplateCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_CharacterTemplateCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x8];
     int f_10;
@@ -6851,7 +6572,6 @@ public:
 class Event_CharacterTemplateVariationCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_CharacterTemplateVariationCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6864,7 +6584,6 @@ public:
 class Event_FirstTimeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_FirstTimeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     char f_0c;
@@ -6874,7 +6593,6 @@ public:
 class Event_LocomotionStateNameCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_LocomotionStateNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -6885,7 +6603,6 @@ public:
 class Event_LocomotionStateNamePreviousCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_LocomotionStateNamePreviousCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int compare;
@@ -6896,7 +6613,6 @@ public:
 class Event_PathNameCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_PathNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6908,7 +6624,6 @@ public:
 class Event_PropNameCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_PropNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0xc];
     int f_14;
@@ -6918,7 +6633,6 @@ public:
 class Event_PropStateDescCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_PropStateDescCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6928,7 +6642,6 @@ public:
 class Event_PropStateNameCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_PropStateNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0xc];
     int f_14;
@@ -6938,7 +6651,6 @@ public:
 class Event_PropTypeCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_PropTypeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0xc];
     int f_14;
@@ -6948,7 +6660,6 @@ public:
 class Event_StringCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_StringCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x8];
     int f_10;
@@ -6959,7 +6670,6 @@ public:
 class Event_TriggerVolumeNameCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_TriggerVolumeNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x8];
     int f_10;
@@ -6970,7 +6680,6 @@ public:
 class Event_WaypointCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~Event_WaypointCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     int f_0c;
@@ -6994,7 +6703,6 @@ public:
 class LuaCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~LuaCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     void* f_0c;
@@ -7005,7 +6713,6 @@ public:
 class LuaTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~LuaTrack(); // overrides fight::Param slot 5
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
@@ -7124,7 +6831,6 @@ public:
 class NodeIsNotRunningCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~NodeIsNotRunningCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
 
@@ -7132,7 +6838,6 @@ public:
 class NodeShouldRunImmediatelyCondition : public ::fight::Condition {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual ~NodeShouldRunImmediatelyCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
 
