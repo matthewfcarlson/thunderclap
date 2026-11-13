@@ -1239,7 +1239,7 @@
 "core::DebugConsole": 168,
 "core::DriveCancelRequest": 12,
 "core::DriveCompletionRequest": 24,
-"core::DriveCreateDirectoryRequest": 16,
+"core::DriveCreateDirectoryRequest": 32,
 "core::DriveDestroyDirectoryRequest": 32,
 "core::DriveFileDestroyRequest": 16,
 "core::DriveFindCloseRequest": 12,

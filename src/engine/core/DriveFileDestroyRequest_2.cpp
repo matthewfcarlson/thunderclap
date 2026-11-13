@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00275bd0..0x00275c80 (kind game, layer engine, confidence medium), dominant class core::DriveFileDestroyRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #define TREE_TU_BEGIN namespace fn_fcf3cc66 {
 #define TREE_TU_END }
@@ -35,9 +36,7 @@ namespace core {
 struct Obj_275c10 {
     virtual void g0();
     virtual void g1();
-    Inner_275c10 sub;
-    char pad[0x14 - 4 - sizeof(Inner_275c10)];
-    int count;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively   // (x64t10) the lock; the request count is decls/instance_drive.h's `pending`
 };
 }
 namespace core {
@@ -95,9 +94,9 @@ DriveFileDestroyRequest* DriveFileDestroyRequest::Run(hulk_intptr a, char* p) {
 namespace core {
 void* DriveFileDestroyRequest::vfunc_0(unsigned flags) {
     *(void***)this = hulk_at_0042b9bc;
-    mObj->sub.f0();
-    mObj->count--;
-    mObj->sub.f1();
+    ((Inner_275c10*)&mObj->sub)->f0();
+    ((HulkInstanceDrive*)mObj)->pending--;
+    ((Inner_275c10*)&mObj->sub)->f1();
     mObj->g1();
     *(void***)this = hulk_at_0042b914;
     if (flags & 1) {

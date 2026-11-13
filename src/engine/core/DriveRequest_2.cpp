@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
+#include "decls/instance_drive.h"
 #define TREE_TU_BEGIN namespace fn_f57d136c {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -23,11 +24,13 @@ class Obj_275600 {
     virtual void A();
 };
 extern "C" int* __cdecl FUN_002705f0();   // (x64t9) returns a global's address (0x002705f0: `mov eax, imm; ret`)
+// (x64t10) the InstanceDrive the request runs on: decls/instance_drive.h's record (its lock is the IMutable
+// vftable's object at mutableVftable)
 struct DriveRequest_275600 {
     void* vf;
     int p4;
-    Obj_275600* p8;
-    DriveRequest_275600(Obj_275600*);
+    HulkInstanceDrive* p8;
+    DriveRequest_275600(HulkInstanceDrive*);
 };
 typedef unsigned char byte_275650;
 struct O_275650 {
@@ -45,14 +48,12 @@ struct T_275650 {
     virtual void c();
     virtual void d();
     virtual void e();
-    char pad[0x10];
-    int count;
 };
 namespace core {
 struct DriveRequest {
     virtual DriveRequest* vfunc_0(byte_275650);
     char pad[4];
-    T_275650* field8;
+    HulkInstanceDrive* field8;   // (x64t10) decls/instance_drive.h
 };
 }
 extern "C" char DAT_0042bb60[];
@@ -61,24 +62,24 @@ extern "C" char DAT_0042bb60[];
 class DriveOpenRequest {
   public:
     hulk_intptr vptr;
-    void* Init_00275600(Obj_275600*);
-    DriveOpenRequest(Obj_275600*);
+    void* Init_00275600(HulkInstanceDrive*);
+    DriveOpenRequest(HulkInstanceDrive*);
 };
 
 
 // 0x00275600 FUN_00275600 (80 B): matches/0x00275600.cpp
-// sym: ??0DriveRequest_275600@fn_f57d136c@@QAE@PAVObj_275600@1@@Z
-DriveRequest_275600::DriveRequest_275600(Obj_275600* a) {
+// sym: ??0DriveRequest_275600@fn_f57d136c@@QAE@PAUHulkInstanceDrive@@@Z
+DriveRequest_275600::DriveRequest_275600(HulkInstanceDrive* a) {
     vf = hulk_at_0042b914;
     p4 = 0;
     FUN_002705f0();
     vf = vDrive;
     p8 = a;
     FUN_002705f0();
-    ((Elem_275600*)((char*)p8 + 4))->A();
-    ++*(int*)((char*)p8 + 0x14);
-    ((Elem_275600*)((char*)p8 + 4))->B();
-    p8->A();
+    ((Elem_275600*)&p8->mutableVftable)->A();
+    ++p8->pending;
+    ((Elem_275600*)&p8->mutableVftable)->B();
+    ((Obj_275600*)p8)->A();
 }
 
 
@@ -87,9 +88,9 @@ DriveRequest_275600::DriveRequest_275600(Obj_275600* a) {
 // data: glob_275650 = DAT_0052a1e4
 core::DriveRequest* core::DriveRequest::vfunc_0(byte_275650 flag) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042b9bc);
-    ((O_275650*)((char*)field8 + 4))->a();
-    field8->count--;
-    ((O_275650*)((char*)field8 + 4))->b();
+    ((O_275650*)&field8->mutableVftable)->a();
+    field8->pending--;
+    ((O_275650*)&field8->mutableVftable)->b();
     ((O_275650*)field8)->b();
     *(void**)this = (void*)((hulk_intptr)DAT_0042b914);
     if (flag & 1) {
@@ -102,8 +103,8 @@ core::DriveRequest* core::DriveRequest::vfunc_0(byte_275650 flag) {
 
 
 // 0x002756c0 FUN_002756c0 (30 B): matches/0x002756c0.cpp
-// sym: ??0DriveOpenRequest@fn_f57d136c@@QAE@PAVObj_275600@1@@Z
-DriveOpenRequest::DriveOpenRequest(Obj_275600* a) {
+// sym: ??0DriveOpenRequest@fn_f57d136c@@QAE@PAUHulkInstanceDrive@@@Z
+DriveOpenRequest::DriveOpenRequest(HulkInstanceDrive* a) {
     Init_00275600(a);
     vptr = ((hulk_intptr)DAT_0042bb60);
     FUN_002705f0();

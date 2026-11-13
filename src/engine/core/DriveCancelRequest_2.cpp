@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
+#include "decls/instance_drive.h"
 #define TREE_TU_BEGIN namespace fn_f241e4e6 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -16,8 +17,8 @@ extern "C" char DAT_0042bc80[];
 class DriveCancelRequest {
   public:
     hulk_intptr value;
-    DriveCancelRequest(hulk_intptr);
-    void Init_00275600(int);
+    DriveCancelRequest(HulkInstanceDrive*);
+    void Init_00275600(HulkInstanceDrive*);   // (x64t10) DriveRequest's constructor takes the InstanceDrive (was an int)
 };
 extern void Helper_002705f0();
 struct Lock_275ca0 {
@@ -27,9 +28,6 @@ struct Lock_275ca0 {
 struct Drive {
     virtual void slot0();
     virtual void release();
-    Lock_275ca0 guard;
-    char pad[12];
-    int count;
 };
 struct Alloc_275ca0 {
     virtual void s0();
@@ -46,7 +44,7 @@ struct Request {
 namespace core {
 struct DriveRequest : Request {
     int field4;
-    Drive* drive;
+    HulkInstanceDrive* drive;   // (x64t10) decls/instance_drive.h
     virtual void vfunc_1() HULK_PURE64;
     virtual bool vfunc_2_002743c0(int);
     virtual void vfunc_3_002743e0();
@@ -59,8 +57,8 @@ struct DriveRequest : Request {
 
 
 // 0x00275c80 FUN_00275c80 (30 B): matches/0x00275c80.cpp
-// sym: ??0DriveCancelRequest@fn_f241e4e6@@QAE@H@Z
-DriveCancelRequest::DriveCancelRequest(hulk_intptr arg) {
+// sym: ??0DriveCancelRequest@fn_f241e4e6@@QAE@PAUHulkInstanceDrive@@@Z
+DriveCancelRequest::DriveCancelRequest(HulkInstanceDrive* arg) {
     Init_00275600(arg);
     value = ((hulk_intptr)DAT_0042bc80);
     Helper_002705f0();
@@ -71,10 +69,10 @@ DriveCancelRequest::DriveCancelRequest(hulk_intptr arg) {
 // sym: ??0DriveRequest@core@fn_f241e4e6@@QAE@I@Z
 namespace core {
 DriveRequest::DriveRequest(unsigned flags) {
-    drive->guard.lock();
-    --drive->count;
-    drive->guard.unlock();
-    drive->release();
+    ((Lock_275ca0*)&drive->mutableVftable)->lock();
+    --drive->pending;
+    ((Lock_275ca0*)&drive->mutableVftable)->unlock();
+    ((Drive*)drive)->release();
     this->Request::Request();
     if (flags & 1) {
         FUN_0026d850(((char*)&DAT_0052a1c8));

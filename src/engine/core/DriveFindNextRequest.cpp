@@ -86,7 +86,7 @@ class Big_275ad0 {
   public:
     virtual void v0();
     virtual void v1();
-    B_275ad0 sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char pad[0xc];
     int cnt;
 };
@@ -146,9 +146,9 @@ DriveFindNextRequest_275aa0::DriveFindNextRequest_275aa0(hulk_intptr x, int y) :
 DriveFindNextRequest_275ad0* DriveFindNextRequest_275ad0::f0(unsigned char flags) {
     Big_275ad0* p = m8;
     vptr = ((void**)DAT_0042b9bc);
-    p->sub.v0();
+    ((B_275ad0*)&p->sub)->v0();
     m8->cnt--;
-    m8->sub.v1();
+    ((B_275ad0*)&m8->sub)->v1();
     m8->v1();
     vptr = (void**)DAT_0042b914;
     if (flags & 1) {

@@ -1799,4 +1799,11 @@ struct AudioFormatEntry {
 
 extern "C" AudioFormatEntry DAT_004cc248[6];
 
+
+// (x64t10) The physics world's pointer (CTargetAction's object; 0x002ef0b0 allocates the world and stores it here,
+// sixteen sources read it): decls/physics_world.h's HulkPhysicsWorld, so a 64-bit check of a block that reaches the
+// world through it lays the world out as the record (was `void*`: an untyped object to equiv64).
+struct HulkPhysicsWorld;
+extern "C" HulkPhysicsWorld* DAT_00554c14[1];
+
 #endif

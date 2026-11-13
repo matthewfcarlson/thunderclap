@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00274a50..0x00274af0 (kind game, layer engine, confidence high), dominant class core::DriveCancelRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_f0858443 {
@@ -20,7 +21,7 @@ class V {
 class Obj_274a50 {
   public:
     char pad[4];
-    V sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char rest[0x10];
     int count;
 };
@@ -37,7 +38,7 @@ class M_274a90 {
 class P_274a90 {
   public:
     char pad0[4];
-    I_274a90 sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char pad8[4];
     M_274a90* obj;
     int x10;
@@ -89,10 +90,10 @@ class DriveRequest_274ae0 {
 void core::DriveRequest::FUN_00274a50() {
     Obj_274a50* p = (*(Obj_274a50 * *)&this->f_08);
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b9bc);
-    p->sub.A();
-    --(*(int*)((char*)(*(Obj_274a50 * *)&this->f_08) + 0x14));
+    ((V*)&p->sub)->A();
+    --((HulkInstanceDrive*)(*(Obj_274a50 * *)&this->f_08))->pending;   // (x64t10) decls/instance_drive.h
     p = (*(Obj_274a50 * *)&this->f_08);
-    p->sub.B();
+    ((V*)&p->sub)->B();
     p = (*(Obj_274a50 * *)&this->f_08);
     ((V*)p)->B();
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b914);
@@ -103,9 +104,9 @@ void core::DriveRequest::FUN_00274a50() {
 // sym: ?vfunc_1@DriveCancelRequest@core@@UAEHXZ
 int core::DriveCancelRequest::vfunc_1() {
     (*(P_274a90 * *)&this->f_08)->obj->Call_00272b70((*(P_274a90 * *)&this->f_08), (*(P_274a90 * *)&this->f_08)->x10);
-    (*(P_274a90 * *)&this->f_08)->sub.f0();
+    ((I_274a90*)&(*(P_274a90 * *)&this->f_08)->sub)->f0();
     (*(P_274a90 * *)&this->f_08)->zero = 0;
-    (*(P_274a90 * *)&this->f_08)->sub.f1();
+    ((I_274a90*)&(*(P_274a90 * *)&this->f_08)->sub)->f1();
     return 1;
 }
 

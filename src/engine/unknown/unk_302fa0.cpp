@@ -387,7 +387,9 @@ extern "C" void __cdecl FUN_00304260(void *first, void * last_)
 // sym: ?FUN_00304300@Buffer_304300@owners@@QAEPAU12@XZ @27edadfb2920 @wc1ad8450f6aa
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00304300 @ 0x00304300
-owners::Buffer_304300* owners::Buffer_304300::FUN_00304300() { begin = 0; end = 0; capacity = 0; if (DAT_004d2f80 != 0) { int bytes = DAT_004d2f80 * 0x44; begin = FUN_0008d6d0(bytes); if (begin != 0) { capacity = (char*)begin + bytes; end = begin; return this; } } begin = 0; end = 0; capacity = 0; return this; }
+// (x64t10) the contact buffer's elements are decls/physics_world.h's HulkContact (0x44 bytes on the 32-bit builds,
+// 0x58 natively: the count of contacts times the record's size)
+owners::Buffer_304300* owners::Buffer_304300::FUN_00304300() { begin = 0; end = 0; capacity = 0; if (DAT_004d2f80 != 0) { int bytes = DAT_004d2f80 * (int)sizeof(HulkContact); begin = (HulkContact*)FUN_0008d6d0(bytes); if (begin != 0) { capacity = (char*)begin + bytes; end = begin; return this; } } begin = 0; end = 0; capacity = 0; return this; }
 
 namespace fn_f0220b18 {
 

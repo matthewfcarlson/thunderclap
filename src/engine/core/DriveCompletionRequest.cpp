@@ -51,7 +51,7 @@ class V {
 };
 struct Obj_2737a0 {
     char pad[4];
-    V sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char pad2[12];
     int count;
 };
@@ -88,9 +88,9 @@ int core::DriveCompletionRequest::vfunc_1() {
 // 0x002737a0 core::DriveCompletionRequest::vfunc_7 (45 B): matches/0x002737a0.cpp
 // sym: ?vfunc_7@DriveCompletionRequest@core@@UAEXXZ
 void core::DriveCompletionRequest::vfunc_7() {
-    (*(Obj_2737a0 * *)&this->f_0c)->sub.f0();
+    ((V*)&(*(Obj_2737a0 * *)&this->f_0c)->sub)->f0();
     --(*(Obj_2737a0 * *)&this->f_0c)->count;
-    (*(Obj_2737a0 * *)&this->f_0c)->sub.f1();
+    ((V*)&(*(Obj_2737a0 * *)&this->f_0c)->sub)->f1();
     (*(Q_2737a0 * *)&this->f_10)->f3(this->f_14);
 }
 

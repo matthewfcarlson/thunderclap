@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002746e0..0x00274790 (kind game, layer engine, confidence high), dominant class core::DriveDestroyDirectoryRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_f61dc6d2 {
@@ -20,7 +21,7 @@ class V {
 class Obj_2746e0 {
   public:
     char pad[4];
-    V sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char rest[0x10];
     int count;
 };
@@ -48,10 +49,10 @@ class HalStream_274770 {
 void core::DriveRequest::FUN_002746e0() {
     Obj_2746e0* p = (*(Obj_2746e0 * *)&this->f_08);
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b9bc);
-    p->sub.A();
-    --(*(int*)((char*)(*(Obj_2746e0 * *)&this->f_08) + 0x14));
+    ((V*)&p->sub)->A();
+    --((HulkInstanceDrive*)(*(Obj_2746e0 * *)&this->f_08))->pending;   // (x64t10) decls/instance_drive.h
     p = (*(Obj_2746e0 * *)&this->f_08);
-    p->sub.B();
+    ((V*)&p->sub)->B();
     p = (*(Obj_2746e0 * *)&this->f_08);
     ((V*)p)->B();
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b914);
@@ -88,7 +89,7 @@ struct Lock_274720 {
 };
 struct State_274720 {
     unsigned unknown0;
-    Lock_274720 lock;
+    void* lock;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     unsigned unknown8;
     Drive* drive;
     char pad10[8];
@@ -114,9 +115,9 @@ unsigned DriveDestroyDirectoryRequest::vfunc_1() {
     Drive* drive = state->drive;
     unsigned result = drive->slot16(&path);
     unsigned status = drive->FUN_00272880();
-    state->lock.acquire();
+    ((Lock_274720*)&state->lock)->acquire();
     state->result = status;
-    state->lock.release();
+    ((Lock_274720*)&state->lock)->release();
     return result;
 }
 } // namespace core

@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00274350..0x00274440 (kind game, layer engine, confidence high), dominant class core::DriveRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_fad045c4 {
@@ -20,7 +21,7 @@ class V {
 class Obj_274350 {
   public:
     char pad[4];
-    V sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char rest[0x10];
     int count;
 };
@@ -31,7 +32,7 @@ class Sub_274390 {
 };
 struct Container_274390 {
     char pad[4];
-    Sub_274390 sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char pad2[0x10];
     unsigned int value;
 };
@@ -87,10 +88,10 @@ class P_2743f0 {
 void core::DriveRequest::FUN_00274350() {
     Obj_274350* p = (*(Obj_274350 * *)&this->f_08);
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b9bc);
-    p->sub.A();
-    --(*(int*)((char*)(*(Obj_274350 * *)&this->f_08) + 0x14));
+    ((V*)&p->sub)->A();
+    --((HulkInstanceDrive*)(*(Obj_274350 * *)&this->f_08))->pending;   // (x64t10) decls/instance_drive.h
     p = (*(Obj_274350 * *)&this->f_08);
-    p->sub.B();
+    ((V*)&p->sub)->B();
     p = (*(Obj_274350 * *)&this->f_08);
     ((V*)p)->B();
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b914);
@@ -101,9 +102,9 @@ namespace fn_fad045c4 {
 // 0x00274390 FUN_00274390 (43 B): matches/0x00274390.cpp
 // sym: ?target@Outer_274390@fn_fad045c4@@QAEIII@Z
 unsigned int Outer_274390::target(unsigned int a, unsigned int b) {
-    obj->sub.A();
+    ((V*)&obj->sub)->A();
     obj->value = b;
-    obj->sub.B();
+    ((V*)&obj->sub)->B();
     return a;
 }
 

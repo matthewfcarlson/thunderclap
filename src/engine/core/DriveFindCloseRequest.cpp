@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00274860..0x002749a0 (kind game, layer engine, confidence high), dominant class core::DriveFindCloseRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_ffa549b9 {
@@ -16,8 +17,6 @@ class Drive {
   public:
     virtual void A();
     virtual void B();
-    char pad[0x10];
-    int count;
 };
 class DriveSub {
   public:
@@ -28,7 +27,7 @@ class DriveRequest_274860 {
   public:
     hulk_intptr vf;
     char pad[4];
-    Drive* drive;
+    HulkInstanceDrive* drive;   // (x64t10) decls/instance_drive.h
     void Run();
 };
 class Obj_2748a0 {
@@ -77,7 +76,7 @@ class V {
 class Obj_274900 {
   public:
     char pad[4];
-    V sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char rest[0x10];
     int count;
 };
@@ -150,10 +149,10 @@ class d3dShader_274980 : public pddiBaseShader_274980 {
 // sym: ?Run@DriveRequest_274860@fn_ffa549b9@@QAEXXZ
 void DriveRequest_274860::Run() {
     vf = ((hulk_intptr)DAT_0042b9bc);
-    ((DriveSub*)((char*)drive + 4))->A();
-    --drive->count;
-    ((DriveSub*)((char*)drive + 4))->B();
-    drive->B();
+    ((DriveSub*)&drive->mutableVftable)->A();
+    --drive->pending;
+    ((DriveSub*)&drive->mutableVftable)->B();
+    ((Drive*)drive)->B();
     vf = ((hulk_intptr)DAT_0042b914);
 }
 
@@ -162,12 +161,13 @@ void DriveRequest_274860::Run() {
 // 0x002748a0 core::DriveFindNextRequest::vfunc_1 (72 B): matches/0x002748a0.cpp
 // sym: ?vfunc_1@DriveFindNextRequest@core@@UAEHXZ
 int core::DriveFindNextRequest::vfunc_1() {
-    Obj_2748a0* o = (*(Drive_2748a0 * *)&this->f_08)->obj;
-    int r = o->call19((char*)&(*(Drive_2748a0 * *)&this->f_08)->p3, this->f_0c);
-    hulk_intptr v = (hulk_intptr)o->Fetch_00272880();
-    (*(Drive_2748a0 * *)&this->f_08)->sub.a();
-    (*(Drive_2748a0 * *)&this->f_08)->result = v;
-    (*(Drive_2748a0 * *)&this->f_08)->sub.b();
+    // (x64t10) the InstanceDrive's words (decls/instance_drive.h): the drive, the find handle, the status
+    Obj_2748a0* o = (Obj_2748a0*)(*(HulkInstanceDrive * *)&this->f_08)->source;
+    int r = o->call19((char*)&(*(HulkInstanceDrive * *)&this->f_08)->handle, this->f_0c);
+    int v = (int)(hulk_intptr)o->Fetch_00272880();
+    ((Sub_2748a0*)&(*(HulkInstanceDrive * *)&this->f_08)->mutableVftable)->a();
+    (*(HulkInstanceDrive * *)&this->f_08)->status = v;
+    ((Sub_2748a0*)&(*(HulkInstanceDrive * *)&this->f_08)->mutableVftable)->b();
     return r;
 }
 
@@ -184,10 +184,10 @@ int core::DriveFindNextRequest::vfunc_6() {
 void core::DriveRequest::FUN_00274900() {
     Obj_274900* p = (*(Obj_274900 * *)&this->f_08);
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b9bc);
-    p->sub.A();
-    --(*(int*)((char*)(*(Obj_274900 * *)&this->f_08) + 0x14));
+    ((V*)&p->sub)->A();
+    --((HulkInstanceDrive*)(*(Obj_274900 * *)&this->f_08))->pending;   // (x64t10) decls/instance_drive.h
     p = (*(Obj_274900 * *)&this->f_08);
-    p->sub.B();
+    ((V*)&p->sub)->B();
     p = (*(Obj_274900 * *)&this->f_08);
     ((V*)p)->B();
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b914);
@@ -197,13 +197,14 @@ void core::DriveRequest::FUN_00274900() {
 // 0x00274940 core::DriveFindCloseRequest::vfunc_1 (64 B): matches/0x00274940.cpp
 // sym: ?vfunc_1@DriveFindCloseRequest@core@@UAEHXZ
 int core::DriveFindCloseRequest::vfunc_1() {
-    Drive_274940* d = (*(Drive_274940 *volatile *)&this->f_08);
-    Service_274940* s = d->service;
-    d->flag = 0;
-    s->u((char*)(*(Drive_274940 *volatile *)&this->f_08) + 0x1c);
-    ((Inner_274940*)((char*)(*(Drive_274940 *volatile *)&this->f_08) + 4))->close();
-    *(int*)((char*)(*(Drive_274940 *volatile *)&this->f_08) + 0x18) = 0;
-    ((Inner_274940*)((char*)(*(Drive_274940 *volatile *)&this->f_08) + 4))->done();
+    // (x64t10) the InstanceDrive's words (decls/instance_drive.h): the drive, the find flag and handle, the status
+    HulkInstanceDrive* d = (*(HulkInstanceDrive *volatile *)&this->f_08);
+    Service_274940* s = (Service_274940*)d->source;
+    d->active = 0;
+    s->u(&(*(HulkInstanceDrive *volatile *)&this->f_08)->handle);
+    ((Inner_274940*)&(*(HulkInstanceDrive *volatile *)&this->f_08)->mutableVftable)->close();
+    (*(HulkInstanceDrive *volatile *)&this->f_08)->status = 0;
+    ((Inner_274940*)&(*(HulkInstanceDrive *volatile *)&this->f_08)->mutableVftable)->done();
     return 1;
 }
 

@@ -594,7 +594,10 @@ public:
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual void* vfunc_5(); // overrides core::Request slot 5
     virtual int vfunc_6(); // overrides core::Request slot 6
-    int f_0c; // typ1: the request's result (vfunc_5 returns its address, vfunc_1 0x00274670 fills it)
+    // (typ1, x64t10) the directory's name: 0x00275880 copies 16 characters and ends them at 0x1c; vfunc_5 returns its
+    // address, vfunc_1 0x00274670 passes it to the drive (0x00276860 allocates 0x20 bytes)
+    char f_0c[0x10];
+    char f_1c;
 };
 
 // .?AVDriveDestroyDirectoryRequest@core@@  vftable 0x42bbe0 (7)
@@ -604,8 +607,8 @@ public:
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual void* vfunc_5(); // overrides core::Request slot 5
     virtual int vfunc_6(); // overrides core::Request slot 6
-    int f_0c; // typ1: the request's result (vfunc_5 returns its address)
-    char _pad_10[0xc];
+    // (typ1, x64t10) the directory's name (0x00275930 copies 16 characters; vfunc_5 returns its address)
+    char f_0c[0x10];
     char f_1c;
 };
 
@@ -635,8 +638,8 @@ public:
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual void* vfunc_5(); // overrides core::Request slot 5
     virtual int vfunc_6(); // overrides core::Request slot 6
-    int f_0c; // typ1: the request's result (vfunc_5 returns its address)
-    char _pad_10[0x100];
+    char f_0c[0x104]; // (typ1, x64t10) the search path (vfunc_1 0x002747d0 passes it to the drive's find; vfunc_5
+                      // returns its address)
     int f_110;
 };
 
@@ -947,15 +950,15 @@ public:
     virtual bool vfunc_21() = 0; // slot 21
     virtual void vfunc_22() = 0; // slot 22
     virtual void vfunc_23() = 0; // slot 23
-    virtual void vfunc_24(int, int) = 0; // slot 24
+    virtual void vfunc_24(void*, int) = 0; // slot 24
     virtual void vfunc_25(int) = 0; // slot 25
-    virtual void vfunc_26(int) = 0; // slot 26
-    virtual void vfunc_27(int) = 0; // slot 27
-    virtual void vfunc_28() = 0; // slot 28
+    virtual void vfunc_26(hulk_uintptr*) = 0; // slot 26
+    virtual void vfunc_27(hulk_uintptr*) = 0; // slot 27
+    virtual unsigned char vfunc_28() = 0; // slot 28
     virtual void vfunc_29(int) = 0; // slot 29
     virtual void vfunc_30(int) = 0; // slot 30
-    virtual void vfunc_31(int) = 0; // slot 31
-    virtual void vfunc_32(int, int) = 0; // slot 32
+    virtual void vfunc_31(unsigned char) = 0; // slot 31
+    virtual bool vfunc_32(unsigned int*, unsigned int*) = 0; // slot 32
     virtual void* vfunc_33(int, int, int, int, int, int, int, int) = 0; // slot 33
     virtual void vfunc_34(void*, int, int, int, int, int, int, int) = 0; // slot 34
     virtual void* vfunc_35(int, int, int, int, int, int, int) = 0; // slot 35
@@ -1082,15 +1085,15 @@ public:
     virtual bool vfunc_21(); // overrides core::IDrive slot 21
     virtual void vfunc_22(); // overrides core::IDrive slot 22
     virtual void vfunc_23(); // overrides core::IDrive slot 23
-    virtual void vfunc_24(int, int); // overrides core::IDrive slot 24
+    virtual void vfunc_24(void*, int); // overrides core::IDrive slot 24
     virtual void vfunc_25(int); // overrides core::IDrive slot 25
-    virtual void vfunc_26(int); // overrides core::IDrive slot 26
-    virtual void vfunc_27(int); // overrides core::IDrive slot 27
-    virtual void vfunc_28(); // overrides core::IDrive slot 28
+    virtual void vfunc_26(hulk_uintptr*); // overrides core::IDrive slot 26
+    virtual void vfunc_27(hulk_uintptr*); // overrides core::IDrive slot 27
+    virtual unsigned char vfunc_28(); // overrides core::IDrive slot 28
     virtual void vfunc_29(int); // overrides core::IDrive slot 29
     virtual void vfunc_30(int); // overrides core::IDrive slot 30
-    virtual void vfunc_31(int); // overrides core::IDrive slot 31
-    virtual void vfunc_32(int, int); // overrides core::IDrive slot 32
+    virtual void vfunc_31(unsigned char); // overrides core::IDrive slot 31
+    virtual bool vfunc_32(unsigned int*, unsigned int*); // overrides core::IDrive slot 32
     virtual void* vfunc_33(int, int, int, int, int, int, int, int); // overrides core::IDrive slot 33
     virtual void vfunc_34(void*, int, int, int, int, int, int, int); // overrides core::IDrive slot 34
     virtual void* vfunc_35(int, int, int, int, int, int, int); // overrides core::IDrive slot 35
@@ -1101,13 +1104,14 @@ public:
     virtual void vfunc_40(); // overrides core::IDrive slot 40
     virtual void vfunc_0_IMutable(); // overrides core::IMutable slot 0
     virtual void vfunc_1_IMutable(); // overrides core::IMutable slot 1
-    int f_08;
-    void* f_0c;
-    char _pad_10[0x4];
-    int f_14;
-    void* f_18;
-    char _pad_1c[0x4];
-    char f_20;
+    // (x64t10) the words of decls/instance_drive.h's HulkInstanceDrive
+    int f_08; // the references
+    void* f_0c; // the drive the requests run on
+    int f_10; // the queue priority
+    int f_14; // the requests in flight
+    int f_18; // the last request's result (FUN_00272880's word; vfunc_23 returns it)
+    unsigned int f_1c; // the find handle
+    char f_20; // a find is open
 };
 
 // .?AUMemoryAllocatorMalloc@core@@  vftable 0x42af2c (13)

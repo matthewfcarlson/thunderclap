@@ -1650,14 +1650,15 @@ extern "C" void FUN_002ef0b0() {
     if ((*(void**)&DAT_00554c14) == 0) {
         // (x64t4) the allocator by address (FUN_0008d690; was `Alloc`, unbound); (x64t9-pw) the world's record and
         // its parts at their offsets (decls/physics_world.h)
-        void* p = FUN_0008d690(sizeof(HulkPhysicsWorld));
+        // (x64t10) the allocation typed as the world, its parts by member
+        HulkPhysicsWorld* p = (HulkPhysicsWorld*)FUN_0008d690(sizeof(HulkPhysicsWorld));
         if (p != 0) {
-            ((Obj_2ef0b0*)p)->Init_002eee10();
-            ((CollisionDetector_2ef0b0*)((char*)p + HULK_WORLD_AT(detector)))->Init_00301290();
-            ((ImpulseBasedCollisionSolver_2ef0b0*)((char*)p + HULK_WORLD_AT(solver)))->Init_002f7ee0();
-            ((Obj1B0*)((char*)p + HULK_WORLD_AT(buffer)))->Init_00304300();
-            *((char*)p + HULK_WORLD_AT(flag)) = 0;
-            (*(void**)&DAT_00554c14) = p;
+            ((Obj_2ef0b0*)&p->pool)->Init_002eee10();
+            ((CollisionDetector_2ef0b0*)&p->detector)->Init_00301290();
+            ((ImpulseBasedCollisionSolver_2ef0b0*)&p->solver)->Init_002f7ee0();
+            ((Obj1B0*)&p->buffer)->Init_00304300();
+            p->flag = 0;
+            (*(HulkPhysicsWorld**)&DAT_00554c14) = p;
         } else
             (*(void**)&DAT_00554c14) = 0;
     }

@@ -13526,17 +13526,17 @@ struct Manager_1eb060 {
     void FUN_001e9a90(const char *, int);
     void FUN_001eb060(const char *first, const char *second);
 };
-// equivalent/0x001eb220.cpp (stub State_1eb220), size 0x1c (0x20)
+// equivalent/0x001eb220.cpp (stub State_1eb220), size 0x1c (0x28)
 struct State_1eb220 {
     void* resource; // +0x00
-    unsigned int owner; // +0x04 (+0x08)
-    unsigned char mode; // +0x08 (+0x0c)
-    unsigned char active; // +0x09 (+0x0d)
-    char padding[2]; // +0x0a (+0x0e)
-    float first; // +0x0c (+0x10)
-    float second; // +0x10 (+0x14)
-    float third; // +0x14 (+0x18)
-    unsigned int count; // +0x18 (+0x1c)
+    void* owner; // +0x04 (+0x08): the game (a CGame*: 0x00088020 passes it; decls/managers.h HulkSoundRealTimeManager)
+    unsigned char mode; // +0x08 (+0x10)
+    unsigned char active; // +0x09 (+0x11)
+    char padding[2]; // +0x0a (+0x12)
+    float first; // +0x0c (+0x14)
+    float second; // +0x10 (+0x18)
+    float third; // +0x14 (+0x1c)
+    unsigned int count; // +0x18 (+0x20)
     State_1eb220* FUN_001eb220(hulk_uintptr ownerValue, hulk_uintptr unused, unsigned char modeValue);
 };
 // matches/0x001eb2a0.cpp (stub Thing_1eb2a0), size 0x9

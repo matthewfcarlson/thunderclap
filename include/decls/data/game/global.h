@@ -6014,7 +6014,7 @@ extern "C" int DAT_004dcf64;
 extern "C" const unsigned int DAT_0044d9b0[1];  // zero_0044d9b0
 
 // global/CTargetAction.cpp
-extern "C" void* DAT_00554c14[1];
+// DAT_00554c14: typed by decls/data/records.h (included above)
 
 // global/CTargetTrack.cpp
 extern "C" unsigned char DAT_004dd028[4];

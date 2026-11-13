@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002756e0..0x00275750 (kind game, layer engine, confidence medium), dominant class core::DriveOpenRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "decls/data/engine/core.h"
 #define TREE_TU_BEGIN namespace fn_f0fe475a {
 #define TREE_TU_END }
@@ -21,9 +22,6 @@ namespace core {
 struct Drive {
     virtual void unused() throw();
     virtual void release() throw();
-    Lock_2756e0 lock;
-    char pad[12];
-    int count;
 };
 }
 namespace core {
@@ -48,7 +46,7 @@ struct DriveRequest {
     virtual void vfunc_5();
     virtual void vfunc_6();
     int field4;
-    Drive* drive;
+    HulkInstanceDrive* drive;   // (x64t10) decls/instance_drive.h
     __forceinline ~DriveRequest() throw() {}
 };
 }
@@ -73,10 +71,10 @@ struct Allocator {
 // sym: ?vfunc_0@DriveOpenRequest@core@fn_f0fe475a@@UAEPAU123@I@Z
 core::DriveOpenRequest* core::DriveOpenRequest::vfunc_0(unsigned flags) {
     this->DriveRequest::~DriveRequest();
-    drive->lock.acquire();
-    --drive->count;
-    drive->lock.release();
-    drive->release();
+    ((Lock_2756e0*)&drive->mutableVftable)->acquire();
+    --drive->pending;
+    ((Lock_2756e0*)&drive->mutableVftable)->release();
+    ((Drive*)drive)->release();
     reinterpret_cast<Request*>(this)->Request::~Request();
     if (flags & 1) {
         FUN_0026d850(((char*)&DAT_0052a1c8));

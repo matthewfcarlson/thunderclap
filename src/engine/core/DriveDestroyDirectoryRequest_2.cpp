@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00275930..0x002759e0 (kind game, layer engine, confidence medium), dominant class core::DriveDestroyDirectoryRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #define TREE_TU_BEGIN namespace fn_f76db007 {
@@ -47,14 +48,12 @@ struct T_275970 {
     virtual void c();
     virtual void d();
     virtual void e();
-    char pad[0x10];
-    int count;
 };
 namespace core {
 struct DriveDestroyDirectoryRequest {
     virtual DriveDestroyDirectoryRequest* vfunc_0(byte_275970);
     char pad[4];
-    T_275970* field8;
+    HulkInstanceDrive* field8;   // (x64t10) decls/instance_drive.h
 };
 }
 
@@ -73,9 +72,9 @@ DriveDestroyDirectoryRequest::DriveDestroyDirectoryRequest(int a, const char* s)
 // data: glob_275970 = DAT_0052a1e4
 core::DriveDestroyDirectoryRequest* core::DriveDestroyDirectoryRequest::vfunc_0(byte_275970 flag) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042b9bc);
-    ((O_275970*)((char*)field8 + 4))->a();
-    field8->count--;
-    ((O_275970*)((char*)field8 + 4))->b();
+    ((O_275970*)&field8->mutableVftable)->a();
+    field8->pending--;
+    ((O_275970*)&field8->mutableVftable)->b();
     ((O_275970*)field8)->b();
     *(void**)this = (void*)((hulk_intptr)DAT_0042b914);
     if (flag & 1) {

@@ -83,20 +83,22 @@ class Other_276cf0 {
     virtual void c();
     virtual void tick();
 };
+// (x64t10) the drive thread's methods with their definitions' types (unk_2719a0.cpp, Drive.cpp): the callback and
+// its argument, the signal pointer, the active flag, the find pair
 struct InstanceDrive_nv_276d60 {
-    void Fng_00272920(int, int);
+    void Fng_00272920(hulk_intptr, int);
 };
 struct InstanceDrive_nv_276d70 {
     void Fng_00272960(int);
 };
 struct InstanceDrive_nv_276d80 {
-    void Fng_00272990(int);
+    void Fng_00272990(hulk_uintptr*);
 };
 struct InstanceDrive_nv_276d90 {
-    void Fng_00272990(int);
+    void Fng_00272990(hulk_uintptr*);
 };
 struct InstanceDrive_nv_276da0 {
-    void Fng_00272a80();
+    unsigned char Fng_00272a80();
 };
 struct InstanceDrive_nv_276db0 {
     void Fng_00272a40(int);
@@ -105,10 +107,10 @@ struct InstanceDrive_nv_276dc0 {
     void Fng_002729f0(int);
 };
 struct InstanceDrive_nv_276dd0 {
-    void Fng_00272b40(int);
+    void Fng_00272b40(unsigned char);
 };
 struct InstanceDrive_nv_276de0 {
-    void Fng_00272ae0(int, int);
+    bool Fng_00272ae0(unsigned int*, unsigned int*);
 };
 class Ref_276ec0 {
   public:
@@ -267,7 +269,7 @@ class InstanceDrive {
     virtual void _m_vf38();
     virtual void _m_vf39();
     virtual void _m_vf40();
-    Sub_276700 sub;
+    void* sub;   // (x64t10) the lock's vftable word (a member object's virtual call is direct natively)
     int count;
     union { Checker_276980* checker; Drive* drive; };
     int field10;
@@ -323,9 +325,9 @@ void InstanceDrive_2766e0::f() {
 // 0x00276700 core::InstanceDrive::vfunc_0 (30 B): matches/0x00276700.cpp
 // sym: ?F0@InstanceDrive@fn_ff53bcc9@@UAEXXZ
 void InstanceDrive::F0() {
-    sub.F0();
+    ((Sub_276700*)&sub)->F0();
     ++count;
-    sub.F1();
+    ((Sub_276700*)&sub)->F1();
 }
 
 } // namespace fn_ff53bcc9
@@ -769,14 +771,18 @@ void* __cdecl FUN_00273560(int);
 struct DriveCancelRequest_276bd0 {
     void* FUN_00275c80(void*);
 };
+// (x64t10) 0x00272b60 takes the request, its priority (an int) and the to-the-front flag
 struct DriveObject {
-    int FUN_00272b60(void*, void*, int);
+    int FUN_00272b60(void*, int, int);
 };
 namespace core {
+// (x64t10) the words of decls/instance_drive.h's HulkInstanceDrive up to the priority (was a 12-byte pad)
 struct InstanceDrive {
-    char pad[12];
+    void* vftable;
+    void* mutableVftable;
+    int refs;
     DriveObject* object;
-    void* field10;
+    int field10;
     int vfunc_18();
 };
 int InstanceDrive::vfunc_18() {
@@ -902,7 +908,11 @@ class InstanceDrive : public IDrive_276cc0, public IDrive {
     virtual void v38();
     virtual void v39();
     virtual void v40();
-    char pad[12];
+    // (x64t10) the words of decls/instance_drive.h's HulkInstanceDrive up to the request count (a 12-byte pad put it
+    // at +0x1c natively, the drive pointer's upper half: vfunc_22's wait never ended)
+    int refs;
+    void* source;
+    int priority;
     int value;
 };
 bool InstanceDrive::vfunc_21() {
@@ -927,7 +937,7 @@ void core::InstanceDrive::vfunc_22() {
 
 
 // 0x00276d20 core::InstanceDrive::vfunc_23 (63 B): matches/0x00276d20.cpp [wrapped: conflict: core::InstanceDrive]
-// sym: ?vfunc_23@InstanceDrive@core@fn_00276d20@@QAEPAXXZ
+// sym: ?vfunc_23@InstanceDrive@core@fn_00276d20@@QAEHXZ
 namespace fn_00276d20 {
 namespace core {
 class Guard {
@@ -938,26 +948,28 @@ class Guard {
 class Obj {
   public:
     char ready_00272a80();
-    void* get_00272880();
+    int get_00272880();   // (x64t10) the drive's status word (0x00272880 returns an int)
 };
 class InstanceDrive {
   public:
+    // (x64t10) the words of decls/instance_drive.h's HulkInstanceDrive: the lock's vftable word (a member object's
+    // virtual call is direct natively), the drive, the status (an int: was a pointer-sized word natively)
     char pad[4];
-    Guard guard;
+    void* guard;
     char pad2[4];
     Obj* obj;
     char pad3[8];
-    void* value;
-    void* vfunc_23();
+    int value;
+    int vfunc_23();
 };
-void* InstanceDrive::vfunc_23() {
-    guard.enter();
-    void* result;
+int InstanceDrive::vfunc_23() {
+    ((Guard*)&guard)->enter();
+    int result;
     if (obj->ready_00272a80())
         result = obj->get_00272880();
     else
         result = value;
-    guard.leave();
+    ((Guard*)&guard)->leave();
     return result;
 }
 } // namespace core
@@ -965,10 +977,10 @@ void* InstanceDrive::vfunc_23() {
 
 
 // 0x00276d60 core::InstanceDrive::vfunc_24 (8 B): matches/0x00276d60.cpp
-// sym: ?vfunc_24@InstanceDrive@core@@UAEXHH@Z
+// sym: ?vfunc_24@InstanceDrive@core@@UAEXPAXH@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
-void core::InstanceDrive::vfunc_24(int a0, int a1) {
-    ((InstanceDrive_nv_276d60*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272920(a0, a1);
+void core::InstanceDrive::vfunc_24(void* a0, int a1) {
+    ((InstanceDrive_nv_276d60*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272920((hulk_intptr)a0, a1);
 }
 
 
@@ -981,26 +993,26 @@ void core::InstanceDrive::vfunc_25(int a0) {
 
 
 // 0x00276d80 core::InstanceDrive::vfunc_26 (8 B): matches/0x00276d80.cpp
-// sym: ?vfunc_26@InstanceDrive@core@@UAEXH@Z
+// sym: ?vfunc_26@InstanceDrive@core@@UAEXPAI@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
-void core::InstanceDrive::vfunc_26(int a0) {
+void core::InstanceDrive::vfunc_26(hulk_uintptr* a0) {
     ((InstanceDrive_nv_276d80*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272990(a0);
 }
 
 
 // 0x00276d90 core::InstanceDrive::vfunc_27 (8 B): matches/0x00276d90.cpp
-// sym: ?vfunc_27@InstanceDrive@core@@UAEXH@Z
+// sym: ?vfunc_27@InstanceDrive@core@@UAEXPAI@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
-void core::InstanceDrive::vfunc_27(int a0) {
+void core::InstanceDrive::vfunc_27(hulk_uintptr* a0) {
     ((InstanceDrive_nv_276d90*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272990(a0);
 }
 
 
 // 0x00276da0 core::InstanceDrive::vfunc_28 (8 B): matches/0x00276da0.cpp
-// sym: ?vfunc_28@InstanceDrive@core@@UAEXXZ
+// sym: ?vfunc_28@InstanceDrive@core@@UAEEXZ
 // Same code shape as 0x002665a0 (propagated; names are from that function)
-void core::InstanceDrive::vfunc_28() {
-    ((InstanceDrive_nv_276da0*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272a80();
+unsigned char core::InstanceDrive::vfunc_28() {
+    return ((InstanceDrive_nv_276da0*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272a80();
 }
 
 
@@ -1021,18 +1033,18 @@ void core::InstanceDrive::vfunc_30(int a0) {
 
 
 // 0x00276dd0 core::InstanceDrive::vfunc_31 (8 B): matches/0x00276dd0.cpp
-// sym: ?vfunc_31@InstanceDrive@core@@UAEXH@Z
+// sym: ?vfunc_31@InstanceDrive@core@@UAEXE@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
-void core::InstanceDrive::vfunc_31(int a0) {
+void core::InstanceDrive::vfunc_31(unsigned char a0) {
     ((InstanceDrive_nv_276dd0*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272b40(a0);
 }
 
 
 // 0x00276de0 core::InstanceDrive::vfunc_32 (8 B): matches/0x00276de0.cpp
-// sym: ?vfunc_32@InstanceDrive@core@@UAEXHH@Z
+// sym: ?vfunc_32@InstanceDrive@core@@UAE_NPAI0@Z
 // Same code shape as 0x002665a0 (propagated; names are from that function)
-void core::InstanceDrive::vfunc_32(int a0, int a1) {
-    ((InstanceDrive_nv_276de0*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272ae0(a0, a1);
+bool core::InstanceDrive::vfunc_32(unsigned int* a0, unsigned int* a1) {
+    return ((InstanceDrive_nv_276de0*)((*(core::InstanceDrive * *)&this->f_0c)))->Fng_00272ae0(a0, a1);
 }
 
 

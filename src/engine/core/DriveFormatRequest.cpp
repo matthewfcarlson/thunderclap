@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00274590..0x00274630 (kind game, layer engine, confidence high), dominant class core::DriveFormatRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_ff492841 {
@@ -20,7 +21,7 @@ class V {
 class Obj_274590 {
   public:
     char pad[4];
-    V sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char rest[0x10];
     int count;
 };
@@ -50,7 +51,7 @@ class Dev_2745d0 {
 };
 struct Ctx_2745d0 {
     char pad0[4];
-    Req_2745d0 sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char pad1[4];
     Dev_2745d0* dev;
     char pad2[8];
@@ -100,10 +101,10 @@ class d3dShader_274620 : public pddiBaseShader_274620 {
 void core::DriveRequest::FUN_00274590() {
     Obj_274590* p = (*(Obj_274590 * *)&this->f_08);
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b9bc);
-    p->sub.A();
-    --(*(int*)((char*)(*(Obj_274590 * *)&this->f_08) + 0x14));
+    ((V*)&p->sub)->A();
+    --((HulkInstanceDrive*)(*(Obj_274590 * *)&this->f_08))->pending;   // (x64t10) decls/instance_drive.h
     p = (*(Obj_274590 * *)&this->f_08);
-    p->sub.B();
+    ((V*)&p->sub)->B();
     p = (*(Obj_274590 * *)&this->f_08);
     ((V*)p)->B();
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b914);
@@ -116,9 +117,9 @@ int core::DriveFormatRequest::vfunc_1() {
     Dev_2745d0* d = (*(Ctx_2745d0 * *)&this->f_08)->dev;
     unsigned x = d->g();
     unsigned y = d->MakeValue_00272880();
-    (*(Ctx_2745d0 * *)&this->f_08)->sub.v0();
+    ((Req_2745d0*)&(*(Ctx_2745d0 * *)&this->f_08)->sub)->v0();
     (*(Ctx_2745d0 * *)&this->f_08)->value = y;
-    (*(Ctx_2745d0 * *)&this->f_08)->sub.v1();
+    ((Req_2745d0*)&(*(Ctx_2745d0 * *)&this->f_08)->sub)->v1();
     return (int)(x);
 }
 

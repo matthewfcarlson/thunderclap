@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00275750..0x002757f0 (kind game, layer engine, confidence medium), dominant class core::DriveMediaRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #define TREE_TU_BEGIN namespace fn_ff8d14c6 {
@@ -41,9 +42,7 @@ class Big_275780 {
   public:
     virtual void v0();
     virtual void v1();
-    B_275780 sub;
-    char pad[0xc];
-    int cnt;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively   // (x64t10) the lock; the request count is decls/instance_drive.h's `pending`
 };
 class DriveMediaRequest_275780 {
   public:
@@ -69,9 +68,9 @@ DriveMediaRequest_275750::DriveMediaRequest_275750(hulk_intptr x, int y) : Drive
 DriveMediaRequest_275780* DriveMediaRequest_275780::f0(unsigned char flags) {
     Big_275780* p = m8;
     vptr = hulk_at_0042b9bc;
-    p->sub.v0();
-    m8->cnt--;
-    m8->sub.v1();
+    ((B_275780*)&p->sub)->v0();
+    ((HulkInstanceDrive*)m8)->pending--;
+    ((B_275780*)&m8->sub)->v1();
     m8->v1();
     vptr = (void**)DAT_0042b914;
     if (flags & 1) {

@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00275b40..0x00275bd0 (kind game, layer engine, confidence medium), dominant class core::DriveFindCloseRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #define TREE_TU_BEGIN namespace fn_fe4a9338 {
@@ -39,14 +40,12 @@ struct T_275b60 {
     virtual void c();
     virtual void d();
     virtual void e();
-    char pad[0x10];
-    int count;
 };
 namespace core {
 struct DriveFindCloseRequest {
     virtual DriveFindCloseRequest* vfunc_0(byte_275b60);
     char pad[4];
-    T_275b60* field8;
+    HulkInstanceDrive* field8;   // (x64t10) decls/instance_drive.h
 };
 }
 
@@ -63,9 +62,9 @@ DriveFindCloseRequest::DriveFindCloseRequest(hulk_uintptr x) : DriveRequest_275b
 // data: glob_275b60 = DAT_0052a1e4
 core::DriveFindCloseRequest* core::DriveFindCloseRequest::vfunc_0(byte_275b60 flag) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042b9bc);
-    ((O_275b60*)((char*)field8 + 4))->a();
-    field8->count--;
-    ((O_275b60*)((char*)field8 + 4))->b();
+    ((O_275b60*)&field8->mutableVftable)->a();
+    field8->pending--;
+    ((O_275b60*)&field8->mutableVftable)->b();
     ((O_275b60*)field8)->b();
     *(void**)this = (void*)((hulk_intptr)DAT_0042b914);
     if (flag & 1) {

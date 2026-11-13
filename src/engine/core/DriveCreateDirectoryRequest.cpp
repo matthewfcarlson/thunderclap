@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00274630..0x002746e0 (kind game, layer engine, confidence high), dominant class core::DriveCreateDirectoryRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_f5751ba0 {
@@ -20,7 +21,7 @@ class V {
 class Obj_274630 {
   public:
     char pad[4];
-    V sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char rest[0x10];
     int count;
 };
@@ -53,7 +54,7 @@ struct Manager_274670 {
 };
 struct Data_274670 {
     char pad[4];
-    Manager_274670 manager;
+    void* manager;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char pad2[4];
     Service_274670* service;
     char pad3[8];
@@ -93,10 +94,10 @@ class DriveRequest_2746d0 {
 void core::DriveRequest::FUN_00274630() {
     Obj_274630* p = (*(Obj_274630 * *)&this->f_08);
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b9bc);
-    p->sub.A();
-    --(*(int*)((char*)(*(Obj_274630 * *)&this->f_08) + 0x14));
+    ((V*)&p->sub)->A();
+    --((HulkInstanceDrive*)(*(Obj_274630 * *)&this->f_08))->pending;   // (x64t10) decls/instance_drive.h
     p = (*(Obj_274630 * *)&this->f_08);
-    p->sub.B();
+    ((V*)&p->sub)->B();
     p = (*(Obj_274630 * *)&this->f_08);
     ((V*)p)->B();
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b914);
@@ -109,9 +110,9 @@ int core::DriveCreateDirectoryRequest::vfunc_1() {
     Service_274670* svc = (*(Data_274670 * *)&this->f_08)->service;
     int value = svc->a15((int*)((char*)&this->f_0c));
     int result = ((Helper_274670*)svc)->Run_00272880();
-    (*(Data_274670 * *)&this->f_08)->manager.Reset();
+    ((Manager_274670*)&(*(Data_274670 * *)&this->f_08)->manager)->Reset();
     (*(Data_274670 * *)&this->f_08)->stored = result;
-    (*(Data_274670 * *)&this->f_08)->manager.Finish();
+    ((Manager_274670*)&(*(Data_274670 * *)&this->f_08)->manager)->Finish();
     return value;
 }
 

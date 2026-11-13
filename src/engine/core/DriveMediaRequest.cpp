@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002744e0..0x00274590 (kind game, layer engine, confidence high), dominant class core::DriveMediaRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #include "gen/core.h"
 #include "gen/owners.h"
@@ -21,7 +22,7 @@ class V {
 class Obj_2744e0 {
   public:
     char pad[4];
-    V sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char rest[0x10];
     int count;
 };
@@ -85,10 +86,10 @@ class d3dShader_274570 : public pddiBaseShader_274570 {
 void core::DriveRequest::FUN_002744e0() {
     Obj_2744e0* p = (*(Obj_2744e0 * *)&this->f_08);
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b9bc);
-    p->sub.A();
-    --(*(int*)((char*)(*(Obj_2744e0 * *)&this->f_08) + 0x14));
+    ((V*)&p->sub)->A();
+    --((HulkInstanceDrive*)(*(Obj_2744e0 * *)&this->f_08))->pending;   // (x64t10) decls/instance_drive.h
     p = (*(Obj_2744e0 * *)&this->f_08);
-    p->sub.B();
+    ((V*)&p->sub)->B();
     p = (*(Obj_2744e0 * *)&this->f_08);
     ((V*)p)->B();
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b914);

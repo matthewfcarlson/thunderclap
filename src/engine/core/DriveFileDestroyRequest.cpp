@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002749a0..0x00274a50 (kind game, layer engine, confidence high), dominant class core::DriveFileDestroyRequest
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_fc3b1131 {
@@ -20,7 +21,7 @@ class V {
 class Obj_2749a0 {
   public:
     char pad[4];
-    V sub;
+    void* sub;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     char rest[0x10];
     int count;
 };
@@ -51,7 +52,7 @@ struct Lock_2749e0 {
 };
 struct State_2749e0 {
     unsigned int field0;
-    Lock_2749e0 lock;
+    void* lock;   // (x64t10) the lock's vftable word: a member object's virtual call is direct natively
     unsigned int field8;
     Drive_2749e0* drive;
     char padding[8];
@@ -81,10 +82,10 @@ class HalStream_274a30 {
 void core::DriveRequest::FUN_002749a0() {
     Obj_2749a0* p = (*(Obj_2749a0 * *)&this->f_08);
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b9bc);
-    p->sub.A();
-    --(*(int*)((char*)(*(Obj_2749a0 * *)&this->f_08) + 0x14));
+    ((V*)&p->sub)->A();
+    --((HulkInstanceDrive*)(*(Obj_2749a0 * *)&this->f_08))->pending;   // (x64t10) decls/instance_drive.h
     p = (*(Obj_2749a0 * *)&this->f_08);
-    p->sub.B();
+    ((V*)&p->sub)->B();
     p = (*(Obj_2749a0 * *)&this->f_08);
     ((V*)p)->B();
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b914);
@@ -98,9 +99,9 @@ int core::DriveFileDestroyRequest::vfunc_1() {
     Drive_2749e0* drive = (*(State_2749e0 * *)&this->f_08)->drive;
     unsigned int result = drive->slot17(&(*(unsigned int *)&this->f_0c));
     unsigned int status = drive->FUN_00272880();
-    (*(State_2749e0 * *)&this->f_08)->lock.acquire();
+    ((Lock_2749e0*)&(*(State_2749e0 * *)&this->f_08)->lock)->acquire();
     (*(State_2749e0 * *)&this->f_08)->result = status;
-    (*(State_2749e0 * *)&this->f_08)->lock.release();
+    ((Lock_2749e0*)&(*(State_2749e0 * *)&this->f_08)->lock)->release();
     return (int)(result);
 }
 

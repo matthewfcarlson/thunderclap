@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00277110..0x00277ca0 (kind game, layer engine, confidence high), dominant class core::CementLibrary
 #include "tree_prelude.h"
+#include "decls/instance_drive.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #include "decls/data/platform/xbox/core.h"
@@ -281,26 +282,36 @@ struct DriveOpenRequest_277110 {
 };
 void* __cdecl FUN_00273560(unsigned int);
 namespace core {
-struct Primary_277110 {
-    virtual void p();
+// (x64t10) the IMutable base's own constructor store (the game's core::IMutable vftable 0x0042b850); the object's
+// vftables are the game's core::InstanceDrive ones, stored by address (a local polymorphic view's vftables were
+// natively its own, whose slots are stubs: DriveRequest's lock call through +8 reached `m`)
+struct Lock_277110 {
+    virtual void m();
 };
-struct InstanceDrive : Primary_277110, IMutable {
+extern "C" char DAT_0042bddc[];   // core::InstanceDrive's vftable
+extern "C" char DAT_0042bdd0[];   // core::InstanceDrive's IMutable vftable
+// the words of decls/instance_drive.h's HulkInstanceDrive
+struct InstanceDrive {
+    void* vftable;
+    Lock_277110 lock;
     int refs;
     Source_277110* source;
     int priority;
-    int state;
-    char pad[8];
-    char flag;
-    virtual void p();
-    virtual void m();
+    int pending;
+    int status;
+    unsigned int handle;
+    unsigned char active;
     InstanceDrive(Source_277110*, int);
 };
+HULK_INSTANCE_DRIVE_SAME(InstanceDrive);
 InstanceDrive::InstanceDrive(Source_277110* s, int c) {
+    vftable = DAT_0042bddc;
+    *(void**)&lock = DAT_0042bdd0;
     refs = 1;
     source = s;
     priority = c;
-    state = 0;
-    flag = 0;
+    pending = 0;
+    active = 0;
     FUN_002705f0();
     source->first();
     DriveOpenRequest_277110* h = (DriveOpenRequest_277110*)FUN_00273560(12);
