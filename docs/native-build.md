@@ -3027,3 +3027,17 @@ class whose constructor (0x002d3d90) is declared only, its vftable the local cla
 constructor's address, vftable by address, the free list a pointer vector) shared with 0x002ab880 / 0x002aba80.
 Also open: the content registry (DAT_00527c58, 111 views tree-wide) has no shared record; the two views fixed here
 follow its constructor 0x002656b0.
+
+## hash2: the code-hash pending list filled and removed (2026-11-12)
+
+| commit | what | proof |
+|---|---|---|
+| 14e8903d2 | the last 12 pending TUs (physics CollisionMesh, CollisionMesh.iso_002f47b0, ExportInfoLoader, PhysicsPropertiesLoader, SimLength, unk_2e6780, unk_2fa6b0; pure3d LightsChooser_2, pddiBaseContext; unknown unk_29e7f0, unk_2ed240, unk_302fa0): 127 equivalent blocks hashed by `hash --compute` (job 72329) + `--init`, pin lines only | 122 re-proved on 96cba7a7c (tree-TU equiv.py, 3,000 promotable + --wine 600, jobs 72473-72536); 5 with code unchanged since 6a71f9a03 (below) |
+| 147939b6f | config/code-hash-pending.txt, `pending` and `hash --init` removed from tools/tree_tu.py; `unhashed` fails everywhere | verify . --relocs (job 73555): 5,099 equivalents ok/ok, 22,339 matches, 0 unhashed |
+
+Open, not caused by recent edits (same MSVC and clang hashes as at 6a71f9a03): `--wine` fails for 0x002e84e0,
+0x002e9c60, 0x002ea010 (libpng in unk_2e6780), 0x002ee9a0 (unk_2ed240; the frozen equivalent/ source fails the same
+way) and 0x002f4eb0 (ExportInfoLoader::vfunc_5: a vtable call reaches 0x002669f0; its MSVC run is equivalent but at
+branch coverage 22/30, not promotable). `--x64` at 3,000 over the 127: 81 equivalent, 33 fail, 12 unsupported (no
+32-bit input completes), 1 inconclusive; the failures are 64-bit layout / truncation issues for the x64 lanes (list in
+the hash2 hand-back).
