@@ -44,6 +44,8 @@ python tools/native_unbound.py classify --dir build/native-mac   # the native li
 python tools/progress.py --readme                # regenerate the README status table and docs/progress-map.svg (from the tree)
 python tools/data_inventory.py --check           # config/data.json must be what its inputs give (docs/data.md "Reproducing")
 python tests/equiv/regress.py                    # checker regression cases (run after any change to equiv.py)
+python tools/x64_gate.py check --changed-since origin/main   # 64-bit gate: --x64 on changed blocks; new layout/ptrtrunc/crash64 fails
+python tools/tree_tu.py verify . --changed-since origin/main --relocs --x64   # verify, then the 64-bit gate
 ```
 
 An edited `matches` block must still MATCH with relocations ok. An `equivalent` block carries the hashes of its proven
@@ -62,6 +64,11 @@ write a hash by hand). A 64-bit fix changes the source, never the
   without the change) and a proof (with it) on the same host and the same local inputs, `--gfx --replay play3 --frames 60000`;
   seed the proof from its control with `--state seed:CONTROL`; gate with `tools/ckpt_gate.py CONTROL PROOF` (the proof
   must be ok wherever the control is). Commit messages name the control, the proof and the gate result.
+- **64-bit gate**: a change may not make a block newly differ in layout, ptrtrunc or crash64 under `equiv.py --x64`
+  (`tools/x64_gate.py`, `docs/equivalence.md` "64-bit gate"); `config/x64-baseline.json` lists the known ones. Run
+  `verify ... --x64` (or `x64_gate.py check`) before committing source or header changes; only changed blocks run (queue
+  past 4). Drop fixed blocks with `--update-baseline`; add one only by `x64_gate.py accept ADDR --why TEXT`. Other
+  classes (int, untyped, wild64, ...) are reported, not failing.
 - **Stale inputs**: the data TUs (`build/data/src`), `hulk_sdl.lib`, `hulk_movies.lib` and the pddi-win32 objects are local,
   generated inputs; `submit` and the host refuse stale ones (`tools/input_guard.py status` shows what submit would decide).
   A control and its proof take the same inputs (`--data-src` / `--sdl-src` for private copies); `--allow-stale` is not a fix.
