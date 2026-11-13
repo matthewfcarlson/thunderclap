@@ -146,12 +146,12 @@ CMoveAgent::~CMoveAgent() {
 // 0x00102b40 CMoveAgent::vfunc_9 (26 B): matches/0x00102b40.cpp
 // sym: ?vfunc_9@CMoveAgent@@UAEXXZ
 void CMoveAgent::vfunc_9() {
-    *(int*)((char*)this + 8) = 0;
-    *(unsigned int*)((char*)this + 0x70) = 0x3f800000;
-    *((unsigned char*)this + 0x74) = 1;
-    *((unsigned char*)this + 0x6c) = 0;
-    *((unsigned char*)this + 0x75) = 0;
-    *((unsigned char*)this + 0x76) = 0;
+    *(int*)((char*)&this->f_08) = 0;
+    *(unsigned int*)((char*)&this->f_70) = 0x3f800000;
+    *((char*)&this->f_74) = 1;
+    *((char*)&this->f_6c) = 0;
+    *((char*)&this->f_75) = 0;
+    *((char*)&this->f_76) = 0;
 }
 
 
@@ -160,7 +160,7 @@ void CMoveAgent::vfunc_9() {
 hulk_freg CMoveAgent::vfunc_3(hulk_intptr x, int y) {
     ((Helper_102b60*)this)->Fnf_000fc4e0(x, y);
     float z = hulk_at_003f32e0;
-    *(int*)((char*)this + 8) = 0;
+    *(int*)((char*)&this->f_08) = 0;
     return z;
 }
 

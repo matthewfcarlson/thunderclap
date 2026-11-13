@@ -440,8 +440,8 @@ void ExecuteAction::vfunc_4() {
 ExecuteTrack* ExecuteTrack::vfunc_5(int flags) {
     ExecuteTrack* p = this;
     *(hulk_ulongptr*)p = ((hulk_intptr)DAT_00428418);
-    ((A_239780*)((char*)p + 0x24))->First_00236fd0();
-    ((B_239780*)((char*)p + 0x14))->Second_00234150();
+    ((A_239780*)((char*)&p->field24))->First_00236fd0();
+    ((B_239780*)((char*)&p->field14))->Second_00234150();
     ((C_239780*)p)->Third_00236d60();
     if (flags & 1)
         thunk_FUN_00267090(p);

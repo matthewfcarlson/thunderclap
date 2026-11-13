@@ -587,7 +587,7 @@ namespace fn_f8921c09 {
 movie::BinkCallback* movie::BinkCallback::vfunc_0(u8_335160 flag) {
     movie::BinkCallback* p = this;
     if (p)
-        p = (movie::BinkCallback*)((char*)p + 8);
+        p = (movie::BinkCallback*)((char*)&p->refptr);
     else
         p = (movie::BinkCallback*)0;
     p->vptr = &refvt_335160;

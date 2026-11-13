@@ -572,7 +572,7 @@ void* physics::SimStateArticulated::vfunc_5(int x) {
         Obj3_2fd5e0* c = (Obj3_2fd5e0*)b->edf_0030edf0();
         return (void*)((char*)c->f100_0030f100() + 0x30);
     }
-    return (void*)((char*)this + 0x40);
+    return (void*)((char*)&this->f_40);
 }
 
 

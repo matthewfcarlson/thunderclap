@@ -320,7 +320,7 @@ extern "C" bool __cdecl FUN_002422e0(void * t_, void * node_, int *keyPtr)
 // 0x002424a0 FUN_002424a0 (178 B): matches/0x002424a0.cpp
 // sym: _FUN_002424a0
 extern "C" void FUN_002424a0(void * tree, void * node) {
-    Node* nil = (Node*)((char*)((Node *)tree) + 4);
+    Node* nil = (Node*)((char*)&((Node *)tree)->b);
     Node* x;
     if (((Node *)node)->left == nil || ((Node *)node)->right == nil)
         x = ((Node *)node);
@@ -364,7 +364,7 @@ extern "C" void FUN_002424a0(void * tree, void * node) {
 // 0x00242680 FUN_00242680 (178 B): matches/0x00242680.cpp
 // sym: _FUN_00242680
 extern "C" void FUN_00242680(void * tree, void * node) {
-    Node* nil = (Node*)((char*)((Node *)tree) + 4);
+    Node* nil = (Node*)((char*)&((Node *)tree)->b);
     Node* x;
     if (((Node *)node)->left == nil || ((Node *)node)->right == nil)
         x = ((Node *)node);

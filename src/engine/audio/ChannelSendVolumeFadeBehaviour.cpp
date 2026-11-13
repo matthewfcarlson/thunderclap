@@ -205,14 +205,14 @@ void audio::SeqActionChannelSendVolumes::vfunc_2(int , int ) {
 // 0x0024ea70 audio::SeqActionChannelSendVolumes::vfunc_3 (10 B): matches/0x0024ea70.cpp
 // sym: ?vfunc_3@SeqActionChannelSendVolumes@audio@@UAEXH@Z
 void audio::SeqActionChannelSendVolumes::vfunc_3(hulk_intptr ) {
-    *(int*)((char*)this + 0xc) = 4;
+    *(int*)((char*)&this->f_0c) = 4;
 }
 
 
 // 0x0024ea80 audio::SeqActionChannelSendVolumes::vfunc_4 (10 B): matches/0x0024ea80.cpp
 // sym: ?vfunc_4@SeqActionChannelSendVolumes@audio@@UAEXH@Z
 void audio::SeqActionChannelSendVolumes::vfunc_4(int ) {
-    *(int*)((char*)this + 0xc) = 5;
+    *(int*)((char*)&this->f_0c) = 5;
 }
 
 

@@ -431,7 +431,7 @@ void audio::SeqActionStream::vfunc_3(hulk_intptr p) {
 // 0x00253ef0 audio::SeqActionStream::vfunc_4 (10 B): matches/0x00253ef0.cpp
 // sym: ?vfunc_4@SeqActionStream@audio@@UAEXH@Z
 void audio::SeqActionStream::vfunc_4(int ) {
-    *(int*)((char*)this + 0x20) = 5;
+    *(int*)((char*)&this->f_20) = 5;
 }
 
 

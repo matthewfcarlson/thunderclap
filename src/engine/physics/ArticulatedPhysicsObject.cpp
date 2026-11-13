@@ -1714,7 +1714,7 @@ void* physics::ArticulatedPhysicsObject::vfunc_28(unsigned int a) {
         p = 0;
     }
     ((ArticulatedPhysicsObject_nv_3122a0*)this)->Setup_00312130(p, a);
-    *(unsigned int*)((char*)p + 0x24) = *(unsigned int*)((char*)this + 0x24);
+    *(unsigned int*)((char*)p + 0x24) = *(unsigned int*)((char*)&this->f_24);
     return (void*)((physics::ArticulatedPhysicsObject*)p);
 }
 

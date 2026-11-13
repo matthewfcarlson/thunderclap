@@ -143,7 +143,7 @@ void hulkfight::motion::DriftToPositionAction::vfunc_4() {
         Actor_171bb0* a = o->GetActor_00059a30();
         if (a) {
             if ((*(Owner_171bb0 * *)&this->f_1c)->flag && this->f_52)
-                a->SetPosition_0003f400((char*)this + 0x40);
+                a->SetPosition_0003f400((char*)&this->f_40);
             a->field = this->f_51;
             ((owners::Target_35ce0 *)a)->FUN_00035ce0(this->f_50);
         }

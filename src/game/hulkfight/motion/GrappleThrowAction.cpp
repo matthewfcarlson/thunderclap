@@ -3181,7 +3181,7 @@ int GrappleExecuteTrack::vfunc_10(int x, int y, int z) {
 // 0x00147b80 hulkfight::motion::GrappleStruggleAction::vfunc_3 (40 B): matches/0x00147b80.cpp
 // sym: ?vfunc_3@GrappleStruggleAction@motion@hulkfight@@UAE_NHH@Z
 bool hulkfight::motion::GrappleStruggleAction::vfunc_3(hulk_intptr , hulk_intptr ) {
-    HelperA_147b80* a = *(HelperA_147b80**)((char*)this + 0x20);
+    HelperA_147b80* a = *(HelperA_147b80**)((char*)&this->f_20);
     HelperA_147b80* b = ((HelperA_147b80 *)((owners::Object_592a0 *)a)->FUN_000592a0());
     Result_147b80* r = ((HelperB_147b80*)b)->Fng_00059a30();
     r->flag = 1;

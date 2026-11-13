@@ -243,7 +243,7 @@ int audio::HalRsdFileStream::vfunc_1() { switch (this->f_44) { case 0: return 0;
 // sym: ?vfunc_2@HalRsdFileStream@audio@@UAEPAXXZ
 // Same code shape as 0x00091d20 (propagated; names are from that function)
 void* audio::HalRsdFileStream::vfunc_2() {
-    return (void*)((char*)this + 0x28);
+    return (void*)((char*)&this->f_28);
 }
 
 
@@ -251,7 +251,7 @@ void* audio::HalRsdFileStream::vfunc_2() {
 // sym: ?vfunc_3@HalRsdFileStream@audio@@UAEHXZ
  // namespace audio
 int audio::HalRsdFileStream::vfunc_3() {
-    void* p = (char*)this + 0x28;
+    void* p = (char*)&this->f_28;
     u32_262f70 x = FUN_0024c2c0(p);
     if (FUN_0024c2b0(x))
         return (int)(FUN_0024c2f0(p));
@@ -280,7 +280,7 @@ void audio::HalRsdFileStream::vfunc_10() {
 // sym: ?vfunc_4@HalRsdFileStream@audio@@UAEIXZ
 // Same code shape as 0x000862b0 (propagated; names are from that function)
 unsigned int audio::HalRsdFileStream::vfunc_4() {
-    return *(unsigned int*)((char*)this + 0x2c);
+    return *(unsigned int*)((char*)&this->f_2c);
 }
 
 namespace fn_fe2967ee {

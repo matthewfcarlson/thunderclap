@@ -67,7 +67,7 @@ void audio::SeqActionChannelVolumes::vfunc_1(Context* context) {
   behavior->channels=channels;
   behavior->owner=owner;
  }
- FUN_0024f280(tree,behavior,(char*)behavior+20);
+ FUN_0024f280(tree,behavior,(char*)&behavior->key);
  active=0;
 }
 } // namespace fn_f6824a53

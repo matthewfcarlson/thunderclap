@@ -135,7 +135,7 @@ int __fastcall FUN_002327c0(Node** p) {
     Node* cur = *p;
     while (cur) {
         ++n;
-        cur = *(Node**)((char*)cur + 0x10);
+        cur = *(Node**)((char*)&cur->next);
     }
     return n;
 }

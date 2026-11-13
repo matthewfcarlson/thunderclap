@@ -463,9 +463,9 @@ namespace fn_f712cb17 {
 // 0x00124310 FUN_00124310 (33 B): matches/0x00124310.cpp
 // sym: ??0TargetClearTrack@fn_f712cb17@@QAE@XZ
 TargetClearTrack::TargetClearTrack() {
-    *(volatile int*)((char*)this + 0xc) = 0;
-    *(volatile char*)((char*)this + 0x10) = 0;
-    *(volatile int*)((char*)this + 8) = 1;
+    *(volatile int*)((char*)&this->m_c) = 0;
+    *(volatile char*)((char*)&this->m_10) = 0;
+    *(volatile int*)((char*)&this->m8) = 1;
 }
 
 } // namespace fn_f712cb17

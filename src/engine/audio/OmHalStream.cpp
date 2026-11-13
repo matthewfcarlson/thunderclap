@@ -607,7 +607,7 @@ void swap_node(Tree_25af70* tree, Node* node) {
 // 0x0025afd0 FUN_0025afd0 (55 B): matches/0x0025afd0.cpp
 // sym: ?FUN_0025afd0@fn_fd6abdd0@@YAPAUNode@1@PAU21@0@Z
 Node* __cdecl FUN_0025afd0(Node* head, Node* node) {
-    Node* sentinel = (Node*)((char*)head + 4);
+    Node* sentinel = (Node*)((char*)&head->b);
     Node* p = node->parent;
     if (p != sentinel) {
         while (p->left != sentinel)
@@ -989,7 +989,7 @@ struct Node {
 void* FUN_0025afd0(void*, void*);
 extern "C++" __declspec(nothrow) void __cdecl FUN_0025b010(void *, void *);
 extern "C" void FUN_0025b5b0(void * tree, void * node) {
-    Node* nil = (Node*)((char*)((Node *)tree) + 4);
+    Node* nil = (Node*)((char*)&((Node *)tree)->right);
     Node* x;
     if (((Node *)node)->left == nil || ((Node *)node)->right == nil)
         x = ((Node *)node);

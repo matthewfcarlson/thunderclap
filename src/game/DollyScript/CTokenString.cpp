@@ -1594,9 +1594,9 @@ hulk_intptr Obj_fb150::next() {
     if (done != 1) {
         Node* c = cur;
         if (!c) {
-            c = *(Node**)((char*)n + 4);
+            c = *(Node**)((char*)&n->next);
         } else {
-            c = *(Node**)((char*)c + 4);
+            c = *(Node**)((char*)&c->next);
         }
         r = (hulk_intptr)c;
         if (c && c->state < 2)

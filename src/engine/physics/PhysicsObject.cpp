@@ -646,7 +646,7 @@ hulk_freg physics::PhysicsObject::vfunc_36() {
 // sym: ?vfunc_21@PhysicsObject@physics@@UAEMXZ
 // Same code shape as 0x00069110 (propagated; names are from that function)
 hulk_freg physics::PhysicsObject::vfunc_21() {
-    return *(float*)((char*)this + 0x44);
+    return *(float*)((char*)&this->f_44);
 }
 
 
@@ -776,11 +776,11 @@ void physics::PhysicsObject::vfunc_7() {
         hulk_freg p = *(float*)((char*)this->f_18 + 0xc) * this->f_3c;
         ((owners::X_2fcb80 *)(((Elem_2f5870*)((char*)this + 0xdc))))->FUN_002fcb80(((this->f_40 = p), (this->f_44 = DAT_003f32dc / p), *(volatile float*)&this->f_40) / old);
         vfunc_39();
-        *((char*)this + 0x1c4) = 1;
+        *((char*)&this->f_1c4) = 1;
     } else {
         this->f_40 = 0.0f;
         this->f_44 = 0.0f;
-        *((char*)this + 0x1c4) = 1;
+        *((char*)&this->f_1c4) = 1;
     }
 }
 
@@ -818,10 +818,10 @@ bool PhysicsObject::vfunc_12(int) {
 // sym: ?vfunc_13@PhysicsObject@physics@@UAEXXZ
 // data: global_4d2b78 = DAT_004d2b78
 void physics::PhysicsObject::vfunc_13() {
-    *((u8*)this + 0x1f4) &= 0xfd;
+    *((char*)&this->f_1f4) &= 0xfd;
     *((u32_2f59f0*)this + 0x75) = 0;
     *((u32_2f59f0*)this + 0x77) = 0;
-    *((u8*)this + 0x1f0) = (*(u8*)&DAT_004d2b78);
+    *((char*)&this->f_1f0) = (*(u8*)&DAT_004d2b78);
 }
 
 namespace fn_ff237b18 {
@@ -2193,7 +2193,7 @@ void PhysicsObject::vfunc_38(float dt)
                 if (m > 2) {
                     mat58.FUN_0022c3b0(&v4c, &f.Y);
                 } else {
-                    f.Y = *(Vec3_2f6af0 *)((char *)this + 0x58 + (m << 4));
+                    f.Y = *(Vec3_2f6af0 *)((char*)&this->mat58.m[0] + (m << 4));
                 }
             }
             Body_2f6af0 *o = f10;

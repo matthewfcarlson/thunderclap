@@ -66,8 +66,8 @@ template <> void* fight::ConditionFactoryTemplate<CPropActorStateCondition>::vfu
     if (p) {
         p->setup_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f7274);
-        *(U_58600*)((char*)p + 0xc) = 2;
-        *(U_58600*)((char*)p + 0x10) = 0;
+        *(U_58600*)((char*)&p->x[2]) = 2;
+        *(U_58600*)((char*)&p->x[3]) = 0;
         return (void*)(p);
     }
     return (void*)(0);

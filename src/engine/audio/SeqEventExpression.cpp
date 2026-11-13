@@ -250,7 +250,7 @@ void audio::SeqActionExpression::vfunc_1(void* __p0) { hulk_intptr p = (hulk_int
 // sym: ?vfunc_3@SeqActionExpression@audio@@UAEXH@Z
 // Same code shape as 0x0024ea70 (propagated; names are from that function)
 void audio::SeqActionExpression::vfunc_3(hulk_intptr ) {
-    *(int*)((char*)this + 0xc) = 4;
+    *(int*)((char*)&this->f_0c) = 4;
 }
 
 
@@ -258,7 +258,7 @@ void audio::SeqActionExpression::vfunc_3(hulk_intptr ) {
 // sym: ?vfunc_4@SeqActionExpression@audio@@UAEXH@Z
 // Same code shape as 0x0024ea80 (propagated; names are from that function)
 void audio::SeqActionExpression::vfunc_4(int ) {
-    *(int*)((char*)this + 0xc) = 5;
+    *(int*)((char*)&this->f_0c) = 5;
 }
 
 

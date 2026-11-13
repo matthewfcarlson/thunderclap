@@ -157,7 +157,7 @@ FEDoMenu::FEDoMenu(hulk_intptr x, const char* s) {
     d = x;
     e = 0;
     a = ((hulk_intptr)DAT_0040c05c);
-    FUN_000dfcc0((char*)this + 0x34, 0x20, "%s", s);
+    FUN_000dfcc0((char*)&this->f, 0x20, "%s", s);
 }
 } // namespace fn_000e1b30
 

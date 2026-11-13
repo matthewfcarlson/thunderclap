@@ -80,7 +80,7 @@ KeywordWaitTrack* __cdecl target() {
         p->vptr = (hulk_uintptr)&hulk_at_0040dc44;
         p->field0c = 0;
         p->field10 = -1.0f;
-        ((SetupObj_114b30*)((char*)p + 0x18))->Setup_0027af00();
+        ((SetupObj_114b30*)((char*)&p->field18))->Setup_0027af00();
         p->field20 = 0;
         p->field08 = 1;
         return p;

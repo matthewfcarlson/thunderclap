@@ -119,7 +119,7 @@ int SeqEventSilence_254670::vfunc_0(void* p) {
     char r = (char)audio::SeqEvent::vfunc_0(p);
     if (r) {
         if (FUN_0025abd0(p, (char*)this + 8)) {
-            if (FUN_0025abd0(p, (char*)this + 12))
+            if (FUN_0025abd0(p, (char*)&this->x))
                 return 1;
         }
     }
@@ -140,9 +140,9 @@ extern "C" int* FUN_002546c0() {
 // sym: ?vfunc_2@SeqActionSilence@audio@@UAEXHH@Z
 void audio::SeqActionSilence::vfunc_2(int , int __p1) { char flag = (char)__p1;
 
-    *(int*)((char*)this + 0x18) = 2;
+    *(int*)((char*)&this->f_18) = 2;
     if (flag)
-        *(int*)((char*)this + 0xc) = 0;
+        *(int*)((char*)&this->f_0c) = 0;
 }
 
 namespace fn_f967ffb0 {

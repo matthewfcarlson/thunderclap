@@ -48,7 +48,7 @@ struct Actor_10dc30 {  };
 // sym: ?vfunc_5@HulkAction@ai@hulkfight@@UAE_NHH@Z
 bool hulkfight::ai::HulkAction::vfunc_5(hulk_intptr arg, int unused) {
     if (arg == 0) {
-        void* p = FUN_000592a0(*(void**)((char*)this + 0x20));
+        void* p = FUN_000592a0(*(void**)((char*)&this->f_20));
         FUN_00059a30(p);
         p = FUN_000678d0();
         FUN_00067730(p);

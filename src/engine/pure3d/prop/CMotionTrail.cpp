@@ -1065,7 +1065,7 @@ class Thing {
 // sym: ?target@Obj_27f2a0@fn_f4890d4c@@QAEXHH@Z
 // data: gHolder_27f2a0 = DAT_0052c2ac
 void Obj_27f2a0::target(int a, int b) {
-    char* p = (char*)this + 0x70;
+    char* p = (char*)&this->field70;
     for (int i = 100; i != 0; --i, p += 0x60) {
         Worker_27f2a0* w = *(Worker_27f2a0**)(p - 16);
         if (w) {
@@ -1217,10 +1217,10 @@ extern "C" void __stdcall FUN_0027f6f0(void * self) {
     char local[12];
     if (((Obj_27f6f0 *)self)->index != 0xffff) {
         Conv* c = (Conv*)((char*)*((void**)((char*)((Obj_27f6f0 *)self)->a + 0x1c)) + (((Obj_27f6f0 *)self)->index << 6));
-        ((owners::Mat_22c2b0 *)c)->FUN_0022c2b0((float *)((char*)((Obj_27f6f0 *)self) + 0x14), (float *)local);
+        ((owners::Mat_22c2b0 *)c)->FUN_0022c2b0((float *)((char*)&((Obj_27f6f0 *)self)->p2), (float *)local);
         ((Obj_27f6f0 *)self)->buffer->f8(local);
     } else {
-        ((Obj_27f6f0 *)self)->buffer->f8((char*)((Obj_27f6f0 *)self) + 0x14);
+        ((Obj_27f6f0 *)self)->buffer->f8((char*)&((Obj_27f6f0 *)self)->p2);
     }
 }
 

@@ -1976,7 +1976,7 @@ void* pure3d::d3dContext::vfunc_30(hulk_intptr a, int b, int c, int d, int e) {
 // 0x003218b0 pure3d::d3dContext::vfunc_31 (14 B): matches/0x003218b0.cpp
 // sym: ?vfunc_31@d3dContext@pure3d@@UAEXH@Z
 void pure3d::d3dContext::vfunc_31(int ) {
-    ((Thing_3218b0*)(*(char**)((char*)this + 0x204)))->call();
+    ((Thing_3218b0*)(*(char**)((char*)&this->f_204)))->call();
 }
 
 
@@ -2504,7 +2504,7 @@ void d3dContext::vfunc_62(u32_321af0 value) {
 void pure3d::d3dContext::vfunc_96(unsigned int x, unsigned int y) {
     this->f_17c = x;
     this->f_180 = y;
-    D3D8::D3DDevice_SetViewport((char*)this + 0x16c);
+    D3D8::D3DDevice_SetViewport((char*)&this->f_16c);
 }
 
 

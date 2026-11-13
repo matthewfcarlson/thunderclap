@@ -463,9 +463,9 @@ namespace fn_f533000b {
 // 0x00262d40 audio::HalRadicalAdpcmDecodeStream::vfunc_7 (81 B): matches/0x00262d40.cpp
 // sym: ?f7@HalRadicalAdpcmDecodeStream_262d40@fn_f533000b@@UAEXHHH@Z
 void HalRadicalAdpcmDecodeStream_262d40::f7(int a, int b, int d) {
-    uint v = Decode_0024c4d0((uint*)((char*)this + 8), d);
+    uint v = Decode_0024c4d0((uint*)((char*)&this->data), d);
     uint q = v >> 5;
-    uint m = *((uint*)((char*)this + 8)) >> 4;
+    uint m = *((uint*)((char*)&this->data)) >> 4;
     uint n = (m & 31) * q;
     uint bytes = n * 20;
     pC = a;

@@ -465,7 +465,7 @@ void pure3d::Image8::vfunc_10(int x, int y, int __p2) { unsigned char value = (u
 // sym: ?vfunc_18@Image8@pure3d@@UAEPAXXZ
 // Same code shape as 0x001c4e20 (propagated; names are from that function)
 void* pure3d::Image8::vfunc_18() {
-    return (void*)((pure3d::Image8*)((char*)this + 0x30));
+    return (void*)((pure3d::Image8*)((char*)&this->f_30));
 }
 
 

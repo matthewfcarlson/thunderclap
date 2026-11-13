@@ -65,7 +65,7 @@ namespace fn_f31cf280 {
 // 0x0010d090 FUN_0010d090 (55 B): matches/0x0010d090.cpp
 // sym: ??0SemaphoreClearTrack@fn_f31cf280@@QAE@XZ
 SemaphoreClearTrack::SemaphoreClearTrack() : Track_10d090(), n(0), v(-1.0f), sub(), x(0), y(0) {
-    *(int*)((char*)this + 8) = 1;
+    *(int*)((char*)&this->a) = 1;
 }
 
 } // namespace fn_f31cf280

@@ -78,11 +78,11 @@ HulkActionTrack* target() {
     if (p) {
         ((Base_114a70*)p)->Init_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040dc14);
-        *(u32_114a70*)((char*)p + 0xc) = 0;
-        *(u32_114a70*)((char*)p + 0x10) = 0xbf800000;
-        ((Member_114a70*)((char*)p + 0x18))->Init_0027af00();
-        *(u32_114a70*)((char*)p + 0x20) = 0;
-        *(u32_114a70*)((char*)p + 8) = 1;
+        *(u32_114a70*)((char*)&p->x[2]) = 0;
+        *(u32_114a70*)((char*)&p->x[3]) = 0xbf800000;
+        ((Member_114a70*)((char*)&p->x[5]))->Init_0027af00();
+        *(u32_114a70*)((char*)&p->x[7]) = 0;
+        *(u32_114a70*)((char*)&p->x[1]) = 1;
         return p;
     }
     return (HulkActionTrack*)0L;

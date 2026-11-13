@@ -204,8 +204,8 @@ void TextSelector::FUN_000e30a0() {
 void TextSelector::vfunc_25(int p) {
     if (this->f_154 != p) {
         this->f_154 = p;
-        if (*(int*)((char*)this + 0x1d94))
-            (*(Notifier_e30c0**)((char*)this + 0x1d94))->Notify_000f8b90(p);
+        if (*(int*)((char*)&this->f_1d94))
+            (*(Notifier_e30c0**)((char*)&this->f_1d94))->Notify_000f8b90(p);
         vfunc_0();
     }
 }

@@ -129,8 +129,8 @@ unsigned int TextWindow::vfunc_12(unsigned int direction, unsigned int unused)
 // sym: ?vfunc_13@TextWindow@@UAEXH@Z
 void TextWindow::vfunc_13(int ) {
     int x = *(int*)((char*)this + 0x14c);
-    *(int*)((char*)this + 0x148) = x;
-    hulk_intptr p = *(int*)((char*)this + 0x150);
+    *(int*)((char*)&this->f_148) = x;
+    hulk_intptr p = *(int*)((char*)&this->f_150);
     if (p)
         *(int*)((char*)p + 0x44) = x;
 }

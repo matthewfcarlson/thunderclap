@@ -376,11 +376,11 @@ void CUnlockable::Destroy() {
 CUnlockableGallery* __fastcall FUN_00092230(CUnlockableGallery* p) {
     p->v = ((hulk_intptr)DAT_0040449c);
     p->flag = 1;
-    ((Sub_92230*)((char*)p + 0x10))->Init_0027af00();
+    ((Sub_92230*)((char*)&p->at10))->Init_0027af00();
     p->m18 = 0;
     p->v = ((hulk_intptr)DAT_004044cc);
     p->m20 = 0;
-    ((Sub_92230*)((char*)p + 0xa8))->Init_0027af00();
+    ((Sub_92230*)((char*)&p->atA8))->Init_0027af00();
     p->mB0 = 0;
     *((unsigned char*)p + 0x24) = 0;
     *((unsigned char*)p + 0x64) = 0;

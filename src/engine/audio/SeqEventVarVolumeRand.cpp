@@ -222,7 +222,7 @@ int SeqEventVarVolumeRand_2523a0::vfunc_0(void* p) {
     char r = (char)audio::SeqEvent::vfunc_0(p);
     if (r) {
         if (FUN_0025ac10(p, (char*)this + 8)) {
-            if (FUN_0025ac10(p, (char*)this + 12))
+            if (FUN_0025ac10(p, (char*)&this->x))
                 return 1;
         }
     }
@@ -271,7 +271,7 @@ void audio::SeqActionVarVolumeRand::vfunc_2(int , int ) {
 // sym: ?vfunc_3@SeqActionVarVolumeRand@audio@@UAEXH@Z
 // Same code shape as 0x0024ea70 (propagated; names are from that function)
 void audio::SeqActionVarVolumeRand::vfunc_3(hulk_intptr ) {
-    *(int*)((char*)this + 0xc) = 4;
+    *(int*)((char*)&this->f_0c) = 4;
 }
 
 
@@ -279,7 +279,7 @@ void audio::SeqActionVarVolumeRand::vfunc_3(hulk_intptr ) {
 // sym: ?vfunc_4@SeqActionVarVolumeRand@audio@@UAEXH@Z
 // Same code shape as 0x0024ea80 (propagated; names are from that function)
 void audio::SeqActionVarVolumeRand::vfunc_4(int ) {
-    *(int*)((char*)this + 0xc) = 5;
+    *(int*)((char*)&this->f_0c) = 5;
 }
 
 

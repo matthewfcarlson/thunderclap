@@ -587,7 +587,7 @@ Record_327190* d3dPrimBuffer::vfunc_4() {
 // sym: ?vfunc_5@d3dPrimBuffer@pure3d@@UAEXPAX@Z
 void pure3d::d3dPrimBuffer::vfunc_5(void* __p0) { void * p = (void *)__p0;
 
-    *(char*)((char*)this + 0x34) = 0;
+    *(char*)((char*)&this->f_34) = 0;
     *(char*)((char*)p + 4) = 0;
 }
 
@@ -605,7 +605,7 @@ int pure3d::d3dPrimBuffer::vfunc_7() {
 // 0x00327220 pure3d::d3dPrimBuffer::vfunc_8 (14 B): matches/0x00327220.cpp
 // sym: ?vfunc_8@d3dPrimBuffer@pure3d@@UAEXI@Z
 void pure3d::d3dPrimBuffer::vfunc_8(unsigned int x) {
-    *((unsigned char*)this + 0x35) = 0;
+    *((char*)&this->f_35) = 0;
     *((unsigned int*)this + 9) = x;
 }
 

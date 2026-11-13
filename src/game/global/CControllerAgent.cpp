@@ -200,10 +200,10 @@ hulk_freg CControllerAgent::vfunc_3(hulk_intptr a, int b) {
     ((CControllerAgent_nv_fce10*)this)->helper_000fc4e0(a, b);
     hulk_intptr x = (*(Obj_fce10 * *)&this->f_58)->f6();
     if (*(int*)((char*)x + 0x20a8) >= 0)
-        *(float*)((char*)this + 8) = 100.0f;
+        *(float*)((char*)&this->f_08) = 100.0f;
     else
-        *(float*)((char*)this + 8) = 0.0f;
-    return *(float*)((char*)this + 8);
+        *(float*)((char*)&this->f_08) = 0.0f;
+    return *(float*)((char*)&this->f_08);
 }
 
 namespace fn_f8104e0e {

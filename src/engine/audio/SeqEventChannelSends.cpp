@@ -185,7 +185,7 @@ void audio::SeqActionChannelSends::vfunc_1(void* __p0) { Arg_24f870 * arg = (Arg
 // sym: ?vfunc_3@SeqActionChannelSends@audio@@UAEXH@Z
 // Same code shape as 0x0024ea70 (propagated; names are from that function)
 void audio::SeqActionChannelSends::vfunc_3(hulk_intptr ) {
-    *(int*)((char*)this + 0xc) = 4;
+    *(int*)((char*)&this->f_0c) = 4;
 }
 
 
@@ -193,7 +193,7 @@ void audio::SeqActionChannelSends::vfunc_3(hulk_intptr ) {
 // sym: ?vfunc_4@SeqActionChannelSends@audio@@UAEXH@Z
 // Same code shape as 0x0024ea80 (propagated; names are from that function)
 void audio::SeqActionChannelSends::vfunc_4(int ) {
-    *(int*)((char*)this + 0xc) = 5;
+    *(int*)((char*)&this->f_0c) = 5;
 }
 
 

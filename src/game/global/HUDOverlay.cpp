@@ -663,14 +663,14 @@ void __fastcall Target(Obj_ca930* self) {
 // 0x000ca950 HUDOverlay::vfunc_1 (5 B): matches/0x000ca950.cpp
 // sym: ?vfunc_1@HUDOverlay@@UAEXXZ
 void HUDOverlay::vfunc_1() {
-    *((char*)this + 0x50) = 1;
+    *((char*)&this->f_50) = 1;
 }
 
 
 // 0x000ca960 HUDOverlay::vfunc_2 (5 B): matches/0x000ca960.cpp
 // sym: ?vfunc_2@HUDOverlay@@UAEXXZ
 void HUDOverlay::vfunc_2() {
-    *((char*)this + 0x50) = 0;
+    *((char*)&this->f_50) = 0;
 }
 
 namespace fn_fb3f3f46 {

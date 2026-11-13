@@ -326,7 +326,7 @@ namespace fn_f724be52 {
 // 0x0024e730 audio::SeqEventNestTrack::vfunc_4 (45 B): matches/0x0024e730.cpp
 // sym: ?f4@SeqEventNestTrack@fn_f724be52@@UAEPAV12@I@Z
 SeqEventNestTrack* SeqEventNestTrack::f4(unsigned int param) {
-    ((owners::Str_240060 *)(((SeqEventNestTrack_24e730*)((char*)this + 8))))->FUN_00240060();
+    ((owners::Str_240060 *)(((SeqEventNestTrack_24e730*)((char*)&this->name))))->FUN_00240060();
     ((SeqEventNestTrack_24e730*)this)->Fnb_0025fd10();
     if (param & 1)
         FUN_00247550((void*)((hulk_intptr)DAT_004e6698), this);
@@ -341,7 +341,7 @@ int SeqEventNestTrack::vfunc_1(Stm_24e760** p) {
     if (SeqEvent::v1(p)) {
         if (Match_00246f50(*p, DAT_004298f4)) {
             (*p)->depth++;
-            if (ReadTrack_0024e600(p, DAT_004298e0, (char*)this + 8)) {
+            if (ReadTrack_0024e600(p, DAT_004298e0, (char*)&this->name)) {
                 (*p)->depth--;
                 Stm_24e760* s = *p;
                 if (Match_00246f50(s, DAT_004298dc))

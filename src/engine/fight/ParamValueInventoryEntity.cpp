@@ -226,7 +226,7 @@ extern int hulk_at_004279fc;
 extern void FUN_0008d330(ParamValueColour*);
 ParamValueColour* ParamValueColour::vfunc_0(int flags) {
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004279fc;
-    Elem_2355c0* q = (Elem_2355c0*)((char*)this + 8);
+    Elem_2355c0* q = (Elem_2355c0*)((char*)&this->gap);
     q->Fn_0027af50();
     if (flags & 1)
         FUN_0008d330(this);

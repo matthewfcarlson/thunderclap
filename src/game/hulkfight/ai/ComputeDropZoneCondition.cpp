@@ -225,7 +225,7 @@ bool hulkfight::ai::MotionBoostAction::vfunc_3(hulk_intptr , hulk_intptr ) {
         return false;
     void* x = ((void *)((owners::Object_592a0 *)(((A_115ed0*)(*(void * *)&this->f_20))))->FUN_000592a0());
     x = ((B_115ed0*)x)->Fng_00059a30();
-    ((owners::C_35460 *)(((B_115ed0*)x)))->FUN_00035460((unsigned *)((char*)this + 0x28));
+    ((owners::C_35460 *)(((B_115ed0*)x)))->FUN_00035460((unsigned *)((char*)&this->f_28));
     return true;
 }
 

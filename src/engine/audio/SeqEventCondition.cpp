@@ -250,7 +250,7 @@ namespace fn_f150b671 {
 // sym: ?vfunc_4@SeqEventCondition@fn_f150b671@@UAEPAV12@E@Z
 // data: gBss_24fee0 = DAT_004e68f8
 SeqEventCondition* SeqEventCondition::vfunc_4(unsigned char flag) {
-    ((A_24fee0*)((char*)this + 0x14))->Fnf_00240060();
+    ((A_24fee0*)((char*)&this->m10))->Fnf_00240060();
     ((SeqEventCondition_24fee0*)this)->Fnf_002607a0();
     if (flag & 1)
         f47550_00247550(((char*)&DAT_004e68f8), this);

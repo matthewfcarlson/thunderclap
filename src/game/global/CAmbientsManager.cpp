@@ -1469,7 +1469,7 @@ CAmbientsManager::~CAmbientsManager() throw() {
         ((Elem_78bc0*)p)->FnD_0027af50();
         i--;
     } while (i != 0);
-    E8* q = (E8*)((char*)this + 0x3640);
+    E8* q = (E8*)((char*)&this->c[0].p);
     i = 20;
     do {
         q--;
@@ -6579,7 +6579,7 @@ CCivilian::CCivilian(int a1, Device_810f0* dev, int a3, int a4, int a5, char fla
     int value = fe8->s11();
     ff0->FUN_00288080(value);
     ff0->FUN_00284ad0(0);
-    *(int*)((char*)ff0 + 0x148) = 0;
+    *(int*)((char*)&ff0->f148) = 0;
 
     Vec3_810f0 v;
     v.x = 0.0f;

@@ -520,11 +520,11 @@ void ImageSelector::vfunc_19(int p2, int p3, int p4, int p5, int __p4) { char p6
         FUN_000c8710((char*)this + 0x150 + (p4 + p3 * 8) * 4, p2);
         *((char*)this + 0x250 + p4 + p3 * 8) = (char)p5;
         if (p6) {
-            *(int*)((char*)this + 0x2a4) = *(int*)((char*)this + 0x2a8) =
-                *(int*)((char*)this + 0x298) * p3 + p4;
+            *(int*)((char*)&this->f_2a4) = *(int*)((char*)&this->f_2a8) =
+                *(int*)((char*)&this->f_298) * p3 + p4;
             ((::ImageSelector *)(((ImageSelector_nv_ee180*)this)))->FUN_000e4020();
         }
-        ++*(int*)((char*)this + 0x290);
+        ++*(int*)((char*)&this->f_290);
     }
 }
 

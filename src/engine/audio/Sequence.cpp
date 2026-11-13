@@ -561,7 +561,7 @@ struct Node {
 void* FUN_00256900(void*, void*);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00256940(void *, void *);
 extern "C" void FUN_00256da0(void * tree, void * node) {
-    Node* nil = (Node*)((char*)((Node *)tree) + 4);
+    Node* nil = (Node*)((char*)&((Node *)tree)->right);
     Node* x;
     if (((Node *)node)->left == nil || ((Node *)node)->right == nil)
         x = ((Node *)node);
@@ -608,7 +608,7 @@ namespace fn_f06eb07d {
 // sym: _FUN_00256e80
 extern "C" N_256e80* __cdecl FUN_00256e80(N_256e80* s, N_256e80* n) {
     N_256e80* x = n->l;
-    N_256e80* end = (N_256e80*)((char*)s + 4);
+    N_256e80* end = (N_256e80*)((char*)&s->l);
     if (x != end) {
         while (x->next != end)
             x = x->next;
@@ -1262,9 +1262,9 @@ Sequence::~Sequence() throw() {
 // sym: ?vfunc_4@Sequence@audio@@UAE_NH@Z
 bool audio::Sequence::vfunc_4(int __p0) { unsigned int p = (unsigned int)__p0;
 
-    *(void**)((char*)this + 0x28) = (char*)this + 0x2c;
-    InitA_00256d40((char*)this + 0x3c);
-    InitB_00257730((char*)this + 0x44);
+    *(void**)((char*)&this->f_28) = (char*)&this->f_2c;
+    InitA_00256d40((char*)&this->f_3c);
+    InitB_00257730((char*)&this->f_44);
     return (bool)(vfunc_5(p));
 }
 

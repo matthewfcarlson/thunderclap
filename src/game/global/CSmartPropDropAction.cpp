@@ -39,7 +39,7 @@ bool CSmartPropThrowingAction::vfunc_6(int x) {
 // 0x00016460 CSmartPropThrowingAction::vfunc_4 (23 B): matches/0x00016460.cpp
 // sym: ?vfunc_4@CSmartPropThrowingAction@@UAEXXZ
 void CSmartPropThrowingAction::vfunc_4() {
-    HelperA_16460* p = *(HelperA_16460**)((char*)this + 0x1c);
+    HelperA_16460* p = *(HelperA_16460**)((char*)&this->f_1c);
     p = ((HelperA_16460 *)((owners::Object_592a0 *)p)->FUN_000592a0());
     char* q = p->Fng_00059a30();
     q[0x1f51] = 0;

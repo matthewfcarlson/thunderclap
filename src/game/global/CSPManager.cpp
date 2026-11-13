@@ -2798,7 +2798,7 @@ hulk_freg CSPManager_1dc8d0::Get(int key) {
     int i = Find_001dbfe0(key);
     if (i >= 0) {
         Slot_1dc8d0* s = &slots[i];
-        short idx = *(short*)((char*)s + 0x22);
+        short idx = *(short*)((char*)&s->p2);
         if ((((Rec_1dc8d0*)this)[idx + 0x104e].flags & 1) && s->e)
             return s->e->f;
         r = (hulk_freg)s->cnt;
@@ -5949,7 +5949,7 @@ template <> Method0<CSPManager, int>::~Method0() {}
 // Same code shape as 0x0002ceb0 (propagated; names are from that function)
 template <> void Method0<CSPManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
-    unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)this + 0x1c);
+    unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;

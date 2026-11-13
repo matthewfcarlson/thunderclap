@@ -686,7 +686,7 @@ void SingleLayout::vfunc_12() {
 // 0x000e21d0 SingleLayout::vfunc_11 (15 B): matches/0x000e21d0.cpp
 // sym: ?vfunc_11@SingleLayout@@UAEXXZ
 void SingleLayout::vfunc_11() {
-    if (*(void**)((char*)this + 0x44)) {
+    if (*(void**)((char*)&this->f_44)) {
         struct Obj {
             virtual void x0();
             virtual void x1();
@@ -705,7 +705,7 @@ void SingleLayout::vfunc_11() {
             virtual void x14();
             virtual void v();
         };
-        ((Obj*)*(void**)((char*)this + 0x44))->v();
+        ((Obj*)*(void**)((char*)&this->f_44))->v();
     }
 }
 

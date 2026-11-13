@@ -294,7 +294,7 @@ CUnlockableMove* CUnlockableMove::Ctor() {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0040449c);
     *((char*)this + 8) = 1;
     ((Sub_91ea0*)((char*)this + 0x10))->Init_0027af00();
-    *(int*)((char*)this + 0x18) = 0;
+    *(int*)((char*)&this->ptr) = 0;
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004044b4);
     *((char*)this + 0x20) = 0;
     *(int*)((char*)this + 0x24) = 0;

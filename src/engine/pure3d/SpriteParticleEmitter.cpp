@@ -699,7 +699,7 @@ int pure3d::ParticleEmitter::vfunc_28() {
 // sym: ?vfunc_30@ParticleEmitter@pure3d@@UAEIXZ
  // namespace pure3d
 unsigned int pure3d::ParticleEmitter::vfunc_30() {
-    return *(unsigned int*)((char*)this + 0x8c);
+    return *(unsigned int*)((char*)&this->f_8c);
 }
 
 
@@ -977,14 +977,14 @@ unsigned int pure3d::SpriteParticleEmitter::vfunc_13() {
 // 0x002d44e0 pure3d::SpriteParticleEmitter::vfunc_16 (69 B): matches/0x002d44e0.cpp
 // sym: ?vfunc_16@SpriteParticleEmitter@pure3d@@UAEXXZ
 void pure3d::SpriteParticleEmitter::vfunc_16() {
-    *(unsigned int*)(reinterpret_cast<char*>(this) + 0x158) = 0x3f800000;
-    *(unsigned int*)(reinterpret_cast<char*>(this) + 0x168) = 0x3f800000;
-    *(unsigned int*)(reinterpret_cast<char*>(this) + 0x174) = 0x3f800000;
-    *(unsigned int*)(reinterpret_cast<char*>(this) + 0x180) = 0x3f800000;
-    *(unsigned int*)(reinterpret_cast<char*>(this) + 0x194) = 0x3f800000;
-    *(unsigned int*)(reinterpret_cast<char*>(this) + 0x1a0) = 0x3f800000;
-    *(unsigned int*)(reinterpret_cast<char*>(this) + 0x1a8) = 0x3f800000;
-    *(unsigned int*)(reinterpret_cast<char*>(this) + 0x1b0) = 0x3f800000;
+    *(unsigned int*)((char*)&this->f_158) = 0x3f800000;
+    *(unsigned int*)((char*)&this->f_168) = 0x3f800000;
+    *(unsigned int*)((char*)&this->f_174) = 0x3f800000;
+    *(unsigned int*)((char*)&this->f_180) = 0x3f800000;
+    *(unsigned int*)((char*)&this->f_194) = 0x3f800000;
+    *(unsigned int*)((char*)&this->f_1a0) = 0x3f800000;
+    *(unsigned int*)((char*)&this->f_1a8) = 0x3f800000;
+    *(unsigned int*)((char*)&this->f_1b0) = 0x3f800000;
     if ((*(Ref_2d44e0 * *)&this->f_88))
         (*(Ref_2d44e0 * *)&this->f_88)->j();
 }
@@ -1931,7 +1931,7 @@ bool SpriteParticleEmitter::vfunc_14(Vec3_2d5a70* dir, Vec3_2d5a70* pos, int arg
 // sym: ?vfunc_15@SpriteParticleEmitter@pure3d@@UAEXXZ
 void pure3d::SpriteParticleEmitter::vfunc_15() {
     unsigned int i = 0;
-    Buffer_2d5cb0* b = *(Buffer_2d5cb0**)((char*)this + 0x84);
+    Buffer_2d5cb0* b = *(Buffer_2d5cb0**)((char*)&this->f_84);
     while (i < this->f_14c) {
         int* p = (*(int * *)&this->f_1c8) + i;
         int v = *p;

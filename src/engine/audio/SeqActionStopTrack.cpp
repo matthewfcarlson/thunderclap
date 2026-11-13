@@ -181,8 +181,8 @@ SeqEventStopTrack::SeqEventStopTrack() : SeqEvent_250dc0() {
 // sym: ?vfunc_0@SeqEventStopTrack_250e00@fn_fe889925@@UAEHPAH@Z
 int SeqEventStopTrack_250e00::vfunc_0(int* p) {
     if (((char)(audio::SeqEvent::vfunc_0(p)))) {
-        if (FUN_0025abd0(p, (char*)this + 8)) {
-            if (FUN_0025abd0(p, (char*)this + 12)) {
+        if (FUN_0025abd0(p, (char*)&this->mC)) {
+            if (FUN_0025abd0(p, (char*)&this->m10)) {
                 if (FUN_0025bce0(p, (char*)this + 16)) {
                     if (FUN_0025aa80(p, (char*)this + 28))
                         return 1;
@@ -234,7 +234,7 @@ void audio::SeqActionStopTrack::vfunc_2(int , int ) {
 // sym: ?vfunc_3@SeqActionStopTrack@audio@@UAEXH@Z
 // Same code shape as 0x0024ea70 (propagated; names are from that function)
 void audio::SeqActionStopTrack::vfunc_3(hulk_intptr ) {
-    *(int*)((char*)this + 0xc) = 4;
+    *(int*)((char*)&this->f_0c) = 4;
 }
 
 
@@ -242,7 +242,7 @@ void audio::SeqActionStopTrack::vfunc_3(hulk_intptr ) {
 // sym: ?vfunc_4@SeqActionStopTrack@audio@@UAEXH@Z
 // Same code shape as 0x0024ea80 (propagated; names are from that function)
 void audio::SeqActionStopTrack::vfunc_4(int ) {
-    *(int*)((char*)this + 0xc) = 5;
+    *(int*)((char*)&this->f_0c) = 5;
 }
 
 
@@ -305,7 +305,7 @@ namespace fn_fe889925 {
 // 0x00251030 audio::SeqEventStopTrack::vfunc_4 (45 B): matches/0x00251030.cpp
 // sym: ?f4_impl@SeqEventStopTrack@fn_fe889925@@QAEPAV12@E@Z
 SeqEventStopTrack* SeqEventStopTrack::f4_impl(unsigned char flags) {
-    ((H1*)((char*)this + 0x10))->run_00240060();
+    ((H1*)((char*)&this->name.a))->run_00240060();
     ((H2_251030*)this)->run_0025fd10();
     if (flags & 1)
         FUN_00247550(((char*)&DAT_004e6bc8), this);

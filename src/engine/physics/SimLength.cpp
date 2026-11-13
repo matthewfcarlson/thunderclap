@@ -86,8 +86,8 @@ extern "C" void* __cdecl FUN_00263ea0(unsigned);  // (x64t4) the allocator's jmp
 // sym: ?vfunc_1@SimLength@physics@@UAEXM@Z
  // namespace physics
 void physics::SimLength::vfunc_1(float value) {
-    *(float*)((char*)this + 8) = value;
-    *(float*)((char*)this + 4) = hulk_at_004d287c * value;
+    *(float*)((char*)&this->f_08) = value;
+    *(float*)((char*)&this->f_04) = hulk_at_004d287c * value;
 }
 
 
@@ -104,7 +104,7 @@ void physics::SimTime::vfunc_1(float x) {
 // sym: ?vfunc_2@SimCGSValue@physics@@UAEMXZ
  // namespace physics
 hulk_freg physics::SimCGSValue::vfunc_2() {
-    return *(float*)((char*)this + 8);
+    return *(float*)((char*)&this->f_08);
 }
 
 

@@ -1785,7 +1785,7 @@ void FEContainer::vfunc_6() {
 // sym: ?vfunc_7@FEContainer@@UAEXXZ
 void FEContainer::vfunc_7() {
     ((ThisCall_000e4ec0*)(this))->FUN_000e4ec0(9);
-    ((Obj_ef160*)*(void**)((char*)this + 4))->call(6);
+    ((Obj_ef160*)*(void**)((char*)&this->f_04))->call(6);
 }
 
 

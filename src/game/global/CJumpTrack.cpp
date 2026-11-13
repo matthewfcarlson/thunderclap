@@ -209,7 +209,7 @@ hulk_freg CJumpTrack::vfunc_20() {
 // 0x000690b0 CJumpTrack::vfunc_21 (4 B): matches/0x000690b0.cpp
 // sym: ?vfunc_21@CJumpTrack@@UAEMXZ
 hulk_freg CJumpTrack::vfunc_21() {
-    return *(float*)((char*)this + 0x2c);
+    return *(float*)((char*)&this->f_2c);
 }
 
 
@@ -272,7 +272,7 @@ hulk_freg CJumpTrack::vfunc_29() {
 // 0x00069140 CJumpTrack::vfunc_30 (4 B): matches/0x00069140.cpp
 // sym: ?vfunc_30@CJumpTrack@@UAEEXZ
 unsigned char CJumpTrack::vfunc_30() {
-    return *((unsigned char*)this + 0x50);
+    return *((char*)&this->f_50);
 }
 
 

@@ -319,9 +319,9 @@ hulk_intptr fight::FightNodeParentCondition::vfunc_0(int index) {
 fight::FightNodeParentCondition* fight::FightNodeParentCondition::FUN_00235b00() {
     ((FightNodeTimeCondition_235b00*)this)->Init_00234590(0);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00427d14);
-    *(int*)((char*)this + 0x0c) = 0;
+    *(int*)((char*)&this->compare) = 0;
     ((Part_235b00*)((char*)this + 0x10))->Init_00233dd0();
-    *((char*)this + 0x1c) = 1;
+    *((char*)&this->recurse) = 1;
     return (fight::FightNodeParentCondition*)(this);
 }
 

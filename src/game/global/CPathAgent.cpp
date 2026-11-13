@@ -233,7 +233,7 @@ void C_1048d0::set(hulk_intptr x) {
 hulk_freg CPathAgent::vfunc_3(hulk_intptr x, int y) {
     ((Helper_1048f0*)this)->Fnf_000fc4e0(x, y);
     float z = hulk_at_003f32e0;
-    *(int*)((char*)this + 8) = 0;
+    *(int*)((char*)&this->f_08) = 0;
     return z;
 }
 
@@ -1017,7 +1017,7 @@ namespace fn_f58850d5 {
 // sym: ?FUN@fn_f58850d5@@YIXPAVCPathGraphAgent_105ef0@1@@Z
 void __fastcall FUN(CPathGraphAgent_105ef0* self) {
     self->vptr = (void*)((hulk_intptr)DAT_0040d518);
-    ((owners::Ring_1ae150 *)(((Sub_105ef0*)hulk_at_004dd700->sub)))->FUN_001ae150((hulk_intptr)((char*)self + 0x5c));
+    ((owners::Ring_1ae150 *)(((Sub_105ef0*)hulk_at_004dd700->sub)))->FUN_001ae150((hulk_intptr)((char*)&self->p2));
     self->mAcopy = self->mA;
     if (self->mA)
         Ref_0008d340(self->mA);

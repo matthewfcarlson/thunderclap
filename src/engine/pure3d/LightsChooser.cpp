@@ -74,7 +74,7 @@ CacheManager_29f590::~CacheManager_29f590() {
     int i = 0;
     if (m34 > 0) {
         for (; i < m34; ++i) {
-            Item_29f590* p = *(Item_29f590**)(*(char**)((char*)this + 0x2c) + i * 0x1c + 0xc);
+            Item_29f590* p = *(Item_29f590**)(*(char**)((char*)&this->m2c) + i * 0x1c + 0xc);
             p->B();
         }
     }

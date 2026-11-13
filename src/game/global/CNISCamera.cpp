@@ -126,7 +126,7 @@ CNISCamera* __fastcall target(CNISCamera* self) {
     *(hulk_uintptr*)self = ((hulk_intptr)DAT_00405b2c);
     *(u32_ac3c0*)((char*)self + 0xd0) = 3;
     ((Sub_ac3c0*)((char*)self + 8))->Init_0027b040(p);
-    *(u32_ac3c0*)((char*)self + 0x170) = 0;
+    *(u32_ac3c0*)((char*)&self->mRef) = 0;
     return self;
 }
 

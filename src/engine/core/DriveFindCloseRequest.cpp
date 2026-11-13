@@ -163,7 +163,7 @@ void DriveRequest_274860::Run() {
 // sym: ?vfunc_1@DriveFindNextRequest@core@@UAEHXZ
 int core::DriveFindNextRequest::vfunc_1() {
     Obj_2748a0* o = (*(Drive_2748a0 * *)&this->f_08)->obj;
-    int r = o->call19((char*)(*(Drive_2748a0 * *)&this->f_08) + 0x1c, this->f_0c);
+    int r = o->call19((char*)&(*(Drive_2748a0 * *)&this->f_08)->p3, this->f_0c);
     hulk_intptr v = (hulk_intptr)o->Fetch_00272880();
     (*(Drive_2748a0 * *)&this->f_08)->sub.a();
     (*(Drive_2748a0 * *)&this->f_08)->result = v;

@@ -405,7 +405,7 @@ void* physics::HairclubPhysicsObject::vfunc_28(unsigned int arg) {
     } else
         p = 0;
     ((HairclubPhysicsObject_nv_3094a0*)this)->build_00308e40(p, arg);
-    *(u32_3094a0*)((char*)p + 0x24) = *(u32_3094a0*)((char*)this + 0x24);
+    *(u32_3094a0*)((char*)p + 0x24) = *(u32_3094a0*)((char*)&this->f_24);
     return (void*)(p);
 }
 

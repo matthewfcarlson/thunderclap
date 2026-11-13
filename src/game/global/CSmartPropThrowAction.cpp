@@ -82,7 +82,7 @@ bool CSmartPropSetStateAction::vfunc_7(int arg) {
 // 0x000160f0 CSmartPropDetachAction::vfunc_6 (37 B): matches/0x000160f0.cpp
 // sym: ?vfunc_6@CSmartPropDetachAction@@UAE_NH@Z
 bool CSmartPropDetachAction::vfunc_6(int unused) {
-    Obj_160f0* o = *(Obj_160f0**)((char*)this + 0x1c);
+    Obj_160f0* o = *(Obj_160f0**)((char*)&this->f_1c);
     o = ((Obj_160f0 *)((owners::Object_592a0 *)o)->FUN_000592a0());
     o = o->f59a30_00059a30();
     o->f40140_00040140(0, -1, 0, 0, 0);

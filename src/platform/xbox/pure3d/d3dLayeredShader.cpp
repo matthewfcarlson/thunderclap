@@ -784,7 +784,7 @@ void pure3d::d3dLayeredShader::vfunc_24() {
 pure3d::d3dLayeredLMapShader* pure3d::d3dLayeredLMapShader::FUN_0032e800(int arg) {
     ((d3dLayeredLMapShader_nv_32e800*)this)->Init(arg);
     *(void**)this = (void*)((hulk_intptr)DAT_00433c24);
-    *(int*)((char*)this + 0x9c) = 0;
+    *(int*)((char*)&this->f_9c) = 0;
     return (d3dLayeredLMapShader*)(this);
 }
 

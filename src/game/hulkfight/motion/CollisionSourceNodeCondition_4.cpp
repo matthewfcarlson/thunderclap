@@ -79,7 +79,7 @@ CollisionSourceNodeCondition* FactoryVfunc5() {
         p->Init_00234590(0);
         *(hulk_ulongptr*)p = ((hulk_intptr)DAT_00414130);
         p->fieldC = 0;
-        ((Sub_1597d0*)((char*)p + 0x10))->InitSub_00233dd0();
+        ((Sub_1597d0*)((char*)&p->unused))->InitSub_00233dd0();
         *((char*)p + 0x1c) = 0;
         return p;
     }

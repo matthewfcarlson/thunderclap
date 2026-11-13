@@ -60,7 +60,7 @@ void audio::SeqActionChannelSendVolumes::vfunc_1(Context* ctx) {
  b->owner=settings->owner;
  b->volumes=volumes;
  }
- FUN_0024f280((audio :: Tree_24f6a0 *)tree,(audio :: ChannelSendVolumeFadeBehaviour *)b,(const unsigned *)(unsigned int *)((uint*)((char*)b+0x14)));
+ FUN_0024f280((audio :: Tree_24f6a0 *)tree,(audio :: ChannelSendVolumeFadeBehaviour *)b,(const unsigned *)(unsigned int *)((uint*)((char*)&b->key)));
  active=0;
 }
 

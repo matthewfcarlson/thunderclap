@@ -313,7 +313,7 @@ void* physics::SimState::vfunc_4(void* __p0) {
 // 0x002ef310 physics::SimState::vfunc_5 (6 B): matches/0x002ef310.cpp
 // sym: ?vfunc_5@SimState@physics@@UAEPAXH@Z
 void* physics::SimState::vfunc_5(int ) {
-    return (void*)((physics::SimState*)((char*)this + 0x40));
+    return (void*)((physics::SimState*)((char*)&this->f_40));
 }
 
 
@@ -478,9 +478,9 @@ void physics::SimState::vfunc_12(void* __p0, float dt, bool apply) { float * del
     ((physics::SimState *)(((SimState_nv_2ef670*)this)))->FUN_002ef5b0(temp, (char*)this + 0x10);
     if (apply) {
         hulk_freg s = 1.0f / dt;
-        *(float*)((char*)this + 0x50) += s * delta[0];
-        *(float*)((char*)this + 0x54) += s * delta[1];
-        *(float*)((char*)this + 0x58) += s * delta[2];
+        *(float*)((char*)&this->f_50) += s * delta[0];
+        *(float*)((char*)&this->f_54) += s * delta[1];
+        *(float*)((char*)&this->f_58) += s * delta[2];
     }
 }
 

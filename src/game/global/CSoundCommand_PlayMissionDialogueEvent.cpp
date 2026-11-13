@@ -36,6 +36,6 @@ void CSoundCommand_PlayMissionDialogueEvent::vfunc_1(int a, int b) {
     Resolver* r = mgr->resolver;
     int item = r->Lookup_001e98b0(&this->f_10);
     if (item)
-        (*(SoundMgr**)&DAT_004e370c)->player->Play_001f3e50(item, (char*)this + 0x18, a, (char*)this + 0x20, this->f_1c, (*(unsigned char *)&this->f_40));
+        (*(SoundMgr**)&DAT_004e370c)->player->Play_001f3e50(item, (char*)&this->f_18, a, (char*)this + 0x20, this->f_1c, (*(unsigned char *)&this->f_40));
 }
 

@@ -162,7 +162,7 @@ void audio::SeqActionChannelVolumes::vfunc_2(int , int ) {
 // sym: ?vfunc_3@SeqActionChannelVolumes@audio@@UAEXH@Z
 // Same code shape as 0x0024ea70 (propagated; names are from that function)
 void audio::SeqActionChannelVolumes::vfunc_3(hulk_intptr ) {
-    *(int*)((char*)this + 0xc) = 4;
+    *(int*)((char*)&this->f_0c) = 4;
 }
 
 
@@ -170,7 +170,7 @@ void audio::SeqActionChannelVolumes::vfunc_3(hulk_intptr ) {
 // sym: ?vfunc_4@SeqActionChannelVolumes@audio@@UAEXH@Z
 // Same code shape as 0x0024ea80 (propagated; names are from that function)
 void audio::SeqActionChannelVolumes::vfunc_4(int ) {
-    *(int*)((char*)this + 0xc) = 5;
+    *(int*)((char*)&this->f_0c) = 5;
 }
 
 
@@ -502,8 +502,8 @@ int audio::SeqEventChannelVolumes::vfunc_0(void* __p0) { void * p = (void *)__p0
 
     if (((SeqEventCheck*)this)->CheckBase_0025fd20(p)) {
         if (FUN_0025abd0(p, (char*)this + 0x18)) {
-            if (FUN_0024f010(p, (char*)this + 0x1c)) {
-                if (Read3_00252030(p, (char*)this + 8)) {
+            if (FUN_0024f010(p, (char*)&this->f_1c)) {
+                if (Read3_00252030(p, (char*)&this->f_08)) {
                     return 1;
                 }
             }

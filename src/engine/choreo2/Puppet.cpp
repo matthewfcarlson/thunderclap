@@ -641,7 +641,7 @@ choreo2::Puppet* choreo2::Puppet::FUN_00222620(void* __p0) { Arg_222620 * param 
     ((Puppet_nv_222620*)this)->BaseInit_0027b070();
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_004272b8);
     ((Sub_222620*)((char*)this + 0x10))->Init_00222050();
-    *(u32_222620*)((char*)this + 0x68) = 0;
+    *(u32_222620*)((char*)&this->f_68) = 0;
     *(u8*)((char*)this + 0x2ec) = 0;
     *(Arg_222620**)((char*)this + 0x64) = param;
     param->F();

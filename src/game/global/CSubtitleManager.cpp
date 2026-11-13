@@ -720,7 +720,7 @@ CSubtitleOverlay::CSubtitleOverlay() throw() {
 // 0x001be200 CSubtitleOverlay::vfunc_1 (8 B): matches/0x001be200.cpp
 // sym: ?vfunc_1@CSubtitleOverlay@@UAEXXZ
 void CSubtitleOverlay::vfunc_1() {
-    *((char*)this + 0x11d) = 1;
+    *((char*)&this->f_11d) = 1;
 }
 
 

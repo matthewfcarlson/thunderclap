@@ -467,9 +467,9 @@ bool fight::PrintCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_u
 // 0x00238c70 fight::PrintAction::vfunc_3 (37 B): matches/0x00238c70.cpp
 // sym: ?vfunc_3@PrintAction@fight@@UAE_NHH@Z
 bool fight::PrintAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
-    hulk_intptr p = *(int*)((char*)this + 0x1c);
+    hulk_intptr p = *(int*)((char*)&this->f_1c);
     if (*(int*)((char*)p + 0x14))
-        FUN_00238bb0(*(int*)((char*)this + 0x20), *(int*)((char*)p + 0x10), formatString_238c70,
+        FUN_00238bb0(*(int*)((char*)&this->f_20), *(int*)((char*)p + 0x10), formatString_238c70,
                      *(int*)((char*)p + 0x14));
     return false;
 }
@@ -523,7 +523,7 @@ class PrintTrack : public Track {
 };
 PrintTrack* PrintTrack::vfunc_5(unsigned char p) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004282fc);
-    thunk_FUN_00267090((void*)(*(hulk_intptr*)((char*)this + 0x10)));
+    thunk_FUN_00267090((void*)(*(hulk_intptr*)((char*)&this->b)));
     thunk_FUN_00267090((void*)(*(hulk_intptr*)((char*)this + 0x14)));
     FUN_00236d60();
     if (p & 1)

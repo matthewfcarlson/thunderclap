@@ -307,7 +307,7 @@ void* pure3d::BillboardQuadGroupAnimationController::vfunc_4() {
     if (p) {
         ((BillboardQuadGroupAnimationController_nv_2a9c00*)(p))->initialize_00285780(this);
         *(hulk_intptr*)p = (hulk_intptr)&BQVtable;
-        int* z = (int*)((char*)p + 0x40);
+        int* z = (int*)((char*)&p->f_40);
         *z = 0;
         pure3d::BillboardQuadGroupAnimationController* q = (*(pure3d::BillboardQuadGroupAnimationController * *)&this->f_40);
         if (q)

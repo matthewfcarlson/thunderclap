@@ -5360,7 +5360,7 @@ void Obj_65b80::Tick(int a) {
     if (!mClock)
         return;
     if (mType == 0) {
-        int v = *(int*)((char*)g_game_65b80 + 0x2c);
+        int v = *(int*)((char*)&g_game_65b80->val);
         mType = v;
         if (!v)
             return;

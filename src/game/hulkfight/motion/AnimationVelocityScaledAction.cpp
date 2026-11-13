@@ -5253,7 +5253,7 @@ FrameCondition* target(void) {
     if (p) {
         p->initialize_00234590(0);
         *(void**)p = (void*)((hulk_intptr)DAT_00412430);
-        ((FrameCondition*)((char*)p + 0x10))->initializeExtra_0027af00();
+        ((FrameCondition*)((char*)&p->idLo))->initializeExtra_0027af00();
         p->a = 0;
         p->b = 0;
         return p;

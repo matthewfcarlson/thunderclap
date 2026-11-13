@@ -380,7 +380,7 @@ void MapThing::vfunc_10(unsigned int value) {
 // 0x000e39b0 MapThing::vfunc_12 (7 B): matches/0x000e39b0.cpp
 // sym: ?vfunc_12@MapThing@@UAEHXZ
 int MapThing::vfunc_12() {
-    return *(int*)((char*)this + 0x118);
+    return *(int*)((char*)&this->f_118);
 }
 
 

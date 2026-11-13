@@ -32,7 +32,7 @@ void CSoundCommand_CueNISEvent::vfunc_1(int , int ) {
     int x = r->Run_001e98b0((char*)this + 0x10);
     if (x) {
         Player_1ef660* p = (Player_1ef660*)(*(Global_1ef660**)&DAT_004e370c)->a;
-        p->Run_001f56b0(x, (char*)this + 0x18);
+        p->Run_001f56b0(x, (char*)&this->f_18);
     }
 }
 

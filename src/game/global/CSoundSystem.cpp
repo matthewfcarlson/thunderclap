@@ -1069,7 +1069,7 @@ void Node::Run() {
         q->Clean_0027af50();
         Destroy_0008d330(q);
     }
-    ((Item_1f1c80*)((char*)this + 0x10))->Clean_0027af50();
+    ((Item_1f1c80*)((char*)&this->value.data[0]))->Clean_0027af50();
 }
 
 } // namespace fn_ffeee61e

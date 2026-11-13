@@ -243,7 +243,7 @@ void audio::SeqActionVarPitch::vfunc_1(void* __p0) { void * param = (void *)__p0
 
     Holder_253830* h = *(Holder_253830**)((char*)param + 4);
     h->value = *(int*)((char*)this + 8) + 8;
-    *(int*)((char*)this + 0xc) = 0;
+    *(int*)((char*)&this->f_0c) = 0;
 }
 
 
@@ -251,7 +251,7 @@ void audio::SeqActionVarPitch::vfunc_1(void* __p0) { void * param = (void *)__p0
 // sym: ?vfunc_3@SeqActionVarPitch@audio@@UAEXH@Z
 // Same code shape as 0x0024ea70 (propagated; names are from that function)
 void audio::SeqActionVarPitch::vfunc_3(hulk_intptr ) {
-    *(int*)((char*)this + 0xc) = 4;
+    *(int*)((char*)&this->f_0c) = 4;
 }
 
 
@@ -259,7 +259,7 @@ void audio::SeqActionVarPitch::vfunc_3(hulk_intptr ) {
 // sym: ?vfunc_4@SeqActionVarPitch@audio@@UAEXH@Z
 // Same code shape as 0x0024ea80 (propagated; names are from that function)
 void audio::SeqActionVarPitch::vfunc_4(int ) {
-    *(int*)((char*)this + 0xc) = 5;
+    *(int*)((char*)&this->f_0c) = 5;
 }
 
 

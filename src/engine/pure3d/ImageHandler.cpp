@@ -66,7 +66,7 @@ void pure3d::ImageHandler::vfunc_13(unsigned char value) {
 // sym: ?vfunc_14@ImageHandler@pure3d@@UAEEXZ
 // Same code shape as 0x0023b9b0 (propagated; names are from that function)
 unsigned char pure3d::ImageHandler::vfunc_14() {
-    return *(unsigned char*)((char*)this + 0xC);
+    return *(unsigned char*)((char*)&this->f_0c);
 }
 
 namespace fn_f2e8bf74 {

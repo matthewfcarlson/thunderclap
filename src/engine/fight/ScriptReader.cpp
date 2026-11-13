@@ -532,7 +532,7 @@ unsigned char fight::StreamStringReader::vfunc_4() {
         this->f_11 = false;
         return (unsigned char)(this->f_10);
     }
-    ((owners::X_2647e0 *)(((Source_23a550*)*(void**)((char*)this + 12))))->FUN_002647e0((hulk_intptr)((char*)this + 16), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Source_23a550*)*(void**)((char*)&this->f_0c))))->FUN_002647e0((hulk_intptr)((char*)&this->f_10), (hulk_intptr)1, 1, (hulk_intptr)1);
     this->f_11 = true;
     return (unsigned char)(this->f_10);
 }
@@ -903,7 +903,7 @@ int fight::ScriptReader::vfunc_13() {
 __int64 fight::ScriptReader::vfunc_14() {
     if (this->f_128 <= (*(int (*)[67])&this->f_14)[this->f_10])
         return (__int64)(0);
-    return (__int64)(*(unsigned __int64*)((char*)this + 0x120));
+    return (__int64)(*(unsigned __int64*)((char*)&this->f_120));
 }
 
 
@@ -942,7 +942,7 @@ __int64 fight::ScriptReader::vfunc_16(int __p0, int __p1) { unsigned int low = (
 // sym: ?vfunc_17@ScriptReader@fight@@UAEXXZ
 void fight::ScriptReader::vfunc_17() {
     --this->f_10;
-    ((owners::Target_27b040 *)(((Inner_23b1f0*)((char*)this + 0x118))))->FUN_0027b040((hulk_uintptr)0);
+    ((owners::Target_27b040 *)(((Inner_23b1f0*)((char*)&this->f_118))))->FUN_0027b040((hulk_uintptr)0);
     ((ScriptReader_nv_23b1f0*)this)->helper_0023ab40();
     if (this->f_10 >= 0) {
         int x = (*(volatile int *)&this->f_120);

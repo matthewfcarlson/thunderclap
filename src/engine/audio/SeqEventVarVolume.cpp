@@ -208,7 +208,7 @@ void audio::SeqActionVarVolume::vfunc_1(void* __p0) { void * p = (void *)__p0;
 // sym: ?vfunc_3@SeqActionVarVolume@audio@@UAEXH@Z
 // Same code shape as 0x0024ea70 (propagated; names are from that function)
 void audio::SeqActionVarVolume::vfunc_3(hulk_intptr ) {
-    *(int*)((char*)this + 0xc) = 4;
+    *(int*)((char*)&this->f_0c) = 4;
 }
 
 
@@ -216,7 +216,7 @@ void audio::SeqActionVarVolume::vfunc_3(hulk_intptr ) {
 // sym: ?vfunc_4@SeqActionVarVolume@audio@@UAEXH@Z
 // Same code shape as 0x0024ea80 (propagated; names are from that function)
 void audio::SeqActionVarVolume::vfunc_4(int ) {
-    *(int*)((char*)this + 0xc) = 5;
+    *(int*)((char*)&this->f_0c) = 5;
 }
 
 

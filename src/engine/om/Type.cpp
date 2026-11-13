@@ -459,7 +459,7 @@ void __cdecl FUN_00258730(OmTree* tree, OmType* entry) {
 // 0x002587f0 FUN_002587f0 (34 B): matches/0x002587f0.cpp
 // sym: ?FUN_002587f0@fn_ff0fd322@@YAPAUNode@1@PAU21@@Z
 Node* FUN_002587f0(Node* head) {
-    Node* end = (Node*)((char*)head + 4);
+    Node* end = (Node*)((char*)&head->b);
     if (head->next == end)
         return 0;
     Node* p = head->next;

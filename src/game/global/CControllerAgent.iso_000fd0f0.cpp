@@ -114,13 +114,13 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { hulk_uintptr a1 =
     // Fields of this that the generated class does not list yet.
     float *curHeading = (float *)((char *)this + 0xa4);    // current heading (3 floats)
     float *prevHeading = (float *)((char *)this + 0xb0);   // previous heading (3 floats)
-    float &turnStart = *(float *)((char *)this + 0xd4);    // time the turn started (also f_d4)
+    float &turnStart = *(float *)((char*)&this->f_d4);    // time the turn started (also f_d4)
     hulk_uintptr stateBlock = (hulk_uintptr)((char *)this + 0xd8);
     unsigned int &camX = *(unsigned int *)((char *)this + 0x118);
     unsigned int &camY = *(unsigned int *)((char *)this + 0x11c);
 
     ((CControllerAgent_nv_fd0f0 *)this)->FUN_000fc550(a1, a2, a3);
-    hulk_uintptr fighter = (hulk_uintptr)((VFight *)*(hulk_uintptr *)((char *)this + 0x58))->v6();
+    hulk_uintptr fighter = (hulk_uintptr)((VFight *)*(hulk_uintptr *)((char*)&this->f_58))->v6();
     if (*(unsigned *)((char *)fighter + 0x140) == 4) {
         // Aim along the fighter's stored heading, flattened and normalised.
         CopyBits(&fr.aim[0], (char *)fighter + 0x1af8);
@@ -154,7 +154,7 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { hulk_uintptr a1 =
         *(unsigned int *)&fr.viewY = *(unsigned *)((char *)info + 0xa0) & 0x7fffffff;
         reset = (fr.viewY <= 1e-5f);
         if (!reset) {
-            *(unsigned int *)&fr.viewY = *(unsigned *)((char *)this + 0xd4) & 0x7fffffff;
+            *(unsigned int *)&fr.viewY = *(unsigned *)((char*)&this->f_d4) & 0x7fffffff;
             reset = (fr.viewY <= 1e-5f);
         }
     }

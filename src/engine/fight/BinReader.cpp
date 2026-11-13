@@ -479,7 +479,7 @@ BinReader_23b990::~BinReader_23b990() {
 // 0x0023b9b0 fight::BinReader::vfunc_3 (4 B): matches/0x0023b9b0.cpp
 // sym: ?vfunc_3@BinReader@fight@@UAEEXZ
 unsigned char fight::BinReader::vfunc_3() {
-    return *(unsigned char*)((char*)this + 0xC);
+    return *(unsigned char*)((char*)&this->f_0c);
 }
 
 
@@ -524,7 +524,7 @@ char BinReader::vfunc_6(int p2, int p3, int p4, int p5, int p6) {
 // sym: ?vfunc_15@BinReader@fight@@UAE_JXZ
  // namespace fight
 __int64 fight::BinReader::vfunc_15() {
-    return (__int64)(*(unsigned long long*)((char*)this + 0x18));
+    return (__int64)(*(unsigned long long*)((char*)&this->f_18));
 }
 
 
@@ -977,7 +977,7 @@ int fight::BinReader::vfunc_13() {
  // namespace fight
 __int64 fight::BinReader::vfunc_14() {
     ((BinReader_nv_23c100*)this)->helper_0023bb90();
-    return (__int64)(*(unsigned long long*)((char*)this + 0x28));
+    return (__int64)(*(unsigned long long*)((char*)&this->f_28));
 }
 
 

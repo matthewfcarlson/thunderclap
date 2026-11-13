@@ -751,7 +751,7 @@ namespace fn_f9a518a5 {
 // 0x00247d10 FUN_00247d10 (55 B): matches/0x00247d10.cpp
 // sym: ?Walk@fn_f9a518a5@@YAPAUNode@1@PAU21@0@Z
 Node* Walk(Node* head, Node* node) {
-    Node* nil = (Node*)((char*)head + 4);
+    Node* nil = (Node*)((char*)&head->b);
     Node* p = node->parent;
     if (p != nil) {
         while (p->left != nil)
@@ -912,7 +912,7 @@ namespace fn_f9a518a5 {
 // 0x00247f80 FUN_00247f80 (55 B): matches/0x00247f80.cpp
 // sym: ?Next@fn_f9a518a5@@YAPAUN_247f80@1@PAU21@0@Z
 N_247f80* Next(N_247f80* head, N_247f80* x) {
-    N_247f80* s = (N_247f80*)((char*)head + 4);
+    N_247f80* s = (N_247f80*)((char*)&head->r);
     N_247f80* n = x->r;
     if (n != s) {
         while (n->l != s)
@@ -1083,7 +1083,7 @@ extern "C" void FUN_00247fc0(void * tree_, void * x_)
 // 0x00248240 FUN_00248240 (55 B): matches/0x00248240.cpp
 // sym: ?next@fn_f9a518a5@@YAPAUNode@1@PAU21@0@Z
 Node* __cdecl next(Node* n, Node* current) {
-    Node* h = (Node*)((char*)n + 4);
+    Node* h = (Node*)((char*)&n->b);
     Node* p = current->parent;
     if (p != h) {
         if (p->left == h)
@@ -1376,7 +1376,7 @@ struct Node {
 void* FUN_00247f80(void*, void*);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00247fc0(void *, void *);
 extern "C" void FUN_00248ac0(void * tree, void * node) {
-    Node* nil = (Node*)((char*)((Node *)tree) + 4);
+    Node* nil = (Node*)((char*)&((Node *)tree)->right);
     Node* x;
     if (((Node *)node)->left == nil || ((Node *)node)->right == nil)
         x = ((Node *)node);
@@ -1423,7 +1423,7 @@ namespace fn_f9a518a5 {
 // sym: _FUN_00248bf0
 extern "C" N_248bf0* __cdecl FUN_00248bf0(N_248bf0* s, N_248bf0* n) {
     N_248bf0* x = n->l;
-    N_248bf0* end = (N_248bf0*)((char*)s + 4);
+    N_248bf0* end = (N_248bf0*)((char*)&s->l);
     if (x != end) {
         while (x->next != end)
             x = x->next;
@@ -1912,8 +1912,8 @@ extern "C" void FUN_00249200(void * tree_, void * x_)
 // 0x002495c0 FUN_002495c0 (32 B): matches/0x002495c0.cpp
 // sym: _FUN_002495c0
 extern "C" Node* __cdecl FUN_002495c0(Node* p) {
-    Node* end = (Node*)((char*)p + 0x1c);
-    Node* cur = *(Node**)((char*)p + 0x18);
+    Node* end = (Node*)((char*)&p->value1);
+    Node* cur = *(Node**)((char*)&p->value0);
     if (cur == end)
         return 0;
     while (cur->next != end)
@@ -2423,7 +2423,7 @@ struct Node {
 void* FUN_00248240(void*, void*);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00248fa0(void *, void *);
 extern "C" void FUN_00249ec0(void * tree, void * node) {
-    Node* nil = (Node*)((char*)((Node *)tree) + 4);
+    Node* nil = (Node*)((char*)&((Node *)tree)->right);
     Node* x;
     if (((Node *)node)->left == nil || ((Node *)node)->right == nil)
         x = ((Node *)node);

@@ -1087,7 +1087,7 @@ hulk_intptr hulkfight::ai::ThreatCondition::vfunc_0(int index) {
 // sym: ?FUN_0012b410@ThreatCondition@ai@hulkfight@@QAEXXZ
 void hulkfight::ai::ThreatCondition::FUN_0012b410() {
     *(void**)this = (void*)((hulk_intptr)DAT_00410bd4);
-    ((Sub_12b410*)((char*)this + 0x10))->Init_0027af50();
+    ((Sub_12b410*)((char*)&this->threatName))->Init_0027af50();
     ((ThreatDistanceCondition_12b410*)this)->Finish_002345b0();
 }
 

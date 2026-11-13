@@ -186,8 +186,8 @@ unsigned int TextTable::vfunc_12(unsigned int action, unsigned int unused)
 // Same code shape as 0x000e3c30 (propagated; names are from that function)
 void TextTable::vfunc_13(int ) {
     int x = *(int*)((char*)this + 0x14c);
-    *(int*)((char*)this + 0x148) = x;
-    hulk_intptr p = *(int*)((char*)this + 0x150);
+    *(int*)((char*)&this->f_148) = x;
+    hulk_intptr p = *(int*)((char*)&this->f_150);
     if (p)
         *(int*)((char*)p + 0x44) = x;
 }

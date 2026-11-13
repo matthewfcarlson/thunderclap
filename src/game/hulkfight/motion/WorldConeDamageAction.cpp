@@ -1756,7 +1756,7 @@ namespace fn_f3c8e3e3 {
 // 0x00143a20 FUN_00143a20 (57 B): matches/0x00143a20.cpp
 // sym: ??0MotionBlurTrack@fn_f3c8e3e3@@QAE@XZ
 MotionBlurTrack::MotionBlurTrack() : a(0), x(0.1f), y(0.9f), z(1.0f), b(0), c(0) {
-    *(int*)((char*)this + 8) = 1;
+    *(int*)((char*)&this->p) = 1;
 }
 
 } // namespace fn_f3c8e3e3

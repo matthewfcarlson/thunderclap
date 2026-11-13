@@ -200,7 +200,7 @@ namespace fn_f98b1434 {
 // 0x0025e9b0 FUN_0025e9b0 (55 B): matches/0x0025e9b0.cpp
 // sym: _FUN_0025e9b0
 extern "C" Node* __cdecl FUN_0025e9b0(Node* x, Node* head) {
-    Node* nil = (Node*)((char*)x + 4);
+    Node* nil = (Node*)((char*)&x->b);
     Node* y = head->parent;
     if (y != nil) {
         while (y->left != nil)
@@ -445,7 +445,7 @@ namespace fn_f98b1434 {
 // 0x0025ed00 FUN_0025ed00 (55 B): matches/0x0025ed00.cpp
 // sym: ?f@fn_f98b1434@@YAPAUNode@1@PAU21@0@Z
 Node* __cdecl f(Node* head, Node* x) {
-    Node* sentinel = (Node*)((char*)head + 4);
+    Node* sentinel = (Node*)((char*)&head->b);
     Node* y = x->parent;
     if (y != sentinel) {
         while (y->left != sentinel)

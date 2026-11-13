@@ -945,10 +945,10 @@ class PhysicsJoint_30d650 {
 // sym: ?vfunc_2@PhysicsJoint1D@physics@@UAEXXZ
  // namespace physics
 void physics::PhysicsJoint1D::vfunc_2() {
-    *(int*)((char*)this + 0x118) = 0;
-    *(int*)((char*)this + 0x114) = 0;
-    *(int*)((char*)this + 0x110) = 0;
-    *(int*)((char*)this + 0x10c) = 0;
+    *(int*)((char*)&this->f_118) = 0;
+    *(int*)((char*)&this->f_114) = 0;
+    *(int*)((char*)&this->f_110) = 0;
+    *(int*)((char*)&this->f_10c) = 0;
 }
 
 
@@ -957,13 +957,13 @@ void physics::PhysicsJoint1D::vfunc_2() {
  // namespace physics
 void physics::PhysicsJoint3D::vfunc_2() {
     vfunc_1();
-    *(int*)((char*)this + 0x140) = 0;
-    *(int*)((char*)this + 0x13c) = 0;
-    *(int*)((char*)this + 0x138) = 0;
-    *(int*)((char*)this + 0x14c) = 0;
-    *(int*)((char*)this + 0x148) = 0;
-    *(int*)((char*)this + 0x144) = 0;
-    *((char*)this + 0x150) = 1;
+    *(int*)((char*)&this->f_140) = 0;
+    *(int*)((char*)&this->f_13c) = 0;
+    *(int*)((char*)&this->f_138) = 0;
+    *(int*)((char*)&this->f_14c) = 0;
+    *(int*)((char*)&this->f_148) = 0;
+    *(int*)((char*)&this->f_144) = 0;
+    *((char*)&this->f_150) = 1;
 }
 
 namespace fn_fca90e00 {
@@ -3479,8 +3479,8 @@ PhysicsJoint1D* PhysicsJoint1D::Init1(int a, int b, int c) {
 // sym: ?vfunc_1@PhysicsJoint1D@physics@@UAEXXZ
  // namespace physics
 void physics::PhysicsJoint1D::vfunc_1() {
-    *(int*)((char*)this + 0x110) = 0;
-    *(int*)((char*)this + 0x10c) = 0;
+    *(int*)((char*)&this->f_110) = 0;
+    *(int*)((char*)&this->f_10c) = 0;
 }
 
 namespace fn_fca90e00 {
@@ -3522,9 +3522,9 @@ void physics::PhysicsJoint1D::vfunc_5(void* __p0) { float * out = (float *)__p0;
 void physics::PhysicsJoint1D::vfunc_15(void* __p0) { void * out = (void *)__p0;
 
     unsigned int* p = (unsigned int*)out;
-    p[0] = *(unsigned int*)((char*)this + 0xfc);
-    p[1] = *(unsigned int*)((char*)this + 0x100);
-    p[2] = *(unsigned int*)((char*)this + 0x104);
+    p[0] = *(unsigned int*)((char*)&this->f_fc);
+    p[1] = *(unsigned int*)((char*)&this->f_100);
+    p[2] = *(unsigned int*)((char*)&this->f_104);
 }
 
 
@@ -3540,9 +3540,9 @@ void physics::PhysicsJoint1D::vfunc_16(hulk_intptr __p0, hulk_intptr __p1) { con
 // sym: ?vfunc_19@PhysicsJoint1D@physics@@UAEXPAX@Z
 void physics::PhysicsJoint1D::vfunc_19(void* __p0) { float * p = (float *)__p0;
 
-    *(float*)((char*)this + 0x108) = *(float*)((char*)this + 0x100) * p[1] +
-                                     *(float*)((char*)this + 0x104) * p[2] +
-                                     *(float*)((char*)this + 0xfc) * p[0];  // the listing's order (MSVC 7.1 reassociates; clang does not)
+    *(float*)((char*)&this->f_108) = *(float*)((char*)&this->f_100) * p[1] +
+                                     *(float*)((char*)&this->f_104) * p[2] +
+                                     *(float*)((char*)&this->f_fc) * p[0];  // the listing's order (MSVC 7.1 reassociates; clang does not)
 }
 
 
@@ -3686,22 +3686,22 @@ PhysicsJoint3D::PhysicsJoint3D(const Vec3 *axis, float mass, int id) : PhysicsJo
 // 0x0030d0d0 physics::PhysicsJoint3D::vfunc_1 (46 B): matches/0x0030d0d0.cpp
 // sym: ?vfunc_1@PhysicsJoint3D@physics@@UAEXXZ
 void physics::PhysicsJoint3D::vfunc_1() {
-    *(int*)((char*)this + 0x128) = 0;
-    *(int*)((char*)this + 0x124) = 0;
-    *(int*)((char*)this + 0x120) = 0;
+    *(int*)((char*)&this->f_128) = 0;
+    *(int*)((char*)&this->f_124) = 0;
+    *(int*)((char*)&this->f_120) = 0;
     *(int*)((char*)this + 0x134) = 0;
     *(int*)((char*)this + 0x130) = 0;
     *(int*)((char*)this + 0x12c) = 0;
-    *((char*)this + 0x151) = 1;
+    *((char*)&this->f_151) = 1;
 }
 
 
 // 0x0030d100 physics::PhysicsJoint3D::vfunc_3 (21 B): matches/0x0030d100.cpp
 // sym: ?vfunc_3@PhysicsJoint3D@physics@@UAEXXZ
 void physics::PhysicsJoint3D::vfunc_3() {
-    *(int*)((char*)this + 0x11c) = 0;
-    *(int*)((char*)this + 0x118) = 0;
-    *(int*)((char*)this + 0x114) = 0;
+    *(int*)((char*)&this->f_11c) = 0;
+    *(int*)((char*)&this->f_118) = 0;
+    *(int*)((char*)&this->f_114) = 0;
 }
 
 
@@ -3750,9 +3750,9 @@ void physics::PhysicsJoint3D::vfunc_16(hulk_intptr __p0, hulk_intptr __p1) { uns
 // sym: ?vfunc_19@PhysicsJoint3D@physics@@UAEXPAX@Z
 void physics::PhysicsJoint3D::vfunc_19(void* __p0) { const unsigned int * p = (const unsigned int *)__p0;
 
-    *(unsigned int*)((char*)this + 0x114) = p[0];
-    *(unsigned int*)((char*)this + 0x118) = p[1];
-    *(unsigned int*)((char*)this + 0x11c) = p[2];
+    *(unsigned int*)((char*)&this->f_114) = p[0];
+    *(unsigned int*)((char*)&this->f_118) = p[1];
+    *(unsigned int*)((char*)&this->f_11c) = p[2];
 }
 
 
@@ -3771,9 +3771,9 @@ void physics::PhysicsJoint3D::vfunc_18(hulk_intptr __p0, hulk_intptr __p1) { flo
 // sym: ?vfunc_22@PhysicsJoint3D@physics@@UAEXPAX@Z
 void physics::PhysicsJoint3D::vfunc_22(void* __p0) { unsigned int * out = (unsigned int *)__p0;
 
-    out[0] = *(unsigned int*)((char*)this + 0x114);
-    out[1] = *(unsigned int*)((char*)this + 0x118);
-    out[2] = *(unsigned int*)((char*)this + 0x11c);
+    out[0] = *(unsigned int*)((char*)&this->f_114);
+    out[1] = *(unsigned int*)((char*)&this->f_118);
+    out[2] = *(unsigned int*)((char*)&this->f_11c);
 }
 
 

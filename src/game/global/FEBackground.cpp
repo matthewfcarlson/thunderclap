@@ -212,7 +212,7 @@ void FEObject::vfunc_7(int a) {
 // 0x000d7a20 FEObject::vfunc_8 (7 B): matches/0x000d7a20.cpp
 // sym: ?vfunc_8@FEObject@@UAEMXZ
 hulk_freg FEObject::vfunc_8() {
-    return *(float*)((char*)this + 0x9c);
+    return *(float*)((char*)&this->f_9c);
 }
 
 

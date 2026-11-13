@@ -187,7 +187,7 @@ RDLObject::RDLObject(const char* p) {
     b = 0;
     flag = 0;
     vp = &DAT_0042c0f8;
-    strncpy((char*)this + 0x18, p, 0x1f);
+    strncpy((char*)&this->rest, p, 0x1f);
 }
 } // namespace fn_0027a850
 

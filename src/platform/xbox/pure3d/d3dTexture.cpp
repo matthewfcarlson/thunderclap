@@ -282,7 +282,7 @@ unsigned int pure3d::d3dTexture::vfunc_4() {
 // 0x00326230 pure3d::d3dTexture::vfunc_5 (7 B): matches/0x00326230.cpp
 // sym: ?vfunc_5@d3dTexture@pure3d@@UAEIXZ
 unsigned int pure3d::d3dTexture::vfunc_5() {
-    return *(unsigned int*)((char*)this + 0xd4);
+    return *(unsigned int*)((char*)&this->f_d4);
 }
 
 namespace fn_ff6ae8d9 {
@@ -306,7 +306,7 @@ unsigned int pure3d::d3dTexture::vfunc_7() {
 // 0x00326260 pure3d::d3dTexture::vfunc_8 (7 B): matches/0x00326260.cpp
 // sym: ?vfunc_8@d3dTexture@pure3d@@UAEHXZ
 int pure3d::d3dTexture::vfunc_8() {
-    return *(int*)((char*)this + 0xe0);
+    return *(int*)((char*)&this->f_e0);
 }
 
 

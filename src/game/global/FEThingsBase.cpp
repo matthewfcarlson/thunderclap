@@ -1285,7 +1285,7 @@ void* FEContainer::vfunc_8() {
 // 0x000e45d0 FEContainer::vfunc_17 (7 B): matches/0x000e45d0.cpp
 // sym: ?vfunc_17@FEContainer@@UAEIXZ
 unsigned int FEContainer::vfunc_17() {
-    return *(unsigned int*)((char*)this + 0x850);
+    return *(unsigned int*)((char*)&this->f_850);
 }
 
 
@@ -2584,7 +2584,7 @@ void FEContainer::vfunc_19(int p) {
             q += 4;
         } while (i < 0x80);
         if (i < 0x80)
-            *(int*)((char*)this + 0x48) = p;
+            *(int*)((char*)&this->f_48) = p;
     }
 }
 
@@ -4159,7 +4159,7 @@ bool FEThingsBase::vfunc_1(int a, int index) {
 // 0x000e6340 FEThingsBase::vfunc_2 (88 B): matches/0x000e6340.cpp
 // sym: ?vfunc_2@FEThingsBase@@UAE_NHH@Z
 bool FEThingsBase::vfunc_2(int x, int index) {
-    if (*((char*)this + 0x2100 + index))
+    if (*((char*)&this->f_2100 + index))
         return true;
     if ((*(Other_e6340 * *)&this->f_2218))
         return (*(Other_e6340 * *)&this->f_2218)->f3(x, index);
@@ -4955,12 +4955,12 @@ void FEThingsBase::vfunc_23() {
         vfunc_48(7);
         return;
     }
-    *(int*)((char*)this + 0x1768) = 0;
-    *(int*)((char*)this + 0x17f8) = 1;
-    *(int*)((char*)this + 0x176c) = 2;
-    if (*(Sub_e6f60**)((char*)this + 0x175c)) {
-        (*(Sub_e6f60**)((char*)this + 0x175c))->p();
-        ((owners::Fader_e5440 *)((*(Sub_e6f60**)((char*)this + 0x175c))))->FUN_000e5440(*(int*)((char*)this + 0x176c));
+    *(int*)((char*)&this->f_1768) = 0;
+    *(int*)((char*)&this->f_17f8) = 1;
+    *(int*)((char*)&this->f_176c) = 2;
+    if (*(Sub_e6f60**)((char*)&this->f_175c)) {
+        (*(Sub_e6f60**)((char*)&this->f_175c))->p();
+        ((owners::Fader_e5440 *)((*(Sub_e6f60**)((char*)&this->f_175c))))->FUN_000e5440(*(int*)((char*)&this->f_176c));
     }
     vfunc_24();
     Manager_e6f60* m = hulk_at_004dd700;
@@ -4975,8 +4975,8 @@ void FEThingsBase::vfunc_23() {
 // 0x000e7020 FEThingsBase::vfunc_24 (30 B): matches/0x000e7020.cpp
 // sym: ?vfunc_24@FEThingsBase@@UAEXXZ
 void FEThingsBase::vfunc_24() {
-    memset((char*)this + 0x1770, 0, 0x40);
-    *(unsigned int*)((char*)this + 0x17b0) = 0xffffffff;
+    memset((char*)&this->f_1770, 0, 0x40);
+    *(unsigned int*)((char*)&this->f_17b0) = 0xffffffff;
 }
 
 

@@ -31,7 +31,7 @@ void CSoundCommand_PlayMusicEvent::vfunc_1(int , int ) {
     int x = r->Run_001e98b0((char*)this + 0x10);
     if (x) {
         Player_1ef5b0* p = (Player_1ef5b0*)(*(Global_1ef5b0**)&DAT_004e370c)->a;
-        p->Run_001f5640(x, (char*)this + 0x18);
+        p->Run_001f5640(x, (char*)&this->f_18);
     }
 }
 

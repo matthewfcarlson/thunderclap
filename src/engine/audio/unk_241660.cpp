@@ -427,7 +427,7 @@ struct Node {
     Node* parent;
 };
 extern "C" Node* __cdecl FUN_00241cb0(Node* n, Node* h) {
-    Node* end = (Node*)((char*)n + 4);
+    Node* end = (Node*)((char*)&n->right);
     Node* p = h->right;
     if (p != end) {
         while (p->left != end)

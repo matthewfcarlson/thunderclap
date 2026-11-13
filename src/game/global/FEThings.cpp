@@ -377,7 +377,7 @@ unsigned int FEThings::vfunc_43() {
 // 0x000ddf20 FEThings::vfunc_44 (7 B): matches/0x000ddf20.cpp
 // sym: ?vfunc_44@FEThings@@UAEHXZ
 int FEThings::vfunc_44() {
-    return *(int*)((char*)this + 0x2230);
+    return *(int*)((char*)&this->f_2230);
 }
 
 

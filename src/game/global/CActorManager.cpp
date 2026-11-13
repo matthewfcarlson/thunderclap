@@ -1020,7 +1020,7 @@ class Method1 : public Function_2c700 {
     unsigned char x;
 };
 Method1::Method1(int a, int b) throw() : Function_2c700(a, 1) {
-    *(int*)((char*)this + 0x1c) = b;
+    *(int*)((char*)&this->x) = b;
     *(unsigned char*)((char*)this + 0x18) = GetFlag_001d04d0(((char*)&DAT_0048e128));
     *(unsigned char*)((char*)this + 0x10) = GetFlag_001d04d0(((char*)&DAT_0048e0f0));
 }
@@ -1540,7 +1540,7 @@ template <> Method0<CActorManager, const char *>::~Method0() {}
 // sym: ?vfunc_2@?$Method0@UCActorManager@@PBD@@UAEXPAX00@Z
 template <> void Method0<CActorManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
-    unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)this + 0x1c);
+    unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;
@@ -1562,7 +1562,7 @@ template <> Method0<CActorManager, int>::~Method0() {}
 // Same code shape as 0x0002ceb0 (propagated; names are from that function)
 template <> void Method0<CActorManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
-    unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)this + 0x1c);
+    unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;

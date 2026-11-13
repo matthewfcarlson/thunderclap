@@ -203,7 +203,7 @@ void audio::SeqActionWaitBeat::vfunc_1(void* __p0) {
 // 0x00250600 audio::SeqActionWaitBeat::vfunc_3 (10 B): matches/0x00250600.cpp
 // sym: ?vfunc_3@SeqActionWaitBeat@audio@@UAEXH@Z
 void audio::SeqActionWaitBeat::vfunc_3(hulk_intptr ) {
-    *(int*)((char*)this + 0xc) = 2;
+    *(int*)((char*)&this->f_0c) = 2;
 }
 
 
@@ -354,7 +354,7 @@ bool audio::SeqEventWaitBeat::vfunc_1(audio::SeqEventArg* arg) {
 // sym: ?vfunc_0@SeqEventWaitBeat@audio@@UAEHPAX@Z
 int audio::SeqEventWaitBeat::vfunc_0(void* __p0) { void * arg = (void *)__p0;
 
-    if (((Helper_250870*)this)->Probe_0025fd20(arg) && FUN_0024f010(arg, &this->f_10) && ((owners::Obj_261ef0 *)(((Inner_250870*)((char*)this + 8))))->FUN_00261ef0((const char *)arg))
+    if (((Helper_250870*)this)->Probe_0025fd20(arg) && FUN_0024f010(arg, &this->f_10) && ((owners::Obj_261ef0 *)(((Inner_250870*)((char*)&this->f_08))))->FUN_00261ef0((const char *)arg))
         return 1;
     return 0;
 }

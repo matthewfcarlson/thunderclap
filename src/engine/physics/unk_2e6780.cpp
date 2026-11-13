@@ -3326,7 +3326,7 @@ namespace fn_fb0f1f83 {
 extern "C" int __cdecl FUN_002eaf30(void * a, void * b) {
     FUN_002ea2a0(((Obj_2eaf30 *)a), ((Obj_2eaf30 *)b), 0);
     ((Obj_2eaf30 *)b)->fn(((Obj_2eaf30 *)b)->value, ((Obj_2eaf30 *)a)->value);
-    ((Obj_2eaf30 *)b)->fn(((Obj_2eaf30 *)b)->value, *((u32_2eaf30*)((char*)((Obj_2eaf30 *)a) + 0x24)));
+    ((Obj_2eaf30 *)b)->fn(((Obj_2eaf30 *)b)->value, *((u32_2eaf30*)((char*)&((Obj_2eaf30 *)a)->fn)));
     ((Obj_2eaf30 *)b)->fn(((Obj_2eaf30 *)b)->value, (hulk_uintptr)((Obj_2eaf30 *)a));
     return 0;
 }

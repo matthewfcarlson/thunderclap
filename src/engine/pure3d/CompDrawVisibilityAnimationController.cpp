@@ -385,7 +385,7 @@ SceneGraphVisibilityAnimationController* SceneGraphVisibilityAnimationController
 // sym: ?vfunc_5@SceneGraphVisibilityAnimationController@pure3d@@UAEXPAX@Z
 void pure3d::SceneGraphVisibilityAnimationController::vfunc_5(void* __p0) { hulk_uintptr arg = (hulk_uintptr)__p0;
 
-    *(u32_2a7e90*)((char*)this + 0x44) = ((u32_2a7e90)(hulk_uintptr)__RTDynamicCast((void*)(arg), 0, (void*)((hulk_intptr)DAT_0048f610), (void*)((hulk_intptr)DAT_004ce8a4), 0));
+    *(u32_2a7e90*)((char*)&this->f_44) = ((u32_2a7e90)(hulk_uintptr)__RTDynamicCast((void*)(arg), 0, (void*)((hulk_intptr)DAT_0048f610), (void*)((hulk_intptr)DAT_004ce8a4), 0));
 }
 
 

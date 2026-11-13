@@ -1146,9 +1146,9 @@ hulk_freg core::ControllerInputPointXBox::vfunc_6() {
 // 0x00268e60 core::ControllerInputPointXBox::vfunc_7 (24 B): matches/0x00268e60.cpp
 // sym: ?vfunc_7@ControllerInputPointXBox@core@@UAEXHH@Z
 void core::ControllerInputPointXBox::vfunc_7(int a, int b) {
-    if (*(int*)((char*)this + 0x2c) == 0) {
-        *(int*)((char*)this + 0x30) = b;
-        *(int*)((char*)this + 0x2c) = a;
+    if (*(int*)((char*)&this->f_2c) == 0) {
+        *(int*)((char*)&this->f_30) = b;
+        *(int*)((char*)&this->f_2c) = a;
     }
 }
 
@@ -1498,7 +1498,7 @@ void* core::ControllerSystemXBox::vfunc_5(hulk_intptr __p0) { const char * name 
 // 0x002694f0 core::ControllerSystemXBox::vfunc_8 (49 B): matches/0x002694f0.cpp
 // sym: ?vfunc_8@ControllerSystemXBox@core@@UAEXI@Z
 void core::ControllerSystemXBox::vfunc_8(unsigned int arg) {
-    char* p = (char*)this + 0x20;
+    char* p = (char*)&this->f_20;
     for (int i = 0; i < 4; i++, p += 0x4a0) {
         if (p[0x49e])
             ((Pad_2694f0*)p)->f19(arg);

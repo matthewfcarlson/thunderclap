@@ -1431,9 +1431,9 @@ extern "C" void __fastcall FUN_00234150(void*);
 extern "C" void __fastcall FUN_00234150(void*);
 void __fastcall FD_00236d60(void*);
 CGrabTrack::~CGrabTrack() {
-    FUN_00234150((char*)this + 0x44);
-    FUN_00234150((char*)this + 0x38);
-    FUN_0027af50((char*)this + 0x18);
+    FUN_00234150((char*)&this->c);
+    FUN_00234150((char*)&this->b);
+    FUN_0027af50((char*)&this->a);
     FD_00236d60(this);
 }
 } // namespace fn_0005b170

@@ -1751,7 +1751,7 @@ HitPushbackAction_151bc0::HitPushbackAction_151bc0(int p, Obj_151bc0* q) : Ctor_
     v = ((hulk_intptr)DAT_0041460c);
     a = 0;
     b = 0;
-    *(int*)((char*)this + 0x24) = 0;
+    *(int*)((char*)&this->gap) = 0;
     *(int*)((char*)this + 0x28) = 0;
     *(int*)((char*)this + 0x2c) = 0;
     *(int*)((char*)this + 0x30) = 0;

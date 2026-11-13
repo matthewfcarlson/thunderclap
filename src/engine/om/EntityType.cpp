@@ -392,7 +392,7 @@ namespace fn_f7032cca {
 // 0x00243720 FUN_00243720 (55 B): matches/0x00243720.cpp
 // sym: ?find@fn_f7032cca@@YAPAUNode@1@PAU21@0@Z
 Node* find(Node* root, Node* p) {
-    Node* end = (Node*)((char*)root + 4);
+    Node* end = (Node*)((char*)&root->b);
     Node* q = p->child;
     if (q != end) {
         while (q->next != end)
@@ -1375,7 +1375,7 @@ struct Node {
 Node* FUN_002439c0(Node*, Node*);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00243a00(void *, void *);
 void FUN_002446d0(Node* n, Node* tree) {
-    Node *s = (Node*)((char*)n + 4), *base = (Node*)((char*)tree + 0x58), *x;
+    Node *s = (Node*)((char*)&n->b), *base = (Node*)((char*)tree + 0x58), *x;
     if (base->a != s && base->b != s)
         x = FUN_002439c0(n, base);
     else
@@ -1472,7 +1472,7 @@ struct Tree_244870 {
 };
 extern "C" int* FUN_00244870(void * tree, int* key) {
     Node* p = ((Tree_244870 *)tree)->root;
-    Node* end = (Node*)((char*)((Tree_244870 *)tree) + 4);
+    Node* end = (Node*)((char*)&((Tree_244870 *)tree)->sentinel.left);
     while (p != end) {
         int k = *key;
         int d = k - p->key;

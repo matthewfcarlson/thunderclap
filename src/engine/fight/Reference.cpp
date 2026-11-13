@@ -96,7 +96,7 @@ Node* __fastcall target(Owner_23c300* self) {
 // 0x0023c330 fight::Reference::vfunc_7 (23 B): matches/0x0023c330.cpp
 // sym: ?vfunc_7@Reference@fight@fn_f8469354@@UAEXXZ
 void fight::Reference::vfunc_7() {
-    ((Helper_23c330*)((char*)this + 0x28))->Fnf_00233fa0(0, 0);
+    ((Helper_23c330*)((char*)&this->child))->Fnf_00233fa0(0, 0);
     Branch::vfunc_7();
 }
 

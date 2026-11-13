@@ -156,7 +156,7 @@ SeqEventVarPosDist::SeqEventVarPosDist() : SeqEvent_252fc0(), x(1.0f), y(100.0f)
 int audio::SeqEventVarPosDist::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
     if (((SeqEvent_252fe0*)this)->vfunc_0_0025fd20(p)) {
-        if (((PosHelper*)((char*)this + 8))->test(p))
+        if (((PosHelper*)((char*)&this->f_08))->test(p))
             return 1;
     }
     return 0;
@@ -205,8 +205,8 @@ void audio::SeqActionVarPosDist::vfunc_2(int , int ) {
 // sym: ?vfunc_1@SeqActionVarPosDist@audio@@UAEXPAX@Z
 void audio::SeqActionVarPosDist::vfunc_1(void* __p0) { void * param = (void *)__p0;
 
-    *(int*)((char*)*(hulk_intptr*)((char*)param + 4) + 0x38) = *(int*)((char*)this + 8) + 8;
-    *(int*)((char*)this + 0xc) = 0;
+    *(int*)((char*)*(hulk_intptr*)((char*)param + 4) + 0x38) = *(int*)((char*)&this->f_08) + 8;
+    *(int*)((char*)&this->f_0c) = 0;
 }
 
 
@@ -214,7 +214,7 @@ void audio::SeqActionVarPosDist::vfunc_1(void* __p0) { void * param = (void *)__
 // sym: ?vfunc_3@SeqActionVarPosDist@audio@@UAEXH@Z
 // Same code shape as 0x0024ea70 (propagated; names are from that function)
 void audio::SeqActionVarPosDist::vfunc_3(hulk_intptr ) {
-    *(int*)((char*)this + 0xc) = 4;
+    *(int*)((char*)&this->f_0c) = 4;
 }
 
 
@@ -222,7 +222,7 @@ void audio::SeqActionVarPosDist::vfunc_3(hulk_intptr ) {
 // sym: ?vfunc_4@SeqActionVarPosDist@audio@@UAEXH@Z
 // Same code shape as 0x0024ea80 (propagated; names are from that function)
 void audio::SeqActionVarPosDist::vfunc_4(int ) {
-    *(int*)((char*)this + 0xc) = 5;
+    *(int*)((char*)&this->f_0c) = 5;
 }
 
 
