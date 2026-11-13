@@ -834,8 +834,8 @@ void SlotTable_c80a0::Release(int tag) {
 
 
 // 0x000c8180 FUN_000c8180 (6 B): matches/0x000c8180.cpp
-// sym: ?FUN_000c8180@fn_f9a0caab@@YAIXZ
-unsigned int FUN_000c8180(void) {
+// sym: ?FUN_000c8180@fn_f9a0caab@@YAIPAX@Z
+unsigned int FUN_000c8180(void* /*this, unused: callers pass it (unb4)*/) {
     return 0x80;
 }
 

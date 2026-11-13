@@ -6865,7 +6865,7 @@ void Owner_f7850::Cleanup() {
 // 0x000f78e0 FUN_000f78e0 (1 B): matches/0x000f78e0.cpp
 // sym: _FUN_000f78e0
 // Same code shape as 0x00025410 (propagated; names are from that function)
-extern "C" void FUN_000f78e0() {}
+extern "C" void FUN_000f78e0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_f5892d97
 

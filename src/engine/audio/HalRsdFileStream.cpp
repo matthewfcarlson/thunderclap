@@ -487,9 +487,9 @@ void audio::HalRsdFileStream::vfunc_12() {
 namespace fn_fe2967ee {
 
 // 0x00263470 FUN_00263470 (1 B): matches/0x00263470.cpp
-// sym: ?FUN_00263470@fn_fe2967ee@@YAXXZ
+// sym: ?FUN_00263470@fn_fe2967ee@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_00263470() {}
+void FUN_00263470(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_fe2967ee
 

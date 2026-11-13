@@ -4662,7 +4662,7 @@ extern "C" char __cdecl FUN_000d3d80(void *p1, void *p2, Owner_d3d80 *owner, Arg
 // 0x000d3ee0 FUN_000d3ee0 (6 B): matches/0x000d3ee0.cpp
 // sym: _FUN_000d3ee0
 // Same code shape as 0x0008ceb0 (propagated; names are from that function)
-extern "C" int* FUN_000d3ee0() {
+extern "C" int* FUN_000d3ee0(void* /*this, unused: callers pass it (unb4)*/) {
     return (int*)&DAT_0040b020;
 }
 

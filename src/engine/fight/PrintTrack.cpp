@@ -285,9 +285,9 @@ char Obj_238850::SetTimeBegin_00238850(int x) {
 
 
 // 0x00238880 FUN_00238880 (19 B): matches/0x00238880.cpp
-// sym: ?FUN_00238880@fn_fbe81dc2@@YAXXZ
+// sym: ?FUN_00238880@fn_fbe81dc2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00238880() {
+void FUN_00238880(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e5c20), ((char*)&DAT_004e5c24));
 }
 

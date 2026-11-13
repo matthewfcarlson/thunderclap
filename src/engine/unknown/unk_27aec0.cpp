@@ -97,7 +97,7 @@ Pair_27af30& Pair_27af30::Assign(const Pair_27af30* src) {
 // 0x0027af50 FUN_0027af50 (1 B): matches/0x0027af50.cpp
 // sym: _FUN_0027af50
 // Same code shape as 0x00025410 (propagated; names are from that function)
-extern "C" void FUN_0027af50() {}
+extern "C" void FUN_0027af50(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_f3f84338
 

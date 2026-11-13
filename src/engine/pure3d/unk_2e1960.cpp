@@ -2587,9 +2587,9 @@ LightGroup* LightGroup::Self() {
 
 
 // 0x002e4ea0 FUN_002e4ea0 (1 B): matches/0x002e4ea0.cpp
-// sym: ?FUN_002e4ea0@fn_fcb4ee90@@YAXXZ
+// sym: ?FUN_002e4ea0@fn_fcb4ee90@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_002e4ea0() {}
+void FUN_002e4ea0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x002e4fb0 FUN_002e4fb0 (15 B): matches/0x002e4fb0.cpp

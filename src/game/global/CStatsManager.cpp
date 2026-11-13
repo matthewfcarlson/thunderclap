@@ -348,7 +348,7 @@ int Obj_8ffb0::Get() {
 // 0x0008ffc0 FUN_0008ffc0 (6 B): matches/0x0008ffc0.cpp
 // sym: _FUN_0008ffc0
 // data: g_flag_8ffc0 = DAT_004dd838
-extern "C" unsigned char FUN_0008ffc0() {
+extern "C" unsigned char FUN_0008ffc0(void* /*this, unused: callers pass it (unb4)*/) {
     return (*(unsigned char*)&DAT_004dd838);
 }
 

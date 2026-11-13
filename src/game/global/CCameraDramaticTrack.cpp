@@ -47,9 +47,9 @@ struct Helper_6a4a0 {
 
 
 // 0x0006a370 FUN_0006a370 (19 B): matches/0x0006a370.cpp
-// sym: ?FUN_0006a370@fn_fdd20f3b@@YAXXZ
+// sym: ?FUN_0006a370@fn_fdd20f3b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0006a370() {
+void FUN_0006a370(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcfa8), ((char*)&DAT_004dcfac));
 }
 

@@ -162,27 +162,27 @@ void __fastcall Target(C_23f6c0* self) {
 
 
 // 0x0023f6d0 FUN_0023f6d0 (1 B): matches/0x0023f6d0.cpp
-// sym: ?FUN_0023f6d0@fn_f9c4408d@@YAXXZ
+// sym: ?FUN_0023f6d0@fn_f9c4408d@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_0023f6d0() {}
+void FUN_0023f6d0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x0023f6e0 FUN_0023f6e0 (1 B): matches/0x0023f6e0.cpp
-// sym: ?FUN_0023f6e0@fn_f9c4408d@@YAXXZ
+// sym: ?FUN_0023f6e0@fn_f9c4408d@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_0023f6e0() {}
+void FUN_0023f6e0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x0023f6f0 FUN_0023f6f0 (1 B): matches/0x0023f6f0.cpp
-// sym: ?FUN_0023f6f0@fn_f9c4408d@@YAXXZ
+// sym: ?FUN_0023f6f0@fn_f9c4408d@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_0023f6f0() {}
+void FUN_0023f6f0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x0023f700 FUN_0023f700 (1 B): matches/0x0023f700.cpp
-// sym: ?FUN_0023f700@fn_f9c4408d@@YAXXZ
+// sym: ?FUN_0023f700@fn_f9c4408d@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_0023f700() {}
+void FUN_0023f700(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x0023f710 FUN_0023f710 (3 B): matches/0x0023f710.cpp
@@ -210,9 +210,9 @@ bool Entity::vfunc_4(hulk_intptr a) {
 
 
 // 0x0023f740 FUN_0023f740 (1 B): matches/0x0023f740.cpp
-// sym: ?FUN_0023f740@fn_f9c4408d@@YAXXZ
+// sym: ?FUN_0023f740@fn_f9c4408d@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_0023f740() {}
+void FUN_0023f740(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x0023f750 FUN_0023f750 (3 B): matches/0x0023f750.cpp
@@ -309,13 +309,13 @@ void __stdcall FUN_0023f8b0(void*, void*, void*, void*) {}
 // 0x0023f8c0 FUN_0023f8c0 (1 B): matches/0x0023f8c0.cpp
 // sym: _FUN_0023f8c0
 // Same code shape as 0x00025410 (propagated; names are from that function)
-extern "C" void FUN_0023f8c0() {}
+extern "C" void FUN_0023f8c0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x0023f8f0 FUN_0023f8f0 (1 B): matches/0x0023f8f0.cpp
-// sym: ?FUN_0023f8f0@fn_f9c4408d@@YAXXZ
+// sym: ?FUN_0023f8f0@fn_f9c4408d@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_0023f8f0() {}
+void FUN_0023f8f0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x0023f990 FUN_0023f990 (5 B): matches/0x0023f990.cpp

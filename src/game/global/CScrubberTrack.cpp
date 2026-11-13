@@ -16,9 +16,9 @@ extern float hulk_at_003f3388;
 
 
 // 0x00068df0 FUN_00068df0 (19 B): matches/0x00068df0.cpp
-// sym: ?FUN_00068df0@fn_f88b40b1@@YAXXZ
+// sym: ?FUN_00068df0@fn_f88b40b1@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00068df0() {
+void FUN_00068df0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcf10), ((char*)&DAT_004dcf14));
 }
 
@@ -68,8 +68,8 @@ hulk_freg CScrubberTrack::vfunc_7() {
 namespace fn_f88b40b1 {
 
 // 0x00068e70 FUN_00068e70 (3 B): matches/0x00068e70.cpp
-// sym: ?FUN_00068e70@fn_f88b40b1@@YAHXZ
-int __cdecl FUN_00068e70() {
+// sym: ?FUN_00068e70@fn_f88b40b1@@YAHPAX@Z
+int __cdecl FUN_00068e70(void* /*this, unused: callers pass it (unb4)*/) {
     return 0;
 }
 

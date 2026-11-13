@@ -30,9 +30,9 @@ extern "C" Stats_49bb0 *__fastcall FUN_00059a30(Owner *ctx);
 
 
 // 0x00049b40 FUN_00049b40 (19 B): matches/0x00049b40.cpp
-// sym: ?FUN_00049b40@fn_ff301b22@@YAXXZ
+// sym: ?FUN_00049b40@fn_ff301b22@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049b40() {
+void FUN_00049b40(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc4f0), ((char*)&DAT_004dc4f4));
 }
 

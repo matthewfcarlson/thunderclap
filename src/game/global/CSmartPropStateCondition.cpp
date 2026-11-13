@@ -31,9 +31,9 @@ struct Context_49a60 {  };
 
 
 // 0x00049990 FUN_00049990 (19 B): matches/0x00049990.cpp
-// sym: ?FUN_00049990@fn_fa7ecd1e@@YAXXZ
+// sym: ?FUN_00049990@fn_fa7ecd1e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049990() {
+void FUN_00049990(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc4e0), ((char*)&DAT_004dc4e4));
 }
 
@@ -50,9 +50,9 @@ hulk_intptr CSmartPropCSMableCondition::vfunc_0(int index) {
 namespace fn_fa7ecd1e {
 
 // 0x000499f0 FUN_000499f0 (19 B): matches/0x000499f0.cpp
-// sym: ?FUN_000499f0@fn_fa7ecd1e@@YAXXZ
+// sym: ?FUN_000499f0@fn_fa7ecd1e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_000499f0() {
+void FUN_000499f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc4e8), ((char*)&DAT_004dc4ec));
 }
 

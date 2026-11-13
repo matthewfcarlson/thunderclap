@@ -305,7 +305,7 @@ Obj_2c6d30::Obj_2c6d30() {
 // 0x002c6d50 FUN_002c6d50 (1 B): matches/0x002c6d50.cpp
 // sym: _FUN_002c6d50
 // Same code shape as 0x00025410 (propagated; names are from that function)
-extern "C" void FUN_002c6d50() {}
+extern "C" void FUN_002c6d50(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_f3d8c80d
 

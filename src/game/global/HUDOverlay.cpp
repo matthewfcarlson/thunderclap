@@ -884,8 +884,8 @@ unsigned int __fastcall target(X_cae50* self) {
 
 
 // 0x000cae60 FUN_000cae60 (6 B): matches/0x000cae60.cpp
-// sym: ?FUN_000cae60@fn_fb3f3f46@@YAHXZ
-int FUN_000cae60() {
+// sym: ?FUN_000cae60@fn_fb3f3f46@@YAHPAX@Z
+int FUN_000cae60(void* /*this, unused: callers pass it (unb4)*/) {
     return 0x78d;
 }
 

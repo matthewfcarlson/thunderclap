@@ -55,9 +55,9 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 
 // 0x0006abf0 FUN_0006abf0 (19 B): matches/0x0006abf0.cpp
-// sym: ?FUN_0006abf0@fn_fc9b775c@@YAXXZ
+// sym: ?FUN_0006abf0@fn_fc9b775c@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0006abf0() {
+void FUN_0006abf0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcff0), ((char*)&DAT_004dcff4));
 }
 

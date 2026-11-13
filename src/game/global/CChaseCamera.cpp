@@ -810,7 +810,7 @@ void __cdecl FUN_0009f910(int count, float* keys, unsigned int* values) {
 // 0x0009fa00 FUN_0009fa00 (111 B): matches/0x0009fa00.cpp
 // sym: _FUN_0009fa00
 // data: gFlag_9fa00 = DAT_004e222c
-extern "C" bool FUN_0009fa00() {
+extern "C" bool FUN_0009fa00(void* /*this, unused: callers pass it (unb4)*/) {
     Mgr_9fa00* m = hulk_at_004dd700->sys->Get();
     int i = 0;
     do {

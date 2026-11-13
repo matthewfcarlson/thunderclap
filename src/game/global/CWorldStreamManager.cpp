@@ -3972,9 +3972,9 @@ S_208a90::S_208a90() {
 
 
 // 0x00208ab0 FUN_00208ab0 (1 B): matches/0x00208ab0.cpp
-// sym: ?FUN_00208ab0@fn_f49dcb8d@@YAXXZ
+// sym: ?FUN_00208ab0@fn_f49dcb8d@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_00208ab0() {}
+void FUN_00208ab0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_f49dcb8d
 

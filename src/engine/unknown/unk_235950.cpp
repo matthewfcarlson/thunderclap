@@ -93,9 +93,9 @@ char owners::Obj_2359b0::FUN_002359b0(int v) {
 namespace fn_f7988f86 {
 
 // 0x00235a00 FUN_00235a00 (19 B): matches/0x00235a00.cpp
-// sym: ?FUN_00235a00@fn_f7988f86@@YAXXZ
+// sym: ?FUN_00235a00@fn_f7988f86@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00235a00() {
+void FUN_00235a00(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e5bdc), ((char*)&DAT_004e5be0));
 }
 

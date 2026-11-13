@@ -1026,9 +1026,9 @@ class Raw_200b10 { public: void FUN_001ff360(const char*, Fn_200b10); };
 
 
 // 0x001fc690 FUN_001fc690 (1 B): matches/0x001fc690.cpp
-// sym: ?FUN_001fc690@fn_f3d6a774@@YAXXZ
+// sym: ?FUN_001fc690@fn_f3d6a774@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_001fc690() {}
+void FUN_001fc690(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x001fc6a0 FUN_001fc6a0 (228 B): equivalent/0x001fc6a0.cpp

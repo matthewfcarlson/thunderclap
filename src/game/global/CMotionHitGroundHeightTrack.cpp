@@ -32,9 +32,9 @@ struct Worker_6b110 {
 
 
 // 0x0006b070 FUN_0006b070 (19 B): matches/0x0006b070.cpp
-// sym: ?FUN_0006b070@fn_fb1b52d7@@YAXXZ
+// sym: ?FUN_0006b070@fn_fb1b52d7@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0006b070() {
+void FUN_0006b070(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dd018), ((char*)&DAT_004dd01c));
 }
 

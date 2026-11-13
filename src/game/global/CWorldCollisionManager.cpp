@@ -315,9 +315,9 @@ extern "C" bool FUN_002017d0(const char *name, int *outIndex, int *outValue)
 
 
 // 0x00201bb0 FUN_00201bb0 (1 B): matches/0x00201bb0.cpp
-// sym: ?FUN_00201bb0@fn_f0f2b8a0@@YAXXZ
+// sym: ?FUN_00201bb0@fn_f0f2b8a0@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_00201bb0() {}
+void FUN_00201bb0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_f0f2b8a0
 

@@ -34,9 +34,9 @@ class Helper_69660 {
 
 
 // 0x000694f0 FUN_000694f0 (19 B): matches/0x000694f0.cpp
-// sym: ?FUN_000694f0@fn_f7e28208@@YAXXZ
+// sym: ?FUN_000694f0@fn_f7e28208@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_000694f0() {
+void FUN_000694f0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcf30), ((char*)&DAT_004dcf34));
 }
 

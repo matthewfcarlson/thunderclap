@@ -30,9 +30,9 @@ union FloatBits_4af40 { float f; unsigned u; };
 
 
 // 0x0004adc0 FUN_0004adc0 (19 B): matches/0x0004adc0.cpp
-// sym: ?FUN_0004adc0@fn_f441c847@@YAXXZ
+// sym: ?FUN_0004adc0@fn_f441c847@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0004adc0() {
+void FUN_0004adc0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc580), ((char*)&DAT_004dc584));
 }
 

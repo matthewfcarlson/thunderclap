@@ -32,9 +32,9 @@ struct CTrack_6a9f0 {
 
 
 // 0x0006a970 FUN_0006a970 (19 B): matches/0x0006a970.cpp
-// sym: ?FUN_0006a970@fn_fb04fe61@@YAXXZ
+// sym: ?FUN_0006a970@fn_fb04fe61@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0006a970() {
+void FUN_0006a970(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcfd8), ((char*)&DAT_004dcfdc));
 }
 

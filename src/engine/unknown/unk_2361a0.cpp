@@ -175,9 +175,9 @@ void __stdcall FUN_002363f0() {}
 
 
 // 0x00236400 FUN_00236400 (1 B): matches/0x00236400.cpp
-// sym: ?FUN_00236400@fn_fa6aa741@@YAXXZ
+// sym: ?FUN_00236400@fn_fa6aa741@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_00236400() {}
+void FUN_00236400(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x002365b0 FUN_002365b0 (38 B): matches/0x002365b0.cpp

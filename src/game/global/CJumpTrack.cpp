@@ -63,9 +63,9 @@ extern "C" int __cdecl FUN_0008d690(int);
 
 
 // 0x00068f90 FUN_00068f90 (19 B): matches/0x00068f90.cpp
-// sym: ?FUN_00068f90@fn_f3ca8e6b@@YAXXZ
+// sym: ?FUN_00068f90@fn_f3ca8e6b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00068f90() {
+void FUN_00068f90(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcf20), ((char*)&DAT_004dcf24));
 }
 

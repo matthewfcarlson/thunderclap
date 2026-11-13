@@ -21,9 +21,9 @@ extern "C" Helper_69bf0* __cdecl FUN_0008d690(int);
 
 
 // 0x00069b30 FUN_00069b30 (19 B): matches/0x00069b30.cpp
-// sym: ?FUN_00069b30@fn_f9999ae0@@YAXXZ
+// sym: ?FUN_00069b30@fn_f9999ae0@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00069b30() {
+void FUN_00069b30(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcf60), ((char*)&DAT_004dcf64));
 }
 

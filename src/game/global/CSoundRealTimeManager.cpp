@@ -1031,9 +1031,9 @@ void Outer_1eb4d0::g() {
 
 
 // 0x001eb4e0 FUN_001eb4e0 (1 B): matches/0x001eb4e0.cpp
-// sym: ?FUN_001eb4e0@fn_f014178b@@YAXXZ
+// sym: ?FUN_001eb4e0@fn_f014178b@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_001eb4e0() {}
+void FUN_001eb4e0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x001eb4f0 FUN_001eb4f0 (47 B): equivalent/0x001eb4f0.cpp

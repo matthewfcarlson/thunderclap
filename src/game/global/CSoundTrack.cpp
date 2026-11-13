@@ -38,9 +38,9 @@ extern "C" R_69760* FUN_0008d690(int);
 
 
 // 0x00069690 FUN_00069690 (19 B): matches/0x00069690.cpp
-// sym: ?FUN_00069690@fn_fdda11e6@@YAXXZ
+// sym: ?FUN_00069690@fn_fdda11e6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00069690() {
+void FUN_00069690(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcf38), ((char*)&DAT_004dcf3c));
 }
 

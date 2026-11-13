@@ -35,9 +35,9 @@ void thunk_FUN_00267090(CGameControllerManager*);
 
 
 // 0x000af380 FUN_000af380 (1 B): matches/0x000af380.cpp
-// sym: ?FUN_000af380@fn_faa012bb@@YAXXZ
+// sym: ?FUN_000af380@fn_faa012bb@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_000af380() {}
+void FUN_000af380(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_faa012bb
 

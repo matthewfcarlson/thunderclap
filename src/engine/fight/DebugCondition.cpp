@@ -132,9 +132,9 @@ bool Obj_23d460::SetMode_0023d460(int v) {
 
 
 // 0x0023d470 FUN_0023d470 (19 B): matches/0x0023d470.cpp
-// sym: ?FUN_0023d470@fn_fd383094@@YAXXZ
+// sym: ?FUN_0023d470@fn_fd383094@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0023d470() {
+void FUN_0023d470(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e5c54), ((char*)&DAT_004e5c58));
 }
 

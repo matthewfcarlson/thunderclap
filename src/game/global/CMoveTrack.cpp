@@ -21,9 +21,9 @@ struct Helper_69940 {
 
 
 // 0x00069880 FUN_00069880 (19 B): matches/0x00069880.cpp
-// sym: ?FUN_00069880@fn_f28944fe@@YAXXZ
+// sym: ?FUN_00069880@fn_f28944fe@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00069880() {
+void FUN_00069880(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcf48), ((char*)&DAT_004dcf4c));
 }
 

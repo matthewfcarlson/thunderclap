@@ -194,7 +194,7 @@ om::MetaEntity::~MetaEntity() {}
 namespace fn_f87db03b {
 
 // 0x0025e850 FUN_0025e850 (1 B): matches/0x0025e850.cpp
-// sym: ?FUN_0025e850@fn_f87db03b@@YAXXZ
-void FUN_0025e850() {}
+// sym: ?FUN_0025e850@fn_f87db03b@@YAXPAX@Z
+void FUN_0025e850(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_f87db03b

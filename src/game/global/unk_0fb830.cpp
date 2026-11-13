@@ -908,7 +908,7 @@ extern "C" void FUN_000fc2e0() {
 
 // 0x000fc2f0 FUN_000fc2f0 (11 B): matches/0x000fc2f0.cpp
 // sym: _FUN_000fc2f0
-extern "C" void __cdecl FUN_000fc2f0() {
+extern "C" void __cdecl FUN_000fc2f0(void* /*this, unused: callers pass it (unb4)*/) {
     ((X_fc2f0*)*(hulk_uintptr*)((hulk_intptr)DAT_004e0a60))->f21();
 }
 
@@ -937,7 +937,7 @@ extern "C" int FUN_000fc320() {
 
 // 0x000fc330 FUN_000fc330 (11 B): matches/0x000fc330.cpp
 // sym: _FUN_000fc330
-extern "C" void FUN_000fc330() {
+extern "C" void FUN_000fc330(void* /*this, unused: callers pass it (unb4)*/) {
     (*(Obj_fc330**)&DAT_004e0a60)->f24();
 }
 

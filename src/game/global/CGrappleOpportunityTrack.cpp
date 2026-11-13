@@ -673,9 +673,9 @@ void* CGrappleAutoTargetTrack::vfunc_11(hulk_intptr param) {
 namespace fn_f63372f2 {
 
 // 0x0005a800 FUN_0005a800 (19 B): matches/0x0005a800.cpp
-// sym: ?FUN_0005a800@fn_f63372f2@@YAXXZ
+// sym: ?FUN_0005a800@fn_f63372f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005a800() {
+void FUN_0005a800(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc590), ((char*)&DAT_004dc594));
 }
 
@@ -774,9 +774,9 @@ void* CGrappleLocoStrafe4Track::vfunc_11(hulk_intptr param) {
 namespace fn_f63372f2 {
 
 // 0x0005a9d0 FUN_0005a9d0 (19 B): matches/0x0005a9d0.cpp
-// sym: ?FUN_0005a9d0@fn_f63372f2@@YAXXZ
+// sym: ?FUN_0005a9d0@fn_f63372f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005a9d0() {
+void FUN_0005a9d0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc598), ((char*)&DAT_004dc59c));
 }
 
@@ -902,9 +902,9 @@ hulk_intptr CGrappleAttachTrack::vfunc_12(hulk_intptr param) {
 namespace fn_f63372f2 {
 
 // 0x0005ab00 FUN_0005ab00 (19 B): matches/0x0005ab00.cpp
-// sym: ?FUN_0005ab00@fn_f63372f2@@YAXXZ
+// sym: ?FUN_0005ab00@fn_f63372f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005ab00() {
+void FUN_0005ab00(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc5a0), ((char*)&DAT_004dc5a4));
 }
 
@@ -964,9 +964,9 @@ void CGrappleSwapTrack::FUN_0005abb0() {
 namespace fn_f63372f2 {
 
 // 0x0005ac10 FUN_0005ac10 (19 B): matches/0x0005ac10.cpp
-// sym: ?FUN_0005ac10@fn_f63372f2@@YAXXZ
+// sym: ?FUN_0005ac10@fn_f63372f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005ac10() {
+void FUN_0005ac10(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc5a8), ((char*)&DAT_004dc5ac));
 }
 
@@ -1036,9 +1036,9 @@ hulk_freg CGrappleDetachTrack::vfunc_7() {
 namespace fn_f63372f2 {
 
 // 0x0005acd0 FUN_0005acd0 (19 B): matches/0x0005acd0.cpp
-// sym: ?FUN_0005acd0@fn_f63372f2@@YAXXZ
+// sym: ?FUN_0005acd0@fn_f63372f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005acd0() {
+void FUN_0005acd0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc5b0), ((char*)&DAT_004dc5b4));
 }
 
@@ -1193,9 +1193,9 @@ unsigned CGrappleOpportunityTrack::vfunc_10(unsigned a,unsigned b,Owner_5ae00* o
 namespace fn_f63372f2 {
 
 // 0x0005af00 FUN_0005af00 (19 B): matches/0x0005af00.cpp
-// sym: ?FUN_0005af00@fn_f63372f2@@YAXXZ
+// sym: ?FUN_0005af00@fn_f63372f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005af00() {
+void FUN_0005af00(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc5b8), ((char*)&DAT_004dc5bc));
 }
 
@@ -1328,9 +1328,9 @@ return obj->FUN_00237c90(a, this, saved, field18, field1c, value, result);
 namespace fn_f63372f2 {
 
 // 0x0005b0b0 FUN_0005b0b0 (19 B): matches/0x0005b0b0.cpp
-// sym: ?FUN_0005b0b0@fn_f63372f2@@YAXXZ
+// sym: ?FUN_0005b0b0@fn_f63372f2@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005b0b0() {
+void FUN_0005b0b0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc5c0), ((char*)&DAT_004dc5c4));
 }
 

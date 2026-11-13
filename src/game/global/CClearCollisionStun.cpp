@@ -35,9 +35,9 @@ class Obj_6b050 {
 
 
 // 0x0006afc0 FUN_0006afc0 (19 B): matches/0x0006afc0.cpp
-// sym: ?FUN_0006afc0@fn_fa1ead05@@YAXXZ
+// sym: ?FUN_0006afc0@fn_fa1ead05@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0006afc0() {
+void FUN_0006afc0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dd010), ((char*)&DAT_004dd014));
 }
 

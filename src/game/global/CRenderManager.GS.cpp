@@ -718,11 +718,11 @@ extern "C" void __cdecl FUN_001bb0b0(const char *code)
 namespace fn_faf7c40e {
 
 // 0x001bc040 FUN_001bc040 (113 B): matches/0x001bc040.cpp
-// sym: ?FUN_001bc040@fn_faf7c40e@@YAXXZ
+// sym: ?FUN_001bc040@fn_faf7c40e@@YAXPAX@Z
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 2/2)
 // FUN_001bc040 @ 0x001bc040
 // Shows the "controller lost" message for the active port (or for all ports).
-void FUN_001bc040()
+void FUN_001bc040(void* /*this, unused: callers pass it (unb4)*/)
 {
     struct Frame {
         char key[0x100];

@@ -38,9 +38,9 @@ struct Owner_493b0 {
 
 
 // 0x00049340 FUN_00049340 (19 B): matches/0x00049340.cpp
-// sym: ?FUN_00049340@fn_f4a687b6@@YAXXZ
+// sym: ?FUN_00049340@fn_f4a687b6@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049340() {
+void FUN_00049340(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc4b0), ((char*)&DAT_004dc4b4));
 }
 

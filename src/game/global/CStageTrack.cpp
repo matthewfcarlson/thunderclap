@@ -38,9 +38,9 @@ extern "C" Other_6abc0* __cdecl FUN_0008d690(int);
 
 
 // 0x0006ab20 FUN_0006ab20 (19 B): matches/0x0006ab20.cpp
-// sym: ?FUN_0006ab20@fn_f3bfd77d@@YAXXZ
+// sym: ?FUN_0006ab20@fn_f3bfd77d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0006ab20() {
+void FUN_0006ab20(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcfe8), ((char*)&DAT_004dcfec));
 }
 

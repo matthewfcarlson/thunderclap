@@ -95,9 +95,9 @@ int CGrappleMotionStateCondition::vfunc_8(hulk_intptr p) {
 namespace fn_f4b9a9e9 {
 
 // 0x0004a310 FUN_0004a310 (19 B): matches/0x0004a310.cpp
-// sym: ?FUN_0004a310@fn_f4b9a9e9@@YAXXZ
+// sym: ?FUN_0004a310@fn_f4b9a9e9@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0004a310() {
+void FUN_0004a310(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc528), ((char*)&DAT_004dc52c));
 }
 
@@ -140,9 +140,9 @@ bool CMotionHitCondition::vfunc_7(void* __p0) { FightHandle_4a380 * h = (FightHa
 namespace fn_f4b9a9e9 {
 
 // 0x0004a400 FUN_0004a400 (19 B): matches/0x0004a400.cpp
-// sym: ?FUN_0004a400@fn_f4b9a9e9@@YAXXZ
+// sym: ?FUN_0004a400@fn_f4b9a9e9@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0004a400() {
+void FUN_0004a400(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc530), ((char*)&DAT_004dc534));
 }
 
@@ -159,9 +159,9 @@ hulk_intptr CClimbableCondition::vfunc_0(int index) {
 namespace fn_f4b9a9e9 {
 
 // 0x0004a470 FUN_0004a470 (19 B): matches/0x0004a470.cpp
-// sym: ?FUN_0004a470@fn_f4b9a9e9@@YAXXZ
+// sym: ?FUN_0004a470@fn_f4b9a9e9@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0004a470() {
+void FUN_0004a470(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc538), ((char*)&DAT_004dc53c));
 }
 

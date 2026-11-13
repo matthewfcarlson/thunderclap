@@ -607,8 +607,8 @@ void Object::target(const char* s1,const char* s2,const char* s3,const char* s4,
 
 
 // 0x000b4f20 FUN_000b4f20 (25 B): matches/0x000b4f20.cpp
-// sym: ?FUN_000b4f20@fn_fedc4c02@@YAHXZ
-int FUN_000b4f20() {
+// sym: ?FUN_000b4f20@fn_fedc4c02@@YAHPAX@Z
+int FUN_000b4f20(void* /*this, unused: callers pass it (unb4)*/) {
     if (FUN_000fc310() == 0) {
         if (FUN_000fc320() == 0)
             return 0;
@@ -620,7 +620,7 @@ int FUN_000b4f20() {
 // 0x000b4f40 FUN_000b4f40 (6 B): matches/0x000b4f40.cpp
 // sym: _FUN_000b4f40
 // Same code shape as 0x0008ceb0 (propagated; names are from that function)
-extern "C" int* FUN_000b4f40() {
+extern "C" int* FUN_000b4f40(void* /*this, unused: callers pass it (unb4)*/) {
     return (int*)&DAT_00406140;
 }
 
@@ -996,10 +996,10 @@ void Screen::setup() {
 
 
 // 0x000b5ad0 FUN_000b5ad0 (125 B): matches/0x000b5ad0.cpp
-// sym: ?FUN_000b5ad0@fn_fedc4c02@@YAXXZ
+// sym: ?FUN_000b5ad0@fn_fedc4c02@@YAXPAX@Z
 // FUN_000b5ad0 @ 0x000b5ad0
 // Syncs the two camera-invert selectors with the stored flags.
-void FUN_000b5ad0()
+void FUN_000b5ad0(void* /*this, unused: callers pass it (unb4)*/)
 {
     Selector_b5ad0* x = (Selector_b5ad0*)FUN_00344e74(FUN_000fc260("camera_invert_x_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
     if (x)
@@ -1062,7 +1062,7 @@ void target() {
 
 
 // 0x000b5b90 FUN_000b5b90 (83 B): matches/0x000b5b90.cpp [wrapped: conflict: FEObject]
-// sym: ?FUN_000b5b90@fn_000b5b90@@YAXXZ
+// sym: ?FUN_000b5b90@fn_000b5b90@@YAXPAX@Z
 namespace fn_000b5b90 {
 extern "C" char DAT_0049dba4[];
 extern "C" char DAT_0049dbbc[];
@@ -1108,7 +1108,7 @@ struct Global_b5b90 {
     Ctx_b5b90* ctx;
 };
 extern Global_b5b90* gGlobal_b5b90;
-void FUN_000b5b90() {
+void FUN_000b5b90(void* /*this, unused: callers pass it (unb4)*/) {
     FEObject* p = (FEObject*)((hulk_intptr)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(FindName_000fc260("cheat_invulnerability_selector")), 0, (void*)((int*)((hulk_intptr)DAT_0049dba4)), (void*)((int*)((hulk_intptr)DAT_0049dbbc)), 0));
     if (p) {
         int flag = gGlobal_b5b90->ctx->Get_00086340()->Check_00092de0(0x2e4) == 0;
@@ -1119,7 +1119,7 @@ void FUN_000b5b90() {
 
 
 // 0x000b5bf0 FUN_000b5bf0 (163 B): matches/0x000b5bf0.cpp [wrapped: conflict: FUN_000fc260; World]
-// sym: ?FUN_000b5bf0@fn_000b5bf0@@YAXXZ
+// sym: ?FUN_000b5bf0@fn_000b5bf0@@YAXPAX@Z
 namespace fn_000b5bf0 {
 // FUN_000b5bf0 @ 0x000b5bf0
 // equiv-map: ??_R0?AVFEObject@@@8 = 0x0049dba4
@@ -1178,7 +1178,7 @@ struct World {
 
 FEObject_b5bf0 *__cdecl FUN_000fc260(const char *name);
 
-void FUN_000b5bf0()
+void FUN_000b5bf0(void* /*this, unused: callers pass it (unb4)*/)
 {
     TextSelector_b5bf0 *sel = dynamic_cast<TextSelector_b5bf0 *>(FUN_000fc260("cheat_gray_hulk_selector"));
     if (sel != 0)
@@ -2024,7 +2024,7 @@ void Target_b8860::FUN_000b8860() {
 
 
 // 0x000b8940 FUN_000b8940 (122 B): matches/0x000b8940.cpp [wrapped: conflict: FEObject; FUN_000fc260; TextSelector; TextWindow]
-// sym: ?FUN_000b8940@fn_000b8940@@YAXXZ
+// sym: ?FUN_000b8940@fn_000b8940@@YAXPAX@Z
 namespace fn_000b8940 {
 // FUN_000b8940 @ 0x000b8940
 
@@ -2052,7 +2052,7 @@ struct StoryText {
 
 FEObject* __cdecl FUN_000fc260(const char* name);
 
-void FUN_000b8940() {
+void FUN_000b8940(void* /*this, unused: callers pass it (unb4)*/) {
     TextSelector* list = dynamic_cast<TextSelector*>(FUN_000fc260("story_recap_list"));
     if (!list)
         return;

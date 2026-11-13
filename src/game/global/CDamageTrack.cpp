@@ -24,9 +24,9 @@ extern "C" void* FUN_0008d690(int);
 
 
 // 0x00069da0 FUN_00069da0 (19 B): matches/0x00069da0.cpp
-// sym: ?FUN_00069da0@fn_fabeda8f@@YAXXZ
+// sym: ?FUN_00069da0@fn_fabeda8f@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00069da0() {
+void FUN_00069da0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcf70), ((char*)&DAT_004dcf74));
 }
 

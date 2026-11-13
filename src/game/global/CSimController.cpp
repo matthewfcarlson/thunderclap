@@ -472,9 +472,9 @@ CSimControllerManager_b3c90* CSimControllerManager_b3c90::ctor(Arg_b3c90* a) {
 
 
 // 0x000b3d00 FUN_000b3d00 (1 B): matches/0x000b3d00.cpp
-// sym: ?FUN_000b3d00@fn_f8cdf61b@@YAXXZ
+// sym: ?FUN_000b3d00@fn_f8cdf61b@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_000b3d00() {}
+void FUN_000b3d00(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_f8cdf61b
 

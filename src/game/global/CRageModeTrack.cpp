@@ -20,9 +20,9 @@ extern "C" Other_6aaf0* __cdecl FUN_0008d690(int);
 
 
 // 0x0006aa50 FUN_0006aa50 (19 B): matches/0x0006aa50.cpp
-// sym: ?FUN_0006aa50@fn_fd85930d@@YAXXZ
+// sym: ?FUN_0006aa50@fn_fd85930d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0006aa50() {
+void FUN_0006aa50(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcfe0), ((char*)&DAT_004dcfe4));
 }
 

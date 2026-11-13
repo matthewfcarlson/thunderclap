@@ -1727,7 +1727,7 @@ void SideMissionMenu::FUN_000b9bf0()
 
 
 // 0x000bb600 FUN_000bb600 (108 B): matches/0x000bb600.cpp [wrapped: conflict: FUN_001d4c90]
-// sym: ?FUN_000bb600@fn_000bb600@@YAXXZ
+// sym: ?FUN_000bb600@fn_000bb600@@YAXPAX@Z
 namespace fn_000bb600 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000bb600 @ 0x000bb600
@@ -1741,7 +1741,7 @@ struct Manager_bb600 {
     void FUN_001d3b00(const char* name, Parameters_bb600 parameters);
 };
 extern Manager_bb600* __cdecl FUN_001d4c90();
-void __cdecl FUN_000bb600() {
+void __cdecl FUN_000bb600(void* /*this, unused: callers pass it (unb4)*/) {
     Manager_bb600* manager = FUN_001d4c90();
     if (manager) {
         Parameters_bb600 parameters;

@@ -180,7 +180,7 @@ struct Obj_1bc510 {
     void Finish_001c3dc0();
 };
 Obj_1bc510* __cdecl GetObj_001c3d90();
-extern "C" void FUN_001bc510(void) {
+extern "C" void FUN_001bc510(void* /*this, unused: callers pass it (unb4)*/) {
     Obj_1bc510* p = GetObj_001c3d90();
     p->DoThing_001c4230();
     p = GetObj_001c3d90();
@@ -283,7 +283,7 @@ void __stdcall target(void* a) {
 } // namespace fn_f0a5b372
 
 // 0x001bc720 FUN_001bc720 (12 B): matches/0x001bc720.cpp [wrapped: conflict: Make]
-// sym: ?target@fn_001bc720@@YAXXZ
+// sym: ?target@fn_001bc720@@YAXPAX@Z
 namespace fn_001bc720 {
 // Same code shape as 0x001bc710 (propagated; names are from that function)
 class X_1bc720 {
@@ -291,7 +291,7 @@ class X_1bc720 {
     void Run_001c3e10();
 };
 extern X_1bc720* __cdecl Make_001c3d90();
-void __cdecl target() {
+void __cdecl target(void* /*this, unused: callers pass it (unb4)*/) {
     Make_001c3d90()->Run_001c3e10();
 }
 } // namespace fn_001bc720

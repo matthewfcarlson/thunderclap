@@ -801,8 +801,8 @@ void FEMemCardControl_d7ef0::Run(int unused) {
 
 
 // 0x000d7f30 FUN_000d7f30 (25 B): matches/0x000d7f30.cpp
-// sym: ?FUN_000d7f30@fn_f70d8f3f@@YAEXZ
-unsigned char __cdecl FUN_000d7f30() {
+// sym: ?FUN_000d7f30@fn_f70d8f3f@@YAEPAX@Z
+unsigned char __cdecl FUN_000d7f30(void* /*this, unused: callers pass it (unb4)*/) {
     Root_d7f30* r = (Root_d7f30*)FUN_000fc3d0();
     Obj_d7f30* p = (Obj_d7f30*)r->obj;
     if (p)

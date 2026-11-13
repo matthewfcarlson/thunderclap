@@ -65,7 +65,7 @@ namespace fn_f83389b9 {
 // 0x0027b000 FUN_0027b000 (6 B): matches/0x0027b000.cpp
 // sym: _FUN_0027b000
 // Same code shape as 0x0008ceb0 (propagated; names are from that function)
-extern "C" int* FUN_0027b000() {
+extern "C" int* FUN_0027b000(void* /*this, unused: callers pass it (unb4)*/) {
     return &(*(int*)&DAT_004ce348);
 }
 
@@ -73,7 +73,7 @@ extern "C" int* FUN_0027b000() {
 // 0x0027b010 FUN_0027b010 (6 B): matches/0x0027b010.cpp
 // sym: _FUN_0027b010
 // Same code shape as 0x0008ceb0 (propagated; names are from that function)
-extern "C" int* FUN_0027b010() {
+extern "C" int* FUN_0027b010(void* /*this, unused: callers pass it (unb4)*/) {
     return &(*(int*)&DAT_004ce358);
 }
 

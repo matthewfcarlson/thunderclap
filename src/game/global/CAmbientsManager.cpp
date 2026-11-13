@@ -1531,9 +1531,9 @@ void owners::C_78c50::FUN_00078c50(hulk_intptr x) {
 namespace fn_f9399ba1 {
 
 // 0x00078c60 FUN_00078c60 (1 B): matches/0x00078c60.cpp
-// sym: ?FUN_00078c60@fn_f9399ba1@@YAXXZ
+// sym: ?FUN_00078c60@fn_f9399ba1@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_00078c60() {}
+void FUN_00078c60(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_f9399ba1
 

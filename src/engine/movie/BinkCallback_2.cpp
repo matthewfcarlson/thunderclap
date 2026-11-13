@@ -842,9 +842,9 @@ void __stdcall target(int value) {
 
 
 // 0x00336f00 FUN_00336f00 (6 B): matches/0x00336f00.cpp
-// sym: ?FUN_00336f00@fn_f964084a@@YAHXZ
+// sym: ?FUN_00336f00@fn_f964084a@@YAHPAX@Z
 // Same code shape as 0x00085cd0 (propagated; names are from that function)
-int FUN_00336f00(void) {
+int FUN_00336f00(void* /*this, unused: callers pass it (unb4)*/) {
     return (*(int*)&DAT_0055dbb4);
 }
 

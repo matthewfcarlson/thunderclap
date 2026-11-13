@@ -2334,9 +2334,9 @@ void __fastcall target(Obj_1dbd40* self) {
 
 
 // 0x001dbd50 FUN_001dbd50 (84 B): matches/0x001dbd50.cpp
-// sym: ?FUN_001dbd50@fn_f75938cb@@YAXXZ
+// sym: ?FUN_001dbd50@fn_f75938cb@@YAXPAX@Z
 // data: vals = DAT_004c602c
-void __cdecl FUN_001dbd50() {
+void __cdecl FUN_001dbd50(void* /*this, unused: callers pass it (unb4)*/) {
     Loader_1dbd50* p = FUN_001d4c90();
     if (p) {
         p->Config_001d2ba0("constants", 1, 1);
@@ -2857,15 +2857,15 @@ extern "C" void FUN_001dca50(u32_1dca50 p1, u32_1dca50 p2, u32_1dca50 p3, u32_1d
 namespace fn_f75938cb {
 
 // 0x001dcab0 FUN_001dcab0 (1 B): matches/0x001dcab0.cpp
-// sym: ?FUN_001dcab0@fn_f75938cb@@YAXXZ
+// sym: ?FUN_001dcab0@fn_f75938cb@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_001dcab0() {}
+void FUN_001dcab0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x001dcac0 FUN_001dcac0 (1 B): matches/0x001dcac0.cpp
-// sym: ?FUN_001dcac0@fn_f75938cb@@YAXXZ
+// sym: ?FUN_001dcac0@fn_f75938cb@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_001dcac0() {}
+void FUN_001dcac0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x001dcb00 FUN_001dcb00 (452 B): equivalent/0x001dcb00.cpp

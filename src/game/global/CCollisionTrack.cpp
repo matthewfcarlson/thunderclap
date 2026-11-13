@@ -612,9 +612,9 @@ char owners::Obj_5d8f0::FUN_0005d8f0(int a) {
 namespace fn_fd61af26 {
 
 // 0x0005d900 FUN_0005d900 (19 B): matches/0x0005d900.cpp
-// sym: ?FUN_0005d900@fn_fd61af26@@YAXXZ
+// sym: ?FUN_0005d900@fn_fd61af26@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005d900() {
+void FUN_0005d900(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc5d0), ((char*)&DAT_004dc5d4));
 }
 
@@ -725,9 +725,9 @@ hulk_intptr CCollisionTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_i
 namespace fn_fd61af26 {
 
 // 0x0005db80 FUN_0005db80 (19 B): matches/0x0005db80.cpp
-// sym: ?FUN_0005db80@fn_fd61af26@@YAXXZ
+// sym: ?FUN_0005db80@fn_fd61af26@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005db80() {
+void FUN_0005db80(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc5d8), ((char*)&DAT_004dc5dc));
 }
 
@@ -803,9 +803,9 @@ hulk_intptr COpportunityBallTrack::vfunc_12(hulk_intptr __p0) { void * arg = (vo
 namespace fn_fd61af26 {
 
 // 0x0005dc80 FUN_0005dc80 (19 B): matches/0x0005dc80.cpp
-// sym: ?FUN_0005dc80@fn_fd61af26@@YAXXZ
+// sym: ?FUN_0005dc80@fn_fd61af26@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005dc80() {
+void FUN_0005dc80(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc5e0), ((char*)&DAT_004dc5e4));
 }
 
@@ -916,9 +916,9 @@ hulk_intptr CPushBackAnimationTrack::vfunc_12(hulk_intptr param) {
 namespace fn_fd61af26 {
 
 // 0x0005ddd0 FUN_0005ddd0 (19 B): matches/0x0005ddd0.cpp
-// sym: ?FUN_0005ddd0@fn_fd61af26@@YAXXZ
+// sym: ?FUN_0005ddd0@fn_fd61af26@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005ddd0() {
+void FUN_0005ddd0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc5e8), ((char*)&DAT_004dc5ec));
 }
 
@@ -1030,9 +1030,9 @@ hulk_intptr CStunAnimationTrack::vfunc_12(hulk_intptr param) {
 namespace fn_fd61af26 {
 
 // 0x0005dee0 FUN_0005dee0 (19 B): matches/0x0005dee0.cpp
-// sym: ?FUN_0005dee0@fn_fd61af26@@YAXXZ
+// sym: ?FUN_0005dee0@fn_fd61af26@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005dee0() {
+void FUN_0005dee0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc5f0), ((char*)&DAT_004dc5f4));
 }
 
@@ -1122,9 +1122,9 @@ hulk_intptr CSnapToWallTrack::vfunc_12(hulk_intptr param) {
 namespace fn_fd61af26 {
 
 // 0x0005dfc0 FUN_0005dfc0 (19 B): matches/0x0005dfc0.cpp
-// sym: ?FUN_0005dfc0@fn_fd61af26@@YAXXZ
+// sym: ?FUN_0005dfc0@fn_fd61af26@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0005dfc0() {
+void FUN_0005dfc0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc5f8), ((char*)&DAT_004dc5fc));
 }
 

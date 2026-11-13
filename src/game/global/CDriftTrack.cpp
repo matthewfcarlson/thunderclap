@@ -71,9 +71,9 @@ hulk_intptr COrientTargetTrack::vfunc_12(hulk_intptr __p0) { void * p = (void *)
 namespace fn_f37c1e1b {
 
 // 0x0006a7c0 FUN_0006a7c0 (19 B): matches/0x0006a7c0.cpp
-// sym: ?FUN_0006a7c0@fn_f37c1e1b@@YAXXZ
+// sym: ?FUN_0006a7c0@fn_f37c1e1b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0006a7c0() {
+void FUN_0006a7c0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcfc8), ((char*)&DAT_004dcfcc));
 }
 

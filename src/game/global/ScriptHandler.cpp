@@ -857,9 +857,9 @@ void Target_1d16a0::FUN_001d16a0(const char *name, float val)
 
 
 // 0x001d1710 FUN_001d1710 (1 B): matches/0x001d1710.cpp
-// sym: ?FUN_001d1710@fn_f55829c3@@YAXXZ
+// sym: ?FUN_001d1710@fn_f55829c3@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_001d1710() {}
+void FUN_001d1710(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x001d1740 FUN_001d1740 (140 B): matches/0x001d1740.cpp

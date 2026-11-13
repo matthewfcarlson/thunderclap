@@ -30,9 +30,9 @@ class CCondition_49860 {
 
 
 // 0x00049740 FUN_00049740 (19 B): matches/0x00049740.cpp
-// sym: ?FUN_00049740@fn_fd51c33d@@YAXXZ
+// sym: ?FUN_00049740@fn_fd51c33d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049740() {
+void FUN_00049740(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc4c8), ((char*)&DAT_004dc4cc));
 }
 
@@ -49,9 +49,9 @@ hulk_intptr CSmartPropAngleCondition::vfunc_0(int index) {
 namespace fn_fd51c33d {
 
 // 0x000497b0 FUN_000497b0 (19 B): matches/0x000497b0.cpp
-// sym: ?FUN_000497b0@fn_fd51c33d@@YAXXZ
+// sym: ?FUN_000497b0@fn_fd51c33d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_000497b0() {
+void FUN_000497b0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc4d0), ((char*)&DAT_004dc4d4));
 }
 
@@ -93,9 +93,9 @@ void CSmartPropDistanceCondition::Build() {
 namespace fn_fd51c33d {
 
 // 0x00049840 FUN_00049840 (19 B): matches/0x00049840.cpp
-// sym: ?FUN_00049840@fn_fd51c33d@@YAXXZ
+// sym: ?FUN_00049840@fn_fd51c33d@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049840() {
+void FUN_00049840(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc4d8), ((char*)&DAT_004dc4dc));
 }
 

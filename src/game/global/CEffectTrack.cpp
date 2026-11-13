@@ -305,9 +305,9 @@ char Obj_604f0::SetSlotMax_000604f0(int v) {
 
 
 // 0x00060500 FUN_00060500 (19 B): matches/0x00060500.cpp
-// sym: ?FUN_00060500@fn_fb6e447b@@YAXXZ
+// sym: ?FUN_00060500@fn_fb6e447b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00060500() {
+void FUN_00060500(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc600), ((char*)&DAT_004dc604));
 }
 
@@ -424,9 +424,9 @@ hulk_intptr CGrappleMotionTrailTrack::vfunc_12(hulk_intptr arg) {
 namespace fn_fb6e447b {
 
 // 0x00060630 FUN_00060630 (19 B): matches/0x00060630.cpp
-// sym: ?FUN_00060630@fn_fb6e447b@@YAXXZ
+// sym: ?FUN_00060630@fn_fb6e447b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00060630() {
+void FUN_00060630(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc608), ((char*)&DAT_004dc60c));
 }
 
@@ -618,9 +618,9 @@ hulk_intptr CGrappleEffectTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_int
 namespace fn_fb6e447b {
 
 // 0x000608a0 FUN_000608a0 (19 B): matches/0x000608a0.cpp
-// sym: ?FUN_000608a0@fn_fb6e447b@@YAXXZ
+// sym: ?FUN_000608a0@fn_fb6e447b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_000608a0() {
+void FUN_000608a0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc610), ((char*)&DAT_004dc614));
 }
 

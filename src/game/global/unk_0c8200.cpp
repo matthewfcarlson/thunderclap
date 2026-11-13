@@ -178,7 +178,7 @@ namespace fn_ff187fa7 {
 // 0x000c8540 FUN_000c8540 (6 B): matches/0x000c8540.cpp
 // sym: _FUN_000c8540
 // Same code shape as 0x0008ceb0 (propagated; names are from that function)
-extern "C" int* FUN_000c8540() {
+extern "C" int* FUN_000c8540(void* /*this, unused: callers pass it (unb4)*/) {
     return &DAT_0049fbf4;
 }
 

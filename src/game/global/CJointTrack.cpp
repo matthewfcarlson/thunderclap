@@ -48,9 +48,9 @@ struct Helper_68dc0 {
 
 
 // 0x00068cc0 FUN_00068cc0 (19 B): matches/0x00068cc0.cpp
-// sym: ?FUN_00068cc0@fn_f51b6026@@YAXXZ
+// sym: ?FUN_00068cc0@fn_f51b6026@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00068cc0() {
+void FUN_00068cc0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcf08), ((char*)&DAT_004dcf0c));
 }
 

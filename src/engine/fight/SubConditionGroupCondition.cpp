@@ -128,9 +128,9 @@ void* owners::C_23c8a0::FUN_0023c8a0() {
 namespace fn_fe0ef8b4 {
 
 // 0x0023c8b0 FUN_0023c8b0 (19 B): matches/0x0023c8b0.cpp
-// sym: ?FUN_0023c8b0@fn_fe0ef8b4@@YAXXZ
+// sym: ?FUN_0023c8b0@fn_fe0ef8b4@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0023c8b0() {
+void FUN_0023c8b0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e5c44), ((char*)&DAT_004e5c48));
 }
 

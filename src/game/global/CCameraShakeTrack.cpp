@@ -21,9 +21,9 @@ extern "C" R_6a340* FUN_0008d690(int);
 
 
 // 0x0006a2a0 FUN_0006a2a0 (19 B): matches/0x0006a2a0.cpp
-// sym: ?FUN_0006a2a0@fn_f62dad14@@YAXXZ
+// sym: ?FUN_0006a2a0@fn_f62dad14@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_0006a2a0() {
+void FUN_0006a2a0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dcfa0), ((char*)&DAT_004dcfa4));
 }
 

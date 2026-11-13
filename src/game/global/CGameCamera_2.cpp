@@ -146,9 +146,9 @@ void FUN_000a91a0() {}
 
 
 // 0x000a91b0 CGameCamera::vfunc_29 (1 B): matches/0x000a91b0.cpp
-// sym: ?FUN_000a91b0@fn_f19d3f35@@YAXXZ
+// sym: ?FUN_000a91b0@fn_f19d3f35@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_000a91b0() {}
+void FUN_000a91b0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 } // namespace fn_f19d3f35
 

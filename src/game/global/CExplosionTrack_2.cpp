@@ -160,9 +160,9 @@ hulk_intptr CHeliDeathSpiralTrack::vfunc_12(hulk_intptr __p0) { unsigned int x =
 namespace fn_fef3904b {
 
 // 0x00077fb0 FUN_00077fb0 (19 B): matches/0x00077fb0.cpp
-// sym: ?FUN_00077fb0@fn_fef3904b@@YAXXZ
+// sym: ?FUN_00077fb0@fn_fef3904b@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00077fb0() {
+void FUN_00077fb0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dd038), ((char*)&DAT_004dd03c));
 }
 

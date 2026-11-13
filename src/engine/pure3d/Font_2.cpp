@@ -36,9 +36,9 @@ X_2c3aa0::X_2c3aa0() : a(0), b(0), c(0), d(0), e(0) {}
 
 
 // 0x002c3ac0 FUN_002c3ac0 (1 B): matches/0x002c3ac0.cpp
-// sym: ?FUN_002c3ac0@fn_f0d385cd@@YAXXZ
+// sym: ?FUN_002c3ac0@fn_f0d385cd@@YAXPAX@Z
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_002c3ac0() {}
+void FUN_002c3ac0(void* /*this, unused: callers pass it (unb4)*/) {}
 
 
 // 0x002c3ad0 pure3d::Font::vfunc_11 (235 B): equivalent/0x002c3ad0.cpp

@@ -186,9 +186,9 @@ bool owners::A_2381d0::FUN_002381d0(int v) {
 namespace fn_fc1ade79 {
 
 // 0x002381e0 FUN_002381e0 (19 B): matches/0x002381e0.cpp
-// sym: ?FUN_002381e0@fn_fc1ade79@@YAXXZ
+// sym: ?FUN_002381e0@fn_fc1ade79@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_002381e0() {
+void FUN_002381e0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e5c0c), ((char*)&DAT_004e5c10));
 }
 
@@ -205,9 +205,9 @@ hulk_intptr fight::MaybeCondition::vfunc_0(int index) {
 namespace fn_fc1ade79 {
 
 // 0x00238240 FUN_00238240 (19 B): matches/0x00238240.cpp
-// sym: ?FUN_00238240@fn_fc1ade79@@YAXXZ
+// sym: ?FUN_00238240@fn_fc1ade79@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00238240() {
+void FUN_00238240(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e5c14), ((char*)&DAT_004e5c18));
 }
 

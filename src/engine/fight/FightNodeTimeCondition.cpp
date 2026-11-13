@@ -297,9 +297,9 @@ bool FightNodeCondition::vfunc_6(int a, int b, int c) {
 namespace fn_fac1015e {
 
 // 0x00235ad0 FUN_00235ad0 (19 B): matches/0x00235ad0.cpp
-// sym: ?FUN_00235ad0@fn_fac1015e@@YAXXZ
+// sym: ?FUN_00235ad0@fn_fac1015e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00235ad0() {
+void FUN_00235ad0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e5be4), ((char*)&DAT_004e5be8));
 }
 
@@ -390,9 +390,9 @@ bool FightNodeParentCondition::vfunc_6(int a1, int a2, int a3)
 
 
 // 0x00235be0 FUN_00235be0 (19 B): matches/0x00235be0.cpp
-// sym: ?FUN_00235be0@fn_fac1015e@@YAXXZ
+// sym: ?FUN_00235be0@fn_fac1015e@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00235be0() {
+void FUN_00235be0(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004e5bec), ((char*)&DAT_004e5bf0));
 }
 

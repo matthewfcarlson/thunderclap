@@ -48,9 +48,9 @@ class CCondition_49570 {
 
 
 // 0x00049450 FUN_00049450 (19 B): matches/0x00049450.cpp
-// sym: ?FUN_00049450@fn_f3758deb@@YAXXZ
+// sym: ?FUN_00049450@fn_f3758deb@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049450() {
+void FUN_00049450(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc4b8), ((char*)&DAT_004dc4bc));
 }
 
@@ -116,9 +116,9 @@ bool CSmartPropTypeCondition::vfunc_7(void* __p0) { Owner_494c0 * owner = (Owner
 namespace fn_f3758deb {
 
 // 0x00049550 FUN_00049550 (19 B): matches/0x00049550.cpp
-// sym: ?FUN_00049550@fn_f3758deb@@YAXXZ
+// sym: ?FUN_00049550@fn_f3758deb@@YAXPAX@Z
 // Same code shape as 0x000482e0 (propagated; names are from that function)
-void FUN_00049550() {
+void FUN_00049550(void* /*this, unused: callers pass it (unb4)*/) {
     FUN_00234810(((char*)&DAT_004dc4c0), ((char*)&DAT_004dc4c4));
 }
 
