@@ -1,6 +1,8 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00234090..0x002343b0 (kind game, layer engine, confidence high), dominant class fight::Param
 #include "tree_prelude.h"
+#include "compat/ptr.h"
+#include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_f350f41f {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -113,12 +115,15 @@ extern "C" int __fastcall FUN_00234150(B_234150* p) {
 }
 
 
+} // namespace fn_f350f41f
+
 // 0x00234210 FUN_00234210 (7 B): matches/0x00234210.cpp
-// sym: @FUN_00234210@4
+// sym: ??1Param@fight@@UAE@XZ
 // Same code shape as 0x001b6820 (propagated; names are from that function)
-extern "C" void __fastcall FUN_00234210(void* self) {
-    *(void**)self = &hulk_at_00427958;
-}
+// (unb6) fight::Param's destructor (include/gen): Track's and Condition's destructors call it
+::fight::Param::~Param() {}
+
+namespace fn_f350f41f {
 
 
 // 0x00234220 fight::Param::vfunc_5 (31 B): matches/0x00234220.cpp
