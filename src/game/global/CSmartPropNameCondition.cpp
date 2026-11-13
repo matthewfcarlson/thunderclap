@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX-
 // object 0x00049450..0x00049740 (kind game, layer game, confidence medium), dominant class CSmartPropNameCondition
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -73,16 +74,13 @@ class CCondition_49480 {
     CCondition_49480(int);
     virtual void f();
 };
-class CSmartPropTypeCondition : public CCondition_49480 {
+class CSmartPropTypeCondition : public ::CSmartPropTypeCondition {
   public:
     CSmartPropTypeCondition();
-    virtual void f();
-    char pad[8];
-    int a, b;
 };
-CSmartPropTypeCondition::CSmartPropTypeCondition() : CCondition_49480(0) {
-    a = 0;
-    b = 0;
+CSmartPropTypeCondition::CSmartPropTypeCondition() : ::CSmartPropTypeCondition(0) {
+    compare = 0;
+    type = 0;
 }
 } // namespace fn_00049480
 

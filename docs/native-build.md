@@ -4027,3 +4027,91 @@ map now checks each equivalent function on its unit text (TU shared part + block
 5,099 / 5,099 maps identical to the per-function sources'; control 79153 / proof 79235 (studio): image
 byte-identical, GATE ok. Note for later controls: `wine_build_job.py submit` ships the checkout's
 wine_build_run.py, so a control of a commit before (d) has to be submitted with that commit's build tools.
+
+## The game was built without C++ exceptions; real destructors and Condition's stubs (dtor1, 2026-11-13)
+
+The user's decisions of 11-13 (D14-D16) on unb6's leftovers: real destructors for the classes whose game destructor
+frees members, the source form that keeps MSVC inlining Condition's stub constructors, and ParamValue's destructor
+names.
+
+**The root cause of all three: /GX.** The tree compiles every TU with `/O2 /GR /GX /Gy`. The game's code has no C++
+exception frame at all: of 18,768 game functions (below 0x00208b9c), none has `mov eax, fs:[0]` / `mov fs:[0], esp`;
+the six in the XBE are in LIBCMT (0x00346ab0..0x0035add4). The game was built with /GX- (MSVC 7.1's default).
+- MSVC 7.1 /GX does not inline a destructor that calls a base destructor into its scalar deleting destructor (`??_G`
+  calls `??1C`), with or without `throw()` on every destructor (build/dtor1/exp/t3.cpp, t5.cpp). With /GX- it does, and
+  `C::~C() { delete[] f_10; }` on a class below fight::Condition compiles to the game's 50-byte `??_G` byte for byte:
+  vftable store, the frees, `call ~Condition`, the delete (t6.cpp). This is the form the game's 36- to 95-byte `??_G`s
+  came from; unb6's "MSVC drops the derived vftable store" was /GX not inlining.
+- /GX also explains Condition's stubs (D15): a stub `X() : C(0) {...}` on a base with a virtual destructor needs an EH
+  state for the base subobject, and MSVC 7.1 neither inlines it into the factory nor drops the frame. With /GX- the
+  9 TUs unb6's rewrite broke match again (no other source change).
+- Whole tree with /GX- instead of /GX (queue jobs 78664-78675, tools/compare.py and gen_tree.py overlaid): 27,438
+  blocks, 1,886 differ: 1,873 scalar deleting destructors written for /GX (1,016 of the game's are the fight
+  parameter templates' `ParamX<T>`, whose tree form is `template <> ParamX<T>::~ParamX() {}`: under /GX- that empty
+  user destructor is inlined with its vftable store; the game's are implicit destructors), 10 equivalents whose MSVC
+  hash changes, 3 blocks of dynamic_initializers. Everything else is the same code with either flag.
+- `// cl-flags: /GX-` (an existing per-TU flag, honoured by compare.py, verify_relocs, equiv.py and tree_tu) is set on
+  the TUs below, whose every block matches with it. The default stays /GX until the scalar deleting destructors are
+  migrated (decision for the user).
+
+**D15: fight::Condition's stub classes derive from include/gen.** unb6's `stubderive2.py` (build/unb6/scripts) on
+the 31 stubs with one bound vftable: 11 rewrite (the others: a stub field over a gen field of another kind or size,
+a renamed field used in the stub's body, the base referenced elsewhere; unchanged since unb6). include/gen: every
+class below fight::Condition gets `C(void* owner = 0) : Base(owner) {}` (235 classes, build/dtor1/scripts/condctor.py;
+the default keeps them default-constructible). 10 TUs take the rewrite with /GX-: CStageCondition_4, CSmartPropAngleCondition_2,
+CSmartPropCSMableCondition_3, CSmartPropNameCondition, unk_17f2b0, PrintTrack.iso_00239270, HulkActionLargestCondition_2,
+RandomKeyWordWaitCondition_4.iso_00114660, CollisionSourceForceMagnitudeCondition_factory, EffectAction.iso_001aa580.
+FightNodeTimeCondition (the 11th) keeps its stub: its constructor 0x00235a30 differs with either flag after the rewrite,
+and its six parameter-template `??_G`s need the migration for /GX-.
+
+**D14: real destructors.** The game's `??_G` of the 485 classes below fight::Param (build/dtor1/scripts/gclass.py):
+305 only call the base destructor, 79 also call 0x0027af50 (an 8-byte member's empty out-of-line destructor: nothing
+to free), 47 call another base's destructor that include/gen declares (CTrack, the fight node conditions, ...; Track's
+and Condition's own), and 54 free members: `operator delete[]` of a string pointer (30 classes, 0x00267090),
+0x00234150 (a member that releases a reference and frees a buffer, 21) and 0x00236fd0 (a reference member's
+release, 10). Natively a missing free leaks
+only where a clang-emitted vftable is used, i.e. a stub derived from include/gen (unb5's Track stubs, D15's
+Condition stubs); the game vftables' slots are the tree's verified `??_G` blocks, which free as the game does. That
+is four classes:
+- hulkfight::ai::HulkActionLargestCondition (D15's stub in HulkActionLargestCondition_2.cpp): done. include/gen
+  declares `virtual ~HulkActionLargestCondition();` and its words `int f_0c; char* f_10;` (the factory 0x00114030
+  allocates 0x14 and zeroes both; 32-bit sizeof 12 -> 20, config/gen-sizes.json); InActiveCondition.cpp (/GX-)
+  defines `~HulkActionLargestCondition() { delete[] f_10; }` in place of the stub `f5` at 0x0010e7c0, pinned
+  `??_GHulkActionLargestCondition@ai@hulkfight@@UAEPAXI@Z`: MATCH, relocations ok. The stub's constructor sets
+  f_0c / f_10. Natively the stub's `??_G` now runs the real destructor.
+- fight::PrintCondition (D15's stub in PrintTrack.iso_00239270.cpp), fight::PrintTrack and hulkfight::StatTrack
+  (unb5's stubs): their `??_G` (0x00238ca0, 0x00238ce0, 0x0012fea0) are in PrintTrack.cpp and GameStateCondition.cpp,
+  whose parameter-template `??_G`s (3 and 26) need the /GX- migration first. Until then their stubs' implicit
+  destructors leak their strings natively (before D15 PrintCondition's stub vftable named an unbindable placeholder).
+- The other 50 are constructed natively through the game vftables (stub constructors store them), so their verified
+  `??_G` blocks free what the stubs' setters wrote. Moving them onto include/gen means moving their constructors and
+  setters there too (native layout), class by class with the stubs (stubderive).
+
+**D16: ParamValue's destructor names.** The 970 blocks unb6 saw change (reproduced: jobs 78913-78924, gen/fight.h with
+the 15 `~ParamValueX` declarations removed and `virtual ~ParamValue() {}`) are 840 `??1`/`??_G` of the parameter
+templates ParamFloatConstRange, ParamEnumConstList, ParamBool, ... and 127 others of the same family: their tree form,
+`template <> ParamX<T>::~ParamX() {}` under /GX, matches only while `~ParamValueX` is an out-of-line call. In the game
+they are implicit destructors built without EH (0x00234780, the only out-of-line one, is ParamValue's destructor:
+vftable store and its +8 member's destructor, shared by every ParamValueX through identical-code folding). So the
+declarations go with the same migration: /GX- tree-wide, the parameter templates' destructors implicit, and their
+`??_G` emitted by the code that constructs them (the classes' parameter registration functions, which `new` each
+ParamX<T>; today stubs). Measured with /GX- and the declarations removed (jobs 78925-78936): 1,846 blocks differ, the
+same family.
+
+**Gates.** Whole tree on the queue with the batch overlaid (jobs 79025-79036): 27,438 blocks, 22,339 MATCH with
+relocations ok, every equivalent keeps its hashes but 0x001a9b10 (the declaration-count block): re-proven, equiv.py
+3,000 inputs promotable (job 79055), `--wine` 3,000 equivalent (79056), `--x64` equivalent (79057), recorded with
+`tree_tu.py hash --proven`. gen_headers.py --probe: 4,238 classes ok, one intended size change.
+x64 gate (temporary commit of the batch): ok (23 changed blocks: 11 equivalent, 12 unsupported:tool). Wine proof on
+studio with private data TUs: control 79238 (HEAD ac307cc62), proof 79240 seeded from it: GATE ok, 0 of 2,008 common
+frames differ (prng too), image ef903091. The proof build's own tree verification: 22,339 matches, 5,099 equivalents
+with both hashes, no errors.
+- Two earlier controls (79146, 79234) stopped at frame 0: the checkout's wine_build_job.py (del1's work in progress) no longer
+  shipped matches/ while HEAD's wine_link still read it (three MessageOverlay stub slots unbound, image a884cf28); del1's f98940cf5 fixed that.
+
+**Native unbound names** (each build's clang-probe snapshot and binding map; macOS / Linux / Android): control 79238
+14,511 / 14,491 / 14,502; proof 79240 **14,495 / 14,475 / 14,486** (-16). macOS: 21 gone (the stubs' invented
+base constructors `??0CCondition_49480`, ... and placeholder virtuals), 5 new: the real slots `vfunc_6` / `vfunc_7` of
+CCondition, HulkActionLargestCondition, PropMissileCountCondition, CSmartPropAngleCondition and
+CSmartPropCSMableCondition, which the tree defines under stub names; the derived stubs' vftables now name them (renaming
+those blocks binds them, as for Track's shared slots).

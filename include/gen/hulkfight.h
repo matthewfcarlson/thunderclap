@@ -478,6 +478,7 @@ namespace hulkfight {
 // .?AVChapterMissionCondition@hulkfight@@  vftable 0x4112c4 (7)
 class ChapterMissionCondition : public ::fight::Condition {
 public:
+    ChapterMissionCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -499,6 +500,7 @@ public:
 // .?AVDebugPrintCondition@hulkfight@@  vftable 0x411284 (7)
 class DebugPrintCondition : public ::fight::Condition {
 public:
+    DebugPrintCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     void* f_0c;
@@ -544,6 +546,7 @@ public:
 // .?AVGameStateCondition@hulkfight@@  vftable 0x411264 (7)
 class GameStateCondition : public ::fight::Condition {
 public:
+    GameStateCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     void* f_0c;
@@ -555,6 +558,7 @@ public:
 // .?AVLocationCondition@hulkfight@@  vftable 0x4112a4 (7)
 class LocationCondition : public ::fight::Condition {
 public:
+    LocationCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int environmentCompare;
@@ -566,6 +570,7 @@ public:
 // .?AVMissionProgressCondition@hulkfight@@  vftable 0x411224 (7)
 class MissionProgressCondition : public ::fight::Condition {
 public:
+    MissionProgressCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     void* f_0c;
@@ -693,6 +698,7 @@ public:
 // .?AVUnlockableCondition@hulkfight@@  vftable 0x411244 (7)
 class UnlockableCondition : public ::fight::Condition {
 public:
+    UnlockableCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int unlockable;
@@ -727,6 +733,7 @@ namespace hulkfight { namespace ai {
 // .?AVAIFightNodeCondition@ai@hulkfight@@  vftable 0x40d9a4 (7)
 class AIFightNodeCondition : public ::fight::Condition {
 public:
+    AIFightNodeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     void* f_0c;
@@ -745,6 +752,7 @@ public:
 // .?AVAIHistoryNameCondition@ai@hulkfight@@  vftable 0x40d9e4 (7)
 class AIHistoryNameCondition : public ::fight::Condition {
 public:
+    AIHistoryNameCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -788,6 +796,7 @@ public:
 // .?AVAcquireTargetCondition@ai@hulkfight@@  vftable 0x40feb4 (7)
 class AcquireTargetCondition : public ::fight::Condition {
 public:
+    AcquireTargetCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -842,6 +851,7 @@ public:
 // .?AVCanSeeTargetCondition@ai@hulkfight@@  vftable 0x40ff54 (7)
 class CanSeeTargetCondition : public ::fight::Condition {
 public:
+    CanSeeTargetCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -874,6 +884,7 @@ public:
 // .?AVComputeDropZoneCondition@ai@hulkfight@@  vftable 0x40eae0 (7)
 class ComputeDropZoneCondition : public ::fight::Condition {
 public:
+    ComputeDropZoneCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     float f_0c;
@@ -888,6 +899,7 @@ public:
 // .?AVDefendingCondition@ai@hulkfight@@  vftable 0x40d9c4 (7)
 class DefendingCondition : public ::fight::Condition {
 public:
+    DefendingCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
@@ -937,6 +949,7 @@ public:
 // .?AVFightingOtherNPCCondition@ai@hulkfight@@  vftable 0x40db64 (7)
 class FightingOtherNPCCondition : public ::fight::Condition {
 public:
+    FightingOtherNPCCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -945,6 +958,7 @@ public:
 // .?AVFormationReadyCondition@ai@hulkfight@@  vftable 0x40daa4 (7)
 class FormationReadyCondition : public ::fight::Condition {
 public:
+    FormationReadyCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -954,6 +968,7 @@ public:
 // .?AVHasGroundPointCondition@ai@hulkfight@@  vftable 0x40eaa0 (7)
 class HasGroundPointCondition : public ::fight::Condition {
 public:
+    HasGroundPointCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -963,6 +978,7 @@ public:
 // .?AVHasGroundPointExtendedCondition@ai@hulkfight@@  vftable 0x40eb00 (7)
 class HasGroundPointExtendedCondition : public ::fight::Condition {
 public:
+    HasGroundPointExtendedCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x1];
@@ -979,6 +995,7 @@ public:
 // .?AVHasTargetCondition@ai@hulkfight@@  vftable 0x40fe34 (7)
 class HasTargetCondition : public ::fight::Condition {
 public:
+    HasTargetCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     bool f_0c;
@@ -998,6 +1015,7 @@ public:
 // .?AVHulkActionCountCondition@ai@hulkfight@@  vftable 0x40dae4 (7)
 class HulkActionCountCondition : public ::fight::Condition {
 public:
+    HulkActionCountCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -1008,13 +1026,18 @@ public:
 // .?AVHulkActionLargestCondition@ai@hulkfight@@  vftable 0x40da04 (7)
 class HulkActionLargestCondition : public ::fight::Condition {
 public:
+    HulkActionLargestCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
+    virtual ~HulkActionLargestCondition(); // overrides fight::Param slot 5 (dtor1: frees f_10; the game inlines it into 0x0010e7c0, InActiveCondition.cpp)
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
+    int f_0c; // (dtor1) zeroed by the factory (0x00114030), as f_10
+    char* f_10; // (dtor1) the string the destructor frees (operator delete[])
 };
 
 // .?AVHulkActionRecentCondition@ai@hulkfight@@  vftable 0x40da44 (7)
 class HulkActionRecentCondition : public ::fight::Condition {
 public:
+    HulkActionRecentCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
@@ -1035,6 +1058,7 @@ public:
 // .?AVInActiveCondition@ai@hulkfight@@  vftable 0x40dac4 (7)
 class InActiveCondition : public ::fight::Condition {
 public:
+    InActiveCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x4];
@@ -1044,6 +1068,7 @@ public:
 // .?AVKeyWordWaitCondition@ai@hulkfight@@  vftable 0x40da84 (7)
 class KeyWordWaitCondition : public ::fight::Condition {
 public:
+    KeyWordWaitCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -1079,6 +1104,7 @@ public:
 // .?AVLeashedCondition@ai@hulkfight@@  vftable 0x40da64 (7)
 class LeashedCondition : public ::fight::Condition {
 public:
+    LeashedCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     unsigned char f_0c;
@@ -1087,6 +1113,7 @@ public:
 // .?AVLocatorDistanceCondition@ai@hulkfight@@  vftable 0x40eac0 (7)
 class LocatorDistanceCondition : public ::fight::Condition {
 public:
+    LocatorDistanceCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1315,6 +1342,7 @@ public:
 // .?AVOnBlockedTriangleCondition@ai@hulkfight@@  vftable 0x40d984 (7)
 class OnBlockedTriangleCondition : public ::fight::Condition {
 public:
+    OnBlockedTriangleCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -1436,6 +1464,7 @@ public:
 // .?AVPathLocatorTestCondition@ai@hulkfight@@  vftable 0x40f450 (7)
 class PathLocatorTestCondition : public ::fight::Condition {
 public:
+    PathLocatorTestCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     void* f_0c;
@@ -1489,6 +1518,7 @@ public:
 // .?AVProjectileDistanceCondition@ai@hulkfight@@  vftable 0x40fe14 (7)
 class ProjectileDistanceCondition : public ::fight::Condition {
 public:
+    ProjectileDistanceCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -1500,6 +1530,7 @@ public:
 // .?AVPropsToChuckCondition@ai@hulkfight@@  vftable 0x40da24 (7)
 class PropsToChuckCondition : public ::fight::Condition {
 public:
+    PropsToChuckCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1509,6 +1540,7 @@ public:
 // .?AVPropsToSuckCondition@ai@hulkfight@@  vftable 0x40db04 (7)
 class PropsToSuckCondition : public ::fight::Condition {
 public:
+    PropsToSuckCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1521,6 +1553,7 @@ public:
 // .?AVRandomKeyWordWaitCondition@ai@hulkfight@@  vftable 0x40db24 (7)
 class RandomKeyWordWaitCondition : public ::fight::Condition {
 public:
+    RandomKeyWordWaitCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1622,6 +1655,7 @@ public:
 // .?AVShotFailCountCondition@ai@hulkfight@@  vftable 0x410c34 (7)
 class ShotFailCountCondition : public ::fight::Condition {
 public:
+    ShotFailCountCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1744,6 +1778,7 @@ public:
 // .?AVTargetAngleYCondition@ai@hulkfight@@  vftable 0x40fd94 (7)
 class TargetAngleYCondition : public ::fight::Condition {
 public:
+    TargetAngleYCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1753,6 +1788,7 @@ public:
 // .?AVTargetArcCondition@ai@hulkfight@@  vftable 0x40fd34 (7)
 class TargetArcCondition : public ::fight::Condition {
 public:
+    TargetArcCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     float f_0c;
@@ -1787,6 +1823,7 @@ public:
 // .?AVTargetDirectionCondition@ai@hulkfight@@  vftable 0x40fdb4 (7)
 class TargetDirectionCondition : public ::fight::Condition {
 public:
+    TargetDirectionCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1796,6 +1833,7 @@ public:
 // .?AVTargetDirectionXZCondition@ai@hulkfight@@  vftable 0x40fef4 (7)
 class TargetDirectionXZCondition : public ::fight::Condition {
 public:
+    TargetDirectionXZCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1805,6 +1843,7 @@ public:
 // .?AVTargetDirectionYCondition@ai@hulkfight@@  vftable 0x40fd14 (7)
 class TargetDirectionYCondition : public ::fight::Condition {
 public:
+    TargetDirectionYCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1814,6 +1853,7 @@ public:
 // .?AVTargetDistanceCondition@ai@hulkfight@@  vftable 0x40fd74 (7)
 class TargetDistanceCondition : public ::fight::Condition {
 public:
+    TargetDistanceCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -1825,6 +1865,7 @@ public:
 // .?AVTargetDistanceXZCondition@ai@hulkfight@@  vftable 0x40fe94 (7)
 class TargetDistanceXZCondition : public ::fight::Condition {
 public:
+    TargetDistanceXZCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1836,6 +1877,7 @@ public:
 // .?AVTargetDistanceYCondition@ai@hulkfight@@  vftable 0x40fdd4 (7)
 class TargetDistanceYCondition : public ::fight::Condition {
 public:
+    TargetDistanceYCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1848,6 +1890,7 @@ public:
 // .?AVTargetFirstShotCondition@ai@hulkfight@@  vftable 0x40ff14 (7)
 class TargetFirstShotCondition : public ::fight::Condition {
 public:
+    TargetFirstShotCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
@@ -1855,6 +1898,7 @@ public:
 // .?AVTargetInvincibleCondition@ai@hulkfight@@  vftable 0x40ff34 (7)
 class TargetInvincibleCondition : public ::fight::Condition {
 public:
+    TargetInvincibleCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -1863,6 +1907,7 @@ public:
 // .?AVTargetOrientationCondition@ai@hulkfight@@  vftable 0x40fdf4 (7)
 class TargetOrientationCondition : public ::fight::Condition {
 public:
+    TargetOrientationCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     float f_0c;
@@ -1872,6 +1917,7 @@ public:
 // .?AVTargetTypeCondition@ai@hulkfight@@  vftable 0x40fd54 (7)
 class TargetTypeCondition : public ::fight::Condition {
 public:
+    TargetTypeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -1881,6 +1927,7 @@ public:
 // .?AVTargetVelocityCondition@ai@hulkfight@@  vftable 0x40fe74 (7)
 class TargetVelocityCondition : public ::fight::Condition {
 public:
+    TargetVelocityCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1890,6 +1937,7 @@ public:
 // .?AVTargetVelocityXZCondition@ai@hulkfight@@  vftable 0x40fed4 (7)
 class TargetVelocityXZCondition : public ::fight::Condition {
 public:
+    TargetVelocityXZCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1898,6 +1946,7 @@ public:
 // .?AVTargetVelocityYCondition@ai@hulkfight@@  vftable 0x40fe54 (7)
 class TargetVelocityYCondition : public ::fight::Condition {
 public:
+    TargetVelocityYCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -1907,6 +1956,7 @@ public:
 // .?AVThreatAngleCondition@ai@hulkfight@@  vftable 0x410c14 (7)
 class ThreatAngleCondition : public ::fight::Condition {
 public:
+    ThreatAngleCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     float angle;
@@ -1948,6 +1998,7 @@ public:
 // .?AVThreatCondition@ai@hulkfight@@  vftable 0x410bd4 (7)
 class ThreatCondition : public ::fight::Condition {
 public:
+    ThreatCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     void FUN_0012b410(); // non-virtual
@@ -1961,6 +2012,7 @@ public:
 // .?AVThreatDistanceCondition@ai@hulkfight@@  vftable 0x410bf4 (7)
 class ThreatDistanceCondition : public ::fight::Condition {
 public:
+    ThreatDistanceCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x14];
@@ -2005,6 +2057,7 @@ public:
 // .?AVTokenCondition@ai@hulkfight@@  vftable 0x40db44 (7)
 class TokenCondition : public ::fight::Condition {
 public:
+    TokenCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -2475,6 +2528,7 @@ public:
 // .?AVCSMPropIsCharacterCondition@motion@hulkfight@@  vftable 0x4192ac (7)
 class CSMPropIsCharacterCondition : public ::fight::Condition {
 public:
+    CSMPropIsCharacterCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -2483,6 +2537,7 @@ public:
 // .?AVCharacterPropStatusCondition@motion@hulkfight@@  vftable 0x416898 (7)
 class CharacterPropStatusCondition : public ::fight::Condition {
 public:
+    CharacterPropStatusCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -2528,6 +2583,7 @@ public:
 // .?AVChargeCondition@motion@hulkfight@@  vftable 0x416658 (7)
 class ChargeCondition : public ::fight::Condition {
 public:
+    ChargeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -2600,6 +2656,7 @@ public:
 // .?AVCivilianAttachedCondition@motion@hulkfight@@  vftable 0x4135b8 (7)
 class CivilianAttachedCondition : public ::fight::Condition {
 public:
+    CivilianAttachedCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
@@ -2633,6 +2690,7 @@ public:
 // .?AVCivilianTargetCondition@motion@hulkfight@@  vftable 0x4135d8 (7)
 class CivilianTargetCondition : public ::fight::Condition {
 public:
+    CivilianTargetCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
@@ -2736,6 +2794,7 @@ public:
 // .?AVCollisionChargeCondition@motion@hulkfight@@  vftable 0x414150 (7)
 class CollisionChargeCondition : public ::fight::Condition {
 public:
+    CollisionChargeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -2746,6 +2805,7 @@ public:
 // .?AVCollisionDamageHealthCompareCondition@motion@hulkfight@@  vftable 0x414190 (7)
 class CollisionDamageHealthCompareCondition : public ::fight::Condition {
 public:
+    CollisionDamageHealthCompareCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -2757,6 +2817,7 @@ public:
 // .?AVCollisionDevastatorCondition@motion@hulkfight@@  vftable 0x414030 (7)
 class CollisionDevastatorCondition : public ::fight::Condition {
 public:
+    CollisionDevastatorCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -2765,6 +2826,7 @@ public:
 // .?AVCollisionExplosionCondition@motion@hulkfight@@  vftable 0x414110 (7)
 class CollisionExplosionCondition : public ::fight::Condition {
 public:
+    CollisionExplosionCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     unsigned char f_0c;
@@ -2773,6 +2835,7 @@ public:
 // .?AVCollisionInterruptPriorityCondition@motion@hulkfight@@  vftable 0x4141d0 (7)
 class CollisionInterruptPriorityCondition : public ::fight::Condition {
 public:
+    CollisionInterruptPriorityCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -2781,6 +2844,7 @@ public:
 // .?AVCollisionSourceForceMagnitudeCondition@motion@hulkfight@@  vftable 0x413f90 (7)
 class CollisionSourceForceMagnitudeCondition : public ::fight::Condition {
 public:
+    CollisionSourceForceMagnitudeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -2790,6 +2854,7 @@ public:
 // .?AVCollisionSourceIsMissileCondition@motion@hulkfight@@  vftable 0x4140b0 (7)
 class CollisionSourceIsMissileCondition : public ::fight::Condition {
 public:
+    CollisionSourceIsMissileCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     unsigned char f_0c;
@@ -2798,6 +2863,7 @@ public:
 // .?AVCollisionSourceNameCondition@motion@hulkfight@@  vftable 0x4141f0 (7)
 class CollisionSourceNameCondition : public ::fight::Condition {
 public:
+    CollisionSourceNameCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -2808,6 +2874,7 @@ public:
 // .?AVCollisionSourceNodeCondition@motion@hulkfight@@  vftable 0x414130 (7)
 class CollisionSourceNodeCondition : public ::fight::Condition {
 public:
+    CollisionSourceNodeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -2818,6 +2885,7 @@ public:
 // .?AVCollisionSourceSizeCondition@motion@hulkfight@@  vftable 0x413fd0 (7)
 class CollisionSourceSizeCondition : public ::fight::Condition {
 public:
+    CollisionSourceSizeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -2827,6 +2895,7 @@ public:
 // .?AVCollisionSourceTypeCondition@motion@hulkfight@@  vftable 0x413ff0 (7)
 class CollisionSourceTypeCondition : public ::fight::Condition {
 public:
+    CollisionSourceTypeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -2836,6 +2905,7 @@ public:
 // .?AVCollisionTargetIsTargetCondition@motion@hulkfight@@  vftable 0x414070 (7)
 class CollisionTargetIsTargetCondition : public ::fight::Condition {
 public:
+    CollisionTargetIsTargetCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -2844,6 +2914,7 @@ public:
 // .?AVCollisionTargetNameCondition@motion@hulkfight@@  vftable 0x414170 (7)
 class CollisionTargetNameCondition : public ::fight::Condition {
 public:
+    CollisionTargetNameCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -2854,6 +2925,7 @@ public:
 // .?AVCollisionTargetPriorityCondition@motion@hulkfight@@  vftable 0x414010 (7)
 class CollisionTargetPriorityCondition : public ::fight::Condition {
 public:
+    CollisionTargetPriorityCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -2863,6 +2935,7 @@ public:
 // .?AVCollisionTargetSizeCondition@motion@hulkfight@@  vftable 0x414090 (7)
 class CollisionTargetSizeCondition : public ::fight::Condition {
 public:
+    CollisionTargetSizeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -2872,6 +2945,7 @@ public:
 // .?AVCollisionTargetTypeCondition@motion@hulkfight@@  vftable 0x4141b0 (7)
 class CollisionTargetTypeCondition : public ::fight::Condition {
 public:
+    CollisionTargetTypeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -2881,6 +2955,7 @@ public:
 // .?AVCollisionThrowCondition@motion@hulkfight@@  vftable 0x413fb0 (7)
 class CollisionThrowCondition : public ::fight::Condition {
 public:
+    CollisionThrowCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -2889,6 +2964,7 @@ public:
 // .?AVCollisionThrownObjectCondition@motion@hulkfight@@  vftable 0x4140f0 (7)
 class CollisionThrownObjectCondition : public ::fight::Condition {
 public:
+    CollisionThrownObjectCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -3501,6 +3577,7 @@ public:
 // .?AVFrameCondition@motion@hulkfight@@  vftable 0x412430 (7)
 class FrameCondition : public ::fight::Condition {
 public:
+    FrameCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x8];
@@ -3512,6 +3589,7 @@ public:
 // .?AVFrameReachedCondition@motion@hulkfight@@  vftable 0x412410 (7)
 class FrameReachedCondition : public ::fight::Condition {
 public:
+    FrameReachedCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x8];
@@ -3530,6 +3608,7 @@ public:
 // .?AVGrappleAttachJointCondition@motion@hulkfight@@  vftable 0x413578 (7)
 class GrappleAttachJointCondition : public ::fight::Condition {
 public:
+    GrappleAttachJointCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -3540,6 +3619,7 @@ public:
 // .?AVGrappleAttachedCondition@motion@hulkfight@@  vftable 0x413598 (7)
 class GrappleAttachedCondition : public ::fight::Condition {
 public:
+    GrappleAttachedCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     unsigned char f_0c;
@@ -3563,6 +3643,7 @@ public:
 // .?AVGrappleHealthCondition@motion@hulkfight@@  vftable 0x416858 (7)
 class GrappleHealthCondition : public ::fight::Condition {
 public:
+    GrappleHealthCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -3658,6 +3739,7 @@ public:
 // .?AVGrappleOrientationCondition@motion@hulkfight@@  vftable 0x4135f8 (7)
 class GrappleOrientationCondition : public ::fight::Condition {
 public:
+    GrappleOrientationCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     float f_0c;
@@ -3690,6 +3772,7 @@ public:
 // .?AVGrapplePropStateByNameCondition@motion@hulkfight@@  vftable 0x41916c (7)
 class GrapplePropStateByNameCondition : public ::fight::Condition {
 public:
+    GrapplePropStateByNameCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int attachmentIndex;
@@ -3701,6 +3784,7 @@ public:
 // .?AVGrappleReactionTypeCondition@motion@hulkfight@@  vftable 0x416798 (7)
 class GrappleReactionTypeCondition : public ::fight::Condition {
 public:
+    GrappleReactionTypeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -3774,6 +3858,7 @@ public:
 // .?AVGrappleVarCompareCondition@motion@hulkfight@@  vftable 0x41aa68 (7)
 class GrappleVarCompareCondition : public ::fight::Condition {
 public:
+    GrappleVarCompareCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0xc];
@@ -3827,6 +3912,7 @@ public:
 // .?AVHealthCondition@motion@hulkfight@@  vftable 0x4169f8 (7)
 class HealthCondition : public ::fight::Condition {
 public:
+    HealthCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     void* compare;
@@ -3837,6 +3923,7 @@ public:
 // .?AVHealthPercentCondition@motion@hulkfight@@  vftable 0x416998 (7)
 class HealthPercentCondition : public ::fight::Condition {
 public:
+    HealthPercentCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -4054,6 +4141,7 @@ public:
 // .?AVHitPushbackCondition@motion@hulkfight@@  vftable 0x414050 (7)
 class HitPushbackCondition : public ::fight::Condition {
 public:
+    HitPushbackCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     unsigned char f_0c;
@@ -4082,6 +4170,7 @@ public:
 // .?AVHitPushbackVelocityCondition@motion@hulkfight@@  vftable 0x4140d0 (7)
 class HitPushbackVelocityCondition : public ::fight::Condition {
 public:
+    HitPushbackVelocityCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -4274,6 +4363,7 @@ public:
 // .?AVInLoadedRoomCondition@motion@hulkfight@@  vftable 0x4168f8 (7)
 class InLoadedRoomCondition : public ::fight::Condition {
 public:
+    InLoadedRoomCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -4282,6 +4372,7 @@ public:
 // .?AVIntentionButtonDownAnyCondition@motion@hulkfight@@  vftable 0x416698 (7)
 class IntentionButtonDownAnyCondition : public ::fight::Condition {
 public:
+    IntentionButtonDownAnyCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -4312,6 +4403,7 @@ public:
 // .?AVIntentionInputCondition@motion@hulkfight@@  vftable 0x416758 (7)
 class IntentionInputCondition : public ::fight::Condition {
 public:
+    IntentionInputCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -4323,6 +4415,7 @@ public:
 // .?AVInterruptAccumulatorCondition@motion@hulkfight@@  vftable 0x413f70 (7)
 class InterruptAccumulatorCondition : public ::fight::Condition {
 public:
+    InterruptAccumulatorCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -4416,6 +4509,7 @@ public:
 // .?AVJointPlantedCondition@motion@hulkfight@@  vftable 0x415970 (7)
 class JointPlantedCondition : public ::fight::Condition {
 public:
+    JointPlantedCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x8];
@@ -4521,6 +4615,7 @@ public:
 // .?AVLocomotingCondition@motion@hulkfight@@  vftable 0x415950 (7)
 class LocomotingCondition : public ::fight::Condition {
 public:
+    LocomotingCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -4540,6 +4635,7 @@ public:
 // .?AVLocomotionMotionStateCondition@motion@hulkfight@@  vftable 0x416778 (7)
 class LocomotionMotionStateCondition : public ::fight::Condition {
 public:
+    LocomotionMotionStateCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -4914,6 +5010,7 @@ public:
 // .?AVPhaseCondition@motion@hulkfight@@  vftable 0x415990 (7)
 class PhaseCondition : public ::fight::Condition {
 public:
+    PhaseCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     float f_0c;
@@ -5147,6 +5244,7 @@ public:
 // .?AVPropAtRestCondition@motion@hulkfight@@  vftable 0x4191cc (7)
 class PropAtRestCondition : public ::fight::Condition {
 public:
+    PropAtRestCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -5155,6 +5253,7 @@ public:
 // .?AVPropCollidedWithWorldCondition@motion@hulkfight@@  vftable 0x41926c (7)
 class PropCollidedWithWorldCondition : public ::fight::Condition {
 public:
+    PropCollidedWithWorldCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -5227,6 +5326,7 @@ public:
 // .?AVPropGrabbableIsMissileCondition@motion@hulkfight@@  vftable 0x41b248 (7)
 class PropGrabbableIsMissileCondition : public ::fight::Condition {
 public:
+    PropGrabbableIsMissileCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -5235,6 +5335,7 @@ public:
 // .?AVPropGrabbableIsThrownCondition@motion@hulkfight@@  vftable 0x41918c (7)
 class PropGrabbableIsThrownCondition : public ::fight::Condition {
 public:
+    PropGrabbableIsThrownCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -5243,6 +5344,7 @@ public:
 // .?AVPropIsAttachedCondition@motion@hulkfight@@  vftable 0x4191ec (7)
 class PropIsAttachedCondition : public ::fight::Condition {
 public:
+    PropIsAttachedCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -5252,6 +5354,7 @@ public:
 // .?AVPropIsMissileCondition@motion@hulkfight@@  vftable 0x41b268 (7)
 class PropIsMissileCondition : public ::fight::Condition {
 public:
+    PropIsMissileCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -5261,6 +5364,7 @@ public:
 // .?AVPropMassCondition@motion@hulkfight@@  vftable 0x4191ac (7)
 class PropMassCondition : public ::fight::Condition {
 public:
+    PropMassCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -5274,6 +5378,7 @@ public:
 // .?AVPropMissileCountCondition@motion@hulkfight@@  vftable 0x41924c (7)
 class PropMissileCountCondition : public ::fight::Condition {
 public:
+    PropMissileCountCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -5284,6 +5389,7 @@ public:
 // .?AVPropMissionCriticalCondition@motion@hulkfight@@  vftable 0x41912c (7)
 class PropMissionCriticalCondition : public ::fight::Condition {
 public:
+    PropMissionCriticalCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -5370,6 +5476,7 @@ public:
 // .?AVPropStateByIndexCondition@motion@hulkfight@@  vftable 0x41922c (7)
 class PropStateByIndexCondition : public ::fight::Condition {
 public:
+    PropStateByIndexCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int attachmentIndex;
@@ -5380,6 +5487,7 @@ public:
 // .?AVPropStateByNameCondition@motion@hulkfight@@  vftable 0x41920c (7)
 class PropStateByNameCondition : public ::fight::Condition {
 public:
+    PropStateByNameCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int attachmentIndex;
@@ -5471,6 +5579,7 @@ public:
 // .?AVRageModeStateCondition@motion@hulkfight@@  vftable 0x416958 (7)
 class RageModeStateCondition : public ::fight::Condition {
 public:
+    RageModeStateCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -5480,6 +5589,7 @@ public:
 // .?AVRayCastCondition@motion@hulkfight@@  vftable 0x4168d8 (7)
 class RayCastCondition : public ::fight::Condition {
 public:
+    RayCastCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x8];
@@ -5496,6 +5606,7 @@ public:
 // .?AVRayCastConeCondition@motion@hulkfight@@  vftable 0x4167b8 (7)
 class RayCastConeCondition : public ::fight::Condition {
 public:
+    RayCastConeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x18];
@@ -5508,6 +5619,7 @@ public:
 // .?AVRayCastTargetCondition@motion@hulkfight@@  vftable 0x416718 (7)
 class RayCastTargetCondition : public ::fight::Condition {
 public:
+    RayCastTargetCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x8];
@@ -5567,6 +5679,7 @@ public:
 // .?AVShoreNearCondition@motion@hulkfight@@  vftable 0x416978 (7)
 class ShoreNearCondition : public ::fight::Condition {
 public:
+    ShoreNearCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -5624,6 +5737,7 @@ public:
 // .?AVSmartPropGrabbableCondition@motion@hulkfight@@  vftable 0x41914c (7)
 class SmartPropGrabbableCondition : public ::fight::Condition {
 public:
+    SmartPropGrabbableCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -5645,6 +5759,7 @@ public:
 // .?AVSmartPropIsCargoCondition@motion@hulkfight@@  vftable 0x41928c (7)
 class SmartPropIsCargoCondition : public ::fight::Condition {
 public:
+    SmartPropIsCargoCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -5866,6 +5981,7 @@ public:
 // .?AVTargetCharacterTemplateCondition@motion@hulkfight@@  vftable 0x416878 (7)
 class TargetCharacterTemplateCondition : public ::fight::Condition {
 public:
+    TargetCharacterTemplateCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     void* f_0c;
@@ -5874,6 +5990,7 @@ public:
 // .?AVTargetHealthPercentCondition@motion@hulkfight@@  vftable 0x416838 (7)
 class TargetHealthPercentCondition : public ::fight::Condition {
 public:
+    TargetHealthPercentCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -5907,6 +6024,7 @@ public:
 // .?AVTargetLocomotionMotionStateCondition@motion@hulkfight@@  vftable 0x416818 (7)
 class TargetLocomotionMotionStateCondition : public ::fight::Condition {
 public:
+    TargetLocomotionMotionStateCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -5916,6 +6034,7 @@ public:
 // .?AVTargetMotionStateCondition@motion@hulkfight@@  vftable 0x416678 (7)
 class TargetMotionStateCondition : public ::fight::Condition {
 public:
+    TargetMotionStateCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -5925,6 +6044,7 @@ public:
 // .?AVTargetingCondition@motion@hulkfight@@  vftable 0x4167d8 (7)
 class TargetingCondition : public ::fight::Condition {
 public:
+    TargetingCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     unsigned char f_0c;
@@ -6003,6 +6123,7 @@ public:
 // .?AVThinkingCondition@motion@hulkfight@@  vftable 0x4169b8 (7)
 class ThinkingCondition : public ::fight::Condition {
 public:
+    ThinkingCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     unsigned char f_0c;
@@ -6011,6 +6132,7 @@ public:
 // .?AVTimerCondition@motion@hulkfight@@  vftable 0x41aa48 (7)
 class TimerCondition : public ::fight::Condition {
 public:
+    TimerCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6046,6 +6168,7 @@ public:
 // .?AVTurningVelocityCondition@motion@hulkfight@@  vftable 0x416738 (7)
 class TurningVelocityCondition : public ::fight::Condition {
 public:
+    TurningVelocityCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6081,6 +6204,7 @@ public:
 // .?AVVarCompareCondition@motion@hulkfight@@  vftable 0x41aa88 (7)
 class VarCompareCondition : public ::fight::Condition {
 public:
+    VarCompareCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0xc];
@@ -6091,6 +6215,7 @@ public:
 // .?AVVelocityAnimatedCondition@motion@hulkfight@@  vftable 0x4169d8 (7)
 class VelocityAnimatedCondition : public ::fight::Condition {
 public:
+    VelocityAnimatedCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6100,6 +6225,7 @@ public:
 // .?AVVelocityAnimatedXZAngleCondition@motion@hulkfight@@  vftable 0x416938 (7)
 class VelocityAnimatedXZAngleCondition : public ::fight::Condition {
 public:
+    VelocityAnimatedXZAngleCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     float f_0c;
@@ -6109,6 +6235,7 @@ public:
 // .?AVVelocityAnimatedXZCondition@motion@hulkfight@@  vftable 0x4166f8 (7)
 class VelocityAnimatedXZCondition : public ::fight::Condition {
 public:
+    VelocityAnimatedXZCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6118,6 +6245,7 @@ public:
 // .?AVVelocityAnimatedYCondition@motion@hulkfight@@  vftable 0x4167f8 (7)
 class VelocityAnimatedYCondition : public ::fight::Condition {
 public:
+    VelocityAnimatedYCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6127,6 +6255,7 @@ public:
 // .?AVVelocityCondition@motion@hulkfight@@  vftable 0x4166b8 (7)
 class VelocityCondition : public ::fight::Condition {
 public:
+    VelocityCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6136,6 +6265,7 @@ public:
 // .?AVVelocityXZAngleCondition@motion@hulkfight@@  vftable 0x4168b8 (7)
 class VelocityXZAngleCondition : public ::fight::Condition {
 public:
+    VelocityXZAngleCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     float f_0c;
@@ -6145,6 +6275,7 @@ public:
 // .?AVVelocityXZCondition@motion@hulkfight@@  vftable 0x416918 (7)
 class VelocityXZCondition : public ::fight::Condition {
 public:
+    VelocityXZCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6154,6 +6285,7 @@ public:
 // .?AVVelocityYCondition@motion@hulkfight@@  vftable 0x4166d8 (7)
 class VelocityYCondition : public ::fight::Condition {
 public:
+    VelocityYCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6323,6 +6455,7 @@ public:
 // .?AVWallVelocityCondition@motion@hulkfight@@  vftable 0x412ab0 (7)
 class WallVelocityCondition : public ::fight::Condition {
 public:
+    WallVelocityCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6440,6 +6573,7 @@ public:
 // .?AVEventCondition@scenario@hulkfight@@  vftable 0x41d3ec (7)
 class EventCondition : public ::fight::Condition {
 public:
+    EventCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6448,6 +6582,7 @@ public:
 // .?AVEvent_CharacterTemplateCondition@scenario@hulkfight@@  vftable 0x41d44c (7)
 class Event_CharacterTemplateCondition : public ::fight::Condition {
 public:
+    Event_CharacterTemplateCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x4];
@@ -6457,6 +6592,7 @@ public:
 // .?AVEvent_CharacterTemplateVariationCondition@scenario@hulkfight@@  vftable 0x41d46c (7)
 class Event_CharacterTemplateVariationCondition : public ::fight::Condition {
 public:
+    Event_CharacterTemplateVariationCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6468,6 +6604,7 @@ public:
 // .?AVEvent_FirstTimeCondition@scenario@hulkfight@@  vftable 0x41d40c (7)
 class Event_FirstTimeCondition : public ::fight::Condition {
 public:
+    Event_FirstTimeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char f_0c;
@@ -6476,6 +6613,7 @@ public:
 // .?AVEvent_LocomotionStateNameCondition@scenario@hulkfight@@  vftable 0x41c550 (7)
 class Event_LocomotionStateNameCondition : public ::fight::Condition {
 public:
+    Event_LocomotionStateNameCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -6485,6 +6623,7 @@ public:
 // .?AVEvent_LocomotionStateNamePreviousCondition@scenario@hulkfight@@  vftable 0x41c530 (7)
 class Event_LocomotionStateNamePreviousCondition : public ::fight::Condition {
 public:
+    Event_LocomotionStateNamePreviousCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int compare;
@@ -6494,6 +6633,7 @@ public:
 // .?AVEvent_PathNameCondition@scenario@hulkfight@@  vftable 0x41d48c (7)
 class Event_PathNameCondition : public ::fight::Condition {
 public:
+    Event_PathNameCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6504,6 +6644,7 @@ public:
 // .?AVEvent_PropNameCondition@scenario@hulkfight@@  vftable 0x41c5d0 (7)
 class Event_PropNameCondition : public ::fight::Condition {
 public:
+    Event_PropNameCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x8];
@@ -6513,6 +6654,7 @@ public:
 // .?AVEvent_PropStateDescCondition@scenario@hulkfight@@  vftable 0x41c570 (7)
 class Event_PropStateDescCondition : public ::fight::Condition {
 public:
+    Event_PropStateDescCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6521,6 +6663,7 @@ public:
 // .?AVEvent_PropStateNameCondition@scenario@hulkfight@@  vftable 0x41c5b0 (7)
 class Event_PropStateNameCondition : public ::fight::Condition {
 public:
+    Event_PropStateNameCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x8];
@@ -6530,6 +6673,7 @@ public:
 // .?AVEvent_PropTypeCondition@scenario@hulkfight@@  vftable 0x41c590 (7)
 class Event_PropTypeCondition : public ::fight::Condition {
 public:
+    Event_PropTypeCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x8];
@@ -6539,6 +6683,7 @@ public:
 // .?AVEvent_StringCondition@scenario@hulkfight@@  vftable 0x41c4f0 (7)
 class Event_StringCondition : public ::fight::Condition {
 public:
+    Event_StringCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x4];
@@ -6549,6 +6694,7 @@ public:
 // .?AVEvent_TriggerVolumeNameCondition@scenario@hulkfight@@  vftable 0x41d3cc (7)
 class Event_TriggerVolumeNameCondition : public ::fight::Condition {
 public:
+    Event_TriggerVolumeNameCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_0c[0x4];
@@ -6559,6 +6705,7 @@ public:
 // .?AVEvent_WaypointCondition@scenario@hulkfight@@  vftable 0x41d42c (7)
 class Event_WaypointCondition : public ::fight::Condition {
 public:
+    Event_WaypointCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_0c;
@@ -6581,6 +6728,7 @@ public:
 // .?AVLuaCondition@scenario@hulkfight@@  vftable 0x41c2f8 (7)
 class LuaCondition : public ::fight::Condition {
 public:
+    LuaCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     void* f_0c;
@@ -6708,6 +6856,7 @@ public:
 // .?AVNodeIsNotRunningCondition@scenario@hulkfight@@  vftable 0x41c4d0 (7)
 class NodeIsNotRunningCondition : public ::fight::Condition {
 public:
+    NodeIsNotRunningCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };
@@ -6715,6 +6864,7 @@ public:
 // .?AVNodeShouldRunImmediatelyCondition@scenario@hulkfight@@  vftable 0x41c510 (7)
 class NodeShouldRunImmediatelyCondition : public ::fight::Condition {
 public:
+    NodeShouldRunImmediatelyCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
 };

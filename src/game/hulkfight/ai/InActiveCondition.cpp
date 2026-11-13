@@ -1,9 +1,11 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX-
 // object 0x0010e3e0..0x0010e950 (kind game, layer game, confidence high), dominant class hulkfight::ai::InActiveCondition
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_fad6e2b1 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -12,7 +14,6 @@ namespace fn_fad6e2b1 {} using namespace fn_fad6e2b1;
 namespace fn_fad6e2b1 {
 void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
-namespace fn_fad6e2b1 { extern "C" char DAT_0040da04[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/hulkfight/ai.h"
 
 // ---- declarations shared by the functions below
@@ -169,17 +170,6 @@ class AIHistoryNameCondition {
     int padc;
     void* m10;
     void reset_002345b0();
-};
-class Condition_10e7c0 {
-  public:
-    void* vptr;
-    void Fin_002345b0();
-};
-class HulkActionLargestCondition_10e7c0 : public Condition_10e7c0 {
-  public:
-    char pad[0x10 - 4];
-    void* m10;
-    HulkActionLargestCondition_10e7c0* f5(unsigned char flags);
 };
 extern void* hulk_at_0040da24[];
 class Condition_10e800 {
@@ -395,17 +385,14 @@ AIHistoryNameCondition* AIHistoryNameCondition::vfunc_5(int flag) {
 
 
 // 0x0010e7c0 hulkfight::ai::HulkActionLargestCondition::vfunc_5 (50 B): matches/0x0010e7c0.cpp
-// sym: ?f5@HulkActionLargestCondition_10e7c0@fn_fad6e2b1@@QAEPAV12@E@Z
-HulkActionLargestCondition_10e7c0* HulkActionLargestCondition_10e7c0::f5(unsigned char flags) {
-    void* a = m10;
-    vptr = (void**)DAT_0040da04;
-    operator delete[](a);
-    Fin_002345b0();
-    if (flags & 1)
-        operator delete(this);
-    return this;
+// sym: ??_GHulkActionLargestCondition@ai@hulkfight@@UAEPAXI@Z
+// (dtor1) the scalar deleting destructor, from the class's destructor (was a stub f5): built without C++ exceptions
+// (cl-flags /GX-, as the whole game: its code has no EH frame), MSVC 7.1 inlines ~C into ??_G with C's vftable store.
 }
-
+::hulkfight::ai::HulkActionLargestCondition::~HulkActionLargestCondition() {
+    delete[] f_10;
+}
+namespace fn_fad6e2b1 {
 
 // 0x0010e800 hulkfight::ai::PropsToChuckCondition::vfunc_5 (36 B): matches/0x0010e800.cpp
 // sym: ?vfunc_5@PropsToChuckCondition_10e800@fn_fad6e2b1@@QAEPAV12@C@Z

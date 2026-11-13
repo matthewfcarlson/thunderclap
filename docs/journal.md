@@ -778,3 +778,16 @@ blocks fight::Action's whole family: the records come first there.
 - `wine_build_job.py submit` ships the checkout's tools/wine_build_run.py: a control of an older commit needs that
   commit's build tools at submit.
 - docs/merge-once.md "Step (d)", docs/msvc71-pitfalls.md.
+
+## 2026-11-13 dtor1: the game was built without C++ exceptions (/GX-)
+
+- No game function has an exception frame (`mov eax, fs:[0]`): 0 of 18,768; the six in the XBE are LIBCMT's. The tree
+  compiles with /GX, and that is what the `throw()` / `__declspec(nothrow)` spellings, the stub `??_G` blocks and the
+  base-less stub classes were working around.
+- MSVC 7.1 /GX never inlines a destructor that calls a base destructor into `??_G`; /GX- does, with the vftable store,
+  so `C::~C() { delete[] f_10; }` is the game's 50-byte `??_G`. /GX- also lets a stub constructor `X() : C(0)` on a
+  class with a virtual destructor inline into its factory again (unb6's 9 Condition TUs).
+- Whole tree with /GX-: 1,886 of 27,438 blocks differ, 1,873 of them scalar deleting destructors written for /GX
+  (mostly the fight parameter templates' `template <> ParamX<T>::~ParamX() {}`; the game's are implicit). Per-TU
+  `// cl-flags: /GX-` is used where a TU's blocks all match with it; the tree-wide default needs those destructors
+  migrated first.

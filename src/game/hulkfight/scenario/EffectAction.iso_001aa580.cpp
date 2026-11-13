@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX-
 // object 0x001a1ed0..0x001aace0 (kind game, layer game, confidence high), dominant class hulkfight::scenario::EffectAction
 #include "tree_prelude.h"
 
@@ -6,6 +7,7 @@
 // 0x001aa580 fight::ConditionFactoryTemplate<hulkfight::scenario::Event_LocomotionStateNamePreviousCondition>::vfunc_5 (54 B): matches/0x001aa580.cpp [isolated: helper definitions (2 out-of-line function bodies); on include/gen/ and not mergeable]
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VEvent_LocomotionStateNamePreviousCondition@scenario@hulkfight@@@fight@@UAEPAXXZ
 #include "gen/fight.h"
+#include "gen/hulkfight.h"   // (dtor1) hulkfight::scenario::Event_LocomotionStateNamePreviousCondition, the stub class's real class
 
 /* size_t: tree_prelude.h */
 void* operator new(size_t) HULK_NEW_THROW;
@@ -22,14 +24,13 @@ class Base {
     char pad[8];
     Base(int) throw();
 };
-class Event_LocomotionStateNamePreviousCondition_1aa580 : public Base {
+class Event_LocomotionStateNamePreviousCondition_1aa580 : public ::hulkfight::scenario::Event_LocomotionStateNamePreviousCondition {
   public:
     Event_LocomotionStateNamePreviousCondition_1aa580() throw();
-    virtual void v0();
-    int a, b;
 };
-Event_LocomotionStateNamePreviousCondition_1aa580::Event_LocomotionStateNamePreviousCondition_1aa580() throw()
-    : Base(0), a(0), b(0) {}
+Event_LocomotionStateNamePreviousCondition_1aa580::Event_LocomotionStateNamePreviousCondition_1aa580() throw() : ::hulkfight::scenario::Event_LocomotionStateNamePreviousCondition(0) {
+    compare = 0;
+    oldState = 0;}
 } // namespace scenario
 } // namespace hulkfight
 namespace fight {

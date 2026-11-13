@@ -1,8 +1,10 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX-
 // object 0x00058bd0..0x00058c80 (kind game, layer game, confidence high), dominant class CStageCondition
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"   // (dtor1) CStageCondition, the stub class's real class
 #define TREE_TU_BEGIN namespace fn_fbbe4521 {
 #define TREE_TU_END }
 namespace fn_fbbe4521 {} using namespace fn_fbbe4521;
@@ -69,16 +71,13 @@ class CCondition_58c10 {
     int a;
     int b;
 };
-class CStageCondition : public CCondition_58c10 {
+class CStageCondition : public ::CStageCondition {
   public:
     CStageCondition() throw();
-    virtual void f0();
-    int stage;
-    int other;
 };
-CStageCondition::CStageCondition() throw() : CCondition_58c10(0) {
-    stage = 2;
-    other = 0;
+CStageCondition::CStageCondition() throw() : ::CStageCondition(0) {
+    f_0c = 2;
+    f_10 = 0;
 }
 class Factory {
   public:

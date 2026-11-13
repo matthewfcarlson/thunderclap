@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX-
 // object 0x00238850..0x002393a0 (kind game, layer engine, confidence high), dominant class fight::PrintTrack
 #include "tree_prelude.h"
 
@@ -18,14 +19,13 @@ class Condition_239270 {
     void* b;
     Condition_239270(int) throw();
 };
-class PrintCondition_239270 : public Condition_239270 {
+class PrintCondition_239270 : public ::fight::PrintCondition {
   public:
     PrintCondition_239270() throw();
-    virtual void f();
 };
-PrintCondition_239270::PrintCondition_239270() throw() : Condition_239270(0) {
-    a = 0;
-    b = 0;
+PrintCondition_239270::PrintCondition_239270() throw() : ::fight::PrintCondition(0) {
+    f_0c = 0;
+    f_10 = 0;
 }
 
 } // namespace fight

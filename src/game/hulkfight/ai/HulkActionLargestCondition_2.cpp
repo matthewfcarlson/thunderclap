@@ -1,8 +1,10 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX-
 // object 0x00113ff0..0x001140a0 (kind game, layer game, confidence high), dominant class hulkfight::ai::HulkActionLargestCondition
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"   // (dtor1) hulkfight::ai::HulkActionLargestCondition, the stub class's real class
 #define TREE_TU_BEGIN namespace fn_f3343a7f {
 #define TREE_TU_END }
 namespace fn_f3343a7f {} using namespace fn_f3343a7f;
@@ -37,16 +39,14 @@ class Base {
     virtual void v2();
     char pad[8];
 };
-class HulkActionLargestCondition_114030 : public Base {
+class HulkActionLargestCondition_114030 : public ::hulkfight::ai::HulkActionLargestCondition {
   public:
-    HulkActionLargestCondition_114030() throw();
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    int a;
-    int b;
+    HulkActionLargestCondition_114030();
 };
-inline HulkActionLargestCondition_114030::HulkActionLargestCondition_114030() throw() : Base(0), a(0), b(0) {}
+inline HulkActionLargestCondition_114030::HulkActionLargestCondition_114030() : ::hulkfight::ai::HulkActionLargestCondition(0) {
+    f_0c = 0;
+    f_10 = 0;
+}
 extern int hulk_at_0040e834;
 struct ConditionFactoryTemplate_114070 {
     void* m_vptr;

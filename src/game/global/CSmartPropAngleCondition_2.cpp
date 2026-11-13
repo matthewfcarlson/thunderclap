@@ -1,8 +1,10 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX-
 // object 0x00058710..0x000587c0 (kind game, layer game, confidence high), dominant class CSmartPropAngleCondition
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"   // (dtor1) CSmartPropAngleCondition, the stub class's real class
 #define TREE_TU_BEGIN namespace fn_f0c8ca41 {
 #define TREE_TU_END }
 namespace fn_f0c8ca41 {} using namespace fn_f0c8ca41;
@@ -68,16 +70,13 @@ class CCondition_58750 {
     virtual bool f2_002342b0(int);
     char pad[8];
 };
-class CSmartPropAngleCondition : public CCondition_58750 {
+class CSmartPropAngleCondition : public ::CSmartPropAngleCondition {
   public:
     CSmartPropAngleCondition() throw();
-    virtual void f0();
-    float b;
-    float c;
 };
-CSmartPropAngleCondition::CSmartPropAngleCondition() throw() : CCondition_58750(0) {
-    b = 0.0f;
-    c = 1.57079637f;
+CSmartPropAngleCondition::CSmartPropAngleCondition() throw() : ::CSmartPropAngleCondition(0) {
+    f_0c = 0.0f;
+    f_10 = 1.57079637f;
 }
 class Factory {
   public:

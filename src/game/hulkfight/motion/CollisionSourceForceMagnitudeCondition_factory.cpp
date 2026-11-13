@@ -1,8 +1,10 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX-
 // object 0x00158fb0..0x00159060 (kind game, layer game, confidence high), dominant class hulkfight::motion::CollisionSourceForceMagnitudeCondition
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"   // (dtor1) hulkfight::motion::CollisionSourceForceMagnitudeCondition, the stub class's real class
 #define TREE_TU_BEGIN namespace fn_fb46c098 {
 #define TREE_TU_END }
 namespace fn_fb46c098 {} using namespace fn_fb46c098;
@@ -68,15 +70,13 @@ class Base {
     int y;
     Base(int) throw();
 };
-class CollisionSourceForceMagnitudeCondition : public Base {
+class CollisionSourceForceMagnitudeCondition : public ::hulkfight::motion::CollisionSourceForceMagnitudeCondition {
   public:
     CollisionSourceForceMagnitudeCondition() throw();
-    virtual void a();
-    int val1;
-    int val2;
 };
-CollisionSourceForceMagnitudeCondition::CollisionSourceForceMagnitudeCondition() throw()
-    : Base(0), val1(0), val2(0) {}
+CollisionSourceForceMagnitudeCondition::CollisionSourceForceMagnitudeCondition() throw() : ::hulkfight::motion::CollisionSourceForceMagnitudeCondition(0) {
+    f_0c = 0;
+    f_10 = 0;}
 } // namespace motion
 } // namespace hulkfight
 namespace fight {

@@ -1,8 +1,10 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX-
 // object 0x00058870..0x00058910 (kind game, layer game, confidence high), dominant class CSmartPropCSMableCondition
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"   // (dtor1) CSmartPropCSMableCondition, the stub class's real class
 #define TREE_TU_BEGIN namespace fn_f76de4f7 {
 #define TREE_TU_END }
 namespace fn_f76de4f7 {} using namespace fn_f76de4f7;
@@ -64,14 +66,12 @@ class CCondition_588b0 {
     CCondition_588b0(int) throw();
     char pad[8];
 };
-class CSmartPropCSMableCondition : public CCondition_588b0 {
+class CSmartPropCSMableCondition : public ::CSmartPropCSMableCondition {
   public:
     CSmartPropCSMableCondition() throw();
-    virtual void f0();
-    int value;
 };
-CSmartPropCSMableCondition::CSmartPropCSMableCondition() throw() : CCondition_588b0(0) {
-    value = 0;
+CSmartPropCSMableCondition::CSmartPropCSMableCondition() throw() : ::CSmartPropCSMableCondition(0) {
+    f_0c = 0;
 }
 namespace fight {
 class ConditionFactoryTemplate {

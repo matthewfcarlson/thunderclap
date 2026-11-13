@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX-
 // object 0x0017f2b0..0x00180b60 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1996,15 +1997,16 @@ class Condition_1809e0 {
 };
 namespace hulkfight {
 namespace motion {
-class PropMissileCountCondition : public Condition_1809e0 {
+class PropMissileCountCondition : public ::hulkfight::motion::PropMissileCountCondition {
   public:
     PropMissileCountCondition();
-    virtual void f();
-    int a, b, c;
 };
 } // namespace motion
 } // namespace hulkfight
-hulkfight::motion::PropMissileCountCondition::PropMissileCountCondition() : Condition_1809e0(0), a(0), b(0), c(0) {}
+hulkfight::motion::PropMissileCountCondition::PropMissileCountCondition() : ::hulkfight::motion::PropMissileCountCondition(0) {
+    f_0c = 0;
+    f_10 = 0;
+    f_14 = 0;}
 } // namespace fn_001809e0
 
 namespace fn_f4259b06 {
