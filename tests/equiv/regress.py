@@ -996,6 +996,11 @@ X64_CASES = {
     # (x64eq, rawint) an int leaf with the same bits on both sides (a byte field's untouched neighbours in a fresh
     # allocation) is the same integer, even where its 32-bit value lands in a heap object (was a false ptrtrunc)
     "0x002fdc90_x64_rawint": ("equivalent", None, None, 50),
+    # (x64eq) an adjustor thunk (`?f@C@@W3AEXXZ`) is paired with the 64-bit thunk of the same method (`W7EAA`), typed by
+    # the method's declaration (was "function under test not found in the 64-bit object")
+    "0x00268010_x64_thunk": ("equivalent", None, None, 50),
+    # (x64eq) __chkstk's i386 C name (`_chkstk`) is the probe, not a callee without a signature
+    "0x00245b00_x64_chkstk": ("equivalent", None, None, 50),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)

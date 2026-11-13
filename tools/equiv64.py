@@ -1178,7 +1178,8 @@ CRT_SEMANTIC = {"memcpy", "memmove", "memset", "memcmp", "strlen", "strcmp", "st
 CRT_STRIPPED = {n.lstrip("_") for n in CRT_SEMANTIC}
 I386_HELPERS = {"__alldiv", "__aulldiv", "__allrem", "__aullrem", "__allmul", "__allshl", "__allshr", "__aullshr",
                 "__aulldvrm", "__alldvrm"}
-SKIP_CALLS = {"__security_check_cookie", "__chkstk", "_alloca_probe", "__alloca_probe", "_RTC_CheckEsp"}
+SKIP_CALLS = {"__security_check_cookie", "__chkstk", "_alloca_probe", "__alloca_probe", "_RTC_CheckEsp",
+              "_chkstk", "chkstk", "alloca_probe"}   # (x64eq) the i386 C names of the probes (`__chkstk` -> `_chkstk`)
 ALLOCATORS = {"??2@YAPAXI@Z", "??_U@YAPAXI@Z", "??2@YAPEAX_K@Z", "??_U@YAPEAX_K@Z", "_malloc", "malloc",
               "FUN_0008d690", "_FUN_0008d690", "FUN_0008d6d0", "_FUN_0008d6d0", "thunk_FUN_0008d690", "_thunk_FUN_0008d690"}
 ALLOC_MAX = 16 << 20                # a larger 32-bit allocation sets the input aside (a fuzzed count)
@@ -1232,6 +1233,14 @@ def ptr_width_int(tt):
         return a.kind.name in INT_KINDS and b.kind.name in INT_KINDS and a.get_size() == 4 and b.get_size() == 8
     except Exception:   # noqa: BLE001
         return False
+
+
+def thunk_method(name):
+    """The method an MS adjustor thunk's mangled name stands for (`?f@C@@W3AEXXZ` -> `?f@C@@UAEXXZ`), or None."""
+    m = re.match(r"^(\?[^?].*@@)([GHOPWX])(\d|[A-P]+@)(.+)$", name)
+    if not m:
+        return None
+    return m.group(1) + chr(ord(m.group(2)) - 2) + m.group(4)
 
 
 def norm_mangled(name):
@@ -1414,8 +1423,18 @@ class Checker:
             raise Unsupported("function under test not found in the 32-bit object (%s)" % name32)
         self.sym32 = name32
         c32 = self.tu[32].by_mangled.get(name32)
-        name64 = None
-        if c32 is not None:
+        name64 = thunk64 = None
+        meth32 = thunk_method(name32) if c32 is None and "thunk" not in OFF else None
+        if meth32 is not None and self.tu[32].by_mangled.get(meth32) is not None:
+            # (x64eq) an adjustor thunk (`?f@C@@W3AEXXZ`: this -= 4, jump to C::f): libclang knows only the method; the
+            # 64-bit thunk is the one of the same method (its adjustment is the 64-bit base offset, `W7EAA`)
+            c32 = self.tu[32].by_mangled[meth32]
+            k = loc_key(c32)
+            m64 = next((mn for mn, c in self.tu[64].by_mangled.items() if c.kind == c32.kind and loc_key(c) == k), None)
+            cand = [f for f in self.img[64].funcs if m64 is not None and thunk_method(f) == m64]
+            if len(cand) == 1:
+                name64, thunk64 = cand[0], m64
+        if c32 is not None and name64 is None:
             k = loc_key(c32)
             for mn, c in self.tu[64].by_mangled.items():
                 if c.kind == c32.kind and loc_key(c) == k and mn in self.img[64].funcs:
@@ -1433,7 +1452,7 @@ class Checker:
         if name64 is None:
             raise Unsupported("function under test not found in the 64-bit object")
         self.sym64 = name64
-        c64 = self.tu[64].by_mangled.get(name64)
+        c64 = self.tu[64].by_mangled.get(thunk64 or name64)
         if c32 is None or c64 is None:
             raise Unsupported("no declaration for %s" % name32)
         self.sig = Sig.of(c32, c64, name32)
@@ -3080,6 +3099,11 @@ def classify(a, b, s64):
     if has(b, lambda t: len(t) == 3 and t[0] == "obj" and (t[1], t[2]) not in objs_a and
            any(x[0] == t[1] for x in objs_a)):
         return "layout"     # the same object at another offset: a byte offset that is the 32-bit layout's
+    if "wild64" not in OFF and isinstance(a, tuple) and isinstance(b, tuple) and b[:1] == ("wildptr",) and \
+            a[:1] in (("obj",), ("null",), ("nullrel",), ("stack",)):
+        # (x64eq) a pointer the 64-bit run computes outside every object where the 32-bit one lands in one: pointer
+        # arithmetic with an index that wraps at 2^32 on i386 only (a fuzzed count, or an unsigned "negative" step)
+        return "wild64"
     if has(b, lambda t: t[:1] == ("trunc",)) or has(b, ptrtrunc) or (isinstance(a, tuple) and isinstance(b, tuple) and a[:1] in (("obj",), ("alloc",))
                             and b[:1] in (("i",), ("int",))):
         return "ptrtrunc"

@@ -1778,6 +1778,7 @@ reached / instructions of the function), and for a fail `diff` (the first differ
 | `untyped` | a difference in memory no type describes (a raw allocation never typed, a `void*` the code casts) |
 | `stubsize` | (status `unsupported`) the 32-bit run itself writes past the end of an object the source types (a stub class smaller than the real one: an empty class whose vfptr the source stores by hand, a `unsigned char DAT_x[4]` data declaration): the source's types are too small to judge |
 | `tool` | a construct this checker doesn't model (status `unsupported`) |
+| `wild64` | (x64eq) a pointer the 64-bit run computes outside every object where the 32-bit run's lands in one (or is null): pointer arithmetic whose index wraps at 2^32 on i386 only, mostly a fuzzed count; an unsigned "negative" step (`p += (unsigned)-k`) is the real-bug case |
 
 `layout`, `ptrtrunc` and `crash64` are 64-bit bugs in the source (or in a header it uses) until shown otherwise;
 `untyped` and `tool` are gaps of the checker.
@@ -1823,6 +1824,24 @@ and layout fixes"); each has an `X64_CASES` regress case:
   the same place on both; a `hulk_intptr` argument holding a local's address compares as a stack pointer;
 - a pointer-sized integer leaf (a `hulk_intptr` field) is generated as a small integer or an object's address, never as
   a large 32-bit number (which compares with heap addresses one way on i386 and the other above 4 GB).
+
+**x64eq's checker changes (2026-11-12)**, from the tree-wide sweep (docs/native-build.md "The tree-wide 64-bit
+equivalence sweep"); each has an `X64_CASES` / `CASES` regress case:
+
+- a scalar deleting destructor the 64-bit object defines itself (a native-only explicit instantiation emits the vftable
+  and clang's `??_G` beside it) is synthesized on the 32-bit side only: it was a compile error (the symbol twice);
+- sized `operator delete(void*, size_t)` (what clang's own deleting destructors call) is the same callee as the unsized
+  one: the pointer is compared, the size is the class's size on each target;
+- `rawint`: an integer leaf with the same bits on both targets is the same integer, even where its 32-bit value lands in
+  a heap object (a byte field's untouched neighbours in a fresh allocation read as a pointer: a false `ptrtrunc`);
+- the i386 C names of the stack probes (`__chkstk` is `_chkstk`) are the probe, not a callee without a signature;
+- an MS adjustor thunk (`?f@C@@W3AEXXZ`) is paired with the 64-bit thunk of the same method and typed by the method;
+- `wild64` (above) is reported apart from `call`.
+
+And one in equiv.py's level 3 (`argpop`): a known callee that ends `ret N` takes exactly N bytes of stack arguments, so
+Program.callee_reads no longer lets its analysis of higher argument indices (16 words escaped behind an argument whose
+address it takes) speak for the caller's own words. Write-only out-parameters are then seen as such through such
+callees (rdcap), and an uninitialised local passed to one is not compared: 0x001a9b10's `--wine` failure.
 
 **What a promotion gate needs.** (1) `pip install clang` in the checker hosts' venvs (or keep `batch`/`job_files`);
 (2) a policy: `equivalent` required except for an allow-list of `unsupported`/`untyped` sources reviewed by hand, and
