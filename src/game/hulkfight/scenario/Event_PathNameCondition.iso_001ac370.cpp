@@ -20,9 +20,9 @@ inline void* operator new(size_t, void* p) { return p; }
 namespace fn_fe32daa8 {
 
 extern void* __cdecl FUN_0008d690(unsigned int);
-extern void __cdecl FUN_001aad30();
-extern void __cdecl FUN_001aad40();
-extern void __cdecl FUN_001aad50();
+extern bool FUN_001aad30(void*, int); /* (unb4) as defined; address taken only */
+extern bool FUN_001aad40(void*, int); /* (unb4) as defined; address taken only */
+extern void* FUN_001aad50(void*); /* (unb4) as defined; address taken only */
 extern void __cdecl FUN_002347b0(void*, void**, int);
 struct FUN_002348e0 {
  virtual void slot0();
@@ -51,15 +51,15 @@ void target() {
  void* items[3];
  void* p=FUN_0008d690((int)sizeof(fight::ParamIntConstRange<E>));
  fight::ParamIntConstRange<E>* a=0;
- if(p) { a=new(p) fight::ParamIntConstRange<E>; a->callback=FUN_001aad30; }
+ if(p) { a=new(p) fight::ParamIntConstRange<E>; a->callback=(void (*)())FUN_001aad30; }
  items[0]=a;
  p=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<E>));
  fight::ParamEnumConstList<E>* b=0;
- if(p) { int count=(*(int*)&DAT_00427760); b=new(p) fight::ParamEnumConstList<E>; b->count=count; b->list=((int*)&DAT_00427758); b->callback=FUN_001aad40; }
+ if(p) { int count=(*(int*)&DAT_00427760); b=new(p) fight::ParamEnumConstList<E>; b->count=count; b->list=((int*)&DAT_00427758); b->callback=(void (*)())FUN_001aad40; }
  items[1]=b;
  p=FUN_0008d690((int)sizeof(fight::ParamName<E>));
  fight::ParamName<E>* c=0;
- if(p) { c=new(p) fight::ParamName<E>; c->callback=FUN_001aad50; }
+ if(p) { c=new(p) fight::ParamName<E>; c->callback=(void (*)())FUN_001aad50; }
  items[2]=c;
  FUN_002347b0(&DAT_004e17a0,items,3);
  }

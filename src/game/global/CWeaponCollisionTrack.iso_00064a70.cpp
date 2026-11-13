@@ -16,27 +16,27 @@ void* FUN_0008d690(unsigned int size);
 
 class CWeaponCollisionTrack_64a70 {
 public:
-    void FUN_00061b40();
-    void FUN_00061b50();
-    void FUN_00061b60();
-    void FUN_00061b70();
-    void FUN_00061b80();
-    void FUN_00061b90();
-    void FUN_00061ca0();
-    void FUN_00061ba0();
-    void FUN_00061bb0();
+    char FUN_00061b40(int); /* (unb4) as defined; address taken only */
+    bool FUN_00061b50(int); /* (unb4) as defined; address taken only */
+    bool FUN_00061b60(int); /* (unb4) as defined; address taken only */
+    bool FUN_00061b70(int); /* (unb4) as defined; address taken only */
+    char FUN_00061b80(int); /* (unb4) as defined; address taken only */
+    char FUN_00061b90(int); /* (unb4) as defined; address taken only */
+    char FUN_00061ca0(int); /* (unb4) as defined; address taken only */
+    char FUN_00061ba0(char); /* (unb4) as defined; address taken only */
+    char FUN_00061bb0(int); /* (unb4) as defined; address taken only */
     void FUN_00012530();
     void FUN_00012540();
     void FUN_00012550();
-    void FUN_00062180();
-    void FUN_00061bc0();
-    void FUN_00061bd0();
-    void FUN_00061be0();
-    void FUN_00061c10();
-    void FUN_00061c40();
-    void FUN_00061c50();
-    void FUN_00061c60();
-    void FUN_00061c90();
+    char FUN_00062180(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00061bc0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00061bd0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00061be0(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00061c10(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00061c40(int); /* (unb4) as defined; address taken only */
+    char FUN_00061c50(int); /* (unb4) as defined; address taken only */
+    bool FUN_00061c60(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00061c90(int); /* (unb4) as defined; address taken only */
     char pad[0xcc];
     bool smallInterrupt;
     char pad_smallInterrupt[3];
@@ -222,39 +222,39 @@ extern "C" void FUN_00064a70()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>("timeBegin", &CWeaponCollisionTrack_64a70::FUN_00061b40);
+            params[0] = new (mem) fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>("timeBegin", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061b40);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>("timeEnd", &CWeaponCollisionTrack_64a70::FUN_00061b50);
+            params[1] = new (mem) fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>("timeEnd", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061b50);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_64a70<CWeaponCollisionTrack_64a70>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamIntConstRange_64a70<CWeaponCollisionTrack_64a70>("attachmentIndex", &CWeaponCollisionTrack_64a70::FUN_00061b60);
+            params[2] = new (mem) fight::ParamIntConstRange_64a70<CWeaponCollisionTrack_64a70>("attachmentIndex", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061b60);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>("scale", &CWeaponCollisionTrack_64a70::FUN_00061b70);
+            params[3] = new (mem) fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>("scale", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061b70);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_64a70<CWeaponCollisionTrack_64a70>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamIntConstRange_64a70<CWeaponCollisionTrack_64a70>("smallMaxHitCount", &CWeaponCollisionTrack_64a70::FUN_00061b80);
+            params[4] = new (mem) fight::ParamIntConstRange_64a70<CWeaponCollisionTrack_64a70>("smallMaxHitCount", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061b80);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_64a70<CWeaponCollisionTrack_64a70>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamIntConstRange_64a70<CWeaponCollisionTrack_64a70>("largeMaxHitCount", &CWeaponCollisionTrack_64a70::FUN_00061b90);
+            params[5] = new (mem) fight::ParamIntConstRange_64a70<CWeaponCollisionTrack_64a70>("largeMaxHitCount", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061b90);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>("damageReceived", &CWeaponCollisionTrack_64a70::FUN_00061ca0);
+            params[6] = new (mem) fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>("damageReceived", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061ca0);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_64a70<CWeaponCollisionTrack_64a70>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamBool_64a70<CWeaponCollisionTrack_64a70>("missilePunch", &CWeaponCollisionTrack_64a70::FUN_00061ba0);
+            params[7] = new (mem) fight::ParamBool_64a70<CWeaponCollisionTrack_64a70>("missilePunch", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061ba0);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_64a70<CWeaponCollisionTrack_64a70>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamEnumConstList_64a70<CWeaponCollisionTrack_64a70>("hitTypes", ((const char**)&DAT_00495480), (*(int*)&DAT_003fa110), &CWeaponCollisionTrack_64a70::FUN_00061bb0);
+            params[8] = new (mem) fight::ParamEnumConstList_64a70<CWeaponCollisionTrack_64a70>("hitTypes", ((const char**)&DAT_00495480), (*(int*)&DAT_003fa110), (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061bb0);
         mem = FUN_0008d690((int)sizeof(fight::ParamBranch_64a70<CWeaponCollisionTrack_64a70>));
         params[9] = 0;
         if (mem)
@@ -270,39 +270,39 @@ extern "C" void FUN_00064a70()
         mem = FUN_0008d690((int)sizeof(fight::ParamString_64a70<CWeaponCollisionTrack_64a70>));
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamString_64a70<CWeaponCollisionTrack_64a70>("sound", &CWeaponCollisionTrack_64a70::FUN_00062180);
+            params[12] = new (mem) fight::ParamString_64a70<CWeaponCollisionTrack_64a70>("sound", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00062180);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>));
         params[13] = 0;
         if (mem)
-            params[13] = new (mem) fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>("damage", &CWeaponCollisionTrack_64a70::FUN_00061bc0);
+            params[13] = new (mem) fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>("damage", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061bc0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>));
         params[14] = 0;
         if (mem)
-            params[14] = new (mem) fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>("damageMax", &CWeaponCollisionTrack_64a70::FUN_00061bd0);
+            params[14] = new (mem) fight::ParamFloatConstRange_64a70<CWeaponCollisionTrack_64a70>("damageMax", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061bd0);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_64a70<CWeaponCollisionTrack_64a70>));
         params[15] = 0;
         if (mem)
-            params[15] = new (mem) fight::ParamVector_64a70<CWeaponCollisionTrack_64a70>("force", &CWeaponCollisionTrack_64a70::FUN_00061be0);
+            params[15] = new (mem) fight::ParamVector_64a70<CWeaponCollisionTrack_64a70>("force", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061be0);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_64a70<CWeaponCollisionTrack_64a70>));
         params[16] = 0;
         if (mem)
-            params[16] = new (mem) fight::ParamVector_64a70<CWeaponCollisionTrack_64a70>("forceMax", &CWeaponCollisionTrack_64a70::FUN_00061c10);
+            params[16] = new (mem) fight::ParamVector_64a70<CWeaponCollisionTrack_64a70>("forceMax", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061c10);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_64a70<CWeaponCollisionTrack_64a70>));
         params[17] = 0;
         if (mem)
-            params[17] = new (mem) fight::ParamEnumConstList_64a70<CWeaponCollisionTrack_64a70>("direction", ((const char**)&DAT_004954b4), (*(int*)&DAT_003fa118), &CWeaponCollisionTrack_64a70::FUN_00061c40);
+            params[17] = new (mem) fight::ParamEnumConstList_64a70<CWeaponCollisionTrack_64a70>("direction", ((const char**)&DAT_004954b4), (*(int*)&DAT_003fa118), (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061c40);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_64a70<CWeaponCollisionTrack_64a70>));
         params[18] = 0;
         if (mem)
-            params[18] = new (mem) fight::ParamIntConstRange_64a70<CWeaponCollisionTrack_64a70>("interruptPriority", &CWeaponCollisionTrack_64a70::FUN_00061c50);
+            params[18] = new (mem) fight::ParamIntConstRange_64a70<CWeaponCollisionTrack_64a70>("interruptPriority", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061c50);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_64a70<CWeaponCollisionTrack_64a70>));
         params[19] = 0;
         if (mem)
-            params[19] = new (mem) fight::ParamVector_64a70<CWeaponCollisionTrack_64a70>("hitFreezeTime", &CWeaponCollisionTrack_64a70::FUN_00061c60);
+            params[19] = new (mem) fight::ParamVector_64a70<CWeaponCollisionTrack_64a70>("hitFreezeTime", (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061c60);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_64a70<CWeaponCollisionTrack_64a70>));
         params[20] = 0;
         if (mem)
-            params[20] = new (mem) fight::ParamEnumConstList_64a70<CWeaponCollisionTrack_64a70>("location", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), &CWeaponCollisionTrack_64a70::FUN_00061c90);
+            params[20] = new (mem) fight::ParamEnumConstList_64a70<CWeaponCollisionTrack_64a70>("location", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), (void (CWeaponCollisionTrack_64a70::*)())&CWeaponCollisionTrack_64a70::FUN_00061c90);
         mem = FUN_0008d690((int)sizeof(fight::ParamBoolPtr_64a70<CWeaponCollisionTrack_64a70>));
         params[21] = 0;
         if (mem)

@@ -688,7 +688,7 @@ void *FUN_002e6c00(PngStruct_2d6f10 *png, unsigned int size);
 extern "C" int FUN_002e6f50(ZStream_2d6f10 *strm, const char *version, int streamSize);
 extern "C++" __declspec(nothrow) void __cdecl FUN_002dd6f0(void *, unsigned int, void *);
 void FUN_002d6c20();
-void FUN_002d6c80();
+void FUN_002d6c80(void*, void*); /* (unb4) as defined; address taken only */
 
 extern "C" PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPtr, void *errorFn, void *warnFn,
                         void *memPtr, void *mallocFn, void *freeFn)
@@ -713,7 +713,7 @@ extern "C" PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPt
     png->zbufSize = 0x2000;
     png->zbuf = FUN_002e6c00(png, 0x2000);
     png->zstream.zalloc = &FUN_002d6c20;
-    png->zstream.zfree = &FUN_002d6c80;
+    png->zstream.zfree = (void (*)())&FUN_002d6c80;
     png->zstream.opaque = png;
 
     switch (FUN_002e6f50(&png->zstream, "1.1.3", 0x38)) {

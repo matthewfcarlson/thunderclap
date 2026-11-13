@@ -16,8 +16,8 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace hulkfight {
 class StatBeginTrialTrack_131850 {
 public:
-    void FUN_0012e0a0();
-    void FUN_0012e8d0();
+    bool FUN_0012e0a0(int); /* (unb4) as defined; address taken only */
+    char FUN_0012e8d0(void*); /* (unb4) as defined; address taken only */
 };
 }
 namespace fn_fccc5d95 {
@@ -54,13 +54,13 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 namespace hulkfight {
 class DialogueTrack_1319f0 {
 public:
-    void FUN_0012e100();
-    void FUN_0012ebc0();
-    void FUN_0012ec20();
-    void FUN_0012e130();
+    char FUN_0012e100(int); /* (unb4) as defined; address taken only */
+    bool FUN_0012ebc0(void*); /* (unb4) as defined; address taken only */
+    bool FUN_0012ec20(void*); /* (unb4) as defined; address taken only */
+    char FUN_0012e130(int); /* (unb4) as defined; address taken only */
     void FUN_0012ec80();
-    void FUN_0012ece0();
-    void FUN_0012e170();
+    char FUN_0012ece0(void*); /* (unb4) as defined; address taken only */
+    char FUN_0012e170(char); /* (unb4) as defined; address taken only */
 };
 }
 namespace fn_fccc5d95 {
@@ -90,8 +90,8 @@ public:
 namespace hulkfight {
 class StatEndTrialTrack_131c90 {
 public:
-    void FUN_0012e1c0();
-    void FUN_0012ef40();
+    char FUN_0012e1c0(int); /* (unb4) as defined; address taken only */
+    int FUN_0012ef40(void*); /* (unb4) as defined; address taken only */
 };
 }
 namespace fight {
@@ -117,8 +117,8 @@ public:
 namespace hulkfight {
 class StatTrack_131d30 {
 public:
-    void FUN_0012e1e0();
-    void FUN_0012f030();
+    bool FUN_0012e1e0(int); /* (unb4) as defined; address taken only */
+    char FUN_0012f030(void*); /* (unb4) as defined; address taken only */
 };
 }
 namespace fight {
@@ -144,8 +144,8 @@ public:
 namespace hulkfight {
 class XPTrack_131dd0 {
 public:
-    void FUN_0012e200();
-    void FUN_0012e220();
+    char FUN_0012e200(int); /* (unb4) as defined; address taken only */
+    bool FUN_0012e220(int); /* (unb4) as defined; address taken only */
 };
 }
 namespace fight {
@@ -172,8 +172,8 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace hulkfight {
 class DebugPrintCondition {
 public:
-    void FUN_0012e5c0();
-    void FUN_0012e620();
+    bool FUN_0012e5c0(void*); /* (unb4) as defined; address taken only */
+    bool FUN_0012e620(void*); /* (unb4) as defined; address taken only */
 };
 }
 
@@ -208,11 +208,11 @@ void FUN_00131560()
         mem = FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::DebugPrintCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamString<hulkfight::DebugPrintCondition>("text", &hulkfight::DebugPrintCondition::FUN_0012e5c0);
+            params[0] = new (mem) fight::ParamString<hulkfight::DebugPrintCondition>("text", (void (hulkfight::DebugPrintCondition::*)())&hulkfight::DebugPrintCondition::FUN_0012e5c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::DebugPrintCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamString<hulkfight::DebugPrintCondition>("channel", &hulkfight::DebugPrintCondition::FUN_0012e620);
+            params[1] = new (mem) fight::ParamString<hulkfight::DebugPrintCondition>("channel", (void (hulkfight::DebugPrintCondition::*)())&hulkfight::DebugPrintCondition::FUN_0012e620);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0e64), params, 2);
     }
     DAT_004e0e68++;
@@ -233,11 +233,11 @@ void FUN_00131850()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_131850<hulkfight::StatBeginTrialTrack_131850>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_131850<hulkfight::StatBeginTrialTrack_131850>("timeBegin", &hulkfight::StatBeginTrialTrack_131850::FUN_0012e0a0);
+            params[0] = new (mem) fight::ParamFloatConstRange_131850<hulkfight::StatBeginTrialTrack_131850>("timeBegin", (void (hulkfight::StatBeginTrialTrack_131850::*)())&hulkfight::StatBeginTrialTrack_131850::FUN_0012e0a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamString_131850<hulkfight::StatBeginTrialTrack_131850>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamString_131850<hulkfight::StatBeginTrialTrack_131850>("stat", &hulkfight::StatBeginTrialTrack_131850::FUN_0012e8d0);
+            params[1] = new (mem) fight::ParamString_131850<hulkfight::StatBeginTrialTrack_131850>("stat", (void (hulkfight::StatBeginTrialTrack_131850::*)())&hulkfight::StatBeginTrialTrack_131850::FUN_0012e8d0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0e7c), params, 2);
     }
     DAT_004e0e80++;
@@ -256,19 +256,19 @@ void FUN_001319f0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::DialogueTrack_1319f0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<hulkfight::DialogueTrack_1319f0>("timeBegin", &hulkfight::DialogueTrack_1319f0::FUN_0012e100);
+            params[0] = new (mem) ParamFloatConstRange<hulkfight::DialogueTrack_1319f0>("timeBegin", (void (hulkfight::DialogueTrack_1319f0::*)())&hulkfight::DialogueTrack_1319f0::FUN_0012e100);
         mem = FUN_0008d690((int)sizeof(ParamString<hulkfight::DialogueTrack_1319f0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("dialogue", &hulkfight::DialogueTrack_1319f0::FUN_0012ebc0);
+            params[1] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("dialogue", (void (hulkfight::DialogueTrack_1319f0::*)())&hulkfight::DialogueTrack_1319f0::FUN_0012ebc0);
         mem = FUN_0008d690((int)sizeof(ParamString<hulkfight::DialogueTrack_1319f0>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("desiredTemplate", &hulkfight::DialogueTrack_1319f0::FUN_0012ec20);
+            params[2] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("desiredTemplate", (void (hulkfight::DialogueTrack_1319f0::*)())&hulkfight::DialogueTrack_1319f0::FUN_0012ec20);
         mem = FUN_0008d690((int)sizeof(ParamIntConstRange<hulkfight::DialogueTrack_1319f0>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamIntConstRange<hulkfight::DialogueTrack_1319f0>("priority", &hulkfight::DialogueTrack_1319f0::FUN_0012e130);
+            params[3] = new (mem) ParamIntConstRange<hulkfight::DialogueTrack_1319f0>("priority", (void (hulkfight::DialogueTrack_1319f0::*)())&hulkfight::DialogueTrack_1319f0::FUN_0012e130);
         mem = FUN_0008d690((int)sizeof(ParamString<hulkfight::DialogueTrack_1319f0>));
         params[4] = 0;
         if (mem)
@@ -276,11 +276,11 @@ void FUN_001319f0()
         mem = FUN_0008d690((int)sizeof(ParamString<hulkfight::DialogueTrack_1319f0>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("instance", &hulkfight::DialogueTrack_1319f0::FUN_0012ece0);
+            params[5] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("instance", (void (hulkfight::DialogueTrack_1319f0::*)())&hulkfight::DialogueTrack_1319f0::FUN_0012ece0);
         mem = FUN_0008d690((int)sizeof(ParamBool<hulkfight::DialogueTrack_1319f0>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamBool<hulkfight::DialogueTrack_1319f0>("routeToHeld", &hulkfight::DialogueTrack_1319f0::FUN_0012e170);
+            params[6] = new (mem) ParamBool<hulkfight::DialogueTrack_1319f0>("routeToHeld", (void (hulkfight::DialogueTrack_1319f0::*)())&hulkfight::DialogueTrack_1319f0::FUN_0012e170);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0e8c), params, 7);
     }
     DAT_004e0e90++;
@@ -299,11 +299,11 @@ extern "C" void FUN_00131c90()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_131c90<hulkfight::StatEndTrialTrack_131c90>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_131c90<hulkfight::StatEndTrialTrack_131c90>("timeBegin", &hulkfight::StatEndTrialTrack_131c90::FUN_0012e1c0);
+            params[0] = new (mem) fight::ParamFloatConstRange_131c90<hulkfight::StatEndTrialTrack_131c90>("timeBegin", (void (hulkfight::StatEndTrialTrack_131c90::*)())&hulkfight::StatEndTrialTrack_131c90::FUN_0012e1c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamString_131c90<hulkfight::StatEndTrialTrack_131c90>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamString_131c90<hulkfight::StatEndTrialTrack_131c90>("stat", &hulkfight::StatEndTrialTrack_131c90::FUN_0012ef40);
+            params[1] = new (mem) fight::ParamString_131c90<hulkfight::StatEndTrialTrack_131c90>("stat", (void (hulkfight::StatEndTrialTrack_131c90::*)())&hulkfight::StatEndTrialTrack_131c90::FUN_0012ef40);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0e9c), params, 2);
     }
     DAT_004e0ea0++;
@@ -322,11 +322,11 @@ extern "C" void FUN_00131d30()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_131d30<hulkfight::StatTrack_131d30>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_131d30<hulkfight::StatTrack_131d30>("timeBegin", &hulkfight::StatTrack_131d30::FUN_0012e1e0);
+            params[0] = new (mem) fight::ParamFloatConstRange_131d30<hulkfight::StatTrack_131d30>("timeBegin", (void (hulkfight::StatTrack_131d30::*)())&hulkfight::StatTrack_131d30::FUN_0012e1e0);
         mem = FUN_0008d690((int)sizeof(fight::ParamString_131d30<hulkfight::StatTrack_131d30>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamString_131d30<hulkfight::StatTrack_131d30>("stat", &hulkfight::StatTrack_131d30::FUN_0012f030);
+            params[1] = new (mem) fight::ParamString_131d30<hulkfight::StatTrack_131d30>("stat", (void (hulkfight::StatTrack_131d30::*)())&hulkfight::StatTrack_131d30::FUN_0012f030);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0ea4), params, 2);
     }
     DAT_004e0ea8++;
@@ -345,11 +345,11 @@ extern "C" void FUN_00131dd0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_131dd0<hulkfight::XPTrack_131dd0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_131dd0<hulkfight::XPTrack_131dd0>("timeBegin", &hulkfight::XPTrack_131dd0::FUN_0012e200);
+            params[0] = new (mem) fight::ParamFloatConstRange_131dd0<hulkfight::XPTrack_131dd0>("timeBegin", (void (hulkfight::XPTrack_131dd0::*)())&hulkfight::XPTrack_131dd0::FUN_0012e200);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_131dd0<hulkfight::XPTrack_131dd0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_131dd0<hulkfight::XPTrack_131dd0>("value", &hulkfight::XPTrack_131dd0::FUN_0012e220);
+            params[1] = new (mem) fight::ParamFloatConstRange_131dd0<hulkfight::XPTrack_131dd0>("value", (void (hulkfight::XPTrack_131dd0::*)())&hulkfight::XPTrack_131dd0::FUN_0012e220);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0eac), params, 2);
     }
     DAT_004e0eb0++;

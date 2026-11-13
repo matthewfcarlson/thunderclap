@@ -17,8 +17,8 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace hulkfight { namespace ai {
 class ShotFailCountCondition_12c8c0 {
 public:
-    void FUN_0012b260();
-    void FUN_0012b270();
+    bool FUN_0012b260(int); /* (unb4) as defined; address taken only */
+    bool FUN_0012b270(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_f04af2f4 {
@@ -58,12 +58,12 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 namespace hulkfight { namespace ai {
 class ThreatBallTrack_12d140 {
 public:
-    void FUN_0012b280();
-    void FUN_0012b290();
-    void FUN_0012b2b0();
+    bool FUN_0012b280(int); /* (unb4) as defined; address taken only */
+    char FUN_0012b290(int); /* (unb4) as defined; address taken only */
+    char FUN_0012b2b0(int); /* (unb4) as defined; address taken only */
     void FUN_0012b2c0();
-    void FUN_0012b2f0();
-    void FUN_0012b320();
+    bool FUN_0012b2f0(void*); /* (unb4) as defined; address taken only */
+    char FUN_0012b320(int); /* (unb4) as defined; address taken only */
     void FUN_0012b330();
 };
 } }
@@ -106,10 +106,10 @@ public:
 };
 class ThreatDodgeTrack {
 public:
-    void FUN_0012b340();
-    void FUN_0012b350();
-    void FUN_0012b370();
-    void FUN_0012b390();
+    bool FUN_0012b340(int); /* (unb4) as defined; address taken only */
+    char FUN_0012b350(int); /* (unb4) as defined; address taken only */
+    bool FUN_0012b370(int); /* (unb4) as defined; address taken only */
+    bool FUN_0012b390(char); /* (unb4) as defined; address taken only */
     void FUN_0012b3a0();
 };
 class __declspec(novtable) ParamBoolBase {
@@ -140,11 +140,11 @@ void FUN_0012c8c0()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_12c8c0<hulkfight::ai::ShotFailCountCondition_12c8c0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_12c8c0<hulkfight::ai::ShotFailCountCondition_12c8c0>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::ShotFailCountCondition_12c8c0::FUN_0012b260);
+            params[0] = new (mem) fight::ParamEnumConstList_12c8c0<hulkfight::ai::ShotFailCountCondition_12c8c0>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::ShotFailCountCondition_12c8c0::*)())&hulkfight::ai::ShotFailCountCondition_12c8c0::FUN_0012b260);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_12c8c0<hulkfight::ai::ShotFailCountCondition_12c8c0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_12c8c0<hulkfight::ai::ShotFailCountCondition_12c8c0>("count", &hulkfight::ai::ShotFailCountCondition_12c8c0::FUN_0012b270);
+            params[1] = new (mem) fight::ParamFloatConstRange_12c8c0<hulkfight::ai::ShotFailCountCondition_12c8c0>("count", (void (hulkfight::ai::ShotFailCountCondition_12c8c0::*)())&hulkfight::ai::ShotFailCountCondition_12c8c0::FUN_0012b270);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0e2c), params, 2);
     }
     DAT_004e0e30++;
@@ -163,15 +163,15 @@ void FUN_0012d140()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>("timeBegin", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b280);
+            params[0] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>("timeBegin", (void (hulkfight::ai::ThreatBallTrack_12d140::*)())&hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b280);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>("timeEnd", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b290);
+            params[1] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>("timeEnd", (void (hulkfight::ai::ThreatBallTrack_12d140::*)())&hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b290);
         mem = FUN_0008d690((int)sizeof(ParamIntConstRange<hulkfight::ai::ThreatBallTrack_12d140>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamIntConstRange<hulkfight::ai::ThreatBallTrack_12d140>("attachmentIndex", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b2b0);
+            params[2] = new (mem) ParamIntConstRange<hulkfight::ai::ThreatBallTrack_12d140>("attachmentIndex", (void (hulkfight::ai::ThreatBallTrack_12d140::*)())&hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b2b0);
         mem = FUN_0008d690((int)sizeof(ParamNameConstList<hulkfight::ai::ThreatBallTrack_12d140>));
         params[3] = 0;
         if (mem)
@@ -179,11 +179,11 @@ void FUN_0012d140()
         mem = FUN_0008d690((int)sizeof(ParamVector<hulkfight::ai::ThreatBallTrack_12d140>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamVector<hulkfight::ai::ThreatBallTrack_12d140>("offset", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b2f0);
+            params[4] = new (mem) ParamVector<hulkfight::ai::ThreatBallTrack_12d140>("offset", (void (hulkfight::ai::ThreatBallTrack_12d140::*)())&hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b2f0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>("radius", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b320);
+            params[5] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>("radius", (void (hulkfight::ai::ThreatBallTrack_12d140::*)())&hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b320);
         mem = FUN_0008d690((int)sizeof(ParamName<hulkfight::ai::ThreatBallTrack_12d140>));
         params[6] = 0;
         if (mem)
@@ -207,19 +207,19 @@ void FUN_0012d310()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ThreatDodgeTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<ThreatDodgeTrack>("timeBegin", &ThreatDodgeTrack::FUN_0012b340);
+            params[0] = new (mem) ParamFloatConstRange<ThreatDodgeTrack>("timeBegin", (void (ThreatDodgeTrack::*)())&ThreatDodgeTrack::FUN_0012b340);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ThreatDodgeTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<ThreatDodgeTrack>("timeEnd", &ThreatDodgeTrack::FUN_0012b350);
+            params[1] = new (mem) ParamFloatConstRange<ThreatDodgeTrack>("timeEnd", (void (ThreatDodgeTrack::*)())&ThreatDodgeTrack::FUN_0012b350);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ThreatDodgeTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<ThreatDodgeTrack>("speed", &ThreatDodgeTrack::FUN_0012b370);
+            params[2] = new (mem) ParamFloatConstRange<ThreatDodgeTrack>("speed", (void (ThreatDodgeTrack::*)())&ThreatDodgeTrack::FUN_0012b370);
         mem = FUN_0008d690((int)sizeof(ParamBool<ThreatDodgeTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamBool<ThreatDodgeTrack>("threatRespondOnlyOnce", &ThreatDodgeTrack::FUN_0012b390);
+            params[3] = new (mem) ParamBool<ThreatDodgeTrack>("threatRespondOnlyOnce", (void (ThreatDodgeTrack::*)())&ThreatDodgeTrack::FUN_0012b390);
         mem = FUN_0008d690((int)sizeof(ParamName<ThreatDodgeTrack>));
         params[4] = 0;
         if (mem)

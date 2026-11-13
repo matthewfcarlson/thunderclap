@@ -83,20 +83,20 @@ extern int hulk_at_004dc594;
 extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class CGrappleAttachTrack_5ca20 {
 public:
-    void FUN_0005a120();
+    bool FUN_0005a120(int); /* (unb4) as defined; address taken only */
     void FUN_000129e0();
     void FUN_000129f0();
-    void FUN_0005a130();
-    void FUN_0005a140();
-    void FUN_0005a160();
-    void FUN_0005a180();
+    char FUN_0005a130(char); /* (unb4) as defined; address taken only */
+    char FUN_0005a140(void*); /* (unb4) as defined; address taken only */
+    char FUN_0005a160(float); /* (unb4) as defined; address taken only */
+    char FUN_0005a180(void*); /* (unb4) as defined; address taken only */
     void FUN_00012a60();
-    void FUN_0005a1b0();
-    void FUN_0005a1d0();
-    void FUN_0005a1e0();
-    void FUN_0005a1f0();
-    void FUN_0005a200();
-    void FUN_0005a210();
+    bool FUN_0005a1b0(void*); /* (unb4) as defined; address taken only */
+    bool FUN_0005a1d0(int); /* (unb4) as defined; address taken only */
+    char FUN_0005a1e0(int); /* (unb4) as defined; address taken only */
+    char FUN_0005a1f0(char); /* (unb4) as defined; address taken only */
+    bool FUN_0005a200(int); /* (unb4) as defined; address taken only */
+    char FUN_0005a210(int); /* (unb4) as defined; address taken only */
 };
 class __declspec(novtable) ParamBoolBase {
 public:
@@ -166,15 +166,15 @@ public:
 namespace fn_f35d11f7 {
 class CGrappleSwapTrack_5cd20 {
 public:
-    void FUN_0005a220();
+    char FUN_0005a220(int); /* (unb4) as defined; address taken only */
     void FUN_00012ae0();
     void FUN_00012af0();
-    void FUN_0005a230();
-    void FUN_0005a240();
-    void FUN_0005a260();
-    void FUN_0005a280();
-    void FUN_0005a290();
-    void FUN_0005a2a0();
+    char FUN_0005a230(char); /* (unb4) as defined; address taken only */
+    bool FUN_0005a240(void*); /* (unb4) as defined; address taken only */
+    char FUN_0005a260(float); /* (unb4) as defined; address taken only */
+    bool FUN_0005a280(int); /* (unb4) as defined; address taken only */
+    bool FUN_0005a290(int); /* (unb4) as defined; address taken only */
+    bool FUN_0005a2a0(int); /* (unb4) as defined; address taken only */
 };
 template <class T>
 class ParamBool : public ParamBoolBase {
@@ -202,13 +202,13 @@ public:
 };
 class CGrabTrack_5cf20 {
 public:
-    void FUN_0005a360();
-    void FUN_0005a370();
+    char FUN_0005a360(int); /* (unb4) as defined; address taken only */
+    char FUN_0005a370(int); /* (unb4) as defined; address taken only */
     void FUN_0005a380();
-    void FUN_0005a390();
-    void FUN_0005a3b0();
-    void FUN_0005a3c0();
-    void FUN_0005a3d0();
+    bool FUN_0005a390(void*); /* (unb4) as defined; address taken only */
+    char FUN_0005a3b0(int); /* (unb4) as defined; address taken only */
+    char FUN_0005a3c0(int); /* (unb4) as defined; address taken only */
+    char FUN_0005a3d0(int); /* (unb4) as defined; address taken only */
     void FUN_00012bd0();
     void FUN_00012be0();
 };
@@ -336,7 +336,7 @@ extern "C" void FUN_0005ca20()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("timeBegin", &CGrappleAttachTrack_5ca20::FUN_0005a120);
+            params[0] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("timeBegin", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a120);
         mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>));
         params[1] = 0;
         if (mem)
@@ -348,19 +348,19 @@ extern "C" void FUN_0005ca20()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>("useOffset", &CGrappleAttachTrack_5ca20::FUN_0005a130);
+            params[3] = new (mem) fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>("useOffset", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a130);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>("offsetPosition", &CGrappleAttachTrack_5ca20::FUN_0005a140);
+            params[4] = new (mem) fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>("offsetPosition", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a140);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("offsetOrientation", &CGrappleAttachTrack_5ca20::FUN_0005a160);
+            params[5] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("offsetOrientation", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a160);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>("offsetAngle", &CGrappleAttachTrack_5ca20::FUN_0005a180);
+            params[6] = new (mem) fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>("offsetAngle", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a180);
         mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>));
         params[7] = 0;
         if (mem)
@@ -368,27 +368,27 @@ extern "C" void FUN_0005ca20()
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>("orientJointOffset", &CGrappleAttachTrack_5ca20::FUN_0005a1b0);
+            params[8] = new (mem) fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>("orientJointOffset", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a1b0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("orientJointMinDistance", &CGrappleAttachTrack_5ca20::FUN_0005a1d0);
+            params[9] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("orientJointMinDistance", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a1d0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("orientJointMaxDistance", &CGrappleAttachTrack_5ca20::FUN_0005a1e0);
+            params[10] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("orientJointMaxDistance", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a1e0);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>));
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>("attachToGrapplee", &CGrappleAttachTrack_5ca20::FUN_0005a1f0);
+            params[11] = new (mem) fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>("attachToGrapplee", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a1f0);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_5ca20<CGrappleAttachTrack_5ca20>));
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamIntConstRange_5ca20<CGrappleAttachTrack_5ca20>("rootPriority", &CGrappleAttachTrack_5ca20::FUN_0005a200);
+            params[12] = new (mem) fight::ParamIntConstRange_5ca20<CGrappleAttachTrack_5ca20>("rootPriority", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a200);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
         params[13] = 0;
         if (mem)
-            params[13] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("rootBlendInTime", &CGrappleAttachTrack_5ca20::FUN_0005a210);
+            params[13] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("rootBlendInTime", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a210);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc598), params, 14);
     }
     DAT_004dc59c++;
@@ -407,7 +407,7 @@ extern "C" void FUN_0005cd20()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleSwapTrack_5cd20>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("timeBegin", &CGrappleSwapTrack_5cd20::FUN_0005a220);
+            params[0] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("timeBegin", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a220);
         mem = FUN_0008d690((int)sizeof(ParamNameConstList<CGrappleSwapTrack_5cd20>));
         params[1] = 0;
         if (mem)
@@ -419,27 +419,27 @@ extern "C" void FUN_0005cd20()
         mem = FUN_0008d690((int)sizeof(ParamBool<CGrappleSwapTrack_5cd20>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamBool<CGrappleSwapTrack_5cd20>("useOffset", &CGrappleSwapTrack_5cd20::FUN_0005a230);
+            params[3] = new (mem) ParamBool<CGrappleSwapTrack_5cd20>("useOffset", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a230);
         mem = FUN_0008d690((int)sizeof(ParamVector<CGrappleSwapTrack_5cd20>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamVector<CGrappleSwapTrack_5cd20>("offsetPosition", &CGrappleSwapTrack_5cd20::FUN_0005a240);
+            params[4] = new (mem) ParamVector<CGrappleSwapTrack_5cd20>("offsetPosition", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a240);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleSwapTrack_5cd20>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("offsetOrientation", &CGrappleSwapTrack_5cd20::FUN_0005a260);
+            params[5] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("offsetOrientation", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a260);
         mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CGrappleSwapTrack_5cd20>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamIntConstRange<CGrappleSwapTrack_5cd20>("rootPriority", &CGrappleSwapTrack_5cd20::FUN_0005a280);
+            params[6] = new (mem) ParamIntConstRange<CGrappleSwapTrack_5cd20>("rootPriority", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a280);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleSwapTrack_5cd20>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("rootBlendInTime", &CGrappleSwapTrack_5cd20::FUN_0005a290);
+            params[7] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("rootBlendInTime", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a290);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleSwapTrack_5cd20>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("rootBlendOutTime", &CGrappleSwapTrack_5cd20::FUN_0005a2a0);
+            params[8] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("rootBlendOutTime", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a2a0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc5a0), params, 9);
     }
     DAT_004dc5a4++;
@@ -458,11 +458,11 @@ extern "C" void FUN_0005cf20()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrabTrack_5cf20>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("timeBegin", &CGrabTrack_5cf20::FUN_0005a360);
+            params[0] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("timeBegin", (void (CGrabTrack_5cf20::*)())&CGrabTrack_5cf20::FUN_0005a360);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrabTrack_5cf20>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("timeEnd", &CGrabTrack_5cf20::FUN_0005a370);
+            params[1] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("timeEnd", (void (CGrabTrack_5cf20::*)())&CGrabTrack_5cf20::FUN_0005a370);
         mem = FUN_0008d690((int)sizeof(ParamNameConstList<CGrabTrack_5cf20>));
         params[2] = 0;
         if (mem)
@@ -470,19 +470,19 @@ extern "C" void FUN_0005cf20()
         mem = FUN_0008d690((int)sizeof(ParamVector<CGrabTrack_5cf20>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamVector<CGrabTrack_5cf20>("offset", &CGrabTrack_5cf20::FUN_0005a390);
+            params[3] = new (mem) ParamVector<CGrabTrack_5cf20>("offset", (void (CGrabTrack_5cf20::*)())&CGrabTrack_5cf20::FUN_0005a390);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrabTrack_5cf20>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("radius", &CGrabTrack_5cf20::FUN_0005a3b0);
+            params[4] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("radius", (void (CGrabTrack_5cf20::*)())&CGrabTrack_5cf20::FUN_0005a3b0);
         mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CGrabTrack_5cf20>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamIntConstRange<CGrabTrack_5cf20>("interruptPriority", &CGrabTrack_5cf20::FUN_0005a3c0);
+            params[5] = new (mem) ParamIntConstRange<CGrabTrack_5cf20>("interruptPriority", (void (CGrabTrack_5cf20::*)())&CGrabTrack_5cf20::FUN_0005a3c0);
         mem = FUN_0008d690((int)sizeof(ParamBool<CGrabTrack_5cf20>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamBool<CGrabTrack_5cf20>("missileCatch", &CGrabTrack_5cf20::FUN_0005a3d0);
+            params[6] = new (mem) ParamBool<CGrabTrack_5cf20>("missileCatch", (void (CGrabTrack_5cf20::*)())&CGrabTrack_5cf20::FUN_0005a3d0);
         mem = FUN_0008d690((int)sizeof(ParamBranch<CGrabTrack_5cf20>));
         params[7] = 0;
         if (mem)

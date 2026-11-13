@@ -17,7 +17,7 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace fight {
 class FightNodeCondition_2361a0 {
 public:
-    void FUN_00235950();
+    char FUN_00235950(int); /* (unb4) as defined; address taken only */
     void FUN_00235960();
 };
 }
@@ -58,8 +58,8 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 namespace fight {
 class FightNodeTimeCondition_236340 {
 public:
-    void FUN_002359a0();
-    void FUN_002359b0();
+    char FUN_002359a0(int); /* (unb4) as defined; address taken only */
+    char FUN_002359b0(int); /* (unb4) as defined; address taken only */
 };
 }
 namespace fn_fa6aa741 {
@@ -135,7 +135,7 @@ extern "C" void FUN_002361a0()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_2361a0<fight::FightNodeCondition_2361a0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_2361a0<fight::FightNodeCondition_2361a0>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &fight::FightNodeCondition_2361a0::FUN_00235950);
+            params[0] = new (mem) fight::ParamEnumConstList_2361a0<fight::FightNodeCondition_2361a0>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), (void (fight::FightNodeCondition_2361a0::*)())&fight::FightNodeCondition_2361a0::FUN_00235950);
         mem = FUN_0008d690((int)sizeof(fight::ParamBranch_2361a0<fight::FightNodeCondition_2361a0>));
         params[1] = 0;
         if (mem)
@@ -158,11 +158,11 @@ extern "C" void FUN_00236340()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_236340<fight::FightNodeTimeCondition_236340>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_236340<fight::FightNodeTimeCondition_236340>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &fight::FightNodeTimeCondition_236340::FUN_002359a0);
+            params[0] = new (mem) fight::ParamEnumConstList_236340<fight::FightNodeTimeCondition_236340>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (fight::FightNodeTimeCondition_236340::*)())&fight::FightNodeTimeCondition_236340::FUN_002359a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_236340<fight::FightNodeTimeCondition_236340>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_236340<fight::FightNodeTimeCondition_236340>("time", &fight::FightNodeTimeCondition_236340::FUN_002359b0);
+            params[1] = new (mem) fight::ParamFloatConstRange_236340<fight::FightNodeTimeCondition_236340>("time", (void (fight::FightNodeTimeCondition_236340::*)())&fight::FightNodeTimeCondition_236340::FUN_002359b0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e5bec), params, 2);
     }
     DAT_004e5bf0++;

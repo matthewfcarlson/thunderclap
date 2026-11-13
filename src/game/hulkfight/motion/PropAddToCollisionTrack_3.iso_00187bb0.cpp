@@ -20,7 +20,7 @@ inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f01d7b1d {
 
    
-void FUN_0017f600(); void FUN_0017f620(); void FUN_0017f640();
+bool FUN_0017f600(void*, int); /* (unb4) as defined; address taken only */ bool FUN_0017f620(void*, int); /* (unb4) as defined; address taken only */ bool FUN_0017f640(void*, int); /* (unb4) as defined; address taken only */
 namespace hulkfight { namespace motion { class PropMissileCountCondition; } }
 struct FUN_002348e0 { virtual void slot0(); char pad[12]; void (*callback)(); int tail; FUN_002348e0(const char*); };
 struct FUN_00234cc0 { virtual void slot0(); char pad[12]; const char* list; int count; void (*callback)(); int tail; FUN_00234cc0(const char*); };
@@ -36,15 +36,15 @@ void target() {
  typedef fight::ParamEnumConstList<hulkfight::motion::PropMissileCountCondition> E;
  void* mem=FUN_0008d690((int)sizeof(I));
  I* a=mem ? new(mem) I("attachmentIndex") : 0;
- if(a) a->callback=FUN_0017f600;
+ if(a) a->callback=(void (*)())FUN_0017f600;
  params[0]=a;
  mem=FUN_0008d690((int)sizeof(E));
  E* b=0;
- if(mem) { int count=(*(int*)&DAT_00427754); b=new(mem) E("compare"); b->count=count; b->list=((char*)&DAT_0042773c); b->callback=FUN_0017f620; }
+ if(mem) { int count=(*(int*)&DAT_00427754); b=new(mem) E("compare"); b->count=count; b->list=((char*)&DAT_0042773c); b->callback=(void (*)())FUN_0017f620; }
  params[1]=b;
  mem=FUN_0008d690((int)sizeof(I));
  I* c=mem ? new(mem) I("missiles") : 0;
- if(c) c->callback=FUN_0017f640;
+ if(c) c->callback=(void (*)())FUN_0017f640;
  params[2]=c;
  FUN_002347b0(&DAT_004e1448,params,3);
  }

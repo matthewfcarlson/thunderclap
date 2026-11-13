@@ -15,8 +15,8 @@ namespace fn_f654b4fb {
 // FUN_00053e30 @ 0x00053e30
 
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_00047fa0();
-void __cdecl FUN_00047fb0();
+bool FUN_00047fa0(void*, int); /* (unb4) as defined; address taken only */
+char FUN_00047fb0(void*, int); /* (unb4) as defined; address taken only */
 void __cdecl FUN_002347b0(void*,void*,int);
 
 } // namespace fn_f654b4fb
@@ -46,13 +46,13 @@ extern "C" void FUN_00053e30() {
   if(mem) {
    int count=(*(int*)&DAT_00427760);
    p[0]=new(mem) fight::ParamEnumConstList<CGrappleSizeCondition>("compare");
-   p[0]->values=((char*)&DAT_00427758); p[0]->count=count; p[0]->callback=FUN_00047fa0;
+   p[0]->values=((char*)&DAT_00427758); p[0]->count=count; p[0]->callback=(void (*)())FUN_00047fa0;
   } else p[0]=0;
   mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CGrappleSizeCondition>));
   if(mem) {
    int count=(*(int*)&DAT_003f5eb4);
    p[1]=new(mem) fight::ParamEnumConstList<CGrappleSizeCondition>("size");
-   p[1]->values=((char*)&DAT_0048f6b4); p[1]->count=count; p[1]->callback=FUN_00047fb0;
+   p[1]->values=((char*)&DAT_0048f6b4); p[1]->count=count; p[1]->callback=(void (*)())FUN_00047fb0;
   } else p[1]=0;
   FUN_002347b0(&DAT_004dc4f8,p,2);
  }

@@ -16,8 +16,8 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace hulkfight { namespace ai {
 class FaceTargetTrack_10bc00 {
 public:
-    void FUN_0010b3d0();
-    void FUN_0010b3e0();
+    bool FUN_0010b3d0(int); /* (unb4) as defined; address taken only */
+    char FUN_0010b3e0(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_fd54d364 {
@@ -44,8 +44,8 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 namespace hulkfight { namespace ai {
 class FaceMotionTrack_10bca0 {
 public:
-    void FUN_0010b3f0();
-    void FUN_0010b400();
+    bool FUN_0010b3f0(int); /* (unb4) as defined; address taken only */
+    char FUN_0010b400(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -73,11 +73,11 @@ void FUN_0010bc00()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_10bc00<hulkfight::ai::FaceTargetTrack_10bc00>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_10bc00<hulkfight::ai::FaceTargetTrack_10bc00>("timeBegin", &hulkfight::ai::FaceTargetTrack_10bc00::FUN_0010b3d0);
+            params[0] = new (mem) fight::ParamFloatConstRange_10bc00<hulkfight::ai::FaceTargetTrack_10bc00>("timeBegin", (void (hulkfight::ai::FaceTargetTrack_10bc00::*)())&hulkfight::ai::FaceTargetTrack_10bc00::FUN_0010b3d0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_10bc00<hulkfight::ai::FaceTargetTrack_10bc00>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_10bc00<hulkfight::ai::FaceTargetTrack_10bc00>("timeEnd", &hulkfight::ai::FaceTargetTrack_10bc00::FUN_0010b3e0);
+            params[1] = new (mem) fight::ParamFloatConstRange_10bc00<hulkfight::ai::FaceTargetTrack_10bc00>("timeEnd", (void (hulkfight::ai::FaceTargetTrack_10bc00::*)())&hulkfight::ai::FaceTargetTrack_10bc00::FUN_0010b3e0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0ad0), params, 2);
     }
     DAT_004e0ad4++;
@@ -96,11 +96,11 @@ void FUN_0010bca0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_10bca0<hulkfight::ai::FaceMotionTrack_10bca0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_10bca0<hulkfight::ai::FaceMotionTrack_10bca0>("timeBegin", &hulkfight::ai::FaceMotionTrack_10bca0::FUN_0010b3f0);
+            params[0] = new (mem) fight::ParamFloatConstRange_10bca0<hulkfight::ai::FaceMotionTrack_10bca0>("timeBegin", (void (hulkfight::ai::FaceMotionTrack_10bca0::*)())&hulkfight::ai::FaceMotionTrack_10bca0::FUN_0010b3f0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_10bca0<hulkfight::ai::FaceMotionTrack_10bca0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_10bca0<hulkfight::ai::FaceMotionTrack_10bca0>("timeEnd", &hulkfight::ai::FaceMotionTrack_10bca0::FUN_0010b400);
+            params[1] = new (mem) fight::ParamFloatConstRange_10bca0<hulkfight::ai::FaceMotionTrack_10bca0>("timeEnd", (void (hulkfight::ai::FaceMotionTrack_10bca0::*)())&hulkfight::ai::FaceMotionTrack_10bca0::FUN_0010b400);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0ad8), params, 2);
     }
     DAT_004e0adc++;

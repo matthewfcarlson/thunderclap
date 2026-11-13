@@ -15,17 +15,17 @@ extern "C" void* FUN_0008d690(unsigned int size);
 
 class AirToGroundTargetTrack {
 public:
-    void FUN_00133320();
-    void FUN_00133330();
-    void FUN_00133350();
-    void FUN_00133370();
-    void FUN_00133390();
-    void FUN_001333b0();
-    void FUN_001333d0();
-    void FUN_00133400();
-    void FUN_00133420();
-    void FUN_00133440();
-    void FUN_00133460();
+    char FUN_00133320(int); /* (unb4) as defined; address taken only */
+    char FUN_00133330(int); /* (unb4) as defined; address taken only */
+    char FUN_00133350(int); /* (unb4) as defined; address taken only */
+    bool FUN_00133370(int); /* (unb4) as defined; address taken only */
+    char FUN_00133390(int); /* (unb4) as defined; address taken only */
+    bool FUN_001333b0(int); /* (unb4) as defined; address taken only */
+    bool FUN_001333d0(float); /* (unb4) as defined; address taken only */
+    bool FUN_00133400(int); /* (unb4) as defined; address taken only */
+    bool FUN_00133420(int); /* (unb4) as defined; address taken only */
+    char FUN_00133440(int); /* (unb4) as defined; address taken only */
+    bool FUN_00133460(int); /* (unb4) as defined; address taken only */
 };
 
 class __declspec(novtable) ParamFloatConstRangeBase {
@@ -75,47 +75,47 @@ void FUN_00138080()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("timeBegin", &AirToGroundTargetTrack::FUN_00133320);
+            params[0] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("timeBegin", (void (AirToGroundTargetTrack::*)())&AirToGroundTargetTrack::FUN_00133320);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("timeEnd", &AirToGroundTargetTrack::FUN_00133330);
+            params[1] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("timeEnd", (void (AirToGroundTargetTrack::*)())&AirToGroundTargetTrack::FUN_00133330);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("velocityXZMin", &AirToGroundTargetTrack::FUN_00133350);
+            params[2] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("velocityXZMin", (void (AirToGroundTargetTrack::*)())&AirToGroundTargetTrack::FUN_00133350);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("velocityXZMax", &AirToGroundTargetTrack::FUN_00133370);
+            params[3] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("velocityXZMax", (void (AirToGroundTargetTrack::*)())&AirToGroundTargetTrack::FUN_00133370);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("accelerationXZ", &AirToGroundTargetTrack::FUN_00133390);
+            params[4] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("accelerationXZ", (void (AirToGroundTargetTrack::*)())&AirToGroundTargetTrack::FUN_00133390);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("gravity", &AirToGroundTargetTrack::FUN_001333b0);
+            params[5] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("gravity", (void (AirToGroundTargetTrack::*)())&AirToGroundTargetTrack::FUN_001333b0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("turningVelocity", &AirToGroundTargetTrack::FUN_001333d0);
+            params[6] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("turningVelocity", (void (AirToGroundTargetTrack::*)())&AirToGroundTargetTrack::FUN_001333d0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("targetOffset", &AirToGroundTargetTrack::FUN_00133400);
+            params[7] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("targetOffset", (void (AirToGroundTargetTrack::*)())&AirToGroundTargetTrack::FUN_00133400);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_138080<AirToGroundTargetTrack>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamIntConstRange_138080<AirToGroundTargetTrack>("priority", &AirToGroundTargetTrack::FUN_00133420);
+            params[8] = new (mem) fight::ParamIntConstRange_138080<AirToGroundTargetTrack>("priority", (void (AirToGroundTargetTrack::*)())&AirToGroundTargetTrack::FUN_00133420);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("blendInTime", &AirToGroundTargetTrack::FUN_00133440);
+            params[9] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("blendInTime", (void (AirToGroundTargetTrack::*)())&AirToGroundTargetTrack::FUN_00133440);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("blendOutTime", &AirToGroundTargetTrack::FUN_00133460);
+            params[10] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("blendOutTime", (void (AirToGroundTargetTrack::*)())&AirToGroundTargetTrack::FUN_00133460);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0ee0), params, 11);
     }
     DAT_004e0ee4++;

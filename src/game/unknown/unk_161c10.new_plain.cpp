@@ -15,9 +15,9 @@ void* __cdecl FUN_0008d690(unsigned int);
 } // namespace fn_fc15367f
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_fc15367f {
-void FUN_0015a830();
-void FUN_0015a840();
-void FUN_0015a850();
+void* FUN_0015a830(void*); /* (unb4) as defined; address taken only */
+bool FUN_0015a840(void*, int); /* (unb4) as defined; address taken only */
+char FUN_0015a850(void*, char); /* (unb4) as defined; address taken only */
 struct FUN_00234ba0 { FUN_00234ba0(const char* = "joint"); virtual void slot(); char pad[12]; void (*callback)(); char tail[4]; };
 struct FUN_00234960 { FUN_00234960(const char* = "thresholdDistance"); virtual void slot(); char pad[12]; void (*callback)(); char tail[4]; };
 struct FUN_00234860 { FUN_00234860(const char* = "planted"); virtual void slot(); char pad[12]; void (*callback)(); char tail[4]; };
@@ -46,9 +46,9 @@ void target() {
  typedef fight::ParamNameConstList<hulkfight::motion::JointPlantedCondition> A;
  typedef fight::ParamFloatConstRange<hulkfight::motion::JointPlantedCondition> B;
  typedef fight::ParamBool<hulkfight::motion::JointPlantedCondition> C;
- A* a=(A*)FUN_0008d690((int)sizeof(A)); if(a) { new(a) A; a->callback=FUN_0015a830; } params[0]=a;
- B* b=(B*)FUN_0008d690((int)sizeof(B)); if(b) { new(b) B; b->callback=FUN_0015a840; } params[1]=b;
- C* c=(C*)FUN_0008d690((int)sizeof(C)); if(c) { new(c) C; c->callback=FUN_0015a850; } params[2]=c;
+ A* a=(A*)FUN_0008d690((int)sizeof(A)); if(a) { new(a) A; a->callback=(void (*)())FUN_0015a830; } params[0]=a;
+ B* b=(B*)FUN_0008d690((int)sizeof(B)); if(b) { new(b) B; b->callback=(void (*)())FUN_0015a840; } params[1]=b;
+ C* c=(C*)FUN_0008d690((int)sizeof(C)); if(c) { new(c) C; c->callback=(void (*)())FUN_0015a850; } params[2]=c;
  FUN_002347b0(&DAT_004e1160,params,3);
  }
  ++DAT_004e1164;

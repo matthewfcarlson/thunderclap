@@ -48,7 +48,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 struct Small { unsigned int data[2]; void FUN_0027af00(); };
 struct Entry { Small first,second; unsigned int rest[12]; };
 struct CStatsManager { union { Entry entries[50]; unsigned int words[800]; }; unsigned int count; unsigned int untouched; unsigned int xp; unsigned int tail[272]; unsigned int secrets; CStatsManager* initialize();
- void FUN_00090630(); void FUN_00090720(); void FUN_000906f0(); void FUN_00090df0(); void FUN_000900a0(); void FUN_00090110(); void FUN_00090130(); void FUN_0008ffb0(); void FUN_000901a0(); void FUN_00090200(); void FUN_0008ffc0(); void FUN_00090270(); void FUN_00090310(); void FUN_000903a0(); void FUN_00090430(); void FUN_00090440(); };
+ void FUN_00090630(void*, void*, int, int, int, int); /* (unb4) as defined; address taken only */ void FUN_00090720(void*, int); /* (unb4) as defined; address taken only */ void FUN_000906f0(); void FUN_00090df0(); void FUN_000900a0(); void FUN_00090110(); void FUN_00090130(); void FUN_0008ffb0(); void FUN_000901a0(); int FUN_00090200(void*, int); /* (unb4) as defined; address taken only */ void FUN_0008ffc0(); void FUN_00090270(void*, void*, int); /* (unb4) as defined; address taken only */ void FUN_00090310(); void FUN_000903a0(); void FUN_00090430(); void FUN_00090440(); };
 // The bound member functions are CStatsManager's; a Binding is a Method<N> / Closure<N> on Function's fields
 // (include/decls/data/script.h): the member-function pointer, then (Closure) the object.
 typedef void (CStatsManager::*Callback)();
@@ -77,9 +77,9 @@ CStatsManager* CStatsManager::initialize() {
  typedef Closure6<CStatsManager,void,const char*,const char*,int,int,int,int> Closure6_t; typedef Closure3<CStatsManager,void,char*,char*,int> Closure3_t;
  HULK_SIZE32(Closure6_t, 0x24); HULK_SIZE32(Closure3_t, 0x24); HULK_SIZE32(ScriptClosureView, 0x24);
  Registry* r=FUN_001d4c90(); Binding* p=(Binding*)FUN_0008d690((int)sizeof(Closure6_t));
- if(p) { p->FUN_00090840("sta_PrepareStat",&CStatsManager::FUN_00090630); Closure6<CStatsManager,void,const char*,const char*,int,int,int,int>* c=new(p) Closure6<CStatsManager,void,const char*,const char*,int,int,int,int>; c->owner=this; }
+ if(p) { p->FUN_00090840("sta_PrepareStat",(void (CStatsManager::*)())&CStatsManager::FUN_00090630); Closure6<CStatsManager,void,const char*,const char*,int,int,int,int>* c=new(p) Closure6<CStatsManager,void,const char*,const char*,int,int,int,int>; c->owner=this; }
  r->FUN_001d3b70("sta_PrepareStat",p);
- p=(Binding*)FUN_0008d690((int)sizeof(ScriptClosureView)); if(p) p=p->FUN_00090eb0("sta_Tally",this,&CStatsManager::FUN_00090720); r->FUN_001d3b70("sta_Tally",p);
+ p=(Binding*)FUN_0008d690((int)sizeof(ScriptClosureView)); if(p) p=p->FUN_00090eb0("sta_Tally",this,(void (CStatsManager::*)())&CStatsManager::FUN_00090720); r->FUN_001d3b70("sta_Tally",p);
  MAKE("sta_BeginTrial",void,const char*,FUN_000906f0,(*(int*)&DAT_0048e100),(*(int*)&DAT_0048e0f0))
  MAKE("sta_EndTrial",void,const char*,FUN_00090df0,(*(int*)&DAT_0048e100),(*(int*)&DAT_0048e0f0))
  MAKE("sta_AddXP",void,int,FUN_000900a0,(*(int*)&DAT_0048e100),(*(int*)&DAT_0048e134))
@@ -87,9 +87,9 @@ CStatsManager* CStatsManager::initialize() {
  MAKE("sta_SetXP",void,int,FUN_00090130,(*(int*)&DAT_0048e100),(*(int*)&DAT_0048e134))
  r->FUN_00091450("sta_GetXPHighScore",this,&CStatsManager::FUN_0008ffb0);
  MAKE("sta_GetStatValue",int,const char*,FUN_000901a0,(*(int*)&DAT_0048e134),(*(int*)&DAT_0048e0f0))
- p=(Binding*)FUN_0008d690((int)sizeof(ScriptClosureView)); if(p) p=p->FUN_00090eb0("sta_SetStatValue",this,&CStatsManager::FUN_00090200); r->FUN_001d3b70("sta_SetStatValue",p);
+ p=(Binding*)FUN_0008d690((int)sizeof(ScriptClosureView)); if(p) p=p->FUN_00090eb0("sta_SetStatValue",this,(void (CStatsManager::*)())&CStatsManager::FUN_00090200); r->FUN_001d3b70("sta_SetStatValue",p);
  r->FUN_00091510("sta_IsFakeXPActive",this,&CStatsManager::FUN_0008ffc0);
- p=(Binding*)FUN_0008d690((int)sizeof(Closure3_t)); if(p) { p->FUN_00090c50("sta_AddDemoGrade",&CStatsManager::FUN_00090270); Closure3<CStatsManager,void,char*,char*,int>* c=new(p) Closure3<CStatsManager,void,char*,char*,int>; c->owner=this; } r->FUN_001d3b70("sta_AddDemoGrade",p);
+ p=(Binding*)FUN_0008d690((int)sizeof(Closure3_t)); if(p) { p->FUN_00090c50("sta_AddDemoGrade",(void (CStatsManager::*)())&CStatsManager::FUN_00090270); Closure3<CStatsManager,void,char*,char*,int>* c=new(p) Closure3<CStatsManager,void,char*,char*,int>; c->owner=this; } r->FUN_001d3b70("sta_AddDemoGrade",p);
  MAKE("sta_GetDemoGrade",const char*,int,FUN_00090310,(*(int*)&DAT_0048e0f0),(*(int*)&DAT_0048e134))
  MAKE("sta_GetDemoCode",const char*,int,FUN_000903a0,(*(int*)&DAT_0048e0f0),(*(int*)&DAT_0048e134))
  MAKE("sta_SetDemoSecretsFound",void,int,FUN_00090430,(*(int*)&DAT_0048e100),(*(int*)&DAT_0048e134))

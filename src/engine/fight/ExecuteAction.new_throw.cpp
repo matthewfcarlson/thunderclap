@@ -14,10 +14,10 @@ namespace fn_f8699fb8 {
 extern "C" void* FUN_0008d690(unsigned int size);
 class ExecuteTrack {
 public:
-    void FUN_002393a0();
-    void FUN_002393b0();
+    char FUN_002393a0(int); /* (unb4) as defined; address taken only */
+    char FUN_002393b0(int); /* (unb4) as defined; address taken only */
     void FUN_002393c0();
-    void FUN_002393e0();
+    bool FUN_002393e0(int); /* (unb4) as defined; address taken only */
     void FUN_002393f0();
 };
 class __declspec(novtable) ParamFloatConstRangeBase {
@@ -64,11 +64,11 @@ extern "C" void FUN_00239a90()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ExecuteTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<ExecuteTrack>("timeBegin", &ExecuteTrack::FUN_002393a0);
+            params[0] = new (mem) ParamFloatConstRange<ExecuteTrack>("timeBegin", (void (ExecuteTrack::*)())&ExecuteTrack::FUN_002393a0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ExecuteTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<ExecuteTrack>("timeEnd", &ExecuteTrack::FUN_002393b0);
+            params[1] = new (mem) ParamFloatConstRange<ExecuteTrack>("timeEnd", (void (ExecuteTrack::*)())&ExecuteTrack::FUN_002393b0);
         mem = FUN_0008d690((int)sizeof(ParamBranch<ExecuteTrack>));
         params[2] = 0;
         if (mem)
@@ -76,7 +76,7 @@ extern "C" void FUN_00239a90()
         mem = FUN_0008d690((int)sizeof(ParamIntConstRange<ExecuteTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamIntConstRange<ExecuteTrack>("priority", &ExecuteTrack::FUN_002393e0);
+            params[3] = new (mem) ParamIntConstRange<ExecuteTrack>("priority", (void (ExecuteTrack::*)())&ExecuteTrack::FUN_002393e0);
         mem = FUN_0008d690((int)sizeof(ParamConditionGroup<ExecuteTrack>));
         params[4] = 0;
         if (mem)

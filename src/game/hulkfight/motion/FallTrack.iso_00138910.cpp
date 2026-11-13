@@ -15,17 +15,17 @@ extern "C" void* FUN_0008d690(unsigned int size);
 
 class FlyingAttackTrack {
 public:
-    void FUN_001337f0();
-    void FUN_00133800();
-    void FUN_00133830();
-    void FUN_00133860();
-    void FUN_00133880();
-    void FUN_001338a0();
-    void FUN_001338c0();
-    void FUN_001338f0();
-    void FUN_00133910();
-    void FUN_00133930();
-    void FUN_00133950();
+    bool FUN_001337f0(int); /* (unb4) as defined; address taken only */
+    char FUN_00133800(int); /* (unb4) as defined; address taken only */
+    bool FUN_00133830(void*); /* (unb4) as defined; address taken only */
+    char FUN_00133860(int); /* (unb4) as defined; address taken only */
+    char FUN_00133880(int); /* (unb4) as defined; address taken only */
+    char FUN_001338a0(int); /* (unb4) as defined; address taken only */
+    char FUN_001338c0(float); /* (unb4) as defined; address taken only */
+    char FUN_001338f0(char); /* (unb4) as defined; address taken only */
+    bool FUN_00133910(int); /* (unb4) as defined; address taken only */
+    char FUN_00133930(int); /* (unb4) as defined; address taken only */
+    char FUN_00133950(int); /* (unb4) as defined; address taken only */
 };
 
 class __declspec(novtable) ParamBoolBase {
@@ -110,47 +110,47 @@ extern "C" void FUN_00138910()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("timeBegin", &FlyingAttackTrack::FUN_001337f0);
+            params[0] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("timeBegin", (void (FlyingAttackTrack::*)())&FlyingAttackTrack::FUN_001337f0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("timeEnd", &FlyingAttackTrack::FUN_00133800);
+            params[1] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("timeEnd", (void (FlyingAttackTrack::*)())&FlyingAttackTrack::FUN_00133800);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_138910<FlyingAttackTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamVector_138910<FlyingAttackTrack>("direction", &FlyingAttackTrack::FUN_00133830);
+            params[2] = new (mem) fight::ParamVector_138910<FlyingAttackTrack>("direction", (void (FlyingAttackTrack::*)())&FlyingAttackTrack::FUN_00133830);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("velocity", &FlyingAttackTrack::FUN_00133860);
+            params[3] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("velocity", (void (FlyingAttackTrack::*)())&FlyingAttackTrack::FUN_00133860);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("acceleration", &FlyingAttackTrack::FUN_00133880);
+            params[4] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("acceleration", (void (FlyingAttackTrack::*)())&FlyingAttackTrack::FUN_00133880);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("heightMin", &FlyingAttackTrack::FUN_001338a0);
+            params[5] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("heightMin", (void (FlyingAttackTrack::*)())&FlyingAttackTrack::FUN_001338a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("tracking", &FlyingAttackTrack::FUN_001338c0);
+            params[6] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("tracking", (void (FlyingAttackTrack::*)())&FlyingAttackTrack::FUN_001338c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_138910<FlyingAttackTrack>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamBool_138910<FlyingAttackTrack>("faceDirection", &FlyingAttackTrack::FUN_001338f0);
+            params[7] = new (mem) fight::ParamBool_138910<FlyingAttackTrack>("faceDirection", (void (FlyingAttackTrack::*)())&FlyingAttackTrack::FUN_001338f0);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_138910<FlyingAttackTrack>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamIntConstRange_138910<FlyingAttackTrack>("priority", &FlyingAttackTrack::FUN_00133910);
+            params[8] = new (mem) fight::ParamIntConstRange_138910<FlyingAttackTrack>("priority", (void (FlyingAttackTrack::*)())&FlyingAttackTrack::FUN_00133910);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("blendInTime", &FlyingAttackTrack::FUN_00133930);
+            params[9] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("blendInTime", (void (FlyingAttackTrack::*)())&FlyingAttackTrack::FUN_00133930);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("blendOutTime", &FlyingAttackTrack::FUN_00133950);
+            params[10] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("blendOutTime", (void (FlyingAttackTrack::*)())&FlyingAttackTrack::FUN_00133950);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0f00), params, 11);
     }
     DAT_004e0f04++;

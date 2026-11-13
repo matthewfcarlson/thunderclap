@@ -18,7 +18,7 @@ inline void* operator new(size_t, void* p) { return p; }
 namespace fn_f3a4915e {
 
 void* __cdecl FUN_0008d690(unsigned int);
-void FUN_000688f0(); void FUN_00068900(); void FUN_00068910(); void FUN_00068920();
+char FUN_000688f0(void*, int); /* (unb4) as defined; address taken only */ bool FUN_00068900(void*, int); /* (unb4) as defined; address taken only */ bool FUN_00068910(void*, int); /* (unb4) as defined; address taken only */ char FUN_00068920(void*, int); /* (unb4) as defined; address taken only */
 class CDriftTrack;
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -34,7 +34,7 @@ extern "C" void FUN_00072180() {
  if (DAT_004dcfcc == 0) {
   fight::ParamFloatConstRange<CDriftTrack>* items[4];
   const char* names[4] = {"timeBegin", "timeEnd", "minVelocity", "maxVelocity"};
-  void (*callbacks[4])() = {FUN_000688f0,FUN_00068900,FUN_00068910,FUN_00068920};
+  void (*callbacks[4])() = {(void (*)())FUN_000688f0,(void (*)())FUN_00068900,(void (*)())FUN_00068910,(void (*)())FUN_00068920};
   for (int i=0;i<4;++i) {
    fight::ParamFloatConstRange<CDriftTrack>* p=(fight::ParamFloatConstRange<CDriftTrack>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CDriftTrack>));
    if(p) {

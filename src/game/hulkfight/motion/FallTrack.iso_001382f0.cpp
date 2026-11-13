@@ -19,9 +19,9 @@ inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_fd2a43d4 {
 
 extern void* __cdecl FUN_0008d690(unsigned int);
-extern void __cdecl FUN_00133470();
-extern void __cdecl FUN_00133480();
-extern void __cdecl FUN_001334a0();
+extern char FUN_00133470(void*, int); /* (unb4) as defined; address taken only */
+extern bool FUN_00133480(void*, int); /* (unb4) as defined; address taken only */
+extern char FUN_001334a0(void*, int); /* (unb4) as defined; address taken only */
 struct FloatBase_1382f0 {
  virtual void slot0();
  char data[12];
@@ -55,15 +55,15 @@ void __cdecl FUN_001382f0() {
   typedef fight::ParamIntConstRange<hulkfight::motion::HoverTrack> I;
   void* p=FUN_0008d690((int)sizeof(F));
   F* a = p ? new (p) F("timeBegin") : 0;
-  if(a) a->callback=FUN_00133470;
+  if(a) a->callback=(void (*)())FUN_00133470;
   entries[0]=a;
   p=FUN_0008d690((int)sizeof(F));
   F* b = p ? new (p) F("timeEnd") : 0;
-  if(b) b->callback=FUN_00133480;
+  if(b) b->callback=(void (*)())FUN_00133480;
   entries[1]=b;
   p=FUN_0008d690((int)sizeof(I));
   I* c = p ? new (p) I("groundFixup") : 0;
-  if(c) c->callback=FUN_001334a0;
+  if(c) c->callback=(void (*)())FUN_001334a0;
   entries[2]=c;
   FUN_002347b0(&DAT_004e0ee8,entries,3);
  }

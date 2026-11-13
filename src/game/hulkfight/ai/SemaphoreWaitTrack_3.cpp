@@ -133,7 +133,7 @@ void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 namespace hulkfight { namespace ai {
 class DefendingCondition_111ca0 {
 public:
-    void FUN_0010c130();
+    bool FUN_0010c130(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_fee140f0 {
@@ -157,7 +157,7 @@ public:
 namespace hulkfight { namespace ai {
 class LeashedCondition_112000 {
 public:
-    void FUN_0010c1f0();
+    char FUN_0010c1f0(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -173,8 +173,8 @@ public:
 namespace hulkfight { namespace ai {
 class InActiveCondition_112200 {
 public:
-    void FUN_0010c250();
-    void FUN_0010c270();
+    char FUN_0010c250(int); /* (unb4) as defined; address taken only */
+    char FUN_0010c270(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -203,8 +203,8 @@ public:
 namespace hulkfight { namespace ai {
 class TokenCondition_112570 {
 public:
-    void FUN_0010c370();
-    void FUN_0010c390();
+    char FUN_0010c370(char); /* (unb4) as defined; address taken only */
+    char FUN_0010c390(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -220,11 +220,11 @@ public:
 namespace fn_fee140f0 {
 class SemaphoreClearTrack {
 public:
-    void FUN_0010c3b0();
-    void FUN_0010c3c0();
+    char FUN_0010c3b0(int); /* (unb4) as defined; address taken only */
+    bool FUN_0010c3c0(int); /* (unb4) as defined; address taken only */
     void FUN_0010c3d0();
-    void FUN_0010c3f0();
-    void FUN_0010c410();
+    char FUN_0010c3f0(char); /* (unb4) as defined; address taken only */
+    char FUN_0010c410(char); /* (unb4) as defined; address taken only */
 };
 class __declspec(novtable) ParamFloatConstRangeBase {
 public:
@@ -264,18 +264,18 @@ public:
 };
 class TokenSupressTrack {
 public:
-    void FUN_0010c420();
-    void FUN_0010c430();
-    void FUN_0010c450();
-    void FUN_0010c470();
-    void FUN_0010c490();
-    void FUN_0010c4b0();
+    char FUN_0010c420(int); /* (unb4) as defined; address taken only */
+    char FUN_0010c430(int); /* (unb4) as defined; address taken only */
+    char FUN_0010c450(char); /* (unb4) as defined; address taken only */
+    bool FUN_0010c470(int); /* (unb4) as defined; address taken only */
+    char FUN_0010c490(char); /* (unb4) as defined; address taken only */
+    bool FUN_0010c4b0(char); /* (unb4) as defined; address taken only */
 };
 } // namespace fn_fee140f0
 namespace hulkfight { namespace ai {
 class AIHistoryCountTrack_112940 {
 public:
-    void FUN_0010c4c0();
+    char FUN_0010c4c0(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -291,12 +291,12 @@ public:
 namespace fn_fee140f0 {
 class ButtonTrack {
 public:
-    void FUN_0010c560();
-    void FUN_0010c570();
-    void FUN_0010c590();
-    void FUN_0010c5b0();
-    void FUN_0010c5d0();
-    void FUN_0010c5f0();
+    bool FUN_0010c560(int); /* (unb4) as defined; address taken only */
+    char FUN_0010c570(int); /* (unb4) as defined; address taken only */
+    bool FUN_0010c590(int); /* (unb4) as defined; address taken only */
+    char FUN_0010c5b0(int); /* (unb4) as defined; address taken only */
+    char FUN_0010c5d0(int); /* (unb4) as defined; address taken only */
+    char FUN_0010c5f0(int); /* (unb4) as defined; address taken only */
 };
 template <class T>
 class ParamEnumConstList : public ParamEnumBase {
@@ -310,12 +310,12 @@ public:
 };
 class SemaphoreWaitTrack {
 public:
-    void FUN_0010c680();
-    void FUN_0010c690();
+    bool FUN_0010c680(int); /* (unb4) as defined; address taken only */
+    char FUN_0010c690(int); /* (unb4) as defined; address taken only */
     void FUN_0010c6a0();
-    void FUN_0010c6c0();
-    void FUN_0010c6e0();
-    void FUN_0010c700();
+    bool FUN_0010c6c0(char); /* (unb4) as defined; address taken only */
+    char FUN_0010c6e0(char); /* (unb4) as defined; address taken only */
+    char FUN_0010c700(int); /* (unb4) as defined; address taken only */
 };
 class Params_113080 {
   public:
@@ -712,7 +712,7 @@ extern "C" void FUN_00111ca0()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_111ca0<hulkfight::ai::DefendingCondition_111ca0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_111ca0<hulkfight::ai::DefendingCondition_111ca0>("defending", &hulkfight::ai::DefendingCondition_111ca0::FUN_0010c130);
+            params[0] = new (mem) fight::ParamBool_111ca0<hulkfight::ai::DefendingCondition_111ca0>("defending", (void (hulkfight::ai::DefendingCondition_111ca0::*)())&hulkfight::ai::DefendingCondition_111ca0::FUN_0010c130);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0af0), params, 1);
     }
     DAT_004e0af4++;
@@ -733,8 +733,8 @@ namespace hulkfight {
 namespace ai {
 class HulkActionLargestCondition {
 public:
-    void FUN_0010c180();
-    void FUN_0010c9b0();
+    char FUN_0010c180(int); /* (unb4) as defined; address taken only */
+    int FUN_0010c9b0(void*); /* (unb4) as defined; address taken only */
 };
 }
 }
@@ -790,11 +790,11 @@ extern "C" void FUN_00111df0()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::HulkActionLargestCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::HulkActionLargestCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::HulkActionLargestCondition::FUN_0010c180);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::HulkActionLargestCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::HulkActionLargestCondition::*)())&hulkfight::ai::HulkActionLargestCondition::FUN_0010c180);
         mem = FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::ai::HulkActionLargestCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamString<hulkfight::ai::HulkActionLargestCondition>("text", &hulkfight::ai::HulkActionLargestCondition::FUN_0010c9b0);
+            params[1] = new (mem) fight::ParamString<hulkfight::ai::HulkActionLargestCondition>("text", (void (hulkfight::ai::HulkActionLargestCondition::*)())&hulkfight::ai::HulkActionLargestCondition::FUN_0010c9b0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b00), params, 2);
     }
     DAT_004e0b04++;
@@ -815,8 +815,8 @@ namespace hulkfight {
 namespace ai {
 class PropsToChuckCondition {
 public:
-    void FUN_0010c1a0();
-    void FUN_0010c1c0();
+    char FUN_0010c1a0(int); /* (unb4) as defined; address taken only */
+    char FUN_0010c1c0(int); /* (unb4) as defined; address taken only */
 };
 }
 }
@@ -872,11 +872,11 @@ extern "C" void FUN_00111ea0()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::PropsToChuckCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::PropsToChuckCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::PropsToChuckCondition::FUN_0010c1a0);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::PropsToChuckCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::PropsToChuckCondition::*)())&hulkfight::ai::PropsToChuckCondition::FUN_0010c1a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::ai::PropsToChuckCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamIntConstRange<hulkfight::ai::PropsToChuckCondition>("number", &hulkfight::ai::PropsToChuckCondition::FUN_0010c1c0);
+            params[1] = new (mem) fight::ParamIntConstRange<hulkfight::ai::PropsToChuckCondition>("number", (void (hulkfight::ai::PropsToChuckCondition::*)())&hulkfight::ai::PropsToChuckCondition::FUN_0010c1c0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b08), params, 2);
     }
     DAT_004e0b0c++;
@@ -897,8 +897,8 @@ namespace hulkfight {
 namespace ai {
 class HulkActionRecentCondition {
 public:
-    void FUN_0010c1d0();
-    void FUN_0010cb00();
+    char FUN_0010c1d0(int); /* (unb4) as defined; address taken only */
+    char FUN_0010cb00(void*); /* (unb4) as defined; address taken only */
 };
 }
 }
@@ -954,11 +954,11 @@ extern "C" void FUN_00111f50()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::HulkActionRecentCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::HulkActionRecentCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::HulkActionRecentCondition::FUN_0010c1d0);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::HulkActionRecentCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::HulkActionRecentCondition::*)())&hulkfight::ai::HulkActionRecentCondition::FUN_0010c1d0);
         mem = FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::ai::HulkActionRecentCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamString<hulkfight::ai::HulkActionRecentCondition>("text", &hulkfight::ai::HulkActionRecentCondition::FUN_0010cb00);
+            params[1] = new (mem) fight::ParamString<hulkfight::ai::HulkActionRecentCondition>("text", (void (hulkfight::ai::HulkActionRecentCondition::*)())&hulkfight::ai::HulkActionRecentCondition::FUN_0010cb00);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b10), params, 2);
     }
     DAT_004e0b14++;
@@ -979,7 +979,7 @@ extern "C" void FUN_00112000()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_112000<hulkfight::ai::LeashedCondition_112000>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_112000<hulkfight::ai::LeashedCondition_112000>("leashed", &hulkfight::ai::LeashedCondition_112000::FUN_0010c1f0);
+            params[0] = new (mem) fight::ParamBool_112000<hulkfight::ai::LeashedCondition_112000>("leashed", (void (hulkfight::ai::LeashedCondition_112000::*)())&hulkfight::ai::LeashedCondition_112000::FUN_0010c1f0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b18), params, 1);
     }
     DAT_004e0b1c++;
@@ -1000,8 +1000,8 @@ namespace hulkfight {
 namespace ai {
 class FormationReadyCondition {
 public:
-    void FUN_0010c240();
-    void FUN_0010cd20();
+    char FUN_0010c240(int); /* (unb4) as defined; address taken only */
+    bool FUN_0010cd20(void*); /* (unb4) as defined; address taken only */
 };
 }
 }
@@ -1057,11 +1057,11 @@ extern "C" void FUN_00112150()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::FormationReadyCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::FormationReadyCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::FormationReadyCondition::FUN_0010c240);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::FormationReadyCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::FormationReadyCondition::*)())&hulkfight::ai::FormationReadyCondition::FUN_0010c240);
         mem = FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::ai::FormationReadyCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamString<hulkfight::ai::FormationReadyCondition>("text", &hulkfight::ai::FormationReadyCondition::FUN_0010cd20);
+            params[1] = new (mem) fight::ParamString<hulkfight::ai::FormationReadyCondition>("text", (void (hulkfight::ai::FormationReadyCondition::*)())&hulkfight::ai::FormationReadyCondition::FUN_0010cd20);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b28), params, 2);
     }
     DAT_004e0b2c++;
@@ -1082,11 +1082,11 @@ extern "C" void FUN_00112200()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_112200<hulkfight::ai::InActiveCondition_112200>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_112200<hulkfight::ai::InActiveCondition_112200>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::InActiveCondition_112200::FUN_0010c250);
+            params[0] = new (mem) fight::ParamEnumConstList_112200<hulkfight::ai::InActiveCondition_112200>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::InActiveCondition_112200::*)())&hulkfight::ai::InActiveCondition_112200::FUN_0010c250);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_112200<hulkfight::ai::InActiveCondition_112200>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamBool_112200<hulkfight::ai::InActiveCondition_112200>("active", &hulkfight::ai::InActiveCondition_112200::FUN_0010c270);
+            params[1] = new (mem) fight::ParamBool_112200<hulkfight::ai::InActiveCondition_112200>("active", (void (hulkfight::ai::InActiveCondition_112200::*)())&hulkfight::ai::InActiveCondition_112200::FUN_0010c270);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b30), params, 2);
     }
     DAT_004e0b34++;
@@ -1107,8 +1107,8 @@ namespace hulkfight {
 namespace ai {
 class RandomKeyWordWaitCondition {
 public:
-    void FUN_0010c330();
-    void FUN_0010c350();
+    char FUN_0010c330(int); /* (unb4) as defined; address taken only */
+    bool FUN_0010c350(int); /* (unb4) as defined; address taken only */
 };
 }
 }
@@ -1164,11 +1164,11 @@ extern "C" void FUN_001124c0()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::RandomKeyWordWaitCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::RandomKeyWordWaitCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::RandomKeyWordWaitCondition::FUN_0010c330);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::RandomKeyWordWaitCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::RandomKeyWordWaitCondition::*)())&hulkfight::ai::RandomKeyWordWaitCondition::FUN_0010c330);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::ai::RandomKeyWordWaitCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamIntConstRange<hulkfight::ai::RandomKeyWordWaitCondition>("value", &hulkfight::ai::RandomKeyWordWaitCondition::FUN_0010c350);
+            params[1] = new (mem) fight::ParamIntConstRange<hulkfight::ai::RandomKeyWordWaitCondition>("value", (void (hulkfight::ai::RandomKeyWordWaitCondition::*)())&hulkfight::ai::RandomKeyWordWaitCondition::FUN_0010c350);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b48), params, 2);
     }
     DAT_004e0b4c++;
@@ -1189,11 +1189,11 @@ extern "C" void FUN_00112570()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>("oRNoOneHas", &hulkfight::ai::TokenCondition_112570::FUN_0010c370);
+            params[0] = new (mem) fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>("oRNoOneHas", (void (hulkfight::ai::TokenCondition_112570::*)())&hulkfight::ai::TokenCondition_112570::FUN_0010c370);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>("have", &hulkfight::ai::TokenCondition_112570::FUN_0010c390);
+            params[1] = new (mem) fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>("have", (void (hulkfight::ai::TokenCondition_112570::*)())&hulkfight::ai::TokenCondition_112570::FUN_0010c390);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b50), params, 2);
     }
     DAT_004e0b54++;
@@ -1213,7 +1213,7 @@ void* FUN_0008d690(unsigned int size);
 namespace hulkfight { namespace ai {
 class FightingOtherNPCCondition {
 public:
-    void FUN_0010c3a0();
+    bool FUN_0010c3a0(int); /* (unb4) as defined; address taken only */
 };
 } }
 
@@ -1249,7 +1249,7 @@ extern "C" void FUN_00112610()
         void* mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::FightingOtherNPCCondition::FUN_0010c3a0);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::FightingOtherNPCCondition::*)())&hulkfight::ai::FightingOtherNPCCondition::FUN_0010c3a0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b58), params, 1);
     }
     DAT_004e0b5c++;
@@ -1271,11 +1271,11 @@ extern "C" void FUN_00112690()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreClearTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<SemaphoreClearTrack>("timeBegin", &SemaphoreClearTrack::FUN_0010c3b0);
+            params[0] = new (mem) ParamFloatConstRange<SemaphoreClearTrack>("timeBegin", (void (SemaphoreClearTrack::*)())&SemaphoreClearTrack::FUN_0010c3b0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreClearTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<SemaphoreClearTrack>("timeEnd", &SemaphoreClearTrack::FUN_0010c3c0);
+            params[1] = new (mem) ParamFloatConstRange<SemaphoreClearTrack>("timeEnd", (void (SemaphoreClearTrack::*)())&SemaphoreClearTrack::FUN_0010c3c0);
         mem = FUN_0008d690((int)sizeof(ParamName<SemaphoreClearTrack>));
         params[2] = 0;
         if (mem)
@@ -1283,11 +1283,11 @@ extern "C" void FUN_00112690()
         mem = FUN_0008d690((int)sizeof(ParamBool<SemaphoreClearTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamBool<SemaphoreClearTrack>("clearEveryFrame", &SemaphoreClearTrack::FUN_0010c3f0);
+            params[3] = new (mem) ParamBool<SemaphoreClearTrack>("clearEveryFrame", (void (SemaphoreClearTrack::*)())&SemaphoreClearTrack::FUN_0010c3f0);
         mem = FUN_0008d690((int)sizeof(ParamBool<SemaphoreClearTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamBool<SemaphoreClearTrack>("clearAll", &SemaphoreClearTrack::FUN_0010c410);
+            params[4] = new (mem) ParamBool<SemaphoreClearTrack>("clearAll", (void (SemaphoreClearTrack::*)())&SemaphoreClearTrack::FUN_0010c410);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b60), params, 5);
     }
     DAT_004e0b64++;
@@ -1307,27 +1307,27 @@ extern "C" void FUN_001127d0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TokenSupressTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<TokenSupressTrack>("timeBegin", &TokenSupressTrack::FUN_0010c420);
+            params[0] = new (mem) ParamFloatConstRange<TokenSupressTrack>("timeBegin", (void (TokenSupressTrack::*)())&TokenSupressTrack::FUN_0010c420);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TokenSupressTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<TokenSupressTrack>("timeEnd", &TokenSupressTrack::FUN_0010c430);
+            params[1] = new (mem) ParamFloatConstRange<TokenSupressTrack>("timeEnd", (void (TokenSupressTrack::*)())&TokenSupressTrack::FUN_0010c430);
         mem = FUN_0008d690((int)sizeof(ParamBool<TokenSupressTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamBool<TokenSupressTrack>("supressEveryFrame", &TokenSupressTrack::FUN_0010c450);
+            params[2] = new (mem) ParamBool<TokenSupressTrack>("supressEveryFrame", (void (TokenSupressTrack::*)())&TokenSupressTrack::FUN_0010c450);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TokenSupressTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<TokenSupressTrack>("floatDelayDuration", &TokenSupressTrack::FUN_0010c470);
+            params[3] = new (mem) ParamFloatConstRange<TokenSupressTrack>("floatDelayDuration", (void (TokenSupressTrack::*)())&TokenSupressTrack::FUN_0010c470);
         mem = FUN_0008d690((int)sizeof(ParamBool<TokenSupressTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamBool<TokenSupressTrack>("floatDelayDurationPermenant", &TokenSupressTrack::FUN_0010c490);
+            params[4] = new (mem) ParamBool<TokenSupressTrack>("floatDelayDurationPermenant", (void (TokenSupressTrack::*)())&TokenSupressTrack::FUN_0010c490);
         mem = FUN_0008d690((int)sizeof(ParamBool<TokenSupressTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamBool<TokenSupressTrack>("floatDelayEndOnTrackFinish", &TokenSupressTrack::FUN_0010c4b0);
+            params[5] = new (mem) ParamBool<TokenSupressTrack>("floatDelayEndOnTrackFinish", (void (TokenSupressTrack::*)())&TokenSupressTrack::FUN_0010c4b0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b68), params, 6);
     }
     DAT_004e0b6c++;
@@ -1346,7 +1346,7 @@ extern "C" void FUN_00112940()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_112940<hulkfight::ai::AIHistoryCountTrack_112940>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_112940<hulkfight::ai::AIHistoryCountTrack_112940>("value", &hulkfight::ai::AIHistoryCountTrack_112940::FUN_0010c4c0);
+            params[0] = new (mem) fight::ParamFloatConstRange_112940<hulkfight::ai::AIHistoryCountTrack_112940>("value", (void (hulkfight::ai::AIHistoryCountTrack_112940::*)())&hulkfight::ai::AIHistoryCountTrack_112940::FUN_0010c4c0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b70), params, 1);
     }
     DAT_004e0b74++;
@@ -1366,27 +1366,27 @@ extern "C" void FUN_00112ba0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ButtonTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<ButtonTrack>("timeBegin", &ButtonTrack::FUN_0010c560);
+            params[0] = new (mem) ParamFloatConstRange<ButtonTrack>("timeBegin", (void (ButtonTrack::*)())&ButtonTrack::FUN_0010c560);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ButtonTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<ButtonTrack>("timeEnd", &ButtonTrack::FUN_0010c570);
+            params[1] = new (mem) ParamFloatConstRange<ButtonTrack>("timeEnd", (void (ButtonTrack::*)())&ButtonTrack::FUN_0010c570);
         mem = FUN_0008d690((int)sizeof(ParamEnumConstList<ButtonTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamEnumConstList<ButtonTrack>("button", ((char**)&DAT_0049ee30), 13, &ButtonTrack::FUN_0010c590);
+            params[2] = new (mem) ParamEnumConstList<ButtonTrack>("button", ((char**)&DAT_0049ee30), 13, (void (ButtonTrack::*)())&ButtonTrack::FUN_0010c590);
         mem = FUN_0008d690((int)sizeof(ParamEnumConstList<ButtonTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamEnumConstList<ButtonTrack>("state", ((char**)&DAT_0049ee64), 4, &ButtonTrack::FUN_0010c5b0);
+            params[3] = new (mem) ParamEnumConstList<ButtonTrack>("state", ((char**)&DAT_0049ee64), 4, (void (ButtonTrack::*)())&ButtonTrack::FUN_0010c5b0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ButtonTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<ButtonTrack>("time", &ButtonTrack::FUN_0010c5d0);
+            params[4] = new (mem) ParamFloatConstRange<ButtonTrack>("time", (void (ButtonTrack::*)())&ButtonTrack::FUN_0010c5d0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ButtonTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<ButtonTrack>("value", &ButtonTrack::FUN_0010c5f0);
+            params[5] = new (mem) ParamFloatConstRange<ButtonTrack>("value", (void (ButtonTrack::*)())&ButtonTrack::FUN_0010c5f0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0b88), params, 6);
     }
     DAT_004e0b8c++;
@@ -1406,11 +1406,11 @@ extern "C" void FUN_00112f10()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreWaitTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<SemaphoreWaitTrack>("timeBegin", &SemaphoreWaitTrack::FUN_0010c680);
+            params[0] = new (mem) ParamFloatConstRange<SemaphoreWaitTrack>("timeBegin", (void (SemaphoreWaitTrack::*)())&SemaphoreWaitTrack::FUN_0010c680);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreWaitTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<SemaphoreWaitTrack>("timeEnd", &SemaphoreWaitTrack::FUN_0010c690);
+            params[1] = new (mem) ParamFloatConstRange<SemaphoreWaitTrack>("timeEnd", (void (SemaphoreWaitTrack::*)())&SemaphoreWaitTrack::FUN_0010c690);
         mem = FUN_0008d690((int)sizeof(ParamName<SemaphoreWaitTrack>));
         params[2] = 0;
         if (mem)
@@ -1418,15 +1418,15 @@ extern "C" void FUN_00112f10()
         mem = FUN_0008d690((int)sizeof(ParamBool<SemaphoreWaitTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamBool<SemaphoreWaitTrack>("interuptable", &SemaphoreWaitTrack::FUN_0010c6c0);
+            params[3] = new (mem) ParamBool<SemaphoreWaitTrack>("interuptable", (void (SemaphoreWaitTrack::*)())&SemaphoreWaitTrack::FUN_0010c6c0);
         mem = FUN_0008d690((int)sizeof(ParamBool<SemaphoreWaitTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamBool<SemaphoreWaitTrack>("useCharacterTimeout", &SemaphoreWaitTrack::FUN_0010c6e0);
+            params[4] = new (mem) ParamBool<SemaphoreWaitTrack>("useCharacterTimeout", (void (SemaphoreWaitTrack::*)())&SemaphoreWaitTrack::FUN_0010c6e0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreWaitTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<SemaphoreWaitTrack>("timeoutOverride", &SemaphoreWaitTrack::FUN_0010c700);
+            params[5] = new (mem) ParamFloatConstRange<SemaphoreWaitTrack>("timeoutOverride", (void (SemaphoreWaitTrack::*)())&SemaphoreWaitTrack::FUN_0010c700);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0ba0), params, 6);
     }
     DAT_004e0ba4++;

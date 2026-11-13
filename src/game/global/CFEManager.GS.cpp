@@ -246,20 +246,20 @@ class CFEManager {
     void FUN_000bc750();
     void FUN_000bc1e0();
     void FUN_000b47b0(const char *, const char *);
-    void FUN_000b4850();
-    void FUN_000bc230();
+    void FUN_000b4850(void*, void*, void*, void*, void*, void*); /* (unb4) as defined; address taken only */
+    void FUN_000bc230(void*, void*, void*, void*, void*, void*); /* (unb4) as defined; address taken only */
     void FUN_000bb5c0();
     void FUN_000b4b60(const char *, const char *);
     void FUN_000b43e0();
     void FUN_000b5490();
-    void FUN_000b54d0();
-    void FUN_000b5530();
+    void FUN_000b54d0(int, int, int, int, int, int, int); /* (unb4) as defined; address taken only */
+    void FUN_000b5530(int, int, int, int, int, int, int); /* (unb4) as defined; address taken only */
     void FUN_000b5590();
     void FUN_000b5670();
-    void FUN_000b5710();
+    void FUN_000b5710(void*, int, int, int, int, int, int); /* (unb4) as defined; address taken only */
     void FUN_000b5790();
     void FUN_000b57d0();
-    void FUN_000b5810();
+    void FUN_000b5810(float, float, float, float, float, float, float); /* (unb4) as defined; address taken only */
     void FUN_000c1430();
 };
 class Registry_c0a20 {
@@ -748,8 +748,8 @@ void CFEManager::FUN_000c1430()
             reg->FUN_001d26d0("fe_fullscreenMessage", &c);
             c.FUN_001d04a0();
         }
-        reg->FUN_000c0b80("fe_fullscreenMessageEx", this, &CFEManager::FUN_000b4850);
-        reg->FUN_000c0be0("fe_fullscreenQuestion", this, &CFEManager::FUN_000bc230);
+        reg->FUN_000c0b80("fe_fullscreenMessageEx", this, (void (CFEManager::*)())&CFEManager::FUN_000b4850);
+        reg->FUN_000c0be0("fe_fullscreenQuestion", this, (void (CFEManager::*)())&CFEManager::FUN_000bc230);
         reg->FUN_000c0a20("fe_unlockStory", this, &CFEManager::FUN_000bb5c0);
         {
             Closure2<CFEManager, void, const char *, const char *> c("AddValidMission", this, &CFEManager::FUN_000b4b60);
@@ -758,14 +758,14 @@ void CFEManager::FUN_000c1430()
         }
         reg->FUN_000c0c40("fe_GetSelectedMove", this, &CFEManager::FUN_000b43e0);
         reg->FUN_000c0aa0("fe_SetupSMSuccessName", this, &CFEManager::FUN_000b5490);
-        reg->FUN_000c0b80("fe_SetupSMSuccessResult", this, &CFEManager::FUN_000b54d0);
-        reg->FUN_000c0b80("fe_SetupSMSuccessRecord", this, &CFEManager::FUN_000b5530);
+        reg->FUN_000c0b80("fe_SetupSMSuccessResult", this, (void (CFEManager::*)())&CFEManager::FUN_000b54d0);
+        reg->FUN_000c0b80("fe_SetupSMSuccessRecord", this, (void (CFEManager::*)())&CFEManager::FUN_000b5530);
         reg->FUN_000c0cc0("fe_SetupSMSuccessRanking", this, &CFEManager::FUN_000b5590);
         reg->FUN_000c0cc0("fe_SetupSMSuccessSmashPointsAward", this, &CFEManager::FUN_000b5670);
-        reg->FUN_000c0b80("fe_SetupSMSuccessNewRecord", this, &CFEManager::FUN_000b5710);
+        reg->FUN_000c0b80("fe_SetupSMSuccessNewRecord", this, (void (CFEManager::*)())&CFEManager::FUN_000b5710);
         reg->FUN_000c0aa0("fe_SetupSMFailName", this, &CFEManager::FUN_000b5790);
         reg->FUN_000c0aa0("fe_SetupSMFailHint", this, &CFEManager::FUN_000b57d0);
-        reg->FUN_000c0b80("fe_SetupSMFailRecord", this, &CFEManager::FUN_000b5810);
+        reg->FUN_000c0b80("fe_SetupSMFailRecord", this, (void (CFEManager::*)())&CFEManager::FUN_000b5810);
         if (f1c) {
             f1c->release();
             f1c = 0;

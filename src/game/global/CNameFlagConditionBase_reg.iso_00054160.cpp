@@ -11,9 +11,9 @@ namespace fn_fdde533c {} using namespace fn_fdde533c;
 namespace fn_fdde533c {
 
 typedef void (*Callback_54160)();
-extern void SetAngle_00048080();
-extern void SetArc_000480a0();
-extern void SetUseIntentionMotion_000480d0();
+extern char SetAngle_00048080(void*, float); /* (unb4) as defined; address taken only */
+extern bool SetArc_000480a0(void*, float); /* (unb4) as defined; address taken only */
+extern char SetUseIntentionMotion_000480d0(void*, char); /* (unb4) as defined; address taken only */
 extern void* __cdecl FUN_0008d690(unsigned);
 
 } // namespace fn_fdde533c
@@ -48,7 +48,7 @@ extern "C" void __cdecl FUN_00054160() {
             ((ParamBase_54160*)storage)->FUN_00234960("angle");
             fight::ParamFloatConstRange<CClimbableCondition>* p =
                 new (storage) fight::ParamFloatConstRange<CClimbableCondition>;
-            p->callback = SetAngle_00048080;
+            p->callback = (void (*)())SetAngle_00048080;
             parameters[0] = p;
         } else
             parameters[0] = 0;
@@ -57,7 +57,7 @@ extern "C" void __cdecl FUN_00054160() {
             ((ParamBase_54160*)storage)->FUN_00234960("arc");
             fight::ParamFloatConstRange<CClimbableCondition>* p =
                 new (storage) fight::ParamFloatConstRange<CClimbableCondition>;
-            p->callback = SetArc_000480a0;
+            p->callback = (void (*)())SetArc_000480a0;
             parameters[1] = p;
         } else
             parameters[1] = 0;
@@ -65,7 +65,7 @@ extern "C" void __cdecl FUN_00054160() {
         if (storage) {
             ((ParamBase_54160*)storage)->FUN_00234860("useIntentionMotion");
             fight::ParamBool<CClimbableCondition>* p = new (storage) fight::ParamBool<CClimbableCondition>;
-            p->callback = SetUseIntentionMotion_000480d0;
+            p->callback = (void (*)())SetUseIntentionMotion_000480d0;
             parameters[2] = p;
         } else
             parameters[2] = 0;

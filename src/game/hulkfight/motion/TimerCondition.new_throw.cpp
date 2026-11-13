@@ -17,11 +17,11 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace hulkfight { namespace motion {
 class TimerCondition_18df00 {
 public:
-    void FUN_0018cab0();
-    void FUN_0018cac0();
-    void FUN_0018cad0();
-    void FUN_0018caf0();
-    void FUN_0018cb10();
+    char FUN_0018cab0(int); /* (unb4) as defined; address taken only */
+    char FUN_0018cac0(int); /* (unb4) as defined; address taken only */
+    bool FUN_0018cad0(int); /* (unb4) as defined; address taken only */
+    char FUN_0018caf0(char); /* (unb4) as defined; address taken only */
+    char FUN_0018cb10(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_f597f6aa {
@@ -85,12 +85,12 @@ namespace fn_f597f6aa {
 extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class VarAssignTrack {
 public:
-    void FUN_0018cbd0();
+    char FUN_0018cbd0(int); /* (unb4) as defined; address taken only */
     void FUN_0018cbe0();
-    void FUN_0018cc00();
-    void FUN_0018cc20();
-    void FUN_0018cc40();
-    void FUN_0018cc60();
+    char FUN_0018cc00(int); /* (unb4) as defined; address taken only */
+    bool FUN_0018cc20(int); /* (unb4) as defined; address taken only */
+    char FUN_0018cc40(int); /* (unb4) as defined; address taken only */
+    char FUN_0018cc60(char); /* (unb4) as defined; address taken only */
 };
 class __declspec(novtable) ParamNameBase {
 public:
@@ -168,23 +168,23 @@ void FUN_0018df00()
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18df00<hulkfight::motion::TimerCondition_18df00>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamIntConstRange_18df00<hulkfight::motion::TimerCondition_18df00>("timer", &hulkfight::motion::TimerCondition_18df00::FUN_0018cab0);
+            params[0] = new (mem) fight::ParamIntConstRange_18df00<hulkfight::motion::TimerCondition_18df00>("timer", (void (hulkfight::motion::TimerCondition_18df00::*)())&hulkfight::motion::TimerCondition_18df00::FUN_0018cab0);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_18df00<hulkfight::motion::TimerCondition_18df00>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList_18df00<hulkfight::motion::TimerCondition_18df00>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::motion::TimerCondition_18df00::FUN_0018cac0);
+            params[1] = new (mem) fight::ParamEnumConstList_18df00<hulkfight::motion::TimerCondition_18df00>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::motion::TimerCondition_18df00::*)())&hulkfight::motion::TimerCondition_18df00::FUN_0018cac0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18df00<hulkfight::motion::TimerCondition_18df00>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_18df00<hulkfight::motion::TimerCondition_18df00>("value", &hulkfight::motion::TimerCondition_18df00::FUN_0018cad0);
+            params[2] = new (mem) fight::ParamFloatConstRange_18df00<hulkfight::motion::TimerCondition_18df00>("value", (void (hulkfight::motion::TimerCondition_18df00::*)())&hulkfight::motion::TimerCondition_18df00::FUN_0018cad0);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_18df00<hulkfight::motion::TimerCondition_18df00>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamBool_18df00<hulkfight::motion::TimerCondition_18df00>("useKeyWordWait", &hulkfight::motion::TimerCondition_18df00::FUN_0018caf0);
+            params[3] = new (mem) fight::ParamBool_18df00<hulkfight::motion::TimerCondition_18df00>("useKeyWordWait", (void (hulkfight::motion::TimerCondition_18df00::*)())&hulkfight::motion::TimerCondition_18df00::FUN_0018caf0);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_18df00<hulkfight::motion::TimerCondition_18df00>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamEnumConstList_18df00<hulkfight::motion::TimerCondition_18df00>("keyWord", ((const char**)&DAT_004bebb4), 15, &hulkfight::motion::TimerCondition_18df00::FUN_0018cb10);
+            params[4] = new (mem) fight::ParamEnumConstList_18df00<hulkfight::motion::TimerCondition_18df00>("keyWord", ((const char**)&DAT_004bebb4), 15, (void (hulkfight::motion::TimerCondition_18df00::*)())&hulkfight::motion::TimerCondition_18df00::FUN_0018cb10);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1508), params, 5);
     }
     DAT_004e150c++;
@@ -204,7 +204,7 @@ void FUN_0018e6e0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18e6e0<VarAssignTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_18e6e0<VarAssignTrack>("timeBegin", &VarAssignTrack::FUN_0018cbd0);
+            params[0] = new (mem) fight::ParamFloatConstRange_18e6e0<VarAssignTrack>("timeBegin", (void (VarAssignTrack::*)())&VarAssignTrack::FUN_0018cbd0);
         mem = FUN_0008d690((int)sizeof(fight::ParamName_18e6e0<VarAssignTrack>));
         params[1] = 0;
         if (mem)
@@ -212,19 +212,19 @@ void FUN_0018e6e0()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_18e6e0<VarAssignTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamEnumConstList_18e6e0<VarAssignTrack>("operator", ((const char**)&DAT_004beb94), 8, &VarAssignTrack::FUN_0018cc00);
+            params[2] = new (mem) fight::ParamEnumConstList_18e6e0<VarAssignTrack>("operator", ((const char**)&DAT_004beb94), 8, (void (VarAssignTrack::*)())&VarAssignTrack::FUN_0018cc00);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18e6e0<VarAssignTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamIntConstRange_18e6e0<VarAssignTrack>("value", &VarAssignTrack::FUN_0018cc20);
+            params[3] = new (mem) fight::ParamIntConstRange_18e6e0<VarAssignTrack>("value", (void (VarAssignTrack::*)())&VarAssignTrack::FUN_0018cc20);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18e6e0<VarAssignTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamIntConstRange_18e6e0<VarAssignTrack>("valueAtEnd", &VarAssignTrack::FUN_0018cc40);
+            params[4] = new (mem) fight::ParamIntConstRange_18e6e0<VarAssignTrack>("valueAtEnd", (void (VarAssignTrack::*)())&VarAssignTrack::FUN_0018cc40);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_18e6e0<VarAssignTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamBool_18e6e0<VarAssignTrack>("setToValueAtEnd", &VarAssignTrack::FUN_0018cc60);
+            params[5] = new (mem) fight::ParamBool_18e6e0<VarAssignTrack>("setToValueAtEnd", (void (VarAssignTrack::*)())&VarAssignTrack::FUN_0018cc60);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1528), params, 6);
     }
     DAT_004e152c++;

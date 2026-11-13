@@ -17,8 +17,8 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace fight {
 class PrintCondition {
 public:
-    void FUN_00238910();
-    void FUN_00238970();
+    bool FUN_00238910(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00238970(void*); /* (unb4) as defined; address taken only */
 };
 }
 namespace fight {
@@ -46,11 +46,11 @@ void FUN_00238f70()
         mem = FUN_0008d690((int)sizeof(fight::ParamString<fight::PrintCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamString<fight::PrintCondition>("channel", &fight::PrintCondition::FUN_00238910);
+            params[0] = new (mem) fight::ParamString<fight::PrintCondition>("channel", (void (fight::PrintCondition::*)())&fight::PrintCondition::FUN_00238910);
         mem = FUN_0008d690((int)sizeof(fight::ParamString<fight::PrintCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamString<fight::PrintCondition>("text", &fight::PrintCondition::FUN_00238970);
+            params[1] = new (mem) fight::ParamString<fight::PrintCondition>("text", (void (fight::PrintCondition::*)())&fight::PrintCondition::FUN_00238970);
         FUN_002347b0(((ParamRegistry*)&DAT_004e5c20), params, 2);
     }
     DAT_004e5c24++;

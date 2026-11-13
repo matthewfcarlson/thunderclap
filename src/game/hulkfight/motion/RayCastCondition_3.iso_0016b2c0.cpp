@@ -19,7 +19,7 @@ void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_ffeca5cb {
 
-void FUN_00165540(); void FUN_00165550(); void FUN_00165560(); void FUN_00165570();
+char FUN_00165540(void*, char); /* (unb4) as defined; address taken only */ char FUN_00165550(void*, char); /* (unb4) as defined; address taken only */ char FUN_00165560(void*, char); /* (unb4) as defined; address taken only */ bool FUN_00165570(void*, char); /* (unb4) as defined; address taken only */
 namespace hulkfight { namespace motion { class IntentionInputCondition; } }
 namespace fight {
 template<class T> struct ParamBool {
@@ -36,7 +36,7 @@ void target() {
  if (!DAT_004e121c) {
  Param* list[4];
  const char* names[4] = {"buttonDown", "buttonPressed", "axisDown", "axisPressed"};
- void (*callbacks[4])() = {FUN_00165540,FUN_00165550,FUN_00165560,FUN_00165570};
+ void (*callbacks[4])() = {(void (*)())FUN_00165540,(void (*)())FUN_00165550,(void (*)())FUN_00165560,(void (*)())FUN_00165570};
  for(int i=0;i<4;++i) {
  void* memory=FUN_0008d690((int)sizeof(Param));
  if(memory) {

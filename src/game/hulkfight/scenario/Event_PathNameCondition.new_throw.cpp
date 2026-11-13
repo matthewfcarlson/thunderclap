@@ -17,7 +17,7 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace hulkfight { namespace scenario {
 class Event_FirstTimeCondition_1abef0 {
 public:
-    void FUN_001aad00();
+    char FUN_001aad00(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_fdc66084 {
@@ -68,7 +68,7 @@ public:
 namespace hulkfight { namespace scenario {
 class Event_PathNameCondition_1ac5b0 {
 public:
-    void FUN_001aada0();
+    bool FUN_001aada0(int); /* (unb4) as defined; address taken only */
     void FUN_001aadb0();
 };
 } }
@@ -110,7 +110,7 @@ void FUN_001abef0()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_1abef0<hulkfight::scenario::Event_FirstTimeCondition_1abef0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_1abef0<hulkfight::scenario::Event_FirstTimeCondition_1abef0>("firstTime", &hulkfight::scenario::Event_FirstTimeCondition_1abef0::FUN_001aad00);
+            params[0] = new (mem) fight::ParamBool_1abef0<hulkfight::scenario::Event_FirstTimeCondition_1abef0>("firstTime", (void (hulkfight::scenario::Event_FirstTimeCondition_1abef0::*)())&hulkfight::scenario::Event_FirstTimeCondition_1abef0::FUN_001aad00);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1790), params, 1);
     }
     DAT_004e1794++;
@@ -131,8 +131,8 @@ namespace hulkfight {
 namespace scenario {
 class Event_WaypointCondition {
 public:
-    void FUN_001aad10();
-    void FUN_001aad20();
+    bool FUN_001aad10(int); /* (unb4) as defined; address taken only */
+    bool FUN_001aad20(int); /* (unb4) as defined; address taken only */
 };
 }
 }
@@ -188,11 +188,11 @@ void FUN_001abf50()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::scenario::Event_WaypointCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::scenario::Event_WaypointCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::scenario::Event_WaypointCondition::FUN_001aad10);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::scenario::Event_WaypointCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::scenario::Event_WaypointCondition::*)())&hulkfight::scenario::Event_WaypointCondition::FUN_001aad10);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::scenario::Event_WaypointCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamIntConstRange<hulkfight::scenario::Event_WaypointCondition>("waypoint", &hulkfight::scenario::Event_WaypointCondition::FUN_001aad20);
+            params[1] = new (mem) fight::ParamIntConstRange<hulkfight::scenario::Event_WaypointCondition>("waypoint", (void (hulkfight::scenario::Event_WaypointCondition::*)())&hulkfight::scenario::Event_WaypointCondition::FUN_001aad20);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1798), params, 2);
     }
     DAT_004e179c++;
@@ -232,7 +232,7 @@ void FUN_001ac5b0()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1ac5b0<hulkfight::scenario::Event_PathNameCondition_1ac5b0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_1ac5b0<hulkfight::scenario::Event_PathNameCondition_1ac5b0>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &hulkfight::scenario::Event_PathNameCondition_1ac5b0::FUN_001aada0);
+            params[0] = new (mem) fight::ParamEnumConstList_1ac5b0<hulkfight::scenario::Event_PathNameCondition_1ac5b0>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), (void (hulkfight::scenario::Event_PathNameCondition_1ac5b0::*)())&hulkfight::scenario::Event_PathNameCondition_1ac5b0::FUN_001aada0);
         mem = FUN_0008d690((int)sizeof(fight::ParamName_1ac5b0<hulkfight::scenario::Event_PathNameCondition_1ac5b0>));
         params[1] = 0;
         if (mem)

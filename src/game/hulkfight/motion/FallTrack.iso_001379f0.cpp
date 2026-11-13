@@ -15,12 +15,12 @@ extern "C" void* FUN_0008d690(unsigned int size);
 
 class FlyingDashTrack {
 public:
-    void FUN_00133010();
-    void FUN_00133020();
-    void FUN_00133040();
-    void FUN_00133060();
-    void FUN_00133080();
-    void FUN_001330a0();
+    char FUN_00133010(int); /* (unb4) as defined; address taken only */
+    char FUN_00133020(int); /* (unb4) as defined; address taken only */
+    bool FUN_00133040(int); /* (unb4) as defined; address taken only */
+    bool FUN_00133060(int); /* (unb4) as defined; address taken only */
+    char FUN_00133080(int); /* (unb4) as defined; address taken only */
+    char FUN_001330a0(int); /* (unb4) as defined; address taken only */
 };
 
 class __declspec(novtable) ParamFloatConstRangeBase {
@@ -67,27 +67,27 @@ void FUN_001379f0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingDashTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<FlyingDashTrack>("timeBegin", &FlyingDashTrack::FUN_00133010);
+            params[0] = new (mem) ParamFloatConstRange<FlyingDashTrack>("timeBegin", (void (FlyingDashTrack::*)())&FlyingDashTrack::FUN_00133010);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingDashTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<FlyingDashTrack>("timeEnd", &FlyingDashTrack::FUN_00133020);
+            params[1] = new (mem) ParamFloatConstRange<FlyingDashTrack>("timeEnd", (void (FlyingDashTrack::*)())&FlyingDashTrack::FUN_00133020);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingDashTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<FlyingDashTrack>("velocity", &FlyingDashTrack::FUN_00133040);
+            params[2] = new (mem) ParamFloatConstRange<FlyingDashTrack>("velocity", (void (FlyingDashTrack::*)())&FlyingDashTrack::FUN_00133040);
         mem = FUN_0008d690((int)sizeof(ParamIntConstRange<FlyingDashTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamIntConstRange<FlyingDashTrack>("priority", &FlyingDashTrack::FUN_00133060);
+            params[3] = new (mem) ParamIntConstRange<FlyingDashTrack>("priority", (void (FlyingDashTrack::*)())&FlyingDashTrack::FUN_00133060);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingDashTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<FlyingDashTrack>("blendInTime", &FlyingDashTrack::FUN_00133080);
+            params[4] = new (mem) ParamFloatConstRange<FlyingDashTrack>("blendInTime", (void (FlyingDashTrack::*)())&FlyingDashTrack::FUN_00133080);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingDashTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<FlyingDashTrack>("blendOutTime", &FlyingDashTrack::FUN_001330a0);
+            params[5] = new (mem) ParamFloatConstRange<FlyingDashTrack>("blendOutTime", (void (FlyingDashTrack::*)())&FlyingDashTrack::FUN_001330a0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0ec0), params, 6);
     }
     DAT_004e0ec4++;

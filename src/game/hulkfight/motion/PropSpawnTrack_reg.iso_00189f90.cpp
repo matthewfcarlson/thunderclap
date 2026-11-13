@@ -18,7 +18,7 @@ inline void* operator new(size_t, void* p) { return p; }
 namespace fn_fb83e8c8 {
 
 namespace hulkfight { namespace motion { class PropSetStateByNameTrack; } }
-void FUN_0017f720(); void FUN_0017f740(); void FUN_0017f750();
+bool FUN_0017f720(void*, int); /* (unb4) as defined; address taken only */ bool FUN_0017f740(void*, int); /* (unb4) as defined; address taken only */ void* FUN_0017f750(void*); /* (unb4) as defined; address taken only */
 void* __cdecl FUN_0008d690(unsigned int);
 struct FUN_00234960 { FUN_00234960(const char* = "timeBegin"); virtual void slot(); char pad[12]; void (*callback)(); char tail[4]; };
 struct FUN_002348e0 { FUN_002348e0(const char* = "attachmentIndex"); virtual void slot(); char pad[12]; void (*callback)(); char tail[4]; };
@@ -34,11 +34,11 @@ void target() {
  if (DAT_004e1474 == 0) {
  void* params[3];
  void* p=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::motion::PropSetStateByNameTrack>));
- if(p) { params[0]=new(p) fight::ParamFloatConstRange<hulkfight::motion::PropSetStateByNameTrack>; ((fight::ParamFloatConstRange<hulkfight::motion::PropSetStateByNameTrack>*)p)->callback=FUN_0017f720; } else params[0]=0;
+ if(p) { params[0]=new(p) fight::ParamFloatConstRange<hulkfight::motion::PropSetStateByNameTrack>; ((fight::ParamFloatConstRange<hulkfight::motion::PropSetStateByNameTrack>*)p)->callback=(void (*)())FUN_0017f720; } else params[0]=0;
  p=FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::motion::PropSetStateByNameTrack>));
- if(p) { params[1]=new(p) fight::ParamIntConstRange<hulkfight::motion::PropSetStateByNameTrack>; ((fight::ParamIntConstRange<hulkfight::motion::PropSetStateByNameTrack>*)p)->callback=FUN_0017f740; } else params[1]=0;
+ if(p) { params[1]=new(p) fight::ParamIntConstRange<hulkfight::motion::PropSetStateByNameTrack>; ((fight::ParamIntConstRange<hulkfight::motion::PropSetStateByNameTrack>*)p)->callback=(void (*)())FUN_0017f740; } else params[1]=0;
  p=FUN_0008d690((int)sizeof(fight::ParamName<hulkfight::motion::PropSetStateByNameTrack>));
- if(p) { params[2]=new(p) fight::ParamName<hulkfight::motion::PropSetStateByNameTrack>; ((fight::ParamName<hulkfight::motion::PropSetStateByNameTrack>*)p)->callback=FUN_0017f750; } else params[2]=0;
+ if(p) { params[2]=new(p) fight::ParamName<hulkfight::motion::PropSetStateByNameTrack>; ((fight::ParamName<hulkfight::motion::PropSetStateByNameTrack>*)p)->callback=(void (*)())FUN_0017f750; } else params[2]=0;
  FUN_002347b0(&DAT_004e1470,params,3);
  }
  ++DAT_004e1474;

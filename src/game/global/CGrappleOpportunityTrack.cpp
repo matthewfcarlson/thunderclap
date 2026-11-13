@@ -2672,9 +2672,9 @@ namespace fn_0005c490 {
 // FUN_0005c490 @ 0x0005c490
 
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0005a330();
-void __cdecl FUN_0005a340();
-void __cdecl FUN_0005a350();
+void* FUN_0005a330(void*); /* (unb4) as defined; address taken only */
+bool FUN_0005a340(void*, int); /* (unb4) as defined; address taken only */
+void* FUN_0005a350(void*); /* (unb4) as defined; address taken only */
 
 class CGrappleSequenceTrack;
 struct FUN_00235170 {
@@ -2709,15 +2709,15 @@ extern "C" void __cdecl FUN_0005c490() {
   void* entries[3];
   void* mem = FUN_0008d690((int)sizeof(fight::ParamBranch<CGrappleSequenceTrack>));
   fight::ParamBranch<CGrappleSequenceTrack>* a = mem ? new(mem) fight::ParamBranch<CGrappleSequenceTrack> : 0;
-  if(a) a->callback = FUN_0005a330;
+  if(a) a->callback = (void (*)())FUN_0005a330;
   entries[0]=a;
   mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<CGrappleSequenceTrack>));
   fight::ParamIntConstRange<CGrappleSequenceTrack>* b = mem ? new(mem) fight::ParamIntConstRange<CGrappleSequenceTrack> : 0;
-  if(b) b->callback = FUN_0005a340;
+  if(b) b->callback = (void (*)())FUN_0005a340;
   entries[1]=b;
   mem = FUN_0008d690((int)sizeof(fight::ParamConditionGroup<CGrappleSequenceTrack>));
   fight::ParamConditionGroup<CGrappleSequenceTrack>* c = mem ? new(mem) fight::ParamConditionGroup<CGrappleSequenceTrack> : 0;
-  if(c) c->callback = FUN_0005a350;
+  if(c) c->callback = (void (*)())FUN_0005a350;
   entries[2]=c;
   FUN_002347b0(((void**)&DAT_004dc5b8),entries,3);
  }

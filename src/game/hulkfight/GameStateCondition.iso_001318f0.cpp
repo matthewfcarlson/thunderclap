@@ -18,9 +18,9 @@ inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_f62c01b9 {
 
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0012e0c0();
-void __cdecl FUN_0012e9e0();
-void __cdecl FUN_0012ea40();
+bool FUN_0012e0c0(void*, int); /* (unb4) as defined; address taken only */
+int FUN_0012e9e0(void*, void*); /* (unb4) as defined; address taken only */
+char FUN_0012ea40(void*, void*); /* (unb4) as defined; address taken only */
 void __cdecl FUN_0012eaa0();
 struct FUN_00234960 {
  FUN_00234960(const char* = "timeBegin");
@@ -48,15 +48,15 @@ void FUN_001318f0() {
  void* mem=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::NISSoundTrack>));
  fight::ParamFloatConstRange<hulkfight::NISSoundTrack>* a = mem ? new(mem) fight::ParamFloatConstRange<hulkfight::NISSoundTrack> : 0;
  params[0]=a;
- if(a) a->callback=FUN_0012e0c0;
+ if(a) a->callback=(void (*)())FUN_0012e0c0;
  mem=FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::NISSoundTrack>));
  fight::ParamString<hulkfight::NISSoundTrack>* b = mem ? new(mem) fight::ParamString<hulkfight::NISSoundTrack>("sound") : 0;
  params[1]=b;
- if(b) b->callback=FUN_0012e9e0;
+ if(b) b->callback=(void (*)())FUN_0012e9e0;
  mem=FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::NISSoundTrack>));
  fight::ParamString<hulkfight::NISSoundTrack>* c = mem ? new(mem) fight::ParamString<hulkfight::NISSoundTrack>("obj") : 0;
  params[2]=c;
- if(c) c->callback=FUN_0012ea40;
+ if(c) c->callback=(void (*)())FUN_0012ea40;
  mem=FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::NISSoundTrack>));
  fight::ParamString<hulkfight::NISSoundTrack>* d = mem ? new(mem) fight::ParamString<hulkfight::NISSoundTrack>("instance") : 0;
  params[3]=d;

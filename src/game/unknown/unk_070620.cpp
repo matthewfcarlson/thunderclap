@@ -40,24 +40,24 @@ namespace fn_f844dd59 {
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class CJumpTrack_706c0 {
 public:
-    void FUN_00067fe0();
-    void FUN_00067ff0();
-    void FUN_00068000();
-    void FUN_00068010();
-    void FUN_00068020();
-    void FUN_00068030();
-    void FUN_00068040();
-    void FUN_00068050();
-    void FUN_00068060();
-    void FUN_000680e0();
-    void FUN_00068070();
-    void FUN_00068100();
-    void FUN_00068080();
-    void FUN_00068090();
-    void FUN_000680a0();
-    void FUN_000680b0();
-    void FUN_000680c0();
-    void FUN_000680d0();
+    bool FUN_00067fe0(int); /* (unb4) as defined; address taken only */
+    char FUN_00067ff0(int); /* (unb4) as defined; address taken only */
+    char FUN_00068000(void*); /* (unb4) as defined; address taken only */
+    char FUN_00068010(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068020(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068030(int); /* (unb4) as defined; address taken only */
+    char FUN_00068040(int); /* (unb4) as defined; address taken only */
+    char FUN_00068050(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068060(int); /* (unb4) as defined; address taken only */
+    char FUN_000680e0(float); /* (unb4) as defined; address taken only */
+    bool FUN_00068070(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068100(float); /* (unb4) as defined; address taken only */
+    bool FUN_00068080(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068090(int); /* (unb4) as defined; address taken only */
+    char FUN_000680a0(int); /* (unb4) as defined; address taken only */
+    bool FUN_000680b0(int); /* (unb4) as defined; address taken only */
+    char FUN_000680c0(char); /* (unb4) as defined; address taken only */
+    char FUN_000680d0(char); /* (unb4) as defined; address taken only */
 };
 class __declspec(novtable) ParamBoolBase {
 public:
@@ -99,18 +99,18 @@ public:
 namespace fn_f844dd59 {
 class CDropTrack_70ab0 {
 public:
-    void FUN_00068120();
-    void FUN_00068130();
-    void FUN_00068140();
-    void FUN_00068160();
-    void FUN_00068180();
-    void FUN_000681a0();
-    void FUN_000681b0();
-    void FUN_000681c0();
-    void FUN_000681d0();
-    void FUN_000681e0();
-    void FUN_000681f0();
-    void FUN_00068200();
+    bool FUN_00068120(int); /* (unb4) as defined; address taken only */
+    char FUN_00068130(int); /* (unb4) as defined; address taken only */
+    char FUN_00068140(float); /* (unb4) as defined; address taken only */
+    char FUN_00068160(float); /* (unb4) as defined; address taken only */
+    bool FUN_00068180(float); /* (unb4) as defined; address taken only */
+    char FUN_000681a0(char); /* (unb4) as defined; address taken only */
+    char FUN_000681b0(int); /* (unb4) as defined; address taken only */
+    char FUN_000681c0(int); /* (unb4) as defined; address taken only */
+    bool FUN_000681d0(void*); /* (unb4) as defined; address taken only */
+    bool FUN_000681e0(int); /* (unb4) as defined; address taken only */
+    bool FUN_000681f0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068200(int); /* (unb4) as defined; address taken only */
 };
 } // namespace fn_f844dd59
 namespace fight {
@@ -146,13 +146,13 @@ public:
 namespace fn_f844dd59 {
 class CMoveTrack_70f20 {
 public:
-    void FUN_00068280();
-    void FUN_00068290();
-    void FUN_000682a0();
-    void FUN_000682b0();
-    void FUN_000682c0();
-    void FUN_000682d0();
-    void FUN_0006b6f0();
+    bool FUN_00068280(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068290(int); /* (unb4) as defined; address taken only */
+    char FUN_000682a0(int); /* (unb4) as defined; address taken only */
+    bool FUN_000682b0(int); /* (unb4) as defined; address taken only */
+    bool FUN_000682c0(int); /* (unb4) as defined; address taken only */
+    bool FUN_000682d0(int); /* (unb4) as defined; address taken only */
+    bool FUN_0006b6f0(float); /* (unb4) as defined; address taken only */
 };
 } // namespace fn_f844dd59
 namespace fight {
@@ -178,12 +178,12 @@ public:
 namespace fn_f844dd59 {
 class CSweepTrack_712c0 {
 public:
-    void FUN_00068340();
-    void FUN_00068350();
-    void FUN_00068360();
-    void FUN_00068380();
-    void FUN_00068390();
-    void FUN_000683a0();
+    char FUN_00068340(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068350(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068360(float); /* (unb4) as defined; address taken only */
+    bool FUN_00068380(int); /* (unb4) as defined; address taken only */
+    char FUN_00068390(int); /* (unb4) as defined; address taken only */
+    char FUN_000683a0(int); /* (unb4) as defined; address taken only */
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -229,26 +229,26 @@ public:
 namespace fn_f844dd59 {
 class CJumpAttackTrack_71db0 {
 public:
-    void FUN_000687a0();
-    void FUN_000687b0();
-    void FUN_000687c0();
-    void FUN_000687e0();
-    void FUN_00068800();
-    void FUN_00068810();
-    void FUN_00068820();
-    void FUN_00068830();
-    void FUN_00068840();
+    bool FUN_000687a0(int); /* (unb4) as defined; address taken only */
+    bool FUN_000687b0(int); /* (unb4) as defined; address taken only */
+    char FUN_000687c0(void*); /* (unb4) as defined; address taken only */
+    char FUN_000687e0(float); /* (unb4) as defined; address taken only */
+    char FUN_00068800(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068810(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068820(int); /* (unb4) as defined; address taken only */
+    char FUN_00068830(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068840(int); /* (unb4) as defined; address taken only */
 };
 class COrientTrack_71fb0 {
 public:
-    void FUN_00068850();
-    void FUN_00068860();
-    void FUN_00068870();
-    void FUN_00068890();
-    void FUN_000688b0();
-    void FUN_000688c0();
-    void FUN_000688d0();
-    void FUN_000688e0();
+    bool FUN_00068850(int); /* (unb4) as defined; address taken only */
+    char FUN_00068860(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068870(float); /* (unb4) as defined; address taken only */
+    char FUN_00068890(float); /* (unb4) as defined; address taken only */
+    char FUN_000688b0(char); /* (unb4) as defined; address taken only */
+    bool FUN_000688c0(int); /* (unb4) as defined; address taken only */
+    bool FUN_000688d0(int); /* (unb4) as defined; address taken only */
+    char FUN_000688e0(int); /* (unb4) as defined; address taken only */
 };
 template <class T>
 class ParamBool : public ParamBoolBase {
@@ -352,75 +352,75 @@ extern "C" void FUN_000706c0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("timeBegin", &CJumpTrack_706c0::FUN_00067fe0);
+            params[0] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("timeBegin", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00067fe0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("timeEnd", &CJumpTrack_706c0::FUN_00067ff0);
+            params[1] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("timeEnd", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00067ff0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("minFlightTime", &CJumpTrack_706c0::FUN_00068000);
+            params[2] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("minFlightTime", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00068000);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("maxFlightTime", &CJumpTrack_706c0::FUN_00068010);
+            params[3] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("maxFlightTime", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00068010);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("upDistanceMin", &CJumpTrack_706c0::FUN_00068020);
+            params[4] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("upDistanceMin", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00068020);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("upDistanceMax", &CJumpTrack_706c0::FUN_00068030);
+            params[5] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("upDistanceMax", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00068030);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("forwardDistanceMin", &CJumpTrack_706c0::FUN_00068040);
+            params[6] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("forwardDistanceMin", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00068040);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("forwardDistanceMax", &CJumpTrack_706c0::FUN_00068050);
+            params[7] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("forwardDistanceMax", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00068050);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("drift", &CJumpTrack_706c0::FUN_00068060);
+            params[8] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("drift", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00068060);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("turningVelocityMin", &CJumpTrack_706c0::FUN_000680e0);
+            params[9] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("turningVelocityMin", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_000680e0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("turningVelocityMinForwardSpeedCap", &CJumpTrack_706c0::FUN_00068070);
+            params[10] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("turningVelocityMinForwardSpeedCap", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00068070);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("turningVelocityMax", &CJumpTrack_706c0::FUN_00068100);
+            params[11] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("turningVelocityMax", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00068100);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("turningVelocityMaxForwardSpeedCap", &CJumpTrack_706c0::FUN_00068080);
+            params[12] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("turningVelocityMaxForwardSpeedCap", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00068080);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_706c0<CJumpTrack_706c0>));
         params[13] = 0;
         if (mem)
-            params[13] = new (mem) fight::ParamIntConstRange_706c0<CJumpTrack_706c0>("priority", &CJumpTrack_706c0::FUN_00068090);
+            params[13] = new (mem) fight::ParamIntConstRange_706c0<CJumpTrack_706c0>("priority", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_00068090);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[14] = 0;
         if (mem)
-            params[14] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("blendInTime", &CJumpTrack_706c0::FUN_000680a0);
+            params[14] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("blendInTime", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_000680a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[15] = 0;
         if (mem)
-            params[15] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("blendOutTime", &CJumpTrack_706c0::FUN_000680b0);
+            params[15] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("blendOutTime", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_000680b0);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_706c0<CJumpTrack_706c0>));
         params[16] = 0;
         if (mem)
-            params[16] = new (mem) fight::ParamBool_706c0<CJumpTrack_706c0>("stopTrackAtApex", &CJumpTrack_706c0::FUN_000680c0);
+            params[16] = new (mem) fight::ParamBool_706c0<CJumpTrack_706c0>("stopTrackAtApex", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_000680c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_706c0<CJumpTrack_706c0>));
         params[17] = 0;
         if (mem)
-            params[17] = new (mem) fight::ParamBool_706c0<CJumpTrack_706c0>("redirect", &CJumpTrack_706c0::FUN_000680d0);
+            params[17] = new (mem) fight::ParamBool_706c0<CJumpTrack_706c0>("redirect", (void (CJumpTrack_706c0::*)())&CJumpTrack_706c0::FUN_000680d0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dcf20), params, 18);
     }
     DAT_004dcf24++;
@@ -439,51 +439,51 @@ extern "C" void FUN_00070ab0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("timeBegin", &CDropTrack_70ab0::FUN_00068120);
+            params[0] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("timeBegin", (void (CDropTrack_70ab0::*)())&CDropTrack_70ab0::FUN_00068120);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("timeEnd", &CDropTrack_70ab0::FUN_00068130);
+            params[1] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("timeEnd", (void (CDropTrack_70ab0::*)())&CDropTrack_70ab0::FUN_00068130);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("facing", &CDropTrack_70ab0::FUN_00068140);
+            params[2] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("facing", (void (CDropTrack_70ab0::*)())&CDropTrack_70ab0::FUN_00068140);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("facingVelocity", &CDropTrack_70ab0::FUN_00068160);
+            params[3] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("facingVelocity", (void (CDropTrack_70ab0::*)())&CDropTrack_70ab0::FUN_00068160);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("turningVelocity", &CDropTrack_70ab0::FUN_00068180);
+            params[4] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("turningVelocity", (void (CDropTrack_70ab0::*)())&CDropTrack_70ab0::FUN_00068180);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_70ab0<CDropTrack_70ab0>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamBool_70ab0<CDropTrack_70ab0>("useInitialVelocity", &CDropTrack_70ab0::FUN_000681a0);
+            params[5] = new (mem) fight::ParamBool_70ab0<CDropTrack_70ab0>("useInitialVelocity", (void (CDropTrack_70ab0::*)())&CDropTrack_70ab0::FUN_000681a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("initialVelocity", &CDropTrack_70ab0::FUN_000681b0);
+            params[6] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("initialVelocity", (void (CDropTrack_70ab0::*)())&CDropTrack_70ab0::FUN_000681b0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("gravity", &CDropTrack_70ab0::FUN_000681c0);
+            params[7] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("gravity", (void (CDropTrack_70ab0::*)())&CDropTrack_70ab0::FUN_000681c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("maxVelocity", &CDropTrack_70ab0::FUN_000681d0);
+            params[8] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("maxVelocity", (void (CDropTrack_70ab0::*)())&CDropTrack_70ab0::FUN_000681d0);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_70ab0<CDropTrack_70ab0>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamIntConstRange_70ab0<CDropTrack_70ab0>("priority", &CDropTrack_70ab0::FUN_000681e0);
+            params[9] = new (mem) fight::ParamIntConstRange_70ab0<CDropTrack_70ab0>("priority", (void (CDropTrack_70ab0::*)())&CDropTrack_70ab0::FUN_000681e0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("rootBlendInTime", &CDropTrack_70ab0::FUN_000681f0);
+            params[10] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("rootBlendInTime", (void (CDropTrack_70ab0::*)())&CDropTrack_70ab0::FUN_000681f0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("rootBlendOutTime", &CDropTrack_70ab0::FUN_00068200);
+            params[11] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("rootBlendOutTime", (void (CDropTrack_70ab0::*)())&CDropTrack_70ab0::FUN_00068200);
         FUN_002347b0(((ParamRegistry*)&DAT_004dcf28), params, 12);
     }
     DAT_004dcf2c++;
@@ -502,31 +502,31 @@ extern "C" void FUN_00070f20()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("timeBegin", &CMoveTrack_70f20::FUN_00068280);
+            params[0] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("timeBegin", (void (CMoveTrack_70f20::*)())&CMoveTrack_70f20::FUN_00068280);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("timeEnd", &CMoveTrack_70f20::FUN_00068290);
+            params[1] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("timeEnd", (void (CMoveTrack_70f20::*)())&CMoveTrack_70f20::FUN_00068290);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("distance", &CMoveTrack_70f20::FUN_000682a0);
+            params[2] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("distance", (void (CMoveTrack_70f20::*)())&CMoveTrack_70f20::FUN_000682a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("direction", &CMoveTrack_70f20::FUN_0006b6f0);
+            params[3] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("direction", (void (CMoveTrack_70f20::*)())&CMoveTrack_70f20::FUN_0006b6f0);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_70f20<CMoveTrack_70f20>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamIntConstRange_70f20<CMoveTrack_70f20>("priority", &CMoveTrack_70f20::FUN_000682b0);
+            params[4] = new (mem) fight::ParamIntConstRange_70f20<CMoveTrack_70f20>("priority", (void (CMoveTrack_70f20::*)())&CMoveTrack_70f20::FUN_000682b0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("blendInTime", &CMoveTrack_70f20::FUN_000682c0);
+            params[5] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("blendInTime", (void (CMoveTrack_70f20::*)())&CMoveTrack_70f20::FUN_000682c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("blendOutTime", &CMoveTrack_70f20::FUN_000682d0);
+            params[6] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("blendOutTime", (void (CMoveTrack_70f20::*)())&CMoveTrack_70f20::FUN_000682d0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dcf48), params, 7);
     }
     DAT_004dcf4c++;
@@ -541,7 +541,7 @@ namespace fn_000710c0 {
 // FUN_000710c0 @ 0x000710c0
 
 void* __cdecl FUN_0008d690(unsigned);
-void __cdecl FUN_000682e0(); void __cdecl FUN_000682f0(); void __cdecl FUN_00068300(); void __cdecl FUN_0006b750();
+bool FUN_000682e0(void*, int); /* (unb4) as defined; address taken only */ char FUN_000682f0(void*, int); /* (unb4) as defined; address taken only */ bool FUN_00068300(void*, int); /* (unb4) as defined; address taken only */ bool FUN_0006b750(void*, float); /* (unb4) as defined; address taken only */
 class CMoveAddTrack;
 namespace fight { template<class T> struct ParamFloatConstRange {
  virtual void slot0(); char data[12]; void (__cdecl *callback)(); unsigned tail;
@@ -554,7 +554,7 @@ extern "C" void __cdecl FUN_000710c0() {
  if (!DAT_004dcf54) {
  Range* items[4];
  const char* names[4] = {"timeBegin","timeEnd","distance","direction"};
- void (__cdecl *callbacks[4])() = {FUN_000682e0,FUN_000682f0,FUN_00068300,FUN_0006b750};
+ void (__cdecl *callbacks[4])() = {(void (*)())FUN_000682e0,(void (*)())FUN_000682f0,(void (*)())FUN_00068300,(void (*)())FUN_0006b750};
  for (unsigned i=0;i<4;++i) {
  Range* p = (Range*)FUN_0008d690((int)sizeof(Range));
  if(p) { p->FUN_00234960(names[i]); p->fight::ParamFloatConstRange<CMoveAddTrack>::ParamFloatConstRange(); p->callback=callbacks[i]; }
@@ -581,27 +581,27 @@ extern "C" void FUN_000712c0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSweepTrack_712c0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("timeBegin", &CSweepTrack_712c0::FUN_00068340);
+            params[0] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("timeBegin", (void (CSweepTrack_712c0::*)())&CSweepTrack_712c0::FUN_00068340);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSweepTrack_712c0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("timeEnd", &CSweepTrack_712c0::FUN_00068350);
+            params[1] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("timeEnd", (void (CSweepTrack_712c0::*)())&CSweepTrack_712c0::FUN_00068350);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSweepTrack_712c0>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("arc", &CSweepTrack_712c0::FUN_00068360);
+            params[2] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("arc", (void (CSweepTrack_712c0::*)())&CSweepTrack_712c0::FUN_00068360);
         mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CSweepTrack_712c0>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamIntConstRange<CSweepTrack_712c0>("priority", &CSweepTrack_712c0::FUN_00068380);
+            params[3] = new (mem) ParamIntConstRange<CSweepTrack_712c0>("priority", (void (CSweepTrack_712c0::*)())&CSweepTrack_712c0::FUN_00068380);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSweepTrack_712c0>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("rootBlendInTime", &CSweepTrack_712c0::FUN_00068390);
+            params[4] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("rootBlendInTime", (void (CSweepTrack_712c0::*)())&CSweepTrack_712c0::FUN_00068390);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSweepTrack_712c0>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("rootBlendOutTime", &CSweepTrack_712c0::FUN_000683a0);
+            params[5] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("rootBlendOutTime", (void (CSweepTrack_712c0::*)())&CSweepTrack_712c0::FUN_000683a0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dcf60), params, 6);
     }
     DAT_004dcf64++;
@@ -732,39 +732,39 @@ extern "C" void FUN_00071db0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CJumpAttackTrack_71db0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("timeBegin", &CJumpAttackTrack_71db0::FUN_000687a0);
+            params[0] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("timeBegin", (void (CJumpAttackTrack_71db0::*)())&CJumpAttackTrack_71db0::FUN_000687a0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CJumpAttackTrack_71db0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("timeEnd", &CJumpAttackTrack_71db0::FUN_000687b0);
+            params[1] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("timeEnd", (void (CJumpAttackTrack_71db0::*)())&CJumpAttackTrack_71db0::FUN_000687b0);
         mem = FUN_0008d690((int)sizeof(ParamVector<CJumpAttackTrack_71db0>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamVector<CJumpAttackTrack_71db0>("direction", &CJumpAttackTrack_71db0::FUN_000687c0);
+            params[2] = new (mem) ParamVector<CJumpAttackTrack_71db0>("direction", (void (CJumpAttackTrack_71db0::*)())&CJumpAttackTrack_71db0::FUN_000687c0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CJumpAttackTrack_71db0>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("arc", &CJumpAttackTrack_71db0::FUN_000687e0);
+            params[3] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("arc", (void (CJumpAttackTrack_71db0::*)())&CJumpAttackTrack_71db0::FUN_000687e0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CJumpAttackTrack_71db0>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("distance", &CJumpAttackTrack_71db0::FUN_00068800);
+            params[4] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("distance", (void (CJumpAttackTrack_71db0::*)())&CJumpAttackTrack_71db0::FUN_00068800);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CJumpAttackTrack_71db0>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("speed", &CJumpAttackTrack_71db0::FUN_00068810);
+            params[5] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("speed", (void (CJumpAttackTrack_71db0::*)())&CJumpAttackTrack_71db0::FUN_00068810);
         mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CJumpAttackTrack_71db0>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamIntConstRange<CJumpAttackTrack_71db0>("priority", &CJumpAttackTrack_71db0::FUN_00068820);
+            params[6] = new (mem) ParamIntConstRange<CJumpAttackTrack_71db0>("priority", (void (CJumpAttackTrack_71db0::*)())&CJumpAttackTrack_71db0::FUN_00068820);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CJumpAttackTrack_71db0>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("rootBlendInTime", &CJumpAttackTrack_71db0::FUN_00068830);
+            params[7] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("rootBlendInTime", (void (CJumpAttackTrack_71db0::*)())&CJumpAttackTrack_71db0::FUN_00068830);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CJumpAttackTrack_71db0>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("rootBlendOutTime", &CJumpAttackTrack_71db0::FUN_00068840);
+            params[8] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("rootBlendOutTime", (void (CJumpAttackTrack_71db0::*)())&CJumpAttackTrack_71db0::FUN_00068840);
         FUN_002347b0(((ParamRegistry*)&DAT_004dcfb8), params, 9);
     }
     DAT_004dcfbc++;
@@ -783,35 +783,35 @@ extern "C" void FUN_00071fb0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<COrientTrack_71fb0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<COrientTrack_71fb0>("timeBegin", &COrientTrack_71fb0::FUN_00068850);
+            params[0] = new (mem) ParamFloatConstRange<COrientTrack_71fb0>("timeBegin", (void (COrientTrack_71fb0::*)())&COrientTrack_71fb0::FUN_00068850);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<COrientTrack_71fb0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<COrientTrack_71fb0>("timeEnd", &COrientTrack_71fb0::FUN_00068860);
+            params[1] = new (mem) ParamFloatConstRange<COrientTrack_71fb0>("timeEnd", (void (COrientTrack_71fb0::*)())&COrientTrack_71fb0::FUN_00068860);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<COrientTrack_71fb0>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<COrientTrack_71fb0>("turningVelocity", &COrientTrack_71fb0::FUN_00068870);
+            params[2] = new (mem) ParamFloatConstRange<COrientTrack_71fb0>("turningVelocity", (void (COrientTrack_71fb0::*)())&COrientTrack_71fb0::FUN_00068870);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<COrientTrack_71fb0>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<COrientTrack_71fb0>("offset", &COrientTrack_71fb0::FUN_00068890);
+            params[3] = new (mem) ParamFloatConstRange<COrientTrack_71fb0>("offset", (void (COrientTrack_71fb0::*)())&COrientTrack_71fb0::FUN_00068890);
         mem = FUN_0008d690((int)sizeof(ParamBool<COrientTrack_71fb0>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamBool<COrientTrack_71fb0>("steering", &COrientTrack_71fb0::FUN_000688b0);
+            params[4] = new (mem) ParamBool<COrientTrack_71fb0>("steering", (void (COrientTrack_71fb0::*)())&COrientTrack_71fb0::FUN_000688b0);
         mem = FUN_0008d690((int)sizeof(ParamIntConstRange<COrientTrack_71fb0>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamIntConstRange<COrientTrack_71fb0>("priority", &COrientTrack_71fb0::FUN_000688c0);
+            params[5] = new (mem) ParamIntConstRange<COrientTrack_71fb0>("priority", (void (COrientTrack_71fb0::*)())&COrientTrack_71fb0::FUN_000688c0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<COrientTrack_71fb0>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamFloatConstRange<COrientTrack_71fb0>("blendInTime", &COrientTrack_71fb0::FUN_000688d0);
+            params[6] = new (mem) ParamFloatConstRange<COrientTrack_71fb0>("blendInTime", (void (COrientTrack_71fb0::*)())&COrientTrack_71fb0::FUN_000688d0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<COrientTrack_71fb0>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamFloatConstRange<COrientTrack_71fb0>("blendOutTime", &COrientTrack_71fb0::FUN_000688e0);
+            params[7] = new (mem) ParamFloatConstRange<COrientTrack_71fb0>("blendOutTime", (void (COrientTrack_71fb0::*)())&COrientTrack_71fb0::FUN_000688e0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dcfc0), params, 8);
     }
     DAT_004dcfc4++;
@@ -826,9 +826,9 @@ namespace fn_00072360 {
 // FUN_00072360 @ 0x00072360
 
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_00068960();
-void __cdecl FUN_00068970();
-void __cdecl FUN_00068980();
+bool FUN_00068960(void*, int); /* (unb4) as defined; address taken only */
+bool FUN_00068970(void*, int); /* (unb4) as defined; address taken only */
+bool FUN_00068980(void*, int); /* (unb4) as defined; address taken only */
 class CInvulnerableTrack;
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -845,7 +845,7 @@ extern "C" void __cdecl FUN_00072360() {
  if (!DAT_004dcfdc) {
  Param* entries[3];
  const char* names[3]={"timeBegin","timeEnd","extensionTime"};
- void (__cdecl *callbacks[3])()={FUN_00068960,FUN_00068970,FUN_00068980};
+ void (__cdecl *callbacks[3])()={(void (*)())FUN_00068960,(void (*)())FUN_00068970,(void (*)())FUN_00068980};
  for(int i=0;i<3;++i) {
  Param* p=(Param*)FUN_0008d690((int)sizeof(Param));
  if(p) {

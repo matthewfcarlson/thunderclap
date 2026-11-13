@@ -19,9 +19,9 @@ inline void* __cdecl operator new(size_t, void* memory) {
 namespace fn_f2f82934 {
 
 void __cdecl FUN_002347b0(void*, void*, int);
-void SetTimeBegin_00238850();
-void SetChannel_00238a80();
-void SetText_00238ae0();
+char SetTimeBegin_00238850(void*, int); /* (unb4) as defined; address taken only */
+bool SetChannel_00238a80(void*, void*); /* (unb4) as defined; address taken only */
+bool SetText_00238ae0(void*, void*); /* (unb4) as defined; address taken only */
 struct Base_239010 {
     virtual void slot0();
     virtual void slot1();
@@ -68,7 +68,7 @@ void FUN_00239010() {
             ((Base_239010*)mem)->FUN_00234960("timeBegin");
             fight::ParamFloatConstRange<fight::PrintTrack>* p =
                 new (mem) fight::ParamFloatConstRange<fight::PrintTrack>;
-            p->callback = SetTimeBegin_00238850;
+            p->callback = (void (*)())SetTimeBegin_00238850;
             params[0] = p;
         } else
             params[0] = 0;
@@ -76,7 +76,7 @@ void FUN_00239010() {
         if (mem) {
             ((Base_239010*)mem)->FUN_002349e0("channel");
             fight::ParamString<fight::PrintTrack>* p = new (mem) fight::ParamString<fight::PrintTrack>;
-            p->callback = SetChannel_00238a80;
+            p->callback = (void (*)())SetChannel_00238a80;
             params[1] = p;
         } else
             params[1] = 0;
@@ -84,7 +84,7 @@ void FUN_00239010() {
         if (mem) {
             ((Base_239010*)mem)->FUN_002349e0("text");
             fight::ParamString<fight::PrintTrack>* p = new (mem) fight::ParamString<fight::PrintTrack>;
-            p->callback = SetText_00238ae0;
+            p->callback = (void (*)())SetText_00238ae0;
             params[2] = p;
         } else
             params[2] = 0;

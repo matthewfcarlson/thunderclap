@@ -17,7 +17,7 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace fight {
 class CommentCondition {
 public:
-    void FUN_0023d880();
+    char FUN_0023d880(void*); /* (unb4) as defined; address taken only */
 };
 }
 namespace fight {
@@ -34,7 +34,7 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 namespace fight {
 class CommentTrack {
 public:
-    void FUN_0023d970();
+    char FUN_0023d970(void*); /* (unb4) as defined; address taken only */
 };
 }
 
@@ -51,7 +51,7 @@ void FUN_0023dc90()
         mem = FUN_0008d690((int)sizeof(fight::ParamString<fight::CommentCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamString<fight::CommentCondition>("text", &fight::CommentCondition::FUN_0023d880);
+            params[0] = new (mem) fight::ParamString<fight::CommentCondition>("text", (void (fight::CommentCondition::*)())&fight::CommentCondition::FUN_0023d880);
         FUN_002347b0(((ParamRegistry*)&DAT_004e5c5c), params, 1);
     }
     DAT_004e5c60++;
@@ -70,7 +70,7 @@ void FUN_0023dcf0()
         mem = FUN_0008d690((int)sizeof(fight::ParamString<fight::CommentTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamString<fight::CommentTrack>("text", &fight::CommentTrack::FUN_0023d970);
+            params[0] = new (mem) fight::ParamString<fight::CommentTrack>("text", (void (fight::CommentTrack::*)())&fight::CommentTrack::FUN_0023d970);
         FUN_002347b0(((ParamRegistry*)&DAT_004e5c64), params, 1);
     }
     DAT_004e5c68++;

@@ -15,16 +15,16 @@ extern "C" void* FUN_0008d690(unsigned int size);
 
 class FlyingAutoTargetTrack {
 public:
-    void FUN_00133690();
-    void FUN_001336a0();
-    void FUN_001336c0();
-    void FUN_00133700();
-    void FUN_00133730();
-    void FUN_00133750();
-    void FUN_00133780();
-    void FUN_001337a0();
-    void FUN_001337c0();
-    void FUN_001337e0();
+    bool FUN_00133690(void*); /* (unb4) as defined; address taken only */
+    bool FUN_001336a0(int); /* (unb4) as defined; address taken only */
+    bool FUN_001336c0(float); /* (unb4) as defined; address taken only */
+    bool FUN_00133700(void*); /* (unb4) as defined; address taken only */
+    char FUN_00133730(int); /* (unb4) as defined; address taken only */
+    char FUN_00133750(float); /* (unb4) as defined; address taken only */
+    bool FUN_00133780(int); /* (unb4) as defined; address taken only */
+    char FUN_001337a0(int); /* (unb4) as defined; address taken only */
+    bool FUN_001337c0(int); /* (unb4) as defined; address taken only */
+    char FUN_001337e0(int); /* (unb4) as defined; address taken only */
 };
 
 class __declspec(novtable) ParamFloatConstRangeBase {
@@ -92,43 +92,43 @@ void FUN_001386d0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("timeBegin", &FlyingAutoTargetTrack::FUN_00133690);
+            params[0] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("timeBegin", (void (FlyingAutoTargetTrack::*)())&FlyingAutoTargetTrack::FUN_00133690);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("timeEnd", &FlyingAutoTargetTrack::FUN_001336a0);
+            params[1] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("timeEnd", (void (FlyingAutoTargetTrack::*)())&FlyingAutoTargetTrack::FUN_001336a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("turningVelocity", &FlyingAutoTargetTrack::FUN_001336c0);
+            params[2] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("turningVelocity", (void (FlyingAutoTargetTrack::*)())&FlyingAutoTargetTrack::FUN_001336c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_1386d0<FlyingAutoTargetTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamVector_1386d0<FlyingAutoTargetTrack>("offset", &FlyingAutoTargetTrack::FUN_00133700);
+            params[3] = new (mem) fight::ParamVector_1386d0<FlyingAutoTargetTrack>("offset", (void (FlyingAutoTargetTrack::*)())&FlyingAutoTargetTrack::FUN_00133700);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("velocity", &FlyingAutoTargetTrack::FUN_00133730);
+            params[4] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("velocity", (void (FlyingAutoTargetTrack::*)())&FlyingAutoTargetTrack::FUN_00133730);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("targetArc", &FlyingAutoTargetTrack::FUN_00133750);
+            params[5] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("targetArc", (void (FlyingAutoTargetTrack::*)())&FlyingAutoTargetTrack::FUN_00133750);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("targetDistance", &FlyingAutoTargetTrack::FUN_00133780);
+            params[6] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("targetDistance", (void (FlyingAutoTargetTrack::*)())&FlyingAutoTargetTrack::FUN_00133780);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_1386d0<FlyingAutoTargetTrack>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamIntConstRange_1386d0<FlyingAutoTargetTrack>("priority", &FlyingAutoTargetTrack::FUN_001337a0);
+            params[7] = new (mem) fight::ParamIntConstRange_1386d0<FlyingAutoTargetTrack>("priority", (void (FlyingAutoTargetTrack::*)())&FlyingAutoTargetTrack::FUN_001337a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("blendInTime", &FlyingAutoTargetTrack::FUN_001337c0);
+            params[8] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("blendInTime", (void (FlyingAutoTargetTrack::*)())&FlyingAutoTargetTrack::FUN_001337c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("blendOutTime", &FlyingAutoTargetTrack::FUN_001337e0);
+            params[9] = new (mem) fight::ParamFloatConstRange_1386d0<FlyingAutoTargetTrack>("blendOutTime", (void (FlyingAutoTargetTrack::*)())&FlyingAutoTargetTrack::FUN_001337e0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0ef8), params, 10);
     }
     DAT_004e0efc++;

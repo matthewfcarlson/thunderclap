@@ -18,8 +18,8 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace hulkfight { namespace ai {
 class HasGroundPointCondition_118e40 {
 public:
-    void FUN_00114eb0();
-    void FUN_00114ed0();
+    char FUN_00114eb0(char); /* (unb4) as defined; address taken only */
+    char FUN_00114ed0(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_fda5378a {
@@ -46,8 +46,8 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 namespace hulkfight { namespace ai {
 class LocatorDistanceCondition_118ee0 {
 public:
-    void FUN_00114ee0();
-    void FUN_00114ef0();
+    char FUN_00114ee0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00114ef0(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_fda5378a {
@@ -84,12 +84,12 @@ public:
 namespace fn_fda5378a {
 class ComputeDropZoneCondition {
 public:
-    void FUN_00114f10();
-    void FUN_00114f30();
-    void FUN_00114f50();
-    void FUN_00114f60();
-    void FUN_00114f80();
-    void FUN_00114fa0();
+    char FUN_00114f10(int); /* (unb4) as defined; address taken only */
+    bool FUN_00114f30(void*); /* (unb4) as defined; address taken only */
+    char FUN_00114f50(int); /* (unb4) as defined; address taken only */
+    bool FUN_00114f60(int); /* (unb4) as defined; address taken only */
+    char FUN_00114f80(char); /* (unb4) as defined; address taken only */
+    char FUN_00114fa0(int); /* (unb4) as defined; address taken only */
 };
 template <class T>
 class ParamBool : public ParamBoolBase {
@@ -109,22 +109,22 @@ public:
 };
 class HasGroundPointExtendedCondition {
 public:
-    void FUN_00114fb0();
-    void FUN_00114fd0();
-    void FUN_00114fe0();
-    void FUN_00115000();
-    void FUN_00115020();
-    void FUN_00115040();
-    void FUN_00115060();
-    void FUN_00115080();
-    void FUN_001150b0();
+    char FUN_00114fb0(char); /* (unb4) as defined; address taken only */
+    char FUN_00114fd0(char); /* (unb4) as defined; address taken only */
+    bool FUN_00114fe0(char); /* (unb4) as defined; address taken only */
+    char FUN_00115000(char); /* (unb4) as defined; address taken only */
+    char FUN_00115020(char); /* (unb4) as defined; address taken only */
+    char FUN_00115040(char); /* (unb4) as defined; address taken only */
+    bool FUN_00115060(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115080(int); /* (unb4) as defined; address taken only */
+    bool FUN_001150b0(void*); /* (unb4) as defined; address taken only */
 };
 } // namespace fn_fda5378a
 namespace hulkfight { namespace ai {
 class MotionStopTrack_1193e0 {
 public:
-    void FUN_00115110();
-    void FUN_00115120();
+    bool FUN_00115110(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115120(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -140,55 +140,55 @@ public:
 namespace fn_fda5378a {
 class MotionFacingTrack {
 public:
-    void FUN_00115130();
-    void FUN_00115140();
-    void FUN_00115160();
-    void FUN_001151a0();
-    void FUN_001151d0();
+    char FUN_00115130(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115140(int); /* (unb4) as defined; address taken only */
+    char FUN_00115160(float); /* (unb4) as defined; address taken only */
+    char FUN_001151a0(void*); /* (unb4) as defined; address taken only */
+    char FUN_001151d0(int); /* (unb4) as defined; address taken only */
 };
 class MotionBoostTrack {
 public:
-    void FUN_001151e0();
-    void FUN_001151f0();
-    void FUN_00115210();
-    void FUN_00115230();
-    void FUN_00115240();
-    void FUN_00115250();
-    void FUN_00115270();
-    void FUN_00115280();
+    bool FUN_001151e0(int); /* (unb4) as defined; address taken only */
+    bool FUN_001151f0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115210(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115230(int); /* (unb4) as defined; address taken only */
+    char FUN_00115240(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115250(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115270(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115280(int); /* (unb4) as defined; address taken only */
 };
 class MotionTargetTrack {
 public:
-    void FUN_001153e0();
-    void FUN_001153f0();
-    void FUN_00115410();
-    void FUN_00115450();
-    void FUN_00115480();
+    bool FUN_001153e0(int); /* (unb4) as defined; address taken only */
+    char FUN_001153f0(int); /* (unb4) as defined; address taken only */
+    char FUN_00115410(float); /* (unb4) as defined; address taken only */
+    char FUN_00115450(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00115480(int); /* (unb4) as defined; address taken only */
 };
 class MotionChaseTrack {
 public:
-    void FUN_00115490();
-    void FUN_001154a0();
-    void FUN_001154c0();
-    void FUN_001154e0();
-    void FUN_00115500();
-    void FUN_00115520();
-    void FUN_00115540();
-    void FUN_00115550();
+    char FUN_00115490(int); /* (unb4) as defined; address taken only */
+    bool FUN_001154a0(int); /* (unb4) as defined; address taken only */
+    bool FUN_001154c0(int); /* (unb4) as defined; address taken only */
+    bool FUN_001154e0(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00115500(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115520(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115540(int); /* (unb4) as defined; address taken only */
+    char FUN_00115550(int); /* (unb4) as defined; address taken only */
 };
 class MotionClosestWaypointTrack {
 public:
-    void FUN_00115560();
-    void FUN_00115570();
-    void FUN_00115590();
-    void FUN_001155b0();
-    void FUN_001155d0();
-    void FUN_001155f0();
-    void FUN_00115610();
-    void FUN_00115630();
-    void FUN_00115650();
-    void FUN_00115670();
-    void FUN_00115690();
+    bool FUN_00115560(int); /* (unb4) as defined; address taken only */
+    char FUN_00115570(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115590(int); /* (unb4) as defined; address taken only */
+    char FUN_001155b0(int); /* (unb4) as defined; address taken only */
+    bool FUN_001155d0(int); /* (unb4) as defined; address taken only */
+    bool FUN_001155f0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115610(int); /* (unb4) as defined; address taken only */
+    char FUN_00115630(char); /* (unb4) as defined; address taken only */
+    char FUN_00115650(char); /* (unb4) as defined; address taken only */
+    bool FUN_00115670(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115690(int); /* (unb4) as defined; address taken only */
 };
 } // namespace fn_fda5378a
 namespace fight {
@@ -214,17 +214,17 @@ public:
 namespace fn_fda5378a {
 class MotionLocatorTrack {
 public:
-    void FUN_00115290();
-    void FUN_001152a0();
-    void FUN_001152c0();
-    void FUN_001152e0();
-    void FUN_00115300();
-    void FUN_00115320();
-    void FUN_00115340();
-    void FUN_00115360();
-    void FUN_00115380();
-    void FUN_001153a0();
-    void FUN_001153c0();
+    bool FUN_00115290(int); /* (unb4) as defined; address taken only */
+    bool FUN_001152a0(int); /* (unb4) as defined; address taken only */
+    char FUN_001152c0(int); /* (unb4) as defined; address taken only */
+    char FUN_001152e0(int); /* (unb4) as defined; address taken only */
+    char FUN_00115300(int); /* (unb4) as defined; address taken only */
+    char FUN_00115320(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115340(int); /* (unb4) as defined; address taken only */
+    bool FUN_00115360(char); /* (unb4) as defined; address taken only */
+    char FUN_00115380(int); /* (unb4) as defined; address taken only */
+    char FUN_001153a0(char); /* (unb4) as defined; address taken only */
+    char FUN_001153c0(char); /* (unb4) as defined; address taken only */
     void FUN_001153d0();
 };
 } // namespace fn_fda5378a
@@ -281,11 +281,11 @@ void FUN_00118e40()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_118e40<hulkfight::ai::HasGroundPointCondition_118e40>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_118e40<hulkfight::ai::HasGroundPointCondition_118e40>("groundPoint", &hulkfight::ai::HasGroundPointCondition_118e40::FUN_00114eb0);
+            params[0] = new (mem) fight::ParamBool_118e40<hulkfight::ai::HasGroundPointCondition_118e40>("groundPoint", (void (hulkfight::ai::HasGroundPointCondition_118e40::*)())&hulkfight::ai::HasGroundPointCondition_118e40::FUN_00114eb0);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_118e40<hulkfight::ai::HasGroundPointCondition_118e40>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamBool_118e40<hulkfight::ai::HasGroundPointCondition_118e40>("useMyTargetInstead", &hulkfight::ai::HasGroundPointCondition_118e40::FUN_00114ed0);
+            params[1] = new (mem) fight::ParamBool_118e40<hulkfight::ai::HasGroundPointCondition_118e40>("useMyTargetInstead", (void (hulkfight::ai::HasGroundPointCondition_118e40::*)())&hulkfight::ai::HasGroundPointCondition_118e40::FUN_00114ed0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0c24), params, 2);
     }
     DAT_004e0c28++;
@@ -304,11 +304,11 @@ void FUN_00118ee0()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_118ee0<hulkfight::ai::LocatorDistanceCondition_118ee0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_118ee0<hulkfight::ai::LocatorDistanceCondition_118ee0>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::LocatorDistanceCondition_118ee0::FUN_00114ee0);
+            params[0] = new (mem) fight::ParamEnumConstList_118ee0<hulkfight::ai::LocatorDistanceCondition_118ee0>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::LocatorDistanceCondition_118ee0::*)())&hulkfight::ai::LocatorDistanceCondition_118ee0::FUN_00114ee0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_118ee0<hulkfight::ai::LocatorDistanceCondition_118ee0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_118ee0<hulkfight::ai::LocatorDistanceCondition_118ee0>("distance", &hulkfight::ai::LocatorDistanceCondition_118ee0::FUN_00114ef0);
+            params[1] = new (mem) fight::ParamFloatConstRange_118ee0<hulkfight::ai::LocatorDistanceCondition_118ee0>("distance", (void (hulkfight::ai::LocatorDistanceCondition_118ee0::*)())&hulkfight::ai::LocatorDistanceCondition_118ee0::FUN_00114ef0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0c2c), params, 2);
     }
     DAT_004e0c30++;
@@ -328,27 +328,27 @@ void FUN_00118f90()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ComputeDropZoneCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("increment", &ComputeDropZoneCondition::FUN_00114f10);
+            params[0] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("increment", (void (ComputeDropZoneCondition::*)())&ComputeDropZoneCondition::FUN_00114f10);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ComputeDropZoneCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("heightMax", &ComputeDropZoneCondition::FUN_00114f30);
+            params[1] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("heightMax", (void (ComputeDropZoneCondition::*)())&ComputeDropZoneCondition::FUN_00114f30);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ComputeDropZoneCondition>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("dropDistance", &ComputeDropZoneCondition::FUN_00114f50);
+            params[2] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("dropDistance", (void (ComputeDropZoneCondition::*)())&ComputeDropZoneCondition::FUN_00114f50);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ComputeDropZoneCondition>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("boostHeightTolerance", &ComputeDropZoneCondition::FUN_00114f60);
+            params[3] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("boostHeightTolerance", (void (ComputeDropZoneCondition::*)())&ComputeDropZoneCondition::FUN_00114f60);
         mem = FUN_0008d690((int)sizeof(ParamBool<ComputeDropZoneCondition>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamBool<ComputeDropZoneCondition>("useOffset", &ComputeDropZoneCondition::FUN_00114f80);
+            params[4] = new (mem) ParamBool<ComputeDropZoneCondition>("useOffset", (void (ComputeDropZoneCondition::*)())&ComputeDropZoneCondition::FUN_00114f80);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ComputeDropZoneCondition>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("offset", &ComputeDropZoneCondition::FUN_00114fa0);
+            params[5] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("offset", (void (ComputeDropZoneCondition::*)())&ComputeDropZoneCondition::FUN_00114fa0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0c34), params, 6);
     }
     DAT_004e0c38++;
@@ -367,39 +367,39 @@ void FUN_00119100()
         mem = FUN_0008d690((int)sizeof(ParamBool<HasGroundPointExtendedCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamBool<HasGroundPointExtendedCondition>("groundPoint", &HasGroundPointExtendedCondition::FUN_00114fb0);
+            params[0] = new (mem) ParamBool<HasGroundPointExtendedCondition>("groundPoint", (void (HasGroundPointExtendedCondition::*)())&HasGroundPointExtendedCondition::FUN_00114fb0);
         mem = FUN_0008d690((int)sizeof(ParamBool<HasGroundPointExtendedCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamBool<HasGroundPointExtendedCondition>("useMyVelocity", &HasGroundPointExtendedCondition::FUN_00114fd0);
+            params[1] = new (mem) ParamBool<HasGroundPointExtendedCondition>("useMyVelocity", (void (HasGroundPointExtendedCondition::*)())&HasGroundPointExtendedCondition::FUN_00114fd0);
         mem = FUN_0008d690((int)sizeof(ParamBool<HasGroundPointExtendedCondition>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamBool<HasGroundPointExtendedCondition>("useMyFacing", &HasGroundPointExtendedCondition::FUN_00114fe0);
+            params[2] = new (mem) ParamBool<HasGroundPointExtendedCondition>("useMyFacing", (void (HasGroundPointExtendedCondition::*)())&HasGroundPointExtendedCondition::FUN_00114fe0);
         mem = FUN_0008d690((int)sizeof(ParamBool<HasGroundPointExtendedCondition>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamBool<HasGroundPointExtendedCondition>("target", &HasGroundPointExtendedCondition::FUN_00115000);
+            params[3] = new (mem) ParamBool<HasGroundPointExtendedCondition>("target", (void (HasGroundPointExtendedCondition::*)())&HasGroundPointExtendedCondition::FUN_00115000);
         mem = FUN_0008d690((int)sizeof(ParamBool<HasGroundPointExtendedCondition>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamBool<HasGroundPointExtendedCondition>("useCustomOffset", &HasGroundPointExtendedCondition::FUN_00115020);
+            params[4] = new (mem) ParamBool<HasGroundPointExtendedCondition>("useCustomOffset", (void (HasGroundPointExtendedCondition::*)())&HasGroundPointExtendedCondition::FUN_00115020);
         mem = FUN_0008d690((int)sizeof(ParamBool<HasGroundPointExtendedCondition>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamBool<HasGroundPointExtendedCondition>("absolute", &HasGroundPointExtendedCondition::FUN_00115040);
+            params[5] = new (mem) ParamBool<HasGroundPointExtendedCondition>("absolute", (void (HasGroundPointExtendedCondition::*)())&HasGroundPointExtendedCondition::FUN_00115040);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HasGroundPointExtendedCondition>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamFloatConstRange<HasGroundPointExtendedCondition>("distance", &HasGroundPointExtendedCondition::FUN_00115060);
+            params[6] = new (mem) ParamFloatConstRange<HasGroundPointExtendedCondition>("distance", (void (HasGroundPointExtendedCondition::*)())&HasGroundPointExtendedCondition::FUN_00115060);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HasGroundPointExtendedCondition>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamFloatConstRange<HasGroundPointExtendedCondition>("allowedHeight", &HasGroundPointExtendedCondition::FUN_00115080);
+            params[7] = new (mem) ParamFloatConstRange<HasGroundPointExtendedCondition>("allowedHeight", (void (HasGroundPointExtendedCondition::*)())&HasGroundPointExtendedCondition::FUN_00115080);
         mem = FUN_0008d690((int)sizeof(ParamVector<HasGroundPointExtendedCondition>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) ParamVector<HasGroundPointExtendedCondition>("customOffset", &HasGroundPointExtendedCondition::FUN_001150b0);
+            params[8] = new (mem) ParamVector<HasGroundPointExtendedCondition>("customOffset", (void (HasGroundPointExtendedCondition::*)())&HasGroundPointExtendedCondition::FUN_001150b0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0c3c), params, 9);
     }
     DAT_004e0c40++;
@@ -418,11 +418,11 @@ void FUN_001193e0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1193e0<hulkfight::ai::MotionStopTrack_1193e0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_1193e0<hulkfight::ai::MotionStopTrack_1193e0>("timeBegin", &hulkfight::ai::MotionStopTrack_1193e0::FUN_00115110);
+            params[0] = new (mem) fight::ParamFloatConstRange_1193e0<hulkfight::ai::MotionStopTrack_1193e0>("timeBegin", (void (hulkfight::ai::MotionStopTrack_1193e0::*)())&hulkfight::ai::MotionStopTrack_1193e0::FUN_00115110);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1193e0<hulkfight::ai::MotionStopTrack_1193e0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_1193e0<hulkfight::ai::MotionStopTrack_1193e0>("timeEnd", &hulkfight::ai::MotionStopTrack_1193e0::FUN_00115120);
+            params[1] = new (mem) fight::ParamFloatConstRange_1193e0<hulkfight::ai::MotionStopTrack_1193e0>("timeEnd", (void (hulkfight::ai::MotionStopTrack_1193e0::*)())&hulkfight::ai::MotionStopTrack_1193e0::FUN_00115120);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0c4c), params, 2);
     }
     DAT_004e0c50++;
@@ -442,23 +442,23 @@ void FUN_00119480()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionFacingTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<MotionFacingTrack>("timeBegin", &MotionFacingTrack::FUN_00115130);
+            params[0] = new (mem) ParamFloatConstRange<MotionFacingTrack>("timeBegin", (void (MotionFacingTrack::*)())&MotionFacingTrack::FUN_00115130);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionFacingTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<MotionFacingTrack>("timeEnd", &MotionFacingTrack::FUN_00115140);
+            params[1] = new (mem) ParamFloatConstRange<MotionFacingTrack>("timeEnd", (void (MotionFacingTrack::*)())&MotionFacingTrack::FUN_00115140);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionFacingTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<MotionFacingTrack>("angle", &MotionFacingTrack::FUN_00115160);
+            params[2] = new (mem) ParamFloatConstRange<MotionFacingTrack>("angle", (void (MotionFacingTrack::*)())&MotionFacingTrack::FUN_00115160);
         mem = FUN_0008d690((int)sizeof(ParamVector<MotionFacingTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamVector<MotionFacingTrack>("vector", &MotionFacingTrack::FUN_001151a0);
+            params[3] = new (mem) ParamVector<MotionFacingTrack>("vector", (void (MotionFacingTrack::*)())&MotionFacingTrack::FUN_001151a0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionFacingTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<MotionFacingTrack>("speed", &MotionFacingTrack::FUN_001151d0);
+            params[4] = new (mem) ParamFloatConstRange<MotionFacingTrack>("speed", (void (MotionFacingTrack::*)())&MotionFacingTrack::FUN_001151d0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0c54), params, 5);
     }
     DAT_004e0c58++;
@@ -477,35 +477,35 @@ void FUN_001195c0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<MotionBoostTrack>("timeBegin", &MotionBoostTrack::FUN_001151e0);
+            params[0] = new (mem) ParamFloatConstRange<MotionBoostTrack>("timeBegin", (void (MotionBoostTrack::*)())&MotionBoostTrack::FUN_001151e0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<MotionBoostTrack>("timeEnd", &MotionBoostTrack::FUN_001151f0);
+            params[1] = new (mem) ParamFloatConstRange<MotionBoostTrack>("timeEnd", (void (MotionBoostTrack::*)())&MotionBoostTrack::FUN_001151f0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<MotionBoostTrack>("distanceMin", &MotionBoostTrack::FUN_00115210);
+            params[2] = new (mem) ParamFloatConstRange<MotionBoostTrack>("distanceMin", (void (MotionBoostTrack::*)())&MotionBoostTrack::FUN_00115210);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<MotionBoostTrack>("distanceMax", &MotionBoostTrack::FUN_00115230);
+            params[3] = new (mem) ParamFloatConstRange<MotionBoostTrack>("distanceMax", (void (MotionBoostTrack::*)())&MotionBoostTrack::FUN_00115230);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<MotionBoostTrack>("heightMin", &MotionBoostTrack::FUN_00115240);
+            params[4] = new (mem) ParamFloatConstRange<MotionBoostTrack>("heightMin", (void (MotionBoostTrack::*)())&MotionBoostTrack::FUN_00115240);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<MotionBoostTrack>("heightMax", &MotionBoostTrack::FUN_00115250);
+            params[5] = new (mem) ParamFloatConstRange<MotionBoostTrack>("heightMax", (void (MotionBoostTrack::*)())&MotionBoostTrack::FUN_00115250);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamFloatConstRange<MotionBoostTrack>("speed", &MotionBoostTrack::FUN_00115270);
+            params[6] = new (mem) ParamFloatConstRange<MotionBoostTrack>("speed", (void (MotionBoostTrack::*)())&MotionBoostTrack::FUN_00115270);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamFloatConstRange<MotionBoostTrack>("boost", &MotionBoostTrack::FUN_00115280);
+            params[7] = new (mem) ParamFloatConstRange<MotionBoostTrack>("boost", (void (MotionBoostTrack::*)())&MotionBoostTrack::FUN_00115280);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0c5c), params, 8);
     }
     DAT_004e0c60++;
@@ -525,23 +525,23 @@ void FUN_00119790()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionTargetTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<MotionTargetTrack>("timeBegin", &MotionTargetTrack::FUN_001153e0);
+            params[0] = new (mem) ParamFloatConstRange<MotionTargetTrack>("timeBegin", (void (MotionTargetTrack::*)())&MotionTargetTrack::FUN_001153e0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionTargetTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<MotionTargetTrack>("timeEnd", &MotionTargetTrack::FUN_001153f0);
+            params[1] = new (mem) ParamFloatConstRange<MotionTargetTrack>("timeEnd", (void (MotionTargetTrack::*)())&MotionTargetTrack::FUN_001153f0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionTargetTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<MotionTargetTrack>("angle", &MotionTargetTrack::FUN_00115410);
+            params[2] = new (mem) ParamFloatConstRange<MotionTargetTrack>("angle", (void (MotionTargetTrack::*)())&MotionTargetTrack::FUN_00115410);
         mem = FUN_0008d690((int)sizeof(ParamVector<MotionTargetTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamVector<MotionTargetTrack>("vector", &MotionTargetTrack::FUN_00115450);
+            params[3] = new (mem) ParamVector<MotionTargetTrack>("vector", (void (MotionTargetTrack::*)())&MotionTargetTrack::FUN_00115450);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionTargetTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<MotionTargetTrack>("speed", &MotionTargetTrack::FUN_00115480);
+            params[4] = new (mem) ParamFloatConstRange<MotionTargetTrack>("speed", (void (MotionTargetTrack::*)())&MotionTargetTrack::FUN_00115480);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0c6c), params, 5);
     }
     DAT_004e0c70++;
@@ -560,35 +560,35 @@ void FUN_001198d0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionChaseTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<MotionChaseTrack>("timeBegin", &MotionChaseTrack::FUN_00115490);
+            params[0] = new (mem) ParamFloatConstRange<MotionChaseTrack>("timeBegin", (void (MotionChaseTrack::*)())&MotionChaseTrack::FUN_00115490);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionChaseTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<MotionChaseTrack>("timeEnd", &MotionChaseTrack::FUN_001154a0);
+            params[1] = new (mem) ParamFloatConstRange<MotionChaseTrack>("timeEnd", (void (MotionChaseTrack::*)())&MotionChaseTrack::FUN_001154a0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionChaseTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<MotionChaseTrack>("distanceMin", &MotionChaseTrack::FUN_001154c0);
+            params[2] = new (mem) ParamFloatConstRange<MotionChaseTrack>("distanceMin", (void (MotionChaseTrack::*)())&MotionChaseTrack::FUN_001154c0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionChaseTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<MotionChaseTrack>("distanceMax", &MotionChaseTrack::FUN_001154e0);
+            params[3] = new (mem) ParamFloatConstRange<MotionChaseTrack>("distanceMax", (void (MotionChaseTrack::*)())&MotionChaseTrack::FUN_001154e0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionChaseTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<MotionChaseTrack>("heightMin", &MotionChaseTrack::FUN_00115500);
+            params[4] = new (mem) ParamFloatConstRange<MotionChaseTrack>("heightMin", (void (MotionChaseTrack::*)())&MotionChaseTrack::FUN_00115500);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionChaseTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<MotionChaseTrack>("heightMax", &MotionChaseTrack::FUN_00115520);
+            params[5] = new (mem) ParamFloatConstRange<MotionChaseTrack>("heightMax", (void (MotionChaseTrack::*)())&MotionChaseTrack::FUN_00115520);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionChaseTrack>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamFloatConstRange<MotionChaseTrack>("speed", &MotionChaseTrack::FUN_00115540);
+            params[6] = new (mem) ParamFloatConstRange<MotionChaseTrack>("speed", (void (MotionChaseTrack::*)())&MotionChaseTrack::FUN_00115540);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionChaseTrack>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamFloatConstRange<MotionChaseTrack>("boost", &MotionChaseTrack::FUN_00115550);
+            params[7] = new (mem) ParamFloatConstRange<MotionChaseTrack>("boost", (void (MotionChaseTrack::*)())&MotionChaseTrack::FUN_00115550);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0c74), params, 8);
     }
     DAT_004e0c78++;
@@ -607,47 +607,47 @@ void FUN_00119aa0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("timeBegin", &MotionClosestWaypointTrack::FUN_00115560);
+            params[0] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("timeBegin", (void (MotionClosestWaypointTrack::*)())&MotionClosestWaypointTrack::FUN_00115560);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("timeEnd", &MotionClosestWaypointTrack::FUN_00115570);
+            params[1] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("timeEnd", (void (MotionClosestWaypointTrack::*)())&MotionClosestWaypointTrack::FUN_00115570);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("speed", &MotionClosestWaypointTrack::FUN_00115590);
+            params[2] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("speed", (void (MotionClosestWaypointTrack::*)())&MotionClosestWaypointTrack::FUN_00115590);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("distanceMin", &MotionClosestWaypointTrack::FUN_001155b0);
+            params[3] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("distanceMin", (void (MotionClosestWaypointTrack::*)())&MotionClosestWaypointTrack::FUN_001155b0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("distanceMax", &MotionClosestWaypointTrack::FUN_001155d0);
+            params[4] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("distanceMax", (void (MotionClosestWaypointTrack::*)())&MotionClosestWaypointTrack::FUN_001155d0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("heightMin", &MotionClosestWaypointTrack::FUN_001155f0);
+            params[5] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("heightMin", (void (MotionClosestWaypointTrack::*)())&MotionClosestWaypointTrack::FUN_001155f0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("heightMax", &MotionClosestWaypointTrack::FUN_00115610);
+            params[6] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("heightMax", (void (MotionClosestWaypointTrack::*)())&MotionClosestWaypointTrack::FUN_00115610);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_119aa0<MotionClosestWaypointTrack>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamBool_119aa0<MotionClosestWaypointTrack>("useAvoidance", &MotionClosestWaypointTrack::FUN_00115630);
+            params[7] = new (mem) fight::ParamBool_119aa0<MotionClosestWaypointTrack>("useAvoidance", (void (MotionClosestWaypointTrack::*)())&MotionClosestWaypointTrack::FUN_00115630);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_119aa0<MotionClosestWaypointTrack>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamBool_119aa0<MotionClosestWaypointTrack>("setWaypointAsDriftPosition", &MotionClosestWaypointTrack::FUN_00115650);
+            params[8] = new (mem) fight::ParamBool_119aa0<MotionClosestWaypointTrack>("setWaypointAsDriftPosition", (void (MotionClosestWaypointTrack::*)())&MotionClosestWaypointTrack::FUN_00115650);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("maxTimeInSamePosition", &MotionClosestWaypointTrack::FUN_00115670);
+            params[9] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("maxTimeInSamePosition", (void (MotionClosestWaypointTrack::*)())&MotionClosestWaypointTrack::FUN_00115670);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>));
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("minSpeedToKeepMoving", &MotionClosestWaypointTrack::FUN_00115690);
+            params[10] = new (mem) fight::ParamFloatConstRange_119aa0<MotionClosestWaypointTrack>("minSpeedToKeepMoving", (void (MotionClosestWaypointTrack::*)())&MotionClosestWaypointTrack::FUN_00115690);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0c7c), params, 11);
     }
     DAT_004e0c80++;
@@ -666,47 +666,47 @@ void FUN_0011ab30()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("timeBegin", &MotionLocatorTrack::FUN_00115290);
+            params[0] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("timeBegin", (void (MotionLocatorTrack::*)())&MotionLocatorTrack::FUN_00115290);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("timeEnd", &MotionLocatorTrack::FUN_001152a0);
+            params[1] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("timeEnd", (void (MotionLocatorTrack::*)())&MotionLocatorTrack::FUN_001152a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("speed", &MotionLocatorTrack::FUN_001152c0);
+            params[2] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("speed", (void (MotionLocatorTrack::*)())&MotionLocatorTrack::FUN_001152c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("distanceMin", &MotionLocatorTrack::FUN_001152e0);
+            params[3] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("distanceMin", (void (MotionLocatorTrack::*)())&MotionLocatorTrack::FUN_001152e0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("distanceMax", &MotionLocatorTrack::FUN_00115300);
+            params[4] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("distanceMax", (void (MotionLocatorTrack::*)())&MotionLocatorTrack::FUN_00115300);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("heightMin", &MotionLocatorTrack::FUN_00115320);
+            params[5] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("heightMin", (void (MotionLocatorTrack::*)())&MotionLocatorTrack::FUN_00115320);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("heightMax", &MotionLocatorTrack::FUN_00115340);
+            params[6] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("heightMax", (void (MotionLocatorTrack::*)())&MotionLocatorTrack::FUN_00115340);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_11ab30<MotionLocatorTrack>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamBool_11ab30<MotionLocatorTrack>("stringParamLocator", &MotionLocatorTrack::FUN_00115360);
+            params[7] = new (mem) fight::ParamBool_11ab30<MotionLocatorTrack>("stringParamLocator", (void (MotionLocatorTrack::*)())&MotionLocatorTrack::FUN_00115360);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_11ab30<MotionLocatorTrack>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamBool_11ab30<MotionLocatorTrack>("myLocator", &MotionLocatorTrack::FUN_00115380);
+            params[8] = new (mem) fight::ParamBool_11ab30<MotionLocatorTrack>("myLocator", (void (MotionLocatorTrack::*)())&MotionLocatorTrack::FUN_00115380);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_11ab30<MotionLocatorTrack>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamBool_11ab30<MotionLocatorTrack>("defendLocator", &MotionLocatorTrack::FUN_001153a0);
+            params[9] = new (mem) fight::ParamBool_11ab30<MotionLocatorTrack>("defendLocator", (void (MotionLocatorTrack::*)())&MotionLocatorTrack::FUN_001153a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_11ab30<MotionLocatorTrack>));
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamBool_11ab30<MotionLocatorTrack>("namedLocator", &MotionLocatorTrack::FUN_001153c0);
+            params[10] = new (mem) fight::ParamBool_11ab30<MotionLocatorTrack>("namedLocator", (void (MotionLocatorTrack::*)())&MotionLocatorTrack::FUN_001153c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamName_11ab30<MotionLocatorTrack>));
         params[11] = 0;
         if (mem)

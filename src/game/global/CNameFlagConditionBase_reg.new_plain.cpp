@@ -15,9 +15,9 @@ namespace fn_f4b51f75 {} using namespace fn_f4b51f75;
 // ---- declarations shared by the functions below
 namespace fn_f4b51f75 {
 extern "C" void* __cdecl FUN_0008d690(unsigned);
-void __cdecl FUN_00047ab0();
-void __cdecl FUN_00047ac0();
-void __cdecl FUN_00047ad0();
+char FUN_00047ab0(void*, int); /* (unb4) as defined; address taken only */
+char FUN_00047ac0(void*, int); /* (unb4) as defined; address taken only */
+char FUN_00047ad0(void*, int); /* (unb4) as defined; address taken only */
 class CButtonCondition;
 struct FUN_00234cc0 {
  virtual void slot0(); char pad[12];
@@ -57,18 +57,18 @@ extern "C" void __cdecl FUN_000527d0() {
  void* mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CButtonCondition>)); entries[0]=0;
  if(mem) {
  fight::ParamEnumConstList<CButtonCondition>* p=new(mem) fight::ParamEnumConstList<CButtonCondition>("button");
- p->list=((unsigned*)&DAT_0049ee30); p->count=13; p->callback=FUN_00047ab0; entries[0]=p;
+ p->list=((unsigned*)&DAT_0049ee30); p->count=13; p->callback=(void (*)())FUN_00047ab0; entries[0]=p;
  }
  mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CButtonCondition>)); entries[1]=0;
  if(mem) {
  unsigned count=(*(unsigned*)&DAT_00427754);
  fight::ParamEnumConstList<CButtonCondition>* p=new(mem) fight::ParamEnumConstList<CButtonCondition>("compareTime");
- p->count=count; p->list=((char*)&DAT_0042773c); p->callback=FUN_00047ac0; entries[1]=p;
+ p->count=count; p->list=((char*)&DAT_0042773c); p->callback=(void (*)())FUN_00047ac0; entries[1]=p;
  }
  mem=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CButtonCondition>)); entries[2]=0;
  if(mem) {
  fight::ParamFloatConstRange<CButtonCondition>* p=new(mem) fight::ParamFloatConstRange<CButtonCondition>("time");
- p->callback=FUN_00047ad0; entries[2]=p;
+ p->callback=(void (*)())FUN_00047ad0; entries[2]=p;
  }
  FUN_002347b0(((unsigned*)&DAT_004dc400), entries,3);
  }

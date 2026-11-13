@@ -56,7 +56,7 @@ struct CFEManager { virtual void* slot_000c1f50(char); unsigned f4; unsigned cha
 typedef void (CFEManager::*Callback)();
 // The static functions bound with Function0 / Function1 (0x000bfc50, 0x000bfcc0).
 typedef void (*StaticFn)();
-extern void FUN_000b45a0(); extern void FUN_000b45b0(); extern void FUN_000b45d0();
+extern void FUN_000b45a0(int); /* (unb4) as defined; address taken only */ extern void FUN_000b45b0(); extern void FUN_000b45d0(void*); /* (unb4) as defined; address taken only */
 struct Binding : ScriptFunctionFields { virtual void slot(); Callback callback; CFEManager* owner; void FUN_001d0480(const char*,int); Binding* FUN_000c0030(const char*,CFEManager*,Callback); Binding* FUN_000c0200(const char*,CFEManager*,Callback); };
 template<class C,class R,class A> struct Method1: Binding { virtual void slot(); };
 template<class C,class R,class A> struct Closure1: Method1<C,R,A> { virtual void slot(); };
@@ -72,7 +72,7 @@ for(i=0;i<128;++i) arrayA[i]=0; for(i=0;i<128;++i) arrayB[i]=0; for(i=0;i<128;++
 HULK_SIZE32(Binding, 0x24);
 Registry* r=FUN_001d4c90(); if(!r) return; Binding* b;
 MAKE(char*,"fe_SetMissionFailureHint",000b89c0,DAT_0049cad8);
-r->FUN_000c06e0("SetMissionInfo",this,&CFEManager::FUN_000b4e30); r->FUN_000c0740("fe_StartNextMission",this,&CFEManager::FUN_000bc750); r->FUN_000bfc50("fe_changeScreen",FUN_000b45a0); r->FUN_000bfcc0("fe_backScreen",FUN_000b45b0); r->FUN_000bfc50("fe_loadScript",FUN_000b45d0);
+r->FUN_000c06e0("SetMissionInfo",this,&CFEManager::FUN_000b4e30); r->FUN_000c0740("fe_StartNextMission",this,&CFEManager::FUN_000bc750); r->FUN_000bfc50("fe_changeScreen",(void (*)())FUN_000b45a0); r->FUN_000bfcc0("fe_backScreen",FUN_000b45b0); r->FUN_000bfc50("fe_loadScript",(void (*)())FUN_000b45d0);
 MAKE(const char*,"fe_doScreen",000bc1e0,DAT_0048e0f0);
 SIMPLE(FUN_000c0030,"fe_fullscreenMessage",000b47b0);
 r->FUN_000c0850("fe_fullscreenMessageEx",this,&CFEManager::FUN_000b4850); r->FUN_000c08b0("fe_fullscreenQuestion",this,&CFEManager::FUN_000bc230); r->FUN_000c0740("fe_unlockStory",this,&CFEManager::FUN_000bb5c0);

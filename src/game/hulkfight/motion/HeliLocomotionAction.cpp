@@ -1012,7 +1012,7 @@ void* FUN_0008d690(unsigned int size);
 namespace hulkfight { namespace motion {
 class LocomotingCondition_161280 {
 public:
-    void FUN_0015a820();
+    char FUN_0015a820(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_f94adb62 {
@@ -1039,8 +1039,8 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 namespace hulkfight { namespace motion {
 class PhaseCondition_1612e0 {
 public:
-    void FUN_0015a870();
-    void FUN_0015a890();
+    bool FUN_0015a870(int); /* (unb4) as defined; address taken only */
+    char FUN_0015a890(void*); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_f94adb62 {
@@ -1064,8 +1064,8 @@ public:
 namespace hulkfight { namespace motion {
 class LocomotingTrack_161380 {
 public:
-    void FUN_0015a8a0();
-    void FUN_0015a8b0();
+    char FUN_0015a8a0(int); /* (unb4) as defined; address taken only */
+    char FUN_0015a8b0(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -3975,7 +3975,7 @@ extern "C" void FUN_00161280()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_161280<hulkfight::motion::LocomotingCondition_161280>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_161280<hulkfight::motion::LocomotingCondition_161280>("isLocomoting", &hulkfight::motion::LocomotingCondition_161280::FUN_0015a820);
+            params[0] = new (mem) fight::ParamBool_161280<hulkfight::motion::LocomotingCondition_161280>("isLocomoting", (void (hulkfight::motion::LocomotingCondition_161280::*)())&hulkfight::motion::LocomotingCondition_161280::FUN_0015a820);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1158), params, 1);
     }
     DAT_004e115c++;
@@ -3994,11 +3994,11 @@ extern "C" void FUN_001612e0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1612e0<hulkfight::motion::PhaseCondition_1612e0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_1612e0<hulkfight::motion::PhaseCondition_1612e0>("phase", &hulkfight::motion::PhaseCondition_1612e0::FUN_0015a870);
+            params[0] = new (mem) fight::ParamFloatConstRange_1612e0<hulkfight::motion::PhaseCondition_1612e0>("phase", (void (hulkfight::motion::PhaseCondition_1612e0::*)())&hulkfight::motion::PhaseCondition_1612e0::FUN_0015a870);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1612e0<hulkfight::motion::PhaseCondition_1612e0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_1612e0<hulkfight::motion::PhaseCondition_1612e0>("arc", &hulkfight::motion::PhaseCondition_1612e0::FUN_0015a890);
+            params[1] = new (mem) fight::ParamFloatConstRange_1612e0<hulkfight::motion::PhaseCondition_1612e0>("arc", (void (hulkfight::motion::PhaseCondition_1612e0::*)())&hulkfight::motion::PhaseCondition_1612e0::FUN_0015a890);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1168), params, 2);
     }
     DAT_004e116c++;
@@ -4017,11 +4017,11 @@ extern "C" void FUN_00161380()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161380<hulkfight::motion::LocomotingTrack_161380>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_161380<hulkfight::motion::LocomotingTrack_161380>("timeBegin", &hulkfight::motion::LocomotingTrack_161380::FUN_0015a8a0);
+            params[0] = new (mem) fight::ParamFloatConstRange_161380<hulkfight::motion::LocomotingTrack_161380>("timeBegin", (void (hulkfight::motion::LocomotingTrack_161380::*)())&hulkfight::motion::LocomotingTrack_161380::FUN_0015a8a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161380<hulkfight::motion::LocomotingTrack_161380>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_161380<hulkfight::motion::LocomotingTrack_161380>("timeEnd", &hulkfight::motion::LocomotingTrack_161380::FUN_0015a8b0);
+            params[1] = new (mem) fight::ParamFloatConstRange_161380<hulkfight::motion::LocomotingTrack_161380>("timeEnd", (void (hulkfight::motion::LocomotingTrack_161380::*)())&hulkfight::motion::LocomotingTrack_161380::FUN_0015a8b0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1170), params, 2);
     }
     DAT_004e1174++;

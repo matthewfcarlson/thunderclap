@@ -578,68 +578,68 @@ struct H2_c43a0 {
 extern "C" void FUN_000fc1e0(const char*, H0_c43a0*);
 extern "C" void FUN_000fc220(const char*, H1*);
 extern "C" void FUN_000fc200(const char*, H2_c43a0*);
-void Mb45e0_000b45e0();
-void Mb45f0_000b45f0();
-void Mb4610_000b4610();
-void Mbbb40_000bbb40();
-void Mbbb80_000bbb80();
-void Mbbb90_000bbb90();
-void Mbbbb0_000bbbb0();
-void Mbbc00_000bbc00();
-void Mbbc20_000bbc20();
-void Mbbc50_000bbc50();
-void Mbbc90_000bbc90();
-void Mbbcb0_000bbcb0();
-void Mbbcd0_000bbcd0();
-void Mbbcf0_000bbcf0();
-void Mbbd10_000bbd10();
-void Mbbd30_000bbd30();
-void Mbbd60_000bbd60();
-void Mbbd80_000bbd80();
-void Mbbda0_000bbda0();
-void Mbbdc0_000bbdc0();
-void Mbbdf0_000bbdf0();
-void Mbbe20_000bbe20();
-void Mbbe50_000bbe50();
-void Mbbe90_000bbe90();
-void Mbbeb0_000bbeb0();
-void Mbbed0_000bbed0();
-void Mbbef0_000bbef0();
-void Mbbf00_000bbf00();
-void Mbbf20_000bbf20();
-void Mbbf60_000bbf60();
-void Mbbf70_000bbf70();
-void Mbbfa0_000bbfa0();
-void Mbbfd0_000bbfd0();
-void Mbbff0_000bbff0();
-void Mbc010_000bc010();
+int Mb45e0_000b45e0(int, int); /* (unb4) as defined; address taken only */
+int Mb45f0_000b45f0(void*, int, int); /* (unb4) as defined; address taken only */
+int Mb4610_000b4610(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbbb40_000bbb40(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mbbb80_000bbb80(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbbb90_000bbb90(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbbbb0_000bbbb0(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbbc00_000bbc00(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbbc20_000bbc20(void*, int, int); /* (unb4) as defined; address taken only */
+void Mbbc50_000bbc50(void*, float); /* (unb4) as defined; address taken only */
+void Mbbc90_000bbc90(void*, void*); /* (unb4) as defined; address taken only */
+void Mbbcb0_000bbcb0(void*, int); /* (unb4) as defined; address taken only */
+void Mbbcd0_000bbcd0(void*, int); /* (unb4) as defined; address taken only */
+void Mbbcf0_000bbcf0(void*, int); /* (unb4) as defined; address taken only */
+void Mbbd10_000bbd10(void*, int); /* (unb4) as defined; address taken only */
+void Mbbd30_000bbd30(void*, void*); /* (unb4) as defined; address taken only */
+void Mbbd60_000bbd60(void*, int); /* (unb4) as defined; address taken only */
+void Mbbd80_000bbd80(void*, void*); /* (unb4) as defined; address taken only */
+void Mbbda0_000bbda0(void*, void*); /* (unb4) as defined; address taken only */
+void Mbbdc0_000bbdc0(void*, void*); /* (unb4) as defined; address taken only */
+void Mbbdf0_000bbdf0(void*, void*); /* (unb4) as defined; address taken only */
+void Mbbe20_000bbe20(void*, int); /* (unb4) as defined; address taken only */
+int Mbbe50_000bbe50(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mbbe90_000bbe90(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbbeb0_000bbeb0(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbbed0_000bbed0(void*, void*, void*); /* (unb4) as defined; address taken only */
+void Mbbef0_000bbef0(void*, int); /* (unb4) as defined; address taken only */
+int Mbbf00_000bbf00(void*, int); /* (unb4) as defined; address taken only */
+int Mbbf20_000bbf20(void*, int, void*); /* (unb4) as defined; address taken only */
+void Mbbf60_000bbf60(void*, int); /* (unb4) as defined; address taken only */
+int Mbbf70_000bbf70(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mbbfa0_000bbfa0(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mbbfd0_000bbfd0(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbbff0_000bbff0(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbc010_000bc010(void*, void*, void*); /* (unb4) as defined; address taken only */
 extern "C" void FUN_000bc030();
 extern "C" void FUN_000bc040();
-void Mbc050_000bc050();
-void Mbc060_000bc060();
-void Mbc080_000bc080();
-void Mbc0a0_000bc0a0();
-void Mbc0b0_000bc0b0();
-void Mbc0d0_000bc0d0();
-void Mbc0f0_000bc0f0();
-void Mbecd0_000becd0();
-void Mbef60_000bef60();
-void Mbef80_000bef80();
-void Mc04a0_000c04a0();
-void Mc04c0_000c04c0();
-void Mc04e0_000c04e0();
-void Mc0500_000c0500();
-void Mc0540_000c0540();
-void Mc0590_000c0590();
-void Mc05d0_000c05d0();
-void Mc05f0_000c05f0();
-void Mc0630_000c0630();
-void Mc1f00_000c1f00();
-void Mc1f30_000c1f30();
-void Mc2b90_000c2b90();
-void Mc3e50_000c3e50();
-void Mc3e70_000c3e70();
-void Mc4000_000c4000();
+void Mbc050_000bc050(void*, float); /* (unb4) as defined; address taken only */
+int Mbc060_000bc060(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbc080_000bc080(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbc0a0_000bc0a0(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbc0b0_000bc0b0(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbc0d0_000bc0d0(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbc0f0_000bc0f0(void*, int, int); /* (unb4) as defined; address taken only */
+int Mbecd0_000becd0(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mbef60_000bef60(void*, void*, void*); /* (unb4) as defined; address taken only */
+int Mbef80_000bef80(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mc04a0_000c04a0(void*, int, int); /* (unb4) as defined; address taken only */
+int Mc04c0_000c04c0(void*, void*, int); /* (unb4) as defined; address taken only */
+int Mc04e0_000c04e0(void*, void*, int); /* (unb4) as defined; address taken only */
+int Mc0500_000c0500(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mc0540_000c0540(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mc0590_000c0590(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mc05d0_000c05d0(void*, int, int); /* (unb4) as defined; address taken only */
+int Mc05f0_000c05f0(void*, int, int, void*); /* (unb4) as defined; address taken only */
+int Mc0630_000c0630(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mc1f00_000c1f00(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mc1f30_000c1f30(void*, int, int); /* (unb4) as defined; address taken only */
+int Mc2b90_000c2b90(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mc3e50_000c3e50(void*, int, int); /* (unb4) as defined; address taken only */
+int Mc3e70_000c3e70(void*, int, void*); /* (unb4) as defined; address taken only */
+int Mc4000_000c4000(void*, int, int); /* (unb4) as defined; address taken only */
 class CFrontEndCallback_c43a0 {
   public:
     void* vptr;
@@ -2812,68 +2812,68 @@ int Target_c4000::F(int a, int b) {
 CFrontEndCallback_c43a0* CFrontEndCallback_c43a0::ctor(void* arg) {
     vptr = gV;
     m4 = arg;
-    FUN_000fc1e0("Print", new H0_c43a0(this, (void*)Mb45e0_000b45e0));
-    FUN_000fc1e0("SetDifficulty", new H0_c43a0(this, (void*)Mbbb40_000bbb40));
-    FUN_000fc1e0("ResetDifficultySelectScreen", new H0_c43a0(this, (void*)Mc04a0_000c04a0));
-    FUN_000fc1e0("ResetGame", new H0_c43a0(this, (void*)Mc04c0_000c04c0));
-    FUN_000fc1e0("ReplayStoryMode", new H0_c43a0(this, (void*)Mc04e0_000c04e0));
-    FUN_000fc1e0("StartGame", new H0_c43a0(this, (void*)Mbecd0_000becd0));
-    FUN_000fc1e0("StartNextMission", new H0_c43a0(this, (void*)Mbef60_000bef60));
-    FUN_000fc1e0("ReturnToNullMission", new H0_c43a0(this, (void*)Mc0500_000c0500));
-    FUN_000fc1e0("ExitSim", new H0_c43a0(this, (void*)Mc0540_000c0540));
-    FUN_000fc1e0("RestartSim", new H0_c43a0(this, (void*)Mc0590_000c0590));
-    FUN_000fc1e0("Continue", new H0_c43a0(this, (void*)Mc05d0_000c05d0));
-    FUN_000fc1e0("SaveGame", new H0_c43a0(this, (void*)Mbbb80_000bbb80));
-    FUN_000fc1e0("ChangeLocale", new H0_c43a0(this, (void*)Mc1f00_000c1f00));
-    FUN_000fc1e0("JumpMarkerSelected", new H0_c43a0(this, (void*)Mbbb90_000bbb90));
-    FUN_000fc1e0("JumpMarkerSelectionCancelled", new H0_c43a0(this, (void*)Mbbbb0_000bbbb0));
-    FUN_000fc1e0("ResetJumpMarkers", new H0_c43a0(this, (void*)Mbbc00_000bbc00));
-    FUN_000fc1e0("AwardCheatersSmashPoints", new H0_c43a0(this, (void*)Mbbc20_000bbc20));
-    FUN_000fc220("VideoBrightnessChanged", new H1(this, (void*)Mbbc50_000bbc50));
-    FUN_000fc200("TargetingLockChanged", new H2_c43a0(this, (void*)Mbbc90_000bbc90));
-    FUN_000fc220("AudioDialogueVolumeChanged", new H1(this, (void*)Mbbcb0_000bbcb0));
-    FUN_000fc220("AudioMusicVolumeChanged", new H1(this, (void*)Mbbcd0_000bbcd0));
-    FUN_000fc220("AudioSoundEffectsVolumeChanged", new H1(this, (void*)Mbbcf0_000bbcf0));
-    FUN_000fc200("AudioQualityChanged", new H2_c43a0(this, (void*)Mbbd10_000bbd10));
-    FUN_000fc200("SubtitlesChanged", new H2_c43a0(this, (void*)Mbbd30_000bbd30));
-    FUN_000fc200("ControlConfigVibrationChanged", new H2_c43a0(this, (void*)Mbbd60_000bbd60));
-    FUN_000fc200("CameraInvertXChanged", new H2_c43a0(this, (void*)Mbbd80_000bbd80));
-    FUN_000fc200("CameraInvertYChanged", new H2_c43a0(this, (void*)Mbbda0_000bbda0));
-    FUN_000fc200("CheatGrayHulkChanged", new H2_c43a0(this, (void*)Mbbdc0_000bbdc0));
-    FUN_000fc200("CheatInvulnerabilityChanged", new H2_c43a0(this, (void*)Mbbdf0_000bbdf0));
-    FUN_000fc200("CheatAllMovesChanged", new H2_c43a0(this, (void*)Mbbe20_000bbe20));
-    FUN_000fc200("MissionSelectedChanged", new H2_c43a0(this, (void*)Mbbef0_000bbef0));
-    FUN_000fc1e0("DoSaveScreens", new H0_c43a0(this, (void*)Mbbf00_000bbf00));
-    FUN_000fc1e0("DoUnlockable", new H0_c43a0(this, (void*)Mc3e70_000c3e70));
-    FUN_000fc1e0("BackScreen", new H0_c43a0(this, (void*)Mb45f0_000b45f0));
-    FUN_000fc1e0("SetUpMoveDescScreen", new H0_c43a0(this, (void*)Mc3e50_000c3e50));
-    FUN_000fc1e0("UpdateStoryRecap", new H0_c43a0(this, (void*)Mbc060_000bc060));
-    FUN_000fc1e0("DoUnlockChapterMoves", new H0_c43a0(this, (void*)Mc05f0_000c05f0));
-    FUN_000fc1e0("DoFECodeInput", new H0_c43a0(this, (void*)Mc2b90_000c2b90));
-    FUN_000fc1e0("DoSimCodeInput", new H0_c43a0(this, (void*)Mc0630_000c0630));
-    FUN_000fc1e0("DoFullscreenAnswer", new H0_c43a0(this, (void*)Mbbf20_000bbf20));
-    FUN_000fc1e0("UnlockAllBonus", new H0_c43a0(this, (void*)Mc4000_000c4000));
-    FUN_000fc1e0("ClearScreenHistory", new H0_c43a0(this, (void*)Mb4610_000b4610));
-    FUN_000fc1e0("StartFE", new H0_c43a0(this, (void*)Mbc080_000bc080));
-    FUN_000fc1e0("UpdateCheatsScreen", new H0_c43a0(this, (void*)Mbc0b0_000bc0b0));
-    FUN_000fc1e0("ApplyCheatsSettings", new H0_c43a0(this, (void*)Mbc0d0_000bc0d0));
-    FUN_000fc1e0("EnterBlonskyFile", new H0_c43a0(this, (void*)Mbbeb0_000bbeb0));
-    FUN_000fc1e0("UpdateControlButtonString", new H0_c43a0(this, (void*)Mbef80_000bef80));
-    FUN_000fc1e0("UpdateVibrationTextControl", new H0_c43a0(this, (void*)Mbbed0_000bbed0));
-    FUN_000fc1e0("UpdateSimAudioWidgets", new H0_c43a0(this, (void*)Mbc0a0_000bc0a0));
-    FUN_000fc1e0("InitMUCheck", new H0_c43a0(this, (void*)Mbc0f0_000bc0f0));
-    FUN_000fc1e0("TriggerAnimationSound", new H0_c43a0(this, (void*)Mbbe50_000bbe50));
-    FUN_000fc1e0("DialogSelectionChanged", new H0_c43a0(this, (void*)Mbbe90_000bbe90));
-    FUN_000fc200("BlonskyFileSelectedChanged", new H2_c43a0(this, (void*)Mbbf60_000bbf60));
-    FUN_000fc1e0("ResetDecryptingSequence", new H0_c43a0(this, (void*)Mc1f30_000c1f30));
-    FUN_000fc1e0("PlayBlonskyFileDialogue", new H0_c43a0(this, (void*)Mbbf70_000bbf70));
-    FUN_000fc1e0("UpdateMissionBriefingScreen", new H0_c43a0(this, (void*)Mbbfa0_000bbfa0));
-    FUN_000fc1e0("UpdateMissionObjectivesScreen", new H0_c43a0(this, (void*)Mbc010_000bc010));
-    FUN_000fc1e0("UpdateHintScreen", new H0_c43a0(this, (void*)Mbbfd0_000bbfd0));
-    FUN_000fc1e0("UpdateSmartHintScreen", new H0_c43a0(this, (void*)Mbbff0_000bbff0));
+    FUN_000fc1e0("Print", new H0_c43a0(this, (void*)(void (*)())Mb45e0_000b45e0));
+    FUN_000fc1e0("SetDifficulty", new H0_c43a0(this, (void*)(void (*)())Mbbb40_000bbb40));
+    FUN_000fc1e0("ResetDifficultySelectScreen", new H0_c43a0(this, (void*)(void (*)())Mc04a0_000c04a0));
+    FUN_000fc1e0("ResetGame", new H0_c43a0(this, (void*)(void (*)())Mc04c0_000c04c0));
+    FUN_000fc1e0("ReplayStoryMode", new H0_c43a0(this, (void*)(void (*)())Mc04e0_000c04e0));
+    FUN_000fc1e0("StartGame", new H0_c43a0(this, (void*)(void (*)())Mbecd0_000becd0));
+    FUN_000fc1e0("StartNextMission", new H0_c43a0(this, (void*)(void (*)())Mbef60_000bef60));
+    FUN_000fc1e0("ReturnToNullMission", new H0_c43a0(this, (void*)(void (*)())Mc0500_000c0500));
+    FUN_000fc1e0("ExitSim", new H0_c43a0(this, (void*)(void (*)())Mc0540_000c0540));
+    FUN_000fc1e0("RestartSim", new H0_c43a0(this, (void*)(void (*)())Mc0590_000c0590));
+    FUN_000fc1e0("Continue", new H0_c43a0(this, (void*)(void (*)())Mc05d0_000c05d0));
+    FUN_000fc1e0("SaveGame", new H0_c43a0(this, (void*)(void (*)())Mbbb80_000bbb80));
+    FUN_000fc1e0("ChangeLocale", new H0_c43a0(this, (void*)(void (*)())Mc1f00_000c1f00));
+    FUN_000fc1e0("JumpMarkerSelected", new H0_c43a0(this, (void*)(void (*)())Mbbb90_000bbb90));
+    FUN_000fc1e0("JumpMarkerSelectionCancelled", new H0_c43a0(this, (void*)(void (*)())Mbbbb0_000bbbb0));
+    FUN_000fc1e0("ResetJumpMarkers", new H0_c43a0(this, (void*)(void (*)())Mbbc00_000bbc00));
+    FUN_000fc1e0("AwardCheatersSmashPoints", new H0_c43a0(this, (void*)(void (*)())Mbbc20_000bbc20));
+    FUN_000fc220("VideoBrightnessChanged", new H1(this, (void*)(void (*)())Mbbc50_000bbc50));
+    FUN_000fc200("TargetingLockChanged", new H2_c43a0(this, (void*)(void (*)())Mbbc90_000bbc90));
+    FUN_000fc220("AudioDialogueVolumeChanged", new H1(this, (void*)(void (*)())Mbbcb0_000bbcb0));
+    FUN_000fc220("AudioMusicVolumeChanged", new H1(this, (void*)(void (*)())Mbbcd0_000bbcd0));
+    FUN_000fc220("AudioSoundEffectsVolumeChanged", new H1(this, (void*)(void (*)())Mbbcf0_000bbcf0));
+    FUN_000fc200("AudioQualityChanged", new H2_c43a0(this, (void*)(void (*)())Mbbd10_000bbd10));
+    FUN_000fc200("SubtitlesChanged", new H2_c43a0(this, (void*)(void (*)())Mbbd30_000bbd30));
+    FUN_000fc200("ControlConfigVibrationChanged", new H2_c43a0(this, (void*)(void (*)())Mbbd60_000bbd60));
+    FUN_000fc200("CameraInvertXChanged", new H2_c43a0(this, (void*)(void (*)())Mbbd80_000bbd80));
+    FUN_000fc200("CameraInvertYChanged", new H2_c43a0(this, (void*)(void (*)())Mbbda0_000bbda0));
+    FUN_000fc200("CheatGrayHulkChanged", new H2_c43a0(this, (void*)(void (*)())Mbbdc0_000bbdc0));
+    FUN_000fc200("CheatInvulnerabilityChanged", new H2_c43a0(this, (void*)(void (*)())Mbbdf0_000bbdf0));
+    FUN_000fc200("CheatAllMovesChanged", new H2_c43a0(this, (void*)(void (*)())Mbbe20_000bbe20));
+    FUN_000fc200("MissionSelectedChanged", new H2_c43a0(this, (void*)(void (*)())Mbbef0_000bbef0));
+    FUN_000fc1e0("DoSaveScreens", new H0_c43a0(this, (void*)(void (*)())Mbbf00_000bbf00));
+    FUN_000fc1e0("DoUnlockable", new H0_c43a0(this, (void*)(void (*)())Mc3e70_000c3e70));
+    FUN_000fc1e0("BackScreen", new H0_c43a0(this, (void*)(void (*)())Mb45f0_000b45f0));
+    FUN_000fc1e0("SetUpMoveDescScreen", new H0_c43a0(this, (void*)(void (*)())Mc3e50_000c3e50));
+    FUN_000fc1e0("UpdateStoryRecap", new H0_c43a0(this, (void*)(void (*)())Mbc060_000bc060));
+    FUN_000fc1e0("DoUnlockChapterMoves", new H0_c43a0(this, (void*)(void (*)())Mc05f0_000c05f0));
+    FUN_000fc1e0("DoFECodeInput", new H0_c43a0(this, (void*)(void (*)())Mc2b90_000c2b90));
+    FUN_000fc1e0("DoSimCodeInput", new H0_c43a0(this, (void*)(void (*)())Mc0630_000c0630));
+    FUN_000fc1e0("DoFullscreenAnswer", new H0_c43a0(this, (void*)(void (*)())Mbbf20_000bbf20));
+    FUN_000fc1e0("UnlockAllBonus", new H0_c43a0(this, (void*)(void (*)())Mc4000_000c4000));
+    FUN_000fc1e0("ClearScreenHistory", new H0_c43a0(this, (void*)(void (*)())Mb4610_000b4610));
+    FUN_000fc1e0("StartFE", new H0_c43a0(this, (void*)(void (*)())Mbc080_000bc080));
+    FUN_000fc1e0("UpdateCheatsScreen", new H0_c43a0(this, (void*)(void (*)())Mbc0b0_000bc0b0));
+    FUN_000fc1e0("ApplyCheatsSettings", new H0_c43a0(this, (void*)(void (*)())Mbc0d0_000bc0d0));
+    FUN_000fc1e0("EnterBlonskyFile", new H0_c43a0(this, (void*)(void (*)())Mbbeb0_000bbeb0));
+    FUN_000fc1e0("UpdateControlButtonString", new H0_c43a0(this, (void*)(void (*)())Mbef80_000bef80));
+    FUN_000fc1e0("UpdateVibrationTextControl", new H0_c43a0(this, (void*)(void (*)())Mbbed0_000bbed0));
+    FUN_000fc1e0("UpdateSimAudioWidgets", new H0_c43a0(this, (void*)(void (*)())Mbc0a0_000bc0a0));
+    FUN_000fc1e0("InitMUCheck", new H0_c43a0(this, (void*)(void (*)())Mbc0f0_000bc0f0));
+    FUN_000fc1e0("TriggerAnimationSound", new H0_c43a0(this, (void*)(void (*)())Mbbe50_000bbe50));
+    FUN_000fc1e0("DialogSelectionChanged", new H0_c43a0(this, (void*)(void (*)())Mbbe90_000bbe90));
+    FUN_000fc200("BlonskyFileSelectedChanged", new H2_c43a0(this, (void*)(void (*)())Mbbf60_000bbf60));
+    FUN_000fc1e0("ResetDecryptingSequence", new H0_c43a0(this, (void*)(void (*)())Mc1f30_000c1f30));
+    FUN_000fc1e0("PlayBlonskyFileDialogue", new H0_c43a0(this, (void*)(void (*)())Mbbf70_000bbf70));
+    FUN_000fc1e0("UpdateMissionBriefingScreen", new H0_c43a0(this, (void*)(void (*)())Mbbfa0_000bbfa0));
+    FUN_000fc1e0("UpdateMissionObjectivesScreen", new H0_c43a0(this, (void*)(void (*)())Mbc010_000bc010));
+    FUN_000fc1e0("UpdateHintScreen", new H0_c43a0(this, (void*)(void (*)())Mbbfd0_000bbfd0));
+    FUN_000fc1e0("UpdateSmartHintScreen", new H0_c43a0(this, (void*)(void (*)())Mbbff0_000bbff0));
     FUN_000fc200("BuyableMoveSelectedChanged", new H2_c43a0(this, (void*)FUN_000bc030));
     FUN_000fc200("EnabledMoveSelectedChanged", new H2_c43a0(this, (void*)FUN_000bc040));
-    FUN_000fc200("JumpMarkerSelectedChanged", new H2_c43a0(this, (void*)Mbc050_000bc050));
+    FUN_000fc200("JumpMarkerSelectedChanged", new H2_c43a0(this, (void*)(void (*)())Mbc050_000bc050));
     return this;
 }
 

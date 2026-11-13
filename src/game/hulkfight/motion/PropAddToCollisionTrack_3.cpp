@@ -105,8 +105,8 @@ void* FUN_0008d690(unsigned int size);
 namespace hulkfight { namespace motion {
 class PropMissionCriticalCondition_187650 {
 public:
-    void FUN_0017f2b0();
-    void FUN_0017f2d0();
+    char FUN_0017f2b0(int); /* (unb4) as defined; address taken only */
+    char FUN_0017f2d0(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_f5c5d2a1 {
@@ -143,16 +143,16 @@ void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 namespace hulkfight { namespace motion {
 class SmartPropGrabbableCondition_1876f0 {
 public:
-    void FUN_0017f2f0();
-    void FUN_0017f310();
-    void FUN_0017f330();
-    void FUN_0017f350();
-    void FUN_0017f370();
-    void FUN_0017f390();
-    void FUN_0017f3b0();
-    void FUN_0017f3d0();
-    void FUN_0017f3f0();
-    void FUN_0017f410();
+    char FUN_0017f2f0(char); /* (unb4) as defined; address taken only */
+    char FUN_0017f310(int); /* (unb4) as defined; address taken only */
+    char FUN_0017f330(char); /* (unb4) as defined; address taken only */
+    char FUN_0017f350(char); /* (unb4) as defined; address taken only */
+    char FUN_0017f370(char); /* (unb4) as defined; address taken only */
+    bool FUN_0017f390(int); /* (unb4) as defined; address taken only */
+    char FUN_0017f3b0(char); /* (unb4) as defined; address taken only */
+    bool FUN_0017f3d0(int); /* (unb4) as defined; address taken only */
+    char FUN_0017f3f0(char); /* (unb4) as defined; address taken only */
+    bool FUN_0017f410(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -181,7 +181,7 @@ public:
 namespace hulkfight { namespace motion {
 class PropGrabbableIsThrownCondition_187960 {
 public:
-    void FUN_0017f470();
+    char FUN_0017f470(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -197,7 +197,7 @@ public:
 namespace hulkfight { namespace motion {
 class PropAtRestCondition_1879c0 {
 public:
-    void FUN_0017f500();
+    char FUN_0017f500(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -213,8 +213,8 @@ public:
 namespace hulkfight { namespace motion {
 class PropIsAttachedCondition_187a20 {
 public:
-    void FUN_0017f520();
-    void FUN_0017f530();
+    bool FUN_0017f520(int); /* (unb4) as defined; address taken only */
+    char FUN_0017f530(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -240,8 +240,8 @@ public:
 namespace hulkfight { namespace motion {
 class PropCollidedWithWorldCondition_187ca0 {
 public:
-    void FUN_0017f660();
-    void FUN_0017f670();
+    bool FUN_0017f660(int); /* (unb4) as defined; address taken only */
+    bool FUN_0017f670(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -267,7 +267,7 @@ public:
 namespace hulkfight { namespace motion {
 class CSMPropIsCharacterCondition_187da0 {
 public:
-    void FUN_0017f6a0();
+    bool FUN_0017f6a0(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -283,8 +283,8 @@ public:
 namespace hulkfight { namespace motion {
 class PropActorThinkingTrack_187f00 {
 public:
-    void FUN_0017f760();
-    void FUN_0017f780();
+    char FUN_0017f760(int); /* (unb4) as defined; address taken only */
+    bool FUN_0017f780(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_f5c5d2a1 {
@@ -318,8 +318,8 @@ public:
 namespace hulkfight { namespace motion {
 class PropDropTrack_187fa0 {
 public:
-    void FUN_0017f790();
-    void FUN_0017f7b0();
+    char FUN_0017f790(int); /* (unb4) as defined; address taken only */
+    char FUN_0017f7b0(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -345,14 +345,14 @@ public:
 namespace hulkfight { namespace motion {
 class BallAndChainSpinTrack_188220 {
 public:
-    void FUN_001801c0();
-    void FUN_001801d0();
-    void FUN_001801f0();
-    void FUN_00180210();
-    void FUN_00180230();
-    void FUN_00180250();
-    void FUN_00180280();
-    void FUN_001802c0();
+    char FUN_001801c0(int); /* (unb4) as defined; address taken only */
+    char FUN_001801d0(int); /* (unb4) as defined; address taken only */
+    char FUN_001801f0(int); /* (unb4) as defined; address taken only */
+    char FUN_00180210(int); /* (unb4) as defined; address taken only */
+    bool FUN_00180230(int); /* (unb4) as defined; address taken only */
+    char FUN_00180250(float); /* (unb4) as defined; address taken only */
+    bool FUN_00180280(float); /* (unb4) as defined; address taken only */
+    char FUN_001802c0(void*); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_f5c5d2a1 {
@@ -368,8 +368,8 @@ public:
 namespace hulkfight { namespace motion {
 class ShieldArcTrack_1883f0 {
 public:
-    void FUN_00180300();
-    void FUN_00180320();
+    bool FUN_00180300(int); /* (unb4) as defined; address taken only */
+    bool FUN_00180320(float); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -385,8 +385,8 @@ public:
 namespace hulkfight { namespace motion {
 class PropDestroyTrack_188730 {
 public:
-    void FUN_00180580();
-    void FUN_001805a0();
+    char FUN_00180580(int); /* (unb4) as defined; address taken only */
+    bool FUN_001805a0(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -690,11 +690,11 @@ extern "C" void FUN_00187650()
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_187650<hulkfight::motion::PropMissionCriticalCondition_187650>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamIntConstRange_187650<hulkfight::motion::PropMissionCriticalCondition_187650>("attachmentIndex", &hulkfight::motion::PropMissionCriticalCondition_187650::FUN_0017f2b0);
+            params[0] = new (mem) fight::ParamIntConstRange_187650<hulkfight::motion::PropMissionCriticalCondition_187650>("attachmentIndex", (void (hulkfight::motion::PropMissionCriticalCondition_187650::*)())&hulkfight::motion::PropMissionCriticalCondition_187650::FUN_0017f2b0);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_187650<hulkfight::motion::PropMissionCriticalCondition_187650>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamBool_187650<hulkfight::motion::PropMissionCriticalCondition_187650>("missionCritical", &hulkfight::motion::PropMissionCriticalCondition_187650::FUN_0017f2d0);
+            params[1] = new (mem) fight::ParamBool_187650<hulkfight::motion::PropMissionCriticalCondition_187650>("missionCritical", (void (hulkfight::motion::PropMissionCriticalCondition_187650::*)())&hulkfight::motion::PropMissionCriticalCondition_187650::FUN_0017f2d0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1400), params, 2);
     }
     DAT_004e1404++;
@@ -713,43 +713,43 @@ extern "C" void FUN_001876f0()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchObjectClass", &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f2f0);
+            params[0] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchObjectClass", (void (hulkfight::motion::SmartPropGrabbableCondition_1876f0::*)())&hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f2f0);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("objectClass", ((const char**)&DAT_004c5fd0), 23, &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f310);
+            params[1] = new (mem) fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("objectClass", ((const char**)&DAT_004c5fd0), 23, (void (hulkfight::motion::SmartPropGrabbableCondition_1876f0::*)())&hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f310);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchCargo", &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f330);
+            params[2] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchCargo", (void (hulkfight::motion::SmartPropGrabbableCondition_1876f0::*)())&hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f330);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("isCargo", &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f350);
+            params[3] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("isCargo", (void (hulkfight::motion::SmartPropGrabbableCondition_1876f0::*)())&hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f350);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchWeaponType", &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f370);
+            params[4] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchWeaponType", (void (hulkfight::motion::SmartPropGrabbableCondition_1876f0::*)())&hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f370);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("weaponType", ((const char**)&DAT_004c6028), 7, &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f390);
+            params[5] = new (mem) fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("weaponType", ((const char**)&DAT_004c6028), 7, (void (hulkfight::motion::SmartPropGrabbableCondition_1876f0::*)())&hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f390);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchWeaponizableType", &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f3b0);
+            params[6] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchWeaponizableType", (void (hulkfight::motion::SmartPropGrabbableCondition_1876f0::*)())&hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f3b0);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("weaponizableType", ((const char**)&DAT_004c6028), 7, &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f3d0);
+            params[7] = new (mem) fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("weaponizableType", ((const char**)&DAT_004c6028), 7, (void (hulkfight::motion::SmartPropGrabbableCondition_1876f0::*)())&hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f3d0);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchHasEvent", &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f3f0);
+            params[8] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchHasEvent", (void (hulkfight::motion::SmartPropGrabbableCondition_1876f0::*)())&hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f3f0);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("event", ((const char**)&DAT_00496168), 16, &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f410);
+            params[9] = new (mem) fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("event", ((const char**)&DAT_00496168), 16, (void (hulkfight::motion::SmartPropGrabbableCondition_1876f0::*)())&hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f410);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1408), params, 10);
     }
     DAT_004e140c++;
@@ -768,7 +768,7 @@ extern "C" void FUN_00187960()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_187960<hulkfight::motion::PropGrabbableIsThrownCondition_187960>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_187960<hulkfight::motion::PropGrabbableIsThrownCondition_187960>("isThrown", &hulkfight::motion::PropGrabbableIsThrownCondition_187960::FUN_0017f470);
+            params[0] = new (mem) fight::ParamBool_187960<hulkfight::motion::PropGrabbableIsThrownCondition_187960>("isThrown", (void (hulkfight::motion::PropGrabbableIsThrownCondition_187960::*)())&hulkfight::motion::PropGrabbableIsThrownCondition_187960::FUN_0017f470);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1418), params, 1);
     }
     DAT_004e141c++;
@@ -787,7 +787,7 @@ extern "C" void FUN_001879c0()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_1879c0<hulkfight::motion::PropAtRestCondition_1879c0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_1879c0<hulkfight::motion::PropAtRestCondition_1879c0>("atRest", &hulkfight::motion::PropAtRestCondition_1879c0::FUN_0017f500);
+            params[0] = new (mem) fight::ParamBool_1879c0<hulkfight::motion::PropAtRestCondition_1879c0>("atRest", (void (hulkfight::motion::PropAtRestCondition_1879c0::*)())&hulkfight::motion::PropAtRestCondition_1879c0::FUN_0017f500);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1428), params, 1);
     }
     DAT_004e142c++;
@@ -806,11 +806,11 @@ extern "C" void FUN_00187a20()
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_187a20<hulkfight::motion::PropIsAttachedCondition_187a20>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamIntConstRange_187a20<hulkfight::motion::PropIsAttachedCondition_187a20>("attachmentIndex", &hulkfight::motion::PropIsAttachedCondition_187a20::FUN_0017f520);
+            params[0] = new (mem) fight::ParamIntConstRange_187a20<hulkfight::motion::PropIsAttachedCondition_187a20>("attachmentIndex", (void (hulkfight::motion::PropIsAttachedCondition_187a20::*)())&hulkfight::motion::PropIsAttachedCondition_187a20::FUN_0017f520);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_187a20<hulkfight::motion::PropIsAttachedCondition_187a20>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamBool_187a20<hulkfight::motion::PropIsAttachedCondition_187a20>("isAttached", &hulkfight::motion::PropIsAttachedCondition_187a20::FUN_0017f530);
+            params[1] = new (mem) fight::ParamBool_187a20<hulkfight::motion::PropIsAttachedCondition_187a20>("isAttached", (void (hulkfight::motion::PropIsAttachedCondition_187a20::*)())&hulkfight::motion::PropIsAttachedCondition_187a20::FUN_0017f530);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1430), params, 2);
     }
     DAT_004e1434++;
@@ -829,11 +829,11 @@ extern "C" void FUN_00187ca0()
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_187ca0<hulkfight::motion::PropCollidedWithWorldCondition_187ca0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamIntConstRange_187ca0<hulkfight::motion::PropCollidedWithWorldCondition_187ca0>("attachmentIndex", &hulkfight::motion::PropCollidedWithWorldCondition_187ca0::FUN_0017f660);
+            params[0] = new (mem) fight::ParamIntConstRange_187ca0<hulkfight::motion::PropCollidedWithWorldCondition_187ca0>("attachmentIndex", (void (hulkfight::motion::PropCollidedWithWorldCondition_187ca0::*)())&hulkfight::motion::PropCollidedWithWorldCondition_187ca0::FUN_0017f660);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_187ca0<hulkfight::motion::PropCollidedWithWorldCondition_187ca0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamBool_187ca0<hulkfight::motion::PropCollidedWithWorldCondition_187ca0>("collided", &hulkfight::motion::PropCollidedWithWorldCondition_187ca0::FUN_0017f670);
+            params[1] = new (mem) fight::ParamBool_187ca0<hulkfight::motion::PropCollidedWithWorldCondition_187ca0>("collided", (void (hulkfight::motion::PropCollidedWithWorldCondition_187ca0::*)())&hulkfight::motion::PropCollidedWithWorldCondition_187ca0::FUN_0017f670);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1450), params, 2);
     }
     DAT_004e1454++;
@@ -854,7 +854,7 @@ namespace hulkfight {
 namespace motion {
 class SmartPropIsCargoCondition {
 public:
-    void FUN_0017f690();
+    bool FUN_0017f690(int); /* (unb4) as defined; address taken only */
 };
 }
 }
@@ -890,7 +890,7 @@ extern "C" void FUN_00187d40()
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::motion::SmartPropIsCargoCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamIntConstRange<hulkfight::motion::SmartPropIsCargoCondition>("attachmentIndex", &hulkfight::motion::SmartPropIsCargoCondition::FUN_0017f690);
+            params[0] = new (mem) fight::ParamIntConstRange<hulkfight::motion::SmartPropIsCargoCondition>("attachmentIndex", (void (hulkfight::motion::SmartPropIsCargoCondition::*)())&hulkfight::motion::SmartPropIsCargoCondition::FUN_0017f690);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1458), params, 1);
     }
     DAT_004e145c++;
@@ -911,7 +911,7 @@ extern "C" void FUN_00187da0()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_187da0<hulkfight::motion::CSMPropIsCharacterCondition_187da0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_187da0<hulkfight::motion::CSMPropIsCharacterCondition_187da0>("isCharacter", &hulkfight::motion::CSMPropIsCharacterCondition_187da0::FUN_0017f6a0);
+            params[0] = new (mem) fight::ParamBool_187da0<hulkfight::motion::CSMPropIsCharacterCondition_187da0>("isCharacter", (void (hulkfight::motion::CSMPropIsCharacterCondition_187da0::*)())&hulkfight::motion::CSMPropIsCharacterCondition_187da0::FUN_0017f6a0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1460), params, 1);
     }
     DAT_004e1464++;
@@ -930,11 +930,11 @@ extern "C" void FUN_00187f00()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_187f00<hulkfight::motion::PropActorThinkingTrack_187f00>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_187f00<hulkfight::motion::PropActorThinkingTrack_187f00>("timeBegin", &hulkfight::motion::PropActorThinkingTrack_187f00::FUN_0017f760);
+            params[0] = new (mem) fight::ParamFloatConstRange_187f00<hulkfight::motion::PropActorThinkingTrack_187f00>("timeBegin", (void (hulkfight::motion::PropActorThinkingTrack_187f00::*)())&hulkfight::motion::PropActorThinkingTrack_187f00::FUN_0017f760);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_187f00<hulkfight::motion::PropActorThinkingTrack_187f00>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamBool_187f00<hulkfight::motion::PropActorThinkingTrack_187f00>("thinking", &hulkfight::motion::PropActorThinkingTrack_187f00::FUN_0017f780);
+            params[1] = new (mem) fight::ParamBool_187f00<hulkfight::motion::PropActorThinkingTrack_187f00>("thinking", (void (hulkfight::motion::PropActorThinkingTrack_187f00::*)())&hulkfight::motion::PropActorThinkingTrack_187f00::FUN_0017f780);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1478), params, 2);
     }
     DAT_004e147c++;
@@ -953,11 +953,11 @@ extern "C" void FUN_00187fa0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_187fa0<hulkfight::motion::PropDropTrack_187fa0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_187fa0<hulkfight::motion::PropDropTrack_187fa0>("timeBegin", &hulkfight::motion::PropDropTrack_187fa0::FUN_0017f790);
+            params[0] = new (mem) fight::ParamFloatConstRange_187fa0<hulkfight::motion::PropDropTrack_187fa0>("timeBegin", (void (hulkfight::motion::PropDropTrack_187fa0::*)())&hulkfight::motion::PropDropTrack_187fa0::FUN_0017f790);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_187fa0<hulkfight::motion::PropDropTrack_187fa0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamIntConstRange_187fa0<hulkfight::motion::PropDropTrack_187fa0>("attachmentIndex", &hulkfight::motion::PropDropTrack_187fa0::FUN_0017f7b0);
+            params[1] = new (mem) fight::ParamIntConstRange_187fa0<hulkfight::motion::PropDropTrack_187fa0>("attachmentIndex", (void (hulkfight::motion::PropDropTrack_187fa0::*)())&hulkfight::motion::PropDropTrack_187fa0::FUN_0017f7b0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1480), params, 2);
     }
     DAT_004e1484++;
@@ -976,35 +976,35 @@ extern "C" void FUN_00188220()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("timeBegin", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_001801c0);
+            params[0] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("timeBegin", (void (hulkfight::motion::BallAndChainSpinTrack_188220::*)())&hulkfight::motion::BallAndChainSpinTrack_188220::FUN_001801c0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("timeEnd", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_001801d0);
+            params[1] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("timeEnd", (void (hulkfight::motion::BallAndChainSpinTrack_188220::*)())&hulkfight::motion::BallAndChainSpinTrack_188220::FUN_001801d0);
         mem = FUN_0008d690((int)sizeof(ParamIntConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamIntConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("attachmentIndex", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_001801f0);
+            params[2] = new (mem) ParamIntConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("attachmentIndex", (void (hulkfight::motion::BallAndChainSpinTrack_188220::*)())&hulkfight::motion::BallAndChainSpinTrack_188220::FUN_001801f0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("radius", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_00180210);
+            params[3] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("radius", (void (hulkfight::motion::BallAndChainSpinTrack_188220::*)())&hulkfight::motion::BallAndChainSpinTrack_188220::FUN_00180210);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("height", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_00180230);
+            params[4] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("height", (void (hulkfight::motion::BallAndChainSpinTrack_188220::*)())&hulkfight::motion::BallAndChainSpinTrack_188220::FUN_00180230);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("startAngle", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_00180250);
+            params[5] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("startAngle", (void (hulkfight::motion::BallAndChainSpinTrack_188220::*)())&hulkfight::motion::BallAndChainSpinTrack_188220::FUN_00180250);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("spinVelocity", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_00180280);
+            params[6] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("spinVelocity", (void (hulkfight::motion::BallAndChainSpinTrack_188220::*)())&hulkfight::motion::BallAndChainSpinTrack_188220::FUN_00180280);
         mem = FUN_0008d690((int)sizeof(ParamVector<hulkfight::motion::BallAndChainSpinTrack_188220>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamVector<hulkfight::motion::BallAndChainSpinTrack_188220>("orient", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_001802c0);
+            params[7] = new (mem) ParamVector<hulkfight::motion::BallAndChainSpinTrack_188220>("orient", (void (hulkfight::motion::BallAndChainSpinTrack_188220::*)())&hulkfight::motion::BallAndChainSpinTrack_188220::FUN_001802c0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e14b8), params, 8);
     }
     DAT_004e14bc++;
@@ -1023,11 +1023,11 @@ extern "C" void FUN_001883f0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1883f0<hulkfight::motion::ShieldArcTrack_1883f0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_1883f0<hulkfight::motion::ShieldArcTrack_1883f0>("timeBegin", &hulkfight::motion::ShieldArcTrack_1883f0::FUN_00180300);
+            params[0] = new (mem) fight::ParamFloatConstRange_1883f0<hulkfight::motion::ShieldArcTrack_1883f0>("timeBegin", (void (hulkfight::motion::ShieldArcTrack_1883f0::*)())&hulkfight::motion::ShieldArcTrack_1883f0::FUN_00180300);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1883f0<hulkfight::motion::ShieldArcTrack_1883f0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_1883f0<hulkfight::motion::ShieldArcTrack_1883f0>("arc", &hulkfight::motion::ShieldArcTrack_1883f0::FUN_00180320);
+            params[1] = new (mem) fight::ParamFloatConstRange_1883f0<hulkfight::motion::ShieldArcTrack_1883f0>("arc", (void (hulkfight::motion::ShieldArcTrack_1883f0::*)())&hulkfight::motion::ShieldArcTrack_1883f0::FUN_00180320);
         FUN_002347b0(((ParamRegistry*)&DAT_004e14c0), params, 2);
     }
     DAT_004e14c4++;
@@ -1041,9 +1041,9 @@ namespace fn_00188490 {
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)
 // FUN_00188490 @ 0x00188490
 
-void FUN_00180340();
-void FUN_00180360();
-void FUN_00180380();
+char FUN_00180340(void*, int); /* (unb4) as defined; address taken only */
+bool FUN_00180360(void*, int); /* (unb4) as defined; address taken only */
+char FUN_00180380(void*, char); /* (unb4) as defined; address taken only */
 namespace hulkfight { namespace motion { class PropAddToCollisionTrack; } }
 struct FUN_0008d690 { static void* __cdecl operator new(size_t) HULK_NEW_THROW; };
 struct FUN_00234960 : FUN_0008d690 {
@@ -1077,13 +1077,13 @@ extern "C" void __cdecl FUN_00188490() {
  if (!DAT_004e14cc) {
  void* params[3];
  fight::ParamFloatConstRange<hulkfight::motion::PropAddToCollisionTrack>* a=new fight::ParamFloatConstRange<hulkfight::motion::PropAddToCollisionTrack>;
- if(a) a->callback=FUN_00180340;
+ if(a) a->callback=(void (*)())FUN_00180340;
  params[0]=a;
  fight::ParamIntConstRange<hulkfight::motion::PropAddToCollisionTrack>* b=new fight::ParamIntConstRange<hulkfight::motion::PropAddToCollisionTrack>;
- if(b) b->callback=FUN_00180360;
+ if(b) b->callback=(void (*)())FUN_00180360;
  params[1]=b;
  fight::ParamBool<hulkfight::motion::PropAddToCollisionTrack>* c=new fight::ParamBool<hulkfight::motion::PropAddToCollisionTrack>;
- if(c) c->callback=FUN_00180380;
+ if(c) c->callback=(void (*)())FUN_00180380;
  params[2]=c;
  FUN_002347b0(&DAT_004e14c8,params,3);
  }
@@ -1105,11 +1105,11 @@ extern "C" void FUN_00188730()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_188730<hulkfight::motion::PropDestroyTrack_188730>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_188730<hulkfight::motion::PropDestroyTrack_188730>("timeBegin", &hulkfight::motion::PropDestroyTrack_188730::FUN_00180580);
+            params[0] = new (mem) fight::ParamFloatConstRange_188730<hulkfight::motion::PropDestroyTrack_188730>("timeBegin", (void (hulkfight::motion::PropDestroyTrack_188730::*)())&hulkfight::motion::PropDestroyTrack_188730::FUN_00180580);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_188730<hulkfight::motion::PropDestroyTrack_188730>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamIntConstRange_188730<hulkfight::motion::PropDestroyTrack_188730>("attachmentIndex", &hulkfight::motion::PropDestroyTrack_188730::FUN_001805a0);
+            params[1] = new (mem) fight::ParamIntConstRange_188730<hulkfight::motion::PropDestroyTrack_188730>("attachmentIndex", (void (hulkfight::motion::PropDestroyTrack_188730::*)())&hulkfight::motion::PropDestroyTrack_188730::FUN_001805a0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e14e8), params, 2);
     }
     DAT_004e14ec++;

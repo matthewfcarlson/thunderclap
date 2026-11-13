@@ -542,7 +542,7 @@ void* FUN_0008d690(unsigned int size);
 namespace hulkfight { namespace motion {
 class PropGrabbableIsMissileCondition_19a7d0 {
 public:
-    void FUN_00192160();
+    char FUN_00192160(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_f740ace1 {
@@ -569,8 +569,8 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 namespace hulkfight { namespace motion {
 class PropIsMissileCondition_19a830 {
 public:
-    void FUN_00192170();
-    void FUN_00192180();
+    char FUN_00192170(int); /* (unb4) as defined; address taken only */
+    char FUN_00192180(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -596,19 +596,19 @@ public:
 namespace fn_f740ace1 {
 class MissileThrowTrack {
 public:
-    void FUN_00192570();
-    void FUN_00192590();
-    void FUN_001925c0();
-    void FUN_001925f0();
-    void FUN_00192610();
-    void FUN_00192630();
-    void FUN_00192650();
-    void FUN_00192670();
-    void FUN_001926a0();
-    void FUN_001926d0();
-    void FUN_00192700();
-    void FUN_00192730();
-    void FUN_00192760();
+    bool FUN_00192570(int); /* (unb4) as defined; address taken only */
+    bool FUN_00192590(int); /* (unb4) as defined; address taken only */
+    char FUN_001925c0(void*); /* (unb4) as defined; address taken only */
+    char FUN_001925f0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00192610(int); /* (unb4) as defined; address taken only */
+    char FUN_00192630(int); /* (unb4) as defined; address taken only */
+    char FUN_00192650(int); /* (unb4) as defined; address taken only */
+    char FUN_00192670(float); /* (unb4) as defined; address taken only */
+    char FUN_001926a0(float); /* (unb4) as defined; address taken only */
+    char FUN_001926d0(float); /* (unb4) as defined; address taken only */
+    char FUN_00192700(float); /* (unb4) as defined; address taken only */
+    bool FUN_00192730(float); /* (unb4) as defined; address taken only */
+    bool FUN_00192760(int); /* (unb4) as defined; address taken only */
 };
 class __declspec(novtable) ParamFloatConstRangeBase {
 public:
@@ -2179,7 +2179,7 @@ void FUN_0019a7d0()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_19a7d0<hulkfight::motion::PropGrabbableIsMissileCondition_19a7d0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_19a7d0<hulkfight::motion::PropGrabbableIsMissileCondition_19a7d0>("isMissile", &hulkfight::motion::PropGrabbableIsMissileCondition_19a7d0::FUN_00192160);
+            params[0] = new (mem) fight::ParamBool_19a7d0<hulkfight::motion::PropGrabbableIsMissileCondition_19a7d0>("isMissile", (void (hulkfight::motion::PropGrabbableIsMissileCondition_19a7d0::*)())&hulkfight::motion::PropGrabbableIsMissileCondition_19a7d0::FUN_00192160);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1548), params, 1);
     }
     DAT_004e154c++;
@@ -2198,11 +2198,11 @@ void FUN_0019a830()
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_19a830<hulkfight::motion::PropIsMissileCondition_19a830>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamIntConstRange_19a830<hulkfight::motion::PropIsMissileCondition_19a830>("attachmentIndex", &hulkfight::motion::PropIsMissileCondition_19a830::FUN_00192170);
+            params[0] = new (mem) fight::ParamIntConstRange_19a830<hulkfight::motion::PropIsMissileCondition_19a830>("attachmentIndex", (void (hulkfight::motion::PropIsMissileCondition_19a830::*)())&hulkfight::motion::PropIsMissileCondition_19a830::FUN_00192170);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_19a830<hulkfight::motion::PropIsMissileCondition_19a830>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamBool_19a830<hulkfight::motion::PropIsMissileCondition_19a830>("isMissile", &hulkfight::motion::PropIsMissileCondition_19a830::FUN_00192180);
+            params[1] = new (mem) fight::ParamBool_19a830<hulkfight::motion::PropIsMissileCondition_19a830>("isMissile", (void (hulkfight::motion::PropIsMissileCondition_19a830::*)())&hulkfight::motion::PropIsMissileCondition_19a830::FUN_00192180);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1550), params, 2);
     }
     DAT_004e1554++;
@@ -2221,55 +2221,55 @@ void FUN_0019a8d0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("timeBegin", &MissileThrowTrack::FUN_00192570);
+            params[0] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("timeBegin", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_00192570);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_19a8d0<MissileThrowTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamIntConstRange_19a8d0<MissileThrowTrack>("attachmentIndex", &MissileThrowTrack::FUN_00192590);
+            params[1] = new (mem) fight::ParamIntConstRange_19a8d0<MissileThrowTrack>("attachmentIndex", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_00192590);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_19a8d0<MissileThrowTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamVector_19a8d0<MissileThrowTrack>("direction", &MissileThrowTrack::FUN_001925c0);
+            params[2] = new (mem) fight::ParamVector_19a8d0<MissileThrowTrack>("direction", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_001925c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("distanceMin", &MissileThrowTrack::FUN_001925f0);
+            params[3] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("distanceMin", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_001925f0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("distanceMax", &MissileThrowTrack::FUN_00192610);
+            params[4] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("distanceMax", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_00192610);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("velocityMin", &MissileThrowTrack::FUN_00192630);
+            params[5] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("velocityMin", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_00192630);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("velocityMax", &MissileThrowTrack::FUN_00192650);
+            params[6] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("velocityMax", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_00192650);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("spinMin", &MissileThrowTrack::FUN_00192670);
+            params[7] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("spinMin", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_00192670);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("spinMax", &MissileThrowTrack::FUN_001926a0);
+            params[8] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("spinMax", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_001926a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("trackingMin", &MissileThrowTrack::FUN_001926d0);
+            params[9] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("trackingMin", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_001926d0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("trackingMax", &MissileThrowTrack::FUN_00192700);
+            params[10] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("trackingMax", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_00192700);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("yFixupAngle", &MissileThrowTrack::FUN_00192730);
+            params[11] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("yFixupAngle", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_00192730);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("reigniteCharge", &MissileThrowTrack::FUN_00192760);
+            params[12] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("reigniteCharge", (void (MissileThrowTrack::*)())&MissileThrowTrack::FUN_00192760);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1560), params, 13);
     }
     DAT_004e1564++;

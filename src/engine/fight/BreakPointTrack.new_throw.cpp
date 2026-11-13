@@ -16,7 +16,7 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace fight {
 class BreakPointTrack_23f3a0 {
 public:
-    void FUN_0023f0d0();
+    bool FUN_0023f0d0(int); /* (unb4) as defined; address taken only */
     void FUN_0023f0e0();
 };
 }
@@ -64,7 +64,7 @@ extern "C" void FUN_0023f3a0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_23f3a0<fight::BreakPointTrack_23f3a0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_23f3a0<fight::BreakPointTrack_23f3a0>("timeBegin", &fight::BreakPointTrack_23f3a0::FUN_0023f0d0);
+            params[0] = new (mem) fight::ParamFloatConstRange_23f3a0<fight::BreakPointTrack_23f3a0>("timeBegin", (void (fight::BreakPointTrack_23f3a0::*)())&fight::BreakPointTrack_23f3a0::FUN_0023f0d0);
         mem = FUN_0008d690((int)sizeof(fight::ParamConditionGroup_23f3a0<fight::BreakPointTrack_23f3a0>));
         params[1] = 0;
         if (mem)

@@ -16,34 +16,34 @@ extern "C" void* FUN_0008d690(unsigned int size);
 
 class CCollisionTrack_5f150 {
 public:
-    void FUN_0005d4b0();
-    void FUN_0005d4c0();
+    bool FUN_0005d4b0(int); /* (unb4) as defined; address taken only */
+    char FUN_0005d4c0(int); /* (unb4) as defined; address taken only */
     void FUN_0005d4d0();
-    void FUN_0005d4e0();
-    void FUN_0005d500();
-    void FUN_0005d510();
-    void FUN_0005d520();
-    void FUN_0005d530();
-    void FUN_0005d540();
-    void FUN_0005d550();
-    void FUN_0005d560();
-    void FUN_0005d570();
-    void FUN_0005d580();
-    void FUN_0005d590();
-    void FUN_0005d5a0();
+    char FUN_0005d4e0(void*); /* (unb4) as defined; address taken only */
+    bool FUN_0005d500(int); /* (unb4) as defined; address taken only */
+    bool FUN_0005d510(int); /* (unb4) as defined; address taken only */
+    bool FUN_0005d520(int); /* (unb4) as defined; address taken only */
+    char FUN_0005d530(char); /* (unb4) as defined; address taken only */
+    char FUN_0005d540(char); /* (unb4) as defined; address taken only */
+    char FUN_0005d550(char); /* (unb4) as defined; address taken only */
+    char FUN_0005d560(char); /* (unb4) as defined; address taken only */
+    char FUN_0005d570(char); /* (unb4) as defined; address taken only */
+    bool FUN_0005d580(int); /* (unb4) as defined; address taken only */
+    bool FUN_0005d590(int); /* (unb4) as defined; address taken only */
+    char FUN_0005d5a0(int); /* (unb4) as defined; address taken only */
     void FUN_00012ee0();
     void FUN_00012ef0();
     void FUN_00012f00();
     void FUN_00012f10();
-    void FUN_0005dad0();
-    void FUN_0005d5b0();
-    void FUN_0005d5c0();
-    void FUN_0005d5d0();
-    void FUN_0005d600();
-    void FUN_0005d630();
-    void FUN_0005d640();
-    void FUN_0005d650();
-    void FUN_0005d680();
+    char FUN_0005dad0(int); /* (unb4) as defined; address taken only */
+    bool FUN_0005d5b0(int); /* (unb4) as defined; address taken only */
+    bool FUN_0005d5c0(int); /* (unb4) as defined; address taken only */
+    bool FUN_0005d5d0(void*); /* (unb4) as defined; address taken only */
+    bool FUN_0005d600(void*); /* (unb4) as defined; address taken only */
+    char FUN_0005d630(int); /* (unb4) as defined; address taken only */
+    bool FUN_0005d640(int); /* (unb4) as defined; address taken only */
+    bool FUN_0005d650(void*); /* (unb4) as defined; address taken only */
+    char FUN_0005d680(int); /* (unb4) as defined; address taken only */
     char pad[0xf0];
     bool smallInterrupt;
     char pad_smallInterrupt[3];
@@ -243,11 +243,11 @@ extern "C" void FUN_0005f150()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("timeBegin", &CCollisionTrack_5f150::FUN_0005d4b0);
+            params[0] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("timeBegin", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d4b0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("timeEnd", &CCollisionTrack_5f150::FUN_0005d4c0);
+            params[1] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("timeEnd", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d4c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_5f150<CCollisionTrack_5f150>));
         params[2] = 0;
         if (mem)
@@ -255,51 +255,51 @@ extern "C" void FUN_0005f150()
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_5f150<CCollisionTrack_5f150>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamVector_5f150<CCollisionTrack_5f150>("offset", &CCollisionTrack_5f150::FUN_0005d4e0);
+            params[3] = new (mem) fight::ParamVector_5f150<CCollisionTrack_5f150>("offset", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d4e0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("radius", &CCollisionTrack_5f150::FUN_0005d500);
+            params[4] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("radius", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d500);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_5f150<CCollisionTrack_5f150>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamIntConstRange_5f150<CCollisionTrack_5f150>("smallMaxHitCount", &CCollisionTrack_5f150::FUN_0005d510);
+            params[5] = new (mem) fight::ParamIntConstRange_5f150<CCollisionTrack_5f150>("smallMaxHitCount", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d510);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_5f150<CCollisionTrack_5f150>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamIntConstRange_5f150<CCollisionTrack_5f150>("largeMaxHitCount", &CCollisionTrack_5f150::FUN_0005d520);
+            params[6] = new (mem) fight::ParamIntConstRange_5f150<CCollisionTrack_5f150>("largeMaxHitCount", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d520);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_5f150<CCollisionTrack_5f150>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("projectile", &CCollisionTrack_5f150::FUN_0005d530);
+            params[7] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("projectile", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d530);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_5f150<CCollisionTrack_5f150>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("missilePunch", &CCollisionTrack_5f150::FUN_0005d540);
+            params[8] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("missilePunch", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d540);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_5f150<CCollisionTrack_5f150>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("bumper", &CCollisionTrack_5f150::FUN_0005d550);
+            params[9] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("bumper", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d550);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_5f150<CCollisionTrack_5f150>));
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("devastator", &CCollisionTrack_5f150::FUN_0005d560);
+            params[10] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("devastator", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d560);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_5f150<CCollisionTrack_5f150>));
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("overrideArmor", &CCollisionTrack_5f150::FUN_0005d570);
+            params[11] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("overrideArmor", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d570);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>));
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("steelFists", ((const char**)&DAT_00495470), 4, &CCollisionTrack_5f150::FUN_0005d580);
+            params[12] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("steelFists", ((const char**)&DAT_00495470), 4, (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d580);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>));
         params[13] = 0;
         if (mem)
-            params[13] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("hitTypes", ((const char**)&DAT_00495480), 3, &CCollisionTrack_5f150::FUN_0005d590);
+            params[13] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("hitTypes", ((const char**)&DAT_00495480), 3, (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d590);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>));
         params[14] = 0;
         if (mem)
-            params[14] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("crusher", ((const char**)&DAT_0049548c), 10, &CCollisionTrack_5f150::FUN_0005d5a0);
+            params[14] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("crusher", ((const char**)&DAT_0049548c), 10, (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d5a0);
         mem = FUN_0008d690((int)sizeof(fight::ParamBranch_5f150<CCollisionTrack_5f150>));
         params[15] = 0;
         if (mem)
@@ -319,39 +319,39 @@ extern "C" void FUN_0005f150()
         mem = FUN_0008d690((int)sizeof(fight::ParamString_5f150<CCollisionTrack_5f150>));
         params[19] = 0;
         if (mem)
-            params[19] = new (mem) fight::ParamString_5f150<CCollisionTrack_5f150>("sound", &CCollisionTrack_5f150::FUN_0005dad0);
+            params[19] = new (mem) fight::ParamString_5f150<CCollisionTrack_5f150>("sound", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005dad0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>));
         params[20] = 0;
         if (mem)
-            params[20] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("damage", &CCollisionTrack_5f150::FUN_0005d5b0);
+            params[20] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("damage", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d5b0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>));
         params[21] = 0;
         if (mem)
-            params[21] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("damageMax", &CCollisionTrack_5f150::FUN_0005d5c0);
+            params[21] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("damageMax", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d5c0);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_5f150<CCollisionTrack_5f150>));
         params[22] = 0;
         if (mem)
-            params[22] = new (mem) fight::ParamVector_5f150<CCollisionTrack_5f150>("force", &CCollisionTrack_5f150::FUN_0005d5d0);
+            params[22] = new (mem) fight::ParamVector_5f150<CCollisionTrack_5f150>("force", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d5d0);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_5f150<CCollisionTrack_5f150>));
         params[23] = 0;
         if (mem)
-            params[23] = new (mem) fight::ParamVector_5f150<CCollisionTrack_5f150>("forceMax", &CCollisionTrack_5f150::FUN_0005d600);
+            params[23] = new (mem) fight::ParamVector_5f150<CCollisionTrack_5f150>("forceMax", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d600);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>));
         params[24] = 0;
         if (mem)
-            params[24] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("direction", ((const char**)&DAT_004954b4), 3, &CCollisionTrack_5f150::FUN_0005d630);
+            params[24] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("direction", ((const char**)&DAT_004954b4), 3, (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d630);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_5f150<CCollisionTrack_5f150>));
         params[25] = 0;
         if (mem)
-            params[25] = new (mem) fight::ParamIntConstRange_5f150<CCollisionTrack_5f150>("interruptPriority", &CCollisionTrack_5f150::FUN_0005d640);
+            params[25] = new (mem) fight::ParamIntConstRange_5f150<CCollisionTrack_5f150>("interruptPriority", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d640);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_5f150<CCollisionTrack_5f150>));
         params[26] = 0;
         if (mem)
-            params[26] = new (mem) fight::ParamVector_5f150<CCollisionTrack_5f150>("hitFreezeTime", &CCollisionTrack_5f150::FUN_0005d650);
+            params[26] = new (mem) fight::ParamVector_5f150<CCollisionTrack_5f150>("hitFreezeTime", (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d650);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>));
         params[27] = 0;
         if (mem)
-            params[27] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("location", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), &CCollisionTrack_5f150::FUN_0005d680);
+            params[27] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("location", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), (void (CCollisionTrack_5f150::*)())&CCollisionTrack_5f150::FUN_0005d680);
         mem = FUN_0008d690((int)sizeof(fight::ParamBoolPtr_5f150<CCollisionTrack_5f150>));
         params[28] = 0;
         if (mem)

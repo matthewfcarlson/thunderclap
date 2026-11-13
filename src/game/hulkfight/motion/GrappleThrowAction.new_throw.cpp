@@ -18,7 +18,7 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace hulkfight { namespace motion {
 class GrappleAttachedCondition_14a1e0 {
 public:
-    void FUN_00146920();
+    bool FUN_00146920(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_f3a660e0 {
@@ -45,7 +45,7 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 namespace hulkfight { namespace motion {
 class CivilianAttachedCondition_14a240 {
 public:
-    void FUN_00146930();
+    char FUN_00146930(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -61,7 +61,7 @@ public:
 namespace hulkfight { namespace motion {
 class CivilianTargetCondition_14a2a0 {
 public:
-    void FUN_00146940();
+    char FUN_00146940(char); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -77,8 +77,8 @@ public:
 namespace hulkfight { namespace motion {
 class GrappleOrientationCondition_14a300 {
 public:
-    void FUN_00146950();
-    void FUN_00146970();
+    char FUN_00146950(float); /* (unb4) as defined; address taken only */
+    bool FUN_00146970(float); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_f3a660e0 {
@@ -102,17 +102,17 @@ public:
 namespace fn_f3a660e0 {
 class GrappleThrowTrack {
 public:
-    void FUN_00146a40();
-    void FUN_00146a70();
-    void FUN_00146aa0();
-    void FUN_00146ac0();
-    void FUN_00146ae0();
-    void FUN_00146b00();
-    void FUN_00146b20();
-    void FUN_00146b50();
-    void FUN_00146b80();
-    void FUN_00146bb0();
-    void FUN_00146bd0();
+    char FUN_00146a40(int); /* (unb4) as defined; address taken only */
+    char FUN_00146a70(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00146aa0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00146ac0(int); /* (unb4) as defined; address taken only */
+    char FUN_00146ae0(int); /* (unb4) as defined; address taken only */
+    char FUN_00146b00(int); /* (unb4) as defined; address taken only */
+    char FUN_00146b20(float); /* (unb4) as defined; address taken only */
+    bool FUN_00146b50(float); /* (unb4) as defined; address taken only */
+    bool FUN_00146b80(float); /* (unb4) as defined; address taken only */
+    bool FUN_00146bb0(int); /* (unb4) as defined; address taken only */
+    char FUN_00146bd0(int); /* (unb4) as defined; address taken only */
 };
 } // namespace fn_f3a660e0
 namespace fight {
@@ -138,12 +138,12 @@ public:
 namespace fn_f3a660e0 {
 class GrappleStruggleTrack {
 public:
-    void FUN_00146be0();
-    void FUN_00146bf0();
-    void FUN_00146c10();
-    void FUN_00146c30();
-    void FUN_00146c50();
-    void FUN_00146c70();
+    char FUN_00146be0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00146bf0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00146c10(int); /* (unb4) as defined; address taken only */
+    char FUN_00146c30(void*); /* (unb4) as defined; address taken only */
+    char FUN_00146c50(int); /* (unb4) as defined; address taken only */
+    bool FUN_00146c70(int); /* (unb4) as defined; address taken only */
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -155,17 +155,17 @@ public:
 };
 class CivilianThrowTrack {
 public:
-    void FUN_00146c80();
-    void FUN_00146cb0();
-    void FUN_00146ce0();
-    void FUN_00146d00();
-    void FUN_00146d20();
-    void FUN_00146d40();
-    void FUN_00146d60();
-    void FUN_00146d90();
-    void FUN_00146dc0();
-    void FUN_00146df0();
-    void FUN_00146e10();
+    bool FUN_00146c80(int); /* (unb4) as defined; address taken only */
+    char FUN_00146cb0(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00146ce0(int); /* (unb4) as defined; address taken only */
+    char FUN_00146d00(int); /* (unb4) as defined; address taken only */
+    bool FUN_00146d20(int); /* (unb4) as defined; address taken only */
+    char FUN_00146d40(int); /* (unb4) as defined; address taken only */
+    bool FUN_00146d60(float); /* (unb4) as defined; address taken only */
+    char FUN_00146d90(float); /* (unb4) as defined; address taken only */
+    bool FUN_00146dc0(float); /* (unb4) as defined; address taken only */
+    bool FUN_00146df0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00146e10(int); /* (unb4) as defined; address taken only */
 };
 } // namespace fn_f3a660e0
 namespace fight {
@@ -191,7 +191,7 @@ public:
 namespace hulkfight { namespace motion {
 class CivilianAttachTrack_14aad0 {
 public:
-    void FUN_00146e20();
+    char FUN_00146e20(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fight {
@@ -207,10 +207,10 @@ public:
 namespace fn_f3a660e0 {
 class GrappleExecuteTrack {
 public:
-    void FUN_00147030();
-    void FUN_00147040();
+    char FUN_00147030(int); /* (unb4) as defined; address taken only */
+    bool FUN_00147040(int); /* (unb4) as defined; address taken only */
     void FUN_00147050();
-    void FUN_00147070();
+    char FUN_00147070(void*); /* (unb4) as defined; address taken only */
     void FUN_00147080();
 };
 class __declspec(novtable) ParamBranchBase {
@@ -231,7 +231,7 @@ public:
 namespace hulkfight { namespace motion {
 class GrappleAttachJointCondition_14b340 {
 public:
-    void FUN_00146900();
+    char FUN_00146900(int); /* (unb4) as defined; address taken only */
     void FUN_00146910();
 };
 } }
@@ -269,22 +269,22 @@ public:
 namespace hulkfight { namespace motion {
 class GrappleHitReactionTrack_14b5d0 {
 public:
-    void FUN_00146e30();
-    void FUN_00146e50();
-    void FUN_00146e70();
-    void FUN_00146e90();
+    bool FUN_00146e30(int); /* (unb4) as defined; address taken only */
+    bool FUN_00146e50(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00146e70(int); /* (unb4) as defined; address taken only */
+    char FUN_00146e90(float); /* (unb4) as defined; address taken only */
     void FUN_00146eb0();
-    void FUN_00146ed0();
-    void FUN_00146ef0();
-    void FUN_00146f10();
-    void FUN_00146f30();
-    void FUN_00146f50();
-    void FUN_00146f70();
-    void FUN_00146f90();
-    void FUN_00146fc0();
-    void FUN_00146fe0();
-    void FUN_00147000();
-    void FUN_00147020();
+    bool FUN_00146ed0(int); /* (unb4) as defined; address taken only */
+    char FUN_00146ef0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00146f10(int); /* (unb4) as defined; address taken only */
+    bool FUN_00146f30(char); /* (unb4) as defined; address taken only */
+    char FUN_00146f50(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00146f70(int); /* (unb4) as defined; address taken only */
+    char FUN_00146f90(float); /* (unb4) as defined; address taken only */
+    char FUN_00146fc0(int); /* (unb4) as defined; address taken only */
+    char FUN_00146fe0(int); /* (unb4) as defined; address taken only */
+    char FUN_00147000(int); /* (unb4) as defined; address taken only */
+    char FUN_00147020(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_f3a660e0 {
@@ -351,13 +351,13 @@ public:
 namespace hulkfight { namespace motion {
 class CivilianAnimationTrack_14b9c0 {
 public:
-    void FUN_00147090();
-    void FUN_001470b0();
+    bool FUN_00147090(int); /* (unb4) as defined; address taken only */
+    bool FUN_001470b0(int); /* (unb4) as defined; address taken only */
     void FUN_001470c0();
-    void FUN_001470e0();
-    void FUN_00147100();
-    void FUN_00147120();
-    void FUN_00147140();
+    char FUN_001470e0(int); /* (unb4) as defined; address taken only */
+    char FUN_00147100(int); /* (unb4) as defined; address taken only */
+    char FUN_00147120(char); /* (unb4) as defined; address taken only */
+    char FUN_00147140(int); /* (unb4) as defined; address taken only */
 };
 } }
 namespace fn_f3a660e0 {
@@ -391,7 +391,7 @@ void FUN_0014a1e0()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_14a1e0<hulkfight::motion::GrappleAttachedCondition_14a1e0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_14a1e0<hulkfight::motion::GrappleAttachedCondition_14a1e0>("isAttached", &hulkfight::motion::GrappleAttachedCondition_14a1e0::FUN_00146920);
+            params[0] = new (mem) fight::ParamBool_14a1e0<hulkfight::motion::GrappleAttachedCondition_14a1e0>("isAttached", (void (hulkfight::motion::GrappleAttachedCondition_14a1e0::*)())&hulkfight::motion::GrappleAttachedCondition_14a1e0::FUN_00146920);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0fc4), params, 1);
     }
     DAT_004e0fc8++;
@@ -410,7 +410,7 @@ void FUN_0014a240()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_14a240<hulkfight::motion::CivilianAttachedCondition_14a240>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_14a240<hulkfight::motion::CivilianAttachedCondition_14a240>("isAttached", &hulkfight::motion::CivilianAttachedCondition_14a240::FUN_00146930);
+            params[0] = new (mem) fight::ParamBool_14a240<hulkfight::motion::CivilianAttachedCondition_14a240>("isAttached", (void (hulkfight::motion::CivilianAttachedCondition_14a240::*)())&hulkfight::motion::CivilianAttachedCondition_14a240::FUN_00146930);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0fcc), params, 1);
     }
     DAT_004e0fd0++;
@@ -429,7 +429,7 @@ void FUN_0014a2a0()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_14a2a0<hulkfight::motion::CivilianTargetCondition_14a2a0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool_14a2a0<hulkfight::motion::CivilianTargetCondition_14a2a0>("hasTarget", &hulkfight::motion::CivilianTargetCondition_14a2a0::FUN_00146940);
+            params[0] = new (mem) fight::ParamBool_14a2a0<hulkfight::motion::CivilianTargetCondition_14a2a0>("hasTarget", (void (hulkfight::motion::CivilianTargetCondition_14a2a0::*)())&hulkfight::motion::CivilianTargetCondition_14a2a0::FUN_00146940);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0fd4), params, 1);
     }
     DAT_004e0fd8++;
@@ -448,11 +448,11 @@ void FUN_0014a300()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a300<hulkfight::motion::GrappleOrientationCondition_14a300>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_14a300<hulkfight::motion::GrappleOrientationCondition_14a300>("angle", &hulkfight::motion::GrappleOrientationCondition_14a300::FUN_00146950);
+            params[0] = new (mem) fight::ParamFloatConstRange_14a300<hulkfight::motion::GrappleOrientationCondition_14a300>("angle", (void (hulkfight::motion::GrappleOrientationCondition_14a300::*)())&hulkfight::motion::GrappleOrientationCondition_14a300::FUN_00146950);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a300<hulkfight::motion::GrappleOrientationCondition_14a300>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_14a300<hulkfight::motion::GrappleOrientationCondition_14a300>("arc", &hulkfight::motion::GrappleOrientationCondition_14a300::FUN_00146970);
+            params[1] = new (mem) fight::ParamFloatConstRange_14a300<hulkfight::motion::GrappleOrientationCondition_14a300>("arc", (void (hulkfight::motion::GrappleOrientationCondition_14a300::*)())&hulkfight::motion::GrappleOrientationCondition_14a300::FUN_00146970);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0fdc), params, 2);
     }
     DAT_004e0fe0++;
@@ -471,47 +471,47 @@ void FUN_0014a480()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("timeBegin", &GrappleThrowTrack::FUN_00146a40);
+            params[0] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("timeBegin", (void (GrappleThrowTrack::*)())&GrappleThrowTrack::FUN_00146a40);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_14a480<GrappleThrowTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamVector_14a480<GrappleThrowTrack>("direction", &GrappleThrowTrack::FUN_00146a70);
+            params[1] = new (mem) fight::ParamVector_14a480<GrappleThrowTrack>("direction", (void (GrappleThrowTrack::*)())&GrappleThrowTrack::FUN_00146a70);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("distanceMin", &GrappleThrowTrack::FUN_00146aa0);
+            params[2] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("distanceMin", (void (GrappleThrowTrack::*)())&GrappleThrowTrack::FUN_00146aa0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("distanceMax", &GrappleThrowTrack::FUN_00146ac0);
+            params[3] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("distanceMax", (void (GrappleThrowTrack::*)())&GrappleThrowTrack::FUN_00146ac0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("velocityMin", &GrappleThrowTrack::FUN_00146ae0);
+            params[4] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("velocityMin", (void (GrappleThrowTrack::*)())&GrappleThrowTrack::FUN_00146ae0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("velocityMax", &GrappleThrowTrack::FUN_00146b00);
+            params[5] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("velocityMax", (void (GrappleThrowTrack::*)())&GrappleThrowTrack::FUN_00146b00);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("trackingMin", &GrappleThrowTrack::FUN_00146b20);
+            params[6] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("trackingMin", (void (GrappleThrowTrack::*)())&GrappleThrowTrack::FUN_00146b20);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("trackingMax", &GrappleThrowTrack::FUN_00146b50);
+            params[7] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("trackingMax", (void (GrappleThrowTrack::*)())&GrappleThrowTrack::FUN_00146b50);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("yFixupAngle", &GrappleThrowTrack::FUN_00146b80);
+            params[8] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("yFixupAngle", (void (GrappleThrowTrack::*)())&GrappleThrowTrack::FUN_00146b80);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("stunTimeMin", &GrappleThrowTrack::FUN_00146bb0);
+            params[9] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("stunTimeMin", (void (GrappleThrowTrack::*)())&GrappleThrowTrack::FUN_00146bb0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("stunTimeMax", &GrappleThrowTrack::FUN_00146bd0);
+            params[10] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("stunTimeMax", (void (GrappleThrowTrack::*)())&GrappleThrowTrack::FUN_00146bd0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0fec), params, 11);
     }
     DAT_004e0ff0++;
@@ -531,27 +531,27 @@ void FUN_0014a6f0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleStruggleTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("timeBegin", &GrappleStruggleTrack::FUN_00146be0);
+            params[0] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("timeBegin", (void (GrappleStruggleTrack::*)())&GrappleStruggleTrack::FUN_00146be0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleStruggleTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("timeEnd", &GrappleStruggleTrack::FUN_00146bf0);
+            params[1] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("timeEnd", (void (GrappleStruggleTrack::*)())&GrappleStruggleTrack::FUN_00146bf0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleStruggleTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("timeInput", &GrappleStruggleTrack::FUN_00146c10);
+            params[2] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("timeInput", (void (GrappleStruggleTrack::*)())&GrappleStruggleTrack::FUN_00146c10);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleStruggleTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("chargeRateMin", &GrappleStruggleTrack::FUN_00146c30);
+            params[3] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("chargeRateMin", (void (GrappleStruggleTrack::*)())&GrappleStruggleTrack::FUN_00146c30);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleStruggleTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("chargeRateMax", &GrappleStruggleTrack::FUN_00146c50);
+            params[4] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("chargeRateMax", (void (GrappleStruggleTrack::*)())&GrappleStruggleTrack::FUN_00146c50);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleStruggleTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("chargeButtonRate", &GrappleStruggleTrack::FUN_00146c70);
+            params[5] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("chargeButtonRate", (void (GrappleStruggleTrack::*)())&GrappleStruggleTrack::FUN_00146c70);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0ff4), params, 6);
     }
     DAT_004e0ff8++;
@@ -570,47 +570,47 @@ void FUN_0014a860()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("timeBegin", &CivilianThrowTrack::FUN_00146c80);
+            params[0] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("timeBegin", (void (CivilianThrowTrack::*)())&CivilianThrowTrack::FUN_00146c80);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_14a860<CivilianThrowTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamVector_14a860<CivilianThrowTrack>("direction", &CivilianThrowTrack::FUN_00146cb0);
+            params[1] = new (mem) fight::ParamVector_14a860<CivilianThrowTrack>("direction", (void (CivilianThrowTrack::*)())&CivilianThrowTrack::FUN_00146cb0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("distanceMin", &CivilianThrowTrack::FUN_00146ce0);
+            params[2] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("distanceMin", (void (CivilianThrowTrack::*)())&CivilianThrowTrack::FUN_00146ce0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("distanceMax", &CivilianThrowTrack::FUN_00146d00);
+            params[3] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("distanceMax", (void (CivilianThrowTrack::*)())&CivilianThrowTrack::FUN_00146d00);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("velocityMin", &CivilianThrowTrack::FUN_00146d20);
+            params[4] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("velocityMin", (void (CivilianThrowTrack::*)())&CivilianThrowTrack::FUN_00146d20);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("velocityMax", &CivilianThrowTrack::FUN_00146d40);
+            params[5] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("velocityMax", (void (CivilianThrowTrack::*)())&CivilianThrowTrack::FUN_00146d40);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("trackingMin", &CivilianThrowTrack::FUN_00146d60);
+            params[6] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("trackingMin", (void (CivilianThrowTrack::*)())&CivilianThrowTrack::FUN_00146d60);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("trackingMax", &CivilianThrowTrack::FUN_00146d90);
+            params[7] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("trackingMax", (void (CivilianThrowTrack::*)())&CivilianThrowTrack::FUN_00146d90);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("yFixupAngle", &CivilianThrowTrack::FUN_00146dc0);
+            params[8] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("yFixupAngle", (void (CivilianThrowTrack::*)())&CivilianThrowTrack::FUN_00146dc0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("stunTimeMin", &CivilianThrowTrack::FUN_00146df0);
+            params[9] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("stunTimeMin", (void (CivilianThrowTrack::*)())&CivilianThrowTrack::FUN_00146df0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("stunTimeMax", &CivilianThrowTrack::FUN_00146e10);
+            params[10] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("stunTimeMax", (void (CivilianThrowTrack::*)())&CivilianThrowTrack::FUN_00146e10);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0ffc), params, 11);
     }
     DAT_004e1000++;
@@ -629,7 +629,7 @@ void FUN_0014aad0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14aad0<hulkfight::motion::CivilianAttachTrack_14aad0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_14aad0<hulkfight::motion::CivilianAttachTrack_14aad0>("timeBegin", &hulkfight::motion::CivilianAttachTrack_14aad0::FUN_00146e20);
+            params[0] = new (mem) fight::ParamFloatConstRange_14aad0<hulkfight::motion::CivilianAttachTrack_14aad0>("timeBegin", (void (hulkfight::motion::CivilianAttachTrack_14aad0::*)())&hulkfight::motion::CivilianAttachTrack_14aad0::FUN_00146e20);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1004), params, 1);
     }
     DAT_004e1008++;
@@ -649,11 +649,11 @@ void FUN_0014ab30()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleExecuteTrack>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<GrappleExecuteTrack>("timeBegin", &GrappleExecuteTrack::FUN_00147030);
+            params[0] = new (mem) ParamFloatConstRange<GrappleExecuteTrack>("timeBegin", (void (GrappleExecuteTrack::*)())&GrappleExecuteTrack::FUN_00147030);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleExecuteTrack>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<GrappleExecuteTrack>("timeEnd", &GrappleExecuteTrack::FUN_00147040);
+            params[1] = new (mem) ParamFloatConstRange<GrappleExecuteTrack>("timeEnd", (void (GrappleExecuteTrack::*)())&GrappleExecuteTrack::FUN_00147040);
         mem = FUN_0008d690((int)sizeof(ParamBranch<GrappleExecuteTrack>));
         params[2] = 0;
         if (mem)
@@ -661,7 +661,7 @@ void FUN_0014ab30()
         mem = FUN_0008d690((int)sizeof(ParamIntConstRange<GrappleExecuteTrack>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamIntConstRange<GrappleExecuteTrack>("priority", &GrappleExecuteTrack::FUN_00147070);
+            params[3] = new (mem) ParamIntConstRange<GrappleExecuteTrack>("priority", (void (GrappleExecuteTrack::*)())&GrappleExecuteTrack::FUN_00147070);
         mem = FUN_0008d690((int)sizeof(ParamConditionGroup<GrappleExecuteTrack>));
         params[4] = 0;
         if (mem)
@@ -684,7 +684,7 @@ void FUN_0014b340()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_14b340<hulkfight::motion::GrappleAttachJointCondition_14b340>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_14b340<hulkfight::motion::GrappleAttachJointCondition_14b340>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &hulkfight::motion::GrappleAttachJointCondition_14b340::FUN_00146900);
+            params[0] = new (mem) fight::ParamEnumConstList_14b340<hulkfight::motion::GrappleAttachJointCondition_14b340>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), (void (hulkfight::motion::GrappleAttachJointCondition_14b340::*)())&hulkfight::motion::GrappleAttachJointCondition_14b340::FUN_00146900);
         mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_14b340<hulkfight::motion::GrappleAttachJointCondition_14b340>));
         params[1] = 0;
         if (mem)
@@ -707,19 +707,19 @@ void FUN_0014b5d0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("timeBegin", &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146e30);
+            params[0] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("timeBegin", (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146e30);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("hitLocation", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146e50);
+            params[1] = new (mem) fight::ParamEnumConstList_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("hitLocation", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146e50);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamEnumConstList_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("directionFrom", ((const char**)&DAT_004ae340), 2, &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146e70);
+            params[2] = new (mem) fight::ParamEnumConstList_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("directionFrom", ((const char**)&DAT_004ae340), 2, (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146e70);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("direction", &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146e90);
+            params[3] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("direction", (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146e90);
         mem = FUN_0008d690((int)sizeof(fight::ParamName_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[4] = 0;
         if (mem)
@@ -727,47 +727,47 @@ void FUN_0014b5d0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("damage", &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146ed0);
+            params[5] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("damage", (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146ed0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("damageMax", &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146ef0);
+            params[6] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("damageMax", (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146ef0);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamIntConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("interruptPriority", &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146f10);
+            params[7] = new (mem) fight::ParamIntConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("interruptPriority", (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146f10);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamBool_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("interrupt", &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146f30);
+            params[8] = new (mem) fight::ParamBool_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("interrupt", (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146f30);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("hitReactionTime", &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146f50);
+            params[9] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("hitReactionTime", (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146f50);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamEnumConstList_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("pushbackDirectionFrom", ((const char**)&DAT_004ae340), 2, &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146f70);
+            params[10] = new (mem) fight::ParamEnumConstList_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("pushbackDirectionFrom", ((const char**)&DAT_004ae340), 2, (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146f70);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("pushbackDirection", &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146f90);
+            params[11] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("pushbackDirection", (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146f90);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("pushbackDistance", &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146fc0);
+            params[12] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("pushbackDistance", (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146fc0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[13] = 0;
         if (mem)
-            params[13] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("pushbackTime", &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146fe0);
+            params[13] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("pushbackTime", (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00146fe0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[14] = 0;
         if (mem)
-            params[14] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("height", &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00147000);
+            params[14] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("height", (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00147000);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>));
         params[15] = 0;
         if (mem)
-            params[15] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("stunTime", &hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00147020);
+            params[15] = new (mem) fight::ParamFloatConstRange_14b5d0<hulkfight::motion::GrappleHitReactionTrack_14b5d0>("stunTime", (void (hulkfight::motion::GrappleHitReactionTrack_14b5d0::*)())&hulkfight::motion::GrappleHitReactionTrack_14b5d0::FUN_00147020);
         FUN_002347b0(((ParamRegistry*)&DAT_004e100c), params, 16);
     }
     DAT_004e1010++;
@@ -786,11 +786,11 @@ void FUN_0014b9c0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>("timeBegin", &hulkfight::motion::CivilianAnimationTrack_14b9c0::FUN_00147090);
+            params[0] = new (mem) ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>("timeBegin", (void (hulkfight::motion::CivilianAnimationTrack_14b9c0::*)())&hulkfight::motion::CivilianAnimationTrack_14b9c0::FUN_00147090);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>("timeEnd", &hulkfight::motion::CivilianAnimationTrack_14b9c0::FUN_001470b0);
+            params[1] = new (mem) ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>("timeEnd", (void (hulkfight::motion::CivilianAnimationTrack_14b9c0::*)())&hulkfight::motion::CivilianAnimationTrack_14b9c0::FUN_001470b0);
         mem = FUN_0008d690((int)sizeof(ParamName<hulkfight::motion::CivilianAnimationTrack_14b9c0>));
         params[2] = 0;
         if (mem)
@@ -798,19 +798,19 @@ void FUN_0014b9c0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>("speed", &hulkfight::motion::CivilianAnimationTrack_14b9c0::FUN_001470e0);
+            params[3] = new (mem) ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>("speed", (void (hulkfight::motion::CivilianAnimationTrack_14b9c0::*)())&hulkfight::motion::CivilianAnimationTrack_14b9c0::FUN_001470e0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>("startFrame", &hulkfight::motion::CivilianAnimationTrack_14b9c0::FUN_00147100);
+            params[4] = new (mem) ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>("startFrame", (void (hulkfight::motion::CivilianAnimationTrack_14b9c0::*)())&hulkfight::motion::CivilianAnimationTrack_14b9c0::FUN_00147100);
         mem = FUN_0008d690((int)sizeof(ParamBool<hulkfight::motion::CivilianAnimationTrack_14b9c0>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamBool<hulkfight::motion::CivilianAnimationTrack_14b9c0>("cyclic", &hulkfight::motion::CivilianAnimationTrack_14b9c0::FUN_00147120);
+            params[5] = new (mem) ParamBool<hulkfight::motion::CivilianAnimationTrack_14b9c0>("cyclic", (void (hulkfight::motion::CivilianAnimationTrack_14b9c0::*)())&hulkfight::motion::CivilianAnimationTrack_14b9c0::FUN_00147120);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>("blendTime", &hulkfight::motion::CivilianAnimationTrack_14b9c0::FUN_00147140);
+            params[6] = new (mem) ParamFloatConstRange<hulkfight::motion::CivilianAnimationTrack_14b9c0>("blendTime", (void (hulkfight::motion::CivilianAnimationTrack_14b9c0::*)())&hulkfight::motion::CivilianAnimationTrack_14b9c0::FUN_00147140);
         FUN_002347b0(((ParamRegistry*)&DAT_004e101c), params, 7);
     }
     (*(int*)&DAT_004e1020)++;

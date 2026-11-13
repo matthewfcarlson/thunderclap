@@ -33,12 +33,12 @@ namespace fn_f63a58e9 {
 extern "C" void* FUN_0008d690(unsigned int size);
 class TargetArcCondition {
 public:
-    void FUN_00123530();
-    void FUN_00123550();
-    void FUN_00123580();
+    char FUN_00123530(float); /* (unb4) as defined; address taken only */
+    char FUN_00123550(float); /* (unb4) as defined; address taken only */
+    char FUN_00123580(char); /* (unb4) as defined; address taken only */
     void FUN_00123590();
-    void FUN_001235c0();
-    void FUN_001235f0();
+    bool FUN_001235c0(void*); /* (unb4) as defined; address taken only */
+    char FUN_001235f0(char); /* (unb4) as defined; address taken only */
 };
 class __declspec(novtable) ParamBoolBase {
 public:
@@ -167,15 +167,15 @@ extern "C" void FUN_00129ab0()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TargetArcCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<TargetArcCondition>("angle", &TargetArcCondition::FUN_00123530);
+            params[0] = new (mem) ParamFloatConstRange<TargetArcCondition>("angle", (void (TargetArcCondition::*)())&TargetArcCondition::FUN_00123530);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TargetArcCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<TargetArcCondition>("arc", &TargetArcCondition::FUN_00123550);
+            params[1] = new (mem) ParamFloatConstRange<TargetArcCondition>("arc", (void (TargetArcCondition::*)())&TargetArcCondition::FUN_00123550);
         mem = FUN_0008d690((int)sizeof(ParamBool<TargetArcCondition>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamBool<TargetArcCondition>("useCameraDirection", &TargetArcCondition::FUN_00123580);
+            params[2] = new (mem) ParamBool<TargetArcCondition>("useCameraDirection", (void (TargetArcCondition::*)())&TargetArcCondition::FUN_00123580);
         mem = FUN_0008d690((int)sizeof(ParamName<TargetArcCondition>));
         params[3] = 0;
         if (mem)
@@ -183,11 +183,11 @@ extern "C" void FUN_00129ab0()
         mem = FUN_0008d690((int)sizeof(ParamVector<TargetArcCondition>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamVector<TargetArcCondition>("direction", &TargetArcCondition::FUN_001235c0);
+            params[4] = new (mem) ParamVector<TargetArcCondition>("direction", (void (TargetArcCondition::*)())&TargetArcCondition::FUN_001235c0);
         mem = FUN_0008d690((int)sizeof(ParamBool<TargetArcCondition>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamBool<TargetArcCondition>("useHulk", &TargetArcCondition::FUN_001235f0);
+            params[5] = new (mem) ParamBool<TargetArcCondition>("useHulk", (void (TargetArcCondition::*)())&TargetArcCondition::FUN_001235f0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0d6c), params, 6);
     }
     DAT_004e0d70++;

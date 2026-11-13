@@ -20,7 +20,7 @@ inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_fe3d8cfe {
 
 void* __cdecl FUN_0008d690(unsigned int);
-void FUN_0018cb20(); void FUN_0018cb30(); void FUN_0018cb40();
+void* FUN_0018cb20(void*); /* (unb4) as defined; address taken only */ bool FUN_0018cb30(void*, int); /* (unb4) as defined; address taken only */ bool FUN_0018cb40(void*, void*); /* (unb4) as defined; address taken only */
 void __cdecl FUN_002347b0(void*, void*, int);
 struct FUN_00234a90 { FUN_00234a90(const char* = "variable"); virtual void slot0(); char padding[12]; void (*callback)(); int tail; };
 struct FUN_00234cc0 { FUN_00234cc0(const char* = "compare"); virtual void slot0(); char padding[12]; const char* values; int count; void (*callback)(); int tail; };
@@ -37,15 +37,15 @@ void target() {
   typedef hulkfight::motion::GrappleVarCompareCondition T;
   void* mem = FUN_0008d690((int)sizeof(fight::ParamName<T>));
   fight::ParamName<T>* a=0;
-  if (mem) { a = new(mem) fight::ParamName<T>; a->callback = FUN_0018cb20; }
+  if (mem) { a = new(mem) fight::ParamName<T>; a->callback = (void (*)())FUN_0018cb20; }
   params[0]=a;
   mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<T>));
   fight::ParamEnumConstList<T>* b=0;
-  if (mem) { int count = (*(int*)&DAT_00427754); b = new(mem) fight::ParamEnumConstList<T>; b->count=count; b->values="lwB"; b->callback=FUN_0018cb30; }
+  if (mem) { int count = (*(int*)&DAT_00427754); b = new(mem) fight::ParamEnumConstList<T>; b->count=count; b->values="lwB"; b->callback=(void (*)())FUN_0018cb30; }
   params[1]=b;
   mem=FUN_0008d690((int)sizeof(fight::ParamIntConstRange<T>));
   fight::ParamIntConstRange<T>* c=0;
-  if (mem) { c = new(mem) fight::ParamIntConstRange<T>; c->callback=FUN_0018cb40; }
+  if (mem) { c = new(mem) fight::ParamIntConstRange<T>; c->callback=(void (*)())FUN_0018cb40; }
   params[2]=c;
   FUN_002347b0(((char*)&DAT_004e1510),params,3);
  }

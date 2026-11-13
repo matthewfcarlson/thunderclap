@@ -14,15 +14,15 @@ namespace fn_fc3775b1 {
 extern "C" void* FUN_0008d690(unsigned int size);
 class CWallSlideTrack_72820 {
 public:
-    void FUN_00068bc0();
-    void FUN_00068bd0();
-    void FUN_00068be0();
-    void FUN_00068bf0();
-    void FUN_00068c00();
-    void FUN_00068c10();
-    void FUN_00068c20();
-    void FUN_00068c30();
-    void FUN_00068c40();
+    bool FUN_00068bc0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068bd0(int); /* (unb4) as defined; address taken only */
+    char FUN_00068be0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068bf0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068c00(int); /* (unb4) as defined; address taken only */
+    bool FUN_00068c10(int); /* (unb4) as defined; address taken only */
+    char FUN_00068c20(int); /* (unb4) as defined; address taken only */
+    char FUN_00068c30(int); /* (unb4) as defined; address taken only */
+    char FUN_00068c40(int); /* (unb4) as defined; address taken only */
 };
 class __declspec(novtable) ParamFloatConstRangeBase {
 public:
@@ -41,16 +41,16 @@ public:
 extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class CJointTrack_74ab0 {
 public:
-    void FUN_00067f30();
-    void FUN_00067f40();
+    bool FUN_00067f30(void*); /* (unb4) as defined; address taken only */
+    char FUN_00067f40(int); /* (unb4) as defined; address taken only */
     void FUN_00011ce0();
-    void FUN_00067f50();
-    void FUN_00067f60();
-    void FUN_00067f80();
-    void FUN_00068d90();
-    void FUN_00067f90();
-    void FUN_00067fa0();
-    void FUN_00067fb0();
+    char FUN_00067f50(char); /* (unb4) as defined; address taken only */
+    bool FUN_00067f60(void*); /* (unb4) as defined; address taken only */
+    char FUN_00067f80(char); /* (unb4) as defined; address taken only */
+    char FUN_00068d90(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00067f90(int); /* (unb4) as defined; address taken only */
+    char FUN_00067fa0(int); /* (unb4) as defined; address taken only */
+    char FUN_00067fb0(int); /* (unb4) as defined; address taken only */
 };
 class __declspec(novtable) ParamBoolBase {
 public:
@@ -132,39 +132,39 @@ extern "C" void FUN_00072820()
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("timeBegin", &CWallSlideTrack_72820::FUN_00068bc0);
+            params[0] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("timeBegin", (void (CWallSlideTrack_72820::*)())&CWallSlideTrack_72820::FUN_00068bc0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("maxTimeEnd", &CWallSlideTrack_72820::FUN_00068bd0);
+            params[1] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("maxTimeEnd", (void (CWallSlideTrack_72820::*)())&CWallSlideTrack_72820::FUN_00068bd0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("friction", &CWallSlideTrack_72820::FUN_00068be0);
+            params[2] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("friction", (void (CWallSlideTrack_72820::*)())&CWallSlideTrack_72820::FUN_00068be0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("gravity", &CWallSlideTrack_72820::FUN_00068bf0);
+            params[3] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("gravity", (void (CWallSlideTrack_72820::*)())&CWallSlideTrack_72820::FUN_00068bf0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("deceleration", &CWallSlideTrack_72820::FUN_00068c00);
+            params[4] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("deceleration", (void (CWallSlideTrack_72820::*)())&CWallSlideTrack_72820::FUN_00068c00);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("minVelocity", &CWallSlideTrack_72820::FUN_00068c10);
+            params[5] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("minVelocity", (void (CWallSlideTrack_72820::*)())&CWallSlideTrack_72820::FUN_00068c10);
         mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CWallSlideTrack_72820>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamIntConstRange<CWallSlideTrack_72820>("priority", &CWallSlideTrack_72820::FUN_00068c20);
+            params[6] = new (mem) ParamIntConstRange<CWallSlideTrack_72820>("priority", (void (CWallSlideTrack_72820::*)())&CWallSlideTrack_72820::FUN_00068c20);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("blendInTime", &CWallSlideTrack_72820::FUN_00068c30);
+            params[7] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("blendInTime", (void (CWallSlideTrack_72820::*)())&CWallSlideTrack_72820::FUN_00068c30);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("blendOutTime", &CWallSlideTrack_72820::FUN_00068c40);
+            params[8] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("blendOutTime", (void (CWallSlideTrack_72820::*)())&CWallSlideTrack_72820::FUN_00068c40);
         FUN_002347b0(((ParamRegistry*)&DAT_004dd020), params, 9);
     }
     DAT_004dd024++;
@@ -183,11 +183,11 @@ extern "C" void FUN_00074ab0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>("timeBegin", &CJointTrack_74ab0::FUN_00067f30);
+            params[0] = new (mem) fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>("timeBegin", (void (CJointTrack_74ab0::*)())&CJointTrack_74ab0::FUN_00067f30);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>("timeEnd", &CJointTrack_74ab0::FUN_00067f40);
+            params[1] = new (mem) fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>("timeEnd", (void (CJointTrack_74ab0::*)())&CJointTrack_74ab0::FUN_00067f40);
         mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_74ab0<CJointTrack_74ab0>));
         params[2] = 0;
         if (mem)
@@ -195,31 +195,31 @@ extern "C" void FUN_00074ab0()
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_74ab0<CJointTrack_74ab0>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamBool_74ab0<CJointTrack_74ab0>("hasTranslation", &CJointTrack_74ab0::FUN_00067f50);
+            params[3] = new (mem) fight::ParamBool_74ab0<CJointTrack_74ab0>("hasTranslation", (void (CJointTrack_74ab0::*)())&CJointTrack_74ab0::FUN_00067f50);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_74ab0<CJointTrack_74ab0>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamVector_74ab0<CJointTrack_74ab0>("translation", &CJointTrack_74ab0::FUN_00067f60);
+            params[4] = new (mem) fight::ParamVector_74ab0<CJointTrack_74ab0>("translation", (void (CJointTrack_74ab0::*)())&CJointTrack_74ab0::FUN_00067f60);
         mem = FUN_0008d690((int)sizeof(fight::ParamBool_74ab0<CJointTrack_74ab0>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamBool_74ab0<CJointTrack_74ab0>("hasRotation", &CJointTrack_74ab0::FUN_00067f80);
+            params[5] = new (mem) fight::ParamBool_74ab0<CJointTrack_74ab0>("hasRotation", (void (CJointTrack_74ab0::*)())&CJointTrack_74ab0::FUN_00067f80);
         mem = FUN_0008d690((int)sizeof(fight::ParamVector_74ab0<CJointTrack_74ab0>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamVector_74ab0<CJointTrack_74ab0>("rotation", &CJointTrack_74ab0::FUN_00068d90);
+            params[6] = new (mem) fight::ParamVector_74ab0<CJointTrack_74ab0>("rotation", (void (CJointTrack_74ab0::*)())&CJointTrack_74ab0::FUN_00068d90);
         mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_74ab0<CJointTrack_74ab0>));
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamIntConstRange_74ab0<CJointTrack_74ab0>("priority", &CJointTrack_74ab0::FUN_00067f90);
+            params[7] = new (mem) fight::ParamIntConstRange_74ab0<CJointTrack_74ab0>("priority", (void (CJointTrack_74ab0::*)())&CJointTrack_74ab0::FUN_00067f90);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>));
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>("blendInTime", &CJointTrack_74ab0::FUN_00067fa0);
+            params[8] = new (mem) fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>("blendInTime", (void (CJointTrack_74ab0::*)())&CJointTrack_74ab0::FUN_00067fa0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>));
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>("blendOutTime", &CJointTrack_74ab0::FUN_00067fb0);
+            params[9] = new (mem) fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>("blendOutTime", (void (CJointTrack_74ab0::*)())&CJointTrack_74ab0::FUN_00067fb0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dcf08), params, 10);
     }
     DAT_004dcf0c++;

@@ -21,7 +21,7 @@ struct Obj_1f9630 {
     char pad[0x20];
     unsigned short value;
 };
-extern "C" void FUN_001f92f0();
+extern "C" int FUN_001f92f0(void*, void*); /* (unb4) as defined; address taken only */
 class R_1f9630 {
   public:
     Obj_1f9630* find_00230ba0(void (*)(), void*);
@@ -172,7 +172,7 @@ class C_1fa610 {
     V* p;
     void target();
 };
-void cb_001f9f80();
+bool cb_001f9f80(void*, void*); /* (unb4) as defined; address taken only */
 struct This_helper {
     void helper_00230f50(void*, void*);
 };
@@ -250,7 +250,7 @@ extern void thunk_FUN_00267090(CCollisionAction*);
 
 } // namespace fn_f80593ac
 
-// 0x001f9530 FUN_001f9530 (131 B): equivalent/0x001f9530.cpp [wrapped: conflict: FUN_001f92f0]
+// 0x001f9530 FUN_001f9530 (131 B): equivalent/0x001f9530.cpp [wrapped: conflict: (void (*)())FUN_001f92f0]
 // sym: ?FUN_001f9530@Registry_1f9530@fn_001f9530@@QAEPAUHandle_1f9530@2@PAU32@PBUKeyInfo@2@@Z @8105f0d7d74d @wc8449c6cf9b7
 namespace fn_001f9530 {
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 4/4)
@@ -303,7 +303,7 @@ public:
 
 Handle_1f9530 *Registry_1f9530::FUN_001f9530(Handle_1f9530 *out, const KeyInfo *key)
 {
-    void *found = FUN_00230be0((void*)&FUN_001f92f0, key);
+    void *found = FUN_00230be0((void*)(void (*)())&FUN_001f92f0, key);
     if (found == 0) {
         out->node = 0;
         out->owner = 0;
@@ -332,7 +332,7 @@ namespace fn_f80593ac {
 // sym: ?target@C_1f9630@fn_f80593ac@@QAEGUKey_1f9630@2@@Z
 // a..d: the 16-byte name key passed by value (the callers' Key: 8-byte name + index bytes).
 unsigned short C_1f9630::target(Key_1f9630 a) {
-    Obj_1f9630* o = field->find_00230ba0(FUN_001f92f0, (void*)&a);
+    Obj_1f9630* o = field->find_00230ba0((void (*)())FUN_001f92f0, (void*)&a);
     if (!o) {
         ((Cleanup_1f9630*)&a)->go_0027af50();
         return 0xfffe;
@@ -435,7 +435,7 @@ struct Allocator {
     virtual void v3();
     virtual void release(Node *n);
 };
-void FUN_001f92f0();
+int FUN_001f92f0(void*, void*); /* (unb4) as defined; address taken only */
 struct Container_1f9fc0 {
     char pad[24];
     Allocator *allocator;
@@ -451,7 +451,7 @@ public:
 bool Mixer::FUN_001f9fc0(SlotKey_1f9fc0 key)
 {
     Container_1f9fc0 *c = container;
-    Node *n = c->FUN_00230ba0(FUN_001f92f0, &key);
+    Node *n = c->FUN_00230ba0((void (*)())FUN_001f92f0, &key);
     if (n != 0) {
         c->FUN_00230de0(n);
         n->value.FUN_0027af50();
@@ -611,7 +611,7 @@ struct Value_1fa500 { char data[8]; void FUN_0027af30(Value_1fa500*); void FUN_0
 struct Key_1fa500 { Value_1fa500 value; unsigned char a,b; };
 struct Node { char pad[16]; Value_1fa500 value; };
 struct Allocator { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void release(Node*); };
-void FUN_001f92f0();
+int FUN_001f92f0(void*, void*); /* (unb4) as defined; address taken only */
 struct Container_1fa500 { char pad[24]; Allocator* allocator; Node* FUN_00230ba0(void (*)(void), Key_1fa500*); void FUN_00230de0(Node*); };
 struct Record_1fa500 { Value_1fa500 value; unsigned char a,b; char pad[78]; };
 struct Object { char pad0[0x450]; unsigned char enabled; char pad1[7]; int state; char pad2[0x284]; int count; char pad3[0x34]; Record_1fa500 records[15]; char pad4[0x28]; int recordCount; Container_1fa500* container; void FUN_001fa3a0(int); void target(int); };
@@ -626,7 +626,7 @@ void Object::target(int mode) {
     key.a=records[i].a;
     Container_1fa500* c=container;
     key.b=records[i].b;
-    Node* n=c->FUN_00230ba0(FUN_001f92f0,&key);
+    Node* n=c->FUN_00230ba0((void (*)())FUN_001f92f0,&key);
     if(n) { c->FUN_00230de0(n); n->value.FUN_0027af50(); c->allocator->release(n); }
     key.value.FUN_0027af50();
    }
@@ -641,7 +641,7 @@ namespace fn_f80593ac {
 // 0x001fa610 FUN_001fa610 (23 B): matches/0x001fa610.cpp
 // sym: ?target@C_1fa610@fn_f80593ac@@QAEXXZ
 void C_1fa610::target() {
-    ((This_helper*)this)->helper_00230f50((void*)cb_001f9f80, this);
+    ((This_helper*)this)->helper_00230f50((void*)(void (*)())cb_001f9f80, this);
     p->f1();
 }
 

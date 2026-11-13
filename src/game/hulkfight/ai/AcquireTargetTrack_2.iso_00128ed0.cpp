@@ -18,9 +18,9 @@ inline void* operator new(size_t, void* p) {
 namespace fn_f8872bd6 {
 
 extern void* __cdecl FUN_0008d690(unsigned int);
-extern void __cdecl FUN_00123890();
-extern void __cdecl FUN_001238b0();
-extern void __cdecl FUN_001238c0();
+extern char FUN_00123890(void*, float); /* (unb4) as defined; address taken only */
+extern char FUN_001238b0(void*, int); /* (unb4) as defined; address taken only */
+extern char FUN_001238c0(void*, char); /* (unb4) as defined; address taken only */
 namespace hulkfight {
 namespace ai {
 class AcquireTargetCondition;
@@ -58,7 +58,7 @@ extern "C" void FUN_00128ed0() {
         if (mem) {
             fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetCondition>* a =
                 new (mem) fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetCondition>("arc");
-            a->callback = FUN_00123890;
+            a->callback = (void (*)())FUN_00123890;
             p[0] = a;
         } else
             p[0] = 0;
@@ -66,7 +66,7 @@ extern "C" void FUN_00128ed0() {
         if (mem) {
             fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetCondition>* a =
                 new (mem) fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetCondition>("distance");
-            a->callback = FUN_001238b0;
+            a->callback = (void (*)())FUN_001238b0;
             p[1] = a;
         } else
             p[1] = 0;
@@ -74,7 +74,7 @@ extern "C" void FUN_00128ed0() {
         if (mem) {
             fight::ParamBool<hulkfight::ai::AcquireTargetCondition>* a =
                 new (mem) fight::ParamBool<hulkfight::ai::AcquireTargetCondition>("validateTarget");
-            a->callback = FUN_001238c0;
+            a->callback = (void (*)())FUN_001238c0;
             p[2] = a;
         } else
             p[2] = 0;

@@ -20,10 +20,10 @@ void* FUN_0008d690(unsigned int size);
 class RayCastTargetCondition {
 public:
     void FUN_00165440();
-    void FUN_00165470();
-    void FUN_001654b0();
-    void FUN_001654e0();
-    void FUN_00165500();
+    bool FUN_00165470(void*); /* (unb4) as defined; address taken only */
+    bool FUN_001654b0(void*); /* (unb4) as defined; address taken only */
+    bool FUN_001654e0(int); /* (unb4) as defined; address taken only */
+    char FUN_00165500(char); /* (unb4) as defined; address taken only */
 };
 class __declspec(novtable) ParamNameConstListBase {
 public:
@@ -71,21 +71,21 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class RayCastConeCondition {
 public:
     void FUN_001655c0();
-    void FUN_001655f0();
-    void FUN_00165620();
-    void FUN_00165640();
-    void FUN_00165660();
-    void FUN_00165680();
+    bool FUN_001655f0(void*); /* (unb4) as defined; address taken only */
+    char FUN_00165620(int); /* (unb4) as defined; address taken only */
+    char FUN_00165640(int); /* (unb4) as defined; address taken only */
+    char FUN_00165660(int); /* (unb4) as defined; address taken only */
+    char FUN_00165680(char); /* (unb4) as defined; address taken only */
 };
 class RayCastCondition {
 public:
     void FUN_001657c0();
-    void FUN_001657f0();
-    void FUN_00165830();
-    void FUN_00165860();
-    void FUN_00165880();
-    void FUN_001658a0();
-    void FUN_001658c0();
+    bool FUN_001657f0(void*); /* (unb4) as defined; address taken only */
+    bool FUN_00165830(void*); /* (unb4) as defined; address taken only */
+    char FUN_00165860(int); /* (unb4) as defined; address taken only */
+    char FUN_00165880(char); /* (unb4) as defined; address taken only */
+    char FUN_001658a0(char); /* (unb4) as defined; address taken only */
+    bool FUN_001658c0(int); /* (unb4) as defined; address taken only */
 };
 extern void* __cdecl Alloc_0008d690(unsigned int);
 class Condition_16d2f0 {
@@ -129,19 +129,19 @@ extern "C" void FUN_0016c600()
         mem = FUN_0008d690((int)sizeof(ParamVector<RayCastTargetCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamVector<RayCastTargetCondition>("offset", &RayCastTargetCondition::FUN_00165470);
+            params[1] = new (mem) ParamVector<RayCastTargetCondition>("offset", (void (RayCastTargetCondition::*)())&RayCastTargetCondition::FUN_00165470);
         mem = FUN_0008d690((int)sizeof(ParamVector<RayCastTargetCondition>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamVector<RayCastTargetCondition>("direction", &RayCastTargetCondition::FUN_001654b0);
+            params[2] = new (mem) ParamVector<RayCastTargetCondition>("direction", (void (RayCastTargetCondition::*)())&RayCastTargetCondition::FUN_001654b0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastTargetCondition>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<RayCastTargetCondition>("length", &RayCastTargetCondition::FUN_001654e0);
+            params[3] = new (mem) ParamFloatConstRange<RayCastTargetCondition>("length", (void (RayCastTargetCondition::*)())&RayCastTargetCondition::FUN_001654e0);
         mem = FUN_0008d690((int)sizeof(ParamBool<RayCastTargetCondition>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamBool<RayCastTargetCondition>("hitFound", &RayCastTargetCondition::FUN_00165500);
+            params[4] = new (mem) ParamBool<RayCastTargetCondition>("hitFound", (void (RayCastTargetCondition::*)())&RayCastTargetCondition::FUN_00165500);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1208), params, 5);
     }
     DAT_004e120c++;
@@ -165,23 +165,23 @@ extern "C" void FUN_0016c830()
         mem = FUN_0008d690((int)sizeof(ParamVector<RayCastConeCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamVector<RayCastConeCondition>("offset", &RayCastConeCondition::FUN_001655f0);
+            params[1] = new (mem) ParamVector<RayCastConeCondition>("offset", (void (RayCastConeCondition::*)())&RayCastConeCondition::FUN_001655f0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastConeCondition>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<RayCastConeCondition>("length", &RayCastConeCondition::FUN_00165620);
+            params[2] = new (mem) ParamFloatConstRange<RayCastConeCondition>("length", (void (RayCastConeCondition::*)())&RayCastConeCondition::FUN_00165620);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastConeCondition>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<RayCastConeCondition>("angle", &RayCastConeCondition::FUN_00165640);
+            params[3] = new (mem) ParamFloatConstRange<RayCastConeCondition>("angle", (void (RayCastConeCondition::*)())&RayCastConeCondition::FUN_00165640);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastConeCondition>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<RayCastConeCondition>("stepSize", &RayCastConeCondition::FUN_00165660);
+            params[4] = new (mem) ParamFloatConstRange<RayCastConeCondition>("stepSize", (void (RayCastConeCondition::*)())&RayCastConeCondition::FUN_00165660);
         mem = FUN_0008d690((int)sizeof(ParamBool<RayCastConeCondition>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamBool<RayCastConeCondition>("hitFound", &RayCastConeCondition::FUN_00165680);
+            params[5] = new (mem) ParamBool<RayCastConeCondition>("hitFound", (void (RayCastConeCondition::*)())&RayCastConeCondition::FUN_00165680);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1230), params, 6);
     }
     DAT_004e1234++;
@@ -204,27 +204,27 @@ extern "C" void FUN_0016cb50()
         mem = FUN_0008d690((int)sizeof(ParamVector<RayCastCondition>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamVector<RayCastCondition>("offset", &RayCastCondition::FUN_001657f0);
+            params[1] = new (mem) ParamVector<RayCastCondition>("offset", (void (RayCastCondition::*)())&RayCastCondition::FUN_001657f0);
         mem = FUN_0008d690((int)sizeof(ParamVector<RayCastCondition>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamVector<RayCastCondition>("direction", &RayCastCondition::FUN_00165830);
+            params[2] = new (mem) ParamVector<RayCastCondition>("direction", (void (RayCastCondition::*)())&RayCastCondition::FUN_00165830);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastCondition>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<RayCastCondition>("length", &RayCastCondition::FUN_00165860);
+            params[3] = new (mem) ParamFloatConstRange<RayCastCondition>("length", (void (RayCastCondition::*)())&RayCastCondition::FUN_00165860);
         mem = FUN_0008d690((int)sizeof(ParamBool<RayCastCondition>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamBool<RayCastCondition>("hitFound", &RayCastCondition::FUN_00165880);
+            params[4] = new (mem) ParamBool<RayCastCondition>("hitFound", (void (RayCastCondition::*)())&RayCastCondition::FUN_00165880);
         mem = FUN_0008d690((int)sizeof(ParamBool<RayCastCondition>));
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamBool<RayCastCondition>("testForGroundPointAtEnd", &RayCastCondition::FUN_001658a0);
+            params[5] = new (mem) ParamBool<RayCastCondition>("testForGroundPointAtEnd", (void (RayCastCondition::*)())&RayCastCondition::FUN_001658a0);
         mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastCondition>));
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamFloatConstRange<RayCastCondition>("allowedHeightAtEnd", &RayCastCondition::FUN_001658c0);
+            params[6] = new (mem) ParamFloatConstRange<RayCastCondition>("allowedHeightAtEnd", (void (RayCastCondition::*)())&RayCastCondition::FUN_001658c0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1278), params, 7);
     }
     DAT_004e127c++;

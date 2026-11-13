@@ -18,11 +18,11 @@ namespace fn_f3623cd7 {
 void* FUN_0008d690(unsigned int size);
 class CButtonValueCondition_528d0 {
 public:
-    void FUN_00047ab0();
-    void FUN_00047ac0();
-    void FUN_00047ad0();
-    void FUN_00047ae0();
-    void FUN_00047af0();
+    char FUN_00047ab0(int); /* (unb4) as defined; address taken only */
+    char FUN_00047ac0(int); /* (unb4) as defined; address taken only */
+    char FUN_00047ad0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00047ae0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00047af0(int); /* (unb4) as defined; address taken only */
 };
 class __declspec(novtable) ParamFloatConstRangeBase {
 public:
@@ -58,11 +58,11 @@ namespace fn_f3623cd7 {
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class CAxisValueCondition_52c40 {
 public:
-    void FUN_00047b00();
-    void FUN_00047b10();
-    void FUN_00047b20();
-    void FUN_00047b50();
-    void FUN_00047b60();
+    bool FUN_00047b00(int); /* (unb4) as defined; address taken only */
+    bool FUN_00047b10(int); /* (unb4) as defined; address taken only */
+    bool FUN_00047b20(int); /* (unb4) as defined; address taken only */
+    char FUN_00047b50(int); /* (unb4) as defined; address taken only */
+    char FUN_00047b60(int); /* (unb4) as defined; address taken only */
 };
 } // namespace fn_f3623cd7
 namespace fight {
@@ -91,11 +91,11 @@ public:
 namespace fn_f3623cd7 {
 class CAxisArcCondition_52db0 {
 public:
-    void FUN_00047b00();
-    void FUN_00047b10();
-    void FUN_00047b20();
-    void FUN_00047b70();
-    void FUN_00047b80();
+    bool FUN_00047b00(int); /* (unb4) as defined; address taken only */
+    bool FUN_00047b10(int); /* (unb4) as defined; address taken only */
+    bool FUN_00047b20(int); /* (unb4) as defined; address taken only */
+    bool FUN_00047b70(int); /* (unb4) as defined; address taken only */
+    char FUN_00047b80(float); /* (unb4) as defined; address taken only */
 };
 } // namespace fn_f3623cd7
 namespace fight {
@@ -124,11 +124,11 @@ public:
 namespace fn_f3623cd7 {
 class CAxisDoubleTapCondition_52f20 {
 public:
-    void FUN_00047b00();
-    void FUN_00047ba0();
-    void FUN_00047bb0();
-    void FUN_00047bd0();
-    void FUN_00047be0();
+    bool FUN_00047b00(int); /* (unb4) as defined; address taken only */
+    bool FUN_00047ba0(int); /* (unb4) as defined; address taken only */
+    bool FUN_00047bb0(float); /* (unb4) as defined; address taken only */
+    char FUN_00047bd0(int); /* (unb4) as defined; address taken only */
+    char FUN_00047be0(int); /* (unb4) as defined; address taken only */
 };
 } // namespace fn_f3623cd7
 namespace fight {
@@ -549,23 +549,23 @@ extern "C" void FUN_000528d0()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>("button", ((const char**)&DAT_0049ee30), 13, &CButtonValueCondition_528d0::FUN_00047ab0);
+            params[0] = new (mem) fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>("button", ((const char**)&DAT_0049ee30), 13, (void (CButtonValueCondition_528d0::*)())&CButtonValueCondition_528d0::FUN_00047ab0);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>("compareTime", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CButtonValueCondition_528d0::FUN_00047ac0);
+            params[1] = new (mem) fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>("compareTime", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (CButtonValueCondition_528d0::*)())&CButtonValueCondition_528d0::FUN_00047ac0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_528d0<CButtonValueCondition_528d0>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_528d0<CButtonValueCondition_528d0>("time", &CButtonValueCondition_528d0::FUN_00047ad0);
+            params[2] = new (mem) fight::ParamFloatConstRange_528d0<CButtonValueCondition_528d0>("time", (void (CButtonValueCondition_528d0::*)())&CButtonValueCondition_528d0::FUN_00047ad0);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>("compareValue", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CButtonValueCondition_528d0::FUN_00047ae0);
+            params[3] = new (mem) fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>("compareValue", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (CButtonValueCondition_528d0::*)())&CButtonValueCondition_528d0::FUN_00047ae0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_528d0<CButtonValueCondition_528d0>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_528d0<CButtonValueCondition_528d0>("value", &CButtonValueCondition_528d0::FUN_00047af0);
+            params[4] = new (mem) fight::ParamFloatConstRange_528d0<CButtonValueCondition_528d0>("value", (void (CButtonValueCondition_528d0::*)())&CButtonValueCondition_528d0::FUN_00047af0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc408), params, 5);
     }
     DAT_004dc40c++;
@@ -584,23 +584,23 @@ extern "C" void FUN_00052c40()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52c40<CAxisValueCondition_52c40>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_52c40<CAxisValueCondition_52c40>("axis", ((const char**)&DAT_0049ee74), 2, &CAxisValueCondition_52c40::FUN_00047b00);
+            params[0] = new (mem) fight::ParamEnumConstList_52c40<CAxisValueCondition_52c40>("axis", ((const char**)&DAT_0049ee74), 2, (void (CAxisValueCondition_52c40::*)())&CAxisValueCondition_52c40::FUN_00047b00);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52c40<CAxisValueCondition_52c40>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList_52c40<CAxisValueCondition_52c40>("compareTime", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CAxisValueCondition_52c40::FUN_00047b10);
+            params[1] = new (mem) fight::ParamEnumConstList_52c40<CAxisValueCondition_52c40>("compareTime", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (CAxisValueCondition_52c40::*)())&CAxisValueCondition_52c40::FUN_00047b10);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_52c40<CAxisValueCondition_52c40>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_52c40<CAxisValueCondition_52c40>("time", &CAxisValueCondition_52c40::FUN_00047b20);
+            params[2] = new (mem) fight::ParamFloatConstRange_52c40<CAxisValueCondition_52c40>("time", (void (CAxisValueCondition_52c40::*)())&CAxisValueCondition_52c40::FUN_00047b20);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52c40<CAxisValueCondition_52c40>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamEnumConstList_52c40<CAxisValueCondition_52c40>("compareValue", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CAxisValueCondition_52c40::FUN_00047b50);
+            params[3] = new (mem) fight::ParamEnumConstList_52c40<CAxisValueCondition_52c40>("compareValue", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (CAxisValueCondition_52c40::*)())&CAxisValueCondition_52c40::FUN_00047b50);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_52c40<CAxisValueCondition_52c40>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_52c40<CAxisValueCondition_52c40>("value", &CAxisValueCondition_52c40::FUN_00047b60);
+            params[4] = new (mem) fight::ParamFloatConstRange_52c40<CAxisValueCondition_52c40>("value", (void (CAxisValueCondition_52c40::*)())&CAxisValueCondition_52c40::FUN_00047b60);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc420), params, 5);
     }
     DAT_004dc424++;
@@ -619,23 +619,23 @@ extern "C" void FUN_00052db0()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>("axis", ((const char**)&DAT_0049ee74), 2, &CAxisArcCondition_52db0::FUN_00047b00);
+            params[0] = new (mem) fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>("axis", ((const char**)&DAT_0049ee74), 2, (void (CAxisArcCondition_52db0::*)())&CAxisArcCondition_52db0::FUN_00047b00);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>("compareTime", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CAxisArcCondition_52db0::FUN_00047b10);
+            params[1] = new (mem) fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>("compareTime", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (CAxisArcCondition_52db0::*)())&CAxisArcCondition_52db0::FUN_00047b10);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_52db0<CAxisArcCondition_52db0>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_52db0<CAxisArcCondition_52db0>("time", &CAxisArcCondition_52db0::FUN_00047b20);
+            params[2] = new (mem) fight::ParamFloatConstRange_52db0<CAxisArcCondition_52db0>("time", (void (CAxisArcCondition_52db0::*)())&CAxisArcCondition_52db0::FUN_00047b20);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>("compareArc", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CAxisArcCondition_52db0::FUN_00047b70);
+            params[3] = new (mem) fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>("compareArc", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (CAxisArcCondition_52db0::*)())&CAxisArcCondition_52db0::FUN_00047b70);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_52db0<CAxisArcCondition_52db0>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_52db0<CAxisArcCondition_52db0>("arc", &CAxisArcCondition_52db0::FUN_00047b80);
+            params[4] = new (mem) fight::ParamFloatConstRange_52db0<CAxisArcCondition_52db0>("arc", (void (CAxisArcCondition_52db0::*)())&CAxisArcCondition_52db0::FUN_00047b80);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc428), params, 5);
     }
     DAT_004dc42c++;
@@ -655,23 +655,23 @@ extern "C" void FUN_00052f20()
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52f20<CAxisDoubleTapCondition_52f20>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_52f20<CAxisDoubleTapCondition_52f20>("axis", ((const char**)&DAT_0049ee74), 2, &CAxisDoubleTapCondition_52f20::FUN_00047b00);
+            params[0] = new (mem) fight::ParamEnumConstList_52f20<CAxisDoubleTapCondition_52f20>("axis", ((const char**)&DAT_0049ee74), 2, (void (CAxisDoubleTapCondition_52f20::*)())&CAxisDoubleTapCondition_52f20::FUN_00047b00);
         mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52f20<CAxisDoubleTapCondition_52f20>));
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList_52f20<CAxisDoubleTapCondition_52f20>("compareArc", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CAxisDoubleTapCondition_52f20::FUN_00047ba0);
+            params[1] = new (mem) fight::ParamEnumConstList_52f20<CAxisDoubleTapCondition_52f20>("compareArc", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (CAxisDoubleTapCondition_52f20::*)())&CAxisDoubleTapCondition_52f20::FUN_00047ba0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>));
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>("arc", &CAxisDoubleTapCondition_52f20::FUN_00047bb0);
+            params[2] = new (mem) fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>("arc", (void (CAxisDoubleTapCondition_52f20::*)())&CAxisDoubleTapCondition_52f20::FUN_00047bb0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>));
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>("timeMin", &CAxisDoubleTapCondition_52f20::FUN_00047bd0);
+            params[3] = new (mem) fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>("timeMin", (void (CAxisDoubleTapCondition_52f20::*)())&CAxisDoubleTapCondition_52f20::FUN_00047bd0);
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>));
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>("timeMax", &CAxisDoubleTapCondition_52f20::FUN_00047be0);
+            params[4] = new (mem) fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>("timeMax", (void (CAxisDoubleTapCondition_52f20::*)())&CAxisDoubleTapCondition_52f20::FUN_00047be0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc430), params, 5);
     }
     DAT_004dc434++;
@@ -708,8 +708,8 @@ void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace fn_000532e0 {
 
 
-void FUN_00047c80();
-void FUN_00047c90();
+bool FUN_00047c80(void*, int); /* (unb4) as defined; address taken only */
+char FUN_00047c90(void*, int); /* (unb4) as defined; address taken only */
 struct FUN_00234cc0 {
     FUN_00234cc0(const char*) throw();
     virtual void slot0();
@@ -735,8 +735,8 @@ extern "C" void __cdecl FUN_000532e0() {
     if (!DAT_004dc454) {
         typedef fight::ParamEnumConstList<fight::CCollisionHitLocationCondition> Param;
         Param* entries[2];
-        entries[0] = new Param("compare", ((char*)&DAT_0042773c), (*(int*)&DAT_00427754), FUN_00047c80);
-        entries[1] = new Param("hitLocation", DAT_0048f6cc, (*(int*)&DAT_003f5ed0), FUN_00047c90);
+        entries[0] = new Param("compare", ((char*)&DAT_0042773c), (*(int*)&DAT_00427754), (void (*)())FUN_00047c80);
+        entries[1] = new Param("hitLocation", DAT_0048f6cc, (*(int*)&DAT_003f5ed0), (void (*)())FUN_00047c90);
         FUN_002347b0(((int*)&DAT_004dc450), entries, 2);
     }
     ++DAT_004dc454;
@@ -961,7 +961,7 @@ void* FUN_0008d690(unsigned int size);
 
 class CSmartPropCSMableCondition {
 public:
-    void FUN_00047f50();
+    bool FUN_00047f50(void*); /* (unb4) as defined; address taken only */
 };
 
 class __declspec(novtable) ParamEnumConstListBase {
@@ -996,7 +996,7 @@ extern "C" void FUN_00053c60()
         void* mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CSmartPropCSMableCondition>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<CSmartPropCSMableCondition>("type", ((const char**)&DAT_003f6b40), 23, &CSmartPropCSMableCondition::FUN_00047f50);
+            params[0] = new (mem) fight::ParamEnumConstList<CSmartPropCSMableCondition>("type", ((const char**)&DAT_003f6b40), 23, (void (CSmartPropCSMableCondition::*)())&CSmartPropCSMableCondition::FUN_00047f50);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc4e0), params, 1);
     }
     DAT_004dc4e4++;

@@ -20,9 +20,9 @@ inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_fea3d908 {
 
 void* __cdecl FUN_0008d690(unsigned int);
-void FUN_00047b00();
-void FUN_00047b10();
-void FUN_00047b20();
+bool FUN_00047b00(void*, int); /* (unb4) as defined; address taken only */
+bool FUN_00047b10(void*, int); /* (unb4) as defined; address taken only */
+bool FUN_00047b20(void*, int); /* (unb4) as defined; address taken only */
 class CAxisTimeCondition;
 namespace fight {
 template<class T> struct ParamEnumConstList {
@@ -54,7 +54,7 @@ extern "C" void __cdecl FUN_00052a40() {
  new(axis) Enum;
  axis->choices=DAT_0049ee74;
  axis->count=2;
- axis->callback=FUN_00047b00;
+ axis->callback=(void (*)())FUN_00047b00;
  }
  params[0]=axis;
  Enum* compare=(Enum*)FUN_0008d690((int)sizeof(Enum));
@@ -64,14 +64,14 @@ extern "C" void __cdecl FUN_00052a40() {
  compare->count=count;
  new(compare) Enum;
  compare->choices=((char*)&DAT_0042773c);
- compare->callback=FUN_00047b10;
+ compare->callback=(void (*)())FUN_00047b10;
  }
  params[1]=compare;
  Range* time=(Range*)FUN_0008d690((int)sizeof(Range));
  if(time) {
  time->FUN_00234960("time");
  new(time) Range;
- time->callback=FUN_00047b20;
+ time->callback=(void (*)())FUN_00047b20;
  }
  params[2]=time;
  FUN_002347b0(&DAT_004dc410,params,3);

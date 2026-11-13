@@ -198,7 +198,7 @@ class C_22ec20 {
 extern void __cdecl ReleaseThing_0008d330(void*);
 extern void* __cdecl Alloc_0008d690(unsigned int);
 extern void __stdcall Init_00011520(void*, unsigned int, unsigned int, void(__cdecl*)());
-extern void __cdecl ElemCtor_000a9e50();
+extern void* ElemCtor_000a9e50(void*); /* (unb4) as defined; address taken only */
 class Obj_22eda0 {
   public:
     int m0, m1;
@@ -1608,7 +1608,7 @@ void Obj_22eda0::Target(unsigned int n) {
         if (n > 0) {
             void* p = Alloc_0008d690(n << 4);
             if (p)
-                Init_00011520(p, 0x10, n, ElemCtor_000a9e50);
+                Init_00011520(p, 0x10, n, (void (*)())ElemCtor_000a9e50);
             else
                 p = 0;
             data1 = p;

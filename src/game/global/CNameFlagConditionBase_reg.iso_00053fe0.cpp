@@ -19,8 +19,8 @@ inline void* __cdecl operator new(size_t, void* p) {
 namespace fn_fc7522f5 {
 
 extern void* __cdecl FUN_0008d690(unsigned int);
-extern void __cdecl SetCompare_00048040();
-extern void __cdecl SetMotionState_00048050();
+extern char SetCompare_00048040(void*, int); /* (unb4) as defined; address taken only */
+extern char SetMotionState_00048050(void*, int); /* (unb4) as defined; address taken only */
 struct Base_53fe0 {
     virtual void slot0();
     char pad[12];
@@ -49,7 +49,7 @@ extern "C" void __cdecl FUN_00053fe0() {
                 new (p) fight::ParamEnumConstList<CMotionStateCondition>;
             q->values = ((unsigned char*)&DAT_00427758);
             q->count = count;
-            q->callback = SetCompare_00048040;
+            q->callback = (void (*)())SetCompare_00048040;
             items[0] = q;
         } else
             items[0] = 0;
@@ -62,7 +62,7 @@ extern "C" void __cdecl FUN_00053fe0() {
                 new (p) fight::ParamEnumConstList<CMotionStateCondition>;
             q->values = ((unsigned char*)&DAT_0048f57c);
             q->count = count;
-            q->callback = SetMotionState_00048050;
+            q->callback = (void (*)())SetMotionState_00048050;
             items[1] = q;
         } else
             items[1] = 0;

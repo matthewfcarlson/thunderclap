@@ -16,7 +16,7 @@ extern "C" void* FUN_0008d690(unsigned int size);
 namespace fight {
 class MaybeCondition_2385b0 {
 public:
-    void FUN_002381c0();
+    bool FUN_002381c0(int); /* (unb4) as defined; address taken only */
 };
 }
 namespace fn_f72cb377 {
@@ -43,7 +43,7 @@ extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 namespace fight {
 class RandomCondition_238610 {
 public:
-    void FUN_002381d0();
+    bool FUN_002381d0(int); /* (unb4) as defined; address taken only */
 };
 }
 namespace fight {
@@ -71,7 +71,7 @@ void FUN_002385b0()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_2385b0<fight::MaybeCondition_2385b0>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_2385b0<fight::MaybeCondition_2385b0>("percent", &fight::MaybeCondition_2385b0::FUN_002381c0);
+            params[0] = new (mem) fight::ParamFloatConstRange_2385b0<fight::MaybeCondition_2385b0>("percent", (void (fight::MaybeCondition_2385b0::*)())&fight::MaybeCondition_2385b0::FUN_002381c0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e5c0c), params, 1);
     }
     DAT_004e5c10++;
@@ -90,7 +90,7 @@ void FUN_00238610()
         mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_238610<fight::RandomCondition_238610>));
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_238610<fight::RandomCondition_238610>("weight", &fight::RandomCondition_238610::FUN_002381d0);
+            params[0] = new (mem) fight::ParamFloatConstRange_238610<fight::RandomCondition_238610>("weight", (void (fight::RandomCondition_238610::*)())&fight::RandomCondition_238610::FUN_002381d0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e5c14), params, 1);
     }
     DAT_004e5c18++;
