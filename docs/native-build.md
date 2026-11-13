@@ -3558,3 +3558,128 @@ destructors are B4's (clang emits `??_G` from `~C`).
 - Types / widths: 0x00236ac0 (Track's factory lookup, 109 `ptr(ptr, ptr)` callers vs `i32(i32, ptr)`) needs its
   callees retyped with it (0x002367f0's result, the visitor's slots, 0x002672f0's string, whose 84 callers pass
   `int`), not one definition; left for a per-chain batch.
+
+## Byte offsets on records: audio, core, the unlockables, FE actions (typ1, 2026-11-13)
+
+x64eq's sweep left 1,528 `(char*)P + N` sites whose offset lands in a pad or past the end of a stub class. Each one
+is a field read at its 32-bit place, wrong natively wherever a pointer comes before it.
+
+**Grouped by class** (build/typ1/scripts/offcls.py, x64eq's offfix.py with the class of P recorded; cls.jsonl,
+group.py): 1,529 sites in 422 TUs, 616 of them in blocks that differ. They fall in 389 classes once the per-function
+namespaces are stripped. No class dominates: the largest are CUnlockableMove (17), PhysicsObject (11) and
+SeqEventCrossFade (10). By area:
+
+| area | sites | in differing blocks |
+|---|---|---|
+| fight Track / Action / Condition / Function families (unb5) | 558 | 299 |
+| game, other | 599 | 146 |
+| engine, other (choreo2, fight nodes, pure3d) | 137 | 58 |
+| engine audio / core / om / movie | 110 | 44 |
+| physics (x64t9) | 85 | 52 |
+| platform/xbox | 40 | 17 |
+
+So the work goes family by family, and it is fastest where a record already exists: records.h (reg5, reg6) has the
+audio, core and om instance records.
+
+**Method.** In this tree a field read through a local stub class is checked by the checker against that stub's own
+layout. A cast to the record at the site (`(char*)&((Rec*)this)->f`) is right natively but still differs under
+`--x64`. So the stub has to carry the fields itself:
+- a polymorphic stub takes the record's words past the vftable as its members, or derives from a non-polymorphic
+  "words" struct, which MSVC and clang place right after the vftable on both targets;
+- a stub with an explicit `void* vftable` embeds the record or derives from it;
+- the sites then name the fields.
+
+Two MSVC rules shape this:
+1. A polymorphic class with an 8-aligned member moves its first member to +8 after the vftable. AudioSeqStreamFile's
+   words are therefore restated 4-aligned in the two stubs that embed it.
+2. `static_cast` to a second base tests `this` for null. The base's offset is written as a constant instead
+   (`HULK_BASE_OFFSET`, `sizeof` of the first base).
+
+**Batch.**
+- **audio (25 TUs).** 22 local SeqEvent/Mix/OmHalStream/HalBuffer/SeqTrack stubs carry their records.h words. In
+  gen/audio.h these classes are completed from records.h: SeqEventContainer, Condition, LogicOr, VarTempo, Stream,
+  ChannelVolumes, OmHalStream, HalRsdFileStream and HalRadicalAdpcmDecodeStream (the event link and the queue
+  pointers become `void*`, the strings are anonymous `{char*; 3 shorts}` structs).
+- **core.**
+  - Local stubs: ConsoleClient, DriveThread (two views, CoreDriveThread) and InstanceDrive (its second base).
+  - CementLibrary: the SafeRefCount base.
+  - gen/core.h: DriveRequest's queue link becomes a pointer, and the result word at +0x0c is named in three requests.
+- **unlockables.** New include/decls/unlockables.h: the words of CUnlockable and of its Move, Cheat, BlonskyFile and
+  Gallery subclasses. 32-bit sizes are asserted. The data pointer at +0x18 moves every later field natively. 7 TUs,
+  13 stubs.
+- **FE actions.** gen FEDoAction's name is `char f_14[0x20]`, so the class is the XBE's 0x34 bytes on 32-bit. The
+  derived classes lose their `_pad_18[0x1c]`. FEDoMenu, FEDoScreen and FEDoSound get their name at +0x34. Two local
+  views follow (FEDoScreen, FEDoBackScreen); FEDoBackScreen's target pointer had been stored as an `int`.
+- **choreo2 JointDriver.** Its part at +0x18 now sits after pure3d::Entity's packed words (0x14 natively).
+
+**Gates.**
+- MSVC: every edited TU checked with `tree_tu.py check --relocs`. The gen header changes (audio.h, global.h, core.h)
+  were verified over the 1,850 TUs that reach them (queue jobs 77237-77242, all the batch's files overlaid): 19,019
+  matches MATCH with relocations ok, and 3,464 equivalents keep their MSVC and clang code hashes. No block moved and
+  nothing needed a re-proof.
+- `--x64`: see below.
+
+**--x64 before / after** (x64eq's final.jsonl, then this batch). These are every block of the 25 audio TUs and
+the 4 core TUs, plus the 28 edited blocks of the third commit, 654 blocks in all (build/typ1/all-after.jsonl):
+
+| class | before | after |
+|---|---|---|
+| equivalent | 503 | 563 |
+| fail: layout | 57 | 6 |
+| fail: untyped | 13 | 7 |
+| fail: crash64 | 6 | 4 |
+| fail: call | 3 | 2 |
+| inconclusive | 2 | 1 |
+| fail: int / ptrtrunc / intwidth / wild64 | 27 / 5 / 2 / 1 | 28 / 5 / 2 / 1 |
+| unsupported (no32 / tool) | 30 / 5 | 30 / 5 |
+
+60 blocks became equivalent (50 of them layout), and no block newly fails. One changed class, layout -> int:
+0x0025d300's other site, the audio device's buffer list at `DAT_004e5ce0 + 0x14`, which has no record. The gate
+(tools/x64_gate.py) passes every commit. The baseline drops 35 blocks (gate1, after typ1 1) and 17 more (179769352).
+
+The six layout failures left in these TUs:
+- 0x0024e600, 0x0026e240: an int read as a pointer;
+- 0x00253060: SeqActionVarPosDist's event pointer through gen's `_pad_04`; the SeqAction gen classes are not
+  completed;
+- 0x00253780: a SeqEvent view's constructor;
+- 0x0025c2b0: fixed in typ1 4, still reported only for fuzzed indexes past the header;
+- 0x0026e140: the console queue's `next`.
+
+**Commits.**
+
+| commit | content | control / proof | gate |
+|---|---|---|---|
+| ea6ce3693 typ1 1 | audio (25 TUs + gen/audio.h) | 76747 / 76965 | GATE ok |
+| 11be7d3b0 typ1 2 | core local stubs (4 TUs) | 77944 / 77954 | GATE ok |
+| 4a8f38f07 typ1 3 | unlockables.h, FE actions (gen/global.h), JointDriver | 77944 / 77955 | GATE ok |
+| 179769352 | x64 baseline ratchet (17 blocks) | | x64 gate ok |
+| d713a09a7 typ1 4 | OmHalStream::vfunc_9 (one block) | | |
+
+The controls and proofs ran on studio with private data TUs, each proof seeded from its control.
+
+**0x001a9b10 and gen/core.h (held back).** A gen/core.h change typed DriveRequest's queue link as a pointer and named
+the result word at +0x0c in three requests. It passes `tree_tu verify --relocs` over the whole tree as queue jobs
+(27,438 blocks; EffectAction.new_throw.cpp's 0x001a9b10 keeps its MSVC hash edf80f70a210). Yet the Wine build's tree
+check (materialize) on studio compiles that block to 76aee2ab8faa, twice: proofs 77916 and 77945, on two bases. The
+two checks disagree on one TU with the same inputs. The change is parked in build/typ1/parked/, so the three
+DriveRequest blocks keep their byte offsets. To find out: compile EffectAction.new_throw.cpp the way materialize does
+and the way verify does, and diff the preprocessed text and the flags. 0x001a9b10 is the block whose MSVC scheduling
+follows its headers (x64t8).
+
+**Not done, and what it needs.**
+- The fight Track / Action / Condition / Function stubs (558 sites): unb5's derivation from gen classes covers them.
+- physics (85): x64t9.
+- gen/pure3d.h: pure3d::Camera's two matrices at 0x4c / 0x8c (5 blocks). The file had another agent's uncommitted
+  edits.
+- The rest of the game side needs records first, found from constructors and accessors as this batch did. Big FE
+  classes come first: FEContainer (0x978 bytes), FEScreenBase / FEMenuBase (0xb40), TextWindow, VScroll,
+  ImageSelector. Then:
+  - HUDOverlay;
+  - the fight nodes (fight::Branch / Node / Reference: Entity words, a type, a list at +0x18, a pointer at +0x1c;
+    Reference's {0, 0, -1} triple at +0x28);
+  - fight::ParamValue (its word at +4 is unknown);
+  - CSPManager, CCameraManager, CAmbientsManager.
+- platform/xbox ControllerXBox: the system's update 0x00269170 is a replay pin. Left alone.
+- Blocks the sweep calls equivalent can still read past a 1-byte stub (`E_250fe0`, `Item_337040`): the checker cannot
+  see a read beyond a stub's end. Equivalent blocks with byte offsets (0x00092e50, 0x00250fe0 ...) need a re-proof
+  when edited, so they were left.

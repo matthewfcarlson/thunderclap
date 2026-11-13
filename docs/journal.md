@@ -688,3 +688,16 @@ include/gen classes' destructors become names of their own (the game inlines the
 destructors). Track batch: 68 TUs, macOS -52 net (79 constructors and 52 placeholder virtuals gone; 78 destructors
 and 12 shared slot names new). A field that include/gen types `void*` where the stub dereferences a typed pointer
 blocks fight::Action's whole family: the records come first there.
+
+## 2026-11-13 typ1: byte offsets on records (audio, core, unlockables, FE actions)
+
+- A local stub's field is checked against the stub's own layout, so a cast to the record at the site leaves `--x64`
+  differing: the stub itself must carry the record's words (members past the vftable, or a non-polymorphic "words"
+  base, which both compilers place right after the vftable).
+- MSVC 7.1 moves a polymorphic class's first member to +8 when any member is 8-aligned. A `static_cast` / reference
+  cast of `this` to a second base still tests for null; a constant base offset (`static_cast<B*>((D*)0x1000) - 0x1000`)
+  does not.
+- 0x001a9b10 (EffectAction.new_throw.cpp): with a gen/core.h change, the Wine build's tree check (materialize) gives
+  it another MSVC hash than `tree_tu verify` does over the same files. Open (docs/native-build.md, typ1).
+- 654 blocks: 60 became equivalent (layout 57 -> 6); 1,529 byte-offset sites in 389 classes remain catalogued in
+  build/typ1/cls.jsonl.
