@@ -1011,8 +1011,18 @@ class Program:
                     for r in ("ecx", "edx", "eax"):
                         if r in regs:
                             passed.append((r, regs[r]))
+                    # (x64eq, argpop) a known callee that ends `ret N` takes exactly N bytes of stack arguments: the words
+                    # past them (our locals, our return address, our own incoming arguments) are not its parameters, so
+                    # what its analysis says about its higher argument indices (an escape window of 16 words behind an
+                    # argument whose address it takes) is not about them
+                    npar = None
+                    if sub is not None and not tail and i.target is not None and "argpop" not in EQUIV_OFF:
+                        pop_ = self.callee_pop(i.target)
+                        npar = pop_ // 4 if pop_ else None
                     for key, v in slots.items():
                         k_ = (d - key - (4 if tail else 0))
+                        if npar is not None and k_ // 4 >= npar:
+                            continue
                         if k_ >= 0 and k_ % 4 == 0 and k_ // 4 < 32 and (key > 0 or tail or sub is not None):
                             # (an unknown callee reads its own words: pushed in our frame, not our incoming
                             # arguments behind our return address, except through a tail jmp)

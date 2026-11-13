@@ -511,6 +511,10 @@ CASES = {
     # exp: the original's inline fldl2e/f2xm1/fscale sequence; ours calls exp, run as the same x87 sequence in Unicorn
     # (x87math: Python's libm differs in the last bit for 1 input in 3) - the wrong sources scale the result by 1e-7,
     # and the pre-round-18 model fails the right one
+    # (x64eq, argpop) an uninitialised out-parameter (`float angle; FUN_001a54a0(&pos, &angle)`) whose original frame slot
+    # still holds a dead temporary: the callee only writes through it, which callee_reads sees once a known `ret 8`
+    # callee's analysis no longer speaks for the caller's words past its two arguments
+    "0x001a9b10_outparam_stale": ("equivalent", None, 0, {"native": True, "n_inputs": 200}),
     "0x0009f760_native_exp": ("equivalent", None, 0, {"native": True, "n_inputs": 300}),
     "0x0009f760_native_exp_wrong": ("fail", "returned 1.0", 0, {"native": True, "n_inputs": 300}),
     "0x0009f760_native_exp_python": ("fail", "returned 1.01", 0, {"native": True, "n_inputs": 300, "equiv_off": "x87math"}),
@@ -985,6 +989,13 @@ X64_CASES = {
     # (ptr1) a pointer-sized integer field (hulk_intptr: core::MemoryDlAllocator's arena bounds) holds a small integer
     # or an object's address: an address compared with the bounds gives the same answer on both targets
     "0x0026cb40_x64_ptr_bounds": ("equivalent", None, None, 50),
+    # (x64eq) a scalar deleting destructor the 64-bit object defines itself (a native-only explicit instantiation emits
+    # the vftable and clang's ??_G beside it, which calls the sized operator delete): only the 32-bit side gets the
+    # synthesized one (was a compile error: the symbol defined twice), and sized and unsized delete are one callee
+    "0x00236180_x64_ddtor_native": ("equivalent", None, None, 50),
+    # (x64eq, rawint) an int leaf with the same bits on both sides (a byte field's untouched neighbours in a fresh
+    # allocation) is the same integer, even where its 32-bit value lands in a heap object (was a false ptrtrunc)
+    "0x002fdc90_x64_rawint": ("equivalent", None, None, 50),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)

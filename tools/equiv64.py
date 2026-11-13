@@ -1193,6 +1193,10 @@ ALLOCATOR_AT = {"FUN_0021add0": 3}
 # implicitly declared functions (no declaration for libclang): i386 name -> (x64 name, signature)
 IMPLICIT_SIGS = {"??3@YAXPAX@Z": ("??3@YAXPEAX@Z", lambda: _sig_delete()),
                  "??_V@YAXPAX@Z": ("??_V@YAXPEAX@Z", lambda: _sig_delete())}
+# (x64eq) sized operator delete (`operator delete(void*, size_t)`, which clang's own deleting destructors call) is the same
+# callee as the unsized one: the pointer is compared, the size (the class's size on each target) is not an argument here
+SIZED_DELETE = {"??3@YAXPAXI@Z": "??3@YAXPAX@Z", "??_V@YAXPAXI@Z": "??_V@YAXPAX@Z",
+                "??3@YAXPEAX_K@Z": "??3@YAXPEAX@Z", "??_V@YAXPEAX_K@Z": "??_V@YAXPEAX@Z"}
 
 
 class Stub:
@@ -1367,6 +1371,13 @@ class Checker:
             obj = equiv.compile_native(self.wrapper, d, ["-I" + d], tail_asm=equiv.deleting_wrapper_asm(sym32, dtor32))
         except equiv.CompileError as e:
             raise CompileError(str(e))
+        if sym64 in self.img[64].funcs:
+            # (x64eq) the 64-bit object defines it already (a native-only explicit instantiation emits the vftable and,
+            # beside it, clang's own scalar deleting destructor: the same contract); only the 32-bit side gets one
+            self.obj32 = load_obj(obj)
+            self.img = {32: Image(self.obj32, 32), 64: self.img[64]}
+            self.ddtor = (sym32, sym64, c32)
+            return
         q, qd = '"%s"' % sym64, '"%s"' % dtor64
         lines = ["\t.text", "\t.def\t%s;\t.scl\t2;\t.type\t32;\t.endef" % q, "\t.globl\t%s" % q, "\t.p2align\t4", "%s:" % q,
                  "\tpushq\t%rbx", "\tsubq\t$48, %rsp", "\tmovq\t%rcx, %rbx", "\tmovl\t%edx, 40(%rsp)", "\tcallq\t%s" % qd,
@@ -1467,6 +1478,8 @@ class Checker:
     # ---- symbols
     def canon_name(self, name, bits):
         """The target-independent key of a symbol: its declaration's location, a C name, or the i386 mangled form."""
+        if name in SIZED_DELETE and "sizeddel" not in OFF:
+            name = SIZED_DELETE[name]
         c = self.tu[bits].by_mangled.get(name)
         if c is not None:
             return "decl:" + loc_key(c)
@@ -1504,11 +1517,17 @@ class Checker:
             n32, n64 = st.names.get(32), st.names.get(64)
             c32 = self.tu[32].by_mangled.get(n32) if n32 else None
             c64 = self.tu[64].by_mangled.get(n64) if n64 else None
+            if "sizeddel" not in OFF and (c32 is None) != (c64 is None) and \
+                    SIZED_DELETE.get(n32, n32) in IMPLICIT_SIGS and SIZED_DELETE.get(n64, n64) == IMPLICIT_SIGS[SIZED_DELETE.get(n32, n32)][0]:
+                c32 = c64 = None    # (x64eq) one side's operator delete is declared, the other's sized one is implicit
             if c32 is not None and c64 is not None:
                 try:
                     st.sig = Sig.of(c32, c64, st.label)
                 except Exception:   # noqa: BLE001
                     st.sig = None
+            elif "sizeddel" not in OFF and SIZED_DELETE.get(n32, n32) in IMPLICIT_SIGS and \
+                    SIZED_DELETE.get(n64, n64) == IMPLICIT_SIGS[SIZED_DELETE.get(n32, n32)][0]:
+                st.sig = IMPLICIT_SIGS[SIZED_DELETE.get(n32, n32)][1]()
             elif n32 in IMPLICIT_SIGS and n64 == IMPLICIT_SIGS[n32][0]:
                 st.sig = IMPLICIT_SIGS[n32][1]()
             elif n32 and n64 and n32.startswith("??1") and n32.endswith("AE@XZ") and n64.endswith("EAA@XZ"):
@@ -2963,8 +2982,16 @@ def compare(chk, heap, r32, r64):
         if a32 is None or a64 is None:
             return "write to %s on one side only" % (key,), "layout"
         if l32 is not None:
+            l64_ = l64 or l32
+            if "rawint" not in OFF and l32.kind not in ("p", "fp", "vp", "mfp") and l32.size(32) == l64_.size(64) and \
+                    s32.read(a32, l32.size(32)) == s64.read(a64, l64_.size(64)):
+                # (x64eq, rawint) an integer leaf with the same bits on both sides is the same integer, even when on one
+                # side its value happens to be an address inside an object (an allocation's untouched bytes beside a
+                # byte field, 0x2345eb01 in a 32-bit heap object): a pointer kept in an integer has different bits on
+                # the two targets (the 64-bit heap is above 4 GB)
+                continue
             v32 = s32.decode_leaf(a32, l32)
-            v64 = s64.decode_leaf(a64, l64 or l32)
+            v64 = s64.decode_leaf(a64, l64_)
         else:
             v32, v64 = s32.read(a32, 1), s64.read(a64, 1)
         v32, v64 = normalize(v32, heap), normalize(v64, heap)
