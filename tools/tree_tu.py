@@ -30,8 +30,8 @@ k-th label of its owning function, since the label numbers move with any header 
 Code hashes (docs/merge-once.md "Code hashes", tools/code_hash.py): an equivalent block's pin line also records the
 hashes of the code that was proven, `// sym: PIN @<MSVC object> @w<clang --wine object>`. check / verify / materialize
 recompute them (`--no-wine-code` skips the clang one) and fail a block whose code changed (`code_changed`) or that has
-none (`unhashed`; `pending` while its TU is listed in config/code-hash-pending.txt, which doesn't fail); `hash --proven`
-records new values only from equiv.py runs of the code as it is now (3,000 inputs promotable, --wine at 600).
+none (`unhashed`); `hash --proven` records new
+values only from equiv.py runs of the code as it is now (3,000 inputs promotable, --wine at 600).
 
 A block's directives (`// equiv-map:`, `// equiv-conv:`, `// equiv-dead:`) are the lines between its block line and
 the next block (HULK_GEN_TREE_NOTES=1 makes gen_tree keep a merged source's notes there).
@@ -472,23 +472,8 @@ def record(path, addr):
 # An equivalent block records the hashes of the code that was proven on its pin line, `// sym: PIN @<msvc> @w<clang>`
 # (tools/code_hash.py has the definition). check_tu recomputes the MSVC one from the TU's object, with_wine the clang
 # one from the object `equiv.py TU ADDR --wine` checks. Per block: `code` / `wine_code` ok (the recorded value), changed
-# (not: re-prove, then `hash --proven`), unhashed (none recorded; `pending` while its TU is listed in PENDING, the TUs
-# the hashes were not yet filled in for), no_object (clang can't compile the TU: no --wine proof exists either);
+# (not: re-prove, then `hash --proven`), unhashed (none recorded: re-prove, then `hash --proven`), no_object (clang can't compile the TU: no --wine proof exists either);
 # `code_changed`: the kinds that changed (a failure, like pin_missing).
-PENDING = os.path.join(ROOT, "config", "code-hash-pending.txt")
-_PENDING = []
-
-
-def pending_tus():
-    """The tree TUs (paths relative to the tree root) whose equivalent blocks may still lack hashes."""
-    if not _PENDING:
-        try:
-            _PENDING.append({l.strip() for l in open(PENDING) if l.strip() and not l.startswith("#")})
-        except OSError:
-            _PENDING.append(set())
-    return _PENDING[0]
-
-
 def _ext(pairs, r):
     """equiv.py's TREE_EXTERNAL for the block of record R: the TU's other functions by symbol (bound by address)."""
     return {x["symbol"]: int(x["addr"], 16) for _, x in pairs
@@ -504,15 +489,6 @@ def _mark(r, b, kind, h, tu_path):
     r[key] = "unhashed" if rec_h is None else "ok" if rec_h == h else "changed"
     if r[key] == "changed":
         r["code_changed"] = sorted(set(r.get("code_changed", [])) | {kind})
-
-
-def apply_pending(recs):
-    """unhashed -> pending for the blocks of the TUs PENDING lists (outside the verify cache: the list changes)."""
-    for r in recs:
-        for key in ("code", "wine_code"):
-            if r.get(key) == "unhashed" and r["tu"] in pending_tus():
-                r[key] = "pending"
-    return recs
 
 
 def code_hashes(coff, rec, pairs, path):
@@ -652,7 +628,7 @@ def with_wine(path, recs, rec=None):
     for addr, h in wine_hashes(path, recs, rec).items():
         r = next(x for x in recs if x["addr"] == addr)
         _mark(r, blocks[addr], "wine", h, rec["path"])
-    return apply_pending(recs)
+    return recs
 
 
 # ------------------------------------------------------------------------------------------------------- verify cache
@@ -704,7 +680,7 @@ def cached_check(path, relocs=False, vs_standalone=False, wine=False):
         os.replace(p + ".%d.tmp" % os.getpid(), p)
     if wine:
         with_wine(path, out, rec)
-    return apply_pending(out), hit
+    return out, hit
 
 
 def tree_tus(root):
@@ -745,8 +721,6 @@ def count_codes(counts, r):
         st = r.get(key)
         if st == "unhashed":
             counts["equivalent code unhashed (%s)" % kind] += 1
-        elif st == "pending":
-            counts["code hash pending (%s)" % kind] += 1
         elif st == "no_object":
             counts["code hash: no clang object (%s)" % kind] += 1
         elif st == "ok":
@@ -1122,7 +1096,7 @@ def _write(path, pins, hashes):
 
 
 def compute_records(root, paths, jobs=2, commit=None):
-    """Per TU the code hashes of its equivalent blocks as the code stands (for `hash --init`)."""
+    """Per TU the code hashes of its equivalent blocks as the code stands (a report: `hash . --compute`)."""
     dirty = None
     if not os.environ.get("JOBQ_JOB"):
         r_ = subprocess.run(["git", "status", "--porcelain", "--", "src", "include"], capture_output=True, text=True,
@@ -1138,64 +1112,6 @@ def compute_records(root, paths, jobs=2, commit=None):
                                                  "wine_code", "status")}
                           for r in recs if r["kind"] == "equivalent"]}
     compute_records.summary = s
-
-
-def init_hashes(root, records, dry_run=False):
-    """Fill in the code hashes of the TUs PENDING lists from `hash --compute` records made at the committed tree (a
-    queue job: its workspace is `git archive HEAD`): only blocks with no hash, only TUs whose text is the text the
-    records were computed from and has no uncommitted edits. A TU whose equivalent blocks all have their hashes then
-    leaves PENDING. Returns {written, skipped: {tu: why}}."""
-    pend = pending_tus()
-    done, skipped, written = set(), {}, []
-    for rr in records:
-        tu = rr["tu"]
-        p = os.path.join(root, tu)
-        if tu not in pend:
-            skipped[tu] = "not pending"
-            continue
-        if not rr.get("clean"):
-            skipped[tu] = "computed from a working tree with uncommitted edits"
-            continue
-        if not os.path.exists(p) or hashlib.sha1(open(p, "rb").read()).hexdigest() != rr["tu_sha"]:
-            skipped[tu] = "the TU changed since the hashes were computed"
-            continue
-        d = subprocess.run(["git", "diff", "--quiet", "HEAD", "--", tu], cwd=root)
-        if d.returncode != 0:
-            skipped[tu] = "uncommitted edits"
-            continue
-        rec = scan(p)
-        have = {b["addr"]: b for b in rec["blocks"]}
-        new, pins, left = {}, {}, 0
-        for b in rr["blocks"]:
-            cur = have.get(b["addr"])
-            if cur is None or cur["kind"] != "equivalent":
-                continue
-            if cur.get("hash") or cur.get("whash"):
-                continue
-            if cur.get("sym") and cur["sym"] != (b.get("pin") or b.get("symbol")):
-                left += 1           # (its pin is not the symbol the hash is of: pin first)
-                continue
-            if not b.get("code_hash") or b.get("wine_code") not in ("unhashed", "pending", "no_object", "ok") \
-                    or (b.get("wine_code") != "no_object" and not b.get("wine_code_hash")):
-                left += 1
-                continue
-            new[b["addr"]] = (b["code_hash"], b.get("wine_code_hash"))
-            pins[b["addr"]] = cur.get("sym") or b.get("pin") or b["symbol"]
-        if new and not dry_run:
-            _write(p, pins, new)
-        written.append((tu, len(new)))
-        if left:
-            skipped[tu] = "%d blocks without hashes (no symbol or no object)" % left
-        else:
-            done.add(tu)
-    if done and not dry_run:
-        keep = [l for l in open(PENDING)] if os.path.exists(PENDING) else []
-        with open(PENDING + ".tmp", "w") as f:
-            f.write("".join(l for l in keep if l.strip() not in done))
-        os.replace(PENDING + ".tmp", PENDING)
-        _PENDING.clear()
-    return {"written_tus": len([w for w in written if w[1]]), "written_blocks": sum(n for _, n in written),
-            "done_tus": len(done), "skipped": skipped}
 
 
 def main(argv=None):
@@ -1235,17 +1151,15 @@ def main(argv=None):
     p.add_argument("--jobs", type=int, default=4)
     p.add_argument("--relocs", action="store_true")
     p.add_argument("--no-wine-code", action="store_true", help="skip the clang code hashes (no clang here)")
-    p = sub.add_parser("hash", help="record equivalent blocks' code hashes (only from proofs, or `--init` for PENDING)")
-    p.add_argument("paths", nargs="+", help="TUs (--proven), or the tree root (--compute, --init)")
+    p = sub.add_parser("hash", help="record equivalent blocks' code hashes (only from proofs)")
+    p.add_argument("paths", nargs="+", help="TUs (--proven), or the tree root (--compute)")
     p.add_argument("--proven", nargs="+", metavar="RESULT", help="equiv.py --json reports / jsonl: an MSVC run at "
                    "--inputs 3000 (promotable) and a --wine run (>= 600) of the code as it is now")
     p.add_argument("--addr", action="append", help="only these blocks (with --proven)")
-    p.add_argument("--compute", metavar="OUT.jsonl", help="write the hashes of the code as it stands (a queue job)")
+    p.add_argument("--compute", metavar="OUT.jsonl", help="report the hashes of the code as it stands (writes no TU)")
     p.add_argument("--tus", metavar="FILE", help="with --compute: TU paths, one per line (default: every TU)")
     p.add_argument("--commit", help="with --compute: the commit the workspace is (recorded)")
     p.add_argument("--jobs", type=int, default=2)
-    p.add_argument("--init", metavar="RECORDS.jsonl", help="fill in the TUs of config/code-hash-pending.txt from "
-                   "--compute records")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
@@ -1259,13 +1173,8 @@ def main(argv=None):
                     f.write(json.dumps(r) + "\n")
             print(json.dumps(compute_records.summary, indent=1))
             return 0
-        if a.init:
-            s = init_hashes(os.path.abspath(a.paths[0]), [json.loads(l) for l in open(a.init) if l.strip()],
-                            dry_run=a.dry_run)
-            print(json.dumps(s, indent=1))
-            return 0
         if not a.proven:
-            ap.error("hash: --proven RESULT..., --compute OUT or --init RECORDS")
+            ap.error("hash: --proven RESULT... or --compute OUT")
         res = _load_results(a.proven)
         addrs = {"0x%08x" % int(x, 16) for x in a.addr} if a.addr else None
         bad = 0
@@ -1297,7 +1206,6 @@ def main(argv=None):
         recs = check_tu(a.tu, relocs=a.relocs)
         if not a.no_wine_code:
             with_wine(a.tu, recs)
-        apply_pending(recs)
         if a.equiv:
             import equiv
             for r in recs:

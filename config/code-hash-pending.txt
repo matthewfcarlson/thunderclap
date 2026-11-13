@@ -1,2 +1,0 @@
-# Tree TUs whose equivalent blocks may still lack their code hashes (tools/tree_tu.py: `unhashed` is `pending` here,
-# not a failure). `tree_tu.py hash . --init RECORDS` fills them in from a queue job's `hash . --compute` and drops them.

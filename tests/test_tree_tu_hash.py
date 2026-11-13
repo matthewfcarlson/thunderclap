@@ -6,8 +6,7 @@ the compile tests are skipped) and, where LLVM's clang is found, with clang as `
   * a rename that keeps every target's address (a callee FUN_x -> Name_x, parameters, locals) -> ok;
   * `$L` labels renumbered (an EH function added before the block) -> ok;
   * a changed constant -> code_changed; a call to another address with identical bytes -> code_changed;
-  * no hash recorded -> `unhashed` (a failure) outside config/code-hash-pending.txt, `pending` (reported, not a
-    failure) for a TU listed there;
+  * no hash recorded -> `unhashed` (a failure);
   * pin_text keeps a block's hashes through a re-pin; proves() accepts only a run of the code as it is now.
 
   build/venv/bin/python -m unittest tests/test_tree_tu_hash.py
@@ -114,7 +113,6 @@ class Parsing(unittest.TestCase):
     def test_failing(self):
         import collections
         c = collections.Counter()
-        tree_tu.count_codes(c, {"code": "pending", "wine_code": "pending"})
         tree_tu.count_codes(c, {"code": "ok", "wine_code": "no_object"})
         self.assertEqual(tree_tu.failing(c), 0)
         tree_tu.count_codes(c, {"code": "changed", "wine_code": "ok", "code_changed": ["msvc"]})
@@ -135,13 +133,8 @@ class Hashes(unittest.TestCase):
         os.makedirs(os.path.join(r, "src", "game"))
         shutil.copy(os.path.join(ROOT, "include", "tree_prelude.h"), os.path.join(r, "include"))
         self.tu = os.path.join(r, "src", "game", "T.cpp")
-        self.saved = tree_tu.PENDING, list(tree_tu._PENDING)
-        tree_tu.PENDING = os.path.join(r, "pending.txt")
-        tree_tu._PENDING.clear()
 
     def tearDown(self):
-        tree_tu.PENDING = self.saved[0]
-        tree_tu._PENDING[:] = self.saved[1]
         self.tmp.cleanup()
 
     def records(self, text):
@@ -150,11 +143,10 @@ class Hashes(unittest.TestCase):
         recs = tree_tu.check_tu(self.tu)
         if self.wine:
             tree_tu.with_wine(self.tu, recs)
-        tree_tu.apply_pending(recs)
         return {r["addr"]: r for r in recs}
 
     def recorded(self, **kw):
-        """The TU of KW with the code hashes of its code recorded (as `hash --init` / `--proven` write them)."""
+        """The TU of KW with the code hashes of its code recorded (as `hash --proven` writes them)."""
         recs = self.records(tu_text(**kw))
         for r in recs.values():
             self.assertEqual(r["status"], "compiled", r)
@@ -202,18 +194,12 @@ class Hashes(unittest.TestCase):
 
     def test_missing_hash(self):
         recs = self.records(tu_text())
-        self.assert_codes(recs, {"0x00011000": "unhashed"})
-        with open(tree_tu.PENDING, "w") as f:
-            f.write("src/game/T.cpp\n")
-        tree_tu._PENDING.clear()
-        recs = self.records(tu_text())
-        self.assert_codes(recs, {"0x00011000": "pending", "0x00011010": "pending"})
+        self.assert_codes(recs, {"0x00011000": "unhashed", "0x00011010": "unhashed"})
         import collections
         c = collections.Counter()
         for r in recs.values():
             tree_tu.count_codes(c, r)
-        self.assertEqual(tree_tu.failing(c), 0)
-        self.assertEqual(c["code hash pending (msvc)"], 2)
+        self.assertEqual(tree_tu.failing(c), 4 if self.wine else 2)
 
 
 if __name__ == "__main__":

@@ -145,10 +145,9 @@ Every `equivalent` block records the hashes of the code that was proven (tools/c
 `tree_tu.py check` / `verify` / `materialize` recompute both (the clang one compiles the TU with clang once, cached in
 `build/tree-cache/whash/` by the TU, the headers clang can reach, the toolchain and the hash code; `--no-wine-code`
 skips it where there is no clang) and report per equivalent block `code` / `wine_code`: `ok`; `changed` (the record's
-`code_changed` lists msvc/wine); `unhashed` (none recorded); `pending` (none recorded, and the TU is listed in
-`config/code-hash-pending.txt`: TUs whose hashes were not filled in yet); `no_object` (clang can't compile the TU). In
-verify's counts, and so in the exit codes of `check`, `verify` and `materialize` (the Wine build's build stage),
-`changed` and `unhashed` are failures like `pinned symbol missing`; `pending` and `no_object` are reported, not failures.
+`code_changed` lists msvc/wine); `unhashed` (none recorded); `no_object` (clang can't compile the TU). In verify's
+counts, and so in the exit codes of `check`, `verify` and `materialize` (the Wine build's build stage), `changed` and
+`unhashed` are failures like `pinned symbol missing`; `no_object` is reported, not a failure.
 `verify --changed-since REF` also fails a block that had a hash at REF and has none now (a hash is replaced by
 `hash --proven`, never dropped). `pin` keeps a block's hashes when it rewrites the symbol.
 
@@ -157,7 +156,7 @@ Recording a hash needs a proof of the code as it is now:
 ```sh
 $J tools/equiv.py TU.cpp 0xADDR --json --inputs 3000 > msvc.json     # its report carries tree_code: the hash it checked
 $J tools/equiv.py TU.cpp 0xADDR --wine --json --inputs 600 > wine.json
-$J tools/tree_tu.py hash TU.cpp --proven msvc.json wine.json          # (jsonl from jobq_equiv.py batches works too)
+$J tools/tree_tu.py hash TU.cpp --proven msvc.json wine.json          # (a jsonl of such reports works too)
 ```
 
 `hash --proven` writes a block's new `@hash` only from an MSVC run whose `tree_code.msvc` is the code's hash now,
@@ -165,14 +164,17 @@ asked for >= 3,000 inputs and promotable, and a new `@w` hash only from a `--win
 asked for >= 600 inputs, passing tools/wine_gate.py and compiled without an x87-keep list; a block whose MSVC code
 changed needs both, one whose clang code alone changed needs the `--wine` run. equiv.py records `tree_code` only for a
 plain run of the tree TU (no extra flags, `--map`, seeds, replay level 3, EQUIV_OFF rules or another symbol). Nothing
-else writes a hash, except `hash . --init RECORDS` for the TUs in config/code-hash-pending.txt: it fills in blocks that
-have none from `hash . --compute OUT --tus LIST --commit SHA` records made in a queue job (whose workspace is
-`git archive HEAD`, the committed code), only where the TU's text is the text hashed and has no uncommitted edits, and
-takes the TU off the list once all its blocks have hashes.
+else writes a hash. `hash . --compute OUT [--tus LIST] [--commit SHA]` only reports the hashes of the code as it stands
+(a queue job's workspace is `git archive HEAD`): a way to show an edit leaves code unchanged. The equiv.py runs above
+must be of the tree TU at its path; `jobq_equiv.py` ships a copy under `jobsrc/`, so its reports carry no `tree_code`
+(run `tools/equiv.py TU 0xADDR --json` in a plain queue job instead).
 
 Populated 2026-11-11 (hash1) from the code at 6a71f9a03, which the flip's proofs and every proof since cover: 4,916
 of the 5,099 equivalent blocks in 1,144 TUs, computed in 24 queue jobs (mac2, mac1); the 13 TUs (183 blocks) that had
-uncommitted edits by other agents at the time stay in config/code-hash-pending.txt for a later `--init`.
+uncommitted edits by other agents at the time went on a pending list (`unhashed` reported, not failing) and were filled
+in later by a one-off `hash --init` from such records: dynamic_initializers.cpp (dg1, 9063a0525) and the last 12 (hash2,
+2026-11-12; 122 of their 127 blocks re-proved at 3,000 + --wine 600, the other five's code unchanged since 6a71f9a03).
+The list and `--init` were then removed: every equivalent block has its hashes, and `unhashed` is a failure everywhere.
 
 ### Wrapped and isolated functions
 
