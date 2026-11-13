@@ -3479,3 +3479,82 @@ N argument bytes is unknown to callee_reads, which argpop's rule assumes), the `
 regress case, and the rawint heap-span / sized-delete assumptions guarded or stated. regress.py --jobq: every case
 ok across reruns; the failures seen were host-dependent (0x000ffef0_compare_chain on mac2, 0x002cb2b0_loop_exit_order's
 coverage on a loaded host).
+
+## The 54 setter TUs re-proven; Track's stub classes derived from include/gen's classes (unb5, 2026-11-13)
+
+**Combined HEAD.** No single proof covered x64t8's d6321f64d, x64eq's 44cb331c3 and unb4's six batches together. Proof
+76493 (studio, d92decf4e, private data TUs, seeded from unb4's control 75396): GATE ok, 0 of 2,019 common frames differ,
+image 00ea770a (q6's). It is the control of the batches below. Native unbound names at d92decf4e (its snapshot and binding
+map): macOS **14,880**, Linux 14,860, Android 14,871, classified as unb4's "after" table.
+
+**1. The 54 setter TUs unb4 left (1911275b6).** b5fix's rewrite (`build/unb5/scripts/b5only.py`, 215 names) on the TUs of
+`build/unb4/b5-bad.txt`. Their MSVC objects are unchanged but for the renames. The 62 equivalent blocks whose code hash
+keyed the old declaration are re-proven: equiv.py at 3,000 inputs (promotable) and `--wine` at 3,000 inputs (all
+equivalent), hashes recorded with `tree_tu.py hash --proven`; `--x64`: all 62 equivalent. Proof 76527 (seeded from 76493):
+GATE ok, image 00ea770a (names and casts only).
+
+**2. Stub classes derived from include/gen's classes: fight::Track (1fe761b48).** The user's decision of 11-13: a TU's
+stub class derives from the include/gen class it stands for, so its vftable's slots are the real class's (the tree's
+definitions) and its constructors call the real base constructor by its own name.
+- include/gen/fight.h: `fight::Track` declares `Track();`; src/engine/fight/Track.cpp defines 0x00236d40 as
+  `fight::Track::Track()` (pin `??0Track@fight@@QAE@XZ`). The +8 word it zeroes goes through a TU-local view
+  (`Track_words`): include/gen declares it in the derived classes (88 `int f_08`, 66 `_pad_08`), and moving it into
+  Track would change every derived class's 64-bit layout (MS ABI does not reuse a base's tail padding).
+- For each stub X that derived from a stub base S whose declared-only constructor the Wine map binds to 0x00236d40, the
+  map's game vftable for X names (RTTI) the include/gen class C X stands for. X now derives from `::C`: it keeps its
+  constructors and non-virtual members, drops its placeholder virtuals, keeps its own fields past C's 32-bit size
+  (explicit pads) and uses C's fields below it (same offset, size and kind; an int stub field over a float one only for
+  `= 0` stores). Field mem-initializers of C's fields become assignments in member order. sizeof(X) is unchanged.
+  MSVC 7.1 drops the dead vptr stores of C's implicit constructor, so X's constructor still stores one vptr.
+  Tool: `build/unb5/scripts/stubderive.py` (libclang on the 32-bit target, layouts by offset; checks the result parses
+  on i686 and arm64).
+- Of 220 invented Track constructor names, 173 have one derived class with one bound vftable of a known class; the
+  tool rewrote 99 of them (84 TUs). The MSVC check (every block's status, equivalents' MSVC and clang hashes) kept 68 TUs;
+  17 changed code and are left (`build/unb5/t-bad.txt`): an EH frame where X has member objects with destructors (C's
+  virtual destructor must now run if a member's constructor throws), code moves, three equivalents whose hash keys
+  the old constructor name. The tool skipped: X declares a destructor or defines a virtual, a field at an offset C
+  types differently (pointer vs int, a struct), value-initialized members, a renamed field used in X's own body.
+- The proof's whole-tree MSVC verification passes with the header change. `--x64` on the 142 equivalent blocks of the
+  69 TUs: unchanged (135 equivalent, 7 fail as before). Native compile 2,675 / 2,675.
+- Proof 76629 (control 76527): GATE ok, 0 of 2,006 common frames differ, image bdf8b4bf.
+
+**3. 0x002674f0 returns bool (90ef0d423).** linux1 found the wildcard match unbound natively: its callers
+(CementLibrary.cpp) declare `bool`, its definition `char`. The game's code returns `sete al` / `xor al, al`, so the
+definition takes bool; `c ? false : true` keeps MSVC's `sete al` (`c == 0` adds an `xor eax, eax`). One checked block
+(MATCH, relocations ok): no proof. Not in the counts below.
+
+**Native counts.** Snapshot and map of proof 76629: macOS **14,613** (-267), Linux 14,593 (-267), Android 14,604 (-267). Names gone
+357: 215 setters (batch 1), 79 Track constructors, 52 placeholder virtuals, 11 others. New 90: 78 include/gen
+destructors (`hulkfight::ai::AIHistoryCountTrack::~AIHistoryCountTrack()`, ...) and 12 shared slot names
+(`fight::Track::vfunc_3`, `fight::Param::vfunc_2` / `vfunc_4`, ...). Both are real slots the stub vftables never
+named: the game inlines each class's destructor into its scalar deleting destructor (the tree defines that as a stub
+`vfunc_5`), and Track.cpp / Param.cpp define the shared slots under stub names. Those definitions taking their
+include/gen names (an `equivalent` re-proof for 0x00236c50) binds the shared ones for every Track class at once; the
+destructors are B4's (clang emits `??_G` from `~C`).
+
+| class (macOS) | d92decf4e | 1fe761b48 |
+|---|---|---|
+| address name, IR differs: argument count, `void`-declared | 866 | 651 |
+| address name, IR differs: argument count, called | 888 | 888 |
+| address name, IR differs: types / widths | 5,174 | 5,174 |
+| invented: constructor / destructor of a stub class | 1,154 | 1,075 |
+| invented: virtual member of a stub class | 4,426 | 4,464 |
+| invented: member of a stub class | 563 | 563 |
+| invented: free / C function | 379 | 379 |
+| invented: data | 666 | 666 |
+| address name, data larger than the item | 432 | 432 |
+| address name, other | 332 | 321 |
+| **total** | **14,880** | **14,613** |
+
+**What the other families need (measured with the same census, `build/unb5/scripts/census.py`).**
+- fight::Action (0x00232660, 198 names; 158 with one bound vftable): the tool rewrote none. Their stubs use the fields
+  over include/gen's `void*` words as typed pointers (`mTarget->...`), and adding `gen/hulkfight.h` to some TUs
+  collides with their own hulkfight declarations. The definition side is ready (fight::Action::Action() with an
+  Action_words view MATCHES, not committed). Needs include/gen's Action-derived classes' fields typed first.
+- fight::Condition (0x00234590, 53): the base constructor takes the owner, so X's constructor passes an argument C's
+  implicit constructor cannot; needs include/gen constructors with the parameter on each derived class.
+- Function (0x001d0480, 179): 143 of 179 have no single bound vftable (several derived classes per TU).
+- pure3d::Entity (0x0027b070, 32): gen/pure3d.h and the loaders are x64t9's area now.
+- Types / widths: 0x00236ac0 (Track's factory lookup, 109 `ptr(ptr, ptr)` callers vs `i32(i32, ptr)`) needs its
+  callees retyped with it (0x002367f0's result, the visitor's slots, 0x002672f0's string, whose 84 callers pass
+  `int`), not one definition; left for a per-chain batch.

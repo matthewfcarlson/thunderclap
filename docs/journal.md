@@ -677,3 +677,14 @@ only the edited TUs'. Declarations a batch needs in a few TUs are safer TU-local
   a garbage pointer becomes a garbage `float` return or `wild64`): only `equivalent` takes a block out.
 - rev1's argpop follow-ups: `argbound` (a `ret N` callee addressing past its arguments is unknown), a `_wrong` case for
   0x001a9b10, rawint's heap spans enforced.
+
+## unb5: stub classes derived from include/gen's classes (2026-11-13)
+
+A TU's stub class can derive from the include/gen class it stands for with no change to MSVC 7.1's code: the
+implicit constructor of the include/gen class inlines and its vptr store is dead (MSVC drops it), so the derived
+stub's constructor still calls the out-of-line base constructor and stores one vptr. Two costs: where the stub has
+member objects with destructors, the base's virtual destructor adds an EH frame (17 TUs left for this), and natively the
+include/gen classes' destructors become names of their own (the game inlines them into the scalar deleting
+destructors). Track batch: 68 TUs, macOS -52 net (79 constructors and 52 placeholder virtuals gone; 78 destructors
+and 12 shared slot names new). A field that include/gen types `void*` where the stub dereferences a typed pointer
+blocks fight::Action's whole family: the records come first there.
