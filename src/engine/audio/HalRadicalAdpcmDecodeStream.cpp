@@ -11,10 +11,6 @@ namespace fn_f533000b {} using namespace fn_f533000b;
 
 // ---- declarations shared by the functions below
 namespace fn_f533000b {
-struct Table {
-    int pad;
-    int values[1];
-};
 struct A {
     int x;
 };
@@ -155,10 +151,11 @@ extern "C" int FUN_002628a0(int flags, int* state, int* value) {
 
 // 0x00262930 FUN_00262930 (85 B): matches/0x00262930.cpp
 // sym: ?FUN_00262930@fn_f533000b@@YAHHPAUA@1@0@Z
-// data: tbl = DAT_0042ac54
+// data: the step table DAT_0042ac58 (was spelled DAT_0042ac18 + 64 + 4 * i, past the 64-byte index table: the
+// original's displacement names 0x0042ac58; scan1, tools/data_overreach.py)
 int __cdecl FUN_00262930(int pos, A* b, A* a) {
     int v = pos - a->x;
-    int c = (*(Table*)((char*)&DAT_0042ac18 + 60)).values[b->x];
+    int c = ((int*)&DAT_0042ac58)[b->x];
     int r;
     if (v < 0) {
         r = 8;
