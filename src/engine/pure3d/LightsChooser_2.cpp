@@ -388,7 +388,7 @@ struct Owner_2a06d0 {
 } // namespace fn_f5bc90fd
 
 // 0x0029f600 FUN_0029f600 (433 B): equivalent/0x0029f600.cpp [wrapped: conflict: pure3d::Entity; pure3d::LightsChooser]
-// sym: ??0LightsChooser@pure3d@fn_0029f600@@QAE@HH@Z
+// sym: ??0LightsChooser@pure3d@fn_0029f600@@QAE@HH@Z @2c291052619b @w75375f70f487
 namespace fn_0029f600 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 20/20)
 // FUN_0029f600 @ 0x0029f600
@@ -564,7 +564,7 @@ void Owner_29f840::Run(Src_29f840* s) {
 
 
 // 0x0029f8c0 FUN_0029f8c0 (302 B): equivalent/0x0029f8c0.cpp
-// sym: ?FUN_0029f8c0@Owner_29f8c0@fn_f5bc90fd@@QAEXPAX@Z
+// sym: ?FUN_0029f8c0@Owner_29f8c0@fn_f5bc90fd@@QAEXPAX@Z @f9acadaf537a @wc92a1540f129
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 16/16)
 // FUN_0029f8c0 @ 0x0029f8c0
 void Owner_29f8c0::FUN_0029f8c0(void *key)
@@ -632,7 +632,7 @@ void Object::FUN_0029fa30() {
 
 
 // 0x0029faf0 FUN_0029faf0 (267 B): equivalent/0x0029faf0.cpp
-// sym: ?target@Object@fn_f5bc90fd@@QAEXPAXPAUItem_29faf0@2@@Z
+// sym: ?target@Object@fn_f5bc90fd@@QAEXPAXPAUItem_29faf0@2@@Z @ec1be53bbc69 @w61e4fc911969
 // STATUS: equivalent (tools/equiv.py level 3: 20058 inputs, branch coverage 17/20, incomplete)
 // FUN_0029faf0 @ 0x0029faf0
 void Object::target(void* arg, Item_29faf0* item) {
@@ -655,7 +655,7 @@ void Object::target(void* arg, Item_29faf0* item) {
 
 
 // 0x0029fc00 FUN_0029fc00 (160 B): equivalent/0x0029fc00.cpp
-// sym: ?FUN_0029fc00@Tracker_29fc00@fn_f5bc90fd@@QAE_NHPAURegion_29fc00@2@PAUEntry_29fc00@2@@Z
+// sym: ?FUN_0029fc00@Tracker_29fc00@fn_f5bc90fd@@QAE_NHPAURegion_29fc00@2@PAUEntry_29fc00@2@@Z @4b0cecb42cf8 @wed56e9454221
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_0029fc00 @ 0x0029fc00
 // FUN_0029fc00 @ 0x0029fc00: advances one entry's countdown; when it expires, re-arms it and re-emits if still valid
@@ -742,7 +742,7 @@ LightsChooser_29fd40::~LightsChooser_29fd40() throw() {
 } // namespace fn_f5bc90fd
 
 // 0x0029fe60 FUN_0029fe60 (365 B): equivalent/0x0029fe60.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_0029fe60@Brush@fn_0029fe60@@QAEXPAUItem_29fe60@2@PAXPAVTarget_29fe60@2@@Z
+// sym: ?FUN_0029fe60@Brush@fn_0029fe60@@QAEXPAUItem_29fe60@2@PAXPAVTarget_29fe60@2@@Z @4da09dd58d1a @wfaae08d0c746
 namespace fn_0029fe60 {
 // STATUS: equivalent (tools/equiv.py level 3: 20060 inputs, branch coverage 23/26, incomplete)
 // FUN_0029fe60 @ 0x0029fe60
@@ -848,7 +848,7 @@ void Thing_2a0020::f(int a, int b) {
 
 
 // 0x002a0050 FUN_002a0050 (1320 B): equivalent/0x002a0050.cpp
-// sym: ?FUN_002a0050@Skin@fn_f5bc90fd@@QAEXPAUA@2@PAUB@2@PAUC@2@@Z
+// sym: ?FUN_002a0050@Skin@fn_f5bc90fd@@QAEXPAUA@2@PAUB@2@PAUC@2@@Z @518489ef7000 @w15a4d60b2149
 // STATUS: equivalent (tools/equiv.py level 3: 2535 inputs, branch coverage 87/90, incomplete)
 // FUN_002a0050 @ 0x002a0050
 void Skin::FUN_002a0050(A *a, B *b, C *c)
@@ -982,7 +982,7 @@ void A_2a0580::f(int x, int y) {
 
 
 // 0x002a05c0 FUN_002a05c0 (129 B): equivalent/0x002a05c0.cpp
-// sym: ?FUN_002a05c0@Track@fn_f5bc90fd@@QAEXPAUObj_2a05c0@2@PAXPAVOther_2a05c0@2@H@Z
+// sym: ?FUN_002a05c0@Track@fn_f5bc90fd@@QAEXPAUObj_2a05c0@2@PAXPAVOther_2a05c0@2@H@Z @e34ced07ee4b @we23d0120eb52
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002a05c0 @ 0x002a05c0
 // 0x002a05c0: add a sample to the track, rebuilding keys unless it is already covered

@@ -193,7 +193,7 @@ extern "C" void __cdecl FUN_002f4650(unsigned short *, unsigned short *);
 } // namespace fn_f77c5fbc
 
 // 0x002f32b0 FUN_002f32b0 (162 B): equivalent/0x002f32b0.cpp
-// sym: ?FUN_002f32b0@Axis_2f32b0@owners@@QAEXXZ
+// sym: ?FUN_002f32b0@Axis_2f32b0@owners@@QAEXXZ @05637f06c809 @w3e2117615d10
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002f32b0 @ 0x002f32b0
 // FUN_002f32b0 @ 0x002f32b0: snaps a direction vector to the dominant axis when one component is near +-1
@@ -265,7 +265,7 @@ void physics::CollisionVolume::vfunc_11(void* __p0) { hulk_intptr a = (hulk_intp
 
 
 // 0x002f3530 FUN_002f3530 (177 B): equivalent/0x002f3530.cpp [wrapped: conflict: physics::CollisionMesh]
-// sym: ??0CollisionMesh@physics@fn_002f3530@@QAE@XZ
+// sym: ??0CollisionMesh@physics@fn_002f3530@@QAE@XZ @bb7d30e522be @w356f04fa1bac
 void* __cdecl operator new(size_t);
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -368,7 +368,7 @@ int physics::CollisionMesh::vfunc_6() {
 
 
 // 0x002f3630 FUN_002f3630 (125 B): equivalent/0x002f3630.cpp [wrapped: conflict: physics::CollisionMesh]
-// sym: ??0CollisionMesh@physics@fn_002f3630@@QAE@ABV012@@Z
+// sym: ??0CollisionMesh@physics@fn_002f3630@@QAE@ABV012@@Z @7a4f83f80a25 @w894974ee7552
 namespace fn_002f3630 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002f3630 @ 0x002f3630
@@ -494,7 +494,7 @@ hulk_intptr __fastcall X_2f37c0::f() {
 
 
 // 0x002f37d0 FUN_002f37d0 (86 B): equivalent/0x002f37d0.cpp
-// sym: ?FUN_002f37d0@Object@fn_f77c5fbc@@QAEPAUVec@2@PAU32@PBUIndices@2@@Z
+// sym: ?FUN_002f37d0@Object@fn_f77c5fbc@@QAEPAUVec@2@PAU32@PBUIndices@2@@Z @49542799906c @w938123944b7c
 // STATUS: equivalent (tools/equiv.py level 3: 13512 inputs, branch coverage 0/0)
 // FUN_002f37d0 @ 0x002f37d0
 // FUN_002f37d0 @ 0x002f37d0
@@ -511,7 +511,7 @@ Vec* Object::FUN_002f37d0(Vec* result, const Indices* indices)
 
 
 // 0x002f3830 FUN_002f3830 (152 B): equivalent/0x002f3830.cpp
-// sym: ?GetNormal@Mesh_2f3830@fn_f77c5fbc@@QAEPAUVec3_2f3830@2@PAU32@PBUTri_2f3830@2@@Z
+// sym: ?GetNormal@Mesh_2f3830@fn_f77c5fbc@@QAEPAUVec3_2f3830@2@PAU32@PBUTri_2f3830@2@@Z @2f3f9cd1c940 @wd144704b026d
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 2/2)
 // FUN_002f3830 @ 0x002f3830
 Vec3_2f3830* Mesh_2f3830::GetNormal(Vec3_2f3830* out, const Tri_2f3830* t)
@@ -558,7 +558,7 @@ void CollisionMesh::vfunc_18(int n, int* a, int* b, int* c) {
 } // namespace fn_f77c5fbc
 
 // 0x002f3960 FUN_002f3960 (125 B): equivalent/0x002f3960.cpp
-// sym: ?FUN_002f3960@Quantizer_2f3960@owners@@QAEXPAGPBM@Z
+// sym: ?FUN_002f3960@Quantizer_2f3960@owners@@QAEXPAGPBM@Z @aea29888a52c @wf421cec7ed73
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002f3960 @ 0x002f3960
 // Quantizes three floats (last component first) into 16-bit values.
@@ -609,7 +609,7 @@ void FUN_002f3ac0(ushort_2f3ac0* a, int b, int c, ushort_2f3ac0 d) {
 
 
 // 0x002f3b10 FUN_002f3b10 (151 B): equivalent/0x002f3b10.cpp
-// sym: ?FUN_002f3b10@fn_f77c5fbc@@YAXPAF00@Z
+// sym: ?FUN_002f3b10@fn_f77c5fbc@@YAXPAF00@Z @d25971b82e61 @w0ed54c22d7a7
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 17/18, incomplete)
 // FUN_002f3b10 @ 0x002f3b10
 // std::rotate for a range of 2-byte elements (cycle-leader algorithm)
@@ -722,7 +722,7 @@ void CollisionMesh_2f3cd0::dtor() throw() {
 } // namespace fn_f77c5fbc
 
 // 0x002f3d00 physics::CollisionMesh::vfunc_16 (174 B): equivalent/0x002f3d00.cpp [wrapped: conflict: physics::CollisionMesh]
-// sym: ?vfunc_16@CollisionMesh@physics@fn_002f3d00@@UAE_NPBUVec_2f3d00@3@0PAX@Z
+// sym: ?vfunc_16@CollisionMesh@physics@fn_002f3d00@@UAE_NPBUVec_2f3d00@3@0PAX@Z @1812d13bc148 @w25b9a773ff86
 namespace fn_002f3d00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // physics::CollisionMesh::vfunc_16 @ 0x002f3d00
@@ -767,7 +767,7 @@ Rec_2f3db0 CollisionMesh_2f3db0::Get() {
 } // namespace fn_f77c5fbc
 
 // 0x002f3e40 FUN_002f3e40 (563 B): equivalent/0x002f3e40.cpp
-// sym: ?FUN_002f3e40@CollisionMesh@physics@@QAEXPAX0@Z
+// sym: ?FUN_002f3e40@CollisionMesh@physics@@QAEXPAX0@Z @8b3bee14d119 @w2809515aafb8
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 27/28, incomplete)
 // FUN_002f3e40 @ 0x002f3e40
 void physics::CollisionMesh::FUN_002f3e40(void* __p0, void* __p1) { ClipOut * out = (ClipOut *)__p0; const Segment_2f3e40 * seg = (const Segment_2f3e40 *)__p1;
@@ -958,7 +958,7 @@ void FUN_002f4350(u16_2f4350* first, u16_2f4350* last) {
 } // namespace fn_f77c5fbc
 
 // 0x002f43f0 FUN_002f43f0 (355 B): equivalent/0x002f43f0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_002f43f0
+// sym: _FUN_002f43f0 @34eae4eedd76 @w9596cdac4fc3
 namespace fn_002f43f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 28 inputs, branch coverage 37/42, incomplete)
 // FUN_002f43f0 @ 0x002f43f0
@@ -1078,7 +1078,7 @@ extern "C" void FUN_002f4590(unsigned short * first, unsigned short * last) {
 
 
 // 0x002f4650 FUN_002f4650 (69 B): equivalent/0x002f4650.cpp
-// sym: _FUN_002f4650
+// sym: _FUN_002f4650 @efcdc450a91b @wb97321ffd4fc
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 4/4)
 // FUN_002f4650 @ 0x002f4650
 extern "C" void __cdecl FUN_002f4650(unsigned short *first, unsigned short *last)
@@ -1094,7 +1094,7 @@ extern "C" void __cdecl FUN_002f4650(unsigned short *first, unsigned short *last
 
 
 // 0x002f46a0 FUN_002f46a0 (202 B): equivalent/0x002f46a0.cpp
-// sym: _FUN_002f46a0
+// sym: _FUN_002f46a0 @a3d42014e0d9 @wda66471a31dd
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 12/14, incomplete)
 // FUN_002f46a0 @ 0x002f46a0
 extern "C" void __cdecl FUN_002f46a0(unsigned short* first, unsigned short* last, int depth) {

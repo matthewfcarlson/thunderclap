@@ -339,7 +339,7 @@ public:
 
 
 // 0x0029e7f0 FUN_0029e7f0 (579 B): equivalent/0x0029e7f0.cpp
-// sym: ?FUN_0029e7f0@LightList_29e7f0@fn_fa427f67@@QAEXPAULightSet_29e7f0@2@PAUVec3_29e7f0@2@H@Z
+// sym: ?FUN_0029e7f0@LightList_29e7f0@fn_fa427f67@@QAEXPAULightSet_29e7f0@2@PAUVec3_29e7f0@2@H@Z @07f01e9fb777 @wcf7088b1496f
 // STATUS: equivalent (tools/equiv.py level 3: 16013 inputs, branch coverage 18/18)
 // FUN_0029e7f0 @ 0x0029e7f0
 // FUN_0029e7f0 @ 0x0029e7f0
@@ -402,7 +402,7 @@ void LightList_29e7f0::FUN_0029e7f0(LightSet_29e7f0* set, Vec3_29e7f0* ambientCo
 
 
 // 0x0029ea40 FUN_0029ea40 (574 B): equivalent/0x0029ea40.cpp
-// sym: ?FUN_0029ea40@LightSetup_29ea40@fn_fa427f67@@QAEXPAULightList_29ea40@2@@Z
+// sym: ?FUN_0029ea40@LightSetup_29ea40@fn_fa427f67@@QAEXPAULightList_29ea40@2@@Z @87d25a5a4742 @wb131910ff38b
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 32/32)
 // FUN_0029ea40 @ 0x0029ea40
 void LightSetup_29ea40::FUN_0029ea40(LightList_29ea40* list)
@@ -474,7 +474,7 @@ void LightSetup_29ea40::FUN_0029ea40(LightList_29ea40* list)
 
 
 // 0x0029ecb0 FUN_0029ecb0 (233 B): equivalent/0x0029ecb0.cpp
-// sym: ?FUN_0029ecb0@Container_29ecb0@fn_fa427f67@@QAEPAU12@H@Z
+// sym: ?FUN_0029ecb0@Container_29ecb0@fn_fa427f67@@QAEPAU12@H@Z @a832d53752da @w1098600b9448
 // STATUS: equivalent (tools/equiv.py level 3: 277 inputs, branch coverage 10/10)
 // FUN_0029ecb0 @ 0x0029ecb0
 Container_29ecb0* Container_29ecb0::FUN_0029ecb0(int n) {
@@ -493,7 +493,7 @@ Container_29ecb0* Container_29ecb0::FUN_0029ecb0(int n) {
 
 
 // 0x0029eda0 FUN_0029eda0 (402 B): equivalent/0x0029eda0.cpp
-// sym: ?FUN_0029eda0@EntryTable_29eda0@fn_fa427f67@@QAEXHPAUSource_29eda0@2@@Z
+// sym: ?FUN_0029eda0@EntryTable_29eda0@fn_fa427f67@@QAEXHPAUSource_29eda0@2@@Z @f376b3184e1b @w9bf855fc4e73
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 18/18)
 // FUN_0029eda0 @ 0x0029eda0
 void EntryTable_29eda0::FUN_0029eda0(int index, Source_29eda0 *src)
@@ -541,7 +541,7 @@ void EntryTable_29eda0::FUN_0029eda0(int index, Source_29eda0 *src)
 
 
 // 0x0029ef40 FUN_0029ef40 (357 B): equivalent/0x0029ef40.cpp
-// sym: ?FUN_0029ef40@GridSet@fn_fa427f67@@QAEPAV12@HH@Z
+// sym: ?FUN_0029ef40@GridSet@fn_fa427f67@@QAEPAV12@HH@Z @e6870be0c239 @w696b2bb9cb56
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 28/28)
 // FUN_0029ef40 @ 0x0029ef40
 GridSet* GridSet::FUN_0029ef40(int w, int h)
@@ -590,7 +590,7 @@ GridSet* GridSet::FUN_0029ef40(int w, int h)
 
 
 // 0x0029f0b0 FUN_0029f0b0 (181 B): equivalent/0x0029f0b0.cpp
-// sym: ?FUN_0029f0b0@Target_29f0b0@fn_fa427f67@@QAEXPAUList_29f0b0@2@PAH@Z
+// sym: ?FUN_0029f0b0@Target_29f0b0@fn_fa427f67@@QAEXPAUList_29f0b0@2@PAH@Z @5cf8181571ae @w261f40525029
 // STATUS: equivalent (tools/equiv.py level 3: 2159 inputs, branch coverage 20/20)
 // FUN_0029f0b0 @ 0x0029f0b0
 void Target_29f0b0::FUN_0029f0b0(List_29f0b0* list, int* value) {
@@ -668,7 +668,7 @@ void C_29f3a0::F(int a, int b) {
 } // namespace fn_fa427f67
 
 // 0x0029f3d0 FUN_0029f3d0 (247 B): equivalent/0x0029f3d0.cpp [wrapped: compile error C2039: 'FUN_0029e6c0' : is not a member of 'fn_fa427f67::pure3d::Light']
-// sym: ??0CacheManager@LightsChooser@pure3d@fn_0029f3d0@@QAE@PAXH@Z
+// sym: ??0CacheManager@LightsChooser@pure3d@fn_0029f3d0@@QAE@PAXH@Z @a88b3f6945a2 @w078631ca5b0b
 namespace fn_0029f3d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 14/14)
 // FUN_0029f3d0 @ 0x0029f3d0
@@ -748,7 +748,7 @@ pure3d::LightsChooser::CacheManager::CacheManager(void* context,int n) {
 namespace fn_fa427f67 {
 
 // 0x0029f4d0 FUN_0029f4d0 (157 B): equivalent/0x0029f4d0.cpp
-// sym: ?FUN_0029f4d0@Cache_29f4d0@fn_fa427f67@@QAEXHPAUSource_29f4d0@2@@Z
+// sym: ?FUN_0029f4d0@Cache_29f4d0@fn_fa427f67@@QAEXHPAUSource_29f4d0@2@@Z @c0f79a47c4d4 @wcec0e91dcfad
 // STATUS: equivalent (tools/equiv.py level 3: 2971 inputs, branch coverage 10/10)
 // FUN_0029f4d0 @ 0x0029f4d0
 // FUN_0029f4d0: find (or take from the free pool) the entry for a key and fill it from a source object

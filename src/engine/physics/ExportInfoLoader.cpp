@@ -58,7 +58,7 @@ struct Frame_2f4eb0 {
 
 
 // 0x002f4df0 FUN_002f4df0 (126 B): equivalent/0x002f4df0.cpp
-// sym: _FUN_002f4df0
+// sym: _FUN_002f4df0 @069865455171 @w5ac6d837b811
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 4/4)
 // FUN_002f4df0 @ 0x002f4df0
 extern "C" void FUN_002f4df0(int arg, void* handler){
@@ -79,7 +79,7 @@ extern "C" void FUN_002f4df0(int arg, void* handler){
 } // namespace fn_f1098e70
 
 // 0x002f4eb0 physics::ExportInfoLoader::vfunc_5 (565 B): equivalent/0x002f4eb0.cpp
-// sym: ?vfunc_5@ExportInfoLoader@physics@@UAEXPAX00H@Z
+// sym: ?vfunc_5@ExportInfoLoader@physics@@UAEXPAX00H@Z @abda00c72a4c @w20b6908e46f4
 // STATUS: equivalent (tools/equiv.py level 3: 275 inputs, branch coverage 30/30)
 // physics::ExportInfoLoader::vfunc_5 @ 0x002f4eb0
 void physics::ExportInfoLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr a3) { hulk_intptr a0 = (hulk_intptr)__p0; hulk_intptr a1 = (hulk_intptr)__p1; Reader_2f4eb0 * r = (Reader_2f4eb0 *)__p2;

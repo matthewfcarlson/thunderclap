@@ -783,7 +783,7 @@ struct SimState {
 
 
 // 0x002ed240 FUN_002ed240 (386 B): equivalent/0x002ed240.cpp
-// sym: ?FUN_002ed240@Broadphase_2ed240@fn_f671dae7@@QAEXH@Z
+// sym: ?FUN_002ed240@Broadphase_2ed240@fn_f671dae7@@QAEXH@Z @5b54c6aa4ef4 @w33725a3c6406
 // STATUS: equivalent (tools/equiv.py level 3: 156 inputs, branch coverage 25/26, incomplete; run with --inputs 12000)
 // FUN_002ed240 @ 0x002ed240
 void Broadphase_2ed240::FUN_002ed240(int index)
@@ -826,7 +826,7 @@ void Broadphase_2ed240::FUN_002ed240(int index)
 
 
 // 0x002ed3d0 FUN_002ed3d0 (772 B): equivalent/0x002ed3d0.cpp
-// sym: ?FUN_002ed3d0@SweepAndPrune@fn_f671dae7@@QAEXI@Z
+// sym: ?FUN_002ed3d0@SweepAndPrune@fn_f671dae7@@QAEXI@Z @80c5fa163ecd @wbad7938629bd
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 37/40, incomplete)
 // FUN_002ed3d0 @ 0x002ed3d0
 void SweepAndPrune::FUN_002ed3d0(unsigned int index)
@@ -983,7 +983,7 @@ bool Container_2ed7a0::Find(Obj_2ed7a0* obj) {
 
 
 // 0x002edb20 FUN_002edb20 (102 B): equivalent/0x002edb20.cpp
-// sym: ?FUN_002edb20@Mgr_2edb20@fn_f671dae7@@QAEEHHH@Z
+// sym: ?FUN_002edb20@Mgr_2edb20@fn_f671dae7@@QAEEHHH@Z @a6786aa7f582 @w842c1666b553
 // STATUS: equivalent (tools/equiv.py level 3: 131 inputs, branch coverage 6/6)
 // FUN_002edb20 @ 0x002edb20
 unsigned char Mgr_2edb20::FUN_002edb20(int a, int b, int c) {
@@ -1022,7 +1022,7 @@ unsigned char owners::ThisWrap_002edc00::FUN_002edc00(hulk_uintptr value) {
 namespace fn_f671dae7 {
 
 // 0x002edc20 FUN_002edc20 (184 B): equivalent/0x002edc20.cpp
-// sym: ?FUN_002edc20@Collection_2edc20@fn_f671dae7@@QAEXIIIIPAID@Z
+// sym: ?FUN_002edc20@Collection_2edc20@fn_f671dae7@@QAEXIIIIPAID@Z @05c08dce6576 @w7351f50c9ccf
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 12/12)
 // FUN_002edc20 @ 0x002edc20
 void Collection_2edc20::FUN_002edc20(Word_2edc20 output,Word_2edc20 query,Word_2edc20 a,Word_2edc20 b,Word_2edc20* result,char onlySelected)
@@ -1043,7 +1043,7 @@ void Collection_2edc20::FUN_002edc20(Word_2edc20 output,Word_2edc20 query,Word_2
 
 
 // 0x002edce0 FUN_002edce0 (265 B): equivalent/0x002edce0.cpp
-// sym: ?FUN_002edce0@Manager_2edce0@fn_f671dae7@@QAEEPAUHit_2edce0@2@PAUVec_2edce0@2@1E@Z
+// sym: ?FUN_002edce0@Manager_2edce0@fn_f671dae7@@QAEEPAUHit_2edce0@2@PAUVec_2edce0@2@1E@Z @916d0506bb34 @wed6711eb1bea
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 19/20, incomplete)
 // FUN_002edce0 @ 0x002edce0
 unsigned char Manager_2edce0::FUN_002edce0(Hit_2edce0* hit, Vec_2edce0* start, Vec_2edce0* finish, unsigned char filter) {
@@ -1105,7 +1105,7 @@ bool Buffer_2ee0c0::Add(Item_2ee0c0* value) {
 } // namespace fn_f671dae7
 
 // 0x002ee140 FUN_002ee140 (275 B): equivalent/0x002ee140.cpp
-// sym: ?target@World@@QAE_NPAUResults@fn_f671dae7@@PAUVec_2ee140@3@1H@Z
+// sym: ?target@World@@QAE_NPAUResults@fn_f671dae7@@PAUVec_2ee140@3@1H@Z @28cd5d2a125e @w52589322b788
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_002ee140 @ 0x002ee140
 bool World::target(Results* results, Vec_2ee140* start, Vec_2ee140* end, int filter) {
@@ -1132,7 +1132,7 @@ bool World::target(Results* results, Vec_2ee140* start, Vec_2ee140* end, int fil
 namespace fn_f671dae7 {
 
 // 0x002ee260 FUN_002ee260 (631 B): equivalent/0x002ee260.cpp
-// sym: ?FUN_002ee260@Tracker_2ee260@fn_f671dae7@@QAEXPAVObj_2ee260@2@@Z
+// sym: ?FUN_002ee260@Tracker_2ee260@fn_f671dae7@@QAEXPAVObj_2ee260@2@@Z @37cbd20b32da @w424f9df701a5
 // STATUS: equivalent (tools/equiv.py level 3: 2857 inputs, branch coverage 28/28; --wine 74 inputs)
 // FUN_002ee260 @ 0x002ee260
 void Tracker_2ee260::FUN_002ee260(Obj_2ee260 *obj)
@@ -1201,7 +1201,7 @@ void Tracker_2ee260::FUN_002ee260(Obj_2ee260 *obj)
 
 
 // 0x002ee510 FUN_002ee510 (92 B): equivalent/0x002ee510.cpp
-// sym: ?FUN_002ee510@Container@fn_f671dae7@@QAEXPAUItem@2@@Z
+// sym: ?FUN_002ee510@Container@fn_f671dae7@@QAEXPAUItem@2@@Z @b3ec4426e495 @w5e6149fbf3f8
 // STATUS: equivalent (tools/equiv.py level 3: 783 inputs, branch coverage 8/8)
 // FUN_002ee510 @ 0x002ee510
 void Container::FUN_002ee510(Item *item) {
@@ -1219,7 +1219,7 @@ void Container::FUN_002ee510(Item *item) {
 
 
 // 0x002ee570 FUN_002ee570 (136 B): equivalent/0x002ee570.cpp
-// sym: ?FUN_002ee570@Graph_2ee570@fn_f671dae7@@QAEXPAUItem_2ee570@2@0@Z
+// sym: ?FUN_002ee570@Graph_2ee570@fn_f671dae7@@QAEXPAUItem_2ee570@2@0@Z @fd2dfe32d7bb @w17629570943c
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 18/18)
 // FUN_002ee570 @ 0x002ee570
 // Adds an edge between x and y unless one already connects them.
@@ -1265,7 +1265,7 @@ void Container_2ee6d0::Add(Item_2ee6d0* item) {
 // 0x002ee700 thunk_FUN_002ee510 (5 B): not yet verified
 
 // 0x002ee710 FUN_002ee710 (646 B): equivalent/0x002ee710.cpp
-// sym: ?FUN_002ee710@Registry_2ee710@fn_f671dae7@@QAEXPAUItem_2ee710@2@@Z
+// sym: ?FUN_002ee710@Registry_2ee710@fn_f671dae7@@QAEXPAUItem_2ee710@2@@Z @34683b3547ce @w2038d0552b62
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 65/66, incomplete)
 // FUN_002ee710 @ 0x002ee710
 void Registry_2ee710::FUN_002ee710(Item_2ee710 *obj)
@@ -1367,7 +1367,7 @@ void Registry_2ee710::FUN_002ee710(Item_2ee710 *obj)
 
 
 // 0x002ee9a0 FUN_002ee9a0 (114 B): equivalent/0x002ee9a0.cpp
-// sym: ?FUN_002ee9a0@Graph_2ee9a0@fn_f671dae7@@QAEXHH@Z
+// sym: ?FUN_002ee9a0@Graph_2ee9a0@fn_f671dae7@@QAEXHH@Z @f11a29d29f4b @w3e98a508cdd6
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 16/16)
 // FUN_002ee9a0 @ 0x002ee9a0
 void Graph_2ee9a0::FUN_002ee9a0(int a, int b)
@@ -1387,7 +1387,7 @@ void Graph_2ee9a0::FUN_002ee9a0(int a, int b)
 
 
 // 0x002eea80 FUN_002eea80 (550 B): equivalent/0x002eea80.cpp
-// sym: ?FUN_002eea80@Mgr@fn_f671dae7@@QAEXXZ
+// sym: ?FUN_002eea80@Mgr@fn_f671dae7@@QAEXXZ @aac6fd504437 @w047996085034
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 51/51)
 // FUN_002eea80 @ 0x002eea80
 void Mgr::FUN_002eea80()
@@ -1459,7 +1459,7 @@ void Mgr::FUN_002eea80()
 // 0x002eecb0 thunk_FUN_002ee710 (5 B): not yet verified
 
 // 0x002eecc0 FUN_002eecc0 (228 B): equivalent/0x002eecc0.cpp
-// sym: ?reset@State_2eecc0@fn_f671dae7@@QAEXXZ
+// sym: ?reset@State_2eecc0@fn_f671dae7@@QAEXXZ @312a3fdbd699 @w1c2f1536feb2
 // STATUS: equivalent (tools/equiv.py level 3: 27 inputs, branch coverage 18/18)
 // FUN_002eecc0 @ 0x002eecc0
 void State_2eecc0::reset() {
@@ -1490,7 +1490,7 @@ void Obj_2eedd0::Run(void* arg) {
 // 0x002eee00 thunk_FUN_002eecc0 (5 B): not yet verified
 
 // 0x002eee10 FUN_002eee10 (432 B): equivalent/0x002eee10.cpp
-// sym: ?FUN_002eee10@Pool_2eee10@fn_f671dae7@@QAEPAV12@XZ
+// sym: ?FUN_002eee10@Pool_2eee10@fn_f671dae7@@QAEPAV12@XZ @5df244d0a4bb @w6afb8e897b15
 // STATUS: equivalent (tools/equiv.py level 3: 29 inputs, branch coverage 24/24)
 // FUN_002eee10 @ 0x002eee10
 Pool_2eee10 *Pool_2eee10::FUN_002eee10()

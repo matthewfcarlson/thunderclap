@@ -69,7 +69,7 @@ extern "C" void* __cdecl FUN_0008d690(int);
 
 
 // 0x002f27c0 FUN_002f27c0 (198 B): equivalent/0x002f27c0.cpp
-// sym: ?FUN_002f27c0@Table_2f27c0@fn_f6d70462@@QAEPAUEntry_2f27c0@2@_KMMMM@Z
+// sym: ?FUN_002f27c0@Table_2f27c0@fn_f6d70462@@QAEPAUEntry_2f27c0@2@_KMMMM@Z @fd0fa82c9ba5 @w7032b67eaba8
 // STATUS: equivalent (tools/equiv.py level 3: 176 inputs, branch coverage 9/10, incomplete)
 // FUN_002f27c0 @ 0x002f27c0
 // (x64t4) the key one 64-bit hash and the values floats, as every caller passes them (were six `int`s); the entry keeps
@@ -146,7 +146,7 @@ hulk_freg __cdecl FUN_002f2950(V* a, V* b) {
 } // namespace fn_f6d70462
 
 // 0x002f2970 physics::PhysicsPropertiesLoader::vfunc_5 (271 B): equivalent/0x002f2970.cpp
-// sym: ?vfunc_5@PhysicsPropertiesLoader@physics@@UAEXPAX00H@Z
+// sym: ?vfunc_5@PhysicsPropertiesLoader@physics@@UAEXPAX00H@Z @2acdb39c37f1 @wa784e1ccd3ba
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // physics::PhysicsPropertiesLoader::vfunc_5 @ 0x002f2970
 void physics::PhysicsPropertiesLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { Context_2f2970 * context = (Context_2f2970 *)__p2;

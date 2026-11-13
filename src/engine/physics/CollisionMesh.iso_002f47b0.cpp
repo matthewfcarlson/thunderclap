@@ -4,7 +4,7 @@
 
 
 // 0x002f47b0 physics::CollisionMesh::vfunc_15 (1531 B): equivalent/0x002f47b0.cpp [isolated: merged class would differ: CollisionMesh: nested type with a declarator; on include/gen/ and not mergeable]
-// sym: ?FUN_002f47b0@CollisionMesh@@QAEDPAVBody_2f47b0@@H@Z
+// sym: ?FUN_002f47b0@CollisionMesh@@QAEDPAVBody_2f47b0@@H@Z @66e85b7b719a @w67f89340d1ba
 // STATUS: equivalent (tools/equiv.py level 3: 2570 inputs, branch coverage 62/63, incomplete)
 // physics::CollisionMesh::vfunc_15 @ 0x002f47b0
 #include "decls/data/engine/physics.h"

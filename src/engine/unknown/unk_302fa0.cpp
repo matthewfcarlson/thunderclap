@@ -131,7 +131,7 @@ struct Queue_304530 {
 
 
 // 0x00302fa0 FUN_00302fa0 (211 B): equivalent/0x00302fa0.cpp
-// sym: ?FUN_00302fa0@fn_f0220b18@@YAPAUEntry_302fa0@1@PAU21@HHU21@@Z
+// sym: ?FUN_00302fa0@fn_f0220b18@@YAPAUEntry_302fa0@1@PAU21@HHU21@@Z @d9e836d46a08 @w07bc1eff029f
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
 // FUN_00302fa0 @ 0x00302fa0
 Entry_302fa0* __cdecl FUN_00302fa0(Entry_302fa0* entries, int index, int lowerBound, Entry_302fa0 value) {
@@ -149,7 +149,7 @@ Entry_302fa0* __cdecl FUN_00302fa0(Entry_302fa0* entries, int index, int lowerBo
 
 
 // 0x00303080 FUN_00303080 (476 B): equivalent/0x00303080.cpp
-// sym: ?FUN_00303080@fn_f0220b18@@YAXPAUElem_303080@1@00@Z
+// sym: ?FUN_00303080@fn_f0220b18@@YAXPAUElem_303080@1@00@Z @a195cdabe5ee @w851a139d24e7
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 17/18, incomplete)
 // FUN_00303080 @ 0x00303080
 // std::rotate for 0x44-byte elements (Dinkumware _Rotate, random access).
@@ -189,7 +189,7 @@ void FUN_00303080(Elem_303080* first, Elem_303080* mid, Elem_303080* last)
 
 
 // 0x003032d0 FUN_003032d0 (249 B): equivalent/0x003032d0.cpp
-// sym: ?FUN_003032d0@fn_f0220b18@@YAXPAUEntry_3032d0@1@HHU21@@Z
+// sym: ?FUN_003032d0@fn_f0220b18@@YAXPAUEntry_3032d0@1@HHU21@@Z @39f34d8a2ecf @w6ae37814217f
 // STATUS: equivalent (tools/equiv.py level 3: 1038 inputs, branch coverage 8/8)
 // FUN_003032d0 @ 0x003032d0
 void __cdecl FUN_003032d0(Entry_3032d0* entries, int start, int count, Entry_3032d0 value) {
@@ -256,7 +256,7 @@ void __cdecl FUN_003035d0(E_3035d0* first, E_3035d0* last) {
 
 
 // 0x00303680 FUN_00303680 (124 B): equivalent/0x00303680.cpp
-// sym: _FUN_00303680
+// sym: _FUN_00303680 @33ff0b039326 @w7241089d928b
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 15/18, incomplete)
 // FUN_00303680 @ 0x00303680
 // Insertion sort of [first, last) by ascending key.
@@ -308,7 +308,7 @@ void owners::Obj_3037e0::FUN_003037e0() {
 namespace fn_f0220b18 {
 
 // 0x003037f0 FUN_003037f0 (2659 B): equivalent/0x003037f0.cpp
-// sym: ?FUN_003037f0@fn_f0220b18@@YAXPAUPartition@1@PAUItem_3037f0@1@1@Z
+// sym: ?FUN_003037f0@fn_f0220b18@@YAXPAUPartition@1@PAUItem_3037f0@1@1@Z @e96672fe5697 @w6435efcc9894
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 60/62, incomplete)
 // FUN_003037f0 @ 0x003037f0
 void __cdecl FUN_003037f0(Partition *result, Item_3037f0 *first, Item_3037f0 *last)
@@ -365,7 +365,7 @@ void __cdecl FUN_003037f0(Partition *result, Item_3037f0 *first, Item_3037f0 *la
 
 
 // 0x00304260 FUN_00304260 (156 B): equivalent/0x00304260.cpp
-// sym: _FUN_00304260
+// sym: _FUN_00304260 @16a67d2a20a4 @wc0add26cbb83
 // STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 4/4)
 // FUN_00304260 @ 0x00304260
 // FUN_00304260: heap sort tail (repeatedly move the first element to the end and sift down)
@@ -383,7 +383,7 @@ extern "C" void __cdecl FUN_00304260(void *first, void * last_)
 } // namespace fn_f0220b18
 
 // 0x00304300 FUN_00304300 (71 B): equivalent/0x00304300.cpp
-// sym: ?FUN_00304300@Buffer_304300@owners@@QAEPAU12@XZ
+// sym: ?FUN_00304300@Buffer_304300@owners@@QAEPAU12@XZ @27edadfb2920 @wc1ad8450f6aa
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00304300 @ 0x00304300
 owners::Buffer_304300* owners::Buffer_304300::FUN_00304300() { begin = 0; end = 0; capacity = 0; if (DAT_004d2f80 != 0) { int bytes = DAT_004d2f80 * 0x44; begin = FUN_0008d6d0(bytes); if (begin != 0) { capacity = (char*)begin + bytes; end = begin; return this; } } begin = 0; end = 0; capacity = 0; return this; }
@@ -402,7 +402,7 @@ extern "C" void __fastcall FUN_00304350(Target_304350* self) {
 } // namespace fn_f0220b18
 
 // 0x00304370 FUN_00304370 (294 B): equivalent/0x00304370.cpp [wrapped: conflict: Partition]
-// sym: _FUN_00304370
+// sym: _FUN_00304370 @634908489891 @w70bf5e64aeff
 namespace fn_00304370 {
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 12/14, incomplete)
 // FUN_00304370 @ 0x00304370

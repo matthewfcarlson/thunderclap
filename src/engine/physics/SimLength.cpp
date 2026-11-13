@@ -191,7 +191,7 @@ Environment_2ece00* Environment_2ece00::vfunc_5(signed char flags) {
 } // namespace fn_fae3921a
 
 // 0x002ece90 FUN_002ece90 (132 B): equivalent/0x002ece90.cpp
-// sym: ?FUN_002ece90@ScaledVec_2ece90@owners@@QAEXMMM@Z
+// sym: ?FUN_002ece90@ScaledVec_2ece90@owners@@QAEXMMM@Z @bdc6e933d553 @w4554b06516f2
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_002ece90 @ 0x002ece90
 void owners::ScaledVec_2ece90::FUN_002ece90(float vx, float vy, float vz)
@@ -234,7 +234,7 @@ SimTime::SimTime(float time) {
 } // namespace fn_fae3921a
 
 // 0x002ecf60 FUN_002ecf60 (124 B): equivalent/0x002ecf60.cpp [wrapped: conflict: physics::Environment]
-// sym: ??0Environment@physics@fn_002ecf60@@QAE@XZ
+// sym: ??0Environment@physics@fn_002ecf60@@QAE@XZ @d30eae54df63 @wfd3d60ae415e
 namespace fn_002ecf60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002ecf60 @ 0x002ecf60

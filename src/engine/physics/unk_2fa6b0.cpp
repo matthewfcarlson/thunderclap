@@ -126,7 +126,7 @@ struct CollisionOBB {
 
 
 // 0x002fa6b0 FUN_002fa6b0 (112 B): equivalent/0x002fa6b0.cpp
-// sym: _FUN_002fa6b0
+// sym: _FUN_002fa6b0 @fe9060f50631 @wf7461ef99346
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 0/0)
 // FUN_002fa6b0 @ 0x002fa6b0
 // out = normalised cross product (a - b) x (a - c)
@@ -172,7 +172,7 @@ void FUN_002fa750() {}
 
 
 // 0x002fa7c0 FUN_002fa7c0 (252 B): equivalent/0x002fa7c0.cpp
-// sym: ?run@Face_2fa7c0@fn_f6175a11@@QAE_NPAUShape_2fa7c0@2@PAUContext@2@H@Z
+// sym: ?run@Face_2fa7c0@fn_f6175a11@@QAE_NPAUShape_2fa7c0@2@PAUContext@2@H@Z @1ea6fc07cf1f @wf72072274f62
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002fa7c0 @ 0x002fa7c0
 bool Face_2fa7c0::run(Shape_2fa7c0* shape,Context* context,int arg) {
@@ -191,7 +191,7 @@ bool Face_2fa7c0::run(Shape_2fa7c0* shape,Context* context,int arg) {
 
 
 // 0x002fa8c0 FUN_002fa8c0 (357 B): equivalent/0x002fa8c0.cpp
-// sym: ?FUN_002fa8c0@TriRef@fn_f6175a11@@QAEDPAUHit_2fa8c0@2@PAUMesh_2fa8c0@2@H@Z
+// sym: ?FUN_002fa8c0@TriRef@fn_f6175a11@@QAEDPAUHit_2fa8c0@2@PAUMesh_2fa8c0@2@H@Z @21fade602439 @wece6a1ae3dda
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_002fa8c0 @ 0x002fa8c0
 char TriRef::FUN_002fa8c0(Hit_2fa8c0* hit, Mesh_2fa8c0* mesh, int flags2)
@@ -241,7 +241,7 @@ char TriRef::FUN_002fa8c0(Hit_2fa8c0* hit, Mesh_2fa8c0* mesh, int flags2)
 } // namespace fn_f6175a11
 
 // 0x002faa30 FUN_002faa30 (1048 B): equivalent/0x002faa30.cpp [wrapped: conflict: Context]
-// sym: ?FUN_002faa30@Tri_2faa30@fn_002faa30@@QAEDPAVShape_2faa30@2@PAUContext@2@H@Z
+// sym: ?FUN_002faa30@Tri_2faa30@fn_002faa30@@QAEDPAVShape_2faa30@2@PAUContext@2@H@Z @d468d296dd13 @w8be3e03a04dc
 namespace fn_002faa30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // FUN_002faa30 @ 0x002faa30
@@ -434,7 +434,7 @@ char Tri_2faa30::FUN_002faa30(Shape_2faa30 *shape, Context *ctx, int flags)
 namespace fn_f6175a11 {
 
 // 0x002fae50 FUN_002fae50 (424 B): equivalent/0x002fae50.cpp
-// sym: _FUN_002fae50
+// sym: _FUN_002fae50 @f00424348853 @wa15839fc26f3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_002fae50 @ 0x002fae50
 // Moeller-Trumbore ray / triangle test; *outT receives the hit distance.
@@ -498,7 +498,7 @@ extern "C" bool FUN_002fae50(const void *tri, const void *origin, const void * d
 } // namespace fn_f6175a11
 
 // 0x002fb000 FUN_002fb000 (311 B): equivalent/0x002fb000.cpp [wrapped: conflict: Context]
-// sym: ?run@Tri_2fb000@fn_002fb000@@QAEDPAVShape_2fb000@2@PAUContext@2@H@Z
+// sym: ?run@Tri_2fb000@fn_002fb000@@QAEDPAVShape_2fb000@2@PAUContext@2@H@Z @1419d48d3b3e @w58b65099d526
 namespace fn_002fb000 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_002fb000 @ 0x002fb000
@@ -606,7 +606,7 @@ Obj::Obj(unsigned short x, unsigned short y, unsigned short z) {
 } // namespace fn_f6175a11
 
 // 0x002fb190 FUN_002fb190 (478 B): equivalent/0x002fb190.cpp [wrapped: conflict: Context]
-// sym: ?run@Tri_2fb190@fn_002fb190@@QAEDPAUV3_2fb190@2@PAUContext@2@H@Z
+// sym: ?run@Tri_2fb190@fn_002fb190@@QAEDPAUV3_2fb190@2@PAUContext@2@H@Z @e8612663097d @w8a0c3af0114a
 namespace fn_002fb190 {
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 6/6)
 // FUN_002fb190 @ 0x002fb190
@@ -708,7 +708,7 @@ char Tri_2fb190::run(V3_2fb190* p, Context* ctx, int flags)
 namespace fn_f6175a11 {
 
 // 0x002fb370 FUN_002fb370 (195 B): equivalent/0x002fb370.cpp
-// sym: ?FUN_002fb370@Handler_2fb370@fn_f6175a11@@QAE_NPAUNode@2@PAX1@Z
+// sym: ?FUN_002fb370@Handler_2fb370@fn_f6175a11@@QAE_NPAUNode@2@PAX1@Z @4546331bcf05 @wa7a87d1afb05
 // STATUS: equivalent (tools/equiv.py level 3: 277 inputs, branch coverage 12/12)
 // FUN_002fb370 @ 0x002fb370
 bool Handler_2fb370::FUN_002fb370(Node* node, void* arg, void* arg2) {
@@ -732,7 +732,7 @@ bool Handler_2fb370::FUN_002fb370(Node* node, void* arg, void* arg2) {
 } // namespace fn_f6175a11
 
 // 0x002fb440 FUN_002fb440 (368 B): equivalent/0x002fb440.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002fb440@Tri_2fb440@fn_002fb440@@QAE_NPAVRay_2fb440@2@PAUMesh_2fb440@2@H@Z
+// sym: ?FUN_002fb440@Tri_2fb440@fn_002fb440@@QAE_NPAVRay_2fb440@2@PAUMesh_2fb440@2@H@Z @83194ab6a4aa @wd4dfa88f52a6
 namespace fn_002fb440 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_002fb440 @ 0x002fb440
