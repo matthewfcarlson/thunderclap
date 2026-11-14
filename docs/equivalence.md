@@ -1963,7 +1963,12 @@ per job, libclang's binding shipped; the working tree's dirty files ship as usua
 out C and get only the current tools) when more than 4 blocks need a run, here otherwise (`--local`/`--jobq` force
 one). Results are cached in build/tree-cache/x64gate/res/ by the code key, the checker's source (equiv64.py, equiv.py,
 equiv_batch.py) and the settings; keys in build/tree-cache/x64gate/keys/ by the TU's text, its include closure and the
-toolchain. Unchanged code is never run twice, and an unchanged TU is never compiled twice.
+toolchain. Unchanged code is never run twice, and an unchanged TU is never compiled twice. A result also carries the
+fingerprints of the type layouts its run built (`types` in the `--x64` report: equiv64 `Types.fingerprints`, per layout
+key its sizes and leaves); before a cached result is used, `equiv64.type_fingerprints` lays the same keys out from the
+TU's current text (one libclang parse per TU) and a block whose types disagree runs again: a field whose type changed
+without changing the block's code (x64t11's 0x00270740: gen's `f_24` became `char**`, same code key, a stale `layout`
+verdict) is re-checked (x64t12).
 
 **Verdicts.** `new` (a gating class, not in the baseline: **fails**), `unchecked` (no result: the job gave up;
 **fails**: the gate can't vouch for it), `known` (in the baseline), `improved` (in the baseline, now equivalent:

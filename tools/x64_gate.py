@@ -29,7 +29,9 @@ both sides, REF from a `git archive` snapshot, and only blocks whose key differs
 edit that changes only the 64-bit layout changes the 64-bit key, so it is seen even where the MSVC object and the
 `@`/`@w` hashes stay put. Keys are cached in build/tree-cache/x64gate/keys/ by the TU's text, its include closure and
 the toolchain; results in build/tree-cache/x64gate/res/ by the code key, the checker's source and the settings, so
-unchanged code is never run twice.
+unchanged code is never run twice. A result also carries the fingerprints of the type layouts its run built (equiv64
+Types.fingerprints): a cached one whose types the current source lays out differently (a field's type changed, the
+code didn't) is run again (x64t12).
 
 Runs use x64eq's sweep settings (200 inputs, 60 s budget): through the queue (tools/jobq_equiv.py, libclang's Python
 binding shipped with each job) when more than --local-max blocks need a run, here otherwise (at most 2 processes).
@@ -516,6 +518,30 @@ def cached_result(key):
         return None
 
 
+def types_current(path, recs):
+    """(x64t12) Which cached results still hold for PATH's current text: a result carries the fingerprints of the
+    layouts its run built (equiv64 Types.fingerprints); a field whose type changed without changing the block's code
+    (gen's `f_24` an `int` -> `char**`: the same code key, another heap the checker builds) makes it stale. RECS:
+    {addr: cached record}; returns the addresses whose types still agree. One libclang parse of the TU for all of
+    them; a record without fingerprints (no checker was built: compile error) depends on the code alone."""
+    keys = {}
+    for r in recs.values():
+        for k, v in (r.get("types") or {}).items():
+            keys[k] = v.get("k64", k)
+    if not keys:
+        return set(recs)
+    import equiv64
+    try:
+        now = equiv64.type_fingerprints(path, keys)
+    except Exception:   # noqa: BLE001 - can't parse: run them all
+        return set(a for a, r in recs.items() if not r.get("types"))
+    ok = set()
+    for a, r in recs.items():
+        if all(now.get(k, {}).get("fp") == v.get("fp") for k, v in (r.get("types") or {}).items()):
+            ok.add(a)
+    return ok
+
+
 def store_result(key, rec):
     if not key or rec.get("status") in (None, "error"):
         return
@@ -619,14 +645,26 @@ def gate(ref="HEAD", head=None, tus=None, mode="auto", jobs=2, name="x64gate", q
     base = load_baseline(baseline_path)
     ch = changed_blocks(ref, head, tus, jobs, workdir)
     try:
-        results, todo = {}, []
+        results, todo, hits = {}, [], {}
         for a, rel, h, why in ch["blocks"]:
             c = cached_result(h.get("key"))
             if c is not None:
-                c["_cached"] = True
-                results[a] = c
+                hits.setdefault(rel, {})[a] = c
             else:
                 todo.append((a, os.path.join(ch["head_root"], rel)))
+        stale = 0
+        for rel, recs in sorted(hits.items()):
+            p = os.path.join(ch["head_root"], rel)
+            good = types_current(p, recs)
+            for a, c in recs.items():
+                if a in good:
+                    c["_cached"] = True
+                    results[a] = c
+                else:
+                    stale += 1
+                    todo.append((a, p))
+        if stale and not quiet:
+            print("x64_gate: %d cached results re-run: a type they used changed" % stale, file=sys.stderr, flush=True)
         if todo and not quiet:
             print("x64_gate: %d changed blocks, %d cached, %d to run (%s)" % (len(ch["blocks"]), len(ch["blocks"]) - len(todo),
                                                                           len(todo), mode), file=sys.stderr, flush=True)

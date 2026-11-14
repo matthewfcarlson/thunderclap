@@ -5,7 +5,8 @@
     passes `improved` (one that fails in another class keeps its entry); a wild64 failure `triage` (listed, not failing); one that couldn't be checked keeps its entry; no result `unchecked`;
   * the ratchet: --update-baseline removes improved and vanished blocks and never adds one; `accept` adds one only
     with a reason, and only in a gating class; the file round-trips one entry per line;
-  * gate(): only changed blocks run, a result is cached by the code key, a cached key isn't run again;
+  * gate(): only changed blocks run, a result is cached by the code key, a cached key isn't run again unless a type
+    its run laid out changed (x64t12: equiv64 Types.fingerprints / type_fingerprints);
   * code keys (LLVM's clang): a rename keeps a block's key; a header edit that moves a field on x86-64 only changes the
     keys of the blocks that touch it, not the others'; an edit of a callee block keeps its caller's key.
 
@@ -174,6 +175,30 @@ class Flow(unittest.TestCase):
         self.assertEqual((ran3, ran4), (["0x00000030"], ["0x00000030"]))
         self.assertFalse(res4["failed"])
 
+    def test_stale_types_rerun(self):
+        """(x64t12) a cached result whose run built a type the source now lays out differently runs again; one whose
+        types agree (or that has none) stays cached."""
+        blocks = [("0x00000050", "src/game/T.cpp", {"key": "e1"}, "code changed"),
+                  ("0x00000060", "src/game/T.cpp", {"key": "f1"}, "code changed"),
+                  ("0x00000070", "src/game/T.cpp", {"key": "g1"}, "code changed")]
+        lay = dict(LAYOUT, types={"C": {"k64": "C", "fp": "old"}})
+        eq = dict(EQ, types={"D": {"k64": "D", "fp": "same"}})
+        res, ran = self.run_gate(blocks, {"0x00000050": lay, "0x00000060": eq, "0x00000070": INT})
+        self.assertEqual(sorted(ran), ["0x00000050", "0x00000060", "0x00000070"])
+        seen = []
+
+        def fps(path, keys):
+            seen.append(sorted(keys))
+            return {"C": {"k64": "C", "fp": "new"}, "D": {"k64": "D", "fp": "same"}}
+
+        import equiv64
+        with mock.patch.object(equiv64, "type_fingerprints", fps):
+            res2, ran2 = self.run_gate(blocks, {"0x00000050": EQ})
+        self.assertEqual(ran2, ["0x00000050"])
+        self.assertEqual(seen, [["C", "D"]])            # one parse for the TU's hits
+        v = {r["addr"]: (r["verdict"], r["cached"]) for r in res2["rows"]}
+        self.assertEqual(v, {"0x00000050": ("ok", False), "0x00000060": ("ok", True), "0x00000070": ("other", True)})
+
     def test_unchecked_fails(self):
         res, ran = self.run_gate([("0x00000040", "src/game/T.cpp", {"key": "c1"}, "new")], {})
         self.assertTrue(res["failed"])
@@ -244,6 +269,23 @@ class Keys(unittest.TestCase):
         self.assertNotEqual(k2["0x00011000"], k0["0x00011000"])
         self.assertEqual(k2["0x00011010"], k0["0x00011010"])
         self.assertTrue(os.listdir(os.path.join(self.root, "cache", "keys")))
+
+    def test_type_fingerprints(self):
+        """(x64t12) a field's type changes, the code reading the other field doesn't: the same code key, another
+        fingerprint for the record; the checker's own fingerprints round-trip through type_fingerprints."""
+        import equiv64
+        k0 = self.keys()
+        f0 = equiv64.type_fingerprints(self.tu, {"Rec": "Rec", "int": "int"})
+        self.assertNotIn("missing", [v["fp"] for v in f0.values()])
+        self.assertEqual(self.keys(pad64="unsigned pad;").get("0x00011000"), k0["0x00011000"])
+        f1 = equiv64.type_fingerprints(self.tu, {"Rec": "Rec", "int": "int"})
+        self.assertNotEqual(f1["Rec"]["fp"], f0["Rec"]["fp"])
+        self.assertEqual(f1["int"], f0["int"])
+        self.assertEqual(equiv64.type_fingerprints(self.tu, {"Gone": "Gone"})["Gone"]["fp"], "missing")
+        rep = equiv64.verify64(self.tu, 0x00011000, n_inputs=10, time_budget=30)
+        self.assertIn("Rec", rep.get("types", {}), rep)
+        now = equiv64.type_fingerprints(self.tu, {k: v["k64"] for k, v in rep["types"].items()})
+        self.assertEqual(now, rep["types"])
 
     def test_pairing(self):
         self.assertEqual(g.canon64("?f@C@@QEAAXH@Z"), g.canon64("?f@C@@QAEXH@Z"))

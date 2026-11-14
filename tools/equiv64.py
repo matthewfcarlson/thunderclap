@@ -25,6 +25,7 @@ transcendentals, float->int overflow), int (integer values), call (a different c
 """
 import argparse
 import bisect
+import contextlib
 import ctypes
 import hashlib
 import json
@@ -555,12 +556,96 @@ class Layout:
 RAW = Layout("<raw>", 1, 1, [], raw=True)
 
 
+def _spell(x):
+    """A leaf's extra (pointee types, vftable keys, a member pointer's types) as text."""
+    if isinstance(x, (tuple, list)):
+        return "(" + ",".join(_spell(y) for y in x) + ")"
+    sp = getattr(x, "spelling", None)
+    if sp is not None:
+        try:
+            return x.get_canonical().spelling.replace(" ", "")
+        except Exception:   # noqa: BLE001
+            return sp.replace(" ", "")
+    return repr(x)
+
+
+def layout_fp(lay):
+    """(x64t12) A digest of a Layout as the checker uses it: sizes and every leaf (path, offsets, kind, sizes,
+    signedness, pointee types)."""
+    if lay is RAW or lay.raw:
+        return "raw"
+    h = hashlib.sha1(("%d %d %d\n" % (lay.size32, lay.size64, lay.record)).encode())
+    for l in lay.by32:
+        h.update(("%r %d %d %s %d %d %d %s\n" % (l.path, l.o32, l.o64, l.kind, l.s32, l.s64, l.signed,
+                                                  _spell(l.extra) if l.extra is not None else "")).encode())
+    return h.hexdigest()[:16]
+
+
+def _types_by_spelling(tu):
+    """{canonical spelling without spaces: type} of every type a cursor of TU has, its pointees, array elements and
+    the records TU defines (the types a checker's layout keys can name)."""
+    K = ci().TypeKind
+    out = {}
+
+    def add(t, depth=0):
+        while t is not None and depth < 6:
+            try:
+                tc = t.get_canonical()
+            except Exception:   # noqa: BLE001
+                return
+            if tc.kind == K.INVALID:
+                return
+            out.setdefault(tc.spelling.replace(" ", ""), tc)
+            if tc.kind in (K.POINTER, K.LVALUEREFERENCE, K.RVALUEREFERENCE):
+                t = tc.get_pointee()
+            elif tc.kind == K.CONSTANTARRAY:
+                t = tc.element_type
+            else:
+                return
+            depth += 1
+
+    for c in tu.tu.cursor.walk_preorder():
+        try:
+            add(c.type)
+        except Exception:   # noqa: BLE001
+            continue
+    return out
+
+
+def type_fingerprints(src, keys):
+    """(x64t12) {key: {"k64", "fp"}} of the layouts KEYS ({key: the 64-bit spelling}, as Types.fingerprints() gave
+    them) in SRC's current text: the parse a Checker makes, without the objects. A key the source no longer has
+    gets fp "missing"."""
+    import tree_tu
+    with tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build") if os.path.isdir(os.path.join(ROOT, "build")) else None) as d:
+        ctx = tree_tu.active(src) if src and tree_tu.is_tree_tu(src) else contextlib.nullcontext()
+        with ctx:
+            w = write_wrapper(src, d)
+            t32 = TU(w, d, "i686-pc-windows-msvc", 32)
+            t64 = TU(w, d, "x86_64-pc-windows-msvc", 64)
+        by32, by64 = _types_by_spelling(t32), _types_by_spelling(t64)
+        types = Types(t32, t64, {})
+        out = {}
+        for k, k64 in keys.items():
+            a, b = by32.get(k), by64.get(k64)
+            if a is None or b is None:
+                out[k] = {"k64": k64, "fp": "missing"}
+                continue
+            try:
+                lay = types.layout(a, b)
+            except Unsupported:
+                lay = RAW
+            out[k] = {"k64": k64, "fp": layout_fp(lay)}
+        return out
+
+
 class Types:
     """Paired layouts from the two parses (lockstep walk of the same declarations)."""
 
     def __init__(self, tu32, tu64, vtables):
         self.t = {32: tu32, 64: tu64}
         self.cache = {}
+        self.pairs = {}             # (x64t12) key -> (RAW, the 64-bit type's spelling): what fingerprints() reports
         self.vtables = vtables      # parsed -fdump-vtable-layouts
 
     @staticmethod
@@ -575,6 +660,8 @@ class Types:
         K = ci().TypeKind
         a, b = self.canon(t32), self.canon(t64)
         k = self.key(a)
+        if k not in self.pairs:
+            self.pairs[k] = (RAW, self.key(b))
         if k in self.cache:
             return self.cache[k]
         if a.kind in (K.VOID, K.CHAR_S, K.CHAR_U, K.SCHAR, K.UCHAR) or a.get_size() <= 0 or b.get_size() <= 0:
@@ -682,6 +769,15 @@ class Types:
             self._flatten(x.type, y.type, o32 + pa // 8, o64 + pb // 8, path + (x.spelling or "anon%d" % pa,), out, None)
             if union:
                 break
+
+    def fingerprints(self):
+        """(x64t12) {layout key: {"k64": the 64-bit spelling, "fp": layout_fp}} of every layout this checker built: the
+        types a run's verdict rests on. tools/x64_gate.py keeps it with a cached result and re-runs the block when
+        type_fingerprints() of the current source disagrees (a field's type changed, the code didn't)."""
+        out = {}
+        for k, (lay, k64) in self.pairs.items():
+            out[k] = {"k64": k64, "fp": layout_fp(self.cache.get(k, lay))}
+        return out
 
     def dynamic(self, decl, _memo={}):
         K = ci().CursorKind
@@ -3251,7 +3347,9 @@ def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120,
         res = chk.run(n_inputs, seeds, time_budget)
     except Unsupported as e:
         rep.update(status="unsupported", error="[tool] " + str(e), **{"class": "tool"}, time=round(time.time() - t0, 2))
+        rep["types"] = chk.types.fingerprints()
         return rep
+    rep["types"] = chk.types.fingerprints()     # (x64t12) the layouts the verdict rests on (tools/x64_gate.py's cache)
     rep["inputs"], rep["completed"], rep["skipped"] = res["inputs"], res["completed"], res["skipped"]
     if res.get("skip_first"):
         rep["skip_first"] = res["skip_first"]
