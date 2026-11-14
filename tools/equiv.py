@@ -2774,6 +2774,12 @@ class CodeView:
                 return True
             if j.kind != "other" or (j.mnemonic not in ("mov", "movzx", "movsx") and not j.op_str.startswith("al")):
                 return False
+            if "boolafter" not in EQUIV_OFF and j.mnemonic in ("mov", "movzx", "movsx") and j.ops and \
+                    j.ops[0][0] == "reg" and j.ops[0][1] in ("al", "ax", "eax"):
+                # (tri1, boolafter) a load into al/eax in between replaces the result: the `and al, 1` after it is a
+                # bool argument of the next call (`f()->g(special)`: `call f; mov ecx, eax; mov al, [special]; and al,
+                # 1`, 0x000a97e0), not this call's result, which stays a pointer
+                return False
             a += j.size
         return False
 
@@ -3066,12 +3072,13 @@ _DECL_KINDS = {"void": "void", "bool": "b8", "char": "i8", "unsigned char": "i8"
                "unsigned long": "i32", "long int": "i32", "unsigned long int": "i32"}
 
 
+OURS_CODE = {}      # (tri1, codewdata) id(Ours.image) -> ([(lo, hi)] of its code sections at OURS, the image's end)
 TREE_EXTERNAL = set()   # (merge-once) the other functions of a tree TU: separate functions, never run as part of ours
 TREE_ADDR = []      # (merge-once) the address of the function under test while a tree TU is checked
 TREE_TEXT = {}      # (merge-once) tree TU -> the text a function's own declarations are read from (tools/tree_tu.py)
 
 
-def decl_c_signature(src, symbol, types=False):
+def decl_c_signature(src, symbol, types=False, varargs=None):
     """(round 27, cdeclret) (return kind, [parameter kinds] or None) of a C-linkage function (`_name`, `_name@N`,
     `@name@N`: the symbol carries no types) from our own source's top-level declarations or definition of it, as a
     C++ name's come from its mangling. Kinds as parse_signature's ('void', 'b8', 'i8', 'i16', 'i32', 'i64', 'f32',
@@ -3165,6 +3172,10 @@ def decl_c_signature(src, symbol, types=False):
         if params == [["void"]]:
             params = []
         pk, pt = [], []
+        va_ = False
+        if varargs is not None and params and params[-1] == ["..."] and "cvarargs" not in EQUIV_OFF:
+            # (tri1, cvarargs) `f(S *s, const char *fmt, ...)`: the fixed parameters, and the caller learns it is varargs
+            params, va_ = params[:-1], True
         for p_ in params:
             if "..." in p_ or "=" in p_:
                 pk = None
@@ -3176,10 +3187,12 @@ def decl_c_signature(src, symbol, types=False):
             pt.append(tname(p_))
         if pk is not None and None in pk:
             pk = None
-        sigs.add((kind(ret), tuple(pk) if pk is not None else None, tuple(pt) if pk is not None else None))
+        sigs.add((kind(ret), tuple(pk) if pk is not None else None, tuple(pt) if pk is not None else None, va_))
     if len(sigs) != 1:
         return (None, None, None) if types else (None, None)
-    r, ps, ts_ = sigs.pop()
+    r, ps, ts_, va_ = sigs.pop()
+    if varargs is not None:
+        varargs.append(va_)
     if types:
         return r, (list(ps) if ps is not None else None), (list(ts_) if ts_ is not None else None)
     return r, (list(ps) if ps is not None else None)
@@ -3788,6 +3801,7 @@ class Run:
                  own_float_ret=False, coverage=None, helpers=None):
         self.prog, self.view, self.m, self.inp = prog, view, machine, inp
         self.ours_image = ours_image
+        self.ours_code = OURS_CODE.get(id(ours_image[1])) if ours_image is not None and "codewdata" not in EQUIV_OFF else None
         self.sig = sig
         self.max_steps = max_steps
         self.own_float_ret = own_float_ret
@@ -3907,8 +3921,9 @@ class Run:
         self.smash_words = set()    # (chk1, smashexpl) stack words an overrun store wrote (not written since)
         self.smash_kind = None      # (chk1, smashexpl) what it hit: "ret" (the return address), "save" (a live saved slot),
                                     # "arg" (an incoming argument word, smasharg)
-        self.xl_last = {}           # (round 20, xlocal) stack word -> (kind of the last store, 'idx' or 'plain', insn)
+        self.xl_last = {}           # (round 20, xlocal) stack byte (tri1; word with EQUIV_OFF=xlbyte) -> (kind of the last store, 'idx' or 'plain', insn)
         self.xl_pending = {}        # ... words both kinds of store wrote: word -> kind of the latest store
+        self.xl_fill = set()        # (tri1, xlfill) frame bytes a string instruction (`rep stos`/`movs`) wrote: an array's
         self.xlocal = None          # ... the instruction that read such a word back with the other kind of access
         self.uninit_read = None     # (round 20, uninitmask) the instruction that read a frame word nothing wrote
         self.uninit_vals = set()    # ... the values it read (the caller's ecx in a reserved slot, stale stack)
@@ -4087,11 +4102,21 @@ class Run:
                     elif kind_ == "idx" and ci.mem is not None and not ci.mem[2] and ci.mem[1] not in ("esp", "ebp") and \
                             not ci.mnemonic.startswith(("rep", "stos", "movs")) and (addr & ~3) in self.addr_taken:
                         kind_ = "plain"     # `lea ebx, [esp+0x10]; mov [ebx], esi`: the local itself, through its address
-                    for w_ in range(addr & ~3, addr + size, 4):
+                    # (tri1, xlbyte) per byte, not per word: `char buf[N] = {0}` is `mov byte [esp+k], 0` (plain) then
+                    # `rep stosd` from esp+k+1 (idx), and `mov cl, [esp+k]` (plain) reads back the byte the plain store
+                    # wrote, not the idx bytes beside it (0x00233c50, 0x000ba040, 0x00320540: every input was marked)
+                    # (tri1, xlfill) a byte a string instruction of the function filled (`char *argv[64] = {0}`: `rep
+                    # stosd`) is an array's own: a store by name into it (`argv[1] = p`, `mov [esp+0x1c], edx`) is an
+                    # element store, as element 0's is (0x0008fca0: argv[1] set by name and read as argv[edi-1])
+                    strfill_ = ci.mnemonic.startswith(("rep", "stos", "movs"))
+                    for w_ in (range(addr & ~3, addr + size, 4) if "xlbyte" in EQUIV_OFF else range(addr, addr + size)):
+                        if strfill_ and "xlfill" not in EQUIV_OFF:
+                            self.xl_fill.add(w_)
+                        k_ = "idx" if kind_ == "plain" and w_ in self.xl_fill else kind_
                         prev_ = self.xl_last.get(w_)
-                        if w_ in self.xl_pending or (prev_ is not None and prev_[0] != kind_ and prev_[1] != ci.addr):
-                            self.xl_pending[w_] = kind_
-                        self.xl_last[w_] = (kind_, ci.addr)
+                        if w_ in self.xl_pending or (prev_ is not None and prev_[0] != k_ and prev_[1] != ci.addr):
+                            self.xl_pending[w_] = k_
+                        self.xl_last[w_] = (k_, ci.addr)
                 self.stack_written.update(range(addr, addr + size))    # (prologue pushes allocate/save)
                 self.func_stack_written.update(range(addr, addr + size))
                 if ci is not None and ci.mnemonic not in ("push", "call") and (
@@ -4117,7 +4142,9 @@ class Run:
             return
         if TIB <= addr < TIB + PAGE:
             return
-        if self.code_write is None and (OURS <= addr < OURS + OURS_SIZE or self.prog.text[0] <= addr < self.prog.text[1]):
+        if self.code_write is None and ((OURS <= addr < OURS + OURS_SIZE and (self.ours_code is None or any(
+                lo_ <= addr < hi_ for lo_, hi_ in self.ours_code[0]) or addr >= self.ours_code[1]))
+                or self.prog.text[0] <= addr < self.prog.text[1]):
             self.code_write = addr      # a fuzzed pointer into code: the store changes one side's instructions
         if self.ro_write is None and NATIVE_MODE and IMAGE_LO <= addr < IMAGE_HI and "rowrite" not in EQUIV_OFF and \
                 any(lo_ <= addr < hi_ for lo_, hi_ in self.prog.rdata_ranges()):
@@ -6596,9 +6623,10 @@ class Run:
                         rk_ = "plain"       # (element 0, as for the stores)
                     elif rk_ == "idx" and not insn.mem[2] and insn.mem[1] not in ("esp", "ebp") and (ea_ & ~3) in self.addr_taken:
                         rk_ = "plain"       # (a local through its address, as for the stores)
-                    for w_ in range(ea_ & ~3, ea_ + (insn.mem[5] or 4), 4):
+                    for w_ in (range(ea_ & ~3, ea_ + (insn.mem[5] or 4), 4) if "xlbyte" in EQUIV_OFF else
+                               range(ea_, ea_ + (insn.mem[5] or 4))):
                         pk_ = self.xl_pending.get(w_)
-                        if pk_ is not None and pk_ != rk_:
+                        if pk_ is not None and pk_ != ("idx" if rk_ == "plain" and w_ in self.xl_fill else rk_):
                             self.xlocal = addr
                             self.ub_at.setdefault("xlocal", len(self.calls))
                             break
@@ -7096,6 +7124,10 @@ class Ours:
                     continue
                 struct.pack_into("<I", img, o, v & M32)
         self.image = bytes(img)
+        # (tri1, codewdata) our object's code sections: a store into its data (a function-local static's guard and value,
+        # `static Key k = f(...)`) is no store into code
+        OURS_CODE[id(self.image)] = ([(self.sec_addr[i], self.sec_addr[i] + s["size"]) for i, s in enumerate(self.obj.sections, 1)
+                                      if i in self.sec_addr and s["flags"] & 0x20000020], self.end)
         self.poison = {v: k for k, v in poison.items()}
         return self
 
@@ -9865,11 +9897,17 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         # (round 27, cdeclret) a C name carries no return type: our declaration says it, as a C++ name's mangling
         # does (before: Ghidra's guess, which only hosts with build/farm/ghidra_c have, so a C-linkage void function
         # had eax compared as "return type unknown" on the others). The callers' use of eax still overrides it below.
-        ret_kind, dparams = decl_c_signature(src, fsym[0])
+        va_ = []
+        ret_kind, dparams = decl_c_signature(src, fsym[0], varargs=va_)
         if ret_kind is not None:
             rep["return_note"] = "return type %s from our declaration (C name)" % ret_kind
         if dparams is not None and sig.get("params") is None:
             sig = dict(sig, ret=ret_kind, params=dparams)     # (our own argument layout: decl_layout)
+            if va_ and va_[0]:
+                # (tri1, cvarargs) a C-linkage varargs definition (`_FUN_0021f800`: `(S, fmt, ...)`, `// equiv-conv: esi
+                # stack`): its fixed parameters and `varargs`, as a C++ name's mangling gives them. Before, `...` gave no
+                # parameters at all and the convention's register argument was not set up (argument 1 of its first call wrong)
+                sig["varargs"] = True
     if ret_kind is None:
         ret_kind = ghidra_ret_kind(addr)
     used, nsites = prog.callers_use_return(addr)

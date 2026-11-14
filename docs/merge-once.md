@@ -192,6 +192,34 @@ move, so `@w` stands). Six blocks do this (a sweep inserting N dummy declaration
 reach); `tree_tu.py inputs ROOT [--tus FILE]` gives the same locally, so a queue job's pass can be tied to the files
 it checked: a job is `git archive HEAD` plus its overlay, and a verify job without `--files`/`--dirty` checks HEAD.
 
+**What the hash does not cover (tri1, 2026-11-14).** The hash is the code; a verdict also depends on what equiv.py reads
+beside it, and two such reads broke proofs whose hashes still said `ok` (chk1's audit: 51 MSVC-mode failures with the
+pre-chk1 checker too, build/chk1/preexisting.txt):
+- *The block's text.* For a C-linkage symbol (`_FUN_x`) the return and parameter kinds come from parsing our own
+  declarations (`decl_c_signature` over `tree_tu.unit_text`: the shared part plus the block), as do the pointee types of
+  C-linkage callees. unb4 (d9cbcb9af, bb2707bfa, e40efb2ef) put `namespace fn_X {` / declaration / `}` groups in 95 TUs'
+  shared parts; unit_text blanked the `namespace` line but not the bare `}`, the text no longer parsed, and every C
+  signature of those TUs came out empty (510 blocks' text unparseable, 43 C-linkage blocks without a return type:
+  0x0031bc30 `returned 0x16acbb1d, expected 0`, 0x001a5110, 0x001947a0, 0x00142940, 0x001b0470, 0x0021f800...).
+  Fixed: `tree_tu.strip_tu_ns` blanks the `}` that closes such a namespace too (after it every block's text parses but
+  0x002bc3d0's, a C++ symbol, and the C signatures are 6a71f9a03's but 0x00271560's, a real header edit).
+- *The environment.* The pointee sizes (`_probe_sizes`) compile the TU plus a sizeof probe in a temporary directory under
+  build/; `msvc_include_flags` gave `/I ../../include` relative to that directory's logical path, but cl runs there and
+  `..` resolves physically, and a queue job's build/ is a symlink to the host's checkout: on mac1, mac2 and studio the
+  probe of every tree TU read the host checkout's stale include/ and failed (C2371/C2369 redefinitions), so every
+  pointer argument was compared to the next local (0x0003d350: `the local passed as argument 2 differs at +0xc` of a
+  12-byte vector) while the laptop passed. Fixed: the `/I` paths are relative to both real paths. Every tree-TU run on
+  a queue host since the merged tree (stage 1) had this.
+
+Proposal (not implemented): a third hash, `@v`, of the checker's view of the block, the inputs of its verdict that are
+not code: the signature (cc, ret, params, param_types, varargs), the conventions, the level-2 mapping (callee symbol ->
+address, how bound), the pointee sizes of every callee and the return-type note. equiv.py has them after level 2 (a
+compile, a parse and the probe: about a second per TU, cached by the TU and the headers it reaches), `check`/`verify`
+recompute it like `@w` and report `view_changed`, and `hash --proven` records it from the run's report. Either break
+above would have been a `view_changed` at the commit that made it (unb4's) or on the first host run (the probe), not a
+silent pass of a stale proof. It is keyed by the view, not by equiv.py's code, so a checker edit that changes no view
+re-proves nothing.
+
 ### Checks beyond the blocks (tool2, 2026-11-13)
 
 `check` and `verify` run three more checks (user decisions D9, D10, D12 of 2026-11-13); each fails the run like a

@@ -1257,6 +1257,40 @@ The other masks follow the same rule (chk1):
 
 `EQUIV_OFF=smashexpl`, `overlapexpl`, `boolexpl`, `ubafter` and `maskedges` each restore the pre-chk1 rule.
 
+(tri1) `xlocal` marks fewer inputs, so more are compared (never fewer); `EQUIV_OFF=xlbyte` / `xlfill` restore the old rule:
+- `xlbyte`: the store kinds are tracked per byte, not per word. `char buf[0x400] = {0}` is `mov byte [esp+0x18], 0`
+  (plain) then `rep stosd` from esp+0x19 (idx), and `mov cl, [esp+0x18]` reads the byte the plain store wrote; per word
+  every input of 0x00233c50, 0x000ba040 and 0x00320540 was `frame_overrun` (`unsupported`), and a mutant reading
+  `buf[1]` "passed" (`0x00233c50_xlocal_byte_wrong`). (`xlfill` below also covers this one at word granularity: its `_off` case turns both off.)
+- `xlfill`: a frame byte a string instruction of the function filled (`rep stos`/`movs`) belongs to an array, so a
+  store or read of it by name is an element access, as element 0's already was (`char *args[64] = {0}; args[1] = p`,
+  read back as `args[count-1]`: 0x0008fca0 had 1,941 of 3,073 inputs set aside, and a mutant that skips `--count`
+  exactly on those inputs was equivalent, `0x0008fca0_xlocal_fill_wrong`).
+- Not done: counting an `xlocal` input whose two runs agree (as the other masks do, chk1) while setting aside the ones
+  that differ. Tried on 0x0022b370 (MSVC packs `q[4]` over `next[3]`: `q[k]` stored by index, `q[2]` read by name,
+  every input of the `else` path marked): a mutant with a wrong `q[k]` then passed at 300 inputs (the inputs where it
+  differs are set aside, the rest give the coverage). A mask needs the difference tied to the word read back (data flow),
+  as `smashexpl` does; the per-input rule stays.
+
+(tri1, `cvarargs`) A C-linkage varargs definition (`extern "C" void f(S *s, const char *fmt, ...)`) takes its fixed
+parameters and `varargs` from our declaration, as a C++ name's mangling gives them; before, `...` gave it no parameters
+at all, so an `// equiv-conv: f esi stack` convention could not place its register argument (the merged tree's shared
+`extern "C"` declaration made 0x0021f800 a C name: `call #1 to 0x002160c0: argument 1 is 0x00000010`).
+`EQUIV_OFF=cvarargs` restores it; regress cases `0x0021f800_cvarargs{,_off,_wrong}`.
+
+(tri1, `codewdata`) `code_write` (a store into code: the input is set aside) counts only our object's code sections and
+what lies past its image, not its data: a function-local static that did not bind to the original's (`static Key k =
+f(...)`, its guard `?$S1@...`) is written in our object's .bss, and every input that initialised it was set aside
+(0x001e5f10 `--wine`: 1,843 of 3,106 inputs, `inconclusive`) instead of failing on the unbound guard. tri2's
+`lstaticbr` binds that guard; `EQUIV_OFF=codewdata` restores the old range. Regress cases
+`0x001e5f10_native_codewdata{,_off}` (run with lstatic off, so the guard stays unbound).
+
+(tri1, `boolafter`) `bool_after` (round 18: clang's `test/and al, 1` within three instructions after a call makes the
+call's result a bool, normalised to 0/1) stops at a load into al/ax/eax in between: in `f()->g(special)` clang emits
+`call f; mov ecx, eax; mov al, [special]; and al, 1`, and the returned pointer, the `this` of g, was normalised to 1
+(0x000a97e0 `--wine`: `call #12 to 0x001c3c20: this (ecx) is 0x00000001`). Regress cases
+`0x000a97e0_native_boolafter{,_off,_wrong}`.
+
 **Wild control flow** (`statuses`: `wild`). A run stops (`fault:wild_jump`) where control leaves the
 function's own code: a return through a return address that a fuzzed pointer or an overflowed stack buffer
 overwrote, or a call through a fuzzed function pointer into junk. Before, the junk ran on, with effects that

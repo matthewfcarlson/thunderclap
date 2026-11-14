@@ -653,6 +653,34 @@ CASES = {
     # xlocal must not fire on a local reached through its own address (`lea ebx, [esp+0x10]; mov [ebx], esi`, 0x002165c0: all 98 inputs were
     # marked) or on element 0 of a frame array set by name (0x0008e880: 21 of 72 marked, hiding a real difference at seed 11)
     "0x002165c0_xlocal_ptr": ("equivalent", None, 0, {"n_inputs": 100}),
+    # (tri1, xlbyte) per byte: `char buf[0x400] = {0}` is `mov byte [esp+0x18], 0; rep stosd` from esp+0x19, and `mov cl, [esp+0x18]`
+    # reads the byte the plain store wrote. Per word every input was frame_overrun (unsupported), so a mutant reading buf[1] "passed"
+    "0x00233c50_xlocal_byte": ("equivalent", None, 0.75, {"n_inputs": 200}),
+    "0x00233c50_xlocal_byte_off": ("unsupported", None, 0, {"src": "0x00233c50_xlocal_byte", "n_inputs": 200, "equiv_off": "xlbyte,xlfill"}),
+    "0x00233c50_xlocal_byte_wrong": ("fail", "call #8 went to 0x00233580", 0, {"n_inputs": 200}),
+    # (tri1, xlfill) a byte a `rep stos` of the function filled is an array's own: `args[1] = p` by name into `args[64] = {0}`, read
+    # back as args[count-1]. Before, 249 of 373 inputs were frame_overrun and the mutant (no --count when count == 2) was equivalent
+    # (tri1, cvarargs) a C-linkage varargs definition with a register convention (`extern "C" f(S*, const char*, ...)`, equiv-conv
+    # `esi stack`; the merged tree's shared extern "C" declaration made 0x0021f800 a C name): its fixed parameters from our declaration
+    "0x0021f800_cvarargs": ("equivalent", None, 0, {"n_inputs": 100}),
+    "0x0021f800_cvarargs_off": ("fail", "argument 1 is 0x00000010", 0, {"src": "0x0021f800_cvarargs", "n_inputs": 100, "equiv_off": "cvarargs"}),
+    "0x0021f800_cvarargs_wrong": ("fail", "call #3 to 0x002152b0: argument 2 is 0x00000004", 0, {"n_inputs": 100}),
+    # (tri1, codewdata) a store into our object's data (an unbound local static's guard, here with lstatic off) is no store into
+    # code: the input is compared (the unbound guard fails it) instead of set aside as code_write (222 of 306 inputs were)
+    "0x001e5f10_native_codewdata": ("fail", "missing write to global 0x004e2758", 0, {"native": True, "n_inputs": 200,
+                                                                                    "equiv_off": "lstatic"}),
+    "0x001e5f10_native_codewdata_off": ("inconclusive", None, 0, {"src": "0x001e5f10_native_codewdata", "native": True,
+                                                                  "n_inputs": 200, "equiv_off": "lstatic,codewdata"}),
+    # (tri1, boolafter) `f()->g(special)`: clang's `call f; mov ecx, eax; mov al, [special]; and al, 1` is no bool use of f's
+    # result: the load into al replaces it (bool_after normalised the returned pointer to 1, the `this` of g)
+    "0x000a97e0_native_boolafter": ("equivalent", None, 0, {"native": True, "n_inputs": 300}),
+    "0x000a97e0_native_boolafter_off": ("fail", "this (ecx) is 0x00000001", 0, {"src": "0x000a97e0_native_boolafter", "native": True,
+                                                                               "n_inputs": 300, "equiv_off": "boolafter"}),
+    "0x000a97e0_native_boolafter_wrong": ("fail", "call #12 to 0x001c3c20: argument 1", 0, {"native": True, "n_inputs": 300}),
+    "0x0008fca0_xlocal_fill": ("equivalent", None, 0.75, {"n_inputs": 300}),
+    "0x0008fca0_xlocal_fill_off": ("equivalent", None, 0, {"src": "0x0008fca0_xlocal_fill", "n_inputs": 300, "equiv_off": "xlfill"}),
+    "0x0008fca0_xlocal_fill_wrong": ("fail", "argument 1 is 0x00000002, expected 0x00000001", 0, {"n_inputs": 300}),
+    "0x0008fca0_xlocal_fill_wrong_off": ("equivalent", None, 0, {"src": "0x0008fca0_xlocal_fill_wrong", "n_inputs": 300, "equiv_off": "xlfill"}),
     # (wine1) the difference at seed 11 is `f_text[f_n] = 0` with a fuzzed f_n beyond the whole stack, where each frame layout puts
     # the byte elsewhere: since fescape that input is inconclusive in Wine mode, so the case keeps testing xlocal with fescape off
     "0x0008e880_native_xlocal_elem0": ("fail", "unexpected write to 0xbe7ef6d4", 0, {"native": True, "n_inputs": 60,
