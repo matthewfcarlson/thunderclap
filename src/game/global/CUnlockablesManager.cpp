@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00093600..0x000964d0 (kind game, layer game, confidence high), dominant class CUnlockablesManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"

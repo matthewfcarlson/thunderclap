@@ -28,7 +28,9 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 MSVC = os.path.join(ROOT, "build/compilers/msvc7.1/compilers/win32/msvc7.1")
 WIBO = os.path.join(ROOT, "build/tools/wibo")
 XBE_PATH = os.path.join(ROOT, "isos/extracted/default.xbe")
-DEFAULT_FLAGS = ["/nologo", "/c", "/O2", "/GR", "/GX", "/Gy"]
+# /GX- (gx1, D17, 2026-11-13): the game was built without C++ exceptions (none of its 18,768 functions has an EH frame;
+# docs/native-build.md "dtor1"); a TU whose source is still written for /GX says `// cl-flags: /GX` (docs/merge-once.md)
+DEFAULT_FLAGS = ["/nologo", "/c", "/O2", "/GR", "/GX-", "/Gy"]
 
 
 def file_flags(src):

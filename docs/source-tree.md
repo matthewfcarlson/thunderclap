@@ -50,7 +50,7 @@ into top-level items (`tools/cxx_items.py`: classes, forward declarations, typed
 - **wrapped**: the original source verbatim inside `namespace fn_<addr> { ... }`. MSVC 7.1 accepts
   differing declarations, even of `extern "C"` names, in different namespaces; clang doesn't, so an
   `extern "C"` declaration that would clash (another type of a name the TU already declares, or an invented
-  name such as `Lookup`) is given C++ linkage (`extern "C++"`, plus `__declspec(nothrow)` so /GX still treats
+  name such as `Lookup`) is given C++ linkage (`extern "C++"`; until the tree went /GX- (gx1, 2026-11-13) also `__declspec(nothrow)`, so /GX treated
   the callee as not throwing) and becomes `fn_<addr>::name`: same code, another relocation symbol, which
   `tools/wine_link.py` binds by address for the Wine link ([wine-build.md](wine-build.md) fix 2).
   Global `operator new` / `delete` are pulled out in front of the namespace, because `new (p) T` never looks

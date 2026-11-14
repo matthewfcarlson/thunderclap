@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x002b78a0..0x002b8040 (kind game, layer engine, confidence high), dominant class pure3d::PolySkin
 #include "tree_prelude.h"
 #include "compat/ptr.h"

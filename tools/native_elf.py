@@ -235,7 +235,7 @@ def compile_one(rel, digest, tc, cache, is_host):
     src = os.path.join(base, rel)
     text = open(src, "rb").read()
     front, back = flags(tc.target)
-    key = hashlib.sha1(text + digest.encode() + repr((front, back, cp.COMMON, VERSION, nmac.VERSION)).encode()
+    key = hashlib.sha1(text + digest.encode() + repr((front, back, cp.common_native(), VERSION, nmac.VERSION)).encode()
                        + tc.version().encode()).hexdigest()[:20]
     res_p = os.path.join(cache, key + ".json")
     if os.path.exists(res_p):
@@ -245,7 +245,7 @@ def compile_one(rel, digest, tc, cache, is_host):
             return r
     obj = os.path.join(cache, key + ".o")
     ll = os.path.join(cache, key + ".ll")
-    cmd = tc.cxx + front + cp.COMMON + ["-I" + os.path.join(base, "include"), "-I" + os.path.join(base, "repo-include"),
+    cmd = tc.cxx + front + cp.common_native() + ["-I" + os.path.join(base, "include"), "-I" + os.path.join(base, "repo-include"),
                                         src, "-o", ll]
     stage, out, back_err, inits = "front", "", "", []
     try:

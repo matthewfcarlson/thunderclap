@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x0023d810..0x0023df40 (kind game, layer engine, confidence high), dominant class fight::CommentTrack
 #include "tree_prelude.h"
 #include "compat/ptr.h"

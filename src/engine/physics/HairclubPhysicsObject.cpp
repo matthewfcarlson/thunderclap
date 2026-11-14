@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00308dd0..0x003097b0 (kind game, layer engine, confidence high), dominant class physics::HairclubPhysicsObject
 #include "tree_prelude.h"
 #include "compat/ptr.h"

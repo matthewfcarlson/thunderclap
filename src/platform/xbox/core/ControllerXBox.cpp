@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00268300..0x00269680 (kind game, layer platform/xbox, confidence high), dominant class core::ControllerXBox
 #include "tree_prelude.h"
 #include "compat/ptr.h"

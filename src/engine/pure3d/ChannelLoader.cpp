@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x0028d100..0x0028d130 (kind game, layer engine, confidence medium), dominant class pure3d::ChannelLoader
 #include "tree_prelude.h"
 #include "gen/pure3d.h"

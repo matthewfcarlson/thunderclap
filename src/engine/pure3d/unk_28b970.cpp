@@ -689,7 +689,7 @@ void Float2Channel_28bc20::F() {
 
 
 // 0x0028bcd0 FUN_0028bcd0 (110 B): equivalent/0x0028bcd0.cpp
-// sym: ??1VectorChannel@pure3d@fn_f8c9e634@@UAE@XZ @3c48c2023e55 @w7f462c1e9446
+// sym: ??1VectorChannel@pure3d@fn_f8c9e634@@UAE@XZ @7cd129283b1a @w7f462c1e9446
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 6/8, incomplete)
 // FUN_0028bcd0 @ 0x0028bcd0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
@@ -884,7 +884,7 @@ pure3d::Vector3DOFChannel::~Vector3DOFChannel() throw() {
 
 
 // 0x0028c040 FUN_0028c040 (110 B): equivalent/0x0028c040.cpp [wrapped: conflict: pure3d::Channel; pure3d::SimpleChannel]
-// sym: ??1RotationChannel@pure3d@fn_0028c040@@UAE@XZ @52167682ec1c @w57f312baaa6f
+// sym: ??1RotationChannel@pure3d@fn_0028c040@@UAE@XZ @69dc5d1951a0 @w57f312baaa6f
 namespace fn_0028c040 {
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 6/8, incomplete)
 // FUN_0028c040 @ 0x0028c040

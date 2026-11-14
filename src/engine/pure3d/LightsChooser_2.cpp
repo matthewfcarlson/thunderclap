@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x0029f600..0x002a0720 (kind game, layer engine, confidence medium), dominant class pure3d::LightsChooser
 #include "tree_prelude.h"
 #include "compat/ptr.h"

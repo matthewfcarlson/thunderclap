@@ -347,7 +347,7 @@ int Table_1f85f0::FUN_001f85f0(Name name)
 } // namespace fn_f6c21956
 
 // 0x001f8670 FUN_001f8670 (146 B): equivalent/0x001f8670.cpp [wrapped: merged class would differ: Key: size 1 vs 8]
-// sym: ?FUN_001f8670@Registry_1f8670@fn_001f8670@@QAEHUKey@2@@Z @4f9d5f2db4bb @w7e692cf26631
+// sym: ?FUN_001f8670@Registry_1f8670@fn_001f8670@@QAEHUKey@2@@Z @7bbe5912df00 @w7e692cf26631
 namespace fn_001f8670 {
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 10/10)
 // FUN_001f8670 @ 0x001f8670

@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x000fc460..0x000fc720 (kind game, layer game, confidence high), dominant class CAgent
 #include "tree_prelude.h"
 #include "compat/ptr.h"

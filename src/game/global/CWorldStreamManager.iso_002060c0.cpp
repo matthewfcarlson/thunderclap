@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00203870..0x00208b9c (kind game, layer game, confidence high), dominant class CWorldStreamManager
 // (tree_prelude.h: not needed)
 

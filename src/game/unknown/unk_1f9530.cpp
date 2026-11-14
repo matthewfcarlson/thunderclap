@@ -854,7 +854,7 @@ bool Object::FUN_001fa7d0(hulk_intptr input, int value) {
 namespace fn_f80593ac {
 
 // 0x001fa8b0 FUN_001fa8b0 (110 B): equivalent/0x001fa8b0.cpp
-// sym: ??1CEncounterGenerator@fn_f80593ac@@UAE@XZ @de66f7aa9549 @w4a436067630f
+// sym: ??1CEncounterGenerator@fn_f80593ac@@UAE@XZ @15f1092eeab1 @w4a436067630f
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
 // FUN_001fa8b0 @ 0x001fa8b0
 // equiv-map: ??1IRefCount@core@@UAE@XZ = 0x0027afd0

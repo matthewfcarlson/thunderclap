@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x0027ca80..0x0027f2a0 (kind game, layer engine, confidence high), dominant class pure3d::prop::StateProp
 // (tree_prelude.h: not needed)
 

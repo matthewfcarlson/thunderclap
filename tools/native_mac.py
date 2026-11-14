@@ -153,7 +153,7 @@ def compile_one(rel, digest, clang, cver=None):
     base = cp.SNAP
     src = os.path.join(base, rel)
     text = open(src, "rb").read()
-    key = hashlib.sha1(text + digest.encode() + repr((FRONT, BACK, cp.COMMON, VERSION)).encode()
+    key = hashlib.sha1(text + digest.encode() + repr((FRONT, BACK, cp.common_native(), VERSION)).encode()
                        + (cver or clang).encode()).hexdigest()[:20]
     os.makedirs(CACHE, exist_ok=True)
     res_p = os.path.join(CACHE, key + ".json")
@@ -164,7 +164,7 @@ def compile_one(rel, digest, clang, cver=None):
             return r
     obj = os.path.join(CACHE, key + ".o")
     ll = os.path.join(CACHE, key + ".ll")
-    cmd = [clang] + FRONT + cp.COMMON + ["-I" + os.path.join(base, "include"), "-I" + os.path.join(base, "repo-include"),
+    cmd = [clang] + FRONT + cp.common_native() + ["-I" + os.path.join(base, "include"), "-I" + os.path.join(base, "repo-include"),
                                          src, "-o", ll]
     stage, out = "front", ""
     try:

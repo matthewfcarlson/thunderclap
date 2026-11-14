@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00186fe0..0x001870c0 (kind game, layer game, confidence high), dominant class hulkfight::motion::PropThrowTrack
 #include "tree_prelude.h"
 #include "gen/fight.h"

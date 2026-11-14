@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x002fc420..0x002fca90 (kind game, layer engine, confidence medium), dominant class physics::PhysicsInstance
 #include "tree_prelude.h"
 #include "compat/ptr.h"

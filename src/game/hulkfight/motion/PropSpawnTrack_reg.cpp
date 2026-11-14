@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x001899a0..0x0018b4e0 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
 #include "decls/data/game/hulkfight/motion.h"

@@ -159,7 +159,7 @@ def write_wrapper(src, d):
 def front_flags(target):
     """The native front end (tools/native_mac.py FRONT) for TARGET, as an object compile."""
     return ["--target=" + target, "-fms-extensions", "-fms-compatibility", "-fms-compatibility-version=13.10",
-            "-std=c++14", "-O0"] + cp.NATIVE + ["-fcheck-new", "-ffp-eval-method=double", "-ffp-contract=off"]
+            "-std=c++14", "-O0", "-fno-exceptions"] + cp.NATIVE + ["-fcheck-new", "-ffp-eval-method=double", "-ffp-contract=off"]
 
 
 def tree_inc():

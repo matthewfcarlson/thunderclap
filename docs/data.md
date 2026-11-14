@@ -183,7 +183,7 @@ mixed items as a `#pragma pack(1)` struct of byte runs and pointer words, BSS `e
 for `.rdata`, non-const for `.data`. A pointer names its target by its C name (`FUN_<addr>` for code). The three variables pinned in
 `include/decls/address.h` are defined with that declaration (`extern "C" { World* DAT_004dd700; }`, C linkage).
 
-**Verification**, per item: compile the TU with `compare.py`'s MSVC 7.1 under wibo, flags `/O2 /GR /GX /Gy`; find
+**Verification**, per item: compile the TU with `compare.py`'s MSVC 7.1 under wibo, flags `/O2 /GR /GX- /Gy`; find
 the item's symbol; compare its bytes with the XBE outside relocations; each relocation must be `DIR32` and resolve
 through the inventory's names (or the TU's own section symbols) to exactly the address the XBE word holds; BSS
 items must have their size. The section the compiler chose is recorded too (`section_ok`).

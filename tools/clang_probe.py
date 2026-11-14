@@ -78,6 +78,17 @@ COMMON = ["-fno-color-diagnostics", "-fno-caret-diagnostics", "-fdiagnostics-sho
           # warnings that point at behaviour clang may change (UB it exploits, lost bits)
           "-Wreturn-type", "-Wuninitialized", "-Wshift-overflow", "-Wnull-dereference", "-Wint-to-pointer-cast",
           "-Wpointer-to-int-cast", "-Wdangling", "-Wtautological-undefined-compare"]
+# The game's TUs natively (native_mac.py, native_elf.py; equiv64.py's front end): COMMON without exceptions (gx1, D17):
+# the game was built without C++ exceptions (MSVC 7.1 /GX-, compare.DEFAULT_FLAGS). The Wine build and `equiv.py --wine`
+# keep COMMON's -fexceptions for now: dropping it changes 72 equivalent blocks' clang code (their cleanup landing pads),
+# nine of which fail `--wine` under the current checker as they stand (docs/native-build.md "gx1").
+NATIVE_EH = ["-fno-exceptions"]
+
+
+def common_native():
+    return [f for f in COMMON if f not in ("-fexceptions", "-fcxx-exceptions")] + NATIVE_EH
+
+
 # The native build's flags (docs/native-build.md fix 1), on every configuration: the compatibility header, no
 # strict aliasing (`*(T*)&x` punning everywhere), wrapping signed overflow and kept null checks (lifted code
 # relies on both), and on 32-bit x87 math (what the `volatile` rounding pins and the replay checkpoints

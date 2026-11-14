@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x002504b0..0x00250960 (kind game, layer engine, confidence high), dominant class audio::SeqEventWaitBeat
 #include "tree_prelude.h"
 #include "compat/ptr.h"

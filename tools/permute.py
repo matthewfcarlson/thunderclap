@@ -29,7 +29,7 @@ from compare import compare  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 OUT = os.path.join(ROOT, "build/farm/permute")
-FLAG_SETS = ["", "/Oy-", "/Oy- /O1", "/O1", "/Os", "/Oy- /Os", "/GX-"]
+FLAG_SETS = ["", "/Oy-", "/Oy- /O1", "/O1", "/Os", "/Oy- /Os", "/GX"]   # (gx1) /GX- is the default now
 STMT = re.compile(r"^(\s+)([^\s{}#/][^{}]*;)\s*$")  # one simple statement / declaration on a line
 OPERAND = r"[\w.\[\]]+(?:->[\w\[\]]+)*"
 

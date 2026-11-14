@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x002aa160..0x002ad790 (kind game, layer engine, confidence high), dominant class pure3d::ParticleSystemLoader
 // (tree_prelude.h: not needed)
 

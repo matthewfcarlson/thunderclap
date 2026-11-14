@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00288820..0x00289ed0 (kind game, layer engine, confidence high), dominant class pure3d::AnimationLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"

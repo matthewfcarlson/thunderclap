@@ -3,7 +3,8 @@
 The recipes the model farm gave its workers (farm/src/prompt.ts), kept as a reference for matching and proving
 functions by hand. The farm is retired and archived (user decision D2, 2026-11-13): farm/ was removed from the tree;
 the last commit that has it is named in [Where the farm went](#where-the-farm-went). The compiler is MSVC 7.1
-(cl 13.10.3077), `/O2 /GR /GX`, x86-32, x87 floating point, frame pointers omitted unless a TU says otherwise.
+(cl 13.10.3077), `/O2 /GR /GX-` (no C++ exceptions: no game function has an EH frame; gx1 made /GX- the tree's
+default, 2026-11-13, and a TU still written for /GX says `// cl-flags: /GX`), x86-32, x87 floating point, frame pointers omitted unless a TU says otherwise.
 
 Today a function is a block of its tree TU (`src/{game,engine,platform/xbox}`, [merge-once.md](merge-once.md)); the
 checkers are `tools/compare.py` + `tools/verify_relocs.py` for a byte match and `tools/equiv.py` for equivalence

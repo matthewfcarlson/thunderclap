@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x001cc5e0..0x001d0360 (kind game, layer game, confidence high), dominant class CScenarioManager
 // (tree_prelude.h: not needed)
 

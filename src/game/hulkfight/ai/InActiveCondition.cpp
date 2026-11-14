@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX-
 // object 0x0010e3e0..0x0010e950 (kind game, layer game, confidence high), dominant class hulkfight::ai::InActiveCondition
 #include "tree_prelude.h"
 #include "compat/ptr.h"

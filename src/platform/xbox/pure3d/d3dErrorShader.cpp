@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x0032b0a0..0x0032b530 (kind game, layer platform/xbox, confidence high), dominant class pure3d::d3dErrorShader
 #include "tree_prelude.h"
 #include "compat/ptr.h"

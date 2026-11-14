@@ -11,7 +11,7 @@ them against that model:
   tools/gen_headers.py --probe --update-sizes   # after an intended 32-bit layout change: record the sizes
 
 Checks (docs/headers.md "The layout probe"):
-  - every header compiles on its own (/c /O2 /GR /GX);
+  - every header compiles on its own (/c /O2 /GR /GX-: the game was built without exceptions);
   - every RTTI class with a vftable has its vftables emitted, with the slot count RTTI gives;
   - every slot's function is the one RTTI says (the class that last overrode it, or _purecall);
   - every class's ??_R1 base class descriptors (mdisp/pdisp/vdisp) are the XBE's;
@@ -583,7 +583,7 @@ def probe(headers=None, keep=None, sizes="load", include=None):
         src = "hdr_%s.cpp" % h
         with open(os.path.join(work, src), "w") as f:
             f.write('#include <gen/%s.h>\n' % h)
-        ok, out = run_cl(work, src, ["/c", "/O2", "/GR", "/GX"], os.path.join(work, "hdr_%s.obj" % h), inc)
+        ok, out = run_cl(work, src, ["/c", "/O2", "/GR", "/GX-"], os.path.join(work, "hdr_%s.obj" % h), inc)
         total["headers"] += 1
         total["headers_ok"] += ok
         if not ok:
@@ -607,7 +607,7 @@ def probe(headers=None, keep=None, sizes="load", include=None):
         with open(os.path.join(work, src), "w") as f:
             f.write("\n".join(lines) + "\n")
         obj = os.path.join(work, "lay_%s.obj" % h)
-        ok, out = run_cl(work, src, ["/c", "/Od", "/GR", "/GX"], obj, inc)
+        ok, out = run_cl(work, src, ["/c", "/Od", "/GR", "/GX-"], obj, inc)
         if not ok:
             problems.append("%s.h: layout probe does not compile:\n%s" % (h, "\n".join(out.splitlines()[:15])))
             continue

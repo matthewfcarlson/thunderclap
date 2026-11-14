@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00222460..0x002248a0 (kind game, layer engine, confidence high), dominant class choreo2::Puppet
 #include "tree_prelude.h"
 #include "compat/ptr.h"

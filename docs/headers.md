@@ -58,7 +58,7 @@ build/venv/bin/python -m unittest tests.test_gen_headers      # name helpers, th
 
 `--probe` builds a model of the game's classes from `build/rtti.json` and the XBE (bases, vftables, the class that
 implements each slot, destructor slots; nothing from the headers), compiles each header on its own with `cl` 13.10
-`/c /O2 /GR /GX`, then one TU per header that includes `gen/all.h` and constructs every RTTI class placed in that
+`/c /O2 /GR /GX-`, then one TU per header that includes `gen/all.h` and constructs every RTTI class placed in that
 header (abstract ones through a derived probe class; constructors a class declares out of line, like
 `fight::Track()`, are defined in the probe TU) with `/Od`, so every vftable and RTTI descriptor lands in the object,
 and parses the COFF:

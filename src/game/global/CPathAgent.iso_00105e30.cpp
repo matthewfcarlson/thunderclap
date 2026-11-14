@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x001047b0..0x00106170 (kind game, layer game, confidence high), dominant class CPathAgent
 // (tree_prelude.h: not needed)
 

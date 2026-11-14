@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x001e9e70..0x001eab10 (kind game, layer game, confidence high), dominant class CSoundResourceManager
 #include "tree_prelude.h"
 #include "decls/load_inventory.h"   // (x64t5) HULK_LOADINVENTORY_SIZE

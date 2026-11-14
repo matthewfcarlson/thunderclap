@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x0025e680..0x0025e900 (kind game, layer engine, confidence high), dominant class om::MetaEntity
 #include "tree_prelude.h"
 #include "gen/om.h"

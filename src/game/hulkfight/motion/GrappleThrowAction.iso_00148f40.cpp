@@ -1,4 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
+// (gx1) /GX until 0x00148f40 is re-proven: its MSVC code changes with /GX- (equiv.py 3,000 inputs: promotable,
+// job 79886) but its --wine run fails under the current checker as it does on HEAD (job 79910)
 // object 0x00146900..0x0014c470 (kind game, layer game, confidence high), dominant class hulkfight::motion::GrappleThrowAction
 // (tree_prelude.h: not needed)
 #include "compat/ptr.h"

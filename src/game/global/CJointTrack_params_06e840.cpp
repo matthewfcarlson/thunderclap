@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x0006e840..0x0006e8c0 (kind game, layer game, confidence high), dominant class CJointTrack
 #include "tree_prelude.h"
 #include "gen/fight.h"

@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x001d7b80..0x001db770 (kind game, layer game, confidence medium), dominant class CSPListener
 #include "tree_prelude.h"
 #include "compat/ptr.h"

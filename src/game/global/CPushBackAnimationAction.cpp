@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00021940..0x00021960 (kind game, layer game, confidence medium), dominant class CPushBackAnimationAction
 #include "tree_prelude.h"
 #include "gen/global.h"

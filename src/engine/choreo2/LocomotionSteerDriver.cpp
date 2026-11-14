@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00228590..0x0022a5d0 (kind game, layer engine, confidence high), dominant class choreo2::LocomotionSteerDriver
 #include "tree_prelude.h"
 #include "compat/ptr.h"

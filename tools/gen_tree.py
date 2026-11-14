@@ -120,7 +120,7 @@ FUNCS_CSV = os.path.join(ROOT, "build/functions.csv")
 TREE = os.path.join(ROOT, "build/tree")
 STATE = os.path.join(TREE, "state.json")
 SOURCE_DIRS = ("matches", "equivalent")     # earlier wins
-DEFAULT_FLAGS = ["/nologo", "/c", "/O2", "/GR", "/GX", "/Gy"]
+DEFAULT_FLAGS = ["/nologo", "/c", "/O2", "/GR", "/GX-", "/Gy"]   # = compare.DEFAULT_FLAGS (gx1: /GX-)
 ALLOWED_FLAGS = {"/Oy-", "/Oy", "/O1", "/O2", "/Ox", "/Os", "/Ot", "/Og", "/Oi", "/Ob0", "/Ob1", "/Ob2",
                  "/GX", "/GX-", "/GR", "/GR-", "/Gy", "/GS", "/GS-"}
 
@@ -1599,8 +1599,9 @@ class CLinkage:
 
     The code does not change: a call or a load is the same instruction whatever the callee's linkage; only the
     relocation's symbol name differs (compare.py masks relocations; build_tree.same_code compares them by the
-    address in the name). Functions get `__declspec(nothrow)`, because /GX (= /EHsc) assumes C functions never
-    throw and C++ ones may, which would add EH state stores around calls in functions with unwinding.
+    address in the name). Functions got `__declspec(nothrow)`, because /GX (= /EHsc) assumes C functions never
+    throw and C++ ones may, which would add EH state stores around calls in functions with unwinding (the
+    tree is /GX- since gx1, 2026-11-13, and the tree's copies of these were removed).
     build_tree.py's regression rounds would catch any change anyway."""
 
     def __init__(self, gen, tu, headers, merged):

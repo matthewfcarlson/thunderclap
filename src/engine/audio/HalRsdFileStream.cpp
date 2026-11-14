@@ -405,7 +405,7 @@ HalRsdFileStream::HalRsdFileStream(const char *nameArg, const char *pathArg, int
 
 
 // 0x002631f0 FUN_002631f0 (146 B): equivalent/0x002631f0.cpp [wrapped: conflict: FUN_00247530; audio::HalRsdFileStream]
-// sym: ?FUN_002631f0@fn_002631f0@@YAPAVHalRsdFileStream@audio@1@PBD0HHHPAHH@Z @5e1b56038474 @wfc46bee19875
+// sym: ?FUN_002631f0@fn_002631f0@@YAPAVHalRsdFileStream@audio@1@PBD0HHHPAHH@Z @7844258ce8ce @wfc46bee19875
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002631f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)

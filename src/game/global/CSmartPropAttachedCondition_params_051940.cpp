@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00051940..0x000519a0 (kind game, layer game, confidence high), dominant class CSmartPropAttachedCondition
 #include "tree_prelude.h"
 #include "gen/fight.h"

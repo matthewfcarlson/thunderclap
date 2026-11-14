@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX-
 // object 0x00114620..0x001146d0 (kind game, layer game, confidence high), dominant class hulkfight::ai::RandomKeyWordWaitCondition
 #include "tree_prelude.h"
 

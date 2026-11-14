@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x000d7af0..0x000dc230 (kind game, layer game, confidence high), dominant class FEMemCardControl
 // (tree_prelude.h: not needed)
 

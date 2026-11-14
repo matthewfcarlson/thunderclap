@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x000c7280..0x000c7630 (kind game, layer game, confidence medium), dominant class CHudIcons
 #include "tree_prelude.h"
 #include "compat/ptr.h"
