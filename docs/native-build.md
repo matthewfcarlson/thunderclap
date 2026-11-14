@@ -4598,3 +4598,53 @@ fail identically with and without exceptions (not the flag): 0x0026e650, 0x00297
 
 **Gates.** Batch 1 (07071bd58): whole tree verify 82060-82071 (22,339 MATCH, 5,099 equivalents both hashes ok), x64 gate
 ok, Wine proof control 82015 / proof 82118 GATE ok (0 of 2,002 frames differ). Batch 2 (D31, cefff8a80): whole tree verify 82191-82200 + 82204-82205 (0 errors), x64 gate ok, Wine proof control 82188 / proof 82203 GATE ok (0 of 2,003 frames differ).
+
+## tri1 (2026-11-14): chk1's 51 pre-existing MSVC failures, D27, D28
+
+chk1's audit found 51 equivalent blocks whose MSVC-mode run fails, or isn't promotable, at 3,000 inputs even with the
+pre-chk1 checker, although their code hashes say they are proven. Workspace build/tri1 (causes.md, RESUME.md,
+bisect1.json). Each block was traced by: the tree TU at HEAD; the standalone source (equivalent/ at f98940cf5) with HEAD's
+checker; the tree at 6a71f9a03 with its own checker (the code the hashes came from); and a first-parent bisect over whole
+snapshots (tools/include/src of commit X with the standalone source).
+
+| cause | blocks | resolution |
+| --- | --- | --- |
+| (a) checker input the hash doesn't cover: unit_text unparseable after unb4 | 8: 0x000f72e0 0x00142940 0x001947a0 0x001a5110 0x001b0470 0x002a5290 0x0031bc30 0x0031c180 | tree_tu strip_tu_ns (5b5f79476) |
+| (c) host environment: sizeof probe read the host checkout's stale include/ | 4: 0x0003d350 0x0003dd70 0x001e6f10 0x00201e00 (+ chk1's 0x001759c0) | tree_tu msvc_include_flags (5b5f79476) |
+| (c) audit settings: time budget or input count | 21: 0x00094fb0 0x000f7a80 0x001cbfe0 0x001dec10 0x001e4490 0x001f4f00 0x00217490 0x0021a0f0 0x00258530 0x0027d0f0 0x0027def0 0x002a23d0 0x002bfe10 0x002c00b0 0x002e11e0 0x002ee570 0x002f8020; coverage at 20,000 inputs (as proven): 0x00044cb0 0x000fd0f0 0x0012f670 0x001ae450 | none needed (code unchanged); open: 0x00088020 (8 inputs in 900 s; listed unsupported in equivalence.md since round 21), 0x002731d0 (8 inputs) |
+| (d) never valid in the tree: merged declarations | 2: 0x00297680 (an int literal picks the TU's `extern "C"` thunk), 0x0021f800 (shared `extern "C"` of a varargs/register-convention function) | 0x0021f800: checker `cvarargs` (5e935aabf); 0x00297680: source patch build/tri1/scenegraph_0x297680.patch, MSVC proven, --wine still fails further on (not recorded) |
+| (b) checker rule: xlocal per word | 3: 0x00233c50 0x00320540 0x000ba040 | xlbyte/xlfill (5e935aabf); 0x000ba040 still unsupported (arrays zeroed by name, written by index, read by name) |
+| (b) checker round exposed a real difference nobody fixed | 7: round 17 exact floats 0x000d3170 (writes -0) 0x002d2c40 (1 ulp); round 19 0x000a4450; round 21 wglobals 0x000d50f0 0x00079990 0x001c0360 0x000c8850 | 0x000d50f0, 0x001c0360 fixed in source (read the writable globals, round as the original); others open |
+| (b) checker rule misfires | 3: round 21 vptrkeep on 0x00106290 0x0007f690 0x001e3020 (`original ret but ours fault:too_many_pages`; no stubbed call to keep a vptr across; EQUIV_OFF=vptrkeep passes all three) | open: a vptrkeep fix |
+| (d) below today's coverage bar | 1: 0x002142d0 (46/120 at 20,000 inputs) | open |
+
+Checker changes (5e935aabf, regress cases for each): xlbyte, xlfill, cvarargs, codewdata (a store into our object's .bss
+is no code write), boolafter (bool_after stops at a load into al). Tried and rejected: counting agreeing xlocal inputs (a
+wrong mutant of 0x0022b370 then passed).
+
+D27 (coverage lost to maskedges): MSVC 0x00025ff0 0x0008fca0 0x000a89c0 0x0012f400 0x00323130, --wine 0x0008fca0
+0x0012f400 0x00323130 0x00234cf0 promotable again with xlbyte/xlfill/the probe fix (MSVC 0x00234cf0 too). Open: 0x0010b5b0
+(the uncovered edges need three stub results at once; only `code_write` inputs reached them), 0x001e9960 and 0x0022b370
+(xlocal cannot tell MSVC's slot sharing from an overrun), --wine 0x000396a0 0x001c82c0 0x001c4b50 (many `code_write`
+inputs; re-check with codewdata), 0x001e5f10 (equivalent with codewdata + tri2's lstaticbr).
+
+D28 (boolexpl kept strict): real source differences, fixed: 0x00224540 (a*b, the running sum and value-*result are st0
+values: hulk_freg, the unrounded sum in a clang-only local). Real, handed to tri2 (its TU): 0x0030b8f0 (t, -t in st0).
+Checker gaps, analysed but not fixed: 0x001bc0c0 (a bool return normalised on our side only, while the original stores
+the raw al into a union; the fix would be to normalise both sides through a re-run that overrides the original's k-th return),
+0x00237050 / 0x00239f10 (the counterfactual run diverges through an indirect call to a fuzzed target whose word count
+differs between loop iterations: MSVC's esp-relative locals drift, clang's ebp frame doesn't), 0x000dd350 / 0x000dc230
+(the counterfactual passes an uninitialised local: a bool site the detector doesn't see). Not analysed: 0x000e2c90
+0x000e8cf0 0x000e9af0 0x000ea7c0 0x000ebf40 0x00175360 0x00245390 0x002a2200.
+chk1's new differences: 0x0003a440 (`float length` of a hulk_freg result compared rounded) and 0x0024b550 (`(unsigned)`
+of a float: the original takes __ftol2's low word) fixed in source; 0x0001c430 passes with the probe fix, 0x000a97e0
+with boolafter up to a float difference at input 1950; 0x0010a040, 0x00107760 open.
+
+Source fixes (0x00224540, 0x0024b550, 0x0003a440, 0x000d50f0, 0x001c0360): MSVC 3,000 + --wine 600 promotable, hashes
+recorded with `hash --proven` (jobs 81938-81943, 82072-82073); x64 gate ok (7 blocks); whole-tree verify with them shipped
+82081: 5,099 equivalent code ok in both modes, 22,339 matches, 0 errors; Wine proof: control 82077, proof 82291 (seed), studio, play3 to 60000, GATE ok. Commits 5b5f79476 (tree_tu), 5e935aabf (equiv.py + cases), b4d10d5fa (sources).
+
+Hash gap (docs/merge-once.md "What the hash does not cover"): proposal `@v`, a hash of the checker's view (signature,
+conventions, level-2 bindings, callee pointee sizes, return note) recomputed by check/verify. Process gap: hash1/hash2
+recorded hashes over blocks that docs/equivalence.md already listed as failing (0x000d3170, 0x00088020) or whose tree TU
+had never been run; a hash should come only from a passing run of the tree TU.

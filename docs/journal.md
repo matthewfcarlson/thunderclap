@@ -896,3 +896,23 @@ blocks fight::Action's whole family: the records come first there.
 - Pitfalls: clang with -fms-compatibility defines `_MSC_VER` (guard clang-only spellings with `__clang__`); the
   "hulk_freg everywhere" autofixes were wrong where the original stores a value (a halved denormal, an fst-stored
   fraction read back); `fst [v]; fmul [v]` multiplies the unrounded value by the rounded one.
+
+## 2026-11-14 tri1: why 51 "proven" equivalent blocks failed their own proof (chk1's pre-existing MSVC failures)
+- Two checker inputs the code hash does not cover broke proofs silently: (1) unb4's `namespace fn_X {` / decl / `}`
+  groups made `tree_tu.unit_text` unparseable in 95 TUs (510 blocks), so every C-linkage block there lost its declared
+  return and parameter kinds (8 of the 51); (2) on the queue hosts the sizeof probe's `/I ../../include` resolved
+  through the build/ symlink into the host checkout's stale headers, so every tree-TU run on mac1/mac2/studio compared
+  pointer arguments without their pointee sizes (4 of the 51 and chk1's 0x001759c0; the laptop passed). Both fixed in
+  tools/tree_tu.py; docs/merge-once.md "What the hash does not cover" proposes a third hash of the checker's view.
+- 9 blocks were never valid in the tree or at today's bar: merge-time overload capture (0x00297680: an int literal picks
+  the TU's other `extern "C"` thunk declaration), the merged `extern "C"` declaration of a varargs function with a
+  register convention (0x0021f800: a checker gap, `cvarargs`), xlocal's word granularity (`char buf[N] = {0}`: 3 blocks
+  with every input set aside), 0x002142d0 (46/120 coverage even at 20,000 inputs).
+- 10 started failing at a checker round that exposed a real difference nobody fixed (round 17 exact floats 0x000d3170,
+  0x002d2c40; round 19 0x000a4450; round 21 `wglobals` 0x000d50f0, 0x00079990, 0x001c0360) or that misfires (round 21
+  `vptrkeep` on 0x00106290 / 0x0007f690 / 0x001e3020, which make no stubbed call to keep a vptr across:
+  EQUIV_OFF=vptrkeep passes them); several were listed as known failures in docs/equivalence.md and kept their label,
+  and hash1 then recorded hashes over them. A hash should be recorded only from a passing run.
+- The rest pass with a bigger budget or at the input count they were proven with (20,000), not at the audit's 3,000/120 s.
+- Pitfall: an unsigned literal decides which of two same-named declarations a call binds (`f(0x28)` vs `f(0x28u)` with
+  `extern "C" f(int)` and `f(unsigned)` both in scope).
