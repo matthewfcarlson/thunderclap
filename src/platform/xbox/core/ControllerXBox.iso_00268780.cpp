@@ -7,9 +7,9 @@
 // sym: ?vfunc_21@ControllerXBox@core@@UAEXH@Z
 #include "gen/core.h"
 
-extern void __stdcall XInputClose(int);
+extern void __stdcall XInputClose(hulk_intptr);   // (x64t11) the handle at pointer width (was int)
 
-void core::ControllerXBox::vfunc_21(int p) {
+void core::ControllerXBox::vfunc_21(hulk_intptr p) {
     if (this->f_08)
         XInputClose(this->f_08);
     this->f_08 = p;

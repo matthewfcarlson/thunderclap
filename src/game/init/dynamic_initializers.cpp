@@ -432,11 +432,6 @@ class Registry_361630 {
     void FUN_002584d0(U64_361630*, U64_361630*, int, int);
 };
 extern "C" void __cdecl FUN_00364770();
-struct Slot_361760 {
-    void* p;
-    int a;
-    int b;
-};
 extern "C" void FUN_002705f0();
 extern "C" void FUN_00364780();
 extern "C" void __cdecl FUN_00364790();
@@ -6987,22 +6982,24 @@ namespace fn_f1ddef39 {
 // 0x00361760 FUN_00361760 (124 B): matches/0x00361760.cpp
 // sym: ?FUN_00361760@fn_f1ddef39@@YAXXZ
 // FUN_00361760 @ 0x00361760
+// (x64t11) the pads' state table is records.h's CoreControllerStateEntry[20] (natively 24-byte entries: the 32-bit
+// view's stride was 12); the tags are pointers
 void FUN_00361760()
 {
-    void* first = (*(void**)&DAT_004cd698);
-    void* fourth = (*(void**)&DAT_004cd6a4);
+    const void* first = DAT_004cd698;
+    const void* fourth = DAT_004cd6a4;
     for (int i = 0; i < 8; i++) {
-        ((Slot_361760*)&DAT_004cd6a8)[i].p = first;
+        DAT_004cd6a8[i].type = first;
     }
-    void* second = (*(void**)&DAT_004cd69c);
+    const void* second = DAT_004cd69c;
     for (int i = 8; i < 16; i++) {
-        ((Slot_361760*)&DAT_004cd6a8)[i].p = second;
+        DAT_004cd6a8[i].type = second;
     }
-    void* third = (*(void**)&DAT_004cd6a0);
-    ((Slot_361760*)&DAT_004cd6a8)[16].p = third;
-    ((Slot_361760*)&DAT_004cd6a8)[17].p = fourth;
-    ((Slot_361760*)&DAT_004cd6a8)[18].p = third;
-    ((Slot_361760*)&DAT_004cd6a8)[19].p = fourth;
+    const void* third = DAT_004cd6a0;
+    DAT_004cd6a8[16].type = third;
+    DAT_004cd6a8[17].type = fourth;
+    DAT_004cd6a8[18].type = third;
+    DAT_004cd6a8[19].type = fourth;
 }
 
 

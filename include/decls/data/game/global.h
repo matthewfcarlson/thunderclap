@@ -22,7 +22,6 @@ struct DataLayout_004061e8;  // packed layout (bytes and pointers), defined in t
 struct DataLayout_00406740;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00406a54;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00409fd8;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0040cc78;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0041db58;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0041dba0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0041dbe8;  // packed layout (bytes and pointers), defined in the data TU
@@ -4150,7 +4149,7 @@ extern "C" unsigned char DAT_004e21f0[4];
 extern "C" unsigned char DAT_004e21f4[4];
 extern "C" unsigned char DAT_004e21f8[16];
 extern "C" unsigned char DAT_004e2208[8];
-extern "C" char DAT_004e2210[28];
+// DAT_004e2210: typed by decls/data/records.h (included above)
 
 // global/CPropActorSetStateTrack.cpp
 extern "C" const unsigned int DAT_0044c378[1];  // zero_0044c378
@@ -6925,8 +6924,33 @@ extern "C" const float DAT_0040cc54;  // flt_0040cc54
 extern "C" const float DAT_0040cc58[2];  // fltTbl_0040cc58
 extern "C" const float DAT_0040cc60;  // flt_0040cc60
 extern "C" const float DAT_0040cc64[4];  // fltTbl_0040cc64
-extern "C" const int DAT_0040cc74;
-extern "C" const DataLayout_0040cc78 DAT_0040cc78;  // struct_0040cc78
+// DAT_0040cc74: typed by decls/data/records.h (included above)
+extern "C" const unsigned int DAT_0040cca4[1];  // zero_0040cca4
+extern "C" const unsigned int DAT_0040cca8[6];  // unk_0040cca8
+extern "C" const float DAT_0040ccc0[2];  // fltTbl_0040ccc0
+extern "C" const unsigned int DAT_0040ccc8[1];  // unk_0040ccc8
+extern "C" const float DAT_0040cccc;  // flt_0040cccc
+extern "C" const unsigned int DAT_0040ccd0[5];  // unk_0040ccd0
+extern "C" const char DAT_0040cce4[5];  // s_iI1_0040cce4
+extern "C" const char DAT_0040cce9[5];  // s_Ii1_0040cce9
+extern "C" const char DAT_0040ccee[3];  // s_jJ_0040ccee
+extern "C" const char DAT_0040ccf1[3];  // s_Jj_0040ccf1
+extern "C" const float DAT_0040ccf4[2];  // fltTbl_0040ccf4
+extern "C" const unsigned int DAT_0040ccfc[1];  // unk_0040ccfc
+extern "C" const float DAT_0040cd00[2];  // fltTbl_0040cd00
+extern "C" const unsigned int DAT_0040cd08[3];  // unk_0040cd08
+extern "C" const float DAT_0040cd14[2];  // fltTbl_0040cd14
+extern "C" const unsigned int DAT_0040cd1c[1];  // unk_0040cd1c
+extern "C" const float DAT_0040cd20[3];  // fltTbl_0040cd20
+extern "C" const unsigned int DAT_0040cd2c[1];  // unk_0040cd2c
+extern "C" const char DAT_0040cd30[5];  // s_tT7_0040cd30
+extern "C" const char DAT_0040cd35[5];  // s_Tt7_0040cd35
+extern "C" const char DAT_0040cd3a[3];  // s_uU_0040cd3a
+extern "C" const char DAT_0040cd3d[3];  // s_Uu_0040cd3d
+extern "C" const float DAT_0040cd40[2];  // fltTbl_0040cd40
+extern "C" const unsigned int DAT_0040cd48[3];  // unk_0040cd48
+extern "C" const float DAT_0040cd54[2];  // fltTbl_0040cd54
+extern "C" const unsigned int DAT_0040cd5c[2];  // unk_0040cd5c
 extern "C" const char DAT_0040cd64[6];  // s_XBOX_0040cd64
 extern "C" const char DAT_0040cd6c[25];  // s_frontend_lang_str_en_0040cd6c
 extern "C" const char DAT_0040cd88[6];  // s_s_s_0040cd88

@@ -6,6 +6,7 @@
 #define HULK_GEN_CORE_H
 
 #include "_prelude.h"
+#include "decls/controller_xbox.h"   // (x64t11) the pads' records: ControllerXBox / ControllerSystemXBox's members
 // Forward declarations
 namespace core {
 class BaseObject;
@@ -258,22 +259,24 @@ public:
     unsigned int f_18;
     unsigned int f_1c;
     unsigned int f_20;
-    void* f_24;
+    char** f_24;             // (x64t11) the slots: a pointer per entry (0x002706a0)
     void* f_28;
 };
 
 // .?AUIControllerInputPoint@core@@  vftable 0x42b038 (12)
 struct IControllerInputPoint : public ::core::IRefCount {
 public:
-    virtual int vfunc_3() = 0; // slot 3
-    virtual void vfunc_4() = 0; // slot 4
+    // (x64t11) slots 3, 4, 7, 8, 10, 11 typed as ControllerInputPointXBox's definitions use them: the name and the
+    // type name (pointers), the change callback and its argument, the range (two floats in, two floats out)
+    virtual const char* vfunc_3() = 0; // slot 3
+    virtual const char* vfunc_4() = 0; // slot 4
     virtual void vfunc_5(float) = 0; // slot 5
     virtual hulk_freg vfunc_6() = 0; // slot 6
-    virtual void vfunc_7(int, int) = 0; // slot 7
-    virtual void vfunc_8(int) = 0; // slot 8
+    virtual void vfunc_7(void*, hulk_uintptr) = 0; // slot 7
+    virtual void vfunc_8(void*) = 0; // slot 8
     virtual hulk_freg vfunc_9(void*) = 0; // slot 9
-    virtual void vfunc_10(void*, void*) = 0; // slot 10
-    virtual void vfunc_11(void*, void*) = 0; // slot 11
+    virtual void vfunc_10(float, float) = 0; // slot 10
+    virtual void vfunc_11(float*, float*) = 0; // slot 11
     virtual ~IControllerInputPoint() = 0; // overrides core::IRefCount slot 2
 };
 
@@ -281,9 +284,9 @@ public:
 struct IControllerInputPointXBox : public ::core::IControllerInputPoint {
 public:
     virtual ~IControllerInputPointXBox(); // overrides core::IRefCount slot 2
-    virtual void vfunc_12(int) = 0; // slot 12
+    virtual void vfunc_12(unsigned int*) = 0; // slot 12 (x64t11: the pad's state, read by 0x00268d30)
     virtual void vfunc_13(int) = 0; // slot 13
-    virtual void vfunc_14(int, int) = 0; // slot 14
+    virtual void vfunc_14(int, unsigned int*) = 0; // slot 14 (the time and the pad's state)
 };
 
 // .?AVControllerInputPointXBox@core@@  vftable 0x42b24c (15)
@@ -292,18 +295,19 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~ControllerInputPointXBox(); // overrides core::IRefCount slot 2
-    virtual int vfunc_3(); // overrides core::IControllerInputPoint slot 3
-    virtual void vfunc_4(); // overrides core::IControllerInputPoint slot 4
+    virtual const char* vfunc_3(); // overrides core::IControllerInputPoint slot 3
+    virtual const char* vfunc_4(); // overrides core::IControllerInputPoint slot 4
     virtual void vfunc_5(float); // overrides core::IControllerInputPoint slot 5
     virtual hulk_freg vfunc_6(); // overrides core::IControllerInputPoint slot 6
-    virtual void vfunc_7(int, int); // overrides core::IControllerInputPoint slot 7
-    virtual void vfunc_8(int); // overrides core::IControllerInputPoint slot 8
+    virtual void vfunc_7(void*, hulk_uintptr); // overrides core::IControllerInputPoint slot 7
+    virtual void vfunc_8(void*); // overrides core::IControllerInputPoint slot 8
     virtual hulk_freg vfunc_9(void*); // overrides core::IControllerInputPoint slot 9
-    virtual void vfunc_10(void*, void*); // overrides core::IControllerInputPoint slot 10
-    virtual void vfunc_11(void*, void*); // overrides core::IControllerInputPoint slot 11
-    virtual void vfunc_12(int); // overrides core::IControllerInputPointXBox slot 12
+    virtual void vfunc_10(float, float); // overrides core::IControllerInputPoint slot 10
+    virtual void vfunc_11(float*, float*); // overrides core::IControllerInputPoint slot 11
+    virtual void vfunc_12(unsigned int*); // overrides core::IControllerInputPointXBox slot 12
     virtual void vfunc_13(int); // overrides core::IControllerInputPointXBox slot 13
-    virtual void vfunc_14(int, int); // overrides core::IControllerInputPointXBox slot 14
+    virtual void vfunc_14(int, unsigned int*); // overrides core::IControllerInputPointXBox slot 14
+    // (x64t11) the words of decls/controller_xbox.h's CoreControllerInputPointXBox
     int f_04;
     float f_08;
     float f_0c;
@@ -311,17 +315,17 @@ public:
     float f_14;
     int f_18;
     int f_1c;
-    char _pad_20[0x4];
-    int f_24;
-    char _pad_28[0x4];
-    hulk_intptr f_2c;
-    int f_30;
+    const char* f_20;        // the state table's type name
+    const char* f_24;        // the name
+    unsigned int f_28;       // the button mask or the state's byte offset
+    void* f_2c;              // the change callback
+    hulk_uintptr f_30;       // its argument
 };
 
 // .?AUIControllerOutputPoint@core@@  vftable 0x42b0e8 (7)
 struct IControllerOutputPoint : public ::core::IRefCount {
 public:
-    virtual void vfunc_3() = 0; // slot 3
+    virtual const char* vfunc_3() = 0; // slot 3 (x64t11: the name, 0x00268c00)
     virtual void* vfunc_4() = 0; // slot 4
     virtual hulk_freg vfunc_5() = 0; // slot 5
     virtual void vfunc_6(float) = 0; // slot 6
@@ -334,12 +338,13 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~ControllerOutputPointXBox(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(); // overrides core::IControllerOutputPoint slot 3
+    virtual const char* vfunc_3(); // overrides core::IControllerOutputPoint slot 3
     virtual void* vfunc_4(); // overrides core::IControllerOutputPoint slot 4
     virtual hulk_freg vfunc_5(); // overrides core::IControllerOutputPoint slot 5
     virtual void vfunc_6(float); // overrides core::IControllerOutputPoint slot 6
+    // (x64t11) the words of decls/controller_xbox.h's CoreControllerOutputPointXBox
     int f_04;
-    char _pad_08[0x4];
+    const char* f_08;        // the name
     float f_0c;
 };
 
@@ -353,8 +358,8 @@ public:
     virtual void vfunc_7(int, int) = 0; // slot 7
     virtual void vfunc_8(unsigned int) = 0; // slot 8
     virtual void vfunc_9(int) = 0; // slot 9
-    virtual void vfunc_10(int) = 0; // slot 10
-    virtual void vfunc_11(int) = 0; // slot 11
+    virtual void vfunc_10(void*) = 0; // slot 10 (x64t11: the connection callback, 0x00268460 / 0x00269530)
+    virtual void vfunc_11(void*) = 0; // slot 11
     virtual ~IControllerSystem() = 0; // overrides core::IRefCount slot 2
 };
 
@@ -371,17 +376,17 @@ public:
     virtual void vfunc_7(int, int); // overrides core::IControllerSystem slot 7
     virtual void vfunc_8(unsigned int); // overrides core::IControllerSystem slot 8
     virtual void vfunc_9(int); // overrides core::IControllerSystem slot 9
-    virtual void vfunc_10(int); // overrides core::IControllerSystem slot 10
-    virtual void vfunc_11(int); // overrides core::IControllerSystem slot 11
+    virtual void vfunc_10(void*); // overrides core::IControllerSystem slot 10
+    virtual void vfunc_11(void*); // overrides core::IControllerSystem slot 11
     virtual void vfunc_12(); // slot 12
+    // (x64t11) the words of decls/data/records.h's CoreControllerSystemXBox
     int f_0c;
     unsigned char f_10;
     char _pad_11[0x3];
     int f_14;
     int f_18;
-    int f_1c;
-    char f_20;
-    char _pad_21[0x127f];
+    void* f_1c;                    // the connection callback
+    CoreControllerXBox f_20[4];    // the pads (core::ControllerXBox)
     int f_12a0;
     unsigned int f_12a4;
 };
@@ -414,7 +419,7 @@ public:
     virtual void vfunc_18(int) = 0; // slot 18
     virtual void vfunc_19(int) = 0; // slot 19
     virtual void vfunc_20(unsigned int, unsigned int) = 0; // slot 20
-    virtual void vfunc_21(int) = 0; // slot 21
+    virtual void vfunc_21(hulk_intptr) = 0; // slot 21 (x64t11: the new XInput handle, 0x002691f0)
 };
 
 // .?AVControllerXBox@core@@  vftable 0x42b14c (22)
@@ -441,16 +446,20 @@ public:
     virtual void vfunc_18(int); // overrides core::IControllerXBox slot 18
     virtual void vfunc_19(int); // overrides core::IControllerXBox slot 19
     virtual void vfunc_20(unsigned int, unsigned int); // overrides core::IControllerXBox slot 20
-    virtual void vfunc_21(int); // overrides core::IControllerXBox slot 21
+    virtual void vfunc_21(hulk_intptr); // overrides core::IControllerXBox slot 21
     void FUN_00268520(); // non-virtual
+    // (x64t11) the words of decls/controller_xbox.h's CoreControllerXBox
     int f_04;
-    int f_08;
-    char _pad_0c[0x8];
-    unsigned int f_14;
-    char _pad_18[0x43c];
-    void* f_454;
+    hulk_uintptr f_08;                          // the XInput handle
+    int f_0c;                                   // the port
+    int f_10;                                   // the slot
+    unsigned int f_14;                          // the input count
+    CoreControllerInputPointXBox f_18[20];      // the inputs (core::ControllerInputPointXBox)
+    CoreControllerOutputPointXBox f_428[2];     // the motors (core::ControllerOutputPointXBox)
+    char f_448[12];                             // the name
+    void* f_454;                                // the core::ControllerBuffer
     int f_458;
-    int f_45c;
+    hulk_uintptr f_45c;
     char _pad_460[0x3a];
     short f_49a;
     short f_49c;

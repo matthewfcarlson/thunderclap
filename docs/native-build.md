@@ -4265,3 +4265,74 @@ gx1 1 on macOS: `terminate` (137 references: clang's handler for a throw out of 
 **Left (D19).** The 20 Condition stubs stubderive2.py skipped (typed gen fields first), and PrintCondition /
 PrintTrack / StatTrack's real destructors: their `??_G` (0x00238ca0, 0x00238ce0, 0x0012fea0) are in PrintTrack.cpp
 and GameStateCondition.cpp, which are `/GX` TUs (3 and 26 parameter-template `??_G`); with D18 there.
+
+## The controller system on records, start-up past the platform set-up, the language file (x64t11, 2026-11-13)
+
+x64t10's follow-up (user 11-13: start-up first). Control 79287 (88da290a1, studio, private data TUs); native iteration on
+its clang-probe snapshot and binding map (plus the relocation names of the edited blocks, local only) with the batch's
+files. Control native start-up stopped earlier than x64t10's log said: in 0x00292560's pddi device (below).
+
+**Where start-up gets now** (macOS, i7): through CPlatformManager 0x0008e880 (pddi device, rcfs.txt archives, the
+controller system, the Bink callback), CGame's set-up, the language probe 0x000b51c0, to the drive pump: the language
+file's open fails (CreateFileA x3, GetLastError) and core::Drive::vfunc_3 0x00272df0 calls the drive error callback's
+slot 0 through `CallbackTable::run`, which is 0 natively (pc 0). Next: why the open fails (the name now formats whole)
+and what object the drive's `callback` word holds (MyDriveErrorCallback's vftable natively).
+
+Crash by crash (each fixed by its root cause):
+- **The projectile pool overran into the pddi device slot.** CStaticAllocator's constructor 0x0008fde0 (start-up
+  initializer 0x0035e6b0) builds DAT_004e2210, a 28-byte `char[]` item; natively the class is 0x30 bytes and the
+  linker had put DAT_005554a4 (the pddi device slot) after it, so the device came back a zeroed block (0x002c3230's
+  slot call at 0x68). records.h `GameStaticAllocator DAT_004e2210[1]`. Its views (owners::BitPool_8fe90, 0x0008ff00)
+  still read the data pointer as an int: docs/tech-debt.md.
+- **The controller system** (the task): records.h `CoreControllerSystemXBox* DAT_00528398[1]` (was `char[4]`; the
+  getter 0x002684b0 returned its low half). The pads' records move to include/decls/controller_xbox.h, which gen/core.h
+  includes: gen's core::ControllerXBox / ControllerSystemXBox / ControllerInputPointXBox / ControllerOutputPointXBox hold
+  the records' words (the pads `CoreControllerXBox f_20[4]`, the inputs `f_18[20]`, the motors `f_428[2]`, the names,
+  callbacks and handles as pointers), CoreControllerSystemXBox's Object part is `CoreObjectBase` (the 64-bit base
+  rounding, as gen's f_0c). `HULK_CTL_SAME` / `HULK_CTL_SIZE` check gen's classes and every local view against the
+  records on every build; views size their pads with `HULK_CTL_AT` (the record's offset natively, the literal on
+  32-bit). gen slot types as the definitions use them: IControllerInputPoint 3 / 4 `const char*`, 7 `(void*,
+  hulk_uintptr)`, 8 `void*`, 10 / 11 floats, IControllerInputPointXBox 12 / 14 the pad state `unsigned int*`,
+  IControllerOutputPoint 3 `const char*`, IControllerSystem 10 / 11 `void*`, IControllerXBox 21 `hulk_intptr`.
+  - 0x00269640: `(void* callback, int heap, int)` (0x0008e880 pushes a third word), extern "C" on both sides; calls
+    the constructor by its address name; MATCH.
+  - 0x00269030 (re-proved: MSVC 3,000 promotable, --wine): on the record, the game's vftables by address (its local
+    class's own vftables had stub slots natively), the pads built by 0x00268fa0, slots through gen's interfaces.
+  - 0x00268fa0 (re-proved), 0x002692c0 (re-proved; the buffer a pointer, the state table's entries typed), 0x00268d30
+    (re-proved; on the input record: type and field), 0x00268390 (gen member now, MATCH), 0x00269590 / 0x002691f0 /
+    0x002685a0 / 0x002686d0 / 0x00268970 (views on the records; code ok/ok), the pad and input methods' 32-bit
+    strides (`+ 0x18 + i * 0x34`, `+ 0x428 + i * 16`, `p += 0x4a0`) as the records' arrays (MATCH).
+  - The pin 0x00269170 is untouched; its view `Pad_269170` (a shared declaration) sizes its pad with the record
+    (32-bit code identical; x64 gate: layout -> equivalent).
+  - The state table DAT_004cd6a8: records.h `CoreControllerStateEntry[20]` (240 bytes: the item absorbed 0x4cd790 /
+    0x4cd794; ten name words in config/data-pointers.json); its start-up initializer 0x00361760 on the record;
+    DAT_004cd69c is a pointer (data-pointers.json).
+- **The controller buffer** (0x00270940 / 0x002708e0, unk_2708e0.cpp): one class (the 0x2c-byte view's constructor
+  was unbound natively), the words as gen's core::ControllerBuffer (Object part rounded, pointers), size checked
+  against gen's; its slot table `f_14 * sizeof(void*)` and read as pointers (0x002706a0 / 0x00270740 / 0x002707d0;
+  gen f_24 `char**`).
+- **The millisecond clock** 0x00267f80 calls MulDiv64 0x00267e20 with three 64-bit words (six ints were unbindable).
+- **The Bink callback** 0x003351a0: `Allocate` / `Init` by their C names (FUN_00266e00 / FUN_002705f0; the native link
+  has no address for the others) and `sizeof` the callback (0x10 bytes, natively 0x20).
+- **The archive slot** 0x00271560: the output is `void**` (its miss stored 4 of 8 bytes; 0x0008e880 then called through
+  0x100000000).
+- **The language file** 0x000b51c0: 0x00271230 takes `(File**, const char*, ...)` and 0x002710d0's declaration its
+  own parameters; FUN_000964a0 returns nothing (the caller read an int); `__vsnprintf` has C linkage in
+  include/game/global.h (the CRT table binds the C name); the languages' table DAT_0040cc74 is records.h
+  `const GameLanguageName[6]` (0x000f7120 read the names as ints; 0x001be060's caller too). tools/data_gen.py takes a
+  `const` records.h declaration for an .rdata record array.
+
+Declaration-count flips: with the final headers 0x00027930 takes a new MSVC hash (re-proved, 3,000 promotable);
+0x001a9b10, 0x002e9c60, 0x002ea3c0, 0x000b86b0 keep HEAD's (they flipped with intermediate header states).
+
+| gate | result |
+|---|---|
+| tree_tu check, whole tree with the batch shipped (80002-80009) | 22,339 MATCH relocs ok, 5,099 equivalent code ok (three only by comment-line hashes then reverted to HEAD's) |
+| rebased onto gx1 (22bc18fe1: /GX- by default; ControllerXBox.cpp, FEThingsBase_3.cpp, dynamic_initializers.cpp carry its `// cl-flags: /GX`) | whole tree re-checked with the batch shipped (80080-80087): 22,339 MATCH relocs ok, 5,099 equivalent code ok on both sides |
+| re-proofs | 0x00269030, 0x00268fa0, 0x002692c0, 0x00268d30: MSVC 3,000 promotable + --wine; 0x00027930 MSVC 3,000 |
+| --x64 of the re-proved | 0x00268fa0, 0x00268d30 equivalent; 0x002692c0 intwidth (the handle's width); 0x00269030 unsupported (no 32-bit run completes: the checker) |
+| x64 gate (--head a temporary commit) | 6 improved (0x00268520, 0x002688e0, 0x00268b00, 0x00268b50, the pin 0x00269170: layout -> equivalent; 0x002691f0 ptrtrunc -> equivalent); one `new` from the gate's cache: 0x00270740 was layout before gen's `f_24` became `char**`, which left its code key unchanged; a fresh `--x64` run of the final source is equivalent |
+| Wine proof (studio, play3 to 60000, private data TUs with the records.h changes) | control 79287 (88da290a1; HEAD f4a5e5df8 adds only tools/equiv.py and tests), proof 80049 seeded from it: GATE ok, 0 of 2,025 frames differ |
+
+Native unbound (macOS / Linux / Android; each side's own snapshot and binding map): control 79287 **14,430 / 14,410 / 14,421**; proof 80049 **14,404 / 14,384 / 14,395**. The proof's macOS image stops where i7 did (the drive error callback, pc 0).
+

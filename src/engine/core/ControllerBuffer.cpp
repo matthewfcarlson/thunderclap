@@ -118,7 +118,8 @@ void core::ControllerBuffer::vfunc_4(int __p0) { u32_2706a0 n = (u32_2706a0)__p0
     }
     (*(u32_2706a0 *)&this->f_14) = n;
     (*(void * *)&this->f_10) = FUN_00266e00((*(void * *)&this->f_28), (*(u32_2706a0 *)&this->f_18) * n);
-    (*(void * *)&this->f_24) = FUN_00266e00((*(void * *)&this->f_28), (*(u32_2706a0 *)&this->f_14) * 4);
+    // (x64t11) the slot table holds pointers: sizeof(void*) each (natively 4-byte slots overran the block)
+    (*(void * *)&this->f_24) = FUN_00266e00((*(void * *)&this->f_28), (*(u32_2706a0 *)&this->f_14) * (u32_2706a0)sizeof(void*));
     for (u32_2706a0 i = 0; i < (*(u32_2706a0 *)&this->f_14); ++i)
         ((void**)(*(void * *)&this->f_24))[i] = (char*)(*(void * *)&this->f_10) + (*(u32_2706a0 *)&this->f_18) * i;
     (*(u32_2706a0 *)&this->f_1c) = 0;
@@ -130,7 +131,7 @@ void core::ControllerBuffer::vfunc_4(int __p0) { u32_2706a0 n = (u32_2706a0)__p0
 // sym: ?vfunc_5@ControllerBuffer@core@@UAEIPAX@Z
 unsigned int core::ControllerBuffer::vfunc_5(void* __p0) { const void * src = (const void *)__p0;
 
-    memcpy((void*)(*(unsigned int * *)&this->f_24)[this->f_20], src, this->f_18);
+    memcpy(this->f_24[this->f_20], src, this->f_18);   // (x64t11) the slots are pointers (gen's f_24)
     unsigned int n = (this->f_20 + 1) % this->f_14;
     unsigned int r = this->f_1c;
     this->f_20 = n;
@@ -160,7 +161,7 @@ bool core::ControllerBuffer::vfunc_7(void* __p0) { void * output = (void *)__p0;
 
     if (this->f_1c == this->f_20)
         return false;
-    memcpy(output, (void*)(*(unsigned int * *)&this->f_24)[this->f_1c], this->f_18);
+    memcpy(output, this->f_24[this->f_1c], this->f_18);   // (x64t11) the slots are pointers (gen's f_24)
     this->f_1c = (this->f_1c + 1) % this->f_14;
     return true;
 }

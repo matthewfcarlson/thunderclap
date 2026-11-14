@@ -514,11 +514,12 @@ struct LARGE_INTEGER {
     DWORD high;
 };
 extern "C++" __declspec(nothrow) int __stdcall QueryPerformanceCounter(LARGE_INTEGER*);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00267e20(DWORD, DWORD, DWORD, DWORD, DWORD, DWORD);
+// (x64t11) 0x00267e20 is MulDiv64 (above): three 64-bit words (was six 32-bit ones, which the native link refused to
+// bind to it); the counter times 1000 over the frequency (DAT_00528380), its low word the milliseconds
 extern "C" int FUN_00267f80() {
     LARGE_INTEGER n;
     QueryPerformanceCounter(&n);
-    return FUN_00267e20(n.low, n.high, 1000, 0, (*(DWORD*)&DAT_00528380), (*(DWORD*)((char*)&DAT_00528380 + 4)));
+    return (int)fn_fc34aa1a::MulDiv64(*(unsigned __int64*)&n, 1000, *(unsigned __int64*)&DAT_00528380);
 }
 } // namespace fn_00267f80
 

@@ -17,7 +17,6 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 #endif
 
-struct DataLayout_004cd6a8;  // packed layout (bytes and pointers), defined in the data TU
 struct DataRec_0052c270;  // packed layout (bytes and pointers), defined in the data TU
 #include "decls/data/records.h"
 
@@ -37,14 +36,12 @@ extern "C" const unsigned int DAT_0042b2fc[4];  // zero_0042b2fc
 extern "C" const unsigned int DAT_00483200[1];  // zero_00483200
 extern "C" const unsigned int DAT_00483268[1];  // zero_00483268
 extern "C" const char* DAT_004cd698;  // PTR_004cd698
-extern "C" int DAT_004cd69c;
+extern "C" const char* DAT_004cd69c;  // PTR_004cd69c
 extern "C" const char* DAT_004cd6a0;  // PTR_004cd6a0
 extern "C" const char* DAT_004cd6a4;  // PTR_004cd6a4
-extern "C" DataLayout_004cd6a8 DAT_004cd6a8;  // struct_004cd6a8
-extern "C" const char* DAT_004cd790;  // PTR_004cd790
-extern "C" unsigned int DAT_004cd794[1];  // unk_004cd794
+// DAT_004cd6a8: typed by decls/data/records.h (included above)
 extern "C" void* DAT_00528388[4];
-extern "C" char DAT_00528398[4];
+// DAT_00528398: typed by decls/data/records.h (included above)
 
 // core/XboxDrive.cpp
 extern "C" const short DAT_0042b50c;

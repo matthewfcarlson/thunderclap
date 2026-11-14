@@ -149,8 +149,12 @@ def typed_items():
     except OSError:
         return out
     # (dg1) also a plain pointer item (`extern "C" void* DAT_004e11e8;`): a word that holds a pointer at run time
-    for m in re.finditer(r'^extern\s+"C"\s+(\w+(?:\s*\*)?)\s*(DAT_[0-9a-f]{8})\s*(\[\d+\])?\s*;', text, re.M):
-        out[m.group(2)] = "%s %s%s" % (re.sub(r"\s+", "", m.group(1)), m.group(2), m.group(3) or "")
+    # (x64t11) an .rdata record array is declared `const` (`extern "C" const T DAT_x[n];`): its data TU's definition
+    # must say the same
+    for m in re.finditer(r'^extern\s+"C"\s+((?:const\s+)?\w+(?:\s*\*)?)\s*(DAT_[0-9a-f]{8})\s*(\[\d+\])?\s*;', text, re.M):
+        t = m.group(1)
+        t = ("const " + re.sub(r"\s+", "", t[len("const"):])) if re.match(r"const\s", t) else re.sub(r"\s+", "", t)
+        out[m.group(2)] = "%s %s%s" % (t, m.group(2), m.group(3) or "")
     return out
 
 
@@ -210,7 +214,7 @@ def typed_data_records():
     except OSError:
         return {}
     out = {}
-    for m in re.finditer(r'^extern\s+"C"\s+(\w+)\s+(DAT_[0-9a-f]{8})\s*\[(\d+)\]\s*;', text, re.M):
+    for m in re.finditer(r'^extern\s+"C"\s+(?:const\s+)?(\w+)\s+(DAT_[0-9a-f]{8})\s*\[(\d+)\]\s*;', text, re.M):
         r = record_fields(m.group(1), text)
         if r is not None:
             out[m.group(2)] = (m.group(1), int(m.group(3)), r[1], r[0])
@@ -436,7 +440,8 @@ class TUWriter:
                 self.ext_data, self.ext_func = snap
                 return None, None, "typed record: a pointer field holds a non-pointer"
             elems.append(x)
-        return (("const " if it["section"] == ".rdata" else "") + self.typed[it["cname"]],
+        decl = self.typed[it["cname"]]
+        return (("const " if it["section"] == ".rdata" and not decl.startswith("const ") else "") + decl,
                 "{ %s }" % ", ".join(elems), "typed record")
 
     def item_plain(self, it):

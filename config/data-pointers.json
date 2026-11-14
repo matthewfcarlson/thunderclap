@@ -130,6 +130,27 @@
     "0x8"
    ],
    "why": "scan1 (2026-11-13): the three collision-actor joint names 0x000464c0 walks (strings at 0x003f6040, 0x003f603c, 0x003f6034; bytes 40 60 3f 00, 3c 60 3f 00, 34 60 3f 00); config/data-items.json pins the 12-byte table"
+  },
+  "0x004cd69c": {
+   "offsets": [
+    "0x0"
+   ],
+   "why": "(x64t11) points at the string at 0x00405f70 (bytes 70 5f 40 00), the analog-button type tag; 0x00268d30 compares an input's type with it, 0x00361760 copies it into the state table"
+  },
+  "0x004cd6a8": {
+   "offsets": [
+    "0x1c",
+    "0x28",
+    "0x40",
+    "0x7c",
+    "0x88",
+    "0x94",
+    "0xa0",
+    "0xac",
+    "0xb8",
+    "0xc4"
+   ],
+   "why": "(x64t11) the pads' state table (records.h CoreControllerStateEntry[20]): each entry's name word points at a string (0x00406020 DPadLeft, 0x0040602c DPadRight, ...: bytes that also read as text); 0x002692c0 copies the entries into the input points, whose names 0x00268a10 compares"
   }
  }
 }

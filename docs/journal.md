@@ -814,3 +814,18 @@ blocks fight::Action's whole family: the records come first there.
 - The Wine build keeps -fexceptions: 72 equivalents' clang code changes without it, and 10 of them do not re-prove
   `--wine` under the current checker (they fail the same way on HEAD). The throw()/nothrow clean-up waits with it.
 - D19: Condition's five shared slots now defined on include/gen's classes and bound natively.
+
+## 2026-11-13 x64t11: macOS start-up through the platform set-up; a data item too small natively
+
+- A 28-byte .bss item (DAT_004e2210, CStaticAllocator) whose class is 0x30 bytes natively: its start-up constructor
+  wrote past it into the pddi device slot the linker placed next, and the crash came minutes later in 0x002c3230 as a
+  zeroed device. Overruns of data items by native class sizes do not show in the 32-bit overreach scan: a records.h
+  type is the fix (natively sized item).
+- The controller subsystem was 32-bit throughout (pads at a 0x4a0 stride in a dozen local views, names and callbacks
+  as ints, gen's classes with byte pads): records (decls/controller_xbox.h) held by gen's classes, every view checked
+  against them (`HULK_CTL_SAME`). The replay pin 0x00269170 needed only its shared view's pad sized by the record.
+- Declaration-count flips follow the header state, not the change: of the six known blocks, 0x00027930 took a new MSVC
+  hash with the final headers while 0x002e9c60 / 0x002ea3c0 / 0x000b86b0 / 0x001a9b10 flipped and flipped back on the
+  way (record a hash only from a run on the final headers).
+- macOS start-up now stops at the language file: its open fails and the drive's error callback (0x00272df0) calls a
+  null slot.

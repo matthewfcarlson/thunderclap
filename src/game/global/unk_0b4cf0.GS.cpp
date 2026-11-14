@@ -20,7 +20,7 @@ extern "C" int __cdecl sprintf(char*, const char*, ...);
 // ---- declarations shared by the functions below
 namespace fn_f61f5a00 {
 extern const char *__cdecl FUN_000f7120(int);
-extern int __cdecl FUN_000964a0(char *, int, const char *, ...);
+extern void __cdecl FUN_000964a0(char *, int, const char *, ...);   // (x64t11) returns nothing (CUnlockablesManager.cpp)
 struct Resource_b51c0 {
  virtual void slot0(); virtual void release();
  virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5();

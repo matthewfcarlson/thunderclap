@@ -31,7 +31,7 @@ template<class T,class R,class A> class Method1 : public ScriptFunctionFields { 
 template<class T,class R,class A> class Closure1 : public Method1<T,R,A> { public: virtual void v0(); T* owner; };
 struct MyControllerCallback { virtual void v0_0008dbb0(void*); unsigned char flags[6]; };
 void FUN_0022e340();
-void FUN_00269640(MyControllerCallback*,int,int);
+extern "C" void FUN_00269640(MyControllerCallback*,int,int);   // (x64t11) the definition's C name (ControllerXBox.cpp)
 void FUN_00333b50(int);
 void FUN_000966f0();
 struct Stream { virtual void s0(); virtual void release(); virtual void s2(); virtual void read(char*,int,int); virtual void activate(); virtual void s5(); virtual void s6(); virtual void length(int*); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19(); virtual void s20(); virtual void sync(); virtual void s22(); virtual unsigned char valid(); virtual void configure(void*,int); virtual void s25(); virtual void s26(); virtual void s27(); virtual void s28(); virtual void s29(); virtual void s30(); virtual void enable(int); };

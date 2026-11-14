@@ -15,6 +15,48 @@
 #define TREE_LOCAL_pure3d
 namespace fn_fc99ffef {} using namespace fn_fc99ffef;
 namespace fn_fc99ffef { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
+// (x64t11) the pads (decls/controller_xbox.h) and the system (decls/data/records.h) are records; gen's classes hold
+// them (gen/core.h), and the local views below place their words where the records do: HULK_CTL_AT(R, f, k) is the
+// record's offset of f (k, the 32-bit literal, on the 32-bit builds)
+#if defined(HULK_PTR64)
+#define HULK_CTL_AT(R, f, k) ((unsigned int)__builtin_offsetof(R, f))
+#else
+#define HULK_CTL_AT(R, f, k) (k)
+#endif
+#define HULK_CTL_CAT2(a, b) a##b
+#define HULK_CTL_CAT(a, b) HULK_CTL_CAT2(a, b)
+// HULK_CTL_SAME / HULK_CTL_SIZE: a compile error on every build unless view V's member v is at record R's member r
+// (V's size is R's)
+#if defined(__clang__)
+#define HULK_CTL_SAME(V, v, R, r) \
+    typedef char HULK_CTL_CAT(hulk_ctl_same_, __LINE__)[(__builtin_offsetof(V, v) == __builtin_offsetof(R, r)) ? 1 : -1]
+#else
+#define HULK_CTL_SAME(V, v, R, r) \
+    typedef char HULK_CTL_CAT(hulk_ctl_same_, __LINE__)[((unsigned int)(hulk_uintptr)&((V*)0)->v == \
+                                                          (unsigned int)(hulk_uintptr)&((R*)0)->r) ? 1 : -1]
+#endif
+#define HULK_CTL_SIZE(V, R) typedef char HULK_CTL_CAT(hulk_ctl_size_, __LINE__)[(sizeof(V) == sizeof(R)) ? 1 : -1]
+namespace fn_fc99ffef {
+HULK_CTL_SIZE(::core::ControllerXBox, CoreControllerXBox);
+HULK_CTL_SAME(::core::ControllerXBox, f_08, CoreControllerXBox, handle);
+HULK_CTL_SAME(::core::ControllerXBox, f_14, CoreControllerXBox, inputCount);
+HULK_CTL_SAME(::core::ControllerXBox, f_18, CoreControllerXBox, inputs);
+HULK_CTL_SAME(::core::ControllerXBox, f_428, CoreControllerXBox, outputs);
+HULK_CTL_SAME(::core::ControllerXBox, f_454, CoreControllerXBox, buffer);
+HULK_CTL_SAME(::core::ControllerXBox, f_45c, CoreControllerXBox, feedbackEvent);
+HULK_CTL_SAME(::core::ControllerXBox, f_49e, CoreControllerXBox, connected);
+HULK_CTL_SIZE(::core::ControllerInputPointXBox, CoreControllerInputPointXBox);
+HULK_CTL_SAME(::core::ControllerInputPointXBox, f_20, CoreControllerInputPointXBox, type);
+HULK_CTL_SAME(::core::ControllerInputPointXBox, f_30, CoreControllerInputPointXBox, callbackArgument);
+HULK_CTL_SIZE(::core::ControllerOutputPointXBox, CoreControllerOutputPointXBox);
+HULK_CTL_SAME(::core::ControllerOutputPointXBox, f_0c, CoreControllerOutputPointXBox, value);
+HULK_CTL_SIZE(::core::ControllerSystemXBox, CoreControllerSystemXBox);
+HULK_CTL_SAME(::core::ControllerSystemXBox, f_0c, CoreControllerSystemXBox, refs);
+HULK_CTL_SAME(::core::ControllerSystemXBox, f_14, CoreControllerSystemXBox, timeOffset);
+HULK_CTL_SAME(::core::ControllerSystemXBox, f_1c, CoreControllerSystemXBox, connectionCallback);
+HULK_CTL_SAME(::core::ControllerSystemXBox, f_20, CoreControllerSystemXBox, controllers);
+HULK_CTL_SAME(::core::ControllerSystemXBox, f_12a0, CoreControllerSystemXBox, interval);
+}
 #include "platform/xbox/core.h"
 
 // ---- declarations shared by the functions below
@@ -179,7 +221,7 @@ class Elem_2687e0 {
     virtual void v2();
     virtual void v3();
     virtual const char* Name();
-    char pad[0x30];
+    char pad[sizeof(CoreControllerInputPointXBox) - sizeof(void*)];
 };
 class ControllerXBox_2687e0 {
   public:
@@ -192,23 +234,29 @@ class ControllerXBox_2687e0 {
     virtual void v6();
     virtual void v7();
     virtual int Count(const char* name);
-    char pad[0x10];
+    // (x64t11) the pad's refs, handle, port and slot (decls/controller_xbox.h)
+    int refs;
+    hulk_uintptr handle;
+    int port;
+    int slot;
     unsigned int mCount;
     Elem_2687e0 mElems[1];
 };
+HULK_CTL_SAME(ControllerXBox_2687e0, mElems, CoreControllerXBox, inputs);
 struct Elem_268860 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
     virtual const char* Name();
-    int pad[3];
+    char pad[sizeof(CoreControllerOutputPointXBox) - sizeof(void*)];
 };
 struct ControllerXBox_268860 {
-    char pad[0x428];
+    char pad[HULK_CTL_AT(CoreControllerXBox, outputs, 0x428)];
     Elem_268860 e[2];
     int Count(const char* s);
 };
+HULK_CTL_SAME(ControllerXBox_268860, e, CoreControllerXBox, outputs);
 class NameHolder_2688e0 {
   public:
     virtual void f0();
@@ -216,7 +264,7 @@ class NameHolder_2688e0 {
     virtual void f2();
     virtual void f3();
     virtual const char* GetName();
-    char pad[0x30];
+    char pad[sizeof(CoreControllerInputPointXBox) - sizeof(void*)];
 };
 class ControllerXBox {
   public:
@@ -242,24 +290,29 @@ class ControllerXBox {
     virtual void _m_vf19();
     virtual void _m_vf20();
     virtual void _m_vf21();
+    // (x64t11) decls/controller_xbox.h's CoreControllerXBox words
     unsigned int connected;
     void* handle;
-    char _m_pad_c[0x8];
+    int port;
+    int slot;
     int count;
-    NameHolder_2688e0 entries[1];
-    char _m_pad_4c[0x3dc];
+    NameHolder_2688e0 entries[20];
     Motor leftMotor;
-    char _m_pad_42c[0xc];
+    char _m_pad_42c[sizeof(CoreControllerOutputPointXBox) - sizeof(void*)];
     Motor rightMotor;
-    char _m_pad_43c[0x18];
+    char _m_pad_43c[sizeof(CoreControllerOutputPointXBox) - sizeof(void*)];
+    char name[12];
     Receiver_2685a0* receiver;
     unsigned long feedbackStatus;
-    int feedbackField;
+    hulk_uintptr feedbackField;
     char _m_pad_460[0x3a];
     short lastLeft;
     short lastRight;
     char _m_pad_49e[0x2];
 };
+HULK_CTL_SIZE(ControllerXBox, CoreControllerXBox);
+HULK_CTL_SAME(ControllerXBox, receiver, CoreControllerXBox, buffer);
+HULK_CTL_SAME(ControllerXBox, lastLeft, CoreControllerXBox, leftMotor);
 class Entry_268a10 {
   public:
     virtual void f0();
@@ -273,10 +326,6 @@ class Item_268a80 {
     virtual void b();
     virtual void c();
     virtual const char* get();
-};
-struct X_268b10 {
-    char pad[0x14];
-    unsigned value;
 };
 namespace pure3d {
 class NonCopyable_268ba0 : public ::core::IController {
@@ -327,23 +376,15 @@ class IRefCount_268cd0 {
     virtual void vfunc_2();
     int mRefCount;
 };
-typedef unsigned int u32_268d10;
-struct This_GetPointX {
-    float GetPointX(u32_268d10);
-};
-class C_268e00 {
-    char pad[0x20];
-
-  public:
-    unsigned int value;
+// (x64t11) 0x00268d30's input point: decls/controller_xbox.h's record (its type name and its field)
+struct InputValue_268d30 : CoreControllerInputPointXBox {
+    double FUN_00268d30(unsigned int* source);
 };
 class Callback_268f00 {
   public:
-    virtual void Call(int, float);
+    virtual void Call(hulk_uintptr, float);
 };
-struct This_Convert {
-    float Convert(int);
-};
+
 namespace pure3d {
 class NonCopyable_268f80 : public ::core::IControllerInputPointXBox {
   public:
@@ -374,24 +415,35 @@ class Pad_269170 {
     virtual void v15();
     virtual void v16();
     virtual void Update(unsigned int t);
-    char pad[0x49e - 4];
+    // (x64t11) the connected flag where decls/controller_xbox.h's pad has it, the view the pad's size
+    char pad[HULK_CTL_AT(CoreControllerXBox, connected, 0x49e) - sizeof(void*)];
     bool mActive;
-    char pad2[1];
+    char pad2[sizeof(CoreControllerXBox) - HULK_CTL_AT(CoreControllerXBox, connected, 0x49e) - 1];
 };
+HULK_CTL_SIZE(Pad_269170, CoreControllerXBox);
+HULK_CTL_SAME(Pad_269170, mActive, CoreControllerXBox, connected);
 struct ControllerSystemXBox_nv_269170 {
     void Poll();
 };
 namespace XAPILIB {
-int __stdcall XInputGetState(unsigned int, void *);
+int __stdcall XInputGetState(hulk_uintptr, void *);
 }
-struct Triple_2692c0 { unsigned int a,b,c; };
+// (x64t11) a state table entry (records.h's CoreControllerStateEntry)
+struct Triple_2692c0 { const void* type; const char* name; unsigned int field; };
 struct Input_2692c0 {
     virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3();
     virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7();
     virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11();
     virtual void f12(void *);
 };
-struct Entry_2692c0 { Input_2692c0 input; char padding[0x1c]; Triple_2692c0 values; char rest[8]; };
+// (x64t11) decls/controller_xbox.h's input point: the words before the type name, the entry, the callback pair
+struct Entry_2692c0 {
+    Input_2692c0 input;
+    char padding[HULK_CTL_AT(CoreControllerInputPointXBox, type, 0x20) - sizeof(void*)];
+    Triple_2692c0 values;
+    void* callback;
+    hulk_uintptr argument;
+};
 struct Device_2692c0 {
     virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3();
     virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7();
@@ -399,39 +451,42 @@ struct Device_2692c0 {
     virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15();
     virtual void f16(); virtual void f17(); virtual void f18(unsigned int);
     virtual void f19(); virtual void f20(unsigned int,unsigned int);
+    // (x64t11) decls/controller_xbox.h's CoreControllerXBox words
     unsigned int unknown4;
-    unsigned int handle;
+    hulk_uintptr handle;
     unsigned int slot;
     unsigned int port;
     unsigned int count;
     Entry_2692c0 entries[20];
-    char pad[0x430 - 0x18 - 20*0x34];
-    char *leftName;
-    char pad2[12];
-    char *rightName;
-    char pad3[4];
+    CoreControllerOutputPointXBox motors[2];
     unsigned int name0,name1,name2;
-    unsigned int other;
-    unsigned char zeros[0x46];
+    void* other;
+    unsigned char zeros[HULK_CTL_AT(CoreControllerXBox, connected, 0x49e) - HULK_CTL_AT(CoreControllerXBox, feedbackStatus, 0x458)];
     unsigned char active;
-    void FUN_002692c0(hulk_uintptr a,unsigned int b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,unsigned int g);
+    void FUN_002692c0(hulk_uintptr a,unsigned int b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,void* g);
 };
+HULK_CTL_SIZE(Device_2692c0, CoreControllerXBox);
+HULK_CTL_SAME(Device_2692c0, entries, CoreControllerXBox, inputs);
+HULK_CTL_SAME(Device_2692c0, other, CoreControllerXBox, buffer);
+HULK_CTL_SAME(Device_2692c0, active, CoreControllerXBox, connected);
 class Pad_2693f0 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
     virtual bool f3();
-    char rest[0x49c];
+    char rest[sizeof(CoreControllerXBox) - sizeof(void*)];
 };
+HULK_CTL_SIZE(Pad_2693f0, CoreControllerXBox);
 class Pad_269420 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
     virtual bool IsConnected();
-    char data[0x49c];
+    char data[sizeof(CoreControllerXBox) - sizeof(void*)];
 };
+HULK_CTL_SIZE(Pad_269420, CoreControllerXBox);
 } // namespace fn_fc99ffef
 namespace core {
 struct ControllerDevice {
@@ -442,7 +497,7 @@ struct ControllerDevice {
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual const char* vfunc_6();
-    char padding[0x4a0 - 4];
+    char padding[sizeof(CoreControllerXBox) - sizeof(void*)];
 };
 }
 namespace fn_fc99ffef {
@@ -487,10 +542,9 @@ class ControllerSystemXBox {
     virtual void f11();
     virtual void f12();
 };
-typedef unsigned int u32_269640;
-extern "C" u32_269640 __cdecl FUN_00266e00(u32_269640, u32_269640);
+extern "C" void* __cdecl FUN_00266e00(int, unsigned);
 struct ControllerSystemXBox_nv_269640 {
-    u32_269640 Make(u32_269640, u32_269640);
+    CoreControllerSystemXBox* FUN_00269030(void*, int);   // 0x00269030, the constructor
 };
 
 
@@ -507,70 +561,38 @@ void core::IRefCount::FUN_00268330() {
 }
 
 
-// 0x00268390 core::ControllerSystemXBox::vfunc_6 (88 B): matches/0x00268390.cpp [wrapped: conflict: core::ControllerSystemXBox]
-// sym: ?vfunc_6@ControllerSystemXBox@core@fn_00268390@@UAEXH@Z
-namespace fn_00268390 {
-namespace core {
-class ControllerSystemXBox {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void vfunc_6(int);
-    virtual void f7(int, int);
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    char pad[0x10 - 4];
-    unsigned char active;
-    char pad1[7];
-    int param;
-    char pad2[0x12a0 - 0x1c];
-    int field;
-    virtual void g13();
-    virtual void g14();
-    virtual void g15();
-    virtual void g16();
-    virtual void g17();
-    virtual void g18();
-    virtual void g19();
-    virtual void g20(int, int);
-};
-} // namespace core
+// 0x00268390 core::ControllerSystemXBox::vfunc_6 (88 B): matches/0x00268390.cpp
+// sym: ?vfunc_6@ControllerSystemXBox@core@@UAEXH@Z
+// (x64t11) gen's member (was a local class whose 32-bit pads placed the flag, the rate and the pads natively
+// elsewhere): slot 7 is the system's, slot 20 the pads' (core::IControllerXBox::vfunc_20)
 void core::ControllerSystemXBox::vfunc_6(int p) {
     if (p == 0) {
-        active = 0;
-        f7(p, p);
+        this->f_10 = 0;
+        vfunc_7(p, p);
         p = 10;
     } else
-        active = 1;
-    int x = field;
-    param = p;
-    ControllerSystemXBox* q = (ControllerSystemXBox*)((char*)this + 0x20);
-    for (int i = 0; i < 4; i++, q = (ControllerSystemXBox*)((char*)q + 0x4a0))
-        if (*((char*)q + 0x49e))
-            q->g20(p, x);
+        this->f_10 = 1;
+    int x = this->f_12a0;
+    this->f_18 = p;
+    CoreControllerXBox* q = this->f_20;
+    for (int i = 0; i < 4; i++, q++)
+        if (q->connected)
+            ((::core::IControllerXBox*)(void*)q)->vfunc_20(p, x);
 }
-} // namespace fn_00268390
 
 
 // 0x002683f0 core::ControllerSystemXBox::vfunc_7 (74 B): matches/0x002683f0.cpp
 // sym: ?vfunc_7@ControllerSystemXBox@core@@UAEXHH@Z
 void core::ControllerSystemXBox::vfunc_7(int a, int b) {
     this->f_14 = b - a;
-    char* p = (*(char (*)[4736])&this->f_20);
+    CoreControllerXBox* p = this->f_20;
     int i = 4;
     do {
-        if (p[0x49e]) {
+        if (p->connected) {
             Pad_2683f0* q = (Pad_2683f0*)p;
             q->f18(helper() + this->f_14);
         }
-        p += 0x4a0;
+        ++p;
         --i;
     } while (i);
 }
@@ -585,8 +607,8 @@ void core::ControllerSystemXBox::vfunc_9(int value) {
 
 
 // 0x00268460 core::ControllerSystemXBox::vfunc_10 (17 B): matches/0x00268460.cpp
-// sym: ?vfunc_10@ControllerSystemXBox@core@@UAEXH@Z
-void core::ControllerSystemXBox::vfunc_10(int x) {
+// sym: ?vfunc_10@ControllerSystemXBox@core@@UAEXPAX@Z
+void core::ControllerSystemXBox::vfunc_10(void* x) {
     if (this->f_1c == 0)
         this->f_1c = x;
 }
@@ -597,25 +619,25 @@ namespace fn_fc99ffef {
 // sym: _FUN_00268490
 // data: g_obj_268490 = DAT_00528398
 extern "C" void FUN_00268490() {
-    if ((*(Obj_268490**)&DAT_00528398))
-        (*(Obj_268490**)&DAT_00528398)->f2(1);
-    (*(Obj_268490**)&DAT_00528398) = 0;
+    if (DAT_00528398[0])
+        ((Obj_268490*)DAT_00528398[0])->f2(1);
+    DAT_00528398[0] = 0;
 }
 
 
 // 0x002684b0 FUN_002684b0 (6 B): matches/0x002684b0.cpp
 // sym: _FUN_002684b0
 // Same code shape as 0x00085cd0 (propagated; names are from that function)
-extern "C" hulk_intptr FUN_002684b0(void) {
-    return (*(int*)&DAT_00528398);
+extern "C" CoreControllerSystemXBox* FUN_002684b0(void) {
+    return DAT_00528398[0];
 }
 
 
 // 0x002684c0 FUN_002684c0 (16 B): matches/0x002684c0.cpp
 // sym: _FUN_002684c0
 extern "C" void FUN_002684c0() {
-    if ((*(X_2684c0**)&DAT_00528398))
-        (*(X_2684c0**)&DAT_00528398)->m();
+    if (DAT_00528398[0])
+        ((X_2684c0*)DAT_00528398[0])->m();
 }
 
 } // namespace fn_fc99ffef
@@ -652,19 +674,19 @@ void core::ControllerXBox::FUN_00268520() {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b14c);
     if ((*(void * *)&this->f_08))
         XInputClose((*(void * *)&this->f_08));
-    unsigned long* q = (unsigned long*)((char*)this + 0x448);
+    CoreControllerOutputPointXBox* q = this->f_428 + 2;
     int n = 2;
     do {
-        q -= 4;
+        q--;
         n--;
-        *(hulk_uintptr*)q = ((hulk_intptr)DAT_003f6098);
+        q->vftable = DAT_003f6098;
     } while (n);
-    q = (unsigned long*)((char*)this + 0x428);
+    CoreControllerInputPointXBox* r = this->f_18 + 20;
     n = 0x14;
     do {
-        q -= 0xd;
+        r--;
         n--;
-        *(hulk_uintptr*)q = ((hulk_intptr)DAT_003f6098);
+        r->vftable = DAT_003f6098;
     } while (n);
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f6098);
 }
@@ -727,7 +749,7 @@ void ControllerXBox::vfunc_17(int arg) {
 void core::ControllerXBox::vfunc_18(int arg) {
     (*(Dispatch_268690 * *)&this->f_454)->i();
     for (unsigned int i = 0; i < this->f_14; ++i)
-        ((Item_268690*)((char*)this + 0x18 + i * 0x34))->call(arg);
+        ((Item_268690*)&this->f_18[i])->call(arg);
 }
 
 
@@ -745,13 +767,16 @@ struct Input_2686d0 {
 struct Listener_2686d0 {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13();
  virtual void vfunc_14(void *, unsigned *);
- char padding[0x30];
+ char padding[sizeof(CoreControllerInputPointXBox) - sizeof(void*)];
 };
 struct ControllerXBox {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(); virtual void vfunc_15(); virtual void vfunc_16(); virtual void vfunc_17(); virtual void vfunc_18();
  virtual void vfunc_19(unsigned);
- unsigned active; char pad0[0xc]; unsigned listenerCount; Listener_2686d0 listeners[1]; char pad1[0x454 - 0x18 - 0x34]; Input_2686d0 *input;
+ // (x64t11) decls/controller_xbox.h's words (the listeners are the inputs)
+ unsigned active; hulk_uintptr handle; int port; int slot; unsigned listenerCount; Listener_2686d0 listeners[20];
+ CoreControllerOutputPointXBox outputs[2]; char name[12]; Input_2686d0 *input;
 };
+HULK_CTL_SAME(ControllerXBox, input, CoreControllerXBox, buffer);
 void ControllerXBox::vfunc_19(unsigned unused) {
  if (!active) return;
  void *item = 0;
@@ -830,7 +855,7 @@ ControllerXBox* ControllerXBox::Find(const char* name, int which) {
     for (unsigned i = 0; i < (unsigned)count; ++i) {
         if (strcmp(entries[i].GetName(), name) == 0) {
             if (found == which)
-                return (ControllerXBox*)((char*)this + 0x18 + i * 0x34);
+                return (ControllerXBox*)&entries[i];
             ++found;
         }
     }
@@ -851,7 +876,7 @@ struct Entry_268970 {
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual const char* vfunc_4();
-    char reserved[12];
+    char reserved[sizeof(CoreControllerOutputPointXBox) - sizeof(void*)];
 };
 struct ControllerXBox {
     virtual void vfunc_0();
@@ -869,9 +894,10 @@ struct ControllerXBox {
     virtual void vfunc_12();
     virtual void vfunc_13();
     virtual Entry_268970* vfunc_14(const char* name, int ordinal);
-    char reserved[0x424];
+    char reserved[HULK_CTL_AT(CoreControllerXBox, outputs, 0x428) - sizeof(void*)];   // (x64t11) the pad's words
     Entry_268970 entries[2];
 };
+HULK_CTL_SAME(ControllerXBox, entries, CoreControllerXBox, outputs);
 Entry_268970* ControllerXBox::vfunc_14(const char* name, int ordinal) {
     int matches = 0;
     for (unsigned int i = 0; i < 2; ++i) {
@@ -900,9 +926,9 @@ void* core::ControllerXBox::vfunc_10(void* __p0) { const char * s = (const char 
 
     unsigned int i;
     for (i = 0; i < this->f_14; i++) {
-        Entry_268a10* e = (Entry_268a10*)((char*)this + 0x18 + i * 0x34);
+        Entry_268a10* e = (Entry_268a10*)&this->f_18[i];
         if (strcmp(s, e->Name()) == 0)
-            return (void*)((Entry_268a10*)((char*)this + 0x18 + i * 0x34));
+            return (void*)((Entry_268a10*)&this->f_18[i]);
     }
     return (void*)(0);
 }
@@ -913,9 +939,9 @@ void* core::ControllerXBox::vfunc_10(void* __p0) { const char * s = (const char 
 void* core::ControllerXBox::vfunc_15(void* __p0) { const char * s = (const char *)__p0;
 
     for (unsigned i = 0; i < 2; i++) {
-        Item_268a80* p = (Item_268a80*)((char*)this + 0x428 + i * 16);
+        Item_268a80* p = (Item_268a80*)&this->f_428[i];
         if (strcmp(s, p->get()) == 0)
-            return (void*)((core::ControllerXBox*)((char*)this + i * 16 + 0x428));
+            return (void*)&this->f_428[i];
     }
     return (void*)(0);
 }
@@ -925,16 +951,17 @@ void* core::ControllerXBox::vfunc_15(void* __p0) { const char * s = (const char 
 // sym: ?vfunc_6@ControllerXBox@core@@UAEPAXXZ
  // namespace core
 void* core::ControllerXBox::vfunc_6() {
-    return (void*)((char*)this + 0x448);
+    return (void*)this->f_448;
 }
 
 namespace fn_fc99ffef {
 
 // 0x00268b10 core::ControllerXBox::vfunc_7 (4 B): matches/0x00268b10.cpp
-// sym: ?target@fn_fc99ffef@@YIIPAUX_268b10@1@@Z
+// sym: ?target@fn_fc99ffef@@YIIPAUCoreControllerXBox@@@Z
 // Same code shape as 0x000862d0 (propagated; names are from that function)
-unsigned __fastcall target(X_268b10* self) {
-    return self->value;
+// (x64t11) the pad's input count (decls/controller_xbox.h; was a 32-bit view)
+unsigned __fastcall target(CoreControllerXBox* self) {
+    return self->inputCount;
 }
 
 } // namespace fn_fc99ffef
@@ -943,7 +970,7 @@ unsigned __fastcall target(X_268b10* self) {
 // sym: ?vfunc_11@ControllerXBox@core@@UAEPAXI@Z
 void* core::ControllerXBox::vfunc_11(unsigned int index) {
     if (index < this->f_14)
-        return (void*)((core::ControllerXBox*)((char*)this + index * 0x34 + 0x18));
+        return (void*)&this->f_18[index];
     return (void*)(0);
 }
 
@@ -960,7 +987,7 @@ int core::ControllerXBox::vfunc_12() {
 // sym: ?vfunc_16@ControllerXBox@core@@UAEPAXI@Z
 void* core::ControllerXBox::vfunc_16(unsigned int index) {
     if (index < 2)
-        return (void*)((char*)this + index * 16 + 0x428);
+        return (void*)&this->f_428[index];
     return (void*)(0);
 }
 
@@ -1004,10 +1031,11 @@ void core::ControllerOutputPointXBox::vfunc_1() {
 namespace fn_fc99ffef {
 
 // 0x00268c00 core::ControllerOutputPointXBox::vfunc_3 (4 B): matches/0x00268c00.cpp
-// sym: ?FUN_00268c00@fn_fc99ffef@@YIHPAX@Z
+// sym: ?FUN_00268c00@fn_fc99ffef@@YIPBDPAUCoreControllerOutputPointXBox@@@Z
 // Same code shape as 0x00086320 (propagated; names are from that function)
-int __fastcall FUN_00268c00(void* p) {
-    return *(int*)((char*)p + 8);
+// (x64t11) slot 3 returns the motor's name (decls/controller_xbox.h; natively an int was its low half)
+const char* __fastcall FUN_00268c00(CoreControllerOutputPointXBox* p) {
+    return p->name;
 }
 
 } // namespace fn_fc99ffef
@@ -1079,25 +1107,26 @@ void core::ControllerInputPointXBox::vfunc_13(int value) {
 
 
 // 0x00268d10 core::ControllerInputPointXBox::vfunc_12 (20 B): matches/0x00268d10.cpp
-// sym: ?vfunc_12@ControllerInputPointXBox@core@@UAEXH@Z
- // namespace core
-void core::ControllerInputPointXBox::vfunc_12(int __p0) { u32_268d10 arg = (u32_268d10)__p0;
-
-    this->f_08 = ((This_GetPointX*)this)->GetPointX(arg);
+// sym: ?vfunc_12@ControllerInputPointXBox@core@@UAEXPAI@Z
+// (x64t11) the argument is the pad's state (0x002692c0 passes it; was an int), read by 0x00268d30
+void core::ControllerInputPointXBox::vfunc_12(unsigned int* state) {
+    this->f_08 = (float)((InputValue_268d30*)(void*)this)->FUN_00268d30(state);
 }
 
 
 // 0x00268d30 FUN_00268d30 (181 B): equivalent/0x00268d30.cpp
-// sym: ?FUN_00268d30@InputValue_268d30@owners@@QAENPAI@Z @a4e9745d7414 @we22be9effbbe
+// sym: ?FUN_00268d30@InputValue_268d30@fn_fc99ffef@@QAENPAI@Z @a4e9745d7414 @we22be9effbbe
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 14/14)
 // FUN_00268d30 @ 0x00268d30
-double owners::InputValue_268d30::FUN_00268d30(unsigned int *source)
+// (x64t11) on the input point's record (gen owners' view put the type and the field at 32-bit offsets); the
+// type tags are records.h's pointers
+double InputValue_268d30::FUN_00268d30(unsigned int *source)
 {
     if (!source) return 0.0;
-    if (kind == (*(void**)&DAT_004cd698)) return ((*source & data) != 0) ? 1.0f : 0.0f;
-    if (kind == (*(void**)&DAT_004cd69c)) return ((unsigned char *)(data + (hulk_uintptr)source))[0] * 0.00392156862745098;
-    if (kind == (*(void**)&DAT_004cd6a0) || kind == (*(void**)&DAT_004cd6a4)) {
-        short value = ((short *)(data + (hulk_uintptr)source))[0];
+    if (type == DAT_004cd698) return ((*source & field) != 0) ? 1.0f : 0.0f;
+    if (type == DAT_004cd69c) return ((unsigned char *)(field + (hulk_uintptr)source))[0] * 0.00392156862745098;
+    if (type == DAT_004cd6a0 || type == DAT_004cd6a4) {
+        short value = ((short *)(field + (hulk_uintptr)source))[0];
         if (value > 0) return (double)value * 1.52592547e-05f + 0.5f;
         return (double)value * 1.52587891e-05f + 0.5f;
     }
@@ -1106,19 +1135,20 @@ double owners::InputValue_268d30::FUN_00268d30(unsigned int *source)
 
 
 // 0x00268df0 core::ControllerInputPointXBox::vfunc_3 (4 B): matches/0x00268df0.cpp
-// sym: ?vfunc_3@ControllerInputPointXBox@core@@UAEHXZ
+// sym: ?vfunc_3@ControllerInputPointXBox@core@@UAEPBDXZ
 // Same code shape as 0x00086290 (propagated; names are from that function)
-int core::ControllerInputPointXBox::vfunc_3() {
+const char* core::ControllerInputPointXBox::vfunc_3() {
     return this->f_24;
 }
 
 namespace fn_fc99ffef {
 
 // 0x00268e00 core::ControllerInputPointXBox::vfunc_4 (4 B): matches/0x00268e00.cpp
-// sym: ?target@fn_fc99ffef@@YIIPAVC_268e00@1@@Z
+// sym: ?target@fn_fc99ffef@@YIPBDPAUCoreControllerInputPointXBox@@@Z
 // Same code shape as 0x00086280 (propagated; names are from that function)
-unsigned int __fastcall target(C_268e00* self) {
-    return self->value;
+// (x64t11) slot 4 returns the input's type name (decls/controller_xbox.h; was a 32-bit view)
+const char* __fastcall target(CoreControllerInputPointXBox* self) {
+    return self->type;
 }
 
 } // namespace fn_fc99ffef
@@ -1145,18 +1175,19 @@ hulk_freg core::ControllerInputPointXBox::vfunc_6() {
 
 
 // 0x00268e60 core::ControllerInputPointXBox::vfunc_7 (24 B): matches/0x00268e60.cpp
-// sym: ?vfunc_7@ControllerInputPointXBox@core@@UAEXHH@Z
-void core::ControllerInputPointXBox::vfunc_7(int a, int b) {
-    if (*(int*)((char*)&this->f_2c) == 0) {
-        *(int*)((char*)&this->f_30) = b;
-        *(int*)((char*)&this->f_2c) = a;
+// sym: ?vfunc_7@ControllerInputPointXBox@core@@UAEXPAXI@Z
+// (x64t11) the callback and its argument whole (natively 4 of their 8 bytes were stored)
+void core::ControllerInputPointXBox::vfunc_7(void* a, hulk_uintptr b) {
+    if (this->f_2c == 0) {
+        this->f_30 = b;
+        this->f_2c = a;
     }
 }
 
 
 // 0x00268e80 core::ControllerInputPointXBox::vfunc_8 (20 B): matches/0x00268e80.cpp
-// sym: ?vfunc_8@ControllerInputPointXBox@core@@UAEXH@Z
-void core::ControllerInputPointXBox::vfunc_8(int x) {
+// sym: ?vfunc_8@ControllerInputPointXBox@core@@UAEXPAX@Z
+void core::ControllerInputPointXBox::vfunc_8(void* x) {
     if (this->f_2c == x) {
         this->f_2c = 0;
         this->f_30 = 0;
@@ -1175,37 +1206,37 @@ hulk_freg core::ControllerInputPointXBox::vfunc_9(void* __p0) { unsigned int * p
 
 
 // 0x00268ec0 core::ControllerInputPointXBox::vfunc_10 (17 B): matches/0x00268ec0.cpp
-// sym: ?vfunc_10@ControllerInputPointXBox@core@@UAEXPAX0@Z
-void core::ControllerInputPointXBox::vfunc_10(void* __p0, void* __p1) { void * x = (void *)__p0; void * y = (void *)__p1;
-
-    (*(hulk_intptr *)&this->f_0c) = (hulk_intptr)x;
-    (*(hulk_intptr *)&this->f_10) = (hulk_intptr)y;
+// sym: ?vfunc_10@ControllerInputPointXBox@core@@UAEXMM@Z
+// (x64t11) the range: two floats (natively the pointer-typed words overwrote the maximum and the threshold)
+void core::ControllerInputPointXBox::vfunc_10(float x, float y) {
+    this->f_0c = x;
+    this->f_10 = y;
 }
 
 
 // 0x00268ee0 core::ControllerInputPointXBox::vfunc_11 (29 B): matches/0x00268ee0.cpp
-// sym: ?vfunc_11@ControllerInputPointXBox@core@@UAEXPAX0@Z
-void core::ControllerInputPointXBox::vfunc_11(void* __p0, void* __p1) { unsigned long * a = (unsigned long *)__p0; unsigned long * b = (unsigned long *)__p1;
-
+// sym: ?vfunc_11@ControllerInputPointXBox@core@@UAEXPAM0@Z
+void core::ControllerInputPointXBox::vfunc_11(float* a, float* b) {
     if (a)
-        *a = (*(unsigned long *)&this->f_0c);
+        *a = this->f_0c;
     if (b)
-        *b = (*(unsigned long *)&this->f_10);
+        *b = this->f_10;
 }
 
 
 // 0x00268f00 core::ControllerInputPointXBox::vfunc_14 (123 B): matches/0x00268f00.cpp
-// sym: ?vfunc_14@ControllerInputPointXBox@core@@UAEXHH@Z
-void core::ControllerInputPointXBox::vfunc_14(int a, int b) {
-    float value = ((This_Convert*)this)->Convert(b);
+// sym: ?vfunc_14@ControllerInputPointXBox@core@@UAEXHPAI@Z
+// (x64t11) b is the pad's state (was an int), read by 0x00268d30
+void core::ControllerInputPointXBox::vfunc_14(int a, unsigned int* b) {
+    float value = (float)((InputValue_268d30*)(void*)this)->FUN_00268d30(b);
     if (value == this->f_08 || !((float)fabs(value - this->f_08) >= this->f_14))
         this->f_18 = a - this->f_1c;
     else {
         this->f_08 = value;
         this->f_1c = a;
         this->f_18 = 0;
-        if ((*(Callback_268f00 * *)&this->f_2c))
-            (*(Callback_268f00 * *)&this->f_2c)->Call(this->f_30, (this->f_10 - this->f_0c) * value + this->f_0c);
+        if (this->f_2c)
+            ((Callback_268f00*)this->f_2c)->Call(this->f_30, (this->f_10 - this->f_0c) * value + this->f_0c);
     }
 }
 
@@ -1224,104 +1255,102 @@ pure3d::NonCopyable_268f80* pure3d::NonCopyable_268f80::f2(unsigned char param) 
 } // namespace fn_fc99ffef
 
 // 0x00268fa0 FUN_00268fa0 (133 B): equivalent/0x00268fa0.cpp [wrapped: conflict: core::ControllerInputPointXBox; core::ControllerOutputPointXBox; core::ControllerXBox]
-// sym: ??0ControllerXBox@core@fn_00268fa0@@QAE@XZ @9c5980027dd9 @wcd20624430d8
+// sym: ??0ControllerXBox@core@fn_00268fa0@@QAE@XZ @2ac0be817b1f @w8f1e68216f1c
 namespace fn_00268fa0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00268fa0 @ 0x00268fa0
+// (x64t11) on decls/controller_xbox.h's records (was a 32-bit view whose own vftables had a stub slot natively): the
+// game's vftables stored by address, the inputs' and motors' words by name
+extern "C" char DAT_0042b14c[];   // core::ControllerXBox's vftable
+extern "C" char DAT_0042b24c[];   // core::ControllerInputPointXBox's
+extern "C" char DAT_0042b228[];   // core::ControllerOutputPointXBox's
 namespace core {
-struct ControllerInputPointXBox {
-    virtual void dummy();
-    int values[3];
-    float scale;
-    int rest[8];
-};
-struct ControllerOutputPointXBox {
-    virtual void dummy();
-    int values[3];
-};
-struct ControllerXBox {
-    virtual void dummy();
-    int values[5];
-    ControllerInputPointXBox inputs[20];
-    ControllerOutputPointXBox outputs[2];
-    char reserved[0x56];
-    char active;
+struct ControllerXBox : CoreControllerXBox {
     ControllerXBox();
 };
 ControllerXBox::ControllerXBox() {
-    for (int i = 0; i < 5; ++i) values[i] = 0;
+    vftable = DAT_0042b14c;
+    refs = 0;
+    handle = 0;
+    port = 0;
+    slot = 0;
+    inputCount = 0;
     for (int j = 0; j < 20; ++j) {
-        for (int k = 0; k < 3; ++k) inputs[j].values[k] = 0;
-        inputs[j].scale = 1.0f;
-        for (int k = 0; k < 8; ++k) inputs[j].rest[k] = 0;
+        CoreControllerInputPointXBox* in = &inputs[j];
+        in->vftable = DAT_0042b24c;
+        in->refs = 0;
+        in->value = 0.0f;
+        in->minimum = 0.0f;
+        in->maximum = 1.0f;
+        in->threshold = 0.0f;
+        in->heldTime = 0;
+        in->changeTime = 0;
+        in->type = 0;
+        in->name = 0;
+        in->field = 0;
+        in->callback = 0;
+        in->callbackArgument = 0;
     }
-    for (int j = 0; j < 2; ++j)
-        for (int k = 0; k < 3; ++k) outputs[j].values[k] = 0;
-    active = 0;
+    for (int k = 0; k < 2; ++k) {
+        outputs[k].refs = 0;
+        outputs[k].name = 0;
+        outputs[k].value = 0.0f;
+        outputs[k].vftable = DAT_0042b228;
+    }
+    connected = 0;
 }
 }
 } // namespace fn_00268fa0
 
 
 // 0x00269030 FUN_00269030 (278 B): equivalent/0x00269030.cpp [wrapped: conflict: core::ControllerSystemXBox; core::IControllerSystem; core::Object]
-// sym: ??0ControllerSystemXBox@core@fn_00269030@@QAE@HH@Z @32c9a96c3c00 @w13cafe2c7baa
+// sym: ??0ControllerSystemXBox@core@fn_00269030@@QAE@PAXH@Z @1118c33c5718 @wb7c23a63c4b4
 namespace fn_00269030 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00269030 @ 0x00269030
-
-struct ControllerXBox_269030 {
-    virtual void m0(); virtual void m1(); virtual void m2(); virtual void m3(); virtual void m4();
-    virtual void m5(); virtual void m6(); virtual void m7(); virtual void m8(); virtual void m9();
-    virtual void m10(); virtual void m11(); virtual void m12(); virtual void m13(); virtual void m14();
-    virtual void m15(); virtual void m16(); virtual void m17(); virtual void m18(); virtual void m19();
-    virtual void m20(int, int);
-    char reserved[0x49a]; unsigned char enabled; char end;
-    void FUN_00268fa0();
-};
+// (x64t11) on records.h's CoreControllerSystemXBox (was a 32-bit view: the pads a 0x4a0-byte stride, the callback an
+// int, the class's own vftables, whose slots were stubs natively): the base and final vftables are the game's,
+// stored by address; the pads are built by core::ControllerXBox's constructor 0x00268fa0; slots 6 and 7 and the
+// pads' slot 20 are called through the words the object holds (gen's interfaces), vfunc_7 directly
+extern "C" char DAT_0042b0b4[];   // core::IControllerSystem's vftable
+extern "C" char DAT_0042afa8[];   // core::Object's vftable
+extern "C" char DAT_0042b2a4[];   // core::ControllerSystemXBox's vftable
+extern "C" char DAT_0042b29c[];   // core::ControllerSystemXBox's core::Object vftable (at +4)
+struct Pad_269030 { void FUN_00268fa0(); };
 struct Device_269030 { virtual void d0(); virtual void d1(); virtual void d2(); virtual void d3(int, int); };
-int FUN_002705f0();
-int FUN_00267f80();
-void __cdecl FUN_00270940(Device_269030**, int);
+extern "C" int* __cdecl FUN_002705f0();
+unsigned int FUN_00267f80();
+void __cdecl FUN_00270940(void**, int);
 namespace core {
-struct Object { virtual void b0(); int id; Object() : id(DAT_004cdbb0) { FUN_002705f0(); } };
-struct IControllerSystem {
-    virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4();
-    virtual void a5(); virtual void a6(int) = 0; virtual void a7(int, int) = 0;
+struct ControllerSystemXBox : CoreControllerSystemXBox {
+    ControllerSystemXBox(void* callback, int heapId);
 };
-struct ControllerSystemXBox : IControllerSystem, Object {
-    int valuec; unsigned char value10; char gap11[3];
-    int value14; int value18; int value1c;
-    char padBytes[4 * 0x4a0];
-    int value12a0; int value12a4;
-    virtual void a6(int);
-    virtual void a7(int, int);
-    virtual void b0();
-    void vfunc_7(int, int);
-    ControllerSystemXBox(int first, int second);
-};
-ControllerSystemXBox::ControllerSystemXBox(int first, int second) {
-    ControllerXBox_269030* pads = (ControllerXBox_269030*)padBytes;
-    valuec = 0; value10 = 0; value14 = 0; value18 = 0; value1c = 0;
-    for (int i = 0; i < 4; ++i) pads[i].FUN_00268fa0();
+ControllerSystemXBox::ControllerSystemXBox(void* callback, int heapId) {
+    vftable = DAT_0042b0b4;
+    object.vftable = DAT_0042afa8;
+    object.heap = DAT_004cdbb0;
     FUN_002705f0();
-    value12a0 = 10;
-    value12a4 = FUN_00267f80();
-    Device_269030** devices = ((Device_269030**)&DAT_00528388);
+    vftable = DAT_0042b2a4;
+    object.vftable = DAT_0042b29c;
+    refs = 0; paused = 0; timeOffset = 0; rate = 0; connectionCallback = 0;
+    for (int i = 0; i < 4; ++i) ((Pad_269030*)&controllers[i])->FUN_00268fa0();
+    FUN_002705f0();
+    interval = 10;
+    lastPoll = FUN_00267f80();
     for (int j = 0; j < 4; ++j) {
-        FUN_00270940(&devices[j], second);
-        devices[j]->d3(3, 22);
+        FUN_00270940(&DAT_00528388[j], heapId);
+        ((Device_269030*)DAT_00528388[j])->d3(3, 22);
     }
-    if (first && !value1c) value1c = first;
-    value12a0 = 10;
-    IControllerSystem* sys = this;
-    sys->a6(value18);
-    ControllerSystemXBox::vfunc_7(0, 0);
-    value10 = 0;
-    sys->a7(0, 0);
-    int x = value12a0;
-    value18 = 10;
+    if (callback && !connectionCallback) connectionCallback = callback;
+    interval = 10;
+    ((::core::IControllerSystem*)(void*)this)->vfunc_6(rate);
+    ((::core::ControllerSystemXBox*)(void*)this)->::core::ControllerSystemXBox::vfunc_7(0, 0);
+    paused = 0;
+    ((::core::IControllerSystem*)(void*)this)->vfunc_7(0, 0);
+    unsigned int x = interval;
+    rate = 10;
     for (int k = 0; k < 4; ++k)
-        if (pads[k].enabled) pads[k].m20(10, x);
+        if (controllers[k].connected) ((::core::IControllerXBox*)(void*)&controllers[k])->vfunc_20(10, x);
 }
 }
 } // namespace fn_00269030
@@ -1373,14 +1402,15 @@ struct Device_2691f0 {
     virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
     virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
     virtual void slot20(); virtual void slot21(void*);
-    char padding[0x49a];
+    // (x64t11) the connected flag where decls/controller_xbox.h's pad has it, the view the pad's size
+    char padding[HULK_CTL_AT(CoreControllerXBox, connected, 0x49e) - sizeof(void*)];
     unsigned char active;
-    char endpad;
-    void FUN_002692c0(void*, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned);
+    char endpad[sizeof(CoreControllerXBox) - HULK_CTL_AT(CoreControllerXBox, connected, 0x49e) - 1];
+    void FUN_002692c0(void*, unsigned, unsigned, unsigned, unsigned, unsigned, void*);
 };
 struct Observer_2691f0 { virtual void slot0(Device_2691f0*); };
 struct Manager_2691f0 {
-    char pad[0x14];
+    char pad[HULK_CTL_AT(CoreControllerSystemXBox, timeOffset, 0x14)];   // (x64t11) records.h's system
     unsigned base;
     unsigned param;
     Observer_2691f0* observer;
@@ -1388,6 +1418,9 @@ struct Manager_2691f0 {
     unsigned extra;
     void FUN_002691f0();
 };
+HULK_CTL_SAME(Manager_2691f0, observer, CoreControllerSystemXBox, connectionCallback);
+HULK_CTL_SAME(Manager_2691f0, devices, CoreControllerSystemXBox, controllers);
+HULK_CTL_SAME(Manager_2691f0, extra, CoreControllerSystemXBox, interval);
 extern int DAT_003ea774;
 namespace XAPILIB {
     int __stdcall XGetDeviceChanges(int*, unsigned*, unsigned*);
@@ -1405,7 +1438,7 @@ void Manager_2691f0::FUN_002691f0() {
             if (device.active) device.slot21(handle);
             else {
                 unsigned time = FUN_00267f80();
-                device.FUN_002692c0(handle, i, 0, time + base, param, extra, ((hulk_uintptr*)&DAT_00528388)[i]);
+                device.FUN_002692c0(handle, i, 0, time + base, param, extra, DAT_00528388[i]);
             }
         } else if (device.active) {
             device.slot21(0);
@@ -1418,21 +1451,22 @@ void Manager_2691f0::FUN_002691f0() {
 namespace fn_fc99ffef {
 
 // 0x002692c0 FUN_002692c0 (300 B): equivalent/0x002692c0.cpp
-// sym: ?FUN_002692c0@Device_2692c0@fn_fc99ffef@@QAEXIIIIIII@Z @674bbbb8e9be @wdfe7d9fec6c8
+// sym: ?FUN_002692c0@Device_2692c0@fn_fc99ffef@@QAEXIIIIIIPAX@Z @674bbbb8e9be @wdfe7d9fec6c8
 // STATUS: equivalent (tools/equiv.py level 3: 280 inputs, branch coverage 4/4)
 // FUN_002692c0 @ 0x002692c0
-void Device_2692c0::FUN_002692c0(hulk_uintptr a,unsigned int b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,unsigned int g)
+// (x64t11) the buffer (g) a pointer; the view on the records; the table entries records.h's
+void Device_2692c0::FUN_002692c0(hulk_uintptr a,unsigned int b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,void* g)
 {
     handle=a; slot=b; port=c; count=0;
     active=0;
-    for(int i=0;i<0x46;i++) zeros[i]=0;
+    for(int i=0;i<(int)sizeof(zeros);i++) zeros[i]=0;
     other=g;
     name0=(*(unsigned int*)&DAT_0042b2f0); name1=(*(unsigned int*)((char*)&DAT_0042b2f0 + 4)); name2=(*(unsigned int*)((char*)&DAT_0042b2f0 + 8));
     ((unsigned char*)&name2)[2]=(unsigned char)(c+0x30);
     ((unsigned char*)&name1)[0]=(unsigned char)(b+0x30);
     count=20;
     for(unsigned int j=0;j<count;j++) {
-        entries[j].values=((Triple_2692c0*)&DAT_004cd6a8)[j];
+        entries[j].values=*(Triple_2692c0*)&DAT_004cd6a8[j];
         if(handle) {
             unsigned char state[22];
             for(int k=0;k<22;k++) state[k]=0;
@@ -1440,8 +1474,8 @@ void Device_2692c0::FUN_002692c0(hulk_uintptr a,unsigned int b,unsigned int c,un
             (&entries[j].input)->f12(state+4);
         }
     }
-    leftName=((char*)&DAT_0042b2e4);
-    rightName=((char*)&DAT_0042b2d8);
+    motors[0].name=DAT_0042b2e4;
+    motors[1].name=DAT_0042b2d8;
     active=1;
     f20(e,f);
     f18(d);
@@ -1499,17 +1533,17 @@ void* core::ControllerSystemXBox::vfunc_5(hulk_intptr __p0) { const char * name 
 // 0x002694f0 core::ControllerSystemXBox::vfunc_8 (49 B): matches/0x002694f0.cpp
 // sym: ?vfunc_8@ControllerSystemXBox@core@@UAEXI@Z
 void core::ControllerSystemXBox::vfunc_8(unsigned int arg) {
-    char* p = (char*)&this->f_20;
-    for (int i = 0; i < 4; i++, p += 0x4a0) {
-        if (p[0x49e])
+    CoreControllerXBox* p = this->f_20;
+    for (int i = 0; i < 4; i++, p++) {
+        if (p->connected)
             ((Pad_2694f0*)p)->f19(arg);
     }
 }
 
 
 // 0x00269530 core::ControllerSystemXBox::vfunc_11 (19 B): matches/0x00269530.cpp
-// sym: ?vfunc_11@ControllerSystemXBox@core@@UAEXH@Z
-void core::ControllerSystemXBox::vfunc_11(int param) {
+// sym: ?vfunc_11@ControllerSystemXBox@core@@UAEXPAX@Z
+void core::ControllerSystemXBox::vfunc_11(void* param) {
     if (this->f_1c == param)
         this->f_1c = 0;
 }
@@ -1557,34 +1591,34 @@ namespace fn_00269590 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00269590 @ 0x00269590
 
+// (x64t11) on records.h's CoreControllerSystemXBox and decls/controller_xbox.h's pads (was a 32-bit view)
 struct RefObject_269590 { virtual void slot0(); virtual void FUN_virtual1(); };
-extern void* DAT_0042b2a4[];
-extern void* DAT_0042b29c[];
-extern void* DAT_0042b14c[];
-extern void* DAT_003f6098[];
-extern void* DAT_0042af64[];
+extern "C" char DAT_0042b2a4[];
+extern "C" char DAT_0042b29c[];
+extern "C" char DAT_0042b14c[];
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042af64[];
 extern "C++" __declspec(nothrow) void __stdcall XInputClose(void*);
 extern "C" void __stdcall FUN_00013420(void*,int,int,void*);
 extern "C" void FUN_00268330();
 extern "C" void FUN_002684e0();
-struct ControllerXBox { void** vtable; char pad[4]; void* handle; char rest[0x4a0-12]; };
-struct ControllerSystemXBox { void** vtable; void** vtable2; int value; char pad[0x20-12]; ControllerXBox controllers[4]; void FUN_00269590(); };
+struct ControllerSystemXBox : CoreControllerSystemXBox { void FUN_00269590(); };
 void ControllerSystemXBox::FUN_00269590() {
- vtable=DAT_0042b2a4;
- vtable2=DAT_0042b29c;
- for(unsigned i=0;i<4;i++) { ((RefObject_269590**)&DAT_00528388)[i]->FUN_virtual1(); ((RefObject_269590**)&DAT_00528388)[i]=0; }
+ vftable=DAT_0042b2a4;
+ object.vftable=DAT_0042b29c;
+ for(unsigned i=0;i<4;i++) { ((RefObject_269590*)DAT_00528388[i])->FUN_virtual1(); DAT_00528388[i]=0; }
  for(int i=3;i>=0;--i) {
-  ControllerXBox& c=controllers[i];
-  void* h=c.handle;
-  c.vtable=DAT_0042b14c;
-  if(h) XInputClose(h);
-  FUN_00013420((char*)&c+0x428,0x10,2,(void*)&FUN_00268330);
-  FUN_00013420((char*)&c+0x18,0x34,0x14,(void*)&FUN_002684e0);
-  c.vtable=DAT_003f6098;
+  CoreControllerXBox& c=controllers[i];
+  hulk_uintptr h=c.handle;
+  c.vftable=DAT_0042b14c;
+  if(h) XInputClose((void*)h);
+  FUN_00013420(c.outputs,(int)sizeof(CoreControllerOutputPointXBox),2,(void*)&FUN_00268330);
+  FUN_00013420(c.inputs,(int)sizeof(CoreControllerInputPointXBox),0x14,(void*)&FUN_002684e0);
+  c.vftable=DAT_003f6098;
  }
- DAT_004cdbb0=value;
- vtable2=DAT_0042af64;
- vtable=DAT_003f6098;
+ DAT_004cdbb0=object.heap;
+ object.vftable=DAT_0042af64;
+ vftable=DAT_003f6098;
 }
 } // namespace fn_00269590
 
@@ -1592,15 +1626,16 @@ namespace fn_fc99ffef {
 
 // 0x00269640 FUN_00269640 (61 B): matches/0x00269640.cpp
 // sym: _FUN_00269640
-extern "C" void __cdecl FUN_00269640(u32_269640 a, u32_269640 b) {
+// (x64t11) the callback a pointer, the system typed (DAT_00528398, records.h); 0x0008e880 pushes a third word (0)
+// that the function never reads
+extern "C" void __cdecl FUN_00269640(void* callback, int heap, int) {
     HULK_SIZE32(CoreControllerSystemXBox, 0x12a8);
-    u32_269640 v = b;
-    *(volatile u32_269640*)((hulk_intptr)((char*)&DAT_004cdbb0)) = v;
-    hulk_uintptr x = FUN_00266e00(v, (u32_269640)sizeof(CoreControllerSystemXBox));
+    *(volatile int*)&DAT_004cdbb0 = heap;
+    void* x = FUN_00266e00(heap, (unsigned)sizeof(CoreControllerSystemXBox));
     if (x)
-        *(volatile u32_269640*)((hulk_intptr)DAT_00528398) = ((ControllerSystemXBox_nv_269640*)(((core::ControllerSystemXBox*)(((core::ControllerSystemXBox*)x)))))->Make(a, v);
+        DAT_00528398[0] = ((ControllerSystemXBox_nv_269640*)x)->FUN_00269030(callback, heap);
     else
-        *(volatile u32_269640*)((hulk_intptr)DAT_00528398) = 0;
+        DAT_00528398[0] = 0;
 }
 
 } // namespace fn_fc99ffef

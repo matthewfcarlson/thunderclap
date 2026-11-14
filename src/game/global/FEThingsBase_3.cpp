@@ -710,7 +710,7 @@ class Thing_f7110 {
     char pad2[8];
     int b;
 };
-extern "C" hulk_intptr __cdecl FUN_000f7120(int key);
+extern "C" const char* __cdecl FUN_000f7120(int key);
 struct KeyEntry {
     unsigned int lo, hi;
 };
@@ -6698,11 +6698,12 @@ void __fastcall FUN_000f7110(Thing_f7110* self) {
 
 // 0x000f7120 FUN_000f7120 (32 B): matches/0x000f7120.cpp
 // sym: _FUN_000f7120
-hulk_intptr __cdecl FUN_000f7120(int key) {
+// (x64t11) records.h's language table (natively the names are 8-byte pointers in 16-byte pairs); the name a pointer
+const char* __cdecl FUN_000f7120(int key) {
     int i = 0;
     do {
-        if (((int*)&DAT_0040cc74)[i * 2] == key) {
-            return ((int*)&DAT_0040cc78)[i * 2];
+        if (DAT_0040cc74[i].id == key) {
+            return DAT_0040cc74[i].name;
         }
         i = i + 1;
     } while (i < 6);

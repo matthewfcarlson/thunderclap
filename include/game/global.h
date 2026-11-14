@@ -108,7 +108,7 @@ class IRefCount {
 typedef unsigned __int64 U64;
 void FreeMem(void*);
 TREE_TU_END
-extern int __cdecl __vsnprintf(char*, int, const char*, void*);
+extern "C" int __cdecl __vsnprintf(char*, int, const char*, void*);   // (x64t11) the C runtime's C name (native_crt_table.h binds it)
 TREE_TU_BEGIN
 extern hulk_freg __cdecl FUN_000189c0(float);
 hulk_freg FUN_000a02a0(float angle);

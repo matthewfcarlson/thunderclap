@@ -20,21 +20,27 @@ extern "C" char DAT_0042b680[];
 extern "C" char DAT_0042b688[];
 extern "C" char DAT_0042b6b0[];
 extern int gValue_2708e0;
+// (x64t11) gen/core.h's core::ControllerBuffer words (natively 0x48 bytes: core::Object's part rounds to 16, the
+// buffer, the queue and the heap are pointers)
+struct ControllerBufferObject_2708e0 {
+    hulk_intptr vptr4;      // core::Object's vftable
+    int ref;                // the heap id
+};
 class ControllerBuffer {
   public:
     hulk_intptr vptr;
-    hulk_intptr vptr4;
-    int ref;
+    ControllerBufferObject_2708e0 object;
     int enabled;
-    int a;
+    void* a;
     int b;
     int c;
     int d;
     int e;
-    int pad;
-    int f;
+    void* pad;
+    void* f;
     ControllerBuffer(int);
 };
+typedef char hulk_controller_buffer_size_[(sizeof(ControllerBuffer) == sizeof(::core::ControllerBuffer)) ? 1 : -1];
 void InitBase_002705f0();
 enum GameMemoryAllocator { GMA_DEFAULT };
 extern "C" void* FUN_00266e00(GameMemoryAllocator heap, hulk_uintptr size);
@@ -43,11 +49,7 @@ inline void* operator new(size_t size, GameMemoryAllocator heap) {
     return FUN_00266e00(heap, size);
 }
 namespace fn_f44852ae {
-class ControllerBuffer_270940 {
-  public:
-    ControllerBuffer_270940(GameMemoryAllocator heap); // FUN_002708e0
-    char pad[0x2c];
-};
+
 int __cdecl FUN_00345b90(int);
 void __cdecl FUN_00277190(void *);
 extern "C" void __cdecl FUN_00273530(unsigned int, unsigned int);
@@ -106,7 +108,8 @@ class Obj_271230 {
     virtual void f20();
     virtual void f21();
 };
-void FUN_002710d0(void*, int, int, int, int, int, int, int);
+// (x64t11) 0x002710d0's own parameters: the file slot and the name (were ints: the native link refused the call)
+int FUN_002710d0(void*, const char*, int, int, int, int, int, int);
 extern "C++" __declspec(nothrow) int __cdecl FUN_00270f10(const char *, void *);
 extern "C" void * __cdecl FUN_00276680(unsigned int);
 struct InstanceDrive_nv_271410 {
@@ -157,11 +160,11 @@ int __cdecl FUN_00271870(unsigned int, char *, unsigned int, unsigned int, unsig
 // sym: ??0ControllerBuffer@fn_f44852ae@@QAE@H@Z
 ControllerBuffer::ControllerBuffer(int value) {
     vptr = ((hulk_intptr)DAT_0042b6b0);
-    vptr4 = ((hulk_intptr)DAT_0042afa8);
-    ref = *(int*)((hulk_intptr)((char*)&DAT_004cdbb0));
+    object.vptr4 = ((hulk_intptr)DAT_0042afa8);
+    object.ref = *(int*)((hulk_intptr)((char*)&DAT_004cdbb0));
     InitBase_002705f0();
     vptr = ((hulk_intptr)DAT_0042b688);
-    vptr4 = ((hulk_intptr)DAT_0042b680);
+    object.vptr4 = ((hulk_intptr)DAT_0042b680);
     enabled = 1;
     a = 0;
     b = 0;
@@ -169,16 +172,18 @@ ControllerBuffer::ControllerBuffer(int value) {
     d = 0;
     e = 0;
     pad = 0;
-    f = value;
+    f = (void*)(hulk_intptr)value;
     InitBase_002705f0();
 }
 
 
 // 0x00270940 FUN_00270940 (52 B): matches/0x00270940.cpp
-// sym: ?FUN_00270940@fn_f44852ae@@YAXPAPAVControllerBuffer_270940@1@W4GameMemoryAllocator@1@@Z
-void FUN_00270940(ControllerBuffer_270940** out, GameMemoryAllocator heap) {
+// sym: ?FUN_00270940@fn_f44852ae@@YAXPAPAVControllerBuffer@1@W4GameMemoryAllocator@1@@Z
+// (x64t11) the buffer is the class 0x002708e0 constructs (was a 0x2c-byte view whose constructor the native link
+// could not bind: the buffer natively 0x48 bytes)
+void FUN_00270940(ControllerBuffer** out, GameMemoryAllocator heap) {
     (*(GameMemoryAllocator*)&DAT_004cdbb0) = heap;
-    *out = new (heap) ControllerBuffer_270940(heap);
+    *out = new (heap) ControllerBuffer(heap);
 }
 
 
@@ -623,9 +628,10 @@ namespace fn_f44852ae {
 
 // 0x00271230 FUN_00271230 (62 B): matches/0x00271230.cpp
 // sym: _FUN_00271230
-extern "C" void FUN_00271230(Obj_271230* p, int a, int b, int c, int d, int e, int f, int g) {
+// (x64t11) p is the caller's file slot, a the name (0x002710d0's first two parameters; were an object and an int)
+extern "C" void FUN_00271230(Obj_271230** p, const char* a, int b, int c, int d, int e, int f, int g) {
     FUN_002710d0(p, a, b, c, d, e, f, g);
-    Obj_271230* q = *(Obj_271230**)p;
+    Obj_271230* q = *p;
     if (q)
         q->f21();
 }
@@ -685,7 +691,9 @@ extern "C" void __cdecl FUN_00271530(A_271530* a, const char* b, int c, int d) {
 // sym: _FUN_00271560 @afaf6114979f @wa8e2dd563057
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 12/12)
 // FUN_00271560 @ 0x00271560
-extern "C" void __cdecl FUN_00271560(int* output, hulk_intptr name, int flags, int extra) {
+// (x64t11) the output is the caller's file pointer (CPlatformManager's archive slot; 0x00277b70 stores a
+// CementLibrary* through it): as an int* the miss stored 4 of its 8 bytes natively
+extern "C" void __cdecl FUN_00271560(void** output, hulk_intptr name, int flags, int extra) {
     Work_271560 work;
     work.secondary = 0;
     work.tertiary = 0;

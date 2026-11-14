@@ -1474,77 +1474,10 @@ struct CoreConsoleClient {
                                             //        (0x0026e200 searches it, 0x0026e3c0 unlinks)
 };
 
-// core::ControllerInputPointXBox (vftable 0x0042b24c; 0x00268fa0 constructs 20 per pad, 0x002692c0 binds them
-// to the XInput state table 0x004cd6a8): one button or axis of a pad.
-struct CoreControllerInputPointXBox {
-    const void* vftable;                    // +0x00
-    int refs;                               // +0x04 (0x00268cd0 / 0x00268ce0)
-    float value;                            // +0x08 (0x00268d10 / 0x00268f00 store 0x00268d30's reading)
-    float minimum;                          // +0x0c (0x00268ec0 sets, 0x00268ea0 / 0x00268ee0 read)
-    float maximum;                          // +0x10 (1.0 at construction)
-    float threshold;                        // +0x14 the change threshold (0x00268e10 clamps it to 0..1)
-    int heldTime;                           // +0x18 (0x00268f00, 0x00268ea0)
-    int changeTime;                         // +0x1c (0x00268cf0, 0x00268f00)
-    const char* type;                       // +0x20 the state table's type name (0x00268d30 compares it with
-                                            //       DAT_004cd698..DAT_004cd6a4; vfunc 0x00268e00 returns it)
-    const char* name;                       // +0x24 (vfunc 0x00268df0 returns it; 0x00268a10 compares names)
-    unsigned int field;                     // +0x28 the button mask or the byte offset into the state (0x00268d30)
-    void* callback;                         // +0x2c the change callback (0x00268e60 sets, 0x00268e80 clears,
-                                            //       0x00268f00 calls its slot 0)
-    hulk_uintptr callbackArgument;          // +0x30 0x00268e60's 2nd argument, passed back by 0x00268f00
-};
+// core::ControllerInputPointXBox, core::ControllerOutputPointXBox, core::ControllerXBox: decls/controller_xbox.h
+// (gen/core.h's classes hold them too). core::ControllerSystemXBox follows core::MemoryPool (its Object base).
+#include "decls/controller_xbox.h"
 
-// core::ControllerOutputPointXBox (vftable 0x0042b228): a pad's motor (2 per pad).
-struct CoreControllerOutputPointXBox {
-    const void* vftable;                    // +0x00
-    int refs;                               // +0x04 (0x00268be0 / 0x00268bf0)
-    const char* name;                       // +0x08 "LeftMotor" / "RightMotor" (0x002692c0; vfunc 0x00268c00 returns it)
-    float value;                            // +0x0c 0..1 (0x00268c30 clamps, 0x00268c20 returns; 0x002685a0 reads)
-};
-
-// core::ControllerXBox (vftable 0x0042b14c; 0x00268fa0 constructs it, 0x002692c0 opens it on a port, 0x00268520
-// destroys it): one pad of the controller system (4 of them inline, 0x4a0 bytes apart).
-struct CoreControllerXBox {
-    const void* vftable;                    // +0x000
-    int refs;                               // +0x004 (0x00268580 / 0x00268590; 0x002685a0 polls only while > 0)
-    hulk_uintptr handle;                    // +0x008 the XInput handle (0x002692c0; 0x002685a0, 0x00268780, 0x00268520)
-    int port;                               // +0x00c (0x002692c0)
-    int slot;                               // +0x010 (0x002692c0)
-    unsigned int inputCount;                // +0x014 20 (0x002692c0; 0x00268b10 returns it)
-    CoreControllerInputPointXBox inputs[20];   // +0x018 (0x00268b20)
-    CoreControllerOutputPointXBox outputs[2];  // +0x428 (0x00268b50)
-    char name[12];                          // +0x448 "Portx\Slotx" with the digits (0x002692c0; 0x00268b00 returns it)
-    void* buffer;                           // +0x454 the core::ControllerBuffer (0x002692c0's last argument;
-                                            //        0x00268690 / 0x002686d0 / 0x00268760 call it)
-    // +0x458 the XInputSetState feedback (0x002692c0 clears 0x46 bytes; 0x002685a0): inline, the next byte is at
-    // +0x49e (a nested struct would round to 0x48)
-    unsigned int feedbackStatus;            // +0x458 ERROR_IO_PENDING (0x3e5) while a rumble is in flight
-    hulk_uintptr feedbackEvent;             // +0x45c the header's event handle (0x002685a0 clears it)
-    unsigned char feedbackReserved[0x3a];   // +0x460
-    unsigned short leftMotor;               // +0x49a 0..65535 (0x002685a0)
-    unsigned short rightMotor;              // +0x49c
-    unsigned char connected;                // +0x49e (0x002692c0 sets 1; the system's loops test it)
-    unsigned char pad49f;                   // +0x49f
-};
-
-// core::ControllerSystemXBox (0x00269030 constructs it; vftables 0x0042b2a4 / +4 0x0042b29c; 0x00269590
-// destroys it): the four pads (DAT_00528398). 0x00269640 allocates 0x12a8 bytes.
-struct CoreControllerSystemXBox {
-    const void* vftable;                    // +0x0000 core::IControllerSystem
-    const void* vftableObject;              // +0x0004 core::Object / BaseObject
-    int heap;                               // +0x0008 the heap id
-    int refs;                               // +0x000c (0x00269150 / 0x00269160)
-    unsigned char paused;                   // +0x0010 (0x00268390 sets it; 0x00269170 tests it)
-    char pad11[3];                          // +0x0011
-    int timeOffset;                         // +0x0014 (0x002683f0; 0x00269170 / 0x002691f0 add it to the time)
-    int rate;                               // +0x0018 (10 at construction; 0x00268390)
-    void* connectionCallback;               // +0x001c a core::IControllerConnectionChangeCallback (the constructor's
-                                            //         1st argument; 0x00268460 sets, 0x00269530 clears,
-                                            //         0x002691f0 calls its slot 0)
-    CoreControllerXBox controllers[4];      // +0x0020
-    unsigned int interval;                  // +0x12a0 the poll interval (10; 0x00268440, 0x00269170)
-    unsigned int lastPoll;                  // +0x12a4 the time of the last poll (0x00267f80; 0x00269170)
-};
 
 // movie::PlayerBink (0x00333f10 constructs it; vftables 0x004340bc / +4 0x004340b0; 0x00333fa0 destroys it):
 // the movie player (DAT_00555ba4). 0x00334010 allocates 0x1dc bytes.
@@ -1596,6 +1529,26 @@ struct CoreMemoryPool {
     unsigned int live;                      // +0x28 items handed out (0x002701d0 increments, 0x002700b0 decrements)
     unsigned int peak;                      // +0x2c the most items handed out at once
     void* child;                            // +0x30 the child core::MemoryPool (0x002701d0 creates it)
+};
+
+// core::ControllerSystemXBox (0x00269030 constructs it; vftables 0x0042b2a4 / +4 0x0042b29c; 0x00269590
+// destroys it): the four pads (DAT_00528398). 0x00269640 allocates 0x12a8 bytes.
+struct CoreControllerSystemXBox {
+    const void* vftable;                    // +0x0000 core::IControllerSystem
+    CoreObjectBase object;                  // +0x0004 the core::Object base: its vftable and the heap id (a base
+                                            //         class: on the 64-bit MS ABI the members after it start past
+                                            //         its rounded size, as gen's f_0c)
+    int refs;                               // +0x000c (0x00269150 / 0x00269160)
+    unsigned char paused;                   // +0x0010 (0x00268390 sets it; 0x00269170 tests it)
+    char pad11[3];                          // +0x0011
+    int timeOffset;                         // +0x0014 (0x002683f0; 0x00269170 / 0x002691f0 add it to the time)
+    int rate;                               // +0x0018 (10 at construction; 0x00268390)
+    void* connectionCallback;               // +0x001c a core::IControllerConnectionChangeCallback (the constructor's
+                                            //         1st argument; 0x00268460 sets, 0x00269530 clears,
+                                            //         0x002691f0 calls its slot 0)
+    CoreControllerXBox controllers[4];      // +0x0020
+    unsigned int interval;                  // +0x12a0 the poll interval (10; 0x00268440, 0x00269170)
+    unsigned int lastPoll;                  // +0x12a4 the time of the last poll (0x00267f80; 0x00269170)
 };
 
 // The file system's drive registry (0x002709b0 clears it, 0x00270c10 finds a drive by name, 0x00270c80 / 0x00270d40
@@ -1805,5 +1758,46 @@ extern "C" AudioFormatEntry DAT_004cc248[6];
 // world through it lays the world out as the record (was `void*`: an untyped object to equiv64).
 struct HulkPhysicsWorld;
 extern "C" HulkPhysicsWorld* DAT_00554c14[1];
+
+// (x64t11) The controller system (core::ControllerSystemXBox; ControllerXBox.cpp's object): 0x00269640 allocates
+// it and stores the constructor's result here, 0x00268490 releases it, 0x002684b0 returns it (CController,
+// MyControllerCallback, ControllerPollerBase, CPhysicalController, MyDriveErrorCallback read the pads through it).
+// A pointer (was `char[4]`: natively the getter returned its low half).
+extern "C" CoreControllerSystemXBox* DAT_00528398[1];
+
+// (x64t11) The pads' state table (ControllerXBox.cpp): per input of a pad its type tag, its name and its field (the
+// button mask or the byte offset into the pad's state). The start-up initializer 0x00361760 sets the type tags from
+// DAT_004cd698..DAT_004cd6a4; the pad open 0x002692c0 copies entry j into input point j (decls/controller_xbox.h's
+// type / name / field). One item of 20 entries (natively 24 bytes each: was a packed 32-bit layout).
+struct CoreControllerStateEntry {
+    const void* type;
+    const char* name;
+    unsigned int field;
+};
+extern "C" CoreControllerStateEntry DAT_004cd6a8[20];
+
+// (x64t11) The pool CStaticAllocator 0x0008fde0 builds at start-up (0x0035e6b0; 0x00364010 releases it): 32 blocks
+// of 0x100 bytes the projectiles take (0x0008fe90) and give back (0x0008ff00). The constructor's words; natively
+// 0x30 bytes (the class's vftable and the two pointers): as a 28-byte item its native constructor overran it into
+// whatever the linker placed next (the pddi device slot DAT_005554a4: the device was a zeroed block).
+struct GameStaticAllocator {
+    const void* vftable;                    // +0x00
+    unsigned int elemSize;                  // +0x04 0x100
+    unsigned int count;                     // +0x08 0x20
+    int flags;                              // +0x0c the constructor's 4th argument (0)
+    void* data;                             // +0x10 count * elemSize bytes (0xbb-filled)
+    unsigned int* bits;                     // +0x14 one bit per block in use
+    unsigned int cursor;                    // +0x18 the next block to try
+};
+extern "C" GameStaticAllocator DAT_004e2210[1];
+
+// (x64t11) The languages' table (FEThingsBase_3.cpp): six {language id, file name} pairs; 0x000f7120 returns the
+// name of an id (0x000b51c0 formats a file name from it). Natively a pair is 16 bytes (was read as ints at a 4-byte
+// stride: the name's low half).
+struct GameLanguageName {
+    int id;
+    const char* name;
+};
+extern "C" const GameLanguageName DAT_0040cc74[6];
 
 #endif

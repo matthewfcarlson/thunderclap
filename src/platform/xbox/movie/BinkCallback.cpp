@@ -133,8 +133,12 @@ class BinkCallback {
     BinkCallback* vfunc_0(u8_335160 flag);
 };
 }
-extern "C" void* Allocate(void*, unsigned int);
-extern "C" void Init();
+// (x64t11) the allocator and core::Object's 0x002705f0 by their own C names (were `Allocate` / `Init`: names the
+// native link has no address for)
+extern "C" void* FUN_00266e00(int heap, int size);
+extern "C" int* __cdecl FUN_002705f0();
+// movie::BinkCallback's words (core::Object's vftable and heap, the IFileCompletionCallback
+// vftable, f_0c), 0x10 bytes on the 32-bit builds and 0x20 natively
 struct Callback_3351a0 {
     hulk_uintptr vtable;
     unsigned int arg;
@@ -604,11 +608,12 @@ movie::BinkCallback* movie::BinkCallback::vfunc_0(u8_335160 flag) {
 // data: gResult_3351a0 = DAT_00555ba8, gStored = DAT_004cdbb0
 extern "C" void FUN_003351a0(hulk_uintptr arg) {
     (*(volatile unsigned int*)&DAT_004cdbb0) = arg;
-    Callback_3351a0* p = (Callback_3351a0*)Allocate((void*)arg, 0x10);
+    HULK_SIZE32(Callback_3351a0, 0x10);
+    Callback_3351a0* p = (Callback_3351a0*)FUN_00266e00((int)arg, (int)sizeof(Callback_3351a0));
     if (p) {
         p->vtable = ((hulk_intptr)DAT_0042afa8);
         p->arg = (*(volatile unsigned int*)&DAT_004cdbb0);
-        Init();
+        FUN_002705f0();
         *(volatile hulk_uintptr*)&p->subVtable = ((hulk_intptr)DAT_0042bf6c);
         p->vtable = ((hulk_intptr)DAT_004342fc);
         p->subVtable = ((hulk_intptr)DAT_004342e8);
