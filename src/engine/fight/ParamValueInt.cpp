@@ -1,7 +1,9 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002348e0..0x00234960 (kind game, layer engine, confidence medium), dominant class fight::ParamValueInt
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter classes' real constructors
 #include "compat/ptr.h"
+#include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_f7e8950c {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -58,12 +60,16 @@ class ParamValueInt {
 }
 
 
+} // namespace fn_f7e8950c
+
 // 0x002348e0 FUN_002348e0 (34 B): matches/0x002348e0.cpp
-// sym: ??0ParamValueInt@fn_f7e8950c@@QAE@H@Z
-ParamValueInt::ParamValueInt(hulk_intptr x) : value(x) {
-    volatile int* p = (volatile int*)this;
-    *(hulk_intptr*)p = ((hulk_intptr)DAT_00427a38);
-}
+// sym: ??0ParamValueInt@fight@@QAE@PBD@Z
+// (gx2, D18) the constructor the parameter registrations call (`new ParamX<T>(name, setter)`)
+::fight::ParamValueInt::ParamValueInt(const char* name) : ::fight::ParamValue(name) {}
+
+namespace fn_f7e8950c {
+
+
 
 
 // 0x00234910 fight::ParamValueInt::vfunc_5 (68 B): matches/0x00234910.cpp

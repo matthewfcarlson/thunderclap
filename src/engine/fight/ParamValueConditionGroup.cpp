@@ -1,7 +1,9 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00235220..0x002352d0 (kind game, layer engine, confidence high), dominant class fight::ParamValueConditionGroup
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter classes' real constructors
 #include "compat/ptr.h"
+#include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_fb539295 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -15,14 +17,14 @@ namespace fn_fb539295 { extern "C" char DAT_00427c88[]; }   // (x64t6) the game 
 namespace fn_fb539295 {
 extern void* hulk_at_004279fc[];
 struct Sub_235220 {
-    void Init_0027b0e0(int a);
+    void Init_0027b0e0(int a) throw();
 };
 class ParamValueConditionGroup_235220 {
   public:
     void* vptr;
     char pad[4];
     Sub_235220 sub;
-    ParamValueConditionGroup_235220(hulk_intptr a);
+    ParamValueConditionGroup_235220(hulk_intptr a) throw();
 };
 class Helper_235250 {
   public:
@@ -58,13 +60,16 @@ class ParamValueConditionGroup_235270 {
 };
 
 
+} // namespace fn_fb539295
+
 // 0x00235220 FUN_00235220 (34 B): matches/0x00235220.cpp
-// sym: ??0ParamValueConditionGroup_235220@fn_fb539295@@QAE@H@Z
-ParamValueConditionGroup_235220::ParamValueConditionGroup_235220(hulk_intptr a) {
-    vptr = hulk_at_004279fc;
-    sub.Init_0027b0e0(a);
-    vptr = (void**)DAT_00427c88;
-}
+// sym: ??0ParamValueConditionGroup@fight@@QAE@PBD@Z
+// (gx2, D18) the constructor the parameter registrations call (`new ParamX<T>(name, setter)`)
+::fight::ParamValueConditionGroup::ParamValueConditionGroup(const char* name) : ::fight::ParamValue(name) {}
+
+namespace fn_fb539295 {
+
+
 
 
 // 0x00235250 fight::ParamValueConditionGroup::vfunc_3 (29 B): matches/0x00235250.cpp

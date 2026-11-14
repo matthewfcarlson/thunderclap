@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0023cb40..0x0023cf00 (kind game, layer engine, confidence high), dominant class fight::PlatformCondition
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/hulkfight.h"
@@ -16,6 +16,8 @@ void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to f
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 
 // ---- declarations shared by the functions below
 namespace fn_fe0f08cb {
@@ -95,7 +97,7 @@ class TrackFactoryTemplate_23ce30 {
     int mPad;
     TrackImpl mTrack;
 };
-extern "C++" __declspec(nothrow) void FUN_0023cce0();
+extern "C++" void FUN_0023cce0();
 typedef unsigned int u32_23ce70;
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern u32_23ce70 PlatformVtable;
@@ -251,58 +253,34 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::PlatformCondition>
 // sym: ??_G?$ParamBool@VPlatformCondition@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<fight::PlatformCondition>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<fight::PlatformCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23ccc0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
-
-// 0x0023cce0 FUN_0023cce0 (256 B): equivalent/0x0023cce0.cpp [wrapped: conflict: fight::ParamBool]
-// sym: _FUN_0023cce0 @cce7cdfb2bb4 @wbac80ea5cc63
-namespace fn_0023cce0 {
-// STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 10/10)
-// FUN_0023cce0 @ 0x0023cce0
-
-
-extern "C" void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl SetPS2_0023cb40();
-void __cdecl SetXBox_0023cb50();
-void __cdecl SetGameCube_0023cb60();
-void __cdecl SetWin32_0023cb70();
-namespace fight {
-class PlatformCondition;
-template<class T> struct ParamBool {
- virtual void slot0();
- char data[12];
- void (__cdecl *callback)();
- char tail[4];
- void FUN_00234860(const char*);
-};
-}
-void __cdecl FUN_002347b0(int*, fight::ParamBool<fight::PlatformCondition>**, int);
-extern "C" void __cdecl FUN_0023cce0() {
- if (DAT_004e5c50 == 0) {
- typedef fight::ParamBool<fight::PlatformCondition> P;
- P* items[4];
- P* p = (P*)FUN_0008d690((int)sizeof(P));
- if(p) { p->FUN_00234860("pS2"); new (p) P; p->callback = SetPS2_0023cb40; }
- items[0]=p;
- p=(P*)FUN_0008d690((int)sizeof(P));
- if(p) { p->FUN_00234860("xBox"); new (p) P; p->callback = SetXBox_0023cb50; }
- items[1]=p;
- p=(P*)FUN_0008d690((int)sizeof(P));
- if(p) { p->FUN_00234860("gameCube"); new (p) P; p->callback = SetGameCube_0023cb60; }
- items[2]=p;
- p=(P*)FUN_0008d690((int)sizeof(P));
- if(p) { p->FUN_00234860("win32"); new (p) P; p->callback = SetWin32_0023cb70; }
- items[3]=p;
- FUN_002347b0(&DAT_004e5c4c,items,4);
- }
- ++DAT_004e5c50;
-}
-} // namespace fn_0023cce0
 
 namespace fn_fe0f08cb {
+
+} // namespace fn_fe0f08cb
+
+// 0x0023cce0 FUN_0023cce0 (256 B): matches/0x0023cce0.cpp
+// sym: ?FUN_0023cce0@fn_fe0f08cb@@YAXXZ
+// (gx2, D18) rewritten; constructs the real ParamBool<PlatformCondition>,
+// whose vftable and scalar deleting destructor it emits
+namespace fn_fe0f08cb {
+void FUN_0023cce0()
+{
+    if (DAT_004e5c50 == 0) {
+        fight::ParamValue* params[4];
+        params[0] = new fight::ParamBool<fight::PlatformCondition>("pS2", &fn_fe0f08cb::Obj_23cb40::SetPS2_0023cb40);
+        params[1] = new fight::ParamBool<fight::PlatformCondition>("xBox", &fn_fe0f08cb::C_23cb50::SetXBox_0023cb50);
+        params[2] = new fight::ParamBool<fight::PlatformCondition>("gameCube", &fn_fe0f08cb::Obj_23cb60::SetGameCube_0023cb60);
+        params[3] = new fight::ParamBool<fight::PlatformCondition>("win32", &fn_fe0f08cb::O_23cb70::SetWin32_0023cb70);
+        FUN_002347b0(&DAT_004e5c4c, params, 4);
+    }
+    DAT_004e5c50++;
+}
+} // namespace fn_fe0f08cb
+
+namespace fn_fe0f08cb {
+
 
 // 0x0023cde0 FUN_0023cde0 (27 B): matches/0x0023cde0.cpp
 // sym: ?FUN_0023cde0@fn_fe0f08cb@@YAXPAVPlatformCondition@1@@Z

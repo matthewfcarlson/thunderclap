@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0023d810..0x0023df40 (kind game, layer engine, confidence high), dominant class fight::CommentTrack
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/global.h"
@@ -16,6 +16,7 @@ struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) 
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 
 // ---- declarations shared by the functions below
 namespace fn_f40d2254 {
@@ -384,10 +385,7 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::CommentCondition>:
 // sym: ??_G?$ParamString@VCommentCondition@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamString<fight::CommentCondition>::~ParamString() {}
-#if defined(HULK_PTR64)
-template class fight::ParamString<fight::CommentCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23dc10)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0023dc40 fight::TrackFactoryCasterTemplate<fight::CommentTrack>::vfunc_0 (36 B): matches/0x0023dc40.cpp
@@ -403,12 +401,44 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::CommentTrack>::vfunc_0
 // sym: ??_G?$ParamString@VCommentTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamString<fight::CommentTrack>::~ParamString() {}
-#if defined(HULK_PTR64)
-template class fight::ParamString<fight::CommentTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23dc70)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_f40d2254 {
+
+} // namespace fn_f40d2254
+
+// 0x0023dc90 FUN_0023dc90 (95 B): matches/0x0023dc90.cpp
+// sym: ?FUN_0023dc90@@YAXXZ
+// (gx2, D18) from CommentTrack.new_throw.cpp; constructs the real ParamString<CommentCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_0023dc90()
+{
+    if (DAT_004e5c60 == 0) {
+        fight::ParamValue* params[1];
+        params[0] = new fight::ParamString<fight::CommentCondition>("text", &owners::Obj_23d880::FUN_0023d880);
+        FUN_002347b0(&DAT_004e5c5c, params, 1);
+    }
+    DAT_004e5c60++;
+}
+
+
+
+// 0x0023dcf0 FUN_0023dcf0 (95 B): matches/0x0023dcf0.cpp
+// sym: ?FUN_0023dcf0@@YAXXZ
+// (gx2, D18) from CommentTrack.new_throw.cpp; constructs the real ParamString<CommentTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_0023dcf0()
+{
+    if (DAT_004e5c68 == 0) {
+        fight::ParamValue* params[1];
+        params[0] = new fight::ParamString<fight::CommentTrack>("text", &fn_f40d2254::Obj::Set);
+        FUN_002347b0(&DAT_004e5c64, params, 1);
+    }
+    DAT_004e5c68++;
+}
+
+namespace fn_f40d2254 {
+
 
 // 0x0023dd90 FUN_0023dd90 (38 B): matches/0x0023dd90.cpp
 // sym: _FUN_0023dd90
@@ -511,7 +541,7 @@ namespace fn_0023ded0 {
 namespace fight {
 class Track {
   public:
-    Track() throw();
+    Track();
     virtual void f0();
     char pad[4];
     int a;
@@ -519,7 +549,7 @@ class Track {
 };
 class CommentTrack : public Track {
   public:
-    CommentTrack() throw();
+    CommentTrack();
     virtual void f0();
 };
 class TrackFactoryTemplate {
@@ -534,7 +564,7 @@ class TrackFactoryTemplate {
 Track* TrackFactoryTemplate::vfunc_5() {
     return new CommentTrack;
 }
-CommentTrack::CommentTrack() throw() : Track() {
+CommentTrack::CommentTrack() : Track() {
     b = 0;
     a = 1;
 }

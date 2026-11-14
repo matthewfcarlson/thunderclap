@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0023f0d0..0x0023f670 (kind game, layer engine, confidence high), dominant class fight::BreakPointTrack
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/global.h"
@@ -17,6 +17,7 @@ void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's
 }
 namespace fn_f27320e9 { extern "C" char DAT_00428f70[], DAT_00428fa0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 
 // ---- declarations shared by the functions below
 namespace fn_f27320e9 {
@@ -140,8 +141,8 @@ void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace fn_f27320e9 {
 class Ref {
   public:
-    virtual void AddRef() throw();
-    virtual void Release() throw();
+    virtual void AddRef();
+    virtual void Release();
 };
 } // namespace fn_f27320e9
 namespace fight {
@@ -166,7 +167,7 @@ class Param_23f440 {};
 namespace fight {
 class BreakPointActionBase {
   public:
-    BreakPointActionBase() throw();
+    BreakPointActionBase();
     virtual void v0();
     char pad[0x18];
 };
@@ -176,7 +177,7 @@ class BreakPointAction_23f440 : public BreakPointActionBase {
   public:
     fight::BreakPointTrack* owner;
     Ref* ref;
-    BreakPointAction_23f440(fight::BreakPointTrack* o, Ref* r) throw() : owner(o), ref(0) {
+    BreakPointAction_23f440(fight::BreakPointTrack* o, Ref* r) : owner(o), ref(0) {
         if (r)
             r->AddRef();
         if (ref)
@@ -420,20 +421,33 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::BreakPointTrack>::vfun
 // sym: ??_G?$ParamFloatConstRange@VBreakPointTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<fight::BreakPointTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<fight::BreakPointTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23f360)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0023f380 fight::ParamConditionGroup<fight::BreakPointTrack>::vfunc_0 (30 B): matches/0x0023f380.cpp
 // sym: ??_G?$ParamConditionGroup@VBreakPointTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamConditionGroup<fight::BreakPointTrack>::~ParamConditionGroup() {}
-#if defined(HULK_PTR64)
-template class fight::ParamConditionGroup<fight::BreakPointTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23f380)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
+
+
+// 0x0023f3a0 FUN_0023f3a0 (158 B): matches/0x0023f3a0.cpp
+// sym: _FUN_0023f3a0
+// (gx2, D18) from BreakPointTrack.new_throw.cpp; constructs the real ParamConditionGroup<BreakPointTrack>, ParamFloatConstRange<BreakPointTrack>,
+// whose vftable and scalar deleting destructor it emits
+namespace fn_f27320e9 {
+extern "C" void FUN_0023f3a0()
+{
+    if (DAT_004e5c8c == 0) {
+        fight::ParamValue* params[2];
+        params[0] = new fight::ParamFloatConstRange<fight::BreakPointTrack>("timeBegin", &owners::Obj_23f0d0::FUN_0023f0d0);
+        params[1] = new fight::ParamConditionGroup<fight::BreakPointTrack>("conditionGroup", &owners::Obj_23f0e0::FUN_0023f0e0);
+        FUN_002347b0(&DAT_004e5c88, params, 2);
+    }
+    DAT_004e5c8c++;
+}
+} // namespace fn_f27320e9
+
 
 
 // 0x0023f440 fight::BreakPointTrack::vfunc_10 (86 B): matches/0x0023f440.cpp

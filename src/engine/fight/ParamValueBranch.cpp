@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00235170..0x00235220 (kind game, layer engine, confidence high), dominant class fight::ParamValueBranch
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter classes' real constructors
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_fd2c6ba9 {
@@ -33,13 +34,11 @@ class ParamValueBranch {
 } // namespace fn_fd2c6ba9
 
 // 0x00235170 FUN_00235170 (34 B): matches/0x00235170.cpp
-// sym: ?FUN_00235170@ParamValueBranch@fight@@QAEPAV12@PBD@Z
-fight::ParamValueBranch* fight::ParamValueBranch::FUN_00235170(const char* name) {
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
-    ((Member_235170*)((char*)this + 8))->Init_0027b0e0(name);
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_00427c68);
-    return (fight::ParamValueBranch*)(this);
-}
+// sym: ??0ParamValueBranch@fight@@QAE@PBD@Z
+// (gx2, D18) the constructor the parameter registrations call (`new ParamX<T>(name, setter)`)
+::fight::ParamValueBranch::ParamValueBranch(const char* name) : ::fight::ParamValue(name) {}
+
+
 
 
 // 0x002351a0 fight::ParamValueBranch::vfunc_3 (29 B): matches/0x002351a0.cpp [wrapped: conflict: fight::ParamValueBranch]

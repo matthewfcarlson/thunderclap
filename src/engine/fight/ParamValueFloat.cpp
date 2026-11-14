@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00234960..0x002349e0 (kind game, layer engine, confidence medium), dominant class fight::ParamValueFloat
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter classes' real constructors
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_f106b04d {
@@ -18,13 +19,9 @@ struct Member_234960 {
 } // namespace fn_f106b04d
 
 // 0x00234960 FUN_00234960 (34 B): matches/0x00234960.cpp
-// sym: ?FUN_00234960@ParamValueFloat@fight@@QAEPAV12@PBD@Z
-fight::ParamValueFloat* fight::ParamValueFloat::FUN_00234960(const char* name) {
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
-    ((Member_234960*)((char*)this + 8))->Init_0027b0e0(name);
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_00427a58);
-    return (fight::ParamValueFloat*)(this);
-}
+// sym: ??0ParamValueFloat@fight@@QAE@PBD@Z
+// (gx2, D18) the constructor the parameter registrations call (`new ParamFloatConstRange<T>(name, setter)`)
+fight::ParamValueFloat::ParamValueFloat(const char* name) : fight::ParamValue(name) {}
 
 
 // 0x00234990 fight::ParamValueFloat::vfunc_5 (68 B): matches/0x00234990.cpp [wrapped: conflict: fight::ParamValue; fight::ParamValueFloat]

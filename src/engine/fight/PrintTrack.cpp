@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00238850..0x002393a0 (kind game, layer engine, confidence high), dominant class fight::PrintTrack
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real, their destructors implicit
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/global.h"
@@ -18,6 +18,7 @@ namespace fn_fbe81dc2 { extern "C" char DAT_004282dc[]; }   // (x64t7) the game 
 namespace fn_fbe81dc2 { extern "C" char DAT_00428330[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
 
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2) the game's operator new (0x0008d690), null-checked
 // ---- declarations shared by the functions below
 namespace fn_fbe81dc2 {
 class Obj_238850 {
@@ -141,7 +142,7 @@ class PrintAction_238d70 : public Action_238d70 {
   public:
     char pad[28];
     Ref_238d70* m;
-    ~PrintAction_238d70() throw();
+    ~PrintAction_238d70();
 };
 class CStageCondition_238de0;
 class ParamValue_238de0 {
@@ -255,7 +256,7 @@ void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_fbe81dc2 {
 class Base {
   public:
-    Base() throw();
+    Base();
     virtual void a();
     virtual bool Fnb_00234270(void*);
     virtual bool Fnc_002342b0(int);
@@ -264,7 +265,7 @@ class Base {
 };
 class PrintTrack_239320 : public Base {
   public:
-    PrintTrack_239320() throw() {
+    PrintTrack_239320() {
         x = 0;
         y = 0;
         z = 0;
@@ -426,7 +427,7 @@ namespace fn_00238ae0 {
 // SetText_00238ae0 @ 0x00238ae0
 /* size_t: tree_prelude.h */
 extern "C" void __cdecl FUN_0008d340(void *);
-extern "C++" __declspec(nothrow) void * __cdecl FUN_0008d6d0(unsigned int);
+extern "C++" void * __cdecl FUN_0008d6d0(unsigned int);
 struct Object {
     char pad[0x14];
     char *text;
@@ -558,7 +559,7 @@ PrintAction_238d20* PrintAction_238d20::Build(int a, Obj_238d20* p) {
 
 // 0x00238d70 FUN_00238d70 (36 B): matches/0x00238d70.cpp
 // sym: ??1PrintAction_238d70@fn_fbe81dc2@@QAE@XZ
-PrintAction_238d70::~PrintAction_238d70() throw() {
+PrintAction_238d70::~PrintAction_238d70() {
     vptr = (void**)DAT_00428330;
     _ReadWriteBarrier();
     if (m) {
@@ -637,10 +638,8 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::PrintCondition>::v
 // sym: ??_G?$ParamString@VPrintCondition@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamString<fight::PrintCondition>::~ParamString() {}
-#if defined(HULK_PTR64)
-template class fight::ParamString<fight::PrintCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x238ed0)
-#endif
+// (gx2, D18) the implicit destructor of the class: its scalar deleting destructor is emitted beside the vftable by
+// the registration below that constructs it (FUN_00238f70 / FUN_00239010)
 
 
 // 0x00238f00 fight::TrackFactoryCasterTemplate<fight::PrintTrack>::vfunc_0 (36 B): matches/0x00238f00.cpp
@@ -656,20 +655,53 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::PrintTrack>::vfunc_0(v
 // sym: ??_G?$ParamFloatConstRange@VPrintTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<fight::PrintTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<fight::PrintTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x238f30)
-#endif
+// (gx2, D18) the implicit destructor of the class: its scalar deleting destructor is emitted beside the vftable by
+// the registration below that constructs it (FUN_00238f70 / FUN_00239010)
 
 
 // 0x00238f50 fight::ParamString<fight::PrintTrack>::vfunc_0 (30 B): matches/0x00238f50.cpp
 // sym: ??_G?$ParamString@VPrintTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamString<fight::PrintTrack>::~ParamString() {}
-#if defined(HULK_PTR64)
-template class fight::ParamString<fight::PrintTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x238f50)
-#endif
+// (gx2, D18) the implicit destructor of the class: its scalar deleting destructor is emitted beside the vftable by
+// the registration below that constructs it (FUN_00238f70 / FUN_00239010)
+
+
+// 0x00238f70 FUN_00238f70 (158 B): matches/0x00238f70.cpp
+// sym: ?FUN_00238f70@fn_fbe81dc2@@YAXXZ
+// The parameters of fight::PrintCondition (gx2, D18: merged from PrintTrack.new_throw.cpp; constructs the real
+// ParamString<PrintCondition>, whose vftable and scalar deleting destructor 0x00238ed0 this emits)
+namespace fn_fbe81dc2 {
+void __cdecl FUN_002347b0(void* reg, void* params, int count);
+void FUN_00238f70()
+{
+    if (DAT_004e5c24 == 0) {
+        fight::ParamValue* params[2];
+        params[0] = new fight::ParamString<fight::PrintCondition>("channel", &owners::Object_238910::FUN_00238910);
+        params[1] = new fight::ParamString<fight::PrintCondition>("text", &owners::Obj_00238970::FUN_00238970);
+        FUN_002347b0(DAT_004e5c20, params, 2);
+    }
+    DAT_004e5c24++;
+}
+} // namespace fn_fbe81dc2
+
+
+// 0x00239010 FUN_00239010 (213 B): matches/0x00239010.cpp
+// sym: ?FUN_00239010@fn_fbe81dc2@@YAXXZ
+// The parameters of fight::PrintTrack (gx2, D18: merged from PrintTrack.iso_00239010.cpp; constructs the real
+// ParamFloatConstRange<PrintTrack> / ParamString<PrintTrack>: their scalar deleting destructors 0x00238f30, 0x00238f50)
+namespace fn_fbe81dc2 {
+void FUN_00239010() {
+    if (!DAT_004e5c2c) {
+        fight::ParamValue* params[3];
+        params[0] = new fight::ParamFloatConstRange<fight::PrintTrack>("timeBegin", &Obj_238850::SetTimeBegin_00238850);
+        params[1] = new fight::ParamString<fight::PrintTrack>("channel", &Obj::SetChannel_00238a80);
+        params[2] = new fight::ParamString<fight::PrintTrack>("text", &fn_00238ae0::Object::SetText_00238ae0);
+        FUN_002347b0(&DAT_004e5c28, params, 3);
+    }
+    ++DAT_004e5c2c;
+}
+} // namespace fn_fbe81dc2
 
 
 // 0x002390f0 fight::PrintTrack::vfunc_10 (86 B): matches/0x002390f0.cpp

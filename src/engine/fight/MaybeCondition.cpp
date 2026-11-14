@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00238190..0x00238850 (kind game, layer engine, confidence high), dominant class fight::MaybeCondition
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/global.h"
@@ -18,6 +18,8 @@ void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to f
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 
 // ---- declarations shared by the functions below
 namespace fn_fc1ade79 {
@@ -372,10 +374,7 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::MaybeCondition>::v
 // sym: ??_G?$ParamFloatConstRange@VMaybeCondition@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<fight::MaybeCondition>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<fight::MaybeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x238530)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00238560 fight::ConditionFactoryCasterTemplate<fight::RandomCondition>::vfunc_0 (36 B): matches/0x00238560.cpp
@@ -391,12 +390,44 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::RandomCondition>::
 // sym: ??_G?$ParamFloatConstRange@VRandomCondition@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<fight::RandomCondition>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<fight::RandomCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x238590)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_fc1ade79 {
+
+} // namespace fn_fc1ade79
+
+// 0x002385b0 FUN_002385b0 (95 B): matches/0x002385b0.cpp
+// sym: ?FUN_002385b0@@YAXXZ
+// (gx2, D18) from MaybeCondition.new_throw.cpp; constructs the real ParamFloatConstRange<MaybeCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_002385b0()
+{
+    if (DAT_004e5c10 == 0) {
+        fight::ParamValue* params[1];
+        params[0] = new fight::ParamFloatConstRange<fight::MaybeCondition>("percent", &owners::Obj_2381c0::FUN_002381c0);
+        FUN_002347b0(&DAT_004e5c0c, params, 1);
+    }
+    DAT_004e5c10++;
+}
+
+
+
+// 0x00238610 FUN_00238610 (95 B): matches/0x00238610.cpp
+// sym: ?FUN_00238610@@YAXXZ
+// (gx2, D18) from MaybeCondition.new_throw.cpp; constructs the real ParamFloatConstRange<RandomCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00238610()
+{
+    if (DAT_004e5c18 == 0) {
+        fight::ParamValue* params[1];
+        params[0] = new fight::ParamFloatConstRange<fight::RandomCondition>("weight", &owners::A_2381d0::FUN_002381d0);
+        FUN_002347b0(&DAT_004e5c14, params, 1);
+    }
+    DAT_004e5c18++;
+}
+
+namespace fn_fc1ade79 {
+
 
 // 0x002386b0 FUN_002386b0 (38 B): matches/0x002386b0.cpp
 // sym: _FUN_002386b0

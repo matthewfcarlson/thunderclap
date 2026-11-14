@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0023df40..0x0023e4d0 (kind game, layer engine, confidence high), dominant class fight::WaitTrack
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/global.h"
@@ -19,6 +19,8 @@ void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's
 namespace fn_f3d35335 { extern "C" char DAT_00428cf4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_f3d35335 { extern "C" char DAT_00428d24[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 
 // ---- declarations shared by the functions below
 namespace fn_f3d35335 {
@@ -50,7 +52,7 @@ extern void* hulk_at_00428cf4[];
 class Track_23dfc0 {
   public:
     void* vptr;
-    Track_23dfc0() throw();
+    Track_23dfc0();
 };
 class WaitTrack : public Track_23dfc0 {
   public:
@@ -58,7 +60,7 @@ class WaitTrack : public Track_23dfc0 {
     int m0c;
     int m10;
     int m14;
-    WaitTrack() throw();
+    WaitTrack();
 };
 extern float hulk_at_003f3388;
 extern void* Track_23e050_vftable[];
@@ -96,7 +98,7 @@ class WaitAction_23e0d0 : public Action_23e0d0 {
   public:
     char pad[28];
     Ref_23e0d0* m;
-    ~WaitAction_23e0d0() throw();
+    ~WaitAction_23e0d0();
 };
 class CStageCondition_23e1e0;
 class ParamValue_23e1e0 {
@@ -162,7 +164,7 @@ class TrackFactoryTemplate_23e420 {
     int mPad;
     TrackImpl mTrack;
 };
-extern "C++" __declspec(nothrow) void FUN_0023e250();
+extern "C++" void FUN_0023e250();
 extern void __fastcall InitTrack_00236d40(void*);
 extern int WaitTrackVtable;
 struct WaitTrack_23e460 {
@@ -218,7 +220,7 @@ namespace fn_f3d35335 {
 
 // 0x0023dfc0 FUN_0023dfc0 (29 B): matches/0x0023dfc0.cpp
 // sym: ??0WaitTrack@fn_f3d35335@@QAE@XZ
-WaitTrack::WaitTrack() throw() : Track_23dfc0() {
+WaitTrack::WaitTrack() : Track_23dfc0() {
     m0c = 0;
     m10 = 0;
     m14 = 0;
@@ -307,7 +309,7 @@ WaitAction_23e080* WaitAction_23e080::Build(int a, Obj_23e080* p) {
 
 // 0x0023e0d0 FUN_0023e0d0 (36 B): matches/0x0023e0d0.cpp
 // sym: ??1WaitAction_23e0d0@fn_f3d35335@@QAE@XZ
-WaitAction_23e0d0::~WaitAction_23e0d0() throw() {
+WaitAction_23e0d0::~WaitAction_23e0d0() {
     vptr = (void**)DAT_00428d24;
     _ReadWriteBarrier();
     if (m) {
@@ -422,53 +424,30 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::WaitTrack>::vfunc_0(vo
 // sym: ??_G?$ParamFloatConstRange@VWaitTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<fight::WaitTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<fight::WaitTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23e230)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
-// 0x0023e250 FUN_0023e250 (213 B): matches/0x0023e250.cpp [wrapped: conflict: fight::ParamFloatConstRange]
-// sym: _FUN_0023e250
-namespace fn_0023e250 {
-
-void* __cdecl FUN_0008d690(unsigned int);
-
-void __cdecl FUN_0023df40();
-void __cdecl FUN_0023df60();
-void __cdecl FUN_0023df80();
-struct FUN_00234960 {
-    virtual void placeholder();
-    char data[12];
-    void(__cdecl* callback)();
-    char tail[4];
-    FUN_00234960(const char*);
-};
 namespace fight {
-class WaitTrack;
-template <class T> struct ParamFloatConstRange : FUN_00234960 {
-    ParamFloatConstRange(const char* s, void(__cdecl* f)()) : FUN_00234960(s) { callback = f; }
-    virtual void placeholder();
-};
 } // namespace fight
-extern "C" void __cdecl FUN_002347b0(int*, FUN_00234960**, int);
-extern "C" void FUN_0023e250() {
-    if (!DAT_004e5c70) {
-        FUN_00234960* items[3];
-        void* mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<fight::WaitTrack>));
-        items[0] =
-            mem ? new (mem) fight::ParamFloatConstRange<fight::WaitTrack>("timeBegin", FUN_0023df40) : 0;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<fight::WaitTrack>));
-        items[1] =
-            mem ? new (mem) fight::ParamFloatConstRange<fight::WaitTrack>("timeEndMin", FUN_0023df60) : 0;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<fight::WaitTrack>));
-        items[2] =
-            mem ? new (mem) fight::ParamFloatConstRange<fight::WaitTrack>("timeEndMax", FUN_0023df80) : 0;
-        FUN_002347b0(&DAT_004e5c6c, items, 3);
+
+// 0x0023e250 FUN_0023e250 (213 B): matches/0x0023e250.cpp
+// sym: ?FUN_0023e250@fn_f3d35335@@YAXXZ
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<WaitTrack>,
+// whose vftable and scalar deleting destructor it emits
+namespace fn_f3d35335 {
+void FUN_0023e250()
+{
+    if (DAT_004e5c70 == 0) {
+        fight::ParamValue* params[3];
+        params[0] = new fight::ParamFloatConstRange<fight::WaitTrack>("timeBegin", &fn_f3d35335::Obj_23df40::Set);
+        params[1] = new fight::ParamFloatConstRange<fight::WaitTrack>("timeEndMin", &fn_f3d35335::Obj::Set);
+        params[2] = new fight::ParamFloatConstRange<fight::WaitTrack>("timeEndMax", &fn_f3d35335::Obj_23df80::Fn);
+        FUN_002347b0(&DAT_004e5c6c, params, 3);
     }
-    ++DAT_004e5c70;
+    DAT_004e5c70++;
 }
-} // namespace fn_0023e250
+} // namespace fn_f3d35335
+
 
 
 // 0x0023e330 fight::WaitTrack::vfunc_10 (86 B): matches/0x0023e330.cpp

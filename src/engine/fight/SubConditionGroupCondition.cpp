@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0023c8a0..0x0023cb40 (kind game, layer engine, confidence high), dominant class fight::SubConditionGroupCondition
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/hulkfight.h"
@@ -15,6 +15,8 @@ struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructo
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 
 // ---- declarations shared by the functions below
 namespace fn_fe0ef8b4 {
@@ -224,12 +226,30 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::SubConditionGroupC
 // sym: ??_G?$ParamConditionGroup@VSubConditionGroupCondition@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamConditionGroup<fight::SubConditionGroupCondition>::~ParamConditionGroup() {}
-#if defined(HULK_PTR64)
-template class fight::ParamConditionGroup<fight::SubConditionGroupCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23c9d0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_fe0ef8b4 {
+
+} // namespace fn_fe0ef8b4
+
+// 0x0023c9f0 FUN_0023c9f0 (95 B): matches/0x0023c9f0.cpp
+// sym: _FUN_0023c9f0
+// (gx2, D18) from SubConditionGroupCondition.new_throw.cpp; constructs the real ParamConditionGroup<SubConditionGroupCondition>,
+// whose vftable and scalar deleting destructor it emits
+namespace fn_fe0ef8b4 {
+extern "C" void FUN_0023c9f0()
+{
+    if (DAT_004e5c48 == 0) {
+        fight::ParamValue* params[1];
+        params[0] = new fight::ParamConditionGroup<fight::SubConditionGroupCondition>("conditionGroup", &owners::C_23c8a0::FUN_0023c8a0);
+        FUN_002347b0(&DAT_004e5c44, params, 1);
+    }
+    DAT_004e5c48++;
+}
+} // namespace fn_fe0ef8b4
+
+namespace fn_fe0ef8b4 {
+
 
 // 0x0023ca70 FUN_0023ca70 (38 B): matches/0x0023ca70.cpp
 // sym: _FUN_0023ca70

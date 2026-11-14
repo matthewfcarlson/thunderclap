@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0023e4d0..0x0023ea20 (kind game, layer engine, confidence high), dominant class fight::StopTrack
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/hulkfight.h"
@@ -13,6 +13,8 @@ namespace fn_fe4accdf {
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 
 // ---- declarations shared by the functions below
 namespace fn_fe4accdf {
@@ -114,14 +116,14 @@ class Ref_23e670 {
 };
 struct Action_23e670 {
     void* vf;
-    void Dtor_002326a0() throw();
+    void Dtor_002326a0();
 };
 struct StopAction_23e670 : Action_23e670 {
     char pad[0x18];
     Ref_23e670* p1c;
     char pad2[8];
     Ref_23e670* p28;
-    void Dtor2() throw();
+    void Dtor2();
 };
 class CStageCondition_23e6e0;
 class ParamValue_23e6e0 {
@@ -350,7 +352,7 @@ StopAction::StopAction(Ref_23e610* a, int b, int c, Ref_23e610* d) {
 
 // 0x0023e670 FUN_0023e670 (44 B): matches/0x0023e670.cpp
 // sym: ?Dtor2@StopAction_23e670@fn_fe4accdf@@QAEXXZ
-void StopAction_23e670::Dtor2() throw() {
+void StopAction_23e670::Dtor2() {
     vf = vStop;
     _ReadWriteBarrier();
     if (p28) {
@@ -404,20 +406,32 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::StopTrack>::vfunc_0(vo
 // sym: ??_G?$ParamFloatConstRange@VStopTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<fight::StopTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<fight::StopTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23e760)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0023e780 fight::ParamConditionGroup<fight::StopTrack>::vfunc_0 (30 B): matches/0x0023e780.cpp
 // sym: ??_G?$ParamConditionGroup@VStopTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamConditionGroup<fight::StopTrack>::~ParamConditionGroup() {}
-#if defined(HULK_PTR64)
-template class fight::ParamConditionGroup<fight::StopTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23e780)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
+
+
+// 0x0023e7a0 FUN_0023e7a0 (213 B): matches/0x0023e7a0.cpp
+// sym: ?FUN_0023e7a0@@YAXXZ
+// (gx2, D18) from StopTrack.iso_0023e7a0.cpp; constructs the real ParamConditionGroup<StopTrack>, ParamFloatConstRange<StopTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_0023e7a0()
+{
+    if (DAT_004e5c78 == 0) {
+        fight::ParamValue* params[3];
+        params[0] = new fight::ParamFloatConstRange<fight::StopTrack>("timeBegin", &fn_fe4accdf::Obj_23e4d0::SetTimeBegin_0023e4d0);
+        params[1] = new fight::ParamFloatConstRange<fight::StopTrack>("timeEnd", &fn_fe4accdf::X_23e4e0::SetTimeEnd_0023e4e0);
+        params[2] = new fight::ParamConditionGroup<fight::StopTrack>("conditionGroup", &fn_fe4accdf::Obj_23e4f0::GetConditionGroup_0023e4f0);
+        FUN_002347b0(&DAT_004e5c74, params, 3);
+    }
+    DAT_004e5c78++;
+}
+
 
 
 // 0x0023e880 fight::StopTrack::vfunc_10 (50 B): matches/0x0023e880.cpp

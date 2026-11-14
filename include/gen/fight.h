@@ -1460,8 +1460,22 @@ public:
 };
 
 // .?AVParamValue@fight@@  vftable 0x4279fc (6)
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+// (gx2, D18) the parameters constructed for real (a TU defines HULK_FIGHT_PARAM_IMPLICIT before its includes once its
+// registrations construct them): the name id at +0x08 (0x0027b0e0 constructs it), and a template's setter word (+0x10):
+// the code address a member function pointer (one word under MSVC 7.1) or a function pointer holds
+struct ParamValueNameInit { void Init_0027b0e0(const char*); };
+// the words every ParamValueX declares after the vftable (`int f_04;` then the name id: `_pad_08` / `f_08` with `f_0c`):
+// the name id sits after one int on every target (+0x08 on the 32-bit builds, +0x0c on the 64-bit ones)
+struct ParamValueWords { void* vftable; int f_04; ParamValueNameInit name; };
+template <class S> inline hulk_intptr hulk_setter_word(S s) { union { S s; hulk_intptr w; } u; u.s = s; return u.w; }
+#endif
 class ParamValue {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    // inlined into each ParamValueX constructor (0x00234860, 0x00234960, 0x002349e0, ...)
+    ParamValue(const char* name) { reinterpret_cast<ParamValueWords*>(this)->name.Init_0027b0e0(name); }
+#endif
     virtual ~ParamValue(); // slot 0
     virtual int vfunc_1() = 0; // slot 1
     virtual bool vfunc_2(); // slot 2
@@ -1473,7 +1487,11 @@ public:
 // .?AVParamValueBool@fight@@  vftable 0x427a18 (7)
 class ParamValueBool : public ::fight::ParamValue {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    ParamValueBool(const char* name); // (gx2) its destructor implicit
+#else
     virtual ~ParamValueBool(); // overrides fight::ParamValue slot 0
+#endif
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(hulk_intptr, int) = 0; // slot 6
@@ -1633,10 +1651,15 @@ public:
 template <class T0>
 class ParamBool : public ::fight::ParamValueBool {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    template <class S> ParamBool(const char* name, S setter) : ::fight::ParamValueBool(name), f_10(hulk_setter_word(setter)) {}
+#else
     virtual ~ParamBool(); // overrides fight::ParamValue slot 0
+#endif
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueBool slot 6
-    hulk_intptr f_10;
+    hulk_intptr f_10; // the setter (vfunc_6 calls it as a member function of T0)
+    int f_14; // (gx2) unknown: the game allocates 0x18
 };
 
 // template family fight::ParamBoolPtr: 2 instantiation(s), 0 with their own specialization
@@ -1653,7 +1676,11 @@ public:
 // .?AVParamValueBranch@fight@@  vftable 0x427c68 (7)
 class ParamValueBranch : public ::fight::ParamValue {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    ParamValueBranch(const char* name); // (gx2) its destructor implicit
+#else
     virtual ~ParamValueBranch(); // overrides fight::ParamValue slot 0
+#endif
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual void vfunc_3(int, int); // overrides fight::ParamValue slot 3
     virtual void vfunc_4(int, int); // overrides fight::ParamValue slot 4
@@ -1690,14 +1717,24 @@ public:
 template <class T0>
 class ParamBranch : public ::fight::ParamValueBranch {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    template <class S> ParamBranch(const char* name, S setter) : ::fight::ParamValueBranch(name), f_10(hulk_setter_word(setter)) {}
+#else
     virtual ~ParamBranch(); // overrides fight::ParamValue slot 0
+#endif
     virtual void vfunc_6(void*); // overrides fight::ParamValueBranch slot 6
+    hulk_intptr f_10; // the setter (vfunc_6 calls it as a member function of T0)
+    int f_14; // (gx2) unknown: the game allocates 0x18
 };
 
 // .?AVParamValueConditionGroup@fight@@  vftable 0x427c88 (7)
 class ParamValueConditionGroup : public ::fight::ParamValue {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    ParamValueConditionGroup(const char* name); // (gx2) its destructor implicit
+#else
     virtual ~ParamValueConditionGroup(); // overrides fight::ParamValue slot 0
+#endif
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual void vfunc_3(int, int); // overrides fight::ParamValue slot 3
     virtual void vfunc_4(int, int); // overrides fight::ParamValue slot 4
@@ -1722,8 +1759,14 @@ public:
 template <class T0>
 class ParamConditionGroup : public ::fight::ParamValueConditionGroup {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    template <class S> ParamConditionGroup(const char* name, S setter) : ::fight::ParamValueConditionGroup(name), f_10(hulk_setter_word(setter)) {}
+#else
     virtual ~ParamConditionGroup(); // overrides fight::ParamValue slot 0
+#endif
     virtual void vfunc_6(void*); // overrides fight::ParamValueConditionGroup slot 6
+    hulk_intptr f_10; // the setter (vfunc_6 calls it as a member function of T0)
+    int f_14; // (gx2) unknown: the game allocates 0x18
 };
 
 // .?AVParamValueEnum@fight@@  vftable 0x427b20 (9)
@@ -1924,7 +1967,11 @@ public:
 // .?AVParamValueFloat@fight@@  vftable 0x427a58 (7)
 class ParamValueFloat : public ::fight::ParamValue {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    ParamValueFloat(const char* name); // (gx2) its destructor implicit
+#else
     virtual ~ParamValueFloat(); // overrides fight::ParamValue slot 0
+#endif
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(hulk_intptr, int) = 0; // slot 6
@@ -1939,10 +1986,15 @@ public:
 template <class T0>
 class ParamFloat : public ::fight::ParamValueFloat {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    template <class S> ParamFloat(const char* name, S setter) : ::fight::ParamValueFloat(name), f_10(hulk_setter_word(setter)) {}
+#else
     virtual ~ParamFloat(); // overrides fight::ParamValue slot 0
+#endif
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueFloat slot 6
-    hulk_intptr f_10;
+    hulk_intptr f_10; // the setter (vfunc_6 calls it as a member function of T0)
+    int f_14; // (gx2) unknown: the game allocates 0x18
 };
 
 // template family fight::ParamFloatConstRange: 308 instantiation(s), 0 with their own specialization
@@ -2257,10 +2309,15 @@ public:
 template <class T0>
 class ParamFloatConstRange : public ::fight::ParamValueFloat {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    template <class S> ParamFloatConstRange(const char* name, S setter) : ::fight::ParamValueFloat(name), f_10(hulk_setter_word(setter)) {}
+#else
     virtual ~ParamFloatConstRange(); // overrides fight::ParamValue slot 0
+#endif
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueFloat slot 6
-    hulk_intptr f_10;
+    hulk_intptr f_10; // the setter (vfunc_6 calls it as a member function of T0)
+    int f_14; // (gx2) unknown: the game allocates 0x18
 };
 
 // template family fight::ParamFloatPtrConstRange: 2 instantiation(s), 0 with their own specialization
@@ -2277,7 +2334,11 @@ public:
 // .?AVParamValueInt@fight@@  vftable 0x427a38 (7)
 class ParamValueInt : public ::fight::ParamValue {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    ParamValueInt(const char* name); // (gx2) its destructor implicit
+#else
     virtual ~ParamValueInt(); // overrides fight::ParamValue slot 0
+#endif
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(hulk_intptr, int) = 0; // slot 6
@@ -2430,16 +2491,25 @@ public:
 template <class T0>
 class ParamIntConstRange : public ::fight::ParamValueInt {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    template <class S> ParamIntConstRange(const char* name, S setter) : ::fight::ParamValueInt(name), f_10(hulk_setter_word(setter)) {}
+#else
     virtual ~ParamIntConstRange(); // overrides fight::ParamValue slot 0
+#endif
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueInt slot 6
-    hulk_intptr f_10;
+    hulk_intptr f_10; // the setter (vfunc_6 calls it as a member function of T0)
+    int f_14; // (gx2) unknown: the game allocates 0x18
 };
 
 // .?AVParamValueString@fight@@  vftable 0x427a78 (7)
 class ParamValueString : public ::fight::ParamValue {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    ParamValueString(const char* name); // (gx2) its destructor implicit
+#else
     virtual ~ParamValueString(); // overrides fight::ParamValue slot 0
+#endif
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(hulk_intptr, int) = 0; // slot 6
@@ -2681,10 +2751,15 @@ public:
 template <class T0>
 class ParamString : public ::fight::ParamValueString {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    template <class S> ParamString(const char* name, S setter) : ::fight::ParamValueString(name), f_10(hulk_setter_word(setter)) {}
+#else
     virtual ~ParamString(); // overrides fight::ParamValue slot 0
+#endif
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueString slot 6
-    hulk_intptr f_10;
+    hulk_intptr f_10; // the setter (vfunc_6 calls it as a member function of T0)
+    int f_14; // (gx2) unknown: the game allocates 0x18
 };
 
 // template family fight::ParamStringConstList: 1 instantiation(s), 0 with their own specialization
@@ -2740,7 +2815,11 @@ public:
 // .?AVParamValueVector@fight@@  vftable 0x427b94 (7)
 class ParamValueVector : public ::fight::ParamValue {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    ParamValueVector(const char* name); // (gx2) its destructor implicit
+#else
     virtual ~ParamValueVector(); // overrides fight::ParamValue slot 0
+#endif
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(hulk_intptr, int) = 0; // slot 6
@@ -2815,10 +2894,15 @@ public:
 template <class T0>
 class ParamVector : public ::fight::ParamValueVector {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    template <class S> ParamVector(const char* name, S setter) : ::fight::ParamValueVector(name), f_10(hulk_setter_word(setter)) {}
+#else
     virtual ~ParamVector(); // overrides fight::ParamValue slot 0
+#endif
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueVector slot 6
-    hulk_intptr f_10;
+    hulk_intptr f_10; // the setter (vfunc_6 calls it as a member function of T0)
+    int f_14; // (gx2) unknown: the game allocates 0x18
 };
 
 // .?AVParams@fight@@  vftable 0x427f28 (3)

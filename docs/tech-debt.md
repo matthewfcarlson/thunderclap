@@ -53,8 +53,9 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
   `thunk_FUN_00271230` declaration (the name an `unsigned int`) likewise.
 - **TUs still compiled with /GX (`// cl-flags: /GX`; gx1 D17, accepted as the interim state by the user's D23,
   2026-11-14).** The game was built without C++ exceptions and the tree compiles with /GX- by default
-  (tools/compare.py DEFAULT_FLAGS; clang with -fno-exceptions everywhere since gx2). 457 TUs still say `// cl-flags: /GX`:
-  - 454 hold the scalar deleting destructors (`??_G`, 1,873 blocks) written as empty user destructors
+  (tools/compare.py DEFAULT_FLAGS; clang with -fno-exceptions everywhere since gx2). 448 TUs still say `// cl-flags: /GX`
+  (457 at D23; gx2 2 took nine src/engine/fight TUs off):
+  - 445 hold the scalar deleting destructors (`??_G`; 1,873 blocks at D23, 1,856 now) written as empty user destructors
     (`template <> ParamX<T>::~ParamX() {}`, `Method2<...>::~Method2() {}`, `C::~C() {}`). In the game these
     destructors are implicit and their `??_G` is emitted next to the vftable by the code that constructs the class:
     the fight parameter registration functions (435 blocks in 185 TUs, 105 of those `.iso_` TUs; they store the

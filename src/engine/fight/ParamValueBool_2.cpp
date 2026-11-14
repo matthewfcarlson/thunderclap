@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00234780..0x002348e0 (kind game, layer engine, confidence medium), dominant class fight::ParamValueBool
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter classes' real constructors
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_fff9a376 {
@@ -82,13 +83,11 @@ void __cdecl FUN_00234810(Item*** list, int* refs) {
 } // namespace fn_fff9a376
 
 // 0x00234860 FUN_00234860 (34 B): matches/0x00234860.cpp
-// sym: ?FUN_00234860@ParamValueBool@fight@@QAEPAV12@PBD@Z
-fight::ParamValueBool* fight::ParamValueBool::FUN_00234860(const char* value) {
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
-    ((Member_234860*)((char*)this + 8))->Init_0027b0e0(value);
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_00427a18);
-    return (fight::ParamValueBool*)(this);
-}
+// sym: ??0ParamValueBool@fight@@QAE@PBD@Z
+// (gx2, D18) the constructor the parameter registrations call (`new ParamX<T>(name, setter)`)
+::fight::ParamValueBool::ParamValueBool(const char* name) : ::fight::ParamValue(name) {}
+
+
 
 
 // 0x00234890 fight::ParamValueBool::vfunc_5 (65 B): matches/0x00234890.cpp [wrapped: conflict: fight::ParamValue; fight::ParamValueBool; fight::Reader]

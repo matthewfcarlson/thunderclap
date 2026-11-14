@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0023ea20..0x0023f0d0 (kind game, layer engine, confidence high), dominant class fight::SpawnTrack
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/hulkfight.h"
@@ -14,6 +14,8 @@ void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's
 }
 namespace fn_f7aacfaa { extern "C" char DAT_00428eb0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "engine/fight.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 
 // ---- declarations shared by the functions below
 namespace fn_f7aacfaa {
@@ -113,18 +115,18 @@ class Ref_23ecb0 {
 };
 class Part_23ecb0 {
   public:
-    void Fini_002325f0() throw();
+    void Fini_002325f0();
 };
 struct Action_23ecb0 {
     void* vf;
-    void Dtor_002326a0() throw();
+    void Dtor_002326a0();
 };
 struct SpawnAction_23ecb0 : Action_23ecb0 {
     char pad[0x1c];
     Ref_23ecb0* p20;
     Ref_23ecb0* p24;
     Part_23ecb0 part;
-    void Dtor2() throw();
+    void Dtor2();
 };
 class CStageCondition_23ed30;
 class ParamValue_23ed30 {
@@ -490,7 +492,7 @@ namespace fn_f7aacfaa {
 
 // 0x0023ecb0 FUN_0023ecb0 (52 B): matches/0x0023ecb0.cpp
 // sym: ?Dtor2@SpawnAction_23ecb0@fn_f7aacfaa@@QAEXXZ
-void SpawnAction_23ecb0::Dtor2() throw() {
+void SpawnAction_23ecb0::Dtor2() {
     vf = hulk_at_00428eb0;
     _ReadWriteBarrier();
     if (p24) {
@@ -571,30 +573,40 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::SpawnTrack>::vfunc_0(v
 // sym: ??_G?$ParamFloatConstRange@VSpawnTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<fight::SpawnTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<fight::SpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23ede0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0023ee00 fight::ParamBranch<fight::SpawnTrack>::vfunc_0 (30 B): matches/0x0023ee00.cpp
 // sym: ??_G?$ParamBranch@VSpawnTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBranch<fight::SpawnTrack>::~ParamBranch() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBranch<fight::SpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23ee00)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0023ee20 fight::ParamConditionGroup<fight::SpawnTrack>::vfunc_0 (30 B): matches/0x0023ee20.cpp
 // sym: ??_G?$ParamConditionGroup@VSpawnTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamConditionGroup<fight::SpawnTrack>::~ParamConditionGroup() {}
-#if defined(HULK_PTR64)
-template class fight::ParamConditionGroup<fight::SpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23ee20)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
+
+
+// 0x0023ee40 FUN_0023ee40 (256 B): matches/0x0023ee40.cpp
+// sym: ?FUN_0023ee40@@YAXXZ
+// (gx2, D18) from SpawnTrack.iso_0023ee40.cpp; constructs the real ParamBranch<SpawnTrack>, ParamConditionGroup<SpawnTrack>, ParamFloatConstRange<SpawnTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_0023ee40()
+{
+    if (DAT_004e5c84 == 0) {
+        fight::ParamValue* params[4];
+        params[0] = new fight::ParamFloatConstRange<fight::SpawnTrack>("timeBegin", &fn_f7aacfaa::Obj_23ea20::SetTimeBegin_0023ea20);
+        params[1] = new fight::ParamFloatConstRange<fight::SpawnTrack>("timeEnd", &fn_f7aacfaa::X_23ea30::SetTimeEnd_0023ea30);
+        params[2] = new fight::ParamBranch<fight::SpawnTrack>("branch", &fn_f7aacfaa::A_23ea40::GetBranch_0023ea40);
+        params[3] = new fight::ParamConditionGroup<fight::SpawnTrack>("conditionGroup", &fn_f7aacfaa::O_23ea50::GetConditionGroup_0023ea50);
+        FUN_002347b0(&DAT_004e5c80, params, 4);
+    }
+    DAT_004e5c84++;
+}
+
 
 
 // 0x0023ef40 fight::SpawnTrack::vfunc_10 (45 B): matches/0x0023ef40.cpp

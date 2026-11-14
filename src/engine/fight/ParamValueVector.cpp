@@ -1,7 +1,9 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00234e50..0x00234f10 (kind game, layer engine, confidence medium), dominant class fight::ParamValueVector
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter classes' real constructors
 #include "compat/ptr.h"
+#include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_fa28d91f {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -58,11 +60,16 @@ struct ParamValueVector {
 }
 
 
+} // namespace fn_fa28d91f
+
 // 0x00234e50 FUN_00234e50 (34 B): matches/0x00234e50.cpp
-// sym: ??0ParamValueVector@fn_fa28d91f@@QAE@H@Z
-ParamValueVector::ParamValueVector(hulk_intptr x) : part(x) {
-    *((hulk_intptr*)this) = (hulk_intptr)&hulk_at_00427b94;
-}
+// sym: ??0ParamValueVector@fight@@QAE@PBD@Z
+// (gx2, D18) the constructor the parameter registrations call (`new ParamX<T>(name, setter)`)
+::fight::ParamValueVector::ParamValueVector(const char* name) : ::fight::ParamValue(name) {}
+
+namespace fn_fa28d91f {
+
+
 
 
 // 0x00234e80 fight::ParamValueVector::vfunc_5 (88 B): equivalent/0x00234e80.cpp

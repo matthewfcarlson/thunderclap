@@ -475,7 +475,21 @@ def declared_ctors(text):
     classes of a header: `    X(P...);` inside `class X ... {` ... `};`. Templates are skipped."""
     out = collections.defaultdict(list)
     ns, cls, tmpl = [], None, False
+    cond = []   # (gx2) `#if defined(X)` regions: the probe defines no X, so `#if defined` is off, `#if !defined` on
     for line in text.split("\n"):
+        pp = re.match(r"\s*#\s*(if|ifdef|ifndef|else|endif)\b(.*)", line)
+        if pp:
+            d, rest = pp.group(1), pp.group(2)
+            if d in ("if", "ifdef", "ifndef"):
+                neg = d == "ifndef" or bool(re.match(r"\s*!\s*defined", rest))
+                cond.append(neg if (d != "if" or "defined" in rest) else True)
+            elif d == "else" and cond:
+                cond[-1] = not cond[-1]
+            elif d == "endif" and cond:
+                cond.pop()
+            continue
+        if not all(cond):
+            continue
         s = line.split("//")[0]
         if cls is None:
             if s.startswith("namespace "):
