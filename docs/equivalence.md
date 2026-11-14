@@ -1196,7 +1196,8 @@ and fails, and `level3.unexplained` counts it by kind), when the input proves th
   a callee-saved register "not preserved" (the original's own saved slot was hit, or ours overran its frame too);
   ours going wild where the original returns, when ours overran too; and, when ours overran too, a difference after
   ours read back a local of its own frame that its array overrun had replaced (round 20's `xlocal`, on our side: the
-  value is the frame layout's). Never a difference in a call made before the overrun. Anything else fails: before
+  value is the frame layout's), or any stack word an overrun store of its own wrote (an incoming argument clang reloads
+  from its slot: 0x0029a630's `inventory->find` through the overwritten `inventory`). Never a difference in a call made before the overrun. Anything else fails: before
   chk1 any difference was set aside, and rev2's mutants of 0x002f4eb0 that call something else on the overrun
   inputs only (`0x002f4eb0_wine_smash_m1`, `_m2`) passed `--wine` at 3,000 inputs;
 - a CRT copy routine under test (`strncat`, `strcat`, `strncpy`, `strcpy` and the wide versions; not
@@ -1208,7 +1209,8 @@ The other masks follow the same rule (chk1):
 - `bool_ub` (`--wine`: clang's `testb $1` / `and r8, 1` / `movzx; and 1` over a byte that is neither 0 nor 1, a bool
   holding no bool): undefined in our source, not in the original, so a difference is set aside only when that byte
   explains it (`boolexpl`). Ours runs the input again with each such byte read as the bool it stands for, true: the
-  flags of a nonzero test, and a value the instruction passes on either normalised to 1 or kept as the byte (the
+  tested operand is made 1 before the instruction runs (a write to EFLAGS from a hook doesn't reach Unicorn's lazily
+  computed flags) and put back after it, and a value the instruction passes on is either normalised to 1 or kept as the byte (the
   original's two ways of passing a char it tests whole); if one of those runs agrees with the original the input is
   inconclusive, else it fails. Before, any difference on such an input was set aside: rev2's mutant M3 of 0x002f4eb0
   (Kilometers gives 2, not 3) passed `--wine` at 3,000 because the one input that reached it also read a fuzzed byte

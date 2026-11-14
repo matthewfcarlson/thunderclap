@@ -3902,6 +3902,7 @@ class Run:
         self.cookies = set()        # values read from the /GS cookie global
         self.cdecl_site = False     # (round 8) the current call is proven cdecl by the caller's cleanup
         self.smashed = None         # (round 8) where a store overran into the return address or a saved register
+        self.smash_words = set()    # (chk1, smashexpl) stack words an overrun store wrote (not written since)
         self.smash_kind = None      # (chk1, smashexpl) what it hit: "ret" (the return address), "save" (a live saved slot),
                                     # "arg" (an incoming argument word, smasharg)
         self.xl_last = {}           # (round 20, xlocal) stack word -> (kind of the last store, 'idx' or 'plain', insn)
@@ -4036,7 +4037,8 @@ class Run:
             self.seg_stack_written.update(range(addr, addr + size))
         if STACK_LO <= addr < STACK_HI:
             ci = self.cur_insn
-            if self.smashed is None and ci is not None and ci.mnemonic not in ("push", "call", "pushal", "pushfd") \
+            sw_ = False         # (chk1) this store is an overrun: its words are the overrun's (smash_words)
+            if ci is not None and ci.mnemonic not in ("push", "call", "pushal", "pushfd") \
                     and "smash" not in EQUIV_OFF and addr < ENTRY_ESP + 4 and \
                     (ci.mnemonic.startswith(("rep", "stos", "movs")) or
                      (ci.mem is not None and (ci.mem[2] or ci.mem[1] not in ("esp", "ebp")))):
@@ -4046,19 +4048,27 @@ class Run:
                 # alone: an argument word pushed once and rewritten for the next call can look like a save.)
                 hit = range(addr & ~3, addr + size, 4)
                 if any(x == ENTRY_ESP or (x in self.save_slots and x >= self.reg("esp")) for x in hit):
-                    self.smashed = ci.addr
-                    self.smash_kind = "ret" if any(x == ENTRY_ESP for x in hit) else "save"
-                    self.ub_at.setdefault("smash", len(self.calls))
-            if self.smashed is None and ci is not None and ci.mem is not None and ci.mem[2] and \
+                    sw_ = True
+                    if self.smashed is None:
+                        self.smashed = ci.addr
+                        self.smash_kind = "ret" if any(x == ENTRY_ESP for x in hit) else "save"
+                        self.ub_at.setdefault("smash", len(self.calls))
+            if ci is not None and ci.mem is not None and ci.mem[2] and \
                     ci.mem[1] in ("esp", "ebp") and not ci.mnemonic.startswith(("rep", "stos", "movs")) and \
                     ENTRY_ESP + 4 <= addr < ENTRY_ESP + 0x104 and "smasharg" not in EQUIV_OFF and \
                     (self.reg(ci.mem[1]) + _sx(ci.mem[4])) & M32 < ENTRY_ESP:
                 # (x64t10, smasharg) the same overrun past the return address: an indexed store whose base is a local of
                 # the frame (`tag[n] = 0`, tag at esp+0x34, n a fuzzed byte) landing in the incoming argument words.
                 # Clang's frame puts its saved ebp where the original's argument word is, so the two differ there
-                self.smashed = ci.addr
-                self.smash_kind = "arg"
-                self.ub_at.setdefault("smash", len(self.calls))
+                sw_ = True
+                if self.smashed is None:
+                    self.smashed = ci.addr
+                    self.smash_kind = "arg"
+                    self.ub_at.setdefault("smash", len(self.calls))
+            if sw_:
+                self.smash_words.update(range(addr & ~3, addr + size, 4))
+            elif self.smash_words:
+                self.smash_words.difference_update(range(addr & ~3, addr + size, 4))
             if ci is not None and ci.kind == "call" and self.helper_ret is None:
                 self.save_slots.update(range(addr & ~3, addr + size, 4))   # a return address: never data
             elif self.helper_ret is not None:
@@ -5265,28 +5275,30 @@ class Run:
                             self.fill_watch[x] = (k, j, o)
                     put(w, j, o, v)
 
-    def _bool_fix_apply(self):
-        """(chk1, boolexpl) After clang's `test/and X, 1` of a byte that is neither 0 nor 1 (the instruction just ran):
-        make the result what a bool holding that value gives when read as a bool, true: the flags of a nonzero result,
-        and a destination of 1 (bool_fix 1, the value normalised) or the byte itself (2, passed on as it is)."""
-        _, dst_, bv_ = self.bool_fix_at
-        self.bool_fix_at = None
-        val_ = 1 if self.bool_fix == 1 else bv_
+    def _bool_set(self, dst_, v):
         try:
-            if dst_ is not None and dst_[0] == "mem":
-                self._mem(dst_[1], 1, bytes([val_]))
-            elif dst_ is not None and dst_[0] == "r8":
+            if dst_[0] == "mem":
+                self._mem(dst_[1], 1, bytes([v]))
+            elif dst_[0] == "r8":
                 r32_ = {"al": "eax", "bl": "ebx", "cl": "ecx", "dl": "edx"}[dst_[1]]
-                self.uc.reg_write(_uc_regs()[r32_], (self.reg(r32_) & ~0xFF) | val_)
-            elif dst_ is not None and dst_[0] == "r32":
-                self.uc.reg_write(_uc_regs()[dst_[1]], val_)
-            fl_ = self.uc.reg_read(self.u.UC_X86_REG_EFLAGS)
-            fl_ &= ~((1 << 6) | (1 << 7) | (1 << 2) | 1 | (1 << 11))     # ZF, SF, PF, CF, OF: a nonzero result
-            if dst_ is not None and bin(val_ & 0xFF).count("1") % 2 == 0:
-                fl_ |= 1 << 2
-            self.uc.reg_write(self.u.UC_X86_REG_EFLAGS, fl_)
+                self.uc.reg_write(_uc_regs()[r32_], (self.reg(r32_) & ~0xFF) | v)
+            else:
+                self.uc.reg_write(_uc_regs()[dst_[1]], v)
         except Exception:   # noqa: BLE001
             pass
+
+    def _bool_fix_apply(self):
+        """(chk1, boolexpl) After clang's `test/and X, 1` (or `movzx r32, r8; and r32, 1`) of a byte that is neither 0 nor
+        1 ran as a bool holding true (its operand was made 1 before it ran; for movzx the `and` normalised it): the byte
+        tested is put back, and a destination keeps 1 (bool_fix 1, the value normalised) or gets the byte itself (2,
+        passed on as it is)."""
+        _, dst_, bv_ = self.bool_fix_at
+        self.bool_fix_at = None
+        if dst_[0] == "r32" or dst_[-1] == "and":
+            if self.bool_fix == 2:
+                self._bool_set(dst_, bv_)
+        else:
+            self._bool_set(dst_, bv_)       # `test`: the byte itself is unchanged
 
     def _reg_info(self, v):
         """{val, src, xf, raw, reg} of a register operand (for directed inputs)."""
@@ -6434,14 +6446,17 @@ class Run:
                 try:
                     if insn.op_str.startswith("byte ptr") and insn.mem is not None:
                         bv_ = self._mem(self._ea(insn.mem), 1)[0]
-                        dst_ = ("mem", self._ea(insn.mem)) if insn.mnemonic == "and" else None
+                        dst_ = ("mem", self._ea(insn.mem), insn.mnemonic)
                     else:
                         r8_ = insn.op_str.split(",")[0]
                         bv_ = self.reg({"al": "eax", "bl": "ebx", "cl": "ecx", "dl": "edx"}[r8_]) & 0xFF
-                        dst_ = ("r8", r8_) if insn.mnemonic == "and" else None
+                        dst_ = ("r8", r8_, insn.mnemonic)
                     if bv_ > 1:
                         self.bool_ub = True
                         if self.bool_fix:
+                            # (the operand is made 1 before the instruction runs, so its flags are a true bool's;
+                            # writing EFLAGS from a hook does not reach Unicorn's lazily computed flags)
+                            self._bool_set(dst_, 1)
                             self.bool_fix_at = (addr + insn.size, dst_, bv_)
                 except Exception:   # noqa: BLE001
                     pass
@@ -6522,6 +6537,18 @@ class Run:
                         self.uninit_read = self.uninit_read or addr
                         if sz_ == 4 and len(self.uninit_vals) < 16:
                             self.uninit_vals.add(self._read_u32(ea_))
+            if self.smash_words and insn is not None and insn.mem is not None and "smash_read" not in self.ub_at and \
+                    insn.mnemonic not in ("lea", "nop") and not insn.mnemonic.startswith(("rep", "movs", "stos")) and \
+                    not (insn.ops[0][0] == "mem" and (insn.mnemonic in ("mov", "fst", "fstp", "fist", "fistp") or
+                                                      insn.mnemonic.startswith("set"))):
+                # (chk1, smashexpl) a read of a stack word an overrun store replaced (an incoming argument clang reloads
+                # from its slot, a spilled local): what the run does from here on is the overrun's
+                try:
+                    ea_ = self._ea(insn.mem)
+                    if any(w_ in self.smash_words for w_ in range(ea_ & ~3, ea_ + (insn.mem[5] or 4), 4)):
+                        self.ub_at["smash_read"] = len(self.calls)
+                except Exception:   # noqa: BLE001
+                    pass
             if self.xl_pending and insn is not None and insn.mem is not None and self.xlocal is None and \
                     insn.mnemonic not in ("lea", "nop") and not insn.mnemonic.startswith(("rep", "movs", "stos")) and \
                     not (insn.ops[0][0] == "mem" and (insn.mnemonic in ("mov", "fst", "fstp", "fist", "fistp") or
@@ -10920,7 +10947,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 elif d_ in ("original ret but ours fault:wild_jump", "original ret but ours fault:wild_call"):
                     ok_ = ok_ and rrun.smashed is not None
                 else:
-                    ok_ = ok_ and rrun.smashed is not None and _after([d_], rrun.ub_at.get("xlocal"))
+                    rd_ = [rrun.ub_at[k_] for k_ in ("xlocal", "smash_read") if k_ in rrun.ub_at]
+                    rd_ += [orun.ub_at["smash_read"]] if "smash_read" in orun.ub_at else []
+                    ok_ = ok_ and _after([d_], min(rd_) if rd_ else None)
             if not ok_:
                 _unexplained(ub)
                 ub = None
