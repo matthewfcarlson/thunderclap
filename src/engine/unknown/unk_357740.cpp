@@ -136,7 +136,7 @@ struct Box_35a190 {
     Vec3_35a190 axis[3];
     float extent[3];
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00359a80(const void *, float, int *, void *);
+extern "C++" void __cdecl FUN_00359a80(const void *, float, int *, void *);
 struct Vec3_35a2a0 {
     float x, y, z;
 };
@@ -751,10 +751,10 @@ struct V3_358b10 {
 };
 
 bool FUN_00358630(float *p, float *dir, float r, float t, int flag, float d, float *n, float *out);
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00357960(const void *, const void *, float, const void *, const void *, const void *, const void *, float *, void *, void *);
+extern "C++" bool __cdecl FUN_00357960(const void *, const void *, float, const void *, const void *, const void *, const void *, float *, void *, void *);
 void FUN_00358030(float *a, float *dir, int flag, float *p5, int a6, int a7, float *o8c, float *o20, float *o44, float *o4, float *o64, int f1, int f2, int f3);
 void FUN_0022de70(float *a, float *b, float *p5, float *p8, float *o50, float *o8);
-extern "C++" __declspec(nothrow) bool __cdecl FUN_003577c0(const void *, const void *, const void *, const void *, const void *);
+extern "C++" bool __cdecl FUN_003577c0(const void *, const void *, const void *, const void *, const void *);
 extern "C" float *FUN_00083e00(float *out, float *dir, float t);
 
 static void CopyBits(float *dst, const volatile float *src)

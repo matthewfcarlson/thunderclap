@@ -101,7 +101,7 @@ class Float1Channel_28bb10 {
     char pad2[4];
     void* m14;
     void* m18;
-    ~Float1Channel_28bb10() throw();
+    ~Float1Channel_28bb10();
 };
 namespace pure3d {
 typedef void(__fastcall* Callback_28bba0)(void*);
@@ -167,16 +167,16 @@ class Float2Channel_28bc20 {
     }
     void F();
 };
-void thunk_FUN_00267090(void*) throw();
+void thunk_FUN_00267090(void*);
 class Owner_28bcd0 {
 public:
-    virtual void vfunc_0() throw();
-    virtual void vfunc_1() throw();
+    virtual void vfunc_0();
+    virtual void vfunc_1();
 };
 namespace pure3d {
 class Channel {
 public:
-    virtual ~Channel() throw() {}
+    virtual ~Channel() {}
     char pad4[8];
     Owner_28bcd0* owner;
     char pad10[4];
@@ -186,7 +186,7 @@ public:
 namespace pure3d {
 class SimpleChannel : public Channel {
 public:
-    __forceinline virtual ~SimpleChannel() throw() {
+    __forceinline virtual ~SimpleChannel() {
         if (owner == 0) {
             thunk_FUN_00267090(frames);
         } else if (owner != 0) {
@@ -200,7 +200,7 @@ public:
 namespace pure3d {
 class VectorChannel : public SimpleChannel {
 public:
-    virtual ~VectorChannel() throw();
+    virtual ~VectorChannel();
 };
 }
 void* Alloc_0008d6d0(int n);
@@ -597,13 +597,13 @@ void IntChannel_28ba20::F() {
 // 0x0028bab0 FUN_0028bab0 (87 B): matches/0x0028bab0.cpp [wrapped: conflict: FUN_0008d6d0]
 // sym: ??0Float1Channel_28bab0@fn_0028bab0@@QAE@HH@Z
 namespace fn_0028bab0 {
-void* __cdecl FUN_0008d6d0(unsigned int) throw();
+void* __cdecl FUN_0008d6d0(unsigned int);
 class Mem_28bab0 {
   public:
 };
 struct SimpleChannel_28bab0 {
     virtual void a();
-    SimpleChannel_28bab0(int, int) throw();
+    SimpleChannel_28bab0(int, int);
     int m4, m8;
     Mem_28bab0* mc;
     int m10;
@@ -611,10 +611,10 @@ struct SimpleChannel_28bab0 {
 struct Float1Channel_28bab0 : SimpleChannel_28bab0 {
     void* m14;
     void* m18;
-    Float1Channel_28bab0(int x, hulk_intptr y) throw();
+    Float1Channel_28bab0(int x, hulk_intptr y);
     virtual void a();
 };
-Float1Channel_28bab0::Float1Channel_28bab0(int x, hulk_intptr y) throw() : SimpleChannel_28bab0(x, y) {
+Float1Channel_28bab0::Float1Channel_28bab0(int x, hulk_intptr y) : SimpleChannel_28bab0(x, y) {
     m18 = 0;
     if (mc == 0)
         m18 = FUN_0008d6d0(m10 * 4);
@@ -627,7 +627,7 @@ namespace fn_f8c9e634 {
 
 // 0x0028bb10 FUN_0028bb10 (130 B): matches/0x0028bb10.cpp
 // sym: ??1Float1Channel_28bb10@fn_f8c9e634@@QAE@XZ
-Float1Channel_28bb10::~Float1Channel_28bb10() throw() {
+Float1Channel_28bb10::~Float1Channel_28bb10() {
     vptr = hulk_at_0042c97c;
     if (!m0c)
         operator delete(m18);
@@ -694,7 +694,7 @@ void Float2Channel_28bc20::F() {
 // FUN_0028bcd0 @ 0x0028bcd0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 namespace pure3d {
-VectorChannel::~VectorChannel() throw() {
+VectorChannel::~VectorChannel() {
     if (owner == 0) {
         thunk_FUN_00267090(frames);
     } else if (owner != 0) {
@@ -731,16 +731,16 @@ namespace fn_0028bdb0 {
 // FUN_0028bdb0 @ 0x0028bdb0
 // equiv-map: ??1Channel@pure3d@@UAE@XZ = 0x0028bcd0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
-void thunk_FUN_00267090(void*) throw();
+void thunk_FUN_00267090(void*);
 class Owner_28bdb0 {
 public:
-    virtual void vfunc_0() throw();
-    virtual void vfunc_1() throw();
+    virtual void vfunc_0();
+    virtual void vfunc_1();
 };
 namespace pure3d {
 class Channel {
 public:
-    virtual ~Channel() throw();
+    virtual ~Channel();
     char pad4[8];
     Owner_28bdb0* owner;
     char pad10[4];
@@ -748,11 +748,11 @@ public:
 };
 class Vector1DOFChannel : public Channel {
 public:
-    virtual ~Vector1DOFChannel() throw();
+    virtual ~Vector1DOFChannel();
     char pad18[16];
     void* values;
 };
-pure3d::Vector1DOFChannel::~Vector1DOFChannel() throw() {
+pure3d::Vector1DOFChannel::~Vector1DOFChannel() {
     if (owner == 0)
         thunk_FUN_00267090(values);
     values = 0;
@@ -844,16 +844,16 @@ namespace fn_0028bfb0 {
 // FUN_0028bfb0 @ 0x0028bfb0
 // equiv-map: ??1Channel@pure3d@@UAE@XZ = 0x0028bcd0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
-void thunk_FUN_00267090(void*) throw();
+void thunk_FUN_00267090(void*);
 class Owner_28bfb0 {
 public:
-    virtual void vfunc_0() throw();
-    virtual void vfunc_1() throw();
+    virtual void vfunc_0();
+    virtual void vfunc_1();
 };
 namespace pure3d {
 class Channel {
 public:
-    virtual ~Channel() throw();
+    virtual ~Channel();
     char pad4[8];
     Owner_28bfb0* owner;
     char pad10[4];
@@ -861,10 +861,10 @@ public:
 };
 class Vector3DOFChannel : public Channel {
 public:
-    virtual ~Vector3DOFChannel() throw();
+    virtual ~Vector3DOFChannel();
     void* values;
 };
-pure3d::Vector3DOFChannel::~Vector3DOFChannel() throw() {
+pure3d::Vector3DOFChannel::~Vector3DOFChannel() {
     if (owner == 0)
         thunk_FUN_00267090(values);
     values = 0;
@@ -889,16 +889,16 @@ namespace fn_0028c040 {
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 6/8, incomplete)
 // FUN_0028c040 @ 0x0028c040
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
-void thunk_FUN_00267090(void*) throw();
+void thunk_FUN_00267090(void*);
 class Owner_28c040 {
 public:
-    virtual void vfunc_0() throw();
-    virtual void vfunc_1() throw();
+    virtual void vfunc_0();
+    virtual void vfunc_1();
 };
 namespace pure3d {
 class Channel {
 public:
-    virtual ~Channel() throw() {}
+    virtual ~Channel() {}
     char pad4[8];
     Owner_28c040* owner;
     char pad10[4];
@@ -906,7 +906,7 @@ public:
 };
 class SimpleChannel : public Channel {
 public:
-    virtual ~SimpleChannel() throw() {
+    virtual ~SimpleChannel() {
         if (owner != 0) {
             owner->vfunc_1();
             owner = 0;
@@ -918,9 +918,9 @@ public:
 };
 class RotationChannel : public SimpleChannel {
 public:
-    virtual ~RotationChannel() throw();
+    virtual ~RotationChannel();
 };
-RotationChannel::~RotationChannel() throw() {
+RotationChannel::~RotationChannel() {
     if (owner == 0) {
         thunk_FUN_00267090(frames);
     } else if (owner != 0) {
@@ -1066,25 +1066,25 @@ void StringChannel_28c240::F() {
 namespace fn_0028c2a0 {
 // FUN_0028c2a0 @ 0x0028c2a0
 // equiv-map: ??0Channel@pure3d@@QAE@HPAVOwner@@@Z = 0x0028b420
-extern void* __cdecl FUN_0008d6d0(unsigned int size) throw();
+extern void* __cdecl FUN_0008d6d0(unsigned int size);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
-extern "C" void* __cdecl memset(void*, int, unsigned int) throw();
+extern "C" void* __cdecl memset(void*, int, unsigned int);
 #endif
 
 
 class Owner {
 public:
     virtual void v0();
-    void* FUN_002888c0(unsigned int size, int tag) throw();
+    void* FUN_002888c0(unsigned int size, int tag);
 };
 
 namespace pure3d {
 
 class Channel {
 public:
-    Channel(int count, Owner* owner) throw();
-    virtual ~Channel() throw();
+    Channel(int count, Owner* owner);
+    virtual ~Channel();
     char pad04[8];
     Owner* owner;          // 0x0c
     int count;             // 0x10
@@ -1093,12 +1093,12 @@ public:
 
 class EntityChannel : public Channel {
 public:
-    EntityChannel(int count, Owner* owner) throw();
-    virtual ~EntityChannel() throw();
+    EntityChannel(int count, Owner* owner);
+    virtual ~EntityChannel();
     void* values;          // 0x18
 };
 
-EntityChannel::EntityChannel(int count_, Owner* owner_) throw() : Channel(count_, owner_)
+EntityChannel::EntityChannel(int count_, Owner* owner_) : Channel(count_, owner_)
 {
     values = 0;
     if (owner == 0)

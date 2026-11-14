@@ -1183,8 +1183,8 @@ namespace fn_00125f90 {
 // hulkfight::ai::TargetVelocityYCondition::vfunc_6 @ 0x00125f90
 extern char DAT_00494b44;
 extern char DAT_00494b60;
-extern "C++" __declspec(nothrow) void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00018960(float, float, float);
+extern "C++" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern "C++" bool __cdecl FUN_00018960(float, float, float);
 struct Velocity_125f90 { char pad[0x54]; float y; };
 struct Entity { char pad[0x328]; Velocity_125f90* velocity; };
 struct Controller_125f90 { Entity* FUN_00059a30(); };

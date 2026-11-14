@@ -1271,7 +1271,7 @@ unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
-unsigned __int64 FUN_0027afb0(const char* s) throw();
+unsigned __int64 FUN_0027afb0(const char* s);
 
 struct IdBlock {
     char pad0[8];

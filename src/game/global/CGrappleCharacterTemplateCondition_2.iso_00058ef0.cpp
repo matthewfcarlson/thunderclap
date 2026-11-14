@@ -11,7 +11,7 @@
 void* operator new(size_t);
 class Base {
   public:
-    Base(int) throw();
+    Base(int);
     virtual void f0();
     virtual bool f1_00234270(void*);
     virtual bool f2_002342b0(int);
@@ -20,18 +20,18 @@ class Base {
 };
 class Member {
   public:
-    Member() throw();
+    Member();
     int a;
     int b;
 };
 class CGrappleCharacterTemplateCondition_58ef0 : public Base {
   public:
-    CGrappleCharacterTemplateCondition_58ef0() throw();
+    CGrappleCharacterTemplateCondition_58ef0();
     virtual void f0();
     int val;
     Member m;
 };
-CGrappleCharacterTemplateCondition_58ef0::CGrappleCharacterTemplateCondition_58ef0() throw() : Base(0), val(0), m() {}
+CGrappleCharacterTemplateCondition_58ef0::CGrappleCharacterTemplateCondition_58ef0() : Base(0), val(0), m() {}
 
 template <> void* fight::ConditionFactoryTemplate<CGrappleCharacterTemplateCondition>::vfunc_5() {
     return (void*)(new CGrappleCharacterTemplateCondition_58ef0);

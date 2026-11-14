@@ -36,12 +36,12 @@ namespace fn_f5c759cd {
 class FEThings_fc060;
 class ControllerPoller_fc060 {
 public:
-    ControllerPoller_fc060(int a, FEThings_fc060* mgr) throw();
+    ControllerPoller_fc060(int a, FEThings_fc060* mgr);
     virtual void v0();
 };
 class FEThings_fc060 {
 public:
-    FEThings_fc060(int a) throw();
+    FEThings_fc060(int a);
     char pad0[0x182c];
     ControllerPoller_fc060* overlay;
     void FUN_000dddc0(int a, int b);

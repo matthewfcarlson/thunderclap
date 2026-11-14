@@ -167,7 +167,7 @@ namespace fn_00181900 {
 // hulkfight::motion::PropStateByIndexCondition::vfunc_6 @ 0x00181900
 extern char DAT_00494b44;
 extern char DAT_00494b60;
-extern "C++" __declspec(nothrow) void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern "C++" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 struct Prop_181900 { char pad[0x40]; int state; };
 struct Collection_181900 { char pad[0x128]; Prop_181900* current; Prop_181900* FUN_00035ef0(int); };
 struct Actor_181900 { Collection_181900* FUN_00059a30(); };

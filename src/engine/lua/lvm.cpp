@@ -602,33 +602,33 @@ namespace fn_00218350 {
             base = FUN_00218170(rc_, rb_, pc, L, ra, tm);                                                    \
     }
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_00215520(LuaVMState* L, int event, int line);
+extern "C++" void __cdecl FUN_00215520(LuaVMState* L, int event, int line);
 // equiv-conv: FUN_002176c0 ebx edi
-extern "C++" __declspec(nothrow) void __cdecl FUN_002176c0(LuaVMState* L, const LuaVMInstruction* pc);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00217830(LuaVMState* L, const LuaVMTObject* t, LuaVMTObject* key, LuaVMTObject* val);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00217980(LuaVMState* L, const LuaVMTObject* t, LuaVMTObject* key, LuaVMTObject* val);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00217100(LuaVMState* L, LuaVMGCObject* o, LuaVMGCObject* v);
+extern "C++" void __cdecl FUN_002176c0(LuaVMState* L, const LuaVMInstruction* pc);
+extern "C++" void __cdecl FUN_00217830(LuaVMState* L, const LuaVMTObject* t, LuaVMTObject* key, LuaVMTObject* val);
+extern "C++" void __cdecl FUN_00217980(LuaVMState* L, const LuaVMTObject* t, LuaVMTObject* key, LuaVMTObject* val);
+extern "C++" void __cdecl FUN_00217100(LuaVMState* L, LuaVMGCObject* o, LuaVMGCObject* v);
 extern "C" LuaVMTable* __cdecl FUN_00219cc0(LuaVMState* L, int narray, int lnhash);
 extern "C" void __cdecl FUN_00217440(LuaVMState* L);
 // equiv-conv: FUN_00218170 eax ecx edx stack stack stack
-extern "C++" __declspec(nothrow) LuaVMTObject* __cdecl FUN_00218170(const LuaVMTObject* rc, const LuaVMTObject* rb, const LuaVMInstruction* pc,
+extern "C++" LuaVMTObject* __cdecl FUN_00218170(const LuaVMTObject* rc, const LuaVMTObject* rb, const LuaVMInstruction* pc,
                                           LuaVMState* L, LuaVMTObject* ra, int op);
 extern "C" int __cdecl FUN_00215ff0(const char* s, float* result);
-extern "C++" __declspec(nothrow) const LuaVMTObject* __cdecl FUN_002175b0(LuaVMState* L, const LuaVMTObject* o, int event);
+extern "C++" const LuaVMTObject* __cdecl FUN_002175b0(LuaVMState* L, const LuaVMTObject* o, int event);
 // equiv-conv: FUN_00217790 ecx eax
-extern "C++" __declspec(nothrow) void __cdecl FUN_00217790(LuaVMState* L, LuaVMTObject* res);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00214d40(LuaVMState* L, const LuaVMTObject* p1, const LuaVMTObject* p2);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00217f20(LuaVMState* L, int total, int last);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00217e20(LuaVMState* L, const LuaVMTObject* t1, const LuaVMTObject* t2);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00217cf0(LuaVMState* L, const LuaVMTObject* l, const LuaVMTObject* r);
+extern "C++" void __cdecl FUN_00217790(LuaVMState* L, LuaVMTObject* res);
+extern "C++" void __cdecl FUN_00214d40(LuaVMState* L, const LuaVMTObject* p1, const LuaVMTObject* p2);
+extern "C++" void __cdecl FUN_00217f20(LuaVMState* L, int total, int last);
+extern "C++" int __cdecl FUN_00217e20(LuaVMState* L, const LuaVMTObject* t1, const LuaVMTObject* t2);
+extern "C++" int __cdecl FUN_00217cf0(LuaVMState* L, const LuaVMTObject* l, const LuaVMTObject* r);
 // equiv-conv: FUN_00217d80 edi esi stack
-extern "C++" __declspec(nothrow) int __cdecl FUN_00217d80(const LuaVMTObject* l, const LuaVMTObject* r, LuaVMState* L);
+extern "C++" int __cdecl FUN_00217d80(const LuaVMTObject* l, const LuaVMTObject* r, LuaVMState* L);
 extern "C" LuaVMTObject* __cdecl FUN_00215790(LuaVMState* L, LuaVMTObject* func);
 extern "C" void __cdecl FUN_00215970(LuaVMState* L, int wanted, LuaVMTObject* firstResult);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002159e0(LuaVMState* L, LuaVMTObject* func, int nresults);
-extern "C++" __declspec(nothrow) LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
-extern "C++" __declspec(nothrow) LuaVMTObject* __cdecl FUN_00219e50(LuaVMTable* t, LuaVMString* key);
+extern "C++" void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...);
+extern "C++" void __cdecl FUN_002159e0(LuaVMState* L, LuaVMTObject* func, int nresults);
+extern "C++" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+extern "C++" LuaVMTObject* __cdecl FUN_00219e50(LuaVMTable* t, LuaVMString* key);
 extern "C" LuaVMTObject* __cdecl FUN_00219f60(LuaVMState* L, LuaVMTable* t, int key);
 extern "C" void __cdecl FUN_00219660(LuaVMState* L, LuaVMTObject* level);
 extern "C" LuaVMClosure* __cdecl FUN_00219560(LuaVMState* L, int nelems, const LuaVMTObject* e);

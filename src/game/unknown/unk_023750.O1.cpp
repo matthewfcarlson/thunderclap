@@ -14,13 +14,13 @@ namespace fn_ff92353c {
 class T_23c80 {
   public:
     virtual void A();
-    char Get() throw();
+    char Get();
 };
 
 
 // 0x00023c80 FUN_00023c80 (7 B): matches/0x00023c80.cpp
 // sym: ?Get@T_23c80@fn_ff92353c@@QAEDXZ
-char T_23c80::Get() throw() {
+char T_23c80::Get() {
     return *(char*)((char*)this + 0x1d4d);
 }
 

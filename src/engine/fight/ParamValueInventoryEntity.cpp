@@ -37,7 +37,7 @@ class ParamValueVector_235590 {
     Part_235590 part;
     ParamValueVector_235590* vfunc_0(int);
 };
-extern "C++" __declspec(nothrow) void __cdecl thunk_FUN_00267090(ParamValueVector_235590*);
+extern "C++" void __cdecl thunk_FUN_00267090(ParamValueVector_235590*);
 class Sub_235620 {
   public:
     void Init_0027af50();

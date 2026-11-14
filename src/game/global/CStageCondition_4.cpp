@@ -63,7 +63,7 @@ namespace fn_00058c10 {
 
 class CCondition_58c10 {
   public:
-    CCondition_58c10(int) throw();
+    CCondition_58c10(int);
     virtual void f0();
     virtual bool f1_00234270(void*);
     virtual bool f2_002342b0(int);
@@ -72,9 +72,9 @@ class CCondition_58c10 {
 };
 class CStageCondition : public ::CStageCondition {
   public:
-    CStageCondition() throw();
+    CStageCondition();
 };
-CStageCondition::CStageCondition() throw() : ::CStageCondition(0) {
+CStageCondition::CStageCondition() : ::CStageCondition(0) {
     f_0c = 2;
     f_10 = 0;
 }

@@ -36,13 +36,13 @@ class Root_76f50 {
     virtual void f4();
     virtual void f5();
     char pad[8];
-    Root_76f50() throw();
+    Root_76f50();
 };
 class Mid_76f50 : public Root_76f50 {
   public:
     int a;
     float b;
-    Mid_76f50() throw() {
+    Mid_76f50() {
         b = -1.0f;
         a = 0;
     }
@@ -60,7 +60,7 @@ class CJumpAttackTrack_76f50 : public Mid_76f50 {
     float pi;
     float g, h;
     int j, k, l;
-    CJumpAttackTrack_76f50() throw() {
+    CJumpAttackTrack_76f50() {
         _ReadWriteBarrier();
         d = -1.0f;
         e = -1.0f;

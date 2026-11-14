@@ -32,7 +32,7 @@ void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_f3343a7f {
 class Base {
   public:
-    Base(int) throw();
+    Base(int);
     virtual void v0();
     virtual void v1();
     virtual void v2();

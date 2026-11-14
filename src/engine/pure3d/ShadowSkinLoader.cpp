@@ -2745,7 +2745,7 @@ ShadowMeshBufferLoader* ShadowMeshBufferLoader::f2(unsigned char flag) {
 
 
 // 0x002b7020 pure3d::ShadowSkinLoader::vfunc_5 (2176 B): equivalent/0x002b7020.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?v5@ShadowSkinLoader@pure3d@fn_002b7020@@UAE_KPAPAVTarget_2b7020@3@PA_KPAVReader@3@PAVInv_2b7020@3@@Z @262da5fdcb19 @wd073e599e50e
+// sym: ?v5@ShadowSkinLoader@pure3d@fn_002b7020@@UAE_KPAPAVTarget_2b7020@3@PA_KPAVReader@3@PAVInv_2b7020@3@@Z @262da5fdcb19 @wb96f0a25c375
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_002b7020 {
 // STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 99/99)

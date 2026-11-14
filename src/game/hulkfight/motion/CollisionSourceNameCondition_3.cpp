@@ -31,7 +31,7 @@ void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace fn_f4aac511 {
 class Base {
   public:
-    Base(int) throw();
+    Base(int);
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -39,12 +39,12 @@ class Base {
 };
 class Sub {
   public:
-    Sub() throw();
+    Sub();
     char pad[8];
 };
 class Condition_15a690 : public Base {
   public:
-    Condition_15a690() throw() : Base(0), field(0), sub() {}
+    Condition_15a690() : Base(0), field(0), sub() {}
     virtual void f0();
     virtual void f1();
     virtual void f2();

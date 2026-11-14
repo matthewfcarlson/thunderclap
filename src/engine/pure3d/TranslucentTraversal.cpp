@@ -420,7 +420,7 @@ namespace pure3d {
 
 class DisplayTraversal {
 public:
-    DisplayTraversal() throw();
+    DisplayTraversal();
     virtual void vfunc_0_00018b30();
     virtual void vfunc_1_00018b40();
     virtual void* vfunc_2_002a24c0(char);

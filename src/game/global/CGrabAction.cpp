@@ -19,32 +19,32 @@ struct Vec3 {
 };
 class RefObj {
 public:
-    virtual void AddRef() throw();
-    virtual void Release() throw();
+    virtual void AddRef();
+    virtual void Release();
 };
 struct Binder;
 struct CFightParamsCollision_1df20 : public RefObj {
-    CFightParamsCollision_1df20 *FUN_000598e0(void *a, struct Obj *o) throw();
+    CFightParamsCollision_1df20 *FUN_000598e0(void *a, struct Obj *o);
 };
 struct Binder {
-    void FUN_00231ad0(struct Bind *b, CFightParamsCollision_1df20 *m, unsigned int flags) throw();
+    void FUN_00231ad0(struct Bind *b, CFightParamsCollision_1df20 *m, unsigned int flags);
 };
 struct Bind {
     RefObj *ref;
     Binder *cur;
-    char FUN_00231e80(Binder *r) throw();
+    char FUN_00231e80(Binder *r);
 };
 class Factory {
 public:
-    virtual void v0() throw();
-    virtual void v1() throw();
-    virtual void v2() throw();
-    virtual void v3() throw();
-    virtual void v4() throw();
-    virtual void v5() throw();
-    virtual void v6() throw();
-    virtual void v7() throw();
-    virtual Binder *v8(CFightParamsCollision_1df20 *m, int z) throw();
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual Binder *v8(CFightParamsCollision_1df20 *m, int z);
 };
 struct Obj {
     char pad00[8];
@@ -61,13 +61,13 @@ struct Obj {
     RefObj *s70;
     int f74;
     char pad78[0x94 - 0x78];
-    void FUN_00059820() throw();
-    void FUN_00059300() throw();
+    void FUN_00059820();
+    void FUN_00059300();
 };
-void __cdecl FUN_00018810(RefObj **slot, RefObj *v) throw();
-void __cdecl FUN_000187a0(RefObj **slot, RefObj *v) throw();
-void __cdecl FUN_00018840(RefObj **slot, RefObj *v) throw();
-void *__cdecl FUN_0008d690(unsigned int size) throw();
+void __cdecl FUN_00018810(RefObj **slot, RefObj *v);
+void __cdecl FUN_000187a0(RefObj **slot, RefObj *v);
+void __cdecl FUN_00018840(RefObj **slot, RefObj *v);
+void *__cdecl FUN_0008d690(unsigned int size);
 struct Info {
     char pad000[0x1b0];
     int f1b0;
@@ -90,25 +90,25 @@ struct Entity {
     Entity *f338;
     char pad33c[0x20b0 - 0x33c];
     int f20b0;
-    char FUN_000360f0() throw();
-    int FUN_00036270() throw();
-    int FUN_00038f90(Vec3 *p, int a, int z) throw();
-    char FUN_0003a590(struct World *g, Entity *e) throw();
-    void FUN_0003a680(Entity *t, int a, int b, int c, void *m, float e5, float e6, float e7) throw();
-    void FUN_0003a9d0(int v) throw();
-    float FUN_000354c0() throw();
-    void FUN_0003b160(struct Prop *p) throw();
-    void FUN_0003b190(struct Prop *p) throw();
+    char FUN_000360f0();
+    int FUN_00036270();
+    int FUN_00038f90(Vec3 *p, int a, int z);
+    char FUN_0003a590(struct World *g, Entity *e);
+    void FUN_0003a680(Entity *t, int a, int b, int c, void *m, float e5, float e6, float e7);
+    void FUN_0003a9d0(int v);
+    float FUN_000354c0();
+    void FUN_0003b160(struct Prop *p);
+    void FUN_0003b190(struct Prop *p);
 };
 struct Fighter {
-    void FUN_00059a50(Vec3 *out) throw();
+    void FUN_00059a50(Vec3 *out);
 };
 struct List {
     char pad000[0xc];
     int count;
     char pad010[0x124 - 0x10];
     Entity *player;
-    Entity *FUN_00024190(int i) throw();
+    Entity *FUN_00024190(int i);
 };
 struct Item {
     char pad00[0x2c];
@@ -127,7 +127,7 @@ struct P34 { char pad[0x34]; float f34; };
 struct P74 { char pad[0x74]; P20 *f74; };
 struct P100 { };
 struct Mgr {
-    int FUN_00079270() throw();
+    int FUN_00079270();
 };
 } // namespace fn_faea5d7a
 struct World {
@@ -153,8 +153,8 @@ struct Cfg {
     char pad3c[8];
     Factory *f44;
 };
-Fighter *__fastcall FUN_000592a0(Owner *owner) throw();
-Entity *__fastcall FUN_00059a30(Fighter *f) throw();
+Fighter *__fastcall FUN_000592a0(Owner *owner);
+Entity *__fastcall FUN_00059a30(Fighter *f);
 class Ctrl {
 public:
     char pad00[0x1c];

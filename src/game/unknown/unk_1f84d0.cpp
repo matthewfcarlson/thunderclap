@@ -26,8 +26,8 @@ class Holder_1f8530 {
 };
 struct Name {
     int lo, hi;
-    ~Name() throw();
-    bool FUN_0027af90(const Name *other) throw();
+    ~Name();
+    bool FUN_0027af90(const Name *other);
 };
 struct Entry_1f85f0 {
     char pad0[8];
@@ -356,8 +356,8 @@ namespace fn_001f8670 {
 
 struct Key {
     int lo, hi;
-    Key(const Key &other) throw();
-    ~Key() throw();
+    Key(const Key &other);
+    ~Key();
 };
 
 struct Item_1f8670 {
@@ -372,7 +372,7 @@ public:
     int firstActive;        // 0x414
     int activeCount;        // 0x418
 
-    int FUN_001f85f0(Key key) throw();
+    int FUN_001f85f0(Key key);
     int FUN_001f8670(Key key);
 };
 
@@ -672,8 +672,8 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 struct Key {
     int lo, hi;
-    Key() throw() {}
-    Key(const Key& other) throw();
+    Key() {}
+    Key(const Key& other);
     void FUN_0027b0e0(const char* name);
     void FUN_0027af50();
 };
@@ -728,8 +728,8 @@ int Registry_1f8f70::FUN_001f8f70(const char* name)
 namespace fn_001f8fe0 {
 struct Key {
     int lo, hi;
-    Key() throw() {}
-    Key(const Key& other) throw();
+    Key() {}
+    Key(const Key& other);
 };
 
 struct Item {

@@ -51,7 +51,7 @@ struct Vec_4c430 { float x,y,z; hulk_freg FUN_0022d110(); };
 struct State_4c430 { char pad[0x28]; Vec_4c430 direction; };
 struct Context { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual State_4c430* slot3(); };
 hulk_freg __cdecl FUN_000189c0(float);
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00018960(float,float,float);
+extern "C++" bool __cdecl FUN_00018960(float,float,float);
 class CCollisionPushbackYAngleCondition {
 public:
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual bool vfunc_7(Context*);

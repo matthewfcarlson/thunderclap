@@ -17,9 +17,9 @@ extern "C" int __cdecl __setjmp3(void* environment, int count);
 namespace fn_ffc5dd1e {
 extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
 extern "C" void __cdecl FUN_00215350(LuaVMState* L, LuaVMTObject* oldstack);
-extern "C++" __declspec(nothrow) LuaVMTObject* __cdecl FUN_00215710(LuaVMState* L, LuaVMTObject* func);
-extern "C++" __declspec(nothrow) LuaVMTObject* __cdecl FUN_002155f0(LuaVMTObject* base, LuaVMState* L, int nfixargs);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002152b0(LuaVMState* L, int errcode);
+extern "C++" LuaVMTObject* __cdecl FUN_00215710(LuaVMState* L, LuaVMTObject* func);
+extern "C++" LuaVMTObject* __cdecl FUN_002155f0(LuaVMTObject* base, LuaVMState* L, int nfixargs);
+extern "C++" void __cdecl FUN_002152b0(LuaVMState* L, int errcode);
 extern "C" void __cdecl FUN_00215410(LuaVMState* L, int newsize);
 extern "C" void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...);
 extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n);
@@ -36,7 +36,7 @@ extern "C" void __cdecl FUN_00219660(LuaVMState* L, LuaVMStkId level);
 extern "C" void __cdecl FUN_00215240(int errcode, LuaVMTObject* oldtop, LuaVMState* L);
 extern "C" int __cdecl FUN_00215de0(LuaVMState* L, void(__cdecl* func)(LuaVMState* L, void* ud), void* u, int oldtop,
                                     int ef);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00215c00(LuaVMState* L, void* ud);
+extern "C++" void __cdecl FUN_00215c00(LuaVMState* L, void* ud);
 
 
 // 0x00215240 FUN_00215240 (83 B): equivalent/0x00215240.cpp
@@ -186,10 +186,10 @@ namespace fn_002155f0 {
 // adjust_varargs: pad missing fixed arguments with nil and move the extra ones into a new `arg' table (with the
 // count in field `n'), pushed in their place.
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_00215460(LuaVMState* L, int n);
+extern "C++" void __cdecl FUN_00215460(LuaVMState* L, int n);
 extern "C" LuaVMTable* __cdecl FUN_00219cc0(LuaVMState* L, int narray, int lnhash);
 extern "C" LuaVMTObject* __cdecl FUN_00219f60(LuaVMState* L, LuaVMTable* t, int key);
-extern "C++" __declspec(nothrow) LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+extern "C++" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
 extern "C" LuaVMTObject* __cdecl FUN_0021a500(LuaVMState* L, LuaVMTable* t, LuaVMString* key);
 
 // equiv-conv: FUN_002155f0 edx esi stack
@@ -236,7 +236,7 @@ namespace fn_00215710 {
 // equiv-conv: FUN_002175b0 stack stack stack
 extern "C" const LuaVMTObject* __cdecl FUN_002175b0(LuaVMState* L, const LuaVMTObject* o, int event);
 extern "C" void __cdecl FUN_00214c90(LuaVMState* L, const LuaVMTObject* o, const char* op);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00215460(LuaVMState* L, int n);
+extern "C++" void __cdecl FUN_00215460(LuaVMState* L, int n);
 
 // equiv-conv: FUN_00215710 esi edi
 extern "C" LuaVMTObject* __cdecl FUN_00215710(LuaVMState* L, LuaVMTObject* func) {
@@ -460,12 +460,12 @@ namespace fn_00215c00 {
 // its main function as a closure with fresh upvalues.
 
 extern "C" int __cdecl FUN_0021a590(LuaVMZio* z);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00217440(LuaVMState* L);
+extern "C++" void __cdecl FUN_00217440(LuaVMState* L);
 extern "C" LuaVMProto* __cdecl FUN_00220480(LuaVMState* L, LuaVMZio* Z, LuaVMBuffer* buff, const char* name);
 extern "C" LuaVMProto* __cdecl FUN_0021f710(LuaVMState* L, LuaVMZio* z, LuaVMBuffer* buff, const char* name);
 extern "C" LuaVMClosure* __cdecl FUN_00219560(LuaVMState* L, int nelems, const LuaVMTObject* e);
 extern "C" LuaVMUpVal* __cdecl FUN_002195d0(LuaVMState* L);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00215460(LuaVMState* L, int n);
+extern "C++" void __cdecl FUN_00215460(LuaVMState* L, int n);
 
 extern "C" void __cdecl FUN_00215c00(LuaVMState* L, void* ud) {
     LuaVMSParser* p = (LuaVMSParser*)ud;

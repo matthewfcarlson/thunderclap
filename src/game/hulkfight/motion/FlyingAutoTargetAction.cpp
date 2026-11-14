@@ -121,7 +121,7 @@ static float AbsF(float v)
 
 extern "C" hulk_freg __cdecl FUN_00224f10(V3_135f90 *v);
 extern "C" void __cdecl FUN_00224d70(float angle, V3_135f90 *v);
-extern "C++" __declspec(nothrow) hulk_freg __cdecl FUN_00224ea0(float x, float z);
+extern "C++" hulk_freg __cdecl FUN_00224ea0(float x, float z);
 extern "C" hulk_freg __cdecl FUN_00224fc0(float a, float b);
 
 class Target_135f90 {

@@ -55,14 +55,14 @@ class Ref_2a3950 {
 class DrawableContainer_2a3950 {
   public:
     void* vptr;
-    ~DrawableContainer_2a3950() throw();
+    ~DrawableContainer_2a3950();
 };
 class ParticleSystem_2a3950 : public DrawableContainer_2a3950 {
   public:
     char pa4[160];
     Ref_2a3950* aa4;
     Ref_2a3950* aa8;
-    ~ParticleSystem_2a3950() throw();
+    ~ParticleSystem_2a3950();
 };
 class Item {
   public:
@@ -377,7 +377,7 @@ namespace fn_f1899950 {
 
 // 0x002a3950 FUN_002a3950 (67 B): matches/0x002a3950.cpp
 // sym: ??1ParticleSystem_2a3950@fn_f1899950@@QAE@XZ
-ParticleSystem_2a3950::~ParticleSystem_2a3950() throw() {
+ParticleSystem_2a3950::~ParticleSystem_2a3950() {
     vptr = &hulk_at_0042d88c;
     _ReadWriteBarrier();
     if (aa4) {

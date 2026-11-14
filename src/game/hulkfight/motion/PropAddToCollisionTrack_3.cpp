@@ -1037,7 +1037,7 @@ extern "C" void FUN_001883f0()
 } // namespace fn_f5c5d2a1
 
 // 0x00188490 FUN_00188490 (213 B): equivalent/0x00188490.cpp [wrapped: conflict: FUN_0008d690; fight::ParamBool; fight::ParamFloatConstRange; fight::ParamIntConstRange]
-// sym: _FUN_00188490 @b883fa3d2468 @w57d18a36ba70
+// sym: _FUN_00188490 @b883fa3d2468 @wa94640b88115
 namespace fn_00188490 {
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)
 // FUN_00188490 @ 0x00188490

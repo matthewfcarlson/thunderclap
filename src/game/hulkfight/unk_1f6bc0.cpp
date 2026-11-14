@@ -93,17 +93,17 @@ struct V3_1f7200 {
 };
 struct T_1f7200 {
     char d[8];
-    T_1f7200(int a) throw();
-    ~T_1f7200() throw();
+    T_1f7200(int a);
+    ~T_1f7200();
 };
 struct A_1f7200 {
     char d[0x40];
-    A_1f7200() throw();
+    A_1f7200();
 };
 struct S_1f7200 {
-    void* Do_00283a40(T_1f7200* t, A_1f7200* a, float lo, float hi) throw();
+    void* Do_00283a40(T_1f7200* t, A_1f7200* a, float lo, float hi);
 };
-S_1f7200* GetS_0027f250() throw();
+S_1f7200* GetS_0027f250();
 struct Vec3_1f7280 {
     float x, y, z;
 };
@@ -266,8 +266,8 @@ struct Vec3_1f7150 {
 
 struct Name {
     int lo, hi;
-    Name(int key) throw();
-    ~Name() throw();
+    Name(int key);
+    ~Name();
 };
 
 struct Mat_1f7150 {
@@ -276,7 +276,7 @@ struct Mat_1f7150 {
 };
 
 struct Placer_1f7150 {
-    void *FUN_00283a40(const Name &name, const Mat_1f7150 &m, float lo, float hi) throw();
+    void *FUN_00283a40(const Name &name, const Mat_1f7150 &m, float lo, float hi);
 };
 
 Placer_1f7150 *FUN_0027f250();
@@ -299,7 +299,7 @@ namespace fn_f90a56c8 {
 
 // 0x001f7200 FUN_001f7200 (113 B): matches/0x001f7200.cpp
 // sym: ?F@fn_f90a56c8@@YGPAXHUV3_1f7200@1@@Z
-void* __stdcall F(int a1, V3_1f7200 v) throw() {
+void* __stdcall F(int a1, V3_1f7200 v) {
     void* r = 0;
     A_1f7200 a;
     ((owners::Target_22be40 *)&a)->FUN_0022be40((const int *)(V3_1f7200 *)(&v));

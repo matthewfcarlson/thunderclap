@@ -984,13 +984,13 @@ namespace hulkfight {
 namespace ai {
 class TargetCondition {
   public:
-    virtual ~TargetCondition() throw();
+    virtual ~TargetCondition();
 };
 class TargetDistanceXZCondition : public TargetCondition {
   public:
-    virtual ~TargetDistanceXZCondition() throw();
+    virtual ~TargetDistanceXZCondition();
 };
-TargetDistanceXZCondition::~TargetDistanceXZCondition() throw() {}
+TargetDistanceXZCondition::~TargetDistanceXZCondition() {}
 } // namespace ai
 } // namespace hulkfight
 } // namespace fn_00124060

@@ -35,13 +35,13 @@ class BaseCondition {
     virtual void b();
     virtual void c();
     char pad[8];
-    BaseCondition(int) throw();
+    BaseCondition(int);
 };
 } }
 namespace hulkfight { namespace motion {
 class CollisionSourceIsMissileCondition_1595e0 : public BaseCondition {
   public:
-    CollisionSourceIsMissileCondition_1595e0() throw() : BaseCondition(0) { flag = 1; }
+    CollisionSourceIsMissileCondition_1595e0() : BaseCondition(0) { flag = 1; }
     virtual void a();
     virtual void b();
     virtual void c();

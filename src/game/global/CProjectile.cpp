@@ -24,7 +24,7 @@ struct A_1b68d0 {
 };
 class Obj {
   public:
-    Obj() throw();
+    Obj();
     char data[0x80];
 };
 } // namespace fn_f270ee22

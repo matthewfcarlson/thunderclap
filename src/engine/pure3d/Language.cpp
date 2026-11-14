@@ -41,7 +41,7 @@ class Language : public FUN_0027b070 {
 };
 }
 extern "C" char DAT_0042fd84[];
-void __cdecl Release_0008d340(void*) throw();
+void __cdecl Release_0008d340(void*);
 class Entity_2e6620 {
   public:
     ~Entity_2e6620();

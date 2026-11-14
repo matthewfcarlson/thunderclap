@@ -49,11 +49,11 @@ extern "C" int __cdecl FUN_002416f0(Ctrl *ctrl, Actor_25a0b0 *actor);
 extern "C" void __cdecl FUN_002416c0(Ctrl *ctrl, Actor_25a0b0 *actor, int arg);
 extern "C" int __cdecl FUN_00267f80();
 extern "C" void __cdecl FUN_00243090(Ctrl *ctrl, float dt);
-extern "C" hulk_intptr __cdecl GetThing() throw();
-extern "C" void __cdecl Func_00257dd0(void*) throw();
+extern "C" hulk_intptr __cdecl GetThing();
+extern "C" void __cdecl Func_00257dd0(void*);
 class Entity_25a2c0 {
   public:
-    Entity_25a2c0(int) throw();
+    Entity_25a2c0(int);
     virtual void a();
     char pad[0x24];
 };
@@ -61,7 +61,7 @@ struct Init0 {
     char m28[8];
 };
 struct Init1_25a2c0 {
-    Init1_25a2c0() throw() {
+    Init1_25a2c0() {
         m30 = 1000;
         m34 = 1000;
     }
@@ -69,7 +69,7 @@ struct Init1_25a2c0 {
 };
 class Mix : public Entity_25a2c0, public Init0, public Init1_25a2c0 {
   public:
-    Mix() throw();
+    Mix();
     virtual void a();
     void* p38;
     void* p3c;
@@ -349,7 +349,7 @@ struct Node { Node *left; Node *right; Node *parent; int color; };
 struct Tree_25a160 { Node *root; Node sentinel; };
 struct Entry_25a160 { int data; Node node; };
 extern Node *__cdecl FUN_00259de0(Tree_25a160 *, Node *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00259e20(void *, void *);
+extern "C++" void __cdecl FUN_00259e20(void *, void *);
 extern "C" void __cdecl FUN_0025a160(void * tree_, void * entry_) {
     Tree_25a160 * tree = (Tree_25a160 *)tree_;
     Entry_25a160 * entry = (Entry_25a160 *)entry_;
@@ -390,7 +390,7 @@ extern "C" void __cdecl FUN_0025a160(void * tree_, void * entry_) {
 namespace fn_0025a220 {
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 8/8)
 // FUN_0025a220 @ 0x0025a220
-struct Node { Node *next; }; struct List { Node *first; Node sentinel; }; extern "C++" __declspec(nothrow) void __cdecl FUN_0025a160(void *, void *); void * __cdecl FUN_00241670(); void __cdecl FUN_00247550(void *, void *); extern "C" void __cdecl FUN_0025a220(void * list_) {
+struct Node { Node *next; }; struct List { Node *first; Node sentinel; }; extern "C++" void __cdecl FUN_0025a160(void *, void *); void * __cdecl FUN_00241670(); void __cdecl FUN_00247550(void *, void *); extern "C" void __cdecl FUN_0025a220(void * list_) {
     List * list = (List *)list_; while (list->first != &list->sentinel) { Node *node = list->first; while (node->next != &list->sentinel) node = node->next; Node *item = (Node *)((char *)node - 4); if (!item) break; FUN_0025a160((List *)list,(Node *)item); FUN_00247550(FUN_00241670(), item); } }
 } // namespace fn_0025a220
 
@@ -398,7 +398,7 @@ namespace fn_fac3e8a6 {
 
 // 0x0025a2c0 FUN_0025a2c0 (70 B): matches/0x0025a2c0.cpp
 // sym: ??0Mix@fn_fac3e8a6@@QAE@XZ
-Mix::Mix() throw() : Entity_25a2c0(GetThing()) {
+Mix::Mix() : Entity_25a2c0(GetThing()) {
     _ReadWriteBarrier();
     void** e = &p3c;
     *e = e;
@@ -556,8 +556,8 @@ struct Other_25a530 { char data[4]; };
 
 extern "C" Link_25a530 *__cdecl FUN_00257ec0(List_25a530 *list);
 extern "C" Link_25a530 *__cdecl FUN_00257ee0(Link_25a530 *l);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025a0b0(void *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025a220(void *);
+extern "C++" void __cdecl FUN_0025a0b0(void *);
+extern "C++" void __cdecl FUN_0025a220(void *);
 extern "C" void __cdecl FUN_00242f60(int a, Track *t, int b);
 
 class Mix {
@@ -611,7 +611,7 @@ struct Holder_25a610 {
     Node node;
 };
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_00259d30(void *, void *);
+extern "C++" void __cdecl FUN_00259d30(void *, void *);
 extern "C" void FUN_00259d80(Tree_25a610* tree, Node* node);
 
 // Red-black tree unique-key insert with rebalance. color: 1 = red, 0 = black.
@@ -727,7 +727,7 @@ struct Mix {
     int pad[14];
     void Finish_00244f70();
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025a220(void *);
+extern "C++" void __cdecl FUN_0025a220(void *);
 extern "C" void __cdecl FUN_00257df0(void*);
 void __fastcall target(Mix* self) {
     self->pad[0] = ((hulk_intptr)DAT_0042a6e4);
@@ -809,7 +809,7 @@ class Mix {
     AudioTree busses;
     void setup_00244f70();
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025a220(void *);
+extern "C++" void __cdecl FUN_0025a220(void *);
 extern "C" void FUN_00257df0(void*);
 int f660_00241660();
 int f550_00247550(int, Mix*);

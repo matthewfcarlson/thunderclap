@@ -27,7 +27,7 @@ class TrackFactoryTemplate_114150 {
 };
 extern "C" void FUN_00111f50();
 struct Base_114190 {
-    Base_114190(int) throw();
+    Base_114190(int);
     virtual void a();
     virtual void b();
     virtual void c();
@@ -38,7 +38,7 @@ struct Base_114190 {
 };
 struct Cond_114190 : Base_114190 {
     int mc, m10;
-    Cond_114190() throw() : Base_114190(0) {
+    Cond_114190() : Base_114190(0) {
         mc = 0;
         m10 = 0;
     }

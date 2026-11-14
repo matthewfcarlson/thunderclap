@@ -61,15 +61,15 @@ inline void* operator new(size_t, void* p) throw() {
 }
 namespace fn_fa90982c {
 extern void* vGDH[];
-extern "C" void* __cdecl FUN_0008d690(unsigned int) throw();
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Inner_1fae80 {
-    Inner_1fae80() throw();
+    Inner_1fae80();
 };
 struct CGameDataHandler_1fae80 {
     void* vf;
     Inner_1fae80* p4;
     int p8, pc, p10, p14, p18, p1c, p20, p24, p28, p2c, p30;
-    CGameDataHandler_1fae80() throw();
+    CGameDataHandler_1fae80();
 };
 struct MyFileStream_1faf70 {
     virtual void* v0_001fae40(char);
@@ -564,7 +564,7 @@ namespace fn_fa90982c {
 
 // 0x001fae80 FUN_001fae80 (81 B): matches/0x001fae80.cpp
 // sym: ??0CGameDataHandler_1fae80@fn_fa90982c@@QAE@XZ
-CGameDataHandler_1fae80::CGameDataHandler_1fae80() throw() {
+CGameDataHandler_1fae80::CGameDataHandler_1fae80() {
     vf = vGDH;
     void* m = FUN_0008d690(0x5110);
     Inner_1fae80* i;
@@ -697,9 +697,9 @@ class Wrapper_1faff0 {
   public:
     int dummy;
     MyFileStream stream;
-    void Init_00337c00() throw();
-    void Close_00337c10() throw();
-    char Read_00337c20(MyFileStream*, void*, int, Host_1faff0*) throw();
+    void Init_00337c00();
+    void Close_00337c10();
+    char Read_00337c20(MyFileStream*, void*, int, Host_1faff0*);
 };
 class Host_1faff0 {
   public:

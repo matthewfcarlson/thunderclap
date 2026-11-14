@@ -57,13 +57,13 @@ namespace hulkfight {
 namespace motion {
 class BaseTrack {
   public:
-    BaseTrack() throw();
+    BaseTrack();
     virtual void v0();
     int base;
 };
 class LocomotingTrack : public BaseTrack {
   public:
-    LocomotingTrack() throw() : BaseTrack() {
+    LocomotingTrack() : BaseTrack() {
         zero = 0;
         neg = -1.0f;
         flag = 1;

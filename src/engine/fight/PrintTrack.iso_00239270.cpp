@@ -16,13 +16,13 @@ class Condition_239270 {
     char pad[8];
     void* a;
     void* b;
-    Condition_239270(int) throw();
+    Condition_239270(int);
 };
 class PrintCondition_239270 : public ::fight::PrintCondition {
   public:
-    PrintCondition_239270() throw();
+    PrintCondition_239270();
 };
-PrintCondition_239270::PrintCondition_239270() throw() : ::fight::PrintCondition(0) {
+PrintCondition_239270::PrintCondition_239270() : ::fight::PrintCondition(0) {
     f_0c = 0;
     f_10 = 0;
 }

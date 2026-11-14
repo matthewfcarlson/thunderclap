@@ -421,7 +421,7 @@ namespace fn_00307240 {
 
 struct Vec3_307240 {
     float x, y, z;
-    void FUN_001f6bc0(const float *a, float t, const float *b) throw();
+    void FUN_001f6bc0(const float *a, float t, const float *b);
 };
 
 struct Ctx_307240 {
@@ -436,7 +436,7 @@ union Arg_307240 {
     unsigned int n2;
 };
 
-void __cdecl FUN_00307030(unsigned int w) throw();
+void __cdecl FUN_00307030(unsigned int w);
 
 static __forceinline void Append(unsigned short w)
 {

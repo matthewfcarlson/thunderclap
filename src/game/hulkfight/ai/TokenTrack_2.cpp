@@ -30,7 +30,7 @@ void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace hulkfight { namespace ai {
 class BaseTrack {
   public:
-    BaseTrack() throw();
+    BaseTrack();
     virtual void v0();
     char pad[4];
 };
@@ -38,7 +38,7 @@ class BaseTrack {
 namespace hulkfight { namespace ai {
 class TokenTrack_114d70 : public BaseTrack {
   public:
-    TokenTrack_114d70() throw() {
+    TokenTrack_114d70() {
         *(int*)((char*)this + 12) = 0;
         *(float*)((char*)this + 16) = -1.0f;
         *((char*)this + 20) = 0;

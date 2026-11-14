@@ -31,7 +31,7 @@ void* operator new(size_t) HULK_NEW_THROW;
 namespace hulkfight { namespace motion {
 class BaseTrack {
   public:
-    BaseTrack() throw();
+    BaseTrack();
     virtual void f0();
     char pad[8];
 };
@@ -39,7 +39,7 @@ class BaseTrack {
 namespace hulkfight { namespace motion {
 class MotionStateTrack_17e4e0 : public BaseTrack {
   public:
-    MotionStateTrack_17e4e0() throw() : BaseTrack(), b(0), c(-1.0f), d(0) { *(int*)(pad + 4) = 1; }
+    MotionStateTrack_17e4e0() : BaseTrack(), b(0), c(-1.0f), d(0) { *(int*)(pad + 4) = 1; }
     virtual void f0();
     int b;
     float c;

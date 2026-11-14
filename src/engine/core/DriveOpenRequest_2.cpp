@@ -14,14 +14,14 @@ namespace fn_f0fe475a {} using namespace fn_f0fe475a;
 namespace fn_f0fe475a {
 namespace core {
 struct Lock_2756e0 {
-    virtual void acquire() throw();
-    virtual void release() throw();
+    virtual void acquire();
+    virtual void release();
 };
 }
 namespace core {
 struct Drive {
-    virtual void unused() throw();
-    virtual void release() throw();
+    virtual void unused();
+    virtual void release();
 };
 }
 namespace core {
@@ -33,7 +33,7 @@ struct Request {
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
-    __forceinline ~Request() throw() {}
+    __forceinline ~Request() {}
 };
 }
 namespace core {
@@ -47,7 +47,7 @@ struct DriveRequest {
     virtual void vfunc_6();
     int field4;
     HulkInstanceDrive* drive;   // (x64t10) decls/instance_drive.h
-    __forceinline ~DriveRequest() throw() {}
+    __forceinline ~DriveRequest() {}
 };
 }
 namespace core {

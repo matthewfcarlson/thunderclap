@@ -68,7 +68,7 @@ class Obj {
 };
 class Obj_47c50 {
   public:
-    virtual ~Obj_47c50() throw();
+    virtual ~Obj_47c50();
     char mPad[0x0c];
     int mFlag;
     char Set(int v);

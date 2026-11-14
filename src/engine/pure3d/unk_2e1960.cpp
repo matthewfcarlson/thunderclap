@@ -279,7 +279,7 @@ struct IntVec_2e2a70 {
 };
 struct NonCopyable_2e2a70 {
     int refCount;
-    NonCopyable_2e2a70() throw() { refCount = 0; }
+    NonCopyable_2e2a70() { refCount = 0; }
 };
 class MatrixPaletteList : public NonCopyable_2e2a70 {
 public:

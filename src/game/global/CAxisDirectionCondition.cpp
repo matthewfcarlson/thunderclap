@@ -76,7 +76,7 @@ extern "C" Actor_4b880 *__fastcall FUN_00059a30(Fighter *f);
 extern "C" void __cdecl FUN_00096a90(Obj *o, Vec3_4b880 *out);
 extern "C" hulk_freg __cdecl FUN_00224f10(Vec3_4b880 *v);
 extern "C" hulk_freg __cdecl FUN_00224fc0(float a, float b);
-extern "C++" __declspec(nothrow) hulk_freg __cdecl FUN_00018a20(float v);
+extern "C++" hulk_freg __cdecl FUN_00018a20(float v);
 extern "C" char __cdecl FUN_00018960(float a, float b, float eps);
 
 class CAxisDirectionCondition {

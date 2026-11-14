@@ -39,7 +39,7 @@ extern "C" LuaVMString* __cdecl FUN_0021b080(LuaVMLexState* ls, const char* str,
 extern "C" int __cdecl FUN_00221190(LuaVMFuncState* fs, LuaVMExpDesc* e);
 extern "C" LuaVMString* FUN_0021c3d0(LuaVMLexState* ls);
 extern "C" void __cdecl FUN_002216e0(LuaVMFuncState* fs, LuaVMExpDesc* t, LuaVMExpDesc* k);
-extern "C++" __declspec(nothrow) int __cdecl FUN_0021ded0(LuaVMLexState* ls, LuaVMExpDesc* v, unsigned int limit);
+extern "C++" int __cdecl FUN_0021ded0(LuaVMLexState* ls, LuaVMExpDesc* v, unsigned int limit);
 extern "C" void __cdecl FUN_002211e0(LuaVMFuncState* fs, LuaVMExpDesc* e);
 extern "C" void FUN_0021c2e0(LuaVMLexState* ls, int c);
 extern "C" void FUN_0021c240(LuaVMFuncState* fs, const char* what, int limit);
@@ -84,7 +84,7 @@ static inline void CheckLocalLimit(LuaVMFuncState* fs, int count) {
 extern unsigned int DAT_004d9968;
 extern "C" void FUN_0021cac0(LuaVMLexState* ls, LuaVMFuncState* fs);
 extern "C" void FUN_0021d210(LuaVMLexState* ls);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0021f640(LuaVMLexState* ls);
+extern "C++" void __cdecl FUN_0021f640(LuaVMLexState* ls);
 extern "C" void __cdecl FUN_0021cb80(LuaVMLexState* ls);
 extern "C" void __cdecl FUN_0021c9b0(LuaVMLexState* ls, LuaVMFuncState* func, LuaVMExpDesc* v);
 extern "C" void FUN_0021c190(LuaVMLexState* ls);
@@ -122,7 +122,7 @@ extern "C" void __cdecl FUN_002207c0(LuaVMFuncState* fs, int* l1, int l2);
 extern "C" void FUN_0021e080(LuaVMLexState* ls);
 extern "C" void __cdecl FUN_00221ae0(LuaVMFuncState* fs, int list, int target);
 extern "C" int __cdecl FUN_00220b20(LuaVMFuncState* fs, LuaVMInstruction i, int line);
-extern "C++" __declspec(nothrow) void FUN_0021e700(LuaVMLexState* ls, int base, int line, int nvars, int isnum);
+extern "C++" void FUN_0021e700(LuaVMLexState* ls, int base, int line, int nvars, int isnum);
 extern "C" void __cdecl FUN_00220810(LuaVMFuncState* fs, int n);
 extern "C" void FUN_0021e860(LuaVMLexState* ls, LuaVMString* varname, int line);
 extern "C" void FUN_0021ea60(LuaVMLexState* ls, LuaVMString* indexname);
@@ -1181,12 +1181,12 @@ namespace fn_0021ded0 {
 // returns the first operator not handled.
 // data: priority = DAT_00426e00 ({left, right} per binary operator)
 
-extern "C++" __declspec(nothrow) int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token);
+extern "C++" int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
+extern "C++" void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token);
 // equiv-conv: FUN_0021db50 eax edi
-extern "C++" __declspec(nothrow) void FUN_0021db50(LuaVMLexState* ls, LuaVMExpDesc* v);
+extern "C++" void FUN_0021db50(LuaVMLexState* ls, LuaVMExpDesc* v);
 // equiv-conv: FUN_0021dd30 eax
-extern "C++" __declspec(nothrow) int FUN_0021dd30(int op);
+extern "C++" int FUN_0021dd30(int op);
 extern "C" void __cdecl FUN_00221700(LuaVMFuncState* fs, int op, LuaVMExpDesc* e);
 extern "C" void __cdecl FUN_002217c0(LuaVMFuncState* fs, int op, LuaVMExpDesc* v);
 extern "C" void __cdecl FUN_002218d0(LuaVMFuncState* fs, int op, LuaVMExpDesc* e1, LuaVMExpDesc* e2);
@@ -1484,21 +1484,21 @@ namespace fn_0021e700 {
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 10/10)
 
 // equiv-conv: FUN_0021c2e0 esi eax
-extern "C++" __declspec(nothrow) void FUN_0021c2e0(LuaVMLexState* ls, int c);
+extern "C++" void FUN_0021c2e0(LuaVMLexState* ls, int c);
 // equiv-conv: FUN_0021c570 eax edx
-extern "C++" __declspec(nothrow) void FUN_0021c570(LuaVMLexState* ls, int nvars);
+extern "C++" void FUN_0021c570(LuaVMLexState* ls, int nvars);
 // equiv-conv: FUN_0021e080 eax
-extern "C++" __declspec(nothrow) void FUN_0021e080(LuaVMLexState* ls);
+extern "C++" void FUN_0021e080(LuaVMLexState* ls);
 // equiv-conv: FUN_0021c5b0 eax edx
-extern "C++" __declspec(nothrow) void FUN_0021c5b0(LuaVMLexState* ls, int tolevel);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00220c10(LuaVMFuncState* fs, unsigned int o, int a, unsigned int bc);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00220bd0(LuaVMFuncState* fs, unsigned int o, int a, unsigned int b,
+extern "C++" void FUN_0021c5b0(LuaVMLexState* ls, int tolevel);
+extern "C++" int __cdecl FUN_00220c10(LuaVMFuncState* fs, unsigned int o, int a, unsigned int bc);
+extern "C++" int __cdecl FUN_00220bd0(LuaVMFuncState* fs, unsigned int o, int a, unsigned int b,
                                     unsigned int c);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00220850(LuaVMFuncState* fs, int n);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00220d70(LuaVMFuncState* fs, int list);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00220b00(LuaVMFuncState* fs, int line);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00220cd0(LuaVMFuncState* fs);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00221ae0(LuaVMFuncState* fs, int list, int target);
+extern "C++" void __cdecl FUN_00220850(LuaVMFuncState* fs, int n);
+extern "C++" void __cdecl FUN_00220d70(LuaVMFuncState* fs, int list);
+extern "C++" void __cdecl FUN_00220b00(LuaVMFuncState* fs, int line);
+extern "C++" int __cdecl FUN_00220cd0(LuaVMFuncState* fs);
+extern "C++" void __cdecl FUN_00221ae0(LuaVMFuncState* fs, int list, int target);
 
 // forbody: a for loop body: activate the control variables, FORPREP / FORLOOP (numeric) or TFORLOOP; ls
 // arrives in eax, the rest on the stack.
@@ -2108,10 +2108,10 @@ namespace fn_0021f640 {
 // STATUS: equivalent (tools/equiv.py level 3: 2728 inputs, branch coverage 12/12)
 // chunk: { stat [';'] } with a nesting-depth guard
 
-extern "C++" __declspec(nothrow) int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token);
+extern "C++" int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
+extern "C++" void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token);
 // equiv-conv: FUN_0021f500 eax
-extern "C++" __declspec(nothrow) int FUN_0021f500(LuaVMLexState* ls);
+extern "C++" int FUN_0021f500(LuaVMLexState* ls);
 
 static void next(LuaVMLexState* ls) {
     ls->lastline = ls->linenumber;

@@ -58,7 +58,7 @@ struct Params {
     virtual Obj_4c1f0 *GetObject();       // slot 3
 };
 
-extern "C++" __declspec(nothrow) bool FUN_00018960(float a, float b, float eps);
+extern "C++" bool FUN_00018960(float a, float b, float eps);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" double sqrt(double);

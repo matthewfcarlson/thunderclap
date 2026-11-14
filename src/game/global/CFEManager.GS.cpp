@@ -50,14 +50,14 @@ struct Frame {
 class __declspec(novtable) MethodBase_bfd20 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    MethodBase_bfd20(const char* n, int k) throw();
+    MethodBase_bfd20(const char* n, int k);
     void FUN_001d04a0();
 };
 template <class R, class A>
 class Function1 : public MethodBase_bfd20 {
   public:
     typedef R (*Fn)(A);
-    Function1(const char* name, Fn f) throw() : MethodBase_bfd20(name, 1) {
+    Function1(const char* name, Fn f) : MethodBase_bfd20(name, 1) {
         fn = f;
         retType = FUN_001d04d0(((char*)&DAT_0048e100));
         argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e0f0));
@@ -66,7 +66,7 @@ class Function1 : public MethodBase_bfd20 {
 };
 struct Frame_bfd20 {
     Function1<void, const char*> closure;
-    Frame_bfd20(const char* n, void (*f)(const char*)) throw() : closure(n, f) {
+    Frame_bfd20(const char* n, void (*f)(const char*)) : closure(n, f) {
     }
 };
 struct Registry_bfd20 {
@@ -76,7 +76,7 @@ struct Registry_bfd20 {
 class Base_bfda0 : public ScriptFunctionFields {
 public:
     virtual void v();
-    Base_bfda0(const char*, int) throw();
+    Base_bfda0(const char*, int);
     void FUN_001d04a0();
 };
 template<class R>
@@ -102,7 +102,7 @@ struct Frame_bfda0 {
 class Base_c0a20 : public ScriptFunctionFields {
 public:
     virtual void v();
-    Base_c0a20(const char*, int) throw();
+    Base_c0a20(const char*, int);
     void FUN_001d04a0();
 };
 template <class T, class R>
@@ -131,14 +131,14 @@ template <> struct TypeTag<int> { static const void *get() { return ((char*)&DAT
 class MethodBase_c0aa0 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    MethodBase_c0aa0(const char *n, int k) throw();
+    MethodBase_c0aa0(const char *n, int k);
     void FUN_001d04a0();
 };
 template <class T, class R, class A>
 class Method1 : public MethodBase_c0aa0 {
 public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) throw() : MethodBase_c0aa0(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_c0aa0(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
@@ -149,7 +149,7 @@ public:
 template <class T, class R, class A>
 class Closure1 : public Method1<T, R, A> {
 public:
-    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) throw() : Method1<T, R, A>(name, f), owner(o) {}
+    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
     virtual void m0();
     T *owner;
 };
@@ -191,7 +191,7 @@ inline void *operator new(hulk_uintptr, void *p) throw() { return p; }
 namespace fn_f71c7272 {
 struct Id64_c1430 {
     unsigned int lo, hi;
-    void FUN_0027af50() throw();
+    void FUN_0027af50();
 };
 struct Id40 {
     Id64_c1430 a, b, c, d;
@@ -275,7 +275,7 @@ struct Frame_c0a20 {
 typedef Closure1<CFEManager, void, const char *> Closure_c0aa0;
 struct Frame_c0aa0 {
     Closure_c0aa0 closure;
-    Frame_c0aa0(const char *n, CFEManager *o, Closure_c0aa0::Fn f) throw() : closure(n, o, f) {
+    Frame_c0aa0(const char *n, CFEManager *o, Closure_c0aa0::Fn f) : closure(n, o, f) {
     }
 };
 class Registry_c0aa0 {
@@ -583,7 +583,7 @@ class CFEManager { public: int FUN_dummy(); };
 class __declspec(novtable) MethodBase_c0c40 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    MethodBase_c0c40(const char* n, int k) throw();
+    MethodBase_c0c40(const char* n, int k);
     void FUN_001d04a0();
 };
 
@@ -591,7 +591,7 @@ template <class T, class R>
 class Method0 : public MethodBase_c0c40 {
   public:
     typedef R (T::*Fn)();
-    Method0(const char* name, Fn f) throw() : MethodBase_c0c40(name, 0) {
+    Method0(const char* name, Fn f) : MethodBase_c0c40(name, 0) {
         fn = f;
         retType = FUN_001d04d0(((char*)&DAT_0048e134));
     }
@@ -601,13 +601,13 @@ class Method0 : public MethodBase_c0c40 {
 template <class T, class R>
 class Closure0 : public Method0<T, R> {
   public:
-    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) throw() : Method0<T, R>(name, f), owner(o) {}
+    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) : Method0<T, R>(name, f), owner(o) {}
     T* owner;
 };
 
 struct Frame_c0c40 {
     Closure0<CFEManager, int> closure;
-    Frame_c0c40(const char* n, CFEManager* o, int (CFEManager::*f)()) throw() : closure(n, o, f) {
+    Frame_c0c40(const char* n, CFEManager* o, int (CFEManager::*f)()) : closure(n, o, f) {
     }
 };
 
@@ -678,7 +678,7 @@ public:
 class MethodBase_c0cc0 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    MethodBase_c0cc0(const char *n, int k) throw();
+    MethodBase_c0cc0(const char *n, int k);
     void FUN_001d04a0();
 };
 
@@ -686,7 +686,7 @@ template <class T, class R, class A>
 class Method1 : public MethodBase_c0cc0 {
 public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) throw() : MethodBase_c0cc0(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_c0cc0(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
@@ -698,7 +698,7 @@ public:
 template <class T, class R, class A>
 class Closure1 : public Method1<T, R, A> {
 public:
-    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) throw() : Method1<T, R, A>(name, f), owner(o) {}
+    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
     virtual void m0();
     T *owner;
 };
@@ -707,7 +707,7 @@ typedef Closure1<CFEManager, void, int> Closure_c0cc0;
 
 struct Frame_c0cc0 {
     Closure_c0cc0 closure;
-    Frame_c0cc0(const char *n, CFEManager *o, Closure_c0cc0::Fn f) throw() : closure(n, o, f) {
+    Frame_c0cc0(const char *n, CFEManager *o, Closure_c0cc0::Fn f) : closure(n, o, f) {
     }
 };
 
@@ -1931,7 +1931,7 @@ struct Group_c2990 { void FUN_001bdff0(const char*); };
 struct Output_c2990 { void FUN_001b7310(const char*,int,int); };
 extern int DAT_0049dab8, DAT_0049db80;
 extern "C" Track* __cdecl FUN_00344e74(Track*,int,const void*,const void*,int);
-extern "C++" __declspec(nothrow) Manager_c2990* __cdecl FUN_001d4c90();
+extern "C++" Manager_c2990* __cdecl FUN_001d4c90();
 extern "C" int __cdecl FUN_000964a0(char*,int,const char*,...);
 struct Target_c2990 {
  char pad0[0x10]; int state; char pad14[0x38]; Lookup_c2990* lookup; char pad50[0xc]; Group_c2990* group; char pad60[0x1810]; unsigned char active; char pad1871[3]; int id;

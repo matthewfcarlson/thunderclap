@@ -376,7 +376,7 @@ struct Matrix {
 struct Light {
     char data[0x68];
 };
-extern "C++" __declspec(nothrow) void __stdcall FUN_0032fd40(void *);
+extern "C++" void __stdcall FUN_0032fd40(void *);
 namespace D3D8 {
 void __stdcall D3DDevice_GetTransform(uint type, Matrix* out);
 void __stdcall D3DDevice_GetLight(uint index, Light* out);

@@ -38,7 +38,7 @@ class BaseTrack {
     virtual void f4();
     virtual void f5();
     int extra, a;
-    BaseTrack() throw();
+    BaseTrack();
 };
 } }
 namespace hulkfight { namespace motion {
@@ -47,13 +47,13 @@ class Track_17e1e0 : public BaseTrack {
     int b;
     float c;
     int d, e, f, g;
-    Track_17e1e0() throw() : b(0), d(0), e(0), f(0), g(0) {}
+    Track_17e1e0() : b(0), d(0), e(0), f(0), g(0) {}
 };
 } }
 namespace hulkfight { namespace motion {
 class SuckTrack_17e1e0 : public Track_17e1e0 {
   public:
-    SuckTrack_17e1e0() throw() : Track_17e1e0() {
+    SuckTrack_17e1e0() : Track_17e1e0() {
         c = -1.0f;
         a = 1;
     }

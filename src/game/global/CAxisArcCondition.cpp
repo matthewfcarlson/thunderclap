@@ -47,7 +47,7 @@ namespace fn_0004b630 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CAxisArcCondition::vfunc_10 @ 0x0004b630
 // CAxisArcCondition::vfunc_10 @ 0x0004b630: compares the axis value against the stored limit with the configured test
-extern "C++" __declspec(nothrow) bool FUN_00018960(float a, float b, float epsilon);
+extern "C++" bool FUN_00018960(float a, float b, float epsilon);
 
 struct AxisInput_4b630 {
     char pad00[0x18];

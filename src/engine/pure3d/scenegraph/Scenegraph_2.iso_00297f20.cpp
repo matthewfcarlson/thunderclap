@@ -32,7 +32,7 @@ public:
     Name_297f20 name;
     char pad10[0x30];
     void FUN_002a3480();
-    DrawableHierarchy_297f20() throw() { FUN_002a3480(); }
+    DrawableHierarchy_297f20() { FUN_002a3480(); }
 };
 
 namespace scenegraph {
@@ -51,7 +51,7 @@ public:
     virtual void s11();
     virtual void Finish_00296cb0();
     RefObject_297f20 *child;
-    Scenegraph_297f20() throw() { child = 0; }
+    Scenegraph_297f20() { child = 0; }
 };
 }
 }

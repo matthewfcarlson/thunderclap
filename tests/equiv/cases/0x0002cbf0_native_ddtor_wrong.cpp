@@ -1,3 +1,4 @@
+// cl-flags: /GX
 // Same code shape as 0x00021840 (propagated; names are from that function)
 #include "gen/global.h"
 

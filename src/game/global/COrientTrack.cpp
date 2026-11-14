@@ -64,7 +64,7 @@ class CTrack_6a6b0 {
 class COrientTrack : public CTrack_6a6b0 {
   public:
     COrientTrack();
-    virtual ~COrientTrack() throw();
+    virtual ~COrientTrack();
     virtual bool FnF_002342b0(int);
     char pad4[4];
     int m8;

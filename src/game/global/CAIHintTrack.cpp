@@ -32,18 +32,18 @@ struct CTrack_6af60 {
 };
 extern void* hulk_at_003fc184[];
 struct Sub_6af70 {
-    void Fin_0027af50() throw();
+    void Fin_0027af50();
 };
 class CTrack_6af70 {
   public:
     void* vptr;
-    ~CTrack_6af70() throw();
+    ~CTrack_6af70();
 };
 class CAIHintTrack_6af70 : public CTrack_6af70 {
   public:
     char pad[0x18 - 4];
     Sub_6af70 sub;
-    ~CAIHintTrack_6af70() throw();
+    ~CAIHintTrack_6af70();
 };
 class R_6af90 {
   public:
@@ -135,7 +135,7 @@ namespace fn_fda83b0b {
 
 // 0x0006af70 FUN_0006af70 (31 B): matches/0x0006af70.cpp
 // sym: ??1CAIHintTrack_6af70@fn_fda83b0b@@QAE@XZ
-CAIHintTrack_6af70::~CAIHintTrack_6af70() throw() {
+CAIHintTrack_6af70::~CAIHintTrack_6af70() {
     vptr = hulk_at_003fc184;
     sub.Fin_0027af50();
     vptr = (void**)DAT_003f98d0;

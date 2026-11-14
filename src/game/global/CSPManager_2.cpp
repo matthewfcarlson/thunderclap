@@ -13,7 +13,7 @@ namespace fn_f4e36ece {} using namespace fn_f4e36ece;
 namespace fn_f4e36ece {
 typedef unsigned __int64 Key_1e5f10;
 } // namespace fn_f4e36ece
-extern Key_1e5f10 __cdecl FUN_002672f0(const char *, Key_1e5f10) throw();
+extern Key_1e5f10 __cdecl FUN_002672f0(const char *, Key_1e5f10);
 namespace fn_f4e36ece {
 struct NameHolder_1e5f10 {
     char data[8];

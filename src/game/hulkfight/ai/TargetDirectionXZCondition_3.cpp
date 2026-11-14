@@ -31,7 +31,7 @@ void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace hulkfight { namespace ai {
 class BaseCondition {
   public:
-    BaseCondition(int) throw();
+    BaseCondition(int);
     virtual void f0();
     virtual bool f1_00234270(void*);
     virtual bool f2_002342b0(int);
@@ -41,7 +41,7 @@ class BaseCondition {
 namespace hulkfight { namespace ai {
 class TargetDirectionXZCondition_12ac40 : public BaseCondition {
   public:
-    TargetDirectionXZCondition_12ac40() throw() : BaseCondition(0), a(0), b(0) {}
+    TargetDirectionXZCondition_12ac40() : BaseCondition(0), a(0), b(0) {}
     virtual void f0();
     int a;
     int b;

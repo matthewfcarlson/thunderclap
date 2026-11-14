@@ -898,7 +898,7 @@ class Track {
   public:
     void Set_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_163020*);
+extern "C++" void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_163020*);
 extern "C" void __cdecl FUN_00163020(Track* t, const char* name) {
     TrackFactoryCasterTemplate_163020 caster;
     t->Set_002367c0(Find_00236ac0(name, &caster));

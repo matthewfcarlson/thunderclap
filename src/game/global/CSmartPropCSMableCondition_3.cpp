@@ -62,14 +62,14 @@ namespace fn_000588b0 {
 class CCondition_588b0 {
   public:
     virtual void f0();
-    CCondition_588b0(int) throw();
+    CCondition_588b0(int);
     char pad[8];
 };
 class CSmartPropCSMableCondition : public ::CSmartPropCSMableCondition {
   public:
-    CSmartPropCSMableCondition() throw();
+    CSmartPropCSMableCondition();
 };
-CSmartPropCSMableCondition::CSmartPropCSMableCondition() throw() : ::CSmartPropCSMableCondition(0) {
+CSmartPropCSMableCondition::CSmartPropCSMableCondition() : ::CSmartPropCSMableCondition(0) {
     f_0c = 0;
 }
 namespace fight {

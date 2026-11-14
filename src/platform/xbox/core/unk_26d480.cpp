@@ -77,8 +77,8 @@ extern "C" void f2();
 struct ThreadList_26dad0 {
     static void __cdecl FUN_0026d940(void *);
 };
-extern "C++" __declspec(nothrow) void __stdcall FUN_0020bbc2(hulk_intptr);
-extern "C++" __declspec(nothrow) void __stdcall FUN_0020c6f7(hulk_intptr, int);
+extern "C++" void __stdcall FUN_0020bbc2(hulk_intptr);
+extern "C++" void __stdcall FUN_0020c6f7(hulk_intptr, int);
 namespace XAPILIB {
 void __stdcall ExitThread(int);
 }

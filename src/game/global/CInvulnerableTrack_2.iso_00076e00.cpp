@@ -11,7 +11,7 @@
 void* operator new(size_t);
 class CTrack_76e00 {
   public:
-    CTrack_76e00() throw();
+    CTrack_76e00();
     virtual void f0();
     virtual bool f1_00234270(void*);
     virtual bool f2_002342b0(int);
@@ -23,13 +23,13 @@ class CTrack_76e00 {
 };
 class CInvulnerableTrack_76e00 : public CTrack_76e00 {
   public:
-    CInvulnerableTrack_76e00() throw();
+    CInvulnerableTrack_76e00();
     virtual void f0();
     int a;
     float b;
     int c;
 };
-CInvulnerableTrack_76e00::CInvulnerableTrack_76e00() throw() {
+CInvulnerableTrack_76e00::CInvulnerableTrack_76e00() {
     a = 0;
     b = -1.0f;
     c = 0;

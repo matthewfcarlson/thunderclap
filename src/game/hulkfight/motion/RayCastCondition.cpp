@@ -626,7 +626,7 @@ namespace fn_00168020 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::VelocityXZAngleCondition::vfunc_6 @ 0x00168020
 struct TypeInfo_168020 { unsigned int value; }; extern TypeInfo_168020 DAT_00494b60, DAT_00494b44;
-extern "C++" __declspec(nothrow) void* __cdecl FUN_00344e74(void*, int, TypeInfo_168020*, TypeInfo_168020*, int);
+extern "C++" void* __cdecl FUN_00344e74(void*, int, TypeInfo_168020*, TypeInfo_168020*, int);
 struct Vec_168020 { float x,y,z; };
 struct Motion_168020 { void FUN_00035660(Vec_168020*); void FUN_00035550(Vec_168020*); };
 struct ActorPart { Motion_168020* FUN_00059a30(); };

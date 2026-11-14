@@ -1,4 +1,5 @@
 // cl-flags: /GS
+// clang-flags: -fexceptions -fcxx-exceptions   (gx2, D22: kept until its --wine proof passes again; docs/native-build.md "gx2")
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00093600..0x000964d0 (kind game, layer game, confidence high), dominant class CUnlockablesManager
 // (tree_prelude.h: not needed)

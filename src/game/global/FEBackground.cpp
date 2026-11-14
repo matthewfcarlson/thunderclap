@@ -101,7 +101,7 @@ class FEBackground_d79c0 : public FEControl_d79c0 {
   public:
     char pad[0x14c];
     Ref_d79c0* m150;
-    ~FEBackground_d79c0() throw();
+    ~FEBackground_d79c0();
 };
 extern void* g_vftable_d7ab0[];
 class Ref_d7ab0 {
@@ -173,7 +173,7 @@ namespace fn_fb027fad {
 
 // 0x000d79c0 FUN_000d79c0 (42 B): matches/0x000d79c0.cpp
 // sym: ??1FEBackground_d79c0@fn_fb027fad@@QAE@XZ
-FEBackground_d79c0::~FEBackground_d79c0() throw() {
+FEBackground_d79c0::~FEBackground_d79c0() {
     vptr = hulk_at_0040b494;
     _ReadWriteBarrier();
     if (m150) {

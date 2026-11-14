@@ -80,7 +80,7 @@ CAction_1da00::~CAction_1da00() {
 } // namespace fn_f8d08169
 
 // 0x0001da30 CDamageAction::vfunc_7 (263 B): equivalent/0x0001da30.cpp [wrapped: conflict: CDamageAction]
-// sym: ?vfunc_7@CDamageAction@fn_0001da30@@UAE_NH@Z @b865dfb1a9c4 @w448765ab3ad5
+// sym: ?vfunc_7@CDamageAction@fn_0001da30@@UAE_NH@Z @b865dfb1a9c4 @wcfd7d3e72b33
 namespace fn_0001da30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CDamageAction::vfunc_7 @ 0x0001da30

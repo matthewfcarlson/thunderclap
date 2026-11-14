@@ -57,7 +57,7 @@ class CHudMap_c87a0 : public Entity_c87a0 {
     Ref_c87a0* m1c;
     char pad20[0x22c - 0x20];
     Ref_c87a0* m22c[10];
-    ~CHudMap_c87a0() throw();
+    ~CHudMap_c87a0();
 };
 struct Slot { int id; char pad[0x38]; unsigned char active; char tail[3]; };
 struct Manager { char pad[0x258]; Slot slots[128]; void FUN_000c8ef0(int index); };
@@ -111,13 +111,13 @@ struct Triple_c93e0 {
 };
 struct Key {
     int a, b, c;
-    ~Key() throw();
-    int FUN_0027b0e0(int index) throw();
+    ~Key();
+    int FUN_0027b0e0(int index);
 };
 class Host_c93e0 {
 public:
-    int FUN_000c8200(int a1, int handle, Triple_c93e0 t1, Triple_c93e0 t2, Key key) throw();
-    int FUN_000c93e0(int a1, int index, Triple_c93e0 t1, Triple_c93e0 t2, Key key) throw();
+    int FUN_000c8200(int a1, int handle, Triple_c93e0 t1, Triple_c93e0 t2, Key key);
+    int FUN_000c93e0(int a1, int index, Triple_c93e0 t1, Triple_c93e0 t2, Key key);
 };
 struct Surface_c9460 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4();
@@ -271,7 +271,7 @@ void Set(Obj_c8710** p, Obj_c8710* v) {
 
 // 0x000c87a0 FUN_000c87a0 (168 B): matches/0x000c87a0.cpp
 // sym: ??1CHudMap_c87a0@fn_ff187fa7@@QAE@XZ
-CHudMap_c87a0::~CHudMap_c87a0() throw() {
+CHudMap_c87a0::~CHudMap_c87a0() {
     *(void* volatile*)&vptr = hulk_at_0040a1f4;
     Ref_c87a0* t10 = *(Ref_c87a0* volatile*)&m10;
     if (t10) {
@@ -855,7 +855,7 @@ namespace fn_ff187fa7 {
 // sym: ?FUN_000c93e0@Host_c93e0@fn_ff187fa7@@QAEHHHUTriple_c93e0@2@0UKey@2@@Z
 // FUN_000c93e0 @ 0x000c93e0
 // equiv-map: ??1Key@@QAE@XZ = 0x0027af50
-int Host_c93e0::FUN_000c93e0(int a1, int index, Triple_c93e0 t1, Triple_c93e0 t2, Key key) throw() {
+int Host_c93e0::FUN_000c93e0(int a1, int index, Triple_c93e0 t1, Triple_c93e0 t2, Key key) {
     return FUN_000c8200(a1, key.FUN_0027b0e0(index), t1, t2, key);
 }
 

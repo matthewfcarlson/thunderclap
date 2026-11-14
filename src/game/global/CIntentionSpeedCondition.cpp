@@ -111,7 +111,7 @@ namespace fn_0004db20 {
 struct SpeedData { char pad[0x2070]; float speed; };
 struct SpeedOwner { SpeedData* FUN_00059a30(); };
 struct Context { SpeedOwner* FUN_000592a0(); };
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00018960(float, float, float);
+extern "C++" bool __cdecl FUN_00018960(float, float, float);
 struct CIntentionSpeedCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual bool vfunc_7(Context*);
  char pad[8]; unsigned operation; float threshold;

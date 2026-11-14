@@ -114,7 +114,7 @@ struct Playing_1f0550 { void FUN_001f34a0(unsigned int*, int); };
 struct Manager_1f0550 { Event_1f0550* FUN_001f31a0(unsigned int); Playing_1f0550* FUN_001f2f30(void*, unsigned int); };
 struct Lookup_1f0550 { void* FUN_001e98b0(Key_1f0550*); };
 struct SoundSystem_1f0550 { Manager_1f0550* manager; Lookup_1f0550* lookup; };
-extern "C++" __declspec(nothrow) unsigned int __cdecl FUN_002673a0(int,int);
+extern "C++" unsigned int __cdecl FUN_002673a0(int,int);
 struct CSoundCommand_StopTunableEvent {
  virtual void vfunc_0();
  virtual void vfunc_1(unsigned int, unsigned int);

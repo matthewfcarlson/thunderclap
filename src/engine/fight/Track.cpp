@@ -295,7 +295,7 @@ fight::Track::Track() {
 // Same code shape as 0x002345b0 (propagated; names are from that function)
 // (unb6) fight::Track's destructor (include/gen): the derived classes' destructors call it; f_04 is released through its
 // slot 5 (the scalar deleting destructor), then fight::Param's destructor (0x00234210) runs
-fight::Track::~Track() throw() {
+fight::Track::~Track() {
     if (f_04)
         ((Ref_236d60*)f_04)->Release(1);
     f_04 = 0;

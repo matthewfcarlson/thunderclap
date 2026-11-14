@@ -48,7 +48,7 @@ public:
     char pad4[4];
     Name_2c1770 name;
     void FUN_0027b070();
-    Entity_2c1770() throw() { FUN_0027b070(); }
+    Entity_2c1770() { FUN_0027b070(); }
 };
 }
 namespace pure3d {
@@ -60,7 +60,7 @@ public:
     virtual void x4_0027aff0();
     Vec3_2c1770 position;
     Quat_2c1770 rotation;
-    Locator_2c1770() throw() {
+    Locator_2c1770() {
         rotation.x = 0.0f;
         rotation.y = 0.0f;
         rotation.z = 0.0f;

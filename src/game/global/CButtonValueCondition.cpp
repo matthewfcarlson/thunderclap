@@ -47,7 +47,7 @@ namespace fn_0004b1e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CButtonValueCondition::vfunc_9 @ 0x0004b1e0
 struct Input_4b1e0 { char pad[8]; float value; };
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00018960(float, float, float);
+extern "C++" bool __cdecl FUN_00018960(float, float, float);
 struct CButtonCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8();
  virtual bool vfunc_9(Input_4b1e0*);

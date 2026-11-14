@@ -94,7 +94,7 @@ struct Reader {
  virtual int line();
 };
 extern "C" int __cdecl FUN_00267730(char*, unsigned, const char*, char*);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00267760(char*, unsigned, const char*, ...);
+extern "C++" int __cdecl FUN_00267760(char*, unsigned, const char*, ...);
 extern void (__cdecl *DAT_004e5bb0)(const char*, Reader*, void*);
 extern void* DAT_004e5bb4;
 void __cdecl FUN_00232cc0(Reader* reader, const char* format, ...) {

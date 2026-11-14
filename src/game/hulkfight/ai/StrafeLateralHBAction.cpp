@@ -16,7 +16,7 @@ struct Ref_11e100 {
     virtual void Release();
 };
 struct Action_11e100 {
-    Action_11e100() throw();
+    Action_11e100();
     virtual void V0();
     char pad04[0x18];
 };
@@ -139,7 +139,7 @@ StrafeLateralHBAction_11e150::~StrafeLateralHBAction_11e150() {
 } // namespace fn_f2baa6cd
 
 // 0x0011e1a0 hulkfight::ai::StrafeLateralHBAction::vfunc_5 (754 B): equivalent/0x0011e1a0.cpp
-// sym: ?vfunc_5@StrafeLateralHBAction@ai@hulkfight@@UAE_NHH@Z @60fee2fe47f0 @w12b7ec38a04f
+// sym: ?vfunc_5@StrafeLateralHBAction@ai@hulkfight@@UAE_NHH@Z @60fee2fe47f0 @w526883910578
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 27/30, incomplete)
 // hulkfight::ai::StrafeLateralHBAction::vfunc_5 @ 0x0011e1a0
 namespace hulkfight { namespace ai {

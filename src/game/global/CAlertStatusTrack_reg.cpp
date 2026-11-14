@@ -180,7 +180,7 @@ namespace fight {
 class CCameraHintTrack_6d490;
 }
 namespace fn_fbdb5a92 {
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(const char*, int, const void*, const void*, int);
+extern "C++" int __cdecl FUN_00344e74(const char*, int, const void*, const void*, int);
 extern char DAT_00498760;
 extern char DAT_00498878;
 } // namespace fn_fbdb5a92
@@ -392,7 +392,7 @@ template <> bool fight::ParamFloatConstRange<CTargetTrack>::vfunc_2() {
 namespace fn_0006d390 {
 extern char DAT_0049850c[];
 extern char DAT_00498530[];
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
+extern "C++" int __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -468,7 +468,7 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 };
 } // namespace fight
 extern int hulk_at_0049850c, hulk_at_004987e8;
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(hulk_intptr, int, int*, int*, int);
+extern "C++" int __cdecl FUN_00344e74(hulk_intptr, int, int*, int*, int);
 int fight::TrackFactoryCasterTemplate::vfunc_0(int x) {
     return FUN_00344e74(x, 0, &hulk_at_0049850c, &hulk_at_004987e8, 0) != 0;
 }

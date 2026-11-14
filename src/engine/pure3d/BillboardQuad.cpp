@@ -3735,7 +3735,7 @@ void Group_2bcf30::FUN_002bcf30(Parent_2bcf30 *parent, Reader_2bcf30 *r, Factory
 } // namespace fn_fff84c72
 
 // 0x002bd300 pure3d::OldBillboardObjectLoader::vfunc_5 (114 B): equivalent/0x002bd300.cpp [wrapped: conflict: OldBillboardObjectLoader; pure3d::BillboardObject]
-// sym: ?vfunc_5@OldBillboardObjectLoader@fn_002bd300@@UAEXPAPAVDrawableContainer_2bd300@2@PAUIdPair_2bd300@2@PAUChunk@2@H@Z @1d6ee2916154 @w960a5b56ca0a
+// sym: ?vfunc_5@OldBillboardObjectLoader@fn_002bd300@@UAEXPAPAVDrawableContainer_2bd300@2@PAUIdPair_2bd300@2@PAUChunk@2@H@Z @1d6ee2916154 @wce78e8560790
 namespace fn_002bd300 {
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 4/4)
 // pure3d::OldBillboardObjectLoader::vfunc_5 @ 0x002bd300

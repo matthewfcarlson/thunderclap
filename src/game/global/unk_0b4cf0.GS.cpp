@@ -349,10 +349,10 @@ extern "C" int strcmp(const char *, const char *);
 
 struct String {
     char b[12];
-    void FUN_000f7930() throw();
-    void FUN_000f8500(const char *s, int a, int b) throw();
-    void FUN_000f79a0(const char *s, int a) throw();
-    void FUN_000f7960() throw();
+    void FUN_000f7930();
+    void FUN_000f8500(const char *s, int a, int b);
+    void FUN_000f79a0(const char *s, int a);
+    void FUN_000f7960();
 };
 
 class FEObject {

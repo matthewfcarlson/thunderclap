@@ -236,7 +236,7 @@ class Caster {
   public:
     virtual bool Dummy_00110f00(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl Lookup_002343e0(void*, Caster*);
+extern "C++" void* __cdecl Lookup_002343e0(void*, Caster*);
 class Object {
   public:
     void Set_00236760(void*);
@@ -325,7 +325,7 @@ class Caster {
   public:
     virtual bool Cast_00111240(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl find_002343e0(void*, Caster*);
+extern "C++" void* __cdecl find_002343e0(void*, Caster*);
 class Factory {
   public:
     void apply_00236760(void*);
@@ -348,7 +348,7 @@ class Factory {
   public:
     void Add_00236760(void*);
 };
-extern "C++" __declspec(nothrow) void* Find_002343e0(const char*, Caster*);
+extern "C++" void* Find_002343e0(const char*, Caster*);
 void Function(Factory* factory, const char* name) {
     Caster c;
     factory->Add_00236760(Find_002343e0(name, &c));
@@ -403,7 +403,7 @@ class Obj {
   public:
     void Do_00236760(void*);
 };
-extern "C++" __declspec(nothrow) void* Lookup_002343e0(void*, fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition>*);
+extern "C++" void* Lookup_002343e0(void*, fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition>*);
 extern "C" void FUN_00113ae0(Obj* obj, void* b) {
     fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition> caster;
     obj->Do_00236760(Lookup_002343e0(b, &caster));
@@ -442,7 +442,7 @@ class Factory {
   public:
     void use_00236760(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl lookup_002343e0(const char*, Caster*);
+extern "C++" void* __cdecl lookup_002343e0(const char*, Caster*);
 extern "C" void __cdecl FUN_00113b40(Factory* f, const char* name) {
     Caster c;
     void* p = lookup_002343e0(name, &c);
@@ -483,7 +483,7 @@ struct Caster {
 struct Owner {
     void Apply_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(const char*, Caster*);
+extern "C++" void* __cdecl Find_00236ac0(const char*, Caster*);
 void __cdecl Target(Owner* owner, const char* name) {
     Caster caster;
     void* p = Find_00236ac0(name, &caster);
@@ -582,7 +582,7 @@ class Obj {
   public:
     void take_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* lookup_00236ac0(void*, Caster*);
+extern "C++" void* lookup_00236ac0(void*, Caster*);
 extern "C" void FUN_00113cc0(Obj* obj, void* name) {
     Caster caster;
     obj->take_002367c0(lookup_00236ac0(name, &caster));
@@ -621,7 +621,7 @@ class Owner {
   public:
     void Add_002367c0(void*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(void*, Caster*);
+extern "C++" void* __cdecl Find_00236ac0(void*, Caster*);
 extern "C" void FUN_00113d20(Owner* owner, void* track) {
     Caster caster;
     owner->Add_002367c0(Find_00236ac0(track, &caster));

@@ -122,16 +122,16 @@ class CompletionEventRequest_2735d0 {
   public:
     virtual void* F0_00274be0(char);
     virtual void F1_002735f0();
-    virtual ~CompletionEventRequest_2735d0() throw();
+    virtual ~CompletionEventRequest_2735d0();
 };
 class CompletionEventRequest : public CompletionEventRequest_2735d0 {
   public:
     char pad[0x0c - sizeof(CompletionEventRequest_2735d0)];
     CompletionEventRequest_2735d0* mRequest;
-    virtual ~CompletionEventRequest() throw();
+    virtual ~CompletionEventRequest();
 };
-CompletionEventRequest_2735d0::~CompletionEventRequest_2735d0() throw() {}
-CompletionEventRequest::~CompletionEventRequest() throw() {
+CompletionEventRequest_2735d0::~CompletionEventRequest_2735d0() {}
+CompletionEventRequest::~CompletionEventRequest() {
     mRequest->F1_002735f0();
 }
 } // namespace fn_002735d0

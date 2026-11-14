@@ -178,7 +178,7 @@ struct ParamRegistry {
 
 
 
-extern "C++" __declspec(nothrow) void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+extern "C++" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_001abf50()
 {

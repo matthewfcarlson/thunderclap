@@ -153,24 +153,24 @@ struct CollisionAnalyser_30e280 {
  Item* limit;
  Item* FUN_0030e280();
 };
-extern "C" void* __cdecl FUN_0008d6d0(unsigned n) throw();
+extern "C" void* __cdecl FUN_0008d6d0(unsigned n);
 struct Buf_30e480 {
     char* a;
     char* b;
     char* c;
     int pad;
-    Buf_30e480() throw() : a(0), b(0), c(0) {}
+    Buf_30e480() : a(0), b(0), c(0) {}
 };
 struct Base_30e480 {
     void* vptr;
-    Base_30e480() throw() { vptr = (void*)DAT_00431fe0; }   // (x64t5) the vftable by address (common.h's `vA` is a zero stub natively)
+    Base_30e480() { vptr = (void*)DAT_00431fe0; }   // (x64t5) the vftable by address (common.h's `vA` is a zero stub natively)
 };
 class CollisionAnalyser_30e480 : public Base_30e480 {
   public:
     int m4, m8, mc;
     char c10;
     Buf_30e480 b0, b1, b2, b3;
-    CollisionAnalyser_30e480() throw();
+    CollisionAnalyser_30e480();
 };
 extern void* hulk_at_00431fe0[];
 class Sub_30e570 {
@@ -202,7 +202,7 @@ class CollisionAnalyser_30e570 {
     char pad4[8];
     void* m44;
     void* m48;
-    ~CollisionAnalyser_30e570() throw();
+    ~CollisionAnalyser_30e570();
 };
 class CAction_30e610 {
   public:
@@ -553,7 +553,7 @@ Item* CollisionAnalyser_30e280::FUN_0030e280() {
 
 // 0x0030e480 FUN_0030e480 (228 B): matches/0x0030e480.cpp
 // sym: ??0CollisionAnalyser_30e480@fn_f910b875@@QAE@XZ
-CollisionAnalyser_30e480::CollisionAnalyser_30e480() throw() {
+CollisionAnalyser_30e480::CollisionAnalyser_30e480() {
     m8 = 0;
     m4 = 0x14;
     mc = 0;
@@ -599,7 +599,7 @@ CollisionAnalyser_30e480::CollisionAnalyser_30e480() throw() {
 
 // 0x0030e570 FUN_0030e570 (146 B): matches/0x0030e570.cpp
 // sym: ??1CollisionAnalyser_30e570@fn_f910b875@@QAE@XZ
-CollisionAnalyser_30e570::~CollisionAnalyser_30e570() throw() {
+CollisionAnalyser_30e570::~CollisionAnalyser_30e570() {
     vptr = hulk_at_00431fe0;
     E1* p = m4;
     if (p <= m8) {

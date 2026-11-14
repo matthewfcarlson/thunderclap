@@ -10,7 +10,7 @@
 namespace fn_f9ca7db9 {} using namespace fn_f9ca7db9;
 #include "engine/lua.h"
 // (ren2) isalnum's own name (CRT, C linkage)
-extern "C" __declspec(nothrow) int __cdecl isalnum(int);
+extern "C" int __cdecl isalnum(int);
 
 // ---- declarations shared by the functions below
 namespace fn_f9ca7db9 {
@@ -188,14 +188,14 @@ extern "C" int __cdecl isdigit(int c);
 #endif
 
 
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
-extern "C++" __declspec(nothrow) int __cdecl FUN_0021a550(LuaVMZio* z);
+extern "C++" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C++" int __cdecl FUN_0021a550(LuaVMZio* z);
 extern "C" int __cdecl FUN_00215ff0(const char* s, float* result);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token);
+extern "C++" void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token);
 
 // save_and_next out of line: the lexer state arrives in edi
 // equiv-conv: FUN_0021b1c0 edi
-extern "C++" __declspec(nothrow) void FUN_0021b1c0(LuaVMLexState* ls);
+extern "C++" void FUN_0021b1c0(LuaVMLexState* ls);
 
 // grow the token buffer when full, then append one character
 #define SAVE(LS, c)                                                                                          \
@@ -384,22 +384,22 @@ extern "C" int isdigit(int c);
 
 
 extern "C" {
-extern "C++" { __declspec(nothrow) int __cdecl FUN_0021a550(LuaVMZio* z); }
-extern "C++" { __declspec(nothrow) void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize); }
-extern "C++" { __declspec(nothrow) void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token); }
+extern "C++" { int __cdecl FUN_0021a550(LuaVMZio* z); }
+extern "C++" { void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize); }
+extern "C++" { void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token); }
 void __cdecl FUN_00216340(char* out, const char* source, int bufflen);
-extern "C++" { __declspec(nothrow) const char* __cdecl FUN_00216320(LuaVMState* L, const char* fmt, ...); }
+extern "C++" { const char* __cdecl FUN_00216320(LuaVMState* L, const char* fmt, ...); }
 void __cdecl FUN_002152b0(LuaVMState* L, int errcode);
-extern "C++" { __declspec(nothrow) LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l); }
-extern "C++" { __declspec(nothrow) LuaVMTObject* __cdecl FUN_0021a500(LuaVMState* L, LuaVMTable* t, LuaVMString* key); }
+extern "C++" { LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l); }
+extern "C++" { LuaVMTObject* __cdecl FUN_0021a500(LuaVMState* L, LuaVMTable* t, LuaVMString* key); }
 }
 
 // save_and_next with the lexer state in edi
 // equiv-conv: FUN_0021b1c0 edi
-extern "C++" __declspec(nothrow) void FUN_0021b1c0(LuaVMLexState* ls);
+extern "C++" void FUN_0021b1c0(LuaVMLexState* ls);
 // inclinenumber with the lexer state in esi
 // equiv-conv: FUN_0021b0d0 esi
-extern "C++" __declspec(nothrow) void FUN_0021b0d0(LuaVMLexState* ls);
+extern "C++" void FUN_0021b0d0(LuaVMLexState* ls);
 
 #define SAVE(c)                                                                                              \
     do {                                                                                                     \
@@ -531,15 +531,15 @@ namespace fn_0021bbc0 {
 // equiv-conv: FUN_0021b720 ecx stack stack
 
 
-extern "C++" __declspec(nothrow) int __cdecl FUN_0021a550(LuaVMZio* z);
-extern "C++" __declspec(nothrow) void FUN_0021b0d0(LuaVMLexState* ls);
-extern "C++" __declspec(nothrow) int FUN_0021b480(LuaVMLexState* ls);
-extern "C++" __declspec(nothrow) void FUN_0021b520(LuaVMLexState* ls, int sep, LuaVMSemInfo* seminfo);
-extern "C++" __declspec(nothrow) void FUN_0021b230(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
-extern "C++" __declspec(nothrow) void FUN_0021b1c0(LuaVMLexState* ls);
-extern "C++" __declspec(nothrow) void FUN_0021b720(LuaVMLexState* ls, int del, LuaVMSemInfo* seminfo);
-extern "C++" __declspec(nothrow) LuaVMString* __cdecl FUN_0021b080(LuaVMLexState* ls, const char* str, unsigned int l);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token);
+extern "C++" int __cdecl FUN_0021a550(LuaVMZio* z);
+extern "C++" void FUN_0021b0d0(LuaVMLexState* ls);
+extern "C++" int FUN_0021b480(LuaVMLexState* ls);
+extern "C++" void FUN_0021b520(LuaVMLexState* ls, int sep, LuaVMSemInfo* seminfo);
+extern "C++" void FUN_0021b230(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
+extern "C++" void FUN_0021b1c0(LuaVMLexState* ls);
+extern "C++" void FUN_0021b720(LuaVMLexState* ls, int del, LuaVMSemInfo* seminfo);
+extern "C++" LuaVMString* __cdecl FUN_0021b080(LuaVMLexState* ls, const char* str, unsigned int l);
+extern "C++" void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" int isspace(int c);

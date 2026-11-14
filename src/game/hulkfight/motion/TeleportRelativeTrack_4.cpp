@@ -31,7 +31,7 @@ void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace fn_fa4635ce {
 class BaseTrack {
   public:
-    BaseTrack() throw();
+    BaseTrack();
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -48,7 +48,7 @@ struct Fields {
 };
 class TeleportRelativeTrack_17ea80 : public BaseTrack {
   public:
-    TeleportRelativeTrack_17ea80() throw() : f0c(0), fields() {}
+    TeleportRelativeTrack_17ea80() : f0c(0), fields() {}
     virtual void v0();
     virtual void v1();
     virtual void v2();

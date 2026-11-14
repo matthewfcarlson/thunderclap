@@ -44,12 +44,12 @@ class Action_173c50 {
   public:
     void* vptr;
 };
-void Free(void*) throw();
+void Free(void*);
 struct Sub_173c50 {
     char c;
 };
-void __fastcall SubFini(Sub_173c50*) throw();
-void __fastcall SubFini2(Sub_173c50*) throw();
+void __fastcall SubFini(Sub_173c50*);
+void __fastcall SubFini2(Sub_173c50*);
 class JointPivotTrackerAction_173c50 : public Action_173c50 {
   public:
     char p1c[24];
@@ -58,7 +58,7 @@ class JointPivotTrackerAction_173c50 : public Action_173c50 {
     Ref_173c50* m24;
     char p80[88];
     Ref_173c50* m80;
-    ~JointPivotTrackerAction_173c50() throw();
+    ~JointPivotTrackerAction_173c50();
 };
 struct V3_173ca0 {
     float x, y, z;
@@ -256,7 +256,7 @@ JointPivotTrackerAction::JointPivotTrackerAction(int x, Ref* r) : Action_173c00(
 
 // 0x00173c50 FUN_00173c50 (80 B): matches/0x00173c50.cpp
 // sym: ??1JointPivotTrackerAction_173c50@fn_fee916a2@@QAE@XZ
-JointPivotTrackerAction_173c50::~JointPivotTrackerAction_173c50() throw() {
+JointPivotTrackerAction_173c50::~JointPivotTrackerAction_173c50() {
     vptr = hulk_at_00417e0c;
     _ReadWriteBarrier();
     if (m80) {

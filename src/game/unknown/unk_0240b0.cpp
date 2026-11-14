@@ -2430,7 +2430,7 @@ class Manager {
   public:
     Item* Find_00044ad0(unsigned long long);
 };
-extern "C++" __declspec(nothrow) unsigned long long __cdecl Convert_0027b020(int);
+extern "C++" unsigned long long __cdecl Convert_0027b020(int);
 extern const float hulk_at_003f32e0;
 class Owner {
     char pad[4];
@@ -2465,7 +2465,7 @@ struct Holder {
     Mgr* mgr;
     void fn(int a, int b);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl FUN_0027b020(hulk_intptr);
+extern "C++" unsigned __int64 __cdecl FUN_0027b020(hulk_intptr);
 void Holder::fn(int a, int b) {
     Mgr* m = mgr;
     unsigned __int64 x = FUN_0027b020(a);
@@ -2493,7 +2493,7 @@ class Obj {
     Mgr* mgr;
     float fn(const char* s);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl parse_0027b020(const char* s);
+extern "C++" unsigned __int64 __cdecl parse_0027b020(const char* s);
 extern const float zero;
 float Obj::fn(const char* s) {
     Mgr* m = mgr;
@@ -2521,7 +2521,7 @@ struct Host {
     Manager* mgr;
     void Fn(int, int);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl Lookup_0027b020(int);
+extern "C++" unsigned __int64 __cdecl Lookup_0027b020(int);
 void Host::Fn(int a, int b) {
     Manager* m = mgr;
     unsigned __int64 v = Lookup_0027b020(a);
@@ -2575,7 +2575,7 @@ struct Obj {
     Mid* mid;
     void Fn(int, int);
 };
-extern "C++" __declspec(nothrow) unsigned long long __cdecl Conv_0027b020(int);
+extern "C++" unsigned long long __cdecl Conv_0027b020(int);
 void Obj::Fn(int a, int b) {
     Mid* m = mid;
     unsigned long long n = Conv_0027b020(a);
@@ -2622,7 +2622,7 @@ struct Obj_24f20 {
     char pad[0x368];
     int m;
 };
-extern "C++" __declspec(nothrow) Obj_24f20* __stdcall FUN_000678d0();
+extern "C++" Obj_24f20* __stdcall FUN_000678d0();
 void __stdcall FUN_00024f20(int x) {
     Obj_24f20* p = FUN_000678d0();
     p->m = x;
@@ -3394,7 +3394,7 @@ void Group_25f10::SetFlag(const char* name, char flag)
 // 0x00025fc0 FUN_00025fc0 (41 B): matches/0x00025fc0.cpp [wrapped: compile error in a shared declaration (C2143)]
 // sym: ?Target@Obj@fn_00025fc0@@QAEXH@Z
 namespace fn_00025fc0 {
-extern "C++" __declspec(nothrow) __int64 __cdecl FUN_002672f0(int, int, int);
+extern "C++" __int64 __cdecl FUN_002672f0(int, int, int);
 class Obj {
   public:
     int FUN_00024280(__int64);
@@ -3727,7 +3727,7 @@ struct Owner {
     Obj* Find_00024280(unsigned long long);
     bool Run(int, int);
 };
-extern "C++" __declspec(nothrow) unsigned long long __cdecl Parse_002672f0(int, int, int);
+extern "C++" unsigned long long __cdecl Parse_002672f0(int, int, int);
 bool Owner::Run(int a, int b) {
     unsigned long long x = Parse_002672f0(a, 0, 0);
     Obj* p = Find_00024280(x);
@@ -3770,7 +3770,7 @@ namespace fn_00026950 {
 class Item {
   public:
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl Lookup_002672f0(int, int, int);
+extern "C++" __int64 __cdecl Lookup_002672f0(int, int, int);
 class Owner {
   public:
     Item* Get_00024280(__int64);
@@ -3798,7 +3798,7 @@ class Owner {
     Item* Run(int);
     Item* Find_00024280(unsigned __int64);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl Make_002672f0(int, int, int);
+extern "C++" unsigned __int64 __cdecl Make_002672f0(int, int, int);
 Item* Owner::Run(int x) {
     unsigned __int64 v = Make_002672f0(x, 0, 0);
     Item* p = Find_00024280(v);
@@ -3813,7 +3813,7 @@ Item* Owner::Run(int x) {
 // sym: ?Do@Owner@fn_000269c0@@QAEXHH@Z
 namespace fn_000269c0 {
 typedef __int64 i64;
-extern "C++" __declspec(nothrow) i64 __cdecl Lookup_002672f0(int a, int b, int c);
+extern "C++" i64 __cdecl Lookup_002672f0(int a, int b, int c);
 class Result {
   public:
     void Apply_0003dd00(int);
@@ -3848,7 +3848,7 @@ bool owners::C_269f0::FUN_000269f0(int x, int y) {
 // 0x00026ab0 FUN_00026ab0 (47 B): matches/0x00026ab0.cpp [wrapped: compile error in a shared declaration (C2143)]
 // sym: ?set@Owner@fn_00026ab0@@QAEXHE@Z
 namespace fn_00026ab0 {
-extern "C++" __declspec(nothrow) __int64 __cdecl makeKey_002672f0(int, int, int);
+extern "C++" __int64 __cdecl makeKey_002672f0(int, int, int);
 struct Item {
     char pad[0x1d78];
     unsigned char flag;
@@ -3878,7 +3878,7 @@ struct X {
     Result* lookup_00024280(unsigned long long);
     void set(int a, int b);
 };
-extern "C++" __declspec(nothrow) unsigned long long __cdecl convert_002672f0(int, int, int);
+extern "C++" unsigned long long __cdecl convert_002672f0(int, int, int);
 void X::set(int a, int b) {
     unsigned long long v = convert_002672f0(a, 0, 0);
     Result* r = lookup_00024280(v);
@@ -3891,7 +3891,7 @@ void X::set(int a, int b) {
 // 0x00026b10 FUN_00026b10 (49 B): matches/0x00026b10.cpp [wrapped: compile error C2661: 'fn_f6d645d0::Owner::lookup' : no overloaded function takes 3 arguments]
 // sym: ?Action@Owner@fn_00026b10@@QAEXHUVec3_26b10@2@@Z
 namespace fn_00026b10 {
-extern "C++" __declspec(nothrow) __int64 __cdecl lookup_002672f0(int, int, int);
+extern "C++" __int64 __cdecl lookup_002672f0(int, int, int);
 // b..d: a 3-word vector passed by value.
 struct Vec3_26b10 {
     int x, y, z;
@@ -3988,7 +3988,7 @@ void Object::FUN_00026d50(Vec3* result, int key)
 // 0x00026db0 FUN_00026db0 (58 B): matches/0x00026db0.cpp [wrapped: conflict: Owner; lookup]
 // sym: ?Do@Owner@fn_00026db0@@QAEXPAXM@Z
 namespace fn_00026db0 {
-extern "C++" __declspec(nothrow) __int64 __cdecl lookup_002672f0(void*, int, int);
+extern "C++" __int64 __cdecl lookup_002672f0(void*, int, int);
 class Item {
   public:
     void Set_000354e0(float);
@@ -4019,7 +4019,7 @@ struct X {
     V* Find_00024280(__int64);
     hulk_freg Fn(int);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl Make_002672f0(int, int, int);
+extern "C++" __int64 __cdecl Make_002672f0(int, int, int);
 hulk_freg X::Fn(int x) {
     __int64 a = Make_002672f0(x, 0, 0);
     V* v = Find_00024280(a);
@@ -4107,7 +4107,7 @@ struct Obj {
     Found* Lookup_00024280(unsigned long long);
     void Func(int, int);
 };
-extern "C++" __declspec(nothrow) unsigned long long __cdecl Search_002672f0(int, int, int);
+extern "C++" unsigned long long __cdecl Search_002672f0(int, int, int);
 void Obj::Func(int a, int b) {
     unsigned long long v = Search_002672f0(a, 0, 0);
     Found* f = Lookup_00024280(v);
@@ -4218,7 +4218,7 @@ struct Owner {
     Item* Lookup_00024280(__int64);
     int Fn(int);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl Convert_002672f0(int, int, int);
+extern "C++" __int64 __cdecl Convert_002672f0(int, int, int);
 int Owner::Fn(int x) {
     __int64 k = Convert_002672f0(x, 0, 0);
     Item* p = Lookup_00024280(k);
@@ -4236,7 +4236,7 @@ struct Item {
     char pad[0x39c];
     int value;
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl lookup(int, int, int);
+extern "C++" __int64 __cdecl lookup(int, int, int);
 class Obj {
   public:
     Item* get_00024280(__int64);
@@ -4288,7 +4288,7 @@ void Obj::fn(int x, int y) {
 // sym: ?Check@Obj@fn_00027160@@QAEEH@Z
 namespace fn_00027160 {
 typedef __int64 I64;
-extern "C++" __declspec(nothrow) I64 __cdecl Parse_002672f0(int, int, int);
+extern "C++" I64 __cdecl Parse_002672f0(int, int, int);
 class Obj {
   public:
     void* Lookup_00024280(I64);
@@ -4316,7 +4316,7 @@ void X::FUN_00027190(int a, int b) {
 // 0x000271c0 FUN_000271c0 (61 B): matches/0x000271c0.cpp [wrapped: compile error in a shared declaration (C2143)]
 // sym: ?fn@Obj@fn_000271c0@@QAEXHPBD@Z
 namespace fn_000271c0 {
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl resolve_002672f0(int, int, int);
+extern "C++" unsigned __int64 __cdecl resolve_002672f0(int, int, int);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" char* __cdecl strcpy(char*, const char*);
@@ -4344,7 +4344,7 @@ struct Item {
     char pad[0x2138];
     char flag;
 };
-extern "C++" __declspec(nothrow) U64 __cdecl Lookup_002672f0(int, int, int);
+extern "C++" U64 __cdecl Lookup_002672f0(int, int, int);
 class Owner {
   public:
     Item* Find_00024280(U64);
@@ -4370,7 +4370,7 @@ struct Obj {
     Item* get_00024280(unsigned __int64 x);
     void fn(void* x, unsigned char b);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl make_002672f0(void*, int, hulk_intptr);
+extern "C++" unsigned __int64 __cdecl make_002672f0(void*, int, hulk_intptr);
 void Obj::fn(void* x, unsigned char b) {
     Item* p = get_00024280(make_002672f0(x, 0, 0));
     if (p)
@@ -4404,7 +4404,7 @@ class Obj {
     Item* get(unsigned a, unsigned b);
     Item* lookup_00024280(unsigned lo, unsigned hi);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl FUN_002672f0(unsigned, unsigned, unsigned);
+extern "C++" unsigned __int64 __cdecl FUN_002672f0(unsigned, unsigned, unsigned);
 Item* Obj::get(unsigned a, unsigned b) {
     unsigned __int64 n = FUN_002672f0(a, 0, 0);
     Item* p = lookup_00024280((unsigned)n, (unsigned)(n >> 32));
@@ -4426,7 +4426,7 @@ struct Obj {
     Item* Find_00024280(__int64 v);
     Item* Get(unsigned a, unsigned b);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl FUN_002672f0(unsigned, unsigned, unsigned);
+extern "C++" __int64 __cdecl FUN_002672f0(unsigned, unsigned, unsigned);
 Item* Obj::Get(unsigned a, unsigned b) {
     __int64 v = FUN_002672f0(a, 0, 0);
     Item* p = Find_00024280(v);
@@ -4448,7 +4448,7 @@ struct Obj {
     Result* setPair_00024280(int a, int b);
     void assign(int a, int b);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl makePair_002672f0(int a, int b, int c);
+extern "C++" unsigned __int64 __cdecl makePair_002672f0(int a, int b, int c);
 void Obj::assign(int a, int b) {
     unsigned __int64 v = makePair_002672f0(a, 0, 0);
     Result* p = setPair_00024280((int)v, (int)(v >> 32));
@@ -4521,7 +4521,7 @@ class C {
     Obj* Get_00024280(unsigned, unsigned);
     void Set(unsigned id, int v);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl FUN_002672f0(unsigned, unsigned, unsigned);
+extern "C++" unsigned __int64 __cdecl FUN_002672f0(unsigned, unsigned, unsigned);
 void C::Set(unsigned id, int v) {
     unsigned __int64 x = FUN_002672f0(id, 0, 0);
     Obj* p = Get_00024280((unsigned)x, (unsigned)(x >> 32));
@@ -4555,7 +4555,7 @@ struct Obj {
     Item* get_00024280(unsigned a, unsigned b);
     void fn(int x, int y);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl decode_002672f0(int, int, int);
+extern "C++" unsigned __int64 __cdecl decode_002672f0(int, int, int);
 void Obj::fn(int x, int y) {
     unsigned __int64 n = decode_002672f0(x, 0, 0);
     Item* p = get_00024280((unsigned)n, (unsigned)(n >> 32));
@@ -4576,7 +4576,7 @@ struct Obj {
     Item* get_00024280(unsigned __int64 x);
     void set(int a, int b);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl make64_002672f0(int a, int b, int c);
+extern "C++" unsigned __int64 __cdecl make64_002672f0(int a, int b, int c);
 void Obj::set(int a, int b) {
     unsigned __int64 x = make64_002672f0(a, 0, 0);
     Item* p = get_00024280(x);
@@ -4597,7 +4597,7 @@ struct X {
     Result* lookup_00024280(__int64);
     void set(int a, int b);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl convert_002672f0(int, int, int);
+extern "C++" __int64 __cdecl convert_002672f0(int, int, int);
 void X::set(int a, int b) {
     __int64 v = convert_002672f0(a, 0, 0);
     Result* r = lookup_00024280(v);
@@ -4618,7 +4618,7 @@ struct Obj {
     Item* Find_00024280(unsigned long long x);
     void Set(int id, int val);
 };
-extern "C++" __declspec(nothrow) unsigned long long __cdecl Convert_002672f0(int x, int a, int b);
+extern "C++" unsigned long long __cdecl Convert_002672f0(int x, int a, int b);
 void Obj::Set(int id, int val) {
     unsigned long long k = Convert_002672f0(id, 0, 0);
     Item* p = Find_00024280(k);
@@ -4640,7 +4640,7 @@ class Obj {
     Result* lookup_00024280(int, int);
     unsigned char fn(int);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl fetch_002672f0(int, int, int);
+extern "C++" unsigned __int64 __cdecl fetch_002672f0(int, int, int);
 unsigned char Obj::fn(int x) {
     unsigned __int64 v = fetch_002672f0(x, 0, 0);
     Result* p = lookup_00024280((int)v, (int)(v >> 32));
@@ -4662,7 +4662,7 @@ struct Obj {
     Item* Get_00024280(unsigned long long x);
     void Set(int a, unsigned char b);
 };
-extern "C++" __declspec(nothrow) unsigned long long __cdecl Make(int, int, int);
+extern "C++" unsigned long long __cdecl Make(int, int, int);
 void Obj::Set(int a, unsigned char b) {
     unsigned long long x = Make(a, 0, 0);
     Item* p = Get_00024280(x);
@@ -4683,7 +4683,7 @@ struct Obj {
     Result* get_00024280(int, int);
     void func(int a, int b);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl FUN_002672f0(int, int, int);
+extern "C++" unsigned __int64 __cdecl FUN_002672f0(int, int, int);
 void Obj::func(int a, int b) {
     unsigned __int64 x = FUN_002672f0(a, 0, 0);
     Result* r = get_00024280((int)x, (int)(x >> 32));
@@ -4696,7 +4696,7 @@ void Obj::func(int a, int b) {
 // 0x00027550 FUN_00027550 (52 B): matches/0x00027550.cpp [wrapped: conflict: Find; Item]
 // sym: ?Func@Obj@fn_00027550@@QAEMI@Z
 namespace fn_00027550 {
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl Find_002672f0(unsigned int, int, int);
+extern "C++" unsigned __int64 __cdecl Find_002672f0(unsigned int, int, int);
 struct Item {
     char pad[0x1d20];
     float value;
@@ -4754,7 +4754,7 @@ class C {
     Obj* lookup_00024280(unsigned int lo, unsigned int hi);
     void set(char* name, unsigned char v);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl hash_002672f0(char*, int, int);
+extern "C++" unsigned __int64 __cdecl hash_002672f0(char*, int, int);
 void C::set(char* name, unsigned char v) {
     unsigned __int64 id = hash_002672f0(name, 0, 0);
     Obj* p = lookup_00024280((unsigned int)id, (unsigned int)(id >> 32));
@@ -4776,7 +4776,7 @@ class C {
     Obj* Find_00024280(unsigned int a, unsigned int b);
     unsigned char Test(int x);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl Lookup_002672f0(int x, int a, int b);
+extern "C++" unsigned __int64 __cdecl Lookup_002672f0(int x, int a, int b);
 unsigned char C::Test(int x) {
     unsigned __int64 v = Lookup_002672f0(x, 0, 0);
     Obj* p = Find_00024280((unsigned int)v, (unsigned int)(v >> 32));
@@ -4798,8 +4798,8 @@ struct Obj {
     Result* get_00024280(unsigned long long);
     void fn(int, int);
 };
-extern "C++" __declspec(nothrow) unsigned long long __cdecl first_002672f0(int, int, int);
-extern "C++" __declspec(nothrow) unsigned long long __cdecl second_0027afb0(int);
+extern "C++" unsigned long long __cdecl first_002672f0(int, int, int);
+extern "C++" unsigned long long __cdecl second_0027afb0(int);
 void Obj::fn(int x, int y) {
     unsigned long long a = first_002672f0(x, 0, 0);
     Result* r = get_00024280(a);
@@ -5256,7 +5256,7 @@ struct Obj {
     char pad[0x338];
     void* p;
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl Find_002672f0(void*, int, int);
+extern "C++" unsigned __int64 __cdecl Find_002672f0(void*, int, int);
 class Host {
   public:
     Obj* Get_00024280(unsigned __int64);
@@ -5283,7 +5283,7 @@ namespace fn_00028130 {
 struct Pair {
     int a, b;
 };
-extern "C++" __declspec(nothrow) Pair __cdecl lookup_002672f0(int, int, int);
+extern "C++" Pair __cdecl lookup_002672f0(int, int, int);
 struct Item {
     char pad[0x20a8];
     int index;
@@ -5326,7 +5326,7 @@ struct Owner {
     Item* Find_00024280(__int64);
     char Run(int);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl Lookup(int, int, int);
+extern "C++" __int64 __cdecl Lookup(int, int, int);
 char Owner::Run(int x) {
     __int64 id = Lookup(x, 0, 0);
     Item* i = Find_00024280(id);
@@ -5357,7 +5357,7 @@ struct Owner {
   public:
     unsigned char Set(const char*, unsigned char);
 };
-extern "C++" __declspec(nothrow) unsigned long long __cdecl Parse_002672f0(const char*, int, int);
+extern "C++" unsigned long long __cdecl Parse_002672f0(const char*, int, int);
 unsigned char Owner::Set(const char* s, unsigned char v) {
     unsigned long long id = Parse_002672f0(s, 0, 0);
     Obj* p = get_00024280(id);
@@ -5373,7 +5373,7 @@ unsigned char Owner::Set(const char* s, unsigned char v) {
 // sym: ?Set@Obj@fn_00028220@@QAEDHD@Z
 namespace fn_00028220 {
 typedef unsigned __int64 U64;
-extern "C++" __declspec(nothrow) U64 __cdecl MakeId_002672f0(int, int, int);
+extern "C++" U64 __cdecl MakeId_002672f0(int, int, int);
 struct Entry {
     char pad[0x1cef];
     char flag;
@@ -5404,7 +5404,7 @@ struct Thing {
     int Get(int);
     Obj* Find_00024280(__int64);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl FUN_002672f0(int, int, int);
+extern "C++" __int64 __cdecl FUN_002672f0(int, int, int);
 int Thing::Get(int a) {
     __int64 v = FUN_002672f0(a, 0, 0);
     Obj* p = Find_00024280(v);
@@ -5455,7 +5455,7 @@ class Obj {
     Result* Find_00024280(__int64);
     char Run(int a, int b);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl Convert(int, int, int);
+extern "C++" __int64 __cdecl Convert(int, int, int);
 char Obj::Run(int a, int b) {
     __int64 v = Convert(a, 0, 0);
     Result* r = Find_00024280(v);
@@ -5539,7 +5539,7 @@ class C {
     Obj* lookup_00024280(__int64);
     float get(int id);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl find_002672f0(int, int, int);
+extern "C++" __int64 __cdecl find_002672f0(int, int, int);
 float C::get(int id) {
     __int64 x = find_002672f0(id, 0, 0);
     Obj* p = lookup_00024280(x);
@@ -5556,7 +5556,7 @@ namespace fn_00028500 {
 struct Pair {
     int a, b;
 };
-extern "C++" __declspec(nothrow) Pair __cdecl Make_002672f0(int, int, int);
+extern "C++" Pair __cdecl Make_002672f0(int, int, int);
 class Obj {
   public:
     void* Find_00024280(int, int);
@@ -5626,7 +5626,7 @@ struct Obj {
     Item* Find_00024280(unsigned int, unsigned int);
     void Func(int, int);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl Query_002672f0(int, int, hulk_intptr);
+extern "C++" unsigned __int64 __cdecl Query_002672f0(int, int, hulk_intptr);
 void Obj::Func(int id, int value) {
     unsigned __int64 x = Query_002672f0(id, 0, 0);
     Item* p = Find_00024280((unsigned int)x, (unsigned int)(x >> 32));
@@ -5884,7 +5884,7 @@ class Obj {
     Result* get_00024280(__int64);
     void fn(int, unsigned char);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl make_002672f0(int, int, hulk_intptr);
+extern "C++" __int64 __cdecl make_002672f0(int, int, hulk_intptr);
 void Obj::fn(int a, unsigned char b) {
     Result* p = get_00024280(make_002672f0(a, 0, 0));
     if (p)
@@ -5918,7 +5918,7 @@ void Owner_28840::FUN_00028840(const char* name, float value)
 // sym: ?Do@Owner@fn_000288b0@@QAEXPBDHH@Z
 namespace fn_000288b0 {
 typedef __int64 I64;
-extern "C++" __declspec(nothrow) I64 __cdecl Lookup_002672f0(const char*, int, int);
+extern "C++" I64 __cdecl Lookup_002672f0(const char*, int, int);
 class Node {
   public:
     void Play_00043350(int, int, int, float, int, int);
@@ -6022,7 +6022,7 @@ class X {
     Obj* Find_00024280(unsigned __int64);
     hulk_freg Fn(const char*);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl Hash_002672f0(const char*, int, int);
+extern "C++" unsigned __int64 __cdecl Hash_002672f0(const char*, int, int);
 hulk_freg X::Fn(const char* s) {
     unsigned __int64 h = Hash_002672f0(s, 0, 0);
     Obj* p = Find_00024280(h);
@@ -6045,7 +6045,7 @@ struct Obj {
     Result* Find_00024280(unsigned a, unsigned b);
     hulk_freg Run(const char* s);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl Parse(const char*, int, int);
+extern "C++" unsigned __int64 __cdecl Parse(const char*, int, int);
 hulk_freg Obj::Run(const char* s) {
     unsigned __int64 v = Parse(s, 0, 0);
     Result* r = Find_00024280((unsigned)v, (unsigned)(v >> 32));
@@ -6067,7 +6067,7 @@ struct Found {
     char pad[0x11c];
     Entry* entry;
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl FUN_002672f0(int, int, int);
+extern "C++" unsigned __int64 __cdecl FUN_002672f0(int, int, int);
 extern float zeroA;
 extern float zeroB;
 class Obj {
@@ -6092,7 +6092,7 @@ float Obj::get(int id) {
 // sym: ?Get@Owner@fn_00028a50@@QAEMH@Z
 namespace fn_00028a50 {
 extern float zeroFloat1, zeroFloat2;
-extern "C++" __declspec(nothrow) __int64 __cdecl FindKey_002672f0(int, int, int);
+extern "C++" __int64 __cdecl FindKey_002672f0(int, int, int);
 struct Data {
     char pad[0x164];
     float value;
@@ -6144,7 +6144,7 @@ struct X {
     void target(int, int);
     Result* lookup_00024280(unsigned __int64);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl FUN_002672f0(int, int, int);
+extern "C++" unsigned __int64 __cdecl FUN_002672f0(int, int, int);
 void X::target(int a, int b) {
     unsigned __int64 n = FUN_002672f0(a, 0, 0);
     Result* r = lookup_00024280(n);
@@ -6184,7 +6184,7 @@ struct Item {
     char pad[0x324];
     int value;
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl conv_002672f0(int, int, int);
+extern "C++" unsigned __int64 __cdecl conv_002672f0(int, int, int);
 class Obj {
   public:
     Item* lookup_00024280(unsigned, unsigned);
@@ -6210,7 +6210,7 @@ struct Obj {
     Result* lookup_00024280(unsigned long long);
     float get(int);
 };
-extern "C++" __declspec(nothrow) unsigned long long __cdecl acquire_002672f0(int, int, int);
+extern "C++" unsigned long long __cdecl acquire_002672f0(int, int, int);
 float Obj::get(int x) {
     unsigned long long v = acquire_002672f0(x, 0, 0);
     Result* r = lookup_00024280(v);
@@ -6444,7 +6444,7 @@ void Owner::act(int n) {
 // 0x00028da0 FUN_00028da0 (54 B): matches/0x00028da0.cpp [wrapped: conflict: Item]
 // sym: ?Act@Owner@fn_00028da0@@QAEXPAX@Z
 namespace fn_00028da0 {
-extern "C++" __declspec(nothrow) __int64 __cdecl FindThing_002672f0(void*, int, int);
+extern "C++" __int64 __cdecl FindThing_002672f0(void*, int, int);
 struct Item {
     char pad[0x1ca0];
     struct Flag* flag;
@@ -6585,7 +6585,7 @@ int Owner::FUN_00028f30(const char *name) {
 namespace fn_00028f80 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00028f80 @ 0x00028f80
-struct Result { char pad[0xb8]; int value; }; struct Object { Result* FUN_000fdc40(); }; struct Item { char pad[0x1ca0]; Object *object; }; struct Handler { Item* FUN_00024280(unsigned int, unsigned int); int FUN_00028f80(int); }; extern "C++" __declspec(nothrow) __int64 __cdecl FUN_002672f0(int, int, int); int Handler::FUN_00028f80(int arg) { __int64 id = FUN_002672f0(arg,0,0); Item* item = FUN_00024280((unsigned int)id, (unsigned int)(id >> 32)); if (item && item->object) { Result* result = item->object->FUN_000fdc40(); if (result) return result->value; } return -1; }
+struct Result { char pad[0xb8]; int value; }; struct Object { Result* FUN_000fdc40(); }; struct Item { char pad[0x1ca0]; Object *object; }; struct Handler { Item* FUN_00024280(unsigned int, unsigned int); int FUN_00028f80(int); }; extern "C++" __int64 __cdecl FUN_002672f0(int, int, int); int Handler::FUN_00028f80(int arg) { __int64 id = FUN_002672f0(arg,0,0); Item* item = FUN_00024280((unsigned int)id, (unsigned int)(id >> 32)); if (item && item->object) { Result* result = item->object->FUN_000fdc40(); if (result) return result->value; } return -1; }
 } // namespace fn_00028f80
 
 
@@ -6626,7 +6626,7 @@ FoundObject* Owner::FUN_00028fd0(int value) {
 // 0x00029060 FUN_00029060 (49 B): matches/0x00029060.cpp [wrapped: conflict: Obj]
 // sym: ?Fn@Obj@fn_00029060@@QAEXHH@Z
 namespace fn_00029060 {
-extern "C++" __declspec(nothrow) __int64 __cdecl Convert(int, int, int);
+extern "C++" __int64 __cdecl Convert(int, int, int);
 class Elem {
   public:
     void Test_00035140(int);
@@ -6685,7 +6685,7 @@ class Obj {
     Result* Find_00024280(__int64);
     void Target(void*);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl Fetch_002672f0(void*, int, int);
+extern "C++" __int64 __cdecl Fetch_002672f0(void*, int, int);
 void Obj::Target(void* p) {
     Result* r = Find_00024280(Fetch_002672f0(p, 0, 0));
     if (r != 0 && r->ptr != 0 && inner != 0)
@@ -6804,7 +6804,7 @@ hulk_intptr Owner::FUN_00029390(int key, int value, int flag, int extra) {
 // sym: ?update@Manager@fn_000293f0@@QAEXHHHH@Z
 namespace fn_000293f0 {
 typedef long long i64;
-extern "C++" __declspec(nothrow) i64 __cdecl lookupKey_002672f0(int, int, int);
+extern "C++" i64 __cdecl lookupKey_002672f0(int, int, int);
 struct Item {
     char pad[0x1d30];
     hulk_intptr a, b, c;
@@ -6837,7 +6837,7 @@ struct Obj {
     Result* get_00024280(unsigned long long v);
     void target(int id, char flag);
 };
-extern "C++" __declspec(nothrow) unsigned long long __cdecl convert(int id, int a, int b);
+extern "C++" unsigned long long __cdecl convert(int id, int a, int b);
 void Obj::target(int id, char flag) {
     unsigned long long v = convert(id, 0, 0);
     Result* r = get_00024280(v);
@@ -6853,7 +6853,7 @@ namespace fn_00029470 {
 struct Pair {
     unsigned a, b;
 };
-extern "C++" __declspec(nothrow) Pair __cdecl lookup(int, int, int);
+extern "C++" Pair __cdecl lookup(int, int, int);
 class Result {
   public:
     void finish_000403f0();
@@ -7196,7 +7196,7 @@ struct Host {
     Obj* lookup_00024280(unsigned a, unsigned b);
     void set(char const* name, char flag);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl hash_002672f0(char const*, unsigned, unsigned);
+extern "C++" unsigned __int64 __cdecl hash_002672f0(char const*, unsigned, unsigned);
 void Host::set(char const* name, char flag) {
     unsigned __int64 a = hash_002672f0(name, 0, 0);
     Obj* o = lookup_00024280((unsigned)a, (unsigned)(a >> 32));
@@ -7225,7 +7225,7 @@ struct Obj {
     char pad[0x1ca0];
     V* v;
 };
-extern "C++" __declspec(nothrow) U64 __cdecl make_002672f0(unsigned, unsigned, hulk_uintptr);
+extern "C++" U64 __cdecl make_002672f0(unsigned, unsigned, hulk_uintptr);
 class Owner {
   public:
     Obj* lookup_00024280(U64);
@@ -7266,7 +7266,7 @@ struct Holder {
     Node* lookup_00024280(unsigned __int64);
     int get(int x);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl makekey_002672f0(int, int, int);
+extern "C++" unsigned __int64 __cdecl makekey_002672f0(int, int, int);
 int Holder::get(int x) {
     unsigned __int64 key = makekey_002672f0(x, 0, 0);
     Node* n = lookup_00024280(key);
@@ -7413,7 +7413,7 @@ struct X {
     Item* Get_00024280(unsigned __int64);
     void Fn(int id, int arg);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl Hash_002672f0(int, int, int);
+extern "C++" unsigned __int64 __cdecl Hash_002672f0(int, int, int);
 void X::Fn(int id, int arg) {
     unsigned __int64 v = Hash_002672f0(id, 0, 0);
     Item* p = Get_00024280(v);
@@ -7430,7 +7430,7 @@ class Obj {
   public:
     void Apply_000361c0(int);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl Build_002672f0(int, int, int);
+extern "C++" __int64 __cdecl Build_002672f0(int, int, int);
 class Owner {
   public:
     Obj* Find_00024280(__int64);
@@ -7506,7 +7506,7 @@ struct Obj {
     Item* Get_00024280(__int64);
     void Target(int, int);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl Hash_002672f0(int, int, int);
+extern "C++" __int64 __cdecl Hash_002672f0(int, int, int);
 void Obj::Target(int a, int b) {
     __int64 h = Hash_002672f0(a, 0, 0);
     Item* p = Get_00024280(h);
@@ -7540,7 +7540,7 @@ struct Obj {
     Result* Find_00024280(unsigned __int64);
     void Fn(int, int);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl Convert(int, int, int);
+extern "C++" unsigned __int64 __cdecl Convert(int, int, int);
 void Obj::Fn(int x, int y) {
     unsigned __int64 n = Convert(x, 0, 0);
     Result* r = Find_00024280(n);
@@ -7556,7 +7556,7 @@ void Obj::Fn(int x, int y) {
 // sym: ?Check@Holder@fn_00029dd0@@QAEDPAX@Z
 namespace fn_00029dd0 {
 typedef long long I64;
-extern "C++" __declspec(nothrow) I64 __cdecl Parse_002672f0(void*, int, int);
+extern "C++" I64 __cdecl Parse_002672f0(void*, int, int);
 class Item {
   public:
     char FnA_00036170();
@@ -7589,7 +7589,7 @@ class Obj {
     Item* Lookup_00024280(__int64);
     void Run(int key, int value);
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl GetPair_002672f0(int, int, int);
+extern "C++" __int64 __cdecl GetPair_002672f0(int, int, int);
 void Obj::Run(int key, int value) {
     __int64 pair = GetPair_002672f0(key, 0, 0);
     Item* item = Lookup_00024280(pair);
@@ -7602,7 +7602,7 @@ void Obj::Run(int key, int value) {
 // 0x00029e60 FUN_00029e60 (57 B): matches/0x00029e60.cpp [wrapped: conflict: Lookup]
 // sym: ?Check@Obj@fn_00029e60@@QAE_NPAX@Z
 namespace fn_00029e60 {
-extern "C++" __declspec(nothrow) __int64 __cdecl Lookup_002672f0(void*, int, int);
+extern "C++" __int64 __cdecl Lookup_002672f0(void*, int, int);
 struct Item {
     char pad[0x1b20];
     int count;
@@ -7630,7 +7630,7 @@ struct Item {
     char pad[0x32c];
     char flag;
 };
-extern "C++" __declspec(nothrow) i64 __cdecl Fetch_002672f0(void*, int, int);
+extern "C++" i64 __cdecl Fetch_002672f0(void*, int, int);
 class Obj {
   public:
     Item* Find_00024280(i64);
@@ -7649,7 +7649,7 @@ unsigned char Obj::Check(void* p) {
 // 0x00029ed0 FUN_00029ed0 (68 B): matches/0x00029ed0.cpp [wrapped: conflict: Obj]
 // sym: ?Read@Holder@fn_00029ed0@@QAEMH@Z
 namespace fn_00029ed0 {
-extern "C++" __declspec(nothrow) __int64 __cdecl Lookup(int, int, int);
+extern "C++" __int64 __cdecl Lookup(int, int, int);
 class Obj {
   public:
     char pad[0x328];
@@ -7728,7 +7728,7 @@ struct X {
     Result* get_00024280(unsigned __int64);
     unsigned char fn(int);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl lookup_002672f0(int, int, int);
+extern "C++" unsigned __int64 __cdecl lookup_002672f0(int, int, int);
 unsigned char X::fn(int a) {
     unsigned __int64 v = lookup_002672f0(a, 0, 0);
     Result* p = get_00024280(v);
@@ -7750,7 +7750,7 @@ struct X {
     Result* Make_00024280(unsigned int, unsigned int);
     void Func(int v, char flag);
 };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl Other_002672f0(int, int, int);
+extern "C++" unsigned __int64 __cdecl Other_002672f0(int, int, int);
 void X::Func(int v, char flag) {
     unsigned __int64 n = Other_002672f0(v, 0, 0);
     Result* p = Make_00024280((unsigned int)n, (unsigned int)(n >> 32));
@@ -7772,7 +7772,7 @@ struct Holder {
     Obj* Get_00024280(unsigned long long);
     bool Check(int);
 };
-extern "C++" __declspec(nothrow) unsigned long long __cdecl FUN_002672f0(int, int, int);
+extern "C++" unsigned long long __cdecl FUN_002672f0(int, int, int);
 bool Holder::Check(int x) {
     unsigned long long v = FUN_002672f0(x, 0, 0);
     Obj* o = Get_00024280(v);
@@ -7858,7 +7858,7 @@ struct Pair {
     char pad[8];
     int a, b;
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00096d50(void*, int, int, int);
+extern "C++" void __cdecl FUN_00096d50(void*, int, int, int);
 class C {
   public:
     float* Fn(const char*);
@@ -7883,7 +7883,7 @@ float* C::Fn(const char* s) {
 // 0x0002a200 FUN_0002a200 (65 B): matches/0x0002a200.cpp [wrapped: conflict: Lookup; Owner; Owner::Query; Result]
 // sym: ?Query@Owner@fn_0002a200@@QAEPAMH@Z
 namespace fn_0002a200 {
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl Lookup(int, int, int);
+extern "C++" unsigned __int64 __cdecl Lookup(int, int, int);
 extern float fallback;
 class Result {
   public:
@@ -7922,8 +7922,8 @@ struct Owner_2a250 {
     Item_2a250* Get_00024280(unsigned, unsigned);
     char Match(const char*, const char*);
 };
-extern "C++" __declspec(nothrow) Pair_2a250 __cdecl Parse_002672f0(const char*, int, int);
-extern "C++" __declspec(nothrow) Pair_2a250 __cdecl Hash_0027b020(const char*);
+extern "C++" Pair_2a250 __cdecl Parse_002672f0(const char*, int, int);
+extern "C++" Pair_2a250 __cdecl Hash_0027b020(const char*);
 char Owner_2a250::Match(const char* s, const char* t) {
     Pair_2a250 p = Parse_002672f0(s, 0, 0);
     Item_2a250* q = Get_00024280(p.a, p.b);
@@ -7954,7 +7954,7 @@ struct Obj_2a2b0 {
     char pad2[0xa8];
     Sub_2a2b0* ptr;
 };
-extern "C++" __declspec(nothrow) Vec_2a2b0 __cdecl Decode_002672f0(int, int, int);
+extern "C++" Vec_2a2b0 __cdecl Decode_002672f0(int, int, int);
 extern float* hulk_at_004c6028[];
 extern float zero_2a2b0;
 class C_2a2b0 {
@@ -8011,7 +8011,7 @@ class Bar {
   public:
     void act_000401a0();
 };
-extern "C++" __declspec(nothrow) __int64 __cdecl make_002672f0(void*, int, hulk_intptr);
+extern "C++" __int64 __cdecl make_002672f0(void*, int, hulk_intptr);
 class Foo {
   public:
     Bar* get_00024280(__int64);

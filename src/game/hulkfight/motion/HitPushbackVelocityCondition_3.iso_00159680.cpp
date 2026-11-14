@@ -16,16 +16,16 @@ class Base {
     virtual bool Fnc_002342b0(int);
     int x;
     int y;
-    Base(int) throw();
+    Base(int);
 };
 class HitPushbackVelocityCondition_159680 : public Base {
   public:
-    HitPushbackVelocityCondition_159680() throw();
+    HitPushbackVelocityCondition_159680();
     virtual void a();
     int velocity;
     int timer;
 };
-HitPushbackVelocityCondition_159680::HitPushbackVelocityCondition_159680() throw() : Base(0) {
+HitPushbackVelocityCondition_159680::HitPushbackVelocityCondition_159680() : Base(0) {
     velocity = 0;
     timer = 0;
 }

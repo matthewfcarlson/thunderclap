@@ -39,13 +39,13 @@ void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_f85e45fc {
 class BaseCondition {
   public:
-    BaseCondition() throw();
+    BaseCondition();
     virtual void v0();
     char pad[28];
 };
 class CAxisPressCondition_56f10 : public BaseCondition {
   public:
-    CAxisPressCondition_56f10() throw() : BaseCondition() {}
+    CAxisPressCondition_56f10() : BaseCondition() {}
     virtual void v0();
 };
 extern void* hulk_at_003f6d50[];

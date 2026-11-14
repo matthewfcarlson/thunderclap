@@ -20,16 +20,16 @@ class BaseCondition {
     int y;
     int z;
     int w;
-    BaseCondition(int) throw();
+    BaseCondition(int);
 };
 class TargetVelocityXZCondition_12ab90 : public BaseCondition {
   public:
-    TargetVelocityXZCondition_12ab90() throw();
+    TargetVelocityXZCondition_12ab90();
     virtual void a();
     virtual void b();
     virtual void c();
 };
-TargetVelocityXZCondition_12ab90::TargetVelocityXZCondition_12ab90() throw() : BaseCondition(0) {
+TargetVelocityXZCondition_12ab90::TargetVelocityXZCondition_12ab90() : BaseCondition(0) {
     z = 0;
     w = 0;
 }

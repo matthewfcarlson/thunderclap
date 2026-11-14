@@ -213,7 +213,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 extern "C" void FUN_00266f00(unsigned, void*);
 class Part_272d90 {
   public:
-    void Fini_00277540() throw();
+    void Fini_00277540();
 };
 struct Drive_272d90 {
     void* v0;
@@ -222,7 +222,7 @@ struct Drive_272d90 {
     void* vc;
     int pad;
     Part_272d90 part;
-    Drive_272d90* Dtor(unsigned char flag) throw();
+    Drive_272d90* Dtor(unsigned char flag);
 };
 struct Node { virtual void destroy(int); virtual void n1(); virtual void n2(); virtual void n3(); virtual void n4(); virtual void n5(); virtual void n6(); virtual void process(); Node* next; bool FUN_00273680(CoreThread*); };
 struct Lock_272df0 { virtual void acquire(); virtual void release(); virtual void x(); };
@@ -557,7 +557,7 @@ namespace fn_f59a9783 {
 
 // 0x00272d90 core::Drive::vfunc_2 (88 B): matches/0x00272d90.cpp
 // sym: ?Dtor@Drive_272d90@fn_f59a9783@@QAEPAU12@E@Z
-Drive_272d90* Drive_272d90::Dtor(unsigned char flag) throw() {
+Drive_272d90* Drive_272d90::Dtor(unsigned char flag) {
     v0 = vDrive;
     v4 = vD4;
     vc = vDc;

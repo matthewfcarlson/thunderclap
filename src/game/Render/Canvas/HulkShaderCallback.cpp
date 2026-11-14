@@ -2753,7 +2753,7 @@ namespace fn_001c3d90 {
 
 class Obj {
   public:
-    Obj* Init_001c34c0() throw();
+    Obj* Init_001c34c0();
     char pad[0x7c];
 };
 // (dg1) the singleton's pointer is the game's item DAT_004e231c (records.h: pointer-sized), not a local stand-in that
@@ -3151,7 +3151,7 @@ struct Entry_1c4190 {
     Entry_1c4190 *FUN_001c5cf0(Key_1c4190 *key, Res_1c4190 *r);
 };
 
-extern "C++" __declspec(nothrow) int __cdecl FUN_00266da0(hulk_intptr mode);
+extern "C++" int __cdecl FUN_00266da0(hulk_intptr mode);
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
 class Loader_1c4190 {

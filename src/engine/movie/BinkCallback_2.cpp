@@ -587,7 +587,7 @@ unsigned char __stdcall FUN_00336080(long** volatile p, Obj* out, int x, unsigne
 // 0x003360d0 FUN_003360d0 (70 B): matches/0x003360d0.cpp [wrapped: conflict: Obj]
 // sym: _FUN_003360d0@16
 namespace fn_003360d0 {
-extern "C++" __declspec(nothrow) float __cdecl FUN_003458c1(const char*);
+extern "C++" float __cdecl FUN_003458c1(const char*);
 class Obj {
   public:
     const char* get_00337980();
@@ -1601,10 +1601,10 @@ namespace fn_00338030 {
 extern "C" long atol(const char *s);
 #endif
 
-extern "C++" __declspec(nothrow) double __cdecl FUN_003458c1(const char *s);
+extern "C++" double __cdecl FUN_003458c1(const char *s);
 extern "C" int __cdecl FUN_00337dc0(const char *s);
-extern "C++" __declspec(nothrow) char __cdecl FUN_00337e50(const char *s);
-extern "C++" __declspec(nothrow) char __cdecl FUN_00337370(const char *s);
+extern "C++" char __cdecl FUN_00337e50(const char *s);
+extern "C++" char __cdecl FUN_00337370(const char *s);
 
 class Pool_338030 {
 public:

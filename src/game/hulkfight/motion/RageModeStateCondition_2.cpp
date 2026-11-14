@@ -42,7 +42,7 @@ class ConditionFactory_16e120 {
 namespace hulkfight { namespace motion {
 class BaseCondition {
   public:
-    BaseCondition(int) throw();
+    BaseCondition(int);
     virtual void f0();
     virtual bool f1_00234270(void*);
     virtual bool f2_002342b0(int);
@@ -54,7 +54,7 @@ class BaseCondition {
 namespace hulkfight { namespace motion {
 class RageModeStateCondition_16e120 : public BaseCondition {
   public:
-    RageModeStateCondition_16e120(int x) throw() : BaseCondition(x) {
+    RageModeStateCondition_16e120(int x) : BaseCondition(x) {
         a = 0;
         b = 0;
     }

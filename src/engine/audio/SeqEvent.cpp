@@ -728,7 +728,7 @@ struct String {
     void FUN_00240170(const char *s);
 };
 
-extern "C++" __declspec(nothrow) char __cdecl FUN_002601d0(void *, void *, void *);
+extern "C++" char __cdecl FUN_002601d0(void *, void *, void *);
 
 
 namespace om {
@@ -737,13 +737,13 @@ public:
     virtual void v0();
     unsigned int reserved04;   // records.h OmType
     OmTypeBody body;
-    Type() throw() {}
+    Type() {}
 };
 }
 // om::Type's constructor (0x002584d0), on a stand-in class named by its address for the native links.
 class FUN_002584d0 {
 public:
-    FUN_002584d0(Key_2605e0 *key, void *b, int c, int d) throw();
+    FUN_002584d0(Key_2605e0 *key, void *b, int c, int d);
 };
 
 namespace audio {
@@ -752,7 +752,7 @@ public:
     virtual void v0();
     OmTreeNode node;   // records.h SeqEventTypeHead: the node, then the name
     OmString name;
-    SeqEventType() throw() {}
+    SeqEventType() {}
     SeqEventType *FUN_002605e0(const char *name, void *b, int c, int d);
 };
 

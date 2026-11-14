@@ -372,7 +372,7 @@ class CDramaticCamera {
     void* vfunc_2(unsigned char flag);
 };
 
-extern "C++" __declspec(nothrow) void __cdecl DeleteObj_00263f30(void* p);
+extern "C++" void __cdecl DeleteObj_00263f30(void* p);
 
 void* CDramaticCamera::vfunc_2(unsigned char flag) {
     mVftable = (IRelease*)((int*)DAT_00405754);

@@ -418,7 +418,7 @@ d3dProjectedTextureShader_32cc00* d3dProjectedTextureShader_32cc00::vfunc_3(unsi
 
 
 // 0x0032cc50 pure3d::d3dProjectedTextureShader::vfunc_14 (379 B): equivalent/0x0032cc50.cpp
-// sym: ?vf14@d3dProjectedTextureShader_32cc50@fn_f81ca26d@@UAEXH@Z @5bcc82886e49 @w4aa7949ff387
+// sym: ?vf14@d3dProjectedTextureShader_32cc50@fn_f81ca26d@@UAEXH@Z @5bcc82886e49 @wf1e4faa5ae31
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 14/14)
 // pure3d::d3dProjectedTextureShader::vfunc_14 @ 0x0032cc50
 void d3dProjectedTextureShader_32cc50::vf14(int arg) {

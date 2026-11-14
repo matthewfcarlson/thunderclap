@@ -365,7 +365,7 @@ audio::SeqActionVarPosDist* audio::SeqActionVarPosDist::vfunc_0(int x) {
 
 
 // 0x002532d0 audio::SeqEventVarPosDist::vfunc_2 (66 B): equivalent/0x002532d0.cpp [wrapped: conflict: audio::SeqActionVarPosDist; audio::SeqEventVarPosDist]
-// sym: ?vfunc_2@SeqEventVarPosDist@audio@fn_002532d0@@UAEHPAX@Z @05d423abcc10 @w6735d15eb135
+// sym: ?vfunc_2@SeqEventVarPosDist@audio@fn_002532d0@@UAEHPAX@Z @05d423abcc10 @w80945aa07c8e
 inline void * __cdecl operator new(size_t, void *p) { return p; }
 namespace fn_002532d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)

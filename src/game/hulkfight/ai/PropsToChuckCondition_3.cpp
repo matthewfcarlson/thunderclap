@@ -66,15 +66,15 @@ class BaseCondition {
     virtual bool v1_00234270(void*);
     virtual bool v2_002342b0(int);
     char pad[8];
-    BaseCondition(int) throw();
+    BaseCondition(int);
 };
 class PropsToChuckCondition : public BaseCondition {
   public:
-    PropsToChuckCondition() throw();
+    PropsToChuckCondition();
     int fieldC;
     int field10;
 };
-PropsToChuckCondition::PropsToChuckCondition() throw() : BaseCondition(0) {
+PropsToChuckCondition::PropsToChuckCondition() : BaseCondition(0) {
     fieldC = 0;
     field10 = -1;
 }

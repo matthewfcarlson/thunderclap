@@ -60,7 +60,7 @@ namespace fn_0012acf0 {
 
 class Condition_12acf0 {
   public:
-    Condition_12acf0(int) throw();
+    Condition_12acf0(int);
     virtual void v0();
     virtual bool v1_00234270(void*);
     virtual bool v2_002342b0(int);
@@ -68,7 +68,7 @@ class Condition_12acf0 {
 };
 class TargetFirstShotCondition : public Condition_12acf0 {
   public:
-    TargetFirstShotCondition() throw() : Condition_12acf0(0) { flag = 1; }
+    TargetFirstShotCondition() : Condition_12acf0(0) { flag = 1; }
     virtual void v0();
     char flag;
 };

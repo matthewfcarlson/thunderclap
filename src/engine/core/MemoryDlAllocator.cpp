@@ -931,7 +931,7 @@ struct MemoryDlAllocator {
     virtual void vfunc_7(void*);
 };
 }
-extern "C++" __declspec(nothrow) void __cdecl FUN_0026bd80(void*);
+extern "C++" void __cdecl FUN_0026bd80(void*);
 void core::MemoryDlAllocator::vfunc_7(void* p) {
     if (!p) return;
     DAT_005283a0 = start;
@@ -972,7 +972,7 @@ struct MemoryDlAllocator {
     void vfunc_4(void *p);
 };
 }
-extern "C++" __declspec(nothrow) void __cdecl FUN_0026bd80(void *);
+extern "C++" void __cdecl FUN_0026bd80(void *);
 void core::MemoryDlAllocator::vfunc_4(void *p) {
     if (!p) return;
     DAT_005283a0 = start;
@@ -1055,7 +1055,7 @@ struct MemoryDlAllocator {
     void* vfunc_6(unsigned int a, unsigned int b);
 };
 }
-extern "C++" __declspec(nothrow) void * __cdecl FUN_0026c6a0(unsigned int, unsigned int);
+extern "C++" void * __cdecl FUN_0026c6a0(unsigned int, unsigned int);
 void* core::MemoryDlAllocator::vfunc_6(unsigned int a, unsigned int b) {
     DAT_005283a0 = start;
     DAT_005283a8 = end;

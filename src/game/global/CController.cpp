@@ -168,8 +168,8 @@ struct Item_ae130 {
     char flag;
     void FUN_000b3510(Block_ae130 *a, Block_ae130 *b);
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_000addd0(void *, const void *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_000adf20(void *, const void *);
+extern "C++" void __cdecl FUN_000addd0(void *, const void *);
+extern "C++" void __cdecl FUN_000adf20(void *, const void *);
 class Accumulator_ae130 {
 public:
     char pad0[0x10];

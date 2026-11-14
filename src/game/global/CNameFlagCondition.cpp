@@ -36,11 +36,11 @@ struct ConditionFactoryTemplate_58fa0 {
 };
 struct Base_58fd0 {
     virtual void f0();
-    Base_58fd0() throw();
+    Base_58fd0();
     char pad[0x14];
 };
 struct CNameFlagCondition_58fd0 : Base_58fd0 {
-    CNameFlagCondition_58fd0() throw() {}
+    CNameFlagCondition_58fd0() {}
     virtual void f0();
 };
 extern void* hulk_at_003f97b0[];

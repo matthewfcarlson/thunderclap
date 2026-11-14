@@ -403,7 +403,7 @@ bool owners::X_133400::FUN_00133400(int v) {
 
 // 0x00133420 FUN_00133420 (12 B): matches/0x00133420.cpp
 // sym: ?FUN_00133420@Obj_133420@owners@@QAE_NH@Z
-bool owners::Obj_133420::FUN_00133420(int x) throw() {
+bool owners::Obj_133420::FUN_00133420(int x) {
     mFlag = x;
     return true;
 }

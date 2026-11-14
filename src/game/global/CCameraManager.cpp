@@ -6329,7 +6329,7 @@ void Owner_9dcb0::Make(int id, int a, int b) throw() {
 
 
 // 0x0009dd20 FUN_0009dd20 (6657 B): equivalent/0x0009dd20.cpp [wrapped: macros]
-// sym: ??0CCameraManager@fn_0009dd20@@QAE@XZ @6b14d6b9d7a0 @w48a53ee61f86
+// sym: ??0CCameraManager@fn_0009dd20@@QAE@XZ @6b14d6b9d7a0 @w78b9985087bc
 namespace fn_0009dd20 {
 // STATUS: equivalent (tools/equiv.py level 3: 252 inputs, branch coverage 126/126)
 // FUN_0009dd20 @ 0x0009dd20

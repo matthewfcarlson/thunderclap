@@ -14,7 +14,7 @@ namespace fn_f269dc74 {
 struct T3 {
     char c[3];
 };
-void* __cdecl FUN_0008d690(unsigned int n) throw();
+void* __cdecl FUN_0008d690(unsigned int n);
 class O_3388d0 {
   public:
     void* vptr;
@@ -41,10 +41,10 @@ class O_3388d0 {
     T3 s86a;
     char pad8[5];
     char c872;
-    O_3388d0(hulk_intptr a, int b) throw();
-    void F1_00338640(char* p, const unsigned short* w) throw();
+    O_3388d0(hulk_intptr a, int b);
+    void F1_00338640(char* p, const unsigned short* w);
 };
-O_3388d0::O_3388d0(hulk_intptr a, int b) throw() {
+O_3388d0::O_3388d0(hulk_intptr a, int b) {
     m8 = b;
     vptr = ((void**)&DAT_00434630);
     m14 = (hulk_intptr)FUN_0008d690(b + 0x40);

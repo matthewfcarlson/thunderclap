@@ -101,7 +101,7 @@ struct TimerSource { float FUN_0003eca0(void*); };
 struct Fighter_4d710 { char pad[0x330]; TimerSource* primary; TimerSource* secondary; char pad2[0x54]; float timer; };
 struct Intermediate_4d710 { Fighter_4d710* FUN_00059a30(); };
 struct Context { Intermediate_4d710* FUN_000592a0(); };
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00018960(float,float,float);
+extern "C++" bool __cdecl FUN_00018960(float,float,float);
 struct CGrappleTimerCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual bool vfunc_7(Context*);
  char pad[8]; unsigned operation; float threshold; unsigned char dynamic; char pad2[3]; unsigned index;

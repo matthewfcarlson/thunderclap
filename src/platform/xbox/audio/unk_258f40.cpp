@@ -89,8 +89,8 @@ extern "C" double log10(double);
 #endif
 
 namespace DSOUND {
-extern "C++" __declspec(nothrow) int __stdcall IDirectSoundBuffer_SetMixBinVolumes_8(void* buf, void* vols);
-extern "C++" __declspec(nothrow) int __stdcall IDirectSoundBuffer_SetFrequency(void* buf, int freq);
+extern "C++" int __stdcall IDirectSoundBuffer_SetMixBinVolumes_8(void* buf, void* vols);
+extern "C++" int __stdcall IDirectSoundBuffer_SetFrequency(void* buf, int freq);
 }
 struct Global_258f90 { char pad[0x98]; float volA; float volB; };
 

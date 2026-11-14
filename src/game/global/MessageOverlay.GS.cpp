@@ -20,8 +20,8 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 #endif
 namespace fn_f7094752 {
 struct Holder_d4b60 {
-    unsigned int FUN_000f7d30(const void* s) throw();
-    void* FUN_000f7220(unsigned int id) throw();
+    unsigned int FUN_000f7d30(const void* s);
+    void* FUN_000f7220(unsigned int id);
 };
 struct Face7 {
     virtual void v0();
@@ -60,9 +60,9 @@ struct Lay_d4b60 {
     Elem_d4b60 e[8];
     int idx;
     char pad8c[4];
-    void FUN_000f7fe0(Holder_d4b60* h) throw();
-    void FUN_000f78e0() throw();
-    float FUN_000d4950(const char* s, int fontIdx) throw();
+    void FUN_000f7fe0(Holder_d4b60* h);
+    void FUN_000f78e0();
+    float FUN_000d4950(const char* s, int fontIdx);
 };
 struct Slot_d4b60 {
     unsigned short text[0x100];
@@ -73,7 +73,7 @@ struct Slot_d4b60 {
     int f238;
 };
 struct Hud_d4b60 {
-    void FUN_001ebd00(const char* a, const char* b) throw();
+    void FUN_001ebd00(const char* a, const char* b);
 };
 } // namespace fn_f7094752
 extern char DAT_004de500[0x100];
@@ -90,13 +90,13 @@ union U_4a06b4 {
 } // namespace fn_f7094752
 extern U_4a06b4 DAT_004a06b4;
 namespace fn_f7094752 {
-int __cdecl FUN_000fc020(char* buf, int n, const void* fmt, ...) throw();
-int __cdecl FUN_000fc000(char* buf, int n, const void* fmt, ...) throw();
-int __cdecl FUN_00267760(char* buf, int n, const char* fmt, ...) throw();
-int __cdecl FUN_000fb720(const void* s) throw();
-char __cdecl FUN_000fb6e0(const void* a, const void* b, int n) throw();
-void __cdecl FUN_000fb690(void* dst, const void* src, int n) throw();
-int __cdecl FUN_00294b80(const unsigned short* s) throw();
+int __cdecl FUN_000fc020(char* buf, int n, const void* fmt, ...);
+int __cdecl FUN_000fc000(char* buf, int n, const void* fmt, ...);
+int __cdecl FUN_00267760(char* buf, int n, const char* fmt, ...);
+int __cdecl FUN_000fb720(const void* s);
+char __cdecl FUN_000fb6e0(const void* a, const void* b, int n);
+void __cdecl FUN_000fb690(void* dst, const void* src, int n);
+int __cdecl FUN_00294b80(const unsigned short* s);
 class HudMgr {
   public:
     char pad00[0xc];
@@ -111,10 +111,10 @@ class HudMgr {
     unsigned int f7d0;
     char pad7d4[0x808 - 0x7d4];
     float f808;
-    Slot_d4b60* FUN_000d4390() throw();
-    void FUN_000d4590(const char* s) throw();
-    int FUN_000d4ae0(const char* s, Lay_d4b60* l, Face9* f) throw();
-    void FUN_000d4400(int a, float f) throw();
+    Slot_d4b60* FUN_000d4390();
+    void FUN_000d4590(const char* s);
+    int FUN_000d4ae0(const char* s, Lay_d4b60* l, Face9* f);
+    void FUN_000d4400(int a, float f);
     void FUN_000d4b60(const char* a1, const void* a2, const void* a3, const void* a4, const void* a5,
                       const void* a6, const void* a7);
 };

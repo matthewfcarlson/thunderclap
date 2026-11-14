@@ -334,7 +334,7 @@ namespace fn_0014ec60 {
 // hulkfight::motion::CollisionThrowCondition::vfunc_6 @ 0x0014ec60
 extern char DAT_00494b44;
 extern char DAT_00494b60;
-extern "C++" __declspec(nothrow) void* __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
+extern "C++" void* __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 struct FightTarget {
     virtual void vfunc_0();
     virtual void vfunc_1();

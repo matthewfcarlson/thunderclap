@@ -281,7 +281,7 @@ struct Node {
     hulk_uintptr data;
     Node* next;
 };
-extern "C++" __declspec(nothrow) int __cdecl FUN_0026d8a0(hulk_uintptr*);
+extern "C++" int __cdecl FUN_0026d8a0(hulk_uintptr*);
 // The function ends with the semaphore release, and the drives' requests return what it leaves in eax (0x00272b60's
 // callers): the 64-bit builds return it (the 32-bit spelling with a result allocates registers differently)
 #if defined(HULK_PTR64)

@@ -298,7 +298,7 @@ struct CameraAnimationController {
     void init_00285d70(CameraAnimationController*);
     void finish_00293100(u32_293910);
 };
-extern "C++" __declspec(nothrow) void* __cdecl alloc_00263ea0(unsigned int);
+extern "C++" void* __cdecl alloc_00263ea0(unsigned int);
 extern u32_293910 camera_vtable_293910;
 CameraAnimationController* CameraAnimationController::f4() {
     CameraAnimationController* p = (CameraAnimationController*)alloc_00263ea0(0x118);

@@ -846,7 +846,7 @@ bool owners::Obj_11c160::FUN_0011c160(int x) {
 
 // 0x0011c180 FUN_0011c180 (12 B): matches/0x0011c180.cpp
 // sym: ?FUN_0011c180@A_11c180@owners@@QAE_NH@Z
-bool owners::A_11c180::FUN_0011c180(int v) throw() {
+bool owners::A_11c180::FUN_0011c180(int v) {
     mValue = v;
     return true;
 }

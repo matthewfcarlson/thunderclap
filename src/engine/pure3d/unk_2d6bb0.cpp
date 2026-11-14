@@ -686,7 +686,7 @@ extern "C" void FUN_002e6970(PngStruct_2d6f10 *png, void *errorPtr, void *errorF
 extern "C" void __cdecl FUN_002e69a0(void *, void *);
 void *FUN_002e6c00(PngStruct_2d6f10 *png, unsigned int size);
 extern "C" int FUN_002e6f50(ZStream_2d6f10 *strm, const char *version, int streamSize);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002dd6f0(void *, unsigned int, void *);
+extern "C++" void __cdecl FUN_002dd6f0(void *, unsigned int, void *);
 void FUN_002d6c20();
 void FUN_002d6c80(void*, void*); /* (unb4) as defined; address taken only */
 
@@ -787,9 +787,9 @@ union PngArg {
  // "tRNS"
  // "zTXt"
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_002dd690(void *, void *, unsigned int);
+extern "C++" void __cdecl FUN_002dd690(void *, void *, unsigned int);
 extern "C" unsigned int __cdecl FUN_002e7500(unsigned char *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002d6c90(void *);
+extern "C++" void __cdecl FUN_002d6c90(void *);
 void FUN_002e7580(PngStruct_2d7150* png, void* buf, unsigned int n);
 extern "C" void __cdecl FUN_002e82a0(void *, void *, unsigned int);
 extern "C" void __cdecl FUN_002e69a0(void *, void *);
@@ -810,7 +810,7 @@ extern "C" void __cdecl FUN_002e91b0(void *, void *, unsigned int);
 extern "C" void __cdecl FUN_002e9c60(void *, void *, unsigned);
 void FUN_002e9fc0(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
 
-extern "C++" __declspec(nothrow) int __cdecl FUN_002d6bb0(const char *, unsigned int, unsigned int);
+extern "C++" int __cdecl FUN_002d6bb0(const char *, unsigned int, unsigned int);
 
 void FUN_002d7150(PngArg arg, PngInfo_2d7150* info)
 {
@@ -975,9 +975,9 @@ extern "C" void __cdecl FUN_002e7680(PngStruct_2d7440 *png, unsigned char *row, 
 extern "C" void __cdecl FUN_002ea010(PngStruct_2d7440 *png);                                   // png_read_finish_row
 extern "C" void __cdecl FUN_002e69a0(void *, void *);                  // png_error
 extern "C" int __cdecl FUN_002e81e0(void *, unsigned int);                // png_crc_finish
-extern "C++" __declspec(nothrow) void __cdecl FUN_002dd690(void *, void *, unsigned int);   // png_read_data
+extern "C++" void __cdecl FUN_002dd690(void *, void *, unsigned int);   // png_read_data
 extern "C" unsigned int __cdecl FUN_002e7500(unsigned char *);                       // png_get_uint_31
-extern "C++" __declspec(nothrow) void __cdecl FUN_002d6c90(void *);                                   // png_reset_crc
+extern "C++" void __cdecl FUN_002d6c90(void *);                                   // png_reset_crc
 void __cdecl FUN_002e7580(PngStruct_2d7440 *png, unsigned char *buf, unsigned int size);   // png_crc_read
 extern "C" int __cdecl FUN_002e6f70(ZStream_2d7440 *z, int flush);                             // inflate
 extern "C" void __cdecl FUN_002e7dc0(PngStruct_2d7440 *png, RowInfo_2d7440 *info, unsigned char *row, unsigned char *prev, int filter);
@@ -1154,9 +1154,9 @@ struct PngInfo;
  // "zTXt"
 
 extern "C" int __cdecl FUN_002e81e0(void *, unsigned int);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002dd690(void *, void *, unsigned int);
+extern "C++" void __cdecl FUN_002dd690(void *, void *, unsigned int);
 extern "C" unsigned int __cdecl FUN_002e7500(unsigned char *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002d6c90(void *);
+extern "C++" void __cdecl FUN_002d6c90(void *);
 void FUN_002e7580(PngStruct_2d7980* png, void* buf, unsigned int n);
 extern "C" void __cdecl FUN_002e82a0(void *, void *, unsigned int);
 extern "C" void __cdecl FUN_002e69a0(void *, void *);

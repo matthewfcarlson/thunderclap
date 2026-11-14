@@ -436,17 +436,17 @@ extern char hulk_at_004e6358;
 class Type_24e4c0 {
   public:
     virtual void vf();
-    Type_24e4c0(void*, void*, int, int) throw();
+    Type_24e4c0(void*, void*, int, int);
     unsigned int reserved04;  // records.h OmType
     OmTypeBody body;
 };
 class TypeT_24e4c0 : public Type_24e4c0 {
   public:
     virtual void vf();
-    TypeT_24e4c0() throw() : Type_24e4c0(&hulk_at_004e6358, ((char*)&DAT_004e6350), 0x1c, 4) {}
-    ~TypeT_24e4c0() throw();
+    TypeT_24e4c0() : Type_24e4c0(&hulk_at_004e6358, ((char*)&DAT_004e6350), 0x1c, 4) {}
+    ~TypeT_24e4c0();
 };
-extern void process_00247550(TypeT_24e4c0*, void*) throw();
+extern void process_00247550(TypeT_24e4c0*, void*);
 extern "C" void FUN_0024e4c0(void* p) {
     TypeT_24e4c0 t;
     process_00247550(&t, p);

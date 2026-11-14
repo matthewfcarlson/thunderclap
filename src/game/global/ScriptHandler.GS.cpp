@@ -188,13 +188,13 @@ namespace fn_001d2020 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // FUN_001d2020 @ 0x001d2020
 // cl-flags: /GS
-extern "C++" __declspec(nothrow) int __cdecl FUN_00212d70(LuaVMState*);
+extern "C++" int __cdecl FUN_00212d70(LuaVMState*);
 extern "C" void __cdecl FUN_002135a0(LuaVMState*,int,const char*);
 extern "C" void __cdecl FUN_00212ed0(LuaVMState*,int);
 extern "C" void __cdecl FUN_002139a0(LuaVMState*,int,int);
-extern "C++" __declspec(nothrow) const char* __cdecl FUN_00213190(LuaVMState*,int);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00212d80(LuaVMState*,int);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002133d0(LuaVMState*,const char*);
+extern "C++" const char* __cdecl FUN_00213190(LuaVMState*,int);
+extern "C++" void __cdecl FUN_00212d80(LuaVMState*,int);
+extern "C++" void __cdecl FUN_002133d0(LuaVMState*,const char*);
 extern "C" void __cdecl FUN_00213c40(LuaVMState*);
 extern "C" int __cdecl FUN_00267760(char*,int,const char*,...);
 extern "C" void __cdecl FUN_00212de0(LuaVMState*,int);
@@ -203,9 +203,9 @@ extern "C" void __cdecl FUN_00212de0(LuaVMState*,int);
 #if defined(HULK_PTR64)
 extern "C" int __cdecl FUN_001d0c60(LuaVMState*);
 #else
-extern "C++" __declspec(nothrow) int __cdecl FUN_001d0c60(LuaVMState*,const char*);
+extern "C++" int __cdecl FUN_001d0c60(LuaVMState*,const char*);
 #endif
-extern "C++" __declspec(nothrow) void __cdecl FUN_00212e20(LuaVMState*,int);
+extern "C++" void __cdecl FUN_00212e20(LuaVMState*,int);
 extern "C" int __cdecl FUN_001d2020(LuaVMState* state) {
  char name[64];
  int result=-1;
@@ -297,7 +297,7 @@ extern "C" void FUN_00213340(LuaVMState* L, float f);
 extern "C" void FUN_00213320(LuaVMState* L);
 void FUN_002133d0(LuaVMState* L, char* s);
 extern "C" void FUN_00213550(LuaVMState* L, void* p);
-extern "C++" __declspec(nothrow) void FUN_001d0870(LuaVMState* L, Vec3* v);
+extern "C++" void FUN_001d0870(LuaVMState* L, Vec3* v);
 
 extern "C" int FUN_001d22a0(LuaVMState* L)
 {

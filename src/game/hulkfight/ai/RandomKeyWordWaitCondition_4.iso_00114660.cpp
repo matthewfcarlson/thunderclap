@@ -18,13 +18,13 @@ class BaseCondition {
     virtual bool v1_00234270(void*);
     virtual bool v2_002342b0(int);
     char pad[8];
-    BaseCondition(int) throw();
+    BaseCondition(int);
 };
 class RandomKeyWordWaitCondition_114660 : public ::hulkfight::ai::RandomKeyWordWaitCondition {
   public:
-    RandomKeyWordWaitCondition_114660() throw();
+    RandomKeyWordWaitCondition_114660();
 };
-RandomKeyWordWaitCondition_114660::RandomKeyWordWaitCondition_114660() throw() : ::hulkfight::ai::RandomKeyWordWaitCondition(0) {
+RandomKeyWordWaitCondition_114660::RandomKeyWordWaitCondition_114660() : ::hulkfight::ai::RandomKeyWordWaitCondition(0) {
     f_0c = 0;
     f_10 = 0;}
 } // namespace ai

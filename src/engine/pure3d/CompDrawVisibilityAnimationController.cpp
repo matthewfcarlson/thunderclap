@@ -99,7 +99,7 @@ extern void Free_0008d340(void*);
 class SimpleFrameController_2a80f0 {
   public:
     void* vptr;
-    ~SimpleFrameController_2a80f0() throw();
+    ~SimpleFrameController_2a80f0();
 };
 class CompDrawVisibilityAnimationController_2a80f0 : public SimpleFrameController_2a80f0 {
   public:
@@ -108,7 +108,7 @@ class CompDrawVisibilityAnimationController_2a80f0 : public SimpleFrameControlle
     hulk_intptr a44;
     char q[8];
     void* a50;
-    ~CompDrawVisibilityAnimationController_2a80f0() throw();
+    ~CompDrawVisibilityAnimationController_2a80f0();
 };
 extern int vt1_2a8170;
 extern void Free2_00263f30(void*);
@@ -521,7 +521,7 @@ CompDrawVisibilityAnimationController_2a80c0::CompDrawVisibilityAnimationControl
 
 // 0x002a80f0 FUN_002a80f0 (56 B): matches/0x002a80f0.cpp
 // sym: ??1CompDrawVisibilityAnimationController_2a80f0@fn_fadd80aa@@QAE@XZ
-CompDrawVisibilityAnimationController_2a80f0::~CompDrawVisibilityAnimationController_2a80f0() throw() {
+CompDrawVisibilityAnimationController_2a80f0::~CompDrawVisibilityAnimationController_2a80f0() {
     vptr = &vt1_2a80f0;
     a40 = 0;
     _ReadWriteBarrier();

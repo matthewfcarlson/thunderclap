@@ -104,11 +104,11 @@ struct MetaTypeTree_25fa00 {
 struct MetaType : OmMetaType {
     MetaType* FUN_0025fa00(const char*, int);
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025f390(void *, void *);
+extern "C++" void __cdecl FUN_0025f390(void *, void *);
 struct MetaType_25fa80 : OmMetaType {
     void run();
 };
-extern "C++" __declspec(nothrow) void * __cdecl FUN_0025f670(void *, const char **);
+extern "C++" void * __cdecl FUN_0025f670(void *, const char **);
 extern "C" char DAT_00429420[];
 typedef unsigned int U_25fba0;
 struct MetaTypeAttribBase {
@@ -118,10 +118,10 @@ struct MetaTypeAttribBase {
     U_25fba0 b;
     MetaTypeAttribBase* init(void*, hulk_uintptr, hulk_uintptr);
 };
-extern "C++" __declspec(nothrow) bool __cdecl FUN_0025f450(void *, void *, const char **);
+extern "C++" bool __cdecl FUN_0025f450(void *, void *, const char **);
 extern "C" void FUN_00247550(void* p, om::MetaType* self);
 typedef unsigned int u32_25fc80;
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025fbe0(void *);
+extern "C++" void __cdecl FUN_0025fbe0(void *);
 struct Obj_25fc80 {
     char pad[0x14];
 };
@@ -820,7 +820,7 @@ struct Node { Node* left; Node* right; Node* parent; int color; };
 struct Tree_25f390 { Node* root; Node sentinel; };
 struct Entry_25f390 { int value; Node node; };
 Node* __cdecl FUN_0025e9b0(Tree_25f390*, Node*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025e9f0(void *, void *);
+extern "C++" void __cdecl FUN_0025e9f0(void *, void *);
 extern "C" void __cdecl FUN_0025f390(void * tree_, void * entry_) {
     Tree_25f390 * tree = (Tree_25f390 *)tree_;
     Entry_25f390 * entry = (Entry_25f390 *)entry_;
@@ -886,7 +886,7 @@ struct Tree {
     Node nil;
 };
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025ec50(void *, void *);
+extern "C++" void __cdecl FUN_0025ec50(void *, void *);
 void __cdecl FUN_0025eca0(Tree *t, Node *n);
 
 extern "C" bool FUN_0025f450(void * t_, void * item_, const char **pkey)
@@ -1038,7 +1038,7 @@ struct Node { Node* left; Node* right; Node* parent; unsigned color; };
 struct Tree_25f6e0 { Node* root; Node sentinel; };
 struct Entry_25f6e0 { unsigned data; Node node; };
 extern Node* __cdecl FUN_0025ed00(Tree_25f6e0*,Node*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025ed40(void *, void *);
+extern "C++" void __cdecl FUN_0025ed40(void *, void *);
 extern "C" void __cdecl FUN_0025f6e0(void * tree_, void * entry_) {
     Tree_25f6e0 * tree = (Tree_25f6e0 *)tree_;
     Entry_25f6e0 * entry = (Entry_25f6e0 *)entry_;
@@ -1328,7 +1328,7 @@ MetaTypeAttribBase* MetaTypeAttribBase::init(void* p, hulk_uintptr c, hulk_uintp
 namespace fn_0025fbe0 {
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 7/8, incomplete)
 // FUN_0025fbe0 @ 0x0025fbe0
-struct Link { Link* next; }; struct Node { virtual void destroy(int); Link link; }; struct List { Link* first; Link end; }; extern "C++" __declspec(nothrow) void __cdecl FUN_0025f6e0(void *, void *); extern "C" void __cdecl FUN_0025fbe0(void * list_) {
+struct Link { Link* next; }; struct Node { virtual void destroy(int); Link link; }; struct List { Link* first; Link end; }; extern "C++" void __cdecl FUN_0025f6e0(void *, void *); extern "C" void __cdecl FUN_0025fbe0(void * list_) {
     List * list = (List *)list_; Link* end = &list->end; while (list->first != end) { Link* link = list->first; while (link->next != end) link = link->next; Node* node = (Node*)((char*)link - 4); if (!node) break; FUN_0025f6e0((List *)list, (Node *)node); node->destroy(1); } }
 } // namespace fn_0025fbe0
 

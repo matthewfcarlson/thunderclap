@@ -33,7 +33,7 @@ class BaseCondition {
   public:
     virtual void f();
     char pad[8];
-    BaseCondition(int) throw();
+    BaseCondition(int);
 };
 } }
 namespace hulkfight { namespace motion {
@@ -41,7 +41,7 @@ class ShoreNearCondition_16e1d0 : public BaseCondition {
   public:
     virtual void f();
     bool enabled;
-    ShoreNearCondition_16e1d0(int x) throw() : BaseCondition(x), enabled(true) {}
+    ShoreNearCondition_16e1d0(int x) : BaseCondition(x), enabled(true) {}
 };
 } }
 namespace fn_fde90977 {

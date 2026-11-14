@@ -12,19 +12,19 @@ namespace fn_fb5d7c9c {} using namespace fn_fb5d7c9c;
 namespace fn_fb5d7c9c {
 struct V3_11e4a0 {
     float x, y, z;
-    float FUN_0022d110() throw();
-    float FUN_00018990() throw();
-    void FUN_000344b0(float s) throw();   // scale in place
+    float FUN_0022d110();
+    float FUN_00018990();
+    void FUN_000344b0(float s);   // scale in place
 };
 struct Key_11e4a0 {
     unsigned int lo, hi;
-    void FUN_0027af00() throw();
-    void FUN_0027b040(const char *s) throw();
+    void FUN_0027af00();
+    void FUN_0027b040(const char *s);
 };
 class RefObj_11e4a0 {
 public:
-    virtual void AddRef() throw();
-    virtual void Release() throw();
+    virtual void AddRef();
+    virtual void Release();
     char pad04[4];
     struct Stats_11e4a0 *f08;
     int f0c;
@@ -36,8 +36,8 @@ struct Info_11e4a0 {
     int f140;
 };
 struct Fighter_11e4a0 {
-    Info_11e4a0 *FUN_00059a30() throw();
-    void FUN_00059a50(V3_11e4a0 *out) throw();
+    Info_11e4a0 *FUN_00059a30();
+    void FUN_00059a50(V3_11e4a0 *out);
 };
 struct Sub11c_11e4a0 {
     char pad[0x1b0];
@@ -54,48 +54,48 @@ struct HubMid {
 struct HubSub20 {
     char pad[0x124];
     HubMid *f124;
-    void FUN_00025260(int a, int b, int c) throw();
+    void FUN_00025260(int a, int b, int c);
 };
 struct List_11e4a0 {
     char pad[0x14];
     int count;
-    V3_11e4a0 *FUN_00106160(int i) throw();
+    V3_11e4a0 *FUN_00106160(int i);
 };
 struct Reg18 {
-    List_11e4a0 *FUN_00106230(int key) throw();
+    List_11e4a0 *FUN_00106230(int key);
 };
 struct Locator {
 public:
-    virtual void v0() throw();
-    virtual void v1() throw();
-    virtual void v2() throw();
-    virtual void v3() throw();
-    virtual void v4() throw();
-    virtual void v5() throw();
-    virtual void v6() throw();
-    virtual void v7() throw();
-    virtual V3_11e4a0 *v8(V3_11e4a0 *out) throw();
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual V3_11e4a0 *v8(V3_11e4a0 *out);
 };
 struct Reg28 {
-    const char *FUN_001ff950(V3_11e4a0 pos, int a, int b, float lo, float hi) throw();
-    Locator *FUN_001fc8c0(unsigned __int64 id) throw();
+    const char *FUN_001ff950(V3_11e4a0 pos, int a, int b, float lo, float hi);
+    Locator *FUN_001fc8c0(unsigned __int64 id);
 };
 struct Mgr_11e4a0 {
-    void FUN_001dcf60(int a) throw();
+    void FUN_001dcf60(int a);
 };
 struct Hub1c_11e4a0 {
-    char FUN_001ae2c0(V3_11e4a0 *a, V3_11e4a0 *b, V3_11e4a0 *c, float f1, float f2, float f3, int i1, int i2, int i3, int i4, int i5, float t, float u) throw();
+    char FUN_001ae2c0(V3_11e4a0 *a, V3_11e4a0 *b, V3_11e4a0 *c, float f1, float f2, float f3, int i1, int i2, int i3, int i4, int i5, float t, float u);
 };
 struct Bounds_11e4a0 {
-    int FUN_00088fa0() throw();
-    int FUN_00088fb0() throw();
+    int FUN_00088fa0();
+    int FUN_00088fb0();
 };
 struct Viewport_11e4a0 {
     char pad[0x80];
     Bounds_11e4a0 bounds;
 };
 struct Hub54 {
-    Viewport_11e4a0 *FUN_00086310() throw();
+    Viewport_11e4a0 *FUN_00086310();
 };
 struct Hub_11e4a0 {
     char pad0[0xc];
@@ -112,12 +112,12 @@ struct Hub_11e4a0 {
 struct Stats_11e4a0;
 class Sink_11e4a0 {
 public:
-    virtual void v0() throw();
-    virtual void v1() throw();
-    virtual void v2() throw();
-    virtual void v3() throw();
-    virtual char v4(V3_11e4a0 *a, V3_11e4a0 *b, Stats_11e4a0 *s, Hub_11e4a0 *w, float dt, void *c, V3_11e4a0 *d) throw();
-    char FUN_0010aa90(Hub_11e4a0 *w, V3_11e4a0 *b, V3_11e4a0 *a, float k, V3_11e4a0 *o1, V3_11e4a0 *o2, V3_11e4a0 *r, Stats_11e4a0 *s, RefObj_11e4a0 *obj, int p, int q) throw();
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual char v4(V3_11e4a0 *a, V3_11e4a0 *b, Stats_11e4a0 *s, Hub_11e4a0 *w, float dt, void *c, V3_11e4a0 *d);
+    char FUN_0010aa90(Hub_11e4a0 *w, V3_11e4a0 *b, V3_11e4a0 *a, float k, V3_11e4a0 *o1, V3_11e4a0 *o2, V3_11e4a0 *r, Stats_11e4a0 *s, RefObj_11e4a0 *obj, int p, int q);
 };
 struct SpecialSub_11e4a0 {
     char pad[0x46];
@@ -156,21 +156,21 @@ struct Stats_11e4a0 {
     int f20a8;
     char pad20ac[0x2149 - 0x20ac];
     char b2149;
-    void FUN_00035550(V3_11e4a0 *out) throw();
-    int FUN_00036d30() throw();
-    void FUN_00036e70(Key_11e4a0 *k, int v) throw();
-    void FUN_0003ffa0(RefObj_11e4a0 *t, int z) throw();
+    void FUN_00035550(V3_11e4a0 *out);
+    int FUN_00036d30();
+    void FUN_00036e70(Key_11e4a0 *k, int v);
+    void FUN_0003ffa0(RefObj_11e4a0 *t, int z);
 };
 class Cfg_11e4a0 {
 public:
-    virtual void v0() throw();
-    virtual void v1() throw();
-    virtual void v2() throw();
-    virtual void v3() throw();
-    virtual void v4() throw();
-    virtual void v5() throw();
-    virtual void v6() throw();
-    virtual float v7() throw();
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual float v7();
     char pad04[0x10];
     float f14;
     char pad18[0x34 - 0x18];
@@ -191,7 +191,7 @@ public:
     float f5c;
 };
 struct Clock_11e4a0 {
-    float FUN_00066280() throw();
+    float FUN_00066280();
 };
 } // namespace fn_fb5d7c9c
 extern "C" { extern Hub_11e4a0 *DAT_004dd700; }
@@ -226,13 +226,13 @@ extern int DAT_004e0d28;
 namespace fn_fb5d7c9c {
 void FUN_00363f00();
 } // namespace fn_fb5d7c9c
-unsigned __int64 __cdecl FUN_0027b020(const char *s) throw();
+unsigned __int64 __cdecl FUN_0027b020(const char *s);
 namespace fn_fb5d7c9c {
-char __cdecl FUN_00018960(float a, float b, float eps) throw();
-float __cdecl FUN_000186f0(float *a, float *b) throw();
-float __cdecl FUN_0010b1c0(Hub_11e4a0 *w, Stats_11e4a0 *s, float thr, V3_11e4a0 *out) throw();
-char __cdecl FUN_00036b10(Hub_11e4a0 *w, V3_11e4a0 *a, V3_11e4a0 *b, V3_11e4a0 *c, V3_11e4a0 *d, char *e, char *f) throw();
-Clock_11e4a0 *FUN_000678d0() throw();
+char __cdecl FUN_00018960(float a, float b, float eps);
+float __cdecl FUN_000186f0(float *a, float *b);
+float __cdecl FUN_0010b1c0(Hub_11e4a0 *w, Stats_11e4a0 *s, float thr, V3_11e4a0 *out);
+char __cdecl FUN_00036b10(Hub_11e4a0 *w, V3_11e4a0 *a, V3_11e4a0 *b, V3_11e4a0 *c, V3_11e4a0 *d, char *e, char *f);
+Clock_11e4a0 *FUN_000678d0();
 union FloatBits_11e4a0 {
     float f;
     unsigned int u;
@@ -240,11 +240,11 @@ union FloatBits_11e4a0 {
 namespace hulkfight { namespace ai {
 class PathAction {
 public:
-    virtual void vfunc_0() throw();
-    virtual void vfunc_1() throw();
-    virtual void vfunc_2() throw();
-    virtual void vfunc_3() throw();
-    virtual void vfunc_4() throw();
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
     virtual char vfunc_5(int a, float dt);
     char pad04[0x18];
     char b1c;

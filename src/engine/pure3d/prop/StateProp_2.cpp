@@ -842,7 +842,7 @@ public:
     Name_27d0f0 name;
     char pad10[0x30];
     void FUN_002a3480();
-    DrawableHierarchy() throw() { FUN_002a3480(); }
+    DrawableHierarchy() { FUN_002a3480(); }
 };
 
 namespace prop {
@@ -1713,7 +1713,7 @@ public:
     Name_27def0 name;
     char pad10[0x30];
     void FUN_002a3480();
-    DrawableHierarchy() throw() { FUN_002a3480(); }
+    DrawableHierarchy() { FUN_002a3480(); }
 };
 
 namespace prop {
@@ -1866,7 +1866,7 @@ StateProp::StateProp(Group_27def0 *a, int b)
 
 
 // 0x0027e2d0 FUN_0027e2d0 (481 B): equivalent/0x0027e2d0.cpp [wrapped: conflict: pure3d::prop::StateProp]
-// sym: ??1StateProp@prop@pure3d@fn_0027e2d0@@QAE@XZ @8a7b4f6fbaa0 @w098ce6f78a93
+// sym: ??1StateProp@prop@pure3d@fn_0027e2d0@@QAE@XZ @8a7b4f6fbaa0 @waf0befdb14bd
 namespace fn_0027e2d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 34 inputs, branch coverage 31/34, incomplete)
 // FUN_0027e2d0 @ 0x0027e2d0

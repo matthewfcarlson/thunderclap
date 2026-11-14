@@ -218,7 +218,7 @@ void Registry_b0440::FUN_000b0440(const char* name, CHapticControllerManager* ow
 } // namespace fn_f3cf613f
 
 // 0x000b0500 FUN_000b0500 (440 B): equivalent/0x000b0500.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ??0CHapticControllerManager@fn_000b0500@@QAE@PAVSource_b0500@1@@Z @021097250cbc @wcef1c416b0df
+// sym: ??0CHapticControllerManager@fn_000b0500@@QAE@PAVSource_b0500@1@@Z @021097250cbc @wb659e66f440e
 namespace fn_000b0500 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_000b0500 @ 0x000b0500
@@ -266,7 +266,7 @@ struct HeapObj {
 // Function's fields (include/decls/data/script.h); Method<N> adds the member-function pointer, Closure<N> the object.
 class MethodBase_b0500 : public HeapObj, public ScriptFunctionFields {
   public:
-    MethodBase_b0500(const char* name, int argCount) throw();
+    MethodBase_b0500(const char* name, int argCount);
     virtual void m0();
 };
 
@@ -274,7 +274,7 @@ template <class T, class R>
 class Method0 : public MethodBase_b0500 {
   public:
     typedef R (T::*Fn)();
-    Method0(const char* name, Fn f) throw() : MethodBase_b0500(name, 0), fn(f) {
+    Method0(const char* name, Fn f) : MethodBase_b0500(name, 0), fn(f) {
         retType = FUN_001d04d0(TypeTag<R>::get());
     }
     Fn fn;
@@ -284,7 +284,7 @@ template <class T, class R, class A>
 class Method1 : public MethodBase_b0500 {
   public:
     typedef R (T::*Fn)(A);
-    Method1(const char* name, Fn f) throw() : MethodBase_b0500(name, 1), fn(f) {
+    Method1(const char* name, Fn f) : MethodBase_b0500(name, 1), fn(f) {
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
     }
@@ -295,7 +295,7 @@ template <class T, class R, class A, class B, class C, class D>
 class Method4 : public MethodBase_b0500 {
   public:
     typedef R (T::*Fn)(A, B, C, D);
-    Method4(const char* name, Fn f) throw() : MethodBase_b0500(name, 4), fn(f) {
+    Method4(const char* name, Fn f) : MethodBase_b0500(name, 4), fn(f) {
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
         argTypes[1] = FUN_001d04d0(TypeTag<B>::get());
@@ -308,21 +308,21 @@ class Method4 : public MethodBase_b0500 {
 template <class T, class R>
 class Closure0 : public Method0<T, R> {
   public:
-    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) throw() : Method0<T, R>(name, f), owner(o) {}
+    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) : Method0<T, R>(name, f), owner(o) {}
     T* owner;
 };
 
 template <class T, class R, class A>
 class Closure1 : public Method1<T, R, A> {
   public:
-    Closure1(const char* name, T* o, typename Method1<T, R, A>::Fn f) throw() : Method1<T, R, A>(name, f), owner(o) {}
+    Closure1(const char* name, T* o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
     T* owner;
 };
 
 template <class T, class R, class A, class B, class C, class D>
 class Closure4 : public Method4<T, R, A, B, C, D> {
   public:
-    Closure4(const char* name, T* o, typename Method4<T, R, A, B, C, D>::Fn f) throw()
+    Closure4(const char* name, T* o, typename Method4<T, R, A, B, C, D>::Fn f)
         : Method4<T, R, A, B, C, D>(name, f), owner(o) {}
     T* owner;
 };

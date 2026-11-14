@@ -1954,7 +1954,7 @@ void* pure3d::CompositeDrawable::vfunc_4() {
 
 
 // 0x0029a630 pure3d::OldCompositeDrawableLoader::vfunc_5 (2764 B): equivalent/0x0029a630.cpp [wrapped: macros]
-// sym: ?vfunc_5@OldCompositeDrawableLoader@pure3d@fn_0029a630@@UAEXPAPAUCompositeDrawable@23@PA_KPAUChunk@3@PAULoadInventory@content@3@@Z @564718e2222f @w9fc08a5585a8
+// sym: ?vfunc_5@OldCompositeDrawableLoader@pure3d@fn_0029a630@@UAEXPAPAUCompositeDrawable@23@PA_KPAUChunk@3@PAULoadInventory@content@3@@Z @564718e2222f @we08464febdcd
 inline void* operator new(size_t,void* p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

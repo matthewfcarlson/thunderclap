@@ -64,8 +64,8 @@ struct Id_263c90 {
 };
 extern "C" void __cdecl FUN_00267ad0(Stamp *out);
 extern "C" unsigned int __cdecl FUN_00267f00();
-extern "C++" __declspec(nothrow) void * __cdecl FUN_00263970(void *, const void *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00263bb0(void *, void *);
+extern "C++" void * __cdecl FUN_00263970(void *, const void *);
+extern "C++" void __cdecl FUN_00263bb0(void *, void *);
 struct Pair {
     int a, b;
 };
@@ -523,7 +523,7 @@ struct Node {
     int data;
 };
 void* FUN_00263650(void*, void*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00263690(void *, void *);
+extern "C++" void __cdecl FUN_00263690(void *, void *);
 extern "C" void FUN_00263bb0(void * tree, void * node) {
     Node* nil = (Node*)((char*)((Node *)tree) + 4);
     Node* x;
@@ -613,9 +613,9 @@ namespace fn_00263d40 {
 struct Pair_263d40 {
     int a, b;
 };
-extern "C++" __declspec(nothrow) void * __cdecl FUN_00263970(void *, const void *);
+extern "C++" void * __cdecl FUN_00263970(void *, const void *);
 extern Pair_263d40 __cdecl FUN_00263c90();
-extern "C++" __declspec(nothrow) void __cdecl FUN_00263bb0(void *, void *);
+extern "C++" void __cdecl FUN_00263bb0(void *, void *);
 extern void __cdecl FUN_002639c0(void*, void*, Pair_263d40*);
 class Obj_263d40 {
     char pad[0x18];

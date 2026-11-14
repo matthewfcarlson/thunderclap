@@ -185,7 +185,7 @@ int __cdecl FUN_00262930(int pos, A* b, A* a) {
 namespace fn_002629a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 155 inputs, branch coverage 13/16, incomplete)
 // FUN_002629a0 @ 0x002629a0
-extern "C++" __declspec(nothrow) int __cdecl FUN_002628a0(int, int *, int *);
+extern "C++" int __cdecl FUN_002628a0(int, int *, int *);
 struct State_2629a0 { short first; short second; };
 struct DecodeScratch { int first; int second; const unsigned char *end; unsigned int channels; };
 void __cdecl FUN_002629a0(short *output, const unsigned char *input, unsigned int blocks, unsigned int channels)

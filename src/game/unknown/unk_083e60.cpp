@@ -139,7 +139,7 @@ class Shader_85d30 : public Obj {
     char pad[28];
 
   public:
-    Shader_85d30() throw();
+    Shader_85d30();
 };
 class Obj_85d70 {
   public:

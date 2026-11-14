@@ -1616,7 +1616,7 @@ void FUN_000ff000(Obj* p, int x) {
 } // namespace fn_f54027db
 
 // 0x000ff180 FUN_000ff180 (161 B): equivalent/0x000ff180.cpp [wrapped: conflict: CHand2HandAgent]
-// sym: ??0CHand2HandAgent@fn_000ff180@@QAE@H@Z @3b989f0bb5ed @wceb1c3a0fcee
+// sym: ??0CHand2HandAgent@fn_000ff180@@QAE@H@Z @3b989f0bb5ed @w9ba79a90a10c
 namespace fn_000ff180 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000ff180 @ 0x000ff180

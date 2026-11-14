@@ -402,7 +402,7 @@ public:
     float ratio;
     void FUN_000a1b30(Owner_a1b30 *owner, float dt, bool snap);
 };
-float __cdecl FUN_000a0450(void *v) throw();
+float __cdecl FUN_000a0450(void *v);
 union Bits_a1ca0 {
     float f;
     unsigned int u;
@@ -3950,7 +3950,7 @@ hulk_freg __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
 hulk_freg __cdecl FUN_000a02a0(float v);
 hulk_freg __cdecl FUN_000a03c0(float v, float lo, float hi);
 hulk_freg __cdecl FUN_000a0450(V3* v);
-extern "C++" __declspec(nothrow) char __cdecl FUN_0009ffc0(float a, float b, float c, float* out);
+extern "C++" char __cdecl FUN_0009ffc0(float a, float b, float c, float* out);
 hulk_freg __cdecl FUN_000a05b0(float a, float b, float c, float d, float e);
 V3* __cdecl FUN_0009f8c0(V3* out, float a, float b, float c);
 
@@ -4407,7 +4407,7 @@ void Camera::FUN_000a6400(float a1, float a2) {
 namespace fn_f69c308d {
 
 // 0x000a74c0 FUN_000a74c0 (267 B): equivalent/0x000a74c0.cpp
-// sym: ?target@CChaseCamera_a74c0@fn_f69c308d@@QAEXPAUContext@2@PBD@Z @b18469b1d6e1 @wc09debe98c72
+// sym: ?target@CChaseCamera_a74c0@fn_f69c308d@@QAEXPAUContext@2@PBD@Z @b18469b1d6e1 @w5232220b0ff0
 // STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 18/18)
 // FUN_000a74c0 @ 0x000a74c0
 void CChaseCamera_a74c0::target(Context* context,const char* requested) {

@@ -38,7 +38,7 @@ class FEObject_e9030 {
     Ref_e9030* m64;
     char p4[0x44];
     char* mac;
-    ~FEObject_e9030() throw();
+    ~FEObject_e9030();
 };
 struct Vec2f { float x, y, z; };
 class Ref_e9090 {
@@ -131,7 +131,7 @@ struct FEObject {
 };
 class FEObject_e9240 {
 public:
-    FEObject_e9240(int arg) throw();
+    FEObject_e9240(int arg);
     virtual void v0_000e1360();
     char pad04[0x44 - 4];
     int link;
@@ -139,7 +139,7 @@ public:
 };
 class FEControl : public FEObject_e9240 {
 public:
-    FEControl(int arg) throw();
+    FEControl(int arg);
     virtual void c0_000d79f0(int);
     int slots[10];
     bool flag0;
@@ -159,7 +159,7 @@ void __fastcall FUN_000e9030(CEffectStopTrack*);
 
 // 0x000e9030 FUN_000e9030 (92 B): matches/0x000e9030.cpp
 // sym: ??1FEObject_e9030@fn_faa2c089@@QAE@XZ
-FEObject_e9030::~FEObject_e9030() throw() {
+FEObject_e9030::~FEObject_e9030() {
     vptr = hulk_at_0040c208;
     _ReadWriteBarrier();
     if (m50) {
@@ -253,7 +253,7 @@ int FEObject::vfunc_3() {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000e9240 @ 0x000e9240
 // equiv-map: ??0FEBase@@QAE@H@Z = 0x000e2860
-FEControl::FEControl(int arg) throw() : FEObject_e9240(arg)
+FEControl::FEControl(int arg) : FEObject_e9240(arg)
 {
     for (int i = 0; i < 10; i++)
         slots[i] = 0;

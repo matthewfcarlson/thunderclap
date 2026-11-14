@@ -56,17 +56,17 @@ namespace fn_00132fa0 {
 namespace hulkfight {
 class BaseTrack {
   public:
-    BaseTrack() throw();
+    BaseTrack();
     virtual void v0();
     char pad[8];
 };
 class XPTrack : public BaseTrack {
   public:
-    XPTrack() throw();
+    XPTrack();
     virtual void v0();
     int a, b;
 };
-XPTrack::XPTrack() throw() : BaseTrack(), a(0), b(0) {}
+XPTrack::XPTrack() : BaseTrack(), a(0), b(0) {}
 } // namespace hulkfight
 namespace fight {
 class TrackFactoryTemplate {

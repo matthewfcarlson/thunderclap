@@ -47,7 +47,7 @@ namespace fn_0004b520 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CAxisValueCondition::vfunc_9 @ 0x0004b520
 struct AxisState { char pad[16]; float value; };
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00018960(float, float, float);
+extern "C++" bool __cdecl FUN_00018960(float, float, float);
 struct CAxisTimeCondition {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8();
  virtual bool vfunc_9(void*, AxisState*);

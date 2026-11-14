@@ -18,47 +18,47 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 #endif
 namespace fn_fcad8d96 {
 extern "C" bool __cdecl FUN_002716c0(const char* source, uint_2699f0* length, uint_2699f0* other, int zero);
-extern "C++" __declspec(nothrow) char __cdecl FUN_002716c0(const char*, int*, const char**, void*);
+extern "C++" char __cdecl FUN_002716c0(const char*, int*, const char**, void*);
 extern "C" int __cdecl FUN_002716f0(const char*, char*, int, void*, int*, void*);
 extern "C" char __cdecl FUN_00271b70(const char*, int*, const char**, void*);
 typedef unsigned short wchar16_269ba0;
 extern "C" char __cdecl FUN_00271dd0(const wchar16_269ba0 *, unsigned *, unsigned *, void *);
-extern "C++" __declspec(nothrow) int __cdecl FUN_002716f0(unsigned, char *, int, int, unsigned *, void *);
+extern "C++" int __cdecl FUN_002716f0(unsigned, char *, int, int, unsigned *, void *);
 extern "C" char __cdecl FUN_00272070(const unsigned *, unsigned *, unsigned *, void *);
 extern "C" char __cdecl FUN_00272240(const char*, int*, const char**, void*);
 extern "C" char __cdecl FUN_00271820(const char*, int*, const char**, void*);
 typedef unsigned int uint_269e00;
-extern "C++" __declspec(nothrow) unsigned char __cdecl FUN_00271b70(const char* text, uint_269e00* bytes, uint_269e00* other, int mode);
-extern "C++" __declspec(nothrow) unsigned char __cdecl FUN_002716c0(const char* input, int* consumed, int* parsed, int flags);
+extern "C++" unsigned char __cdecl FUN_00271b70(const char* text, uint_269e00* bytes, uint_269e00* other, int mode);
+extern "C++" unsigned char __cdecl FUN_002716c0(const char* input, int* consumed, int* parsed, int flags);
 extern "C" int __cdecl FUN_00271c00(int parsed, char* output, int available, int mode, int* produced, int flags);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00271c00(const char*, char*, int, void*, int*, void*);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00271c00(unsigned, char *, int, int, unsigned *, void *);
-extern "C++" __declspec(nothrow) char __cdecl FUN_00271dd0(const unsigned short *source, unsigned int *length, unsigned int *end, int flags);
-extern "C++" __declspec(nothrow) unsigned char __cdecl FUN_00271b70(const char* input, int* consumed, int* parsed, int flags);
+extern "C++" int __cdecl FUN_00271c00(const char*, char*, int, void*, int*, void*);
+extern "C++" int __cdecl FUN_00271c00(unsigned, char *, int, int, unsigned *, void *);
+extern "C++" char __cdecl FUN_00271dd0(const unsigned short *source, unsigned int *length, unsigned int *end, int flags);
+extern "C++" unsigned char __cdecl FUN_00271b70(const char* input, int* consumed, int* parsed, int flags);
 extern "C" int __cdecl FUN_00271e40(unsigned int, unsigned short *, unsigned int, unsigned int, unsigned int *, unsigned int *);
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00272070(const unsigned *source, int *srcBytes, int *units, int options);
-extern "C++" __declspec(nothrow) unsigned char __cdecl FUN_00272240(const char* input, int* consumed, int* parsed, int flags);
+extern "C++" bool __cdecl FUN_00272070(const unsigned *source, int *srcBytes, int *units, int options);
+extern "C++" unsigned char __cdecl FUN_00272240(const char* input, int* consumed, int* parsed, int flags);
 typedef unsigned short wchar16_26a600;
-extern "C++" __declspec(nothrow) char __cdecl FUN_00271820(const char *, unsigned *, unsigned *, void *);
+extern "C++" char __cdecl FUN_00271820(const char *, unsigned *, unsigned *, void *);
 typedef unsigned int uint_26a6b0;
-extern "C++" __declspec(nothrow) unsigned char __cdecl FUN_00272070(const char* text, uint_26a6b0* bytes, uint_26a6b0* other, int mode);
+extern "C++" unsigned char __cdecl FUN_00272070(const char* text, uint_26a6b0* bytes, uint_26a6b0* other, int mode);
 extern "C" int __cdecl FUN_002720b0(int parsed, char* output, int available, int mode, int* produced, int flags);
-extern "C++" __declspec(nothrow) char __cdecl FUN_00271b70(const char *, unsigned *, unsigned *, void *);
-extern "C++" __declspec(nothrow) int __cdecl FUN_002720b0(unsigned, unsigned *, int, int, unsigned *, void *);
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00271dd0(const unsigned short *source, int *srcBytes, int *units, int options);
-extern "C++" __declspec(nothrow) unsigned char __cdecl FUN_00272070(const int* input, int* consumed, int* parsed, int flags);
-extern "C++" __declspec(nothrow) char __cdecl FUN_00272240(const char *, unsigned *, unsigned *, void *);
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00271820(const char *source, int *srcBytes, int *units, int options);
+extern "C++" char __cdecl FUN_00271b70(const char *, unsigned *, unsigned *, void *);
+extern "C++" int __cdecl FUN_002720b0(unsigned, unsigned *, int, int, unsigned *, void *);
+extern "C++" bool __cdecl FUN_00271dd0(const unsigned short *source, int *srcBytes, int *units, int options);
+extern "C++" unsigned char __cdecl FUN_00272070(const int* input, int* consumed, int* parsed, int flags);
+extern "C++" char __cdecl FUN_00272240(const char *, unsigned *, unsigned *, void *);
+extern "C++" bool __cdecl FUN_00271820(const char *source, int *srcBytes, int *units, int options);
 typedef unsigned int uint_26ab60;
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00272240(const char* source, uint_26ab60* length, uint_26ab60* other, int zero);
-extern "C++" __declspec(nothrow) char __cdecl FUN_002716c0(const char *, unsigned *, unsigned *, void *);
+extern "C++" bool __cdecl FUN_00272240(const char* source, uint_26ab60* length, uint_26ab60* other, int zero);
+extern "C++" char __cdecl FUN_002716c0(const char *, unsigned *, unsigned *, void *);
 extern "C" int __cdecl FUN_002722b0(unsigned, char *, int, int, unsigned *, void *);
-extern "C++" __declspec(nothrow) int __cdecl FUN_002722b0(const char*, char*, int, void*, int*, void*);
+extern "C++" int __cdecl FUN_002722b0(const char*, char*, int, void*, int*, void*);
 typedef unsigned int uint_26af70;
-extern "C++" __declspec(nothrow) unsigned char __cdecl FUN_00271820(const char* text, uint_26af70* bytes, uint_26af70* other, int mode);
+extern "C++" unsigned char __cdecl FUN_00271820(const char* text, uint_26af70* bytes, uint_26af70* other, int mode);
 extern "C" int __cdecl FUN_00271870(int parsed, char* output, int available, int mode, int* produced, int flags);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00271870(const char*, char*, int, void*, int*, void*);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00271870(unsigned, char *, int, int, unsigned *, void *);
+extern "C++" int __cdecl FUN_00271870(const char*, char*, int, void*, int*, void*);
+extern "C++" int __cdecl FUN_00271870(unsigned, char *, int, int, unsigned *, void *);
 extern "C" int __cdecl FUN_002699f0(int c, int a, int limit);
 extern "C" int __cdecl FUN_00269a80(const char *, char *, void *, int, void *);
 extern "C" int __cdecl FUN_00269b10(const char *, char *, void *, int, void *);
@@ -69,14 +69,14 @@ extern "C" int __cdecl FUN_00269d70(const char *, char *, void *, int, void *);
 extern "C" int __cdecl FUN_00269e00(int c, int a, int limit);
 extern "C" int __cdecl FUN_00269e90(const char *, char *, int, int, int);
 extern "C" int __cdecl FUN_00269f20(const char *, char *, void *, int, void *);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00269fb0(const unsigned short *, char *, int, int, void *);
+extern "C++" int __cdecl FUN_00269fb0(const unsigned short *, char *, int, int, void *);
 extern "C" int __cdecl FUN_0026a050(const unsigned *, char *, int, int, void *);
 extern "C" int __cdecl FUN_0026a0f0(const char *, char *, void *, int, void *);
 extern "C" int __cdecl FUN_0026a180(const char *, char *, void *, int, void *);
 extern "C" int __cdecl FUN_0026a210(const unsigned short *, char *, unsigned int);
-extern "C++" __declspec(nothrow) int __cdecl FUN_0026a2a0(const char *, char *, int, int, int);
+extern "C++" int __cdecl FUN_0026a2a0(const char *, char *, int, int, int);
 extern "C" int __cdecl FUN_0026a350(const char *, char *, int, int, int);
-extern "C++" __declspec(nothrow) int __cdecl FUN_0026a400(const unsigned short *, unsigned short *, int, int, void *);
+extern "C++" int __cdecl FUN_0026a400(const unsigned short *, unsigned short *, int, int, void *);
 extern "C" int __cdecl FUN_0026a4a0(const unsigned *, char *, int, int, int);
 extern "C" int __cdecl FUN_0026a550(const char *, char *, int, int, int);
 extern "C" int __cdecl FUN_0026a600(const char *, unsigned short *, int, int, void *);
@@ -90,14 +90,14 @@ extern "C" int __cdecl FUN_0026aab0(const char *, char *, int, int, int);
 extern "C" int __cdecl FUN_0026ab60(int c, int a, int limit);
 extern "C" int __cdecl FUN_0026abf0(const char *, char *, int, int, void *);
 extern "C" int __cdecl FUN_0026ac80(const char *, char *, void *, int, void *);
-extern "C++" __declspec(nothrow) int __cdecl FUN_0026ad10(const unsigned short *, char *, int, int, void *);
+extern "C++" int __cdecl FUN_0026ad10(const unsigned short *, char *, int, int, void *);
 extern "C" int __cdecl FUN_0026adb0(const unsigned *, char *, int, int, void *);
 extern "C" int __cdecl FUN_0026ae50(const char *, char *, void *, int, void *);
 extern "C" int __cdecl FUN_0026aee0(const char *, char *, void *, int, void *);
 extern "C" int __cdecl FUN_0026af70(int c, int a, int limit);
 extern "C" int __cdecl FUN_0026b000(const char *, char *, int, int, int);
 extern "C" int __cdecl FUN_0026b090(const char *, char *, void *, int, void *);
-extern "C++" __declspec(nothrow) int __cdecl FUN_0026b120(const unsigned short *, char *, int, int, void *);
+extern "C++" int __cdecl FUN_0026b120(const unsigned short *, char *, int, int, void *);
 extern "C" int __cdecl FUN_0026b1c0(const unsigned *, char *, int, int, void *);
 extern "C" int __cdecl FUN_0026b260(const char *, char *, void *, int, void *);
 extern "C" int __cdecl FUN_0026b2f0(const char *, char *, void *, int, void *);
@@ -406,8 +406,8 @@ namespace fn_00269fb0 {
 // FUN_00269fb0 @ 0x00269fb0
 // FUN_00269fb0 converts a string of 16-bit code units to bytes, one decoded unit at a time
 typedef unsigned short wchar16_269fb0;
-extern "C++" __declspec(nothrow) char __cdecl FUN_00271dd0(const wchar16_269fb0 *, unsigned *, unsigned *, void *);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00271c00(unsigned, char *, int, int, unsigned *, void *);
+extern "C++" char __cdecl FUN_00271dd0(const wchar16_269fb0 *, unsigned *, unsigned *, void *);
+extern "C++" int __cdecl FUN_00271c00(unsigned, char *, int, int, unsigned *, void *);
 
 // equiv-conv: FUN_00269fb0 eax ecx stack stack stack
 extern "C" int __cdecl FUN_00269fb0(const unsigned short *source, char *destination, int input, int capacity, void *options) {
@@ -555,7 +555,7 @@ namespace fn_0026a2a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 12/12)
 // FUN_0026a2a0 @ 0x0026a2a0
 // equiv-conv: FUN_0026a2a0 eax ecx stack stack stack
-extern "C++" __declspec(nothrow) bool __cdecl FUN_002716c0(const char *source, int *srcBytes, int *units, int options);
+extern "C++" bool __cdecl FUN_002716c0(const char *source, int *srcBytes, int *units, int options);
 extern "C" int __cdecl FUN_00271e40(unsigned int, unsigned short *, unsigned int, unsigned int, unsigned int *, unsigned int *);
 
 extern "C" int __cdecl FUN_0026a2a0(const char *source, char *destination, int mode, int capacity, int options)
@@ -619,7 +619,7 @@ namespace fn_0026a400 {
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 10/10)
 // FUN_0026a400 @ 0x0026a400
 typedef unsigned short wchar16_26a400;
-extern "C++" __declspec(nothrow) char __cdecl FUN_00271dd0(const wchar16_26a400 *, unsigned *, unsigned *, void *);
+extern "C++" char __cdecl FUN_00271dd0(const wchar16_26a400 *, unsigned *, unsigned *, void *);
 extern "C" int __cdecl FUN_00271e40(unsigned int, unsigned short *, unsigned int, unsigned int, unsigned int *, unsigned int *);
 
 // equiv-conv: FUN_0026a400 eax ecx stack stack stack
@@ -1008,7 +1008,7 @@ namespace fn_0026ad10 {
 // FUN_0026ad10 @ 0x0026ad10
 // FUN_0026ad10 converts a string of 16-bit code units to bytes, one decoded unit at a time
 typedef unsigned short wchar16_26ad10;
-extern "C++" __declspec(nothrow) char __cdecl FUN_00271dd0(const wchar16_26ad10 *, unsigned *, unsigned *, void *);
+extern "C++" char __cdecl FUN_00271dd0(const wchar16_26ad10 *, unsigned *, unsigned *, void *);
 extern "C" int __cdecl FUN_002722b0(unsigned, char *, int, int, unsigned *, void *);
 
 // equiv-conv: FUN_0026ad10 eax ecx stack stack stack
@@ -1215,8 +1215,8 @@ namespace fn_0026b120 {
 // FUN_0026b120 @ 0x0026b120
 // FUN_0026b120 converts a string of 16-bit code units to bytes, one decoded unit at a time
 typedef unsigned short wchar16_26b120;
-extern "C++" __declspec(nothrow) char __cdecl FUN_00271dd0(const wchar16_26b120 *, unsigned *, unsigned *, void *);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00271870(unsigned, char *, int, int, unsigned *, void *);
+extern "C++" char __cdecl FUN_00271dd0(const wchar16_26b120 *, unsigned *, unsigned *, void *);
+extern "C++" int __cdecl FUN_00271870(unsigned, char *, int, int, unsigned *, void *);
 
 // equiv-conv: FUN_0026b120 eax ecx stack stack stack
 extern "C" int __cdecl FUN_0026b120(const unsigned short *source, char *destination, int input, int capacity, void *options) {

@@ -663,7 +663,7 @@ namespace fn_002e69a0 {
 // FUN_002e69a0 @ 0x002e69a0
 // FUN_002e69a0 @ 0x002e69a0
 struct Item { char pad[0x40]; void (__cdecl *callback)(Item *, void *); };
-extern "C++" __declspec(nothrow) void __cdecl FUN_002e6930(void *);
+extern "C++" void __cdecl FUN_002e6930(void *);
 void __cdecl FUN_002e69a0(Item *item, void *context) {
     if (item->callback) item->callback(item, context);
     FUN_002e6930((Item *)item);
@@ -1151,7 +1151,7 @@ extern "C" int __cdecl FUN_002e75b0(void * p) {
 // 0x002e7620 FUN_002e7620 (93 B): matches/0x002e7620.cpp [wrapped: lost its match in the tree (call sequence differs)]
 // sym: ?Check@fn_002e7620@@YAXIPBD@Z
 namespace fn_002e7620 {
-extern "C++" __declspec(nothrow) void __cdecl FUN_002e69f0(void *, void *);
+extern "C++" void __cdecl FUN_002e69f0(void *, void *);
 void Check(unsigned int unused, const char* s) {
     unsigned char c;
     c = (unsigned char)s[0];
@@ -1627,9 +1627,9 @@ struct Context {
  unsigned char mode;
 };
 extern void __cdecl FUN_002e7580(Context*, void*, unsigned int);
-extern "C++" __declspec(nothrow) int __cdecl FUN_002e75b0(void *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002e6a20(void *, void *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002e69f0(void *, void *);
+extern "C++" int __cdecl FUN_002e75b0(void *);
+extern "C++" void __cdecl FUN_002e6a20(void *, void *);
+extern "C++" void __cdecl FUN_002e69f0(void *, void *);
 int __cdecl FUN_002e81e0(Context* context, unsigned int count) {
  unsigned int chunk = context->chunkSize;
  while (count > chunk) {
@@ -2191,7 +2191,7 @@ void __cdecl FUN_002e69d0(png_struct_2e91b0 *png_ptr, const char *msg);
 int __cdecl FUN_002e81e0(png_struct_2e91b0 *png_ptr, unsigned int skip);
 unsigned char *__cdecl FUN_002e6c00(png_struct_2e91b0 *png_ptr, unsigned int size);
 void __cdecl FUN_002e7580(png_struct_2e91b0 *png_ptr, unsigned char *buf, unsigned int length);
-extern "C++" __declspec(nothrow) unsigned short __cdecl FUN_002e7560(const unsigned char *);
+extern "C++" unsigned short __cdecl FUN_002e7560(const unsigned char *);
 void __cdecl FUN_002eb720(png_struct_2e91b0 *png_ptr, png_info_2e91b0 *info_ptr, unsigned char *trans, int num_trans,
                           png_color_16_2e91b0 *trans_values);
 
@@ -2301,7 +2301,7 @@ void __cdecl FUN_002e69a0(png_struct_2e93b0 *png_ptr, const char *msg);
 void __cdecl FUN_002e69d0(png_struct_2e93b0 *png_ptr, const char *msg);
 int __cdecl FUN_002e81e0(png_struct_2e93b0 *png_ptr, unsigned int skip);
 void __cdecl FUN_002e7580(png_struct_2e93b0 *png_ptr, unsigned char *buf, unsigned int length);
-extern "C++" __declspec(nothrow) unsigned short __cdecl FUN_002e7560(const unsigned char *);
+extern "C++" unsigned short __cdecl FUN_002e7560(const unsigned char *);
 void __cdecl FUN_002eb150(png_struct_2e93b0 *png_ptr, png_info_2e93b0 *info_ptr, png_color_16_2e93b0 *background);
 
 void png_handle_bKGD(png_struct_2e93b0 *png_ptr, png_info_2e93b0 *info_ptr, unsigned int length)
@@ -2383,7 +2383,7 @@ void FUN_002e69d0(png_struct_2e9570 *png, const char *msg);
 int FUN_002e81e0(png_struct_2e9570 *png, unsigned int skip);
 unsigned short *FUN_002e6c00(png_struct_2e9570 *png, unsigned int size);
 void FUN_002e7580(png_struct_2e9570 *png, unsigned char *buf, unsigned int length);
-extern "C++" __declspec(nothrow) unsigned short __cdecl FUN_002e7560(const unsigned char *);
+extern "C++" unsigned short __cdecl FUN_002e7560(const unsigned char *);
 void FUN_002eb220(png_struct_2e9570 *png, png_info_2e9570 *info, unsigned short *hist);
 
 extern "C" void FUN_002e9570(png_struct_2e9570 *png, png_info_2e9570 *info, int length)
@@ -2436,11 +2436,11 @@ namespace fn_002e96a0 {
 struct Png_2e96a0 { char pad[0x60]; unsigned flags; };
 struct Info_2e96a0 { char pad[8]; signed char flags; };
 struct PhysData { unsigned char x[4]; unsigned char y[4]; unsigned char unit; };
-extern "C++" __declspec(nothrow) void __cdecl FUN_002e69a0(Png_2e96a0*, const char*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002e69d0(Png_2e96a0*, const char*);
-extern "C++" __declspec(nothrow) int __cdecl FUN_002e81e0(Png_2e96a0*, unsigned);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002e7580(Png_2e96a0*, void*, unsigned);
-extern "C++" __declspec(nothrow) unsigned __cdecl FUN_002e7500(unsigned char*);
+extern "C++" void __cdecl FUN_002e69a0(Png_2e96a0*, const char*);
+extern "C++" void __cdecl FUN_002e69d0(Png_2e96a0*, const char*);
+extern "C++" int __cdecl FUN_002e81e0(Png_2e96a0*, unsigned);
+extern "C++" void __cdecl FUN_002e7580(Png_2e96a0*, void*, unsigned);
+extern "C++" unsigned __cdecl FUN_002e7500(unsigned char*);
 extern "C" int __cdecl FUN_002eb480(Png_2e96a0*, Info_2e96a0*, unsigned, unsigned, unsigned);
 extern "C" int __cdecl FUN_002e96a0(Png_2e96a0* png, Info_2e96a0* info, unsigned length) {
     unsigned flags = png->flags;
@@ -2476,11 +2476,11 @@ namespace fn_002e9790 {
 // FUN_002e9790 @ 0x002e9790
 struct State_2e9790 { char pad[0x60]; unsigned flags; };
 struct Info_2e9790 { char pad[8]; unsigned flags; };
-extern "C++" __declspec(nothrow) void __cdecl FUN_002e69a0(State_2e9790*, const char*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002e69d0(State_2e9790*, const char*);
-extern "C++" __declspec(nothrow) int __cdecl FUN_002e81e0(State_2e9790*, unsigned);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002e7580(State_2e9790*, void*, unsigned);
-extern "C++" __declspec(nothrow) unsigned __cdecl FUN_002e7500(const void*);
+extern "C++" void __cdecl FUN_002e69a0(State_2e9790*, const char*);
+extern "C++" void __cdecl FUN_002e69d0(State_2e9790*, const char*);
+extern "C++" int __cdecl FUN_002e81e0(State_2e9790*, unsigned);
+extern "C++" void __cdecl FUN_002e7580(State_2e9790*, void*, unsigned);
+extern "C++" unsigned __cdecl FUN_002e7500(const void*);
 extern "C" int __cdecl FUN_002eb2f0(State_2e9790*, Info_2e9790*, unsigned, unsigned, unsigned);
 extern "C" int __cdecl FUN_002e9790(State_2e9790* s, Info_2e9790* info, unsigned length) {
  if (!(s->flags & 1)) FUN_002e69a0(s, "Missing IHDR before oFFs");
@@ -2522,7 +2522,7 @@ int __cdecl FUN_002e81e0(png_struct_2e9880 *png_ptr, unsigned int skip);
 void *__cdecl FUN_002e6c00(png_struct_2e9880 *png_ptr, unsigned int size);
 void __cdecl FUN_002e6c40(png_struct_2e9880 *png_ptr, void *ptr);
 void __cdecl FUN_002e7580(png_struct_2e9880 *png_ptr, unsigned char *buf, unsigned int length);
-extern "C++" __declspec(nothrow) unsigned int __cdecl FUN_002e7530(unsigned char *);
+extern "C++" unsigned int __cdecl FUN_002e7530(unsigned char *);
 void __cdecl FUN_002eb330(png_struct_2e9880 *png_ptr, png_info_2e9880 *info_ptr, char *purpose, int X0, int X1,
                           int type, int nparams, char *units, char **params);
 
@@ -2624,7 +2624,7 @@ extern void __cdecl FUN_002e69a0(Png_2e9ac0*, const char*);
 extern void __cdecl FUN_002e69d0(Png_2e9ac0*, const char*);
 extern int __cdecl FUN_002e81e0(Png_2e9ac0*, unsigned);
 extern void __cdecl FUN_002e7580(Png_2e9ac0*, unsigned char*, unsigned);
-extern "C++" __declspec(nothrow) unsigned short __cdecl FUN_002e7560(const unsigned char *);
+extern "C++" unsigned short __cdecl FUN_002e7560(const unsigned char *);
 extern int __cdecl FUN_002eb6f0(Png_2e9ac0*, Info_2e9ac0*, Time*);
 extern "C" int __cdecl FUN_002e9ac0(Png_2e9ac0* png, Info_2e9ac0* info, unsigned length) {
  if (!(png->flags & 1)) FUN_002e69a0(png, "Out of place tIME chunk");
@@ -2810,7 +2810,7 @@ namespace fn_002e9fc0 {
 typedef unsigned int u32_2e9fc0;
 typedef unsigned char u8;
 extern void Parse_002e7620(void*, u8*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002e69f0(void *, void *);
+extern "C++" void __cdecl FUN_002e69f0(void *, void *);
 extern void Continue_002e81e0(void*, u32_2e9fc0);
 extern "C" void FUN_002e9fc0(void* self, hulk_uintptr param2, u32_2e9fc0 param3) {
     u8* flag = (u8*)self + 0x114;

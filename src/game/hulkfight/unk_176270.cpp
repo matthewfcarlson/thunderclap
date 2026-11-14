@@ -78,12 +78,12 @@ class Action_176370 {
   public:
     void* vptr;
 };
-void Free(void*) throw();
+void Free(void*);
 struct Sub_176370 {
     char c;
 };
-void __fastcall SubFini(Sub_176370*) throw();
-void __fastcall SubFini2(Sub_176370*) throw();
+void __fastcall SubFini(Sub_176370*);
+void __fastcall SubFini2(Sub_176370*);
 class MoveJointAction_176370 : public Action_176370 {
   public:
     char p1c[24];
@@ -91,7 +91,7 @@ class MoveJointAction_176370 : public Action_176370 {
     Ref_176370* m20;
     Ref_176370* m24;
     Ref_176370* m28;
-    ~MoveJointAction_176370() throw();
+    ~MoveJointAction_176370();
 };
 struct Vec_1763c0 { unsigned x,y,z; };
 struct Matrix { char data[64]; void FUN_0022c2b0(Vec_1763c0*,Vec_1763c0*); };
@@ -254,7 +254,7 @@ MoveJointAction_176300::MoveJointAction_176300(int p, Ref_176300* r) {
 
 // 0x00176370 FUN_00176370 (74 B): matches/0x00176370.cpp
 // sym: ??1MoveJointAction_176370@fn_fb68229a@@QAE@XZ
-MoveJointAction_176370::~MoveJointAction_176370() throw() {
+MoveJointAction_176370::~MoveJointAction_176370() {
     vptr = hulk_at_00417fb8;
     _ReadWriteBarrier();
     if (m24) {

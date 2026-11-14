@@ -26,10 +26,10 @@ class X {
     short pad;
     short value;
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_0023fa40(char **, char *, unsigned int, int);
+extern "C++" void __cdecl FUN_0023fa40(char **, char *, unsigned int, int);
 struct StringHeader_23fbb0 { unsigned int capacity; unsigned short references; unsigned short reserved; };
 extern void __cdecl FUN_00247570(StringHeader_23fbb0*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
+extern "C++" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 void __cdecl FUN_00247570(void* p);
 class SharedStr;
 class SharedStr {

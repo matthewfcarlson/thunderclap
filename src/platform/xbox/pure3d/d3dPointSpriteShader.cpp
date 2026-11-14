@@ -27,7 +27,7 @@ class d3dPointSpriteShader_32d0f0 : public d3dShader_32d0f0 {
   public:
     char pad[0x80 - 4];
     Ref_32d0f0* m80;
-    ~d3dPointSpriteShader_32d0f0() throw();
+    ~d3dPointSpriteShader_32d0f0();
 };
 class pddiObject_32d150 {
   public:
@@ -184,7 +184,7 @@ namespace fn_f3432927 {
 
 // 0x0032d0f0 FUN_0032d0f0 (32 B): matches/0x0032d0f0.cpp
 // sym: ??1d3dPointSpriteShader_32d0f0@fn_f3432927@@QAE@XZ
-d3dPointSpriteShader_32d0f0::~d3dPointSpriteShader_32d0f0() throw() {
+d3dPointSpriteShader_32d0f0::~d3dPointSpriteShader_32d0f0() {
     Ref_32d0f0* a = m80;
     vptr = (void**)DAT_00433b14;
     if (a)

@@ -89,7 +89,7 @@ class HSlider_e9ff0 {
     Ref_e9ff0* m190;
     Ref_e9ff0* a[10];
     Ref_e9ff0* b[10];
-    ~HSlider_e9ff0() throw();
+    ~HSlider_e9ff0();
 };
 struct Receiver_ea0c0 {
     virtual void vfunc_0();
@@ -183,7 +183,7 @@ HSlider::HSlider(int arg) : FUN_000e9240(arg) {
 
 // 0x000e9ff0 FUN_000e9ff0 (205 B): matches/0x000e9ff0.cpp
 // sym: ??1HSlider_e9ff0@fn_f12e8a1b@@QAE@XZ
-HSlider_e9ff0::~HSlider_e9ff0() throw() {
+HSlider_e9ff0::~HSlider_e9ff0() {
     vptr = hulk_at_0040c48c;
     if (m180)
         ((owners::Obj_f8c30 *)(ma8->m8))->FUN_000f8c30((const char *)(m180 + 0x18));

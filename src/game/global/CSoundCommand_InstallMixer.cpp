@@ -14,10 +14,10 @@ namespace fn_f3b01e83 { extern "C" char DAT_004245a4[]; }   // (x64t6) the game 
 // ---- declarations shared by the functions below
 namespace fn_f3b01e83 {
 struct CSoundCommand_1ef730 {
-    virtual void v0() throw();
-    virtual void v1() throw();
+    virtual void v0();
+    virtual void v1();
     int p4, p8, pc;
-    CSoundCommand_1ef730() throw() {
+    CSoundCommand_1ef730() {
         p4 = 0;
         p8 = 0;
         pc = 0;
@@ -26,8 +26,8 @@ struct CSoundCommand_1ef730 {
 struct CSoundCommand_InstallMixer_1ef730 : CSoundCommand_1ef730 {
     char name[0x20];
     int p30;
-    CSoundCommand_InstallMixer_1ef730(const char* s, int v, int unused) throw();
-    virtual void v0() throw();
+    CSoundCommand_InstallMixer_1ef730(const char* s, int v, int unused);
+    virtual void v0();
 };
 class CSoundCommand_1ef770 {
   public:
@@ -70,7 +70,7 @@ class CSoundCommand_InstallMixer : public CSoundCommand {
 
 // 0x001ef730 FUN_001ef730 (60 B): matches/0x001ef730.cpp
 // sym: ??0CSoundCommand_InstallMixer_1ef730@fn_f3b01e83@@QAE@PBDHH@Z
-CSoundCommand_InstallMixer_1ef730::CSoundCommand_InstallMixer_1ef730(const char* s, int v, int unused) throw() {
+CSoundCommand_InstallMixer_1ef730::CSoundCommand_InstallMixer_1ef730(const char* s, int v, int unused) {
     strcpy(name, s);
     p30 = v;
 }

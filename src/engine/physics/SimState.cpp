@@ -123,7 +123,7 @@ struct Motion_2ef760 {
 extern "C" void __cdecl FUN_00305630(Vec3_2ef760 *out, Pose *a, Pose *b, float dt);
 struct Sub_2ef7f0 {
     char pad[0x40];
-    void Init_0022b980() throw();
+    void Init_0022b980();
 };
 class SimState_2ef7f0 {
   public:
@@ -139,7 +139,7 @@ class SimState_2ef7f0 {
     char c78;
     int m7c, m80;
     char c84, c85;
-    SimState_2ef7f0(int a) throw();
+    SimState_2ef7f0(int a);
 };
 typedef char hulk_size_2ef7f0[(sizeof(SimState_2ef7f0) == sizeof(HulkSimState)) ? 1 : -1];   // (x64t6) the record's size on every build
 extern "C" char DAT_003f6098[];
@@ -518,7 +518,7 @@ void __cdecl FUN_002ef760(Pose *from, Pose *to, float scale, float dt, Motion_2e
 
 // 0x002ef7f0 FUN_002ef7f0 (96 B): matches/0x002ef7f0.cpp
 // sym: ??0SimState_2ef7f0@fn_f89b78b9@@QAE@H@Z
-SimState_2ef7f0::SimState_2ef7f0(int a) throw() {
+SimState_2ef7f0::SimState_2ef7f0(int a) {
     int t = *(volatile int*)&a;
     m4 = 0;
     vptr = (void*)DAT_00431214;   // (x64t5) physics::SimState's vftable by address (common.h's `vA` is a zero stub natively)

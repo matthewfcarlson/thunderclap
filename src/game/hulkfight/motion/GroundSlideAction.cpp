@@ -124,19 +124,19 @@ class InterruptPriorityAction_1510b0 : public Action_1510b0 {
 };
 class RefCounted_1510f0 {
   public:
-    virtual void AddRef() throw() = 0;
-    virtual void Release() throw() = 0;
+    virtual void AddRef() = 0;
+    virtual void Release() = 0;
 };
 class Action_1510f0 {
   public:
-    Action_1510f0() throw();
-    virtual void BaseVirtual_00018b30() throw();
+    Action_1510f0();
+    virtual void BaseVirtual_00018b30();
     char pad[0x18];
 };
 class HitWaitAction : public Action_1510f0 {
   public:
-    HitWaitAction(void* a, RefCounted_1510f0* b) throw();
-    virtual void V1_00018b40() throw();
+    HitWaitAction(void* a, RefCounted_1510f0* b);
+    virtual void V1_00018b40();
     void* mA;
     RefCounted_1510f0* mB;
     int mC;
@@ -284,7 +284,7 @@ class HitPauseAction_151770 : public Action_151770 {
     char pad[0x1c - 4];
     void* m1c;
     Ref_151770* m20;
-    ~HitPauseAction_151770() throw();
+    ~HitPauseAction_151770();
 };
 class Ref_1517b0 {
   public:
@@ -963,7 +963,7 @@ namespace fn_00150b30 {
 extern "C" {
 extern "C++" { extern char DAT_00494b44; }
 extern "C++" { extern char DAT_00494b60; }
-extern "C++" { __declspec(nothrow) void* __cdecl FUN_00344e74(void*, int, void*, void*, int); }
+extern "C++" { void* __cdecl FUN_00344e74(void*, int, void*, void*, int); }
 bool __cdecl FUN_00018960(float, float, float);
 }
 struct VelocityData { char padding[0x1f4]; float velocity; };
@@ -1232,7 +1232,7 @@ InterruptPriorityAction_1510b0::~InterruptPriorityAction_1510b0() {
 
 // 0x001510f0 FUN_001510f0 (79 B): matches/0x001510f0.cpp
 // sym: ??0HitWaitAction@fn_f20ed7e3@@QAE@PAXPAVRefCounted_1510f0@1@@Z
-HitWaitAction::HitWaitAction(void* a, RefCounted_1510f0* b) throw() {
+HitWaitAction::HitWaitAction(void* a, RefCounted_1510f0* b) {
     void** q = &mA;
     *q = 0;
     mB = 0;
@@ -1517,7 +1517,7 @@ HitPauseAction_151720::HitPauseAction_151720(int target, RefObj_151720* obj) {
 
 // 0x00151770 FUN_00151770 (50 B): matches/0x00151770.cpp
 // sym: ??1HitPauseAction_151770@fn_f20ed7e3@@QAE@XZ
-HitPauseAction_151770::~HitPauseAction_151770() throw() {
+HitPauseAction_151770::~HitPauseAction_151770() {
     vptr = (void**)DAT_00414580;
     _ReadWriteBarrier();
     if (m20) {

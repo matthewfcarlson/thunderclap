@@ -150,7 +150,7 @@ struct Quat_22b4d0 {
     void Rotate(const Vec3_22b4d0 *v, Vec3_22b4d0 *out);
 };
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_0022b080(float *, const float *, const float *);
+extern "C++" void __cdecl FUN_0022b080(float *, const float *, const float *);
 
 void Quat_22b4d0::Rotate(const Vec3_22b4d0 *v, Vec3_22b4d0 *out)
 {

@@ -63,7 +63,7 @@ namespace fn_00058750 {
 
 class CCondition_58750 {
   public:
-    CCondition_58750(int) throw();
+    CCondition_58750(int);
     virtual void f0();
     virtual bool f1_00234270(void*);
     virtual bool f2_002342b0(int);
@@ -71,9 +71,9 @@ class CCondition_58750 {
 };
 class CSmartPropAngleCondition : public ::CSmartPropAngleCondition {
   public:
-    CSmartPropAngleCondition() throw();
+    CSmartPropAngleCondition();
 };
-CSmartPropAngleCondition::CSmartPropAngleCondition() throw() : ::CSmartPropAngleCondition(0) {
+CSmartPropAngleCondition::CSmartPropAngleCondition() : ::CSmartPropAngleCondition(0) {
     f_0c = 0.0f;
     f_10 = 1.57079637f;
 }

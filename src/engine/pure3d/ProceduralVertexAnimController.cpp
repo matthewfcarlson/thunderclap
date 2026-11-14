@@ -93,7 +93,7 @@ public:
     virtual void v24();
     virtual Source_2a58e0 *GetSource();
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_002a5570(float, void *, void *, unsigned int, void *);
+extern "C++" void __cdecl FUN_002a5570(float, void *, void *, unsigned int, void *);
 struct Frame_2a58e0 {
     float time;
     float timeCopy;
@@ -1181,7 +1181,7 @@ struct Settings_2a6610 {
     Vec2_2a6610 d;
 };
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_002a5290(float, void *, void *, unsigned int, float *);
+extern "C++" void __cdecl FUN_002a5290(float, void *, void *, unsigned int, float *);
 
 void FUN_002a6610(Controller_2a6610 *c, unsigned int a2, unsigned int a3, unsigned int a4)
 {

@@ -19,7 +19,7 @@ extern "C" char DAT_0042c95c[];
 class IRefCount {
   public:
     virtual void _m_vf0();
-    virtual void Release() throw();
+    virtual void Release();
     virtual void f2();
 };
 class ChannelLoader {
@@ -28,7 +28,7 @@ class ChannelLoader {
     int pad;
     int count;
     IRefCount* items[1];
-    void cleanup() throw();
+    void cleanup();
 };
 namespace pure3d {
 class NonCopyable : public IRefCount {
@@ -43,7 +43,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 // 0x0028b910 FUN_0028b910 (61 B): matches/0x0028b910.cpp
 // sym: ?cleanup@ChannelLoader@fn_ffd25c71@@QAEXXZ
-void ChannelLoader::cleanup() throw() {
+void ChannelLoader::cleanup() {
     vf = ((hulk_intptr)DAT_0042c95c);
     for (int i = 0; i < count; ++i) {
         if (items[i]) {

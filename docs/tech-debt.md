@@ -51,3 +51,29 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
   the data pointer an `int`), the free 0x0008ff00 views (Global_19b350, Alloc_19bbd0, Alloc_19e8e0) and the
   release 0x00364010. core::ControllerBuffer's destructor 0x00270610 (a local class of ints) and BinkCallback.cpp's
   `thunk_FUN_00271230` declaration (the name an `unsigned int`) likewise.
+- **TUs still compiled with /GX (`// cl-flags: /GX`; gx1 D17, accepted as the interim state by the user's D23,
+  2026-11-14).** The game was built without C++ exceptions and the tree compiles with /GX- by default
+  (tools/compare.py DEFAULT_FLAGS; clang with -fno-exceptions everywhere since gx2). 457 TUs still say `// cl-flags: /GX`:
+  - 454 hold the scalar deleting destructors (`??_G`, 1,873 blocks) written as empty user destructors
+    (`template <> ParamX<T>::~ParamX() {}`, `Method2<...>::~Method2() {}`, `C::~C() {}`). In the game these
+    destructors are implicit and their `??_G` is emitted next to the vftable by the code that constructs the class:
+    the fight parameter registration functions (435 blocks in 185 TUs, 105 of those `.iso_` TUs; they store the
+    vftables by hand today), the script binding constructors (`Closure`/`Method` template constructors such as
+    0x0002e4f0, stubs today) and the non-template classes' constructors. Under /GX- an empty user destructor is inlined
+    with its vftable store and no longer matches, so these TUs keep /GX until that code constructs the real classes.
+  - 2 for good: src/game/init/dynamic_initializers.cpp and dynamic_initializers.Oy-.cpp (library unwind funclets past
+    the game's .text, built with exceptions).
+  - 1 until its clang proof passes: src/game/hulkfight/motion/GrappleThrowAction.iso_00148f40.cpp (0x00148f40
+    re-proves on MSVC with /GX-; its `--wine` run fails the same way with or without the change).
+  What removes them: D18, TU by TU (docs/native-build.md "gx1", "gx2"): the registration functions construct the
+  real `ParamX<T>` (merging each `.iso_` registration TU back into its parent TU so the `??_G` lands in the right
+  object) and the Method/Closure constructors become the real template constructors; a TU loses its marker when all
+  of its blocks match / re-prove with /GX-. This entry's count goes down as that lands.
+- **TUs whose Wine build still compiles with exceptions (`// clang-flags: -fexceptions -fcxx-exceptions`; gx2,
+  2026-11-14).** Since D22 the Wine build and `equiv.py --wine` compile with -fno-exceptions. 72 equivalent blocks'
+  clang code changed with that; 60 re-proved, 12 do not pass `--wine` at 3,000 inputs under the current checker and
+  fail (or fall short) the same way with exceptions on (chk1's tightened masks, not this change): 0x00224540,
+  0x0026e650, 0x00297ba0, 0x001c82c0, 0x000396a0, 0x001b65f0, 0x0001fe60, 0x00102cd0, 0x00094fb0, 0x00117480,
+  0x001e7470, 0x00322990. Their 12 TUs keep their throw() / nothrow and say `// clang-flags:` (tools/clang_probe.py
+  `tu_flags`; the native builds ignore it), so the clang code their recorded hashes prove is what the Wine build runs.
+  Remove a TU's line (and its throw() / nothrow) when its block re-proves `--wine` at 3,000 inputs without it.

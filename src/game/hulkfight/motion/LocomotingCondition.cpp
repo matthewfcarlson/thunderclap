@@ -99,15 +99,15 @@ struct Track_15ba40 {
 };
 struct T_15ba50 {
     char d[8];
-    ~T_15ba50() throw();
+    ~T_15ba50();
 };
 struct Track_15ba50 {
-    virtual ~Track_15ba50() throw();
+    virtual ~Track_15ba50();
     char p[0x34];
 };
 struct ClimbLocomotion4Track_15ba50 : Track_15ba50 {
     T_15ba50 m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10;
-    ~ClimbLocomotion4Track_15ba50() throw();
+    ~ClimbLocomotion4Track_15ba50();
 };
 extern int* hulk_at_004e1180;
 class CCondition_15bae0 {
@@ -128,16 +128,16 @@ struct Track_15bbd0 {
 };
 struct Elem_15bbe0 {
     char d[8];
-    ~Elem_15bbe0() throw();
+    ~Elem_15bbe0();
 };
 class Track_15bbe0 {
   public:
-    virtual ~Track_15bbe0() throw();
+    virtual ~Track_15bbe0();
     char p[0x3c];
 };
 class LocomotionStrafe4Track_15bbe0 : public Track_15bbe0 {
   public:
-    virtual ~LocomotionStrafe4Track_15bbe0() throw();
+    virtual ~LocomotionStrafe4Track_15bbe0();
     Elem_15bbe0 a, b, c, d, e, f, g, h, i, j, k;
 };
 extern int* hulk_at_004e1188;
@@ -725,7 +725,7 @@ namespace fn_f7eb5c06 {
 
 // 0x0015ba50 FUN_0015ba50 (111 B): matches/0x0015ba50.cpp
 // sym: ??1ClimbLocomotion4Track_15ba50@fn_f7eb5c06@@UAE@XZ
-ClimbLocomotion4Track_15ba50::~ClimbLocomotion4Track_15ba50() throw() {}
+ClimbLocomotion4Track_15ba50::~ClimbLocomotion4Track_15ba50() {}
 
 
 // 0x0015bac0 FUN_0015bac0 (19 B): matches/0x0015bac0.cpp
@@ -826,7 +826,7 @@ namespace fn_f7eb5c06 {
 
 // 0x0015bbe0 FUN_0015bbe0 (114 B): matches/0x0015bbe0.cpp
 // sym: ??1LocomotionStrafe4Track_15bbe0@fn_f7eb5c06@@UAE@XZ
-LocomotionStrafe4Track_15bbe0::~LocomotionStrafe4Track_15bbe0() throw() {}
+LocomotionStrafe4Track_15bbe0::~LocomotionStrafe4Track_15bbe0() {}
 
 
 // 0x0015bc60 FUN_0015bc60 (19 B): matches/0x0015bc60.cpp

@@ -1148,7 +1148,7 @@ struct Ref_1f880 {
     virtual void Release();
 };
 struct Action_1f880 {
-    Action_1f880() throw();
+    Action_1f880();
     virtual void V0();
     char pad04[0x18];
 };

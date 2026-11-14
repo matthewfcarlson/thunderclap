@@ -97,7 +97,7 @@ struct Vec3_1ae450 {
 };
 struct Plane_1ae450 {
     float x, y, d;
-    void FUN_001acfa0(const Vec3_1ae450 *a, const Vec3_1ae450 *b) throw();
+    void FUN_001acfa0(const Vec3_1ae450 *a, const Vec3_1ae450 *b);
 };
 struct Box_1ae450 {
     Vec3_1ae450 mn;
@@ -105,7 +105,7 @@ struct Box_1ae450 {
 };
 struct Seg_1ae450 {
     Vec3_1ae450 a, b;
-    void FUN_0022fe40(Box_1ae450 *out) throw();
+    void FUN_0022fe40(Box_1ae450 *out);
 };
 struct Elem_1ae450 {
     int f0;
@@ -113,8 +113,8 @@ struct Elem_1ae450 {
     Vec3_1ae450 v;
 };
 struct Owner_1ae450 {
-    void FUN_001b5760(int a) throw();
-    Vec3_1ae450 *FUN_001b56a0(int a, int b) throw();
+    void FUN_001b5760(int a);
+    Vec3_1ae450 *FUN_001b56a0(int a, int b);
 };
 struct Cont {
     char pad00[4];
@@ -934,7 +934,7 @@ int __stdcall FUN_001ae450(Arg1 a1, Vec3_1ae450 *out, Arg3 a3, int a4)
 // sym: ?F@O_1ae9e0@fn_001ae9e0@@QAEPAUPair_1ae9e0@2@PAU32@PBUSrc_1ae9e0@2@@Z
 namespace fn_001ae9e0 {
 extern "C" void __cdecl FUN_001ad4d0();
-extern "C++" __declspec(nothrow) void __cdecl FUN_001ad4f0();
+extern "C++" void __cdecl FUN_001ad4f0();
 struct Src_1ae9e0 {
     int d[10];
 };

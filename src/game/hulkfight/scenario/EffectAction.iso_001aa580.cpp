@@ -21,13 +21,13 @@ class Base {
     virtual bool v4_00234350(int, int);
     virtual void* v5_001a5b30(char);
     char pad[8];
-    Base(int) throw();
+    Base(int);
 };
 class Event_LocomotionStateNamePreviousCondition_1aa580 : public ::hulkfight::scenario::Event_LocomotionStateNamePreviousCondition {
   public:
-    Event_LocomotionStateNamePreviousCondition_1aa580() throw();
+    Event_LocomotionStateNamePreviousCondition_1aa580();
 };
-Event_LocomotionStateNamePreviousCondition_1aa580::Event_LocomotionStateNamePreviousCondition_1aa580() throw() : ::hulkfight::scenario::Event_LocomotionStateNamePreviousCondition(0) {
+Event_LocomotionStateNamePreviousCondition_1aa580::Event_LocomotionStateNamePreviousCondition_1aa580() : ::hulkfight::scenario::Event_LocomotionStateNamePreviousCondition(0) {
     compare = 0;
     oldState = 0;}
 } // namespace scenario

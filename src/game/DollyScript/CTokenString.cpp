@@ -337,7 +337,7 @@ class CScriptToken {
     int zero;
     char pad[8];
     float value;
-    CScriptToken(const CScriptToken&) throw();
+    CScriptToken(const CScriptToken&);
 };
 }
 namespace DollyScript {
@@ -346,7 +346,7 @@ class CTokenFloat : public CScriptToken {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual CTokenFloat* vfunc_2();
-    CTokenFloat(const CTokenFloat& a) throw() : CScriptToken(a) { value = a.value; }
+    CTokenFloat(const CTokenFloat& a) : CScriptToken(a) { value = a.value; }
 };
 }
 namespace fn_fd8937bc {
@@ -869,8 +869,8 @@ void C_fa100::f(S_fa100* src) {
 // 0x000fa300 DollyScript::CTokenString::vfunc_0 (60 B): matches/0x000fa300.cpp [wrapped: conflict: CTokenString]
 // sym: ?vfunc_0@CTokenString@fn_000fa300@@QAEPAV12@E@Z
 namespace fn_000fa300 {
-extern "C++" __declspec(nothrow) void __cdecl thunk_FUN_00267090_a(void*);
-extern "C++" __declspec(nothrow) void __cdecl thunk_FUN_00267090_b(void*);
+extern "C++" void __cdecl thunk_FUN_00267090_a(void*);
+extern "C++" void __cdecl thunk_FUN_00267090_b(void*);
 extern "C++" { extern void* g_vtStr[]; }
 extern "C++" { extern void* g_vtBase[]; }
 
@@ -901,7 +901,7 @@ CTokenString* CTokenString::vfunc_0(unsigned char param) {
 // sym: ?vfunc_0@CTokenStatement@fn_000fa370@@QAEPAXI@Z
 void __cdecl operator delete(void* p);
 namespace fn_000fa370 {
-extern "C++" __declspec(nothrow) void __cdecl thunk_FUN_00267090(void* p);
+extern "C++" void __cdecl thunk_FUN_00267090(void* p);
 
 extern const int g_vt_statement;
 extern const int g_vt_string;
@@ -953,7 +953,7 @@ namespace fn_000fa3f0 {
 namespace DollyScript {
 class CScriptToken {
   public:
-    CScriptToken(CScriptToken const&) throw();
+    CScriptToken(CScriptToken const&);
     virtual void* f0_000fa430(char);
     virtual void f1_000f9910();
     virtual CScriptToken* f2();
@@ -962,7 +962,7 @@ class CTokenSectionStart : public CScriptToken {
   public:
     int value;
     char pad[8];
-    CTokenSectionStart(CTokenSectionStart const& src) throw() : CScriptToken(src) {}
+    CTokenSectionStart(CTokenSectionStart const& src) : CScriptToken(src) {}
     virtual CScriptToken* f2();
 };
 CScriptToken* CTokenSectionStart::f2() {
@@ -996,13 +996,13 @@ class CScriptToken {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual CScriptToken* vfunc_2();
-    CScriptToken(CScriptToken*) throw();
+    CScriptToken(CScriptToken*);
 };
 class CTokenSectionEnd : public CScriptToken {
   public:
     int value;
     char pad[8];
-    CTokenSectionEnd(CTokenSectionEnd* p) throw() : CScriptToken(p) {}
+    CTokenSectionEnd(CTokenSectionEnd* p) : CScriptToken(p) {}
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual CScriptToken* vfunc_2();
@@ -1627,7 +1627,7 @@ extern "C" char FUN_000fb1c0(int id) {
 } // namespace fn_fd8937bc
 
 // 0x000fb240 FUN_000fb240 (80 B): equivalent/0x000fb240.cpp
-// sym: ?FUN_000fb240@Inventory_fb240@owners@@QAEPAXPAX@Z @eecf7bf41037 @w351dd7793d9b
+// sym: ?FUN_000fb240@Inventory_fb240@owners@@QAEPAXPAX@Z @eecf7bf41037 @w91e6d18ad59e
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_000fb240 @ 0x000fb240
 // FUN_000fb240 @ 0x000fb240

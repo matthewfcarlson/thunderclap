@@ -448,8 +448,8 @@ struct SymMatrix {
     char pad[4];
     float f4;
     char rest[0x14];
-    void FUN_002fca90() throw();
-    void FUN_002fcaa0() throw();
+    void FUN_002fca90();
+    void FUN_002fcaa0();
 };
 struct Target_2f8300 {
     virtual void v0();
@@ -487,7 +487,7 @@ struct ImpulseBasedCollisionSolver_2f8300 {
     char padE8[0xb];
     char fF3;
     char fF4;
-    float FUN_002f7ca0() throw();
+    float FUN_002f7ca0();
     int FUN_002f8300();
 };
 extern "C" char DAT_003f6098[];
@@ -847,10 +847,10 @@ namespace fn_002f7ee0 {
 extern void* DAT_004316e8[];
 // (x64t9-pw) the solver's state and matrices (decls/physics_world.h)
 struct SubA_2f7ee0 : HulkSolverState {
-    void Init_002f8d70() throw();
+    void Init_002f8d70();
 };
 struct SymMatrix_2f7ee0 : HulkSymMatrix {
-    void Init_002fca90() throw();
+    void Init_002fca90();
 };
 // (x64t4) the environment (DAT_00554c10, 0x002ecf60): pure3d::Entity's words, then its floats (the length and
 // damping words at 0x28 / 0x30 on the 32-bit builds)
@@ -865,21 +865,21 @@ struct Cfg_2f7ee0 {
 // (x64t4) physics::CollisionWall with the words its constructor 0x0030e700 writes (decls/physics_world.h; was a
 // 0x60-byte pad, which the 64-bit constructor overran)
 struct CollisionWall_2f7ee0 : HulkCollisionWall {
-    CollisionWall_2f7ee0* Ctor_0030e700() throw();
+    CollisionWall_2f7ee0* Ctor_0030e700();
 };
 struct CollisionObject_2f7ee0 {
     char pad[8];
     char tail[0x80];
-    CollisionObject_2f7ee0* Ctor_00304f50(CollisionWall_2f7ee0*) throw();
+    CollisionObject_2f7ee0* Ctor_00304f50(CollisionWall_2f7ee0*);
 };
 struct Ref_2f7ee0 {
-    virtual void a() throw();
+    virtual void a();
 };
 struct Name_2f7ee0 {
 };
-void* __cdecl FUN_0008d690(unsigned) throw();
-void* __cdecl thunk_FUN_0008d690(unsigned) throw();
-extern "C" Ref_2f7ee0* __cdecl FUN_002efa90(CollisionObject_2f7ee0*, int, int) throw();
+void* __cdecl FUN_0008d690(unsigned);
+void* __cdecl thunk_FUN_0008d690(unsigned);
+extern "C" Ref_2f7ee0* __cdecl FUN_002efa90(CollisionObject_2f7ee0*, int, int);
 class ImpulseBasedCollisionSolver_2f7ee0 {
   public:
     void* vptr;
@@ -892,7 +892,7 @@ class ImpulseBasedCollisionSolver_2f7ee0 {
     char cf4;
     int mf8;
     Ref_2f7ee0* mfc;
-    ImpulseBasedCollisionSolver_2f7ee0() throw();
+    ImpulseBasedCollisionSolver_2f7ee0();
 };
 // (x64t9-pw) the constructor's view is the solver record's (decls/physics_world.h)
 #define HULK_AT_(T, m) ((int)(hulk_uintptr)&((T*)0)->m)
@@ -904,7 +904,7 @@ typedef char hulk_solver_view_[(sizeof(ImpulseBasedCollisionSolver_2f7ee0) == si
     HULK_AT_(ImpulseBasedCollisionSolver_2f7ee0, mf8) == HULK_SOLVER_AT(iterations) &&
     HULK_AT_(ImpulseBasedCollisionSolver_2f7ee0, mfc) == HULK_SOLVER_AT(zone)) ? 1 : -1];
 #undef HULK_AT_
-ImpulseBasedCollisionSolver_2f7ee0::ImpulseBasedCollisionSolver_2f7ee0() throw() {
+ImpulseBasedCollisionSolver_2f7ee0::ImpulseBasedCollisionSolver_2f7ee0() {
     vptr = DAT_004316e8;
     m4 = 0;
     m8 = 0;

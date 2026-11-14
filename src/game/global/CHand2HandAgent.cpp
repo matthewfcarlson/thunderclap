@@ -86,8 +86,8 @@ struct CHand2HandAgent_ffeb0 {
 void __cdecl thunk_FUN_00267090(void*);
 struct Vec3_101fe0 {
     float x, y, z;
-    float FUN_0022d110() throw();
-    char FUN_0022d2b0(const Vec3_101fe0 *z, float eps) throw();
+    float FUN_0022d110();
+    char FUN_0022d2b0(const Vec3_101fe0 *z, float eps);
 };
 struct V2_101fe0 {
     float a, b;
@@ -184,7 +184,7 @@ union FloatBits_101fe0 {
     float f;
     unsigned int u;
 };
-float __cdecl FUN_0010ae50(World *w, Ctx *c, float thr, Vec3_101fe0 *a, Vec3_101fe0 *b, int p, int q) throw();
+float __cdecl FUN_0010ae50(World *w, Ctx *c, float thr, Vec3_101fe0 *a, Vec3_101fe0 *b, int p, int q);
 
 
 // 0x000ff240 FUN_000ff240 (32 B): matches/0x000ff240.cpp
@@ -1151,8 +1151,8 @@ extern "C" double sqrt(double);
 
 struct Vec3_1005c0 {
     float x, y, z;
-    float FUN_0022d110() throw();
-    char FUN_0022d2b0(const Vec3_1005c0 *z, float eps) throw();
+    float FUN_0022d110();
+    char FUN_0022d2b0(const Vec3_1005c0 *z, float eps);
 };
 
 struct Obj104;
@@ -1161,7 +1161,7 @@ class CHand2HandAgent;
 
 struct World;
 struct List_1005c0 {
-    void FUN_00029250(int a, Vec3_1005c0 *p, int b, int c) throw();
+    void FUN_00029250(int a, Vec3_1005c0 *p, int b, int c);
 };
 struct World2_1005c0 {
     char pad00[0x20];
@@ -1187,27 +1187,27 @@ union Arg3_1005c0 {
 
 class Obj104 {
 public:
-    virtual void v0() throw();
-    virtual void v1() throw();
-    virtual void v2() throw();
-    virtual void v3() throw();
-    virtual void v4(World2_1005c0 *w, Arg3_1005c0 a3, int z) throw();
-    void FUN_001048d0(CHand2HandAgent *a) throw();
-    void FUN_00104c60(World2_1005c0 *w, Vec3_1005c0 *a, Vec3_1005c0 *b, float c, int d, float e, float f) throw();
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4(World2_1005c0 *w, Arg3_1005c0 a3, int z);
+    void FUN_001048d0(CHand2HandAgent *a);
+    void FUN_00104c60(World2_1005c0 *w, Vec3_1005c0 *a, Vec3_1005c0 *b, float c, int d, float e, float f);
 };
 
 struct Obj58_1005c0 {
     char pad[0x129];
     char b129;
-    Obj104 *FUN_000fefc0() throw();
+    Obj104 *FUN_000fefc0();
 };
 
 class Obj5c {
 public:
-    virtual void v0() throw();
-    virtual void v1() throw();
-    virtual void v2() throw();
-    virtual void v3(World2_1005c0 *w, Ctx1_1005c0 *c, Vec3_1005c0 *out, Arg3_1005c0 a3, int z) throw();
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3(World2_1005c0 *w, Ctx1_1005c0 *c, Vec3_1005c0 *out, Arg3_1005c0 a3, int z);
     char pad04[0xc];
     Vec3_1005c0 v10;
 };
@@ -1216,31 +1216,31 @@ public:
 #define DAT_004dd700 (*(World2_1005c0 * *)&::DAT_004dd700)
 
 
-extern "C" char __cdecl FUN_00036b10(World2_1005c0 *w, Vec3_1005c0 *a, Vec3_1005c0 *b, Vec3_1005c0 *c, Vec3_1005c0 *d, char *e, char *f) throw();
-float __cdecl FUN_0010ae50(World2_1005c0 *w, Ctx1_1005c0 *c, float thr, Vec3_1005c0 *out, Vec3_1005c0 *v138, int a, int b) throw();
+extern "C" char __cdecl FUN_00036b10(World2_1005c0 *w, Vec3_1005c0 *a, Vec3_1005c0 *b, Vec3_1005c0 *c, Vec3_1005c0 *d, char *e, char *f);
+float __cdecl FUN_0010ae50(World2_1005c0 *w, Ctx1_1005c0 *c, float thr, Vec3_1005c0 *out, Vec3_1005c0 *v138, int a, int b);
 
 class CHand2HandAgent {
 public:
-    virtual void vfunc_0() throw();
-    virtual void vfunc_1() throw();
-    virtual void vfunc_2() throw();
-    virtual void vfunc_3() throw();
-    virtual void vfunc_4() throw();
-    virtual void vfunc_5() throw();
-    virtual void vfunc_6() throw();
-    virtual void vfunc_7() throw();
-    virtual void vfunc_8() throw();
-    virtual void vfunc_9() throw();
-    virtual void vfunc_10() throw();
-    virtual char vfunc_11(Ctx1_1005c0 *c, int a, Arg3_1005c0 b) throw();
-    virtual void vfunc_12() throw();
-    virtual void vfunc_13() throw();
-    virtual void vfunc_14() throw();
-    virtual void vfunc_15() throw();
-    virtual void vfunc_16() throw();
-    virtual void vfunc_17() throw();
-    virtual char vfunc_18(float f) throw();
-    virtual void vfunc_19() throw();
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
+    virtual void vfunc_5();
+    virtual void vfunc_6();
+    virtual void vfunc_7();
+    virtual void vfunc_8();
+    virtual void vfunc_9();
+    virtual void vfunc_10();
+    virtual char vfunc_11(Ctx1_1005c0 *c, int a, Arg3_1005c0 b);
+    virtual void vfunc_12();
+    virtual void vfunc_13();
+    virtual void vfunc_14();
+    virtual void vfunc_15();
+    virtual void vfunc_16();
+    virtual void vfunc_17();
+    virtual char vfunc_18(float f);
+    virtual void vfunc_19();
     virtual void vfunc_20(Ctx1_1005c0 *c, Out_1005c0 *o, Arg3_1005c0 a3);
     char pad04[0x54];
     Obj58_1005c0 *f58;

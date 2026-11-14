@@ -155,29 +155,29 @@ public:
     virtual void vfunc_4(int key, Vec3_28b200* out);
 };
 struct Source_28b2f0 { void FUN_0028ad20(int index, unsigned int* result); };
-extern "C" void* __cdecl AllocA_0008d6d0(unsigned int) throw();
+extern "C" void* __cdecl AllocA_0008d6d0(unsigned int);
 } // namespace fn_f66a22d3
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
-extern "C" void* __cdecl memset(void*, int, unsigned int) throw();
+extern "C" void* __cdecl memset(void*, int, unsigned int);
 #endif
 namespace fn_f66a22d3 {
 class Owner_28b420 {
   public:
-    virtual void V() throw();
+    virtual void V();
 };
 class Channel {
   public:
-    virtual ~Channel() throw();
+    virtual ~Channel();
     int a, b;
-    Channel() throw() : a(-1), b(0) {}
+    Channel() : a(-1), b(0) {}
 };
 class SimpleChannel : public Channel {
   public:
-    virtual ~SimpleChannel() throw();
+    virtual ~SimpleChannel();
     Owner_28b420* c;
     int d;
     char* e;
-    SimpleChannel(int size, Owner_28b420* owner) throw();
+    SimpleChannel(int size, Owner_28b420* owner);
 };
 struct Obj_28b4d0 {
     virtual void f0();
@@ -218,7 +218,7 @@ class Ref_28b760 {
 class Elem_28b760 {
   public:
     char d[8];
-    ~Elem_28b760() throw();
+    ~Elem_28b760();
 };
 } // namespace fn_f66a22d3
 void operator delete(void*);
@@ -596,7 +596,7 @@ extern "C" unsigned int* __cdecl FUN_0028b2f0(unsigned int* output, Source_28b2f
 
 // 0x0028b420 FUN_0028b420 (111 B): matches/0x0028b420.cpp
 // sym: ??0SimpleChannel@fn_f66a22d3@@QAE@HPAVOwner_28b420@1@@Z
-SimpleChannel::SimpleChannel(int size, Owner_28b420* owner) throw() : c(owner), d(size), e(0) {
+SimpleChannel::SimpleChannel(int size, Owner_28b420* owner) : c(owner), d(size), e(0) {
     if (owner == 0)
         e = (char*)AllocA_0008d6d0(size * 2);
     else {

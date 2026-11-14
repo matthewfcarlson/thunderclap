@@ -145,7 +145,7 @@ class ImageFont_2bf9f0 : public Entity_2bf9f0 {
     Ref_2bf9f0* m28;
     char pad2c[8];
     char* m34;
-    ~ImageFont_2bf9f0() throw();
+    ~ImageFont_2bf9f0();
 };
 extern "C" char DAT_0042ea08[];
 class ImageFontLoader : public HulkChunkHandler {
@@ -756,7 +756,7 @@ namespace fn_fae89b52 {
 
 // 0x002bf9f0 FUN_002bf9f0 (55 B): matches/0x002bf9f0.cpp
 // sym: ??1ImageFont_2bf9f0@fn_fae89b52@@QAE@XZ
-ImageFont_2bf9f0::~ImageFont_2bf9f0() throw() {
+ImageFont_2bf9f0::~ImageFont_2bf9f0() {
     vptr = hulk_at_0042e9bc;
     _ReadWriteBarrier();
     if (m28) {

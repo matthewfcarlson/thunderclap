@@ -1426,7 +1426,7 @@ struct World {
 void *__fastcall FUN_000592a0(void *owner);
 extern "C" Stats_1347c0 *__fastcall FUN_00059a30(void *x);
 extern "C" Scene_1347c0 *__fastcall FUN_00059a40(void *x);
-extern "C++" __declspec(nothrow) void FUN_00224d70(float angle, Vec3_1347c0 *v);
+extern "C++" void FUN_00224d70(float angle, Vec3_1347c0 *v);
 void *__cdecl FUN_00263ea0(unsigned int size);
 
 namespace hulkfight { namespace motion {

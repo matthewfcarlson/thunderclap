@@ -2535,7 +2535,7 @@ FireMissileAction_19b410* FireMissileAction_19b410::vfunc_2(int flag) {
 } // namespace fn_f740ace1
 
 // 0x0019b460 FUN_0019b460 (157 B): equivalent/0x0019b460.cpp [wrapped: conflict: CProjectile; FUN_0027f250; World; hulkfight::motion::ProjectileMissile]
-// sym: ??1ProjectileMissile@motion@hulkfight@fn_0019b460@@UAE@XZ @667ead3e9f14 @wb2f2fe593d89
+// sym: ??1ProjectileMissile@motion@hulkfight@fn_0019b460@@UAE@XZ @667ead3e9f14 @wf497d4387562
 namespace fn_0019b460 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_0019b460 @ 0x0019b460
@@ -2658,7 +2658,7 @@ ProjectileMissile::~ProjectileMissile() throw()
 
 
 // 0x0019b500 FUN_0019b500 (206 B): equivalent/0x0019b500.cpp [wrapped: conflict: hulkfight::motion::BeamEffect; hulkfight::motion::FireBeamAction]
-// sym: ??0FireBeamAction@motion@hulkfight@fn_0019b500@@QAE@HPAURef_19b500@3@@Z @5cd1a1e0fb45 @we676446088a4
+// sym: ??0FireBeamAction@motion@hulkfight@fn_0019b500@@QAE@HPAURef_19b500@3@@Z @5cd1a1e0fb45 @wf482354f481e
 void* __cdecl operator new(size_t);
 namespace fn_0019b500 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)

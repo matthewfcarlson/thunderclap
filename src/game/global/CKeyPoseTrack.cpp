@@ -69,7 +69,7 @@ class Member_69520 {
 
 class CKeyPoseTrack : public CTrack_69520 {
   public:
-    virtual ~CKeyPoseTrack() throw();
+    virtual ~CKeyPoseTrack();
     Member_69520 m10;
     float arr[16];
     char m58;

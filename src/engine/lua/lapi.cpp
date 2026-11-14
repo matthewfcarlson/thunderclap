@@ -192,8 +192,8 @@ namespace fn_00212e60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // lua_replace: pop the top value into idx (the write barrier for a C upvalue).
 
-extern "C++" __declspec(nothrow) LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00217100(LuaVMState* L, LuaVMGCObject* o, LuaVMGCObject* v);
+extern "C++" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+extern "C++" void __cdecl FUN_00217100(LuaVMState* L, LuaVMGCObject* o, LuaVMGCObject* v);
 
 extern "C" void __cdecl FUN_00212e60(LuaVMState* L, int idx) {
     LuaVMTObject* src = L->top - 1;
@@ -578,8 +578,8 @@ namespace fn_00213570 {
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // lua_gettable: replace the key on top with t[key] for the table at idx (metamethods apply).
 
-extern "C++" __declspec(nothrow) LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00217830(LuaVMState* L, const LuaVMTObject* t, LuaVMTObject* key, LuaVMTObject* val);
+extern "C++" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+extern "C++" void __cdecl FUN_00217830(LuaVMState* L, const LuaVMTObject* t, LuaVMTObject* key, LuaVMTObject* val);
 
 extern "C" void __cdecl FUN_00213570(LuaVMState* L, int idx) {
     LuaVMTObject* key = L->top - 1;

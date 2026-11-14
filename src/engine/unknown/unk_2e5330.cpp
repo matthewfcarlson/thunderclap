@@ -23,7 +23,7 @@ extern void* FUN_0008d6d0(unsigned int);
 struct IntVec2 {
     int *first;
     int *last;
-    IntVec2(const IntVec2 &other) throw();
+    IntVec2(const IntVec2 &other);
 };
 struct Entry_2e55a0 {
     int* begin;
@@ -236,7 +236,7 @@ extern "C" int* FUN_002e54a0(int* dst, int count, const int* src) {
 // sym: ??0IntVec2@fn_f6f319cd@@QAE@ABU01@@Z @e6af28e42022 @w28f00e00918c
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 9/10, incomplete)
 // FUN_002e54e0 @ 0x002e54e0
-IntVec2::IntVec2(const IntVec2 &other) throw()
+IntVec2::IntVec2(const IntVec2 &other)
 {
     hulk_intptr count = other.last - other.first;
     if (count != 0) {

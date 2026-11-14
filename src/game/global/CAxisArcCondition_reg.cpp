@@ -453,7 +453,7 @@ template <> bool fight::ConditionFactoryCasterTemplate<CAxisArcCondition>::vfunc
 // 0x00050540 fight::ConditionFactoryCasterTemplate<CAxisDirectionCondition>::vfunc_0 (36 B): matches/0x00050540.cpp [wrapped: conflict: fight::ConditionFactoryCaster]
 // sym: ?vfunc_0@ConditionFactoryCasterTemplateCAxisDirectionCondition@fight@fn_00050540@@UAE_NPAX@Z
 namespace fn_00050540 {
-extern "C++" __declspec(nothrow) int __cdecl CastQuery(void*, int, void*, void*, int);
+extern "C++" int __cdecl CastQuery(void*, int, void*, void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -498,7 +498,7 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
     virtual bool vfunc_0(const char*);
 };
 } // namespace fight
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(const char*, int, const void*, const void*, int);
+extern "C++" int __cdecl FUN_00344e74(const char*, int, const void*, const void*, int);
 extern void* a;
 extern void* hulk_at_00491f40;
 bool fight::ConditionFactoryCasterTemplate::vfunc_0(const char* s) {
@@ -590,7 +590,7 @@ namespace fn_00050840 {
 class CCharacterTemplateCondition;
 extern void* a;
 extern void* hulk_at_00492548;
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern "C++" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -983,7 +983,7 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
     virtual void vfunc_1();
 };
 } // namespace fight
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(const char*, int, const void*, const void*, int);
+extern "C++" int __cdecl FUN_00344e74(const char*, int, const void*, const void*, int);
 extern const void* DAT_00491ca8;
 extern const void* DAT_00493a30;
 bool fight::ConditionFactoryCasterTemplate::vfunc_0(const char* name) {
@@ -1059,7 +1059,7 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
     virtual void vfunc_1();
 };
 } // namespace fight
-extern "C++" __declspec(nothrow) int __cdecl helper(void*, int, void*, void*, int);
+extern "C++" int __cdecl helper(void*, int, void*, void*, int);
 extern void* a;
 extern void* hulk_at_00493ca0;
 bool fight::ConditionFactoryCasterTemplate::vfunc_0(void* p) {
@@ -1207,7 +1207,7 @@ bool fight::ConditionFactoryCasterTemplate::Test(void* p) {
 // sym: ?vfunc_0@ConditionFactoryCasterTemplate@fight@fn_00051440@@UAE_NPAX@Z
 namespace fn_00051440 {
 struct CSmartPropWeaponTypeCondition;
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(CSmartPropWeaponTypeCondition*, int, void*, void*, int);
+extern "C++" int __cdecl FUN_00344e74(CSmartPropWeaponTypeCondition*, int, void*, void*, int);
 extern void *DAT_00491ca8, *DAT_00494478;
 namespace fight {
 class ConditionFactoryCaster {

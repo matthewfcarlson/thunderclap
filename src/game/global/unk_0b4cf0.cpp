@@ -824,7 +824,7 @@ struct Object {
     char pad2[0x3c - 0x18 - 1];
     int color;                      // 0x3c
 };
-extern "C++" __declspec(nothrow) Object* __cdecl FUN_000fc260(const char*);
+extern "C++" Object* __cdecl FUN_000fc260(const char*);
 
 extern "C" void __stdcall FUN_000b5590(hulk_uintptr value)
 {
@@ -1018,8 +1018,8 @@ struct Desc {
     int a;
 };
 extern Desc objA, objB;
-extern "C++" __declspec(nothrow) void* __cdecl find_000fc260(const char*);
-extern "C++" __declspec(nothrow) void* __cdecl castObj(void*, int, Desc*, Desc*, int);
+extern "C++" void* __cdecl find_000fc260(const char*);
+extern "C++" void* __cdecl castObj(void*, int, Desc*, Desc*, int);
 extern "C" char __cdecl FUN_00035da0();
 class Selector {
   public:
@@ -1414,7 +1414,7 @@ struct Text_b73b0 { void FUN_000f8500(const char*,Manager_b73b0*,int);  };
 struct Dialog_b73b0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void close(); char pad[0x14]; Text_b73b0 text; };
 extern Dialog_b73b0* __cdecl FUN_00344e74(void*,int,void*,void*,int);
 struct Source_b73b0 { void* FUN_0008a2f0(); };
-extern "C++" __declspec(nothrow) unsigned __int64 __cdecl FUN_0027b020(void*);
+extern "C++" unsigned __int64 __cdecl FUN_0027b020(void*);
 struct Entry_b73b0 { unsigned __int64 id; char pad[32]; const char* FUN_0027b010(); };
 struct Owner_b73b0 { char pad0[0x34]; Source_b73b0* source; char pad1[0x448]; Entry_b73b0 entries[1]; int FUN_000b4d70(unsigned __int64); void target(); };
 void Owner_b73b0::target() { if (!source) return; Dialog_b73b0* d=FUN_00344e74(FUN_000fc260("mission_brief_text"),0,&DAT_0049dba4,&DAT_0049f470,0); if (!d) return; d->text.FUN_000f8500(((char*)&DAT_003f335c),FUN_000fc1b0(),0); void* p=source->FUN_0008a2f0(); if (!p) {d->close(); return;} int n=FUN_000b4d70(FUN_0027b020(p)); if(n!=-1) { Entry_b73b0* e=&entries[n]; unsigned __int64 id=e->id; int x=FUN_000fc1b0()->FUN_000f7240(id); if(x!=-1) ((owners::Obj_f7a10 *)&(d->text))->FUN_000f7a10((hulk_intptr)x, 0); else {Manager_b73b0* m=FUN_000fc1b0(); const char* s=e->FUN_0027b010(); d->text.FUN_000f8500(s,m,1);} } d->close(); }
@@ -1513,8 +1513,8 @@ struct Desc {
     int x;
 };
 extern Desc DAT_0049dba4, DAT_0049f4a4;
-extern "C++" __declspec(nothrow) int __cdecl FUN_000fc260(const char*);
-extern "C++" __declspec(nothrow) char* __cdecl FUN_00344e74(int, int, Desc*, Desc*, int);
+extern "C++" int __cdecl FUN_000fc260(const char*);
+extern "C++" char* __cdecl FUN_00344e74(int, int, Desc*, Desc*, int);
 void __stdcall FUN_000b7620(char v) {
     char* p = FUN_00344e74(FUN_000fc260("mission_success_continue_button"), 0, &DAT_0049dba4, &DAT_0049f4a4, 0);
     if (p)

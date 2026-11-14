@@ -69,7 +69,7 @@ struct XboxDrive_26f330 : CoreXboxDrive {
     void FUN_0026f330(const char* name, char* result, int capacity);
 };
 struct XboxDrive_26f3e0 { unsigned int FUN_0026f3e0(unsigned int code); };
-extern "C++" __declspec(nothrow) int __stdcall FUN_0020bbc2(hulk_uintptr);
+extern "C++" int __stdcall FUN_0020bbc2(hulk_uintptr);
 typedef unsigned char u8_26f760;
 class XboxDrive_26f760 {
   public:
@@ -171,7 +171,7 @@ extern "C" void FUN_0026f070() {
 } // namespace fn_f4379f43
 
 // 0x0026f0b0 FUN_0026f0b0 (113 B): equivalent/0x0026f0b0.cpp [wrapped: conflict: core::XboxDrive]
-// sym: ??1XboxDrive@core@fn_0026f0b0@@QAE@XZ @a303bb2f51e4 @wf5cf1fb059e8
+// sym: ??1XboxDrive@core@fn_0026f0b0@@QAE@XZ @a303bb2f51e4 @wb5a6a42e6110
 namespace fn_0026f0b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 3/4, incomplete)
 // FUN_0026f0b0 @ 0x0026f0b0
@@ -425,7 +425,7 @@ unsigned int XboxDrive_26f3e0::FUN_0026f3e0(unsigned int code)
 namespace fn_0026f4b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 6/6)
 // FUN_0026f4b0 @ 0x0026f4b0
-extern "C++" __declspec(nothrow) hulk_intptr __stdcall GetLastError();
+extern "C++" hulk_intptr __stdcall GetLastError();
 extern "C" char * __cdecl _strncpy(char *, const char *, unsigned int);
 struct Result_26f4b0 { int status; char name[257]; };
 struct Entry_26f4b0 { unsigned char flags; char pad[43]; char name[256]; };
@@ -562,7 +562,7 @@ namespace fn_0026f570 {
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 14/14)
 // FUN_0026f570 @ 0x0026f570
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_002705f0();
+extern "C++" void __cdecl FUN_002705f0();
 extern "C" void __cdecl FUN_0026d820(void*);
 // core::DriveThread (0x002733c0 constructs it: the device's lock, the heap id; slot 0 adds a reference)
 struct DriveThread_26f570 { virtual void retain(); DriveThread_26f570* FUN_002733c0(hulk_uintptr, hulk_uintptr); };
@@ -638,8 +638,8 @@ extern "C" int __cdecl FUN_00345804(const char *, const char *, unsigned int *, 
 extern "C" int __stdcall FUN_00355791(unsigned int, unsigned int, int *, int *, int, int);
 extern "C" int __stdcall FUN_003559b9(int, int);
 extern "C" int __stdcall FUN_002109f1(const char *, unsigned int, unsigned int, int, unsigned int, int, int);
-extern "C++" __declspec(nothrow) int __stdcall FUN_002109b6(int, int);
-namespace XAPILIB { extern "C++" __declspec(nothrow) hulk_uintptr __stdcall GetLastError(); }
+extern "C++" int __stdcall FUN_002109b6(int, int);
+namespace XAPILIB { extern "C++" hulk_uintptr __stdcall GetLastError(); }
 namespace core {
 // core::XboxDrive::vfunc_8 (records.h CoreXboxDrive): opens a file of the drive; the handles are the file shim's
 // small indices
@@ -772,7 +772,7 @@ int core::Drive_26fad0::vfunc_19(int* a, int b) {
 // sym: ?vfunc_15@XboxDrive_26fb60@core@fn_0026fb60@@QAEHPBD@Z
 namespace fn_0026fb60 {
 
-extern "C++" __declspec(nothrow) __stdcall unsigned long GetLastError();
+extern "C++" __stdcall unsigned long GetLastError();
 int __stdcall FUN_00355c13(char* path, int flag);
 
 namespace core {
@@ -810,7 +810,7 @@ class XboxDrive_26fbd0 : public CoreXboxDrive {
     unsigned int FUN_0026f3e0(unsigned int);
 };
 extern "C" int __stdcall FUN_00355c7f(const char*);
-extern "C++" __declspec(nothrow) hulk_ulongptr __stdcall GetLastError();
+extern "C++" hulk_ulongptr __stdcall GetLastError();
 int XboxDrive_26fbd0::v16(const char* path) {
     char buf[0x101];
     FUN_0026f330(path, buf, 0x101);

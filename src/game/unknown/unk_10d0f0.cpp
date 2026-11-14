@@ -38,12 +38,12 @@ class CCondition_10d1c0 {
 extern void* g_vftable[];
 class Track_10d1d0 {
   public:
-    Track_10d1d0() throw();
+    Track_10d1d0();
     virtual void F0();
 };
 class AIHistoryCountTrack : public ::hulkfight::ai::AIHistoryCountTrack {
   public:
-    AIHistoryCountTrack() throw();
+    AIHistoryCountTrack();
 };
 
 
@@ -114,7 +114,7 @@ namespace fn_fda30a1e {
 
 // 0x0010d1d0 FUN_0010d1d0 (25 B): matches/0x0010d1d0.cpp
 // sym: ??0AIHistoryCountTrack@fn_fda30a1e@@QAE@XZ
-AIHistoryCountTrack::AIHistoryCountTrack() throw() {
+AIHistoryCountTrack::AIHistoryCountTrack() {
     f_0c = 0;
 }
 

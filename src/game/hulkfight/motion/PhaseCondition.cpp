@@ -31,7 +31,7 @@ void* operator new(size_t);
 namespace hulkfight { namespace motion {
 class Base {
   public:
-    Base(int) throw();
+    Base(int);
     virtual void f0();
     virtual bool f1_00234270(void*);
     virtual bool f2_002342b0(int);
@@ -42,7 +42,7 @@ class Base {
 namespace hulkfight { namespace motion {
 class PhaseCondition_164e50 : public Base {
   public:
-    PhaseCondition_164e50() throw() : Base(0), c(0), d(0) {}
+    PhaseCondition_164e50() : Base(0), c(0), d(0) {}
     virtual void f0();
     int c;
     int d;

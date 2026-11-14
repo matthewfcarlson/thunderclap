@@ -590,18 +590,18 @@ extern "C" double sqrt(double);
 
 struct Vec3_313b70 {
     float x, y, z;
-    float FUN_0022d110() throw();
-    void FUN_00011160(float s, Vec3_313b70 *d) throw();
-    void FUN_00095e80(float s, Vec3_313b70 *axis) throw();
+    float FUN_0022d110();
+    void FUN_00011160(float s, Vec3_313b70 *d);
+    void FUN_00095e80(float s, Vec3_313b70 *axis);
 };
 
 class Box_313b70 {
 public:
-    virtual void v0() throw();
-    virtual void v1() throw();
-    virtual void v2() throw();
-    virtual void v3() throw();
-    virtual Vec3_313b70 *v4() throw();
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual Vec3_313b70 *v4();
     char pad04[0x34];
     int f38;
     char pad3c[0xc];
@@ -635,16 +635,16 @@ union Arg7 {
     float s;
 };
 
-float __cdecl FUN_00083d90(float *w) throw();
-char __cdecl FUN_00018960(float a, float b, float eps) throw();
+float __cdecl FUN_00083d90(float *w);
+char __cdecl FUN_00018960(float a, float b, float eps);
 
 class Sweeper_313b70 {
 public:
     char pad00[0xc];
     float f0c;
     float f10;
-    void FUN_00313540(int *out, unsigned int e0, unsigned int e1, unsigned int e2) throw();
-    void FUN_003137f0(Box_313b70 *box, Vec3_313b70 *pt, unsigned int r1, unsigned int r2, int idx) throw();
+    void FUN_00313540(int *out, unsigned int e0, unsigned int e1, unsigned int e2);
+    void FUN_003137f0(Box_313b70 *box, Vec3_313b70 *pt, unsigned int r1, unsigned int r2, int idx);
     char FUN_00313b70(Arg1_313b70 a1, Arg2_313b70 a2, Arg3_313b70 a3, Vec3_313b70 *a4, float *a5, float a6, Arg7 a7);
 };
 

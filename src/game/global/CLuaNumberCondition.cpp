@@ -169,7 +169,7 @@ namespace fn_0004cf00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CLuaNumberCondition::vfunc_7 @ 0x0004cf00
 struct LuaState_4cf00 { hulk_freg FUN_001d2790(void* name); };
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00018960(float a,float b,float tolerance);
+extern "C++" bool __cdecl FUN_00018960(float a,float b,float tolerance);
 struct CLuaNumberCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual bool vfunc_7(void*);
  char pad04[8]; unsigned operation; char name[64]; float threshold;

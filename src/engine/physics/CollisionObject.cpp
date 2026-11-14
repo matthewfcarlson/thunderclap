@@ -299,7 +299,7 @@ extern "C" char __cdecl Check2_00305c00(u32_306060, u32_306060, u32_306060);
 // (x64t4) the words of decls/physics_world.h's HulkCollisionVolume (the owner and children range pointer-sized)
 class CollisionVolume_3060a0 : public HulkCollisionVolume {
   public:
-    CollisionVolume_3060a0() throw();
+    CollisionVolume_3060a0();
 };
 class Thing_3060e0 {
   public:
@@ -650,7 +650,7 @@ struct Name_304ed0 {
 HULK_REFCOUNT_PACK
 class FUN_0027b070 {
 public:
-    FUN_0027b070() throw();
+    FUN_0027b070();
     void* vftable;
     int f04, f08, f0c;
 };
@@ -662,11 +662,11 @@ class CollisionObject : public FUN_0027b070 {
 public:
     Name_304ed0 name;              // 0x10
     HULK_COLLISION_OBJECT_WORDS    // (x64t5) decls/physics_world.h's CollisionObject words: the shape, link and state pointers
-    CollisionObject() throw();
+    CollisionObject();
 };
 }
 
-physics::CollisionObject::CollisionObject() throw()
+physics::CollisionObject::CollisionObject()
 {
     vftable = (void*)DAT_00431b08;
     name.FUN_0027af00();
@@ -1319,7 +1319,7 @@ extern "C" bool __cdecl FUN_00306060(u32_306060 a, u32_306060 b, u32_306060 c) {
 
 // 0x003060a0 FUN_003060a0 (61 B): matches/0x003060a0.cpp
 // sym: ??0CollisionVolume_3060a0@fn_f3c9f944@@QAE@XZ
-CollisionVolume_3060a0::CollisionVolume_3060a0() throw() {
+CollisionVolume_3060a0::CollisionVolume_3060a0() {
     m4 = 0;
     vftable = (void*)DAT_00431b74;   // (x64t5) physics::CollisionVolume's vftable by address (common.h's `vA` is a zero stub natively)
     _ReadWriteBarrier();

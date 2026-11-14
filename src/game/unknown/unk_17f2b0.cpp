@@ -515,11 +515,11 @@ class CCondition_180b00 {
 };
 class Condition_180b30 {
   public:
-    virtual ~Condition_180b30() throw();
+    virtual ~Condition_180b30();
 };
 class CSMPropIsCharacterCondition : public Condition_180b30 {
   public:
-    virtual ~CSMPropIsCharacterCondition() throw();
+    virtual ~CSMPropIsCharacterCondition();
 };
 
 } // namespace fn_f4259b06
@@ -1488,7 +1488,7 @@ bool Obj_1800f0::Set(const Vec3_1800f0* p) {
 
 // 0x00180110 FUN_00180110 (4 B): matches/0x00180110.cpp
 // sym: ?FUN_00180110@Obj_180110@owners@@QAEPAXXZ
-void* owners::Obj_180110::FUN_00180110() throw() {
+void* owners::Obj_180110::FUN_00180110() {
     return (void*)((char*)this + 0x78);
 }
 
@@ -2069,7 +2069,7 @@ namespace fn_f4259b06 {
 
 // 0x00180b30 FUN_00180b30 (11 B): matches/0x00180b30.cpp
 // sym: ??1CSMPropIsCharacterCondition@fn_f4259b06@@UAE@XZ
-CSMPropIsCharacterCondition::~CSMPropIsCharacterCondition() throw() {}
+CSMPropIsCharacterCondition::~CSMPropIsCharacterCondition() {}
 
 
 // 0x00180b40 FUN_00180b40 (19 B): matches/0x00180b40.cpp

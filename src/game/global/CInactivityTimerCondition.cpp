@@ -49,7 +49,7 @@ namespace fn_0004d890 {
 struct State_4d890 { char pad[0x1e48]; float inactivity; };
 struct Actor_4d890 { State_4d890* FUN_00059a30(); };
 struct Context { Actor_4d890* FUN_000592a0(); };
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00018960(float, float, float);
+extern "C++" bool __cdecl FUN_00018960(float, float, float);
 struct CInactivityTimerCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual bool vfunc_7(Context*);
  char pad[8]; unsigned comparison; float threshold;

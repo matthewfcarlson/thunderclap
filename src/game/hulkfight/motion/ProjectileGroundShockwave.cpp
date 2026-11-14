@@ -100,7 +100,7 @@ class ProjectileGroundShockwave_198ab0 : public CProjectile_198ab0 {
     void* m34;
     char pad38[4];
     Ref_198ab0* m3c[32];
-    ~ProjectileGroundShockwave_198ab0() throw();
+    ~ProjectileGroundShockwave_198ab0();
 };
 
 
@@ -168,7 +168,7 @@ namespace fn_f3bcd8a9 {
 
 // 0x00198ab0 FUN_00198ab0 (124 B): matches/0x00198ab0.cpp
 // sym: ??1ProjectileGroundShockwave_198ab0@fn_f3bcd8a9@@QAE@XZ
-ProjectileGroundShockwave_198ab0::~ProjectileGroundShockwave_198ab0() throw() {
+ProjectileGroundShockwave_198ab0::~ProjectileGroundShockwave_198ab0() {
     vptr = ((void**)DAT_0041b4fc);
     _ReadWriteBarrier();
     Ref_198ab0** p = m3c;
@@ -268,7 +268,7 @@ extern "C" Rng_198b30 *__cdecl FUN_000964d0();
 extern "C" void __cdecl FUN_00224d70(float angle, V3_198b30 *v);
 extern "C" hulk_freg __cdecl FUN_00224f10(V3_198b30 *v);
 extern "C" void __cdecl FUN_00224db0(Mat_198b30 *m, V3_198b30 *from, V3_198b30 *to);
-extern "C++" __declspec(nothrow) hulk_freg __cdecl FUN_0004af40(float lo, float hi, float v);
+extern "C++" hulk_freg __cdecl FUN_0004af40(float lo, float hi, float v);
 
 struct Raycast {
     bool FUN_00201f20(V3_198b30 *p, int flag, V3_198b30 *hitA, V3_198b30 *hitB, int *o3, int *o4);
@@ -521,7 +521,7 @@ void ProjectileGroundShockwave::vfunc_4(float dt)
 
 
 // 0x00199060 hulkfight::motion::ProjectileGroundShockwave::vfunc_6 (1476 B): equivalent/0x00199060.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?F@ProjectileGroundShockwave@fn_00199060@@QAEDPAVThing_199060@2@PAVOther_199060@2@PAUV3_199060@2@HH@Z @a1601ddfe85b @w2574092e75be
+// sym: ?F@ProjectileGroundShockwave@fn_00199060@@QAEDPAVThing_199060@2@PAVOther_199060@2@PAUV3_199060@2@HH@Z @a1601ddfe85b @w8867bc243605
 namespace fn_00199060 {
 // STATUS: equivalent (tools/equiv.py level 3: 3141 inputs, branch coverage 76/76)
 // hulkfight::motion::ProjectileGroundShockwave::vfunc_6 @ 0x00199060

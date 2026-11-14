@@ -24,7 +24,7 @@ class BeamEffect_197f90 {
     void* m4;
     char pad[0xc];
     Ref_197f90* m14;
-    ~BeamEffect_197f90() throw();
+    ~BeamEffect_197f90();
 };
 struct V3_197ff0 {
     float x, y, z;
@@ -506,7 +506,7 @@ namespace fn_fbc25767 {
 
 // 0x00197f90 FUN_00197f90 (44 B): matches/0x00197f90.cpp
 // sym: ??1BeamEffect_197f90@fn_fbc25767@@QAE@XZ
-BeamEffect_197f90::~BeamEffect_197f90() throw() {
+BeamEffect_197f90::~BeamEffect_197f90() {
     vptr = hulk_at_0041b4a0;
     _ReadWriteBarrier();
     if (m14) {

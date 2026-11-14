@@ -36,11 +36,11 @@ struct ConditionFactoryTemplate_57470 {
 };
 struct Base_574a0 {
     virtual void f0();
-    Base_574a0() throw();
+    Base_574a0();
     char pad[0x14];
 };
 struct CButtonUpCondition_574a0 : Base_574a0 {
-    CButtonUpCondition_574a0() throw() {}
+    CButtonUpCondition_574a0() {}
     virtual void f0();
 };
 extern void* hulk_at_003f6d50[];

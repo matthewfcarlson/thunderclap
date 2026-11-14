@@ -1365,64 +1365,64 @@ struct V3_2f6220 {
 
 struct Id64_2f6220 {
     int lo, hi;
-    void FUN_0027af00() throw();
+    void FUN_0027af00();
 };
 
 struct Matrix {
     float m[16];
-    void FUN_0022b980() throw();
+    void FUN_0022b980();
 };
 
 
 struct SimpleFilterAbs3D_2f6220 {
     char data[0x64];
-    void FUN_00308cc0() throw();
-    void FUN_00308a70(void *owner) throw();
+    void FUN_00308cc0();
+    void FUN_00308a70(void *owner);
 };
 
 namespace physics {
 
 class SimUnits {
 public:
-    virtual ~SimUnits() throw();
+    virtual ~SimUnits();
 };
 
 class SimCGSValue : public SimUnits {
 public:
-    virtual void vfunc_1(float v) throw();
-    virtual void vfunc_2() throw();
-    virtual void vfunc_3() throw();
-    virtual ~SimCGSValue() throw() {}
+    virtual void vfunc_1(float v);
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual ~SimCGSValue() {}
     float value;
     float scale;
 };
 
 class SimTime : public SimCGSValue {
 public:
-    SimTime(float v) throw();
-    virtual ~SimTime() throw() {}
-    virtual void vfunc_1(float v) throw();
+    SimTime(float v);
+    virtual ~SimTime() {}
+    virtual void vfunc_1(float v);
 };
 
 class SimLength : public SimCGSValue {
 public:
-    SimLength(float v) throw();
-    virtual ~SimLength() throw() {}
-    virtual void vfunc_1(float v) throw();
+    SimLength(float v);
+    virtual ~SimLength() {}
+    virtual void vfunc_1(float v);
 };
 
 class SymMatrix {
 public:
-    SymMatrix() throw();
-    virtual ~SymMatrix() throw() {}
+    SymMatrix();
+    virtual ~SymMatrix() {}
     float m[6];
 };
 
 class SimulatedObject {
 public:
-    SimulatedObject(int v) throw();
-    virtual ~SimulatedObject() throw();
-    virtual void vfunc_1_000382a0() throw();
+    SimulatedObject(int v);
+    virtual ~SimulatedObject();
+    virtual void vfunc_1_000382a0();
     char pad4[0xc];
     int f10;
     char pad14[0x10];
@@ -1434,25 +1434,25 @@ public:
 class PhysicsObject : public SimulatedObject {
 public:
     virtual void* vfunc_2_002f61c0(char);
-    virtual void vfunc_3_0027afe0() throw();
-    virtual void vfunc_4_0027aff0() throw();
+    virtual void vfunc_3_0027afe0();
+    virtual void vfunc_4_0027aff0();
     virtual void vfunc_5_002f6960(float);
-    virtual void hulk_slot_vfunc_6_002f56b0(char); void vfunc_6_002f56b0(int v) throw();
-    virtual void hulk_slot_vfunc_7_002f5870() throw(); void vfunc_7_002f5870() throw();
-    virtual void vfunc_8_002f5860() throw();
+    virtual void hulk_slot_vfunc_6_002f56b0(char); void vfunc_6_002f56b0(int v);
+    virtual void hulk_slot_vfunc_7_002f5870(); void vfunc_7_002f5870();
+    virtual void vfunc_8_002f5860();
     virtual void vfunc_9_002f55b0(int);
-    virtual void vfunc_10_002f55e0() throw();
-    virtual void vfunc_11_002f55d0() throw();
+    virtual void vfunc_10_002f55e0();
+    virtual void vfunc_11_002f55d0();
     virtual bool vfunc_12_002f58e0(int);
-    virtual void vfunc_13_002f59f0() throw();
-    virtual void vfunc_14_002f60d0() throw();
-    virtual void vfunc_15_002f6150() throw();
-    virtual void vfunc_16() throw();
+    virtual void vfunc_13_002f59f0();
+    virtual void vfunc_14_002f60d0();
+    virtual void vfunc_15_002f6150();
+    virtual void vfunc_16();
     virtual void vfunc_17_002f55f0(int, int, int, int, int);
     virtual bool vfunc_18_002f5c70(hulk_intptr, hulk_intptr, int, int, int, int);
     virtual void vfunc_19_002f5db0(int, int, int);
     virtual void vfunc_20_002f5ec0(void*, void*, int, int, int);
-    virtual void vfunc_21_002f5630() throw();
+    virtual void vfunc_21_002f5630();
     virtual void vfunc_22_002fe6e0(int, int, int, int, int, int);
     virtual void vfunc_23_002f5580(int, int);
     virtual bool vfunc_24_002f5590(hulk_intptr, hulk_intptr, int);
@@ -1461,16 +1461,16 @@ public:
     virtual void vfunc_27_002f5360(int);
     virtual void* vfunc_28_002f78c0(int);
     virtual void vfunc_29_002f55a0(int);
-    virtual void vfunc_30_002f6940() throw();
-    virtual void vfunc_31_002f5f60() throw();
+    virtual void vfunc_30_002f6940();
+    virtual void vfunc_31_002f5f60();
     virtual void vfunc_32_002f5ac0(hulk_intptr, hulk_intptr);
     virtual void vfunc_33_002f5b90(hulk_intptr);
     virtual bool vfunc_34_002f5610(void*);
     virtual void vfunc_35_002f5d70(float);
-    virtual void vfunc_36_002f5620() throw();
-    virtual void vfunc_37_002f5c40() throw();
+    virtual void vfunc_36_002f5620();
+    virtual void vfunc_37_002f5c40();
     virtual void vfunc_38_002f6af0(float);
-    virtual void hulk_slot_vfunc_39_002f5be0() throw(); void vfunc_39_002f5be0() throw();
+    virtual void hulk_slot_vfunc_39_002f5be0(); void vfunc_39_002f5be0();
     Id64_2f6220 id30;
     int f38;
     int f3c;
@@ -1627,61 +1627,61 @@ struct V3_2f65f0 {
 
 struct Id64_2f65f0 {
     int lo, hi;
-    void FUN_0027af00() throw();
+    void FUN_0027af00();
 };
 
 struct Matrix {
     float m[16];
-    void FUN_0022b980() throw();
+    void FUN_0022b980();
 };
 
 struct SymMatrix {
     char data[0x1c];
-    void FUN_002fca90() throw();
+    void FUN_002fca90();
 };
 
 struct SimpleFilterAbs3D_2f65f0 {
     char data[0x64];
-    void FUN_00308cc0() throw();
-    void FUN_00308a70(void *owner) throw();
+    void FUN_00308cc0();
+    void FUN_00308a70(void *owner);
 };
 
 namespace physics {
 
 class SimUnits {
 public:
-    virtual ~SimUnits() throw();
+    virtual ~SimUnits();
 };
 
 class SimCGSValue : public SimUnits {
 public:
-    virtual void vfunc_1(float v) throw();
-    virtual void vfunc_2() throw();
-    virtual void vfunc_3() throw();
-    virtual ~SimCGSValue() throw() {}
+    virtual void vfunc_1(float v);
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual ~SimCGSValue() {}
     float value;
     float scale;
 };
 
 class SimTime : public SimCGSValue {
 public:
-    SimTime(float v) throw();
-    virtual ~SimTime() throw() {}
-    virtual void vfunc_1(float v) throw();
+    SimTime(float v);
+    virtual ~SimTime() {}
+    virtual void vfunc_1(float v);
 };
 
 class SimLength : public SimCGSValue {
 public:
-    SimLength(float v) throw();
-    virtual ~SimLength() throw() {}
-    virtual void vfunc_1(float v) throw();
+    SimLength(float v);
+    virtual ~SimLength() {}
+    virtual void vfunc_1(float v);
 };
 
 class SimulatedObject {
 public:
-    SimulatedObject(int v) throw();
-    virtual ~SimulatedObject() throw();
-    virtual void vfunc_1_000382a0() throw();
+    SimulatedObject(int v);
+    virtual ~SimulatedObject();
+    virtual void vfunc_1_000382a0();
     char pad4[0x20];
     int f24;
     int f28;
@@ -2036,36 +2036,36 @@ extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 struct Vec3_2f6af0 {
     float x, y, z;
-    void FUN_0022d260(struct Mat_2f6af0 *m) throw();
+    void FUN_0022d260(struct Mat_2f6af0 *m);
 };
 
 struct Quat_2f6af0 {
     float q[4];
-    void FUN_0022b120() throw();
-    void FUN_0022b650(struct Mat_2f6af0 *m) throw();
+    void FUN_0022b120();
+    void FUN_0022b650(struct Mat_2f6af0 *m);
 };
 
 struct Mat_2f6af0 {
     float m[16];
-    void FUN_0022c3b0(Vec3_2f6af0 *in, Vec3_2f6af0 *out) throw();
-    void FUN_0022be40(Vec3_2f6af0 *p) throw();
+    void FUN_0022c3b0(Vec3_2f6af0 *in, Vec3_2f6af0 *out);
+    void FUN_0022be40(Vec3_2f6af0 *p);
 };
 
 struct Integ {
-    void FUN_002fd020(Vec3_2f6af0 *a, Vec3_2f6af0 *b) throw();
+    void FUN_002fd020(Vec3_2f6af0 *a, Vec3_2f6af0 *b);
 };
 
 class Body_2f6af0 {
 public:
-    virtual void v0() throw();
-    virtual void v1() throw();
-    virtual void v2() throw();
-    virtual void v3() throw();
-    virtual void v4() throw();
-    virtual void v5() throw();
-    virtual void v6(Mat_2f6af0 *m, float dt) throw();
-    virtual void v7() throw();
-    virtual void v8(Vec3_2f6af0 *p, Vec3_2f6af0 *q, int z) throw();
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6(Mat_2f6af0 *m, float dt);
+    virtual void v7();
+    virtual void v8(Vec3_2f6af0 *p, Vec3_2f6af0 *q, int z);
     char pad04[0x58];
     Vec3_2f6af0 a;
     union {
@@ -2074,52 +2074,52 @@ public:
     };
 };
 
-extern "C" char __cdecl FUN_003059c0(Vec3_2f6af0 *a, Quat_2f6af0 *z) throw();
-extern "C" void *__cdecl FUN_0022b080(void *a, void *b, void *c) throw();
-extern "C" void __cdecl FUN_00305700(unsigned int s, Mat_2f6af0 *src, Mat_2f6af0 *dst) throw();
+extern "C" char __cdecl FUN_003059c0(Vec3_2f6af0 *a, Quat_2f6af0 *z);
+extern "C" void *__cdecl FUN_0022b080(void *a, void *b, void *c);
+extern "C" void __cdecl FUN_00305700(unsigned int s, Mat_2f6af0 *src, Mat_2f6af0 *dst);
 
 class PhysicsObject {
 public:
-    virtual void vfunc_0() throw();
-    virtual void vfunc_1() throw();
-    virtual void vfunc_2() throw();
-    virtual void vfunc_3() throw();
-    virtual void vfunc_4() throw();
-    virtual void vfunc_5() throw();
-    virtual void vfunc_6() throw();
-    virtual void vfunc_7() throw();
-    virtual void vfunc_8() throw();
-    virtual void vfunc_9() throw();
-    virtual void vfunc_10() throw();
-    virtual void vfunc_11() throw();
-    virtual void vfunc_12() throw();
-    virtual void vfunc_13() throw();
-    virtual void vfunc_14() throw();
-    virtual void vfunc_15() throw();
-    virtual void vfunc_16() throw();
-    virtual void vfunc_17() throw();
-    virtual void vfunc_18() throw();
-    virtual void vfunc_19() throw();
-    virtual void vfunc_20() throw();
-    virtual void vfunc_21() throw();
-    virtual void vfunc_22() throw();
-    virtual void vfunc_23() throw();
-    virtual void vfunc_24() throw();
-    virtual void vfunc_25() throw();
-    virtual void vfunc_26() throw();
-    virtual void vfunc_27() throw();
-    virtual void vfunc_28() throw();
-    virtual void vfunc_29() throw();
-    virtual void vfunc_30() throw();
-    virtual void vfunc_31() throw();
-    virtual void vfunc_32() throw();
-    virtual void vfunc_33() throw();
-    virtual void vfunc_34() throw();
-    virtual void vfunc_35() throw();
-    virtual void vfunc_36() throw();
-    virtual void vfunc_37() throw();
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
+    virtual void vfunc_5();
+    virtual void vfunc_6();
+    virtual void vfunc_7();
+    virtual void vfunc_8();
+    virtual void vfunc_9();
+    virtual void vfunc_10();
+    virtual void vfunc_11();
+    virtual void vfunc_12();
+    virtual void vfunc_13();
+    virtual void vfunc_14();
+    virtual void vfunc_15();
+    virtual void vfunc_16();
+    virtual void vfunc_17();
+    virtual void vfunc_18();
+    virtual void vfunc_19();
+    virtual void vfunc_20();
+    virtual void vfunc_21();
+    virtual void vfunc_22();
+    virtual void vfunc_23();
+    virtual void vfunc_24();
+    virtual void vfunc_25();
+    virtual void vfunc_26();
+    virtual void vfunc_27();
+    virtual void vfunc_28();
+    virtual void vfunc_29();
+    virtual void vfunc_30();
+    virtual void vfunc_31();
+    virtual void vfunc_32();
+    virtual void vfunc_33();
+    virtual void vfunc_34();
+    virtual void vfunc_35();
+    virtual void vfunc_36();
+    virtual void vfunc_37();
     virtual void vfunc_38(float dt);
-    virtual void vfunc_39() throw();
+    virtual void vfunc_39();
     char pad04[0xc];
     Body_2f6af0 *f10;
     char pad14[0x10];
@@ -2148,7 +2148,7 @@ public:
     char pad168[0x1cc - 0x168];
     float f1cc;
     char b1d0;
-    void FUN_002f5a20(Vec3_2f6af0 *q) throw();
+    void FUN_002f5a20(Vec3_2f6af0 *q);
 };
 
 void PhysicsObject::vfunc_38(float dt)

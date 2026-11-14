@@ -55,7 +55,7 @@ class CTrack_69430 {
   public:
     virtual void F0();
     virtual bool F1_00234270(void*);
-    virtual ~CTrack_69430() throw();
+    virtual ~CTrack_69430();
     CTrack_69430();
     char pad[8];
 };
@@ -63,7 +63,7 @@ class CTrack_69430 {
 class CDropTrack : public CTrack_69430 {
   public:
     virtual void F0();
-    virtual ~CDropTrack() throw();
+    virtual ~CDropTrack();
     CDropTrack();
 
   private:

@@ -173,7 +173,7 @@ public:
     virtual Ref_f25f0 *v3(content::LoadInventory::DynamicCaster<pure3d::BillboardObject> *caster, unsigned int lo, unsigned int hi);
 };
 struct Id64_f25f0 { unsigned int lo; unsigned int hi; };
-extern "C++" __declspec(nothrow) Id64_f25f0 __cdecl FUN_0027b020(const char *name);
+extern "C++" Id64_f25f0 __cdecl FUN_0027b020(const char *name);
 
 // equiv-map: ??0FEBase@@QAE@HPBD@Z = 0x000e13c0
 class FEAnimation_f25f0 {

@@ -1846,7 +1846,7 @@ namespace fn_0022f960 {
 // STATUS: equivalent (tools/equiv.py level 3: 2518 inputs, branch coverage 24/24)
 // FUN_0022f960 @ 0x0022f960
 // FUN_0022f960 @ 0x0022f960
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d690(unsigned int bytes);
+extern "C++" void* __cdecl FUN_0008d690(unsigned int bytes);
 struct Object {
  char pad[0x108];
  unsigned char enabled;

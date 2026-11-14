@@ -832,7 +832,7 @@ class PhysicsJoint3D_30d4a0 {
     void* vfunc_0(int flags);
 };
 struct SymMatrix_30d590 {
-    void Init_002fca90() throw();
+    void Init_002fca90();
     char b[0x1c];
 };
 struct PhysicsJoint0D_30d590;
@@ -872,7 +872,7 @@ struct PhysicsJoint_30d590 {
     SymMatrix_30d590 h48;
     SymMatrix_30d590 h64;
     char tail[0xf8 - 0x80];
-    PhysicsJoint_30d590() throw() {
+    PhysicsJoint_30d590() {
         _ReadWriteBarrier();
         m20 = 0;
         m24 = 0;
@@ -883,7 +883,7 @@ struct PhysicsJoint_30d590 {
     void Init_0030c690(PhysicsJoint_30d590* owner);
 };
 struct PhysicsJoint0D_30d590 : PhysicsJoint_30d590 {
-    PhysicsJoint0D_30d590() throw() {}
+    PhysicsJoint0D_30d590() {}
     virtual PhysicsJoint_30d590* d27();
 };
 } // namespace fn_fca90e00
@@ -3098,24 +3098,24 @@ namespace fn_0030ca30 {
 namespace physics {
 struct Sub_30ca30 {
     char pad[0x1c];
-    Sub_30ca30() throw();
+    Sub_30ca30();
 };
 struct Vec_30ca30 {
     float x, y, z;
-    Vec_30ca30() throw() {}
-    Vec_30ca30(float a, float b, float c) throw() : x(a), y(b), z(c) {}
+    Vec_30ca30() {}
+    Vec_30ca30(float a, float b, float c) : x(a), y(b), z(c) {}
 };
 class PhysicsJoint {
   public:
-    virtual ~PhysicsJoint() throw();
+    virtual ~PhysicsJoint();
     char pad[0x1c];
     Vec_30ca30 v;
     char pad2[0x48 - 0x2c];
     Sub_30ca30 s1;
     Sub_30ca30 s2;
-    PhysicsJoint() throw();
+    PhysicsJoint();
 };
-PhysicsJoint::PhysicsJoint() throw() : v(0.0f, 0.0f, 0.0f) {}
+PhysicsJoint::PhysicsJoint() : v(0.0f, 0.0f, 0.0f) {}
 } // namespace physics
 } // namespace fn_0030ca30
 
@@ -3843,8 +3843,8 @@ struct SymMatrix_30d320 {
     void Destruct_002fcaa0();
 };
 
-extern "C++" __declspec(nothrow) void __cdecl FreeBuf_0008d340(void*);
-extern "C++" __declspec(nothrow) void __cdecl DeleteObj_0008d330(void*);
+extern "C++" void __cdecl FreeBuf_0008d340(void*);
+extern "C++" void __cdecl DeleteObj_0008d330(void*);
 extern "C" char DAT_00431de4[];
 
 class PhysicsJoint {
@@ -3883,29 +3883,29 @@ namespace fn_0030d370 {
 namespace physics {
 struct Sub_30d370 {
     char pad[0x1c];
-    Sub_30d370() throw();
+    Sub_30d370();
 };
 struct Vec_30d370 {
     float x, y, z;
-    Vec_30d370() throw() {}
-    Vec_30d370(float a, float b, float c) throw() : x(a), y(b), z(c) {}
+    Vec_30d370() {}
+    Vec_30d370(float a, float b, float c) : x(a), y(b), z(c) {}
 };
 class PhysicsJoint {
   public:
-    virtual ~PhysicsJoint() throw();
+    virtual ~PhysicsJoint();
     char pad[0x1c];
     Vec_30d370 v;
     char pad2[0x48 - 0x2c];
     Sub_30d370 s1;
     Sub_30d370 s2;
-    PhysicsJoint() throw() : v(0.0f, 0.0f, 0.0f) {}
+    PhysicsJoint() : v(0.0f, 0.0f, 0.0f) {}
 };
 class PhysicsJoint0D : public PhysicsJoint {
   public:
-    virtual ~PhysicsJoint0D() throw();
-    PhysicsJoint0D() throw();
+    virtual ~PhysicsJoint0D();
+    PhysicsJoint0D();
 };
-PhysicsJoint0D::PhysicsJoint0D() throw() {}
+PhysicsJoint0D::PhysicsJoint0D() {}
 } // namespace physics
 } // namespace fn_0030d370
 
@@ -3936,29 +3936,29 @@ namespace fn_0030d3f0 {
 namespace physics {
 struct Sub_30d3f0 {
     char pad[0x1c];
-    Sub_30d3f0() throw();
+    Sub_30d3f0();
 };
 struct Vec_30d3f0 {
     float x, y, z;
-    Vec_30d3f0() throw() {}
-    Vec_30d3f0(float a, float b, float c) throw() : x(a), y(b), z(c) {}
+    Vec_30d3f0() {}
+    Vec_30d3f0(float a, float b, float c) : x(a), y(b), z(c) {}
 };
 class PhysicsJoint {
   public:
-    virtual ~PhysicsJoint() throw();
+    virtual ~PhysicsJoint();
     char pad[0x1c];
     Vec_30d3f0 v;
     char pad2[0x48 - 0x2c];
     Sub_30d3f0 s1;
     Sub_30d3f0 s2;
-    PhysicsJoint() throw() : v(0.0f, 0.0f, 0.0f) {}
+    PhysicsJoint() : v(0.0f, 0.0f, 0.0f) {}
 };
 class PhysicsJoint1D : public PhysicsJoint {
   public:
-    virtual ~PhysicsJoint1D() throw();
-    PhysicsJoint1D() throw();
+    virtual ~PhysicsJoint1D();
+    PhysicsJoint1D();
 };
-PhysicsJoint1D::PhysicsJoint1D() throw() {}
+PhysicsJoint1D::PhysicsJoint1D() {}
 } // namespace physics
 } // namespace fn_0030d3f0
 
@@ -3989,29 +3989,29 @@ namespace fn_0030d470 {
 namespace physics {
 struct Sub_30d470 {
     char pad[0x1c];
-    Sub_30d470() throw();
+    Sub_30d470();
 };
 struct Vec_30d470 {
     float x, y, z;
-    Vec_30d470() throw() {}
-    Vec_30d470(float a, float b, float c) throw() : x(a), y(b), z(c) {}
+    Vec_30d470() {}
+    Vec_30d470(float a, float b, float c) : x(a), y(b), z(c) {}
 };
 class PhysicsJoint {
   public:
-    virtual ~PhysicsJoint() throw();
+    virtual ~PhysicsJoint();
     char pad[0x1c];
     Vec_30d470 v;
     char pad2[0x48 - 0x2c];
     Sub_30d470 s1;
     Sub_30d470 s2;
-    PhysicsJoint() throw() : v(0.0f, 0.0f, 0.0f) {}
+    PhysicsJoint() : v(0.0f, 0.0f, 0.0f) {}
 };
 class PhysicsJoint3D : public PhysicsJoint {
   public:
-    virtual ~PhysicsJoint3D() throw();
-    PhysicsJoint3D() throw();
+    virtual ~PhysicsJoint3D();
+    PhysicsJoint3D();
 };
-PhysicsJoint3D::PhysicsJoint3D() throw() {}
+PhysicsJoint3D::PhysicsJoint3D() {}
 } // namespace physics
 } // namespace fn_0030d470
 
@@ -4053,7 +4053,7 @@ namespace physics {
 
 class PhysicsJoint {
 public:
-    PhysicsJoint(int a, int b, int c) throw();
+    PhysicsJoint(int a, int b, int c);
     virtual void* f0_0030d3a0(int);
     virtual void f1();
     virtual void f2();
@@ -4065,20 +4065,20 @@ public:
 
 class PhysicsJoint0D : public PhysicsJoint {
 public:
-    PhysicsJoint0D(int a, int b, int c) throw() : PhysicsJoint(a, b, c) {}
+    PhysicsJoint0D(int a, int b, int c) : PhysicsJoint(a, b, c) {}
     virtual void f5(void *);
 };
 
 class PhysicsJoint1D : public PhysicsJoint {
 public:
-    PhysicsJoint1D(int a, int b, int c) throw();
+    PhysicsJoint1D(int a, int b, int c);
     virtual void f5(void *);
     char pad[0x120 - 0xf8];
 };
 
 class PhysicsJoint3D : public PhysicsJoint {
 public:
-    PhysicsJoint3D(int a, int b, int c) throw();
+    PhysicsJoint3D(int a, int b, int c);
     virtual void f5(void *);
     char pad[0x15c - 0xf8];
 };
@@ -4128,7 +4128,7 @@ void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_0030d5f0 {
 struct Trio_30d5f0 {
     int a, b, c;
-    Trio_30d5f0() throw() {
+    Trio_30d5f0() {
         a = 0;
         b = 0;
         c = 0;
@@ -4136,7 +4136,7 @@ struct Trio_30d5f0 {
 };
 struct SymMatrix_30d5f0 {
     char pad[0x1c];
-    SymMatrix_30d5f0() throw();
+    SymMatrix_30d5f0();
 };
 
 
@@ -4171,7 +4171,7 @@ class PhysicsJoint {
     virtual void vf26();
     virtual PhysicsJoint* vf27() HULK_PURE64;
     virtual void vf28_0030c670(PhysicsJoint*);
-    PhysicsJoint() throw() {}
+    PhysicsJoint() {}
     char pad1[0x1c];
     Trio_30d5f0 t;
     char pad2[0x1c];
@@ -4182,7 +4182,7 @@ class PhysicsJoint {
 
 class PhysicsJoint1D : public PhysicsJoint {
   public:
-    PhysicsJoint1D() throw() {}
+    PhysicsJoint1D() {}
     void Init_0030c830(PhysicsJoint1D*);
     virtual PhysicsJoint* vf27();
 };

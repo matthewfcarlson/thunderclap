@@ -133,7 +133,7 @@ namespace fn_001c9c50 {
 struct Properties_1c9c50 {
     void FUN_001d1d10();
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
+extern "C++" void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
 struct Frame_1c9c50 {
     char buffer[32];
 };
@@ -166,7 +166,7 @@ namespace fn_001c9d20 {
 struct Properties_1c9d20 {
     void FUN_001d1d10();
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
+extern "C++" void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
 struct Frame_1c9d20 {
     char buffer[32];
 };
@@ -199,7 +199,7 @@ namespace fn_001c9df0 {
 struct Properties_1c9df0 {
     void FUN_001d1d10();
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
+extern "C++" void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
 struct Frame_1c9df0 {
     char buffer[32];
 };
@@ -232,7 +232,7 @@ namespace fn_001c9ec0 {
 struct Properties_1c9ec0 {
     void FUN_001d1d10();
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
+extern "C++" void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
 struct Frame_1c9ec0 {
     char buffer[32];
 };
@@ -409,7 +409,7 @@ struct Actor_1ca890 { const char* FUN_00036d00(); };
 struct Registry_1ca890 {  };
 struct World { char pad[0x44]; Registry_1ca890* registry; };
 struct Writer_1ca890 {    void FUN_001d1d10(); };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00096d50(char*, int, unsigned int, unsigned int);
+extern "C++" void __cdecl FUN_00096d50(char*, int, unsigned int, unsigned int);
 struct Target_1ca890 { char pad[0x10]; unsigned int actor; char pad14[4]; unsigned int propLow, propHigh, typeLow, typeHigh, attachment; Writer_1ca890* FUN_001d4c90(); bool run(); };
 bool Target_1ca890::run() {
  Writer_1ca890* writer = FUN_001d4c90();
@@ -450,7 +450,7 @@ namespace fn_001caa10 {
 struct Properties_1caa10 {
  void FUN_001d1d10();
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
+extern "C++" void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
 struct Object {
  char padding[0x18];
  unsigned int propLow, propHigh;
@@ -526,7 +526,7 @@ namespace fn_001cae90 {
 struct Properties_1cae90 {
     void FUN_001d1d10();
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
+extern "C++" void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
 struct Frame_1cae90 {
     char buffer[32];
 };

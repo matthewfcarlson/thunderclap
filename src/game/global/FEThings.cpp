@@ -312,7 +312,7 @@ class FEThings_ddfc0 : public FEThingsBase_ddfc0 {
     Ref_ddfc0* m2224;
     char pad2228[8];
     Sub_ddfc0* m2230;
-    ~FEThings_ddfc0() throw();
+    ~FEThings_ddfc0();
 };
 class Item {
   public:
@@ -410,7 +410,7 @@ namespace fn_f4042a89 {
 
 // 0x000ddfc0 FUN_000ddfc0 (105 B): matches/0x000ddfc0.cpp
 // sym: ??1FEThings_ddfc0@fn_f4042a89@@QAE@XZ
-FEThings_ddfc0::~FEThings_ddfc0() throw() {
+FEThings_ddfc0::~FEThings_ddfc0() {
     Sub_ddfc0* p = m2230;
     vptr = hulk_at_0040bd24;
     if (p) {

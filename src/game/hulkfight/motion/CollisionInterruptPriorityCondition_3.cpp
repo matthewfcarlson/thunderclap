@@ -31,7 +31,7 @@ void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_fdffb444 {
 class BaseCondition {
   public:
-    BaseCondition(int) throw();
+    BaseCondition(int);
     virtual void f0();
     virtual bool f1_00234270(void*);
     virtual bool f2_002342b0(int);
@@ -43,7 +43,7 @@ class BaseCondition {
 namespace hulkfight { namespace motion {
 class CollisionInterruptPriorityCondition_159aa0 : public BaseCondition {
   public:
-    CollisionInterruptPriorityCondition_159aa0() throw() : BaseCondition(0) { value = 0; }
+    CollisionInterruptPriorityCondition_159aa0() : BaseCondition(0) { value = 0; }
     virtual void f0();
 };
 } }

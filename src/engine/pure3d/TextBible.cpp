@@ -250,17 +250,17 @@ namespace pure3d { struct TextBible { void vfunc_2(unsigned flags); void vfunc_4
 // 0x002c3a20 FUN_002c3a20 (95 B): matches/0x002c3a20.cpp [wrapped: conflict: core::ILanguageChangeCallback; pure3d::Entity; pure3d::TextBible]
 // sym: ??1TextBible@pure3d@fn_002c3a20@@UAE@XZ
 namespace fn_002c3a20 {
-extern void Free(void*) throw();
+extern void Free(void*);
 class Item_2c3a20 {
   public:
-    void Fini() throw();
+    void Fini();
 };
 namespace core {
 struct ILanguageChangeCallback {
     virtual void a() = 0;
     virtual void b() = 0;
     virtual void c() = 0;
-    virtual ~ILanguageChangeCallback() throw() {}
+    virtual ~ILanguageChangeCallback() {}
     virtual void e() = 0;
 };
 } // namespace core
@@ -271,7 +271,7 @@ template <class T> struct Vec_2c3a20 {
     unsigned size() const { return (unsigned)(e - b); }
     T& operator[](unsigned i) { return b[i]; }
     void clear() { e = b; }
-    ~Vec_2c3a20() throw() {
+    ~Vec_2c3a20() {
         e = b;
         if (b)
             Free(b);
@@ -280,19 +280,19 @@ template <class T> struct Vec_2c3a20 {
 namespace pure3d {
 class Entity {
   public:
-    virtual ~Entity() throw();
+    virtual ~Entity();
     char pad[0xc];
 };
 class TextBible : public Entity, public core::ILanguageChangeCallback {
   public:
     Vec_2c3a20<Item_2c3a20*> items;
-    virtual ~TextBible() throw();
+    virtual ~TextBible();
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void e();
 };
-TextBible::~TextBible() throw() {
+TextBible::~TextBible() {
     for (unsigned i = 0; i < items.size(); i++)
         items[i]->Fini();
     items.clear();

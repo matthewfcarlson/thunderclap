@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// clang-flags: -fexceptions -fcxx-exceptions   (gx2, D22: kept until its --wine proof passes again; docs/native-build.md "gx2")
 // object 0x0026de20..0x0026efc0 (kind game, layer engine, confidence high), dominant class core::DebugConsole
 #include "tree_prelude.h"
 #include "compat/ptr.h"

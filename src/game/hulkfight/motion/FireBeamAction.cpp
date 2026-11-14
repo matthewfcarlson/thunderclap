@@ -445,14 +445,14 @@ class Del_196670 {
 };
 class Action_196670 {
   public:
-    virtual ~Action_196670() throw();
+    virtual ~Action_196670();
     int b[6];
 };
 namespace hulkfight {
 namespace motion {
 class FireBeamAction : public Action_196670 {
   public:
-    virtual ~FireBeamAction() throw();
+    virtual ~FireBeamAction();
     int i1c;
     Ref_196670* r20;
     char pad[0x10];
@@ -472,7 +472,7 @@ inline void Rl(Ref_196670*& r) {
         r = 0;
     }
 }
-hulkfight::motion::FireBeamAction::~FireBeamAction() throw() {
+hulkfight::motion::FireBeamAction::~FireBeamAction() {
     Rl(r38);
     Rl(r34);
     Rl(r20);
@@ -487,7 +487,7 @@ hulkfight::motion::FireBeamAction::~FireBeamAction() throw() {
 
 
 // 0x00197540 hulkfight::motion::FireBeamAction::vfunc_4 (196 B): equivalent/0x00197540.cpp [wrapped: conflict: World; hulkfight::motion::FireBeamAction]
-// sym: ?vfunc_4@FireBeamAction@motion@hulkfight@fn_00197540@@UAEXXZ @94125230b9fd @wae591e789998
+// sym: ?vfunc_4@FireBeamAction@motion@hulkfight@fn_00197540@@UAEXXZ @94125230b9fd @wd9ba8c0cf037
 namespace fn_00197540 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // hulkfight::motion::FireBeamAction::vfunc_4 @ 0x00197540

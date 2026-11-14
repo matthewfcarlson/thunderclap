@@ -747,7 +747,7 @@ public:
     char pad[0x1c];
     Skel_225950* skel;
     char pad2[0x224 - 0x24];
-    Driver(int a) throw();
+    Driver(int a);
 };
 class AnimationDriver : public Driver {
 public:

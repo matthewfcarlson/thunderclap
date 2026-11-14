@@ -210,7 +210,7 @@ class Ref_2345b0 {
     virtual void Release(int);
 };
 } // namespace fn_fc77ac82
-::fight::Condition::~Condition() throw() {
+::fight::Condition::~Condition() {
     if (f_04)
         ((fn_fc77ac82::Ref_2345b0*)f_04)->Release(1);
     f_04 = 0;

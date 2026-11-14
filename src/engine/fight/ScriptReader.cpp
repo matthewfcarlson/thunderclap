@@ -1142,7 +1142,7 @@ unsigned int fight::ScriptReader::vfunc_19() {
 
 
 // 0x0023b470 FUN_0023b470 (117 B): equivalent/0x0023b470.cpp [wrapped: conflict: fight::ScriptReader]
-// sym: ??0ScriptReader@fight@fn_0023b470@@QAE@PAVSource_23b470@2@H@Z @9da11340e28f @wa0d974ba7b97
+// sym: ??0ScriptReader@fight@fn_0023b470@@QAE@PAVSource_23b470@2@H@Z @9da11340e28f @w21dfdd9d7568
 namespace fn_0023b470 {
 // STATUS: equivalent (tools/equiv.py level 3: 1647 inputs, branch coverage 2/2)
 // FUN_0023b470 @ 0x0023b470

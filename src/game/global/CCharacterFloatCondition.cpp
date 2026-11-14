@@ -49,7 +49,7 @@ namespace fn_0004d9a0 {
 struct Character_4d9a0 { float get(); };
 struct Handle_4d9a0 { Character_4d9a0* FUN_00059a30(); };
 struct Context { Handle_4d9a0* FUN_000592a0(); };
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00018960(float, float, float);
+extern "C++" bool __cdecl FUN_00018960(float, float, float);
 struct CCharacterFloatCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual bool vfunc_7(Context*);
  char pad[8];

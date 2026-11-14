@@ -89,18 +89,18 @@ extern "C" double sqrt(double);
 
 
 struct RefObj_19e910 {
-    virtual void AddRef() throw();
-    virtual void Release() throw();
+    virtual void AddRef();
+    virtual void Release();
 };
 
 struct Vec3_19e910 {
     float x, y, z;
-    float FUN_0022d110() throw();                                   // normalise, returns old length
-    float FUN_000111f0() throw();                                   // squared length
-    void FUN_00011160(float s, Vec3_19e910 *v) throw();             // this += v * s
-    void FUN_00011110(Vec3_19e910 *a, Vec3_19e910 *b) throw();      // this = a - b
-    void FUN_000111b0(Vec3_19e910 *a, Vec3_19e910 *b) throw();      // this = a x b
-    bool FUN_0022d2b0(Vec3_19e910 *v, float eps) throw();           // equal within eps
+    float FUN_0022d110();                                   // normalise, returns old length
+    float FUN_000111f0();                                   // squared length
+    void FUN_00011160(float s, Vec3_19e910 *v);             // this += v * s
+    void FUN_00011110(Vec3_19e910 *a, Vec3_19e910 *b);      // this = a - b
+    void FUN_000111b0(Vec3_19e910 *a, Vec3_19e910 *b);      // this = a x b
+    bool FUN_0022d2b0(Vec3_19e910 *v, float eps);           // equal within eps
 };
 typedef Vec3_19e910 Vec3;
 
@@ -108,15 +108,15 @@ struct Mat4_19e910 {
     float m[12];
     Vec3 trans;
     float w;
-    void FUN_0022b980() throw();                                    // identity
-    void FUN_0022baf0(Vec3 *axis, float angle) throw();
-    void FUN_0022c3b0(Vec3 *in, Vec3 *out) throw();
+    void FUN_0022b980();                                    // identity
+    void FUN_0022baf0(Vec3 *axis, float angle);
+    void FUN_0022c3b0(Vec3 *in, Vec3 *out);
 };
 
 struct Name_19e910 {
     unsigned int lo, hi;
-    void FUN_0027af60(unsigned int lo, unsigned int hi) throw();
-    void FUN_001cae40(const char *s) throw();
+    void FUN_0027af60(unsigned int lo, unsigned int hi);
+    void FUN_001cae40(const char *s);
 };
 
 struct Coll_19e910;
@@ -124,29 +124,29 @@ struct Node_19e910;
 struct Actor_19e910;
 
 struct CFightParamsCollision_19e910 {
-    virtual void AddRef() throw();
-    virtual void Release() throw();
-    CFightParamsCollision_19e910 *FUN_000598e0(int id, struct Request_19e910 *req) throw();
+    virtual void AddRef();
+    virtual void Release();
+    CFightParamsCollision_19e910 *FUN_000598e0(int id, struct Request_19e910 *req);
 };
 
 struct Slots_19e910 {
-    bool FUN_00231e80(struct Sink_19e910 *s) throw();
+    bool FUN_00231e80(struct Sink_19e910 *s);
 };
 
 struct Sink_19e910 {
-    void FUN_00231ad0(Slots_19e910 *slots, CFightParamsCollision_19e910 *job, int prio) throw();
+    void FUN_00231ad0(Slots_19e910 *slots, CFightParamsCollision_19e910 *job, int prio);
 };
 
 struct Queue_19e910 {
-    virtual void v0() throw();
-    virtual void v1() throw();
-    virtual void v2() throw();
-    virtual void v3() throw();
-    virtual void v4() throw();
-    virtual void v5() throw();
-    virtual void v6() throw();
-    virtual void v7() throw();
-    virtual Sink_19e910 *v8(CFightParamsCollision_19e910 *job, int z) throw();
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual Sink_19e910 *v8(CFightParamsCollision_19e910 *job, int z);
 };
 
 struct Request_19e910 {
@@ -170,8 +170,8 @@ struct Request_19e910 {
     char pad84[0x90 - 0x84];
     unsigned char b90;  // 0x90
     char pad91[0x98 - 0x91];
-    void FUN_00059820() throw();
-    void FUN_00059300() throw();
+    void FUN_00059820();
+    void FUN_00059300();
 };
 
 struct Hit_19e910 {
@@ -193,7 +193,7 @@ struct PtrList_19e910 {
 };
 
 struct Center_19e910 {
-    void FUN_0016fc60(Vec3 *out) throw();
+    void FUN_0016fc60(Vec3 *out);
 };
 
 struct Coll_19e910 {
@@ -213,7 +213,7 @@ struct Holder_19e910 {
 };
 
 struct Ctl_19e910 {
-    int FUN_001d5e80(int id) throw();
+    int FUN_001d5e80(int id);
 };
 
 struct KeySrc_19e910 {
@@ -244,18 +244,18 @@ struct Node_19e910 {
     char pad14c[0x198 - 0x14c];
     int f198;
     float f19c;
-    void FUN_001d6e10(void *who) throw();
-    void FUN_001d8c70(RefObj_19e910 *t) throw();
-    Vec3 *FUN_001d6b40() throw();
-    KeyOwner_19e910 *FUN_001d68d0() throw();
-    Coll_19e910 *FUN_001d72e0() throw();
-    bool FUN_001d6980() throw();
-    void FUN_001d6ec0(int amount, void *who, int z) throw();
-    bool FUN_001d7300() throw();
-    void FUN_001d82d0() throw();
-    void FUN_001d86d0(Vec3 *impulse, Vec3 *at) throw();
-    void FUN_00081420(Request_19e910 *req) throw();
-    bool FUN_000134e0() throw();
+    void FUN_001d6e10(void *who);
+    void FUN_001d8c70(RefObj_19e910 *t);
+    Vec3 *FUN_001d6b40();
+    KeyOwner_19e910 *FUN_001d68d0();
+    Coll_19e910 *FUN_001d72e0();
+    bool FUN_001d6980();
+    void FUN_001d6ec0(int amount, void *who, int z);
+    bool FUN_001d7300();
+    void FUN_001d82d0();
+    void FUN_001d86d0(Vec3 *impulse, Vec3 *at);
+    void FUN_00081420(Request_19e910 *req);
+    bool FUN_000134e0();
 };
 
 struct Team_19e910 {
@@ -274,7 +274,7 @@ struct IdBox_19e910 {
 };
 
 struct Rider_19e910 {
-    bool FUN_0001e870(Node_19e910 *who, Vec3 *v) throw();
+    bool FUN_0001e870(Node_19e910 *who, Vec3 *v);
 };
 
 struct Actor_19e910 {
@@ -300,51 +300,51 @@ struct Actor_19e910 {
     int f1d1c;
     char pad1d20[0x1d2c - 0x1d20];
     int f1d2c;
-    Node_19e910 *FUN_00035ef0(int i) throw();
-    void FUN_000368d0(int on) throw();
-    void FUN_00035fa0(int on) throw();
-    bool FUN_0003b4f0(Vec3 *dir) throw();
-    void FUN_00035550(Vec3 *out) throw();
-    RefObj_19e910 *FUN_00039c60(Vec3 *pos, Vec3 *v, float a, float b, int c, int d, int e) throw();
-    bool FUN_000360f0() throw();
-    void FUN_00043350(float dmg, void *who, int a, float s, int b, int c) throw();
-    void FUN_00043ae0(void *who, Vec3 *at, float a, float b, float c, int d, int e, int f, int g) throw();
-    void FUN_000350c0(Vec3 *out) throw();
-    void FUN_0003aef0(int i) throw();
+    Node_19e910 *FUN_00035ef0(int i);
+    void FUN_000368d0(int on);
+    void FUN_00035fa0(int on);
+    bool FUN_0003b4f0(Vec3 *dir);
+    void FUN_00035550(Vec3 *out);
+    RefObj_19e910 *FUN_00039c60(Vec3 *pos, Vec3 *v, float a, float b, int c, int d, int e);
+    bool FUN_000360f0();
+    void FUN_00043350(float dmg, void *who, int a, float s, int b, int c);
+    void FUN_00043ae0(void *who, Vec3 *at, float a, float b, float c, int d, int e, int f, int g);
+    void FUN_000350c0(Vec3 *out);
+    void FUN_0003aef0(int i);
 };
 
 struct Rng_19e910 {
-    int FUN_00011380(int lo, int hi) throw();
+    int FUN_00011380(int lo, int hi);
 };
 
 struct Fx_19e910 {
-    void FUN_00059a30() throw();
+    void FUN_00059a30();
 };
 struct Registry_19e910 {
-    Actor_19e910 *FUN_00059c10(int id) throw();
-    Fx_19e910 *FUN_00059ba0(int id) throw();
+    Actor_19e910 *FUN_00059c10(int id);
+    Fx_19e910 *FUN_00059ba0(int id);
 };
 
 struct Spawner_19e910 {
-    int FUN_00022960(unsigned int lo, unsigned int hi) throw();
+    int FUN_00022960(unsigned int lo, unsigned int hi);
 };
 struct Mid_19e910 {
-    Spawner_19e910 *FUN_00203d70() throw();
+    Spawner_19e910 *FUN_00203d70();
 };
 struct Scene_19e910 {
-    Mid_19e910 *FUN_000862a0() throw();
+    Mid_19e910 *FUN_000862a0();
 };
 
 struct Factory_19e910 {
-    void FUN_001dd470(int h, Mat4_19e910 *m, float dt) throw();
-    void FUN_001e2ed0(int h, unsigned int lo, unsigned int hi) throw();
-    float FUN_001dddf0() throw();
+    void FUN_001dd470(int h, Mat4_19e910 *m, float dt);
+    void FUN_001e2ed0(int h, unsigned int lo, unsigned int hi);
+    float FUN_001dddf0();
 };
 
 struct W24_19e910 {
     char pad0[0x18];
     float floorY;
-    bool FUN_00201e00(Vec3 *from, Vec3 *to, int one, Vec3 *hitPos, Vec3 *hitNormal, void **thing, struct HitInfo_19e910 **info) throw();
+    bool FUN_00201e00(Vec3 *from, Vec3 *to, int one, Vec3 *hitPos, Vec3 *hitNormal, void **thing, struct HitInfo_19e910 **info);
 };
 
 struct HitInfo_19e910 {
@@ -359,8 +359,8 @@ struct Pool_19e910 {
 };
 
 struct CollWorld_19e910 {
-    bool FUN_002ee140(Pool_19e910 *pool, Vec3 *from, Vec3 *to, int z) throw();
-    PtrList_19e910 *FUN_002ed700() throw();
+    bool FUN_002ee140(Pool_19e910 *pool, Vec3 *from, Vec3 *to, int z);
+    PtrList_19e910 *FUN_002ed700();
 };
 struct W10_19e910 {
     char pad0[8];
@@ -368,7 +368,7 @@ struct W10_19e910 {
 };
 
 struct Snd_19e910 {
-    void FUN_000d4620(int a, const char *name, int b, int c, float d) throw();
+    void FUN_000d4620(int a, const char *name, int b, int c, float d);
 };
 struct SndOwner_19e910 {
     char pad0[4];
@@ -377,23 +377,23 @@ struct SndOwner_19e910 {
 struct Sounds_19e910 {
     char pad0[0x124];
     Actor_19e910 *f124;
-    const char *FUN_00025890(int i) throw();
-    int *FUN_00025930(int *out, int z) throw();
+    const char *FUN_00025890(int i);
+    int *FUN_00025930(int *out, int z);
 };
 
 struct Achv_19e910 {
-    bool FUN_001ccff0() throw();
+    bool FUN_001ccff0();
 };
 struct Unlocks_19e910 {
-    void FUN_001cbc20(Name_19e910 *n) throw();
+    void FUN_001cbc20(Name_19e910 *n);
 };
 
 struct Decals_19e910 {
-    void FUN_001f6cd0(void *thing, HitInfo_19e910 *info, Vec3 *pos, Vec3 *normal, Vec3 *dir, int n, float a, float b, int *out, int z) throw();
+    void FUN_001f6cd0(void *thing, HitInfo_19e910 *info, Vec3 *pos, Vec3 *normal, Vec3 *dir, int n, float a, float b, int *out, int z);
 };
 struct Fxm_19e910 {
-    void FUN_001ebd80(Node_19e910 *who, const char *name, float r, int z) throw();
-    void FUN_001ebea0(int decal, Node_19e910 *who) throw();
+    void FUN_001ebd80(Node_19e910 *who, const char *name, float r, int z);
+    void FUN_001ebea0(int decal, Node_19e910 *who);
 };
 
 struct World {
@@ -426,19 +426,19 @@ struct Unlock_19e910 {
     char b8;
     char pad9[0x20 - 9];
     char b20;
-    bool FUN_00091f40() throw();
+    bool FUN_00091f40();
 };
 struct UnlockTable_19e910 {
-    void *FUN_00092ad0(int id) throw();
+    void *FUN_00092ad0(int id);
 };
 struct Singleton_4dd6ec {
-    UnlockTable_19e910 *FUN_00086340() throw();
+    UnlockTable_19e910 *FUN_00086340();
 };
 
 struct Trails_19e910 {
-    int FUN_00283d60(float a, int b, KeyOwner_19e910 *c, int d, Name_19e910 *e, Vec3 *pts, int n, Name_19e910 *f, Vec3 at, int g, int h, int i) throw();
-    void FUN_002834e0(int h) throw();
-    void FUN_00283a40(void *fx, Mat4_19e910 *m, float a, float b) throw();
+    int FUN_00283d60(float a, int b, KeyOwner_19e910 *c, int d, Name_19e910 *e, Vec3 *pts, int n, Name_19e910 *f, Vec3 at, int g, int h, int i);
+    void FUN_002834e0(int h);
+    void FUN_00283a40(void *fx, Mat4_19e910 *m, float a, float b);
 };
 
 struct Cfg_19e910 {
@@ -478,8 +478,8 @@ struct Cfg_19e910 {
     int f13c;
     int f140;
     int f144;
-    void FUN_00193660(Vec3 *out) throw();
-    Vec3 *FUN_001936f0(Vec3 *out) throw();
+    void FUN_00193660(Vec3 *out);
+    Vec3 *FUN_001936f0(Vec3 *out);
 };
 
 extern char DAT_0049dab8;
@@ -491,23 +491,23 @@ extern "C" void* __fastcall FUN_0027af00(void* name);
 extern "C" void FUN_0027af50();
 void* __fastcall FUN_00011090(void* element);
 
-int __cdecl FUN_00266da0(int tag) throw();
-Rng_19e910 *__cdecl FUN_000964d0() throw();
-float __cdecl FUN_000964e0() throw();
+int __cdecl FUN_00266da0(int tag);
+Rng_19e910 *__cdecl FUN_000964d0();
+float __cdecl FUN_000964e0();
 int __cdecl FUN_00098190(float dt, float speed, float accel, float minSpeed, RefObj_19e910 *target, int a,
-                         Vec3 *pos, Vec3 *dir, float turn, float b, float c, int mode) throw();
-void __stdcall FUN_00011520(void *arr, unsigned int size, int n, void *ctor) throw();
-void __stdcall FUN_00013420(void *arr, unsigned int size, int n, void *dtor) throw();
-Trails_19e910 *__cdecl FUN_0027f250() throw();
-Pool_19e910 *__cdecl FUN_00202f00() throw();
-void __cdecl FUN_002f1ce0(Vec3 *from, void *shape, Vec3 *outNormal, float *outDist) throw();
-Unlock_19e910 *__cdecl FUN_00344e74(void *p, int off, void *src, void *dst, int isRef) throw();
-void __cdecl FUN_00018810(void **slot, void *obj) throw();
-void *__cdecl FUN_0008d690(unsigned int size) throw();
-bool __cdecl FUN_00096b50(RefObj_19e910 *t, Vec3 *out, float *out2) throw();
-void __cdecl FUN_00224db0(Mat4_19e910 *m, Vec3 *a, Vec3 *b) throw();
-Vec3 *__cdecl FUN_00083e00(Vec3 *out, Vec3 *v, float s) throw();
-bool __cdecl FUN_002027c0(Vec3 *from, Vec3 *to, int a, int b, Vec3 *outA, Vec3 *outB, int c, int d) throw();
+                         Vec3 *pos, Vec3 *dir, float turn, float b, float c, int mode);
+void __stdcall FUN_00011520(void *arr, unsigned int size, int n, void *ctor);
+void __stdcall FUN_00013420(void *arr, unsigned int size, int n, void *dtor);
+Trails_19e910 *__cdecl FUN_0027f250();
+Pool_19e910 *__cdecl FUN_00202f00();
+void __cdecl FUN_002f1ce0(Vec3 *from, void *shape, Vec3 *outNormal, float *outDist);
+Unlock_19e910 *__cdecl FUN_00344e74(void *p, int off, void *src, void *dst, int isRef);
+void __cdecl FUN_00018810(void **slot, void *obj);
+void *__cdecl FUN_0008d690(unsigned int size);
+bool __cdecl FUN_00096b50(RefObj_19e910 *t, Vec3 *out, float *out2);
+void __cdecl FUN_00224db0(Mat4_19e910 *m, Vec3 *a, Vec3 *b);
+Vec3 *__cdecl FUN_00083e00(Vec3 *out, Vec3 *v, float s);
+bool __cdecl FUN_002027c0(Vec3 *from, Vec3 *to, int a, int b, Vec3 *outA, Vec3 *outB, int c, int d);
 
 namespace hulkfight {
 namespace motion {
@@ -572,7 +572,7 @@ public:
     float fd0;
     float fd4;
     float fd8;
-    void FUN_00196640(RefObj_19e910 *t) throw();
+    void FUN_00196640(RefObj_19e910 *t);
 };
 
 }

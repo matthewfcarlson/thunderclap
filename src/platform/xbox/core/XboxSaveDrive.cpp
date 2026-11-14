@@ -934,7 +934,7 @@ namespace fn_00278ab0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // core::XboxSaveDrive::vfunc_17 @ 0x00278ab0
 namespace core { struct XboxSaveDrive { char pad[0xb4]; int result; char more[0x26]; char letter; bool FUN_002788c0(); int FUN_002787c0(int); int vfunc_17(int); }; }
-extern "C++" __declspec(nothrow) void __cdecl FUN_0026b800(char *, int, int, int, int, int, int);
+extern "C++" void __cdecl FUN_0026b800(char *, int, int, int, int, int, int);
 extern "C" int __stdcall FUN_003563f0(char *, char *);
 int core::XboxSaveDrive::vfunc_17(int value) {
     if (!FUN_002788c0()) return 0;
@@ -958,10 +958,10 @@ namespace fn_00278b50 {
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 22/28, incomplete)
 // FUN_00278b50 @ 0x00278b50
 
-namespace XAPILIB { extern "C++" __declspec(nothrow) char* __stdcall XMUNameFromDriveLetter(unsigned int, char*, unsigned int); extern "C++" __declspec(nothrow) hulk_uintptr __stdcall GetLastError(); }
+namespace XAPILIB { extern "C++" char* __stdcall XMUNameFromDriveLetter(unsigned int, char*, unsigned int); extern "C++" hulk_uintptr __stdcall GetLastError(); }
 extern "C" int __stdcall FUN_00208b9c(char*, unsigned int*, unsigned int*, unsigned int*);
 extern "C" unsigned int __stdcall FUN_00209a8e(char*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0026b800(char*, int, char*, int, int, int, int);
+extern "C++" void __cdecl FUN_0026b800(char*, int, char*, int, int, int, int);
 struct XboxSaveDrive_278b50 {
  char pad0[0x60]; unsigned int result, size, count, sector;
  char name[0x41]; char padB1[3]; unsigned int previous;
@@ -1018,7 +1018,7 @@ namespace fn_00278d30 {
 namespace XAPILIB { unsigned long __stdcall GetLastError(); }
 struct Result_278d30 { unsigned state; unsigned char status; };
 struct Source_278d30 { char reserved[0x244]; char data[1]; };
-extern "C++" __declspec(nothrow) void __cdecl FUN_0026b800(void *, int, void *, int, int, int, int);
+extern "C++" void __cdecl FUN_0026b800(void *, int, void *, int, int, int, int);
 struct XboxSaveDrive_278d30 {
  char reserved[0xb4]; unsigned error;
  unsigned FUN_002787c0(unsigned);
@@ -1056,11 +1056,11 @@ namespace fn_00278de0 {
 // FUN_00278de0 @ 0x00278de0
 
 typedef unsigned long DWORD;
-extern "C++" __declspec(nothrow) int __stdcall FUN_002109b6(int, int);
+extern "C++" int __stdcall FUN_002109b6(int, int);
 extern "C" char __cdecl FUN_002781c0(int, void *);
 extern "C" int __stdcall FUN_002101d4(int, hulk_uintptr, int, int);
 extern "C" int __stdcall FUN_0021007a(int, hulk_intptr, int, void *, int);
-namespace XAPILIB { extern "C++" __declspec(nothrow) hulk_intptr __stdcall GetLastError(); }
+namespace XAPILIB { extern "C++" hulk_intptr __stdcall GetLastError(); }
 struct DataBlock_278de0 { DWORD words[5]; };
 struct Scratch_278de0 { DWORD unused; DataBlock_278de0 block; };
 struct XboxSaveDrive_278de0 {
@@ -1105,12 +1105,12 @@ namespace fn_00278ef0 {
 
 typedef unsigned int uint_278ef0;
 struct XboxSaveDrive_278ef0 { char pad[0xb4]; uint_278ef0 error; bool FUN_00278de0(); uint_278ef0 FUN_002787c0(hulk_uintptr); void FUN_002789e0(hulk_uintptr); bool FUN_00278ef0(uint_278ef0 source, uint_278ef0 length, bool flag); };
-namespace XAPILIB { extern "C++" __declspec(nothrow) uint_278ef0 __stdcall XCalculateSignatureBegin(uint_278ef0); extern "C++" __declspec(nothrow) hulk_uintptr __stdcall GetLastError(); }
-extern "C++" __declspec(nothrow) void __stdcall FUN_002120f5(uint_278ef0, void *, uint_278ef0);
-extern "C++" __declspec(nothrow) void __stdcall FUN_00212143(uint_278ef0, void *);
-extern "C++" __declspec(nothrow) uint_278ef0 __stdcall FUN_002101d4(uint_278ef0, hulk_uintptr, uint_278ef0, uint_278ef0);
-extern "C++" __declspec(nothrow) uint_278ef0 __stdcall FUN_0021007a(uint_278ef0, void *, uint_278ef0, uint_278ef0 *, uint_278ef0);
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00278180(void *, uint_278ef0, void *);
+namespace XAPILIB { extern "C++" uint_278ef0 __stdcall XCalculateSignatureBegin(uint_278ef0); extern "C++" hulk_uintptr __stdcall GetLastError(); }
+extern "C++" void __stdcall FUN_002120f5(uint_278ef0, void *, uint_278ef0);
+extern "C++" void __stdcall FUN_00212143(uint_278ef0, void *);
+extern "C++" uint_278ef0 __stdcall FUN_002101d4(uint_278ef0, hulk_uintptr, uint_278ef0, uint_278ef0);
+extern "C++" uint_278ef0 __stdcall FUN_0021007a(uint_278ef0, void *, uint_278ef0, uint_278ef0 *, uint_278ef0);
+extern "C++" bool __cdecl FUN_00278180(void *, uint_278ef0, void *);
 struct Signature { uint_278ef0 word[5]; };
 bool XboxSaveDrive_278ef0::FUN_00278ef0(uint_278ef0 source, uint_278ef0 length, bool flag) {
  if (!FUN_00278de0()) return false;
@@ -1307,11 +1307,11 @@ struct XboxSaveDrive_279490 {
  bool FUN_00279490(hulk_uintptr, uint_279490);
 };
 struct Cache_279490 { char *buffer; uint_279490 file; uint_279490 block; uint_279490 valid; };
-extern "C++" __declspec(nothrow) uint_279490 __stdcall FUN_002109b6(uint_279490, uint_279490);
-extern "C++" __declspec(nothrow) uint_279490 __stdcall FUN_002101d4(uint_279490, hulk_uintptr, uint_279490, uint_279490);
+extern "C++" uint_279490 __stdcall FUN_002109b6(uint_279490, uint_279490);
+extern "C++" uint_279490 __stdcall FUN_002101d4(uint_279490, hulk_uintptr, uint_279490, uint_279490);
 extern "C" uint_279490 __stdcall FUN_0020ff8d(uint_279490, char *, hulk_uintptr, uint_279490 *, uint_279490);
-extern "C++" __declspec(nothrow) unsigned char __cdecl FUN_002781c0(uint_279490, Header_279490 *);
-namespace XAPILIB { extern "C++" __declspec(nothrow) hulk_uintptr __stdcall GetLastError(); }
+extern "C++" unsigned char __cdecl FUN_002781c0(uint_279490, Header_279490 *);
+namespace XAPILIB { extern "C++" hulk_uintptr __stdcall GetLastError(); }
 bool XboxSaveDrive_279490::FUN_00279490(hulk_uintptr file, uint_279490 block) {
  if ((*(Cache_279490*)&DAT_0052c270).valid && (*(Cache_279490*)&DAT_0052c270).file == file && (*(Cache_279490*)&DAT_0052c270).block == block) return true;
  uint_279490 length = FUN_002109b6(file, 0);
@@ -1434,7 +1434,7 @@ namespace fn_00279af0 {
 // core::XboxSaveDrive::vfunc_11 @ 0x00279af0
 
 namespace core { struct XboxSaveDrive { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual int vfunc_11(void*, int); char pad[0xb4-4]; int error; char pad2[0xe0-0xb8]; unsigned int slots[4]; bool FUN_002788c0(); bool FUN_00278de0(); bool FUN_00279490(void*, int); int FUN_002787c0(unsigned int); }; }
-extern "C++" __declspec(nothrow) int __stdcall FUN_002109b6(void*, int);
+extern "C++" int __stdcall FUN_002109b6(void*, int);
 namespace XAPILIB { unsigned int __stdcall GetLastError(); }
 int core::XboxSaveDrive::vfunc_11(void* handle, int unused) {  // an int: 0 or 1 in all of eax (FileCommitRequest::vfunc_1 passes it on)
     if (!FUN_002788c0() || !FUN_00278de0()) return 0;

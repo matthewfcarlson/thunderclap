@@ -54,12 +54,12 @@ class Action_175020 {
   public:
     void* vptr;
 };
-void Free(void*) throw();
+void Free(void*);
 struct Sub_175020 {
     char c;
 };
-extern "C" void __fastcall FUN_0027af50(Sub_175020*) throw();
-void __fastcall SubFini2(Sub_175020*) throw();
+extern "C" void __fastcall FUN_0027af50(Sub_175020*);
+void __fastcall SubFini2(Sub_175020*);
 class DriftToPositionAction_175020 : public Action_175020 {
   public:
     char p1c[24];
@@ -67,7 +67,7 @@ class DriftToPositionAction_175020 : public Action_175020 {
     Ref_175020* m20;
     char p38[20];
     Sub_175020 s38;
-    ~DriftToPositionAction_175020() throw();
+    ~DriftToPositionAction_175020();
 };
 
 
@@ -97,7 +97,7 @@ DriftToPositionAction_174fb0::DriftToPositionAction_174fb0(int x, Ref_174fb0* p)
 
 // 0x00175020 FUN_00175020 (58 B): matches/0x00175020.cpp
 // sym: ??1DriftToPositionAction_175020@fn_f735d51c@@QAE@XZ
-DriftToPositionAction_175020::~DriftToPositionAction_175020() throw() {
+DriftToPositionAction_175020::~DriftToPositionAction_175020() {
     vptr = hulk_at_00417ed8;
     _ReadWriteBarrier();
     if (m20) {

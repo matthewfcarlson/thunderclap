@@ -88,7 +88,7 @@ struct Target_304350 {
     hulk_intptr a;
     hulk_intptr b;
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00304370(void *, void *, int);
+extern "C++" void __cdecl FUN_00304370(void *, void *, int);
 struct Thing_304500 {
     int* a;
     int* b;
@@ -412,9 +412,9 @@ namespace fn_00304370 {
 struct Item_304370 { char data[68]; };
 struct Partition { Item_304370* first; Item_304370* second; };
 void __cdecl FUN_003037f0(Partition*, Item_304370*, Item_304370*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00303680(void *, void *);
+extern "C++" void __cdecl FUN_00303680(void *, void *);
 void __cdecl FUN_00303480(Item_304370*, Item_304370*, int, int);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00304260(void *, void *);
+extern "C++" void __cdecl FUN_00304260(void *, void *);
 extern "C" void __cdecl FUN_00304370(void * first_, void * last_, int depth) {
     Item_304370 * first = (Item_304370 *)first_;
     Item_304370 * last = (Item_304370 *)last_;

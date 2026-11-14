@@ -67,14 +67,14 @@ class BaseCondition {
     virtual bool Fnb_00234270(void*);
     virtual bool Fnc_002342b0(int);
     char pad[8];
-    BaseCondition(int) throw();
+    BaseCondition(int);
 };
 class HasTargetCondition : public BaseCondition {
   public:
-    HasTargetCondition(int) throw();
+    HasTargetCondition(int);
     char flag;
 };
-HasTargetCondition::HasTargetCondition(int n) throw() : BaseCondition(n) {
+HasTargetCondition::HasTargetCondition(int n) : BaseCondition(n) {
     flag = 1;
 }
 } // namespace ai

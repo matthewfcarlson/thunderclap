@@ -1762,7 +1762,7 @@ BlendFrameController::BlendFrameController(const BlendFrameController& src) thro
 
 
 // 0x00285f50 FUN_00285f50 (104 B): equivalent/0x00285f50.cpp [wrapped: conflict: Track; pure3d::BlendFrameController; pure3d::Entity; pure3d::FrameController]
-// sym: ??1BlendFrameController@pure3d@fn_00285f50@@UAE@XZ @4aa50930a8a5 @w01a0113c13cb
+// sym: ??1BlendFrameController@pure3d@fn_00285f50@@UAE@XZ @4aa50930a8a5 @wf5debbd827c4
 namespace fn_00285f50 {
 // STATUS: equivalent (tools/equiv.py level 3: 140 inputs, branch coverage 10/10)
 // FUN_00285f50 @ 0x00285f50

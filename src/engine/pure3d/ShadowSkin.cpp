@@ -21,17 +21,17 @@ namespace fn_fb97e5a1 {
 class MeshData {
   public:
     char pad[0x70];
-    MeshData() throw();
+    MeshData();
 };
 class Shadow_2deeb0 {
   public:
-    Shadow_2deeb0(int) throw();
-    void Set_002a4500(int, MeshData*) throw();
+    Shadow_2deeb0(int);
+    void Set_002a4500(int, MeshData*);
     virtual void dummy();
 };
 class ShadowMesh : public Shadow_2deeb0 {
   public:
-    ShadowMesh() throw();
+    ShadowMesh();
     virtual void dummy();
 };
 extern void* hulk_at_0042f994[];
@@ -131,7 +131,7 @@ class Helper_2df2b0 {
 
 // 0x002deeb0 FUN_002deeb0 (66 B): matches/0x002deeb0.cpp
 // sym: ??0ShadowMesh@fn_fb97e5a1@@QAE@XZ
-ShadowMesh::ShadowMesh() throw() : Shadow_2deeb0(1) {
+ShadowMesh::ShadowMesh() : Shadow_2deeb0(1) {
     MeshData* p = new MeshData;
     Set_002a4500(0, p);
 }
@@ -183,7 +183,7 @@ class ShadowSkin_2def70 {
   public:
     void Call_002a4e40(ShadowMesh*);
 };
-extern "C++" __declspec(nothrow) void* __cdecl thunk_FUN_0008d690(unsigned int);
+extern "C++" void* __cdecl thunk_FUN_0008d690(unsigned int);
 extern int hulk_at_0042f9fc[];
 ShadowMesh* ShadowMesh::vfunc_4() {
     ShadowMesh* p = (ShadowMesh*)thunk_FUN_0008d690(0x58);
@@ -347,7 +347,7 @@ namespace pure3d {
 class Shadow {
   public:
     virtual void f0_00038290();
-    Shadow(Shadow*) throw();
+    Shadow(Shadow*);
 };
 class ShadowMeshBuffer : public Shadow {
     char pad[0x58 - sizeof(Shadow)];
@@ -357,7 +357,7 @@ class ShadowMeshBuffer : public Shadow {
     virtual void* f2_002df140(char);
     virtual void f3_002df130();
     virtual ShadowMeshBuffer* vfunc_4();
-    ShadowMeshBuffer(ShadowMeshBuffer* p) throw() : Shadow(p) {}
+    ShadowMeshBuffer(ShadowMeshBuffer* p) : Shadow(p) {}
 };
 ShadowMeshBuffer* ShadowMeshBuffer::vfunc_4() {
     return new ShadowMeshBuffer(this);

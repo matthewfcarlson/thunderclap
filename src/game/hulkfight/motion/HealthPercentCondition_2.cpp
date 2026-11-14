@@ -37,12 +37,12 @@ class Condition_16e270 {
     virtual bool f3_002344d0(hulk_intptr, int, hulk_intptr);
     virtual bool f4_00234350(int, int);
     virtual void f5();
-    Condition_16e270(int) throw();
+    Condition_16e270(int);
     char pad[8];
 };
 class HealthPercentCondition_16e270 : public Condition_16e270 {
   public:
-    HealthPercentCondition_16e270() throw() : Condition_16e270(0), a(0), b(0) {}
+    HealthPercentCondition_16e270() : Condition_16e270(0), a(0), b(0) {}
     virtual void f5();
     int a;
     int b;

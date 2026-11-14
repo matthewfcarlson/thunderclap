@@ -825,12 +825,12 @@ namespace fn_00221700 {
 // STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 14/14)
 // luaK_prefix: unary minus (a numeric constant folds) or not.
 
-extern "C++" __declspec(nothrow) int __cdecl FUN_00221190(LuaVMFuncState* fs, LuaVMExpDesc* e);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00220d90(LuaVMFuncState* fs, LuaVMExpDesc* e);
-extern "C++" __declspec(nothrow) int __cdecl FUN_002209e0(LuaVMFuncState* fs, float r);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00220b20(LuaVMFuncState* fs, LuaVMInstruction i, int line);
+extern "C++" int __cdecl FUN_00221190(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C++" void __cdecl FUN_00220d90(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C++" int __cdecl FUN_002209e0(LuaVMFuncState* fs, float r);
+extern "C++" int __cdecl FUN_00220b20(LuaVMFuncState* fs, LuaVMInstruction i, int line);
 // equiv-conv: FUN_00221610 esi edi
-extern "C++" __declspec(nothrow) int __cdecl FUN_00221610(LuaVMExpDesc* e, LuaVMFuncState* fs);
+extern "C++" int __cdecl FUN_00221610(LuaVMExpDesc* e, LuaVMFuncState* fs);
 
 extern "C" void __cdecl FUN_00221700(LuaVMFuncState* fs, int op, LuaVMExpDesc* e) {
     if (op) {

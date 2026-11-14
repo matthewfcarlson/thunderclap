@@ -66,7 +66,7 @@ class TrackFactory {
 } // namespace fight
 class Track_17e650 {
   public:
-    Track_17e650() throw();
+    Track_17e650();
     virtual void f();
     char pad[4];
     int one;
@@ -76,12 +76,12 @@ namespace hulkfight {
 namespace motion {
 class TargetBreakTrack : public Track_17e650 {
   public:
-    TargetBreakTrack() throw();
+    TargetBreakTrack();
     virtual void f();
 };
 } // namespace motion
 } // namespace hulkfight
-hulkfight::motion::TargetBreakTrack::TargetBreakTrack() throw() : Track_17e650() {
+hulkfight::motion::TargetBreakTrack::TargetBreakTrack() : Track_17e650() {
     zero = 0;
     one = 1;
 }

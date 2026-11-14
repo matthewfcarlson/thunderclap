@@ -519,7 +519,7 @@ class MotionStateAction_1733d0 : public Action_1733d0 {
     char pad[0x1c - 4];
     void* m1c;
     Ref_1733d0* m20;
-    ~MotionStateAction_1733d0() throw();
+    ~MotionStateAction_1733d0();
 };
 } // namespace fn_ff4cbdc8
 namespace hulkfight { namespace motion {
@@ -562,12 +562,12 @@ class Action_173460 {
   public:
     void* vptr;
 };
-void Free(void*) throw();
+void Free(void*);
 struct Sub_173460 {
     char c;
 };
-void __fastcall SubFini(Sub_173460*) throw();
-void __fastcall SubFini2(Sub_173460*) throw();
+void __fastcall SubFini(Sub_173460*);
+void __fastcall SubFini2(Sub_173460*);
 class JointTrackerAction_173460 : public Action_173460 {
   public:
     char p1c[24];
@@ -576,7 +576,7 @@ class JointTrackerAction_173460 : public Action_173460 {
     Ref_173460* m24;
     char p74[76];
     Ref_173460* m74;
-    ~JointTrackerAction_173460() throw();
+    ~JointTrackerAction_173460();
 };
 
 
@@ -1027,7 +1027,7 @@ MotionStateAction_173380::MotionStateAction_173380(int target, RefObj_173380* ob
 
 // 0x001733d0 FUN_001733d0 (50 B): matches/0x001733d0.cpp
 // sym: ??1MotionStateAction_1733d0@fn_ff4cbdc8@@QAE@XZ
-MotionStateAction_1733d0::~MotionStateAction_1733d0() throw() {
+MotionStateAction_1733d0::~MotionStateAction_1733d0() {
     vptr = (void**)DAT_00417dd4;
     _ReadWriteBarrier();
     if (m20) {
@@ -1058,7 +1058,7 @@ namespace fn_ff4cbdc8 {
 
 // 0x00173460 FUN_00173460 (74 B): matches/0x00173460.cpp
 // sym: ??1JointTrackerAction_173460@fn_ff4cbdc8@@QAE@XZ
-JointTrackerAction_173460::~JointTrackerAction_173460() throw() {
+JointTrackerAction_173460::~JointTrackerAction_173460() {
     vptr = hulk_at_00417df0;
     _ReadWriteBarrier();
     if (m74) {

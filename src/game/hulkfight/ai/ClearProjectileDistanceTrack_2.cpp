@@ -63,7 +63,7 @@ namespace fight {
 class Track {
   public:
     virtual void f();
-    Track() throw();
+    Track();
     char pad[4];
     int count;
 };
@@ -82,14 +82,14 @@ namespace ai {
 class ClearProjectileDistanceTrack : public fight::Track {
   public:
     virtual void f();
-    ClearProjectileDistanceTrack() throw();
+    ClearProjectileDistanceTrack();
     int unused;
     float distance;
     char flag;
 };
 } // namespace ai
 } // namespace hulkfight
-inline hulkfight::ai::ClearProjectileDistanceTrack::ClearProjectileDistanceTrack() throw()
+inline hulkfight::ai::ClearProjectileDistanceTrack::ClearProjectileDistanceTrack()
     : unused(0), distance(-1.0f), flag(0) {}
 class Factory : public fight::TrackFactory {
   public:

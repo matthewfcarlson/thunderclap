@@ -190,7 +190,7 @@ class C_25ded0 {
     int field;
     void Target();
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025dcb0(void *);
+extern "C++" void __cdecl FUN_0025dcb0(void *);
 struct C_25def0 {
     char pad[0x4c];
 };
@@ -382,7 +382,7 @@ struct Owner_25da00;
 struct Node;
 struct Link_25da00 { Node* asNodePadding; }; 
 struct Node { virtual void destroy(int); virtual void finish(Owner_25da00*); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual int status(Owner_25da00*); virtual void update(Owner_25da00*); Link_25da00* next; };
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025d640(void *, void *);
+extern "C++" void __cdecl FUN_0025d640(void *, void *);
 struct Owner_25da00 { char pad0[0x34]; void* resource; char pad38[8]; Link_25da00* head; char pad44[4]; unsigned int count; Link_25da00* other; char pad50[4]; signed char index; char pad55[3]; int state; unsigned char active; bool run(); };
 bool Owner_25da00::run() {
  Node* node = head ? reinterpret_cast<Node*>(reinterpret_cast<char*>(head)-4) : 0;
@@ -738,7 +738,7 @@ class Obj_25dfc0 {
     void End_0025dd00(int);
     void Db30_0025db30();
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025dcb0(void *);
+extern "C++" void __cdecl FUN_0025dcb0(void *);
 extern "C" void FUN_0024bae0(void*, int);
 void Obj_25dfc0::Fn(void* p, char mode) {
     m58 = 1;

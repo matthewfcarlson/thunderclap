@@ -86,14 +86,14 @@ class CScenarioManager {
 class MethodBase_1ce990 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    MethodBase_1ce990(const char *n, int k) throw();
+    MethodBase_1ce990(const char *n, int k);
     void FUN_001d04a0();
 };
 template <class T, class R, class A>
 class Method1 : public MethodBase_1ce990 {
 public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) throw() : MethodBase_1ce990(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_1ce990(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
@@ -104,14 +104,14 @@ public:
 template <class T, class R, class A>
 class Closure1 : public Method1<T, R, A> {
 public:
-    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) throw() : Method1<T, R, A>(name, f), owner(o) {}
+    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
     virtual void m0();
     T *owner;
 };
 typedef Closure1<CScenarioManager, void, int> Closure_1ce990;
 struct Frame_1ce990 {
     Closure_1ce990 closure;
-    Frame_1ce990(const char *n, CScenarioManager *o, Closure_1ce990::Fn f) throw() : closure(n, o, f) {
+    Frame_1ce990(const char *n, CScenarioManager *o, Closure_1ce990::Fn f) : closure(n, o, f) {
     }
 };
 class Registry_1ce990 {
@@ -122,14 +122,14 @@ public:
 class __declspec(novtable) MethodBase_1cea20 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    MethodBase_1cea20(const char* n, int k) throw();
+    MethodBase_1cea20(const char* n, int k);
     void FUN_001d04a0();
 };
 template <class T, class R>
 class Method0 : public MethodBase_1cea20 {
   public:
     typedef R (T::*Fn)();
-    Method0(const char* name, Fn f) throw() : MethodBase_1cea20(name, 0) {
+    Method0(const char* name, Fn f) : MethodBase_1cea20(name, 0) {
         fn = f;
         retType = FUN_001d04d0(((char*)&DAT_0048e134));
     }
@@ -138,12 +138,12 @@ class Method0 : public MethodBase_1cea20 {
 template <class T, class R>
 class Closure0 : public Method0<T, R> {
   public:
-    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) throw() : Method0<T, R>(name, f), owner(o) {}
+    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) : Method0<T, R>(name, f), owner(o) {}
     T* owner;
 };
 struct Frame_1cea20 {
     Closure0<CScenarioManager, int> closure;
-    Frame_1cea20(const char* n, CScenarioManager* o, int (CScenarioManager::*f)()) throw() : closure(n, o, f) {
+    Frame_1cea20(const char* n, CScenarioManager* o, int (CScenarioManager::*f)()) : closure(n, o, f) {
     }
 };
 struct Registry_1cea20 {
@@ -402,7 +402,7 @@ namespace fn_001cd410 {
 // STATUS: equivalent (tools/equiv.py level 3: 3034 inputs, branch coverage 24/24)
 // FUN_001cd410 @ 0x001cd410
 // cl-flags: /GS
-extern "C++" __declspec(nothrow) int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
+extern "C++" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
 struct Node { void FUN_001dcac0(); };
 struct Part28 { void FUN_001fc7c0(); };
@@ -564,7 +564,7 @@ class CScenarioManager { public: float FUN_dummy(); };
 class __declspec(novtable) MethodBase_1ceaa0 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    MethodBase_1ceaa0(const char* n, int k) throw();
+    MethodBase_1ceaa0(const char* n, int k);
     void FUN_001d04a0();
 };
 
@@ -572,7 +572,7 @@ template <class T, class R>
 class Method0 : public MethodBase_1ceaa0 {
   public:
     typedef R (T::*Fn)();
-    Method0(const char* name, Fn f) throw() : MethodBase_1ceaa0(name, 0) {
+    Method0(const char* name, Fn f) : MethodBase_1ceaa0(name, 0) {
         fn = f;
         retType = FUN_001d04d0(((char*)&DAT_0048e128));
     }
@@ -582,13 +582,13 @@ class Method0 : public MethodBase_1ceaa0 {
 template <class T, class R>
 class Closure0 : public Method0<T, R> {
   public:
-    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) throw() : Method0<T, R>(name, f), owner(o) {}
+    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) : Method0<T, R>(name, f), owner(o) {}
     T* owner;
 };
 
 struct Frame_1ceaa0 {
     Closure0<CScenarioManager, float> closure;
-    Frame_1ceaa0(const char* n, CScenarioManager* o, float (CScenarioManager::*f)()) throw() : closure(n, o, f) {
+    Frame_1ceaa0(const char* n, CScenarioManager* o, float (CScenarioManager::*f)()) : closure(n, o, f) {
     }
 };
 
@@ -659,7 +659,7 @@ public:
 class MethodBase_1ceb20 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    MethodBase_1ceb20(const char *n, int k) throw();
+    MethodBase_1ceb20(const char *n, int k);
     void FUN_001d04a0();
 };
 
@@ -667,7 +667,7 @@ template <class T, class R, class A>
 class Method1 : public MethodBase_1ceb20 {
 public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) throw() : MethodBase_1ceb20(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_1ceb20(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
@@ -679,7 +679,7 @@ public:
 template <class T, class R, class A>
 class Closure1 : public Method1<T, R, A> {
 public:
-    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) throw() : Method1<T, R, A>(name, f), owner(o) {}
+    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
     virtual void m0();
     T *owner;
 };
@@ -688,7 +688,7 @@ typedef Closure1<CScenarioManager, void, float> Closure_1ceb20;
 
 struct Frame_1ceb20 {
     Closure_1ceb20 closure;
-    Frame_1ceb20(const char *n, CScenarioManager *o, Closure_1ceb20::Fn f) throw() : closure(n, o, f) {
+    Frame_1ceb20(const char *n, CScenarioManager *o, Closure_1ceb20::Fn f) : closure(n, o, f) {
     }
 };
 
@@ -760,7 +760,7 @@ public:
 class MethodBase_1cebb0 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    MethodBase_1cebb0(const char *n, int k) throw();
+    MethodBase_1cebb0(const char *n, int k);
     void FUN_001d04a0();
 };
 
@@ -768,7 +768,7 @@ template <class T, class R, class A>
 class Method1 : public MethodBase_1cebb0 {
 public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) throw() : MethodBase_1cebb0(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_1cebb0(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
@@ -780,7 +780,7 @@ public:
 template <class T, class R, class A>
 class Closure1 : public Method1<T, R, A> {
 public:
-    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) throw() : Method1<T, R, A>(name, f), owner(o) {}
+    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
     virtual void m0();
     T *owner;
 };
@@ -789,7 +789,7 @@ typedef Closure1<CScenarioManager, void, bool> Closure_1cebb0;
 
 struct Frame_1cebb0 {
     Closure_1cebb0 closure;
-    Frame_1cebb0(const char *n, CScenarioManager *o, Closure_1cebb0::Fn f) throw() : closure(n, o, f) {
+    Frame_1cebb0(const char *n, CScenarioManager *o, Closure_1cebb0::Fn f) : closure(n, o, f) {
     }
 };
 
@@ -851,7 +851,7 @@ class CScenarioManager { public: bool FUN_dummy(); };
 class __declspec(novtable) MethodBase_1cec40 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    MethodBase_1cec40(const char* n, int k) throw();
+    MethodBase_1cec40(const char* n, int k);
     void FUN_001d04a0();
 };
 
@@ -859,7 +859,7 @@ template <class T, class R>
 class Method0 : public MethodBase_1cec40 {
   public:
     typedef R (T::*Fn)();
-    Method0(const char* name, Fn f) throw() : MethodBase_1cec40(name, 0) {
+    Method0(const char* name, Fn f) : MethodBase_1cec40(name, 0) {
         fn = f;
         retType = FUN_001d04d0(((char*)&DAT_0048e0e4));
     }
@@ -869,13 +869,13 @@ class Method0 : public MethodBase_1cec40 {
 template <class T, class R>
 class Closure0 : public Method0<T, R> {
   public:
-    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) throw() : Method0<T, R>(name, f), owner(o) {}
+    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) : Method0<T, R>(name, f), owner(o) {}
     T* owner;
 };
 
 struct Frame_1cec40 {
     Closure0<CScenarioManager, bool> closure;
-    Frame_1cec40(const char* n, CScenarioManager* o, bool (CScenarioManager::*f)()) throw() : closure(n, o, f) {
+    Frame_1cec40(const char* n, CScenarioManager* o, bool (CScenarioManager::*f)()) : closure(n, o, f) {
     }
 };
 
@@ -946,7 +946,7 @@ public:
 class MethodBase_1cecc0 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    MethodBase_1cecc0(const char *n, int k) throw();
+    MethodBase_1cecc0(const char *n, int k);
     void FUN_001d04a0();
 };
 
@@ -954,7 +954,7 @@ template <class T, class R, class A>
 class Method1 : public MethodBase_1cecc0 {
 public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) throw() : MethodBase_1cecc0(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_1cecc0(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
@@ -966,7 +966,7 @@ public:
 template <class T, class R, class A>
 class Closure1 : public Method1<T, R, A> {
 public:
-    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) throw() : Method1<T, R, A>(name, f), owner(o) {}
+    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
     virtual void m0();
     T *owner;
 };
@@ -975,7 +975,7 @@ typedef Closure1<CScenarioManager, float, int> Closure_1cecc0;
 
 struct Frame_1cecc0 {
     Closure_1cecc0 closure;
-    Frame_1cecc0(const char *n, CScenarioManager *o, Closure_1cecc0::Fn f) throw() : closure(n, o, f) {
+    Frame_1cecc0(const char *n, CScenarioManager *o, Closure_1cecc0::Fn f) : closure(n, o, f) {
     }
 };
 
@@ -1037,7 +1037,7 @@ class CScenarioManager { public: void FUN_dummy(); };
 class __declspec(novtable) MethodBase_1cee40 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    MethodBase_1cee40(const char* n, int k) throw();
+    MethodBase_1cee40(const char* n, int k);
     void FUN_001d04a0();
 };
 
@@ -1045,7 +1045,7 @@ template <class T, class R>
 class Method0 : public MethodBase_1cee40 {
   public:
     typedef R (T::*Fn)();
-    Method0(const char* name, Fn f) throw() : MethodBase_1cee40(name, 0) {
+    Method0(const char* name, Fn f) : MethodBase_1cee40(name, 0) {
         fn = f;
         retType = FUN_001d04d0(((char*)&DAT_0048e100));
     }
@@ -1055,13 +1055,13 @@ class Method0 : public MethodBase_1cee40 {
 template <class T, class R>
 class Closure0 : public Method0<T, R> {
   public:
-    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) throw() : Method0<T, R>(name, f), owner(o) {}
+    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) : Method0<T, R>(name, f), owner(o) {}
     T* owner;
 };
 
 struct Frame_1cee40 {
     Closure0<CScenarioManager, void> closure;
-    Frame_1cee40(const char* n, CScenarioManager* o, void (CScenarioManager::*f)()) throw() : closure(n, o, f) {
+    Frame_1cee40(const char* n, CScenarioManager* o, void (CScenarioManager::*f)()) : closure(n, o, f) {
     }
 };
 
@@ -1132,7 +1132,7 @@ public:
 class MethodBase_1ceec0 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    MethodBase_1ceec0(const char *n, int k) throw();
+    MethodBase_1ceec0(const char *n, int k);
     void FUN_001d04a0();
 };
 
@@ -1140,7 +1140,7 @@ template <class T, class R, class A>
 class Method1 : public MethodBase_1ceec0 {
 public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) throw() : MethodBase_1ceec0(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_1ceec0(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
@@ -1152,7 +1152,7 @@ public:
 template <class T, class R, class A>
 class Closure1 : public Method1<T, R, A> {
 public:
-    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) throw() : Method1<T, R, A>(name, f), owner(o) {}
+    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
     virtual void m0();
     T *owner;
 };
@@ -1161,7 +1161,7 @@ typedef Closure1<CScenarioManager, void, const char *> Closure_1ceec0;
 
 struct Frame_1ceec0 {
     Closure_1ceec0 closure;
-    Frame_1ceec0(const char *n, CScenarioManager *o, Closure_1ceec0::Fn f) throw() : closure(n, o, f) {
+    Frame_1ceec0(const char *n, CScenarioManager *o, Closure_1ceec0::Fn f) : closure(n, o, f) {
     }
 };
 
@@ -1233,7 +1233,7 @@ public:
 class MethodBase_1cef50 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    MethodBase_1cef50(const char *n, int k) throw();
+    MethodBase_1cef50(const char *n, int k);
     void FUN_001d04a0();
 };
 
@@ -1241,7 +1241,7 @@ template <class T, class R, class A>
 class Method1 : public MethodBase_1cef50 {
 public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) throw() : MethodBase_1cef50(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_1cef50(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
@@ -1253,7 +1253,7 @@ public:
 template <class T, class R, class A>
 class Closure1 : public Method1<T, R, A> {
 public:
-    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) throw() : Method1<T, R, A>(name, f), owner(o) {}
+    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
     virtual void m0();
     T *owner;
 };
@@ -1262,7 +1262,7 @@ typedef Closure1<CScenarioManager, const char *, int> Closure_1cef50;
 
 struct Frame_1cef50 {
     Closure_1cef50 closure;
-    Frame_1cef50(const char *n, CScenarioManager *o, Closure_1cef50::Fn f) throw() : closure(n, o, f) {
+    Frame_1cef50(const char *n, CScenarioManager *o, Closure_1cef50::Fn f) : closure(n, o, f) {
     }
 };
 
@@ -1350,7 +1350,7 @@ public:
 class MethodBase_1cf030 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    MethodBase_1cf030(const char *n, int k) throw();
+    MethodBase_1cf030(const char *n, int k);
     void FUN_001d04a0();
 };
 
@@ -1358,7 +1358,7 @@ template <class T, class R, class A>
 class Method1 : public MethodBase_1cf030 {
 public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) throw() : MethodBase_1cf030(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_1cf030(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
@@ -1370,7 +1370,7 @@ public:
 template <class T, class R, class A>
 class Closure1 : public Method1<T, R, A> {
 public:
-    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) throw() : Method1<T, R, A>(name, f), owner(o) {}
+    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
     virtual void m0();
     T *owner;
 };
@@ -1379,7 +1379,7 @@ typedef Closure1<CScenarioManager, eMissionObjectiveState, int> Closure_1cf030;
 
 struct Frame_1cf030 {
     Closure_1cf030 closure;
-    Frame_1cf030(const char *n, CScenarioManager *o, Closure_1cf030::Fn f) throw() : closure(n, o, f) {
+    Frame_1cf030(const char *n, CScenarioManager *o, Closure_1cf030::Fn f) : closure(n, o, f) {
     }
 };
 

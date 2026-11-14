@@ -163,7 +163,7 @@ class FEScreenBase_ef400 : public FEContainer_ef400 {
     void* hvptr;
     char pad[4];
     Del_ef400* e[32];
-    ~FEScreenBase_ef400() throw();
+    ~FEScreenBase_ef400();
 };
 extern void* hulk_at_0040c84c[];
 class Ref_ef820 {
@@ -176,18 +176,18 @@ class FEContainer_ef820 {
     void* vptr;
     void Fin_000eeac0();
 };
-void Free_0008d330(void*) throw();
+void Free_0008d330(void*);
 struct Sub_ef820 {
     char c;
 };
-void __fastcall SubFini(Sub_ef820*) throw();
-void __fastcall SubFini2(Sub_ef820*) throw();
-void __fastcall SubFini3(Sub_ef820*) throw();
+void __fastcall SubFini(Sub_ef820*);
+void __fastcall SubFini2(Sub_ef820*);
+void __fastcall SubFini3(Sub_ef820*);
 class FEDialog_ef820 : public FEContainer_ef820 {
   public:
     char p9a4[2464];
     Ref_ef820* m9a4;
-    ~FEDialog_ef820() throw();
+    ~FEDialog_ef820();
 };
 class FEContainer_ef8b0 {
   public:
@@ -259,14 +259,14 @@ class FEScreenBase_ef8f0 {
 struct Sub_ef8f0 {
     char c;
 };
-void __fastcall SubFini(Sub_ef8f0*) throw();
-void __fastcall SubFini2(Sub_ef8f0*) throw();
-void __fastcall SubFini3(Sub_ef8f0*) throw();
+void __fastcall SubFini(Sub_ef8f0*);
+void __fastcall SubFini2(Sub_ef8f0*);
+void __fastcall SubFini3(Sub_ef8f0*);
 class FEMenuBase_ef8f0 : public FEScreenBase_ef8f0 {
   public:
     char p990[2444];
     Ref_ef8f0* m990;
-    ~FEMenuBase_ef8f0() throw();
+    ~FEMenuBase_ef8f0();
 };
 extern void* hulk_at_0040ca04[];
 class Ref_ef920 {
@@ -279,10 +279,10 @@ class Del_ef920 {
     virtual void D(int);
 };
 struct A_ef920 {
-    void Fin_000df700() throw();
+    void Fin_000df700();
 };
 struct B_ef920 {
-    void Fin_000f8bd0() throw();
+    void Fin_000f8bd0();
 };
 class FEThingsBase_ef920 {
   public:
@@ -309,7 +309,7 @@ class FEThingsBase_ef920 {
     void* hvptr;
     char pp2080[4];
     Del_ef920* ii[32];
-    ~FEThingsBase_ef920() throw();
+    ~FEThingsBase_ef920();
 };
 struct ThisWrap_000efc80 {
     void* FUN_000e7620(void*);
@@ -1950,7 +1950,7 @@ namespace fn_f196c51b {
 
 // 0x000ef400 FUN_000ef400 (228 B): matches/0x000ef400.cpp
 // sym: ??1FEScreenBase_ef400@fn_f196c51b@@QAE@XZ
-FEScreenBase_ef400::~FEScreenBase_ef400() throw() {
+FEScreenBase_ef400::~FEScreenBase_ef400() {
     *(void* volatile*)&vptr = hulk_at_0040c774;
     Ref_ef400* t = *(Ref_ef400* volatile*)&m990;
     if (t) {
@@ -2226,7 +2226,7 @@ namespace fn_f196c51b {
 
 // 0x000ef820 FUN_000ef820 (42 B): matches/0x000ef820.cpp
 // sym: ??1FEDialog_ef820@fn_f196c51b@@QAE@XZ
-FEDialog_ef820::~FEDialog_ef820() throw() {
+FEDialog_ef820::~FEDialog_ef820() {
     vptr = hulk_at_0040c84c;
     _ReadWriteBarrier();
     if (m9a4) {
@@ -2384,7 +2384,7 @@ namespace fn_f196c51b {
 
 // 0x000ef8f0 FUN_000ef8f0 (42 B): matches/0x000ef8f0.cpp
 // sym: ??1FEMenuBase_ef8f0@fn_f196c51b@@QAE@XZ
-FEMenuBase_ef8f0::~FEMenuBase_ef8f0() throw() {
+FEMenuBase_ef8f0::~FEMenuBase_ef8f0() {
     vptr = hulk_at_0040c924;
     _ReadWriteBarrier();
     if (m990) {
@@ -2398,7 +2398,7 @@ FEMenuBase_ef8f0::~FEMenuBase_ef8f0() throw() {
 // 0x000ef920 FUN_000ef920 (425 B): matches/0x000ef920.cpp
 // sym: ??1FEThingsBase_ef920@fn_f196c51b@@QAE@XZ
 // data: g_ref_ef920 = DAT_004de954
-FEThingsBase_ef920::~FEThingsBase_ef920() throw() {
+FEThingsBase_ef920::~FEThingsBase_ef920() {
     vptr = hulk_at_0040ca04;
     for (int i = 0; i < 64; i++)
         if (a[i]) {

@@ -97,7 +97,7 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 
 class FEControl_ecd70 {
 public:
-    FEControl_ecd70(int arg) throw();
+    FEControl_ecd70(int arg);
     virtual void vfunc_0();
     char pad04[0x150 - 4];
 };
@@ -111,11 +111,11 @@ public:
     int f96c, f970, f974;
     int serial;             // 0x978
     float f97c;
-    TextWindow(int arg) throw();
+    TextWindow(int arg);
     virtual void vfunc_0();
 };
 
-TextWindow::TextWindow(int arg) throw()
+TextWindow::TextWindow(int arg)
     : FEControl_ecd70(arg)
 {
     f150 = 0;

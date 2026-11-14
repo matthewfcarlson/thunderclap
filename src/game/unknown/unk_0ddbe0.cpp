@@ -164,7 +164,7 @@ struct V3_ddbf0 { float x, y, z; };
 
 extern "C" void* FUN_0008d690(unsigned int size);
 void* FUN_00263ea0(unsigned int size);
-extern "C++" __declspec(nothrow) float __cdecl FUN_000ddbe0();
+extern "C++" float __cdecl FUN_000ddbe0();
 extern float (__cdecl *DAT_004de948)();
 
 class Camera {

@@ -64,13 +64,13 @@ class Condition_114240 {
     virtual bool v1_00234270(void*);
     virtual bool v2_002342b0(int);
     char pad[8];
-    Condition_114240(int) throw();
+    Condition_114240(int);
 };
 class LeashedCondition : public Condition_114240 {
   public:
     virtual void v0();
     char enabled;
-    LeashedCondition() throw() : Condition_114240(0) { enabled = 1; }
+    LeashedCondition() : Condition_114240(0) { enabled = 1; }
 };
 class ConditionFactory {
   public:

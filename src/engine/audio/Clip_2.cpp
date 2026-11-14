@@ -14,7 +14,7 @@ namespace fn_f6720d1b {} using namespace fn_f6720d1b;
 namespace fn_f6720d1b { extern "C" char DAT_00423f20[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/audio.h"
 // (ren2) fclose's own name (CRT, C linkage)
-extern "C" __declspec(nothrow) int __cdecl fclose(void*);
+extern "C" int __cdecl fclose(void*);
 
 // ---- declarations shared by the functions below
 namespace fn_f6720d1b {
@@ -315,7 +315,7 @@ class ContentStream_246a90 : public Stream_246a90 {
   public:
     char pad[0x1c - 4];
     Ref_246a90* m;
-    ~ContentStream_246a90() throw();
+    ~ContentStream_246a90();
 };
 struct Buffer {
     char pad[0x1c];
@@ -1096,7 +1096,7 @@ extern "C" bool FUN_00246a60(Outer_246a60* self, unsigned int value) {
 
 // 0x00246a90 FUN_00246a90 (25 B): matches/0x00246a90.cpp
 // sym: ??1ContentStream_246a90@fn_f6720d1b@@QAE@XZ
-ContentStream_246a90::~ContentStream_246a90() throw() {
+ContentStream_246a90::~ContentStream_246a90() {
     Ref_246a90* r = m;
     vptr = g_vt_246a90;
     r->Release();

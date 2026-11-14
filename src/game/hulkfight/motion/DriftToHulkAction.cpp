@@ -156,7 +156,7 @@ DriftToHulkAction_175630::~DriftToHulkAction_175630() {
 } // namespace fn_fe26f56d
 
 // 0x00175670 hulkfight::motion::DriftToHulkAction::vfunc_5 (532 B): equivalent/0x00175670.cpp
-// sym: ?vfunc_5@DriftToHulkAction@motion@hulkfight@@UAE_NHM@Z @a7397ba279b9 @wbe8bfbc5ebf3
+// sym: ?vfunc_5@DriftToHulkAction@motion@hulkfight@@UAE_NHM@Z @a7397ba279b9 @w5ab09a828f44
 // STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 26/26)
 // hulkfight::motion::DriftToHulkAction::vfunc_5 @ 0x00175670
 bool hulkfight::motion::DriftToHulkAction::vfunc_5(int mode, float dt)

@@ -568,7 +568,7 @@ void audio::SeqActionCrossFade::vfunc_2(Context* context,unsigned id) {
 namespace fn_fa3ba6ee {
 
 // 0x00255b10 audio::SeqActionCrossFade::vfunc_1 (403 B): equivalent/0x00255b10.cpp
-// sym: ?vfunc_1@SeqActionCrossFade@fn_fa3ba6ee@@UAEXPAUSource_255b10@2@@Z @e4027c5db81a @w37162e316182
+// sym: ?vfunc_1@SeqActionCrossFade@fn_fa3ba6ee@@UAEXPAUSource_255b10@2@@Z @e4027c5db81a @w6f49b1738b0c
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 32/32)
 // audio::SeqActionCrossFade::vfunc_1 @ 0x00255b10
 void SeqActionCrossFade::vfunc_1(Source_255b10 *src)

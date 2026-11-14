@@ -19,7 +19,7 @@ extern "C" void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...);
 extern "C" void __cdecl FUN_00217130(LuaVMState* L, LuaVMGCObject* o, unsigned char tt);
 extern "C" void __cdecl FUN_00219be0(LuaVMTable* t, int size, LuaVMState* L);
 extern "C" void __cdecl FUN_00219c30(LuaVMState* L, LuaVMTable* t, int lsize);
-extern "C++" __declspec(nothrow) LuaVMNode* __cdecl FUN_002198b0(const LuaVMTable* t, const LuaVMTObject* key);
+extern "C++" LuaVMNode* __cdecl FUN_002198b0(const LuaVMTable* t, const LuaVMTObject* key);
 extern "C" int __cdecl FUN_00215fa0(const LuaVMTObject* t1, const LuaVMTObject* t2);
 extern "C" LuaVMTObject* __cdecl FUN_00219dc0(LuaVMTable* t, int key);
 extern "C" LuaVMTObject* __cdecl FUN_00219e50(LuaVMTable* t, LuaVMString* key);
@@ -58,7 +58,7 @@ namespace fn_002198b0 {
 // luaH_mainposition: the node a key hashes to (numbers, booleans, strings by their hash, pointers by address).
 
 // equiv-conv: FUN_00219870 esi stack
-extern "C++" __declspec(nothrow) LuaVMNode* __cdecl FUN_00219870(const LuaVMTable* t, float n);
+extern "C++" LuaVMNode* __cdecl FUN_00219870(const LuaVMTable* t, float n);
 
 extern "C" LuaVMNode* __cdecl FUN_002198b0(const LuaVMTable* t, const LuaVMTObject* key) {
     if (key->tt == LUAVM_TNUMBER)

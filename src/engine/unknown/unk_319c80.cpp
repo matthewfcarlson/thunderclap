@@ -43,7 +43,7 @@ union Bits_319f40 {
 };
 struct V3_319f40 {
     float x, y, z;
-    float FUN_00018990() throw();
+    float FUN_00018990();
 };
 struct Body_319f40 {
     char pad00[0x50];
@@ -61,7 +61,7 @@ struct Event_319f40 {
     Bits_319f40 f3c;                   // 0x3c
     Bits_319f40 f40;                   // 0x40
     char pad44[0x1c];                  // FUN_0031a830 fills 0x60 bytes
-    void FUN_0031a830() throw();
+    void FUN_0031a830();
 };
 struct Tracker_319f40 {
     char pad00[0x10];
@@ -99,7 +99,7 @@ struct Tracker_319f40 {
     Bits_319f40 f94;
     Bits_319f40 f98;
     Bits_319f40 f9c;
-    void FUN_00319e90(int what, void *arg) throw();
+    void FUN_00319e90(int what, void *arg);
     void FUN_00319f40();
 };
 class Obj_31a400 {

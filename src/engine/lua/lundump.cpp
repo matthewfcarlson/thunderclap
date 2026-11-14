@@ -23,7 +23,7 @@ extern "C" char* __cdecl FUN_0021a6b0(LuaVMState* L, LuaVMBuffer* buff, unsigned
 extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
 extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
 extern "C" void __cdecl FUN_0021f940(unsigned int n, unsigned char* b, LuaVMLoadState* S, unsigned int size);
-extern "C++" __declspec(nothrow) LuaVMProto* __cdecl FUN_00220050(LuaVMLoadState* S, LuaVMString* p);
+extern "C++" LuaVMProto* __cdecl FUN_00220050(LuaVMLoadState* S, LuaVMString* p);
 class pddiObject {
   public:
     virtual void vfunc0();
@@ -403,22 +403,22 @@ namespace fn_00220050 {
 extern "C" LuaVMProto* __cdecl FUN_002196d0(LuaVMState* L);
 extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n);
 // equiv-conv: FUN_0021fa80 eax
-extern "C++" __declspec(nothrow) LuaVMString* __cdecl FUN_0021fa80(LuaVMLoadState* S);
+extern "C++" LuaVMString* __cdecl FUN_0021fa80(LuaVMLoadState* S);
 // equiv-conv: FUN_0021f8c0 ecx eax edx
-extern "C++" __declspec(nothrow) void __cdecl FUN_0021f8c0(char* b, unsigned int size, LuaVMLoadState* S);
+extern "C++" void __cdecl FUN_0021f8c0(char* b, unsigned int size, LuaVMLoadState* S);
 // equiv-conv: FUN_0021f800 esi stack
-extern "C++" __declspec(nothrow) void __cdecl FUN_0021f800(LuaVMLoadState* S, const char* fmt, ...);
-extern "C++" __declspec(nothrow) int __cdecl FUN_0021a550(LuaVMZio* z);
+extern "C++" void __cdecl FUN_0021f800(LuaVMLoadState* S, const char* fmt, ...);
+extern "C++" int __cdecl FUN_0021a550(LuaVMZio* z);
 // equiv-conv: FUN_0021fcb0 eax ebx
-extern "C++" __declspec(nothrow) void __cdecl FUN_0021fcb0(LuaVMLoadState* S, LuaVMProto* f);
+extern "C++" void __cdecl FUN_0021fcb0(LuaVMLoadState* S, LuaVMProto* f);
 // equiv-conv: FUN_0021faf0 eax ebx
-extern "C++" __declspec(nothrow) void __cdecl FUN_0021faf0(LuaVMLoadState* S, LuaVMProto* f);
+extern "C++" void __cdecl FUN_0021faf0(LuaVMLoadState* S, LuaVMProto* f);
 // equiv-conv: FUN_0021fb50 eax stack
-extern "C++" __declspec(nothrow) void __cdecl FUN_0021fb50(LuaVMLoadState* S, LuaVMProto* p);
+extern "C++" void __cdecl FUN_0021fb50(LuaVMLoadState* S, LuaVMProto* p);
 // equiv-conv: FUN_0021fd10 eax stack
-extern "C++" __declspec(nothrow) void __cdecl FUN_0021fd10(LuaVMLoadState* S, LuaVMProto* f);
+extern "C++" void __cdecl FUN_0021fd10(LuaVMLoadState* S, LuaVMProto* f);
 // equiv-conv: FUN_0021fe20 eax stack
-extern "C++" __declspec(nothrow) void __cdecl FUN_0021fe20(LuaVMLoadState* S, LuaVMProto* f);
+extern "C++" void __cdecl FUN_0021fe20(LuaVMLoadState* S, LuaVMProto* f);
 extern "C" int __cdecl FUN_002146a0(const LuaVMProto* pt);
 
 // LoadByte (inlined in the original).

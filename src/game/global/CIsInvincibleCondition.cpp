@@ -18,14 +18,14 @@ class Arg;
 namespace fight {
 class Part {
   public:
-    Part(Arg*) throw();
+    Part(Arg*);
     char data[8];
 };
 }
 namespace fight {
 class BaseCond {
   public:
-    BaseCond() throw();
+    BaseCond();
     virtual void f();
     char pad[4];
 };
@@ -33,7 +33,7 @@ class BaseCond {
 namespace fight {
 class CIsInvincibleCondition_52680 : public BaseCond {
   public:
-    CIsInvincibleCondition_52680(Arg* a) throw() : BaseCond(), part(a) {}
+    CIsInvincibleCondition_52680(Arg* a) : BaseCond(), part(a) {}
     virtual void f();
     Part part;
 };

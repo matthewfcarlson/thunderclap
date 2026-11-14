@@ -279,7 +279,7 @@ struct Action_232700 {
     void* vf;
     int p4;
     Ref_232700* p8;
-    Action_232700* Dtor(unsigned char flag) throw();
+    Action_232700* Dtor(unsigned char flag);
 };
 
 
@@ -789,7 +789,7 @@ void Holder_2326d0::Set(Obj_2326d0* value) {
 
 // 0x00232700 fight::Action::vfunc_2 (70 B): matches/0x00232700.cpp
 // sym: ?Dtor@Action_232700@fn_f7416411@@QAEPAU12@E@Z
-Action_232700* Action_232700::Dtor(unsigned char flag) throw() {
+Action_232700* Action_232700::Dtor(unsigned char flag) {
     vf = hulk_at_004276ec;
     _ReadWriteBarrier();
     if (p8) {

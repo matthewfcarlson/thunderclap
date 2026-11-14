@@ -11,7 +11,7 @@
 void* operator new(size_t) HULK_NEW_THROW;
 class Base {
   public:
-    Base(int) throw();
+    Base(int);
     virtual void f();
     virtual bool Fng_00234270(void*);
     virtual bool Fnh_002342b0(int);
@@ -20,12 +20,12 @@ class Base {
 };
 class CollisionTargetSizeCondition_159530 : public Base {
   public:
-    CollisionTargetSizeCondition_159530() throw();
+    CollisionTargetSizeCondition_159530();
     virtual void f();
     int x;
     int y;
 };
-CollisionTargetSizeCondition_159530::CollisionTargetSizeCondition_159530() throw() : Base(0) {
+CollisionTargetSizeCondition_159530::CollisionTargetSizeCondition_159530() : Base(0) {
     x = 0;
     y = 0;
 }

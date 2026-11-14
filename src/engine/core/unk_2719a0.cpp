@@ -32,7 +32,7 @@ extern "C" void __cdecl FUN_00267760(char*, unsigned int, const char*, ...);
 typedef void(__cdecl* Handler_2726e0)(char*);
 class Part_272840 {
   public:
-    void Fini_00277540() throw();
+    void Fini_00277540();
 };
 struct Drive_272840 {
     void* v0;
@@ -41,7 +41,7 @@ struct Drive_272840 {
     void* vc;
     int pad;
     Part_272840 part;
-    void Dtor() throw();
+    void Dtor();
 };
 class Sub_272880 {
   public:
@@ -710,7 +710,7 @@ extern "C" char __cdecl FUN_002726e0(const char* a, const char* b, int c) {
 
 // 0x00272840 FUN_00272840 (61 B): matches/0x00272840.cpp
 // sym: ?Dtor@Drive_272840@fn_f484c341@@QAEXXZ
-void Drive_272840::Dtor() throw() {
+void Drive_272840::Dtor() {
     v0 = vDrive;
     v4 = vD4;
     vc = vDc;

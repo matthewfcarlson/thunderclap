@@ -828,7 +828,7 @@ Sprite *Loader_2c0590::FUN_002c0590(Reader *r, int unused)
 // sym: ??_GLightsChooserCache@pure3d@fn_002c0790@@UAEPAXI@Z
 namespace fn_002c0790 {
 // Same code shape as 0x0029e7b0 (propagated; names are from that function)
-extern "C++" __declspec(nothrow) void destroyChooser_0008d340(void*);
+extern "C++" void destroyChooser_0008d340(void*);
 namespace pure3d {
 class LightsChooserCache {
   public:
@@ -850,7 +850,7 @@ LightsChooserCache::~LightsChooserCache() {
 // sym: ??_GLightsChooserCache@pure3d@fn_002c07d0@@UAEPAXI@Z
 namespace fn_002c07d0 {
 // Same code shape as 0x0029e7b0 (propagated; names are from that function)
-extern "C++" __declspec(nothrow) void destroyChooser(void*);
+extern "C++" void destroyChooser(void*);
 namespace pure3d {
 class LightsChooserCache {
   public:
@@ -883,7 +883,7 @@ struct Image8 {
 // equiv-conv: FUN_002c02b0 ecx eax stack stack stack stack stack stack
 void __cdecl FUN_002c02b0(pure3d::Image8* source, int y, unsigned char* dest, int x, int width, int height, int stride, unsigned int key);
 // equiv-conv: FUN_002c0240 ecx eax ebx stack stack stack stack
-extern "C++" __declspec(nothrow) void __cdecl FUN_002c0240(void *, int, int, char *, int, int, int);
+extern "C++" void __cdecl FUN_002c0240(void *, int, int, char *, int, int, int);
 void pure3d::Image8::vfunc_12(Image8* source, int x, int y, int w, int h, int dx, int dy) {
     if (dx < 0) { x += dx; w -= dx; dx = 0; }
     if (dy < 0) { y += dy; h -= dy; dy = 0; }
@@ -902,7 +902,7 @@ void pure3d::Image8::vfunc_12(Image8* source, int x, int y, int w, int h, int dx
 // sym: ??_GLightsChooserCache@pure3d@fn_002c09a0@@UAEPAXI@Z
 namespace fn_002c09a0 {
 // Same code shape as 0x0029e7b0 (propagated; names are from that function)
-extern "C++" __declspec(nothrow) void destroyChooser(void*);
+extern "C++" void destroyChooser(void*);
 namespace pure3d {
 class LightsChooserCache {
   public:
@@ -972,7 +972,7 @@ Image32::Image32(const Image32& o) : Image_2c09e0(o) {
 
 
 // 0x002c0a60 pure3d::Image32::vfunc_12 (376 B): equivalent/0x002c0a60.cpp [wrapped: conflict: Image32]
-// sym: ?vfunc_12@Image32@fn_002c0a60@@UAEXPAV12@HHHHHH@Z @4979d54ffe18 @w8b6646e7b11b
+// sym: ?vfunc_12@Image32@fn_002c0a60@@UAEXPAV12@HHHHHH@Z @4979d54ffe18 @wc3dde3819459
 namespace fn_002c0a60 {
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 22/22)
 // pure3d::Image32::vfunc_12 @ 0x002c0a60
@@ -980,13 +980,13 @@ namespace fn_002c0a60 {
 class Image32;
 
 // equiv-conv: FUN_002c0360 eax ecx edx stack stack stack stack
-extern "C++" __declspec(nothrow) void FUN_002c0360(int rows, int srcStride, unsigned int* dst, unsigned int* src, int width, int dstStride, unsigned int key);
+extern "C++" void FUN_002c0360(int rows, int srcStride, unsigned int* dst, unsigned int* src, int width, int dstStride, unsigned int key);
 // equiv-conv: FUN_002c0200 eax edx ecx stack stack stack
-extern "C++" __declspec(nothrow) void __cdecl FUN_002c0200(const unsigned char *, unsigned char *, int, unsigned int, int, int);
+extern "C++" void __cdecl FUN_002c0200(const unsigned char *, unsigned char *, int, unsigned int, int, int);
 // equiv-conv: FUN_002c0450 eax ecx edx stack stack stack stack stack
-extern "C++" __declspec(nothrow) void __cdecl FUN_002c0450(int, int, int, void *, unsigned *, int, int, unsigned);
+extern "C++" void __cdecl FUN_002c0450(int, int, int, void *, unsigned *, int, int, unsigned);
 // equiv-conv: FUN_002c03e0 eax ecx edx stack stack stack stack
-extern "C++" __declspec(nothrow) void __cdecl FUN_002c03e0(int, int, int, void *, unsigned int *, int, int);
+extern "C++" void __cdecl FUN_002c03e0(int, int, int, void *, unsigned int *, int, int);
 
 class Image32 {
 public:

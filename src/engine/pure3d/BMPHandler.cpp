@@ -384,12 +384,12 @@ struct Header_2afa60 {
 struct Output;
 
 // equiv-conv: FUN_002af8c0 esi edi
-extern "C++" __declspec(nothrow) void __cdecl FUN_002af8c0(void *, void *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002af510(void *, void *, void *);
+extern "C++" void __cdecl FUN_002af8c0(void *, void *);
+extern "C++" void __cdecl FUN_002af510(void *, void *, void *);
 // equiv-conv: FUN_002af670 esi ebx stack
-extern "C++" __declspec(nothrow) int __cdecl FUN_002af670(void *, void *, void *);
+extern "C++" int __cdecl FUN_002af670(void *, void *, void *);
 // equiv-conv: FUN_002af790 edi stack stack
-extern "C++" __declspec(nothrow) int __cdecl FUN_002af790(void *, void *, void *);
+extern "C++" int __cdecl FUN_002af790(void *, void *, void *);
 
 // The stream pointer's argument slot is reused for the two magic bytes.
 union StreamArg {

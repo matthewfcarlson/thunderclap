@@ -875,7 +875,7 @@ void UnlockableList_93150::FUN_00093150(const char *id, int idx, const char *tit
 // 0x000931f0 FUN_000931f0 (106 B): matches/0x000931f0.cpp [wrapped: conflict: Cast]
 // sym: ?F@C_931f0@fn_000931f0@@QAEXPADH0H@Z
 namespace fn_000931f0 {
-extern "C++" __declspec(nothrow) void* __cdecl Cast(void*, int, void*, void*, int);
+extern "C++" void* __cdecl Cast(void*, int, void*, void*, int);
 void __cdecl Setup_00267760(void* p, int n, int v, ...);
 extern char TdA[], hulk_at_0049db60[];
 inline void Copy(char* d, const char* s) {

@@ -217,7 +217,7 @@ struct Temporary_241390 { char data[sizeof(OmType)];  // an om::Type (records.h)
  void *FUN_002584d0(uint *, uint *, hulk_uintptr, int); void FUN_002580e0(); };
 extern "C" SoundState_241390 *__cdecl FUN_00247530(void *);
 namespace DSOUND { int __stdcall DirectSoundCreate(void *, void *, void *); }
-extern "C++" __declspec(nothrow) void __cdecl FUN_002411b0(); extern "C" void __cdecl FUN_0024c9c0(); extern "C" void __cdecl FUN_0024c7f0(int);
+extern "C++" void __cdecl FUN_002411b0(); extern "C" void __cdecl FUN_0024c9c0(); extern "C" void __cdecl FUN_0024c7f0(int);
 uint __stdcall FUN_0020c731(uint, hulk_uintptr, uint);
 uint __cdecl FUN_00267f80(); extern "C" void __cdecl FUN_00257dd0(void *);
 struct Message_241390 {  };

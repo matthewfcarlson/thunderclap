@@ -8875,7 +8875,7 @@ def compile_native(src, outdir, extra=(), tail_asm=None):
         _NATIVE_CLANG_OK[clang] = "Apple" not in v
     if not _NATIVE_CLANG_OK[clang]:
         raise CompileError("native mode needs LLVM's clang (Homebrew llvm, ~/llvm or $HULK_LLVM), not " + clang)
-    flags = list(cp.CONFIGS["msvc"]["flags"]) + cp.COMMON + ["-Wno-everything"]
+    flags = list(cp.CONFIGS["msvc"]["flags"]) + cp.COMMON + ["-Wno-everything"] + cp.tu_flags(src)   # (gx2) clang-flags
     # (perf1) the float code per call (HULK_WINE_FLOAT, `--float`; regress.py's per-case `float`): SSE2 by default
     sse = os.environ.get("HULK_WINE_FLOAT", "sse") != "x87"
     swap = {"-mno-sse": "-msse2", "-mfpmath=387": "-mfpmath=sse"} if sse else {"-msse2": "-mno-sse", "-mfpmath=sse": "-mfpmath=387"}

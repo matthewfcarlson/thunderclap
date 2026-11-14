@@ -86,8 +86,8 @@ struct Owner_1f96b0 {
 };
 struct Key {
     int lo, hi;
-    Key() throw() {}
-    Key(const Key &other) throw();
+    Key() {}
+    Key(const Key &other);
     Key *FUN_0027b0e0(const char *name);
     void FUN_0027af70(const Key *other);
     void FUN_0027af50();
@@ -98,8 +98,8 @@ struct NameEntry {
     char flagB;
     char unused[6];
 
-    NameEntry() throw() {}
-    NameEntry(const NameEntry &o) throw() : key(o.key)
+    NameEntry() {}
+    NameEntry(const NameEntry &o) : key(o.key)
     {
         flagA = o.flagA;
         flagB = o.flagB;
@@ -120,7 +120,7 @@ public:
     char pad6c4[0x1c];
     int count;
 
-    void FUN_001f96b0(NameEntry entry, int id) throw();
+    void FUN_001f96b0(NameEntry entry, int id);
 };
 class Factory_1f9710 {
 public:
@@ -189,26 +189,26 @@ class Obj_1fa7a0 {
 };
 extern void FUN_0008d330(Obj_1fa7a0*);
 extern void FUN_001f9f80();
-void thunk_FUN_00267090(void *p) throw();
+void thunk_FUN_00267090(void *p);
 struct Name {
     char data[12];
-    ~Name() throw();
+    ~Name();
 };
 class Child_1fa8b0 {
 public:
-    virtual void v0() throw();
-    virtual void Release() throw();
+    virtual void v0();
+    virtual void Release();
 };
-void FUN_001f9f80(void *p) throw();
+void FUN_001f9f80(void *p);
 struct Task_1fa8b0 {
     char pad[0x18];
     Child_1fa8b0 *child;
-    void FUN_00230f50(void (*callback)(void *), Task_1fa8b0 *self) throw();
+    void FUN_00230f50(void (*callback)(void *), Task_1fa8b0 *self);
 };
 namespace core {
 class IRefCount {
 public:
-    virtual ~IRefCount() throw();
+    virtual ~IRefCount();
 };
 }
 class CEncounterGenerator : public core::IRefCount {
@@ -216,12 +216,12 @@ public:
     class CEncounter {
     public:
         virtual void* v0_001f94e0(int);
-        __forceinline ~CEncounter() throw() {}
+        __forceinline ~CEncounter() {}
         char pad04[0x30 - 4];
         Name name;
         char pad3c[0x58 - 0x3c];
     };
-    virtual ~CEncounterGenerator() throw();
+    virtual ~CEncounterGenerator();
     char pad04[0x6e8 - 4];
     char encounterSlots[16][0x58];  // CEncounter objects, destroyed by hand below
     char pad_c68[4];
@@ -860,7 +860,7 @@ namespace fn_f80593ac {
 // equiv-map: ??1IRefCount@core@@UAE@XZ = 0x0027afd0
 // equiv-map: ??1Name@@QAE@XZ = 0x0027af50
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d330
-CEncounterGenerator::~CEncounterGenerator() throw()
+CEncounterGenerator::~CEncounterGenerator()
 {
     Task_1fa8b0 *t = task;
     if (t != 0) {

@@ -5803,7 +5803,7 @@ void Spawner_7f690::FUN_0007f690(int a1, int a2, int a3, int a4)
 
 
 // 0x0007f950 FUN_0007f950 (3788 B): equivalent/0x0007f950.cpp [wrapped: macros]
-// sym: ??0CAmbientsManager@fn_0007f950@@QAE@XZ @846c9273be7b @wf228a90a0f21
+// sym: ??0CAmbientsManager@fn_0007f950@@QAE@XZ @846c9273be7b @wa2194581f845
 void* operator new(hulk_uintptr) throw();
 namespace fn_0007f950 {
 // STATUS: equivalent (tools/equiv.py level 3: 479 inputs, branch coverage 74/74)
@@ -6394,7 +6394,7 @@ void f(Obj** slot, Obj* value) {
 } // namespace fn_f9399ba1
 
 // 0x000810f0 FUN_000810f0 (578 B): equivalent/0x000810f0.cpp [wrapped: conflict: CCivilian; World; pure3d::Entity]
-// sym: ??0CCivilian@fn_000810f0@@QAE@HPAVDevice_810f0@1@HHHD@Z @3e09b4858017 @w2f34eb238bf9
+// sym: ??0CCivilian@fn_000810f0@@QAE@HPAVDevice_810f0@1@HHHD@Z @3e09b4858017 @w75e94707eb42
 namespace fn_000810f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19916 inputs, branch coverage 18/18)
 // FUN_000810f0 @ 0x000810f0

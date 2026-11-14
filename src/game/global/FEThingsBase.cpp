@@ -1568,7 +1568,7 @@ void FEContainer::vfunc_38(int n) {
 // sym: ?vfunc_39@FEContainer@fn_000e47e0@@UAEXH@Z
 namespace fn_000e47e0 {
 extern int a, b;
-extern "C++" __declspec(nothrow) void __cdecl sink(int, int, int*, int*, int);
+extern "C++" void __cdecl sink(int, int, int*, int*, int);
 class FEContainer {
   public:
     virtual void f0();
@@ -1666,7 +1666,7 @@ class FEContainer {
     virtual void vfunc_40(int);
 };
 extern int a, b;
-extern "C++" __declspec(nothrow) void __cdecl fun(void*, int, const void*, const void*, int);
+extern "C++" void __cdecl fun(void*, int, const void*, const void*, int);
 void FEContainer::vfunc_40(int x) {
     fun(vfunc_39(x), 0, &a, &b, 0);
 }
@@ -1723,7 +1723,7 @@ class FEContainer {
     virtual void f42(int);
 };
 extern char DAT_0049f4a4[], DAT_0049f4f0[];
-extern "C++" __declspec(nothrow) void FUN_00344e74(void*, int, char*, char*, int);
+extern "C++" void FUN_00344e74(void*, int, char*, char*, int);
 void FEContainer::f42(int x) {
     FUN_00344e74(f39(x), 0, DAT_0049f4f0, DAT_0049f4a4, 0);
 }
@@ -1780,7 +1780,7 @@ struct FEContainer {
     virtual void vfunc_43(int);
 };
 extern int DAT_0049f4f0, DAT_0049f470;
-extern "C++" __declspec(nothrow) void FUN_00344e74(hulk_intptr, int, int*, int*, int);
+extern "C++" void FUN_00344e74(hulk_intptr, int, int*, int*, int);
 void FEContainer::vfunc_43(int x) {
     FUN_00344e74(vfunc_39(x), 0, &DAT_0049f4f0, &DAT_0049f470, 0);
 }
@@ -1899,7 +1899,7 @@ class FEContainer {
 };
 extern int DAT_0049f454;
 extern int DAT_0049f4f0;
-extern "C++" __declspec(nothrow) void FUN_00344e74(void*, int, int*, int*, int);
+extern "C++" void FUN_00344e74(void*, int, int*, int*, int);
 void FEContainer::vfunc_45(void* p) {
     FUN_00344e74(v39(p), 0, &DAT_0049f4f0, &DAT_0049f454, 0);
 }
@@ -1931,7 +1931,7 @@ void FEContainer::vfunc_41(void* p) {
 // sym: ?v46@FEContainer@fn_000e4930@@UAEXH@Z
 namespace fn_000e4930 {
 extern int hulk_at_0049f4c0, g2;
-extern "C++" __declspec(nothrow) void f(int, int, int*, int*, int);
+extern "C++" void f(int, int, int*, int*, int);
 class FEContainer {
   public:
     virtual void v0();
@@ -2034,7 +2034,7 @@ namespace fn_000e4a40 {
 // FEContainer::vfunc_23 @ 0x000e4a40
 // equiv-map: ??0FELayout@@QAE@PAVFEContainer@@PBD@Z = 0x000e1f10
 // FEContainer::vfunc_23 (0x000e4a40); identical code is FEScreenBase::vfunc_23 (0x000e4fc0).
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d690(unsigned int size);
+extern "C++" void* __cdecl FUN_0008d690(unsigned int size);
 
 
 struct Key { unsigned int lo; unsigned int hi; };
@@ -2052,7 +2052,7 @@ struct Owner {
 
 class FELayout {
 public:
-    FELayout(FEContainer* parent, const char* name) throw();
+    FELayout(FEContainer* parent, const char* name);
     virtual void f0_000e1ff0();
     virtual void f1_000e2000();
     virtual void f2_000e2010();
@@ -2086,7 +2086,7 @@ public:
 
 class SingleLayout : public FELayout {
 public:
-    SingleLayout(FEContainer* p, const char* n) throw() : FELayout(p, n) { field44 = 0; mLayout = 0; }
+    SingleLayout(FEContainer* p, const char* n) : FELayout(p, n) { field44 = 0; mLayout = 0; }
     virtual void* vfunc_0_000e8c90(char);
     virtual void vfunc_1_000e20b0();
     virtual void vfunc_2();
@@ -2621,11 +2621,11 @@ namespace fn_000e4fc0 {
 // FEScreenBase::vfunc_23 @ 0x000e4fc0
 // equiv-map: ??0FELayout@@QAE@PAVFEContainer@@PBD@Z = 0x000e1f10
 // FEContainer::vfunc_23 (0x000e4a40); identical code is FEScreenBase::vfunc_23 (0x000e4fc0).
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d690(unsigned int size);
+extern "C++" void* __cdecl FUN_0008d690(unsigned int size);
 
 
 struct Key { unsigned int lo; unsigned int hi; };
-extern "C++" __declspec(nothrow) Key __cdecl FUN_0027b020(const char* s);
+extern "C++" Key __cdecl FUN_0027b020(const char* s);
 
 class FEScreenBase_e4fc0;
 class FEObject;
@@ -2639,7 +2639,7 @@ struct Owner {
 
 class FELayout {
 public:
-    FELayout(FEScreenBase_e4fc0* parent, const char* name) throw();
+    FELayout(FEScreenBase_e4fc0* parent, const char* name);
     virtual void f0_000e1ff0();
     virtual void f1_000e2000();
     virtual void f2_000e2010();
@@ -2673,7 +2673,7 @@ public:
 
 class SingleLayout : public FELayout {
 public:
-    SingleLayout(FEScreenBase_e4fc0* p, const char* n) throw() : FELayout(p, n) { field44 = 0; mLayout = 0; }
+    SingleLayout(FEScreenBase_e4fc0* p, const char* n) : FELayout(p, n) { field44 = 0; mLayout = 0; }
     virtual void* vfunc_0_000e8c90(char);
     virtual void vfunc_1_000e20b0();
     virtual void vfunc_2();

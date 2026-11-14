@@ -189,7 +189,7 @@ struct Ref_1cf40 {
     virtual void Release();
 };
 struct Action_1cf40 {
-    Action_1cf40() throw();
+    Action_1cf40();
     virtual void V0();
     char pad04[0x18];
 };
@@ -547,7 +547,7 @@ struct Ref_1d290 {
     virtual void Release();
 };
 struct Action_1d290 {
-    Action_1d290() throw();
+    Action_1d290();
     virtual void V0();
     char pad04[0x18];
 };

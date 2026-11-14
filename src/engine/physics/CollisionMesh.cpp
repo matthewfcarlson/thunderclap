@@ -266,7 +266,7 @@ void physics::CollisionVolume::vfunc_11(void* __p0) { hulk_intptr a = (hulk_intp
 
 
 // 0x002f3530 FUN_002f3530 (177 B): equivalent/0x002f3530.cpp [wrapped: conflict: physics::CollisionMesh]
-// sym: ??0CollisionMesh@physics@fn_002f3530@@QAE@XZ @bb7d30e522be @w356f04fa1bac
+// sym: ??0CollisionMesh@physics@fn_002f3530@@QAE@XZ @bb7d30e522be @wfa04e57abf48
 void* __cdecl operator new(size_t);
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

@@ -15,7 +15,7 @@ namespace fn_f9add754 {} using namespace fn_f9add754;
 namespace fn_f9add754 {
 extern "C" const char* __cdecl FUN_00219820(const LuaVMProto* f, int local_number, int pc);
 extern "C" void __cdecl FUN_00212c10(LuaVMState* L, const LuaVMTObject* o);
-extern "C++" __declspec(nothrow) LuaVMInstruction __cdecl FUN_002142d0(const LuaVMProto* pt, int lastpc, int reg);
+extern "C++" LuaVMInstruction __cdecl FUN_002142d0(const LuaVMProto* pt, int lastpc, int reg);
 extern "C" const char* FUN_002146c0(int c, const LuaVMProto* p);
 extern "C" const char* __cdecl FUN_002146f0(unsigned reg, LuaVMCallInfo* ci, const char** name);
 extern "C" void __cdecl FUN_002152b0(LuaVMState* L, int errcode);
@@ -27,9 +27,9 @@ extern "C" const char* __cdecl FUN_002160c0(LuaVMState* L, const char* fmt, char
 extern "C" void FUN_00214900(LuaVMState* L, const char* msg);
 extern "C" void __cdecl FUN_002149b0(LuaVMState* L);
 extern "C" void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00214ac0(const char* what, LuaVMDebug* ar, LuaVMCallInfo* ci, LuaVMState* L, const LuaVMTObject* f);
+extern "C++" int __cdecl FUN_00214ac0(const char* what, LuaVMDebug* ar, LuaVMCallInfo* ci, LuaVMState* L, const LuaVMTObject* f);
 extern "C" void __cdecl FUN_002141d0(LuaVMDebug* ar, LuaVMState* L);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00214c90(LuaVMState* L, const LuaVMTObject* o, const char* op);
+extern "C++" void __cdecl FUN_00214c90(LuaVMState* L, const LuaVMTObject* o, const char* op);
 extern "C" const LuaVMTObject* __cdecl FUN_00217600(const LuaVMTObject* obj, LuaVMTObject* n);
 
 
@@ -250,9 +250,9 @@ namespace fn_002142d0 {
 // reg is NO_REG 0xff); 0 when the code is invalid.
 
 // equiv-conv: FUN_00214280 ecx edx eax
-extern "C++" __declspec(nothrow) int FUN_00214280(int r, const LuaVMProto* pt, int mode);
+extern "C++" int FUN_00214280(int r, const LuaVMProto* pt, int mode);
 // equiv-conv: FUN_00214250 eax edx
-extern "C++" __declspec(nothrow) int FUN_00214250(const LuaVMProto* pt, int pc);
+extern "C++" int FUN_00214250(const LuaVMProto* pt, int pc);
 
 extern "C" LuaVMInstruction __cdecl FUN_002142d0(const LuaVMProto* pt, int lastpc, int reg)
 {
@@ -576,10 +576,10 @@ namespace fn_00214ac0 {
 // auxgetinfo: fill ar according to the option letters in what for the function f (ci its activation or NULL).
 
 // equiv-conv: FUN_00214160 ecx eax
-extern "C++" __declspec(nothrow) void FUN_00214160(LuaVMDebug* ar, const LuaVMTObject* func);
-extern "C++" __declspec(nothrow) int __fastcall FUN_00213f20(LuaVMState* L, LuaVMCallInfo* ci);
+extern "C++" void FUN_00214160(LuaVMDebug* ar, const LuaVMTObject* func);
+extern "C++" int __fastcall FUN_00213f20(LuaVMState* L, LuaVMCallInfo* ci);
 // equiv-conv: FUN_00214840 ecx stack
-extern "C++" __declspec(nothrow) const char* __cdecl FUN_00214840(LuaVMCallInfo* ci, const char** name);
+extern "C++" const char* __cdecl FUN_00214840(LuaVMCallInfo* ci, const char** name);
 
 // equiv-conv: FUN_00214ac0 eax esi edi stack stack
 extern "C" int __cdecl FUN_00214ac0(const char* what, LuaVMDebug* ar, LuaVMCallInfo* ci, LuaVMState* L, const LuaVMTObject* f)
@@ -655,8 +655,8 @@ namespace fn_00214c90 {
 // luaG_typeerror: "attempt to <op> <kind> `<name>' (a <type> value)" when o is a named stack value, else the short form.
 
 // equiv-conv: FUN_002146f0 eax stack stack
-extern "C++" __declspec(nothrow) const char* __cdecl FUN_002146f0(unsigned reg, LuaVMCallInfo* ci, const char** name);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...);
+extern "C++" const char* __cdecl FUN_002146f0(unsigned reg, LuaVMCallInfo* ci, const char** name);
+extern "C++" void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...);
 
 extern "C" void __cdecl FUN_00214c90(LuaVMState* L, const LuaVMTObject* o, const char* op)
 {

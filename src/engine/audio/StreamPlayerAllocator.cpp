@@ -197,7 +197,7 @@ struct Obj_24a3c0 {
     Link_24a3c0 *link;
     int state;
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00249810(void *, int);
+extern "C++" void __cdecl FUN_00249810(void *, int);
 void FUN_002498d0(Obj_24a3c0 *o);
 extern "C" void __cdecl FUN_00248670(void *, void *, unsigned);
 extern "C" void __cdecl FUN_00248780(void *, unsigned);
@@ -374,8 +374,8 @@ struct Pool {
     char pad[1];
 };
 void FUN_00249750(Child *c);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00248ac0(void *, void *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00249ec0(void *, void *);
+extern "C++" void __cdecl FUN_00248ac0(void *, void *);
+extern "C++" void __cdecl FUN_00249ec0(void *, void *);
 void FUN_00247550(void *pool, void *block);
 extern "C" void FUN_00257f00(void *a, void *b);
 extern "C" void FUN_00242d70(void *a, int b);
@@ -660,7 +660,7 @@ void __cdecl FUN_0024bae0(Player_24bc70 *p, int arg);
 extern "C" bool __cdecl FUN_0024b170(void *);
 extern "C" void __cdecl FUN_0024b480(void *);
 extern "C" void __cdecl FUN_0024b550(void *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0024b920(void *);
+extern "C++" void __cdecl FUN_0024b920(void *);
 } // namespace fn_f9a518a5
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void *memset(void *p, int c, unsigned n);
@@ -732,7 +732,7 @@ class StreamPlayerAllocator {
     virtual void vfunc_1();
 };
 } // namespace audio
-extern "C++" __declspec(nothrow) void * __cdecl FUN_0024be00(int, int, int, int, int, int, int);
+extern "C++" void * __cdecl FUN_0024be00(int, int, int, int, int, int, int);
 void audio::StreamPlayerAllocator::vfunc_0(u32_247ba0 a, u32_247ba0 b, u32_247ba0 c, u32_247ba0 d) {
     FUN_0024be00((unsigned int)c, 1, (unsigned int)b, (unsigned int)d, 0, 0, 1);
 }
@@ -1374,7 +1374,7 @@ struct Node {
     int data;
 };
 void* FUN_00247f80(void*, void*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00247fc0(void *, void *);
+extern "C++" void __cdecl FUN_00247fc0(void *, void *);
 extern "C" void FUN_00248ac0(void * tree, void * node) {
     Node* nil = (Node*)((char*)&((Node *)tree)->right);
     Node* x;
@@ -2242,7 +2242,7 @@ struct Node { Node *left; Node *right; Node *parent; int color; };
 struct Tree_249c20 { Node *root; Node sentinel; };
 struct Entry_249c20 { int value; Node node; };
 extern Node* __cdecl FUN_00247d10(Tree_249c20*,Node*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00248d40(void *, void *);
+extern "C++" void __cdecl FUN_00248d40(void *, void *);
 extern "C" void __cdecl FUN_00249c20(void * tree_, void * entry_) {
     Tree_249c20 * tree = (Tree_249c20 *)tree_;
     Entry_249c20 * entry = (Entry_249c20 *)entry_;
@@ -2421,7 +2421,7 @@ struct Node {
     int data;
 };
 void* FUN_00248240(void*, void*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00248fa0(void *, void *);
+extern "C++" void __cdecl FUN_00248fa0(void *, void *);
 extern "C" void FUN_00249ec0(void * tree, void * node) {
     Node* nil = (Node*)((char*)&((Node *)tree)->right);
     Node* x;
@@ -2503,7 +2503,7 @@ struct Tree_249ff0 {
     Node nil;
 };
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_002482a0(void *, void *);
+extern "C++" void __cdecl FUN_002482a0(void *, void *);
 extern "C" void FUN_002482f0(Tree_249ff0* tree, Node* node);
 
 // Red-black tree unique-key insert with rebalance. color: 1 = red, 0 = black.
@@ -2621,7 +2621,7 @@ struct Node { Node* left; Node* right; Node* parent; int color; };
 struct Tree_24a1c0 { Node* root; Node sentinel; };
 struct Entry_24a1c0 { int data; Node node; };
 Node* __cdecl FUN_00248370(Tree_24a1c0*, Node*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00249200(void *, void *);
+extern "C++" void __cdecl FUN_00249200(void *, void *);
 extern "C" void __cdecl FUN_0024a1c0(void * tree_, void * entry_) {
     Tree_24a1c0 * tree = (Tree_24a1c0 *)tree_;
     Entry_24a1c0 * entry = (Entry_24a1c0 *)entry_;
@@ -2677,12 +2677,12 @@ class Owner_24a280;
 // An entry is an object whose tree node sits at offset 4, right after the vptr.
 class Entry_24a280 {
 public:
-    virtual ~Entry_24a280() throw();
+    virtual ~Entry_24a280();
     virtual bool vfunc_1(Owner_24a280 *owner, int arg);
     Node node;
 };
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_00249c20(void *, void *);
+extern "C++" void __cdecl FUN_00249c20(void *, void *);
 
 static Entry_24a280 *EntryOf(Node *n)
 {
@@ -2744,7 +2744,7 @@ namespace fn_0024a370 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_0024a370 @ 0x0024a370
 struct Object { char padding[24]; };
-extern "C++" __declspec(nothrow) void * __cdecl FUN_00249f80(void *, const unsigned *);
+extern "C++" void * __cdecl FUN_00249f80(void *, const unsigned *);
 extern "C" void* __cdecl FUN_0024a370(Object* object, const unsigned int* key) {
     return FUN_00249f80(&object->padding[24], (const unsigned *)(const unsigned int *)key);
 }
@@ -2802,7 +2802,7 @@ bool FUN_0024a3c0(Obj_24a3c0 *o, int x, int unused, int a)
 namespace fn_0024a450 {
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 7/8, incomplete)
 // FUN_0024a450 @ 0x0024a450
-struct Link { Link* next; }; struct Node { virtual void destroy(unsigned int); Link link; }; struct List { Link* first; Link sentinel; }; extern "C++" __declspec(nothrow) void __cdecl FUN_00249c20(void *, void *); extern "C" void __cdecl FUN_0024a450(void * list_) {
+struct Link { Link* next; }; struct Node { virtual void destroy(unsigned int); Link link; }; struct List { Link* first; Link sentinel; }; extern "C++" void __cdecl FUN_00249c20(void *, void *); extern "C" void __cdecl FUN_0024a450(void * list_) {
     List * list = (List *)list_; Link* end = &list->sentinel; while (list->first != end) { Link* cur = list->first; while (cur->next != end) cur = cur->next; Node* node = (Node*)((char*)cur - 4); if (!node) break; FUN_00249c20((List *)list,(Node *)node); node->destroy(1); } }
 } // namespace fn_0024a450
 
@@ -2821,7 +2821,7 @@ struct List {
     Link* first;
     Link end;
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_0024a1c0(void *, void *);
+extern "C++" void __cdecl FUN_0024a1c0(void *, void *);
 extern "C" void __cdecl FUN_0024a4a0(void * list_) {
     List * list = (List *)list_;
     while (list->first != &list->end) {
@@ -3133,7 +3133,7 @@ struct Map_24a940 {
 };
 
 Node* __cdecl FUN_00247530(char* pool);
-extern "C++" __declspec(nothrow) char __cdecl FUN_00249ff0(void *, void *, const unsigned *);
+extern "C++" char __cdecl FUN_00249ff0(void *, void *, const unsigned *);
 
 // Finds the node for *key, creating and linking a new one when it is missing.
 extern "C" Node* FUN_0024a940(Map_24a940* map, const unsigned int* key)
@@ -3249,11 +3249,11 @@ struct Extra_24a9c0 {
 extern "C" unsigned int __cdecl FUN_002673a0(const char *s, int flag);
 void *__cdecl FUN_00247530(void *pool);
 void __cdecl FUN_00247550(void *pool, void *p);
-extern "C++" __declspec(nothrow) void * __cdecl FUN_00249fc0(void *, const unsigned int *);
-extern "C++" __declspec(nothrow) char __cdecl FUN_00249ff0(void *, void *, const unsigned *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00249ec0(void *, void *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0024a450(void *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0024a4a0(void *);
+extern "C++" void * __cdecl FUN_00249fc0(void *, const unsigned int *);
+extern "C++" char __cdecl FUN_00249ff0(void *, void *, const unsigned *);
+extern "C++" void __cdecl FUN_00249ec0(void *, void *);
+extern "C++" void __cdecl FUN_0024a450(void *);
+extern "C++" void __cdecl FUN_0024a4a0(void *);
 void *__cdecl FUN_0025d3d0();
 
 static Entry_24a9c0 *EntryFromLink(Link_24a9c0 *l)
@@ -3405,7 +3405,7 @@ struct Pair_24ac40 {
     int hi;
 };
 
-extern "C++" __declspec(nothrow) void * __cdecl FUN_0024a9c0(void *, void *);
+extern "C++" void * __cdecl FUN_0024a9c0(void *, void *);
 extern "C" void __cdecl FUN_00247ae0(void *a, Node *n, int b, int c, Pair_24ac40 *d);
 
 extern "C" void __cdecl FUN_0024ac40(void *ctx, Owner_24ac40 *owner, int flag, int value, Pair_24ac40 *src)
@@ -4240,7 +4240,7 @@ struct Stream {
 extern "C" void * __cdecl FUN_00259c50(void *);
 void __cdecl FUN_00258e50(int handle);
 // equiv-conv: FUN_0024bc70 eax
-extern "C++" __declspec(nothrow) void __cdecl FUN_0024bc70(void *);
+extern "C++" void __cdecl FUN_0024bc70(void *);
 
 extern "C" void __cdecl FUN_0024c0c0(Stream* s)
 {
@@ -4277,7 +4277,7 @@ struct State { char pad0[8]; int item; char pad1[0xb4]; int mode; int status; };
 extern "C" void * __cdecl FUN_00259c50(void *);
 void __cdecl FUN_00258e50(int);
 // equiv-conv: FUN_0024bc70 eax
-extern "C++" __declspec(nothrow) void __cdecl FUN_0024bc70(void *);
+extern "C++" void __cdecl FUN_0024bc70(void *);
 extern "C" void __cdecl FUN_0024c160(State* state) {
     if (((int)(hulk_uintptr)FUN_00259c50((void *)(hulk_uintptr)(int)(state->item))) == 1) FUN_00258e50(state->item);
     state->mode = 3;

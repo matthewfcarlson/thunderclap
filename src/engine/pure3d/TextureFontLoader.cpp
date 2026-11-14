@@ -771,7 +771,7 @@ void TextureFont::vfunc_19(const unsigned short* text, char flags)
 
 
 // 0x00295520 FUN_00295520 (157 B): equivalent/0x00295520.cpp [wrapped: conflict: pure3d::TextureFont]
-// sym: ??1TextureFont@pure3d@fn_00295520@@UAE@XZ @f9ddd5953911 @w8342c28a6469
+// sym: ??1TextureFont@pure3d@fn_00295520@@UAE@XZ @f9ddd5953911 @wf93631554206
 namespace fn_00295520 {
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 14/14)
 // FUN_00295520 @ 0x00295520
@@ -872,7 +872,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x00295620 pure3d::TextureFontLoader::vfunc_5 (1530 B): equivalent/0x00295620.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase; pure3d::Entity; pure3d::Shader (+1)]
-// sym: ?F@TextureFontLoader@fn_00295620@@QAEXPAPAVTextureFont@pure3d@2@PA_KPAUStream@2@PAVFactory_295620@2@@Z @2153c5843d07 @w0f067f7434c6
+// sym: ?F@TextureFontLoader@fn_00295620@@QAEXPAPAVTextureFont@pure3d@2@PA_KPAUStream@2@PAVFactory_295620@2@@Z @2153c5843d07 @w589bf722d11e
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_00295620 {
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 46/50, incomplete)

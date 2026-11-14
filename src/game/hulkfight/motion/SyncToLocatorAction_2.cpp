@@ -96,12 +96,12 @@ class Action_175db0 {
   public:
     void* vptr;
 };
-void Free(void*) throw();
+void Free(void*);
 struct Sub_175db0 {
     char c;
 };
-extern "C" void __fastcall FUN_0027af50(Sub_175db0*) throw();
-void __fastcall SubFini2(Sub_175db0*) throw();
+extern "C" void __fastcall FUN_0027af50(Sub_175db0*);
+void __fastcall SubFini2(Sub_175db0*);
 class SyncToLocatorAction_175db0 : public Action_175db0 {
   public:
     char p1c[24];
@@ -111,7 +111,7 @@ class SyncToLocatorAction_175db0 : public Action_175db0 {
     Sub_175db0 s28;
     char p30[7];
     Ref_175db0* m30;
-    ~SyncToLocatorAction_175db0() throw();
+    ~SyncToLocatorAction_175db0();
 };
 struct V3_175e00 {
     float x, y, z;
@@ -216,7 +216,7 @@ SyncToLocatorAction_175d50* SyncToLocatorAction_175d50::Func(int a, Ref_175d50* 
 
 // 0x00175db0 FUN_00175db0 (77 B): matches/0x00175db0.cpp
 // sym: ??1SyncToLocatorAction_175db0@fn_ff45f2cf@@QAE@XZ
-SyncToLocatorAction_175db0::~SyncToLocatorAction_175db0() throw() {
+SyncToLocatorAction_175db0::~SyncToLocatorAction_175db0() {
     vptr = hulk_at_00417f64;
     _ReadWriteBarrier();
     if (m30) {
@@ -236,7 +236,7 @@ SyncToLocatorAction_175db0::~SyncToLocatorAction_175db0() throw() {
 } // namespace fn_ff45f2cf
 
 // 0x00175e00 hulkfight::motion::SyncToLocatorAction::vfunc_5 (457 B): equivalent/0x00175e00.cpp
-// sym: ?vfunc_5@SyncToLocatorAction@motion@hulkfight@@UAE_NHM@Z @3bd4dae7ab3c @w448265b6a3b0
+// sym: ?vfunc_5@SyncToLocatorAction@motion@hulkfight@@UAE_NHM@Z @3bd4dae7ab3c @wb4a2fa947b8a
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // hulkfight::motion::SyncToLocatorAction::vfunc_5 @ 0x00175e00
 bool hulkfight::motion::SyncToLocatorAction::vfunc_5(int skip, float dt)

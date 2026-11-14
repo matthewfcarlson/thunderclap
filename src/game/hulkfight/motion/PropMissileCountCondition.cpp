@@ -137,7 +137,7 @@ bool hulkfight::motion::SmartPropIsCargoCondition::vfunc_6(void* __p0, void* __p
 namespace fn_00181b60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // hulkfight::motion::PropCollidedWithWorldCondition::vfunc_6 @ 0x00181b60
-extern "C++" __declspec(nothrow) void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
+extern "C++" void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 
@@ -195,7 +195,7 @@ namespace fn_00181bd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 30/30)
 // hulkfight::motion::PropMissileCountCondition::vfunc_6 @ 0x00181bd0
 struct TypeDescriptor_181bd0 { unsigned int data; }; extern TypeDescriptor_181bd0 DAT_00494b44, DAT_00494b60;
-extern "C++" __declspec(nothrow) void* __cdecl FUN_00344e74(void*, int, TypeDescriptor_181bd0*, TypeDescriptor_181bd0*, int);
+extern "C++" void* __cdecl FUN_00344e74(void*, int, TypeDescriptor_181bd0*, TypeDescriptor_181bd0*, int);
 struct MissileSource { int FUN_001d6c50(); };
 struct Actor_181bd0 { char pad[0x128]; MissileSource* active; MissileSource* FUN_00035ef0(int); };
 struct ActorHandle { Actor_181bd0* FUN_00059a30(); };

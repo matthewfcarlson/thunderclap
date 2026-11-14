@@ -4333,7 +4333,7 @@ void Registry_200b10::FUN_00200b10(const char* a1, CTriggerVolumeManager_200b10*
 } // namespace fn_f3d6a774
 
 // 0x00200c10 FUN_00200c10 (2853 B): equivalent/0x00200c10.cpp [wrapped: macros]
-// sym: ?Register@CTriggerVolumeManager@fn_00200c10@@QAEXH@Z @ae414f0cd9ae @w3cba00abd57a
+// sym: ?Register@CTriggerVolumeManager@fn_00200c10@@QAEXH@Z @ae414f0cd9ae @w8f41c5d3c032
 void* operator new(hulk_uintptr) throw();
 namespace fn_00200c10 {
 // STATUS: equivalent (tools/equiv.py level 3: 485 inputs, branch coverage 66/66)

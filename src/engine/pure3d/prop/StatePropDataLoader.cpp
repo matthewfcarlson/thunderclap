@@ -725,7 +725,7 @@ pure3d::prop::StateData::~StateData() {}
 
 
 // 0x00290910 FUN_00290910 (176 B): equivalent/0x00290910.cpp [wrapped: conflict: pure3d::prop::StatePropData]
-// sym: ??1StatePropData@prop@pure3d@fn_00290910@@UAE@XZ @42919a2991d8 @w3ae5e99e1bd3
+// sym: ??1StatePropData@prop@pure3d@fn_00290910@@UAE@XZ @42919a2991d8 @w6d4217936901
 namespace fn_00290910 {
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 16/16)
 // FUN_00290910 @ 0x00290910
@@ -801,7 +801,7 @@ bool Obj_290ad0::Run(int arg) {
 } // namespace fn_f5d7895e
 
 // 0x00290b30 FUN_00290b30 (185 B): equivalent/0x00290b30.cpp [wrapped: conflict: pure3d::prop::StatePropData]
-// sym: ??0StatePropData@prop@pure3d@fn_00290b30@@QAE@PAURef_290b30@3@00II@Z @84e24feec56b @wefebd35479b4
+// sym: ??0StatePropData@prop@pure3d@fn_00290b30@@QAE@PAURef_290b30@3@00II@Z @84e24feec56b @w0d2ebf70234d
 namespace fn_00290b30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00290b30 @ 0x00290b30

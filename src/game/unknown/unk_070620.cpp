@@ -630,13 +630,13 @@ extern "C" void __cdecl FUN_00069d10();
 extern "C" char DAT_003fc624[];
 extern "C" char DAT_003fc644[];
 extern "C" char DAT_003fc664[];
-extern "C++" __declspec(nothrow) void* __cdecl Alloc(hulk_uintptr);
+extern "C++" void* __cdecl Alloc(hulk_uintptr);
 struct P {
     void InitFloat(const char*);
     void InitBool(const char*);
     void InitInt(const char*);
 };
-extern "C++" __declspec(nothrow) void __cdecl Register_002347b0(void**, void**, int);
+extern "C++" void __cdecl Register_002347b0(void**, void**, int);
 
 void Target() {
     if ((*(int*)&DAT_004dcf6c) == 0) {

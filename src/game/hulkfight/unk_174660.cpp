@@ -82,19 +82,19 @@ class IntentionClearAction_174750 : public Action_174750 {
 };
 class RefCounted_174790 {
   public:
-    virtual void AddRef() throw() = 0;
-    virtual void Release() throw() = 0;
+    virtual void AddRef() = 0;
+    virtual void Release() = 0;
 };
 class Action_174790 {
   public:
-    Action_174790() throw();
-    virtual void BaseVirtual_00018b30() throw();
+    Action_174790();
+    virtual void BaseVirtual_00018b30();
     char pad[0x18];
 };
 class ChargeAction : public Action_174790 {
   public:
-    ChargeAction(void* a, RefCounted_174790* b) throw();
-    virtual void V1_00018b40() throw();
+    ChargeAction(void* a, RefCounted_174790* b);
+    virtual void V1_00018b40();
     void* mA;
     RefCounted_174790* mB;
     int mC;
@@ -243,7 +243,7 @@ IntentionClearAction_174750::~IntentionClearAction_174750() {
 
 // 0x00174790 FUN_00174790 (79 B): matches/0x00174790.cpp
 // sym: ??0ChargeAction@fn_f2f1fd83@@QAE@PAXPAVRefCounted_174790@1@@Z
-ChargeAction::ChargeAction(void* a, RefCounted_174790* b) throw() {
+ChargeAction::ChargeAction(void* a, RefCounted_174790* b) {
     void** q = &mA;
     *q = 0;
     mB = 0;

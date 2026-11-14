@@ -146,9 +146,9 @@ class FEPoseAnimation_e8730 {
     Ref_e8730* mc;
     char p2[0x50];
     Ref_e8730* m60;
-    ~FEPoseAnimation_e8730() throw();
+    ~FEPoseAnimation_e8730();
 };
-FEPoseAnimation_e8730::~FEPoseAnimation_e8730() throw() {
+FEPoseAnimation_e8730::~FEPoseAnimation_e8730() {
     vptr = DAT_0040c390;
     _ReadWriteBarrier();
     if (mc) {

@@ -418,20 +418,20 @@ namespace fn_002631f0 {
 
 struct Text {
     char data[12];
-    Text(const char *s, int flag) throw();
-    ~Text() throw();
+    Text(const char *s, int flag);
+    ~Text();
 };
 
 namespace audio {
 class HalRsdFileStream {
 public:
-    HalRsdFileStream(const Text &name, const Text &path, int a3, int a4, int a5, int *a6, int a7) throw();
+    HalRsdFileStream(const Text &name, const Text &path, int a3, int a4, int a5, int *a6, int a7);
     virtual void v0();
     char body[0x44];
 };
 }
 
-void *FUN_00247530(void *pool) throw();
+void *FUN_00247530(void *pool);
 
 audio::HalRsdFileStream *__cdecl FUN_002631f0(const char *name, const char *path, int a3, int a4, int a5, int *a6, int a7)
 {

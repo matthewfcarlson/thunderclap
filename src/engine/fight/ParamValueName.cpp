@@ -40,7 +40,7 @@ class ParamValueName {
     ParamValueName* vfunc_0(int);
 };
 }
-extern "C++" __declspec(nothrow) void __cdecl thunk_FUN_00267090(fight::ParamValueName*);
+extern "C++" void __cdecl thunk_FUN_00267090(fight::ParamValueName*);
 
 
 // 0x00235300 fight::ParamValueBool::vfunc_0 (39 B): matches/0x00235300.cpp

@@ -74,19 +74,40 @@ def tool(name):
 
 
 COMMON = ["-fno-color-diagnostics", "-fno-caret-diagnostics", "-fdiagnostics-show-option", "-ferror-limit=0",
-          "-fexceptions", "-fcxx-exceptions", "-Wno-unused-value", "-Wno-unused-private-field",
+          "-Wno-unused-value", "-Wno-unused-private-field",
           # warnings that point at behaviour clang may change (UB it exploits, lost bits)
           "-Wreturn-type", "-Wuninitialized", "-Wshift-overflow", "-Wnull-dereference", "-Wint-to-pointer-cast",
           "-Wpointer-to-int-cast", "-Wdangling", "-Wtautological-undefined-compare"]
-# The game's TUs natively (native_mac.py, native_elf.py; equiv64.py's front end): COMMON without exceptions (gx1, D17):
-# the game was built without C++ exceptions (MSVC 7.1 /GX-, compare.DEFAULT_FLAGS). The Wine build and `equiv.py --wine`
-# keep COMMON's -fexceptions for now: dropping it changes 72 equivalent blocks' clang code (their cleanup landing pads),
-# nine of which fail `--wine` under the current checker as they stand (docs/native-build.md "gx1").
+# No C++ exceptions anywhere (gx1, D17; gx2, D22): the game was built without them (MSVC 7.1 /GX-,
+# compare.DEFAULT_FLAGS). The native builds (native_mac.py, native_elf.py; equiv64.py's front end), the Wine build and
+# `equiv.py --wine` all compile the game's TUs with -fno-exceptions (gx2 re-proved the equivalents whose clang code
+# changed: docs/native-build.md "gx2").
 NATIVE_EH = ["-fno-exceptions"]
+COMMON += NATIVE_EH
 
 
 def common_native():
-    return [f for f in COMMON if f not in ("-fexceptions", "-fcxx-exceptions")] + NATIVE_EH
+    return list(COMMON)
+
+
+# (gx2, D22) `// clang-flags: -fexceptions -fcxx-exceptions` in a TU's first five lines: the Wine build's (`msvc`
+# configuration) and `equiv.py --wine`'s compile of that TU keeps C++ exceptions. Only for a TU whose equivalent block
+# does not re-prove `--wine` with -fno-exceptions under the current checker (it fails the same way with exceptions
+# on): its clang code then stays the code its recorded hash proves until it re-proves. The native builds ignore it.
+TU_FLAGS_ALLOWED = ("-fexceptions", "-fcxx-exceptions")
+
+
+def tu_flags(path):
+    """The `// clang-flags:` of the TU at PATH (allowed: TU_FLAGS_ALLOWED), else []."""
+    try:
+        with open(path, errors="replace") as f:
+            for _ in range(5):
+                m = re.match(r"\s*//\s*clang-flags:\s*(.+)", f.readline())
+                if m:
+                    return [t for t in m.group(1).split() if t in TU_FLAGS_ALLOWED]
+    except OSError:
+        pass
+    return []
 
 
 # The native build's flags (docs/native-build.md fix 1), on every configuration: the compatibility header, no
@@ -404,7 +425,8 @@ def _keep_scan(rel, digest, clang):
     """The IR facts compute_x87_keep needs about one TU (cached by content): {function: [return type, [[callee, its
     return type], ...]]}, calls of float/double-returning functions and of the math shims only."""
     text = open(os.path.join(SNAP, rel), "rb").read()
-    flags = [f for f in CONFIGS["msvc"]["flags"] + COMMON if f != "-c"] + ["-S", "-emit-llvm", "-w"]
+    flags = [f for f in CONFIGS["msvc"]["flags"] + COMMON if f != "-c"] + ["-S", "-emit-llvm", "-w"] + \
+        tu_flags(os.path.join(SNAP, rel))
     digest = tu_digest(os.path.join(SNAP, rel), SNAP, digest)
     key = hashlib.sha1(b"x87scan1" + text + digest.encode() + repr(flags).encode() + clang.encode()).hexdigest()[:20]
     d = os.path.join(CACHE, "x87scan")
@@ -522,7 +544,7 @@ def compile_one(cfg, rel, digest, clang):
     base = os.path.join(OUT, spec["root"]) if spec.get("root") else SNAP
     src = os.path.join(base, rel)
     text = open(src, "rb").read()
-    flags = spec["flags"] + COMMON
+    flags = spec["flags"] + COMMON + (tu_flags(src) if cfg == "msvc" else [])
     sse = cfg == "msvc" and FLOAT_SSE
     opt = tu_opt(rel) if sse and spec["obj"] else ""
     if not spec.get("root"):

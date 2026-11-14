@@ -463,7 +463,7 @@ bool pure3d::ParticlePointGenerator::vfunc_3() {
 
 
 // 0x002d21c0 pure3d::ParticlePointGenerator::vfunc_6 (791 B): equivalent/0x002d21c0.cpp [wrapped: helper definitions (4 out-of-line function bodies)]
-// sym: ?vfunc_6@ParticlePointGenerator@fn_002d21c0@@QAEIIPAUMat4_2d21c0@2@0MPAVEmitter_2d21c0@2@@Z @e1428e558e1e @w9a33d58b3b8b
+// sym: ?vfunc_6@ParticlePointGenerator@fn_002d21c0@@QAEIIPAUMat4_2d21c0@2@0MPAVEmitter_2d21c0@2@@Z @e1428e558e1e @wa2c98d23b6a1
 namespace fn_002d21c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 9/10, incomplete)
 // pure3d::ParticlePointGenerator::vfunc_6 @ 0x002d21c0

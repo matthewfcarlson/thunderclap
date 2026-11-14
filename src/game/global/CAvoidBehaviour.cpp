@@ -34,7 +34,7 @@ class CAvoidBehaviour_109ba0 {
     void* m2c;
     void* m30;
     char m34;
-    CAvoidBehaviour_109ba0() throw();
+    CAvoidBehaviour_109ba0();
 };
 class CSteeringBehaviour_109be0 {
   public:
@@ -173,7 +173,7 @@ struct HitOut {
 
 // 0x00109ba0 FUN_00109ba0 (55 B): matches/0x00109ba0.cpp
 // sym: ??0CAvoidBehaviour_109ba0@fn_f710b797@@QAE@XZ
-CAvoidBehaviour_109ba0::CAvoidBehaviour_109ba0() throw() {
+CAvoidBehaviour_109ba0::CAvoidBehaviour_109ba0() {
     m4 = 0;
     m8 = 0;
     mc = 0;

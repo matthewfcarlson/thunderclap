@@ -46,7 +46,7 @@ CAxisSpeedCondition* CAxisSpeedCondition::vfunc_5(signed char flags) {
 namespace fn_0004b420 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // CAxisSpeedCondition::vfunc_9 @ 0x0004b420
-extern "C++" __declspec(nothrow) bool __cdecl FUN_00018960(float, float, float);
+extern "C++" bool __cdecl FUN_00018960(float, float, float);
 struct AxisInput_4b420 { char pad[0x20]; float speed; };
 struct CAxisSpeedCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual bool vfunc_9(void*, AxisInput_4b420*);

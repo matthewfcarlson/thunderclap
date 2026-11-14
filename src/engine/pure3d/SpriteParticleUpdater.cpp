@@ -23,7 +23,7 @@ class SpriteParticleUpdater_2d11f0 {
   public:
     void* vptr;
     int a4, a8, ac, a10, a14, a18, a1c, a20, a24;
-    SpriteParticleUpdater_2d11f0() throw();
+    SpriteParticleUpdater_2d11f0();
 };
 struct Obj_2d1310 {
     char pad[0x14];
@@ -399,7 +399,7 @@ namespace fn_fd69ca5d {
 
 // 0x002d11f0 FUN_002d11f0 (38 B): matches/0x002d11f0.cpp
 // sym: ??0SpriteParticleUpdater_2d11f0@fn_fd69ca5d@@QAE@XZ
-SpriteParticleUpdater_2d11f0::SpriteParticleUpdater_2d11f0() throw() {
+SpriteParticleUpdater_2d11f0::SpriteParticleUpdater_2d11f0() {
     a4 = 0;
     vptr = &hulk_at_0042f034;
     a8 = 0;

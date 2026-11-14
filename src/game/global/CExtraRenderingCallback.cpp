@@ -138,7 +138,7 @@ struct Obj_1bc8a0 {
 };
 extern "C" void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (V3_1bc8a0::*ctor)());
 void FUN_001bc530(V4_1bc8a0 *q, V3_1bc8a0 *v);
-extern "C++" __declspec(nothrow) void __cdecl FUN_001bc5b0(void *, void *, float);
+extern "C++" void __cdecl FUN_001bc5b0(void *, void *, float);
 class CExtraRenderingCallback {
   public:
     virtual void f0();
@@ -635,7 +635,7 @@ struct Holder2_1bcc30 {
 Cursor_1bcc30 **FUN_001c3d90();
 // equiv-conv: FUN_001bc530 esi stack
 void FUN_001bc530(V4_1bcc30 *q, V3_1bcc30 *v);
-extern "C++" __declspec(nothrow) void __cdecl FUN_001bc8a0(void *, void *);
+extern "C++" void __cdecl FUN_001bc8a0(void *, void *);
 extern "C" void FUN_00096a90(Ctl_1bcc30 *ctl, V3_1bcc30 *out);
 struct Lookup_1bcc30 { Holder2_1bcc30 *FUN_001d75c0(int handle); };
 
@@ -743,7 +743,7 @@ CExtraRenderingCallback::CExtraRenderingCallback() {
 } // namespace fn_f0a5b372
 
 // 0x001bcef0 FUN_001bcef0 (3155 B): equivalent/0x001bcef0.cpp [wrapped: helper definitions (4 out-of-line function bodies)]
-// sym: ?FUN_001bcef0@Fx_1bcef0@fn_001bcef0@@QAEXXZ @b357113b6fea @w095cbf932da9
+// sym: ?FUN_001bcef0@Fx_1bcef0@fn_001bcef0@@QAEXXZ @b357113b6fea @w9f14f7854afa
 namespace fn_001bcef0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20186 inputs, branch coverage 136/140, incomplete)
 // FUN_001bcef0 @ 0x001bcef0

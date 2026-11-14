@@ -309,7 +309,7 @@ struct Manager_2faa30 {
     Registry_2faa30 reg;
 };
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
+extern "C++" void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
 extern "C" char FUN_0035a2a0(V3_2faa30 *a1, V3_2faa30 *a2, V3_2faa30 *axisX, V3_2faa30 *axisY, V3_2faa30 *axisZ, V3_2faa30 *v0, V3_2faa30 *v1, V3_2faa30 *v2, V3_2faa30 *normal,
                   float *depth, V3_2faa30 *centre, V3_2faa30 *outN, int f1, int f2, int f4);
 
@@ -534,7 +534,7 @@ struct Registry_2fb000 {
 };
 struct Manager_2fb000 { char pad[HULK_WORLD_AT(buffer)]; Registry_2fb000 reg; };  // (x64t4, x64t9-pw) decls/physics_world.h
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
+extern "C++" void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
 extern "C" char FUN_00359260(V3_2fb000* ref, float margin, V3_2fb000* a, V3_2fb000* b, V3_2fb000* c, V3_2fb000* n, float* depth, V3_2fb000* o1, V3_2fb000* o2,
                   int f1, int f2, int f3);
 
@@ -638,7 +638,7 @@ struct Registry_2fb190 {
 };
 struct Manager_2fb190 { char pad[HULK_WORLD_AT(buffer)]; Registry_2fb190 reg; };  // (x64t4, x64t9-pw) decls/physics_world.h
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
+extern "C++" void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
 
 class Tri_2fb190 {
 public:
@@ -782,8 +782,8 @@ struct Globals_2fb440 {
     char pad0[HULK_WORLD_AT(buffer)];  // (x64t4, x64t9-pw) decls/physics_world.h
     Hitter hitter;
 };
-extern "C++" __declspec(nothrow) bool __cdecl FUN_002fae50(const void *, const void *, const void *, float *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
+extern "C++" bool __cdecl FUN_002fae50(const void *, const void *, const void *, float *);
+extern "C++" void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
 
 bool Tri_2fb440::FUN_002fb440(Ray_2fb440* ray, Mesh_2fb440* mesh, int flags)
 {

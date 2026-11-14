@@ -133,7 +133,7 @@ struct Obj_242f60 {
     char pad2c[8];
     int field34;
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00242da0(void *, void *);
+extern "C++" void __cdecl FUN_00242da0(void *, void *);
 struct Tree_242f90 {
     Node *root;
     Node nil;
@@ -682,7 +682,7 @@ struct Node {
 };
 struct Map_242ce0 { Node* root; };
 Node* __cdecl FUN_00247530(void* heap);
-extern "C++" __declspec(nothrow) char __cdecl FUN_00242a00(void *, void *, const unsigned *);
+extern "C++" char __cdecl FUN_00242a00(void *, void *, const unsigned *);
 Node* FindOrInsert(Map_242ce0* map, const unsigned* key) {
     Node* nil = (Node*)((char*)map + 4);
     Node* n = map->root;
@@ -772,7 +772,7 @@ struct Binding_242da0 {
     Group_242da0 *group;
     Target_242da0 *target;
 
-    Binding_242da0() throw()
+    Binding_242da0()
     {
         groupLink.next = 0;
         groupLink.prev = 0;

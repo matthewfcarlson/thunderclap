@@ -763,7 +763,7 @@ struct SharedPool {
 
 class RotationChannel_28dae0 {
 public:
-    RotationChannel_28dae0(int a, int b) throw();
+    RotationChannel_28dae0(int a, int b);
     virtual void v0();
 
     char pad04[8];

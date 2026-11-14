@@ -1481,10 +1481,10 @@ namespace fn_00300bc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 12/14, incomplete)
 // FUN_00300bc0 @ 0x00300bc0
 struct Partition { int* first; int* second; };
-extern "C++" __declspec(nothrow) void * __cdecl FUN_00300100(void *, unsigned int *, unsigned int *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00300270(unsigned *, unsigned *);
+extern "C++" void * __cdecl FUN_00300100(void *, unsigned int *, unsigned int *);
+extern "C++" void __cdecl FUN_00300270(unsigned *, unsigned *);
 void __cdecl FUN_002ffe00(int*, int*, int, int);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00300510(int *, int *);
+extern "C++" void __cdecl FUN_00300510(int *, int *);
 extern "C" void __cdecl FUN_00300bc0(int* first, int* last, int budget) {
     while (last - first > 32) {
         if (budget <= 0) {
@@ -1680,7 +1680,7 @@ struct Service_3010a0 {
 struct Global_3010a0 { char pad[0x6c]; Service_3010a0* service; };
 struct Pair_3010a0 { char data[20];  };
 struct Queue_3010a0 { void FUN_002ee0c0(Pair_3010a0*); };
-extern "C++" __declspec(nothrow) void __cdecl FUN_00300bc0(int *, int *, int);
+extern "C++" void __cdecl FUN_00300bc0(int *, int *, int);
 struct Container_3010a0 {
  Object** begin; Object** end; Object** capacity;
  char pad0[8];

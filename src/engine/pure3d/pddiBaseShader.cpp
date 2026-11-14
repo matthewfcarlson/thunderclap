@@ -274,7 +274,7 @@ void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace fn_fbec554b {
 class d3dErrorShader_327e60 {
   public:
-    d3dErrorShader_327e60(int) throw();
+    d3dErrorShader_327e60(int);
     // (x64t5) gen's pure3d::d3dErrorShader (0x80 bytes on 32-bit, as the XBE allocates): the object its constructor writes, larger natively
     char pad[sizeof(::pure3d::d3dErrorShader)];
 };
@@ -291,7 +291,7 @@ class d3dLightMapShader_327ec0 {
 };
 class d3dReflShader_327ef0 {
   public:
-    d3dReflShader_327ef0(int) throw();
+    d3dReflShader_327ef0(int);
     // (x64t5, x64t8) gen's pure3d::d3dReflShader (0x8c bytes on 32-bit, as the XBE allocates): the object its constructor writes
     char pad[sizeof(::pure3d::d3dReflShader)];
 };
@@ -312,11 +312,11 @@ class d3dLayeredLMapShader_327fb0 {
     char pad[sizeof(::pure3d::d3dLayeredLMapShader)];
 
   public:
-    d3dLayeredLMapShader_327fb0(int) throw();
+    d3dLayeredLMapShader_327fb0(int);
 };
 class d3dRefractVertexShader_327fe0 {
   public:
-    d3dRefractVertexShader_327fe0(void*) throw();
+    d3dRefractVertexShader_327fe0(void*);
     // (x64t5) gen's pure3d::d3dRefractVertexShader (0x9c bytes on 32-bit, as the XBE allocates): the object its constructor writes, larger natively
     char pad[sizeof(::pure3d::d3dRefractVertexShader)];
 };
@@ -329,7 +329,7 @@ class d3dFBEffectsShader_328100 {
     char pad[sizeof(::pure3d::d3dFBEffectsShader)];
 
   public:
-    d3dFBEffectsShader_328100(int) throw();
+    d3dFBEffectsShader_328100(int);
 };
 typedef void (__cdecl *Callback_328130)();
 // (x64t3) the shader factories 0x00328130 registers, declared as defined (pointer or int argument, the new shader) so
@@ -785,15 +785,15 @@ namespace fn_00327e20 {
 extern void* vD[];
 extern void* vB[];
 extern "C" void _ReadWriteBarrier();
-extern "C" void thunk_FUN_00267090(void*) throw();
+extern "C" void thunk_FUN_00267090(void*);
 namespace pure3d { class pddiBaseShader; }
 namespace pure3d { class pddiBaseShader {
   public:
     void* vptr;
-    pddiBaseShader* vfunc_3(unsigned char f) throw();
-    void Fini() throw();
+    pddiBaseShader* vfunc_3(unsigned char f);
+    void Fini();
 }; }
-pure3d::pddiBaseShader* pure3d::pddiBaseShader::vfunc_3(unsigned char f) throw() {
+pure3d::pddiBaseShader* pure3d::pddiBaseShader::vfunc_3(unsigned char f) {
     vptr = (void**)DAT_0043359c;
     _ReadWriteBarrier();
     if ((*(pure3d::pddiBaseShader**)&DAT_005555bc) == this)
@@ -862,7 +862,7 @@ namespace fn_00327f50 {
 
 class d3dPointSpriteShader_327f50 {
   public:
-    d3dPointSpriteShader_327f50(int) throw();
+    d3dPointSpriteShader_327f50(int);
     // (x64t5, x64t8) gen's pure3d::d3dPointSpriteShader (0xa4 bytes on 32-bit, as the XBE allocates)
     char pad[sizeof(::pure3d::d3dPointSpriteShader)];
 };
@@ -933,7 +933,7 @@ void* Target(void* self) {
 // 0x00328070 FUN_00328070 (33 B): matches/0x00328070.cpp [wrapped: conflict: Alloc]
 // sym: ?Target@fn_00328070@@YAPAUd3dSpheremapVertexShader_328070@1@H@Z
 namespace fn_00328070 {
-extern "C++" __declspec(nothrow) void* __cdecl Alloc(hulk_intptr size);
+extern "C++" void* __cdecl Alloc(hulk_intptr size);
 
 struct d3dSpheremapVertexShader_328070 {
     // (x64t5, x64t8) gen's pure3d::d3dSpheremapVertexShader (0x98 bytes on 32-bit, as the XBE allocates)
@@ -954,7 +954,7 @@ d3dSpheremapVertexShader_328070* __cdecl Target(int arg) {
 // sym: ?FUN_003280a0@fn_003280a0@@YAPAUd3dBuildingShader_3280a0@1@PAX@Z
 namespace fn_003280a0 {
 typedef unsigned int uint;
-extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d690(uint);
+extern "C++" void* __cdecl FUN_0008d690(uint);
 struct d3dBuildingShader_3280a0 {
     d3dBuildingShader_3280a0(void*);
     d3dBuildingShader_3280a0* fn(void* p);

@@ -2711,7 +2711,7 @@ void Registry_1ee770::FUN_001ee770(const char* a1, CSoundSimManager_1ee770* a2, 
 } // namespace fn_f014178b
 
 // 0x001eebc0 FUN_001eebc0 (139 B): equivalent/0x001eebc0.cpp [wrapped: macros]
-// sym: ?Register@CSoundSimManager@fn_001eebc0@@QAEXXZ @84d9f26a9299 @w3477b5970635
+// sym: ?Register@CSoundSimManager@fn_001eebc0@@QAEXXZ @84d9f26a9299 @we2c8ff18873f
 namespace fn_001eebc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 4/4)
 // FUN_001eebc0 @ 0x001eebc0

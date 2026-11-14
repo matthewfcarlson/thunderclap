@@ -110,7 +110,7 @@ class Obj_271230 {
 };
 // (x64t11) 0x002710d0's own parameters: the file slot and the name (were ints: the native link refused the call)
 int FUN_002710d0(void*, const char*, int, int, int, int, int, int);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00270f10(const char *, void *);
+extern "C++" int __cdecl FUN_00270f10(const char *, void *);
 extern "C" void * __cdecl FUN_00276680(unsigned int);
 struct InstanceDrive_nv_271410 {
     core::InstanceDrive * FUN_00277110(void *, int);   // (x64t9) the drive source and the priority
@@ -259,10 +259,10 @@ namespace fn_00270ad0 {
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 #endif
 
-extern "C++" __declspec(nothrow) char __cdecl FUN_00345b90(int);
-extern "C++" __declspec(nothrow) char __cdecl FUN_002771b0(char*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0026d850(void*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0026d840(void*);
+extern "C++" char __cdecl FUN_00345b90(int);
+extern "C++" char __cdecl FUN_002771b0(char*);
+extern "C++" void __cdecl FUN_0026d850(void*);
+extern "C++" void __cdecl FUN_0026d840(void*);
 extern "C" char __cdecl FUN_00270ad0(char* param) {
     char local[17];
     strncpy(local, param, 16);
@@ -381,7 +381,7 @@ extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 int __cdecl FUN_00345b90(int);
 void __cdecl FUN_0026d850(void*);
 void __cdecl FUN_0026d840(void*);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00270c10(const char *);
+extern "C++" int __cdecl FUN_00270c10(const char *);
 unsigned char __cdecl FUN_002771b0(const char*);
 struct Receiver_270d40 {
     virtual void slot0();
@@ -473,15 +473,15 @@ namespace fn_00270f10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00270f10 @ 0x00270f10
 
-extern "C++" __declspec(nothrow) void FUN_0026d850(void *arg);
-extern "C++" __declspec(nothrow) int FUN_0026d840(void *arg);
+extern "C++" void FUN_0026d850(void *arg);
+extern "C++" int FUN_0026d840(void *arg);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" char * __cdecl strncpy(char *, const char *, unsigned int);
 #endif
 
 // equiv-conv: FUN_00270980 eax
-extern "C++" __declspec(nothrow) void __cdecl FUN_00270980(char *);
+extern "C++" void __cdecl FUN_00270980(char *);
 unsigned char __cdecl FUN_00270c80(void **result, const char *name, unsigned int options);
 extern "C" int __cdecl FUN_00270f10(const char *name, void *argument)
 {
@@ -586,11 +586,11 @@ struct FUN_002764d0 : CoreFile {
  FUN_002764d0(Source_2710d0 *, const char *, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned char);
 };
 struct Work_2710d0 { const char* volatile first; char* volatile second; int key; char gap[16]; char buffer[0x100]; char pad[0x20]; };
-extern "C++" __declspec(nothrow) void __cdecl FUN_002697c0(const char *source, char *output, char *workspace, char **suffix, const char **remainder);
-extern "C++" __declspec(nothrow) void FUN_0026d850(void *arg);
-extern "C++" __declspec(nothrow) int FUN_0026d840(void *arg);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00270c10(const char *);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00270f10(const char *, void *);
+extern "C++" void __cdecl FUN_002697c0(const char *source, char *output, char *workspace, char **suffix, const char **remainder);
+extern "C++" void FUN_0026d850(void *arg);
+extern "C++" int FUN_0026d840(void *arg);
+extern "C++" int __cdecl FUN_00270c10(const char *);
+extern "C++" int __cdecl FUN_00270f10(const char *, void *);
 extern "C" void * __cdecl FUN_00275d50(unsigned int);
 int __cdecl FUN_002710d0(File_2710d0 **out, const char *input, int a, int b, int c, int d, int e, int f) {
  Work_2710d0 work;

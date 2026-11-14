@@ -282,18 +282,18 @@ class CCondition_14d830 {
 };
 extern void* hulk_at_00414130[];
 struct Sub_14d870 {
-    void Fin_00234150() throw();
+    void Fin_00234150();
 };
 class Condition_14d870 {
   public:
     void* vptr;
-    ~Condition_14d870() throw();
+    ~Condition_14d870();
 };
 class CollisionSourceNodeCondition_14d870 : public Condition_14d870 {
   public:
     char pad[0x10 - 4];
     Sub_14d870 sub;
-    ~CollisionSourceNodeCondition_14d870() throw();
+    ~CollisionSourceNodeCondition_14d870();
 };
 extern int* hulk_at_004e10a0;
 class CCondition_14d8b0 {
@@ -1730,7 +1730,7 @@ namespace fn_f2fc69c6 {
 
 // 0x0014d870 FUN_0014d870 (25 B): matches/0x0014d870.cpp
 // sym: ??1CollisionSourceNodeCondition_14d870@fn_f2fc69c6@@QAE@XZ
-CollisionSourceNodeCondition_14d870::~CollisionSourceNodeCondition_14d870() throw() {
+CollisionSourceNodeCondition_14d870::~CollisionSourceNodeCondition_14d870() {
     vptr = hulk_at_00414130;
     sub.Fin_00234150();
 }

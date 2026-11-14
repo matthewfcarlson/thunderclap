@@ -43,14 +43,14 @@ struct Own_ebca0 {
 };
 struct Sub_ebca0 {
     char c;
-    void Fin_000f7960() throw();
+    void Fin_000f7960();
 };
 struct Elt {
     Sub_ebca0 s;
     char p[0x27];
     Ref_ebca0* r;
     char p2[0xc];
-    void Fin_000f7960() throw();
+    void Fin_000f7960();
 };
 class TextSelector_ebca0 {
   public:
@@ -71,8 +71,8 @@ class TextSelector_ebca0 {
     Ref_ebca0* m1d8c;
     Ref_ebca0* m1d90;
     char* m1d94;
-    void Pre_000e36c0() throw();
-    ~TextSelector_ebca0() throw();
+    void Pre_000e36c0();
+    ~TextSelector_ebca0();
 };
 class A_ebda0 {
   public:
@@ -154,7 +154,7 @@ TextSelector::TextSelector(int arg,const char* name) : FUN_000e9240(arg) {
 
 // 0x000ebca0 FUN_000ebca0 (245 B): matches/0x000ebca0.cpp
 // sym: ??1TextSelector_ebca0@fn_f9e7f90b@@QAE@XZ
-TextSelector_ebca0::~TextSelector_ebca0() throw() {
+TextSelector_ebca0::~TextSelector_ebca0() {
     vptr = hulk_at_0040c4e4;
     if (m1d94) {
         ((owners::Obj_f8c30 *)(ma8->m8))->FUN_000f8c30((const char *)(m1d94 + 0x18));

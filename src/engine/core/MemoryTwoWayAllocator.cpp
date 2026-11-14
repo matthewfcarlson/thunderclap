@@ -206,20 +206,20 @@ extern "C" void __cdecl FUN_00267090(void*);
 namespace core {
 struct IRefCount {
     virtual void Fnf_0026d260();
-    ~IRefCount() throw() {}
+    ~IRefCount() {}
 };
 struct BaseObject {
     virtual void f();
-    ~BaseObject() throw() {}
+    ~BaseObject() {}
 };
 struct Stamp {
     int unknown;
-    ~Stamp() throw() { DAT_004cdbb0 = unknown; }
+    ~Stamp() { DAT_004cdbb0 = unknown; }
 };
 struct Memory {
     void* memory;
     int a, b, c;
-    ~Memory() throw() {
+    ~Memory() {
         memory = 0;
         a = 0;
         b = 0;
@@ -230,10 +230,10 @@ struct MemoryTwoWayAllocator : IRefCount, BaseObject {
     Stamp stamp;
     int unknown2;
     Memory mem;
-    virtual ~MemoryTwoWayAllocator() throw();
+    virtual ~MemoryTwoWayAllocator();
 };
 } // namespace core
-core::MemoryTwoWayAllocator::~MemoryTwoWayAllocator() throw() {
+core::MemoryTwoWayAllocator::~MemoryTwoWayAllocator() {
     FUN_00267090(mem.memory);
 }
 } // namespace fn_0026d210
@@ -374,7 +374,7 @@ namespace fn_0026d3a0 {
 /* size_t: tree_prelude.h */
 
 extern "C" void __cdecl FUN_00267090(void*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00266f00(unsigned int, void*);
+extern "C++" void __cdecl FUN_00266f00(unsigned int, void*);
 namespace core {
 struct IRefCount { virtual void vfunc_0(); virtual void vfunc_1(); };
 struct BaseObject { virtual void vfunc_0_adj4(); };

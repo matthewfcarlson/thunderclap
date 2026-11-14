@@ -79,7 +79,7 @@ class PathFormationTrack_11c450 : public Track_11c450 {
   public:
     char pad[0x30];
     void* m34;
-    ~PathFormationTrack_11c450() throw();
+    ~PathFormationTrack_11c450();
 };
 extern "C" void __cdecl release(void*);
 extern "C" void* __cdecl alloc(hulk_uintptr);
@@ -497,7 +497,7 @@ namespace fn_fbabf3f2 {
 
 // 0x0011c450 FUN_0011c450 (29 B): matches/0x0011c450.cpp
 // sym: ??1PathFormationTrack_11c450@fn_fbabf3f2@@QAE@XZ
-PathFormationTrack_11c450::~PathFormationTrack_11c450() throw() {
+PathFormationTrack_11c450::~PathFormationTrack_11c450() {
     void* t = m34;
     vptr = hulk_at_0040f4a0;
     Free(t);
@@ -1016,8 +1016,8 @@ StrafeCircleTrack_11cd00* StrafeCircleTrack_11cd00::vfunc_5(signed char flags) {
 // 0x0011cd30 hulkfight::ai::PathTrack::vfunc_5 (58 B): matches/0x0011cd30.cpp [wrapped: conflict: PathTrack]
 // sym: ?vfunc_5@PathTrack@fn_0011cd30@@UAEPAV12@H@Z
 namespace fn_0011cd30 {
-extern "C++" __declspec(nothrow) void __cdecl opdel1_0008d340(void*);
-extern "C++" __declspec(nothrow) void __cdecl opdel2_0008d330(void*);
+extern "C++" void __cdecl opdel1_0008d340(void*);
+extern "C++" void __cdecl opdel2_0008d330(void*);
 extern const char hulk_at_0040f590[];
 
 class M40 {
@@ -1212,7 +1212,7 @@ struct Stats_11ce20 {
 void *__fastcall FUN_000592a0(void *owner);
 Stats_11ce20 *__fastcall FUN_00059a30(void *x);
 extern "C" float FUN_00224f10(Vec3_11ce20 *v);
-extern "C++" __declspec(nothrow) float FUN_00224fc0(float from, float to);
+extern "C++" float FUN_00224fc0(float from, float to);
 extern "C" void FUN_00224d70(float angle, Vec3_11ce20 *v);
 
 
@@ -1404,7 +1404,7 @@ bool StrafeRunAction::vfunc_5(Slot_11ce20 a0, Slot_11ce20 a1)
 
 
 // 0x0011d2c0 hulkfight::ai::PathFormationAction::vfunc_5 (1431 B): equivalent/0x0011d2c0.cpp [wrapped: conflict: World]
-// sym: ?F@PathFormationAction@fn_0011d2c0@@QAEDHM@Z @a84797e9e69e @wdcb0707d657a
+// sym: ?F@PathFormationAction@fn_0011d2c0@@QAEDHM@Z @a84797e9e69e @w07462c3217ab
 namespace fn_0011d2c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3087 inputs, branch coverage 62/62)
 // hulkfight::ai::PathFormationAction::vfunc_5 @ 0x0011d2c0

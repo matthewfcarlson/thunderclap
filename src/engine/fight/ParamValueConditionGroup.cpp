@@ -15,14 +15,14 @@ namespace fn_fb539295 { extern "C" char DAT_00427c88[]; }   // (x64t6) the game 
 namespace fn_fb539295 {
 extern void* hulk_at_004279fc[];
 struct Sub_235220 {
-    void Init_0027b0e0(int a) throw();
+    void Init_0027b0e0(int a);
 };
 class ParamValueConditionGroup_235220 {
   public:
     void* vptr;
     char pad[4];
     Sub_235220 sub;
-    ParamValueConditionGroup_235220(hulk_intptr a) throw();
+    ParamValueConditionGroup_235220(hulk_intptr a);
 };
 class Helper_235250 {
   public:
@@ -60,7 +60,7 @@ class ParamValueConditionGroup_235270 {
 
 // 0x00235220 FUN_00235220 (34 B): matches/0x00235220.cpp
 // sym: ??0ParamValueConditionGroup_235220@fn_fb539295@@QAE@H@Z
-ParamValueConditionGroup_235220::ParamValueConditionGroup_235220(hulk_intptr a) throw() {
+ParamValueConditionGroup_235220::ParamValueConditionGroup_235220(hulk_intptr a) {
     vptr = hulk_at_004279fc;
     sub.Init_0027b0e0(a);
     vptr = (void**)DAT_00427c88;

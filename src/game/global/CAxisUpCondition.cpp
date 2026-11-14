@@ -86,15 +86,15 @@ class CAxisTimeCondition_57160 {
     char pad[20];
 
   public:
-    CAxisTimeCondition_57160() throw();
+    CAxisTimeCondition_57160();
     virtual void f();
 };
 class CAxisUpCondition : public CAxisTimeCondition_57160 {
   public:
-    CAxisUpCondition() throw();
+    CAxisUpCondition();
     virtual void f();
 };
-CAxisUpCondition::CAxisUpCondition() throw() : CAxisTimeCondition_57160() {}
+CAxisUpCondition::CAxisUpCondition() : CAxisTimeCondition_57160() {}
 class Factory {
   public:
     virtual void a();

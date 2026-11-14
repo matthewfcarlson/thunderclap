@@ -17,7 +17,7 @@ namespace fn_fd7377f4 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 class VertexList_2e01d0 {
 public:
-    VertexList_2e01d0(int a, int b, int c) throw();
+    VertexList_2e01d0(int a, int b, int c);
     virtual void AddRef();
     virtual void Release();
 };
@@ -34,7 +34,7 @@ public:
     char pad54[4];
     int f58;
     VertexList_2e01d0* f5c;
-    PrimGroupBase() throw();
+    PrimGroupBase();
 };
 }
 namespace pure3d {

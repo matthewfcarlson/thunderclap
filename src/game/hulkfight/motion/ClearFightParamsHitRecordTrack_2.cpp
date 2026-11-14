@@ -31,7 +31,7 @@ void* __cdecl operator new(size_t);
 namespace hulkfight { namespace motion {
 class BaseTrack {
   public:
-    BaseTrack() throw();
+    BaseTrack();
     virtual void a();
     virtual void b();
     virtual void c();
@@ -43,7 +43,7 @@ class BaseTrack {
 namespace hulkfight { namespace motion {
 class ClearFightParamsHitRecordTrack_15a060 : public BaseTrack {
   public:
-    ClearFightParamsHitRecordTrack_15a060() throw() {
+    ClearFightParamsHitRecordTrack_15a060() {
         zero = 0;
         count = 1;
     }

@@ -558,7 +558,7 @@ struct Node {
     int data;
 };
 void* FUN_00256900(void*, void*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00256940(void *, void *);
+extern "C++" void __cdecl FUN_00256940(void *, void *);
 extern "C" void FUN_00256da0(void * tree, void * node) {
     Node* nil = (Node*)((char*)&((Node *)tree)->right);
     Node* x;
@@ -1036,7 +1036,7 @@ namespace fn_00257730 {
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 6/6)
 // FUN_00257730 @ 0x00257730
 
-struct Node { Node* next; }; struct List { Node* head; Node sentinel; }; extern "C++" __declspec(nothrow) void __cdecl FUN_00256da0(void *, void *); void __cdecl FUN_00247550(void*,Node*);  void __cdecl FUN_00257730(List* list) { while (list->head != &list->sentinel) { Node* node = list->head; while (node->next != &list->sentinel) node = node->next; FUN_00256da0((List *)list,(Node *)node); FUN_00247550(((char*)&DAT_004e7690),node); } }
+struct Node { Node* next; }; struct List { Node* head; Node sentinel; }; extern "C++" void __cdecl FUN_00256da0(void *, void *); void __cdecl FUN_00247550(void*,Node*);  void __cdecl FUN_00257730(List* list) { while (list->head != &list->sentinel) { Node* node = list->head; while (node->next != &list->sentinel) node = node->next; FUN_00256da0((List *)list,(Node *)node); FUN_00247550(((char*)&DAT_004e7690),node); } }
 } // namespace fn_00257730
 
 
@@ -1058,7 +1058,7 @@ struct Tree_257780 {
     Node nil;
 };
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_00256850(void *, void *);
+extern "C++" void __cdecl FUN_00256850(void *, void *);
 extern "C" void FUN_002568a0(Tree_257780* tree, Node* node);
 
 // Red-black tree unique-key insert with rebalance. color: 1 = red, 0 = black.
@@ -1227,14 +1227,14 @@ namespace fn_002579f0 {
 namespace om {
 class Entity {
   public:
-    virtual ~Entity() throw();
+    virtual ~Entity();
     char pad[0x24];
 };
 } // namespace om
 extern char g_pool_2579f0[];
-void Release2(void*, void*) throw();
-void F1_00256d40(void*) throw();
-void F2_00257730(void*) throw();
+void Release2(void*, void*);
+void F1_00256d40(void*);
+void F2_00257730(void*);
 namespace audio {
 class Sequence : public om::Entity {
   public:
@@ -1245,10 +1245,10 @@ class Sequence : public om::Entity {
     } sb;
     char m3c[8];
     char m44[8];
-    virtual ~Sequence() throw();
+    virtual ~Sequence();
     static void operator delete(void* p) { Release2(g_pool_2579f0, p); }
 };
-Sequence::~Sequence() throw() {
+Sequence::~Sequence() {
     sb.Reset();
     F1_00256d40(m3c);
     F2_00257730(m44);
@@ -1281,7 +1281,7 @@ extern bool __cdecl FUN_0025abd0(void*, unsigned*);
 extern Entry_257b30* __cdecl FUN_00247530(void*);
 extern "C" void* __cdecl FUN_002673a0(const char*, int);
 extern "C" bool __cdecl FUN_0025bce0(void*, Text_257b30*);
-extern "C++" __declspec(nothrow) char __cdecl FUN_00257780(void *, void *, const unsigned *);
+extern "C++" char __cdecl FUN_00257780(void *, void *, const unsigned *);
 extern void __cdecl FUN_00247550(void*, Entry_257b30*);
 struct Owner_257b30 { char pad[0x44]; List_257b30 list; bool target(void*); };
 bool Owner_257b30::target(void* input) {
@@ -1324,7 +1324,7 @@ struct L_257c20 {
     Node* tail;
     char Fn(Item_257c20* i);
 };
-extern "C++" __declspec(nothrow) char __cdecl FUN_00257560(void *, void *, const unsigned *);
+extern "C++" char __cdecl FUN_00257560(void *, void *, const unsigned *);
 char L_257c20::Fn(Item_257c20* i) {
     if (FUN_00257560(&s, (Item_257c20 *)i, (const unsigned *)(int *)(&i->x))) {
         Node* n = &i->n;
@@ -1373,7 +1373,7 @@ struct Sub_257ce0 { char data[4]; void FUN_002607a0(); };
 namespace audio {
 class SeqTrack {
 public:
-    virtual ~SeqTrack() throw() { sub.FUN_002607a0(); }
+    virtual ~SeqTrack() { sub.FUN_002607a0(); }
     virtual bool vfunc_1_002620e0(Stream *s);
     char pad04[0x18];
     Sub_257ce0 sub;

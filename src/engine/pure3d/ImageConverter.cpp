@@ -381,7 +381,7 @@ Texture_2de3f0* pure3d::ImageConverter::vfunc_2(Image** images,int count,int a,i
 // sym: ?vfunc_5@ImageConverter@fn_002de520@@UAEXPAXPAVSource_2de520@2@H@Z
 namespace fn_002de520 {
 // pure3d::ImageConverter::vfunc_5 @ 0x002de520
-extern "C++" __declspec(nothrow) void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
+extern "C++" void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 extern char DAT_004d098c[];
 extern char DAT_004d09a8[];
 

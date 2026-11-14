@@ -89,7 +89,7 @@ struct Stats_4dc60 {
 
 void* __fastcall FUN_000592a0(void* params);
 extern "C" Stats_4dc60* __fastcall FUN_00059a30(void* owner);
-extern "C++" __declspec(nothrow) hulk_freg FUN_00018a20(float v);
+extern "C++" hulk_freg FUN_00018a20(float v);
 extern "C" hulk_freg FUN_00224fc0(float a, float b);
 
 union FloatBits_4dc60 {

@@ -20,7 +20,7 @@ class TrackFactoryCaster_6d590 {
     virtual int vfunc_1();
 };
 class CClimbingTrack_6d590;
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern "C++" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern char DAT_00498a1c;
 } // namespace fn_fa9e1582
 namespace fight {
@@ -593,7 +593,7 @@ class CStageTrack_6e690;
 }
 namespace fn_fa9e1582 {
 class CStunAnimationTrack_6e6d0;
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(const char*, int, void*, void*, int);
+extern "C++" int __cdecl FUN_00344e74(const char*, int, void*, void*, int);
 extern char DAT_0049b000;
 } // namespace fn_fa9e1582
 namespace fight {
@@ -726,7 +726,7 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 };
 } // namespace fight
 extern int a, hulk_at_00498bbc;
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(void*, int, int*, int*, int);
+extern "C++" int __cdecl FUN_00344e74(void*, int, int*, int*, int);
 int fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
     return FUN_00344e74(p, 0, &a, &hulk_at_00498bbc, 0) != 0;
 }
@@ -1062,7 +1062,7 @@ class TrackFactoryCasterTemplate_CInvincibleTrack : public TrackFactoryCaster {
     virtual void vfunc_1();
 };
 } // namespace fight
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(const char*, int, const void*, const void*, int);
+extern "C++" int __cdecl FUN_00344e74(const char*, int, const void*, const void*, int);
 extern const int DAT_0049850c;
 extern const int DAT_00499e40;
 bool fight::TrackFactoryCasterTemplate_CInvincibleTrack::vfunc_0(const char* name) {
@@ -1117,7 +1117,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CKeyPoseTrack>::vfunc_0(void*
 // 0x0006e050 fight::TrackFactoryCasterTemplate<CMotionHitGroundHeightTrack>::vfunc_0 (36 B): matches/0x0006e050.cpp [wrapped: conflict: fight::TrackFactoryCaster; fight::TrackFactoryCasterTemplate]
 // sym: ?Cast@TrackFactoryCasterTemplate@fight@fn_0006e050@@UAEHPAX@Z
 namespace fn_0006e050 {
-extern "C++" __declspec(nothrow) int __cdecl testCast(void*, int, void*, void*, int);
+extern "C++" int __cdecl testCast(void*, int, void*, void*, int);
 extern int gA, hulk_at_0049a160;
 namespace fight {
 class TrackFactoryCaster {
@@ -1187,7 +1187,7 @@ template <> bool fight::TrackFactoryCasterTemplate<COpportunityBallTrack>::vfunc
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VCOrientTrack@fight@fn_0006e1d0@@@fight@fn_0006e1d0@@UAE_NPBD@Z
 namespace fn_0006e1d0 {
 extern int DAT_0049850c, DAT_0049a49c;
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(const char*, int, const int*, const int*, int);
+extern "C++" int __cdecl FUN_00344e74(const char*, int, const int*, const int*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -1211,7 +1211,7 @@ template <> bool TrackFactoryCasterTemplate<COrientTrack>::vfunc_0(const char* p
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VCOrientTargetTrack@fn_0006e210@@@fight@fn_0006e210@@UAE_NPAX@Z
 namespace fn_0006e210 {
 extern int DAT_0049850c, DAT_0049a520;
-extern "C++" __declspec(nothrow) void* __cdecl FUN_00344e74(void*, int, int*, int*, int);
+extern "C++" void* __cdecl FUN_00344e74(void*, int, int*, int*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -1310,7 +1310,7 @@ template <> bool fight::TrackFactoryCasterTemplate<CSmartPropDetachTrack>::vfunc
 // 0x0006e410 fight::TrackFactoryCasterTemplate<CSmartPropDropTrack>::vfunc_0 (36 B): matches/0x0006e410.cpp [wrapped: conflict: fight::TrackFactoryCaster; fight::TrackFactoryCasterTemplate]
 // sym: ?vfunc_0@TrackFactoryCasterTemplate@fight@fn_0006e410@@UAEHPAX@Z
 namespace fn_0006e410 {
-extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern "C++" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern int a, hulk_at_0049a9a0;
 namespace fight {
 class TrackFactoryCaster {
@@ -1334,7 +1334,7 @@ int fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
 // 0x0006e450 fight::TrackFactoryCasterTemplate<CSmartPropEventTrack>::vfunc_0 (36 B): matches/0x0006e450.cpp [wrapped: conflict: fight::TrackFactoryCaster]
 // sym: ?vfunc_0@TrackFactoryCasterTemplateCSmartPropEventTrack@fight@fn_0006e450@@UAE_NPAX@Z
 namespace fn_0006e450 {
-extern "C++" __declspec(nothrow) int match(void*, int, void*, void*, int);
+extern "C++" int match(void*, int, void*, void*, int);
 extern int gA, hulk_at_0049aa38;
 namespace fight {
 class TrackFactoryCaster {

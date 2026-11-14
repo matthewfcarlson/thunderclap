@@ -89,8 +89,8 @@ struct Obj_25b730 {
     u32_25b730 first;
     void Target(void*, u32_25b730);
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025b5b0(void *, void *);
-extern "C++" __declspec(nothrow) char __cdecl FUN_0025b320(void *, void *, const void *);
+extern "C++" void __cdecl FUN_0025b5b0(void *, void *);
+extern "C++" char __cdecl FUN_0025b320(void *, void *, const void *);
 struct Elem {
     char pad[12];
 };
@@ -109,7 +109,7 @@ struct Holder {
     Obj* volatile obj;
 };
 void freeobj_00247550(void*, Obj*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025b7d0(void *);
+extern "C++" void __cdecl FUN_0025b7d0(void *);
 extern void __cdecl FuncB_0008d330(void*);
 class Target_25b940 {
   public:
@@ -257,7 +257,7 @@ public:
     bool FUN_0025cda0(Stream *s);
 };
 struct FileState { char padding[0x24]; int count; };
-extern "C++" __declspec(nothrow) unsigned char __cdecl FUN_00246f50(FileState *, const char *, ...);
+extern "C++" unsigned char __cdecl FUN_00246f50(FileState *, const char *, ...);
 struct Inner_25cf10 {
     void Fnf_0023fac0();
 };
@@ -400,7 +400,7 @@ int __cdecl FUN_0025ab10(Obj* p, int v) {
 namespace fn_0025ab30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0025ab30 @ 0x0025ab30
-extern "C++" __declspec(nothrow) void __cdecl FUN_00246f50(int, const char *, ...);
+extern "C++" void __cdecl FUN_00246f50(int, const char *, ...);
 extern "C" void __cdecl FUN_0025ab30(const int *value, int argument)
 {
     FUN_00246f50(*value, "%d", argument);
@@ -805,8 +805,8 @@ struct Tree_25b320 {
     Node nil;
 };
 
-extern "C++" __declspec(nothrow) int __cdecl FUN_0025ad30(void *, void *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025af20(void *, void *);
+extern "C++" int __cdecl FUN_0025ad30(void *, void *);
+extern "C++" void __cdecl FUN_0025af20(void *, void *);
 extern "C" void FUN_0025af70(Tree_25b320* tree, Node* node);
 
 // Red-black tree unique-key insert with rebalance. color: 1 = red, 0 = black.
@@ -926,7 +926,7 @@ struct Tree {
     Node* root;
     Node sentinel;
 };
-extern "C++" __declspec(nothrow) int __cdecl FUN_0025ad30(void *, void *);
+extern "C++" int __cdecl FUN_0025ad30(void *, void *);
 Node* __cdecl findNode(Tree* tree, void* key) {
     Node* p = tree->root;
     Node* end = &tree->sentinel;
@@ -984,7 +984,7 @@ struct Node {
     int data;
 };
 void* FUN_0025afd0(void*, void*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025b010(void *, void *);
+extern "C++" void __cdecl FUN_0025b010(void *, void *);
 extern "C" void FUN_0025b5b0(void * tree, void * node) {
     Node* nil = (Node*)((char*)&((Node *)tree)->right);
     Node* x;
@@ -1063,7 +1063,7 @@ struct Tree_25b7d0 {
     Link_25b7d0 head;
 };
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025b5b0(void *, void *);
+extern "C++" void __cdecl FUN_0025b5b0(void *, void *);
 void __cdecl FUN_00247550(void *pool, Node *n);
 
 extern "C" void __cdecl FUN_0025b7d0(void * t_)
@@ -1812,7 +1812,7 @@ void* LookupKey(int a1, Key_25cab0* key, int a3, int a4) {
 // 0x0025cb40 FUN_0025cb40 (117 B): matches/0x0025cb40.cpp [wrapped: conflict: Check]
 // sym: ?Run@Target_25cb40@fn_0025cb40@@QAEDPAPAUNode@2@@Z
 namespace fn_0025cb40 {
-extern "C++" __declspec(nothrow) char __cdecl Check_00246f50(void*, const char*, ...);
+extern "C++" char __cdecl Check_00246f50(void*, const char*, ...);
 extern "C" char __cdecl FUN_00252470(void*, const char*, void*);
 struct Node {
     char pad[0x24];
@@ -2235,7 +2235,7 @@ namespace fn_0025d480 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0025d480 @ 0x0025d480
 struct Buffer_25d480 { unsigned int header; char data[256]; };
-extern "C++" __declspec(nothrow) void __cdecl FUN_0025be60(unsigned int *, unsigned int *);
+extern "C++" void __cdecl FUN_0025be60(unsigned int *, unsigned int *);
 extern void __cdecl FUN_0025c320(Buffer_25d480*, void*, unsigned int, unsigned int);
 extern unsigned int __cdecl FUN_0024c590(Buffer_25d480*, unsigned int);
 extern unsigned int __cdecl FUN_0025be80(unsigned int, Buffer_25d480*);

@@ -17,11 +17,11 @@ class IRefCount {
   public:
     virtual void AddRef() = 0;
     virtual void Release() = 0;
-    virtual ~IRefCount() throw() {}
+    virtual ~IRefCount() {}
 };
 class BaseObject {
   public:
-    virtual ~BaseObject() throw() {}
+    virtual ~BaseObject() {}
 };
 class ControllerBuffer : public IRefCount, public BaseObject {
   public:
@@ -32,7 +32,7 @@ class ControllerBuffer : public IRefCount, public BaseObject {
     int mUnk24;
     int mUnk28;
 
-    ~ControllerBuffer() throw();
+    ~ControllerBuffer();
 };
 extern "C" void __cdecl FUN_00266f00(int, int);
 class ControllerBuffer_270670 {
@@ -65,7 +65,7 @@ namespace fn_fd2c7460 {
 // 0x00270610 FUN_00270610 (69 B): matches/0x00270610.cpp
 // sym: ??1ControllerBuffer@fn_fd2c7460@@UAE@XZ
 // data: g_Global_4CDBB0 = DAT_004cdbb0
-ControllerBuffer::~ControllerBuffer() throw() {
+ControllerBuffer::~ControllerBuffer() {
     int a = mUnk10;
     int b = mUnk28;
     FUN_00266f00(b, a);
@@ -205,7 +205,7 @@ void ControllerBuffer::f2() {
 
 
 // 0x00270840 core::ControllerBuffer::vfunc_2 (97 B): equivalent/0x00270840.cpp [wrapped: conflict: core::ControllerBuffer]
-// sym: ?vfunc_2@ControllerBuffer@core@fn_00270840@@QAEPAU123@E@Z @cdae33217425 @wabcbd6077bb7
+// sym: ?vfunc_2@ControllerBuffer@core@fn_00270840@@QAEPAU123@E@Z @cdae33217425 @w160e9362b192
 namespace fn_00270840 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::ControllerBuffer::vfunc_2 @ 0x00270840

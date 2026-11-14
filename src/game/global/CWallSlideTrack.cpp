@@ -111,13 +111,13 @@ hulk_freg CWallSlideTrack::vfunc_7() {
 namespace fn_0006b1e0 {
 class Track_6b1e0 {
   public:
-    virtual ~Track_6b1e0() throw();
+    virtual ~Track_6b1e0();
 };
 class CTrack : public Track_6b1e0 {
   public:
-    virtual ~CTrack() throw();
+    virtual ~CTrack();
 };
-CTrack::~CTrack() throw() {}
+CTrack::~CTrack() {}
 } // namespace fn_0006b1e0
 
 

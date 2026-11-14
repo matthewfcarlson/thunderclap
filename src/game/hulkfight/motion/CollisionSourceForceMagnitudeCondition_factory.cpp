@@ -67,13 +67,13 @@ class Base {
     virtual void a();
     int x;
     int y;
-    Base(int) throw();
+    Base(int);
 };
 class CollisionSourceForceMagnitudeCondition : public ::hulkfight::motion::CollisionSourceForceMagnitudeCondition {
   public:
-    CollisionSourceForceMagnitudeCondition() throw();
+    CollisionSourceForceMagnitudeCondition();
 };
-CollisionSourceForceMagnitudeCondition::CollisionSourceForceMagnitudeCondition() throw() : ::hulkfight::motion::CollisionSourceForceMagnitudeCondition(0) {
+CollisionSourceForceMagnitudeCondition::CollisionSourceForceMagnitudeCondition() : ::hulkfight::motion::CollisionSourceForceMagnitudeCondition(0) {
     f_0c = 0;
     f_10 = 0;}
 } // namespace motion

@@ -29,7 +29,7 @@ extern "C" int __cdecl FUN_00212d70(LuaVMState*);
 extern "C" void __cdecl FUN_00213870(LuaVMState*, int, int);
 extern "C" int __cdecl FUN_00339fe0(LuaVMState* L, int idx, int def);
 extern "C" void __cdecl FUN_00338fe0(LuaVMState*, int, const char*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0033b110(LuaVMState*, int, int);
+extern "C++" void __cdecl FUN_0033b110(LuaVMState*, int, int);
 extern "C" void __cdecl FUN_003390d0(LuaVMState* L, const char* libname, const LuaVMReg* l, int nup);
 
 
@@ -159,14 +159,14 @@ namespace fn_0033b110 {
 // FUN_0033b110 @ 0x0033b110
 // auxsort
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_00213640(LuaVMState *L, int idx, int n);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00212f00(LuaVMState *L, int idx);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00212ed0(LuaVMState *L, int idx);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002139a0(LuaVMState *L, int nargs, int nresults);
+extern "C++" void __cdecl FUN_00213640(LuaVMState *L, int idx, int n);
+extern "C++" int __cdecl FUN_00212f00(LuaVMState *L, int idx);
+extern "C++" void __cdecl FUN_00212ed0(LuaVMState *L, int idx);
+extern "C++" void __cdecl FUN_002139a0(LuaVMState *L, int nargs, int nresults);
 extern "C" int __cdecl FUN_00213160(LuaVMState *L, int idx);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00212d80(LuaVMState *L, int idx);
+extern "C++" void __cdecl FUN_00212d80(LuaVMState *L, int idx);
 extern "C" int __cdecl FUN_002130a0(LuaVMState *L, int a, int b);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00213870(LuaVMState *L, int idx, int n);
+extern "C++" void __cdecl FUN_00213870(LuaVMState *L, int idx, int n);
 extern "C" int __cdecl FUN_00338e20(LuaVMState *L, const char *fmt, ...);
 
 #define SORT_COMP(res, L, a, b) \

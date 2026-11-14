@@ -216,7 +216,7 @@ class Action_183af0 {
   public:
     void* vptr;
 };
-void Free(void*) throw();
+void Free(void*);
 class PropAnimationAction_183af0 : public Action_183af0 {
   public:
     char pad[0x18];
@@ -224,7 +224,7 @@ class PropAnimationAction_183af0 : public Action_183af0 {
     Ref_183af0* m20;
     Ref_183af0* m24;
     Ref_183af0* m28;
-    ~PropAnimationAction_183af0() throw();
+    ~PropAnimationAction_183af0();
 };
 class Ref {
   public:
@@ -306,7 +306,7 @@ class PropAddToCollisionAction_183c60 : public Action_183c60 {
     char pad[0x1c - 4];
     void* m1c;
     Ref_183c60* m20;
-    ~PropAddToCollisionAction_183c60() throw();
+    ~PropAddToCollisionAction_183c60();
 };
 class RefObj_183ca0 {
   public:
@@ -1367,7 +1367,7 @@ PropAnimationAction_183aa0::PropAnimationAction_183aa0(int v, Obj_183aa0* p) : A
 
 // 0x00183af0 FUN_00183af0 (74 B): matches/0x00183af0.cpp
 // sym: ??1PropAnimationAction_183af0@fn_fd95142d@@QAE@XZ
-PropAnimationAction_183af0::~PropAnimationAction_183af0() throw() {
+PropAnimationAction_183af0::~PropAnimationAction_183af0() {
     vptr = hulk_at_00419640;
     _ReadWriteBarrier();
     if (m20) {
@@ -1458,7 +1458,7 @@ PropAddToCollisionAction_183c10::PropAddToCollisionAction_183c10(int target, Ref
 
 // 0x00183c60 FUN_00183c60 (50 B): matches/0x00183c60.cpp
 // sym: ??1PropAddToCollisionAction_183c60@fn_fd95142d@@QAE@XZ
-PropAddToCollisionAction_183c60::~PropAddToCollisionAction_183c60() throw() {
+PropAddToCollisionAction_183c60::~PropAddToCollisionAction_183c60() {
     vptr = (void**)DAT_00419678;
     _ReadWriteBarrier();
     if (m20) {

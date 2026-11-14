@@ -147,13 +147,13 @@ extern "C" unsigned char __cdecl FUN_0025bce0(int, Temp_244d10*);
 } // namespace fn_f7032cca
 extern "C" unsigned long long __cdecl FUN_002672f0(unsigned long, int, int);
 namespace fn_f7032cca {
-extern "C++" __declspec(nothrow) void __cdecl FUN_00244610(void *, void *);
+extern "C++" void __cdecl FUN_00244610(void *, void *);
 extern void __cdecl FUN_002446d0(void*, void*);
 extern void* hulk_at_00429158[];
-extern "C++" __declspec(nothrow) void * __cdecl FUN_00244b20(void *, void *);
+extern "C++" void * __cdecl FUN_00244b20(void *, void *);
 struct Entity_244f70 {
     void* vf;
-    void Dtor() throw();
+    void Dtor();
 };
 extern "C" int helper(void*, void*);
 struct Key_245040 {
@@ -172,8 +172,8 @@ struct Query_245040 {
     int boundsHi;
 };
 struct Index;
-extern "C++" __declspec(nothrow) void * __cdecl FUN_00244be0(void *, void *);
-extern "C++" __declspec(nothrow) bool __cdecl FUN_002448b0(void *, void *, void *);
+extern "C++" void * __cdecl FUN_00244be0(void *, void *);
+extern "C++" bool __cdecl FUN_002448b0(void *, void *, void *);
 class Item_245040 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
@@ -1320,7 +1320,7 @@ struct Node { Node *left; Node *right; Node *parent; unsigned color; };
 struct Tree_244610 { Node *root; Node sentinel; };
 struct Object { char padding[0x48]; Node node; };
 Node *__cdecl FUN_00243720(Tree_244610 *, Node *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00243760(void *, void *);
+extern "C++" void __cdecl FUN_00243760(void *, void *);
 extern "C" void __cdecl FUN_00244610(void * tree_, void * object_)
 {
     Tree_244610 * tree = (Tree_244610 *)tree_;
@@ -1373,7 +1373,7 @@ struct Node {
     int color;
 };
 Node* FUN_002439c0(Node*, Node*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00243a00(void *, void *);
+extern "C++" void __cdecl FUN_00243a00(void *, void *);
 void FUN_002446d0(Node* n, Node* tree) {
     Node *s = (Node*)((char*)&n->b), *base = (Node*)((char*)tree + 0x58), *x;
     if (base->a != s && base->b != s)
@@ -1535,8 +1535,8 @@ struct Tree_2448b0 {
     Node nil;
 };
 
-extern "C++" __declspec(nothrow) int __cdecl FUN_00244080(const void *, void *);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00243c80(void *, void *);
+extern "C++" int __cdecl FUN_00244080(const void *, void *);
+extern "C++" void __cdecl FUN_00243c80(void *, void *);
 void __cdecl FUN_00243cd0(Tree_2448b0 *tree, Node *node);
 
 extern "C" bool __cdecl FUN_002448b0(void * tree_, void * obj_, void *key)
@@ -1859,7 +1859,7 @@ public:
 }
 
 void FUN_00244230(ListHead_244d70 *head, om::EntityType *type, void *block);
-extern "C++" __declspec(nothrow) char __cdecl FUN_00244430(void *, void *, const int *);
+extern "C++" char __cdecl FUN_00244430(void *, void *, const int *);
 
 void om::EntityType::vfunc_0()
 {
@@ -1961,7 +1961,7 @@ struct Index_244ea0 {
     int color;
 };
 
-extern "C++" __declspec(nothrow) bool __cdecl FUN_002448b0(void *, void *, void *);
+extern "C++" bool __cdecl FUN_002448b0(void *, void *, void *);
 
 namespace om {
 class Entity {
@@ -2042,7 +2042,7 @@ namespace fn_f7032cca {
 
 // 0x00244f70 FUN_00244f70 (43 B): matches/0x00244f70.cpp
 // sym: ?Dtor@Entity_244f70@fn_f7032cca@@QAEXXZ
-void Entity_244f70::Dtor() throw() {
+void Entity_244f70::Dtor() {
     void* g = (*(void**)&DAT_004cc08c);
     vf = hulk_at_00429158;
     FUN_00244b20(g, this);
@@ -2150,7 +2150,7 @@ struct Registry;
 
 char __cdecl FUN_002433b0(Stream *s, Header_2450e0 *h);
 char __cdecl FUN_00244d10(Stream *s, Pair_2450e0 *p);
-extern "C++" __declspec(nothrow) int * __cdecl FUN_00244870(void *, int *);
+extern "C++" int * __cdecl FUN_00244870(void *, int *);
 Resource_2450e0 *__cdecl FUN_00244fa0(Pair_2450e0 *p, char *src);
 
 struct Source_2450e0 {
@@ -2240,7 +2240,7 @@ class Entity {
     Entity* vfunc_2(unsigned char);
 };
 } // namespace om
-extern "C++" __declspec(nothrow) void * __cdecl FUN_00244b20(void *, void *);
+extern "C++" void * __cdecl FUN_00244b20(void *, void *);
 void thunk_FUN_00267090(om::Entity*);
 om::Entity* om::Entity::vfunc_2(unsigned char param) {
     void* p = (*(void**)&DAT_004cc08c);

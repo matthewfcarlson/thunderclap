@@ -66,7 +66,7 @@ class Obj_2c7180 {
     void Clear();
 };
 void thunk_FUN_00267090(void*);
-extern "C++" __declspec(nothrow) void __stdcall FUN_00011520(void*, unsigned, unsigned, void (*)());
+extern "C++" void __stdcall FUN_00011520(void*, unsigned, unsigned, void (*)());
 extern "C" void LAB_00011090();
 class Obj_2c7210 {
   public:
@@ -80,7 +80,7 @@ extern "C" void __cdecl FUN_000c7920();
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern "C" void __stdcall Init(void*, int, int, const float*);
 typedef void (__cdecl *Callback)();
-extern "C++" __declspec(nothrow) void __stdcall FUN_00011520(void*, unsigned int, int, Callback);
+extern "C++" void __stdcall FUN_00011520(void*, unsigned int, int, Callback);
 extern "C" void __cdecl FUN_002c6d30();
 struct V3_2c7340 {
     float x, y, z;

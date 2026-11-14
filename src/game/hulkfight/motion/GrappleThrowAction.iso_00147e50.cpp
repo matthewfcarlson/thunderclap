@@ -16,7 +16,7 @@
 struct Name {
     int lo;
     int hi;
-    Name(const Name &o) throw();
+    Name(const Name &o);
 };
 
 struct Vec3_147e50 {

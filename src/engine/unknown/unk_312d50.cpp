@@ -25,7 +25,7 @@ void* __cdecl operator new(size_t);
 namespace fn_f2588117 {
 struct Elem_312db0 {
     char d[24];
-    Elem_312db0() throw();
+    Elem_312db0();
 };
 class BufMgr {
   public:

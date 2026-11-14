@@ -12,12 +12,12 @@ void* __cdecl operator new(size_t);
 class PartA {
   public:
     char p[12];
-    PartA() throw();
+    PartA();
 };
 class PartB {
   public:
     char p[4];
-    PartB() throw();
+    PartB();
 };
 class Base {
   public:
@@ -29,7 +29,7 @@ class Base {
     virtual void f5();
     int a;
     int b;
-    Base() throw();
+    Base();
 };
 class SpawnTrack_23f050 : public Base {
   public:
@@ -37,7 +37,7 @@ class SpawnTrack_23f050 : public Base {
     float d;
     PartA x;
     PartB y;
-    SpawnTrack_23f050() throw() : c(0), d(-1.0f) { b = 1; }
+    SpawnTrack_23f050() : c(0), d(-1.0f) { b = 1; }
     virtual void f0();
     virtual void f1();
     virtual void f2();

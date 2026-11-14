@@ -15,11 +15,11 @@ namespace fn_f43bdd9b {
 class Track_16ff70 {
   public:
     virtual void f();
-    virtual ~Track_16ff70() throw();
+    virtual ~Track_16ff70();
 };
 class SnapToGroundTrack : public Track_16ff70 {
   public:
-    virtual ~SnapToGroundTrack() throw();
+    virtual ~SnapToGroundTrack();
 };
 extern int* hulk_at_004e1308;
 class CCondition_16ffa0 {
@@ -71,7 +71,7 @@ struct Track_170020 {
 
 // 0x0016ff70 FUN_0016ff70 (11 B): matches/0x0016ff70.cpp
 // sym: ??1SnapToGroundTrack@fn_f43bdd9b@@UAE@XZ
-SnapToGroundTrack::~SnapToGroundTrack() throw() {}
+SnapToGroundTrack::~SnapToGroundTrack() {}
 
 
 // 0x0016ff80 FUN_0016ff80 (19 B): matches/0x0016ff80.cpp

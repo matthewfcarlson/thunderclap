@@ -33,7 +33,7 @@ extern "C" unsigned int __cdecl FUN_002165c0(LuaVMState* L, int all);
 extern "C" void __cdecl FUN_00216c40(LuaVMGCObject* l);
 extern "C" void __cdecl FUN_00217100(LuaVMState* L, LuaVMGCObject* o, LuaVMGCObject* v);
 extern "C" void __cdecl FUN_00216d30(LuaVMState* L, LuaVMGCObject* o);
-extern "C++" __declspec(nothrow) int __cdecl FUN_00216e10(int all, int lim, LuaVMState* L);
+extern "C++" int __cdecl FUN_00216e10(int all, int lim, LuaVMState* L);
 extern "C" LuaVMGCObject** __cdecl FUN_002171c0(LuaVMState* L, LuaVMGCObject** p, int all, int* lim, int* count);
 extern "C" void __cdecl FUN_00217050(LuaVMState* L);
 extern "C" void __cdecl FUN_00216e70(LuaVMState* L);
@@ -435,7 +435,7 @@ namespace fn_00216e10 {
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 8/8)
 // sweepstrings: sweep the string table's buckets from g->sweepstrgc until lim bytes are done; the budget left.
 
-extern "C++" __declspec(nothrow) LuaVMGCObject** __cdecl FUN_002171c0(LuaVMState* L, LuaVMGCObject** p, int all, int* lim, int* count);
+extern "C++" LuaVMGCObject** __cdecl FUN_002171c0(LuaVMState* L, LuaVMGCObject** p, int all, int* lim, int* count);
 
 // equiv-conv: FUN_00216e10 stack stack ebx
 extern "C" int __cdecl FUN_00216e10(int all, int lim, LuaVMState* L) {

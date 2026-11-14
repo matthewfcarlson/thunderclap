@@ -5932,7 +5932,7 @@ void Registry_312c0::FUN_000312c0(const char* a1, Owner* a2, Fn_312c0 a3) {
 } // namespace fn_f8e68f21
 
 // 0x00031310 FUN_00031310 (12490 B): equivalent/0x00031310.cpp [wrapped: macros]
-// sym: ?Register@CActorManager@fn_00031310@@QAEXXZ @d874a6e6706b @w2b7d11ce1754
+// sym: ?Register@CActorManager@fn_00031310@@QAEXXZ @d874a6e6706b @we4cdeea44aaa
 namespace fn_00031310 {
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 314/314)
 // FUN_00031310 @ 0x00031310

@@ -350,8 +350,8 @@ namespace fn_0031ba30 {
 
 extern "C" char DAT_004324a8[];
 typedef unsigned char u8_31ba30;
-extern "C++" __declspec(nothrow) void __fastcall FUN_0031bae0(void*);
-extern "C++" __declspec(nothrow) void __cdecl thunk_FUN_00267090(void*);  // the heap's free through its `jmp` thunk
+extern "C++" void __fastcall FUN_0031bae0(void*);
+extern "C++" void __cdecl thunk_FUN_00267090(void*);  // the heap's free through its `jmp` thunk
 class d3dDevice_31ba30 {
   public:
     virtual void f0();
@@ -559,7 +559,7 @@ struct ShaderInfo_31be40 {
     char pad[8];
     DWORD flags;
 };
-extern "C++" __declspec(nothrow) void __cdecl FUN_0031c230(int);
+extern "C++" void __cdecl FUN_0031c230(int);
 namespace pure3d {
 class d3dBasePrimStream {
   public:
@@ -659,7 +659,7 @@ namespace D3D8 {
 void* __stdcall D3DDevice_CreateVertexBuffer2(int);
 }
 extern void* __cdecl FUN_0008d690(int);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0031c230(int);
+extern "C++" void __cdecl FUN_0031c230(int);
 // (x64t2) the display (a d3dDisplay: vftable, then words) and the context in gen's d3dContext layout (its display f_154)
 struct OwnerInner {
     void* vftable;
@@ -676,7 +676,7 @@ struct Owner_31bfa0 {
 namespace pure3d {
 class d3dPrimStream {
   public:
-    d3dPrimStream(Owner_31bfa0* owner) throw();
+    d3dPrimStream(Owner_31bfa0* owner);
     void* vftable;   // stored by address (a local class's own vftable would be the 64-bit link's stub)
     int f4;
     char *f8, *fc, *f10, *f14;
@@ -696,7 +696,7 @@ class d3dPrimStream {
     void* f150;
     void* f154;
 };
-d3dPrimStream::d3dPrimStream(Owner_31bfa0* o) throw() {
+d3dPrimStream::d3dPrimStream(Owner_31bfa0* o) {
     vftable = DAT_00432578;
     owner = o;
     f128 = 0;
@@ -745,8 +745,8 @@ struct PrimTypeInfo {
     int add;
 };
 // equiv-conv: FUN_0031bc30 eax ecx
-extern "C++" __declspec(nothrow) int FUN_0031bc30(int shapeKind, int count);
-extern "C++" __declspec(nothrow) void __cdecl FUN_0031c230(int);
+extern "C++" int FUN_0031bc30(int shapeKind, int count);
+extern "C++" void __cdecl FUN_0031c230(int);
 namespace pure3d {
 class d3dBasePrimStream {
   public:

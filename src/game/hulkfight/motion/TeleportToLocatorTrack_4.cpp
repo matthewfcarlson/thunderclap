@@ -31,18 +31,18 @@ void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_fee0a622 {
 class BaseTrack {
   public:
-    BaseTrack() throw();
+    BaseTrack();
     virtual void v0();
     char pad[4];
     int ref;
 };
 class MidTrack : public BaseTrack {
   public:
-    MidTrack() throw() : a(0), b(0) {}
+    MidTrack() : a(0), b(0) {}
     int a, b;
 };
 struct Values {
-    Values() throw() {
+    Values() {
         _ReadWriteBarrier();
         c = 0;
         d = 0;
@@ -53,7 +53,7 @@ struct Values {
 };
 class TeleportToLocatorTrack_17ec00 : public MidTrack {
   public:
-    TeleportToLocatorTrack_17ec00() throw() { ref = 1; }
+    TeleportToLocatorTrack_17ec00() { ref = 1; }
     virtual void v0();
     Values v;
 };

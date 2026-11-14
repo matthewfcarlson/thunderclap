@@ -96,13 +96,13 @@ class Track_10ea50 {
     void* vptr;
     void Fin_00236d60();
 };
-void Free_0008d330(void*) throw();
+void Free_0008d330(void*);
 struct Sub_10ea50 {
     char c;
 };
-extern "C" void __fastcall FUN_0027af50(Sub_10ea50*) throw();
-void __fastcall SubFini2(Sub_10ea50*) throw();
-void __fastcall SubFini3(Sub_10ea50*) throw();
+extern "C" void __fastcall FUN_0027af50(Sub_10ea50*);
+void __fastcall SubFini2(Sub_10ea50*);
+void __fastcall SubFini3(Sub_10ea50*);
 class SemaphoreClearTrack_10ea50 : public Track_10ea50 {
   public:
     char p18[20];

@@ -25,7 +25,7 @@ struct S_1178e0 {
     int a;
     Other_1178e0* b;
     int c;
-    S_1178e0() throw() {
+    S_1178e0() {
         a = 0;
         b = 0;
         c = 0;
@@ -134,7 +134,7 @@ MotionFleeAction_117930::~MotionFleeAction_117930() {
 } // namespace fn_fa726a27
 
 // 0x00117980 hulkfight::ai::MotionFleeAction::vfunc_5 (300 B): equivalent/0x00117980.cpp
-// sym: ?vfunc_5@MotionFleeAction@ai@hulkfight@@QAE_NHH@Z @c42ec8b2ad34 @wad3323eee1b9
+// sym: ?vfunc_5@MotionFleeAction@ai@hulkfight@@QAE_NHH@Z @c42ec8b2ad34 @wa7d7edbab7c1
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 10/10)
 // hulkfight::ai::MotionFleeAction::vfunc_5 @ 0x00117980
 bool hulkfight::ai::MotionFleeAction::vfunc_5(int skip, int arg)

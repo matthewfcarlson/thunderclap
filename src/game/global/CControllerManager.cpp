@@ -411,7 +411,7 @@ void Registry_aee00::FUN_000aee00(const char* name, CControllerManager* owner, b
 
 
 // 0x000aef10 FUN_000aef10 (440 B): equivalent/0x000aef10.cpp [wrapped: conflict: CControllerManager; Closure0; Closure1; Closure2 (+4)]
-// sym: ??0CControllerManager@fn_000aef10@@QAE@XZ @0cb353bcc559 @w9a97fc6547c8
+// sym: ??0CControllerManager@fn_000aef10@@QAE@XZ @0cb353bcc559 @w60240028f6b1
 namespace fn_000aef10 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_000aef10 @ 0x000aef10

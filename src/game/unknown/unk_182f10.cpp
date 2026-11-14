@@ -283,12 +283,12 @@ class Track_1832a0 {
     void* vptr;
     void Fin_00236d60();
 };
-void Free_0008d330(void*) throw();
+void Free_0008d330(void*);
 struct Sub_1832a0 {
     char c;
 };
-extern "C" void __fastcall FUN_0027af50(Sub_1832a0*) throw();
-extern "C" void __fastcall FUN_00234150(Sub_1832a0*) throw();
+extern "C" void __fastcall FUN_0027af50(Sub_1832a0*);
+extern "C" void __fastcall FUN_00234150(Sub_1832a0*);
 class PropThrowTrack_1832a0 : public Track_1832a0 {
   public:
     char p68[100];

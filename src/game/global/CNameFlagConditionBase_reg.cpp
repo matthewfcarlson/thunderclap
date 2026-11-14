@@ -711,7 +711,7 @@ namespace fn_000532e0 {
 bool FUN_00047c80(void*, int); /* (unb4) as defined; address taken only */
 char FUN_00047c90(void*, int); /* (unb4) as defined; address taken only */
 struct FUN_00234cc0 {
-    FUN_00234cc0(const char*) throw();
+    FUN_00234cc0(const char*);
     virtual void slot0();
     char padding[12];
 };
@@ -723,7 +723,7 @@ template <class T> struct ParamEnumConstList : FUN_00234cc0 {
     int count;
     void (*callback)();
     int tail;
-    ParamEnumConstList(const char* name, const char* v, int n, void (*cb)()) throw() : FUN_00234cc0(name) {
+    ParamEnumConstList(const char* name, const char* v, int n, void (*cb)()) : FUN_00234cc0(name) {
         values = v;
         count = n;
         callback = cb;
@@ -1014,7 +1014,7 @@ extern "C" void __cdecl FUN_00047f80();
 extern "C" void __cdecl FUN_00047f90();
 extern "C" char DAT_003f7d48[];
 extern "C" char DAT_003f7d70[];
-extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d690(unsigned int);
+extern "C++" void* __cdecl Alloc_0008d690(unsigned int);
 struct ParamEnumConstList {
     int pad[5];
     int field14;

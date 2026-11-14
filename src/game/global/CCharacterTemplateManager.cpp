@@ -635,7 +635,7 @@ CCharacterTemplate::CCharacterTemplate()
 
 
 // 0x00045ce0 FUN_00045ce0 (185 B): equivalent/0x00045ce0.cpp [wrapped: conflict: CCharacterTemplate; core::IRefCount]
-// sym: ??1CCharacterTemplate@fn_00045ce0@@QAE@XZ @4b56ed1a49d1 @w4142c6c3a4d9
+// sym: ??1CCharacterTemplate@fn_00045ce0@@QAE@XZ @4b56ed1a49d1 @w80ce527f045c
 namespace fn_00045ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00045ce0 @ 0x00045ce0
@@ -1093,7 +1093,7 @@ void Registry_47840::FUN_00047840(const char* a1, Owner* a2, Fn_47840 a3) {
 } // namespace fn_f8b6a7cf
 
 // 0x00047890 FUN_00047890 (192 B): equivalent/0x00047890.cpp [wrapped: conflict: CCharacterTemplateManager; Closure1; Method1]
-// sym: ??0CCharacterTemplateManager@fn_00047890@@QAE@II@Z @36cdb94ef1ad @wa2e5efd9b794
+// sym: ??0CCharacterTemplateManager@fn_00047890@@QAE@II@Z @36cdb94ef1ad @wa8d7a72c594c
 inline void* __cdecl operator new(hulk_uintptr,void* p) { return p; }
 namespace fn_00047890 {
 // STATUS: equivalent (tools/equiv.py level 3: 22 inputs, branch coverage 4/4)

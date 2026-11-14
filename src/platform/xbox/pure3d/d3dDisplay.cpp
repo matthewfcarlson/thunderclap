@@ -720,7 +720,7 @@ namespace pure3d {
 // vftable would be the 64-bit link's stub).
 class FUN_0031bac0 {
   public:
-    FUN_0031bac0() throw();
+    FUN_0031bac0();
     void* vftable;
     int field4;
     int field8;
@@ -731,7 +731,7 @@ struct DisplayMode_31b520 {
 };
 class d3dDisplay : public FUN_0031bac0 {
   public:
-    d3dDisplay(int arg) throw();
+    d3dDisplay(int arg);
     int field_c;
     void* field_10;   // (x64t5) the device and the capture texture (field498) are pointers (gen/pure3d.h d3dDisplay)
     char pad14[0x58 - 0x14];
@@ -744,7 +744,7 @@ class d3dDisplay : public FUN_0031bac0 {
     char pad490[8];
     void* field498;
 };
-d3dDisplay::d3dDisplay(int arg) throw() {
+d3dDisplay::d3dDisplay(int arg) {
     HULK_SIZE32(d3dDisplay, 0x49c);
     vftable = (void*)DAT_0043242c;
     mode.FUN_00292330();

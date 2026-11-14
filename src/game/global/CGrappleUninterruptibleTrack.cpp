@@ -39,12 +39,12 @@ void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_f77f55b0 {
 class BaseTrack {
   public:
-    BaseTrack() throw();
+    BaseTrack();
     virtual void v0();
 };
 class CGrappleUninterruptibleTrack_76b40 : public BaseTrack {
   public:
-    CGrappleUninterruptibleTrack_76b40() throw() : BaseTrack() {}
+    CGrappleUninterruptibleTrack_76b40() : BaseTrack() {}
     virtual void v0();
     char padding[0x14];
 };

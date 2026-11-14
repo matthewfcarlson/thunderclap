@@ -68,7 +68,7 @@ namespace fn_0014e6b0 {
 typedef unsigned __int64 U64_14e6b0;
 extern int DAT_00494b44;
 extern int DAT_00494b60;
-extern "C++" __declspec(nothrow) void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern "C++" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 struct NameProvider_14e6b0 { U64_14e6b0 FUN_000443c0(); };
 struct NameData { char pad[8]; unsigned low, high; };
 struct SourceObject { char pad0[0xec]; NameData* name; char pad1[0x2c]; NameProvider_14e6b0* provider; };

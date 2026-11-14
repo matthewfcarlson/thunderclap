@@ -34,7 +34,7 @@ struct A_11450 {
 typedef void(__fastcall* Callback_11520)(void*);
 class A_11550 {
   public:
-    A_11550() throw();
+    A_11550();
 };
 class Obj_115b0 {
   public:
@@ -565,7 +565,7 @@ void __stdcall FUN_00011520(void* base, int stride, int count, Callback_11520 fn
 
 // 0x00011550 FUN_00011550 (3 B): matches/0x00011550.cpp
 // sym: ??0A_11550@fn_ff0a839e@@QAE@XZ
-A_11550::A_11550() throw() {}
+A_11550::A_11550() {}
 
 
 // 0x000115b0 FUN_000115b0 (3 B): matches/0x000115b0.cpp
@@ -1216,7 +1216,7 @@ void* owners::Obj_129f0::FUN_000129f0() {
 
 // 0x00012a60 FUN_00012a60 (4 B): matches/0x00012a60.cpp
 // sym: ?FUN_00012a60@Obj_12a60@owners@@QAEPADXZ
-char* owners::Obj_12a60::FUN_00012a60() throw() {
+char* owners::Obj_12a60::FUN_00012a60() {
     return (char*)pad + 0x40;
 }
 

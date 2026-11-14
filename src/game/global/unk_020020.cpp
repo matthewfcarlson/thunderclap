@@ -82,13 +82,13 @@ public:
 };
 class Action_20220 {
 public:
-    Action_20220() throw();
+    Action_20220();
     virtual void v0_00018b30();
     char pad04[0x1c - 4];
 };
 class CAction : public Action_20220 {
 public:
-    CAction(RefCounted_20220 *r) throw() {
+    CAction(RefCounted_20220 *r) {
         owner = 0;
         if (r != 0)
             r->AddRef();
@@ -101,7 +101,7 @@ public:
 };
 class CHeadTrackerAction : public CAction {
 public:
-    CHeadTrackerAction(int id, RefCounted_20220 *r) throw();
+    CHeadTrackerAction(int id, RefCounted_20220 *r);
     virtual void v2();
     int id;
     int field24;
@@ -358,7 +358,7 @@ CAction_201f0::~CAction_201f0() {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00020220 @ 0x00020220
 // equiv-map: ??0ActionBase@@QAE@XZ = 0x00232660
-CHeadTrackerAction::CHeadTrackerAction(int actionId, RefCounted_20220 *r) throw() : CAction(r)
+CHeadTrackerAction::CHeadTrackerAction(int actionId, RefCounted_20220 *r) : CAction(r)
 {
     field24 = 0;
     w88 = 0;

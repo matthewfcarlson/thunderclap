@@ -1559,7 +1559,7 @@ bool owners::X_16f9e0::FUN_0016f9e0(int v) {
 
 // 0x0016f9f0 FUN_0016f9f0 (12 B): matches/0x0016f9f0.cpp
 // sym: ?FUN_0016f9f0@Obj_16f9f0@owners@@QAEDH@Z
-char owners::Obj_16f9f0::FUN_0016f9f0(int x) throw() {
+char owners::Obj_16f9f0::FUN_0016f9f0(int x) {
     m10 = x;
     return 1;
 }

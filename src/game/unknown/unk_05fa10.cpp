@@ -544,7 +544,7 @@ char* owners::Obj_60260::FUN_00060260() {
 
 // 0x00060270 FUN_00060270 (4 B): matches/0x00060270.cpp
 // sym: ?FUN_00060270@Obj_60270@owners@@QAEPADXZ
-char* owners::Obj_60270::FUN_00060270() throw() {
+char* owners::Obj_60270::FUN_00060270() {
     return pad + 0x40;
 }
 

@@ -140,7 +140,7 @@ extern void* v2_333f10[];
 extern void* v3_333f10[];
 extern void* v4_333f10[];
 class PlayerBink_333f10;
-void FUN_002705f0() throw();
+void FUN_002705f0();
 class PlayerBink_333f10 {
   public:
     void* p0;
@@ -150,7 +150,7 @@ class PlayerBink_333f10 {
     int a, b, c, d;
     float f;
     char x, y;
-    PlayerBink_333f10() throw();
+    PlayerBink_333f10();
 };
 class IB_333f80 {
   public:
@@ -656,7 +656,7 @@ extern "C" void FUN_00333ef0() {
 
 // 0x00333f10 FUN_00333f10 (96 B): matches/0x00333f10.cpp
 // sym: ??0PlayerBink_333f10@fn_f1126c37@@QAE@XZ
-PlayerBink_333f10::PlayerBink_333f10() throw() {
+PlayerBink_333f10::PlayerBink_333f10() {
     *(void* volatile*)&p0 = (void**)DAT_0043406c;
     *(void* volatile*)&p1 = v1_333f10;
     id = DAT_004cdbb0;
@@ -731,19 +731,19 @@ namespace core {
 struct IRefCount {
     virtual void unused();
     virtual void release();
-    ~IRefCount() throw() {}
+    ~IRefCount() {}
 };
 struct BaseObject {
     virtual void unused();
     virtual void release();
-    ~BaseObject() throw() {}
+    ~BaseObject() {}
 };
 } // namespace core
 struct Resource_333fa0 {
     virtual void unused();
-    virtual void release() throw();
+    virtual void release();
 };
-extern "C" void __stdcall FUN_00368530(void*) throw();
+extern "C" void __stdcall FUN_00368530(void*);
 namespace movie {
 struct PlayerBink : core::IRefCount, core::BaseObject {
     int id;
@@ -752,10 +752,10 @@ struct PlayerBink : core::IRefCount, core::BaseObject {
     Resource_333fa0* second;
     int active;
     void* buffer;
-    ~PlayerBink() throw();
+    ~PlayerBink();
 };
 } // namespace movie
-movie::PlayerBink::~PlayerBink() throw() {
+movie::PlayerBink::~PlayerBink() {
     if (active) {
         FUN_00368530(buffer);
         buffer = 0;

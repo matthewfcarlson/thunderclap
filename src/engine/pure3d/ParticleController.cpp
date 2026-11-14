@@ -494,11 +494,11 @@ ParticleController::ParticleController(const ParticleController& src) : SimpleFr
 // sym: ??1ParticleController@pure3d@fn_002a74e0@@UAE@XZ
 namespace fn_002a74e0 {
 namespace pure3d {
-extern void Free(void*) throw();
+extern void Free(void*);
 class Ref_2a74e0 {
   public:
-    virtual void f0() throw();
-    virtual void Release() throw();
+    virtual void f0();
+    virtual void Release();
 };
 template <class T> struct Vec_2a74e0 {
     T* b;
@@ -506,22 +506,22 @@ template <class T> struct Vec_2a74e0 {
     T* c;
     unsigned size() const { return (unsigned)(e - b); }
     T& operator[](unsigned i) { return b[i]; }
-    ~Vec_2a74e0() throw() {
+    ~Vec_2a74e0() {
         if (b)
             Free(b);
     }
 };
 class SimpleFrameController {
   public:
-    virtual ~SimpleFrameController() throw();
+    virtual ~SimpleFrameController();
     char p[0x4c];
 };
 class ParticleController : public SimpleFrameController {
   public:
     Vec_2a74e0<Ref_2a74e0*> v;
-    virtual ~ParticleController() throw();
+    virtual ~ParticleController();
 };
-ParticleController::~ParticleController() throw() {
+ParticleController::~ParticleController() {
     for (unsigned i = 0; i < v.size(); i++) {
         Ref_2a74e0*& r = v[i];
         if (r) {

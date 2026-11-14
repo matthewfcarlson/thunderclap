@@ -30,8 +30,8 @@ class Part_260e60 {
 };
 struct TypeT_260e60 {
     char b[0x48];
-    TypeT_260e60* Init_00260c70() throw();
-    ~TypeT_260e60() throw();
+    TypeT_260e60* Init_00260c70();
+    ~TypeT_260e60();
 };
 struct DynAttrT_260e60;
 extern "C" void FUN_00247550(TypeT_260e60*, DynAttrT_260e60*);
@@ -39,7 +39,7 @@ struct DynAttrT_260e60 {
     void* vf;
     char pad[0x14];
     Part_260e60 part;
-    DynAttrT_260e60* Dtor(unsigned char flag) throw();
+    DynAttrT_260e60* Dtor(unsigned char flag);
 };
 struct Node { Node* left; Node* right; char pad[8]; unsigned key; unsigned value; };
 struct Tree { Node* root; Node sentinel; };
@@ -49,12 +49,12 @@ inline void operator delete(void*, void*) {}
 namespace fn_f6df0856 {
 void* __cdecl FUN_00247530(void* pool);
 struct Registry;
-extern "C++" __declspec(nothrow) char __cdecl FUN_00260f10(void *, void *, const unsigned *);
+extern "C++" char __cdecl FUN_00260f10(void *, void *, const unsigned *);
 namespace om {
 class String {
 public:
     char data[8];
-    String() throw();
+    String();
     void FUN_00240190(const String* s);
 };
 }
@@ -64,7 +64,7 @@ public:
     virtual void v0();
     unsigned int reserved04;  // records.h OmType
     OmTypeBody body;
-    Type(void* a, void* b, int c, int d) throw();
+    Type(void* a, void* b, int c, int d);
     void FUN_002580e0();
 };
 }
@@ -72,7 +72,7 @@ namespace om {
 template <class T> class TypeT : public Type {
 public:
     virtual void v0();
-    TypeT(void* a, void* b, int c, int d) throw() : Type(a, b, c, d) {}
+    TypeT(void* a, void* b, int c, int d) : Type(a, b, c, d) {}
 };
 }
 namespace om {
@@ -81,7 +81,7 @@ public:
     virtual void v0();
     char pad[0x10];
     int key;
-    DynAttr(const int* k) throw() : key(*k) {}
+    DynAttr(const int* k) : key(*k) {}
 };
 }
 namespace om {
@@ -148,13 +148,13 @@ struct Ctx_261500 {
 const char* Next_002611b0(Ctx_261500*);
 extern "C" const char* __cdecl FUN_002611b0(const char*);
 extern "C" char* __cdecl getText_002611b0(char*);
-extern "C++" __declspec(nothrow) void* __cdecl FUN_002611b0(void*);
+extern "C++" void* __cdecl FUN_002611b0(void*);
 extern "C" hulk_freg __cdecl FUN_00260d00(void*);
 struct Parser;
 const char* __cdecl FUN_002611b0(Parser* p);
 hulk_freg __cdecl FUN_00260d00(const char* text);
-extern "C++" __declspec(nothrow) char* __cdecl FUN_002611b0(char*);
-extern "C++" __declspec(nothrow) hulk_freg __cdecl FUN_00260d00(char*);
+extern "C++" char* __cdecl FUN_002611b0(char*);
+extern "C++" hulk_freg __cdecl FUN_00260d00(char*);
 extern "C" void __cdecl FUN_00260be0(char*, float);
 void __cdecl FUN_00260be0(const char *s, float v);
 typedef unsigned int U_261980;
@@ -223,7 +223,7 @@ U_260de0 __cdecl target() {
 
 // 0x00260e60 om::DynAttrT<om::String>::vfunc_0 (70 B): matches/0x00260e60.cpp
 // sym: ?Dtor@DynAttrT_260e60@fn_f6df0856@@QAEPAU12@E@Z
-DynAttrT_260e60* DynAttrT_260e60::Dtor(unsigned char flag) throw() {
+DynAttrT_260e60* DynAttrT_260e60::Dtor(unsigned char flag) {
     vf = (void**)DAT_0042aadc;
     ((owners::Str_240060 *)&part)->FUN_00240060();
     vf = (void**)DAT_0042aac8;
@@ -611,9 +611,9 @@ extern "C" void __cdecl FUN_00261770(char* s) {
 // 0x002617d0 FUN_002617d0 (83 B): matches/0x002617d0.cpp [wrapped: conflict: FUN_002611b0]
 // sym: _FUN_002617d0
 namespace fn_002617d0 {
-extern "C++" __declspec(nothrow) char* __cdecl FUN_002611b0(const char*);
-extern "C++" __declspec(nothrow) hulk_freg __cdecl FUN_00260d00(const char*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00260be0(const char*, float);
+extern "C++" char* __cdecl FUN_002611b0(const char*);
+extern "C++" hulk_freg __cdecl FUN_00260d00(const char*);
+extern "C++" void __cdecl FUN_00260be0(const char*, float);
 extern "C" void __cdecl FUN_002617d0(const char* s) {
     float v = FUN_00260d00(FUN_002611b0(s));
     char* p = FUN_002611b0(s);
@@ -658,9 +658,9 @@ extern "C" double fmod(double x, double y);
 struct Node {
     char pad0;
 };
-extern "C++" __declspec(nothrow) Node* __cdecl FUN_002611b0(void* owner);
-extern "C++" __declspec(nothrow) hulk_freg __cdecl FUN_00260d00(void* node);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00260be0(void* owner, float value);
+extern "C++" Node* __cdecl FUN_002611b0(void* owner);
+extern "C++" hulk_freg __cdecl FUN_00260d00(void* node);
+extern "C++" void __cdecl FUN_00260be0(void* owner, float value);
 
 extern "C" void FUN_002618a0(void* owner) {
     float result = FUN_00260d00(FUN_002611b0(owner));

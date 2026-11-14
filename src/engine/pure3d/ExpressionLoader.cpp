@@ -71,7 +71,7 @@ public:
     char pad4[4];
     Name_2afba0 name;
     void FUN_0027b070();
-    Entity_2afba0() throw() { FUN_0027b070(); }
+    Entity_2afba0() { FUN_0027b070(); }
 };
 }
 namespace pure3d {
@@ -84,7 +84,7 @@ public:
     unsigned int count;
     int *keys;
     float *values;
-    Expression_2afba0() throw() { keys = 0; values = 0; }
+    Expression_2afba0() { keys = 0; values = 0; }
 };
 }
 namespace fn_fb28d753 {
