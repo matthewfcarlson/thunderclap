@@ -4535,3 +4535,66 @@ whose types the current source lays out differently runs again.
 
 Native unbound (macOS / Linux / Android; each side's own snapshot and binding map): control 82120 **14,342 / 14,322 / 14,333**; proof 82160 **14,242 / 14,222 / 14,233** (100 fewer on each).
 
+
+## tri2 (2026-11-14): the 226 `--wine` blocks that failed with the pre-chk1 checker too; D31's exception TUs
+
+chk1's audit found 226 equivalent blocks whose `--wine` run fails (or is not promotable) at 3,000 inputs with the
+pre-chk1 checker as well, although their `@w` hashes said "proven". Workspace build/tri2 (t226.json: per block the TU,
+the MSVC verdict, the commit its `@w` came from, the standalone source's last change; res.*.json per run).
+
+**When they started failing: as tree TUs, never passed.**
+
+| run (`--wine`, 3,000 inputs) | promotable |
+|---|---|
+| tree TUs at 6a71f9a03 with that commit's checker (the code hash1 computed the `@w` hashes from) | 11 of 226 |
+| frozen standalone sources (equivalent/ at F) with HEAD's checker | 31 of 226 |
+| the same sources at F (e68debc9d) with F's checker (the 205 not passing above) | 28 of 205; of the 168 failures 115 fail within the first 600 inputs |
+| tree TUs at HEAD, pre-chk1 checker (chk1) | 0 of 226 |
+| tree TUs at HEAD + tri2's checker rules + tri1's tree_tu fixes + 600 s budget + tri2's 13 source fixes (fix3, after gx2's -fno-exceptions) | 70 of 226 |
+
+All 226 `@w` hashes came from the bulk recordings (d6b934876 108, 2a98ab92d 97, df628fc4a 15, 14e8903d2 5; 6edc110c2
+1 pin rewrite), made from the code at 6a71f9a03 on the premise that "the flip's proofs cover it". For the clang side they
+did not: the flip checked MSVC code identity for every block, but `--wine` only on a 200-block sample at 64 inputs, and a
+tree TU's clang object is not the standalone's (neighbours in the same `.text`, wrapper namespaces in mangled names,
+shared declarations). The standalone proofs did not hold either: the `--wine` gate exists since 10-23 (79336d1ea) at 600
+inputs, and 115 of the standalone failures at F fail within those 600 (promoted before the gate or changed by a bulk
+rewrite since without a `--wine` run); 53 only beyond 600.
+
+**Clusters and causes.**
+
+| cluster | blocks | class | fix |
+|---|---|---|---|
+| a `__fastcall` neighbour in clang's one `.text` taken for a local label | 10 (lapi.cpp) | checker | ec867cc4f (TREE_EXTERNAL) |
+| queue-host sizeof probe reads a stale include/ (relative `/I` through the build/ symlink); unit_text unparseable after unb4's namespace groups | ~30 (with budget) | tool bug (tri1) | tri1's tools/tree_tu.py (uncommitted at hand-back) |
+| 120 s budget too short on loaded hosts | ~15 | environment | 600 s budget for audits |
+| `call [g]` through a fuzzed function pointer took the hit code's facts | 3 (DAT_004de948) | checker | ec867cc4f (ptrfacts) |
+| block-scope `extern` in a wrapped block: MSVC global vs clang namespace name | 1 | checker | ec867cc4f (treeblk) |
+| local-static guard: back-references differ inside tree namespaces | 1 | checker | ec867cc4f (lstaticbr) |
+| double NaN high word quieted by cvtss2sd, not by the emulated x87 | 3 | checker / emulator | ec867cc4f (nanquiet64) |
+| x87 values kept in st0, `fst; fmul` squares, hulk_freg locals the original stores, `_ftol` | 13 fixed (+ ~11 float-ulp open) | source | 07071bd58 |
+| gen_tree bridge `FUN_00000000` bound by name to address 0 | 1 | source | 07071bd58 |
+| still failing: memory writes 47, arguments 37, control flow/calls 25, float ULPs 11, ecx 9, other 27 | 156 (13 also fail MSVC) | mostly source (per-block analysis) | open |
+
+Seen in the open set: the vptr loaded before a call that computes an argument, `this` reloaded after it
+(0x000e14b0, 0x000e8790: hoisting breaks the MSVC side); frame overruns through a stub's pointer argument into clang's
+parameter copies (0x00283110: a joint count above 6); NaN payload propagation (x87 vs SSE, 0x0022ca90/0x0022cc10/0x0022cdb0,
+0x00308ba0); a destructor's second base vptr at this+4 (0x0026e650: dtorvptr covers this+0 only); `copy_overlap`
+between fuzzed overlapping struct pointers (0x002233e0); 64 KB string intrinsics (`intrinsic_access`, 4).
+
+**Code-hash coverage gap.** The hash scheme is sound for what it covers (the object's code); the gaps are around it:
+(1) provenance: a recorded `@w` does not say a `--wine` run of that code passed (hash1's bulk recording did not run one);
+(2) the checker's other inputs: the verdict also depends on the block's unit text (C signatures), the sizeof probe,
+config/data.json, and the checker itself; tri1's unit_text bug flipped 43 blocks without changing a hash; (3) depth: the
+gate runs `--wine` at 600 inputs, audits at 3,000. Proposal: a tracked proof ledger (address, both hashes, inputs,
+checker digest, job, date; no game content) appended by `hash --proven`; `verify` reports a block whose current hashes
+have no ledger entry as `unproven` (initially seeded from chk1's audit passes, so the open blocks above are named, not
+silently proven); the `--wine` gate at 3,000 inputs; a periodic full audit (3,000, both modes) as the backstop for (2).
+
+**D31 (exception TUs).** Of the 9 blocks tri2 took (tri1 keeps 0x00224540, 0x000396a0, 0x001c82c0), 4 pass `--wine` at
+3,000 without exceptions once the checker's environment is fixed: 0x001b65f0, 0x00102cd0, 0x00094fb0, 0x001e7470; their
+TUs (CCollisionManager.cpp, CMoveAgent.cpp, CUnlockablesManager.GS.cpp, om/Stream.cpp) lose the `clang-flags` line and
+their throw()/nothrow (gx2's nothrow.py), hashes recorded with `hash --proven` (nx1 jobs 82121-82128). The other five
+fail identically with and without exceptions (not the flag): 0x0026e650, 0x00297ba0, 0x0001fe60, 0x00117480, 0x00322990.
+
+**Gates.** Batch 1 (07071bd58): whole tree verify 82060-82071 (22,339 MATCH, 5,099 equivalents both hashes ok), x64 gate
+ok, Wine proof control 82015 / proof 82118 GATE ok (0 of 2,002 frames differ). Batch 2 (D31, cefff8a80): whole tree verify 82191-82200 + 82204-82205 (0 errors), x64 gate ok, Wine proof control 82188 / proof 82203 GATE ok (0 of 2,003 frames differ).

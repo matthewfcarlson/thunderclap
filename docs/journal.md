@@ -883,3 +883,16 @@ blocks fight::Action's whole family: the records come first there.
   verify it (0x002786f0's own `FUN_00278a80` is unbound for that reason).
 - Removing two unused member declarations from include/gen/owners.h flipped 0x002ea3c0's MSVC code (one of the six
   declaration-count blocks); keeping the declarations restores it.
+
+## 2026-11-14 tri2: the 226 `--wine` blocks that never held as tree TUs
+- chk1's 226 pre-existing `--wine` failures were never proven as tree TUs: their `@w` came from hash1's bulk recording
+  (6a71f9a03's code), and at that commit, with its own checker, 215 of 226 already failed. The flip had checked `--wine`
+  on a 200-block sample at 64 inputs only. The standalone sources mostly failed too (at F, 115 within the gate's 600).
+- Causes: tree-mode checker gaps only clang's single `.text`/namespaces meet (fastcall neighbour as local label,
+  fuzzed fn-pointer facts, block-scope extern, local-static back-references, double NaN quieting: ec867cc4f); tri1's
+  queue-host probe and unit_text bugs; time budget on loaded hosts; x87 precision in sources (13 fixed, 07071bd58).
+  70 of 226 pass after this; 156 open, listed in build/tri2/still_failing.json with docs/native-build.md "tri2".
+- D31: four of the exception-flag TUs clean without exceptions (cefff8a80); five of tri2's fail with and without.
+- Pitfalls: clang with -fms-compatibility defines `_MSC_VER` (guard clang-only spellings with `__clang__`); the
+  "hulk_freg everywhere" autofixes were wrong where the original stores a value (a halved denormal, an fst-stored
+  fraction read back); `fst [v]; fmul [v]` multiplies the unrounded value by the rounded one.
