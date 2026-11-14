@@ -3194,7 +3194,7 @@ Thing *Picker::FUN_00039c60(V3 *a0, V3 *a1, float a2, float a3, int a4, Thing **
 namespace fn_f35f7bdf {
 
 // 0x0003a440 FUN_0003a440 (217 B): equivalent/0x0003a440.cpp
-// sym: ?test@Query_3a440@fn_f35f7bdf@@QAE_NPAUVec_3a440@2@0MMPAUObject@2@@Z @0b396549a892 @w252a6d7a5dd8
+// sym: ?test@Query_3a440@fn_f35f7bdf@@QAE_NPAUVec_3a440@2@0MMPAUObject@2@@Z @0b396549a892 @wae8df9d38d14
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0003a440 @ 0x0003a440
 bool Query_3a440::test(Vec_3a440* origin,Vec_3a440* direction,float angle,float distance,Object* object) {
@@ -3207,7 +3207,7 @@ bool Query_3a440::test(Vec_3a440* origin,Vec_3a440* direction,float angle,float 
  delta.x=hit.x-origin->x;
  delta.y=hit.y-origin->y;
  delta.z=hit.z-origin->z;
- float length=delta.FUN_0022d110();
+ hulk_freg length=delta.FUN_0022d110();   // (tri1) compared unrounded (fcomp of st0)
  if (length>distance) return false;
  double dot=(double)delta.z*direction->z+(double)delta.y*direction->y+(double)delta.x*direction->x;
  return !(cos((double)angle*0.5f)>dot);

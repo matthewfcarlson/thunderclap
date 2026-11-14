@@ -2615,7 +2615,7 @@ void Manager_1c0250::cleanup() {
 namespace fn_fed79ca6 {
 
 // 0x001c0360 FUN_001c0360 (383 B): equivalent/0x001c0360.cpp
-// sym: ?FUN_001c0360@Shake_1c0360@fn_fed79ca6@@QAEXHH@Z @32b8ff1d3dc0 @w89caf8b7033f
+// sym: ?FUN_001c0360@Shake_1c0360@fn_fed79ca6@@QAEXHH@Z @ddc277b0000b @w6e753a3fbadf
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 18/18)
 // FUN_001c0360 @ 0x001c0360
 void Shake_1c0360::FUN_001c0360(int newMode, int newCount)
@@ -2657,11 +2657,11 @@ void Shake_1c0360::FUN_001c0360(int newMode, int newCount)
         DAT_004e2310 = 0.0f;
         float a = DAT_004de600;
         float b = DAT_004de604;
-        float ha = a * -0.5f;
-        float hb = b * -0.5f;
-        float sa = a * 0.6f;
+        volatile float ha = a * -0.5f;   // (tri1) stored to float slots and added from memory, as the original (denormals round)
+        volatile float hb = b * -0.5f;
+        volatile float sa = a * 0.6f;   // (tri1) rounded to float as the original's fstp [esp+0x14] / fld
         DAT_004e2308 = sa + ha;
-        DAT_004e230c = b * 0.26f + hb;
+        DAT_004e230c = b * DAT_004c4c58 + hb;   // (tri1) a writable global (0.26 at load), not folded
         Source_1c0360 *src = holder->FUN_000862b0();
         Vec3_1c0360 v;
         v.x = DAT_004de600 * -0.5f;

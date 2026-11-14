@@ -1624,7 +1624,7 @@ bool Mixer::FUN_00224260(int a, int b, Sink_224260 *sink)
 
 
 // 0x00224540 FUN_00224540 (772 B): equivalent/0x00224540.cpp
-// sym: ?FUN_00224540@Blend_224540@fn_fe86d092@@QAE_NIPAM@Z @4150bde2f204 @w8e5225dce6dc
+// sym: ?FUN_00224540@Blend_224540@fn_fe86d092@@QAE_NIPAM@Z @a5dba9767b16 @wf2e947fd7979
 // STATUS: equivalent (tools/equiv.py level 3: 2647 inputs, branch coverage 42/42)
 // FUN_00224540 @ 0x00224540
 // FUN_00224540 @ 0x00224540
@@ -1634,6 +1634,9 @@ bool Mixer::FUN_00224260(int a, int b, Sink_224260 *sink)
 // value; *out is blended towards each layer's value.
 bool Blend_224540::FUN_00224540(hulk_uintptr ctx, float *result)
 {
+    // (tri1) hulk_freg: a*b, the running sum and (value - *result) are st0 values in the original (53-bit, never float);
+    // as floats the Wine build overflowed where the original does not (*result = -inf, D28). The casts are no-ops for
+    // MSVC 7.1; the unrounded sum needs a local in the clang build only (as a float local MSVC rounds it)
     if (ctx == 0 || count == 0)
         return false;
 
@@ -1665,18 +1668,24 @@ bool Blend_224540::FUN_00224540(hulk_uintptr ctx, float *result)
                 fr.f18 = 0.0f;
                 if (e[fr.start].layer->v12(ctx, &fr.f18)) {
                     fr.changed = true;
-                    *result = (fr.f18 - *result) * fr.f14 + *result;
+                    *result = ((hulk_freg)fr.f18 - *result) * fr.f14 + *result;
                 }
                 for (unsigned j = fr.start + 1; j < fr.i; ++j) {
+#if defined(__clang__)
+                    hulk_freg s = fr.sum + (hulk_freg)e[j].b * e[j].a;     // (tri1) compared unrounded, as the original's fcomp of st0
+                    fr.sum = s;
+                    if (s > 0.0f)
+#else
                     fr.sum = fr.sum + e[j].b * e[j].a;
                     if (fr.sum > 0.0f)
-                        fr.w2 = ((e[j].b * e[j].a) / fr.sum) * fr.f14;
+#endif
+                        fr.w2 = ((hulk_freg)e[j].b * e[j].a / fr.sum) * fr.f14;
                     else
                         fr.w2 = 0.0f;
                     fr.f18 = 0.0f;
                     if (e[j].layer->v12(ctx, &fr.f18)) {
                         fr.changed = true;
-                        *result = (fr.f18 - *result) * fr.w2 + *result;
+                        *result = ((hulk_freg)fr.f18 - *result) * fr.w2 + *result;
                     }
                 }
                 acc = 0.0f;
@@ -1703,18 +1712,24 @@ bool Blend_224540::FUN_00224540(hulk_uintptr ctx, float *result)
     fr.f14 = 0.0f;
     if (e[fr.start].layer->v12(ctx, &fr.f14)) {
         fr.changed = true;
-        *result = (fr.f14 - *result) * fr.f18 + *result;
+        *result = ((hulk_freg)fr.f14 - *result) * fr.f18 + *result;
     }
     for (unsigned j = fr.start + 1; j < count; ++j) {
+#if defined(__clang__)
+        hulk_freg s = fr.sum + (hulk_freg)e[j].b * e[j].a;     // (tri1) compared unrounded, as the original's fcomp of st0
+        fr.sum = s;
+        if (s > 0.0f)
+#else
         fr.sum = fr.sum + e[j].b * e[j].a;
         if (fr.sum > 0.0f)
-            fr.w2 = ((e[j].b * e[j].a) / fr.sum) * fr.f18;
+#endif
+            fr.w2 = ((hulk_freg)e[j].b * e[j].a / fr.sum) * fr.f18;
         else
             fr.w2 = 0.0f;
         fr.f14 = 0.0f;
         if (e[j].layer->v12(ctx, &fr.f14)) {
             fr.changed = true;
-            *result = (fr.f14 - *result) * fr.w2 + *result;
+            *result = ((hulk_freg)fr.f14 - *result) * fr.w2 + *result;
         }
     }
     return fr.changed;

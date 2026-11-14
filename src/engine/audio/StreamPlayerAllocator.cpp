@@ -3771,7 +3771,7 @@ extern "C" void FUN_0024b480(void *m)
 
 
 // 0x0024b550 FUN_0024b550 (962 B): equivalent/0x0024b550.cpp
-// sym: _FUN_0024b550 @db262fe50fd7 @wdc7905922ece
+// sym: _FUN_0024b550 @db262fe50fd7 @we490cb01b73f
 // STATUS: equivalent (tools/equiv.py level 3: 3034 inputs, branch coverage 64/66, incomplete)
 // FUN_0024b550 @ 0x0024b550
 // equiv-conv: FUN_0024b550 esi
@@ -3803,7 +3803,7 @@ extern "C" void FUN_0024b550(void * p_)
     if (state == 0) {
         Chunk *c = p->chunk;
         f.x = ((unsigned int)FUN_0025e2b0((Chunk *)c));
-        unsigned int limit = (unsigned int)((float)c->f4 * c->fc);
+        unsigned int limit = (unsigned int)(__int64)((float)c->f4 * c->fc);   // (tri1) __ftol2: the low word of the 64-bit truncation
         if (f.x > limit) {
             if (p->mode != 1) {
                 return;

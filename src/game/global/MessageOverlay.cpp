@@ -843,7 +843,7 @@ int Formatter_d4ae0::FUN_000d4ae0(char *text, Profile_d4ae0 *prof, hulk_intptr e
 } // namespace fn_f27eef39
 
 // 0x000d50f0 FUN_000d50f0 (403 B): equivalent/0x000d50f0.cpp [wrapped: conflict: Overlay]
-// sym: ?FUN_000d50f0@FadeQuad@fn_000d50f0@@QAEXXZ @0e7f61a273f6 @w9130aec4249e
+// sym: ?FUN_000d50f0@FadeQuad@fn_000d50f0@@QAEXXZ @745a28f3cd24 @w2b5f957df668
 namespace fn_000d50f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19840 inputs, branch coverage 2/2)
 // FUN_000d50f0 @ 0x000d50f0
@@ -1005,7 +1005,7 @@ void FadeQuad::FUN_000d50f0()
 
     VertexBuf_d50f0 *buf = DAT_0052c2a8->beginQuad(overlay->f10, 1, 0x2020, 4, 0);
 
-    float x0 = 16.6f * -0.5f;
+    float x0 = DAT_004a06d4 * -0.5f;   // (tri1) a writable global (16.6 at load), read as the original does, not folded
     float y0 = DAT_004a06d0 * -0.5f;
     float x1 = amount * 0.5f;
     float y1 = DAT_004a06d0 * 0.5f;
