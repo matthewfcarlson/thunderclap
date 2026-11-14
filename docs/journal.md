@@ -829,3 +829,20 @@ blocks fight::Action's whole family: the records come first there.
   way (record a hash only from a run on the final headers).
 - macOS start-up now stops at the language file: its open fails and the drive's error callback (0x00272df0) calls a
   null slot.
+
+## 2026-11-14 chk1: a masked difference must be one the undefined behaviour explains (rev2 follow-through)
+- rev2 showed `smasharg` (and round 8's smash, and `bool_ub`) set aside ANY difference on a flagged input: mutants of
+  0x002f4eb0 with a different call sequence (M1/M2) or a wrong constant (M3) passed `--wine` at 3,000. f4a5e5df8,
+  bba347f96, 8e8c9f921: smash explains only registers restored from overwritten slots, ours going wild, and differences
+  after a side reads back a word its overrun replaced (`xlocal`, `smash_read`); `bool_ub` reruns ours with the bytes
+  read as true (normalised / raw) and false; `x87_range`/`ro_write`/`frame_escape`/`copy_overlap` never explain a call
+  made before the event; inconclusive inputs no longer count for coverage (`maskedges`). `level3.unexplained`.
+- Pitfalls met: writing EFLAGS from a Unicorn code hook does not reach its lazily computed flags (set the operand
+  before the instruction instead); clang's `!b` (`xor al, 0xff; and al, 1`) looked like a non-bool read on every input.
+- Audit (all 5,099 equivalent blocks, 3,000 inputs, MSVC and --wine, then the non-passing ones re-run with the pre-chk1
+  checker on the same HEAD): most non-passing blocks fail with the old checker too (51 MSVC, 226 --wine on HEAD of
+  2026-11-14). Due to chk1: coverage once only inconclusive inputs reached (often `code_write` inputs: a fuzzed
+  pointer storing into .text), 9 MSVC / 10 --wine; differences the detected bool sites don't explain, 15 --wine
+  (0x00224540: a float difference, the store of `*result` keeps its old value where the original writes -inf);
+  6 new differing inputs found by the changed exploration; 2 refused frame_escape/smash masks; a few time-budget
+  shortfalls. Lists in the chk1 hand-back.
