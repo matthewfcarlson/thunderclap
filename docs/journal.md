@@ -804,3 +804,13 @@ blocks fight::Action's whole family: the records come first there.
   the caller).
 - Wine proofs at an older base (1c5f08c59) hung at frame 0 on studio after del1's commits whether changed or not
   (79145, 79236, the unchanged control 79239): rebase the control on the current HEAD.
+
+## 2026-11-13 gx1: /GX- is the tree's default; native builds without exceptions
+- compare.py DEFAULT_FLAGS /GX-; `// cl-flags: /GX` on the 454 TUs whose scalar deleting destructors are written for
+  /GX (their true form is the constructing code: D18), on the two dynamic_initializers TUs (unwind funclets of
+  library code built with exceptions) and on 0x00148f40's iso TU. Native compiles and equiv64 use -fno-exceptions.
+- MSVC 7.1 emits a vftable, and so an implicit `??_G`, only where a constructor is compiled: not for an explicit
+  instantiation, not for a constructor used only in an unused function (build/gx1/exp/).
+- The Wine build keeps -fexceptions: 72 equivalents' clang code changes without it, and 10 of them do not re-prove
+  `--wine` under the current checker (they fail the same way on HEAD). The throw()/nothrow clean-up waits with it.
+- D19: Condition's five shared slots now defined on include/gen's classes and bound natively.

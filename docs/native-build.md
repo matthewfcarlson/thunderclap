@@ -4184,3 +4184,84 @@ regress 477 / 478 (the known flaky 0x001fe380_tiny_counts).
 | Wine proof, batch 2 (fe26020e9) | control 79242, proof 79267 seeded from it (private data TUs with the records.h change): GATE ok, 0 of 2,002 frames differ; re-checked on dtor1's 7c8b9c9bb: whole tree and the declaration-count TUs ok |
 
 Native unbound (macOS / Linux / Android): control 78653 **14,511 / 14,491 / 14,502**; proof 79267 **14,446 / 14,426 / 14,437** (65 fewer on each; each side's own snapshot and binding map).
+
+## The tree without C++ exceptions: /GX- by default, native -fno-exceptions; Condition's shared slots (gx1, 2026-11-13)
+
+User decisions D17 (exceptions off tree-wide) and D19 (Condition's shared slots, stubs, leaks) on dtor1's finding: the
+game has no EH frame, it was built /GX-.
+
+**Tooling (gx1 1).**
+- MSVC: `tools/compare.py` `DEFAULT_FLAGS` is `/nologo /c /O2 /GR /GX- /Gy`. Every MSVC compile of a tree TU goes
+  through `compare.compile_obj` (tree_tu check / verify / materialize, build_tree, verify_relocs, equiv.py, data_gen);
+  `tools/gen_tree.py` keeps the same default; `tools/gen_headers.py --probe` compiles the headers with /GX- (ok: 18/18
+  headers, 4,238 classes, job 80030); `tools/permute.py`'s flag set tries `/GX` instead of `/GX-`.
+- `// cl-flags: /GX` marks a TU whose source is still written for exceptions; dtor1's eleven `// cl-flags: /GX-`
+  lines are gone (the default).
+- clang, native: `clang_probe.common_native()` (COMMON without `-fexceptions -fcxx-exceptions`, plus
+  `-fno-exceptions`) is what native_mac.py and native_elf.py compile with; `tools/equiv64.py`'s front end (`--x64`, the
+  x64 gate) adds `-fno-exceptions` too (clang++ for a `*-windows-msvc` target enables exceptions by default, so it had
+  matched COMMON's). The platform layer (SDL, pddi/bgfx, host CRT) was already `-fno-exceptions`.
+- clang, Wine build: COMMON keeps `-fexceptions` for now. Measured with `-fno-exceptions` there (whole tree, jobs
+  79845-79856): 72 equivalent blocks change clang code (their cleanup landing pads: locals with destructors). 62 re-prove
+  at 3,000 inputs (`--wine`, jobs 79888-79899), but nine fail `--wine` and one is inconclusive: 0x000396a0,
+  0x0001fe60 (passes at 600), 0x0026e650, 0x00322990, 0x00224540, 0x00297ba0, 0x00148f40, 0x001c82c0, 0x00094fb0,
+  0x0029a630. They fail the same way on HEAD with exceptions on (control jobs 79910-79914): chk1's tightened masks
+  (f4a5e5df8), not this change. The Wine flip waits for those blocks.
+
+**Which TUs keep /GX, and why.** Whole tree with /GX- and no other change (jobs 79833-79844): 1,886 blocks differ,
+as dtor1 measured: 1,873 scalar deleting destructors in 454 TUs, 10 equivalents, 3 dynamic_initializers blocks.
+- The 1,873 `??_G` blocks are written as `template <> ParamX<T>::~ParamX() {}` / `Method2<...>::~Method2() {}` /
+  `C::~C() {}`. In the game these destructors are implicit, and the `??_G` (base destructor call, delete; no vftable
+  store) is emitted beside the vftable by the code that constructs the class: the parameter registration functions
+  (`new ParamX<T>(...)`; in the tree 435 blocks, 402 of them equivalent, in 185 TUs, 105 of those `.iso_` TUs, all
+  storing the vftable by hand), the script binding constructors (0x0002e4f0 `Closure2<CActorManager,...>::Closure2`,
+  an out-of-line template constructor that also stores `Method2<...>`'s vftable; a stub in the tree) and, for the
+  193 non-template classes, their constructors. MSVC 7.1 emits no vftable (so no `??_G`) for an explicit
+  instantiation or for a constructor used only in an unused function (build/gx1/exp/e1.cpp, e2.cpp), so a `??_G`
+  block has no source form of its own under /GX-: its true form is an empty block whose function the constructing
+  code emits. That is D18 (and its Method/Closure counterpart). Until then the 454 TUs say `// cl-flags: /GX`; every
+  other block in them matches with either flag.
+- 0x0035be90, 0x0035c3e0, 0x0035c4c0 are unwind funclets (`.text$x`) of library code past the game's .text that was
+  built with exceptions: dynamic_initializers.cpp and dynamic_initializers.Oy-.cpp are `/GX` for good. The .Oy- TU's
+  `try { work(); } catch (...) { throw; }` is under `#if defined(_CPPUNWIND)` (a native build compiles the call alone).
+- The 10 equivalents: 4 are in /GX TUs (0x00254760, 0x00285f50, 0x00040550, 0x00147db0); 5 re-prove with /GX-
+  (0x001f8670, 0x0028bcd0, 0x0028c040, 0x001fa8b0, 0x002631f0: equiv.py 3,000 inputs promotable, jobs 79886 / 79887;
+  `--wine` 3,000 equivalent; `tree_tu.py hash --proven`, job 80016); 0x00148f40 re-proves on MSVC (promotable) but
+  its `--wine` fails as on HEAD (above), so GrappleThrowAction.iso_00148f40.cpp is `/GX` until it re-proves.
+
+**Not done: the `throw()` / `__declspec(nothrow)` workarounds.** Removing them (build/gx1/scripts/nothrow.py: 571
+`__declspec(nothrow)`, 1,109 `throw()` on anything but `operator new` / `delete`, in 281 of the /GX- TUs) changes no
+MSVC code with /GX- (whole tree, jobs 79865-79876), but with the Wine build's `-fexceptions` it changes clang code (the
+x64 gate's keys: 208 blocks), so it goes with the Wine flip. The headers keep theirs while /GX TUs include them.
+
+**Gates (gx1 1).** Whole tree with the batch shipped (jobs 80017-80028): 27,438 blocks in 2,674 TUs (the 2,675th has
+none), 22,339 MATCH with relocations ok, 5,099 equivalents with both hashes ok. x64 gate (temporary commit
+47d086f33): ok, 3 changed blocks (the funclets, unkeyed); its keys are computed with the checkout's tools, so it sees
+the text changes, not the native flag. Wine proof on studio (private data TUs):
+control 79863 (f4a5e5df8), proof 80029 seeded from it: GATE ok, 0 of 2,019 common frames differ (prng too).
+Commit 8d23563ee.
+
+**D19: the five shared slots (gx1 2).** dtor1's derived Condition stubs name the real slots in their vftables; the
+tree defined them on TU-local classes. Each block now defines the include/gen class's slot: 0x000482d0
+`bool CCondition::vfunc_6(void*, void*, void*)` (MATCH, relocations ok), 0x0004c7c0 CSmartPropAngleCondition::vfunc_7,
+0x0004cbe0 CSmartPropCSMableCondition::vfunc_7, 0x0010f0f0 HulkActionLargestCondition::vfunc_6, 0x00181bd0
+PropMissileCountCondition::vfunc_6 (the four equivalents keep their helper types in the block's namespace; MSVC code
+unchanged, clang code re-proven: `--wine` 3,000 equivalent, jobs 80038 / 80039, `--x64` equivalent, job 80040,
+recorded with `hash --proven`, job 80044). The five TUs (job 80045): 184 MATCH with relocations ok, 11 equivalents ok;
+x64 gate ok; Wine proof 80050 seeded from 80029: GATE ok, 0 of 2,019 frames differ. Commit 27d8bb82d.
+
+**Native unbound names** (each proof's clang-probe snapshot linked with its own binding map; macOS / Linux / Android):
+
+| state | macOS | Linux | Android |
+|---|---|---|---|
+| control 79863 (f4a5e5df8) | 14,430 | 14,410 | 14,421 |
+| gx1 1, proof 80029 | 14,428 | 14,408 | 14,419 |
+| gx1 2, proof 80050 | 14,422 | 14,402 | 14,413 |
+
+gx1 1 on macOS: `terminate` (137 references: clang's handler for a throw out of a `throw()` function),
+`_CxxThrowException` (the CRT table's) and a dynamic initializer's `Part::~Part` (its unwind path) are gone with
+`-fno-exceptions`; `operator delete(void*, size_t)` references 461 -> 456. gx1 2: the five slots bind.
+
+**Left (D19).** The 20 Condition stubs stubderive2.py skipped (typed gen fields first), and PrintCondition /
+PrintTrack / StatTrack's real destructors: their `??_G` (0x00238ca0, 0x00238ce0, 0x0012fea0) are in PrintTrack.cpp
+and GameStateCondition.cpp, which are `/GX` TUs (3 and 26 parameter-template `??_G`); with D18 there.
