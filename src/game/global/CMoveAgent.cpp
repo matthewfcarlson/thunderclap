@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// clang-flags: -fexceptions -fcxx-exceptions   (gx2, D22: kept until its --wine proof passes again; docs/native-build.md "gx2")
 // object 0x00102a50..0x00103340 (kind game, layer game, confidence high), dominant class CMoveAgent
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -229,7 +228,7 @@ extern "C" void __cdecl FUN_00102bf0(void *m, void *target, float speed, void * 
 } // namespace fn_ff1bac5e
 
 // 0x00102cd0 CMoveAgent::vfunc_4 (1421 B): equivalent/0x00102cd0.cpp [wrapped: conflict: CMoveAgent]
-// sym: ?F@CMoveAgent@fn_00102cd0@@QAEXPAVArg1_102cd0@2@HH@Z @a449798b976b @w66d8553930d5
+// sym: ?F@CMoveAgent@fn_00102cd0@@QAEXPAVArg1_102cd0@2@HH@Z @a449798b976b @waadf8ed70938
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 namespace fn_00102cd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19936 inputs, branch coverage 50/50)
@@ -315,7 +314,7 @@ float FUN_0010ae50(Env* e, Agent_102cd0* a, float f, V3_102cd0* v1, V3_102cd0* v
 
 #define DAT_004dd700 (*(Env* *)&::DAT_004dd700)
 
-extern "C++" __declspec(nothrow) void __cdecl FUN_00102bf0(void *, void *, float, void *);
+extern "C++" void __cdecl FUN_00102bf0(void *, void *, float, void *);
 void FUN_00102a50(Agent_102cd0* a, V3_102cd0* pos, V3_102cd0* out);
 
 class CMoveAgent {

@@ -76,3 +76,8 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
   0x001e7470, 0x00322990. Their 12 TUs keep their throw() / nothrow and say `// clang-flags:` (tools/clang_probe.py
   `tu_flags`; the native builds ignore it), so the clang code their recorded hashes prove is what the Wine build runs.
   Remove a TU's line (and its throw() / nothrow) when its block re-proves `--wine` at 3,000 inputs without it.
+  (tri2, D31) Done for 0x001b65f0, 0x00102cd0, 0x00094fb0, 0x001e7470 (CCollisionManager.cpp, CMoveAgent.cpp,
+  CUnlockablesManager.GS.cpp, om/Stream.cpp): with tri1's tree_tu probe / unit_text fixes and a 600 s budget they pass
+  without exceptions; their failure had been the checker's environment, not the flag. Left: 0x0026e650 (a destructor's
+  second base vptr at this+4: dtorvptr covers this+0 only), 0x00297ba0, 0x0001fe60, 0x00117480, 0x00322990 (fail the
+  same with and without exceptions; build/tri2), and tri1's 0x00224540, 0x000396a0, 0x001c82c0.

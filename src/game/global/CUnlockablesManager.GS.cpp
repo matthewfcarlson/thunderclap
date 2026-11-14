@@ -1,5 +1,4 @@
 // cl-flags: /GS
-// clang-flags: -fexceptions -fcxx-exceptions   (gx2, D22: kept until its --wine proof passes again; docs/native-build.md "gx2")
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00093600..0x000964d0 (kind game, layer game, confidence high), dominant class CUnlockablesManager
 // (tree_prelude.h: not needed)
@@ -10,7 +9,7 @@
 
 
 // 0x00094fb0 FUN_00094fb0 (3785 B): equivalent/0x00094fb0.cpp [wrapped: macros]
-// sym: ??0CUnlockablesManager@fn_00094fb0@@QAE@XZ @c0dc3843661c @w8469cc9b7fed
+// sym: ??0CUnlockablesManager@fn_00094fb0@@QAE@XZ @c0dc3843661c @w97c9cbd31fa5
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 void* operator new(hulk_uintptr) throw();
 namespace fn_00094fb0 {
@@ -22,7 +21,7 @@ namespace fn_00094fb0 {
 
 
 void* FUN_0008d690(unsigned int);
-char FUN_001d04d0(const void*) throw();
+char FUN_001d04d0(const void*);
 class CUnlockablesManager;
 namespace math { class Vector { public: float x, y, z; }; }
 typedef float Float; typedef bool Bool; typedef int Int; typedef void Void;
@@ -33,7 +32,7 @@ extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e134;
 #define tInt DAT_0048e134
 // Function's fields (include/decls/data/script.h); Method<N> adds the member-function pointer (CUnlockablesManager's,
 // held as ScriptMemberFn), Closure<N> the object.
-class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int) throw(); };
+class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int); };
 template<class C, class R, class A1> class Method1 : public Base { public: R (C::*f)(A1); Method1(const char* n, R (C::*x)(A1), const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
 template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, R (C::*f)(A1), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
 #define FN(b) void FUN_##b();
@@ -64,11 +63,11 @@ extern char DAT_00404818[];
 extern char DAT_004048c8[];
 extern char DAT_004048e0[];
 extern char DAT_004048fc[];
-char* __cdecl FUN_0008d6d0(unsigned int) throw();
-void __cdecl FUN_0008d340(void*) throw();
-int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, int n) throw();
+char* __cdecl FUN_0008d6d0(unsigned int);
+void __cdecl FUN_0008d340(void*);
+int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, int n);
 
-class Link8 { public: char b[8]; void FUN_0027af00() throw(); };
+class Link8 { public: char b[8]; void FUN_0027af00(); };
 
 class CUnlockable {
 public:
@@ -79,8 +78,8 @@ public:
     Link8 sub10;
     char* name;
     char pad1c[4];
-    __forceinline CUnlockable() throw() { f8 = 1; sub10.FUN_0027af00(); name = 0; }
-    __forceinline void SetName(const char* s) throw() {
+    __forceinline CUnlockable() { f8 = 1; sub10.FUN_0027af00(); name = 0; }
+    __forceinline void SetName(const char* s) {
         if (name) {
             FUN_0008d340(name);
             name = 0;
@@ -88,7 +87,7 @@ public:
         name = FUN_0008d6d0((unsigned int)(strlen(s) + 1));
         strcpy(name, s);
     }
-    __forceinline void SetNameStatic(const char* src, unsigned int len) throw() {
+    __forceinline void SetNameStatic(const char* src, unsigned int len) {
         if (name) {
             FUN_0008d340(name);
             name = 0;
@@ -110,21 +109,21 @@ public:
     int f24;
     char f28;
     char pad29[7];
-    __forceinline CUnlockableCheat() throw() { f20 = 0; f24 = -1; f28 = 0; }
+    __forceinline CUnlockableCheat() { f20 = 0; f24 = -1; f28 = 0; }
 };
 
 class CUnlockableMovie : public CUnlockableCheat {
 public:
     char f30;
     char pad31[0x3f];
-    __forceinline CUnlockableMovie() throw() { f30 = 0; }
+    __forceinline CUnlockableMovie() { f30 = 0; }
 };
 
 class CUnlockableJumpMarker : public CUnlockable {
 public:
     int f20;
     char pad24[4];
-    __forceinline CUnlockableJumpMarker() throw() { f20 = 0; }
+    __forceinline CUnlockableJumpMarker() { f20 = 0; }
 };
 
 class CUnlockableBlonskyFile : public CUnlockable {
@@ -136,7 +135,7 @@ public:
     char pad69[0x3f];
     char fa8;
     char pad[7];
-    __forceinline CUnlockableBlonskyFile() throw() { sub20.FUN_0027af00(); fa8 = 0; f68 = 0; f28 = 0; }
+    __forceinline CUnlockableBlonskyFile() { sub20.FUN_0027af00(); fa8 = 0; f68 = 0; f28 = 0; }
 };
 
 class CUnlockableGallery : public CUnlockable {
@@ -149,7 +148,7 @@ public:
     Link8 suba8;
     char fb0;
     char padb1[7];
-    __forceinline CUnlockableGallery() throw() { f20 = 0; suba8.FUN_0027af00(); fb0 = 0; f24 = 0; f64 = 0; }
+    __forceinline CUnlockableGallery() { f20 = 0; suba8.FUN_0027af00(); fb0 = 0; f24 = 0; f64 = 0; }
 };
 
 class CUnlockableMove : public CUnlockable {
@@ -166,7 +165,7 @@ public:
     Link8 sub40;
     char f48;
     char pad49[0x3f];
-    __forceinline CUnlockableMove() throw() {
+    __forceinline CUnlockableMove() {
         f20 = 0;
         f24 = 0;
         f28 = -1;

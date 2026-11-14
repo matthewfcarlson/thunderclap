@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// clang-flags: -fexceptions -fcxx-exceptions   (gx2, D22: kept until its --wine proof passes again; docs/native-build.md "gx2")
 // object 0x001e6390..0x001e85c0 (kind game, layer game, confidence medium), dominant class om::Stream
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -833,7 +832,7 @@ char Obj::Find(int x) {
 } // namespace fn_fb8261dc
 
 // 0x001e7470 FUN_001e7470 (4113 B): equivalent/0x001e7470.cpp [wrapped: macros]
-// sym: ??0CSPManager@fn_001e7470@@QAE@XZ @7ef1d125e61c @w937ac92b0e1a
+// sym: ??0CSPManager@fn_001e7470@@QAE@XZ @7ef1d125e61c @w2a5b5a9bfc65
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 void* operator new(hulk_uintptr) throw();
 namespace fn_001e7470 {
@@ -842,7 +841,7 @@ namespace fn_001e7470 {
 
 
 void* FUN_0008d690(unsigned int);
-char FUN_001d04d0(const void*) throw();
+char FUN_001d04d0(const void*);
 class CSPManager;
 namespace math { class Vector { public: float x, y, z; }; }
 typedef float Float; typedef bool Bool; typedef int Int; typedef void Void;
@@ -856,7 +855,7 @@ extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e100, DAT_0048e10c, DAT_0048e128
 #define tInt DAT_0048e134
 // Function (include/decls/data/script.h): the vftable, then Function's fields; Method<N> adds the member-function
 // pointer, Closure<N> the object.
-class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int) throw(); };
+class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int); };
 template<class C, class R, class A1> class Method1 : public Base { public: R (C::*f)(A1); Method1(const char* n, R (C::*x)(A1), const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
 template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, R (C::*f)(A1), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
 // Function<N> (a free function, no object): Function's fields and the function pointer.

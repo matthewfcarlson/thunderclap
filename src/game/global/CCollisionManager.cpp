@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// clang-flags: -fexceptions -fcxx-exceptions   (gx2, D22: kept until its --wine proof passes again; docs/native-build.md "gx2")
 // cl-flags: /GX
 // object 0x001b3020..0x001b6800 (kind game, layer game, confidence high), dominant class CCollisionManager
 #include "tree_prelude.h"
@@ -2289,7 +2288,7 @@ CCollisionManager::~CCollisionManager() {}
 namespace fn_f5af65ff {
 
 // 0x001b65f0 FUN_001b65f0 (461 B): equivalent/0x001b65f0.cpp
-// sym: ?FUN_001b65f0@Mgr_1b65f0@fn_f5af65ff@@QAEDHH@Z @9822544be5eb @w08700e1bb369
+// sym: ?FUN_001b65f0@Mgr_1b65f0@fn_f5af65ff@@QAEDHH@Z @9822544be5eb @wfdbed2763bce
 // STATUS: equivalent (tools/equiv.py level 3: 19439 inputs, branch coverage 12/12)
 // FUN_001b65f0 @ 0x001b65f0
 char Mgr_1b65f0::FUN_001b65f0(int id, int slot)
