@@ -136,7 +136,13 @@ def msvc_include_flags(src_dir):
     include/ (build_tree.compile_tu's order)."""
     if not ACTIVE:
         return []
-    return ["/I" + os.path.relpath(ACTIVE[-1], src_dir), "/I" + os.path.relpath(os.path.join(ROOT, "include"), src_dir)]
+    # (tri1) relative to the directory's real path: cl runs with cwd=SRC_DIR and the OS resolves `..` physically. A
+    # queue job's build/ is a symlink to the host's checkout, so equiv.py's probes (a temporary directory under build/)
+    # got `../../include` = the host checkout's stale include/: the sizeof probe of every tree TU failed or read old
+    # headers on the queue hosts (pointee sizes unknown), while the laptop's passed.
+    real = os.path.realpath(src_dir)
+    return ["/I" + os.path.relpath(os.path.realpath(ACTIVE[-1]), real),
+            "/I" + os.path.relpath(os.path.realpath(os.path.join(ROOT, "include")), real)]
 
 
 def clang_include_flags():
@@ -268,7 +274,33 @@ def unit_text(path, addr):
     first = rec["blocks"][0]["lines"][0] if rec["blocks"] else 1
     keep = lines[:first - 1] + lines[b["lines"][0] - 1:b["lines"][1]]
     # (gen_tree's TU namespace opens in the shared part and closes after later blocks: left out, so the text parses)
-    return "\n".join("" if NS_OPEN.match(l) or NS_CLOSE.match(l) else l for l in keep)
+    return "\n".join(strip_tu_ns(keep))
+
+
+_BRACE_NOISE = re.compile(r'//[^\n]*|/\*.*?\*/|"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'', re.S)
+
+
+def strip_tu_ns(lines):
+    """LINES with the TU namespace lines blanked: every `namespace fn_X {` line and `} // namespace fn_X` line, and (tri1)
+    the bare `}` that closes such a namespace a few lines further on (unb4's `namespace fn_X {` / declaration / `}`
+    groups in the shared part, d9cbcb9af and siblings). Blanking the opening line alone left an unbalanced `}`: the text
+    no longer parsed, and equiv.py's C-linkage signatures (decl_c_signature) of 510 blocks in 95 TUs came out empty."""
+    out = list(lines)
+    for i, l in enumerate(lines):
+        if NS_CLOSE.match(l):
+            out[i] = ""
+        if not NS_OPEN.match(l):
+            continue
+        out[i] = ""
+        depth = 1
+        for j in range(i + 1, len(lines)):
+            s = _BRACE_NOISE.sub("", lines[j])
+            depth += s.count("{") - s.count("}")
+            if depth <= 0:
+                if s.strip() == "}":
+                    out[j] = ""         # (its own close; an NS_CLOSE line is blanked above)
+                break
+    return out
 
 
 # ------------------------------------------------------------------------------------------------------- compiling
