@@ -4362,6 +4362,11 @@ class Run:
         self.cdecl_site = False
         # Callee facts only for real call sites: a target read from fuzzed memory is just a number.
         known = insn.target is not None or (insn.mem is not None and insn.mem[1] is None and insn.mem[2] is None)
+        # (tri2, ptrfacts) a call through a fixed pointer in writable data (`call [0x4de948]`): the word is fuzzed, so the
+        # code its value happens to address (0x00200000, a thiscall function) says nothing about the real callee: no
+        # register inputs, reach, purity or arity of that code are its facts (ptrfuzz did this for the pop alone)
+        fuzzed_ptr = bool(insn.target is None and insn.mem is not None and insn.mem[1] is None and insn.mem[2] is None
+                          and "ptrfacts" not in EQUIV_OFF and self.prog.section_name(insn.mem[4]) in (".data", ".bss"))
         p = self.prog.callee_pop(target) if known else self._indirect_pop(target, tail)
         if tail:
             argbase = esp + 4
@@ -4823,7 +4828,7 @@ class Run:
                            "ret_to": insn.addr + insn.size,
                            "conv": bool(conv), "argw": argw, "esp": esp, "arg_unw": arg_unw, "cpop": self.cpop,
                            "in_body": self.view.in_body(insn.addr),
-                           "via_object": self._is_virtual_on_ecx(insn), "cdecl_site": self.cdecl_site,
+                           "via_object": self._is_virtual_on_ecx(insn), "cdecl_site": self.cdecl_site, "fuzzed_ptr": fuzzed_ptr,
                            "x87args": x87a})
         self._close_segment()
         if "stackval" not in EQUIV_OFF:
@@ -6362,7 +6367,7 @@ class Run:
         for c in self.calls[nc:]:
             if c["tail"]:
                 return
-            if not c["known"] or (self.prog.callee_pure(c["target"]) and "vptrpure" not in EQUIV_OFF):
+            if not c["known"] or c.get("fuzzed_ptr") or (self.prog.callee_pure(c["target"]) and "vptrpure" not in EQUIV_OFF):
                 continue            # (a virtual call writes no vptr; a getter writes nothing outside its frame)
             ext = self.prog.callee_writes(c["target"]) or {}
             argv = [(w[0] if isinstance(w, tuple) else w) for w in c["args"]]
@@ -7042,7 +7047,8 @@ class Ours:
             for va, si, typ in sec["relocs"]:
                 if value <= va < end:
                     sym = self.obj.syms.get(si)
-                    if sym is None or (sym[2] == secnum and not sym[0].startswith(("?", "_"))):
+                    if sym is None or (sym[2] == secnum and not sym[0].startswith(("?", "_"))
+                                       and sym[0] not in TREE_EXTERNAL):
                         continue
                     out.append((va - value, sym, typ, struct.unpack_from("<i", raw, va)[0]))
                     if sym[2] > 0 and sym[3] == 0x20 and sym[0] not in TREE_EXTERNAL:
@@ -7337,8 +7343,10 @@ def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True, loc
     for off, sym, typ, addend in ours.relocs:
         if sym is None or sym == ours.func_sym:
             continue
-        if sym[2] == ours.func_secnum and not sym[0].startswith("?") and not sym[0].startswith("_"):
-            continue      # local labels / own section (switch tables)
+        if sym[2] == ours.func_secnum and not sym[0].startswith("?") and not sym[0].startswith("_") \
+                and sym[0] not in TREE_EXTERNAL:
+            continue      # local labels / own section (switch tables); (tri2) not another block of a tree TU in
+            # clang's one .text: a __fastcall block's `@NAME@n` is a function bound to its address, not a label
         if sym[0] not in [s[0] for s in syms]:
             syms.append(sym)
     # symbols used only by our own helper functions (code the original inlined): no pairing for those
@@ -7725,7 +7733,12 @@ def _nan_sign_only(a, b):
         return True
     # (perf1, nanquiet) a signalling NaN the original copies as bits (`mov`) and the SSE build's code converts
     # (cvtss2sd/cvtsd2ss set the quiet bit, 0x00400000): the same NaN, quieted; the game never makes signalling NaNs
-    return "nanquiet" not in EQUIV_OFF and (a ^ b) & 0x7FFFFFFF == 0x00400000 and (b & 0x7F800000) == 0x7F800000
+    if "nanquiet" not in EQUIV_OFF and (a ^ b) & 0x7FFFFFFF == 0x00400000 and (b & 0x7F800000) == 0x7F800000:
+        return True
+    # (tri2, nanquiet64) the same for the high word of a double NaN (`fld dword [x]; fstp qword [esp]` for `__isnan(x)`): the
+    # emulated x87 load keeps a signalling float NaN signalling, cvtss2sd (and a real x87) quiets it, bit 0x00080000
+    return "nanquiet64" not in EQUIV_OFF and (a & 0x7FF00000) == 0x7FF00000 and (a ^ b) & 0x7FFFFFFF == 0x00080000 \
+        and (b & 0x00080000) != 0
 
 
 def _uninit_diff(d, vals):
@@ -7825,7 +7838,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
         if a.get("float_ret") != b.get("float_ret"):
             pass
         oa, ra = a["args"], b["args"]
-        if len(oa) != len(ra) and NATIVE_MODE and "cdecl0" not in EQUIV_OFF and a.get("known") and \
+        if len(oa) != len(ra) and NATIVE_MODE and "cdecl0" not in EQUIV_OFF and a.get("known") and not a.get("fuzzed_ptr") and \
                 a["target"] in prog.funcs and prog.callee_stack_args(a["target"]) == 0 and \
                 prog.callee_pop(a["target"]) == 0:
             # (round 19, cdecl0) a cdecl callee that reads no stack word (a stripped `printf`-style no-op, `ret`):
@@ -7937,7 +7950,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
         # register inputs of the callee: this (ecx), fastcall/LTCG register arguments
         if a.get("conv"):
             continue              # a declared convention: registers were compared as arguments
-        want = prog.reg_inputs(a["target"]) if a["target"] in prog.funcs and a.get("known") else None
+        want = prog.reg_inputs(a["target"]) if a["target"] in prog.funcs and a.get("known") and not a.get("fuzzed_ptr") else None
         if want is None:
             want = {"ecx"} if a.get("via_object") and b.get("via_object") else set()
             if a.get("cdecl_site"):
@@ -8195,7 +8208,7 @@ def _static_icall_pops(entry):
 def _callee_ext(prog, call, loc):
     """(round 22, calleext) How many bytes the real callee of a call can reach through argument `loc` (a stack argument
     index or a register): Program.callee_reads over the original's callee, or None (unknown: compare as before)."""
-    if "calleext" in EQUIV_OFF or not call.get("known") or call.get("conv") or call["target"] not in prog.funcs:
+    if "calleext" in EQUIV_OFF or not call.get("known") or call.get("fuzzed_ptr") or call.get("conv") or call["target"] not in prog.funcs:
         return None
     cr = prog.callee_reads(call["target"])
     if cr is None:
@@ -9739,6 +9752,45 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
                     if k_ and s_[0] not in r_m and len(mkeys.get(k_, ())) == 1 and s_[0] not in ours_fn:
                         r_m[s_[0]] = r_m[mkeys[k_][0]]
                         how_m[s_[0]] = how_m.get(mkeys[k_][0], "?")
+                if "lstaticbr" not in EQUIV_OFF:
+                    # (tri2, lstaticbr) inside a tree namespace the two manglings' back-references differ too (MSVC
+                    # `...@Prop_1e2940@3@H@Z@4IA` after `?EA@`, clang `...@2@H@Z@4IA` after `?1`): a second pass with the
+                    # back-reference digits taken out of the key, for the names the exact key left unbound (one
+                    # candidate only). Clang's own pairing had bound 0x001e2940's guard `$S1` to a float literal
+                    def _lsbr(k_):
+                        return (k_[0], re.sub(r"(?<=@)\d+(?=[@A-Z])", "#", k_[1])) if k_ else None
+                    cnames_ = {s_[0] for s_ in obj.syms.values()}
+                    bkeys = defaultdict(list)
+                    for n_ in r_m:
+                        k_ = _lsbr(_lskey(n_))
+                        if k_ and n_ not in cnames_:
+                            bkeys[k_].append(n_)
+                    for s_ in obj.syms.values():
+                        k_ = _lsbr(_lskey(s_[0]))
+                        if k_ and s_[0] not in r_m and s_[0] not in ours_fn and len(bkeys.get(k_, ())) == 1:
+                            r_m[s_[0]] = r_m[bkeys[k_][0]]
+                            how_m[s_[0]] = "lstaticbr:" + how_m.get(bkeys[k_][0], "?")
+            if "treeblk" not in EQUIV_OFF and TREE_ADDR:
+                # (tri2, treeblk) a block-scope `extern const float zero_d94e0;` in a function of a wrapped block names
+                # the global `?zero_d94e0@@3MB` for MSVC 7.1 and `?zero_d94e0@fn_000d94e0@@3MB` for clang (the innermost
+                # enclosing namespace, as the standard says): one variable, so clang's name takes the MSVC object's
+                # binding (tree namespaces are not part of a name; same type code after `@@`; one candidate only)
+                have_ = {s_[0] for s_ in obj.syms.values()}
+                mk_ = defaultdict(list)
+                for n_ in r_m:
+                    if n_.startswith("?") and n_ not in have_:
+                        k_ = _tree_key(n_)
+                        if k_:
+                            mk_[(k_, n_.rsplit("@@", 1)[-1])].append(n_)
+                for s_ in obj.syms.values():
+                    n_ = s_[0]
+                    if s_[2] > 0 or n_ in r_m or not n_.startswith("?") or not re.search(r"@fn_[0-9a-f]{8}@", n_):
+                        continue
+                    k_ = _tree_key(n_)
+                    hit_ = mk_.get((k_, n_.rsplit("@@", 1)[-1])) if k_ else None
+                    if hit_ and len(hit_) == 1:
+                        r_m[n_] = r_m[hit_[0]]
+                        how_m[n_] = "treeblk:" + how_m.get(hit_[0], "?")
             for n_, a_ in r_m.items():
                 if n_ in ours_fn:
                     continue

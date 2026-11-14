@@ -1033,6 +1033,34 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   Cases `0x00219a60_wine_fescape[_off]`, `0x00216340_wine_rowrite[_off]`, `0x0021aa00_wine_natobj[_off,_wrong]`,
   `0x0033d400_wine_fillrel[_off]`, and `0x0021b230_wine_order[_wrong]` (a source fix: clang orders `b->buffer[b->n++] = c`
   and `*z->p++` store-first, which a buffer overlapping its header tells apart; the sources now spell the original's order).
+- (round 30, tri2) **`--wine` on a tree TU**: merge-once's identity sample (200 blocks at 64 inputs) left tree-mode gaps that
+  only clang's object meets; the 226 `--wine` blocks chk1's audit found failing with the old checker too had never been run
+  `--wine` as tree TUs (their `@w` hashes came from `hash --init`). None loosens a comparison; each binds a symbol of clang's
+  object the way the MSVC object (or the standalone source) already bound it:
+  - `TREE_EXTERNAL` in clang's one `.text`: `resolve_symbols` and `local_relocs` took a same-section symbol that starts with
+    neither `?` nor `_` for a local label, so a call to a `__fastcall` block of the same TU (`@FUN_00212bb0@8`) ran our copy in
+    place (bad_access, "missing call", "call #1 went to"). MSVC's `/Gy` gives every function its own section. The other
+    blocks of the TU are excepted from the skip. Ten lapi.cpp blocks; case `0x00212f70_native_tree_fastcall[_wrong]`.
+  - `ptrfacts`: `call [g]` through a fixed pointer in `.data`/`.bss` (fuzzed, as all writable globals): the code its value
+    happens to address (0x00200000, a `thiscall` function) is not the callee, so its register inputs (ecx compared as
+    `this`), reach, purity (`vptrkeep`) and arity (`cdecl0`) are not used; ptrfuzz did this for the pop alone. DAT_004de948
+    (the frame-time getter); cases `0x000f8280_native_ptrfacts[_off]`.
+  - `treeblk`: a block-scope `extern const float zero_d94e0;` in a function of a wrapped block names the global for MSVC 7.1
+    (`?zero_d94e0@@3MB`) and the enclosing namespace's variable for clang (`?zero_d94e0@fn_000d94e0@@3MB`); the clang name
+    takes the MSVC object's binding (one candidate, same type code). Case `0x000d94e0_native_tree_blockextern[_wrong]`.
+  - `lstaticbr`: inside a tree namespace the two manglings of a function-local static also differ in their back-references
+    (`...@3@H@Z@4IA` after MSVC's `?EA@`, `...@2@H@Z@4IA` after clang's `?1`); a second `lstatic` pass with the
+    back-reference digits taken out of the key (unique match only). 0x001e2940's guard `$S1` had been paired with a float
+    literal. Cases `0x001e2940_native_tree_lstatic[_off]`.
+  - `nanquiet64`: nanquiet (perf1) for the high word of a double: `fld dword [x]; fstp qword [esp]; call __isnan` keeps a
+    fuzzed signalling float NaN signalling in the emulated x87 (a real x87 load quiets it), and cvtss2sd quiets it (bit
+    0x00080000). The input is inconclusive, as for nanquiet. 0x00221f90, 0x001d3f60, 0x00261e60; cases
+    `0x00221f90_native_nanquiet64[_off]`.
+  - Source classes the 226 hold (not checker rules; build/tri2 and docs/native-build.md "tri2"): x87 values the original
+    keeps in st0 (`fst [v]; fmul [v]` multiplies the unrounded difference by the stored one; a float return added before it
+    is stored; a product kept for two statements and another spilled), `hulk_freg` locals the original stores as `float`
+    (a denormal halved, a `fst`-stored fraction read back), `_ftol`'s 64-bit result (`(unsigned)(__int64)x`), and a vptr
+    loaded before an argument's call where clang loads it after.
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check

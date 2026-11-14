@@ -501,6 +501,32 @@ CASES = {
     # constructor fell back to pairing and bound the allocator (native10 stop 17)
     "0x0029a190_tree_ctor_map": ("equivalent", None),
     "0x0029a190_tree_ctor_map_wrong": ("fail", "went to 0x00263ea0 instead of 0x002a3480"),
+    # (tri2) a tree TU checked --wine: clang's one .text holds the TU's __fastcall block `@FUN_00212bb0@8` too; a call
+    # to it is a call to 0x00212bb0 (TREE_EXTERNAL), not a local label of the section run in place
+    "0x00212f70_native_tree_fastcall": ("equivalent", None, 0, {"native": True, "n_inputs": 300}),
+    "0x00212f70_native_tree_fastcall_wrong": ("fail", "to 0x00212bb0: this (ecx) is", 0, {"native": True, "n_inputs": 300}),
+    # (tri2, treeblk) a block-scope `extern const float zero_d94e0;` in a wrapped block: MSVC 7.1 names the global, clang
+    # the enclosing namespace's variable; clang's name takes the MSVC object's binding (0x003f335c)
+    "0x000d94e0_native_tree_blockextern": ("equivalent", None, 0, {"native": True, "n_inputs": 300}),
+    "0x000d94e0_native_tree_blockextern_wrong": ("fail", "argument 5 is 0x004a0c60, expected 0x003f335c", 0,
+                                                 {"native": True, "n_inputs": 300}),
+    # (tri2, lstaticbr) a function-local static's guard in a wrapped block: the manglings' back-references differ too
+    "0x001e2940_native_tree_lstatic": ("equivalent", None, 0, {"native": True, "n_inputs": 300}),
+    "0x001e2940_native_tree_lstatic_off": ("fail", "unexpected write to global 0x00421894", 0,
+                                           {"src": "0x001e2940_native_tree_lstatic", "native": True, "n_inputs": 300,
+                                            "equiv_off": "lstaticbr"}),
+    # (tri2, ptrfacts) `call [0x4de948]` (a .bss function pointer, fuzzed): the code its value happens to hit (0x00200000,
+    # thiscall) is not the callee, so ecx is no argument there; seeds where the old rule compared it
+    "0x000f8280_native_ptrfacts": ("equivalent", None, 0, {"native": True, "seeds": [341, 503, 1117]}),
+    # (tri2, nanquiet64) `__isnan(m[i])`: a signalling float NaN stored as a double stays signalling in the emulated x87,
+    # cvtss2sd quiets it (the high word's bit 0x00080000); the input is set aside like nanquiet's float words
+    "0x00221f90_native_nanquiet64": ("inconclusive", None, 0, {"native": True, "seeds": [615]}),
+    "0x00221f90_native_nanquiet64_off": ("fail", "argument 2 is 0xfffe3a93, expected 0xfff63a93", 0,
+                                         {"src": "0x00221f90_native_nanquiet64", "native": True, "seeds": [615],
+                                          "equiv_off": "nanquiet64"}),
+    "0x000f8280_native_ptrfacts_off": ("fail", "call #1 to 0x00200000: this (ecx) is", 0,
+                                       {"src": "0x000f8280_native_ptrfacts", "native": True, "seeds": [341, 503, 1117],
+                                        "equiv_off": "ptrfacts"}),
     # round 16 (cl4). reg_writes: a self-recursive callee's writes are a fixpoint, not eax/ecx/edx (rwfix).
     # 0x0030ecb0 calls itself and never writes edx; the original keeps the node in edx across the call
     "0x0030ed60_recursive_edx": ("equivalent", None, 0.95),
