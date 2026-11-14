@@ -106,6 +106,38 @@ class CStaticAllocator {
     void* mBits;
     int mZ;
 };
+// (x64t12) The projectile pool DAT_004e2210 (decls/data/records.h GameStaticAllocator): the constructor's class and
+// the views of 0x0008fe90 / 0x0008ff00 (gen/owners.h) lay it out as the record does, on every build.
+#define HULK_POOL_CAT2(a, b) a##b
+#define HULK_POOL_CAT(a, b) HULK_POOL_CAT2(a, b)
+#if defined(__clang__)
+#define HULK_POOL_SAME(V, v, r) \
+    typedef char HULK_POOL_CAT(hulk_pool_same_, __LINE__)[(__builtin_offsetof(V, v) == \
+                                                           __builtin_offsetof(GameStaticAllocator, r)) ? 1 : -1]
+#else
+#define HULK_POOL_SAME(V, v, r) \
+    typedef char HULK_POOL_CAT(hulk_pool_same_, __LINE__)[((unsigned int)(hulk_uintptr)&((V*)0)->v == \
+                                                           (unsigned int)(hulk_uintptr)&((GameStaticAllocator*)0)->r) ? 1 : -1]
+#endif
+#define HULK_POOL_SIZE(V) typedef char HULK_POOL_CAT(hulk_pool_size_, __LINE__)[(sizeof(V) == sizeof(GameStaticAllocator)) ? 1 : -1]
+HULK_POOL_SIZE(CStaticAllocator);
+HULK_POOL_SAME(CStaticAllocator, mA, elemSize);
+HULK_POOL_SAME(CStaticAllocator, mB, count);
+HULK_POOL_SAME(CStaticAllocator, mC, flags);
+HULK_POOL_SAME(CStaticAllocator, mData, data);
+HULK_POOL_SAME(CStaticAllocator, mBits, bits);
+HULK_POOL_SAME(CStaticAllocator, mZ, cursor);
+HULK_POOL_SIZE(owners::BitPool_8fe90);
+HULK_POOL_SAME(owners::BitPool_8fe90, elemSize, elemSize);
+HULK_POOL_SAME(owners::BitPool_8fe90, count, count);
+HULK_POOL_SAME(owners::BitPool_8fe90, base, data);
+HULK_POOL_SAME(owners::BitPool_8fe90, bitmap, bits);
+HULK_POOL_SAME(owners::BitPool_8fe90, cursor, cursor);
+HULK_POOL_SIZE(owners::Thing_8ff00);
+HULK_POOL_SAME(owners::Thing_8ff00, divisor, elemSize);
+HULK_POOL_SAME(owners::Thing_8ff00, base, data);
+HULK_POOL_SAME(owners::Thing_8ff00, bits, bits);
+HULK_POOL_SAME(owners::Thing_8ff00, limit, cursor);
 
 
 // 0x0008ed50 FUN_0008ed50 (3 B): matches/0x0008ed50.cpp
@@ -693,7 +725,7 @@ CStaticAllocator::CStaticAllocator(unsigned a, unsigned b, int c, int d) {
 } // namespace fn_ff1b4d41
 
 // 0x0008fe90 FUN_0008fe90 (109 B): equivalent/0x0008fe90.cpp
-// sym: ?FUN_0008fe90@BitPool_8fe90@owners@@QAEHH@Z @84cc07bf9c05 @w16e7ff13777a
+// sym: ?FUN_0008fe90@BitPool_8fe90@owners@@QAEHH@Z @84cc07bf9c05 @wef620245627c
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_0008fe90 @ 0x0008fe90
 hulk_intptr owners::BitPool_8fe90::FUN_0008fe90(int unused)
@@ -709,7 +741,7 @@ hulk_intptr owners::BitPool_8fe90::FUN_0008fe90(int unused)
                 *p |= mask;
                 int taken = cursor;
                 cursor = taken + 1;
-                return elemSize * taken + base;
+                return elemSize * taken + (hulk_intptr)base;
             }
             cursor = cursor + 1;
             if ((int)mask < 0) {
@@ -728,7 +760,7 @@ hulk_intptr owners::BitPool_8fe90::FUN_0008fe90(int unused)
 // 0x0008ff00 FUN_0008ff00 (60 B): matches/0x0008ff00.cpp
 // sym: ?FUN_0008ff00@Thing_8ff00@owners@@QAEXHH@Z
 void owners::Thing_8ff00::FUN_0008ff00(hulk_intptr value, int unused) {
-    unsigned int index = (((int)value) - base) / divisor;
+    unsigned int index = (unsigned int)(value - (hulk_intptr)base) / divisor;
     bits[index >> 5] &= ~(1u << (index & 31));
     if (index < limit)
         limit = index;
@@ -739,18 +771,15 @@ void owners::Thing_8ff00::FUN_0008ff00(hulk_intptr value, int unused) {
 // sym: ?Reset@CStaticAllocator@fn_0008ff50@@QAEXXZ
 namespace fn_0008ff50 {
 extern "C" char DAT_00400c1c[];
-struct CStaticAllocator {
-    void* vf;
-    char pad[0xC];
-    int m10;
-    int m14;
+// (x64t12) the pool's record (decls/data/records.h GameStaticAllocator): its blocks and its bit map freed
+struct CStaticAllocator : GameStaticAllocator {
     void Reset();
 };
 void thunk_FUN_00267090(hulk_intptr);
 void CStaticAllocator::Reset() {
-    vf = (void*)((hulk_intptr)DAT_00400c1c);
-    thunk_FUN_00267090(m14);
-    thunk_FUN_00267090(m10);
+    vftable = (void*)((hulk_intptr)DAT_00400c1c);
+    thunk_FUN_00267090((hulk_intptr)bits);
+    thunk_FUN_00267090((hulk_intptr)data);
 }
 } // namespace fn_0008ff50
 

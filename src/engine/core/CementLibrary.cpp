@@ -29,9 +29,11 @@ struct Inner_277380 {
     virtual void f();
 };
 struct Obj_277380 : A_277380, Inner_277380 {};
+// (x64t12) core::CementLibrary on its record (decls/data/records.h CoreCementLibrary): a slot reached through a base
+// subobject finds the record by that subobject's offset in it (the 32-bit one on the 32-bit builds)
+#define HULK_CL_FROM(p, member) \
+    ((CoreCementLibrary*)((char*)(p) - (hulk_intptr)&((CoreCementLibrary*)0)->member))
 struct CementLibrary {
-    char pad[0xc];
-    Obj_277380* p;
     void vfunc_0_adj10();
 };
 class V {
@@ -48,15 +50,8 @@ class P_277390 {
   public:
     virtual void x0();
     virtual void x1();
-    char pad[8];
-    Q_277390* p;
 };
-class C_2773a0 {
-    char pad[0x20];
-
-  public:
-    unsigned int value;
-};
+class C_2773a0 : public CoreCementLibrary {};
 class Foo_2773f0 {
   public:
     virtual void f();
@@ -66,15 +61,10 @@ class Callback_277410 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual void f3(int);
+    virtual void f3(hulk_uintptr);
 };
-class Obj_277410 {
+class Obj_277410 : public CoreCementLibrary {
   public:
-    char pad[0x20];
-    int value;
-    char pad2[0x48];
-    Callback_277410* cb;
-    int arg;
     void Set(int);
 };
 struct Dispatch_277500 {
@@ -101,13 +91,12 @@ struct Dispatch_277500 {
     virtual void u();
     virtual void v();
 };
-struct Node {
-  public:
+// (x64t12) the drive's library list (records.h CoreDriveLibraryList) and its libraries' link words (CoreCementLibrary
+// next / bucket); a library's own slots through NodeV
+struct Node : CoreCementLibrary {};
+struct NodeV {
     virtual void _m_vf0();
     virtual void f1();
-    char _m_pad_4[0x60];
-    Node* next;
-    int index;
 };
 class Owner_277540 {
   public:
@@ -118,35 +107,24 @@ class Queue_277570 {
     void Push(Node* n);
     Node* heads[4];
 };
-struct Entry {
-    char pad[0x64];
-    Entry* next;
-    int bucket;
-};
+struct Entry : CoreCementLibrary {};
 struct Table {
     Entry* head[2];
     Entry* tail[2];
     void FUN_002775b0(Entry* entry);
 };
-class Obj {
-    char pad[0x10];
-    Node* node;
-
+class Obj : CoreDriveLibraryList {
   public:
     Node* Advance();
 };
 extern "C" int __cdecl FUN_00270ba0();
 extern "C" int __cdecl FUN_0026fd50(int, int);
-extern int __cdecl f66eb0_00266eb0(int, int, int);
-struct X_277670 {
-    char pad[0x14];
-    int a;
-    int b;
-    int refs;
-    int arg;
+extern void* __cdecl f66eb0_00266eb0(int, int, int);
+// (x64t12) the library list's shared buffer (records.h CoreDriveLibraryList buffer / size / refs / heap)
+struct X_277670 : CoreDriveLibraryList {
     void f();
 };
-extern void __cdecl helper_00266f20(int, int);
+extern void __cdecl helper_00266f20(int, void*);
 class Inner_2777b0 {
   public:
     void call_0026f160();
@@ -175,21 +153,22 @@ class C_2777e0 : public A_2777e0, public B_2777e0 {
     virtual void f2(int);
     C_2777e0();
 };
-struct Callback_277810 { virtual void s0(); virtual void release(); virtual void s2(); virtual void complete(unsigned); };
+struct Callback_277810 { virtual void s0(); virtual void release(); virtual void s2(); virtual void complete(hulk_uintptr); };
 struct File { virtual void s0(); virtual void s1(); virtual void s2(); virtual void read(void*,unsigned,int); virtual void s4(); virtual void seek(unsigned); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void* get(); virtual void s17(); virtual void async(void*,int); virtual void s19(); virtual void s20(); virtual void s21(); virtual unsigned status(); virtual bool ready(); virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27(); virtual void s28(); virtual void s29(); virtual void mode(int); };
 struct Result_277810 {  };
 struct Owner_277810 { Result_277810* FUN_00272bc0(); void FUN_00272ba0(void*); };
 void* __cdecl FUN_00266eb0(unsigned,unsigned,unsigned);
 struct Whole { void FUN_00277410(int); };
-struct LibraryBase { char pad0[8]; unsigned allocator; char padC[8]; Owner_277810* owner; File* file; unsigned state; unsigned char header[60]; void* buffer; char pad60[8]; Callback_277810* callback; unsigned context; void target(unsigned); };
+// (x64t12) the IFileCompletionCallback subobject (+4) of a core::CementLibrary (records.h CoreCementLibrary)
+struct LibraryBase { void target(unsigned); };
 struct Entry_2779b0 { unsigned int unused, value4, value8, valueC, value10; };
-Entry_2779b0* __cdecl FUN_00277310(void* table, unsigned int stride, unsigned int count, unsigned int key);
-struct Info_2779b0 { char pad[0x14]; unsigned int value14, value18; };
+void* __cdecl FUN_00277310(unsigned int upper, unsigned int stride, const void* base, unsigned int key);   // (x64t12) the definition's
+struct Info_2779b0 : CoreDriveLibraryList {};   // (x64t12) the drive's library list: its shared buffer and size
 struct Provider_2779b0 { Info_2779b0* FUN_00272bc0(); };
-struct Output_2779b0 { void FUN_00277c40(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int); };
-struct CementLibrary_2779b0 {
- char pad0[0x18]; Provider_2779b0* provider; unsigned int value1C; unsigned int state;
- char pad24[0x21]; unsigned char mode; char pad46[0x12]; unsigned int value58; void* table; unsigned int count;
+struct Output_2779b0 { void FUN_00277c40(void*, unsigned int, unsigned int, unsigned int, unsigned int, char*, unsigned int, unsigned int); };
+// (x64t12) records.h CoreCementLibrary: the drive, the file, the state, the header's layout flag / data count /
+// entry count and the entry table
+struct CementLibrary_2779b0 : CoreCementLibrary {
  bool FUN_002779b0(unsigned int key, Output_2779b0* output);
 };
 class Thing_277a40 : public CoreDriveLibraryList {
@@ -217,17 +196,15 @@ class CementLibrary_277b10 {
     virtual void f12();
 };
 extern "C" unsigned int __cdecl FUN_002698b0(char*);
-struct CementLibrary_nv_277b40 {
-    unsigned int Fnf_002779b0(unsigned int, unsigned int);
-};
+// (x64t12) the library's lookup 0x002779b0 by its own name, the file's view a pointer (records.h CoreFileView)
 struct C_277b40 {
-    unsigned int f(char*, unsigned int);
+    bool f(char*, CoreFileView*);
 };
 struct File_nv_277b70 {
-    core::File* FUN_002764d0(unsigned int a,unsigned int b,int c,int d,int e,int f,int g,int h,int i);
+    core::File* FUN_002764d0(void* a,const char* b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,unsigned int g,unsigned int h,unsigned char i);
 };
 struct CementLibrary_nv_277b70 {
-    core::CementLibrary* FUN_00277a70(unsigned int a,core::File* b,unsigned int c);
+    core::CementLibrary* FUN_00277a70(void* a,core::File* b,unsigned int c);
 };
 extern "C" core::File* __cdecl FUN_00275d50(unsigned int size);
 extern "C" core::CementLibrary* __cdecl FUN_00266e00(unsigned int a,hulk_uintptr size);
@@ -255,7 +232,7 @@ struct Resource_277c40 {
  virtual unsigned int slot16();
 };
 struct State_277c40 : CoreFileView {
- void FUN_00277c40(Resource_277c40*, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
+ void FUN_00277c40(Resource_277c40*, unsigned int, unsigned int, unsigned int, unsigned int, char*, unsigned int, unsigned int);
 };
 
 } // namespace fn_f6ff0ab7
@@ -401,14 +378,14 @@ void* __cdecl FUN_00277310(unsigned int upper, unsigned int stride, const void* 
 // 0x00277380 core::CementLibrary::vfunc_0_adj10 (11 B): matches/0x00277380.cpp
 // sym: ?vfunc_0_adj10@CementLibrary@fn_f6ff0ab7@@QAEXXZ
 void CementLibrary::vfunc_0_adj10() {
-    p->f();
+    ((Obj_277380*)HULK_CL_FROM(this, vftableMutable)->file)->f();
 }
 
 
 // 0x00277390 core::CementLibrary::vfunc_1_adj10 (12 B): matches/0x00277390.cpp
 // sym: ?x1@P_277390@fn_f6ff0ab7@@UAEXXZ
 void P_277390::x1() {
-    p->f1();
+    ((Q_277390*)HULK_CL_FROM(this, vftableMutable)->file)->f1();
 }
 
 
@@ -416,7 +393,7 @@ void P_277390::x1() {
 // sym: ?target@fn_f6ff0ab7@@YIIPAVC_2773a0@1@@Z
 // Same code shape as 0x00086280 (propagated; names are from that function)
 unsigned int __fastcall target(C_2773a0* self) {
-    return self->value;
+    return self->state;
 }
 
 } // namespace fn_f6ff0ab7
@@ -452,12 +429,12 @@ namespace fn_f6ff0ab7 {
 // 0x00277410 FUN_00277410 (52 B): matches/0x00277410.cpp
 // sym: ?Set@Obj_277410@fn_f6ff0ab7@@QAEXH@Z
 void Obj_277410::Set(int x) {
-    value = x;
-    if (cb) {
-        cb->f3(arg);
-        cb->f1();
-        cb = 0;
-        arg = 0;
+    state = x;
+    if (callback) {
+        ((Callback_277410*)callback)->f3(callbackArgument);
+        ((Callback_277410*)callback)->f1();
+        callback = 0;
+        callbackArgument = 0;
     }
 }
 
@@ -476,7 +453,7 @@ extern "C" int __cdecl sprintf(char*,const char*,...);
 
 namespace core { struct CementLibrary; }
 struct Manager_277460 { void FUN_00272b60(void*,U_277460,U_277460); };
-struct File_277460 { File_277460* FUN_002764d0(Manager_277460*,const char*,U_277460,U_277460,U_277460,U_277460,U_277460,U_277460,U_277460); };
+struct File_277460 { File_277460* FUN_002764d0(Manager_277460*,const char*,U_277460,U_277460,U_277460,U_277460,U_277460,U_277460,unsigned char); };
 struct Request { Request* FUN_00274fc0(File_277460*,U_277460,core::CementLibrary*); };
 extern File_277460* __cdecl FUN_00275d50(U_277460);
 extern Request* __cdecl FUN_00273560(U_277460);
@@ -485,18 +462,19 @@ struct CementLibrary {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6();
  virtual void vfunc_7(File_277460**,U_277460,U_277460,U_277460,U_277460,U_277460);
  virtual void vfunc_8();
- char pad[0x14]; Manager_277460* manager;
 };
+// (x64t12) the drive (records.h CoreCementLibrary)
+#define HULK_CL_MANAGER(p) ((Manager_277460*)((CoreCementLibrary*)(void*)(p))->drive)
 void CementLibrary::vfunc_7(File_277460** output,U_277460 id,U_277460 p4,U_277460 p5,U_277460 p6,U_277460 p7) {
  char name[16]; sprintf(name,"0x%X",id);
  File_277460* storage=FUN_00275d50(0x168);
  File_277460* result=0;
- if(storage) result=storage->FUN_002764d0(manager,name,0,0,p4,p5,p6,p7,0);
+ if(storage) result=storage->FUN_002764d0(HULK_CL_MANAGER(this),name,0,0,p4,p5,p6,p7,0);
  *output=result;
  Request* allocation=FUN_00273560(0x14);
  Request* request=0;
  if(allocation) request=allocation->FUN_00274fc0(result,id,this);
- manager->FUN_00272b60(request,p4,0);
+ HULK_CL_MANAGER(this)->FUN_00272b60(request,p4,0);
 }
 }
 } // namespace fn_00277460
@@ -522,8 +500,8 @@ void __fastcall FUN_00277540(Owner_277540* self) {
         Node* p = self->head[i];
         while (p) {
             Node* c = p;
-            p = c->next;
-            c->f1();
+            p = (Node*)c->next;
+            ((NodeV*)c)->f1();
         }
     }
 }
@@ -532,7 +510,7 @@ void __fastcall FUN_00277540(Owner_277540* self) {
 // 0x00277570 FUN_00277570 (54 B): matches/0x00277570.cpp
 // sym: ?Push@Queue_277570@fn_f6ff0ab7@@QAEXPAUNode@2@@Z
 void Queue_277570::Push(Node* n) {
-    int i = n->index;
+    int i = n->bucket;
     if (heads[i] == 0) {
         heads[i] = n;
         n->next = 0;
@@ -556,10 +534,10 @@ void Table::FUN_002775b0(Entry* entry) {
         do {
             Entry* cur = *link;
             if (cur == entry) {
-                *link = (*link)->next;
+                *link = (Entry*)(*link)->next;
                 break;
             }
-            link = &cur->next;
+            link = (Entry* volatile*)&cur->next;
             previous = cur;
         } while (*link);
     }
@@ -580,9 +558,9 @@ namespace fn_f6ff0ab7 {
 // 0x00277600 FUN_00277600 (14 B): matches/0x00277600.cpp
 // sym: ?Advance@Obj@fn_f6ff0ab7@@QAEPAUNode@2@XZ
 Node* Obj::Advance() {
-    Node* p = node;
+    Node* p = (Node*)cursor;
     if (p)
-        node = p->next;
+        cursor = p->next;
     return p;
 }
 
@@ -606,9 +584,9 @@ namespace fn_f6ff0ab7 {
 // sym: ?f@X_277670@fn_f6ff0ab7@@QAEXXZ
 void X_277670::f() {
     if (refs == 1) {
-        helper_00266f20(arg, a);
-        a = 0;
-        b = 0;
+        helper_00266f20(heap, buffer);
+        buffer = 0;
+        size = 0;
     }
     --refs;
 }
@@ -737,6 +715,7 @@ void core::CementLibrary::vfunc_1() {
 // 0x002777c0 core::CementLibrary::vfunc_0_adj4 (8 B): matches/0x002777c0.cpp [wrapped: no out-of-line definition (target defined in a class body)]
 // sym: ?vfunc_0@CementLibrary@core@fn_002777c0@@W3AEXXZ
 namespace fn_002777c0 {
+#if !defined(HULK_PTR64)
 namespace core {
 class ICementLibrary {
   public:
@@ -755,12 +734,27 @@ class CementLibrary : public ICementLibrary, public IRefCount {
 };
 CementLibrary g;
 } // namespace core
+#else
+// (x64t12) The 64-bit builds: the code above is a compiler-generated adjustor thunk of an invented class (`this - 4`,
+// then the slot), whose adjustment and target are the invented layout's (natively an undefined local method). Here
+// the thunk is explicit: core::CementLibrary's slot takes the vftableCallback sub-object, steps back to the library by that
+// base's offset in records.h CoreCementLibrary and runs 0x00277790 (core::CementLibrary::vfunc_0, called by its own name). The
+// function is named by its own address: native_mac.TreeDefs finds the game vftable slot's definition by that name.
+struct Thunk_002777c0 {
+    void FUN_002777c0();
+};
+void Thunk_002777c0::FUN_002777c0() {
+    char* lib = (char*)this - (hulk_uintptr)&((CoreCementLibrary*)0)->vftableCallback;
+    ((::core::CementLibrary*)lib)->::core::CementLibrary::vfunc_0();
+}
+#endif
 } // namespace fn_002777c0
 
 
 // 0x002777d0 core::CementLibrary::vfunc_1_adj4 (8 B): matches/0x002777d0.cpp [wrapped: conflict: core::CementLibrary; core::ICementLibrary; core::IRefCount]
 // sym: ?a@CementLibrary@core@fn_002777d0@@W3AEXXZ
 namespace fn_002777d0 {
+#if !defined(HULK_PTR64)
 namespace core {
 class ICementLibrary {
   public:
@@ -788,19 +782,49 @@ void CementLibrary::b() {
     work(this);
 }
 } // namespace core
+#else
+// (x64t12) The 64-bit builds: the code above is a compiler-generated adjustor thunk of an invented class (`this - 4`,
+// then the slot), whose adjustment and target are the invented layout's (natively an undefined local method). Here
+// the thunk is explicit: core::CementLibrary's slot takes the vftableCallback sub-object, steps back to the library by that
+// base's offset in records.h CoreCementLibrary and runs 0x002777b0 (core::CementLibrary::vfunc_1, called by its own name). The
+// function is named by its own address: native_mac.TreeDefs finds the game vftable slot's definition by that name.
+struct Thunk_002777d0 {
+    void FUN_002777d0();
+};
+void Thunk_002777d0::FUN_002777d0() {
+    char* lib = (char*)this - (hulk_uintptr)&((CoreCementLibrary*)0)->vftableCallback;
+    ((::core::CementLibrary*)lib)->::core::CementLibrary::vfunc_1();
+}
+#endif
 } // namespace fn_002777d0
 
 namespace fn_f6ff0ab7 {
 
 // 0x002777e0 core::CementLibrary::vfunc_2_adj4 (8 B): matches/0x002777e0.cpp
 // sym: ?f2@C_2777e0@fn_f6ff0ab7@@W3AEXH@Z
+#if !defined(HULK_PTR64)
 C_2777e0::C_2777e0() {}
+#else
+// (x64t12) The 64-bit builds: the code above is a compiler-generated adjustor thunk of an invented class (`this - 4`,
+// then the slot), whose adjustment and target are the invented layout's (natively an undefined local method). Here
+// the thunk is explicit: core::CementLibrary's slot takes the vftableCallback sub-object, steps back to the library by that
+// base's offset in records.h CoreCementLibrary and runs 0x00277b10 (the deleting destructor, called by its own name). The
+// function is named by its own address: native_mac.TreeDefs finds the game vftable slot's definition by that name.
+struct Thunk_002777e0 {
+    void* FUN_002777e0(unsigned char flags);
+};
+void* Thunk_002777e0::FUN_002777e0(unsigned char flags) {
+    char* lib = (char*)this - (hulk_uintptr)&((CoreCementLibrary*)0)->vftableCallback;
+    return ((::fn_f6ff0ab7::CementLibrary_277b10*)lib)->::fn_f6ff0ab7::CementLibrary_277b10::f2(flags);
+}
+#endif
 
 } // namespace fn_f6ff0ab7
 
 // 0x002777f0 core::CementLibrary::vfunc_0_adj8 (8 B): matches/0x002777f0.cpp [wrapped: conflict: CementLibrary]
 // sym: ?v2@CementLibrary@fn_002777f0@@W7AEXXZ
 namespace fn_002777f0 {
+#if !defined(HULK_PTR64)
 class A_2777f0 {
   public:
     virtual void v0() {}
@@ -824,12 +848,27 @@ class CementLibrary : public A_2777f0, public B_2777f0 {
 };
 void CementLibrary::v2() {}
 CementLibrary gObj_2777f0;
+#else
+// (x64t12) The 64-bit builds: the code above is a compiler-generated adjustor thunk of an invented class (`this - 8`,
+// then the slot), whose adjustment and target are the invented layout's (natively an undefined local method). Here
+// the thunk is explicit: core::CementLibrary's slot takes the vftableObject sub-object, steps back to the library by that
+// base's offset in records.h CoreCementLibrary and runs 0x00277b10 (the deleting destructor, called by its own name). The
+// function is named by its own address: native_mac.TreeDefs finds the game vftable slot's definition by that name.
+struct Thunk_002777f0 {
+    void* FUN_002777f0(unsigned char flags);
+};
+void* Thunk_002777f0::FUN_002777f0(unsigned char flags) {
+    char* lib = (char*)this - (hulk_uintptr)&((CoreCementLibrary*)0)->vftableObject;
+    return ((::fn_f6ff0ab7::CementLibrary_277b10*)lib)->::fn_f6ff0ab7::CementLibrary_277b10::f2(flags);
+}
+#endif
 } // namespace fn_002777f0
 
 
 // 0x00277800 core::CementLibrary::vfunc_2_adj10 (8 B): matches/0x00277800.cpp [wrapped: conflict: core::CementLibrary]
 // sym: ?a@CementLibrary@core@fn_00277800@@WBA@AEXH@Z
 namespace fn_00277800 {
+#if !defined(HULK_PTR64)
 namespace core {
 struct I0 {
     virtual void a(int);
@@ -855,39 +894,61 @@ void CementLibrary::c(unsigned flags) {
     a(0);
 }
 } // namespace core
+#else
+// (x64t12) The 64-bit builds: the code above is a compiler-generated adjustor thunk of an invented class (`this - 0x10`,
+// then the slot), whose adjustment and target are the invented layout's (natively an undefined local method). Here
+// the thunk is explicit: core::CementLibrary's slot takes the vftableMutable sub-object, steps back to the library by that
+// base's offset in records.h CoreCementLibrary and runs 0x00277b10 (the deleting destructor, called by its own name). The
+// function is named by its own address: native_mac.TreeDefs finds the game vftable slot's definition by that name.
+struct Thunk_00277800 {
+    void* FUN_00277800(unsigned char flags);
+};
+void* Thunk_00277800::FUN_00277800(unsigned char flags) {
+    char* lib = (char*)this - (hulk_uintptr)&((CoreCementLibrary*)0)->vftableMutable;
+    return ((::fn_f6ff0ab7::CementLibrary_277b10*)lib)->::fn_f6ff0ab7::CementLibrary_277b10::f2(flags);
+}
+#endif
 } // namespace fn_00277800
 
 namespace fn_f6ff0ab7 {
 
 // 0x00277810 core::CementLibrary::vfunc_3_adj4 (412 B): equivalent/0x00277810.cpp
-// sym: ?target@LibraryBase@fn_f6ff0ab7@@QAEXI@Z @c5c2e7f85df1 @wcd648e7d85b8
+// sym: ?target@LibraryBase@fn_f6ff0ab7@@QAEXI@Z @c8aff7e16991 @w92a49a0e7500
 // STATUS: equivalent (tools/equiv.py level 3: 3074 inputs, branch coverage 29/30; --wine 674 inputs)
 // core::CementLibrary::vfunc_3_adj4 @ 0x00277810
 void LibraryBase::target(unsigned step) {
- if(state==1) { state=2; if(callback) {callback->complete(context); callback->release(); callback=0; context=0;} return; }
- Whole* whole=(Whole*)((char*)this-4); void* cb=whole ? this : 0;
- if(step==0) { if(!file->ready()) {whole->FUN_00277410(2); return;} file->mode(1); file->seek(0); file->read(header,60,1); file->async(cb,1); }
- else if(step==1) { if(file->status()!=0) return; const char* magic="ATG CORE CEMENT LIBRARY"; bool valid=true; for(unsigned i=0;i<24;++i) if(header[i]!=(unsigned char)magic[i]) {valid=false; break;} if(header[32]!=2 || header[35]==0 || header[33]>=2 || header[34]!=0) valid=false;
- if(!valid) {whole->FUN_00277410(2); return;} buffer=FUN_00266eb0(allocator,*(unsigned*)(header+40),16); file->seek(*(unsigned*)(header+36)); file->read(buffer,*(unsigned*)(header+40),1); file->async(cb,2);
- } else if(step==2) { if(file->status()!=0) {whole->FUN_00277410(2); return;} file->mode(0); if(*(unsigned*)(header+52)>0) {unsigned a=allocator; void* gp=file->get(); ((owners::Obj_277630 *)(owner->FUN_00272bc0()))->FUN_00277630((int)a, (hulk_intptr)gp, 16);} owner->FUN_00272ba0(whole); whole->FUN_00277410(1); }
+#define HULK_CL_CB (*(Callback_277810**)&HULK_CL_FROM(this, vftableCallback)->callback)
+#define HULK_CL_FILE ((File*)HULK_CL_FROM(this, vftableCallback)->file)
+#define HULK_CL_HEADER ((unsigned char*)&HULK_CL_FROM(this, vftableCallback)->header)
+ CoreCementLibrary* lib=HULK_CL_FROM(this, vftableCallback);
+ if(lib->state==1) { lib->state=2; if(HULK_CL_CB) {HULK_CL_CB->complete(lib->callbackArgument); HULK_CL_CB->release(); HULK_CL_CB=0; lib->callbackArgument=0;} return; }
+ Whole* whole=(Whole*)lib; void* cb=whole ? this : 0;
+ if(step==0) { if(!HULK_CL_FILE->ready()) {whole->FUN_00277410(2); return;} HULK_CL_FILE->mode(1); HULK_CL_FILE->seek(0); HULK_CL_FILE->read(HULK_CL_HEADER,60,1); HULK_CL_FILE->async(cb,1); }
+ else if(step==1) { if(HULK_CL_FILE->status()!=0) return; const char* magic="ATG CORE CEMENT LIBRARY"; bool valid=true; for(unsigned i=0;i<24;++i) if(HULK_CL_HEADER[i]!=(unsigned char)magic[i]) {valid=false; break;} if(HULK_CL_HEADER[32]!=2 || HULK_CL_HEADER[35]==0 || HULK_CL_HEADER[33]>=2 || HULK_CL_HEADER[34]!=0) valid=false;
+ if(!valid) {whole->FUN_00277410(2); return;} lib->table=FUN_00266eb0(lib->heap,*(unsigned*)(HULK_CL_HEADER+40),16); HULK_CL_FILE->seek(*(unsigned*)(HULK_CL_HEADER+36)); HULK_CL_FILE->read(lib->table,*(unsigned*)(HULK_CL_HEADER+40),1); HULK_CL_FILE->async(cb,2);
+ } else if(step==2) { if(HULK_CL_FILE->status()!=0) {whole->FUN_00277410(2); return;} HULK_CL_FILE->mode(0); if(*(unsigned*)(HULK_CL_HEADER+52)>0) {int a=lib->heap; void* gp=HULK_CL_FILE->get(); ((owners::Obj_277630 *)(((Owner_277810*)lib->drive)->FUN_00272bc0()))->FUN_00277630(a, (hulk_intptr)gp, 16);} ((Owner_277810*)lib->drive)->FUN_00272ba0(whole); whole->FUN_00277410(1); }
+#undef HULK_CL_CB
+#undef HULK_CL_FILE
+#undef HULK_CL_HEADER
 }
 
 
 // 0x002779b0 FUN_002779b0 (139 B): equivalent/0x002779b0.cpp
-// sym: ?FUN_002779b0@CementLibrary_2779b0@fn_f6ff0ab7@@QAE_NIPAUOutput_2779b0@2@@Z @f48613485a31 @w074dfc416474
+// sym: ?FUN_002779b0@CementLibrary_2779b0@fn_f6ff0ab7@@QAE_NIPAUOutput_2779b0@2@@Z @2d90af5eb6dc @w72da3dd4f06a
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 8/8)
 // FUN_002779b0 @ 0x002779b0
 // equiv-conv: FUN_00277310 eax edi stack stack
 bool CementLibrary_2779b0::FUN_002779b0(unsigned int key, Output_2779b0* output) {
  if (state != 1) return false;
+ unsigned char mode = header.version[1];
  unsigned int stride = mode ? 12 : 20;
- Entry_2779b0* entry = FUN_00277310(table, stride, count, key);
+ Entry_2779b0* entry = (Entry_2779b0*)FUN_00277310(header.entryCount, stride, table, key);
  if (!entry) return false;
  unsigned int extra = 0;
  unsigned int selected = entry->value8;
  if (!mode) { extra = entry->value10; selected = entry->valueC; }
- Info_2779b0* info = provider->FUN_00272bc0();
- output->FUN_00277c40(value1C, entry->value4, selected, entry->value8, extra, info->value14, info->value18, value58);
+ Info_2779b0* info = ((Provider_2779b0*)drive)->FUN_00272bc0();
+ output->FUN_00277c40(file, entry->value4, selected, entry->value8, extra, (char*)info->buffer, info->size, header.dataCount);
  return true;
 }
 
@@ -911,25 +972,35 @@ Thing_277a40::Thing_277a40() {
 } // namespace fn_f6ff0ab7
 
 // 0x00277a70 FUN_00277a70 (156 B): equivalent/0x00277a70.cpp [wrapped: conflict: FUN_002705f0; core::CementLibrary; core::ICementLibrary; core::IFileCompletionCallback (+2)]
-// sym: ?FUN_00277a70@CementLibrary@core@fn_00277a70@@QAEPAU123@PAUResource_277a70@23@0I@Z @30c010adf921 @wc9048ed00e47
+// sym: ?FUN_00277a70@CementLibrary@core@fn_00277a70@@QAEPAU123@PAUResource_277a70@23@0I@Z @bf9078456ace @w03cb7815f993
 namespace fn_00277a70 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00277a70 @ 0x00277a70
 
 typedef unsigned int uint_277a70;
 void FUN_002705f0();
+// (x64t12) the object is records.h CoreCementLibrary; its vftables are the game's, stored by address (the bases'
+// constructors' stores, then core::CementLibrary's): a local polymorphic class's vftables had stub slots natively
+extern "C" char DAT_0042bf44[];   // core::ICementLibrary
+extern "C" char DAT_0042bf6c[];   // core::IFileCompletionCallback
+extern "C" char DAT_0042afa8[];   // core::Object
+extern "C" char DAT_0042b85c[];   // core::SafeRefCount
+extern "C" char DAT_0042bfac[];   // core::CementLibrary
+extern "C" char DAT_0042bf98[];   // core::CementLibrary at +4
+extern "C" char DAT_0042bf90[];   // core::CementLibrary at +8
+extern "C" char DAT_0042bf80[];   // core::CementLibrary at +0x10
 namespace core {
-struct ICementLibrary { virtual void slot0() HULK_PURE64; };
-struct IFileCompletionCallback { virtual void slot0() HULK_PURE64; };
-struct Object { virtual void slot0(); uint_277a70 tag; };
-struct SafeRefCount { virtual void slot0() HULK_PURE64; uint_277a70 refs; };
+struct IFileCompletionCallback;
 struct Resource_277a70 { virtual void slot0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(IFileCompletionCallback*,uint_277a70); };
-struct CementLibrary : ICementLibrary, IFileCompletionCallback, Object, SafeRefCount {
-virtual void slot0();
-Resource_277a70 *a,*b; uint_277a70 zero20; char pad[60]; uint_277a70 x60,x64,x68,x6c,x70;
+struct CementLibrary : CoreCementLibrary {
 CementLibrary* FUN_00277a70(Resource_277a70*,Resource_277a70*,uint_277a70);
 };
-CementLibrary* CementLibrary::FUN_00277a70(Resource_277a70* aa,Resource_277a70* bb,uint_277a70 n) { this->ICementLibrary::ICementLibrary(); this->IFileCompletionCallback::IFileCompletionCallback(); this->Object::Object(); tag=(*(uint_277a70*)&DAT_004cdbb0); FUN_002705f0(); this->SafeRefCount::SafeRefCount(); refs=1; this->CementLibrary::CementLibrary(); a=aa;b=bb;zero20=0;x60=0;x64=0;x68=n;x6c=0;x70=0;FUN_002705f0();a->slot0();b->slot0();b->s18(this,0); return this; }
+CementLibrary* CementLibrary::FUN_00277a70(Resource_277a70* aa,Resource_277a70* bb,uint_277a70 n) {
+ vftable=DAT_0042bf44; vftableCallback=DAT_0042bf6c; vftableObject=DAT_0042afa8; heap=(*(int*)&DAT_004cdbb0); FUN_002705f0();
+ vftableMutable=DAT_0042b85c; refs=1;
+ vftable=DAT_0042bfac; vftableCallback=DAT_0042bf98; vftableObject=DAT_0042bf90; vftableMutable=DAT_0042bf80;
+ drive=aa; file=bb; state=0; table=0; next=0; bucket=(int)n; callback=0; callbackArgument=0;
+ FUN_002705f0(); ((Resource_277a70*)drive)->slot0(); ((Resource_277a70*)file)->slot0(); ((Resource_277a70*)file)->s18((IFileCompletionCallback*)&vftableCallback,0); return this; }
 }
 } // namespace fn_00277a70
 
@@ -948,20 +1019,21 @@ CementLibrary_277b10* CementLibrary_277b10::f2(u8_277b10 flag) {
 
 
 // 0x00277b40 FUN_00277b40 (39 B): matches/0x00277b40.cpp
-// sym: ?f@C_277b40@fn_f6ff0ab7@@QAEIPADI@Z
-unsigned int C_277b40::f(char* path, unsigned int arg) {
+// sym: ?f@C_277b40@fn_f6ff0ab7@@QAE_NPADPAUCoreFileView@@@Z
+bool C_277b40::f(char* path, CoreFileView* view) {
     if (*path == '\\')
         ++path;
     unsigned int x = FUN_002698b0(path);
-    return ((CementLibrary_nv_277b40*)(((core::CementLibrary*)this)))->Fnf_002779b0(x, arg);
+    return ((CementLibrary_2779b0*)this)->FUN_002779b0(x, (Output_2779b0*)view);
 }
 
 
 // 0x00277b70 FUN_00277b70 (130 B): equivalent/0x00277b70.cpp
-// sym: ?FUN_00277b70@fn_f6ff0ab7@@YAXPAPAVCementLibrary@core@@IIII@Z @51faba7cbb81 @wda1ddce58c1c
+// sym: ?FUN_00277b70@fn_f6ff0ab7@@YAXPAPAVCementLibrary@core@@PAXPBDII@Z @51faba7cbb81 @wda1ddce58c1c
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 4/4)
 // FUN_00277b70 @ 0x00277b70
-void __cdecl FUN_00277b70(core::CementLibrary** out,hulk_uintptr a,unsigned int b,unsigned int c,unsigned int d) {
+// (x64t12) the drive and the archive's name as pointers (the name was an `unsigned int`: natively its low half)
+void __cdecl FUN_00277b70(core::CementLibrary** out,void* a,const char* b,unsigned int c,unsigned int d) {
  HULK_SIZE32(CoreCementLibrary, 0x74);
  core::File* p=FUN_00275d50(0x168);
  core::File* base=0;
@@ -988,8 +1060,8 @@ X_277c00* __fastcall FUN_00277c00(X_277c00* p) {
     p->words[5] = 0;
     p->words[6] = 0;
     p->words[7] = 0;
-    p->words[8] = 0;
-    p->words[9] = 0;
+    p->buffer = 0;
+    p->capacity = 0;
     return p;
 }
 
@@ -1003,10 +1075,10 @@ void View_277c30::FUN_00277c30() {
 
 
 // 0x00277c40 FUN_00277c40 (84 B): equivalent/0x00277c40.cpp
-// sym: ?FUN_00277c40@State_277c40@fn_f6ff0ab7@@QAEXPAUResource_277c40@2@IIIIIII@Z @828e588cb3a9 @wf2283d56492c
+// sym: ?FUN_00277c40@State_277c40@fn_f6ff0ab7@@QAEXPAUResource_277c40@2@IIIIPADII@Z @828e588cb3a9 @wf2283d56492c
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00277c40 @ 0x00277c40
-void State_277c40::FUN_00277c40(Resource_277c40* object, unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e, unsigned int f, unsigned int g) {
+void State_277c40::FUN_00277c40(Resource_277c40* object, unsigned int a, unsigned int b, unsigned int c, unsigned int d, char* e, unsigned int f, unsigned int g) {
  object->slot0();
  words[0] = a;
  words[1] = 0;
@@ -1017,8 +1089,8 @@ void State_277c40::FUN_00277c40(Resource_277c40* object, unsigned int a, unsigne
  words[2] = b;
  words[5] = c;
  words[7] = object->slot16();
- words[8] = e;
- words[9] = f;
+ buffer = e;
+ capacity = f;
 }
 
 } // namespace fn_f6ff0ab7

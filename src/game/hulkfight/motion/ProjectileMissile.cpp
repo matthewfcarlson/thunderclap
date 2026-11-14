@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_ff485bc0 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -13,9 +14,6 @@ namespace fn_ff485bc0 {} using namespace fn_ff485bc0;
 // ---- declarations shared by the functions below
 namespace fn_ff485bc0 {
 typedef unsigned char byte_19e8e0;
-struct Alloc_19e8e0 {
-    void Fnf_0008ff00(void*, unsigned int);
-};
 namespace hulkfight { namespace motion {
 class ProjectileMissile {
   public:
@@ -36,7 +34,7 @@ class ProjectileMissile {
 hulkfight::motion::ProjectileMissile* hulkfight::motion::ProjectileMissile::vfunc_2(byte_19e8e0 flags) {
     tick_0019b460();
     if (flags & 1)
-        (*(Alloc_19e8e0*)&DAT_004e2210).Fnf_0008ff00(this, 0xdc);
+        ((owners::Thing_8ff00*)DAT_004e2210)->FUN_0008ff00((hulk_intptr)this, 0xdc);
     return this;
 }
 

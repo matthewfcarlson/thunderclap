@@ -4447,3 +4447,91 @@ the registrations' free-function setter names nothing defined), 14 new: the base
 (`ParamValueFloat::vfunc_5`, `ParamValueBool::vfunc_1`, ..., `ParamValue::~ParamValue`) that clang's own vftables of
 the constructed templates now name and the tree defines on TU-local or wrapped classes (0x00234780 is a free
 function); renaming those blocks onto include/gen's classes binds them (as for Condition's shared slots, gx1 2).
+
+## The archives mount, the drive's paths and cement libraries on records, the projectile pool's views, the x64 gate's type key (x64t12, 2026-11-14)
+
+x64t11's follow-up (user D25: macOS start-up first). Control 82120 (4732b7da8, studio, private data TUs); native
+iteration on the controls' clang-probe snapshots and binding maps (80601 at db514e145, then 82120) with the batch's files.
+
+**Why the language file did not open.** The IO trace (`HULK_TRACE_IO=1`) showed `D:\args.txt`, `D:\rcfs.txt` and
+then `D:\frontend\lang\str_en.txt` (error 3): none of rcfs.txt's twelve `.rcf` archives was ever opened, so the
+language file (inside one) fell through to the loose-file drive. Root causes, in the order the start-up met them:
+- **0x00271560** (the archive mount, unk_2708e0.cpp): FUN_002697c0 writes the path's remainder and suffix *pointers*
+  into its caller's words; the work area held them as ints, so natively the 8-byte stores ran into the drive name
+  ("d:" overwritten) and FUN_00270c10 found no drive. The work area is `{const char* remainder; char* suffix; char
+  drive[20]; char path[0x100]}` (the 0x120-byte frame of the original), the selected name a `const char*`
+  (re-proved: MSVC 3,000 promotable, `--wine` 3,010, `--x64` equivalent). 0x00277b70 takes the drive and the name
+  as pointers (`PAXPBD`, re-pinned; code ok/ok); InstanceDrive's slots 6, 7, 10, 33, 35 (0x00276860, 0x002768f0,
+  0x00276a70, 0x00276df0, 0x00276f00) the same parser results (0x00276a70 / 0x00276df0 re-proved, `--x64`
+  equivalent; the others code ok/ok, 0x00276860 / 0x00276df0 re-pinned).
+- **core::CementLibrary on records.h CoreCementLibrary** (CementLibrary.cpp): its constructor 0x00277a70 built a local
+  polymorphic class whose vftables had stub slots natively (`slot0@CementLibrary@...fn_00277a70` missing); it now
+  stores the game's vftables by address (0x0042bf44 / bf6c / afa8 / b85c, then bfac / bf98 / bf90 / bf80), the
+  fields by name, and re-reads the drive and file before their slot calls (re-proved). The file-completion slot
+  0x00277810, the lookup 0x002779b0 (the header's entry count and layout flag, the table; its search 0x00277310 by
+  the definition's declaration), 0x00277460, 0x00277410, the library list (0x00277540 / 0x00277570 / 0x002775b0 /
+  0x00277600 / 0x002775f0, records.h CoreDriveLibraryList and the libraries' link words), the shared buffer
+  (0x00277630 / 0x00277670), the adj-10 slots 0x00277380 / 0x00277390 and 0x002773a0 take the record (all matches
+  MATCH, equivalents re-proved where the code changed: 0x00277810, 0x002779b0, 0x00277a70). gen's
+  core::CementLibrary holds the record's words (f_1c the file, f_5c the entry count, f_60 the table, the link pair
+  pointer-sized, f_70 pointer-sized). 0x00272ba0 / 0x00272bb0 pass the library as `void*` (re-pinned).
+- **The game vftable's adjustor slots** 0x002777c0 / 0x002777d0 / 0x002777e0 / 0x002777f0 / 0x00277800: compiler
+  thunks of invented classes whose natively undefined local targets made the slots `hulk_x_` stubs. As 0x002786f0
+  did, each has a `HULK_PTR64` branch with an explicit thunk named by its own address that steps back by the
+  record's base offset and calls the target by its own name (core::CementLibrary::vfunc_0 / vfunc_1, the deleting
+  destructor 0x00277b10); the 32-bit source is unchanged (MATCH). (0x002786f0's own `FUN_00278a80` target is
+  unbound natively: the address binding needs the Wine map to verify the name, and a 64-bit-only name is never in
+  it.)
+- **The drive error callback's vftable word** (D25): DAT_0049ca0c, the static MyDriveErrorCallback, was written by
+  data_gen as `(const char*)&vtbl_00400888 + 4` (the vftable record plus one 32-bit word: natively the middle of
+  the locator pointer, and `vtbl_` has no native name: a zero stub, slot 0 null, the pc 0 crash). tools/data_gen.py
+  writes a pointer into a vftable record as the slot's own name `DAT_<address>`, which the Wine link binds by
+  address (same image word) and native_mac.code_owned64 defines at every game vftable slot. Ten items change
+  (DAT_0049ca0c, 0x004cc0cc, 0x004cc200, 0x004cdb4c, 0x00438908, 0x004ce400, 0x004c7e3c, 0x004d3a0c, 0x004d3ed0,
+  three 0x004d4fc8-style pointers into Closure0's vftable).
+- **The entry readers** (XboxSaveDrive.cpp): records.h CoreFileView names its pointer word (`buffer`, +0x24: the
+  drive's shared buffer 0x00277c40 stores) and the handle word (`tail[1]`, +0x30: was `words[11]` past the array);
+  0x00278010 calls the stored / compressed readers 0x00277d00 / 0x00277d60 by their own names (it called `A` / `B`,
+  unbound natively) with the device, name, buffer and result as pointers (were truncated to ints); their name and
+  buffer parameters are pointers (re-pinned, code ok/ok); 0x00277c00 / 0x00277c40 / 0x00277b40 (the lookup by its own
+  name, the view a pointer, `bool`) on the record. owners::Obj_278010 / X_2775f0 / Obj_277630 carry pointer words.
+- **The file requests** (FileRequest, FileOpenRequest, FileOpenByKeyRequest, FileCloseRequest, FileReadRequest,
+  FileWriteRequest, SaveGameOpenRequest, unk_274100): the requests' destructors and 0x00274140 / 0x00273e60 read the
+  file through records.h CoreFile and call its IMutable lock through a cast (a member object's virtual call was the
+  declared class's natively: a stub); 0x00273920 / FileCloseRequest / FileReadRequest use `view.tail[1]` (0x00273920
+  `--wine` re-proved; the rest MATCH / code ok).
+- **The string converters** 0x0026b380 .. 0x0026b740 (unk_2699f0.cpp) took the source and destination as ints and
+  passed `(int)` casts on: they are `void*` now (code ok/ok, re-pinned), the copy helpers declared as defined.
+- 0x0008e880 allocates `sizeof(MyControllerCallback)` (12 bytes on 32-bit, 16 natively: it wrote 14).
+
+**Where start-up gets now** (macOS, i9 on 82120's snapshot): all twelve archives mount (each header and entry table
+read), the language probe 0x000b51c0 finds frontend/lang/str_en.txt in an archive, CGame's set-up 0x00088020 goes on
+and stops at its next call: `FUN_001bc0c0` is declared there as a C++ function (`?FUN_001bc0c0@fn_00088020@@YAXPEADHH@Z`)
+while the definition (CExtraRenderingCallback.GS.cpp) is `extern "C"`, so the native link has no binding (missing).
+Continued past it, CControllerManager's constructor (0x000aef10) calls `DeviceManager_aef10`'s constructor (a local
+name, unbound) and then reads through the null result. The drive error path (only reached when a file is missing)
+still ends in the string converter 0x00269b10 with the callback's three extra arguments (vfunc_3 passes two; the
+callee 0x0008e1f0 reads five).
+
+**2. The projectile pool's views** (unk_08ed50.cpp, gen/owners.h, the fight TUs): owners::BitPool_8fe90 and
+owners::Thing_8ff00 hold records.h GameStaticAllocator's words (`HULK_POOL_SAME` checks every view against the record
+on every build); 0x0008fe90 re-proved (MSVC unchanged; `--wine` 2,996; `--x64` int: the returned block is a
+pointer-derived integer); 0x0008ff00 and 0x0008ff50 (on the record) MATCH; the five callers (FireProjectileAction
+x3, FireMissileAction, ProjectileMissile) call the definitions' own classes (their views' signatures differed:
+`void*` / `unsigned`), MATCH / code ok. The tech-debt note keeps ControllerBuffer's destructor and BinkCallback's
+declaration.
+
+**3. x64_gate's cache** (89e0079f2): a result carries the fingerprints of the layouts its run built; a cached one
+whose types the current source lays out differently runs again.
+
+| gate | result |
+|---|---|
+| tree_tu check, whole tree with the batch shipped (82161-82168) | 2,667 TUs: 22,349 MATCH relocs ok, 5,089 equivalent code ok |
+| declaration-count blocks | 0x002ea3c0 flipped when owners.h lost two unused declarations (Obj_278010's `A` / `B`): kept, code ok/ok; 0x001a9b10, 0x000b86b0, 0x000ba040, 0x00027930, 0x002e9c60 code ok/ok |
+| re-proofs (MSVC 3,000 promotable + `--wine`, recorded with `hash --proven`) | 0x0008fe90 (wine), 0x00271560, 0x00276a70, 0x00276df0, 0x00277810, 0x002779b0, 0x00277a70, 0x00273920 (wine) |
+| header probe | gen_probe ok (18/18 headers, 4,238 classes) on every check |
+| x64 gate (--head the batch as a temporary commit) | ok after `accept` of two entries with reasons: 0x0008ff00 layout (a pointer passed as an integer against the pool's data pointer), 0x002775b0 crash64 (a fuzzed bucket past the two lists); 0x00271560, 0x00276a70, 0x00276df0 `--x64` equivalent |
+| Wine proof (studio, play3 to 60000, private data TUs with data_gen's change) | control 82120 (4732b7da8), proof 82160 seeded from it: GATE ok, 0 of 2,020 common frames differ |
+
+Native unbound (macOS / Linux / Android; each side's own snapshot and binding map): control 82120 **14,342 / 14,322 / 14,333**; proof 82160 **14,242 / 14,222 / 14,233** (100 fewer on each).
+

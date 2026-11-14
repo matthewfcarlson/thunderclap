@@ -59,14 +59,14 @@ extern "C++" unsigned char __cdecl FUN_00271820(const char* text, uint_26af70* b
 extern "C" int __cdecl FUN_00271870(int parsed, char* output, int available, int mode, int* produced, int flags);
 extern "C++" int __cdecl FUN_00271870(const char*, char*, int, void*, int*, void*);
 extern "C++" int __cdecl FUN_00271870(unsigned, char *, int, int, unsigned *, void *);
-extern "C" int __cdecl FUN_002699f0(int c, int a, int limit);
+int __cdecl FUN_002699f0(const char* c, char* a, unsigned int limit);   // (x64t12) the definition's
 extern "C" int __cdecl FUN_00269a80(const char *, char *, void *, int, void *);
 extern "C" int __cdecl FUN_00269b10(const char *, char *, void *, int, void *);
 extern "C" int __cdecl FUN_00269ba0(const unsigned short *, char *, int, int, void *);
 extern "C" int __cdecl FUN_00269c40(const unsigned *, char *, int, int, void *);
 extern "C" int __cdecl FUN_00269ce0(const char *, char *, void *, int, void *);
 extern "C" int __cdecl FUN_00269d70(const char *, char *, void *, int, void *);
-extern "C" int __cdecl FUN_00269e00(int c, int a, int limit);
+int __cdecl FUN_00269e00(const char* c, char* a, unsigned int limit);   // (x64t12) the definition's
 extern "C" int __cdecl FUN_00269e90(const char *, char *, int, int, int);
 extern "C" int __cdecl FUN_00269f20(const char *, char *, void *, int, void *);
 extern "C++" int __cdecl FUN_00269fb0(const unsigned short *, char *, int, int, void *);
@@ -87,14 +87,14 @@ extern "C" int __cdecl FUN_0026a8b0(const unsigned short *, char *, int, int, in
 extern "C" int __cdecl FUN_0026a960(const int *, char *, int, int, int);
 extern "C" int __cdecl FUN_0026aa00(const char *, unsigned *, int, int, void *);
 extern "C" int __cdecl FUN_0026aab0(const char *, char *, int, int, int);
-extern "C" int __cdecl FUN_0026ab60(int c, int a, int limit);
+int __cdecl FUN_0026ab60(const char* c, char* a, unsigned int limit);   // (x64t12) the definition's
 extern "C" int __cdecl FUN_0026abf0(const char *, char *, int, int, void *);
 extern "C" int __cdecl FUN_0026ac80(const char *, char *, void *, int, void *);
 extern "C++" int __cdecl FUN_0026ad10(const unsigned short *, char *, int, int, void *);
 extern "C" int __cdecl FUN_0026adb0(const unsigned *, char *, int, int, void *);
 extern "C" int __cdecl FUN_0026ae50(const char *, char *, void *, int, void *);
 extern "C" int __cdecl FUN_0026aee0(const char *, char *, void *, int, void *);
-extern "C" int __cdecl FUN_0026af70(int c, int a, int limit);
+int __cdecl FUN_0026af70(const char* c, char* a, unsigned int limit);   // (x64t12) the definition's
 extern "C" int __cdecl FUN_0026b000(const char *, char *, int, int, int);
 extern "C" int __cdecl FUN_0026b090(const char *, char *, void *, int, void *);
 extern "C++" int __cdecl FUN_0026b120(const unsigned short *, char *, int, int, void *);
@@ -1332,7 +1332,7 @@ extern "C" int __cdecl FUN_0026b2f0(const char* input, char* output, void* value
 
 
 // 0x0026b380 FUN_0026b380 (163 B): equivalent/0x0026b380.cpp
-// sym: ?FUN_0026b380@fn_fcad8d96@@YAHHHHHHHH@Z @905fc929c4f5 @waf2a85086782
+// sym: ?FUN_0026b380@fn_fcad8d96@@YAHPAXH0HHHH@Z @905fc929c4f5 @waf2a85086782
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 16/16)
 // FUN_0026b380 @ 0x0026b380
 // FUN_0026b380 @ 0x0026b380
@@ -1344,26 +1344,26 @@ extern "C" int __cdecl FUN_0026b2f0(const char* input, char* output, void* value
 // equiv-conv: FUN_00269ce0 eax ecx stack stack stack
 // equiv-conv: FUN_00269d70 eax ecx stack stack stack
 // equiv-conv: FUN_0026b380 stack stack stack ebx edx esi edi
-int __cdecl FUN_0026b380(hulk_intptr a, int fromMode, hulk_intptr c, int toMode, int edxArg, int esiArg, int ediArg) {
+int __cdecl FUN_0026b380(void* a, int fromMode, void* c, int toMode, int edxArg, int esiArg, int ediArg) {
     if (fromMode == toMode && edxArg == 0) {
-        int r = FUN_002699f0(c, a, esiArg);
+        int r = FUN_002699f0((const char *)c, (char *)a, esiArg);
         if (r < 0) return -2;
         return (r >= esiArg) ? 0 : -1;
     }
     switch (toMode) {
-    case 0: return FUN_00269a80((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 1: return FUN_00269b10((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 2: return FUN_00269ba0((const unsigned short *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 3: return FUN_00269c40((const unsigned *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 4: return FUN_00269ce0((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 5: return FUN_00269d70((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 0: return FUN_00269a80((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 1: return FUN_00269b10((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 2: return FUN_00269ba0((const unsigned short *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 3: return FUN_00269c40((const unsigned *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 4: return FUN_00269ce0((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 5: return FUN_00269d70((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
     }
     return -2;
 }
 
 
 // 0x0026b440 FUN_0026b440 (163 B): equivalent/0x0026b440.cpp
-// sym: ?FUN_0026b440@fn_fcad8d96@@YAHHHHHHHH@Z @1d0b15d55f01 @wcc1198eb4164
+// sym: ?FUN_0026b440@fn_fcad8d96@@YAHPAXH0HHHH@Z @1d0b15d55f01 @wcc1198eb4164
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 16/16)
 // FUN_0026b440 @ 0x0026b440
 // FUN_0026b440 @ 0x0026b440
@@ -1375,26 +1375,26 @@ int __cdecl FUN_0026b380(hulk_intptr a, int fromMode, hulk_intptr c, int toMode,
 // equiv-conv: FUN_0026a0f0 eax ecx stack stack stack
 // equiv-conv: FUN_0026a180 eax ecx stack stack stack
 // equiv-conv: FUN_0026b440 stack stack stack ebx edx esi edi
-int __cdecl FUN_0026b440(hulk_intptr a, int fromMode, hulk_intptr c, int toMode, int edxArg, int esiArg, int ediArg) {
+int __cdecl FUN_0026b440(void* a, int fromMode, void* c, int toMode, int edxArg, int esiArg, int ediArg) {
     if (fromMode == toMode && edxArg == 0) {
-        int r = FUN_00269e00(c, a, esiArg);
+        int r = FUN_00269e00((const char *)c, (char *)a, esiArg);
         if (r < 0) return -2;
         return (r >= esiArg) ? 0 : -1;
     }
     switch (toMode) {
-    case 0: return FUN_00269e90((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, edxArg);
-    case 1: return FUN_00269f20((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 2: return FUN_00269fb0((const unsigned short *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 3: return FUN_0026a050((const unsigned *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 4: return FUN_0026a0f0((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 5: return FUN_0026a180((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 0: return FUN_00269e90((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, edxArg);
+    case 1: return FUN_00269f20((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 2: return FUN_00269fb0((const unsigned short *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 3: return FUN_0026a050((const unsigned *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 4: return FUN_0026a0f0((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 5: return FUN_0026a180((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
     }
     return -2;
 }
 
 
 // 0x0026b500 FUN_0026b500 (163 B): equivalent/0x0026b500.cpp
-// sym: ?FUN_0026b500@fn_fcad8d96@@YAHHHHHHHH@Z @9f6ce0daa3ab @w27e4c278be97
+// sym: ?FUN_0026b500@fn_fcad8d96@@YAHPAXH0HHHH@Z @9f6ce0daa3ab @w27e4c278be97
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 16/16)
 // FUN_0026b500 @ 0x0026b500
 // FUN_0026b500 @ 0x0026b500
@@ -1406,26 +1406,26 @@ int __cdecl FUN_0026b440(hulk_intptr a, int fromMode, hulk_intptr c, int toMode,
 // equiv-conv: FUN_0026a550 eax ecx stack stack stack
 // equiv-conv: FUN_0026a600 eax ecx stack stack stack
 // equiv-conv: FUN_0026b500 stack stack stack ebx edx esi edi
-int __cdecl FUN_0026b500(hulk_intptr a, int fromMode, hulk_intptr c, int toMode, int edxArg, int esiArg, int ediArg) {
+int __cdecl FUN_0026b500(void* a, int fromMode, void* c, int toMode, int edxArg, int esiArg, int ediArg) {
     if (fromMode == toMode && edxArg == 0) {
-        int r = FUN_0026a210((const unsigned short *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (int)esiArg);
+        int r = FUN_0026a210((const unsigned short *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (int)esiArg);
         if (r < 0) return -2;
         return (r >= esiArg) ? 0 : -1;
     }
     switch (toMode) {
-    case 0: return FUN_0026a2a0((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, edxArg);
-    case 1: return FUN_0026a350((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, edxArg);
-    case 2: return FUN_0026a400((const unsigned short *)(hulk_uintptr)(int)c, (unsigned short *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 3: return FUN_0026a4a0((const unsigned *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, edxArg);
-    case 4: return FUN_0026a550((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, edxArg);
-    case 5: return FUN_0026a600((const char *)(hulk_uintptr)(int)c, (unsigned short *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 0: return FUN_0026a2a0((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, edxArg);
+    case 1: return FUN_0026a350((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, edxArg);
+    case 2: return FUN_0026a400((const unsigned short *)(hulk_uintptr)c, (unsigned short *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 3: return FUN_0026a4a0((const unsigned *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, edxArg);
+    case 4: return FUN_0026a550((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, edxArg);
+    case 5: return FUN_0026a600((const char *)(hulk_uintptr)c, (unsigned short *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
     }
     return -2;
 }
 
 
 // 0x0026b5c0 FUN_0026b5c0 (163 B): equivalent/0x0026b5c0.cpp
-// sym: ?FUN_0026b5c0@fn_fcad8d96@@YAHHHHHHHH@Z @ffb20e6dcf66 @wa4d0482a2917
+// sym: ?FUN_0026b5c0@fn_fcad8d96@@YAHPAXH0HHHH@Z @ffb20e6dcf66 @wa4d0482a2917
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 16/16)
 // FUN_0026b5c0 @ 0x0026b5c0
 // FUN_0026b5c0 @ 0x0026b5c0
@@ -1437,26 +1437,26 @@ int __cdecl FUN_0026b500(hulk_intptr a, int fromMode, hulk_intptr c, int toMode,
 // equiv-conv: FUN_0026aa00 eax ecx stack stack stack
 // equiv-conv: FUN_0026aab0 eax ecx stack stack stack
 // equiv-conv: FUN_0026b5c0 stack stack stack ebx edx esi edi
-int __cdecl FUN_0026b5c0(hulk_intptr a, int fromMode, hulk_intptr c, int toMode, int edxArg, int esiArg, int ediArg) {
+int __cdecl FUN_0026b5c0(void* a, int fromMode, void* c, int toMode, int edxArg, int esiArg, int ediArg) {
     if (fromMode == toMode && edxArg == 0) {
-        int r = FUN_0026a6b0((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (int)esiArg);
+        int r = FUN_0026a6b0((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (int)esiArg);
         if (r < 0) return -2;
         return (r >= esiArg) ? 0 : -1;
     }
     switch (toMode) {
-    case 0: return FUN_0026a750((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, edxArg);
-    case 1: return FUN_0026a800((const char *)(hulk_uintptr)(int)c, (unsigned *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 2: return FUN_0026a8b0((const unsigned short *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, edxArg);
-    case 3: return FUN_0026a960((const int *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, edxArg);
-    case 4: return FUN_0026aa00((const char *)(hulk_uintptr)(int)c, (unsigned *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 5: return FUN_0026aab0((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, edxArg);
+    case 0: return FUN_0026a750((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, edxArg);
+    case 1: return FUN_0026a800((const char *)(hulk_uintptr)c, (unsigned *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 2: return FUN_0026a8b0((const unsigned short *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, edxArg);
+    case 3: return FUN_0026a960((const int *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, edxArg);
+    case 4: return FUN_0026aa00((const char *)(hulk_uintptr)c, (unsigned *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 5: return FUN_0026aab0((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, edxArg);
     }
     return -2;
 }
 
 
 // 0x0026b680 FUN_0026b680 (163 B): equivalent/0x0026b680.cpp
-// sym: ?FUN_0026b680@fn_fcad8d96@@YAHHHHHHHH@Z @78e08ddea8b2 @wa43f6859e2dd
+// sym: ?FUN_0026b680@fn_fcad8d96@@YAHPAXH0HHHH@Z @78e08ddea8b2 @wa43f6859e2dd
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 16/16)
 // FUN_0026b680 @ 0x0026b680
 // FUN_0026b680 @ 0x0026b680
@@ -1468,26 +1468,26 @@ int __cdecl FUN_0026b5c0(hulk_intptr a, int fromMode, hulk_intptr c, int toMode,
 // equiv-conv: FUN_0026ae50 eax ecx stack stack stack
 // equiv-conv: FUN_0026aee0 eax ecx stack stack stack
 // equiv-conv: FUN_0026b680 stack stack stack ebx edx esi edi
-int __cdecl FUN_0026b680(hulk_intptr a, int fromMode, hulk_intptr c, int toMode, int edxArg, int esiArg, int ediArg) {
+int __cdecl FUN_0026b680(void* a, int fromMode, void* c, int toMode, int edxArg, int esiArg, int ediArg) {
     if (fromMode == toMode && edxArg == 0) {
-        int r = FUN_0026ab60(c, a, esiArg);
+        int r = FUN_0026ab60((const char *)c, (char *)a, esiArg);
         if (r < 0) return -2;
         return (r >= esiArg) ? 0 : -1;
     }
     switch (toMode) {
-    case 0: return FUN_0026abf0((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 1: return FUN_0026ac80((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 2: return FUN_0026ad10((const unsigned short *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 3: return FUN_0026adb0((const unsigned *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 4: return FUN_0026ae50((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 5: return FUN_0026aee0((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 0: return FUN_0026abf0((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 1: return FUN_0026ac80((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 2: return FUN_0026ad10((const unsigned short *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 3: return FUN_0026adb0((const unsigned *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 4: return FUN_0026ae50((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 5: return FUN_0026aee0((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
     }
     return -2;
 }
 
 
 // 0x0026b740 FUN_0026b740 (163 B): equivalent/0x0026b740.cpp
-// sym: ?FUN_0026b740@fn_fcad8d96@@YAHHHHHHHH@Z @7fed7682e313 @w99ec3f322091
+// sym: ?FUN_0026b740@fn_fcad8d96@@YAHPAXH0HHHH@Z @7fed7682e313 @w99ec3f322091
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 16/16)
 // FUN_0026b740 @ 0x0026b740
 // FUN_0026b740 @ 0x0026b740
@@ -1499,19 +1499,19 @@ int __cdecl FUN_0026b680(hulk_intptr a, int fromMode, hulk_intptr c, int toMode,
 // equiv-conv: FUN_0026b260 eax ecx stack stack stack
 // equiv-conv: FUN_0026b2f0 eax ecx stack stack stack
 // equiv-conv: FUN_0026b740 stack stack stack ebx edx esi edi
-int __cdecl FUN_0026b740(hulk_intptr a, int fromMode, hulk_intptr c, int toMode, int edxArg, int esiArg, int ediArg) {
+int __cdecl FUN_0026b740(void* a, int fromMode, void* c, int toMode, int edxArg, int esiArg, int ediArg) {
     if (fromMode == toMode && edxArg == 0) {
-        int r = FUN_0026af70(c, a, esiArg);
+        int r = FUN_0026af70((const char *)c, (char *)a, esiArg);
         if (r < 0) return -2;
         return (r >= esiArg) ? 0 : -1;
     }
     switch (toMode) {
-    case 0: return FUN_0026b000((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, edxArg);
-    case 1: return FUN_0026b090((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 2: return FUN_0026b120((const unsigned short *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 3: return FUN_0026b1c0((const unsigned *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 4: return FUN_0026b260((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
-    case 5: return FUN_0026b2f0((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 0: return FUN_0026b000((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, edxArg);
+    case 1: return FUN_0026b090((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 2: return FUN_0026b120((const unsigned short *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 3: return FUN_0026b1c0((const unsigned *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 4: return FUN_0026b260((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
+    case 5: return FUN_0026b2f0((const char *)(hulk_uintptr)c, (char *)(hulk_uintptr)a, (void *)(hulk_uintptr)(int)ediArg, esiArg, (void *)(hulk_uintptr)(int)edxArg);
     }
     return -2;
 }

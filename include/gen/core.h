@@ -164,17 +164,17 @@ public:
     virtual void vfunc_1_IMutable(); // overrides core::IMutable slot 1
     char _pad_14[0x4];
     void* f_18;
-    int f_1c;
-    int f_20;
+    void* f_1c; // (x64t12) the words of decls/data/records.h CoreCementLibrary: the file, the entry count in the
+    int f_20;   // header (+0x5c), the entry table (+0x60), the list link and bucket (+0x64, +0x68)
     char _pad_24[0x21];
     char f_45;
     char _pad_46[0x12];
     int f_58;
-    void* f_5c;
-    int f_60;
-    char _pad_64[0x8];
+    int f_5c;
+    void* f_60;
+    void* _pad_64[2];
     void* f_6c;
-    int f_70;
+    hulk_intptr f_70;
 };
 
 // .?AVRequest@core@@  vftable 0x42b914 (7)

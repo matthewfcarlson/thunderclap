@@ -117,9 +117,9 @@ class Request_2738d0 {
 // sym: ?run@FileRequest_2737f0@fn_fe4fb47f@@QAEXXZ
 void FileRequest_2737f0::run() {
     v = (void*)((hulk_intptr)DAT_0042b99c);
-    p->sub.f();
-    --p->ref;
-    p->sub.g();
+    ((Sub_2737f0*)&((CoreFile*)p)->vftableMutable)->f();
+    --((CoreFile*)p)->field18;
+    ((Sub_2737f0*)&((CoreFile*)p)->vftableMutable)->g();
     ((V*)p)->g();
     v = (void*)((hulk_intptr)DAT_0042b914);
 }

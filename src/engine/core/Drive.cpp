@@ -96,11 +96,13 @@ class A_272b80 : public CoreDrive {
   public:
     bool run();
 };
+// (x64t12) the library is a pointer (0x00277570's Node*, 0x002775b0's Entry*: as an integer the 64-bit names
+// had no binding)
 struct C_272ba0 {
-    void FUN_00277570(hulk_intptr);
+    void FUN_00277570(void*);
 };
 struct D : CoreDrive {
-    void f(hulk_intptr);
+    void f(void*);
 };
 struct Obj_272bc0 : CoreDrive {
 };
@@ -333,27 +335,27 @@ bool A_272b80::run() {
 
 
 // 0x00272ba0 FUN_00272ba0 (8 B): matches/0x00272ba0.cpp
-// sym: ?f@D@fn_f59a9783@@QAEXH@Z
+// sym: ?f@D@fn_f59a9783@@QAEXPAX@Z
 // the library list (records.h CoreDriveLibraryList): appends (0x00277570)
-void D::f(hulk_intptr a0) {
+void D::f(void* a0) {
     ((C_272ba0*)&libraries)->FUN_00277570(a0);
 }
 
 } // namespace fn_f59a9783
 
 // 0x00272bb0 FUN_00272bb0 (8 B): matches/0x00272bb0.cpp [wrapped: same definition as 0x00272ba0 in this TU]
-// sym: ?f@D@fn_00272bb0@@QAEXH@Z
+// sym: ?f@D@fn_00272bb0@@QAEXPAX@Z
 namespace fn_00272bb0 {
 
 // the library list (records.h CoreDriveLibraryList): unlinks (0x002775b0)
 struct C_272bb0 {
-    void FUN_002775b0(hulk_intptr);
+    void FUN_002775b0(void*);
 };
 // core::Drive (records.h CoreDrive): removes a cement library from its list at +0x14
 struct D : CoreDrive {
-    void f(hulk_intptr);
+    void f(void*);
 };
-void D::f(hulk_intptr a0) {
+void D::f(void* a0) {
     ((C_272bb0*)&libraries)->FUN_002775b0(a0);
 }
 } // namespace fn_00272bb0

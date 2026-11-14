@@ -87,9 +87,9 @@ struct View_273da0 {
 // sym: ?run@FileRequest_273d50@fn_f4e0aa71@@QAEXXZ
 void FileRequest_273d50::run() {
     v = (void*)((hulk_intptr)DAT_0042b99c);
-    p->sub.f();
-    --p->ref;
-    p->sub.g();
+    ((Sub_273d50*)&((CoreFile*)p)->vftableMutable)->f();
+    --((CoreFile*)p)->field18;
+    ((Sub_273d50*)&((CoreFile*)p)->vftableMutable)->g();
     ((V*)p)->g();
     v = (void*)((hulk_intptr)DAT_0042b914);
 }
@@ -112,7 +112,7 @@ int core::FileCloseRequest::vfunc_4() {
 int core::FileCloseRequest::vfunc_1() {
     Sink_273da0* s = (Sink_273da0*)((CoreFile*)this->f_08)->provider;
     if (!((View_273da0*)&((CoreFile*)this->f_08)->view)->FUN_00277ca0())
-        s->Do((int)((CoreFile*)this->f_08)->view.words[11], ((CoreFile*)this->f_08)->filename);
+        s->Do((int)((CoreFile*)this->f_08)->view.tail[1], ((CoreFile*)this->f_08)->filename);
     else
         ((View_273da0*)&((CoreFile*)this->f_08)->view)->FUN_00277ce0();
     ((CoreFile*)this->f_08)->flag1c = 0;

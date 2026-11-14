@@ -5,6 +5,7 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_fac9c0e0 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -99,9 +100,6 @@ public:
 struct Pool_19e430 {
     int FUN_001b6b00(int id, V3_19e430 *a);
     void FUN_001b6d00(int id, ProjectileMissile_19e430 *p);
-};
-struct Allocator {
-    void *FUN_0008fe90(unsigned int size);
 };
 struct Stats_19e430 {
     char pad0[0x120];
@@ -271,7 +269,7 @@ char FireMissileAction::vfunc_5(int a0, int a1)
     f.id = ((Pool_19e430 *)f.pool)->FUN_001b6b00(fb4, &f.a);
     if (f.id < 0)
         return 0;
-    void *mem = (*(Allocator*)&DAT_004e2210).FUN_0008fe90(0xdc);
+    void *mem = (void *)((owners::BitPool_8fe90 *)DAT_004e2210)->FUN_0008fe90(0xdc);
     ProjectileMissile_19e430 *proj;
     if (mem)
         proj = ((ProjectileMissile_19e430 *)mem)->FUN_001962b0(cfg, f.s10.prop);

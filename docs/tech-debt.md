@@ -46,11 +46,9 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
   native HulkContact is 0x58), the managers' set-up views (owners::C_23f690, Thing_d3ef0, C_1b7260, Owner_2062d0, the
   subtitle Object 0x001c0a40, Frontend_c4ef0, the World / Sim_88670 pads, the world-stream views) and the particle
   updater (0x002d11f0 / 0x002d1db0 / 0x002d1f10 disagree on offsets). Each needs the record its constructor defines.
-- **32-bit views left behind by x64t11 (2026-11-13).** The projectile pool DAT_004e2210 is a record now
-  (records.h `GameStaticAllocator`), but its users still read it at 32-bit offsets: owners::BitPool_8fe90 (0x0008fe90,
-  the data pointer an `int`), the free 0x0008ff00 views (Global_19b350, Alloc_19bbd0, Alloc_19e8e0) and the
-  release 0x00364010. core::ControllerBuffer's destructor 0x00270610 (a local class of ints) and BinkCallback.cpp's
-  `thunk_FUN_00271230` declaration (the name an `unsigned int`) likewise.
+- **32-bit views left behind by x64t11 (2026-11-13).** core::ControllerBuffer's destructor 0x00270610 (a local class
+  of ints: the buffers it frees and the heap words) and BinkCallback.cpp's `thunk_FUN_00271230` declaration (the name
+  an `unsigned int`) still read pointers as 32-bit words. (The projectile pool's views are on the record since x64t12.)
 - **TUs still compiled with /GX (`// cl-flags: /GX`; gx1 D17, accepted as the interim state by the user's D23,
   2026-11-14).** The game was built without C++ exceptions and the tree compiles with /GX- by default
   (tools/compare.py DEFAULT_FLAGS; clang with -fno-exceptions everywhere since gx2). 448 TUs still say `// cl-flags: /GX`

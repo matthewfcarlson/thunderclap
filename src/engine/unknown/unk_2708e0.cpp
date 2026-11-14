@@ -145,8 +145,10 @@ struct A_271530 {
 };
 struct Item_271560 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual signed char v6(); };
 extern void __cdecl FUN_002697c0(void*,void*,void*,void*,void*);
-extern void __cdecl FUN_00277b70(void*,Item_271560*,int,int,int);
-struct Work_271560 { int primary; int secondary; int tertiary; int alternate; char reserved[16]; int data; char rest[0xfc]; };
+extern void __cdecl FUN_00277b70(void*,Item_271560*,const char*,unsigned int,unsigned int);
+// (x64t12) FUN_002697c0's results: the path after the drive name and the copy's path part (pointers: as ints the
+// 64-bit stores ran into the drive name, which then named no drive), the drive name, the copy
+struct Work_271560 { const char* remainder; char* suffix; char drive[20]; char path[0x100]; };
 typedef unsigned int uint_2716c0;
 typedef unsigned char byte_2716c0;
 extern int __cdecl FUN_002716f0(unsigned int character, char *output, unsigned int capacity, unsigned int fallback, unsigned int *written, unsigned int state);
@@ -688,26 +690,26 @@ extern "C" void __cdecl FUN_00271530(A_271530* a, const char* b, int c, int d) {
 
 
 // 0x00271560 FUN_00271560 (290 B): equivalent/0x00271560.cpp
-// sym: _FUN_00271560 @afaf6114979f @wa8e2dd563057
+// sym: _FUN_00271560 @33695a5bea87 @w8355c925567e
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 12/12)
 // FUN_00271560 @ 0x00271560
 // (x64t11) the output is the caller's file pointer (CPlatformManager's archive slot; 0x00277b70 stores a
 // CementLibrary* through it): as an int* the miss stored 4 of its 8 bytes natively
 extern "C" void __cdecl FUN_00271560(void** output, hulk_intptr name, int flags, int extra) {
     Work_271560 work;
-    work.secondary = 0;
-    work.tertiary = 0;
-    FUN_002697c0((void*)name,&work.data,&work.alternate,&work.tertiary,&work.secondary);
+    work.remainder = 0;
+    work.suffix = 0;
+    FUN_002697c0((void*)name,work.path,work.drive,&work.suffix,&work.remainder);
     FUN_0026d850(((char*)DAT_0052a0f0));
-    int index = FUN_00270c10((const char *)(void *)(&work.alternate));
+    int index = FUN_00270c10(work.drive);
     void** entry = 0;
     if (index != -1) entry = &DAT_00528418[index].drive;
     if (!entry || !*entry) {
         if ((*(char*)&DAT_004cdc04)) {
             FUN_0026d840(((char*)DAT_0052a0f0));
-            FUN_00270f10((const char *)(void *)(&work.alternate),(void *)(hulk_uintptr)(int)DAT_0052a120);
+            FUN_00270f10(work.drive,(void *)(hulk_uintptr)(int)DAT_0052a120);
             FUN_0026d850(((char*)DAT_0052a0f0));
-            index = FUN_00270c10((const char *)(void *)(&work.alternate));
+            index = FUN_00270c10(work.drive);
             entry = index > -1 ? &DAT_00528418[index].drive : 0;
         }
     }
@@ -717,8 +719,8 @@ extern "C" void __cdecl FUN_00271560(void** output, hulk_intptr name, int flags,
         return;
     }
     Item_271560* item = (Item_271560*)*entry;
-    int selected = work.tertiary;
-    if (item->v6() < 0) selected = work.secondary;
+    const char* selected = work.suffix;
+    if (item->v6() < 0) selected = work.remainder;
     FUN_00277b70(output,(Item_271560*)*entry,selected,flags,extra);
     FUN_0026d840(((char*)DAT_0052a0f0));
 }

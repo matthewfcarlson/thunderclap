@@ -3644,25 +3644,27 @@ struct Obj_8ef90 {
     void CopyTail();
     void FUN_0008ef90(unsigned int* src, unsigned int val);
 };
-// equivalent/0x0008fe90.cpp (stub BitPool), size 0x1c (0x28)
+// equivalent/0x0008fe90.cpp: the projectile pool (records.h GameStaticAllocator, DAT_004e2210) taking a block;
+// size 0x1c (0x30). (x64t12) the record's words: unk_08ed50.cpp checks the layout against the record.
 struct BitPool_8fe90 {
-    char pad00[4]; // +0x00
+    const void* vftable; // +0x00
     unsigned int elemSize; // +0x04
     unsigned int count; // +0x08
-    char pad0c[4]; // +0x0c
-    int base; // +0x10
-    unsigned int *bitmap; // +0x14 (+0x18)
-    unsigned int cursor; // +0x18 (+0x20)
+    int flags; // +0x0c
+    char *base; // +0x10 (+0x18) the blocks
+    unsigned int *bitmap; // +0x14 (+0x20)
+    unsigned int cursor; // +0x18 (+0x28)
     hulk_intptr FUN_0008fe90(int unused);
 };
-// matches/0x0008ff00.cpp (stub Thing_8ff00), size 0x1c (0x28)
+// matches/0x0008ff00.cpp: the same pool giving a block back; size 0x1c (0x30), the record's words as above
 struct Thing_8ff00 {
-    char pad0[4]; // +0x00
-    unsigned int divisor; // +0x04
-    char pad8[8]; // +0x08
-    unsigned int base; // +0x10
-    unsigned int* bits; // +0x14 (+0x18)
-    unsigned int limit; // +0x18 (+0x20)
+    const void* vftable; // +0x00
+    unsigned int divisor; // +0x04 the block size
+    unsigned int count; // +0x08
+    int flags; // +0x0c
+    char* base; // +0x10 (+0x18)
+    unsigned int* bits; // +0x14 (+0x20)
+    unsigned int limit; // +0x18 (+0x28) the next block to try
     void FUN_0008ff00(hulk_intptr value, int unused);
 };
 // matches/0x00090050.cpp (stub Table_90050), size 0x8
@@ -14974,15 +14976,15 @@ struct C_272b40 {
     void FUN_00272b40(unsigned char x);
 };
 // matches/0x002775f0.cpp (stub X_2775f0), size 0x14
-struct X_2775f0 {
-    int data[4]; // +0x00
-    int value; // +0x10
+struct X_2775f0 {   // (x64t12) records.h CoreDriveLibraryList: the heads and tails, the cursor
+    void* data[4]; // +0x00
+    void* value; // +0x10
     void FUN_002775f0(int i);
 };
 // matches/0x00277630.cpp (stub Obj_277630), size 0x24
-struct Obj_277630 {
-    char pad[0x14]; // +0x00
-    int m14; // +0x14
+struct Obj_277630 {   // (x64t12) records.h CoreDriveLibraryList: the shared buffer, its size, users, heap
+    void* pad[5]; // +0x00 the list's heads, tails and cursor
+    void* m14; // +0x14
     int m18; // +0x18
     int m1c; // +0x1c
     int m20; // +0x20
@@ -14995,10 +14997,11 @@ struct C_277cd0 {
     unsigned int FUN_00277cd0();
 };
 // matches/0x00278010.cpp (stub Obj_278010), size 0x20
-struct Obj_278010 {
-    char pad[0x1c]; // +0x00
+struct Obj_278010 {   // (x64t12) records.h CoreFileView: the library, its words, the reader kind (words[6])
+    void* resource; // +0x00
+    unsigned int words[6]; // +0x04
     int state; // +0x1c
-    int A(int, int, int, int, int, int, int, int, int);
+    int A(int, int, int, int, int, int, int, int, int);   // (unused since x64t12: 0x00278010 calls the readers by name)
     int B(int, int, int, int, int, int, int, int, int);
     int FUN_00278010(hulk_intptr a, int b, hulk_intptr c, int d, int e, hulk_intptr f, int g, hulk_intptr h, int i);
 };

@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00273c70..0x00273d50 (kind game, layer engine, confidence medium), dominant class core::SaveGameOpenRequest
 #include "tree_prelude.h"
+#include "decls/data/records.h"
 #include "compat/ptr.h"
 #include "gen/core.h"
 #include "gen/owners.h"
@@ -89,9 +90,9 @@ class d3dShader_273d40 : public pddiBaseShader_273d40 {
 // sym: ?run@FileRequest_273c70@fn_f1bb87c2@@QAEXXZ
 void FileRequest_273c70::run() {
     v = (void*)((hulk_intptr)DAT_0042b99c);
-    p->sub.f();
-    --p->ref;
-    p->sub.g();
+    ((Sub_273c70*)&((CoreFile*)p)->vftableMutable)->f();
+    --((CoreFile*)p)->field18;
+    ((Sub_273c70*)&((CoreFile*)p)->vftableMutable)->g();
     ((V*)p)->g();
     v = (void*)((hulk_intptr)DAT_0042b914);
 }

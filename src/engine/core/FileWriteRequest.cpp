@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00274020..0x00274100 (kind game, layer engine, confidence medium), dominant class core::FileWriteRequest
 #include "tree_prelude.h"
+#include "decls/data/records.h"
 #include "compat/ptr.h"
 #define TREE_TU_BEGIN namespace fn_f015241e {
 #define TREE_TU_END }
@@ -76,9 +77,9 @@ struct FileWriteRequest {
 // sym: ?run@FileRequest_274020@fn_f015241e@@QAEXXZ
 void FileRequest_274020::run() {
     v = (void*)((hulk_intptr)DAT_0042b99c);
-    p->sub.f();
-    --p->ref;
-    p->sub.g();
+    ((Sub_274020*)&((CoreFile*)p)->vftableMutable)->f();
+    --((CoreFile*)p)->field18;
+    ((Sub_274020*)&((CoreFile*)p)->vftableMutable)->g();
     ((V*)p)->g();
     v = (void*)((hulk_intptr)DAT_0042b914);
 }

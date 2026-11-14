@@ -46,9 +46,9 @@ struct Lock_273920 { virtual void acquire(); virtual void release(); };
 // sym: ?run@FileRequest_2738e0@fn_ff7ceca7@@QAEXXZ
 void FileRequest_2738e0::run() {
     v = (void*)((hulk_intptr)DAT_0042b99c);
-    p->sub.f();
-    --p->ref;
-    p->sub.g();
+    ((Sub_2738e0*)&((CoreFile*)p)->vftableMutable)->f();
+    --((CoreFile*)p)->field18;
+    ((Sub_2738e0*)&((CoreFile*)p)->vftableMutable)->g();
     ((V*)p)->g();
     v = (void*)((hulk_intptr)DAT_0042b914);
 }
@@ -56,7 +56,7 @@ void FileRequest_2738e0::run() {
 } // namespace fn_ff7ceca7
 
 // 0x00273920 core::FileOpenRequest::vfunc_1 (533 B): equivalent/0x00273920.cpp
-// sym: ?vfunc_1@FileOpenRequest@core@@UAEHXZ @236aca0ed27c @w1ba999bf915c
+// sym: ?vfunc_1@FileOpenRequest@core@@UAEHXZ @236aca0ed27c @wa6fcbab3bbde
 // STATUS: equivalent (tools/equiv.py level 3: 19788 inputs, branch coverage 14/14)
 // core::FileOpenRequest::vfunc_1 @ 0x00273920
 // core::FileOpenRequest::vfunc_1 (records.h CoreFile): the file is looked up in the drive's cement libraries
@@ -71,7 +71,7 @@ int core::FileOpenRequest::vfunc_1() {
  while(candidate) { if(candidate->FUN_00277b40(((CoreFile*)this->f_08)->filename,&((CoreFile*)this->f_08)->view)) { found=true; break; } candidate=it->FUN_00277600(); }
  int status=1;
  if(!found) {
- status=backend->open(((CoreFile*)this->f_08)->filename,this->f_0c,(*(unsigned char *)&this->f_10),(int*)&((CoreFile*)this->f_08)->view.words[11],(int*)&((CoreFile*)this->f_08)->field128);
+ status=backend->open(((CoreFile*)this->f_08)->filename,this->f_0c,(*(unsigned char *)&this->f_10),(int*)&((CoreFile*)this->f_08)->view.tail[1],(int*)&((CoreFile*)this->f_08)->field128);
  if(status==1) { ((CoreFile*)this->f_08)->flag1c=1; Info_273920* info=((Info_273920 *)((owners::ProjectileMissile_2728d0 *)backend)->FUN_002728d0()); ((CoreFile*)this->f_08)->field164=info->value; int result=backend->FUN_00272880(); ((Lock_273920*)&((CoreFile*)this->f_08)->vftableMutable)->acquire(); ((CoreFile*)this->f_08)->field14=result; ((Lock_273920*)&((CoreFile*)this->f_08)->vftableMutable)->release(); return 1; }
  ((owners::X_2775f0 *)it)->FUN_002775f0(1);
  candidate=it->FUN_00277600();
@@ -79,7 +79,7 @@ int core::FileOpenRequest::vfunc_1() {
  if(!found) { int result=backend->FUN_00272880(); ((Lock_273920*)&((CoreFile*)this->f_08)->vftableMutable)->acquire(); ((CoreFile*)this->f_08)->field14=result; ((Lock_273920*)&((CoreFile*)this->f_08)->vftableMutable)->release(); return status; }
  }
  CoreFile* source=(CoreFile*)((Match*)&((CoreFile*)this->f_08)->view)->FUN_00277cb0();
- ((CoreFile*)this->f_08)->view.words[11]=source->view.words[11];
+ ((CoreFile*)this->f_08)->view.tail[1]=source->view.tail[1];
  int size=((int)((owners::C_277cd0 *)&((CoreFile*)this->f_08)->view)->FUN_00277cd0()); ((CoreFile*)this->f_08)->field128=size;
  ((CoreFile*)this->f_08)->flag1c=1;
  ((CoreFile*)this->f_08)->field164=source->field164;

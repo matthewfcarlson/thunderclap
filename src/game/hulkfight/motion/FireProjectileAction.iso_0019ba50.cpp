@@ -11,6 +11,7 @@
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct V3_19ba50 { float x, y, z; };
 struct Mat_19ba50 { float m[16]; };
@@ -67,9 +68,6 @@ public:
     V3_19ba50 aim;
     ProjectileGroundShockwave_19ba50* FUN_00198990(Source_19ba50* src);
 };
-struct Pool_19ba50 {
-    void* FUN_0008fe90(unsigned int size);
-};
 struct Mgr_19ba50 {
     int FUN_001b6b00(int id, V3_19ba50* pos);
     int FUN_001b6d00(int idx, ProjectileGroundShockwave_19ba50* s);
@@ -99,7 +97,7 @@ bool hulkfight::motion::FireGroundShockwaveAction::vfunc_5(hulk_intptr a, int b)
     int handle = mgr->FUN_001b6b00(id, &local);
     if (handle < 0)
         return false;
-    void* mem = (*(Pool_19ba50*)&DAT_004e2210).FUN_0008fe90(0xc0);
+    void* mem = (void*)((owners::BitPool_8fe90*)DAT_004e2210)->FUN_0008fe90(0xc0);
     ProjectileGroundShockwave_19ba50* s;
     if (mem != 0)
         s = ((ProjectileGroundShockwave_19ba50*)mem)->FUN_00198990((*(Source_19ba50 * *)&this->f_1c));

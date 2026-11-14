@@ -31,16 +31,18 @@ struct Interface_277d00 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
  virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
  virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11();
- virtual int slot12(unsigned int a, unsigned int b, unsigned int c, unsigned int offset, unsigned int d, unsigned int e, unsigned int* result, unsigned int f);
+ // (x64t12) the device's read (slot 12): the handle, the file's name, ..., the position, the buffer, the count
+ virtual int slot12(unsigned int a, const char* b, unsigned int c, unsigned int offset, void* d, unsigned int e, unsigned int* result, unsigned int f);
 };
+// (x64t12) core::File's view of its cement library entry (records.h CoreFileView): the library, then its words
 struct Object {
- unsigned int field0;
+ void* field0;
  unsigned int base;
  unsigned int position;
  unsigned int fieldC;
  unsigned int end;
  unsigned int state;
- int FUN_00277d00(Interface_277d00* target, unsigned int a, unsigned int b, unsigned int c, unsigned int offset, unsigned int d, unsigned int e, unsigned int* result, unsigned int f);
+ int FUN_00277d00(Interface_277d00* target, unsigned int a, const char* b, unsigned int c, unsigned int offset, void* d, unsigned int e, unsigned int* result, unsigned int f);
 };
 typedef unsigned int U_277d60;
 extern hulk_uintptr __cdecl FUN_0026fd80(hulk_uintptr,U_277d60);
@@ -51,9 +53,10 @@ extern void __cdecl FUN_00279d30(void*,U_277d60,void*,U_277d60,U_277d60);
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int);
 #endif
 namespace fn_fad5a458 {
-struct Reader { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual int read(U_277d60,U_277d60,U_277d60,void*,void*,U_277d60,U_277d60*,U_277d60); };
-struct State_277d60 { U_277d60 unknown; char* source; U_277d60 total; U_277d60 size; U_277d60 position; U_277d60 skip; U_277d60 sourceSize; U_277d60 unused; U_277d60 alignment; char* buffer; U_277d60 capacity;
-int target(Reader* reader,U_277d60 a2,U_277d60 a3,U_277d60 a4,U_277d60 start,char* dest,U_277d60 requested,U_277d60* result,U_277d60 a9);
+struct Reader { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual int read(U_277d60,const char*,U_277d60,U_277d60,void*,U_277d60,U_277d60*,U_277d60); };
+// (x64t12) records.h CoreFileView: the library, the entry's offset in the archive (a file position), ..., the shared buffer
+struct State_277d60 { void* unknown; U_277d60 source; U_277d60 total; U_277d60 size; U_277d60 position; U_277d60 skip; U_277d60 sourceSize; U_277d60 unused; U_277d60 alignment; char* buffer; U_277d60 capacity;
+int target(Reader* reader,U_277d60 a2,const char* a3,U_277d60 a4,U_277d60 start,char* dest,U_277d60 requested,U_277d60* result,U_277d60 a9);
 };
 typedef unsigned char byte_278060;
 extern int __stdcall XGetDeviceChanges(void* deviceType, uint* inserted, uint* removed);
@@ -264,10 +267,10 @@ void B_277ce0::target() {
 
 
 // 0x00277d00 FUN_00277d00 (82 B): equivalent/0x00277d00.cpp
-// sym: ?FUN_00277d00@Object@fn_fad5a458@@QAEHPAUInterface_277d00@2@IIIIIIPAII@Z @f70145dd03b0 @w4575482bbc53
+// sym: ?FUN_00277d00@Object@fn_fad5a458@@QAEHPAUInterface_277d00@2@IPBDIIPAXIPAII@Z @f70145dd03b0 @w4575482bbc53
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_00277d00 @ 0x00277d00
-int Object::FUN_00277d00(Interface_277d00* target, unsigned int a, unsigned int b, unsigned int c, unsigned int offset, unsigned int d, unsigned int e, unsigned int* result, unsigned int f) {
+int Object::FUN_00277d00(Interface_277d00* target, unsigned int a, const char* b, unsigned int c, unsigned int offset, void* d, unsigned int e, unsigned int* result, unsigned int f) {
  int status = target->slot12(a,b,c,base+offset,d,e,result,f);
  unsigned int value = *result + offset;
  position = value;
@@ -278,10 +281,10 @@ int Object::FUN_00277d00(Interface_277d00* target, unsigned int a, unsigned int 
 
 
 // 0x00277d60 FUN_00277d60 (683 B): equivalent/0x00277d60.cpp
-// sym: ?target@State_277d60@fn_fad5a458@@QAEHPAUReader@2@IIIIPADIPAII@Z @2ff50b72b51d @w22a5f48e02a1
+// sym: ?target@State_277d60@fn_fad5a458@@QAEHPAUReader@2@IPBDIIPADIPAII@Z @2ff50b72b51d @w22a5f48e02a1
 // STATUS: equivalent (tools/equiv.py level 3: 526 inputs, branch coverage 38/40, incomplete; run with --inputs 12000)
 // FUN_00277d60 @ 0x00277d60
-int State_277d60::target(Reader* reader,U_277d60 a2,U_277d60 a3,U_277d60 a4,U_277d60 start,char* dest,U_277d60 requested,U_277d60* result,U_277d60 a9) {
+int State_277d60::target(Reader* reader,U_277d60 a2,const char* a3,U_277d60 a4,U_277d60 start,char* dest,U_277d60 requested,U_277d60* result,U_277d60 a9) {
  if(start>size) { *result=requested; return 1; }
  U_277d60 count=requested;
  if(start+requested>size) count=size-start;
@@ -294,7 +297,7 @@ int State_277d60::target(Reader* reader,U_277d60 a2,U_277d60 a3,U_277d60 a4,U_27
  if(available<room) room=available;
  hulk_uintptr amount=FUN_0026fd50(room-carry,alignment);
  U_277d60 readResult;
- int status=reader->read(a2,a3,a4,source+aligned+carry,buffer+carry,amount,&readResult,1);
+ int status=reader->read(a2,a3,a4,(U_277d60)(source+aligned+carry),buffer+carry,amount,&readResult,1);
  if(status!=1) return status;
  char* block=buffer-aligned+pos;
  char* end=buffer+room;
@@ -328,11 +331,13 @@ int State_277d60::target(Reader* reader,U_277d60 a2,U_277d60 a3,U_277d60 a4,U_27
 // 0x00278010 FUN_00278010 (26 B): matches/0x00278010.cpp
 // sym: ?FUN_00278010@Obj_278010@owners@@QAEHHHHHHHHHH@Z
 int owners::Obj_278010::FUN_00278010(hulk_intptr a, int b, hulk_intptr c, int d, int e, hulk_intptr f, int g, hulk_intptr h, int i) {
+    // (x64t12) the entry's two readers by their own names (0x00277d00 stored, 0x00277d60 compressed), the device,
+    // the name, the buffer and the result as pointers (as ints they were truncated natively)
     switch (state) {
     case 0:
-        return A(((int)a), b, ((int)c), d, e, ((int)f), g, ((int)h), i);
+        return ((fn_fad5a458::Object*)this)->FUN_00277d00((fn_fad5a458::Interface_277d00*)a, b, (const char*)c, d, e, (void*)f, g, (unsigned int*)h, i);
     case 1:
-        return B(((int)a), b, ((int)c), d, e, ((int)f), g, ((int)h), i);
+        return ((fn_fad5a458::State_277d60*)this)->target((fn_fad5a458::Reader*)a, b, (const char*)c, d, e, (char*)f, g, (unsigned int*)h, i);
     default:
         return 0;
     }

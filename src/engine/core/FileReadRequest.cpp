@@ -121,9 +121,9 @@ class ParamValue_274010 {
 // sym: ?run@FileRequest_273e20@fn_f9b32c3b@@QAEXXZ
 void FileRequest_273e20::run() {
     v = (void*)((hulk_intptr)DAT_0042b99c);
-    p->sub.f();
-    --p->ref;
-    p->sub.g();
+    ((Sub_273e20*)&((CoreFile*)p)->vftableMutable)->f();
+    --((CoreFile*)p)->field18;
+    ((Sub_273e20*)&((CoreFile*)p)->vftableMutable)->g();
     ((V*)p)->g();
     v = (void*)((hulk_intptr)DAT_0042b914);
 }
@@ -133,13 +133,14 @@ void FileRequest_273e20::run() {
 // 0x00273e60 core::FileCommitRequest::vfunc_1 (75 B): matches/0x00273e60.cpp
 // sym: ?vfunc_1@FileCommitRequest@core@@UAEHXZ
 int core::FileCommitRequest::vfunc_1() {
-    Data_273e60* d = (*(Data_273e60 *volatile *)&this->f_08);
-    Inner_273e60* i = d->inner;
-    int x = i->k(d->field, (hulk_intptr)((char*)d + 0x1e));
+    // (x64t12) the file is records.h CoreFile: its drive, the view's last word, its name; the IMutable lock at +4
+    CoreFile* d = (*(CoreFile *volatile *)&this->f_08);
+    Inner_273e60* i = (Inner_273e60*)d->provider;
+    int x = i->k(d->view.tail[1], (hulk_intptr)d->filename);
     int z = i->Fnm_00272880();
-    (*(Data_273e60 *volatile *)&this->f_08)->sub.a();
-    (*(Data_273e60 *volatile *)&this->f_08)->y = z;
-    (*(Data_273e60 *volatile *)&this->f_08)->sub.b();
+    ((Sub_273e60*)&(*(CoreFile *volatile *)&this->f_08)->vftableMutable)->a();
+    (*(CoreFile *volatile *)&this->f_08)->field14 = z;
+    ((Sub_273e60*)&(*(CoreFile *volatile *)&this->f_08)->vftableMutable)->b();
     return x;
 }
 
@@ -157,9 +158,9 @@ namespace fn_f9b32c3b {
 // sym: ?run@FileRequest_273ec0@fn_f9b32c3b@@QAEXXZ
 void FileRequest_273ec0::run() {
     v = (void*)((hulk_intptr)DAT_0042b99c);
-    p->sub.f();
-    --p->ref;
-    p->sub.g();
+    ((Sub_273ec0*)&((CoreFile*)p)->vftableMutable)->f();
+    --((CoreFile*)p)->field18;
+    ((Sub_273ec0*)&((CoreFile*)p)->vftableMutable)->g();
     ((V*)p)->g();
     v = (void*)((hulk_intptr)DAT_0042b914);
 }
@@ -185,8 +186,8 @@ int FileReadRequest_273f00::vfunc_1() {
   uint transferred;
   bool useReader=FUN_00277ca0((int*)&((CoreFile*)file)->view);
   CoreFile* current=(CoreFile*)file;
-  if(useReader) result=((owners::Obj_278010*)&current->view)->FUN_00278010((hulk_intptr)device,current->view.words[11],(hulk_intptr)current->filename,current->field120,current->field124,(hulk_intptr)buffer,(int)count,(hulk_intptr)&transferred,flags);
-  else result=device->read(current->view.words[11],current->filename,current->field120,current->field124,buffer,(uint)count,&transferred,flags);
+  if(useReader) result=((owners::Obj_278010*)&current->view)->FUN_00278010((hulk_intptr)device,current->view.tail[1],(hulk_intptr)current->filename,current->field120,current->field124,(hulk_intptr)buffer,(int)count,(hulk_intptr)&transferred,flags);
+  else result=device->read(current->view.tail[1],current->filename,current->field120,current->field124,buffer,(uint)count,&transferred,flags);
   if(result==1) ((CoreFile*)file)->field124+=transferred;
  } else result=1;
  uint status=device->FUN_00272880();

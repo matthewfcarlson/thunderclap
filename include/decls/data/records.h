@@ -1568,7 +1568,13 @@ extern "C" CoreDriveRegistryEntry DAT_00528418[26];
 // the library it references, 0x00277d00 reads through it)
 struct CoreFileView {
     void* resource;                         // +0x00 the core::CementLibrary (0x00277c40 adds a reference, slot 0)
-    unsigned int words[12];                 // +0x04 offsets, sizes and positions (0x00277c40, 0x00277d00)
+    unsigned int words[8];                  // +0x04 offsets, sizes and positions (0x00277c40, 0x00277d00; 0x00277d60:
+                                            //       the entry's offset, read total, size, position, skip, source
+                                            //       size, -, alignment)
+    char* buffer;                           // +0x24 (x64t12) the drive's shared buffer (CoreDriveLibraryList buffer,
+                                            //       0x00277c40; 0x00277d60 reads through it)
+    unsigned int capacity;                  // +0x28 its size
+    unsigned int tail[2];                   // +0x2c
 };
 
 // core::File (0x002764d0 constructs it; vftables 0x0042bd3c / +4 0x0042bd30): an open file, from the "File" pool

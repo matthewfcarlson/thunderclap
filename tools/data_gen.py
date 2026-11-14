@@ -388,6 +388,13 @@ class TUWriter:
         if t is None:
             return None
         kind, name, off = t
+        if kind != "func" and name.startswith("vtbl_") and off and off % 4 == 0:
+            # (x64t12) a pointer into a vftable record ([locator][slots]: a static object's vftable word, 0x0049ca0c
+            # MyDriveErrorCallback's): the slot's own name, DAT_<address>. The Wine link binds it by address (the
+            # same word as `vtbl_<record> + 4k`); the native link's game vftables (native_mac.code_owned64) define
+            # DAT_<address> at each slot, where a word of the record is 8 bytes (`vtbl_ + 4` was the middle of the
+            # locator pointer, and vtbl_ itself no native name: a zero stub, slot 0 null)
+            name, off = "DAT_%08x" % v, 0
         if kind == "func":
             self.ext_func.add(name)
         elif name not in self.local:

@@ -122,13 +122,15 @@ struct FileRequest_2742b0 {
 };
 
 
+// (x64t12) the requests' files are records.h CoreFile: the count at +0x18 and the IMutable lock at +4 (a member
+// object's virtual call was the declared class's natively: a stub)
 // 0x00274100 FUN_00274100 (53 B): matches/0x00274100.cpp
 // sym: ?run@FileRequest_274100@fn_fdf65e9e@@QAEXXZ
 void FileRequest_274100::run() {
     v = (void*)((hulk_intptr)DAT_0042b99c);
-    p->sub.f();
-    --p->ref;
-    p->sub.g();
+    ((Sub_274100*)&((CoreFile*)p)->vftableMutable)->f();
+    --((CoreFile*)p)->field18;
+    ((Sub_274100*)&((CoreFile*)p)->vftableMutable)->g();
     ((V*)p)->g();
     v = (void*)((hulk_intptr)DAT_0042b914);
 }
@@ -138,10 +140,10 @@ void FileRequest_274100::run() {
 // 0x00274140 core::FileSetPositionRequest::vfunc_1 (55 B): matches/0x00274140.cpp
 // sym: ?vfunc_1@FileSetPositionRequest@core@@UAEHXZ
 int core::FileSetPositionRequest::vfunc_1() {
-    (*(File_274140 * *)&this->f_08)->position = this->f_0c;
-    (*(File_274140 * *)&this->f_08)->sub.a();
-    (*(File_274140 * *)&this->f_08)->state = 0;
-    (*(File_274140 * *)&this->f_08)->sub.b();
+    ((CoreFile*)this->f_08)->field124 = this->f_0c;
+    ((Sub_274140*)&((CoreFile*)this->f_08)->vftableMutable)->a();
+    ((CoreFile*)this->f_08)->field14 = 0;
+    ((Sub_274140*)&((CoreFile*)this->f_08)->vftableMutable)->b();
     return 1;
 }
 
@@ -159,9 +161,9 @@ namespace fn_fdf65e9e {
 // sym: ?run@FileRequest_274190@fn_fdf65e9e@@QAEXXZ
 void FileRequest_274190::run() {
     v = (void*)((hulk_intptr)DAT_0042b99c);
-    p->sub.f();
-    --p->ref;
-    p->sub.g();
+    ((Sub_274190*)&((CoreFile*)p)->vftableMutable)->f();
+    --((CoreFile*)p)->field18;
+    ((Sub_274190*)&((CoreFile*)p)->vftableMutable)->g();
     ((V*)p)->g();
     v = (void*)((hulk_intptr)DAT_0042b914);
 }
@@ -194,9 +196,9 @@ namespace fn_fdf65e9e {
 // sym: ?run@FileRequest_274220@fn_fdf65e9e@@QAEXXZ
 void FileRequest_274220::run() {
     v = (void*)((hulk_intptr)DAT_0042b99c);
-    p->sub.f();
-    --p->ref;
-    p->sub.g();
+    ((Sub_274220*)&((CoreFile*)p)->vftableMutable)->f();
+    --((CoreFile*)p)->field18;
+    ((Sub_274220*)&((CoreFile*)p)->vftableMutable)->g();
     ((V*)p)->g();
     v = (void*)((hulk_intptr)DAT_0042b914);
 }
@@ -229,9 +231,9 @@ namespace fn_fdf65e9e {
 // sym: ?run@FileRequest_2742b0@fn_fdf65e9e@@QAEXXZ
 void FileRequest_2742b0::run() {
     v = (void*)((hulk_intptr)DAT_0042b99c);
-    p->sub.f();
-    --p->ref;
-    p->sub.g();
+    ((Sub_2742b0*)&((CoreFile*)p)->vftableMutable)->f();
+    --((CoreFile*)p)->field18;
+    ((Sub_2742b0*)&((CoreFile*)p)->vftableMutable)->g();
     ((V*)p)->g();
     v = (void*)((hulk_intptr)DAT_0042b914);
 }

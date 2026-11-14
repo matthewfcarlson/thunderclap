@@ -821,10 +821,7 @@ class ProjectileEffect {
     Obj* m24;
     void Cleanup_001b6820();
 };
-class Global_19b350 {
-  public:
-    void Free_0008ff00(void*, int);
-};
+class Global_19b350;
 extern H* __cdecl FUN_0027f250();
 extern Global_19b350* g_19b350;
 class Params_19b3c0 {
@@ -2392,7 +2389,7 @@ bool FireProjectileAction::vfunc_5(int a1, Slot_19ae50 a2)
         int id = cfg->f7c;
         int slot = f.pool->FUN_001b6b00(id, &f.a);
         if (slot >= 0) {
-            void *mem = ((void *)((owners::BitPool_8fe90 *)&((*(Allocator*)&DAT_004e2210)))->FUN_0008fe90(0x50));
+            void *mem = (void *)((owners::BitPool_8fe90 *)DAT_004e2210)->FUN_0008fe90(0x50);
             ProjectileEffect_19ae50 *proj;
             if (mem)
                 proj = ((ProjectileEffect_19ae50 *)mem)->FUN_00195a90(cfg);
@@ -2490,7 +2487,7 @@ ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
         m18 = 0;
     Cleanup_001b6820();
     if (flags & 1)
-        ((Global_19b350*)((hulk_intptr)DAT_004e2210))->Free_0008ff00(this, 0x50);
+        ((owners::Thing_8ff00*)DAT_004e2210)->FUN_0008ff00((hulk_intptr)this, 0x50);
     return this;
 }
 
@@ -2891,13 +2888,10 @@ class ProjectileGroundShockwave : public CProjectile {
 struct ThisCall_00198ab0 {
     void FUN_00198ab0();
 };
-struct Alloc_19bbd0 {
-    void Fnf_0008ff00(void*, int);
-};
 ProjectileGroundShockwave* ProjectileGroundShockwave::vfunc_2(unsigned char flags) {
     ((ThisCall_00198ab0*)(this))->FUN_00198ab0();
     if (flags & 1)
-        ((Alloc_19bbd0*)((hulk_intptr)DAT_004e2210))->Fnf_0008ff00(this, 0xc0);
+        ((owners::Thing_8ff00*)DAT_004e2210)->FUN_0008ff00((hulk_intptr)this, 0xc0);
     return this;
 }
 } // namespace fn_0019bbd0

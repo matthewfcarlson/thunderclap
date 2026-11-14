@@ -865,3 +865,21 @@ blocks fight::Action's whole family: the records come first there.
   splits, e.g. CButtonCondition_params.cpp holds CNameFlagConditionBase's): those need the object boundaries settled
   (config/splits.json) before the registration can emit them. Non-template `??_G`s (OpportunityAction, ...) keep
   their TUs on /GX until their constructors are real.
+
+## 2026-11-14 x64t12: the archives mount natively; pointers parked in ints along the drive path
+
+- macOS start-up never opened rcfs.txt's archives: 0x00271560 kept FUN_002697c0's two result *pointers* in int words
+  of its work area, so the 8-byte stores ran over the drive name it then looked up. The same parser feeds InstanceDrive's
+  slots and the archive's name went through 0x00277b70 as an `unsigned int`. With the drive path, core::CementLibrary
+  (on records.h CoreCementLibrary, its constructor storing the game's vftables), the entry readers (CoreFileView's
+  buffer pointer, 0x00278010 calling the readers by name) and the file requests (CoreFile, the lock through a cast)
+  fixed, all twelve archives mount and the language probe finds frontend/lang/str_en.txt in one.
+- data_gen wrote a pointer into a vftable record as `vtbl_<record> + 4`: natively the record's words are 8 bytes and
+  `vtbl_` has no native name, so DAT_0049ca0c (the static MyDriveErrorCallback) had a null slot 0. Such pointers are
+  now the slot's own `DAT_<address>`, which both links bind (ten items).
+- Adjustor-thunk blocks of invented classes (0x002777c0..0x00277800) have no usable native form: their thunks call
+  undefined local methods. The explicit `HULK_PTR64` thunk (0x002786f0's pattern) must call its target by the
+  target's own C++ name: a 64-bit-only `FUN_<addr>` name is never in the Wine binding map, so the native link cannot
+  verify it (0x002786f0's own `FUN_00278a80` is unbound for that reason).
+- Removing two unused member declarations from include/gen/owners.h flipped 0x002ea3c0's MSVC code (one of the six
+  declaration-count blocks); keeping the declarations restores it.

@@ -567,30 +567,31 @@ int core::InstanceDrive::vfunc_5() {
 
 
 // 0x00276860 core::InstanceDrive::vfunc_6 (135 B): equivalent/0x00276860.cpp [wrapped: conflict: FUN_00273560; core::InstanceDrive]
-// sym: ?vfunc_6@InstanceDrive@core@fn_00276860@@UAEXI@Z @190f06a65848 @w6c7209a84f4c
+// sym: ?vfunc_6@InstanceDrive@core@fn_00276860@@UAEXPBD@Z @190f06a65848 @w6c7209a84f4c
 namespace fn_00276860 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // core::InstanceDrive::vfunc_6 @ 0x00276860
 namespace core { struct InstanceDrive; }
-struct DriveCreateDirectoryRequest_276860 { void* FUN_00275880(core::InstanceDrive*, unsigned int); };
+struct DriveCreateDirectoryRequest_276860 { void* FUN_00275880(core::InstanceDrive*, const char*); };
 struct Drive {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual signed char slot6();
  void FUN_00272b60(void*, unsigned int, int);
 };
-void __cdecl FUN_002697c0(unsigned int, char*, char*, unsigned int*, unsigned int*);
+// (x64t12) FUN_002697c0's results are pointers (the path past the drive name, the copy's path part)
+void __cdecl FUN_002697c0(const char*, char*, char*, char**, const char**);
 DriveCreateDirectoryRequest_276860* __cdecl FUN_00273560(unsigned int);
 namespace core {
 struct InstanceDrive {
- virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(unsigned int);
+ virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(const char*);
  char bases[8];
  Drive* drive;
  unsigned int context;
 };
-void InstanceDrive::vfunc_6(unsigned int input) {
- unsigned int first = 0, second = 0;
+void InstanceDrive::vfunc_6(const char* input) {
+ const char* first = 0; char* second = 0;
  char part[20]; char path[260];
  FUN_002697c0(input,path,part,&second,&first);
- unsigned int selected = second;
+ const char* selected = second;
  if (drive->slot6() < 0) selected = first;
  DriveCreateDirectoryRequest_276860* entry = FUN_00273560(32);
  void* result = 0;
@@ -607,15 +608,15 @@ namespace fn_002768f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // core::InstanceDrive::vfunc_7 @ 0x002768f0
 struct Drive { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual signed char s6(); int FUN_00272b60(void*,void*,int); };
-extern void __cdecl FUN_002697c0(const char*,char*,void*,unsigned*,unsigned*);
+extern void __cdecl FUN_002697c0(const char*,char*,char*,char**,const char**);   // (x64t12) the results are pointers
 extern void* __cdecl FUN_00273560(unsigned);
 namespace core { struct InstanceDrive; }
-struct Object { void* FUN_00275930(core::InstanceDrive*,unsigned); };
+struct Object { void* FUN_00275930(core::InstanceDrive*,const char*); };
 namespace core { struct InstanceDrive { char pad[12]; Drive* drive; void* context; int vfunc_7(const char*); }; }
 int core::InstanceDrive::vfunc_7(const char* path) {
- unsigned first=0, second=0; char extra[16]; char buffer[260];
+ const char* first=0; char* second=0; char extra[16]; char buffer[260];
  FUN_002697c0(path,buffer,extra,&second,&first);
- unsigned selected=second;
+ const char* selected=second;
  if (drive->s6()<0) selected=first;
  Object* object=(Object*)FUN_00273560(32);
  void* result=object ? object->FUN_00275930(this,selected) : 0;
@@ -676,15 +677,15 @@ unsigned int InstanceDrive::vfunc_9(unsigned int arg) {
 
 
 // 0x00276a70 core::InstanceDrive::vfunc_10 (138 B): equivalent/0x00276a70.cpp [wrapped: conflict: core::InstanceDrive]
-// sym: ?vfunc_10@InstanceDrive@core@fn_00276a70@@UAEIPBD@Z @6185d7c640df @waefa81fb10b9
+// sym: ?vfunc_10@InstanceDrive@core@fn_00276a70@@UAEIPBD@Z @479b855080bd @w103c8f8ada10
 namespace fn_00276a70 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // core::InstanceDrive::vfunc_10 @ 0x00276a70
 struct ParsedData { char bytes[260]; };
-void __cdecl FUN_002697c0(const char*, ParsedData*, unsigned int*, unsigned int*, unsigned int*);
+void __cdecl FUN_002697c0(const char*, ParsedData*, char*, char**, const char**);   // (x64t12) the results are pointers
 void* __cdecl FUN_00273560(unsigned int);
 namespace core { struct InstanceDrive; }
-struct Created_276a70 { Created_276a70* FUN_00275bd0(core::InstanceDrive*, unsigned int); };
+struct Created_276a70 { Created_276a70* FUN_00275bd0(core::InstanceDrive*, const char*); };
 struct Backend_276a70 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual signed char slot6();
  unsigned int FUN_00272b60(Created_276a70*, unsigned int, int);
@@ -696,9 +697,9 @@ struct InstanceDrive {
 };
 unsigned int InstanceDrive::vfunc_10(const char* name) {
  ParsedData parsed;
- unsigned int other, primary = 0, alternate = 0;
- FUN_002697c0(name, &parsed, &other, &primary, &alternate);
- unsigned int selected = primary;
+ char other[20]; char* primary = 0; const char* alternate = 0;
+ FUN_002697c0(name, &parsed, other, &primary, &alternate);
+ const char* selected = primary;
  if (backend->slot6() < 0) selected = alternate;
  Created_276a70* memory = (Created_276a70*)FUN_00273560(0x110);
  Created_276a70* object = memory ? memory->FUN_00275bd0(this, selected) : 0;
@@ -1049,22 +1050,22 @@ bool core::InstanceDrive::vfunc_32(unsigned int* a0, unsigned int* a1) {
 
 
 // 0x00276df0 core::InstanceDrive::vfunc_33 (203 B): equivalent/0x00276df0.cpp [wrapped: conflict: core::InstanceDrive]
-// sym: ?vfunc_33@InstanceDrive@core@fn_00276df0@@QAEPAUCreated_276df0@3@PAPAU43@IIIIIII@Z @bd5038c86a30 @wc52c0413503f
+// sym: ?vfunc_33@InstanceDrive@core@fn_00276df0@@QAEPAUCreated_276df0@3@PAPAU43@PBDIIIIII@Z @363e27a14f13 @w4245767e7c33
 namespace fn_00276df0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 4/4)
 // core::InstanceDrive::vfunc_33 @ 0x00276df0
 struct Child_276df0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual unsigned char v6(); };
-struct Created_276df0 { Created_276df0* FUN_002764d0(Child_276df0*, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, int); };
-extern void __cdecl FUN_002697c0(unsigned, char*, unsigned*, unsigned*, unsigned*);
+struct Created_276df0 { Created_276df0* FUN_002764d0(Child_276df0*, const char*, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned char); };
+extern void __cdecl FUN_002697c0(const char*, char*, char*, char**, const char**);   // (x64t12) the results are pointers
 extern Created_276df0* __cdecl FUN_00275d50(unsigned);
-namespace core { struct InstanceDrive { void* vtable; void* refTable; unsigned field8; Child_276df0* child; Created_276df0* vfunc_33(Created_276df0**,unsigned,unsigned,unsigned,unsigned,unsigned,unsigned,unsigned); }; }
-Created_276df0* core::InstanceDrive::vfunc_33(Created_276df0** out,unsigned path,unsigned a3,unsigned a4,unsigned a5,unsigned a6,unsigned a7,unsigned a8) {
- unsigned first=0;
- unsigned second=0;
+namespace core { struct InstanceDrive { void* vtable; void* refTable; unsigned field8; Child_276df0* child; Created_276df0* vfunc_33(Created_276df0**,const char*,unsigned,unsigned,unsigned,unsigned,unsigned,unsigned); }; }
+Created_276df0* core::InstanceDrive::vfunc_33(Created_276df0** out,const char* path,unsigned a3,unsigned a4,unsigned a5,unsigned a6,unsigned a7,unsigned a8) {
+ const char* first=0;
+ char* second=0;
  char buffer[260];
- unsigned other;
- FUN_002697c0(path,buffer,&other,&second,&first);
- unsigned selected=second;
+ char other[20];
+ FUN_002697c0(path,buffer,other,&second,&first);
+ const char* selected=second;
  if ((signed char)child->v6()<0) selected=first;
  Created_276df0* p=FUN_00275d50(0x168);
  Created_276df0* result=0;
@@ -1096,9 +1097,9 @@ struct Drive {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual signed char slot6();
 };
 struct File_276f00 {
- File_276f00* FUN_002763a0(Drive*, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned);
+ File_276f00* FUN_002763a0(Drive*, const char*, unsigned, unsigned, unsigned, unsigned, unsigned);
 };
-extern void __cdecl FUN_002697c0(const char*, char*, char*, unsigned*, unsigned*);
+extern void __cdecl FUN_002697c0(const char*, char*, char*, char**, const char**);   // (x64t12) the results are pointers
 extern File_276f00* __cdecl FUN_00275d50(unsigned);
 namespace core {
 struct InstanceDrive {
@@ -1106,10 +1107,10 @@ struct InstanceDrive {
  File_276f00* vfunc_35(File_276f00**, const char*, unsigned, unsigned, unsigned, unsigned, unsigned);
 };
 File_276f00* InstanceDrive::vfunc_35(File_276f00** output, const char* input, unsigned a, unsigned b, unsigned c, unsigned d, unsigned e) {
- unsigned first=0, second=0;
+ const char* first=0; char* second=0;
  char small[20]; char large[260];
  FUN_002697c0(input,large,small,&second,&first);
- unsigned selected=second;
+ const char* selected=second;
  if (drive->slot6()<0) selected=first;
  File_276f00* result=FUN_00275d50(0x168);
  if(result) result=result->FUN_002763a0(drive,selected,a,b,c,d,e);

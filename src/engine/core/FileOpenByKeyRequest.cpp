@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00273b50..0x00273c70 (kind game, layer engine, confidence medium), dominant class core::FileOpenByKeyRequest
 #include "tree_prelude.h"
+#include "decls/data/records.h"
 #include "compat/ptr.h"
 #define TREE_TU_BEGIN namespace fn_f3859b68 {
 #define TREE_TU_END }
@@ -83,9 +84,9 @@ struct FileOpenByKeyRequest {
 // sym: ?run@FileRequest_273b50@fn_f3859b68@@QAEXXZ
 void FileRequest_273b50::run() {
     v = (void*)((hulk_intptr)DAT_0042b99c);
-    p->sub.f();
-    --p->ref;
-    p->sub.g();
+    ((Sub_273b50*)&((CoreFile*)p)->vftableMutable)->f();
+    --((CoreFile*)p)->field18;
+    ((Sub_273b50*)&((CoreFile*)p)->vftableMutable)->g();
     ((V*)p)->g();
     v = (void*)((hulk_intptr)DAT_0042b914);
 }
