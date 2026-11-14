@@ -4336,3 +4336,114 @@ Declaration-count flips: with the final headers 0x00027930 takes a new MSVC hash
 
 Native unbound (macOS / Linux / Android; each side's own snapshot and binding map): control 79287 **14,430 / 14,410 / 14,421**; proof 80049 **14,404 / 14,384 / 14,395**. The proof's macOS image stops where i7 did (the drive error callback, pc 0).
 
+
+## The Wine build without exceptions; the parameter templates constructed for real (gx2, 2026-11-14)
+
+User decisions of 11-14 on gx1's hand-back: D22 (the Wine build takes -fno-exceptions together with the removal of the
+`throw()` / `__declspec(nothrow)` workarounds), D23 (the `/GX` marker TUs accepted as the interim state, logged in
+docs/tech-debt.md), D18 + D24 (the parameter registration functions construct the real `ParamX<T>`, the Method/Closure
+family likewise, TU by TU; each TU loses its `/GX` marker as it becomes /GX--clean).
+
+**gx2 1: D22 + D23.**
+- tools/clang_probe.py: COMMON ends in `-fno-exceptions` (no `-fexceptions -fcxx-exceptions`); `common_native()` is
+  COMMON (the native list is unchanged, so the native caches stay valid). The Wine build (`msvc` configuration) and
+  `equiv.py --wine` (`compile_native`) compile every game TU without exceptions.
+- build/gx1/scripts/nothrow.py on HEAD: 585 `__declspec(nothrow)` and 1,091 `throw()` (any function but `operator new`
+  / `delete`, whose `throw()` means "may return null") removed in 280 /GX- TUs. No MSVC code changes (whole tree).
+  The headers keep their 19 while /GX TUs include them.
+- Clang code: 72 equivalent blocks changed (their cleanup landing pads), as gx1 measured. `--wine` 3,000 inputs:
+  60 promotable (recorded with `tree_tu.py hash --proven`, 56 of them; the other 4 are in TUs below and keep their
+  code); 12 not: 0x00224540, 0x0026e650, 0x00297ba0, 0x001c82c0, 0x000396a0, 0x0001fe60, 0x00094fb0, 0x00322990
+  (chk1's list; 0x0029a630 of that list now passes, 0x00148f40's clang code doesn't change), and 0x00102cd0,
+  0x00117480, 0x001b65f0, 0x001e7470, which chk1's later commits (bba347f96, 8e8c9f921) made fail since gx1's runs:
+  the first three fail identically on HEAD with exceptions on (control jobs 81005-81007), 0x001e7470 passes there
+  (102/102 edges) and falls one edge short with the change at the time budget.
+- Those 12 blocks would fail `materialize` (`code_changed`), so the Wine build could not run. Their TUs say
+  `// clang-flags: -fexceptions -fcxx-exceptions` instead (new: clang_probe.tu_flags, read by the `msvc`
+  configuration, its x87 scan and equiv.compile_native; the native builds ignore it) and keep their throw() /
+  nothrow: their clang code is the code their recorded hashes prove, so no hash is recorded for a block that doesn't
+  pass (D22). Like gx1's `/GX` for GrappleThrowAction.iso_00148f40, a TU loses the line when its block re-proves.
+- The regress cases 0x0002cbf0_native_ddtor / _ddtor_off ("stack pointer after return differs by -4") are a /GX
+  source (an empty user destructor); since 8d23563ee's /GX- default the MSVC object inlines it into the `??_G`, so
+  equiv.py's ddtor rule (the MSVC `??_G` calls exactly the destructor and `operator delete`) no longer applied. The
+  two case sources say `// cl-flags: /GX`, as the tree TUs they come from do.
+- docs/tech-debt.md: the 457 `/GX` TUs (454 for the `??_G`s, the two dynamic_initializers TUs for good,
+  GrappleThrowAction.iso_00148f40) and the 12 `clang-flags` TUs.
+
+- Gates (gx2 1, 83b8912d5): whole tree with the batch shipped (jobs 81066-81077): 27,438 blocks, 22,339 MATCH with
+  relocations ok, 5,099 equivalents with both hashes ok. regress.py with the batch's tools (HEAD's 481 cases; jobs
+  81310-81369): 481/481 ok; the two ddtor cases fail on HEAD without the change (job 81370). x64 gate (temporary
+  commit e0fd34ae8): ok (194 changed blocks, 162 equivalent, 6 known, 26 not gating). Wine proof on studio (private
+  data TUs): control 80666 (db514e145), proof 81078 seeded from it: GATE ok, 0 of 2,021 common frames differ (prng
+  too).
+
+**gx2 2: D18 in src/engine/fight (nine TU groups).** The form, measured on MSVC 7.1 /GX- first (build/gx2/exp/):
+`params[i] = new ParamString<PrintCondition>("channel", &Setter)` with the global `operator new` (0x0008d690,
+`HULK_NEW_THROW`), an out-of-line `ParamValueString(const char*)` (0x002349e0) and an inline template constructor that
+stores the setter word compiles to the game's registration byte for byte, and emits the class's vftable and its scalar
+deleting destructor (`call ~ParamValue` (0x00234780), the delete: 30 bytes) as the game's.
+- include/gen/fight.h (build/gx2/scripts/gen18hdr.py), under `HULK_FIGHT_PARAM_IMPLICIT` (a migrated TU defines it
+  before its includes): ParamValue's inline constructor (the 8-byte name id at +0x08, 0x0027b0e0); for ParamValueString,
+  -Float, -Bool, -Int, -Branch, -ConditionGroup and -Vector a `ParamValueX(const char*)` in place of the user-declared
+  destructor (implicit now); for ParamString, ParamFloatConstRange, ParamFloat, ParamBool, ParamIntConstRange,
+  ParamBranch, ParamConditionGroup and ParamVector a `template <class S> X(const char* name, S setter)` in place of
+  theirs. Unconditionally: those templates' `hulk_intptr f_10` (the setter) and `int f_14` (every registration in the
+  game allocates 0x18 for them; 0x20 for ParamEnumConstList): config/gen-sizes.json, 725 instantiations 20 or 16 -> 24.
+  The setter word stays a word: typed as `bool (T0::*)(int)` it changed the MSVC code of 164 `vfunc_2`s whose T0 is
+  incomplete in their TU (the general member-pointer representation); `hulk_setter_word` stores the member function
+  pointer's code address (the setters are now the blocks' own definitions, e.g. `&owners::Object_238910::FUN_00238910`,
+  where the registrations named free functions nothing defines).
+- The seven constructors 0x00234860, 0x002348e0, 0x00234960, 0x002349e0, 0x00234e50, 0x00235170, 0x00235220 are the
+  real `::fight::ParamValueX::ParamValueX(const char*) : ParamValue(name) {}` (MATCH, relocations ok; before: gen
+  methods returning `this` or TU-local classes storing both vftables by hand).
+- build/gx2/scripts/gen18.py writes a registration from the game's code (its counter, list, names and setters) into
+  the TU of its classes' `??_G` blocks: 12 registrations in PrintTrack, WaitTrack, MaybeCondition, CommentTrack,
+  SubConditionGroupCondition, StopTrack, SpawnTrack, BreakPointTrack and PlatformCondition. 10 of them were
+  equivalent and now MATCH (`matches` blocks); 8 `.new_throw` / `.iso_` TUs that held only them are gone
+  (src/link-order.txt). Their 17 `??_G` blocks have no text of their own: the registration emits them (pinned, MATCH),
+  and their `(ren2)` native-only explicit instantiations are gone (the constructor emits the vftable natively too).
+  The nine TUs are /GX- (no `// cl-flags: /GX`; their throw() / nothrow removed as in gx2 1): 457 -> 448 `/GX` TUs.
+- Left in src/engine/fight: OpportunityTrack, ExecuteAction and SequenceTrack also hold a non-template class's `??_G`
+  (`OpportunityAction::~OpportunityAction() {}`, ...) whose constructor is still a stub, and with /GX their
+  registrations do not match (the `new` gets an unwind frame): they move with the non-template constructors.
+  DebugCondition's registration constructs ParamEnumConstList (0x20 bytes: name, enum table, count, setter), and
+  unk_2361a0's three construct FightNodeTimeCondition's parameters from another object (below).
+
+- Gates (gx2 2, a75dde828): whole tree with the batch shipped (jobs 81833-81844): 27,438 blocks, 22,349 MATCH with
+  relocations ok, 5,089 equivalents with both hashes ok. gen_headers.py --probe (job 81644): 18/18 headers, 4,238
+  classes ok (the probe's constructor list now skips `#if defined(X)` regions). x64 gate (temporary commit 133e8ad8a
+  on e0fd34ae8): ok, 61 changed blocks: 33 equivalent (0x00234860, 0x00234960, 0x00235170 improved: their baseline
+  layout failures are gone with ParamValue's name id at its native place, `ParamValueWords`), 28 unsupported:tool;
+  config/x64-baseline.json ratcheted. Wine proof on studio: control 81078 (gx2 1's proof), proof 81848 seeded from
+  it: GATE ok, 0 of 2,021 common frames differ (prng too).
+
+**What D18 needs next (measured over the game's 434 registrations, build/gx2/scripts/regscan.py, d18map.py).**
+65 sit in the TU of their classes' `??_G` blocks, 128 in a `.iso_` / `.new_*` sibling of it (merge back, as here), and
+241 in another object: their classes' `??_G` blocks are in `_params` / `_reg` TUs of low-confidence splits (e.g.
+CButtonCondition_params.cpp, 0x000514f0.., holds the `??_G`s of CNameFlagConditionBase's parameters, whose
+registrations are in CNameFlagConditionBase_reg.cpp), so those objects' boundaries (config/splits.json) come first.
+Families still without a constructor: ParamEnumConstList (226 sites; 0x20 bytes: the enum table and count at +0x10 /
++0x14, the setter at +0x18), ParamName / ParamNameConstList / ParamNameList (ParamValueName and ParamValueNameList
+derive from ParamValueString / -StringList, and their constructors store only ParamValue's and their own vftable:
+the intermediate constructor must be inline there), ParamFloatPtrConstRange / ParamBoolPtr / ParamScript /
+ParamStringConstList (an `int` +0x10 word). The Method/Closure family and the non-template classes' `??_G`
+(OpportunityAction, ...) need their constructors real; none of that is in this batch.
+The setter word natively: `vfunc_6` calls it through `*(bool (ParamX::**)(int))&f_10`, a member function pointer of
+16 bytes on the Itanium targets (Linux, Android), so it also reads `f_14` and the padding as the `this` adjustment,
+which nothing stores (the 8-byte MS-ABI pointer on macOS reads `f_10` alone). Pre-existing (the stand-ins stored a
+word too); the fix is a native-only member function pointer type for the word (the 32-bit layout keeps one word).
+
+**Native unbound names** (each proof's clang-probe snapshot linked with its own binding map; macOS / Linux / Android):
+
+| state | macOS | Linux | Android |
+|---|---|---|---|
+| control 80666 (db514e145) | 14,396 | 14,376 | 14,387 |
+| gx2 1, proof 81078 | 14,396 | 14,376 | 14,387 |
+| gx2 2, proof 81848 | **14,342** | **14,322** | **14,333** |
+
+gx2 1 changes no native code (the native builds were already -fno-exceptions; throw() is no code there). gx2 2 on macOS:
+68 names gone (the TU-local stand-ins' invented constructors and placeholder slots, the ~ParamValueX declarations,
+the registrations' free-function setter names nothing defined), 14 new: the base classes' real slots
+(`ParamValueFloat::vfunc_5`, `ParamValueBool::vfunc_1`, ..., `ParamValue::~ParamValue`) that clang's own vftables of
+the constructed templates now name and the tree defines on TU-local or wrapped classes (0x00234780 is a free
+function); renaming those blocks onto include/gen's classes binds them (as for Condition's shared slots, gx1 2).

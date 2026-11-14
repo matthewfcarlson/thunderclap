@@ -846,3 +846,22 @@ blocks fight::Action's whole family: the records come first there.
   (0x00224540: a float difference, the store of `*result` keeps its old value where the original writes -inf);
   6 new differing inputs found by the changed exploration; 2 refused frame_escape/smash masks; a few time-budget
   shortfalls. Lists in the chk1 hand-back.
+
+## 2026-11-14 gx2: the Wine build without exceptions (D22, D23); the parameter templates constructed for real (D18)
+- D22: clang_probe COMMON is -fno-exceptions for every build; 585 `__declspec(nothrow)` and 1,091 `throw()` removed
+  from 280 /GX- TUs (no MSVC code change). 72 equivalents' clang code changed: 60 re-prove `--wine` at 3,000, 12 do not
+  and fail the same way with exceptions on (chk1's masks; 4 of them newly since gx1's runs). Recording no hash for them
+  left `materialize` failing (`code_changed`), so their 12 TUs keep exceptions in the Wine build through a new
+  `// clang-flags: -fexceptions -fcxx-exceptions` line (native builds ignore it), as gx1's `/GX` kept 0x00148f40's TU.
+- The ddtor regress cases broke with the /GX- default because their source is a /GX source (an empty user destructor
+  the /GX- MSVC object inlines into the `??_G`): they say `// cl-flags: /GX`, like the tree TUs they mirror.
+- D18's form: `new ParamX<T>(name, &T::Setter)` through the global operator new, out-of-line `ParamValueX(const char*)`
+  (each the inlined `ParamValue(name)`: two vftable stores around the name id's constructor) and an inline template
+  constructor storing the setter word reproduce the registrations byte for byte (10 equivalents became matches), and
+  the `??_G` blocks need no text: the registration emits them. Pitfall: typing the setter word as a member function
+  pointer of T0 changes the code of `vfunc_2` (`f_10 == 0`) wherever T0 is incomplete (general representation).
+- Of the 434 registrations in the game, 65 sit in the TU of their classes' `??_G` blocks, 128 in a `.iso_` /
+  `.new_*` sibling of it, and 241 in another object (the `??_G` blocks are in `_params` / `_reg` TUs of low-confidence
+  splits, e.g. CButtonCondition_params.cpp holds CNameFlagConditionBase's): those need the object boundaries settled
+  (config/splits.json) before the registration can emit them. Non-template `??_G`s (OpportunityAction, ...) keep
+  their TUs on /GX until their constructors are real.
