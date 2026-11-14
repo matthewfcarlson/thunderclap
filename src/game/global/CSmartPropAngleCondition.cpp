@@ -5,6 +5,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
+#include "gen/global.h"   // (gx1) CSmartPropAngleCondition
 #define TREE_TU_BEGIN namespace fn_ff756602 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -173,7 +174,7 @@ bool owners::Thing_4c790::FUN_0004c790(float x) {
 
 
 // 0x0004c7c0 CSmartPropAngleCondition::vfunc_7 (378 B): equivalent/0x0004c7c0.cpp [wrapped: conflict: CSmartPropAngleCondition]
-// sym: ?vfunc_7@CSmartPropAngleCondition@fn_0004c7c0@@UAE_NPAX@Z @1c2034fb16bf @we6289f70d944
+// sym: ?vfunc_7@CSmartPropAngleCondition@@UAE_NPAX@Z @1c2034fb16bf @we6289f70d944
 namespace fn_0004c7c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 10/10)
 // CSmartPropAngleCondition::vfunc_7 @ 0x0004c7c0
@@ -228,26 +229,16 @@ extern "C" Stats_4c7c0* __fastcall FUN_00059a30(Fighter_4c7c0* f);
 hulk_freg FUN_00224ea0(float x, float z);
 hulk_freg FUN_00224fc0(float a, float b);
 
-class CSmartPropAngleCondition {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual bool vfunc_7(void* owner);
-    int pad04[2];
-    float offset;
-    float range;
-};
+} // namespace fn_0004c7c0
 
-bool CSmartPropAngleCondition::vfunc_7(void* owner)
+// (gx1, D19) on include/gen's class, so the derived classes' vftables (which name this slot) bind it
+// (f_0c: the angle offset, f_10: the range)
+bool ::CSmartPropAngleCondition::vfunc_7(void* owner)
 {
+    using namespace fn_0004c7c0;
     Fighter_4c7c0* fighter = FUN_000592a0(owner);
     Stats_4c7c0* stats = FUN_00059a30(fighter);
-    Entity* e = 0;
+    fn_0004c7c0::Entity* e = 0;
     if (stats->FUN_00035ef0(0)) {
         e = stats->FUN_00035ef0(0)->FUN_001d72e0();
     }
@@ -272,9 +263,9 @@ bool CSmartPropAngleCondition::vfunc_7(void* owner)
     f.d.FUN_0022d110();
     float a1 = FUN_00224ea0(f.d.x, f.d.z);
     sub->v15()->FUN_0022c3b0(DAT_0048fa24, &f.w);
-    float a2 = FUN_00224ea0(f.w.x, f.w.z) + offset;
+    float a2 = FUN_00224ea0(f.w.x, f.w.z) + f_0c;
     float r = FUN_00224fc0(a1, a2);
-    return range * 0.5f > (float)fabs(r);
+    return f_10 * 0.5f > (float)::fabs(r);
 }
-} // namespace fn_0004c7c0
+
 

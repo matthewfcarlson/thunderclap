@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "decls/data/game/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/global.h"   // (gx1) CCondition
 #define TREE_TU_BEGIN namespace fn_f64b1530 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -333,18 +334,6 @@ class C {
     int a;
     int b;
     int c;
-};
-class CCondition {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void f();
-    virtual void g(int);
-    virtual int h(int);
-    int vfunc_6(int, int, int);
 };
 
 
@@ -1298,12 +1287,17 @@ extern "C" int FUN_00048260(C* p) {
 }
 
 
+} // namespace fn_f64b1530
+
 // 0x000482d0 CCondition::vfunc_6 (13 B): matches/0x000482d0.cpp
-// sym: ?vfunc_6@CCondition@fn_f64b1530@@QAEHHHH@Z
-int CCondition::vfunc_6(int x, int y, int z) {
-    return h(y);
+// sym: ?vfunc_6@CCondition@@UAE_NPAX00@Z
+// (gx1, D19) on include/gen's class, so the derived classes' vftables (which name this slot) bind it
+// (its second argument on to slot 7)
+bool ::CCondition::vfunc_6(void* a, void* b, void* c) {
+    return vfunc_7(b);
 }
 
+namespace fn_f64b1530 {
 
 // 0x000482e0 FUN_000482e0 (19 B): matches/0x000482e0.cpp
 // sym: ?FUN_000482e0@fn_f64b1530@@YAXPAX@Z

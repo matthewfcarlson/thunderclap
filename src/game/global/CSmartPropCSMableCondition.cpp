@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
+#include "gen/global.h"   // (gx1) CSmartPropCSMableCondition
 #define TREE_TU_BEGIN namespace fn_f5d3a323 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -81,7 +82,7 @@ CSmartPropCSMableCondition* CSmartPropCSMableCondition::vfunc_5(signed char flag
 } // namespace fn_f5d3a323
 
 // 0x0004cbe0 CSmartPropCSMableCondition::vfunc_7 (489 B): equivalent/0x0004cbe0.cpp [wrapped: conflict: CSmartPropCSMableCondition]
-// sym: ?vfunc_7@CSmartPropCSMableCondition@fn_0004cbe0@@UAEDPAX@Z @5bfaa7bcf6ec @we6a69686498e
+// sym: ?vfunc_7@CSmartPropCSMableCondition@@UAE_NPAX@Z @5bfaa7bcf6ec @w0b32397d4f21
 namespace fn_0004cbe0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 19/19)
 // CSmartPropCSMableCondition::vfunc_7 @ 0x0004cbe0
@@ -146,22 +147,13 @@ struct Frame {
     V3 l;
 };
 
-class CSmartPropCSMableCondition {
-public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual char vfunc_7(void *owner);
-    char pad4[8];
-    int wantType;
-};
+} // namespace fn_0004cbe0
 
-char CSmartPropCSMableCondition::vfunc_7(void *owner)
+// (gx1, D19) on include/gen's class, so the derived classes' vftables (which name this slot) bind it
+// (f_0c: the prop kind it wants)
+bool ::CSmartPropCSMableCondition::vfunc_7(void *owner)
 {
+    using namespace fn_0004cbe0;
     Frame f;
     Fighter *fighter = FUN_000592a0(owner);
     Link *link = FUN_00059a30(fighter)->link;
@@ -169,11 +161,11 @@ char CSmartPropCSMableCondition::vfunc_7(void *owner)
         return 0;
     if (link->type != 5)
         return 0;
-    Node *node = link->node;
+    fn_0004cbe0::Node *node = link->node;
     if (!node)
         return 0;
     int k = node->FUN_001d64a0();
-    if (k != wantType)
+    if (k != f_0c)
         return 0;
     switch (k) {
     case 8:
@@ -208,5 +200,5 @@ char CSmartPropCSMableCondition::vfunc_7(void *owner)
     }
     return 0;
 }
-} // namespace fn_0004cbe0
+
 

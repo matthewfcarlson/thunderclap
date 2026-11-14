@@ -190,7 +190,7 @@ bool hulkfight::motion::PropCollidedWithWorldCondition::vfunc_6(int a1, void* su
 
 
 // 0x00181bd0 hulkfight::motion::PropMissileCountCondition::vfunc_6 (209 B): equivalent/0x00181bd0.cpp [wrapped: conflict: DAT_00494b44; hulkfight::motion::PropMissileCountCondition]
-// sym: ?vfunc_6@PropMissileCountCondition@motion@hulkfight@fn_00181bd0@@UAE_NPAXPAUContext@4@0@Z @a2b1dc74eb65 @w0b49bc751ec9
+// sym: ?vfunc_6@PropMissileCountCondition@motion@hulkfight@@UAE_NPAX00@Z @a2b1dc74eb65 @w02f94e022d7c
 namespace fn_00181bd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 30/30)
 // hulkfight::motion::PropMissileCountCondition::vfunc_6 @ 0x00181bd0
@@ -200,31 +200,31 @@ struct MissileSource { int FUN_001d6c50(); };
 struct Actor_181bd0 { char pad[0x128]; MissileSource* active; MissileSource* FUN_00035ef0(int); };
 struct ActorHandle { Actor_181bd0* FUN_00059a30(); };
 struct Context { ActorHandle* FUN_000592a0(); };
-namespace hulkfight { namespace motion {
-struct PropMissileCountCondition {
- virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*, Context*, void*);
- char pad[8]; int slot; unsigned int comparison; int threshold;
-};
-bool PropMissileCountCondition::vfunc_6(void*, Context* context, void*) {
- if (!FUN_00344e74(context,0,&DAT_00494b44,&DAT_00494b60,0)) return false;
+} // namespace fn_00181bd0
+
+// (gx1, D19) on include/gen's class, so the derived classes' vftables (which name this slot) bind it
+// (f_0c: the missile slot, f_10: the comparison, f_14: the threshold)
+bool ::hulkfight::motion::PropMissileCountCondition::vfunc_6(void*, void* subject, void*) {
+ using namespace fn_00181bd0;
+ Context* context = (Context*)subject;
+ if (!FUN_00344e74(context,0,&fn_00181bd0::DAT_00494b44,&fn_00181bd0::DAT_00494b60,0)) return false;
  Actor_181bd0* actor = context->FUN_000592a0()->FUN_00059a30();
- int index = slot;
+ int index = f_0c;
  if (!actor) return false;
  MissileSource* source;
  if (index < 0) source = actor->active;
  else { if (index >= 8) return false; source = actor->FUN_00035ef0(index); }
  if (!source) return false;
  int count = source->FUN_001d6c50();
- switch (comparison) {
- case 0: return count < threshold;
- case 1: return count <= threshold;
- case 2: return count == threshold;
- case 3: return count != threshold;
- case 4: return count >= threshold;
- case 5: return count > threshold;
+ switch ((unsigned int)f_10) {
+ case 0: return count < f_14;
+ case 1: return count <= f_14;
+ case 2: return count == f_14;
+ case 3: return count != f_14;
+ case 4: return count >= f_14;
+ case 5: return count > f_14;
  default: return false;
  }
 }
-}}
-} // namespace fn_00181bd0
+
 
