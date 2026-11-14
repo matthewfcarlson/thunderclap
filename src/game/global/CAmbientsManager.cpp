@@ -2808,7 +2808,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_f9399ba1 {
 
 // 0x0007afb0 FUN_0007afb0 (806 B): equivalent/0x0007afb0.cpp
-// sym: ?FUN_0007afb0@Grid_7afb0@fn_f9399ba1@@QAEXHHHHPAUV3_7afb0@2@0@Z @7b3a5f2202dc @wa08a67205f6b
+// sym: ?FUN_0007afb0@Grid_7afb0@fn_f9399ba1@@QAEXHHHHPAUV3_7afb0@2@0@Z @7b3a5f2202dc @wd7cb6be5fe59
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 24/24)
 // FUN_0007afb0 @ 0x0007afb0
 void Grid_7afb0::FUN_0007afb0(int row, int col, int n, int swap, V3_7afb0* p1, V3_7afb0* p2)
@@ -2843,10 +2843,10 @@ void Grid_7afb0::FUN_0007afb0(int row, int col, int n, int swap, V3_7afb0* p1, V
     if (f.dir <= 3) {
         switch (f.dir) {
         case 0: {
-            float a = DAT_004dd048 * f.fu;
+            hulk_freg a = DAT_004dd048 * f.fu;     // kept in st0 (fld st(0); fadd)
             p1->x = p1->x + a;
             p2->x = p2->x + a;
-            float b = DAT_004dd04c * f.fu;
+            hulk_freg b = DAT_004dd04c * f.fu;
             if (r == 0)
                 p2->z = p2->z + b;
             else if (r == 6)
@@ -2858,10 +2858,10 @@ void Grid_7afb0::FUN_0007afb0(int row, int col, int n, int swap, V3_7afb0* p1, V
             break;
         }
         case 1: {
-            float a = DAT_004dd048 * f.fu;
+            hulk_freg a = DAT_004dd048 * f.fu;     // kept in st0 (fld st(0); fadd)
             p1->x = p1->x - a;
             p2->x = p2->x - a;
-            float b = DAT_004dd04c * f.fu;
+            hulk_freg b = DAT_004dd04c * f.fu;
             if (r == 0)
                 p1->z = p1->z - b;
             else if (r == 6)

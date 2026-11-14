@@ -1075,7 +1075,7 @@ extern "C" void FUN_0022d3a0(const Vec3_22d3a0* a, const Vec3_22d3a0* b, const V
 
 
 // 0x0022d550 FUN_0022d550 (465 B): equivalent/0x0022d550.cpp
-// sym: _FUN_0022d550 @5bfd19ade526 @w0e6af82aac5e
+// sym: _FUN_0022d550 @8fd10640f390 @wea387130c780
 // STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 10/10)
 // FUN_0022d550 @ 0x0022d550
 // Closest approach between a line (point P + t * dir ...) and a segment, see out parameters.
@@ -1088,8 +1088,9 @@ extern "C" char FUN_0022d550(const V3_22d550 *s, const V3_22d550 *dir, const V3_
     V3_22d550 d2;
     d2.x = t->x - p->x;
     d2.y = t->y - p->y;
-    d2.z = t->z - p->z;
-    float len = (float)sqrt(d2.z * d2.z + d2.y * d2.y + d2.x * d2.x);
+    double dz = t->z - p->z;            // the original multiplies the unrounded difference (fst; fmul [d2.z])
+    d2.z = dz;
+    float len = (float)sqrt(dz * d2.z + d2.y * d2.y + d2.x * d2.x);
     d2.FUN_0022d180();
 
     hulk_freg a = dir->y * dir->y + dir->z * dir->z + dir->x * dir->x;

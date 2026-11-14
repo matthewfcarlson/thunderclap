@@ -1299,7 +1299,7 @@ GroundSlideAction_1511d0::~GroundSlideAction_1511d0() {
 
 
 // 0x00151220 hulkfight::motion::GroundSlideAction::vfunc_3 (429 B): equivalent/0x00151220.cpp
-// sym: ?vfunc_3@GroundSlideAction@fn_f20ed7e3@@UAE_NHH@Z @0b4673825485 @wd4e09704f6ca
+// sym: ?vfunc_3@GroundSlideAction@fn_f20ed7e3@@UAE_NHH@Z @0b4673825485 @wa3f79913eeee
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 20/20)
 // hulkfight::motion::GroundSlideAction::vfunc_3 @ 0x00151220
 bool GroundSlideAction::vfunc_3(int a, int b)
@@ -1338,7 +1338,7 @@ bool GroundSlideAction::vfunc_3(int a, int b)
     ((owners::Target_27b040 *)&(d->name))->FUN_0027b040((hulk_uintptr)"groundSlide");
     driver->AddRef();
     skel->FUN_00222890(driver, -1.0f, c2c, 1.0f, c30, c34, -1.0f);
-    float ang = FUN_00224f10(&dir);
+    hulk_freg ang = FUN_00224f10(&dir);     // st0, added to angleOffset unrounded
     driver->xform.FUN_00221d20(ang + cfg->angleOffset);
     return true;
 }
@@ -1933,7 +1933,7 @@ HitThrowAction_151f80::~HitThrowAction_151f80() {
 } // namespace fn_f20ed7e3
 
 // 0x00151fd0 hulkfight::motion::HitThrowAction::vfunc_3 (480 B): equivalent/0x00151fd0.cpp [wrapped: conflict: FUN_000592a0; JointDriver]
-// sym: ?vfunc_3@HitThrowAction@fn_00151fd0@@UAE_NHH@Z @ff3c77f86572 @w79964feee926
+// sym: ?vfunc_3@HitThrowAction@fn_00151fd0@@UAE_NHH@Z @ff3c77f86572 @w103d163e02be
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -2114,7 +2114,7 @@ bool HitThrowAction::vfunc_3(int a, int b)
     int mode = 1;
     if (cfg->flag14) {
         mode = 3;
-        float r = FUN_00224f10(&t->pos);
+        hulk_freg r = FUN_00224f10(&t->pos);  // st0, added to f18 unrounded
         driver->xform.FUN_00221d20(r + cfg->f18);
     }
     driver->mode = mode;
@@ -2167,7 +2167,7 @@ void Target_1521b0::Run() {
 } // namespace fn_f20ed7e3
 
 // 0x00152210 hulkfight::motion::HitThrowAction::vfunc_5 (571 B): equivalent/0x00152210.cpp [wrapped: conflict: HitThrowAction; World]
-// sym: ?vfunc_5@HitThrowAction@fn_00152210@@QAE_NHM@Z @dceeda686d75 @wa198d62fd568
+// sym: ?vfunc_5@HitThrowAction@fn_00152210@@QAE_NHM@Z @dceeda686d75 @w050629dec778
 namespace fn_00152210 {
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 16/16)
 // hulkfight::motion::HitThrowAction::vfunc_5 @ 0x00152210
@@ -2327,16 +2327,25 @@ bool HitThrowAction::vfunc_5(int skip, float dt)
         f30 = vel.FUN_0022d110();
     }
 
+#if defined(__clang__)
+    // MSVC 7.1 keeps the x and y products in st0 (one rounding each) and spills the z product (fstp, then adds: two
+    // roundings); clang rounds every store, so it is spelled out
+    fr.t.z = fr.s.z * dt;
+    fr.t.x = fr.s.x * dt + fr.v.x;
+    fr.t.y = fr.s.y * dt + fr.v.y;
+    fr.t.z = fr.t.z + fr.v.z;
+#else
     fr.t.x = fr.s.x * dt;
     fr.t.y = fr.s.y * dt;
     fr.t.z = fr.s.z * dt;
     fr.t.x = fr.t.x + fr.v.x;
     fr.t.y = fr.t.y + fr.v.y;
     fr.t.z = fr.t.z + fr.v.z;
+#endif
     ((owners::Target_22be40 *)&(target->xform))->FUN_0022be40((const int *)(Vec3_152210 *)(&fr.t));
 
     if (cfg->flag14) {
-        float ang = FUN_00224f10(&vel);
+        hulk_freg ang = FUN_00224f10(&vel);     // st0, added to f18 unrounded
         target->xform.FUN_00221d20(ang + cfg->f18);
     }
     return f2c > 0.0f;

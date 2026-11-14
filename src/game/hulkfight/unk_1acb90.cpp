@@ -232,16 +232,17 @@ extern "C" Vec3_1acdd0 * __cdecl FUN_001acdd0(Vec3_1acdd0 *out, Mesh_1acdd0 *mes
 
 
 // 0x001acfa0 FUN_001acfa0 (112 B): equivalent/0x001acfa0.cpp
-// sym: ?FUN_001acfa0@V3_1acfa0@fn_f54565b1@@QAEPAU12@PBU12@0@Z @aebd2931239d @w3ce1bdf50203
+// sym: ?FUN_001acfa0@V3_1acfa0@fn_f54565b1@@QAEPAU12@PBU12@0@Z @aebd2931239d @w4c1704f4fc0a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001acfa0 @ 0x001acfa0
 // 2D perpendicular line through p and q (x, y), normalised, with offset z.
 V3_1acfa0* V3_1acfa0::FUN_001acfa0(const V3_1acfa0* p, const V3_1acfa0* q)
 {
     y = q->x - p->x;
-    x = p->z - q->z;
-    if (y * y + x * x > 1e-5f) {
-        double inv = 1.0f / sqrt(y * y + x * x);
+    hulk_freg xe = p->z - q->z;         // stored (fst), squared unrounded from st0
+    x = xe;
+    if (y * y + xe * xe > 1e-5f) {
+        double inv = 1.0f / sqrt(y * y + xe * xe);
         volatile V3_1acfa0* self = this;
         x = inv * self->x;
         y = inv * self->y;

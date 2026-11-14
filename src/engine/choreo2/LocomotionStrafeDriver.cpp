@@ -987,7 +987,7 @@ char choreo2::LocomotionStrafeDriver::vfunc_11(unsigned int a, unsigned int b, P
 
 
 // 0x00227100 choreo2::LocomotionStrafeDriver::vfunc_12 (438 B): equivalent/0x00227100.cpp [wrapped: conflict: FUN_0004af40; LocomotionStrafeDriver]
-// sym: ?vfunc_12@LocomotionStrafeDriver@fn_00227100@@UAE_NPAUSource_227100@2@PAM@Z @d04622291f4c @w50692e058888
+// sym: ?vfunc_12@LocomotionStrafeDriver@fn_00227100@@UAE_NPAUSource_227100@2@PAM@Z @d04622291f4c @w20762f9c3eb0
 namespace fn_00227100 {
 // STATUS: equivalent (tools/equiv.py level 3: 17998 inputs, branch coverage 22/22)
 // choreo2::LocomotionStrafeDriver::vfunc_12 @ 0x00227100
@@ -1067,8 +1067,9 @@ bool LocomotionStrafeDriver::vfunc_12(Source_227100 *src, float *out)
             if (anim->FUN_00288d10(0, a, b, &hi, &lo)) {
                 float lowT = anim->FUN_00288de0(0, 0, a, b);
                 float highT = anim->FUN_00288de0(1, 0, a, b);
-                float t = anim->weight - 1.0f;
-                float c = FUN_0004af40(0.0f, t, t * scale + e->bias);
+                hulk_freg tx = anim->weight - 1.0f;
+                float t = tx;                // stored (fst), the product reads it unrounded
+                hulk_freg c = FUN_0004af40(0.0f, t, tx * scale + e->bias);     // st0, compared unrounded
                 float r;
                 if (highT >= lowT) {
                     if (!(c >= lowT))
@@ -1429,7 +1430,7 @@ void __cdecl FUN_00227f90(Item_227f90* first, Item_227f90* last, hulk_intptr bud
 } // namespace fn_f9d100c9
 
 // 0x00228120 FUN_00228120 (938 B): equivalent/0x00228120.cpp [wrapped: conflict: FUN_0004af40; FUN_00224fc0]
-// sym: ?FUN_00228120@Sampler_228120@fn_00228120@@QAEXM@Z @c11de106dc66 @we49ee59b1ec1
+// sym: ?FUN_00228120@Sampler_228120@fn_00228120@@QAEXM@Z @c11de106dc66 @w6d991b36fa4c
 namespace fn_00228120 {
 // STATUS: equivalent (tools/equiv.py level 3: 385 inputs, branch coverage 30/30)
 // FUN_00228120 @ 0x00228120
@@ -1486,11 +1487,11 @@ void Sampler_228120::FUN_00228120(float arg)
     unsigned int n = width * height;
     count = 0;
     float a = FUN_00224fc0(f12e4, f12e0);
-    float ang = FUN_0004af40(0.0f, 6.28318548f, a);
+    hulk_freg ang = FUN_0004af40(0.0f, 6.28318548f, a);     // st0, used unrounded
 
     double step = 6.28318548f / (double)width;
     double inv = 1.0f / step;
-    unsigned int idx = (unsigned int)(int)(inv * ang) % width;
+    unsigned int idx = (unsigned int)(__int64)(inv * ang) % width;     // _ftol: the low word of the 64-bit value
     unsigned int next = (idx + 1) % width;
     volatile float tt = FUN_0015cf40((float)((ang - (double)idx * step) * inv));
     volatile float u1 = 1.0f - tt;

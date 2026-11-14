@@ -1496,7 +1496,7 @@ int Node::FUN_0030a270(Vec3_30a270 *pos, Vec3_30a270 *dir)
 } // namespace fn_fca90e00
 
 // 0x0030a410 physics::PhysicsJoint::vfunc_14 (919 B): equivalent/0x0030a410.cpp [wrapped: conflict: physics::PhysicsJoint]
-// sym: ?vfunc_14@PhysicsJoint@physics@fn_0030a410@@UAE_NPAUVec3_30a410@3@0PAUBasis_30a410@3@@Z @1676e210bd64 @w8a743c60146b
+// sym: ?vfunc_14@PhysicsJoint@physics@fn_0030a410@@UAE_NPAUVec3_30a410@3@0PAUBasis_30a410@3@@Z @1676e210bd64 @w3cdb710d911d
 namespace fn_0030a410 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 27/28, incomplete)
 // physics::PhysicsJoint::vfunc_14 @ 0x0030a410
@@ -1616,8 +1616,9 @@ bool PhysicsJoint::vfunc_14(Vec3_30a410* p1, Vec3_30a410* p2, Basis_30a410* basi
         }
 
         float inv = 1.0f / bmag;
-        float dot = (f.b.y * p2->y + f.b.z * p2->z + f.b.x * p2->x) * inv;
-        if (!(dot > 0.0f) || !(bmag > DAT_00555450)) {
+        hulk_freg dotx = (f.b.y * p2->y + f.b.z * p2->z + f.b.x * p2->x) * inv;
+        float dot = dotx;                    // stored (fst), but compared unrounded (fcomp of st0)
+        if (!(dotx > 0.0f) || !(bmag > DAT_00555450)) {
             weight = 0.0f;
             return false;
         }
@@ -1631,7 +1632,7 @@ bool PhysicsJoint::vfunc_14(Vec3_30a410* p1, Vec3_30a410* p2, Basis_30a410* basi
         f.c.x = f.c.x * k;
         f.c.y = f.c.y * k;
         f.c.z = f.c.z * k;
-        float r = vfunc_20(&f.c);
+        hulk_freg r = vfunc_20(&f.c);         // st0 (fcom, fld st(0); fmul)
         if (r < DAT_004d3184) {
             weight = r * weight;
             if (r == 0.0f)
@@ -1644,7 +1645,7 @@ bool PhysicsJoint::vfunc_14(Vec3_30a410* p1, Vec3_30a410* p2, Basis_30a410* basi
         vfunc_19(&f.c);
         flagED = 1;
     } else if (weight > 0.0f) {
-        float rest = 1.0f - weight;
+        hulk_freg rest = 1.0f - weight;      // st0 (fld st(0); fmul)
         p2->x = p2->x * rest;
         p2->y = p2->y * rest;
         p2->z = p2->z * rest;

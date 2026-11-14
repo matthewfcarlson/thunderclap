@@ -105,7 +105,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_f3deebf2 {
 
 // 0x0010ac60 FUN_0010ac60 (301 B): equivalent/0x0010ac60.cpp
-// sym: ?FUN_0010ac60@fn_f3deebf2@@YAMPAUBody_10ac60@1@0MPAUVec3_10ac60@1@@Z @40ff7cdc0de0 @w6b1cafecd998
+// sym: ?FUN_0010ac60@fn_f3deebf2@@YAMPAUBody_10ac60@1@0MPAUVec3_10ac60@1@@Z @40ff7cdc0de0 @w2bc546d66f04
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 8/8)
 // FUN_0010ac60 @ 0x0010ac60
 hulk_freg FUN_0010ac60(Body_10ac60 *a, Body_10ac60 *b, float radius, Vec3_10ac60 *out)
@@ -113,8 +113,8 @@ hulk_freg FUN_0010ac60(Body_10ac60 *a, Body_10ac60 *b, float radius, Vec3_10ac60
     Vec3_10ac60 pa;
     Vec3_10ac60 pb;
     Vec4_10ac60 info;
-    hulk_freg ra;
-    hulk_freg rb;
+    float ra;                           // float locals in the original (fstp dword): 0.5 * a denormal rounds
+    float rb;
 
     out->x = 0.0f;
     out->y = 0.0f;
@@ -126,7 +126,8 @@ hulk_freg FUN_0010ac60(Body_10ac60 *a, Body_10ac60 *b, float radius, Vec3_10ac60
     float dx = pa.x - pb.x;
     ra = 0.0f;
     hulk_freg dz = pa.z - pb.z;
-    float d2 = dz * dz + dx * dx;
+    float dzs = dz;                     // stored (fst), and the product reads it back: unrounded * rounded
+    float d2 = dz * dzs + dx * dx;
 
     if (a->FUN_000359e0(&info))
         ra = info.w * 0.5f;

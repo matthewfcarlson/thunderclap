@@ -158,7 +158,6 @@ class Item {
     virtual void FUN_00000004();
     char _m_pad_4[0x4];
     void Fng_001c4ea0(int);
-    void FUN_00000000() { f(); }
 };
 struct Observer { virtual void FUN_00000000(); virtual void FUN_00000004(); virtual void FUN_00000008(); virtual void FUN_0000000c(); virtual void FUN_00000010(); virtual void FUN_00000014(); virtual void FUN_00000018(); virtual void FUN_0000001c(); virtual void FUN_00000020(); virtual void FUN_00000024(); virtual void FUN_00000028(Item *); };
 class Item_1c5050 {
@@ -799,10 +798,10 @@ Object_1c4fb0::~Object_1c4fb0() throw() {
 
 
 // 0x001c5010 FUN_001c5010 (53 B): equivalent/0x001c5010.cpp
-// sym: ?FUN_001c5010@Owner@fn_f4431f34@@QAEXPAVItem@2@@Z @e741a8fe166d @w15f82ec59f9b
+// sym: ?FUN_001c5010@Owner@fn_f4431f34@@QAEXPAVItem@2@@Z @e741a8fe166d @w7a7c72a5f3c7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001c5010 @ 0x001c5010
-void Owner::FUN_001c5010(Item *value) { if (value) value->FUN_00000000(); if (item) item->FUN_00000004(); item = value; if (observer) observer->FUN_00000028(value); }
+void Owner::FUN_001c5010(Item *value) { if (value) value->f(); if (item) item->FUN_00000004(); item = value; if (observer) observer->FUN_00000028(value); }
 
 
 // 0x001c5050 FUN_001c5050 (38 B): matches/0x001c5050.cpp

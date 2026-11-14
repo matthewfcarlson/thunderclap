@@ -846,7 +846,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_fd69ca5d {
 
 // 0x002d1db0 pure3d::SpriteParticleUpdater::vfunc_4 (350 B): equivalent/0x002d1db0.cpp
-// sym: ?FUN_002d1db0@SpriteParticleUpdater@fn_fd69ca5d@@QAEXMPAVEmitter_2d1db0@2@@Z @45c6dcd28574 @wde08f32fb534
+// sym: ?FUN_002d1db0@SpriteParticleUpdater@fn_fd69ca5d@@QAEXMPAVEmitter_2d1db0@2@@Z @45c6dcd28574 @w716dbcb78219
 // STATUS: equivalent (tools/equiv.py level 3: 16142 inputs, branch coverage 10/10)
 // pure3d::SpriteParticleUpdater::vfunc_4 @ 0x002d1db0
 void SpriteParticleUpdater::FUN_002d1db0(float dt, Emitter_2d1db0 *em)
@@ -859,7 +859,7 @@ void SpriteParticleUpdater::FUN_002d1db0(float dt, Emitter_2d1db0 *em)
     unsigned int i;
     for (i = 0; i < count; i++) {
         Particle_2d1db0 *p = em->particles[i];
-        hulk_freg step = dt;
+        float step = dt;                 // a float local: stored (fst) and passed as stored
         if (p->age >= 0.0f) {
             p->age = dt + p->age;
         } else {
@@ -869,7 +869,7 @@ void SpriteParticleUpdater::FUN_002d1db0(float dt, Emitter_2d1db0 *em)
         if (p->age < p->life) {
             hulk_freg t = (p->age / p->life) * 20.0f;
             int idx = (int)t;
-            hulk_freg frac = t - (float)idx;
+            float frac = t - (float)idx;     // stored (fstp), then read back by the fmul
             Vec3_2d1db0 pos = p->pos;
             float *tbl = curve->table;
             hulk_freg a = tbl[idx];

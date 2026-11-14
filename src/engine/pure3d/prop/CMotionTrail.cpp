@@ -1761,7 +1761,7 @@ int SlotTable_280460::FUN_00280460(Object* object, int arg, int value)
 
 
 // 0x002804f0 FUN_002804f0 (307 B): equivalent/0x002804f0.cpp
-// sym: ?FUN_002804f0@Holder_2804f0@fn_f4890d4c@@QAEHHPAUVec3_2804f0@2@0H@Z @b77251dd4f5e @wd484fed54b74
+// sym: ?FUN_002804f0@Holder_2804f0@fn_f4890d4c@@QAEHHPAUVec3_2804f0@2@0H@Z @ddedeb6920d0 @w0248678d645d
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_002804f0 @ 0x002804f0
 int Holder_2804f0::FUN_002804f0(int id, Vec3_2804f0 *from, Vec3_2804f0 *to, int unused)
@@ -1777,8 +1777,9 @@ int Holder_2804f0::FUN_002804f0(int id, Vec3_2804f0 *from, Vec3_2804f0 *to, int 
     Vec3_2804f0 dir;
     dir.x = to->x - from->x;
     dir.y = to->y - from->y;
-    dir.z = to->z - from->z;
-    float lenSq = dir.z * dir.z + dir.y * dir.y + dir.x * dir.x;
+    double dz = to->z - from->z;        // the original multiplies the unrounded difference (fst; fmul [dir.z])
+    dir.z = dz;
+    float lenSq = dz * dir.z + dir.y * dir.y + dir.x * dir.x;
     dir.FUN_0022d180();
 
     Mat4_2804f0 look;
