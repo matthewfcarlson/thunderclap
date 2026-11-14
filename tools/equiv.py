@@ -3888,6 +3888,8 @@ class Run:
         self.slot_arity = None      # (unused)
         self.ecx_dirty = False      # ecx written since entry or the last call
         self.last_insn = None       # (address, eflags) of the previous instruction hook
+        self.cur_dec = None         # (chk1) the instruction the last hook decoded, and the one before it
+        self.last_dec = None
         self.rmw_undo = None        # (round 14, rmwundo) (insn address, [(address, old bytes)]) of a read-modify-write's stores
         self.prev_esp = ENTRY_ESP
         self.convs = {}             # callee address -> argument locations (// equiv-conv)
@@ -5275,6 +5277,14 @@ class Run:
                             self.fill_watch[x] = (k, j, o)
                     put(w, j, o, v)
 
+    def _not_mask(self, addr, insn):
+        """(chk1) `xor al, 0xff; and al, 1` (or `not al; and al, 1`): clang's `!b`, the `and` masking the complement of a
+        bool, whose other bits are set whatever b holds. Not a read of a non-bool byte."""
+        p_ = self.last_dec if self.cur_dec is not None and self.cur_dec.addr == addr else self.cur_dec
+        if insn.mnemonic != "and" or p_ is None or p_.op_str.split(",")[0] != insn.op_str.split(",")[0]:
+            return False
+        return p_.mnemonic == "not" or (p_.mnemonic == "xor" and p_.op_str.replace(" ", "").endswith(",0xff"))
+
     def _bool_set(self, dst_, v):
         try:
             if dst_[0] == "mem":
@@ -5289,16 +5299,22 @@ class Run:
 
     def _bool_fix_apply(self):
         """(chk1, boolexpl) After clang's `test/and X, 1` (or `movzx r32, r8; and r32, 1`) of a byte that is neither 0 nor
-        1 ran as a bool holding true (its operand was made 1 before it ran; for movzx the `and` normalised it): the byte
-        tested is put back, and a destination keeps 1 (bool_fix 1, the value normalised) or gets the byte itself (2,
-        passed on as it is)."""
+        1 ran as a bool (its operand was made 1, or 0 for bool_fix 3, before it ran): with bool_fix 1 (true, the value
+        normalised) a register keeps the 1 (the movzx pattern's register gets it), with 3 (false) the 0, with 2 (true,
+        passed on as it is) it gets the byte back; a byte of memory tested is always put back (the function didn't
+        write it)."""
         _, dst_, bv_ = self.bool_fix_at
         self.bool_fix_at = None
-        if dst_[0] == "r32" or dst_[-1] == "and":
+        if dst_[0] == "r32":
+            self._bool_set(dst_, {1: 1, 2: bv_, 3: 0}[self.bool_fix])
+        elif dst_[-1] == "xor":
+            pass                            # `!b`: the value it computed stays
+        elif dst_[-1] == "and":
             if self.bool_fix == 2:
                 self._bool_set(dst_, bv_)
-        else:
-            self._bool_set(dst_, bv_)       # `test`: the byte itself is unchanged
+        elif self.bool_fix == 2 or dst_[0] == "mem":
+            self._bool_set(dst_, bv_)       # `test` (2, or a byte of memory): the byte itself is unchanged
+        # (a register tested under 1 stays the 1 it was read as: `!f()` is clang's `xor al, 1` on it after the test)
 
     def _reg_info(self, v):
         """{val, src, xf, raw, reg} of a register operand (for directed inputs)."""
@@ -6439,8 +6455,10 @@ class Run:
                     self.x87_under = (addr, len(self.calls))
                 self.x87_full = self.epoch if dep_ + insn.x87[1] == 8 else None
             if NATIVE_MODE and self.view.native and self.view.is_ours and insn is not None and \
-                    insn.mnemonic in ("test", "and") and insn.op_str.endswith(", 1") and "boolub" not in EQUIV_OFF \
-                    and (insn.op_str.startswith("byte ptr") or insn.op_str.split(",")[0] in ("al", "bl", "cl", "dl")):
+                    (insn.mnemonic in ("test", "and") or (insn.mnemonic == "xor" and self.bool_fix)) and \
+                    insn.op_str.endswith(", 1") and "boolub" not in EQUIV_OFF \
+                    and (insn.op_str.startswith("byte ptr") or insn.op_str.split(",")[0] in ("al", "bl", "cl", "dl")) \
+                    and not self._not_mask(addr, insn):
                 # (round 18, boolub) clang reads a bool with `testb $1, mem`: a byte other than 0 and 1 (fuzzed memory) is
                 # undefined behaviour natively, not a bool; the original tests the whole byte
                 try:
@@ -6452,11 +6470,13 @@ class Run:
                         bv_ = self.reg({"al": "eax", "bl": "ebx", "cl": "ecx", "dl": "edx"}[r8_]) & 0xFF
                         dst_ = ("r8", r8_, insn.mnemonic)
                     if bv_ > 1:
-                        self.bool_ub = True
+                        # ((chk1) `xor al, 1`, clang's `!b`, only in the counterfactual runs below: it never makes an
+                        # input inconclusive by itself, as it never did)
+                        self.bool_ub = self.bool_ub or insn.mnemonic != "xor"
                         if self.bool_fix:
                             # (the operand is made 1 before the instruction runs, so its flags are a true bool's;
                             # writing EFLAGS from a hook does not reach Unicorn's lazily computed flags)
-                            self._bool_set(dst_, 1)
+                            self._bool_set(dst_, 0 if self.bool_fix == 3 else 1)
                             self.bool_fix_at = (addr + insn.size, dst_, bv_)
                 except Exception:   # noqa: BLE001
                     pass
@@ -6494,6 +6514,9 @@ class Run:
                     self.rmw_undo_n = getattr(self, "rmw_undo_n", 0) + 1
                 self.rmw_undo = None
             self.last_insn = (addr, fl)
+            if self.cur_dec is None or self.cur_dec.addr != addr:
+                self.last_dec = self.cur_dec
+            self.cur_dec = insn
             if insn is not None and insn.mem is not None and insn.mem[1] is None and insn.mem[2] is None \
                     and insn.mem[4] == SECURITY_COOKIE and insn.mnemonic != "lea":
                 try:
@@ -10895,12 +10918,12 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             _unexplained("frame_escape")
         if diffs and r.get("bool_ub") and "boolub" not in EQUIV_OFF:
             # (round 18) native bool read of a non-bool byte: undefined, see _on_code. (chk1, boolexpl) Only when the
-            # byte explains the difference: ours runs again with every such byte read as the bool it stands for (true:
-            # the flags of a nonzero test; a value passed on normalised to 1, or as the byte itself, the original's
-            # two ways), and one of those runs agrees with the original
+            # byte explains the difference: ours runs again with every such byte read as a bool, true (a value passed on
+            # normalised to 1, or as the byte itself: the original's two ways) or false, and one of those runs agrees
+            # with the original
             expl_ = "boolexpl" in EQUIV_OFF
             cf_ = None
-            for m_ in ((1, 2) if not expl_ else ()):
+            for m_ in ((1, 2, 3) if not expl_ else ()):
                 box_ = {}
                 run_input(seed, overlay, stack_patch, label, _vk=_vk, _ar=_ar, _bf=(m_, box_))
                 if box_.get("diffs") == []:

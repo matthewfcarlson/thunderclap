@@ -1208,11 +1208,15 @@ and fails, and `level3.unexplained` counts it by kind), when the input proves th
 The other masks follow the same rule (chk1):
 - `bool_ub` (`--wine`: clang's `testb $1` / `and r8, 1` / `movzx; and 1` over a byte that is neither 0 nor 1, a bool
   holding no bool): undefined in our source, not in the original, so a difference is set aside only when that byte
-  explains it (`boolexpl`). Ours runs the input again with each such byte read as the bool it stands for, true: the
-  tested operand is made 1 before the instruction runs (a write to EFLAGS from a hook doesn't reach Unicorn's lazily
-  computed flags) and put back after it, and a value the instruction passes on is either normalised to 1 or kept as the byte (the
-  original's two ways of passing a char it tests whole); if one of those runs agrees with the original the input is
-  inconclusive, else it fails. Before, any difference on such an input was set aside: rev2's mutant M3 of 0x002f4eb0
+  explains it (`boolexpl`). Ours runs the input again three times with every such byte read as a bool: true with the
+  value normalised to 1, true with the byte passed on as it is (the original's two ways of passing a char it tests
+  whole), and false. The tested operand is set before the instruction runs (a write to EFLAGS from a hook doesn't
+  reach Unicorn's lazily computed flags); a register keeps the bool it was read as (so clang's `xor al, 1`, `!b`, sees
+  it: in these runs only, `xor r8, 1` is such a site too), a byte of memory is put back. If one of those runs agrees with
+  the original the input is inconclusive, else it fails. `xor al, 0xff; and al, 1` (clang's `!b` on a real bool) is
+  no bool read: it no longer flags an input. The counterfactual only covers the sites it detects: a byte clang reads
+  as a bool some other way (`movzx` from memory then `and`, `cmp byte, 0` is fine) is not normalised, so a difference
+  from such a site is not explained and fails. Before, any difference on such an input was set aside: rev2's mutant M3 of 0x002f4eb0
   (Kilometers gives 2, not 3) passed `--wine` at 3,000 because the one input that reached it also read a fuzzed byte
   as a bool (`0x002f4eb0_wine_boolub_m3`);
 - `x87_range`, `ro_write`, `frame_escape` (the original's) and `copy_overlap` (ours, `intrub`): the state after the
