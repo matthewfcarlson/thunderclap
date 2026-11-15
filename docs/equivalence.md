@@ -1021,6 +1021,17 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     memory at the call (C99 7.21.3; luaO_chunkid with `out == source`). The original inlines them as `repne scasb; rep
     movs` over the length it measured first, a byte loop reads what it writes. Judged on ours's run: the call is our
     source's own and the original has no call to look at.
+  - `memub` (tri3, 2026-11-15): the same for ours's `memcpy` with overlapping ranges (C99 7.21.2.1: undefined), which is
+    what clang makes of a struct copy (`*a = *b`, `temp = *second`) above a few words; MSVC 7.1 inlines it as a forward
+    `rep movsd`, which reads what it has just written. Fuzzed pointers overlap where the game's objects never do
+    (0x002233e0's median of three 40-byte items, 0x00280be0's clipped vertices, 0x002699f0's character copy). The input
+    is set aside as `copy_overlap` only when a difference follows the call (`ubafter`). `memmove` is defined on overlap
+    and stays compared. Cases `0x002233e0_native_memub{,_off,_wrong}`.
+  - `strlazy` (tri3, 2026-11-15): the strcmp family (strcmp, stricmp, strncmp, strnicmp) and memcmp are performed byte by
+    byte up to the first difference or terminator (or n), as the C library defines them and as MSVC's inline loops /
+    `repe cmpsb` read them. Before, both strings were read whole first (up to 64 KB for a string): a fuzzed string without
+    a terminator faulted ours (`intrinsic_access`) where the original stopped at byte 0 (0x000e1dd0, 0x000e7620,
+    0x000f0b90, 0x00044cb0; memcmp 0x0033caa0). Cases `0x000e1dd0_native_strlazy*`, `0x0033caa0_native_memlazy*`.
   - `natobj`: a pointer to a local passed to a callee whose reach is unknown (`_callee_ext` None: a
     function pointer, DumpConstants' `D->writer(L, &x, 4, ud)` 0x0021aa00) is compared up to the end of the C object
     ours passed, from clang's debug information: the function is compiled once more with `-gdwarf-4` on first need

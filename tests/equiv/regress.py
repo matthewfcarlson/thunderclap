@@ -665,6 +665,29 @@ CASES = {
     "0x0021f800_cvarargs": ("equivalent", None, 0, {"n_inputs": 100}),
     "0x0021f800_cvarargs_off": ("fail", "argument 1 is 0x00000010", 0, {"src": "0x0021f800_cvarargs", "n_inputs": 100, "equiv_off": "cvarargs"}),
     "0x0021f800_cvarargs_wrong": ("fail", "call #3 to 0x002152b0: argument 2 is 0x00000004", 0, {"n_inputs": 100}),
+    # (tri3, strlazy) --wine: clang's strcmp call against the original's inline byte loop; the intrinsic is compared byte by
+    # byte to the first difference (seed 2727: a fuzzed name without a terminator in 64 KB, differing at byte 0)
+    "0x000e1dd0_native_strlazy": ("equivalent", None, 0, {"native": True, "seeds": list(range(32)) + [2727]}),
+    "0x000e1dd0_native_strlazy_off": ("fail", "original ret but ours fault:intrinsic_access", 0,
+                                      {"src": "0x000e1dd0_native_strlazy", "native": True, "seeds": list(range(32)) + [2727],
+                                       "equiv_off": "strlazy"}),
+    "0x000e1dd0_native_strlazy_wrong": ("fail", "returned 0x00000004, expected 0x00000000", 0,
+                                        {"native": True, "seeds": list(range(32)) + [2727]}),
+    # (tri3, strlazy) --wine: memcmp against the original's inline `repe cmpsb`, byte by byte to the first difference
+    "0x0033caa0_native_memlazy": ("equivalent", None, 0, {"native": True, "seeds": list(range(32)) + [120, 421]}),
+    "0x0033caa0_native_memlazy_off": ("fail", "original ret but ours fault:intrinsic_access", 0,
+                                      {"src": "0x0033caa0_native_memlazy", "native": True,
+                                       "seeds": list(range(32)) + [120, 421], "equiv_off": "strlazy"}),
+    "0x0033caa0_native_memlazy_wrong": ("fail", "returned 0x000000f9, expected 0x000000f8", 0,
+                                        {"native": True, "seeds": list(range(32)) + [120, 421]}),
+    # (tri3, memub) --wine: clang's struct copies are memcpy calls; over overlapping fuzzed items (seed 353) the input is
+    # inconclusive (copy_overlap), as intrub's strcpy
+    "0x002233e0_native_memub": ("equivalent", None, 0, {"native": True, "seeds": list(range(32)) + [353]}),
+    "0x002233e0_native_memub_off": ("fail", "write to arg2+0x24 before return was 0x40020060, expected 0x40020064", 0,
+                                    {"src": "0x002233e0_native_memub", "native": True, "seeds": list(range(32)) + [353],
+                                     "equiv_off": "memub"}),
+    "0x002233e0_native_memub_wrong": ("fail", "missing write to arg1+0x4", 0,
+                                      {"native": True, "seeds": list(range(32)) + [353]}),
     # (tri1, codewdata) a store into our object's data (an unbound local static's guard, here with lstatic off) is no store into
     # code: the input is compared (the unbound guard fails it) instead of set aside as code_write (222 of 306 inputs were)
     "0x001e5f10_native_codewdata": ("fail", "missing write to global 0x004e2758", 0, {"native": True, "n_inputs": 200,

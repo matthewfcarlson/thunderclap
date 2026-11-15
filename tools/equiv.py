@@ -4276,6 +4276,32 @@ class Run:
             out += chunk
         raise Fault("intrinsic_access")
 
+    def _strcmp_lazy(self, a, b, n=None, fold=False):
+        """(tri3, strlazy) strcmp / strncmp (N) / stricmp (FOLD: ASCII case, as bytes.lower) of the strings at A and B, reading
+        byte by byte only up to the first difference or terminator: -1 (as M32), 0 or 1 by the first differing byte, unsigned."""
+        i = 0
+        while n is None or i < n:
+            if i >= 1 << 16:
+                raise Fault("intrinsic_access")
+            ca, cb = self._mem((a + i) & M32, 1)[0], self._mem((b + i) & M32, 1)[0]
+            if fold:
+                ca += 32 if 65 <= ca <= 90 else 0
+                cb += 32 if 65 <= cb <= 90 else 0
+            if ca != cb:
+                return M32 if ca < cb else 1
+            if ca == 0:
+                return 0
+            i += 1
+        return 0
+
+    def _memcmp_lazy(self, a, b, n):
+        """(tri3, strlazy) memcmp of N bytes at A and B, reading byte by byte only up to the first difference."""
+        for i in range(n):
+            ca, cb = self._mem((a + i) & M32, 1)[0], self._mem((b + i) & M32, 1)[0]
+            if ca != cb:
+                return M32 if ca < cb else 1
+        return 0
+
     def _str_overlap(self, n, d, s_):
         """(wine1, intrub) Whether strcpy/strcat(d, s_) reads source bytes it also reads or writes as the destination, from
         the memory as it is at the call (the source string with its terminator against the destination string, for strcat,
@@ -4307,6 +4333,14 @@ class Run:
         eax, fres, fext = 0, None, None
         dbl = lambda i: struct.unpack("<d", struct.pack("<II", w[i], w[i + 1]))[0]
         if n in ("memcpy", "memmove"):
+            if n == "memcpy" and w[2] and w[0] != w[1] and self.copy_ub is None and NATIVE_MODE and \
+                    "memub" not in EQUIV_OFF and "intrub" not in EQUIV_OFF and \
+                    w[0] < (w[1] + w[2]) & M32 and w[1] < (w[0] + w[2]) & M32:
+                # (tri3, memub) the source's own memcpy (clang's struct copies: `*a = *b`, `temp = *second`) with
+                # overlapping ranges (C99 7.21.2.1: undefined; MSVC inlines it as a forward `rep movsd`, which reads what
+                # it has written): the input proves nothing about either side, as intrub (see run_input)
+                self.copy_ub = insn.addr
+                self.ub_at.setdefault("copy_overlap", len(self.calls))
             self._mem(w[0], w[2], self._mem(w[1], w[2])) if w[2] else None
             self._note_stack_write(w[0], w[2])
             eax = w[0]
@@ -4321,8 +4355,20 @@ class Run:
             # (x64t9, memcmp) MSVC 7.1 inlines memcmp (`repe cmpsb`, the sign by `sbb`): the original never calls it,
             # clang's object calls the CRT routine. Compared as the C library does, n bytes, the sign of the first
             # difference as unsigned bytes (0x002f4eb0's unit names)
-            a_, b_ = self._mem(w[0], w[2]) if w[2] else b"", self._mem(w[1], w[2]) if w[2] else b""
-            eax = 0 if a_ == b_ else (M32 if a_ < b_ else 1)
+            if "strlazy" not in EQUIV_OFF:
+                # (tri3, strlazy) byte by byte to the first difference, as MSVC's inline `repe cmpsb` reads them: a whole
+                # n-byte read faulted ours where the original stopped at the first differing byte (0x0033caa0)
+                eax = self._memcmp_lazy(w[0], w[1], w[2])
+            else:
+                a_, b_ = self._mem(w[0], w[2]) if w[2] else b"", self._mem(w[1], w[2]) if w[2] else b""
+                eax = 0 if a_ == b_ else (M32 if a_ < b_ else 1)
+        elif n in ("strcmp", "stricmp", "_stricmp", "strcmpi", "strncmp", "strnicmp", "_strnicmp") and \
+                "strlazy" not in EQUIV_OFF:
+            # (tri3, strlazy) as the C library (and MSVC's inline `repe cmpsb`-free byte loop) does: byte by byte up to the
+            # first difference or terminator (or n), reading nothing past it. Reading both strings whole first faulted
+            # ours (`intrinsic_access`, no terminator in 64 KB of a fuzzed string) where the original stopped at byte 0
+            eax = self._strcmp_lazy(w[0], w[1], w[2] if n in ("strncmp", "strnicmp", "_strnicmp") else None,
+                                    n in ("stricmp", "_stricmp", "strcmpi", "strnicmp", "_strnicmp"))
         elif n in ("strcmp", "stricmp", "_stricmp", "strcmpi", "strncmp", "strnicmp", "_strnicmp"):
             a_, b_ = self._cstr(w[0]), self._cstr(w[1])
             if n in ("strncmp", "strnicmp", "_strnicmp"):
