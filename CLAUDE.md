@@ -59,12 +59,15 @@ An edited `matches` block must still MATCH with relocations ok. An `equivalent` 
 code and of the checker's view of it (`// sym: NAME @msvc @wclang @vview`, docs/merge-once.md "Code hashes" and
 "Checker views and the proof ledger"): unchanged code needs no new run; `check`/`verify` report `code_changed` or
 `view changed` (failures) when an edit changed it, and it then needs a fresh promotable `equiv.py` run at 3,000
-inputs plus `--wine` at 3,000 (and `--x64` where the 64-bit build compiles it), recorded with `tree_tu.py hash --proven`,
-which also appends config/proof-ledger.jsonl (never write a hash or a ledger line by hand). A proof is a run with no
-`EQUIV_ON`/`EQUIV_OFF` switches. A 64-bit fix changes the source, never the 32-bit proof: re-check both sides.
+COMPARED inputs plus `--wine` at 3,000 compared (and `--x64` where the 64-bit build compiles it; a proof run keeps drawing
+until 3,000 inputs are compared, so give big blocks a generous `--time-budget`), recorded with `tree_tu.py hash --proven`,
+which also appends config/proof-ledger.jsonl (never write a hash or a ledger line by hand). Runs made with any
+`EQUIV_ON`/`EQUIV_OFF`/`EQ64_OFF` switch prove nothing. A 64-bit fix changes the source, never the 32-bit proof:
+re-check both sides.
 A function only a 64-bit branch defines is named `FUN_<addr>`; native_mac and native_unbound bind callers to it by that
 address, and 64-bit-only thunks call their targets by the targets' own names (D35).
-`regress.py --jobq` ships every dirty file: read a failure's cause before blaming your own change.
+`regress.py --jobq` ships every dirty file (read a failure's cause before blaming your own change) and submits 2-slot
+jobs, which starve behind low-priority 1-slot work.
 
 ## Builds and proofs
 
