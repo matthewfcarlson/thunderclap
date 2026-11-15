@@ -78,6 +78,8 @@ ACCEPT_INPUTS = 50          # `promotable` in the report; `status` keeps its loo
 RMW_MNEMS = frozenset(("inc", "dec", "add", "sub", "and", "or", "xor", "adc", "sbb", "not", "neg", "shl", "shr", "sar",
                        "sal", "rol", "ror", "rcl", "rcr", "xchg", "xadd", "cmpxchg", "bts", "btr", "btc"))
 EQUIV_OFF = set(os.environ.get("EQUIV_OFF", "").split(","))   # A/B experiments: switch named round-6 changes off
+# (integ1) rules written but not adopted: on only when named here (a reviewer signs off before one becomes a default)
+EQUIV_ON = set(os.environ.get("EQUIV_ON", "").split(","))
 # (round 22, crtarity) stack words of CRT routines tools/platform_map.py identifies by hand, from their documented
 # signatures (the static scan stops at their SEH frames): __RTDynamicCast(5), __RTtypeid(1)
 CRT_ARITY = {0x344e74: 5, 0x3449e4: 1}
@@ -7779,6 +7781,23 @@ def _feq(a, b, rel=None, ab=None):
 
 
 _NAN_SIGN = [0]
+_NAN_PAYLOAD = [0]
+
+
+def _nan_payload_only(a, b):
+    """(integ1, D39, nanpayload; NOT ADOPTED: on only with EQUIV_ON=nanpayload until a reviewer signs off) Two float words
+    that are both quiet NaNs (exponent 0xff, quiet bit 0x00400000 set) and differ in sign or payload. Which operand's NaN
+    an arithmetic instruction hands on when both are NaN differs between the x87 (the larger significand; and an invalid
+    operation's indefinite 0xffc00000 meets the other operand's NaN by that rule too) and SSE (the first source operand),
+    so a source whose operands are in the original's order still gives another NaN whenever two NaNs meet (0x0022ca90's
+    matrix product: `this+0x4 was 0xfff84ab4, expected 0xffeca8b1`). IEEE leaves the choice open; the game never reads a
+    NaN's payload. Restricted: --wine only (an MSVC-mode run is x87 on both sides), 32-bit float words only (a double's
+    low word is compared as bits), both quiet (a signalling or non-NaN word on either side is still a difference), and
+    the input is inconclusive (`statuses.nan_payload`) only when no other difference remains on it."""
+    if not NATIVE_MODE or "nanpayload" not in EQUIV_ON or "nanpayload" in EQUIV_OFF or a == b:
+        return False
+    qnan = lambda w: (w & 0x7F800000) == 0x7F800000 and (w & 0x00400000) != 0      # noqa: E731
+    return qnan(a) and qnan(b)
 
 
 def _nan_sign_only(a, b):
@@ -7796,8 +7815,13 @@ def _nan_sign_only(a, b):
         return True
     # (tri2, nanquiet64) the same for the high word of a double NaN (`fld dword [x]; fstp qword [esp]` for `__isnan(x)`): the
     # emulated x87 load keeps a signalling float NaN signalling, cvtss2sd (and a real x87) quiets it, bit 0x00080000
-    return "nanquiet64" not in EQUIV_OFF and (a & 0x7FF00000) == 0x7FF00000 and (a ^ b) & 0x7FFFFFFF == 0x00080000 \
-        and (b & 0x00080000) != 0
+    if "nanquiet64" not in EQUIV_OFF and (a & 0x7FF00000) == 0x7FF00000 and (a ^ b) & 0x7FFFFFFF == 0x00080000 \
+            and (b & 0x00080000) != 0:
+        return True
+    if _nan_payload_only(a, b):
+        _NAN_PAYLOAD[0] += 1        # (counted apart: statuses.nan_payload)
+        return True
+    return False
 
 
 def _uninit_diff(d, vals):
@@ -7869,6 +7893,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
     """List of human-readable behaviour differences (empty = same)."""
     out = []
     _NAN_SIGN[0] = 0
+    _NAN_PAYLOAD[0] = 0
     oc, rc = o["calls"], r["calls"]
     if r.get("cookie_bad") and not o.get("cookie_bad"):
         out.append("__security_check_cookie (before call #%d) doesn't get the cookie in ecx: it is __fastcall, "
@@ -8236,6 +8261,8 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                    "Declare the words on the call that takes them" % (k_ + 1, dpop_, real_, dpop_ - real_))
     if not out and _NAN_SIGN[0]:
         r["nan_sign"] = True
+        if _NAN_PAYLOAD[0]:
+            r["nan_payload"] = True
     return out[:max_report]
 
 
@@ -11067,7 +11094,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                                                                     c_["regs"]["ecx"], c_["ret_to"]), file=sys.stderr)
         if not diffs and r.get("nan_sign"):
             res["inputs_inconclusive"] += 1         # (round 19) the only differences are NaN signs, see _nan_sign_only
-            res["statuses"]["nan_sign"] += 1
+            res["statuses"]["nan_payload" if r.get("nan_payload") else "nan_sign"] += 1
             return None
         # (chk1, ubafter) the masks below set aside an input whose difference undefined behaviour met during the run can
         # explain: never a difference in a call the run made before it met it (those calls can't be its consequence)

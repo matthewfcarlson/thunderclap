@@ -687,6 +687,16 @@ CASES = {
     "0x00106290_vptrread_off": ("fail", "original ret but ours fault:too_many_pages", 0, {"src": "0x00106290_vptrread", "n_inputs": 200,
                                                                                          "equiv_off": "vptrread"}),
     "0x00106290_vptrread_wrong": ("fail", "returned 0x00000003, expected 0xffffffff", 0, {"n_inputs": 200}),
+    # (integ1, D39 nanpayload; NOT ADOPTED: EQUIV_ON=nanpayload until rev3 signs off) --wine: two quiet NaNs meeting in a
+    # matrix product (x87: the larger significand, SSE: the first operand) give another quiet NaN at this+0x4 on input 938
+    "0x0022ca90_native_nanpayload": ("equivalent", None, 0, {"native": True, "n_inputs": 1000, "equiv_on": "nanpayload"}),
+    "0x0022ca90_native_nanpayload_off": ("fail", "write to this+0x4 before return was 0xfff84ab4, expected 0xffeca8b1", 0,
+                                         {"src": "0x0022ca90_native_nanpayload", "native": True, "n_inputs": 1000}),
+    "0x0022ca90_native_nanpayload_off2": ("fail", "write to this+0x4 before return was 0xfff84ab4, expected 0xffeca8b1", 0,
+                                          {"src": "0x0022ca90_native_nanpayload", "native": True, "n_inputs": 1000,
+                                           "equiv_on": "nanpayload", "equiv_off": "nanpayload"}),
+    "0x0022ca90_native_nanpayload_wrong": ("fail", "this+0x14", 0, {"native": True, "n_inputs": 300, "equiv_on": "nanpayload"}),
+    "0x0022ca90_native_nanpayload_nanconst": ("fail", "this+0xc", 0, {"native": True, "n_inputs": 300, "equiv_on": "nanpayload"}),
     # (wine1) the difference at seed 11 is `f_text[f_n] = 0` with a fuzzed f_n beyond the whole stack, where each frame layout puts
     # the byte elsewhere: since fescape that input is inconclusive in Wine mode, so the case keeps testing xlocal with fescape off
     "0x0008e880_native_xlocal_elem0": ("fail", "unexpected write to 0xbe7ef6d4", 0, {"native": True, "n_inputs": 60,
@@ -1151,6 +1161,10 @@ def job(name):
     # rule: exact floats, ftolexact, or a free-function declaration of a thiscall callee, thisdecl)
     off = [x for x in kw.pop("equiv_off", "").split(",") if x]
     equiv.EQUIV_OFF.update(off)
+    # (integ1) `equiv_on`: rules written but not adopted (equiv.EQUIV_ON), for their cases
+    on = [x for x in kw.pop("equiv_on", "").split(",") if x]
+    on_set = getattr(equiv, "EQUIV_ON", set())
+    on_set.update(on)
     # (perf1) `float`: the Wine build's float code this case checks (native cases; default the build's, SSE): a case about an
     # x87-only artefact pins x87
     fl, was = kw.pop("float", None), os.environ.get("HULK_WINE_FLOAT")
@@ -1160,6 +1174,7 @@ def job(name):
         return _job(name, equiv, addr, kw)
     finally:
         equiv.EQUIV_OFF.difference_update(off)
+        on_set.difference_update(on)
         if fl:
             if was is None:
                 os.environ.pop("HULK_WINE_FLOAT", None)
