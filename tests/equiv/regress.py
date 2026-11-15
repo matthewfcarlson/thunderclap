@@ -688,6 +688,15 @@ CASES = {
                                      "equiv_off": "memub"}),
     "0x002233e0_native_memub_wrong": ("fail", "missing write to arg1+0x4", 0,
                                       {"native": True, "seeds": list(range(32)) + [353]}),
+    # (rev4, memub/strlazy must-fail) memmove is defined on overlap and stays compared (seed 353 as above, memmove
+    # in place of the struct copies); memcmp does not stop at a NUL (lmemfind with strncmp); strncmp's n is kept
+    # (FELayout's lookup comparing 2 bytes)
+    "0x002233e0_native_memub_memmove": ("fail", "write to arg2+0x24 before return was 0x40020060, expected 0x40020064", 0,
+                                        {"native": True, "seeds": list(range(32)) + [353]}),
+    "0x0033caa0_native_memlazy_strncmp": ("fail", "missing call #2 to 0x00348290", 0,
+                                          {"native": True, "seeds": list(range(64))}),
+    "0x000e1dd0_native_strlazy_ncmp": ("fail", "returned 0x00100000, expected 0x00000000", 0,
+                                       {"native": True, "seeds": list(range(32)) + [152]}),
     # (tri1, codewdata) a store into our object's data (an unbound local static's guard, here with lstatic off) is no store into
     # code: the input is compared (the unbound guard fails it) instead of set aside as code_write (222 of 306 inputs were)
     "0x001e5f10_native_codewdata": ("fail", "missing write to global 0x004e2758", 0, {"native": True, "n_inputs": 200,
