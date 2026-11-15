@@ -1,5 +1,6 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00231e00..0x00232780 (kind game, layer engine, confidence high), dominant class fight::Action
+#define HULK_REFCOUNT_INLINE_DTOR   // (gx5, D56) include/gen/core.h: the real destructors inline IRefCount's and NonCopyable's
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
@@ -241,22 +242,6 @@ class Action_232650 {
     virtual void f1();
     virtual void f2();
 };
-class Action {
-  public:
-    virtual ~Action();
-    int a;
-    int b;
-    int c;
-    int d;
-    int e;
-    int f;
-    Action();
-};
-extern "C" char DAT_004276ec[];
-struct Ref_2326a0 {
-    virtual void A();
-    virtual void Release();
-};
 class Obj_2326d0 {
   public:
     virtual void F0();
@@ -267,19 +252,6 @@ class Holder_2326d0 {
     char pad[8];
     Obj_2326d0* p;
     void Set(Obj_2326d0* value);
-};
-extern void* hulk_at_004276ec[];
-extern void FUN_0008d330(void*);
-class Ref_232700 {
-  public:
-    virtual void F0();
-    virtual void Release();
-};
-struct Action_232700 {
-    void* vf;
-    int p4;
-    Ref_232700* p8;
-    Action_232700* Dtor(unsigned char flag);
 };
 
 
@@ -740,38 +712,32 @@ bool fight::Action::vfunc_5(hulk_intptr a, int b) {
     return (bool)(1);
 }
 
-namespace fn_f7416411 {
-
 // 0x00232660 FUN_00232660 (58 B): matches/0x00232660.cpp
-// sym: ??0Action@fn_f7416411@@QAE@XZ
+// sym: ??0Action@fight@@QAE@XZ
 // data: gCount_232660 = DAT_004e5af0
-Action::Action() {
-    a = 0;
-    b = 0;
-    c = 0;
-    d = 0;
-    e = 0;
-    f = 0;
+// (gx5, D56) fight::Action's constructor (include/gen), which the derived classes' constructors call: the reference
+// count (pure3d::NonCopyable's word) and Action's words zeroed, the live / peak instance counts (0x004e5af0 / 0x004e5af4)
+fight::Action::Action() {
+    f_04 = 0;
+    f_08 = 0;
+    f_0c = 0;
+    f_10 = 0;
+    f_14 = 0;
+    f_18 = 0;
     ++DAT_004e5af0;
     if (DAT_004e5af0 > (*(int*)&DAT_004e5af4))
         (*(int*)&DAT_004e5af4) = DAT_004e5af0;
 }
 
-} // namespace fn_f7416411
-
 // 0x002326a0 FUN_002326a0 (42 B): matches/0x002326a0.cpp
-// sym: ?FUN_002326a0@Action@fight@@QAEXXZ
+// sym: ??1Action@fight@@UAE@XZ
 // data: g_count_2326a0 = DAT_004e5af0
-void fight::Action::FUN_002326a0() {
-    *(void* volatile*)this = (void*)((hulk_intptr)DAT_004276ec);
-    _ReadWriteBarrier();
-    Ref_2326a0* m = *(Ref_2326a0**)((char*)this + 8);
-    if (m) {
-        m->Release();
-        *(Ref_2326a0**)((char*)this + 8) = 0;
-    }
+// (gx5, D56) fight::Action's destructor (include/gen): f_08 released through its slot 1, the live count decremented;
+// pure3d::NonCopyable's and core::IRefCount's inline destructors leave IRefCount's vftable (0x003f6098). The TUs not
+// rewritten yet call it as `FUN_002326a0` (a non-virtual declaration the binding maps resolve by its address)
+fight::Action::~Action() {
+    ::core::ReleaseRef(f_08);
     --DAT_004e5af0;
-    *(void**)this = (void*)((hulk_intptr)DAT_003f6098);
 }
 
 namespace fn_f7416411 {
@@ -788,19 +754,8 @@ void Holder_2326d0::Set(Obj_2326d0* value) {
 
 
 // 0x00232700 fight::Action::vfunc_2 (70 B): matches/0x00232700.cpp
-// sym: ?Dtor@Action_232700@fn_f7416411@@QAEPAU12@E@Z
-Action_232700* Action_232700::Dtor(unsigned char flag) {
-    vf = hulk_at_004276ec;
-    _ReadWriteBarrier();
-    if (p8) {
-        p8->Release();
-        p8 = 0;
-    }
-    DAT_004e5af0 = DAT_004e5af0 - 1;
-    vf = (void**)DAT_003f6098;
-    if (flag & 1)
-        FUN_0008d330(this);
-    return this;
-}
+// sym: ??_GAction@fight@@UAEPAXI@Z
+// (gx5, D56) the implicit scalar deleting destructor: MSVC 7.1 emits it beside the class's vftable, which the
+// constructor and destructor (this TU) store, with the destructor inlined
 
 } // namespace fn_f7416411

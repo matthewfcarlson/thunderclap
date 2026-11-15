@@ -492,7 +492,6 @@ class DebugPrintAction : public ::fight::Action {
 public:
     virtual ~DebugPrintAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -525,7 +524,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -586,7 +584,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -612,7 +609,7 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
     void FUN_0012dba0(); // non-virtual
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
 };
 
@@ -636,7 +633,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     int f_20;
 };
@@ -648,7 +644,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -670,7 +665,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -714,7 +708,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -768,7 +761,6 @@ public:
     virtual ~AIHistorySetAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     void FUN_0010f900(); // non-virtual
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -790,7 +782,6 @@ class AcquireTargetAction : public ::fight::Action {
 public:
     virtual ~AcquireTargetAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -830,7 +821,6 @@ public:
     virtual ~ButtonAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -866,7 +856,6 @@ public:
     virtual ~ClearProjectileDistanceAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -911,7 +900,6 @@ class FaceMotionAction : public ::fight::Action {
 public:
     virtual ~FaceMotionAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -932,7 +920,6 @@ class FaceTargetAction : public ::fight::Action {
 public:
     virtual ~FaceTargetAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -1009,7 +996,6 @@ public:
     virtual ~HulkAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -1084,7 +1070,6 @@ public:
     virtual ~KeywordWaitAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     float f_24;
@@ -1128,7 +1113,7 @@ public:
     virtual ~MotionBoostAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
     int f_28;
@@ -1158,7 +1143,7 @@ class MotionChaseAction : public ::fight::Action {
 public:
     virtual ~MotionChaseAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
 };
@@ -1187,7 +1172,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     char _pad_24[0x24];
@@ -1222,7 +1206,6 @@ class MotionFacingAction : public ::fight::Action {
 public:
     virtual ~MotionFacingAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -1248,7 +1231,7 @@ class MotionFleeAction : public ::fight::Action {
 public:
     virtual ~MotionFleeAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
 };
@@ -1270,7 +1253,6 @@ class MotionLocatorAction : public ::fight::Action {
 public:
     virtual ~MotionLocatorAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -1300,7 +1282,6 @@ class MotionStopAction : public ::fight::Action {
 public:
     virtual ~MotionStopAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -1321,7 +1302,7 @@ class MotionTargetAction : public ::fight::Action {
 public:
     virtual ~MotionTargetAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
 };
 
@@ -1360,7 +1341,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x15];
+    char _pad_1c[0x1];
     char f_1d;
     char _pad_1e[0x1a];
     float f_38;
@@ -1403,7 +1384,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
     PathFormationAction* FUN_001233a0(int, void*); // non-virtual
-    char _pad_08[0x14];
     char f_1c;
     char f_1d;
     char _pad_1e[0x1a];
@@ -1569,7 +1549,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x2c];
+    char _pad_1c[0x18];
     void* f_34;
     void* f_38;
     char _pad_3c[0x20];
@@ -1608,7 +1588,6 @@ public:
     virtual ~SemaphoreClearAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -1633,7 +1612,6 @@ public:
     virtual ~SemaphoreWaitAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -1676,7 +1654,7 @@ class StrafeCircleHBAction : public ::fight::Action {
 public:
     virtual ~StrafeCircleHBAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
 };
 
@@ -1722,7 +1700,7 @@ class StrafeLateralHBAction : public ::fight::Action {
 public:
     virtual ~StrafeLateralHBAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
 };
 
@@ -1748,7 +1726,7 @@ public:
     virtual ~StrafeRunAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     char _pad_24[0x4];
     int f_28;
@@ -1807,7 +1785,6 @@ class TargetClearAction : public ::fight::Action {
 public:
     virtual ~TargetClearAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -1974,7 +1951,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     hulk_intptr f_20;
     int f_24;
@@ -2026,7 +2002,6 @@ class ThreatDodgeAction : public ::fight::Action {
 public:
     virtual ~ThreatDodgeAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -2051,7 +2026,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -2073,7 +2047,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     int f_24;
@@ -2115,7 +2088,6 @@ public:
     virtual ~AccuracyLatencyAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     char _pad_24[0xc];
@@ -2142,7 +2114,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
     void* f_28;
@@ -2175,7 +2147,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     void* f_24;
@@ -2188,7 +2159,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     void* f_24;
@@ -2220,7 +2190,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     void* f_24;
@@ -2253,7 +2222,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
     void* f_24;
@@ -2308,7 +2276,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     void* f_24;
@@ -2345,7 +2312,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     int f_24;
@@ -2397,7 +2363,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     void* f_24;
@@ -2454,7 +2419,6 @@ class BallAndChainSpinAction : public ::fight::Action {
 public:
     virtual ~BallAndChainSpinAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -2500,7 +2464,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
     float f_28;
@@ -2553,7 +2517,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     float f_24;
@@ -2565,7 +2528,6 @@ public:
     virtual ~ChargeClearAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -2613,7 +2575,6 @@ class CivilianAnimationAction : public ::fight::Action {
 public:
     virtual ~CivilianAnimationAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -2640,7 +2601,6 @@ class CivilianAttachAction : public ::fight::Action {
 public:
     virtual ~CivilianAttachAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -2668,7 +2628,6 @@ class CivilianDetachAction : public ::fight::Action {
 public:
     virtual ~CivilianDetachAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -2702,7 +2661,6 @@ class CivilianThrowAction : public ::fight::Action {
 public:
     virtual ~CivilianThrowAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -2734,7 +2692,6 @@ class ClearFightParamsHitRecordAction : public ::fight::Action {
 public:
     virtual ~ClearFightParamsHitRecordAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -2759,7 +2716,6 @@ public:
     virtual __int64 vfunc_6() = 0; // slot 6
     virtual void vfunc_7() = 0; // slot 7
     virtual void vfunc_8(void*) = 0; // slot 8
-    char _pad_08[0x14];
     void* f_1c;
     int f_20;
     int f_24;
@@ -2977,7 +2933,6 @@ class CriticalMassDrainAction : public ::fight::Action {
 public:
     virtual ~CriticalMassDrainAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -3000,7 +2955,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     char _pad_24[0x10];
@@ -3028,7 +2982,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     char f_24;
@@ -3070,7 +3023,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
     float f_28;
@@ -3111,7 +3064,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     int f_24;
     int f_28;
@@ -3214,7 +3167,6 @@ class FireGroundShockwaveAction : public ::fight::Action {
 public:
     virtual ~FireGroundShockwaveAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -3267,7 +3219,6 @@ class FireMissileAction : public ::fight::Action {
 public:
     virtual ~FireMissileAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -3358,7 +3309,7 @@ public:
     virtual ~FireProjectileAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     char _pad_24[0xc];
     int f_30;
@@ -3417,7 +3368,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     int f_24;
@@ -3457,7 +3407,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
     void* f_28;
@@ -3491,7 +3441,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
 };
@@ -3521,7 +3471,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
 };
@@ -3548,7 +3498,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     int f_24;
     void* f_28;
@@ -3660,9 +3610,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x4];
-    int f_0c;
-    char _pad_10[0x10];
+    char _pad_1c[0x4];
     void* f_20;
     char _pad_24[0x2c];
     int f_50;
@@ -3717,7 +3665,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
 };
@@ -3753,7 +3701,6 @@ class GrapplePropDamageAction : public ::fight::Action {
 public:
     virtual ~GrapplePropDamageAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -3800,7 +3747,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -3827,7 +3773,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     char _pad_24[0x28];
     int f_4c;
@@ -3875,7 +3821,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
     float f_28;
@@ -3906,7 +3852,6 @@ class HealthAction : public ::fight::Action {
 public:
     virtual ~HealthAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -3953,7 +3898,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     int f_24;
@@ -3980,7 +3924,6 @@ class HitDamageAction : public ::fight::Action {
 public:
     virtual ~HitDamageAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -4001,7 +3944,6 @@ class HitEffectAction : public ::fight::Action {
 public:
     virtual ~HitEffectAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
@@ -4031,7 +3973,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
 };
@@ -4060,7 +4002,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
 };
@@ -4085,7 +4027,6 @@ class HitPauseAction : public ::fight::Action {
 public:
     virtual ~HitPauseAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -4109,7 +4050,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
     float f_28;
@@ -4124,7 +4065,6 @@ class HitPushbackAddAction : public ::fight::Action {
 public:
     virtual ~HitPushbackAddAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -4185,9 +4125,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x4];
-    int f_0c;
-    char _pad_10[0x10];
+    char _pad_1c[0x4];
     void* f_20;
     char _pad_24[0x2c];
     int f_50;
@@ -4201,9 +4139,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x4];
-    int f_0c;
-    char _pad_10[0xc];
     void* f_1c;
     void* f_20;
     char _pad_24[0x2c];
@@ -4270,7 +4205,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     int f_24;
@@ -4299,7 +4233,6 @@ class HitWaitAction : public ::fight::Action {
 public:
     virtual ~HitWaitAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -4320,7 +4253,6 @@ class HoverAction : public ::fight::Action {
 public:
     virtual ~HoverAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -4343,7 +4275,6 @@ public:
     virtual ~ImpulseVelocityAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
     void FUN_00190a00(); // non-virtual
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -4386,7 +4317,6 @@ public:
     virtual ~IntentionClearAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -4429,7 +4359,6 @@ class InterruptAccumulatorSetAction : public ::fight::Action {
 public:
     virtual ~InterruptAccumulatorSetAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -4451,7 +4380,6 @@ public:
     virtual ~InterruptPriorityAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -4474,7 +4402,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
 };
@@ -4527,7 +4455,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
 };
@@ -4565,7 +4493,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     void* f_24;
@@ -4610,7 +4537,6 @@ public:
     virtual ~LocomotingAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -4651,7 +4577,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     int f_24;
 };
@@ -4682,7 +4608,6 @@ class LocomotionStateAction : public ::fight::Action {
 public:
     virtual ~LocomotionStateAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -4705,7 +4630,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     void* f_24;
@@ -4746,7 +4670,6 @@ public:
     virtual void vfunc_7() = 0; // slot 7
     virtual void vfunc_8(void*, void*, void*) = 0; // slot 8
     LocomotionStrafeAction* FUN_0015d460(void*); // non-virtual
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -4787,7 +4710,6 @@ public:
     virtual ~MissilePunchAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -4809,7 +4731,6 @@ class MissileThrowAction : public ::fight::Action {
 public:
     virtual ~MissileThrowAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -4844,7 +4765,6 @@ public:
     virtual ~MomentumXZAddAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     int f_24;
@@ -4872,7 +4792,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     float f_20;
 };
@@ -4897,7 +4816,6 @@ class MotionStateAction : public ::fight::Action {
 public:
     virtual ~MotionStateAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -4919,7 +4837,6 @@ class MotionTrailStopAction : public ::fight::Action {
 public:
     virtual ~MotionTrailStopAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     void* f_1c;
     int f_20;
 };
@@ -4942,7 +4859,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
     char _pad_24[0x8];
@@ -4993,7 +4909,6 @@ public:
     virtual ~NoHitPushbackAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -5129,7 +5044,6 @@ class PropActorThinkingAction : public ::fight::Action {
 public:
     virtual ~PropActorThinkingAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5151,7 +5065,6 @@ public:
     virtual ~PropActorToPropAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5174,7 +5087,6 @@ class PropAddToCollisionAction : public ::fight::Action {
 public:
     virtual ~PropAddToCollisionAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5196,7 +5108,6 @@ class PropAddToMissileCountAction : public ::fight::Action {
 public:
     virtual ~PropAddToMissileCountAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -5220,7 +5131,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
     void* f_28;
@@ -5266,7 +5177,6 @@ class PropDamageAction : public ::fight::Action {
 public:
     virtual ~PropDamageAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5288,7 +5198,6 @@ class PropDestroyAction : public ::fight::Action {
 public:
     virtual ~PropDestroyAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5309,7 +5218,6 @@ class PropDropAction : public ::fight::Action {
 public:
     virtual ~PropDropAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5403,7 +5311,6 @@ class PropSetStateByIndexAction : public ::fight::Action {
 public:
     virtual ~PropSetStateByIndexAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5425,7 +5332,6 @@ class PropSetStateByNameAction : public ::fight::Action {
 public:
     virtual ~PropSetStateByNameAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5446,7 +5352,6 @@ class PropSpawnAction : public ::fight::Action {
 public:
     virtual ~PropSpawnAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -5505,7 +5410,6 @@ public:
     virtual ~PropThrowAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -5551,7 +5455,6 @@ public:
     virtual ~PushOutAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
     int f_24;
@@ -5637,7 +5540,7 @@ public:
     virtual ~RestPoseAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
 };
@@ -5662,7 +5565,6 @@ class ShieldArcAction : public ::fight::Action {
 public:
     virtual ~ShieldArcAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5693,7 +5595,6 @@ public:
     virtual ~SimulationAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -5716,7 +5617,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     int f_20;
     float f_24;
 };
@@ -5772,7 +5673,6 @@ class SnapToGroundAction : public ::fight::Action {
 public:
     virtual ~SnapToGroundAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -5792,7 +5692,6 @@ class SuckAction : public ::fight::Action {
 public:
     virtual ~SuckAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -5804,7 +5703,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     int f_1c;
     void* f_20;
 };
@@ -5845,7 +5743,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
     float f_28;
@@ -5888,7 +5786,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     char _pad_24[0xc];
@@ -5920,7 +5817,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     int f_24;
     int f_28;
@@ -5966,7 +5863,6 @@ class TargetBreakAction : public ::fight::Action {
 public:
     virtual ~TargetBreakAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -6004,7 +5900,6 @@ class TargetIconDistanceAction : public ::fight::Action {
 public:
     virtual ~TargetIconDistanceAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -6059,7 +5954,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     hulk_intptr f_20;
 };
@@ -6071,7 +5965,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
 };
 
@@ -6092,7 +5986,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     int f_20;
     char _pad_24[0x8];
@@ -6150,7 +6043,6 @@ class TimerSetAction : public ::fight::Action {
 public:
     virtual ~TimerSetAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -6183,7 +6075,6 @@ public:
     virtual ~VarAssignAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -6299,7 +6190,6 @@ class VisibilityAction : public ::fight::Action {
 public:
     virtual ~VisibilityAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -6322,7 +6212,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
     int f_28;
@@ -6363,7 +6253,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
     int f_28;
@@ -6414,7 +6304,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     char _pad_24[0x8];
     int f_2c;
@@ -6469,7 +6359,6 @@ class WorldConeDamageAction : public ::fight::Action {
 public:
     virtual ~WorldConeDamageAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -6507,7 +6396,6 @@ class WorldDamageAction : public ::fight::Action {
 public:
     virtual ~WorldDamageAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     hulk_intptr f_1c;
     void* f_20;
 };
@@ -6543,7 +6431,7 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
     void FUN_001a5840(void*, unsigned int, unsigned int, void*); // non-virtual
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     int f_24;
     void* f_28;
@@ -6721,7 +6609,6 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     int f_24;
@@ -6757,7 +6644,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_08[0x18];
+    char _pad_1c[0x4];
     void* f_20;
     void* f_24;
     int f_28;

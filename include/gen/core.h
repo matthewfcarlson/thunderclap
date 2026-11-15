@@ -107,6 +107,23 @@ public:
     virtual ~IRefCount() = 0; // slot 2
     void FUN_00268330(); // non-virtual
 };
+#if defined(HULK_REFCOUNT_INLINE_DTOR)
+// (gx5, D56) the destructor is inline and empty: a derived class's destructor ends in its vftable store (fight::Action's
+// 0x002326a0 stores 0x3f6098 last); 0x00268300 / 0x002684e0 are out-of-line copies of it. Only in the TUs that define
+// HULK_REFCOUNT_INLINE_DTOR before their includes (those whose destructors are the real ones): the /GX TUs that still
+// write a class's scalar deleting destructor as an empty user destructor (`pure3d::View::~View() {}`) need it to stay
+// out of line there, or MSVC 7.1 inlines the now trivial destructor into the `??_G` (docs/tech-debt.md)
+inline IRefCount::~IRefCount() {}
+#endif
+// (gx5, D56) the game's idiom for a held reference: released through slot 1 and cleared when set. Written as this inline
+// call, MSVC 7.1 schedules the caller's vftable store before the load as the game does (fight::Action's 0x002326a0);
+// the same statements written in place load first
+template <class T> inline void ReleaseRef(T*& p) {
+    if (p) {
+        p->vfunc_1();
+        p = 0;
+    }
+}
 
 // .?AUICementLibrary@core@@  vftable 0x42bf44 (9)
 struct ICementLibrary : public ::core::IRefCount {

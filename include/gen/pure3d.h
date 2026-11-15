@@ -491,7 +491,13 @@ class NonCopyable : public ::core::IRefCount {
 public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
+#if defined(HULK_REFCOUNT_INLINE_DTOR)
+    virtual ~NonCopyable() {} // overrides core::IRefCount slot 2 (gx5, D56: inline and empty; its vftable store is dead
+                              // before IRefCount's: fight::Action's destructor 0x002326a0, the scalar deleting destructor
+                              // 0x00045800; HULK_REFCOUNT_INLINE_DTOR: include/gen/core.h)
+#else
     virtual ~NonCopyable(); // overrides core::IRefCount slot 2
+#endif
     int f_04;
 };
 HULK_REFCOUNT_PACK_END

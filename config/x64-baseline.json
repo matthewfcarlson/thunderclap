@@ -3,12 +3,14 @@
   "gating": ["layout", "ptrtrunc", "crash64"],
   "settings": {"inputs": 200, "time_budget": 60},
   "source": "x64eq's tree-wide sweep at 96cba7a7c (the 44cb331c3 batch-2 blocks re-run after it), brought to ea6ce3693 by gate1's replay of the gate over every commit since",
-  "counts": {"crash64": 10, "crash64/ptr32": 203, "layout": 724, "ptrtrunc": 159},
-  "total": 1096,
+  "counts": {"crash64": 11, "crash64/ptr32": 203, "layout": 724, "ptrtrunc": 159},
+  "total": 1097,
   "why": {
+    "0x000147d0": "gx5 (D56): fails at 2472de24e too (class untyped: the TU's 32-bit views H3_147d0 { char p[0x64]; void* q; } / H4 read pointers at 32-bit offsets); with fight::Action's words typed the harness's run reaches the wild pointer as a crash. Fixed by typing those views (the motion objects' records), not by this change (2026-11-15)"
   },
   "blocks": {
     "0x000145b0": "layout",
+    "0x000147d0": "crash64",
     "0x000149b0": "layout",
     "0x00015b20": "crash64/ptr32",
     "0x00016120": "ptrtrunc",

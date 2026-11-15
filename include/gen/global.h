@@ -524,7 +524,6 @@ public:
     virtual ~CAIHintAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -613,7 +612,6 @@ class CAlertStatusAction : public ::CAction {
 public:
     virtual ~CAlertStatusAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
     int f_20;
 };
@@ -717,7 +715,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     void* f_24;
@@ -966,7 +963,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     unsigned int f_24;
@@ -1002,7 +998,6 @@ class CCameraHintAction : public ::CAction {
 public:
     virtual ~CCameraHintAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_8(int); // overrides CAction slot 8
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -1063,7 +1058,6 @@ class CCameraShakeAction : public ::CAction {
 public:
     virtual ~CCameraShakeAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -1857,7 +1851,6 @@ class CClearHitRecordsAction : public ::CAction {
 public:
     virtual ~CClearHitRecordsAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -1898,7 +1891,6 @@ class CClimbingAction : public ::CAction {
 public:
     virtual ~CClimbingAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     int f_20;
 };
@@ -1922,7 +1914,6 @@ public:
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
     virtual bool vfunc_8(int); // overrides CAction slot 8
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     int f_24;
@@ -2124,7 +2115,6 @@ class CComboMessageAction : public ::CAction {
 public:
     virtual ~CComboMessageAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -2147,7 +2137,6 @@ class CComboTimerAction : public ::CAction {
 public:
     virtual ~CComboTimerAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     int f_20;
 };
@@ -2251,7 +2240,6 @@ class CDamageAction : public ::CAction {
 public:
     virtual ~CDamageAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -2281,7 +2269,6 @@ class CDeathAction : public ::CAction {
 public:
     virtual ~CDeathAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -2340,7 +2327,6 @@ class CDrainHealthAction : public ::CAction {
 public:
     virtual ~CDrainHealthAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -2380,7 +2366,6 @@ class CDriftAction : public ::CAction {
 public:
     virtual ~CDriftAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -2405,7 +2390,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
@@ -2451,7 +2435,6 @@ public:
     virtual ~CEffectAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     void* f_24;
@@ -2464,7 +2447,6 @@ public:
     virtual ~CEffectStopAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     char _pad_24[0xe0];
@@ -2558,7 +2540,6 @@ class CExplosionAction : public ::CAction {
 public:
     virtual ~CExplosionAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -2866,7 +2847,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_8(int); // overrides CAction slot 8
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     int f_24;
@@ -2908,7 +2888,6 @@ class CGrappleAttachAction : public ::CAction {
 public:
     virtual ~CGrappleAttachAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -2973,7 +2952,6 @@ class CGrappleDetachAction : public ::CAction {
 public:
     virtual ~CGrappleDetachAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -3130,7 +3108,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
@@ -3294,7 +3271,6 @@ class CGrappleSwapAction : public ::CAction {
 public:
     virtual ~CGrappleSwapAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -3482,7 +3458,6 @@ public:
     virtual ~CHapticEventAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -3510,7 +3485,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
@@ -3562,7 +3536,6 @@ public:
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
     void FUN_00021490(); // non-virtual
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
@@ -3600,7 +3573,6 @@ public:
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_8(int); // overrides CAction slot 8
     virtual hulk_freg vfunc_9() = 0; // slot 9
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
@@ -3758,7 +3730,6 @@ public:
     virtual ~CIntangibleAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -3768,7 +3739,6 @@ public:
     virtual ~CIntangibleToActorsAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -3800,7 +3770,6 @@ public:
     virtual ~CInvincibleAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -3810,7 +3779,6 @@ public:
     virtual ~CInvulnerableAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -3845,7 +3813,6 @@ public:
     virtual ~CJointAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
@@ -3884,7 +3851,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
@@ -3902,7 +3868,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     void* f_24;
@@ -3985,7 +3950,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_8(int); // overrides CAction slot 8
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     hulk_intptr f_24;
@@ -4061,7 +4025,6 @@ class CMotionHitGroundHeightAction : public ::CAction {
 public:
     virtual ~CMotionHitGroundHeightAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -4085,7 +4048,6 @@ public:
     virtual ~CMotionTrailAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     int f_24;
@@ -4098,7 +4060,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
@@ -4109,7 +4070,6 @@ class CMoveAddAction : public ::CAction {
 public:
     virtual ~CMoveAddAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -4132,7 +4092,6 @@ class CMoveAddYAction : public ::CAction {
 public:
     virtual ~CMoveAddYAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -4247,7 +4206,6 @@ public:
     virtual ~COpportunityBallAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_8(int); // overrides CAction slot 8
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     int f_24;
@@ -4279,7 +4237,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
@@ -4292,7 +4249,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x8];
     void* f_28;
@@ -4519,7 +4475,6 @@ class CPropActorSetStateAction : public ::CAction {
 public:
     virtual ~CPropActorSetStateAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -4578,7 +4533,6 @@ class CRageModeAction : public ::CAction {
 public:
     virtual ~CRageModeAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
     int f_20;
 };
@@ -5073,7 +5027,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     void FUN_0001ea90(); // non-virtual
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     void* f_24;
@@ -5133,7 +5086,6 @@ class CSmartPropDetachAction : public ::CAction {
 public:
     virtual ~CSmartPropDetachAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -5166,7 +5118,6 @@ class CSmartPropDropAction : public ::CAction {
 public:
     virtual ~CSmartPropDropAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -5175,7 +5126,6 @@ class CSmartPropEventAction : public ::CAction {
 public:
     virtual ~CSmartPropEventAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
     int f_20;
     void* f_24;
@@ -5221,7 +5171,6 @@ class CSmartPropRemoveInstanceAction : public ::CAction {
 public:
     virtual ~CSmartPropRemoveInstanceAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5243,7 +5192,6 @@ class CSmartPropSetStateAction : public ::CAction {
 public:
     virtual ~CSmartPropSetStateAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5266,7 +5214,6 @@ public:
     virtual ~CSmartPropSpawnAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -5309,7 +5256,6 @@ class CSmartPropThrowAction : public ::CAction {
 public:
     virtual ~CSmartPropThrowAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -5344,7 +5290,6 @@ public:
     virtual ~CSmartPropThrowingAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
     int f_20;
 };
@@ -5377,7 +5322,6 @@ public:
     virtual ~CSmartPropUpdateAttachmentAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     void* f_24;
@@ -5433,7 +5377,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     void* f_24;
@@ -5465,7 +5408,6 @@ class CSoundAction : public ::CAction {
 public:
     virtual ~CSoundAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5695,7 +5637,6 @@ class CStageAction : public ::CAction {
 public:
     virtual ~CStageAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
 };
@@ -5741,7 +5682,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_8(int); // overrides CAction slot 8
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
@@ -5806,7 +5746,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     void* f_24;
@@ -5834,7 +5773,6 @@ class CTargetAction : public ::CAction {
 public:
     virtual ~CTargetAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     int f_20;
 };
@@ -5926,7 +5864,6 @@ public:
     virtual ~CUninterruptibleAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x14];
     void* f_1c;
 };
 
@@ -6032,7 +5969,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
@@ -6065,7 +6001,6 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_8(int); // overrides CAction slot 8
-    char _pad_08[0x14];
     void* f_1c;
     void* f_20;
     char _pad_24[0x4];

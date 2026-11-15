@@ -1621,7 +1621,7 @@ hulkfight::motion::LocomotionStrafeAction* hulkfight::motion::LocomotionStrafeAc
     ((LocomotionStrafeAction_nv_15d460*)this)->InitBase_00232660();
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00415b28;
     (*(Ref_15d460 * *)&this->f_1c) = 0;
-    (*(int *)&this->f_20) = 0;
+    this->f_20 = 0;   // (gx5) the whole word: natively a pointer (a 4-byte store left its upper half, x64 gate wild64)
     if (p)
         p->A();
     if ((*(Ref_15d460 * *)&this->f_1c))
