@@ -1410,6 +1410,7 @@ class Checker:
         self.flags = set()
         self.ddtor = None
         self.param_casts = {}
+        self.param_into = {}    # (pick() sets it; its deleting-destructor / early paths return before that)
         if symbol is None:
             symbol = self._pick_by_original()
         if symbol and symbol.startswith("??_G") and symbol not in self.img[32].funcs:
