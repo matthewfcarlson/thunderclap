@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0005d370..0x0005d850 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "decls/data/game/unknown.h"
 #include "decls/data/game/global.h"   // (gx3, D32) its owner object's data, merged
 #include "gen/fight.h"
@@ -9,6 +10,10 @@
 #define TREE_TU_END }
 namespace fn_f133b0a3 {} using namespace fn_f133b0a3;
 #include "game/unknown.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+namespace fn_f35d11f7 { struct T_5d130 { char FUN_0005d130(int); }; }   // (gx3, D18) setters, as defined in unk_05c6b0.cpp
+namespace fn_f35d11f7 { struct X_5d150 { char Set(int); }; }   // (gx3, D18) setters, as defined in unk_05c6b0.cpp
 
 // ---- declarations shared by the functions below
 inline void* operator new(size_t, void* p) throw() { return p; }
@@ -50,7 +55,6 @@ public:
     void (T::*setter)(bool);
     int unused14;
 };
-extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 struct Vec3_5d4e0 {
     int x, y, z;
 };
@@ -88,42 +92,41 @@ class Owner_5d6c0 {
 };
 
 
-// 0x0005d370 FUN_0005d370 (307 B): equivalent/0x0005d370.cpp
-// sym: _FUN_0005d370 @79ce3a878ed3 @w7d7ed62a3918
-// STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 12/12)
-// FUN_0005d370 @ 0x0005d370
+} // namespace fn_f133b0a3
+
+// 0x0005d330 fight::ParamFloatConstRange<CHapticTrack>::vfunc_0 (30 B): matches/0x0005d330.cpp
+// sym: ??_G?$ParamFloatConstRange@VCHapticTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CHapticTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005d370)
+
+
+
+// 0x0005d350 fight::ParamBool<CHapticTrack>::vfunc_0 (30 B): matches/0x0005d350.cpp
+// sym: ??_G?$ParamBool@VCHapticTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CHapticTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005d370)
+
+
+
+// 0x0005d370 FUN_0005d370 (307 B): matches/0x0005d370.cpp
+// sym: _FUN_0005d370
+// (gx2, D18) rewritten; constructs the real ParamBool<CHapticTrack>, ParamFloatConstRange<CHapticTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0005d370()
 {
     if (DAT_004dc5cc == 0) {
-        void* params[5];
-        void* mem;
-
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CHapticTrack_5d370>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CHapticTrack_5d370>("timeBegin", &CHapticTrack_5d370::FUN_0005d120);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CHapticTrack_5d370>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamFloatConstRange<CHapticTrack_5d370>("timeEnd", &CHapticTrack_5d370::FUN_0005d130);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CHapticTrack_5d370>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamFloatConstRange<CHapticTrack_5d370>("rumbleStrengthBig", &CHapticTrack_5d370::FUN_0005d140);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CHapticTrack_5d370>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamFloatConstRange<CHapticTrack_5d370>("rumbleStrengthSmall", &CHapticTrack_5d370::FUN_0005d150);
-        mem = FUN_0008d690((int)sizeof(ParamBool<CHapticTrack_5d370>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamBool<CHapticTrack_5d370>("abortWhenInterrupted", &CHapticTrack_5d370::FUN_0005d160);
-        FUN_002347b0(((ParamRegistry*)&DAT_004dc5c8), params, 5);
+        ::fight::ParamValue* params[5];
+        params[0] = new ::fight::ParamFloatConstRange< ::CHapticTrack>("timeBegin", &owners::Obj_5d120::FUN_0005d120);
+        params[1] = new ::fight::ParamFloatConstRange< ::CHapticTrack>("timeEnd", &fn_f35d11f7::T_5d130::FUN_0005d130);
+        params[2] = new ::fight::ParamFloatConstRange< ::CHapticTrack>("rumbleStrengthBig", &owners::Obj_5d140::FUN_0005d140);
+        params[3] = new ::fight::ParamFloatConstRange< ::CHapticTrack>("rumbleStrengthSmall", &fn_f35d11f7::X_5d150::Set);
+        params[4] = new ::fight::ParamBool< ::CHapticTrack>("abortWhenInterrupted", &owners::Obj_5d160::FUN_0005d160);
+        FUN_002347b0(&DAT_004dc5c8, params, 5);
     }
     DAT_004dc5cc++;
 }
 
-} // namespace fn_f133b0a3
+
 
 // 0x0005d4b0 FUN_0005d4b0 (12 B): matches/0x0005d4b0.cpp
 // sym: ?FUN_0005d4b0@T_5d4b0@owners@@QAE_NH@Z

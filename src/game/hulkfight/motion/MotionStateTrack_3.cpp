@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001793e0..0x00179460 (kind game, layer game, confidence high), dominant class hulkfight::motion::MotionStateTrack
 #include "tree_prelude.h"
 #include "gen/fight.h"
@@ -34,24 +33,4 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::MotionStat
 
     return __RTDynamicCast(p, 0, (void*)(&DAT_0049850c), (void*)(&DAT_004ba4b8), 0) != 0;
 }
-
-
-// 0x00179410 fight::ParamFloatConstRange<hulkfight::motion::MotionStateTrack>::vfunc_0 (30 B): matches/0x00179410.cpp
-// sym: ??_G?$ParamFloatConstRange@VMotionStateTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::motion::MotionStateTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::motion::MotionStateTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x179410)
-#endif
-
-
-// 0x00179430 fight::ParamEnumConstList<hulkfight::motion::MotionStateTrack>::vfunc_0 (30 B): matches/0x00179430.cpp
-// sym: ??_G?$ParamEnumConstList@VMotionStateTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::motion::MotionStateTrack>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::motion::MotionStateTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x179430)
-#endif
 
