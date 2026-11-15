@@ -1376,19 +1376,21 @@ stops with a backtrace instead of computing on):
   on both sides before the input runs (the same input otherwise; `level3.inputs_pre_repaired`). Repaired, not excluded,
   and so not capped: the repair keeps the input count (3,000 compared still means 3,000 inputs), where excluding the 390
   of 1,004 inputs of 0x0022ca90 that hold a fuzzed -1 word would have stopped the run. In MSVC mode nothing is repaired:
-  the macro is nothing there, so a difference on a NaN input is a difference (rev5's `_msvc_hidden`). Then, per contract
-  word (up to 64), one input with the other words repaired and that word a quiet NaN runs without the repair, uncounted:
-  our code must stop at the trap instruction (`ours fault:Invalid_instruction`; `level3.pre_trap: fired`,
-  `pre_trap_words`), else the block fails with `pre_trap_missing` naming the words: a macro that checks fewer floats than
-  the contract (rev5's `_partial`), a LOC that names other words than the code checks, a contract over an integer field.
-  Refused at level 2: an annotation without HULK_PRE_NOTNAN in the block (`pre_without_trap`), the macro without an
+  the macro is nothing there, so a difference on a NaN input is a difference (rev5's `_msvc_hidden`). Then **every**
+contract word is trap-checked: per `// pre:` item, the first input of seeds 0-31 on which the item's words are in
+reach; per word of it, that input with the other contract words repaired and this word a quiet NaN, run without the
+repair and uncounted: our code must stop at the trap instruction (`ours fault:Invalid_instruction`; `level3.pre_trap:
+fired`, `pre_trap_words`). Else the block fails with `pre_trap_missing` naming the words: a macro that checks fewer
+floats than the contract (rev5's `_partial`, `_over64`), a LOC that names other words than the code checks, a contract
+over an integer field, an item no input of seeds 0-31 reaches, or a contract over 256 words (refused rather than
+checked in part). Refused at level 2: an annotation without HULK_PRE_NOTNAN in the block (`pre_without_trap`), the macro without an
   annotation (`trap_without_pre`; both searched in the block's text without comments), an unparsable annotation or an
   argN that does not exist or follows a by-value struct (`pre_unparsed`). The annotation enters the checker view (`@v`)
   and the proof ledger (`pre`, `pre_repaired`), so a proof records what it assumed. `EQUIV_OFF=pre` ignores both (a proof
   refuses any switch).
 - Cases (`regress.py`): `0x0022ca90_native_pre` (equivalent; every contract word traps) and `_msvc`, must-fail `_notrap`,
   `_nopre`, `_wrong`, `_off`, and rev5's `_partial` (element 0 checked of 16: pre_trap_missing) and `_msvc_hidden`
-  (`_msvc_hidden_off` shows the difference is reachable).
+  (`_msvc_hidden_off` shows the difference is reachable), `_over64` (b's words past the first 64).
 - Not done: other conditions (finite, range).
 
 (integ1, D39, `nanpayload`) **Dropped (user decision D50, 2026-11-15).** A rule to set aside quiet-NaN words that differ

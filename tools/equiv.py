@@ -10924,10 +10924,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     proof_draw = [False]        # (integ1, D62) drawing past --inputs until that many inputs are compared
     sret_w = 1 if sig and sig.get("ret") == "struct" else 0
 
-    def _pre_words(inp):
-        """[(where, width)]: where is ("stack", word index) or ("mem", address) for each word the contract names."""
+    def _pre_words(inp, item=None):
+        """[(where, width)]: where is ("stack", word index) or ("mem", address) for each word the contract names (only
+        contract item ITEM's, given an index)."""
         out = []
-        for w, kind, n, off, end in pre or ():
+        for i_, (w, kind, n, off, end) in enumerate(pre or ()):
+            if item is not None and i_ != item:
+                continue
             if kind == "arg":
                 wi = _pre_arg_word(sig, n)
                 if wi is not None and wi < len(inp["stack"]):
@@ -10971,55 +10974,69 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 ov[(0, x)] = nb
         return ov, sp
 
+    PRE_CHECK_MAX = 256
+
     def pre_trap_check():
-        """(integ1, D54, --wine; rev5: per contract word) For every word the contract names (up to 64): an input whose
-        other contract words are repaired and that word holds a quiet NaN, run without the repair: our code must stop at
-        the trap instruction (`ours fault:Invalid_instruction`), not compute on or fault elsewhere. One missing word fails
-        the block (a macro that checks fewer floats than the contract, a LOC that names other words than the code checks,
-        a contract over an integer). Counted nowhere (the run's tallies are put back)."""
+        """(integ1, D54, --wine; rev5) Every word the contract names must trap: per contract item, the first input (of
+        seeds 0-31) on which the item's words are in reach; per word of it, that input with the other contract words
+        repaired and this word a quiet NaN, run without the repair: our code must stop at the trap instruction (`ours
+        fault:Invalid_instruction`), not compute on or fault elsewhere. A word that doesn't, an item no input reaches,
+        or a contract over PRE_CHECK_MAX words fails the block (a macro that checks fewer floats than the contract, a LOC
+        that names other words than the code checks, a contract over an integer). Counted nowhere (the run's tallies
+        are put back)."""
         import copy
-        for seed0 in range(8):
-            inp0, _, mach0 = build(seed0, None, None)
-            words = _pre_words(inp0)
-            if words:
-                break
-        else:
-            res["pre_trap"] = "missing: no input reaches a contract word"
-            return
-        ov0, sp0 = _pre_fix(seed0, inp0, mach0)
-        missing, checked = [], 0
-        for (where, x), w in words[:64]:
-            if out_of_time():
-                break
-            nan = b"\x00\x00\xc0\x7f" if w == 4 else b"\x00\x00\x00\x00\x00\x00\xf8\x7f"
-            ov, sp = dict(ov0), dict(sp0)
-            if where == "stack":
-                for i in range(w // 4):
-                    sp[("sbyte", x + i, 0, 4)] = struct.unpack_from("<I", nan, 4 * i)[0]
+        plan = []
+        for i_, it_ in enumerate(pre or ()):
+            for seed0 in range(32):
+                inp0, _, mach0 = build(seed0, None, None)
+                ws_ = _pre_words(inp0, i_)
+                if ws_:
+                    plan.append((i_, seed0, inp0, mach0, ws_))
+                    break
             else:
-                ov[(0, x)] = nan
-            saved = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any))
-            pre_off[0] = True
-            try:
-                run_input(seed0, ov, sp, label="pre-trap")
-                mm_ = [m_ for m_ in res["mismatches"] if m_.get("input") == "pre-trap"]
-                stat_ = dict(res["statuses"])
-            finally:
-                pre_off[0] = False
-                res.clear()
-                res.update(saved[0])
-                edges.clear(); edges.update(saved[1])
-                hits.clear(); hits.update(saved[2])
-                edges_any.clear(); edges_any.update(saved[3])
-            checked += 1
-            d_ = mm_[0]["diffs"] if mm_ else []
-            if not any("ours fault:Invalid_instruction" in x_ for x_ in d_):
-                missing.append("%s 0x%x: %s" % (where, x, ("; ".join(d_)[:120] if d_ else "no difference (%s)" % ", ".join(
-                    "%s %d" % kv for kv in stat_.items())[:80])))
+                plan.append((i_, None, None, None, []))
+        total = sum(len(p_[4]) for p_ in plan)
+        if total > PRE_CHECK_MAX:
+            res["pre_trap"] = "missing: the contract names %d words, over the %d checked" % (total, PRE_CHECK_MAX)
+            return
+        missing, checked = [], 0
+        for i_, seed0, inp0, mach0, ws_ in plan:
+            if seed0 is None:
+                missing.append("item %d (%s): no input of seeds 0-31 reaches it" % (i_ + 1, pre[i_][1]))
+                continue
+            ov0, sp0 = _pre_fix(seed0, inp0, mach0)
+            for (where, x), w in ws_:
+                if out_of_time():
+                    missing.append("item %d: the time budget ran out before every word was checked" % (i_ + 1))
+                    break
+                nan = b"\x00\x00\xc0\x7f" if w == 4 else b"\x00\x00\x00\x00\x00\x00\xf8\x7f"
+                ov, sp = dict(ov0), dict(sp0)
+                if where == "stack":
+                    for i in range(w // 4):
+                        sp[("sbyte", x + i, 0, 4)] = struct.unpack_from("<I", nan, 4 * i)[0]
+                else:
+                    ov[(0, x)] = nan
+                saved = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any))
+                pre_off[0] = True
+                try:
+                    run_input(seed0, ov, sp, label="pre-trap")
+                    mm_ = [m_ for m_ in res["mismatches"] if m_.get("input") == "pre-trap"]
+                    stat_ = dict(res["statuses"])
+                finally:
+                    pre_off[0] = False
+                    res.clear()
+                    res.update(saved[0])
+                    edges.clear(); edges.update(saved[1])
+                    hits.clear(); hits.update(saved[2])
+                    edges_any.clear(); edges_any.update(saved[3])
+                checked += 1
+                d_ = mm_[0]["diffs"] if mm_ else []
+                if not any("ours fault:Invalid_instruction" in x_ for x_ in d_):
+                    missing.append("item %d %s 0x%x: %s" % (i_ + 1, where, x, ("; ".join(d_)[:120] if d_ else
+                                   "no difference (%s)" % ", ".join("%s %d" % kv for kv in stat_.items())[:80])))
         res["pre_trap_words"] = checked
-        res["pre_trap"] = "fired" if not missing and checked == len(words[:64]) else \
-            "missing: %d of %d contract words did not trap (%s)" % (len(missing) + len(words[:64]) - checked,
-                                                                  len(words[:64]), "; ".join(missing[:3]))
+        res["pre_trap"] = "fired" if not missing else \
+            "missing: %d problem(s) over %d contract words (%s)" % (len(missing), total, "; ".join(missing[:3]))
 
     def run_input(seed, overlay=None, stack_patch=None, label=None, _vk=False, _ar=False, _bf=None):
         """Run one input on both sides; returns the set of new original edges (None if inconclusive)."""
