@@ -1733,6 +1733,7 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None):
             if good:
                 o[kind] = good[0][1]
                 entries.append(ledger_entry(r["addr"], kind, h, view, good[0][0], tu))
+                o.setdefault("ledger", []).append(entries[-1])
             else:
                 o[kind] = "unproven: " + ("; ".join(w for _, (_, w) in why) or "no result for this block")
         if any(str(o.get(k, "")).startswith("unproven") for k in ("msvc", "wine")):
@@ -1745,6 +1746,7 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None):
                                                     b.get("whash") != r.get("wine_code_hash")) or b.get("vhash") != vh:
             new[r["addr"]] = (r.get("code_hash"), r.get("wine_code_hash"), vh)
             o["result"] = "recorded"
+            o["hashes"] = new[r["addr"]]
         else:
             o["result"] = "unchanged"
         out.append(o)
