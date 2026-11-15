@@ -4458,7 +4458,10 @@ class Run:
         if not (self.ecx_dirty or ecx == self.inp["regs"]["ecx"]):
             return False        # ecx is a leftover (e.g. from the previous stub), not a receiver
         try:
-            return self.reg(insn.mem[1]) == self._read_u32(ecx)
+            # (integ1, D52) a lookup, not an access of the code's: no page mapped for it (`_read_u32` maps outside the
+            # 1000-page limit, as vptrkeep's tracker did before vptrread)
+            rd_ = self._read_u32 if "vcallread" in EQUIV_OFF else self._vp_read
+            return self.reg(insn.mem[1]) == rd_(ecx)
         except Exception:
             return False
 
@@ -6494,7 +6497,25 @@ class Run:
             self.vp_havoc[slot] = (old, ep)
 
     def _vptr_use(self, ent):
-        a, val, ep, nc, _ = ent
+        a, val, ep, nc, base = ent
+        if ep == self.epoch:
+            return
+        self._vp_keep(a, val, ep, nc)
+        if base is not None and "objkeep" not in EQUIV_OFF:
+            # (integ1, D53, objkeep; NOT ADOPTED until reviewed: on only with EQUIV_ON=objkeep) the object pointer the
+            # vptr was read through, itself loaded from memory (`mov esi, [this+0x20]; mov eax, [esi]; call f; mov ecx,
+            # [this+0x20]; call [eax+k]`: MSVC reads the vptr before the call that computes an argument and re-reads the
+            # object pointer for `this` after it; clang reads both after). The stub's havoc replaced the pointer word, so
+            # `this` was fuzzed on one side only. Kept at its value from the epoch it was loaded in, as the vptr word: the
+            # real callee leaves it alone unless it can write it (same test). Only for a virtual call whose own vptr load
+            # came before the stub (this entry)
+            ba, bval, bep, bnc, _ = base
+            if bep <= ep and "objkeep" in EQUIV_ON:
+                self._vp_keep(ba, bval, bep, bnc)
+
+    def _vp_keep(self, a, val, ep, nc):
+        """Keep word A (VAL, read in epoch EP after NC calls) at its value across the stubs since, when no call in between
+        can write it (vptrkeep's test)."""
         if ep == self.epoch or a in self.vp_havoc:
             return
         try:

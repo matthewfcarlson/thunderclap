@@ -1340,8 +1340,25 @@ into the page limit: `original ret but ours fault:too_many_pages` on directed in
 vptr across. The tracker now reads an unmapped page's bytes from what mapping it would write (the machine's page for the
 epoch) and maps nothing, so the rule can only act through its overlay after a stubbed call, as designed. 0x00106290,
 0x0007f690 and 0x001e3020 (tri1's misfires) are equivalent and promotable at 3,000 inputs in MSVC mode.
-`EQUIV_OFF=vptrread` restores the mapping read; regress cases `0x00106290_vptrread{,_off,_wrong}`. Open: other hooks
-call `_read_u32` too (it maps past the page limit); they were not audited for the same side effect.
+`EQUIV_OFF=vptrread` restores the mapping read; regress cases `0x00106290_vptrread{,_off,_wrong}`. (integ1, D52) The
+other `_read_u32` callers, audited: the stack words (call arguments, return addresses, the fill and uninit checks: the
+stack is always mapped), the call target a `call [mem]` reads anyway, the /GS cookie (the image) and the strcmp-family
+operands (stack words) map nothing new. One more lookup did: `_is_virtual_on_ecx` read `[ecx]` at every indirect call
+to tell a virtual call, mapping ecx's page though the code never touched it (both runs, so it counted towards their
+page limits). It reads without mapping now (`EQUIV_OFF=vcallread` restores it).
+
+(integ1, D53, `objkeep`) **Written, NOT adopted: on only with `EQUIV_ON=objkeep` until an independent review signs off.**
+"The vptr read before an argument call, `this` re-read after it": `mov esi, [this+8]; mov ebx, [esi]; push 1; call [ebx+0x40];
+... call f; mov ecx, [this+8]; ... call [ebx+0xc]` (0x00264050: MSVC reads the stream's vptr before the calls that compute
+v3's argument and re-reads `this->stream` for `this` after them; clang reads both after). Every stub replaces the memory
+outside the stack, so the re-read pointer word was fuzzed on one side only (`this (ecx) is 0x00000003, expected 0`).
+vptrkeep keeps the vptr word across the stub; objkeep keeps, for the same virtual call only, the word the object pointer
+was loaded from (its vptr load came first, in an earlier epoch), at its value from that epoch, under vptrkeep's test (no
+call in between that can write it: a known callee writing nothing outside its frame or nowhere near the word). With it
+--wine at 1,000: 0x00264050, 0x000e14b0 and 0x000e8790 pass (they fail without); 0x00297680 still fails (another cause: an
+int literal binds the TU's `extern "C"` thunk declaration, tri1). Cases `0x00264050_native_objkeep` (equivalent with it),
+`_off` (fails without), must-fail with it on: `_wrong` (v3 called on another object), `_thischange` (our code stores a
+new pointer into `this->stream` between the calls).
 
 (integ1, `proofcap`; user decision D62) **A proof is 3,000 COMPARED inputs per mode.** A proof-sized run (`--inputs
 3000`: promotions and `tree_tu.py hash --proven`) goes on drawing inputs after its phases until it has compared (completed)

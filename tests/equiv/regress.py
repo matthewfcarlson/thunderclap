@@ -753,6 +753,14 @@ CASES = {
     # (integ1, proofcap) luaH newkey: its fuzzed tables time out on 1 input in 6, and the random phase stopped at 32
     # inconclusive inputs (535 drawn, 442 compared): a proof-sized run now draws until 3,000 are compared (MIN_RUN 3,000)
     "0x0021a3e0_proofcap": ("equivalent", None, 0.9, {"n_inputs": 3000, "time_budget": 2400}),
+    # (integ1, D53, objkeep; NOT ADOPTED: EQUIV_ON=objkeep until reviewed) --wine: the original reads stream's vptr before the
+    # call that computes v3's argument and re-reads this->stream for `this` after it; the stub's havoc fuzzed the re-read
+    # word on one side only (input 10: this (ecx) is 3, expected 0). The pointer word is kept across the stub as the vptr is
+    "0x00264050_native_objkeep": ("equivalent", None, 0, {"native": True, "n_inputs": 1000, "equiv_on": "objkeep"}),
+    "0x00264050_native_objkeep_off": ("fail", "this (ecx)", 0, {"src": "0x00264050_native_objkeep", "native": True,
+                                                                "n_inputs": 1000}),
+    "0x00264050_native_objkeep_wrong": ("fail", "this (ecx)", 0, {"native": True, "n_inputs": 300, "equiv_on": "objkeep"}),
+    "0x00264050_native_objkeep_thischange": ("fail", "unexpected write to this+0x8", 0, {"native": True, "n_inputs": 300, "equiv_on": "objkeep"}),
     # (integ1, D54) a `// pre: notnan(...)` contract with HULK_PRE_NOTNAN (include/compat/pre.h): NaN words of the contract are
     # repaired on both sides (390 of 1,004 inputs), --wine checks that a violating input hits the trap; _notrap: the contract
     # without the macro is refused; _nopre: the macro without the contract fails on NaN inputs; _wrong: a wrong element fails
