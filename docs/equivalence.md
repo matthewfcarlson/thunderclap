@@ -1026,12 +1026,36 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     `rep movsd`, which reads what it has just written. Fuzzed pointers overlap where the game's objects never do
     (0x002233e0's median of three 40-byte items, 0x00280be0's clipped vertices, 0x002699f0's character copy). The input
     is set aside as `copy_overlap` only when a difference follows the call (`ubafter`). `memmove` is defined on overlap
-    and stays compared. Cases `0x002233e0_native_memub{,_off,_wrong}`.
-  - `strlazy` (tri3, 2026-11-15): the strcmp family (strcmp, stricmp, strncmp, strnicmp) and memcmp are performed byte by
+    and stays compared. Cases `0x002233e0_native_memub{,_off,_wrong}`. `EQUIV_OFF=intrub` turns memub off as well.
+  - `memfwd` (integ1, rev4's review, 2026-11-15): ahead of memub, ours's overlapping `memcpy` (up to 1 MB) is performed as the
+    original's inline copy runs: forward, dword by dword, then the remaining bytes, each read after the stores before it
+    (MSVC 7.1's `rep movsd; rep movsb`; its unrolled struct copies are load/store pairs in the same order). The input is
+    then compared like any other. rev4 showed the set-aside hid unrelated later differences: a mutant that flips a field
+    only when the items overlap (`0x002233e0_native_memub_hidden`) was promotable under memub with its seed list, and fails
+    under memfwd (at 1,000 inputs it fails without memfwd too, on inputs with no overlapping copy: input 461). The 7
+    blocks memub had rescued (0x002233e0, 0x0021a3e0, 0x00280be0, 0x002699f0, 0x00269e00, 0x0026ab60, 0x0026af70) are
+    `--wine` equivalent and promotable at 3,000 with memfwd, with no input set aside for an overlap (jobs 84172-84178).
+    memub's set-aside remains for copies over 1 MB and with `EQUIV_OFF=memfwd`. Cases `_memub_fwdoff`,
+    `_memub_hidden{,_fwdoff}`; `_memub_off` turns both off.
+  - Promotion cap (integ1, rev4): a run with `copy_overlap` inputs (intrub, memub) over 10% of the inputs run is not
+    promotable (as `wild` and `nan_payload`).
+  - `strlazy` (tri3, 2026-11-15; a model change, not a set-aside: every input stays compared): the strcmp family
+    (strcmp, stricmp, strncmp, strnicmp) and memcmp are performed byte by
     byte up to the first difference or terminator (or n), as the C library defines them and as MSVC's inline loops /
     `repe cmpsb` read them. Before, both strings were read whole first (up to 64 KB for a string): a fuzzed string without
     a terminator faulted ours (`intrinsic_access`) where the original stopped at byte 0 (0x000e1dd0, 0x000e7620,
     0x000f0b90, 0x00044cb0; memcmp 0x0033caa0). Cases `0x000e1dd0_native_strlazy*`, `0x0033caa0_native_memlazy*`.
+    (integ1) memcmp reads in chunks within the pages already reached on both sides (no new fault; a huge fuzzed n no
+    longer costs a step per byte); the never-reached names `_stricmp` / `strcmpi` / `_strnicmp` were dropped from the
+    intrinsic's lists (INTRINSIC_NAMES strips one `_`).
+  - `strcase` (integ1, rev4's review): the fuzzer never makes two strings that differ only in ASCII case, so a case-blind
+    compare in place of the original's strcmp (rev4's `_stricmp` mutant of 0x000e1dd0) passed every input. Two plants:
+    a literal the original compares a buffer with (`str_obs`) is also planted in the other case (used while edges are
+    missing, as the literal plants); and after the random and directed phases, up to 16 directed inputs from ours's
+    strcmp-family calls (the intrinsic or the XBE's own strcmp / _stricmp / strncmp, run for real): the second string,
+    in the other case, written over the first in the memory epoch it was read in (only memory both sides share: not the
+    null page, the stack, the image or our object). Reported as `level3.inputs_strcase`. Cases
+    `0x000e1dd0_native_strlazy_icmp` (fails at input `7+case`) and `_icmp_off` (`EQUIV_OFF=strcase`: passes).
   - `natobj`: a pointer to a local passed to a callee whose reach is unknown (`_callee_ext` None: a
     function pointer, DumpConstants' `D->writer(L, &x, 4, ud)` 0x0021aa00) is compared up to the end of the C object
     ours passed, from clang's debug information: the function is compiled once more with `-gdwarf-4` on first need

@@ -685,7 +685,18 @@ CASES = {
     "0x002233e0_native_memub": ("equivalent", None, 0, {"native": True, "seeds": list(range(32)) + [353]}),
     "0x002233e0_native_memub_off": ("fail", "write to arg2+0x24 before return was 0x40020060, expected 0x40020064", 0,
                                     {"src": "0x002233e0_native_memub", "native": True, "seeds": list(range(32)) + [353],
-                                     "equiv_off": "memub"}),
+                                     "equiv_off": "memub,memfwd"}),
+    # (integ1, rev4, memfwd) our overlapping memcpy runs forward dword by dword as the original's inline copy, and the input
+    # is compared (seed 353 passes without being set aside); _fwdoff: memub's set-aside alone (the pre-rev4 rule).
+    # _hidden (rev4): a field flipped when the items overlap, after the copies; at 1,000 inputs it fails at inputs 461/653
+    "0x002233e0_native_memub_fwdoff": ("equivalent", None, 0, {"src": "0x002233e0_native_memub", "native": True,
+                                                               "seeds": list(range(32)) + [353], "equiv_off": "memfwd"}),
+    "0x002233e0_native_memub_hidden": ("fail", "arg1+0x24", 0, {"native": True, "n_inputs": 1000}),
+    # (integ1, rev4, strcase) rev4's _stricmp-for-strcmp mutant of FELayout's lookup: two non-literal strings the fuzzer never
+    # makes equal but for case; the strcase phase plants the key in the other case over the name (input 7+case); _off passes
+    "0x000e1dd0_native_strlazy_icmp": ("fail", "expected 0x00000000", 0, {"native": True, "n_inputs": 1000}),
+    "0x000e1dd0_native_strlazy_icmp_off": ("equivalent", None, 0, {"src": "0x000e1dd0_native_strlazy_icmp", "native": True,
+                                                                   "n_inputs": 1000, "equiv_off": "strcase"}),
     "0x002233e0_native_memub_wrong": ("fail", "missing write to arg1+0x4", 0,
                                       {"native": True, "seeds": list(range(32)) + [353]}),
     # (rev4, memub/strlazy must-fail) memmove is defined on overlap and stays compared (seed 353 as above, memmove

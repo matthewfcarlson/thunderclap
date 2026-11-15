@@ -3856,6 +3856,7 @@ class Run:
         self.cmp_obs = {}           # jcc -> observation of the comparison that fed it
         self.cmp_obs2 = {}          # ... the second time (a loop's next iteration)
         self.str_obs = []           # compares of a buffer with a literal in .rdata (directed inputs plant it)
+        self.str_eq = []            # (integ1, strcase) our strcmp-family calls: (epoch, first string's address, second string)
         self.deref_obs = []         # (round 13, objptr) [(pointer key, its source, disp)] (directed inputs)
         self.byte_bufs = {}         # byte compare site -> (address, epoch) of the first byte it compared
         self.byte_seq = []          # constants chars were compared with, in order
@@ -4295,11 +4296,18 @@ class Run:
         return 0
 
     def _memcmp_lazy(self, a, b, n):
-        """(tri3, strlazy) memcmp of N bytes at A and B, reading byte by byte only up to the first difference."""
-        for i in range(n):
-            ca, cb = self._mem((a + i) & M32, 1)[0], self._mem((b + i) & M32, 1)[0]
-            if ca != cb:
-                return M32 if ca < cb else 1
+        """(tri3, strlazy) memcmp of N bytes at A and B, reading byte by byte only up to the first difference. (integ1)
+        In chunks that stay within the pages of the bytes already reached on both sides (a page the byte loop would map
+        anyway: no new fault), then by byte at the difference: a huge fuzzed n no longer costs a Python step per byte."""
+        i = 0
+        while i < n:
+            pa, pb = (a + i) & M32, (b + i) & M32
+            k = min(n - i, PAGE - (pa & (PAGE - 1)), PAGE - (pb & (PAGE - 1)), 256)
+            ba, bb = self._mem(pa, k), self._mem(pb, k)
+            if ba != bb:
+                j = next(j for j in range(k) if ba[j] != bb[j])
+                return M32 if ba[j] < bb[j] else 1
+            i += k
         return 0
 
     def _str_overlap(self, n, d, s_):
@@ -4333,7 +4341,25 @@ class Run:
         eax, fres, fext = 0, None, None
         dbl = lambda i: struct.unpack("<d", struct.pack("<II", w[i], w[i + 1]))[0]
         if n in ("memcpy", "memmove"):
-            if n == "memcpy" and w[2] and w[0] != w[1] and self.copy_ub is None and NATIVE_MODE and \
+            ovl_ = n == "memcpy" and w[2] and w[0] != w[1] and NATIVE_MODE and \
+                w[0] < (w[1] + w[2]) & M32 and w[1] < (w[0] + w[2]) & M32
+            if ovl_ and "memfwd" not in EQUIV_OFF and w[2] <= 1 << 20:
+                # (integ1, rev4, memfwd) our memcpy over overlapping ranges runs as the original's inline copy does: forward,
+                # dword by dword, then the remaining bytes (MSVC 7.1's `rep movsd; rep movsb`, and its unrolled struct
+                # copies load/store pairs in the same order), each read after the stores before it. The input is then
+                # compared as any other (memub set it aside, which hid later differences on such inputs: rev4's
+                # 0x002233e0_native_memub_hidden). Over 1 MB: memub's set-aside as before
+                nd_ = w[2] & ~3
+                for i_ in range(0, nd_, 4):
+                    self._mem((w[0] + i_) & M32, 4, self._mem((w[1] + i_) & M32, 4))
+                for i_ in range(nd_, w[2]):
+                    self._mem((w[0] + i_) & M32, 1, self._mem((w[1] + i_) & M32, 1))
+                self._note_stack_write(w[0], w[2])
+                eax = w[0]
+                ovl_ = None
+            if ovl_ is None:
+                pass
+            elif n == "memcpy" and w[2] and w[0] != w[1] and self.copy_ub is None and NATIVE_MODE and \
                     "memub" not in EQUIV_OFF and "intrub" not in EQUIV_OFF and \
                     w[0] < (w[1] + w[2]) & M32 and w[1] < (w[0] + w[2]) & M32:
                 # (tri3, memub) the source's own memcpy (clang's struct copies: `*a = *b`, `temp = *second`) with
@@ -4341,9 +4367,10 @@ class Run:
                 # it has written): the input proves nothing about either side, as intrub (see run_input)
                 self.copy_ub = insn.addr
                 self.ub_at.setdefault("copy_overlap", len(self.calls))
-            self._mem(w[0], w[2], self._mem(w[1], w[2])) if w[2] else None
-            self._note_stack_write(w[0], w[2])
-            eax = w[0]
+            if ovl_ is not None:
+                self._mem(w[0], w[2], self._mem(w[1], w[2])) if w[2] else None
+                self._note_stack_write(w[0], w[2])
+                eax = w[0]
         elif n == "memset":
             if w[2]:
                 self._mem(w[0], w[2], bytes([w[1] & 0xFF]) * w[2])
@@ -4362,18 +4389,26 @@ class Run:
             else:
                 a_, b_ = self._mem(w[0], w[2]) if w[2] else b"", self._mem(w[1], w[2]) if w[2] else b""
                 eax = 0 if a_ == b_ else (M32 if a_ < b_ else 1)
-        elif n in ("strcmp", "stricmp", "_stricmp", "strcmpi", "strncmp", "strnicmp", "_strnicmp") and \
+        elif n in ("strcmp", "stricmp", "strncmp", "strnicmp") and \
                 "strlazy" not in EQUIV_OFF:
             # (tri3, strlazy) as the C library (and MSVC's inline `repe cmpsb`-free byte loop) does: byte by byte up to the
             # first difference or terminator (or n), reading nothing past it. Reading both strings whole first faulted
             # ours (`intrinsic_access`, no terminator in 64 KB of a fuzzed string) where the original stopped at byte 0
-            eax = self._strcmp_lazy(w[0], w[1], w[2] if n in ("strncmp", "strnicmp", "_strnicmp") else None,
-                                    n in ("stricmp", "_stricmp", "strcmpi", "strnicmp", "_strnicmp"))
-        elif n in ("strcmp", "stricmp", "_stricmp", "strcmpi", "strncmp", "strnicmp", "_strnicmp"):
+            eax = self._strcmp_lazy(w[0], w[1], w[2] if n in ("strncmp", "strnicmp") else None,
+                                    n in ("stricmp", "strnicmp"))
+            if "strcase" not in EQUIV_OFF and len(self.str_eq) < 8:
+                # (integ1, rev4, strcase) a directed input plants the second string, in the other case, over the first
+                try:
+                    s_ = self._cstr(w[1], limit=256)
+                except Fault:
+                    s_ = b""
+                if s_ and s_.swapcase() != s_ and _fuzzed_heap(w[0]):
+                    self.str_eq.append((self.epoch, w[0], s_))
+        elif n in ("strcmp", "stricmp", "strncmp", "strnicmp"):
             a_, b_ = self._cstr(w[0]), self._cstr(w[1])
-            if n in ("strncmp", "strnicmp", "_strnicmp"):
+            if n in ("strncmp", "strnicmp"):
                 a_, b_ = a_[:w[2]], b_[:w[2]]
-            if n in ("stricmp", "_stricmp", "strcmpi", "strnicmp", "_strnicmp"):
+            if n in ("stricmp", "strnicmp"):
                 a_, b_ = a_.lower(), b_.lower()
             eax = 0 if a_ == b_ else (M32 if a_ < b_ else 1)
             if os.environ.get("X87DBG"):
@@ -6917,6 +6952,16 @@ class Run:
                         n = a2 if self.helpers[target] == "_strncmp" else None
                         self._note_str(addr, a1, a0, n)
                         self._note_str(addr, a0, a1, n)
+                    if self.helpers[target] in STRCMP_HELPERS and "strcase" not in EQUIV_OFF and len(self.str_eq) < 8:
+                        # (integ1, rev4, strcase) the XBE's own strcmp / _stricmp / strncmp run for real: as for the
+                        # intrinsic, a directed input plants the second string in the other case over the first
+                        try:
+                            a0, a1 = (self._read_u32(esp + 4 * i) for i in range(2))
+                            s_ = self._cstr(a1, limit=256)
+                        except Exception:   # noqa: BLE001
+                            s_ = b""
+                        if s_ and s_.swapcase() != s_ and _fuzzed_heap(a0):
+                            self.str_eq.append((self.epoch, a0, s_))
                     if os.environ.get("X87DBG") and self.helpers[target] in STRCMP_HELPERS:
                         a0, a1 = (self._read_u32(esp + 4 * i) for i in range(2))
                         print("helper", self.helpers[target], "ours" if self.view.is_ours else "orig", hex(a0), hex(a1),
@@ -7841,6 +7886,13 @@ def _feq(a, b, rel=None, ab=None):
 _NAN_SIGN = [0]
 _NAN_PAYLOAD = [0]
 _NAN_EQ = [0]
+
+
+def _fuzzed_heap(a):
+    """(integ1, strcase) A string the input's own memory holds (the same address on both sides): not the null page, the
+    stack, the original's image or our object (a literal there has another address on the other side)."""
+    return a >= NULL_HI and not STACK_LO <= a < STACK_HI and not IMAGE_LO <= a < IMAGE_HI and \
+        not OURS <= a < OURS + OURS_SIZE and not _reserved(a)
 
 
 def _nan_payload_only(a, b, f32=False):
@@ -10300,6 +10352,10 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
     if npl > 0.1 * max(l3.get("inputs_run", 0), 1):
         # (integ1, rev3) inputs set aside by nanpayload hide that much code, as wild ones do
         short.append("%d inputs set aside as nan_payload (over 10%% of %d)" % (npl, l3.get("inputs_run", 0)))
+    cov_ = st.get("copy_overlap", 0)
+    if cov_ > 0.1 * max(l3.get("inputs_run", 0), 1):
+        # (integ1, rev4) inputs set aside for an overlapping copy (intrub, memub) hide that much code too
+        short.append("%d inputs set aside as copy_overlap (over 10%% of %d)" % (cov_, l3.get("inputs_run", 0)))
     rep["promotable"] = rep["status"] == "equivalent" and not short
     if rep["status"] == "equivalent" and short:
         rep["promotable_note"] = "; ".join(short)
@@ -10562,6 +10618,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     observations = {}          # jcc addr -> [(seed, cmp observation, ...)] from the original's runs
     missing_now = [set()]      # (round 9) compares with a side still missing (as of the directed pass)
     str_queue = []             # [(seed, string-compare observation, overlay, patch)] to plant (directed)
+    case_queue = []            # (integ1, strcase) [(seed, epoch, address, string, overlay, patch)]: equal strings to re-case
+    case_seen = Counter()
     objptr_queue = []          # (round 13) [(seed, pc, base pointer source, disp, overlay, patch)] (objptr_phase)
     objptr_seen = Counter()    # pc -> times queued
     str_seen = Counter()       # (site, literal) -> times queued
@@ -11098,6 +11156,12 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         rrun.wild_check = True
         rrun.bool_fix = _bf[0] if _bf is not None else 0
         r = rrun.run(rview.entry)
+        for ep_, a_, s_ in rrun.str_eq:
+            # (integ1, rev4, strcase) the fuzzer never makes two names that differ only in case: queue one that does
+            k_ = (a_, s_)
+            if case_seen[k_] < 1 and len(case_queue) < 64:
+                case_seen[k_] += 1
+                case_queue.append((seed, ep_, a_, s_, overlay, stack_patch))
         if orun.code_write is not None or rrun.code_write is not None:
             # a store through a fuzzed pointer that lands on code (ours at OURS, or the original's .text)
             # rewrites one side's instructions only: the game never does that, so the input proves nothing
@@ -11889,6 +11953,31 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         if not rs["done"] and not out_of_time() and res["inputs_failed"] < MAX_FAIL and n_inputs > 3000:
             random_phase(soft=False)
             directed_phase()
+    def strcase_phase():
+        case_runs = 0
+        while case_queue and case_runs < 16 and res["inputs_failed"] < MAX_FAIL and not out_of_time() and \
+                "strcase" not in EQUIV_OFF:
+            # (integ1, rev4, strcase) the second string of one of our strcmp-family calls, in the other ASCII case, written over
+            # the first (in the memory epoch it was read in): the two differ only in case, so a case-blind compare in place of
+            # the original's case-sensitive one (or the reverse) now differs. Not gated on missing coverage: every edge can be
+            # covered and such a mutant still pass (rev4: _stricmp for strcmp in 0x000e1dd0)
+            seed0, ep0, a0, s0, ov0, sp0 = case_queue.pop(0)
+            ov = dict(ov0 or {})
+            a_, rest = a0, s0.swapcase() + b"\0"
+            while rest:
+                take = min(len(rest), PAGE - (a_ & (PAGE - 1)))
+                ov[(ep0, a_)] = rest[:take]
+                a_, rest = a_ + take, rest[take:]
+            key = (("strcase", a0), seed0, tuple(sorted(map(repr, ov.items()))), tuple(sorted(map(repr, (sp0 or {}).items()))))
+            if key in tried:
+                continue
+            tried.add(key)
+            case_runs += 1
+            res["inputs_directed"] += 1
+            res["inputs_strcase"] = res.get("inputs_strcase", 0) + 1
+            directed_run(seed0, ov, sp0, "%d+case" % seed0)
+
+    strcase_phase()
     if res.get("inconclusive_cap_hit") and 5 * rs["rinc"] <= res["inputs_run"] and rs["seed"] < max_inputs and \
             not out_of_time() and res["inputs_failed"] < MAX_FAIL and "rate" not in EQUIV_OFF:
         # the random phase stopped at 32 inconclusive inputs though most complete (a few fuzzed counts run
@@ -12158,6 +12247,10 @@ def _plants(sob, overlay0, patch0):
     that a stub filled gets the literal as that stub's fill."""
     lit, buf, fills = sob["lit"], sob["buf"], sob["fills"]
     variants = [lit] + ([lit[:-1]] if lit.endswith(b"\0") and len(lit) > 2 else [])
+    if "strcase" not in EQUIV_OFF and lit.swapcase() != lit:
+        # (integ1, rev4, strcase) the literal in the other case: an input that matches only a case-blind compare
+        # (a _stricmp source for the original's strcmp passed every input before)
+        variants.append(lit.swapcase())
     out = []
     for v in variants:
         ov, pt = dict(overlay0 or {}), dict(patch0 or {})
